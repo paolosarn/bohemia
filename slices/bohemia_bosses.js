@@ -1851,7 +1851,7 @@
      collectors sit at the gates of the 'towns' nearest his chair (within 'radius') and take 'tax' batteries off the crew the first time it
      walks into one of them each day ('for the chair'; the purse's own debit). Not a wall, not a toll on a road, not blood: THE TOWNS round
      him are his. WHEN HE FALLS the collectors are gone and what they took off you is paid back once (the purse's own credit). */
-  var TOOTH_IN = null;
+  var TOOTH_IN = null, TOOTH_TOWN = null, TOOTH_OUT = null;
   function toothRow(n) { var r = row(n); return r && r.tooth ? r : null; }
   function toothDown(k, Q) { var h = hs(); return Q.fell != null || !!(h && h.boss.fallen[k]); }
   function makeTooth(r, at) {
@@ -1873,10 +1873,15 @@
       S.tooth[r.n] = makeTooth(r, [at.x, at.y]); save();
       LAST.tooth = { n: r.n, towns: S.tooth[r.n].towns.map(function (t) { return t.town; }), at: Date.now() };
     });
-    /* walking into a town: the first time today at one of his, his collector takes the tax */
+    /* his collector at the gate takes the tax as the crew comes out of one of his towns, the first time today (MEASURED 11/14 on the
+       demo: a debit while the town's screen was up was undone when the crew left, the town handing the map back its own purse; so he takes
+       it a beat after the screen closes, from the purse the map keeps) */
     var inn = inTown(); if (TOOTH_IN === null) { TOOTH_IN = inn; return; }
-    var was = TOOTH_IN; TOOTH_IN = inn; if (!inn || was) return;
-    var tn = townHere(); if (!tn) return;
+    var was = TOOTH_IN; TOOTH_IN = inn;
+    if (inn && !was) { TOOTH_TOWN = townHere(); return; }
+    if (!inn && was && TOOTH_TOWN) { TOOTH_OUT = { town: TOOTH_TOWN, t: Date.now() }; TOOTH_TOWN = null; return; }
+    if (!TOOTH_OUT || inn || Date.now() - TOOTH_OUT.t < 1500) return;
+    var tn = TOOTH_OUT.town; TOOTH_OUT = null; if (!tn) return;
     for (var n in S.tooth) { var Q = S.tooth[n], r = toothRow(n); if (!Q || !r || toothDown(n, Q)) continue;
       if (!Q.towns.some(function (t) { return t.town === tn; })) continue;
       if (Q.paid[tn] === day()) continue;

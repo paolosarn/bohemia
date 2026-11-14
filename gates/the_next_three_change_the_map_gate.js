@@ -655,7 +655,161 @@ const PLATE = {
   }
 };
 
-const LEGS = { 'THE BURN': BURN, 'THE SURVEYOR': SURVEYOR, 'THE CLIMB': CLIMB, 'THE LOCKSMITH': LOCK, 'THE CHARGE': MINE, 'THE MACHINIST': NAIL, 'THE PLATE': PLATE };
+/* ---------------- THE TOOTH: his collectors at the town gates (BOSSES 11/14) ---------------- */
+const bal = (fr) => fr.evaluate(() => { try { return BohemiaPurse.balance(purseGet(), 'electricity') | 0; } catch (e) { return -1; } });
+/* walk into a town and stand in it a beat (the collector's tick runs on the second), then out again */
+const enterTown = async (c, door) => { const { fr, page } = c;
+  await c.go(door); let inn = false; for (let i = 0; i < 120 && !inn; i++) { await page.waitForTimeout(500); inn = await c.inTown(); if (!inn && i % 30 === 29) await c.go(door); }
+  await page.waitForTimeout(1500); await c.leaveTown(); await page.waitForTimeout(3600);   /* he takes it a beat after the town's screen closes */
+  const tax = await fr.evaluate(() => JSON.parse(JSON.stringify(window.__BOSS_TOOTH_TAX || null))); return { inn, tax }; };
+const TOOTHQ = {
+  T1: (q) => !!q && q.inn && q.took === q.want && q.b0 - q.b1 === q.want && q.paid,
+  T2: (q) => !!q && q.inn && q.b2 === q.b1,
+  C1a: (q) => !!q && q.refund === q.took && q.inn && q.charged === 0,
+  V1: (q) => !!q && q.verb === 'fix' && q.closed && q.cooling,
+  R1: (q, b) => !!q && q.fallen && q.refund === b.took && q.towns === b.towns
+};
+const TOOTH = {
+  R1: TOOTHQ.R1,
+  async before(c) {
+    const { fr, G } = c;
+    let Q = null;
+    for (let i = 0; i < 30 && !(Q && Q.towns && Q.towns.length); i++) { Q = await fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.tooth(n) || null)), NAME); if (!(Q && Q.towns && Q.towns.length)) await c.page.waitForTimeout(500); }
+    if (!Q || !Q.towns.length) { ok('T1 his collectors', false, JSON.stringify(Q)); return false; }
+    c.Q = Q;
+    const t = await fr.evaluate((Q) => { const h = [city.x, city.y]; let best = null, bd = 1e9; Q.towns.forEach(t => { const p = cityRoute(h[0], h[1], t.door[0], t.door[1]); if (p && p.length < bd) { bd = p.length; best = t; } }); return best; }, Q);
+    if (!t) { ok('T1 a town of his the crew reaches', false, 'none'); return false; }
+    c.town = t;
+    /* the crew outside his gate, a block off, with at least his tax in its pocket (the purse as the game left it) */
+    const b00 = await bal(fr); c.want = Math.min(G.tax, Math.max(0, b00));
+    const e1 = await enterTown(c, t.door); const b1 = await bal(fr);
+    const q = { town: t.town, inn: e1.inn, b0: b00, b1, want: c.want, took: e1.tax ? e1.tax.took : -1,
+      paid: await fr.evaluate((a) => { const Q = BohemiaBosses.tooth(a[0]); return Q.paid[a[1]] === loopDay(); }, [NAME, t.town]) };
+    await fr.evaluate(() => render()); await c.page.waitForTimeout(500);
+    const drawn = await fr.evaluate(() => ((BohemiaBosses.last().drew || {}).collectors || []).map(d => d.key));
+    await c.shot('2_his_collector_at_the_gate');
+    const posts = await c.posts();
+    ok('T1 coming out of ' + t.town + ' his collector at the gate takes ' + G.tax + ' batteries (the purse\'s own debit), painted at the gate, the feed posts it',
+      TOOTHQ.T1(q) && drawn.indexOf('collector_before') >= 0 && posts.some(p => p.who === G.feed_tax.who && p.txt.indexOf(G.feed_tax.txt.split('{')[0].trim()) === 0), JSON.stringify(q) + ' ' + drawn.join(' '));
+    const e2 = await enterTown(c, t.door); const q2 = { inn: e2.inn, b1, b2: await bal(fr) };
+    ok('T2 the same town again the same day: he takes nothing', TOOTHQ.T2(q2), JSON.stringify(q2));
+    ok('P2 planted: a gate that takes nothing turns T1 red', !TOOTHQ.T1(Object.assign({}, q, { b1: q.b0, took: 0 })), 'nothing taken');
+    c.took = q.took;
+    return true;
+  },
+  card(G, c) { const n = c.Q.towns.length, T = n + (n === 1 ? ' TOWN' : ' TOWNS'); return (c.took ? G.card : (G.card_free || G.card)).replace('{TOWNS}', T).replace('{back}', String(c.took)); },
+  async after(c) {
+    const { fr, G } = c;
+    const Q = await fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.tooth(n))), NAME);
+    const b0 = await bal(fr); const e = await enterTown(c, c.town.door); const b1 = await bal(fr);
+    const q = { refund: Q.refund, took: c.took, inn: e.inn, charged: b0 - b1 };
+    await fr.evaluate(() => render()); await c.page.waitForTimeout(500);
+    const drawn = await fr.evaluate(() => ((BohemiaBosses.last().drew || {}).collectors || []).map(d => d.key));
+    ok('C1a his collectors are gone: the ' + c.took + ' batteries they took off you paid back, and walking in costs nothing', TOOTHQ.C1a(q), JSON.stringify(q));
+    ok('C1b painted gone: the stool kicked over, the box open and empty', drawn.length >= 1 && drawn.every(k => k === 'collector_after'), drawn.join(' '));
+    await c.shot('5_his_collectors_gone');
+    const posts = await c.posts();
+    ok('C1d the feed posts it: ' + G.feed.who, posts.some(p => p.who === G.feed.who && p.txt.indexOf(G.feed.txt.split('{')[0].trim()) === 0), posts.filter(p => p.who === G.feed.who).map(p => p.txt.slice(0, 80)).join(' | '));
+    ok('P3 planted: a gate that still takes after the fall turns C1a red', !TOOTHQ.C1a(Object.assign({}, q, { charged: G.tax })), 'charged ' + G.tax);
+    /* FIX A TOOTH: the worst wound in the crew closes (a man hurt: his fight's, or the gate gives RAUL one), from a block where its button
+       is the phone's (the phone shows one verb, the order's first: measured 11/14, CLIMB and PICK held it beside a tower and a shop) */
+    const fb = await fr.evaluate(() => { const h = [city.x, city.y], ord = BohemiaBosses.data().verbs_order, before = ord.slice(0, ord.indexOf('fix')); let best = null, bd = 1e9;
+      for (let dy = -12; dy <= 12; dy++) for (let dx = -12; dx <= 12; dx++) { const x = h[0] + dx, y = h[1] + dy; if (!cityWalkable(x, y) || loopTownAt(x, y, 1)) continue; const d = Math.max(Math.abs(dx), Math.abs(dy)); if (d >= bd) continue;
+        if (before.some(id => { const b = BohemiaBosses.applies(id, x, y); return b && !b.off; }) || !cityRoute(h[0], h[1], x, y)) continue; bd = d; best = [x, y]; } return best; });
+    if (fb) await c.goTo(fb);
+    const v = await fr.evaluate(() => { const C = BohemiaCondition, s = C.get(); let w = null; for (const k in s.men) { const m = s.men[k]; if (m && m.wound && m.wound.left > 0 && (!w || m.wound.left > s.men[w].wound.left)) w = k; }
+      if (!w) { w = 'RAUL'; s.men[w] = s.men[w] || { hpMax: 60, lostHp: 0, shown: 'RAUL' }; s.men[w].wound = { mark: 'pierced_side', left: 3, of: 3, day: loopDay() }; localStorage.setItem(C.KEY, JSON.stringify(s)); }
+      const vh = BohemiaBosses.verbHere(), g = BohemiaBosses.use('fix'), s2 = C.get(), ap = BohemiaBosses.applies('fix', city.x, city.y);
+      return { verb: vh && vh.id, who: w, closed: !(s2.men[w] && s2.men[w].wound && s2.men[w].wound.left > 0), cooling: !ap || !!ap.off, got: g && typeof g === 'object' ? g : null }; });
+    ok('V1 FIX A TOOTH: the worst wound in the crew closes, once a day', TOOTHQ.V1(v), JSON.stringify(v));
+    ok('P6 planted: a fix that closed nothing turns V1 red', !TOOTHQ.V1(Object.assign({}, v, { closed: false })), 'still hurting');
+    return { took: c.took, towns: c.Q.towns.length };
+  },
+  async reload(e, c) {
+    await e.page.waitForTimeout(800);
+    return e.fr.evaluate((n) => { const Q = BohemiaBosses.tooth(n) || { towns: [] }; return { fallen: !!BohemiaHisMap.state().boss.fallen[n], refund: Q.refund, towns: Q.towns.length }; }, NAME).catch(x => ({ err: String(x) }));
+  }
+};
+
+/* ---------------- THE LENS: his haze by day (BOSSES 11/14) ---------------- */
+const LENSQ = {
+  L1: (q) => !!q && q.inR === q.sight && q.blur === q.sight && q.outR > q.sight && q.haze > 0,
+  C1a: (q) => !!q && q.r > q.sight && q.blur === 0 && q.haze === 0,
+  V1: (q) => !!q && q.verb === 'look' && q.blocks >= 1 && q.cooling,
+  R1: (q, b) => !!q && q.fallen && q.blur === 0 && q.r > b.sight
+};
+const LENS = {
+  R1: LENSQ.R1,
+  async before(c) {
+    const { fr, G } = c;
+    let Q = null;
+    for (let i = 0; i < 30 && !(Q && Q.at); i++) { Q = await fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.lens(n) || null)), NAME); if (!(Q && Q.at)) await c.page.waitForTimeout(500); }
+    if (!Q) { ok('L1 his haze', false, 'none'); return false; }
+    c.L = Q;
+    await c.day();
+    const tb = await fr.evaluate((a) => { const Q = a[0], f = a[1], h = [city.x, city.y]; let best = null, bd = 1e9;
+      for (let dy = -Q.radius + 1; dy <= Q.radius - 1; dy++) for (let dx = -Q.radius + 1; dx <= Q.radius - 1; dx++) { const x = Q.at[0] + dx, y = Q.at[1] + dy;
+        if (!cityWalkable(x, y) || Math.max(Math.abs(x - f.x), Math.abs(y - f.y)) < 2 || loopTownAt(x, y, 1) || !cityRoute(h[0], h[1], x, y)) continue;
+        const d = Math.max(Math.abs(x - h[0]), Math.abs(y - h[1])); if (d < bd) { bd = d; best = [x, y]; } } return best; }, [Q, c.f]);
+    if (!tb) { ok('L1 a block in his haze', false, 'none'); return false; }
+    c.tb = tb;
+    await c.goTo(tb); await c.day(); await fr.evaluate(() => render()); await c.page.waitForTimeout(600);
+    const qi = await fr.evaluate(() => ({ at: [city.x, city.y], r: fogRadius(), blur: BohemiaBosses.blurAt(city.x, city.y), haze: (BohemiaBosses.last().drew || {}).haze | 0, night: isNight(), told: JSON.parse(JSON.stringify(window.__BOSS_LENS_TOLD || null)) }));
+    await c.shot('2_his_haze');
+    const ob = await fr.evaluate((Q) => { const h = [city.x, city.y]; let best = null, bd = 1e9;
+      for (let dy = -Q.radius - 6; dy <= Q.radius + 6; dy++) for (let dx = -Q.radius - 6; dx <= Q.radius + 6; dx++) { const x = Q.at[0] + dx, y = Q.at[1] + dy;
+        if (Math.max(Math.abs(dx), Math.abs(dy)) < Q.radius + 2 || !cityWalkable(x, y) || loopTownAt(x, y, 2) || !cityRoute(h[0], h[1], x, y)) continue;
+        const d = Math.max(Math.abs(x - h[0]), Math.abs(y - h[1])); if (d < bd) { bd = d; best = [x, y]; } } return best; }, Q);
+    await c.goTo(ob); await c.day(); await c.page.waitForTimeout(400);
+    const qo = await fr.evaluate(() => ({ at: [city.x, city.y], r: fogRadius() }));
+    const q = { sight: G.sight, inR: qi.r, blur: qi.blur, outR: qo.r, haze: qi.haze };
+    ok('L1 by day on his side the crew sees ' + G.sight + ' blocks (the map\'s own fog asks), his side painted with his haze; outside it the day\'s sight', LENSQ.L1(q) && !qi.night, JSON.stringify(q) + ' at ' + qi.at + ' / ' + qo.at);
+    ok('L2 one of yours says it the first time and ' + G.feed_blur.who + ' posts it', !!qi.told && qi.told.n === NAME && (await c.posts()).some(p => p.who === G.feed_blur.who && p.txt.indexOf(G.feed_blur.txt.split('{')[0].trim()) === 0), JSON.stringify(qi.told));
+    ok('P2 planted: a haze that takes no sight turns L1 red', !LENSQ.L1(Object.assign({}, q, { inR: q.outR, blur: 0 })), 'full sight');
+    return true;
+  },
+  card(G, c) { return G.card; },
+  async after(c) {
+    const { fr, G } = c;
+    await c.goTo(c.tb); await c.day(); await fr.evaluate(() => render()); await c.page.waitForTimeout(600);
+    const q = await fr.evaluate(() => ({ r: fogRadius(), blur: BohemiaBosses.blurAt(city.x, city.y), haze: (BohemiaBosses.last().drew || {}).haze | 0, charts: ((BohemiaBosses.last().drew || {}).charts || []).map(d => d.key) }));
+    q.sight = G.sight;
+    ok('C1a his haze is gone: by day on his side the crew sees ' + q.r + ' blocks', LENSQ.C1a(q), JSON.stringify(q));
+    ok('C1b his eye charts painted clean', q.charts.length >= 1 && q.charts.every(k => k === 'haze_after'), q.charts.join(' '));
+    await c.shot('5_his_haze_gone');
+    const posts = await c.posts();
+    ok('C1d the feed posts it: ' + G.feed.who, posts.some(p => p.who === G.feed.who && p.txt.indexOf(G.feed.txt.split('{')[0].trim()) === 0), posts.filter(p => p.who === G.feed.who).map(p => p.txt.slice(0, 80)).join(' | '));
+    const p3 = await fr.evaluate((n) => { const Q = BohemiaBosses.lens(n), H = BohemiaHisMap.state(), was = Q.fell, f = H.boss.fallen[n]; Q.fell = null; delete H.boss.fallen[n];
+      const o = { r: fogRadius(), blur: BohemiaBosses.blurAt(city.x, city.y), haze: 0 }; Q.fell = was; H.boss.fallen[n] = f; return o; }, NAME);
+    p3.sight = G.sight;
+    ok('P3 planted: his haze back after the fall turns C1a red', !LENSQ.C1a(p3), JSON.stringify(p3));
+    /* LOOK FAR from a street with fog down it */
+    const at = await fr.evaluate(() => { const h = [city.x, city.y]; let best = null, bd = 1e9;
+      for (let dy = -15; dy <= 15; dy++) for (let dx = -15; dx <= 15; dx++) { const x = h[0] + dx, y = h[1] + dy; if (!cityWalkable(x, y) || loopTownAt(x, y, 1)) continue; const d = Math.max(Math.abs(dx), Math.abs(dy)); if (d >= bd) continue;
+        if (!BohemiaBosses.applies('look', x, y)) continue;
+        if (['open', 'purify', 'pick', 'blow', 'weld', 'press', 'climb', 'survey', 'burn', 'cook', 'fix'].some(id => { const b = BohemiaBosses.applies(id, x, y); return b && !b.off; })) continue;
+        let fog = false; for (const e of [[1, 0], [-1, 0], [0, 1], [0, -1]]) for (let k = 2; k <= 12 && !fog; k++) if (!fogSeen(x + e[0] * k, y + e[1] * k) && cityWalkable(x + e[0] * k, y + e[1] * k)) fog = true;
+        if (!fog || !cityRoute(h[0], h[1], x, y)) continue; bd = d; best = [x, y]; } return best; });
+    let v = { found: !!at };
+    if (at) {
+      await c.goTo(at);
+      v = await fr.evaluate(() => { const vh = BohemiaBosses.verbHere(), g = BohemiaBosses.use('look'), ap = BohemiaBosses.applies('look', city.x, city.y);
+        return { verb: vh && vh.id, blocks: g && typeof g === 'object' ? g.blocks | 0 : 0, cooling: !!(ap && ap.off) }; });
+      await c.page.waitForTimeout(2400); await c.shot('5_he_looks_far');
+    }
+    ok('V1 LOOK FAR: from a street, down the four streets the fog lifts (' + (v.blocks | 0) + ' blocks), once a day', LENSQ.V1(v), JSON.stringify(v));
+    ok('P6 planted: a look that saw nothing turns V1 red', !LENSQ.V1(Object.assign({}, v, { blocks: 0 })), 'nothing seen');
+    return { sight: G.sight };
+  },
+  async reload(e, c) {
+    await c.goOn(e, c.tb);
+    await e.fr.evaluate(() => { try { DAY.min = 12 * 60; daySync(); render(); } catch (x) {} }).catch(() => {});
+    await e.page.waitForTimeout(800);
+    return e.fr.evaluate((n) => ({ fallen: !!BohemiaHisMap.state().boss.fallen[n], at: [city.x, city.y], r: fogRadius(), blur: BohemiaBosses.blurAt(city.x, city.y) }), NAME).catch(x => ({ err: String(x) }));
+  }
+};
+
+const LEGS = { 'THE BURN': BURN, 'THE SURVEYOR': SURVEYOR, 'THE CLIMB': CLIMB, 'THE LOCKSMITH': LOCK, 'THE CHARGE': MINE, 'THE MACHINIST': NAIL, 'THE PLATE': PLATE, 'THE TOOTH': TOOTH, 'THE LENS': LENS };
 
 async function run(prof, alpha) {
   console.log('\n-- ' + NAME + ' on ' + (alpha ? 'the alpha' : 'the demo') + ', ' + prof + ' --');

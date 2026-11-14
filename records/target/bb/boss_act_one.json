@@ -2,6 +2,7 @@
  "draft": true,
  "about": "BOSSES lane, 11/2/26 (rule 302, Paolo 11/2: 'Battle Brothers has unique locations and bosses with themes, I want that too... each time you kill a boss you get something that helps you interact with the city'). Act one's first three bosses, in the ladder's order (records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md rows 1-3). WORLD TWO's boss_map.json still owns the sign, where he stands and what falls with him; this file owns his PLACE (the landmark you see from afar), his RUMOUR (the feed), his FIGHT (the man, his gear, his crew, his board, his one lesson) and his VERB (the phone's button and what it does on the grid). Read by slices/bohemia_bosses.js. Every word is a draft:true attempt; every number is a shape TUNING owns. A modder adds a boss by adding a row whose 'n' matches a boss_map.json row. ROUND 2 (BOSSES 11/2, rule 330, ask lines 328 and 329: 'each one has to have their own aesthetic, and maybe a quest or two that leads up to them... I'm so confused by what that means'): boss.look is HIS OWN look on the people's rig (tools/bohemia_bosses_the_three_men.py); place.paint names his place's pictures painted in the map's own look (slices/boss_places/, tools/bohemia_bosses_paint_their_places_11_2_26.py), before and after; lead.asker is the person who lost something to him and asks for help (a mouth card on the road, CONTENT's card), lead.thing is the clue at his sign, read out by one of your men (it tells where he is and what he does to the valley); after is the person who tells you, the moment he falls, what his verb does in plain words and numbers; verb.button is the phone's one plain line and verb.tip what a held finger on it says; verb.first is what the map and the feed say the first time. BOSSES FIX 11/3 (rule 338, ask line 346: 'we still don't know what killing them does'): after.valley is the ONE line the one who asked says the moment he falls (what it means for the valley), after.take the button; verb.hand is the thing he hands you (his pot, his wrench, his filter: slices/boss_places/hand_<verb>.png, tools/bohemia_bosses_what_they_hand_you_11_3_26.py) with its one plain line (what, where, how often, the number), shown on her card and flown into the phone; verb.first.rise is the number that rises off your men where a verb is used. after.says stays as the long form (the held finger's). BOSSES 4 11/3 (rules 330, 337, 338, ask lines 328, 345, 346): THE BURN, THE SURVEYOR and THE CLIMB, assets first (his own model through the pipe: tools/bohemia_bosses_four_to_six_11_3_26.py; his place before and after: tools/bohemia_bosses_paint_four_to_six_11_3_26.py; the thing he hands you: tools/bohemia_bosses_what_they_hand_you_11_3_26.py run with four_to_six). Three new verbs, each its own kind of place so the phone's one button never hides another: burn (at night, on a dark block off a town, once a night; the fire stays and lights its blocks at night), survey (on a road, once a day: the fog lifts round you for good), climb (beside a tower, once a tower: the floors nobody reached pay batteries). verb.place_after is the small thing the verb leaves on the block (boss_places/<key>). BOSSES 11/8 (rule 437(a), ask lines 167, 346, 522: the first boss changes the map and the world around him, and it is real): 'ground' is the streets his crew holds round his place: every street block on the ring 'radius' blocks out from his door is shut by his crew's CHECKPOINT (slices/boss_places/<pic>_<x|y>_before/after, tools/bohemia_bosses_the_pots_ground_11_8_26.py) but his front (the way the sign points), so the map's own route goes round his ground; when he falls every checkpoint is shoved to the kerb and the walk goes through, 'till' batteries pay from what he held (Battle Brothers pays a big fight with what the place held), 'feed' is the strip's post ({where}, {streets}, {n}), 'mine' your company's ({till}), 'card' the one line under the thing he hands you. Kept with the game. BOSSES 11/9 (rule 440(b): the next two, each changing the map ITS OWN WAY): 'pipe' is THE TAP's: a water main from his door toward the nearest town ('length' blocks of the map's own route); while he stands his watchers sit on it and every pipe block your crew steps onto, a bolt takes 'bolt' blood off one man ('rise' rises off the crew; 'feed_hit' and 'say_hit' the first time); when he falls the pipe is a line of taps, every block a main for his own verb, painted slices/boss_places/<pic>_<x|y>_before/after (tools/bohemia_bosses_the_taps_pipe_11_9_26.py); 'feed' the street's post ({taps}, {town}, {where}), 'card' her line under his wrench. And 'machines' is THE FILTER's: 'count' of the plant's old robots standing on street blocks 'near' to 'far' round his door; while he stands, the crew stepping beside one is met by it (its card first, the 'band' on the board) and a win drops it; when he falls every machine still standing drops where it stands; a dropped machine is a wreck the crew strips once for 'tape' (the supplies); pictures slices/boss_places/<pic>_before/after (tools/bohemia_bosses_the_filters_machines_11_9_26.py); 'feed' ({wrecks}, {where}), 'feed_strip' and 'rise_strip' ({tape}), 'card' her line under his filter.",
  "verbs_order": [
+  "fix",
   "open",
   "purify",
   "pick",
@@ -1184,6 +1185,113 @@
     "card": "HIS WAGON IS STRIPPED AND PARKED: HIS STREET IS OPEN.",
     "card_none": "HIS WAGON IS STRIPPED.",
     "note": "BOSSES 11/14 (the coordinator's round 'BOSSES turn up', rules 441, 447): THE PLATE changes the map with A WALL THAT MOVES. While he stands his plated wagon rolls back and forth along a road of 'min_len' to 'max_len' blocks between two street blocks 'near'..'far' round his press, one block every 'step_mins' of the game's own clock; the block it stands on is shut (slices/bohemia_bosses.js (18) HIS WAGON, cityWalkable's bosses wrapper), never the crew's. When he falls it is stripped and parked at the end of its road. Pictures: slices/boss_places/wagon_before, wagon_after (tools/bohemia_bosses_ten_to_twelve_places_11_14_26.py)."
+   }
+  },
+  {
+   "n": "THE TOOTH",
+   "place": {
+    "name": "THE CHAIR",
+    "art": "chair",
+    "seen": "a dentist's in a dead strip mall, a tooth sign over the door, a line of chairs outside",
+    "paint": "chair"
+   },
+   "rumour": {
+    "who": "@remedios_702",
+    "txt": "Nobody fixes teeth any more. You pull them or you live with them. THE TOOTH has the only working dental kit, and his men sit at the gates of the towns near his chair and take batteries off everybody who goes in and out. Careful, his little blade goes in between the plates."
+   },
+   "boss": {
+    "kind": "blade_dancer",
+    "name": "THE TOOTH",
+    "title": "the man with the only dental kit",
+    "hp_x": 1.6,
+    "weapon": "Box Cutter",
+    "shield": null,
+    "look": "boss_tooth_0",
+    "says": "Open wide. Everybody pays the Tooth."
+   },
+   "crew": [
+    "brigand_thug",
+    "caravan_guard",
+    "brigand_marksman"
+   ],
+   "crew_word": "THE TOOTH AND HIS COLLECTORS",
+   "board": "suburb",
+   "lesson": "His little blade goes in between the plates, so armour does not help much against him: put your toughest men on him, not your best armoured.",
+   "verb": {
+    "id": "fix",
+    "word": "FIX",
+    "button": "FIX A TOOTH",
+    "rule": "when one of your men is hurting (a fresh wound), once a day: the worst wound in the crew closes",
+    "cooldown_days": 1,
+    "note": "The ladder says 'fix a tooth, main-quest weight, on his ruling': until Paolo rules how big it is, it closes the crew's worst fresh wound once a day (draft).",
+    "says": "Your men hold him down and the pain comes out with the tooth.",
+    "feed": {
+     "who": "@remedios_702",
+     "txt": "Somebody on {where} pulled a bad tooth clean, with real forceps. He can stand again."
+    },
+    "tip": "When one of your men is hurting, press FIX A TOOTH: the worst wound in your crew closes. Once a day.",
+    "first": {
+     "plate": "FIXED: {NAME} CAN STAND",
+     "feed": "First tooth your men ever fixed, on {where}. {name} can stand again.",
+     "rise": "{NAME} IS FIXED",
+     "rise_none": "NOBODY NEEDS IT"
+    },
+    "cooling": "THE FORCEPS ARE BOILING: TOMORROW",
+    "tip_cooling": "One a day.",
+    "place_after": "pulled",
+    "hand": {
+     "name": "HIS FORCEPS",
+     "pic": "hand_fix.png",
+     "line": "FIX A TOOTH: when one of your men is hurting, the worst wound in your crew closes. Once a day."
+    }
+   },
+   "fallen_art": "chair_open",
+   "lead": {
+    "asker": {
+     "name": "DOÑA REMEDIOS",
+     "look": "faction_blues",
+     "from": "an old woman with her jaw tied up in a scarf",
+     "says": "Ay, mijo. My tooth. Three weeks. THE TOOTH has the only kit that works and his men sit at the town gates taking batteries for him. He puts his flyers up by the clinics.",
+     "yes": "I'll find his flyer.",
+     "no": "Can't help you.",
+     "yes_says": "Gracias. His men at the gates have his tooth sprayed on the wall behind them.",
+     "no_says": "Okay. I'll pull it myself then."
+    },
+    "thing": {
+     "head": "THE FLYER",
+     "what": "a flyer by a clinic door",
+     "says": "It says TOOTHACHE? THE TOOTH. His chair is in the strip mall with the tooth sign. His men sit at the gates of the towns near it and take batteries off everybody on the way out, for the chair. I marked it."
+    }
+   },
+   "after": {
+    "name": "DOÑA REMEDIOS",
+    "look": "faction_blues",
+    "from": "at the chair, her scarf off",
+    "says": "You did it! His forceps are yours. When one of your men is hurting, press FIX A TOOTH. The worst wound in your crew closes. Once a day.",
+    "ok": "GOT IT",
+    "valley": "His collectors are gone from the gates, and what they took off you is back.",
+    "take": "TAKE IT"
+   },
+   "tip": "ARMOUR WON'T STOP HIS BLADE",
+   "tooth": {
+    "name": "HIS COLLECTORS",
+    "radius": 18,
+    "towns": 3,
+    "tax": 3,
+    "pic": "collector",
+    "say": "His collector at the gate took {tax} batteries on our way out. For the chair, he says.",
+    "feed_tax": {
+     "who": "@remedios_702",
+     "txt": "His man at the {town} gate took {tax} batteries off a crew on its way out. For the chair."
+    },
+    "feed": {
+     "who": "@remedios_702",
+     "txt": "His collectors are gone from the gates. The box was open and the batteries went back to who paid."
+    },
+    "card": "HIS COLLECTORS ARE GONE FROM {TOWNS}: {back} BATTERIES THEY TOOK OFF YOU ARE BACK.",
+    "card_free": "HIS COLLECTORS ARE GONE FROM {TOWNS}: NOBODY PAYS AT THE GATE.",
+    "card_none": "HIS COLLECTORS ARE GONE.",
+    "note": "BOSSES 11/14 (the coordinator's round 'BOSSES turn up', rules 441, 447): THE TOOTH changes the map's TOWNS. While he stands his collectors sit at the gates of the 'towns' nearest his chair within 'radius' and take 'tax' batteries the first time each day the crew comes out of one (a beat after the town's screen closes: a debit while it is up is undone by the town handing the map back its purse, measured 11/14) (the purse's own debit, never more than it holds). When he falls they are gone and what they took off you is paid back once (slices/bohemia_bosses.js (19) HIS COLLECTORS). Pictures: slices/boss_places/collector_before, collector_after."
    }
   }
  ]

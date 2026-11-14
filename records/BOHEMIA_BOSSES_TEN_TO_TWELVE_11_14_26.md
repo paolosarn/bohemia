@@ -36,3 +36,25 @@ of its road, its plates off, kept after a reload.
   its reload check in the wrong object (fixed before the green runs).
 - VOTE bosses-the-plates-wagon-11-14: records/target/bosses_vote_plate_11_14/VOTE.webp (the gate's own phone: his wagon on its road, it
   stripped, BETO's card); his moving card records/target/bosses_ten_to_twelve/VOTE_BOSS_PLATE.webp.
+
+## THE TOOTH (the ladder's 11th: the only working dental kit). BUILD 11/14n
+
+HIS OWN WAY: THE TOWNS ROUND HIM ARE HIS. While he stands his collectors sit at the gates of the 3 towns nearest his chair (within 18)
+and take 3 batteries off the crew as it comes out of one, the first time each day (the purse's own debit, never more than it holds). When
+he falls they are gone, and what they took off you is paid back once (the purse's own credit), kept after a reload.
+- Found by WORLD TWO's sign: a flyer, TOOTHACHE? THE TOOTH. Asker: DOÑA REMEDIOS, her jaw tied up in a scarf (faction_blues' face).
+- Fight: a blade dancer's numbers at 1.6 blood with THE FORCEPS' kin, BB's Box Cutter (it goes in between the plates), his collectors, on
+  the suburb board. Lesson: put your toughest men on him, not your best armoured.
+- Verb: FIX A TOOTH. When one of your men is hurting, once a day: the worst fresh wound in the crew closes. The ladder gives it main-quest
+  weight on Paolo's ruling; until he rules, this is the draft (his row's 'note' says so).
+- Prize: HIS FORCEPS through HOME BASE's seam. Code: slices/bohemia_bosses.js (19) HIS COLLECTORS. Data: row THE TOOTH, 'tooth'.
+- MEASURED: the first runs took the tax while the town's screen was up, and leaving the town handed the map back the town's own copy of the
+  purse, undoing it (320 before, 320 after); he takes it now a beat after the town's screen closes (320 to 317). The FIX check first stood
+  where CLIMB or PICK held the phone's one button; it stands where FIX shows now.
+- FIX A TOOTH goes FIRST in the verbs' order: twice the check stood where another verb (CLIMB, PICK, PRESS, BURN) held the phone's one
+  button, so FIX would only rarely show; a man hurting is the urgent thing, so FIX shows while somebody has a fresh wound and it was not
+  used today, and once used the others show.
+- RESULTS: THE TOOTH CHANGES THE MAP 21/0 on the demo upright and 21/0 on the alpha on its side.
+- VOTE bosses-the-tooths-collectors-11-14: records/target/bosses_vote_tooth_11_14/VOTE.webp (the gate's own phone: his collector at the
+  gate, the gate free, DOÑA REMEDIOS's card); his moving card records/target/bosses_ten_to_twelve/VOTE_BOSS_TOOTH.webp.
+

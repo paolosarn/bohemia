@@ -1,5 +1,14 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/14/26: THE TOOTH'S COLLECTORS, HIS OWN WAY (the coordinator's round 'BOSSES turn up', rules 441, 447; ask lines 167, 522, 571), BUILD 11/14n
+Record: records/BOHEMIA_BOSSES_TEN_TO_TWELVE_11_14_26.md. Gate: "THE TOOTH" (THE TOOTH CHANGES THE MAP, registered; 21/0 both ways). VOTE bosses-the-tooths-collectors-11-14.
+- HIS COLLECTORS (19): at the gates of the 3 towns nearest his chair; 3 batteries off the purse as the crew comes OUT of one, once a day
+  per town (a debit while a town's screen is up is undone when the town hands the map back its purse: ECONOMY / RUN, worth knowing for
+  any lane that charges inside a town). When he falls: gone, and what they took is credited back once.
+- FIX A TOOTH (verb 'fix'): the worst fresh wound in the crew closes, once a day; FIRST in the verbs' order (the phone shows one verb).
+  The ladder says main-quest weight on Paolo's ruling: until he rules, this is the draft. CHARACTER / COMBAT: it sets that man's
+  BohemiaCondition wound to null, nothing else.
+
 ## BOSSES, 11/14/26: THE PLATE'S WAGON, HIS OWN WAY (the coordinator's round 'BOSSES turn up', rules 441, 447; ask lines 167, 522, 571), BUILD 11/14h
 Record: records/BOHEMIA_BOSSES_TEN_TO_TWELVE_11_14_26.md. Gate: "THE PLATE" (THE PLATE CHANGES THE MAP, registered; 21/0 both ways). VOTE bosses-the-plates-wagon-11-14.
 - THE NEXT THREE'S ASSETS SHIPPED WITH THIS BUILD: the three men (tools/bohemia_bosses_ten_to_twelve_11_14_26.py, packed own_kit), their
