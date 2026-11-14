@@ -157,7 +157,8 @@ async function page(alpha, profile, full) {
       /* the map memory places a sign on a street near him; where he stands may have none: a few blocks on, as he would walk */
       for (let t = 0; t < 8 && !S.boss.sign; t++) { try { sg = M.placeSign(); } catch (e) {} if (!S.boss.sign) { city.x = (city.x | 0) + 6; city.y = (city.y | 0) + (t % 2 ? 6 : -6); window.__OFFTOWN(); } }
       if (!S.boss.sign) { /* none placed in eight streets: the sign the game would place, from the next boss's own record (his ground) */
-        try { const nx = M.next(), g = nx && BohemiaBosses.ground(nx.n), at = g && g.at; if (nx && at) S.boss.sign = { n: nx.n, x: city.x | 0, y: city.y | 0, boss: { x: at[0], y: at[1] }, made: 'gate' }; } catch (e) {} }
+        try { const nx = M.next(), g = nx && BohemiaBosses.ground(nx.n), mm = BohemiaBosses.mains() || [], at = (g && g.at) || mm[0]; o.signFrom = g && g.at ? 'ground' : 'mains';
+          if (nx && at) S.boss.sign = { n: nx.n, x: city.x | 0, y: city.y | 0, boss: { x: at[0], y: at[1] }, made: 'gate' }; } catch (e) { o.signErr = String(e.message); } }
       o.sign = S.boss.sign ? S.boss.sign.n : null; window.__SIGN = S.boss.sign ? JSON.parse(JSON.stringify(S.boss.sign)) : null;
       /* a job he holds: the board's own take, at its town */
       const A = (BohemiaPhoneBoard.asks() || []).slice(0, 8); let took = false;
@@ -281,10 +282,11 @@ async function page(alpha, profile, full) {
       const fe = await fr.frameElement(), fb = await fe.boundingBox(), miss = [];
       for (const e of mine) {
         await topUp(); if (e.needs.boss) await bossState(stateFor(e.needs));
-        const q = await fr.evaluate((id) => { const RE = BohemiaRoadEvents; try { RE.close(false); } catch (e) {} RE.fire(id);
-          const b = document.querySelector('#roadcard button'); if (!b || b.disabled) return null; const r = b.getBoundingClientRect(); window.__CH0 = (window.__ROADEV_CHOSE || []).length; return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; }, e.id);
+        await fr.evaluate((id) => { const RE = BohemiaRoadEvents; try { RE.close(false); } catch (e) {} RE.fire(id); }, e.id);
+        await pg.waitForTimeout(700);   /* the card settles where it is drawn (UI FOUR's layer slides it clear of the phone); a finger goes there */
+        const q = await fr.evaluate(() => { const b = document.querySelector('#roadcard button'); if (!b || b.disabled) return null; const r = b.getBoundingClientRect(); window.__CH0 = (window.__ROADEV_CHOSE || []).length; return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; });
         if (!q) { miss.push(e.id + ' no button'); continue; }
-        await pg.waitForTimeout(400); await pg.touchscreen.tap(fb.x + q.x, fb.y + q.y); await pg.waitForTimeout(900);
+        await pg.touchscreen.tap(fb.x + q.x, fb.y + q.y); await pg.waitForTimeout(900);
         const took = await fr.evaluate(() => (window.__ROADEV_CHOSE || []).length > window.__CH0 || (window.__ROADEV_FIGHTS | 0) > 0 && !document.getElementById('roadcard'));
         if (!took) miss.push(e.id);
         await fr.evaluate(() => { try { BohemiaRoadEvents.close(false); } catch (e) {} try { if (window.__ROADEV_FIGHTS) window.postMessage({ type: 'BOHEMIA_CITY_COMBAT_END', outcome: { victory: true, result: 'win', alive: 0 }, at: null }, '*'); } catch (e) {} });
