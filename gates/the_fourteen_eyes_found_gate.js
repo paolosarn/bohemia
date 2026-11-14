@@ -911,6 +911,99 @@ async function f609(shape, plant) {
   await ctx.close();
 }
 
+/* ---------------- F608 (FIXES 2 11/14, ask row 608, FOUND BY EYES 11/11; rules 438, 442(b)) ----------------
+   THE SCAVENGE SPOTS FLOAT NO WORD (the scavenge game's own page, the file the town's lot opens; both shapes): on the layer the lit
+   spots are painted on there is no word plank (no cream box: 0 pixels), every open spot is still lit (its amber outline), and a
+   thumb on a lit spot still starts it.  PLANT: a plank put back over every spot. */
+async function f608(shape, plant) {
+  const ctx = await browser.newContext(Object.assign({}, SHAPES[shape], { serviceWorkers: 'block' }));
+  const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(String(e && e.message || e).slice(0, 200)));
+  if (plant) await p.route(/BOHEMIA_SCAVENGE\.html/, async route => { const r = await route.fetch(); const b = (await r.text())
+    .replace("if (s.state === 'open') mark(s); });", "if (s.state === 'open') { mark(s); plank('SEARCH', scr(s.x + 0.5, s.y).x, scr(s.x + 0.5, s.y).y - 2); } });"); await route.fulfill({ response: r, body: b }); });
+  await p.goto(BASE + '/slices/BOHEMIA_SCAVENGE.html?bench=suburb&seed=11', { waitUntil: 'load', timeout: 120000 });
+  await p.waitForFunction(() => window.SCAV && ['play', 'empty', 'failed', 'closed'].includes(window.SCAV.phase), null, { timeout: 90000 }).catch(() => {});
+  await p.waitForTimeout(1500);
+  const r = await p.evaluate(() => { const c = document.getElementById('mid'), d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let cream = 0, amber = 0;
+    for (let i = 0; i < d.length; i += 4) { if (d[i + 3] < 180) continue; if (d[i] > 215 && d[i + 1] > 205 && d[i + 2] > 185 && Math.abs(d[i] - d[i + 2]) < 45) cream++; else if (d[i] > 220 && d[i + 1] > 150 && d[i + 2] < 170) amber++; }
+    const st = SCAV.state().spots, s0 = st.filter(q => q.state === 'open' || q.open)[0] || st[0];
+    return { phase: SCAV.phase, cream, amber, open: SCAV.spots.filter(s => s.state === 'open').length, at: s0 ? [s0.px, s0.py] : null }; }).catch(e => ({ err: String(e.message).slice(0, 120) }));
+  if (plant) { ok('F608 ' + shape + ' PLANTED (a word plank put back over every spot): the leg sees it (' + r.cream + ' cream pixels)', r.cream > 500, JSON.stringify(r)); await ctx.close(); return; }
+  let started = null;
+  if (r.at && r.at[0] != null) { await p.touchscreen.tap(r.at[0], r.at[1]); await p.waitForFunction(() => SCAV.act && SCAV.act.phase, null, { timeout: 15000 }).catch(() => {}); started = await p.evaluate(() => SCAV.act ? SCAV.act.phase : null); }
+  ok('F608 ' + shape + ': the scavenge spots float no word: 0 plank pixels over the board (' + r.cream + '), every open spot lit by its own outline (' + r.open + ' spots, ' + r.amber + ' lit pixels), a thumb on one starts it (' + started + ')',
+    r.phase === 'play' && r.cream === 0 && r.open >= 3 && r.amber > 800 && !!started && errs.length === 0, JSON.stringify(r) + (errs[0] || ''));
+  await ctx.close();
+}
+/* ---------------- F606, F611 (FIXES 2 11/14, FOUND BY EYES 11/11): one game on the demo, both shapes ----------------
+   F606 A QUESTION STOPS THE CLOCK: off the town, a real thumb on the phone's HEAL makes camp and its hours run; a card that waits
+        for his answer comes up (the road's own card): while it waits the camp's hours, the day's minutes and the food stand still;
+        he answers and the hours run again.  PLANT: the hold taken out of the map's page (the hours run under the card).
+   F611 A CARD TAKES NO PRESS IN ITS FIRST BEAT: a thumb that lands on a choice as the card opens answers nothing and the card
+        stays; the same thumb a beat later answers.  PLANT: the beat set to nothing (the early thumb answers). */
+async function f60x(shape, plant) {
+  const ctx = await browser.newContext(Object.assign({}, SHAPES[shape], { serviceWorkers: 'block' }));
+  const p = await ctx.newPage(); p.__errs = []; p.on('pageerror', e => p.__errs.push(String(e && e.stack || e).slice(0, 300)));
+  if (plant) { await p.route(/BOHEMIA_CITY_WORLD\.html/, async route => { const r = await route.fetch(); const b = (await r.text()).replace('if (campHeldByACard()) {', 'if (false) {'); await route.fulfill({ response: r, body: b }); });
+    await p.route(/bohemia_road_events\.js/, async route => { const r = await route.fetch(); const b = (await r.text()).replace('GUARD_MS = 500', 'GUARD_MS = 0'); await route.fulfill({ response: r, body: b }); }); }
+  const P = plant ? ' PLANTED' : '';
+  await p.goto(BASE + '/slices/BOHEMIA_DEMO.html', { waitUntil: 'load', timeout: 180000 });
+  for (let i = 0; i < 480; i++) { if (await p.evaluate(() => !!window.__LOAD_READY && !!document.getElementById('title')).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.waitForTimeout(1200); await throughTheTitle(p);
+  for (let i = 0; i < 240; i++) { if (await p.evaluate(() => { const b = document.getElementById('fronttap'); return !!(b && /BEGIN/.test(b.innerText)); }).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.evaluate(() => { const b = document.getElementById('fronttap'); if (b) b.click(); });
+  for (let i = 0; i < 120; i++) { if (await p.evaluate(() => !!document.querySelector('#mainmaker .go')).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.waitForTimeout(1000); await p.evaluate(() => { const g = document.querySelector('#mainmaker .go'); if (g) g.click(); });
+  let fr = null; for (let i = 0; i < 240 && !fr; i++) { await p.waitForTimeout(250); const c = p.frames().find(f => /BOHEMIA_CITY_WORLD/.test(f.url())); if (c && await c.evaluate(() => !!(window.BohemiaRoadEvents && BohemiaRoadEvents.ready() && window.BohemiaMapCamp && typeof CAMP !== 'undefined')).catch(() => false)) fr = c; }
+  if (!fr) { ok('F606 ' + shape + P + ': the map, its camp and its road are up', false, 'no map'); await ctx.close(); return; }
+  await p.waitForTimeout(2500);
+  /* out of the start town by its own LEAVE, then off its ground (a camp on a town's ground is a rest in the town) */
+  { const { leaveTown } = require(path.join(ROOT, 'tools/bohemia_leave_the_town.js')), { offTheTown } = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
+    for (let i = 0; i < 3; i++) { const up = await fr.evaluate(() => !!(LOOP.open && LOOP.frame && LOOP.frame.style.display === 'block')).catch(() => false); if (!up) break; await leaveTown(p, null, { ms: 6000 }); await p.waitForTimeout(2200); }
+    await fr.evaluate(offTheTown).catch(() => null); await p.waitForTimeout(800); }
+  const FB = await (await fr.frameElement()).boundingBox();
+  const read = () => fr.evaluate(() => { let food = null; try { food = (JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null') || {}).food; } catch (e) {}
+    return { on: BohemiaMapCamp.on(), hours: CAMP.hours | 0, clock: (T.day | 0) * 1440 + (T.min | 0), food, card: BohemiaRoadEvents.up(), held: window.__CAMP_HELD_BY_CARD | 0 }; });
+  const tapChoice = async () => { const b = await fr.evaluate(() => { const e = document.querySelector('#roadcard [data-road="0"]'); if (!e) return null; const r = e.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }); if (b) await p.touchscreen.tap(FB.x + b[0], FB.y + b[1]); return !!b; };
+  const openCard = () => fr.evaluate(() => { window.__F6 = 0; BohemiaRoadEvents.card({ look: 'you', name: 'THE GATE', from: 'a question that waits', head: 'ON THE ROAD', text: 'Do you hear me?', opts: [{ t: 'I hear you.', fn: function () { window.__F6++; BohemiaRoadEvents.close(false); } }] }); return performance.now(); });
+  if (want('F611')) {
+    /* nothing of the shell over the map's middle first (its own opening still draws for a moment); then one card to learn where the
+       choice stands and that a late thumb answers; then the measured one: the thumb lands at the choice's place the instant the card
+       opens (no look first: a look costs the script a third of a second, a thumb's is already on its way) */
+    for (let i = 0; i < 40; i++) { const top = await (await fr.frameElement()).evaluate(f => { const r = f.getBoundingClientRect(); return document.elementFromPoint(r.x + r.width / 2, r.y + r.height * 0.58) === f; }); if (top) break; await p.waitForTimeout(250); }
+    await openCard(); await p.waitForTimeout(800);
+    let at = null, learn = { answered: 0, up: true };
+    for (let i = 0; i < 4 && learn.up; i++) {   /* a late thumb answers (asked up to four times: the shell's own opening can still be over the map) */
+      at = await fr.evaluate(() => { const e = document.querySelector('#roadcard [data-road="0"]'); if (!e) return null; const r = e.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; });
+      if (at) await p.touchscreen.tap(FB.x + at[0], FB.y + at[1]); await p.waitForTimeout(400);
+      learn = await fr.evaluate(() => ({ answered: window.__F6 | 0, up: BohemiaRoadEvents.up() })); }
+    /* the measured one: a thumb drumming on the choice's place from the instant the card opens, through its first third of a second
+       (the card draws itself in for a moment, so the first touches may meet no button at all; one that meets it must be refused) */
+    await fr.evaluate(() => { window.__ROADCARD_EARLY = 0; }); const t0 = Date.now(); await openCard();
+    for (let i = 0; i < 6 && at && Date.now() - t0 < 380; i++) await p.touchscreen.tap(FB.x + at[0], FB.y + at[1]);
+    await p.waitForTimeout(60);
+    const early = await fr.evaluate(() => ({ answered: window.__F6 | 0, up: BohemiaRoadEvents.up(), refused: window.__ROADCARD_EARLY | 0 }));
+    await p.waitForTimeout(650); if (early.up) await tapChoice(); await p.waitForTimeout(300);
+    const late = await fr.evaluate(() => ({ answered: window.__F6 | 0, up: BohemiaRoadEvents.up() }));
+    if (!plant) ok('F611 ' + shape + ': a thumb that lands on a choice the instant the card opens answers nothing and the card stays (answered ' + early.answered + ', the card up ' + early.up + ', refused ' + early.refused + '); a beat later the same thumb answers (' + late.answered + ', the card up ' + late.up + '); a late thumb on the card before it answered too (' + learn.answered + ')',
+      !!at && learn.answered === 1 && early.answered === 0 && early.up && early.refused >= 1 && late.answered === 1 && !late.up, JSON.stringify({ learn, early, late }));
+    else ok('F611 ' + shape + ' PLANTED (the first beat set to nothing): the instant thumb answers and the leg sees it (' + early.answered + ')', early.answered >= 1, JSON.stringify(early));
+    await fr.evaluate(() => { try { BohemiaRoadEvents.close(false); } catch (e) {} });
+  }
+  if (want('F606')) {
+    const hb = await p.evaluate(() => { const b = document.querySelector('#bohphone .app[data-app=heal]'); if (!b) return null; const r = b.getBoundingClientRect(); return r.width > 0 ? [r.x + r.width / 2, r.y + r.height / 2] : null; });
+    if (hb) await p.touchscreen.tap(hb[0], hb[1]);
+    for (let i = 0; i < 60; i++) { const s = await read().catch(() => null); if (s && s.on && s.hours >= 2) break; await p.waitForTimeout(250); }
+    const a = await read(); await openCard(); await p.waitForTimeout(300);
+    const b0 = await read(); await p.waitForTimeout(3000); const b1 = await read();
+    await tapChoice(); await p.waitForTimeout(2600); const c = await read();
+    if (!plant) ok('F606 ' + shape + ': a real thumb on HEAL made camp and its hours ran (' + a.hours + '); under a card that waits, 3 s: the hours ' + b0.hours + ' to ' + b1.hours + ', the clock ' + b0.clock + ' to ' + b1.clock + ', the food ' + b0.food + ' to ' + b1.food + ' (held ' + b1.held + ' ticks); he answers and the hours run again (' + c.hours + ')',
+      !!hb && a.on && a.hours >= 2 && b0.card && b1.card && b1.hours === b0.hours && b1.clock === b0.clock && b1.food === b0.food && b1.held >= 3 && !c.card && c.hours > b1.hours, JSON.stringify({ a, b0, b1, c }));
+    else ok('F606 ' + shape + ' PLANTED (the hold taken out of the map\'s page): the hours run under the card and the leg sees it (' + b0.hours + ' to ' + b1.hours + ')', a.on && b1.hours > b0.hours, JSON.stringify({ a, b0, b1 }));
+  }
+  if (!plant) ok('F60x ' + shape + ': nothing threw', p.__errs.length === 0, p.__errs.slice(0, 2).join(' | '));
+  await ctx.close();
+}
+
 (async () => {
   await new Promise(r => srv.listen(0, '127.0.0.1', r)); BASE = 'http://127.0.0.1:' + srv.address().port;
   browser = await chromium.launch();
@@ -931,6 +1024,8 @@ async function f609(shape, plant) {
     for (const s of SH) { if (want('F554')) await f554(s); if (want('F550')) { await f550(s, false); await f550(s, true); } if (want('F551') || want('F552') || want('F553')) await f55x(s); }
     /* FOUND BY EYES 11/11 (rows 605 to 612), FIXES 2 */
     for (const s of SH) { if (want('F609')) { await f609(s, false); if (s === SH[0]) await f609(s, true); } }
+    for (const s of SH) { if (want('F608')) { await f608(s, false); if (s === SH[0]) await f608(s, true); } }
+    for (const s of SH) { if (want('F606') || want('F611')) { await f60x(s, false); if (s === SH[0]) await f60x(s, true); } }
   } catch (e) { ok('the gate ran [' + String(e && e.stack || e).slice(0, 400) + ']', false); }
   await browser.close(); srv.close();
   console.log('THE FOURTEEN EYES FOUND: ' + pass + ' passed, ' + fail + ' failed');

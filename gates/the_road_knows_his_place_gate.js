@@ -218,7 +218,7 @@ async function page(alpha, profile, full) {
                 lost: JSON.stringify((C.get() || {}).men || {}), things: (hs0.things || []).length + (hs0.waiting || []).length + (hs0.residents || []).length, moods: window.__MOODS.length,
                 found: Object.keys(S.boss.found || {}).length, hid: sg && sg.boss ? fogHides(sg.boss.x, sg.boss.y) : null };
               const R0 = Math.random; Math.random = () => r; let tapped = false;
-              try { RE.fire(id); await new Promise(z => setTimeout(z, 300)); const b = document.querySelectorAll('#roadcard button')[oi];
+              try { RE.fire(id); await new Promise(z => setTimeout(z, 620)); /* FIXES 2 11/14 (ask row 611): a card takes no press in its first beat (500 ms); this press was at 300 */ const b = document.querySelectorAll('#roadcard button')[oi];
                 if (b && !b.disabled) { b.dispatchEvent(new PointerEvent('pointerup', { bubbles: true })); tapped = true; } } finally { Math.random = R0; }
               await new Promise(z => setTimeout(z, 1500));
               const ch = (window.__ROADEV_CHOSE || []).slice(-1)[0] || null, fought = (window.__ROADEV_FIGHTS | 0) > b4.fights;

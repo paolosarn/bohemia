@@ -330,18 +330,26 @@
       + (o.got && o.got.length ? '<div class="rcgot" style="margin-top:8px;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;color:#e2b45a">' + esc2(o.got.join('  ·  ')) + '</div>' : '')
       + '</div>'   /* .rcl */
       + '<div class="rcb" style="display:flex;flex-direction:column;gap:8px;' + (WIDE ? 'flex:0 0 40%;min-width:0;margin-top:0' : 'margin-top:12px') + '"></div></div>';
-    var box = el.querySelector('.rcb');
+    var box = el.querySelector('.rcb'), GUARD_MS = 500, now0 = function () { return (root.performance && performance.now) ? performance.now() : Date.now(); }, born = now0();
+    /* the choices come up dim and light when they will answer (never a lit button that does nothing) */
+    box.style.opacity = '.5'; box.style.transition = 'opacity 120ms linear'; setTimeout(function () { try { box.style.opacity = '1'; } catch (e) {} }, GUARD_MS);
     (o.opts || []).forEach(function (op, i) {
       var b = document.createElement('button'); b.setAttribute('data-road', String(i));
       b.style.cssText = 'display:flex;justify-content:space-between;align-items:center;gap:8px;min-height:44px;padding:6px 10px;text-align:left;font:400 12px BohemiaCasing,ui-monospace,monospace;letter-spacing:.6px;line-height:1.2;color:#1f1710;background:' + (op.off ? '#7d7464' : i === 0 ? '#e2b45a' : '#b9ad92') + ';border:0;' + kit(i === 0 && !op.off ? 'tin_amber' : 'tin', 0.75) + 'cursor:' + (op.off ? 'default' : 'pointer') + (op.off ? ';opacity:.6' : '');
       b.innerHTML = '<span>' + esc2(op.t) + '</span>' + (op.tag ? '<span style="flex:none;font-size:10px;opacity:.8">' + esc2(op.tag) + '</span>' : '');
       if (op.off) b.disabled = true;
-      b.addEventListener('pointerup', function (ev) { ev.stopPropagation(); ev.preventDefault(); if (op.off || !UP || UP.el !== el) return; try { op.fn(); } catch (e) { root.__ROADEV_ERR = String(e && e.message || e); close(); } });
+      /* __A_CARD_TAKES_NO_PRESS_IN_ITS_FIRST_BEAT__ (FIXES 2 11/14, ask row 611, FOUND BY EYES 11/11: Tia Carmen's card opened over
+         Network as he walked in and his tap on the board answered her). A choice answers no press in the card's first beat (GUARD_MS, a beat
+         at 120), nor one whose finger came down in it: the thumb already on its way to something else lands on nothing. */
+      b.addEventListener('pointerdown', function () { b.__early = now0() - born < GUARD_MS; });
+      b.addEventListener('pointerup', function (ev) { ev.stopPropagation(); ev.preventDefault(); var early = b.__early || now0() - born < GUARD_MS; b.__early = false;
+        if (early) { root.__ROADCARD_EARLY = (root.__ROADCARD_EARLY | 0) + 1; return; }
+        if (op.off || !UP || UP.el !== el) return; try { op.fn(); } catch (e) { root.__ROADEV_ERR = String(e && e.message || e); close(); } });
       box.appendChild(b);
     });
     ['pointerdown', 'touchstart', 'touchmove', 'touchend', 'wheel'].forEach(function (t) { el.addEventListener(t, function (ev) { ev.stopPropagation(); }, { passive: true }); });
     document.body.appendChild(el);
-    var key = function (ev) { var k = String(ev.key || ''); var n = parseInt(k, 10); if (n >= 1 && n <= (o.opts || []).length) { ev.preventDefault(); ev.stopPropagation(); var op = o.opts[n - 1]; if (!op.off) { try { op.fn(); } catch (e) { close(); } } }
+    var key = function (ev) { if (now0() - born < GUARD_MS) return; var k = String(ev.key || ''); var n = parseInt(k, 10); if (n >= 1 && n <= (o.opts || []).length) { ev.preventDefault(); ev.stopPropagation(); var op = o.opts[n - 1]; if (!op.off) { try { op.fn(); } catch (e) { close(); } } }
       else if (k === 'Enter' && (o.opts || []).length === 1) { ev.preventDefault(); ev.stopPropagation(); try { o.opts[0].fn(); } catch (e) { close(); } } };
     document.addEventListener('keydown', key, true);
     UP = { el: el, key: key, o: o };
@@ -385,6 +393,7 @@
     if (UP || FIGHT) return true;
     try { if (LOOP.fighting || (LOOP.frame && LOOP.frame.style.display === 'block')) return true; } catch (e) {}
     try { if (document.getElementById('meetcard')) return true; } catch (e) {}
+    try { if (root.BohemiaMapCamp && root.BohemiaMapCamp.on && root.BohemiaMapCamp.on()) return true; } catch (e) {}   /* FIXES 2 11/14 (ask row 606): the road never talks over a standing camp, shown or not */
     return false;
   }
   /* CONTENT 2: THE SCAVENGE ACTION IN A TOWN. The settlement posts its lot search ({type:'BOHEMIA_SETTLEMENT', act:'scavenge',

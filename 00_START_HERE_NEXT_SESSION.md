@@ -194,6 +194,10 @@ glass), 591 (the door's own words are 107 characters; the rest are the new game'
 place ('came into Custom off Rainbow'): his name for it, else 'their place'; no 'new faces in town' about his own home; both ways, a
 planted fail. NOT REPRODUCED: 555 / 605 (the boss fight's quiet turn). NEXT: EYES' 606, 611, 607, 612, then the rest of the debt
 (WORLD 14 took 579, 593, 595).
+THEN (rule 447, what he can feel) BUILD 11/14j - THE SPOT SAYS IT BY ITSELF: the scavenge spots float no word (608); a card that
+waits stops the camp's clock (606); no card answers a press in its first beat (611); his
+crew's name survives a fast thumb on a busy phone (580 again: 'THE NIGHT SHIFTLOS HER', 6 of 6 before); the last round's five
+re-proven both ways. NEXT: 618, 619, 605, then the debt.
 The whole block: handoffs/FIXES_TWO.md.
 [bb Battle Brothers lets you type your company's name on the new campaign screen and never touches the box again while you type.]
 [analog horror: a box that swallows the name you gave your crew and keeps three letters of it is the wrong kind of wrong; it is gone.]

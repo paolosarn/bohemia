@@ -80,13 +80,14 @@ const HIS = 'Los Hermanos', HISUP = 'LOS HERMANOS';
        the origins' file happened to land between two of his letters, so it was red one run and green the next. Here the file is HELD
        (the service worker off, so the hold is real), he taps ANOTHER, taps the box and types LOS HERMA, the file is let go (the
        screen rebuilds and UI's dressPicks moves the rows: the box under his thumbs is a new one, moved), and he types NOS.
-       Upright and on its side. PLANT: the put-back's flag ignored (the old door): his letters are eaten, and the leg must say so. */
+       Upright and on its side. PLANT: the put-back's flag ignored and the pick back on its timer (the old door): his letters are eaten, and the leg must say so.
+       (11/14: the pick rides the tap's own click now, never a timer: a busy page once put his letters inside the dealt name.) */
     const through = async (shape, plant) => {
       const ctx = await P.context().browser().newContext({ viewport: shape, hasTouch: true, isMobile: true, deviceScaleFactor: 2, serviceWorkers: 'block' });
       const pg = await ctx.newPage(); let release = null, hits = 0; const held = new Promise(r => { release = r; });
       await pg.route('**/origins.json*', async route => { hits++; await held; await route.continue().catch(() => {}); });
       if (plant) {
-        await pg.route(/BOHEMIA_DEMO\.html/, async route => { const r = await route.fetch(); const b = (await r.text()).replace('if(t.__back) return;', ''); await route.fulfill({ response: r, body: b }); });
+        await pg.route(/BOHEMIA_DEMO\.html/, async route => { const r = await route.fetch(); const b = (await r.text()).replace('if(t.__back) return;', '').replace('t.__pick = t.value; try{ t.setSelectionRange(0, t.value.length); }catch(_e){} });', 'setTimeout(function(){ try{ t.select(); }catch(_e){} }, 0); });'); await route.fulfill({ response: r, body: b }); });
         await pg.route(/bohemia_ui_crashbox\.js/, async route => { const r = await route.fetch(); const b = (await r.text()).replace('keep.el.__back = true;', ''); await route.fulfill({ response: r, body: b }); });
       }
       try {
@@ -112,6 +113,29 @@ const HIS = 'Los Hermanos', HISUP = 'LOS HERMANOS';
       ok('*** N6 A REBUILD KEEPS HIS LETTERS *** (' + nm + '): LOS HERMA typed, the screen rebuilt under him (' + r.rebuilt + ', the origins\' file held ' + r.hits + '), NOS typed: the box "' + r.value + '", the picks "' + r.picks + '", the keyboard still his ' + r.focused + (r.err ? ' ' + r.err : ''),
         r.rebuilt === true && r.value === HISUP && r.picks === HISUP && r.focused === true);
     }
+    /* N7 *** A FAST THUMB ON A BUSY PHONE *** (FIXES 2 11/14; found re-proving row 580): the phone's CPU slowed six times (the valley
+       still loading behind the door), a thumb in the box and his letters AT ONCE, no wait between. The whole name is his, never his
+       letters inside the dealt one ('THE NIGHT SHIFTLOS HER', 6 of 6 on 11/11z). PLANT: the pick back on its timer. */
+    const busy = async (shape, plant) => {
+      const ctx = await P.context().browser().newContext({ viewport: shape, hasTouch: true, isMobile: true, deviceScaleFactor: 2, serviceWorkers: 'block' });
+      const pg = await ctx.newPage();
+      if (plant) await pg.route(/BOHEMIA_DEMO\.html/, async route => { const r = await route.fetch(); const b = (await r.text()).replace('t.__pick = t.value; try{ t.setSelectionRange(0, t.value.length); }catch(_e){} });', 'var v0 = t.value; setTimeout(function(){ try{ if(document.activeElement === t && t.value === v0) t.select(); }catch(_e){} }, 0); });'); await route.fulfill({ response: r, body: b }); });
+      try {
+        const cdp = await ctx.newCDPSession(pg); await cdp.send('Emulation.setCPUThrottlingRate', { rate: 6 });
+        await pg.goto(P.url().split('?')[0], { waitUntil: 'load', timeout: 240000 });
+        await throughTheTitle(pg, 60000);
+        let b = null; for (let i = 0; i < 80 && !b; i++) { b = await boxAt(pg); if (!b) await pg.waitForTimeout(250); }
+        const dealt = (await state(pg)).value;
+        await pg.touchscreen.tap(b.x + 40, b.y); await pg.keyboard.type(HISUP, { delay: 25 }); await pg.waitForTimeout(1500);
+        return { dealt, value: (await state(pg)).value };
+      } catch (e) { return { err: String(e.message || e).slice(0, 160) }; } finally { await ctx.close(); }
+    };
+    for (const [nm, shape] of [['upright', { width: 390, height: 844 }], ['on its side', { width: 844, height: 390 }]]) {
+      const r = await busy(shape, false);
+      ok('*** N7 A FAST THUMB ON A BUSY PHONE *** (' + nm + ', the CPU slowed six times): a thumb in the box and LOS HERMANOS typed at once over "' + r.dealt + '": the box "' + r.value + '"' + (r.err ? ' ' + r.err : ''), r.value === HISUP);
+    }
+    const bp = await busy({ width: 390, height: 844 }, true);
+    ok('  N7 PLANTED (the pick back on its timer): his letters land inside the dealt name and the leg sees it (the box "' + bp.value + '")' + (bp.err ? ' ' + bp.err : ''), !!bp.value && bp.value !== HISUP);
     const pl = await through({ width: 390, height: 844 }, true);
     ok('  N6 PLANTED (the put-back\'s flag ignored, the old door): his letters are eaten and the leg sees it (the box "' + pl.value + '")' + (pl.err ? ' ' + pl.err : ''), pl.rebuilt === true && pl.value !== HISUP);
   } catch (e) { ok('the legs ran [' + String(e.stack || e.message).slice(0, 300) + ']', false); }

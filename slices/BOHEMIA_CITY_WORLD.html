@@ -47151,6 +47151,7 @@ function campSettingUp(){
   }catch(_e){ return false; }
 }
 /* ==== end __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ ==== */
+function campHeldByACard(){ try { return !!(window.BohemiaRoadEvents && BohemiaRoadEvents.up && BohemiaRoadEvents.up()); } catch (_e) { return false; } }
 function campHour(){
   if (!CAMP.on) return;
   if (CAMP.town) {   /* __A_TOWN_IS_SAFE__: resting in a town; leaving it ends the rest */
@@ -47165,6 +47166,11 @@ function campHour(){
     window.__CAMP_SHOWN_AGAIN = (window.__CAMP_SHOWN_AGAIN | 0) + 1; return;
   }
   if (campSettingUp()) return;   /* MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (rule 444(a)): the clock stopped while his men set it up */
+  /* __A_QUESTION_STOPS_THE_CLOCK__ (FIXES 2 11/14, ask row 606, FOUND BY EYES 11/11: under Dona Mercedes' card the camp ran DAY 2
+     11:47 to DAY 6 23:00 and the food 21 to 7 while the question waited). A road card that waits for his answer holds the camp's
+     hour: no time, no food, no walking world, until he answers; the camp stands as it stood. (The phone's HEAL is in his corner,
+     over the card, so a camp can be made while a card waits; and the card may not come up over a standing camp: the road's busy().) */
+  if (campHeldByACard()) { window.__CAMP_HELD_BY_CARD = (window.__CAMP_HELD_BY_CARD | 0) + 1; return; }
   campStale();
   var lim = 2 + (window.BohemiaCamp ? BohemiaCamp.plus('warn') : 0), warn = null;
   try{ warn = campWarn(lim); }catch(_e){}

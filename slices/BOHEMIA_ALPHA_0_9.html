@@ -1588,7 +1588,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/14i - THE HORN AND THE BRUISER</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/14j - THE SPOT SAYS IT BY ITSELF</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13927,12 +13927,16 @@ var BOH_START = (function(){
   function nameNow(){ var t = nameClean(pick.typed).trim(); return t || NAMES[pick.name % NAMES.length]; }
   function nameEsc(v){ return String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;'); }
   function nameWire(el){
+    /* __THE_PICK_RIDES_THE_TAP__ (FIXES 2 11/14, ask row 580 again; found re-proving it on a busy phone: 'LOW BATTERLOS HERMANOY').
+       'Pick the whole name' ran on a timer a tick after the focus. On a busy page (the valley loading behind the door) the tick can
+       land after his first letter: before 11/11 it then picked that letter and his next one replaced it (OS HERMANOS); with 11/11's
+       guard it was skipped, and his letters went in where the tap had put the caret, inside the dealt name. No timer now: the name
+       is picked at the focus and again at the tap's own click (the browser puts the caret down between the two), both before any
+       letter can arrive, because a page hands its events over in the order they happened. A rebuild's put-back (__back) picks nothing. */
     el.addEventListener('focusin', function(e){ var t = e.target; if(!t || t.id !== 'newconame') return; if(t.__back) return;   /* a rebuild's put-back, not his tap (row 580) */
-      /* and the pick waits for nothing he has typed: on a busy page (the valley loading behind the door) the tick can land AFTER
-         his first letter, and picking the whole name then made his second letter replace the first (measured on its side under
-         load: LOS HERMANOS kept as OS HERMANOS). The pick is only for the name as it stood when he tapped. */
-      var v0 = t.value; t.__was = v0; setTimeout(function(){ try{ if(document.activeElement === t && t.value === v0) t.select(); }catch(_e){} }, 0); });
-    el.addEventListener('input', function(e){ var t = e.target; if(!t || t.id !== 'newconame') return; pick.typed = nameClean(t.value); save(); });
+      t.__was = t.value; t.__pick = t.value; try{ t.setSelectionRange(0, t.value.length); }catch(_e){} });
+    el.addEventListener('click', function(e){ var t = e.target; if(!t || t.id !== 'newconame' || t.__pick == null) return; if(t.value === t.__pick){ try{ t.setSelectionRange(0, t.value.length); }catch(_e){} } t.__pick = null; }, true);
+    el.addEventListener('input', function(e){ var t = e.target; if(!t || t.id !== 'newconame') return; t.__pick = null; pick.typed = nameClean(t.value); save(); });
     el.addEventListener('keydown', function(e){ var t = e.target; if(!t || t.id !== 'newconame') return; e.stopPropagation();   /* his letters are his, never the game's keys */
       if(e.key === 'Enter'){ e.preventDefault(); t.blur(); }
       else if(e.key === 'Escape'){ t.value = t.__was != null ? t.__was : nameNow(); pick.typed = nameClean(t.value) === NAMES[pick.name % NAMES.length] ? '' : nameClean(t.value); save(); t.blur(); } });
@@ -14020,7 +14024,10 @@ window.BOH_START = BOH_START;
     el.appendChild(wrap);
     var inp = wrap.querySelector('input');
     wrap.addEventListener('click', function(e){ e.stopPropagation(); var b = e.target.closest && e.target.closest('button'); if (b && b.getAttribute('data-w') === 'another') go(''); });   /* never the BEGIN tap */
-    inp.addEventListener('focusin', function(){ var v0 = inp.value; inp.__was = v0; setTimeout(function(){ try { if (document.activeElement === inp && inp.value === v0) inp.select(); } catch (_e) {} }, 0); });   /* FIXES 2 (row 580's cousin): never a pick over what he has already typed */
+    /* FIXES 2 (__THE_PICK_RIDES_THE_TAP__, row 580's cousin): the code is picked at the focus and at the tap's own click, never on a timer */
+    inp.addEventListener('focusin', function(){ inp.__was = inp.value; inp.__pick = inp.value; try { inp.setSelectionRange(0, inp.value.length); } catch (_e) {} });
+    inp.addEventListener('click', function(){ if (inp.__pick == null) return; if (inp.value === inp.__pick) { try { inp.setSelectionRange(0, inp.value.length); } catch (_e) {} } inp.__pick = null; });
+    inp.addEventListener('input', function(){ inp.__pick = null; });
     inp.addEventListener('keydown', function(e){ e.stopPropagation(); if (e.key === 'Enter') { e.preventDefault(); inp.blur(); } else if (e.key === 'Escape') { inp.value = inp.__was || show(now()); inp.blur(); } });
     inp.addEventListener('focusout', function(){ var t = norm(inp.value), c2 = now(); if (t && t !== c2) go(t); else inp.value = show(c2); });
   }

@@ -114,6 +114,62 @@ or ALREADY GREEN ON MAIN.
 - MEANWHILE ON MAIN (other lanes took rows of this list, the coordinator's round): 579, 593, 595 FIXED by WORLD 14 (11/11o); 584 by
   COOK FIVE; 586 by WORLD 13; 587 by BOSSES; 574 PARTLY by BESTIARY.
 
+## ROUND TWO, ONE TIGHT BATCH (rule 447, 'what he can feel first'): BUILD 11/14j - THE SPOT SAYS IT BY ITSELF
+Rows 608, 606, 611 and a hole found in my own 580 (607 measured; HOME BASE fixed it the same hour). Each measured on the page first, fixed, then proven on the demo or the
+page's own file, a phone upright (390 x 844) and on its side (844 x 390), touch; every gate leg with a planted fail.
+
+### 608 THE SCAVENGE SPOTS FLOAT WORD LABELS (he refused floating labels twice: rules 438, 442(b))
+- slices/BOHEMIA_SCAVENGE.html painted a cream plank with SEARCH, SIPHON or DETECTOR over every lit house, car and patch of dirt
+  (lit(): mark(s); tag(s)). The plank and its table are gone (__THE_SPOT_SAYS_IT_BY_ITSELF__). A spot is the thing itself, lit on
+  its own ground; the strip under the board still says TAP A LIT SPOT and the phone's list counts HOUSE, GROUND, CAR (the page's
+  own chrome, not over the world); what he does at a spot is said by the dial his tap opens (rule 433).
+- Both shapes: 0 plank pixels on the spots' layer, 6 of 6 spots lit (13,772 and 18,735 lit pixels), a thumb on one starts it.
+  F608, PLANTED (a plank put back over every spot): 30,512 pixels, seen.
+
+### 607 THE BUILD SHEET'S WORDS: MEASURED HERE, FIXED BY HOME BASE (BUILD 11/14g - EVERY WORD ON THE DESK)
+- MEASURED upright: four of eight build buttons cut their line with dots ('1 BATTERY 2 TAPE KEEPS TH...': 202, 252, 214, 181 px
+  in a 162 px box). I wrapped the line and added a leg; HOME BASE shipped its own fix of its own sheet the same hour (the cost on
+  one line, what it gives on the next; its gate's D8 with a planted squeeze, upright 83/0, sideways 81/0). ONE SYSTEM, ONE
+  SESSION: theirs stands, mine is dropped whole (the page and the gate are HOME BASE's as they are on main).
+
+### 606 A ROAD EVENT'S CARD OVER A RUNNING CAMP
+- How it comes about: the phone's HEAL is in his corner, over the card, so a camp can be made while a card waits; campHour
+  (500 ms an hour) then ran under the question. __A_QUESTION_STOPS_THE_CLOCK__: while BohemiaRoadEvents.up() the camp's hour
+  holds (no time, no food, no walking world); and the road's busy() counts a standing camp, shown or not.
+- Demo, both shapes: a real thumb on HEAL, hours 2; a card up 3 s: hours 2 to 2, clock 1920 to 1920, food 21 to 21, 7 ticks
+  held; he answers, hours 8 (7 sideways). F606, PLANTED (the hold out): 3 to 9 under the card.
+
+### 611 A CARD EATS THE TAP MEANT FOR A BUILDING (BOSSES fixed when a boss's card may open, 11/14a; this is every card)
+- slices/bohemia_road_events.js card(): a choice answers no press in the card's first beat (500 ms), nor one whose finger came
+  down in it; the choices come up at half light and light when they will answer; the number keys the same. A scripted pointerup
+  with no finger down is judged by the clock alone (three gates press that way; one pressed at 300 ms and now waits 620).
+- Demo, both shapes: the instant thumb answers nothing, the card stays, refused 1; a beat later it answers. F611, PLANTED (the
+  beat at nothing): the instant thumb answers. (A script's look-then-tap takes a third of a second, so the leg learns the choice's
+  place from one card and taps the next the instant it opens.) CONTACT STOPS HIM DEAD 18/0 with it.
+
+### 580 AGAIN: A FAST THUMB ON A BUSY PHONE (found doing the re-proof he asked for)
+- With the CPU slowed six times (his phone on the road, the valley loading behind the door), a thumb in the box and the letters
+  at once: 11/14e kept 'THE NIGHT SHIFTLOS HER', his letters inside the dealt name, 6 of 6. 'Pick the whole name' ran on a
+  timer a tick after focus; a busy page ran it after his first letter, and 11/11's guard then skipped it.
+- __THE_PICK_RIDES_THE_TAP__: no timer. The name is picked at the focus and again at the tap's own click, both before any letter
+  (a page hands over its events in order). The valley's code box the same. Fixed build 6 of 6 LOS HERMANOS, both shapes.
+  THE COMPANY TAKES HIS NAME 12/0: new leg N7 (CPU 6x, both shapes), PLANTED (the timer back: 'THE NIGHT SHIFLOS HERT').
+
+### THE LAST ROUND'S FIVE, PROVEN AGAIN ON THE PAGE, UPRIGHT AND ON ITS SIDE (his ask)
+- 580: N6 and N7 above, both shapes. 590: 0 saves at 1.5, 4, 9 s and after a reload, CONTINUE off; NEW GAME 1 save; he plays,
+  comes back, CONTINUE gets in; both shapes. 609: F609 3/0, both shapes ('their place', never the key).
+- 588: on the fight's page both shapes the veteran says 'See the orange stripes, compa? Step through and they swing free.':
+  11 words, whole, inside the glass (8,4 to 382,67 upright; to 428,67 sideways), over no button.
+- 583: on the demo's map both shapes the page carries the per-line roll and asks the one dial: a Spanglish speaker slips into
+  Spanish 2.5 lines in 10 (2.6 sideways), an English one 1 in 10; it was every line.
+- STILL A PHONE-SIZED BROWSER WITH TOUCH, NOT A HAND-HELD PHONE: EYES' walk is the hand-held one.
+
+### NOT IN THIS BATCH
+- 612: UI THREE took it (11/14d, two of three). 610: JOBS fixed it (11/11s). 618 (a boss fight ends on the raiders' line), 619
+  (the end screen calls DESI 'his'): FOUND BY EYES 11/14, mine, next. 605: the root still not found (COMBAT THREE closed the
+  word against it). The debt's 577, 578, 581, 582, 592, 594: untouched this round.
+- NO VOTE CARD THIS ROUND: rule 447(b), the site at 894 of 900 MB, nothing more ships until it is trimmed; a card needs two pictures.
+
 ## THE PROBES (scratch tools, kept as the method; none ship)
 serve the repo's three published roots at /, a phone context (touch, mobile, the service worker blocked when a request is held),
 every pageerror with its stack, every 4xx. The stranger's walk; setItem wrapped to name who writes a save; focus/input traced on

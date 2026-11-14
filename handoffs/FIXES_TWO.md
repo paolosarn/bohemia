@@ -1,6 +1,36 @@
 # FIXES TWO -- the handoff block (written only by FIXES TWO, newest first; the heir of FIXES, whose blocks stay in handoffs/FIXES.md)
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 
+FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/14 LATEST -- [what he can feel] rule 447, one tight batch: rows 608,
+606, 611 and a hole in my own 580 SHIPPED (607 measured; HOME BASE fixed it the same hour, 11/14g). BUILD 11/14j - THE SPOT SAYS IT BY ITSELF, BUILT, NOT YET SEEN. Commit SHIPSHA3.
+Record: the ROUND TWO section of records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md. NO VOTE CARD (rule 447(b): the site's weight).
+WHAT HE WOULD MEET (TAB: RUN, and the demo link):
+- 608 the scavenge board (a town's junk lot, 'Search the lot'): no SEARCH / SIPHON / DETECTOR words hang over the houses, cars and
+  dirt; the lit thing is the spot; the dial his tap opens says what to do (slices/BOHEMIA_SCAVENGE.html __THE_SPOT_SAYS_IT_BY_ITSELF__).
+- 606 a card that waits for his answer stops the camp's clock (it ran four days and fourteen food under one); the road never talks
+  over a standing camp (slices/BOHEMIA_CITY_WORLD.html __A_QUESTION_STOPS_THE_CLOCK__, slices/bohemia_road_events.js busy()).
+- 611 no card answers a press in its first beat (500 ms); its choices come up dim and light when they will answer (every caller
+  of BohemiaRoadEvents.card: the road, BOSSES, side quests).
+- 580 again: typing his crew's name the instant he taps the box on a busy phone keeps his whole name (it kept 'THE NIGHT SHIFTLOS
+  HER' 6 of 6 with the CPU slowed six times); the pick rides the tap's own click, no timer (__THE_PICK_RIDES_THE_TAP__).
+THE GATES, on this build: THE FOURTEEN EYES FOUND legs F608, F606, F611, F609 (each planted); THE COMPANY TAKES HIS NAME 12/0 (N7 new,
+planted); CONTACT STOPS HIM DEAD 18/0; the
+demo byte for byte the cut; HANDOFF 10/0.
+THE LAST ROUND'S FIVE, RE-PROVEN BOTH WAYS (his ask): 580, 590, 609, 588, 583; the numbers are in the record. A phone-sized browser
+with touch, not a hand-held phone: EYES' walk is that.
+FOR EVERY LANE THAT PRESSES A ROAD CARD IN A GATE: wait a beat (600 ms) after the card opens before the press; a press in the first
+500 ms is refused now (window.__ROADCARD_EARLY counts them). THE ROAD KNOWS HIS PLACE pressed at 300 ms: now 620.
+FOR HOME BASE: row 607 is yours and done (11/14g); I measured the same four cut lines upright, and my wrap and my leg were dropped
+for yours when our ships met (your page and your gate are untouched by this build).
+FOR SCAVENGE TWO: the spots' tag() and LABEL table are gone from your page; the dial's cue and the hit words are untouched.
+FOR CAMP: campHour returns early while a road card is up (window.__CAMP_HELD_BY_CARD counts the held ticks).
+OPEN, MINE, NEXT: 618 (THE POT's fight ends 'THE RAIDERS BROKE AND RAN': row 551's naming does not reach a boss's fight), 619 (the
+end screen says HIS and HE for DESI: the fight hands the spoils screen no he or she), 605 (the root not found; COMBAT THREE closed
+the word against it); then the debt: 592, 578, 581, 582, 594, 577.
+[bb] Battle Brothers never labels a lootable thing with a floating word; the thing is on the ground and the cursor says what it is.
+[analog horror] a board with words hanging in the air over the houses is a menu; a house with one lit outline is somebody's house.
+
+
 FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/11 (b) LATEST -- [their place, never custom] ask row 609 SHIPPED. BUILD
 11/11q - THEIR PLACE, NEVER CUSTOM, BUILT, NOT YET SEEN. Commit bd77a807f. Record: the second-ship section of
 records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md.

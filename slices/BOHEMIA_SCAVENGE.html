@@ -82,7 +82,6 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
                                                      needs more: ahead() */
   var CLK = { t0: performance.now(), bm: R.BEAT_MS, src: 'own' };   /* a bar's ONE on this page's clock, a beat in ms, whose beat it is */
   var GOOD = { medicine: 'MEDS', food: 'FOOD', battery: 'BATTERY', tape: 'TAPE', ammo: 'ROUNDS' };
-  var LABEL = { house: 'SEARCH', ground: 'DETECTOR', car: 'SIPHON' };
   var DIRS = 8, CLIP = { stand: [0], walk: [1, 2, 3, 4, 5, 6], swing: [10, 11, 12], carry: [18] };
   var S = { phase: 'none', o: null, board: null, img: null, tw: 0, th: 0, AR: 364 / 515, view: null, spots: [], men: [], act: null,
     finds: [], log: [], err: null, done: null, sheets: {}, pkg: 1, bakeMs: 0, seed: 7, song: null, clk: CLK,
@@ -485,10 +484,15 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
     x.drawImage(S.img, bx0 * S.tw, by0 * S.th, (bx1 - bx0) * S.tw, (by1 - by0) * S.th, d0.x, d0.y, d1.x - d0.x, d1.y - d0.y);
     S.bgFor = V;
   }
-  function lit() {   /* the lit spots and their names, painted when one changes */
+  /* __THE_SPOT_SAYS_IT_BY_ITSELF__ (FIXES 2 11/14, ask row 608, FOUND BY EYES 11/11; rules 438, 442(b), Paolo twice: 'it has to be
+     naturally part of the world or I don't want it, the little floating labels I don't like it'). MEASURED on the board (e04): a
+     cream plank with SEARCH, SIPHON or DETECTOR hung over every lit house, car and patch of dirt, YOU's head over one of them.
+     The words are gone. A spot is the thing itself, lit on its own ground: the house's own walls, the car's own body, the ring on
+     the dirt; what he does there is said by the dial he opens with his tap (its cue), never before the tap (rule 433). */
+  function lit() {   /* the lit spots, painted when one changes */
     var key = S.spots.map(function (s) { return s.state; }).join(); if (S.midFor === S.view && S.midKey === key) return;
     S.midFor = S.view; S.midKey = key; var keep = g; g = gM;
-    try { g.setTransform(DPR, 0, 0, DPR, 0, 0); g.clearRect(0, 0, W, H); S.spots.forEach(function (s) { if (s.state === 'open') { mark(s); tag(s); } }); } finally { g = keep; }
+    try { g.setTransform(DPR, 0, 0, DPR, 0, 0); g.clearRect(0, 0, W, H); S.spots.forEach(function (s) { if (s.state === 'open') mark(s); }); } finally { g = keep; }
   }
   function draw(b, now) {
     if (S.bgFor !== S.view) backdrop();
@@ -557,7 +561,6 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
     g.strokeStyle = '#2a2520'; g.lineWidth = 1; g.strokeRect(Math.round(x - w / 2) + .5, Math.round(y - 15) + .5, Math.round(w) - 1, 17);
     g.fillStyle = ink || '#2a2520'; g.textAlign = 'center'; g.fillText(text, x, y - 2);
   }
-  function tag(s) { var top = s.kind === 'ground' ? s.y + 0.1 : Math.min.apply(null, (s.tiles || [[s.x, s.y]]).map(function (t) { return t[1]; })); var p = scr(s.x + 0.5, top); plank(LABEL[s.kind], p.x, p.y - 2); }
   /* THE WHOLE CREW MOVES TO THE BEAT: every man on the glass drops his weight on the beat and comes back up before the next (a
      few points, never his size: the person may not zoom), leaning left then right; a hit of his lifts them all, a combo deepens
      the step. The man at the spot swings on each beat he plays. */
