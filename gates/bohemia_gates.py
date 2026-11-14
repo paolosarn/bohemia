@@ -8442,6 +8442,11 @@ GATES = [
      "each cell a block of its kinds, none on another's, every block of every place board used somewhere; no roll moved; the map page "
      "stands them on the live valley off the home bases' squares, and a fight the map hands over on a place's cell is dealt that "
      "place's own board block for block (THE CUT, 11/11), upright and on its side; planted fails red. about 3 min", True),
+    ('THE GENERATED WORLD HOLDS', ['node', 'gates/the_generated_world_holds_gate.js'],
+     "WORLD THIRTEEN gate, 11/14, rules 429(f)(g)(h), 447: on 22 generated valleys one joined road network (99 in 100 of the road "
+     "blocks, what is off it named: dirt-track pockets, Strip stubs), every building lump on it (98 in 100) or fronting a road "
+     "(99.5), not every part a suburb (houses at most 30 in 100, desert 15, works 2.5, Strip 2, lake 0.7); a fight on a cell no place "
+     "stands on carries its ground and zone to the fight, upright and on its side; planted fails red. about 2 min", True),
     ('THE MOMENTS BETWEEN', ['node', 'gates/the_moments_between_gate.js'],
      "WORLD gate, 11/2, ask line 273 (Paolo 11/2: 'The transition of the camp to when time passes by and an enemy wants to attack you, "
      "it's just like sloppy quick bullshit... less choppy... less AI slop'): on the demo at phone size, every drawn frame: making camp "

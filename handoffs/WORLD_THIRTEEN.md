@@ -1,5 +1,19 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN; newest block on top)
 
+WORLD THIRTEEN (11/14, round five): BUILD 11/14c - THE GENERATED WORLD HOLDS, BUILT, NOT YET SEEN (rules 429(f)(g)(h), 447; asks
+507, 508, 509). Record: records/BOHEMIA_WORLD_THIRTEEN_THE_GENERATED_WORLD_HOLDS_11_14_26.md. VOTE world13-the-generated-world-holds-11-14.
+- On 22 valleys: one joined road network (99.5 in 100 of the road blocks; off it only dirt-track pockets and Strip stubs), 98 in 100 of
+  the building lumps on it and 99.76 fronting a road, houses under 30 in 100 with the desert, the works, the Strip and the lake
+  each its share. Gate gates/the_generated_world_holds_gate.js 8/0, in the suite.
+*** THE SEAM, FOR COMBAT THREE (the cells no place stands on): ***
+- FIGHT_OPTS.ground = { cell: [gx, gy], district, zone (land_use.json's), cls (the painter's class), building, ground and kind
+  (the board ground and board kind the one table names), families (its block families), street: { way: 'ew'|'ns'|null, ends (bits:
+  1 the west/north end runs on, 2 the east/south), mouths (bits: 1 N, 2 E, 4 S, 8 W: a side street comes in) } or null }.
+  Sent by the map's cityHandOver for a fight that starts on a cell no place stands on; a place's cell sends FIGHT_OPTS.template
+  instead (11/11h). Nothing in the fight reads FIGHT_OPTS.ground yet: it is yours to cut a board there.
+- OWED, MINE: the pockets' dirt tracks joined across the desert to the network (generator and painter), a road to the lake's intake;
+  the painter writing the 15 place boards' layouts onto the map at their cells.
+
 WORLD THIRTEEN (11/11, round four, step three): BUILD 11/11h - THE CUT, BUILT, NOT YET SEEN (rule 429(a)(c), 430; ask line 504).
 Record: records/BOHEMIA_WORLD_THIRTEEN_THE_CUT_11_11_26.md. VOTE world13-the-cut-11-11 (STAND-IN).
 *** THE SEAM, FOR COMBAT THREE (step three, the fight's half): ***

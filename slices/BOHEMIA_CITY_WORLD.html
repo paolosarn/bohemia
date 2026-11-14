@@ -69600,6 +69600,15 @@ function cityHandOver(msg, skin){
      tiles of it under the spot it starts (the shell's nfOpts hands it to the fight as o.template; a boss's own board first). */
   try{ if(msg && !msg.template && !msg.boss && typeof vbTemplateAt === 'function'){ var _ca=(msg.at&&msg.at.length===2)?msg.at:(msg.at&&msg.at.gx!=null?[msg.at.gx,msg.at.gy]:[city.x,city.y]), _tc=vbTemplateAt(_ca[0]|0,_ca[1]|0);
     if(_tc) msg.template={ id:_tc.id, board:_tc.board, tx:_tc.tx, ty:_tc.ty, flip:!!_tc.flip, cell:[_ca[0]|0,_ca[1]|0] }; } }catch(_e){}
+  /* __THE_GROUND_AND_THE_ZONE__ (WORLD THIRTEEN 11/14, rule 429(f)(g)(h); the coordinator: 'the map cells no place stands on handed
+     to COMBAT THREE with their ground and zone so it can cut a board there'): a fight that starts on a cell no place stands on carries
+     what the map knows of it: its kind, its zone (the land-use file's), its ground and the board kind and block families the one table
+     names (BohemiaFightKinds.piece), and its street (the generator's street byte: which way, which ends run on, the mouths). */
+  try{ if(msg && !msg.template && !msg.ground && window.BohemiaFightKinds){ var _ga=(msg.at&&msg.at.length===2)?msg.at:(msg.at&&msg.at.gx!=null?[msg.at.gx,msg.at.gy]:[city.x,city.y]), _gx=_ga[0]|0, _gy=_ga[1]|0, _gt=om.at(_gx,_gy), _gd=_gt?_gt.district:null;
+    var _gr=_gd?BohemiaFightKinds.answer(_gd):null, _gp=_gd?BohemiaFightKinds.piece(_gd):null, _gl=null; try{ var _LV=vbLanesValley(); if(_LV) _gl=_LV[_gy*om.n+_gx]|0; }catch(_e2){}
+    if(_gr) msg.ground={ cell:[_gx,_gy], district:_gd, zone:_gr.zone||null, cls:_gr.class||null, building:_gr.building||null,
+      ground:_gp&&_gp.deal?_gp.deal.ground:null, kind:_gp&&_gp.deal?_gp.deal.kind:null, families:_gp&&_gp.deal?_gp.deal.families.slice():[],
+      street:_gl?{ way:(_gl&3)===1?'ew':(_gl&3)===2?'ns':null, ends:(_gl&12)>>2, mouths:(_gl&240)>>4 }:null }; } }catch(_e){}
   try{ if(msg && window.BohemiaWorldStateMap && BohemiaWorldStateMap.handOver) BohemiaWorldStateMap.handOver(msg); }catch(_e){}   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ (WORLD 7): a burned block deals a burned board; the block's state and its power go with the fight */
   /* __EVERY_FIGHT_SIZED_TO_THE_CREW__ (RUN 10/23): which day it is and how many he has, on the one door, so the shell can
      hold the first day's line for a hand-over that never asked partyMath (the street's rosters) */
