@@ -135,9 +135,10 @@ const srv = http.createServer((rq, rs) => {
   const shelfN = await p.evaluate(() => document.querySelectorAll('#shelfgrid .slot.full').length);
   const bagSlots = await p.evaluate(() => document.querySelectorAll('#baggrid .slot').length);
   await p.screenshot({ path: SHOT.replace('_10_1', '_SMITH_10_5') });
-  const first = await p.evaluate(() => BohemiaSettlement.state.stock.smith[0]);
+  /* RE-AIMED 11/14 (UI THREE, rule 452: every shop dearest first): the piece is the one in the shelf's first box as it stands, not the roll's first */
+  const first = await p.evaluate(() => { const t = document.querySelector('#shelfgrid .slot.full'), it = t && t.__it; return it ? { id: it.id, name: it.name, was: it.was, price: it.price } : BohemiaSettlement.state.stock.smith[0]; });
   ok('a shop is two grids: their shelf of icons, and your bag of 36 slots under it', shelfN >= 5 && bagSlots === 36, shelfN + ' on the shelf, ' + bagSlots + ' bag slots');
-  ok('  the shelf is weapons in our names', /pistol|pipe|sledge|rifle|machete|axe|spear|cleaver|chain|hook|bow|bottles|shotgun/.test(first.name), first.name + ' (was ' + first.was + ')');
+  ok('  the shelf is weapons in our names', /pistol|pipe|sledge|rifle|machete|axe|spear|cleaver|chain|hook|bow|bottles|shotgun|maul|hammer|club|bat|knife|blade|crowbar|wrench|flail|pick/.test(first.name), first.name + ' (was ' + first.was + ')');
   await p.click('#shelfgrid .slot.full'); await p.waitForTimeout(250);
   /* RE-AIMED 10/26 (RUN TWO [one tap selects, two taps buy], rule 249(a)): a tap lights the piece and fills the strip in place, the keeper says
      nothing new; the strip carries the price (on its button) and the numbers */
@@ -155,7 +156,7 @@ const srv = http.createServer((rq, rs) => {
   const bag2 = await p.evaluate(() => BohemiaSettlement.state.stash.map(i => i.kind).join(','));
   ok('  armour lands in the same bag', /weapon/.test(bag2) && /(body|head|shield)/.test(bag2), bag2);
   const s0 = await bat();
-  await p.click('#baggrid .slot.full'); await p.waitForTimeout(200);
+  await p.click('#baggrid .slot.full[data-id="' + first.id + '"]'); await p.waitForTimeout(200);   /* RE-AIMED 11/14 (rule 452): his bag shows dearest first, so the smith's piece is found by its id */
   await p.click('#shopstrip #sellit'); await p.waitForTimeout(250);   /* RE-AIMED 10/26 (RUN TWO [one tap selects]): the sale is the strip's button */
   const s1 = await bat(), bag3 = await p.evaluate(() => BohemiaSettlement.state.stash.length);
   ok('  selling takes it out of the bag and pays the Battle Brothers cut, a seventh (TUNING)', s1 - s0 === Math.max(1, Math.floor(first.price / 7)) && bag3 === 1, s0 + ' -> ' + s1 + ', bag ' + bag3);
