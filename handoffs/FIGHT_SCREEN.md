@@ -5,7 +5,7 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
-FIGHT SCREEN (fight-screen-01gkdyus): 11/14 LATEST -- [shot flash] SHIPPED @@SHA@@, BUILD 11/14l - EVERY SHOT IS FELT, BUILT, NOT YET SEEN (rule 450(b)(c)(d); ask row 622). VOTE fight-screen-every-shot-is-felt-11-14 (stand_in; the card PLAYS it).
+FIGHT SCREEN (fight-screen-01gkdyus): 11/14 LATEST -- [shot flash] SHIPPED aa809c1d5, BUILD 11/14l - EVERY SHOT IS FELT, BUILT, NOT YET SEEN (rule 450(b)(c)(d); ask row 622). VOTE fight-screen-every-shot-is-felt-11-14 (stand_in; the card PLAYS it).
 Record: records/BOHEMIA_FIGHT_SCREEN_EVERY_SHOT_IS_FELT_11_14_26.md.
 WHAT: every gun fired by anyone throws a flash at its barrel and a quick white hit across the whole glass, bigger for a bigger gun, never a strobe
 (a volley is one flash, three a second at most), soft by SETTINGS' new FLASH switch (boh.flash), MOTION: LESS or the phone's reduce-motion.
