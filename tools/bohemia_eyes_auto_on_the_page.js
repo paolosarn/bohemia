@@ -235,12 +235,15 @@ const HOOKS = `(function(){
   } catch (e) { log('hire failed', String(e).slice(0, 160)); }
 
   /* ---- THE ROAD: meetings on many boards (the encounter the map sends), 1x, 2x, 4x in turn ---- */
-  const cells = await city().evaluate(() => { const want = ['suburb', 'arterial', 'strip', 'freeway', 'downtown', 'desert', 'casino', 'industrial', 'resort', 'apartment', 'trailer', 'wash', 'commercial', 'landfill'];
-    const got = {}; const N = om.n; for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { const t = om.at(x, y); const d = t && t.district; if (d && want.indexOf(d) >= 0 && !got[d]) got[d] = [x, y]; }
-    return want.filter(d => got[d]).map(d => ({ d, at: got[d] })); });
+  /* EYES 11/14: EYES_DISTRICTS (comma list) points the road meetings at chosen grounds (the wash for the flood tunnels, the mall and the
+     stadium for the garage); every cell of each ground is a candidate, so a ground's own dice get several tries */
+  const WANT_D_ = (process.env.EYES_DISTRICTS || 'suburb,arterial,strip,freeway,downtown,desert,casino,industrial,resort,apartment,trailer,wash,commercial,landfill').split(',');
+  const cells = await city().evaluate((WANT_D) => { const want = WANT_D;
+    const got = {}; const N = om.n; for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { const t = om.at(x, y); const d = t && t.district; if (d && want.indexOf(d) >= 0) (got[d] = got[d] || []).push([x, y]); }
+    return want.filter(d => got[d]).map(d => ({ d, all: got[d] })); }, WANT_D_);
   log('boards to deal', cells.map(c => c.d).join(' '));
-  for (let i = 0; n < FIGHTS && i < cells.length * 2; i++) {
-    const c = cells[i % cells.length];
+  for (let i = 0; n < FIGHTS && i < cells.length * 4; i++) {
+    const c0 = cells[i % cells.length], pass = Math.floor(i / cells.length), c = { d: c0.d, at: c0.all[(pass * 7919 + 13) % c0.all.length] };
     try {
       await page.evaluate((c) => { window.nfOpen({ type: 'BOHEMIA_CITY_ENCOUNTER', district: c.d, at: { gx: c.at[0], gy: c.at[1] }, label: 'eyes-auto', draft: true }); }, c);
       if (await until(async () => !!fightF(), 20000)) await playFight(++n, 'a meeting on the road: ' + c.d, speeds[n % 3]);

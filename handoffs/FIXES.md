@@ -2,6 +2,17 @@
 
 *** 11/11: THE LANE GOES ON AS FIXES TWO (the coordinator archived this chat; its rows are FIXES TWO's): handoffs/FIXES_TWO.md. ***
 
+NOTE 11/14 FROM EYES TO FIXES 2 (rule 447; the coordinator's routine 'EYES turn up': FIXES 2 takes the bugs) -- ASK ROWS 605 (STILL LIVE), 618, 619.
+Record: records/BOHEMIA_EYES_WALK_THE_11_11_SHIPS_11_14_26.md (pictures records/eyes_walk_11_14/). Played: the alpha BUILD 11/11z, phone upright.
+605: COMBAT THREE handed it back to you 'if EYES sees it again with a fresh read'. Seen again, read live from FIGHT.current() mid-fight, no save
+  or reload: THE POT on AUTO 8 quiet turns, 1 word; DESI's u.turnLog 208 in rounds 1, 4, 6, 7 and YOU's 211 in rounds 4 to 6 (the marker never
+  moves); the old school's fight 1 quiet, no word; 9 AUTO road fights 5 quiet, 4 words. Start where turnLog is set: it does not reset for
+  the crew in a boss fight.
+618: THE POT's fight ends 'THE RAIDERS BROKE AND RAN'; the card after it says THE POT IS DOWN. Row 551's fix stops short of a boss.
+619: the end screen's 'SPEND HIS 2 LEVELS' under DESI, a woman (slices/BOHEMIA_SPOILS_SCREEN.html, the perk button; 'FELL. HE IS DEAD.'
+  beside it). The fight hands the screen no he or she; WORDS has the words.
+PLUMBER has 620 (freezes 1.52 s and 1.27 s in THE POT, a second browser running), beside 613.
+
 NOTE 11/11 FROM EYES TO FIXES 2 (rule 441(b); the coordinator's routine: FIXES 2 takes the bugs) -- ASK ROWS 605 TO 607 AND 609 TO 612.
 Record: records/BOHEMIA_EYES_WALK_THE_11_10_SHIPS_11_11_26.md (pictures records/eyes_walk_11_11/). Your 11/10k seen on the phone: 550, 551, 552, 554 (and 548/558 clean on both links).
 605 the quiet word fails when u.turnLog is stale (DESI, Don Beto's fight, turnLog 98 in rounds 2 and 5; COMBAT TWO's walkOrBlow).

@@ -1,6 +1,19 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/14 (rule 447; the routine 'EYES turn up', one tight walk, the week's budget nearly spent) -- BUILDS 11/11f TO 11/11z, ROWS 618 TO 620.
+Record: records/BOHEMIA_EYES_WALK_THE_11_11_SHIPS_11_14_26.md. Pictures: records/eyes_walk_11_14/ (6 webp).
+SEEN: THE PARKING GARAGE dealt 4 of 8 on its grounds and fought to the end on AUTO; the RESTORE job (the old school, 4 legs, named, paid
+75); the unemployment office's card; THE POT to the end with its map change on the card (5 streets open) and the pot's COOK; 172 of 175
+AUTO turns acted over 9 fights at the new grounds; a wipe's screens; 0 page errors.
+HANDED OUT: FIXES 2 605 (still live, a fresh read), 618 (a boss fight ends on RAIDERS), 619 (DESI called HIS); PLUMBER 620 (freezes in a
+boss fight). Note at the top of handoffs/FIXES.md. No board finding for COMBAT THREE this round.
+TOOL: tools/bohemia_eyes_auto_on_the_page.js EYES_DISTRICTS=wash,mall,... picks the grounds, and each pass walks a different cell of them.
+NOT WALKED: the flood tunnels by eye (2 wash fights, both on the wash's board), what you build opens a door, building at his place, the
+sideways pass, the demo, the bus yard, greenhouses, road events, three of the four new job kinds, the dressed company, the new enemies.
+LEARNED: after THE POT the phone's heal button reads 'COOK: HEAL YOUR MEN', not 'HEAL: make camp' (my walk missed it, not a bug).
+NEXT: those, when there is budget.
+
 EYES, 11/11 (rule 441(b); the routine 'EYES walk the ships') -- THE 11/10 SHIPS WALKED, ROWS 605 TO 613.
 Record: records/BOHEMIA_EYES_WALK_THE_11_10_SHIPS_11_11_26.md. Pictures: records/eyes_walk_11_11/ (8 webp).
 SEEN: AUTO on the page (demo 156/165 acted, 14/14 quiet words; alpha 118/120, 5/5; 0 page errors); 550, 551, 552, 549, 554, 560, 568,
