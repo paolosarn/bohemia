@@ -19260,7 +19260,8 @@
     ]
    },
    "record": "records/BOHEMIA_COOK_FIVE_THE_CEILINGS_11_14_26.md"
-  }
+  },
+  {"id": "ui3-the-phone-is-the-door-11-14", "kind": "ui", "lane": "ui three", "sha": "62ee20d8", "made": "11/14", "draft": true, "title": "EVERY CARD COMES OUT OF YOUR PHONE AND GOES BACK INTO IT", "said": "if you don't have an artistic thing to combine something with, just do it from the phone, where the phone is at, just have it come out from there", "why": "A card that has nothing of its own in the world (a road event, someone you meet, the day's card, the settings, the end of a fight) now flies out of the phone and goes back into it, while a building's page still grows out of that building. You see it on the map in the CITY when a road event stops you; the clip plays the old way first, then now.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/ui3_the_phone_is_the_door_11_14/the_road_card.webp"}, "before_after": {"before": "main: the road event's card grew in place in the middle of the map", "after": "it comes out of the phone and goes back into it", "scale": "the demo on a 390 x 844 phone, 0.62 of its size, it plays"}, "record": "records/BOHEMIA_UI_THREE_THE_PHONE_IS_THE_DOOR_11_14_26.md"}
  ],
  "verdicts": [
   {
