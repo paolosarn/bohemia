@@ -1,6 +1,28 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rule 429(a) ONE MAP; ask rows 504, 506, 507; WORLD THIRTEEN's seam): 11/11 LATEST -- [crew on its cell] SHIPPED 9b75c364e, BUILD 11/11z - THE CREW STARTS ON ITS CELL, BUILT, NOT YET SEEN. VOTE combat3-the-crew-starts-on-its-cell-11-11 (stand_in).
+COMBAT THREE (rules 447, 442(d), 429(a)(c)(g); ask rows 547, 577, 504, 507, 610): 11/14 LATEST -- [not the same suburb twice] SHIPPED SHIPSHA, BUILD 11/14f - NOT THE SAME SUBURB TWICE, BUILT, NOT YET SEEN. VOTE combat3-not-the-same-suburb-twice-11-14 (stand_in).
+Record: records/BOHEMIA_COMBAT_THREE_NOT_THE_SAME_SUBURB_TWICE_11_14_26.md. The coordinator's round, one tight batch, three jobs:
+(1) THE SEAM CHECK IS GREEN, 15 of 15 (gate NO BOARD BREAKS ITS OWN PICTURE; it was red on the suburbs, 19.7%). Measured: 97 of the 98 lines it saw were the new streets'
+own kerbs against a yard (ground against ground 0 of 279; street against street 1 of 89, a roof). The reader (tools/bohemia_combat_maps_seams_read_11_3_26.py) now takes
+the fight's street map: a street's edge is its kerb, never a seam, but it must BE a kerb (a seen border with the street's side still its asphalt is counted: 0 of 409 over
+six places); street against street is read as any border. Planted every run. No picture and no board changed.
+(2) A PLAIN CELL IS NOT THE PLACE (FIGHT.html plainCell, __A_PLAIN_CELL_IS_NOT_THE_PLACE__): a place's own board is dealt only where the place stands (opts.template); a
+cell the map hands with no place under it deals from its own ground and zone (placeKinds: the district's kinds in WORLD's table, the cell's dice). 30 plain suburb cells:
+30 boards (they were 1). The fight knows a plain cell by the map window (cityFrame.vbTemplateAt exists and no template came); opts.place false / true force it.
+Gate A PLAIN CELL IS NOT THE PLACE 7/0, registered. ON THE PAGE: 20 fights, the alpha and the demo, upright and on its side, all ended, 0 page errors.
+*** NOT SHIPPED, FOR THE COORDINATOR AND COOK: the map's own block cut tile for tile (opts.street 'map') is the truest 429(a) and I looked at it on the demo for plain
+cells: a dark bare tarmac field with pale pads in a checkerboard (the industrial park), the look he refused on 11/7. One line turns it on (streetPlanFor). It needs one
+continuous finished ground per zone under the lots before it is his to see. ***
+(3) ROW 610: not in the fight board's hand-over. It is the JOB board (JOBS fixed it, 11/11s). The fight's board is seeded by the cell and its ground: the same cell, the
+same board (gate leg P6, 35 of 35).
+THE SITE'S WEIGHT: this build is about 0.7 MB lighter (my eight card pictures re-encoded, 1,539 KB to 684 KB). The cap is PLUMBER's.
+FOR WORLD THIRTEEN: nothing of yours edited. The fight reads your vbTemplateAt's presence on the map window to know the map stands places; P2 holds every plain board to
+your table's families, so the_map_kinds_have_fight_answers stays true. FOR EYES: plain cells now deal by the cell (tools/bohemia_combat_three_on_the_page.js demo upright OUT district:suburb 3, C3_PLAIN=1).
+RED, NOT MINE, as before: PAGES PUBLISH's cap, the VOTE tab's old legs, the gate registry's orphans.
+[bb Battle Brothers deals its fight map from the world tile's terrain and what stands on it; ours now does away from the places, and keeps a place's own board where the place is]
+[analog horror: the same cul-de-sac never twice; you know the street is wrong because you have never stood on it before]
+
+COMBAT THREE (rule 429(a) ONE MAP; ask rows 504, 506, 507; WORLD THIRTEEN's seam): 11/11 -- [crew on its cell] SHIPPED 9b75c364e, BUILD 11/11z - THE CREW STARTS ON ITS CELL, BUILT, NOT YET SEEN. VOTE combat3-the-crew-starts-on-its-cell-11-11 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_CREW_STARTS_ON_ITS_CELL_11_11_26.md.
 WHAT: a fight the map hands from a cell of one of the 15 places (opts.template, WORLD THIRTEEN's __THE_CUT__) stands his company ON THAT CELL of the place's own board
 (setup, __THE_CREW_STARTS_ON_ITS_CELL__): S.rowMid = the cell's middle row (ty + 1; deployCrew, place and formationNow all count from it); his front = the cell's east

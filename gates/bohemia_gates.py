@@ -917,7 +917,9 @@ GATES = [
      'line the eye sees where two cells of open ground meet, block seams and cell borders apart), a CUT-OFF (a colour that stops '
      'dead at a border), ROADS (every road reaching a block seam met by a road across it), and a LOGIC list checked by eye per '
      'place, tied to the sha1 of its pictures so a changed picture is an unchecked list. A fixed place must meet the floors; a '
-     'place on OWED_SEAMS has not been fixed yet, and that list only shrinks.', False),
+     'place on OWED_SEAMS has not been fixed yet, and that list only shrinks. KERBS (COMBAT THREE 11/14, rule 442(d)): a street\'s own edge against '
+     'the ground is its kerb, never a seam, but it must be there (asphalt bare to a yard is the fail); street against street is read as '
+     'any border; planted every run (kerbs painted over, a kerb drawn across the junctions).', False),
     ('THREE BLOCKS', ['node', 'gates/three_blocks_gate.js'],
      'ROW [the apron, the compound and the civic interior], rule 46 and rule 59. The row (WORLD\'s '
      'own, written 10/10 under rule 74) said THREE BLOCKS ARE MISSING for the 24 districts that '
@@ -9516,6 +9518,13 @@ GATES = [
      "and says that line, dry, in the flood and on the silt (T7); the main channel is open floor and AUTO gets off it after the first round (T8). "
      "Planted: the fill across every culvert, a flood that never drops, the grates live at night, a tile kind with no row, a wrong AP, the channel "
      "not open floor. About 40 s", True),
+    ('A PLAIN CELL IS NOT THE PLACE', ['node', 'gates/a_plain_cell_is_not_the_place_gate.js'],
+     "COMBAT THREE gate, 11/14, VAMILY rules 429(a)(c)(g) and 447 (ask rows 504, 507 and 610; the coordinator's round: 'a board cut from that "
+     "cell's ground and zone, never the same suburb for everything'). A place's board is fought where the place stands; a cell the map hands "
+     "with no place under it is dealt no place's own board (P1), only blocks of the kinds WORLD's table names for its district (P2), never the "
+     "same board for everything: 30 plain suburb cells at least five boards, no district one board only (P3); a place's cell still deals the "
+     "place (P4); a fight plays on a plain cell of every place's district (P5); the same cell deals the same board twice, the fight's board "
+     "never re-deals between two visits (P6). Planted: the plain cell not known. About 50 s", True),
     ('THE CREW STARTS ON ITS CELL', ['node', 'gates/the_crew_starts_on_its_cell_gate.js'],
      "COMBAT THREE gate, 11/11, VAMILY rule 429(a) ONE MAP (ask rows 504, 506, 507; WORLD THIRTEEN's seam: 'start the crew on the cell's tiles'). "
      "A fight the map hands from a cell of one of the 15 places is dealt that place's own board block for block (K1); a man of his stands as near "

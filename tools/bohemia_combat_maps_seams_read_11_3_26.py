@@ -35,8 +35,8 @@ def strip_mean(a, axis, lo, hi):
     return a[:, lo:hi].mean(1) if axis == 1 else a[lo:hi, :].mean(0)
 
 
-def reads(a, tw, th, W, H, open_=None):
-    out = dict(block_seen=0, block_n=0, cell_seen=0, cell_n=0, cut=0, where=[])
+def reads(a, tw, th, W, H, open_=None, street=None):
+    out = dict(block_seen=0, block_n=0, cell_seen=0, cell_n=0, cut=0, where=[], kerb_n=0, kerb_bare=0)
     def segs(vertical):
         n = W if vertical else H
         for k in range(1, n):
@@ -47,11 +47,17 @@ def reads(a, tw, th, W, H, open_=None):
                 yield k, j, p, step, s0, s1
     for vertical in (True, False):
         for k, j, p, step, s0, s1 in segs(vertical):
+            c1, c2 = ((j, k - 1), (j, k)) if vertical else ((k - 1, j), (k, j))
             if open_ is not None:                                         # only between two cells of open ground
-                c1, c2 = ((j, k - 1), (j, k)) if vertical else ((k - 1, j), (k, j))
                 if not (open_[c1[0]][c1[1]] and open_[c2[0]][c2[1]]): continue
             band = a[s0:s1, :, :] if vertical else a[:, s0:s1, :].transpose(1, 0, 2)
             q = lambda x0, x1: band[:, max(0, x0):x1, :].mean(1)
+            # A STREET'S OWN EDGE IS A KERB, NOT A SEAM (COMBAT THREE 11/14, rule 442(d), ask rows 547 and 577): where a street tile meets
+            # the ground beside it the line you see is the street's kerb or its sidewalk, the honest grid the way a wall on its house
+            # tile is (measured on the suburbs since their streets went in: 97 of the 98 borders 'seen' were a street against a yard;
+            # ground against ground 0 of 279). What is wrong at a street's edge is asphalt run bare to the ground with NO kerb: the
+            # strip on the street's side of the border must not be the asphalt 40 px further in. Street against street still counts
+            # as any border: a kerb drawn across a junction, a street that stops dead at its neighbour, is a line you see.
             L_, R_ = q(p - 6, p - 1), q(p + 2, p + 7)
             d = np.linalg.norm(L_ - R_, axis=1)
             m1, m2 = int(p - step / 2), int(p + step / 2)
@@ -60,6 +66,15 @@ def reads(a, tw, th, W, H, open_=None):
             md = float(np.median(d))
             blockseam = k % 5 == 0
             seen = md >= 9.0 and md >= 2.2 * base
+            if street is not None and len(street):
+                a1, a2 = bool(street[c1[0]][c1[1]]), bool(street[c2[0]][c2[1]])
+                if a1 != a2:
+                    near = q(p - 8, p - 2) if a1 else q(p + 3, p + 9)
+                    deep = q(p - 56, p - 40) if a1 else q(p + 41, p + 57)
+                    out['kerb_n'] += 1
+                    # bare: the border is a line you see (the same reading as any border) and the street's side of it is still its asphalt
+                    if seen and float(np.median(np.linalg.norm(near - deep, axis=1))) < 10.0: out['kerb_bare'] += 1
+                    continue
             if blockseam: out['block_n'] += 1; out['block_seen'] += int(seen)
             else: out['cell_n'] += 1; out['cell_seen'] += int(seen)
             # the cut-off: different families, and the change made within 4 px of the border along most of the segment
@@ -145,16 +160,46 @@ def roads(blocks):
 if __name__ == '__main__':
     d = sys.argv[1]
     meta = json.load(open(os.path.join(d, 'boards.json')))
-    res = {}
+    res = {}; plant = None
     for m in meta:
         a = np.asarray(Image.open(os.path.join(d, m['file'])).convert('RGB')).astype(np.float32)
-        r = reads(a, m['tw'], m['th'], m['w'], m['h'], m.get('open'))
+        r = reads(a, m['tw'], m['th'], m['w'], m['h'], m.get('open'), m.get('street'))
+        r['_m'] = m
         r['road_bad'], r['road_n'] = roads(m['blocks'])
         res.setdefault(m['place'], []).append(r)
+    # THE PLANT (once, on the board with the most street edges): every kerb painted over with its own street's asphalt must read bare,
+    # and a kerb's colour drawn across every street-to-street border must read as lines; and read the old way (no street map) the
+    # honest board is the red it was
+    best = max((r for rs in res.values() for r in rs), key=lambda r: r['kerb_n'], default=None)
+    if best is not None and best['kerb_n'] >= 8 and '--plant' in sys.argv:
+        m, r = best['_m'], best
+        a = np.asarray(Image.open(os.path.join(d, m['file'])).convert('RGB')).astype(np.float32)
+        if True:
+            st, op, tw_, th_ = m['street'], m.get('open'), m['tw'], m['th']; b1, b2 = a.copy(), a.copy()
+            for vertical in (True, False):
+                for k in range(1, m['w'] if vertical else m['h']):
+                    p = int(round(k * (tw_ if vertical else th_)))
+                    for j in range(m['h'] if vertical else m['w']):
+                        s0, s1 = int(round(j * (th_ if vertical else tw_))), int(round((j + 1) * (th_ if vertical else tw_)))
+                        c1, c2 = ((j, k - 1), (j, k)) if vertical else ((k - 1, j), (k, j))
+                        a1, a2 = bool(st[c1[0]][c1[1]]), bool(st[c2[0]][c2[1]])
+                        if a1 != a2:
+                            lo, hi = (p - 30, p) if a1 else (p, p + 30); d0, d1 = (p - 56, p - 40) if a1 else (p + 41, p + 57)
+                            if vertical: b1[s0:s1, lo:hi, :] = b1[s0:s1, d0:d1, :].mean(axis=(0, 1))
+                            else: b1[lo:hi, s0:s1, :] = b1[d0:d1, s0:s1, :].mean(axis=(0, 1))
+                        elif a1 and a2:
+                            if vertical: b2[s0:s1, p - 9:p, :] = (205., 198., 180.)
+                            else: b2[p - 9:p, s0:s1, :] = (205., 198., 180.)
+            r1, r2, r0 = reads(b1, tw_, th_, m['w'], m['h'], op, st), reads(b2, tw_, th_, m['w'], m['h'], op, st), reads(a, tw_, th_, m['w'], m['h'], op, None)
+            plant = dict(place=m['place'], kerb_n=r['kerb_n'], kerb_bare=r['kerb_bare'], painted_bare=r1['kerb_bare'],
+                         street_seen=r['cell_seen'] + r['block_seen'], barred_seen=r2['cell_seen'] + r2['block_seen'],
+                         old_cell_seen=r0['cell_seen'], old_cell_n=r0['cell_n'])
     out = {}
     for p, rs in res.items():
         out[p] = dict(block_seen=sum(r['block_seen'] for r in rs), block_n=sum(r['block_n'] for r in rs),
                       cell_seen=sum(r['cell_seen'] for r in rs), cell_n=sum(r['cell_n'] for r in rs),
                       cut=sum(r['cut'] for r in rs), road_bad=sum(len(r['road_bad']) for r in rs), road_n=sum(r['road_n'] for r in rs),
+                      kerb_n=sum(r['kerb_n'] for r in rs), kerb_bare=sum(r['kerb_bare'] for r in rs),
                       road_examples=[x for r in rs for x in r['road_bad']][:4], where=rs[0]['where'][:8])
+    if plant is not None: out['_plant'] = plant
     print(json.dumps(out))

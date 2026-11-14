@@ -1586,9 +1586,24 @@ const FIGHT = (function () {
     if (connected()) return true;
     applyBoard(T); S.housesErr = 'not joined'; return false;
   }
+  /* __A_PLAIN_CELL_IS_NOT_THE_PLACE__ (COMBAT THREE 11/14, rules 429(a)(c)(g) and 447; ask rows 504 and 507; the coordinator's round:
+     'the fights on map cells no place stands on: a board cut from that cell's ground and zone, never the same suburb for
+     everything'). WORLD THIRTEEN stood the 15 place boards on the map as places (11/11b) and a place's cell deals that place's own
+     board (11/11h, 11/11z). Until now every OTHER cell of a place's districts dealt the place's board too (a shuffle of its one or
+     two blocks: every suburb, town, school, chapel, library, estate and gated cell the same yards). A PLACE'S BOARD IS FOUGHT WHERE
+     THE PLACE STANDS: on a cell the map hands over with no place under it (the map there stands places: vbTemplateAt; no
+     opts.template) the fight deals from that cell's own ground and zone (placeKinds: the district's block kinds in WORLD's list, led
+     by the zone's own, the cell's dice), so two plain cells of the suburbs are two different streets. opts.place false asks for it
+     anywhere (a gate, a bench), true never. MEASURED AND NOT SHIPPED: the map's own block cut tile for tile (opts.street 'map') is
+     the truest answer to 429(a) and is still the bare dark board he refused on 11/7 (stills in the record); it stays behind its ask */
+  function plainCell(opts) {
+    if (opts.place === false) return true;
+    if (opts.place === true || opts.template || opts.boss || opts.arena || opts.board || !opts.cell || !opts.district) return false;
+    try { const f = window.parent && window.parent !== window ? window.parent.document.getElementById('cityFrame') : null, w = f && f.contentWindow; return !!(w && typeof w.vbTemplateAt === 'function'); } catch (e) { return false; }
+  }
   function dealOnce(opts) {
     const G = DB.ground, bt = G.block_tiles, tm = G.tile_metres, lib = blockLibrary(), mix = R('ours.board_mix');
-    const mine = placeOwn(opts);
+    const mine = plainCell(opts) ? null : placeOwn(opts);
     if (mine) return dealt(opts, dealOwn(opts, mine));
     const own = placeKinds(opts, lib);
     if (own) return dealt(opts, dealPlace(opts, own, lib));

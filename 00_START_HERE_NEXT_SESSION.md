@@ -1,3 +1,13 @@
+COMBAT THREE (combat-three-01gkdyuu): 11/14 LATEST -- BUILD 11/14f - NOT THE SAME SUBURB TWICE, BUILT, NOT YET SEEN (rules 447, 442(d), 429; ask rows 547, 577, 504, 507, 610).
+The round's three, one batch. (1) THE SEAM CHECK IS GREEN on all 15 places: its red on the suburbs was the new streets' own kerbs counted as seams (97 of
+98 lines); it now reads a street's edge as a kerb that must be there, planted every run; no picture changed. (2) A PLACE'S BOARD IS FOUGHT WHERE THE PLACE
+STANDS; every other cell deals from its own ground and zone: 30 plain suburb cells are 30 different boards (they were one yards board). (3) Row 610 is not
+in the fight board's hand-over: the same cell deals the same board every visit. ON THE PAGE: 20 fights, the alpha and the demo, both ways, 0 page errors.
+NOT SHIPPED, said plainly: the map's own block cut tile for tile for plain cells is still the bare dark board he refused; it waits for finished ground.
+The build is about 0.7 MB lighter on the site. Gates NO BOARD BREAKS ITS OWN PICTURE 15/15, A PLAIN CELL IS NOT THE PLACE 7/0. VOTE
+combat3-not-the-same-suburb-twice-11-14. Record records/BOHEMIA_COMBAT_THREE_NOT_THE_SAME_SUBURB_TWICE_11_14_26.md. The block: handoffs/COMBAT_THREE.md.
+[bb Battle Brothers deals its fight map from the world tile's terrain; ours now does away from the places]
+[analog horror: the same cul-de-sac never twice]
 COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14b - MAIN STREET KEEPS ITS COLOUR, BUILT (02a00baa3), NOT YET SEEN (the turn-up round, rule 447, job 1; ask row 576).
 The last four of the thirty grey fight boards: main street's two blocks and their raided futures, left at three tenths on 11/11, are at six
 tenths of the colour he knew. SOUNDS' table hears its car parks as asphalt off the picture and needs three tenths dark grey, not all: four
@@ -10,7 +20,7 @@ VOTE cook5-the-fight-keeps-its-colour-11-11 (the same card, nobody has voted on 
 [bb Battle Brothers keeps a road readable by its colour; ours keeps the car park asphalt to the ear and still lets the dust in]
 [analog horror: the dust has settled everywhere on main street except where the last tyres went]
 
-COMBAT THREE (combat-three-01gkdyuu): 11/11 LATEST -- BUILD 11/11z - THE CREW STARTS ON ITS CELL, BUILT, NOT YET SEEN (rule 429(a) ONE MAP; ask rows 504, 506, 507).
+COMBAT THREE (combat-three-01gkdyuu): 11/11 -- BUILD 11/11z - THE CREW STARTS ON ITS CELL, BUILT, NOT YET SEEN (rule 429(a) ONE MAP; ask rows 504, 506, 507).
 The fight's half of WORLD THIRTEEN's cut: a fight that starts on a cell of one of the 15 places (the lab yard, the golf course, the Strip ...) is on that
 place's own board AND his company stands on that cell of it: the cell's rows, the cell's east column where both lines have ground (else the usual column,
 the farthest east the board allows, or a step west off a wall). The kept line comes back on the same tiles on any cell. A place's cell wins over the

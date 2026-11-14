@@ -6,6 +6,10 @@
               honest grid, not a seam), a straight line the eye sees where the two meet;
      CUT-OFF  a colour that stops dead at a border;
      ROADS    every road that reaches a block seam goes on across it (or the board's edge);
+     KERBS    (COMBAT THREE 11/14, rule 442(d), ask rows 547 and 577) a street's own edge against the ground beside it is its kerb or
+              its sidewalk, the honest grid, never counted as a seam: but it must BE there (asphalt run bare to a yard is the fail),
+              and street against street is still read as any border (a kerb across a junction, a street that stops dead, is a line);
+              planted every run: kerbs painted over read bare, a kerb drawn across the junctions reads as lines;
      EDGE     no thing reaches past its block's side, where the picture stops and would cut it (rule 356(c): 'these art assets cut
               off at the edge of any grid tile'): every box, model and rock of the place's blocks as the tool places them
               (tools/bohemia_combat_maps_every_place_its_own_board_11_3_26.py --clips, no render needed);
@@ -24,7 +28,7 @@ const ROOT = path.join(__dirname, '..');
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
 const BEFORE = process.argv.includes('--before'), OUT = arg('--json', null), ONLY = arg('--only', null);
 const K = 3;
-const FLOOR = { block_seen: 0.12, cell_seen: 0.04, cut: 0.04, road_bad: 0 };   /* shares of the borders read (roads: none) */
+const FLOOR = { block_seen: 0.12, cell_seen: 0.04, cut: 0.04, road_bad: 0, kerb_bare: 0.04 };   /* shares of the borders read (roads: none); kerb_bare: of a place's street edges, the share with no kerb */
 const OWED_SEAMS = [];
 const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.webp': 'image/webp', '.png': 'image/png', '.mp3': 'audio/mpeg', '.ogg': 'audio/ogg', '.css': 'text/css', '.wasm': 'application/wasm', '.glb': 'model/gltf-binary' };
 
@@ -63,15 +67,15 @@ function blocksSha(place, P, G) {
       const got = await p.evaluate(() => { const U = eval('UI'), F = eval('FIGHT'), S = F.S;
         /* a cell of open ground: something you walk on that nothing stands on (a wall on its house tile is the honest grid, not a seam) */
         const open = []; for (let y = 0; y < S.h; y++) { open.push([]); for (let x = 0; x < S.w; x++) open[y].push(F.rowAt(x, y) !== 'obstacles' && !S.solid[y][x] && !(F.level(x, y) > 0) && !S.cover[y][x]); }
-        return { url: U.board.toDataURL('image/png'), tw: U.tw, th: U.th, w: S.w, h: S.h, blocks: S.boardDef.blocks, open: open }; });
+        return { url: U.board.toDataURL('image/png'), tw: U.tw, th: U.th, w: S.w, h: S.h, blocks: S.boardDef.blocks, open: open, street: (S.street || []).map(function (r) { return Array.prototype.map.call(r, function (v) { return !!v; }); }), laid: !!S.boardDef.laid }; });
       const file = 'board_' + id + '_' + k + '.png';
       fs.writeFileSync(path.join(dir, file), Buffer.from(got.url.split(',')[1], 'base64'));
-      meta.push({ place: id, file, tw: got.tw, th: got.th, w: got.w, h: got.h, blocks: got.blocks, open: got.open });
+      meta.push({ place: id, file, tw: got.tw, th: got.th, w: got.w, h: got.h, blocks: got.blocks, open: got.open, street: got.street, laid: got.laid });
     }
   }
   await br.close(); srv.close();
   fs.writeFileSync(path.join(dir, 'boards.json'), JSON.stringify(meta));
-  const res = JSON.parse(cp.execFileSync('python3', [path.join(ROOT, 'tools/bohemia_combat_maps_seams_read_11_3_26.py'), dir], { encoding: 'utf8', maxBuffer: 1 << 26 }));
+  const res = JSON.parse(cp.execFileSync('python3', [path.join(ROOT, 'tools/bohemia_combat_maps_seams_read_11_3_26.py'), dir, '--plant'], { encoding: 'utf8', maxBuffer: 1 << 26 }));
   const own = id => Array.from(new Set([places[id].landmark_block].concat(places[id].field || [], [].concat(...Object.values(places[id].cols || {})),
     [].concat(...Object.values(places[id].rows || {}))).map(b => b.split('|')[0])));
   const allB = Array.from(new Set([].concat(...ids.filter(id => !OWED_SEAMS.includes(id)).map(own))));   /* the fixed places' blocks */
@@ -80,7 +84,7 @@ function blocksSha(place, P, G) {
   const LL = path.join(ROOT, 'records/target/combat_maps_11_3/logic_list.json');
   const logic = fs.existsSync(LL) ? JSON.parse(fs.readFileSync(LL, 'utf8')) : {};
   const fails = [], rows = [];
-  console.log('place      block seams seen   cell borders seen   cut-offs   roads not met   cut at an edge   logic');
+  console.log('place      block seams seen   cell borders seen   cut-offs   roads not met   cut at an edge   logic     street edges with no kerb');
   ids.forEach(id => {
     const r = res[id], sha = blocksSha(id, places[id], G), lg = logic[id];
     const bs = r.block_seen / Math.max(1, r.block_n), cs = r.cell_seen / Math.max(1, r.cell_n), cu = r.cut / Math.max(1, r.block_n + r.cell_n);
@@ -88,16 +92,29 @@ function blocksSha(place, P, G) {
     const clipped = [].concat(...own(id).map(b => (CLIPS[b] || []).map(t => b + ': ' + t)));
     rows.push({ place: id, block_seen: +bs.toFixed(3), cell_seen: +cs.toFixed(3), cut: +cu.toFixed(3), road_bad: r.road_bad, road_n: r.road_n, clipped: clipped.length, logic: lok, sha, road_examples: r.road_examples, clip_examples: clipped.slice(0, 4), where: r.where });
     console.log([id.padEnd(10), (r.block_seen + '/' + r.block_n + ' ' + (bs * 100).toFixed(0) + '%').padEnd(18), (r.cell_seen + '/' + r.cell_n + ' ' + (cs * 100).toFixed(1) + '%').padEnd(19),
-      (r.cut + ' ' + (cu * 100).toFixed(1) + '%').padEnd(10), (r.road_bad + '/' + r.road_n).padEnd(15), String(clipped.length).padEnd(16), lok ? 'checked' : (lg ? 'STALE OR NOT OK' : 'none')].join(' '));
+      (r.cut + ' ' + (cu * 100).toFixed(1) + '%').padEnd(10), (r.road_bad + '/' + r.road_n).padEnd(15), String(clipped.length).padEnd(16), (lok ? 'checked' : (lg ? 'STALE OR NOT OK' : 'none')).padEnd(9), (r.kerb_bare || 0) + '/' + (r.kerb_n || 0)].join(' '));
     if (OWED_SEAMS.includes(id)) return;
     if (bs > FLOOR.block_seen) fails.push(id + ': ' + (bs * 100).toFixed(0) + '% of its block seams are a line you see (floor ' + FLOOR.block_seen * 100 + '%)');
     if (cs > FLOOR.cell_seen) fails.push(id + ': ' + (cs * 100).toFixed(1) + '% of its cell borders are a line you see (floor ' + FLOOR.cell_seen * 100 + '%)');
+    if ((r.kerb_bare || 0) / Math.max(1, r.kerb_n || 0) > FLOOR.kerb_bare) fails.push(id + ': ' + r.kerb_bare + ' of its ' + r.kerb_n + ' street edges run bare to the ground beside them, no kerb and no sidewalk (rule 442(d); floor ' + FLOOR.kerb_bare * 100 + '%)');
     if (cu > FLOOR.cut) fails.push(id + ': ' + (cu * 100).toFixed(1) + '% of its borders cut a colour off dead (floor ' + FLOOR.cut * 100 + '%)');
     if (r.road_bad > FLOOR.road_bad) fails.push(id + ': ' + r.road_bad + ' roads meet nothing across a seam (' + r.road_examples.slice(0, 2).join('; ') + ')');
     if (clipped.length) fails.push(id + ': ' + clipped.length + ' things cut at a picture\'s edge (' + clipped.slice(0, 2).join('; ') + ')');
     if (!lok) fails.push(id + ': its logic list is ' + (lg ? 'stale (its pictures changed since it was checked) or not ok' : 'missing'));
   });
   Object.keys(places).forEach(id => { if (!OWED_SEAMS.includes(id) && !places[id].built) fails.push(id + ': not built'); });
+  /* THE PLANT (COMBAT THREE 11/14): the street legs bite. On the first board with streets, every kerb painted over with its own
+     street's asphalt reads bare; a kerb's colour drawn across every street-to-street border reads as lines; and read the old way
+     (no street map) the same honest board is the red it was (a street's kerb counted as a seam) */
+  const PL = res._plant || null;
+  if (!ONLY || PL) {
+    if (!PL) fails.push('the plant: no board with street edges was read');
+    else {
+      console.log('planted on ' + PL.place + ': its ' + PL.kerb_n + ' street edges read bare ' + PL.kerb_bare + ' as baked, ' + PL.painted_bare + ' with every kerb painted over; street-to-street lines ' + PL.street_seen + ' as baked, ' + PL.barred_seen + ' with a kerb drawn across each; read the old way ' + PL.old_cell_seen + ' of ' + PL.old_cell_n + ' cell borders a line');
+      if (!(PL.painted_bare > PL.kerb_n * 0.5)) fails.push('the plant: kerbs painted over still read as kerbs (' + PL.painted_bare + ' of ' + PL.kerb_n + ' bare)');
+      if (!(PL.barred_seen >= PL.street_seen + 5)) fails.push('the plant: a kerb drawn across the junctions is not seen (' + PL.barred_seen + ' against ' + PL.street_seen + ')');
+    }
+  }
   if (OUT) fs.writeFileSync(OUT, JSON.stringify({ k: K, floor: FLOOR, owed: OWED_SEAMS, rows }, null, 1));
   console.log('owed (fixed later, may only shrink): ' + OWED_SEAMS.join(', '));
   if (BEFORE) { console.log('NO BOARD BREAKS ITS OWN PICTURE: BEFORE (measured, not judged)'); process.exit(0); }
