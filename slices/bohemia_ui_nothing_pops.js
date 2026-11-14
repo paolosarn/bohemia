@@ -51,23 +51,32 @@
      full-glass dim (it grows, the dim fades); how: card (a plate on the glass) | piece (a part of a screen, unrolls in place);
      voice: the box a person speaks from, kept clear of the phone. Rows that already move on their own (the town's sheet slides,
      the phone's apps strike in, the hints rise beside the phone, MOTION's crew screen and towns) are in the record's table, not here. */
+  /* __THE_PHONE_IS_THE_DOOR__ (UI THREE 11/14, VAMILY rule 448, ask row 615; Paolo 11/14: 'when in doubt and you don't know what to do
+     with the UI transitions, just do it from where the phone screen would be at all times... if you don't have an artistic thing to
+     combine something with, just do it from the phone, where the phone is at, just have it come out from there'). EVERY ROW NAMES
+     WHERE IT OPENS FROM (from): 'phone' (it has no thing of its own in the world: it travels out of the phone's spot and goes back
+     into it, the same spot on every screen, the phone drawn or not), 'world' (it grows from its own thing: at(w) gives it), 'finger'
+     (a tooltip is about the thing under the finger), 'piece' (a piece inside a screen unrolls in place), 'top' (the fight's own, FIGHT
+     SCREEN's glass, rule 449). The real screens MOTION moves itself keep their own: the town's sheet grows out of the building he
+     tapped, the settings out of the phone's SETTINGS, the loot screen out of the phone (bohemia_motion.js, realMorph). The gate THE PHONE
+     IS THE DOOR reads this table and MOTION's record and counts every screen change on the page against them. */
   var POPS = [
-    { id: 'road card', page: /CITY_WORLD/, sel: '#roadcard', inner: '.rc', how: 'card', voice: '.rc' },
-    { id: 'meet card', page: /CITY_WORLD/, sel: '#meetcard', inner: '.mc', how: 'card', voice: '.mc' },
-    { id: 'day card', page: /CITY_WORLD/, sel: '#daycard', how: 'card' },
-    { id: 'notes', page: /CITY_WORLD/, sel: '#notewrap', how: 'card' },
-    { id: 'town talk', page: /CITY_WORLD/, sel: '#cttalk', how: 'card', voice: '#cttalk' },
-    { id: 'town warning', page: /SETTLEMENT/, sel: '#campwarn', how: 'card', voice: '#campwarn', own: true },
-    { id: 'let him go?', page: /ROSTER/, sel: '#card .ask', how: 'piece' },
-    { id: 'level-up', page: /ROSTER/, sel: '#levelup', how: 'piece' },
+    { id: 'road card', page: /CITY_WORLD/, sel: '#roadcard', inner: '.rc', how: 'card', voice: '.rc', from: 'phone' },
+    { id: 'meet card', page: /CITY_WORLD/, sel: '#meetcard', inner: '.mc', how: 'card', voice: '.mc', from: 'phone' },
+    { id: 'day card', page: /CITY_WORLD/, sel: '#daycard', how: 'card', from: 'phone' },
+    { id: 'notes', page: /CITY_WORLD/, sel: '#notewrap', how: 'card', from: 'phone' },
+    { id: 'town talk', page: /CITY_WORLD/, sel: '#cttalk', how: 'card', voice: '#cttalk', from: 'phone' },
+    { id: 'town warning', page: /SETTLEMENT/, sel: '#campwarn', how: 'card', voice: '#campwarn', own: true, from: 'phone' },
+    { id: 'let him go?', page: /ROSTER/, sel: '#card .ask', how: 'piece', from: 'piece' },
+    { id: 'level-up', page: /ROSTER/, sel: '#levelup', how: 'piece', from: 'piece' },
     { id: 'fight veteran', page: /FIGHT/, sel: '#vet', how: 'card', voice: '#vet', from: 'top' },
-    { id: 'weapon card', page: /FIGHT/, sel: '#drawer', how: 'card' },
-    { id: 'fight over', page: /FIGHT/, sel: '#over', inner: ':scope > *', how: 'card' },
-    { id: 'injury card', page: /FIGHT|SPOILS|ROSTER/, sel: '.injc', how: 'piece' },
-    { id: 'settings', page: /DEMO|ALPHA/, sel: '#setwrap', inner: ':scope > *', how: 'card' },
-    { id: 'end screen', page: /DEMO|ALPHA/, sel: '#spoilsdoor', how: 'card', plate: true },
-    { id: 'kills card', page: /./, sel: '#bkt-card', how: 'card', voice: '#bkt-card' },
-    { id: 'tooltip', page: /./, sel: '#bptip', how: 'card', voice: '#bptip' }
+    { id: 'weapon card', page: /FIGHT/, sel: '#drawer', how: 'card', from: 'top' },
+    { id: 'fight over', page: /FIGHT/, sel: '#over', inner: ':scope > *', how: 'card', from: 'top' },
+    { id: 'injury card', page: /FIGHT|SPOILS|ROSTER/, sel: '.injc', how: 'piece', from: 'piece' },
+    { id: 'settings', page: /DEMO|ALPHA/, sel: '#setwrap', inner: ':scope > *', how: 'card', from: 'phone' },
+    { id: 'end screen', page: /DEMO|ALPHA/, sel: '#spoilsdoor', how: 'card', plate: true, from: 'phone' },
+    { id: 'kills card', page: /./, sel: '#bkt-card', how: 'card', voice: '#bkt-card', from: 'phone' },
+    { id: 'tooltip', page: /./, sel: '#bptip', how: 'card', voice: '#bptip', from: 'finger' }
   ];
 
   /* ---------------------------------------------------------------- the clock and the setting (MOTION's, read the same way) */
@@ -139,12 +148,25 @@
       var f = stepped([{ opacity: 0.33 }, { opacity: 0.66 }], { opacity: 1 }, holds(2));
       anims.push(el.animate(f.kf, { duration: f.ms }));
     } else {
-      var r = inner.getBoundingClientRect(), ox = '50%', oy = '50%', tap = S.tap;
+      var r = inner.getBoundingClientRect(), ox = '50%', oy = '50%', tap = S.tap, O = originOf(row, w, S, false);
+      if (O && r.width > 0) {   /* __THE_PHONE_IS_THE_DOOR__: it travels out of its origin, grows, overshoots, lands */
+        var tv = travel(r, O, baseT(inner)), d0 = holds(3), o0 = '50% 50%';
+        var g0 = stepped([{ translate: tv.T(1), scale: String(tv.s0), opacity: 0.55, transformOrigin: o0 }, { translate: tv.T(0.3), scale: String(tv.s0 + (1 - tv.s0) * 0.75), opacity: 0.92, transformOrigin: o0 },
+          { translate: tv.T(0), scale: '1.03', opacity: 1, transformOrigin: o0 }], { translate: tv.T(0), scale: '1', opacity: 1, transformOrigin: o0 }, d0);
+        /* a big sheet held as one layer while it travels: without it the town's sheet sideways was drawn again at every pose (the
+           worst frame 67 ms against 17 ms for the same sheet with the door off, measured on the demo) */
+        var wc0 = inner.style.willChange; inner.style.willChange = 'translate, scale, opacity';
+        var a0 = inner.animate(g0.kf, { duration: g0.ms }); anims.push(a0);
+        a0.addEventListener('finish', function () { inner.style.willChange = wc0; }); a0.addEventListener('cancel', function () { inner.style.willChange = wc0; });
+        if (inner !== el) { var b0 = stepped([{ opacity: 0.35 }, { opacity: 0.7 }, { opacity: 1 }], { opacity: 1 }, d0); anims.push(el.animate(b0.kf, { duration: b0.ms })); }
+        S.lastFrom = { id: row.id, from: row.from, at: tv.at, box: [Math.round(O.left), Math.round(O.top), Math.round(O.width), Math.round(O.height)], seen: O.seen !== false };
+      } else
       if (row.from === 'top') { oy = '0%'; }
       else if (row.how === 'piece') { oy = '0%'; }
       else if (tap && epochNow() - tap.t < 900 && r.width > 0) {
         ox = Math.round(Math.max(0, Math.min(r.width, tap.x - r.left))) + 'px'; oy = Math.round(Math.max(0, Math.min(r.height, tap.y - r.top))) + 'px';
       }
+      if (!(O && r.width > 0)) {
       var org = ox + ' ' + oy, d = holds(3);
       var poses = row.how === 'piece'
         ? [{ scale: '1 0.35', opacity: 0.5, transformOrigin: org }, { scale: '1 0.85', opacity: 0.85, transformOrigin: org }, { scale: '1 1.03', opacity: 1, transformOrigin: org }]
@@ -152,11 +174,13 @@
       var g = stepped(poses, { scale: '1', opacity: 1, transformOrigin: org }, d);
       anims.push(inner.animate(g.kf, { duration: g.ms }));
       if (inner !== el) { var b = stepped([{ opacity: 0.35 }, { opacity: 0.7 }, { opacity: 1 }], { opacity: 1 }, d); anims.push(el.animate(b.kf, { duration: b.ms })); }
+      }
     }
     var ms = 0;
     anims.forEach(function (a) { a.__bpops = true; ms = Math.max(ms, (a.effect && a.effect.getTiming().duration) || 0); var m = { a: a }; LIVE.push(m);
       a.onfinish = function () { var i = LIVE.indexOf(m); if (i >= 0) LIVE.splice(i, 1); }; });
-    LOG.push({ id: row.id, ev: 'in', doc: pageOf(w), t: Math.round(t0), ms: Math.round(ms), holds: red ? 2 : 3, reduced: red });
+    var LF = S.lastFrom && S.lastFrom.id === row.id ? S.lastFrom : null; S.lastFrom = null;
+    LOG.push({ id: row.id, ev: 'in', doc: pageOf(w), t: Math.round(t0), ms: Math.round(ms), holds: red ? 2 : 3, reduced: red, from: row.from || 'finger', at: LF ? LF.at : null, box: LF ? LF.box : null, seen: LF ? LF.seen : null });
   }
 
   /* ---------------------------------------------------------------- OUT: a copy as it was shrinks away; the real one is gone at once */
@@ -224,6 +248,14 @@
     var d = holds(2), anims = [];
     if (red) { var f = stepped([{ opacity: 0.6 }, { opacity: 0.3 }], { opacity: 0 }, d); anims.push(g.animate(f.kf, { duration: f.ms, fill: 'forwards' })); }
     else {
+      var O2 = originOf(row, w, S, true), cr = ci.getBoundingClientRect();
+      if (O2 && cr.width > 0) {   /* __THE_PHONE_IS_THE_DOOR__: the copy goes back into where it came from */
+        var tv2 = travel(cr, O2, [0, 0]), k2 = stepped([{ translate: tv2.T(0.3), scale: String(0.94), opacity: 0.85, transformOrigin: '50% 50%' }, { translate: tv2.T(0.75), scale: String(tv2.s0 + (1 - tv2.s0) * 0.3), opacity: 0.5, transformOrigin: '50% 50%' }],
+          { translate: tv2.T(1), scale: String(tv2.s0), opacity: 0, transformOrigin: '50% 50%' }, d);
+        anims.push(ci.animate(k2.kf, { duration: k2.ms, fill: 'forwards' }));
+        if (ci !== c) { var b2 = stepped([{ opacity: 0.7 }, { opacity: 0.35 }], { opacity: 0 }, d); anims.push(c.animate(b2.kf, { duration: b2.ms, fill: 'forwards' })); }
+        S.lastTo = { id: row.id, at: tv2.at };
+      } else {
       var org = (row.how === 'piece' || row.from === 'top') ? '50% 0%' : '50% 50%';
       var poses = row.how === 'piece'
         ? [{ scale: '1 0.8', opacity: 0.7, transformOrigin: org }, { scale: '1 0.35', opacity: 0.35, transformOrigin: org }]
@@ -231,13 +263,15 @@
       var k = stepped(poses, { scale: row.how === 'piece' ? '1 0.1' : '0.5', opacity: 0, transformOrigin: org }, d);
       anims.push(ci.animate(k.kf, { duration: k.ms, fill: 'forwards' }));
       if (ci !== c) { var b = stepped([{ opacity: 0.6 }, { opacity: 0.25 }], { opacity: 0 }, d); anims.push(c.animate(b.kf, { duration: b.ms, fill: 'forwards' })); }
+      }
     }
     var ms = 0, m = { g: g };
     anims.forEach(function (a) { a.__bpops = true; ms = Math.max(ms, (a.effect && a.effect.getTiming().duration) || 0); });
     m.a = anims[0]; LIVE.push(m);
     var end = function () { drop(g); var i = LIVE.indexOf(m); if (i >= 0) LIVE.splice(i, 1); };
     anims[0].onfinish = end; setTimeout(end, ms + 400);
-    LOG.push({ id: row.id, ev: 'out', doc: pageOf(w), t: Math.round(t0), ms: Math.round(ms), holds: 2, reduced: red, via: el.isConnected ? 'hidden' : 'removed' });
+    var LT = S.lastTo && S.lastTo.id === row.id ? S.lastTo : null; S.lastTo = null;
+    LOG.push({ id: row.id, ev: 'out', doc: pageOf(w), t: Math.round(t0), ms: Math.round(ms), holds: 2, reduced: red, via: el.isConnected ? 'hidden' : 'removed', from: row.from || 'finger', at: LT ? LT.at : null });
   }
 
   /* ---------------------------------------------------------------- the watcher, one a page */
@@ -277,7 +311,7 @@
     if (!doc || !doc.documentElement || doc.__bpops === doc) return;
     if (doc.readyState === 'loading' && !doc.body) return;
     var pg = pageOf(w);
-    var S = { doc: doc, w: w, page: pg, rows: POPS.filter(function (r) { return r.page.test(pg) || (pg === '' && r.page.test('DEMO')); }), on: {}, left: {}, disp: {}, first: true, tap: null };
+    var S = { doc: doc, w: w, page: pg, rows: POPS.filter(function (r) { return r.page.test(pg) || (pg === '' && r.page.test('DEMO')); }), on: {}, left: {}, disp: {}, orig: {}, first: true, tap: null };
     doc.__bpops = doc;
     try { S.mo = new MutationObserver(function (recs) { check(S, recs); }); S.mo.observe(doc.documentElement, { subtree: true, childList: true, attributes: true, attributeFilter: ['style', 'class', 'hidden', 'open'] }); } catch (e) {}
     check(S, null);
@@ -299,6 +333,36 @@
       while (v && v !== W && v.frameElement) { var fr = v.frameElement.getBoundingClientRect(); x += fr.left + (v.frameElement.clientLeft || 0); y += fr.top + (v.frameElement.clientTop || 0); v = v.parent; }
       return { left: T.left - x, top: T.top - y, right: T.right - x, bottom: T.bottom - y, width: T.width, height: T.height, side: T.side, on: true };
     } catch (e) { return null; }
+  }
+  /* __THE_PHONE_IS_THE_DOOR__: the phone's spot on the glass, the same on every screen even where the phone is not drawn: where it
+     stands now (UI TWO's BOH_PHONE_RECT), else where it last stood on a glass of this shape, else its own corner (bottom right, its
+     size on a phone), carried down into the page asking */
+  var SPOT = {};
+  function topSpot() {
+    var key = W.innerWidth > W.innerHeight ? 'wide' : 'tall';
+    try { var T = W.BOH_PHONE_RECT ? W.BOH_PHONE_RECT() : null; if (T && T.on && T.width > 4) SPOT[key] = { left: T.left, top: T.top, width: T.width, height: T.height, seen: true }; } catch (e) {}
+    if (SPOT[key]) return SPOT[key];
+    var VW = W.innerWidth, VH = W.innerHeight, pw = Math.min(124, VW * 0.32), ph = Math.min(VH - 20, pw * 2.2);
+    return { left: VW - 10 - pw, top: VH - 10 - ph, width: pw, height: ph, seen: false };
+  }
+  function phoneSpot(w) {
+    var P = phoneIn(w); if (P) { topSpot(); return { left: P.left, top: P.top, width: P.width, height: P.height, seen: true }; }
+    var T = topSpot(), x = 0, y = 0, v = w;
+    try { while (v && v !== W && v.frameElement) { var fr = v.frameElement.getBoundingClientRect(); x += fr.left + (v.frameElement.clientLeft || 0); y += fr.top + (v.frameElement.clientTop || 0); v = v.parent; } } catch (e) {}
+    return { left: T.left - x, top: T.top - y, width: T.width, height: T.height, seen: T.seen };
+  }
+  /* where a row opens from, in its own page's points: the phone's spot, or its own thing in the world (remembered for its way back) */
+  function originOf(row, w, S, out) {
+    if (row.from === 'phone') return phoneSpot(w);
+    if (row.from === 'world') { var o = null; if (!out) { try { o = row.at ? row.at(w) : null; } catch (e) {} if (o) S.orig[row.id] = o; } return o || S.orig[row.id] || phoneSpot(w); }
+    return null;
+  }
+  function baseT(el) { try { var t = el.ownerDocument.defaultView.getComputedStyle(el).translate; if (!t || t === 'none') return [0, 0]; var a = t.split(' ').map(parseFloat); return [a[0] || 0, a[1] || 0]; } catch (e) { return [0, 0]; } }
+  /* the travel: the box laid over the origin at the origin's size, then home (in), or the way back (out) */
+  function travel(r, o, base) {
+    var cx = r.left + r.width / 2, cy = r.top + r.height / 2, dx = o.left + o.width / 2 - cx, dy = o.top + o.height / 2 - cy;
+    var s0 = Math.max(0.06, Math.min(1, Math.min(o.width / Math.max(1, r.width), o.height / Math.max(1, r.height))));
+    return { s0: s0, T: function (f) { return (base[0] + dx * f).toFixed(1) + 'px ' + (base[1] + dy * f).toFixed(1) + 'px'; }, at: [Math.round(cx + dx), Math.round(cy + dy)] };
   }
   function fitOne(el, w, id) {
     try { if (el.getAnimations().some(function (a) { return a.__bpops && a.playState === 'running'; })) return; } catch (e) {}   /* mid-grow its scale is in its rectangle */
@@ -482,7 +546,7 @@
   if (D.readyState === 'loading') D.addEventListener('DOMContentLoaded', boot); else boot();
 
   W.BohemiaPops = {
-    version: '11/2a', POPS: POPS, log: LOG, voices: VOICES, tips: TIPS_LOG,
+    version: '11/14 the phone is the door', POPS: POPS, log: LOG, voices: VOICES, tips: TIPS_LOG, phoneSpot: function (w) { return phoneSpot(w || W); },
     docs: function () { return DOCS.map(function (S) { return { page: S.page, rows: S.rows.map(function (r) { return r.id; }), err: S.err || null }; }); },
     off: function (v) { OFF = !!v; try { if (v) localStorage.setItem('bohemia.pops.off', '1'); else localStorage.removeItem('bohemia.pops.off'); } catch (e) {} return OFF; },
     isOff: function () { return OFF; },
