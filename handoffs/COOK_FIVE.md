@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
-COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14y - THE GATE, THE MINE AND THE NAILS, BUILT (SHIPSHA), NOT YET SEEN (the turn-up round, rule 447, job 2, first part; ask row 614).
+COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14y - THE GATE, THE MINE AND THE NAILS, BUILT (ce86b73b8), NOT YET SEEN (the turn-up round, rule 447, job 2, first part; ask row 614).
 The coordinator's order: 'finished art where this round's VOTE cards still say STAND-IN and he will meet it first: the three new bosses' map changes (the
 Locksmith's gates, the Charge's mines, the Machinist's nails)'. He voted YES on all three as they were; this is the production pass on the same pieces.
 PICTURES ONLY: slices/boss_places/ curfew_night, curfew_day, curfew_after, mine_before, mine_after, nails_before, nails_after (two beat frames each,

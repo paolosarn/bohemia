@@ -1,4 +1,4 @@
-COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14y - THE GATE, THE MINE AND THE NAILS, BUILT (SHIPSHA), NOT YET SEEN (the turn-up round, rule 447, job 2, first part; ask row 614).
+COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14y - THE GATE, THE MINE AND THE NAILS, BUILT (ce86b73b8), NOT YET SEEN (the turn-up round, rule 447, job 2, first part; ask row 614).
 The three bosses' map pieces that still said STAND-IN, redrawn as finished art, PICTURES ONLY (the same seven pictures, names, frame and rig as BOSSES'
 first ones; none of BOSSES' code touched): THE LOCKSMITH'S GATE (framed chain-link panels, razor wire, a padlock, his key on a board, a red lamp lit only
 while the street is shut; open by day; cut down after), THE CHARGE'S MINE (dug dirt, a mound, a stake and a red rag, a wire; dug out after), THE
