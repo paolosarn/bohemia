@@ -1,3 +1,14 @@
+COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14y - THE GATE, THE MINE AND THE NAILS, BUILT (SHIPSHA), NOT YET SEEN (the turn-up round, rule 447, job 2, first part; ask row 614).
+The three bosses' map pieces that still said STAND-IN, redrawn as finished art, PICTURES ONLY (the same seven pictures, names, frame and rig as BOSSES'
+first ones; none of BOSSES' code touched): THE LOCKSMITH'S GATE (framed chain-link panels, razor wire, a padlock, his key on a board, a red lamp lit only
+while the street is shut; open by day; cut down after), THE CHARGE'S MINE (dug dirt, a mound, a stake and a red rag, a wire; dug out after), THE
+MACHINIST'S NAILS (bands of nails and pale welded caltrops; swept after). 105,736 bytes for the fourteen files.
+ON THE MAP on a phone through BOSSES' own page tool, all three bosses, each beat whole. THROWN OUT: a whole handcart in the nails (the piece lies on every
+nailed block: the same cart a dozen times). Gate THE BOSSES' MAP PIECES ARE FINISHED 7/0, new, registered.
+VOTE cook5-the-bosses-map-pieces-11-14 (MADE FROM). Earlier this wake: 11/14t THE CEILINGS ARE REAL (its block is below).
+NOT STARTED: the bus yard and the greenhouses. The whole block and the note FOR BOSSES: handoffs/COOK_FIVE.md.
+[bb Battle Brothers marks what blocks a road with one plain object read from far off; each of these is one object first, its detail second]
+[analog horror: a red lamp that is only lit while the street is locked]
 COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14t - THE CEILINGS ARE REAL, BUILT (cba757eb7), NOT YET SEEN (rule 451(a), ask row 623; the routine 'COOK FIVE the ceilings').
 His vote of 11/14 passed all six of this lane's cards, and his YES on the garage kit carried an order: 'start off with a 10% opacity... I still need to
 see the parking garage ceiling'. COMBAT THREE shipped the draw with stand-ins (11/14p) and named the files; THIS SHIP IS THE PICTURES, under its names, no

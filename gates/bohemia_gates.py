@@ -9673,6 +9673,13 @@ GATES = [
      "board picks any tile of a sheet for any place: the step in tone across every pair's join no more than the ground's own inside a tile); A4 every piece its "
      "file's size, its foot on its canvas, a wall one tile long; A5 the kit under its byte budget; A6 no purple. P1 planted: a tile an eighth darker, a piece with "
      "no file, a foot off its canvas: each red (and the garage's stalls against its aisle, north and south). About 8 s", False),
+    ("THE BOSSES' MAP PIECES ARE FINISHED", ['python3', 'gates/the_bosses_map_pieces_are_finished_gate.py'],
+     "COOK FIVE gate, 11/14, rules 447 and 441 (the coordinator's turn-up round, job 2: finished art where the VOTE cards still say STAND-IN: the Locksmith's gates, "
+     "the Charge's mines, the Machinist's nails). The seven pictures BOSSES painted first, redrawn through the same rig, keys and frame "
+     "(tools/bohemia_cook5_the_bosses_map_pieces_finished_11_14_26.py): B1 the seven entries marked finished, both frames of each a file of its size; B2 ONE BOX A "
+     "PIECE (the map swaps a state for another in place); B3 THE BEAT (the lamp, the rag and the caltrops move, nothing else does); B4 IT IS THERE (4 in 100 of "
+     "its box, 60 steps of tone); B5 THE LAMP IS LIT WHILE THE STREET IS SHUT; B6 light, no purple. P1 planted: another anchor, a frame copied over its twin, a "
+     "piece wiped to four dots: each red. A second", False),
     ('YOUR PLACE, PLANTED', ['node', 'gates/home_base_gate.js'],
      "HOME BASE gate, 11/8, rule 437(b) (PAOLO 11/3: 'you plant your part of the city kind of wherever you want... a smart system... the daily battery usage... "
      "are you sure you wanna plant down here, like this is permanent'): ENGINE E1 the place's plan, 12 lots, every lot on a road, one network (429(h)); E2 planted: a lot cut off, "

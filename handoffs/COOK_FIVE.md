@@ -1,5 +1,39 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14y - THE GATE, THE MINE AND THE NAILS, BUILT (SHIPSHA), NOT YET SEEN (the turn-up round, rule 447, job 2, first part; ask row 614).
+The coordinator's order: 'finished art where this round's VOTE cards still say STAND-IN and he will meet it first: the three new bosses' map changes (the
+Locksmith's gates, the Charge's mines, the Machinist's nails)'. He voted YES on all three as they were; this is the production pass on the same pieces.
+PICTURES ONLY: slices/boss_places/ curfew_night, curfew_day, curfew_after, mine_before, mine_after, nails_before, nails_after (two beat frames each,
+fourteen files, 105,736 bytes; the first ones were 60,556). The same names, the same frame (THE NEXT THREE's, a block across), the same rig. BOSSES' tool is
+imported for its capture, render and colours; nothing of BOSSES' is edited.
+WHAT CHANGED IN THE PICTURES: the gate is a GATE (framed panels with a rail and a brace, razor wire, concrete feet, a brass padlock, his key painted on a
+board, a red lamp on the post that is lit only while the street is shut); the mine is DUG DIRT (three spade-loads, a paler mound, clods, a stake and a torn
+red rag, a wire to the kerb; after: the hole, the spoil and the spade, the can out and open); the nails are BANDS kerb to kerb with pale welded caltrops
+big enough to see (after: swept asphalt, two tracks, the heap, the broom and bucket).
+THROWN OUT, each seen or measured (the record has all four): a whole handcart in the nails (the same cart on every nailed block); heaps with pale tops
+(read as targets); the swept street as pale bands (read as paint); a pink lamp (found by the gate).
+PROOF: BOSSES' own page tool (tools/bohemia_bosses_vote_the_change_11_9_26.js) for THE LOCKSMITH, THE CHARGE and THE MACHINIST with these pictures in:
+each kill's beat whole on a phone, the pieces on the map before and after, no error.
+Gate THE BOSSES' MAP PIECES ARE FINISHED 7/0, new, registered (one box a piece, the beat, it is there, the lamp, light, planted).
+VOTE cook5-the-bosses-map-pieces-11-14 (MADE FROM arena2-the-pit-is-a-pit-11-7): the first ones beside the finished ones, and the map on his phone.
+Record: records/BOHEMIA_COOK_FIVE_THE_GATE_THE_MINE_AND_THE_NAILS_11_14_26.md.
+NOT STARTED: the bus yard and the greenhouses (the round's job 2, second part).
+[bb Battle Brothers marks what blocks a road with one plain object read from far off; each of these is one object first, its detail second]
+[analog horror: a red lamp that is only lit while the street is locked]
+
+## FOR BOSSES (11/14): YOUR SEVEN MAP PIECES REDRAWN, AND WHAT I TOUCHED OF YOURS
+1. FILES: the fourteen PNGs of curfew (night, day, after), mine (before, after) and nails (before, after) in slices/boss_places/. Same names.
+2. IN boss_places.json, those seven entries only: w, h, bx, by are the new pictures' own (curfew 140 x 121 at 76,78; mine 128 x 116 at 64,78, as it
+   was; nails 151 x 122 at 76,78), written the way your finish() writes them, plus 'finished': 'cook 5, 11/14'. plate is 116 as it was. One line added
+   to 'about'. Nothing else in the file, no code, no rule.
+3. IF YOU RE-RUN YOUR OWN TOOL'S finish() it paints your first seven back over these (your tool still holds your scenes). To change a piece, change mine:
+   tools/bohemia_cook5_the_bosses_map_pieces_finished_11_14_26.py (it imports yours and never edits it). My gate's B1 goes red if 'finished' is gone.
+4. THE LIGHTS moved with the geometry: the night gate's lamp and padlock, the rag, the caltrops' glint are in my moving(); yours are untouched for the
+   places and props.
+5. SEEN ON THE MAP, yours to weigh: a nails piece lies on every nailed block, so anything in it repeats; I kept it to what belongs on every block.
+   After the Machinist falls I did not see the swept piece laid block by block (your draw); it shows in the tape and on the card.
+6. NOT TOUCHED: the lock shop, the powder yard, the pipe shop, the cut lock, the rubble, the welding bench; the Plate's wagon and the Tooth's collectors.
+
 COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14t - THE CEILINGS ARE REAL, BUILT (cba757eb7), NOT YET SEEN (rule 451(a), ask row 623; the routine 'COOK FIVE the ceilings').
 His vote of 11/14 passed all six of this lane's cards (the freeway, the casino floor, the tunnels, the garage kit, the decoy, the boards' colour), and his
 YES on the garage kit carried an order that went first: 'let's just start off with a 10% opacity for real, like I still need to see the parking garage
