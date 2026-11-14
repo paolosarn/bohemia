@@ -20,7 +20,7 @@
      T5 *** A TOWN SHORT PAYS MORE *** the same town sick: food and meds sell for more than calm, unit for unit, and the line says it
      T6 *** THE WARNING *** a sale of food that leaves less than a night for every man: the first two taps only warn, the next two sell
      G1 *** HIS GEAR ON THEIR SHELF *** at the armourer: one piece sold by two taps and two by SELL THE JUNK: each on the shelf at
-        once, first, marked YOURS, SOLD, at what it brought
+        once, at its price's place (rule 452: the shelf dearest first), marked YOURS, SOLD, at what it brought
      G2 *** BACK WHERE IT WAS *** two taps on one: the batteries down by exactly its sale, the piece back in the bag at its slot with
         its KEEP mark
      G3 after leaving and coming back: what is left of his on the shelf is their stock at their price, no longer his
@@ -140,11 +140,13 @@ const COUNT = { food: 'food', meds: 'meds', rounds: 'rounds', tape1: 'tape', tap
       S.stash = src.map(mk).concat(S.stash); localStorage.setItem('bohemia.bag.v1', JSON.stringify(S.stash)); return S.stash.slice(0, 3).map(x => ({ id: x.id, keep: x.keep, mark: x.gateMark })); });
     await openIt(sf, P, 'armourer');
     const g0 = await sf.evaluate(() => ({ bats: BohemiaSettlement.bats(), n: BohemiaSettlement.state.stash.length }));
-    await tapEl(sf, P, '#baggrid .slot.full:nth-child(1)', 2);   /* the kept one, sold by two taps */
+    await tapEl(sf, P, '#baggrid .slot.full[data-id="' + (put && put[0] ? put[0].id : '') + '"]', 2);   /* the kept one, sold by two taps (UI THREE 11/14, rule 452: his bag shows dearest first, so the kept one is found by its id, not its place) */
     await tapEl(sf, P, '#selljunk', 1);   /* the two marked junk */
     const g1 = await sf.evaluate(() => { const t = [...document.querySelectorAll('#shelfgrid .slot')]; return { bats: BohemiaSettlement.bats(), n: BohemiaSettlement.state.stash.length,
+      all: t.map(x => x.classList.contains('gone') ? null : +((x.querySelector('em') || {}).textContent || '').replace(/\D/g, '')).filter(v => v != null),
       yours: t.map((x, i) => x.classList.contains('yours') ? { i, price: +((x.querySelector('em') || {}).textContent || '').replace(/\D/g, ''), badge: (x.querySelector('.ys') || {}).textContent || '', id: x.dataset.id } : null).filter(Boolean), rows: BohemiaSettlement.soldTo() }; });
-    const firsts = g1.yours.every((y, j) => y.i === j), paidOk = g1.rows.length === 3 && g1.yours.every(y => g1.rows.some(r => r.it.id === y.id && r.paid === y.price));
+    /* rule 452 (UI THREE 11/14) is newer than 'his, first': what he sold sits on their shelf at its price's place, the shelf dearest first */
+    const firsts = g1.all.every((v, j) => j === 0 || g1.all[j - 1] >= v), paidOk = g1.rows.length === 3 && g1.yours.every(y => g1.rows.some(r => r.it.id === y.id && r.paid === y.price));
     ok('*** G1 HIS GEAR ON THEIR SHELF *** (' + (put ? put.length : 0) + ' put in his bag; sold: the bag ' + g0.n + ' -> ' + g1.n + ', batteries ' + g0.bats + ' -> ' + g1.bats + '; on the shelf ' + g1.yours.map(y => y.badge + ' ' + y.price + ' at ' + y.i).join(', ') + ')',
       !!put && g1.n === g0.n - 3 && g1.yours.length === 3 && firsts && paidOk && g1.yours.every(y => y.badge === 'YOURS, SOLD'));
     /* G2 buy the kept one back */
