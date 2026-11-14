@@ -1,4 +1,4 @@
-COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14t - THE CEILINGS ARE REAL, BUILT (SHIPSHA), NOT YET SEEN (rule 451(a), ask row 623; the routine 'COOK FIVE the ceilings').
+COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14t - THE CEILINGS ARE REAL, BUILT (cba757eb7), NOT YET SEEN (rule 451(a), ask row 623; the routine 'COOK FIVE the ceilings').
 His vote of 11/14 passed all six of this lane's cards, and his YES on the garage kit carried an order: 'start off with a 10% opacity... I still need to
 see the parking garage ceiling'. COMBAT THREE shipped the draw with stand-ins (11/14p) and named the files; THIS SHIP IS THE PICTURES, under its names, no
 code of its changed: garage/garage_ceiling.webp (the slab from below: girders, joists, the sprinkler main, dead strip lights), casino/casino_ceiling.webp

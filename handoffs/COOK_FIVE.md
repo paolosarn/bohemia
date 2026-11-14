@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
-COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14t - THE CEILINGS ARE REAL, BUILT (SHIPSHA), NOT YET SEEN (rule 451(a), ask row 623; the routine 'COOK FIVE the ceilings').
+COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14t - THE CEILINGS ARE REAL, BUILT (cba757eb7), NOT YET SEEN (rule 451(a), ask row 623; the routine 'COOK FIVE the ceilings').
 His vote of 11/14 passed all six of this lane's cards (the freeway, the casino floor, the tunnels, the garage kit, the decoy, the boards' colour), and his
 YES on the garage kit carried an order that went first: 'let's just start off with a 10% opacity for real, like I still need to see the parking garage
 ceiling, an exterior that I am in the interior of... the opacity is gonna be really low.'
