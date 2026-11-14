@@ -3,7 +3,7 @@
 
 FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/14 (b) LATEST -- [three from EYES] rows 619 and 618 SHIPPED, 605 NOT
 REPRODUCED a third time (a tell shipped, the row stays OPEN and says so). BUILD 11/14m - THE SCREEN READS THE PERSON, BUILT, NOT YET SEEN.
-Commit SHIPSHA3. Record: the ROUND THREE section of records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md. NO VOTE CARD (rule 447(b)).
+Commit 86567bd70. Record: the ROUND THREE section of records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md. NO VOTE CARD (rule 447(b)).
 WHAT HE WOULD MEET (TAB: RUN, and the demo link):
 - 619 the end screen after any fight: nobody is called HIS by default. A woman reads SPEND HER 2 LEVELS / FELL. SHE IS DEAD., a man HIS /
   HE, YOU reads YOUR, and a person nothing marks reads with no he or she (CHOOSE A LEVEL-UP, SPEND 2 LEVELS, FELL. DEAD.)
