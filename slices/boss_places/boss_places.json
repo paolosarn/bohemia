@@ -613,6 +613,186 @@
     "nails_after_1.png"
    ],
    "through_the_rig": true
+  },
+  "press_before": {
+   "w": 166,
+   "h": 167,
+   "bx": 83,
+   "by": 118,
+   "plate": 150,
+   "frames": [
+    "press_before_0.png",
+    "press_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "press_after": {
+   "w": 166,
+   "h": 169,
+   "bx": 83,
+   "by": 121,
+   "plate": 150,
+   "frames": [
+    "press_after_0.png",
+    "press_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "chair_before": {
+   "w": 166,
+   "h": 175,
+   "bx": 83,
+   "by": 126,
+   "plate": 150,
+   "frames": [
+    "chair_before_0.png",
+    "chair_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "chair_after": {
+   "w": 166,
+   "h": 175,
+   "bx": 83,
+   "by": 125,
+   "plate": 150,
+   "frames": [
+    "chair_after_0.png",
+    "chair_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "optician_before": {
+   "w": 166,
+   "h": 173,
+   "bx": 83,
+   "by": 124,
+   "plate": 150,
+   "frames": [
+    "optician_before_0.png",
+    "optician_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "optician_after": {
+   "w": 166,
+   "h": 175,
+   "bx": 83,
+   "by": 126,
+   "plate": 150,
+   "frames": [
+    "optician_after_0.png",
+    "optician_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "pressplate": {
+   "w": 62,
+   "h": 67,
+   "bx": 31,
+   "by": 51,
+   "plate": 46,
+   "frames": [
+    "pressplate_0.png",
+    "pressplate_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "pulled": {
+   "w": 62,
+   "h": 59,
+   "bx": 31,
+   "by": 39,
+   "plate": 46,
+   "frames": [
+    "pulled_0.png",
+    "pulled_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "spyglass": {
+   "w": 62,
+   "h": 87,
+   "bx": 24,
+   "by": 71,
+   "plate": 46,
+   "frames": [
+    "spyglass_0.png",
+    "spyglass_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "wagon_before": {
+   "w": 139,
+   "h": 116,
+   "bx": 75,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "wagon_before_0.png",
+    "wagon_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "wagon_after": {
+   "w": 139,
+   "h": 116,
+   "bx": 75,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "wagon_after_0.png",
+    "wagon_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "collector_before": {
+   "w": 130,
+   "h": 117,
+   "bx": 65,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "collector_before_0.png",
+    "collector_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "collector_after": {
+   "w": 130,
+   "h": 117,
+   "bx": 65,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "collector_after_0.png",
+    "collector_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "haze_before": {
+   "w": 128,
+   "h": 116,
+   "bx": 64,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "haze_before_0.png",
+    "haze_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "haze_after": {
+   "w": 128,
+   "h": 116,
+   "bx": 64,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "haze_after_0.png",
+    "haze_after_1.png"
+   ],
+   "through_the_rig": true
   }
  }
 }

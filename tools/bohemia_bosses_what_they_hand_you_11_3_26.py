@@ -30,7 +30,8 @@ import bohemia_direction_every_icon_through_the_rig_11_2_26 as D
 OUT = os.path.join(R, 'records/target/bosses_hand_rig')
 THINGS = {'pot': 'cook', 'wrench': 'open', 'filter': 'purify',
           'fuel': 'burn', 'map': 'survey', 'hook': 'climb',   # the thing -> the verb it is (BOSSES 4 11/3: THE BURN's, THE SURVEYOR's, THE CLIMB's)
-          'picks': 'pick', 'charge': 'blow', 'pipegun': 'weld'}   # BOSSES 11/11: THE LOCKSMITH's, THE CHARGE's, THE MACHINIST's
+          'picks': 'pick', 'charge': 'blow', 'pipegun': 'weld',   # BOSSES 11/11: THE LOCKSMITH's, THE CHARGE's, THE MACHINIST's
+          'mallet': 'press', 'forceps': 'fix', 'spyglass': 'look'}   # BOSSES 11/14: THE PLATE's, THE TOOTH's, THE LENS's
 
 
 def ship_of(n):
@@ -145,6 +146,25 @@ def build(n, bpy, P, IC):
         P.box(bpy, 'trigger', dark, (0.012, 0.012, 0.05), (-0.13, 0, 0.19), bevel=0.002)
         P.rod(bpy, 'nail', steel, (-0.27, 0, 0.26), (-0.23, 0, 0.245), 0.004, verts=6)           # the striker, a nail on a band of inner tube
         P.cyl(bpy, 'shell', brass, 0.016, 0.05, (-0.02, 0.06, 0.03), verts=12)                  # one shell lying by it
+    elif n == 'mallet':                # BOSSES 11/14: THE PLATE's mallet standing on its head, a pressed plate leaning on it
+        wood, steel, plate = M('wood', 'clay_rust', 2), M('steel', 'tape_grey', 2), M('plate', 'tape_grey', 3)
+        P.cyl(bpy, 'head', steel, 0.07, 0.22, (0, 0, 0.07), rot=(0, math.radians(90), 0), verts=16)
+        P.cyl(bpy, 'handle', wood, 0.018, 0.42, (0, 0, 0.35), verts=10)
+        P.box(bpy, 'plate', plate, (0.2, 0.012, 0.24), (0.16, 0.06, 0.12), rot=(math.radians(-14), 0, 0), bevel=0.004)
+        for (x, z) in ((0.08, 0.03), (0.24, 0.03), (0.08, 0.21), (0.24, 0.21)): P.cyl(bpy, 'rivet', steel, 0.008, 0.01, (x, 0.05, z), rot=(math.radians(90), 0, 0), verts=8)
+    elif n == 'forceps':               # BOSSES 11/14: THE TOOTH's extraction forceps, open, a pulled tooth in their beak
+        steel, tooth = M('steel', 'tape_grey', 3), M('tooth', 'clay_bone', 4)
+        for s_ in (-1, 1):
+            P.rod(bpy, 'arm', steel, (s_ * 0.06, 0, 0.02), (s_ * 0.012, 0, 0.26), 0.008, verts=8)
+            P.rod(bpy, 'beak', steel, (s_ * 0.012, 0, 0.26), (s_ * 0.02, 0, 0.34), 0.007, verts=8)
+        P.cyl(bpy, 'hinge', steel, 0.016, 0.012, (0, 0, 0.255), rot=(math.radians(90), 0, 0), verts=12)
+        P.box(bpy, 'tooth', tooth, (0.03, 0.026, 0.04), (0, 0, 0.36), bevel=0.008)
+        P.box(bpy, 'root', tooth, (0.012, 0.02, 0.03), (0.0, 0, 0.39), bevel=0.004)
+    elif n == 'spyglass':              # BOSSES 11/14: THE LENS's spyglass, three draws pulled out, its glass bright
+        brass, dark, glass = M('brass', 'clay_mustard', 2), M('dark', 'rubber', 2), M('glass', 'clay_teal', 4)
+        for i, (r_, x0, L_) in enumerate(((0.034, -0.16, 0.16), (0.028, 0.0, 0.14), (0.022, 0.13, 0.12))):
+            P.cyl(bpy, 'draw', dark if i == 0 else brass, r_, L_, (x0, 0, 0.12 + 0.03 * i), rot=(0, math.radians(80), 0), verts=16)
+        P.cyl(bpy, 'glass', glass, 0.031, 0.006, (-0.245, 0, 0.105), rot=(0, math.radians(80), 0), verts=16)
     else:
         raise KeyError(n)
 
@@ -152,7 +172,8 @@ def build(n, bpy, P, IC):
 D.OUT = OUT
 D.FACE['wrench'] = 'S'   # a flat tool reads side-on (DIRECTION's flat signs' way)
 D.FACE['map'] = 'S'; D.FACE['hook'] = 'S'
-D.FACE['picks'] = 'S'; D.FACE['pipegun'] = 'S'   # BOSSES 11/11: flat things side-on
+D.FACE['picks'] = 'S'; D.FACE['pipegun'] = 'S'
+D.FACE['forceps'] = 'S'; D.FACE['spyglass'] = 'S'   # BOSSES 11/14   # BOSSES 11/11: flat things side-on
 D.VENV = os.environ.get('BOHEMIA_BPY') or D.VENV
 D.ship_of = ship_of
 D.build = build

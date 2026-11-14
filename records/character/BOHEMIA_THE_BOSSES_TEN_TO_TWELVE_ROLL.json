@@ -1,0 +1,142 @@
+[
+ {
+  "id": "plate_0",
+  "gang": "Plate",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 37,
+   "face.cheekW": 26,
+   "face.jawW": 24,
+   "face.chinW": 12,
+   "face.foreheadW": 22,
+   "face.eyeY": -1,
+   "mouth.w": 7
+  },
+  "face_name": "GAUNT",
+  "legs": "PATCHED WORK PANTS",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "SOOT GLOVES",
+   "STEEL PAULDRON"
+  ],
+  "type": "Plate",
+  "top": "SOOT TANK",
+  "coat": "LEATHER HALF APRON",
+  "hat": "HAT SCRAP HELM",
+  "pieces": [
+   "plate_chest",
+   "plate_mallet"
+  ],
+  "dials": {
+   "height": 0.3,
+   "belly": 0.45,
+   "shoulders": 1.0,
+   "hips": 0.3
+  },
+  "boss": "THE PLATE"
+ },
+ {
+  "id": "tooth_0",
+  "gang": "Tooth",
+  "heritage": "white",
+  "tone": "chalk",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "GREASE BACK",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.foreheadW": 20,
+   "face.cheekW": 38,
+   "face.jawW": 21,
+   "face.chinW": 8,
+   "face.len": 35,
+   "eyes.gap": 7
+  },
+  "face_name": "DIAMOND",
+  "mark_name": "CLOUDED EYE",
+  "mark": "clouded_eye",
+  "legs": "BLACK CARGOS",
+  "feet": "CHARCOAL BOOTS",
+  "kit": [
+   "LEATHER GLOVES"
+  ],
+  "type": "Tooth",
+  "top": "BONE BUTTON-UP",
+  "coat": "BONE DUSTER",
+  "pieces": [
+   "tooth_string",
+   "tooth_mirror",
+   "tooth_forceps"
+  ],
+  "dials": {
+   "height": 0.45,
+   "belly": -0.45,
+   "shoulders": -0.35,
+   "hips": -0.2
+  },
+  "boss": "THE TOOTH"
+ },
+ {
+  "id": "lens_0",
+  "gang": "Lens",
+  "heritage": "black",
+  "tone": "onyx",
+  "skin": [
+   "skin_light",
+   0
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "face.len": 29,
+   "face.cheekW": 37,
+   "face.jawW": 30,
+   "face.chinW": 13,
+   "face.foreheadW": 27,
+   "face.craniumH": 11,
+   "nose.w": 4
+  },
+  "face_name": "ROUND",
+  "facial_hair": "SOUL PATCH",
+  "new_beard": "soul_patch",
+  "legs": "SLATE WORK PANTS",
+  "feet": "STACKED MID BOOT",
+  "kit": [
+   "LEATHER BELT"
+  ],
+  "type": "Lens",
+  "top": "STORM TURTLENECK",
+  "coat": "SLATE COCOON COAT",
+  "hat": "HAT STORM SLOUCH BEANIE",
+  "eyewear": "FACE WRAPAROUND SHADES",
+  "pieces": [
+   "lens_sash",
+   "lens_crossbow"
+  ],
+  "dials": {
+   "height": 0.15,
+   "belly": -0.15,
+   "shoulders": 0.1,
+   "hips": -0.05
+  },
+  "boss": "THE LENS"
+ }
+]

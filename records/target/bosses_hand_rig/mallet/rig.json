@@ -1,0 +1,10 @@
+{
+ "model": "records/target/bosses_hand_rig/models/mallet.glb",
+ "ppm": 347.57600657354146,
+ "files": [
+  "records/target/bosses_hand_rig/mallet/rig_S.png",
+  "records/target/bosses_hand_rig/mallet/rig_SE.png",
+  "records/target/bosses_hand_rig/mallet/rig_SW.png"
+ ],
+ "box": null
+}

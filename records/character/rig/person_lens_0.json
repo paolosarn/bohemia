@@ -1,0 +1,240 @@
+{
+ "look": "PERSON_LENS_0",
+ "shape": "person_lens_0: THE LENS: the last ground glass; a slate cocoon coat, wraparound shades, a slouch beanie, a sash of lenses, a crossbow with a scope, his own skin skin_light 0, BONE TURTLENECK under SLATE COCOON COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE TURTLENECK",
+  "outer": "SLATE COCOON COAT",
+  "legs": "SLATE WORK PANTS",
+  "feet": "STACKED MID BOOT",
+  "waist": "LEATHER BELT",
+  "outfit": [
+   "STORM TURTLENECK read as one with SLATE COCOON COAT (72 and 77 of 255): the same cut in BONE TURTLENECK (154)",
+   "the sleeve ends short of the cuff under it"
+  ]
+ },
+ "dials": {
+  "height": 0.15,
+  "belly": -0.15,
+  "shoulders": 0.1,
+  "hips": -0.05
+ },
+ "layers": {
+  "base": {
+   "under": "COCOON COAT",
+   "arms_covered": true,
+   "cuff_to": 1.89
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "sleeve_to": 1.7
+  }
+ },
+ "model": "records/character/rig/person_lens_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7329,
+ "real_height_for_rig": 1.739,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_lens_0_shoe": 4036,
+  "person_lens_0_shirt": 79720,
+  "person_lens_0_cuffs": 2048,
+  "person_lens_0_hem": 1792,
+  "person_lens_0_coat": 66584,
+  "person_lens_0_coat_skirt": 4142,
+  "person_lens_0_collar": 1536,
+  "person_lens_0_lapels": 396,
+  "person_lens_0_lens_sash": 90,
+  "person_lens_0_lens_glass": 192,
+  "person_lens_0_lens_rims": 448,
+  "person_lens_0_lens_stock": 8,
+  "person_lens_0_lens_prod": 126,
+  "person_lens_0_lens_scope": 20,
+  "person_lens_0_lens_scope_glass": 20,
+  "person_lens_0_trouser": 43706,
+  "person_lens_0_rolled_hem": 2048,
+  "person_lens_0_double_knee": 252,
+  "person_lens_0_hammer_loop": 50,
+  "person_lens_0_sole_1": 242,
+  "person_lens_0_midsole_1": 242,
+  "person_lens_0_sole_0": 242,
+  "person_lens_0_midsole_0": 242,
+  "person_lens_0_boot_collar": 2048,
+  "person_lens_0_boot_collar_line": 2048,
+  "person_lens_0_leather_belt": 1792,
+  "person_lens_0_leather_belt_buckle": 34,
+  "person_lens_0_hair": 17968,
+  "person_lens_0_hand_L": 392,
+  "person_lens_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_lens_0_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_lens_0_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_lens_0_coat": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_lens_0_coat_skirt": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_lens_0_collar": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_lens_0_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_lens_0_double_knee": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_lens_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_lens_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_lens_0_hammer_loop": [
+   0.0262,
+   0.0319,
+   0.0437
+  ],
+  "person_lens_0_hem": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_lens_0_lapels": [
+   0.0262,
+   0.0319,
+   0.0437
+  ],
+  "person_lens_0_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_lens_0_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_lens_0_lens_glass": [
+   0.305,
+   0.4342,
+   0.491
+  ],
+  "person_lens_0_lens_prod": [
+   0.0887,
+   0.0844,
+   0.0762
+  ],
+  "person_lens_0_lens_rims": [
+   0.1878,
+   0.1221,
+   0.0369
+  ],
+  "person_lens_0_lens_sash": [
+   0.0423,
+   0.0296,
+   0.0212
+  ],
+  "person_lens_0_lens_scope": [
+   0.016,
+   0.016,
+   0.0176
+  ],
+  "person_lens_0_lens_scope_glass": [
+   0.305,
+   0.4342,
+   0.491
+  ],
+  "person_lens_0_lens_stock": [
+   0.1559,
+   0.0762,
+   0.0296
+  ],
+  "person_lens_0_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_lens_0_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_lens_0_rolled_hem": [
+   0.1248,
+   0.1559,
+   0.2016
+  ],
+  "person_lens_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_lens_0_shoe": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_lens_0_shoes": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_lens_0_skin": [
+   0.0723,
+   0.0319,
+   0.0252
+  ],
+  "person_lens_0_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_lens_0_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_lens_0_trouser": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_lens_0_trousers": [
+   0.0612,
+   0.0762,
+   0.0999
+  ]
+ }
+}

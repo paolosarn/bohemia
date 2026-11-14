@@ -1,0 +1,10 @@
+{
+ "model": "records/target/bosses_hand_rig/models/forceps.glb",
+ "ppm": 565.8703192949195,
+ "files": [
+  "records/target/bosses_hand_rig/forceps/rig_S.png",
+  "records/target/bosses_hand_rig/forceps/rig_SE.png",
+  "records/target/bosses_hand_rig/forceps/rig_SW.png"
+ ],
+ "box": null
+}

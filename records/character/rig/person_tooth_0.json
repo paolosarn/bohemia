@@ -1,0 +1,279 @@
+{
+ "look": "PERSON_TOOTH_0",
+ "shape": "person_tooth_0: THE TOOTH: the only working dental kit; a long bone duster over a bone button-up, a string of pulled teeth, a head mirror, the forceps, his own skin skin_light 3, STORM BUTTON-UP under BONE DUSTER",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "STORM BUTTON-UP",
+  "outer": "BONE DUSTER",
+  "legs": "BLACK CARGOS",
+  "feet": "CHARCOAL BOOTS",
+  "hands": "LEATHER GLOVES",
+  "outfit": [
+   "BONE BUTTON-UP read as one with BONE DUSTER (154 and 154 of 255): the same cut in STORM BUTTON-UP (72)",
+   "BONE DUSTER worn open to the neck",
+   "the shirt's collar out over the lapels",
+   "the sleeve ends short of the cuff under it"
+  ]
+ },
+ "dials": {
+  "height": 0.45,
+  "belly": -0.45,
+  "shoulders": -0.35,
+  "hips": -0.2
+ },
+ "layers": {
+  "base": {
+   "under": "DUSTER",
+   "collar_out": 0.0199,
+   "arms_covered": true,
+   "cuff_to": 1.89
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.06,
+   "collar_z": 1.1,
+   "fo_add": 0.25,
+   "collar": false,
+   "neck_top": 1.1,
+   "sleeve_to": 1.7
+  }
+ },
+ "model": "records/character/rig/person_tooth_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7587,
+ "real_height_for_rig": 1.7649,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_tooth_0_shoe": 3716,
+  "person_tooth_0_shirt": 71244,
+  "person_tooth_0_collar": 1536,
+  "person_tooth_0_collar_points": 180,
+  "person_tooth_0_placket": 162,
+  "person_tooth_0_buttons": 204,
+  "person_tooth_0_cuffs": 2048,
+  "person_tooth_0_tail": 2016,
+  "person_tooth_0_coat": 59886,
+  "person_tooth_0_coat_skirt": 7254,
+  "person_tooth_0_lapels": 396,
+  "person_tooth_0_capelet": 34748,
+  "person_tooth_0_tooth_cord": 1792,
+  "person_tooth_0_tooth_teeth": 144,
+  "person_tooth_0_tooth_mirror": 32,
+  "person_tooth_0_tooth_mirror_rim": 90,
+  "person_tooth_0_tooth_forceps": 210,
+  "person_tooth_0_trouser": 43706,
+  "person_tooth_0_rolled_hem": 2048,
+  "person_tooth_0_cargo_pockets": 252,
+  "person_tooth_0_cargo_flaps": 108,
+  "person_tooth_0_sole_1": 242,
+  "person_tooth_0_midsole_1": 242,
+  "person_tooth_0_sole_0": 242,
+  "person_tooth_0_midsole_0": 242,
+  "person_tooth_0_boot_collar": 2048,
+  "person_tooth_0_boot_collar_line": 2048,
+  "person_tooth_0_eyelets_1": 120,
+  "person_tooth_0_eyelets_0": 120,
+  "person_tooth_0_leather_gloves_L": 392,
+  "person_tooth_0_leather_gloves_R": 392,
+  "person_tooth_0_leather_gloves_cuff": 2048,
+  "person_tooth_0_hair": 17968,
+  "person_tooth_0_hand_L": 392,
+  "person_tooth_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_tooth_0_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_tooth_0_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_tooth_0_buttons": [
+   0.1248,
+   0.1384,
+   0.1651
+  ],
+  "person_tooth_0_capelet": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_tooth_0_cargo_flaps": [
+   0.011,
+   0.0152,
+   0.0091
+  ],
+  "person_tooth_0_cargo_pockets": [
+   0.0319,
+   0.0437,
+   0.0232
+  ],
+  "person_tooth_0_coat": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_tooth_0_coat_skirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_tooth_0_collar": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_tooth_0_collar_points": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_tooth_0_cuffs": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_tooth_0_eyelets_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_tooth_0_eyelets_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_tooth_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_tooth_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_tooth_0_lapels": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_tooth_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_tooth_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_tooth_0_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_tooth_0_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_tooth_0_placket": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_tooth_0_rolled_hem": [
+   0.0823,
+   0.0999,
+   0.0561
+  ],
+  "person_tooth_0_shirt": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_tooth_0_shoe": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_tooth_0_shoes": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_tooth_0_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "person_tooth_0_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_tooth_0_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_tooth_0_tail": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_tooth_0_tooth_cord": [
+   0.0452,
+   0.0319,
+   0.0212
+  ],
+  "person_tooth_0_tooth_forceps": [
+   0.2159,
+   0.2086,
+   0.1878
+  ],
+  "person_tooth_0_tooth_mirror": [
+   0.5776,
+   0.6038,
+   0.6172
+  ],
+  "person_tooth_0_tooth_mirror_rim": [
+   0.0452,
+   0.0452,
+   0.0482
+  ],
+  "person_tooth_0_tooth_teeth": [
+   0.6724,
+   0.6172,
+   0.491
+  ],
+  "person_tooth_0_tooth_teeth_old": [
+   0.5029,
+   0.402,
+   0.1878
+  ],
+  "person_tooth_0_trouser": [
+   0.0319,
+   0.0437,
+   0.0232
+  ],
+  "person_tooth_0_trousers": [
+   0.0319,
+   0.0437,
+   0.0232
+  ]
+ }
+}

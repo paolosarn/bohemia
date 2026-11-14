@@ -87,7 +87,7 @@
   }
   function row(n) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].n === n) return DATA.bosses[i]; return null; }
   function verbRow(id) { if (!DATA) return null; for (var i = 0; i < DATA.bosses.length; i++) if (DATA.bosses[i].verb && DATA.bosses[i].verb.id === id) return DATA.bosses[i]; return null; }
-  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {}, lead: {}, ground: {}, pipe: {}, machines: {}, dark: {}, hole: {}, riggers: {}, curfew: {}, mines: {}, blown: [], nails: {} }; }
+  function fresh(seed) { return { v: 1, seed: seed, verbs: {}, marks: [], rumours: {}, lead: {}, ground: {}, pipe: {}, machines: {}, dark: {}, hole: {}, riggers: {}, curfew: {}, mines: {}, blown: [], nails: {}, wagon: {}, tooth: {}, lens: {} }; }
   function save() { try { root.localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
   function sync() {
     var h = hs(); if (!h) return false;
@@ -104,6 +104,9 @@
     if (!S.mines) { S.mines = {}; MINE_DIRTY = true; }
     if (!S.blown) S.blown = [];
     if (!S.nails) { S.nails = {}; NAIL_DIRTY = true; }
+    if (!S.wagon) S.wagon = {};
+    if (!S.tooth) S.tooth = {};
+    if (!S.lens) S.lens = {};
     if (DATA) DATA.bosses.forEach(function (r) { if (r.verb && h.boss.fallen[r.n] && !S.verbs[r.verb.id]) grant(r, h.boss.fallen[r.n]); });   /* a save from before this file */
     groundCatchUp();   /* (8) his ground follows WORLD TWO's fallen flag */
     pipeCatchUp();     /* (9) his pipe too */
@@ -114,6 +117,7 @@
     curfewCatchUp();   /* (15) and his gates */
     minesCatchUp();    /* (16) and his mines */
     nailsCatchUp();    /* (17) and his nails */
+    wagonCatchUp(); toothCatchUp(); lensCatchUp();   /* (18) his wagon, (19) his collectors, (20) his blur */
     if (NAIL_DIRTY) nailGrid();
     if (MINE_DIRTY) mineGrid();
     if (LOCK_DIRTY) lockGrid();
@@ -238,7 +242,7 @@
   /* (8) under it, what his ground did, in one plain line with its numbers (the streets open, his till) */
   function groundOnCard(r) {
     try {
-      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) g = S && S.machines && S.machines[r.n]; if (!g || !g.said) g = S && S.dark && S.dark[r.n]; if (!g || !g.said) g = S && S.hole && S.hole[r.n]; if (!g || !g.said) g = S && S.riggers && S.riggers[r.n]; if (!g || !g.said) g = S && S.curfew && S.curfew[r.n]; if (!g || !g.said) g = S && S.mines && S.mines[r.n]; if (!g || !g.said) g = S && S.nails && S.nails[r.n]; if (!g || !g.said) return;   /* (8) his ground, (9) his pipe, (10) his machines or (11) his dark */
+      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) g = S && S.machines && S.machines[r.n]; if (!g || !g.said) g = S && S.dark && S.dark[r.n]; if (!g || !g.said) g = S && S.hole && S.hole[r.n]; if (!g || !g.said) g = S && S.riggers && S.riggers[r.n]; if (!g || !g.said) g = S && S.curfew && S.curfew[r.n]; if (!g || !g.said) g = S && S.mines && S.mines[r.n]; if (!g || !g.said) g = S && S.nails && S.nails[r.n]; if (!g || !g.said) g = S && S.wagon && S.wagon[r.n]; if (!g || !g.said) g = S && S.tooth && S.tooth[r.n]; if (!g || !g.said) g = S && S.lens && S.lens[r.n]; if (!g || !g.said) return;   /* (8) his ground, (9) his pipe, (10) his machines or (11) his dark */
       var el = document.getElementById('roadcard'), at = el && (el.querySelector('.rchand') || el.querySelector('.rctext')); if (!at) return;
       var d = document.createElement('div'); d.className = 'rcground'; d.setAttribute('data-draft', 'true');
       d.style.cssText = 'margin-top:6px;padding:5px 8px;background:rgba(10,8,6,.45);box-shadow:inset 0 0 0 1px #3a2e20;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;line-height:1.35;color:#e2b45a';
@@ -413,6 +417,15 @@
       return { id: id };
     }
     /* THE MACHINIST's pipe gun (next to scrap, once a day, into the company's bag) */
+    /* BOSSES 11/14: THE PLATE's press (next to scrap, once a day), THE TOOTH's forceps (when a man is hurting, once a day), THE LENS's
+       spyglass (on a street, once a day) */
+    if (id === 'press' || id === 'fix' || id === 'look') {
+      if (id === 'press' && !hisPlace('press', x, y) && !nearKind(x, y, V.scrap_districts || [])) return null;
+      if (id === 'fix' && !worstWound()) return null;
+      if (id === 'look' && nearTown(x, y, 1)) return null;
+      var lv = S.verbs[id].last; if (lv != null && day() - lv < (V.cooldown_days || 1)) return { id: id, off: true, why: 'cooling' };
+      return { id: id };
+    }
     if (id === 'weld') {
       if (!hisPlace('weld', x, y) && !nearKind(x, y, V.scrap_districts || [])) return null;
       var ld = S.verbs.weld.last; if (ld != null && day() - ld < (V.cooldown_days || 1)) return { id: id, off: true, why: 'cooling' };
@@ -479,10 +492,13 @@
     if (id === 'blow') { var wb = wallBeside(h[0], h[1]); if (!S.blown) S.blown = []; if (wb) { S.blown.push({ x: wb.x, y: wb.y, day: day(), from: [h[0], h[1]], saved: wb.saved }); BLOWN = null; WALL_CACHE.k = null; }
       got = { blocks: wb ? wb.saved : 0, at: wb ? [wb.x, wb.y] : null }; S.verbs.blow.last = day(); }
     if (id === 'weld') { got = weldGun(V); S.verbs.weld.last = day(); }
+    if (id === 'press') { got = weldGun(V); S.verbs.press.last = day(); }
+    if (id === 'fix') { got = fixTooth(); S.verbs.fix.last = day(); }
+    if (id === 'look') { got = lookFar(h[0], h[1], V.reach || 12); S.verbs.look.last = day(); }
     if (id === 'pick') { got = { paid: V.pay_batteries | 0 }; try { if (got.paid > 0) BohemiaPurse.credit(purseGet(), 'electricity', got.paid, 'a locked door on ' + w, 'boss-verb:pick:' + h[0] + ',' + h[1], day()); } catch (e) { got.paid = 0; } }
-    var nums = { where: w, healed: (got && got.healed) | 0, men: (got && got.men) | 0, paid: (got && got.paid) | 0, blocks: (got && got.blocks) | 0 };
+    var nums = { where: w, name: (got && got.name) || '', NAME: String((got && got.name) || '').toUpperCase(), healed: (got && got.healed) | 0, men: (got && got.men) | 0, paid: (got && got.paid) | 0, blocks: (got && got.blocks) | 0 };
     nums.wounds = nums.men + (nums.men === 1 ? ' wound' : ' wounds'); nums.WOUNDS = nums.wounds.toUpperCase();   /* '1 wound', never '1 wounds' */
-    var none = (id === 'cook' && !nums.healed) || (id === 'purify' && !nums.men) || (id === 'survey' && !nums.blocks) || ((id === 'climb' || id === 'pick') && !nums.paid) || (id === 'blow' && !nums.blocks) || (id === 'weld' && !(got && got.made)), F = V.first || {};   /* nothing to heal: say so plainly, never '0 blood back' */
+    var none = (id === 'cook' && !nums.healed) || (id === 'purify' && !nums.men) || (id === 'survey' && !nums.blocks) || ((id === 'climb' || id === 'pick') && !nums.paid) || (id === 'blow' && !nums.blocks) || ((id === 'weld' || id === 'press') && !(got && got.made)) || (id === 'fix' && !(got && got.name)) || (id === 'look' && !nums.blocks), F = V.first || {};   /* nothing to heal: say so plainly, never '0 blood back' */
     var mk = { k: id, x: h[0], y: h[1], day: day(), first: first ? fill((none && F.plate_none) || F.plate, nums) : null, t: Date.now() };
     if (id === 'climb') { var tw = towerOf(h[0], h[1]); if (tw) { mk.tx = tw[0]; mk.ty = tw[1]; } }
     if (id === 'pick') { var dr = doorOf(h[0], h[1]); if (dr) { mk.tx = dr[0]; mk.ty = dr[1]; } }
@@ -493,7 +509,7 @@
     var said = first && (F.feed || F.feed_none) ? fill((none && F.feed_none) || F.feed, nums)
       : V.says + (id === 'cook' && got ? (got.men ? ' ' + got.healed + ' blood back across ' + got.men + (got.men === 1 ? ' man.' : ' men.') : ' Nobody was hurt; they eat anyway.')
       : id === 'open' && got ? (got.paid ? ' +' + got.paid + ' batteries.' : '') : id === 'purify' && got ? (got.men ? ' ' + got.men + (got.men === 1 ? ' wound' : ' wounds') + ' closing sooner.' : ' Nobody is wounded right now.')
-      : id === 'survey' && got ? ' ' + got.blocks + (got.blocks === 1 ? ' block' : ' blocks') + ' out of the fog.' : (id === 'climb' || id === 'pick') && got ? (got.paid ? ' +' + got.paid + ' batteries.' : '') : id === 'blow' && got ? (got.blocks ? ' ' + got.blocks + ' blocks shorter.' : '') : id === 'weld' && got ? (got.made ? ' A pipe gun in your bag.' : ' Your bag is full.') : '');
+      : id === 'survey' && got ? ' ' + got.blocks + (got.blocks === 1 ? ' block' : ' blocks') + ' out of the fog.' : (id === 'climb' || id === 'pick') && got ? (got.paid ? ' +' + got.paid + ' batteries.' : '') : id === 'blow' && got ? (got.blocks ? ' ' + got.blocks + ' blocks shorter.' : '') : id === 'weld' && got ? (got.made ? ' A pipe gun in your bag.' : ' Your bag is full.') : id === 'press' && got ? (got.made ? ' A plate in your bag.' : ' Your bag is full.') : id === 'fix' && got ? (got.name ? ' ' + got.name + ' can stand again.' : '') : id === 'look' && got ? ' ' + got.blocks + ' blocks seen down the streets.' : '');
     feed('@yourcompany', said, 'mine');   /* draft:true: the company's own post, on the phone */
     if (V.feed) feed(V.feed.who, fill(V.feed.txt, nums), 'world');
     var rise = fill((none && F.rise_none) || F.rise || '', nums);   /* (7) the change plays where he stands, the number rises off his men */
@@ -1727,14 +1743,275 @@
     return c;
   }
   /* (WELD) a pipe gun into the company's bag, once a day, next to scrap (an industrial block, a storage yard, a boneyard, a dump) */
+  /* (FIX) the man hurting worst (the fresh wound with the most days left, never the main man's own call): his wound is closed */
+  function worstWound() { var C = root.BohemiaCondition; if (!C || !C.get) return null; var s = C.get(), best = null, bk = null;
+    for (var k in s.men) { var m = s.men[k]; if (!m || !m.wound || !(m.wound.left > 0)) continue; if (!best || m.wound.left > best.wound.left) { best = m; bk = k; } } return best ? { m: best, k: bk, s: s } : null; }
+  function fixTooth() { var C = root.BohemiaCondition, w = worstWound(); if (!w) return { name: null };
+    var days = Math.ceil(w.m.wound.left); w.m.wound = null; try { root.localStorage.setItem(C.KEY, JSON.stringify(w.s)); } catch (e) {}
+    try { root.dispatchEvent(new CustomEvent('bohemia:condition', { detail: { fixed: w.k } })); } catch (e) {}
+    return { name: w.m.shown || w.k, days: days }; }
   function bagRoom() { var cap = 36; try { var P = root.parent && root.parent !== root ? root.parent : root; if (P.BohemiaCamp && P.BohemiaCamp.stashSlots) cap = P.BohemiaCamp.stashSlots() || cap; else if (root.BohemiaCamp && root.BohemiaCamp.stashSlots) cap = root.BohemiaCamp.stashSlots() || cap; } catch (e) {}
     var bag = []; try { bag = JSON.parse(root.localStorage.getItem('bohemia.bag.v1') || '[]') || []; } catch (e) { bag = []; } return { bag: Array.isArray(bag) ? bag : [], cap: cap }; }
   function weldGun(V) {
     var B = bagRoom(); if (B.bag.length >= B.cap) return { made: 0, full: true };
-    var it = JSON.parse(JSON.stringify(V.item || {})); it.draft = true; it.made = day(); it.from = 'weld';
+    var it = JSON.parse(JSON.stringify(V.item || {})); it.draft = true; it.made = day(); it.from = V.id || 'weld';
     B.bag.push(it); try { root.localStorage.setItem('bohemia.bag.v1', JSON.stringify(B.bag)); } catch (e) { return { made: 0 }; }
     try { var P = root.parent && root.parent !== root ? root.parent : root; P.postMessage({ type: 'BOHEMIA_BAG_CHANGED', from: 'weld' }, '*'); } catch (e) {}
     return { made: 1, name: it.name };
+  }
+
+  /* ---------- (18) HIS WAGON (BOSSES 11/14, the coordinator's round 'BOSSES turn up', rules 441, 447; ask lines 167, 522;
+     records/BOHEMIA_BOSSES_TEN_TO_TWELVE_11_14_26.md). THE PLATE, the ladder's 10th (the last press brake). WHILE HE STANDS his armoured
+     scrap wagon rolls back and forth along his street past the press, one block every 'step_mins' of the game's own clock, and the block it
+     stands on is shut (nothing you own goes through pressed steel): A WALL THAT MOVES. The walk goes round it or waits for it to roll on;
+     never the block the crew stands on. WHEN HE FALLS the wagon is stripped and parked at the end of its road, its plates off. */
+  function wagonRow(n) { var r = row(n); return r && r.wagon ? r : null; }
+  function wagonDown(k, W) { var h = hs(); return W.fell != null || !!(h && h.boss.fallen[k]); }
+  function clockMins() { try { return (T.day | 0) * 1440 + (T.min | 0); } catch (e) { return 0; } }
+  function makeWagon(r, at, from) {
+    var G = r.wagon, near = Math.max(2, G.near | 0 || 3), far = Math.max(near + 1, G.far | 0 || 6), best = null;
+    var c = spots(at, near, far, 12, from, 0x6b43a9b5);
+    for (var i = 0; i < c.length; i++) for (var j = i + 1; j < c.length; j++) {
+      var a = c[i], b = c[j]; if (cheb(a.x, a.y, b.x, b.y) < 4) continue;
+      var p = null; try { p = cityRoute(a.x, a.y, b.x, b.y); } catch (e) { p = null; }
+      if (!p || p.length < (G.min_len | 0 || 6) || p.length > (G.max_len | 0 || 16)) continue;
+      if (p.some(function (q) { return nearTown(q[0], q[1], 2) || shutAt(q[0], q[1]) || gateAt(q[0], q[1]); })) continue;
+      if (!best || p.length > best.length) best = p;
+    }
+    return { at: at.slice(), path: (best || []).map(function (q) { return [q[0], q[1]]; }), fell: null, told: null, made: day(), draft: true };
+  }
+  /* where his wagon stands now: back and forth along its road on the game's own clock */
+  function wagonIdx(W, G) { var L = W.path.length; if (L < 2) return 0; var t = Math.floor(clockMins() / Math.max(1, +G.step_mins || 20)), per = 2 * (L - 1), k = t % per; return k < L ? k : per - k; }
+  function wagonAt(x, y) {
+    if (!S || !S.wagon) return false;
+    for (var k in S.wagon) { var W = S.wagon[k], r = wagonRow(k); if (!W || !r || !W.path || !W.path.length || wagonDown(k, W)) continue;
+      var q = W.path[wagonIdx(W, r.wagon)]; if (q[0] === x && q[1] === y) { var me = here(); return !(me && me[0] === x && me[1] === y); } }
+    return false;
+  }
+  function wagonTick() {
+    if (!DATA || !S || bench() || !N()) return;
+    var h = hs(); if (!h) return;
+    if (!S.wagon) S.wagon = {};
+    DATA.bosses.forEach(function (r) {
+      if (!r.wagon || S.wagon[r.n]) return;
+      var sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign : null, f = h.boss.found[r.n], at = f || (sg && sg.boss);
+      if (!at || h.boss.fallen[r.n]) return;
+      try { if (!FOG.ready) return; } catch (e) { return; }
+      S.wagon[r.n] = makeWagon(r, [at.x, at.y], sg ? [sg.x, sg.y] : here()); save();
+      LAST.wagon = { n: r.n, path: S.wagon[r.n].path.length, at: Date.now() };
+    });
+    var me = here(); if (!me || inTown() || fightUp()) return;
+    for (var n in S.wagon) { var W = S.wagon[n], r = wagonRow(n); if (!W || !r || W.told != null || !W.path.length || wagonDown(n, W)) continue;
+      var q = W.path[wagonIdx(W, r.wagon)], dq = cheb(q[0], q[1], me[0], me[1]); if (dq > 4 || (dq > 2 && !sees(q[0], q[1]))) continue;   /* a plated wagon two blocks off is heard round a corner (measured 11/14 on the alpha) */
+      W.told = day(); save();
+      if (r.wagon.say) say(r.wagon.say);
+      if (r.wagon.feed_seen) feed(r.wagon.feed_seen.who, fill(r.wagon.feed_seen.txt, { where: whereWord(q[0], q[1]) }), 'world');
+      RISES.push({ x: q[0], y: q[1], t0: performance.now(), txt: r.wagon.rise || 'HIS WAGON', col: '#e6dcc4' }); tick();
+      LAST.wagonTold = { n: n, at: q.slice(), t: Date.now() }; root.__BOSS_WAGON_TOLD = LAST.wagonTold;
+    }
+  }
+  function wagonFell(r, h) {
+    var G = r.wagon; if (!G || !S) return null;
+    if (!S.wagon) S.wagon = {};
+    var W = S.wagon[r.n]; if (!W) W = S.wagon[r.n] = { at: null, path: [], fell: null, told: null, made: day(), draft: true };
+    if (W.fell != null) return W;
+    W.fell = day();
+    var o = { where: W.at ? whereWord(W.at[0], W.at[1]) : 'that block', blocks: W.path.length };
+    if (G.feed && W.path.length) feed(G.feed.who, fill(G.feed.txt, o), 'world');
+    W.said = W.path.length ? fill(G.card, o) : (G.card_none || null);
+    save();
+    LAST.wagonFell = { n: r.n, said: W.said, at: Date.now() };
+    return W;
+  }
+  function wagonCatchUp() { if (!DATA || !S || !S.wagon) return; var h = hs(); if (!h) return;
+    for (var k in S.wagon) { var W = S.wagon[k]; if (W && W.fell == null && h.boss.fallen[k]) { var r = wagonRow(k); if (r) wagonFell(r, h); } } }
+  function wagonKey(r, after) { return (r.wagon.pic || 'wagon') + (after ? '_after' : '_before'); }
+  function wagonDraw(gx, ox, oy, beat) {
+    if (!S || !S.wagon) return;
+    var h = hs(); LAST.drew.wagon = [];
+    for (var k in S.wagon) {
+      var W = S.wagon[k], r = wagonRow(k); if (!W || !r || !W.path || !W.path.length) continue;
+      var fell = wagonDown(k, W), down = fell && !beatOwed(k), inBeat = !!(BEAT && BEAT.n === k), known = !!(h && h.boss.found[k]);
+      var q = down ? W.path[0] : W.path[wagonIdx(W, r.wagon)], vis = seen(q[0], q[1]); if (!vis && !known) continue;
+      if (inBeat && fell) { LAST.drew.wagon.push({ n: k, at: q.slice(), key: 'beat' }); continue; }
+      var key = wagonKey(r, down), b = paint(gx, key, q[0], q[1], ox, oy, beat, 0.95, 0, !vis);
+      if (b) { LAST.drew.wagon.push({ n: k, at: q.slice(), key: key }); LAST.drew.painted++; }
+    }
+  }
+  function wagonBeat(x, ox, oy, beat, u, alpha) {
+    var W = S && S.wagon && BEAT && S.wagon[BEAT.n], r = BEAT && wagonRow(BEAT.n); if (!W || !r || !W.path.length) return 0;
+    var q0 = W.path[wagonIdx(W, r.wagon)], q1 = W.path[0];
+    var b0 = rectOf(wagonKey(r, false), q0[0], q0[1], ox, oy, 0.95, 0), b1 = rectOf(wagonKey(r, true), q1[0], q1[1], ox, oy, 0.95, 0);
+    if (b0 && u < 1) wipe(x, wagonKey(r, false), null, b0, beat, 0, alpha * (1 - u));
+    if (b1) wipe(x, null, wagonKey(r, true), b1, beat, u, alpha);
+    return b1 ? 1 : 0;
+  }
+
+  /* ---------- (19) HIS COLLECTORS (BOSSES 11/14). THE TOOTH, the ladder's 11th (the only working dental kit). WHILE HE STANDS his
+     collectors sit at the gates of the 'towns' nearest his chair (within 'radius') and take 'tax' batteries off the crew the first time it
+     walks into one of them each day ('for the chair'; the purse's own debit). Not a wall, not a toll on a road, not blood: THE TOWNS round
+     him are his. WHEN HE FALLS the collectors are gone and what they took off you is paid back once (the purse's own credit). */
+  var TOOTH_IN = null;
+  function toothRow(n) { var r = row(n); return r && r.tooth ? r : null; }
+  function toothDown(k, Q) { var h = hs(); return Q.fell != null || !!(h && h.boss.fallen[k]); }
+  function makeTooth(r, at) {
+    var G = r.tooth, bs = bases(), list = [];
+    for (var tn in bs) { var b = bs[tn]; if (!b) continue; var d = cheb(b.x | 0, b.y | 0, at[0], at[1]); if (d > (G.radius | 0 || 18)) continue;
+      var door = null; try { door = townDoor(b.x | 0, b.y | 0); } catch (e) {} list.push({ town: tn, d: d, door: door ? [door[0], door[1]] : [b.x | 0, b.y | 0] }); }
+    list.sort(function (a, b) { return a.d - b.d; });
+    return { at: at.slice(), towns: list.slice(0, Math.max(1, G.towns | 0 || 3)), paid: {}, took: 0, refund: null, fell: null, told: null, made: day(), draft: true };
+  }
+  function townHere() { var me = here(); return me ? nearTown(me[0], me[1], 2) : null; }
+  function toothTick() {
+    if (!DATA || !S || bench() || !N()) return;
+    var h = hs(); if (!h) return;
+    if (!S.tooth) S.tooth = {};
+    DATA.bosses.forEach(function (r) {
+      if (!r.tooth || S.tooth[r.n]) return;
+      var sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign : null, f = h.boss.found[r.n], at = f || (sg && sg.boss);
+      if (!at || h.boss.fallen[r.n]) return;
+      S.tooth[r.n] = makeTooth(r, [at.x, at.y]); save();
+      LAST.tooth = { n: r.n, towns: S.tooth[r.n].towns.map(function (t) { return t.town; }), at: Date.now() };
+    });
+    /* walking into a town: the first time today at one of his, his collector takes the tax */
+    var inn = inTown(); if (TOOTH_IN === null) { TOOTH_IN = inn; return; }
+    var was = TOOTH_IN; TOOTH_IN = inn; if (!inn || was) return;
+    var tn = townHere(); if (!tn) return;
+    for (var n in S.tooth) { var Q = S.tooth[n], r = toothRow(n); if (!Q || !r || toothDown(n, Q)) continue;
+      if (!Q.towns.some(function (t) { return t.town === tn; })) continue;
+      if (Q.paid[tn] === day()) continue;
+      var tax = r.tooth.tax | 0, P = null, have = 0; try { P = purseGet(); have = BohemiaPurse.balance(P, 'electricity') | 0; } catch (e) {}
+      var took = Math.min(tax, Math.max(0, have));
+      try { if (took > 0) BohemiaPurse.debit(P, 'electricity', took, 'THE TOOTH\'s collector at ' + tn, 'boss-tax:' + n + ':' + tn + ':' + day(), day()); } catch (e) { took = 0; }
+      try { if (typeof saveNow === 'function') saveNow('boss-tax:' + n); } catch (e) {}
+      Q.paid[tn] = day(); Q.took = (Q.took | 0) + took; save();
+      var o = { town: tn, tax: took };
+      if (r.tooth.feed_tax) feed(r.tooth.feed_tax.who, fill(r.tooth.feed_tax.txt, o), 'world');
+      if (Q.told == null) { Q.told = day(); if (r.tooth.say) say(fill(r.tooth.say, o)); save(); }
+      LAST.toothTax = { n: n, town: tn, took: took, t: Date.now() }; root.__BOSS_TOOTH_TAX = LAST.toothTax;
+    }
+  }
+  function toothFell(r, h) {
+    var G = r.tooth; if (!G || !S) return null;
+    if (!S.tooth) S.tooth = {};
+    var Q = S.tooth[r.n]; if (!Q) Q = S.tooth[r.n] = { at: null, towns: [], paid: {}, took: 0, refund: null, fell: null, told: null, made: day(), draft: true };
+    if (Q.fell != null) return Q;
+    Q.fell = day();
+    var back = Q.took | 0;
+    if (Q.refund == null) { Q.refund = back; try { if (back > 0) BohemiaPurse.credit(purseGet(), 'electricity', back, 'THE TOOTH\'s box, paid back', 'boss-refund:' + r.n, day()); } catch (e) { Q.refund = 0; } }
+    var o = { towns: Q.towns.length + (Q.towns.length === 1 ? ' town' : ' towns'), back: Q.refund | 0, where: Q.at ? whereWord(Q.at[0], Q.at[1]) : 'that block' };
+    o.TOWNS = o.towns.toUpperCase();
+    if (G.feed) feed(G.feed.who, fill(G.feed.txt, o), 'world');
+    Q.said = Q.towns.length ? fill(o.back ? G.card : (G.card_free || G.card), o) : (G.card_none || null);
+    save();
+    LAST.toothFell = { n: r.n, back: Q.refund, said: Q.said, at: Date.now() };
+    return Q;
+  }
+  function toothCatchUp() { if (!DATA || !S || !S.tooth) return; var h = hs(); if (!h) return;
+    for (var k in S.tooth) { var Q = S.tooth[k]; if (Q && Q.fell == null && h.boss.fallen[k]) { var r = toothRow(k); if (r) toothFell(r, h); } } }
+  function toothKey(r, after) { return (r.tooth.pic || 'collector') + (after ? '_after' : '_before'); }
+  function toothDraw(gx, ox, oy, beat) {
+    if (!S || !S.tooth) return;
+    var h = hs(); LAST.drew.collectors = [];
+    for (var k in S.tooth) {
+      var Q = S.tooth[k], r = toothRow(k); if (!Q || !r) continue;
+      var fell = toothDown(k, Q), down = fell && !beatOwed(k), inBeat = !!(BEAT && BEAT.n === k), known = !!(h && h.boss.found[k]);
+      Q.towns.forEach(function (t) { var q = t.door, vis = seen(q[0], q[1]); if (!vis && !known) return;
+        if (inBeat && fell) { LAST.drew.collectors.push({ n: k, town: t.town, at: q.slice(), key: 'beat' }); return; }
+        var key = toothKey(r, down), b = paint(gx, key, q[0], q[1], ox, oy, beat, 0.95, 0, !vis);
+        if (b) { LAST.drew.collectors.push({ n: k, town: t.town, at: q.slice(), key: key }); LAST.drew.painted++; } });
+    }
+  }
+  function toothBeat(x, ox, oy, beat, u, alpha) {
+    var Q = S && S.tooth && BEAT && S.tooth[BEAT.n], r = BEAT && toothRow(BEAT.n); if (!Q || !r) return 0;
+    var c = 0; Q.towns.forEach(function (t) { var bb = rectOf(toothKey(r, true), t.door[0], t.door[1], ox, oy, 0.95, 0); if (!bb) return; wipe(x, toothKey(r, false), toothKey(r, true), bb, beat, u, alpha); c++; });
+    return c;
+  }
+
+  /* ---------- (20) HIS BLUR (BOSSES 11/14). THE LENS, the ladder's 12th (the last ground glass). WHILE HE STANDS, BY DAY, his side of the
+     map is a blur: within 'radius' of his shop the crew sees 'sight' blocks (the map's own fog asks, the same door THE BURN's dark uses at
+     night), the map is painted over with his haze, and his sprayed eye charts stand on the corners. The day itself is taken from you.
+     WHEN HE FALLS the haze lifts for good, and his spyglass is yours (LOOK FAR). */
+  function lensRow(n) { var r = row(n); return r && r.lens ? r : null; }
+  function lensDown(k, Q) { var h = hs(); return Q.fell != null || !!(h && h.boss.fallen[k]); }
+  function blurAt(x, y) {
+    if (!S || !S.lens || bench()) return 0;
+    for (var k in S.lens) { var Q = S.lens[k], r = lensRow(k); if (!Q || !Q.at || !r || lensDown(k, Q)) continue;
+      if (cheb(Q.at[0], Q.at[1], x, y) <= Q.radius && !nearTown(x, y, 1)) return Math.max(1, r.lens.sight | 0 || 2); }
+    return 0;
+  }
+  var LENS_LAST = null;
+  function lensTick() {
+    if (!DATA || !S || bench() || !N()) return;
+    var h = hs(); if (!h) return;
+    if (!S.lens) S.lens = {};
+    DATA.bosses.forEach(function (r) {
+      if (!r.lens || S.lens[r.n]) return;
+      var sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign : null, f = h.boss.found[r.n], at = f || (sg && sg.boss);
+      if (!at || h.boss.fallen[r.n]) return;
+      try { if (!FOG.ready) return; } catch (e) { return; }
+      S.lens[r.n] = { at: [at.x, at.y], radius: Math.max(2, r.lens.radius | 0 || 5), charts: spots([at.x, at.y], 1, 3, 2, sg ? [sg.x, sg.y] : here(), 0x1b873593), fell: null, told: null, made: day(), draft: true }; save();
+      LAST.lens = { n: r.n, at: Date.now() };
+    });
+    var me = here(); if (!me) return;
+    var k = me[0] + ',' + me[1] + (night() ? 'n' : 'd'); if (LENS_LAST === null) { LENS_LAST = k; return; } if (k === LENS_LAST) return; LENS_LAST = k;
+    if (night() || inTown() || fightUp() || !blurAt(me[0], me[1])) return;
+    for (var n in S.lens) { var Q = S.lens[n], r = lensRow(n); if (!Q || !r || Q.told != null || lensDown(n, Q) || cheb(Q.at[0], Q.at[1], me[0], me[1]) > Q.radius) continue;
+      Q.told = day(); save();
+      if (r.lens.say) say(r.lens.say);
+      if (r.lens.feed_blur) feed(r.lens.feed_blur.who, fill(r.lens.feed_blur.txt, { where: whereWord(me[0], me[1]) }), 'world');
+      RISES.push({ x: me[0], y: me[1], t0: performance.now(), txt: r.lens.rise || 'HIS HAZE', col: '#e6dcc4' }); tick();
+      LAST.lensTold = { n: n, at: me.slice(), sight: blurAt(me[0], me[1]), t: Date.now() }; root.__BOSS_LENS_TOLD = LAST.lensTold;
+    }
+  }
+  function lensFell(r, h) {
+    var G = r.lens; if (!G || !S) return null;
+    if (!S.lens) S.lens = {};
+    var Q = S.lens[r.n]; if (!Q) Q = S.lens[r.n] = { at: null, radius: G.radius | 0 || 5, charts: [], fell: null, told: null, made: day(), draft: true };
+    if (Q.fell != null) return Q;
+    Q.fell = day();
+    var o = { where: Q.at ? whereWord(Q.at[0], Q.at[1]) : 'that block', radius: Q.radius };
+    if (G.feed) feed(G.feed.who, fill(G.feed.txt, o), 'world');
+    Q.said = Q.at ? fill(G.card, o) : (G.card_none || null);
+    save();
+    LAST.lensFell = { n: r.n, said: Q.said, at: Date.now() };
+    return Q;
+  }
+  function lensCatchUp() { if (!DATA || !S || !S.lens) return; var h = hs(); if (!h) return;
+    for (var k in S.lens) { var Q = S.lens[k]; if (Q && Q.fell == null && h.boss.fallen[k]) { var r = lensRow(k); if (r) lensFell(r, h); } } }
+  var HAZE = null;
+  function haze(gx) { if (HAZE) return HAZE; try { var c = document.createElement('canvas'); c.width = 64; c.height = 64; var x = c.getContext('2d'), d = x.createImageData(64, 64);
+      for (var i = 0; i < d.data.length; i += 4) { var v = 150 + ((Math.random() * 70) | 0); d.data[i] = v; d.data[i + 1] = v - 4; d.data[i + 2] = v - 10; d.data[i + 3] = 255; } x.putImageData(d, 0, 0); HAZE = gx.createPattern(c, 'repeat'); } catch (e) { HAZE = 'rgba(170,166,158,1)'; } return HAZE; }
+  function lensKey(r, after) { return (r.lens.pic || 'haze') + (after ? '_after' : '_before'); }
+  function lensDraw(gx, ox, oy, beat) {
+    if (!S || !S.lens) return;
+    var h = hs(), nt = night(); LAST.drew.haze = 0; LAST.drew.charts = [];
+    for (var k in S.lens) {
+      var Q = S.lens[k], r = lensRow(k); if (!Q || !Q.at || !r) continue;
+      var fell = lensDown(k, Q), down = fell && !beatOwed(k), known = !!(h && h.boss.found[k]), inBeat = !!(BEAT && BEAT.n === k);
+      var lift = 0; if (inBeat && fell && BEAT) { var M = BEAT_MS, t = performance.now() - BEAT.t0; lift = Math.max(0, Math.min(1, (t - M.glide - M.hold) / M.wipe)); }
+      if (!nt && known && (!down || (inBeat && lift < 1))) { gx.save(); gx.globalAlpha = (0.42 + ((beat | 0) % 2) * 0.05) * (1 - lift); gx.fillStyle = haze(gx);
+        for (var dy = -Q.radius; dy <= Q.radius; dy++) for (var dx = -Q.radius; dx <= Q.radius; dx++) { var x = Q.at[0] + dx, y = Q.at[1] + dy; if (nearTown(x, y, 1)) continue; diamond(gx, x, y, ox, oy); gx.fill(); LAST.drew.haze++; }
+        gx.restore(); }
+      (Q.charts || []).forEach(function (q) { var vis = seen(q.x, q.y); if (!vis && !known) return;
+        if (inBeat && fell) { LAST.drew.charts.push({ at: [q.x, q.y], key: 'beat' }); return; }
+        var key = lensKey(r, down), b = paint(gx, key, q.x, q.y, ox, oy, beat, 0.95, 0, !vis); if (b) { LAST.drew.charts.push({ at: [q.x, q.y], key: key }); LAST.drew.painted++; } });
+    }
+  }
+  function lensBeat(x, ox, oy, beat, u, alpha) {
+    var Q = S && S.lens && BEAT && S.lens[BEAT.n], r = BEAT && lensRow(BEAT.n); if (!Q || !r) return 0;
+    var c = 0; (Q.charts || []).forEach(function (q) { var bb = rectOf(lensKey(r, true), q.x, q.y, ox, oy, 0.95, 0); if (!bb) return; wipe(x, lensKey(r, false), lensKey(r, true), bb, beat, u, alpha); c++; });
+    return c;
+  }
+  /* (LOOK FAR) his spyglass: from where the crew stands, down each of the four streets 'reach' blocks, the fog lifts */
+  function lookFar(x, y, reach) {
+    var n = 0;
+    try { [[1, 0], [-1, 0], [0, 1], [0, -1]].forEach(function (d) { var miss = 0;
+        for (var k = 1; k <= reach; k++) { var px = x + d[0] * k, py = y + d[1] * k; if (!walk(px, py)) { if (++miss > 1) break; continue; } miss = 0;
+          for (var a = -1; a <= 1; a++) { var qx = px + (d[1] ? a : 0), qy = py + (d[0] ? a : 0); if (!seen(qx, qy)) { try { fogReveal(qx, qy, 0.6); } catch (e) {} if (seen(qx, qy)) n++; } } } });
+      try { if (typeof fogSave === 'function') fogSave(); } catch (e) {}
+    } catch (e) { LAST.err = String(e && e.message || e); }
+    return { blocks: n };
   }
 
   /* ---------- (14) WHAT HE GIVES STANDS IN YOUR SETTLEMENT (BOSSES 11/10, VAMILY rule 445, ask line 571; Paolo: 'what the bosses give us
@@ -1767,7 +2044,7 @@
   /* the walk refuses a shut street (the map's own walk, wrapped the way WORLD 7's shut roads wrap it; nothing shut on the bench) */
   if (typeof root.cityWalkable === 'function') {
     RAW_WALK = root.cityWalkable;
-    root.cityWalkable = function (x, y) { if (shutAt(x, y) || lockAt(x, y) || mineShut(x, y)) return false; if (blownAt(x, y)) return true; return RAW_WALK(x, y); };   /* (15) his gates at night, (16) a mine you spotted, and a hole you blew */
+    root.cityWalkable = function (x, y) { if (shutAt(x, y) || lockAt(x, y) || mineShut(x, y) || wagonAt(x, y)) return false; if (blownAt(x, y)) return true; return RAW_WALK(x, y); };   /* (15) his gates at night, (16) a mine you spotted, and a hole you blew */
   }
 
   /* (17) the map's own minutes a block costs: his nails three times, his road after him faster than plain ground (cityStepMins
@@ -1822,7 +2099,7 @@
        building beside him, and his place was painted under his own men; it stands on the block behind him (up the screen) instead */
     return [at.x - 1, at.y - 1];
   }
-  var PROP = { cook: 'fire', open: 'main_after', purify: 'clean', burn: 'barrel', survey: 'stake', climb: 'rope', pick: 'cutlock', blow: 'rubble', weld: 'weldbench' }, MARK_OFF = [0.34, 0.16];
+  var PROP = { cook: 'fire', open: 'main_after', purify: 'clean', burn: 'barrel', survey: 'stake', climb: 'rope', pick: 'cutlock', blow: 'rubble', weld: 'weldbench', press: 'pressplate', fix: 'pulled', look: 'spyglass' }, MARK_OFF = [0.34, 0.16];
 
   /* ---------- (5) THE MOMENT HE FALLS: the camera, the change over his men, then her line ---------- */
   var BEAT = null, UB = null, OV = null, RAF = 0;
@@ -1929,7 +2206,8 @@
         try { LAST.beat.riggers = riggersBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }
         try { LAST.beat.gates = curfewBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (15) his gates cut */
         try { LAST.beat.mines = minesBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (16) his mines dug up */
-        try { LAST.beat.nails = nailsBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (17) his nails swept */   /* (13) the people he kept come down */   /* (8) his checkpoints roll open on the same tape */
+        try { LAST.beat.nails = nailsBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (17) his nails swept */
+        try { LAST.beat.wagon = wagonBeat(x, ox, oy, beat, u, fade); LAST.beat.collectors = toothBeat(x, ox, oy, beat, u, fade); LAST.beat.charts = lensBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (18) (19) (20) */   /* (13) the people he kept come down */   /* (8) his checkpoints roll open on the same tape */
         wipe(x, paintKey(r, false), paintKey(r, true), b, beat, u, fade);
         LAST.beat.rect = { x: b.x, y: b.y, w: b.w, h: b.h, cssW: Math.round(b.w / ppc()) }; LAST.beat.u = Math.round(u * 100) / 100;
         try { var F = mapFocus(); LAST.beat.focus = [Math.round(F.x), Math.round(F.y)]; LAST.beat.mid = [Math.round(b.x + b.w / 2), Math.round(b.y + b.h / 2)]; } catch (e) {}
@@ -1944,7 +2222,7 @@
       x.save(); x.globalAlpha = a; x.font = '400 ' + Math.round(12 * k) + 'px ' + f; x.textAlign = 'center'; x.textBaseline = 'alphabetic'; x.lineJoin = 'round';
       var ty = Math.round(p.sy - TH * 0.6 - 18 * k - e * 34 * k);
       x.lineWidth = Math.round(4 * k); x.strokeStyle = 'rgba(10,8,6,0.9)'; x.strokeText(UB.rise, Math.round(p.sx), ty);
-      x.fillStyle = UB.id === 'cook' ? '#9fd08a' : (UB.id === 'open' || UB.id === 'climb' || UB.id === 'pick') ? '#f2c56a' : (UB.id === 'blow' || UB.id === 'weld') ? '#e6c46a' : UB.id === 'burn' ? '#f2a46a' : UB.id === 'survey' ? '#e6dcc4' : '#bfeae2'; x.fillText(UB.rise, Math.round(p.sx), ty); x.restore();
+      x.fillStyle = UB.id === 'cook' ? '#9fd08a' : (UB.id === 'open' || UB.id === 'climb' || UB.id === 'pick') ? '#f2c56a' : (UB.id === 'blow' || UB.id === 'weld' || UB.id === 'press') ? '#e6c46a' : UB.id === 'look' ? '#e6dcc4' : UB.id === 'burn' ? '#f2a46a' : UB.id === 'survey' ? '#e6dcc4' : '#bfeae2'; x.fillText(UB.rise, Math.round(p.sx), ty); x.restore();
       LAST.useBeat.drawn = { rise: UB.rise, at: [Math.round(p.sx), ty], mark: bm ? [bm.x, bm.y, bm.w, bm.h] : null };
     }
   }
@@ -1988,6 +2266,9 @@
       try { curfewTick(); curfewDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (15) his gates, chained at night */
       try { minesTick(); minesDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (16) his mines, the ones you spotted */
       try { nailsTick(); nailsDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (17) his nails, then his road */
+      try { wagonTick(); wagonDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (18) his wagon on its road */
+      try { toothDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (19) his collectors at the gates */
+      try { lensTick(); lensDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (20) his haze by day */
       DATA.bosses.forEach(function (r) {
         var f = h.boss.found[r.n], sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign.boss : null, at = f || sg; if (!at) return;
         var pa = placeAt(at), bx = pa[0], by = pa[1];
@@ -2029,6 +2310,7 @@
     if (r.curfew) curfewFell(r, h);   /* (15) his gates cut */
     if (r.mines) minesFell(r, h);   /* (16) his mines dug up */
     if (r.nails) nailsFell(r, h);   /* (17) his nails swept, his road */
+    if (r.wagon) wagonFell(r, h); if (r.tooth) toothFell(r, h); if (r.lens) lensFell(r, h);   /* (18) (19) (20) */
     var L = lead(r.n); L.afterDue = true; save();
     try { if (typeof render === 'function') render(); } catch (e) {}
   });
@@ -2038,7 +2320,7 @@
     if (!MFIGHT) return;
     var o = d.outcome || {}; setTimeout(function () { try { machineEnded(o); } catch (e) { LAST.err = String(e && e.message || e); } }, 400);
   });
-  setInterval(function () { try { talkTick(); } catch (e) {} try { prizes(); } catch (e) {} }, 900);   /* (14) what he gives goes to your place */
+  setInterval(function () { try { talkTick(); } catch (e) {} try { prizes(); } catch (e) {} try { if (sync()) toothTick(); } catch (e) {} }, 900);   /* (19) his collectors watch the town gates (in a town the map does not draw) */   /* (14) what he gives goes to your place */
   loadData();
   root.BohemiaBosses = {
     /* RUN's and WORLD TWO's hooks (__THE_BOSSES__) */
@@ -2061,7 +2343,7 @@
     machines: function (n) { sync(); return S && S.machines ? (n ? (S.machines[n] || null) : S.machines) : null; },
     machineAt: function (x, y) { sync(); return machineAt(x, y); },
     /* BOSSES 11/10 (rule 443(a)): the city's fog asks how far the crew sees in his dark at night (__THE_BURNS_DARK__); 0 where it is not his */
-    dark: function (x, y) { try { if (!S) sync(); return night() ? darkAt(x, y) : 0; } catch (e) { return 0; } },
+    dark: function (x, y) { try { if (!S) sync(); return night() ? darkAt(x, y) : blurAt(x, y); } catch (e) { return 0; } },   /* (20) THE LENS's blur by day through the same door */
     darkness: function (n) { sync(); return S && S.dark ? (n ? (S.dark[n] || null) : S.dark) : null; },
     /* and his hole in the map, for the gate: his side, whether a block is in it, and the forgetting run once from where the crew stands */
     hole: function (n) { sync(); return S && S.hole ? (n ? (S.hole[n] || null) : S.hole) : null; },
@@ -2083,6 +2365,11 @@
     nails: function (n) { sync(); return S && S.nails ? (n ? (S.nails[n] || null) : S.nails) : null; },
     nailAt: function (x, y) { sync(); if (NAIL_DIRTY) nailGrid(); return nailAt(x, y); },
     renail: function () { NAIL_DIRTY = true; nailGrid(); return !!NAIL; },
+    /* BOSSES 11/14: his wagon, his collectors, his blur, for the gate */
+    wagon: function (n) { sync(); return S && S.wagon ? (n ? (S.wagon[n] || null) : S.wagon) : null; }, wagonAt: function (x, y) { sync(); return wagonAt(x, y); },
+    wagonNow: function (n) { sync(); var W = S && S.wagon && S.wagon[n], r = wagonRow(n); return W && r && W.path.length ? W.path[wagonDown(n, W) ? 0 : wagonIdx(W, r.wagon)].slice() : null; },
+    tooth: function (n) { sync(); return S && S.tooth ? (n ? (S.tooth[n] || null) : S.tooth) : null; }, toothTick: function () { sync(); return toothTick(); },
+    lens: function (n) { sync(); return S && S.lens ? (n ? (S.lens[n] || null) : S.lens) : null; }, blurAt: function (x, y) { sync(); return blurAt(x, y); },
     rawStep: function (x, y) { try { return RAW_STEP ? RAW_STEP(x, y) : cityStepMins(x, y); } catch (e) { return null; } },
     /* row 611, for the gate: whether a card may open now, and a card opened through this file's own door */
     canTalk: function () { return canTalk(); }, talkTest: function (o) { return talk('test', 'TEST', o); },

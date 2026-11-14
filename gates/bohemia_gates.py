@@ -8590,6 +8590,14 @@ GATES = [
      "C1b), the feed (C1d); WELD A PIPE GUN into the company's bag (V1); the same phone opens the game again and it holds (R1). Planted: "
      "nails that cost nothing, nails back after the fall, a weld that made nothing, a phone that forgot the save, a prize the seam never "
      "got. about 40 min a way", True),
+    ('THE PLATE CHANGES THE MAP', ['node', 'gates/the_next_three_change_the_map_gate.js', 'THE PLATE'],
+     "BOSSES gate, 11/14, the coordinator's round 'BOSSES turn up' (rules 441, 447), ask lines 167, 522: the stranger's game on the DEMO "
+     "UPRIGHT and the ALPHA ON ITS SIDE, the nine before him first through the map's own fell(), then THE PLATE end to end: his flyer and "
+     "rumour (T1), BETO asks and one of yours reads it (T2); HIS WAGON rolls back and forth on its road past his press with the game's own "
+     "clock, the block it stands on shut and the one it left open (W1), said and posted (W2); his card (B0), his fight (B1), the beat strips "
+     "it on the tape (B2), his mallet to your place (G1); parked and stripped, nothing shut at any hour (C1a, C1b), the feed (C1d); PRESS "
+     "ARMOUR into the bag (V1); the reload holds (R1). Planted: a wagon that shuts nothing, it rolling again after the fall, a press that made "
+     "nothing, a phone that forgot the save, a prize the seam never got. about 40 min a way", True),
     ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
      "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
      "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "

@@ -367,6 +367,45 @@
     "O": "records/target/portrait/crew/boss_machinist_0/O_{64|128}.png",
     "M": "records/target/portrait/crew/boss_machinist_0/M_{64|128}.png"
    }
+  },
+  "boss_plate_0": {
+   "name": "THE PLATE",
+   "look": "boss_plate_0",
+   "model": "the barber and the master rig (tools/bohemia_bosses_the_three_men.py)",
+   "boss": true,
+   "files": {
+    "rest": "records/target/portrait/crew/boss_plate_0/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/boss_plate_0/A_{64|128}.png",
+    "E": "records/target/portrait/crew/boss_plate_0/E_{64|128}.png",
+    "O": "records/target/portrait/crew/boss_plate_0/O_{64|128}.png",
+    "M": "records/target/portrait/crew/boss_plate_0/M_{64|128}.png"
+   }
+  },
+  "boss_tooth_0": {
+   "name": "THE TOOTH",
+   "look": "boss_tooth_0",
+   "model": "the barber and the master rig (tools/bohemia_bosses_the_three_men.py)",
+   "boss": true,
+   "files": {
+    "rest": "records/target/portrait/crew/boss_tooth_0/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/boss_tooth_0/A_{64|128}.png",
+    "E": "records/target/portrait/crew/boss_tooth_0/E_{64|128}.png",
+    "O": "records/target/portrait/crew/boss_tooth_0/O_{64|128}.png",
+    "M": "records/target/portrait/crew/boss_tooth_0/M_{64|128}.png"
+   }
+  },
+  "boss_lens_0": {
+   "name": "THE LENS",
+   "look": "boss_lens_0",
+   "model": "the barber and the master rig (tools/bohemia_bosses_the_three_men.py)",
+   "boss": true,
+   "files": {
+    "rest": "records/target/portrait/crew/boss_lens_0/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/boss_lens_0/A_{64|128}.png",
+    "E": "records/target/portrait/crew/boss_lens_0/E_{64|128}.png",
+    "O": "records/target/portrait/crew/boss_lens_0/O_{64|128}.png",
+    "M": "records/target/portrait/crew/boss_lens_0/M_{64|128}.png"
+   }
   }
  },
  "groups": {

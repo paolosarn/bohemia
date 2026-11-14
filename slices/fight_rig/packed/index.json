@@ -157,6 +157,12 @@
 "fill": 0.203,
 "packedMB": 4.34
 },
+"boss_lens_0.webp": {
+"bytes": 328264,
+"decodedMB": 18.86,
+"fill": 0.224,
+"packedMB": 4.7
+},
 "boss_locksmith_0.webp": {
 "bytes": 281872,
 "decodedMB": 18.86,
@@ -168,6 +174,12 @@
 "decodedMB": 18.86,
 "fill": 0.215,
 "packedMB": 4.69
+},
+"boss_plate_0.webp": {
+"bytes": 297036,
+"decodedMB": 17.2,
+"fill": 0.254,
+"packedMB": 5.1
 },
 "boss_pot_0.webp": {
 "bytes": 329100,
@@ -186,6 +198,12 @@
 "decodedMB": 17.2,
 "fill": 0.219,
 "packedMB": 4.24
+},
+"boss_tooth_0.webp": {
+"bytes": 317024,
+"decodedMB": 18.86,
+"fill": 0.191,
+"packedMB": 4.15
 },
 "cast_apron.webp": {
 "bytes": 203058,
@@ -1227,8 +1245,8 @@
 }
 },
 "totals": {
-"decodedMB": 4051.9,
-"packedMB": 794.7,
-"sheets": 204
+"decodedMB": 4106.8,
+"packedMB": 808.6,
+"sheets": 207
 }
 }

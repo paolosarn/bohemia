@@ -1,0 +1,10 @@
+{
+ "model": "records/target/bosses_hand_rig/models/spyglass.glb",
+ "ppm": 606.9955156950672,
+ "files": [
+  "records/target/bosses_hand_rig/spyglass/rig_S.png",
+  "records/target/bosses_hand_rig/spyglass/rig_SE.png",
+  "records/target/bosses_hand_rig/spyglass/rig_SW.png"
+ ],
+ "box": null
+}

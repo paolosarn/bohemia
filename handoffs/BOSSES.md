@@ -1,5 +1,16 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/14/26: THE PLATE'S WAGON, HIS OWN WAY (the coordinator's round 'BOSSES turn up', rules 441, 447; ask lines 167, 522, 571), BUILD 11/14h
+Record: records/BOHEMIA_BOSSES_TEN_TO_TWELVE_11_14_26.md. Gate: "THE PLATE" (THE PLATE CHANGES THE MAP, registered; 21/0 both ways). VOTE bosses-the-plates-wagon-11-14.
+- THE NEXT THREE'S ASSETS SHIPPED WITH THIS BUILD: the three men (tools/bohemia_bosses_ten_to_twelve_11_14_26.py, packed own_kit), their
+  places, marks and pieces (tools/bohemia_bosses_ten_to_twelve_places_11_14_26.py), the three things (hand_press, hand_fix, hand_look); and
+  the code of all three ((18) HIS WAGON, (19) HIS COLLECTORS, (20) HIS BLUR, verbs press, fix, look), inert until each one's row ships.
+- HIS WAGON (18): back and forth along its road with the game's own clock (clockMins: T.day*1440+T.min), the block it stands on shut
+  through cityWalkable's bosses wrapper; stripped and parked when he falls. PRESS ARMOUR: his row's 'item' (a PRESSED PLATE) into
+  bohemia.bag.v1 once a day next to scrap, ordered before WELD.
+- ECONOMY / TUNING: a free 75-durability plate a day next to scrap is his row's to tune (cooldown_days, item). COMBAT TWO: his board
+  'landfill', BB's Two-Handed Mallet.
+
 ## BOSSES, 11/14/26: ROW 611, THE CARD WAITS ITS TURN (the coordinator's round 'BOSSES turn up', rule 447, 441), BUILD 11/14a
 - slices/bohemia_bosses.js townTurn(): a boss card (asker, sign read out, after) waits while the walk goes into a town (TRAVEL.town), for
   6 s after it (the gap before the town's screen shows), while the town's screen is up and for 4 s after it closes. talk(): the card's

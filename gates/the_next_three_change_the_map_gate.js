@@ -38,7 +38,7 @@ const { open } = require(path.join(ROOT, 'tools', 'bohemia_drive_the_demo.js'));
 let pass = 0, fail = 0;
 const ok = (n, c, w) => { if (c) pass++; else fail++; console.log((c ? '  ok   ' : '  FAIL ') + n + (w != null ? '  [' + w + ']' : '')); };
 const NAME = process.argv[2] || 'THE BURN';
-const LADDER = ['THE POT', 'THE TAP', 'THE FILTER', 'THE BURN', 'THE SURVEYOR', 'THE CLIMB', 'THE LOCKSMITH', 'THE CHARGE', 'THE MACHINIST'];
+const LADDER = ['THE POT', 'THE TAP', 'THE FILTER', 'THE BURN', 'THE SURVEYOR', 'THE CLIMB', 'THE LOCKSMITH', 'THE CHARGE', 'THE MACHINIST', 'THE PLATE', 'THE TOOTH', 'THE LENS'];
 const SLUG = NAME.replace(/^THE /, '').toLowerCase();
 const SHOTS = process.env.BOSSES_SHOTS === '0' ? null : path.join(ROOT, 'records', 'target', 'the_next_three_change_the_map', SLUG);
 const NIGHT = 22 * 60;
@@ -573,7 +573,89 @@ const NAIL = {
   }
 };
 
-const LEGS = { 'THE BURN': BURN, 'THE SURVEYOR': SURVEYOR, 'THE CLIMB': CLIMB, 'THE LOCKSMITH': LOCK, 'THE CHARGE': MINE, 'THE MACHINIST': NAIL };
+/* ---------------- THE PLATE: his wagon, a wall that moves (BOSSES 11/14) ---------------- */
+const wagonQ = (fr, n) => fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.wagon(n) || null)), n);
+/* put the day's own clock where his wagon stands on a given block of its road (the walk syncs T from DAY, measured 11/11) */
+const wagonTo = (fr, n, k) => fr.evaluate((a) => { const W = BohemiaBosses.wagon(a[0]), want = W.path[a[1]];
+  for (let m = 6 * 60; m < 17 * 60; m++) { DAY.min = m; daySync(); const q = BohemiaBosses.wagonNow(a[0]); if (q && q[0] === want[0] && q[1] === want[1]) { try { render(); } catch (e) {} return m; } } return -1; }, [n, k]);
+const PLATEQ = {
+  W1: (q) => !!q && q.moved && q.shutNow && q.leftOpen && q.onRoad,
+  C1a: (q) => !!q && q.parked && q.shut === 0,
+  V1: (q) => !!q && q.verb === 'press' && q.bag === q.bag0 + 1 && q.item === 'PRESSED PLATE' && q.cooling,
+  R1: (q, b) => !!q && q.fallen && q.path === b.path && q.shut === 0 && q.parked && q.bag >= 1
+};
+const PLATE = {
+  R1: PLATEQ.R1,
+  async before(c) {
+    const { fr, G } = c;
+    let W = null;
+    for (let i = 0; i < 30 && !(W && W.path && W.path.length >= 6); i++) { W = await wagonQ(fr, NAME); if (!(W && W.path && W.path.length >= 6)) await c.page.waitForTimeout(500); }
+    if (!W || W.path.length < 6) { ok('W1 his wagon', false, JSON.stringify(W)); return false; }
+    c.W = W; const L = W.path.length, mid = Math.floor(L / 2);
+    /* the crew on his road two blocks from where the wagon stands, by day */
+    await c.goTo(W.path[Math.max(0, mid - 2)]);
+    await wagonTo(fr, NAME, mid); await c.page.waitForTimeout(800);
+    const q = await fr.evaluate((a) => { const W = BohemiaBosses.wagon(a[0]), q0 = BohemiaBosses.wagonNow(a[0]); const s0 = !cityWalkable(q0[0], q0[1]) && BohemiaBosses.wagonAt(q0[0], q0[1]);
+      DAY.min += a[1] * 3; daySync(); const q1 = BohemiaBosses.wagonNow(a[0]); DAY.min -= a[1] * 3; daySync(); try { render(); } catch (e) {}
+      const on = (q) => W.path.some(p => p[0] === q[0] && p[1] === q[1]);
+      return { at: [city.x, city.y], q0, q1, moved: q1[0] !== q0[0] || q1[1] !== q0[1], shutNow: s0, leftOpen: true, onRoad: on(q0) && on(q1),
+        drawn: ((BohemiaBosses.last().drew || {}).wagon || []).map(d => d.key), told: JSON.parse(JSON.stringify(window.__BOSS_WAGON_TOLD || null)) }; }, [NAME, G.step_mins]);
+    /* the block it left is open again once it has rolled on */
+    q.leftOpen = await fr.evaluate((a) => { DAY.min += a[1] * 3; daySync(); const o = cityWalkable(a[2][0], a[2][1]) || (a[2][0] === city.x && a[2][1] === city.y); DAY.min -= a[1] * 3; daySync(); return o; }, [NAME, G.step_mins, q.q0]);
+    await c.shot('2_his_wagon');
+    ok('W1 his plated wagon rolls back and forth on a road of ' + L + ' blocks past his press with the clock, the block it stands on shut, the one it left open again', PLATEQ.W1(q) && q.drawn.indexOf('wagon_before') >= 0, JSON.stringify(q));
+    ok('W2 one of yours says it the first time it is in sight and ' + G.feed_seen.who + ' posts it', !!q.told && q.told.n === NAME && (await c.posts()).some(p => p.who === G.feed_seen.who && p.txt.indexOf(G.feed_seen.txt.split('{')[0].trim()) === 0), JSON.stringify(q.told));
+    ok('P2 planted: a wagon that shuts nothing turns W1 red', !PLATEQ.W1(Object.assign({}, q, { shutNow: false })), 'nothing shut');
+    return true;
+  },
+  card(G, c) { return G.card; },
+  async after(c) {
+    const { fr, G } = c;
+    const q = await fr.evaluate((a) => { const W = BohemiaBosses.wagon(a[0]); let shut = 0; const was = DAY.min;
+      for (let m = 0; m < 6; m++) { DAY.min = was + m * a[1] * 2; daySync(); W.path.forEach(p => { if (BohemiaBosses.wagonAt(p[0], p[1])) shut++; }); } DAY.min = was; daySync(); try { render(); } catch (e) {}
+      const now = BohemiaBosses.wagonNow(a[0]); return { parked: !!now && now[0] === W.path[0][0] && now[1] === W.path[0][1], shut, drawn: ((BohemiaBosses.last().drew || {}).wagon || []).map(d => d.key) }; }, [NAME, G.step_mins]);
+    ok('C1a his wagon is stripped and parked at the end of its road: no block of it shut at any hour', PLATEQ.C1a(q), JSON.stringify(q));
+    await c.goTo(c.W.path[0]); await fr.evaluate(() => render()); await c.page.waitForTimeout(600);
+    const dr = await fr.evaluate(() => ((BohemiaBosses.last().drew || {}).wagon || []).map(d => d.key));
+    ok('C1b painted stripped, its plates off beside it', dr.length >= 1 && dr.every(k => k === 'wagon_after'), dr.join(' '));
+    await c.shot('5_his_wagon_stripped');
+    const posts = await c.posts();
+    ok('C1d the feed posts it: ' + G.feed.who, posts.some(p => p.who === G.feed.who && p.txt.indexOf(G.feed.txt.split('{')[0].trim()) === 0), posts.filter(p => p.who === G.feed.who).map(p => p.txt.slice(0, 80)).join(' | '));
+    const p3 = await fr.evaluate((a) => { const W = BohemiaBosses.wagon(a[0]), H = BohemiaHisMap.state(), was = W.fell, f = H.boss.fallen[a[0]]; W.fell = null; delete H.boss.fallen[a[0]];
+      let shut = 0; W.path.forEach(p => { if (BohemiaBosses.wagonAt(p[0], p[1])) shut++; }); const now = BohemiaBosses.wagonNow(a[0]); W.fell = was; H.boss.fallen[a[0]] = f;
+      return { parked: false, shut }; }, [NAME]);
+    ok('P3 planted: his wagon rolling again after the fall turns C1a red', !PLATEQ.C1a(p3), JSON.stringify(p3));
+    /* PRESS ARMOUR beside scrap, where no verb before it in the order works */
+    const at = await fr.evaluate(() => { const h = [city.x, city.y]; let best = null, bd = 1e9;
+      for (let dy = -16; dy <= 16; dy++) for (let dx = -16; dx <= 16; dx++) { const x = h[0] + dx, y = h[1] + dy; if (!cityWalkable(x, y)) continue; const d = Math.max(Math.abs(dx), Math.abs(dy)); if (d >= bd) continue;
+        const a = BohemiaBosses.applies('press', x, y); if (!a || a.off) continue;
+        if (['open', 'purify', 'pick', 'blow'].some(id => { const b = BohemiaBosses.applies(id, x, y); return b && !b.off; })) continue;
+        if (!cityRoute(h[0], h[1], x, y)) continue; bd = d; best = [x, y]; } return best; });
+    let v = { found: !!at };
+    if (at) {
+      await c.goTo(at);
+      const bag0 = await fr.evaluate(() => (JSON.parse(localStorage.getItem('bohemia.bag.v1') || '[]') || []).filter(i => i && i.from === 'press').length);
+      const u = await fr.evaluate(() => { const v = BohemiaBosses.verbHere(); BohemiaBosses.use('press'); return { verb: v && v.id }; });
+      await c.page.waitForTimeout(2600);
+      v = await fr.evaluate((a) => { const bag = JSON.parse(localStorage.getItem('bohemia.bag.v1') || '[]') || [], it = bag.filter(i => i && i.from === 'press').slice(-1)[0], ap = BohemiaBosses.applies('press', city.x, city.y);
+        return { verb: a.verb, item: it ? it.name : null, cooling: !!(ap && ap.off), bag: bag.filter(i => i && i.from === 'press').length }; }, u);
+      v.bag0 = bag0;
+      await c.shot('5_a_plate_pressed');
+    }
+    ok('V1 PRESS ARMOUR: beside scrap your men press a plate into the company\'s bag, once a day', PLATEQ.V1(v), JSON.stringify(v));
+    ok('P6 planted: a press that made nothing turns V1 red', !PLATEQ.V1(Object.assign({}, v, { bag: v.bag0 })), 'nothing in the bag');
+    return { path: c.W.path.length };
+  },
+  async reload(e, c) {
+    await c.goOn(e, c.W.path[0]);
+    await e.page.waitForTimeout(800);
+    return e.fr.evaluate((a) => { const W = BohemiaBosses.wagon(a[0]) || { path: [] }; let shut = 0; W.path.forEach(p => { if (BohemiaBosses.wagonAt(p[0], p[1])) shut++; }); const now = BohemiaBosses.wagonNow(a[0]);
+      return { fallen: !!BohemiaHisMap.state().boss.fallen[a[0]], path: W.path.length, shut, parked: !!now && !!W.path[0] && now[0] === W.path[0][0] && now[1] === W.path[0][1],
+        bag: (JSON.parse(localStorage.getItem('bohemia.bag.v1') || '[]') || []).filter(i => i && i.from === 'press').length }; }, [NAME]).catch(x => ({ err: String(x) }));
+  }
+};
+
+const LEGS = { 'THE BURN': BURN, 'THE SURVEYOR': SURVEYOR, 'THE CLIMB': CLIMB, 'THE LOCKSMITH': LOCK, 'THE CHARGE': MINE, 'THE MACHINIST': NAIL, 'THE PLATE': PLATE };
 
 async function run(prof, alpha) {
   console.log('\n-- ' + NAME + ' on ' + (alpha ? 'the alpha' : 'the demo') + ', ' + prof + ' --');
@@ -666,7 +748,7 @@ async function run(prof, alpha) {
     }
     return { meet, mc, ff: !!ff, him, by };
   };
-  const c = { fr, page, d, shot, tapEl, go, goTo, settle, night, day, posts, st, pressCard, bossCard };
+  const c = { fr, page, d, shot, tapEl, go, goTo, settle, night, day, posts, st, pressCard, bossCard, inTown, leaveTown };
   /* the reopened phone walks the same way */
   c.goOn = async (e, to) => { for (let k = 0; k < 4; k++) { await e.fr.evaluate((c) => { try { if (TRAVEL_SPEED === 0) travelSpeedSet(TRAVEL_SPEED_LAST || 1); travelSpeedSet(4); travelTo(0, 0, c); travelGoes(); } catch (x) {} }, to).catch(() => {});
     for (let i = 0; i < 100; i++) { await e.page.waitForTimeout(500); if (await e.fr.evaluate(() => !TRAVEL || TRAVEL.i >= TRAVEL.path.length).catch(() => true)) break; }
@@ -677,7 +759,7 @@ async function run(prof, alpha) {
   for (const n of before) downs.push(n + ' ' + await downBy(n));
   ok('T0 every boss before him first, the ladder\'s order (each one\'s sign read, his fall through the map\'s own fell(), his card answered)', downs.every(x => /true$/.test(x)), downs.join(', '));
   /* ---------- T1, T2 ---------- */
-  const row = await rowOf(NAME), key = Object.keys(row).filter(k => ['dark', 'hole', 'riggers', 'curfew', 'mines', 'nails'].indexOf(k) >= 0)[0], G = row[key];
+  const row = await rowOf(NAME), key = Object.keys(row).filter(k => ['dark', 'hole', 'riggers', 'curfew', 'mines', 'nails', 'wagon', 'tooth', 'lens'].indexOf(k) >= 0)[0], G = row[key];
   c.G = G; c.row = row; c.light = (row.verb && row.verb.light_blocks) || 2;
   let s = await waitSign(NAME);
   ok('T1 ' + NAME + ': his sign (the ' + ((s.boss.sign || {}).kind || '?') + ') is in the world and his rumour is on the feed', !!(s.boss.sign && s.boss.sign.n === NAME) && !!s.rumours[NAME],
@@ -710,7 +792,7 @@ async function run(prof, alpha) {
   const bt = await fr.evaluate(() => JSON.parse(JSON.stringify(window.__BOSS_BEAT || null))).catch(() => null);
   if (af) { await page.waitForTimeout(500); await shot('4_she_says_what_changed'); }
   s = await st();
-  const want = okBefore ? await L.card(G, c) : null, onTape = bt ? (bt.drums | 0) + (bt.posts | 0) + (bt.riggers | 0) + (bt.gates | 0) + (bt.mines | 0) + (bt.nails | 0) : 0;
+  const want = okBefore ? await L.card(G, c) : null, onTape = bt ? (bt.drums | 0) + (bt.posts | 0) + (bt.riggers | 0) + (bt.gates | 0) + (bt.mines | 0) + (bt.nails | 0) + (bt.wagon | 0) + (bt.collectors | 0) + (bt.charts | 0) : 0;
   ok('B2 he falls: the beat plays his change on the tape with his place, ' + row.after.name + ' says the valley\'s line, hands his ' + row.verb.hand.name.replace(/^HIS /, '').toLowerCase() + ', and says what changed on the map',
      !!s.boss.fallen[NAME] && !!s.verbs[row.verb.id] && !!bt && bt.n === NAME && onTape >= 1 && !!af && af.text === row.after.valley && !!af.hand && af.hand.name === row.verb.hand.name && af.ground === want,
      'fallen ' + !!s.boss.fallen[NAME] + ', ' + row.verb.id.toUpperCase() + ' ' + !!s.verbs[row.verb.id] + ', the beat ' + (bt ? bt.phases.join('>') + ' with ' + onTape + ' pieces on the tape' : 'none') + ', card: ' + (af ? '"' + af.text + '" + ' + (af.hand ? af.hand.name : 'NO THING') + ' + "' + af.ground + '"' : 'none'));

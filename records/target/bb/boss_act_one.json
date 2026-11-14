@@ -6,6 +6,7 @@
   "purify",
   "pick",
   "blow",
+  "press",
   "weld",
   "climb",
   "survey",
@@ -1057,6 +1058,132 @@
     "card": "HIS NAILS ARE SWEPT: {BLOCKS} OF HIS ROAD, {fast}% FASTER THAN THE GROUND ROUND IT.",
     "card_none": "HIS NAILS ARE SWEPT.",
     "note": "BOSSES 11/11 (the coordinator's round 'the next three from the ladder', rule 441): THE MACHINIST changes the map with TIME. While he stands, 'count' street blocks within 'radius' of his shop (the sign's way in first) are nailed: each costs the walk 'slow' times the map's own minutes (cityStepMins wrapped), so the walk by minutes goes round where it can. When he falls they are swept and stay his carts' road: 'fast' times the minutes, for good (slices/bohemia_bosses.js (17) HIS NAILS). Pictures: slices/boss_places/nails_before, nails_after (tools/bohemia_bosses_seven_to_nine_places_11_11_26.py)."
+   }
+  },
+  {
+   "n": "THE PLATE",
+   "place": {
+    "name": "THE PRESS",
+    "art": "press",
+    "seen": "a scrap yard with the last press brake under a steel roof",
+    "paint": "press"
+   },
+   "rumour": {
+    "who": "@beto_guard",
+    "txt": "Nobody's armour stops anything any more, it's cardboard and prayers. THE PLATE has the last press that bends steel and he sells plate only to his own. His wagon rolls up and down the street past his yard and you can't get round it. Careful, his mallet knocks a man silly."
+   },
+   "boss": {
+    "kind": "sergeant",
+    "name": "THE PLATE",
+    "title": "the man with the last press",
+    "hp_x": 2.0,
+    "weapon": "Two-Handed Mallet",
+    "shield": null,
+    "look": "boss_plate_0",
+    "says": "Plate is for my men. You get cardboard."
+   },
+   "crew": [
+    "brigand_thug",
+    "lower_brigand_raider",
+    "brigand_raider"
+   ],
+   "crew_word": "THE PLATE AND HIS PRESS MEN",
+   "board": "landfill",
+   "lesson": "His mallet knocks the man it hits off his feet, and his plate takes the edge off a blade: hit him with hammers and maces, not swords.",
+   "verb": {
+    "id": "press",
+    "word": "PRESS",
+    "button": "PRESS ARMOUR",
+    "rule": "next to scrap (a boneyard, an industrial block, a railyard, a dump, a junkyard, a storage yard); once a day; a pressed plate into the company's bag",
+    "scrap_districts": [
+     "boneyard",
+     "industrial",
+     "railyard",
+     "landfill",
+     "junkyard",
+     "storage"
+    ],
+    "cooldown_days": 1,
+    "item": {
+     "id": "scrap_metal_armor",
+     "kind": "body",
+     "name": "PRESSED PLATE",
+     "was": "Scrap Metal Armor",
+     "price": 13,
+     "own": true,
+     "line": "Takes hits until it is worn through. Pressed by your own men from scrap.",
+     "nums": "holds 75  weight 8"
+    },
+    "says": "Your men press scrap into a plate that stops something.",
+    "feed": {
+     "who": "@beto_guard",
+     "txt": "The press is running on {where}. Scrap in, armour out."
+    },
+    "tip": "Your men press scrap into armour for your bag. Once a day. Works next to scrap: a boneyard, an industrial block, a railyard, a dump.",
+    "first": {
+     "plate": "PRESSED: A PLATE",
+     "feed": "First plate your men ever pressed, on {where}. Scrap steel that stops a knife. It is in your bag.",
+     "rise": "+1 PRESSED PLATE IN YOUR BAG",
+     "rise_none": "YOUR BAG IS FULL"
+    },
+    "cooling": "THE PRESS IS COOLING: TOMORROW",
+    "tip_cooling": "Your men press one plate a day.",
+    "place_after": "pressplate",
+    "hand": {
+     "name": "HIS MALLET",
+     "pic": "hand_press.png",
+     "line": "PRESS ARMOUR: next to scrap (a boneyard, an industrial block, a railyard, a dump). Your men press a plate for your bag. Once a day."
+    }
+   },
+   "fallen_art": "press_running",
+   "lead": {
+    "asker": {
+     "name": "BETO",
+     "look": "faction_reds",
+     "from": "a guard in a vest of cardboard and duct tape",
+     "says": "Look at this. Cardboard. Every vest in the valley is cardboard now. THE PLATE has the last press and he keeps the steel for his own. His flyers are on the poles by the scrap yards.",
+     "yes": "I'll find his flyer.",
+     "no": "Can't help you.",
+     "yes_says": "Órale. Watch for his wagon, it's plated all over and it doesn't stop for anybody.",
+     "no_says": "Okay. Stay soft then."
+    },
+    "thing": {
+     "head": "THE FLYER",
+     "what": "a flyer on a pole by a scrap yard",
+     "says": "It says SCRAP IN, ARMOUR OUT. THE PLATE. His yard is the one with the press under the steel roof. His wagon goes up and down the street past it, plated all over, and you can't get through it. I marked it."
+    }
+   },
+   "after": {
+    "name": "BETO",
+    "look": "faction_reds",
+    "from": "at the press, the blade up",
+    "says": "You did it! His mallet is yours. Next to scrap, a boneyard, an industrial block, a railyard, a dump, press PRESS ARMOUR. Your men press a plate for your bag. Once a day.",
+    "ok": "GOT IT",
+    "valley": "His wagon is stripped and parked. The press works for anybody now.",
+    "take": "TAKE IT"
+   },
+   "tip": "HIT HIM WITH HAMMERS, NOT BLADES",
+   "wagon": {
+    "name": "HIS WAGON",
+    "near": 3,
+    "far": 6,
+    "min_len": 6,
+    "max_len": 16,
+    "step_mins": 20,
+    "pic": "wagon",
+    "say": "His wagon. Plated all over. We go round it or we wait.",
+    "rise": "HIS WAGON: NO WAY THROUGH",
+    "feed_seen": {
+     "who": "@beto_guard",
+     "txt": "His wagon is rolling on {where}. Plated all over. Get out of its way."
+    },
+    "feed": {
+     "who": "@beto_guard",
+     "txt": "His wagon on {where} is stripped and parked. The plates are off it."
+    },
+    "card": "HIS WAGON IS STRIPPED AND PARKED: HIS STREET IS OPEN.",
+    "card_none": "HIS WAGON IS STRIPPED.",
+    "note": "BOSSES 11/14 (the coordinator's round 'BOSSES turn up', rules 441, 447): THE PLATE changes the map with A WALL THAT MOVES. While he stands his plated wagon rolls back and forth along a road of 'min_len' to 'max_len' blocks between two street blocks 'near'..'far' round his press, one block every 'step_mins' of the game's own clock; the block it stands on is shut (slices/bohemia_bosses.js (18) HIS WAGON, cityWalkable's bosses wrapper), never the crew's. When he falls it is stripped and parked at the end of its road. Pictures: slices/boss_places/wagon_before, wagon_after (tools/bohemia_bosses_ten_to_twelve_places_11_14_26.py)."
    }
   }
  ]
