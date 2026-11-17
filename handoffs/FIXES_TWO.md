@@ -2,7 +2,7 @@
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 
 FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/17 LATEST -- [a full sweep, round four] rows 605 and 612 SHIPPED,
-633 answered (not a one-mark fix), 634 to 636 found and filed. BUILD 11/17h - A WORD STAYS LONG ENOUGH TO READ, BUILT, NOT YET SEEN. Commit SHIPSHAX.
+633 answered (not a one-mark fix), 634 to 636 found and filed. BUILD 11/17h - A WORD STAYS LONG ENOUGH TO READ, BUILT, NOT YET SEEN. Commit 3d9002ef9.
 Record: the ROUND FOUR section of records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md. No VOTE card (nothing here is a picture).
 WHAT HE WOULD MEET (TAB: RUN, and the demo link):
 - 605 any fight on AUTO at 2x or 4x: the word over a man who did nothing (RELOADS, PINNED, HOLDS, NO SHOT), HELD and the breath hit
