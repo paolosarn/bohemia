@@ -1,4 +1,4 @@
-COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17ze - THE BANK, THE MOB MUSEUM AND THE DINOSAUR, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the fifth build; rules 408, 409(c), 455; ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17ze - THE BANK, THE MOB MUSEUM AND THE DINOSAUR, BUILT (4c0a4afc4), NOT YET SEEN (the full sweep, rule 453, the fifth build; rules 408, 409(c), 455; ask row 627).
 Three more real places wear their own piece on the map, on the 11/17k draw (no code): THE BANK (fourteen floors of dark glass over a banking hall with
 its glass out, the money in drifts on the plaza, one window lit by a stove fed with hundreds and its smoke on the beat), THE MOB MUSEUM (the 1933
 courthouse: stone, brick, stair, four columns, two men on the steps, a black car, the hearing room lit) and the NATURAL HISTORY MUSEUM (the low tan

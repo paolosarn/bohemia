@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
-COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17ze - THE BANK, THE MOB MUSEUM AND THE DINOSAUR, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the fifth build; rules 408, 409(c), 455; ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17ze - THE BANK, THE MOB MUSEUM AND THE DINOSAUR, BUILT (4c0a4afc4), NOT YET SEEN (the full sweep, rule 453, the fifth build; rules 408, 409(c), 455; ask row 627).
 The sweep goes on (rule 453): 'finished art wherever a VOTE card still says STAND-IN and he meets it first'. No code: slices/place_pieces/
 place_pieces.json gained the_bank, the_mob_museum and the_natural_history_museum, the folder six lossless WebP pictures (174,891 bytes in all).
 Made by tools/bohemia_cook5_downtowns_three_wear_their_own_piece_11_17_26.py (three scenes and three beats ON the places tool, which it imports
