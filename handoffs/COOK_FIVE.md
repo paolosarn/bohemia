@@ -17,8 +17,19 @@ tiles meet). floor.high is hidden under the deck's own picture. When the mall's 
 lamps) draw on the fight's glass whatever canvas was passed, so drawGround's sheet for a still camera has no pieces and is laid over them. Seen on
 the hall at zoom 0.55, two device pixels: 0 pieces; sheetDraw(cx, [im, x, y, w, h]) in memory: all. Not edited here (your page).
 NOT DONE: no night versions; no lamp pictures; the mall, the warehouse and the data fort wait for their names.
-NEXT ON THIS LANE (rule 453, build after build): his own place's ground and buildings where HOME BASE still shows stand-ins, or more real places'
-own pieces and their arrival screens; whichever he meets first.
+NEXT ON THIS LANE (rule 453, build after build), IN THIS ORDER, each its own build:
+(1) THE FOURTEEN REAL PLACES STILL IN KIT ART get their own piece on the map by the 11/17k pipeline (NO CODE: an entry in slices/place_pieces/
+    place_pieces.json and two lossless WebP frames each, tools/bohemia_cook5_the_places_wear_their_own_piece_11_17_26.py, gate THE PLACES WEAR THEIR
+    OWN PIECE): downtown's three first (the_bank, the_mob_museum, the_natural_history_museum), then the Strip's side (shark_reef, the_tv_station,
+    the_unemployment_office), then the edges (the_lab, clark_station, lenzie_station, the_animal_shelter, the two home centers on one picture,
+    spring_mountain_ranch, callville_bay). The list and what each is: records/target/bb/real_places.json.
+(2) COMBAT THREE's next insides (the mall, the warehouse, the data fort) when their names land in its handoff: one small tool each ON the hall's
+    (TG.GROUNDS / PLANS / GARAGE_THINGS / PARTS / MAT_HOOKS / CEILINGS / CEIL_DATA), then 'hall' style entries in my insides gate's KITS and CEIL_DATA.
+MEASURED THIS ROUND, SO NOBODY REDOES IT: a real place's own ARRIVAL SCREEN is not a no-code job: slices/settlement_ground_towns/settlement_ground.json
+keys its pictures by FACTION (towns[name]: Anarchists, Blues, ...), not by place, so the four places open their tier's screen until the screen's lane
+keys one by place id. His own place's bare ground (HOME BASE's owed 445(b)) is the same: a picture alone changes nothing until HOME BASE draws it.
+THE CUTTER READS BLACK AS SHADOW: TG.cut_piece cuts out any pixel under 13 of 255 (the catcher's shadow); a kit's dark is the hall's 'under'
+(tape_grey 0 at 0.7), never 'black', or it ships with holes. glass_eye has three steps only.
 [bb Battle Brothers reads a fight's ground at a glance: a cot is low, a pallet is cover, the mezzanine is the high ground]
 [analog horror: clean shapes on a dusty floor where four hundred cots stood]
 
