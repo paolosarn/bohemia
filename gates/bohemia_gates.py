@@ -8465,6 +8465,11 @@ GATES = [
      "land_use.json, a mile street the land beside it); on 22 valleys 81 in 100 of the cells deal a place's own ground (was 51), every "
      "road cell its way, every dirt track its bits; the fight's own code deals it (36 kinds, never two alike); on the demo upright and "
      "on its side a fight on a mile street through the desert is the desert's board; planted fails red. about 6 min", True),
+    ('THE MAP PAINTS ON EVERY CORE', ['node', 'gates/the_map_paints_on_every_core_gate.js'],
+     "WORLD THIRTEEN gate, 11/17, rule 453(3), solo (it times): the close tiles go to a pool of painters (half the cores, at most three), "
+     "never twice in flight, a dead painter let go; at the near stop a bare tile is asked at 60 texels first; the old way and this build "
+     "on the same spots, a whole picture on the glass at least as soon (measured 65.8 s -> 30.3 s summed); the alpha on its side; the "
+     "old way planted red. about 20 min", True),
     ('THE MOMENTS BETWEEN', ['node', 'gates/the_moments_between_gate.js'],
      "WORLD gate, 11/2, ask line 273 (Paolo 11/2: 'The transition of the camp to when time passes by and an enemy wants to attack you, "
      "it's just like sloppy quick bullshit... less choppy... less AI slop'): on the demo at phone size, every drawn frame: making camp "

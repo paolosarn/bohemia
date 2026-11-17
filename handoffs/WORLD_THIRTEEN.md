@@ -1,5 +1,22 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN; newest block on top)
 
+WORLD THIRTEEN (11/17, round six, build three): BUILD 11/17zq - THE MAP PAINTS ON EVERY CORE, BUILT, NOT YET SEEN (rule 453(3);
+rules 418(c), 441; asks 440, 475). Record: records/BOHEMIA_WORLD_THIRTEEN_THE_MAP_PAINTS_ON_EVERY_CORE_11_17_26.md. VOTE
+world13-the-map-paints-on-every-core-11-17 (STAND-IN).
+- THE MEASURE: tools/bohemia_world_thirteen_map_speed.js (the demo at a phone's size, --throttle, --valleys, --pool, --quick,
+  --stops, --json; the same spots run to run). Its first table (4x) is in the record: the near stop 21 to 52 s to fill.
+- THE BUILD (slices/BOHEMIA_CITY_WORLD.html __THE_MAP_PAINTS_ON_EVERY_CORE__): vbTilePool (half the cores, 1 to 3), vbTileSend,
+  vbTileReap, VBT.fly/flying/idle/pool; VB_QUICK_S 60 (a bare close tile asked at 60 first). VBT.busy keeps its meaning.
+- THE GATE: gates/the_map_paints_on_every_core_gate.js (solo, it times; about 20 min, --quick 8 min): Q1 to Q5 6/0, the alpha on its
+  side included. Neighbours green: the houses stand up close 28/0, the map stands up 13/0, the map's streets join 6/0, the near end
+  is the block 7/0, the Strip reads as the Strip 5/0.
+- RED ON MAIN, NOT MINE: EVERY TOWN LOOKS ITS OWN, '*** THE HEART LOOKS LIKE THE CITY ***' (heart 4.6 T, edge 1.9 T), the same on
+  main and on main before my 11/17q: COOK's gate (rule 186(b)).
+- FOR PLUMBER 8 (the freeze rows): the far stop on a new valley is the whole painting (12 million texels) on VB.worker, 20 s at 4x;
+  sliding frames of 2 to 14 s on this box while tiles and the painting land (its four cores shared with SwiftShader).
+- OWED, MINE: the whole painting split across the pool by bands; the close tile's 12 x 12 block margin cut by what stands up at
+  that zoom; the 15 place boards' layouts painted onto the map at their cells.
+
 WORLD THIRTEEN (11/17, round six, build two): BUILD 11/17zd - EVERY ZONE ITS GROUND, BUILT, NOT YET SEEN (rule 453(2); rules
 429(a)(g); asks 504, 507, 508). Record: records/BOHEMIA_WORLD_THIRTEEN_EVERY_ZONE_ITS_GROUND_11_17_26.md. VOTE
 world13-every-zone-its-ground-11-17 (STAND-IN).

@@ -50843,9 +50843,7 @@ function vbRegionPatchDraw(p, sx, footY){
   if (!VB_TOWNS.on || !VB_COOK.themes || typeof VBT === 'undefined') return null;
   var S = TW < 27 ? 24 : TW < 66 ? 48 : 96, T = VBT.tiles.get(vbRegionPatchKey(p, S));
   if (!T) {
-    if (!VBT.busy) { var inp = vbRegionPatchInput(p, S); VBT.busy = true; VBT.asked++;
-      try { if (!VB.worker) VB.worker = vbWorker(); VB.worker.postMessage(inp, [inp.cls.buffer, inp.live.buffer, inp.sub.buffer]); }
-      catch (e) { var c = vbCityCore(inp); vbTileLand({ key: inp.key, seed: inp.seed, tx: 0, ty: 0, org: inp.org, S: c.S, P: c.P, ms: c.ms, day: c.day, lights: c.lights }); } }
+    if (VBT.fly < vbTilePool() && !VBT.flying[vbRegionPatchKey(p, S)]) vbTileSend(vbRegionPatchInput(p, S));   /* __THE_MAP_PAINTS_ON_EVERY_CORE__ */
     [24, 48, 96].some(function (s2) { var T2 = s2 !== S && VBT.tiles.get(vbRegionPatchKey(p, s2)); if (T2) { T = T2; return true; } return false; });   /* another detail meanwhile */
     if (!T) return null;
   }
@@ -52866,6 +52864,29 @@ function vbCityDraw(ox, oy, night){
    shows under it, so the glass never goes blank and never changes city. A small cache keeps the last tiles (VBT.max). ==== */
 var VB_ONE_MAP = true, VB_TILE = 8, VB_TILE_M = 2, VB_TILE_FROM = 27;
 var VBT = { S: 0, seed: null, lk: null, tiles: new Map(), busy: false, asked: 0, landed: 0, drew: 0, budget: 28e6, bytes: 0, frame: 0, err: null, last: null };
+/* __THE_MAP_PAINTS_ON_EVERY_CORE__ (WORLD THIRTEEN 11/17, VAMILY rule 453(3); the coordinator: 'the map draws fast on a cheap phone at
+   every zoom on every seed (measure it)'). MEASURED (tools/bohemia_world_thirteen_map_speed.js, the demo at a phone's size, the CPU
+   four times slower, three valleys): at the near stop the ground took 21 to 52 seconds to fill the glass, eight to ten tiles of 128
+   texels a block one after another on ONE worker (three to five seconds a tile), and a tile waited behind the whole painting when
+   that was being painted (20 seconds on a new valley). A cheap phone has four to eight cores. NOW the tiles go to a pool of painters
+   of their own, half the cores (the glass, the compositor and the GPU keep the rest), at most three (each holds a copy of the painter),
+   the nearest first, never the same tile twice; the whole painting and the land past the map keep VB.worker. busy stays 'any tile
+   in flight' (fly counts them) */
+VBT.fly = 0; VBT.flying = {}; VBT.idle = []; VBT.pool = []; VBT.bare = 0;
+var VB_QUICK_S = 60;   /* the quick picture's texels a block: the opening stop's own detail */
+function vbTileReap(){ var now = performance.now(); for (var k in VBT.flying) { if (now - VBT.flying[k].at > 45000) { delete VBT.flying[k]; VBT.fly = Math.max(0, VBT.fly - 1); } } VBT.busy = VBT.fly > 0; }   /* a painter that died never holds the glass */
+function vbTilePool(){ var n = 1; try { n = Math.max(1, Math.min(3, Math.floor(((navigator.hardwareConcurrency | 0) || 2) / 2))); } catch (_e) {} return VBT.poolN || n; }   /* half the cores: MEASURED, one fewer than the cores starved the glass (frames of 10 seconds while three painters ran on four cores) */
+function vbTileSend(inp){
+  VBT.fly++; VBT.busy = true; VBT.asked++;
+  var w = VBT.idle.pop() || null;
+  try {
+    if (!w && VBT.pool.length < vbTilePool()) { w = vbWorker(); w.onerror = function (e) { VBT.err = 'tile worker: ' + (e && e.message); }; VBT.pool.push(w); }
+    if (!w) throw new Error('no painter free');
+    VBT.flying[inp.key] = { w: w, at: performance.now() };
+    w.postMessage(inp, [inp.cls.buffer, inp.live.buffer, inp.sub.buffer]);
+  } catch (e) { VBT.err = String(e && e.message || e); VBT.onPage = (VBT.onPage | 0) + 1; VBT.flying[inp.key] = { w: w, at: performance.now() };
+    setTimeout(function () { var c = vbCityCore(inp); vbTileLand({ key: inp.key, seed: inp.seed, tx: inp.tx, ty: inp.ty, org: inp.org, S: c.S, P: c.P, ms: c.ms, day: c.day, lights: c.lights, dep: c.dep, lots: c.lots, flat: c.flat }); }, 0); }
+}
 window.VBT = VBT;
 /* three steps of detail, not one a pixel of zoom: a pinch crosses few, so it rarely waits on new tiles */
 function vbTileS(){ return TW < 40 ? 36 : TW < 66 ? 60 : (VB_TILE_TOP && TW * ((typeof CV_DPR === 'number' && CV_DPR) || 1) >= 236) ? 128 : 96; }
@@ -52905,7 +52926,8 @@ function vbTileInput(tx, ty, S){
            towns: VB_TOWNS.list, townPal: VB_TOWNS.list ? VB_TOWNS.pal : null };   /* __THE_TOWN_IS_PAINTED_IN__: the same towns as the whole painting whose key the tile carries */
 }
 function vbTileLand(r){
-  VBT.busy = false;
+  if (r && r.key && VBT.flying[r.key]) { var wk = VBT.flying[r.key]; delete VBT.flying[r.key]; VBT.fly = Math.max(0, VBT.fly - 1); if (wk.w) VBT.idle.push(wk.w); }   /* __THE_MAP_PAINTS_ON_EVERY_CORE__ */
+  VBT.busy = VBT.fly > 0;
   if (!r || r.seed !== om.seed) return;
   /* __THE_MAP_SHARPENS_TO_ITS_OWN_PIXELS__: only the blocks this tile draws are kept (the margin's are its neighbour's to draw) */
   var cx0 = Math.max(0, (r.tx * VB_TILE - r.org[0]) * r.S), cy0 = Math.max(0, (r.ty * VB_TILE - r.org[1]) * r.S),
@@ -52967,7 +52989,7 @@ function vbTilesDraw(ox, oy, lights){
     if (!T) { var mx = (lx + hx) / 2 - cxs, my = (ly + hy) / 2 - cys; want.push({ tx: tx, ty: ty, d: mx * mx + my * my });
       /* until it lands, the same blocks at another detail if one is kept (a pinch never blurs back to the whole painting) */
       [S + (vbTileFlat() ? '' : 'f'), 128, 96, 60, 36, '128f', '96f', '60f'].some(function (s2) { if (s2 === S) return false; var T2 = VBT.tiles.get(pre + s2 + ':' + tx + ',' + ty);   /* __THE_HOUSES_STAND_UP_CLOSE__ */ if (T2) { T = T2; key = pre + s2 + ':' + tx + ',' + ty; return true; } return false; });
-      if (!T) continue; }
+      if (!T) { if (S >= 96) want[want.length - 1].bare = true; continue; } }   /* __THE_MAP_PAINTS_ON_EVERY_CORE__: nothing at any detail yet */
     VBT.tiles.delete(key); VBT.tiles.set(key, T); T.seen = VBT.frame;   /* in use: the newest */
     if (!lights && VBT.onGlass) VBT.onGlass[ty * NT + tx] = T;   /* __YOU_WALK_BEHIND_IT__ */
     if (lights && !T.lights && T.lraw) { var lc = document.createElement('canvas'); lc.width = T.cw; lc.height = T.ch; lc.getContext('2d').putImageData(new ImageData(T.lraw, T.cw, T.ch), 0, 0); T.lights = lc; T.lraw = null; }   /* __THE_MAP_SHARPENS_TO_ITS_OWN_PIXELS__: night asks, the lights become a picture */
@@ -52981,12 +53003,20 @@ function vbTilesDraw(ox, oy, lights){
     g.restore(); VBT.drew++;
   }
   g.imageSmoothingEnabled = sm;
-  if (!lights && want.length && !VBT.busy) {
+  /* __THE_MAP_PAINTS_ON_EVERY_CORE__ (WORLD THIRTEEN 11/17, rule 453(3): 'the map draws fast on a cheap phone at every zoom on every
+     seed'): the nearest tiles the glass wants go to the painters' pool, as many at once as it has painters (vbTileSend) */
+  if (!lights && VBT.fly) vbTileReap();
+  if (!lights) { VBT.bare = 0; for (var wb = 0; wb < want.length; wb++) if (want[wb].bare) VBT.bare++; }
+  if (!lights && want.length && VBT.fly < vbTilePool()) {
     want.sort(function (a, b) { return a.d - b.d; });
-    var t0 = want[0]; VBT.busy = true; VBT.asked++;
-    var inp = vbTileInput(t0.tx, t0.ty, S);
-    try { if (!VB.worker) VB.worker = vbWorker(); VB.worker.postMessage(inp, [inp.cls.buffer, inp.live.buffer, inp.sub.buffer]); }
-    catch (e) { VBT.err = String(e && e.message || e); setTimeout(function () { var c = vbCityCore(inp); vbTileLand({ key: inp.key, seed: inp.seed, tx: inp.tx, ty: inp.ty, org: inp.org, S: c.S, P: c.P, ms: c.ms, day: c.day, lights: c.lights, dep: c.dep, lots: c.lots, flat: c.flat }); }, 0); }   /* __THE_HOUSES_STAND_UP_CLOSE__ */
+    /* A QUICK PICTURE FIRST: a tile of the close detail (96, 128 texels a block) with nothing at any detail under it is asked first at
+       VB_QUICK_S (60: a fifth of the 128's work), the nearest first; it stands in (the fallback above) until its own detail lands.
+       MEASURED: the near stop's glass was the whole valley's blur for 20 to 50 seconds on a phone-shaped CPU */
+    var order = [];
+    want.forEach(function (w) { if (w.bare && VB_QUICK_S && VB_QUICK_S < S) order.push([w, VB_QUICK_S]); });
+    want.forEach(function (w) { order.push([w, S]); });
+    for (var wi = 0; wi < order.length && VBT.fly < vbTilePool(); wi++) { var t0 = order[wi][0], s0 = order[wi][1], k0 = vbTileKey(t0.tx, t0.ty, s0); if (VBT.flying[k0] || (s0 !== S && VBT.tiles.get(k0))) continue;
+      vbTileSend(vbTileInput(t0.tx, t0.ty, s0)); }
   }
   VBT.want = want.length;
 }
