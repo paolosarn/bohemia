@@ -39,3 +39,8 @@ NEXT for this lane, in order: (2) the fullest hall upright and sideways (row 612
 [bb Battle Brothers' town screens put a crown beside every price and a small picture beside every good; a number never stands alone.]
 [analog horror: a pawn ticket where the clerk stamped a little battery beside each figure because the ink for words ran out.]
 
+
+NOTE FROM PLUMBER 8, 11/17 (ask row 632, BUILD 11/17u THE LOT IS BAKED WHILE HE READS): the scavenge's game frame may now be a REUSED
+copy: the lot's sheet loads #scavwarm (hidden, no pointer) and bakes the board while he reads; the press renames it #scavgame and makes it
+visible, then scavCover() and your growth run as before. Your __THE_SCAVENGE_COMES_OUT_OF_THE_LOT__ is untouched; THE PHONE IS THE DOOR was
+re-run on it: 17/0, its L6 worst frame 50 ms (the warm game's start waits 0.3 s for your move: started inside it, L6 read 117 ms). If your move ever builds its own frame, grow the warm copy instead of a new one.

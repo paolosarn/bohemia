@@ -5094,6 +5094,7 @@ var LIT_DOORS = ['board', 'hall', 'bar', 'arena'], LITKEY = 'bohemia.litdoors.v1
 function litAll(){ if(!S.litAll){ try{ S.litAll = JSON.parse(localStorage.getItem(LITKEY) || 'null'); }catch(e){} if(!S.litAll || typeof S.litAll !== 'object') S.litAll = {}; } return S.litAll; }
 function litSeen(){ var a = litAll(), id = String(S.place.id || S.place.name); return a[id] || (a[id] = {}); }
 function openB(k, line){
+  if(k !== 'lot'){ try{ scavWarmGone(); }catch(e){} }   /* __THE_LOT_IS_BAKED_WHILE_HE_READS__: only the lot's sheet keeps its copy */
   try{ leadToPlace(k); }catch(e){}   /* __THE_WALK_UP__: and up to the door of the place you tapped */
   if(LIT_DOORS.indexOf(k) >= 0 && !litSeen()[k]){ litSeen()[k] = 1; try{ localStorage.setItem(LITKEY, JSON.stringify(litAll())); }catch(e){} }
   if(k==='clinic' && S.open!=='clinic') sfx('door_open', view.night ? NIGHT_TRIM : null);
@@ -5271,6 +5272,7 @@ function openB(k, line){
       if(!deadLeft() && scavGame()) return;
       lotQuick('');
     }));
+    scavWarmSoon();   /* __THE_LOT_IS_BAKED_WHILE_HE_READS__ */
   }
   body.appendChild(acts);
   show();
@@ -5287,7 +5289,7 @@ function show(){
   try{ placeChrome(); }catch(e){}   /* __ONE_TAP_SELECTS__: a shop's sheet stands the whole open area tall */
 
 }
-function hide(){ S.sheetFor = null; try{ document.getElementById('sheet').classList.remove('ar-picking'); }catch(e){}   /* __THE_ARENA__: the pick's whole-glass sheet folds back */
+function hide(){ S.sheetFor = null; try{ if(!S.scavOpen) scavWarmGone(); }catch(e){} try{ document.getElementById('sheet').classList.remove('ar-picking'); }catch(e){}   /* __THE_ARENA__: the pick's whole-glass sheet folds back */
    if(S.open==='clinic') sfx('door_shut', view.night ? NIGHT_TRIM : null); S.open = null; if(window.BohemiaHeard) BohemiaHeard.closed(); document.getElementById('sheet').classList.remove('on'); shelf(); }
 
 /* ---------- SCAVENGE: WORLD's engine, on this place's own lot ---------- */
@@ -5402,27 +5404,70 @@ function scavFallback(why){
   return lotQuick('The block would not come up, so I looked the quick way. ');
 }
 var SCAV_LOAD_MS = 15000;   /* the game's page answers inside this or the plain search runs (a phone on a slow line still gets his four hours) */
+/* ==== __THE_LOT_IS_BAKED_WHILE_HE_READS__ (PLUMBER 8, 11/17/26; rule 441(c), ask row 632, with SCAVENGE's page; the opening's MOVE is
+   UI FOUR's __THE_SCAVENGE_COMES_OUT_OF_THE_LOT__ and is untouched). MEASURED (the demo, phone upright, CPU 4x, a GPU canvas): 'Search
+   the lot' to the board on the glass 3.9 to 5.1 s, 2.5 to 3.0 s of it the block's board baked in a hidden fight page. The board is the
+   block's own (scavAsk deals the same board every time), so the moment the lot's sheet shows its button, a copy of the game's page
+   loads behind everything (#scavwarm: unseen, no finger reaches it) and bakes it while he reads; the press turns that copy into the
+   game (#scavgame) and its start shows the board the bake made, or waits for the rest of it. A sheet that is not the lot's, or the
+   town going, lets the copy go. window.__SCAV_NO_WARM = the old way. ==== */
+var SCAV_WARM_MOVE_MS = 300;   /* the move out of the lot, then the warm game starts */
+var SCAV_WARM_MS = 100;   /* after the sheet is up (its first frame first): the bake is slower behind the town, so it starts at once */
+function scavWarmKey(){ return JSON.stringify([scavAsk(), !!view.night]); }
+function scavWarmGone(){ clearTimeout(S.scavWarmT); S.scavWarmT = null; var w = document.getElementById('scavwarm'); if(w) w.remove(); }
+function scavWarmSoon(){
+  if(window.__SCAV_NO_WARM) return;
+  clearTimeout(S.scavWarmT);
+  S.scavWarmT = setTimeout(function(){ S.scavWarmT = null; try{ scavWarm(); }catch(e){} }, SCAV_WARM_MS);
+}
+function scavWarm(){
+  if(window.__SCAV_NO_WARM || S.open !== 'lot' || S.scavOpen || document.getElementById('scavgame')) return null;
+  if(deadLeft() || !left().left || lotWhyNot()) return null;   /* no game would open: nothing to bake */
+  var key = scavWarmKey(), w = document.getElementById('scavwarm');
+  if(w && w.__key === key) return w;
+  if(w) w.remove();
+  w = document.createElement('iframe'); w.id = 'scavwarm'; w.title = 'scavenge'; w.tabIndex = -1; w.setAttribute('aria-hidden', 'true'); w.__key = key;
+  var src = 'BOHEMIA_SCAVENGE.html'; try{ src = new URL(src, location.href).href; }catch(e){}
+  w.src = src;
+  w.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;border:0;z-index:9500;background:transparent;visibility:hidden;pointer-events:none';
+  var ask = JSON.parse(key)[0], night = JSON.parse(key)[1];
+  w.addEventListener('load', function(){ w.__loaded = true; if(document.getElementById('scavwarm') !== w) return;
+    try{ w.contentWindow.SCAV.warm({ ask: ask, night: night }); w.__warm = true; }catch(e){} });
+  document.body.appendChild(w);
+  S.scavWarms = (S.scavWarms | 0) + 1;
+  return w;
+}
 function scavGame(){
   var old = document.getElementById('scavgame'); if(old) scavGone();   /* a frame under his finger is a frame he cannot see */
   var l = left(); if(!l.left) return false;
   S.day++;   /* the four hours, once, as the button always spent them */
   scavCover();
-  var f = document.createElement('iframe'); f.id = 'scavgame'; f.title = 'scavenge';
-  var src = 'BOHEMIA_SCAVENGE.html'; try{ src = new URL(src, location.href).href; }catch(e){}
-  f.src = src;
-  f.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;border:0;z-index:9500;background:transparent';
-  document.body.appendChild(f);
+  /* __THE_LOT_IS_BAKED_WHILE_HE_READS__: the copy that baked this block's board while he read becomes the game */
+  var w = document.getElementById('scavwarm'), f = null;
+  clearTimeout(S.scavWarmT); S.scavWarmT = null;
+  /* a copy whose page loaded but never warmed (the page failed) is not reused: the press goes the old way, its cover first, then YOU */
+  if(w && !window.__SCAV_NO_WARM && w.__key === scavWarmKey() && (!w.__loaded || w.__warm)){ f = w; f.id = 'scavgame'; f.removeAttribute('aria-hidden'); f.tabIndex = 0;
+    f.style.visibility = ''; f.style.pointerEvents = ''; S.scavWarmUsed = (S.scavWarmUsed | 0) + 1; }
+  else { if(w) w.remove();
+    f = document.createElement('iframe'); f.id = 'scavgame'; f.title = 'scavenge';
+    var src = 'BOHEMIA_SCAVENGE.html'; try{ src = new URL(src, location.href).href; }catch(e){}
+    f.src = src;
+    f.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;border:0;z-index:9500;background:transparent'; }
+  if(!f.parentNode) document.body.appendChild(f);
   S.scavOpen = { left: l.left, at: Date.now() };
-  S.scavWait = setTimeout(function(){ if(document.getElementById('scavgame') === f) scavFallback('the page did not answer in ' + SCAV_LOAD_MS + ' ms'); }, SCAV_LOAD_MS);
-  f.addEventListener('load', function(){
+  var go = function(){
     if(document.getElementById('scavgame') !== f) return;
     clearTimeout(S.scavWait); S.scavWait = null;
     var G = null; try{ G = f.contentWindow.SCAV; }catch(e){}
     if(!G || typeof G.start !== 'function'){ scavFallback('the game\'s page did not load'); return; }
     try{ G.start({ ask: scavAsk(), left: l.left, seed: seedOf(S.place.name + ':scav:' + S.day), night: !!view.night }); }
     catch(e){ scavFallback(String(e && e.message || e)); }
-  });
-  post('scavenge-open', { left: l.left });
+  };
+  S.scavWait = setTimeout(function(){ if(document.getElementById('scavgame') === f) scavFallback('the page did not answer in ' + SCAV_LOAD_MS + ' ms'); }, SCAV_LOAD_MS);
+  /* a warm copy is ready at once: its start waits for UI FOUR's move out of the lot (about a beat's half) so the first board frame is not
+     drawn inside the move (measured: started in the move, the worst frame of it 117 ms against the move's own 100 ms line) */
+  if(f.__loaded) setTimeout(go, SCAV_WARM_MOVE_MS); else f.addEventListener('load', go);
+  post('scavenge-open', { left: l.left, warm: f === w });
   return true;
 }
 /* one find off the dial, paid as a search always paid; null when the lot has nothing left to give */

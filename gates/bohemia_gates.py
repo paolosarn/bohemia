@@ -9361,6 +9361,12 @@ GATES = [
      "lost (no picture changes; looks, faces, map files, pools as committed; on main a pack took 69 fight men, 154 map men and 54 "
      "fight idles out); M2 one man re-packed into a shared map sheet keeps every man, every cell pixel for pixel; P1 the old way "
      "(BOHEMIA_PACK_REBUILD=1) loses entries. About 2 min", True),
+    ('THE LOT IS BAKED WHILE HE READS', ['node', 'gates/the_lot_is_baked_while_he_reads_gate.js'],
+     "PLUMBER 8 gate, 11/17, ask row 632 (rule 441(c): 'the scavenge opens on a blank screen for over 4.6 s'): 'Search the lot' to the "
+     "board 3.9 to 5.1 s on a phone at 4x, 2.5 to 3.0 s of it the block's board baked after the press. The lot's sheet bakes its block's "
+     "board while he reads it (a hidden copy of the game's page) and the press shows it. W1 read, then SEARCH: the board in play within "
+     "1 s from the warm bake; W2 another sheet lets the copy go; P1 the old way (__SCAV_NO_WARM) takes over 2 s. Solo: it times a press. "
+     "About 6 min", True),
     ('A SHEET IS READ ONCE', ['node', 'gates/a_sheet_is_read_once_gate.js'],
      "PLUMBER 8 gate, 11/17, ask rows 613 and 620 (rule 441(c), the freezes entering a fight): the map's dive draws his company close and "
      "each new frame's head was read off its sheet, each read unpacking the whole sheet (10 to 21 reads from 5 sheets, 4.5 s of a 13 s "

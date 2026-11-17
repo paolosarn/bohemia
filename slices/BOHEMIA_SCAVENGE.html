@@ -165,7 +165,8 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
   var W = 0, H = 0, DPR = 1;
   function size() {
     DPR = Math.min(3, window.devicePixelRatio || 1); W = window.innerWidth; H = window.innerHeight;
-    [cv, cvB, cvM].forEach(function (c) { c.width = Math.round(W * DPR); c.height = Math.round(H * DPR); }); S.bgFor = null; S.midFor = null; S.cels = {};
+    [cv, cvB, cvM].forEach(function (c) { c.width = Math.round(W * DPR); c.height = Math.round(H * DPR); }); S.bgFor = null; S.midFor = null;
+    if (S.celsDpr !== DPR) { S.cels = {}; S.celsDpr = DPR; }   /* __THE_LOT_IS_BAKED_WHILE_HE_READS__: a man's cut drawing depends on the pixels only (MAN * DPR) */
   }
   function plateRect() { var p = document.getElementById('plate'); if (p.hidden) return null; var r = p.getBoundingClientRect(); return { l: r.left - 10, t: r.top - 10, r: r.right, b: r.bottom }; }
   function makeView(B) {
@@ -186,17 +187,42 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
     if (P && p.x > P.l - 20 && p.y > P.t - 40) return false; return true; }
 
   /* ------------------------------------------------------------------ start */
+  /* __THE_LOT_IS_BAKED_WHILE_HE_READS__ (PLUMBER 8, 11/17/26; rule 441(c), ask row 632: 'the scavenge opens on a blank screen for
+     over 4.6 s'). MEASURED (the demo, phone upright, CPU 4x, the canvas on a GPU process, 'Search the lot' pressed in a town): the board
+     came up 3.9 to 5.1 s after the press; of it the block's board baked in a hidden fight page 2.5 to 3.0 s, the ground's lightness read
+     off the baked picture 0.64 s, the page's own load the rest. The same block deals the same board every time (the town's scavAsk), so
+     the town asks for the bake while he READS the lot's sheet (S.warm, a hidden copy of this page, no finger reaches it) and the press
+     shows what is ready: S.start takes the warm bake when it was asked for the same board, else bakes as it always did. The finds,
+     the spots and the seed are the press's own (only the board is made before). window.__SCAV_NO_WARM = the old way. */
+  function optsOf(o) { var opts = o.fightOpts ? JSON.parse(JSON.stringify(o.fightOpts)) : shellOpts(o.ask || {}); if (o.night != null) opts.night = !!o.night; return opts; }
+  function bakeAll(opts) {   /* the board, its ground's lightness and its men's drawings, ready to play */
+    return bake(opts).then(function (b) {
+      lumaOf(b.board, b.img, b.tw, b.th); b.luma = true;
+      try { size(); (b.board.crew || []).forEach(function (c) { var im = sheet(c.file), cut = function () { try { precut({ file: c.file, w: c.w, h: c.h }, [0], [0, CLIP.walk[0], CLIP.walk[3]]); } catch (e) {} };
+        if (im.complete && im.naturalWidth) cut(); else im.addEventListener('load', cut); }); } catch (e) {}
+      return b; });
+  }
+  S.warmed = null;
+  S.warm = function (o) {
+    if (window.__SCAV_NO_WARM) return null;
+    var opts = optsOf(o || {}), key = JSON.stringify(opts);
+    if (S.warmed && S.warmed.key === key) return S.warmed.p;
+    var W0 = S.warmed = { key: key, t0: performance.now(), done: null };
+    W0.p = bakeAll(opts).then(function (b) { W0.done = performance.now(); W0.ms = Math.round(W0.done - W0.t0); return b; }, function (e) { if (S.warmed === W0) S.warmed = null; throw e; });
+    W0.p.catch(function () {});
+    return W0.p;
+  };
   S.start = function (o) {
     o = o || {}; S.o = o; S.pkg = o.pkg != null ? Math.max(0, Math.min(4, o.pkg | 0)) : 1;
     S.phase = 'baking'; size();
     /* __SEARCH_THE_LOT_ANSWERS__ (TOWN FIX 11/9, rule 438(b)): while the block's board bakes (seconds on a phone) the plate is on the glass
        already, saying SCAVENGE, and LEAVE works; a LEAVE before the board comes spends nothing (the town gives the four hours back) */
     try { document.getElementById('plate').hidden = false; plate(); } catch (e) {}
-    var opts = o.fightOpts ? JSON.parse(JSON.stringify(o.fightOpts)) : shellOpts(o.ask || {});
-    if (o.night != null) opts.night = !!o.night;
-    return bake(opts).then(function (b) {
+    var opts = optsOf(o), key = JSON.stringify(opts), W0 = S.warmed && S.warmed.key === key && !window.__SCAV_NO_WARM ? S.warmed : null;
+    S.warmUsed = W0 ? { ready: !!W0.done, ms: W0.ms || null } : null;
+    return (W0 ? W0.p : bakeAll(opts)).then(function (b) {
       S.board = b.board; S.img = b.img; S.tw = b.tw; S.th = b.th; S.AR = b.th / b.tw; S.bakeMs = b.ms;
-      lumaOf(S.board, S.img, S.tw, S.th);
+      if (!b.luma) lumaOf(S.board, S.img, S.tw, S.th);
       document.getElementById('plate').hidden = false;
       S.view = makeView(S.board);
       var n = o.left == null ? R.MAX_SPOTS : Math.max(0, Math.min(R.MAX_SPOTS, o.left | 0));
@@ -692,7 +718,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:#2a2219;touch-action:n
     return { phase: S.phase, err: S.err, pkg: S.pkg, beat: +beatNow().toFixed(3), now: performance.now(), clock: { t0: CLK.t0, bm: CLK.bm, src: CLK.src }, song: S.song || R.SONG,
       lag: S.lag, lat: S.lat, heard: S.heard, combo: S.combo, best: S.best, perf: Object.assign({}, S.perf), slow: S.slow.slice(),
       board: S.board ? { name: S.board.name, w: S.board.w, h: S.board.h, laid: S.board.laid, crew: S.board.crew.length } : null,
-      view: S.view, tw: S.tw, bakeMs: S.bakeMs, men: S.men.map(function (m) { return { name: m.name, x: +m.x.toFixed(2), y: +m.y.toFixed(2), busy: m.busy, pose: m.pose }; }),
+      view: S.view, tw: S.tw, bakeMs: S.bakeMs, warm: S.warmUsed || null, men: S.men.map(function (m) { return { name: m.name, x: +m.x.toFixed(2), y: +m.y.toFixed(2), busy: m.busy, pose: m.pose }; }),
       spots: S.spots.map(function (s) { var t = S.board.tiles[s.y][s.x], st = S.board.tiles[s.sy][s.sx], p = scr(s.x + 0.5, s.y + 0.5);
         return { id: s.id, kind: s.kind, x: s.x, y: s.y, sx: s.sx, sy: s.sy, state: s.state, tile: t, stand: st, px: Math.round(p.x), py: Math.round(p.y), tiles: s.tiles || null }; }),
       act: A ? { spot: A.spot.id, kind: A.spot.kind, phase: A.phase, b0: ph ? ph.b0 : null, open: ph ? ph.open : null, lead: ph ? ph.P.lead : null, beats: ph ? ph.P.beats : null, row: ph ? ph.P.row : null,
