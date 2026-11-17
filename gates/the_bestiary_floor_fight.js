@@ -17,7 +17,8 @@ const BOOK = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/lab_b
 const MINE = BOOK.beasts.filter(b => String(b.added_by || '').startsWith('BESTIARY'));
 const NE = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/bohemia_enemies.json'), 'utf8'));
 const OURS = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/ours.json'), 'utf8')), PH = OURS.enemy_tiers.value.phases;
-const MEN = NE.rows.filter(r => String(r.added_by || '').startsWith('BESTIARY') && !r.beast).map(r => {
+const ONLY = process.env.ONLY_TYPES ? process.env.ONLY_TYPES.split(',') : null;   /* a quick run of some types (the gate runs them all) */
+const MEN = NE.rows.filter(r => String(r.added_by || '').startsWith('BESTIARY') && !r.beast && (!ONLY || ONLY.indexOf(r.id) >= 0)).map(r => {
   const m = NE.mix[r.faction] || OURS.enemy_tiers.value.mix[r.faction] || {}, ph = PH.filter(p => m[p.name] && m[p.name][r.id])[0];   /* the kids' and heavies' bands live in ours.json */
   return { id: r.id, faction: r.faction, looks: r.looks, days: ph ? ph.from_day + 1 : 1 }; });
 const CH = (NE.champions && NE.champions.kinds) || {};

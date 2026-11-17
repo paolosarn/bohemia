@@ -61,8 +61,8 @@ spec = importlib.util.spec_from_file_location('outline', os.path.join(ROOT, 'gat
 OL = importlib.util.module_from_spec(spec); spec.loader.exec_module(OL)
 FLOOR, MARK_PX, MARK_FACINGS = OL.FLOOR, OL.MARK_PX, OL.MARK_FACINGS
 MAP_SCALE = 5                 # the map draws a beast party at about a fifth of the fight's pixels (WORLD 12's 'the map's fifth')
-TYPES_IN_THE_FIGHT_FLOOR = 59  # MEASURED 11/14 (42 before BESTIARY's seven, 49 before its five men, 54 before its three, 57 before its two): only ever raised
-FACTIONS_FIELDED_NOW = 8       # MEASURED 11/10 (the flock waits for its clothes): the factions the fight fields a party for; only ever raised
+TYPES_IN_THE_FIGHT_FLOOR = 63  # MEASURED 11/17 (59 on 11/14); 11/14 (42 before BESTIARY's seven, 49 before its five men, 54 before its three, 57 before its two): only ever raised
+FACTIONS_FIELDED_NOW = 12      # MEASURED 11/17 (8 until the flock, the hired guns, the head takers and the eye in the sky): the factions the fight fields a party for; only ever raised
 LAB_MADE_NOW = 17              # MEASURED 11/10 (10 before BESTIARY's seven): the law's floor, met; only ever raised
 BY = 'BESTIARY'
 passed = failed = 0
@@ -332,6 +332,8 @@ def main():
         if bv.get('charges') and not a.get('charge'): bad.append(r['id'] + ': a charge that never runs in')
         if bv.get('flings') and not a.get('flings'): bad.append(r['id'] + ': a thrower who never throws')
         if bv.get('screams') and not a.get('horrific_scream'): bad.append(r['id'] + ': a horn that never sounds')
+        if bv.get('martyrs') and not a.get('martyr'): bad.append(r['id'] + ': a flock that never comes on harder')
+        if bv.get('hunts_main') and not a.get('toward_main', 0) > a.get('toward_nearest', 0): bad.append(r['id'] + ': a head taker who walks to the nearest man, not the main man')
         w6, w0 = (o.get('won_by_crew_of_6') or 0), o.get('won_without_him')
         if w6 < 6 and not (w0 is not None and w6 >= w0 - 1): bad.append('%s: a crew of 6 beats its party %s in 10 (%s without him)' % (r['id'], w6, w0))
     wait = [r['id'] for r in (D['ne'].get('waiting') or {}).get('rows', [])]
@@ -340,8 +342,8 @@ def main():
     leg(mine and not bad, 'F10 THE NEW MEN: %d enemy types BESTIARY added, each on a wiki row with its lesson, in its own clothes, dealt by its party, armed from its own gear and striking its own way on the live rules (%s)%s'
         % (len(mine), '; '.join('%s %s, %s, %d/%d struck near/far%s' % (r['id'], (HL.get('men') or {}).get(r['id'], {}).get('weapon'), r['brain'],
                                 (HL.get('men') or {}).get(r['id'], {}).get('acts', {}).get('melee', 0), (HL.get('men') or {}).get(r['id'], {}).get('acts', {}).get('ranged', 0),
-                                ''.join(', %d %s' % (v, {'kick': 'great swings', 'charge': 'charges', 'flings': 'throws', 'horrific_scream': 'horn blasts'}[k]) for k, v in ((HL.get('men') or {}).get(r['id'], {}).get('acts', {}) or {}).items() if k in ('kick', 'charge', 'flings', 'horrific_scream') and v)) for r in mine),
-           ('; WAITING FOR ITS OWN CLOTHES (CHARACTER): ' + ', '.join(wait)) if wait else ''),
+                                ''.join(', %d %s' % (v, {'kick': 'great swings', 'charge': 'charges', 'flings': 'throws', 'horrific_scream': 'horn blasts', 'martyr': 'surges', 'toward_main': 'steps past a nearer man toward the main man'}[k]) for k, v in ((HL.get('men') or {}).get(r['id'], {}).get('acts', {}) or {}).items() if k in ('kick', 'charge', 'flings', 'horrific_scream', 'martyr') and v or (k == 'toward_main' and v and ((D['ne']['brains'].get(r.get('brain')) or {}).get('value') or {}).get('hunts_main')))) for r in mine),
+           (('; WAITING FOR ITS OWN CLOTHES (CHARACTER): ' + ', '.join(wait)) if wait else '') + (('; IN A STAND-IN LOOK (CHARACTER): ' + ', '.join(r['id'] for r in mine if r.get('looks_stand_in'))) if any(r.get('looks_stand_in') for r in mine) else '')),
         '; '.join(bad[:4]))
     # ---------------- F9: the five end to end on the page, a phone upright and sideways (rule 441(a)) ----------------
     if '--no-browser' not in sys.argv:
