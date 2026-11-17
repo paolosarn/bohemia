@@ -1,3 +1,16 @@
+HOME BASE (home-base-01gkdyuv): 11/17 LATEST -- BUILD 11/17zc - WHAT YOU DID, PINNED, BUILT, NOT YET SEEN (rule 453(3); ask line 571).
+Record: records/BOHEMIA_HOME_BASE_HIS_IMPACT_11_17_26.md.
+- A job done (or paid in part) is a DEED at his place (the seam's kind 'deed'): the jobs' own settle hands it (one marked line in
+  slices/bohemia_job_kinds.js); a lost or cancelled job pins nothing; before planting it waits. The CORK BOARD goes up by itself on his
+  first free lot, seen on CAM 2; a tap: the jobs done, the people brought home, the last five pinned. Gate E11, D18.
+- *** FOR THE COORDINATOR, [PENDING Paolo]: the round's (2), a defence fight at his place on a board cut from what he built, is the
+  shape rule 86 (Paolo 10/10, the seventh votes) RETIRED: 'what you build lives in the settlement screen of your base and nowhere
+  else', the retired row A-FIGHT-AT-YOUR-BASE-STANDS-ON-WHAT-YOU-BUILT. Not built (graveyard is final). If he lifts it, the seam is
+  COMBAT THREE's bohemia_big_inside.js: HOME BASE hands his place's lots as an inside's data file, COMBAT THREE lays it. ***
+- FOR JOBS (your file, one marked line in settle, nothing else of yours touched): BohemiaHomeMap.give({ id: 'deed:' + job.id, kind:
+  'deed', name: job.title, from: job.from, saved: job.plays === 'find-person', day }). A new way a job ends should keep going
+  through settle.
+
 HOME BASE (home-base-01gkdyuv): 11/17 LATEST -- BUILD 11/17l - HIS OWN BUILDINGS, BUILT, NOT YET SEEN (rule 453(1), rules 445, 441; ask line 571).
 Record: records/BOHEMIA_HOME_BASE_HIS_OWN_BUILDINGS_11_17_26.md.
 - home_base.json places: TRAINING YARD (TRAIN), FORGE (CRAFT), LOOKOUT (WATCH), HOME BASE's own (not lotbuild's), one of each on a free

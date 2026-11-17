@@ -2211,6 +2211,9 @@ function homePlaceSheet(k, t){
     var F = (S.home.placeRows || {}).forge || {}, sp = homeSupplies(), short = Object.keys(F.takes || {}).some(function(g){ return (sp[g] | 0) < (F.takes[g] | 0); });
     var pb = act(W.press || 'PRESS', homeGoodsWords(F.takes) + ' → ' + homeGoodsWords(F.makes), guard(function(){ var r = HM && HM.press(); if(!r || !r.ok) return; window.__HOME_PRESS = r; homeRefresh(); homePlaceSheet(k, t); }), short);
     pb.dataset.press = '1'; acts.appendChild(pb); }
+  else if(t.id === 'board'){ var Dd = (S.home.deeds || []);   /* __HIS_IMPACT__ (rule 453(3)): every job he did, pinned */
+    body.appendChild(speak('build', homeFill(W.board, {n: Dd.length, m: Dd.filter(function(x){ return x.saved; }).length})));
+    Dd.slice(-5).reverse().forEach(function(x){ var ln = document.createElement('div'); ln.className = 'slots'; ln.dataset.deed = x.id; ln.textContent = String(x.name || '').toUpperCase() + (x.from ? '  ·  ' + String(x.from).toUpperCase() : ''); acts.appendChild(ln); }); }
   else if(t.id === 'lookout'){ var w = HM && HM.watch ? HM.watch() : null;
     body.appendChild(speak('build', w && !w.none ? homeFill(W.saw, {who: w.who, n: w.d, dir: w.dir}) : homeFill(W.none, {n: (w && w.reach) || 10}))); }
   body.appendChild(acts);
@@ -2221,7 +2224,7 @@ function homePlaceSheet(k, t){
 function homeSupplies(){ try{ return JSON.parse(localStorage.getItem('bohemia.supplies.v1') || '{}') || {}; }catch(e){ return {}; } }
 /* the desk: his own buildings under lotbuild's eight, one of each, each with what it costs and what it does */
 function homePlaceRows(acts){ var H = S.home, R = H && H.placeRows; if(!R) return;
-  Object.keys(R).forEach(function(id){ if(id.charAt(0) === '_' || id === 'words') return; var row = R[id], have = (H.places || []).some(function(p){ return p.id === id; });
+  Object.keys(R).forEach(function(id){ if(id.charAt(0) === '_' || id === 'words' || R[id].auto) return; var row = R[id], have = (H.places || []).some(function(p){ return p.id === id; });   /* the cork board goes up by itself */
     var sp = homeSupplies(), short = Object.keys(row.cost || {}).some(function(g){ return (sp[g] | 0) < (row.cost[g] | 0); });
     var b = act(row.name, '', function(){ if(have) return; var HM = homeHM(); if(!HM) return;
       if(bats() < 1) return openB('build', BUILD_NO.CANNOT_AFFORD || 'Not enough batteries.');

@@ -62,7 +62,7 @@
   }
 
   /* ---------------- THE RECORD ---------------- */
-  function make(seed) { return { v: 1, seed: seed == null ? null : String(seed), planted: null, name: null, residents: [], prizes: {}, lots: {}, nights: 0, lastBill: null, story: [], things: [], waiting: [], places: [] }; }
+  function make(seed) { return { v: 1, seed: seed == null ? null : String(seed), planted: null, name: null, residents: [], prizes: {}, lots: {}, nights: 0, lastBill: null, story: [], things: [], waiting: [], places: [], deeds: [] }; }
   function planted(rec) { return !!(rec && rec.planted); }
   /* PERMANENT: the first planting stands for the whole game; nothing in this file moves it or plants twice */
   function plant(rec, at, day, g) {
@@ -187,19 +187,20 @@
      a build gift also carries build (a lotbuild id). Before he plants it WAITS (rec.waiting) and says so; once planted it is PLACED:
      a prize or a trophy on the back lots of the plan, a person among those who live there; a build is the caller's to stand on a lot.
      The same id given twice is one thing. */
-  var KINDS = ['prize', 'trophy', 'build', 'person'];
+  var KINDS = ['prize', 'trophy', 'build', 'person', 'deed'];   /* a deed (11/17, rule 453(3)): a job he did, pinned on his place's cork board, no lot of its own */
   function had(rec, id) { return rec.things.some(function (x) { return x.id === id; }) || rec.waiting.some(function (x) { return x.id === id; }); }
   function give(rec, t, taken) {
     if (!rec || !t || !t.id || KINDS.indexOf(t.kind) < 0) return { ok: false, why: 'NOT_A_THING' };
     if (!rec.things) rec.things = []; if (!rec.waiting) rec.waiting = [];
     if (had(rec, t.id)) return { ok: true, again: true };
-    var x = { id: String(t.id), kind: t.kind, name: String(t.name || t.id), pic: t.pic || null, gives: t.gives || null, from: t.from || null, says: t.says || null, build: t.build || null, look: t.look || null, day: t.day | 0 };
+    var x = { id: String(t.id), kind: t.kind, name: String(t.name || t.id), pic: t.pic || null, gives: t.gives || null, from: t.from || null, says: t.says || null, build: t.build || null, look: t.look || null, saved: !!t.saved, day: t.day | 0 };
     if (!planted(rec)) { rec.waiting.push(x); return { ok: true, waiting: true, thing: x }; }
     return place(rec, x, taken);
   }
   /* a prize or a trophy takes the back lots, from the last lot of the plan forward, never one built on (taken: lot indexes in use) */
   function place(rec, x, taken) {
     taken = taken || {};
+    if (x.kind === 'deed') { if (!rec.deeds) rec.deeds = []; x.lot = null; rec.deeds.push({ id: x.id, name: x.name, from: x.from, saved: !!x.saved, day: x.day | 0 }); rec.things.push(x); return { ok: true, placed: true, thing: x }; }
     if (x.kind === 'person') { addResident(rec, { name: x.name, look: x.look || null, why: x.from ? 'came with ' + x.from : 'came', day: x.day | 0 }); x.lot = null; }
     else if (x.kind === 'prize' || x.kind === 'trophy') { var P = plan(), used = {}; rec.things.forEach(function (y) { if (y.lot != null) used[y.lot] = 1; }); (rec.places || []).forEach(function (y) { used[y.lot] = 1; });
       for (var i = P.lots.length - 1; i >= 0; i--) if (!used[i] && !taken[i]) { x.lot = i; break; }
@@ -238,7 +239,7 @@
   function load(txt, seed) {
     var r = null; try { r = JSON.parse(txt || 'null'); } catch (e) { r = null; }
     if (!r || r.v !== 1 || (seed != null && r.seed !== String(seed))) return make(seed);   /* a new game is a new home */
-    if (!r.residents) r.residents = []; if (!r.prizes) r.prizes = {}; if (!r.lots) r.lots = {}; if (!r.story) r.story = []; if (!r.things) r.things = []; if (!r.waiting) r.waiting = []; if (!r.places) r.places = [];
+    if (!r.residents) r.residents = []; if (!r.prizes) r.prizes = {}; if (!r.lots) r.lots = {}; if (!r.story) r.story = []; if (!r.things) r.things = []; if (!r.waiting) r.waiting = []; if (!r.places) r.places = []; if (!r.deeds) r.deeds = [];
     return r;
   }
 

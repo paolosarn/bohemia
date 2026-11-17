@@ -342,7 +342,15 @@
       "none": "Nobody within {n} blocks.",
       "train": "+35% XP, 3 FIGHTS",
       "trained": "TRAINED, {n} FIGHTS LEFT",
-      "press": "PRESS ROUNDS"
+      "press": "PRESS ROUNDS",
+      "board": "{n} jobs done. {m} brought home."
+    },
+    "board": {
+      "name": "CORK BOARD",
+      "piece": "f_agent",
+      "auto": true,
+      "line": "what you did",
+      "_about": "no cost, never on the desk: it goes up by itself on his place's first free lot the day a job he took is done (rule 453(3), his impact seen there); a deed pins a paper"
     }
   }
 }

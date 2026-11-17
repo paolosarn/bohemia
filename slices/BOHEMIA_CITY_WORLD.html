@@ -95071,7 +95071,7 @@ function homeState(){
            act: actNow, story: (r.story || []).slice(-8), builds: HOME.data.builds || null, supplies: homeSupplies(), workers: homeWorkers(), morning: r.lastMorning || null,
            things: (r.things || []).slice(), waiting: (r.waiting || []).slice(),
            standing: standing, lotsOpen: BohemiaHome.lotsOpen(r, standing), words: D.words, grade: r.planted ? r.planted.grade : null,
-           opens: D.opens || null, places: BohemiaHome.placesOf(r, homeDay()), placeRows: D.places || null, trained: homeTrainedAll() };   /* WHAT YOU BUILD OPENS A DOOR (rule 445(b)): which build opens which of his place's doors */
+           opens: D.opens || null, places: BohemiaHome.placesOf(r, homeDay()), placeRows: D.places || null, deeds: (r.deeds || []).slice(-40), trained: homeTrainedAll() };   /* WHAT YOU BUILD OPENS A DOOR (rule 445(b)): which build opens which of his place's doors */
 }
 /* (b) plant where he stands; the engine refuses a second time and a block the grade says no to */
 function homePlant(){
@@ -95231,6 +95231,7 @@ function homeGive(t){
   var r = homeRec(); if (!r || !HOME.data) return { ok: false, why: 'NOT_READY' };
   t = Object.assign({ day: homeDay() }, t || {});
   var res = BohemiaHome.give(r, t, homeTakenLots());
+  if (res.ok && !res.again && t.kind === 'deed') { homeEnsureBoard(); homeSave(); window.__HOME_GIVEN = (window.__HOME_GIVEN || []).concat([{ id: t.id, waiting: !!res.waiting, deed: true }]); return res; }   /* a deed: pinned on the cork board, no post */
   if (res.ok && !res.again) {
     if (res.placed && res.thing.kind === 'build') homeStandBuild(res.thing);
     var nm = BohemiaHome.nameOf(r), who = t.from ? ' from ' + t.from : '';
@@ -95241,6 +95242,7 @@ function homeGive(t){
   return res;
 }
 function homePlaceWaiting(){ var r = homeRec(); if (!r || !r.planted || !r.waiting || !r.waiting.length) return [];
+  setTimeout(function(){ try { homeEnsureBoard(); } catch (_e) {} }, 0);   /* deeds done before planting: the board goes up with the place */
   var out = BohemiaHome.placeWaiting(r, homeTakenLots()); out.forEach(function(x){ if (x.kind === 'build') homeStandBuild(x); }); homeSave(); return out; }
 /* the bosses' prizes, through the seam: each verb a kill handed him is a thing of his */
 function homeBossGifts(){
@@ -95299,8 +95301,14 @@ function homeWatch(){ var D = HOME.data, L = D && D.places && D.places.lookout, 
 function homeTrain(name){ var r = homeRec(); if (!r || !BohemiaHome.placesOf(r, homeDay()).some(function(p){ return p.id === 'yard' && p.done; })) return null;
   var st = BohemiaHome.train(homeTrainedAll(), name, homeDay()); if (!st) return null;
   try { localStorage.setItem(HOME_TRAINED_KEY, JSON.stringify(st)); } catch (_e) {} return st[name]; }
+/* THE CORK BOARD (rule 453(3), his impact seen at his place): the day a job he took is done it goes up by itself, free, on his place's
+   first free open lot, standing at once; every deed after pins a paper on it */
+function homeEnsureBoard(){ var r = homeRec(), D = HOME.data; if (!r || !r.planted || !D || !D.places || !D.places.board) return null;
+  if (!(r.deeds || []).length || (r.places || []).some(function(p){ return p.id === 'board'; })) return null;
+  var lot = homePlaceLot(); if (lot == null) return null;
+  var res = BohemiaHome.buildPlace(r, 'board', lot, homeDay() - 1, homeTakenLots()); if (res.ok){ homeSave(); window.__HOME_BOARD = { lot: lot, day: homeDay() }; } return res; }
 /* ==== /__HIS_OWN_BUILDINGS__ ==== */
-window.BohemiaHomeMap = { placeBuild: homePlaceBuild, press: homePress, watch: homeWatch, train: homeTrain, trainedAll: homeTrainedAll, give: homeGive, bossGifts: homeBossGifts, state: homeState, plant: homePlant, rawSeat: homeRawSeat, plantAt: homePlantAt, payGoods: homePayGoods, morning: homeMorning, workers: homeWorkers, choose: homeChoose, rename: homeRename, go: homeGo, probe: homeProbe, offer: homeOffer, billNight: homeBillNight, rec: homeRec, label: homeLabel };
+window.BohemiaHomeMap = { ensureBoard: homeEnsureBoard, placeBuild: homePlaceBuild, press: homePress, watch: homeWatch, train: homeTrain, trainedAll: homeTrainedAll, give: homeGive, bossGifts: homeBossGifts, state: homeState, plant: homePlant, rawSeat: homeRawSeat, plantAt: homePlantAt, payGoods: homePayGoods, morning: homeMorning, workers: homeWorkers, choose: homeChoose, rename: homeRename, go: homeGo, probe: homeProbe, offer: homeOffer, billNight: homeBillNight, rec: homeRec, label: homeLabel };
 /* ==== /__HOME_BASE__ ==== */
 </script>
 </body></html>

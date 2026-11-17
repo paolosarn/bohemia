@@ -40,6 +40,9 @@
          out of the company's supplies (the top bar's counts); a build short of its goods is greyed; the morning puts what stands into
          the supplies (planted: the morning hook taken out gives nothing, caught); a resident works one and it gives more; a roof
          finished brings a family to live there
+     D18 HIS IMPACT (rule 453(3)): jobs ending through the jobs' own settle: the done are pinned, the lost not; the cork board goes up
+         by itself, CAM 2 sees it, a real tap says the jobs done and the people brought home. PLANTED: the board off the message, no door;
+         E11: a lost or cancelled job pinned is caught.
      D17 HIS OWN BUILDINGS (rule 453(1)): the desk offers the training yard, the forge, the lookout; a real tap puts the yard up (1
          battery, 3 tape); the next day all three stand, each a door, seen at CAM 2; a real tap trains a man (his level's price), the forge
          presses 2 tape into 6 rounds, the lookout says the nearest crew; the desk says TRAIN, CRAFT, WATCH; on the crew screen the same
@@ -142,6 +145,13 @@ ok('E10 the yard (Battle Brothers\' Veteran\'s Lessons): a trained man\'s 100 is
   T1.xp === 135 && T1.store.YOU.left === 2 && T0.xp === 100 && T3.xp === 135 && !T3.store.YOU && H.trainCost(1) === 2 && H.trainCost(5) === 5);
 const lifts = r => r.xp > 100;
 ok('E10 planted: training that adds nothing (a multiplier of one) is caught', !lifts(H.trained({ YOU: { mult: 1, left: 3 } }, 'YOU', 100)) && lifts(T1));
+const rD = H.make('DEEDS'), dw = H.give(rD, { id: 'deed:a', kind: 'deed', name: 'Bring back the medic', from: 'HENDERSON', saved: true });
+H.plant(rD, { x: 6, y: 6 }, 2, gG); const dpw = H.placeWaiting(rD, {}), d2 = H.give(rD, { id: 'deed:b', kind: 'deed', name: 'Haul the salt', from: 'JEAN' }), d2b = H.give(rD, { id: 'deed:b', kind: 'deed', name: 'Haul the salt', from: 'JEAN' });
+const bd = H.buildPlace(rD, 'board', 0, 1);
+ok('E11 a job done is a deed: before planting it waits, planting pins it, the same job twice is one, no lot of its own; the cork board goes up on a lot (' + bd.ok + ')',
+  dw.waiting && dpw.length === 1 && rD.deeds.length === 2 && d2b.again && rD.deeds.every(x => x.lot == null) && rD.deeds[0].saved && bd.ok, JSON.stringify(rD.deeds));
+const pinned = acts => acts.filter(a => /^civilian_contract_(done|poor)$/.test(a)).length;
+ok('E11 planted: a lost or cancelled job pinned as a deed is caught (only done and paid-in-part pin)', pinned(['civilian_contract_done', 'fail_civilian_contract', 'cancel_contract', 'civilian_contract_poor']) === 2 && pinned(['fail_civilian_contract']) === 0);
 if (process.argv.includes('--engine')) done();
 
 /* ---------------- ON THE DEMO ---------------- */
@@ -372,6 +382,27 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       await close15(); await camTap16(0);
       await F.evaluate(() => { const r = BohemiaHomeMap.rec(); r.places = []; localStorage.removeItem('bohemia.home.trained.v1'); DAY.day = (DAY.day | 0) - 2; const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); });
       await P.waitForTimeout(2500); await gone15(); await close15();   /* the gate's three come down so the legs after build where they always did */
+      /* D18 HIS IMPACT SEEN AT HIS PLACE (rule 453(3)): a job he did is pinned on the cork board, which goes up by itself, seen at CAM 2 */
+      const d18 = await F.evaluate(() => { BohemiaJobKinds.settleJob({ id: 'gate-18a', from: 'HENDERSON', title: 'Bring back the medic', plays: 'find-person' }, 'civilian_contract_done');
+        BohemiaJobKinds.settleJob({ id: 'gate-18b', from: 'JEAN', title: 'Haul the salt', plays: 'haul-caravan' }, 'civilian_contract_done');
+        BohemiaJobKinds.settleJob({ id: 'gate-18c', from: 'JEAN', title: 'Lost job', plays: 'carry' }, 'fail_civilian_contract');
+        const s = BohemiaHomeMap.state(); return { deeds: (s.deeds || []).map(x => x.name), board: (s.places || []).filter(p => p.id === 'board') }; });
+      ok('D18 three jobs end through the jobs\' own settle: the two done are pinned, the lost one not (' + d18.deeds.join(', ') + '); the cork board goes up by itself (lot ' + (d18.board[0] && d18.board[0].lot) + ')',
+        d18.deeds.length === 2 && d18.deeds.indexOf('Lost job') < 0 && d18.board.length === 1 && d18.board[0].done, JSON.stringify(d18));
+      await F.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); }); await P.waitForTimeout(2500); await gone15(); await close15();
+      const bk18 = 'h' + d18.board[0].lot;
+      await camTap16(1);
+      const sb18 = await fr.evaluate(k => { const v = BohemiaSettlement.fit(), b = BohemiaSettlement._box(k); if (!b) return null; const a = BohemiaSettlement.toScreen((b[0] + b[2]) / 2, (b[1] + b[3]) / 2); return a.x >= 0 && a.x <= v.W && a.y >= 0 && a.y <= v.H; }, bk18);
+      ok('D18 CAM 2 sees the cork board standing on his lot (' + bk18 + ')', sb18 === true);
+      await tap15(bk18, () => window.__HOME_THING && window.__HOME_THING.id === 'board');
+      const t18 = await fr.evaluate(() => ({ say: (document.querySelector('#sbody .say p') || {}).textContent || '', lines: [...document.querySelectorAll('#sbody [data-deed]')].map(e => e.textContent) }));
+      ok('D18 a real tap on it: "' + t18.say + '" and the jobs pinned (' + t18.lines.join(' | ') + ')', /2 jobs done\. 1 brought home\./.test(t18.say) && t18.lines.length === 2 && /MEDIC/.test(t18.lines.join(' ')), JSON.stringify(t18));
+      await close15(); await camTap16(0);
+      await fr.evaluate(() => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); h.places = []; window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); }); await P.waitForTimeout(700);
+      const m18 = await fr.evaluate(k => (window.__HOME_DOORS || []).indexOf(k) >= 0, bk18);
+      ok('D18 planted: the board taken off the message leaves no door (the leg above would be red)', m18 === false);
+      await F.evaluate(() => { const r = BohemiaHomeMap.rec(); r.places = []; r.deeds = []; r.things = r.things.filter(t => t.kind !== 'deed'); const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); });
+      await P.waitForTimeout(2500); await gone15(); await close15();   /* the board comes down so the legs after build where they always did */
       for (let t = 0; t < 3 && sg; t++) {   /* a slow phone: the press is asked again, as a thumb would, until the building answers */
         const w = await fr.evaluate(() => { const x = BohemiaSettlement.where('build'); return x ? [x.x, x.y] : null; }); if (!w) break;
         await P.touchscreen.tap(fb.x + w[0], fb.y + w[1]);
