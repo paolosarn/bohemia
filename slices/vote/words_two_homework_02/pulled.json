@@ -1,0 +1,263 @@
+{
+ "draft": true,
+ "tool": "tools/bohemia_words_two_homework.js",
+ "sheet": 2,
+ "note": "every line below was read out of the named game file by this tool; none was typed",
+ "cards": [
+  {
+   "n": 1,
+   "id": "words-two-hw02-01-funny-the-toll-girl-11-17",
+   "mouth": "A ROAD STOP",
+   "who": "LA TOLLKEEPER",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_toll_kids"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "This road is ours today, my loves. Five batteries a head, or ten for all of you because you dress so ugly I feel sorry. Rick Owens would cry.",
+   "line": "This road is ours today, my loves. Five batteries a head, or ten for all of you because you dress so ugly I feel sorry. Rick Owens would cry.",
+   "picture_pt": [
+    390,
+    520
+   ]
+  },
+  {
+   "n": 2,
+   "id": "words-two-hw02-02-happy-the-water-runs-11-17",
+   "mouth": "AFTER A BOSS FALLS",
+   "who": "EL CHINO",
+   "pulled_from": "records/target/bb/boss_act_one.json",
+   "locator": [
+    "bosses",
+    {
+     "find": {
+      "n": "THE TAP"
+     }
+    },
+    "after",
+    "valley"
+   ],
+   "in_the_file": "The water is running! My whole street drinks again, and nobody pays him for it.",
+   "line": "The water is running! My whole street drinks again, and nobody pays him for it.",
+   "picture_pt": [
+    390,
+    344
+   ]
+  },
+  {
+   "n": 3,
+   "id": "words-two-hw02-03-serious-a-man-is-dead-11-17",
+   "mouth": "YOUR SECOND, ON THE MAP",
+   "who": "YOUR SECOND",
+   "pulled_from": "records/target/words/the_second_speaks.json",
+   "locator": [
+    "lines",
+    "dead",
+    "line"
+   ],
+   "in_the_file": "{name} didn't get up, carnal. He's gone.",
+   "filled_with": {
+    "name": "TEO"
+   },
+   "line": "TEO didn't get up, carnal. He's gone.",
+   "picture_pt": [
+    390,
+    329
+   ]
+  },
+  {
+   "n": 4,
+   "id": "words-two-hw02-04-confident-the-bookie-11-17",
+   "mouth": "THE BOOKIE AT THE PIT",
+   "who": "THE BOOKIE",
+   "pulled_from": "slices/bohemia_arena_town.js",
+   "locator": "if\\(c\\.fifth\\) return '(?:[^'\\\\]|\\\\.)*';\\s*return '((?:[^'\\\\]|\\\\.)*)';",
+   "in_the_file": "There it is. You see what you get, no surprises. Win and you get paid. Lose and you feed them.",
+   "filled_with": {
+    "(shown through)": "BohemiaSpanglish.plain"
+   },
+   "line": "There it is. You see what you get, no surprises. Win and you get paid. Lose and you feed them.",
+   "picture_pt": [
+    390,
+    344
+   ]
+  },
+  {
+   "n": 5,
+   "id": "words-two-hw02-05-leader-the-block-watch-11-17",
+   "mouth": "THE FEED, A CREW'S PAGE",
+   "who": "@blockwatch_702",
+   "pulled_from": "records/target/bb/feed_kinds.json",
+   "locator": [
+    "kinds",
+    {
+     "find": {
+      "id": "page_militia_notice"
+     }
+    },
+    "words",
+    1,
+    "en"
+   ],
+   "in_the_file": "Watch meeting at the circle at the end of the street. Bring a flashlight and your name.",
+   "line": "Watch meeting at the circle at the end of the street. Bring a flashlight and your name.",
+   "picture_pt": [
+    390,
+    233
+   ]
+  },
+  {
+   "n": 6,
+   "id": "words-two-hw02-06-political-forty-people-11-17",
+   "mouth": "A SIDE QUEST ON THE ROAD",
+   "who": "DOÑA FAUSTA",
+   "pulled_from": "records/target/BOHEMIA_SIDE_QUESTS.json",
+   "locator": [
+    "quests",
+    "bq_a03_the_faction_that_died",
+    "nodes",
+    "take",
+    "says",
+    0
+   ],
+   "in_the_file": "Then we come. And somebody is going to have to say whose ground it is, because we will not be guests forever.",
+   "line": "Then we come. And somebody is going to have to say whose ground it is, because we will not be guests forever.",
+   "picture_pt": [
+    390,
+    371
+   ]
+  },
+  {
+   "n": 7,
+   "id": "words-two-hw02-07-kind-the-doc-11-17",
+   "mouth": "THE DOC",
+   "who": "THE DOC",
+   "pulled_from": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "locator": "else if\\(k==='clinic'\\)\\{[\\s\\S]*?speak\\(k, line \\|\\| '((?:[^'\\\\]|\\\\.)*)'\\)",
+   "in_the_file": "Let me see them. Half the days, and half of what the wound takes off him, if you can pay. They walk out with you.",
+   "filled_with": {
+    "(shown through)": "BohemiaSpanglish.plain"
+   },
+   "line": "Let me see them. Half the days, and half of what the wound takes off him, if you can pay. They walk out with you.",
+   "picture_pt": [
+    390,
+    354
+   ]
+  },
+  {
+   "n": 8,
+   "id": "words-two-hw02-08-proud-the-scar-11-17",
+   "mouth": "YOUR MAN, ON HIS CARD",
+   "who": "ONE OF YOUR MEN",
+   "pulled_from": "engine/bohemia_long_injury.js",
+   "locator": "weakened_heart: \"((?:[^\"\\\\]|\\\\.)*)\"",
+   "in_the_file": "Heart stopped once. Started again out of spite.",
+   "line": "Heart stopped once. Started again out of spite.",
+   "picture_pt": [
+    390,
+    312
+   ]
+  },
+  {
+   "n": 9,
+   "id": "words-two-hw02-09-begging-the-insulin-post-11-17",
+   "mouth": "THE FEED",
+   "who": "@kayla_forklift",
+   "pulled_from": "records/target/bb/feed_kinds.json",
+   "locator": [
+    "kinds",
+    {
+     "find": {
+      "id": "ask"
+     }
+    },
+    "words",
+    1,
+    "en"
+   ],
+   "in_the_file": "ISO insulin. any kind. it's for my sister. message me, please.",
+   "line": "ISO insulin. any kind. it's for my sister. message me, please.",
+   "picture_pt": [
+    390,
+    253
+   ]
+  },
+  {
+   "n": 10,
+   "id": "words-two-hw02-10-selling-madame-bottega-11-17",
+   "mouth": "A ROAD STOP",
+   "who": "MADAME BOTTEGA",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_runway_stall"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "Darling. The world ended and you still dress like a parking lot. One coat, Balenciaga, real, from the Forum Shops. Twenty batteries and you live forever.",
+   "line": "Darling. The world ended and you still dress like a parking lot. One coat, Balenciaga, real, from the Forum Shops. Twenty batteries and you live forever.",
+   "picture_pt": [
+    390,
+    470
+   ]
+  },
+  {
+   "n": 11,
+   "id": "words-two-hw02-11-sad-the-kid-after-11-17",
+   "mouth": "YOUR MAN, AFTER THE FIGHT",
+   "who": "YOUR MAN, THE KID",
+   "pulled_from": "records/target/bb/crew_voices.json",
+   "locator": [
+    "types",
+    "kid",
+    "lines",
+    "win",
+    "lost_one",
+    "en",
+    0
+   ],
+   "in_the_file": "{name} showed me how to reload. Like, just now.",
+   "filled_with": {
+    "name": "CHUY"
+   },
+   "line": "CHUY showed me how to reload. Like, just now.",
+   "picture_pt": [
+    390,
+    329
+   ]
+  },
+  {
+   "n": 12,
+   "id": "words-two-hw02-12-angry-the-last-water-11-17",
+   "mouth": "YOUR MAN, ON THE ROAD",
+   "who": "ONE OF YOUR MEN",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_last_canteen"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "{other} drank the last of the water in the night, boss, my share too. I am going to break {other}'s face unless you tell me why I should not.",
+   "filled_with": {
+    "other": "RICO"
+   },
+   "line": "RICO drank the last of the water in the night, boss, my share too. I am going to break RICO's face unless you tell me why I should not.",
+   "picture_pt": [
+    390,
+    470
+   ]
+  }
+ ]
+}

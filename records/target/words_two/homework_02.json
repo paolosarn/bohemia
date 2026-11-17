@@ -1,0 +1,514 @@
+{
+ "draft": true,
+ "sheet": 2,
+ "_about": "WORDS TWO, HIS HOMEWORK, SHEET TWO: SCARY, THEN WHAT (VAMILY rules 455, 454(c); ask rows 637, 629). Twelve cards, one screen of the tab. Each card tests ONE second word of his law on ONE mouth, and no mouth of sheet one that he has already answered is asked the same thing twice. tools/bohemia_words_two_homework.js reads every line out of the named file; nothing here is a line. No rewrite of ours rides on any card.",
+ "said": "There's two words, but the first word is always scary, and whatever emotion you're trying to get out of people, the second one follows that",
+ "cards": [
+  {
+   "second": "FUNNY",
+   "mouth": "A ROAD STOP",
+   "tab": "MAP",
+   "who_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_toll_kids"
+      }
+     },
+     "who",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_toll_kids"
+      }
+     },
+     "who",
+     "from"
+    ]
+   },
+   "who_plain": "A girl running a toll with a shopping cart",
+   "to": "your crew",
+   "when": "her crew blocks the road and she names the price",
+   "where": "on the MAP, on the card that stops your crew on the road",
+   "side": "them",
+   "face": {
+    "look": "faction_colorful"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_toll_kids"
+      }
+     },
+     "says"
+    ]
+   },
+   "choices_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_toll_kids"
+      }
+     },
+     "opts"
+    ],
+    "field": "t"
+   },
+   "expect": "This road is ours",
+   "teaches": "SCARY FUNNY on the road: a hold-up told as a joke about clothes, with a runway name in it; is the joke allowed to lead, and do the fashion names belong in a mouth",
+   "n": 1,
+   "id": "words-two-hw02-01-funny-the-toll-girl-11-17",
+   "made": "11/17"
+  },
+  {
+   "second": "HAPPY",
+   "mouth": "AFTER A BOSS FALLS",
+   "tab": "MAP",
+   "who_pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE TAP"
+      }
+     },
+     "after",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE TAP"
+      }
+     },
+     "after",
+     "from"
+    ]
+   },
+   "who_plain": "A man at the pump house",
+   "to": "you",
+   "when": "you come back after you killed the boss who owned the water",
+   "where": "on the MAP, on the card after a boss falls",
+   "side": "other",
+   "face": {
+    "look": "faction_colorful"
+   },
+   "pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE TAP"
+      }
+     },
+     "after",
+     "valley"
+    ]
+   },
+   "expect": "The water is running",
+   "teaches": "SCARY HAPPY: the best news the game has (a boss dead, the water back); how does joy sound from somebody still in hell",
+   "n": 2,
+   "id": "words-two-hw02-02-happy-the-water-runs-11-17",
+   "made": "11/17"
+  },
+  {
+   "second": "SERIOUS",
+   "mouth": "YOUR SECOND, ON THE MAP",
+   "tab": "MAP",
+   "who": "YOUR SECOND",
+   "role": "the man who walks beside you",
+   "who_plain": "Your second, the man who walks beside you",
+   "to": "you",
+   "when": "one of your men is struck down and does not get up",
+   "where": "on the MAP, on the small face plate after a fight",
+   "side": "you",
+   "face": {
+    "look": "cast_widebrim"
+   },
+   "pull": {
+    "file": "records/target/words/the_second_speaks.json",
+    "json": [
+     "lines",
+     "dead",
+     "line"
+    ]
+   },
+   "fill": {
+    "name": "TEO"
+   },
+   "expect": "{name} didn't get up",
+   "teaches": "SCARY SERIOUS: telling the boss a man is dead, in seven words with one Spanish word in it; the heaviest news his own crew gives him",
+   "n": 3,
+   "id": "words-two-hw02-03-serious-a-man-is-dead-11-17",
+   "made": "11/17"
+  },
+  {
+   "second": "CONFIDENT",
+   "mouth": "THE BOOKIE AT THE PIT",
+   "tab": "A TOWN",
+   "who": "THE BOOKIE",
+   "role": "the Mob's man at the fight pit",
+   "who_plain": "The bookie at the fight pit",
+   "to": "you",
+   "when": "you walk up to see who your men would fight tonight",
+   "where": "in a TOWN with a pit, at the bookie",
+   "side": "other",
+   "face": {
+    "look": "person_town_7"
+   },
+   "through": "BohemiaSpanglish.plain",
+   "pull": {
+    "file": "slices/bohemia_arena_town.js",
+    "re": "if\\(c\\.fifth\\) return '(?:[^'\\\\]|\\\\.)*';\\s*return '((?:[^'\\\\]|\\\\.)*)';"
+   },
+   "expect": "There it is",
+   "teaches": "SCARY CONFIDENT: a man who is not afraid of you at all, selling you a fight; the last four words are the scary part",
+   "n": 4,
+   "id": "words-two-hw02-04-confident-the-bookie-11-17",
+   "made": "11/17"
+  },
+  {
+   "second": "TRYING TO BE A LEADER",
+   "mouth": "THE FEED, A CREW'S PAGE",
+   "tab": "THE PHONE",
+   "who_pull": {
+    "file": "records/target/bb/feed_kinds.json",
+    "json": [
+     "accounts",
+     {
+      "find": {
+       "id": "pg_watch"
+      }
+     },
+     "handle"
+    ]
+   },
+   "who_prefix": "@",
+   "who_plain": "The block watch's page",
+   "to": "everybody on the feed",
+   "when": "they call their street to a meeting",
+   "where": "on the phone's FEED",
+   "layout": "feed",
+   "pull": {
+    "file": "records/target/bb/feed_kinds.json",
+    "json": [
+     "kinds",
+     {
+      "find": {
+       "id": "page_militia_notice"
+      }
+     },
+     "words",
+     1,
+     "en"
+    ]
+   },
+   "expect": "Watch meeting",
+   "teaches": "SCARY TRYING TO BE A LEADER, on the feed: neighbours with flashlights calling themselves a watch; how does somebody sound who is trying to be in charge and is not sure he is",
+   "n": 5,
+   "id": "words-two-hw02-05-leader-the-block-watch-11-17",
+   "made": "11/17"
+  },
+  {
+   "second": "POLITICAL",
+   "mouth": "A SIDE QUEST ON THE ROAD",
+   "tab": "MAP",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "json": [
+     "quests",
+     "bq_a03_the_faction_that_died",
+     "people",
+     "elder",
+     "name"
+    ]
+   },
+   "role": "with forty people outside a raided town's gate; a week ago they were three hundred",
+   "who_plain": "An old woman leading the forty people left of a town",
+   "to": "you",
+   "when": "you tell her they can come and stand on your block",
+   "where": "on the MAP, on a side quest's card",
+   "side": "other",
+   "face": {
+    "look": "faction_homeless"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "json": [
+     "quests",
+     "bq_a03_the_faction_that_died",
+     "nodes",
+     "take",
+     "says",
+     0
+    ]
+   },
+   "expect": "Then we come",
+   "teaches": "SCARY POLITICAL: she takes his help and tells him in the same breath that she will want a say; power talked about out loud by somebody with nothing",
+   "n": 6,
+   "id": "words-two-hw02-06-political-forty-people-11-17",
+   "made": "11/17"
+  },
+  {
+   "second": "KIND",
+   "mouth": "THE DOC",
+   "tab": "A TOWN",
+   "who": "THE DOC",
+   "role": "at the clinic",
+   "who_plain": "The doc at the clinic",
+   "to": "you",
+   "when": "you bring your hurt men in",
+   "where": "in a TOWN, at the clinic",
+   "side": "other",
+   "face": {
+    "look": "person_town_10"
+   },
+   "through": "BohemiaSpanglish.plain",
+   "pull": {
+    "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+    "re": "else if\\(k==='clinic'\\)\\{[\\s\\S]*?speak\\(k, line \\|\\| '((?:[^'\\\\]|\\\\.)*)'\\)"
+   },
+   "expect": "Let me see them",
+   "teaches": "SCARY KIND: the one person whose job is to help, and the price is in the middle of the sentence; his law says nobody helps out of kindness and everybody says so",
+   "n": 7,
+   "id": "words-two-hw02-07-kind-the-doc-11-17",
+   "made": "11/17"
+  },
+  {
+   "second": "PROUD",
+   "mouth": "YOUR MAN, ON HIS CARD",
+   "tab": "THE CREW",
+   "who": "ONE OF YOUR MEN",
+   "role": "about his own old wound, on his card",
+   "who_plain": "One of your men, about his own old wound",
+   "to": "whoever reads his card",
+   "when": "you open his card on the crew screen",
+   "where": "on the crew screen, on his card",
+   "side": "you",
+   "face": {
+    "look": "cast_barearms"
+   },
+   "pull": {
+    "file": "engine/bohemia_long_injury.js",
+    "re": "weakened_heart: \"((?:[^\"\\\\]|\\\\.)*)\""
+   },
+   "expect": "Heart stopped once",
+   "teaches": "SCARY PROUD: a man bragging about nearly dying; two short sentences and a punchline, the shape the research found everywhere",
+   "n": 8,
+   "id": "words-two-hw02-08-proud-the-scar-11-17",
+   "made": "11/17"
+  },
+  {
+   "second": "BEGGING",
+   "mouth": "THE FEED",
+   "tab": "THE PHONE",
+   "who": "@kayla_forklift",
+   "who_plain": "Somebody in the valley",
+   "to": "everybody on the feed",
+   "when": "a sister needs medicine and there is none",
+   "where": "on the phone's FEED",
+   "layout": "feed",
+   "pull": {
+    "file": "records/target/bb/feed_kinds.json",
+    "json": [
+     "kinds",
+     {
+      "find": {
+       "id": "ask"
+      }
+     },
+     "words",
+     1,
+     "en"
+    ]
+   },
+   "expect": "ISO insulin",
+   "teaches": "SCARY BEGGING, typed: a plea on the feed with no offer in it; his kid on the road offered work, so does a post have to offer something too",
+   "n": 9,
+   "id": "words-two-hw02-09-begging-the-insulin-post-11-17",
+   "made": "11/17"
+  },
+  {
+   "second": "SELLING",
+   "mouth": "A ROAD STOP",
+   "tab": "MAP",
+   "who_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_runway_stall"
+      }
+     },
+     "who",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_runway_stall"
+      }
+     },
+     "who",
+     "from"
+    ]
+   },
+   "who_plain": "A woman selling designer clothes off a rack",
+   "to": "you",
+   "when": "you walk past her rack in the road",
+   "where": "on the MAP, on the card that stops your crew on the road",
+   "side": "other",
+   "face": {
+    "look": "faction_colorful"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_runway_stall"
+      }
+     },
+     "says"
+    ]
+   },
+   "choices_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_runway_stall"
+      }
+     },
+     "opts"
+    ],
+    "field": "t"
+   },
+   "expect": "Darling",
+   "teaches": "SCARY SELLING: a sales pitch that insults him first; 'you live forever' is the only scary thing in it and it is a joke",
+   "n": 10,
+   "id": "words-two-hw02-10-selling-madame-bottega-11-17",
+   "made": "11/17"
+  },
+  {
+   "second": "SAD",
+   "mouth": "YOUR MAN, AFTER THE FIGHT",
+   "tab": "THE FIGHT",
+   "who": "YOUR MAN, THE KID",
+   "role_pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "kid",
+     "about"
+    ]
+   },
+   "who_plain": "The kid in your crew",
+   "to": "the crew",
+   "when": "you win a fight and one of your men died in it",
+   "where": "on the screen after a FIGHT",
+   "side": "you",
+   "face": {
+    "look": "cast_shorts"
+   },
+   "pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "kid",
+     "lines",
+     "win",
+     "lost_one",
+     "en",
+     0
+    ]
+   },
+   "fill": {
+    "name": "CHUY"
+   },
+   "expect": "{name} showed me",
+   "teaches": "SCARY SAD: grief from a seventeen-year-old, and the one line in the fight that says 'like' the way a person does",
+   "n": 11,
+   "id": "words-two-hw02-11-sad-the-kid-after-11-17",
+   "made": "11/17"
+  },
+  {
+   "second": "ANGRY",
+   "mouth": "YOUR MAN, ON THE ROAD",
+   "tab": "MAP",
+   "who": "ONE OF YOUR MEN",
+   "role_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_last_canteen"
+      }
+     },
+     "who",
+     "from"
+    ]
+   },
+   "who_plain": "One of your own men",
+   "to": "you",
+   "when": "another of your men drank his water in the night",
+   "where": "on the MAP, on a card at the night stop",
+   "side": "you",
+   "face": {
+    "look": "cast_bedroll"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_last_canteen"
+      }
+     },
+     "says"
+    ]
+   },
+   "fill": {
+    "other": "RICO"
+   },
+   "choices_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_last_canteen"
+      }
+     },
+     "opts"
+    ],
+    "field": "t"
+   },
+   "expect": "{other} drank the last",
+   "teaches": "SCARY ANGRY: a fight over water inside his own crew, said in a full careful sentence ('unless you tell me why I should not')",
+   "n": 12,
+   "id": "words-two-hw02-12-angry-the-last-water-11-17",
+   "made": "11/17"
+  }
+ ]
+}

@@ -20105,7 +20105,379 @@
     "firstAt": [0, 0, 1170, 836]
    }, "before_after": {"before": "main b94bd4920: the parties' prints drew only behind the F key, and a phone has no F key, so a phone never saw a track", "after": "the prints round him, as shoe prints in pairs, fading; standing on one, the map's own line names who came through", "scale": "his phone upright (390 x 844 at 3, top) and sideways (844 x 390 at 3, bottom), the alpha's RUN tab map, cut round his crew"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_14_THE_TRACKS_HE_CAN_READ_11_17_26.md"},
   {"id": "jobs-what-walking-away-costs-11-17", "kind": "ui", "lane": "jobs", "sha": "166e10bd0", "made": "11/17", "draft": true, "title": "WHAT WALKING AWAY COSTS: EVERY JOB CARD SAYS WHAT DROPPING OR FAILING IT WILL COST YOU", "said": "a full sweep: the jobs' systems the way Battle Brothers runs them, no new talk: how a town feels about him moves with the jobs and changes what it offers and charges; pay he can push at a cost; what failing or walking away costs; a job paid into his own place", "why": "Every job's card now says, before you take it, what it costs to drop it or fail it: the town's opinion of you from and to, and your CLOUT from and to, in this town's own numbers. You see it on a town's board (tap BOARD, tap a person): the line starts DROP IT.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_WHAT_WALKING_AWAY_COSTS.jpg"}, "before_after": {"before": "dropping a job cost the town 10 and 100 CLOUT and failing it 20 and 75, and the card never said so before the yes", "after": "the card says it in numbers; dropped and failed on the phone, the bar and CLOUT moved exactly as the card said", "scale": "left: the game on a phone upright (390 x 844 at 3), the demo; right: what changed, measured"}, "record": "records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md", "build": "BUILD 11/17z - WHAT WALKING AWAY COSTS"},
-  {"id": "jobs-paid-into-your-place-11-17", "kind": "ui", "lane": "jobs", "sha": "57d3c4a3d", "made": "11/17", "draft": true, "title": "PAID INTO YOUR PLACE: TAKE PART OF ANY JOB'S PAY AS A BUILD FOR YOUR SETTLEMENT", "said": "a full sweep: the jobs' systems the way Battle Brothers runs them, no new talk: how a town feels about him moves with the jobs and changes what it offers and charges; pay he can push at a cost; what failing or walking away costs; a job paid into his own place", "why": "On any job's card you can now take part of the pay as one of your builds: a solar panel, a pump, a water tank or a garden, its cost off the batteries, and it stands at your place when the job is done (it waits if you have not planted yet). You see it on a town's board (tap BOARD, tap a person): the button says Into your place.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_PAID_INTO_YOUR_PLACE.jpg"}, "before_after": {"before": "a job paid batteries only; a few jobs paid into his place by their own story, no other job could", "after": "Rook's singer job: 25 batteries, or 20 and a solar panel; done in full, paid 20 and the panel is his", "scale": "left: the game on a phone upright (390 x 844 at 3), the demo; right: what changed, measured"}, "record": "records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md", "build": "BUILD 11/17za - PAID INTO YOUR PLACE"}
+  {"id": "jobs-paid-into-your-place-11-17", "kind": "ui", "lane": "jobs", "sha": "57d3c4a3d", "made": "11/17", "draft": true, "title": "PAID INTO YOUR PLACE: TAKE PART OF ANY JOB'S PAY AS A BUILD FOR YOUR SETTLEMENT", "said": "a full sweep: the jobs' systems the way Battle Brothers runs them, no new talk: how a town feels about him moves with the jobs and changes what it offers and charges; pay he can push at a cost; what failing or walking away costs; a job paid into his own place", "why": "On any job's card you can now take part of the pay as one of your builds: a solar panel, a pump, a water tank or a garden, its cost off the batteries, and it stands at your place when the job is done (it waits if you have not planted yet). You see it on a town's board (tap BOARD, tap a person): the button says Into your place.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_PAID_INTO_YOUR_PLACE.jpg"}, "before_after": {"before": "a job paid batteries only; a few jobs paid into his place by their own story, no other job could", "after": "Rook's singer job: 25 batteries, or 20 and a solar panel; done in full, paid 20 and the panel is his", "scale": "left: the game on a phone upright (390 x 844 at 3), the demo; right: what changed, measured"}, "record": "records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md", "build": "BUILD 11/17za - PAID INTO YOUR PLACE"},
+  {
+   "id": "words-two-hw02-12-angry-the-last-water-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“RICO drank the last of the water in the night, boss, my share too. I am going to break RICO's face unless you tell me why I should not.”",
+   "said": "There's two words, but the first word is always scary, and whatever emotion you're trying to get out of people, the second one follows that",
+   "why": "HOW SHOULD THIS SOUND? It is here to test SCARY, THEN ANGRY: One of your own men says it to you when another of your men drank his water in the night (you see it on the MAP, on a card at the night stop); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_02/words-two-hw02-12-angry-the-last-water-11-17.webp",
+    "first": "vote/words_two_homework_02/words-two-hw02-12-angry-the-last-water-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     940
+    ]
+   },
+   "homework": {
+    "sheet": 2,
+    "n": 12,
+    "mouth": "YOUR MAN, ON THE ROAD",
+    "second": "ANGRY",
+    "teaches": "SCARY ANGRY: a fight over water inside his own crew, said in a full careful sentence ('unless you tell me why I should not')",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "RICO drank the last of the water in the night, boss, my share too. I am going to break RICO's face unless you tell me why I should not."
+   }
+  },
+  {
+   "id": "words-two-hw02-11-sad-the-kid-after-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“CHUY showed me how to reload. Like, just now.”",
+   "said": "There's two words, but the first word is always scary, and whatever emotion you're trying to get out of people, the second one follows that",
+   "why": "HOW SHOULD THIS SOUND? It is here to test SCARY, THEN SAD: The kid in your crew says it to the crew when you win a fight and one of your men died in it (you see it on the screen after a FIGHT); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_02/words-two-hw02-11-sad-the-kid-after-11-17.webp",
+    "first": "vote/words_two_homework_02/words-two-hw02-11-sad-the-kid-after-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     660
+    ]
+   },
+   "homework": {
+    "sheet": 2,
+    "n": 11,
+    "mouth": "YOUR MAN, AFTER THE FIGHT",
+    "second": "SAD",
+    "teaches": "SCARY SAD: grief from a seventeen-year-old, and the one line in the fight that says 'like' the way a person does",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "CHUY showed me how to reload. Like, just now."
+   }
+  },
+  {
+   "id": "words-two-hw02-10-selling-madame-bottega-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“Darling. The world ended and you still dress like a parking lot. One coat, Balenciaga, real, from the Forum Shops. Twenty batteries and you live forever.”",
+   "said": "There's two words, but the first word is always scary, and whatever emotion you're trying to get out of people, the second one follows that",
+   "why": "HOW SHOULD THIS SOUND? It is here to test SCARY, THEN SELLING: A woman selling designer clothes off a rack says it to you when you walk past her rack in the road (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_02/words-two-hw02-10-selling-madame-bottega-11-17.webp",
+    "first": "vote/words_two_homework_02/words-two-hw02-10-selling-madame-bottega-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     940
+    ]
+   },
+   "homework": {
+    "sheet": 2,
+    "n": 10,
+    "mouth": "A ROAD STOP",
+    "second": "SELLING",
+    "teaches": "SCARY SELLING: a sales pitch that insults him first; 'you live forever' is the only scary thing in it and it is a joke",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "Darling. The world ended and you still dress like a parking lot. One coat, Balenciaga, real, from the Forum Shops. Twenty batteries and you live forever."
+   }
+  },
+  {
+   "id": "words-two-hw02-09-begging-the-insulin-post-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“ISO insulin. any kind. it's for my sister. message me, please.”",
+   "said": "There's two words, but the first word is always scary, and whatever emotion you're trying to get out of people, the second one follows that",
+   "why": "HOW SHOULD THIS SOUND? It is here to test SCARY, THEN BEGGING: Somebody in the valley says it to everybody on the feed when a sister needs medicine and there is none (you see it on the phone's FEED); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_02/words-two-hw02-09-begging-the-insulin-post-11-17.webp",
+    "first": "vote/words_two_homework_02/words-two-hw02-09-begging-the-insulin-post-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     508
+    ]
+   },
+   "homework": {
+    "sheet": 2,
+    "n": 9,
+    "mouth": "THE FEED",
+    "second": "BEGGING",
+    "teaches": "SCARY BEGGING, typed: a plea on the feed with no offer in it; his kid on the road offered work, so does a post have to offer something too",
+    "pulled_from": "records/target/bb/feed_kinds.json",
+    "line": "ISO insulin. any kind. it's for my sister. message me, please."
+   }
+  },
+  {
+   "id": "words-two-hw02-08-proud-the-scar-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“Heart stopped once. Started again out of spite.”",
+   "said": "There's two words, but the first word is always scary, and whatever emotion you're trying to get out of people, the second one follows that",
+   "why": "HOW SHOULD THIS SOUND? It is here to test SCARY, THEN PROUD: One of your men, about his own old wound says it to whoever reads his card when you open his card on the crew screen (you see it on the crew screen, on his card); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_02/words-two-hw02-08-proud-the-scar-11-17.webp",
+    "first": "vote/words_two_homework_02/words-two-hw02-08-proud-the-scar-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     624
+    ]
+   },
+   "homework": {
+    "sheet": 2,
+    "n": 8,
+    "mouth": "YOUR MAN, ON HIS CARD",
+    "second": "PROUD",
+    "teaches": "SCARY PROUD: a man bragging about nearly dying; two short sentences and a punchline, the shape the research found everywhere",
+    "pulled_from": "engine/bohemia_long_injury.js",
+    "line": "Heart stopped once. Started again out of spite."
+   }
+  },
+  {
+   "id": "words-two-hw02-07-kind-the-doc-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“Let me see them. Half the days, and half of what the wound takes off him, if you can pay. They walk out with you.”",
+   "said": "There's two words, but the first word is always scary, and whatever emotion you're trying to get out of people, the second one follows that",
+   "why": "HOW SHOULD THIS SOUND? It is here to test SCARY, THEN KIND: The doc at the clinic says it to you when you bring your hurt men in (you see it in a TOWN, at the clinic); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_02/words-two-hw02-07-kind-the-doc-11-17.webp",
+    "first": "vote/words_two_homework_02/words-two-hw02-07-kind-the-doc-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     710
+    ]
+   },
+   "homework": {
+    "sheet": 2,
+    "n": 7,
+    "mouth": "THE DOC",
+    "second": "KIND",
+    "teaches": "SCARY KIND: the one person whose job is to help, and the price is in the middle of the sentence; his law says nobody helps out of kindness and everybody says so",
+    "pulled_from": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+    "line": "Let me see them. Half the days, and half of what the wound takes off him, if you can pay. They walk out with you."
+   }
+  },
+  {
+   "id": "words-two-hw02-06-political-forty-people-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“Then we come. And somebody is going to have to say whose ground it is, because we will not be guests forever.”",
+   "said": "There's two words, but the first word is always scary, and whatever emotion you're trying to get out of people, the second one follows that",
+   "why": "HOW SHOULD THIS SOUND? It is here to test SCARY, THEN POLITICAL: An old woman leading the forty people left of a town says it to you when you tell her they can come and stand on your block (you see it on the MAP, on a side quest's card); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_02/words-two-hw02-06-political-forty-people-11-17.webp",
+    "first": "vote/words_two_homework_02/words-two-hw02-06-political-forty-people-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     744
+    ]
+   },
+   "homework": {
+    "sheet": 2,
+    "n": 6,
+    "mouth": "A SIDE QUEST ON THE ROAD",
+    "second": "POLITICAL",
+    "teaches": "SCARY POLITICAL: she takes his help and tells him in the same breath that she will want a say; power talked about out loud by somebody with nothing",
+    "pulled_from": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "line": "Then we come. And somebody is going to have to say whose ground it is, because we will not be guests forever."
+   }
+  },
+  {
+   "id": "words-two-hw02-05-leader-the-block-watch-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“Watch meeting at the circle at the end of the street. Bring a flashlight and your name.”",
+   "said": "There's two words, but the first word is always scary, and whatever emotion you're trying to get out of people, the second one follows that",
+   "why": "HOW SHOULD THIS SOUND? It is here to test SCARY, THEN TRYING TO BE A LEADER: The block watch's page says it to everybody on the feed when they call their street to a meeting (you see it on the phone's FEED); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_02/words-two-hw02-05-leader-the-block-watch-11-17.webp",
+    "first": "vote/words_two_homework_02/words-two-hw02-05-leader-the-block-watch-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     468
+    ]
+   },
+   "homework": {
+    "sheet": 2,
+    "n": 5,
+    "mouth": "THE FEED, A CREW'S PAGE",
+    "second": "TRYING TO BE A LEADER",
+    "teaches": "SCARY TRYING TO BE A LEADER, on the feed: neighbours with flashlights calling themselves a watch; how does somebody sound who is trying to be in charge and is not sure he is",
+    "pulled_from": "records/target/bb/feed_kinds.json",
+    "line": "Watch meeting at the circle at the end of the street. Bring a flashlight and your name."
+   }
+  },
+  {
+   "id": "words-two-hw02-04-confident-the-bookie-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“There it is. You see what you get, no surprises. Win and you get paid. Lose and you feed them.”",
+   "said": "There's two words, but the first word is always scary, and whatever emotion you're trying to get out of people, the second one follows that",
+   "why": "HOW SHOULD THIS SOUND? It is here to test SCARY, THEN CONFIDENT: The bookie at the fight pit says it to you when you walk up to see who your men would fight tonight (you see it in a TOWN with a pit, at the bookie); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_02/words-two-hw02-04-confident-the-bookie-11-17.webp",
+    "first": "vote/words_two_homework_02/words-two-hw02-04-confident-the-bookie-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     688
+    ]
+   },
+   "homework": {
+    "sheet": 2,
+    "n": 4,
+    "mouth": "THE BOOKIE AT THE PIT",
+    "second": "CONFIDENT",
+    "teaches": "SCARY CONFIDENT: a man who is not afraid of you at all, selling you a fight; the last four words are the scary part",
+    "pulled_from": "slices/bohemia_arena_town.js",
+    "line": "There it is. You see what you get, no surprises. Win and you get paid. Lose and you feed them."
+   }
+  },
+  {
+   "id": "words-two-hw02-03-serious-a-man-is-dead-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“TEO didn't get up, carnal. He's gone.”",
+   "said": "There's two words, but the first word is always scary, and whatever emotion you're trying to get out of people, the second one follows that",
+   "why": "HOW SHOULD THIS SOUND? It is here to test SCARY, THEN SERIOUS: Your second, the man who walks beside you says it to you when one of your men is struck down and does not get up (you see it on the MAP, on the small face plate after a fight); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_02/words-two-hw02-03-serious-a-man-is-dead-11-17.webp",
+    "first": "vote/words_two_homework_02/words-two-hw02-03-serious-a-man-is-dead-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     660
+    ]
+   },
+   "homework": {
+    "sheet": 2,
+    "n": 3,
+    "mouth": "YOUR SECOND, ON THE MAP",
+    "second": "SERIOUS",
+    "teaches": "SCARY SERIOUS: telling the boss a man is dead, in seven words with one Spanish word in it; the heaviest news his own crew gives him",
+    "pulled_from": "records/target/words/the_second_speaks.json",
+    "line": "TEO didn't get up, carnal. He's gone."
+   }
+  },
+  {
+   "id": "words-two-hw02-02-happy-the-water-runs-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“The water is running! My whole street drinks again, and nobody pays him for it.”",
+   "said": "There's two words, but the first word is always scary, and whatever emotion you're trying to get out of people, the second one follows that",
+   "why": "HOW SHOULD THIS SOUND? It is here to test SCARY, THEN HAPPY: A man at the pump house says it to you when you come back after you killed the boss who owned the water (you see it on the MAP, on the card after a boss falls); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_02/words-two-hw02-02-happy-the-water-runs-11-17.webp",
+    "first": "vote/words_two_homework_02/words-two-hw02-02-happy-the-water-runs-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     688
+    ]
+   },
+   "homework": {
+    "sheet": 2,
+    "n": 2,
+    "mouth": "AFTER A BOSS FALLS",
+    "second": "HAPPY",
+    "teaches": "SCARY HAPPY: the best news the game has (a boss dead, the water back); how does joy sound from somebody still in hell",
+    "pulled_from": "records/target/bb/boss_act_one.json",
+    "line": "The water is running! My whole street drinks again, and nobody pays him for it."
+   }
+  },
+  {
+   "id": "words-two-hw02-01-funny-the-toll-girl-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“This road is ours today, my loves. Five batteries a head, or ten for all of you because you dress so ugly I feel sorry. Rick Owens would cry.”",
+   "said": "There's two words, but the first word is always scary, and whatever emotion you're trying to get out of people, the second one follows that",
+   "why": "HOW SHOULD THIS SOUND? It is here to test SCARY, THEN FUNNY: A girl running a toll with a shopping cart says it to your crew when her crew blocks the road and she names the price (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_02/words-two-hw02-01-funny-the-toll-girl-11-17.webp",
+    "first": "vote/words_two_homework_02/words-two-hw02-01-funny-the-toll-girl-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1040
+    ]
+   },
+   "homework": {
+    "sheet": 2,
+    "n": 1,
+    "mouth": "A ROAD STOP",
+    "second": "FUNNY",
+    "teaches": "SCARY FUNNY on the road: a hold-up told as a joke about clothes, with a runway name in it; is the joke allowed to lead, and do the fashion names belong in a mouth",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "This road is ours today, my loves. Five batteries a head, or ten for all of you because you dress so ugly I feel sorry. Rick Owens would cry."
+   }
+  }
  ],
  "verdicts": [
   {

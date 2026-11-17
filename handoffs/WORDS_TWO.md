@@ -6,6 +6,44 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
+WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- [scary first] BUILD 11/17zb - HIS HOMEWORK, SHEET TWO: SCARY, THEN WHAT, BUILT (PENDINGSHA), NOT YET SEEN (rules 455, 454(c)(d), 458(a); ask rows 637, 643, 629). NOTHING IN THE GAME WAS REWRITTEN.
+THE COORDINATOR'S ROUTINE 'WORDS TWO scary first' brought his new law (rule 455) and his first four answers (rule 458(a)). Three things came out:
+(1) THE VOICE, PAGE ONE: laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md. His law in his own words, nothing softened (three blocks of his speech, five rules, each
+his sentence: it is hell first; every voice is two words and the first is always scary; humor is scary and then funny; they talk desperately and
+nobody pretends help is free; it holds for every mouth and every post), then HIS FOUR LINES as the examples beside the lines they answered (the old
+woman's STARRED), then what the four do, counted. Where a sentence is this lane's reading it says so. In the canon index.
+GATE THE VOICE IS HIS WORDS (gates/the_voice_is_his_words_gate.js, in the suite, node, seconds) 7/0: every block and every quoted sentence is in his
+record word for word, every example is the registry's verdict to the letter, nothing bleeped, every sheet's waiting cards still the game's own line;
+planted: a swear taken out, a rule reworded, a bleep, each caught. IT DOES NOT YET JUDGE A GAME LINE FOR BEING SCARY FIRST (454(a); and see WEAK).
+(2) THE MEASURE AND WHAT HE TAUGHT: records/BOHEMIA_WORDS_TWO_SCARY_FIRST_MEASURED_AND_THE_NEXT_TWELVE_CARDS_11_17_26.md (written by
+tools/bohemia_words_two_scary_first_record.py, which stops if a quote of his is not in his record).
+- BY HAND (12 lines a mouth, a fixed draw, every line and mark in records/words_two/scary_first_hand_reading.json): 58 of 156 are scary first, 46 of
+  144 outside the one mouth written to his own brief. A town falling 12 of 12; the why line 7; the survivor 6; road strangers 6; side quests 5; his
+  men mid-fight 4; the valley feed 4; road answers 3; keepers 3; hires 3; far feed 3; JOB GIVERS 2; BOSS ASKERS 0.
+- THE SCARY WE HAVE IS EERIE OR A THREAT; HIS IS DESPERATE: 'please' is in 24 of 2,738 lines, 'help me/us' in 3; scary and the deal together 4% by
+  the word count (records/words_two/measure_scary_first.py), two of his four.
+- HIS FOUR ANSWERS: a kid and an armed man swear, the old woman does not; 'bro' and 'man' go in a kid's mouth; sentence length follows the person
+  and ours had it backwards (his kid pours it out at 10 words a sentence, ours 6; his old woman is short of breath at 7, ours 17); no clever last
+  line; the deal is said (battery tax; for some batteries; the kid offers work); 'Oye, jefe' became 'Hey bro' and no Spanish was added; the old
+  woman does not explain the beast ('dark shadows'); the post is phone typing and cold. Unknowns U1 to U5, U7, U9 partly settled; U6, U8, U10, U11,
+  U12 open.
+(3) SHEET TWO, TWELVE CARDS IN THE VOTE TAB (ids words-two-hw02-01 to -12; records/target/words_two/homework_02.json): one second word a card on a
+different mouth, the card says which pair it tests: funny (the toll girl), happy (the water is back, after a boss), serious (his second: a man is
+dead), confident (the bookie), trying to be a leader (a block watch's page), political (forty people at his gate, a side quest), kind (the doc), proud
+(a scar on a crew card), begging (a post for insulin), selling (a coat on a rack), sad (the kid after a death), angry (the last water). Six of the
+twelve second words are his, six are guesses the cards are there to test. Same tool (--sheet 02; it now takes `second` and a sheet's own quote, and
+--check skips a card he has answered).
+THE TAB: sheet two is his first screen now (twelve, the cap). THE SIXTEEN OF SHEET ONE HE HAS NOT SENT ARE FIRST BEHIND MORE; the coordinator said most
+are answered on his phone already and the export is coming.
+ON THE PAGE: the VOTE tab on a phone upright and on its side: twelve of sheet two on the first screen, 0 px off the side, 0 page errors.
+WEAK, SAID: the hand reading is one reader and twelve lines a mouth (good for the order of the mouths, not a decimal); the word count agreed with the
+reader 96 times in 156, so it must not gate anything; scary first is his ear and this lane read eerie as scary; four answers are four answers.
+NEXT: (1) his whole first sheet when the coordinator sends its path: read all sixteen, add each to THE VOICE as an example with what it taught, run
+the gate. (2) Sheet two's answers the same way: they are what each PAIR sounds like. (3) Then THE VOICE whole and the scary-first leg of the gate;
+only after that, on his word, the rewrite, mouth by mouth: the boss askers and the job givers first by this measure.
+[bb its event people stammer and its contracts have no client line in our library; his old woman is the first client line this game has had a model for]
+[analog horror: 'dark shadows keep stealing our water': she does not know what it is, and neither does the card]
+
 WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- [the research] FILED (8380f0d50), rule 454(b), ask row 628. RESEARCH ONLY: nothing in the game rewritten, no rewrite proposed.
 Record: records/BOHEMIA_WORDS_TWO_EVERY_MOUTH_AND_WHY_IT_IS_NOT_HUMAN_11_17_26.md (written by tools/bohemia_words_two_every_mouth_record.py: every sample
 and number is read from the files). Beside it: records/words_two/measure_every_mouth.py and .json (one ruler over the game and over him) and

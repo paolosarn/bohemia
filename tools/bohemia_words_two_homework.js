@@ -151,7 +151,7 @@ function html(card, line, face) {
         + '<div class="say' + (card.layout === 'bark' ? ' bark' : '') + '">' + esc(line) + '</div>'
         + (card.choices && card.choices.length ? '<div class="opts">' + card.choices.map(c => '<span>' + esc(c) + '</span>').join('') + '</div>' : '')
         + '</div>')
-    + '<div class="meta"><b>TO</b> ' + esc(card.to) + '<br><b>WHEN</b> ' + esc(card.when) + '</div>'
+    + '<div class="meta"><b>TO</b> ' + esc(card.to) + '<br><b>WHEN</b> ' + esc(card.when) + (card.second ? '<br><b>THE TEST</b> scary, then ' + esc(String(card.second).toLowerCase()) : '') + '</div>'
     + '</div>';
 }
 
@@ -162,18 +162,21 @@ function row(card, line, sha, px) {
   return {
     id: card.id, kind: 'line', lane: LANE, sha: sha, made: card.made, draft: true,
     title: '“' + flat + '”',
-    said: "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
-    why: 'HOW SHOULD THIS SOUND? ' + oneSentence(card.who_plain) + ' says it to ' + oneSentence(card.to) + ' when ' + oneSentence(card.when)
+    said: card.said || "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+    /* SCARY FIRST (rule 455, Paolo 11/17: 'there's two words, but the first word is always scary'): a card of a later sheet names
+       the second word it is there to test, so his answer shows how THAT pair sounds */
+    why: 'HOW SHOULD THIS SOUND? ' + (card.second ? 'It is here to test SCARY, THEN ' + oneSentence(card.second) + ': ' : '') + oneSentence(card.who_plain) + ' says it to ' + oneSentence(card.to) + ' when ' + oneSentence(card.when)
        + ' (you see it ' + oneSentence(card.where) + '); type your way in the box, then tap a thumb to send it.',
     /* the picture is one thing already: it is its own first picture, and a tap opens it at one image pixel to one point (rule 89) */
     show: { how: 'image', src: 'vote/words_two_homework_' + SHEET + '/' + card.id + '.webp', first: 'vote/words_two_homework_' + SHEET + '/' + card.id + '.webp', firstAt: [0, 0, px[0], px[1]] },
-    homework: { sheet: +SHEET, n: card.n, mouth: card.mouth, teaches: card.teaches, pulled_from: card.pull.file, line: line }
+    homework: { sheet: +SHEET, n: card.n, mouth: card.mouth, second: card.second || undefined, teaches: card.teaches, pulled_from: card.pull.file, line: line }
   };
 }
 
 (async () => {
   const sheet = JSON.parse(fs.readFileSync(SHEET_FILE, 'utf8'));
   const cards = sheet.cards, pulled = [], bad = [];
+  cards.forEach(c => { if (sheet.said && !c.said) c.said = sheet.said; });
   for (const c of cards) {
     try {
       const raw = pull(c), f = filled(c, raw), who = also(c, 'who_pull'), ch = also(c, 'choices_pull');
@@ -186,7 +189,8 @@ function row(card, line, sha, px) {
   if (bad.length) { console.error('NOT PULLED:\n  ' + bad.join('\n  ')); process.exit(1); }
   if (has('--check')) {
     const reg = JSON.parse(fs.readFileSync(REG_FILE, 'utf8')), by = {}; reg.items.forEach(i => { by[i.id] = i; });
-    const off = pulled.filter(p => !by[p.card.id] || by[p.card.id].homework.line !== p.line).map(p => p.card.id);
+    const judged = new Set((reg.verdicts || []).map(v => v.id));   /* a card he answered is history: the game may be rewritten under it one day */
+    const off = pulled.filter(p => !judged.has(p.card.id) && (!by[p.card.id] || by[p.card.id].homework.line !== p.line)).map(p => p.card.id);
     console.log(off.length ? 'OFF THE DATA: ' + off.join(', ') : 'every card on sheet ' + SHEET + ' is the data\'s own line (' + pulled.length + ')');
     process.exit(off.length ? 1 : 0);
   }

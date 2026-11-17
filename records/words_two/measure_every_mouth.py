@@ -51,8 +51,9 @@ fr=J('records/target/bb/fight_reasons.json')['rules']; a=[]
 for r in fr: a+=r.get('them',[])+r.get('ours',[])
 pools['fight: the why line']=a
 ba=J('records/target/bb/boss_act_one.json')['bosses']; a=[]
-for b in ba:
-    L=b['lead']['asker']; a+=[L['says'],L['yes_says'],L['no_says'],b['lead']['thing']['says'],b['after']['valley']]
+for b in ba:   # a boss made after 11/17 may carry no words at all (rule 454(a): BOSSES' 13th is 'a boss of no words')
+    L=(b.get('lead') or {}).get('asker') or {}
+    a+=[x for x in [L.get('says'),L.get('yes_says'),L.get('no_says'),((b.get('lead') or {}).get('thing') or {}).get('says'),(b.get('after') or {}).get('valley')] if x]
 pools['bosses: the asker and after']=a
 fk=J('records/target/bb/feed_kinds.json'); a=[]
 for k in fk['kinds']+fk['replies']+fk['followups']:

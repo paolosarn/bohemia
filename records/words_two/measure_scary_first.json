@@ -1,0 +1,193 @@
+{
+ "draft": true,
+ "tool": "records/words_two/measure_scary_first.py",
+ "note": "a count of words, not of fear: read the record beside it",
+ "rows": [
+  {
+   "name": "road: what the stranger says",
+   "n": 81,
+   "body": 20,
+   "fear": 19,
+   "scary": 35,
+   "deal": 56,
+   "scary_and_deal": 20,
+   "none": 30
+  },
+  {
+   "name": "road: the answer after his choice",
+   "n": 231,
+   "body": 12,
+   "fear": 9,
+   "scary": 19,
+   "deal": 26,
+   "scary_and_deal": 5,
+   "none": 60
+  },
+  {
+   "name": "road: side quest talk",
+   "n": 255,
+   "body": 8,
+   "fear": 10,
+   "scary": 17,
+   "deal": 7,
+   "scary_and_deal": 2,
+   "none": 78
+  },
+  {
+   "name": "town: job givers at the board",
+   "n": 102,
+   "body": 20,
+   "fear": 25,
+   "scary": 42,
+   "deal": 100,
+   "scary_and_deal": 42,
+   "none": 0
+  },
+  {
+   "name": "town: keepers, the Elder, the bar",
+   "n": 66,
+   "body": 29,
+   "fear": 9,
+   "scary": 33,
+   "deal": 35,
+   "scary_and_deal": 9,
+   "none": 41
+  },
+  {
+   "name": "hires: rare men and the retinue",
+   "n": 32,
+   "body": 12,
+   "fear": 9,
+   "scary": 22,
+   "deal": 25,
+   "scary_and_deal": 3,
+   "none": 56
+  },
+  {
+   "name": "fight: his men mid-fight",
+   "n": 589,
+   "body": 5,
+   "fear": 8,
+   "scary": 13,
+   "deal": 2,
+   "scary_and_deal": 0,
+   "none": 85
+  },
+  {
+   "name": "fight: the survivor after",
+   "n": 450,
+   "body": 10,
+   "fear": 3,
+   "scary": 13,
+   "deal": 4,
+   "scary_and_deal": 0,
+   "none": 82
+  },
+  {
+   "name": "fight: the why line",
+   "n": 163,
+   "body": 20,
+   "fear": 2,
+   "scary": 21,
+   "deal": 25,
+   "scary_and_deal": 3,
+   "none": 56
+  },
+  {
+   "name": "bosses: the asker and after",
+   "n": 60,
+   "body": 23,
+   "fear": 18,
+   "scary": 33,
+   "deal": 20,
+   "scary_and_deal": 2,
+   "none": 48
+  },
+  {
+   "name": "feed: the valley",
+   "n": 495,
+   "body": 9,
+   "fear": 11,
+   "scary": 19,
+   "deal": 20,
+   "scary_and_deal": 2,
+   "none": 63
+  },
+  {
+   "name": "feed: far away",
+   "n": 150,
+   "body": 8,
+   "fear": 17,
+   "scary": 23,
+   "deal": 24,
+   "scary_and_deal": 5,
+   "none": 58
+  },
+  {
+   "name": "feed: a town falling",
+   "n": 64,
+   "body": 19,
+   "fear": 16,
+   "scary": 33,
+   "deal": 9,
+   "scary_and_deal": 0,
+   "none": 58
+  },
+  {
+   "name": "ALL THE GAME",
+   "n": 2738,
+   "body": 11,
+   "fear": 10,
+   "scary": 19,
+   "deal": 18,
+   "scary_and_deal": 4,
+   "none": 67
+  },
+  {
+   "name": "HIS ANSWERS SO FAR (4)",
+   "n": 4,
+   "body": 100,
+   "fear": 75,
+   "scary": 100,
+   "deal": 50,
+   "scary_and_deal": 50,
+   "none": 0
+  },
+  {
+   "name": "OUR LINES HE ANSWERED (4)",
+   "n": 4,
+   "body": 25,
+   "fear": 0,
+   "scary": 25,
+   "deal": 75,
+   "scary_and_deal": 25,
+   "none": 25
+  }
+ ],
+ "his": [
+  {
+   "line": "Hey bro, I haven't eaten in two fucking days. My brother hasn't eaten in three fucking days, man. Can you guys please help me and my brother out? I know how to shine and clean some of your equipment I see.",
+   "body": true,
+   "fear": true,
+   "deal": false
+  },
+  {
+   "line": "We were told to be on the lookout for a rag tag bunch of fuck faces who didn't want to pay their battery tax. After we clean your body well turn you to mystery meat.",
+   "body": true,
+   "fear": false,
+   "deal": true
+  },
+  {
+   "line": "IDGAF if ur momma dying i got two jugs of water hiding under this bed",
+   "body": true,
+   "fear": true,
+   "deal": false
+  },
+  {
+   "line": "My Dear, dark shadows keep stealing our water. Theyre going to kill us next. Please help us before they come back. You'll kill them for some batteries?",
+   "body": true,
+   "fear": true,
+   "deal": true
+  }
+ ]
+}

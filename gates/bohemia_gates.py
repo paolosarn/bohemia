@@ -9667,6 +9667,14 @@ GATES = [
      "of HIS men for beasts, a lone man whose pool holds a carried look is never promised (C4); at the bell the man wearing the card's face "
      "says the card's sentence, once more and small (C5); a note for another band is not read and a note is read once (C6). Planted: a note "
      "whose face is not on the board. About a minute", True),
+    ('THE VOICE IS HIS WORDS', ['node', 'gates/the_voice_is_his_words_gate.js'],
+     "WORDS TWO gate, 11/17, VAMILY rules 455, 454(d), 458(a) (ask rows 637, 643; PAOLO 11/17: 'There's two words, but the first word is "
+     "always scary, and whatever emotion you're trying to get out of people, the second one follows that'). THE VOICE "
+     "(laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md) is his page: it leads with SCARY FIRST and five rules (V1); every block of his words and every "
+     "quoted sentence in the rules is in his own record word for word (V2, V3); every example is a homework card he answered, his line to "
+     "the letter beside the line the card showed him (V4); nothing is bleeped (V5); every homework sheet's waiting cards still show the "
+     "game's own line (V6). Planted: a swear taken out of his line, a rule reworded, a bleep. It does not judge a game line for being "
+     "scary first: nothing is rewritten yet (454(a)). Node only, seconds", False),
     ('EVERY SHOT IS FELT', ['node', 'gates/every_shot_is_felt_gate.js'],
      "FIGHT SCREEN gate, 11/14, VAMILY rule 450(b)(c)(d) (ask row 622; PAOLO 11/14: 'anytime anyone fires a shot I want a muzzle flash on the "
      "screen, some quick shit, like it goes all white... I want people to feel this shot for real'). The numbers (records/target/bb/"

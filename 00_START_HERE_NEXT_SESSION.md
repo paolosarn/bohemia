@@ -1,3 +1,10 @@
+WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- BUILD 11/17zb - HIS HOMEWORK, SHEET TWO: SCARY, THEN WHAT, BUILT (PENDINGSHA), NOT YET SEEN (rules 455, 454(c)(d), 458(a); ask rows 637, 643, 629). Its block is handoffs/WORDS_TWO.md.
+NOTHING IN THE GAME WAS REWRITTEN. THE VOICE's page one is written: laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md, his SCARY FIRST law in his own words (five rules, each his sentence) and his
+four lines as the examples; gate THE VOICE IS HIS WORDS 7/0 (every quote in his record word for word, every example the registry's verdict to the letter, three plants caught).
+EVERY MOUTH MEASURED AGAINST IT, by hand, twelve lines a mouth: 58 of 156 scary first; a town falling 12 of 12, job givers 2, boss askers 0; the scary we have is eerie or a threat,
+his is desperate ('please' in 24 of 2,738 lines). WHAT HIS FOUR ANSWERS TAUGHT is counted in the record. SHEET TWO IS IN THE VOTE TAB: twelve cards, one second word each (funny,
+happy, serious, confident, trying to be a leader, political, kind, proud, begging, selling, sad, angry) on twelve different mouths; the sixteen of sheet one still out are first
+behind MORE. Record records/BOHEMIA_WORDS_TWO_SCARY_FIRST_MEASURED_AND_THE_NEXT_TWELVE_CARDS_11_17_26.md. NEXT: his whole first sheet when its path lands.
 JOBS (jobs-01gkdyuv): 11/17 LATEST -- BUILD 11/17za - PAID INTO YOUR PLACE, BUILT, NOT YET SEEN (rules 453, 454(a), 441; row 627). PAID INTO HIS PLACE (build D of four): on any job's card up to a quarter of the pay can be one of his builds (a panel 5, a pump 4,
 a tank 3, a garden 2, each a battery and its tape), off the pay he is shown, his when the job is done in full (it waits for a place).
 On the phone, the demo and the alpha both ways. Gate THE TOWN'S BOOK. VOTE jobs-paid-into-your-place-11-17 (STAND-IN), sha 57d3c4a3d. Record records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md.

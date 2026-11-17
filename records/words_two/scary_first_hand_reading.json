@@ -1,0 +1,884 @@
+{
+ "draft": true,
+ "tool": "tools/bohemia_words_two_scary_first_record.py",
+ "law": "VAMILY rule 455 (Paolo 11/17): every voice is two words and the first is always scary",
+ "how": "12 lines a mouth, drawn by a fixed seed (python3 records/words_two/measure_scary_first.py --sample 12 --batch 1 prints the same lines); read cold by WORDS TWO; scary_first is this lane's judgment and his to overturn; machine is the word count of the same line",
+ "read": 156,
+ "scary_first": 58,
+ "machine_agrees": 96,
+ "machine_missed": 40,
+ "machine_overcalled": 20,
+ "mouths": [
+  {
+   "mouth": "road: what the stranger says",
+   "read": 12,
+   "scary_first": 6,
+   "lines": [
+    {
+     "line": "The county assessor's maps, every parcel in the valley, printed the week before the servers went dark. I marked where {boss} sits. It is about {boss_blocks} blocks from here. Paper does not need a signal.",
+     "scary_first": false,
+     "machine": true
+    },
+    {
+     "line": "This road is ours today, my loves. Five batteries a head, or ten for all of you because you dress so ugly I feel sorry. Rick Owens would cry.",
+     "scary_first": false,
+     "machine": true
+    },
+    {
+     "line": "See that road? I drove it every day, to {place}. Nobody has been in there since the lights went. I know the side door and where they kept the keys. It is about {blocks} blocks from here.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Inspección. What's in the wagon, jefe? We take a tenth of everything, it's the law now. Our law. Or you can try to argue.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "You put {boss} down. He was a bad man and he was my brother. I am not here to forgive it. Pay what his life was worth to his mother, or we settle it here.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "You took our job in {deed_town} and you did not finish it. We gave food up front to the crew we trusted, and we went hungry for it. People there say your name now the way they say a curse.",
+     "scary_first": true,
+     "machine": true
+    },
+    {
+     "line": "The axle, mijo. I got the part, I don't got the arms. One hour of your boys lifting and I owe you. A trucker always pays back, ask anybody.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Coyotes, big ones, the lab kind. They follow you since the wash. Gimme three batteries and I show you where they sleep. You kill them, the skins sell.",
+     "scary_first": true,
+     "machine": true
+    },
+    {
+     "line": "Chato smells water. Four legs, three legs, he smells it better than any machine. Two batteries and he finds you a cistern nobody knows.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Your crew owes. Not you. One of your men signed for a loan with the Mob before he walked with you. Forty batteries and the interest. A debt doesn't care who you work for now. Pay half today and we write it closed, or we take him.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "There is copper wire in every one of these poles, and copper trades for batteries at the scrap yard. The lights have not been on in years. Help me strip the block and we split it.",
+     "scary_first": false,
+     "machine": true
+    },
+    {
+     "line": "Oye, jefe. Two days no food. I don't want batteries, just something to eat. My brother says ask the ones with guns, they got food.",
+     "scary_first": true,
+     "machine": true
+    }
+   ]
+  },
+  {
+   "mouth": "road: the answer after his choice",
+   "read": 12,
+   "scary_first": 3,
+   "lines": [
+    {
+     "line": "Benny. The other one goes his own way. The Reds will hear, they always hear.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "They take four batteries and laugh about it. The job is still yours, if you can still do it.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Okay. They're still following you, though.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "She watches you go. Someone from {deed_town} is watching too.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "It doesn't give. You dig anyway. Forty-five minutes.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Their week's take, six batteries, and the door stays on.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Eat, eat. Nobody counts at a wedding. Well. My aunt counts.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Sí. Everybody keeps walking.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "He hands you the deed to week thirty-two of room 1411. The room has no wall on one side. He calls it the view.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Sunny. Seventy-two. The dollar is up.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "He pushes the cart toward {home} without being asked twice. The bank's notice is still stuck to the back of the panel.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Que Dios te lo pague. Everybody from the {raided} town remembers the ones who gave.",
+     "scary_first": false,
+     "machine": true
+    }
+   ]
+  },
+  {
+   "mouth": "road: side quest talk",
+   "read": 12,
+   "scary_first": 5,
+   "lines": [
+    {
+     "line": "Hummed when he worked. I keep listening for it. House is too quiet to sleep in.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Territory. Held. No taking. Nothing leaves. Nothing.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "And next autumn you'll need me, and the autumn after that, and by then it won't feel like a decision anybody made. That isn't a threat. That's just how it goes and you can watch it happen from here.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "You are counting.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Huh. That's the one question, isn't it? I don't know whose. Never have.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "You cut it in front of everybody. Somebody's kid was clapping. Nobody's mother was.",
+     "scary_first": false,
+     "machine": true
+    },
+    {
+     "line": "They'll hear about that upstairs before the sun goes down, and they'll hear it as a block that reads their mail. But not one person here gets listed in the dark.",
+     "scary_first": true,
+     "machine": true
+    },
+    {
+     "line": "The other is sixty three, already thin, already tired, and has four people who sit in my doorway every night waiting. With the full course she has a chance. Not a good one. A chance.",
+     "scary_first": true,
+     "machine": true
+    },
+    {
+     "line": "In the open. Every name, out loud, so nobody is on a page they never agreed to.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "I do not, not the way you mean. I know what my own pipe does and I know it did not do this last summer.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "If it's the thin year, it happens in the open or not at all.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "They felt that upstream, and somebody up there has your face now. I don't know what else to tell you, man.",
+     "scary_first": true,
+     "machine": false
+    }
+   ]
+  },
+  {
+   "mouth": "town: job givers at the board",
+   "read": 12,
+   "scary_first": 2,
+   "lines": [
+    {
+     "line": "Seven of them, big as ponies, and they come when the water comes. We cannot pay what you are worth, only {pay} batteries, and if you say no it is fine, everybody says no.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "We want to get married under lights, and the church on Lamb has a box of the little bulbs. The people there do not talk, they just watch, so go careful, and {pay} batteries are yours.",
+     "scary_first": false,
+     "machine": true
+    },
+    {
+     "line": "A place without a name is a place you leave, and my eleven tins of paint sit past the hyenas. Bring them and I name it after whoever you want, plus {pay} batteries.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "One of my sabre-tooths has lived in the red rocks since the fences went down, and it is very good at killing. Bring me proof it is dead and it pays {pay} batteries.",
+     "scary_first": false,
+     "machine": true
+    },
+    {
+     "line": "Two carts go to the wash camp, and the drivers say something follows them. Bring the mules back, mules cost more than water, and {pay} batteries are yours.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Twelve panels, they broke nine, and the three good ones sit on their lookout. Three is the difference between a light and none, so bring them home for {pay} batteries.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Something sleeps in the old water park and takes a goat every night. Find where it sleeps and clear it out, and it pays {pay} batteries.",
+     "scary_first": true,
+     "machine": true
+    },
+    {
+     "line": "The caravan came with the fever, and they sleep ten metres from our only well. Move them up to the old school on the hill, gently, and the clinic pays {pay} batteries.",
+     "scary_first": true,
+     "machine": true
+    },
+    {
+     "line": "The lab grew one ground sloth and it walked home to Tule Springs, where its bones were found, and now it flattens tents. Put it down and it pays {pay} batteries.",
+     "scary_first": false,
+     "machine": true
+    },
+    {
+     "line": "Food is the leg we do not have, and the pump we need sits in the nursery on Rainbow. The cattle there are wrong, big, not angry, just big, and the roof pays {pay} batteries for that pump.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "The van carries every pill we have left and three crews want it. Ride with it to the hospital and keep it moving, and it pays {pay} batteries if the boxes get there.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Two tankers of water to our loading dock before sundown tomorrow. It pays {pay} batteries, we do not negotiate upward, we are already generous.",
+     "scary_first": false,
+     "machine": false
+    }
+   ]
+  },
+  {
+   "mouth": "town: keepers, the Elder, the bar",
+   "read": 12,
+   "scary_first": 3,
+   "lines": [
+    {
+     "line": "A convoy made it in. The shelves are full and nobody is fighting over the price.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "{of_cap} has new bosses now, the {by}. They take a cut off every sale up there, so you pay more, ni modo.",
+     "scary_first": false,
+     "machine": true
+    },
+    {
+     "line": "Nobody out here today. Sick, or scared of it. More for me.",
+     "scary_first": true,
+     "machine": true
+    },
+    {
+     "line": "Lot of new faces in town today. Some of them want work.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Fresh steel off the convoy. I can let it go cheaper this week.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Nothing from up the road this week, mijo. Quiet is good.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "A man came in talking about a chip under his skin, swore it kept him alive once. I did not look. Gracias a Dios, some things stay closed.",
+     "scary_first": true,
+     "machine": true
+    },
+    {
+     "line": "Quiet today. Even the sick ones are out at the market.",
+     "scary_first": false,
+     "machine": true
+    },
+    {
+     "line": "Somebody is buying copper by the Strip and paying in real batteries. The caravans are about to make a move on it. Too good, if you ask me.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "A woman asked me for the same haircut three different men had, same week. I did not ask why either.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "Full shelves in town. Less out here worth digging for.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "The lot {at} is full of people from {from}, mijo. The {by} burned them out and food is short up there now.",
+     "scary_first": false,
+     "machine": true
+    }
+   ]
+  },
+  {
+   "mouth": "hires: rare men and the retinue",
+   "read": 12,
+   "scary_first": 3,
+   "lines": [
+    {
+     "line": "Bring me a car door and an hour. I will make it stop a bullet.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "I have heard the broadcast. It did not take me. It will not take you.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "Bring me what is left of those things from the lab. I can make something out of it.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "Two tours, one pension. The pension died first. Where do you want me?",
+     "scary_first": false,
+     "machine": true
+    },
+    {
+     "line": "Nineteen years in a cab. I know the way around everything that is blocking you.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "I fed the whole Strip once. I can feed your crew on half of what you are wasting.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "I swore I would bring people back. I still do. Mostly.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "One speaker, one battery, and the whole valley knows your name.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Nobody stays mad at you if I am the one talking. Twenty years selling cars.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Some of the people out there still have a price on them. I know which ones.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "I watched forty screens a shift. I will see them coming before you hear them.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Half the lights were out and they still came to see me. Come see.",
+     "scary_first": false,
+     "machine": false
+    }
+   ]
+  },
+  {
+   "mouth": "fight: his men mid-fight",
+   "read": 12,
+   "scary_first": 4,
+   "lines": [
+    {
+     "line": "{them} on {us}? More to loot.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "The devil is quick.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Protect the investment.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Heads down.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Lord, that is a lot of them.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "My hands are shaking, okay?",
+     "scary_first": true,
+     "machine": true
+    },
+    {
+     "line": "{them} to {us}. I'll take half.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Down.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "{name}! Lord, not {name}.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "Nobody moves like that. Lab-made.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "{them} of them? Lay it down.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "One.",
+     "scary_first": false,
+     "machine": false
+    }
+   ]
+  },
+  {
+   "mouth": "fight: the survivor after",
+   "read": 12,
+   "scary_first": 6,
+   "lines": [
+    {
+     "line": "Count them. Go on. I'll wait.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Nobody's hurt. I'm going to cry anyway.",
+     "scary_first": true,
+     "machine": true
+    },
+    {
+     "line": "{name} left early. Rude. He had my lighter.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "{name} isn't moving. He's moving. Okay.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "{name} took one for the team. Unasked.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "I said my goodbyes. Twice. Now what?",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "So that was {boss}. Okay.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Somebody dragged us out. Ask yourself who.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "Thank God. Thank God.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "Quiet. Too quiet. Fine. It's fine.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "We WON! We actually won!",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "{boss}? Big name. Short fight.",
+     "scary_first": false,
+     "machine": false
+    }
+   ]
+  },
+  {
+   "mouth": "fight: the why line",
+   "read": 12,
+   "scary_first": 7,
+   "lines": [
+    {
+     "line": "We came into where they sleep{boss}, so they fight.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "They have been circling us for a while{boss}, and now they are hungry enough.",
+     "scary_first": true,
+     "machine": true
+    },
+    {
+     "line": "This is his place{boss}, and he has been waiting for us.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "They came to our gate in the dark{boss}, and they will not turn back.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "It is the batteries they are after{boss}, same as always.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "The water out here is ours, and you did not ask.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "You are standing where our animals eat, so now they eat you.",
+     "scary_first": true,
+     "machine": true
+    },
+    {
+     "line": "Put the batteries on the ground and walk away from them.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "That cart is worth more than all of you, so we are taking it.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "Nothing personal, the Mob pays the one still standing.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "They tracked us here for what we carry{boss}.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Nobody knows why the dead get up{boss}, only that they come for the living.",
+     "scary_first": true,
+     "machine": true
+    }
+   ]
+  },
+  {
+   "mouth": "bosses: the asker and after",
+   "read": 12,
+   "scary_first": 0,
+   "lines": [
+    {
+     "line": "His wagon is stripped and parked. The press works for anybody now.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "There are fires all down the street tonight. Nobody pays him to be warm anymore.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Bueno. Shoot the man, not the machines. They only walk because he keeps them walking.",
+     "scary_first": false,
+     "machine": true
+    },
+    {
+     "line": "The kitchen is open again, mijo. The whole strip eats tonight, not only his crew.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Look for the big fire behind the tanks. He keeps it going all night so everybody sees who has the heat. And his axe swings wide, mijo.",
+     "scary_first": false,
+     "machine": true
+    },
+    {
+     "line": "Okay. Walk by day, at least.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "It says TOOTHACHE? THE TOOTH. His chair is in the strip mall with the tooth sign. His men sit at the gates of the towns near it and take batteries off everybody on the way out, for the chair. I marked it.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Who's that? Come closer. THE LENS has the last good glass in the valley and he sells it to whoever he likes. He sprays his mark over the eye charts. Find one and you find him.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "A man at the bar says the Machinist welds pipe into guns. He showed me one: a water pipe, an end cap, a nail. His shop is the tin one with the pipe rack, and the streets round it are full of nails. I marked it.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "The hoist runs for anybody now. The top floors are open, and the lights are on up there.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever pays, and he throws nails on every street round his shop so you crawl in. Ask at the bar, they all know him.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "Okay. His flyers are still up.",
+     "scary_first": false,
+     "machine": false
+    }
+   ]
+  },
+  {
+   "mouth": "feed: the valley",
+   "read": 12,
+   "scary_first": 4,
+   "lines": [
+    {
+     "line": "Paying forty cells for the road crew boss. Alive pays less.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "{faction} hit {enemy} at {place}. owe either one? keep your head down this week.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "{rare} at the {town} post, asking a price i won't repeat. he's worth it, the old men say.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "{road} is open again. glass everywhere. drive slow.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "who pays them though? that's what i want to know.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "hiring: two electricians, one welder, anybody who can read a schematic. pay in batteries. no politics.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "the {company} walked off a {town} job. maybe they had a reason. that paper's been up since winter.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "my uncle made it through on {road}. took him two cells and his watch.",
+     "scary_first": false,
+     "machine": true
+    },
+    {
+     "line": "dust coming up from the south. you'll see it before you hear it. bring the laundry in.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "We got our man at {place}. His people can collect him at the fence.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "update: the blocks are back. no idea why. i didn't do anything.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "The pumps at {place} are ours. Line up nice.",
+     "scary_first": true,
+     "machine": false
+    }
+   ]
+  },
+  {
+   "mouth": "feed: far away",
+   "read": 12,
+   "scary_first": 3,
+   "lines": [
+    {
+     "line": "a lab came open in idaho the same week yours did, they say. bison everywhere now. the big old kind.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "rice by the cup, batteries one at a time, umbrellas free. we have way too many umbrellas.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "they say the moon base still sends signals. to who? nobody pays the bill. like my brother's phone.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "a family from bohemia slept in our church lot last night, walking north. we gave them wheat. we have plenty.",
+     "scary_first": false,
+     "machine": true
+    },
+    {
+     "line": "last tram of the night. one passenger, an old lady. she rode to the end and back twice. i think she wanted the heat.",
+     "scary_first": false,
+     "machine": true
+    },
+    {
+     "line": "KD5 relay from el paso, 6 days old: the texas meeting ended with no vote again. third time.",
+     "scary_first": false,
+     "machine": false
+    },
+    {
+     "line": "my neighbor lost her husband in the spring. she still sets two plates every night at seven.",
+     "scary_first": false,
+     "machine": true
+    },
+    {
+     "line": "jeepney fare is a cup of rice now. kids ride free if they help push. take care, everybody.",
+     "scary_first": false,
+     "machine": true
+    },
+    {
+     "line": "tracks like dinner plates down by the river at bullhead. the old men say ground sloth. i laughed. then i saw it.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "the canal guard checks in on the radio every hour. at 3am he started to say something and stopped. at 4, all quiet.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "a letter from new york came on a ship. six weeks old. it said do not come. the ship stayed two days and left.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "deliveries pay in fuel now. one run across the city, half a litre. thanks, i guess.",
+     "scary_first": false,
+     "machine": true
+    }
+   ]
+  },
+  {
+   "mouth": "feed: a town falling",
+   "read": 12,
+   "scary_first": 12,
+   "lines": [
+    {
+     "line": "he says it's not about money.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "{town} channel 4 has gone quiet. nobody is answering.",
+     "scary_first": true,
+     "machine": true
+    },
+    {
+     "line": "they're on the ladder. two shots.",
+     "scary_first": true,
+     "machine": true
+    },
+    {
+     "line": "roof. come on. pick up.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "clinic here. all four beds full. i have tape and one battery for the lamp.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "roof. answer me. please.",
+     "scary_first": true,
+     "machine": true
+    },
+    {
+     "line": "lights on the east road. eight or nine people walking toward the gate. everybody get inside.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "they're coming up the ladder. i heard two shots.",
+     "scary_first": true,
+     "machine": true
+    },
+    {
+     "line": "the roof isn't answering.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "doc here. four beds full, two of them ours. i got tape and one battery.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "roof, pick up. roof.",
+     "scary_first": true,
+     "machine": false
+    },
+    {
+     "line": "they stopped at the fence. one of them is yelling for whoever's in charge.",
+     "scary_first": true,
+     "machine": false
+    }
+   ]
+  }
+ ]
+}
