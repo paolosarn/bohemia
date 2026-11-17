@@ -905,6 +905,7 @@ const BARBER = {
 /* ---------------- THE INK: his ink spreads, the towns in it refuse you at the gate (BOSSES 11/17) ---------------- */
 /* the map's own tap on a town (townTap: the walk to the touching block, then the town's own door) and what came of it */
 const tapTown = async (c, t) => {
+  await noonOf(c.fr);   /* noon: the walk there never runs into the night's camp (a camp on its edge is the street's own) */
   const t0 = Date.now();
   await c.fr.evaluate((t) => { try { travelSpeedSet(4); } catch (e) {} townTap({ name: t.name, x: t.x, y: t.y, tier: mapTierOf(t.name) }); }, t);
   for (let i = 0; i < 160; i++) { await c.page.waitForTimeout(500);
@@ -912,7 +913,8 @@ const tapTown = async (c, t) => {
     if (q.town || (!q.walking && i > 3)) break; }
   await c.page.waitForTimeout(1500);
   return c.fr.evaluate((a) => { const t = a[0], R = window.__BOSS_INK_REFUSED, sf = document.getElementById('settleFrame');
-    return { at: [city.x, city.y], touching: townFootDist(townFoot({ name: t.name, x: t.x, y: t.y, tier: mapTierOf(t.name) }), city.x, city.y) <= 1, opened: !!sf && sf.style.display === 'block',
+    return { at: [city.x, city.y], touching: townFootDist(townFoot({ name: t.name, x: t.x, y: t.y, tier: mapTierOf(t.name) }), city.x, city.y) <= 1,
+      opened: !!sf && sf.style.display === 'block' && !!LOOP.open && LOOP.open.name === t.name && !LOOP.open.camp, camp: !!(LOOP.open && LOOP.open.camp), night: isNight(),
       refused: !!(R && R.town === t.name && R.t >= a[1]) }; }, [t, t0]);
 };
 const INKQ = {

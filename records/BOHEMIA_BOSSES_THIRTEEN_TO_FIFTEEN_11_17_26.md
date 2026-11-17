@@ -72,7 +72,7 @@ wall, not a toll, not a time cost. When he falls the stripe is painted over grey
   painted over, your man's card with no words); his moving card records/target/bosses_thirteen_to_fifteen/VOTE_BOSS_BARBER.webp.
 
 
-## THE INK (the ladder's 14th: the last needles and pigment). BUILD 11/17@@
+## THE INK (the ladder's 14th: the last needles and pigment). BUILD 11/17zh
 
 HIS OWN WAY: A STAIN THAT GROWS. While he stands his ink spreads out from his door: 2 blocks the day he is in the world, a block more
 each day after, up to 10 blocks or as far as the second-nearest town, whichever is further (so it always takes towns). Every town
@@ -85,12 +85,17 @@ grey, kept after a reload.
   His one line, on his card: 'Hold still.' (draft).
 - Verb: MARK (MARK A MAN). On your place's doorstep (or at his), one man a day takes the company's mark for good: +50 CLOUT once a
   man ('others read it'). When every man carries it, the button says so. MARK comes before FADE in the verbs' order (at your own
-  doorstep both would answer; MARK is the one that only works there).
+  doorstep both would answer; MARK is the one that only works there; it goes right after FIX).
 - MEASURED: the first runs shut the blocks round a town in his ink. A town is entered from ANY block touching its painted ground,
   even one off the street (RUN's __ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__), so that shut nothing, and shutting wider would have cut the
   streets past it; the town's own door (loopOpenTown, wrapped here) refuses now. A parlor near the valley's edge reached no town in 10
   blocks: the reach goes to the second-nearest town. Your place is a town on the map, its own blocks never walked: MARK works on
   its doorstep (two blocks out), not 'within one'.
+- ON THE BUILD MERGED WITH MAIN (29 commits on, WORLD 14's sign that always turns up, FIXES 2's walk back): at your doorstep SURVEY
+  (on any road, once a day) held the phone's one button, so MARK goes right after FIX in the order now (it only works at your place);
+  and a walk that ran into the night made camp, whose screen is the same frame as a town's, which read as the town opening. Two
+  things from it: the check reads the town's own screen (LOOP.open is that town), and a camp made on the edge of a town in his ink
+  (CAMP's __A_TOWN_IS_SAFE__ opens the town to sleep in) is the street's own camp now, CAMP's way, instead of no screen at all.
 - Prize: HIS NEEDLES through HOME BASE's seam. Code: slices/bohemia_bosses.js (22) HIS INK. Data: row THE INK, 'ink'.
 - MARK first failed on both phones (no block where it was the button): it counted only men with a fight's record, and the gate's
   fight had been ended by the checker, so the crew had none. It counts the company as the condition lists it (members) now.

@@ -1,5 +1,19 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/17/26: THE INK'S STAIN, HIS OWN WAY, NO WORDS (the coordinator's round 'BOSSES full sweep', rules 441, 453, 454(a); ask lines 167, 522, 571), BUILD 11/17zh
+Record: records/BOHEMIA_BOSSES_THIRTEEN_TO_FIFTEEN_11_17_26.md. Gate: "THE INK" (THE INK CHANGES THE MAP, registered; 23/0 both ways,
+re-run on the merged build). VOTE bosses-the-inks-stain-11-17.
+- HIS INK (22): from his door, 2 blocks the day he is in the world, +1 a day, up to 10 or the second-nearest town (whichever is
+  further). A town inside it REFUSES YOU AT ITS GATE: bohemia_bosses.js wraps loopOpenTown (the map's one door into a town), the walk
+  ends at the gate, SHUT rises; never your own place, never a fight's own coming home (ARENA_FIGHTING). RUN / WORLD 14 / FIXES 2:
+  a town that refuses is new to the town door; tell me if any of your flows open a town by another road. Shutting blocks round a town
+  does NOT shut it (any touching block is its door): measured, and why the gate is where it is shut.
+- MARK (verb 'mark'): on your place's DOORSTEP (cheb 2 of the planted block: his place is a town on the map, its blocks never walked),
+  a man a day, +50 CLOUT once a man; counts the company as BohemiaCondition.members() lists it (a fight seen or not). The verbs'
+  order now puts MARK before FADE.
+- TUNING: THE INK's fight beat the auto crew on both phones (BB's Barbarian Chosen + three barbarians): his row's hp_x/crew are yours.
+- NEXT: THE DOGS' row (ready in this lane's head), then the round is done.
+
 ## BOSSES, 11/17/26: THE BARBER'S LINE, HIS OWN WAY, A BOSS OF NO WORDS (the coordinator's round 'BOSSES full sweep', rules 441, 453, 454(a); ask lines 167, 522, 571), BUILD 11/17r
 Record: records/BOHEMIA_BOSSES_THIRTEEN_TO_FIFTEEN_11_17_26.md. Gate: "THE BARBER" (THE BARBER CHANGES THE MAP, registered; 22/0 both
 ways, re-run on the merged build). VOTE bosses-the-barbers-line-11-17.

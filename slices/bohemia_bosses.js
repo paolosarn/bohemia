@@ -2198,6 +2198,10 @@
     var n = inkHolds(t.name); if (!n || fightUp()) return false;
     try { if (root.ARENA_FIGHTING) return false; } catch (e) {}
     try { travelStop(); } catch (e) {}
+    /* a camp made on its edge (CAMP's __A_TOWN_IS_SAFE__ opens the town to sleep in): the town will not have you, so the camp is the
+       street's own, the way CAMP makes it off a town (its own frame, its own post) */
+    try { if (typeof CAMP !== 'undefined' && CAMP.on && !(LOOP.open && LOOP.open.camp)) { CAMP.town = null; LOOP.open = { camp: true, name: 'YOUR CAMP', x: city.x | 0, y: city.y | 0 };
+      var cf = loopFrame(); cf.style.display = 'block'; if (LOOP.ready && typeof campPost === 'function') campPost(); LAST.inkCamp = { town: t.name, t: Date.now() }; } } catch (e) { LAST.err = String(e && e.message || e); }
     var r = inkRow(n), me = here() || [t.x | 0, t.y | 0];
     RISES.push({ x: me[0], y: me[1], t0: performance.now(), txt: (r && r.ink.shut) || 'SHUT', col: '#cfc6b0' }); tick();
     LAST.inkRefused = { n: n, town: t.name, at: me.slice(), t: Date.now() }; root.__BOSS_INK_REFUSED = LAST.inkRefused;
