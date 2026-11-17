@@ -22,6 +22,9 @@ in the folder, THE GARAGE'S FORMAT; a name you leave out stays its stand-in:
   datafort/datafort_ceiling.webp   THE CEILING: the white slab, ladder trays of cable over every row, bus ducts, strip lights nearly all still on, red smoke heads; tiles every
                    5 by 5 tiles; set "have": true in datafort.json's ceiling the day it is in
 The warehouse's names are in the block below and still stand.
+TWO TOOLS IN THE REPO NOW (they were scratch; the records cite their numbers): tools/bohemia_combat_three_look_at_a_board.js (the fight page alone, one inside and layout asked
+for, or any FIGHT_OPTS by LOOK_OPTS; LOOK_FIGHT=<an older fight page> for a before; a far still for a card) and tools/bohemia_combat_three_the_still_frame_and_the_straight_one.js
+(ask row 646's measure: close in on a phone, the same camera read as a still frame and as a straight one, pieces missing counted). The data fort close in: 0 of 35 missing.
 *** FOR DIRECTION (a look, not a number of mine): the fort's lit pools are the fight's one warm lamp colour. A data hall's light is cold. If you want it cold on this board, the
 lamp painter (nightPools) would need a colour per light kind, which it does not have yet; say so and I add it, and the field in the data ('glow': cold).
 *** SAID PLAINLY: 'the cold' is not a rule (the fight has no temperature); the pods read as grey slabs until COOK FIVE's long-side cabinets are in.

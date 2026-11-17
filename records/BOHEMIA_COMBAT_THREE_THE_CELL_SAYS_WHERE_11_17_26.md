@@ -53,7 +53,7 @@ written: `groundOn(cx)` draws on the canvas it is given, but since BUILD 11/10l 
 lamps) were `cxDraw`, which always draws on the fight's own glass. On the pass that builds the still camera's sheet the pieces went to the glass and the
 sheet was laid over them. Now `sheetDraw(cx, [...])` on the canvas given (`__THE_SHEET_HOLDS_ITS_PIECES__`), the packed and the night paths kept.
 MEASURED ON THE PAGE (the fight page alone, a phone upright at two device pixels a point, the page's own wheel zoom to its close stop, the SAME camera read
-off the glass twice: a frame the still sheet drew and a frame drawn straight; scratch tool, the numbers here):
+off the glass twice: a frame the still sheet drew and a frame drawn straight; tools/bohemia_combat_three_the_still_frame_and_the_straight_one.js):
 - before: the convention hall at zoom 0.58: 19 of 19 pieces on the glass missing on the still frame (the two frames 5.4 of 255 apart on average); the mall
   at 0.56: 25 of 26; the warehouse at 0.53: 40 of 43.
 - after: 0 of 19, 0 of 26, 0 of 43; the two frames the same picture to the pixel (0.00).
