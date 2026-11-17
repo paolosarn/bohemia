@@ -20576,6 +20576,49 @@
     ]
    },
    "record": "records/BOHEMIA_COOK_FIVE_THE_MALL_11_17_26.md"
+  },
+  {
+   "id": "cook5-the-warehouse-11-17",
+   "kind": "tile",
+   "lane": "cook 5",
+   "sha": "SHIPSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "THE WAREHOUSE LOOKS LIKE A WAREHOUSE NOW: RACKING, A DEAD FORKLIFT STILL HOLDING A PALLET, A TRAILER AT ITS DOCK",
+   "said": "do a full sweep, let's have some fun",
+   "why": "The fight inside the warehouse was built from other buildings' pictures; now it has its own: lanes with yellow lines and tyre tracks, pallet racking stripped almost bare, a bay of it fallen across a lane, a dead forklift with a pallet still up on its forks, a trailer open at its dock, a cage somebody cut into, and the big roof very faint overhead. You meet it when a fight starts at a warehouse, in the RUN tab.",
+   "options": [
+    "A, yes, that's a warehouse",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK5_THE_WAREHOUSE_11_17.webp",
+    "first": "../records/target/vote_first/cook5-the-warehouse-11-17.webp",
+    "firstAt": [
+     786,
+     96,
+     383,
+     559
+    ]
+   },
+   "before_after": {
+    "before": "main f130ea992: all 302 pieces of the warehouse are stand-ins from the casino, the garage and the street; the floor is the garage's; the ceiling is drawn by the page",
+    "after": "the warehouse's own floor, 20 pictures under 23 names and its roof, through the master rig; the warehouse lays them with no code changed",
+    "scale": "the fight on his phone upright (390 x 844) as it opens, the same fight before and now; sideways; then the pieces at their own pixels"
+   },
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "twin": {
+    "src": "fight_ground/mall/mall_bridge.webp",
+    "diffs": [
+     "THE SAME RIG AND CUT as the mall's kit and the hall's: one tool on the other, COMBAT THREE's names, its data file's own ceiling entry.",
+     "THE RACKS ARE SEEN THROUGH: frames and beams with almost nothing left on them, so a man behind one is still read.",
+     "ONE THING IN EACH PIECE SAYS SOMEBODY LEFT IN A HURRY: the pallet still up on the forks, the carton still on the conveyor, the padlock on the floor."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_FIVE_THE_WAREHOUSE_11_17_26.md"
   }
  ],
  "verdicts": [

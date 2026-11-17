@@ -3,7 +3,7 @@
 // phone (390 x 844 and 844 x 390 at 2), asks for the inside by name (opts.inside, a named layout), and shoots what he meets: the
 // opening view with the ceiling off (UI.noCeiling, the page test's own switch) and as the data file says, then close on named
 // spots (one as the page is; then every spot with the page's close-in draw mended IN MEMORY, the shots named 'held': ask row 646).
-//   node tools/bohemia_a_big_inside_on_the_page_11_17_26.js <outdir> <hall|mall> [upright,sideways] [layout]
+//   node tools/bohemia_a_big_inside_on_the_page_11_17_26.js <outdir> <hall|mall|warehouse> [upright,sideways] [layout]
 // writes <inside>_<shape>_open_a0.png, _open_a01.png, _<spot>_close_as_is.png, _<spot>_close_held.png and page_<shape>.json (the
 // board's own count of stand-ins, the pieces with no picture, whether the ceiling's picture drew, a fight tile's size in points).
 const http = require('http'), fs = require('fs'), path = require('path');
@@ -12,8 +12,10 @@ const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'applic
 const SPOTS = { the_split_hall: { cots: [2.5, 4], mezz: [3, 1.6], stair_w: [16.5, 1.8], pallets: [13.5, 3.6], chairs: [13, 6.6], desk: [8, 12], column: [14, 9.6], airwall: [9, 6] },
   the_long_hall: { cots: [3, 5], mezz: [3, 1.6], pallets: [12, 4], chairs: [12, 7], desk: [8, 12], column: [10, 9] },
   the_atrium: { fronts: [2.5, 3.4], bridge: [9, 6.4], escalator: [5.6, 6.8], store: [2, 1.6], camp: [7.4, 1.4], tables: [13.6, 5], kiosk: [6, 5], rubble: [14, 6], lift: [8.6, 8], south_stores: [3, 12] },
-  the_food_court: { fronts: [2.5, 3.4], bridge: [9, 6.4], tables: [13.6, 5] } };
-const INSIDES = { hall: { district: 'convention', layout: 'the_split_hall' }, mall: { district: 'mall', layout: 'the_atrium' } };
+  the_food_court: { fronts: [2.5, 3.4], bridge: [9, 6.4], tables: [13.6, 5] },
+  the_lanes: { racks: [2.5, 3.6], mezz: [5, 1.4], stair: [12.4, 1.4], lane: [3, 4.4], camp: [12.6, 4.4], conveyor: [9, 11], forklift: [4.6, 11.2], trailer: [3.6, 13], cage: [16.6, 11], desk: [2, 12] },
+  the_cross_dock: { racks: [2.5, 3.6], mezz: [5, 1.4] } };
+const INSIDES = { hall: { district: 'convention', layout: 'the_split_hall' }, mall: { district: 'mall', layout: 'the_atrium' }, warehouse: { district: 'warehouse', layout: 'the_lanes' } };
 (async () => {
   const out = process.argv[2], inside = process.argv[3] || 'hall', shapes = (process.argv[4] || 'upright,sideways').split(','), layout = process.argv[5] || INSIDES[inside].layout;
   fs.mkdirSync(out, { recursive: true });

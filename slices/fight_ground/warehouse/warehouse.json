@@ -627,11 +627,8 @@
   "kind": "joist",
   "alpha": 0.1,
   "src": "warehouse/warehouse_ceiling.webp",
-  "have": false,
-  "tile": [
-   5,
-   5
-  ],
+  "have": true,
+  "tile": [10, 10],
   "bay": 5,
   "how": "VAMILY rule 451(a): the warehouse's roof deck and its open-web joists over the board at this alpha (10%, never past the fight's own most). 'src' is the picture COOK FIVE makes (see garage.json's ceiling); 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in."
  }

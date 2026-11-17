@@ -1,0 +1,222 @@
+{
+ "mezz": {
+  "w": 516,
+  "h": 430,
+  "foot": [
+   258.2,
+   428
+  ],
+  "piece": "mezz",
+  "src": "warehouse/wh_mezz.webp",
+  "facing": "S"
+ },
+ "stair_e": {
+  "w": 515,
+  "h": 455,
+  "foot": [
+   257.8,
+   455
+  ],
+  "piece": "stair_e",
+  "src": "warehouse/wh_stair_e.webp",
+  "facing": "S"
+ },
+ "stair_w": {
+  "w": 515,
+  "h": 455,
+  "foot": [
+   257.5,
+   455
+  ],
+  "piece": "stair_w",
+  "src": "warehouse/wh_stair_w.webp",
+  "facing": "S"
+ },
+ "rail_ew": {
+  "w": 516,
+  "h": 67,
+  "foot": [
+   258.2,
+   58
+  ],
+  "piece": "rail_ew",
+  "src": "warehouse/wh_rail_ew.webp",
+  "facing": "S"
+ },
+ "rail_ns": {
+  "w": 77,
+  "h": 414,
+  "foot": [
+   21.7,
+   413
+  ],
+  "piece": "rail_ns",
+  "src": "warehouse/wh_rail_ns.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 515,
+  "h": 79,
+  "foot": [
+   257.8,
+   78
+  ],
+  "piece": "wall_ew",
+  "src": "warehouse/wh_wall_ew.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 91,
+  "h": 439,
+  "foot": [
+   22.4,
+   438
+  ],
+  "piece": "wall_ns",
+  "src": "warehouse/wh_wall_ns.webp",
+  "facing": "S"
+ },
+ "rack_ew": {
+  "w": 515,
+  "h": 199,
+  "foot": [
+   257.5,
+   169
+  ],
+  "piece": "rack_ew",
+  "src": "warehouse/wh_rack_ew.webp",
+  "facing": "S"
+ },
+ "rack_ns": {
+  "w": 137,
+  "h": 539,
+  "foot": [
+   34.4,
+   521
+  ],
+  "piece": "rack_ns",
+  "src": "warehouse/wh_rack_ns.webp",
+  "facing": "S"
+ },
+ "trailer": {
+  "w": 343,
+  "h": 352,
+  "foot": [
+   103.1,
+   346
+  ],
+  "piece": "trailer",
+  "src": "warehouse/wh_trailer.webp",
+  "facing": "S"
+ },
+ "forklift": {
+  "w": 266,
+  "h": 176,
+  "foot": [
+   94.9,
+   165
+  ],
+  "piece": "forklift",
+  "src": "warehouse/wh_forklift.webp",
+  "facing": "S"
+ },
+ "conveyor": {
+  "w": 515,
+  "h": 112,
+  "foot": [
+   257.8,
+   91
+  ],
+  "piece": "conveyor",
+  "src": "warehouse/wh_conveyor.webp",
+  "facing": "S"
+ },
+ "cage": {
+  "w": 296,
+  "h": 228,
+  "foot": [
+   99.2,
+   204
+  ],
+  "piece": "cage",
+  "src": "warehouse/wh_cage.webp",
+  "facing": "S"
+ },
+ "desk": {
+  "w": 301,
+  "h": 142,
+  "foot": [
+   121.1,
+   140
+  ],
+  "piece": "desk",
+  "src": "warehouse/wh_desk.webp",
+  "facing": "S"
+ },
+ "pallets": {
+  "w": 180,
+  "h": 173,
+  "foot": [
+   77.7,
+   140
+  ],
+  "piece": "pallets",
+  "src": "warehouse/wh_pallets.webp",
+  "facing": "S"
+ },
+ "camp_a": {
+  "w": 275,
+  "h": 164,
+  "foot": [
+   120.5,
+   158
+  ],
+  "piece": "camp_a",
+  "src": "warehouse/wh_camp_a.webp",
+  "facing": "S"
+ },
+ "camp_b": {
+  "w": 275,
+  "h": 164,
+  "foot": [
+   120.9,
+   158
+  ],
+  "piece": "camp_b",
+  "src": "warehouse/wh_camp_b.webp",
+  "facing": "S"
+ },
+ "spill": {
+  "w": 365,
+  "h": 167,
+  "foot": [
+   168.0,
+   152
+  ],
+  "piece": "spill",
+  "src": "warehouse/wh_spill.webp",
+  "facing": "S"
+ },
+ "drums": {
+  "w": 258,
+  "h": 110,
+  "foot": [
+   95.0,
+   92
+  ],
+  "piece": "drums",
+  "src": "warehouse/wh_drums.webp",
+  "facing": "S"
+ },
+ "column": {
+  "w": 151,
+  "h": 157,
+  "foot": [
+   31.0,
+   140
+  ],
+  "piece": "column",
+  "src": "warehouse/wh_column.webp",
+  "facing": "S"
+ }
+}

@@ -1,5 +1,25 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17zm - THE WAREHOUSE IS A WAREHOUSE, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the seventh build; rules 416, 451(a), 455; ask row 627).
+'... the art for COMBAT THREE's next interior and its ceiling', again: THE WAREHOUSE landed while the mall was being gated; all 302 of its pieces were
+stand-ins. Now slices/fight_ground/warehouse/ holds warehouse_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 3 of warehouse_floor_0.webp,
+floor.high its row 4, floor.ring all 25; kit: every name COMBAT THREE's handoff asked for), sizes.json (my gate's), 20 piece pictures, the floor sheet
+and warehouse_ceiling.webp: 22 pictures, 671,194 bytes. warehouse.json: only its ceiling entry's "have" (true) and "tile" ([10, 10]).
+Made by tools/bohemia_cook5_the_warehouse_finished_11_17_26.py ON the mall's tool (the floor is the hall's slab ground; wh_pallets is the mall's stock).
+PROOF: tools/bohemia_a_big_inside_on_the_page_11_17_26.js (takes hall, mall or warehouse): 302 pieces laid, 0 stand-ins (302 of 302 before), the ceiling's picture drawn at 0.1, a tile 41.6 points upright and 24.3 sideways, 0 errors. Gate THE INSIDES WEAR FINISHED ART 41/0
+(five kits, six ceilings). COMBAT THREE's gates on this tree: THE BIG INSIDES 43/0 (I9: the warehouse's picture, in), AN INSIDE SHOWS ITS CEILING 6/0.
+VOTE cook5-the-warehouse-11-17 (MADE FROM arena2-the-pit-is-a-pit-11-7). Record: records/BOHEMIA_COOK_FIVE_THE_WAREHOUSE_11_17_26.md.
+*** FOR COMBAT THREE: your names, your format, your ceiling entry; nothing else of yours edited. How each lays is in warehouse_art.json's how_it_lays
+(wh_rack_ew is 1.1 m deep and seen through; wh_trailer is the open back on a 1.2 m dock, foot the dock's south face; wh_forklift's forks point west).
+YOU ASKED FOR BLUE UPRIGHTS: the style palette has no blue; they are its teal. The data fort's names: the same tool takes them.
+NOT DONE: row 646 (FIXES 2, COMBAT THREE: close in the furniture is not drawn); no night versions; the cross dock layout not shot.
+*** NEXT ON THIS LANE, IN THIS ORDER: (1) COMBAT THREE's DATA FORT when its names land (one small tool ON the warehouse's: the pattern is three tools
+deep now, tunnels-and-garage < hall < mall < warehouse); (2) the eleven real places left in kit art, the Strip's side first (shark_reef,
+the_tv_station, the_unemployment_office), then the edges, by the no-code piece pipeline (the downtown tool is the pattern); (3) mall_mannequins and
+mall_fountain when COMBAT THREE says the legend lines are in.
+[bb Battle Brothers reads a fight's ground at a glance: a rack is a wall you see through, a lane is a corridor]
+[analog horror: a forklift with a pallet still held up on its forks]
+
 COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17zj - THE MALL IS A DEAD MALL, BUILT (bae238b48), NOT YET SEEN (the full sweep, rule 453, the sixth build; rules 416, 451(a), 455; ask row 627).
 '... the art for COMBAT THREE's next interior and its ceiling': THE MALL landed (11/17x) while this lane was on the hall; all 230 of its pieces were
 stand-ins. Now slices/fight_ground/mall/ holds mall_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 3 of mall_floor_0.webp, floor.high its row 4,

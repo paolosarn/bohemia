@@ -1,3 +1,14 @@
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17zm - THE WAREHOUSE IS A WAREHOUSE, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the seventh build; rules 416, 451(a), 455; ask row 627).
+COMBAT THREE's warehouse wears its own art under its own names (slices/fight_ground/warehouse/warehouse_art.json, the garage's format; no code): the
+lanes' floor (yellow lane lines, bay numbers, tyre tracks), 20 pictures for 23 names (the racking and its end, pallets, a bay come down, two beds of
+pallets, drums, the conveyor, a dead forklift still holding a pallet, a trailer at its dock, the desk, the cage cut open, a column, the steel
+mezzanine, both stairs, both rails, both walls) and the ceiling (the deck, joists, girders, strip lights, the red sprinkler mains) with "have": true,
+"tile": [10, 10] in warehouse.json. 22 pictures, 671,194 bytes.
+ON THE PAGE on a phone both ways: 302 pieces laid, 0 stand-ins (302 of 302 before), the ceiling's picture drawn at 0.1, a tile 41.6 points upright and 24.3 sideways, 0 errors. Gate THE INSIDES WEAR FINISHED ART 41/0.
+VOTE cook5-the-warehouse-11-17 (MADE FROM). NOT DONE: row 646 still open (close in the furniture is not drawn: the page's draw); the racks' uprights
+are teal (no blue in the palette); no night versions.
+[bb Battle Brothers reads a fight's ground at a glance: a rack is a wall you see through, a lane is a corridor]
+[analog horror: a forklift with a pallet still held up on its forks]
 COMBAT THREE (combat-three-01gkdyuu): 11/17 LATEST -- BUILD 11/17zl - THE CELL SAYS WHERE, BUILT, NOT YET SEEN (the full sweep, rule 453; WORLD THIRTEEN's owed read; rules 429(a)(g), 416; ask rows 504, 507, 627, 646).
 A fight the map hands from a road reads the map cell it is on, not the nearest building's name: the board mixes in the kinds of the land the road runs through (a desert road
 dealt 52 golf blocks on 40 boards; now 0), and only a building's own cell goes inside it (a road beside the hall, the mall, the warehouse went inside on 34, 36, 22 of 40; now 0;
