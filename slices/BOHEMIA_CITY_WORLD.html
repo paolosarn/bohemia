@@ -47648,6 +47648,7 @@ function loopTakeContract(c){
   var tg = loopTarget(town, c.id); if(!tg) return false;
   var job = { id: c.id, title: String(c.title || 'a job'), pay: loopJobPay(c.pay, town.name, c.standing), from: town.name,
               target: tg, skulls: (c.skulls | 0) || 1 };
+  if(c.into && c.into.build){ job.into = { build: String(c.into.build), name: String(c.into.name || c.into.build), worth: c.into.worth | 0 }; job.pay = Math.max(1, job.pay - job.into.worth); }   /* JOBS 11/17 __PAID_INTO_HIS_PLACE__: part of the pay is one of his builds */
   job.party = partyMath('job', { skulls: job.skulls }); job.crew = job.party.count;   /* __A_FEW_NOT_TWELVE__: sized by the math */
   /* __EVERY_JOB_KIND__ (WORLD [every job kind], rule 153(b), Paolo 10/24: 'I want more quest types'): the job's KIND decides where it
      is and how it plays (escort, find, hunt, camp: slices/bohemia_job_kinds.js); a kind not built yet plays as this crew */

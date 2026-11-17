@@ -4988,14 +4988,32 @@ function costOf(act){
 function costWords(){ var d = costOf('cancel_contract'), f = costOf('fail_civilian_contract');
   var one = function(x){ return x.before + '\u2192' + x.after + (x.band ? ' ' + x.band : '') + ' \u00b7 CLOUT ' + x.clout + '\u2192' + x.cloutAfter; };
   return { drop: d, fail: f, words: 'DROP IT ' + one(d) + '\nFAIL IT ' + one(f) }; }   /* draft; two lines (.trip.quit keeps the break) */
+/* __PAID_INTO_HIS_PLACE__ (JOBS 11/17, rule 453 (4): 'a job that pays into his own settlement'). Battle Brothers' payment shapes
+   (bb_all/0441: 'If you ask for payment in advance, the game subtracts 25%...'): before the yes he can move part of the pay out of
+   batteries into one of his builds (records/target/bb/job_into_place.json): the build's worth comes off the pay and it stands at his
+   place when the job is done in full (the map's BohemiaJobKinds paid(), through BohemiaHomeMap.give). A tap moves to the next build
+   that fits under the share, then back to all batteries. The labels are the fewest words, draft (rule 454(a)) */
+var INTO = null, INTO_B = null;
+try{ fetch('../records/target/bb/job_into_place.json').then(function(r){ return r.json(); }).then(function(j){ INTO = j; if(S.open === 'board' && S.offerUp) offerSpeak(S.offerUp); }).catch(function(){});
+  fetch('../records/target/bb/home_base.json').then(function(r){ return r.json(); }).then(function(j){ INTO_B = (j && j.builds) || null; }).catch(function(){}); }catch(e){}
+function intoWorth(id){ var r = INTO_B && INTO_B[id], W = (INTO && INTO.worth && INTO.worth.value) || { battery: 1, per_tape: 1 }; if(!r) return null;
+  var t = 0; for(var k in (r.cost || {})) t += (r.cost[k] | 0) * (k === 'tape' ? (+W.per_tape || 1) : 1); return (W.battery | 0) + t; }
+function intoList(base){ if(!INTO || !INTO_B) return []; var cap = Math.floor((base | 0) * (+(INTO.share && INTO.share.value) || 0.25));
+  return ((INTO.builds && INTO.builds.value) || []).map(function(b){ return { build: b.build, name: b.name, worth: intoWorth(b.build) }; }).filter(function(b){ return b.worth != null && b.worth >= 1 && b.worth <= cap; }); }
+function payOf(o){ return Math.max(1, payShown(o.pay) - ((o.into && o.into.worth) | 0)); }   /* the pay he is shown, the build's worth off it */
+function intoNow(o, base){ var L = intoList(base), i = (S.into || {})[o.id]; return (typeof i === 'number' && L[i]) ? L[i] : null; }
+function intoNext(o, base){ var L = intoList(base), M = S.into = S.into || {}, i = M[o.id]; M[o.id] = (typeof i === 'number') ? (i + 1 < L.length ? i + 1 : null) : (L.length ? 0 : null); if(M[o.id] == null) delete M[o.id];
+  post('into', {contract:o.id, build:(intoNow(o, base) || {}).build || null}); offerSpeak(o); }
 function offerSpeak(o){
   S.open = 'board';
+  if(o.__orig) o = o.__orig; S.offerUp = o; var o0 = o;   /* __PAID_INTO_HIS_PLACE__: every redraw starts from the board's own offer */
   if(hagRule()){ var b0 = o.__base || o.pay; o = Object.assign({}, o, { __base: b0, pay: hagPay(b0, hagOf(o.id).asks) }); }   /* __PUSH_THE_PAY__: the pay as pushed */
+  var IN = intoNow(o0, payShown(o.pay)); o = Object.assign({}, o, { __orig: o0 }, IN ? { into: IN } : {});   /* __PAID_INTO_HIS_PLACE__: the build's worth comes off the pay he is shown (payOf), the map takes it off the same */
   var body = document.getElementById('sbody'); body.textContent = '';
-  var w = document.createElement('div'); w.className = 'who'; w.appendChild(mouth(face(null, clientWho(o), clientLook(o)), o.says.replace(/\{pay\}/g, payShown(o.pay))));
+  var w = document.createElement('div'); w.className = 'who'; w.appendChild(mouth(face(null, clientWho(o), clientLook(o)), o.says.replace(/\{pay\}/g, payOf(o))));
   var sy = document.createElement('div'); sy.className = 'say';
   var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = clientName(o); sy.appendChild(nm);
-  var pp = document.createElement('p'); pp.textContent = o.says.replace(/\{pay\}/g, payShown(o.pay)); sy.appendChild(pp);
+  var pp = document.createElement('p'); pp.textContent = o.says.replace(/\{pay\}/g, payOf(o)); sy.appendChild(pp);
   /* WORLD [a job says how far] (rule 186(c), Paolo 10/25: 'every time a job is presented it should show how long it's going to take
      to get there'): the trip before the yes, the map's own road and clock on the job the yes would make (BohemiaJobKinds.trip) */
   try{ var JK = window.parent && window.parent.BohemiaJobKinds, TR = (JK && JK.trip) ? JK.trip(o, S.place.name) : null;
@@ -5010,7 +5028,10 @@ function offerSpeak(o){
   try{ var HR = hagRule(), hh = hagOf(o.id); if(HR && S.held.length < SLOTS){ var last = (hh.asks | 0) >= HR.lands;   /* __PUSH_THE_PAY__: the ask, its cost told before */
     var ab = act(last ? 'Ask again' : 'Ask +' + Math.round(HR.step * 100) + '%', (last ? 'THEY WALK \u00b7 ' + (hagAct('haggle') + hagAct('negotiation_fail')) : hagAct('haggle')) + ' STANDING', function(){ hagAsk(o); }, false);   /* draft */
     ab.dataset.ask = last ? 'walk' : 'more'; acts.appendChild(ab); } }catch(e){}
-  var take = function(){ S.held.push(o.id); (S.heldInfo = S.heldInfo || {})[o.id] = {title:o.title, place:S.place.name}; post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, payShown(o.pay)), standing:{mult:standHere().mult}})});   /* the base pay rides on, the map adds the start's bonus once (loopJobPay) */ heard('On your map: '+o.title+', for '+o.client.name+'.'); shelf(); };
+  try{ var IB = payShown(o.pay), IL = intoList(IB); if(IL.length && S.held.length < SLOTS){ var cur = o.into;   /* __PAID_INTO_HIS_PLACE__: the shape, before the yes */
+    var ib = act(cur ? 'Into your place: ' + cur.name : 'Into your place', cur ? '-' + cur.worth : '', function(){ intoNext(o0, IB); }, false);   /* draft */
+    ib.dataset.into = cur ? cur.build : 'none'; acts.appendChild(ib); } }catch(e){}
+  var take = function(){ S.held.push(o.id); (S.heldInfo = S.heldInfo || {})[o.id] = {title:o.title, place:S.place.name}; post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, payOf(o)), standing:{mult:standHere().mult}})});   /* the base pay rides on, the map adds the start's bonus once (loopJobPay) */ heard('On your map: '+o.title+', for '+o.client.name+'.'); shelf(); };
   var out = S.held.length >= SLOTS ? swapOut() : null, oc = out ? heldCost(out) : null;
   if(out && jobsK()){   /* __DROP_A_JOB_RIGHT_IN_THE_TOWN__ (rule 197(b)): full, so he asks once and the yes swaps in the same tap */
     /* __TWO_JOBS_AT_ONCE__ (rule 228(b)): two is the most, said plainly, and the swap for either job he holds (this town's first) */

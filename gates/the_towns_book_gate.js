@@ -27,7 +27,9 @@
    BUILD C, WHAT WALKING AWAY COSTS: C1 the files (relations.json cancel/fail, renown.json's, the card's code); C2 the card's own words on
    the real bands and gains; C3 on his phone (--build C): a job dropped in town and the turn job walked away from move the bar and CLOUT
    exactly as their cards said, every card button on the glass.
-   node gates/the_towns_book_gate.js     JOBS_FILES=1 the files only     JOBS_BUILD=A,B,C (the phone legs of those builds)
+   BUILD D, PAID INTO HIS PLACE: D1 the files (job_into_place.json, TUNING's rows, the card, the map's take, the pay); D2 what the card
+   offers on the real files; D3 on his phone (--build D): a one-skull find paid partly as a build, played to the pay, the build his.
+   node gates/the_towns_book_gate.js     JOBS_FILES=1 the files only     JOBS_BUILD=A,B,C,D (the phone legs of those builds)
    ========================================================================== */
 'use strict';
 const fs = require('fs'), path = require('path'), cp = require('child_process'), os = require('os'), vm = require('vm');
@@ -101,6 +103,21 @@ function boards(src, band) {
     'DROP IT 35→25 UNFRIENDLY · CLOUT 60→0\nFAIL IT 35→15 THREATENING · CLOUT 60→0'];
   ok('C2 the card\'s words: at 50 with 300 CLOUT a drop reads 50 to 40 and 300 to 200, a fail 50 to 30 COLD and 300 to 225; a new company is told it loses no CLOUT; at 35 the bands it falls into are named',
     JSON.stringify(got) === JSON.stringify(want), got.join(' | ')); }
+/* ---------- BUILD D, PAID INTO HIS PLACE ---------- */
+{ const IP = J('records/target/bb/job_into_place.json'), CW = T('slices/BOHEMIA_CITY_WORLD.html'), JK = T('slices/bohemia_job_kinds.js');
+  const d1 = [IP.share && IP.share.value === 0.25 && /bb_all\/0441/.test(IP.share.source || '') && /subtracts 25%/.test(IP.share.quote || ''),
+    IP.worth && IP.worth.value && IP.worth.value.battery === 1 && IP.worth.value.per_tape === 1 && Array.isArray(IP.builds && IP.builds.value) && IP.builds.value.length >= 3 && IP.full_only && IP.full_only.value === true,
+    rowOf('job_into_place.share') === '0.25' && rowOf('job_into_place.worth') === '1 / 1',
+    /function intoList\(base\)/.test(SS) && /ib\.dataset\.into = /.test(SS) && /IN \? \{ into: IN \}/.test(SS) && /function payOf\(o\)\{ return Math\.max\(1, payShown\(o\.pay\) - /.test(SS),
+    /if\(c\.into && c\.into\.build\)\{ job\.into = .*job\.pay = Math\.max\(1, job\.pay - job\.into\.worth\); \}/.test(CW),
+    /if \(job\.into && job\.into\.build && n >= job\.pay\) \{ try \{ var HM = root\.BohemiaHomeMap; into = HM && HM\.give \? HM\.give\(\{ id: 'job:' \+ job\.id, kind: 'build'/.test(JK)];
+  ok('D1 the files: up to 25% of a job\'s pay can be one of his builds (the wiki\'s payment shape), worth one battery and its tape, his only when the job is done in full; TUNING\'s rows; the card, the map\'s take and the pay', d1.every(Boolean), d1.map(x => x ? 1 : 0).join('')); }
+{ /* the card's own list, lifted out and run on the real files */
+  const i = SS.indexOf('function intoWorth(id){'), j = SS.indexOf('function intoNow(o, base){', i), src = SS.slice(i, j);
+  const W = { INTO: J('records/target/bb/job_into_place.json'), INTO_B: J('records/target/bb/home_base.json').builds }; vm.createContext(W);
+  vm.runInContext(src + '\nthis.l = [57, 20, 10, 7].map(function(b){ return intoList(b).map(function(x){ return x.build + " " + x.worth; }).join(","); });', W);
+  const want = ['solar 5,pump 4,tank 3,garden 2', 'solar 5,pump 4,tank 3,garden 2', 'garden 2', ''];
+  ok('D2 what the card offers: a 57-battery job any of the four (a panel 5, a pump 4, a tank 3, a garden 2), a 10-battery job only the garden, a 7-battery job none (25% is under 2)', JSON.stringify(W.l) === JSON.stringify(want), JSON.stringify(W.l)); }
 if (process.env.JOBS_FILES) done();
 
 /* ---------- ON HIS PHONE ---------- */
@@ -126,6 +143,10 @@ try {
     const bad = cc.filter(r => r.err || !r.dropMatch || !r.failMatch || !/^DROP IT /.test((r.dropCard || {}).words || '') || !r.cardFits);
     ok('C3 on his phone, the demo and the alpha, upright and sideways: a job\'s card says what dropping it and failing it cost before the yes; one taken and dropped in the town with a finger moves the bar and CLOUT exactly as its card said; the job that changes halfway taken and walked away from at its turn with a finger is lost and moves them exactly as its card said; every card button on the glass', cc.length === 4 && !bad.length,
       cc.map(r => (r.alpha ? 'alpha ' : 'demo ') + (r.shape === 'phone_portrait' ? 'up' : 'side') + ': ' + (r.err ? 'ERR ' + r.err : r.town + ' [' + r.dropCard.words + '] dropped ' + r.drop0.bar + '->' + r.drop1.bar + ' CLOUT ' + r.drop0.clout + '->' + r.drop1.clout + (r.dropMatch ? '' : ' NOT AS SAID') + '; [' + r.failCard.words + '] walked away ' + r.fail0.bar + '->' + r.fail1.bar + ' CLOUT ' + r.fail0.clout + '->' + r.fail1.clout + (r.failMatch ? '' : ' NOT AS SAID') + (r.cardFits ? '' : '; A BUTTON OFF THE GLASS'))).join(' | ')); }
+  if (BUILDS.indexOf('D') >= 0) { const dd = rows.filter(r => r.build === 'D');
+    const bad = dd.filter(r => r.err || !r.ok || !r.cardFits);
+    ok('D3 on his phone, the demo and the alpha, upright and sideways: a one-skull find\'s card, Into your place tapped with a finger, the pay he is shown drops by exactly the build\'s worth and the map holds the job at that pay; taken and played to the pay, the batteries paid are the card\'s and the build is his (standing, or waiting for his place); every card button on the glass', dd.length === 4 && !bad.length,
+      dd.map(r => (r.alpha ? 'alpha ' : 'demo ') + (r.shape === 'phone_portrait' ? 'up' : 'side') + ': ' + (r.err ? 'ERR ' + r.err : r.town + ' ' + r.id + ' ' + r.pay0 + ' -> ' + r.pay1 + ' + ' + (r.into1 || {}).build + ', paid ' + (r.paid || {}).paid + ' of ' + (r.held || {}).pay + ', ' + ((r.home || {}).thing ? 'standing' : (r.home || {}).waiting ? 'waiting for his place' : 'NOT HIS') + (r.ok ? '' : ' NOT OK') + (r.cardFits ? '' : '; A BUTTON OFF THE GLASS'))).join(' | ')); }
   ok('A5 nothing threw', !errs.length, errs.slice(0, 3).join(' | '));
 } catch (e) { ok('the phone legs ran', false, String(e && e.message || e).slice(0, 300)); }
 done();

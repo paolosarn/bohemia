@@ -1,0 +1,46 @@
+{
+ "_about": "PAID INTO HIS OWN PLACE (JOBS 11/17, VAMILY rule 453 (4): 'a job that pays into his own settlement'). Battle Brothers lets a company choose HOW a contract pays before it signs: all on completion, a share in advance, or a share per head, each a flat 25% moved from one part to another (bb_all/0441, the wiki's Contracts page, and records/target/bb/contract_terms.json payInAdvance / payPerHead). OURS, on that lever: any job's card can move part of its pay out of batteries into one of his builds, which stands at his place when the job is done in full (through HOME BASE's one seam, BohemiaHomeMap.give, kind 'build'; before he has planted a place it waits for one, HOME BASE's own rule). The part moved is what the build would cost him to put up himself (worth below), and never more than share of the job's pay. Every number TUNING's to move; the names are labels, draft.",
+ "draft": true,
+ "lane": "jobs",
+ "row": 627,
+ "share": {
+  "value": 0.25,
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0441_Contracts.txt",
+  "quote": "If you ask for payment in advance, the game subtracts 25% from your completion and per-head pay and adds it to the advance pay.",
+  "why": "the most of a job's pay that can be moved into his place, the wiki's own 25% for a payment shape"
+ },
+ "worth": {
+  "value": {
+   "battery": 1,
+   "per_tape": 1
+  },
+  "source": "engine/bohemia_lotbuild.js (EVERYTHING COSTS ONE: a build is one battery and one day) and records/target/bb/stall_prices.json tape.buy (a roll of tape for one battery); the tape each build takes is records/target/bb/home_base.json builds.<id>.cost",
+  "why": "a build moved into the pay costs what it would cost him to buy the tape and put it up; it stands the day the job pays, so the day is what he saves"
+ },
+ "builds": {
+  "value": [
+   {
+    "build": "solar",
+    "name": "A SOLAR PANEL"
+   },
+   {
+    "build": "pump",
+    "name": "A WATER PUMP"
+   },
+   {
+    "build": "tank",
+    "name": "A WATER TANK"
+   },
+   {
+    "build": "garden",
+    "name": "A GARDEN BED"
+   }
+  ],
+  "draft": true,
+  "why": "his place's builds that give something every morning (home_base.json builds with gives or worked), dearest first; a tap on the card moves to the next"
+ },
+ "full_only": {
+  "value": true,
+  "why": "Battle Brothers pays the completion part only on completion: a job done in part pays its part in batteries, and the build is not his"
+ }
+}

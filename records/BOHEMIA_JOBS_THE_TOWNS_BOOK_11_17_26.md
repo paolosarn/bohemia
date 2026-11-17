@@ -89,12 +89,41 @@ lines the ask now sits beside Take it on every phone (upright, the label over it
 glass (C3, B3). GATE: THE TOWN'S BOOK with JOBS_BUILD=B,C 10/0.
 
 ## 4. BUILD D, PAID INTO HIS OWN PLACE
-(next)
+HOW BATTLE BROTHERS DOES IT: before a contract is signed the company chooses HOW it pays, a flat 25% moved between its parts: 'If you
+ask for payment in advance, the game subtracts 25% from your completion and per-head pay and adds it to the advance pay. Because of
+rounding issues, you usually lose money overall' (bb_all/0441; records/target/bb/contract_terms.json payInAdvance and payPerHead).
+MEASURED FIRST: 11/14's four jobs paid into his place by their own story (a turn's choice, a fx.home); no other job could.
+OURS (records/target/bb/job_into_place.json, JOBS' own file; TUNING's one table job_into_place.share and job_into_place.worth):
+- On any job's card, a button 'Into your place'; each tap moves to the next of his builds that fits (A SOLAR PANEL, A WATER PUMP, A WATER
+  TANK, A GARDEN BED, the builds of his place that give something every morning), then back to all batteries. The build's worth is what
+  it would cost him to put it up himself: the lot build's one battery plus its tape at the stall's one battery a roll (a panel 5, a pump
+  4, a tank 3, a garden 2); it comes off the pay he is SHOWN, exactly (payOf), and the map takes the same off its own sum (loopTakeContract),
+  so no multiplier (the start's, CLOUT's x1 to x4.5) ever makes him pay more than the worth. Never over a quarter of the pay (the wiki's
+  25%): a job under 8 batteries offers none.
+- Done in full, the build is his: bohemia_job_kinds.js paid() hands it to HOME BASE's one seam (BohemiaHomeMap.give, kind 'build',
+  'from' the town): planted, it stands on a lot that day, finished; not yet planted, it waits and stands when he plants (HOME BASE's own
+  rule). Done in part, he is paid the part in batteries and the build stays the client's (Battle Brothers pays completion only on
+  completion).
+- The labels are the fewest words, draft (rule 454(a)); no line a person speaks changed: the client's {pay} reads the new number.
+MEASURED (node, gate D2): what the card offers on the real files: a 57-battery job any of the four, a 20-battery job the four, a 10 only
+the garden, a 7 none.
+ON HIS PHONE (tools/bohemia_jobs_the_towns_book_on_the_phone.js --build D; gate D3, the demo and the alpha, upright and sideways, a new
+crew, K7QM9X): Rook's lost singer at the Anarchists, day 1: the card said 25 batteries; 'Into your place' with a finger: 'A SOLAR PANEL
+-5', the card's line 20 batteries; Take it; the map held the job at 20 with the panel; played to the pay (found, walked home, no fight):
+paid 20 of 20, and A SOLAR PANEL from Anarchists waits for his place (this crew has not planted). All four buttons on the glass, two
+across (upright 709-753 of 781; the alpha sideways 216-260 of 288).
+A FLAW FOUND ON THE WAY AND FIXED: the first cut took the worth off the job's BASE pay, so the map's multipliers grew it (the button said
+-3, the pay fell 5); late in the game CLOUT's x4.5 would have charged him four times a build's worth. Now the worth comes off what he is
+shown, exactly; D3 fails any card whose pay falls by more or less than the button says.
+GATE: THE TOWN'S BOOK with JOBS_BUILD=B,C,D 13/0.
+
 
 ## 5. WHAT IS NOT HERE, SAID
 - No line a person speaks is new or rewritten (rule 454(a)); the only new words are the fewest labels, draft.
-- The phone proof sets a town's bar in the game's own relations record to reach Friendly or Unfriendly at once (the one shortcut, said);
-  the job that moves the bar is played to the pay.
+- The phone proof sets a town's bar in the game's own relations record to reach Friendly or Unfriendly at once, and build C sets CLOUT to
+  300 in the game's own renown record (the two shortcuts, said); every job that moves a bar is played to its end with a finger.
+- No price is re-based here: rule 459 (the battery is real) is ECONOMY TWO's re-base, and every number of this round is a row of TUNING's
+  one table it will move.
 
 [bb Battle Brothers' towns trade better with friends and hand big contracts only to a company they know; ours now do both]
 [analog horror: the board is shorter at the town that remembers what you did there, and nobody says why]

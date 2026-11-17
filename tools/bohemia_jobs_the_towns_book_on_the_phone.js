@@ -10,6 +10,8 @@
 // --build C: WHAT WALKING AWAY COSTS: a company with 300 CLOUT; a job's card read before the yes (the cost line); that job taken and
 // dropped in the town with a finger; the job that changes halfway taken and walked away from at its turn with a finger (lost); the bar
 // and CLOUT each time against what its card said.
+// --build D: PAID INTO HIS PLACE: a one-skull find's card, 'Into your place' tapped with a finger (the pay drops by the build's worth),
+// taken and played to the pay; the batteries paid are the card's and the build is his (standing, or waiting for his place).
 // node tools/bohemia_jobs_the_towns_book_on_the_phone.js --build A [--alpha] [--shapes phone_portrait,phone_landscape] [--out dir] [--tag t]
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -241,6 +243,51 @@ async function walk(shape) {
       } catch (e) { row.err = String(e && e.message || e).slice(0, 200); }
       out.push(row);
       console.log('  ' + TAG + ' ' + shape + ' C WHAT WALKING AWAY COSTS: ' + (row.err ? 'ERR ' + row.err : row.town + ' day ' + row.day + ': ' + row.dropId + ' card [' + row.dropCard.words + '] dropped: bar ' + row.drop0.bar + ' -> ' + row.drop1.bar + ', CLOUT ' + row.drop0.clout + ' -> ' + row.drop1.clout + (row.dropMatch ? ' (as the card said)' : ' (NOT as the card said)') + '; ' + row.turnId + ' card [' + row.failCard.words + '] walked away at its turn (' + row.talk + '): bar ' + row.fail0.bar + ' -> ' + row.fail1.bar + ', CLOUT ' + row.fail0.clout + ' -> ' + row.fail1.clout + (row.failMatch ? ' (as the card said)' : ' (NOT as the card said)') + ' steps ' + (row.steps || []).join(' > ')));
+    }
+    if (BUILDS.indexOf('D') >= 0) {
+      const row = { build: 'D' };
+      try {
+        /* PAID INTO HIS PLACE: a one-skull find on its own board, its card with a finger: 'Into your place' tapped (the pay drops by the
+           build's worth), taken, played to the pay (no fight at one skull), and the build is his (it waits for a place before he plants) */
+        await fr.evaluate(() => { LOOP.held = []; LOOP.fighting = null; try { loopClose(); } catch (e) {} try { localStorage.removeItem('bohemia.haggle.v1'); } catch (e) {} });
+        const ids = ['jb-find-singer', 'jb-find-clerk', 'jb-find-dealers', 'qd-ar10', 'qd-ap05', 'ct-find-the-kid'];
+        const cands = await fr.evaluate((ids) => { const all = BohemiaBoardShelf.shelf().offers, bs = ctBases() || {}, step = BohemiaBoardShelf.shelf().refresh_days || 3, out = [];
+          for (let d = 1; d <= 1 + 12 * step && !out.length; d += step) { const P = BohemiaBoardShelf.mapPlaces(d) || [];
+            for (const p of P) { if (!bs[p.name]) continue; const L = BohemiaBoardShelf.pick({ name: p.name, tier: p.tier }, d, { traits: p.traits || [], held: [], places: P }) || [];
+              const o = L.filter(x => ids.indexOf(x.id) >= 0 && ((all.filter(y => y.id === x.id)[0] || {}).skulls | 0 || 1) === 1)[0]; if (o) { out.push({ id: o.id, n: p.name, day: d }); break; } } }
+          return out; }, ids);
+        if (!cands.length) throw new Error('no board posts a one-skull find in thirteen windows');
+        const K = cands[0], tn = K.n; row.town = tn; row.day = K.day; row.id = K.id;
+        await setBar(tn, 50);
+        const T = await openTown(tn, K.day, null, true), sf = T.sf, sfH = T.sfH;
+        if (!await tapIn(sf, sfH, '#sheet button.act.client[data-id="' + K.id + '"]')) throw new Error('no finger on ' + K.id);
+        if (!await waitFor(() => sf.evaluate(() => !!document.querySelector('#sheet [data-into]')), 10000)) throw new Error('no Into your place on the card');
+        const payOf = () => sf.evaluate(() => { const t = (document.querySelector('#sbody .say p') || {}).textContent || ''; const m = t.match(/(\d+) batter/); return m ? +m[1] : null; });
+        row.pay0 = await payOf(); row.into0 = await sf.evaluate(() => document.querySelector('#sheet [data-into]').dataset.into);
+        if (!await tapIn(sf, sfH, '#sheet [data-into]')) throw new Error('no finger on Into your place');
+        if (!await waitFor(() => sf.evaluate(() => { const b = document.querySelector('#sheet [data-into]'); return !!b && b.dataset.into !== 'none'; }), 8000)) throw new Error('the shape did not change');
+        await page.waitForTimeout(500);
+        row.into1 = await sf.evaluate(() => { const b = document.querySelector('#sheet [data-into]'); return { build: b.dataset.into, label: b.textContent }; });
+        row.pay1 = await payOf();
+        row.fit = await sf.evaluate(() => [...document.querySelectorAll('#sheet .acts button')].map(b => { const r = b.getBoundingClientRect(); return [String(b.textContent || '').slice(0, 10), Math.round(r.top), Math.round(r.bottom), innerHeight]; }));
+        row.cardFits = row.fit.length >= 4 && row.fit.every(x => x[2] <= x[3]);
+        row.png = path.relative(ROOT, path.join(OUTD, TAG + '_' + (shape === 'phone_portrait' ? 'upright' : 'sideways') + '_D.png')); await page.screenshot({ path: path.join(ROOT, row.png) });
+        const sel = await sf.evaluate(() => { const b = [...document.querySelectorAll('#sheet button.act')].filter(x => /^Take it/.test(x.textContent))[0]; if (!b) return null; b.dataset.take = 'yes'; return '#sheet button[data-take="yes"]'; });
+        if (!sel || !await tapIn(sf, sfH, sel)) throw new Error('no finger on Take it');
+        if (!await waitFor(() => fr.evaluate((j) => LOOP.held.some(h => h.id === j), K.id), 10000)) throw new Error(K.id + ' was not taken');
+        row.held = await fr.evaluate((id) => { const h = LOOP.held.filter(x => x.id === id)[0]; return h ? { pay: h.pay, into: h.into || null } : null; }, K.id);
+        const mp = await fr.evaluate(([p, n]) => typeof loopJobPay === 'function' ? loopJobPay(p, n) : null, [row.pay1, tn]);
+        await fr.evaluate(() => { try { loopClose(); } catch (e) {} }); await page.waitForTimeout(600);
+        const b0 = await fr.evaluate(() => { try { const r = BohemiaHomeMap.rec(); return { things: (r && r.things || []).length, waiting: (r && r.waiting || []).length }; } catch (e) { return null; } });
+        for (let s = 0; s < 10; s++) { const st = await fr.evaluate((id) => { const j = LOOP.held.filter(h => h.id === id)[0]; if (!j) return 'gone';
+            const at = (x, y) => { travelStop(); city.x = x; city.y = y; }; const x = j.stage === 'look' ? j.spot.x : j.target.x, y = j.stage === 'look' ? j.spot.y : j.target.y; at(x, y); BohemiaJobKinds.arrived(x, y) || BohemiaJobKinds.step(); return j.stage; }, K.id);
+          if (st === 'gone') break; await page.waitForTimeout(900); if (await fightUp()) throw new Error('a fight on a one-skull find'); }
+        row.paid = await fr.evaluate((id) => (window.__JOB_PAID || []).filter(p => p.id === id).slice(-1)[0] || null, K.id);
+        row.home = await fr.evaluate((id) => { try { const r = BohemiaHomeMap.rec(), k = 'job:' + id, f = (L) => (L || []).filter(t => t.id === k)[0] || null; const t = f(r && r.things), w = f(r && r.waiting); return { thing: t ? { build: t.build, name: t.name, from: t.from, lot: t.lot } : null, waiting: w ? { build: w.build, name: w.name, from: w.from } : null, planted: !!(r && r.planted) }; } catch (e) { return { err: e.message }; } }, K.id);
+        row.ok = !!(row.into0 === 'none' && row.into1.build !== 'none' && row.held && row.held.into && row.held.into.build === row.into1.build && row.pay0 - row.pay1 === row.held.into.worth && row.held.pay === row.pay1 && row.paid && row.paid.paid === row.held.pay && row.paid.into && row.paid.into.ok && (row.home.thing || row.home.waiting) && ((row.home.thing || row.home.waiting).build === row.into1.build));
+      } catch (e) { row.err = String(e && e.message || e).slice(0, 200); }
+      out.push(row);
+      console.log('  ' + TAG + ' ' + shape + ' D PAID INTO HIS PLACE: ' + (row.err ? 'ERR ' + row.err : row.town + ' day ' + row.day + ' ' + row.id + ': the card ' + row.pay0 + ' batteries, [' + row.into1.label + '] ' + row.pay1 + '; held ' + JSON.stringify(row.held) + '; paid ' + JSON.stringify(row.paid) + '; his place ' + JSON.stringify(row.home) + (row.ok ? ' OK' : ' NOT OK') + (row.cardFits ? '' : '; A BUTTON OFF THE GLASS ' + JSON.stringify(row.fit))));
     }
   } catch (e) { out.push({ err: String(e && e.message || e).slice(0, 300) }); console.log('  ' + TAG + ' ' + shape + ' ERR ' + String(e && e.message || e).slice(0, 300)); }
   await d.close().catch(() => {});

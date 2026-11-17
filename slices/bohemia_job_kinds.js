@@ -317,7 +317,9 @@
     LOOP.done++;
     finish(job);
     job.result = { paid: n, at: day() };
-    window.__JOB_PAID = (window.__JOB_PAID || []).concat([{ id: job.id, kind: job.plays, paid: n, of: job.pay }]).slice(-20);
+    var into = null;   /* JOBS 11/17 __PAID_INTO_HIS_PLACE__: done in full, the build moved into the pay stands at his place (or waits for one) */
+    if (job.into && job.into.build && n >= job.pay) { try { var HM = root.BohemiaHomeMap; into = HM && HM.give ? HM.give({ id: 'job:' + job.id, kind: 'build', build: job.into.build, name: job.into.name, from: job.from }) : null; } catch (e) { into = null; } }
+    window.__JOB_PAID = (window.__JOB_PAID || []).concat([{ id: job.id, kind: job.plays, paid: n, of: job.pay, into: job.into ? { build: job.into.build, ok: !!(into && into.ok), waiting: !!(into && into.waiting) } : null }]).slice(-20);
     try { window.dispatchEvent(new CustomEvent('bohemia-job-paid', { detail: { job: job, paid: n, of: job.pay } })); } catch (e) {}   /* the client says it now, with this number (UI's voice) */
     sayLine(line || ('Paid ' + n + ' battery: ' + job.title + '.'));
     save('contract:paid');
