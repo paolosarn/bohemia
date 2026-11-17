@@ -1,3 +1,11 @@
+UI FOUR (ui-four-01gkdyuu): 11/17 LATEST -- BUILD 11/17j - THE FULLEST HALL FITS, BUILT (1df5857e0), NOT YET SEEN (the full sweep, rule 453, job 2 of three; ask row 612 beside FIXES 2's 11/17h; row 559 re-checked).
+A hall with seven or more at the posts and three who would travel (FIXES 2 left that one two a row, past the glass): one more step after UI 9's last, smaller, never a page:
+a man's row loses its air, a follower is his face, name and trade beside his 44 px button (two across upright, beside the last men sideways), his line a held finger away
+instead of cut, the speaker's line whole. Ten men and three followers on the glass both ways. NO LINE CUT 11/0 with its plants (new leg L4), SCROLLING IS ILLEGAL N8 and N9
+green, the lane's stats gate re-aimed 38/0, THE CASING FACE 17/0. VOTE ui4-the-fullest-hall-fits-11-17 (STAND-IN). NEXT ON THIS LANE: the sweep against rule 448's gate
+(the scavenge's cover, row 632; the arrival card). The whole block: handoffs/UI_FOUR.md.
+[bb Battle Brothers' hiring screen is one fixed list, every recruit a row; the long words live on the hover]
+[analog horror: a shelter's intake clipboard with too many names, the last three squeezed in two to a line]
 UI FOUR (ui-four-01gkdyuu): 11/17 LATEST -- BUILD 11/17f - EVERY COUNT A PICTURE, BUILT (7443dcac3), NOT YET SEEN (the full sweep, rule 453, job 1 of three; asks 145, 146). A fresh lane, the heir of UI THREE.
 On the build sheet at his place, the job board, the stall and every price or time in a button, a count said in words is now the thing's own picture and the number
 (the battery, the tape, the food off the top bar; a green arrow up on what a build gives a day, a red arrow down on the night's bill; a clock on a job's time; a sack on
