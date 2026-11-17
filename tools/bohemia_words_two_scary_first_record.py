@@ -85,8 +85,14 @@ R4=his("damn bro, you're really not gonna help starving people out because of th
 R5=his("from social media to people actually talking to you")
 G1=his("We have to make mystery sausage out of this, because if not, we don't know what our next meal is."); G2=his("Only the sick people will joke about it.")
 BED=his("the bedrock, super important to even implementing my soul in this")
-def exline(n,label):
-    a=A[n]; return "%d. %s%s\n   WAS (the game today): %s\n   HIS: %s"%(n,label,'  *** HE STARRED THIS ONE ***' if a['star'] else '',q(a['ours']),q(a['his']))
+# EVERY ANSWER OF HIS GOES ON THE PAGE, in the order he was asked. A card this lane has named gets its name; any other gets its
+# mouth, so the page grows the moment the registry holds a new answer and the script is run (the reading under it is added by hand).
+NAMES={'words-two-hw01-01-a-kid-begs-on-the-road-11-17':'THE KID WHO BEGS (a road stop)','words-two-hw01-02-the-enemy-says-why-11-17':"THE ENEMY'S WHY (their leader, as a fight opens)",
+       'words-two-hw01-03-a-joke-post-in-the-feed-11-17':"THE FEED'S JOKE POST (a regular person in the valley)",'words-two-hw01-04-an-old-woman-offers-a-job-11-17':"THE OLD WOMAN'S JOB (a job giver at the board)"}
+def exline(k,a):
+    label=NAMES.get(a['id']) or (a['mouth']+(' (SCARY, THEN '+items[a['id']]['homework']['second']+')' if items[a['id']]['homework'].get('second') else '')+', card '+str(a['sheet'])+'.'+str(a['n']))
+    return "%d. %s%s\n   WAS (the game today): %s\n   HIS: %s"%(k,label,'  *** HE STARRED THIS ONE ***' if a['star'] else '',q(a['ours']),q(a['his']))
+examples='\n'.join(exline(k,a) for k,a in enumerate(ans,1))
 voice=f'''# BOHEMIA -- THE VOICE (Paolo 11/17/26. Page one is LOCKED: VAMILY rule 455.)
 # HOW EVERY MOUTH AND EVERY POST IN THE GAME TALKS. One page of rules in HIS words, with HIS own lines as the examples.
 # He called page one '{BED}'.
@@ -125,10 +131,7 @@ THE HORROR UNDER IT (rule 456, the grinder; it is in his own enemy line below): 
 
 ## HIS OWN LINES (the examples of THE VOICE; exactly as he gave them in the VOTE tab, rule 458(a))
 
-{exline(1,'THE KID WHO BEGS (a road stop)')}
-{exline(2,"THE ENEMY'S WHY (their leader, as a fight opens)")}
-{exline(3,"THE FEED'S JOKE POST (a regular person in the valley)")}
-{exline(4,"THE OLD WOMAN'S JOB (a job giver at the board)")}
+{examples}
 
 A STAR MAKES ITS WAY THE WAY (rule 115(h)). The old woman's line is the first starred line of THE VOICE. (This lane's reading of its
 way: a job giver is afraid of a thing she cannot name, says who dies next, begs, and ends by naming the deal as a question.)
