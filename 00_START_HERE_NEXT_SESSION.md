@@ -1,3 +1,9 @@
+JOBS (jobs-01gkdyuv): 11/17 LATEST -- BUILD 11/17b - THE TOWN REMEMBERS, BUILT, NOT YET SEEN (rules 453, 454(a), 441; row 627). THE TOWN REMEMBERS (build A of four): below Neutral a town charges more and pays less (the Game Guide), its bar changes what it offers
+(no three-skull work below Neutral, one job at Hostile, one more from Friendly), and a settled job's standing is kept until the town's
+bands load (it was lost on the alpha).
+On the phone, the demo and the alpha both ways. Gate THE TOWN'S BOOK. VOTE jobs-the-town-remembers-11-17 (STAND-IN), sha daae83714. Record records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md.
+[bb Battle Brothers' towns trade better with friends and hand big contracts only to a company they know]
+
 WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- [the research] FILED (8380f0d50), rule 454(b), ask row 628; and BUILD 11/17a HIS HOMEWORK below. Its block is handoffs/WORDS_TWO.md.
 RESEARCH ONLY, nothing rewritten: records/BOHEMIA_WORDS_TWO_EVERY_MOUTH_AND_WHY_IT_IS_NOT_HUMAN_11_17_26.md. About 3,000 live spoken lines in some 15 mouths, each with its file;
 measured against 849 verbatim quotes of his: the game swears 0.0 per 1,000 words (he 27.5), fillers 12 (he 88), half of all lines end on a short punchline (he 19%), a sentence is 5

@@ -19908,7 +19908,8 @@
     "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
     "line": "Oye, jefe. Two days no food. I don't want batteries, just something to eat. My brother says ask the ones with guns, they got food."
    }
-  }
+  },
+  {"id": "jobs-the-town-remembers-11-17", "kind": "ui", "lane": "jobs", "sha": "daae83714", "made": "11/17", "draft": true, "title": "THE TOWN REMEMBERS: A TOWN THAT LIKES YOU OFFERS MORE, ONE THAT DOES NOT CHARGES MORE", "said": "a full sweep: the jobs' systems the way Battle Brothers runs them, no new talk: how a town feels about him moves with the jobs and changes what it offers and charges; pay he can push at a cost; what failing or walking away costs; a job paid into his own place", "why": "A town's standing now changes what it offers you and what it charges: a friendly town posts one more job, a cold one keeps its biggest jobs from you and a hostile one gives you one small job, and below neutral its shelves charge up to 30% more. You see it on a town's board (tap BOARD) and on its shelves.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_THE_TOWN_REMEMBERS.jpg"}, "before_after": {"before": "the bar bent a job's pay and, above Neutral, the shelves; below Neutral nothing moved; every town offered the same board whatever it thought of him; a finished job's standing was lost if he walked in before the town loaded", "after": "Friendly 4 jobs where Neutral posts 3; Unfriendly (25) charges x1.15 and keeps three-skull work; Hostile one one-skull job; the standing never lost", "scale": "left: the game on a phone upright (390 x 844 at 3), the demo; right: what changed, measured"}, "record": "records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md", "build": "BUILD 11/17b - THE TOWN REMEMBERS"}
  ],
  "verdicts": [
   {
