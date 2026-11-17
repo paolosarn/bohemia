@@ -31,7 +31,8 @@ OUT = os.path.join(R, 'records/target/bosses_hand_rig')
 THINGS = {'pot': 'cook', 'wrench': 'open', 'filter': 'purify',
           'fuel': 'burn', 'map': 'survey', 'hook': 'climb',   # the thing -> the verb it is (BOSSES 4 11/3: THE BURN's, THE SURVEYOR's, THE CLIMB's)
           'picks': 'pick', 'charge': 'blow', 'pipegun': 'weld',   # BOSSES 11/11: THE LOCKSMITH's, THE CHARGE's, THE MACHINIST's
-          'mallet': 'press', 'forceps': 'fix', 'spyglass': 'look'}   # BOSSES 11/14: THE PLATE's, THE TOOTH's, THE LENS's
+          'mallet': 'press', 'forceps': 'fix', 'spyglass': 'look',   # BOSSES 11/14: THE PLATE's, THE TOOTH's, THE LENS's
+          'razor': 'fade', 'needles': 'mark', 'dog': 'track'}   # BOSSES 11/17: THE BARBER's, THE INK's, THE DOGS'
 
 
 def ship_of(n):
@@ -165,6 +166,36 @@ def build(n, bpy, P, IC):
         for i, (r_, x0, L_) in enumerate(((0.034, -0.16, 0.16), (0.028, 0.0, 0.14), (0.022, 0.13, 0.12))):
             P.cyl(bpy, 'draw', dark if i == 0 else brass, r_, L_, (x0, 0, 0.12 + 0.03 * i), rot=(0, math.radians(80), 0), verts=16)
         P.cyl(bpy, 'glass', glass, 0.031, 0.006, (-0.245, 0, 0.105), rot=(0, math.radians(80), 0), verts=16)
+    elif n == 'razor':                 # BOSSES 11/17: THE BARBER's straight razor, open, leaning on his white bleach jug
+        steel, scales, jug, cap, red = M('steel', 'tape_grey', 3), M('scales', 'rubber', 2), M('jug', 'clay_bone', 4), M('cap', 'clay_teal', 2), M('red', 'blood', 1)
+        P.box(bpy, 'jug', jug, (0.11, 0.07, 0.2), (0.04, 0, 0.1), bevel=0.014)
+        P.cyl(bpy, 'cap', cap, 0.018, 0.03, (0.07, 0, 0.215), verts=12)
+        P.box(bpy, 'label', red, (0.112, 0.072, 0.04), (0.04, 0, 0.1), bevel=0.002)
+        P.box(bpy, 'scales', scales, (0.13, 0.012, 0.018), (-0.08, 0.05, 0.1), rot=(0, math.radians(-62), 0), bevel=0.004)
+        P.box(bpy, 'blade', steel, (0.09, 0.004, 0.026), (-0.06, 0.05, 0.2), rot=(0, math.radians(-118), 0), bevel=0.001)
+        P.cyl(bpy, 'pivot', steel, 0.007, 0.016, (-0.05, 0.05, 0.155), rot=(math.radians(90), 0, 0), verts=8)
+    elif n == 'needles':               # BOSSES 11/17: THE INK's coil machine, its two coils, the grip and the needle, a pot of ink by it
+        steel, dark, copper, ink = M('steel', 'tape_grey', 3), M('dark', 'rubber', 2), M('copper', 'clay_rust', 3), M('ink', 'rubber', 1)
+        P.box(bpy, 'frame', steel, (0.09, 0.02, 0.07), (0.0, 0, 0.17), bevel=0.006)
+        for x in (-0.025, 0.02): P.cyl(bpy, 'coil', copper, 0.018, 0.06, (x, 0, 0.11), verts=12)
+        P.rod(bpy, 'grip', dark, (0.06, 0, 0.2), (0.07, 0, 0.02), 0.012, verts=10)
+        P.rod(bpy, 'needle', steel, (0.07, 0, 0.02), (0.072, 0, -0.01), 0.002, verts=6)
+        P.cyl(bpy, 'pot', ink, 0.035, 0.05, (-0.12, 0, 0.025), verts=14)
+        P.cyl(bpy, 'potlip', steel, 0.036, 0.006, (-0.12, 0, 0.052), verts=14)
+    elif n == 'dog':                   # BOSSES 11/17: THE DOGS' dog, standing low and deep-chested, head out, its collar and a short chain
+        fur, dark, chain, eye = M('fur', 'clay_rust', 2), M('dark', 'rubber', 2), M('chain', 'tape_grey', 2), M('eye', 'rubber', 1)
+        P.box(bpy, 'body', fur, (0.30, 0.12, 0.13), (0.0, 0, 0.17), bevel=0.045)
+        P.box(bpy, 'chest', fur, (0.11, 0.12, 0.17), (0.12, 0, 0.17), bevel=0.045)
+        P.rod(bpy, 'neck', fur, (0.15, 0, 0.21), (0.21, 0, 0.27), 0.042, verts=10)
+        P.box(bpy, 'head', fur, (0.09, 0.085, 0.075), (0.235, 0, 0.29), bevel=0.028)
+        P.box(bpy, 'snout', dark, (0.1, 0.05, 0.045), (0.31, 0, 0.27), bevel=0.014)
+        for s_ in (-1, 1):
+            P.box(bpy, 'ear', dark, (0.03, 0.02, 0.055), (0.215, s_ * 0.03, 0.345), rot=(0, math.radians(-25), 0), bevel=0.006)
+            P.cyl(bpy, 'eye', eye, 0.008, 0.004, (0.265, s_ * 0.04, 0.3), rot=(math.radians(90), 0, 0), verts=8)
+            for x in (-0.11, 0.12): P.rod(bpy, 'leg', fur, (x, s_ * 0.045, 0.12), (x + 0.012, s_ * 0.045, 0.0), 0.022, verts=8)
+        P.rod(bpy, 'tail', fur, (-0.15, 0, 0.2), (-0.24, 0, 0.27), 0.014, verts=8)
+        P.cyl(bpy, 'collar', dark, 0.048, 0.02, (0.19, 0, 0.245), rot=(0, math.radians(-45), 0), verts=14)
+        P.rod(bpy, 'chain', chain, (0.19, 0.0, 0.225), (0.18, 0.0, 0.09), 0.005, verts=6)
     else:
         raise KeyError(n)
 
@@ -173,7 +204,8 @@ D.OUT = OUT
 D.FACE['wrench'] = 'S'   # a flat tool reads side-on (DIRECTION's flat signs' way)
 D.FACE['map'] = 'S'; D.FACE['hook'] = 'S'
 D.FACE['picks'] = 'S'; D.FACE['pipegun'] = 'S'
-D.FACE['forceps'] = 'S'; D.FACE['spyglass'] = 'S'   # BOSSES 11/14   # BOSSES 11/11: flat things side-on
+D.FACE['forceps'] = 'S'; D.FACE['spyglass'] = 'S'   # BOSSES 11/14
+D.FACE['razor'] = 'S'; D.FACE['needles'] = 'S'; D.FACE['dog'] = 'S'   # BOSSES 11/17   # BOSSES 11/11: flat things side-on
 D.VENV = os.environ.get('BOHEMIA_BPY') or D.VENV
 D.ship_of = ship_of
 D.build = build

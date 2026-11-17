@@ -1,0 +1,36 @@
+{
+ "cut": "PERSON ink_0",
+ "tag": "person_ink_0",
+ "bank": {
+  "kind": "person",
+  "gang": "Ink"
+ },
+ "worn_by": "Ink, rolled",
+ "model": "records/character/rig/barber_person_ink_0.glb",
+ "body": "records/character/rig/person_ink_0.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  1
+ ],
+ "hair_rgb": [
+  29,
+  27,
+  27
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5306,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7226,
+ "pieces": {
+  "h2_razor_skull_shadow": 106889,
+  "h2_razor_skull_scabs": 78,
+  "f1_person_ink_0": 1431
+ }
+}

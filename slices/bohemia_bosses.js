@@ -107,6 +107,9 @@
     if (!S.wagon) S.wagon = {};
     if (!S.tooth) S.tooth = {};
     if (!S.lens) S.lens = {};
+    if (!S.line) S.line = {};
+    if (!S.ink) { S.ink = {}; INK_DIRTY = true; }
+    if (!S.packs) S.packs = {};
     if (DATA) DATA.bosses.forEach(function (r) { if (r.verb && h.boss.fallen[r.n] && !S.verbs[r.verb.id]) grant(r, h.boss.fallen[r.n]); });   /* a save from before this file */
     groundCatchUp();   /* (8) his ground follows WORLD TWO's fallen flag */
     pipeCatchUp();     /* (9) his pipe too */
@@ -118,6 +121,7 @@
     minesCatchUp();    /* (16) and his mines */
     nailsCatchUp();    /* (17) and his nails */
     wagonCatchUp(); toothCatchUp(); lensCatchUp();   /* (18) his wagon, (19) his collectors, (20) his blur */
+    lineCatchUp(); inkCatchUp(); packsCatchUp();      /* (21) his line, (22) his ink, (23) his packs */
     if (NAIL_DIRTY) nailGrid();
     if (MINE_DIRTY) mineGrid();
     if (LOCK_DIRTY) lockGrid();
@@ -182,7 +186,9 @@
   }
   function talk(kind, n, o) {
     var RE = card(); if (!RE) return false;
-    RE.card(o); fitCard();
+    RE.card(o);
+    if (o.text == null || o.text === '') { try { var tx0 = document.querySelector('#roadcard .rctext'); if (tx0) tx0.remove(); } catch (e) {} }   /* rule 454(a): no line, no box */
+    fitCard();
     /* row 611: no press in the card's first beat (a tap meant for what was under it lands on nothing) */
     try { var el0 = document.getElementById('roadcard'); if (el0) { el0.style.pointerEvents = 'none'; el0.setAttribute('data-first-beat', '1');
       setTimeout(function () { try { el0.style.pointerEvents = ''; el0.removeAttribute('data-first-beat'); } catch (e) {} }, FIRST_BEAT_MS); } } catch (e) {}
@@ -208,7 +214,7 @@
     var T = r.lead && r.lead.thing; if (!T) return false;
     var L = lead(r.n), m = mate(), h = hs(), f = h && h.boss.found[r.n];
     L.read = day() + 1; L.thingDue = false; save();
-    return talk('thing', r.n, { look: m.look, name: m.name, from: 'one of yours, at ' + T.what, head: T.head, text: T.says, opts: [
+    return talk('thing', r.n, { look: m.look, name: m.name, from: T.what ? 'one of yours, at ' + T.what : null, head: T.head, text: T.says || '', opts: [
       { t: 'GO TO HIS PLACE', tag: String((r.place && r.place.name) || r.n), fn: function () { closeCard(false); if (f) walkTo([f.x, f.y]); } },
       { t: 'LATER', fn: function () { closeCard(); } }] });
   }
@@ -217,7 +223,8 @@
     var A = r.after; if (!A) return false;
     var L = lead(r.n); L.told = day() + 1; L.afterDue = false; save();
     var V = r.verb || {}, Hd = V.hand || null, src = null;
-    var ok = talk('after', r.n, { look: A.look, name: A.name, from: A.from, head: r.n + ' IS DOWN', text: A.valley || A.says, opts: [{ t: (Hd && A.take) || A.ok || 'GOT IT', tag: V.button || '',
+    var Aw = A.quiet ? mate() : A;   /* rule 454(a): a quiet row's card is one of yours, his thing and what changed, no line */
+    var ok = talk('after', r.n, { look: Aw.look, name: Aw.name, from: A.quiet ? null : A.from, head: r.n + ' IS DOWN', text: A.quiet ? '' : (A.valley || A.says), opts: [{ t: (Hd && A.take) || A.ok || 'GOT IT', tag: V.button || '',
       fn: function () { src = handBox(); HUSH = Date.now() + HUSH_MS; closeCard(); if (Hd) fly(r, src); else camBack(); } }] });   /* the hush before the close (the close redraws, and a redraw asks) */
     if (ok && Hd) handOnCard(r, Hd);
     if (ok) groundOnCard(r);
@@ -232,7 +239,7 @@
       d.style.cssText = 'display:flex;gap:10px;align-items:center;margin-top:8px;padding:6px 8px;background:rgba(10,8,6,.55);box-shadow:inset 0 0 0 1px #4a3a26';
       d.innerHTML = '<img alt="" src="boss_places/' + String(Hd.pic).replace(/[^\w.]/g, '') + '" style="width:56px;height:56px;flex:none">'
         + '<div style="min-width:0"><div style="font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:1px;color:#e2b45a">' + String(Hd.name).replace(/[<>&]/g, '') + ' IS YOURS' + (whereWords(r) ? ': ' + whereWords(r) : '') + '</div>'
-        + '<div style="margin-top:3px;font:400 11px BohemiaROM,ui-monospace,monospace;line-height:1.35;color:#ecdfc2">' + String(Hd.line).replace(/[<>&]/g, '') + '</div></div>';
+        + (Hd.line ? '<div style="margin-top:3px;font:400 11px BohemiaROM,ui-monospace,monospace;line-height:1.35;color:#ecdfc2">' + String(Hd.line).replace(/[<>&]/g, '') + '</div>' : '') + '</div>';
       tx.parentNode.insertBefore(d, tx.nextSibling);
       if (root.__BOSS_CARD) root.__BOSS_CARD.hand = { name: Hd.name, line: Hd.line, pic: Hd.pic, where: whereWords(r) || null };
     } catch (e) { LAST.err = String(e && e.message || e); }
@@ -242,7 +249,7 @@
   /* (8) under it, what his ground did, in one plain line with its numbers (the streets open, his till) */
   function groundOnCard(r) {
     try {
-      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) g = S && S.machines && S.machines[r.n]; if (!g || !g.said) g = S && S.dark && S.dark[r.n]; if (!g || !g.said) g = S && S.hole && S.hole[r.n]; if (!g || !g.said) g = S && S.riggers && S.riggers[r.n]; if (!g || !g.said) g = S && S.curfew && S.curfew[r.n]; if (!g || !g.said) g = S && S.mines && S.mines[r.n]; if (!g || !g.said) g = S && S.nails && S.nails[r.n]; if (!g || !g.said) g = S && S.wagon && S.wagon[r.n]; if (!g || !g.said) g = S && S.tooth && S.tooth[r.n]; if (!g || !g.said) g = S && S.lens && S.lens[r.n]; if (!g || !g.said) return;   /* (8) his ground, (9) his pipe, (10) his machines or (11) his dark */
+      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) g = S && S.machines && S.machines[r.n]; if (!g || !g.said) g = S && S.dark && S.dark[r.n]; if (!g || !g.said) g = S && S.hole && S.hole[r.n]; if (!g || !g.said) g = S && S.riggers && S.riggers[r.n]; if (!g || !g.said) g = S && S.curfew && S.curfew[r.n]; if (!g || !g.said) g = S && S.mines && S.mines[r.n]; if (!g || !g.said) g = S && S.nails && S.nails[r.n]; if (!g || !g.said) g = S && S.wagon && S.wagon[r.n]; if (!g || !g.said) g = S && S.tooth && S.tooth[r.n]; if (!g || !g.said) g = S && S.lens && S.lens[r.n]; if (!g || !g.said) g = S && S.line && S.line[r.n]; if (!g || !g.said) g = S && S.ink && S.ink[r.n]; if (!g || !g.said) g = S && S.packs && S.packs[r.n]; if (!g || !g.said) return;   /* (8) his ground, (9) his pipe, (10) his machines or (11) his dark */
       var el = document.getElementById('roadcard'), at = el && (el.querySelector('.rchand') || el.querySelector('.rctext')); if (!at) return;
       var d = document.createElement('div'); d.className = 'rcground'; d.setAttribute('data-draft', 'true');
       d.style.cssText = 'margin-top:6px;padding:5px 8px;background:rgba(10,8,6,.45);box-shadow:inset 0 0 0 1px #3a2e20;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;line-height:1.35;color:#e2b45a';
@@ -426,6 +433,25 @@
       var lv = S.verbs[id].last; if (lv != null && day() - lv < (V.cooldown_days || 1)) return { id: id, off: true, why: 'cooling' };
       return { id: id };
     }
+    /* BOSSES 11/17: THE BARBER's razor (on a town's doorstep, a battery's bleach, once a day), THE INK's needles (at your place or his,
+       a man a day until every man carries it), THE DOGS' dog (while a boss's sign is out and unread, once a day) */
+    if (id === 'fade') {
+      if (!hisPlace('fade', x, y) && !(nearTown(x, y, 2) && !nearTown(x, y, 1))) return null;
+      var lf = S.verbs.fade.last; if (lf != null && day() - lf < (V.cooldown_days || 1)) return { id: id, off: true, why: 'cooling' };
+      var bal = 0; try { bal = BohemiaPurse.balance(purseGet(), 'electricity') | 0; } catch (e) {} if (bal < (V.cost | 0 || 1)) return { id: id, off: true, why: 'no batteries' };
+      return { id: id };
+    }
+    if (id === 'mark') {
+      if (!hisPlace('mark', x, y) && !homeNear(x, y)) return null;
+      if (!unmarked()) return { id: id, off: true, why: 'every man carries it' };
+      var lk = S.verbs.mark.last; if (lk != null && day() - lk < (V.cooldown_days || 1)) return { id: id, off: true, why: 'cooling' };
+      return { id: id };
+    }
+    if (id === 'track') {
+      var hh = hs(), sgn = hh && hh.boss.sign; if (!sgn || hh.boss.found[sgn.n] || nearTown(x, y, 1)) return null;
+      var lt = S.verbs.track.last; if (lt != null && day() - lt < (V.cooldown_days || 1)) return { id: id, off: true, why: 'cooling' };
+      return { id: id };
+    }
     if (id === 'weld') {
       if (!hisPlace('weld', x, y) && !nearKind(x, y, V.scrap_districts || [])) return null;
       var ld = S.verbs.weld.last; if (ld != null && day() - ld < (V.cooldown_days || 1)) return { id: id, off: true, why: 'cooling' };
@@ -495,10 +521,13 @@
     if (id === 'press') { got = weldGun(V); S.verbs.press.last = day(); }
     if (id === 'fix') { got = fixTooth(); S.verbs.fix.last = day(); }
     if (id === 'look') { got = lookFar(h[0], h[1], V.reach || 12); S.verbs.look.last = day(); }
+    if (id === 'fade') { got = fadeUp(V); S.verbs.fade.last = day(); }
+    if (id === 'mark') { got = markMan(V); S.verbs.mark.last = day(); }
+    if (id === 'track') { got = trackSign(h); S.verbs.track.last = day(); }
     if (id === 'pick') { got = { paid: V.pay_batteries | 0 }; try { if (got.paid > 0) BohemiaPurse.credit(purseGet(), 'electricity', got.paid, 'a locked door on ' + w, 'boss-verb:pick:' + h[0] + ',' + h[1], day()); } catch (e) { got.paid = 0; } }
-    var nums = { where: w, name: (got && got.name) || '', NAME: String((got && got.name) || '').toUpperCase(), healed: (got && got.healed) | 0, men: (got && got.men) | 0, paid: (got && got.paid) | 0, blocks: (got && got.blocks) | 0 };
+    var nums = { where: w, name: (got && got.name) || '', NAME: String((got && got.name) || '').toUpperCase(), healed: (got && got.healed) | 0, men: (got && got.men) | 0, paid: (got && got.paid) | 0, blocks: (got && got.blocks) | 0, clout: (got && got.clout) | 0 };
     nums.wounds = nums.men + (nums.men === 1 ? ' wound' : ' wounds'); nums.WOUNDS = nums.wounds.toUpperCase();   /* '1 wound', never '1 wounds' */
-    var none = (id === 'cook' && !nums.healed) || (id === 'purify' && !nums.men) || (id === 'survey' && !nums.blocks) || ((id === 'climb' || id === 'pick') && !nums.paid) || (id === 'blow' && !nums.blocks) || ((id === 'weld' || id === 'press') && !(got && got.made)) || (id === 'fix' && !(got && got.name)) || (id === 'look' && !nums.blocks), F = V.first || {};   /* nothing to heal: say so plainly, never '0 blood back' */
+    var none = (id === 'cook' && !nums.healed) || (id === 'purify' && !nums.men) || (id === 'survey' && !nums.blocks) || ((id === 'climb' || id === 'pick') && !nums.paid) || (id === 'blow' && !nums.blocks) || ((id === 'weld' || id === 'press') && !(got && got.made)) || (id === 'fix' && !(got && got.name)) || (id === 'look' && !nums.blocks) || ((id === 'fade' || id === 'mark') && !nums.clout) || (id === 'track' && !nums.blocks), F = V.first || {};   /* nothing to heal: say so plainly, never '0 blood back' */
     var mk = { k: id, x: h[0], y: h[1], day: day(), first: first ? fill((none && F.plate_none) || F.plate, nums) : null, t: Date.now() };
     if (id === 'climb') { var tw = towerOf(h[0], h[1]); if (tw) { mk.tx = tw[0]; mk.ty = tw[1]; } }
     if (id === 'pick') { var dr = doorOf(h[0], h[1]); if (dr) { mk.tx = dr[0]; mk.ty = dr[1]; } }
@@ -506,11 +535,11 @@
     S.marks.push(mk);
     S.verbs[id].uses = (S.verbs[id].uses | 0) + 1;
     save();
-    var said = first && (F.feed || F.feed_none) ? fill((none && F.feed_none) || F.feed, nums)
+    var said = V.quiet ? '' : first && (F.feed || F.feed_none) ? fill((none && F.feed_none) || F.feed, nums)
       : V.says + (id === 'cook' && got ? (got.men ? ' ' + got.healed + ' blood back across ' + got.men + (got.men === 1 ? ' man.' : ' men.') : ' Nobody was hurt; they eat anyway.')
       : id === 'open' && got ? (got.paid ? ' +' + got.paid + ' batteries.' : '') : id === 'purify' && got ? (got.men ? ' ' + got.men + (got.men === 1 ? ' wound' : ' wounds') + ' closing sooner.' : ' Nobody is wounded right now.')
       : id === 'survey' && got ? ' ' + got.blocks + (got.blocks === 1 ? ' block' : ' blocks') + ' out of the fog.' : (id === 'climb' || id === 'pick') && got ? (got.paid ? ' +' + got.paid + ' batteries.' : '') : id === 'blow' && got ? (got.blocks ? ' ' + got.blocks + ' blocks shorter.' : '') : id === 'weld' && got ? (got.made ? ' A pipe gun in your bag.' : ' Your bag is full.') : id === 'press' && got ? (got.made ? ' A plate in your bag.' : ' Your bag is full.') : id === 'fix' && got ? (got.name ? ' ' + got.name + ' can stand again.' : '') : id === 'look' && got ? ' ' + got.blocks + ' blocks seen down the streets.' : '');
-    feed('@yourcompany', said, 'mine');   /* draft:true: the company's own post, on the phone */
+    if (said) feed('@yourcompany', said, 'mine');   /* draft:true: the company's own post, on the phone (rule 454(a): a quiet verb posts nothing) */
     if (V.feed) feed(V.feed.who, fill(V.feed.txt, nums), 'world');
     var rise = fill((none && F.rise_none) || F.rise || '', nums);   /* (7) the change plays where he stands, the number rises off his men */
     if (rise) useBeat(id, id === 'blow' && got && got.at ? got.at : h, rise);
@@ -2019,6 +2048,289 @@
     return { blocks: n };
   }
 
+  /* ---------- (21) HIS LINE (BOSSES 11/17, the coordinator's round 'BOSSES full sweep', rules 441, 453, 454(a); ask lines 167, 522, 571;
+     records/BOHEMIA_BOSSES_THIRTEEN_TO_FIFTEEN_11_17_26.md). THE BARBER, the ladder's 13th (the chair, the blade, the bleach). WHILE HE
+     STANDS his red and white stripe is painted across every street 'radius' blocks out from his door (never in a town) and his razor men
+     stand on it: the crew crossing his line has a man cut ('cut_hp' of the condition's own blood off the man with the most left, never
+     below one), once in 'every_mins' of the game's own clock. Not a wall, not a toll, not a time cost: BLOOD AT A BORDER. WHEN HE FALLS
+     the stripe is painted over grey and nobody stands on it, kept after a reload. Made with what he does, not with talk (rule 454(a)). */
+  var LINE_PREV = null;
+  function lineRow(n) { var r = row(n); return r && r.line ? r : null; }
+  function lineDown(k, Q) { var h = hs(); return Q.fell != null || !!(h && h.boss.fallen[k]); }
+  function makeLine(r, at) {
+    var R = Math.max(2, r.line.radius | 0 || 4), ring = [];
+    for (var dy = -R; dy <= R; dy++) for (var dx = -R; dx <= R; dx++) {
+      if (Math.max(Math.abs(dx), Math.abs(dy)) !== R) continue;
+      var x = at[0] + dx, y = at[1] + dy; if (!rawWalk(x, y) || nearTown(x, y, 1)) continue;
+      ring.push([x, y]);
+    }
+    return { at: at.slice(), radius: R, ring: ring, cuts: 0, lastCut: null, fell: null, told: null, made: day(), draft: true };
+  }
+  /* the condition's own blood off the man with the most left, never below one (a cut, a bite: he walks on, the next fight feels it) */
+  function bleed(hp, why) {
+    var C = root.BohemiaCondition; if (!C || !C.get || !C.KEY) return null;
+    var s = C.get(), best = null, bk = null, left = -1;
+    for (var k in s.men) { var m = s.men[k]; if (!m || !(m.hpMax > 0)) continue; try { if (C.isDead && C.isDead(k)) continue; } catch (e) {}
+      var l = m.hpMax - (m.lostHp || 0); if (l > left) { left = l; best = m; bk = k; } }
+    if (!best || left <= 1) return { name: null, hp: 0 };
+    var took = Math.min(Math.max(1, hp | 0), left - 1); best.lostHp = (best.lostHp || 0) + took;
+    try { root.localStorage.setItem(C.KEY, JSON.stringify(s)); } catch (e) {}
+    try { root.dispatchEvent(new CustomEvent('bohemia:condition', { detail: { cut: bk, why: why } })); } catch (e) {}
+    return { name: best.shown || bk, k: bk, hp: took };
+  }
+  function lineTick() {
+    if (!DATA || !S || bench() || !N()) return;
+    var h = hs(); if (!h) return;
+    if (!S.line) S.line = {};
+    DATA.bosses.forEach(function (r) {
+      if (!r.line || S.line[r.n]) return;
+      var sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign : null, f = h.boss.found[r.n], at = f || (sg && sg.boss);
+      if (!at || h.boss.fallen[r.n]) return;
+      try { if (!FOG.ready) return; } catch (e) { return; }
+      S.line[r.n] = makeLine(r, [at.x, at.y]); save();
+      LAST.line = { n: r.n, ring: S.line[r.n].ring.length, at: Date.now() };
+    });
+    var me = here(); if (!me || inTown() || fightUp()) { LINE_PREV = null; return; }
+    var prev = LINE_PREV; LINE_PREV = me.slice();
+    if (!prev || (prev[0] === me[0] && prev[1] === me[1])) return;
+    for (var n in S.line) { var Q = S.line[n], r = lineRow(n); if (!Q || !r || !Q.at || lineDown(n, Q)) continue;
+      var R = Q.radius, d0 = cheb(prev[0], prev[1], Q.at[0], Q.at[1]), d1 = cheb(me[0], me[1], Q.at[0], Q.at[1]);
+      if (!((d1 === R && d0 !== R) || (d0 < R && d1 > R) || (d0 > R && d1 < R))) continue;   /* onto his line, or over it */
+      var now = clockMins(); if (Q.lastCut != null && now - Q.lastCut < (r.line.every_mins | 0 || 60)) continue;
+      var cut = bleed(r.line.cut_hp | 0 || 8, 'line:' + n); if (!cut || !cut.hp) continue;
+      Q.lastCut = now; Q.cuts = (Q.cuts | 0) + 1; if (Q.told == null) Q.told = day(); save();
+      RISES.push({ x: me[0], y: me[1], t0: performance.now(), txt: fill(r.line.rise || '-{hp}', { hp: cut.hp }), col: '#e0574a' }); tick();
+      LAST.lineCut = { n: n, at: me.slice(), name: cut.name, hp: cut.hp, t: Date.now() }; root.__BOSS_LINE_CUT = LAST.lineCut;
+    }
+  }
+  function lineFell(r, h) {
+    var G = r.line; if (!G || !S) return null;
+    if (!S.line) S.line = {};
+    var Q = S.line[r.n]; if (!Q) Q = S.line[r.n] = { at: null, radius: G.radius | 0 || 4, ring: [], cuts: 0, lastCut: null, fell: null, told: null, made: day(), draft: true };
+    if (Q.fell != null) return Q;
+    Q.fell = day();
+    Q.said = Q.ring.length ? fill(G.card, { crossings: Q.ring.length, cuts: Q.cuts | 0 }) : (G.card_none || null);
+    save(); LAST.lineFell = { n: r.n, said: Q.said, at: Date.now() };
+    return Q;
+  }
+  function lineCatchUp() { if (!DATA || !S || !S.line) return; var h = hs(); if (!h) return;
+    for (var k in S.line) { var Q = S.line[k]; if (Q && Q.fell == null && h.boss.fallen[k]) { var r = lineRow(k); if (r) lineFell(r, h); } } }
+  function lineKey(r, after) { return (r.line.pic || 'razorline') + (after ? '_after' : '_before'); }
+  function lineDraw(gx, ox, oy, beat) {
+    if (!S || !S.line) return;
+    var h = hs(); LAST.drew.line = [];
+    for (var k in S.line) {
+      var Q = S.line[k], r = lineRow(k); if (!Q || !r || !Q.ring) continue;
+      var fell = lineDown(k, Q), down = fell && !beatOwed(k), inBeat = !!(BEAT && BEAT.n === k), known = !!(h && h.boss.found[k]);
+      Q.ring.forEach(function (q) { var vis = seen(q[0], q[1]); if (!vis && !known) return;
+        if (inBeat && fell) { LAST.drew.line.push({ n: k, at: q.slice(), key: 'beat' }); return; }
+        var key = lineKey(r, down), b = paint(gx, key, q[0], q[1], ox, oy, beat, 0.95, 0, !vis);
+        if (b) { LAST.drew.line.push({ n: k, at: q.slice(), key: key }); LAST.drew.painted++; } });
+    }
+  }
+  function lineBeat(x, ox, oy, beat, u, alpha) {
+    var Q = S && S.line && BEAT && S.line[BEAT.n], r = BEAT && lineRow(BEAT.n); if (!Q || !r) return 0;
+    var c = 0; (Q.ring || []).forEach(function (q) { var bb = rectOf(lineKey(r, true), q[0], q[1], ox, oy, 0.95, 0); if (!bb) return; wipe(x, lineKey(r, false), lineKey(r, true), bb, beat, u, alpha); c++; });
+    return c;
+  }
+
+  /* ---------- (22) HIS INK (BOSSES 11/17). THE INK, the ladder's 14th (the last needles and pigment). WHILE HE STANDS his ink spreads
+     out from his door: 'start' blocks the day he is in the world and 'grow' more each day after, up to 'max'. Every town inside his ink
+     is his (its people carry his mark) and its gate is shut to you: the map's own walk will not go in (cityWalkable wrapped here, the
+     town's blocks; never your own place, never the town the crew stands in or at). The longer he stands, the more of the valley is
+     shut: A STAIN THAT GROWS. His tags stand at the gates he holds, the ground under his ink goes dark. WHEN HE FALLS the gates open,
+     his tags painted over grey, kept after a reload. */
+  var INK_SHUT = null, INK_DAY = null, INK_DIRTY = true;
+  function inkRow(n) { var r = row(n); return r && r.ink ? r : null; }
+  function inkDown(k, Q) { var h = hs(); return Q.fell != null || !!(h && h.boss.fallen[k]); }
+  function inkRadius(Q, G) { return Math.min(G.max | 0 || 8, (G.start | 0 || 2) + (G.grow | 0 || 1) * Math.max(0, day() - (Q.made | 0))); }
+  function mineName() { try { return BohemiaBetween.mine(); } catch (e) { return null; } }
+  function inkTowns(Q, G, R) {   /* the towns inside his ink, never your own place */
+    if (R == null) R = inkRadius(Q, G); var bs = bases(), mine = mineName(), out = [];
+    for (var tn in bs) { var b = bs[tn]; if (!b || tn === mine) continue; var d = cheb(b.x | 0, b.y | 0, Q.at[0], Q.at[1]); if (d > R) continue;
+      var door = null; try { door = townDoor(b.x | 0, b.y | 0); } catch (e) {} out.push({ town: tn, d: d, x: b.x | 0, y: b.y | 0, door: door ? [door[0], door[1]] : [b.x | 0, b.y | 0] }); }
+    return out.sort(function (a, b) { return a.d - b.d; });
+  }
+  function inkGrid() {   /* the town blocks his ink shuts, worked out once a day (the walk asks every block of every route) */
+    var d = day(); if (INK_SHUT && INK_DAY === d && !INK_DIRTY) return INK_SHUT;
+    INK_DAY = d; INK_DIRTY = false; INK_SHUT = {};
+    for (var n in (S && S.ink) || {}) { var Q = S.ink[n], r = inkRow(n); if (!Q || !r || !Q.at || inkDown(n, Q)) continue;
+      inkTowns(Q, r.ink).forEach(function (t) { for (var dy = -1; dy <= 1; dy++) for (var dx = -1; dx <= 1; dx++) INK_SHUT[(t.x + dx) + ',' + (t.y + dy)] = [t.x, t.y]; }); }
+    return INK_SHUT;
+  }
+  function inkAt(x, y) {
+    if (!S || !S.ink) return false; var c = inkGrid()[x + ',' + y]; if (!c) return false;
+    var me = here(); return !(me && cheb(me[0], me[1], c[0], c[1]) <= 1);   /* never shut in: the town the crew stands in or at is not shut round it */
+  }
+  function inkTick() {
+    if (!DATA || !S || bench() || !N()) return;
+    var h = hs(); if (!h) return;
+    if (!S.ink) S.ink = {};
+    DATA.bosses.forEach(function (r) {
+      if (!r.ink || S.ink[r.n]) return;
+      var sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign : null, f = h.boss.found[r.n], at = f || (sg && sg.boss);
+      if (!at || h.boss.fallen[r.n]) return;
+      try { if (!FOG.ready) return; } catch (e) { return; }
+      S.ink[r.n] = { at: [at.x, at.y], made: day(), towns: [], fell: null, told: null, draft: true }; INK_DIRTY = true; save();
+      LAST.ink = { n: r.n, at: Date.now() };
+    });
+    var me = here(); if (!me || inTown() || fightUp()) return;
+    for (var n in S.ink) { var Q = S.ink[n], r = inkRow(n); if (!Q || !r || !Q.at || Q.told != null || inkDown(n, Q)) continue;
+      var R = inkRadius(Q, r.ink); if (cheb(me[0], me[1], Q.at[0], Q.at[1]) > R + 2) continue;
+      Q.told = day(); save();
+      RISES.push({ x: me[0], y: me[1], t0: performance.now(), txt: r.ink.rise || 'HIS INK', col: '#cfc6b0' }); tick();
+      LAST.inkTold = { n: n, at: me.slice(), radius: R, t: Date.now() }; root.__BOSS_INK_TOLD = LAST.inkTold;
+    }
+  }
+  function inkFell(r, h) {
+    var G = r.ink; if (!G || !S) return null;
+    if (!S.ink) S.ink = {};
+    var Q = S.ink[r.n]; if (!Q) Q = S.ink[r.n] = { at: null, made: day(), towns: [], fell: null, told: null, draft: true };
+    if (Q.fell != null) return Q;
+    var T = Q.at ? inkTowns(Q, G) : [];
+    Q.towns = T.map(function (t) { return { town: t.town, door: t.door }; }); Q.radius = Q.at ? inkRadius(Q, G) : 0;
+    Q.fell = day(); INK_DIRTY = true;
+    var o = { towns: T.length + (T.length === 1 ? ' TOWN' : ' TOWNS') };
+    Q.said = T.length ? fill(G.card, o) : (G.card_none || null);
+    save(); LAST.inkFell = { n: r.n, towns: T.length, said: Q.said, at: Date.now() };
+    return Q;
+  }
+  function inkCatchUp() { if (!DATA || !S || !S.ink) return; var h = hs(); if (!h) return;
+    for (var k in S.ink) { var Q = S.ink[k]; if (Q && Q.fell == null && h.boss.fallen[k]) { var r = inkRow(k); if (r) inkFell(r, h); } } }
+  var INKWASH = null;
+  function inkwash(gx) { if (INKWASH) return INKWASH; try { var c = document.createElement('canvas'); c.width = 64; c.height = 64; var x = c.getContext('2d'), d = x.createImageData(64, 64);
+      for (var i = 0; i < d.data.length; i += 4) { var v = 8 + ((Math.random() * 26) | 0); d.data[i] = v; d.data[i + 1] = v + 2; d.data[i + 2] = v + 8; d.data[i + 3] = 255; } x.putImageData(d, 0, 0); INKWASH = gx.createPattern(c, 'repeat'); } catch (e) { INKWASH = 'rgba(14,16,22,1)'; } return INKWASH; }
+  function inkKey(r, after) { return (r.ink.pic || 'inktag') + (after ? '_after' : '_before'); }
+  function inkDraw(gx, ox, oy, beat) {
+    if (!S || !S.ink) return;
+    var h = hs(); LAST.drew.ink = { wash: 0, tags: [] };
+    for (var k in S.ink) {
+      var Q = S.ink[k], r = inkRow(k); if (!Q || !Q.at || !r) continue;
+      var fell = inkDown(k, Q), down = fell && !beatOwed(k), known = !!(h && h.boss.found[k]), inBeat = !!(BEAT && BEAT.n === k);
+      var R = fell ? (Q.radius | 0) : inkRadius(Q, r.ink);
+      if (!down && !(inBeat && fell)) { gx.save(); gx.globalAlpha = 0.30; gx.fillStyle = inkwash(gx);   /* the ground under his ink goes dark */
+        for (var dy = -R; dy <= R; dy++) for (var dx = -R; dx <= R; dx++) { var x = Q.at[0] + dx, y = Q.at[1] + dy; if (!seen(x, y) && !known) continue; diamond(gx, x, y, ox, oy); gx.fill(); LAST.drew.ink.wash++; }
+        gx.restore(); }
+      var T = fell ? (Q.towns || []) : inkTowns(Q, r.ink, R);
+      T.forEach(function (t) { var q = t.door, vis = seen(q[0], q[1]); if (!vis && !known) return;
+        if (inBeat && fell) { LAST.drew.ink.tags.push({ town: t.town, at: q.slice(), key: 'beat' }); return; }
+        var key = inkKey(r, down), b = paint(gx, key, q[0], q[1], ox, oy, beat, 0.95, 0, !vis);
+        if (b) { LAST.drew.ink.tags.push({ town: t.town, at: q.slice(), key: key }); LAST.drew.painted++; } });
+    }
+  }
+  function inkBeat(x, ox, oy, beat, u, alpha) {
+    var Q = S && S.ink && BEAT && S.ink[BEAT.n], r = BEAT && inkRow(BEAT.n); if (!Q || !r) return 0;
+    var c = 0; (Q.towns || []).forEach(function (t) { var bb = rectOf(inkKey(r, true), t.door[0], t.door[1], ox, oy, 0.95, 0); if (!bb) return; wipe(x, inkKey(r, false), inkKey(r, true), bb, beat, u, alpha); c++; });
+    return c;
+  }
+
+  /* ---------- (23) HIS PACKS (BOSSES 11/17). THE DOGS, the ladder's 15th (the last kennel in the valley). WHILE HE STANDS his 'packs'
+     sleep in his runs by day and come out at night onto the streets round his kennel (within 'radius'); a pack that smells the crew
+     ('smell' blocks) comes at it a block every 'step_mins' of the game's own clock, and one that reaches the crew bites a man ('bite_hp'
+     of the condition's own blood, never below one, a pack at most once in 'every_mins'). You cannot watch and sleep at the same time:
+     THE NIGHT HAS TEETH near him. WHEN HE FALLS the runs are open and empty, a stake and a broken chain where each pack slept. */
+  function packsRow(n) { var r = row(n); return r && r.packs ? r : null; }
+  function packsDown(k, Q) { var h = hs(); return Q.fell != null || !!(h && h.boss.fallen[k]); }
+  function packsTick() {
+    if (!DATA || !S || bench() || !N()) return;
+    var h = hs(); if (!h) return;
+    if (!S.packs) S.packs = {};
+    DATA.bosses.forEach(function (r) {
+      if (!r.packs || S.packs[r.n]) return;
+      var sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign : null, f = h.boss.found[r.n], at = f || (sg && sg.boss);
+      if (!at || h.boss.fallen[r.n]) return;
+      try { if (!FOG.ready) return; } catch (e) { return; }
+      var G = r.packs, c = spots([at.x, at.y], 2, Math.max(3, G.radius | 0 || 6), Math.max(1, G.packs | 0 || 3), sg ? [sg.x, sg.y] : here(), 0x2545f491);
+      S.packs[r.n] = { at: [at.x, at.y], packs: c.map(function (q) { return { home: [q.x, q.y], pos: [q.x, q.y], moved: null, bit: null }; }), bites: 0, fell: null, told: null, made: day(), draft: true }; save();
+      LAST.packs = { n: r.n, packs: S.packs[r.n].packs.length, at: Date.now() };
+    });
+    var me = here(); if (!me || inTown() || fightUp()) return;
+    var nt = night(), now = clockMins(), dirty = false;
+    for (var n in S.packs) { var Q = S.packs[n], r = packsRow(n); if (!Q || !r || packsDown(n, Q)) continue;
+      var G = r.packs, R = (G.radius | 0 || 6) + 2, step = Math.max(1, G.step_mins | 0 || 10);
+      Q.packs.forEach(function (p) {
+        if (!nt) { if (p.moved != null || p.pos[0] !== p.home[0] || p.pos[1] !== p.home[1]) { p.pos = p.home.slice(); p.moved = null; dirty = true; } return; }   /* by day they sleep in his runs */
+        if (p.moved == null) { p.moved = now; dirty = true; }
+        for (var g = 0; g < 24 && now - p.moved >= step; g++) {   /* a block a step: at the crew when it smells them (near his kennel), else home */
+          p.moved += step; dirty = true;
+          var smell = cheb(p.pos[0], p.pos[1], me[0], me[1]) <= (G.smell | 0 || 3) && cheb(me[0], me[1], Q.at[0], Q.at[1]) <= R;
+          var tgt = smell ? me : p.home; if (cheb(p.pos[0], p.pos[1], tgt[0], tgt[1]) <= (smell ? 1 : 0)) continue;
+          var path = null; try { path = cityRoute(p.pos[0], p.pos[1], tgt[0], tgt[1]); } catch (e) { path = null; }
+          if (!path || path.length < 2) break; p.pos = [path[1][0], path[1][1]];
+        }
+        if (cheb(p.pos[0], p.pos[1], me[0], me[1]) <= 1 && (p.bit == null || now - p.bit >= (G.every_mins | 0 || 120))) {
+          var cut = bleed(G.bite_hp | 0 || 10, 'packs:' + n); if (!cut || !cut.hp) return;
+          p.bit = now; Q.bites = (Q.bites | 0) + 1; dirty = true;
+          RISES.push({ x: me[0], y: me[1], t0: performance.now(), txt: fill(G.rise || '-{hp}', { hp: cut.hp }), col: '#e0574a' }); tick();
+          LAST.packBite = { n: n, at: me.slice(), pack: p.pos.slice(), name: cut.name, hp: cut.hp, t: Date.now() }; root.__BOSS_PACK_BITE = LAST.packBite;
+        }
+      });
+      if (nt && Q.told == null && Q.packs.some(function (p) { return cheb(p.pos[0], p.pos[1], me[0], me[1]) <= 4 && sees(p.pos[0], p.pos[1]); })) {
+        Q.told = day(); dirty = true; RISES.push({ x: me[0], y: me[1], t0: performance.now(), txt: G.told || 'HIS DOGS', col: '#e6dcc4' }); tick(); }
+    }
+    if (dirty) save();
+  }
+  function packsFell(r, h) {
+    var G = r.packs; if (!G || !S) return null;
+    if (!S.packs) S.packs = {};
+    var Q = S.packs[r.n]; if (!Q) Q = S.packs[r.n] = { at: null, packs: [], bites: 0, fell: null, told: null, made: day(), draft: true };
+    if (Q.fell != null) return Q;
+    Q.fell = day();
+    Q.said = Q.packs.length ? fill(G.card, { packs: Q.packs.length }) : (G.card_none || null);
+    save(); LAST.packsFell = { n: r.n, said: Q.said, at: Date.now() };
+    return Q;
+  }
+  function packsCatchUp() { if (!DATA || !S || !S.packs) return; var h = hs(); if (!h) return;
+    for (var k in S.packs) { var Q = S.packs[k]; if (Q && Q.fell == null && h.boss.fallen[k]) { var r = packsRow(k); if (r) packsFell(r, h); } } }
+  function packsKey(r, after) { return (r.packs.pic || 'pack') + (after ? '_after' : '_before'); }
+  function packsDraw(gx, ox, oy, beat) {
+    if (!S || !S.packs) return;
+    var h = hs(), nt = night(); LAST.drew.packs = [];
+    for (var k in S.packs) {
+      var Q = S.packs[k], r = packsRow(k); if (!Q || !r) continue;
+      var fell = packsDown(k, Q), down = fell && !beatOwed(k), inBeat = !!(BEAT && BEAT.n === k), known = !!(h && h.boss.found[k]);
+      Q.packs.forEach(function (p) {
+        if (!down && !inBeat && !nt) return;   /* by day his dogs are in the runs: the street is empty */
+        var q = down || inBeat ? p.home : p.pos, vis = seen(q[0], q[1]); if (!vis && !(known && down)) return;
+        if (inBeat && fell) { LAST.drew.packs.push({ n: k, at: q.slice(), key: 'beat' }); return; }
+        var key = packsKey(r, down), b = paint(gx, key, q[0], q[1], ox, oy, beat, 0.95, 0, !vis);
+        if (b) { LAST.drew.packs.push({ n: k, at: q.slice(), key: key }); LAST.drew.painted++; } });
+    }
+  }
+  function packsBeat(x, ox, oy, beat, u, alpha) {
+    var Q = S && S.packs && BEAT && S.packs[BEAT.n], r = BEAT && packsRow(BEAT.n); if (!Q || !r) return 0;
+    var c = 0; (Q.packs || []).forEach(function (p) { var bb = rectOf(packsKey(r, true), p.home[0], p.home[1], ox, oy, 0.95, 0); if (!bb) return; wipe(x, packsKey(r, false), packsKey(r, true), bb, beat, u, alpha); c++; });
+    return c;
+  }
+  /* (FADE) his razor and his bleach: on a town's doorstep, a battery's worth of real materials, the crew walks in looking sharp and the
+     valley's name for you (CLOUT, BohemiaRenown: Battle Brothers' Renown) goes up; once a day */
+  function clout(n, why, key) { var R = root.BohemiaRenown; if (!R || !R.add) return 0; var a = R.score(); R.add(n, why, key); return Math.max(0, R.score() - a); }
+  function fadeUp(V) {
+    var cost = V.cost | 0 || 1, paid = 0;
+    try { var p0 = BohemiaPurse.debit(purseGet(), 'electricity', cost, 'a fade and the bleach', 'boss-verb:fade:' + day(), day()); paid = (p0 && p0.applied === false) ? 0 : cost; } catch (e) { paid = 0; }
+    if (!paid) return { clout: 0, paid: 0 };
+    return { clout: clout(V.clout | 0 || 25, 'a fresh fade', 'boss-fade:' + day()), paid: paid };
+  }
+  /* (MARK) his needles: at your place, one man a day takes the company's mark for good, and the valley reads it (CLOUT, once a man) */
+  function homeNear(x, y) { try { var r = BohemiaHomeMap.rec(); return !!(r && r.planted && cheb(r.planted.x | 0, r.planted.y | 0, x, y) <= 1); } catch (e) { return false; } }
+  function unmarked() { var C = root.BohemiaCondition; if (!C || !C.get) return null; var s = C.get(), have = (S.verbs.mark && S.verbs.mark.men) || [];
+    for (var k in s.men) { var m = s.men[k]; if (!m || !(m.hpMax > 0) || have.indexOf(k) >= 0) continue; try { if (C.isDead && C.isDead(k)) continue; } catch (e) {} return { k: k, name: m.shown || k }; } return null; }
+  function markMan(V) { var u = unmarked(); if (!u) return { name: null, clout: 0 };
+    if (!S.verbs.mark.men) S.verbs.mark.men = []; S.verbs.mark.men.push(u.k);
+    return { name: u.name, clout: clout(V.clout | 0 || 50, 'the company\'s mark', 'boss-mark:' + u.k), men: S.verbs.mark.men.length }; }
+  /* (TRACK) his dog walks with you: while a boss's sign is out and unread, it finds the trail to it (the fog lifts on the sign and along
+     the way there); once a day */
+  function trackSign(h) {
+    var hh = hs(), sg = hh && hh.boss.sign; if (!sg) return { blocks: 0 };
+    var p = null; try { p = cityRoute(h[0], h[1], sg.x, sg.y); } catch (e) { p = null; }
+    var n0 = 0; try { if (typeof fogReveal === 'function') { var was = []; (p || []).concat([[sg.x, sg.y]]).forEach(function (q) { was.push([q[0], q[1], seen(q[0], q[1])]); });
+      fogReveal(sg.x, sg.y, 1.5); (p || []).forEach(function (q, i) { if (i % 2 === 0) fogReveal(q[0], q[1], 0.6); });
+      was.forEach(function (w) { if (!w[2] && seen(w[0], w[1])) n0++; }); }
+      if (typeof fogSave === 'function') fogSave(); } catch (e) { LAST.err = String(e && e.message || e); }
+    S.track = { n: sg.n, at: [sg.x, sg.y], day: day(), blocks: p ? p.length - 1 : cheb(h[0], h[1], sg.x, sg.y) };
+    return { blocks: S.track.blocks, at: [sg.x, sg.y], lifted: n0, n: sg.n };
+  }
+
   /* ---------- (14) WHAT HE GIVES STANDS IN YOUR SETTLEMENT (BOSSES 11/10, VAMILY rule 445, ask line 571; Paolo: 'what the bosses give us
      after they die... everything will be in our own custom settlement that we build from the ground up'). The boss still changes the map
      his own way; the thing he hands you (his verb's hand: his fuel, his map, his hook) goes to the place you planted through HOME BASE's
@@ -2049,7 +2361,7 @@
   /* the walk refuses a shut street (the map's own walk, wrapped the way WORLD 7's shut roads wrap it; nothing shut on the bench) */
   if (typeof root.cityWalkable === 'function') {
     RAW_WALK = root.cityWalkable;
-    root.cityWalkable = function (x, y) { if (shutAt(x, y) || lockAt(x, y) || mineShut(x, y) || wagonAt(x, y)) return false; if (blownAt(x, y)) return true; return RAW_WALK(x, y); };   /* (15) his gates at night, (16) a mine you spotted, and a hole you blew */
+    root.cityWalkable = function (x, y) { if (shutAt(x, y) || lockAt(x, y) || mineShut(x, y) || wagonAt(x, y) || inkAt(x, y)) return false; if (blownAt(x, y)) return true; return RAW_WALK(x, y); };   /* (15) his gates at night, (16) a mine you spotted, and a hole you blew */
   }
 
   /* (17) the map's own minutes a block costs: his nails three times, his road after him faster than plain ground (cityStepMins
@@ -2104,7 +2416,7 @@
        building beside him, and his place was painted under his own men; it stands on the block behind him (up the screen) instead */
     return [at.x - 1, at.y - 1];
   }
-  var PROP = { cook: 'fire', open: 'main_after', purify: 'clean', burn: 'barrel', survey: 'stake', climb: 'rope', pick: 'cutlock', blow: 'rubble', weld: 'weldbench', press: 'pressplate', fix: 'pulled', look: 'spyglass' }, MARK_OFF = [0.34, 0.16];
+  var PROP = { cook: 'fire', open: 'main_after', purify: 'clean', burn: 'barrel', survey: 'stake', climb: 'rope', pick: 'cutlock', blow: 'rubble', weld: 'weldbench', press: 'pressplate', fix: 'pulled', look: 'spyglass', fade: 'fadepole', mark: 'inkmark', track: 'pawprints' }, MARK_OFF = [0.34, 0.16];
 
   /* ---------- (5) THE MOMENT HE FALLS: the camera, the change over his men, then her line ---------- */
   var BEAT = null, UB = null, OV = null, RAF = 0;
@@ -2213,6 +2525,7 @@
         try { LAST.beat.mines = minesBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (16) his mines dug up */
         try { LAST.beat.nails = nailsBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (17) his nails swept */
         try { LAST.beat.wagon = wagonBeat(x, ox, oy, beat, u, fade); LAST.beat.collectors = toothBeat(x, ox, oy, beat, u, fade); LAST.beat.charts = lensBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (18) (19) (20) */   /* (13) the people he kept come down */   /* (8) his checkpoints roll open on the same tape */
+        try { LAST.beat.line = lineBeat(x, ox, oy, beat, u, fade); LAST.beat.ink = inkBeat(x, ox, oy, beat, u, fade); LAST.beat.packs = packsBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (21) (22) (23) */
         wipe(x, paintKey(r, false), paintKey(r, true), b, beat, u, fade);
         LAST.beat.rect = { x: b.x, y: b.y, w: b.w, h: b.h, cssW: Math.round(b.w / ppc()) }; LAST.beat.u = Math.round(u * 100) / 100;
         try { var F = mapFocus(); LAST.beat.focus = [Math.round(F.x), Math.round(F.y)]; LAST.beat.mid = [Math.round(b.x + b.w / 2), Math.round(b.y + b.h / 2)]; } catch (e) {}
@@ -2274,6 +2587,9 @@
       try { wagonTick(); wagonDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (18) his wagon on its road */
       try { toothDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (19) his collectors at the gates */
       try { lensTick(); lensDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (20) his haze by day */
+      try { inkTick(); inkDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (22) his ink, the gates he holds */
+      try { lineTick(); lineDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (21) his line across the streets */
+      try { packsTick(); packsDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (23) his packs at night */
       DATA.bosses.forEach(function (r) {
         var f = h.boss.found[r.n], sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign.boss : null, at = f || sg; if (!at) return;
         var pa = placeAt(at), bx = pa[0], by = pa[1];
@@ -2316,6 +2632,7 @@
     if (r.mines) minesFell(r, h);   /* (16) his mines dug up */
     if (r.nails) nailsFell(r, h);   /* (17) his nails swept, his road */
     if (r.wagon) wagonFell(r, h); if (r.tooth) toothFell(r, h); if (r.lens) lensFell(r, h);   /* (18) (19) (20) */
+    if (r.line) lineFell(r, h); if (r.ink) inkFell(r, h); if (r.packs) packsFell(r, h);   /* (21) (22) (23) */
     var L = lead(r.n); L.afterDue = true; save();
     try { if (typeof render === 'function') render(); } catch (e) {}
   });
@@ -2375,6 +2692,12 @@
     wagonNow: function (n) { sync(); var W = S && S.wagon && S.wagon[n], r = wagonRow(n); return W && r && W.path.length ? W.path[wagonDown(n, W) ? 0 : wagonIdx(W, r.wagon)].slice() : null; },
     tooth: function (n) { sync(); return S && S.tooth ? (n ? (S.tooth[n] || null) : S.tooth) : null; }, toothTick: function () { sync(); return toothTick(); },
     lens: function (n) { sync(); return S && S.lens ? (n ? (S.lens[n] || null) : S.lens) : null; }, blurAt: function (x, y) { sync(); return blurAt(x, y); },
+    line: function (n) { sync(); return S && S.line ? (n ? (S.line[n] || null) : S.line) : null; }, lineTick: function () { sync(); return lineTick(); },   /* (21) */
+    ink: function (n) { sync(); return S && S.ink ? (n ? (S.ink[n] || null) : S.ink) : null; }, inkAt: function (x, y) { sync(); return inkAt(x, y); },   /* (22) */
+    inkTowns: function (n) { sync(); var Q = S && S.ink && S.ink[n], r = inkRow(n); return Q && r && Q.at ? inkTowns(Q, r.ink).map(function (t) { return t.town; }) : []; },
+    inkRadius: function (n) { sync(); var Q = S && S.ink && S.ink[n], r = inkRow(n); return Q && r ? inkRadius(Q, r.ink) : 0; }, inkDirty: function () { INK_DIRTY = true; },
+    packs: function (n) { sync(); return S && S.packs ? (n ? (S.packs[n] || null) : S.packs) : null; }, packsTick: function () { sync(); return packsTick(); },   /* (23) */
+    track: function () { sync(); return S ? (S.track || null) : null; },
     rawStep: function (x, y) { try { return RAW_STEP ? RAW_STEP(x, y) : cityStepMins(x, y); } catch (e) { return null; } },
     /* row 611, for the gate: whether a card may open now, and a card opened through this file's own door */
     canTalk: function () { return canTalk(); }, talkTest: function (o) { return talk('test', 'TEST', o); },

@@ -1,0 +1,353 @@
+{
+ "look": "PERSON_INK_0",
+ "shape": "person_ink_0: THE INK: the last needles and pigment; a black tank under a leather vest, black denim, a bare skull, ink down both arms and round his neck, the needle, his own skin skin_deep 3, BONE TANK under LEATHER VEST",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE TANK",
+  "outer": "LEATHER VEST",
+  "legs": "BLACK DENIM",
+  "feet": "TALL MOTO BOOTS",
+  "waist": "LEATHER BELT",
+  "outfit": [
+   "BLACK TANK read as one with LEATHER VEST (42 and 69 of 255): the same cut in BONE TANK (154)",
+   "LEATHER VEST worn open to the neck",
+   "the tank's hem below the vest"
+  ]
+ },
+ "dials": {
+  "height": 0.35,
+  "belly": 0.15,
+  "shoulders": 0.85,
+  "hips": 0.2
+ },
+ "layers": {
+  "base": {
+   "under": "VEST",
+   "hem_drop": 0.04
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0028,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
+ },
+ "model": "records/character/rig/person_ink_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7501,
+ "real_height_for_rig": 1.7563,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_ink_0_shoe": 4484,
+  "person_ink_0_shirt": 20404,
+  "person_ink_0_tail": 2016,
+  "person_ink_0_coat": 20706,
+  "person_ink_0_lapels": 396,
+  "person_ink_0_zip": 324,
+  "person_ink_0_ink_sleeve_0": 1536,
+  "person_ink_0_ink_sleeve_1": 1536,
+  "person_ink_0_ink_sleeve_2": 1536,
+  "person_ink_0_ink_sleeve_3": 1536,
+  "person_ink_0_ink_sleeve_4": 1536,
+  "person_ink_0_ink_sleeve_5": 1536,
+  "person_ink_0_ink_sleeve_6": 1536,
+  "person_ink_0_ink_neck": 1344,
+  "person_ink_0_ink_pole": 20,
+  "person_ink_0_ink_needle": 68,
+  "person_ink_0_ink_wire": 20,
+  "person_ink_0_trouser": 43706,
+  "person_ink_0_rolled_hem": 2048,
+  "person_ink_0_fly": 70,
+  "person_ink_0_front_pockets": 100,
+  "person_ink_0_seat_pockets": 252,
+  "person_ink_0_seat_seams": 252,
+  "person_ink_0_sole_1": 242,
+  "person_ink_0_midsole_1": 242,
+  "person_ink_0_sole_0": 242,
+  "person_ink_0_midsole_0": 242,
+  "person_ink_0_boot_collar": 2048,
+  "person_ink_0_boot_collar_line": 2048,
+  "person_ink_0_boot_strap": 2048,
+  "person_ink_0_leather_belt": 1792,
+  "person_ink_0_leather_belt_buckle": 34,
+  "person_ink_0_hair": 17968,
+  "person_ink_0_hand_L": 392,
+  "person_ink_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_ink_0_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_ink_0_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_ink_0_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_ink_0_coat": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_ink_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_ink_0_fly": [
+   0.0097,
+   0.0116,
+   0.0176
+  ],
+  "person_ink_0_front_pockets": [
+   0.0097,
+   0.0116,
+   0.0176
+  ],
+  "person_ink_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_ink_0_ink_neck": [
+   0.016,
+   0.0194,
+   0.0252
+  ],
+  "person_ink_0_ink_neck_red": [
+   0.162,
+   0.0144,
+   0.013
+  ],
+  "person_ink_0_ink_needle": [
+   0.4342,
+   0.4452,
+   0.4564
+  ],
+  "person_ink_0_ink_pole": [
+   0.0612,
+   0.0395,
+   0.0212
+  ],
+  "person_ink_0_ink_pole_grip": [
+   0.0252,
+   0.0176,
+   0.0116
+  ],
+  "person_ink_0_ink_sleeve_0": [
+   0.016,
+   0.0194,
+   0.0252
+  ],
+  "person_ink_0_ink_sleeve_1": [
+   0.016,
+   0.0194,
+   0.0252
+  ],
+  "person_ink_0_ink_sleeve_2": [
+   0.016,
+   0.0194,
+   0.0252
+  ],
+  "person_ink_0_ink_sleeve_3": [
+   0.016,
+   0.0194,
+   0.0252
+  ],
+  "person_ink_0_ink_sleeve_4": [
+   0.016,
+   0.0194,
+   0.0252
+  ],
+  "person_ink_0_ink_sleeve_5": [
+   0.016,
+   0.0194,
+   0.0252
+  ],
+  "person_ink_0_ink_sleeve_6": [
+   0.016,
+   0.0194,
+   0.0252
+  ],
+  "person_ink_0_ink_sleeve_dk_0": [
+   0.006,
+   0.007,
+   0.0091
+  ],
+  "person_ink_0_ink_sleeve_dk_1": [
+   0.006,
+   0.007,
+   0.0091
+  ],
+  "person_ink_0_ink_sleeve_dk_2": [
+   0.006,
+   0.007,
+   0.0091
+  ],
+  "person_ink_0_ink_sleeve_dk_3": [
+   0.006,
+   0.007,
+   0.0091
+  ],
+  "person_ink_0_ink_sleeve_dk_4": [
+   0.006,
+   0.007,
+   0.0091
+  ],
+  "person_ink_0_ink_sleeve_dk_5": [
+   0.006,
+   0.007,
+   0.0091
+  ],
+  "person_ink_0_ink_sleeve_dk_6": [
+   0.006,
+   0.007,
+   0.0091
+  ],
+  "person_ink_0_ink_sleeve_red_0": [
+   0.162,
+   0.0144,
+   0.013
+  ],
+  "person_ink_0_ink_sleeve_red_1": [
+   0.162,
+   0.0144,
+   0.013
+  ],
+  "person_ink_0_ink_sleeve_red_2": [
+   0.162,
+   0.0144,
+   0.013
+  ],
+  "person_ink_0_ink_sleeve_red_3": [
+   0.162,
+   0.0144,
+   0.013
+  ],
+  "person_ink_0_ink_sleeve_red_4": [
+   0.162,
+   0.0144,
+   0.013
+  ],
+  "person_ink_0_ink_sleeve_red_5": [
+   0.162,
+   0.0144,
+   0.013
+  ],
+  "person_ink_0_ink_sleeve_red_6": [
+   0.162,
+   0.0144,
+   0.013
+  ],
+  "person_ink_0_ink_wire": [
+   0.0612,
+   0.0612,
+   0.0648
+  ],
+  "person_ink_0_lapels": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_ink_0_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_ink_0_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_ink_0_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_ink_0_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_ink_0_rolled_hem": [
+   0.0529,
+   0.0578,
+   0.0844
+  ],
+  "person_ink_0_seat_pockets": [
+   0.0242,
+   0.0273,
+   0.0409
+  ],
+  "person_ink_0_seat_seams": [
+   0.0529,
+   0.0578,
+   0.0844
+  ],
+  "person_ink_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_ink_0_shoe": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_ink_0_shoes": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_ink_0_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_ink_0_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_ink_0_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_ink_0_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_ink_0_trouser": [
+   0.0242,
+   0.0273,
+   0.0409
+  ],
+  "person_ink_0_trousers": [
+   0.0242,
+   0.0273,
+   0.0409
+  ],
+  "person_ink_0_zip": [
+   0.0545,
+   0.0222,
+   0.0075
+  ]
+ }
+}

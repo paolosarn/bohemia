@@ -1,0 +1,243 @@
+{
+ "look": "PERSON_BARBER_0",
+ "shape": "person_barber_0: THE BARBER: the chair, the blade, the bleach; a white tee under a trades apron, crop trousers, razor lines cut in, an open straight razor, a strop, a bleach jug, his own skin skin_mid 2, WHITE TEE under TRADES APRON",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "WHITE TEE",
+  "outer": "TRADES APRON",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "STACKED MID BOOT",
+  "waist": "LEATHER BELT",
+  "outfit": []
+ },
+ "dials": {
+  "height": 0.25,
+  "belly": -0.35,
+  "shoulders": -0.1,
+  "hips": -0.15
+ },
+ "layers": {
+  "base": {
+   "under": "APRON"
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039
+  }
+ },
+ "model": "records/character/rig/person_barber_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7415,
+ "real_height_for_rig": 1.7476,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_barber_0_shoe": 4036,
+  "person_barber_0_shirt": 40232,
+  "person_barber_0_collar": 1536,
+  "person_barber_0_sleeve_hem": 2048,
+  "person_barber_0_hem": 1792,
+  "person_barber_0_apron": 3146,
+  "person_barber_0_apron_ties": 1792,
+  "person_barber_0_apron_strap": 1536,
+  "person_barber_0_barber_scales": 8,
+  "person_barber_0_barber_blade": 8,
+  "person_barber_0_barber_pivot": 26,
+  "person_barber_0_barber_strop": 8,
+  "person_barber_0_barber_strop_ring": 70,
+  "person_barber_0_barber_jug": 8,
+  "person_barber_0_barber_jug_cap": 20,
+  "person_barber_0_trouser": 35674,
+  "person_barber_0_turn_up": 2048,
+  "person_barber_0_turn_up_edge": 2048,
+  "person_barber_0_sole_1": 242,
+  "person_barber_0_midsole_1": 242,
+  "person_barber_0_sole_0": 242,
+  "person_barber_0_midsole_0": 242,
+  "person_barber_0_boot_collar": 2048,
+  "person_barber_0_boot_collar_line": 2048,
+  "person_barber_0_leather_belt": 1792,
+  "person_barber_0_leather_belt_buckle": 34,
+  "person_barber_0_hair": 17968,
+  "person_barber_0_hand_L": 392,
+  "person_barber_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_barber_0_apron": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_barber_0_apron_strap": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_barber_0_apron_ties": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_barber_0_barber_blade": [
+   0.4342,
+   0.4452,
+   0.4564
+  ],
+  "person_barber_0_barber_blade_back": [
+   0.0612,
+   0.0612,
+   0.0648
+  ],
+  "person_barber_0_barber_jug": [
+   0.7605,
+   0.7454,
+   0.6724
+  ],
+  "person_barber_0_barber_jug_cap": [
+   0.0212,
+   0.0976,
+   0.305
+  ],
+  "person_barber_0_barber_jug_label": [
+   0.305,
+   0.0212,
+   0.016
+  ],
+  "person_barber_0_barber_pivot": [
+   0.0612,
+   0.0612,
+   0.0648
+  ],
+  "person_barber_0_barber_scales": [
+   0.016,
+   0.013,
+   0.0116
+  ],
+  "person_barber_0_barber_strop": [
+   0.162,
+   0.0648,
+   0.0232
+  ],
+  "person_barber_0_barber_strop_ring": [
+   0.0612,
+   0.0612,
+   0.0648
+  ],
+  "person_barber_0_barber_strop_worn": [
+   0.0612,
+   0.0252,
+   0.0103
+  ],
+  "person_barber_0_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_barber_0_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_barber_0_collar": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_barber_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_barber_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_barber_0_hem": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_barber_0_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_barber_0_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_barber_0_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_barber_0_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_barber_0_shirt": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_barber_0_shoe": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_barber_0_shoes": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_barber_0_skin": [
+   0.3916,
+   0.162,
+   0.0723
+  ],
+  "person_barber_0_sleeve_hem": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_barber_0_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_barber_0_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_barber_0_trouser": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_barber_0_trousers": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_barber_0_turn_up": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_barber_0_turn_up_edge": [
+   0.0152,
+   0.013,
+   0.0152
+  ]
+ }
+}

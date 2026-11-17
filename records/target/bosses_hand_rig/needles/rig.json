@@ -1,0 +1,10 @@
+{
+ "model": "records/target/bosses_hand_rig/models/needles.glb",
+ "ppm": 782.4107858933693,
+ "files": [
+  "records/target/bosses_hand_rig/needles/rig_S.png",
+  "records/target/bosses_hand_rig/needles/rig_SE.png",
+  "records/target/bosses_hand_rig/needles/rig_SW.png"
+ ],
+ "box": null
+}

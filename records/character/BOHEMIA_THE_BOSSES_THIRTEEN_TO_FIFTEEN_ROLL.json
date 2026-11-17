@@ -1,0 +1,143 @@
+[
+ {
+  "id": "barber_0",
+  "gang": "Barber",
+  "heritage": "mixed",
+  "tone": "bronze",
+  "skin": [
+   "skin_mid",
+   2
+  ],
+  "hair_cut": "RAZOR LINES",
+  "hair": [
+   "clay_rust",
+   1
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 27,
+   "face.jawW": 23,
+   "face.chinW": 9,
+   "face.foreheadW": 23,
+   "nose.w": 2,
+   "face.craniumH": 12
+  },
+  "face_name": "LONG AND NARROW",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "STACKED MID BOOT",
+  "kit": [
+   "LEATHER BELT"
+  ],
+  "type": "Barber",
+  "top": "WHITE TEE",
+  "coat": "TRADES APRON",
+  "pieces": [
+   "barber_razor",
+   "barber_strop",
+   "barber_bleach"
+  ],
+  "dials": {
+   "height": 0.25,
+   "belly": -0.35,
+   "shoulders": -0.1,
+   "hips": -0.15
+  },
+  "boss": "THE BARBER"
+ },
+ {
+  "id": "ink_0",
+  "gang": "Ink",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "cloth_black",
+   1
+  ],
+  "face": {
+   "face.len": 37,
+   "face.cheekW": 26,
+   "face.jawW": 24,
+   "face.chinW": 12,
+   "face.foreheadW": 22,
+   "face.eyeY": -1,
+   "mouth.w": 7
+  },
+  "face_name": "GAUNT",
+  "mark_name": "CHEEK BURN",
+  "mark": "cheek_burn",
+  "legs": "BLACK DENIM",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "LEATHER BELT"
+  ],
+  "type": "Ink",
+  "top": "BLACK TANK",
+  "coat": "LEATHER VEST",
+  "pieces": [
+   "ink_sleeves",
+   "ink_neck",
+   "ink_needle"
+  ],
+  "dials": {
+   "height": 0.35,
+   "belly": 0.15,
+   "shoulders": 0.85,
+   "hips": 0.2
+  },
+  "boss": "THE INK"
+ },
+ {
+  "id": "dogs_0",
+  "gang": "Dogs",
+  "heritage": "white",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "HOME CLIPPERS",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 27,
+   "face.jawW": 23,
+   "face.chinW": 9,
+   "face.foreheadW": 23,
+   "nose.w": 2,
+   "face.craniumH": 12
+  },
+  "face_name": "LONG AND NARROW",
+  "mark_name": "BROW SCAR",
+  "scar": "brow",
+  "legs": "KHAKI CARGOS",
+  "feet": "FIELD BOOTS",
+  "kit": [
+   "SCAV KNEEPADS",
+   "LEATHER GLOVES"
+  ],
+  "type": "Dogs",
+  "top": "OLIVE DRAB TEE",
+  "coat": "BARN COAT",
+  "hat": "HAT OLIVE FIELD CAP",
+  "pieces": [
+   "dogs_whip",
+   "dogs_leashes",
+   "dogs_whistle"
+  ],
+  "dials": {
+   "height": 0.1,
+   "belly": 0.2,
+   "shoulders": 0.4,
+   "hips": 0.1
+  },
+  "boss": "THE DOGS"
+ }
+]

@@ -806,6 +806,186 @@
    ],
    "through_the_rig": true,
    "finished": "cook 5, 11/17"
+  },
+  "barbershop_before": {
+   "w": 166,
+   "h": 174,
+   "bx": 83,
+   "by": 124,
+   "plate": 150,
+   "frames": [
+    "barbershop_before_0.png",
+    "barbershop_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "barbershop_after": {
+   "w": 166,
+   "h": 171,
+   "bx": 83,
+   "by": 121,
+   "plate": 150,
+   "frames": [
+    "barbershop_after_0.png",
+    "barbershop_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "parlor_before": {
+   "w": 166,
+   "h": 169,
+   "bx": 83,
+   "by": 119,
+   "plate": 150,
+   "frames": [
+    "parlor_before_0.png",
+    "parlor_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "parlor_after": {
+   "w": 166,
+   "h": 169,
+   "bx": 83,
+   "by": 119,
+   "plate": 150,
+   "frames": [
+    "parlor_after_0.png",
+    "parlor_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "kennel_before": {
+   "w": 166,
+   "h": 159,
+   "bx": 83,
+   "by": 110,
+   "plate": 150,
+   "frames": [
+    "kennel_before_0.png",
+    "kennel_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "kennel_after": {
+   "w": 166,
+   "h": 159,
+   "bx": 83,
+   "by": 110,
+   "plate": 150,
+   "frames": [
+    "kennel_after_0.png",
+    "kennel_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "fadepole": {
+   "w": 62,
+   "h": 192,
+   "bx": 31,
+   "by": 172,
+   "plate": 46,
+   "frames": [
+    "fadepole_0.png",
+    "fadepole_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "inkmark": {
+   "w": 62,
+   "h": 85,
+   "bx": 31,
+   "by": 65,
+   "plate": 46,
+   "frames": [
+    "inkmark_0.png",
+    "inkmark_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "pawprints": {
+   "w": 62,
+   "h": 125,
+   "bx": 31,
+   "by": 72,
+   "plate": 46,
+   "frames": [
+    "pawprints_0.png",
+    "pawprints_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "razorline_before": {
+   "w": 128,
+   "h": 116,
+   "bx": 64,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "razorline_before_0.png",
+    "razorline_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "razorline_after": {
+   "w": 128,
+   "h": 116,
+   "bx": 64,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "razorline_after_0.png",
+    "razorline_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "inktag_before": {
+   "w": 130,
+   "h": 117,
+   "bx": 65,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "inktag_before_0.png",
+    "inktag_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "inktag_after": {
+   "w": 130,
+   "h": 117,
+   "bx": 65,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "inktag_after_0.png",
+    "inktag_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "pack_before": {
+   "w": 128,
+   "h": 116,
+   "bx": 64,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "pack_before_0.png",
+    "pack_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "pack_after": {
+   "w": 128,
+   "h": 116,
+   "bx": 64,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "pack_after_0.png",
+    "pack_after_1.png"
+   ],
+   "through_the_rig": true
   }
  }
 }

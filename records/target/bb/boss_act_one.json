@@ -11,8 +11,11 @@
   "weld",
   "climb",
   "survey",
+  "fade",
   "burn",
+  "track",
   "look",
+  "mark",
   "cook"
  ],
  "bosses": [
@@ -1399,6 +1402,74 @@
     "card": "HIS HAZE IS GONE: YOU SEE HIS SIDE BY DAY AGAIN.",
     "card_none": "HIS HAZE IS GONE.",
     "note": "BOSSES 11/14 (the coordinator's round 'BOSSES turn up', rules 441, 447): THE LENS changes the map's DAY. While he stands, by day, within 'radius' of his shop the crew sees 'sight' blocks (the map's own fog asks BohemiaBosses.dark(), THE BURN's door at night) and his side is painted with his haze; his sprayed eye charts stand near his door. When he falls the haze lifts for good (slices/bohemia_bosses.js (20) HIS BLUR). Pictures: slices/boss_places/haze_before, haze_after."
+   }
+  },
+  {
+   "n": "THE BARBER",
+   "quiet": true,
+   "words": "rule 454(a) (Paolo 11/17, every human line is bad until his voice is written): a name and one line at most, draft; made with what he does to the map and how he fights",
+   "place": {
+    "name": "THE BARBERSHOP",
+    "art": "barbershop",
+    "paint": "barbershop"
+   },
+   "boss": {
+    "kind": "nomad_cutthroat",
+    "name": "THE BARBER",
+    "hp_x": 2.2,
+    "weapon": "Rondel Dagger",
+    "shield": null,
+    "look": "boss_barber_0",
+    "says": "Next."
+   },
+   "crew": [
+    "nomad_cutthroat",
+    "nomad_cutthroat",
+    "brigand_thug"
+   ],
+   "board": "place_downtown",
+   "tip": "",
+   "verb": {
+    "id": "fade",
+    "word": "FADE",
+    "button": "FADE",
+    "quiet": true,
+    "rule": "on a town's doorstep (2 blocks out of it), once a day, 'cost' batteries of bleach: 'clout' CLOUT (BohemiaRenown, Battle Brothers' Renown)",
+    "cost": 1,
+    "clout": 25,
+    "cooldown_days": 1,
+    "first": {
+     "plate": "+{clout} CLOUT",
+     "rise": "+{clout} CLOUT",
+     "rise_none": "NO BATTERY"
+    },
+    "cooling": "FADE TOMORROW",
+    "tip": "+25 CLOUT FOR A BATTERY",
+    "tip_cooling": "TOMORROW",
+    "place_after": "fadepole",
+    "hand": {
+     "name": "HIS RAZOR",
+     "pic": "hand_fade.png",
+     "line": "FADE: ON A TOWN'S DOORSTEP, 1 BATTERY, +25 CLOUT. ONCE A DAY."
+    }
+   },
+   "fallen_art": "barbershop_after",
+   "lead": {
+    "thing": {
+     "head": "THE FLYER",
+     "says": ""
+    }
+   },
+   "after": {
+    "quiet": true
+   },
+   "line": {
+    "radius": 4,
+    "cut_hp": 8,
+    "every_mins": 60,
+    "pic": "razorline",
+    "rise": "-{hp}",
+    "card": "HIS LINE IS GONE"
    }
   }
  ]

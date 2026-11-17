@@ -1,0 +1,311 @@
+{
+ "look": "PERSON_DOGS_0",
+ "shape": "person_dogs_0: THE DOGS: the last kennel in the valley; an olive tee under a barn coat, khaki cargos, a field cap, the whip, three chain leashes, a dog whistle, his own skin skin_mid 3, STRIPED TEE under BARN COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "STRIPED TEE",
+  "outer": "BARN COAT",
+  "legs": "KHAKI CARGOS",
+  "feet": "FIELD BOOTS",
+  "gear": "SCAV KNEEPADS",
+  "hands": "LEATHER GLOVES",
+  "outfit": [
+   "OLIVE DRAB TEE read as one with BARN COAT (76 and 111 of 255): the same cut in STRIPED TEE (154)",
+   "BARN COAT worn open to the neck",
+   "the sleeves pushed up the forearm"
+  ]
+ },
+ "dials": {
+  "height": 0.1,
+  "belly": 0.2,
+  "shoulders": 0.4,
+  "hips": 0.1
+ },
+ "layers": {
+  "base": {
+   "under": "CHORE COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.048,
+   "collar_z": 1.11,
+   "fo_add": 0.25,
+   "sleeve_to": 1.42,
+   "push": true
+  }
+ },
+ "model": "records/character/rig/person_dogs_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7286,
+ "real_height_for_rig": 1.7347,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_dogs_0_shoe": 3716,
+  "person_dogs_0_shirt": 39960,
+  "person_dogs_0_collar": 1536,
+  "person_dogs_0_hem": 1792,
+  "person_dogs_0_coat": 62338,
+  "person_dogs_0_coat_skirt": 3838,
+  "person_dogs_0_collar.001": 1098,
+  "person_dogs_0_lapels": 396,
+  "person_dogs_0_pushed": 2048,
+  "person_dogs_0_pockets": 252,
+  "person_dogs_0_pocket_flaps": 252,
+  "person_dogs_0_dogs_handle": 20,
+  "person_dogs_0_dogs_lash": 506,
+  "person_dogs_0_dogs_thorns": 98,
+  "person_dogs_0_dogs_chains": 150,
+  "person_dogs_0_dogs_collars": 240,
+  "person_dogs_0_dogs_cord": 1792,
+  "person_dogs_0_dogs_whistle": 20,
+  "person_dogs_0_trouser": 43706,
+  "person_dogs_0_rolled_hem": 2048,
+  "person_dogs_0_cargo_pockets": 252,
+  "person_dogs_0_cargo_flaps": 108,
+  "person_dogs_0_sole_1": 242,
+  "person_dogs_0_midsole_1": 242,
+  "person_dogs_0_sole_0": 242,
+  "person_dogs_0_midsole_0": 242,
+  "person_dogs_0_boot_collar": 2048,
+  "person_dogs_0_boot_collar_line": 2048,
+  "person_dogs_0_eyelets_1": 120,
+  "person_dogs_0_eyelets_0": 120,
+  "person_dogs_0_scav_kneepads_1": 3078,
+  "person_dogs_0_scav_kneepads_0": 3078,
+  "person_dogs_0_scav_kneepads_strap_-6": 2048,
+  "person_dogs_0_scav_kneepads_strap_6": 2048,
+  "person_dogs_0_leather_gloves_L": 392,
+  "person_dogs_0_leather_gloves_R": 392,
+  "person_dogs_0_leather_gloves_cuff": 2048,
+  "person_dogs_0_hair": 17968,
+  "person_dogs_0_hand_L": 392,
+  "person_dogs_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_dogs_0_boot_collar": [
+   0.0908,
+   0.1845,
+   0.0685
+  ],
+  "person_dogs_0_boot_collar_line": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_dogs_0_cargo_flaps": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "person_dogs_0_cargo_pockets": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_dogs_0_coat": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_dogs_0_coat_skirt": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_dogs_0_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_dogs_0_collar_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_dogs_0_dogs_chains": [
+   0.107,
+   0.107,
+   0.1022
+  ],
+  "person_dogs_0_dogs_collars": [
+   0.0212,
+   0.0103,
+   0.006
+  ],
+  "person_dogs_0_dogs_cord": [
+   0.0319,
+   0.0232,
+   0.016
+  ],
+  "person_dogs_0_dogs_handle": [
+   0.0212,
+   0.0103,
+   0.006
+  ],
+  "person_dogs_0_dogs_lash": [
+   0.0545,
+   0.0252,
+   0.013
+  ],
+  "person_dogs_0_dogs_thorns": [
+   0.0612,
+   0.0612,
+   0.0648
+  ],
+  "person_dogs_0_dogs_whistle": [
+   0.305,
+   0.314,
+   0.305
+  ],
+  "person_dogs_0_eyelets_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_dogs_0_eyelets_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_dogs_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_dogs_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_dogs_0_hem": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_dogs_0_lapels": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "person_dogs_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_dogs_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_dogs_0_midsole_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_dogs_0_midsole_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_dogs_0_pocket_flaps": [
+   0.1022,
+   0.0685,
+   0.0242
+  ],
+  "person_dogs_0_pockets": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_dogs_0_pushed": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_dogs_0_rolled_hem": [
+   0.3864,
+   0.2664,
+   0.1119
+  ],
+  "person_dogs_0_scav_kneepads_0": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_dogs_0_scav_kneepads_1": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_dogs_0_scav_kneepads_strap_-6": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_dogs_0_scav_kneepads_strap_6": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_dogs_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_dogs_0_shirt_print": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_dogs_0_shirt_print.001": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_dogs_0_shoe": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_dogs_0_shoes": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_dogs_0_skin": [
+   0.6105,
+   0.3515,
+   0.1714
+  ],
+  "person_dogs_0_sole_0": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_dogs_0_sole_1": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_dogs_0_trouser": [
+   0.2307,
+   0.1559,
+   0.0578
+  ],
+  "person_dogs_0_trousers": [
+   0.2307,
+   0.1559,
+   0.0578
+  ]
+ }
+}

@@ -406,6 +406,45 @@
     "O": "records/target/portrait/crew/boss_lens_0/O_{64|128}.png",
     "M": "records/target/portrait/crew/boss_lens_0/M_{64|128}.png"
    }
+  },
+  "boss_barber_0": {
+   "name": "THE BARBER",
+   "look": "boss_barber_0",
+   "model": "the barber and the master rig (tools/bohemia_bosses_the_three_men.py)",
+   "boss": true,
+   "files": {
+    "rest": "records/target/portrait/crew/boss_barber_0/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/boss_barber_0/A_{64|128}.png",
+    "E": "records/target/portrait/crew/boss_barber_0/E_{64|128}.png",
+    "O": "records/target/portrait/crew/boss_barber_0/O_{64|128}.png",
+    "M": "records/target/portrait/crew/boss_barber_0/M_{64|128}.png"
+   }
+  },
+  "boss_ink_0": {
+   "name": "THE INK",
+   "look": "boss_ink_0",
+   "model": "the barber and the master rig (tools/bohemia_bosses_the_three_men.py)",
+   "boss": true,
+   "files": {
+    "rest": "records/target/portrait/crew/boss_ink_0/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/boss_ink_0/A_{64|128}.png",
+    "E": "records/target/portrait/crew/boss_ink_0/E_{64|128}.png",
+    "O": "records/target/portrait/crew/boss_ink_0/O_{64|128}.png",
+    "M": "records/target/portrait/crew/boss_ink_0/M_{64|128}.png"
+   }
+  },
+  "boss_dogs_0": {
+   "name": "THE DOGS",
+   "look": "boss_dogs_0",
+   "model": "the barber and the master rig (tools/bohemia_bosses_the_three_men.py)",
+   "boss": true,
+   "files": {
+    "rest": "records/target/portrait/crew/boss_dogs_0/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/boss_dogs_0/A_{64|128}.png",
+    "E": "records/target/portrait/crew/boss_dogs_0/E_{64|128}.png",
+    "O": "records/target/portrait/crew/boss_dogs_0/O_{64|128}.png",
+    "M": "records/target/portrait/crew/boss_dogs_0/M_{64|128}.png"
+   }
   }
  },
  "groups": {
