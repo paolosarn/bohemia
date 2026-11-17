@@ -1,4 +1,4 @@
-COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17n - THE COOLING CENTER AND THE DOME, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the third build; rules 408, 409(c); ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17n - THE COOLING CENTER AND THE DOME, BUILT (2aeffdc70), NOT YET SEEN (the full sweep, rule 453, the third build; rules 408, 409(c); ask row 627).
 WORLD FOURTEEN's two newest places wear their own piece on the map, on the 11/17k draw (no code in this build): THE COOLING CENTER (the gym and its rooms,
 every window lit cool, the county's blue banner, the generator on its trailer smoking, shade and cots, the line to the door) and THE DOME (ten courses of
 pink glass, the coaster's red track and its loop, a dead marquee; the train's lamps go round on the beat, empty). Rose, never purple. 99,016 bytes for the

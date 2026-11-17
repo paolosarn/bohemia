@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
-COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17n - THE COOLING CENTER AND THE DOME, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the third build; rules 408, 409(c); ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17n - THE COOLING CENTER AND THE DOME, BUILT (2aeffdc70), NOT YET SEEN (the full sweep, rule 453, the third build; rules 408, 409(c); ask row 627).
 The order's third item: 'WORLD 14's two newest places'. No code: slices/place_pieces/place_pieces.json gained the_cooling_center and the_dome, the folder
 four lossless WebP pictures (99,016 bytes in all). Made by the same tool and frame as the bus yard and the greenhouses.
 THE COOLING CENTER: a county building (the gym's tall block, the rooms beside it), every window lit cool, the blue banner, roof chillers, the generator
