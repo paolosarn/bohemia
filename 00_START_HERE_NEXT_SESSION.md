@@ -1,4 +1,4 @@
-WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- [the research] FILED (PENDINGSHA), rule 454(b), ask row 628; and BUILD 11/17a HIS HOMEWORK below. Its block is handoffs/WORDS_TWO.md.
+WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- [the research] FILED (8380f0d50), rule 454(b), ask row 628; and BUILD 11/17a HIS HOMEWORK below. Its block is handoffs/WORDS_TWO.md.
 RESEARCH ONLY, nothing rewritten: records/BOHEMIA_WORDS_TWO_EVERY_MOUTH_AND_WHY_IT_IS_NOT_HUMAN_11_17_26.md. About 3,000 live spoken lines in some 15 mouths, each with its file;
 measured against 849 verbatim quotes of his: the game swears 0.0 per 1,000 words (he 27.5), fillers 12 (he 88), half of all lines end on a short punchline (he 19%), a sentence is 5
 words with a full stop (his is 12, no stop), the board and the why line have no contractions, 87% of why lines are one skeleton, the feed types the opposite way to him. One writer's
@@ -9,7 +9,7 @@ exactly as the game's data holds it (the title is the line, read from the game's
 says it, to whom and when, the speaker's face behind LOOK AT IT, his answer in the card's own box (it saves on a thumb and leaves with EXPORT). Each card teaches one thing
 no other does: a mouth, a mood, a length. THE TAB SHOWS TWELVE BEFORE ITS MORE FOLD: cards 1 to 12 carry every mouth he named, 13 to 20 are first behind MORE.
 ON THE PAGE: the VOTE tab on a phone upright and sideways, twelve of this lane's on the first screen, 0 px off the side, 0 page errors. VOTE TAB gate 60 ok, 5 failed, the
-same five as clean main. Record records/BOHEMIA_WORDS_TWO_HIS_HOMEWORK_THE_FIRST_TWENTY_11_17_26.md.
+same five as clean main. LIVE: pages run 4514 for dac64693f SUCCESS. Record records/BOHEMIA_WORDS_TWO_HIS_HOMEWORK_THE_FIRST_TWENTY_11_17_26.md.
 NEXT: the research record (ask row 628); when his sheet comes back, what each answer taught and sheet 02; then THE VOICE and its gate.
 FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/14 LATEST -- BUILD 11/14z - THE CARD THAT OPENS A FIGHT, BUILT (2f8ca51fc), NOT YET SEEN (rule 450(a); ask row 621, two of three cards). Its block is handoffs/FIGHT_SCREEN.md.
 THIS CHAT IS FIGHT SCREEN TWO. The card where he chooses ENGAGE or FALL BACK is rebuilt whole, one look with the man's sheet: their leader's face pinned on the dark board,

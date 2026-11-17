@@ -6,7 +6,7 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
-WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- [the research] FILED (PENDINGSHA), rule 454(b), ask row 628. RESEARCH ONLY: nothing in the game rewritten, no rewrite proposed.
+WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- [the research] FILED (8380f0d50), rule 454(b), ask row 628. RESEARCH ONLY: nothing in the game rewritten, no rewrite proposed.
 Record: records/BOHEMIA_WORDS_TWO_EVERY_MOUTH_AND_WHY_IT_IS_NOT_HUMAN_11_17_26.md (written by tools/bohemia_words_two_every_mouth_record.py: every sample
 and number is read from the files). Beside it: records/words_two/measure_every_mouth.py and .json (one ruler over the game and over him) and
 records/words_two/his_words/ (corpus.jsonl: 2,259 quotes of his, 849 verbatim; stats.md; about_talk.md: all he has said about how the game talks).
@@ -41,6 +41,7 @@ NEXT: his sheet. When the coordinator says it is back: read every answer, write 
 
 WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- [his homework] BUILD 11/17a - HIS HOMEWORK: THE FIRST TWENTY, BUILT (dac64693f), NOT YET SEEN (rule 454(c); ask row 629). NOTHING IN THE GAME WAS REWRITTEN.
 Record: records/BOHEMIA_WORDS_TWO_HIS_HOMEWORK_THE_FIRST_TWENTY_11_17_26.md.
+LIVE: pages run 4514 for dac64693f SUCCESS (01:19 UTC, 36 minutes after this lane opened); the cards are on the deployed VOTE tab.
 WHAT: twenty cards in the VOTE tab (lane WORDS TWO, kind LINE, ids words-two-hw01-01 to -20). A card's TITLE is ONE line exactly as the
 game's data holds it (read out of the game's file by the tool, never typed); under it HOW SHOULD THIS SOUND? and one sentence: who
 says it, to whom, when, where he sees it; LOOK AT IT shows the speaker's face from the game's face bank with the line in the game's
