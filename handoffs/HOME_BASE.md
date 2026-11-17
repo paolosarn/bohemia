@@ -1,4 +1,4 @@
-HOME BASE (home-base-01gkdyuv): 11/17 LATEST -- BUILD 11/17zr - SEEN THROUGH THE CAMERAS, BUILT, NOT YET SEEN (rule 458(c); ask line 642).
+HOME BASE (home-base-01gkdyuv): 11/17 LATEST -- BUILD 11/17zr - SEEN THROUGH THE CAMERAS (2da472b49), SHIPPED (rule 458(c); ask line 642).
 Record: records/BOHEMIA_HOME_BASE_SEEN_AS_HE_WILL_SEE_IT_11_17_26.md.
 - His place (only his) is seen through its cameras: slices/BOHEMIA_SETTLEMENT_SCREEN.html __HIS_PLACE_SEEN_AS_HE_WILL_SEE_IT__. One
   perspective transform on the canvas per camera (HLENS_CAMS, the mounts), the sensor (HLENS_SENSOR), the title feed's tape (#hlens), a

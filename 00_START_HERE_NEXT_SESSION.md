@@ -598,7 +598,7 @@ Earlier: 11/9c, 11/9f, 11/9j, fourteen places that talk. Still open: the bus yar
 handoffs/WORLD_FOURTEEN.md.
 [bb Battle Brothers' company events steal from the stash and call a man home; ours are the plasma van, the swollen cans and the rent crew.]
 [analog horror: the dead bank machine still runs on its own battery, says her balance is zero every morning, and asks if she would like a receipt.]
-HOME BASE (home-base-01gkdyuv): 11/17 LATEST -- BUILD 11/17zr - SEEN THROUGH THE CAMERAS, BUILT, NOT YET SEEN (rule 458(c); ask line 642): his
+HOME BASE (home-base-01gkdyuv): 11/17 LATEST -- BUILD 11/17zr - SEEN THROUGH THE CAMERAS (2da472b49), SHIPPED (rule 458(c); ask line 642): his
 place is only ever seen through its cameras: each a tilted pole camera with the act-one sensor, the title feed's tape and a wrong clock,
 all twelve lots in every frame; a tap cuts close on what he taps; his men stand at his buildings; BUILD cuts to his lots on their ground
 and a tap there picks one (the top-down plan is gone). Taps go through the lens. Gate YOUR PLACE, PLANTED D19 new, D8 and D10 rewritten.
