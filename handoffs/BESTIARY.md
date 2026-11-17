@@ -1,6 +1,6 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
-BESTIARY (routine 'BESTIARY full sweep', rules 453, 454(a), 441): 11/17 LATEST -- BUILD 11/17m THE MAMMOTH (SHA2_HERE), BUILT, NOT YET SEEN.
+BESTIARY (routine 'BESTIARY full sweep', rules 453, 454(a), 441): 11/17 LATEST -- BUILD 11/17m THE MAMMOTH (9d737f81), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_THE_MAMMOTH_11_17_26.md. VOTE bestiary-the-mammoth-11-17.
 | floor | his | the fight fields | short |
 |---|---|---|---|
