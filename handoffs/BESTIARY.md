@@ -1,6 +1,6 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
-BESTIARY (routine 'BESTIARY the mammoth is too big', rule 458(b), ask row 641): 11/17 LATEST -- BUILD 11/17zk THE MAMMOTH, NOT A BUILDING (SHA4_HERE), BUILT, NOT YET SEEN.
+BESTIARY (routine 'BESTIARY the mammoth is too big', rule 458(b), ask row 641): 11/17 LATEST -- BUILD 11/17zk THE MAMMOTH, NOT A BUILDING (f9a8a036), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_AS_TALL_AS_IT_STOOD_11_17_26.md. VOTE bestiary-the-mammoth-11-17 (re-shot).
 | beast | at the shoulder in life | before (tallest picture) | now |
 |---|---|---|---|
