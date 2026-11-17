@@ -1,3 +1,8 @@
+WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- [the research] FILED (PENDINGSHA), rule 454(b), ask row 628; and BUILD 11/17a HIS HOMEWORK below. Its block is handoffs/WORDS_TWO.md.
+RESEARCH ONLY, nothing rewritten: records/BOHEMIA_WORDS_TWO_EVERY_MOUTH_AND_WHY_IT_IS_NOT_HUMAN_11_17_26.md. About 3,000 live spoken lines in some 15 mouths, each with its file;
+measured against 849 verbatim quotes of his: the game swears 0.0 per 1,000 words (he 27.5), fillers 12 (he 88), half of all lines end on a short punchline (he 19%), a sentence is 5
+words with a full stop (his is 12, no stop), the board and the why line have no contractions, 87% of why lines are one skeleton, the feed types the opposite way to him. One writer's
+voice in fifteen costumes. His own words and all he has said about talk are in records/words_two/his_words/. Unknowns U1 to U12 pick the next cards. Routed finds in section 7.
 WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- BUILD 11/17a - HIS HOMEWORK: THE FIRST TWENTY, BUILT (dac64693f), NOT YET SEEN (rule 454(c); ask row 629). Its block is handoffs/WORDS_TWO.md.
 A FRESH LANE (rule 454): how people talk is learned from him before anything is rewritten. NOTHING IN THE GAME WAS REWRITTEN. Twenty cards in the VOTE tab, one line each
 exactly as the game's data holds it (the title is the line, read from the game's file by tools/bohemia_words_two_homework.js, never typed), HOW SHOULD THIS SOUND? with who
