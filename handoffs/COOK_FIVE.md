@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
-COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17zm - THE WAREHOUSE IS A WAREHOUSE, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the seventh build; rules 416, 451(a), 455; ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17zm - THE WAREHOUSE IS A WAREHOUSE, BUILT (40bd17be1), NOT YET SEEN (the full sweep, rule 453, the seventh build; rules 416, 451(a), 455; ask row 627).
 '... the art for COMBAT THREE's next interior and its ceiling', again: THE WAREHOUSE landed while the mall was being gated; all 302 of its pieces were
 stand-ins. Now slices/fight_ground/warehouse/ holds warehouse_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 3 of warehouse_floor_0.webp,
 floor.high its row 4, floor.ring all 25; kit: every name COMBAT THREE's handoff asked for), sizes.json (my gate's), 20 piece pictures, the floor sheet

@@ -1,4 +1,4 @@
-COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17zm - THE WAREHOUSE IS A WAREHOUSE, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the seventh build; rules 416, 451(a), 455; ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17zm - THE WAREHOUSE IS A WAREHOUSE, BUILT (40bd17be1), NOT YET SEEN (the full sweep, rule 453, the seventh build; rules 416, 451(a), 455; ask row 627).
 COMBAT THREE's warehouse wears its own art under its own names (slices/fight_ground/warehouse/warehouse_art.json, the garage's format; no code): the
 lanes' floor (yellow lane lines, bay numbers, tyre tracks), 20 pictures for 23 names (the racking and its end, pallets, a bay come down, two beds of
 pallets, drums, the conveyor, a dead forklift still holding a pallet, a trailer at its dock, the desk, the cage cut open, a column, the steel
