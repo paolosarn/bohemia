@@ -1540,6 +1540,77 @@
     "towns": 2,
     "shut": "SHUT"
    }
+  },
+  {
+   "n": "THE DOGS",
+   "quiet": true,
+   "words": "rule 454(a): a name and one line at most, draft",
+   "place": {
+    "name": "THE KENNEL",
+    "art": "kennel",
+    "paint": "kennel"
+   },
+   "boss": {
+    "kind": "barbarian_beastmaster",
+    "name": "THE DOGS",
+    "hp_x": 2.0,
+    "weapon": "Thorned Whip",
+    "shield": null,
+    "look": "boss_dogs_0",
+    "says": "Sic 'em."
+   },
+   "crew": [
+    "warhound",
+    "warhound",
+    "wardog",
+    "wardog"
+   ],
+   "board": "landfill",
+   "tip": "",
+   "verb": {
+    "id": "track",
+    "word": "TRACK",
+    "button": "TRACK",
+    "quiet": true,
+    "rule": "while a boss's sign is out and unread, off a town, once a day: the dog finds the trail (the fog lifts on the sign and along the way)",
+    "cooldown_days": 1,
+    "first": {
+     "plate": "TRAIL: {blocks} BLOCKS",
+     "rise": "TRAIL: {blocks} BLOCKS",
+     "rise_none": "NO TRAIL"
+    },
+    "cooling": "TRACK TOMORROW",
+    "tip": "THE DOG FINDS THE SIGN",
+    "tip_cooling": "TOMORROW",
+    "place_after": "pawprints",
+    "hand": {
+     "name": "HIS DOG",
+     "pic": "hand_track.png",
+     "line": "TRACK: WHEN A SIGN IS OUT, THE DOG FINDS THE TRAIL TO IT. ONCE A DAY."
+    }
+   },
+   "fallen_art": "kennel_after",
+   "lead": {
+    "thing": {
+     "head": "THE MAN AT THE BAR",
+     "says": ""
+    }
+   },
+   "after": {
+    "quiet": true
+   },
+   "packs": {
+    "packs": 3,
+    "radius": 6,
+    "smell": 3,
+    "step_mins": 10,
+    "bite_hp": 10,
+    "every_mins": 120,
+    "pic": "pack",
+    "rise": "-{hp}",
+    "told": "HIS DOGS",
+    "card": "HIS PACKS ARE GONE"
+   }
   }
  ]
 }

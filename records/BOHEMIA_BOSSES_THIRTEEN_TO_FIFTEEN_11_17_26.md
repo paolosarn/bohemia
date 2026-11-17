@@ -105,3 +105,37 @@ grey, kept after a reload.
 - VOTE bosses-the-inks-stain-11-17: records/target/bosses_vote_ink_11_17/VOTE.webp (the gate's own phone: his ink dark on the ground and his
   tags on the gate he holds, the tags painted over, your man's card with no words); his moving card
   records/target/bosses_thirteen_to_fifteen/VOTE_BOSS_INK.webp.
+
+## THE DOGS (the ladder's 15th: the last kennel in the valley). BUILD 11/17@@
+
+HIS OWN WAY: THE NIGHT HAS TEETH. While he stands his 3 packs sleep in his runs by day (the street is empty) and come out at night onto
+the streets within 6 blocks of his kennel. A pack that smells the crew (3 blocks) comes at it a block every 10 minutes of the game's own
+clock, and one that reaches it bites a man: 10 of the condition's own blood off the man with the most left, never below one, a pack at
+most once in 2 hours. 'You cannot watch and sleep at the same time.' When he falls the runs are open and empty: a stake and a broken
+chain where each pack slept, kept after a reload.
+- Found by WORLD TWO's man at the bar. Nobody asks (rule 454(a)); one of yours stands at the bar's sign, the card carries the way.
+- Fight: BB's Barbarian Beastmaster's numbers at 2.0 blood with a Thorned Whip (THE WHIP), two warhounds and two wardogs, on the
+  landfill board. His one line, on his card: "Sic 'em." (draft).
+- Verb: TRACK. While a boss's sign is out and unread, off a town, once a day: his dog finds the trail; the fog lifts on the sign and
+  every other block of the way there. 'It walks with you.' The dog itself, HIS DOG, goes to your place through HOME BASE's seam: 'or it
+  holds your gate'.
+- Code: slices/bohemia_bosses.js (23) HIS PACKS. Data: row THE DOGS, 'packs'.
+- MEASURED: two packs can reach the crew at once (20 lost from two bites of 10): the check reads a bite a pack. WORLD TWO places the
+  next sign 2 to 5 blocks from where the crew stands when the last boss falls, so TRACK's first use is near; the gate's walk to a
+  block once went over the sign and read it (TRACK needs it unread): the check stands where TRACK is the button, never over the sign.
+  One run overlapped the run before it on this 4-core machine and lost its sign's card and its fight to the load: run alone again.
+- RESULTS: THE DOGS CHANGES THE MAP 22/0 on the demo upright and 22/0 on the alpha on its side. His fight was won by the auto crew.
+- VOTE bosses-the-dogs-packs-11-17: records/target/bosses_vote_dogs_11_17/VOTE.webp (the gate's own phone at night: his dogs on the street
+  by the crew and the bitten man's bar, the street empty after him, your man's card with no words); his moving card
+  records/target/bosses_thirteen_to_fifteen/VOTE_BOSS_DOGS.webp.
+
+## THE ROUND, SAID PLAINLY
+- Fifteen bosses are live. Each of the three changes the map his own way (a border that costs blood; a stain that grows and takes
+  towns; a night with teeth), each hands a tool (FADE, MARK, TRACK), each fought end to end on the demo upright and the alpha on its
+  side, a reload holding, with planted fails.
+- NOT DONE: 'each prize seen on his place's cameras'. His place's plan has 12 lots and the twelve bosses before hand twelve prizes,
+  so the razor, the needles and the dog are kept in the hall by HOME BASE's own rule, not on a lot, and CAM 2 cannot see them. It is
+  HOME BASE's plan to grow; the gate says NOT ON CAMERA in words and goes red the day a lot is free and the prize is not on it.
+- The fifteen's words: each of the three carries his name and one line of two or three words on his fight card, draft (rule 454(a)).
+  The card after a fall still reads 'THE DOGS IS DOWN' (the standing pattern, the boss's name); not rewritten while his voice is
+  being written.

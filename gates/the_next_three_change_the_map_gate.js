@@ -1002,7 +1002,7 @@ const INK = {
 const nightOf = (fr, m) => fr.evaluate((m) => { try { DAY.min = m; daySync(); render(); } catch (e) {} }, m);
 const DOGQ = {
   K1: (q) => !!q && q.packs >= 1 && q.day === 0 && q.night >= 1,
-  K2: (q) => !!q && !!q.bite && q.bite.n === NAME && q.bite.hp > 0 && q.lost > 0 && q.lost <= q.bite.hp,
+  K2: (q) => !!q && !!q.bite && q.bite.n === NAME && q.bite.hp > 0 && q.lost > 0 && q.lost <= q.bite.hp * q.packs,   /* each pack bites once */
   C1a: (q) => !!q && !q.bite && q.lost <= 0 && q.out === 0,
   V1: (q) => !!q && q.verb === 'track' && q.blocks >= 1 && q.signSeen && q.cooling,
   R1: (q, b) => !!q && q.fallen && q.down && q.out === 0
@@ -1058,12 +1058,19 @@ const DOGS = {
     let v = { sign: sg };
     if (sg) {
       await fr.evaluate(() => { const a = BohemiaBosses.applies('fix', city.x, city.y); if (a && !a.off) BohemiaBosses.use('fix'); });
-      const at = await fr.evaluate(() => { const h = [city.x, city.y], ord = BohemiaBosses.data().verbs_order, before = ord.slice(0, ord.indexOf('track')); let best = null, bd = 1e9;
-        for (let dy = -10; dy <= 10; dy++) for (let dx = -10; dx <= 10; dx++) { const x = h[0] + dx, y = h[1] + dy, d = Math.max(Math.abs(dx), Math.abs(dy)); if (d >= bd || !cityWalkable(x, y)) continue;
+      /* a block where TRACK is the button, where the crew stands first, else 2 or more from the sign and not over it (a walk over the sign
+         reads it, and an unread sign is what TRACK needs; WORLD TWO places the next sign 2 to 5 blocks from where the crew stands) */
+      const pickT = () => fr.evaluate((sg) => { const h = [city.x, city.y], ord = BohemiaBosses.data().verbs_order, before = ord.slice(0, ord.indexOf('track')); let best = null, bd = 1e9;
+        for (let dy = -12; dy <= 12; dy++) for (let dx = -12; dx <= 12; dx++) { const x = h[0] + dx, y = h[1] + dy, d = Math.max(Math.abs(dx), Math.abs(dy)); if (d >= bd || !cityWalkable(x, y)) continue;
+          if (Math.max(Math.abs(x - sg.x), Math.abs(y - sg.y)) < 2) continue;
           const a = BohemiaBosses.applies('track', x, y); if (!a || a.off) continue; if (before.some(id => { const b = BohemiaBosses.applies(id, x, y); return b && !b.off; })) continue;
-          if (!(x === h[0] && y === h[1]) && !cityRoute(h[0], h[1], x, y)) continue; bd = d; best = [x, y]; } return best; });
+          if (!(x === h[0] && y === h[1])) { const p = cityRoute(h[0], h[1], x, y); if (!p || p.some(q => q[0] === sg.x && q[1] === sg.y)) continue; }
+          bd = d; best = [x, y]; } return best; }, sg);
+      let at = null;
+      for (let k = 0; k < 3 && !at; k++) { const c0 = await pickT(); if (!c0) break; await c.goTo(c0); await noonOf(fr);
+        const still = await fr.evaluate((n) => { const H = BohemiaHisMap.state(); return !H.boss.found[n] && !!BohemiaBosses.applies('track', city.x, city.y); }, sg.n);
+        if (still) at = c0; }
       if (at) {
-        await c.goTo(at); await noonOf(fr);
         v = await fr.evaluate((sg) => { const s0 = fogSeen(sg.x, sg.y), vh = BohemiaBosses.verbHere(), g = BohemiaBosses.use('track'), ap = BohemiaBosses.applies('track', city.x, city.y);
           return { verb: vh && vh.id, blocks: g && typeof g === 'object' ? g.blocks | 0 : 0, sign: sg.n, signSeen: !!fogSeen(sg.x, sg.y), seenBefore: !!s0, cooling: !!(ap && ap.off), at: [city.x, city.y] }; }, sg);
         await c.page.waitForTimeout(2400); await c.shot('5_his_dog_tracks');

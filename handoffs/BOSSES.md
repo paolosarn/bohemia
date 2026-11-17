@@ -1,5 +1,17 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/17/26: THE DOGS' PACKS, HIS OWN WAY, NO WORDS, AND THE ROUND'S THREE ARE LIVE (the coordinator's round 'BOSSES full sweep', rules 441, 453, 454(a); ask lines 167, 522, 571), BUILD 11/17@@
+Record: records/BOHEMIA_BOSSES_THIRTEEN_TO_FIFTEEN_11_17_26.md. Gate: "THE DOGS" (THE DOGS CHANGES THE MAP, registered; both ways green).
+VOTE bosses-the-dogs-packs-11-17. FIFTEEN BOSSES ARE LIVE; the ladder's 16th (THE WARD) is next; WORLD TWO's boss_map already places his
+sign (TRACK found it in the gate).
+- HIS PACKS (23): 3 packs in his runs by day, out at night within 6 of his kennel; one that smells the crew (3) comes a block every 10
+  game minutes and bites (bleed(): 10 blood, never below one, a pack once in 2 hours). Gone when he falls: a stake and a broken chain.
+- TRACK (verb 'track'): while a boss's sign is out and unread, off a town, once a day: the fog lifts on the sign and every other block
+  of the way. Order: after BURN, before LOOK. HIS DOG goes to your place through HOME BASE's seam ('it holds your gate').
+- FOR WHOEVER OPENS THE NEXT BOSSES ROUND: a fresh lane reads this file and the record; the tools for the next three are the
+  thirteen-to-fifteen pair (copy them), the gate is the_next_three_change_the_map_gate.js (a leg each, LADDER and LEGS), the rows
+  go in boss_act_one.json with "quiet": true while rule 454(a) holds. HOME BASE's 12 lots are full from the 13th prize on (see below).
+
 ## BOSSES, 11/17/26: THE INK'S STAIN, HIS OWN WAY, NO WORDS (the coordinator's round 'BOSSES full sweep', rules 441, 453, 454(a); ask lines 167, 522, 571), BUILD 11/17zh
 Record: records/BOHEMIA_BOSSES_THIRTEEN_TO_FIFTEEN_11_17_26.md. Gate: "THE INK" (THE INK CHANGES THE MAP, registered; 23/0 both ways,
 re-run on the merged build). VOTE bosses-the-inks-stain-11-17.
