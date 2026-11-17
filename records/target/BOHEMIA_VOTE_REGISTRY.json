@@ -20620,7 +20620,8 @@
     ]
    },
    "record": "records/BOHEMIA_COOK_FIVE_THE_WAREHOUSE_11_17_26.md"
-  }
+  },
+  {"id": "bosses-the-dogs-packs-11-17", "kind": "tile", "lane": "bosses", "sha": "78ec34528", "made": "11/17", "draft": true, "title": "THE DOGS' PACKS HUNT HIS STREETS AT NIGHT AND BITE: KILL HIM AND THE RUNS ARE EMPTY, AND HIS DOG TRACKS FOR YOU", "said": "the ladder's 13th, 14th and 15th, each changing the map its own way, few words (the coordinator's round 'BOSSES full sweep', rule 454(a))", "why": "Left is the map at night by THE DOGS' kennel, his packs out on the streets that smell your crew and come to bite, middle is the same streets once he falls with a stake and a broken chain where each pack slept, and right is your own man's card with no words: his dog is yours, and TRACK finds the trail to the next boss's sign once a day. You see it on the MAP after THE INK, at the man at the bar.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/bosses_vote_dogs_11_17/VOTE.webp"}, "before_after": {"before": "main 52cef8128: fourteen bosses; nothing on the map bit at night", "after": "THE DOGS' packs: in his runs by day, on the streets round his kennel at night, a pack that smells the crew comes a block every 10 minutes and bites (10 blood, never below one, once in 2 hours); gone when he falls, kept after a reload; TRACK (the next boss's sign out of the fog, once a day)", "scale": "the MAP on a 390 x 844 phone, the kill's own camera beat, twice the pixels"}, "record": "records/BOHEMIA_BOSSES_THIRTEEN_TO_FIFTEEN_11_17_26.md"}
  ],
  "verdicts": [
   {
