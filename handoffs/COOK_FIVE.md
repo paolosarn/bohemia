@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
-COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17w - THE CONVENTION HALL IS A SHELTER, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the fourth build; rules 416, 451(a); ask row 627; found: row 646).
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17w - THE CONVENTION HALL IS A SHELTER, BUILT (a783762e5), NOT YET SEEN (the full sweep, rule 453, the fourth build; rules 416, 451(a); ask row 627; found: row 646).
 The order's fourth item: 'the art for COMBAT THREE's next interior and its ceiling'. THE CONVENTION HALL (COMBAT THREE's BUILD 11/17c): every picture
 was a stand-in (300 of 300 pieces on the page). Now slices/fight_ground/hall/ holds hall_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 3 of
 hall_floor_0.webp, floor.high its row 4, floor.ring all 25; kit: every name COMBAT THREE's handoff asked for), sizes.json (my gate's), 18 piece
