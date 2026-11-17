@@ -11,8 +11,8 @@
  },
  "count": {
   "families": 14,
-  "types": 169,
-  "types_in_the_fight": 59,
+  "types": 173,
+  "types_in_the_fight": 63,
   "beasts": 17,
   "bosses": 5,
   "champions": 21
@@ -80,14 +80,19 @@
    "types": [
     "bounty_hunter",
     "bounty_hunter_marksman",
+    "head_taker",
     "hedge_knight",
+    "hired_gun",
     "master_archer",
     "mercenary",
     "mercenary_marksman",
     "oathbringer",
     "swordmaster"
    ],
-   "in_the_fight": [],
+   "in_the_fight": [
+    "hired",
+    "takers"
+   ],
    "draft": true
   },
   {
@@ -150,6 +155,7 @@
    "lesson": "Guns and a mortar: stay out of the open and close the distance.",
    "types": [
     "assassin",
+    "casino_gunner",
     "conscript",
     "conscript_with_polearm",
     "engineer",
@@ -159,7 +165,9 @@
     "mortar",
     "officer"
    ],
-   "in_the_fight": [],
+   "in_the_fight": [
+    "casino"
+   ],
    "draft": true
   },
   {
@@ -170,9 +178,12 @@
    "skin": "THE AMALGAMATION'S FAITHFUL (act 2 and 3 grow them)",
    "lesson": "They do not run.",
    "types": [
-    "cultist"
+    "cultist",
+    "flock_faithful"
    ],
-   "in_the_fight": [],
+   "in_the_fight": [
+    "flock"
+   ],
    "draft": true
   },
   {
@@ -1344,6 +1355,27 @@
    "page": "bb_all/0349_Caravan Hand (Enemy).txt"
   },
   {
+   "type": "casino_gunner",
+   "bb_name": "Gunner",
+   "bb_faction": "city_states",
+   "family": "casino_security",
+   "rows": [
+    "casino_gunner"
+   ],
+   "name": "GUNNER",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "casino"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0926_Gunner.txt"
+  },
+  {
    "type": "citizen",
    "bb_name": "Citizen",
    "bb_faction": "civilians",
@@ -1716,6 +1748,27 @@
    "page": "bb_all/0792_Flesh Golem.txt"
   },
   {
+   "type": "flock_faithful",
+   "bb_name": "Faithful",
+   "bb_faction": "cultists",
+   "family": "the_faithful",
+   "rows": [
+    "flock_faithful"
+   ],
+   "name": "FAITHFUL",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "flock"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0477_Cultist (Enemy).txt"
+  },
+  {
    "type": "footman",
    "bb_name": "Footman",
    "bb_faction": "noble_houses",
@@ -2059,6 +2112,27 @@
    "page": "bb_all/2071_Unhold.txt"
   },
   {
+   "type": "head_taker",
+   "bb_name": "Head Taker",
+   "bb_faction": "bounty_hunters",
+   "family": "rival_companies",
+   "rows": [
+    "head_taker"
+   ],
+   "name": "HEAD TAKER",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "takers"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0270_Bounty Hunter.txt"
+  },
+  {
    "type": "heavy_bruiser",
    "bb_name": "Bruiser",
    "bb_faction": "orcs",
@@ -2117,6 +2191,27 @@
    "champion": false,
    "boss": false,
    "page": "bb_all/0991_Hexe.txt"
+  },
+  {
+   "type": "hired_gun",
+   "bb_name": "Hired Gun",
+   "bb_faction": "mercenaries",
+   "family": "rival_companies",
+   "rows": [
+    "hired_gun"
+   ],
+   "name": "HIRED GUN",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "hired"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1258_Mercenary.txt"
   },
   {
    "type": "house_crossbow",

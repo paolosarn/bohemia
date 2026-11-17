@@ -1,5 +1,13 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+NOTE from BESTIARY (11/17, rule 453 'give CHARACTER the list of who wears a stand-in'): NOTHING OF YOURS WAS TOUCHED. WHO WEARS A
+STAND-IN, newest first: the four new factions' first types fight in faction looks no enemy band wore (the site had no spare enemy sheet):
+the flock's FAITHFUL in faction_homeless, the HIRED GUN in faction_caravans, the HEAD TAKER in faction_volunteers, the casino GUNNER in
+faction_reds (bohemia_enemies.json rows, 'looks_stand_in'). Their own clothes (each 2+ people, lossless WebP): the faithful (leather robe and
+hood, BB's cultist), the hired gun (a paid company's kit), the head taker (mail and a hunter's coat), the casino gunner (a security vest and
+a gunner's hat). Still from 11/11: brigand_raider and orc_young share one set; the geist and the road crew's champion are on the default
+pool; every machine wears the one robot sheet.
+
 NOTE from BESTIARY (11/14, rule 447 'BESTIARY turn up'): NOTHING OF YOURS WAS TOUCHED but two pools' spares: the kids' runner pool gave
 enemy_runner_6 and 7 to the new HORN, the heavies' heavy pool enemy_heavy_4 and 5 to the new BRUISER (ours.json people_looks: runner keeps
 0 to 5, heavy 0 to 3). No enemy sheet is unworn now: every next type needs your clothes (the 11/10 and 11/11 lists below stand).

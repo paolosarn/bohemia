@@ -3133,7 +3133,7 @@ const FIGHT = (function () {
     let base = raw * injMult(a, 'damage_inflicted_pct');
     const bd = band(a, t); if (bd) base *= bd.dmg;   /* rule 187: the share of the gun's damage that arrives at this distance */
     const ex = PK(a, 'executioner'); if (ex && t.injuries.length) base *= 1 + ex.damage_bonus_vs_injured_pct / 100;
-    const kf = PK(a, 'killing_frenzy'); if (kf && a.frenzy > 0) base *= 1 + kf.damage_bonus_pct / 100;
+    const kf = PK(a, 'killing_frenzy') || (a.martyrFrenzy ? (perkRow('killing_frenzy') || {}).numbers : null); if (kf && a.frenzy > 0) base *= 1 + kf.damage_bonus_pct / 100;   /* the flock's frenzy rides the perk's numbers */
     const tm = w.class === 'throwing' && !w.of ? PK(a, 'throwing_mastery') : null;   /* BOTTLE ARM is the bottles', never the pistol's */
     if (tm && dist(a, t) === tm.near_distance_tiles) base *= 1 + tm.damage_bonus_at_2_tiles_pct / 100;
     if (tm && dist(a, t) === tm.far_distance_tiles) base *= 1 + tm.damage_bonus_at_3_tiles_pct / 100;
@@ -3233,7 +3233,7 @@ const FIGHT = (function () {
     /* THE DEAD MAN'S SWITCH (rule 305): struck down with a live vest, the grip lets go: every cell, no dial; his death roll gets the
        vest's share (vestShare) since he is in the fire */
     const sw = vestLive(t); if (sw) { t.vest.gone = true; t.vestLit = true; }
-    if (t.side === 'them') { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); }
+    if (t.side === 'them') { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); martyrs(t); }
     else if (t.main && !R('ours.main_character_dies')) { t.down = true; emit({ t: 'down', id: t.id }); }
     else if (rng() < deathChance(t) + (t.vestLit ? vestShare(t) : 0)) { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); }
     else {
@@ -4456,6 +4456,18 @@ const FIGHT = (function () {
     u.pick = { to: pick.id, worth: bs > -Infinity ? bs : blowWorth(u, pick, blowsOn(u, pick, u.ap)), focus: fc ? fc.id : null, next: S.focus.next ? S.focus.next.id : null, why: fc && pick !== fc ? (why || (can.indexOf(fc) < 0 ? 'out of reach' : fair(fc) ? 'worth more' : 'a shot too poor')) : null };
     return pick;
   }
+  /* THE FLOCK COMES ON HARDER (BESTIARY 11/17, rule 453; Battle Brothers' cultists: 'they do not run', and Killing Frenzy's own
+     numbers, perks.json killing_frenzy): when one of a 'martyrs' band falls, every one of his own who can see where he fell hits
+     harder for the perk's turns. No other enemy does it */
+  function martyrs(t) {
+    if (!arche(t).martyrs) return;
+    const n = (perkRow('killing_frenzy') || {}).numbers; if (!n) return;
+    friends(t).forEach(function (f) { if (f === t || !onField(f) || !arche(f).martyrs || dist(f, t) > (f.vision || 7)) return;
+      f.frenzy = Math.max(f.frenzy || 0, n.duration_turns); f.martyrFrenzy = true; emit({ t: 'skill', id: f.id, skill: 'martyr', to: t.id }); });
+  }
+  /* THE HEAD TAKER (BESTIARY 11/17, rule 453; Battle Brothers' bounty hunters come for one man): a 'hunts_main' man goes for the
+     man the company follows; no other enemy does */
+  function mainOf(u) { return foes(u).filter(function (t) { return t.main && onField(t); })[0] || null; }
   function bestTarget(u, why) {
     const tz = u.tauntedBy ? byId(u.tauntedBy) : null;
     if (tz && canStrike(u, tz)) return tz;                    /* taunted: he goes for the man who called him */
@@ -4466,6 +4478,7 @@ const FIGHT = (function () {
        the dead getting up is the blow's first choice whenever it can reach him */
     const heads = A.snipes_the_head ? foes(u).filter(function (t) { return racial(t, 'raise_undead') && canStrike(u, t) && sideSees(u.side, t); }) : [];
     if (heads.length) return heads[0];
+    if (A.hunts_main) { const m = mainOf(u); if (m && canStrike(u, m)) return m; }
     foes(u).forEach(function (t) {
       if (!canStrike(u, t) || (A.sees_only && !sideSees(u.side, t))) return;   /* 70b: never a man his side cannot see */
       let s = expected(u, t);
@@ -5392,6 +5405,8 @@ const FIGHT = (function () {
           sc += (pal - foe) * R('hit_chance.surround.per_extra_adjacent');
         }
         if (A.surround) sc += tgts.reduce(function (m, t2) { return Math.max(m, friends(u).filter(function (fr) { return dist(fr, t2) === 1; }).length); }, 0);
+        if (A.hunts_main) { const mm = mainOf(u);   /* the head taker: a tile that reaches the main man first; a blow on another man is worth less than a step closer to him */
+          if (tgts.some(function (t2) { return t2.main; })) sc += R('hit_chance.cap').max; else if (mm) sc -= (Math.max(Math.abs(x - mm.x), Math.abs(y - mm.y)) + 2) * R('hit_chance.cap').max; }
         if (tv) sc += R('ours.auto_finds_a_shot').club_target_weight * tv;
         sc -= groundSteps(x, y) * R('ours.open_street').strike;   /* rule 428(c): of the tiles he can strike from, the one off the street */
         /* rule 187(d): a rifleman keeps his distance; a gun whose damage falls off with it (the shotgun) closes in */
@@ -5407,6 +5422,7 @@ const FIGHT = (function () {
         const stays = u.side === 'you' && x === u.x && y === u.y;
         const gsX = stays ? 0 : groundSteps(x, y), aside = gsX < groundSteps(u.x, u.y) && hunt(x, y) >= hunt(u.x, u.y) && hunt(x, y) <= hunt(u.x, u.y) + 1;
         sc = holds && !aside ? -Infinity : -(hunt(x, y) + gsX) * R('hit_chance.cap').max + left;
+        if (A.hunts_main && sc > -Infinity) { const mm = mainOf(u); if (mm) sc = -(Math.max(Math.abs(x - mm.x), Math.abs(y - mm.y)) + gsX) * R('hit_chance.cap').max + left; }   /* the head taker closes on the main man */
         /* rule 428(d): outmatched, the ground is all he weighs, and every tile he closes on the nearest man of ours (behind is free) */
         if (digW) sc = -(gsX * R('ours.outmatched').ground_weight + Math.max(0, nf0 - nearFoe(u, x, y)) * R('ours.outmatched').approach_steps) * R('hit_chance.cap').max + left;
         /* rule 332: NO LONG CHASE (a walk of chase_tiles or more this turn ending where chase_reach of their clubs swing at him) */
@@ -7778,6 +7794,7 @@ function startAnimHeard(a) {
     if (e.t === 'berserk') pop(u, perkName('berserk'), '#f08a70');
     /* THE SCREAM (rule 134): his approved tape_pull, the tape dragged through the heads, the Amalgamation's broadcast as act one
        hears it, until SOUNDS makes a scream of its own; the man it was aimed at in the line */
+    if (e.t === 'skill' && e.skill === 'martyr') pop(u, '', '#d04030', false, u.name + ' comes on harder.');   /* BESTIARY 11/17; draft:true */
     if (e.t === 'skill' && e.skill === 'horrific_scream') { sfx('tape_pull'); pop(u, '', '#b49ce0', true, u.name + ' screams at ' + nameOf(e.to) + '.'); }
     /* THE REBOOT (COMBAT [bestiary], THE MECHANIC): his approved power_on, the dead machine's lamp coming back, and it stands up
        out of its fall flickering for a beat; the first time, his veteran says who to shoot */
@@ -10974,7 +10991,8 @@ const CLIMB_SAYS = { tag: 'CLIMBED', square: 'CLIMBED', title: 'CLIMBED THIS TUR
   warn: 'Climbing ends his attacks this turn.', warnYou: 'Climbing ends your attacks this turn.', pick: 'CLIMBING ENDS HIS ATTACKS THIS TURN', pickYou: 'CLIMBING ENDS YOUR ATTACKS THIS TURN' };
 const RETREAT_RECAP = { head: 'YOU PULLED OUT', line: '{out} got out, {caught} did not. No pay.', left: 'Left behind: {names}.',
   backHead: 'YOU PULLED BACK', back: 'Nobody moved. Nobody hurt, nothing spent, nothing taken. No pay.' };   /* draft:true */
-const THEY_ARE = { brigands: 'The road crew', machines: 'The mechanic and his machines', kids: 'The kids', heavies: 'The heavies', beasts: 'The beasts', ghosts: 'The dead',
+const THEY_ARE = { flock: 'The flock', hired: 'The hired guns', takers: 'The head takers', casino: 'The eye in the sky',   /* BESTIARY 11/17; draft:true */
+  brigands: 'The road crew', machines: 'The mechanic and his machines', kids: 'The kids', heavies: 'The heavies', beasts: 'The beasts', ghosts: 'The dead',
   house: 'The House', watch: 'The block watch', keepers: 'The keepers', water: 'The water people',   /* FACTIONS 11/3 */
   coyotes: 'The coyotes', lions: 'A mountain lion', hogs: 'The hogs', camels: 'The camels', bulls: 'A bull',   /* FIVE MORE BEASTS; draft:true */
   teratorns: 'The teratorns',   /* WORLD 12 (rule 431(f)): the giant vultures, one more beast; draft:true */

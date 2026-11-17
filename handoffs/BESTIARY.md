@@ -1,5 +1,23 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
+BESTIARY (routine 'BESTIARY full sweep', rules 453, 454(a), 441): 11/17 LATEST -- BUILD STAMP_HERE ALL TWELVE FACTIONS FIGHT (SHA_HERE), BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_BESTIARY_ALL_TWELVE_FACTIONS_FIGHT_11_17_26.md. VOTE bestiary-all-twelve-factions-11-17. His 11/14 sheet passed the cards.
+WHERE THE ROSTER STANDS AGAINST THE FLOOR (his 9/29):
+| floor | his | the fight fields | short |
+|---|---|---|---|
+| factions | 12 | 12 | 0 |
+| enemy types | about 75 | 63 | 12 |
+| beasts | 17 | 17 lab-made (22 fielded) | 0 |
+| bosses | 3 | 10 | 0 |
+| champions | some | 3 kinds, named | 0 |
+- THIS BUILD, one type for each empty faction, each one thing no other enemy does: the flock's FAITHFUL (one falls, the rest come on
+  harder), the HIRED GUN (fights like your company), the HEAD TAKER (walks past your men to your boss), the casino GUNNER (the only real
+  gun). Met on the map and in jobs on their own grounds. STAND-IN clothes (faction looks), listed for CHARACTER.
+- NEXT (12 types to 75): the rival companies' marksman, the casino's conscript and officer, the flock's preacher; then the old order's
+  machines (robot art first).
+[bb Battle Brothers fields every faction it names; ours now fields all twelve.]
+[analog horror: the head taker's eyes never leave your boss; the others are only in his way.]
+
 BESTIARY (routine 'BESTIARY turn up', rule 447, rule 441): 11/14 LATEST -- BUILD 11/14i THE HORN AND THE BRUISER (5d289bf3), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_TURN_UP_THE_HORN_AND_THE_BRUISER_11_14_26.md. VOTE bestiary-the-horn-and-the-bruiser-11-14.
 WHERE THE ROSTER STANDS AGAINST THE FLOOR (his 9/29):
