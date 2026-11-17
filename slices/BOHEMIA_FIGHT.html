@@ -510,7 +510,7 @@ function loadAll() {
        first): the insides laid from data (fight_ground/insides.json lists them; each its own folder, its own art file once COOK FIVE's is
        in); slices/bohemia_big_inside.js builds each one's pieces from its data and the finished kits loaded above */
     .then(function () { return fetch('fight_ground/insides.json', FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })
-    .then(function (ix) { DB.insides = {}; const ids = (ix && ix.insides) || [], BI = window.BohemiaBigInside;
+    .then(function (ix) { DB.insides = {}; const ids = (ix && ix.insides) || [], BI = typeof window !== 'undefined' ? window.BohemiaBigInside : null;   /* a harness with no window loads none (gates/every_place_its_own_board_gate.js went red on 11/17c: fixed) */
       return Promise.all(ids.map(function (id) { return Promise.all(['fight_ground/' + id + '/' + id + '.json', 'fight_ground/' + id + '/' + id + '_art.json'].map(function (u) { return fetch(u, FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); }))
         .then(function (f) { const d = f[0], art = f[1]; if (!d || !d.board || !d.kit || !BI) return;
           DB.insides[id] = { data: d, art: art, kit: BI.kit(d, art, { garage: DB.garage, tunnels: DB.tunnels, casino: DB.casino, dress: DB.streetDress && DB.streetDress.kit }) }; }); })); })
@@ -1577,6 +1577,16 @@ const FIGHT = (function () {
      fight the map hands from a place with one of the data-laid insides (its data file's districts, its share of them by the cell's
      own dice; opts.inside '<id>' anywhere; opts.inside false never; never on a cell a place's own board stands on) is fought inside
      it (slices/bohemia_big_inside.js): house tiles, the roof cut away, every tile its cost and effect, dark but for its own lights */
+  /* AN INSIDE STANDS ON ITS MAP KIND'S OWN BLOCK (COMBAT THREE 11/17, a fix: WORLD THIRTEEN's gate EVERY MAP KIND HAS ITS FIGHT ANSWER P4
+     went red on 11/17c, 'OFF THE TABLE convention: casino.0'). An inside's board is laid, its 'blocks' only say what ground the roof
+     stands on; that was a fixed 'casino.0' whatever the district. It is now the block WORLD's one table names for the district (its
+     place's field block, else the first block of its lead kind), so the table and the fight agree for a kind that has an inside too */
+  function insideBlocks(B, opts) {
+    try { const FK = typeof window !== 'undefined' ? window.BohemiaFightKinds : null, pc = FK && opts.district ? FK.piece(opts.district) : null, d = pc && pc.deal, lib = blockLibrary();
+      const nm = d && (((d.field || []).filter(function (n) { return lib[n]; })[0]) || Object.keys(lib).filter(function (n) { return n.indexOf('|') < 0 && kindOf(n) === d.lead; })[0]);
+      if (nm && B && B.blocks) B.blocks = B.blocks.map(function (r) { return r.map(function () { return nm; }); }); } catch (e) {}
+    return B;
+  }
   function bigInside(opts) {
     const BI = typeof window !== 'undefined' ? window.BohemiaBigInside : null, I = DB.insides;
     if (!BI || !I || opts.inside === false || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
@@ -1585,7 +1595,7 @@ const FIGHT = (function () {
     for (let i = 0; i < ids.length; i++) { const id = ids[i], D = I[id], X = D.data;
       const by = X.share_by_district || {}, share = by[opts.district] != null ? by[opts.district] : (X.share == null ? 1 : X.share), roll = (((SEED >>> 0) ^ 0x7f4a7c15 ^ (i * 0x9e3779b9)) >>> 0) % 1000 / 1000;
       if (opts.inside !== id && roll >= share) continue;
-      const B = BI.deal(((SEED >>> 0) ^ 0x2545f491 ^ (i * 0x85ebca6b)) >>> 0, D, DB.ground, S.w, S.h, Object.assign({ night: S.night }, opts.insideAsk || {})); if (!B) continue;
+      const B = BI.deal(((SEED >>> 0) ^ 0x2545f491 ^ (i * 0x85ebca6b)) >>> 0, D, DB.ground, S.w, S.h, Object.assign({ night: S.night }, opts.insideAsk || {})); if (!B) continue; insideBlocks(B, opts);
       const was = [S.night, S.power];
       S.night = true; S.power = true;   /* under a roof it is night; the day through its doors and the drums' fire need no grid */
       applyBoard(B); if (!connected()) { S.insideErr = id + ': not joined'; S.night = was[0]; S.power = was[1]; continue; }
@@ -1599,7 +1609,7 @@ const FIGHT = (function () {
     if (opts.template && opts.template.board && !opts.inside) return false;   /* __THE_CREW_STARTS_ON_ITS_CELL__ (rule 429(a) ONE MAP): on a cell where the map stands a place's own board the fight is on that board; an inside is dealt there only when it is asked for (measured on the alpha: a fight on a cell of the wash's place was dealt the tunnels under it) */
     const share = D.data.share == null ? 1 : D.data.share, roll = ((SEED >>> 0) % 1000) / 1000;
     if (opts.inside !== 'tunnels' && (D.data.districts.indexOf(opts.district) < 0 || roll >= share)) return false;
-    const B = FT.deal(((SEED >>> 0) ^ 0x1b873593) >>> 0, D, DB.ground, S.w, S.h, Object.assign({ night: S.night, dress: DB.streetDress && DB.streetDress.kit }, opts.tunnelsAsk || {})); if (!B) return false;
+    const B = FT.deal(((SEED >>> 0) ^ 0x1b873593) >>> 0, D, DB.ground, S.w, S.h, Object.assign({ night: S.night, dress: DB.streetDress && DB.streetDress.kit }, opts.tunnelsAsk || {})); if (!B) return false; insideBlocks(B, opts);
     const was = [S.night, S.power];
     S.night = true; S.power = true;   /* under the ground it is night; the grates' day and the drums' fire need no grid */
     applyBoard(B); if (!connected()) { S.tunnelsErr = 'not joined'; S.night = was[0]; S.power = was[1]; return false; }
@@ -1625,7 +1635,7 @@ const FIGHT = (function () {
     if (opts.template && opts.template.board && !opts.inside) return false;   /* __THE_CREW_STARTS_ON_ITS_CELL__ (rule 429(a) ONE MAP): on a cell where the map stands a place's own board the fight is on that board; an inside is dealt there only when it is asked for (measured on the alpha: a fight on a cell of the wash's place was dealt the tunnels under it) */
     const by = D.data.share_by_district || {}, share = by[opts.district] != null ? by[opts.district] : (D.data.share == null ? 1 : D.data.share), roll = (((SEED >>> 0) ^ 0x9e3779b9) >>> 0) % 1000 / 1000;
     if (opts.inside !== 'garage' && (D.data.districts.indexOf(opts.district) < 0 || roll >= share)) return false;
-    const B = PG.deal(((SEED >>> 0) ^ 0x85ebca6b) >>> 0, D, DB.ground, S.w, S.h, Object.assign({ night: S.night, dress: DB.streetDress && DB.streetDress.kit }, opts.garageAsk || {})); if (!B) return false;
+    const B = PG.deal(((SEED >>> 0) ^ 0x85ebca6b) >>> 0, D, DB.ground, S.w, S.h, Object.assign({ night: S.night, dress: DB.streetDress && DB.streetDress.kit }, opts.garageAsk || {})); if (!B) return false; insideBlocks(B, opts);
     const was = [S.night, S.power];
     S.night = true; S.power = true;   /* under the decks above it is night; the open sides' day and the drums' fire need no grid */
     applyBoard(B); if (!connected()) { S.garageErr = 'not joined'; S.night = was[0]; S.power = was[1]; return false; }
@@ -1636,7 +1646,7 @@ const FIGHT = (function () {
     if (!CF || !D || opts.inside === false || (opts.inside && opts.inside !== 'casino') || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
     if (opts.template && opts.template.board && !opts.inside) return false;   /* __THE_CREW_STARTS_ON_ITS_CELL__ (rule 429(a) ONE MAP): on a cell where the map stands a place's own board the fight is on that board; an inside is dealt there only when it is asked for (measured on the alpha: a fight on a cell of the wash's place was dealt the tunnels under it) */
     if (opts.inside !== 'casino' && D.data.districts.indexOf(opts.district) < 0) return false;
-    const B = CF.deal(((SEED >>> 0) ^ 0x2545f491) >>> 0, D, DB.ground, S.w, S.h, opts.casinoAsk || null); if (!B) return false;
+    const B = CF.deal(((SEED >>> 0) ^ 0x2545f491) >>> 0, D, DB.ground, S.w, S.h, opts.casinoAsk || null); if (!B) return false; insideBlocks(B, opts);
     const was = [S.night, S.power];
     S.night = true;                                                                  /* no sun under a roof */
     S.power = opts.casinoPower === true || (D.data.power_default === true && opts.power !== false);   /* dark unless somebody pays */

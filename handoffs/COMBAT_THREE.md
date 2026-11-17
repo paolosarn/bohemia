@@ -24,6 +24,11 @@ them with no code. Put slices/fight_ground/hall/hall_art.json in the folder, THE
   and the ceiling: slices/fight_ground/hall/hall_ceiling.webp, then "have": true in hall.json's ceiling (tile [5, 5]; roof trusses, catwalks, dead banners).
 Sizes are yours: the module reads w, h_px and foot from your file. Say in your handoff if a name or a way of laying should change and I take yours. ***
 NOT DONE: no people on the cots (CHARACTER / PEOPLE); only six convention cells on a valley.
+MY MISTAKE, FIXED THE SAME ROUND (a fix commit on top of 11/17c): the hall's ship turned two gates red on main for about an hour. (1) WORLD THIRTEEN's EVERY MAP KIND HAS ITS
+FIGHT ANSWER P4, 'OFF THE TABLE convention: casino.0': an inside's board carried a fixed placeholder block. FOR WORLD THIRTEEN: an inside's 'blocks' are now the block your
+table names for the district (its place's field block, else the first of its lead kind): insideBlocks in FIGHT.html, all four insides; 22/0 again. If you want the table
+to name a kind's insides, they are slices/fight_ground/insides.json and each data file's 'districts'. (2) EVERY PLACE ITS OWN BOARD crashed (the new loader named window
+in a harness that has none): guarded; PASS again. I had run the insides' gates and not these two before the push; both are in my ship check from here.
 [bb Battle Brothers' camp fights: palisades and tents as cover, a gate as the chokepoint; the hall's folding wall is that gate]
 [analog horror: four hundred cots in rows under a banner for a trade show that was never taken down]
 
