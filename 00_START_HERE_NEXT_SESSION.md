@@ -530,7 +530,7 @@ Earlier: 11/9c, 11/9f, 11/9j, fourteen places that talk. Still open: the bus yar
 handoffs/WORLD_FOURTEEN.md.
 [bb Battle Brothers' company events steal from the stash and call a man home; ours are the plasma van, the swollen cans and the rent crew.]
 [analog horror: the dead bank machine still runs on its own battery, says her balance is zero every morning, and asks if she would like a receipt.]
-HOME BASE (home-base-01gkdyuv): 11/17 LATEST -- BUILD 11/17zc - WHAT YOU DID, PINNED, BUILT, NOT YET SEEN (rule 453(3)): every job he finishes is
+HOME BASE (home-base-01gkdyuv): 11/17 LATEST -- BUILD 11/17zc - WHAT YOU DID, PINNED (affb8a78a), SHIPPED (rule 453(3)): every job he finishes is
 pinned on a cork board that goes up by itself at his place (seen on CAM 2; a tap: jobs done, people brought home, the last five).
 Gate YOUR PLACE, PLANTED E11, D18. VOTE home-base-his-impact-11-17 (STAND-IN). [PENDING Paolo]: the defence fight on a board of what
 he built is rule 86's retired shape; not built (handoffs/HOME_BASE.md). Before it this round: BUILD 11/17l HIS OWN BUILDINGS.

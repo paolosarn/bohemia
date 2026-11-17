@@ -1,4 +1,4 @@
-HOME BASE (home-base-01gkdyuv): 11/17 LATEST -- BUILD 11/17zc - WHAT YOU DID, PINNED, BUILT, NOT YET SEEN (rule 453(3); ask line 571).
+HOME BASE (home-base-01gkdyuv): 11/17 LATEST -- BUILD 11/17zc - WHAT YOU DID, PINNED (affb8a78a), SHIPPED (rule 453(3); ask line 571).
 Record: records/BOHEMIA_HOME_BASE_HIS_IMPACT_11_17_26.md.
 - A job done (or paid in part) is a DEED at his place (the seam's kind 'deed'): the jobs' own settle hands it (one marked line in
   slices/bohemia_job_kinds.js); a lost or cancelled job pins nothing; before planting it waits. The CORK BOARD goes up by itself on his
