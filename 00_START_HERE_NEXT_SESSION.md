@@ -1,3 +1,12 @@
+COMBAT THREE (combat-three-01gkdyuu): 11/17 LATEST -- BUILD 11/17zf - THE WAREHOUSE, BUILT, NOT YET SEEN (the full sweep, rule 453, job 1 a third time; rules 416, 59, 428, 451(a); ask rows 468, 627).
+The sixth big inside: a fight in the warehouse district (half of them; one in five in the industrial blocks) is fought between the racks: racking as walls, long lanes a gun
+sees down, cross-aisles, pallets and fallen bays, the conveyor to climb, dead forklifts, the dock doors' day, a pick mezzanine nobody holds at the bell; its roof joists overhead
+at 10%. One data file (slices/fight_ground/warehouse/warehouse.json), 19 tile kinds, every picture a stand-in. GATE THE BIG INSIDES 43/0 (hall, mall, warehouse). ON THE PAGE:
+the demo and the alpha, both ways, through the map's own door: 7 fights inside it, 7 ended on AUTO, 18 of 18 taps, 0 errors. VOTE combat3-the-warehouse-11-17 (stand_in).
+COOK FIVE's names are in handoffs/COMBAT_THREE.md (the hall's finished kit came in with no code: the names work). NEXT: the data fort, then the airport terminal.
+[bb Battle Brothers has no corridors; its forest does the same job: trees that stop the arrow and the walk. The racks are our forest]
+[analog horror: a warehouse's fixed camera down one lane, a shape at the far end that was not there one frame ago]
+COMBAT THREE (combat-three-01gkdyuu): 11/17 -- BUILD 11/17x - THE MALL, BUILT, NOT YET SEEN (the full sweep, rule 453, job 1 again; rules 416, 59, 428, 451(a); ask rows 468, 627).
 COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17ze - THE BANK, THE MOB MUSEUM AND THE DINOSAUR, BUILT (4c0a4afc4), NOT YET SEEN (the full sweep, rule 453, the fifth build; rules 408, 409(c), 455; ask row 627).
 Three more real places wear their own piece on the map, on the 11/17k draw (no code): THE BANK (fourteen floors of dark glass over a banking hall with
 its glass out, the money in drifts on the plaza, one window lit by a stove fed with hundreds and its smoke on the beat), THE MOB MUSEUM (the 1933

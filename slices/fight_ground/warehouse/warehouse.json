@@ -1,0 +1,638 @@
+{
+ "version": 1,
+ "lane": "COMBAT THREE",
+ "id": "warehouse",
+ "name": "THE DISTRIBUTION WAREHOUSE",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 453, 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428 (roofs and cover); ask row 468's list, the sixth: 'A DISTRIBUTION WAREHOUSE (North Las Vegas' industrial parks): racks as walls, lanes, the loading docks, forklifts.'",
+ "facts": [
+  "North Las Vegas' industrial parks are the valley's real warehouse land: fulfilment and distribution buildings of several hundred thousand square feet to over a million each, so a fight takes one corner of one floor: four lanes of racking and a stretch of the docks.",
+  "A house tile is about 18 m: one tile of lane here stands for the three or four real aisles that fit in it, the way one tile of the hall stands for a block of cots.",
+  "Selective pallet racking runs in long straight rows with cross-aisles; a cross-dock building has dock doors down both long walls and little racking between: the two layouts.",
+  "The map's own kind 'warehouse' (engine/bohemia_fight_kinds.js: the industry zone, a works building of two and three storeys) is where it is fought."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (warehouse_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "warehouse",
+  "industrial"
+ ],
+ "share": 0.5,
+ "share_by_district": {
+  "industrial": 0.2
+ },
+ "districts_why": "The warehouse district is the valley's distribution land: half its fights that are not on the rail yard's own cells go inside one, by the cell's own dice; the plain industrial blocks one in five (most of those are works and yards). The rest are fought outside, on the zone's own board.",
+ "board": {
+  "templates": {
+   "warehouse": {
+    "name": "THE DISTRIBUTION WAREHOUSE",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_lanes": [
+      "####################",
+      "#MMmMMnMMMmMM<..s.w#",
+      "#.s.w..s..c.s..w.s.#",
+      "#RRRR.RRRRRRRR.RRRR#",
+      "#s..k..w.f.s.c..k.s#",
+      "#RRRR.RRRRRRRR.RRRR#",
+      "#.w.s.c..k..s..s.w.#",
+      "#RRRR.RRRRRRRR.RRRR#",
+      "#s.k...s..wf.s.c..s#",
+      "#RRRR.RRRRRRRR.RRRR#",
+      "#.ws...o.s..o..ws..#",
+      "#.ss.F..vvvv..ss.g.#",
+      "#.d..w..s..w.F..sw.#",
+      "#.D.TD..D.TD..D..D.#",
+      "####################"
+     ],
+     "the_cross_dock": [
+      "####################",
+      "#.D..D.TD..D..DT.D.#",
+      "#..s..w..s..w..s...#",
+      "#RRR.RRR..F.RRR.RRR#",
+      "#.s...wk..s..c..s.w#",
+      "#RRR.RRR.vv.RRR.RRR#",
+      "#.sf.w.>MMmMMM<.ws.#",
+      "#..s...kMnMMMM.s..c#",
+      "#RRR.RRR.vv.RRR.RRR#",
+      "#.w..sc...s.k..w..s#",
+      "#RRR.RRR.F..RRR.RRR#",
+      "#.s..w..s.w..s..s.w#",
+      "#.g..s...d...w..o..#",
+      "#.D.TD..D..D.TD..D.#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   "R": {
+    "is": "wall",
+    "wall": "air",
+    "tile": "rack"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "s": {
+    "is": "floor",
+    "tile": "pallets",
+    "piece": "wh_pallets",
+    "at": [
+     0.3,
+     0.62
+    ],
+    "more": [
+     {
+      "piece": "wh_stack",
+      "at": [
+       0.72,
+       0.94
+      ],
+      "share": 0.7
+     }
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "spill",
+    "piece": "wh_spill",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "camp",
+    "piece": [
+     "wh_camp_a",
+     "wh_camp_b"
+    ],
+    "at": [
+     0.3,
+     0.55
+    ],
+    "more": [
+     {
+      "piece": [
+       "wh_bedding_a",
+       "wh_bedding_b"
+      ],
+      "at": [
+       0.72,
+       0.95
+      ],
+      "share": 0.7
+     }
+    ]
+   },
+   "w": {
+    "is": "floor",
+    "tile": "drums",
+    "piece": "wh_drums",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "F": {
+    "is": "floor",
+    "tile": "forklift",
+    "piece": "wh_forklift",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "T": {
+    "is": "floor",
+    "tile": "trailer",
+    "piece": "wh_trailer",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "v": {
+    "is": "floor",
+    "tile": "conveyor",
+    "piece": "wh_conveyor",
+    "at": [
+     0.5,
+     0.62
+    ]
+   },
+   "d": {
+    "is": "floor",
+    "tile": "desk",
+    "piece": "wh_desk",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "g": {
+    "is": "floor",
+    "tile": "cage",
+    "piece": "wh_cage",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "o": {
+    "is": "floor",
+    "tile": "column",
+    "piece": "wh_column",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "dock",
+    "light": "dock",
+    "light_at": 0.5
+   },
+   "M": {
+    "is": "high"
+   },
+   "m": {
+    "is": "high",
+    "tile": "high_pallets",
+    "piece": "wh_pallets",
+    "at": [
+     0.3,
+     0.82
+    ],
+    "more": [
+     {
+      "piece": "wh_stack",
+      "at": [
+       0.72,
+       0.82
+      ]
+     }
+    ]
+   },
+   "n": {
+    "is": "high",
+    "tile": "high_desk",
+    "piece": "wh_drums",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   ">": {
+    "is": "ramp"
+   },
+   "<": {
+    "is": "ramp"
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words).",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The warehouse's outer wall: no way through.",
+   "say": ""
+  },
+  "rack": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "Pallet racking, five levels up, loaded: no way through, no sight through. The lane beside it and the gaps at its ends are the ways.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "A lane between the racks, or the dock's apron: open floor, nothing to hide behind, and a gun sees down the whole lane; on AUTO nobody stays on it.",
+   "say": "The lane: open floor, and a gun sees down it.",
+   "draft": true
+  },
+  "pallets": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Pallets pulled out into the lane, still wrapped: cover.",
+   "say": "Pallets: cover.",
+   "draft": true
+  },
+  "spill": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A bay of the rack come down into the lane: cover.",
+   "say": "A bay come down: cover.",
+   "draft": true
+  },
+  "camp": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Somebody sleeps between the racks: bedding and what they took off the shelves. Low cover.",
+   "say": "Somebody's bedding: low cover.",
+   "draft": true
+  },
+  "drums": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Drums and cones left where the shift stopped: low cover.",
+   "say": "Drums and cones: low cover.",
+   "draft": true
+  },
+  "forklift": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A forklift, its battery long gone: nobody stands on its tile; cover for the tiles beside it.",
+   "say": ""
+  },
+  "trailer": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A trailer still backed to its dock: nobody stands on its tile; cover for the tiles beside it.",
+   "say": ""
+  },
+  "conveyor": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "effect": "The conveyor line: you climb over it, slow going (3 AP a step), and it is low cover.",
+   "say": "The conveyor: slow going, low cover.",
+   "draft": true
+  },
+  "desk": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The shipping desk: low cover.",
+   "say": "The shipping desk: low cover.",
+   "draft": true
+  },
+  "cage": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The lock-up cage for what was worth stealing, cut open: cover.",
+   "say": "The lock-up cage: cover.",
+   "draft": true
+  },
+  "column": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A column: nobody stands on its tile.",
+   "say": ""
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire in a drum somebody keeps. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A drum fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "dock": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "A dock door, rolled up: open floor, and by day the light falls in: a man here is seen.",
+   "say": "A dock door: open floor.",
+   "say_lit": "A dock door: open floor, and the day is on you.",
+   "draft": true
+  },
+  "high": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "The pick mezzanine, half a storey up: high ground, and nobody's at the bell. A blow or a shot down from it lands easier, one up at it harder; a gun reaches a tile farther from it. Up the stairs it is a walk; over its rail from the floor it is a climb: no attack that turn, and a beast cannot.",
+   "say": "The mezzanine: you hit down easier, and a gun reaches a tile more.",
+   "roof": true,
+   "say_before": "",
+   "draft": true
+  },
+  "high_pallets": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "cover": "COVER",
+   "effect": "Pallets on the mezzanine: cover, on high ground. The best ground in the warehouse.",
+   "say": "Pallets on the mezzanine: cover, and high ground.",
+   "say_before": "Pallets: cover.",
+   "roof": true,
+   "draft": true
+  },
+  "high_desk": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "effect": "Drums on the mezzanine: low cover, on high ground.",
+   "say": "Drums on the mezzanine: low cover, and high ground.",
+   "say_before": "Drums and cones: low cover.",
+   "roof": true,
+   "draft": true
+  },
+  "ramp": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "The stairs: the WALK up to the mezzanine. A step onto them from the floor costs one more; a man who walks up can still strike this turn.",
+   "say": "",
+   "say_before": "The stairs: the walk up, and you can still strike.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK FIVE's own picture for it is in warehouse_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL, RAIL, HEIGHT); 'blocks_move' means nobody stands on its tile. A DRESS piece is drawn and never counted.",
+ "kit": {
+  "wh_pallets": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "PALLETS"
+  },
+  "wh_stack": {
+   "like": "sb_bales_S",
+   "kind": "DRESS",
+   "name": "PALLETS"
+  },
+  "wh_spill": {
+   "like": "sb_heap_S",
+   "kind": "COVER",
+   "name": "A BAY COME DOWN"
+  },
+  "wh_camp_a": {
+   "like": "tunnel_camp_a",
+   "kind": "LOW_COVER",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "wh_camp_b": {
+   "like": "tunnel_camp_b",
+   "kind": "LOW_COVER",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "wh_bedding_a": {
+   "like": "tunnel_camp_a",
+   "kind": "DRESS",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "wh_bedding_b": {
+   "like": "tunnel_camp_b",
+   "kind": "DRESS",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "wh_drums": {
+   "like": "sb_drums_S",
+   "kind": "LOW_COVER",
+   "name": "DRUMS AND CONES"
+  },
+  "wh_forklift": {
+   "like": "sb_dozer_S",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A FORKLIFT"
+  },
+  "wh_trailer": {
+   "like": "sb_container_S",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A TRAILER AT ITS DOCK"
+  },
+  "wh_conveyor": {
+   "like": "sb_barrier_S",
+   "kind": "LOW_COVER",
+   "name": "THE CONVEYOR"
+  },
+  "wh_desk": {
+   "like": "casino_bar",
+   "kind": "LOW_COVER",
+   "name": "THE SHIPPING DESK"
+  },
+  "wh_cage": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "name": "THE LOCK-UP CAGE"
+  },
+  "wh_column": {
+   "like": "garage_column",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A COLUMN"
+  },
+  "wh_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "wh_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  },
+  "wh_rack_ew": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "name": "PALLET RACKING"
+  },
+  "wh_rack_ns": {
+   "like": "casino_wall_ns",
+   "kind": "WALL"
+  },
+  "wh_mezz": {
+   "like": "garage_level_aisle",
+   "kind": "HEIGHT",
+   "name": "THE PICK MEZZANINE"
+  },
+  "wh_stair_e": {
+   "like": "garage_ramp_e",
+   "kind": "HEIGHT"
+  },
+  "wh_stair_w": {
+   "like": "garage_ramp_w",
+   "kind": "HEIGHT"
+  },
+  "wh_rail_ew": {
+   "like": "garage_rail_ew",
+   "kind": "RAIL"
+  },
+  "wh_rail_ns": {
+   "like": "garage_rail_ns",
+   "kind": "RAIL"
+  }
+ },
+ "walls": {
+  "ew": "wh_wall_ew",
+  "ns": "wh_wall_ns"
+ },
+ "walls_air": {
+  "ew": "wh_rack_ew",
+  "ns": "wh_rack_ns"
+ },
+ "high": {
+  "deck": "wh_mezz",
+  "ramp_e": "wh_stair_e",
+  "ramp_w": "wh_stair_w",
+  "rail_ew": "wh_rail_ew",
+  "rail_ns": "wh_rail_ns",
+  "h_m": 1.42
+ },
+ "floor": {
+  "floor": [
+   "hall/hall_floor_0.webp#0,0",
+   "hall/hall_floor_0.webp#1,0",
+   "hall/hall_floor_0.webp#2,0",
+   "hall/hall_floor_0.webp#3,0",
+   "hall/hall_floor_0.webp#4,0",
+   "hall/hall_floor_0.webp#0,1",
+   "hall/hall_floor_0.webp#1,1",
+   "hall/hall_floor_0.webp#2,1",
+   "hall/hall_floor_0.webp#3,1",
+   "hall/hall_floor_0.webp#4,1",
+   "hall/hall_floor_0.webp#0,2",
+   "hall/hall_floor_0.webp#1,2",
+   "hall/hall_floor_0.webp#2,2",
+   "hall/hall_floor_0.webp#3,2",
+   "hall/hall_floor_0.webp#4,2",
+   "hall/hall_floor_0.webp#0,3",
+   "hall/hall_floor_0.webp#1,3",
+   "hall/hall_floor_0.webp#2,3",
+   "hall/hall_floor_0.webp#3,3",
+   "hall/hall_floor_0.webp#4,3"
+  ],
+  "high": [
+   "hall/hall_floor_0.webp#0,4",
+   "hall/hall_floor_0.webp#1,4",
+   "hall/hall_floor_0.webp#2,4",
+   "hall/hall_floor_0.webp#3,4",
+   "hall/hall_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "hall/hall_floor_0.webp#0,0",
+   "hall/hall_floor_0.webp#1,0",
+   "hall/hall_floor_0.webp#2,0",
+   "hall/hall_floor_0.webp#3,0",
+   "hall/hall_floor_0.webp#4,0",
+   "hall/hall_floor_0.webp#0,1",
+   "hall/hall_floor_0.webp#1,1",
+   "hall/hall_floor_0.webp#2,1",
+   "hall/hall_floor_0.webp#3,1",
+   "hall/hall_floor_0.webp#4,1",
+   "hall/hall_floor_0.webp#0,2",
+   "hall/hall_floor_0.webp#1,2",
+   "hall/hall_floor_0.webp#2,2",
+   "hall/hall_floor_0.webp#3,2",
+   "hall/hall_floor_0.webp#4,2",
+   "hall/hall_floor_0.webp#0,3",
+   "hall/hall_floor_0.webp#1,3",
+   "hall/hall_floor_0.webp#2,3",
+   "hall/hall_floor_0.webp#3,3",
+   "hall/hall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "dock": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {
+  "height": "The mezzanine: you hit down easier, and a gun reaches a tile more."
+ },
+ "start": null,
+ "start_why": "NOBODY HOLDS THE MEZZANINE AT THE BELL: both lines start on the floor, in the lanes; the pick mezzanine is whoever takes the stairs first.",
+ "ceiling": {
+  "kind": "joist",
+  "alpha": 0.1,
+  "src": "warehouse/warehouse_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the warehouse's roof deck and its open-web joists over the board at this alpha (10%, never past the fight's own most). 'src' is the picture COOK FIVE makes (see garage.json's ceiling); 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in."
+ }
+}

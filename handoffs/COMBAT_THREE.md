@@ -1,6 +1,38 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/17 LATEST -- [the mall] SHIPPED 850c75fc5, BUILD 11/17x - THE MALL, BUILT, NOT YET SEEN. VOTE combat3-the-mall-11-17 (stand_in).
+COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/17 LATEST -- [the warehouse] SHIPPED SHIPSHA, BUILD 11/17zf - THE WAREHOUSE, BUILT, NOT YET SEEN. VOTE combat3-the-warehouse-11-17 (stand_in).
+Record: records/BOHEMIA_COMBAT_THREE_THE_WAREHOUSE_11_17_26.md. The full sweep, job 1 a third time: the sixth big inside of row 468's list.
+WHAT: a fight in the warehouse district (0.5 by the cell's dice; the industrial blocks 0.2; opts.inside 'warehouse' anywhere) is fought between the racks: racking as walls (no way,
+no sight), long lanes a gun sees down, cross-aisles, pallets and fallen bays (cover), bedding and drums and the shipping desk (low cover), the conveyor (3 AP, low cover),
+forklifts and trailers and columns (blockers), dock doors (the day), drum fires, the pick mezzanine (high ground nobody holds at the bell). Two layouts: the_lanes, the_cross_dock.
+ONE DATA FILE: slices/fight_ground/warehouse/warehouse.json (19 tile kinds, 23 pieces all stand-ins), third in insides.json. No new rule code; the fight page gained the ceiling
+kind 'joist'. GATE THE BIG INSIDES 43/0 (three insides).
+ON THE PAGE (this stamp): the demo and the alpha, upright and on its side, through the map's own door: 7 fights inside the warehouse, 7 ended on AUTO, 18 of 18 tile taps, 0 page
+errors; both layouts dealt by the map; the ceiling moves a pixel 2.2 to 2.5 of 255 on average.
+*** MY MISTAKE, SAID: the two follow-up commits before this one (the zone's and the mall's 'the VOTE card ... names <sha>') wrote the wrong build letter in their MESSAGE
+('BUILD 9/24o'): my ship script read the first 'BUILD' in the alpha instead of the stamp. The shas, the registry and the handoff were right; the script is fixed.
+*** FOR COOK FIVE (the hall's finished kit came in with no code from me: the names worked; thank you. THE WAREHOUSE'S NAMES, the same contract): put
+slices/fight_ground/warehouse/warehouse_art.json in the folder, THE GARAGE'S FORMAT ({ "floor": { "floor": [...], "high": [...], "ring": [...] }, "kit": { name: { "src", "w",
+"h_px", "foot": [x, y], ... } } }); a name you leave out stays its stand-in:
+  the floors     floor.floor (the sealed slab, lane lines and bay numbers, tyre marks), floor.high (the mezzanine's deck plate), floor.ring (the warehouse going on)
+  wh_rack_ew     PALLET RACKING seen from the lane, a tile wide: orange beams, blue uprights, what is left on them (today the casino's wall of dead screens); it is laid on both
+                 long faces of a rack tile. wh_rack_ns   a rack's end, seen end on (a tile deep)
+  wh_pallets, wh_stack     pallets pulled into the lane, half a tile (stack: the drawn-only second); wh_spill   a bay of the rack come down across the lane
+  wh_camp_a, wh_camp_b, wh_bedding_a, wh_bedding_b     somebody sleeping between the racks, half a tile (bedding: drawn-only)
+  wh_drums       drums and cones; wh_conveyor   a stretch of roller conveyor, a tile wide (a man climbs over it)
+  wh_forklift    a dead forklift (a tile's blocker); wh_trailer   a trailer backed to its dock, seen from inside: the open back (a tile's blocker)
+  wh_desk        the shipping desk; wh_cage   the lock-up cage, cut open; wh_column   a column
+  wh_mezz        one tile of the pick mezzanine's deck; wh_stair_e, wh_stair_w   its stairs rising east / west; wh_rail_ew, wh_rail_ns   its rail
+  wh_wall_ew, wh_wall_ns   the outer wall (tilt-up concrete)
+  warehouse/warehouse_ceiling.webp   THE CEILING: corrugated deck, open-web joists, a girder every bay, strip lights mostly dead, clear panels, red sprinkler mains; tiles every
+                 5 by 5 tiles; set "have": true in warehouse.json's ceiling the day it is in
+The mall's names are in the block below and still stand.
+*** SAID PLAINLY: the lanes are exposed on purpose (27% of men bare after round one; the bound is 30%). Two demo-upright fights ran before the last two cover tiles were added.
+NEXT: the data fort, then the airport terminal (a data file each).
+[bb Battle Brothers has no corridors; its forest does the same job: trees that stop the arrow and the walk, so a line breaks into duels. The racks are our forest]
+[analog horror: a warehouse's fixed camera down one lane, the same lane on every monitor, a shape at the far end that was not there one frame ago]
+
+COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/17 -- [the mall] SHIPPED 850c75fc5, BUILD 11/17x - THE MALL, BUILT, NOT YET SEEN. VOTE combat3-the-mall-11-17 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_MALL_11_17_26.md. The full sweep, job 1 again: the fifth big inside of row 468's list.
 WHAT: a fight at the mall (0.7 of what the garage leaves there, by the cell's dice; opts.inside 'mall' anywhere) is fought on its concourse: eight stores as rooms (a shutter stuck
 half down in each doorway: 3 AP, one at a time), carts, stock, counters, bedding, planters, kiosks, the food court's tables (3 AP, low cover), a column, the lift, the day through

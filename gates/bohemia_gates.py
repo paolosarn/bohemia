@@ -9592,7 +9592,7 @@ GATES = [
      "counted (I5); a fight on AUTO to the end (I6); every tile its cost and effect (I7); both sides off the open floor onto cover and the high "
      "ground (I8, rule 428: the high ground by the inside's own word, 'gallery' = a quarter to a half of the band up on it at the bell, any other "
      "start = nobody on it at the bell and men on it after round one); its ceiling at 10% (I9). Six plants an inside. 11/17: THE MALL the "
-     "second (the fifth of row 468's list). About fifty seconds an inside", True),
+     "second (the fifth of row 468's list), THE DISTRIBUTION WAREHOUSE the third (the sixth). About fifty seconds an inside", True),
     ('AN INSIDE SHOWS ITS CEILING', ['node', 'gates/an_inside_shows_its_ceiling_gate.js'],
      "COMBAT THREE gate, 11/14, VAMILY rule 451(a) (ask row 623; PAOLO's vote on the parking garage: 'a 10% opacity for real... I still need to "
      "see the parking garage ceiling'). Each inside's data file names its ceiling: an alpha from 0.05 to 0.12, a kind the fight draws, COOK "

@@ -4,6 +4,7 @@
  "how": "The big insides laid from data by slices/bohemia_big_inside.js (VAMILY rule 416): each id has slices/fight_ground/<id>/<id>.json and, when its own art is in, <id>_art.json. The casino floor, the flood tunnels and the parking garage have modules of their own and are not listed here. A modder adds a folder and its id.",
  "insides": [
   "hall",
-  "mall"
+  "mall",
+  "warehouse"
  ]
 }
