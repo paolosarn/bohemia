@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/17 LATEST -- [the warehouse] SHIPPED SHIPSHA, BUILD 11/17zf - THE WAREHOUSE, BUILT, NOT YET SEEN. VOTE combat3-the-warehouse-11-17 (stand_in).
+COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/17 LATEST -- [the warehouse] SHIPPED 6dac1c558, BUILD 11/17zf - THE WAREHOUSE, BUILT, NOT YET SEEN. VOTE combat3-the-warehouse-11-17 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_WAREHOUSE_11_17_26.md. The full sweep, job 1 a third time: the sixth big inside of row 468's list.
 WHAT: a fight in the warehouse district (0.5 by the cell's dice; the industrial blocks 0.2; opts.inside 'warehouse' anywhere) is fought between the racks: racking as walls (no way,
 no sight), long lanes a gun sees down, cross-aisles, pallets and fallen bays (cover), bedding and drums and the shipping desk (low cover), the conveyor (3 AP, low cover),
