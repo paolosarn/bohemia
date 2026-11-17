@@ -1,3 +1,15 @@
+FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/17 LATEST -- BUILD 11/17o - THE WHY IS TRUE, THE FACE SHOWS, BUILT (PENDINGSHA), NOT YET SEEN (ask rows 631 and 630, FOUND BY EYES; rules 449(a), 450(a), 441). Its block is handoffs/FIGHT_SCREEN.md.
+THIS CHAT IS FIGHT SCREEN TWO. Two finds EYES left on this lane's builds, one build. THE WHY LINE: the fight was told that a job began it, never which job, and never
+asked if there was a sky, so a man holding a stolen box said 'They paid you to clear this road'. Now the table says when each sentence may be said, the fight reads
+the job's kind off the map's own held jobs (read only, no hand-over edited) and its board for a ceiling, the card asks the same, and only a true sentence is said
+(nothing rather than something false). No sentence written (454(a)). THE FACES: the crew's portraits were all helmet; wherever this lane draws a face with head
+gear the picture now stands back so the whole head piece is in the frame and a band is opened over his eyes (a new file, slices/bohemia_fight_face.js; nothing of
+CHARACTER's or PORTRAIT's edited). Said plainly: under a tall dome the face is small; a head piece drawn for the portrait is theirs, routed.
+Gates THE WHY LINE 20/0 and THE FACE SHOWS UNDER THE HELMET 7/0 (new, 315 faces), each with a plant; on the demo and the alpha, upright and sideways, 0 errors.
+FOR WORDS TWO: no start is silent; 68 starts have one true sentence (the record lists them). VOTE fight-screen-the-why-is-true-and-the-face-shows-11-17 (STAND-IN).
+NEXT ON THIS LANE: one material for the speaking cards, the Rogue Fable 4 library page, the end screen in the family's look.
+[bb Battle Brothers never says why a band is on you; ours says it, and now only says what is so]
+[analog horror: an ID photograph of a man in a helmet where somebody cut a slot in the print so you could see his eyes]
 COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17n - THE COOLING CENTER AND THE DOME, BUILT (2aeffdc70), NOT YET SEEN (the full sweep, rule 453, the third build; rules 408, 409(c); ask row 627).
 WORLD FOURTEEN's two newest places wear their own piece on the map, on the 11/17k draw (no code in this build): THE COOLING CENTER (the gym and its rooms,
 every window lit cool, the county's blue banner, the generator on its trailer smoking, shade and cots, the line to the door) and THE DOME (ten courses of

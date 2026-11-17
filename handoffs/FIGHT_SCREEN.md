@@ -5,6 +5,50 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
+FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/17 LATEST -- [why is true, face shows] SHIPPED PENDINGSHA, BUILD 11/17o - THE WHY IS TRUE, THE FACE SHOWS, BUILT, NOT YET SEEN (ask rows 631 and 630, FOUND BY EYES; rules 449(a), 450(a), 441, 454(a)). VOTE fight-screen-the-why-is-true-and-the-face-shows-11-17 (stand_in; before and after).
+THIS CHAT IS FIGHT SCREEN TWO. Record: records/BOHEMIA_FIGHT_SCREEN_THE_WHY_IS_TRUE_AND_THE_FACE_SHOWS_11_17_26.md. EYES' two finds, in one build, ahead of the lane's list.
+ROW 631, THE WHY LINE. THE CAUSE WAS NOT THE HAND-OVER (rule 12, measured): the fight was told THAT a job began it (contract:<id>:<who>), never WHICH job, and the
+table read every job as a road to clear; nobody asked if the board had a sky; one rule per start meant the same three sentences for ever.
+ - records/target/bb/fight_reasons.json: a block 'truths' (facts: outside, job_clears, job_hunts, job_pump; which job kinds clear, which hunt) and an 'if' on 22 rules:
+   { "them" | "ours": { "<the sentence's place in its list>": [facts] } }. A sentence with no 'if' is true whenever its rule fits. how.robbed and how.job fall_to road.
+   NO SENTENCE WAS WRITTEN OR REWRITTEN (454(a)). The file keeps its hand layout: edit it as text, never json.dump it.
+ - slices/bohemia_fight_why.js pick(): only sentences whose needs are so; pools true sentences across fitting rules until two; remembers the last per start and per
+   mouth; returns null when nothing is true. Exports trueAt, lineIf, jobFacts, asked.
+ - slices/BOHEMIA_FIGHT.html: whyJob (reads the job's kind off the MAP'S OWN held jobs, parent #cityFrame LOOP.held, by the id in the word; READ ONLY, the hand-over is
+   not edited), whyInside (the board's own ceiling), whyFacts carries outside/job_clears/job_hunts/plays; UI.whySaid carries i, needs, truth; UI.whySaid.none when
+   nothing true could be said.
+ - slices/bohemia_fight_opener.js truths(): the card asks the same two things (the ground the map's card names, the held job), so the card and the bell agree.
+ROW 630, THE FACES. THE CAUSE: PORTRAIT's cell is cut close to the head (the crown on row 0) and the head piece (engine/bohemia_wear.js face(), CHARACTER's) is stood
+on the head's middle, so the frame cut the dome and the rest lay over his eyes. Neither file is wrong alone and neither was edited.
+ - NEW slices/bohemia_fight_face.js (BohemiaFightFace.draw / .said / .n): the picture stands back as far as this gear needs (never past 64 in 100), stood on the
+   frame's foot, and a band is opened over his eyes. Called by the fight's drawPortrait (the strip, the phone's card, his sheet, the speaking cards) and by the
+   opening card's rows and its speaking face. Loaded by the fight's page and by my marked line in the map (the three tags stay on ONE line: gate C1 reads it).
+ - SAID PLAINLY: under a tall dome his face is small (0.686 for the crew's hard hat; on the phone's 26 point frame his eyes are two dots). The real cure is a head
+   piece drawn for the portrait cell: PORTRAIT and CHARACTER, routed in the record.
+GATES: THE WHY LINE 20/0 (W6 redefined, W10 only a true sentence + the two EYES heard + a planted table with the needs stripped, W11 the list for WORDS, W12 the
+page). THE FACE SHOWS UNDER THE HELMET 7/0, new, registered (3 crew x 105 head pieces = 315 faces; plant: my file served empty).
+ON THE PAGE (tools/bohemia_fight_screen_the_why_is_true.js <alpha|demo> <upright|sideways> <outdir> <job|ceiling>; BEFORE=1 for the old files): demo upright and
+alpha sideways the job case: card and bell 'You took a job on us, so come and try to finish it.', plays recover-return; demo sideways and alpha upright the ceiling
+case: the card reads INSIDE THE CASINO and names no road. 12 faces framed a fight, 0 page errors on all four.
+NOT PROVEN THROUGH THE SHELL: a bell under a real ceiling (the map will not start a road stop on a casino's own cell; the town's door holds it). W12 proves it on
+the fight's own page.
+FOR WORDS TWO (rule 454(a); nothing written here): NO start is silent. 68 starts have ONE true sentence and say it every time (the gate's W11 prints them): a job
+that is not a clearing and not a hunt (get a thing back, carry, guard, escort) against the machines, the water crews, the pit fighters, the bosses' crews and the new
+crews, and under a ceiling also the watch and the scavengers; a hunt handed against those same men; robbed by scavengers under a ceiling. Any road stop under a
+ceiling is down to the road's sentences that name no road. A sentence per JOB KIND would need the job's thing and who sent him in the table (the fight can read
+both off the held job); that is WORDS TWO's call.
+BESTIARY'S FOUR NEW FACTIONS (11/17i: flock, hired, takers, casino) were in no group of the why table and turned the gate's W3 and W7 red on main: they are groups
+of men now under BESTIARY's own names and say the sentences every crew of men says; none of their own yet (WORDS TWO). A NEW FACTION ALWAYS NEEDS A LINE IN 'who'.
+THE MAMMOTH (BESTIARY, on main while this shipped) is one of the ones that charge, never one of the lab's giants: the giants' sentence says it needs meat, and a mammoth eats grass.
+NEXT, in order (unchanged but for item 0, done):
+ (1) ONE MATERIAL FOR THE SPEAKING CARDS: #vet is still pale paper beside the three (five gates read it). #why and #call are dark glass. Make all three the family's board.
+ (2) THE LIBRARY PAGE on Rogue Fable 4's screen and card (the library has none): owed before any card is called final against it.
+ (3) THE END SCREEN and THE STRIP #say, in the family's look (rule 449(b)).
+ (4) The opening card's men as BODIES (the fight's own sheets of the dealt looks, slices/fight_rig).
+ (5) The turn order: NOT owed unless he asks (his note 9 of 11/2).
+[bb Battle Brothers never says why a band is on you; ours says it, and now only says what is so]
+[analog horror: an ID photograph of a man in a helmet where somebody cut a slot in the print so you could see his eyes]
+
 FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/17 LATEST -- [phone card] SHIPPED 775b3f26a, BUILD 11/17g - THE MAN'S CARD ON THE PHONE, BUILT, NOT YET SEEN (rule 450(a); ask row 621 DONE: all three cards are on the page). VOTE fight-screen-the-mans-card-on-the-phone-11-17 (stand_in; before and after, upright and sideways).
 THIS CHAT IS FIGHT SCREEN TWO. Record: records/BOHEMIA_FIGHT_SCREEN_THE_MANS_CARD_ON_THE_PHONE_11_17_26.md.
 STRUCK, AND WHY: the block below planned to GROW THE PHONE in a fight. Rule 238 (PAOLO 10/26, LOCKED): 'a solution to any of your UI problems will not be to make the

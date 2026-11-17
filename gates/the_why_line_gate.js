@@ -21,6 +21,11 @@
          alone, their side able to talk or not: a sentence comes; men who can talk say it themselves, beasts and the dead never
      W5  THE WORDS: one sentence, words_max words at most, plain English (no Spanish word, no dash), {boss} only in his men's
          lines and once; said by a man alone it is 'I', never 'we', and nobody is called boss
+     W10 ONLY A TRUE SENTENCE IS SAID (11/17, ask row 631: EYES heard 'They paid you to clear this road' from a man holding a doctor's cold
+         box, and 'This road is ours' under a casino's ceiling): over every way, group, sky and kind of job no sentence is said while
+         something it names is not so; the two EYES heard, by name; planted: the table's conditions taken out
+     W11 NO START IS LEFT WITH NOTHING TRUE TO SAY; the starts with ONE true sentence are listed for WORDS (rule 454(a): none is written here)
+     W12 on the page: a job to get a thing back is read by its kind, a garage deck by its ceiling
      W6  NEVER THE SAME WAY TWICE IN A ROW: sixty fights in a row on every rule, the wording kept as the page keeps it
      W7  THE FIGHT'S OWN DEALS: every faction the fight can deal, dealt by the fight's own rules (headless): its men fall in a
          named group and every how gives that band a sentence
@@ -148,12 +153,35 @@ function words(T) {
   const P = JSON.parse(JSON.stringify(D)); P.rules[0].them[0] = 'This road is ours. Your cart is the toll.';
   check(words(P).some(b => /not one sentence/.test(b)), 'W5 planted', 'a line of two sentences is caught'); }
 
-/* ---- W6 ---- */
-{ let twice = 0, runs = 0;
-  HOWS.forEach(h => WHOS.concat(['new']).forEach(w => [false, true].forEach(known => { const them = w === 'new' ? [unit('nobody_listed_this', 'men')] : [unit(anyKind(w), D.who[w].class)], last = {}, r = die(HOWS.indexOf(h) * 97 + runs); let prev = {};
-    for (let i = 0; i < 60; i++) { const p = WHY.pick({ why: WORD[h], opts: OPTS(h), them, facts: { known, has_food: known, lives_here: known, holds_ground: known ? WHOS : [] }, last, rnd: r }, D); if (!p) break; runs++;
-      if (prev[p.key] === p.line) twice++; prev[p.key] = p.line; last[p.key] = p.i; } })));
-  check(runs > 5000 && twice === 0, 'W6', 'NEVER THE SAME WAY TWICE IN A ROW: ' + runs + ' fights in a row over every way and every group: ' + twice + ' said the same reason in the same words twice running'); }
+/* ---- W6, W10, W11 (FIGHT SCREEN TWO 11/17, ask row 631: ONLY A TRUE SENTENCE IS SAID) ---- */
+/* what can be so of a fight: under the sky or not, and which job (one that clears them, one that hunts them, another kind, one nobody can name) */
+const SKIES = [true, false], JOBS = [['clears', 'clear-crew'], ['hunts', 'hunt-kind'], ['another job', 'recover-return'], ['a job nobody names', null]];
+const truthOf = (outside, plays, isJob) => Object.assign({ outside: outside }, WHY.jobFacts(D, plays === null ? null : plays, isJob));
+const needsOf = (p) => { const rule = D.rules.filter(r => r.id === p.rule)[0]; return arr(WHY.lineIf(rule, p.side, p.i)); };
+{ let twice = 0, runs = 0, alone = {}, silent = {}, untrue = [];
+  HOWS.forEach(h => WHOS.concat(['new']).forEach(w => [false, true].forEach(known => SKIES.forEach(sky => (WORD[h].indexOf('contract') === 0 ? JOBS : [['', undefined]]).forEach(J => {
+    const them = w === 'new' ? [unit('nobody_listed_this', 'men')] : [unit(anyKind(w), D.who[w].class)], last = {}, r = die(HOWS.indexOf(h) * 97 + runs), tag = h + ' x ' + w + (sky ? '' : ', under a ceiling') + (J[0] ? ', ' + J[0] : '');
+    const facts = Object.assign({ known, has_food: known, lives_here: known, holds_ground: known ? WHOS : [] }, truthOf(sky, J[1], WORD[h].indexOf('contract') === 0));
+    let prev = null;
+    for (let i = 0; i < 40; i++) { const p = WHY.pick({ why: WORD[h], opts: OPTS(h), them, facts, last, rnd: r }, D); if (!p) { silent[tag] = 1; break; } runs++;
+      needsOf(p).forEach(k => { if (!facts[k]) untrue.push(tag + ': "' + p.line + '" needs ' + k); });
+      if (prev === p.line) { if (p.pooled > 1) twice++; else alone[tag] = p.line; } prev = p.line; last[p.key] = p.i; last[p.said] = p.saidAs; } })))));
+  check(runs > 5000 && twice === 0, 'W6', 'NEVER THE SAME WAY TWICE IN A ROW: ' + runs + ' fights in a row over every way, every group, under the sky and under a ceiling, every kind of job: ' + twice + ' said the same words twice running while a second true sentence stood');
+  check(untrue.length === 0 && runs > 5000, 'W10', 'ONLY A TRUE SENTENCE IS SAID: ' + runs + ' sentences, ' + untrue.length + ' said with something it names not so' + (untrue.length ? ': ' + untrue.slice(0, 3).join(' | ') : ''));
+  /* EYES' two, by name */
+  const coldbox = [], ceiling = []; { const last = {}, r = die(631), f = Object.assign({}, truthOf(true, 'recover-return', true));
+    for (let i = 0; i < 60; i++) { const p = WHY.pick({ why: 'contract:J9:holders', opts: {}, them: [unit('brigand_thug', 'men'), unit('brigand_thug', 'men')], facts: f, last, rnd: r }, D); if (p) { coldbox.push(p.line); last[p.key] = p.i; last[p.said] = p.saidAs; } }
+    const last2 = {}, f2 = truthOf(false, undefined, false);
+    for (let i = 0; i < 60; i++) { const p = WHY.pick({ why: 'road:7', opts: {}, them: [unit('brigand_thug', 'men')], facts: f2, last: last2, rnd: r }, D); if (p) { ceiling.push(p.line); last2[p.key] = p.i; last2[p.said] = p.saidAs; } } }
+  const U = a => [...new Set(a)];
+  check(coldbox.length === 60 && !coldbox.some(l => /clear this road|move us/i.test(l)) && U(coldbox).length >= 2 && ceiling.length === 60 && !ceiling.some(l => /\broad\b|street|block/i.test(l)) && U(ceiling).length >= 2, 'W10 the two EYES heard',
+    'the man holding the cold box (a job to get a thing back) says ' + U(coldbox).map(l => '"' + l + '"').join(' / ') + ', never the road he was not paid to clear; a road crew under a ceiling says ' + U(ceiling).map(l => '"' + l + '"').join(' / ') + ', never a road');
+  /* planted: the table with its conditions taken out is the table EYES walked */
+  const BARE = JSON.parse(JSON.stringify(D)); BARE.rules.forEach(r => { delete r['if']; }); let old = 0; { const last = {}, r = die(77), f = truthOf(true, 'recover-return', true);
+    for (let i = 0; i < 60; i++) { const p = WHY.pick({ why: 'contract:J9:holders', opts: {}, them: [unit('brigand_thug', 'men')], facts: f, last, rnd: r }, BARE); if (p) { if (/clear this road/.test(p.line)) old++; last[p.key] = p.i; last[p.said] = p.saidAs; } } }
+  check(old > 0, 'W10 planted', 'the conditions taken out of the table: the man holding the cold box says the road again (' + old + ' of 60)');
+  const S1 = Object.keys(silent), A1 = Object.keys(alone);
+  check(S1.length === 0, 'W11', 'NO START IS LEFT WITH NOTHING TRUE TO SAY: ' + S1.length + ' silent' + (S1.length ? ' (' + S1.slice(0, 6).join('; ') + ')' : '') + '. FOR WORDS: ' + A1.length + ' starts have ONE true sentence and say it every time (' + A1.slice(0, process.env.ALL ? 999 : 40).join('; ') + (A1.length > 40 ? '; ...' : '') + ')'); }
 
 /* ---- W7: the fight's own deals ---- */
 { let ok = 0, n = 0; const bad = [], seenWho = {};
@@ -236,6 +264,13 @@ function words(T) {
       const good = !!s.line && s.how === c.how && s.who === c.who && s.side === c.side && g.side === c.mouth && s.at >= 1000 && g.up && g.inside && g.colours >= 12 && !!g.name && !g.vet && !g.call && R.both === 0 && R.moved && R.gone;
       if (good) ok++; out.push(c.tag + ': ' + (s.line ? (s.by + ' "' + s.line + '" at ' + Math.round(s.at) + ' ms' + (good ? '' : ' MISS ' + JSON.stringify({ how: s.how, who: s.who, side: s.side, mouth: g.side, up: g.up, inside: g.inside, colours: g.colours, both: R.both, moved: R.moved, gone: R.gone }))) : 'NO SENTENCE ' + JSON.stringify(R.said || R.err || null))); }
     check(ok === cases.length && !errs.length, 'W9', 'ON THE PAGE (a phone upright): ' + ok + ' of ' + cases.length + ' fights said why after the first second from the right mouth with a drawn face, the fight moved under it, it went by itself, nothing stood with it; page errors ' + errs.length + ' | ' + out.join(' | '));
+    /* W12 (ask row 631), on the page: the job is asked for by name and the board for its sky */
+    const cb = await run({ why: { why: 'contract:J9:holders', plays: 'recover-return' }, party: { count: 3, days: 1, difficulty: 1, band: ['brigand_thug', 'brigand_thug', 'brigand_thug'], rolled: true, faction: 'brigands' } });
+    const cl = await run({ why: 'road:toll_crew', inside: 'garage', district: 'downtown', party: { count: 3, days: 1, difficulty: 1, band: ['brigand_thug', 'brigand_thug', 'brigand_thug'], rolled: true, faction: 'brigands' } });
+    const cs = cb.said || {}, ls = cl.said || {};
+    check(!!cs.line && cs.how === 'job' && cs.truth && cs.truth.plays === 'recover-return' && !cs.truth.job_clears && !/clear this road|move us/i.test(cs.line) && !arr(cs.needs).length
+      && !!ls.line && ls.truth && ls.truth.outside === false && !/\broad\b|street|block/i.test(ls.line) && arr(ls.needs).indexOf('outside') < 0, 'W12',
+      'ON THE PAGE: the job to get a thing back: ' + (cs.by || '?') + ' "' + (cs.line || JSON.stringify(cs)) + '" (the job read as ' + (cs.truth && cs.truth.plays) + '); a road crew on a garage deck: ' + (ls.by || '?') + ' "' + (ls.line || JSON.stringify(ls)) + '" (under the sky: ' + (ls.truth && ls.truth.outside) + ')');
     planted = true; const PR = await run(cases[0].opts);
     check(!(PR.said && PR.said.line), 'W9 planted', 'the page\'s tick taken out: the fight opens and nothing says why (' + JSON.stringify(PR.said) + ')');
   } catch (e) { check(false, 'W9', 'the page leg threw: ' + String(e && e.message || e).slice(0, 200)); }

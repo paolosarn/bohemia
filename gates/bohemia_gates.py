@@ -9597,8 +9597,21 @@ GATES = [
      "English sentence of 16 words at most (W5); never the same wording twice in a row (W6); every faction dealt by the fight's own rules is "
      "somebody with a sentence for every start (W7); the page loads it, ticks it first, the lesson and the commentary wait, taps pass through "
      "(W8); on the fight's page on a phone the sentence comes after the first second from the right mouth with a drawn face, the fight moves "
-     "under it, it goes by itself (W9, a browser). Planted: a how with no rules, a kind in no group, a line of two sentences, the page's tick "
-     "taken out. About 40 s", True),
+     "under it, it goes by itself (W9, a browser). AMENDED 11/17 by FIGHT SCREEN TWO (ask row 631, FOUND BY EYES: the road's words on a job "
+     "to get a box back, and under a ceiling): ONLY A TRUE SENTENCE IS SAID: a sentence that names a road, a sky or a job to clear or hunt "
+     "carries what must be so (the table's 'if'), and across every start x group x sky x job kind no sentence is said whose needs are not "
+     "so (W10, with the two EYES heard, and a table with the needs stripped fails); no start is left silent and the starts with one true "
+     "sentence are listed for WORDS (W11); on the fight's page a job to get a thing back names no road to clear and a board under a ceiling "
+     "names no road or sky (W12, a browser). Planted: a how with no rules, a kind in no group, a line of two sentences, the page's tick "
+     "taken out, the needs stripped. About a minute", True),
+    ('THE FACE SHOWS UNDER THE HELMET', ['node', 'gates/the_face_shows_under_the_helmet_gate.js'],
+     "FIGHT SCREEN TWO gate, 11/17, VAMILY rules 450(a), 441 and the law EVERYBODY HAS A FACE (ask row 630, FOUND BY EYES: 'THE CREW'S FACES "
+     "ARE UNDER THEIR HELMETS: the helmet fills two thirds; YOU and DESI show a nose and a mouth, no eyes; RAUL the helmet only'). Where this "
+     "lane draws a face with head gear (the fight's strip, the phone's card, his sheet, the speaking cards, the opening card): the page "
+     "loads the framing and every face goes through it (H1); the three of the crew x every head piece in the wear table, on the fight's own "
+     "page: the band over his eyes is his own face, clear of the gear (H2); the gear stands inside the frame, clear of its rim, never cut by "
+     "it (H3); the face never stands back past 64 parts in 100 and a man with nothing on his head is drawn as before (H4); the wear file, "
+     "the gear's pictures and PORTRAIT's cells are not edited (H5). Planted: this lane's file served empty. About a minute", True),
     ("THE MAN'S SHEET", ['node', 'gates/the_mans_sheet_gate.js'],
      "FIGHT SCREEN gate, 11/14, VAMILY rule 450(a) (ask row 621; PAOLO 11/14: 'The card bro, the combat card is UGLY AS SHIT, TRY TO MAKE SOME "
      "AWESOME BIG BRAIN FINAL SHIT'). The sheet a finger on a man's face opens, on the fight's page on a phone upright and on its side, for his man "

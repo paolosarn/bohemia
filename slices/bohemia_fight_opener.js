@@ -66,6 +66,15 @@
     try { var r = lsGet('bohemia.renown.v1'); f.known = !!(r && DB.why && (r.score | 0) >= (DB.why.known_from_clout || 1e9)); } catch (e) {}
     return f;
   }
+  /* __THE_WHY_LINE_IS_TRUE__ (11/17, ask row 631): which job started it (the map's own held jobs, by the id in the word) and whether the board will have a sky
+     (the map's reader of the fight's board; a deck or a floor the fight may still deal is caught at the bell, which says its own true sentence then) */
+  function truths(E, msg) {
+    var W = root.BohemiaFightWhy, out = { outside: true, job_clears: false, job_hunts: false }, m = /^contract:([^:]+)/.exec(String(msg && msg.why || ''));
+    try { var g = root.__MEET_GROUND; if (g && /casino|garage|tunnel|hall/i.test(String(g.board || '') + ' ' + String(g.place || '') + ' ' + String(g.kind || ''))) out.outside = false; } catch (e) {}
+    if (m && W && W.jobFacts) { var plays = null; try { var L = root.LOOP, j = L && (L.held || []).concat(L.fighting && typeof L.fighting === 'object' ? [L.fighting] : []).filter(function (x) { return x && String(x.id) === m[1]; })[0]; if (j) plays = j.plays || ''; } catch (e) {}
+      var jf = W.jobFacts(E.DB.why, plays === null ? null : (plays || undefined), true); out.job_clears = jf.job_clears; out.job_hunts = jf.job_hunts; out.plays = plays; }
+    return out;
+  }
   /* a look whose model carries its own weapon is dealt only to a man whose dice gave him that weapon: it is never promised */
   function carried(E) { try { var mc = E.DB.ours.model_carries && E.DB.ours.model_carries.value; return (mc && mc.looks) || {}; } catch (e) { return {}; } }
   /* the two ends of what the dice can do with a carried look: nobody is dealt it, or the first man who reaches it is. Each is a
@@ -98,7 +107,7 @@
       var mine = d0.mine.filter(function (u) { return !u.beast; });
       var vet = mine.filter(function (u) { return !u.main; }).sort(function (a, b) { return (b.level || 1) - (a.level || 1) || (b.xp || 0) - (a.xp || 0); })[0] || mine.filter(function (u) { return u.main; })[0] || mine[0] || null;
       /* the sentence: the why table's own chooser, asked before the fight as the bell asks it */
-      var P = null, last = lsGet(WHY_KEY) || {}, fx = facts(E, them, d0.ground, d0.night);
+      var P = null, last = lsGet(WHY_KEY) || {}, fx = facts(E, them, d0.ground, d0.night); try { var tr = truths(E, msg); Object.keys(tr).forEach(function (k) { fx[k] = tr[k]; }); } catch (e) { fx.outside = true; }
       try { if (W && E.DB.why) P = W.pick({ why: msg.why || '', opts: { arena: false, camp: false, campBoard: false, boss: !!msg.boss },
         them: them.map(function (v) { return { kind: v.kind, beast: v.beast, ghost: v.ghost, machine: v.machine }; }),
         factions: W.factions({ tiers: E.DB.ours && E.DB.ours.enemy_tiers && E.DB.ours.enemy_tiers.value, own: E.DB.newEnemies }),
@@ -117,7 +126,7 @@
         var head = pick || order[0] || null;
         if (head) sp = { side: 'them', i: head.i, kind: head.kind, look: head.look, name: head.name, sure: !!pick, boss: head.boss };
       } else if (vet) sp = { side: 'ours', kind: null, look: vet.look, name: vet.name, sure: true, main: vet.main };
-      if (P) { last[P.key] = P.i; lsSet(WHY_KEY, last); }
+      if (P) { last[P.key] = P.i; if (P.said) last[P.said] = P.saidAs; lsSet(WHY_KEY, last); }
       var R = { at: Date.now(), ms: Math.round((root.performance || Date).now() - t0), longest: Math.round(busy), deals: D.length, why: String(msg.why || ''), band: band.join(','), them: them, mine: mine, speaker: sp,
         line: P ? P.line : null, rule: P ? P.rule : null, key: P ? P.key : null, wording: P ? P.i : null, how: P ? P.how : null, who: P ? P.who : null, cls: P ? P.cls : null, reason: P ? P.reason : null, side: side, draft: true };
       /* THE NOTE FOR THE BELL: what the card said and whose face said it */
@@ -163,8 +172,10 @@
     var st = stripOf(u.look);
     if (!st) { if (!u.sure) dark(); rim(g, S, side); return; }
     image('fight_rig/' + st.file, function (img) {
-      base(); g.imageSmoothingEnabled = S < st.size; g.drawImage(img, st.i * st.size, 0, st.size, st.size, 0, 0, S, S);
-      if (side === 'you') try { if (root.BohemiaWear) root.BohemiaWear.face(g, img, S, u.look, null, function () { photo(cv, u, side); }, [st.i * st.size, 0, st.size, st.size]); } catch (e) {}   /* his helmet on his face, as the fight draws it */
+      base(); g.imageSmoothingEnabled = S < st.size;
+      /* his helmet on his face, framed as the fight frames it (__THE_FACE_SHOWS_UNDER_THE_HELMET__, slices/bohemia_fight_face.js): his eyes read */
+      var geared = false; if (side === 'you') try { if (root.BohemiaFightFace) geared = root.BohemiaFightFace.draw(g, img, [st.i * st.size, 0, st.size, st.size], S, null, u.look, function () { photo(cv, u, side); }); } catch (e) { geared = false; }
+      if (!geared) g.drawImage(img, st.i * st.size, 0, st.size, st.size, 0, 0, S, S);
       if (u.ghost) { g.fillStyle = 'rgba(146,150,176,.5)'; g.fillRect(0, 0, S, S); }
       if (!u.sure) dark();
       rim(g, S, side);
@@ -293,9 +304,15 @@
       if (sp) {
         nameEl.textContent = sp.name || '';
         var F = root.BohemiaCrewFaces, strip = function () { photoBig(cv, sp); };
-        var draw = function () { try {
+        /* one of HIS men who wears head gear is framed for it, as the fight frames him (his eyes read); a bare head talks as before */
+        var gearedBig = function (then) { var st = sp.side === 'ours' ? stripOf(sp.look) : null; if (!st || !root.BohemiaFightFace) return then(false);
+          image('fight_rig/' + st.file, function (img) { var g = cv.getContext('2d'); g.fillStyle = '#2b2620'; g.fillRect(0, 0, cv.width, cv.height); var ok = false;
+            try { ok = root.BohemiaFightFace.draw(g, img, [st.i * st.size, 0, st.size, st.size], cv.width, null, sp.look, function () { gearedBig(function () {}); }); } catch (e) { ok = false; }
+            if (ok) { ph.classList.remove('dark'); state.face = 'geared'; } then(ok); }); };
+        var draw0 = function () { try {
           if (sp.sure && F && F.has(sp.look)) { ph.classList.remove('dark'); state.face = 'portrait'; if (!(line && F.talk(cv, sp.look, line))) F.draw(cv.getContext('2d'), sp.look, 128, strip); }
           else { strip(); if (sp.sure) ph.classList.remove('dark'); state.face = sp.sure ? 'strip' : 'dark'; } } catch (e) { strip(); } };
+        var draw = function () { gearedBig(function (ok) { if (!ok) draw0(); }); };
         if (F && F.ready) F.ready(draw); else draw();
         if (sp.sure) el.classList.add('faced');
       }

@@ -31,6 +31,7 @@
 <script src="../engine/bohemia_crawl.js"></script>
 <script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour drawn on him -->
 <script src="bohemia_street_board.js"></script>  <script src="../engine/bohemia_fight_kinds.js"></script>  <!-- __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (COMBAT TWO 11/7, rule 429(b)): WORLD THIRTEEN's one table, the map and the fight on one storey mix -->  <script src="bohemia_freeway_boards.js"></script>  <script src="bohemia_casino_floor.js"></script>  <script src="bohemia_flood_tunnels.js"></script>  <script src="bohemia_parking_garage.js"></script>  <script src="bohemia_big_inside.js"></script>  <!-- __THE_FLOOD_TUNNELS__ (COMBAT TWO 11/9, rule 440(a)): under the city -->  <!-- __THE_CASINO_FLOOR__ (COMBAT TWO 11/8, rule 416): the first big interior -->  <!-- __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432): the deck, the overpass, the underpass, the interchange -->  <!-- __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ (COMBAT TWO 11/6, rule 407(g) step one, ask line 450): the board laid from the map's own block -->
+<script src="bohemia_fight_face.js"></script>  <!-- __THE_FACE_SHOWS_UNDER_THE_HELMET__ (FIGHT SCREEN TWO 11/17, ask row 630): a face with head gear is framed so his eyes read -->
 <script src="bohemia_fight_why.js"></script>  <!-- __THE_WHY_LINE__ (FIGHT SCREEN 11/14, rule 449(a)): the chooser of the fight's one opening sentence; its table is records/target/bb/fight_reasons.json -->
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every line the crew says rolls; about 1 in 8 comes out Spanglish, some men lean more, never you -->
 <!-- ============================================================================
@@ -7555,8 +7556,21 @@ function whyHandOver() {
   try { const p = window.parent; if (p && p !== window && p.__FIGHT_NOW && p.__FIGHT_NOW.why) return String(p.__FIGHT_NOW.why); } catch (_e) {}
   return '';
 }
+/* __THE_WHY_LINE_IS_TRUE__ (FIGHT SCREEN TWO 11/17, ask row 631; EYES heard a man holding a doctor's cold box say 'They paid you to clear this road' and 'This
+   road is ours' under a casino's ceiling). THE CAUSE: the fight is told THAT a job started it ('contract:<id>:<the band's part>'), never WHICH job, and it never
+   asked whether there is a sky over the board. NOW it asks: the job's kind is read off the map's own held jobs by the id in the word (the map is asked, the
+   hand-over is not edited; a test hands FIGHT_OPTS.why = { why, plays }), and a board with a ceiling is inside. The table says which sentences need which. */
+function whyJob(why) {
+  const m = /^contract:([^:]+)/.exec(String(why || '')); if (!m) return { job: false, plays: null };
+  const o = window.FIGHT_OPTS || {}; if (o.why && typeof o.why === 'object' && 'plays' in o.why) return { job: true, plays: o.why.plays };
+  try { const cf = window.parent && window.parent !== window ? window.parent.document.getElementById('cityFrame') : null, L = cf && cf.contentWindow && cf.contentWindow.LOOP;
+    if (L) { const j = (L.held || []).concat(L.fighting && typeof L.fighting === 'object' ? [L.fighting] : []).filter(function (x) { return x && String(x.id) === m[1]; })[0]; if (j) return { job: true, plays: j.plays || '' }; } } catch (_e) {}
+  return { job: true, plays: null };   /* a job nobody can name: only the sentences true of any job are said */
+}
+function whyInside() { const S = FIGHT.S; return !!(S.casino || S.garage || S.tunnels || S.inside || (S.boardDef && S.boardDef.ceiling)); }
 function whyFacts(them) {
   const S = FIGHT.S, f = { holds_ground: [], lives_here: false, has_food: false, known: false, night: !!S.night }, ground = S.ground && S.ground.ground;
+  try { const J = whyJob(whyHandOver()), jf = BohemiaFightWhy.jobFacts(DB.why, J.plays === null ? null : (J.plays || undefined), J.job); f.outside = !whyInside(); f.job_clears = jf.job_clears; f.job_hunts = jf.job_hunts; f.plays = J.plays; } catch (_e) { f.outside = true; }
   try { const RD = DB.newEnemies && DB.newEnemies.road; if (RD && RD.holds && ground) f.holds_ground = Object.keys(RD.holds).filter(function (k) { return RD.holds[k].indexOf(ground) >= 0; }); } catch (_e) {}
   try { if (ground && DB.newEnemies) f.lives_here = them.some(function (v) { const r = DB.newEnemies.rows.filter(function (x) { return x.id === v.kind; })[0]; return !!(r && r.habitat && r.habitat.indexOf(ground) >= 0); }); } catch (_e) {}
   try { const s = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); f.has_food = !!(s && (s.food | 0) > 0); } catch (_e) {}
@@ -7585,7 +7599,8 @@ function whyOpen(now) {
     them: them.map(function (v) { return { kind: v.kind, beast: !!v.beast, ghost: !!v.ghost, machine: !!v.machine }; }),
     factions: BohemiaFightWhy.factions({ tiers: DB.ours && DB.ours.enemy_tiers && DB.ours.enemy_tiers.value, own: DB.newEnemies }),   /* a new kind in a known faction is somebody the day it is added */
     facts: whyFacts(them), last: last, alone: !!(mine && mine.main) }, DB.why);
-  if (!P) { UI.whySaid = { none: 'no rule', why: why }; return; }
+  if (!P) { let A = null; try { A = BohemiaFightWhy.asked({ why: why, opts: { arena: !!S.arena, camp: !!o.camp, campBoard: !!o.campBoard, boss: !!S.boss }, them: them.map(function (v) { return { kind: v.kind, beast: !!v.beast, ghost: !!v.ghost, machine: !!v.machine }; }), factions: BohemiaFightWhy.factions({ tiers: DB.ours && DB.ours.enemy_tiers && DB.ours.enemy_tiers.value, own: DB.newEnemies }) }, DB.why); } catch (_e) {}
+    UI.whySaid = { none: 'no true line', why: why, how: A && A.how, who: A && (A.who || A.cls), facts: whyFacts(them) }; return; }   /* __THE_WHY_LINE_IS_TRUE__: nothing is said rather than something false */
   /* __THE_CARD_THAT_OPENS_A_FIGHT__ (FIGHT SCREEN TWO 11/14, rule 450(a)): the card he chose on already said why, from a face the
      fight was asked for (slices/bohemia_fight_opener.js leaves a note). The bell keeps the card's word: the man wearing that face
      says the same sentence once more, smaller and shorter, and goes. What the bell found is kept (UI.whySaid.card): a promise the
@@ -7594,17 +7609,18 @@ function whyOpen(now) {
   let v = null;
   if (N && N.side === P.side) {
     const rule = DB.why.rules.filter(function (r) { return r.id === N.rule; })[0];
-    if (N.rule === P.rule || (rule && BohemiaFightWhy.fits && BohemiaFightWhy.fits(rule, P.via || P.how, { id: P.who, cls: P.cls }, whyFacts(them)))) {
-      P.rule = N.rule; P.key = N.key; P.i = N.i; P.line = N.line; P.reason = N.reason || P.reason; kept.line = true; }
+    const nf = whyFacts(them);
+    if (rule && BohemiaFightWhy.trueAt(rule, N.side, N.i, nf) && (N.rule === P.rule || (BohemiaFightWhy.fits && BohemiaFightWhy.fits(rule, P.via || P.how, { id: P.who, cls: P.cls }, nf)))) {   /* __THE_WHY_LINE_IS_TRUE__: the card's sentence only if it is still true on this board */
+      P.rule = N.rule; P.key = N.key; P.i = N.i; P.line = N.line; P.reason = N.reason || P.reason; P.saidAs = N.key + '#' + N.i; P.needs = BohemiaFightWhy.lineIf(rule, N.side, N.i); kept.line = true; }
     v = P.side === 'them' ? them.filter(function (u) { return whyTalks(u) && u.look === N.look; })[0] || null : (mine && mine.look === N.look && mine.name === N.name ? mine : null);
     kept.face = !!v;
   }
   if (!v) v = P.side === 'them' ? whyLeader(them) : mine;
   if (!v) { UI.whySaid = { none: 'no face', why: why, rule: P.rule }; return; }
-  last[P.key] = P.i; try { localStorage.setItem(WHY_KEY, JSON.stringify(last)); } catch (_e) {}
+  last[P.key] = P.i; if (P.said) last[P.said] = P.saidAs; try { localStorage.setItem(WHY_KEY, JSON.stringify(last)); } catch (_e) {}
   const said = !!(kept && kept.line && kept.face);   /* he has read it on the card: once more, small */
   UI.why = { who: v.id, line: P.line, t: now, side: P.side, said: said };
-  UI.whySaid = { why: why, how: P.how, who: P.who, cls: P.cls, rule: P.rule, reason: P.reason, side: P.side, by: v.name, byId: v.id, byLook: v.look, line: P.line, at: now - UI.t0, round: S.round, deploy: !!S.deploy, card: kept, draft: true };
+  UI.whySaid = { why: why, how: P.how, who: P.who, cls: P.cls, rule: P.rule, reason: P.reason, side: P.side, by: v.name, byId: v.id, byLook: v.look, line: P.line, at: now - UI.t0, round: S.round, deploy: !!S.deploy, card: kept, i: P.i, needs: P.needs || null, truth: (function () { const f = whyFacts(them); return { outside: !!f.outside, job_clears: !!f.job_clears, job_hunts: !!f.job_hunts, plays: f.plays === undefined ? null : f.plays }; })(), draft: true };
   const cv = document.getElementById('whyface'); drawPortrait(cv.getContext('2d'), v, cv.width, true);
   document.getElementById('whyname').textContent = v.name; document.getElementById('whyline').textContent = '';
   const el = document.getElementById('why'); el.classList.toggle('them', P.side === 'them'); el.classList.toggle('said', said); el.style.top = (TOPH + 6) + 'px'; el.style.display = 'flex';
@@ -10367,9 +10383,14 @@ function drawPortrait(g, v, S, lit) {
     [9.5, 14.5].forEach(function (x) { g.beginPath(); g.arc(x * u, 13 * u, 1.2 * u, 0, Math.PI * 2); g.fill(); });
   } else if (img && fi >= 0) {
     g.imageSmoothingEnabled = S < F.size;
-    g.drawImage(img, fi * F.size, 0, F.size, F.size, 0, 0, S, S);
-    /* __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272; the third votes: head gear shows in the portrait): his helmet on his face */
-    try { if (window.BohemiaWear && !v.machine && !v.ghost) BohemiaWear.face(g, img, S, null, BohemiaWear.of(v), wearFacesAgain, [fi * F.size, 0, F.size, F.size]); } catch (_e) {}
+    /* __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272; the third votes: head gear shows in the portrait): his helmet on his face.
+       __THE_FACE_SHOWS_UNDER_THE_HELMET__ (FIGHT SCREEN TWO 11/17, ask row 630; EYES: 'a nose and a mouth and no eyes; RAUL the helmet and nothing else'):
+       a man with head gear is framed for it (slices/bohemia_fight_face.js): the picture stands back so the gear's crown is inside the frame, and the gear
+       is opened in a band across his eyes. A bare head is drawn as before. */
+    let geared = false; const cell = [fi * F.size, 0, F.size, F.size];
+    try { if (window.BohemiaWear && !v.machine && !v.ghost) { if (window.BohemiaFightFace) geared = BohemiaFightFace.draw(g, img, cell, S, BohemiaWear.of(v), null, wearFacesAgain);
+      else { g.drawImage(img, cell[0], 0, F.size, F.size, 0, 0, S, S); geared = true; BohemiaWear.face(g, img, S, null, BohemiaWear.of(v), wearFacesAgain, cell); } } } catch (_e) { geared = false; }
+    if (!geared) g.drawImage(img, cell[0], 0, F.size, F.size, 0, 0, S, S);
     /* a ghost's face is the same data-portrait off the same tape (rule 134(e)): the cold wash, every other line gone, a row torn */
     if (v.ghost) {
       g.globalCompositeOperation = 'source-atop'; g.fillStyle = GHOST_WASH; g.fillRect(0, 0, S, S);
