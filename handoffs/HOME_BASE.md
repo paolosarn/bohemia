@@ -1,4 +1,15 @@
-HOME BASE (home-base-01gkdyuv): 11/17 LATEST -- BUILD 11/17zc - WHAT YOU DID, PINNED (affb8a78a), SHIPPED (rule 453(3); ask line 571).
+HOME BASE (home-base-01gkdyuv): 11/17 LATEST -- BUILD 11/17zr - SEEN THROUGH THE CAMERAS, BUILT, NOT YET SEEN (rule 458(c); ask line 642).
+Record: records/BOHEMIA_HOME_BASE_SEEN_AS_HE_WILL_SEE_IT_11_17_26.md.
+- His place (only his) is seen through its cameras: slices/BOHEMIA_SETTLEMENT_SCREEN.html __HIS_PLACE_SEEN_AS_HE_WILL_SEE_IT__. One
+  perspective transform on the canvas per camera (HLENS_CAMS, the mounts), the sensor (HLENS_SENSOR), the title feed's tape (#hlens), a
+  wrong clock; homeLensFrame keeps a box of the picture in the free glass (a mount: all twelve lots; close: what he tapped; THE LOTS
+  for BUILD), turning or pivoting the camera rather than showing a black corner. Taps go through homeLensIn (the exact inverse);
+  where/lookAt/toScreen/__HOME_FOLK_AT answer through the lens; BohemiaSettlement.lens() for gates.
+- FOR ANY LANE TESTING HIS PLACE: find a door with BohemiaSettlement.where(k) (it answers where the camera shows it) and tap that;
+  never pan the picture under his cameras; wait for a sheet's opening to finish before reading a row. Other towns are untouched.
+- His men at his buildings: homeWorkers (out of crewTown, so nobody is twice). The top-down plan is gone (homePlanCanvas removed).
+- OWED: the 3D camera renders (rule 354/373's pipeline has none of his buildings), a camera sound, the shops' own pictures.
+HOME BASE (home-base-01gkdyuv): 11/17 EARLIER THIS ROUND -- BUILD 11/17zc - WHAT YOU DID, PINNED (affb8a78a), SHIPPED (rule 453(3); ask line 571).
 Record: records/BOHEMIA_HOME_BASE_HIS_IMPACT_11_17_26.md.
 - A job done (or paid in part) is a DEED at his place (the seam's kind 'deed'): the jobs' own settle hands it (one marked line in
   slices/bohemia_job_kinds.js); a lost or cancelled job pins nothing; before planting it waits. The CORK BOARD goes up by itself on his
