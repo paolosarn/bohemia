@@ -217,6 +217,22 @@
     +   S + '.ns-d3 .acts:has(>.hire)>.hire{grid-column:span 2}'
     +   S + '.ns-d3 .acts:has(>.hire)>.retf{grid-column:span 3;margin:0!important}' + S + '.ns-d3 .acts:has(>.hire)>.act:not(.hire){grid-column:span 3}'   /* the staff and NOT NOW: half a row each, as they stood */
     +   S + '.ns-d3 .acts:has(>.hire)>.retf:not(.open) .rdoes{-webkit-line-clamp:2}'
+    /* FIXES 2 11/17 (ask row 612's last spot, FOUND BY EYES 11/11, UI THREE's note 11/14: 'on the demo's fuller hall sideways the sheet is
+       full and the three retinue lines stay cut; whole at rest needs layout room: the line under the button'). MEASURED 844 x 390, a
+       fortress's hall, six men at the posts and the week's three by the door: two a row made two rows (46 + 4 + 46 = 96 px) and each
+       effect was held to two lines of 248 px beside its TAKE ON ('...every other follower cost...'). The week deals three to a hall
+       (retinue.json met_per_place), so three stand in ONE row, a third of the glass each like a hire, the name over the trade beside
+       the button and THE EFFECT UNDER THEM AT THE CARD'S WHOLE WIDTH (the same 248 px, no button beside it): three lines is 83 px and
+       the longest of the eighteen (the lookout's, 113 letters, four lines) 96. Held to three lines by rule; UI THREE's pass
+       (__NO_LINE_CUT_WHILE_THERE_IS_GLASS__) lets the fourth come when the sheet has it. One or two by the door stand half a row
+       each as before (a whole row is spare then), and a man opened puts them back as they stood (row 554's own fit). Seven or more
+       at the posts (the fair, the recruiter) keep the old two a row: that hall runs past the glass either way (SCROLLING IS ILLEGAL
+       N8, red before this) and the old way lays one of the three beside a last man, which this would lose. */
+    +   S + '.ns-d3 .acts:has(>.hire):has(>.retf+.retf+.retf):not(:has(>.retf.open)):not(:has(>.hire:nth-child(7 of .hire)))>.retf{grid-column:span 2;grid-template-columns:40px minmax(0,1fr) 80px;grid-template-areas:"face nm act" "does does does";align-items:center;align-self:start}'
+    +   S + '.ns-d3 .acts:has(>.hire):has(>.retf+.retf+.retf):not(:has(>.retf.open)):not(:has(>.hire:nth-child(7 of .hire)))>:not(.retf)+.retf{grid-column:1/span 2}'   /* the three start their own row (a last hire alone above them never splits them two and one) */
+    +   S + '.ns-d3 .acts:has(>.hire):has(>.retf+.retf+.retf):not(:has(>.retf.open)):not(:has(>.hire:nth-child(7 of .hire)))>.retf .rname{white-space:normal;overflow:visible;text-overflow:clip;line-height:14px}'
+    +   S + '.ns-d3 .acts:has(>.hire):has(>.retf+.retf+.retf):not(:has(>.retf.open)):not(:has(>.hire:nth-child(7 of .hire)))>.retf .rname span{display:block;margin-left:0}'
+    +   S + '.ns-d3 .acts:has(>.hire):has(>.retf+.retf+.retf):not(:has(>.retf.open)):not(:has(>.hire:nth-child(7 of .hire)))>.retf .rdoes{-webkit-line-clamp:3;line-height:13px!important}'
     +   S + '.ns-d3 .acts:has(>.hire)>.retf{order:1}' + S + '.ns-d3 .acts:has(>.hire)>.retf~:not(.retf){order:2}' + S + '.ns-d3 .acts:has(>.hire)>.retf.open{order:0}'   /* the man opened stands first of them, right after the hires */
     +   S + '.ns-d3 .acts:has(>.hire)>.retf.open{grid-column:span 4;grid-template-columns:40px 46px minmax(0,1fr) 80px;grid-template-areas:"face fig nm act" "face fig does act" "face fig more act"}'
     +   S + '.ns-d3 .acts:has(>.hire)>.retf.open .rmore{display:contents}'

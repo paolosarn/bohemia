@@ -775,14 +775,21 @@
     var rise = function (i) { if (i >= IN) { d.style.transform = ''; d.style.opacity = ''; type(); return; }
       var k2 = (i + 1) / IN; d.style.transform = still() ? '' : 'translateY(' + Math.round((1 - k2) * 24) + 'px)'; d.style.opacity = String(Math.round(k2 * 100) / 100);
       setTimeout(function () { rise(i + 1); }, ms); };
+    var sunk = false, typed = false;
     var type = function () {
       try { F.talk(c, v.look, line); } catch (e) {}
       var t0 = now(), per = D.beat_ms / 6, n = D.hints.type_per_beat / 6;
-      var tick = function () { var shown = Math.min(line.length, Math.floor((now() - t0) / per) * n);
+      var tick = function () { if (sunk) return; var shown = Math.min(line.length, Math.floor((now() - t0) / per) * n);
         d.querySelector('span').textContent = line.slice(0, shown);
-        if (shown < line.length) setTimeout(tick, per); else setTimeout(sink, D.hints.hold_beats * D.beat_ms); };
+        if (shown < line.length) setTimeout(tick, per); else { typed = true; setTimeout(sink, D.hints.hold_beats * D.beat_ms); } };
       tick(); };
-    var sink = function () { var i = 0; var go = function () { if (i >= OUT) { d.style.display = 'none'; d.style.transform = ''; d.style.opacity = ''; SAY.busy = false; row.t1 = Math.round(now()); return; }
+    /* __THE_HINT_STEPS_ASIDE__ (FIXES 2 11/17, ask row 612's last spot, FOUND BY EYES 11/11, UI THREE's note 11/14: 'DESI's Tap a
+       building hint lies over the board's first job for a few seconds after a town opens; it should go the moment a sheet opens').
+       hintTick calls this when a building's sheet opens under the town's line: the plate sinks at once. A line cut before it was
+       all typed was not told yet, so it is not counted as said and comes back whole when the town is quiet again ('a face tells
+       you, once' means one whole telling). */
+    SAY.aside = function () { if (sunk) return false; if (!typed) { try { var q = said(); delete q[k]; localStorage.setItem(D.hints.said_key, JSON.stringify(q)); } catch (e) {} row.cut = true; } row.aside = Math.round(now()); sink(); return true; };
+    var sink = function () { if (sunk) return; sunk = true; SAY.aside = null; var i = 0; var go = function () { if (i >= OUT) { d.style.display = 'none'; d.style.transform = ''; d.style.opacity = ''; SAY.busy = false; row.t1 = Math.round(now()); return; }
       var k3 = (i + 1) / OUT; d.style.transform = still() ? '' : 'translateY(' + Math.round(k3 * 24) + 'px)'; d.style.opacity = String(Math.round((1 - k3) * 100) / 100); i++; setTimeout(go, ms); }; go(); };
     rise(0);
     return true;
@@ -796,14 +803,25 @@
       return false; } catch (e) { return false; }
   }
   /* the watcher: the phone says which place is on the glass; a place held quiet long enough, the first time, gets its line */
+  /* a building's sheet is open in the town (the town's screen is a frame inside the map's frame; both are this site's own pages) */
+  function townSheetOpen() {
+    try { var fs = document.getElementsByTagName('iframe');
+      for (var i = 0; i < fs.length; i++) { var w = null, B = null; try { w = fs[i].contentWindow; B = w && w.BohemiaSettlement; } catch (e) { continue; }
+        if (!B) { try { var sf = w && w.document && w.document.getElementById('settleFrame'); if (sf && sf.style.display !== 'none') B = sf.contentWindow && sf.contentWindow.BohemiaSettlement; } catch (e) {} }
+        if (B && B.state && B.state.open) return true; }
+    } catch (e) {}
+    return false;
+  }
   function hintTick() {
     if (!hintsOn()) { SAY.on = null; return; }
     var st = phoneState(), scr = st && st.on ? st.screen : null;
+    if (SAY.busy && SAY.k === 'town' && SAY.aside && townSheetOpen()) SAY.aside();   /* __THE_HINT_STEPS_ASIDE__: he went in; the plate is off the sheet at once */
     if (SAY.busy && SAY.el) placeSay(st);
     if (scr !== SAY.on) { SAY.on = scr; SAY.since = now(); return; }
     if (!scr || SAY.busy || !D.hints.lines[scr] || said()[scr]) return;
     var f = $('front'); if (f && f.style.display !== 'none') return;     /* never over the door */
     if (covered()) { SAY.since = now(); return; }                       /* nor while a screen of the game's own is over the place (the barber's mirror, a card) */
+    if (scr === 'town' && townSheetOpen()) { SAY.since = now(); return; }   /* __THE_HINT_STEPS_ASIDE__: nor over a building's sheet */
     if (now() - SAY.since < (D.hints.quiet_ms[scr] || 8000)) return;
     crewLooks();
     if (!window.BohemiaCrewFaces) { faces(function () {}); return; }

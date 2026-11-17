@@ -229,6 +229,67 @@ stop.' No VOTE card (rule 447(b), the site's weight; nothing here is a picture).
 - THE SPOILS gate (RUN's, on the red list as UNSURE): MEASURED, the tap that times out is the crew screen's #pick inside the end
   screen's crew door (after the end screen's own level button opened it): not LOOT ALL, not LEAVE, not row 565. Its line says so now.
 
+## ROUND FOUR (rule 453, a full sweep): BUILD 11/17h - A WORD STAYS LONG ENOUGH TO READ (rows 605, 612, 633; found 634 to 636)
+
+The coordinator's order: 'row 605: fix the cause this round or say plainly in the row why it cannot be fixed where it sits and who
+must; row 612's last spot (the fullest hall sideways still cuts three lines: with UI THREE's note); then the red debt rows you named
+real that are still OPEN; EYES' new FOUND rows as they land.'
+
+### 605 THE CAUSE (FIXED; TAB: RUN, any fight on AUTO at 2x or 4x)
+- WHERE I LOOKED THIS TIME: not the bare fight page, THE POT's own fight INSIDE THE REAL SHELL (the demo through its own driver, the
+  boss's sign read, his place stood on, his card, ENGAGE, AUTO by its own button at 4x), with hooks on what the page draws:
+  the log's idle events, the note animations started, idleTag's calls, and a MutationObserver on #winds (when the plate goes on the
+  glass and when it leaves). Probe p605pot.js.
+- MEASURED BEFORE (the demo, upright, 4x): 51 turns of his, 9 quiet (RELOADS 6, PINNED 2, NO SHOT 1): 9 idle events in the log, 9
+  note animations (94 ms each), 9 idleTag calls, 9 plates over the man, ON THE GLASS 157 TO 190 MS EACH. Every turn began, the marker
+  moved every turn, FIGHT.S.staleTurns 0, 0 page errors.
+- THE CAUSE: a plate over a man lived 'a beat and a half' of beatMs(), and beatMs() is the song's beat divided by the speed: 750 ms
+  at 1x, 375 at 2x, 187 at 4x. A word on the glass for under a fifth of a second is not read, and a watcher that samples the page
+  every quarter second misses it: EYES' '8 quiet turns, 1 showed the word', and his own 11/9 'it skips him'.
+- EYES WITHDREW THE MARKER (11/17, the row): its walks printed turnLog once, after the fight; 'FIXES 2 and COMBAT THREE were right'.
+- NOW (slices/BOHEMIA_FIGHT.html __A_WORD_STAYS_LONG_ENOUGH_TO_READ__): plateMs() = max(a beat and a half, PLATE_MIN_MS 1000) for the
+  three plates in #winds (the quiet turn's word, HELD, the breath hit); plateOnce() takes a man's older word of the same kind away
+  when a newer one comes (HELD, the quiet word), so two never stack. The plate holds no clock: the fight runs on under it.
+- PROOF (rule 441): THE POT's whole fight, AUTO 4x, in the shell: THE ALPHA on its side 16 turns, 1 quiet, PINNED 1,010 ms; THE DEMO
+  upright 21 turns, 1 quiet, PINNED 1,011 ms; 0 errors. Gate THE FOURTEEN EYES FOUND F605 (the fight's page, 390 x 844 and 844 x 390):
+  END TURN by a finger at 4x puts HOLDS over him for 1,035 to 1,528 ms, at 1x 1,006 to 1,015 ms; the same man twice = one word;
+  PLANT (PLATE_MIN_MS 0): 209 ms, the leg goes red. EVERY TURN READS 7/0.
+- CORRECTION: my 11/14 note said EYES' tool was not in the repo. It is (tools/bohemia_eyes_auto_on_the_page.js). My mistake.
+
+### 612 THE LAST TWO SPOTS (FIXED; TAB: RUN, a town's hall with the phone on its side; any town's first seconds)
+- (1) THE FULLEST HALL ON ITS SIDE. MEASURED 844 x 390, BLUE DIAMOND as a fortress: six at the posts (two rows, 63 px each when a
+  name wraps), three by the door two a row (46 + 4 + 46 = 96 px), each effect held to two lines of 248 px beside its 80 px TAKE ON:
+  '...every other follower cost...', '...over open ground,...', '...more back every...'. The sheet was full (281 of 281).
+  NOW (slices/bohemia_ui_no_scroll.js, in FIXES' own row-554 block): when three stand by the door, six or fewer at the posts and
+  nobody opened, the three stand in ONE row, a third of the glass each, the name over the trade beside the button and THE EFFECT
+  UNDER THEM AT THE CARD'S WHOLE WIDTH, three lines by rule and the fourth through UI THREE's pass when the sheet has it. MEASURED
+  AFTER: cards 85, 98, 85 px in one row, all three effects whole, the sheet 283 of 283, on the glass. The town's hall (four at the
+  posts) the same: one row, whole. Every three of the eighteen followers put through the page (816 hands, probe p612sweep.js): 0 run
+  past the box, tallest card 98 px, no name cut, every TAKE ON 44 px.
+  KEPT AS IT WAS: seven or more at the posts (the fair, the recruiter) and a man opened: both ran past the glass before this and
+  the old layout loses less there. FILED: rows 634 (a man opened in a fortress's hall) and 635 (the ten-man hall, N8).
+- (2) DESI'S HINT (slices/bohemia_ui_crashbox.js __THE_HINT_STEPS_ASIDE__). The town's line comes 3 s after a town opens, types for
+  1.3 s and holds 4 s: a thumb on a building inside those seconds left the plate over the sheet (5,504 ms by the plant). NOW the
+  shell's hint watcher reads the town's own page (BohemiaSettlement.state.open, through the map's frame): a sheet opens, the plate
+  sinks at once; a line cut before it was all typed is not counted as told and comes back whole when the town is quiet again; no
+  line starts over an open sheet.
+- PROOF: gate F612 (the town's page, both shapes; PLANT: the three back two a row = 3 lines cut), F612h (THE DEMO, a new game, both
+  shapes, a real thumb on the board: the sheet up at 185 to 251 ms, the plate off the glass at 655 to 840 ms; PLANT: the watcher
+  off = the plate 5.5 s over the sheet), NO LINE CUT WHILE THERE IS GLASS 8/0 (the hall sideways: 1 whole, 0 kept cut; was 3 kept),
+  THE RETINUE 29/0, F554 green.
+
+### 633 DESI (NOT A ONE-MARK FIX; [PENDING, Paolo's call])
+- EYES: 'the canon says Desi is a woman'. READ: the only three places records/ says so are EYES' own notes. The built record says
+  the opposite: records/BOHEMIA_RUN2_NO_MAN_WEARS_A_WOMANS_NAME_10_26_26.md (rule 203(a), his words 10/25: 'a woman is a whole woman,
+  never a man's sprite with a woman's name'): every body on the master rig is a man's, four women's names were renamed for it, and
+  'DESI stays: a man's name too (Desiderio), on a beardless man'.
+- So a mark alone would put HER on a man's body. Who must: his word on who DESI is; if a woman, CHARACTER builds her body first.
+
+### FOUND AND FILED (not mine to fix where they sit)
+- 634 a fortress's hall on its side with a man opened: two followers at y 381 to 427 of 390 (UI 9, RETINUE).
+- 635 gates/scrolling_is_illegal_gate.js is in no table and red on main: N8, N9, N4 (PLUMBER 8, UI 9).
+- 636 THE BLOOD IS CRASHBOX red on main, 28/2: D5 30.2% against a third; its planted W1 blind (UI THREE).
+
 ## THE PROBES (scratch tools, kept as the method; none ship)
 serve the repo's three published roots at /, a phone context (touch, mobile, the service worker blocked when a request is held),
 every pageerror with its stack, every 4xx. The stranger's walk; setItem wrapped to name who writes a save; focus/input traced on

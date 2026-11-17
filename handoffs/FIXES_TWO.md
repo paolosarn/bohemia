@@ -1,6 +1,31 @@
 # FIXES TWO -- the handoff block (written only by FIXES TWO, newest first; the heir of FIXES, whose blocks stay in handoffs/FIXES.md)
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 
+FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/17 LATEST -- [a full sweep, round four] rows 605 and 612 SHIPPED,
+633 answered (not a one-mark fix), 634 to 636 found and filed. BUILD 11/17h - A WORD STAYS LONG ENOUGH TO READ, BUILT, NOT YET SEEN. Commit SHIPSHAX.
+Record: the ROUND FOUR section of records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md. No VOTE card (nothing here is a picture).
+WHAT HE WOULD MEET (TAB: RUN, and the demo link):
+- 605 any fight on AUTO at 2x or 4x: the word over a man who did nothing (RELOADS, PINNED, HOLDS, NO SHOT), HELD and the breath hit
+  stay ONE SECOND on the glass. They stood 0.19 s at 4x (measured in THE POT's fight in the shell: 9 quiet turns, 9 words, each 157
+  to 190 ms). THAT was the row: the marker was never stale (EYES withdrew it). slices/BOHEMIA_FIGHT.html plateMs(), plateOnce().
+- 612 a town's hall with the phone on its side: the three by the door stand in one row and every effect line is whole.
+  slices/bohemia_ui_no_scroll.js (FIXES' own row-554 block; six or fewer at the posts, nobody opened).
+- 612 DESI's 'Tap a building' line leaves the moment a building's sheet opens, and comes back whole later if it was cut short.
+  slices/bohemia_ui_crashbox.js __THE_HINT_STEPS_ASIDE__ (townSheetOpen, SAY.aside).
+PROVEN (rule 441): THE POT's whole fight on AUTO 4x in the shell, the alpha on its side and the demo upright (PINNED 1,010 and 1,011
+ms); gate THE FOURTEEN EYES FOUND F605, F612, F612h, each upright and sideways with a PLANT; F612h on the demo itself with a real thumb;
+NO LINE CUT WHILE THERE IS GLASS 8/0, THE RETINUE 29/0, EVERY TURN READS 7/0. The demo re-cut.
+DID NOT DECIDE (identity, his; for the coordinator's VOTE queue): WHO DESI IS. EYES' row 633 says 'the canon says a woman'; the built
+record says Desiderio, a man's name on a beardless man's body (RUN TWO 10/26, rule 203(a), records/BOHEMIA_RUN2_NO_MAN_WEARS_A_WOMANS_
+NAME_10_26_26.md). A mark alone would put HER on a man's body. If a woman: CHARACTER builds her body, then one field on her crew row.
+FOUND, FILED, NOT MINE: 634 (a fortress's hall on its side with a man opened runs under the glass: UI 9, RETINUE), 635 (the no-scroll
+gate is in no table and red on main, N8 N9 N4: PLUMBER 8, UI 9), 636 (THE BLOOD IS CRASHBOX red on main 28/2, its planted W1 blind:
+UI THREE).
+MY MISTAKE, CORRECTED: on 11/14 I wrote that EYES' tool was not in the repo; it is (tools/bohemia_eyes_auto_on_the_page.js).
+NEXT, IN ORDER: the red-debt rows of round one still OPEN, each read first: 577 (COMBAT THREE says green: confirm and close), 592 (the
+meet card's roster line: the checker reads a card that is not up), 578 (the aftermath near black on a computer), 594, 582, 581, 574
+(a number call: TUNING); then EYES' new rows as they land.
+
 FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/14 (b) LATEST -- [three from EYES] rows 619 and 618 SHIPPED, 605 NOT
 REPRODUCED a third time (a tell shipped, the row stays OPEN and says so). BUILD 11/14m - THE SCREEN READS THE PERSON, BUILT, NOT YET SEEN.
 Commit 86567bd70. Record: the ROUND THREE section of records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md. NO VOTE CARD (rule 447(b)).

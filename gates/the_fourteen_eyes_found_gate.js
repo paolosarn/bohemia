@@ -1067,6 +1067,119 @@ async function f618(shape, plant) {
   await ctx.close();
 }
 
+/* ---------------- F605 (FIXES 2 11/17, FOUND BY EYES 11/11 and 11/14): the fight's own page, both shapes ----------------
+   F605 A WORD STAYS LONG ENOUGH TO READ: at 4x a turn of his that ends with nothing done puts its word over him (HOLDS) and the
+        word stays on the glass a second (it stood 187 ms: MEASURED in THE POT's fight in the demo's shell, 9 quiet turns, 9 words,
+        each 157 to 190 ms); at 1x the same; a second quiet turn of the same man never stacks two.
+        PLANT: the floor taken out (the old beat and a half of the fight's speed): the word is gone inside 400 ms. */
+async function f605(shape, plant) {
+  const ctx = await browser.newContext(Object.assign({}, SHAPES[shape], { serviceWorkers: 'block' }));
+  const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(String(e && e.message || e).slice(0, 200)));
+  if (plant) await p.route(/BOHEMIA_FIGHT\.html/, async route => { const r = await route.fetch(); const b = (await r.text()).replace('const PLATE_MIN_MS = 1000;', 'const PLATE_MIN_MS = 0;'); await route.fulfill({ response: r, body: b }); });
+  await p.addInitScript('window.FIGHT_OPTS=' + JSON.stringify({ seed: 5, kind: 'suburb', deploy: false, formation: null, teach: false, keep: false }) + ';');
+  await p.goto(BASE + '/slices/BOHEMIA_FIGHT.html', { waitUntil: 'load', timeout: 180000 });
+  await p.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.round, null, { timeout: 90000 });
+  const one = async (speed) => {
+    await p.evaluate((sp) => { const b = document.getElementById('bspeed'); for (let i = 0; i < 4 && b.textContent.trim() !== sp; i++) b.click();
+      if (!window.__W) { window.__W = []; new MutationObserver(ms => ms.forEach(m => { [].forEach.call(m.addedNodes, n => { if (n.dataset && n.dataset.why === 'idle') { n.__rec = { id: n.dataset.id, txt: n.textContent, in: performance.now(), out: null, sp: document.getElementById('bspeed').textContent.trim() }; window.__W.push(n.__rec); } });
+        [].forEach.call(m.removedNodes, n => { if (n.__rec) n.__rec.out = performance.now(); }); })).observe(document.getElementById('winds'), { childList: true }); } }, speed);
+    await p.waitForFunction(() => { const u = FIGHT.current(); return u && u.side === 'you' && crewControlled(u) && !FIGHT_UI.anim.length && !FIGHT.S.over; }, null, { timeout: 60000 });
+    const n0 = await p.evaluate(() => window.__W.length);
+    const at = await p.evaluate(() => { FIGHT_UI.pend = null; const b = document.getElementById('bend'), q = b.getBoundingClientRect(); return { x: q.left + q.width / 2, y: q.top + q.height / 2, label: b.textContent.trim(), who: FIGHT.current().name }; });
+    await p.touchscreen.tap(at.x, at.y);
+    await p.waitForFunction((n) => window.__W.length > n && window.__W[n].out != null, n0, { timeout: 6000 }).catch(() => {});
+    const w = await p.evaluate((n) => { const r = window.__W[n]; return r ? { txt: r.txt, ms: r.out == null ? null : Math.round(r.out - r.in), sp: r.sp, at: document.querySelectorAll('#winds .wind[data-why="idle"]').length } : null; }, n0);
+    return Object.assign({ pressed: at.label, who: at.who }, w || { none: true });
+  };
+  const A = await one('4x').catch(e => ({ err: String(e.message).slice(0, 160) }));
+  if (plant) { ok('F605 ' + shape + ' PLANTED (the floor out: a beat and a half of the fight\'s speed): the leg sees the word gone inside 400 ms (' + A.ms + ' ms at ' + A.sp + ')', A.ms != null && A.ms < 400, JSON.stringify(A)); await ctx.close(); return; }
+  const B = await one('1x').catch(e => ({ err: String(e.message).slice(0, 160) }));
+  /* the same man twice inside a second: one plate, never two */
+  const twice = await p.evaluate(() => { const u = FIGHT.S.units.filter(v => v.side === 'you' && !v.dead)[0]; idleTag(u, 'reload'); idleTag(u, 'holds'); const el = document.querySelectorAll('#winds .wind[data-why="idle"][data-id="' + u.id + '"]'); return { n: el.length, txt: el.length ? el[el.length - 1].textContent : '' }; });
+  ok('F605 ' + shape + ': a turn of his ended with nothing done (' + A.who + ', the button read ' + A.pressed + ') puts "' + A.txt + '" over him and it stays ' + A.ms + ' ms at ' + A.sp + ' and ' + B.ms + ' ms at ' + B.sp + ' (a second or more, never past two); the same man twice inside a second shows one word ("' + twice.txt + '"), not two',
+    A.txt && A.sp === '4x' && A.ms >= 950 && A.ms <= 2000 && B.txt && B.sp === '1x' && B.ms >= 950 && B.ms <= 2000 && twice.n === 1 && twice.txt === 'HOLDS' && errs.length === 0, JSON.stringify([A, B, twice]) + (errs[0] || ''));
+  await ctx.close();
+}
+
+/* ---------------- F612 (FIXES 2 11/17, FOUND BY EYES 11/11, row 612's last spot; UI THREE's note 11/14) ----------------
+   F612 THE FULLEST HALL ON ITS SIDE CUTS NO LINE: a fortress's hall (six at the posts, the week's three by the door), the town's
+        sheet as the shell lays it (UI 9's fit), 844 x 390: every effect line of the three is whole (none ends in dots), every name
+        and trade whole, each TAKE ON a full 44 px and inside its card, the sheet inside its box and on the glass; upright nothing
+        is cut either.
+        PLANT: the three back two a row (the old half-row cards): the leg sees the lines cut. */
+async function f612(shape, plant) {
+  const ctx = await browser.newContext(Object.assign({}, SHAPES[shape], { serviceWorkers: 'block' }));
+  const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(String(e && e.message || e).slice(0, 200)));
+  if (plant) await p.route(/bohemia_ui_no_scroll\.js/, async route => { const r = await route.fetch(); const b = (await r.text()).split(':has(>.retf+.retf+.retf)').join(':has(>.retf+.retf+.retf+.retf)'); await route.fulfill({ response: r, body: b }); });
+  await p.goto(BASE + '/slices/BOHEMIA_SETTLEMENT_SCREEN.html', { waitUntil: 'load', timeout: 120000 });
+  await p.waitForFunction(() => window.BohemiaSettlement && BohemiaSettlement.ready(), null, { timeout: 60000 });
+  await p.addScriptTag({ url: 'bohemia_ui_materials.js' }); await p.addScriptTag({ url: 'bohemia_ui_no_scroll.js' });
+  await p.evaluate(() => BohemiaSettlement.open({ place: { name: 'BLUE DIAMOND', tier: 'fortress' }, traits: [], day: 1, batteries: 3000 }));
+  await p.waitForTimeout(700);
+  const hx = await p.evaluate(() => BohemiaSettlement.where('hall')); await p.touchscreen.tap(hx.x, hx.y);
+  await p.waitForTimeout(2900);
+  const READ = () => { const sh = document.getElementById('sheet'), sb = document.getElementById('sbody'), over = e => e.scrollHeight > e.clientHeight + 1, q = sh.getBoundingClientRect();
+    const cards = [...sb.querySelectorAll('.acts>.retf')], cut = [], bad = [];
+    cards.forEach(k => { const d = k.querySelector('.rdoes'), nm = k.querySelector('.rname'), bt = k.querySelector('.act'), kq = k.getBoundingClientRect();
+      if (d && d.scrollHeight > d.clientHeight + 1) cut.push(d.textContent.slice(0, 34));
+      if (nm && (nm.scrollWidth > nm.clientWidth + 1 || nm.scrollHeight > nm.clientHeight + 1)) bad.push('name ' + nm.textContent.slice(0, 20));
+      if (bt) { const b = bt.getBoundingClientRect(); if (b.height < 43.5 || b.right > kq.right + 1 || b.bottom > innerHeight + 0.5) bad.push('button ' + Math.round(b.height) + ' to ' + Math.round(b.bottom)); }
+      if (kq.bottom > innerHeight + 0.5 || kq.right > innerWidth + 0.5) bad.push('card to ' + Math.round(kq.bottom)); });
+    return { n: cards.length, hires: sb.querySelectorAll('.acts>.hire').length, rows: [...new Set(cards.map(k => Math.round(k.getBoundingClientRect().top)))].length, cut, bad, over: over(sh) || over(sb), onGlass: q.top >= -0.5 && q.bottom <= innerHeight + 0.5, cls: sh.className }; };
+  const A = await p.evaluate(READ);
+  if (plant) { ok('F612 ' + shape + ' PLANTED (the three back two a row): the leg sees the lines cut (' + A.cut.length + ': ' + A.cut.join(' | ') + ')', A.cut.length >= 2, JSON.stringify(A)); await ctx.close(); return; }
+  /* a man opened puts the three back as they stood before this (row 554's fit, its own leg F554 at a town's hall). In a FORTRESS's
+     hall on its side that state runs under the glass, as it did before this leg (MEASURED on main: the two others at y 381 to 427
+     of 390): FILED as its own ask row for UI 9 and RETINUE, read here and said, never judged by this leg */
+  const face = await p.$('#sbody .acts>.retf .rface'); let B = null;
+  if (face) { const fb = await face.boundingBox(); await p.touchscreen.tap(fb.x + fb.width / 2, fb.y + fb.height / 2); await p.waitForTimeout(1600); B = await p.evaluate(READ); }
+  ok('F612 ' + shape + ': the fullest hall (' + A.hires + ' at the posts, ' + A.n + ' by the door in ' + A.rows + (A.rows === 1 ? ' row' : ' rows') + '): no effect line cut (' + A.cut.length + '), every name and button whole, the sheet inside its box and on the glass (a man opened, not judged here: ' + (B ? (B.bad.length ? B.bad.length + ' under the glass, FILED' : 'all on the glass') : 'not read') + ')',
+    A.n === 3 && A.hires >= 6 && A.cut.length === 0 && A.bad.length === 0 && !A.over && A.onGlass && errs.length === 0, JSON.stringify([A, B]) + (errs[0] || ''));
+  await ctx.close();
+}
+
+/* F612h THE HINT STEPS ASIDE (row 612's other spot; UI THREE's note: 'DESI's Tap a building hint lies over the board's first job
+        for a few seconds after a town opens; it should go the moment a sheet opens'): the demo, a new game, the start town; the
+        town's line is on its plate beside the phone, a thumb opens the board: the plate is off the glass within three quarters
+        of a second, the line (cut before it was all typed) is not counted as told, and with the sheet open it does not come back
+        over it.  PLANT: the watcher off (the plate stays its four seconds over the sheet). */
+async function f612h(shape, plant) {
+  const ctx = await browser.newContext(Object.assign({}, SHAPES[shape], { serviceWorkers: 'block' }));
+  const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(String(e && e.message || e).slice(0, 200)));
+  if (plant) await p.route(/bohemia_ui_crashbox\.js/, async route => { const r = await route.fetch(); const b = (await r.text()).replace("SAY.aside && townSheetOpen()) SAY.aside();", "SAY.aside && false) SAY.aside();").replace("if (scr === 'town' && townSheetOpen()) {", "if (false) {"); await route.fulfill({ response: r, body: b }); });
+  const P = plant ? ' PLANTED (the watcher off)' : '';
+  await p.goto(BASE + '/slices/BOHEMIA_DEMO.html', { waitUntil: 'load', timeout: 180000 });
+  for (let i = 0; i < 480; i++) { if (await p.evaluate(() => !!window.__LOAD_READY && !!document.getElementById('title')).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.waitForTimeout(1200); await throughTheTitle(p);
+  for (let i = 0; i < 240; i++) { if (await p.evaluate(() => { const b = document.getElementById('fronttap'); return !!(b && /BEGIN/.test(b.innerText)); }).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.evaluate(() => { const b = document.getElementById('fronttap'); if (b) b.click(); });
+  for (let i = 0; i < 120; i++) { if (await p.evaluate(() => !!document.querySelector('#mainmaker .go')).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.waitForTimeout(1000); await p.evaluate(() => { const g = document.querySelector('#mainmaker .go'); if (g) g.click(); });
+  let sf = null; for (let i = 0; i < 360 && !sf; i++) { await p.waitForTimeout(250); const f = p.frames().find(x => /SETTLEMENT_SCREEN/.test(x.url())); if (f && await f.evaluate(() => window.BohemiaSettlement && BohemiaSettlement.ready() && !!BohemiaSettlement.state.place && !BohemiaSettlement.state.open).catch(() => false)) sf = f; }
+  if (!sf) { ok('F612h ' + shape + P + ': the start town is up', false, 'no town'); await ctx.close(); return; }
+  await p.waitForTimeout(1500);
+  /* the town's line, asked for as on a first visit (it may have been told while the page came up) */
+  await p.evaluate(() => { try { localStorage.removeItem('bohemia.hints.said'); } catch (e) {} });
+  const plate = () => p.evaluate(() => { const d = document.getElementById('cbxsay'); if (!d || d.style.display === 'none' || !d.offsetWidth || +getComputedStyle(d).opacity < 0.05) return null; const r = d.getBoundingClientRect(); return { who: d.querySelector('b').textContent, r: [Math.round(r.left), Math.round(r.top), Math.round(r.right), Math.round(r.bottom)] }; }).catch(() => null);
+  let up = null; for (let i = 0; i < 120 && !up; i++) { await p.waitForTimeout(250); up = await plate(); }
+  if (!up) { ok('F612h ' + shape + P + ': the town\'s line comes up on its plate', false, JSON.stringify(await p.evaluate(() => ({ hints: BohemiaCrashbox.hintsOn(), said: localStorage.getItem('bohemia.hints.said'), log: BohemiaCrashbox.log.slice(-2) })).catch(e => String(e.message)))); await ctx.close(); return; }
+  await p.waitForTimeout(350);
+  const hx = await sf.evaluate(() => BohemiaSettlement.where('board')), fb = await (await sf.frameElement()).boundingBox();
+  const t0 = Date.now(); await p.touchscreen.tap(fb.x + hx.x, fb.y + hx.y);
+  let gone = null, sheet = null, over = 0, last = Date.now();
+  for (let i = 0; i < 70; i++) { await p.waitForTimeout(80); const q = await plate(), now = Date.now();
+    const sh = await sf.evaluate(() => { const s2 = document.getElementById('sheet'); if (!s2 || !s2.classList.contains('on')) return null; const r = s2.getBoundingClientRect(); return [r.left, r.top, r.right, r.bottom]; }).catch(() => null);
+    if (sh && sheet == null) sheet = now - t0;
+    if (q && sh && q.r[0] < sh[2] + fb.x && q.r[2] > sh[0] + fb.x && q.r[1] < sh[3] + fb.y && q.r[3] > sh[1] + fb.y) over += now - last;
+    last = now; if (!q && gone == null) gone = now - t0; if (gone != null && sheet != null && now - t0 > 2600) break; }
+  const row = await p.evaluate(() => { const r = BohemiaCrashbox.log.filter(x => x.id === 'hint').slice(-1)[0] || {}; return { k: r.k, cut: !!r.cut, aside: r.aside != null, said: localStorage.getItem('bohemia.hints.said') }; });
+  const back = await plate();   /* the sheet is still open: nothing came back over it */
+  if (plant) { ok('F612h ' + shape + P + ': the leg sees the plate still up over the open sheet (' + (gone == null ? 'never gone in ' + (Date.now() - t0) : 'gone at ' + gone) + ' ms, ' + over + ' ms over the sheet)', sheet != null && (gone == null || gone > 2000), JSON.stringify({ up, sheet, gone, over, row })); await ctx.close(); return; }
+  ok('F612h ' + shape + ': ' + up.who + '\'s town line is on its plate; a thumb opens the board (the sheet up at ' + sheet + ' ms): the plate is off the glass at ' + gone + ' ms (' + over + ' ms of it over the sheet), not counted as told (cut before it was all typed), and it does not come back over the open sheet',
+    sheet != null && gone != null && gone <= sheet + 800 && row.k === 'town' && row.aside && (!row.cut || !/town/.test(row.said || '')) && !back && errs.length === 0, JSON.stringify({ up, sheet, gone, over, row, back }) + (errs[0] || ''));
+  await ctx.close();
+}
+
 (async () => {
   await new Promise(r => srv.listen(0, '127.0.0.1', r)); BASE = 'http://127.0.0.1:' + srv.address().port;
   browser = await chromium.launch();
@@ -1092,6 +1205,9 @@ async function f618(shape, plant) {
     /* FOUND BY EYES 11/14 (rows 618, 619), FIXES 2 */
     for (const s of SH) { if (want('F619')) { await f619(s, false); if (s === SH[0]) await f619(s, true); } }
     for (const s of SH) { if (want('F618')) { await f618(s, false); if (s === SH[0]) await f618(s, true); } }
+    for (const s of SH) { if (want('F605')) { await f605(s, false); if (s === SH[0]) await f605(s, true); } }
+    for (const s of SH) { if (want('F612')) { await f612(s, false); if (s === 'phone_landscape' || SH.indexOf('phone_landscape') < 0) await f612(s, true); } }
+    for (const s of SH) { if (want('F612h')) { await f612h(s, false); if (s === SH[0]) await f612h(s, true); } }
   } catch (e) { ok('the gate ran [' + String(e && e.stack || e).slice(0, 400) + ']', false); }
   await browser.close(); srv.close();
   console.log('THE FOURTEEN EYES FOUND: ' + pass + ' passed, ' + fail + ' failed');

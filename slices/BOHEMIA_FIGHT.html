@@ -7886,7 +7886,7 @@ function windTag(f, inMs) {
     const box = document.getElementById('winds'); if (!box) return;
     const el = document.createElement('div'); el.className = 'wind'; el.dataset.id = f.id; el.dataset.why = f.why;
     el.innerHTML = BREATH_SVG + '-' + f.n + ' ' + (WIND_SAYS[f.why] || 'HIT');
-    el.dataset.until = String(performance.now() + beatMs() * 1.5); box.appendChild(el);
+    el.dataset.until = String(performance.now() + plateMs()); box.appendChild(el);
   }, Math.max(0, inMs || 0));
 }
 /* HELD (rule 314): a free swing landed in the zone and the walk failed; the plate stays a beat and a half over him */
@@ -7901,16 +7901,28 @@ const IDLE_SAYS = { tag: { reload: 'RELOADS', swap: 'SWAPS', swap_reload: 'SWAPS
     posts_up: '{name} holds the roof and waits for a shot.', climbed_holds: '{name} holds the roof and waits for a shot.', ring: '{name} is pinned and cannot fire.',
     unable_near: '{name} has no shot and holds.', in_reach_spent: '{name} holds his ground.', shot_next_turn_here: '{name} aims and waits.',
     no_tile_nearer: '{name} has nowhere nearer to go and holds.', hold: '{name} holds.', holds: '{name} holds.' } };   /* draft:true */
+/* __A_WORD_STAYS_LONG_ENOUGH_TO_READ__ (FIXES 2 11/17, ask rows 605 and 555, FOUND BY EYES three times: 'THE POT on AUTO, 8 quiet turns,
+   1 showed the word'). THE CAUSE, MEASURED IN THE DEMO'S OWN SHELL, THE POT's fight, AUTO at 4x (51 turns of his, 9 quiet): all 9 said
+   their word in the rules, all 9 were drawn, all 9 stood over the man, EACH FOR 157 TO 190 MS. The plate's time was a beat and a half
+   OF THE FIGHT'S SPEED (187 ms at 4x), under a fifth of a second: nobody reads that, and a reader that looks every quarter second
+   misses it. No marker was stale (every turn began, FIGHT.S.staleTurns 0). A plate over a man is a word to READ: it stays a beat and a
+   half or one second, whichever is longer, at every speed. It holds no clock (the fight runs on under it); a man's newer word of
+   the same kind takes the older one's place, so two never stack. */
+const PLATE_MIN_MS = 1000;
+function plateMs() { return Math.max(beatMs() * 1.5, PLATE_MIN_MS); }
+function plateOnce(box, id, why) { Array.from(box.children).forEach(function (o) { if (o.dataset.id === String(id) && o.dataset.why === why) o.remove(); }); }
 function idleTag(u, why) {
   const box = document.getElementById('winds'); if (!box) return;
+  plateOnce(box, u.id, 'idle');
   const el = document.createElement('div'); el.className = 'wind held'; el.dataset.id = u.id; el.dataset.why = 'idle'; el.textContent = IDLE_SAYS.tag[why] || IDLE_SAYS.tag.holds;
-  el.dataset.until = String(performance.now() + beatMs() * 1.5); box.appendChild(el);
+  el.dataset.until = String(performance.now() + plateMs()); box.appendChild(el);
   (UI.idles = UI.idles || []).push({ id: u.id, round: FIGHT.S.round, why: why });
 }
 function heldTag(u) {
   const box = document.getElementById('winds'); if (!box) return;
+  plateOnce(box, u.id, 'held');
   const el = document.createElement('div'); el.className = 'wind held'; el.dataset.id = u.id; el.dataset.why = 'held'; el.textContent = HELD_SAYS.tag;
-  el.dataset.until = String(performance.now() + beatMs() * 1.5); box.appendChild(el);
+  el.dataset.until = String(performance.now() + plateMs()); box.appendChild(el);
   (UI.helds = UI.helds || []).push({ id: u.id, round: FIGHT.S.round, x: u.x, y: u.y });
 }
 function placeWinds() {

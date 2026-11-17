@@ -356,6 +356,9 @@ re-proven both ways. NEXT: 618, 619, 605, then the debt.
 11/14 (b) BUILD 11/14m - THE SCREEN READS THE PERSON: the end screen calls nobody HIS by default (619: HER, HIS, YOUR, or no word when
 nothing marks the person; DESI is unmarked in the data, DID NOT DECIDE); a boss who runs is named, THE POT BROKE AND RAN (618); 605 not
 reproduced a third time, a one-read tell shipped (FIGHT.S.staleTurns), the row stays OPEN.
+11/17 BUILD 11/17h - A WORD STAYS LONG ENOUGH TO READ: 605's cause found in THE POT's fight in the shell (a quiet turn's word stood 0.19 s at
+4x; now one second at every speed; EYES withdrew the stale marker); 612's last spots (the fullest hall on its side cuts no line; DESI's
+hint leaves when a sheet opens); 633 is not a one-mark fix (DID NOT DECIDE: who DESI is); 634 to 636 found and filed.
 The whole block: handoffs/FIXES_TWO.md.
 [bb Battle Brothers lets you type your company's name on the new campaign screen and never touches the box again while you type.]
 [analog horror: a box that swallows the name you gave your crew and keeps three letters of it is the wrong kind of wrong; it is gone.]
