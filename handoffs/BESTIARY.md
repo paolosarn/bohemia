@@ -1,6 +1,6 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
-BESTIARY (routine 'BESTIARY full sweep', rules 453, 454(a), 441): 11/17 LATEST -- BUILD 11/17zi THREE NEW WAYS (SHA3_HERE), BUILT, NOT YET SEEN.
+BESTIARY (routine 'BESTIARY full sweep', rules 453, 454(a), 441): 11/17 LATEST -- BUILD 11/17zi THREE NEW WAYS (22d2fc03), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_THREE_NEW_WAYS_11_17_26.md. VOTE bestiary-three-new-ways-11-17.
 | floor | his | the fight fields | short |
 |---|---|---|---|
