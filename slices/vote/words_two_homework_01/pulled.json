@@ -1,0 +1,444 @@
+{
+ "draft": true,
+ "tool": "tools/bohemia_words_two_homework.js",
+ "sheet": 1,
+ "note": "every line below was read out of the named game file by this tool; none was typed",
+ "cards": [
+  {
+   "n": 1,
+   "id": "words-two-hw01-01-a-kid-begs-on-the-road-11-17",
+   "mouth": "A ROAD STOP",
+   "who": "A KID WITH A CAN",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_hungry_kid"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "Oye, jefe. Two days no food. I don't want batteries, just something to eat. My brother says ask the ones with guns, they got food.",
+   "line": "Oye, jefe. Two days no food. I don't want batteries, just something to eat. My brother says ask the ones with guns, they got food.",
+   "picture_pt": [
+    390,
+    457
+   ]
+  },
+  {
+   "n": 2,
+   "id": "words-two-hw01-02-the-enemy-says-why-11-17",
+   "mouth": "THE ENEMY'S LEADER",
+   "who": "THE HOUSE'S MAN",
+   "pulled_from": "records/target/bb/fight_reasons.json",
+   "locator": [
+    "rules",
+    {
+     "find": {
+      "id": "road.house.ground"
+     }
+    },
+    "them",
+    0
+   ],
+   "in_the_file": "The House holds this road, and you did not pay to use it.",
+   "line": "The House holds this road, and you did not pay to use it.",
+   "picture_pt": [
+    390,
+    312
+   ]
+  },
+  {
+   "n": 3,
+   "id": "words-two-hw01-03-a-joke-post-in-the-feed-11-17",
+   "mouth": "THE FEED",
+   "who": "@shawna_nails",
+   "pulled_from": "records/target/bb/feed_kinds.json",
+   "locator": [
+    "kinds",
+    {
+     "find": {
+      "id": "life_meme"
+     }
+    },
+    "words",
+    6,
+    "en"
+   ],
+   "in_the_file": "they don't know I have two jugs of water under the bed.",
+   "line": "they don't know I have two jugs of water under the bed.",
+   "picture_pt": [
+    390,
+    201
+   ]
+  },
+  {
+   "n": 4,
+   "id": "words-two-hw01-04-an-old-woman-offers-a-job-11-17",
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "who": "Mama Rosaura",
+   "pulled_from": "records/target/BOHEMIA_BOARD_SHELF.json",
+   "locator": [
+    "offers",
+    {
+     "find": {
+      "id": "qd-ae10"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "Seven of them, big as ponies, and they come when the water comes. We cannot pay what you are worth, only {pay} batteries, and if you say no it is fine, everybody says no.",
+   "filled_with": {
+    "pay": "199"
+   },
+   "line": "Seven of them, big as ponies, and they come when the water comes. We cannot pay what you are worth, only 199 batteries, and if you say no it is fine, everybody says no.",
+   "picture_pt": [
+    390,
+    316
+   ]
+  },
+  {
+   "n": 5,
+   "id": "words-two-hw01-05-your-man-lands-a-shot-11-17",
+   "mouth": "YOUR MAN, MID-FIGHT",
+   "who": "YOUR MAN, THE HUSTLER",
+   "pulled_from": "records/target/bb/crew_voices.json",
+   "locator": [
+    "types",
+    "hustler",
+    "lines",
+    "hit",
+    "en",
+    2
+   ],
+   "in_the_file": "Ka-ching.",
+   "line": "Ka-ching.",
+   "picture_pt": [
+    390,
+    265
+   ]
+  },
+  {
+   "n": 6,
+   "id": "words-two-hw01-06-a-cartel-checkpoint-shakes-you-down-11-17",
+   "mouth": "A ROAD STOP",
+   "who": "CARTEL CHECKPOINT",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_cartel_checkpoint"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "Inspección. What's in the wagon, jefe? We take a tenth of everything, it's the law now. Our law. Or you can try to argue.",
+   "line": "Inspección. What's in the wagon, jefe? We take a tenth of everything, it's the law now. Our law. Or you can try to argue.",
+   "picture_pt": [
+    390,
+    475
+   ]
+  },
+  {
+   "n": 7,
+   "id": "words-two-hw01-07-the-elder-greets-you-11-17",
+   "mouth": "THE ELDER",
+   "who": "THE ELDER",
+   "pulled_from": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "locator": "var TIER_LINE = \\{\\s*camp: '(?:[^'\\\\]|\\\\.)*',\\s*town: '((?:[^'\\\\]|\\\\.)*)'",
+   "in_the_file": "Bienvenido. Batteries talk here, so keep yours where we can hear them.",
+   "filled_with": {
+    "(shown through)": "BohemiaSpanglish.plain"
+   },
+   "line": "Bienvenido. Batteries talk here, so keep yours where we can hear them.",
+   "picture_pt": [
+    390,
+    329
+   ]
+  },
+  {
+   "n": 8,
+   "id": "words-two-hw01-08-your-man-after-you-win-11-17",
+   "mouth": "YOUR MAN, AFTER THE FIGHT",
+   "who": "YOUR MAN, THE DRY ONE",
+   "pulled_from": "records/target/bb/crew_voices.json",
+   "locator": [
+    "types",
+    "deadpan",
+    "lines",
+    "win",
+    "en",
+    5
+   ],
+   "in_the_file": "His boots are my size. He won't mind.",
+   "line": "His boots are my size. He won't mind.",
+   "picture_pt": [
+    390,
+    312
+   ]
+  },
+  {
+   "n": 9,
+   "id": "words-two-hw01-09-a-man-for-hire-sells-himself-11-17",
+   "mouth": "A MAN FOR HIRE",
+   "who": "A CONVOY RAIDER",
+   "pulled_from": "records/target/bb/rare_recruits.json",
+   "locator": [
+    "men",
+    {
+     "find": {
+      "look": "person_rare_13"
+     }
+    },
+    "line"
+   ],
+   "in_the_file": "My crew ate each other over a water tank. I walked. I can walk with you.",
+   "line": "My crew ate each other over a water tank. I walked. I can walk with you.",
+   "picture_pt": [
+    390,
+    326
+   ]
+  },
+  {
+   "n": 10,
+   "id": "words-two-hw01-10-a-town-falls-on-the-feed-11-17",
+   "mouth": "THE FEED, A TOWN FALLING",
+   "who": "@church_gate",
+   "pulled_from": "records/target/bb/radio_lines.json",
+   "locator": [
+    "towns",
+    "Church",
+    "lines",
+    9,
+    "say"
+   ],
+   "in_the_file": "tower. please answer.",
+   "line": "tower. please answer.",
+   "picture_pt": [
+    390,
+    184
+   ]
+  },
+  {
+   "n": 11,
+   "id": "words-two-hw01-11-your-own-man-confesses-11-17",
+   "mouth": "YOUR MAN, ON THE ROAD",
+   "who": "ONE OF YOUR MEN",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_short_box"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "Boss, the battery box is light. Six short. I counted twice. It was me. My sister in Henderson has a boy on an oxygen machine, and the machine eats batteries. I was going to tell you.",
+   "line": "Boss, the battery box is light. Six short. I counted twice. It was me. My sister in Henderson has a boy on an oxygen machine, and the machine eats batteries. I was going to tell you.",
+   "picture_pt": [
+    390,
+    355
+   ]
+  },
+  {
+   "n": 12,
+   "id": "words-two-hw01-12-a-boss-meets-you-11-17",
+   "mouth": "A BOSS",
+   "who": "THE POT",
+   "pulled_from": "records/target/bb/fight_reasons.json",
+   "locator": [
+    "rules",
+    {
+     "find": {
+      "id": "boss.men"
+     }
+    },
+    "them",
+    1
+   ],
+   "in_the_file": "You have been asking about me all over the valley, and here I am.",
+   "line": "You have been asking about me all over the valley, and here I am.",
+   "picture_pt": [
+    390,
+    329
+   ]
+  },
+  {
+   "n": 13,
+   "id": "words-two-hw01-13-a-timeshare-man-pitches-you-11-17",
+   "mouth": "A ROAD STOP",
+   "who": "A MAN IN A POLO SHIRT",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_timeshare_man"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "Folks! Ninety minutes of your time and breakfast is on us. Real eggs: we keep chickens on the roof now. Vacation ownership is still the smartest money in Nevada. Ask me about week thirty-two.",
+   "line": "Folks! Ninety minutes of your time and breakfast is on us. Real eggs: we keep chickens on the roof now. Vacation ownership is still the smartest money in Nevada. Ask me about week thirty-two.",
+   "picture_pt": [
+    390,
+    492
+   ]
+  },
+  {
+   "n": 14,
+   "id": "words-two-hw01-14-the-stall-keeper-talks-prices-11-17",
+   "mouth": "A SHOPKEEPER",
+   "who": "AT THE STALL",
+   "pulled_from": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "locator": "speak\\(k, line \\|\\| said \\|\\| '((?:[^'\\\\]|\\\\.)*)'\\)",
+   "in_the_file": "I buy and I sell. Half what I charge, more for what this town is short of. No haggling, mijo.",
+   "filled_with": {
+    "(shown through)": "BohemiaSpanglish.plain"
+   },
+   "line": "I buy and I sell. Half what I charge, more for what this town is short of. No haggling.",
+   "picture_pt": [
+    390,
+    309
+   ]
+  },
+  {
+   "n": 15,
+   "id": "words-two-hw01-15-your-man-sees-a-friend-go-down-11-17",
+   "mouth": "YOUR MAN, MID-FIGHT",
+   "who": "ONE OF YOURS, THE MOTHER",
+   "pulled_from": "records/target/bb/crew_voices.json",
+   "locator": [
+    "types",
+    "mother",
+    "lines",
+    "man_down",
+    "en",
+    2
+   ],
+   "in_the_file": "{name}! Don't you dare.",
+   "filled_with": {
+    "name": "DESI"
+   },
+   "line": "DESI! Don't you dare.",
+   "picture_pt": [
+    390,
+    265
+   ]
+  },
+  {
+   "n": 16,
+   "id": "words-two-hw01-16-a-priest-rings-for-the-dead-11-17",
+   "mouth": "A ROAD STOP",
+   "who": "PADRE ANSELMO",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_three_oclock_bell"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "I ring it for the ones in the houses who died alone after the money went. Nobody came for them, so I come. Every night a different street. Tonight it's this one. Stand with me a minute, hijo, it's only a minute.",
+   "line": "I ring it for the ones in the houses who died alone after the money went. Nobody came for them, so I come. Every night a different street. Tonight it's this one. Stand with me a minute, hijo, it's only a minute.",
+   "picture_pt": [
+    390,
+    459
+   ]
+  },
+  {
+   "n": 17,
+   "id": "words-two-hw01-17-the-bar-tells-a-rumour-11-17",
+   "mouth": "BEHIND THE BAR",
+   "who": "BEHIND THE BAR",
+   "pulled_from": "records/target/settlement_rumours.json",
+   "locator": [
+    "rumours",
+    {
+     "find": {
+      "id": "tagged_dog"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "A trucker swore he saw a dog with a tag in its ear, big as a calf, out by the tower. From the lab, pues.",
+   "filled_with": {
+    "(shown through)": "BohemiaSpanglish.plain"
+   },
+   "line": "A trucker swore he saw a dog with a tag in its ear, big as a calf, out by the tower. From the lab.",
+   "picture_pt": [
+    390,
+    309
+   ]
+  },
+  {
+   "n": 18,
+   "id": "words-two-hw01-18-a-far-away-post-in-the-feed-11-17",
+   "mouth": "THE FEED, FAR AWAY",
+   "who": "@hou_shiftwife",
+   "pulled_from": "records/target/bb/feed_world.json",
+   "locator": [
+    "kinds",
+    {
+     "find": {
+      "id": "far_prices"
+     }
+    },
+    "words",
+    0,
+    "en"
+   ],
+   "in_the_file": "the refinery horn still goes off at six every morning. there's no shift anymore. my husband still gets up for it.",
+   "line": "the refinery horn still goes off at six every morning. there's no shift anymore. my husband still gets up for it.",
+   "picture_pt": [
+    390,
+    261
+   ]
+  },
+  {
+   "n": 19,
+   "id": "words-two-hw01-19-the-cook-brags-11-17",
+   "mouth": "THE RETINUE",
+   "who": "Graciela Ochoa",
+   "pulled_from": "records/target/bb/retinue.json",
+   "locator": [
+    "followers",
+    "value",
+    {
+     "find": {
+      "id": "cook"
+     }
+    },
+    "ask"
+   ],
+   "in_the_file": "I fed the whole Strip once. I can feed your crew on half of what you are wasting.",
+   "filled_with": {
+    "(shown through)": "BohemiaSpanglish.plain"
+   },
+   "line": "I fed the whole Strip once. I can feed your crew on half of what you are wasting.",
+   "picture_pt": [
+    390,
+    326
+   ]
+  },
+  {
+   "n": 20,
+   "id": "words-two-hw01-20-a-stranger-in-the-street-11-17",
+   "mouth": "A STRANGER IN TOWN",
+   "who": "SOMEBODY ON THE STREET",
+   "pulled_from": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "locator": "var STREET_LINES = \\[\"(?:[^\"\\\\]|\\\\.)*\",\\s*\"((?:[^\"\\\\]|\\\\.)*)\"",
+   "in_the_file": "Batteries or nothing, carnal. Nobody takes paper since the dollar died.",
+   "line": "Batteries or nothing, carnal. Nobody takes paper since the dollar died.",
+   "picture_pt": [
+    390,
+    309
+   ]
+  }
+ ]
+}

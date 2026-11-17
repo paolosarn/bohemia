@@ -19308,6 +19308,606 @@
     ]
    },
    "record": "records/BOHEMIA_COOK_FIVE_THE_GATE_THE_MINE_AND_THE_NAILS_11_14_26.md"
+  },
+  {
+   "id": "words-two-hw01-20-a-stranger-in-the-street-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“Batteries or nothing, carnal. Nobody takes paper since the dollar died.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? A stranger standing in the street says it to you when you tap a random person in a town (you see it in a TOWN, over a person in the crowd); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-20-a-stranger-in-the-street-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-20-a-stranger-in-the-street-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     618
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 20,
+    "mouth": "A STRANGER IN TOWN",
+    "teaches": "A NOBODY: what a regular person on a corner says to an armed stranger, two short sentences",
+    "pulled_from": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+    "line": "Batteries or nothing, carnal. Nobody takes paper since the dollar died."
+   }
+  },
+  {
+   "id": "words-two-hw01-19-the-cook-brags-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“I fed the whole Strip once. I can feed your crew on half of what you are wasting.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? A cook who would travel with your crew says it to you when you meet her at the hall and she says why you should take her (you see it in a TOWN at the hall, and at your camp fire once she is with you); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-19-the-cook-brags-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-19-the-cook-brags-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     654
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 19,
+    "mouth": "THE RETINUE",
+    "teaches": "BRAGGING: an older woman who is good at her job and knows it, talking down to the boss a little",
+    "pulled_from": "records/target/bb/retinue.json",
+    "line": "I fed the whole Strip once. I can feed your crew on half of what you are wasting."
+   }
+  },
+  {
+   "id": "words-two-hw01-18-a-far-away-post-in-the-feed-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“the refinery horn still goes off at six every morning. there's no shift anymore. my husband still gets up for it.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? A woman in Houston says it to everybody on the feed when it is a quiet day and she posts about home (you see it on the phone's FEED); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-18-a-far-away-post-in-the-feed-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-18-a-far-away-post-in-the-feed-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     524
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 18,
+    "mouth": "THE FEED, FAR AWAY",
+    "teaches": "A SAD TWEET from far away: three plain sentences that are supposed to hurt; you said the far posts read like 'what does that even mean'",
+    "pulled_from": "records/target/bb/feed_world.json",
+    "line": "the refinery horn still goes off at six every morning. there's no shift anymore. my husband still gets up for it."
+   }
+  },
+  {
+   "id": "words-two-hw01-17-the-bar-tells-a-rumour-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“A trucker swore he saw a dog with a tag in its ear, big as a calf, out by the tower. From the lab.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? The one behind the bar says it to your crew when you buy a round and ask what is going on (you see it in a TOWN, at the bar); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-17-the-bar-tells-a-rumour-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-17-the-bar-tells-a-rumour-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     618
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 17,
+    "mouth": "BEHIND THE BAR",
+    "teaches": "GOSSIP: a second-hand story with doubt in it, the way news travels with no phones",
+    "pulled_from": "records/target/settlement_rumours.json",
+    "line": "A trucker swore he saw a dog with a tag in its ear, big as a calf, out by the tower. From the lab."
+   }
+  },
+  {
+   "id": "words-two-hw01-16-a-priest-rings-for-the-dead-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“I ring it for the ones in the houses who died alone after the money went. Nobody came for them, so I come. Every night a different street. Tonight it's this one. Stand with me a minute, hijo, it's only a minute.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? A priest ringing a bell at night says it to you when you find him at a crossroads in the dark (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-16-a-priest-rings-for-the-dead-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-16-a-priest-rings-for-the-dead-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     918
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 16,
+    "mouth": "A ROAD STOP",
+    "teaches": "GRIEF said out loud by an old man: how sad sounds without turning into a poem",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "I ring it for the ones in the houses who died alone after the money went. Nobody came for them, so I come. Every night a different street. Tonight it's this one. Stand with me a minute, hijo, it's only a minute."
+   }
+  },
+  {
+   "id": "words-two-hw01-15-your-man-sees-a-friend-go-down-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“DESI! Don't you dare.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? One of your crew says it to a friend named DESI when DESI gets shot down in front of them (you see it in the FIGHT, over the speaker's head); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-15-your-man-sees-a-friend-go-down-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-15-your-man-sees-a-friend-go-down-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     532
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 15,
+    "mouth": "YOUR MAN, MID-FIGHT",
+    "teaches": "PANIC AND LOVE in four words when a friend drops: the most emotional second of a fight",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "DESI! Don't you dare."
+   }
+  },
+  {
+   "id": "words-two-hw01-14-the-stall-keeper-talks-prices-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“I buy and I sell. Half what I charge, more for what this town is short of. No haggling.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? The keeper of the stall says it to you when you open the shop to buy and sell (you see it in a TOWN, at the stall); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-14-the-stall-keeper-talks-prices-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-14-the-stall-keeper-talks-prices-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     618
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 14,
+    "mouth": "A SHOPKEEPER",
+    "teaches": "HAGGLING, or refusing to: how somebody who sells for a living talks about money",
+    "pulled_from": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+    "line": "I buy and I sell. Half what I charge, more for what this town is short of. No haggling."
+   }
+  },
+  {
+   "id": "words-two-hw01-13-a-timeshare-man-pitches-you-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“Folks! Ninety minutes of your time and breakfast is on us. Real eggs: we keep chickens on the roof now. Vacation ownership is still the smartest money in Nevada. Ask me about week thirty-two.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? A timeshare salesman outside a dead resort says it to your crew when you walk past and he tries to sell you a vacation (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-13-a-timeshare-man-pitches-you-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-13-a-timeshare-man-pitches-you-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     986
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 13,
+    "mouth": "A ROAD STOP",
+    "teaches": "A JOKE card, the longest kind (four sentences): how funny sounds in this world, and how long a card may run",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "Folks! Ninety minutes of your time and breakfast is on us. Real eggs: we keep chickens on the roof now. Vacation ownership is still the smartest money in Nevada. Ask me about week thirty-two."
+   }
+  },
+  {
+   "id": "words-two-hw01-12-a-boss-meets-you-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“You have been asking about me all over the valley, and here I am.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? The boss called THE POT says it to you when you walk into his place to fight him (you see it on the card that opens his FIGHT); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-12-a-boss-meets-you-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-12-a-boss-meets-you-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     658
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 12,
+    "mouth": "A BOSS",
+    "teaches": "A BOSS: the biggest mouth in the game gets the same kind of line as a road thug today; how should the top dog talk",
+    "pulled_from": "records/target/bb/fight_reasons.json",
+    "line": "You have been asking about me all over the valley, and here I am."
+   }
+  },
+  {
+   "id": "words-two-hw01-11-your-own-man-confesses-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“Boss, the battery box is light. Six short. I counted twice. It was me. My sister in Henderson has a boy on an oxygen machine, and the machine eats batteries. I was going to tell you.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? One of your own men says it to you when he admits at the night stop that he took six batteries (you see it on the MAP, on a card at the night stop); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-11-your-own-man-confesses-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-11-your-own-man-confesses-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     712
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 11,
+    "mouth": "YOUR MAN, ON THE ROAD",
+    "teaches": "A CONFESSION from one of HIS men to HIM: how his own crew talks to the boss when it is serious",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "Boss, the battery box is light. Six short. I counted twice. It was me. My sister in Henderson has a boy on an oxygen machine, and the machine eats batteries. I was going to tell you."
+   }
+  },
+  {
+   "id": "words-two-hw01-10-a-town-falls-on-the-feed-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“tower. please answer.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? The guard at a town's gate says it to the lookout on the tower when the lookout stops answering, while a town you hold falls and nobody came to help (you see it on the phone's FEED, while the town falls); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-10-a-town-falls-on-the-feed-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-10-a-town-falls-on-the-feed-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     370
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 10,
+    "mouth": "THE FEED, A TOWN FALLING",
+    "teaches": "FEAR over the radio, three words: you called this kind of communication your swag on 11/3, so this card checks our line against that",
+    "pulled_from": "records/target/bb/radio_lines.json",
+    "line": "tower. please answer."
+   }
+  },
+  {
+   "id": "words-two-hw01-09-a-man-for-hire-sells-himself-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“My crew ate each other over a water tank. I walked. I can walk with you.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? A man looking for work says it to you when you look him over at the hiring post before you pay him (you see it in a TOWN, at the hall where you hire men); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-09-a-man-for-hire-sells-himself-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-09-a-man-for-hire-sells-himself-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     654
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 9,
+    "mouth": "A MAN FOR HIRE",
+    "teaches": "A PITCH: a dangerous man selling himself in three short sentences, with his past in it",
+    "pulled_from": "records/target/bb/rare_recruits.json",
+    "line": "My crew ate each other over a water tank. I walked. I can walk with you."
+   }
+  },
+  {
+   "id": "words-two-hw01-08-your-man-after-you-win-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“His boots are my size. He won't mind.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? Your driest man, still standing says it to the crew when you win a fight, in the spot where YOU WON used to be (you see it on the screen after a FIGHT); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-08-your-man-after-you-win-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-08-your-man-after-you-win-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     624
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 8,
+    "mouth": "YOUR MAN, AFTER THE FIGHT",
+    "teaches": "MORBID FUNNY, your 11/2 ask ('like real killers'): is this the joke you meant",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "His boots are my size. He won't mind."
+   }
+  },
+  {
+   "id": "words-two-hw01-07-the-elder-greets-you-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“Bienvenido. Batteries talk here, so keep yours where we can hear them.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? The Elder of a town says it to you when you walk into a town (you see it in a TOWN, under the town's name as you arrive); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-07-the-elder-greets-you-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-07-the-elder-greets-you-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     658
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 7,
+    "mouth": "THE ELDER",
+    "teaches": "A WELCOME with a warning inside it, one sentence, from the town's top man: the first words every town says",
+    "pulled_from": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+    "line": "Bienvenido. Batteries talk here, so keep yours where we can hear them."
+   }
+  },
+  {
+   "id": "words-two-hw01-06-a-cartel-checkpoint-shakes-you-down-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“Inspección. What's in the wagon, jefe? We take a tenth of everything, it's the law now. Our law. Or you can try to argue.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? A cartel man at a checkpoint says it to you when two trucks block the road and he wants a tenth of your cart (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-06-a-cartel-checkpoint-shakes-you-down-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-06-a-cartel-checkpoint-shakes-you-down-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     950
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 6,
+    "mouth": "A ROAD STOP",
+    "teaches": "A THREAT from somebody who has the power and is relaxed about it: how a shake-down sounds",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "Inspección. What's in the wagon, jefe? We take a tenth of everything, it's the law now. Our law. Or you can try to argue."
+   }
+  },
+  {
+   "id": "words-two-hw01-05-your-man-lands-a-shot-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“Ka-ching.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? Your man who only thinks about money says it to nobody when his shot hits a man (you see it in the FIGHT, over his head); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-05-your-man-lands-a-shot-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-05-your-man-lands-a-shot-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     532
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 5,
+    "mouth": "YOUR MAN, MID-FIGHT",
+    "teaches": "A ONE-WORD BARK in the middle of a fight: the shortest thing anybody says, and it is a joke",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "Ka-ching."
+   }
+  },
+  {
+   "id": "words-two-hw01-04-an-old-woman-offers-a-job-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“Seven of them, big as ponies, and they come when the water comes. We cannot pay what you are worth, only 199 batteries, and if you say no it is fine, everybody says no.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? An old woman at the job board says it to you when you ask what her job is and what it pays (you see it in a camp or TOWN, at the board where people offer jobs); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-04-an-old-woman-offers-a-job-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-04-an-old-woman-offers-a-job-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     632
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 4,
+    "mouth": "A JOB GIVER AT THE BOARD",
+    "teaches": "A JOB OFFER: somebody poor asking armed men for help and naming the pay herself, in two sentences",
+    "pulled_from": "records/target/BOHEMIA_BOARD_SHELF.json",
+    "line": "Seven of them, big as ponies, and they come when the water comes. We cannot pay what you are worth, only 199 batteries, and if you say no it is fine, everybody says no."
+   }
+  },
+  {
+   "id": "words-two-hw01-03-a-joke-post-in-the-feed-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“they don't know I have two jugs of water under the bed.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? A regular person in the valley says it to everybody on the feed when it is a quiet day and they post a joke (you see it on the phone's FEED); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-03-a-joke-post-in-the-feed-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-03-a-joke-post-in-the-feed-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     404
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 3,
+    "mouth": "THE FEED",
+    "teaches": "A TWEET that is a joke: meme talk, lower case, from somebody with nothing",
+    "pulled_from": "records/target/bb/feed_kinds.json",
+    "line": "they don't know I have two jugs of water under the bed."
+   }
+  },
+  {
+   "id": "words-two-hw01-02-the-enemy-says-why-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“The House holds this road, and you did not pay to use it.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? The leader of the House's men says it to you when a fight starts, to say why they are on you (you see it on the card that opens a FIGHT); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-02-the-enemy-says-why-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-02-the-enemy-says-why-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     624
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 2,
+    "mouth": "THE ENEMY'S LEADER",
+    "teaches": "THE WHY LINE: one sentence from an enemy saying why he is about to kill you; 127 of these share one shape (this, and that)",
+    "pulled_from": "records/target/bb/fight_reasons.json",
+    "line": "The House holds this road, and you did not pay to use it."
+   }
+  },
+  {
+   "id": "words-two-hw01-01-a-kid-begs-on-the-road-11-17",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "“Oye, jefe. Two days no food. I don't want batteries, just something to eat. My brother says ask the ones with guns, they got food.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? A hungry kid on the road says it to you when he stops your crew and begs for food (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_01/words-two-hw01-01-a-kid-begs-on-the-road-11-17.webp",
+    "first": "vote/words_two_homework_01/words-two-hw01-01-a-kid-begs-on-the-road-11-17.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     916
+    ]
+   },
+   "homework": {
+    "sheet": 1,
+    "n": 1,
+    "mouth": "A ROAD STOP",
+    "teaches": "BEGGING, from a kid, in short broken sentences with a Spanish opener: how a desperate person asks, and how much Spanish is right",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "Oye, jefe. Two days no food. I don't want batteries, just something to eat. My brother says ask the ones with guns, they got food."
+   }
   }
  ],
  "verdicts": [

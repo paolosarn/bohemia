@@ -1,0 +1,823 @@
+{
+ "draft": true,
+ "sheet": 1,
+ "_about": "WORDS TWO, HIS HOMEWORK, THE FIRST TWENTY (VAMILY rule 454(c), ask row 629). One card, one line, exactly as the game's data holds it today. Each card is picked to teach something no other card teaches (teaches). tools/bohemia_words_two_homework.js reads the line out of the named file; nothing here is a line. No rewrite of ours rides on any card.",
+ "cards": [
+  {
+   "mouth": "A ROAD STOP",
+   "tab": "MAP",
+   "who_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_hungry_kid"
+      }
+     },
+     "who",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_hungry_kid"
+      }
+     },
+     "who",
+     "from"
+    ]
+   },
+   "who_plain": "A hungry kid on the road",
+   "to": "you",
+   "when": "he stops your crew and begs for food",
+   "where": "on the MAP, on the card that stops your crew on the road",
+   "side": "other",
+   "face": {
+    "look": "faction_homeless"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_hungry_kid"
+      }
+     },
+     "says"
+    ]
+   },
+   "choices_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_hungry_kid"
+      }
+     },
+     "opts"
+    ],
+    "field": "t"
+   },
+   "teaches": "BEGGING, from a kid, in short broken sentences with a Spanish opener: how a desperate person asks, and how much Spanish is right",
+   "n": 1,
+   "id": "words-two-hw01-01-a-kid-begs-on-the-road-11-17",
+   "made": "11/17"
+  },
+  {
+   "mouth": "THE ENEMY'S LEADER",
+   "tab": "THE FIGHT",
+   "who": "THE HOUSE'S MAN",
+   "role": "leads the crew across from you",
+   "who_plain": "The leader of the House's men",
+   "to": "you",
+   "when": "a fight starts, to say why they are on you",
+   "where": "on the card that opens a FIGHT",
+   "side": "them",
+   "face": {
+    "look": "enemy_house_shield_0"
+   },
+   "pull": {
+    "file": "records/target/bb/fight_reasons.json",
+    "json": [
+     "rules",
+     {
+      "find": {
+       "id": "road.house.ground"
+      }
+     },
+     "them",
+     0
+    ]
+   },
+   "teaches": "THE WHY LINE: one sentence from an enemy saying why he is about to kill you; 127 of these share one shape (this, and that)",
+   "n": 2,
+   "id": "words-two-hw01-02-the-enemy-says-why-11-17",
+   "made": "11/17"
+  },
+  {
+   "mouth": "THE FEED",
+   "tab": "THE PHONE",
+   "who": "@shawna_nails",
+   "who_plain": "A regular person in the valley",
+   "to": "everybody on the feed",
+   "when": "it is a quiet day and they post a joke",
+   "where": "on the phone's FEED",
+   "layout": "feed",
+   "pull": {
+    "file": "records/target/bb/feed_kinds.json",
+    "json": [
+     "kinds",
+     {
+      "find": {
+       "id": "life_meme"
+      }
+     },
+     "words",
+     6,
+     "en"
+    ]
+   },
+   "teaches": "A TWEET that is a joke: meme talk, lower case, from somebody with nothing",
+   "n": 3,
+   "id": "words-two-hw01-03-a-joke-post-in-the-feed-11-17",
+   "made": "11/17"
+  },
+  {
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "tab": "A TOWN",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_BOARD_SHELF.json",
+    "json": [
+     "offers",
+     {
+      "find": {
+       "id": "qd-ae10"
+      }
+     },
+     "client",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/BOHEMIA_BOARD_SHELF.json",
+    "json": [
+     "offers",
+     {
+      "find": {
+       "id": "qd-ae10"
+      }
+     },
+     "client",
+     "from"
+    ]
+   },
+   "who_plain": "An old woman at the job board",
+   "to": "you",
+   "when": "you ask what her job is and what it pays",
+   "where": "in a camp or TOWN, at the board where people offer jobs",
+   "side": "other",
+   "face": {
+    "look": "person_woman_1"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_BOARD_SHELF.json",
+    "json": [
+     "offers",
+     {
+      "find": {
+       "id": "qd-ae10"
+      }
+     },
+     "says"
+    ]
+   },
+   "fill": {
+    "pay": {
+     "json": [
+      "offers",
+      {
+       "find": {
+        "id": "qd-ae10"
+       }
+      },
+      "pay"
+     ]
+    }
+   },
+   "teaches": "A JOB OFFER: somebody poor asking armed men for help and naming the pay herself, in two sentences",
+   "n": 4,
+   "id": "words-two-hw01-04-an-old-woman-offers-a-job-11-17",
+   "made": "11/17"
+  },
+  {
+   "mouth": "YOUR MAN, MID-FIGHT",
+   "tab": "THE FIGHT",
+   "who": "YOUR MAN, THE HUSTLER",
+   "role_pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "hustler",
+     "about"
+    ]
+   },
+   "who_plain": "Your man who only thinks about money",
+   "to": "nobody",
+   "when": "his shot hits a man",
+   "where": "in the FIGHT, over his head",
+   "side": "you",
+   "layout": "bark",
+   "face": {
+    "look": "cast_satchel"
+   },
+   "pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "hustler",
+     "lines",
+     "hit",
+     "en",
+     2
+    ]
+   },
+   "teaches": "A ONE-WORD BARK in the middle of a fight: the shortest thing anybody says, and it is a joke",
+   "n": 5,
+   "id": "words-two-hw01-05-your-man-lands-a-shot-11-17",
+   "made": "11/17"
+  },
+  {
+   "mouth": "A ROAD STOP",
+   "tab": "MAP",
+   "who_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_cartel_checkpoint"
+      }
+     },
+     "who",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_cartel_checkpoint"
+      }
+     },
+     "who",
+     "from"
+    ]
+   },
+   "who_plain": "A cartel man at a checkpoint",
+   "to": "you",
+   "when": "two trucks block the road and he wants a tenth of your cart",
+   "where": "on the MAP, on the card that stops your crew on the road",
+   "side": "them",
+   "face": {
+    "look": "faction_cartel"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_cartel_checkpoint"
+      }
+     },
+     "says"
+    ]
+   },
+   "choices_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_cartel_checkpoint"
+      }
+     },
+     "opts"
+    ],
+    "field": "t"
+   },
+   "teaches": "A THREAT from somebody who has the power and is relaxed about it: how a shake-down sounds",
+   "n": 6,
+   "id": "words-two-hw01-06-a-cartel-checkpoint-shakes-you-down-11-17",
+   "made": "11/17"
+  },
+  {
+   "mouth": "THE ELDER",
+   "tab": "A TOWN",
+   "who": "THE ELDER",
+   "role": "the one the whole town answers to",
+   "who_plain": "The Elder of a town",
+   "to": "you",
+   "when": "you walk into a town",
+   "where": "in a TOWN, under the town's name as you arrive",
+   "side": "other",
+   "face": {
+    "look": "person_town_1"
+   },
+   "pull": {
+    "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+    "re": "var TIER_LINE = \\{\\s*camp: '(?:[^'\\\\]|\\\\.)*',\\s*town: '((?:[^'\\\\]|\\\\.)*)'"
+   },
+   "teaches": "A WELCOME with a warning inside it, one sentence, from the town's top man: the first words every town says",
+   "n": 7,
+   "id": "words-two-hw01-07-the-elder-greets-you-11-17",
+   "made": "11/17",
+   "through": "BohemiaSpanglish.plain"
+  },
+  {
+   "mouth": "YOUR MAN, AFTER THE FIGHT",
+   "tab": "THE FIGHT",
+   "who": "YOUR MAN, THE DRY ONE",
+   "role_pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "deadpan",
+     "about"
+    ]
+   },
+   "who_plain": "Your driest man, still standing",
+   "to": "the crew",
+   "when": "you win a fight, in the spot where YOU WON used to be",
+   "where": "on the screen after a FIGHT",
+   "side": "you",
+   "face": {
+    "look": "cast_longcoat"
+   },
+   "pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "deadpan",
+     "lines",
+     "win",
+     "en",
+     5
+    ]
+   },
+   "teaches": "MORBID FUNNY, your 11/2 ask ('like real killers'): is this the joke you meant",
+   "n": 8,
+   "id": "words-two-hw01-08-your-man-after-you-win-11-17",
+   "made": "11/17"
+  },
+  {
+   "mouth": "A MAN FOR HIRE",
+   "tab": "A TOWN",
+   "who": "A CONVOY RAIDER",
+   "role_pull": {
+    "file": "records/target/bb/rare_recruits.json",
+    "json": [
+     "men",
+     {
+      "find": {
+       "look": "person_rare_13"
+      }
+     },
+     "who"
+    ]
+   },
+   "who_plain": "A man looking for work",
+   "to": "you",
+   "when": "you look him over at the hiring post before you pay him",
+   "where": "in a TOWN, at the hall where you hire men",
+   "side": "other",
+   "face": {
+    "look": "person_rare_13"
+   },
+   "pull": {
+    "file": "records/target/bb/rare_recruits.json",
+    "json": [
+     "men",
+     {
+      "find": {
+       "look": "person_rare_13"
+      }
+     },
+     "line"
+    ]
+   },
+   "teaches": "A PITCH: a dangerous man selling himself in three short sentences, with his past in it",
+   "n": 9,
+   "id": "words-two-hw01-09-a-man-for-hire-sells-himself-11-17",
+   "made": "11/17"
+  },
+  {
+   "mouth": "THE FEED, A TOWN FALLING",
+   "tab": "THE PHONE",
+   "who": "@church_gate",
+   "who_plain": "The guard at a town's gate",
+   "to": "the lookout on the tower",
+   "when": "the lookout stops answering, while a town you hold falls and nobody came to help",
+   "where": "on the phone's FEED, while the town falls",
+   "layout": "feed",
+   "pull": {
+    "file": "records/target/bb/radio_lines.json",
+    "json": [
+     "towns",
+     "Church",
+     "lines",
+     9,
+     "say"
+    ]
+   },
+   "teaches": "FEAR over the radio, three words: you called this kind of communication your swag on 11/3, so this card checks our line against that",
+   "n": 10,
+   "id": "words-two-hw01-10-a-town-falls-on-the-feed-11-17",
+   "made": "11/17"
+  },
+  {
+   "mouth": "YOUR MAN, ON THE ROAD",
+   "tab": "MAP",
+   "who": "ONE OF YOUR MEN",
+   "role_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_short_box"
+      }
+     },
+     "who",
+     "from"
+    ]
+   },
+   "who_plain": "One of your own men",
+   "to": "you",
+   "when": "he admits at the night stop that he took six batteries",
+   "where": "on the MAP, on a card at the night stop",
+   "side": "you",
+   "face": {
+    "look": "cast_pack"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_short_box"
+      }
+     },
+     "says"
+    ]
+   },
+   "teaches": "A CONFESSION from one of HIS men to HIM: how his own crew talks to the boss when it is serious",
+   "n": 11,
+   "id": "words-two-hw01-11-your-own-man-confesses-11-17",
+   "made": "11/17"
+  },
+  {
+   "mouth": "A BOSS",
+   "tab": "THE FIGHT",
+   "who": "THE POT",
+   "role": "keeper of the last good pot",
+   "who_plain": "The boss called THE POT",
+   "to": "you",
+   "when": "you walk into his place to fight him",
+   "where": "on the card that opens his FIGHT",
+   "side": "them",
+   "face": {
+    "look": "boss_pot_0"
+   },
+   "pull": {
+    "file": "records/target/bb/fight_reasons.json",
+    "json": [
+     "rules",
+     {
+      "find": {
+       "id": "boss.men"
+      }
+     },
+     "them",
+     1
+    ]
+   },
+   "teaches": "A BOSS: the biggest mouth in the game gets the same kind of line as a road thug today; how should the top dog talk",
+   "n": 12,
+   "id": "words-two-hw01-12-a-boss-meets-you-11-17",
+   "made": "11/17"
+  },
+  {
+   "mouth": "A ROAD STOP",
+   "tab": "MAP",
+   "who_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_timeshare_man"
+      }
+     },
+     "who",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_timeshare_man"
+      }
+     },
+     "who",
+     "from"
+    ]
+   },
+   "who_plain": "A timeshare salesman outside a dead resort",
+   "to": "your crew",
+   "when": "you walk past and he tries to sell you a vacation",
+   "where": "on the MAP, on the card that stops your crew on the road",
+   "side": "other",
+   "face": {
+    "look": "cast_shortcoat"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_timeshare_man"
+      }
+     },
+     "says"
+    ]
+   },
+   "choices_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_timeshare_man"
+      }
+     },
+     "opts"
+    ],
+    "field": "t"
+   },
+   "teaches": "A JOKE card, the longest kind (four sentences): how funny sounds in this world, and how long a card may run",
+   "n": 13,
+   "id": "words-two-hw01-13-a-timeshare-man-pitches-you-11-17",
+   "made": "11/17"
+  },
+  {
+   "mouth": "A SHOPKEEPER",
+   "tab": "A TOWN",
+   "who": "AT THE STALL",
+   "role": "buys and sells food, meds and gear",
+   "who_plain": "The keeper of the stall",
+   "to": "you",
+   "when": "you open the shop to buy and sell",
+   "where": "in a TOWN, at the stall",
+   "side": "other",
+   "face": {
+    "look": "person_town_4"
+   },
+   "pull": {
+    "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+    "re": "speak\\(k, line \\|\\| said \\|\\| '((?:[^'\\\\]|\\\\.)*)'\\)"
+   },
+   "teaches": "HAGGLING, or refusing to: how somebody who sells for a living talks about money",
+   "n": 14,
+   "id": "words-two-hw01-14-the-stall-keeper-talks-prices-11-17",
+   "made": "11/17",
+   "through": "BohemiaSpanglish.plain"
+  },
+  {
+   "mouth": "YOUR MAN, MID-FIGHT",
+   "tab": "THE FIGHT",
+   "who": "ONE OF YOURS, THE MOTHER",
+   "role_pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "mother",
+     "about"
+    ]
+   },
+   "who_plain": "One of your crew",
+   "to": "a friend named DESI",
+   "when": "DESI gets shot down in front of them",
+   "where": "in the FIGHT, over the speaker's head",
+   "side": "you",
+   "layout": "bark",
+   "face": {
+    "look": "cast_skirt"
+   },
+   "pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "mother",
+     "lines",
+     "man_down",
+     "en",
+     2
+    ]
+   },
+   "fill": {
+    "name": "DESI"
+   },
+   "teaches": "PANIC AND LOVE in four words when a friend drops: the most emotional second of a fight",
+   "n": 15,
+   "id": "words-two-hw01-15-your-man-sees-a-friend-go-down-11-17",
+   "made": "11/17"
+  },
+  {
+   "mouth": "A ROAD STOP",
+   "tab": "MAP",
+   "who_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_three_oclock_bell"
+      }
+     },
+     "who",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_three_oclock_bell"
+      }
+     },
+     "who",
+     "from"
+    ]
+   },
+   "who_plain": "A priest ringing a bell at night",
+   "to": "you",
+   "when": "you find him at a crossroads in the dark",
+   "where": "on the MAP, on the card that stops your crew on the road",
+   "side": "other",
+   "face": {
+    "look": "faction_church"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_three_oclock_bell"
+      }
+     },
+     "says"
+    ]
+   },
+   "choices_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_three_oclock_bell"
+      }
+     },
+     "opts"
+    ],
+    "field": "t"
+   },
+   "teaches": "GRIEF said out loud by an old man: how sad sounds without turning into a poem",
+   "n": 16,
+   "id": "words-two-hw01-16-a-priest-rings-for-the-dead-11-17",
+   "made": "11/17"
+  },
+  {
+   "mouth": "BEHIND THE BAR",
+   "tab": "A TOWN",
+   "who": "BEHIND THE BAR",
+   "role": "tells you what was heard, after a round",
+   "who_plain": "The one behind the bar",
+   "to": "your crew",
+   "when": "you buy a round and ask what is going on",
+   "where": "in a TOWN, at the bar",
+   "side": "other",
+   "face": {
+    "look": "person_town_6"
+   },
+   "pull": {
+    "file": "records/target/settlement_rumours.json",
+    "json": [
+     "rumours",
+     {
+      "find": {
+       "id": "tagged_dog"
+      }
+     },
+     "says"
+    ]
+   },
+   "teaches": "GOSSIP: a second-hand story with doubt in it, the way news travels with no phones",
+   "n": 17,
+   "id": "words-two-hw01-17-the-bar-tells-a-rumour-11-17",
+   "made": "11/17",
+   "through": "BohemiaSpanglish.plain"
+  },
+  {
+   "mouth": "THE FEED, FAR AWAY",
+   "tab": "THE PHONE",
+   "who_pull": {
+    "file": "records/target/bb/feed_world.json",
+    "json": [
+     "accounts",
+     {
+      "find": {
+       "id": "hou"
+      }
+     },
+     "handle"
+    ]
+   },
+   "who_prefix": "@",
+   "who_plain": "A woman in Houston",
+   "to": "everybody on the feed",
+   "when": "it is a quiet day and she posts about home",
+   "where": "on the phone's FEED",
+   "layout": "feed",
+   "pull": {
+    "file": "records/target/bb/feed_world.json",
+    "json": [
+     "kinds",
+     {
+      "find": {
+       "id": "far_prices"
+      }
+     },
+     "words",
+     0,
+     "en"
+    ]
+   },
+   "teaches": "A SAD TWEET from far away: three plain sentences that are supposed to hurt; you said the far posts read like 'what does that even mean'",
+   "n": 18,
+   "id": "words-two-hw01-18-a-far-away-post-in-the-feed-11-17",
+   "made": "11/17"
+  },
+  {
+   "mouth": "THE RETINUE",
+   "tab": "A TOWN / YOUR CAMP",
+   "who_pull": {
+    "file": "records/target/bb/retinue.json",
+    "json": [
+     "followers",
+     "value",
+     {
+      "find": {
+       "id": "cook"
+      }
+     },
+     "name"
+    ]
+   },
+   "role": "THE COOK, would travel with your crew",
+   "who_plain": "A cook who would travel with your crew",
+   "to": "you",
+   "when": "you meet her at the hall and she says why you should take her",
+   "where": "in a TOWN at the hall, and at your camp fire once she is with you",
+   "side": "other",
+   "face": {
+    "look": "person_woman_0"
+   },
+   "pull": {
+    "file": "records/target/bb/retinue.json",
+    "json": [
+     "followers",
+     "value",
+     {
+      "find": {
+       "id": "cook"
+      }
+     },
+     "ask"
+    ]
+   },
+   "teaches": "BRAGGING: an older woman who is good at her job and knows it, talking down to the boss a little",
+   "n": 19,
+   "id": "words-two-hw01-19-the-cook-brags-11-17",
+   "made": "11/17",
+   "through": "BohemiaSpanglish.plain"
+  },
+  {
+   "mouth": "A STRANGER IN TOWN",
+   "tab": "A TOWN",
+   "who": "SOMEBODY ON THE STREET",
+   "role": "a person in the crowd, no name until you ask",
+   "who_plain": "A stranger standing in the street",
+   "to": "you",
+   "when": "you tap a random person in a town",
+   "where": "in a TOWN, over a person in the crowd",
+   "side": "other",
+   "face": {
+    "look": "person_town_9"
+   },
+   "pull": {
+    "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+    "re": "var STREET_LINES = \\[\"(?:[^\"\\\\]|\\\\.)*\",\\s*\"((?:[^\"\\\\]|\\\\.)*)\""
+   },
+   "teaches": "A NOBODY: what a regular person on a corner says to an armed stranger, two short sentences",
+   "n": 20,
+   "id": "words-two-hw01-20-a-stranger-in-the-street-11-17",
+   "made": "11/17"
+  }
+ ],
+ "_order": "The tab shows twelve cards before its MORE fold (records/target/BOHEMIA_VOTE_TRIAGE.json cap), so cards 1 to 12 carry every kind of mouth he named (the road, the town, his men in a fight, the enemy, a boss, a hire, the feed) and 13 to 20 are the second look at each."
+}

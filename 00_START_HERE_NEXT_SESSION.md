@@ -1,3 +1,11 @@
+WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- BUILD 11/17a - HIS HOMEWORK: THE FIRST TWENTY, BUILT (PENDINGSHA), NOT YET SEEN (rule 454(c); ask row 629). Its block is handoffs/WORDS_TWO.md.
+A FRESH LANE (rule 454): how people talk is learned from him before anything is rewritten. NOTHING IN THE GAME WAS REWRITTEN. Twenty cards in the VOTE tab, one line each
+exactly as the game's data holds it (the title is the line, read from the game's file by tools/bohemia_words_two_homework.js, never typed), HOW SHOULD THIS SOUND? with who
+says it, to whom and when, the speaker's face behind LOOK AT IT, his answer in the card's own box (it saves on a thumb and leaves with EXPORT). Each card teaches one thing
+no other does: a mouth, a mood, a length. THE TAB SHOWS TWELVE BEFORE ITS MORE FOLD: cards 1 to 12 carry every mouth he named, 13 to 20 are first behind MORE.
+ON THE PAGE: the VOTE tab on a phone upright and sideways, twelve of this lane's on the first screen, 0 px off the side, 0 page errors. VOTE TAB gate 60 ok, 5 failed, the
+same five as clean main. Record records/BOHEMIA_WORDS_TWO_HIS_HOMEWORK_THE_FIRST_TWENTY_11_17_26.md.
+NEXT: the research record (ask row 628); when his sheet comes back, what each answer taught and sheet 02; then THE VOICE and its gate.
 FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/14 LATEST -- BUILD 11/14z - THE CARD THAT OPENS A FIGHT, BUILT (2f8ca51fc), NOT YET SEEN (rule 450(a); ask row 621, two of three cards). Its block is handoffs/FIGHT_SCREEN.md.
 THIS CHAT IS FIGHT SCREEN TWO. The card where he chooses ENGAGE or FALL BACK is rebuilt whole, one look with the man's sheet: their leader's face pinned on the dark board,
 the crew's name, the ONE why sentence from his mouth (for beasts one of his own men says it), their men against his as two rows of faces, the ground in a well; nothing
