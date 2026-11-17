@@ -24,7 +24,10 @@
    BUILD B, PUSH THE PAY: B1 the files (relations.json haggle and acts.haggle, TUNING's rows, the card's code); B2 the card's own pay sum;
    B3 on his phone (--build B): two asks with a finger push the pay 7% each and cost 1.0 of the bar, the job taken at the pushed pay;
    three asks and they walk: gone from the board, again when he walks back in, and from the phone's list; 4.0 off the bar.
-   node gates/the_towns_book_gate.js     JOBS_FILES=1 the files only     JOBS_BUILD=A,B (the phone legs of those builds)
+   BUILD C, WHAT WALKING AWAY COSTS: C1 the files (relations.json cancel/fail, renown.json's, the card's code); C2 the card's own words on
+   the real bands and gains; C3 on his phone (--build C): a job dropped in town and the turn job walked away from move the bar and CLOUT
+   exactly as their cards said, every card button on the glass.
+   node gates/the_towns_book_gate.js     JOBS_FILES=1 the files only     JOBS_BUILD=A,B,C (the phone legs of those builds)
    ========================================================================== */
 'use strict';
 const fs = require('fs'), path = require('path'), cp = require('child_process'), os = require('os'), vm = require('vm');
@@ -81,6 +84,23 @@ function boards(src, band) {
   const i = SS.indexOf('function hagPay(base, asks)'), src = SS.slice(i, SS.indexOf('\n', i));
   const W = { REL: REL }; vm.createContext(W); vm.runInContext('function hagRule(){ var h = REL && REL.haggle && REL.haggle.value; return h ? { step: +h.step || 0.07, lands: (h.lands | 0) || 2 } : null; }\n' + src + '\nthis.p = [hagPay(100,0), hagPay(100,1), hagPay(100,2), hagPay(57,2)];', W);
   ok('B2 the pay as pushed: 100 stays 100, one ask 107, two 114; a 57-battery job two asks 65', JSON.stringify(W.p) === JSON.stringify([100, 107, 114, 65]), JSON.stringify(W.p)); }
+/* ---------- BUILD C, WHAT WALKING AWAY COSTS ---------- */
+{ const RN = J('records/target/bb/renown.json'), G = (RN.gains || {}).value || {}, A = REL.acts || {};
+  const c1 = [A.cancel_contract && A.cancel_contract.value === -10 && A.fail_civilian_contract && A.fail_civilian_contract.value === -20 && /bb_all\/1670/.test(A.cancel_contract.source || ''),
+    G.cancel_contract === -100 && G.fail_civilian_contract === -75,
+    /function costOf\(act\)/.test(SS) && /cw\.className = 'trip quit'/.test(SS) && /var CW = costWords\(\)/.test(SS) && /S\.cost = CW/.test(SS)];
+  ok('C1 the files: dropping a job costs its town 10 and 100 CLOUT, failing it 20 and 75 (the wiki\'s, relations.json and renown.json), and the card says so before the yes', c1.every(Boolean), c1.map(x => x ? 1 : 0).join('')); }
+{ /* the card's own words, lifted out and run on the real bands and the real gains */
+  const i = SS.indexOf('function costOf(act){'), j = SS.indexOf('function offerSpeak(o){', i), src = SS.slice(i, j);
+  const RE = require(path.join(ROOT, 'engine/bohemia_relations.js')), RN = J('records/target/bb/renown.json');
+  const run = (bar, clout) => { const W = { REL: REL, BohemiaRelations: RE, BohemiaRenown: { score: () => clout, data: () => ({ gains: RN.gains.value }) } }; W.window = W; vm.createContext(W);
+    vm.runInContext('function opinionNow(){ return ' + bar + '; }\nfunction hagAct(n){ var a = REL && REL.acts && REL.acts[n]; return a ? +a.value : 0; }\n' + src + '\nthis.w = costWords().words;', W); return W.w; };
+  const got = [run(50, 300), run(50, 0), run(35, 60)];
+  const want = ['DROP IT 50→40 · CLOUT 300→200\nFAIL IT 50→30 COLD · CLOUT 300→225',
+    'DROP IT 50→40 · CLOUT 0→0\nFAIL IT 50→30 COLD · CLOUT 0→0',
+    'DROP IT 35→25 UNFRIENDLY · CLOUT 60→0\nFAIL IT 35→15 THREATENING · CLOUT 60→0'];
+  ok('C2 the card\'s words: at 50 with 300 CLOUT a drop reads 50 to 40 and 300 to 200, a fail 50 to 30 COLD and 300 to 225; a new company is told it loses no CLOUT; at 35 the bands it falls into are named',
+    JSON.stringify(got) === JSON.stringify(want), got.join(' | ')); }
 if (process.env.JOBS_FILES) done();
 
 /* ---------- ON HIS PHONE ---------- */
@@ -102,6 +122,10 @@ try {
     const bad = bb.filter(r => r.err || !(r.payPushed === r.payHeldExpected && r.payHeldExpected > r.payHeldUnpushed) || !(Math.abs(r.barMove + 1) < 0.01) || !r.walkedGone || !r.cardFits || !(Math.abs(r.walkMove + 4) < 0.01));
     ok('B3 on his phone, the demo and the alpha, upright and sideways: two asks on a job\'s card with a finger push its pay 7% each and cost the town 1.0 of its bar, the job taken at the pushed pay; three asks on another and they walk: gone from the board, gone when he walks back in and from the phone\'s list, 4.0 off the bar (three asks and the walk); every button of the card on the glass with the ask added', bb.length === 4 && !bad.length,
       bb.map(r => (r.alpha ? 'alpha ' : 'demo ') + (r.shape === 'phone_portrait' ? 'up' : 'side') + ': ' + (r.err ? 'ERR ' + r.err : r.town + ' ' + r.id + ' base ' + r.payBase + ' -> ' + r.payExpected + ', held at ' + r.payPushed + ' (the map\'s sum ' + r.payHeldExpected + ', unpushed ' + r.payHeldUnpushed + '), bar ' + r.barMove + '; ' + r.walkId + ' walked ' + (r.walkedGone ? 'gone' : 'STILL THERE') + ', bar ' + r.walkMove + (r.cardFits ? '' : '; A BUTTON OFF THE GLASS ' + JSON.stringify(r.fit)))).join(' | ')); }
+  if (BUILDS.indexOf('C') >= 0) { const cc = rows.filter(r => r.build === 'C');
+    const bad = cc.filter(r => r.err || !r.dropMatch || !r.failMatch || !/^DROP IT /.test((r.dropCard || {}).words || '') || !r.cardFits);
+    ok('C3 on his phone, the demo and the alpha, upright and sideways: a job\'s card says what dropping it and failing it cost before the yes; one taken and dropped in the town with a finger moves the bar and CLOUT exactly as its card said; the job that changes halfway taken and walked away from at its turn with a finger is lost and moves them exactly as its card said; every card button on the glass', cc.length === 4 && !bad.length,
+      cc.map(r => (r.alpha ? 'alpha ' : 'demo ') + (r.shape === 'phone_portrait' ? 'up' : 'side') + ': ' + (r.err ? 'ERR ' + r.err : r.town + ' [' + r.dropCard.words + '] dropped ' + r.drop0.bar + '->' + r.drop1.bar + ' CLOUT ' + r.drop0.clout + '->' + r.drop1.clout + (r.dropMatch ? '' : ' NOT AS SAID') + '; [' + r.failCard.words + '] walked away ' + r.fail0.bar + '->' + r.fail1.bar + ' CLOUT ' + r.fail0.clout + '->' + r.fail1.clout + (r.failMatch ? '' : ' NOT AS SAID') + (r.cardFits ? '' : '; A BUTTON OFF THE GLASS'))).join(' | ')); }
   ok('A5 nothing threw', !errs.length, errs.slice(0, 3).join(' | '));
 } catch (e) { ok('the phone legs ran', false, String(e && e.message || e).slice(0, 300)); }
 done();

@@ -7,6 +7,9 @@
 // --build B: PUSH THE PAY: a town's board with a finger, one person asked twice (the pay pushed 7% an ask, the bar 0.5 an ask), taken at
 // the pushed pay; another asked three times: they walk (the bar -2.5 more) and are gone from the board, again when he walks back in, and
 // from the phone's list.
+// --build C: WHAT WALKING AWAY COSTS: a company with 300 CLOUT; a job's card read before the yes (the cost line); that job taken and
+// dropped in the town with a finger; the job that changes halfway taken and walked away from at its turn with a finger (lost); the bar
+// and CLOUT each time against what its card said.
 // node tools/bohemia_jobs_the_towns_book_on_the_phone.js --build A [--alpha] [--shapes phone_portrait,phone_landscape] [--out dir] [--tag t]
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -169,6 +172,75 @@ async function walk(shape) {
       } catch (e) { row.err = String(e && e.message || e).slice(0, 200); }
       out.push(row);
       console.log('  ' + TAG + ' ' + shape + ' B PUSH THE PAY: ' + (row.err ? 'ERR ' + row.err : row.town + ' ' + row.id + ' base ' + row.payBase + ' -> ' + row.payExpected + ', held ' + row.payPushed + ' (the map sum ' + row.payHeldExpected + ', unpushed ' + row.payHeldUnpushed + '), bar ' + row.barMove + ' [' + row.askLabel + ' / ' + row.lastLabel + ']; ' + row.walkId + ' [' + row.walkLabel + '] walked: board ' + JSON.stringify(row.boardAfter) + ' again ' + JSON.stringify(row.boardAgain) + ' phone ' + JSON.stringify(row.phoneList) + ', bar ' + row.walkMove));
+    }
+    if (BUILDS.indexOf('C') >= 0) {
+      const row = { build: 'C' };
+      try {
+        /* WHAT WALKING AWAY COSTS: a company with 300 CLOUT (the game's own renown record, the one shortcut, said) at a town at 50; the
+           card read before the yes; one job taken and dropped in the town with a finger (the bar and CLOUT against what the card said);
+           the job that changes halfway taken and walked away from at its turn with a finger (lost), then he walks back in */
+        await fr.evaluate(() => { LOOP.held = []; LOOP.fighting = null; try { loopClose(); } catch (e) {} try { localStorage.removeItem('bohemia.haggle.v1'); } catch (e) {}
+          localStorage.setItem('bohemia.renown.v1', JSON.stringify({ score: 300, keys: [], log: [] })); });
+        const ids = ['jb-turn-speakers', 'jb-turn-courier'];
+        const cands = await fr.evaluate((ids) => { const all = BohemiaBoardShelf.shelf().offers, bs = ctBases() || {}, step = BohemiaBoardShelf.shelf().refresh_days || 3, out = [];
+          for (let d = 1; d <= 1 + 10 * step && !out.length; d += step) { const P = BohemiaBoardShelf.mapPlaces(d) || [];
+            for (const id of ids) { const o = all.filter(x => x.id === id)[0]; if (!o) continue; const n = (o.towns || [])[0], p = P.filter(q => q.name === n)[0]; if (!p || !bs[n]) continue;
+              const L = BohemiaBoardShelf.pick({ name: p.name, tier: p.tier }, d, { traits: p.traits || [], held: [], places: P }) || [];
+              if (L.some(x => x.id === id) && L.length >= 2) out.push({ id, n, day: d, others: L.filter(x => x.id !== id).map(x => x.id) }); } }
+          return out; }, ids);
+        if (!cands.length) throw new Error('no board posts the job that changes halfway with a second job in eleven windows');
+        const K = cands[0], tn = K.n; row.town = tn; row.day = K.day; row.turnId = K.id;
+        await setBar(tn, 50);
+        let T = await openTown(tn, K.day, null, true), sf = T.sf, sfH = T.sfH;
+        row.dropId = T.ids.filter(id => id !== K.id)[0]; if (!row.dropId) throw new Error('no second job on the board: ' + JSON.stringify(T.ids));
+        const cardCost = async (id) => { if (!await tapIn(sf, sfH, '#sheet button.act.client[data-id="' + id + '"]')) throw new Error('no finger on ' + id);
+          if (!await waitFor(() => sf.evaluate(() => !!document.querySelector('#sheet .trip.quit')), 8000)) throw new Error('no cost line on ' + id + '\'s card');
+          await page.waitForTimeout(400);
+          return sf.evaluate(() => ({ words: document.querySelector('#sheet .trip.quit').textContent, cost: BohemiaSettlement.state.cost ? { drop: BohemiaSettlement.state.cost.drop, fail: BohemiaSettlement.state.cost.fail } : null,
+            fit: [...document.querySelectorAll('#sheet .acts button')].map(b => { const r = b.getBoundingClientRect(); return [String(b.textContent || '').slice(0, 10), Math.round(r.top), Math.round(r.bottom), innerHeight]; }) })); };
+        const takeIt = async (id) => { const sel = await sf.evaluate(() => { const b = [...document.querySelectorAll('#sheet button.act')].filter(x => /^Take it/.test(x.textContent))[0]; if (!b) return null; b.dataset.take = 'yes'; return '#sheet button[data-take="yes"]'; });
+          if (!sel || !await tapIn(sf, sfH, sel)) throw new Error('no finger on Take it for ' + id);
+          if (!await waitFor(() => fr.evaluate((j) => LOOP.held.some(h => h.id === j), id), 10000)) throw new Error(id + ' was not taken'); };
+        const clout = () => fr.evaluate(() => BohemiaRenown.score());
+        /* the drop */
+        row.dropCard = await cardCost(row.dropId);
+        row.png = path.relative(ROOT, path.join(OUTD, TAG + '_' + (shape === 'phone_portrait' ? 'upright' : 'sideways') + '_C.png')); await page.screenshot({ path: path.join(ROOT, row.png) });
+        await takeIt(row.dropId);
+        row.drop0 = { bar: await barRaw(tn), clout: await clout() };
+        await waitFor(() => sf.evaluate((j) => !!document.querySelector('#sheet [data-held="' + j + '"]'), row.dropId), 8000);
+        if (!await tapIn(sf, sfH, '#sheet [data-held="' + row.dropId + '"]')) throw new Error('no finger on the held job');
+        if (!await waitFor(() => sf.evaluate(() => !!document.querySelector('#sheet [data-drop="yes"]')), 6000)) throw new Error('no Drop it');
+        if (!await tapIn(sf, sfH, '#sheet [data-drop="yes"]')) throw new Error('no finger on Drop it');
+        if (!await waitFor(() => fr.evaluate((j) => !LOOP.held.some(h => h.id === j), row.dropId), 8000)) throw new Error('the drop did not land');
+        await fr.evaluate(() => { try { loopClose(); } catch (e) {} }); await page.waitForTimeout(600);
+        T = await openTown(tn, K.day, null, true); sf = T.sf; sfH = T.sfH;   /* the town hears it when he walks in again (the settled queue) */
+        row.drop1 = { bar: await barRaw(tn), clout: await clout() };
+        /* the fail */
+        row.failCard = await cardCost(K.id);
+        await takeIt(K.id);
+        row.fail0 = { bar: await barRaw(tn), clout: await clout() };
+        await fr.evaluate(() => { try { loopClose(); } catch (e) {} }); await page.waitForTimeout(600);
+        const cfH = await page.$('#cityFrame'); row.steps = []; row.talk = null;
+        for (let s = 0; s < 10; s++) {
+          const st = await fr.evaluate((id) => { const j = LOOP.held.filter(h => h.id === id)[0]; if (!j) return { gone: true };
+            const at = (x, y) => { travelStop(); city.x = x; city.y = y; }; const L = j.legs ? j.legs[j.li | 0] : null; if (!L) return { stuck: 'no leg' };
+            at(L.x, L.y); const r = BohemiaJobKinds.arrived(L.x, L.y) || BohemiaJobKinds.step(); return { what: 'leg ' + (j.li | 0) + ' ' + (L.act || L.go), fight: !!r }; }, K.id);
+          if (st.gone) break; if (st.stuck) throw new Error(st.stuck); row.steps.push(st.what);
+          await page.waitForTimeout(1200);
+          const tb = await fr.evaluate(() => { const b = [...document.querySelectorAll('button')].filter(x => /Walk away from it/i.test(x.textContent || '') && x.getBoundingClientRect().width > 0)[0]; if (!b) return null; b.scrollIntoView({ block: 'center' }); const r = b.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2, (b.textContent || '').trim()]; });
+          if (tb) { await page.waitForTimeout(500); const cb = await cfH.boundingBox(); await page.touchscreen.tap(cb.x + tb[0], cb.y + tb[1]); row.talk = tb[2]; await page.waitForTimeout(1200); }
+          if (await fightUp()) throw new Error('a fight came up at ' + st.what + (tb ? ' after the walk away' : ''));
+        }
+        row.lost = await fr.evaluate((id) => ({ lost: (window.__JOB_LOST || []).some(l => l.id === id), held: LOOP.held.some(h => h.id === id) }), K.id);
+        row.fail1clout = await clout();
+        await openTown(tn, K.day);   /* he walks back in: the town hears it */
+        row.fail1 = { bar: await barRaw(tn), clout: row.fail1clout };
+        row.fit = row.dropCard.fit.concat(row.failCard.fit); row.cardFits = row.dropCard.fit.length >= 3 && row.fit.every(x => x[2] <= x[3]);   /* every button of both cards on the glass */
+        row.dropMatch = !!(row.dropCard.cost && row.drop1.bar === row.dropCard.cost.drop.after && row.drop1.clout === row.dropCard.cost.drop.cloutAfter && row.drop0.bar === row.dropCard.cost.drop.before);
+        row.failMatch = !!(row.failCard.cost && row.lost.lost && !row.lost.held && row.fail1.bar === row.failCard.cost.fail.after && row.fail1.clout === row.failCard.cost.fail.cloutAfter && row.fail0.bar === row.failCard.cost.fail.before);
+      } catch (e) { row.err = String(e && e.message || e).slice(0, 200); }
+      out.push(row);
+      console.log('  ' + TAG + ' ' + shape + ' C WHAT WALKING AWAY COSTS: ' + (row.err ? 'ERR ' + row.err : row.town + ' day ' + row.day + ': ' + row.dropId + ' card [' + row.dropCard.words + '] dropped: bar ' + row.drop0.bar + ' -> ' + row.drop1.bar + ', CLOUT ' + row.drop0.clout + ' -> ' + row.drop1.clout + (row.dropMatch ? ' (as the card said)' : ' (NOT as the card said)') + '; ' + row.turnId + ' card [' + row.failCard.words + '] walked away at its turn (' + row.talk + '): bar ' + row.fail0.bar + ' -> ' + row.fail1.bar + ', CLOUT ' + row.fail0.clout + ' -> ' + row.fail1.clout + (row.failMatch ? ' (as the card said)' : ' (NOT as the card said)') + ' steps ' + (row.steps || []).join(' > ')));
     }
   } catch (e) { out.push({ err: String(e && e.message || e).slice(0, 300) }); console.log('  ' + TAG + ' ' + shape + ' ERR ' + String(e && e.message || e).slice(0, 300)); }
   await d.close().catch(() => {});

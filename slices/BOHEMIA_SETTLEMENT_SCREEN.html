@@ -86,9 +86,12 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 .say .nm{color:var(--gold);font-size:12px;letter-spacing:1px}
 .say p{margin:4px 0 0}
 .say .trip{margin:7px 0 0;color:var(--gold);font-size:11px;letter-spacing:.6px;line-height:1.4}   /* WORLD [a job says how far] */
-.say .trip.asks{color:var(--ink,#e8dcc4);opacity:.92;letter-spacing:.3px}   /* JOBS 11/11: what the job asks, under the trip */
+.say .trip.asks{color:var(--ink,#e8dcc4);opacity:.92;letter-spacing:.3px}
+.say .trip.quit{white-space:pre-line;color:#c98a6a}   /* JOBS 11/17 __WHAT_WALKING_AWAY_COSTS__: DROP IT and FAIL IT, a line each */   /* JOBS 11/11: what the job asks, under the trip */
 .acts{display:flex;flex-direction:column;gap:6px;margin-top:12px}
 @media (orientation:landscape) and (max-height:500px){.acts.offer:has(>[data-ask]){display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}   /* JOBS 11/17 __PUSH_THE_PAY__: on its side the ask sits beside Take it, so Not now stays on the glass (the alpha's tabs leave the card 288 px) */
+.acts.offer:has(>[data-ask]){display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.acts.offer:has(>[data-ask])>.act{min-width:0}   /* JOBS 11/17 __WHAT_WALKING_AWAY_COSTS__: the card grew a line, so on every phone the ask sits beside Take it */
+@media (orientation:portrait){.acts.offer:has(>[data-ask])>.act{flex-direction:column;align-items:flex-start;justify-content:center;gap:1px;padding:5px 9px}.acts.offer:has(>[data-ask])>.act em{font-size:10px;max-width:100%}}   /* upright: the label over its cost */
 /* __HOME_BASE__ (HOME BASE 11/8, rule 437(b)): his own place's desk in BUILD: two columns so the sheet stays under half the glass (402) */
 .acts.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;margin-top:4px}.acts.two .act{min-width:0;min-height:44px;padding:2px 7px;font-size:12px;flex-direction:column;align-items:flex-start;justify-content:center;gap:0}
 .acts.two .act em{font-size:10px;max-width:100%;overflow:hidden;text-overflow:ellipsis}.acts.two .act em.hcost{overflow:visible;margin:0;padding:0}.acts.two .act:has(em.hcost){line-height:1.05;padding-top:1px;padding-bottom:1px}.acts.two .act em.hcost span{display:block;line-height:1.02;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}   /* HOME BASE 11/11: measured sideways, a long line held its column wide and pushed the fourth column off the glass; it ends in ... inside its own column now */
@@ -4971,6 +4974,20 @@ function hagAsk(o){
   if(h.asks > H.lands){ h.walked = true; relMove(null, 'negotiation_fail'); M[k] = h; hagPut(M); post('haggle', {contract:o.id, asks:h.asks, walked:true}); openB('board'); return; }
   M[k] = h; hagPut(M); post('haggle', {contract:o.id, asks:h.asks, pay:hagPay(o.__base || o.pay, h.asks)}); offerSpeak(o);
 }
+/* __WHAT_WALKING_AWAY_COSTS__ (JOBS 11/17, rule 453 (3): 'what failing or walking away costs'). Battle Brothers takes the same two
+   things from a company that quits or fails a contract: the town's opinion (bb_all/1670: 'Cancel a contract -10', 'Fail a civilian
+   contract -20') and Renown (bb_all/1679: a cancelled contract -100 and a failed one -75, the numbers records/target/bb/renown.json
+   carries), and the contract pays nothing. Both were already taken here (bohemia_job_kinds.js settle, BohemiaRenown.fromAct) and the
+   card never said so before the yes. NOW the offer says it in numbers, this town's own: the bar from and to (its band when it falls
+   into another), and CLOUT from and to (never under 0, so a new company is told it loses none). Labels only, draft (rule 454(a)) */
+function costOf(act){
+  var b = opinionNow(), a = Math.max(0, Math.min(100, b + hagAct(act))), RN = window.BohemiaRenown, g = (RN && RN.data && RN.data().gains) || {}, c = RN ? RN.score() : 0;
+  var k = typeof g[act] === 'number' ? Math.max(0, c + g[act]) : c, B = window.BohemiaRelations, w0 = B ? B.band(b) : '', w1 = B ? B.band(a) : '';
+  return { act: act, before: Math.round(b), after: Math.round(a), band: w1 !== w0 ? String(w1).toUpperCase() : '', clout: c, cloutAfter: k };
+}
+function costWords(){ var d = costOf('cancel_contract'), f = costOf('fail_civilian_contract');
+  var one = function(x){ return x.before + '\u2192' + x.after + (x.band ? ' ' + x.band : '') + ' \u00b7 CLOUT ' + x.clout + '\u2192' + x.cloutAfter; };
+  return { drop: d, fail: f, words: 'DROP IT ' + one(d) + '\nFAIL IT ' + one(f) }; }   /* draft; two lines (.trip.quit keeps the break) */
 function offerSpeak(o){
   S.open = 'board';
   if(hagRule()){ var b0 = o.__base || o.pay; o = Object.assign({}, o, { __base: b0, pay: hagPay(b0, hagOf(o.id).asks) }); }   /* __PUSH_THE_PAY__: the pay as pushed */
@@ -4987,6 +5004,7 @@ function offerSpeak(o){
     if(AK && AK.words){ var ak = document.createElement('div'); ak.className = 'trip asks'; ak.textContent = AK.words; sy.appendChild(ak); S.asks = AK; } }catch(e){}
   try{ var VW = window.BohemiaJobPay ? BohemiaJobPay.violenceWord(o.id) : ''; if(VW){ var vw = document.createElement('div'); vw.className = 'trip blood'; vw.textContent = VW; sy.appendChild(vw); } }catch(e){}   /* ECONOMY 2 (rule 323 amended, ask line 321): killing work or walking pay, said */
   try{ var ST = standHere(); if(ST.word){ var sw = document.createElement('div'); sw.className = 'trip stand'; sw.textContent = ST.word; sy.appendChild(sw); } }catch(e){}   /* ECONOMY 2: the standing, said on the offer */
+  try{ if(REL && REL.acts){ var CW = costWords(), cw = document.createElement('div'); cw.className = 'trip quit'; cw.textContent = CW.words; sy.appendChild(cw); S.cost = CW; } }catch(e){}   /* __WHAT_WALKING_AWAY_COSTS__: before the yes */
   w.appendChild(sy); body.appendChild(w);
   var acts = document.createElement('div'); acts.className = 'acts offer';
   try{ var HR = hagRule(), hh = hagOf(o.id); if(HR && S.held.length < SLOTS){ var last = (hh.asks | 0) >= HR.lands;   /* __PUSH_THE_PAY__: the ask, its cost told before */

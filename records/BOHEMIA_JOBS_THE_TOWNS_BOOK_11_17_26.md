@@ -68,7 +68,25 @@ the quoted one (gates/relations_gate.js, marked JOBS 11/17; three planted mistak
 reads a scaled frame by its drawn size.) GATE: THE TOWN'S BOOK with JOBS_BUILD=B.
 
 ## 3. BUILD C, WHAT FAILING OR WALKING AWAY COSTS
-(next)
+HOW BATTLE BROTHERS DOES IT: a company that cancels a contract loses the town's opinion (bb_all/1670: 'Cancel a contract -10'), one
+that fails a civilian contract more ('-20'), and both lose Renown (records/target/bb/renown.json: a cancelled contract -100 and a failed
+one -75, the Renown page as WORLD cites it); the contract pays nothing.
+MEASURED FIRST: all of it was already taken here (slices/bohemia_job_kinds.js settle and drop, BohemiaRenown.fromAct); the job's card
+never said so before the yes, and the drop said only the bar, after.
+OURS (slices/BOHEMIA_SETTLEMENT_SCREEN.html __WHAT_WALKING_AWAY_COSTS__): every job's card carries one line of numbers before the yes,
+this town's own: 'DROP IT 50→40 · CLOUT 300→200   FAIL IT 50→30 COLD · CLOUT 300→225' (the bar from and to, the band named when it
+falls into another, CLOUT from and to, never under 0, so a new company is told it loses none). Labels only, draft (rule 454(a)). No
+number is new: relations.json acts.cancel_contract and fail_civilian_contract, renown.json gains.
+MEASURED (node, gate C2): the card's own words on the real bands and gains, at 50 with 300 CLOUT, at 50 with none, at 35 with 60.
+ON HIS PHONE (tools/bohemia_jobs_the_towns_book_on_the_phone.js --build C; gate C3, the demo and the alpha, upright and sideways; a new
+crew with 300 CLOUT set in the game's own renown record, the one shortcut, said; Network at 50, day 1): the TV-mast job's card read 'DROP
+IT 50→40 · CLOUT 300→200 / FAIL IT 50→30 COLD · CLOUT 300→225'; taken and dropped in the town with a finger: 50 -> 40, CLOUT 300 -> 200.
+The courier job that changes halfway read 'DROP IT 40→30 COLD · CLOUT 200→100 / FAIL IT 40→20 UNFRIENDLY · CLOUT 200→125'; taken,
+picked up, and at its turn 'Walk away from it.' with a finger: lost; he walked back in: 40 -> 20, CLOUT 200 -> 125. All four: exactly
+as the cards said.
+THE CARD GREW A LINE: on an upright phone the card's last button had about 30 px to spare (build B's watch line); with the costs on two
+lines the ask now sits beside Take it on every phone (upright, the label over its cost), and every button of every card measured is on the
+glass (C3, B3). GATE: THE TOWN'S BOOK with JOBS_BUILD=B,C 10/0.
 
 ## 4. BUILD D, PAID INTO HIS OWN PLACE
 (next)
