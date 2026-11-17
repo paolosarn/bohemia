@@ -40,6 +40,11 @@
   /* WORLD __THE_BOARD_GROWS_WITH_THE_DAYS__ (rule 255, 10/26): a place posts only what its day lets it post for the crew he has
      (WORLD's slices/bohemia_job_danger.js fits(): no job under the day's floor, at most the day's share of red ones); the reader
      lives in the map's frame, so a board in a place's screen asks the map's. No reader: the board deals as it always did */
+  /* JOBS 11/17 (rule 453 (1), __THE_TOWN_REMEMBERS__): what a town offers by how it feels about him (BohemiaJobPay.board: the bar, the
+     wiki's access, relations.json board): its top skulls, its count at Hostile, one more from Friendly up; no reader, no change */
+  function trust(name, day) { try { var P = root.BohemiaJobPay || (root.parent && root.parent !== root && root.parent.BohemiaJobPay); return P && P.board ? P.board(name, day) : null; } catch (e) { return null; } }
+  function trusted(o, T) { return !T || ((o.skulls | 0) || 1) <= T.maxSkulls; }
+  function sized(n, T, C) { if (!T) return n; if (T.cap != null) return Math.min(n, T.cap); return Math.min(n + (T.more | 0), C.max || 4); }
   function fitter() { try { var W = root.BohemiaJobDanger || (root.parent && root.parent !== root && root.parent.BohemiaJobDanger); return W && W.fits ? W : null; } catch (e) { return null; } }
   function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
   /* a copy that is safe to hand around: {crew} said, the client copied */
@@ -76,7 +81,7 @@
     if (DEAL.key === key) return DEAL.map;
     var order = opt.places.slice().sort(function (a, b) { return seedOf(a.name + ':order:' + win) - seedOf(b.name + ':order:' + win) || (a.name < b.name ? -1 : 1); });
     var taken = {}, map = {}, want = {};
-    order.forEach(function (p) { map[p.name] = []; var tr = p.traits || []; want[p.name] = tr.indexOf('raided') >= 0 ? (C.raided || 1) : Math.min(C[p.tier || 'camp'] || 1, C.max || 4); });
+    order.forEach(function (p) { map[p.name] = []; var tr = p.traits || []; want[p.name] = tr.indexOf('raided') >= 0 ? (C.raided || 1) : sized(Math.min(C[p.tier || 'camp'] || 1, C.max || 4), trust(p.name, day), C); });   /* __THE_TOWN_REMEMBERS__ */
     var MEMO = postedGet(), camp = campaign(), byId = {}, held = opt.held || [], done = opt.done || [], frozen = {};   /* __A_POSTED_JOB_STAYS_POSTED__ */
     SHELF.offers.forEach(function (o) { byId[o.id] = o; });
     var READ = readGet(), wasRead = function (n) { var r = READ[n]; return !!(r && r.win === win && r.camp === camp); };
@@ -135,7 +140,7 @@
         if (FW && FW.fits(o, place.name, day, out, size) === false) { kept.push(o); return; }   /* under the day's floor: kept back, not lost (rule 335) */
         seen[o.id] = 1; out.push(said(o, opt.crew)); });
     }
-    var ordinary = all.filter(function (o) { return !o.when && (o.tiers || []).indexOf(tier) >= 0 && (!o.towns || o.towns.indexOf(String(place.name)) >= 0); }),
+    var TR = trust(String(place.name), day), ordinary = all.filter(function (o) { return !o.when && (o.tiers || []).indexOf(tier) >= 0 && (!o.towns || o.towns.indexOf(String(place.name)) >= 0) && trusted(o, TR); }),   /* __THE_TOWN_REMEMBERS__: the work it trusts him with */
       own = ordinary.filter(function (o) { return !!o.towns; });   /* JOBS 11/11 (rule 425): a job that fits its town is posted there only, and the town's own person asks first, one of them */
     if (traits.indexOf('raided') >= 0) {   /* the raid leaves one job, and it is the crew that hit it */
       var raid = all.filter(function (o) { return o.when === 'raided'; });
@@ -145,9 +150,9 @@
       if (!out.length) take(ordinary, C.raided || 1);
       return never(out, kept, raid.concat(ordinary));
     }
-    var n = Math.min(C[tier] || 1, C.max || 4);
+    var n = sized(Math.min(C[tier] || 1, C.max || 4), TR, C);   /* __THE_TOWN_REMEMBERS__ */
     ['sickness', 'market_day'].forEach(function (t) {   /* what is happening here asks first */
-      if (traits.indexOf(t) >= 0) take(all.filter(function (o) { return o.when === t; }), Math.min(n, out.length + 1));
+      if (traits.indexOf(t) >= 0) take(all.filter(function (o) { return o.when === t && trusted(o, TR); }), Math.min(n, out.length + 1));   /* __THE_TOWN_REMEMBERS__: the news's work is trusted the same */
     });
     if (own.length) take(own, Math.min(n, out.length + 1));
     take(ordinary, n);

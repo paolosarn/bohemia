@@ -567,8 +567,10 @@ var RESTOCK_DAYS = 3;
 function relPrice(){
   var R = TRAITS && TRAITS.relation_prices, out = {buySub:0, sellAdd:0};
   if(!R || typeof opinionNow !== 'function') return out;
-  var f = Math.max(0, Math.min(1, (opinionNow() - R.from) / (R.to - R.from)));
-  out.buySub = R.buy_sub_at_100 * f; out.sellAdd = R.sell_add_at_100 * f; return out;
+  var op = opinionNow(), f = Math.max(0, Math.min(1, (op - R.from) / (R.to - R.from)));
+  out.buySub = R.buy_sub_at_100 * f; out.sellAdd = R.sell_add_at_100 * f;
+  var L = R.below; if(L && op < L.from){ var g = Math.max(0, Math.min(1, (L.from - op) / (L.from - L.to))); out.buySub = -L.buy_add_at_0 * g; out.sellAdd = -L.sell_sub_at_0 * g; }   /* JOBS 11/17 (rule 453 (1)): below Neutral a town charges more and pays less (the wiki's Game Guide, settlement_traits.json relation_prices.below) */
+  return out;
 }
 function restockPeriod(){ return Math.floor(((typeof S.mapDay === 'number') ? S.mapDay : 0) / RESTOCK_DAYS); }
 function soldKey(){ return S.place.name + ':' + restockPeriod(); }
@@ -5302,7 +5304,9 @@ var TIER_LINE = {
   fortress: 'You are inside the walls now. Behave, and the walls are yours too.'
 };
 var REL = null;
-fetch('../records/target/bb/relations.json').then(function(r){ return r.json(); }).then(function(j){ REL = j; if(window.BohemiaRelations) BohemiaRelations.set(j); }).catch(function(){});
+var REL_WAIT = [];   /* JOBS 11/17 (rule 453 (1)): the jobs settled before the bands have loaded wait for them (measured on the alpha held sideways:
+   the town's first open came before relations.json, relMove returned nothing and the +10 of a finished job was gone for good) */
+fetch('../records/target/bb/relations.json').then(function(r){ return r.json(); }).then(function(j){ REL = j; if(window.BohemiaRelations) BohemiaRelations.set(j); var w = REL_WAIT; REL_WAIT = []; w.forEach(function(x){ relMove(x[0], x[1]); }); }).catch(function(){});
 /* RUN TWO [the opinion moves] 10/18: Battle Brothers moves a town's bar for what you do there. When the game hands no
    opinion, the screen keeps one bar per place (bohemia.relations.v1, FACTIONS' engine and file, read only): a round at
    the bar is the wiki's +0.1, a contract settled (open({settled:[{place, act}]}), act a row of relations.json: done +10,
@@ -5313,7 +5317,7 @@ function relRec(){ if(!S.rel){ try{ S.rel = JSON.parse(localStorage.getItem(RELK
 function relSave(){ try{ localStorage.setItem(RELKEY, JSON.stringify(S.rel)); }catch(e){} }
 function relId(p){ return String((p && (p.id || p.name)) || S.place.id || S.place.name); }
 function relMove(place, act){
-  if(!window.BohemiaRelations || !REL) return null;
+  if(!window.BohemiaRelations || !REL){ REL_WAIT.push([place, act]); return null; }   /* JOBS 11/17: kept, not lost */
   var r = BohemiaRelations.apply(relRec(), relId(place), act); if(r.applied){ relSave(); post('relation', {place:relId(place), act:act, before:r.before, after:r.after, band:r.band}); } return r;
 }
 function relDawn(){

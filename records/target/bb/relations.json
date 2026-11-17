@@ -105,6 +105,11 @@
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
    "quote": "Minor Offensive Action||-10"
   },
+  "haggle": {
+   "value": -0.5,
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0441_Contracts.txt",
+   "quote": "Before taking a contract, it is possible to haggle for better pay. However, each haggling attempt will worsen Relations by 0.5 points with the settlement"
+  },
   "negotiation_fail": {
    "value": -2.5,
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1670_Relations.txt",
@@ -176,5 +181,7 @@
    "draft": true,
    "why": "the hostile band's top; the wiki says hostile settlements are not friendly and states no guard rule"
   }
- }
+ },
+ "board": {"value": {"max_skulls": {"hostile": 1, "threatening": 2, "unfriendly": 2, "cold": 2}, "hostile_jobs": 1, "more": {"friendly": 1, "very_friendly": 1, "allied": 1}}, "draft": true, "ours": true, "why": "JOBS 11/17 (rule 453 (1), 'how a town feels about him changes what that town offers'): the wiki ties relations to access, not only to price: 'Settlements and Noble Houses, which are the only factions you can have friendly interactions with (receive Contracts, trade...)' (bb_all/0724) and the fortified towns' contracts wait for a company of Professional renown (bb_all/0724, 1050). OURS on that: below Neutral a town keeps its three-skull work from him (cold, unfriendly, threatening: two skulls at most), at Hostile it gives him one one-skull job and no more (never an empty board, rule 335); from Friendly up it posts one job more (never over the board's max of 4). A read board stays what he read (rule 610). TUNING's one table section Y", "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt"},
+ "haggle": {"value": {"step": 0.07, "lands": 2}, "draft": true, "ours": true, "why": "JOBS 11/17 (rule 453 (2), 'pay he can push up at a cost'): Battle Brothers' haggle (bb_all/0441 Haggling): each ask costs 0.5 of the bar (acts.haggle), a success adds 4-11% (bb_all/0827: 3-10%), the hidden annoyance (3 to 6 an ask, out at 9) throws you out with the negotiation fail (-2.5, acts.negotiation_fail). OURS, the house's own rule for the street card (slices/BOHEMIA_CITY_WORLD.html BOHEMIA HAGGLE, 9/11: 'Two asks land. The third ends it.', told before, never a hidden roll): each ask lands 7% (the middle of the wiki's range) and costs 0.5; the third ask ends it, the -2.5, and that job is gone from that town's board until it turns. TUNING's one table section Y", "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0441_Contracts.txt"}
 }

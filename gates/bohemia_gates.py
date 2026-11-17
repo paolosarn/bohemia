@@ -2424,6 +2424,11 @@ GATES = [
      'halfway, a job two towns bid on) and fifteen jobs, four paying into his own place; on the phone, the demo and the alpha both ways, '
      'one of each found on its town\'s board, taken and played to the pay, the bid\'s other side gone, a read board the same '
      '(records/BOHEMIA_JOBS_THE_NIGHT_THE_TURN_AND_THE_BID_11_14_26.md).', True),
+    ('THE TOWN\'S BOOK', ['node', 'gates/the_towns_book_gate.js'],
+     'JOBS 11/17, rules 453, 454(a), 441: the jobs\' systems the way Battle Brothers runs them, no new prose. Build A, THE TOWN REMEMBERS: '
+     'below Neutral a town charges more and pays less (the Game Guide), and its bar changes what it offers (no three-skull work below '
+     'Neutral, one job at Hostile, one more from Friendly); a settled job kept until the town\'s bands load; on the phone, the demo and '
+     'the alpha both ways (records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md).', True),
     ('THE FIGHT IS CLOSE', ['node', 'gates/the_fight_is_close_gate.js'],
      'TUNING 2 [the fight is close], rule 370: measured by closeness, not wins. The bands per level (records/target/bb/party_math.json '
      'closeness_bands) on the live fight, routine and tough job, pooled over the Lone Wolf, a fresh company and rare men in the '

@@ -1,5 +1,23 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/17 LATEST -- BUILD 11/17b - THE TOWN REMEMBERS (build A of four), BUILT, NOT YET SEEN (rules 453,
+454(a), 441; row 627; the coordinator's routine 'JOBS full sweep': the jobs' SYSTEMS, no new prose). Record: records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md.
+- MEASURED FIRST: a town's bar already moved with every job settled there and bent the pay; its shelves charged less above Neutral. Missing:
+  below Neutral nothing moved, and the bar never changed what a town offers.
+- THE PRICE: below Neutral a town charges more and pays less (settlement_traits.json relation_prices.below; the Game Guide's 0.6% a point,
+  30% of worth on the buy at Hostile, 4% off the sell); the town screen's relPrice (marked). Measured: Mob at 25 charges x1.15.
+- WHAT A TOWN OFFERS: relations.json board (ours, on the wiki's access rule): Cold to Threatening keep three-skull work (the news's too),
+  Hostile one one-skull job, Friendly and up one more (never over four); engine/bohemia_job_pay.js board(); the shelf's
+  __THE_TOWN_REMEMBERS__. Measured: 1.93 jobs a board at Neutral, 2.93 at Friendly; three-skull boards 63 at Neutral, 0 at Cold.
+- A BUG FOUND AND FIXED: the town screen dropped every settled job's standing when he walked in before relations.json loaded (the alpha held
+  sideways: a finished job's +10 gone for good); now kept until the bands load (REL_WAIT, marked).
+GATE THE TOWN'S BOOK (new, in the suite): A1 to A3 in node (planted trust off bites), A4 on the phone (the demo and the alpha, both ways:
+a job done +10, Friendly one more, Unfriendly x1.15 and no three-skull job), A5 nothing threw: 5/0.
+NEXT: build B (push the pay, Battle Brothers' haggle: relations.json acts.haggle -0.5 and haggle {step 0.07, lands 2} already in), build C
+(what failing or walking away costs, on the card), build D (any job paid into his own place).
+[bb Battle Brothers' towns trade better with friends and hand big contracts only to a company they know; ours now do both]
+[analog horror: the board is shorter at the town that remembers what you did there, and nobody says why]
+
 JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/14 LATEST -- BUILD 11/14s - THE NIGHT, THE TURN AND THE BID, BUILT, NOT YET SEEN (rules 447, 441;
 rows 610, 614, 491; the coordinator's routine 'JOBS turn up'). Record: records/BOHEMIA_JOBS_THE_NIGHT_THE_TURN_AND_THE_BID_11_14_26.md.
 - ROW 610 AS HE MEANT IT (__A_READ_BOARD_STAYS_READ__ in slices/bohemia_board_shelf.js; the town screen's openB('board') calls seen()):

@@ -154,10 +154,17 @@
     return Math.round(s * 100) / 100;
   }
   function at(place, day) { return standing(scoreOf(place, day)); }
+  /* JOBS 11/17 (rule 453 (1)): what a town offers him by its bar (relations.json board, ours on the wiki's access rule): the most
+     skulls it trusts him with, how many jobs it gives at Hostile, and one more job from Friendly up */
+  function board(place, day) {
+    var st = at(place, day), B = (REL && REL.board && REL.board.value) || null;
+    if (!B) return { band: st.band, score: st.score, maxSkulls: 3, cap: null, more: 0 };
+    var mx = (B.max_skulls || {})[st.band]; return { band: st.band, score: st.score, maxSkulls: mx == null ? 3 : mx | 0, cap: st.band === 'hostile' ? (B.hostile_jobs | 0 || 1) : null, more: ((B.more || {})[st.band] | 0) };
+  }
   /* a base pay at a place: the standing's multiplier on it, never under one */
   function bend(pay, st) { return Math.max(1, Math.round((pay | 0) * ((st && st.mult) || 1))); }
 
-  var api = { base: base, violenceWord: violenceWord, standing: standing, scoreOf: scoreOf, at: at, bend: bend, bandOf: bandOf, kindOf: kindOf,
+  var api = { base: base, violenceWord: violenceWord, standing: standing, scoreOf: scoreOf, at: at, board: board, bend: bend, bandOf: bandOf, kindOf: kindOf,
     data: function () { return D; }, set: function (d, rel) { if (d) D = d; if (rel) REL = rel; } };
   if (NODE) module.exports = api; else root.BohemiaJobPay = api;
 })(typeof window !== 'undefined' ? window : this);
