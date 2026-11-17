@@ -93,6 +93,8 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 .acts.two .act em{font-size:10px;max-width:100%;overflow:hidden;text-overflow:ellipsis}.acts.two .act em.hcost{overflow:visible;margin:0;padding:0}.acts.two .act:has(em.hcost){line-height:1.05;padding-top:1px;padding-bottom:1px}.acts.two .act em.hcost span{display:block;line-height:1.02;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}   /* HOME BASE 11/11: measured sideways, a long line held its column wide and pushed the fourth column off the glass; it ends in ... inside its own column now */
 .hdesk{display:flex;gap:6px;align-items:stretch;margin-top:1px;font-size:11px;letter-spacing:.5px}.hdesk>div{flex:1;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:5px;padding:4px 6px;line-height:1.3}
 #hcam{position:absolute;left:8px;top:8px;z-index:5;pointer-events:none;font:11px/1.35 ui-monospace,Menlo,monospace;letter-spacing:1px;color:#e8e2d0;text-shadow:0 1px 0 #000,0 0 3px #000}#hcam .rec{display:inline-block;width:8px;height:8px;border-radius:50%;background:#d0302a;margin-right:6px;vertical-align:0;animation:hrec 1s steps(1) infinite}@keyframes hrec{50%{opacity:0}}#hcamb{position:absolute;right:8px;top:8px;z-index:5;display:flex;gap:4px}#hcamb button{min-width:48px;min-height:44px;padding:0 6px;font:11px ui-monospace,Menlo,monospace;letter-spacing:1px;background:rgba(10,8,6,.72);color:#cfc6b0;border:1px solid rgba(232,226,208,.35);border-radius:3px}#hcamb button.on{color:#e2b052;border-color:#e2b052}#hcamcut{position:absolute;inset:0;background:#000;z-index:4;pointer-events:none;opacity:0}   /* __HIS_PLACE_THROUGH_ITS_CAMERAS__: the camera's readout, its switch, the switcher's cut */
+.acts.two.three{grid-template-columns:repeat(3,minmax(0,1fr))}.acts.two.three .act{padding-left:4px;padding-right:3px;font-size:11px;letter-spacing:0}.acts.two.three .act em{font-size:9px;letter-spacing:0}.acts.two.three .act em.hcost span{letter-spacing:0}.acts.two.three .act>span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;font-size:10px!important;letter-spacing:.5px!important}
+@media (orientation:landscape){.acts.two.three{grid-template-columns:repeat(6,minmax(0,1fr))}}   /* __HIS_OWN_BUILDINGS__ */
 .hplanrow{position:relative}.hcan{position:absolute;right:0;top:4px;bottom:0;display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:2px;font-size:10px;letter-spacing:1px;pointer-events:none}.hcan b{display:none;font-weight:normal;margin-right:4px}.hcan span{text-align:center;padding:0 4px;border:1px dashed rgba(239,228,204,.35);border-radius:3px;opacity:.5}.hcan span.on{opacity:1;border:1px solid #e2b052;color:#e2b052}
 @media (orientation:landscape){.hcan{flex-direction:row;align-items:center;gap:6px}.hcan b{display:inline}}   /* __WHAT_YOU_BUILD_OPENS_A_DOOR__: lit what his place can do, dashed and dim what is still shut */
 .hdesk b{display:block;color:var(--gold);font-weight:400;font-size:10px;letter-spacing:1px}.hdesk button{min-height:44px;font:inherit;background:var(--plate);color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:0 8px}
@@ -1887,7 +1889,7 @@ function buildSheet(body, acts, line){
   /* __HOME_BASE__ (HOME BASE 11/8, rule 437(b)): his outfit's camp is not his PLACE until he plants it; then BUILD is the mayor's desk */
   if(S.home && !S.home.planted){ body.appendChild(speak('build', 'This is a camp, not a place. Find open ground with water and a road, and plant it: PLANT, on your phone. Then we build.'));
     body.appendChild(acts); return show(); }
-  if(S.home && S.home.planted) acts.className = 'acts two';
+  if(S.home && S.home.planted) acts.className = 'acts two' + (S.home.placeRows ? ' three' : '');   /* __HIS_OWN_BUILDINGS__: eleven to build, three across upright, six on its side: the desk keeps its height */
   var free = buildFreeLot(), list = LB.list(b.site, S.purse, hold);
   body.appendChild(speak('build', line || (free ? (S.home && S.home.planted ? S.home.name + '. One battery and a day for any of these. What goes up?' : 'One battery and a day for any of these. What goes up?') : 'Every lot here has something on it.')));
   if(S.home && S.home.planted){ var hpr = document.createElement('div'); hpr.className = 'hplanrow'; hpr.appendChild(homePlanCanvas()); try{ var hcl = homeCanLine(); if(hcl) hpr.appendChild(hcl); }catch(e){} body.appendChild(hpr); homeDesk(body);   /* __WHAT_YOU_BUILD_OPENS_A_DOOR__: what his place can do, beside the plan (no height of its own: the sheet stays under half the glass upright) */
@@ -1912,6 +1914,7 @@ function buildSheet(body, acts, line){
         hem.textContent = ''; hem.className = 'hcost'; [hc, hg].forEach(function(t){ var sp = document.createElement('span'); sp.textContent = t; hem.appendChild(sp); }); } }   /* row 607 (EYES 11/11): what it costs on one line, what it gives on the next, never cut on a phone upright */
     acts.appendChild(row);
   });
+  if(S.home && S.home.planted) try{ homePlaceRows(acts); }catch(e){}   /* __HIS_OWN_BUILDINGS__ */
   var sl = document.createElement('div'); sl.className = 'slots';
   var up = [], going = [];
   for(var k in b.site.lots){ var L = b.site.lots[k], nm = (LB.markerOf(L.id) || {}).name || L.id; (L.done ? up : going).push(nm); }
@@ -2036,24 +2039,32 @@ function homePieceBox(i){ var bx = VAR && VAR.boxes.build; if(!bx) return null;
   var cx0 = bx[0] + lw*col + row*lw*0.18 + lw/2, y1 = bx[3] - row*lh*0.42, D = Math.min(lw*1.1, personH()*.55);
   var over = (bx[0] + lw*(BUILD_LOTS - .5) + row*lw*0.18 + D/2) - (picW() - 6); if(over > 0) cx0 -= over;   /* the row slides in whole so its last piece stays on the picture (measured 11/10: the pot hung past the glass's edge upright) */
   return [cx0 - D/2, y1 - D, cx0 + D/2, y1]; }
+/* a build's door is the build's own drawn picture (drawBuilt's own sum), so a thing standing behind it on the next row keeps its door
+   (measured 11/17 on its side: the tank's door, as tall as the whole BUILD box, took the tap meant for the lookout behind it) */
+function homeBuildBox(t){ var im = typeof LOTSPR !== 'undefined' ? LOTSPR[t.id] : null, bx = VAR && VAR.boxes.build; if(!bx || !im || !im.complete || !im.naturalWidth) return homeLotBox(t.lot);
+  var lw = (bx[2]-bx[0]) / BUILD_LOTS, lh = bx[3]-bx[1], col = t.lot % BUILD_LOTS, row = Math.floor(t.lot / BUILD_LOTS);
+  var k2 = Math.min(2, (lw*0.92)/im.naturalWidth, (lh*0.95)/im.naturalHeight) * (row ? Math.pow(0.82, row) : 1), w = im.naturalWidth*k2, h = im.naturalHeight*k2;
+  var x = bx[0] + lw*col + (lw - w)/2 + row*lw*0.18, y = bx[3] - h - row*lh*0.42; return [x, y, x + w, y + h]; }
 function homeThingsHere(){ var out = []; if(!S.home || !S.home.planted) return out;
   var b = buildState(), LB = window.BohemiaLotBuild;
   if(b.site) for(var k in b.site.lots){ var L = b.site.lots[k]; out.push({ key: 'h' + (parseInt(k, 10) | 0), lot: parseInt(k, 10) | 0, kind: 'build', id: L.id, done: L.done, gift: L.gift || null,
     name: ((LB && LB.markerOf(L.id)) || {}).name || String(L.id).toUpperCase() }); }
   (S.home.things || []).forEach(function(t){ if(t.kind !== 'prize' && t.kind !== 'trophy') return; if(t.lot == null || t.lot < 0) return;
     out.push({ key: 'h' + t.lot, lot: t.lot, kind: t.kind, name: t.name, pic: t.pic, from: t.from, gives: t.gives, says: t.says }); });
+  (S.home.places || []).forEach(function(p){ out.push({ key: 'h' + p.lot, lot: p.lot, kind: 'place', id: p.id, name: p.name, piece: p.piece, done: p.done, day: p.day }); });   /* __HIS_OWN_BUILDINGS__ */
   return out; }
 function homeDoors(){
   if(!VAR || !VAR.boxes) return;
   ORDER = ORDER.filter(function(k){ return !/^h\d+$/.test(k); }); for(var k in VAR.boxes) if(/^h\d+$/.test(k)) delete VAR.boxes[k];
   if(!S.home || !S.home.planted || !VAR.boxes.build){ try{ homeCamUi(); }catch(e){} return; }
-  homeThingsHere().forEach(function(t){ var bx = t.kind === 'build' ? homeLotBox(t.lot) : homePieceBox(t.lot); if(!bx) return; VAR.boxes[t.key] = bx; ORDER.push(t.key); B[t.key] = { name: t.name, short: t.kind === 'build' ? 'you built it' : 'from ' + (t.from || 'the road') }; });
+  homeThingsHere().forEach(function(t){ var bx = t.kind === 'build' ? homeBuildBox(t) : t.kind === 'place' ? homeKitBox(t.lot, t.piece) : homePieceBox(t.lot); if(!bx) return; VAR.boxes[t.key] = bx; ORDER.push(t.key); B[t.key] = { name: t.name, short: t.kind === 'build' ? 'you built it' : 'from ' + (t.from || 'the road') }; });
   window.__HOME_DOORS = ORDER.filter(function(k){ return /^h\d+$/.test(k); });
   try{ homeCamUi(); }catch(e){}   /* __HIS_PLACE_THROUGH_ITS_CAMERAS__ */
 }
 (function(){ var pv = pickVariant; pickVariant = function(){ var r = pv.apply(this, arguments); try{ homeDoors(); }catch(e){} return r; }; })();
 function homeThingSheet(k){
   var t = homeThingsHere().filter(function(x){ return x.key === k; })[0]; if(!t) return;
+  if(t.kind === 'place'){ homePlaceSheet(k, t); return; }   /* __HIS_OWN_BUILDINGS__ */
   var body = document.getElementById('sbody'); body.textContent = '';
   var row = t.kind === 'build' && S.home.builds ? S.home.builds[t.id] : null, wk = S.home.workers || {}, who = wk[t.lot + ',0'];
   var gives = t.kind === 'build' ? (row && (row.gives || row.worked) ? '+' + homeGoodsWords(row.gives || {}).toLowerCase() + ' a day' + (row.worked ? (who ? ', ' + String(who) + ' works it for ' + homeGoodsWords(row.worked).toLowerCase() + ' more' : ', more when somebody works it') : '') : (row ? row.line : ''))
@@ -2069,7 +2080,7 @@ function homeThingSheet(k){
 }
 (function(){ var db = drawBuilt; drawBuilt = function(s){ db.apply(this, arguments); try{ homeDrawThings(s); }catch(e){} }; })();
 function homeDrawThings(s){
-  homeThingsHere().forEach(function(t){ if(t.kind === 'build' || !t.pic) return;
+  homeThingsHere().forEach(function(t){ if(t.kind === 'place'){ homeDrawKit(s, t); return; } if(t.kind === 'build' || !t.pic) return;
     var im = HOME_PICS[t.pic]; if(!im){ im = HOME_PICS[t.pic] = new Image(); im.src = t.pic; } if(!im.complete || !im.naturalWidth) return;
     var b = homePieceBox(t.lot), w = b[2]-b[0], h = b[3]-b[1], k2 = Math.min(w/im.naturalWidth, h/im.naturalHeight), dw = im.naturalWidth*k2, dh = im.naturalHeight*k2;
     var x = view.ox + (b[0] + (w - dw)/2)*s, y = view.oy + (b[3] - dh)*s;
@@ -2099,6 +2110,8 @@ function homeShutSheet(k, o){
 function homeCanLine(){ var H = S.home; if(!H || !H.opens) return null; var d = document.createElement('div'); d.className = 'hcan'; var lb = document.createElement('b'); lb.textContent = 'YOUR PLACE CAN'; d.appendChild(lb);
   var out = []; Object.keys(H.opens).forEach(function(k){ var o = H.opens[k]; if(k.charAt(0) === '_' || !o || !o.can) return; var on = homeStands(o.by), sp = document.createElement('span');
     sp.textContent = o.can; sp.className = on ? 'on' : ''; sp.dataset.can = o.can; d.appendChild(sp); out.push(o.can + (on ? '' : ' (shut)')); });
+  var R = H.placeRows || {}; Object.keys(R).forEach(function(id){ var o = R[id]; if(id.charAt(0) === '_' || id === 'words' || !o || !o.can) return;   /* __HIS_OWN_BUILDINGS__ */
+    var on = (H.places || []).some(function(p){ return p.id === id && p.done; }), sp = document.createElement('span'); sp.textContent = o.can; sp.className = on ? 'on' : ''; sp.dataset.can = o.can; d.appendChild(sp); out.push(o.can + (on ? '' : ' (shut)')); });
   window.__HOME_CAN = out; return d; }
 /* ==== /__WHAT_YOU_BUILD_OPENS_A_DOOR__ ==== */
 /* ==== __HIS_PLACE_THROUGH_ITS_CAMERAS__ (HOME BASE 11/14, VAMILY rule 451(c), ask row 625; rule 354 (11/3: 'your settlement, and only
@@ -2156,6 +2169,65 @@ function homeCamPlace(){ if(!HCAM.btns || !HCAM.el) return; var P = FIT.phone, s
   window.__HOME_CAM_AT = { el: HCAM.el.style.textAlign, btns: HCAM.btns.style.left === '8px' ? 'left' : 'right', top: HCAM.btns.style.top }; }
 (function(){ var lo = layout; layout = function(){ var r = lo.apply(this, arguments); try{ homeCamPlace(); }catch(e){} return r; }; })();
 /* ==== /__HIS_PLACE_THROUGH_ITS_CAMERAS__ ==== */
+/* ==== __HIS_OWN_BUILDINGS__ (HOME BASE 11/17, rules 445, 453): the training yard, the forge and the lookout on his place's lots, drawn
+   from CAMP TWO's own pieces (slices/camp_two/kit.json, kit.png: the drill sergeant's bag, the blacksmith's anvil, the lookout's seat),
+   each a door: the yard trains a man (Battle Brothers' Veteran's Lessons), the forge presses rounds out of tape, the lookout says the
+   nearest crew. Words draft:true, the fewest (rule 454(a)); numbers records/target/bb/home_base.json places. ==== */
+var HKIT = { j: null, im: null };
+try{ fetch('camp_two/kit.json').then(function(r){ return r.json(); }).then(function(j){ HKIT.j = j; try{ homeDoors(); }catch(e){} }).catch(function(){}); }catch(e){}
+function homeKitIm(){ if(!HKIT.im){ HKIT.im = new Image(); HKIT.im.src = 'camp_two/kit.png'; } return HKIT.im.complete && HKIT.im.naturalWidth ? HKIT.im : null; }
+function homeKitBox(i, piece){ var bx = VAR && VAR.boxes.build, P = HKIT.j && HKIT.j.pieces && HKIT.j.pieces[piece]; if(!bx || !P) return homePieceBox(i);
+  var lw = (bx[2]-bx[0]) / BUILD_LOTS, lh = bx[3]-bx[1], col = i % BUILD_LOTS, row = Math.floor(i / BUILD_LOTS);
+  var cx0 = bx[0] + lw*col + row*lw*0.18 + lw/2, y1 = bx[3] - row*lh*0.42, r = P.rect, f = P.foot;
+  var k = Math.min(personH() / (HKIT.j.man_px || 98), lw*1.3 / r[2]);   /* a man's height where it fits, never wider than its lot and a third */
+  return [cx0 - f[0]*k, y1 - f[1]*k, cx0 + (r[2] - f[0])*k, y1 + (r[3] - f[1])*k]; }
+function homeDrawKit(s, t){ var im = homeKitIm(), P = HKIT.j && HKIT.j.pieces && HKIT.j.pieces[t.piece]; if(!im || !P) return;
+  var b = homeKitBox(t.lot, t.piece), r = P.rect;
+  cx.save(); cx.imageSmoothingEnabled = false; cx.globalAlpha = t.done ? 1 : 0.35;
+  cx.drawImage(im, r[0], r[1], r[2], r[3], Math.round(view.ox + b[0]*s), Math.round(view.oy + b[1]*s), Math.round((b[2]-b[0])*s), Math.round((b[3]-b[1])*s)); cx.restore(); }
+function homeHM(){ try{ return window.parent && window.parent.BohemiaHomeMap ? window.parent.BohemiaHomeMap : null; }catch(e){ return null; } }
+function homeRefresh(){ var HM = homeHM(); if(HM && HM.state){ var st = HM.state(); if(st){ S.home = st; window.__HOME_DESK = { home: S.home, at: Date.now() }; } } try{ homeDoors(); }catch(e){} }
+function homeWords(){ return (S.home && S.home.placeRows && S.home.placeRows.words) || {}; }
+function homeFill(t, o){ return String(t || '').replace(/\{(\w+)\}/g, function(m, k){ var v = o[k] != null ? o[k] : o[k.toLowerCase()]; if(v == null) return m; return k === k.toUpperCase() ? String(v).toUpperCase() : String(v).toLowerCase(); }); }
+function homeClimb(name){ try{ var c = JSON.parse(localStorage.getItem('bohemia.climb.v1') || '{}') || {}; return (c[name] && c[name].level) || 1; }catch(e){ return 1; } }
+function homePlaceSheet(k, t){
+  var body = document.getElementById('sbody'); body.textContent = ''; var W = homeWords(), HM = homeHM(), acts = document.createElement('div'); acts.className = 'acts';
+  var t0 = performance.now(), guard = function(fn){ return function(){ if(performance.now() - t0 < 450) return; fn(); }; };
+  if(!t.done){ body.appendChild(speak('build', 'It goes up tonight. Tomorrow it stands.')); }
+  else if(t.id === 'yard'){ body.appendChild(speak('build', W.yard || ''));
+    var tr = (S.home && S.home.trained) || {};
+    shopCrew().forEach(function(m){ var on = tr[m.name] && tr[m.name].left > 0, lv = homeClimb(m.name), cost = window.parent.BohemiaHome ? window.parent.BohemiaHome.trainCost(lv) : 2;
+      var b = act(String(m.name).toUpperCase(), on ? homeFill(W.trained, {n: tr[m.name].left}) : moneyWord(cost) + '  ' + (W.train || ''), guard(function(){
+        if(bats() < cost) return homePlaceSheet(k, t);
+        var r = HM && HM.train(m.name); if(!r) return;
+        P.debit(S.purse, 'electricity', cost, 'train:' + m.name, S.place.name, buildDay()); shelf();
+        window.__HOME_TRAINED = { name: m.name, cost: cost, left: r.left, mult: r.mult }; homeRefresh(); homePlaceSheet(k, homeThingsHere().filter(function(x){ return x.key === k; })[0] || t); }), on || bats() < cost);
+      b.dataset.train = m.name; acts.appendChild(b); }); }
+  else if(t.id === 'forge'){ body.appendChild(speak('build', W.forge || ''));
+    var F = (S.home.placeRows || {}).forge || {}, sp = homeSupplies(), short = Object.keys(F.takes || {}).some(function(g){ return (sp[g] | 0) < (F.takes[g] | 0); });
+    var pb = act(W.press || 'PRESS', homeGoodsWords(F.takes) + ' → ' + homeGoodsWords(F.makes), guard(function(){ var r = HM && HM.press(); if(!r || !r.ok) return; window.__HOME_PRESS = r; homeRefresh(); homePlaceSheet(k, t); }), short);
+    pb.dataset.press = '1'; acts.appendChild(pb); }
+  else if(t.id === 'lookout'){ var w = HM && HM.watch ? HM.watch() : null;
+    body.appendChild(speak('build', w && !w.none ? homeFill(W.saw, {who: w.who, n: w.d, dir: w.dir}) : homeFill(W.none, {n: (w && w.reach) || 10}))); }
+  body.appendChild(acts);
+  var bm = act('BUILD MORE', 'the plan, what goes up', guard(function(){ openB('build'); })); bm.dataset.home = 'more'; acts.appendChild(bm);
+  window.__HOME_THING = { key: k, name: t.name, kind: 'place', id: t.id, done: t.done };
+  show();
+}
+function homeSupplies(){ try{ return JSON.parse(localStorage.getItem('bohemia.supplies.v1') || '{}') || {}; }catch(e){ return {}; } }
+/* the desk: his own buildings under lotbuild's eight, one of each, each with what it costs and what it does */
+function homePlaceRows(acts){ var H = S.home, R = H && H.placeRows; if(!R) return;
+  Object.keys(R).forEach(function(id){ if(id.charAt(0) === '_' || id === 'words') return; var row = R[id], have = (H.places || []).some(function(p){ return p.id === id; });
+    var sp = homeSupplies(), short = Object.keys(row.cost || {}).some(function(g){ return (sp[g] | 0) < (row.cost[g] | 0); });
+    var b = act(row.name, '', function(){ if(have) return; var HM = homeHM(); if(!HM) return;
+      if(bats() < 1) return openB('build', BUILD_NO.CANNOT_AFFORD || 'Not enough batteries.');
+      var r = HM.placeBuild(id); if(!r || !r.ok) return openB('build', r && r.why === 'SHORT' ? homeNeedLine(r.need) + '.' : 'Every lot here has something on it.');
+      P.debit(S.purse, 'electricity', 1, 'build:' + id, S.place.name, buildDay()); shelf(); homeRefresh();
+      heard('The ' + String(row.name).toLowerCase() + ' goes up. It stands tomorrow.'); openB('build', 'It goes up tonight. Tomorrow it stands.'); }, have || short || bats() < 1);
+    var em = b.querySelector('em') || (function(){ var e = document.createElement('em'); b.appendChild(e); return e; })();
+    em.textContent = ''; em.className = 'hcost'; [have ? 'BUILT' : '1 BATTERY' + (row.cost ? ' ' + homeGoodsWords(row.cost) : ''), String(row.line || '').toUpperCase()].forEach(function(x){ var sp2 = document.createElement('span'); sp2.textContent = x; em.appendChild(sp2); });
+    b.dataset.place = id; if(short) b.dataset.short = '1'; acts.appendChild(b); }); }
+/* ==== /__HIS_OWN_BUILDINGS__ ==== */
 /* ==== /__HOME_BASE__ ==== */
 /* WHAT STANDS, ON ITS LOT: the street's own art, its foot on the box's floor; going up is faint */
 function drawBuilt(s){

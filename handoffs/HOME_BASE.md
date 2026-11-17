@@ -1,3 +1,15 @@
+HOME BASE (home-base-01gkdyuv): 11/17 LATEST -- BUILD 11/17l - HIS OWN BUILDINGS, BUILT, NOT YET SEEN (rule 453(1), rules 445, 441; ask line 571).
+Record: records/BOHEMIA_HOME_BASE_HIS_OWN_BUILDINGS_11_17_26.md.
+- home_base.json places: TRAINING YARD (TRAIN), FORGE (CRAFT), LOOKOUT (WATCH), HOME BASE's own (not lotbuild's), one of each on a free
+  open lot, standing the day after, drawn from CAMP TWO's kit, each a door, seen at CAM 2. The yard: +35% XP over the next 3 fights
+  for the man's level's price (the crew screen's __HOME_BASE_TRAINED__ hook reads engine/bohemia_home.js trained()); the forge: 2 tape
+  into 6 rounds; the lookout: the nearest roaming crew within 10 blocks. The desk: eleven builds, three across upright, six on its side.
+- Gate YOUR PLACE, PLANTED: engine 30/0, upright 101/0, sideways 98/0 (E10, D17 new). The alpha probed both ways.
+- FOR ANY LANE: the trained store is localStorage bohemia.home.trained.v1 {name: {mult, left, day}}; BOHEMIA_ROSTER_SCREEN.html calls
+  BohemiaHome.trained(store, name, xp) before C.grant. A lane that adds another XP path should ask the same.
+- NEXT: (2) the defence fight at his place (the seam with COMBAT THREE below, being agreed), (3) his impact seen at his place.
+
+11/14 ROUND EIGHT (BUILD 11/14o, YOUR PLACE ON CAMERA), kept:
 HOME BASE (home-base-01gkdyuv): 11/14 LATEST -- BUILD 11/14o - YOUR PLACE ON CAMERA, BUILT, NOT YET SEEN (rule 451(c), ask row 625;
 rules 354, 445). Record: records/BOHEMIA_HOME_BASE_HIS_PLACE_THROUGH_ITS_CAMERAS_11_14_26.md.
 - His place (only his) opens on three cameras on its own picture and the screen's own zoom: CAM 1 THE YARD, CAM 2 THE LOTS (his builds

@@ -94944,7 +94944,8 @@ function homeTakeIn(){
   try { crewWalked().forEach(function(w){ if (w && w.name && (w.day | 0) >= (r.planted.day | 0) && BohemiaHome.addResident(r, { name: w.name, look: w.look, why: 'let go', day: w.day, act: homeAct() })) n++; }); } catch (_e) {}
   if (n) homeSave(); return n;
 }
-function homeStanding(){ var n = 0; try { var bk = LOT_BOOK[homeMine()]; if (bk) for (var k in bk.lots) if (bk.lots[k].done) n++; } catch (_e) {} return n; }
+function homeStanding(){ var n = 0; try { var bk = LOT_BOOK[homeMine()]; if (bk) for (var k in bk.lots) if (bk.lots[k].done) n++; } catch (_e) {}
+  try { var r = HOME.rec; if (r) n += BohemiaHome.placesOf(r, homeDay()).filter(function(p){ return p.done; }).length; } catch (_e) {} return n; }   /* his own buildings stand on lots too */
 function homeState(){
   var r = homeRec(), D = HOME.data; if (!r || !D) return null;
   var here = null, better = null, x = 0, y = 0; try { x = city.x | 0; y = city.y | 0; } catch (_e) {}
@@ -94961,7 +94962,7 @@ function homeState(){
            act: actNow, story: (r.story || []).slice(-8), builds: HOME.data.builds || null, supplies: homeSupplies(), workers: homeWorkers(), morning: r.lastMorning || null,
            things: (r.things || []).slice(), waiting: (r.waiting || []).slice(),
            standing: standing, lotsOpen: BohemiaHome.lotsOpen(r, standing), words: D.words, grade: r.planted ? r.planted.grade : null,
-           opens: D.opens || null };   /* WHAT YOU BUILD OPENS A DOOR (rule 445(b)): which build opens which of his place's doors */
+           opens: D.opens || null, places: BohemiaHome.placesOf(r, homeDay()), placeRows: D.places || null, trained: homeTrainedAll() };   /* WHAT YOU BUILD OPENS A DOOR (rule 445(b)): which build opens which of his place's doors */
 }
 /* (b) plant where he stands; the engine refuses a second time and a block the grade says no to */
 function homePlant(){
@@ -95112,7 +95113,7 @@ function homeFamilyFor(L){ var r = homeRec(), F = (HOME.data && HOME.data.builds
 function homeTakenLots(){ var t = {}; try { var bk = LOT_BOOK[homeMine()]; if (bk) for (var k in bk.lots) t[parseInt(k, 10) | 0] = 1; } catch (_e) {} return t; }
 function homeStandBuild(x){
   try { var bk = lotBookFor(homeMine()), LB = BohemiaLotBuild, P = homeRec() && BohemiaHome.plan(), taken = homeTakenLots(), r = homeRec();
-    (r.things || []).forEach(function(y){ if (y.lot != null && y.lot >= 0 && y.kind !== 'build') taken[y.lot] = 1; });
+    (r.things || []).forEach(function(y){ if (y.lot != null && y.lot >= 0 && y.kind !== 'build') taken[y.lot] = 1; }); (r.places || []).forEach(function(y){ taken[y.lot] = 1; });   /* his own buildings' lots */
     for (var i = 0; i < 12; i++) if (!taken[i]) { bk.lots[i + ',0'] = { id: x.build, x: i, y: 0, w: 1, h: 1, started: homeDay(), ready: homeDay(), done: true, gift: x.from || true };
       x.lot = i; return i; } } catch (_e) {}
   return null;
@@ -95153,7 +95154,44 @@ function homePlantAt(x, y){ var cx = city.x, cy = city.y; city.x = x | 0; city.y
       try { var HB = BohemiaHomeBases, hr = hbRec(); if (HB.heldBy(hr, homeMine(), hr.act) !== HB.YOU) HB.took(hr, { base: homeMine(), to: HB.YOU, day: homeDay(), by: 'deal', why: 'planted' }); } catch (_e) {}
       try { TURF_MAP_KEY = null; VBC.checked = 0; } catch (_e) {} try { homePlaceWaiting(); } catch (_e) {} } city.x = cx; city.y = cy; return res; } } catch (_e) {}
   var out = homePlant(); city.x = cx; city.y = cy; return out; }
-window.BohemiaHomeMap = { give: homeGive, bossGifts: homeBossGifts, state: homeState, plant: homePlant, rawSeat: homeRawSeat, plantAt: homePlantAt, payGoods: homePayGoods, morning: homeMorning, workers: homeWorkers, choose: homeChoose, rename: homeRename, go: homeGo, probe: homeProbe, offer: homeOffer, billNight: homeBillNight, rec: homeRec, label: homeLabel };
+/* ==== __HIS_OWN_BUILDINGS__ (HOME BASE 11/17, rules 445, 453): the training yard, the forge and the lookout, HOME BASE's own (lotbuild's
+   eight are every held part's): one of each, put up on his place's first free open lot for a battery and its goods, standing the day
+   after; each a door on his place's town screen and seen in its cameras. records/target/bb/home_base.json places. ==== */
+var HOME_TRAINED_KEY = 'bohemia.home.trained.v1';
+function homeTrainedAll(){ try { return JSON.parse(localStorage.getItem(HOME_TRAINED_KEY) || '{}') || {}; } catch (_e) { return {}; } }
+function homePlaceLot(){ var r = homeRec(); if (!r || !r.planted) return null; var open = BohemiaHome.lotsOpen(r, homeStanding()), used = homeTakenLots();
+  (r.things || []).forEach(function(y){ if (y.kind !== 'build' && y.lot != null && y.lot >= 0) used[y.lot] = 1; }); (r.places || []).forEach(function(y){ used[y.lot] = 1; });   /* builds: the lot book's */
+  for (var i = 0; i < open; i++) if (!used[i]) return i; return null; }
+function homePlaceBuild(id){
+  var r = homeRec(), D = HOME.data; if (!r || !D || !D.places || !D.places[id]) return { ok: false, why: 'NOT_A_PLACE' };
+  if ((r.places || []).some(function(p){ return p.id === id; })) return { ok: false, why: 'ONE_OF_EACH' };
+  var lot = homePlaceLot(); if (lot == null) return { ok: false, why: 'NO_LOT' };
+  var cost = D.places[id].cost || {}, w = wagonGet() || {}, need = {};
+  for (var k in cost) if ((w[k] | 0) < (cost[k] | 0)) need[k] = cost[k] | 0;
+  if (Object.keys(need).length) return { ok: false, why: 'SHORT', need: need };
+  var res = BohemiaHome.buildPlace(r, id, lot, homeDay(), homeTakenLots()); if (!res.ok) return res;
+  for (var k2 in cost) w[k2] = (w[k2] | 0) - (cost[k2] | 0);
+  wagonPut(w); try { if (typeof window.__barPaintRead === 'function') window.__barPaintRead(); } catch (_e) {}
+  homeSave(); window.__HOME_PLACE_BUILT = { id: id, lot: lot, day: homeDay(), paid: cost };
+  return res; }
+function homePress(){ var D = HOME.data, F = D && D.places && D.places.forge; var r = homeRec();
+  if (!F || !r || !BohemiaHome.placesOf(r, homeDay()).some(function(p){ return p.id === 'forge' && p.done; })) return { ok: false, why: 'NO_FORGE' };
+  var w = wagonGet() || {}, need = {}; for (var k in F.takes) if ((w[k] | 0) < (F.takes[k] | 0)) need[k] = F.takes[k] | 0;
+  if (Object.keys(need).length) return { ok: false, why: 'SHORT', need: need };
+  for (var a in F.takes) w[a] = (w[a] | 0) - (F.takes[a] | 0); for (var b in F.makes) w[b] = (w[b] | 0) + (F.makes[b] | 0);
+  wagonPut(w); try { if (typeof window.__barPaintRead === 'function') window.__barPaintRead(); } catch (_e) {}
+  window.__HOME_PRESSED = (window.__HOME_PRESSED | 0) + 1; return { ok: true, took: F.takes, made: F.makes }; }
+function homeWatch(){ var D = HOME.data, L = D && D.places && D.places.lookout, r = homeRec(); if (!L || !r || !r.planted) return null;
+  var x = r.planted.x, y = r.planted.y, m = homeMine(), best = null;
+  try { (partiesAll() || []).forEach(function(p){ if (!p || p.home === m || !isFinite(p.x) || !isFinite(p.y)) return;
+    var d = Math.max(Math.abs(p.x - x), Math.abs(p.y - y)); if (d <= (L.reach | 0) && (!best || d < best.d)) best = { d: d, who: String(p.faction || 'a crew').toUpperCase(), px: p.x, py: p.y }; }); } catch (_e) {}
+  if (best){ var a = Math.atan2(best.py - y, best.px - x), i = ((Math.round(a / (Math.PI / 4)) % 8) + 8) % 8; best.dir = HOME_DIRS[i]; }
+  window.__HOME_WATCH = best || { none: true, reach: L.reach | 0 }; return window.__HOME_WATCH; }
+function homeTrain(name){ var r = homeRec(); if (!r || !BohemiaHome.placesOf(r, homeDay()).some(function(p){ return p.id === 'yard' && p.done; })) return null;
+  var st = BohemiaHome.train(homeTrainedAll(), name, homeDay()); if (!st) return null;
+  try { localStorage.setItem(HOME_TRAINED_KEY, JSON.stringify(st)); } catch (_e) {} return st[name]; }
+/* ==== /__HIS_OWN_BUILDINGS__ ==== */
+window.BohemiaHomeMap = { placeBuild: homePlaceBuild, press: homePress, watch: homeWatch, train: homeTrain, trainedAll: homeTrainedAll, give: homeGive, bossGifts: homeBossGifts, state: homeState, plant: homePlant, rawSeat: homeRawSeat, plantAt: homePlantAt, payGoods: homePayGoods, morning: homeMorning, workers: homeWorkers, choose: homeChoose, rename: homeRename, go: homeGo, probe: homeProbe, offer: homeOffer, billNight: homeBillNight, rec: homeRec, label: homeLabel };
 /* ==== /__HOME_BASE__ ==== */
 </script>
 </body></html>

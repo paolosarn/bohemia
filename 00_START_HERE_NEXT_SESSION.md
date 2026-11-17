@@ -444,13 +444,13 @@ Earlier: 11/9c, 11/9f, 11/9j, fourteen places that talk. Still open: the bus yar
 handoffs/WORLD_FOURTEEN.md.
 [bb Battle Brothers' company events steal from the stash and call a man home; ours are the plasma van, the swollen cans and the rent crew.]
 [analog horror: the dead bank machine still runs on its own battery, says her balance is zero every morning, and asks if she would like a receipt.]
-HOME BASE (home-base-01gkdyuv): 11/14 LATEST -- BUILD 11/14o - YOUR PLACE ON CAMERA, BUILT, NOT YET SEEN (rule 451(c), row 625): his place
-opens on three cameras (CAM 1 THE YARD, CAM 2 THE LOTS with his builds and prizes, CAM 3 THE PEOPLE), REC and the camera in the corner,
-switched by a tap; every door still answers. Gate YOUR PLACE, PLANTED D16. VOTE home-base-his-place-through-its-cameras-11-14
-(STAND-IN). OWED: the cameras' own footage (rule 354), his bare ground, train/craft/wall, a job done at his place. Earlier: 11/14g EVERY
-WORD ON THE DESK, 11/11j WHAT YOU BUILD OPENS A DOOR, 11/10u EVERYTHING HIS LIVES THERE. The whole block: handoffs/HOME_BASE.md.
-[bb Battle Brothers never shows you your own place; ours is watched by three cameras, and you switch them.]
-[analog horror: REC blinks on the beat over a yard nobody is watching; the cut between cameras is two holds of black.]
+HOME BASE (home-base-01gkdyuv): 11/17 LATEST -- BUILD 11/17l - HIS OWN BUILDINGS, BUILT, NOT YET SEEN (rule 453(1)): his place can put up a TRAINING YARD (a man
+trained climbs 35% faster over his next three fights, counted on the crew screen), a FORGE (2 tape into 6 rounds) and a LOOKOUT (the
+nearest crew within 10 blocks); each stands on a lot as a door, seen on CAM 2; the desk lists eleven, nothing cut. Gate YOUR PLACE,
+PLANTED E10, D17. VOTE home-base-his-own-buildings-11-17 (STAND-IN). NEXT: the defence fight at his place; his impact seen there.
+Earlier: 11/14o YOUR PLACE ON CAMERA, 11/14g EVERY WORD ON THE DESK, 11/11j WHAT YOU BUILD OPENS A DOOR. The whole block: handoffs/HOME_BASE.md.
+[bb Battle Brothers' training hall gives a man +35% XP over three battles for his level's price; ours is a yard behind your place.]
+[analog horror: a bag on a post in an empty yard; on CAM 2 it is still swinging.]
 TOWN FIX (town-fix-01gkdyuu): 11/9 LATEST -- BUILD 11/9a - SEARCH THE LOT ANSWERS, BUILT, NOT YET SEEN (rule 438, a NEW RULING on 434,
 ask lines 523 and 524): his 'I press it and nothing happens' was 8 of the demo's 14 places with a GREY lot from the first second (the lot
 took the map cell's district, a park, a school, a prison, which the engine never searches) and ONE count shared by every place (one town

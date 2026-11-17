@@ -62,7 +62,7 @@
   }
 
   /* ---------------- THE RECORD ---------------- */
-  function make(seed) { return { v: 1, seed: seed == null ? null : String(seed), planted: null, name: null, residents: [], prizes: {}, lots: {}, nights: 0, lastBill: null, story: [], things: [], waiting: [] }; }
+  function make(seed) { return { v: 1, seed: seed == null ? null : String(seed), planted: null, name: null, residents: [], prizes: {}, lots: {}, nights: 0, lastBill: null, story: [], things: [], waiting: [], places: [] }; }
   function planted(rec) { return !!(rec && rec.planted); }
   /* PERMANENT: the first planting stands for the whole game; nothing in this file moves it or plants twice */
   function plant(rec, at, day, g) {
@@ -201,7 +201,7 @@
   function place(rec, x, taken) {
     taken = taken || {};
     if (x.kind === 'person') { addResident(rec, { name: x.name, look: x.look || null, why: x.from ? 'came with ' + x.from : 'came', day: x.day | 0 }); x.lot = null; }
-    else if (x.kind === 'prize' || x.kind === 'trophy') { var P = plan(), used = {}; rec.things.forEach(function (y) { if (y.lot != null) used[y.lot] = 1; });
+    else if (x.kind === 'prize' || x.kind === 'trophy') { var P = plan(), used = {}; rec.things.forEach(function (y) { if (y.lot != null) used[y.lot] = 1; }); (rec.places || []).forEach(function (y) { used[y.lot] = 1; });
       for (var i = P.lots.length - 1; i >= 0; i--) if (!used[i] && !taken[i]) { x.lot = i; break; }
       if (x.lot == null) x.lot = -1; }   /* no lot left: it is his, kept in the hall (named on the desk) */
     rec.things.push(x);
@@ -211,16 +211,39 @@
   /* on planting, everything that waited is placed */
   function placeWaiting(rec, taken) { var out = []; if (!planted(rec)) return out; var w = rec.waiting.slice(); rec.waiting = [];
     w.forEach(function (x) { out.push(place(rec, x, taken).thing); }); return out; }
+  /* ---------------- HIS PLACE'S OWN BUILDINGS (11/17, rules 445, 453): the training yard, the forge, the lookout ----------------
+     one of each, on a free lot (never one a build, a prize or another of these holds), standing the day after it is put up */
+  function placeRow(id) { return D && D.places && id && id.charAt(0) !== '_' && id !== 'words' ? D.places[id] || null : null; }
+  function placeLots(rec, taken) { var used = {}; for (var k in (taken || {})) used[k] = 1;
+    (rec.things || []).forEach(function (y) { if (y.kind !== 'build' && y.lot != null && y.lot >= 0) used[y.lot] = 1; }); (rec.places || []).forEach(function (y) { used[y.lot] = 1; }); return used; }   /* a build's lot is the lot book's (taken): a cleared gift build frees its lot */
+  function buildPlace(rec, id, lot, day, taken) {
+    if (!planted(rec)) return { ok: false, why: 'NOT_PLANTED' };
+    var P = placeRow(id); if (!P) return { ok: false, why: 'NOT_A_PLACE' };
+    if (!rec.places) rec.places = [];
+    if (rec.places.some(function (p) { return p.id === id; })) return { ok: false, why: 'ONE_OF_EACH' };
+    if (lot == null || lot < 0 || lot >= plan().lots.length || placeLots(rec, taken)[lot]) return { ok: false, why: 'LOT_TAKEN' };
+    var x = { id: id, lot: lot | 0, day: day | 0 }; rec.places.push(x);
+    note(rec, { kind: 'built', what: P.name, day: day | 0 }); return { ok: true, place: x };
+  }
+  function placesOf(rec, day) { return (rec && rec.places || []).map(function (p) { var P = placeRow(p.id) || {}; return { id: p.id, lot: p.lot, day: p.day, done: (day | 0) > (p.day | 0), name: P.name || p.id, piece: P.piece || null, can: P.can || null }; }); }
+  /* THE YARD (Battle Brothers' Veteran's Lessons): a man trained gains his share more experience from his next fights; the price is his
+     level's. trained() is what the crew screen's after-fight count asks (BOHEMIA_ROSTER_SCREEN __HOME_BASE_TRAINED__) */
+  function trainCost(level) { var Y = placeRow('yard') || {}; return Math.max(Y.min | 0 || 2, (Y.per_level || 1) * (level | 0 || 1)); }
+  function train(store, name, day) { var Y = placeRow('yard'); if (!Y || !name) return null; store = store || {};
+    if (store[name] && store[name].left > 0) return null; store[name] = { mult: +Y.mult || 1, left: Y.fights | 0, day: day | 0 }; return store; }
+  function trained(store, name, xp) { store = store || {}; var t = store[name], x = Math.max(0, Math.round(+xp || 0));
+    if (!t || !(t.left > 0)) return { xp: x, store: store, bonus: 0 };
+    var out = Math.round(x * (+t.mult || 1)); t.left--; if (t.left <= 0) delete store[name]; return { xp: out, store: store, bonus: out - x }; }
   function save(rec) { try { return JSON.stringify(rec); } catch (e) { return null; } }
   function load(txt, seed) {
     var r = null; try { r = JSON.parse(txt || 'null'); } catch (e) { r = null; }
     if (!r || r.v !== 1 || (seed != null && r.seed !== String(seed))) return make(seed);   /* a new game is a new home */
-    if (!r.residents) r.residents = []; if (!r.prizes) r.prizes = {}; if (!r.lots) r.lots = {}; if (!r.story) r.story = []; if (!r.things) r.things = []; if (!r.waiting) r.waiting = [];
+    if (!r.residents) r.residents = []; if (!r.prizes) r.prizes = {}; if (!r.lots) r.lots = {}; if (!r.story) r.story = []; if (!r.things) r.things = []; if (!r.waiting) r.waiting = []; if (!r.places) r.places = [];
     return r;
   }
 
   var API = { setData: setData, data: data, grade: grade, best: best, make: make, planted: planted, plant: plant, nameOf: nameOf, rename: rename,
-              addResident: addResident, prizesFrom: prizesFrom, note: note, tell: tell, whoFor: whoFor, give: give, placeWaiting: placeWaiting, bill: bill, plan: plan, roadCheck: roadCheck, lotsOpen: lotsOpen, save: save, load: load };
+              addResident: addResident, prizesFrom: prizesFrom, note: note, tell: tell, whoFor: whoFor, give: give, placeWaiting: placeWaiting, buildPlace: buildPlace, placesOf: placesOf, trainCost: trainCost, train: train, trained: trained, bill: bill, plan: plan, roadCheck: roadCheck, lotsOpen: lotsOpen, save: save, load: load };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.BohemiaHome = API;
 })(typeof window !== 'undefined' ? window : this);

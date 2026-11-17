@@ -40,6 +40,10 @@
          out of the company's supplies (the top bar's counts); a build short of its goods is greyed; the morning puts what stands into
          the supplies (planted: the morning hook taken out gives nothing, caught); a resident works one and it gives more; a roof
          finished brings a family to live there
+     D17 HIS OWN BUILDINGS (rule 453(1)): the desk offers the training yard, the forge, the lookout; a real tap puts the yard up (1
+         battery, 3 tape); the next day all three stand, each a door, seen at CAM 2; a real tap trains a man (his level's price), the forge
+         presses 2 tape into 6 rounds, the lookout says the nearest crew; the desk says TRAIN, CRAFT, WATCH; on the crew screen the same
+         fight gives the trained man 135 to the untrained man's 100. E10 PLANTED: a training that adds nothing is caught.
      D16 HIS PLACE THROUGH ITS CAMERAS (rule 451(c), row 625): his place opens on CAM 1 (REC, the camera, his place); a real tap on
          CAM 2 frames THE LOTS closer and the pot there still answers a tap; CAM 3 has the ones who live there in the shot; CAM 1 the
          whole yard again. PLANTED: the message says not planted, no camera.
@@ -127,6 +131,17 @@ const waits = g => !!g.waiting && !g.placed;
 ok('E9 planted: a prize placed at once before he plants (no place yet) is caught', !waits({ ok: true, placed: true, thing: { lot: 11 } }) && waits(gw));
 const gp = H.give(rT, { id: 'person:x', kind: 'person', name: 'GATE OKAFOR', from: 'THE RETINUE', look: { hair: 'gate' } });
 ok('E9 a person handed through the seam lives there (' + rT.residents.map(r => r.name).join(',') + ')', gp.placed && rT.residents.some(r => r.name === 'GATE OKAFOR' && r.look && r.look.hair === 'gate'));
+const rP = H.make('PLACES'), pre = H.buildPlace(rP, 'yard', 0, 1); H.plant(rP, { x: 4, y: 4 }, 2, gG);
+H.give(rP, { id: 'prize:cook', kind: 'prize', name: 'HIS POT', from: 'THE POT' });
+const by = H.buildPlace(rP, 'yard', 0, 2), by2 = H.buildPlace(rP, 'yard', 1, 2), bp = H.buildPlace(rP, 'forge', 11, 2), bn = H.buildPlace(rP, 'castle', 1, 2);
+const pl2 = H.placesOf(rP, 2), pl3 = H.placesOf(rP, 3);
+ok('E10 his own buildings: refused before planting (' + pre.why + '), the yard on the first lot, a second yard ' + by2.why + ', a lot the pot holds ' + bp.why + ', a thing not on the list ' + bn.why + '; standing the day after',
+  pre.why === 'NOT_PLANTED' && by.ok && by2.why === 'ONE_OF_EACH' && bp.why === 'LOT_TAKEN' && bn.why === 'NOT_A_PLACE' && !pl2[0].done && pl3[0].done, JSON.stringify({ pl2, pl3 }));
+const T1 = H.trained({ YOU: { mult: 1.35, left: 3 } }, 'YOU', 100), T0 = H.trained({}, 'DESI', 100), T3 = H.trained({ YOU: { mult: 1.35, left: 1 } }, 'YOU', 100);
+ok('E10 the yard (Battle Brothers\' Veteran\'s Lessons): a trained man\'s 100 is ' + T1.xp + ' (' + T1.store.YOU.left + ' fights left), an untrained man\'s stays ' + T0.xp + ', the last trained fight clears him; the price is his level\'s (' + H.trainCost(1) + ', ' + H.trainCost(5) + ')',
+  T1.xp === 135 && T1.store.YOU.left === 2 && T0.xp === 100 && T3.xp === 135 && !T3.store.YOU && H.trainCost(1) === 2 && H.trainCost(5) === 5);
+const lifts = r => r.xp > 100;
+ok('E10 planted: training that adds nothing (a multiplier of one) is caught', !lifts(H.trained({ YOU: { mult: 1, left: 3 } }, 'YOU', 100)) && lifts(T1));
 if (process.argv.includes('--engine')) done();
 
 /* ---------------- ON THE DEMO ---------------- */
@@ -314,6 +329,49 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       const m16 = await fr.evaluate(() => ({ el: !!document.getElementById('hcam'), cam: window.__HOME_CAM }));
       ok('D16 planted: a place that is not his planted place has no cameras (the leg above reads red)', !m16.el && !m16.cam, JSON.stringify(m16));
       await F.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); }); await P.waitForTimeout(2500); await gone15(); await close15();
+      /* D17 HIS OWN BUILDINGS (rule 453(1)): the training yard, the forge, the lookout; each a door, seen in the cameras */
+      const sel17 = q => fr.evaluate(q => { const e = document.querySelector(q); if (!e) return null; const r = e.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }, q);
+      const tapQ17 = async (q, done) => { for (let t = 0; t < 3; t++) { const w = await sel17(q); if (!w) return false; await P.touchscreen.tap(fb.x + w[0], fb.y + w[1]); for (let i = 0; i < 12; i++) { await P.waitForTimeout(250); if (await fr.evaluate(done).catch(() => false)) return true; } } return false; };
+      await F.evaluate(() => { const w = wagonGet() || {}; w.tape = 30; wagonPut(w); window.__HOME_PLACE_BUILT = null; });
+      await tap15('build', () => { if (/^h\d+$/.test(BohemiaSettlement.state.open || '')) { const m = document.querySelector('#sbody .act[data-home="more"]'); if (m) m.click(); } return !!document.querySelector('#sbody .act[data-place="yard"]'); });
+      const rows17 = await fr.evaluate(() => [...document.querySelectorAll('#sbody .act[data-place]')].map(b => b.dataset.place + ':' + b.textContent));
+      ok('D17 the desk offers his own three: ' + rows17.map(x => x.split(':')[0]).join(', '), ['yard', 'forge', 'lookout'].every(k => rows17.some(x => x.indexOf(k + ':') === 0)) && rows17.every(x => /1 BATTERY/.test(x)), JSON.stringify(rows17));
+      const b17 = await F.evaluate(() => loopBats());
+      await tapQ17('#sbody .act[data-place="yard"]', () => !!window.parent.__HOME_PLACE_BUILT);
+      const y17 = await F.evaluate(() => ({ built: window.__HOME_PLACE_BUILT, tape: (wagonGet() || {}).tape, bats: loopBats() }));
+      ok('D17 a real tap on TRAINING YARD puts it up: 1 battery (' + b17 + ' -> ' + y17.bats + ') and 3 tape (30 -> ' + y17.tape + ')', !!y17.built && y17.built.id === 'yard' && b17 - y17.bats === 1 && y17.tape === 27, JSON.stringify(y17));
+      const pb17 = await F.evaluate(() => { const a = BohemiaHomeMap.placeBuild('forge'); DAY.day = (DAY.day | 0) + 1; const b = BohemiaHomeMap.placeBuild('lookout'); DAY.day = (DAY.day | 0) + 1; const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); return [a.ok || a.why, b.ok || b.why]; });   /* the fourth lot fills, the place grows, the lookout goes up on the fifth */
+      await P.waitForTimeout(2500); await gone15(); await close15();
+      const pl17 = await fr.evaluate(() => (window.__HOME_DESK.home.places || []).map(p => ({ id: p.id, k: 'h' + p.lot, done: p.done })));
+      ok('D17 the next days all three stand, each a door (' + pl17.map(p => p.id + '=' + p.k).join(', ') + '; the forge ' + pb17[0] + ', the lookout ' + pb17[1] + ' on the lot the place grew)', pl17.length === 3 && pl17.every(p => p.done) && await fr.evaluate(ks => ks.every(k => (window.__HOME_DOORS || []).indexOf(k) >= 0), pl17.map(p => p.k)), JSON.stringify(pl17));
+      await camTap16(1);
+      const seen17 = await fr.evaluate(ks => { const v = BohemiaSettlement.fit(); return ks.map(k => { const b = BohemiaSettlement._box(k); if (!b) return [k, false]; const a = BohemiaSettlement.toScreen((b[0] + b[2]) / 2, (b[1] + b[3]) / 2); return [k, a.x >= 0 && a.x <= v.W && a.y >= 0 && a.y <= v.H]; }); }, pl17.map(p => p.k));
+      ok('D17 CAM 2 sees them standing on his lots (' + seen17.filter(x => x[1]).map(x => x[0]).join(', ') + ')', seen17.every(x => x[1]), JSON.stringify(seen17));
+      const yk17 = pl17.filter(p => p.id === 'yard')[0].k, fk17 = pl17.filter(p => p.id === 'forge')[0].k, lk17 = pl17.filter(p => p.id === 'lookout')[0].k;
+      await tap15(yk17, () => !!document.querySelector('#sbody .act[data-train]'));
+      const bt17 = await F.evaluate(() => loopBats());
+      await tapQ17('#sbody .act[data-train]', () => !!window.__HOME_TRAINED);
+      const t17 = await F.evaluate(() => ({ all: BohemiaHomeMap.trainedAll(), bats: loopBats() }));
+      const tn17 = await fr.evaluate(() => window.__HOME_TRAINED), rw17 = await fr.evaluate(() => ({ open: BohemiaSettlement.state.open, thing: window.__HOME_THING, rows: [...document.querySelectorAll('#sbody .act[data-train]')].map(b => b.dataset.train + (b.disabled ? ':off' : '')) }));
+      ok('D17 a real tap on the yard, then on a man: ' + (tn17 && tn17.name) + ' trained for ' + (tn17 && tn17.cost) + ' batteries, +35% XP over his next ' + (tn17 && tn17.left) + ' fights', !!tn17 && t17.all[tn17.name] && t17.all[tn17.name].left === 3 && bt17 - t17.bats === tn17.cost, JSON.stringify({ tn17, t17, bt17, rw17 }));
+      await close15();
+      await tap15(fk17, () => !!document.querySelector('#sbody .act[data-press]'));
+      const w17 = await F.evaluate(() => wagonGet() || {});
+      await tapQ17('#sbody .act[data-press]', () => !!window.__HOME_PRESS);
+      const w17b = await F.evaluate(() => wagonGet() || {});
+      ok('D17 the forge: a real tap presses 2 tape into 6 rounds (tape ' + w17.tape + ' -> ' + w17b.tape + ', rounds ' + w17.rounds + ' -> ' + w17b.rounds + ')', w17.tape - w17b.tape === 2 && w17b.rounds - w17.rounds === 6, JSON.stringify({ w17, w17b }));
+      await close15();
+      await tap15(lk17, () => window.__HOME_THING && window.__HOME_THING.id === 'lookout');
+      const l17 = await fr.evaluate(() => (document.querySelector('#sbody .say p') || {}).textContent || '');
+      const lw17 = await F.evaluate(() => window.__HOME_WATCH);
+      ok('D17 the lookout says what it sees ("' + l17 + '")', lw17 && (lw17.none ? /Nobody within 10 blocks/.test(l17) : new RegExp(lw17.d + ' blocks ' + lw17.dir.toLowerCase()).test(l17)), JSON.stringify(lw17));
+      await close15();
+      await tap15('build', () => { if (/^h\d+$/.test(BohemiaSettlement.state.open || '')) { const m = document.querySelector('#sbody .act[data-home="more"]'); if (m) m.click(); } return !!document.querySelector('#sbody .hcan'); });
+      const can17 = await fr.evaluate(() => window.__HOME_CAN || []);
+      ok('D17 the desk says his place can TRAIN, CRAFT and WATCH (' + can17.join(', ') + ')', ['TRAIN', 'CRAFT', 'WATCH'].every(c => can17.indexOf(c) >= 0), JSON.stringify(can17));
+      await close15(); await camTap16(0);
+      await F.evaluate(() => { const r = BohemiaHomeMap.rec(); r.places = []; localStorage.removeItem('bohemia.home.trained.v1'); DAY.day = (DAY.day | 0) - 2; const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); });
+      await P.waitForTimeout(2500); await gone15(); await close15();   /* the gate's three come down so the legs after build where they always did */
       for (let t = 0; t < 3 && sg; t++) {   /* a slow phone: the press is asked again, as a thumb would, until the building answers */
         const w = await fr.evaluate(() => { const x = BohemiaSettlement.where('build'); return x ? [x.x, x.y] : null; }); if (!w) break;
         await P.touchscreen.tap(fb.x + w[0], fb.y + w[1]);
@@ -409,6 +467,17 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
     }
     /* D11 a saved game, opened again the way he does (CONTINUE): still exactly one, at the same block */
     if (prof === 'phone_portrait') {
+      /* D17 the crew screen counts the yard: a man trained climbs his share more from the fight's own count (BOHEMIA_ROSTER_SCREEN __HOME_BASE_TRAINED__) */
+      await F.evaluate(() => { try { loopClose(); } catch (e) {} const c = JSON.parse(localStorage.getItem('bohemia.climb.v1') || '{}'); window.__G17 = { you: (c.YOU && c.YOU.xp) || 0, desi: (c.DESI && c.DESI.xp) || 0 };
+        localStorage.setItem('bohemia.home.trained.v1', JSON.stringify({ YOU: { mult: 1.35, left: 3, day: 2 } }));
+        localStorage.setItem('bohemia.fight.after.v1', JSON.stringify([{ day: 2, rows: [{ name: 'YOU', xpGained: 100 }, { name: 'DESI', xpGained: 100 }] }])); });
+      await P.waitForTimeout(800);
+      for (const fx of P.frames()) { const h = await fx.evaluate(() => { const c = [...document.querySelectorAll('#bohphone .app[data-app=crew]')].find(e => e.getBoundingClientRect().width > 0); if (!c) return null; const r = c.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }).catch(() => null); if (h) { await P.touchscreen.tap(h[0], h[1]); break; } }
+      let R17 = null; for (let i = 0; i < 80 && !R17; i++) { R17 = P.frames().find(x => /ROSTER_SCREEN/.test(x.url())); if (R17 && !(await R17.evaluate(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready).catch(() => false))) R17 = null; if (!R17) await P.waitForTimeout(250); }
+      await P.waitForTimeout(1500);
+      const r17 = await F.evaluate(() => { const c = JSON.parse(localStorage.getItem('bohemia.climb.v1') || '{}'), b = window.__G17; return { you: ((c.YOU && c.YOU.xp) || 0) - b.you, desi: ((c.DESI && c.DESI.xp) || 0) - b.desi, left: (JSON.parse(localStorage.getItem('bohemia.home.trained.v1') || '{}').YOU || {}).left }; });
+      ok('D17 on the crew screen the same 100 XP fight gave the trained man ' + (r17.you - r17.desi) + ' more than the untrained (his training: ' + r17.left + ' fights left)', !!R17 && r17.you - r17.desi === 35 && r17.left === 2, JSON.stringify(r17));
+      await F.evaluate(() => { localStorage.removeItem('bohemia.home.trained.v1'); });
       await F.evaluate(() => { try { saveNow('gate'); } catch (e) {} }); await P.waitForTimeout(1500);
       await P.close().catch(() => {});
       const e = await drive.open({ again: d, keepCards: true, beforeTap: async (pg) => {

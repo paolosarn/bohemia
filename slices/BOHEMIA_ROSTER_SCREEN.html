@@ -308,6 +308,7 @@ html.bm-camp-live.boh-phone-on[data-bm-roster]:not(#bm-x) body .who{justify-cont
 </div>
 <div id="ghost"></div>
 <script src="../engine/bohemia_roster.js"></script>
+<script src="../engine/bohemia_home.js"></script>  <!-- __HOME_BASE_TRAINED__ (HOME BASE 11/17, rule 453): a man trained at his place's yard climbs faster from his next fights -->
 <script src="bohemia_ui_no_scroll.js"></script><script src="bohemia_ui_weapon_card.js"></script>  <!-- UI 8 (rule 397): a weapon tapped says its blows -->  <!-- __SCROLLING_IS_ILLEGAL__ (UI 8, rule 402): the stash in pages of whole rows, the card fitted to a short glass; nothing scrolls -->
 <script src="../engine/bohemia_kill_tally.js"></script>  <!-- WORDS [kills and the strongest foe] (rule 316): his fights, kills and best foe in his own record -->
 <script src="../engine/bohemia_stats.js"></script>  <!-- UI THREE [the stat order], [stats are bars and arrows] (rules 223, 247): his eight in his order, each a bar to the most possible -->
@@ -374,7 +375,9 @@ function afterFight(rows){
       m.mark = {id:r.injury.id, name:r.injury.name, line:r.injury.line};
       m.marks = (m.marks || []).filter(function(k){ return (k && k.id || k) !== r.injury.id; }).concat([m.mark]);
       hurt.push(m.name + ' is struck down: one hitpoint, ' + r.injury.name.toLowerCase() + ', still in the line'); }
-    var g = C.grant(m, r.xpGained); m.gained = {}; g.gains.forEach(function(x){ for(var k in x) m.gained[k] = (m.gained[k]||0) + x[k]; });
+    var xpIn = r.xpGained;   /* __HOME_BASE_TRAINED__: Battle Brothers' Veteran's Lessons from his place's TRAINING YARD (engine/bohemia_home.js trained) */
+    try{ if(window.BohemiaHome && BohemiaHome.trained){ var TS = JSON.parse(localStorage.getItem('bohemia.home.trained.v1') || '{}') || {}, tr = BohemiaHome.trained(TS, m.name, xpIn); xpIn = tr.xp; if(tr.bonus) m.trainedBonus = tr.bonus; localStorage.setItem('bohemia.home.trained.v1', JSON.stringify(tr.store)); } }catch(e){}
+    var g = C.grant(m, xpIn); m.gained = {}; g.gains.forEach(function(x){ for(var k in x) m.gained[k] = (m.gained[k]||0) + x[k]; });
     if(g.to > g.from) ups.push(m.name + ' is level ' + g.to); });
   benchHurt(); saveClimb(); saveForm(); var first = S.crew.findIndex(function(m){ return ((m.rolls && m.rolls.length) || m.points > 0) && !m.dead; }); if(first >= 0) S.sel = first;
   var lh = S.crew.findIndex(function(m){ return m.hurt && m.hurt.days > 0; }); if(first < 0 && lh >= 0) S.sel = lh;

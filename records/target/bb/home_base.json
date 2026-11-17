@@ -293,5 +293,56 @@
       "can": "HEAL",
       "shut": "No bed under a roof yet. Roof a house and your wounded heal here."
     }
+  },
+  "places": {
+    "_about": "HIS PLACE'S OWN BUILDINGS (HOME BASE 11/17, rules 445, 453): one of each, on a free open lot, a battery and the goods, standing the day after; each opens a door (rule 445(b)) and stands in the cameras (rule 451(c)). They are HOME BASE's, not lotbuild's (that list is every held part's). The piece is CAMP TWO's own (slices/camp_two/kit.json), drawn at its own man's height. Numbers are HOME BASE's defaults, TUNING's to change; words draft:true, the fewest (rule 454(a)).",
+    "yard": {
+      "name": "TRAINING YARD",
+      "piece": "f_drill_sergeant",
+      "cost": {
+        "tape": 3
+      },
+      "can": "TRAIN",
+      "line": "your men train here",
+      "mult": 1.35,
+      "fights": 3,
+      "per_level": 1,
+      "min": 2,
+      "_bb": "Battle Brothers' Training Hall, Veteran's Lessons: +35% experience gain for the next 3 battles, its price growing with the man's level (reference/library/grok/wiki/CORE_WIKITEXT.md)"
+    },
+    "forge": {
+      "name": "FORGE",
+      "piece": "f_blacksmith",
+      "cost": {
+        "tape": 4
+      },
+      "can": "CRAFT",
+      "line": "scrap into rounds",
+      "takes": {
+        "tape": 2
+      },
+      "makes": {
+        "rounds": 6
+      }
+    },
+    "lookout": {
+      "name": "LOOKOUT",
+      "piece": "f_lookout",
+      "cost": {
+        "tape": 2
+      },
+      "can": "WATCH",
+      "line": "sees them coming",
+      "reach": 10
+    },
+    "words": {
+      "yard": "Who trains?",
+      "forge": "Scrap in, rounds out.",
+      "saw": "{WHO}, {n} blocks {DIR}.",
+      "none": "Nobody within {n} blocks.",
+      "train": "+35% XP, 3 FIGHTS",
+      "trained": "TRAINED, {n} FIGHTS LEFT",
+      "press": "PRESS ROUNDS"
+    }
   }
 }
