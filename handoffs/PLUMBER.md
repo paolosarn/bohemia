@@ -1,12 +1,13 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
-PLUMBER 8 (chat 18) 11/17, the coordinator's routine 'PLUMBER 8 the scavenge blank screen'. BUILD 11/17u THE LOT IS BAKED WHILE HE READS. Row 632 marked.
+PLUMBER 8 (chat 18) 11/17, the coordinator's routine 'PLUMBER 8 the scavenge blank screen'. BUILD 11/17zn THE LOT IS BAKED WHILE HE READS. Row 632 marked.
 THE WAIT WAS THE BAKE: 'Search the lot' -> the board 3.9 to 5.1 s on the demo at 4x, 2.5 to 3.0 s of it the block's board baked in a hidden
 fight page AFTER the press. The board is the block's own (scavAsk deals the same board every time), so the lot's sheet bakes it while he
 reads (#scavwarm, a hidden copy of BOHEMIA_SCAVENGE.html, SCAV.warm), and the press turns that copy into #scavgame (SCAV.start takes the
 warm bake for the same board, else bakes as before). After: 0.69 s once the bake is in (0.3 s of it held for UI FOUR's move: its worst frame 117 -> 50 ms, THE PHONE IS THE DOOR 17/0), 1.25 to 1.76 s for a press inside 8 s,
 about 4 s for a press inside 1.5 s (as before). Gate THE LOT IS BAKED WHILE HE READS (solo, plant __SCAV_NO_WARM). SEARCH THE LOT ANSWERS
-64/0 (a copy whose page failed is not reused, so its missing-page plant still shows the cover first), SCAVENGE IS THE RHYTHM 42/0.
+64/0 (a copy whose page failed is not reused, so its missing-page plant still shows the cover first), SCAVENGE IS THE RHYTHM 42/0. THE PHONE IS THE DOOR 17/0 once, then 16/1 on the merged tree with the SAME leg (L6 upright, the move's
+worst frame over 100 ms) red on clean main too on this box: noted to UI FOUR.
 THE SEAM WITH UI FOUR (rule 448, their __THE_SCAVENGE_COMES_OUT_OF_THE_LOT__): mine is only WHEN the game's frame exists and that it may be
 a reused copy (#scavwarm renamed #scavgame, made visible at the press); the cover, the growth out of the lot and the way back are theirs and
 untouched. If their move ever needs a fresh frame, the warm copy is the one to grow. THE SEAM WITH SCAVENGE: SCAV.warm(o) and bakeAll in

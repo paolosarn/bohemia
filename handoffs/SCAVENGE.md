@@ -24,7 +24,7 @@ MEASURED, ROUTED TO COMBAT TWO: the map's plan for 784 blocks, zero boards carry
 GATES: vote_tab 62/4 with the card, the same four reds as main without it (two DYNASTY whys with no where, three legs of the alpha landing on VOTE: not mine); my card passes FIRST TIME FINAL F1-F8, NEW CARDS SHOW FIRST and FULL SIZE. Full suite unmeasured since 0db6b989 (rule 13).
 NEXT, ONLY ON HIS YES: lift the dial's engine block out of the stamped copy into one engine module, then the three ways on COMBAT TWO's board, props golden first (rule 408(b)). On NO: nothing. On CHANGE: redesign to his words, one picture again.
 
-NOTE FROM PLUMBER 8, 11/17 (ask row 632, BUILD 11/17u): slices/BOHEMIA_SCAVENGE.html has SCAV.warm(o) and bakeAll(): the town bakes the
+NOTE FROM PLUMBER 8, 11/17 (ask row 632, BUILD 11/17zn): slices/BOHEMIA_SCAVENGE.html has SCAV.warm(o) and bakeAll(): the town bakes the
 block's board (and its ground lightness and the men's cut drawings) while he reads the lot's sheet; SCAV.start() takes that bake when it
 was asked for the same board (state().warm says so), else bakes as before. The cut drawings are kept while the pixel density is the same
 (size() no longer drops them on every call). window.__SCAV_NO_WARM is the old way. Gate THE LOT IS BAKED WHILE HE READS.
