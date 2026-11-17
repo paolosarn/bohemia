@@ -1,5 +1,29 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN; newest block on top)
 
+WORLD FOURTEEN, ROUND SEVEN (11/17, rule 453's sweep; rule 454(a): no words; rule 441). BUILD 11/17y - THE TRACKS HE CAN READ.
+BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_14_THE_TRACKS_HE_CAN_READ_11_17_26.md. VOTE world14-the-tracks-he-can-read-11-17 (ui, STAND-IN).
+- (3) TRACKS HE CAN READ: since rule 151(f) the living map's prints drew only behind F, and a phone has no F, so a phone never saw a track.
+  slices/bohemia_tracks_read.js (wraps loopJobsDraw, loaded after the road's modules) draws the prints round him (8 to 14 blocks, the fog
+  decides) as pale shoe prints in pairs, tinted to the faction, fading by the hour, the 90 freshest steps; never a line; stands down for F
+  and at the far stops. Where the parties' current legs say nothing, the print under him answers the map's own tracks line (tracksHere).
+  No words added. FOR LIFE+CITY: reads LIVING_MAP.st.prints and fadeOf only. FOR UI: F's full trails untouched; these stand down under F.
+- (1) THE VALHEIM HALF OF THE MAP was on main already (WORLD TWO's HIS MAP). The one gap: the next boss's sign found no street on some seeds
+  (HIS MAP B6 red). slices/bohemia_his_map.js, marked __THE_SIGN_ALWAYS_TURNS_UP__: a wider ring, then any walkable block, and the boss's
+  place up to 50 blocks off. FOR WORLD TWO: streetNear gained anyWalk, bossPlace gained far; nothing else of yours moved.
+- (2) NEXT, NOT STARTED: the list's last smaller ones (the public works yard, the scrap mill, a fishing pond, billboards). A place's visit
+  is a person talking, which rule 454(a) holds this week, so the wordless use is Battle Brothers' attached location: the place's own name in
+  a trade good's made_by (records/target/bb/stall_prices.json, ECONOMY's: the settlement screen's makes(STALLP, S.place.name) already
+  answers a place name) and its finds for the scavenge. Ask ECONOMY before writing their file.
+  Real spots found 11/17 (to verify once more before seating): the scrap mill, the yards on Losee Road in North Las Vegas (SA Recycling
+  3870 Losee Rd, Top Dollar Recycling 3417 Losee Rd); a fishing pond, NDOW's stocked urban ponds (Floyd Lamb, Sunset, Lorenzi, Veterans
+  Memorial; rainbow trout in winter, channel catfish in spring, a 3-fish limit); the public works yard, address NOT confirmed (a city
+  'West Yard' fuel island is listed; Clark County's Field Operations is the county's).
+- FOR WORLD TWO / RUN: HIS MAP's F2 (RUN's dark back, the shape gone at the whole-valley stop) is red on a clean main too, on the edge
+  (2.7 against 2.75 on main b94bd4920+43, 4.4 against 3.4 on mine; these prints draw nothing at that stop, a block there is 2 or 3 px).
+- GATES: THE TRACKS HE CAN READ (demo) and (alpha), each 6/0 a view (a print moves its spot by about 740, the map's flicker 0 to tens).
+[bb Battle Brothers' footprints round the company, fading, hover for who and when; ours, round him, fading, stand on them for who and when.]
+[analog horror: a print that is already fading when you find it: you were always a few hours behind them.]
+
 WORLD FOURTEEN, ROUND SIX (11/14, rule 447's round: one tight batch, then stop; row 606; rule 441). BUILD 11/14q - AFTER WHAT HE DID.
 BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_14_AFTER_WHAT_HE_DID_11_14_26.md. VOTE world14-after-what-he-did-11-14 (ui, STAND-IN).
 - ROW 606 FIXED (my half): a road card never stands over a running camp: held while he camps, aside if a camp starts under it, back after;

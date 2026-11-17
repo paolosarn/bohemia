@@ -9530,6 +9530,9 @@ GATES = [
     ('THE ROAD KNOWS HIS PLACE (demo, sideways)', ['node', 'gates/the_road_knows_his_place_gate.js', 'demo-side'], "WORLD 14 gate: the same, the demo sideways (a real finger on every card). About 4 min", True),
     ('THE ROAD KNOWS HIS PLACE (alpha, upright)', ['node', 'gates/the_road_knows_his_place_gate.js', 'alpha-up'], "WORLD 14 gate: the same, the alpha upright. About 8 min", True),
     ('THE ROAD KNOWS HIS PLACE (alpha, sideways)', ['node', 'gates/the_road_knows_his_place_gate.js', 'alpha-side'], "WORLD 14 gate: the same, the alpha sideways. About 4 min", True),
+    ('THE TRACKS HE CAN READ (demo)', ['node', 'gates/the_tracks_he_can_read_gate.js', 'demo'],
+     "WORLD 14 gate, 11/17 (the coordinator's round under rule 453: 'parties that roam and leave tracks he can read'; rule 441; rule 454(a), no words added). slices/bohemia_tracks_read.js draws the living map's own prints round him as pale shoe prints in pairs, tinted to the faction, fading by the hour, never a line (rule 151(f)), standing down for F's full trails and at the far stops; where the parties' current legs say nothing, the print under him answers the map's own tracks line. Measured on the map's own canvas at each print's spot, on against off and off against off, with the camera settled. About 5 min", True),
+    ('THE TRACKS HE CAN READ (alpha)', ['node', 'gates/the_tracks_he_can_read_gate.js', 'alpha'], "WORLD 14 gate: the same, the alpha upright and sideways. About 5 min", True),
     ('THE PLACES GET THEIR USE', ['node', 'gates/the_places_get_their_use_gate.js'],
      "WORLD 14 gate, 11/8, VAMILY rule 436(b) (ask line 521; rules 409(c), 429(b)(h)): the lab, the bank, the unemployment office and the two "
      "home centres each have a visit (records/target/bb/real_places.json visit; slices/bohemia_place_visits.js): the person there in Spanglish, two or three "

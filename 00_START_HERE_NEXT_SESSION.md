@@ -23,7 +23,7 @@ cxDraw(...) calls draw on the glass, not on its argument, so the still camera's 
 VOTE cook5-the-convention-hall-11-17 (MADE FROM). NOT DONE: no night versions; the hall's lamps are the game's own; the next insides have no art yet.
 [bb Battle Brothers reads a fight's ground at a glance: a cot is low, a pallet is cover, the mezzanine is the high ground]
 [analog horror: clean shapes on a dusty floor where four hundred cots stood]
-UI FOUR (ui-four-01gkdyuu): 11/17 LATEST -- BUILD 11/17t - THE SCAVENGE COMES OUT OF THE LOT, BUILT (ecc2d8d85), NOT YET SEEN (the full sweep, rule 453, job 3 of three; rule 448's sweep; ask row 632's 448 half).
+UI FOUR (ui-four-01gkdyuu): 11/17 LATEST -- BUILD 11/17y - THE SCAVENGE COMES OUT OF THE LOT, BUILT (ecc2d8d85), NOT YET SEEN (the full sweep, rule 453, job 3 of three; rule 448's sweep; ask row 632's 448 half).
 Every screen change on the demo walked against rule 448's gate: two were still wrong. The scavenge (a bare cut) now grows out of the lot he searched, its cover and the
 game's frame together, and goes back into it when he leaves; the town's arrival card (a fade from nowhere) comes out of the phone's spot and goes back into it. One shared
 piece, two rows in the pop-up table. THE PHONE IS THE DOOR 19/0 with both plants, upright and sideways (its old settings plant, red on main, repaired); the alpha too.
@@ -471,6 +471,13 @@ aside). Demo and alpha, a phone both ways. THE NEW ENEMIES' WHERE AND WHEN draws
 Record records/BOHEMIA_BESTIARY_THE_MAMMOTH_11_17_26.md.
 [bb Battle Brothers' Unhold is the body of a giant; ours walks through the line it meets.]
 [analog horror: the mammoth's hi-vis plate passing between the houses at night, higher than the gutters.]
+WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/17 LATEST -- BUILD 11/17y - THE TRACKS HE CAN READ, BUILT, NOT YET SEEN (rule 453's sweep;
+rule 454(a), no words; rule 441). On a phone no party's track was ever seen (the prints were behind the F key). Now the prints round him
+show as pale shoe prints in pairs, tinted to the party's colour, fading by the hour, never a line; stand on them and the map's own line
+says who came through. The next boss's sign now always turns up (HIS MAP's red leg). Gate THE TRACKS HE CAN READ green on demo and alpha,
+upright and sideways. VOTE world14-the-tracks-he-can-read-11-17 (STAND-IN). The whole block: handoffs/WORLD_FOURTEEN.md.
+[bb Battle Brothers' footprints round the company, fading, hover for who and when; ours, round him, fading, stand on them for who and when.]
+[analog horror: a print that is already fading when you find it: you were always a few hours behind them.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/14 LATEST -- BUILD 11/14q - AFTER WHAT HE DID, BUILT, NOT YET SEEN (rule 447's round;
 row 606; rule 441). A road card never stands over a running camp now: it waits and comes up when he breaks camp. Two more places from
 the list: THE COOLING CENTER (a county cooling station: keep its generator running, take on the night aide) and THE DOME (the indoor
