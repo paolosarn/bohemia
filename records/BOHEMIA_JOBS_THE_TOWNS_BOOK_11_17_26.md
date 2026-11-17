@@ -62,7 +62,9 @@ walked, the bar -4.0 (three asks and the walk), gone from the board, gone again 
 FOUND ON THE WAY AND FIXED: on the alpha held sideways the alpha's tabs and the top bar leave the card 288 px, and the ask pushed Not
 now half under the edge (264-308 px; nothing on that card scrolls). On a short screen held sideways the ask now sits beside Take it
 (.acts.offer, a two-wide row), so all three are on the glass (168-212, 168-212, 216-260); gate B3 now fails any card button off the
-glass. (The test's own finger also learned two things: it no longer nudges a frame it can already see, the screen snaps it back; and it
+glass. MAIN WAS RED ON RELATIONS SINCE BUILD A: its gate reads only the wiki's Relations page and refused acts.haggle (the Contracts
+page's -0.5); it now holds such an act to the same standard, its quote word for word from that page out of the tarball and its number
+the quoted one (gates/relations_gate.js, marked JOBS 11/17; three planted mistakes each bite). (The test's own finger also learned two things: it no longer nudges a frame it can already see, the screen snaps it back; and it
 reads a scaled frame by its drawn size.) GATE: THE TOWN'S BOOK with JOBS_BUILD=B.
 
 ## 3. BUILD C, WHAT FAILING OR WALKING AWAY COSTS

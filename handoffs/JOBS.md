@@ -1,5 +1,29 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/17 LATEST -- BUILD 11/17u - PUSH THE PAY (build B of four), BUILT, NOT YET SEEN (rules 453,
+454(a), 441; row 627). Record: records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md section 2.
+- THE ASK: on every job's card, above Take it, 'Ask +7%' with its cost beside it ('-0.5 STANDING'): 7% on the pay (the middle of the
+  wiki's 4-11%), 0.5 off this town's bar (the wiki's own). Two land; the third button says 'THEY WALK -3' before the tap, and that tap
+  ends it (the wiki's -2.5 more): that person leaves this board and the phone's list until the board turns (bohemia.haggle.v1; the
+  shelf's pick() leaves them out, __PUSH_THE_PAY__). Told, never rolled (the house's 9/11 rule). The client's line is untouched; its
+  {pay} reads the pushed number, and the map's own sum is made on the pushed base. relations.json acts.haggle and haggle; TUNING rows.
+- MEASURED ON THE PHONE (demo and alpha, both ways): Teo's water drums at Caravans 57 -> 62 -> 66, bar 50 -> 49, held at 66; the ring
+  trucks asked three times: walked, -4.0, gone from the board, again on walking back in, and from the phone's list.
+- FOUND AND FIXED: on the alpha held sideways (the card 288 px under the tabs) the ask pushed Not now half off the glass; on a short
+  screen held sideways the ask now sits beside Take it. B3 fails any card button off the glass.
+- WATCH FOR (build C and D add to this card): on an upright phone the card's last button ends about 30 px above the edge; a line or a
+  button more needs the same two-wide row upright.
+- MAIN WAS RED SINCE BUILD A, NOW GREEN: the RELATIONS gate refused acts.haggle ('no act in the file that is not in the table': it reads
+  only the wiki's Relations page, and the -0.5 is the Contracts page's). The gate now holds such an act to the same standard (its quote
+  word for word from that page, read out of the tarball, its number the quoted one); three planted mistakes each bite. 67/0.
+GATE THE TOWN'S BOOK: B1 files, B2 the card's sum, B3 the phone: 7/0 with JOBS_BUILD=B, again on the rebased tree.
+THE SUITE: the whole of it no longer finishes here (the solo tier alone ran past 40 minutes); the browser-free tier reached 840 of 1150
+with 83 reds; every one that reads a file this build touched was run alone: RELATIONS fixed (above), WHO THE FACE IS (boss portraits
+with no entry) and QUARTERMASTER'S COUNT (art registrations) are not this lane's.
+NEXT: build C (what failing or walking away costs, on the card), build D (any job paid into his own place).
+[bb Battle Brothers: each haggle costs 0.5 relations and adds 4-11%; push too far and they throw you out (-2.5); ours tells you the odds instead of rolling]
+[analog horror: the third ask is the one nobody answers; the person is just not at the board any more]
+
 JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/17 LATEST -- BUILD 11/17b - THE TOWN REMEMBERS (build A of four), BUILT, NOT YET SEEN (rules 453,
 454(a), 441; row 627; the coordinator's routine 'JOBS full sweep': the jobs' SYSTEMS, no new prose). Record: records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md.
 - MEASURED FIRST: a town's bar already moved with every job settled there and bent the pay; its shelves charged less above Neutral. Missing:

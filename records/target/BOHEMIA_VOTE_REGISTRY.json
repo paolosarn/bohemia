@@ -20097,7 +20097,8 @@
     ]
    },
    "record": "records/BOHEMIA_COOK_FIVE_THE_CONVENTION_HALL_11_17_26.md"
-  }
+  },
+  {"id": "jobs-push-the-pay-11-17", "kind": "ui", "lane": "jobs", "sha": "6a5c63445", "made": "11/17", "draft": true, "title": "PUSH THE PAY: ASK FOR MORE ON ANY JOB, AND IT COSTS YOU WITH THE TOWN", "said": "a full sweep: the jobs' systems the way Battle Brothers runs them, no new talk: how a town feels about him moves with the jobs and changes what it offers and charges; pay he can push at a cost; what failing or walking away costs; a job paid into his own place", "why": "On any job's card you can now ask for more: each ask adds 7% to the pay and costs half a point with the town, two asks work, and a third makes the person walk out (gone from the board until it turns, and 3 more points off). You see it on a town's board (tap BOARD, tap a person): the ask button is above Take it.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_PUSH_THE_PAY.jpg"}, "before_after": {"before": "a job's pay on the board was fixed; the old haggle served only the old street card", "after": "two asks: pay x1.14, the town's bar -1.0; a third ask: they walk, gone from the board and the phone, bar -4.0 in all", "scale": "left: the game on a phone upright (390 x 844 at 3), the demo; right: what changed, measured"}, "record": "records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md", "build": "BUILD 11/17u - PUSH THE PAY"}
  ],
  "verdicts": [
   {

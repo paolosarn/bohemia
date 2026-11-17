@@ -1,3 +1,8 @@
+JOBS (jobs-01gkdyuv): 11/17 LATEST -- BUILD 11/17u - PUSH THE PAY, BUILT, NOT YET SEEN (rules 453, 454(a), 441; row 627). PUSH THE PAY (build B of four): on every job's card an ask adds 7% to the pay and costs 0.5 of the town's bar (the wiki's
+number); two land, the third ends it (-2.5 more) and that person is gone from the board and the phone's list until the board turns.
+On the phone, the demo and the alpha both ways. Gate THE TOWN'S BOOK. VOTE jobs-push-the-pay-11-17 (STAND-IN), sha 6a5c63445. Record records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md.
+[bb Battle Brothers: each haggle costs 0.5 relations and adds 4-11%; push too far and they throw you out (-2.5); ours tells you the odds instead of rolling]
+
 COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17w - THE CONVENTION HALL IS A SHELTER, BUILT (a783762e5), NOT YET SEEN (the full sweep, rule 453, the fourth build; rules 416, 451(a); ask row 627; found: row 646).
 COMBAT THREE's convention hall wears its own art under its own names (slices/fight_ground/hall/hall_art.json, the garage's format; no code): the show
 floor (booth tape, booth numbers, floor boxes, the clean shapes where cots stood, a hopscotch), 18 pictures for 22 names (cots twice, pallets, the
