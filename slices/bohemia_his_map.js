@@ -90,12 +90,12 @@
 
   /* ================= (3) THE BOSS IS FOUND ================= */
   /* a street block r0..r1 from (x, y), inside what he can see, next to a wall to carry a tag */
-  function streetNear(x, y, r0, r1, R) {
+  function streetNear(x, y, r0, r1, R, anyWalk) {
     var c = [];
     for (var dy = -r1; dy <= r1; dy++) for (var dx = -r1; dx <= r1; dx++) {
       var d = Math.max(Math.abs(dx), Math.abs(dy)); if (d < r0 || d > r1) continue;
       var a = x + dx, b = y + dy; if (!walk(a, b) || hidden(a, b) || nearTown(a, b, 1)) continue;
-      if (walk(a + 1, b) && walk(a - 1, b) && walk(a, b + 1) && walk(a, b - 1)) continue;   /* a crossing has no wall */
+      if (!anyWalk && walk(a + 1, b) && walk(a - 1, b) && walk(a, b + 1) && walk(a, b - 1)) continue;   /* a crossing has no wall */
       c.push([a, b]);
     }
     return c.length ? c[Math.floor(R() * c.length) % c.length] : null;
@@ -104,22 +104,23 @@
     var r = nextRow(), h = here(); if (!r || !h || !N()) return false;
     var R = rng(hash(S.seed, S.boss.i + 7)), sight = 6;
     try { sight = fogRadius(); } catch (e) {}
-    var at = streetNear(h[0], h[1], 2, Math.max(2, Math.min(5, sight - 1)), R) || streetNear(h[0], h[1], 1, 6, R);
+    var at = streetNear(h[0], h[1], 2, Math.max(2, Math.min(5, sight - 1)), R) || streetNear(h[0], h[1], 1, 6, R)
+      || streetNear(h[0], h[1], 1, 6, R, true);   /* __THE_SIGN_ALWAYS_TURNS_UP__ (WORLD 14, 11/17): a block in sight that is no street's side, the last resort */
     if (!at) return false;
-    var place = bossPlace(r, at, R); if (!place) return false;
+    var place = bossPlace(r, at, R) || bossPlace(r, at, R, 50); if (!place) return false;   /* __THE_SIGN_ALWAYS_TURNS_UP__: his district kind past 30 blocks */
     S.boss.sign = { n: r.n, x: at[0], y: at[1], kind: (r.sign && r.sign.kind) || 'tag', boss: place };
     save();
     return true;
   }
   /* the boss stands at the street block nearest a block of his district kind, 8 to 30 blocks from the sign, reachable */
-  function bossPlace(r, from, R) {
-    var n = N(), kinds = r.district || [], best = null;
+  function bossPlace(r, from, R, far) {
+    var n = N(), kinds = r.district || [], best = null, FAR = far || 30;
     var route = function (p) { try { return !!cityRoute(from[0], from[1], p[0], p[1]); } catch (e) { return false; } };
     for (var ki = 0; ki < kinds.length && !best; ki++) {
       var c = [];
       for (var y = 1; y < n - 1; y++) for (var x = 1; x < n - 1; x++) {
         if (dist(x, y) !== kinds[ki]) continue;
-        var d = cheb(x, y, from[0], from[1]); if (d < 8 || d > 30 || nearTown(x, y, 3)) continue;
+        var d = cheb(x, y, from[0], from[1]); if (d < 8 || d > FAR || nearTown(x, y, 3)) continue;
         c.push([d + R() * 3, x, y]);
       }
       c.sort(function (a, b) { return a[0] - b[0]; });
