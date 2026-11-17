@@ -1,4 +1,4 @@
-COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17zj - THE MALL IS A DEAD MALL, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the sixth build; rules 416, 451(a), 455; ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17zj - THE MALL IS A DEAD MALL, BUILT (bae238b48), NOT YET SEEN (the full sweep, rule 453, the sixth build; rules 416, 451(a), 455; ask row 627).
 COMBAT THREE's mall (BUILD 11/17x) wears its own art under its own names (slices/fight_ground/mall/mall_art.json, the garage's format; no code): two
 floor sheets (the terrazzo concourse with its diamonds, leaves and water marks; a store's wine carpet), 23 pictures for 27 names (the store front with
 two mannequins still dressed in one window, the shutter half down, both walls, the cart corral and two carts, stock, the counter, the kiosk, the
