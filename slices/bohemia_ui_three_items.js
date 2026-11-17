@@ -443,10 +443,98 @@
       v.dataset.bicKey = t + '|' + v.className.replace(/\s*bic-[a-z-]+/g, '');
     });
   }
+  /* ==== __EVERY_COUNT_A_PICTURE__ (UI FOUR 11/17, asks 145 and 146 round five; the coordinator's 'the icons and bars on every screen that
+     still shows bare numbers or words: the shop, the camp, the job board, the build sheet at his place, one look').
+     MEASURED on the demo, the phone upright and sideways (records/BOHEMIA_UI_FOUR_EVERY_COUNT_A_PICTURE_11_17_26.md): the build sheet at
+     his place said '1 BATTERY 2 TAPE' and '+1 FOOD/DAY' eight times and '-2 batteries' a night; the board '23 BATTERIES . 5 H 10' a job
+     and 'Held: 0 of 2 contracts.'; the stall 'YOU HAVE 40' a row and '75 rolls on the shelf'; the barber, the bar, the lot and the cart a
+     price or a time in words; the camp 'THE NIGHT COSTS 3 BATTERIES', '0 OF 1 PLACES'. The hall, the shelf and the stall's prices
+     already wore the kit's battery.
+     NOW ONE PIECE (counts()): a count said in words is the thing's own picture and the number, on every sheet of the town screen:
+       N batteries / tape / food / meds / rounds / water   the supply's own picture (the bar's, slices/supply_icons/small), then the number
+       +N a day, -N a night                                the stats' own green arrow up or red arrow down before it (rule 223)
+       a time ('4 hours', the board's '. 5 H 10')          the kit's own clock face (bohemia_ui_materials.js MARKS.wait), then the time
+       YOU HAVE N                                          a sack, then the number
+       Held: N of M contracts / N OF M PLACES / Lots       a slab a place, N lit of M, in the line's own ink
+       LIVING HERE N                                       a head for each who lives there (one dim head for nobody yet)
+     THE WORDS STAY IN THE PAGE at no size (the element's text is the same letter for letter, so every screen and every gate that
+     reads it reads it, and a reader hears it). No line from a mouth is touched (rule 454(a): #sbody p is never read here). ==== */
+  var UC_ON = /SETTLEMENT_SCREEN/, UC_SEL = '#sheet .act > em, #sheet .hcost > span, #sheet .hdesk > div, #sheet .slots, #sheet .stl > small, #sheet .acts > .gridh';
+  var UC_SUP = { battery: 'batteries', batteries: 'batteries', tape: 'tape', rolls: 'tape', food: 'food', meds: 'meds', medicine: 'meds', rounds: 'rounds', water: 'water' };
+  var UC_RE = /([+\-−])?(\d+) (batter(?:y|ies)|tape|rolls|food|meds|medicine|rounds|water)\b|(Held: )(\d+) of (\d+)( contracts\.)|(Lots: )(\d+) of (\d+)\b|()(\d+) OF (\d+)( PLACES?)\b|(YOU HAVE )(\d+)\b|(· )(?=(?:UNDER |UP TO )?\d+ ?(?:H\b|DAY))|(\d+ hours?)\b|^(\d+)( yet|: )/gi;
+  var UC_SACK = ['001101100', '000111000', '000111000', '001111100', '011111110', '111111111', '111111111', '111111111', '011111110'];   /* a sack tied at the neck: what he carries */
+  var UC_SLAB = ['0111110', '1111111', '1111111', '1111111', '1111111', '1111111', '0111110'];   /* one place, one job held: lit when taken */
+  var UC_HEAD = ['000111000', '001111100', '001111100', '000111000', '000010000', '011111110', '111111111', '111111111', '111111111'];
+  var UC_CLOCK = ['000111111000', '001000000100', '010000100010', '100000100001', '100000100001', '100000100001', '100000111001', '100000000001', '100000000001', '010000000010', '001000000100', '000111111000'];   /* the kit's own WAIT mark */
+  var UC_URL = {};
+  function ucMask(k, rows) {   /* a printed mark as a mask: it takes the ink of the line it stands in (bone on the board, brown on the paper) */
+    if (UC_URL[k]) return UC_URL[k]; var n = rows.length, c = document.createElement('canvas'); c.width = c.height = n * 3; var g = c.getContext('2d'); g.fillStyle = '#000';
+    rows.forEach(function (r, y) { for (var x = 0; x < n; x++) if (r[x] === '1') g.fillRect(x * 3, y * 3, 3, 3); });
+    return (UC_URL[k] = 'url(' + c.toDataURL('image/png') + ')');
+  }
+  var UC_CSS = ''
+    + '.uc{display:inline-flex!important;flex-direction:row;align-items:center;gap:.26em;white-space:nowrap;vertical-align:middle;line-height:1;font-style:normal}'
+    + '.uc>b{display:inline!important;font:inherit;font-weight:700;color:inherit;margin:0;padding:0}'
+    + '.uc>i.uc-w{font-size:0!important;letter-spacing:0!important;font-style:normal}'   /* the words, for the reader and for every screen that reads the line */
+    + '.uc>i.uc-i{flex:0 0 auto;display:inline-block;width:max(1.2em,14px);height:max(1.2em,14px);background:center/contain no-repeat;image-rendering:pixelated}'
+    + '.uc>i.uc-m{width:max(1em,11px);height:max(1em,11px);background:currentColor;-webkit-mask:var(--uc-m) center/contain no-repeat;mask:var(--uc-m) center/contain no-repeat}'
+    + '.uc>i.uc-a{width:max(.8em,9px);height:max(.8em,9px)}.uc.up>i.uc-a{background-image:var(--bst-arrow-up)}.uc.dn>i.uc-a{background-image:var(--bst-arrow-dn)}'
+    + '.uc>i.uc-pip{width:max(.78em,8px);height:max(.78em,8px)}.uc>i.uc-dim{opacity:.3}.uc[data-uc=pips]{gap:.2em}'
+    + '.hcost .uc>i.uc-i{width:12px;height:12px;margin-top:-1px;margin-bottom:-1px}.hcost .uc>i.uc-a{width:9px;height:9px;margin:0}'   /* the build row's two lines are 10 px apart: a picture there is 12 and takes 10, so no row grows (rule 250, nothing moves) */
+    + '.uc+.uc{margin-left:.5em}';
+  var UC_LOG = { runs: 0, made: 0, last: [] };
+  function ucI(cls, bg, mask) { var i = el('i', 'uc-i ' + cls); i.setAttribute('aria-hidden', 'true'); if (bg) i.style.backgroundImage = 'url(' + bg + ')'; if (mask) i.style.setProperty('--uc-m', mask); return i; }
+  function ucW(t) { return el('i', 'uc-w', t); }   /* i and b only: a sheet's own rules for a span (the build row's two lines) never lay a chip out */
+  function ucChip(m) {
+    var c = el('i', 'uc'), k, n, of, i;
+    if (m[3]) {   /* N of a supply, with its sign */
+      k = UC_SUP[m[3].toLowerCase()]; c.dataset.uc = k; c.dataset.n = m[2];
+      if (m[1]) { c.classList.add(m[1] === '+' ? 'up' : 'dn'); c.appendChild(ucI('uc-a')); c.appendChild(ucW(m[1])); }
+      c.appendChild(ucI('uc-p', BASE + 'supply_icons/small/' + k + '.png')); c.appendChild(el('b', null, m[2])); c.appendChild(ucW(' ' + m[3]));
+    } else if (m[5] != null || m[9] != null || m[12] != null) {   /* N of M: pips */
+      n = +(m[5] != null ? m[5] : m[9] != null ? m[9] : m[12]); of = +(m[5] != null ? m[6] : m[9] != null ? m[10] : m[13]); c.dataset.uc = 'pips'; c.dataset.n = n; c.dataset.of = of;
+      for (i = 0; i < Math.min(12, Math.max(n, of)); i++) c.appendChild(ucI('uc-m uc-pip' + (i < n ? '' : ' uc-dim'), null, ucMask('slab', UC_SLAB)));
+      c.appendChild(ucW(m[0]));
+    } else if (m[16] != null) {   /* YOU HAVE N */
+      c.dataset.uc = 'have'; c.dataset.n = m[16]; c.appendChild(ucI('uc-m', null, ucMask('sack', UC_SACK))); c.appendChild(ucW(m[15])); c.appendChild(el('b', null, m[16]));
+    } else if (m[17] != null) {   /* the board's dot before a job's time */
+      c.dataset.uc = 'time'; c.appendChild(ucI('uc-m', null, ucMask('clock', UC_CLOCK))); c.appendChild(ucW(m[17]));
+    } else if (m[18] != null) {   /* N hours */
+      c.dataset.uc = 'time'; c.appendChild(ucI('uc-m', null, ucMask('clock', UC_CLOCK))); c.appendChild(document.createTextNode(m[18]));
+    } else if (m[19] != null) {   /* who lives there */
+      n = +m[19]; c.dataset.uc = 'heads'; c.dataset.n = n;
+      for (i = 0; i < Math.max(1, Math.min(8, n)); i++) c.appendChild(ucI('uc-m' + (n ? '' : ' uc-dim'), null, ucMask('head', UC_HEAD)));
+      c.appendChild(ucW(m[0]));
+    }
+    return c;
+  }
+  function counts(doc) {
+    doc = doc || document; if (!UC_ON.test(location.pathname) || window.__UC_OFF) return 0;   /* __UC_OFF: a checker's switch only (the page as it was) */
+    var made = 0, first = true;
+    [].forEach.call(doc.querySelectorAll(UC_SEL), function (e) {
+      var t = e.textContent; if (e.__ucT === t) return; e.__ucT = t;
+      var w = document.createTreeWalker(e, NodeFilter.SHOW_TEXT), nodes = [], x;
+      while ((x = w.nextNode())) if (!(x.parentElement && x.parentElement.closest('.uc'))) nodes.push(x);
+      nodes.forEach(function (tn) {
+        var v = tn.nodeValue, m, last = 0, frag = null; UC_RE.lastIndex = 0;
+        while ((m = UC_RE.exec(v))) {
+          if (m[19] != null && !(tn.parentElement === e && e.matches('.hdesk > div'))) continue;   /* a bare leading number is heads only on his desk */
+          if (first) { css(); if (!document.getElementById('uc-css')) { var st = el('style'); st.id = 'uc-css'; st.textContent = UC_CSS; document.head.appendChild(st); } first = false; }
+          frag = frag || document.createDocumentFragment();
+          if (m.index > last) frag.appendChild(document.createTextNode(v.slice(last, m.index)));
+          frag.appendChild(ucChip(m)); last = m.index + m[0].length; made++;
+        }
+        if (frag) { if (last < v.length) frag.appendChild(document.createTextNode(v.slice(last))); tn.parentNode.replaceChild(frag, tn); }
+      });
+      e.__ucT = e.textContent;
+    });
+    UC_LOG.runs++; UC_LOG.made += made; return made;
+  }
+  /* ==== /__EVERY_COUNT_A_PICTURE__ ==== */
   var pending = false;
   function dress(doc) {
     if (pending) return; pending = true;
-    (window.requestAnimationFrame || setTimeout)(function () { pending = false; try { dressNow(doc); } catch (e) {} });
+    (window.requestAnimationFrame || setTimeout)(function () { pending = false; try { dressNow(doc); } catch (e) {} try { counts(doc); } catch (e) {} });
   }
   function watch() {
     if (!boxSel() || !document.body) return;
@@ -459,5 +547,5 @@
   load();
 
   window.BohemiaItemCard = { ready: load, quality: quality, cells: cells, cell: cell, strip: strip, card: card, twoIcon: twoIcon, dressWeaponCard: dressWeaponCard,
-    dress: dressNow, MAX: MAX, NAME: NAME, ICON: ICON, log: function () { return { dressed: LOG.dressed, runs: LOG.runs }; }, fightRow: fightRow };
+    dress: dressNow, counts: counts, countsLog: function () { return { runs: UC_LOG.runs, made: UC_LOG.made }; }, MAX: MAX, NAME: NAME, ICON: ICON, log: function () { return { dressed: LOG.dressed, runs: LOG.runs }; }, fightRow: fightRow };
 })();
