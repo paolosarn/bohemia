@@ -152,10 +152,22 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
       check(pa <= pz - 0.05 && pa <= 0.3 && A.cover > Z.cover && A.hisCover > 0 && A.theirCover > 0 && (!hasHigh || (A.highLater > 0 && (data.start === 'gallery' ? (A.up0 / A.band >= 0.25 && A.up0 / A.band <= 0.5) : (A.up0 === 0 && A.his0 === 0)))), 'I8 ' + N,   /* the high ground by the inside's own word: 'gallery' = they hold it at the bell (a quarter to a half of the band up); any other start = nobody's at the bell, and men on it after the first round */
         'BOTH SIDES USE ROOFS AND COVER: after the first round ' + A.on + ' of ' + A.all + ' men (' + Math.round(pa * 100) + '%) stand on the bare open floor, with the rule off ' + Z.on + ' of ' + Z.all + ' (' + Math.round(pz * 100) + '%); on cover ' + A.cover + ' against ' + Z.cover + '; on cover or high ground ' + A.hisCover + ' of his ' + A.hisAll + ' and ' + A.theirCover + ' of their ' + A.theirAll + (hasHigh ? (data.start === 'gallery' ? '; ' + A.up0 + ' of ' + A.band + ' of the band (' + Math.round(A.up0 / A.band * 100) + '%) start up on the high ground, ' : '; the high ground nobody\'s at the bell (' + (A.up0 + A.his0) + ' men start on it), ') + A.highLater + ' men on it after the first round' : ''));
       check(!(pz <= pz - 0.05), 'I8p ' + N, 'planted: the open floor not open (the rule off) reads as no scramble (' + Math.round(pz * 100) + '% against itself)'); }
+    /* I10: an inside is where the CELL is (11/17, __THE_CELL_SAYS_WHERE__): a road cell beside the building, handed with the building's district the
+       way the map's shell does, is never inside; the building's own cell handed with a neighbour's district may be */
+    { let road = 0, own = 0; const N10 = 40, D0 = DIST[0];
+      for (let i = 0; i < N10; i++) { if (deal(D0, i, { inside: undefined, ground: { cell: [9, 9], district: 'arterial', land: D0, zone_place: null, street: { way: 'ew', ends: 3, mouths: 0, road: true } } }).boardDef.interior) road++;
+        if (deal('suburb', i, { inside: undefined, ground: { cell: [9, 9], district: D0, zone_place: null, street: null } }).boardDef.interior === id) own++; }
+      check(road === 0 && own > 0, 'I10 ' + N, 'AN INSIDE IS WHERE THE CELL IS: a road cell beside it, handed with its district, went inside on ' + road + ' of ' + N10 + '; its own cell, handed with a neighbour\'s district, on ' + own + ' of ' + N10); }
     /* I9 */
     { const c = deal(DIST[0], 1, { inside: id }).boardDef.ceiling, want = data.ceiling || {};
       check(!!c && c.kind === want.kind && c.alpha >= 0.05 && c.alpha <= 0.14 && c.name === want.src && (want.have ? fs.existsSync(path.join(ROOT, FG, want.src)) : c.src === null), 'I9 ' + N, 'ITS CEILING: ' + (c ? c.kind + ' at ' + c.alpha + ', the picture ' + want.src + (want.have ? ' (in)' : ' (owed by COOK FIVE: the fight draws the kind itself)') : 'NONE')); }
   }
+  /* G1 (ask row 646, found by COOK FIVE 11/17): the ground draws its pictures on the canvas it is given, so the still camera's sheet holds the
+     board's pieces (close in on a phone an inside's furniture was gone). Read on the page's own source; how it looks is measured on the page */
+  { const src = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8'), i = src.indexOf('function groundOn(cx) {'), j = src.indexOf('\nfunction openOf() {', i), body = i >= 0 && j > i ? src.slice(i, j) : '';
+    const strip = body.replace(/\/\*[\s\S]*?\*\//g, ''), bad = (strip.match(/\bcxDraw\(/g) || []).length, good = (strip.match(/sheetDraw\(cx, \[/g) || []).length;
+    check(!!body && bad === 0 && good >= 3, 'G1', 'THE SHEET HOLDS ITS PIECES (ask row 646): groundOn draws its pictures on the canvas it is given (' + good + ' sheetDraw(cx, ...) calls, ' + bad + ' on the fight\'s own glass)');
+    const planted = strip.replace('sheetDraw(cx, [im, x, y, w, h]);', 'cxDraw(im, x, y, w, h);'); check((planted.match(/\bcxDraw\(/g) || []).length === 1, 'G1p', 'planted: one picture call turned back to the glass is caught'); }
   console.log('\nTHE BIG INSIDES: ' + pass + ' passed, ' + fail + ' failed (' + Math.round((Date.now() - t0) / 1000) + ' s)');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.error(e); process.exit(2); });

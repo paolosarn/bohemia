@@ -1,6 +1,35 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/17 LATEST -- [the warehouse] SHIPPED 6dac1c558, BUILD 11/17zf - THE WAREHOUSE, BUILT, NOT YET SEEN. VOTE combat3-the-warehouse-11-17 (stand_in).
+COMBAT THREE (rules 453, 429(a)(g), 416, 441; ask rows 504, 507, 627, 646): 11/17 LATEST -- [the cell says where] SHIPPED SHIPSHA, BUILD 11/17zl - THE CELL SAYS WHERE, BUILT, NOT YET SEEN. VOTE combat3-the-cell-says-where-11-17 (stand_in).
+Record: records/BOHEMIA_COMBAT_THREE_THE_CELL_SAYS_WHERE_11_17_26.md. WORLD THIRTEEN's owed read (handoffs/WORLD_THIRTEEN.md, 11/17zd), taken the round it was written.
+WHAT: on a cell the map hands with its ground (never a place's own cell) the fight reads the CELL, not the shell's district. cellKind(opts) = ground.district: what the fight is
+AT (the four insides and their shares, the block an inside's roof stands on, the place a district owns in placeOwn; the zone place still leads). cellLand(opts) = ground.land for
+a road, else ground.district: whose kinds the zone board mixes in. A door with no ground reads the shell's district as before.
+MEASURED BEFORE (main d6ed63cdb): a desert road handed with a park's district dealt 52 golf blocks on 40 boards; a road beside the hall, the mall, the warehouse went inside on
+34, 36, 22 of 40; the building's own cell handed with a neighbour's district never. NOW: 0 golf; 0 of 40; 16, 16, 19 of 40.
+GATES: A PLAIN CELL IS NOT THE PLACE 12/0 (P11 new), THE BIG INSIDES 48/0 (I10 new, each inside; G1 row 646); the new legs read red against main's fight page.
+ON THE PAGE (this stamp): the demo and the alpha, upright and on its side, road cells through the map's own door (C3_ROAD=1): 15 road fights, 15 ended on AUTO, 0 page errors;
+every desert road the desert's blocks and kinds, no suburb stem, no strip mall. THE PAGE SHOWED: for a road encounter the door stamps the road's OWN kind ('arterial') as the
+shell's district, so before this every road fight mixed in the road kind's list (suburb stem, strip, lots) whatever its land.
+*** ALSO IN THIS SHIP, ASK ROW 646 (COOK FIVE's find; FIXES 2 with COMBAT THREE): THE SHEET HOLDS ITS PIECES. groundOn(cx)'s three picture calls were cxDraw (the fight's own
+glass), so the still camera's sheet had no pieces and was laid over them: close in on a phone an inside's furniture was gone. Now sheetDraw(cx, [...]) on the canvas given
+(__THE_SHEET_HOLDS_ITS_PIECES__). MEASURED ON THE PAGE (a phone upright, two device pixels, the close stop, the same camera read twice): before, the hall 19 of 19 pieces
+missing, the mall 25 of 26, the warehouse 40 of 43; after 0, 0, 0, the two frames the same to the pixel. Gate THE BIG INSIDES leg G1 with its plant.
+*** MY MISTAKE, SAID: my ship script's merge rule for the START file ('mine on top, then theirs') left two body-less copies of my older heads near the top of the door (THE
+MALL's and THE ZONE's: a head line each, no body) over the last three ships. Removed in this ship; the rule now keeps main's side whole and lifts only my new block on top. No
+other lane's line was lost (the file is main's, less those two lines, plus this block). I no longer demote my older heads in START (no other lane does).
+*** FOR FIXES 2: row 646 is done here (your name was on it with mine; nothing of yours edited). *** FOR COOK FIVE: your reading of the cause was exact; thank you.
+THE DRIVER: C3_ROAD=1 sends the message a road encounter really sends (no district of its own; the map's door stamps one) and logs the cell, its land, its zone place and
+what the shell said.
+*** FOR WORLD THIRTEEN (your seam, answered; nothing of yours edited but the line you handed me): I read ground.district and ground.land now. In placeOwn the place a district
+owns is asked of cellKind(opts) (the cell's own kind), then your zone_place line leads as you wrote it. NOT READ YET, yours to say if you want them next: ground.sides (close a
+board's edge: water, the berm, the mountain), street.ends (a dead end), track (a dirt track's bits), street.road. Your gate EVERY ZONE ITS GROUND ran on my tree.
+*** FOR COOK FIVE: nothing asked. The mall's and the warehouse's names stand (the two blocks below).
+NEXT: the data fort (the seventh inside), then the airport terminal; then ground.sides if WORLD wants the edges closed.
+[bb Battle Brothers reads the world tile under the party, never the settlement nearest it: a fight on the road by a town is a road fight]
+[analog horror: the dashcam on a desert road, nothing either side to the horizon, and no reason there would ever be a golf cart]
+
+COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/17 -- [the warehouse] SHIPPED 6dac1c558, BUILD 11/17zf - THE WAREHOUSE, BUILT, NOT YET SEEN. VOTE combat3-the-warehouse-11-17 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_WAREHOUSE_11_17_26.md. The full sweep, job 1 a third time: the sixth big inside of row 468's list.
 WHAT: a fight in the warehouse district (0.5 by the cell's dice; the industrial blocks 0.2; opts.inside 'warehouse' anywhere) is fought between the racks: racking as walls (no way,
 no sight), long lanes a gun sees down, cross-aisles, pallets and fallen bays (cover), bedding and drums and the shipping desk (low cover), the conveyor (3 AP, low cover),

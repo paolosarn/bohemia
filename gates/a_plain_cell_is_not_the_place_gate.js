@@ -27,6 +27,8 @@
          running north to south more blocks whose street runs that way
      P10 AUTO TO THE END ON THE ZONE BOARDS (rule 428(c)(d)): a plain cell of every place's first two districts fought on AUTO ends, and
          after the first round fewer men stand bare on the open street than with the rule off; both sides on cover or roofs
+     P11 THE MIX-IN IS THE CELL'S LAND (11/17, WORLD THIRTEEN's owed read): a road cell in the open desert handed with a nearby park's
+         district deals no golf block; every mixed-in block is a kind the table names for the desert
      planted: the plain cell not known (place true, the old deal): P1 and P3 read red
    Run: node gates/a_plain_cell_is_not_the_place_gate.js      (about 40 seconds) */
 'use strict';
@@ -103,6 +105,15 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
         for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) S.street[y][x] = false; let g = 0; while (!S.over && S.round < 2 && g < 6000) { const u = F.current(); if (!u) break; S.byHand = false; F.aiStep(u); g++; }
         S.units.filter(v => F.onField(v)).forEach(v => { all++; if (st[v.y][v.x] && !(S.coverCount[v.y][v.x] > 0)) on++; }); })); return on / all; })();
     check(A.ended === A.n && A.n >= 20 && pa < pz && A.hisC > 0 && A.thC > 0, 'P10', 'AUTO TO THE END ON THE ZONE BOARDS, OFF THE OPEN STREET: ' + A.ended + ' of ' + A.n + ' fights on plain cells of every place\'s districts ended inside 30 rounds (' + (A.rounds / A.n).toFixed(1) + ' a fight); after the first round ' + A.on + ' of ' + A.all + ' men (' + Math.round(pa * 100) + '%) stand bare on the open street, ' + Math.round(pz * 100) + '% with the rule off; on cover or a roof ' + A.hisC + ' of his ' + A.hisN + ' and ' + A.thC + ' of their ' + A.thN + ' (' + A.up + ' up on a roof)'); }
+  /* P11: the mix-in is the cell's land (WORLD THIRTEEN's owed read, 11/17zd): a road cell in the open desert, handed the way the map hands it
+     (the shell's district a nearby block's, 'park'; the ground: the road's own kind, its land the desert, the desert's place), mixes in the
+     desert's kinds and never the park's golf */
+  { const g = { cell: [40, 8], district: 'arterial', land: 'desert', zone: 'mile_street', zone_place: 'place_desert', street: { way: 'ew', ends: 3, mouths: 0, road: true } };
+    const fam = FK.families('desert') || [], P0 = PL.desert, ownB = new Set([].concat(P0.field, [].concat.apply([], Object.values(P0.cols || {})), [].concat.apply([], Object.values(P0.rows || {}))));
+    let golf = 0, off = [], blocks = 0, boards = new Set(), mixed = 0; const N11 = 40;
+    for (let i = 0; i < N11; i++) { const S = deal('park', i, { ground: g, place: undefined }); boards.add(sig(S));
+      [].concat.apply([], S.boardDef.blocks).forEach(n => { const b = String(n).split('|')[0], k = kindOf(n); blocks++; if (k === 'golf') golf++; if (!ownB.has(b)) { mixed++; if (fam.indexOf(k) < 0 && off.indexOf(k) < 0) off.push(k); } }); }
+    check(golf === 0 && off.length === 0 && mixed > 0 && boards.size >= N11 * 0.9, 'P11', 'THE MIX-IN IS THE CELL\'S LAND: a mile street through the open desert, handed with a park\'s district, deals ' + golf + ' golf blocks on ' + N11 + ' boards (' + blocks + ' blocks, ' + mixed + ' mixed in, every one a kind the table names for the desert' + (off.length ? '; OFF THE LAND: ' + off.join(', ') : '') + '); ' + boards.size + ' different boards'); }
   { const P = read(true); check(P.own > P.n * 0.9, 'Pp', 'planted: the plain cell not known (the old deal), ' + P.own + ' of ' + P.n + ' are a place\'s own board again'); }
   console.log('\nA PLAIN CELL IS NOT THE PLACE: ' + pass + ' passed, ' + fail + ' failed (' + Math.round((Date.now() - t0) / 1000) + ' s)');
   process.exit(fail ? 1 : 0);

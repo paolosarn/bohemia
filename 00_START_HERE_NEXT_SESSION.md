@@ -1,3 +1,13 @@
+COMBAT THREE (combat-three-01gkdyuu): 11/17 LATEST -- BUILD 11/17zl - THE CELL SAYS WHERE, BUILT, NOT YET SEEN (the full sweep, rule 453; WORLD THIRTEEN's owed read; rules 429(a)(g), 416; ask rows 504, 507, 627, 646).
+A fight the map hands from a road reads the map cell it is on, not the nearest building's name: the board mixes in the kinds of the land the road runs through (a desert road
+dealt 52 golf blocks on 40 boards; now 0), and only a building's own cell goes inside it (a road beside the hall, the mall, the warehouse went inside on 34, 36, 22 of 40; now 0;
+the building's own cell 16 to 19 of 40). AND ASK ROW 646 (COOK FIVE's find): close in on a phone with the camera still an inside's furniture was not drawn (the hall 19 of 19
+pieces missing, the mall 25 of 26, the warehouse 40 of 43); now 0, measured on the page. GATES: A PLAIN CELL IS NOT THE PLACE 12/0 (P11), THE BIG INSIDES 48/0 (I10, G1).
+ON THE PAGE: 15 road fights through the map's own door, the demo and the alpha both ways, all ended, 0 errors. VOTE combat3-the-cell-says-where-11-17 (stand_in).
+THIS ROUND'S FOUR BUILDS BEFORE IT: the zone boards (11/17p), the mall (11/17x), the warehouse (11/17zf), each its own card. NEXT: the data fort, the airport terminal.
+The whole block: handoffs/COMBAT_THREE.md.
+[bb Battle Brothers reads the world tile under the party, never the settlement nearest it]
+[analog horror: the dashcam on a desert road, nothing either side to the horizon, and no reason there would ever be a golf cart]
 COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17zj - THE MALL IS A DEAD MALL, BUILT (bae238b48), NOT YET SEEN (the full sweep, rule 453, the sixth build; rules 416, 451(a), 455; ask row 627).
 COMBAT THREE's mall (BUILD 11/17x) wears its own art under its own names (slices/fight_ground/mall/mall_art.json, the garage's format; no code): two
 floor sheets (the terrazzo concourse with its diamonds, leaves and water marks; a store's wine carpet), 23 pictures for 27 names (the store front with
@@ -17,7 +27,6 @@ the demo and the alpha, both ways, through the map's own door: 7 fights inside i
 COOK FIVE's names are in handoffs/COMBAT_THREE.md (the hall's finished kit came in with no code: the names work). NEXT: the data fort, then the airport terminal.
 [bb Battle Brothers has no corridors; its forest does the same job: trees that stop the arrow and the walk. The racks are our forest]
 [analog horror: a warehouse's fixed camera down one lane, a shape at the far end that was not there one frame ago]
-COMBAT THREE (combat-three-01gkdyuu): 11/17 -- BUILD 11/17x - THE MALL, BUILT, NOT YET SEEN (the full sweep, rule 453, job 1 again; rules 416, 59, 428, 451(a); ask rows 468, 627).
 COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17ze - THE BANK, THE MOB MUSEUM AND THE DINOSAUR, BUILT (4c0a4afc4), NOT YET SEEN (the full sweep, rule 453, the fifth build; rules 408, 409(c), 455; ask row 627).
 Three more real places wear their own piece on the map, on the 11/17k draw (no code): THE BANK (fourteen floors of dark glass over a banking hall with
 its glass out, the money in drifts on the plaza, one window lit by a stove fed with hundreds and its smoke on the beat), THE MOB MUSEUM (the 1933
@@ -53,7 +62,6 @@ ways: 4 fights inside the mall, 4 ended on AUTO, 6 of 6 taps, 0 errors. VOTE com
 NEXT: the distribution warehouse, then the data fort.
 [bb Battle Brothers never fights indoors; what it teaches here is the hill: high ground in the middle that neither side starts on is the fight]
 [analog horror: a mall's security tape, timestamp burned in, the painted sky still lit by one working fixture, somebody's bedding in a shoe store]
-COMBAT THREE (combat-three-01gkdyuu): 11/17 -- BUILD 11/17p - THE ZONE IS THE BOARD, BUILT, NOT YET SEEN (the full sweep, rule 453, jobs 2 and 3; rules 429(a)(g), 428; ask rows 504, 507, 627).
 JOBS (jobs-01gkdyuv): 11/17 LATEST -- BUILD 11/17u - PUSH THE PAY, BUILT, NOT YET SEEN (rules 453, 454(a), 441; row 627). PUSH THE PAY (build B of four): on every job's card an ask adds 7% to the pay and costs 0.5 of the town's bar (the wiki's
 number); two land, the third ends it (-2.5 more) and that person is gone from the board and the phone's list until the board turns.
 On the phone, the demo and the alpha both ways. Gate THE TOWN'S BOOK. VOTE jobs-push-the-pay-11-17 (STAND-IN), sha 6a5c63445. Record records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md.

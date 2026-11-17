@@ -9612,7 +9612,9 @@ GATES = [
      "counted (I5); a fight on AUTO to the end (I6); every tile its cost and effect (I7); both sides off the open floor onto cover and the high "
      "ground (I8, rule 428: the high ground by the inside's own word, 'gallery' = a quarter to a half of the band up on it at the bell, any other "
      "start = nobody on it at the bell and men on it after round one); its ceiling at 10% (I9). Six plants an inside. 11/17: THE MALL the "
-     "second (the fifth of row 468's list), THE DISTRIBUTION WAREHOUSE the third (the sixth). About fifty seconds an inside", True),
+     "second (the fifth of row 468's list), THE DISTRIBUTION WAREHOUSE the third (the sixth). I10 (THE CELL SAYS WHERE): a road cell beside the "
+     "building handed with its district is never inside, the building's own cell handed with a neighbour's district may be. G1 (ask row 646): "
+     "the ground draws its pictures on the canvas it is given, so the still camera's sheet holds the board's pieces. About fifty seconds an inside", True),
     ('AN INSIDE SHOWS ITS CEILING', ['node', 'gates/an_inside_shows_its_ceiling_gate.js'],
      "COMBAT THREE gate, 11/14, VAMILY rule 451(a) (ask row 623; PAOLO's vote on the parking garage: 'a 10% opacity for real... I still need to "
      "see the parking garage ceiling'). Each inside's data file names its ceiling: an alpha from 0.05 to 0.12, a kind the fight draws, COOK "
@@ -9629,7 +9631,8 @@ GATES = [
      "deals that place's own blocks, no landmark, at least three blocks in ten its own in every district (P7); zone by zone of WORLD THIRTEEN's "
      "land-use zones, 16 plain cells a district, at least nine boards in ten different (P8); a cell handed a north-to-south street deals more "
      "blocks whose street runs that way than the same cell with none (P9); AUTO to the end on a plain cell of every place's districts, fewer "
-     "men bare on the open street than with rule 428's leg off, both sides on cover and roofs (P10). Planted: the plain cell not known. About 115 s", True),
+     "men bare on the open street than with rule 428's leg off, both sides on cover and roofs (P10); 11/17 THE CELL SAYS WHERE: a road cell in the open desert handed with a nearby park's district "
+     "deals no golf block, every mixed-in block a kind the table names for the desert (P11). Planted: the plain cell not known. About 115 s", True),
     ('THE CREW STARTS ON ITS CELL', ['node', 'gates/the_crew_starts_on_its_cell_gate.js'],
      "COMBAT THREE gate, 11/11, VAMILY rule 429(a) ONE MAP (ask rows 504, 506, 507; WORLD THIRTEEN's seam: 'start the crew on the cell's tiles'). "
      "A fight the map hands from a cell of one of the 15 places is dealt that place's own board block for block (K1); a man of his stands as near "

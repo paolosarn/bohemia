@@ -1409,6 +1409,15 @@ const FIGHT = (function () {
      and the desert road never; 41% of boards mostly suburb. NOW a board handed its district deals THAT PLACE's kinds
      (ours.board_grounds: the district's own list, else its ground's, records/target/BOHEMIA_BOARD_KINDS.json), the place's lead
      kind on lead_share of the slots; a boss keeps his own board; the board shapes cut only the grounds that are a town */
+  /* __THE_CELL_SAYS_WHERE__ (COMBAT THREE 11/17, VAMILY rules 453, 429(a)(g); WORLD THIRTEEN's owed read, handoffs/WORLD_THIRTEEN.md: 'dealZone's
+     mix-in kinds come from the shell's district (a desert road mixes a 'park' golf block in): ground.district or ground.land is the
+     cell's truth'). MEASURED BEFORE (main d6ed63cdb): a fight the map hands from a road cell carries a NEARBY block's district in
+     opts.district ('park', 'school', 'mall'), so a mile street through the desert mixed golf blocks into the desert's board, and a
+     road beside the mall could be dealt the mall's inside. NOW, on a cell the map handed with its ground (FIGHT_OPTS.ground, never
+     a place's own cell): WHAT THE FIGHT IS AT is the cell's own kind (cellKind: the insides, the place a district owns), and WHOSE
+     GROUND IT MIXES IN is the cell's land (cellLand: a road's land is the commonest kind beside it; any other cell's is its own kind) */
+  function cellKind(opts) { const g = opts.ground; return g && g.district && !opts.template ? g.district : opts.district; }
+  function cellLand(opts) { const g = opts.ground; return g && g.district && !opts.template ? (g.land || g.district) : opts.district; }
   function placeKinds(opts, lib) {
     const PG = DB.ours && DB.ours.board_grounds ? R('ours.board_grounds') : null;
     if (!PG || !opts.district || opts.boss) return null;
@@ -1449,7 +1458,7 @@ const FIGHT = (function () {
   function placeOwn(opts) {
     const P = DB.ours && DB.ours.place_boards ? R('ours.place_boards') : null;
     if (!P || !opts.district || opts.boss) return null;
-    const lib = blockLibrary(); let id = Object.keys(P.places).filter(function (k) { const p = P.places[k]; return p.built && p.districts.indexOf(opts.district) >= 0; })[0];
+    const lib = blockLibrary(); let id = Object.keys(P.places).filter(function (k) { const p = P.places[k]; return p.built && p.districts.indexOf(cellKind(opts)) >= 0; })[0];   /* __THE_CELL_SAYS_WHERE__ */
     /* __EVERY_ZONE_ITS_GROUND__ (WORLD THIRTEEN 11/17, rule 453(2); a marked line, COMBAT THREE's from here, the seam in
        handoffs/WORLD_THIRTEEN.md): a map kind with no place of its own (a mile street, a solar farm, a resort, an apartment court)
        deals the place its ground is (FIGHT_OPTS.ground.zone_place: its own place, else its zone's, a mile street the land's beside it);
@@ -1589,7 +1598,7 @@ const FIGHT = (function () {
      stands on; that was a fixed 'casino.0' whatever the district. It is now the block WORLD's one table names for the district (its
      place's field block, else the first block of its lead kind), so the table and the fight agree for a kind that has an inside too */
   function insideBlocks(B, opts) {
-    try { const FK = typeof window !== 'undefined' ? window.BohemiaFightKinds : null, pc = FK && opts.district ? FK.piece(opts.district) : null, d = pc && pc.deal, lib = blockLibrary();
+    try { const FK = typeof window !== 'undefined' ? window.BohemiaFightKinds : null, at = cellKind(opts), pc = FK && at ? FK.piece(at) : null, d = pc && pc.deal, lib = blockLibrary();
       const nm = d && (((d.field || []).filter(function (n) { return lib[n]; })[0]) || Object.keys(lib).filter(function (n) { return n.indexOf('|') < 0 && kindOf(n) === d.lead; })[0]);
       if (nm && B && B.blocks) B.blocks = B.blocks.map(function (r) { return r.map(function () { return nm; }); }); } catch (e) {}
     return B;
@@ -1598,9 +1607,9 @@ const FIGHT = (function () {
     const BI = typeof window !== 'undefined' ? window.BohemiaBigInside : null, I = DB.insides;
     if (!BI || !I || opts.inside === false || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
     if (opts.template && opts.template.board && !opts.inside) return false;
-    const ids = Object.keys(I).filter(function (id) { return opts.inside ? opts.inside === id : I[id].data.districts.indexOf(opts.district) >= 0; });
+    const ids = Object.keys(I).filter(function (id) { return opts.inside ? opts.inside === id : I[id].data.districts.indexOf(cellKind(opts)) >= 0; });   /* __THE_CELL_SAYS_WHERE__ */
     for (let i = 0; i < ids.length; i++) { const id = ids[i], D = I[id], X = D.data;
-      const by = X.share_by_district || {}, share = by[opts.district] != null ? by[opts.district] : (X.share == null ? 1 : X.share), roll = (((SEED >>> 0) ^ 0x7f4a7c15 ^ (i * 0x9e3779b9)) >>> 0) % 1000 / 1000;
+      const by = X.share_by_district || {}, at = cellKind(opts), share = by[at] != null ? by[at] : (X.share == null ? 1 : X.share), roll = (((SEED >>> 0) ^ 0x7f4a7c15 ^ (i * 0x9e3779b9)) >>> 0) % 1000 / 1000;
       if (opts.inside !== id && roll >= share) continue;
       const B = BI.deal(((SEED >>> 0) ^ 0x2545f491 ^ (i * 0x85ebca6b)) >>> 0, D, DB.ground, S.w, S.h, Object.assign({ night: S.night }, opts.insideAsk || {})); if (!B) continue; insideBlocks(B, opts);
       const was = [S.night, S.power];
@@ -1615,7 +1624,7 @@ const FIGHT = (function () {
     if (!FT || !D || opts.inside === false || (opts.inside && opts.inside !== 'tunnels') || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
     if (opts.template && opts.template.board && !opts.inside) return false;   /* __THE_CREW_STARTS_ON_ITS_CELL__ (rule 429(a) ONE MAP): on a cell where the map stands a place's own board the fight is on that board; an inside is dealt there only when it is asked for (measured on the alpha: a fight on a cell of the wash's place was dealt the tunnels under it) */
     const share = D.data.share == null ? 1 : D.data.share, roll = ((SEED >>> 0) % 1000) / 1000;
-    if (opts.inside !== 'tunnels' && (D.data.districts.indexOf(opts.district) < 0 || roll >= share)) return false;
+    if (opts.inside !== 'tunnels' && (D.data.districts.indexOf(cellKind(opts)) < 0 || roll >= share)) return false;
     const B = FT.deal(((SEED >>> 0) ^ 0x1b873593) >>> 0, D, DB.ground, S.w, S.h, Object.assign({ night: S.night, dress: DB.streetDress && DB.streetDress.kit }, opts.tunnelsAsk || {})); if (!B) return false; insideBlocks(B, opts);
     const was = [S.night, S.power];
     S.night = true; S.power = true;   /* under the ground it is night; the grates' day and the drums' fire need no grid */
@@ -1640,8 +1649,8 @@ const FIGHT = (function () {
     const PG = typeof window !== 'undefined' ? window.BohemiaParkingGarage : null, D = DB.garage;
     if (!PG || !D || opts.inside === false || (opts.inside && opts.inside !== 'garage') || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
     if (opts.template && opts.template.board && !opts.inside) return false;   /* __THE_CREW_STARTS_ON_ITS_CELL__ (rule 429(a) ONE MAP): on a cell where the map stands a place's own board the fight is on that board; an inside is dealt there only when it is asked for (measured on the alpha: a fight on a cell of the wash's place was dealt the tunnels under it) */
-    const by = D.data.share_by_district || {}, share = by[opts.district] != null ? by[opts.district] : (D.data.share == null ? 1 : D.data.share), roll = (((SEED >>> 0) ^ 0x9e3779b9) >>> 0) % 1000 / 1000;
-    if (opts.inside !== 'garage' && (D.data.districts.indexOf(opts.district) < 0 || roll >= share)) return false;
+    const by = D.data.share_by_district || {}, at = cellKind(opts), share = by[at] != null ? by[at] : (D.data.share == null ? 1 : D.data.share), roll = (((SEED >>> 0) ^ 0x9e3779b9) >>> 0) % 1000 / 1000;
+    if (opts.inside !== 'garage' && (D.data.districts.indexOf(at) < 0 || roll >= share)) return false;
     const B = PG.deal(((SEED >>> 0) ^ 0x85ebca6b) >>> 0, D, DB.ground, S.w, S.h, Object.assign({ night: S.night, dress: DB.streetDress && DB.streetDress.kit }, opts.garageAsk || {})); if (!B) return false; insideBlocks(B, opts);
     const was = [S.night, S.power];
     S.night = true; S.power = true;   /* under the decks above it is night; the open sides' day and the drums' fire need no grid */
@@ -1652,7 +1661,7 @@ const FIGHT = (function () {
     const CF = typeof window !== 'undefined' ? window.BohemiaCasinoFloor : null, D = DB.casino;
     if (!CF || !D || opts.inside === false || (opts.inside && opts.inside !== 'casino') || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
     if (opts.template && opts.template.board && !opts.inside) return false;   /* __THE_CREW_STARTS_ON_ITS_CELL__ (rule 429(a) ONE MAP): on a cell where the map stands a place's own board the fight is on that board; an inside is dealt there only when it is asked for (measured on the alpha: a fight on a cell of the wash's place was dealt the tunnels under it) */
-    if (opts.inside !== 'casino' && D.data.districts.indexOf(opts.district) < 0) return false;
+    if (opts.inside !== 'casino' && D.data.districts.indexOf(cellKind(opts)) < 0) return false;
     const B = CF.deal(((SEED >>> 0) ^ 0x2545f491) >>> 0, D, DB.ground, S.w, S.h, opts.casinoAsk || null); if (!B) return false; insideBlocks(B, opts);
     const was = [S.night, S.power];
     S.night = true;                                                                  /* no sun under a roof */
@@ -1788,7 +1797,7 @@ const FIGHT = (function () {
     const G = DB.ground, bt = G.block_tiles, tm = G.tile_metres, lib = blockLibrary(), mix = R('ours.board_mix');
     const plain = plainCell(opts), mine = placeOwn(opts);
     if (mine && !plain) return dealt(opts, dealOwn(opts, mine));
-    const own = placeKinds(opts, lib);
+    const land = cellLand(opts), own = placeKinds(land !== opts.district ? Object.assign({}, opts, { district: land }) : opts, lib);   /* __THE_CELL_SAYS_WHERE__: the kinds are the cell's land's */
     if (mine && plain) return dealt(opts, dealZone(opts, mine, own, lib));   /* __THE_ZONE_IS_THE_BOARD__ */
     if (own) return dealt(opts, dealPlace(opts, own, lib));
     const fams = Object.keys(mix.families);
@@ -6734,6 +6743,13 @@ function laidDim(g, nx, ny, R, w, h, X, Y) {
   }
 }
 function groundOn(cx) {
+  /* __THE_SHEET_HOLDS_ITS_PIECES__ (COMBAT THREE 11/17, ask row 646, found by COOK FIVE proving the hall's art; rules 441, 416): this
+     function draws on the canvas it is GIVEN. Since BUILD 11/10l its three picture calls (the feather, the board's standing pieces,
+     the lamps) were cxDraw calls, which always draw on the fight's own glass, so on the pass that builds the still camera's sheet
+     the pieces went to the glass and the sheet was laid over them: close in on a phone, the camera still, an inside's furniture
+     was gone (measured on the page: the convention hall at zoom 0.58, two device pixels a point, 19 of 19 pieces on the glass
+     missing against the same camera drawn straight). They are sheetDraw calls on the canvas given, the packed and the night
+     paths kept */
   const G = DB.ground, S = FIGHT.S, B = S.boardDef, bt = G.block_tiles, ox = B.crop ? B.crop.ox : 0, oy = B.crop ? B.crop.oy : 0;
   const k = UI.tw / G.tile_px[0], pxm = G.px_per_metre, pym = G.tile_px[1] / G.tile_metres, z = UI.zoom;
   const one = Math.abs(UI.tw * z * DPR / G.tile_px[0] - 1) < 0.005;   /* one art pixel to one device pixel */
@@ -6765,12 +6781,12 @@ function groundOn(cx) {
   }); });
   (UI.feather || []).forEach(function (f) {   /* THE GROUND RUNS ON, close in too */
     const x = sx(f.x), y = sy(f.y), w = f.w * z, h = f.h * z;
-    if (on(x, y, w, h)) cxDraw(f.c, x, y, w, h);
+    if (on(x, y, w, h)) sheetDraw(cx, [f.c, x, y, w, h]);
   });
   (B.cover || []).forEach(function (cv2) {
     const im = UI.imgs[FIGHT.pieceSrc(cv2.piece)]; if (!im) return;
     const x = snap(sx(cv2.x_m * pxm * k)), y = snap(sy(cv2.y_m * pym * k)), w = im.width * k * z, h = im.height * k * z;
-    if (on(x, y, w, h)) cxDraw(im, x, y, w, h);
+    if (on(x, y, w, h)) sheetDraw(cx, [im, x, y, w, h]);
   });
   cx.strokeStyle = 'rgba(0,0,0,.28)'; cx.lineWidth = 1 / DPR;
   for (let x = 0; x <= S.w; x++) { const X = snap(sx(x * UI.tw)) + .5 / DPR; if (X < 0 || X > W) continue; cx.beginPath(); cx.moveTo(X, Math.max(y0, 0)); cx.lineTo(X, Math.min(y0 + bh, H)); cx.stroke(); }
@@ -6778,7 +6794,7 @@ function groundOn(cx) {
   (B.lights || []).forEach(function (l) {
     const im = UI.imgs['fight_ground/' + l.src]; if (!im) return;
     const w = im.width * k * z, h = im.height * k * z, x = snap(sx(l.x_m * pxm * k) - w / (1 + 1)), y = snap(sy(l.y_m * pym * k) - h);
-    if (on(x, y, w, h)) cxDraw(im, x, y, w, h);
+    if (on(x, y, w, h)) sheetDraw(cx, [im, x, y, w, h]);
   });
   if (S.night) nightPools(cx, { width: W, height: H }, B.lights || [], k, pxm, pym, true);
   cx.restore();
