@@ -162,7 +162,9 @@ const one = (kind, n) => setup({ party: [{ kind, count: n || 1 }] });
   leg(cells.every(c => c.won >= 6), '*** SIZED TO THE CREW ***: a new crew of 3 and 6 beats each new faction at its sized count 6 in 10 or better (AUTO, 10 seeds)', cells.map(c => c.f + ' ' + c.men + ': ' + c.won + '/10').join(', ')); }
 
 /* 12 */
-{ const count = (district, night) => { const got = {}; for (let s = 1; s <= 200; s++) { ctx.setSeed(s * 13); F.setup({ kind: 'ruin', deploy: false, formation: null, flat: true, met: 3, act: 1, night: night, roadDistrict: district, party: { count: 4, days: 3, difficulty: 0, faction: 'brigands' } }); got[F.S.roadFaction] = (got[F.S.roadFaction] || 0) + 1; } return got; };
+/* 1,000 draws, not 200 (BESTIARY 11/17, measured): with twelve factions and the giants on the road the keepers' desert-to-suburb
+   ratio is 3.8 over 2,000 draws, but 200 drew it at exactly 2.0 (18 to 9) and the leg went red on noise, not on the road */
+{ const count = (district, night) => { const got = {}; for (let s = 1; s <= 1000; s++) { ctx.setSeed(s * 13); F.setup({ kind: 'ruin', deploy: false, formation: null, flat: true, met: 3, act: 1, night: night, roadDistrict: district, party: { count: 4, days: 3, difficulty: 0, faction: 'brigands' } }); got[F.S.roadFaction] = (got[F.S.roadFaction] || 0) + 1; } return got; };
   const sub = count('estate', false), des = count('desert', false), subN = count('estate', true);
   leg((sub.watch || 0) > (des.watch || 0) * 2 && (des.keepers || 0) > (sub.keepers || 0) * 2 && (subN.watch || 0) < (sub.watch || 0),
     '*** WHERE AND WHEN ***: the block watch walks the suburbs, the keepers the open desert, and the watch goes home at night',

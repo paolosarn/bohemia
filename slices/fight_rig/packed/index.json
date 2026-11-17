@@ -31,6 +31,12 @@
 "fill": 0.32,
 "packedMB": 3.13
 },
+"beast_columbian_mammoth.webp": {
+"bytes": 2690678,
+"decodedMB": 123.63,
+"fill": 0.3,
+"packedMB": 42.2
+},
 "beast_coyote.webp": {
 "bytes": 95328,
 "decodedMB": 4.1,
@@ -1263,8 +1269,8 @@
 }
 },
 "totals": {
-"decodedMB": 4157.3,
-"packedMB": 822.0,
-"sheets": 210
+"decodedMB": 4280.9,
+"packedMB": 864.2,
+"sheets": 211
 }
 }

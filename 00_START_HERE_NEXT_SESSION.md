@@ -401,14 +401,14 @@ past the glass) and its receipt never scrolls the page sideways. Gate THE FOURTE
 fail). The whole block: handoffs/FIXES.md.
 [bb Battle Brothers' recruit list keeps every man one line and the one you pick in his own panel; our hall on its side the same.]
 [analog horror: a talking face with a blank name tag is the one wrong thing the bible saves for on purpose; this one was an accident.]
-BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/17i ALL TWELVE FACTIONS FIGHT, BUILT, NOT YET SEEN (routine 'BESTIARY full sweep',
-rules 453, 454(a), 441). THE FLOOR: factions 12 of 12 fought, types 63 of about 75, beasts 17 lab-made, bosses 10, champions named (the one
-table: handoffs/BESTIARY.md). One type for each of the four empty factions, each one thing no other enemy does: the flock's FAITHFUL (one
-falls, the rest hit harder), the HIRED GUN (fights like your company), the HEAD TAKER (walks past your men to your boss), the casino GUNNER
-(the only real gun); the faithful in CHARACTER's new flock clothes, the other three STAND-INs (the list with CHARACTER). Demo and alpha, a phone both ways (THE BESTIARY FLOOR 12/0).
-VOTE bestiary-all-twelve-factions-11-17. Record records/BOHEMIA_BESTIARY_ALL_TWELVE_FACTIONS_FIGHT_11_17_26.md.
-[bb Battle Brothers fields every faction it names; ours now fields all twelve.]
-[analog horror: the head taker's eyes never leave your boss; the others are only in his way.]
+BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/17m THE MAMMOTH, BUILT, NOT YET SEEN (routine 'BESTIARY full sweep', rules 453,
+454(a), 441; after BUILD 11/17i ALL TWELVE FACTIONS FIGHT). THE FLOOR: factions 12 of 12, types 64 of about 75, beasts 18 lab-made, bosses
+10, champions named (the one table: handoffs/BESTIARY.md). The Columbian mammoth (Tule Springs, an Asian elephant mother): the eighteenth lab
+beast, a rare giant, new art on the own-body pipe, and its one thing: the TRAMPLE (walks through a line of your men, each knocked down and
+aside). Demo and alpha, a phone both ways. THE NEW ENEMIES' WHERE AND WHEN draws 1,000 (200 went red on noise). VOTE bestiary-the-mammoth-11-17.
+Record records/BOHEMIA_BESTIARY_THE_MAMMOTH_11_17_26.md.
+[bb Battle Brothers' Unhold is the body of a giant; ours walks through the line it meets.]
+[analog horror: the mammoth's hi-vis plate passing between the houses at night, higher than the gutters.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/14 LATEST -- BUILD 11/14q - AFTER WHAT HE DID, BUILT, NOT YET SEEN (rule 447's round;
 row 606; rule 441). A road card never stands over a running camp now: it waits and comes up when he breaks camp. Two more places from
 the list: THE COOLING CENTER (a county cooling station: keep its generator running, take on the night aide) and THE DOME (the indoor

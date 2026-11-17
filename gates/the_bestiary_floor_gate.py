@@ -61,9 +61,9 @@ spec = importlib.util.spec_from_file_location('outline', os.path.join(ROOT, 'gat
 OL = importlib.util.module_from_spec(spec); spec.loader.exec_module(OL)
 FLOOR, MARK_PX, MARK_FACINGS = OL.FLOOR, OL.MARK_PX, OL.MARK_FACINGS
 MAP_SCALE = 5                 # the map draws a beast party at about a fifth of the fight's pixels (WORLD 12's 'the map's fifth')
-TYPES_IN_THE_FIGHT_FLOOR = 63  # MEASURED 11/17 (59 on 11/14); 11/14 (42 before BESTIARY's seven, 49 before its five men, 54 before its three, 57 before its two): only ever raised
+TYPES_IN_THE_FIGHT_FLOOR = 64  # MEASURED 11/17 (63 with the four factions, 64 with the mammoth; 59 on 11/14); 11/14 (42 before BESTIARY's seven, 49 before its five men, 54 before its three, 57 before its two): only ever raised
 FACTIONS_FIELDED_NOW = 12      # MEASURED 11/17 (8 until the flock, the hired guns, the head takers and the eye in the sky): the factions the fight fields a party for; only ever raised
-LAB_MADE_NOW = 17              # MEASURED 11/10 (10 before BESTIARY's seven): the law's floor, met; only ever raised
+LAB_MADE_NOW = 18              # MEASURED 11/17 (17 on 11/10, the floor; the Columbian mammoth the eighteenth) (10 before BESTIARY's seven): the law's floor, met; only ever raised
 BY = 'BESTIARY'
 passed = failed = 0
 
@@ -188,7 +188,7 @@ def f5(D, ne=None):
         for r in ne['rows']:
             if r.get('beast', {}).get('rig') != 'beast_' + b['animal']: continue
             if r['brain'] not in ne['brains']: bad.append(r['id'] + ': a brain the file does not have (' + r['brain'] + ')')
-            extra = set(r) - keys; bx = set(r['beast']) - bkeys
+            extra = set(r) - keys - {'added_by'}; bx = set(r['beast']) - bkeys   # who added it is a note, not a system
             if extra or bx: bad.append(r['id'] + ': keys the other beasts lack ' + ','.join(sorted(extra | bx)))
             if r['beast'].get('attack') and r['beast']['attack'] not in pages: bad.append(r['id'] + ': its attack is no page')
             v = (ne['brains'].get(r['brain']) or {}).get('value', {})
@@ -206,7 +206,7 @@ def men_data(D):
         if r.get('looks') and not r.get('beast'): pools['row:' + r['id']] = set(r['looks'])
     T = D['ours']['enemy_tiers']['value']
     dealt = set(ne['heads'].values()) | set((T.get('heads') or {}).values()) | {k for m in list(ne['mix'].values()) + list(T['mix'].values()) for ph in m.values() for k, w in ph.items() if w}
-    mine = [r for r in ne['rows'] if str(r.get('added_by', '')).startswith(BY) and not r.get('beast')]
+    mine = [r for r in ne['rows'] if str(r.get('added_by', '')).startswith(BY) and (not r.get('beast') or ((ne['brains'].get(r.get('brain')) or {}).get('value') or {}).get('tramples'))]
     for r in mine:
         if wiki and r.get('from') not in wiki: bad.append(r['id'] + ': rides no wiki row')
         if not r.get('lesson_bb') or not r.get('lesson') or not r.get('draft'): bad.append(r['id'] + ': no lesson (Battle Brothers and ours, draft)')
@@ -333,6 +333,7 @@ def main():
         if bv.get('flings') and not a.get('flings'): bad.append(r['id'] + ': a thrower who never throws')
         if bv.get('screams') and not a.get('horrific_scream'): bad.append(r['id'] + ': a horn that never sounds')
         if bv.get('martyrs') and not a.get('martyr'): bad.append(r['id'] + ': a flock that never comes on harder')
+        if bv.get('tramples') and not a.get('trample'): bad.append(r['id'] + ': a trampler that never walks through a line')
         if bv.get('hunts_main') and not a.get('toward_main', 0) > a.get('toward_nearest', 0): bad.append(r['id'] + ': a head taker who walks to the nearest man, not the main man')
         w6, w0 = (o.get('won_by_crew_of_6') or 0), o.get('won_without_him')
         if w6 < 6 and not (w0 is not None and w6 >= w0 - 1): bad.append('%s: a crew of 6 beats its party %s in 10 (%s without him)' % (r['id'], w6, w0))
@@ -342,7 +343,7 @@ def main():
     leg(mine and not bad, 'F10 THE NEW MEN: %d enemy types BESTIARY added, each on a wiki row with its lesson, in its own clothes, dealt by its party, armed from its own gear and striking its own way on the live rules (%s)%s'
         % (len(mine), '; '.join('%s %s, %s, %d/%d struck near/far%s' % (r['id'], (HL.get('men') or {}).get(r['id'], {}).get('weapon'), r['brain'],
                                 (HL.get('men') or {}).get(r['id'], {}).get('acts', {}).get('melee', 0), (HL.get('men') or {}).get(r['id'], {}).get('acts', {}).get('ranged', 0),
-                                ''.join(', %d %s' % (v, {'kick': 'great swings', 'charge': 'charges', 'flings': 'throws', 'horrific_scream': 'horn blasts', 'martyr': 'surges', 'toward_main': 'steps past a nearer man toward the main man'}[k]) for k, v in ((HL.get('men') or {}).get(r['id'], {}).get('acts', {}) or {}).items() if k in ('kick', 'charge', 'flings', 'horrific_scream', 'martyr') and v or (k == 'toward_main' and v and ((D['ne']['brains'].get(r.get('brain')) or {}).get('value') or {}).get('hunts_main')))) for r in mine),
+                                ''.join(', %d %s' % (v, {'kick': 'great swings', 'charge': 'charges', 'flings': 'throws', 'horrific_scream': 'horn blasts', 'martyr': 'surges', 'trample': 'tramples', 'toward_main': 'steps past a nearer man toward the main man'}[k]) for k, v in ((HL.get('men') or {}).get(r['id'], {}).get('acts', {}) or {}).items() if k in ('kick', 'charge', 'flings', 'horrific_scream', 'martyr', 'trample') and v or (k == 'toward_main' and v and ((D['ne']['brains'].get(r.get('brain')) or {}).get('value') or {}).get('hunts_main')))) for r in mine),
            (('; WAITING FOR ITS OWN CLOTHES (CHARACTER): ' + ', '.join(wait)) if wait else '') + (('; IN A STAND-IN LOOK (CHARACTER): ' + ', '.join(r['id'] for r in mine if r.get('looks_stand_in'))) if any(r.get('looks_stand_in') for r in mine) else '')),
         '; '.join(bad[:4]))
     # ---------------- F9: the five end to end on the page, a phone upright and sideways (rule 441(a)) ----------------
@@ -359,7 +360,7 @@ def main():
             runs = res.get(prof) or {}
             if not runs: bad.append(prof + ': no run'); continue
             if runs.get('errs'): bad.append(prof + ': the page threw ' + ' | '.join(e[:200] for e in runs['errs'][:3]))
-            for f, a, rows in ([] if prof.startswith('alpha_') else mine):
+            for f, a, rows in ([x for x in mine if re.search(r'11/1[7-9]|11/[23]', str((next((b for b in D['book']['beasts'] if b['animal'] == x[1]), {}) or {}).get('added_by', '')))] if prof.startswith('alpha_') else mine):
                 o = runs.get(f) or {}
                 ok = (o.get('fight') and o.get('sheets') and all(x == 'beast_' + a for x in o['sheets']) and o.get('says') and o.get('drawn')
                       and o.get('home') and (o.get('kill') or {}).get('kind') in rows and (o.get('take') or {}).get('ok')

@@ -48,7 +48,8 @@ const CH = (NE.champions && NE.champions.kinds) || {};
         runs.toMap = await fr.evaluate(() => MODE).catch(() => null);
       }
       await waitFor(() => fr.evaluate(() => MODE === 'city' && typeof RESTORE_ANSWERED !== 'undefined' && RESTORE_ANSWERED && window.BohemiaCarcass && BohemiaCarcass.ready()), 90000);
-      for (const b of (process.env.ONLY_MEN || ro.alpha ? [] : MINE)) {   /* ONLY_MEN: a quick run of the men's half alone (the gate runs both) */
+      const BEASTS_HERE = process.env.ONLY_MEN ? [] : MINE.filter(b => (!process.env.ONLY_BEASTS || process.env.ONLY_BEASTS.split(',').indexOf(b.animal) >= 0) && (!ro.alpha || /11\/1[7-9]|11\/[23]/.test(String(b.added_by))));   /* the alpha plays the beasts added from 11/17 on (rule 441, the mammoth) */
+      for (const b of BEASTS_HERE) {   /* ONLY_MEN / ONLY_BEASTS: a quick run of one half (the gate runs both) */
         const fac = b.faction, out = { fight: false };
         try {
           await fr.evaluate(() => { try { if (LOOP.open) loopClose(); } catch (e) {} try { travelStop(); } catch (e) {} BohemiaCarcass.reset(); localStorage.setItem('bohemia.bag.v1', '[]'); window.__FIGHT_CAME_HOME = null; });
@@ -63,6 +64,7 @@ const CH = (NE.champions && NE.champions.kinds) || {};
           out.says = await f.evaluate(() => { try { return THEY_ARE[theirFaction()]; } catch (e) { return null; } });
           out.drawn = await f.evaluate(async (look) => { const r = await fetch('fight_rig/fight_rig.json', { cache: 'no-cache' }).then(x => x.json()).catch(() => null); const L = r && r.looks && r.looks[look];
             if (!L) return null; const im = new Image(); im.src = 'fight_rig/' + L.file; await new Promise(res => { im.onload = res; im.onerror = res; }); return im.naturalWidth > 0; }, 'beast_' + b.animal);
+          if (process.env.SHOTS) { await sleep(1500); await p.screenshot({ path: path.join(process.env.SHOTS, 'beast_' + b.animal + '_' + (ro.alpha ? 'alpha_' : '') + profile + '.jpg'), quality: 80 }); }
           await f.evaluate(() => { FIGHT.S.units.forEach(u => { if (u.side !== 'them') return; u.hp = 0; u.dead = true; }); });
           await p.evaluate(() => { const fw = document.getElementById('fightFrame').contentWindow; nfOverIn({ type: 'BOHEMIA_FIGHT_OVER', result: 'won', rounds: 2 }, fw); });
           const gone = () => p.evaluate(() => !document.getElementById('spoilsdoor') && !document.getElementById('fightFrame') && !document.body.classList.contains('nf-on'));
@@ -111,7 +113,7 @@ const CH = (NE.champions && NE.champions.kinds) || {};
           if (L) { const im = new Image(); im.src = 'fight_rig/' + L.file; await new Promise(r => { im.onload = r; im.onerror = r; }); drawn = im.naturalWidth > 0; }
           out.push({ look: u.look, own, drawn, name: u.name, weapon: u.weapon && u.weapon.name }); } return out; }, kind);
       runs.men = {};
-      for (const m of MEN) {
+      for (const m of (process.env.NO_MEN ? [] : MEN)) {
         const o = { fight: false, tries: 0 };
         try {
           o.dealt = await preRoll(m.faction, 8, m.days, [m.id], m.id);
@@ -126,7 +128,7 @@ const CH = (NE.champions && NE.champions.kinds) || {};
         runs.men[m.id] = o;
       }
       const ch = { tries: 0 };
-      try {
+      if (!process.env.NO_MEN) try {
         ch.dealt = await preRoll('brigands', 8, 70, Object.keys(CH), 'champion');
         for (let t = 0; t < 2 && !ch.named && ch.dealt && ch.dealt.first !== null; t++) {
           ch.tries = t + 1; await handOver('brigands', 8, 70, 'champion:' + ch.dealt.first); const f = await openFight(); if (!f) break;

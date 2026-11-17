@@ -2689,7 +2689,7 @@ const FIGHT = (function () {
     u.threw = false; u.kited = false; u.shoved = false; u.swappedFree = false;   /* Quick Hands: one free swap a turn */
     /* THE NET: his melee skill against it, -10 the first try, +10 for every try that failed (the Throwing Net's page) */
     if (u.netted && u.netted.by && !onField(byId(u.netted.by))) { u.netted = null; emit({ t: 'free', id: u.id }); }   /* THE PIN (FIVE MORE BEASTS): the lion gone, he is up */
-    u.kicked = false; u.charged = false; u.flung = false; if (u.lurking) u.lurkTurns = (u.lurkTurns || 0) + 1;
+    u.kicked = false; u.charged = false; u.flung = false; u.trampled = false; if (u.lurking) u.lurkTurns = (u.lurkTurns || 0) + 1;
     if (u.netted) { const nr = DB.racial.rows.throw_net, ch = u.mskill + nr.free_penalty + nr.free_per_fail * u.netted.fails;
       if (die() <= ch) { u.netted = null; emit({ t: 'free', id: u.id }); } else { u.netted.fails++; emit({ t: 'stuck', id: u.id, chance: Math.max(0, Math.round(ch)) }); } }
     if (u.morale === 'Fleeing' && !u.givesUp && !foes(u).some(function (f) { return dist(f, u) === 1; })) {
@@ -3802,6 +3802,39 @@ const FIGHT = (function () {
     const sx = Math.sign(dx), sy = Math.sign(dy);
     for (let i = 1; i < n; i++) { const x = u.x + sx * i, y = u.y + sy * i; if (!passable(x, y) || unitAt(x, y) || noRoof(u, x, y) || (i > 1 && zocOn(u, x, y).length)) return null; }
     return { x: f.x - sx, y: f.y - sy };
+  }
+  /* THE TRAMPLE (BESTIARY 11/17, rule 453; the Columbian mammoth, bohemia_enemies.json numbers.trample): in a straight line it walks
+     THROUGH your men, up to trample.tiles: every man on the line is struck (the charge's own bonus), knocked down and shoved aside;
+     it ends on the first free tile past the last of them. Nothing else in the valley walks through a line */
+  function trampleLine(u) {
+    const T = NEW('trample'); if (u.trampled || u.netted || climbedNow(u) || u.ap < T.ap) return null;
+    let best = null;
+    [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]].forEach(function (d) {
+      const hit = []; let end = null;
+      for (let i = 1; i <= T.tiles; i++) { const x = u.x + d[0] * i, y = u.y + d[1] * i;
+        if (!inBoard(x, y) || !passable(x, y) || noRoof(u, x, y)) break;
+        const o = unitAt(x, y); if (o && o.side === u.side) break;
+        if (o && onField(o) && sideSees(u.side, o)) hit.push(o); else if (!o && hit.length) { end = { x: x, y: y }; } }
+      if (end && hit.length >= T.min_men && (!best || hit.length > best.hit.length)) best = { d: d, hit: hit.filter(function (o) { return Math.max(Math.abs(o.x - u.x), Math.abs(o.y - u.y)) < Math.max(Math.abs(end.x - u.x), Math.abs(end.y - u.y)); }), end: end };
+    });
+    return best;
+  }
+  function trample(u, L) {
+    const T = NEW('trample'), s = strikeSkill(u.weapon); if (!s) return false;
+    u.ap -= T.ap; u.fat += T.fatigue; u.trampled = true;
+    emit({ t: 'skill', id: u.id, skill: 'trample', to: L.hit[0].id, n: L.hit.length });
+    L.hit.forEach(function (o) {
+      if (!onField(o)) return;
+      const q = resolveAttack(u, o, s, { bonus: T.hit_bonus }); apply(u, o, q, { skill: 'trample' });
+      if (q.hit && onField(o)) {
+        if ((o.immune || []).indexOf('Stun') < 0) { o.stunned = true; emit({ t: 'staggered', id: o.id, by: u.id }); }
+        const side = [[L.d[1], -L.d[0]], [-L.d[1], L.d[0]]].map(function (v) { return { x: o.x + v[0], y: o.y + v[1] }; })
+          .filter(function (p) { return inBoard(p.x, p.y) && passable(p.x, p.y) && !unitAt(p.x, p.y) && !noRoof(o, p.x, p.y); })[0];
+        if (side && (o.immune || []).indexOf('Forced movement') < 0) { emit({ t: 'step', id: o.id, fx: o.x, fy: o.y, x: side.x, y: side.y, shoved: true }); o.x = side.x; o.y = side.y; }
+      }
+    });
+    if (!unitAt(L.end.x, L.end.y)) { emit({ t: 'step', id: u.id, fx: u.x, fy: u.y, x: L.end.x, y: L.end.y }); u.x = L.end.x; u.y = L.end.y; }
+    afterAction(u); return true;
   }
   function chargeTarget(u) {
     const C = NEW('charge');
@@ -5330,6 +5363,7 @@ const FIGHT = (function () {
     if (A.feeds && u.hp < u.hpMax && !adj.length) { const bb = bodyBeside(u); if (bb && feed(u, bb)) return true; }
     if (A.flings && fling(u)) return true;   /* BEASTS 2: the bear and the sloth throw (the unhold's Fling Back) */
     if (A.kicks && kickAll(u)) return true;
+    if (A.tramples) { const tl = trampleLine(u); if (tl) return trample(u, tl); }   /* BESTIARY 11/17: the mammoth walks through a line */
     if (A.charges && !adj.length) { const ct = chargeTarget(u); if (ct) return charge(u, ct); }
     if (A.hooks && !u.hooked) { const ht = hookTarget(u); if (ht) return hook(u, ht); }   /* THE HOOK */
     if (A.volley) { const vt = volleyTarget(u); if (vt) { strike(u, vt); return true; } }   /* THE CROSSBOWS */
@@ -7871,6 +7905,7 @@ function startAnimHeard(a) {
     else if (e.t === 'skill' && e.skill === 'shieldwall') { sfx('block', { side: u.side }); pop(u, 'WALL', '#9cc3e8', false, u.name + ' locks his shield.'); }
     /* FIVE MORE BEASTS (FACTIONS 11/3; words draft:true) */
     else if (e.t === 'skill' && e.skill === 'kick') { sfx('body_land', { side: u.side }); pop(u, u.beast ? 'KICK' : 'SWING', '#e8c39c', false, u.name + (u.beast ? ' kicks out on every side' : ' swings round at every man beside him') + (e.n > 1 ? ' and catches ' + e.n + ' of them.' : '.')); }   /* BESTIARY 11/11: a man swings (the House greatsword), a beast kicks; draft:true */
+    else if (e.t === 'skill' && e.skill === 'trample') { sfx('door_drag'); pop(u, 'TRAMPLE', '#e8a07c', true, u.name + ' walks through ' + (e.n > 1 ? e.n + ' of yours.' : nameOf(e.to) + '.')); }   /* BESTIARY 11/17; draft:true */
     else if (e.t === 'skill' && e.skill === 'charge') { sfx('door_drag'); pop(u, 'CHARGE', '#e8a07c', false, u.name + (u.beast ? ' puts its head down and runs at ' : ' runs straight at ') + nameOf(e.to) + '.'); }   /* BESTIARY 11/11: a man runs straight in (the water outlaw); draft:true */
     else if (e.t === 'skill' && e.skill === 'feeds') { pop(u, 'FEEDS', '#c06050', false, u.name + ' eats from ' + nameOf(e.to) + ' and gets back up.'); }
     else if (e.t === 'skill' && e.skill === 'hook') { sfx('swing_air'); pop(u, e.hit ? 'HOOK' : '', '#e8c39c', false, u.name + (e.hit ? ' hooks ' + nameOf(e.to) + ' into the wall.' : ' swings the hook at ' + nameOf(e.to) + ' and misses.')); }
@@ -11076,7 +11111,7 @@ const THEY_ARE = { flock: 'The flock', hired: 'The hired guns', takers: 'The hea
   coyotes: 'The coyotes', lions: 'A mountain lion', hogs: 'The hogs', camels: 'The camels', bulls: 'A bull',   /* FIVE MORE BEASTS; draft:true */
   teratorns: 'The teratorns',   /* WORLD 12 (rule 431(f)): the giant vultures, one more beast; draft:true */
   cheetahs: 'An American cheetah', goats: 'The goats', stilts: 'The stilt-legged horses', jaguars: 'A jaguar',
-  llamas: 'The llamas', longhorns: 'A long-horned bison', shrub_oxen: 'The shrub-oxen' };   /* BESTIARY 11/9 (rule 440(f)): the lab seven; draft:true */
+  llamas: 'The llamas', longhorns: 'A long-horned bison', mammoths: 'A mammoth', shrub_oxen: 'The shrub-oxen' };   /* BESTIARY 11/9 (rule 440(f)): the lab seven; draft:true */
 function wfill(t, o) { return t.replace(/\{(\w+)\}/g, function (m, k) { return o[k] !== undefined ? o[k] : m; }); }
 function isWipe(result) {
   if (result !== 'lost') return false;

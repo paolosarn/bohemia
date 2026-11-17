@@ -14,6 +14,7 @@
   "feral_dog_shepherd": "the city's dogs, pets gone wild"
  },
  "beasts": [
+    {"animal": "columbian_mammoth", "faction": "mammoths", "rows": ["columbian_mammoth"], "species": "Mammuthus columbi", "fossil": {"site": "Tule Springs, Las Vegas (the Upper Las Vegas Wash)", "state": "Nevada", "ref": "Tule Springs Fossil Beds National Monument: the Columbian mammoth, its commonest big animal"}, "dna": {"status": "read", "ref": "van der Valk et al. 2021, Nature: the Columbian mammoth's genome, a hybrid of two lineages"}, "surrogate": "an Asian elephant", "mojave": "a cow and her calf walk the wash at night to the springs", "added_by": "BESTIARY 11/17", "draft": true},
   {
    "animal": "dire_wolf",
    "faction": "wolves",

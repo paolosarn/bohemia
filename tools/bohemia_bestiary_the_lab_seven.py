@@ -152,17 +152,31 @@ SEVEN = {
         crest=((0, -0.52, 1.30), (0.20, 0.36, 0.07)),
         labmark=True, griz=0.07, res=0.016, gait='walk', bob=1.0, attack='gore',
         real_note='1.36 m at the shoulder, about 2.4 m nose to rump, about 600 kg'),
+    # COLUMBIAN MAMMOTH (Mammuthus columbi, BESTIARY 11/17, rule 453; Tule Springs' own and its commonest big animal: about 3.6 to
+    # 4.0 m at the shoulder, 8 to 10 tonnes; the back sloping from a high shoulder and a domed skull to low hips, pillar legs on round
+    # pads, small ears, a short tail with a tuft, the trunk hanging to the knees, the tusks long and curving down, out, then up and in;
+    # warmer-country than the woolly: sparse dark hair on grey skin, the head's and the shoulders' thicker).
+    'columbian_mammoth': dict(
+        wh=3.60, hh=3.00, bl=3.20, cd=1.70, sw=0.74, bw=0.84, hw=0.70, belly=-0.04, carpus=0.30, hock=0.31, footh=0.14,
+        legf=(0.40, 0.33, 0.27, 0.30), legh=(0.42, 0.33, 0.27, 0.30), foot='pad', shoulder_mass=1.25,
+        neck=[(-1.40, 2.95, 0.58, 0.50), (-1.66, 3.05, 0.52, 0.45)],
+        head=(1.25, 0.56, 0.46, 48, 0.32, 0.20), ears=(0.30, 0.20, 0.035, 84, -12), eyes=0.045,
+        tail=(0.70, (0.075, 0.055, 0.040), (82, 88, 90)), tuft=(0.16, 0.06),
+        crest=((0, -1.15, 3.48), (0.44, 0.90, 0.16)),
+        mtusks=dict(len=2.6, out=0.75, r=0.12, n=14), trunk=dict(len=2.2, r0=0.19, r1=0.065, n=12),
+        labmark=True, griz=0.07, res=0.032, gait='walk', bob=1.0, attack='gore',
+        real_note='3.6 m at the shoulder, about 5 m nose to rump without the trunk, 8 to 10 tonnes'),
 }
 # the stride: (stance share, the leg's swing either way in degrees, the fore knee's fold, the hind's fold, the bob in units on a
 # 65-unit body, the head's nod, the body's roll, the tail's sway), on the own-body tool's own scale
 STRIDE = {'american_cheetah': (0.58, 22, 56, 44, 0.6, 1, 0.0, 6), 'harringtons_goat': (0.58, 16, 50, 36, 1.0, 3, 0.0, 6),
           'stilt_legged_horse': (0.6, 20, 60, 44, 1.1, 4, 0.0, 8), 'long_horned_bison': (0.58, 12, 42, 28, 1.7, 4, 1.5, 6),
           'pleistocene_jaguar': (0.62, 16, 48, 38, 0.6, 1, 0.0, 5), 'large_headed_llama': (0.5, 20, 60, 44, 1.1, 3, 3.5, 8),
-          'shrub_ox': (0.58, 14, 46, 32, 1.4, 3, 1.5, 4)}
+          'shrub_ox': (0.58, 14, 46, 32, 1.4, 3, 1.5, 4), 'columbian_mammoth': (0.62, 10, 30, 22, 1.6, 3, 1.2, 4)}
 # the nearest animal already in the roster each must not copy (the strip sets them side by side)
 SIBLING = {'american_cheetah': 'mountain_lion', 'harringtons_goat': 'feral_hog', 'stilt_legged_horse': 'ice_age_horse',
            'long_horned_bison': 'ancient_bison', 'pleistocene_jaguar': 'mountain_lion', 'large_headed_llama': 'camelops',
-           'shrub_ox': 'feral_bull'}
+           'shrub_ox': 'feral_bull', 'columbian_mammoth': 'long_horned_bison'}
 
 OB.BEASTS.update(SEVEN)
 OB.STRIDE.update(STRIDE)
@@ -180,6 +194,32 @@ def build_body(name):
         nose, poll = b.marks['nose'], b.marks['poll']
         c = poll + (nose - poll) * 0.55 - np.array([0, 0, a['head'][1] * 1.1 + L * 0.45])
         b.ell(c, (bl_ * 0.7, bl_, L * 0.5), 'beard', {OB.B['head']: 1.0}, s=4.0)
+    if a.get('trunk'):
+        # THE TRUNK (the mammoth, 11/17): a tube from the muzzle's tip, down, a little forward, curling in at the end, tapering
+        t = a['trunk']; nose = b.marks['nose']; dv = b.marks.get('dirv'); uv = b.marks['upv']
+        dv = dv if dv is not None else np.array([0, -1.0, 0])
+        dh = np.array([0, -1.0, 0])   # forward: the tool's nose is toward -Y
+        curve = []
+        for i in range(t['n']):
+            u_ = i / (t['n'] - 1)
+            curve.append(nose + dh * (0.10 * math.sin(u_ * math.pi) + 0.18 * u_ ** 3) - np.array([0, 0, t['len'] * u_]))
+        v, f = OB.tube_mesh(curve, [t['r0'] + (t['r1'] - t['r0']) * (i / (t['n'] - 1)) for i in range(t['n'])], R=10)
+        b.extra.append((v, f, 'trunk', {OB.B['head']: 1.0})); b.marks['trunk'] = curve
+    if a.get('mtusks'):
+        # THE TUSKS (the mammoth's): from the upper jaw beside the trunk's root, down and forward, out, then up and in at the tips
+        h = a['mtusks']; nose = b.marks['nose']; uv = b.marks['upv']; dv = b.marks.get('dirv')
+        dv = dv if dv is not None else np.array([0, -1.0, 0])
+        dh = np.array([0, -1.0, 0])   # forward: the tool's nose is toward -Y
+        for side in (-1, 1):
+            base = nose - dh * 0.25 + np.array([side * a['head'][5] * 1.1, 0, 0]) + np.array([0, 0, 0.25])
+            curve = []
+            for i in range(h['n']):
+                u_ = i / (h['n'] - 1); ang = u_ * math.pi * 1.1
+                curve.append(base + dh * (h['len'] * 0.42 * math.sin(ang * 0.8)) + np.array([side * h['out'] * math.sin(u_ * math.pi) * (1 - 0.35 * u_), 0, 0])
+                             + np.array([0, 0, -h['len'] * 0.30 * math.sin(ang) + h['len'] * 0.22 * u_ ** 2]))
+            radii = [h['r'] * (1 - 0.82 * u_ ** 1.3) for u_ in [i / (h['n'] - 1) for i in range(h['n'])]]
+            v, f = OB.tube_mesh(curve, radii, R=8)
+            b.extra.append((v, f, 'tusk', {OB.B['head']: 1.0})); b.marks[('mtusk', side)] = curve
     return b
 
 
@@ -193,7 +233,7 @@ def paint(name, b, P, N, PART, pix):
     z = P[..., 2]; y = P[..., 1]; x = P[..., 0]; up = N[..., 2]
     wh, hh, bl, cd = a['wh'], a['hh'], a['bl'], a['cd']
     brisket = wh - cd
-    head = isp('head', 'muzzle', 'snout', 'ear', 'beard')
+    head = isp('head', 'muzzle', 'snout', 'ear', 'beard', 'trunk')
     legs = isp('leg', 'hoof', 'pad', 'paw')
     rng = np.random.default_rng(len(name) * 7)
     lat = rng.random((80, 80, 80)).astype(np.float32)
@@ -328,6 +368,26 @@ def paint(name, b, P, N, PART, pix):
             out[hrn] = (C(0.62, 0.56, 0.46) * (1 - ht[hrn, None]) + C(0.16, 0.14, 0.12) * ht[hrn, None])
         put(eye_d < a['eyes'], C(0.05, 0.04, 0.04))
         patch_at(np.array([0.30, bl / 2 - 0.30, hh - 0.28]), ('rump', 'thigh', 'barrel'), 0.09, 0.08)
+    elif name == 'columbian_mammoth':
+        # grey skin under sparse dark hair, the head and the shoulders' hair thicker; ivory tusks darkening to the tips (11/17)
+        SKIN, HAIR, DARK = C(0.40, 0.37, 0.34), C(0.30, 0.22, 0.15), C(0.20, 0.15, 0.11)
+        put(covered, SKIN)
+        hairy = covered & ~isp('trunk', 'tusk', 'pad') & ((up > 0.15) | isp('crest', 'head', 'shoulder', 'neck'))
+        hz = np.clip((z - hh * 0.55) / (wh * 0.6), 0, 1)
+        out[hairy] = out[hairy] * (1 - hz[hairy, None] * 0.75) + HAIR * hz[hairy, None] * 0.75
+        out[:] = out * (1 + (lat[q[..., 0], q[..., 1], q[..., 2]][..., None] > 0.82) * -0.14)   # the hair's dark strands
+        put(isp('crest') & (up > 0.3), DARK)
+        put(isp('trunk'), SKIN * 0.92)
+        tk = isp('tusk')
+        if tk.any():
+            tt = np.zeros(z.shape, np.float32)
+            for side in (-1, 1):
+                cv = b.marks[('mtusk', side)]; d0, t0 = OB.seg_dist(P, cv[0], cv[-1]); tt = np.where(d0 < 0.6, t0, tt)
+            out[tk] = (C(0.86, 0.81, 0.68) * (1 - tt[tk, None] * 0.45) + C(0.50, 0.44, 0.34) * tt[tk, None] * 0.45)
+        put(isp('pad') & (z < 0.08), C(0.22, 0.20, 0.18))
+        put(isp('tuft'), DARK)
+        put(eye_d < a['eyes'], C(0.05, 0.04, 0.04))
+        patch_at(np.array([0.70, bl / 2 - 0.55, hh - 0.55]), ('rump', 'thigh', 'barrel'), 0.16, 0.14)
     if a.get('labmark') and 'labplate' in pix:
         k = b.marks['labk']; cy = b.marks['collar'][1]
         put(isp('neck') & (np.abs(y - cy) < 0.035 * k), C(0.13, 0.14, 0.13))         # the collar's band

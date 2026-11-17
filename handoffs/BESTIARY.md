@@ -1,5 +1,21 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
+BESTIARY (routine 'BESTIARY full sweep', rules 453, 454(a), 441): 11/17 LATEST -- BUILD 11/17m THE MAMMOTH (SHA2_HERE), BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_BESTIARY_THE_MAMMOTH_11_17_26.md. VOTE bestiary-the-mammoth-11-17.
+| floor | his | the fight fields | short |
+|---|---|---|---|
+| factions | 12 | 12 | 0 |
+| enemy types | about 75 | 64 | 11 |
+| beasts | 17 | 18 lab-made (23 fielded) | 0 |
+| bosses | 3 | 10 | 0 |
+| champions | some | 3 kinds, named | 0 |
+- THE COLUMBIAN MAMMOTH (Tule Springs; Asian elephant mother): the eighteenth lab beast, a rare giant, and its one thing: the TRAMPLE
+  (walks through a line of your men, every one knocked down and shoved aside). New art on the own-body pipe (2.7 MB; the site 842 MB).
+- NEXT (11 types to 75): the hired guns', head takers' and casino's second types the moment CHARACTER dresses them; the old order's
+  machines once robot art exists; more of Tule Springs (Harlan's ground sloth, the flat-headed peccary) if the outlines stay their own.
+[bb Battle Brothers' Unhold is the body of a giant; ours walks through the line it meets.]
+[analog horror: the mammoth's hi-vis plate passing between the houses at night, higher than the gutters.]
+
 BESTIARY (routine 'BESTIARY full sweep', rules 453, 454(a), 441): 11/17 LATEST -- BUILD 11/17i ALL TWELVE FACTIONS FIGHT (29e70815), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_ALL_TWELVE_FACTIONS_FIGHT_11_17_26.md. VOTE bestiary-all-twelve-factions-11-17. His 11/14 sheet passed the cards.
 WHERE THE ROSTER STANDS AGAINST THE FLOOR (his 9/29):

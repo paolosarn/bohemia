@@ -11,8 +11,8 @@
  },
  "count": {
   "families": 14,
-  "types": 173,
-  "types_in_the_fight": 63,
+  "types": 174,
+  "types_in_the_fight": 64,
   "beasts": 17,
   "bosses": 5,
   "champions": 21
@@ -329,6 +329,7 @@
     "armored_unhold",
     "bog_unhold",
     "camelops",
+    "columbian_mammoth",
     "coyote",
     "direwolf",
     "feral_bull",
@@ -388,6 +389,7 @@
     "lions",
     "llamas",
     "longhorns",
+    "mammoths",
     "prides",
     "sabres",
     "shrub_oxen",
@@ -1393,6 +1395,27 @@
    "champion": false,
    "boss": false,
    "page": "bb_all/0381_Citizen.txt"
+  },
+  {
+   "type": "columbian_mammoth",
+   "bb_name": "Mammoth",
+   "bb_faction": "beasts",
+   "family": "beasts",
+   "rows": [
+    "columbian_mammoth"
+   ],
+   "name": "MAMMOTH",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "mammoths"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/2071_Unhold.txt"
   },
   {
    "type": "conscript",
