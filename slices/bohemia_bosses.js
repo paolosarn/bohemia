@@ -187,7 +187,7 @@
   function talk(kind, n, o) {
     var RE = card(); if (!RE) return false;
     RE.card(o);
-    if (o.text == null || o.text === '') { try { var tx0 = document.querySelector('#roadcard .rctext'); if (tx0) tx0.remove(); } catch (e) {} }   /* rule 454(a): no line, no box */
+    if (o.text == null || o.text === '') { try { var tx0 = document.querySelector('#roadcard .rctext'); if (tx0) { tx0.style.display = 'none'; tx0.setAttribute('data-empty', '1'); } } catch (e) {} }   /* rule 454(a): no line, no box (hidden, not removed: his thing and the change are laid under it) */
     fitCard();
     /* row 611: no press in the card's first beat (a tap meant for what was under it lands on nothing) */
     try { var el0 = document.getElementById('roadcard'); if (el0) { el0.style.pointerEvents = 'none'; el0.setAttribute('data-first-beat', '1');
@@ -2066,17 +2066,41 @@
     }
     return { at: at.slice(), radius: R, ring: ring, cuts: 0, lastCut: null, fell: null, told: null, made: day(), draft: true };
   }
-  /* the condition's own blood off the man with the most left, never below one (a cut, a bite: he walks on, the next fight feels it) */
+  /* the condition's own blood off the man with the most left, never below one (a cut, a bite: he walks on, the next fight feels it).
+     A man no fight has seen yet has no record (MEASURED 11/17: a fresh crew's condition holds nobody until its first fight): he gets
+     his whole one first, counted the way the condition counts him (its wholeOf: his card's hitpoints, his kit's armour), then the cut */
+  function wholeMan(C, e) {
+    var m = e.man || {}, g = m.gear || {}, D = C.D || {}, kit = null;
+    if (!g.body && !g.head && D.crew) for (var i = 0; i < D.crew.length; i++) { try { if (C.canon(D.crew[i].name, D.crew[i].main) === e.key || (e.main && D.crew[i].main)) { kit = D.crew[i]; break; } } catch (x) {} }
+    var body = g.body || (kit && kit.body) || null, head = g.head || (kit && kit.head) || null, A = D.armour;
+    return { ok: !(body || head) || !!A, hpMax: (m.stats && +m.stats.hp > 0) ? +m.stats.hp : ((C.RATE && +C.RATE.unknown_hp_max) || 60),
+      armH: head && A ? A['head:' + head] | 0 : 0, armB: body && A ? A['body:' + body] | 0 : 0, head: head, body: body };
+  }
   function bleed(hp, why) {
     var C = root.BohemiaCondition; if (!C || !C.get || !C.KEY) return null;
-    var s = C.get(), best = null, bk = null, left = -1;
-    for (var k in s.men) { var m = s.men[k]; if (!m || !(m.hpMax > 0)) continue; try { if (C.isDead && C.isDead(k)) continue; } catch (e) {}
-      var l = m.hpMax - (m.lostHp || 0); if (l > left) { left = l; best = m; bk = k; } }
+    var s = C.get(), keys = {}, best = null, bk = null, left = -1;
+    try { (C.members ? C.members() : []).forEach(function (e) { keys[e.key] = e; }); } catch (e) {}
+    for (var k0 in s.men) if (!keys[k0]) keys[k0] = { key: k0, man: { name: (s.men[k0] && s.men[k0].shown) || k0 }, main: k0 === 'YOU' };
+    for (var k in keys) { var e = keys[k], m0 = s.men[k]; try { if (C.isDead && C.isDead(k)) continue; } catch (x) {}
+      var max = m0 && m0.hpMax > 0 ? m0.hpMax : wholeMan(C, e).hpMax, l = max - ((m0 && m0.lostHp) || 0);
+      if (l > left) { left = l; best = e; bk = k; } }
     if (!best || left <= 1) return { name: null, hp: 0 };
-    var took = Math.min(Math.max(1, hp | 0), left - 1); best.lostHp = (best.lostHp || 0) + took;
+    var m = s.men[bk];
+    if (!m || !(m.hpMax > 0)) { var w = wholeMan(C, best); if (!w.ok) return { name: null, hp: 0 };   /* his armour not read yet: no half record */
+      m = s.men[bk] = Object.assign(m || {}, { shown: String(best.man.name || bk), main: !!best.main, hpMax: w.hpMax, lostHp: 0, armHMax: w.armH, lostH: 0, armBMax: w.armB, lostB: 0, head: w.head, body: w.body });
+      if (best.man.look) m.look = best.man.look; }
+    var took = Math.min(Math.max(1, hp | 0), left - 1); m.lostHp = (m.lostHp || 0) + took;
     try { root.localStorage.setItem(C.KEY, JSON.stringify(s)); } catch (e) {}
     try { root.dispatchEvent(new CustomEvent('bohemia:condition', { detail: { cut: bk, why: why } })); } catch (e) {}
-    return { name: best.shown || bk, k: bk, hp: took };
+    return { name: m.shown || bk, k: bk, hp: took };
+  }
+  /* (gate) would a step from x0,y0 to x1,y1 cross a standing line, and would it cut now (no side effects) */
+  function lineWould(x0, y0, x1, y1) {
+    if (!S || !S.line) return false;
+    for (var n in S.line) { var Q = S.line[n], r = lineRow(n); if (!Q || !r || !Q.at || lineDown(n, Q)) continue;
+      var R = Q.radius, d0 = cheb(x0, y0, Q.at[0], Q.at[1]), d1 = cheb(x1, y1, Q.at[0], Q.at[1]);
+      if ((d1 === R && d0 !== R) || (d0 < R && d1 > R) || (d0 > R && d1 < R)) return true; }
+    return false;
   }
   function lineTick() {
     if (!DATA || !S || bench() || !N()) return;
@@ -2693,6 +2717,7 @@
     tooth: function (n) { sync(); return S && S.tooth ? (n ? (S.tooth[n] || null) : S.tooth) : null; }, toothTick: function () { sync(); return toothTick(); },
     lens: function (n) { sync(); return S && S.lens ? (n ? (S.lens[n] || null) : S.lens) : null; }, blurAt: function (x, y) { sync(); return blurAt(x, y); },
     line: function (n) { sync(); return S && S.line ? (n ? (S.line[n] || null) : S.line) : null; }, lineTick: function () { sync(); return lineTick(); },   /* (21) */
+    lineWould: function (x0, y0, x1, y1) { sync(); return lineWould(x0, y0, x1, y1); }, bleed: function (hp, why) { return bleed(hp, why || 'gate'); },
     ink: function (n) { sync(); return S && S.ink ? (n ? (S.ink[n] || null) : S.ink) : null; }, inkAt: function (x, y) { sync(); return inkAt(x, y); },   /* (22) */
     inkTowns: function (n) { sync(); var Q = S && S.ink && S.ink[n], r = inkRow(n); return Q && r && Q.at ? inkTowns(Q, r.ink).map(function (t) { return t.town; }) : []; },
     inkRadius: function (n) { sync(); var Q = S && S.ink && S.ink[n], r = inkRow(n); return Q && r ? inkRadius(Q, r.ink) : 0; }, inkDirty: function () { INK_DIRTY = true; },

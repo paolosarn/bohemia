@@ -8625,6 +8625,15 @@ GATES = [
      "haze gone by day (C1a), his charts clean (C1b), the feed (C1d); LOOK FAR lifts the fog down the streets (V1); the reload holds (R1). "
      "Planted: a haze that takes no sight, the haze back after the fall, a look that saw nothing, a phone that forgot the save, a prize the "
      "seam never got. about 40 min a way", True),
+    ('THE BARBER CHANGES THE MAP', ['node', 'gates/the_next_three_change_the_map_gate.js', 'THE BARBER'],
+     "BOSSES gate, 11/17, the coordinator's round 'BOSSES full sweep' (rules 441, 453, 454(a)), ask lines 167, 522, 571: the stranger's game "
+     "on the DEMO UPRIGHT and the ALPHA ON ITS SIDE, the twelve before him first, then THE BARBER end to end, a boss of no words (rule "
+     "454(a): no rumour, no asker, no line on any card but his one): his flyer in the world (T1), one of yours at it with the way to his "
+     "place (T2); HIS LINE: his stripe across the streets 4 blocks out from his door, painted (L1), crossing it cuts a man, the condition's "
+     "own blood (L2); his card (B0), his fight (B1), the beat (B2), his razor to your place (G1); crossing after him cuts nobody (C1a), the "
+     "stripe painted over (C1b); FADE on a town's doorstep, a battery for CLOUT (V1); his razor seen on your place's CAM 2 (H1); the reload "
+     "holds (R1). Planted: a line that cuts nobody, the line back after the fall, a fade with no CLOUT, a lot nothing stands on, a phone "
+     "that forgot the save, a prize the seam never got. about 40 min a way", True),
     ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
      "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
      "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "
