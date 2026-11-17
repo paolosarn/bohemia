@@ -6,7 +6,7 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
-WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- [his homework] BUILD 11/17a - HIS HOMEWORK: THE FIRST TWENTY, BUILT (PENDINGSHA), NOT YET SEEN (rule 454(c); ask row 629). NOTHING IN THE GAME WAS REWRITTEN.
+WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- [his homework] BUILD 11/17a - HIS HOMEWORK: THE FIRST TWENTY, BUILT (dac64693f), NOT YET SEEN (rule 454(c); ask row 629). NOTHING IN THE GAME WAS REWRITTEN.
 Record: records/BOHEMIA_WORDS_TWO_HIS_HOMEWORK_THE_FIRST_TWENTY_11_17_26.md.
 WHAT: twenty cards in the VOTE tab (lane WORDS TWO, kind LINE, ids words-two-hw01-01 to -20). A card's TITLE is ONE line exactly as the
 game's data holds it (read out of the game's file by the tool, never typed); under it HOW SHOULD THIS SOUND? and one sentence: who
