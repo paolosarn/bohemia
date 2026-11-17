@@ -386,11 +386,10 @@ VOTE jobs-jobs-that-fit-the-crew-11-10 (STAND-IN), sha da588c127. Record records
 The whole block: handoffs/JOBS.md.
 [bb a Battle Brothers contract is one budget spent on each enemy's own cost; ours now spends it the same way and still shows the crew's own odds in red]
 [analog horror: the board in the Network's camp still lists the hyenas as three red stars; the muralist only asks for three of them now]
-WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/14 LATEST -- BUILD 11/14c - THE GENERATED WORLD HOLDS, BUILT, NOT YET SEEN (rules
-429(f)(g)(h), 447; asks 507, 508, 509): on 22 valleys one joined road network, 98 in 100 of the building lumps on it, houses under 30
-in 100; a fight off the 15 places carries its ground and zone (FIGHT_OPTS.ground, THE SEAM FOR COMBAT THREE in the handoff). Before:
-11/11h THE CUT, 11/11b THE PLACES ARE TEMPLATES, 11/11a THE PIECE THAT ANSWERS IT. Owed: the dirt-track pockets joined, the boards'
-layouts painted onto the map at their cells.
+WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/17 LATEST -- BUILD 11/17q - EACH ZONE LOOKS LIKE ITSELF, BUILT, NOT YET SEEN (rule 453;
+asks 508, 509): up close the works stand as sheds (not towers), the shops and casinos at their own scale; the open desert has dirt
+tracks from every pocket the roads missed (718 on 22 valleys, 369 of 389 joined; the main network 99.83 in 100). Before: 11/14c THE
+GENERATED WORLD HOLDS, 11/11h THE CUT. Next (rule 453): each zone's ground to COMBAT THREE, the map's speed on a cheap phone.
 The whole block: handoffs/WORLD_THIRTEEN.md.
 
 FIXES TWO (fixes-two-01gkdyuv): 11/11 LATEST -- BUILD 11/11l - HIS LETTERS STAY HIS, BUILT, NOT YET SEEN (the red debt rows, round one:

@@ -3289,7 +3289,7 @@ function buildOvermap(seed){
   }
   landUse(tiles, at, L, seed, OVER_N);   /* __THE_VALLEY_HAS_ITS_ZONES__: zoned on the finished districts, before the real places take their seats */
   stampRealPlaces(L, at);   /* __THE_MISSING_REAL_PLACES__: last of all, on the finished valley, so nothing else of it moves */
-  { const LN=houseLanes({n:OVER_N,at}); for(const t of tiles){ const v=LN[t.y*OVER_N+t.x]; if(v)t.lane=v; else delete t.lane; } }   /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__ */
+  { const LN=houseLanes({n:OVER_N,at}), TRK=landTracks({n:OVER_N,at},LN); for(const t of tiles){ const v=LN[t.y*OVER_N+t.x], k=TRK[t.y*OVER_N+t.x]; if(v)t.lane=v; else delete t.lane; if(k)t.track=k; else delete t.track; } }   /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__; __THE_DESERT_HAS_ITS_TRACKS__ */
   let TP=null; const tpOf=()=>TP||(TP=placeTemplates({n:OVER_N,at,seed}));   /* __THE_PLACES_ARE_TEMPLATES__: on the finished valley, asked for, never at a boot that does not */
   return{seed,n:OVER_N,tileFine:TILE_FINE,tiles,layout:L,at,under,get templates(){return tpOf().list;},templateAt(x,y){return templateAt(tpOf(),x,y);},
     tileToFine(x,y){return{x0:x*TILE_FINE,y0:y*TILE_FINE,size:TILE_FINE};}};
@@ -3338,6 +3338,77 @@ function laneMouths(m,LN){
     const E=(v&3)===1?[[-1,0,4,32],[1,0,8,128]]:[[0,-1,4,64],[0,1,8,16]];   /* the end, and the side of the street it meets */
     for(const [dx,dy,b,side] of E){ if(!(v&b))continue; const nx=x+dx, ny=y+dy; if(LANE_WALK[D(nx,ny)])LN[ny*N+nx]|=side; } }
   return LN;
+}
+/* ==== __THE_DESERT_HAS_ITS_TRACKS__ (WORLD THIRTEEN 11/17, VAMILY rules 429(g)(h), 453; Paolo 11/14 on the generated world: 'Amazing';
+   the coordinator: each zone looks and plays like itself, with its own places and roads). The open desert's own road is the dirt
+   track: MEASURED on 22 valleys, 427 blocks of house and works pockets ran out on a track one block onto open land and stopped there
+   (the 11/7 pocket tracks), and the lake's intake, a lone truck stop, a farm, a few shops stood with no road at all. NOW every one is
+   joined to the valley's one network by a track across the open ground (desert, wash, basin, springs, the quarries, the farms, the
+   parks, the golf courses, the landfill; a switchback over the rim only where nothing else gets through), the shortest way, breadth first from what it serves to the nearest block of the network or of
+   a track already joined; a track never crosses a house, a works block or water, and crosses at least one block of open ground. One byte a block: bits 1, 2, 4, 8 the
+   track runs on to the north, east, south, west. A pure function of the finished valley and its streets (houseLanes).
+   [bb] Battle Brothers' map has its dirt roads between the paved ones; ours are the desert's jeep trails.
+   [analog horror] a two-rut track out of the last cul-de-sac into the dark desert, and the tyre marks stop halfway.
+   Gate: gates/the_generated_world_holds_gate.js. ==== */
+const TRACK_OVER={desert:1,wash:1,basin:1,springs:1,gypsum:1,quarry:1,farm:1,park:1,golf:1,landfill:1,boneyard:1,solar:1};
+const TRACK_FWY={freeway:1,beltway:1,interchange:1};
+const TRACK_RIM=Object.assign({mountain:1},TRACK_OVER);   /* a switchback where the open ground does not get through */
+const TRACK_ROAD={arterial:1,strip:1,freeway:1,beltway:1,interchange:1};
+const TRACK_NOBUILD={water:1,reservoir:1,mountain:1};   /* never a building that needs a track */
+function landTracks(m,LN){
+  const N=m.n, D=(x,y)=>{ const t=(x<0||y<0||x>=N||y>=N)?null:m.at(x,y); return t?t.district:null; }, TR=new Uint8Array(N*N);
+  const node=(i)=>!!TRACK_ROAD[D(i%N,(i/N)|0)]||(LN[i]&3)!==0||TR[i]!==0, SIDE=[[0,-1,1,4],[1,0,2,8],[0,1,4,1],[-1,0,8,2]];
+  /* the network as it joins (road to road, a street's open end, a T, a track's own bits) */
+  const comp=new Int32Array(N*N), parent=[];
+  const find=(a)=>{ while(parent[a]!==a){ parent[a]=parent[parent[a]]; a=parent[a]; } return a; };
+  const unite=(a,b)=>{ a=find(a); b=find(b); if(a!==b)parent[b]=a; };
+  const build=()=>{ comp.fill(-1); parent.length=0; let k=0;
+    for(let i=0;i<N*N;i++)if(node(i)){ comp[i]=k; parent.push(k); k++; }
+    for(let i=0;i<N*N;i++){ if(comp[i]<0)continue; const x=i%N,y=(i/N)|0,v=LN[i],d=D(x,y),t=TR[i];
+      const J=(nx,ny)=>{ if(nx<0||ny<0||nx>=N||ny>=N)return; const j=ny*N+nx; if(comp[j]>=0)unite(comp[i],comp[j]); };
+      if(TRACK_ROAD[d]){ if(x+1<N&&TRACK_ROAD[D(x+1,y)])J(x+1,y); if(y+1<N&&TRACK_ROAD[D(x,y+1)])J(x,y+1); }
+      if(v&3){ if((v&3)===1){ if(v&4)J(x-1,y); if(v&8)J(x+1,y); } else { if(v&4)J(x,y-1); if(v&8)J(x,y+1); } if(v&16)J(x,y-1); if(v&32)J(x+1,y); if(v&64)J(x,y+1); if(v&128)J(x-1,y); }
+      if(t)SIDE.forEach(([dx,dy,b])=>{ if(t&b)J(x+dx,y+dy); }); } };
+  build();
+  const size={}; for(let i=0;i<N*N;i++)if(comp[i]>=0){ const r=find(comp[i]); size[r]=(size[r]||0)+1; }
+  let mainR=null, best=-1; for(const r in size)if(size[r]>best){ best=size[r]; mainR=+r; }
+  const onMain=(i)=>comp[i]>=0&&find(comp[i])===mainR;
+  /* what needs a track: every block of a part of the network off the main, every lump of a building kind with no road at its side */
+  const need=[], seenL=new Uint8Array(N*N), done={};
+  for(let i=0;i<N*N;i++){ if(comp[i]<0||onMain(i))continue; const r=find(comp[i]); if(done[r])continue; done[r]=1; const cells=[]; for(let j=0;j<N*N;j++)if(comp[j]>=0&&find(comp[j])===r)cells.push(j); need.push({cells,net:r}); }
+  for(let i=0;i<N*N;i++){ const d=D(i%N,(i/N)|0); if(seenL[i]||!d||TRACK_ROAD[d]||TRACK_OVER[d]||TRACK_NOBUILD[d]||comp[i]>=0)continue;
+    const q=[i],cells=[]; seenL[i]=1; while(q.length){ const c=q.pop(); cells.push(c); const x=c%N,y=(c/N)|0; SIDE.forEach(([dx,dy])=>{ const nx=x+dx,ny=y+dy; if(nx<0||ny<0||nx>=N||ny>=N)return; const j=ny*N+nx; if(!seenL[j]&&D(nx,ny)===d&&comp[j]<0){ seenL[j]=1; q.push(j); } }); }
+    const roaded=cells.some((c)=>{ const x=c%N,y=(c/N)|0; return SIDE.some(([dx,dy])=>{ const nx=x+dx,ny=y+dy; return nx>=0&&ny>=0&&nx<N&&ny<N&&node(ny*N+nx); }); });
+    if(!roaded)need.push({cells,net:null}); }
+  /* each, nearest first to the main: breadth first over the open ground to a block of the main network or of a joined track */
+  const joined=new Uint8Array(N*N); for(let i=0;i<N*N;i++)if(onMain(i))joined[i]=1;
+  need.sort((a,b)=>a.cells[0]-b.cells[0]);
+  let laid=0, reached=0;
+  for(const T of need){
+    /* over the open ground first; a switchback over the rim only where nothing else gets through (the foothill estates) */
+    let from=null, goal=-1, own=new Uint8Array(N*N); T.cells.forEach((c)=>{ own[c]=1; });
+    for(const OVER of [TRACK_OVER, TRACK_RIM]){
+      from=new Int32Array(N*N).fill(-2); const q=[];
+      /* a track crosses at least one block of open ground: a street that ends against a neighbour's side is not a join */
+      T.cells.forEach((c)=>{ const x=c%N,y=(c/N)|0; SIDE.forEach(([dx,dy])=>{ const nx=x+dx,ny=y+dy; if(nx<0||ny<0||nx>=N||ny>=N)return; const j=ny*N+nx; if(own[j]||from[j]!==-2)return;
+        if(OVER[D(nx,ny)]&&!(joined[j]&&!TR[j])){ from[j]=c; q.push(j); } }); });
+      let head=0;
+      while(goal<0&&head<q.length){ const c=q[head++]; const x=c%N,y=(c/N)|0;
+        if(TR[c]&&joined[c]){ goal=c; break; }
+        for(const [dx,dy] of SIDE){ const nx=x+dx,ny=y+dy; if(nx<0||ny<0||nx>=N||ny>=N)continue; const j=ny*N+nx; if(from[j]!==-2||own[j])continue;
+          if(joined[j]&&!TRACK_FWY[D(nx,ny)]){ from[j]=c; goal=j; break; } if(OVER[D(nx,ny)]&&head<4000){ from[j]=c; q.push(j); } } }   /* never onto a freeway: a track joins a street */
+      if(goal>=0)break;
+    }
+    if(goal<0)continue;
+    /* lay it: each step's two ends get the bit toward the other, on the open-ground blocks (a road or a street keeps its own) */
+    let c=goal; const bit=(a,b)=>{ const ax=a%N,ay=(a/N)|0,bx=b%N,by=(b/N)|0; return by<ay?1:bx>ax?2:by>ay?4:8; }, OPP={1:4,2:8,4:1,8:2};
+    while(true){ const p=from[c]; if(p<0||p===undefined)break; const b=bit(c,p);
+      if(TRACK_RIM[D(c%N,(c/N)|0)])TR[c]|=b; if(TRACK_RIM[D(p%N,(p/N)|0)])TR[p]|=OPP[b]; laid++;
+      if(TR[c]||(c!==goal))joined[c]=1; if(own[p])break; joined[p]=1; c=p; }
+    if(T.net!=null)T.cells.forEach((cc)=>{ joined[cc]=1; }); reached++;   /* a pocket's own streets join the network; a building is served, never a way through */
+  }
+  TR.reached=reached; TR.needed=need.length;
+  return TR;
 }
 function houseLanes(m){
   const N=m.n, LN=new Uint8Array(N*N), AX=new Uint8Array(N*N), D=(x,y)=>{ const t=(x<0||y<0||x>=N||y>=N)?null:m.at(x,y); return t?t.district:null; };
@@ -3539,7 +3610,7 @@ function landlockConnect(m, opts){
   var out={}; for(var k in extra) out[k]=Object.keys(extra[k]); return out;
 }
 
-const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG,landlockConnect,REAL_PLACES,restampRealPlaces,houseLanes,laneMouths,LANE_HOUSES,LANE_WALK,LANE_WORKS,landUse,LAND_USE,placeTemplates,templateAt,PLACE_TEMPLATES};
+const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG,landlockConnect,REAL_PLACES,restampRealPlaces,houseLanes,laneMouths,LANE_HOUSES,LANE_WALK,LANE_WORKS,landUse,LAND_USE,placeTemplates,templateAt,PLACE_TEMPLATES,landTracks,TRACK_OVER};
 if(typeof module!=='undefined'&&module.exports){module.exports=API;}
 global.BohemiaOvermap=API;
 })(typeof window!=='undefined'?window:globalThis);
@@ -51415,7 +51486,12 @@ var VB_CS = 24, VB_CPAD = 2;   /* 24 texels a block (RUN 10/19, __THE_MAP_HE_OPE
 /* __THE_MAP_STANDS_TALLER__ (RUN 10/25, rule 196(a)): how many times its 2165008f height each kind of standing thing stands on the
    painting; houses three times, everything else at least twice, the Strip the tallest. One table, read by the painter in the
    page and in its worker (vbWorker sends it). on: false is the map as it was (a checker's before). */
-var VB_TALL = { on: true, house: 3, trailer: 2, apartment: 3, works: 3, shop: 2.2, tower: 2, casino: 3.5, freeway: 3, tree: 2, low: 2, pylon: 2, town: 2 };
+var VB_TALL = { on: true, house: 3, trailer: 2, apartment: 3, works: 3, shop: 2.2, tower: 2, casino: 3.5, freeway: 3, tree: 2, low: 2, pylon: 2, town: 2,
+  closeS: 96, closeK: { works: 1.1, shop: 1.4, casino: 2.5 } };   /* the homes (houses, trailers, apartments) and the freeway keep their far stretch up close (the_houses_stand_up_close M3, the_map_stands_taller W1, W3b) */
+  /* __EACH_ZONE_LOOKS_LIKE_ITSELF__ (WORLD THIRTEEN 11/17): on the close tiles (96 and 128 texels a block, where the house models stand
+     at 2.0 times their metres) each kind stands at closeK, near the models' own scale and in the real valley's order: a works shed
+     about two houses tall and wide (MEASURED on the phone at the near stop: the works' boxes at 3 times were 17 to 23 T against a
+     house model's 6, a wall of grey towers), the shops one storey, the casinos lower but still over everything round them; the far view keeps his 10/25 'taller taller taller' (the numbers above) */
 window.VB_TALL = VB_TALL;
 var VB_CLASS = { lot: 0, road: 1, freeway: 2, blvd: 3, houses: 4, roof: 5, tower: 6, casino: 7, green: 8, water: 9, land: 10, mountain: 11, solar: 12, field: 13, dam: 14, rail: 15 };
 /* __FIGHT_KINDS__ (WORLD THIRTEEN 11/7, rule 429(b)): the storey a mix gives a roll (engine/bohemia_fight_kinds.js mixStorey, the same
@@ -51577,6 +51653,7 @@ function vbTemplatesValley(){
   VB_TEMPLATES.key = key; VB_TEMPLATES.tp = tp; VB_TEMPLATES.ms = Math.round((performance.now() - t0) * 10) / 10;
   return tp;
 }
+function vbTracksValley(){ vbLanesValley(); return VB_LANES.tr || null; }   /* __THE_DESERT_HAS_ITS_TRACKS__ */
 function vbTemplateAt(x, y){ var tp = vbTemplatesValley(); try { return tp ? BohemiaOvermap.templateAt(tp, x | 0, y | 0) : null; } catch (e) { return null; } }
 function vbLanesValley(){
   if (!VB_LANES.on || typeof om === 'undefined' || !om || !om.n) return null;
@@ -51591,7 +51668,11 @@ function vbLanesValley(){
   if (a && TWL0) for (var ti = 0; ti < TWL0.length; ti++) { var tw = TWL0[ti]; for (var yy = tw.y0; yy < tw.y0 + tw.n; yy++) for (var xx = tw.x0; xx < tw.x0 + tw.n; xx++) if (xx >= 0 && yy >= 0 && xx < N && yy < N) a[yy * N + xx] = 0; }
   if (a && TWL0) { try { window.BohemiaOvermap.laneMouths({ n: N, at: function (x, y){ return om.at(x, y); } }, a); } catch (e) {}   /* __THE_CORNERS_JOIN__: no mouth from a street the town took, */
     for (var tj = 0; tj < TWL0.length; tj++) { var tw2 = TWL0[tj]; for (var y2 = tw2.y0; y2 < tw2.y0 + tw2.n; y2++) for (var x2 = tw2.x0; x2 < tw2.x0 + tw2.n; x2++) if (x2 >= 0 && y2 >= 0 && x2 < N && y2 < N) a[y2 * N + x2] = 0; } }   /* and none onto a mile street the town paints over */
-  VB_LANES.key = key; VB_LANES.a = a; VB_LANES.ms = Math.round((performance.now() - t0) * 10) / 10;
+  /* __THE_DESERT_HAS_ITS_TRACKS__ (WORLD THIRTEEN 11/17): the open ground's dirt tracks joining every pocket and every roadless building
+     to the network (landTracks in engine/bohemia_overmap.js), on the final streets, never under a home base's square */
+  var tr = null; try { if (a && window.BohemiaOvermap && BohemiaOvermap.landTracks) { tr = BohemiaOvermap.landTracks({ n: N, at: function (x, y){ return om.at(x, y); } }, a);
+    if (TWL0) for (var tk = 0; tk < TWL0.length; tk++) { var tw3 = TWL0[tk]; for (var y3 = tw3.y0; y3 < tw3.y0 + tw3.n; y3++) for (var x3 = tw3.x0; x3 < tw3.x0 + tw3.n; x3++) if (x3 >= 0 && y3 >= 0 && x3 < N && y3 < N) tr[y3 * N + x3] = 0; } } } catch (e) { tr = null; VB_LANES.trErr = String(e && e.message || e); }
+  VB_LANES.key = key; VB_LANES.a = a; VB_LANES.tr = tr; VB_LANES.ms = Math.round((performance.now() - t0) * 10) / 10;
   return a;
 }
 var VB_STF = { seed: null, w: 0, f: null };
@@ -51686,6 +51767,7 @@ function vbCityCore(inp){
      the Strip's pylons and palms with them; the cars and the kerbs stay as they lie. Taller for reading, Battle Brothers' way, not
      to scale (his trade). The sun's sweep below casts every one of them, so the shadows lengthen with them. VB_TALL, one table. */
   var TALL = (typeof VB_TALL !== 'undefined' && VB_TALL && VB_TALL.on) ? VB_TALL : null;
+  var TB = TALL && TALL.closeK && S >= (TALL.closeS || 96) ? Object.assign({}, TALL, TALL.closeK) : TALL;   /* __EACH_ZONE_LOOKS_LIKE_ITSELF__: the close tiles' own scale */
   /* __FIGHT_KINDS__ (WORLD THIRTEEN 11/7, rule 429(b)): a house's storeys come from the one table (records/target/bb/map_fight_kinds.json
      through engine/bohemia_fight_kinds.js), on the house's own roll, so the house the map stands two storeys tall is the two-storey
      roof the fight reads (vbHouseStorey below, the same roll). The worker gets the table as plain data (VB_STOREYS); the page reads
@@ -51693,14 +51775,14 @@ function vbCityCore(inp){
   var STO = typeof VB_STOREYS !== 'undefined' && VB_STOREYS ? VB_STOREYS : (typeof vbStoreysTable === 'function' ? vbStoreysTable() : null);
   function tallOf(c, lf, sb){
     switch (c) {
-      case VB_CLASS.houses: return sb === VB_SUB.trailer ? TALL.trailer : sb === VB_SUB.apartment ? TALL.apartment : TALL.house;
-      case VB_CLASS.roof: return sb === VB_SUB.shop ? TALL.shop : TALL.works;
-      case VB_CLASS.tower: return TALL.tower;
-      case VB_CLASS.casino: return TALL.casino;
-      case VB_CLASS.freeway: return TALL.freeway;
-      case VB_CLASS.green: return TALL.tree;
-      case VB_CLASS.rail: case VB_CLASS.solar: return TALL.low;
-      case VB_CLASS.road: case VB_CLASS.blvd: return lf >= 1.5 * T ? TALL.pylon : 1;   /* a pylon, a lamp post, a dead palm; never a car or a kerb */
+      case VB_CLASS.houses: return sb === VB_SUB.trailer ? TB.trailer : sb === VB_SUB.apartment ? TB.apartment : TB.house;
+      case VB_CLASS.roof: return sb === VB_SUB.shop ? TB.shop : TB.works;
+      case VB_CLASS.tower: return TB.tower;
+      case VB_CLASS.casino: return TB.casino;
+      case VB_CLASS.freeway: return TB.freeway;
+      case VB_CLASS.green: return TB.tree;
+      case VB_CLASS.rail: case VB_CLASS.solar: return TB.low;
+      case VB_CLASS.road: case VB_CLASS.blvd: return lf >= 1.5 * T ? TB.pylon : 1;   /* a pylon, a lamp post, a dead palm; never a car or a kerb */
     }
     return 1;
   }
@@ -52416,9 +52498,16 @@ function vbCityCore(inp){
         case VB_CLASS.dam: lift = 2 * Q; part = PART.top; break;
         default: if (r < 0.1) part = PART.spot;
       }
+      /* __THE_DESERT_HAS_ITS_TRACKS__ (WORLD THIRTEEN 11/17): a dirt track across the open ground, a smooth packed strip with two dark ruts from the
+         block's middle out to each side it runs on, the ground under it flat (on the rim it follows the slope) */
+      var tko = inp.tracks && !thru && clX < 0 ? inp.tracks[cy * N + cx] : 0;
+      if (tko) { var tku = (tx + 0.5) / Q, tkv = (ty + 0.5) / Q, tkd = Math.hypot(tku - 6, tkv - 6);
+        if ((tko & 1) && tkv <= 6) tkd = Math.min(tkd, Math.abs(tku - 6)); if ((tko & 4) && tkv >= 6) tkd = Math.min(tkd, Math.abs(tku - 6));
+        if ((tko & 2) && tku >= 6) tkd = Math.min(tkd, Math.abs(tkv - 6)); if ((tko & 8) && tku <= 6) tkd = Math.min(tkd, Math.abs(tkv - 6));
+        if (tkd < 1.15) { if (cl !== VB_CLASS.mountain) lift = 0; clX = VB_CLASS.land; part = Math.abs(tkd - 0.55) < Math.max(0.16, 0.6 / Q) ? PART.edge : PART.line; } }   /* the packed strip smooth, its two ruts dark */
       if (TALL && lift > 0) lift *= tallOf(cl, lift, sb);   /* __THE_MAP_STANDS_TALLER__ */
       var twOwn = 0;
-      if (twi >= 0) { twOwn = twPaint(TWL[twi], cl, gx, gy, tx, ty, lift, part, r, horiz, vert); lift = TW_L; part = TW_P; if (TALL && twOwn === 1) lift *= TALL.town; }   /* __THE_TOWN_IS_PAINTED_IN__: the town's own texel rides its index above the class */
+      if (twi >= 0) { twOwn = twPaint(TWL[twi], cl, gx, gy, tx, ty, lift, part, r, horiz, vert); lift = TW_L; part = TW_P; if (TALL && twOwn === 1) lift *= TB.town; }   /* __THE_TOWN_IS_PAINTED_IN__: the town's own texel rides its index above the class */
       if (CUT && (twOwn === 2 || (!twOwn && (cl === VB_CLASS.land || STRT(cl) || (twi >= 0 && lift === 0 && TW_E < TW_W0 * (0.1 + 0.62 * TW_NZ)))))) CUTM[o] = 1;   /* __EVERY_TOWN_ITS_OWN__: the town's open ground too */   /* the land and the yard past the ragged line, cut away */
       HS[o] = lift; COLI[o] = twOwn === 1 ? idx(TW_K, part) + twi * 1024 : idx(clX >= 0 ? clX : cl, part) + (burned ? 16 * 32 : 0) + sb * 1024;   /* __EVERY_TOWN_ITS_OWN__: 2, the town's open ground, is the district's own ground */   /* __THE_DISTRICTS_READ_APART__: the sub-kind rides above the burn bit */
     }
@@ -52484,7 +52573,7 @@ function vbCityCore(inp){
       case VB_CLASS.casino: return part === PART.top ? C.gold : part === PART.neon ? STRIP_NEON[(sb + 2) % 3] : part === PART.spot ? C.neon : part === PART.line ? C.poolDry : C.field;   /* __THE_STRIP_READS_AS_THE_STRIP__: the drained pool, the marquee */
       case VB_CLASS.green: return part === PART.tree ? C.tree : C.green;
       case VB_CLASS.water: return C.water;
-      case VB_CLASS.land: return part === PART.spot ? C.brush : part === PART.row ? C.pebble : C.floor;
+      case VB_CLASS.land: return part === PART.spot ? C.brush : part === PART.row ? C.pebble : part === PART.line ? (C.dirt || C.floor) : part === PART.edge ? (C.rail || C.brush) : C.floor;   /* line, edge: __THE_DESERT_HAS_ITS_TRACKS__' packed strip and its ruts */
       case VB_CLASS.mountain: return part === PART.spot ? C.brush : C.floor;
       case VB_CLASS.solar: return part === PART.row ? C.solarRow : C.solar;
       case VB_CLASS.field: return part === PART.line ? C.mark : C.field;
@@ -52703,7 +52792,7 @@ function vbCityInput(){
     var lv = 0; try { lv = POWER && POWER.at(x, y).live ? 1 : 0; } catch (_e) {} live[y * N + x] = lv; h = (Math.imul(h, 31) + lv * (x * 131 + y + 1)) | 0; }
   var tws = vbTownsInput();   /* __THE_TOWN_IS_PAINTED_IN__: the home bases built into the painting, and in its key */
   var lanes = vbLanesValley();   /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__ */
-  return { kind: 'city', N: N, S: VB_CS, PAD: VB_CPAD, seed: om.seed, cls: cls, live: live, sub: sub, lanes: lanes, key: om.seed + ':' + h + ':c' + VB_COOK.v + (tws ? ':t' + VB_TOWNS.key : '') + (window.__WS_KEY ? ':ws' + window.__WS_KEY : ''), wst: window.__WS_CELL || null,   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ */
+  return { kind: 'city', N: N, S: VB_CS, PAD: VB_CPAD, seed: om.seed, cls: cls, live: live, sub: sub, lanes: lanes, tracks: (VB_LANES && VB_LANES.tr) || null, key: om.seed + ':' + h + ':c' + VB_COOK.v + (tws ? ':t' + VB_TOWNS.key : '') + (window.__WS_KEY ? ':ws' + window.__WS_KEY : ''), wst: window.__WS_CELL || null,   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ */
            thm: VB_COOK.themes ? thm : null, cook: VB_COOK.themes, towns: tws, townPal: tws ? VB_TOWNS.pal : null };
 }
 function vbCityLand(r){
@@ -52802,7 +52891,9 @@ function vbTileInput(tx, ty, S){
       var k2 = y2 * n + x2, kw = gy2 * W + gx2; jm[k2] = F.f.jm[kw]; xg[k2] = F.f.xg[kw]; rp[k2] = F.f.rp[kw]; } } catch (_e) { jm = xg = rp = null; }
   var lanes = null; try { var LV = vbLanesValley(); if (LV) { lanes = new Uint8Array(n * n);   /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__: the valley's own streets for these blocks */
     for (var y3 = 0; y3 < n; y3++) for (var x3 = 0; x3 < n; x3++) { var gx3 = x0 + x3, gy3 = y0 + y3; if (gx3 >= 0 && gy3 >= 0 && gx3 < N && gy3 < N) lanes[y3 * n + x3] = LV[gy3 * N + gx3]; } } } catch (_e) { lanes = null; }
-  return { kind: 'tile', N: n, NF: N, S: S, PAD: 0, hashPad: VB_CPAD, org: [x0, y0], seed: om.seed, cls: cls, live: live, sub: sub, wst: wst, lanes: lanes,
+  var tracks = null; try { var TV = VB_LANES.tr; if (TV) { tracks = new Uint8Array(n * n);   /* __THE_DESERT_HAS_ITS_TRACKS__ */
+    for (var y4 = 0; y4 < n; y4++) for (var x4 = 0; x4 < n; x4++) { var gx4 = x0 + x4, gy4 = y0 + y4; if (gx4 >= 0 && gy4 >= 0 && gx4 < N && gy4 < N) tracks[y4 * n + x4] = TV[gy4 * N + gx4]; } } } catch (_e) { tracks = null; }
+  return { kind: 'tile', N: n, NF: N, S: S, PAD: 0, hashPad: VB_CPAD, org: [x0, y0], seed: om.seed, cls: cls, live: live, sub: sub, wst: wst, lanes: lanes, tracks: tracks,
            thm: VB_COOK.themes ? thm : null, cook: VB_COOK.themes, key: vbTileKey(tx, ty, S), tx: tx, ty: ty,
            jm: jm, xg: xg, rp: rp, lots: true, flat: vbTileFlat(),   /* __THE_HOUSES_STAND_UP_CLOSE__ */
            towns: VB_TOWNS.list, townPal: VB_TOWNS.list ? VB_TOWNS.pal : null };   /* __THE_TOWN_IS_PAINTED_IN__: the same towns as the whole painting whose key the tile carries */

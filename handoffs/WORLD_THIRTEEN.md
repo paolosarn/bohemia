@@ -1,6 +1,21 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN; newest block on top)
 
-WORLD THIRTEEN (11/14, round five): BUILD 11/14c - THE GENERATED WORLD HOLDS, BUILT, NOT YET SEEN (rules 429(f)(g)(h), 447; asks
+WORLD THIRTEEN (11/17, round six, build one): BUILD 11/17q - EACH ZONE LOOKS LIKE ITSELF, BUILT, NOT YET SEEN (rule 453; rules
+429(g)(h); asks 508, 509). Record: records/BOHEMIA_WORLD_THIRTEEN_EACH_ZONE_LOOKS_LIKE_ITSELF_11_17_26.md. VOTE
+world13-each-zone-looks-like-itself-11-17 (STAND-IN).
+- THE WORKS AS SHEDS UP CLOSE: VB_TALL.closeK { works 1.1, shops 1.4, casinos 2.5 } on the close tiles (S at least 96); the homes
+  and the freeway keep the far stretch (THE HOUSES STAND UP CLOSE M3 holds them).
+- THE DESERT HAS ITS TRACKS: landTracks(m, lanes) in engine/bohemia_overmap.js (re-inlined), t.track per block (bits 1 N, 2 E,
+  4 S, 8 W, as a lane's ends); the page's vbTracksValley() (none under a home base's square); the painter's packed strip and two
+  ruts. 718 track blocks on 22 valleys join 369 of 389 pockets; the gate THE GENERATED WORLD HOLDS counts them (G1 99.8, G2 99.5).
+*** FOR COMBAT THREE: a fight on a track block still sends FIGHT_OPTS.ground with street null; build two adds the track and the
+  zone's own ground table to it (the seam below stays, the fields only grow). ***
+- RED ON MAIN, NOT MINE: THE MAP STANDS TALLER W1 (the near stop's glass), W3b (the berm), C1 (timing): 20/6 on main without this
+  build, 21/5 with it. RUN's (it holds the near stop's glass and the berm walk).
+- NEXT, MINE (rule 453): (2) each zone's cells handed to COMBAT THREE with their ground; (3) the map measured on a cheap phone at
+  every zoom on many seeds.
+
+WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/14 LATEST -- (the START head until 11/17q) round five: BUILD 11/14c - THE GENERATED WORLD HOLDS, BUILT, NOT YET SEEN (rules 429(f)(g)(h), 447; asks
 507, 508, 509). Record: records/BOHEMIA_WORLD_THIRTEEN_THE_GENERATED_WORLD_HOLDS_11_14_26.md. VOTE world13-the-generated-world-holds-11-14.
 - On 22 valleys: one joined road network (99.5 in 100 of the road blocks; off it only dirt-track pockets and Strip stubs), 98 in 100 of
   the building lumps on it and 99.76 fronting a road, houses under 30 in 100 with the desert, the works, the Strip and the lake

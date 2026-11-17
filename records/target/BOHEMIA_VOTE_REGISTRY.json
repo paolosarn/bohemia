@@ -20048,7 +20048,11 @@
     ]
    },
    "record": "records/BOHEMIA_COOK_FIVE_THE_COOLING_CENTER_AND_THE_DOME_11_17_26.md"
-  }
+  },
+  {"id": "world13-each-zone-looks-like-itself-11-17", "kind": "tile", "lane": "world 13", "sha": "PENDING", "made": "11/17", "draft": true, "title": "EACH PART OF TOWN LOOKS LIKE ITSELF: THE WORKS ARE SHEDS UP CLOSE, AND THE DESERT HAS ITS DIRT TRACKS", "said": "Amazing (his vote on THE GENERATED WORLD HOLDS); more of it: each zone looks and plays like itself on the map", "why": "Zoomed in by the rail, the factories stood as giant grey towers, taller than downtown. Now they stand as sheds about two houses tall, and downtown and the Strip are the tall things again. And the open desert has dirt tracks now: two dark ruts out to every house or yard the roads did not reach, so almost every building in town is on one joined road network (99.85 in 100, was 98). Checked on 22 different valleys. Left: before, by the rail. Middle: now, same spot. Right: a dirt track across the desert to the houses. You see it in the RUN tab, zoomed in on the map.", "show": {"how": "image", "src": "../records/target/WORLD13_EACH_ZONE_LOOKS_LIKE_ITSELF_11_17.webp",
+    "first": "../records/target/vote_first/world13-each-zone-looks-like-itself-11-17.webp",
+    "firstAt": [400, 60, 390, 390]
+   }, "before_after": {"before": "main 11/17p: the works at the near stop 17 to 23 T tall against a house's 6, towers; 20 of 389 pockets off the network, no way across the desert but the arterials", "after": "the works, the shops and the casinos at their own scale up close (houses and the freeway unchanged); 718 dirt-track blocks on 22 valleys join 369 of the 389 pockets, the main network at least 99.83 in 100 of the road blocks", "scale": "the phone upright, the near stop and the street stop"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_THIRTEEN_EACH_ZONE_LOOKS_LIKE_ITSELF_11_17_26.md", "build": "BUILD 11/17q - EACH ZONE LOOKS LIKE ITSELF"}
  ],
  "verdicts": [
   {

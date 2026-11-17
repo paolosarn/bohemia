@@ -38,14 +38,16 @@ const ok = (n, c, w) => { if (c) pass++; else fail++; console.log((c ? '  ok   '
 const done = () => { console.log('THE GENERATED WORLD HOLDS: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0); };
 
 /* the valley's network, its main part, and what is off it; D(x, y) the kind, LN the generator's street byte a block */
-function network(N, D, LN) {
-  const node = (i) => ROAD.has(D(i % N, (i / N) | 0)) || (LN[i] & 3) !== 0, adj = new Map();
+function network(N, D, LN, TR) {
+  TR = TR || new Uint8Array(N * N);
+  const node = (i) => ROAD.has(D(i % N, (i / N) | 0)) || (LN[i] & 3) !== 0 || TR[i] !== 0, adj = new Map();
   const link = (i, j) => { (adj.get(i) || adj.set(i, []).get(i)).push(j); (adj.get(j) || adj.set(j, []).get(j)).push(i); };
   for (let i = 0; i < N * N; i++) { if (!node(i)) continue; const x = i % N, y = (i / N) | 0, v = LN[i], d = D(x, y);
     if (ROAD.has(d)) { if (x + 1 < N && ROAD.has(D(x + 1, y))) link(i, i + 1); if (y + 1 < N && ROAD.has(D(x, y + 1))) link(i, i + N); }
     if (v & 3) { const T = (nx, ny) => { if (nx < 0 || ny < 0 || nx >= N || ny >= N) return; const j = ny * N + nx; if (node(j)) link(i, j); };
       if ((v & 3) === 1) { if (v & 4) T(x - 1, y); if (v & 8) T(x + 1, y); } else { if (v & 4) T(x, y - 1); if (v & 8) T(x, y + 1); }
-      if (v & 16) T(x, y - 1); if (v & 32) T(x + 1, y); if (v & 64) T(x, y + 1); if (v & 128) T(x - 1, y); } }
+      if (v & 16) T(x, y - 1); if (v & 32) T(x + 1, y); if (v & 64) T(x, y + 1); if (v & 128) T(x - 1, y); }
+    const t = TR[i]; if (t) { const T2 = (nx, ny) => { if (nx < 0 || ny < 0 || nx >= N || ny >= N) return; const j = ny * N + nx; if (node(j)) link(i, j); }; if (t & 1) T2(x, y - 1); if (t & 2) T2(x + 1, y); if (t & 4) T2(x, y + 1); if (t & 8) T2(x - 1, y); } }
   const comp = new Int32Array(N * N).fill(-1), sizes = [];
   for (let i = 0; i < N * N; i++) { if (!node(i) || comp[i] >= 0) continue; const q = [i]; let n = 0; comp[i] = sizes.length;
     while (q.length) { const c = q.pop(); n++; for (const j of (adj.get(c) || [])) if (comp[j] < 0) { comp[j] = sizes.length; q.push(j); } } sizes.push(n); }
@@ -76,29 +78,30 @@ function shares(N, D) { const z = {}; for (let y = 0; y < N; y++) for (let x = 0
 const ZONES_OK = (z) => (z.suburb || 0) <= 30 && (z.open || 0) >= 15 && (z.industry || 0) >= 2.5 && (z.strip || 0) >= 2 && (z.water || 0) >= 0.7;
 
 (async () => {
-  const g1 = [], g2 = [], g3 = [], off = { pocket: 0, stub: 0, other: 0, otherKinds: {} }, missAll = {}; let lo1 = 100, lo2 = 100, lo2r = 100, Z = null, m0 = null;
+  const g1 = [], g2 = [], g3 = [], off = { pocket: 0, stub: 0, other: 0, otherKinds: {} }, missAll = {}; let lo1 = 100, lo2 = 100, lo2r = 100, Z = null, m0 = null, tracks = 0, joinedT = 0, neededT = 0;
   for (const sd of SEEDS) {
-    const m = O.buildOvermap(sd), N = m.n, D = (x, y) => (x < 0 || y < 0 || x >= N || y >= N) ? null : m.at(x, y).district, LN = O.houseLanes(m);
-    const net = network(N, D, LN), f1 = net.mainSize / net.total * 100; lo1 = Math.min(lo1, f1);
+    const m = O.buildOvermap(sd), N = m.n, D = (x, y) => (x < 0 || y < 0 || x >= N || y >= N) ? null : m.at(x, y).district, LN = O.houseLanes(m), TR = O.landTracks(m, LN);
+    let tb = 0; for (let i = 0; i < N * N; i++) if (TR[i]) tb++; tracks += tb; joinedT += TR.reached; neededT += TR.needed;
+    const net = network(N, D, LN, TR), f1 = net.mainSize / net.total * 100; lo1 = Math.min(lo1, f1);
     ['pocket', 'stub', 'other'].forEach((k) => { off[k] += net.off[k]; }); Object.assign(off.otherKinds, net.off.otherKinds);
-    if (f1 < 99 || net.off.other > 0) g1.push(sd + ' ' + f1.toFixed(2) + '%');
+    if (f1 < 99.8 || net.off.other > 0) g1.push(sd + ' ' + f1.toFixed(2) + '%');
     const L = lumps(N, D, LN, net), f2 = L.on / L.all * 100, f2r = L.road / L.all * 100; lo2 = Math.min(lo2, f2); lo2r = Math.min(lo2r, f2r); Object.keys(L.miss).forEach((k) => { missAll[k] = (missAll[k] || 0) + L.miss[k]; });
-    if (f2 < 98 || f2r < 99.5) g2.push(sd + ' ' + f2.toFixed(2) + '% / ' + f2r.toFixed(2) + '%');
+    if (f2 < 99.5 || f2r < 99.8) g2.push(sd + ' ' + f2.toFixed(2) + '% / ' + f2r.toFixed(2) + '%');
     const z = shares(N, D); if (!ZONES_OK(z)) g3.push(sd + ' ' + JSON.stringify(z)); if (!Z) Z = z;
-    if (!m0) m0 = { N, D, LN, net };
+    if (!m0) m0 = { N, D, LN, TR, net };
   }
-  ok('G1 ONE JOINED ROAD NETWORK on every one of ' + SEEDS.length + ' valleys: the main network at least 99 in 100 of the road blocks (worst ' + lo1.toFixed(2) + '%); off it, ' + off.pocket + ' blocks of house and works pockets whose street runs out on a dirt track onto open land, ' + off.stub + ' of Strip stubs, ' + off.other + ' else',
+  ok('G1 ONE JOINED ROAD NETWORK on every one of ' + SEEDS.length + ' valleys, the desert\'s dirt tracks in it (' + tracks + ' track blocks joining ' + joinedT + ' of ' + neededT + ' pockets and roadless buildings): the main network at least 99.8 in 100 of the road blocks (worst ' + lo1.toFixed(2) + '%); off it, ' + off.pocket + ' blocks of house and works pockets with no open ground beside them, ' + off.stub + ' of Strip stubs, ' + off.other + ' else',
     g1.length === 0, g1.slice(0, 4).join('; ') || (Object.keys(off.otherKinds).join(',') || 'nothing unexplained'));
   const top = Object.entries(missAll).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([k, n]) => k + ' ' + n).join(', ');
-  ok('G2 EVERY BUILDING ON IT: on every valley at least 98 in 100 of the building lumps on the main network (worst ' + lo2.toFixed(2) + '%; the rest on a pocket\'s street) and at least 99.5 in 100 fronting a road at all (worst ' + lo2r.toFixed(2) + '%; with none, over all 22: ' + (top || 'none') + ')', g2.length === 0, g2.slice(0, 4).join('; ') || 'all');
+  ok('G2 EVERY BUILDING ON IT: on every valley at least 99.5 in 100 of the building lumps on the main network (worst ' + lo2.toFixed(2) + '%; the rest on a pocket\'s street) and at least 99.8 in 100 fronting a road or a track at all (worst ' + lo2r.toFixed(2) + '%; with none, over all 22: ' + (top || 'none') + ')', g2.length === 0, g2.slice(0, 4).join('; ') || 'all');
   ok('G3 NOT EVERY PART OF TOWN A SUBURB on every valley: houses ' + Z.suburb.toFixed(1) + '%, the open desert ' + Z.open.toFixed(1) + '%, the works ' + Z.industry.toFixed(1) + '%, the Strip ' + Z.strip.toFixed(1) + '%, the lake ' + Z.water.toFixed(1) + '% on the first (houses at most 30, desert at least 15, works 2.5, Strip 2, lake 0.7 on all)', g3.length === 0, g3.slice(0, 2).join('; ') || 'all');
   /* G4 planted */
   const { N, D, LN } = m0, mid = N >> 1;
   const D1 = (x, y) => (x === mid || x === mid + 1) && ROAD.has(D(x, y)) ? 'desert' : D(x, y);
   const LN1 = LN.slice(); for (let y = 0; y < N; y++) { LN1[y * N + mid] = 0; LN1[y * N + mid + 1] = 0; }
-  const n1 = network(N, D1, LN1), cut = n1.mainSize / n1.total * 100 < 99 || n1.off.other > 0;
+  const n1 = network(N, D1, LN1), cut = n1.mainSize / n1.total * 100 < 99.8 || n1.off.other > 0;
   const D2 = (x, y) => ROAD.has(D(x, y)) && Math.abs(x - mid) < 12 && Math.abs(y - mid) < 12 ? 'desert' : D(x, y), LN2 = LN.slice(); for (let i = 0; i < N * N; i++) { const x = i % N, y = (i / N) | 0; if (Math.abs(x - mid) < 12 && Math.abs(y - mid) < 12) LN2[i] = 0; }
-  const n2 = network(N, D2, LN2), L2 = lumps(N, D2, LN2, n2), lost = L2.on / L2.all * 100 < 98 || L2.road / L2.all * 100 < 99.5;
+  const n2 = network(N, D2, LN2), L2 = lumps(N, D2, LN2, n2), lost = L2.on / L2.all * 100 < 99.5 || L2.road / L2.all * 100 < 99.8;
   const D3 = (x, y) => ZOF[D(x, y)] === 'open' ? 'suburb' : D(x, y), z3 = !ZONES_OK(shares(N, D3));
   ok('G4 PLANTED FAIL: the network cut down the middle, the roads taken from the middle of town, the desert built over with tracts: each red (' + [cut, lost, z3].filter(Boolean).length + '/3)', cut && lost && z3);
   if (process.argv.includes('--node')) return done();

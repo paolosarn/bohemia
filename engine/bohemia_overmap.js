@@ -1324,7 +1324,7 @@ function buildOvermap(seed){
   }
   landUse(tiles, at, L, seed, OVER_N);   /* __THE_VALLEY_HAS_ITS_ZONES__: zoned on the finished districts, before the real places take their seats */
   stampRealPlaces(L, at);   /* __THE_MISSING_REAL_PLACES__: last of all, on the finished valley, so nothing else of it moves */
-  { const LN=houseLanes({n:OVER_N,at}); for(const t of tiles){ const v=LN[t.y*OVER_N+t.x]; if(v)t.lane=v; else delete t.lane; } }   /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__ */
+  { const LN=houseLanes({n:OVER_N,at}), TRK=landTracks({n:OVER_N,at},LN); for(const t of tiles){ const v=LN[t.y*OVER_N+t.x], k=TRK[t.y*OVER_N+t.x]; if(v)t.lane=v; else delete t.lane; if(k)t.track=k; else delete t.track; } }   /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__; __THE_DESERT_HAS_ITS_TRACKS__ */
   let TP=null; const tpOf=()=>TP||(TP=placeTemplates({n:OVER_N,at,seed}));   /* __THE_PLACES_ARE_TEMPLATES__: on the finished valley, asked for, never at a boot that does not */
   return{seed,n:OVER_N,tileFine:TILE_FINE,tiles,layout:L,at,under,get templates(){return tpOf().list;},templateAt(x,y){return templateAt(tpOf(),x,y);},
     tileToFine(x,y){return{x0:x*TILE_FINE,y0:y*TILE_FINE,size:TILE_FINE};}};
@@ -1373,6 +1373,77 @@ function laneMouths(m,LN){
     const E=(v&3)===1?[[-1,0,4,32],[1,0,8,128]]:[[0,-1,4,64],[0,1,8,16]];   /* the end, and the side of the street it meets */
     for(const [dx,dy,b,side] of E){ if(!(v&b))continue; const nx=x+dx, ny=y+dy; if(LANE_WALK[D(nx,ny)])LN[ny*N+nx]|=side; } }
   return LN;
+}
+/* ==== __THE_DESERT_HAS_ITS_TRACKS__ (WORLD THIRTEEN 11/17, VAMILY rules 429(g)(h), 453; Paolo 11/14 on the generated world: 'Amazing';
+   the coordinator: each zone looks and plays like itself, with its own places and roads). The open desert's own road is the dirt
+   track: MEASURED on 22 valleys, 427 blocks of house and works pockets ran out on a track one block onto open land and stopped there
+   (the 11/7 pocket tracks), and the lake's intake, a lone truck stop, a farm, a few shops stood with no road at all. NOW every one is
+   joined to the valley's one network by a track across the open ground (desert, wash, basin, springs, the quarries, the farms, the
+   parks, the golf courses, the landfill; a switchback over the rim only where nothing else gets through), the shortest way, breadth first from what it serves to the nearest block of the network or of
+   a track already joined; a track never crosses a house, a works block or water, and crosses at least one block of open ground. One byte a block: bits 1, 2, 4, 8 the
+   track runs on to the north, east, south, west. A pure function of the finished valley and its streets (houseLanes).
+   [bb] Battle Brothers' map has its dirt roads between the paved ones; ours are the desert's jeep trails.
+   [analog horror] a two-rut track out of the last cul-de-sac into the dark desert, and the tyre marks stop halfway.
+   Gate: gates/the_generated_world_holds_gate.js. ==== */
+const TRACK_OVER={desert:1,wash:1,basin:1,springs:1,gypsum:1,quarry:1,farm:1,park:1,golf:1,landfill:1,boneyard:1,solar:1};
+const TRACK_FWY={freeway:1,beltway:1,interchange:1};
+const TRACK_RIM=Object.assign({mountain:1},TRACK_OVER);   /* a switchback where the open ground does not get through */
+const TRACK_ROAD={arterial:1,strip:1,freeway:1,beltway:1,interchange:1};
+const TRACK_NOBUILD={water:1,reservoir:1,mountain:1};   /* never a building that needs a track */
+function landTracks(m,LN){
+  const N=m.n, D=(x,y)=>{ const t=(x<0||y<0||x>=N||y>=N)?null:m.at(x,y); return t?t.district:null; }, TR=new Uint8Array(N*N);
+  const node=(i)=>!!TRACK_ROAD[D(i%N,(i/N)|0)]||(LN[i]&3)!==0||TR[i]!==0, SIDE=[[0,-1,1,4],[1,0,2,8],[0,1,4,1],[-1,0,8,2]];
+  /* the network as it joins (road to road, a street's open end, a T, a track's own bits) */
+  const comp=new Int32Array(N*N), parent=[];
+  const find=(a)=>{ while(parent[a]!==a){ parent[a]=parent[parent[a]]; a=parent[a]; } return a; };
+  const unite=(a,b)=>{ a=find(a); b=find(b); if(a!==b)parent[b]=a; };
+  const build=()=>{ comp.fill(-1); parent.length=0; let k=0;
+    for(let i=0;i<N*N;i++)if(node(i)){ comp[i]=k; parent.push(k); k++; }
+    for(let i=0;i<N*N;i++){ if(comp[i]<0)continue; const x=i%N,y=(i/N)|0,v=LN[i],d=D(x,y),t=TR[i];
+      const J=(nx,ny)=>{ if(nx<0||ny<0||nx>=N||ny>=N)return; const j=ny*N+nx; if(comp[j]>=0)unite(comp[i],comp[j]); };
+      if(TRACK_ROAD[d]){ if(x+1<N&&TRACK_ROAD[D(x+1,y)])J(x+1,y); if(y+1<N&&TRACK_ROAD[D(x,y+1)])J(x,y+1); }
+      if(v&3){ if((v&3)===1){ if(v&4)J(x-1,y); if(v&8)J(x+1,y); } else { if(v&4)J(x,y-1); if(v&8)J(x,y+1); } if(v&16)J(x,y-1); if(v&32)J(x+1,y); if(v&64)J(x,y+1); if(v&128)J(x-1,y); }
+      if(t)SIDE.forEach(([dx,dy,b])=>{ if(t&b)J(x+dx,y+dy); }); } };
+  build();
+  const size={}; for(let i=0;i<N*N;i++)if(comp[i]>=0){ const r=find(comp[i]); size[r]=(size[r]||0)+1; }
+  let mainR=null, best=-1; for(const r in size)if(size[r]>best){ best=size[r]; mainR=+r; }
+  const onMain=(i)=>comp[i]>=0&&find(comp[i])===mainR;
+  /* what needs a track: every block of a part of the network off the main, every lump of a building kind with no road at its side */
+  const need=[], seenL=new Uint8Array(N*N), done={};
+  for(let i=0;i<N*N;i++){ if(comp[i]<0||onMain(i))continue; const r=find(comp[i]); if(done[r])continue; done[r]=1; const cells=[]; for(let j=0;j<N*N;j++)if(comp[j]>=0&&find(comp[j])===r)cells.push(j); need.push({cells,net:r}); }
+  for(let i=0;i<N*N;i++){ const d=D(i%N,(i/N)|0); if(seenL[i]||!d||TRACK_ROAD[d]||TRACK_OVER[d]||TRACK_NOBUILD[d]||comp[i]>=0)continue;
+    const q=[i],cells=[]; seenL[i]=1; while(q.length){ const c=q.pop(); cells.push(c); const x=c%N,y=(c/N)|0; SIDE.forEach(([dx,dy])=>{ const nx=x+dx,ny=y+dy; if(nx<0||ny<0||nx>=N||ny>=N)return; const j=ny*N+nx; if(!seenL[j]&&D(nx,ny)===d&&comp[j]<0){ seenL[j]=1; q.push(j); } }); }
+    const roaded=cells.some((c)=>{ const x=c%N,y=(c/N)|0; return SIDE.some(([dx,dy])=>{ const nx=x+dx,ny=y+dy; return nx>=0&&ny>=0&&nx<N&&ny<N&&node(ny*N+nx); }); });
+    if(!roaded)need.push({cells,net:null}); }
+  /* each, nearest first to the main: breadth first over the open ground to a block of the main network or of a joined track */
+  const joined=new Uint8Array(N*N); for(let i=0;i<N*N;i++)if(onMain(i))joined[i]=1;
+  need.sort((a,b)=>a.cells[0]-b.cells[0]);
+  let laid=0, reached=0;
+  for(const T of need){
+    /* over the open ground first; a switchback over the rim only where nothing else gets through (the foothill estates) */
+    let from=null, goal=-1, own=new Uint8Array(N*N); T.cells.forEach((c)=>{ own[c]=1; });
+    for(const OVER of [TRACK_OVER, TRACK_RIM]){
+      from=new Int32Array(N*N).fill(-2); const q=[];
+      /* a track crosses at least one block of open ground: a street that ends against a neighbour's side is not a join */
+      T.cells.forEach((c)=>{ const x=c%N,y=(c/N)|0; SIDE.forEach(([dx,dy])=>{ const nx=x+dx,ny=y+dy; if(nx<0||ny<0||nx>=N||ny>=N)return; const j=ny*N+nx; if(own[j]||from[j]!==-2)return;
+        if(OVER[D(nx,ny)]&&!(joined[j]&&!TR[j])){ from[j]=c; q.push(j); } }); });
+      let head=0;
+      while(goal<0&&head<q.length){ const c=q[head++]; const x=c%N,y=(c/N)|0;
+        if(TR[c]&&joined[c]){ goal=c; break; }
+        for(const [dx,dy] of SIDE){ const nx=x+dx,ny=y+dy; if(nx<0||ny<0||nx>=N||ny>=N)continue; const j=ny*N+nx; if(from[j]!==-2||own[j])continue;
+          if(joined[j]&&!TRACK_FWY[D(nx,ny)]){ from[j]=c; goal=j; break; } if(OVER[D(nx,ny)]&&head<4000){ from[j]=c; q.push(j); } } }   /* never onto a freeway: a track joins a street */
+      if(goal>=0)break;
+    }
+    if(goal<0)continue;
+    /* lay it: each step's two ends get the bit toward the other, on the open-ground blocks (a road or a street keeps its own) */
+    let c=goal; const bit=(a,b)=>{ const ax=a%N,ay=(a/N)|0,bx=b%N,by=(b/N)|0; return by<ay?1:bx>ax?2:by>ay?4:8; }, OPP={1:4,2:8,4:1,8:2};
+    while(true){ const p=from[c]; if(p<0||p===undefined)break; const b=bit(c,p);
+      if(TRACK_RIM[D(c%N,(c/N)|0)])TR[c]|=b; if(TRACK_RIM[D(p%N,(p/N)|0)])TR[p]|=OPP[b]; laid++;
+      if(TR[c]||(c!==goal))joined[c]=1; if(own[p])break; joined[p]=1; c=p; }
+    if(T.net!=null)T.cells.forEach((cc)=>{ joined[cc]=1; }); reached++;   /* a pocket's own streets join the network; a building is served, never a way through */
+  }
+  TR.reached=reached; TR.needed=need.length;
+  return TR;
 }
 function houseLanes(m){
   const N=m.n, LN=new Uint8Array(N*N), AX=new Uint8Array(N*N), D=(x,y)=>{ const t=(x<0||y<0||x>=N||y>=N)?null:m.at(x,y); return t?t.district:null; };
@@ -1574,7 +1645,7 @@ function landlockConnect(m, opts){
   var out={}; for(var k in extra) out[k]=Object.keys(extra[k]); return out;
 }
 
-const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG,landlockConnect,REAL_PLACES,restampRealPlaces,houseLanes,laneMouths,LANE_HOUSES,LANE_WALK,LANE_WORKS,landUse,LAND_USE,placeTemplates,templateAt,PLACE_TEMPLATES};
+const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG,landlockConnect,REAL_PLACES,restampRealPlaces,houseLanes,laneMouths,LANE_HOUSES,LANE_WALK,LANE_WORKS,landUse,LAND_USE,placeTemplates,templateAt,PLACE_TEMPLATES,landTracks,TRACK_OVER};
 if(typeof module!=='undefined'&&module.exports){module.exports=API;}
 global.BohemiaOvermap=API;
 })(typeof window!=='undefined'?window:globalThis);
