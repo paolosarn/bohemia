@@ -112,6 +112,45 @@
   function topGet(k) { if (!TOPKEEP || !k || root.BohemiaWear.keepOff || !Object.prototype.hasOwnProperty.call(TOPKEEP, k)) return undefined; var v = TOPKEEP[k]; TOPKEEP.hits = (TOPKEEP.hits | 0) + 1; return v ? JSON.parse(v) : null; }
   function topPut(k, v) { if (TOPKEEP && k && !root.BohemiaWear.keepOff) { TOPKEEP[k] = v ? JSON.stringify(v) : ''; TOPKEEP.made = (TOPKEEP.made | 0) + 1; } }
   var ASYNC = { on: false, slow: 0, slowMs: 8, asked: 0, landed: 0, wait: typeof WeakMap === 'function' ? new WeakMap() : new Map() };   /* PLUMBER 7: see anchor() */
+  /* __A_SHEET_IS_READ_ONCE__ (PLUMBER 8, 11/17/26; rule 441(c), ask rows 613 and 620: the freezes entering a fight). MEASURED (the demo, phone
+     upright, CPU 4x, the canvas on a GPU process, a CPU profile of a fight's start after 30 to 45 s on the map): the map dives in and
+     draws his company close, and each new frame's head was read off its sheet: 10 to 21 reads, each one unpacking the WHOLE sheet
+     again (map_town.webp 2048 x 1502, a fight sheet 3600 x 1288) for one frame of it: getImageData 2.5 s and createImageBitmap 2.0 s
+     of a 13 s start; 10 reads came from 5 sheets. Now a sheet's see-through pixels are read ONCE, in strips of 512 rows, into a one-bit
+     mask (a fight sheet 0.58 MB) kept on the top page for the session (every fight is a new page), at most one new sheet a frame and
+     24 sheets kept; every frame of it is then found on the mask with nothing unpacked. The same pixels, the same answer (find() reads
+     the mask as it read the cell). A canvas (no file) is read as before. root.BohemiaWear.cellReads = true is the old way. */
+  var MASKS = (function () { try { var t = root.top; if (t && t.document) return t.__WEAR_SHEET_MASKS || (t.__WEAR_SHEET_MASKS = { by: new t.Object(), order: [], made: 0, used: 0, ms: 0, lastAt: -1e9 }); } catch (e) {} return { by: {}, order: [], made: 0, used: 0, ms: 0, lastAt: -1e9 }; })();
+  var MASK_MAX = 24, MASK_STRIP = 512;
+  function sheetMask(img) {
+    if (root.BohemiaWear.cellReads || !img || typeof img.naturalWidth !== 'number' || !img.complete) return null;
+    var u = img.currentSrc || img.src, W = img.naturalWidth, H = img.naturalHeight;
+    if (!u || !W || !H || W * H > 16777216) return null;
+    var k = String(u).replace(/^https?:\/\/[^/]+/, '') + '|' + W + 'x' + H, m = MASKS.by[k];
+    if (m) { MASKS.used++; return m; }
+    var now = typeof performance !== 'undefined' ? performance.now() : Date.now();
+    if (now - MASKS.lastAt < 16) return 'wait';   /* one new sheet a frame: the rest wait a frame and he wears it where he just was */
+    MASKS.lastAt = now;
+    var t0 = now, bits = new Uint32Array(Math.ceil(W * H / 32)), cv = document.createElement('canvas'), sh = Math.min(MASK_STRIP, H);
+    cv.width = W; cv.height = sh;
+    var g = cv.getContext('2d', { willReadFrequently: true });
+    for (var y0 = 0; y0 < H; y0 += sh) {
+      var hh = Math.min(sh, H - y0); g.clearRect(0, 0, W, sh); g.drawImage(img, 0, y0, W, hh, 0, 0, W, hh);
+      var d = g.getImageData(0, 0, W, hh).data, base = y0 * W;
+      for (var i = 0, n = W * hh, p = 3; i < n; i++, p += 4) if (d[p] >= 128) { var q = base + i; bits[q >>> 5] |= (1 << (q & 31)); }
+    }
+    cv.width = 0; cv.height = 0;
+    m = MASKS.by[k] = { w: W, h: H, bits: bits }; MASKS.order.push(k); MASKS.made++;
+    MASKS.ms += (typeof performance !== 'undefined' ? performance.now() : Date.now()) - t0;
+    while (MASKS.order.length > MASK_MAX) delete MASKS.by[MASKS.order.shift()];
+    return m;
+  }
+  function cellAlpha(m, x, y, w, h) {   /* the cell as find() reads a cell: its alpha at every fourth byte */
+    var d = new Uint8Array(w * h * 4), W = m.w, b = m.bits;
+    for (var yy = 0; yy < h; yy++) { var sy = y + yy; if (sy < 0 || sy >= m.h) continue;
+      for (var xx = 0; xx < w; xx++) { var sx = x + xx; if (sx < 0 || sx >= W) continue; var q = sy * W + sx; if (b[q >>> 5] & (1 << (q & 31))) d[(yy * w + xx) * 4 + 3] = 255; } }
+    return d;
+  }
   function find(d, w, h, hw) {
     var t = -1, b = -1, l = w, r = -1, x, y;
     for (y = 0; y < h; y++) for (x = 0; x < w; x++) if (d[(y * w + x) * 4 + 3] >= 128) { if (t < 0) t = y; b = y; if (x < l) l = x; if (x > r) r = x; }
@@ -154,6 +193,10 @@
     if (now - BUDGET.t > 16) { BUDGET.t = now; BUDGET.n = 0; }
     if (BUDGET.n >= (root.BohemiaWear.BUDGET | 0)) return undefined;   /* the rest next frame: never a stall for reading pictures */
     BUDGET.n++;
+    /* __A_SHEET_IS_READ_ONCE__: the cell found on its sheet's mask (the sheet read once a session) */
+    var mk = sheetMask(img);
+    if (mk === 'wait') { BUDGET.n--; return undefined; }
+    if (mk) { var rm = null; try { rm = find(cellAlpha(mk, Math.round(x), Math.round(y), Math.round(w), Math.round(h)), Math.round(w), Math.round(h), hw || HW); } catch (e) { rm = null; } per[key] = rm; topPut(tk, rm); return rm; }
     /* PLUMBER 7, 11/7/26 (rule 418(c)): WHERE THE GPU DRAWS THE PICTURES (every phone), a read of a gang sheet's frame into this CPU
        canvas decodes the whole 2048-wide sheet in software again (more sheets than the decode cache keeps): 2.7 s of an 8 s
        reading at the far stop, the map at 2 frames a second. Two reads slower than 8 ms say this is such a phone, and from then a

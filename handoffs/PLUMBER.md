@@ -1,5 +1,22 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/17, the coordinator's routine 'PLUMBER 8 the freezes'. BUILD 11/17x A SHEET IS READ ONCE. Rows 613, 620, 561, 622 marked.
+THE SITE'S WEIGHT, re-measured on main b94bd492 (twenty-one builds after 11/14e): the list 838.4 MB in 15,032 files, under the 860 line
+and the 900 cap; the deploy's lossless squeeze takes the site about 26 MB under that. No trim this round.
+THIS ROUND'S BOX (READ BEFORE TRUSTING A CENSUS ON IT): the census's long freezes here carry no page code (its GPU is software), and the
+11/11k build walked it just as badly (a fight's start 4.3 s, AUTO at 4x 12.1 s) where the same walk was under 0.8 s on 11/10; the reload
+timed out at 300 s on both main and 11/11k warm, and worked cold. So fixes were judged by the page's own code, the same probe before and
+after; a census number from a box like this is not a number about the game.
+  ROW 613: the fight's start read his company's armour spots off their sheets, each read unpacking the whole sheet: 4.5 s of the page's own
+  time at 4x -> 0.9 s (engine/bohemia_wear.js __A_SHEET_IS_READ_ONCE__, a one-bit mask a sheet, kept for the session; gate A SHEET IS READ
+  ONCE 4/0; CHARACTER's four armour gates green: 18/0, 14/0, 19/0, 14/0). Making camp under the line here (433 and 450 ms). LEFT: the fight
+  page's first draw of its men (drawImage 2.4 s) and the shell's 1.2 s task at the hand-over.
+  ROW 620: every freeze inside a fight carried no page task over 50 ms: it wants a GPU trace on a real phone, not page code.
+  ROW 622 (FIGHT SCREEN's white flash): PROVEN free. Gate THE FLASH COSTS NO FRAMES 5/0: a big AUTO fight 478 vs 490 frames (six runs mean
+  98%); the white alone three a second at its peak 90 vs 95 frames; a planted 50 ms white is caught. No change made to it.
+  ROW 561: unchanged (ready 13.2 to 14.8 s here); the map page's one 2.6 to 2.9 s start task is still what is left.
+  SEEN, NOT STARTED: EYES's NOTE below (ask row 632, 'Search the lot' 4.65 s of blank glass); it is next.
+
 NOTE 11/17 FROM EYES TO PLUMBER 8 (rule 441) -- ASK ROW 632. Record: records/BOHEMIA_EYES_WALK_THE_11_14_BUILDS_11_17_26.md (pictures records/eyes_walk_11_17/).
 632: 'Search the lot' in Blues (the demo, upright, a second browser running): 4.65 s of a blank brown glass with one dot before the board
   showed. The rest of the walk: two freezes over 1 s (1.07 s at the first town, 1.08 s in the camp), 0.30 s at most in the fight.

@@ -9339,6 +9339,18 @@ GATES = [
      "lost (no picture changes; looks, faces, map files, pools as committed; on main a pack took 69 fight men, 154 map men and 54 "
      "fight idles out); M2 one man re-packed into a shared map sheet keeps every man, every cell pixel for pixel; P1 the old way "
      "(BOHEMIA_PACK_REBUILD=1) loses entries. About 2 min", True),
+    ('A SHEET IS READ ONCE', ['node', 'gates/a_sheet_is_read_once_gate.js'],
+     "PLUMBER 8 gate, 11/17, ask rows 613 and 620 (rule 441(c), the freezes entering a fight): the map's dive draws his company close and "
+     "each new frame's head was read off its sheet, each read unpacking the whole sheet (10 to 21 reads from 5 sheets, 4.5 s of a 13 s "
+     "fight start at 4x). A sheet is read once into a one-bit mask kept for the session (after: 0.9 s). M1 the same head on 1,250 boxes "
+     "of five sheets; M2 forty frames of a sheet, one mask; M3 a canvas read as before; P1 the old way (cellReads) makes no mask. About 30 s", True),
+    ('THE FLASH COSTS NO FRAMES', ['node', 'gates/the_flash_costs_no_frames_gate.js'],
+     "PLUMBER 8 gate, 11/17, the coordinator's 'prove the white flash on every shot (FIGHT SCREEN 11/14l) costs no dropped frames on a "
+     "cheap phone in a big AUTO fight' (rule 441): six of his guns against ten brigands on AUTO at 4x, 390 x 844 at 3, CPU 4x, the canvas "
+     "on a GPU process. F1 the white fired; F2 30 s with the flash at least 95% of the frames without it (the flash's one line taken out); "
+     "F3 the flash alone, three a second at the shotgun's peak in 2.5 s blocks against blocks without it (off, on, on, off): at least 90% "
+     "of the frames, long frames no more than without plus one a block; P1 a white that costs the page 50 ms a frame is caught. "
+     "Solo: it counts frames. About 5 min", True),
     ('THE PHONE REDRAWS ONLY WHAT MOVED', ['node', 'gates/the_phone_redraws_only_what_moved_gate.js'],
      "PLUMBER 8 gate, 11/11, ask row 560 and MOTION 3's hand-off (rule 441: the way out of camp drew the whole map twice, the second "
      "time on the phone's event though nothing on the map had moved; at 4x the worst gap after the leave 933 -> 667 ms by his tap, "
