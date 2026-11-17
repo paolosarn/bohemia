@@ -1,4 +1,4 @@
-FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/17 LATEST -- BUILD 11/17o - THE WHY IS TRUE, THE FACE SHOWS, BUILT (PENDINGSHA), NOT YET SEEN (ask rows 631 and 630, FOUND BY EYES; rules 449(a), 450(a), 441). Its block is handoffs/FIGHT_SCREEN.md.
+FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/17 LATEST -- BUILD 11/17o - THE WHY IS TRUE, THE FACE SHOWS, BUILT (64b4ee0e0), NOT YET SEEN (ask rows 631 and 630, FOUND BY EYES; rules 449(a), 450(a), 441). Its block is handoffs/FIGHT_SCREEN.md.
 THIS CHAT IS FIGHT SCREEN TWO. Two finds EYES left on this lane's builds, one build. THE WHY LINE: the fight was told that a job began it, never which job, and never
 asked if there was a sky, so a man holding a stolen box said 'They paid you to clear this road'. Now the table says when each sentence may be said, the fight reads
 the job's kind off the map's own held jobs (read only, no hand-over edited) and its board for a ceiling, the card asks the same, and only a true sentence is said

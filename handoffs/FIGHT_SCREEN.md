@@ -5,7 +5,7 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
-FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/17 LATEST -- [why is true, face shows] SHIPPED PENDINGSHA, BUILD 11/17o - THE WHY IS TRUE, THE FACE SHOWS, BUILT, NOT YET SEEN (ask rows 631 and 630, FOUND BY EYES; rules 449(a), 450(a), 441, 454(a)). VOTE fight-screen-the-why-is-true-and-the-face-shows-11-17 (stand_in; before and after).
+FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/17 LATEST -- [why is true, face shows] SHIPPED 64b4ee0e0, BUILD 11/17o - THE WHY IS TRUE, THE FACE SHOWS, BUILT, NOT YET SEEN (ask rows 631 and 630, FOUND BY EYES; rules 449(a), 450(a), 441, 454(a)). VOTE fight-screen-the-why-is-true-and-the-face-shows-11-17 (stand_in; before and after).
 THIS CHAT IS FIGHT SCREEN TWO. Record: records/BOHEMIA_FIGHT_SCREEN_THE_WHY_IS_TRUE_AND_THE_FACE_SHOWS_11_17_26.md. EYES' two finds, in one build, ahead of the lane's list.
 ROW 631, THE WHY LINE. THE CAUSE WAS NOT THE HAND-OVER (rule 12, measured): the fight was told THAT a job began it (contract:<id>:<who>), never WHICH job, and the
 table read every job as a road to clear; nobody asked if the board had a sky; one rule per start meant the same three sentences for ever.
