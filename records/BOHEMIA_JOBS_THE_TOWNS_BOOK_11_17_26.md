@@ -108,9 +108,10 @@ OURS (records/target/bb/job_into_place.json, JOBS' own file; TUNING's one table 
 MEASURED (node, gate D2): what the card offers on the real files: a 57-battery job any of the four, a 20-battery job the four, a 10 only
 the garden, a 7 none.
 ON HIS PHONE (tools/bohemia_jobs_the_towns_book_on_the_phone.js --build D; gate D3, the demo and the alpha, upright and sideways, a new
-crew, K7QM9X): Rook's lost singer at the Anarchists, day 1: the card said 25 batteries; 'Into your place' with a finger: 'A SOLAR PANEL
--5', the card's line 20 batteries; Take it; the map held the job at 20 with the panel; played to the pay (found, walked home, no fight):
-paid 20 of 20, and A SOLAR PANEL from Anarchists waits for his place (this crew has not planted). All four buttons on the glass, two
+crew, K7QM9X): Rook's lost singer at the Anarchists, day 1: the card said 23 batteries; 'Into your place' with a finger: 'A SOLAR PANEL
+-5', the card's line 18 batteries; Take it; the map held the job at 18 with the panel; played to the pay (found, walked home, no fight):
+paid 18 of 18, and A SOLAR PANEL from Anarchists waits for his place (this crew has not planted). (The VOTE picture is the walk that
+ran after build C's, its 125 CLOUT making the same job 25 -> 20: the same five off.) All four buttons on the glass, two
 across (upright 709-753 of 781; the alpha sideways 216-260 of 288).
 A FLAW FOUND ON THE WAY AND FIXED: the first cut took the worth off the job's BASE pay, so the map's multipliers grew it (the button said
 -3, the pay fell 5); late in the game CLOUT's x4.5 would have charged him four times a build's worth. Now the worth comes off what he is

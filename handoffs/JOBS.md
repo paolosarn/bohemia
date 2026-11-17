@@ -1,5 +1,22 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/17 LATEST -- BUILD 11/17za - PAID INTO YOUR PLACE (build D of four), BUILT, NOT YET SEEN (rules 453,
+454(a), 441; row 627). Record: records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md section 4. THE ROUND'S FOUR BUILDS ARE ALL IN.
+- THE SHAPE: on any job's card 'Into your place' moves part of the pay into one of his builds (a panel 5, a pump 4, a tank 3, a garden
+  2: the lot build's battery and its tape); each tap the next that fits under a quarter of the pay (Battle Brothers' payment shapes,
+  25%), then back. The worth comes off the pay he is SHOWN, exactly (payOf; the map's loopTakeContract takes the same off its sum).
+- PAID IN FULL: bohemia_job_kinds.js paid() hands the build to BohemiaHomeMap.give (kind 'build', from the town): it stands that day,
+  or waits for his place. Done in part: batteries only. records/target/bb/job_into_place.json (JOBS' file); TUNING rows share, worth.
+- ON THE PHONE (demo and alpha, both ways): Rook's singer, 23 -> 18 and A SOLAR PANEL; played to the pay: 18 of 18, the panel waits for
+  his place. The card's four buttons sit two across on every phone, all on the glass.
+- FOR ECONOMY TWO (rule 459, the re-base): every number of this round is a row of TUNING's one table (relations.haggle,
+  relations.acts.haggle, job_into_place.share, job_into_place.worth, relations.board, relation_prices.below); the re-base moves them.
+GATE THE TOWN'S BOOK: D1 files, D2 what the card offers, D3 the phone: 13/0 with JOBS_BUILD=B,C,D in the worktree, 11/0 with JOBS_BUILD=D on main's tree.
+NEXT (nothing waits on him): the town's bar might show on the board itself (it shows on the map's phone); a planted place's build
+standing on the security-camera view (rule 458(c)) is HOME BASE's picture.
+[bb Battle Brothers lets you choose how a contract pays before you sign; ours moves part of the pay into your own place]
+[analog horror: the panel arrives before you have anywhere to put it, and waits in the dark with your name on it]
+
 JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/17 LATEST -- BUILD 11/17z - WHAT WALKING AWAY COSTS (build C of four), BUILT, NOT YET SEEN (rules
 453, 454(a), 441; row 627). Record: records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md section 3. His vote of 11/16: YES on build A.
 - MEASURED FIRST: dropping a job already cost its town 10 and 100 CLOUT, failing it 20 and 75 (relations.json, renown.json, the wiki's);

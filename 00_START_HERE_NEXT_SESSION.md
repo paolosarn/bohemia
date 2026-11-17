@@ -1,3 +1,8 @@
+JOBS (jobs-01gkdyuv): 11/17 LATEST -- BUILD 11/17za - PAID INTO YOUR PLACE, BUILT, NOT YET SEEN (rules 453, 454(a), 441; row 627). PAID INTO HIS PLACE (build D of four): on any job's card up to a quarter of the pay can be one of his builds (a panel 5, a pump 4,
+a tank 3, a garden 2, each a battery and its tape), off the pay he is shown, his when the job is done in full (it waits for a place).
+On the phone, the demo and the alpha both ways. Gate THE TOWN'S BOOK. VOTE jobs-paid-into-your-place-11-17 (STAND-IN), sha 57d3c4a3d. Record records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md.
+[bb Battle Brothers lets you choose how a contract pays before you sign (advance, on completion, per head, 25% moved); ours moves part of the pay into your own place]
+
 JOBS (jobs-01gkdyuv): 11/17 LATEST -- BUILD 11/17z - WHAT WALKING AWAY COSTS, BUILT, NOT YET SEEN (rules 453, 454(a), 441; row 627). WHAT WALKING AWAY COSTS (build C of four): every job's card says, before the yes, what dropping it and failing it cost: this
 town's bar from and to (the band it falls into) and CLOUT from and to (never under 0), the numbers the game already took.
 On the phone, the demo and the alpha both ways. Gate THE TOWN'S BOOK. VOTE jobs-what-walking-away-costs-11-17 (STAND-IN), sha 166e10bd0. Record records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md.
