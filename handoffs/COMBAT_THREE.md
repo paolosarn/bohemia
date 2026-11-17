@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 453, 429(a)(g), 428, 441; ask rows 504, 507, 627): 11/17 LATEST -- [the zone is the board] SHIPPED SHIPSHA, BUILD 11/17p - THE ZONE IS THE BOARD, BUILT, NOT YET SEEN. VOTE combat3-the-zone-is-the-board-11-17 (stand_in).
+COMBAT THREE (rules 453, 429(a)(g), 428, 441; ask rows 504, 507, 627): 11/17 LATEST -- [the zone is the board] SHIPPED e3855e22f, BUILD 11/17p - THE ZONE IS THE BOARD, BUILT, NOT YET SEEN. VOTE combat3-the-zone-is-the-board-11-17 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_ZONE_IS_THE_BOARD_11_17_26.md. The full sweep's job 2 (the open-map boards look like their zone, never two alike) and job 3's leg on it.
 WHAT: a map cell no place stands on, in a district that has a place, deals THAT PLACE'S OWN BLOCKS with its plan kept (pinned columns and rows: the boulevard, the canopy, the dry
 wash, the shore line), no landmark, a share of the free slots from the zone's other kinds in WORLD's table (ours.plain_cells.mix), each by the cell's dice; blocks whose street
