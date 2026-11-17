@@ -34,7 +34,13 @@ ok('the bands tile 0..100 with no gap and no overlap', bs[0].lo === 0 && bs[8].h
 for (const k in NAME) { const a = D.acts[k]; ok('act ' + k + ' exists with a source and a quote', a && a.source && a.quote && a.quote.length > 8);
   const w = Object.keys(wActs).find(x => x.replace(/\W/g, '').toLowerCase() === NAME[k].replace(/\W/g, '').toLowerCase());
   ok('act ' + k + ' equals the wiki', a && w !== undefined && wActs[w] === a.value, a && (a.value + ' vs ' + wActs[w])); }
-ok('no act in the file that is not in the table', Object.keys(D.acts).every(k => NAME[k]));
+/* JOBS 11/17 (rule 453 (2), PUSH THE PAY): one act is the wiki's, from its Contracts page and not this one: the cost of each haggle
+   attempt. It is held to the same standard: its quote is that page's own words (read out of the tarball here) and its number is the one
+   quoted. Nothing else may come from outside the Relations page. */
+const OTHER = { haggle: { page: 'bb_all/0441_Contracts.txt', value: -0.5, says: /worsen Relations by 0\.5 points/ } };
+for (const k in OTHER) { const a = D.acts[k], o = OTHER[k], pt = clean(cp.execSync('tar -xzOf ' + path.join(ROOT, 'reference/library/grok/wiki/PAGES_ALL.tar.gz') + ' ' + o.page, { encoding: 'utf8', maxBuffer: 1 << 24 }));
+  ok('act ' + k + ' is the wiki\'s ' + o.page + ', quoted word for word, its number the quoted one', !!a && a.value === o.value && String(a.source || '').indexOf(o.page) >= 0 && !!a.quote && pt.indexOf(a.quote) >= 0 && o.says.test(a.quote), a && a.quote); }
+ok('no act in the file that is not in the table', Object.keys(D.acts).every(k => NAME[k] || OTHER[k]));
 ok('start is the neutral middle (50)', D.start.value === 50 && R.band(50) === 'neutral');
 ok('drift is 0.25 toward 50', D.drift.value.per_dawn === 0.25 && D.drift.value.toward === 50);
 const E = CT.relationsCost;
