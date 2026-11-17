@@ -1,5 +1,26 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17ze - THE BANK, THE MOB MUSEUM AND THE DINOSAUR, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the fifth build; rules 408, 409(c), 455; ask row 627).
+The sweep goes on (rule 453): 'finished art wherever a VOTE card still says STAND-IN and he meets it first'. No code: slices/place_pieces/
+place_pieces.json gained the_bank, the_mob_museum and the_natural_history_museum, the folder six lossless WebP pictures (174,891 bytes in all).
+Made by tools/bohemia_cook5_downtowns_three_wear_their_own_piece_11_17_26.py (three scenes and three beats ON the places tool, which it imports
+and binds: PW.PLACES / SAY / LIKE / moving / OUT, so the four older places are not re-made). Each scene is built from what WORLD's own list says
+of the place (real_places.json 'real', 'visit', 'feed').
+PROOF: the page tool on the demo upright and sideways: all three drawn, 51 points across, none drawn with the module off, no error (the mob museum's first spot opened a town's screen; the tool steps to the next side). Gate THE PLACES WEAR THEIR OWN PIECE 8/0 with seven places.
+VOTE cook5-downtowns-three-11-17 (MADE FROM arena2-the-pit-is-a-pit-11-7).
+Record: records/BOHEMIA_COOK_FIVE_THE_BANK_THE_MOB_MUSEUM_AND_THE_NATURAL_HISTORY_MUSEUM_11_17_26.md.
+TRIED AND THROWN OUT (so nobody redoes it): the bank as a cube; pale money on a pale plaza; the T. rex end-on, then lying side-on against the hall's dark.
+NOT DONE: the seven places' own arrival screens (keyed by faction, the screen's lane); eleven real places in kit art.
+*** NEXT ON THIS LANE, IN THIS ORDER: (1) THE MALL (COMBAT THREE's BUILD 11/17x, slices/fight_ground/mall/mall.json: 27 pieces all stand-ins, its
+ceiling kind 'sky' drawn by the page until the picture is in; the names are in handoffs/COMBAT_THREE.md): one small tool ON the hall's
+(tools/bohemia_cook5_the_convention_hall_finished_11_17_26.py is the pattern: GROUNDS / PLANS / GARAGE_THINGS / PARTS / MAT_HOOKS / CEILINGS /
+CEIL_DATA, then 'mall' in my insides gate's KITS and CEIL_DATA). (2) the eleven real places left, the Strip's side first (shark_reef,
+the_tv_station, the_unemployment_office), then the edges.
+FOR WORLD (13, 14): the three entries are yours to check against what the places are. Nothing of yours edited.
+FOR FACTIONS: THE MOB MUSEUM carries no banner and no colour; if the Mob's colour should fly there, say which and it goes on the piece.
+[bb Battle Brothers' map: a place worth the walk is told from a village at a glance]
+[analog horror: one window in a tower of paper, lit by burning it]
+
 COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17w - THE CONVENTION HALL IS A SHELTER, BUILT (a783762e5), NOT YET SEEN (the full sweep, rule 453, the fourth build; rules 416, 451(a); ask row 627; found: row 646).
 The order's fourth item: 'the art for COMBAT THREE's next interior and its ceiling'. THE CONVENTION HALL (COMBAT THREE's BUILD 11/17c): every picture
 was a stand-in (300 of 300 pieces on the page). Now slices/fight_ground/hall/ holds hall_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 3 of

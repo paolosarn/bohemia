@@ -15,7 +15,7 @@ met on a phone, and a draw that never runs on the map he plays.
      drawn (a place he has not seen is dark like the land round it)
   S3 IT IS A THING: every piece covers a fifth of its box or more, 70 steps of tone or more between its dark and its pale;
      the two beat frames differ (something in it burns or blinks)
-  S4 LIGHT and no purple: the folder under 160,000 bytes, lossless WebP, not one purple pixel (the grow lights are rose)
+  S4 LIGHT and no purple: no place heavier than 30,000 bytes for its two frames, lossless WebP, not one purple pixel (the grow lights are rose)
   P1 PLANTED (in memory): a picture for an id no place has turns S1 red; a frame copied over its twin turns S3 red
   ON THE PAGE (tools/bohemia_the_place_pieces_on_the_page_11_17_26.js: a new game on the demo on a phone upright, the crew
   sent by the map's own travelTo to six blocks from each place; about four minutes; --static skips it):
@@ -30,7 +30,7 @@ from PIL import Image
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 D = os.path.join(ROOT, 'slices', 'place_pieces')
-BYTES, COVER, SPREAD, MIN_POINTS, SEEN = 160000, 0.20, 70.0, 44, 0.33
+BYTES, COVER, SPREAD, MIN_POINTS, SEEN = 30000, 0.20, 70.0, 44, 0.33      # BYTES: a place, its two frames (11/17, the fifth build: a flat 160,000 for the folder was four places' worth; the first four measure 24,800 a place)
 passed = failed = 0
 
 
@@ -97,7 +97,8 @@ def main():
     b3, r3 = s3(F); ok('S3 IT IS A THING: a fifth of its box or more, 70 steps of tone, and its two frames differ', not b3, '; '.join(b3) or ', '.join('%s %.0f%% %.0f, %d pixels move' % (k, v[0] * 100, v[1], v[2]) for k, v in r3.items()))
     tot = sum(os.path.getsize(os.path.join(D, f)) for f in os.listdir(D)); pur = sum(purple(a) for fr in F.values() for a in fr)
     stray = sorted(f for f in os.listdir(D) if f != 'place_pieces.json' and f not in {x for e in P.values() for x in e['frames']})
-    ok('S4 LIGHT and no purple: the folder under %s bytes, only what the list names in it, not one purple pixel' % format(BYTES, ','), tot <= BYTES and not pur and not stray, '%s bytes, %d purple%s' % (format(tot, ','), pur, (', stray: ' + ', '.join(stray[:3])) if stray else ''))
+    heavy = sorted(k for k, e in P.items() if sum(os.path.getsize(os.path.join(D, f)) for f in e['frames']) > BYTES)
+    ok('S4 LIGHT and no purple: no place heavier than %s bytes for its two frames, only what the list names in the folder, not one purple pixel' % format(BYTES, ','), not heavy and not pur and not stray, '%s bytes for %d places%s, %d purple%s' % (format(tot, ','), len(P), (', heavy: ' + ', '.join(heavy)) if heavy else '', pur, (', stray: ' + ', '.join(stray[:3])) if stray else ''))
     m2 = json.loads(json.dumps(man)); m2['pictures']['no_such_place'] = dict(next(iter(P.values()))); p1 = bool(s1(m2, ids))
     k0 = next(iter(F)); F2 = dict(F); F2[k0] = [F[k0][0], F[k0][0]]; p3 = bool(s3(F2)[0])
     ok('P1 PLANTED: a piece for a place nobody has turns S1 red, a frame copied over its twin S3', p1 and p3, 'S1 %s, S3 %s' % (p1, p3))

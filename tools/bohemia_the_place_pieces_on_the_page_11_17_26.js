@@ -31,17 +31,29 @@ const OUT = process.argv[2] || path.join(ROOT, 'records', 'target', 'cook5_place
     if (ONLY && ONLY.indexOf(c.id) < 0) continue;
     /* the crew walks there by the map's own travelTo (six blocks short of the place, to one side), the way he would; the map will not be dragged
        that far (its pan is held near him) */
-    let went = false;
-    for (const off of [[6, 0], [0, 6], [7, 1], [1, 7], [-6, 0], [0, -6], [6, 2], [2, 6]])   /* six blocks off to one side: a block beside a place opens its screen, which is not the map, and two blocks off his own men stand in front of it */ { if (await go([c.x + off[0], c.y + off[1]])) { went = [c.x + off[0], c.y + off[1]]; break; } }
-    await settle(); await page.waitForTimeout(1500);
-    const kept = await fr.evaluate(() => [city.x | 0, city.y | 0]);
+    /* (11/17, the fifth build) a spot is good when the map is what is on the glass there (a town a block away opens its screen: leave it and try the
+       next side) and the whole piece is inside the shot */
     const state = async (on) => { await fr.evaluate((v) => { BohemiaPlacePieces.on = v; try { render(); } catch (e) {} }, on); await page.waitForTimeout(700);
       return fr.evaluate((id) => ({ mode: (typeof MODE !== 'undefined' ? MODE : null), min: BohemiaPlacePieces.man && BohemiaPlacePieces.man.min_block_px, tw: TW, here: [city.x | 0, city.y | 0], drew: BohemiaPlacePieces.drew, rect: BohemiaPlacePieces.last[id] || null, err: BohemiaPlacePieces.err, cvw: CVW, cvh: CVH, cw: cv.getBoundingClientRect().width, cl: cv.getBoundingClientRect().left, ct: cv.getBoundingClientRect().top }), c.id); };
     const clip = { x: box.x, y: box.y + 60, width: box.width, height: Math.min(box.height - 60, box.width * 1.05) };
+    const leave = async () => { for (let q = 0; q < 4 && await inTown(); q++) { await page.waitForTimeout(700); await tapEl(await page.$('#bohphone .bpctx.town .lv')); await page.waitForTimeout(1300); } return !(await inTown()); };
+    let went = false, tried = 0, kept = null, on = null;
+    for (const off of [[6, 0], [0, 6], [-6, 0], [0, -6], [7, 2], [2, 7], [-7, 2], [2, -7], [5, 5], [-5, 5]]) {
+      if (!(await go([c.x + off[0], c.y + off[1]]))) continue;
+      tried++; went = [c.x + off[0], c.y + off[1]];
+      await settle(); await page.waitForTimeout(1500);
+      if (await inTown()) { await leave(); continue; }
+      kept = await fr.evaluate(() => [city.x | 0, city.y | 0]);
+      on = await state(true);
+      const r = on.rect, kk = on.cw / on.cvw;
+      if (r && r.x * kk + on.cl >= clip.x && r.y * kk + on.ct >= clip.y && (r.x + r.w) * kk + on.cl <= clip.x + clip.width && (r.y + r.h) * kk + on.ct <= clip.y + clip.height) break;
+      on = null;
+    }
+    if (!on) { res.places[c.id] = { at: [c.x, c.y], kind: c.kind, sent_to: went, tried: tried, err: 'no spot showed the map with the whole piece on it' }; continue; }
     const off = await state(false); await page.screenshot({ path: path.join(OUT, c.id + '_off.png'), clip: clip });
-    const on = await state(true); await page.screenshot({ path: path.join(OUT, c.id + '_on.png'), clip: clip });
+    on = await state(true); await page.screenshot({ path: path.join(OUT, c.id + '_on.png'), clip: clip });
     const k = on.cw / on.cvw, at = on.rect ? { x: Math.round(on.rect.x * k + on.cl), y: Math.round(on.rect.y * k + on.ct - 60), w: Math.round(on.rect.w * k), h: Math.round(on.rect.h * k) } : null;   /* the piece on the shot, in the shot's own points */
-    res.places[c.id] = { at: [c.x, c.y], kind: c.kind, sent_to: went, arrived: !!went && kept[0] === went[0] && kept[1] === went[1], here: on.here, block_css: +(on.tw * on.cw / on.cvw).toFixed(1), mode: on.mode, tw: on.tw, min: on.min, off_drew: off.drew, on_drew: on.drew, rect: on.rect, on_shot: at, shot_points: [clip.width, clip.height], err: on.err };
+    res.places[c.id] = { at: [c.x, c.y], kind: c.kind, sent_to: went, tried: tried, arrived: !!went && kept[0] === went[0] && kept[1] === went[1], here: on.here, block_css: +(on.tw * on.cw / on.cvw).toFixed(1), mode: on.mode, tw: on.tw, min: on.min, off_drew: off.drew, on_drew: on.drew, rect: on.rect, on_shot: at, shot_points: [clip.width, clip.height], err: on.err };
   }
   clearInterval(guard);
   fs.writeFileSync(path.join(OUT, 'page_' + PROFILE + '.json'), JSON.stringify(res, null, 1));

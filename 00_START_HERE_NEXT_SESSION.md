@@ -1,3 +1,13 @@
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17ze - THE BANK, THE MOB MUSEUM AND THE DINOSAUR, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the fifth build; rules 408, 409(c), 455; ask row 627).
+Three more real places wear their own piece on the map, on the 11/17k draw (no code): THE BANK (fourteen floors of dark glass over a banking hall with
+its glass out, the money in drifts on the plaza, one window lit by a stove fed with hundreds and its smoke on the beat), THE MOB MUSEUM (the 1933
+courthouse: stone, brick, stair, four columns, two men on the steps, a black car, the hearing room lit) and the NATURAL HISTORY MUSEUM (the low tan
+block, the hall's glass gone, the T. rex upright on the forecourt, his eye on the beat). 174,891 bytes for the folder (seven places now).
+ON THE DEMO on a phone both ways: all three drawn, 51 points across, none drawn with the module off, no error (the mob museum's first spot opened a town's screen; the tool steps to the next side). Gate THE PLACES WEAR THEIR OWN PIECE 8/0 with all seven.
+VOTE cook5-downtowns-three-11-17 (MADE FROM). NOT DONE: the places' own arrival screens; eleven real places still in kit art.
+NEXT ON THIS LANE: THE MALL's art and its painted sky (COMBAT THREE's BUILD 11/17x: 27 stand-in pieces, the names in its handoff), on the hall's tool.
+[bb Battle Brothers' map: a place worth the walk is told from a village at a glance]
+[analog horror: one window in a tower of paper, lit by burning it]
 WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- BUILD 11/17zb - HIS HOMEWORK, SHEET TWO: SCARY, THEN WHAT, BUILT (9f4bae9d7), NOT YET SEEN (rules 455, 454(c)(d), 458(a); ask rows 637, 643, 629). Its block is handoffs/WORDS_TWO.md.
 NOTHING IN THE GAME WAS REWRITTEN. THE VOICE's page one is written: laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md, his SCARY FIRST law in his own words (five rules, each his sentence) and his
 four lines as the examples; gate THE VOICE IS HIS WORDS 7/0 (every quote in his record word for word, every example the registry's verdict to the letter, three plants caught).

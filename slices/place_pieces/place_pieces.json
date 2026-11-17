@@ -64,6 +64,51 @@
    "like": "casino",
    "through_the_rig": true,
    "finished": "cook 5, 11/17"
+  },
+  "the_bank": {
+   "w": 166,
+   "h": 195,
+   "bx": 81,
+   "by": 152,
+   "plate": 150,
+   "frames": [
+    "the_bank_0.webp",
+    "the_bank_1.webp"
+   ],
+   "name": "THE BANK",
+   "like": "courthouse",
+   "through_the_rig": true,
+   "finished": "cook 5, 11/17"
+  },
+  "the_mob_museum": {
+   "w": 166,
+   "h": 171,
+   "bx": 83,
+   "by": 123,
+   "plate": 150,
+   "frames": [
+    "the_mob_museum_0.webp",
+    "the_mob_museum_1.webp"
+   ],
+   "name": "THE MOB MUSEUM",
+   "like": "courthouse",
+   "through_the_rig": true,
+   "finished": "cook 5, 11/17"
+  },
+  "the_natural_history_museum": {
+   "w": 166,
+   "h": 164,
+   "bx": 83,
+   "by": 115,
+   "plate": 150,
+   "frames": [
+    "the_natural_history_museum_0.webp",
+    "the_natural_history_museum_1.webp"
+   ],
+   "name": "NATURAL HISTORY MUSEUM",
+   "like": "library",
+   "through_the_rig": true,
+   "finished": "cook 5, 11/17"
   }
  }
 }

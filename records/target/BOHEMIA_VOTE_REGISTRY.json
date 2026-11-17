@@ -20482,7 +20482,50 @@
   {"id": "world13-every-zone-its-ground-11-17", "kind": "tile", "lane": "world 13", "sha": "deac8235", "made": "11/17", "draft": true, "title": "A FIGHT ON THE MAP LOOKS LIKE THE PART OF TOWN IT STARTS IN: A DESERT ROAD IS FOUGHT IN THE DESERT", "said": "do a full sweep, let's have some fun (and 11/7: not every part of town is gonna be this suburb shit)", "why": "A fight that started on a main road out in the open desert was fought on a suburb: cul-de-sacs, yards and parking lots, with no houses anywhere near on the map. Now the map tells the fight what ground it is on, and a road through the desert is fought in the desert, a road through the works among the works. A solar farm fights as desert, a resort as the Strip, an apartment court as the suburbs. Checked on 22 different valleys: 81 in 100 of the map now fights on its own part of town's ground, up from 51. Left: before, a road deep in the desert. Right: now. You meet it when a fight starts on the map in the RUN tab.", "show": {"how": "image", "src": "../records/target/WORLD13_EVERY_ZONE_ITS_GROUND_11_17.webp",
     "first": "../records/target/vote_first/world13-every-zone-its-ground-11-17.webp",
     "firstAt": [398, 0, 390, 390]
-   }, "before_after": {"before": "main 11/17zc: a fight on a mile street in the open desert dealt the suburbs' blocks (cul-de-sacs, yards, lots); 51 in 100 of the map's cells dealt a place board's own ground", "after": "the same road dealt the desert's own blocks (desert and wash); 81 in 100 of the cells on 22 valleys deal their zone's place, every road cell its way, every dirt track its bits", "scale": "the demo on the phone upright, the fight the map handed over"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_THIRTEEN_EVERY_ZONE_ITS_GROUND_11_17_26.md", "build": "BUILD 11/17zd - EVERY ZONE ITS GROUND"}
+   }, "before_after": {"before": "main 11/17zc: a fight on a mile street in the open desert dealt the suburbs' blocks (cul-de-sacs, yards, lots); 51 in 100 of the map's cells dealt a place board's own ground", "after": "the same road dealt the desert's own blocks (desert and wash); 81 in 100 of the cells on 22 valleys deal their zone's place, every road cell its way, every dirt track its bits", "scale": "the demo on the phone upright, the fight the map handed over"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_THIRTEEN_EVERY_ZONE_ITS_GROUND_11_17_26.md", "build": "BUILD 11/17zd - EVERY ZONE ITS GROUND"},
+  {
+   "id": "cook5-downtowns-three-11-17",
+   "kind": "tile",
+   "lane": "cook 5",
+   "sha": "SHIPSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "THE BANK, THE MOB MUSEUM AND THE DINOSAUR MUSEUM LOOK LIKE THEMSELVES ON THE MAP",
+   "said": "do a full sweep, let's have some fun",
+   "why": "The bank and the mob museum looked like any courthouse and the natural history museum like any library; now the bank is a glass tower with money blown across its plaza and one window lit by a stove burning it, the mob museum is the old courthouse with two men on its steps, and the museum has its T. rex out front whose eye comes on. You see them on the map, downtown and by Cashman Field, in the RUN tab.",
+   "options": [
+    "A, yes, that's them",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK5_DOWNTOWNS_THREE_11_17.webp",
+    "first": "../records/target/vote_first/cook5-downtowns-three-11-17.webp",
+    "firstAt": [
+     0,
+     72,
+     500,
+     605
+    ]
+   },
+   "before_after": {
+    "before": "main 5a0e2918d: the three places wear the kit art of the kind they are like (a courthouse, a courthouse, a library)",
+    "after": "each place's own piece through the map's rig, drawn on its block under the fog and the night",
+    "scale": "the piece at three times its pixels; the map on his phone upright (390 x 844), six blocks from the place, the same frame with the piece off and on"
+   },
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "twin": {
+    "src": "place_pieces/the_dome_1.webp",
+    "diffs": [
+     "THE SAME FRAME, RIG AND DRAW as the bus yard, the greenhouses, the cooling center and the dome: no code, three entries in the list and six pictures.",
+     "EACH SHOWS WHAT THE WORLD'S OWN LIST SAYS OF IT: the stove fed with hundreds, the family on the steps, the T. rex that is never coming back.",
+     "ONE THING MOVES ON THE BEAT in each: the stove and its smoke, the hearing room's lamp, the rex's eye."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_FIVE_THE_BANK_THE_MOB_MUSEUM_AND_THE_NATURAL_HISTORY_MUSEUM_11_17_26.md"
+  }
  ],
  "verdicts": [
   {
