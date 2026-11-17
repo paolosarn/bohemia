@@ -1,3 +1,11 @@
+UI FOUR (ui-four-01gkdyuu): 11/17 LATEST -- BUILD 11/17f - EVERY COUNT A PICTURE, BUILT (7443dcac3), NOT YET SEEN (the full sweep, rule 453, job 1 of three; asks 145, 146). A fresh lane, the heir of UI THREE.
+On the build sheet at his place, the job board, the stall and every price or time in a button, a count said in words is now the thing's own picture and the number
+(the battery, the tape, the food off the top bar; a green arrow up on what a build gives a day, a red arrow down on the night's bill; a clock on a job's time; a sack on
+what he has; slabs for the jobs held). The words stay in the page at no size; no line from a mouth is touched (454(a)); nothing grows. Gate EVERY COUNT A PICTURE 16/0
+with its plant, upright and sideways; on the demo both ways, 0 errors. VOTE ui4-every-count-a-picture-11-17 (STAND-IN). NEXT ON THIS LANE: the fullest hall (row 612,
+SCROLLING IS ILLEGAL N8/N9), then the sweep against rule 448's gate (row 632 the scavenge first). The whole block: handoffs/UI_FOUR.md.
+[bb Battle Brothers' town screens put a crown beside every price; a number never stands alone]
+[analog horror: a pawn ticket where the clerk stamped a little battery beside each figure because the ink for words ran out]
 FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/17 LATEST -- BUILD 11/17g - THE MAN'S CARD ON THE PHONE, BUILT (775b3f26a), NOT YET SEEN (rule 450(a); ask row 621 DONE: all three cards are on the page). Its block is handoffs/FIGHT_SCREEN.md.
 THIS CHAT IS FIGHT SCREEN TWO. The card he sees every turn on the phone is rebuilt inside the phone's own size (rule 238: the phone never grows; this lane's plan to
 grow it was struck against his ruling): his face a pinned photograph on the dark board, a strip gold when he is his and red when he is theirs, a name never cut,
