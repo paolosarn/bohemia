@@ -1,6 +1,6 @@
 # BOSSES (written only by the BOSSES lane)
 
-## BOSSES, 11/17/26: THE DOGS' PACKS, HIS OWN WAY, NO WORDS, AND THE ROUND'S THREE ARE LIVE (the coordinator's round 'BOSSES full sweep', rules 441, 453, 454(a); ask lines 167, 522, 571), BUILD 11/17@@
+## BOSSES, 11/17/26: THE DOGS' PACKS, HIS OWN WAY, NO WORDS, AND THE ROUND'S THREE ARE LIVE (the coordinator's round 'BOSSES full sweep', rules 441, 453, 454(a); ask lines 167, 522, 571), BUILD 11/17zp
 Record: records/BOHEMIA_BOSSES_THIRTEEN_TO_FIFTEEN_11_17_26.md. Gate: "THE DOGS" (THE DOGS CHANGES THE MAP, registered; both ways green).
 VOTE bosses-the-dogs-packs-11-17. FIFTEEN BOSSES ARE LIVE; the ladder's 16th (THE WARD) is next; WORLD TWO's boss_map already places his
 sign (TRACK found it in the gate).

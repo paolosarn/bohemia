@@ -106,7 +106,7 @@ grey, kept after a reload.
   tags on the gate he holds, the tags painted over, your man's card with no words); his moving card
   records/target/bosses_thirteen_to_fifteen/VOTE_BOSS_INK.webp.
 
-## THE DOGS (the ladder's 15th: the last kennel in the valley). BUILD 11/17@@
+## THE DOGS (the ladder's 15th: the last kennel in the valley). BUILD 11/17zp
 
 HIS OWN WAY: THE NIGHT HAS TEETH. While he stands his 3 packs sleep in his runs by day (the street is empty) and come out at night onto
 the streets within 6 blocks of his kennel. A pack that smells the crew (3 blocks) comes at it a block every 10 minutes of the game's own
