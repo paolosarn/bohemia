@@ -1,4 +1,4 @@
-FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/17 LATEST -- BUILD 11/17g - THE MAN'S CARD ON THE PHONE, BUILT (PENDINGSHA), NOT YET SEEN (rule 450(a); ask row 621 DONE: all three cards are on the page). Its block is handoffs/FIGHT_SCREEN.md.
+FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/17 LATEST -- BUILD 11/17g - THE MAN'S CARD ON THE PHONE, BUILT (775b3f26a), NOT YET SEEN (rule 450(a); ask row 621 DONE: all three cards are on the page). Its block is handoffs/FIGHT_SCREEN.md.
 THIS CHAT IS FIGHT SCREEN TWO. The card he sees every turn on the phone is rebuilt inside the phone's own size (rule 238: the phone never grows; this lane's plan to
 grow it was struck against his ruling): his face a pinned photograph on the dark board, a strip gold when he is his and red when he is theirs, a name never cut,
 three bars the width of the card, his AP as pips; the 5 point numbers leave it (his sheet holds them); a man of theirs wears LV and marks (three chevrons, the

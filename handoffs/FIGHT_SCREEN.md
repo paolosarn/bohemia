@@ -5,7 +5,7 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
-FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/17 LATEST -- [phone card] SHIPPED PENDINGSHA, BUILD 11/17g - THE MAN'S CARD ON THE PHONE, BUILT, NOT YET SEEN (rule 450(a); ask row 621 DONE: all three cards are on the page). VOTE fight-screen-the-mans-card-on-the-phone-11-17 (stand_in; before and after, upright and sideways).
+FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/17 LATEST -- [phone card] SHIPPED 775b3f26a, BUILD 11/17g - THE MAN'S CARD ON THE PHONE, BUILT, NOT YET SEEN (rule 450(a); ask row 621 DONE: all three cards are on the page). VOTE fight-screen-the-mans-card-on-the-phone-11-17 (stand_in; before and after, upright and sideways).
 THIS CHAT IS FIGHT SCREEN TWO. Record: records/BOHEMIA_FIGHT_SCREEN_THE_MANS_CARD_ON_THE_PHONE_11_17_26.md.
 STRUCK, AND WHY: the block below planned to GROW THE PHONE in a fight. Rule 238 (PAOLO 10/26, LOCKED): 'a solution to any of your UI problems will not be to make the
 phone longer... don't ever do that'; 'tinier, and that's OK'. FIXES gave every press its finger's reach on 11/9. The buttons are settled by his word; the teardown's
