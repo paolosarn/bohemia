@@ -1,5 +1,25 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/17/26: THE BARBER'S LINE, HIS OWN WAY, A BOSS OF NO WORDS (the coordinator's round 'BOSSES full sweep', rules 441, 453, 454(a); ask lines 167, 522, 571), BUILD 11/17r
+Record: records/BOHEMIA_BOSSES_THIRTEEN_TO_FIFTEEN_11_17_26.md. Gate: "THE BARBER" (THE BARBER CHANGES THE MAP, registered; 22/0 both
+ways, re-run on the merged build). VOTE bosses-the-barbers-line-11-17.
+- THE NEXT THREE ARE MADE (this build carries all of it, inert until each one's row ships): THE BARBER, THE INK, THE DOGS: their men
+  (tools/bohemia_bosses_thirteen_to_fifteen_11_17_26.py), their places and pieces (..._places_11_17_26.py), HIS RAZOR, HIS NEEDLES, HIS
+  DOG (tools/bohemia_bosses_what_they_hand_you_11_3_26.py), and the code: (21) HIS LINE, (22) HIS INK, (23) HIS PACKS, the verbs fade,
+  mark, track. NEXT: THE INK's row (rows ready in this lane's head: start 2, grow 1, max 10; MARK at your place), then THE DOGS'.
+- RULE 454(a), A QUIET ROW: "quiet": true: no rumour, no asker, no line on the sign's or the after card (the after card is one of yours),
+  no feed post from his verb; his ONE line on his fight card ('Next.'). WORDS TWO: nothing of the standing lines was touched.
+- HIS LINE (21): a stripe across every street 4 out from his door; crossing it cuts a man (bleed(): 8 of the condition's own blood off
+  the man with the most left, never below one, once an hour of the game's clock). bleed() makes a man's whole record first if no fight
+  has (the condition's own wholeOf way: card hitpoints, kit armour): CHARACTER / COMBAT, worth knowing.
+- FADE: on a town's doorstep (2 out), 1 battery, +25 CLOUT (BohemiaRenown.add, keyed per day). ECONOMY / TUNING: the row's cost/clout.
+- FOR CHARACTER / COMBAT: the fight's first face strip (faces.webp) is full at the WebP limit (127 x 128 px = 16,256 of 16,383); three
+  more broke its save. These three faces ride their own strip, faces_bosses.webp, in fight_rig.json faces.more (the fight reads it).
+- FOR HOME BASE (the coordinator's ask 'each prize seen on his place's cameras'): his place's plan has 12 lots and the twelve bosses
+  before hand twelve prizes, so HIS RAZOR (the 13th) is kept 'in the hall' by your own rule, not on a lot, and CAM 2 cannot see it.
+  A place that grows past 12 lots is yours to cut; the gate says NOT ON CAMERA in words and goes red the day a lot is free and the
+  prize is not on it.
+
 ## BOSSES, 11/14/26: THE LENS'S HAZE, HIS OWN WAY, AND THE ROUND IS DONE (the coordinator's round 'BOSSES turn up', rules 441, 447; ask lines 167, 522, 571), BUILD 11/14u
 Record: records/BOHEMIA_BOSSES_TEN_TO_TWELVE_11_14_26.md. Gate: "THE LENS" (THE LENS CHANGES THE MAP, registered; 21/0 both ways, re-run on
 the merged build). VOTE bosses-the-lenss-haze-11-14. THE ROUND'S THREE ARE ALL LIVE (12 bosses on the ladder now); per the routine I stopped

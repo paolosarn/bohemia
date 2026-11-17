@@ -34,7 +34,7 @@ with what they DO to the map and how they FIGHT:
   stripe across a street, his razor man on it; after, painted over grey), INKTAG (a wall of his tags, ink run onto the pavement; after,
   painted over), PACK (three dogs; after, a stake and a broken chain). The marks the tools leave: a barber pole, the company's mark on a
   wall, paw prints to a stake. MEASURED: paint on a wall did not survive the rig's pass (last round's collector's tooth and the eye
-  chart's letters never showed either); a wall built of panels of their own colour does. And the place tool's render keeps old renders
+  chart's letters never showed either: COOK FIVE found the same and redrew them in BUILD 11/17d); a wall built of panels of their own colour does. And the place tool's render keeps old renders
   (masters) and skips them: a fix only shows once they are cleared.
 - THE THINGS THEY HAND YOU (tools/bohemia_bosses_what_they_hand_you_11_3_26.py): HIS RAZOR (an open straight razor on his bleach jug),
   HIS NEEDLES (a coil machine and a pot of ink), HIS DOG (a dog standing, its collar and chain; the first two tries read as a llama and a
@@ -46,7 +46,7 @@ with what they DO to the map and how they FIGHT:
   bleed() makes the man's whole record first, counted the way the condition counts him (its wholeOf: his card's hitpoints, his kit's
   armour), then takes the blood off; never below one hitpoint.
 
-## THE BARBER (the ladder's 13th: the chair, the blade, the bleach). BUILD 11/17@@
+## THE BARBER (the ladder's 13th: the chair, the blade, the bleach). BUILD 11/17r
 
 HIS OWN WAY: BLOOD AT A BORDER. While he stands his red and white stripe is painted across every street 4 blocks out from his door
 (never in a town; 17 to 20 streets on the gate's two valleys) and his razor men stand on it. The crew crossing his line has a man cut:
@@ -65,4 +65,9 @@ wall, not a toll, not a time cost. When he falls the stripe is painted over grey
   bosses before him hand twelve prizes: every lot holds one, so HOME BASE's own rule keeps the 13th 'in the hall (named on the desk)',
   not on a lot, and CAM 2 cannot see it. That is HOME BASE's plan to grow (rule 445: a place that grows), not this lane's to cut into;
   the gate says it in words (H1 'NOT ON CAMERA') and fails it the day a lot is free and the thing is not on it (planted P6).
-- RESULTS: @@
+- RESULTS: THE BARBER CHANGES THE MAP 22/0 on the demo upright and 22/0 on the alpha on its side, then again 22/0 both ways on the build
+  merged with main (COOK FIVE's pieces, the fight, the town screen, the phone). On the way the alpha's first FADE check found no doorstep
+  within 20 blocks where FADE was the button (SURVEY and others held the nearer ones); the check looks 40 out now.
+- VOTE bosses-the-barbers-line-11-17: records/target/bosses_vote_barber_11_17/VOTE.webp (the gate's own phone: his line with his razor men,
+  painted over, your man's card with no words); his moving card records/target/bosses_thirteen_to_fifteen/VOTE_BOSS_BARBER.webp.
+

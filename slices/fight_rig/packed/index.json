@@ -139,6 +139,12 @@
 "fill": 0.153,
 "packedMB": 7.57
 },
+"boss_barber_0.webp": {
+"bytes": 253894,
+"decodedMB": 18.86,
+"fill": 0.178,
+"packedMB": 3.79
+},
 "boss_burn_0.webp": {
 "bytes": 359364,
 "decodedMB": 17.2,
@@ -157,11 +163,23 @@
 "fill": 0.247,
 "packedMB": 4.78
 },
+"boss_dogs_0.webp": {
+"bytes": 308484,
+"decodedMB": 17.2,
+"fill": 0.222,
+"packedMB": 4.34
+},
 "boss_filter_0.webp": {
 "bytes": 325080,
 "decodedMB": 18.86,
 "fill": 0.203,
 "packedMB": 4.34
+},
+"boss_ink_0.webp": {
+"bytes": 248090,
+"decodedMB": 17.2,
+"fill": 0.266,
+"packedMB": 5.26
 },
 "boss_lens_0.webp": {
 "bytes": 328264,
@@ -1269,8 +1287,8 @@
 }
 },
 "totals": {
-"decodedMB": 4280.9,
-"packedMB": 864.2,
-"sheets": 211
+"decodedMB": 4334.2,
+"packedMB": 877.6,
+"sheets": 214
 }
 }
