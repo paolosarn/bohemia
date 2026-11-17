@@ -7,7 +7,7 @@ are made ahead through the master rig (tools/bohemia_cook5_the_tunnels_and_the_g
 slices/fight_ground/<kit>/ with an art file a board reads its lists from. A board picks ANY tile of a sheet for ANY place,
 so the one thing a picture can get wrong without anybody seeing it in the tool is the join: this gate measures it.
 
-  for each kit in KITS (the tunnels, the garage):
+  for each kit in KITS (the tunnels, the garage, and from 11/17 the convention hall):
   A1 the art file says finished, names a board to be for, and every picture it names (sheets and pieces) is a file; no picture
      lies in the folder unnamed
   A2 every sheet is five by five tiles of 515 x 364 (2575 x 1820); every ground list entry names a tile on its sheet
@@ -52,7 +52,8 @@ FG = os.path.join(ROOT, 'slices', 'fight_ground')
 TW, TH = 515, 364
 KITS = {'tunnels': dict(art='tunnels_art.json', budget=900000, walls=('wall_ew', 'wall_ew_b', 'wall_ew_c'), beside=[]),
         'garage': dict(art='garage_art.json', budget=900000, walls=('wall_ew', 'rail_ew', 'level', 'level_aisle', 'ramp_e', 'ramp_w'),
-                       beside=[('stalls', 'aisle')])}   # (kind, kind): ground lists that lie north and south of each other AND must join without a line
+                       beside=[('stalls', 'aisle')]),   # (kind, kind): ground lists that lie north and south of each other AND must join without a line
+        'hall': dict(art='hall_art.json', budget=900000, walls=('wall_ew', 'airwall_ew', 'rail_ew', 'mezz', 'stair_e', 'stair_w'), beside=[('floor', 'ring')])}   # (11/17) COMBAT THREE's convention hall
 passed = failed = 0
 
 
@@ -142,7 +143,7 @@ def a4(kit, K, sizes):
 
 
 CEIL_ALPHA_MAX, CEIL_BYTES, CEIL_SPREAD, CEIL_LINES, CEIL_MEET = 0.15, 80000, 60.0, (25.0, 0.10), 8.0
-CEIL_DATA = {'garage': 'garage/garage.json', 'casino': 'casino/casino_floor.json', 'tunnels': 'tunnels/tunnels.json'}   # COMBAT THREE's: each one's 'ceiling' entry is the contract
+CEIL_DATA = {'garage': 'garage/garage.json', 'casino': 'casino/casino_floor.json', 'tunnels': 'tunnels/tunnels.json', 'hall': 'hall/hall.json'}   # COMBAT THREE's: each one's 'ceiling' entry is the contract
 
 
 def c1(C, exists=os.path.exists):
@@ -201,7 +202,7 @@ def ceilings():
     sizes = {k: os.path.getsize(os.path.join(FG, c['src'])) for k, c in C.items()}
     ok('C4 the ceilings: LIGHT, none heavier than %s bytes' % format(CEIL_BYTES, ','), all(z <= CEIL_BYTES for z in sizes.values()), ', '.join('%s %s' % (k, format(z, ',')) for k, z in sizes.items()))
     pur = {k: purple(os.path.join(FG, c['src'])) for k, c in C.items()}
-    ok('C5 the ceilings: PURPLE RESERVATION, not one purple pixel', not any(pur.values()), ', '.join('%s %d' % kv for kv in pur.items() if kv[1]) or '3 pictures')
+    ok('C5 the ceilings: PURPLE RESERVATION, not one purple pixel', not any(pur.values()), ', '.join('%s %d' % kv for kv in pur.items() if kv[1]) or '%d pictures' % len(pur))
     flat0 = c3(np.full((455, 645), 120.0, np.float32)); p3 = flat0[0] < CEIL_SPREAD
     C2 = json.loads(json.dumps(C)); C2['garage']['alpha'] = 0.5; p1 = bool(c1(C2))
     t2 = [t.copy() for t in tiles['garage']]; t2[3] = t2[3] * 0.875; j2 = meets(t2); p2 = j2[0] > j2[2]

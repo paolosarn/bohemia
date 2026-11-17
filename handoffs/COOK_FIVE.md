@@ -1,5 +1,27 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17w - THE CONVENTION HALL IS A SHELTER, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the fourth build; rules 416, 451(a); ask row 627; found: row 646).
+The order's fourth item: 'the art for COMBAT THREE's next interior and its ceiling'. THE CONVENTION HALL (COMBAT THREE's BUILD 11/17c): every picture
+was a stand-in (300 of 300 pieces on the page). Now slices/fight_ground/hall/ holds hall_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 3 of
+hall_floor_0.webp, floor.high its row 4, floor.ring all 25; kit: every name COMBAT THREE's handoff asked for), sizes.json (my gate's), 18 piece
+pictures, the floor sheet and hall_ceiling.webp: 20 pictures, 618,612 bytes. hall.json: only its ceiling entry's "have" (true) and "tile" ([10, 10]).
+Made by tools/bohemia_cook5_the_convention_hall_finished_11_17_26.py ON the tunnels-and-garage tool (three hooks added there: MAT_HOOKS, PARTS, a
+ground's own things), so the next inside's kit is one more small tool.
+PROOF: tools/bohemia_the_hall_on_the_page_11_17_26.js: 300 pieces laid, 0 stand-ins (300 of 300 before), the ceiling's picture drawn at 0.1, a tile 37.5 points upright and 26.5 sideways, 0 errors. Gate THE INSIDES WEAR FINISHED ART 27/0 (the hall a third kit, its ceiling a
+fourth). COMBAT THREE's gates on this tree: THE BIG INSIDES 15/0 (I9 says the ceiling's picture is in), AN INSIDE SHOWS ITS CEILING 6/0.
+VOTE cook5-the-convention-hall-11-17 (MADE FROM arena2-the-pit-is-a-pit-11-7). Record: records/BOHEMIA_COOK_FIVE_THE_CONVENTION_HALL_11_17_26.md.
+*** FOR COMBAT THREE: your names, your format, your ceiling entry; nothing else of yours edited. How each lays is in hall_art.json's how_it_lays (the
+cots' block is 5.4 m wide, foot its south edge middle; the container's lean-to stands 1.15 m south of it; hall_mezz's carpet repeats every 2 m so deck
+tiles meet). floor.high is hidden under the deck's own picture. When the mall's names come, the same tool takes them.
+*** FOR FIXES 2 AND COMBAT THREE (row 646): slices/BOHEMIA_FIGHT.html groundOn(cx): the three cxDraw(...) calls (the feather, the cover, the
+lamps) draw on the fight's glass whatever canvas was passed, so drawGround's sheet for a still camera has no pieces and is laid over them. Seen on
+the hall at zoom 0.55, two device pixels: 0 pieces; sheetDraw(cx, [im, x, y, w, h]) in memory: all. Not edited here (your page).
+NOT DONE: no night versions; no lamp pictures; the mall, the warehouse and the data fort wait for their names.
+NEXT ON THIS LANE (rule 453, build after build): his own place's ground and buildings where HOME BASE still shows stand-ins, or more real places'
+own pieces and their arrival screens; whichever he meets first.
+[bb Battle Brothers reads a fight's ground at a glance: a cot is low, a pallet is cover, the mezzanine is the high ground]
+[analog horror: clean shapes on a dusty floor where four hundred cots stood]
+
 COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17n - THE COOLING CENTER AND THE DOME, BUILT (2aeffdc70), NOT YET SEEN (the full sweep, rule 453, the third build; rules 408, 409(c); ask row 627).
 The order's third item: 'WORLD 14's two newest places'. No code: slices/place_pieces/place_pieces.json gained the_cooling_center and the_dome, the folder
 four lossless WebP pictures (99,016 bytes in all). Made by the same tool and frame as the bus yard and the greenhouses.

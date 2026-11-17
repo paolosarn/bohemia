@@ -309,7 +309,7 @@ def scene_ground(name, quick=False):
         things += FW.debris(bpy, NF, {'rubber': M['rubber'], 'card': M['card'], 'paper': M['paper']}, rng, lambda r: (r.uniform(0, 60), r.uniform(0, 60)), 26)
     elif name == 'tun_channel':
         things += floor_litter(bpy, NF, M, rng, 60, twigs=170, along=True)
-    elif name.startswith('gar_'):
+    elif name in GARAGE_THINGS:                                  # (11/17: by the table, so another kit's floor brings its own things: the convention hall's)
         things += GARAGE_THINGS[name](bpy, NF, M, rng)
     FW.finish(bpy, NF, F, RIG, objs, things, 21)
     FW.REND = REND
@@ -579,6 +579,10 @@ def models(which):
     print('models', out)
 
 
+MAT_HOOKS = []
+PARTS = {}                                                        # (11/17) which -> its parts: another kit's tool names its own here
+
+
 def piece_mats(bpy, NF, F, which):
     M = litter_mats(bpy, NF)
     M.update(cut=NF.material(bpy, 'in_cut_concrete', 'tape_grey', 3, 0.95), rustbar=NF.material(bpy, 'in_rusted_bar', 'clay_rust', 1, 0.95),
@@ -586,6 +590,7 @@ def piece_mats(bpy, NF, F, which):
              paint_y=NF.material(bpy, 'in_yellow_paint', 'clay_mustard', 2, 0.9), red=NF.material(bpy, 'in_red_paint', 'clay_rust', 2, 1.0),
              glass=NF.material(bpy, 'in_glass', 'glass_eye', 1, 1.0), lit=NF.material(bpy, 'in_lit', 'sodium', 3, 1.0))
     if which in ('gar_pieces', 'garage'): M.update(deck=F.ground_material(bpy, 'gar_deck'), white=F.ground_material(bpy, 'gar_white'))
+    for f in MAT_HOOKS: f(bpy, NF, F, M, which)                   # (11/17: another kit's own materials: the convention hall's tool adds its own here)
     return M
 
 
@@ -595,7 +600,7 @@ def scene_pieces(which, quick=False):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     M = piece_mats(bpy, NF, F, which); rng = np.random.RandomState(1200 + len(which))
     P = FW.Parts()
-    (tunnel_parts if which == 'tun_pieces' else garage_parts)(P, rng)
+    (PARTS[which] if which in PARTS else tunnel_parts if which == 'tun_pieces' else garage_parts)(P, rng)
     things = P.build(bpy, which, M)
     for o in things:                                              # a raised bay's floor wears the dust the sheet's floor wears (the plan's 'pale' field, 0.1 everywhere)
         if o.name.endswith('_deck'):

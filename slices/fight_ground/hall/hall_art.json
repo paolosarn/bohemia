@@ -1,0 +1,381 @@
+{
+ "version": "cook5-hall-art-11-17",
+ "lane": "cook 5",
+ "stage": "finished",
+ "for": "COMBAT THREE's convention hall (slices/fight_ground/hall/hall.json, BUILD 11/17c): the names its handoff asked for, the garage's format. floor.floor is the show floor (rows 0 to 3 of the sheet: the tape, the booth numbers, where the cots stood); floor.high is its last row, the same tape where no cot stood (the ground under the mezzanine: the deck's own picture carries the carpet and covers it); floor.ring is every tile of the sheet (the hall going on past the fight, and the shelter with it). Any tile meets any tile.",
+ "floor": {
+  "floor": [
+   "hall/hall_floor_0.webp#0,0",
+   "hall/hall_floor_0.webp#1,0",
+   "hall/hall_floor_0.webp#2,0",
+   "hall/hall_floor_0.webp#3,0",
+   "hall/hall_floor_0.webp#4,0",
+   "hall/hall_floor_0.webp#0,1",
+   "hall/hall_floor_0.webp#1,1",
+   "hall/hall_floor_0.webp#2,1",
+   "hall/hall_floor_0.webp#3,1",
+   "hall/hall_floor_0.webp#4,1",
+   "hall/hall_floor_0.webp#0,2",
+   "hall/hall_floor_0.webp#1,2",
+   "hall/hall_floor_0.webp#2,2",
+   "hall/hall_floor_0.webp#3,2",
+   "hall/hall_floor_0.webp#4,2",
+   "hall/hall_floor_0.webp#0,3",
+   "hall/hall_floor_0.webp#1,3",
+   "hall/hall_floor_0.webp#2,3",
+   "hall/hall_floor_0.webp#3,3",
+   "hall/hall_floor_0.webp#4,3"
+  ],
+  "high": [
+   "hall/hall_floor_0.webp#0,4",
+   "hall/hall_floor_0.webp#1,4",
+   "hall/hall_floor_0.webp#2,4",
+   "hall/hall_floor_0.webp#3,4",
+   "hall/hall_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "hall/hall_floor_0.webp#0,0",
+   "hall/hall_floor_0.webp#1,0",
+   "hall/hall_floor_0.webp#2,0",
+   "hall/hall_floor_0.webp#3,0",
+   "hall/hall_floor_0.webp#4,0",
+   "hall/hall_floor_0.webp#0,1",
+   "hall/hall_floor_0.webp#1,1",
+   "hall/hall_floor_0.webp#2,1",
+   "hall/hall_floor_0.webp#3,1",
+   "hall/hall_floor_0.webp#4,1",
+   "hall/hall_floor_0.webp#0,2",
+   "hall/hall_floor_0.webp#1,2",
+   "hall/hall_floor_0.webp#2,2",
+   "hall/hall_floor_0.webp#3,2",
+   "hall/hall_floor_0.webp#4,2",
+   "hall/hall_floor_0.webp#0,3",
+   "hall/hall_floor_0.webp#1,3",
+   "hall/hall_floor_0.webp#2,3",
+   "hall/hall_floor_0.webp#3,3",
+   "hall/hall_floor_0.webp#4,3",
+   "hall/hall_floor_0.webp#0,4",
+   "hall/hall_floor_0.webp#1,4",
+   "hall/hall_floor_0.webp#2,4",
+   "hall/hall_floor_0.webp#3,4",
+   "hall/hall_floor_0.webp#4,4"
+  ]
+ },
+ "kit": {
+  "hall_mezz": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "THE MEZZANINE",
+   "stage": "finished",
+   "src": "hall/hall_mezz.webp",
+   "w": 516,
+   "h_px": 427,
+   "foot": [
+    258.2,
+    426
+   ]
+  },
+  "hall_stair_e": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "THE STAIR UP, EAST",
+   "stage": "finished",
+   "src": "hall/hall_stair_e.webp",
+   "w": 515,
+   "h_px": 468,
+   "foot": [
+    257.8,
+    467
+   ]
+  },
+  "hall_stair_w": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "THE STAIR UP, WEST",
+   "stage": "finished",
+   "src": "hall/hall_stair_w.webp",
+   "w": 515,
+   "h_px": 467,
+   "foot": [
+    257.5,
+    466
+   ]
+  },
+  "hall_rail_ew": {
+   "kind": "RAIL",
+   "h": 1.04,
+   "name": "THE GLASS RAIL",
+   "stage": "finished",
+   "src": "hall/hall_rail_ew.webp",
+   "w": 516,
+   "h_px": 73,
+   "foot": [
+    258.2,
+    58
+   ]
+  },
+  "hall_rail_ns": {
+   "kind": "RAIL",
+   "h": 1.04,
+   "name": "THE GLASS RAIL",
+   "stage": "finished",
+   "src": "hall/hall_rail_ns.webp",
+   "w": 77,
+   "h_px": 414,
+   "foot": [
+    21.7,
+    413
+   ]
+  },
+  "hall_wall_ew": {
+   "kind": "WALL",
+   "h": 1.6,
+   "name": "THE OUTER WALL",
+   "stage": "finished",
+   "src": "hall/hall_wall_ew.webp",
+   "w": 515,
+   "h_px": 80,
+   "foot": [
+    257.8,
+    78
+   ]
+  },
+  "hall_wall_ns": {
+   "kind": "WALL",
+   "h": 1.6,
+   "name": "THE OUTER WALL",
+   "stage": "finished",
+   "src": "hall/hall_wall_ns.webp",
+   "w": 91,
+   "h_px": 439,
+   "foot": [
+    22.4,
+    438
+   ]
+  },
+  "hall_airwall_ew": {
+   "kind": "WALL",
+   "h": 2.2,
+   "name": "THE FOLDING WALL",
+   "stage": "finished",
+   "src": "hall/hall_airwall_ew.webp",
+   "w": 515,
+   "h_px": 102,
+   "foot": [
+    257.5,
+    102
+   ]
+  },
+  "hall_airwall_ns": {
+   "kind": "WALL",
+   "h": 2.2,
+   "name": "THE FOLDING WALL",
+   "stage": "finished",
+   "src": "hall/hall_airwall_ns.webp",
+   "w": 103,
+   "h_px": 466,
+   "foot": [
+    21.6,
+    465
+   ]
+  },
+  "hall_container": {
+   "kind": "COVER",
+   "h": 2.59,
+   "name": "A CONTAINER",
+   "stage": "finished",
+   "src": "hall/hall_container.webp",
+   "w": 584,
+   "h_px": 252,
+   "foot": [
+    271.2,
+    194
+   ]
+  },
+  "hall_chairs": {
+   "kind": "LOW_COVER",
+   "h": 0.9,
+   "name": "ROWS OF CHAIRS",
+   "stage": "finished",
+   "src": "hall/hall_chairs.webp",
+   "w": 515,
+   "h_px": 158,
+   "foot": [
+    244.8,
+    143
+   ]
+  },
+  "hall_desk": {
+   "kind": "LOW_COVER",
+   "h": 1.09,
+   "name": "THE REGISTRATION DESK",
+   "stage": "finished",
+   "src": "hall/hall_desk.webp",
+   "w": 472,
+   "h_px": 164,
+   "foot": [
+    189.5,
+    158
+   ]
+  },
+  "hall_cots_a": {
+   "kind": "LOW_COVER",
+   "h": 0.6,
+   "name": "COTS",
+   "stage": "finished",
+   "src": "hall/hall_cots_a.webp",
+   "w": 284,
+   "h_px": 243,
+   "foot": [
+    129.6,
+    237
+   ]
+  },
+  "hall_cots_b": {
+   "kind": "LOW_COVER",
+   "h": 0.8,
+   "name": "COTS",
+   "stage": "finished",
+   "src": "hall/hall_cots_b.webp",
+   "w": 283,
+   "h_px": 243,
+   "foot": [
+    128.8,
+    237
+   ]
+  },
+  "hall_pallets": {
+   "kind": "COVER",
+   "h": 1.44,
+   "name": "RELIEF PALLETS",
+   "stage": "finished",
+   "src": "hall/hall_pallets.webp",
+   "w": 172,
+   "h_px": 170,
+   "foot": [
+    69.1,
+    140
+   ]
+  },
+  "hall_sandbags": {
+   "kind": "COVER",
+   "h": 1.05,
+   "name": "A SANDBAG CHECKPOINT",
+   "stage": "finished",
+   "src": "hall/hall_sandbags.webp",
+   "w": 446,
+   "h_px": 104,
+   "foot": [
+    206.2,
+    80
+   ]
+  },
+  "hall_barrier": {
+   "kind": "LOW_COVER",
+   "h": 1.05,
+   "name": "CROWD BARRIERS",
+   "stage": "finished",
+   "src": "hall/hall_barrier.webp",
+   "w": 480,
+   "h_px": 109,
+   "foot": [
+    227.7,
+    73
+   ]
+  },
+  "hall_column": {
+   "kind": "WALL",
+   "h": 2.6,
+   "name": "A COLUMN",
+   "stage": "finished",
+   "src": "hall/hall_column.webp",
+   "w": 180,
+   "h_px": 185,
+   "foot": [
+    43.5,
+    161
+   ]
+  },
+  "hall_beds_a": {
+   "kind": "DRESS",
+   "h": 0.6,
+   "name": "COTS",
+   "stage": "finished",
+   "src": "hall/hall_cots_a.webp",
+   "w": 284,
+   "h_px": 243,
+   "foot": [
+    129.6,
+    237
+   ]
+  },
+  "hall_beds_b": {
+   "kind": "DRESS",
+   "h": 0.8,
+   "name": "COTS",
+   "stage": "finished",
+   "src": "hall/hall_cots_b.webp",
+   "w": 283,
+   "h_px": 243,
+   "foot": [
+    128.8,
+    237
+   ]
+  },
+  "hall_stack": {
+   "kind": "DRESS",
+   "h": 1.44,
+   "name": "RELIEF PALLETS",
+   "stage": "finished",
+   "src": "hall/hall_pallets.webp",
+   "w": 172,
+   "h_px": 170,
+   "foot": [
+    69.1,
+    140
+   ]
+  },
+  "hall_seats": {
+   "kind": "DRESS",
+   "h": 0.9,
+   "name": "ROWS OF CHAIRS",
+   "stage": "finished",
+   "src": "hall/hall_chairs.webp",
+   "w": 515,
+   "h_px": 158,
+   "foot": [
+    244.8,
+    143
+   ]
+  }
+ },
+ "how_it_lays": {
+  "cots": "hall_cots_a / hall_cots_b are a block of six cots 5.4 m wide (half a tile): four to a tile at (.27, .5), (.73, .5), (.27, .95), (.73, .95); foot the block's south edge middle. hall_beds_a/b are the same pictures (drawn, never counted).",
+  "pallets, chairs, the desk, sandbags, barriers": "foot the piece's south edge middle; hall_stack is hall_pallets' picture, hall_seats hall_chairs'.",
+  "the container": "hall_container is 12 m long (a tile wide), 2.4 m deep; foot its south base middle; a tarp lean-to stands 1.15 m south of it (inside its tile at .9 down)",
+  "the column": "hall_column, 1.2 m square, foot its base middle (the south face carries the flyers)",
+  "walls": "hall_wall_ew / hall_wall_ns the outer wall, hall_airwall_ew / hall_airwall_ns the folding partition: the garage's wall way (foot: south base middle / south end middle); a tile long",
+  "the mezzanine": "hall_mezz on every high tile, foot at the tile's south edge middle (the garage_level's way); it stands 1.42 m (61 px) up the glass; its carpet repeats every 2 m, so deck tiles meet. hall_stair_e climbs to the east, hall_stair_w to the west (the same foot). hall_rail_ew / hall_rail_ns on its open edges."
+ },
+ "bytes": {
+  "floor": 127702,
+  "ceiling": 41578
+ },
+ "ceiling": {
+  "sheet": "hall/hall_ceiling.webp",
+  "bays": [
+   5,
+   5
+  ],
+  "bay_px": [
+   129,
+   91
+  ],
+  "covers": [
+   10,
+   10
+  ],
+  "what": "the roof deck and its purlins, a truss on every bay's line both ways, the catwalk down every bay, the supply duct and its grilles, the high-bay lamps (one lit), a chain hoist, and the banners of a trade show nobody took down",
+  "contract": "hall.json 'ceiling' (COMBAT THREE's: the fight draws it over the board at that alpha, rule 451(a))"
+ }
+}

@@ -1,0 +1,200 @@
+{
+ "mezz": {
+  "w": 516,
+  "h": 427,
+  "foot": [
+   258.2,
+   426
+  ],
+  "piece": "mezz",
+  "src": "hall/hall_mezz.webp",
+  "facing": "S"
+ },
+ "stair_e": {
+  "w": 515,
+  "h": 468,
+  "foot": [
+   257.8,
+   467
+  ],
+  "piece": "stair_e",
+  "src": "hall/hall_stair_e.webp",
+  "facing": "S"
+ },
+ "stair_w": {
+  "w": 515,
+  "h": 467,
+  "foot": [
+   257.5,
+   466
+  ],
+  "piece": "stair_w",
+  "src": "hall/hall_stair_w.webp",
+  "facing": "S"
+ },
+ "rail_ew": {
+  "w": 516,
+  "h": 73,
+  "foot": [
+   258.2,
+   58
+  ],
+  "piece": "rail_ew",
+  "src": "hall/hall_rail_ew.webp",
+  "facing": "S"
+ },
+ "rail_ns": {
+  "w": 77,
+  "h": 414,
+  "foot": [
+   21.7,
+   413
+  ],
+  "piece": "rail_ns",
+  "src": "hall/hall_rail_ns.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 515,
+  "h": 80,
+  "foot": [
+   257.8,
+   78
+  ],
+  "piece": "wall_ew",
+  "src": "hall/hall_wall_ew.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 91,
+  "h": 439,
+  "foot": [
+   22.4,
+   438
+  ],
+  "piece": "wall_ns",
+  "src": "hall/hall_wall_ns.webp",
+  "facing": "S"
+ },
+ "airwall_ew": {
+  "w": 515,
+  "h": 102,
+  "foot": [
+   257.5,
+   102
+  ],
+  "piece": "airwall_ew",
+  "src": "hall/hall_airwall_ew.webp",
+  "facing": "S"
+ },
+ "airwall_ns": {
+  "w": 103,
+  "h": 466,
+  "foot": [
+   21.6,
+   465
+  ],
+  "piece": "airwall_ns",
+  "src": "hall/hall_airwall_ns.webp",
+  "facing": "S"
+ },
+ "container": {
+  "w": 584,
+  "h": 252,
+  "foot": [
+   271.2,
+   194
+  ],
+  "piece": "container",
+  "src": "hall/hall_container.webp",
+  "facing": "S"
+ },
+ "chairs": {
+  "w": 515,
+  "h": 158,
+  "foot": [
+   244.8,
+   143
+  ],
+  "piece": "chairs",
+  "src": "hall/hall_chairs.webp",
+  "facing": "S"
+ },
+ "desk": {
+  "w": 472,
+  "h": 164,
+  "foot": [
+   189.5,
+   158
+  ],
+  "piece": "desk",
+  "src": "hall/hall_desk.webp",
+  "facing": "S"
+ },
+ "cots_a": {
+  "w": 284,
+  "h": 243,
+  "foot": [
+   129.6,
+   237
+  ],
+  "piece": "cots_a",
+  "src": "hall/hall_cots_a.webp",
+  "facing": "S"
+ },
+ "cots_b": {
+  "w": 283,
+  "h": 243,
+  "foot": [
+   128.8,
+   237
+  ],
+  "piece": "cots_b",
+  "src": "hall/hall_cots_b.webp",
+  "facing": "S"
+ },
+ "pallets": {
+  "w": 172,
+  "h": 170,
+  "foot": [
+   69.1,
+   140
+  ],
+  "piece": "pallets",
+  "src": "hall/hall_pallets.webp",
+  "facing": "S"
+ },
+ "sandbags": {
+  "w": 446,
+  "h": 104,
+  "foot": [
+   206.2,
+   80
+  ],
+  "piece": "sandbags",
+  "src": "hall/hall_sandbags.webp",
+  "facing": "S"
+ },
+ "barrier": {
+  "w": 480,
+  "h": 109,
+  "foot": [
+   227.7,
+   73
+  ],
+  "piece": "barrier",
+  "src": "hall/hall_barrier.webp",
+  "facing": "S"
+ },
+ "column": {
+  "w": 180,
+  "h": 185,
+  "foot": [
+   43.5,
+   161
+  ],
+  "piece": "column",
+  "src": "hall/hall_column.webp",
+  "facing": "S"
+ }
+}

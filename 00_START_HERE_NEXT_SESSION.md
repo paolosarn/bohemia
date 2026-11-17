@@ -1,3 +1,14 @@
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17w - THE CONVENTION HALL IS A SHELTER, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the fourth build; rules 416, 451(a); ask row 627; found: row 646).
+COMBAT THREE's convention hall wears its own art under its own names (slices/fight_ground/hall/hall_art.json, the garage's format; no code): the show
+floor (booth tape, booth numbers, floor boxes, the clean shapes where cots stood, a hopscotch), 18 pictures for 22 names (cots twice, pallets, the
+container, chairs, the desk, sandbags, barriers, the column of MISSING flyers, both walls both ways, the mezzanine, both stairs, both rails) and the
+ceiling (trusses both ways, the catwalk, the duct, dead banners) with "have": true, "tile": [10, 10] in hall.json. 20 pictures, 618,612 bytes.
+ON THE PAGE on a phone both ways: 300 pieces laid, 0 stand-ins (300 of 300 before), the ceiling's picture drawn at 0.1, a tile 37.5 points upright and 26.5 sideways, 0 errors. Gate THE INSIDES WEAR FINISHED ART 27/0.
+FOUND, NOT MINE (row 646, FOR FIXES 2 AND COMBAT THREE): close in with the camera still an inside's furniture is not drawn: groundOn(cx)'s three
+cxDraw(...) calls draw on the glass, not on its argument, so the still camera's sheet has no pieces (since 11/10l). sheetDraw(cx, [...]) shows them.
+VOTE cook5-the-convention-hall-11-17 (MADE FROM). NOT DONE: no night versions; the hall's lamps are the game's own; the next insides have no art yet.
+[bb Battle Brothers reads a fight's ground at a glance: a cot is low, a pallet is cover, the mezzanine is the high ground]
+[analog horror: clean shapes on a dusty floor where four hundred cots stood]
 UI FOUR (ui-four-01gkdyuu): 11/17 LATEST -- BUILD 11/17t - THE SCAVENGE COMES OUT OF THE LOT, BUILT (ecc2d8d85), NOT YET SEEN (the full sweep, rule 453, job 3 of three; rule 448's sweep; ask row 632's 448 half).
 Every screen change on the demo walked against rule 448's gate: two were still wrong. The scavenge (a bare cut) now grows out of the lot he searched, its cover and the
 game's frame together, and goes back into it when he leaves; the town's arrival card (a fade from nowhere) comes out of the phone's spot and goes back into it. One shared

@@ -1,0 +1,53 @@
+// COOK FIVE 11/17/26, VAMILY rules 453, 441, 451(a): THE CONVENTION HALL ON THE PAGE. The proof of
+// records/BOHEMIA_COOK_FIVE_THE_CONVENTION_HALL_11_17_26.md. It changes nothing in the game: it opens the real fight page on a
+// phone (390 x 844 and 844 x 390 at 2), asks for COMBAT THREE's hall by name (opts.inside 'hall', a named layout), and shoots
+// what he meets: the opening view with the ceiling off (UI.noCeiling, the page test's own switch) and as the data file says,
+// then close on the cots, the mezzanine and its stair, the pallets and the container, the chairs, the desk, the column (one
+// spot as the page is; then every spot with the page's close-in draw mended IN MEMORY, see below: the shots named 'held').
+//   node tools/bohemia_the_hall_on_the_page_11_17_26.js <outdir> [upright,sideways] [the_split_hall|the_long_hall]
+// writes hall_<shape>_open_a0.png, _open_a01.png, _<spot>_close_as_is.png, _<spot>_close_held.png and page_<shape>.json (the board's own count of stand-ins, the
+// pieces with no picture, whether the ceiling's picture drew, a fight tile's size in points).
+const http = require('http'), fs = require('fs'), path = require('path');
+const ROOT = path.resolve(__dirname, '..');
+const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.webp': 'image/webp', '.png': 'image/png', '.mp3': 'audio/mpeg', '.ogg': 'audio/ogg', '.css': 'text/css', '.woff2': 'font/woff2' };
+const SPOTS = { the_split_hall: { cots: [2.5, 4], mezz: [3, 1.6], stair_w: [16.5, 1.8], pallets: [13.5, 3.6], chairs: [13, 6.6], desk: [8, 12], column: [14, 9.6], airwall: [9, 6] },
+  the_long_hall: { cots: [3, 5], mezz: [3, 1.6], pallets: [12, 4], chairs: [12, 7], desk: [8, 12], column: [10, 9] } };
+(async () => {
+  const out = process.argv[2], shapes = (process.argv[3] || 'upright,sideways').split(','), layout = process.argv[4] || 'the_split_hall';
+  fs.mkdirSync(out, { recursive: true });
+  const srv = http.createServer((q, r) => { const u = decodeURIComponent(q.url.split('?')[0]), f = path.join(ROOT, u);
+    if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { r.writeHead(404); return r.end(); }
+    r.writeHead(200, { 'content-type': TYPES[path.extname(f)] || 'application/octet-stream' }); fs.createReadStream(f).pipe(r); }).listen(0);
+  const { chromium } = require('playwright'); const br = await chromium.launch(); const errs = [], lost = [];
+  for (const shape of [['upright', 390, 844], ['sideways', 844, 390]].filter(s => shapes.indexOf(s[0]) >= 0)) {
+    const ctx = await br.newContext({ viewport: { width: shape[1], height: shape[2] }, deviceScaleFactor: 2, hasTouch: true, isMobile: true });
+    const p = await ctx.newPage(); p.on('pageerror', e => errs.push(String(e && e.message || e)));
+    p.on('response', r => { if (r.status() >= 400 && /fight_ground/.test(r.url())) lost.push(r.url().split('/slices/')[1]); });
+    await p.addInitScript(o => { window.FIGHT_OPTS = o; try { localStorage.clear(); } catch (e) {} },
+      { district: 'convention', cell: [40, 40], seed: 21, speed: 1, inside: 'hall', insideAsk: { layout: layout, flip: [false, false] } });
+    await p.goto('http://localhost:' + srv.address().port + '/slices/BOHEMIA_FIGHT.html', { waitUntil: 'load' });
+    await p.waitForFunction(() => { try { return !!eval('FIGHT').S.boardDef && document.getElementById('load').style.display === 'none'; } catch (e) { return false; } }, null, { timeout: 180000 });
+    await p.waitForTimeout(3500);
+    const info = await p.evaluate(() => { const S = eval('FIGHT').S, B = S.boardDef, U = eval('UI');
+      return { board: B.name, inside: B.inside, ceiling: B.ceiling && { have: B.ceiling.have, src: B.ceiling.src, alpha: B.ceiling.alpha, tile: B.ceiling.tile }, drew: U.ceilOn,
+        tile_points: Math.round(U.tw * U.zoom * 10) / 10, zoom: [U.zoom, U.far, U.near, U.max] }; });
+    info.shape = shape[0]; info.layout = layout; console.log(shape[0], JSON.stringify(info));
+    const shot = async (tag) => { await p.waitForTimeout(700); await p.screenshot({ path: path.join(out, 'hall_' + shape[0] + '_' + tag + '.png') }); };
+    await p.evaluate(() => { eval('UI').noCeiling = true; }); await shot('open_a0');
+    await p.evaluate(() => { eval('UI').noCeiling = false; }); await shot('open_a01');
+    // CLOSE IN. As the page is (ask row: an inside's furniture is not drawn close in once the camera stops), one spot, counted;
+    // then the same spots with groundOn's three cxDraw(...) calls turned to sheetDraw(cx, [...]) IN MEMORY, to see the pictures
+    // at their size (the page's file is not touched; the shots' names say 'held').
+    const aim = async (at) => { await p.evaluate(([tx, ty]) => { const U = eval('UI'); eval('camMine')(); U.zoom = U.near; U.cx = (tx + 0.5) * U.tw; U.cy = (ty + 0.5) * U.th; eval('clampCam')(); }, at); };
+    const first = Object.entries(SPOTS[layout] || {})[0];
+    if (first) { await aim(first[1]); await shot(first[0] + '_close_as_is'); }
+    info.held = await p.evaluate(() => { const src = String(window.groundOn), n = (src.match(/cxDraw\(/g) || []).length;
+      (0, eval)('groundOn = ' + src.replace(/cxDraw\(([^;]*?)\);/g, 'sheetDraw(cx, [$1]);')); const U = eval('UI'); U.gprev = null; U.gkey = null; U.gsheet = null;
+      return { calls_turned: n, left: (String(window.groundOn).match(/cxDraw\(/g) || []).length }; });
+    for (const [name, at] of Object.entries(SPOTS[layout] || {})) { await aim(at); await shot(name + '_close_held'); }
+    info.lost = lost.slice(); info.errors = errs.slice(0, 4);
+    fs.writeFileSync(path.join(out, 'page_' + shape[0] + '.json'), JSON.stringify(info, null, 1));
+    await ctx.close();
+  }
+  await br.close(); srv.close(); console.log('errors', errs.length, errs.slice(0, 3), 'lost', lost.length, lost.slice(0, 4));
+})();
