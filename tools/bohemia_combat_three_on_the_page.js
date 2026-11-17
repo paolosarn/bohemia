@@ -121,9 +121,9 @@ const HOOKS = `(function(){
     await page.evaluate((c) => { const m = { type: 'BOHEMIA_CITY_ENCOUNTER', district: c.d, at: { gx: c.at[0], gy: c.at[1] }, label: 'combat3-page', draft: true }; if (c.tpl) m.template = c.tpl; window.nfOpen(m); }, c);
     if (!(await until(async () => { const f = fightF(); return f && await f.evaluate(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units.length > 0 && !!FIGHT.__c3); }, 40000))) { log('no fight came at', c.d, c.at); continue; }
     const f = fightF(); await wait(2500);
-    const o = await f.evaluate(() => { const S = FIGHT.S, B = S.boardDef || {}; return { board: B.name, inside: B.interior || null, layout: (B.tunnels && B.tunnels.layout) || (B.garage && B.garage.layout) || null, flood: S.flood ? S.flood.round : null, night: !!S.night, w: S.w, h: S.h,
+    const o = await f.evaluate(() => { const S = FIGHT.S, B = S.boardDef || {}; return { board: B.name, inside: B.interior || null, layout: (B.tunnels && B.tunnels.layout) || (B.garage && B.garage.layout) || (B.inside && B.inside.layout) || null, flood: S.flood ? S.flood.round : null, night: !!S.night, w: S.w, h: S.h,
       mine: S.units.filter(u => u.side === 'you').length, theirs: S.units.filter(u => u.side !== 'you').length, hasKey: !!B.tileKey }; });
-    const wanted = WANT === 'tunnels' ? o.inside === 'tunnels' : WANT === 'garage' ? o.inside === 'garage' : BOSS ? !!(await f.evaluate(() => !!(window.FIGHT_OPTS && FIGHT_OPTS.boss))) : true;
+    const wanted = WANT === 'tunnels' ? o.inside === 'tunnels' : WANT === 'garage' ? o.inside === 'garage' : BOSS ? !!(await f.evaluate(() => !!(window.FIGHT_OPTS && FIGHT_OPTS.boss))) : process.env.C3_INSIDE ? o.inside === process.env.C3_INSIDE : true;   /* C3_INSIDE=<id>: only fights dealt inside that inside count (the district's other fights are the garage or the lot outside) */
     const n = results.length + 1, tag = 'f' + String(n).padStart(2, '0');
     /* WHERE THE TWO LINES STAND AT THE BELL against the cell the map handed (FIGHT.S.cutStart), and whether his men are on the glass */
     /* the bell's picture: wait (ten seconds at most) until the board is drawn and the opening camera has every man of his on the glass */
@@ -235,6 +235,12 @@ const HOOKS = `(function(){
       const z0 = await f.evaluate(() => UI.zoom); await near(-400, +process.env.C3_NEAR); await wait(900); await shot(tag + '_near'); R.near = await f.evaluate(() => UI.zoom);
       for (let i = 0; i < 12 && (await f.evaluate(() => UI.zoom)) > z0 * 1.02; i++) await near(400, 1); await wait(300);
     } catch (e) { log('   near failed', String(e).slice(0, 80)); } }
+    /* the far stop, for the card: the page's own wheel zoom out from the middle of the board (C3_FAR notches), a still, then back in */
+    if (wanted && process.env.C3_FAR) { try {
+      const far = async (dy, n) => f.evaluate(([dy, n]) => { const cv = document.getElementById('cv'); for (let i = 0; i < n; i++) cv.dispatchEvent(new WheelEvent('wheel', { deltaY: dy, clientX: innerWidth / 2, clientY: innerHeight * 0.4, bubbles: true, cancelable: true })); return UI.zoom; }, [dy, n]);
+      const z0 = await f.evaluate(() => UI.zoom); await far(400, +process.env.C3_FAR); await wait(900); await shot(tag + '_far'); R.far = await f.evaluate(() => UI.zoom);
+      for (let i = 0; i < 14 && (await f.evaluate(() => UI.zoom)) < z0 * 0.98; i++) await far(-400, 1); await wait(300);
+    } catch (e) { log('   far failed', String(e).slice(0, 80)); } }
     /* AUTO and the speed, with a finger */
     for (let i = 0; i < 4; i++) { const h = await f.evaluate(() => UI.hand); if (h === R.speed) break; if (!(await press('speed'))) break; }
     if (!(await f.evaluate(() => UI.auto))) await press('auto');

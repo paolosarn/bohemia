@@ -1,6 +1,43 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 453, 429(a)(g), 428, 441; ask rows 504, 507, 627): 11/17 LATEST -- [the zone is the board] SHIPPED e3855e22f, BUILD 11/17p - THE ZONE IS THE BOARD, BUILT, NOT YET SEEN. VOTE combat3-the-zone-is-the-board-11-17 (stand_in).
+COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/17 LATEST -- [the mall] SHIPPED SHIPSHA, BUILD 11/17x - THE MALL, BUILT, NOT YET SEEN. VOTE combat3-the-mall-11-17 (stand_in).
+Record: records/BOHEMIA_COMBAT_THREE_THE_MALL_11_17_26.md. The full sweep, job 1 again: the fifth big inside of row 468's list.
+WHAT: a fight at the mall (0.7 of what the garage leaves there, by the cell's dice; opts.inside 'mall' anywhere) is fought on its concourse: eight stores as rooms (a shutter stuck
+half down in each doorway: 3 AP, one at a time), carts, stock, counters, bedding, planters, kiosks, the food court's tables (3 AP, low cover), a column, the lift, the day through
+the skylight and the doors, drum fires, and THE BRIDGE of the upper level in the middle (high ground, dead escalators the walk, the rail a climb) that NOBODY holds at the bell.
+ONE DATA FILE: slices/fight_ground/mall/mall.json (two layouts, 23 tile kinds, 27 pieces all stand-ins), in slices/fight_ground/insides.json. No new rule code; the fight page
+gained the ceiling kind 'sky' (ceilingSheet). GATE THE BIG INSIDES 29/0 (15 legs an inside); I8 now reads the inside's own 'start' ('gallery' = held at the bell; else nobody's).
+ON THE PAGE (this stamp): the demo and the alpha, upright and on its side: 4 fights inside the mall, 4 ended on AUTO, 6 of 6 tile taps, 0 page errors; the ceiling moves a pixel
+4 of 255 on average.
+THE DRIVER: C3_INSIDE=<id> counts only fights inside that inside; C3_FAR=<notches> takes a far still.
+*** FOR COOK FIVE (the mall's names, agreed here as the coordinator asked; every picture of the mall is a STAND-IN today): yours replace them with no code. Put
+slices/fight_ground/mall/mall_art.json in the folder, THE GARAGE'S FORMAT ({ "floor": { "floor": [...], "store": [...], "high": [...], "ring": [...] }, "kit": { name: { "src",
+"w", "h_px", "foot": [x, y], ... } } }), with any of these names; a name you leave out stays its stand-in:
+  the floors     floor.floor (the concourse: pale terrazzo, cracked, a dead plant's leaves), floor.store (a store's carpet or tile), floor.high (the bridge's floor),
+                 floor.ring (the mall going on past the fight)
+  mall_front_ew        a STORE FRONT, a tile wide, seen from the concourse: glass boarded or gone, a dead sign over it (today the casino's glass doors). THE RUNWAY LIVES HERE:
+                       a window with what is left of a display
+  mall_storewall_ns    the wall between two stores, seen end on (a tile deep)
+  mall_door            a store's doorway with its shutter stuck half down (a man ducks under it; the tile is walked)
+  mall_carts, mall_cart_a, mall_cart_b    a corral of carts, about a tile wide; one loose cart (drawn, never counted)
+  mall_stock, mall_boxes    stock on pallets, half a tile (boxes: the drawn-only second stack)
+  mall_counter         a store's counter with shelves behind; mall_kiosk   a kiosk on the concourse; mall_planter   a concrete planter, what grew in it dead
+  mall_camp_a, mall_camp_b, mall_bedding_a, mall_bedding_b    somebody living in a store: bedding and bags, half a tile (bedding: drawn-only)
+  mall_tables, mall_seats   the food court's bolted tables and chairs, a tile wide (seats: the drawn-only second row)
+  mall_rubble          a piece of the ceiling come down; mall_column   a column; mall_lift   the lift's shaft, doors shut (a tile's blocker)
+  mall_bridge          one tile of the upper level's deck; mall_escalator_e, mall_escalator_w   a dead escalator rising east / west (a tile)
+  mall_rail_ew, mall_rail_ns    the bridge's glass rail; mall_wall_ew, mall_wall_ns   the mall's outer wall
+  mall/mall_ceiling.webp    THE CEILING: the painted sky (the Forum Shops'), faded, paint let go, a rib every bay, the skylight's grid along the middle; it tiles every 5 by 5
+                       tiles; set "have": true in mall.json's ceiling the day it is in (the same contract as the garage's)
+  ASKED, NOT IN THE DATA YET (no stand-in exists, so I left them out; say when they are in and I add the legend line): mall_mannequins (a store's mannequins, drawn-only, what is
+  left of the runway), mall_fountain (the atrium's dead fountain, a blocker in place of the lift)
+*** SAID PLAINLY: the food court layout was never on the glass by the map's own hand (every valley dealt the_atrium at its mall cell): gate and a look on the fight page alone.
+The men crowd the bridge (114 of 250 on it after round one).
+NEXT: the distribution warehouse, then the data fort (a data file each).
+[bb Battle Brothers never fights indoors; what it teaches here is the hill: high ground in the middle of the map that neither side starts on is the fight]
+[analog horror: a mall's security tape, timestamp burned in, the painted sky still lit by one working fixture, somebody's bedding in a shoe store]
+
+COMBAT THREE (rules 453, 429(a)(g), 428, 441; ask rows 504, 507, 627): 11/17 -- [the zone is the board] SHIPPED e3855e22f, BUILD 11/17p - THE ZONE IS THE BOARD, BUILT, NOT YET SEEN. VOTE combat3-the-zone-is-the-board-11-17 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_ZONE_IS_THE_BOARD_11_17_26.md. The full sweep's job 2 (the open-map boards look like their zone, never two alike) and job 3's leg on it.
 WHAT: a map cell no place stands on, in a district that has a place, deals THAT PLACE'S OWN BLOCKS with its plan kept (pinned columns and rows: the boulevard, the canopy, the dry
 wash, the shore line), no landmark, a share of the free slots from the zone's other kinds in WORLD's table (ours.plain_cells.mix), each by the cell's dice; blocks whose street

@@ -1,0 +1,768 @@
+{
+ "version": 1,
+ "lane": "COMBAT THREE",
+ "id": "mall",
+ "name": "THE MALL",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 453, 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428 (roofs and cover); ask row 468's list, the fifth: 'THE MALL (Fashion Show; the Forum Shops' painted sky): stores as tiles, the atrium, the escalators.'",
+ "facts": [
+  "Fashion Show on the Strip is about 1.9 million square feet with some 250 stores (its owner's figure); one wing of one level is hundreds of house tiles, so a fight takes a stretch of one concourse: eight stores and the atrium between them.",
+  "The Forum Shops at Caesars has a barrel ceiling painted as a sky that used to turn from dawn to dusk on a timer; the mall's ceiling here is that sky, the paint let go, with a skylight along the concourse.",
+  "A dead mall is a real thing with a real look (the country's dead malls, photographed for years): shutters stuck half down, planters with nothing alive in them, the food court's chairs still bolted to the floor, people living in the stores.",
+  "The map's own word for a mall in the collapse (slices/BOHEMIA_CITY_WORLD.html): 'shelter, then a supply riot, then quiet'."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (mall_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "mall"
+ ],
+ "share": 0.7,
+ "districts_why": "The mall is the one map kind with a concourse of stores. The parking garage takes its own share there first (garage.json); of the rest, this share is fought inside the mall, by the cell's own dice; the rest on the lot outside.",
+ "board": {
+  "templates": {
+   "mall": {
+    "name": "THE MALL",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_atrium": [
+      "####################",
+      "#s,,kA,pp,Ak,,sAs,s#",
+      "#,,c,A,,,sA,c,,A,,,#",
+      "#GGuGAG,,GAGuGGAGuG#",
+      "#...n....o....n....#",
+      "#D....K..yy..t.t..D#",
+      "#..f...MNMMPM.r....#",
+      "#.....>MMMMMM<.....#",
+      "#....n...L....f....#",
+      "#D.t.t...yy..K....D#",
+      "#...n....o....n....#",
+      "#GuGGAG,,GAGGuGAGuG#",
+      "#,c,,As,,,A,,p,A,k,#",
+      "#k,,sA,,ckAs,p,As,s#",
+      "####################"
+     ],
+     "the_food_court": [
+      "####################",
+      "#,,s,,kA,c,,A,,,s,k#",
+      "#c,,,s,A,,p,Ap,,c,,#",
+      "#GG,,GGAGuGGAGGGuGG#",
+      "#......n....n......#",
+      "#D...MPMMMNM......D#",
+      "#...>MMMMMMM<o.....#",
+      "#.f..t.t.t.t.t..K..#",
+      "#....t.t.yy.t.t....#",
+      "#..K..........r..f.#",
+      "#D...n...L...n....D#",
+      "#GuGGAGGuGAG,,GAGuG#",
+      "#s,,,A,k,sA,,,cA,p,#",
+      "#,,ckAs,,,Ak,s,As,,#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   "A": {
+    "is": "wall",
+    "wall": "air",
+    "tile": "storewall"
+   },
+   "G": {
+    "is": "wall",
+    "wall": "air",
+    "tile": "front"
+   },
+   ".": {
+    "is": "floor"
+   },
+   ",": {
+    "is": "floor",
+    "tile": "carpet",
+    "floor": "store"
+   },
+   "u": {
+    "is": "floor",
+    "tile": "shutter",
+    "floor": "store",
+    "piece": "mall_door",
+    "at": [
+     0.5,
+     0.62
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "carts",
+    "floor": "store",
+    "piece": "mall_carts",
+    "at": [
+     0.5,
+     0.72
+    ],
+    "more": [
+     {
+      "piece": [
+       "mall_cart_a",
+       "mall_cart_b"
+      ],
+      "at": [
+       0.2,
+       0.95
+      ],
+      "share": 0.7
+     },
+     {
+      "piece": [
+       "mall_cart_a",
+       "mall_cart_b"
+      ],
+      "at": [
+       0.82,
+       0.4
+      ],
+      "share": 0.5
+     }
+    ]
+   },
+   "s": {
+    "is": "floor",
+    "tile": "stock",
+    "floor": "store",
+    "piece": "mall_stock",
+    "at": [
+     0.32,
+     0.66
+    ],
+    "more": [
+     {
+      "piece": "mall_boxes",
+      "at": [
+       0.74,
+       0.95
+      ],
+      "share": 0.7
+     }
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "counter",
+    "floor": "store",
+    "piece": "mall_counter",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "p": {
+    "is": "floor",
+    "tile": "camp",
+    "floor": "store",
+    "piece": [
+     "mall_camp_a",
+     "mall_camp_b"
+    ],
+    "at": [
+     0.3,
+     0.55
+    ],
+    "more": [
+     {
+      "piece": [
+       "mall_bedding_a",
+       "mall_bedding_b"
+      ],
+      "at": [
+       0.72,
+       0.95
+      ],
+      "share": 0.8
+     }
+    ]
+   },
+   "n": {
+    "is": "floor",
+    "tile": "planter",
+    "piece": "mall_planter",
+    "at": [
+     0.5,
+     0.62
+    ]
+   },
+   "t": {
+    "is": "floor",
+    "tile": "tables",
+    "piece": "mall_tables",
+    "at": [
+     0.5,
+     0.5
+    ],
+    "more": [
+     {
+      "piece": "mall_seats",
+      "at": [
+       0.5,
+       0.96
+      ]
+     }
+    ]
+   },
+   "K": {
+    "is": "floor",
+    "tile": "kiosk",
+    "piece": "mall_kiosk",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "r": {
+    "is": "floor",
+    "tile": "rubble",
+    "piece": "mall_rubble",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "o": {
+    "is": "floor",
+    "tile": "column",
+    "piece": "mall_column",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "L": {
+    "is": "floor",
+    "tile": "lift",
+    "piece": "mall_lift",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "y": {
+    "is": "floor",
+    "tile": "skylight",
+    "light": "sky",
+    "light_at": 0.5
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   },
+   "M": {
+    "is": "high"
+   },
+   "P": {
+    "is": "high",
+    "tile": "high_stock",
+    "piece": "mall_stock",
+    "at": [
+     0.32,
+     0.82
+    ],
+    "more": [
+     {
+      "piece": "mall_boxes",
+      "at": [
+       0.74,
+       0.82
+      ]
+     }
+    ]
+   },
+   "N": {
+    "is": "high",
+    "tile": "high_planter",
+    "piece": "mall_planter",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   ">": {
+    "is": "ramp"
+   },
+   "<": {
+    "is": "ramp"
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words).",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The mall's outer wall: no way through.",
+   "say": ""
+  },
+  "storewall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The wall between two stores: no way through, no sight through.",
+   "say": ""
+  },
+  "front": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "A store's front, its glass boarded over: no way through, no sight through. The doorway beside it is the way in.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The concourse between the store fronts: open floor, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The concourse: open floor, nothing to hide behind.",
+   "draft": true
+  },
+  "carpet": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A store's floor: walls on three sides, one way in. Nothing on it to hide behind, but only the doorway sees you.",
+   "say": "A store's floor: walls round you, one way in.",
+   "draft": true
+  },
+  "shutter": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "effect": "A store's doorway, the shutter stuck half down: you duck under it, slow going (3 AP a step). One man at a time: the way in is the way out.",
+   "say": "The shutter, half down: slow going, one at a time.",
+   "draft": true
+  },
+  "carts": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A corral of shopping carts: low cover (some against a shot).",
+   "say": "A corral of carts: low cover.",
+   "draft": true
+  },
+  "stock": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Stock still on its pallets, picked over: cover.",
+   "say": "Stock on pallets: cover.",
+   "draft": true
+  },
+  "counter": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The store's counter and the shelves behind it: low cover.",
+   "say": "The counter: low cover.",
+   "draft": true
+  },
+  "camp": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Somebody lives in this store: bedding and what they carried in. Low cover.",
+   "say": "Somebody's bedding: low cover.",
+   "draft": true
+  },
+  "planter": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A concrete planter, what grew in it dead: low cover.",
+   "say": "A planter: low cover.",
+   "draft": true
+  },
+  "tables": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "effect": "The food court's tables and chairs, bolted down: slow going (3 AP a step) and low cover.",
+   "say": "The food court's tables: slow going, low cover.",
+   "draft": true
+  },
+  "kiosk": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A kiosk in the middle of the concourse: cover.",
+   "say": "A kiosk: cover.",
+   "draft": true
+  },
+  "rubble": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Where a piece of the ceiling came down: cover.",
+   "say": "The ceiling's fall: cover.",
+   "draft": true
+  },
+  "column": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A column: nobody stands on its tile.",
+   "say": ""
+  },
+  "lift": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "The lift's shaft, its doors shut for good: nobody stands on its tile.",
+   "say": ""
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire in a drum somebody keeps. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A drum fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "skylight": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "Under the skylight: open floor, and by day the light comes straight down: a man here is seen.",
+   "say": "Under the skylight: open floor.",
+   "say_lit": "Under the skylight: open floor, and the day is on you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The mall's own doors, the glass gone: open floor, and by day the light falls in: a man here is seen.",
+   "say": "The mall's doors: open floor.",
+   "say_lit": "The mall's doors: open floor, and the day is on you.",
+   "draft": true
+  },
+  "high": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "The bridge of the upper level across the atrium, a storey up: high ground in the middle of the mall, and nobody's at the bell. A blow or a shot down from it lands easier, one up at it harder; a gun reaches a tile farther from it. Up a dead escalator it is a walk; over its rail from the floor it is a climb: no attack that turn, and a beast cannot.",
+   "say": "The bridge: you hit down easier, and a gun reaches a tile more.",
+   "roof": true,
+   "say_before": "",
+   "draft": true
+  },
+  "high_stock": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "cover": "COVER",
+   "effect": "Stock somebody hauled up onto the bridge: cover, on high ground. The best ground in the mall.",
+   "say": "Stock on the bridge: cover, and high ground.",
+   "say_before": "Stock on pallets: cover.",
+   "roof": true,
+   "draft": true
+  },
+  "high_planter": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "effect": "A planter on the bridge: low cover, on high ground.",
+   "say": "A planter on the bridge: low cover, and high ground.",
+   "say_before": "A planter: low cover.",
+   "roof": true,
+   "draft": true
+  },
+  "ramp": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "A dead escalator: the WALK up to the bridge. A step onto it from the floor costs one more; a man who walks up can still strike this turn.",
+   "say": "",
+   "say_before": "The escalator, dead: the walk up, and you can still strike.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK FIVE's own picture for it is in mall_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL, RAIL, HEIGHT, DOOR); 'blocks_move' means nobody stands on its tile. A DRESS piece is drawn and never counted: the loose carts, the second stack, the rest of a camp.",
+ "kit": {
+  "mall_carts": {
+   "like": "sb_corral_S",
+   "kind": "LOW_COVER",
+   "name": "A CORRAL OF CARTS"
+  },
+  "mall_cart_a": {
+   "like": "sb_cart_S",
+   "kind": "DRESS",
+   "name": "A CART"
+  },
+  "mall_cart_b": {
+   "like": "sb_cart_E",
+   "kind": "DRESS",
+   "name": "A CART"
+  },
+  "mall_stock": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "STOCK ON PALLETS"
+  },
+  "mall_boxes": {
+   "like": "sb_bales_S",
+   "kind": "DRESS",
+   "name": "STOCK ON PALLETS"
+  },
+  "mall_counter": {
+   "like": "casino_bar",
+   "kind": "LOW_COVER",
+   "name": "THE COUNTER"
+  },
+  "mall_camp_a": {
+   "like": "tunnel_camp_a",
+   "kind": "LOW_COVER",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "mall_camp_b": {
+   "like": "tunnel_camp_b",
+   "kind": "LOW_COVER",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "mall_bedding_a": {
+   "like": "tunnel_camp_a",
+   "kind": "DRESS",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "mall_bedding_b": {
+   "like": "tunnel_camp_b",
+   "kind": "DRESS",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "mall_planter": {
+   "like": "sb_barrier_S",
+   "kind": "LOW_COVER",
+   "name": "A PLANTER"
+  },
+  "mall_tables": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "THE FOOD COURT'S TABLES"
+  },
+  "mall_seats": {
+   "like": "casino_seats",
+   "kind": "DRESS",
+   "name": "THE FOOD COURT'S TABLES"
+  },
+  "mall_kiosk": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "name": "A KIOSK"
+  },
+  "mall_rubble": {
+   "like": "sb_rubble_S",
+   "kind": "COVER",
+   "name": "THE CEILING'S FALL"
+  },
+  "mall_column": {
+   "like": "garage_column",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A COLUMN"
+  },
+  "mall_lift": {
+   "like": "garage_core",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "THE LIFT"
+  },
+  "mall_door": {
+   "like": "casino_door",
+   "kind": "DOOR",
+   "name": "A STORE'S DOORWAY"
+  },
+  "mall_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "mall_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  },
+  "mall_front_ew": {
+   "like": "casino_glass",
+   "kind": "WALL",
+   "name": "A STORE FRONT"
+  },
+  "mall_storewall_ns": {
+   "like": "casino_wall_ns",
+   "kind": "WALL"
+  },
+  "mall_bridge": {
+   "like": "garage_level_aisle",
+   "kind": "HEIGHT",
+   "name": "THE BRIDGE"
+  },
+  "mall_escalator_e": {
+   "like": "garage_ramp_e",
+   "kind": "HEIGHT"
+  },
+  "mall_escalator_w": {
+   "like": "garage_ramp_w",
+   "kind": "HEIGHT"
+  },
+  "mall_rail_ew": {
+   "like": "garage_rail_ew",
+   "kind": "RAIL"
+  },
+  "mall_rail_ns": {
+   "like": "garage_rail_ns",
+   "kind": "RAIL"
+  }
+ },
+ "walls": {
+  "ew": "mall_wall_ew",
+  "ns": "mall_wall_ns"
+ },
+ "walls_air": {
+  "ew": "mall_front_ew",
+  "ns": "mall_storewall_ns"
+ },
+ "high": {
+  "deck": "mall_bridge",
+  "ramp_e": "mall_escalator_e",
+  "ramp_w": "mall_escalator_w",
+  "rail_ew": "mall_rail_ew",
+  "rail_ns": "mall_rail_ns",
+  "h_m": 1.42
+ },
+ "floor": {
+  "floor": [
+   "block_apron_3.webp#0,1",
+   "block_apron_3.webp#1,1",
+   "block_apron_3.webp#3,1",
+   "block_apron_3.webp#4,1",
+   "block_apron_3.webp#0,2",
+   "block_apron_3.webp#1,2",
+   "block_apron_3.webp#0,3",
+   "block_apron_3.webp#2,3",
+   "block_apron_3.webp#3,3",
+   "block_apron_3.webp#4,3"
+  ],
+  "store": [
+   "casino/casino_carpet_0.webp#0,0",
+   "casino/casino_carpet_0.webp#1,0",
+   "casino/casino_carpet_0.webp#2,0",
+   "casino/casino_carpet_0.webp#3,0",
+   "casino/casino_carpet_0.webp#4,0",
+   "casino/casino_carpet_0.webp#0,1",
+   "casino/casino_carpet_0.webp#1,1",
+   "casino/casino_carpet_0.webp#2,1",
+   "casino/casino_carpet_0.webp#3,1",
+   "casino/casino_carpet_0.webp#4,1",
+   "casino/casino_carpet_0.webp#0,2",
+   "casino/casino_carpet_0.webp#1,2",
+   "casino/casino_carpet_0.webp#2,2",
+   "casino/casino_carpet_0.webp#3,2",
+   "casino/casino_carpet_0.webp#4,2",
+   "casino/casino_carpet_0.webp#0,3",
+   "casino/casino_carpet_0.webp#1,3",
+   "casino/casino_carpet_0.webp#2,3",
+   "casino/casino_carpet_0.webp#3,3",
+   "casino/casino_carpet_0.webp#4,3",
+   "casino/casino_carpet_0.webp#0,4",
+   "casino/casino_carpet_0.webp#1,4",
+   "casino/casino_carpet_0.webp#2,4",
+   "casino/casino_carpet_0.webp#3,4",
+   "casino/casino_carpet_0.webp#4,4"
+  ],
+  "high": [
+   "block_apron_3.webp#0,1",
+   "block_apron_3.webp#1,1",
+   "block_apron_3.webp#3,1",
+   "block_apron_3.webp#4,1",
+   "block_apron_3.webp#0,2",
+   "block_apron_3.webp#1,2",
+   "block_apron_3.webp#0,3",
+   "block_apron_3.webp#2,3",
+   "block_apron_3.webp#3,3",
+   "block_apron_3.webp#4,3"
+  ],
+  "ring": [
+   "block_apron_3.webp#0,1",
+   "block_apron_3.webp#1,1",
+   "block_apron_3.webp#3,1",
+   "block_apron_3.webp#4,1",
+   "block_apron_3.webp#0,2",
+   "block_apron_3.webp#1,2",
+   "block_apron_3.webp#0,3",
+   "block_apron_3.webp#2,3",
+   "block_apron_3.webp#3,3",
+   "block_apron_3.webp#4,3"
+  ]
+ },
+ "lights": {
+  "sky": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {
+  "height": "The bridge: you hit down easier, and a gun reaches a tile more."
+ },
+ "start": null,
+ "start_why": "NOBODY HOLDS THE BRIDGE AT THE BELL: both lines start on the concourse's floor, and the bridge over the atrium, in the middle, is whoever walks up a dead escalator first. (The convention hall's mezzanine is theirs at the bell; the mall's is not.)",
+ "ceiling": {
+  "kind": "sky",
+  "alpha": 0.1,
+  "src": "mall/mall_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the mall's painted sky and its skylight over the board at this alpha (10%, never past the fight's own most). 'src' is the picture COOK FIVE makes (see garage.json's ceiling); 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in."
+ }
+}

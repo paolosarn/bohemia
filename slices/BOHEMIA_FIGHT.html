@@ -11495,6 +11495,13 @@ function ceilingSheet() {
       g.strokeStyle = '#2c2a26'; g.lineWidth = 2; g.beginPath(); for (let y = 0; y < H2; y += th * .8) { g.moveTo(x - 5, y); g.lineTo(x + 5, y + th * .4); g.lineTo(x - 5, y + th * .8); } g.stroke(); }
     for (let y = th * 3.2; y < H2; y += th * 5.5) { g.fillStyle = '#3a3833'; g.fillRect(0, y, W2, 6); g.fillStyle = '#1d1c1a'; g.fillRect(0, y + 2, W2, 1); }   /* the catwalks */
     for (let k = 0; k < S.w / 3; k++) { const x = hash(k + 40) * W2, y = hash(k + 71) * H2; g.fillStyle = hash(k) < .5 ? '#7d2f28' : '#2f4a6a'; g.fillRect(x, y, tw * .5, th * 1.1); g.fillStyle = '#d9d2bd'; g.fillRect(x + 3, y + 5, tw * .5 - 6, 3); }   /* the last show's banners */
+  } else if (C.kind === 'sky') {   /* a mall's painted sky (the Forum Shops' ceiling): a faded blue vault with its clouds, the paint let go in patches, a rib every bay, and over the middle the skylight's own grid, panes out */
+    g.fillStyle = '#6f8494'; g.fillRect(0, 0, W2, H2);
+    for (let k = 0; k < S.w * S.h / 5; k++) { const x = hash(k + 11) * W2, y = hash(k + 57) * H2, rx = tw * (.5 + hash(k + 3)), ry = th * (.25 + hash(k + 9) * .4); g.fillStyle = hash(k) < .7 ? 'rgba(214,208,190,.75)' : 'rgba(190,170,150,.6)'; g.beginPath(); g.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); g.fill(); g.beginPath(); g.ellipse(x + rx * .6, y + ry * .3, rx * .7, ry * .7, 0, 0, Math.PI * 2); g.fill(); }   /* the clouds, painted */
+    for (let k = 0; k < S.w * S.h / 9; k++) { g.fillStyle = 'rgba(52,46,40,.8)'; g.beginPath(); g.ellipse(hash(k + 201) * W2, hash(k + 133) * H2, 6 + hash(k + 5) * 20, 4 + hash(k + 8) * 10, 0, 0, Math.PI * 2); g.fill(); }   /* where the paint let go: the plaster under it */
+    for (let x = 0; x <= S.w; x += C.bay) { g.fillStyle = '#2c2a27'; g.fillRect(x * tw - 4, 0, 8, H2); }   /* a rib on every bay line */
+    { const y0 = Math.round(H2 * .36), y1 = Math.round(H2 * .64), pw = tw * .8, ph = th * .9; g.fillStyle = '#23211f'; g.fillRect(0, y0 - 5, W2, y1 - y0 + 10);
+      for (let y = y0, j = 0; y < y1; y += ph, j++) for (let x = 0, i = 0; x < W2; x += pw, i++) { const out = hash(i * 17 + j * 5) < .3; g.fillStyle = out ? '#14130f' : (hash(i * 3 + j) < .5 ? '#d5d8c8' : '#c2c6b6'); g.fillRect(x + 2, y + 2, pw - 4, Math.min(ph, y1 - y) - 4); } }   /* the skylight along the concourse: its grid, three panes in ten out */
   } else {   /* 'deck' */
     g.fillStyle = '#9a968c'; g.fillRect(0, 0, W2, H2);
     for (let x = 0; x < W2; x += tw * .37) { g.fillStyle = '#6f6b62'; g.fillRect(x, 0, 3, H2); }   /* the double tees' stems */

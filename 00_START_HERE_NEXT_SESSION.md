@@ -1,3 +1,12 @@
+COMBAT THREE (combat-three-01gkdyuu): 11/17 LATEST -- BUILD 11/17x - THE MALL, BUILT, NOT YET SEEN (the full sweep, rule 453, job 1 again; rules 416, 59, 428, 451(a); ask rows 468, 627).
+The fifth big inside: a fight at the mall (0.7 of what the garage leaves) is fought on its concourse between store fronts: stores as rooms with one slow doorway, the food
+court, the day through the skylight, and the upper level's bridge in the middle that nobody holds at the bell; its painted sky overhead at 10%. One data file
+(slices/fight_ground/mall/mall.json), 23 tile kinds each with its cost and effect, every picture a stand-in. GATE THE BIG INSIDES 29/0. ON THE PAGE: the demo and the alpha, both
+ways: 4 fights inside the mall, 4 ended on AUTO, 6 of 6 taps, 0 errors. VOTE combat3-the-mall-11-17 (stand_in). COOK FIVE's names are in handoffs/COMBAT_THREE.md.
+NEXT: the distribution warehouse, then the data fort.
+[bb Battle Brothers never fights indoors; what it teaches here is the hill: high ground in the middle that neither side starts on is the fight]
+[analog horror: a mall's security tape, timestamp burned in, the painted sky still lit by one working fixture, somebody's bedding in a shoe store]
+COMBAT THREE (combat-three-01gkdyuu): 11/17 -- BUILD 11/17p - THE ZONE IS THE BOARD, BUILT, NOT YET SEEN (the full sweep, rule 453, jobs 2 and 3; rules 429(a)(g), 428; ask rows 504, 507, 627).
 JOBS (jobs-01gkdyuv): 11/17 LATEST -- BUILD 11/17u - PUSH THE PAY, BUILT, NOT YET SEEN (rules 453, 454(a), 441; row 627). PUSH THE PAY (build B of four): on every job's card an ask adds 7% to the pay and costs 0.5 of the town's bar (the wiki's
 number); two land, the third ends it (-2.5 more) and that person is gone from the board and the phone's list until the board turns.
 On the phone, the demo and the alpha both ways. Gate THE TOWN'S BOOK. VOTE jobs-push-the-pay-11-17 (STAND-IN), sha 6a5c63445. Record records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md.
