@@ -9776,6 +9776,13 @@ GATES = [
      "card says the board the fight deals (every district dealt by the fight itself against engine/bohemia_meet_ground.js; the card on the demo); F538 the "
      "camp's and the scavenge game's board page decodes its ground off the main thread, the scavenge game under 1 s of pause on the demo (MAKE CAMP OWED). "
      "About 15 min (--only F525,F528,..., --shape phone_portrait|phone_landscape|none)", True),
+    ('THE WALK BACK ASKS', ['node', 'gates/the_walk_back_asks_gate.js'],
+     "FIXES 2 gate, 11/17, ask row 592 (rule 413, Paolo 11/6: 'I should be fully able to get away'; RUN SIX's law under it: 'only his own walk aimed at them "
+     "brings them back, and that asks'). MEASURED before: a job off the board, its crew's card, FALL BACK, six blocks off, a tap on the job's own place: he "
+     "arrived beside them and NO CARD CAME (the hold refused it), so a job he fell back from once could never be fought; the walk's last step cleared its aim "
+     "before its arrival was handed over. On the game through the one driver, a finger on the glass, a new game with the fog on, the demo upright and the alpha "
+     "on its side: W1 the job's card, W2 FALL BACK, W3 off and back: the card asks again, W4 a touch on the job where he stands asks, W5 ENGAGE opens the "
+     "fight, Z nothing threw; and a PLANT (the walk's aim not kept at its arrival): no card. About 15 min; one way: phone_landscape:alpha, --plant", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

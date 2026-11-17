@@ -58,7 +58,8 @@ const done = () => { console.log('\nTHE ROSTER SCALES THE ENEMY: ' + pass + ' pa
       if (set) return 'touch'; }
     await fr.evaluate(([x, y]) => { travelStop(); travelTo(0, 0, [x, y]); }, [x, y]); return 'travelTo';
   };
-  const fightFrame = async () => { for (let i = 0; i < 120; i++) { const h = await page.$('#fightFrame');
+  const fightFrame = async () => { for (let i = 0; i < 300; i++) {   /* FIXES 2 11/17: a minute, not 24 s (a fight with ten or twelve of his loads that many sheets; S5 read 'no fight' with the card just answered) */
+      const h = await page.$('#fightFrame');
       if (h) { const f = await h.contentFrame(); if (f && await f.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S.board).catch(() => false)) return f; }
       await page.waitForTimeout(200); } return null; };
   const spoilsLeave = async () => {
@@ -102,7 +103,10 @@ const done = () => { console.log('\nTHE ROSTER SCALES THE ENEMY: ' + pass + ' pa
       if (!j) return null;
       await goCell(j.x, j.y);
       await waitFor(() => meetUp(), 90000);
-      const why = await fr.evaluate(() => (window.__MEET_UP && window.__MEET_UP.why) || '');
+      /* RE-AIMED FIXES 2 11/17 (ask row 592): the meet that is UP, never the record of the last one. window.__MEET_UP outlives its
+         card, so S4 read S1's meeting when no card stood ('card: null / null'); and no card stood because a job's crew he fell back
+         from never asked again (the game's own bug under this leg, fixed the same build: __THE_WALK_BACK_ASKS__, gate THE WALK BACK ASKS) */
+      const why = await fr.evaluate(() => { try { return (MEET && MEET.up && MEET.up.msg && String(MEET.up.msg.why || '')) || ''; } catch (e) { return ''; } });
       if (new RegExp('^contract:' + id).test(why)) return fr.evaluate(() => { const c = document.getElementById('meetcard'); const t = c ? c.querySelector('.mcwhy') : null, s = c ? c.querySelector('.mcs') : null;
         return { up: JSON.parse(JSON.stringify(window.__MEET_UP)), why: t ? t.textContent : null, men: t ? +t.dataset.men : null, three: t ? +t.dataset.three : null, more: t ? +t.dataset.more : null, whyShown: !!(t && t.getBoundingClientRect().height > 0), count: s ? s.textContent : null }; });
       if (await meetUp()) await roadFight();

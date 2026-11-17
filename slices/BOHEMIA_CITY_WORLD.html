@@ -45761,7 +45761,8 @@ function travelTo(sx,sy,cell){
     /* __THE_LOOP_ON_THE_MAP__: a touch on the JOB or the town he is standing at IS the arrival:
        the fight starts, the town opens. Without this a walked-out job could never be retried
        from where he stood (driven: the second touch said "You are standing there"). */
-    try{ if(loopJobAt(city.x,city.y) || loopTownAt(city.x,city.y,1) || (window.BohemiaJobKinds && BohemiaJobKinds.here(city.x,city.y))){ travelStop(); meetWalk(function(){ loopArrived([city.x,city.y]); }); return true; } }catch(_e){}
+    try{ if(loopJobAt(city.x,city.y) || loopTownAt(city.x,city.y,1) || (window.BohemiaJobKinds && BohemiaJobKinds.here(city.x,city.y))){ travelStop(); window.__WALK_ARRIVING = { to: [city.x | 0, city.y | 0], town: null };   /* __THE_WALK_BACK_ASKS__ (row 592): a touch on the job he stands at is aimed at it */
+      try{ meetWalk(function(){ loopArrived([city.x,city.y]); }); } finally { window.__WALK_ARRIVING = null; } return true; } }catch(_e){}
   }
   if(tx===city.x && ty===city.y){ travelStop(); travelSay('You are standing there.'); return false; }
   var p=cityRoute(city.x,city.y,tx,ty);
@@ -45824,13 +45825,15 @@ function travelSteppedCore(moved){
   try{ if(typeof window.__barPaintRead==='function') window.__barPaintRead(); }catch(_e){}
   if(TRAVEL.i>=TRAVEL.path.length){
     var to=TRAVEL.to, cells=TRAVEL.cells, town=TRAVEL.town, play=TRAVEL.play||null;
+    /* __THE_WALK_BACK_ASKS__ (FIXES 2 11/17, ask row 592): the walk that just ended, kept while its arrival is handed over (below) */
+    window.__WALK_ARRIVING = { to: to ? [to[0], to[1]] : null, town: town || null };
     TRAVEL=null;
     /* ARRIVAL IS ALREADY BUILT: the seam lands him on the street of the cell the
        marker is standing on (swapMode, SEAM_INTENT). So arriving says where he is
        and leaves the spread to him -- no teleport, no mode (rule 24). */
     travelSay('Arrived: '+cells+' block'+(cells===1?'':'s')+' crossed.');
     try{ render(); }catch(_e){}
-    try{ loopArrived(to, town); }catch(_e){}   /* __THE_LOOP_ON_THE_MAP__: a town opens, a JOB starts its fight (__ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__: the town walked to) */
+    try{ loopArrived(to, town); }catch(_e){} finally { window.__WALK_ARRIVING = null; }   /* __THE_LOOP_ON_THE_MAP__: a town opens, a JOB starts its fight (__ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__: the town walked to) */
     if(play){ try{ mapPlayArrived(play); }catch(_e){} }   /* __PLAY_TAKES_YOU_THERE__: a leg with nothing on it runs on to the job's next place */
   }
 }
@@ -48668,7 +48671,8 @@ function mapPlayGo(id){
     travelStop(); ok = travelPath(r.path, r.door, !cityWalkable(r.door[0], r.door[1]), T);
   } else {
     var px = nx.x | 0, py = nx.y | 0;
-    if (Math.max(Math.abs(px - city.x), Math.abs(py - city.y)) <= 1) { travelStop(); meetWalk(function(){ loopArrived([city.x, city.y]); }); MAP_PLAY.last = { id: j.id, to: [px, py], here: true }; return true; }
+    if (Math.max(Math.abs(px - city.x), Math.abs(py - city.y)) <= 1) { travelStop(); window.__WALK_ARRIVING = { to: [px, py], town: null };   /* __THE_WALK_BACK_ASKS__ (row 592): the phone's job, pressed where it is, is aimed at it */
+      try { meetWalk(function(){ loopArrived([city.x, city.y]); }); } finally { window.__WALK_ARRIVING = null; } MAP_PLAY.last = { id: j.id, to: [px, py], here: true }; return true; }
     r = mapBestRoute(city.x, city.y, { x: px, y: py });
     if (!r) { ok = !!travelTo(0, 0, [px, py]); MAP_PLAY.last = { id: j.id, to: [px, py], fallback: 'travelTo' }; return ok; }
     travelStop(); ok = travelPath(r.path, r.door, false);
@@ -69554,6 +69558,19 @@ function meetBackHolds(msg){
     if (MEET_INTO_TOWN && !aimed) return b;   /* __EVERYONE_IN_THE_FIGHT_HOLDS__ (j): arriving in a town is aimed at nobody, standing beside them or not */
     try { if (TRAVEL && TRAVEL.to && !(TRAVEL.town && TOWN_DOOR.on) && Math.max(Math.abs(TRAVEL.to[0] - th[0]), Math.abs(TRAVEL.to[1] - th[1])) <= 1) aimed = true; } catch (_e) {}   /* __A_TOWN_IS_ALWAYS_A_DOOR__ (a): a walk that ends in a town is never aimed at anybody */
     try { if (!TRAVEL && Math.max(Math.abs(city.x - th[0]), Math.abs(city.y - th[1])) <= 1 && (b.away ? b.left >= 1e9 : b.left >= MEET_BACK.steps)) aimed = true; } catch (_e) {}   /* standing where he fell back to, a touch on them */
+    /* __THE_WALK_BACK_ASKS__ (FIXES 2 11/17, ask row 592; rule 413: 'only his own walk aimed at them brings them back, and that asks').
+       MEASURED on the demo: a job taken, its crew met, FALL BACK, six blocks off, then a tap on the job's own place and the walk
+       back to it: he arrived and NO CARD CAME (MEET_BACK.held 0 -> 1), so a job he fell back from once could never be fought. The
+       walk's last step set TRAVEL to nothing BEFORE the arrival was handed over, so the check above (TRAVEL.to beside them) never
+       saw the walk that had just ended, and the one under it asks that he has not moved a block since. The walk that just ended
+       beside them was aimed at them: it asks. A walk into a town is still aimed at nobody (the line above this block, and here). */
+    /* and a job's crew that stands at the job's own place (no pack, nobody hunting) is where the job is NOW: a job taken again
+       off the board after he fell back from it once may stand somewhere new, and the remembered place (b.from) is the old one
+       (MEASURED: THE ROSTER SCALES THE ENEMY S4, the same job re-taken, 'no card' at its new place) */
+    try { var __wa = window.__WALK_ARRIVING; if (!TRAVEL && __wa && __wa.to && !(__wa.town && TOWN_DOOR.on)) {
+      var __jt = null, __mcw = /^contract:([^:]+)/.exec(String(msg.why || ''));
+      if (__mcw && !msg.__hunt) LOOP.held.forEach(function (j) { if (String(j.id) === __mcw[1] && j.target && !(j.fight && j.fight.pack != null)) __jt = [j.target.x | 0, j.target.y | 0]; });
+      if (Math.max(Math.abs(__wa.to[0] - th[0]), Math.abs(__wa.to[1] - th[1])) <= 1 || (__jt && Math.max(Math.abs(__wa.to[0] - __jt[0]), Math.abs(__wa.to[1] - __jt[1])) <= 1)) aimed = true; } } catch (_e) {}
     if (!aimed) return b; }
   return null;
 }

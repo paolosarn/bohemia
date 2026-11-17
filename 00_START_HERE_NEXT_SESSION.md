@@ -421,6 +421,8 @@ reproduced a third time, a one-read tell shipped (FIGHT.S.staleTurns), the row s
 11/17 BUILD 11/17h - A WORD STAYS LONG ENOUGH TO READ: 605's cause found in THE POT's fight in the shell (a quiet turn's word stood 0.19 s at
 4x; now one second at every speed; EYES withdrew the stale marker); 612's last spots (the fullest hall on its side cuts no line; DESI's
 hint leaves when a sheet opens); 633 is not a one-mark fix (DID NOT DECIDE: who DESI is); 634 to 636 found and filed.
+11/17 (b) BUILD 11/17v - THE WALK BACK ASKS: a job he fell back from can be fought again (592: the walk back to it asks; it never did);
+577 closed; 578's checker from 8 reds to 2 (left and real: the underpass's aftermath near black); new gate THE WALK BACK ASKS (in the table).
 The whole block: handoffs/FIXES_TWO.md.
 [bb Battle Brothers lets you type your company's name on the new campaign screen and never touches the box again while you type.]
 [analog horror: a box that swallows the name you gave your crew and keeps three letters of it is the wrong kind of wrong; it is gone.]

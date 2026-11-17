@@ -97,6 +97,11 @@ const lumC = (rgb) => { const m = String(rgb).match(/\d+(\.\d+)?/g).slice(0, 3).
         /* PLUMBER 8 11/10: off the town's ground first (a town is a door: no road fight starts on it), the driver's one way */
         const f = await drive.roadFightOffTheTown(d, { id: 'toll_crew', name: 'the toll crew', seq: seq });
         if (!f) { ok(name + ' fight ' + seq + ': a road fight through the map\'s own door', false); continue; }
+        /* RE-AIMED FIXES 2 11/17 (ask row 578): the fight is ended only once its own page has baked its board. The first fight of a
+           game was ended 1.2 s after the rules had a board and before the PAGE had its picture, so the end screen found no fight
+           to read and showed its stand-in scene (state().from 'sample': D1 and D3 red on the phone's first fight, and the stand-in's
+           own files counted against D5). No player ends a fight a second after it opens: the checker's race, not the game's. */
+        await f.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && !!FIGHT_UI.board && !!FIGHT_UI.tw && !(FIGHT_UI.anim && FIGHT_UI.anim.length), null, { timeout: 30000 }).catch(() => {});
         await p.waitForTimeout(1200);
         /* rolled: the fight decides who of theirs falls where; one of his goes down when he has three (a friend to go to) */
         const fought = await f.evaluate((seq) => { const S = FIGHT.S, now = performance.now();
@@ -140,7 +145,7 @@ const lumC = (rgb) => { const m = String(rgb).match(/\d+(\.\d+)?/g).slice(0, 3).
         const open = await sf.evaluate(() => { const f = document.getElementById('field'), q = f.getBoundingClientRect();
           if (q.height > 40) return { x: 0, y: q.top, w: innerWidth, h: q.height, where: 'the window over the crew' };
           const c = document.getElementById('crew').getBoundingClientRect(); return { x: c.left, y: c.bottom + 10, w: c.width, h: Math.max(40, innerHeight - c.bottom - 110), where: 'the open ground under the crew' }; });
-        await sf.evaluate(() => { const st = document.createElement('style'); st.id = 'gate-nowords'; st.textContent = '*{color:transparent!important;text-shadow:none!important;-webkit-text-fill-color:transparent!important} img,canvas:not(#after){visibility:hidden!important}'; document.head.appendChild(st); });
+        await sf.evaluate(() => { const st = document.createElement('style'); st.id = 'gate-nowords'; st.textContent = '*{color:transparent!important;text-shadow:none!important;-webkit-text-fill-color:transparent!important} img,canvas:not(#after),#tillclip{visibility:hidden!important}';   /* RE-AIMED FIXES 2 11/17 (row 578): the receipt (WORDS' white slip, rule 316, newer than this leg) hangs in the window over the crew on a phone and is paper, not the board: taken out of the board's measure with the words (p95 0.653 with it) */ document.head.appendChild(st); });
         await p.waitForTimeout(120);
         const png = await p.screenshot();
         await sf.evaluate(() => { const st = document.getElementById('gate-nowords'); if (st) st.remove(); });

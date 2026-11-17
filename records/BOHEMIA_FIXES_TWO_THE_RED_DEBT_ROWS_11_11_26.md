@@ -290,6 +290,49 @@ real that are still OPEN; EYES' new FOUND rows as they land.'
 - 635 gates/scrolling_is_illegal_gate.js is in no table and red on main: N8, N9, N4 (PLUMBER 8, UI 9).
 - 636 THE BLOOD IS CRASHBOX red on main, 28/2: D5 30.2% against a third; its planted W1 blind (UI THREE).
 
+## ROUND FOUR, SECOND SHIP: BUILD 11/17v - THE WALK BACK ASKS (rows 592, 577; 578 two thirds; notes on 594, 582)
+
+The coordinator's order, the third part: 'the red debt rows you named real that are still OPEN (572 to 595: read each row's state
+first)'. Each gate run ALONE (two browsers at once on this box turn real reds into load reds: my own first pass did that).
+
+### 592 UNDER THE CHECKER WAS THE GAME (FIXED; TAB: RUN, the map: any job he falls back from)
+- THE CHECKER (THE ROSTER SCALES THE ENEMY S4, 'card: null / null'): it read window.__MEET_UP, the record of the last meeting, which
+  outlives its card: S4 read S1's meeting. Re-aimed to the meeting that is up (MEET.up).
+- THE GAME, by hand on the demo (probe g592c.js): a job off the board, the walk to it, its crew's card, FALL BACK (he stands two
+  blocks off), six blocks further off, then a tap on the job's own place: he arrived beside them and NO CARD CAME; MEET_BACK.held went
+  0 to 1. A job he fell back from once could never be fought.
+- THE CAUSE (slices/BOHEMIA_CITY_WORLD.html): rule 413 (RUN SIX 11/6): a crew he got away from never starts a fight on its own; 'only
+  his own walk aimed at them brings them back, and that asks'. meetBackHolds() calls a walk aimed when TRAVEL.to is beside them, but
+  travelSteppedCore() set TRAVEL to nothing BEFORE loopArrived() handed the arrival over, so at the arrival there was no walk to read;
+  the check under it ('standing where he fell back to, a touch on them') asks that he has not moved a block since.
+- NOW (__THE_WALK_BACK_ASKS__): the walk's last step keeps where it was aimed (window.__WALK_ARRIVING) while its arrival is handed
+  over; a touch on the job where he stands and the phone's job pressed where it is carry the same aim; meetBackHolds() calls the walk
+  that just ended beside them aimed, and for a job's crew that stands at the job's own place (no pack, nobody hunting) beside the
+  job's place NOW (a job taken again may stand somewhere new; the remembered place is the old one). A walk into a town is still
+  aimed at nobody (rule 413(j)).
+- PROOF (rule 441): new gate gates/the_walk_back_asks_gate.js, a finger on the glass, a new game with the fog on: THE DEMO upright
+  6/0, THE ALPHA on its side 6/0: W1 the job's card, W2 FALL BACK, W3 six blocks off and back: THE CARD ASKS AGAIN, W4 a touch on the
+  job where he stands asks, W5 ENGAGE opens the fight (3 of theirs), Z nothing threw. PLANT (the aim not kept): 'he arrives beside
+  them and NO CARD (1 refused by the hold)'. THE ROSTER SCALES THE ENEMY S4 green: 'SIZED TO YOUR CREW (up arrow) 1 MORE'.
+- LEFT in that gate, the checker's own (WORLD's): S2 hires 7 to 9 of nine; S5's fight with ten men past its 24 s (a minute now).
+
+### 578 THE AFTERMATH: THREE THINGS UNDER ONE RED (TAB: RUN, the end screen after a fight)
+- (1) THE CHECKER'S RACE (re-aimed): the first fight of a game was ended 1.2 s after the rules had a board, before the PAGE had drawn
+  it; the end screen found no fight to read and showed its stand-in scene ('sample'): D1, D3, D5 red. By hand the same fight reads
+  his own board (probe p578demo.js: 'from fight', 6 of 6 men, phone and computer). The gate now waits for the page's own board.
+- (2) THE RECEIPT (re-aimed): the white slip hangs in the window over the crew on a phone and was measured as board (p95 0.653).
+- (3) WHAT IS REAL AND LEFT: after a fight on a DARK board the window over the crew is near black, phone and computer: THE
+  UNDERPASS 0.005 mean luminance (the leg's floor 0.012; a lit street 0.15). The dim is a flat 56% whatever the board, and under that
+  roof the board is dark to begin with. TRIED AND TAKEN BACK OUT: a floor on the dim read from the part of the board on the glass
+  (the dim gives way, a dark view laid over itself): 0.005 became 0.009, still under the floor, at ten times the draw on a computer
+  (0.35 ms a frame to 3.8). Not enough and not cheap, so it did not ship. WHO MUST: COMBAT THREE or COOK FIVE (the underpass's own
+  light under its roof), or RUN (how a dark board should look behind the end screen).
+- THE GATE NOW, alone: 18 passed, 2 failed (was 12 and 8): both reds are (3), on the underpass, phone and computer.
+
+### 577 CLOSED: NO BOARD BREAKS ITS OWN PICTURE passes alone on main (15 places, 0 owed; COMBAT THREE's 11/14f). Off the red list.
+### 594, 582: read, run alone, said in the rows: 594's lineup leg is stale (the line is dealt zigzag) and its seam leg is the
+board's art (COMBAT THREE, COOK FIVE); 582's five set-ups are the AUTO brain's (COMBAT THREE, seeds 2 and 5).
+
 ## THE PROBES (scratch tools, kept as the method; none ship)
 serve the repo's three published roots at /, a phone context (touch, mobile, the service worker blocked when a request is held),
 every pageerror with its stack, every 4xx. The stranger's walk; setItem wrapped to name who writes a save; focus/input traced on

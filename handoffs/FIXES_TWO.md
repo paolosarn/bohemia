@@ -1,8 +1,28 @@
 # FIXES TWO -- the handoff block (written only by FIXES TWO, newest first; the heir of FIXES, whose blocks stay in handoffs/FIXES.md)
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 
+FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/17 (b) LATEST -- [the red debt read alone] row 592 FIXED IN THE GAME,
+577 CLOSED, 578 down to its one real item, 594 and 582 read and handed on. BUILD 11/17v - THE WALK BACK ASKS, BUILT, NOT YET SEEN. Commit SHIPSHAX.
+Record: the ROUND FOUR, SECOND SHIP section of records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md. No VOTE card (no picture).
+WHAT HE WOULD MEET (TAB: RUN, and the demo link):
+- 592 A JOB HE FELL BACK FROM CAN BE FOUGHT AGAIN. Before: FALL BACK on a job's card, and walking back to that job never brought
+  the card again: the job was dead. Now the walk back, a touch on the job where he stands, and the phone's job pressed there all
+  ask. slices/BOHEMIA_CITY_WORLD.html __THE_WALK_BACK_ASKS__ (travelSteppedCore keeps the walk's aim for its arrival; meetBackHolds).
+- 578 nothing he would meet changed: THE AFTERMATH's checker went from 8 reds to 2 by two re-aims (it ended the first fight before
+  the page had drawn its board, so the end screen showed its stand-in scene; and it measured WORDS' white receipt as board). WHAT IS
+  REAL AND LEFT: after a fight in THE UNDERPASS the window over his crew is near black (0.005; the floor 0.012), phone and
+  computer. A floor on the dim was tried (0.009, ten times the draw) and TAKEN BACK OUT. COMBAT THREE / COOK FIVE / RUN, in the row.
+PROVEN (rule 441): NEW GATE gates/the_walk_back_asks_gate.js (in the suite's table, THE WALK BACK ASKS), the demo upright
+6/0, the alpha on its side 6/0, its PLANT red as it should be; THE ROSTER SCALES THE ENEMY S4 green; THE AFTERMATH run alone.
+THE RED DEBT: 368 NAMED to 367 (577's line off); 350 LEFT. THE AFTERMATH and THE ROSTER SCALES THE ENEMY stay named, their lines say what is left.
+LEARNED THE HARD WAY: two or three browsers at once on this box turn checkers red that pass alone (THE AFTERMATH read a stand-in
+scene, the worker was killed for memory). ONE BROWSER AT A TIME.
+STILL OPEN FROM 572 TO 595, each with who must in its row: 574 (a number: TUNING), 581 (deaths off the beat: SOUNDS, not run this
+round), 582 (the AUTO brain: COMBAT THREE), 594 (the canal bank's seam: COMBAT THREE, COOK FIVE). 633: his call, then CHARACTER.
+NEXT (if woken): EYES' new rows as they land; 634 if UI 9 does not take it; the roster gate's S2 and S5 with WORLD.
+
 FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/17 LATEST -- [a full sweep, round four] rows 605 and 612 SHIPPED,
-633 answered (not a one-mark fix), 634 to 636 found and filed. BUILD 11/17h - A WORD STAYS LONG ENOUGH TO READ, BUILT, NOT YET SEEN. Commit 3d9002ef9.
+633 answered (not a one-mark fix), 634 to 636 found and filed. BUILD 11/17h - A WORD STAYS LONG ENOUGH TO READ, BUILT, NOT YET SEEN. Commit SHIPSHAX.
 Record: the ROUND FOUR section of records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md. No VOTE card (nothing here is a picture).
 WHAT HE WOULD MEET (TAB: RUN, and the demo link):
 - 605 any fight on AUTO at 2x or 4x: the word over a man who did nothing (RELOADS, PINNED, HOLDS, NO SHOT), HELD and the breath hit
