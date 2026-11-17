@@ -48,6 +48,10 @@ let pass = 0, fail = 0;
 const ok = (n, c, w) => { if (c) pass++; else fail++; console.log((c ? '  ok   ' : '  FAIL ') + n + (w != null && w !== '' ? '  [' + w + ']' : '')); };
 const FILE = () => JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/stall_prices.json'), 'utf8'));
 const TOWNS = ['Anarchists', 'Blues', 'Caravans', 'Cartel', 'Church', 'Colorful', 'Custom', 'Homeless', 'Mob', 'Network', 'Reds', 'Remnants', 'Trades', 'Volunteers'];
+/* WORLD 14 11/17 (rule 453's sweep, rule 266(a) 'each place makes what its place really is'): a real place on the map is a town too,
+   its settlement screen's stall answers its own name (makes(STALLP, S.place.name)); THE SCRAP MILL makes copper wire. The names are
+   read from records/target/bb/real_places.json, the one list a modder edits, so a maker that is no place at all is still refused */
+try { JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/real_places.json'), 'utf8')).places.forEach(p => { if (p && p.name && TOWNS.indexOf(p.name) < 0) TOWNS.push(p.name); }); } catch (e) {}
 const TIERS = ['camp', 'town', 'fortress'];
 
 /* ---------------- the data: every fault a file can hold, so a planted one is caught by the same words ---------------- */

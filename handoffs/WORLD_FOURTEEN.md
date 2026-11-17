@@ -1,5 +1,22 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN; newest block on top)
 
+WORLD FOURTEEN, ROUND SEVEN, BUILD TWO (11/17, rule 453's sweep item (2); rule 454(a): no person talks; rule 441). BUILD 11/17zg - THE SCRAP MILL.
+BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_14_THE_SCRAP_MILL_11_17_26.md. VOTE world14-the-scrap-mill-11-17 (ui, STAND-IN).
+- THE SCRAP MILL (item 13), kind industrial, North Las Vegas's salvage strip (Commerce St at Owens Ave). No visit, no feed post (a person
+  talking waits for his voice). WHAT IT DOES: its stall holds twice the tape (40 against a camp's 20) and sells copper wire at the maker's
+  price (21 at the mill, 31 at a faction town that does not make it), Battle Brothers' attached location.
+- FOR ECONOMY: two additive lines in your records/target/bb/stall_prices.json ("THE SCRAP MILL" in copper wire's made_by and in
+  tape_shelf.made_by.value) and one in your gates/trade_goods_carried_gate.js (the maker list also reads real_places.json's names; your
+  Atlantis plant stays red). TRADE GOODS CARRIED 4/0, BUY VERSUS SELL 45/0.
+- FOR THE SCAVENGE LANE: every real place's own finds are still unread by the settlement screen (it deals the six evenly; findsOf in
+  engine/bohemia_scavenge.js is the door). Until it reads them, a place's finds do nothing in play.
+- STILL OWED from item 13: a fishing pond (NDOW's stocked ponds, Sunset Park the nearest the Strip; needs a shelf a place can make food
+  on, ECONOMY's), the public works yard (no confirmed address; the city's east and west service centers hand out sandbags in a flood),
+  billboards (a prop the feed can use).
+- GATES: THE SCRAP MILL (demo) and (alpha); THE MISSING REAL PLACES 16/0 (15 valley places, 96 valleys).
+[bb attached locations: a workshop by a town puts its goods on the market; ours is a scrap mill whose stall sells the wire it pulls out of the walls.]
+[analog horror: the baler still runs on a truck battery; nobody feeds it any more, and some nights it runs anyway.]
+
 WORLD FOURTEEN, ROUND SEVEN (11/17, rule 453's sweep; rule 454(a): no words; rule 441). BUILD 11/17y - THE TRACKS HE CAN READ.
 BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_14_THE_TRACKS_HE_CAN_READ_11_17_26.md. VOTE world14-the-tracks-he-can-read-11-17 (ui, STAND-IN).
 - (3) TRACKS HE CAN READ: since rule 151(f) the living map's prints drew only behind F, and a phone has no F, so a phone never saw a track.

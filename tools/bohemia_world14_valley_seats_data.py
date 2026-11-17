@@ -108,6 +108,34 @@ ROWS += [
    "licence": "a real casino's park: the game calls it THE DOME; Circus Circus and Adventuredome names stay off the art"},
 ]
 
+# ---- 11/17 (rule 453's sweep; rule 454(a): no person talks, the fewest words): the list's scrap mill, a kind the map already has ----
+# What it DOES needs no words: its stall (records/target/bb/stall_prices.json, ECONOMY's: the place's own name in a made_by list)
+# holds twice the tape and sells copper wire at the maker's price, Battle Brothers' attached location (a workshop's goods on the
+# market). No visit (a visit is a person talking) and no feed post this week.
+ROWS += [
+  {"id": "the_scrap_mill", "kind": "industrial", "name": "THE SCRAP MILL", "where": "valley",
+   "pocket_city": "steel mill (the list's scrap mill: our junkyard had no mill)",
+   "lat": 36.1920, "lon": -115.1460,
+   "latlon_from": "North Las Vegas's salvage strip, Commerce Street at Owens Avenue (to a block)",
+   "real": ("North Las Vegas's old industrial strip along Commerce Street by Owens Avenue, where the scrap and salvage yards stand "
+            "wall to wall (NV Salvage on Owens, the yards on North Commerce; the big shredder yards are further up on Losee Road). In "
+            "the collapse it is where the dead grid ends up: copper pulled out of the walls, sheet metal from the roofs, a baler that "
+            "still runs on a truck battery"),
+   "sources": ["https://locator.wastebits.com/location/nv-salvage",
+               "https://www.recyclingmonster.com/recycling-center/las-vegas-recyling/36634",
+               "https://recyclingcenters.org/Business_Profile/13390/89030/sa-recycling.html"],
+   "seat": {"x": {"from": "strip", "east": 6}, "y": {"of": 0.18}},
+   "seat_why": "about 2.5 km east of the I-15 in North Las Vegas, north of Owens Avenue, among the yards",
+   "like": "industrial", "category": "industrial", "ground": "industrial", "tier": "camp",
+   "use": {"screen": "a settlement screen on arrival",
+           "stall": "twice the tape on the shelf, and copper wire at the maker's price, a batch a week: carry it where it is not made",
+           "scavenge": "the finds below"},
+   "finds": [{"says": "Copper wire, pulled and coiled.", "good": "tape"},
+             {"says": "A forklift battery. Heavy.", "good": "battery"}],
+   "makes": ["copper_wire"],
+   "licence": "a district of yards, no one business: no name or mark of any yard is drawn"},
+]
+
 def row_text(r):
     t = json.dumps(r, indent=2, ensure_ascii=False)
     return '\n'.join('    ' + l for l in t.split('\n'))

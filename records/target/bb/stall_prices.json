@@ -195,7 +195,8 @@
   },
   "made_by": {
    "value": [
-    "Trades"
+    "Trades",
+    "THE SCRAP MILL"
    ],
    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2014_Tools and Supplies.txt",
    "quote": "substantially increases availability at adequate price",
@@ -334,7 +335,8 @@
      "quote": "Copper Ingots<br />Base worth: 220"
     },
     "made_by": [
-     "Trades"
+     "Trades",
+     "THE SCRAP MILL"
     ],
     "why": "the skilled-workers' guild strips the dead grid; copper is the real crash's scrap trade (Detroit's and Johannesburg's wire thieves)",
     "draft": true,

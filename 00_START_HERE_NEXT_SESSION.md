@@ -508,6 +508,12 @@ aside). Demo and alpha, a phone both ways. THE NEW ENEMIES' WHERE AND WHEN draws
 Record records/BOHEMIA_BESTIARY_THE_MAMMOTH_11_17_26.md.
 [bb Battle Brothers' Unhold is the body of a giant; ours walks through the line it meets.]
 [analog horror: the mammoth's hi-vis plate passing between the houses at night, higher than the gutters.]
+WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/17 LATEST (build two) -- BUILD 11/17zg - THE SCRAP MILL, BUILT, NOT YET SEEN (rule 453's sweep;
+rule 454(a), no person talks; rule 441). The list's scrap mill is on the map in North Las Vegas; its stall holds twice the tape and sells
+copper wire at the maker's price, to carry where it sells for more. Gate THE SCRAP MILL on demo and alpha, a phone both ways. VOTE
+world14-the-scrap-mill-11-17 (STAND-IN). Still owed: a fishing pond, the public works yard, billboards. The block: handoffs/WORLD_FOURTEEN.md.
+[bb attached locations: a workshop by a town puts its goods on the market; ours is a scrap mill whose stall sells the wire it pulls out of the walls.]
+[analog horror: the baler still runs on a truck battery; nobody feeds it any more, and some nights it runs anyway.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/17 LATEST -- BUILD 11/17y - THE TRACKS HE CAN READ, BUILT, NOT YET SEEN (rule 453's sweep;
 rule 454(a), no words; rule 441). On a phone no party's track was ever seen (the prints were behind the F key). Now the prints round him
 show as pale shoe prints in pairs, tinted to the party's colour, fading by the hour, never a line; stand on them and the map's own line
