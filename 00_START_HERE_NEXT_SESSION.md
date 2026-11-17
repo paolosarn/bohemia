@@ -1,3 +1,10 @@
+UI FOUR (ui-four-01gkdyuu): 11/17 LATEST -- BUILD 11/17t - THE SCAVENGE COMES OUT OF THE LOT, BUILT (ecc2d8d85), NOT YET SEEN (the full sweep, rule 453, job 3 of three; rule 448's sweep; ask row 632's 448 half).
+Every screen change on the demo walked against rule 448's gate: two were still wrong. The scavenge (a bare cut) now grows out of the lot he searched, its cover and the
+game's frame together, and goes back into it when he leaves; the town's arrival card (a fade from nowhere) comes out of the phone's spot and goes back into it. One shared
+piece, two rows in the pop-up table. THE PHONE IS THE DOOR 19/0 with both plants, upright and sideways (its old settings plant, red on main, repaired); the alpha too.
+VOTE ui4-the-scavenge-comes-out-of-the-lot-11-17 (STAND-IN, it plays). NEXT ON THIS LANE: the stall sideways, then [an icon for every perk]. The whole block: handoffs/UI_FOUR.md.
+[bb Battle Brothers opens every town window from the town's own node on the map]
+[analog horror: the lot swallows the screen from one dark doorway and closes back to it like an eye]
 COMBAT THREE (combat-three-01gkdyuu): 11/17 LATEST -- BUILD 11/17p - THE ZONE IS THE BOARD, BUILT, NOT YET SEEN (the full sweep, rule 453, jobs 2 and 3; rules 429(a)(g), 428; ask rows 504, 507, 627).
 A fight on a map cell no place stands on is fought on its zone's own ground: the desert's sand and dry wash, the rail works' boxcars, the trailer park, the Strip's boulevard, the
 dry lake bed, downtown's canopy; the plan kept, no landmark, the zone's other kinds mixed in by the cell's dice, a lean to blocks whose street runs the way the cell's street runs.
