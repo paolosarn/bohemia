@@ -1,4 +1,4 @@
-COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17d - THE WAGON, THE COLLECTOR AND THE HAZE, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the first build; ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17d - THE WAGON, THE COLLECTOR AND THE HAZE, BUILT (ecd903883), NOT YET SEEN (the full sweep, rule 453, the first build; ask row 627).
 The newest three bosses' map pieces that said STAND-IN, redrawn as finished art, PICTURES ONLY (the same six pictures, names, frame and rig as BOSSES'
 first ones): THE PLATE'S WAGON (patched pressed steel, a slit, a plough, teeth on the roof, a lamp behind the slit; stripped to its frame after),
 THE TOOTH'S COLLECTOR (his tooth on the wall, a striped pole across the way in, his man at a table with the take, a lantern; all thrown down after),

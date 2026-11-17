@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
-COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17d - THE WAGON, THE COLLECTOR AND THE HAZE, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the first build; ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17d - THE WAGON, THE COLLECTOR AND THE HAZE, BUILT (ecd903883), NOT YET SEEN (the full sweep, rule 453, the first build; ask row 627).
 The coordinator's order (rule 453, 'keep going build after build'): finished art wherever a VOTE card still says STAND-IN, each its own build; first the
 newest bosses' map pieces. PICTURES ONLY: slices/boss_places/ wagon_before, wagon_after, collector_before, collector_after, haze_before, haze_after (two
 beat frames each, twelve files, 109,151 bytes; the first ones were 62,597). The same names, frame (a block across) and rig. Nothing of BOSSES' is edited.
