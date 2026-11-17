@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 453, 429(a)(g), 416, 441; ask rows 504, 507, 627, 646): 11/17 LATEST -- [the cell says where] SHIPPED SHIPSHA, BUILD 11/17zl - THE CELL SAYS WHERE, BUILT, NOT YET SEEN. VOTE combat3-the-cell-says-where-11-17 (stand_in).
+COMBAT THREE (rules 453, 429(a)(g), 416, 441; ask rows 504, 507, 627, 646): 11/17 LATEST -- [the cell says where] SHIPPED e783b84fb, BUILD 11/17zl - THE CELL SAYS WHERE, BUILT, NOT YET SEEN. VOTE combat3-the-cell-says-where-11-17 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_CELL_SAYS_WHERE_11_17_26.md. WORLD THIRTEEN's owed read (handoffs/WORLD_THIRTEEN.md, 11/17zd), taken the round it was written.
 WHAT: on a cell the map hands with its ground (never a place's own cell) the fight reads the CELL, not the shell's district. cellKind(opts) = ground.district: what the fight is
 AT (the four insides and their shares, the block an inside's roof stands on, the place a district owns in placeOwn; the zone place still leads). cellLand(opts) = ground.land for
