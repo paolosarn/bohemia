@@ -151,6 +151,11 @@ const HOOKS = `(function(){
     const t0 = Date.now();
     if (!(await until(async () => { const f = fightF(); return f && await f.evaluate(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units.length > 0 && !!FIGHT.__eyes); }, 40000))) { log('fight', n, 'never came'); return null; }
     const f = fightF();
+    /* EYES 11/17 (rule 450(c)): the white hit as the glass shows it, sampled every frame: each rise from dark is one flash begun */
+    await f.evaluate(() => { const L = (window.__EYES_FLASH = { starts: [], peak: 0, frames: 0 }); let was = 0;
+      const tick = (now) => { try { const el = document.getElementById('shotflash'); const a = el ? +getComputedStyle(el).opacity || 0 : 0; L.frames++;
+        if (a > 0.02 && was <= 0.02) L.starts.push(Math.round(now)); if (a > L.peak) L.peak = a; was = a; } catch (e) {} if (!FIGHT.S || !FIGHT.S.over) requestAnimationFrame(tick); };
+      requestAnimationFrame(tick); }).catch(() => {});
     await wait(2500);
     const o = await f.evaluate(() => ({ kind: FIGHT_OPTS.kind, district: FIGHT_OPTS.district, board: FIGHT.S.boardDef && FIGHT.S.boardDef.name, deploy: FIGHT.S.deploy,
       men: FIGHT.S.units.map(u => ({ id: u.id, name: u.name, side: u.side, w: u.weapon && u.weapon.name, hp: u.hp, hpMax: u.hpMax || u.hp_max || null, main: !!u.main || u.id === 'c0' })) }));
@@ -183,8 +188,17 @@ const HOOKS = `(function(){
     }
     await wait(1200);
     const E = await f.evaluate(() => { const S = FIGHT.S; return Object.assign({}, window.__EYES, { over: S.over, round: S.round, log: S.log.map(e => ({ t: e.t, id: e.id })),
-      units: S.units.map(u => ({ id: u.id, name: u.name, side: u.side, w: u.weapon && u.weapon.name, hp: u.hp, dead: !!u.dead, fled: !!u.fled, down: !!u.down, morale: u.morale })) }); });
+      units: S.units.map(u => ({ id: u.id, name: u.name, side: u.side, w: u.weapon && u.weapon.name, hp: u.hp, dead: !!u.dead, fled: !!u.fled, down: !!u.down, morale: u.morale })),
+      /* EYES 11/17: what he asked for by name, read off the fight's own page */
+      why: UI.whySaid ? { line: UI.whySaid.line, by: UI.whySaid.by, why: UI.whySaid.why, none: UI.whySaid.none, card: !!UI.whySaid.card } : null,
+      shots: UI.shotSeen || null, flash: (() => { const F = window.__EYES_FLASH || { starts: [] }, s = F.starts; let most = 0; for (let i = 0; i < s.length; i++) { let k = 0; for (let j = i; j < s.length && s[j] - s[i] < 1000; j++) k++; most = Math.max(most, k); }
+        let gap = Infinity; for (let i = 1; i < s.length; i++) gap = Math.min(gap, s[i] - s[i - 1]); return { starts: s.length, mostInASecond: most, closest: isFinite(gap) ? gap : null, peak: Math.round(F.peak * 100) / 100, frames: F.frames }; })(),
+      ceil: UI.ceilOn || null, ceilDef: S.boardDef && S.boardDef.ceiling ? { kind: S.boardDef.ceiling.kind, alpha: S.boardDef.ceiling.alpha } : null,
+      tunnel: (S.tunnels && S.tunnels.layout) || null,
+      stale: { n: S.staleTurns | 0, last: S.staleLast || null } }); });
     await shot('f' + String(n).padStart(2, '0') + '_end');
+    try { const sp = frame(/SPOILS_SCREEN/); if (sp) E.spoils = await sp.evaluate(() => document.body.innerText.replace(/\s+/g, ' ').slice(0, 900)); } catch (e) {}
+    log('  read', 'why', E.why && (E.why.by + ': ' + E.why.line), '| flash', JSON.stringify(E.flash), '| shots', JSON.stringify(E.shots), '| ceil', JSON.stringify(E.ceil), '| stale', E.stale.n);
     const R = { n, how, want, auto: st.auto, hand: st.hand, kind: o.kind, district: o.district, board: o.board, men: o.men, secs: Math.round((Date.now() - t0) / 1000), over, E };
     results.push(R);
     fs.writeFileSync(path.join(OUT, 'turns.json'), JSON.stringify({ file: FILE, errs, results }, null, 0));

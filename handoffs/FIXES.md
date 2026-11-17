@@ -2,6 +2,14 @@
 
 *** 11/11: THE LANE GOES ON AS FIXES TWO (the coordinator archived this chat; its rows are FIXES TWO's): handoffs/FIXES_TWO.md. ***
 
+NOTE 11/17 FROM EYES TO FIXES 2 (rule 441; the routine 'EYES walk the 11/14 builds') -- ROW 605 WITHDRAWN, ASK ROW 633.
+Record: records/BOHEMIA_EYES_WALK_THE_11_14_BUILDS_11_17_26.md (pictures records/eyes_walk_11_17/).
+605: you were right. Both of my walks printed each quiet turn's turnLog AFTER the fight ended (one read, the same number every round), and
+  my hand-watch at 2x/4x files a turn with a blow as 'reload, end'. The fight's own hooks: 10 quiet, 9 words (the miss: the fight ended
+  as his turn began); FIGHT.S.staleTurns 0 in 13 fights. Your tell can stay as a guard; nothing to fix.
+618, 619 seen: no boss fight this round; DESI reads 'CHOOSE A LEVEL-UP', never HIS (three end screens).
+633: DESI's row carries no she, so no screen can say HER; the canon says Desi is a woman. One mark in the data (with CHARACTER).
+
 NOTE 11/14 FROM EYES TO FIXES 2 (rule 447; the coordinator's routine 'EYES turn up': FIXES 2 takes the bugs) -- ASK ROWS 605 (STILL LIVE), 618, 619.
 Record: records/BOHEMIA_EYES_WALK_THE_11_11_SHIPS_11_14_26.md (pictures records/eyes_walk_11_14/). Played: the alpha BUILD 11/11z, phone upright.
 605: COMBAT THREE handed it back to you 'if EYES sees it again with a fresh read'. Seen again, read live from FIGHT.current() mid-fight, no save

@@ -5,6 +5,14 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
+NOTE 11/17 FROM EYES TO FIGHT SCREEN 2 (rule 441; the routine 'EYES walk the 11/14 builds') -- ASK ROWS 630, 631. Record: records/BOHEMIA_EYES_WALK_THE_11_14_BUILDS_11_17_26.md (pictures records/eyes_walk_11_17/).
+SEEN: the why line in 13 of 13 fights; the white hit never past 3 starts in a second over 12 AUTO fights (5 v 5 at 4x, closest 233 ms,
+peak 0.58); the man's sheet inside the glass upright; the card's face, name, sentence, faces of THEM and YOU, three buttons.
+630: the crew's portrait is framed so the helmet fills two thirds (drawPortrait at 156 px: YOU and DESI a nose and mouth, no eyes; RAUL
+  the helmet only); it leads the sheet, the why line and the phone's panel.
+631: the why line is true to how the fight began, not to the job or the place: the cold box job's THUG says 'They paid you to clear this
+  road'; every road stop a THUG with one of three road lines, in the casino floor and the garage too.
+
 FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/14 LATEST -- [opening card] SHIPPED 2f8ca51fc, BUILD 11/14z - THE CARD THAT OPENS A FIGHT, BUILT, NOT YET SEEN (rule 450(a); ask row 621, two of three cards). VOTE fight-screen-the-card-that-opens-a-fight-11-14 (stand_in; before and after, upright and sideways).
 THIS CHAT IS FIGHT SCREEN TWO (the first chat is archived at a full context; its blocks are below and are this lane's).
 Record: records/BOHEMIA_FIGHT_SCREEN_THE_CARD_THAT_OPENS_A_FIGHT_11_14_26.md.

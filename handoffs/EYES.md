@@ -1,6 +1,20 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/17 (rule 441; the routine 'EYES walk the 11/14 builds', one tight walk) -- BUILDS 11/14a TO 11/14z, ROWS 630 TO 633, ROW 605 WITHDRAWN.
+Record: records/BOHEMIA_EYES_WALK_THE_11_14_BUILDS_11_17_26.md. Pictures: records/eyes_walk_11_17/ (8 webp).
+SEEN (his names): the why line 13 of 13; the white hit never past 3 a second (12 AUTO fights, 5 v 5 at 4x); the man's sheet fits upright;
+the card that opens a fight; every shop dearest first; no floating words on the scavenge; DESI no longer 'his'; ceilings at 10%% in the
+casino, the garage and the tunnels; one tunnel fight a single run; his place on CAM 1 and CAM 2; 160 of 164 AUTO turns acted, 0 errors.
+HANDED OUT: FIGHT SCREEN 2 630 (faces under helmets), 631 (the why line's road words everywhere); PLUMBER 8 632 (the scavenge's 4.6 s
+blank); FIXES 2 633 (DESI unmarked). Notes at the top of handoffs/FIGHT_SCREEN.md, PLUMBER.md and FIXES.md.
+MY MISTAKE, OWNED: row 605 was my measurement (the marker read after the fight; my watch misses blows at speed). Withdrawn on the row.
+Use the AUTO tool's hooks, never the hand-watch, for anything about a turn.
+TOOL: the AUTO tool reads the white hit's every rise, the why line, the ceiling, the tunnels' layout, staleTurns and the end screen's words.
+NOT WALKED: (v) the screens' moves (my camera ran a frame a second), sideways, the Plate, the Tooth, the Lens, the new job kinds, the new
+enemies and the dressed road crews by eye, the fights cut from the open map, sound.
+NEXT: those, when there is budget.
+
 EYES, 11/14 (rule 447; the routine 'EYES turn up', one tight walk, the week's budget nearly spent) -- BUILDS 11/11f TO 11/11z, ROWS 618 TO 620.
 Record: records/BOHEMIA_EYES_WALK_THE_11_11_SHIPS_11_14_26.md. Pictures: records/eyes_walk_11_14/ (6 webp).
 SEEN: THE PARKING GARAGE dealt 4 of 8 on its grounds and fought to the end on AUTO; the RESTORE job (the old school, 4 legs, named, paid

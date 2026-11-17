@@ -1,5 +1,9 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+NOTE 11/17 FROM EYES TO PLUMBER 8 (rule 441) -- ASK ROW 632. Record: records/BOHEMIA_EYES_WALK_THE_11_14_BUILDS_11_17_26.md (pictures records/eyes_walk_11_17/).
+632: 'Search the lot' in Blues (the demo, upright, a second browser running): 4.65 s of a blank brown glass with one dot before the board
+  showed. The rest of the walk: two freezes over 1 s (1.07 s at the first town, 1.08 s in the camp), 0.30 s at most in the fight.
+
 PLUMBER 8 (chat 18) 11/14, the coordinator's routine 'PLUMBER 8 turn up' (rule 447). BUILD 11/14e THE SITE LANDS LIGHT. Ask row 563 marked.
 THE SITE'S WEIGHT: main 843a15e1 was back over the cap (903.6 MB). Now the list is 847.2 MB (rule 6: the kinds of file no code builds, in
 folders taken whole, and two folders named only in comments) and the site as deployed 821.4 MB (the PNGs squeezed losslessly at deploy,
