@@ -2735,6 +2735,7 @@ const FIGHT = (function () {
     u.walled = false; u.hooked = false; u.rallied = false; u.swung = false;   /* THE SHIELD's wall lasts until his next turn; one hook, one rally a turn */
     if (u.poison > 0) u.ap = Math.max(0, u.ap - NEW('poison').ap);   /* THE NEEDLE (Goblin Poison's page): -1 AP for 3 turns */
     if (u.stunned) { u.ap = 0; emit({ t: 'stunned_turn', id: u.id }); }   /* ARMORY 2: the live wire's stun, Battle Brothers' way: he loses this turn */
+    u.onGuard = false; turnedTurn(u); callLands(u);   /* BESTIARY 11/17: the duelist's guard lasts until his next turn; the preacher's man; the spotter's ground */
     u.resting = false;   /* the rest (rule 283(b)) lasts until his next turn begins */
     u.threw = false; u.kited = false; u.shoved = false; u.swappedFree = false;   /* Quick Hands: one free swap a turn */
     /* THE NET: his melee skill against it, -10 the first try, +10 for every try that failed (the Throwing Net's page) */
@@ -3285,6 +3286,7 @@ const FIGHT = (function () {
     if (!r.hit) {
       a.missStack++;
       if (!isRanged(a.weapon)) tire(t, R('fatigue.on_dodge_or_block'), t.shield || t.walled ? 'block' : 'dodge', a);
+      if (!opt.riposte) riposte(t, a);   /* BESTIARY 11/17: the duelist on guard strikes back at a miss from beside him */
       return;
     }
     a.missStack = 0;
@@ -3583,7 +3585,7 @@ const FIGHT = (function () {
        misses into his own front man), so a friend in the way still blocks the line (-75) and the miss flies past him, until
        COMBAT TWO's brain reads the line before it shoots (NOTEd) */
     if (!q.hit && way && onField(way) && way.side !== a.side && !(forced && forced.noAstray)) { const r2 = resolveAttack(a, way, s, { astray: true, roll: forced && forced.astrayRoll }); apply(a, way, r2, { astray: true, skill: s.name }); q.astray = { to: way.id, hit: r2.hit, chance: r2.chance }; }
-    also.forEach(function (o) { if (onField(o)) apply(a, o, resolveAttack(a, o, s, forced && forced.all), { sweep: true, skill: s.name }); });
+    also.forEach(function (o) { if (onField(o) && onField(a)) apply(a, o, resolveAttack(a, o, s, forced && forced.all), { sweep: true, skill: s.name }); });   /* BESTIARY 11/17: a man the riposte dropped swings no more */
     afterAction(a); return q;
   }
   /* ---------------- WEAPON SHAPES (COMBAT [weapon shapes], rules 33i and 46d, Paolo 9/24: 'some weapons hit multiple tiles at the
@@ -3885,6 +3887,83 @@ const FIGHT = (function () {
     });
     if (!unitAt(L.end.x, L.end.y)) { emit({ t: 'step', id: u.id, fx: u.x, fy: u.y, x: L.end.x, y: L.end.y }); u.x = L.end.x; u.y = L.end.y; }
     afterAction(u); return true;
+  }
+  /* THE RIPOSTE (BESTIARY 11/17, rule 453; the hired guns' duelist; Battle Brothers' Riposte, bb_all/1696_Riposte (25 fatigue).txt:
+     4 AP, 25 fatigue, 'counterattack missed or blocked melee attacks until next turn' at -10 to hit; bohemia_enemies.json
+     numbers.riposte). After his own blow, or with two of yours on him, he goes on guard; until his next turn every blow of yours
+     that misses him from beside him draws one back. OURS: a shot that misses him from the next tile is a miss at arm's length too
+     (guns shoot the man beside them here, rule 185); from further off he cannot reach. No other man in the valley strikes back */
+  function canGuard(u, adj) {
+    const P = NEW('riposte'); if (u.onGuard || u.ap < P.ap || u.fat + P.fatigue > fatMax(u) || u.disarmed || isRanged(u.weapon) || !strikeSkill(u.weapon)) return false;
+    return adj.length >= 2 || (adj.length >= 1 && u.swung);
+  }
+  function onGuard(u) {
+    const P = NEW('riposte'); u.ap -= P.ap; u.fat += P.fatigue; u.onGuard = true;
+    emit({ t: 'skill', id: u.id, skill: 'on_guard', to: u.id }); afterAction(u); return true;
+  }
+  function riposte(t, a) {
+    if (!t.onGuard || !onField(t) || !onField(a) || t.side === a.side || dist(t, a) !== 1 || t.stunned || t.disarmed || t.netted || t.morale === 'Fleeing') return;
+    const s = strikeSkill(t.weapon); if (!s || isRanged(t.weapon)) return;
+    emit({ t: 'skill', id: t.id, skill: 'riposte', to: a.id });
+    apply(t, a, resolveAttack(t, a, s, { bonus: NEW('riposte').hit_bonus }), { free: true, skill: 'riposte', riposte: true });
+  }
+  /* THE TURN (BESTIARY 11/17, rule 453; the flock's preacher; Battle Brothers' Hexe's Charm, bb_all/0991_Hexe.txt: 'Hexen prefer
+     brothers with low resolve... many adjacent brothers'; bohemia_enemies.json numbers.turn). He points at the weakest nerve of
+     yours inside his tiles who has a friend beside him; failed (his resolve against the roll), when that man's next turn opens he
+     strikes the friend beside him and his turn is gone. The preacher down first, the spell is broken. No other man turns yours */
+  function turnTarget(u) {
+    const T = NEW('turn'); if (u.ap < T.ap || u.fat + T.fatigue > fatMax(u) || u.turnedAt === S.round) return null;
+    return foes(u).filter(function (f) { return onField(f) && !f.turned && dist(u, f) <= T.range_tiles && sees(u, f) && sideSees(u.side, f) && f.resolve !== null && !(f.immune && f.immune.indexOf('Morale') >= 0)
+        && friends(f).some(function (o) { return o !== f && onField(o) && dist(o, f) === 1; }); })
+      .sort(function (p, q) { return p.resolve - q.resolve || dist(u, p) - dist(u, q); })[0] || null;
+  }
+  function turnMan(u, f) {
+    const T = NEW('turn'); u.ap -= T.ap; u.fat += T.fatigue; u.turnedAt = S.round;
+    const held = die() <= Math.max(T.min_pct, Math.min(T.max_pct, f.resolve + T.modifier));
+    if (!held) f.turned = { by: u.id };
+    emit({ t: 'skill', id: u.id, skill: 'turn', to: f.id, held: held }); afterAction(u); return true;
+  }
+  function turnedTurn(u) {
+    if (!u.turned) return; const by = byId(u.turned.by); u.turned = null; if (!by || !onField(by) || !onField(u)) return;
+    const fr = friends(u).filter(function (o) { return o !== u && onField(o) && dist(o, u) === 1; }).sort(function (p, q) { return p.hp - q.hp; })[0], s = strikeSkill(u.weapon);
+    emit({ t: 'skill', id: u.id, skill: 'turned', to: fr ? fr.id : u.id, by: by.id });
+    if (fr && s) apply(u, fr, resolveAttack(u, fr, s), { free: true, skill: 'turned' });
+    u.ap = 0;
+  }
+  /* THE CALL (BESTIARY 11/17, rule 453; the eye in the sky's spotter; Battle Brothers' Mortar, bb_all/1321_Mortar.txt and Fire
+     Mortar, bb_all/0769_Fire Mortar (0 fatigue).txt: 'marks an area... 1 turn later does 20-40 Damage with 70% Armor Damage and 20%
+     Direct Damage in that area'; bohemia_enemies.json numbers.call). He calls a cross of ground (a tile and the four beside it)
+     where most of yours stand and none of his; when his next turn opens, every man still on it, either side, is hit from the roof.
+     The spotter down, the call never lands. No other enemy marks the ground */
+  function callCross(x, y) { return [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]].map(function (d) { return { x: x + d[0], y: y + d[1] }; }).filter(function (q) { return inBoard(q.x, q.y); }); }
+  function onCall(o, c) { return callCross(c.x, c.y).some(function (q) { return q.x === o.x && q.y === o.y; }); }
+  function callTarget(u) {
+    const C = NEW('call'); if (u.ap < C.ap || u.fat + C.fatigue > fatMax(u) || (S.calls || []).some(function (c) { return c.by === u.id; })) return null;
+    let best = null;
+    foes(u).forEach(function (f) { if (!onField(f) || !sideSees(u.side, f) || dist(u, f) > C.range_tiles) return;
+      callCross(f.x, f.y).forEach(function (q) { const c = { x: q.x, y: q.y }, on = S.units.filter(function (o) { return onField(o) && onCall(o, c); });
+        if (on.some(function (o) { return o.side === u.side; })) return;
+        if (on.length >= C.min_men && (!best || on.length > best.n)) best = { x: c.x, y: c.y, n: on.length, to: on[0].id }; }); });
+    return best;
+  }
+  function callGround(u, c) {
+    const C = NEW('call'); u.ap -= C.ap; u.fat += C.fatigue;
+    S.calls = (S.calls || []).concat([{ x: c.x, y: c.y, by: u.id, round: S.round }]);
+    emit({ t: 'skill', id: u.id, skill: 'call', to: c.to, x: c.x, y: c.y, n: c.n }); afterAction(u); return true;
+  }
+  function callLands(u) {
+    const mine = (S.calls || []).filter(function (c) { return c.by === u.id; }); if (!mine.length) return;
+    S.calls = S.calls.filter(function (c) { return c.by !== u.id; });
+    const C = NEW('call');
+    mine.forEach(function (c) {
+      const on = S.units.filter(function (o) { return onField(o) && onCall(o, c); });
+      emit({ t: 'skill', id: u.id, skill: 'call_lands', to: on.length ? on[0].id : u.id, x: c.x, y: c.y, n: on.length });
+      on.forEach(function (o) {
+        const dmg = rint(C.hp_min, C.hp_max), toArm = Math.round(dmg * C.armour_pct / 100), held = Math.min(o.armB, toArm);
+        apply(u, o, { hit: true, head: false, hp: Math.round(dmg * C.direct_pct / 100) + (toArm - held), armour: held, chance: 100, parts: ['call'] }, { free: true, skill: 'call' });
+      });
+    });
+    afterAction(u);   /* the call can end the fight */
   }
   function chargeTarget(u) {
     const C = NEW('charge');
@@ -5414,6 +5493,9 @@ const FIGHT = (function () {
     if (A.flings && fling(u)) return true;   /* BEASTS 2: the bear and the sloth throw (the unhold's Fling Back) */
     if (A.kicks && kickAll(u)) return true;
     if (A.tramples) { const tl = trampleLine(u); if (tl) return trample(u, tl); }   /* BESTIARY 11/17: the mammoth walks through a line */
+    if (A.ripostes && canGuard(u, foes(u).filter(function (f) { return dist(f, u) === 1; }))) return onGuard(u);   /* BESTIARY 11/17: the duelist, after his blow or with two on him */
+    if (A.turns) { const tt = turnTarget(u); if (tt) return turnMan(u, tt); }   /* BESTIARY 11/17: the preacher */
+    if (A.calls) { const cg = callTarget(u); if (cg) return callGround(u, cg); }   /* BESTIARY 11/17: the spotter */
     if (A.charges && !adj.length) { const ct = chargeTarget(u); if (ct) return charge(u, ct); }
     if (A.hooks && !u.hooked) { const ht = hookTarget(u); if (ht) return hook(u, ht); }   /* THE HOOK */
     if (A.volley) { const vt = volleyTarget(u); if (vt) { strike(u, vt); return true; } }   /* THE CROSSBOWS */
@@ -7971,6 +8053,14 @@ function startAnimHeard(a) {
     /* FIVE MORE BEASTS (FACTIONS 11/3; words draft:true) */
     else if (e.t === 'skill' && e.skill === 'kick') { sfx('body_land', { side: u.side }); pop(u, u.beast ? 'KICK' : 'SWING', '#e8c39c', false, u.name + (u.beast ? ' kicks out on every side' : ' swings round at every man beside him') + (e.n > 1 ? ' and catches ' + e.n + ' of them.' : '.')); }   /* BESTIARY 11/11: a man swings (the House greatsword), a beast kicks; draft:true */
     else if (e.t === 'skill' && e.skill === 'trample') { sfx('door_drag'); pop(u, 'TRAMPLE', '#e8a07c', true, u.name + ' walks through ' + (e.n > 1 ? e.n + ' of yours.' : nameOf(e.to) + '.')); }   /* BESTIARY 11/17; draft:true */
+    /* BESTIARY 11/17 (rule 453; rule 454(a): the fewest words; draft:true): the duelist's guard and his blow back, the preacher's turn,
+       the spotter's call and where it lands */
+    else if (e.t === 'skill' && e.skill === 'on_guard') { sfx('block', { side: u.side }); pop(u, 'ON GUARD', '#e0c06a', false, u.name + ' is on guard.'); }
+    else if (e.t === 'skill' && e.skill === 'riposte') { sfx('block', { side: u.side }); pop(u, 'RIPOSTE', '#e0c06a', true, u.name + ' strikes back.'); }
+    else if (e.t === 'skill' && e.skill === 'turn') { const t = FIGHT.byId(e.to); sfx('ghost_whisper'); if (t) pop(t, e.held ? 'HOLDS' : 'TURNED', '#b49ce0', !e.held, e.held ? t.name + ' holds.' : u.name + ' turns ' + t.name + '.'); }
+    else if (e.t === 'skill' && e.skill === 'turned') { const t = FIGHT.byId(e.to); pop(u, '', '#b49ce0', false, t && t !== u ? u.name + ' hits ' + t.name + '.' : u.name + ' loses his turn.'); }
+    else if (e.t === 'skill' && e.skill === 'call') { sfx('power_on', { side: 'them' }); pop(u, 'CALLED', '#e04030', true, u.name + ' calls your ground.'); }
+    else if (e.t === 'skill' && e.skill === 'call_lands') { sfx('shot', { side: u.side }); pop(u, '', '#e04030', false, e.n ? 'The roof hits ' + e.n + '.' : 'The roof hits nothing.'); }
     else if (e.t === 'skill' && e.skill === 'charge') { sfx('door_drag'); pop(u, 'CHARGE', '#e8a07c', false, u.name + (u.beast ? ' puts its head down and runs at ' : ' runs straight at ') + nameOf(e.to) + '.'); }   /* BESTIARY 11/11: a man runs straight in (the water outlaw); draft:true */
     else if (e.t === 'skill' && e.skill === 'feeds') { pop(u, 'FEEDS', '#c06050', false, u.name + ' eats from ' + nameOf(e.to) + ' and gets back up.'); }
     else if (e.t === 'skill' && e.skill === 'hook') { sfx('swing_air'); pop(u, e.hit ? 'HOOK' : '', '#e8c39c', false, u.name + (e.hit ? ' hooks ' + nameOf(e.to) + ' into the wall.' : ' swings the hook at ' + nameOf(e.to) + ' and misses.')); }
@@ -9115,6 +9205,7 @@ function draw(now) {
   /* rule 145: the floor keeps every hit, under the fallen and the standing */
   goreTick(now); drawStains();
   drawFire(now);   /* THE CELL VEST (rule 305): the ground that burns, under the men */
+  drawCalled(now);   /* BESTIARY 11/17: the spotter's called ground */
   drawFlood(now);   /* __THE_FLOOD_TUNNELS__: the flash flood in the main channel, under the men */
   /* the fallen lie where they fell, from the moment their fall plays (rule 121: the fall plays whole) */
   S.units.filter(function (v) { return (v.dead || v.down) && v._fallAt !== undefined && (v.side === 'you' || v.seenFall); }).forEach(function (v) { drawBody(v, tw, th); });
@@ -11542,6 +11633,26 @@ function drawFlood(now) {
     mkCell(T.x0, T.y0, w, h, 'rgba(74,62,44,.78)');
     for (let i = 0; i < 5; i++) { const r = mulberry(seedOf('flood:' + q[0] + ',' + q[1] + ':' + i))(), y = T.y0 + Math.floor(r * (h - k)), x = T.x0 + ((Math.floor(r * w) + key * k) % Math.max(1, w - 4 * k));
       mkCell(x, y, 4 * k, k, 'rgba(150,132,98,.55)'); }
+  });
+  mkOff();
+}
+/* THE CALL (BESTIARY 11/17, rule 453): the ground the eye in the sky's spotter called, a security camera's red corners on every tile of
+   the cross and its record dot blinking on the beat, until it lands; his own turn opening is when. Gone with him */
+function drawCalled(now) {
+  const S = FIGHT.S; if (!S.calls || !S.calls.length) return;
+  const on = Math.floor(now / (beatMs() / 2)) % 2 === 0;
+  mkOn();
+  S.calls.forEach(function (c) {
+    const by = FIGHT.byId(c.by); if (!by || !FIGHT.onField(by)) return;
+    [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]].forEach(function (d) {
+      const x = c.x + d[0], y = c.y + d[1]; if (x < 0 || y < 0 || x >= S.w || y >= S.h) return;
+      const T = mkTile(x, y), w = T.x1 - T.x0, h = T.y1 - T.y0, k = Math.max(2, Math.round(w / 22)), L = Math.round(w / 5), col = 'rgba(214,38,34,.9)';
+      mkCell(T.x0, T.y0, w, h, 'rgba(120,10,8,.16)');
+      [[T.x0, T.y0, 1, 1], [T.x1 - L, T.y0, -1, 1], [T.x0, T.y1 - k, 1, -1], [T.x1 - L, T.y1 - k, -1, -1]].forEach(function (b) {
+        mkCell(b[0], b[1], L, k, col); mkCell(b[2] > 0 ? b[0] : T.x1 - k, b[3] > 0 ? b[1] : T.y1 - L, k, L, col); });
+      for (let yy = T.y0 + 2 * k; yy < T.y1 - k; yy += 3 * k) mkCell(T.x0, yy, w, Math.max(1, k >> 1), 'rgba(214,38,34,.10)');
+      if (d[0] === 0 && d[1] === 0 && on) mkCell(T.x0 + 2 * k, T.y0 + 2 * k, 2 * k, 2 * k, 'rgba(240,40,30,.95)');
+    });
   });
   mkOff();
 }

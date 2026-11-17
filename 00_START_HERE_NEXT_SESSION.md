@@ -500,14 +500,16 @@ past the glass) and its receipt never scrolls the page sideways. Gate THE FOURTE
 fail). The whole block: handoffs/FIXES.md.
 [bb Battle Brothers' recruit list keeps every man one line and the one you pick in his own panel; our hall on its side the same.]
 [analog horror: a talking face with a blank name tag is the one wrong thing the bible saves for on purpose; this one was an accident.]
-BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/17m THE MAMMOTH, BUILT, NOT YET SEEN (routine 'BESTIARY full sweep', rules 453,
-454(a), 441; after BUILD 11/17i ALL TWELVE FACTIONS FIGHT). THE FLOOR: factions 12 of 12, types 64 of about 75, beasts 18 lab-made, bosses
-10, champions named (the one table: handoffs/BESTIARY.md). The Columbian mammoth (Tule Springs, an Asian elephant mother): the eighteenth lab
-beast, a rare giant, new art on the own-body pipe, and its one thing: the TRAMPLE (walks through a line of your men, each knocked down and
-aside). Demo and alpha, a phone both ways. THE NEW ENEMIES' WHERE AND WHEN draws 1,000 (200 went red on noise). VOTE bestiary-the-mammoth-11-17.
-Record records/BOHEMIA_BESTIARY_THE_MAMMOTH_11_17_26.md.
-[bb Battle Brothers' Unhold is the body of a giant; ours walks through the line it meets.]
-[analog horror: the mammoth's hi-vis plate passing between the houses at night, higher than the gutters.]
+BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/17zi THREE NEW WAYS, BUILT, NOT YET SEEN (routine 'BESTIARY full sweep', rules 453,
+454(a), 441; after BUILD 11/17m THE MAMMOTH). THE FLOOR: factions 12 of 12, types 67 of about 75, beasts 18 lab-made, bosses 10, champions
+named (the one table: handoffs/BESTIARY.md). Three types, each a Battle Brothers mechanic the fight lacked: the hired guns' DUELIST (the
+riposte: on guard, a miss on him from beside him draws a blow back), the flock's PREACHER (the Hexe's charm: the weakest nerve beside a
+friend hits that friend), the eye in the sky's SPOTTER (the mortar's mark: red camera corners on a cross of ground, hit when his next
+turn opens). Each played on the real page on AUTO until he does it, demo and alpha, a phone both ways (THE BESTIARY FLOOR F9's new leg).
+Stand-in clothes (spares from three brigand pools; CHARACTER has the list). VOTE bestiary-three-new-ways-11-17.
+Record records/BOHEMIA_BESTIARY_THREE_NEW_WAYS_11_17_26.md.
+[bb Battle Brothers' Hexe charms the man with the weakest nerve; ours turns him on the friend beside him.]
+[analog horror: the red corners of a casino camera on the street, and the record dot blinking, a turn before the roof opens up.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/17 LATEST (build two) -- BUILD 11/17zg - THE SCRAP MILL, BUILT, NOT YET SEEN (rule 453's sweep;
 rule 454(a), no person talks; rule 441). The list's scrap mill is on the map in North Las Vegas; its stall holds twice the tape and sells
 copper wire at the maker's price, to carry where it sells for more. Gate THE SCRAP MILL on demo and alpha, a phone both ways. VOTE

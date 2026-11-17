@@ -1,5 +1,14 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+NOTE from BESTIARY (11/17, build 3 of the sweep, rule 453): NOTHING OF YOURS WAS TOUCHED but three pools' spares (as on 11/14):
+the raiders' pool (brigand_raider, lower_brigand_raider, orc_young) gave faction_mob to the new DUELIST (hired guns); the brigand
+leader's gave faction_church to the new PREACHER (the flock); the marksmen's gave faction_network to the new SPOTTER (the eye in the
+sky). Each pool keeps 3 or more (ours.json people_looks.band). WHO WEARS A STAND-IN NOW: the hired gun (faction_caravans), the duelist
+(faction_mob), the head taker (faction_volunteers), the casino gunner (faction_reds), the spotter (faction_network), the preacher
+(faction_church). Their own clothes, each 2+ people: the duelist (a paid blade's good coat, a feathered hat: BB's swordmaster), the
+preacher (the flock's robe with a stole and a staff), the spotter (casino security: a vest, a radio, an earpiece); the rest as on the
+note below. Only faction_homeless is worn by no enemy band now.
+
 NOTE from BESTIARY (11/17, rule 453 'give CHARACTER the list of who wears a stand-in'): NOTHING OF YOURS WAS TOUCHED. WHO WEARS A
 STAND-IN, newest first: the four new factions' first types fight in faction looks no enemy band wore (the site had no spare enemy sheet):
 the flock's FAITHFUL in faction_homeless (NOW IN YOUR enemy_flock_faithful_0 to 2: done, thank you), the HIRED GUN in faction_caravans, the HEAD TAKER in faction_volunteers, the casino GUNNER in

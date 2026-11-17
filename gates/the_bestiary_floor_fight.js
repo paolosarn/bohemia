@@ -18,9 +18,13 @@ const MINE = BOOK.beasts.filter(b => String(b.added_by || '').startsWith('BESTIA
 const NE = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/bohemia_enemies.json'), 'utf8'));
 const OURS = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/ours.json'), 'utf8')), PH = OURS.enemy_tiers.value.phases;
 const ONLY = process.env.ONLY_TYPES ? process.env.ONLY_TYPES.split(',') : null;   /* a quick run of some types (the gate runs them all) */
+/* BESTIARY 11/17: a man whose one thing is his own is played on the page on AUTO until he does it (the first skill seen, its picture;
+   the last, the proof): the duelist's blow back, the preacher's man striking his friend, the spotter's ground called and hit */
+const MOVES = { ripostes: ['on_guard', 'riposte'], turns: ['turn', 'turned'], calls: ['call', 'call_lands'] };
 const MEN = NE.rows.filter(r => String(r.added_by || '').startsWith('BESTIARY') && !r.beast && (!ONLY || ONLY.indexOf(r.id) >= 0)).map(r => {
   const m = NE.mix[r.faction] || OURS.enemy_tiers.value.mix[r.faction] || {}, ph = PH.filter(p => m[p.name] && m[p.name][r.id])[0];   /* the kids' and heavies' bands live in ours.json */
-  return { id: r.id, faction: r.faction, looks: r.looks, days: ph ? ph.from_day + 1 : 1 }; });
+  const bv = (NE.brains[r.brain] || {}).value || {}, mv = Object.keys(MOVES).filter(k => bv[k]).reduce((a, k) => a.concat(MOVES[k]), []);
+  return { id: r.id, faction: r.faction, looks: r.looks, days: ph ? ph.from_day + 1 : 1, moves: mv }; });
 const CH = (NE.champions && NE.champions.kinds) || {};
 (async () => {
   const want = process.argv[2] ? process.argv[2].split(',') : ['phone_portrait', 'phone_landscape'];
@@ -103,11 +107,11 @@ const CH = (NE.champions && NE.champions.kinds) || {};
          same name): of N encounters met on that day, the first whose band carries one of these kinds, and how many of the N did */
       const preRoll = (f, n, days, kinds, pre) => fr.evaluate((o) => {
         try { if (typeof DAY !== 'undefined') { if (window.__GATE_DAY0 === undefined) window.__GATE_DAY0 = DAY.day; DAY.day = o.days; } } catch (e) {}
-        let first = null, carry = 0;
+        let first = null, carry = 0; const all = [];
         for (let i = 0; i < 120; i++) { const m = { type: 'BOHEMIA_CITY_ENCOUNTER', party: { count: o.n, faction: o.f, days: o.days, difficulty: 0 }, why: 'gate:bestiary men:' + o.pre + ':' + i, at: { gx: city.x, gy: city.y } };
           try { BohemiaJobDanger.rollInto(m); } catch (e) {}
-          if (m.party.band && m.party.band.some(k => o.kinds.indexOf(k) >= 0)) { carry++; if (first === null) first = i; } }
-        return { first, carry, of: 120 }; }, { f, n, days, kinds, pre });
+          if (m.party.band && m.party.band.some(k => o.kinds.indexOf(k) >= 0)) { carry++; if (first === null) first = i; if (all.length < 4) all.push(i); } }
+        return { first, carry, of: 120, all }; }, { f, n, days, kinds, pre });
       const lookOk = (f, kind) => f.evaluate(async (k) => { const us = FIGHT.S.units.filter(u => u.side === 'them' && u.kind === k); if (!us.length) return null;
         const out = []; for (const u of us) { const L = DB.rig.looks[u.look], own = !!L && lookOf(u) === L; let drawn = false;
           if (L) { const im = new Image(); im.src = 'fight_rig/' + L.file; await new Promise(r => { im.onload = r; im.onerror = r; }); drawn = im.naturalWidth > 0; }
@@ -117,11 +121,26 @@ const CH = (NE.champions && NE.champions.kinds) || {};
         const o = { fight: false, tries: 0 };
         try {
           o.dealt = await preRoll(m.faction, 8, m.days, [m.id], m.id);
-          for (let t = 0; t < 2 && !o.fielded && o.dealt && o.dealt.first !== null; t++) {
-            o.tries = t + 1; await handOver(m.faction, 8, m.days, m.id + ':' + o.dealt.first); const f = await openFight(); if (!f) break; o.fight = true;
+          /* a man whose one thing is his own: up to three of the encounters that carry him, until he does it (a fight can end first) */
+          for (let t = 0; t < (m.moves.length ? 4 : 2) && !(o.fielded && (!m.moves.length || (o.move && o.move.seen))) && o.dealt && o.dealt.first !== null; t++) {
+            o.fielded = null; o.tries = t + 1; await handOver(m.faction, 8, m.days, m.id + ':' + ((o.dealt.all || [])[t] !== undefined ? o.dealt.all[t] : o.dealt.first)); const f = await openFight(); if (!f) break; o.fight = true;
             await waitFor(() => p.evaluate(() => !window.NFC || NFC.state === 'off'), 20000); await sleep(800);
             o.fielded = await lookOk(f, m.id); o.says = await f.evaluate(() => { try { return THEY_ARE[theirFaction()]; } catch (e) { return null; } });
             if (process.env.SHOTS && o.fielded) { await sleep(1500); await p.screenshot({ path: path.join(process.env.SHOTS, 'men_' + m.id + '_' + (ro.alpha ? 'alpha_' : '') + profile + '.jpg'), quality: 80 }); }
+            if (o.fielded && m.moves.length) {   /* his one thing, on the real page: AUTO tapped, the fight played until he does it */
+              const tapIn = async (sel) => { const h = await p.$(sel), bb = h && await h.boundingBox(); if (bb && bb.width >= 2) { await p.touchscreen.tap(bb.x + bb.width / 2, bb.y + bb.height / 2); await sleep(500); return true; } return false; };
+              /* his own buttons on the phone (slices/bohemia_phone.js: the fight's FIGHT, AUTO and speed) */
+              if (await f.evaluate(() => !!FIGHT.S.deploy)) { await tapIn('#bohphone .fight [data-c="go"]'); await waitFor(() => f.evaluate(() => !FIGHT.S.deploy), 15000); }   /* FIGHT: the line set */
+              await tapIn('#bohphone .fight [data-c="auto"]'); o.auto = await f.evaluate(() => !!UI.auto);   /* AUTO */
+              for (let i = 0; i < 4 && await f.evaluate(() => (UI.hand || 1) < Math.max.apply(null, SPEEDS)); i++) await tapIn('#bohphone .fight [data-c="speed"]');   /* his fastest speed */
+              const seen = (sk) => f.evaluate((q) => { const S = FIGHT.S, e = S.log.filter(x => x.t === 'skill' && x.skill === q.sk && !(x.skill === 'turn' && x.held) && ((FIGHT.byId(x.skill === 'turned' ? x.by : x.id) || {}).kind === q.id))[0];
+                return e ? { skill: e.skill, round: e.round } : (S.over ? { over: true, result: S.result } : null); }, { sk, id: m.id });
+              const first = await waitFor(() => seen(m.moves[0]), Number(process.env.MOVE_MS || 240000));
+              if (process.env.SHOTS && first && !first.over) { await sleep(700); await p.screenshot({ path: path.join(process.env.SHOTS, 'move_' + m.id + '_' + (ro.alpha ? 'alpha_' : '') + profile + '.jpg'), quality: 80 }); }
+              const last = first && !first.over ? await waitFor(() => seen(m.moves[m.moves.length - 1]), 240000) : first;
+              o.move = { first: first, last: last, seen: !!(first && !first.over && last && !last.over) };
+              if (process.env.SHOTS && o.move.seen) { await sleep(700); await p.screenshot({ path: path.join(process.env.SHOTS, 'move2_' + m.id + '_' + (ro.alpha ? 'alpha_' : '') + profile + '.jpg'), quality: 80 }); }
+            }
             o.home = await winHome(f); await sleep(800);
           }
         } catch (e) { o.err = String(e).slice(0, 300); }

@@ -760,7 +760,6 @@
      "person_caravans_2"
     ],
     "lower_brigand_raider": [
-     "faction_mob",
      "person_mob_0",
      "person_mob_1",
      "person_mob_2",
@@ -781,7 +780,6 @@
      "person_volunteers_2"
     ],
     "brigand_raider": [
-     "faction_mob",
      "person_mob_0",
      "person_mob_1",
      "person_mob_2",
@@ -799,13 +797,11 @@
      "person_blues_2"
     ],
     "brigand_leader": [
-     "faction_church",
      "person_church_0",
      "person_church_1",
      "person_church_2"
     ],
     "brigand_marksman": [
-     "faction_network",
      "person_network_0",
      "person_network_1",
      "person_network_2",
@@ -814,7 +810,6 @@
      "person_colorful_2"
     ],
     "lower_brigand_marksman": [
-     "faction_network",
      "person_network_0",
      "person_network_1",
      "person_network_2",
@@ -908,7 +903,6 @@
      "person_blues_1"
     ],
     "orc_young": [
-     "faction_mob",
      "person_mob_0",
      "person_mob_1",
      "person_mob_2",

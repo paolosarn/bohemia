@@ -1,5 +1,25 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
+BESTIARY (routine 'BESTIARY full sweep', rules 453, 454(a), 441): 11/17 LATEST -- BUILD 11/17zi THREE NEW WAYS (SHA3_HERE), BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_BESTIARY_THREE_NEW_WAYS_11_17_26.md. VOTE bestiary-three-new-ways-11-17.
+| floor | his | the fight fields | short |
+|---|---|---|---|
+| factions | 12 | 12 | 0 |
+| enemy types | about 75 | 67 | 8 |
+| beasts | 17 | 18 lab-made (23 fielded) | 0 |
+| bosses | 3 | 10 | 0 |
+| champions | some | 3 kinds, named | 0 |
+- THIS BUILD, three types, each a Battle Brothers mechanic the fight did not have: the hired guns' DUELIST (the RIPOSTE: on guard,
+  every miss on him draws a blow back), the flock's PREACHER (the TURN, the Hexe's Charm: the weakest nerve beside a friend hits that
+  friend), the eye in the sky's SPOTTER (the CALL, the Mortar: a cross of ground marked with red camera corners, hit when his next turn
+  opens). Fewest words (rule 454(a)). Each played on the real page until he does it (THE BESTIARY FLOOR F9's new leg).
+- STAND-INS (CHARACTER has the list, handoffs/CHARACTER.md): the duelist faction_mob, the preacher faction_church, the spotter
+  faction_network (spares taken from three brigand pools, each keeps 3+); the hired gun, the head taker and the gunner as before.
+- NEXT (8 types to 75): the head takers' second (the NETTER is the kids'; a TRACKER who sees through smoke, or the hound man, COMBAT's
+  summon), the old order's machines once robot art exists, Tule Springs' Harlan's ground sloth and flat-headed peccary.
+[bb Battle Brothers' Hexe charms the man with the weakest nerve; ours turns him on the friend beside him.]
+[analog horror: the red corners of a casino camera on the street, and the record dot blinking, a turn before the roof opens up.]
+
 BESTIARY (routine 'BESTIARY full sweep', rules 453, 454(a), 441): 11/17 LATEST -- BUILD 11/17m THE MAMMOTH (9d737f81), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_THE_MAMMOTH_11_17_26.md. VOTE bestiary-the-mammoth-11-17.
 | floor | his | the fight fields | short |
