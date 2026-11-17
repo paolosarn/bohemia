@@ -61,7 +61,7 @@ def register(sha):
         said='do a full sweep / the clothes look good: leather and layering',
         why=('The Flock (Battle Brothers\' cultists as the trailer park\'s people) could not be fought because nobody had clothes for it; '
              'now three of its faithful wear a hooded poncho, a long sand robe-coat and a leather wrap robe over their own house clothes, '
-             'each with the same charcoal cowl, nothing blue. You see them on this card now, and on the road once BESTIARY puts the Flock '
+             'each with the same charcoal cowl, nothing blue. You see it on this card now, and on the road once BESTIARY puts the Flock '
              'into the fights.'),
         options=['A, yes, send the Flock out like this', 'B, close, change something (say which one and what)', 'C, no, not like this'],
         show=dict(how='image', src='../records/target/character/the_flock/CHARACTER_THE_FLOCK.webp',

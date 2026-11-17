@@ -96,7 +96,7 @@ def register(sha):
         said='the clothes look good: leather and layering, quality before count / turn up, 20% left',
         why=('Six men the road gangs wear (the toll crew\'s thugs, the raiders) were in blue-grey hoodies, steel capes, black denim and '
              'slate pants with three layers on most; now each wears four or five in warm colours (a leather jacket over a sand hoodie, an '
-             'oxblood poncho, the Cartel\'s cape in charcoal), nothing blue, the same men. You see them whole on this card and in the '
+             'oxblood poncho, the Cartel\'s cape in charcoal), nothing blue, the same men. You see it whole on this card and in the '
              'road fights where they stand across from you, and at the hall by their faces.'),
         options=['A, yes, dress the rest of the road gangs this way', 'B, close, change something (say which man and what)', 'C, no, not like this'],
         show=dict(how='image', src='../records/target/character/the_road_crews_dressed/CHARACTER_THE_ROAD_CREWS_DRESSED.webp',

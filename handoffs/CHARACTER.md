@@ -4,6 +4,27 @@ NOTE from BESTIARY (11/14, rule 447 'BESTIARY turn up'): NOTHING OF YOURS WAS TO
 enemy_runner_6 and 7 to the new HORN, the heavies' heavy pool enemy_heavy_4 and 5 to the new BRUISER (ours.json people_looks: runner keeps
 0 to 5, heavy 0 to 3). No enemy sheet is unworn now: every next type needs your clothes (the 11/10 and 11/11 lists below stand).
 
+CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, woken by the routine 11/17): 11/17 (ah) LATEST -- *** rule 453 (a full sweep, a batch per build) SHIPPED BUILD 11/17e: THE FLOCK IN ITS OWN CLOTHES, 3 MEN. ***
+TAB: VOTE (character-the-flock-11-17, MADE FROM his passed nine enemies); in the fights once BESTIARY fields the flock (its row waits).
+Record: records/BOHEMIA_CHARACTER_THE_FLOCK_11_17_26.md.
+WHAT: BESTIARY's floor was short four factions because no clothes existed; the flock (Battle Brothers' cultists as the trailer park's
+people) was first and the only one built and waiting. Three faithful on the 3D man in the nine enemies' tool: a hooded dust poncho, a sand
+cocoon robe-coat with a bone head wrap, a leather wrap robe with a soot head wrap and a charcoal wrap skirt, over their own house clothes,
+the same charcoal cowl on all three; 4 or 5 layers, blue 0, no trench. On the fight sheet (enemy_flock_faithful_0..2, faction_homeless's
+cell and guns) and the second face strip; BESTIARY's file untouched (its gate refuses looks on a waiting row).
+THE TOOL (tools/bohemia_character_the_nine_enemies.py): roll-more <type> appends one type; the pack now keeps every man it did not make
+(it used to drop all thirty on a box without their fight renders) and never re-points a row that already wears its men (its first run
+this round undid BESTIARY's splits in bohemia_enemies.json; caught in the diff, put back, guarded).
+PROOF: the fight's enemies 47 -> 50, faces 157 -> 160, packed 207 -> 210, every other index count the same, the thirty untouched,
+BESTIARY's file main's to the byte; the site 840.8 MB against main's 839.0; THE BESTIARY FLOOR --no-browser 11/0, THE SHEETS ARE PACKED 4/0,
+DEMO BUILD 25/0, TRENCHCOAT 12/0, THE PACKERS MERGE 4/0; EVERYBODY IDLES 35/3 and THE FACE IS HIS OWN FACE 17/1 are main's reds; not in a
+fight until BESTIARY fields the flock (the VOTE card shows them).
+NEXT (in order): (1) the hired guns, the head takers, the eye in the sky the same way (TYPES entries, roll-more, make, pack), about 1 MB
+a man published, the site at 838 of 900; (2) the bosses' crews in their trades, once BOSSES gives each boss a looks list; (3) the thirteen
+faction_* tunics (six pipelines); (4) nine hall men at three layers, homeless_1, mob_2 (in place, no weight).
+[bb Battle Brothers' cultists wear robes and hoods because they gave everything else away; ours kept their house clothes underneath.]
+[analog horror: from the road you see a congregation; up close every one of them is wearing somebody's kitchen.]
+
 CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, woken by the routine 11/14): 11/14 (ag) LATEST -- *** rule 447 (one tight batch, then stop) SHIPPED BUILD 11/14x: THE ROAD CREWS DRESSED, 6 MEN. ***
 TAB: the road fights (the toll crew's thugs, the raiders), the hall (their faces), and hired, the crew screen and every fight; VOTE
 (character-the-road-crews-dressed-11-14, MADE FROM his passed nine enemies). Record: records/BOHEMIA_CHARACTER_THE_ROAD_CREWS_DRESSED_11_14_26.md.

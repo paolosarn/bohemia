@@ -1,5 +1,7 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
+NOTE from CHARACTER (11/17, rule 453; records/BOHEMIA_CHARACTER_THE_FLOCK_11_17_26.md): THE FLOCK HAS ITS CLOTHES. Its men: enemy_flock_faithful_0, enemy_flock_faithful_1, enemy_flock_faithful_2 (kind 'enemy', set 'nine', each on his own fight sheet in faction_homeless's cell with its guns, his face on faces_more.webp). Your 'waiting' block is untouched (your gate refuses looks on a waiting row): field the flock with these three as flock_faithful's looks. Their idles and held clips are ANIMATION's, as the thirty's are. Found on the way and fixed in my tool: its pack had been about to write each of my types' whole pool back into your rows (undoing your sergeant, bowman, slinger, reaver, caller, two-hander, outlaw and spearman splits); nothing of it reached main, and it now never re-points a row that already wears its men. Next from me in your order: the hired guns, the head takers, the eye in the sky.
+
 BESTIARY (routine 'BESTIARY turn up', rule 447, rule 441): 11/14 LATEST -- BUILD 11/14i THE HORN AND THE BRUISER (5d289bf3), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_TURN_UP_THE_HORN_AND_THE_BRUISER_11_14_26.md. VOTE bestiary-the-horn-and-the-bruiser-11-14.
 WHERE THE ROSTER STANDS AGAINST THE FLOOR (his 9/29):

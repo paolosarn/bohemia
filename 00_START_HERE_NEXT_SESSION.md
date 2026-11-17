@@ -440,6 +440,11 @@ SCAVENGE (scavenge-01gkdyuu): 11/7 LATEST -- DESIGNED, WAITING ON HIS YES, NOTHI
 his three (search houses, the detector, the siphon) as ONE game on the Dead Shot Dial on the block's own fight board, the spots picked by the
 board's own tiles, on the beat; one question for him (what each of the three gives); VOTE scavenge-the-design-for-his-yes-11-7 (STAND-IN).
 Record records/BOHEMIA_SCAVENGE_THE_DESIGN_FOR_HIS_YES_11_7_26.md. MEASURED: 0 of 784 boards carry a dead car (routed to COMBAT TWO).
+CHARACTER (character-nine): 11/17 (ah) LATEST -- BUILD 11/17e THE FLOCK IN ITS OWN CLOTHES (rule 453): BESTIARY's first faction with no
+clothes now has three faithful on the 3D man (a hooded poncho, a robe-coat, a leather robe, one charcoal cowl each), on the fight sheet and
+the face strip; BESTIARY fields the flock (its row waits). VOTE character-the-flock-11-17. NEXT: the hired guns, the head takers, the eye
+in the sky. The whole block: handoffs/CHARACTER.md.
+
 CHARACTER (character-nine): 11/14 (ag) LATEST -- BUILD 11/14x THE ROAD CREWS DRESSED (rule 447, ask 614; ask 238's next batch): six hall
 men the road gangs wear (the thugs: anarchists_0, anarchists_1; the raiders: cartel_0, cartel_1, cartel_2, mob_0) re-dressed in place
 out of the old blue, no new person and no new sheet (the site was over its cap at the start): 4 or 5 layers, leather on all six, no blue
