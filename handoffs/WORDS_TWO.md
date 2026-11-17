@@ -6,7 +6,7 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
-WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- [scary first] BUILD 11/17zb - HIS HOMEWORK, SHEET TWO: SCARY, THEN WHAT, BUILT (PENDINGSHA), NOT YET SEEN (rules 455, 454(c)(d), 458(a); ask rows 637, 643, 629). NOTHING IN THE GAME WAS REWRITTEN.
+WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- [scary first] BUILD 11/17zb - HIS HOMEWORK, SHEET TWO: SCARY, THEN WHAT, BUILT (9f4bae9d7), NOT YET SEEN (rules 455, 454(c)(d), 458(a); ask rows 637, 643, 629). NOTHING IN THE GAME WAS REWRITTEN.
 THE COORDINATOR'S ROUTINE 'WORDS TWO scary first' brought his new law (rule 455) and his first four answers (rule 458(a)). Three things came out:
 (1) THE VOICE, PAGE ONE: laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md. His law in his own words, nothing softened (three blocks of his speech, five rules, each
 his sentence: it is hell first; every voice is two words and the first is always scary; humor is scary and then funny; they talk desperately and

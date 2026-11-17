@@ -1,4 +1,4 @@
-WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- BUILD 11/17zb - HIS HOMEWORK, SHEET TWO: SCARY, THEN WHAT, BUILT (PENDINGSHA), NOT YET SEEN (rules 455, 454(c)(d), 458(a); ask rows 637, 643, 629). Its block is handoffs/WORDS_TWO.md.
+WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- BUILD 11/17zb - HIS HOMEWORK, SHEET TWO: SCARY, THEN WHAT, BUILT (9f4bae9d7), NOT YET SEEN (rules 455, 454(c)(d), 458(a); ask rows 637, 643, 629). Its block is handoffs/WORDS_TWO.md.
 NOTHING IN THE GAME WAS REWRITTEN. THE VOICE's page one is written: laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md, his SCARY FIRST law in his own words (five rules, each his sentence) and his
 four lines as the examples; gate THE VOICE IS HIS WORDS 7/0 (every quote in his record word for word, every example the registry's verdict to the letter, three plants caught).
 EVERY MOUTH MEASURED AGAINST IT, by hand, twelve lines a mouth: 58 of 156 scary first; a town falling 12 of 12, job givers 2, boss askers 0; the scary we have is eerie or a threat,
