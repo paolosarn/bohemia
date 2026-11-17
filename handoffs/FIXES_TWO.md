@@ -2,7 +2,7 @@
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 
 FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/17 (b) LATEST -- [the red debt read alone] row 592 FIXED IN THE GAME,
-577 CLOSED, 578 down to its one real item, 594 and 582 read and handed on. BUILD 11/17v - THE WALK BACK ASKS, BUILT, NOT YET SEEN. Commit SHIPSHAX.
+577 CLOSED, 578 down to its one real item, 594 and 582 read and handed on. BUILD 11/17v - THE WALK BACK ASKS, BUILT, NOT YET SEEN. Commit 57068d3ee.
 Record: the ROUND FOUR, SECOND SHIP section of records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md. No VOTE card (no picture).
 WHAT HE WOULD MEET (TAB: RUN, and the demo link):
 - 592 A JOB HE FELL BACK FROM CAN BE FOUGHT AGAIN. Before: FALL BACK on a job's card, and walking back to that job never brought
@@ -22,7 +22,7 @@ round), 582 (the AUTO brain: COMBAT THREE), 594 (the canal bank's seam: COMBAT T
 NEXT (if woken): EYES' new rows as they land; 634 if UI 9 does not take it; the roster gate's S2 and S5 with WORLD.
 
 FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/17 LATEST -- [a full sweep, round four] rows 605 and 612 SHIPPED,
-633 answered (not a one-mark fix), 634 to 636 found and filed. BUILD 11/17h - A WORD STAYS LONG ENOUGH TO READ, BUILT, NOT YET SEEN. Commit SHIPSHAX.
+633 answered (not a one-mark fix), 634 to 636 found and filed. BUILD 11/17h - A WORD STAYS LONG ENOUGH TO READ, BUILT, NOT YET SEEN. Commit 57068d3ee.
 Record: the ROUND FOUR section of records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md. No VOTE card (nothing here is a picture).
 WHAT HE WOULD MEET (TAB: RUN, and the demo link):
 - 605 any fight on AUTO at 2x or 4x: the word over a man who did nothing (RELOADS, PINNED, HOLDS, NO SHOT), HELD and the breath hit
