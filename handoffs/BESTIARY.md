@@ -1,6 +1,6 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
-BESTIARY (routine 'BESTIARY full sweep', rules 453, 454(a), 441): 11/17 LATEST -- BUILD 11/17i ALL TWELVE FACTIONS FIGHT (SHA_HERE), BUILT, NOT YET SEEN.
+BESTIARY (routine 'BESTIARY full sweep', rules 453, 454(a), 441): 11/17 LATEST -- BUILD 11/17i ALL TWELVE FACTIONS FIGHT (29e70815), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_ALL_TWELVE_FACTIONS_FIGHT_11_17_26.md. VOTE bestiary-all-twelve-factions-11-17. His 11/14 sheet passed the cards.
 WHERE THE ROSTER STANDS AGAINST THE FLOOR (his 9/29):
 | floor | his | the fight fields | short |
