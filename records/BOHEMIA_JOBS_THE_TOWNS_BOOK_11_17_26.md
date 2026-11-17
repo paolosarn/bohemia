@@ -42,7 +42,28 @@ bands (REL_WAIT, slices/BOHEMIA_SETTLEMENT_SCREEN.html, marked JOBS 11/17) and t
 with JOBS_BUILD=A 5/0.
 
 ## 2. BUILD B, PUSH THE PAY
-(next)
+HOW BATTLE BROTHERS DOES IT: 'each haggling attempt will worsen Relations by 0.5 points... If you ask for more pay, the value of the
+contract increases between 4-11%' and pushed past the client's patience (annoyance 3 to 6 an ask, out at 9) the company is thrown out,
+-2.5 (bb_all/0441, bb_all/1670; records/target/bb/contract_terms.json haggle, ECONOMY's pull of the same page).
+OURS (slices/BOHEMIA_SETTLEMENT_SCREEN.html __PUSH_THE_PAY__; records/target/bb/relations.json acts.haggle and haggle; TUNING's one table
+relations.haggle and relations.acts.haggle):
+- On every job's card, above Take it, an ask: 'Ask +7%' with its cost beside it ('-0.5 STANDING'). Each ask lands 7% on the pay (the
+  middle of the wiki's 4-11%) and costs 0.5 of this town's bar, the wiki's own number. The house's rule of 9/11 (the street card's haggle:
+  'Two asks land. The third ends it.') stands: it is told, never rolled, so the third ask's button says so before the tap ('Ask again,
+  THEY WALK · -3 STANDING') and that tap ends it: the 0.5 and the wiki's -2.5, and that person is gone from this board AND the phone's
+  list until the board turns (refresh_days), kept in bohemia.haggle.v1 (slices/bohemia_board_shelf.js leaves them out of pick()).
+- The client's own line is not touched (rule 454(a)): its {pay} reads the pushed number. The pushed base rides to the map with the
+  contract, so the map's own sum (the start's add, CLOUT, the standing) is made on it.
+MEASURED (node, gate B2): the card's own sum: 100 stays 100, one ask 107, two 114; a 57-battery base two asks 65.
+ON HIS PHONE (tools/bohemia_jobs_the_towns_book_on_the_phone.js --build B; gate B3; a new crew, K7QM9X, Caravans at Neutral, day 16):
+Teo Abernathy's water drums, base 38: two asks with a finger, the card's line read 57 -> 62 -> 66 batteries, the town's bar 50 -> 49.5
+-> 49; Take it, and the map held the job at 66 (its own sum on the pushed 44; 57 unpushed). The ring-trucks job asked three times: they
+walked, the bar -4.0 (three asks and the walk), gone from the board, gone again when he walked back in, and not on the phone's list.
+FOUND ON THE WAY AND FIXED: on the alpha held sideways the alpha's tabs and the top bar leave the card 288 px, and the ask pushed Not
+now half under the edge (264-308 px; nothing on that card scrolls). On a short screen held sideways the ask now sits beside Take it
+(.acts.offer, a two-wide row), so all three are on the glass (168-212, 168-212, 216-260); gate B3 now fails any card button off the
+glass. (The test's own finger also learned two things: it no longer nudges a frame it can already see, the screen snaps it back; and it
+reads a scaled frame by its drawn size.) GATE: THE TOWN'S BOOK with JOBS_BUILD=B.
 
 ## 3. BUILD C, WHAT FAILING OR WALKING AWAY COSTS
 (next)

@@ -21,7 +21,10 @@
      A4  one job done for a town moves its bar up by the wiki's +10; the bar set to Friendly, the next board has one more person; set to
          Unfriendly, the town's shelf charges more than at Neutral and its board has no three-skull job
      A5  nothing threw
-   node gates/the_towns_book_gate.js     JOBS_FILES=1 the files only     JOBS_BUILD=A (the phone legs of that build only)
+   BUILD B, PUSH THE PAY: B1 the files (relations.json haggle and acts.haggle, TUNING's rows, the card's code); B2 the card's own pay sum;
+   B3 on his phone (--build B): two asks with a finger push the pay 7% each and cost 1.0 of the bar, the job taken at the pushed pay;
+   three asks and they walk: gone from the board, again when he walks back in, and from the phone's list; 4.0 off the bar.
+   node gates/the_towns_book_gate.js     JOBS_FILES=1 the files only     JOBS_BUILD=A,B (the phone legs of those builds)
    ========================================================================== */
 'use strict';
 const fs = require('fs'), path = require('path'), cp = require('child_process'), os = require('os'), vm = require('vm');
@@ -67,6 +70,17 @@ function boards(src, band) {
   const a3 = fr.avg > base.avg && fr.cnt.every(c => c <= 4) && co.top === 0 && base.top > 0 && ho.cnt.every(c => c === 1) && ho.over === 0 && plantCold.top > 0 && !(plantFr.avg > base.avg);
   ok('A3 the board by the bar: Friendly one more job (never over four), Cold no three-skull job, Hostile one one-skull job; planted, the cold boards carry three-skull work and the friendly ones no more',
     a3, 'jobs a board: neutral ' + base.avg.toFixed(2) + ', friendly ' + fr.avg.toFixed(2) + '; three-skull boards: neutral ' + base.top + ', cold ' + co.top + '; hostile counts ' + [...new Set(ho.cnt)].join('/') + ', over one skull ' + ho.over + '; planted: cold three-skull ' + plantCold.top + ', friendly ' + plantFr.avg.toFixed(2)); }
+/* ---------- BUILD B, PUSH THE PAY ---------- */
+{ const H = (REL.haggle || {}).value || {}, A = REL.acts || {};
+  const b1 = [H.step === 0.07 && H.lands === 2 && /bb_all\/0441/.test(REL.haggle.why || '') && /Two asks land\. The third ends it\./.test(REL.haggle.why || ''),
+    A.haggle && A.haggle.value === -0.5 && /0\.5 points/.test(A.haggle.quote || '') && A.negotiation_fail && A.negotiation_fail.value === -2.5,
+    rowOf('relations.haggle') === '0.07 / 2' && rowOf('relations.acts.haggle') === '-0.5',
+    /function hagAsk\(o\)/.test(SS) && /relMove\(null, 'haggle'\)/.test(SS) && /relMove\(null, 'negotiation_fail'\)/.test(SS) && /pay: hagPay\(b0, hagOf\(o\.id\)\.asks\)/.test(SS) && /list\.filter\(function\(o\)\{ return !hagWalked\(o\.id\); \}\)/.test(SS)];
+  ok('B1 the files: the ask lands 7% and costs 0.5 of the bar (the wiki\'s), two land and the third ends it (-2.5), told before; TUNING\'s rows; the card\'s code', b1.every(Boolean), b1.map(x => x ? 1 : 0).join('')); }
+{ /* the card's own pay sum, lifted out and run */
+  const i = SS.indexOf('function hagPay(base, asks)'), src = SS.slice(i, SS.indexOf('\n', i));
+  const W = { REL: REL }; vm.createContext(W); vm.runInContext('function hagRule(){ var h = REL && REL.haggle && REL.haggle.value; return h ? { step: +h.step || 0.07, lands: (h.lands | 0) || 2 } : null; }\n' + src + '\nthis.p = [hagPay(100,0), hagPay(100,1), hagPay(100,2), hagPay(57,2)];', W);
+  ok('B2 the pay as pushed: 100 stays 100, one ask 107, two 114; a 57-battery job two asks 65', JSON.stringify(W.p) === JSON.stringify([100, 107, 114, 65]), JSON.stringify(W.p)); }
 if (process.env.JOBS_FILES) done();
 
 /* ---------- ON HIS PHONE ---------- */
@@ -84,6 +98,10 @@ try {
     const bad = a.filter(r => r.err || !(r.doneMove >= 9.9) || !(r.friendlyMore > 0) || !(r.priceUp > 1.01) || r.coldTop);
     ok('A4 on his phone, the demo and the alpha, upright and sideways: a job done moves the town\'s bar +10, Friendly posts one more, Unfriendly charges more and keeps its three-skull work', a.length === 4 && !bad.length,
       a.map(r => (r.alpha ? 'alpha ' : 'demo ') + (r.shape === 'phone_portrait' ? 'up' : 'side') + ': ' + (r.err ? 'ERR ' + r.err : 'bar +' + r.doneMove + ' (' + r.town + '), friendly +' + r.friendlyMore + ' jobs, price x' + (r.priceUp || 0).toFixed(3) + ', cold three-skull ' + (r.coldTop ? 'YES' : 'none'))).join(' | ')); }
+  if (BUILDS.indexOf('B') >= 0) { const bb = rows.filter(r => r.build === 'B');
+    const bad = bb.filter(r => r.err || !(r.payPushed === r.payHeldExpected && r.payHeldExpected > r.payHeldUnpushed) || !(Math.abs(r.barMove + 1) < 0.01) || !r.walkedGone || !r.cardFits || !(Math.abs(r.walkMove + 4) < 0.01));
+    ok('B3 on his phone, the demo and the alpha, upright and sideways: two asks on a job\'s card with a finger push its pay 7% each and cost the town 1.0 of its bar, the job taken at the pushed pay; three asks on another and they walk: gone from the board, gone when he walks back in and from the phone\'s list, 4.0 off the bar (three asks and the walk); every button of the card on the glass with the ask added', bb.length === 4 && !bad.length,
+      bb.map(r => (r.alpha ? 'alpha ' : 'demo ') + (r.shape === 'phone_portrait' ? 'up' : 'side') + ': ' + (r.err ? 'ERR ' + r.err : r.town + ' ' + r.id + ' base ' + r.payBase + ' -> ' + r.payExpected + ', held at ' + r.payPushed + ' (the map\'s sum ' + r.payHeldExpected + ', unpushed ' + r.payHeldUnpushed + '), bar ' + r.barMove + '; ' + r.walkId + ' walked ' + (r.walkedGone ? 'gone' : 'STILL THERE') + ', bar ' + r.walkMove + (r.cardFits ? '' : '; A BUTTON OFF THE GLASS ' + JSON.stringify(r.fit)))).join(' | ')); }
   ok('A5 nothing threw', !errs.length, errs.slice(0, 3).join(' | '));
 } catch (e) { ok('the phone legs ran', false, String(e && e.message || e).slice(0, 300)); }
 done();
