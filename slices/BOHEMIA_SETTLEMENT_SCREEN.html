@@ -1159,11 +1159,41 @@ function shopArrows(box){
   /* UI 9's own measure (nothing runs past its box); the sheet's own most height (72% of the glass) keeps it on the glass, and its
      place is not read here because it slides in */
   function fits(sh){ return !over(sh) && !over(document.getElementById('sbody')); }
-  function strip(){ var sh = sheet(); if (!sh) return; [].forEach.call(sh.querySelectorAll('.ui3-whole'), function(e){ e.classList.remove('ui3-whole'); }); }
+  function strip(){ var sh = sheet(); if (!sh) return; [].forEach.call(sh.querySelectorAll('.ui3-whole'), function(e){ e.classList.remove('ui3-whole'); }); sh.classList.remove(TIGHT); }
+  /* ==== __THE_FULLEST_HALL_FITS__ (UI FOUR 11/17, ask row 612's last spot, rule 402 as amended 11/7 'SMALLER, NEVER PAGES', rule 441).
+     MEASURED (the scrolling gate's own fullest hall: a fortress on a fair day with the recruiter in camp, ten men and three who would
+     travel): at UI 9's last step the sheet still ran 119 px past the glass upright (two followers off it) and 80 px sideways (three
+     rows of followers under four of men), and each follower's line was held to two lines with dots. NOW, only when UI 9's last step
+     still does not fit a hall, ONE MORE STEP, smaller, never a page: a man's row loses its air (48 px upright; 53 sideways, his
+     name's two lines tighter), and a follower is his face, his name and his trade beside his own 44 px button, two across upright
+     and beside the last men sideways; his line is not cut any more, it is a held finger away (data-tip, the way UI 9 keeps every
+     man's own words) and he says his own line on a tap, as before. UI 9's file is untouched; before it measures again the step
+     comes off (strip), so its fit always sees its own sheet. ==== */
+  var TIGHT = 'ui4-tight';
+  (function(){ var t = document.createElement('style'), Q = 'html body #sheet.ns-d1.ui4-tight:not(#u4) ', A = Q + '.acts:has(>.hire)';
+    t.textContent = Q + '.hire{padding-top:0!important;padding-bottom:0!important}' + A + '{row-gap:2px!important}'
+      + A + '>.retf{grid-template-columns:26px minmax(0,1fr) 56px!important;grid-template-areas:"face nm act"!important;padding:0 2px!important;margin:0!important;min-height:44px;align-items:center!important;column-gap:4px!important}'
+      + A + '>.retf .rface{width:26px!important;height:26px!important}' + A + '>.retf .rdoes,' + A + '>.retf .rmore{display:none!important}'
+      + A + '>.retf .rname{white-space:normal!important;overflow:visible!important;overflow-wrap:break-word;word-break:normal;letter-spacing:0!important;line-height:13px!important}' + A + '>.retf .rname *{letter-spacing:0!important}' + A + '>.retf .rname>*{display:block!important;margin:0!important}'
+      + A + '>.retf>.act{width:56px!important;min-width:0!important;padding:4px 1px!important;justify-self:end;letter-spacing:0!important}' + A + '>.retf>.act *{letter-spacing:0!important}'
+      + '@media (orientation:portrait){' + A + '>.retf{grid-column:span 1!important}' + Q + '.hsort{margin:2px 0!important}}'
+      + '@media (orientation:landscape){' + A + '{grid-template-columns:repeat(18,minmax(0,1fr))!important;column-gap:0!important}'
+      +   A + '>.hire{grid-column:span 6!important;margin:0 3px!important}' + A + '>.retf{grid-column:span 4!important;margin:0 3px!important;order:1}'
+      +   A + '>.act:not(.hire){grid-column:span 9!important;order:2}' + A + '>.retf.open{grid-column:span 4!important;order:1}'
+      +   Q + '.hire .nm{line-height:12px!important}' + Q + '.hire .hstats{row-gap:0!important}' + Q + '.hire .hstats>*{max-height:14px}}';
+    (document.head || document.documentElement).appendChild(t); })();
+  function tight(sh){
+    if (!sh.querySelector('#sbody .acts > .hire')) return false;   /* a hall only: the one sheet UI 9's last step can leave past the glass */
+    if (!sh.classList.contains(TIGHT)) { sh.classList.add(TIGHT); LOG.tight = (LOG.tight | 0) + 1; }
+    [].forEach.call(sh.querySelectorAll('#sbody .acts > .retf'), function(r){ if (r.dataset.tip) return; var d = r.querySelector('.rdoes'), b = r.querySelector('.rname b');
+      if (d && d.textContent.trim()) r.dataset.tip = (b ? b.textContent + ': ' : '') + d.textContent.trim(); });   /* his own words, whole, on a held finger */
+    return true;
+  }
+  /* ==== /__THE_FULLEST_HALL_FITS__ ==== */
   function whole(){
     T = 0; var sh = sheet(); if (!sh || !sh.classList.contains('on') || !/\bns-d\d/.test(sh.className)) return;
     LOG.runs++; LOG.last = [];
-    if (!fits(sh)) return;   /* UI 9's own fit is not met: nothing more is asked of the glass */
+    if (!fits(sh)) { if (!tight(sh) || !fits(sh)) return; }   /* UI 9's own fit is not met: a hall takes one more step; anything else, nothing more is asked of the glass */
     [].forEach.call(sh.querySelectorAll('#sbody p, #sbody .rdoes'), function(e){
       if (e.classList.contains('ui3-whole')) return;
       var cs = getComputedStyle(e), cl = cs.webkitLineClamp; if (!cl || cl === 'none' || e.scrollHeight <= e.clientHeight + 1 || e.getBoundingClientRect().width < 2) return;

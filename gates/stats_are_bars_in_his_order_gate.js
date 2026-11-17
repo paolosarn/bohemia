@@ -230,7 +230,9 @@ async function town(b, prof, plant, legs) {
     legs.H2 = ok(prof.name + ' H2 THE HALL: fill and tick within a pixel, his trait\'s part lit on the bar and said once on its line as the icon, the arrow and the amount, no X to Y', H.length > 0 && !hb.length, hb.slice(0, 4).join('; '));
     /* P the shop */
     await go('armourer');
-    const n = await p.evaluate(() => (BohemiaSettlement.state.stock.armourer || []).findIndex(i => i.kind === 'shield'));
+    /* RE-AIMED (UI FOUR 11/17): the shelf stands dearest first since rule 452 (11/14w), so the first shield of the STOCK is no longer the
+       slot at its stock index; the slot that holds that very piece is the one tapped (red on clean main since: '-7 want -12') */
+    const n = await p.evaluate(() => { const it = (BohemiaSettlement.state.stock.armourer || []).find(i => i.kind === 'shield'); return it ? [...document.querySelectorAll('#shelfgrid .slot')].findIndex(t => t.__it === it) : -1; });
     if (n >= 0) { const s = '#shelfgrid .slot:nth-child(' + (n + 1) + ')'; if (prof.ctx.hasTouch) await p.tap(s); else await p.click(s); await p.waitForTimeout(700); }
     const P = await p.evaluate(rd => { const read = new Function('return (' + rd + ')')(), om = document.querySelector('#sbody .onman'); if (!om) return null;
       const C = BohemiaRoster, it = (BohemiaSettlement.state.stock.armourer || []).find(i => i.kind === 'shield'), man = BohemiaSettlement.shopCrew().find(m => m.name === om.dataset.man), w = C.wearing(man, it);

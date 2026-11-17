@@ -7,7 +7,11 @@
    L2 every sheet a line went whole in still fits by UI 9's own measure (nothing runs past #sheet or #sbody) and stands on the
       glass (a sheet UI 9 itself could not fit, the smith sideways on main, is named);
    L3 a hall with more men (BLUE DIAMOND's crowd raised to the fair's) keeps only the lines that cannot fit, each proved as in L1.
-   --plant: the pass that lets the lines go whole never runs (L1 red).
+   L4 THE FULLEST HALL (UI FOUR 11/17, row 612's last spot; the scrolling gate's own: a fortress on a fair day with the recruiter in camp,
+      ten men and three who would travel): upright and sideways every man and every follower stands whole on the glass, the sheet
+      runs past nothing, no line is cut (the speaker's too), every follower's own line is a held finger away (data-tip carries it
+      letter for letter), his button keeps 44 px, no word under 11 px; a tap on a follower keeps it all on the glass;
+   --plant: the pass that lets the lines go whole never runs (L1 red); the hall's one more step never runs (L4 red).
    Run: node gates/no_line_cut_while_there_is_glass_gate.js [--plant] */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
@@ -57,6 +61,44 @@ async function walk(b, prof, plant, legs, crowd) {
   } catch (e) { out.err = e && e.message; }
   legs.errs = errs.filter(e => !/ResizeObserver/.test(e)); await ctx.close(); srv.close(); return out;
 }
+/* L4: the fullest hall, laid as the scrolling gate lays it */
+const FULL = () => { const sh = document.getElementById('sheet'), sb = document.getElementById('sbody');
+  const rows = [...sh.querySelectorAll('.hire, .retf')].map(e => { const q = e.getBoundingClientRect(), bt = e.querySelector(':scope > .act'), br = bt ? bt.getBoundingClientRect() : null, d = e.querySelector('.rdoes');
+    let small = 99; e.querySelectorAll('*').forEach(x => { if (!x.children.length && x.textContent.trim() && x.getBoundingClientRect().width > 1) { const f = parseFloat(getComputedStyle(x).fontSize); if (f > 0.5 && f < small) small = f; } });
+    return { k: e.classList.contains('hire') ? 'man' : 'follower', on: q.width > 2 && q.top >= -0.5 && q.bottom <= innerHeight + 0.5 && q.bottom <= sh.getBoundingClientRect().bottom + 0.5, tap: br ? Math.round(Math.min(br.width, br.height)) : 0, small, tip: e.dataset.tip || '', does: d ? d.textContent.trim() : '', doesShown: !!d && d.getBoundingClientRect().height > 1 }; });
+  const cut = [...sh.querySelectorAll('#sbody p, #sbody .rdoes, #sbody .nm, #sbody .rname')].filter(e => e.getBoundingClientRect().width > 2 && (e.scrollHeight > e.clientHeight + 1 || e.scrollWidth > e.clientWidth + 1)).map(e => e.textContent.trim().slice(0, 30));
+  return { cls: sh.className, over: Math.max(sh.scrollHeight - sh.clientHeight, sb.scrollHeight - sb.clientHeight), rows, cut }; };
+async function fullest(b, prof, plant) {
+  const srv = await serve(plant), port = srv.address().port;
+  const ctx = await b.newContext({ viewport: prof.vp, deviceScaleFactor: 2, hasTouch: true, isMobile: true }), p = await ctx.newPage(), errs = []; p.on('pageerror', e => errs.push(e.message));
+  let o = {}; try {
+    await p.goto('http://127.0.0.1:' + port + '/slices/BOHEMIA_SETTLEMENT_SCREEN.html', { waitUntil: 'load' });
+    await p.waitForFunction(() => window.BohemiaSettlement && BohemiaSettlement.ready(), null, { timeout: 30000 });
+    await p.addScriptTag({ url: 'bohemia_ui_materials.js' }); await p.addScriptTag({ url: 'bohemia_ui_no_scroll.js' });
+    await p.evaluate(() => { const c = JSON.parse(localStorage.getItem('bohemia.camp.v1') || '{}'); c.retinue = ['recruiter']; c.cart = c.cart || 0; localStorage.setItem('bohemia.camp.v1', JSON.stringify(c)); });
+    const traits = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/settlement_traits.json'), 'utf8')).traits.filter(t => t && t.recruits_mult > 1);
+    await p.evaluate(tr => BohemiaSettlement.open({ place: { name: 'NELLIS GATE', tier: 'fortress' }, traits: tr, day: 9, batteries: 400 }), traits);
+    await p.waitForTimeout(1500);
+    const xy = await p.evaluate(() => BohemiaSettlement.where('hall')); await p.touchscreen.tap(xy.x, xy.y); await p.waitForTimeout(2800);
+    o.rest = await p.evaluate(FULL);
+    const f = await p.evaluate(() => { const e = document.querySelector('#sheet .retf .rface'); if (!e) return null; const r = e.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; });
+    if (f) { await p.touchscreen.tap(f[0], f[1]); await p.waitForTimeout(1600); o.tapped = await p.evaluate(FULL); o.heard = await p.evaluate(() => (document.getElementById('heard') || {}).textContent || ''); }
+  } catch (e) { o.err = e && e.message; }
+  o.errs = errs.filter(e => !/ResizeObserver/.test(e)); await ctx.close(); srv.close(); return o;
+}
+function judgeFull(o) {
+  if (o.err || !o.rest) return { good: false, said: o.err || 'no hall' };
+  const R = o.rest, T = o.tapped || { rows: [], over: 0, cut: [] }, men = R.rows.filter(r => r.k === 'man'), fol = R.rows.filter(r => r.k === 'follower'), bad = [];
+  if (men.length < 10 || fol.length < 3) bad.push('only ' + men.length + ' men and ' + fol.length + ' followers stand in it');
+  if (R.over > 1) bad.push('the sheet runs ' + R.over + ' px past its box');
+  const off = R.rows.filter(r => !r.on); if (off.length) bad.push(off.length + ' off the glass (' + off.map(r => r.k).join(', ') + ')');
+  if (R.cut.length) bad.push('cut: ' + R.cut.slice(0, 2).join(' | '));
+  fol.forEach(r => { if (!r.doesShown && !(r.does && r.tip.indexOf(r.does) >= 0)) bad.push('a follower\'s line is neither on the glass nor on a held finger'); });
+  R.rows.forEach(r => { if (r.tap < 44) bad.push('a ' + r.k + '\'s button is ' + r.tap + ' px'); if (r.small < 10.9) bad.push('a ' + r.k + '\'s word is ' + r.small + ' px'); });
+  if (!o.tapped) bad.push('no follower to tap'); else { if (T.over > 1) bad.push('a tap on a follower runs the sheet ' + T.over + ' px past'); const o2 = T.rows.filter(r => !r.on).length; if (o2) bad.push('a tap on a follower puts ' + o2 + ' off the glass'); if (!/\S: \S/.test(o.heard || '')) bad.push('the follower tapped says nothing'); }
+  return { good: !bad.length, said: men.length + ' men, ' + fol.length + ' followers, the sheet ' + R.cls.replace(/^on /, '') + '; a tap: "' + String(o.heard || '').slice(0, 40) + '"', bad: [...new Set(bad)] };
+}
+const PLANT4 = { '/slices/BOHEMIA_SETTLEMENT_SCREEN.html': [["if (!sh.classList.contains(TIGHT)) { sh.classList.add(TIGHT);", "if (false) { sh.classList.add(TIGHT);"]] };
 const PROFS = [{ name: 'upright', vp: { width: 390, height: 844 } }, { name: 'sideways', vp: { width: 844, height: 390 } }];
 const PLANT = { '/slices/BOHEMIA_SETTLEMENT_SCREEN.html': [["T = 0; var sh = sheet(); if (!sh || !sh.classList.contains('on')", "T = 0; return; var sh = sheet(); if (!sh || !sh.classList.contains('on')"]] };
 function judge(name, o, legs) {
@@ -80,10 +122,14 @@ function judge(name, o, legs) {
     const L = {}, c = await walk(b, prof, null, L, true), jc = judge(prof.name, c, L); errs.push(...L.errs);
     ok(prof.name + ' L3 a fortress\'s hall: only the lines that cannot fit stay cut, each proved full (' + jc.said + ')', !c.err && !jc.cut.length && !jc.bad.length, c.err || jc.cut.concat(jc.bad).slice(0, 3).join('; '));
   }
+  for (const prof of PROFS) { const o = await fullest(b, prof, null), j = judgeFull(o); errs.push(...(o.errs || []));
+    ok(prof.name + ' L4 THE FULLEST HALL: every man and every follower whole on the glass, no line cut, a follower\'s line a held finger away, 44 px buttons, 11 px words, a tap keeps it so (' + j.said + ')', j.good, (j.bad || []).slice(0, 4).join('; ')); }
   ok('E nothing thrown', !errs.length, errs.slice(0, 2).join(' | '));
   if (process.argv.includes('--plant')) {
     QUIET = true; const legs = {}, o = await walk(b, PROFS[0], PLANT, legs, false), j = judge('upright', o, legs); QUIET = false;
     ok('PLANT the pass never runs: L1 goes red (' + j.cut.length + ' cut)', j.cut.length > 0, j.cut.slice(0, 2).join('; '));
+    const o4 = await fullest(b, PROFS[1], PLANT4), j4 = judgeFull(o4);
+    ok('PLANT the hall\'s one more step never runs: L4 goes red sideways (' + (j4.bad || []).slice(0, 2).join('; ') + ')', !j4.good);
   }
   await b.close();
   console.log('NO LINE CUT WHILE THERE IS GLASS: ' + pass + ' passed, ' + fail + ' failed');
