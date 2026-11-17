@@ -9711,6 +9711,13 @@ GATES = [
      "its box, 60 steps of tone); B5 THE LAMP IS LIT WHILE THE STREET IS SHUT; B6 light, no purple. P1 planted: another anchor, a frame copied over its twin, a "
      "piece wiped to four dots: each red. 11/17, rule 453: the newest three bosses' pieces held the same way (THE PLATE's wagon, THE TOOTH's collector, THE LENS's haze, "
      "tools/bohemia_cook5_the_newest_bosses_map_pieces_finished_11_17_26.py), thirteen pieces; B7 WHAT HE SPRAYED IS WHERE IT IS SEEN (his tooth, his eye, on the face the camera sees). A second", False),
+    ('THE PLACES WEAR THEIR OWN PIECE', ['python3', 'gates/the_places_wear_their_own_piece_gate.py'],
+     "COOK FIVE gate, 11/17, rules 453, 441, 408, 409(c) (the coordinator's full sweep: finished art for the bus yard and the greenhouses). A real place wore the kit art of "
+     "the kind it is like; its own piece (slices/place_pieces/, tools/bohemia_cook5_the_places_wear_their_own_piece_11_17_26.py) is drawn on its block by "
+     "slices/bohemia_place_pieces.js, under the fog. S1 every piece is a real place's, its frames files of its size; S2 the map loads the module and calls its draw "
+     "once, before the fog; S3 it is a thing (a fifth of its box, 70 steps of tone, its two frames differ); S4 light, no purple; P1 planted. ON THE PAGE (the demo "
+     "on a phone, the crew sent by the map's own travelTo): G1 loaded and seated; G2 off none drawn, on each 44 points across or more; G3 it is seen (the glass "
+     "inside its rectangle is another picture). About 5 minutes; --static a second", False),
     ('YOUR PLACE, PLANTED', ['node', 'gates/home_base_gate.js'],
      "HOME BASE gate, 11/8, rule 437(b) (PAOLO 11/3: 'you plant your part of the city kind of wherever you want... a smart system... the daily battery usage... "
      "are you sure you wanna plant down here, like this is permanent'): ENGINE E1 the place's plan, 12 lots, every lot on a road, one network (429(h)); E2 planted: a lot cut off, "

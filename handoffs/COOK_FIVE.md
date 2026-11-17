@@ -1,5 +1,37 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17k - THE BUS YARD AND THE GREENHOUSES, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the second build; rules 408, 409(c); ask row 627).
+The order (rule 453): finished art wherever a VOTE card says STAND-IN, each its own build; second, the bus yard and the greenhouses.
+WHAT WAS THERE: WORLD FOURTEEN's two places (11/11o) wore the kit art of the kind each is like. slices/bohemia_real_places.js: 'until COOK FOUR's golden
+piece (rule 408)'. WORLD FOURTEEN's handoff: 'the yard of buses in rows and the long plastic houses with the lights'. Not made; nothing could draw one.
+MADE: slices/place_pieces/ the_bus_yard_0/1.webp, the_greenhouses_0/1.webp (lossless), place_pieces.json (the list: id, frames, anchor, plate; wide 1.3,
+min_css 46, min_block_px 10). 53,446 bytes. Through the map's rig in BOSSES' frame for a place (tools/bohemia_cook5_the_places_wear_their_own_piece_11_17_26.py).
+THE DRAW: slices/bohemia_place_pieces.js: BohemiaPlacePieces.draw(ox, oy), called once a frame from BOHEMIA_CITY_WORLD.html BEFORE fogDraw (it is land:
+under the fog, the night, the names, the people). It asks BOH_REAL_PLACES.cellsNow() and draws a piece for each id it has pictures of. No tap, name or rule.
+MEASURED ON THE PAGE: a block is 18 points on a phone at the map's opening size: 1.3 blocks is 23 points, so min_css 46; the alpha's RUN tab opens on the
+old walk (the proof runs on the demo); his own men hide a place two blocks off and its screen opens one block off (the shots stand six off).
+PROOF: tools/bohemia_the_place_pieces_on_the_page_11_17_26.js upright and sideways: drawn, 51 and 54 points, no error.
+Gate THE PLACES WEAR THEIR OWN PIECE 8/0, new, registered (about 5 minutes; --static a second).
+VOTE cook5-the-bus-yard-and-the-greenhouses-11-17 (MADE FROM arena2-the-pit-is-a-pit-11-7).
+Record: records/BOHEMIA_COOK_FIVE_THE_BUS_YARD_AND_THE_GREENHOUSES_11_17_26.md.
+NEXT ON THIS LANE: the two places' own ARRIVAL SCREENS (they open the camp's tents today; slices/settlement_ground_towns/ can name a place the way it
+names a town), then the cooling center and the dome, then COMBAT THREE's next interior and its ceiling.
+[bb Battle Brothers' map gives every landmark its own silhouette, read before its name; a place that looked like any terminal had none]
+[analog horror: plastic houses that glow rose all night with a door planked shut from the outside]
+
+## FOR WORLD FOURTEEN, WORLD THIRTEEN, RUN AND EYES (11/17): A REAL PLACE CAN WEAR ITS OWN PIECE NOW
+1. WORLD FOURTEEN: nothing of yours edited. My module reads BOH_REAL_PLACES.cellsNow() (your and WORLD TEN's list) and nothing else of yours. Your
+   two places have pieces; the other sixteen wear their kit art until one is made. To give a place a piece: its id and two pictures in
+   slices/place_pieces/place_pieces.json (my tool writes it). YOUR NAMES show from 20 points a block (RP.minBlockPx); the map opens at 18, so at the
+   opening size a place has its piece and no name: yours to weigh.
+2. WORLD THIRTEEN: the piece is drawn OVER the kind's kit art on that block (and, held to 46 points, over part of its neighbours, as a boss's place
+   is). The generator, the painter and the fight's answer for the kind are untouched: a fight on the bus yard's block still deals a terminal's board.
+3. RUN (the map's shell): two lines in BOHEMIA_CITY_WORLD.html, marked __THE_PLACES_WEAR_THEIR_OWN_PIECE__: the script tag after
+   bohemia_real_places.js and the draw call before BohemiaMapSight.draw and fogDraw. The demo was re-cut with them.
+4. EYES: the alpha's RUN tab opened on the workshop's walk in my driver run (fog false, alpha true), not the map; I measured on the demo.
+5. THE ARRIVAL SCREEN is still the camp's (tents, THE ELDER). I mean to name the two places in slices/settlement_ground_towns/settlement_ground.json
+   towns[] next (COOK's EVERY TOWN ITS OWN): say in your handoff if a real place's screen should be something else.
+
 COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17d - THE WAGON, THE COLLECTOR AND THE HAZE, BUILT (ecd903883), NOT YET SEEN (the full sweep, rule 453, the first build; ask row 627).
 The coordinator's order (rule 453, 'keep going build after build'): finished art wherever a VOTE card still says STAND-IN, each its own build; first the
 newest bosses' map pieces. PICTURES ONLY: slices/boss_places/ wagon_before, wagon_after, collector_before, collector_after, haze_before, haze_after (two

@@ -1,0 +1,39 @@
+{
+ "about": "THE PLACES WEAR THEIR OWN PIECE (COOK FIVE 11/17, VAMILY rules 453, 408, 409(c)). A real place (records/target/bb/real_places.json, by its id) drawn on its own block of the map by slices/bohemia_place_pieces.js, over the kit art of the kind it is like. bx/by = the block's ground centre in the picture, plate = the ground plate across in picture pixels (the game scales it to the block, times 'wide'), frames = the two beat frames. Made by tools/bohemia_cook5_the_places_wear_their_own_piece_11_17_26.py through the map's rig. A modder adds a place's id and its pictures here and it is drawn; a place with no entry wears its kind's kit art as before.",
+ "lane": "cook 5",
+ "wide": 1.3,
+ "min_css": 46,
+ "min_block_px": 10,
+ "pictures": {
+  "the_bus_yard": {
+   "w": 166,
+   "h": 166,
+   "bx": 83,
+   "by": 118,
+   "plate": 150,
+   "frames": [
+    "the_bus_yard_0.webp",
+    "the_bus_yard_1.webp"
+   ],
+   "name": "THE BUS YARD",
+   "like": "terminal",
+   "through_the_rig": true,
+   "finished": "cook 5, 11/17"
+  },
+  "the_greenhouses": {
+   "w": 177,
+   "h": 177,
+   "bx": 82,
+   "by": 123,
+   "plate": 150,
+   "frames": [
+    "the_greenhouses_0.webp",
+    "the_greenhouses_1.webp"
+   ],
+   "name": "THE GREENHOUSES",
+   "like": "farm",
+   "through_the_rig": true,
+   "finished": "cook 5, 11/17"
+  }
+ }
+}

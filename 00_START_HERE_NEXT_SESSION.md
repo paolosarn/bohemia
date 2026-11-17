@@ -1,3 +1,14 @@
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17k - THE BUS YARD AND THE GREENHOUSES, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the second build; rules 408, 409(c); ask row 627).
+THE BUS YARD AND THE GREENHOUSES WEAR THEIR OWN PIECE ON THE MAP. They wore the kit art of the kind each is like (a terminal, a farm); WORLD TEN's file
+said 'until COOK FOUR's golden piece' and nothing could draw one. NOW: two pieces through the map's rig (buses in ranks before the long maintenance shed,
+one sign still lit, one pack pulled; four plastic houses lit rose, a door planked shut) and slices/bohemia_place_pieces.js (50 lines, mine): for every real
+place on WORLD's own list whose id is in slices/place_pieces/place_pieces.json it draws that picture on its block, under the fog and the night. One hook
+line and one script line in BOHEMIA_CITY_WORLD.html. MEASURED: the map is 18 points a block, so a piece is held to 46 points across (51 and 54 on the glass).
+ON THE DEMO on a phone both ways. Gate THE PLACES WEAR THEIR OWN PIECE 8/0, new (static 5, on the page 3). 53,446 bytes.
+VOTE cook5-the-bus-yard-and-the-greenhouses-11-17 (MADE FROM). NOT DONE: arriving still opens the camp's tents: the places' own screens are this lane's
+next build. Notes FOR WORLD FOURTEEN, WORLD THIRTEEN, RUN and EYES in handoffs/COOK_FIVE.md.
+[bb Battle Brothers' map gives every landmark its own silhouette, read before its name; a place that looked like any terminal had none]
+[analog horror: plastic houses that glow rose all night with a door planked shut from the outside]
 UI FOUR (ui-four-01gkdyuu): 11/17 LATEST -- BUILD 11/17j - THE FULLEST HALL FITS, BUILT (1df5857e0), NOT YET SEEN (the full sweep, rule 453, job 2 of three; ask row 612 beside FIXES 2's 11/17h; row 559 re-checked).
 A hall with seven or more at the posts and three who would travel (FIXES 2 left that one two a row, past the glass): one more step after UI 9's last, smaller, never a page:
 a man's row loses its air, a follower is his face, name and trade beside his 44 px button (two across upright, beside the last men sideways), his line a held finger away
