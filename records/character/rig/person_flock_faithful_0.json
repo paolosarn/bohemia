@@ -1,0 +1,231 @@
+{
+ "look": "PERSON_FLOCK_FAITHFUL_0",
+ "shape": "person_flock_faithful_0: the flock: the trailer park's congregation in its meeting clothes, a hood or a head wrap, a charcoal cowl on every one, his own skin skin_mid 3, BONE BUTTON-UP under HOODED DUST PONCHO",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE BUTTON-UP",
+  "outer": "HOODED DUST PONCHO",
+  "legs": "DUST TROUSERS",
+  "feet": "WRAPPED BOOTS",
+  "neck": "DRAPED COWL",
+  "hands": "HAND WRAPS",
+  "outfit": []
+ },
+ "dials": {
+  "height": 0.1,
+  "belly": 0.55,
+  "shoulders": 0.3,
+  "hips": 0.3
+ },
+ "layers": {
+  "base": {},
+  "mid": {},
+  "outer": {}
+ },
+ "model": "records/character/rig/person_flock_faithful_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7286,
+ "real_height_for_rig": 1.7347,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_flock_faithful_0_shoe": 3716,
+  "person_flock_faithful_0_shirt": 71212,
+  "person_flock_faithful_0_collar": 1536,
+  "person_flock_faithful_0_collar_points": 180,
+  "person_flock_faithful_0_placket": 162,
+  "person_flock_faithful_0_buttons": 204,
+  "person_flock_faithful_0_cuffs": 2048,
+  "person_flock_faithful_0_tail": 2016,
+  "person_flock_faithful_0_poncho": 23728,
+  "person_flock_faithful_0_poncho_neck": 1536,
+  "person_flock_faithful_0_trouser": 43706,
+  "person_flock_faithful_0_rolled_hem": 2048,
+  "person_flock_faithful_0_crease": 180,
+  "person_flock_faithful_0_sole_1": 242,
+  "person_flock_faithful_0_midsole_1": 242,
+  "person_flock_faithful_0_sole_0": 242,
+  "person_flock_faithful_0_midsole_0": 242,
+  "person_flock_faithful_0_boot_collar": 2048,
+  "person_flock_faithful_0_boot_collar_line": 2048,
+  "person_flock_faithful_0_eyelets_1": 120,
+  "person_flock_faithful_0_eyelets_0": 120,
+  "person_flock_faithful_0_draped_cowl": 29946,
+  "person_flock_faithful_0_hand_wraps_L": 392,
+  "person_flock_faithful_0_hand_wraps_R": 392,
+  "person_flock_faithful_0_hand_wraps_wrap_0": 2048,
+  "person_flock_faithful_0_hand_wraps_wrap_1": 2048,
+  "person_flock_faithful_0_hand_wraps_wrap_2": 2048,
+  "person_flock_faithful_0_hair": 17968,
+  "person_flock_faithful_0_hand_L": 392,
+  "person_flock_faithful_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_flock_faithful_0_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_flock_faithful_0_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_flock_faithful_0_buttons": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_flock_faithful_0_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_flock_faithful_0_collar_points": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_flock_faithful_0_crease": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_flock_faithful_0_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_flock_faithful_0_draped_cowl": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_flock_faithful_0_eyelets_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_flock_faithful_0_eyelets_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_flock_faithful_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_flock_faithful_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_flock_faithful_0_hand_wraps": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_flock_faithful_0_hand_wraps_wrap_0": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_flock_faithful_0_hand_wraps_wrap_1": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_flock_faithful_0_hand_wraps_wrap_2": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_flock_faithful_0_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_flock_faithful_0_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_flock_faithful_0_placket": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_flock_faithful_0_poncho": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_flock_faithful_0_poncho_band": [
+   0.4072,
+   0.2831,
+   0.1221
+  ],
+  "person_flock_faithful_0_poncho_neck": [
+   0.1046,
+   0.063,
+   0.0222
+  ],
+  "person_flock_faithful_0_rolled_hem": [
+   0.4072,
+   0.2831,
+   0.1221
+  ],
+  "person_flock_faithful_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_flock_faithful_0_shoe": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_flock_faithful_0_shoes": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_flock_faithful_0_skin": [
+   0.6105,
+   0.3515,
+   0.1714
+  ],
+  "person_flock_faithful_0_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_flock_faithful_0_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_flock_faithful_0_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_flock_faithful_0_trouser": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_flock_faithful_0_trousers": [
+   0.2423,
+   0.1529,
+   0.0561
+  ]
+ }
+}

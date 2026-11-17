@@ -349,6 +349,24 @@
 "fill": 0.022,
 "packedMB": 0.9
 },
+"enemy_flock_faithful_0.webp": {
+"bytes": 349282,
+"decodedMB": 16.83,
+"fill": 0.238,
+"packedMB": 4.58
+},
+"enemy_flock_faithful_1.webp": {
+"bytes": 296512,
+"decodedMB": 16.83,
+"fill": 0.205,
+"packedMB": 3.99
+},
+"enemy_flock_faithful_2.webp": {
+"bytes": 299834,
+"decodedMB": 16.83,
+"fill": 0.206,
+"packedMB": 4.05
+},
 "enemy_heavy_0.webp": {
 "bytes": 372964,
 "decodedMB": 17.32,
@@ -1245,8 +1263,8 @@
 }
 },
 "totals": {
-"decodedMB": 4106.8,
-"packedMB": 809.4,
-"sheets": 207
+"decodedMB": 4157.3,
+"packedMB": 822.0,
+"sheets": 210
 }
 }

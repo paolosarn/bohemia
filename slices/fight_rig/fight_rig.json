@@ -3470,6 +3470,54 @@
    "rig": "records/target/combat/rig/boss_lens_0/rig.json",
    "own_kit": true,
    "dressed": "BOSSES [ten to twelve] 11/14: his own pieces on his model (tools/bohemia_bosses_ten_to_twelve_11_14_26.py)"
+  },
+  "enemy_flock_faithful_0": {
+   "file": "enemy_flock_faithful_0.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    69,
+    110
+   ],
+   "height_m": 1.746,
+   "kind": "enemy",
+   "ref": "faction_homeless",
+   "guns": "faction_homeless_guns.webp",
+   "type": "flock_faithful",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_flock_faithful_0/rig.json"
+  },
+  "enemy_flock_faithful_1": {
+   "file": "enemy_flock_faithful_1.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    69,
+    110
+   ],
+   "height_m": 1.722,
+   "kind": "enemy",
+   "ref": "faction_homeless",
+   "guns": "faction_homeless_guns.webp",
+   "type": "flock_faithful",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_flock_faithful_1/rig.json"
+  },
+  "enemy_flock_faithful_2": {
+   "file": "enemy_flock_faithful_2.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    69,
+    110
+   ],
+   "height_m": 1.722,
+   "kind": "enemy",
+   "ref": "faction_homeless",
+   "guns": "faction_homeless_guns.webp",
+   "type": "flock_faithful",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_flock_faithful_2/rig.json"
   }
  },
  "faces": {
@@ -3639,7 +3687,10 @@
      "enemy_water_cutter_3",
      "enemy_water_needle_0",
      "enemy_water_needle_1",
-     "enemy_water_needle_2"
+     "enemy_water_needle_2",
+     "enemy_flock_faithful_0",
+     "enemy_flock_faithful_1",
+     "enemy_flock_faithful_2"
     ],
     "by": "CHARACTER 11/7, tools/bohemia_character_the_nine_enemies.py pack"
    }

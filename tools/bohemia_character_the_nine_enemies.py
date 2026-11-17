@@ -218,6 +218,22 @@ TYPES = {
         kit=[['SOOT HAND WRAPS'], ['HAND WRAPS'], ['SOOT HAND WRAPS', 'OXBLOOD BRACERS']],
         hats=[None, 'HAT SOOT HEAD WRAP', 'HAT DESERT SHEMAGH'], eyewear=['FACE CHARCOAL DUST MASK', 'FACE OXBLOOD DUST MASK', 'FACE FACE WRAP'],
         pieces=[['syringes']] * 3, cuts=['TEMPLE TAPER', 'HALF SHAVE', 'CURTAIN CUT', 'SHORT ROPES']),
+    # CHARACTER 11/17 (rule 453; BESTIARY's list in handoffs/CHARACTER.md, 'the Flock first'): Battle Brothers' cultist wears a
+    # leather robe and a hood; ours are the trailer park's congregation in what they wear to its meetings: a hood, a long robe-coat
+    # or a leather wrap coat over their own house clothes, and the one thing they share, a charcoal cowl. Its row waits in
+    # bohemia_enemies.json 'waiting' (BESTIARY's): the pack never writes a waiting row's looks; BESTIARY fields it.
+    'Flock Faithful': dict(
+        row='flock_faithful', faction='flock', stand_in='Homeless', cell='faction_homeless', count=3,
+        what='the flock: the trailer park\'s congregation in its meeting clothes, a hood or a head wrap, a charcoal cowl on every one',
+        dials=[dict(height=0.10, belly=0.55, shoulders=0.30, hips=0.30), dict(height=0.55, belly=-0.35, shoulders=0.05, hips=-0.20),
+               dict(height=-0.20, belly=0.10, shoulders=0.20, hips=0.10)],
+        tops=['BONE BUTTON-UP', 'RUST HENLEY', 'SOOT TANK'],
+        coats=['HOODED DUST PONCHO', 'SAND COCOON COAT', 'LEATHER WRAP COAT'],
+        legs=['DUST TROUSERS', 'BRICK CROP TROUSER', 'CHARCOAL WRAP SKIRT'],
+        feet=['WRAPPED BOOTS', 'RANCH BOOTS', 'SANDWALKERS'],
+        kit=[['DRAPED COWL', 'HAND WRAPS'], ['DRAPED COWL', 'BONE SHOULDER DRAPE', 'LEATHER BELT'], ['DRAPED COWL', 'OXBLOOD BRACERS']],
+        hats=[None, 'HAT BONE HEAD WRAP', 'HAT SOOT HEAD WRAP'], eyewear=[None, None, None],
+        pieces=[[], [], []], cuts=['HOME CLIPPERS', 'LAYERED FALL', 'TEMPLE TAPER', 'SHORT ROPES']),
 }
 ORDER = list(TYPES)
 POOL = {t: TYPES[t]['row'] for t in ORDER}
@@ -287,6 +303,33 @@ def roll():
     json.dump(people, open(ROLL, 'w'), indent=1)
     print('rolled', len(people), '->', os.path.relpath(ROLL, ROOT))
     for P in people: print(' ', P['id'], P['tone'], P['hair_cut'], '|', P['top'], '/', P.get('coat'), '|', P['legs'], '/', P['feet'], '|', P['kit'], P.get('hat'), P.get('eyewear'), P['pieces'])
+
+
+def roll_more(t):
+    """one type rolled the way roll() rolls it and appended to the roll; every other man's line stays as it is (11/17: a new
+    type joins without re-rolling the thirty already shipped)"""
+    import bohemia_character_the_barbers_book as BB
+    B = json.load(open(BB.BOOK)); people = json.load(open(ROLL))
+    assert not [p for p in people if p['gang'] == t], t + ' is in the roll already'
+    T = TYPES[t]; seen = set(); i = 0; got = 0; new = []
+    while got < T['count']:
+        P = BB.roll_one(B, T['stand_in'], 'nine:%s:%d' % (t, i)); i += 1
+        rng = random.Random('nine enemies:%s:%d' % (t, got)); k = got
+        P['id'] = pid_of(t, k); P['gang'] = t; P['type'] = t
+        P['hair_cut'] = T['cuts'][(k * 3 + rng.randrange(len(T['cuts']))) % len(T['cuts'])]
+        P['top'] = T['tops'][k]
+        if T['coats'][k]: P['coat'] = T['coats'][k]
+        else: P.pop('coat', None)
+        P['legs'] = T['legs'][k]; P['feet'] = T['feet'][k]; P['kit'] = list(T['kit'][k])
+        P.pop('hat', None); P.pop('eyewear', None)
+        if T['hats'][k]: P['hat'] = T['hats'][k]
+        if T['eyewear'][k]: P['eyewear'] = T['eyewear'][k]
+        P['pieces'] = list(T['pieces'][k]); P['dials'] = T['dials'][k]
+        key = BB.key(P) + (P['top'], P.get('coat'), t)
+        if key in seen: continue
+        seen.add(key); new.append(P); got += 1
+    json.dump(people + new, open(ROLL, 'w'), indent=1)
+    for P in new: print('ROLLED', P['id'], P['tone'], P['hair_cut'], '|', P['top'], '/', P.get('coat'), '|', P['legs'], '/', P['feet'], '|', P['kit'], P.get('hat'))
 
 
 # ======================================================================================================================
@@ -1109,7 +1152,8 @@ def pack():
     assert I['cols'] == want, "COMBAT changed the fight sheet's columns: re-read its pack() before packing"
     RIM = tuple(I['rim'])
     roll_ = json.load(open(ROLL)); mine = {look_of(p['id']) for p in roll_}
-    for k in [k for k in I['looks'] if k in mine]: del I['looks'][k]
+    # 11/17: a man is packed again only when his fight renders are on this box; every other man's sheet and line stand as
+    # committed (the fight renders are .gitignore'd, so on a fresh box this pack once dropped all thirty)
     made_ = []
     for p in roll_:
         pid = p['id']; lk = look_of(pid)
@@ -1146,13 +1190,16 @@ def pack():
     assert not [l for l in F['order'] if l in mine], 'a nine-enemies face is on the first strip: take it off before packing here'
     MORE = 'faces_more.webp'
     more = [M for M in F.get('more', []) if M['file'] != MORE]
-    tiles = [Image.open(os.path.join(ROOT, OUT, lk, 'face', 'rest_128.png')).convert('RGBA').resize((S, S), Image.BOX) for p, lk in made_]
+    # the strip holds every man of the roll whose sheet is on the fight (his street face is committed, so a man not made on
+    # this box keeps his tile)
+    strip = [(p, look_of(p['id'])) for p in roll_ if look_of(p['id']) in I['looks'] and made(p['id'])]
+    tiles = [Image.open(os.path.join(ROOT, OUT, lk, 'face', 'rest_128.png')).convert('RGBA').resize((S, S), Image.BOX) for p, lk in strip]
     if tiles:
         assert S * len(tiles) <= 16383, 'the second strip is full too'
         out = Image.new('RGBA', (S * len(tiles), S), (0, 0, 0, 0))
         for i, t in enumerate(tiles): out.paste(t, (i * S, 0))
         out.save(os.path.join(FR, MORE), 'WEBP', quality=85, alpha_quality=100, method=6)
-        more.append(dict(file=MORE, order=[lk for p, lk in made_], by='CHARACTER 11/7, tools/bohemia_character_the_nine_enemies.py pack'))
+        more.append(dict(file=MORE, order=[lk for p, lk in strip], by='CHARACTER 11/7, tools/bohemia_character_the_nine_enemies.py pack'))
     F['more'] = more
     I['enemies_nine'] = ("CHARACTER [more enemy types, their own art] 11/7 (rule 427(b)): FACTIONS' nine act-one types in their own "
                          "garments (kind 'enemy', set 'nine'), packed by tools/bohemia_character_the_nine_enemies.py pack into each type's old "
@@ -1163,7 +1210,12 @@ def pack():
     E = json.load(open(ENEMIES)); txt = open(ENEMIES).read()
     for t in ORDER:
         ids = [lk for p, lk in made_ if p['gang'] == t]
-        row = next(r for r in E['rows'] if r['id'] == POOL[t])
+        if not ids: continue   # nothing of this type made on this box: its row stands
+        row = next((r for r in E['rows'] if r['id'] == POOL[t]), None)
+        if row is None:   # a type whose row waits (BESTIARY's 'waiting'): its looks are BESTIARY's to field (its gate refuses looks on a waiting row)
+            print('WAITING %s: its men %s are on the fight sheet; its row waits for BESTIARY to field it' % (POOL[t], ', '.join(ids))); continue
+        if any(l in mine for l in row['looks']):   # 11/17: the row already wears this tool's men, and BESTIARY may have split
+            continue                                 # them across new types since (the sergeant, the bowman ...): never re-point it
         if len(ids) != TYPES[t]['count']:
             print('HELD %s: %d of %d made, its row keeps the borrowed people' % (POOL[t], len(ids), TYPES[t]['count'])); continue
         old = '"looks": %s' % json.dumps(row['looks'])
@@ -1210,6 +1262,7 @@ def sheet():
 if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else ''
     if cmd == 'roll': roll()
+    elif cmd == 'roll-more': roll_more(sys.argv[2])
     elif cmd == 'build-one': build_one(sys.argv[2])
     elif cmd == 'look':
         for pid in sys.argv[2:]: look(pid)

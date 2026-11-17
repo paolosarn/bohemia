@@ -1389,5 +1389,139 @@
    "shoulders": -0.3,
    "hips": 0.05
   }
+ },
+ {
+  "id": "flock_faithful_0",
+  "gang": "Flock Faithful",
+  "heritage": "white",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "nose.w": 5,
+   "face.noseY": 1,
+   "face.jawW": 32,
+   "face.chinW": 17,
+   "face.cheekW": 36,
+   "face.browY": 3,
+   "eyes.gap": 5,
+   "brows.len": 11,
+   "face.craniumH": 9
+  },
+  "face_name": "BOXER",
+  "legs": "DUST TROUSERS",
+  "feet": "WRAPPED BOOTS",
+  "kit": [
+   "DRAPED COWL",
+   "HAND WRAPS"
+  ],
+  "type": "Flock Faithful",
+  "top": "BONE BUTTON-UP",
+  "coat": "HOODED DUST PONCHO",
+  "pieces": [],
+  "dials": {
+   "height": 0.1,
+   "belly": 0.55,
+   "shoulders": 0.3,
+   "hips": 0.3
+  }
+ },
+ {
+  "id": "flock_faithful_1",
+  "gang": "Flock Faithful",
+  "heritage": "white",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "HOME CLIPPERS",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "nose.w": 5,
+   "face.noseY": 1,
+   "face.jawW": 32,
+   "face.chinW": 17,
+   "face.cheekW": 36,
+   "face.browY": 3,
+   "eyes.gap": 5,
+   "brows.len": 11,
+   "face.craniumH": 9
+  },
+  "face_name": "BOXER",
+  "mark_name": "BROKEN NOSE",
+  "mark": "broken_nose",
+  "legs": "BRICK CROP TROUSER",
+  "feet": "RANCH BOOTS",
+  "kit": [
+   "DRAPED COWL",
+   "BONE SHOULDER DRAPE",
+   "LEATHER BELT"
+  ],
+  "type": "Flock Faithful",
+  "top": "RUST HENLEY",
+  "coat": "SAND COCOON COAT",
+  "hat": "HAT BONE HEAD WRAP",
+  "pieces": [],
+  "dials": {
+   "height": 0.55,
+   "belly": -0.35,
+   "shoulders": 0.05,
+   "hips": -0.2
+  }
+ },
+ {
+  "id": "flock_faithful_2",
+  "gang": "Flock Faithful",
+  "heritage": "mixed",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "HOME CLIPPERS",
+  "hair": [
+   "clay_bone",
+   2
+  ],
+  "face": {
+   "nose.w": 5,
+   "face.noseY": 1,
+   "face.jawW": 32,
+   "face.chinW": 17,
+   "face.cheekW": 36,
+   "face.browY": 3,
+   "eyes.gap": 5,
+   "brows.len": 11,
+   "face.craniumH": 9
+  },
+  "face_name": "BOXER",
+  "legs": "CHARCOAL WRAP SKIRT",
+  "feet": "SANDWALKERS",
+  "kit": [
+   "DRAPED COWL",
+   "OXBLOOD BRACERS"
+  ],
+  "type": "Flock Faithful",
+  "top": "SOOT TANK",
+  "coat": "LEATHER WRAP COAT",
+  "hat": "HAT SOOT HEAD WRAP",
+  "pieces": [],
+  "dials": {
+   "height": -0.2,
+   "belly": 0.1,
+   "shoulders": 0.2,
+   "hips": 0.1
+  }
  }
 ]
