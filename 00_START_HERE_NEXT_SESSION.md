@@ -1,3 +1,17 @@
+FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/17 LATEST -- BUILD 11/17g - THE MAN'S CARD ON THE PHONE, BUILT (PENDINGSHA), NOT YET SEEN (rule 450(a); ask row 621 DONE: all three cards are on the page). Its block is handoffs/FIGHT_SCREEN.md.
+THIS CHAT IS FIGHT SCREEN TWO. The card he sees every turn on the phone is rebuilt inside the phone's own size (rule 238: the phone never grows; this lane's plan to
+grow it was struck against his ruling): his face a pinned photograph on the dark board, a strip gold when he is his and red when he is theirs, a name never cut,
+three bars the width of the card, his AP as pips; the 5 point numbers leave it (his sheet holds them); a man of theirs wears LV and marks (three chevrons, the
+sidestep, a plate) instead of cut words, and his sheet reads each mark in words. One height for every man, so nothing under the card moves.
+THE FAMILY PASS over all three cards: the edge the sheet and the opening card were written to wear never showed on the page (the kit cleared it): one strip on all
+three now; a man of theirs had two levels (sheet LEVEL 1, plate LV 5): one now.
+slices/bohemia_phone.js __THE_MANS_CARD_ON_THE_PHONE__ (a marked block in UI's file by the coordinator's word); slices/BOHEMIA_FIGHT.html (the plate handed as marks, sheetPlate, the strip); slices/bohemia_fight_opener.js (the strip).
+ON THE PAGE: four surfaces (demo and alpha, upright and sideways): the phone the same size, the card 37 tall for every man, no name cut, no digit but a man of theirs' level, 24 men of theirs' plates the fight's own read, 0 page errors.
+Gate THE MAN'S CARD ON THE PHONE 9/0, registered. VOTE fight-screen-the-mans-card-on-the-phone-11-17 (before and after, both ways). Record records/BOHEMIA_FIGHT_SCREEN_THE_MANS_CARD_ON_THE_PHONE_11_17_26.md.
+PRE-PUSH PASS (rule 13): THE PHONE 268/0 (UI's own gate on its file, run alone; a first run beside three other browsers showed three reds in one walk whose fight did not open, gone when run alone); THE CARD THAT OPENS A FIGHT 8/0; THE MAN'S SHEET 7/0; THE WHY LINE 15/0; ICONS, NOT NUMBERS, IN THE FIGHT 8/0; EVERY PANEL CLOSES 14/0; DEMO BUILD 25/0; HANDOFF 10/0; PAGES PUBLISH 30/0. NAMED, NOT MINE: THE FOURTEEN EYES FOUND 151/5 (F531 81 of 85 boards, F553 YOUR PLACE on a road, F606 a question stops the clock: the same three red with this ship's change stashed; its reach legs on the phone's fight page pass); STATS ARE BARS AND ARROWS 45/2 (THE SHOP ON A MAN, the shop's arrows); the VOTE tab's landing legs and other lanes' sheets; the registry's orphans.
+NEXT: one material for the speaking cards (#vet is still pale paper); the library page on Rogue Fable 4's screen; the end screen in the family's look.
+[bb Battle Brothers prints a man's numbers on a bar across a monitor's foot; ours is a phone in the corner of a phone, so the card keeps a face, three bars and pips and the numbers live on his sheet]
+[analog horror: an ID photograph in a paper frame, and for the man who can kill you three red marks where his name tag would be]
 COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17d - THE WAGON, THE COLLECTOR AND THE HAZE, BUILT (ecd903883), NOT YET SEEN (the full sweep, rule 453, the first build; ask row 627).
 The newest three bosses' map pieces that said STAND-IN, redrawn as finished art, PICTURES ONLY (the same six pictures, names, frame and rig as BOSSES'
 first ones): THE PLATE'S WAGON (patched pressed steel, a slit, a plough, teeth on the roof, a lamp behind the slit; stripped to its frame after),

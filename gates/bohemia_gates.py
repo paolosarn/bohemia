@@ -9607,6 +9607,14 @@ GATES = [
      "bars each with its word clear of the bar, the numbers the man's own (M4); the weapon's name and line, its damage a lit bar with no "
      "digits, 14 numbers at most on the sheet (M5, rule 224(c)); every skill on it, a finger on one reads it and the sheet stays, a finger "
      "elsewhere puts it away (M6). Planted: the fitting taken out. About 40 s", True),
+    ("THE MAN'S CARD ON THE PHONE", ['node', 'gates/the_mans_card_on_the_phone_gate.js'],
+     "FIGHT SCREEN TWO gate, 11/17, VAMILY rule 450(a) (ask row 621, the third of the three cards; PAOLO 11/14, twice: 'The card bro, the combat "
+     "card is UGLY AS SHIT, TRY TO MAKE SOME AWESOME BIG BRAIN FINAL SHIT'). The card he sees every turn, on the demo's page upright and on its "
+     "side: the phone never grows and the card is one height for his man, a man of theirs and a two-line name (P1, rule 238(b)); no name cut, "
+     "nothing off the card (P2); no digit for his man, only his level for a man of theirs, the old numbers kept in the page and not shown (P3, "
+     "rule 224); the edge gold or red, a drawn face in a paper frame (P4); three bars the width of the card, his AP as pips (P5); every man of "
+     "theirs put on the card: his level and marks are the fight's own read, each mark drawn and named, his sheet says the same (P6); the same "
+     "edge on all three cards (P7). Planted: the two-line fit taken out. About four minutes", True),
     ('THE CARD THAT OPENS A FIGHT', ['node', 'gates/the_card_that_opens_a_fight_gate.js'],
      "FIGHT SCREEN TWO gate, 11/14, VAMILY rule 450(a) (ask row 621; PAOLO 11/14, twice: 'The card bro, the combat card is UGLY AS SHIT, TRY "
      "TO MAKE SOME AWESOME BIG BRAIN FINAL SHIT'). The card where he chooses ENGAGE or FALL BACK shows their leader's face, the one WHY "

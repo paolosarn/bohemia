@@ -246,6 +246,10 @@ html[data-materials] #bwait.run{font-size:9px;word-spacing:normal} html[data-mat
 #drawer.sheet{left:8px;right:8px;padding:16px 12px 12px;box-sizing:border-box;overflow:hidden;transform:none;color:#f2e4c6;background:#2a2016;border-left:3px solid var(--gold);
   box-shadow:none;filter:drop-shadow(3px 2px 0 rgba(10,6,3,.6));font-size:11px;display:none;grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "slip" "w" "perks" "read";gap:8px}
 #drawer.sheet.theirs{border-left-color:#ff5a40}
+/* __THE_MANS_CARD_ON_THE_PHONE__, THE FAMILY (FIGHT SCREEN TWO 11/17): MEASURED on the page: the kit's board sets every border colour clear, so the gold or red edge this
+   sheet was written to wear never showed (and the opening card's the same). One strip for all three cards: gold when he is his, red when he is theirs. */
+#drawer.sheet::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);pointer-events:none}
+#drawer.sheet.theirs::before{background:#ff5a40}
 #drawer.sheet.wide{grid-template-columns:minmax(0,.95fr) minmax(0,1.5fr) minmax(0,.95fr);grid-template-areas:"head head perks" "w slip perks" "read slip perks";grid-template-rows:auto auto 1fr;column-gap:10px}
 #drawer.sheet.wide.t1{grid-template-columns:minmax(0,.8fr) minmax(0,1.9fr) minmax(0,.7fr)}
 #drawer.sheet.wide.t1 .sh-slip{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:14px}
@@ -260,6 +264,15 @@ html[data-materials] #bwait.run{font-size:9px;word-spacing:normal} html[data-mat
 #drawer.sheet.theirs .sh-name{color:#ff8a6a}
 #drawer.sheet .sh-sub{font:400 11px/1.2 var(--face-casing,ui-monospace,monospace);letter-spacing:.8px;color:#cdb98e;text-shadow:0 1px 0 #000}
 #drawer.sheet .sh-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+/* __THE_MANS_CARD_ON_THE_PHONE__: the plate's marks, the same three the phone's card wears (slices/bohemia_phone.js carries their twins), here each with its word */
+#drawer.sheet .sh-plate{display:inline-flex;flex-wrap:wrap;align-items:center;vertical-align:middle;gap:2px 5px;margin-left:8px;font:400 11px/1.2 var(--face-casing,ui-monospace,monospace);letter-spacing:.6px;color:#ff8a6a;text-shadow:0 1px 0 #000}
+#drawer.sheet .sh-plate em{font-style:normal;margin-right:5px}
+#drawer.sheet .sh-plate .pmk{position:relative;cursor:pointer}#drawer.sheet .sh-plate .pmk::after{content:"";position:absolute;inset:-9px -5px}
+#drawer.sheet.t3 .sh-plate em{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);margin:0}   /* a tight sheet keeps the marks and folds their words away (the reader still hears them) */
+#drawer.sheet .sh-plate .pmk{flex:0 0 12px;width:12px;height:12px;background:center/contain no-repeat;image-rendering:pixelated}
+#drawer.sheet .sh-plate .pmk.oc{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath d='M1 2.5 4 .5 7 2.5M1 5 4 3 7 5M1 7.5 4 5.5 7 7.5' fill='none' stroke='%23ff5a40' stroke-width='1.2'/%3E%3C/svg%3E")}
+#drawer.sheet .sh-plate .pmk.dodge{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath d='M.5 4h7M2.6 1.6.5 4l2.1 2.4M5.4 1.6 7.5 4 5.4 6.4' fill='none' stroke='%23f2e4c6' stroke-width='1.1'/%3E%3C/svg%3E")}
+#drawer.sheet .sh-plate .pmk.armour{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath d='M1 1h6v3.4c0 2.1-3 3.1-3 3.1s-3-1-3-3.1z' fill='%239fb0c4' stroke='%230d0a07' stroke-width='.6'/%3E%3C/svg%3E")}
 #drawer.sheet .sh-tell{font:700 12px/1.3 var(--face-rom,ui-monospace,monospace);color:#efe3cc}
 #drawer.sheet .sh-slip{grid-area:slip;align-self:start;padding:8px 10px 9px;color:var(--paper-ink);background:var(--mat-receipt,#e2dac6) center/cover}
 #drawer.sheet .sh-slip .bst-block.bst-fight{margin:0 0 4px}
@@ -10544,7 +10557,7 @@ function hud() {
      it fits its plate, else the first name ('EL GUERO' keeps its EL), never a word cut in half */
   const cnm = document.getElementById('cnm'), nmk = show.name + (show.main ? ' *' : ''), nmw = nmk + '|' + cnm.parentNode.clientWidth + '|' + document.fonts.status;
   if (cnm.dataset.k !== nmw) {
-    cnm.dataset.k = nmw; cnm.textContent = nmk; cnm.style.fontSize = cnm.style.letterSpacing = '';
+    cnm.dataset.k = nmw; cnm.textContent = nmk; cnm.style.fontSize = cnm.style.letterSpacing = ''; cnm.dataset.full = show.name;   /* __THE_MANS_CARD_ON_THE_PHONE__: his whole name, for a card that can give it two lines */
     if (cnm.scrollWidth > cnm.clientWidth + 1) {
       const w = String(show.name).split(/\s+/), lead = /^(el|la|los|las|de|del|the|big|lil|old)$/i.test(w[0]) && w[1] ? 2 : 1;
       cnm.textContent = w.slice(0, lead).join(' ') + (show.main ? ' *' : '');
@@ -10579,7 +10592,9 @@ function hud() {
   if (UI.drawer) drawer(show);
   /* THE PLATE SAYS WHO HE IS (rule 143(b)): a man of theirs on the bar carries LV, his marks, and OUTCLASSES YOU when he does */
   const cl = document.getElementById('cls'), clh = show.side === 'them' ? classLine(show) : '';
-  if (cl.dataset.h !== clh) { cl.dataset.h = clh; cl.innerHTML = clh; cl.style.display = clh ? 'block' : 'none'; }
+  if (cl.dataset.h !== clh) { cl.dataset.h = clh; cl.innerHTML = clh; cl.style.display = clh ? 'block' : 'none';
+    /* __THE_MANS_CARD_ON_THE_PHONE__ (FIGHT SCREEN TWO 11/17, rule 450(a)): the plate as the phone draws it, marks not words: his level and which marks he wears, with the words each mark stands for (CLASS_SAYS, never a second list) */
+    const pc = clh ? classOf(show) : null; cl.dataset.plate = pc ? [pc.lv, pc.outclass ? 1 : 0, pc.dodge ? 1 : 0, pc.armour ? 1 : 0].join(',') : ''; cl.dataset.says = [CLASS_SAYS.outclass, CLASS_SAYS.dodge, CLASS_SAYS.armour].join('|'); }
   const mine = crewControlled(u) && !UI.anim.length && !S.over;
   /* the skill row: STRIKE with his weapon, RELOAD, then the skills his perks unlock, each a 46-point square */
   const tgt = mine && UI.pend && UI.pend.target && (UI.pend.sweep ? FIGHT.canSweep(u, UI.pend.target, UI.pend.sweep) : FIGHT.canStrike(u, UI.pend.target)) ? UI.pend.target : null;
@@ -10811,6 +10826,13 @@ function sheetDamage(w) {
   const most = DB.weapons.rows.reduce(function (m, x) { return Math.max(m, x.damage_max || 0); }, 1), lo = Math.max(0, Math.min(100, w.damage_min / most * 100)), hi = Math.max(lo + 2, Math.min(100, w.damage_max / most * 100));
   return '<i class="cbar dmg" role="img" data-lo="' + w.damage_min + '" data-hi="' + w.damage_max + '" data-of="' + most + '" aria-label="damage ' + w.damage_min + ' to ' + w.damage_max + '"><i style="left:' + lo.toFixed(1) + '%;width:' + (hi - lo).toFixed(1) + '%"></i></i>';
 }
+/* __THE_MANS_CARD_ON_THE_PHONE__ (FIGHT SCREEN TWO 11/17): the three marks a man of theirs wears on the phone's card are read here, each beside its word (the phone
+   shows the marks alone: tiny is fine, rule 238; the words are the plate's own, CLASS_SAYS, no number added: rule 224(c)) */
+function sheetPlate(v) {
+  let c = null; try { c = classOf(v); } catch (_e) { c = null; } if (!c) return '';
+  const m = [['oc', c.outclass, CLASS_SAYS.outclass], ['dodge', c.dodge, CLASS_SAYS.dodge], ['armour', c.armour, CLASS_SAYS.armour]].filter(function (x) { return x[1]; });
+  return m.length ? '<span class="sh-plate"><i class="sh-sr"> · </i>' + m.map(function (x) { return '<i class="pmk ' + x[0] + '" aria-hidden="true"></i><em>' + sheetEsc(x[2]) + '</em>'; }).join('') + '</span>' : '';
+}
 function drawer(v) {
   const d = document.getElementById('drawer'), fm = FIGHT.fatMax(v), yours = v.side === 'you';
   const r = function (a, b) { return '<div class="r"><span>' + a + '</span><span>' + b + '</span></div>'; };
@@ -10818,7 +10840,7 @@ function drawer(v) {
   let wname = ''; try { wname = own ? objName(own).toUpperCase() : ''; } catch (_e) { wname = w ? String(w.name || '').toUpperCase() : ''; }
   d.className = 'sheet ' + (yours ? 'yours' : 'theirs') + (innerWidth > innerHeight ? ' wide' : '');
   d.innerHTML = '<div class="sh-head"><canvas class="sh-face" width="144" height="144"></canvas><div class="sh-who"><b class="sh-name">' + sheetEsc(v.name) + '</b>'
-      + '<span class="sh-sub"><i class="sh-sr"> · </i>LEVEL ' + (v.level || 1) + ' · ' + sheetEsc(v.job.toUpperCase().replace('_', ' ')) + '</span>'
+      + '<span class="sh-sub"><i class="sh-sr"> · </i>LEVEL ' + (yours ? (v.level || 1) : lvOf(v)) + ' · ' + sheetEsc(v.job.toUpperCase().replace('_', ' ')) + (yours ? '' : sheetPlate(v)) + '</span>'   /* a man of theirs: the level his plate says (lvOf), one number for one man; his marks ride the same line, so a tight sheet grows by nothing */
       + (tell ? '<span class="sh-tell">' + sheetEsc(tell) + '</span>' : '') + '</div></div>'
     + '<div class="sh-slip">'
     + r('Health', v.hp + ' / ' + v.hpMax) + r('Armour, head', cbar(v.armH, v.armHMax)) + r('Armour, body', cbar(v.armB, v.armBMax))
@@ -10839,6 +10861,9 @@ function drawer(v) {
     /* a finger on a skill reads it (the sheet stays up); pointerdown, because the sheet is redrawn as the fight moves */
     p.addEventListener('pointerdown', function (e) { UI.sheetPerk = id; UI.sheetHold = performance.now(); UI.sheetSig = null; try { e.stopPropagation(); } catch (_e) {} sheetRead(v); });
     box.appendChild(p); });
+  /* __THE_MANS_CARD_ON_THE_PHONE__: a finger on a mark reads its word on the reading line (the sheet stays up), so a tight sheet that folds the words away still tells him */
+  if (UI.sheetMarkFor !== v.id) { UI.sheetMark = null; UI.sheetMarkFor = v.id; }
+  [].slice.call(d.querySelectorAll('.sh-plate .pmk')).forEach(function (m) { m.addEventListener('pointerdown', function (e) { UI.sheetMark = m.nextSibling ? String(m.nextSibling.textContent || '') : ''; UI.sheetPerk = null; UI.sheetHold = performance.now(); try { e.stopPropagation(); } catch (_e) {} sheetRead(v); }); });
   const cv = d.querySelector('.sh-face'); try { drawPortrait(cv.getContext('2d'), v, cv.width, yours || FIGHT.shown(v)); } catch (_e) {}
   sheetLook();
   d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'grid';
@@ -10858,7 +10883,7 @@ function sheetRead(v) {
   const d = document.getElementById('drawer'), e = d && d.querySelector('.sh-read'); if (!e) return;
   const id = UI.sheetPerk && v.perks.indexOf(UI.sheetPerk) >= 0 ? UI.sheetPerk : null;
   [].slice.call(d.querySelectorAll('.sh-perks .p')).forEach(function (p) { p.classList.toggle('on', p.dataset.perk === id); });
-  e.innerHTML = id ? '<b>' + sheetEsc(perkName(id)) + '</b> ' + sheetEsc(perkLine(id) || '') : 'Tap a skill to read what it does.';
+  e.innerHTML = id ? '<b>' + sheetEsc(perkName(id)) + '</b> ' + sheetEsc(perkLine(id) || '') : UI.sheetMark && UI.sheetMarkFor === v.id ? '<b>' + sheetEsc(UI.sheetMark) + '</b>' : 'Tap a skill to read what it does.';   /* a mark's word is the plate's own (no word added) */
 }
 /* stood in the slip, fitted to the glass: the sheet tightens a step at a time until nothing is off the glass */
 function sheetLayout(v) {

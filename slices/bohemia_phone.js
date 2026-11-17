@@ -436,7 +436,10 @@
     var ap = g('ap'), cl = g('cls'), r = g('round'), nm = g('cnm');
     return { name: nm ? String(nm.textContent || '').replace(/\s*\*$/, '') : '', main: !!nm && /\*$/.test(String(nm.textContent || '')), face: g('face'),
       hp: bar('bhp'), arm: bar('barm'), fat: bar('bfat'), ap: ap ? ap.querySelectorAll('i.on').length : 0, apTurn: ap ? ap.children.length : 0,
-      cls: cl && cl.style.display !== 'none' ? String(cl.textContent || '').trim() : '', round: r ? String(r.textContent || '').trim() : '' };
+      cls: cl && cl.style.display !== 'none' ? String(cl.textContent || '').trim() : '', round: r ? String(r.textContent || '').trim() : '',
+      /* __THE_MANS_CARD_ON_THE_PHONE__ (FIGHT SCREEN TWO 11/17, a marked line by the coordinator's word): the plate as marks: [level, outclasses, dodges, armour] and the words they stand for */
+      full: nm && nm.dataset.full ? String(nm.dataset.full) : '',
+      plate: cl && cl.style.display !== 'none' && cl.dataset.plate ? cl.dataset.plate.split(',').map(Number) : null, says: cl && cl.dataset.says ? String(cl.dataset.says).split('|') : [] };
   };
   /* his face on the phone is the fight's own card: one tap opens the man's sheet (the fight's drawer), a second closes it */
   P.card = function () { var c = document.getElementById('card'), d = document.getElementById('drawer'); if (!c) return false; if (d) d.dataset.peek = '';
@@ -908,6 +911,43 @@
       + '#bohphone.reach .fight .frow .app.sm{flex:1 1 0;width:auto;height:28px}'
       + '#bohphone.reach .fight .frow .app.sm img{left:calc(50% - 12px)}'
       + '#bohphone.reach .fight .frow .app.sm::after{content:"";position:absolute;left:0;right:0;top:0;bottom:-6px}'
+      /* ==== __THE_MANS_CARD_ON_THE_PHONE__ (FIGHT SCREEN TWO 11/17/26; VAMILY rule 450(a), ask row 621, the third of the three cards; a marked block in
+         UI's file by the coordinator's word; rules 238, 224, 441). PAOLO 11/14, twice: 'The card bro, the combat card is UGLY AS SHIT, TRY TO MAKE SOME
+         AWESOME BIG BRAIN FINAL SHIT.' MEASURED (the teardown): three numbers and a status line set at 5 points, the line cut at the phone's edge
+         ('OUTCLASSES YOU · LV 5 · DODG'), a long name cut, a flat black strip in a different material from his sheet.
+         WHAT THE CARD IS FOR: every turn, one glance: WHO is up and whose man he is, HOW HE IS, WHAT HE HAS LEFT. So: his face a photograph
+         pinned on the house's dark board (the sheet's and the opening card's), a gold edge when he is his and red when he is theirs, his name
+         never cut (a long one takes two lines), three lit bars the width of the card (blood, armour, wind: the fight's own colours), his AP as
+         pips. THE NUMBERS LEAVE THE CARD (rule 224: a picture first, the exact figure a press away: a tap on his face is his sheet, which holds
+         them). A MAN OF THEIRS WEARS HIS PLATE AS MARKS, never cut words: LV and his level, three red chevrons when he outclasses you (the
+         board's own mark over his head), the sidestep when he dodges, a plate when his armour holds; the sheet reads each mark beside its word.
+         THE PHONE NEVER GROWS (rule 238(b)): the header keeps its height, the buttons keep FIXES' reach; nothing here is bigger than it was. */
+      + '#bohphone .fh{' + kit('board', 0.5) + 'position:relative;flex:0 0 37px;height:37px;box-sizing:border-box;gap:4px;padding:2px 3px 2px 4px;border:0}'
+      + '#bohphone .fh::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:#d9a85a;pointer-events:none}'
+      + '#bohphone .fh.them::before{background:#ff5a40}'
+      + '#bohphone .fh .fme{background:none;box-shadow:none}'
+      + '#bohphone .fh canvas{left:2px;top:2px;width:28px;height:28px;border-radius:0;transform:rotate(-1.2deg);box-shadow:0 0 0 1px #d8ceb6,0 0 0 2px #0d0a07,2px 2px 0 rgba(0,0,0,.55)}'
+      + '#bohphone .fh .fst{gap:1px;justify-content:center;align-self:stretch}'
+      + '#bohphone .fh b{color:#f2e4c6}#bohphone .fh.them b{color:#ff8a6a}'
+      + '#bohphone .fh b.long{font-size:7px;line-height:7px;letter-spacing:0;white-space:normal;overflow:visible;overflow-wrap:anywhere}'
+      + '#bohphone .fb{height:5px;gap:0}'
+      + '#bohphone .fb s{height:5px;background:rgba(255,236,200,.1);box-shadow:inset 0 1px 0 rgba(0,0,0,.6),inset 0 0 0 1px rgba(0,0,0,.35)}'
+      + '#bohphone .fb s i{box-shadow:inset 0 1px 0 rgba(255,255,255,.36),inset 0 -1px 0 rgba(0,0,0,.34)}'
+      + '#bohphone .fb em,#bohphone .fap em{display:none}'
+      /* one height for every man (the skills under it never move): his bars 5, a man of theirs' 4 (his plate takes the row his AP had), a two-line name's thinner */
+      + '#bohphone .fh.them .fb,#bohphone .fh.them .fb s{height:4px}'
+      + '#bohphone .fh b.long ~ .fb,#bohphone .fh b.long ~ .fb s{height:3px}'
+      + '#bohphone .fh.them b.long ~ .fb,#bohphone .fh.them b.long ~ .fb s{height:2px;box-shadow:none}#bohphone .fh.them b.long ~ .fb s i{box-shadow:none}'
+      + '#bohphone .fap{height:5px;margin-top:1px}#bohphone .fap .pp{gap:1px}#bohphone .fap .pp i{flex:0 0 5px;height:5px}'
+      + '#bohphone .fap .pl{display:none}'
+      + '#bohphone .fap.cls{height:8px}#bohphone .fap.cls .pp{display:none}'
+      + '#bohphone .fap.cls .pl{display:flex;align-items:center;gap:3px;min-width:0}'
+      + '#bohphone .fap .pl .lv{font:400 8px/8px "BohemiaCasing",ui-sans-serif,sans-serif;font-style:normal;letter-spacing:.5px;color:#ff8a6a;white-space:nowrap;text-shadow:0 1px 0 #000}'
+      + '#bohphone .fap .pl .mk{flex:0 0 8px;width:8px;height:8px;background:center/contain no-repeat;image-rendering:pixelated}'
+      + '#bohphone .fap .pl .mk.oc{background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 8 8%27%3E%3Cpath d=%27M1 2.5 4 .5 7 2.5M1 5 4 3 7 5M1 7.5 4 5.5 7 7.5%27 fill=%27none%27 stroke=%27%23ff5a40%27 stroke-width=%271.2%27/%3E%3C/svg%3E\")}'
+      + '#bohphone .fap .pl .mk.dodge{background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 8 8%27%3E%3Cpath d=%27M.5 4h7M2.6 1.6.5 4l2.1 2.4M5.4 1.6 7.5 4 5.4 6.4%27 fill=%27none%27 stroke=%27%23f2e4c6%27 stroke-width=%271.1%27/%3E%3C/svg%3E\")}'
+      + '#bohphone .fap .pl .mk.armour{background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 8 8%27%3E%3Cpath d=%27M1 1h6v3.4c0 2.1-3 3.1-3 3.1s-3-1-3-3.1z%27 fill=%27%239fb0c4%27 stroke=%27%230d0a07%27 stroke-width=%27.6%27/%3E%3C/svg%3E\")}'
+      /* ==== /__THE_MANS_CARD_ON_THE_PHONE__ ==== */
       /* COMBAT TIME: stop-motion holds on the beat (steps, never a smooth slide): the glass flashes, the crosshair strikes in
          three holds and beats twice, the word under it */
       + '#bohphone .cmb{position:absolute;inset:0;z-index:6;display:none;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#2a0907}'
@@ -1739,7 +1779,7 @@
   function manPaint(force) {
     var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F || !F.man) return;
     var M = F.man(), bars = [M.hp, M.arm, M.fat].map(function (b) { return b ? [b.w, b.c, b.n].join(',') : ''; });
-    var key = [M.name, M.main, bars.join(';'), M.ap, M.apTurn, M.cls, M.round].join('|');
+    var key = [M.name, M.main, bars.join(';'), M.ap, M.apTurn, M.cls, M.round, M.full, (M.plate || []).join(',')].join('|');
     if (!force && key === H.manKey) return; H.manKey = key;
     H.el.querySelector('.stat .wh').textContent = M.round || '';
     var hd = H.el.querySelector('.fh');
@@ -1757,6 +1797,21 @@
       pp.textContent = ''; for (var k = 0; k < M.apTurn; k++) { var q = document.createElement('i'); if (k < M.ap) q.className = 'on'; pp.appendChild(q); }
       fa.querySelector('em').textContent = M.apTurn ? M.ap + ' AP' : '';
     }
+    /* __THE_MANS_CARD_ON_THE_PHONE__ (FIGHT SCREEN TWO 11/17, rule 450(a)): whose man (the edge), a name never cut (a long one takes two lines), a man of
+       theirs' plate as marks: LV and his level, then the marks he wears, each named for a reader by the plate's own word. The words stay in the em for the gates. */
+    hd.classList.toggle('them', !!M.cls);
+    var nb = hd.querySelector('b'), short = nb.textContent; nb.classList.remove('long');
+    if (M.full && M.full !== M.name) nb.textContent = M.full + (M.main ? ' *' : '');   /* his whole name when the card can hold it */
+    if (nb.scrollWidth > nb.clientWidth + 1) { nb.classList.add('long'); if (nb.scrollHeight > 15) { nb.classList.remove('long'); nb.textContent = short; if (nb.scrollWidth > nb.clientWidth + 1) nb.classList.add('long'); } }
+    var pl = fa.querySelector('.pl'); if (!pl) { pl = document.createElement('span'); pl.className = 'pl'; fa.insertBefore(pl, fa.firstChild); }
+    pl.textContent = '';
+    if (M.cls) {
+      var P4 = M.plate || [(/LV\s*(\d+)/.exec(M.cls) || [0, ''])[1], 0, 0, 0], says = M.says || [];
+      var lv = document.createElement('i'); lv.className = 'lv'; lv.textContent = 'LV ' + P4[0]; pl.appendChild(lv);
+      [['oc', P4[1], says[0]], ['dodge', P4[2], says[1]], ['armour', P4[3], says[2]]].forEach(function (m) { if (!m[1]) return;
+        var k = document.createElement('i'); k.className = 'mk ' + m[0]; k.setAttribute('role', 'img'); if (m[2]) k.setAttribute('aria-label', String(m[2]).toLowerCase()); pl.appendChild(k); });
+    }
+    window.__PHONE_CARD_SAYS = { name: M.name, theirs: !!M.cls, plate: M.plate || null, long: nb.classList.contains('long') };
     window.__PHONE_MAN = M.name;
   }
 

@@ -180,7 +180,9 @@
     var C = 'BohemiaCasing,ui-monospace,monospace', R = 'BohemiaROM,ui-monospace,monospace', st = document.createElement('style'); st.id = 'mco-style';
     st.textContent = [
       '.mco .mc{box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "wall" "ground" "btn";gap:9px;padding:16px 12px 12px!important;border:0!important;border-left:3px solid ' + RIM.them + '!important;border-radius:0!important;background-color:#2a2016!important;color:#f2e4c6;filter:drop-shadow(3px 2px 0 rgba(10,6,3,.6))}',
-      '.mco.ours .mc{border-left-color:' + RIM.you + '!important}',
+      /* THE FAMILY'S EDGE (11/17, measured: the kit's board clears every border colour, so the edge above never showed): one strip, red theirs, gold his, as on the sheet and the phone's card */
+      '.mco .mc{position:relative}.mco .mc::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:#ff5a40;pointer-events:none}',
+      '.mco.ours .mc::before{background:' + RIM.you + '}',
       '.mco.wide .mc{grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);grid-template-areas:"head wall" "head ground" "btn btn";grid-template-rows:auto 1fr auto;column-gap:12px}',
       '.mco .mco-head{grid-area:head;display:flex;gap:11px;align-items:flex-start;min-width:0}',
       '.mco .mco-photo{position:relative;flex:0 0 auto;width:76px;height:76px;margin:3px 5px 5px 5px;background:#0d0b09;transform:rotate(-1.4deg);box-shadow:0 0 0 1px #0d0a07,0 0 0 3px #d8ceb6,0 0 0 4px #0d0a07,3px 4px 0 rgba(0,0,0,.55)}',

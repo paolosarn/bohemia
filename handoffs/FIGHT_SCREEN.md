@@ -5,6 +5,48 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
+FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/17 LATEST -- [phone card] SHIPPED PENDINGSHA, BUILD 11/17g - THE MAN'S CARD ON THE PHONE, BUILT, NOT YET SEEN (rule 450(a); ask row 621 DONE: all three cards are on the page). VOTE fight-screen-the-mans-card-on-the-phone-11-17 (stand_in; before and after, upright and sideways).
+THIS CHAT IS FIGHT SCREEN TWO. Record: records/BOHEMIA_FIGHT_SCREEN_THE_MANS_CARD_ON_THE_PHONE_11_17_26.md.
+STRUCK, AND WHY: the block below planned to GROW THE PHONE in a fight. Rule 238 (PAOLO 10/26, LOCKED): 'a solution to any of your UI problems will not be to make the
+phone longer... don't ever do that'; 'tinier, and that's OK'. FIXES gave every press its finger's reach on 11/9. The buttons are settled by his word; the teardown's
+'44 points' is not the phone's rule. READ slices/bohemia_phone.js's own comments before planning anything on the phone.
+WHAT: the card he sees every turn, rebuilt inside the phone's own size: his face a photograph in a paper frame pinned on the house's dark board, a strip down the
+card's side gold when he is his and red when he is theirs, his name never cut (thirteen letters a line, a longer one two lines; the fight hands the phone his whole
+name), three lit bars the width of the card, his AP as pips. THE NUMBERS LEAVE THE CARD (rule 224; his sheet holds them; they stay in the page unshown for the
+readers). A MAN OF THEIRS WEARS LV AND MARKS, never cut words: three red chevrons (outclasses, the board's own mark), the sidestep (dodges), a plate (armour); his
+sheet reads each mark beside its word on the level line (a tight sheet grows by nothing; at its last step the words fold and a finger on a mark reads its word on
+the reading line) and says the level his plate says. One height for every man (37 of the phone's points), so nothing under the card moves.
+THE FAMILY PASS: the edge the sheet and the opening card were written to wear NEVER SHOWED (the kit's board clears every border colour); one ::before strip on all
+three now, gold rgb(217, 168, 90) his, red rgb(255, 90, 64) theirs. A man of theirs had two levels (sheet LEVEL 1, plate LV 5): one now (lvOf).
+WHERE: slices/bohemia_phone.js __THE_MANS_CARD_ON_THE_PHONE__ (UI's file, a marked block by the coordinator's word: css after FIXES' reach; a marked line in P.man
+(full, plate, says); a marked block at the foot of manPaint; window.__PHONE_CARD_SAYS); slices/BOHEMIA_FIGHT.html (hud: #cls dataset.plate and .says, #cnm
+dataset.full; sheetPlate, .sh-plate, .pmk, #drawer.sheet::before); slices/bohemia_fight_opener.js (.mc::before).
+GATE THE MAN'S CARD ON THE PHONE 9/0 (P1 to P7, one plant; the demo's page both ways through tools/bohemia_fight_screen_the_phone_card.js), registered.
+PRE-PUSH PASS: THE PHONE 268/0 (UI's own gate on its file, run alone; a first run beside three other browsers showed three reds in one walk whose fight did not open, gone when run alone); THE CARD THAT OPENS A FIGHT 8/0; THE MAN'S SHEET 7/0; THE WHY LINE 15/0; ICONS, NOT NUMBERS, IN THE FIGHT 8/0; EVERY PANEL CLOSES 14/0; DEMO BUILD 25/0; HANDOFF 10/0; PAGES PUBLISH 30/0. NAMED, NOT MINE: THE FOURTEEN EYES FOUND 151/5 (F531 81 of 85 boards, F553 YOUR PLACE on a road, F606 a question stops the clock: the same three red with this ship's change stashed; its reach legs on the phone's fight page pass); STATS ARE BARS AND ARROWS 45/2 (THE SHOP ON A MAN, the shop's arrows); the VOTE tab's landing legs and other lanes' sheets; the registry's orphans.
+ON THE PAGE: RESULT, four surfaces (the demo and the alpha, upright and on its side), a crew met through the map's card and ENGAGED with a finger: the phone 124 x 276 upright and 112 x 248 on its side on all four; the card 37 tall (33.3 on its side) for his man, a man of theirs and a two-line name, the FIGHT button and the skills' box unmoved; no name cut, nothing off the card, no digit showing for his man, his level the only digits for a man of theirs; 24 men of theirs put on the card across the four, every level and mark the fight's own read of him (LEADER LV 10 with the chevrons and the plate, RAIDER LV 6, MARKSMAN LV 5 with the chevrons and the sidestep, THUG LV 3 with none); a 26 letter name on two lines; a finger on the face: his sheet says the level his plate says and reads the marks in words under a red edge; the card that opens the fight wears the same red edge. 0 page errors.
+FOR THE TOOL: tools/bohemia_fight_screen_the_phone_card.js <alpha|demo> <upright|sideways> <outdir>; BEFORE=1 serves the two files as HEAD has them; PLANT=1 takes the two-line fit out.
+THE SEAMS: UI THREE: your markup, your reach and your sizes are as they were; my block is css and two marked places in your file. COMBAT: CLASS_SAYS and classOf are
+read through #cls's dataset, never copied; the plate's FIGURES ('DODGES 82%', 'ARMOUR 120') are nowhere he can read them now (the marks say that, not by how much):
+yours to place, the sheet's own rule caps its numbers at 14.
+
+NEXT, in order (the three cards are done; rule 449(b) is the rest of the glass):
+ (0) EYES' TWO FINDS, FIRST (the NOTE below, ask rows 630, 631; rule 441(b)): 630 THE CREW'S PORTRAIT IS ALL HELMET (YOU and DESI a nose and a mouth, RAUL the
+     helmet only; it leads the sheet, the why line, the phone's card and the opening card's rows): the helmet is engine/bohemia_wear.js face() (CHARACTER's, rule 272)
+     over PORTRAIT's head; measure which of the two frames it wrong before touching either. 631 THE WHY LINE IS TRUE TO HOW THE FIGHT BEGAN, NOT TO THE JOB OR THE
+     PLACE (a cold box job's THUG says 'They paid you to clear this road'; every road stop a THUG with one of three road lines, in the casino and the garage too):
+     the table's hows and facts are this lane's (records/target/bb/fight_reasons.json, slices/bohemia_fight_why.js); rule 454(a): no line is rewritten this week, so
+     the fix is which rule fires and what the fight is told (the job's kind, the place), never new sentences.
+ (1) ONE MATERIAL FOR THE SPEAKING CARDS: #vet is still pale paper beside the three (five gates read it: nothing pops, the crew's commentary, the fight by hand,
+     the first fight teaches, the loss is understood). #why and #call are dark glass. Make all three the family's board.
+ (2) THE LIBRARY PAGE on Rogue Fable 4's screen and card (the library has none): owed before any card is called final against it.
+ (3) THE END SCREEN and THE STRIP #say, in the family's look (rule 449(b) lists the end screen).
+ (4) The opening card's men as BODIES (the fight's own sheets of the dealt looks, slices/fight_rig), which the fight needs a moment later anyway.
+ (5) The turn order: his own note 9 of 11/2 took it off the phone and the glass ('I don't think anyone gives a fuck about which character is next'): NOT owed
+     unless he asks; the teardown's line on it was this lane measuring against Battle Brothers, not against him.
+[bb Battle Brothers prints a man's numbers on a bar across a monitor's foot; ours is a phone in the corner of a phone, so the card keeps a face, three bars and pips and the numbers live on his sheet]
+[analog horror: an ID photograph in a paper frame, and for the man who can kill you three red marks where his name tag would be]
+
+FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/14 -- [opening card] SHIPPED 2f8ca51fc, BUILD 11/14z - THE CARD THAT OPENS A FIGHT, BUILT, NOT YET SEEN (rule 450(a); ask row 621, two of three cards). VOTE fight-screen-the-card-that-opens-a-fight-11-14 (stand_in; before and after, upright and sideways).
 NOTE 11/17 FROM EYES TO FIGHT SCREEN 2 (rule 441; the routine 'EYES walk the 11/14 builds') -- ASK ROWS 630, 631. Record: records/BOHEMIA_EYES_WALK_THE_11_14_BUILDS_11_17_26.md (pictures records/eyes_walk_11_17/).
 SEEN: the why line in 13 of 13 fights; the white hit never past 3 starts in a second over 12 AUTO fights (5 v 5 at 4x, closest 233 ms,
 peak 0.58); the man's sheet inside the glass upright; the card's face, name, sentence, faces of THEM and YOU, three buttons.
@@ -43,7 +85,7 @@ FOR THE TOOL: tools/bohemia_fight_screen_the_opening_card.js <alpha|demo> <uprig
 On the alpha the tool opens the map with the game's own swap (its RUN tab leaves a town onto the old street, where there is no card).
 
 NEXT, in order (rule 450(a), ask row 621): ONE CARD LEFT.
- (1) THE MAN'S CARD ON THE PHONE (the one he sees every turn: 5 point numbers, a cut status line, buttons of 25 by 27 points). NOT BUILT, AND MEASURED (rule 12; the
+ (1) [STRUCK 11/17: BUILT, and the plan in this item to grow the phone was wrong against rule 238; read the newest block] THE MAN'S CARD ON THE PHONE (the one he sees every turn: 5 point numbers, a cut status line, buttons of 25 by 27 points). NOT BUILT, AND MEASURED (rule 12; the
      teardown's own boxes, records/fight_screen_teardown_11_14/measured_upright.json): the phone's fight page is 108 x 235 points upright (97 x 212 on its side). A
      finished page needs 278: his card 48 (a 36 point pinned face, his name at 11 points, three bars with no numbers, his AP as pips), FIGHT 44, WAIT / AUTO / speed /
      RETREAT as two rows of two thumbs 92, STRIKE 50, the two apps 44, before one row of skills. IT DOES NOT FIT, SO THE PHONE GROWS IN A FIGHT (about 124 x 330 of
