@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 453, 416, 451(a), 428; ask row 468): 11/17 LATEST -- [the convention hall] SHIPPED SHIPSHA, BUILD 11/17c - THE CONVENTION HALL, BUILT, NOT YET SEEN. VOTE combat3-the-convention-hall-11-17 (stand_in).
+COMBAT THREE (rules 453, 416, 451(a), 428; ask row 468): 11/17 LATEST -- [the convention hall] SHIPPED dc02fb462, BUILD 11/17c - THE CONVENTION HALL, BUILT, NOT YET SEEN. VOTE combat3-the-convention-hall-11-17 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_CONVENTION_HALL_11_17_26.md. The full sweep's job 1 (the next big inside from the researched list: the fourth).
 WHAT: a fight at the convention center (0.7 of what the garage leaves there, by the cell's dice; opts.inside 'hall' anywhere) is fought in one corner of a hall turned shelter:
 bare aisles (open floor), fields of cots (low cover), relief pallets and sandbags (cover), chairs (rough, low cover), containers and columns (blockers), a mezzanine along the
