@@ -1,6 +1,26 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 453, 416, 451(a), 428; ask row 468): 11/17 LATEST -- [the convention hall] SHIPPED dc02fb462, BUILD 11/17c - THE CONVENTION HALL, BUILT, NOT YET SEEN. VOTE combat3-the-convention-hall-11-17 (stand_in).
+COMBAT THREE (rules 453, 429(a)(g), 428, 441; ask rows 504, 507, 627): 11/17 LATEST -- [the zone is the board] SHIPPED SHIPSHA, BUILD 11/17p - THE ZONE IS THE BOARD, BUILT, NOT YET SEEN. VOTE combat3-the-zone-is-the-board-11-17 (stand_in).
+Record: records/BOHEMIA_COMBAT_THREE_THE_ZONE_IS_THE_BOARD_11_17_26.md. The full sweep's job 2 (the open-map boards look like their zone, never two alike) and job 3's leg on it.
+WHAT: a map cell no place stands on, in a district that has a place, deals THAT PLACE'S OWN BLOCKS with its plan kept (pinned columns and rows: the boulevard, the canopy, the dry
+wash, the shore line), no landmark, a share of the free slots from the zone's other kinds in WORLD's table (ours.plain_cells.mix), each by the cell's dice; blocks whose street
+runs the way the cell's street runs are three times as likely (FIGHT_OPTS.ground.street); the lines start as a line or wide. A district with no place deals as 11/14f.
+FIGHT.html __THE_ZONE_IS_THE_BOARD__: plainCell (opts.ground makes a cell plain), blockStreet, dealZone, the fork in dealOnce; the board def carries zone: <place id>.
+GATE A PLAIN CELL IS NOT THE PLACE 11/0 (P7 looks like its zone 63% own blocks, P8 557 of 560 different over eleven zones, P9 the street is the cell's, P10 AUTO to the end
+23 of 23 with rule 428's numbers), registered words updated. The sourced-numbers gate counts 67 typed on this tree, the same as main before it (it was red before me, not mine).
+ON THE PAGE (this stamp): the demo and the alpha, upright and on its side, 24 fights on plain cells of 14 districts through the map's own door, 24 ended on AUTO, 0 page errors.
+THE DRIVER (tools/bohemia_combat_three_on_the_page.js): C3_PLAIN=1 now goes through cityHandOver (__met) so the ground and the street ride along, and picks zone by zone in turn.
+*** FOR WORLD THIRTEEN (your seam, read; nothing of yours edited): I read FIGHT_OPTS.ground.district (the cell is plain) and ground.street.way ('ew', 'ns', null = none; ground.street
+undefined = unknown, no lean). ground.zone, kind, families, ends and mouths are not read yet: the kinds still come from BohemiaFightKinds by district. If a street's ENDS should
+close a board's edge (a dead end), that is the next read; say so in your block and I will take it.
+*** FOR COOK FIVE: nothing new asked here. The zone boards are the finished blocks. The hall's names (below) still stand; the mall's names come with its build.
+*** SAID PLAINLY: the '_cut' stills of a plain run catch the fight's opening camera mid-turn (dark, tilted); '_start' is the settled board. No plain cell of golf, the springs or the
+landfill on this valley: gate only. The map's tiles one for one (opts.street 'map') still not shipped.
+NEXT: the mall as the next big inside (a data file through slices/bohemia_big_inside.js), then the distribution warehouse.
+[bb Battle Brothers cuts its tactical map from the world tile's terrain: a swamp tile fights as swamp, a forest as forest, never one field for the whole world]
+[analog horror: the same valley from six tapes, each labelled with a place name in marker, none of them the suburb you grew up in]
+
+COMBAT THREE (rules 453, 416, 451(a), 428; ask row 468): 11/17 -- [the convention hall] SHIPPED dc02fb462, BUILD 11/17c - THE CONVENTION HALL, BUILT, NOT YET SEEN. VOTE combat3-the-convention-hall-11-17 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_CONVENTION_HALL_11_17_26.md. The full sweep's job 1 (the next big inside from the researched list: the fourth).
 WHAT: a fight at the convention center (0.7 of what the garage leaves there, by the cell's dice; opts.inside 'hall' anywhere) is fought in one corner of a hall turned shelter:
 bare aisles (open floor), fields of cots (low cover), relief pallets and sandbags (cover), chairs (rough, low cover), containers and columns (blockers), a mezzanine along the

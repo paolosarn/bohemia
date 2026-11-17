@@ -1,3 +1,11 @@
+COMBAT THREE (combat-three-01gkdyuu): 11/17 LATEST -- BUILD 11/17p - THE ZONE IS THE BOARD, BUILT, NOT YET SEEN (the full sweep, rule 453, jobs 2 and 3; rules 429(a)(g), 428; ask rows 504, 507, 627).
+A fight on a map cell no place stands on is fought on its zone's own ground: the desert's sand and dry wash, the rail works' boxcars, the trailer park, the Strip's boulevard, the
+dry lake bed, downtown's canopy; the plan kept, no landmark, the zone's other kinds mixed in by the cell's dice, a lean to blocks whose street runs the way the cell's street runs.
+557 of 560 boards different over eleven zones; the same cell the same board every visit. GATE A PLAIN CELL IS NOT THE PLACE 11/0 (P7 to P10 new). ON THE PAGE: the demo and the
+alpha, upright and on its side, 24 fights through the map's own door, 24 ended on AUTO, 0 page errors. VOTE combat3-the-zone-is-the-board-11-17 (stand_in). NEXT: the mall as the
+next big inside. The whole block: handoffs/COMBAT_THREE.md.
+[bb Battle Brothers cuts its tactical map from the world tile's terrain: a swamp tile fights as swamp, never one field for the whole world]
+[analog horror: the same valley from six tapes, each labelled with a place name in marker, none of them the suburb you grew up in]
 FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/17 LATEST -- BUILD 11/17o - THE WHY IS TRUE, THE FACE SHOWS, BUILT (64b4ee0e0), NOT YET SEEN (ask rows 631 and 630, FOUND BY EYES; rules 449(a), 450(a), 441). Its block is handoffs/FIGHT_SCREEN.md.
 THIS CHAT IS FIGHT SCREEN TWO. Two finds EYES left on this lane's builds, one build. THE WHY LINE: the fight was told that a job began it, never which job, and never
 asked if there was a sky, so a man holding a stolen box said 'They paid you to clear this road'. Now the table says when each sentence may be said, the fight reads
@@ -70,7 +78,7 @@ BOSSES' gates with them in, the alpha: THE PLATE 21 of 21, THE TOOTH 21 of 21. G
 VOTE cook5-the-newest-bosses-map-pieces-11-17 (MADE FROM). NEXT ON THIS LANE: the bus yard and the greenhouses. The whole block: handoffs/COOK_FIVE.md.
 [bb Battle Brothers' caravans and toll-takers are one plain object on the road read from far off; the wagon and the pole are that]
 [analog horror: an eye sprayed over an eye test, and the smoke that keeps you from seeing who put it there]
-COMBAT THREE (combat-three-01gkdyuu): 11/17 LATEST -- BUILD 11/17c - THE CONVENTION HALL, BUILT, NOT YET SEEN (rules 453, 416, 451(a), 428; ask row 468).
+COMBAT THREE (combat-three-01gkdyuu): 11/17 -- BUILD 11/17c - THE CONVENTION HALL, BUILT, NOT YET SEEN (rules 453, 416, 451(a), 428; ask row 468).
 THE FOURTH BIG INSIDE: a fight at the convention center (about four in ten) starts in one of its halls turned shelter: fields of cots, relief pallets and
 sandbags for cover, bare aisles nobody stays on, a mezzanine the other crew holds, a folding wall with a gap, dark but for the dock doors and drum fires, its
 roof trusses overhead at 10%. Every tile says its cost and effect. AN INSIDE IS DATA NOW: one module lays any of them from a data file, so the mall and the

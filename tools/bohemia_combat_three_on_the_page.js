@@ -102,6 +102,9 @@ const HOOKS = `(function(){
     for (let i = 0; i < 40 && ids.length; i++) { const L = by[ids[(i + SKIP) % ids.length]], wantTx = [0, 9, 18, 6, 15, 3, 12][(i + SKIP) % 7], wantTy = [0, 12, 6, 3, 9][(i + SKIP) % 5];
       L.sort((a, b) => (Math.abs(a.tpl.tx - wantTx) + Math.abs(a.tpl.ty - wantTy)) - (Math.abs(b.tpl.tx - wantTx) + Math.abs(b.tpl.ty - wantTy))); if (pick.indexOf(L[0]) < 0) pick.push(L[0]); }
     log('place cells on this valley', cells.length, 'places', ids.length);
+  } else if (process.env.C3_PLAIN) {   /* zone by zone in turn (the districts asked for, in the order asked), each zone's cells taken from across its own list, so a run of five is five zones and not the map's top row */
+    const by = {}; cells.forEach(c => { (by[c.d] = by[c.d] || []).push(c); }); const ids = DIST.filter(d => by[d]);
+    for (let i = 0; i < 40 && ids.length; i++) { const L = by[ids[i % ids.length]], k = Math.floor(i / ids.length), c = L[Math.floor(L.length * ((k * 0.37 + 0.31) % 1))]; if (c && pick.indexOf(c) < 0) pick.push(c); }
   } else { const step = Math.max(1, Math.floor(cells.length / 40)); for (let i = 0; i < cells.length && pick.length < 40; i += step) pick.push(cells[i]); }
   const results = [], speeds = [1, 2, 4]; let tried = 0;
   for (const c of pick) {
@@ -110,6 +113,10 @@ const HOOKS = `(function(){
       const ok = await city().evaluate(([c, n]) => { const msg = { type: 'BOHEMIA_CITY_ENCOUNTER', district: c.d, at: { gx: c.at[0], gy: c.at[1] }, label: 'combat3-page', draft: true };
         if (!window.BohemiaBosses || !BohemiaBosses.dress(msg, { n: n })) return false; window.top.nfOpen(msg); return true; }, [c, BOSS]);
       if (!ok) { log('the boss could not be dressed:', BOSS); break; }
+    } else if (process.env.C3_PLAIN && !CUT) {   /* a cell no place stands on goes through THE MAP'S OWN DOOR (cityHandOver, the meet card already answered: __met), so the fight is
+         handed what the map hands it: the cell's ground, its zone and its street (WORLD THIRTEEN's FIGHT_OPTS.ground), nothing made up here */
+      const ok = await city().evaluate((c) => { try { return cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', district: c.d, at: [c.at[0], c.at[1]], label: 'combat3-page', draft: true, __met: true }) !== false; } catch (e) { return 'ERR ' + e.message; } }, c);
+      if (ok !== true) { log('the map\'s door did not open at', c.d, JSON.stringify(c.at), String(ok)); continue; }
     } else
     await page.evaluate((c) => { const m = { type: 'BOHEMIA_CITY_ENCOUNTER', district: c.d, at: { gx: c.at[0], gy: c.at[1] }, label: 'combat3-page', draft: true }; if (c.tpl) m.template = c.tpl; window.nfOpen(m); }, c);
     if (!(await until(async () => { const f = fightF(); return f && await f.evaluate(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units.length > 0 && !!FIGHT.__c3); }, 40000))) { log('no fight came at', c.d, c.at); continue; }
@@ -128,7 +135,9 @@ const HOOKS = `(function(){
       return { cut: C, own: B.own || null, tpl: (window.FIGHT_OPTS || {}).template || null, cols: S.cols, rowMid: S.rowMid, his: his.map(u => [u.x, u.y]), theirs: th.map(u => [u.x, u.y]), apart: d, onGlass: onGlass, men: his.length, deploy: !!S.deploy, night: !!S.night, round: S.round, theirsOnGlass: th.filter(u => { const X = sx((u.x + .5 + stagger(u.y)) * UI.tw), Y = sy((u.y + .6) * UI.th); return X > 0 && Y > 0 && X < innerWidth && Y < innerHeight; }).length, them: th.length,
         nearRow: C ? Math.min.apply(null, his.map(u => Math.abs(u.y - C.mid))) : null, ahead: his.filter(u => u.x > S.cols[0]).length, west: th.filter(v => v.x <= S.cols[0]).length }; }) : null;
     if (cut) log('   the cut:', cut.own, 'cell tiles', cut.tpl ? cut.tpl.tx + ',' + cut.tpl.ty : 'NONE', '-> front', cut.cut ? cut.cut.front + ' (' + cut.cut.stood + ', asked ' + cut.cut.wanted + ')' : 'NO CELL START', 'row', cut.rowMid, 'nearest man', cut.nearRow, 'rows off; his', JSON.stringify(cut.his), 'theirs nearest', cut.apart, 'on the glass his', cut.onGlass + '/' + cut.men, 'theirs', cut.theirsOnGlass + '/' + cut.them, cut.deploy ? '(he sets his line)' : '(round ' + cut.round + ')', cut.night ? 'night' : 'day');
-    const own = await f.evaluate(() => ({ own: FIGHT.S.boardDef.own || null, blocks: [].concat.apply([], FIGHT.S.boardDef.blocks || []).map(n => String(n).split('|')[0]).filter((n, i, a) => a.indexOf(n) === i).join(' ') }));
+    const own = await f.evaluate(() => { const G = (window.FIGHT_OPTS || {}).ground || null, D = FIGHT.S.deal || FIGHT.S.dealt || null; return { own: FIGHT.S.boardDef.own || null, blocks: [].concat.apply([], FIGHT.S.boardDef.blocks || []).map(n => String(n).split('|')[0]).filter((n, i, a) => a.indexOf(n) === i).join(' '),
+      grid: (FIGHT.S.boardDef.blocks || []).map(r => r.join(' ')).join(' / '), zone: FIGHT.S.boardDef.zone || (D && D.zone) || null, ground: G ? { zone: G.zone, street: G.street ? (G.street.way || 'a street, no way') : 'none', kind: G.kind } : null }; });
+    if (process.env.C3_PLAIN) log('   the zone:', own.zone ? 'dealt as the ' + own.zone + ' zone' : 'NO ZONE BOARD', '| the map handed', own.ground ? 'zone ' + own.ground.zone + ', street ' + own.ground.street + ', kind ' + own.ground.kind : 'NO GROUND', '|', own.grid);
     log('fight', n, c.d, JSON.stringify(c.at), o.board, o.inside || '-', o.layout || '', 'men', o.mine, 'v', o.theirs, wanted ? '' : '(not the board asked for)', own.own ? 'THE PLACE\'S OWN BOARD ' + own.own : 'blocks: ' + own.blocks);
     /* THE CEILING OF AN INSIDE (rule 451(a)): the same frame read off the glass with the ceiling and without it (UI.noCeiling, the
        test's switch): how much any pixel moves (never so strong it hides a man, a tile or a range band) and two frames with it on

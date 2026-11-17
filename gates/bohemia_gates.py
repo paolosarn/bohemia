@@ -9574,7 +9574,11 @@ GATES = [
      "with no place under it is dealt no place's own board (P1), only blocks of the kinds WORLD's table names for its district (P2), never the "
      "same board for everything: 30 plain suburb cells at least five boards, no district one board only (P3); a place's cell still deals the "
      "place (P4); a fight plays on a plain cell of every place's district (P5); the same cell deals the same board twice, the fight's board "
-     "never re-deals between two visits (P6). Planted: the plain cell not known. About 50 s", True),
+     "never re-deals between two visits (P6). 11/17 THE ZONE IS THE BOARD (rules 453, 429(g)): a plain cell of a district that has a place "
+     "deals that place's own blocks, no landmark, at least three blocks in ten its own in every district (P7); zone by zone of WORLD THIRTEEN's "
+     "land-use zones, 16 plain cells a district, at least nine boards in ten different (P8); a cell handed a north-to-south street deals more "
+     "blocks whose street runs that way than the same cell with none (P9); AUTO to the end on a plain cell of every place's districts, fewer "
+     "men bare on the open street than with rule 428's leg off, both sides on cover and roofs (P10). Planted: the plain cell not known. About 115 s", True),
     ('THE CREW STARTS ON ITS CELL', ['node', 'gates/the_crew_starts_on_its_cell_gate.js'],
      "COMBAT THREE gate, 11/11, VAMILY rule 429(a) ONE MAP (ask rows 504, 506, 507; WORLD THIRTEEN's seam: 'start the crew on the cell's tiles'). "
      "A fight the map hands from a cell of one of the 15 places is dealt that place's own board block for block (K1); a man of his stands as near "
