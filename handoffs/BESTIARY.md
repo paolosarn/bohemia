@@ -1,5 +1,20 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
+BESTIARY (routine 'BESTIARY the mammoth is too big', rule 458(b), ask row 641): 11/17 LATEST -- BUILD 11/17zk THE MAMMOTH, NOT A BUILDING (SHA4_HERE), BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_BESTIARY_AS_TALL_AS_IT_STOOD_11_17_26.md. VOTE bestiary-the-mammoth-11-17 (re-shot).
+| beast | at the shoulder in life | before (tallest picture) | now |
+|---|---|---|---|
+| Columbian mammoth | 4.0 m, 2.29 men | 3.06 men | 2.30 |
+| long-horned bison | 2.5 m, 1.43 | 2.00 | 1.50 |
+| ancient bison | 2.27 m, 1.30 | 1.71 | 1.28 |
+| short-faced bear | 1.7 m, 0.97 | 1.32 | 0.99 |
+- ONE NUMBER (bohemia_enemies.json numbers.beast_draw 0.75, TUNING's to move), read in the fight (bodyK), the map's animal and kill
+  (bohemia_job_kinds.js beastK, bohemia_carcass.js) and the after-fight picture (bohemia_aftermath.js). Men never scaled. No art changed.
+- Gate: THE BESTIARY FLOOR F11 AS TALL AS IT STOOD (planted at 1.0: the mammoth 3.06 men, red).
+- The floor as before: factions 12, types 67 of about 75, beasts 18 lab-made, bosses 10, champions named.
+[bb Battle Brothers draws its Unhold a head and a half over a brother, not three; the board reads the size, the rules carry the weight.]
+[analog horror: the mammoth between the houses at night, two men and a half tall, which is worse than a tower: it is real.]
+
 BESTIARY (routine 'BESTIARY full sweep', rules 453, 454(a), 441): 11/17 LATEST -- BUILD 11/17zi THREE NEW WAYS (22d2fc03), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_THREE_NEW_WAYS_11_17_26.md. VOTE bestiary-three-new-ways-11-17.
 | floor | his | the fight fields | short |

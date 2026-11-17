@@ -9326,6 +9326,14 @@ const DIR8 = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
 function dirOf(ddx, ddy) { return (Math.round(Math.atan2(ddx, ddy) / (Math.PI / 4)) % 8 + 8) % 8; }
 /* a beast wears its rig model (ours.beast_rig_looks: the redone dire wolf, the cave hyena, the feral shepherd); a man his look */
 function rigBeast(v) { if (!v.beast) return null; const m = DB.ours.beast_rig_looks ? DB.ours.beast_rig_looks.value[v.kind] : null; return DB.rig.looks[m] || DB.rig.looks.beast_dire_wolf; }
+/* AN ANIMAL IS DRAWN AS TALL AS IT STOOD (BESTIARY 11/17, rule 458(b), ask row 638; Paolo on THE COLUMBIAN MAMMOTH: 'Make it not so
+   big this shit bigger than the empire state building'). MEASURED: every beast's model is at its size in metres against the man's
+   (side on, the mammoth stands 2.3 men, the long-horned bison 1.4, the short-faced bear 1.0), but the fight looks down on them, and
+   a long body facing the glass stacks its length up the picture: facing him every animal stood about 1.35 times its height against
+   a man, the mammoth 3.1 men, a tower over the blocks. A beast is drawn at bohemia_enemies.json numbers.beast_draw.scale of its
+   sheet (three quarters): its tallest facing now stands as tall against a man as the animal stood in life (the mammoth 2.3 men, a
+   little over twice a man at four metres), the herd's sizes to each other untouched. Men are never scaled (rule 21) */
+function bodyK(v) { if (!v || !v.beast) return 1; const n = DB.newEnemies && DB.newEnemies.numbers && DB.newEnemies.numbers.beast_draw; return n && n.value && n.value.scale > 0 ? n.value.scale : 1; }
 function lookOf(v) { return rigBeast(v) || DB.rig.looks[v.look] || DB.rig.looks[R('ours.people_looks').crew[0]] || DB.rig.looks[Object.keys(DB.rig.looks).filter(function (k) { return DB.rig.looks[k].kind !== 'beast'; })[0]]; }
 function clipCol(name, k, L) { const c = (L && L.clips || DB.rig.clips)[name]; return c[Math.max(0, Math.min(c.length - 1, k))]; }
 /* the sheet a man is drawn from: his look's, in the night's colour where no lamp reaches him (cached per sheet) */
@@ -9970,7 +9978,7 @@ function ownGunGrid(v, L, p, ox, oy, s) {
 /* one man on the glass: his sheet's cell at a whole number of device pixels, his feet on the ground point */
 function blitMan(v, X, feet, now, alpha) {
   const img = sheetOf(v); if (!img) return;
-  const L = lookOf(v), s = rigScale(), gs = gunSheet(v, L);
+  const L = lookOf(v), s = rigScale() * bodyK(v), gs = gunSheet(v, L);   /* BESTIARY 11/17: a beast as tall as it stood */
   let p = poseOf(v, stopNow(v, now));   /* THE PUNCH: both men hold the impact key for the freeze */
   UI.clipSeen = UI.clipSeen || {}; UI.clipSeen[p.clip] = (UI.clipSeen[p.clip] || 0) + 1;
   /* THE GUN IS HELD, NEVER SWUNG (Paolo 10/19: 'I don't like how the weapons just swing with the hand like some dumbass
@@ -10313,7 +10321,7 @@ function standsNow() {
 }
 /* the man's picture cell on the glass, in device pixels (blitMan's own: his foot on X, feet) */
 function cellOf(v, X, feet) {
-  const L = lookOf(v), s = rigScale(), x = Math.round(X * DPR) - L.foot[0] * s, y = Math.round(feet * DPR) - L.foot[1] * s;
+  const L = lookOf(v), s = rigScale() * bodyK(v), x = Math.round(X * DPR) - L.foot[0] * s, y = Math.round(feet * DPR) - L.foot[1] * s;
   return { x: Math.floor(x), y: Math.floor(y), w: Math.ceil(L.w * s) + 1, h: Math.ceil(L.h * s) + 1 };
 }
 /* what stands in front of a man whose feet are on board row foot, over his cell */

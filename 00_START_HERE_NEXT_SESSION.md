@@ -511,16 +511,17 @@ past the glass) and its receipt never scrolls the page sideways. Gate THE FOURTE
 fail). The whole block: handoffs/FIXES.md.
 [bb Battle Brothers' recruit list keeps every man one line and the one you pick in his own panel; our hall on its side the same.]
 [analog horror: a talking face with a blank name tag is the one wrong thing the bible saves for on purpose; this one was an accident.]
-BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/17zi THREE NEW WAYS, BUILT, NOT YET SEEN (routine 'BESTIARY full sweep', rules 453,
-454(a), 441; after BUILD 11/17m THE MAMMOTH). THE FLOOR: factions 12 of 12, types 67 of about 75, beasts 18 lab-made, bosses 10, champions
-named (the one table: handoffs/BESTIARY.md). Three types, each a Battle Brothers mechanic the fight lacked: the hired guns' DUELIST (the
-riposte: on guard, a miss on him from beside him draws a blow back), the flock's PREACHER (the Hexe's charm: the weakest nerve beside a
-friend hits that friend), the eye in the sky's SPOTTER (the mortar's mark: red camera corners on a cross of ground, hit when his next
-turn opens). Each played on the real page on AUTO until he does it, demo and alpha, a phone both ways (THE BESTIARY FLOOR F9's new leg).
-Stand-in clothes (spares from three brigand pools; CHARACTER has the list). VOTE bestiary-three-new-ways-11-17.
-Record records/BOHEMIA_BESTIARY_THREE_NEW_WAYS_11_17_26.md.
-[bb Battle Brothers' Hexe charms the man with the weakest nerve; ours turns him on the friend beside him.]
-[analog horror: the red corners of a casino camera on the street, and the record dot blinking, a turn before the roof opens up.]
+BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/17zk THE MAMMOTH, NOT A BUILDING, BUILT, NOT YET SEEN (routine 'BESTIARY the
+mammoth is too big', rule 458(b), ask row 641; after BUILD 11/17zi THREE NEW WAYS). His words: 'Make it not so big this shit bigger than
+the empire state building'. MEASURED: side on every beast was its size in metres against a man (the mammoth 2.3 men), but facing the
+glass a long body stacks its length up the picture: every animal read about 1.35 times its height, the mammoth 3.1 men. ONE NUMBER:
+bohemia_enemies.json numbers.beast_draw 0.75, read wherever a beast is drawn (the fight, the map's animal and its kill, the after-fight
+picture): the mammoth 2.3 men, the long-horned bison 1.5, the ancient bison 1.3, the short-faced bear 1.0; men never scaled; no art
+changed. Gate THE BESTIARY FLOOR F11 AS TALL AS IT STOOD (planted at the old size: red). Seen on the alpha and the demo, a phone both
+ways. VOTE bestiary-the-mammoth-11-17 re-shot. Record records/BOHEMIA_BESTIARY_AS_TALL_AS_IT_STOOD_11_17_26.md. THE FLOOR: factions 12,
+types 67 of about 75, beasts 18 lab-made, bosses 10, champions named (handoffs/BESTIARY.md).
+[bb Battle Brothers draws its Unhold a head and a half over a brother, not three; the board reads the size, the rules carry the weight.]
+[analog horror: the mammoth between the houses at night, two men and a half tall, which is worse than a tower: it is real.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/17 LATEST (build two) -- BUILD 11/17zg - THE SCRAP MILL, BUILT, NOT YET SEEN (rule 453's sweep;
 rule 454(a), no person talks; rule 441). The list's scrap mill is on the map in North Las Vegas; its stall holds twice the tape and sells
 copper wire at the maker's price, to carry where it sells for more. Gate THE SCRAP MILL on demo and alpha, a phone both ways. VOTE

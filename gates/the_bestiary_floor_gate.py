@@ -227,6 +227,46 @@ def champs_data(D, ne=None):
     return dealt, bad
 
 
+# F11 AS TALL AS IT STOOD (BESTIARY 11/17, rule 458(b), ask row 638; Paolo on the mammoth: 'Make it not so big this shit bigger than
+# the empire state building'). Each big beast's tallest facing on its own sheet, times numbers.beast_draw.scale (the fight's bodyK,
+# the map's beastK), against a man's on his: within STOOD_TOL of its height at the shoulder in life against a 1.75 m man; the mammoth
+# a little over twice a man (never past 2.5); and the herd keeps its order (mammoth > long-horned bison > ancient bison > bear).
+STOOD_M = {  # at the shoulder, in life
+    'columbian_mammoth': (4.0, 'Mammuthus columbi: about four metres at the shoulder (the coordinator\'s order; NPS Tule Springs)'),
+    'long_horned_bison': (2.5, 'Bison latifrons: about 2.5 m at the shoulder'),
+    'ancient_bison': (2.27, 'Bison antiquus: up to 2.27 m'),
+    'short_faced_bear': (1.7, 'Arctodus simus: 1.5 to 1.8 m at the shoulder on all fours'),
+}
+STOOD_TOL = 0.15
+MAN_M = 1.75
+
+
+def tallest_px(look):
+    from PIL import Image
+    L = J('slices/fight_rig/fight_rig.json')['looks'][look]
+    im = Image.open(os.path.join(ROOT, 'slices/fight_rig', L['file'])).convert('RGBA')
+    best = 0
+    for d in range(min(8, im.height // L['h'])):
+        bb = im.crop((0, d * L['h'], L['w'], (d + 1) * L['h'])).getchannel('A').point(lambda a: 255 if a > 40 else 0).getbbox()
+        if bb: best = max(best, bb[3] - bb[1])
+    return best
+
+
+def stood(ne, scale=None):
+    sc = scale if scale is not None else (((ne.get('numbers') or {}).get('beast_draw') or {}).get('value') or {}).get('scale', 1)
+    man = tallest_px('person_town_2')
+    out, bad = {}, []
+    for a, (m, why) in STOOD_M.items():
+        r = tallest_px('beast_' + a) * sc / man
+        want = m / MAN_M
+        out[a] = round(r, 2)
+        if abs(r / want - 1) > STOOD_TOL: bad.append('%s drawn %.2f men, stood %.2f' % (a, r, want))
+    if out.get('columbian_mammoth', 0) > 2.5: bad.append('the mammoth past two and a half men (%.2f)' % out['columbian_mammoth'])
+    order = ['columbian_mammoth', 'long_horned_bison', 'ancient_bison', 'short_faced_bear']
+    if any(out[order[i]] <= out[order[i + 1]] for i in range(len(order) - 1)): bad.append('the herd out of order ' + str(out))
+    return out, bad, sc
+
+
 def main():
     D = load()
     law = open(os.path.join(ROOT, 'laws/BOHEMIA_LAW_THE_BEASTS_ARE_LAB_MADE_AND_THE_BESTIARY_FLOOR_9_29_26.md')).read()
@@ -384,6 +424,11 @@ def main():
                 bad.append('%s champion: %s' % (prof, json.dumps(ch)[:200]))
         leg(not bad, 'F9 ON THE PAGE, UPRIGHT AND SIDEWAYS (rule 441(a)), THE DEMO AND THE ALPHA: each of the %d BESTIARY beasts through the one door on the demo: fielded on its own sheet with its own words, the win home, its kill on the map in its picture, one tap: food and a roll of hides; each new man fielded in his own clothes, named and armed, the win home, and a late road crew\'s champion named from his list with his title on his card, on the demo and the alpha; nothing thrown' % len(mine),
             '; '.join(bad[:4]))
+    # ---------------- F11 AS TALL AS IT STOOD ----------------
+    st_out, st_bad, st_sc = stood(D['ne'])
+    _, st_plant, _ = stood(D['ne'], 1.0)   # PLANTED: drawn at the sheet's own size, the mammoth a tower again
+    leg(not st_bad and bool(st_plant), 'F11 AS TALL AS IT STOOD (rule 458(b)): each big beast\'s tallest facing, at numbers.beast_draw %.2f, against a man as it stood at the shoulder in life (%s); the mammoth a little over twice a man; the herd in order; PLANTED at the sheet\'s own size: %s'
+        % (st_sc, ', '.join('%s %.2f men (stood %.2f)' % (a, v, STOOD_M[a][0] / MAN_M) for a, v in st_out.items()), '; '.join(st_plant[:2]) or 'NOT CAUGHT'), '; '.join(st_bad[:3]))
     # ---------------- F8 ----------------
     r = subprocess.run([sys.executable, 'tools/bohemia_combat_the_roster.py', '--check'], cwd=ROOT, capture_output=True, text=True)
     leg(r.returncode == 0, 'F8 THE ROSTER FILE IS FRESH (tools/bohemia_combat_the_roster.py --check)', r.stdout.strip())

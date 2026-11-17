@@ -1684,7 +1684,9 @@
      (coyotes, through BOHEMIA_JOB_KINDS.json beast_looks) or the old words (wolf, hyena). */
   var BEAST = {}, BEAST_ALIAS = { wolf: 'beast_dire_wolf', hyena: 'beast_cave_hyena', beasts: 'beast_dire_wolf' };
   function beastSheet(look) { var L = (DATA && DATA.beast_looks) || {}; return BEAST_ALIAS[look] || (L[look] && L[look].look) || (/^beast_/.test(String(look)) ? look : 'beast_dire_wolf'); }
-  function beastMeta(look) { var D = jdb(), m = D && D.rig && D.rig.looks && D.rig.looks[beastSheet(look)]; return m ? { file: 'fight_rig/' + m.file, w: m.w, h: m.h, foot: m.foot } : null; }
+  /* k: an animal is drawn as tall as it stood (BESTIARY 11/17, rule 458(b): the fight's bodyK, bohemia_enemies.json numbers.beast_draw) */
+  function beastK(D) { var n = D && D.newEnemies && D.newEnemies.numbers && D.newEnemies.numbers.beast_draw; return n && n.value && n.value.scale > 0 ? n.value.scale : 1; }
+  function beastMeta(look) { var D = jdb(), m = D && D.rig && D.rig.looks && D.rig.looks[beastSheet(look)]; return m ? { file: 'fight_rig/' + m.file, w: m.w, h: m.h, foot: m.foot, k: beastK(D) } : null; }
   var SHEET_DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
   function beastImg(look) {
     var m = beastMeta(look); if (!m) return null; var im = BEAST[m.file];
@@ -1694,7 +1696,7 @@
   /* one beast with its feet on the point: the fight's own sheet (fight_rig.json: a row a facing, a column a frame) at a person's ruler */
   function beastDraw(look, face, frame, sx, footY) {
     var im = beastImg(look), m = beastMeta(look); if (!im || !m) return false;
-    var s = 0.5 * MAP_PERSON_K * MAP_PEOPLE_K, row = Math.max(0, SHEET_DIRS.indexOf(face));
+    var s = 0.5 * MAP_PERSON_K * MAP_PEOPLE_K * (m.k || 1), row = Math.max(0, SHEET_DIRS.indexOf(face));
     var w = m.w * s, h = m.h * s;
     g.fillStyle = 'rgba(10,8,6,0.4)'; g.beginPath(); g.ellipse(sx, footY, w * 0.26, w * 0.07, 0, 0, 7); g.fill();
     var sm = g.imageSmoothingEnabled; g.imageSmoothingEnabled = false;

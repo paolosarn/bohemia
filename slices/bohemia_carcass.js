@@ -159,7 +159,7 @@
     g.fillStyle = 'rgba(92,18,12,0.7)'; g.beginPath(); g.ellipse(sx, fy, 30 * kp, 9 * kp, 0, 0, 7); g.fill();
     var drew = false;
     try { var B = root.BohemiaJobKinds && BohemiaJobKinds.beastPic ? BohemiaJobKinds.beastPic(c.faction) : null;
-      if (B && B.im && B.m) { var m = B.m, sc = 0.5 * MAP_PERSON_K * MAP_PEOPLE_K, w = m.w * sc, h = m.h * sc;
+      if (B && B.im && B.m) { var m = B.m, sc = 0.5 * MAP_PERSON_K * MAP_PEOPLE_K * (m.k || 1), w = m.w * sc, h = m.h * sc;   /* BESTIARY 11/17: as tall as it stood */
         g.save(); g.translate(Math.round(sx), Math.round(fy)); g.scale(1.1, 0.55); g.rotate(0.05);
         var sm = g.imageSmoothingEnabled; g.imageSmoothingEnabled = false; g.filter = 'brightness(0.6) saturate(0.7)';
         g.drawImage(B.im, 0, 2 * m.h, m.w, m.h, -m.foot[0] * sc, -m.foot[1] * sc, w, h);

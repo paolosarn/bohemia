@@ -305,10 +305,12 @@
       if (!m.ghost) { g.fillStyle = m.machine ? 'rgba(12,11,10,.8)' : 'rgba(92,13,8,.72)'; g.beginPath(); g.ellipse(x, y - hman * 0.05, rx, rx * 0.3, 0, 0, Math.PI * 2); g.fill(); } });
     var people = lying.map(function (m) { return { m: m, y: m.y, lie: true }; }).concat(up.map(function (m) { return { m: m, y: m.wy }; })).sort(function (a, b) { return a.y - b.y; });
     people.forEach(function (p) {
-      var m = p.m, L = m.L, x = X(p.lie ? m.x : m.wx, p.lie ? m.y : m.wy), y = Y(p.lie ? m.y : m.wy), x0 = Math.round(x) - L.foot[0] * s, y0 = Math.round(y) - L.foot[1] * s;
+      /* BESTIARY 11/17: a beast as tall as it stood (the fight's own bodyK) */
+      var m = p.m, bk = 1; if (m.beast && sc.fw && typeof sc.fw.bodyK === 'function') { try { bk = sc.fw.bodyK({ beast: true }); } catch (e) { bk = 1; } }
+      var s2 = s * bk, L = m.L, x = X(p.lie ? m.x : m.wx, p.lie ? m.y : m.wy), y = Y(p.lie ? m.y : m.wy), x0 = Math.round(x) - L.foot[0] * s2, y0 = Math.round(y) - L.foot[1] * s2;
       var clips = L.clips || CLIPS;
-      if (p.lie) { var fc = clips.fall || CLIPS.fall; cell(g, m.sheet, fc[fc.length - 1], m.face || 0, L, x0, y0, s); return; }
-      drawUp(sc, g, m, x, y, x0, y0, s, now, clips);
+      if (p.lie) { var fc = clips.fall || CLIPS.fall; cell(g, m.sheet, fc[fc.length - 1], m.face || 0, L, x0, y0, s2); return; }
+      drawUp(sc, g, m, x, y, x0, y0, s2, now, clips);
     });
     /* dimmed to the floor, the edges going dark, the tape's scanlines every third row (rule 245(c); the camera is a tape, at the
        source): one picture made once for the canvas's size and laid over every frame in a single pass (four passes a frame cost the
