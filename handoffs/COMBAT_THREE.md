@@ -1,6 +1,35 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 453, 429(a)(g), 416, 441; ask rows 504, 507, 627, 646): 11/17 LATEST -- [the cell says where] SHIPPED e783b84fb, BUILD 11/17zl - THE CELL SAYS WHERE, BUILT, NOT YET SEEN. VOTE combat3-the-cell-says-where-11-17 (stand_in).
+COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/17 LATEST -- [the data fort] SHIPPED SHIPSHA, BUILD 11/17zo - THE DATA FORT, BUILT, NOT YET SEEN. VOTE combat3-the-data-fort-11-17 (stand_in).
+Record: records/BOHEMIA_COMBAT_THREE_THE_DATA_FORT_11_17_26.md. The full sweep, job 1 a fourth time: the seventh big inside of row 468's list.
+WHAT: a fight at the data fort (0.6 by the cell's dice; opts.inside 'datafort' anywhere) is fought on its white floor: server rows as walls that LIGHT THE AISLES DAY AND NIGHT
+(the one place with power: nobody hides in the dark here), hot aisles one man wide (3 AP), floor tiles pulled up (3 AP, low cover), crated cabinets and the battery strings
+(cover), cooling units (blockers), a tenant's cage with one gate, the loading doors (the day), the control room's gallery THEY hold at the bell (start 'gallery', the hall's way).
+ONE DATA FILE: slices/fight_ground/datafort/datafort.json (two layouts: the_white_space, the_cages; 16 tile kinds; 16 pieces all stand-ins), fourth in insides.json. No new rule
+code; the fight page gained the ceiling kind 'tray'. GATE THE BIG INSIDES 63/0 (four insides); the fort passed every leg on its first run.
+ON THE PAGE (this stamp): the demo and the alpha, upright and on its side, through the map's own door: 6 fights inside the fort, 6 ended on AUTO, 19 of 19 tile taps, 0 page
+errors; both layouts dealt by the map; the ceiling moves a pixel 3.5 of 255 on average.
+*** FOR COOK FIVE (THE DATA FORT'S NAMES, the same contract; the mall's finished kit came in with no code again: thank you): put slices/fight_ground/datafort/datafort_art.json
+in the folder, THE GARAGE'S FORMAT; a name you leave out stays its stand-in:
+  the floors     floor.floor (the raised white floor: square lift-out tiles, a perforated one here and there, scuffed), floor.high (the gallery's carpet tile), floor.ring
+  df_servers_ew    A ROW OF SERVER CABINETS seen from its END (a tile wide: the row's end cap, a door, status lights still on)
+  df_servers_ns    THE SAME ROW SEEN FROM ITS LONG SIDE, a tile deep: this is the one that matters. Today it is the casino's thin wall, so a pod reads as a grey slab; yours is
+                   the cabinets' tops and doors along the tile's edge, lights on
+  df_crates, df_crates_b    spare cabinets still crated, half a tile (crates_b: the drawn-only second); df_floor_up   floor tiles pulled up and stacked by the hole
+  df_crac          a cooling unit the size of a truck (a tile's blocker); df_batteries   the battery strings on their racks, a tile wide; df_desk   the operators' desk
+  df_gate          a cage's mesh gate, lock cut (the tile is walked); df_gallery   one tile of the control room's gallery; df_stair_e, df_stair_w; df_rail_ew, df_rail_ns
+  df_wall_ew, df_wall_ns    the outer wall (windowless concrete)
+  datafort/datafort_ceiling.webp   THE CEILING: the white slab, ladder trays of cable over every row, bus ducts, strip lights nearly all still on, red smoke heads; tiles every
+                   5 by 5 tiles; set "have": true in datafort.json's ceiling the day it is in
+The warehouse's names are in the block below and still stand.
+*** FOR DIRECTION (a look, not a number of mine): the fort's lit pools are the fight's one warm lamp colour. A data hall's light is cold. If you want it cold on this board, the
+lamp painter (nightPools) would need a colour per light kind, which it does not have yet; say so and I add it, and the field in the data ('glow': cold).
+*** SAID PLAINLY: 'the cold' is not a rule (the fight has no temperature); the pods read as grey slabs until COOK FIVE's long-side cabinets are in.
+NEXT: the airport terminal (the eighth), then the stadium.
+[bb Battle Brothers at night: the dark is a rule (sight shortens, ranged hits fall); a board where the night never comes is its opposite, and that is the lesson used here]
+[analog horror: the one building in a dead city whose lights are all still on, seen from the freeway, nobody at any window because it has none]
+
+COMBAT THREE (rules 453, 429(a)(g), 416, 441; ask rows 504, 507, 627, 646): 11/17 -- [the cell says where] SHIPPED e783b84fb, BUILD 11/17zl - THE CELL SAYS WHERE, BUILT, NOT YET SEEN. VOTE combat3-the-cell-says-where-11-17 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_CELL_SAYS_WHERE_11_17_26.md. WORLD THIRTEEN's owed read (handoffs/WORLD_THIRTEEN.md, 11/17zd), taken the round it was written.
 WHAT: on a cell the map hands with its ground (never a place's own cell) the fight reads the CELL, not the shell's district. cellKind(opts) = ground.district: what the fight is
 AT (the four insides and their shares, the block an inside's roof stands on, the place a district owns in placeOwn; the zone place still leads). cellLand(opts) = ground.land for

@@ -1,0 +1,508 @@
+{
+ "version": 1,
+ "lane": "COMBAT THREE",
+ "id": "datafort",
+ "name": "THE DATA FORT",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 453, 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428 (roofs and cover); ask row 468's list, the seventh: 'THE DATA FORT (the valley's real data centres; our DATAFORT kind; the Network's): server rows, the cold, the one place with power.'",
+ "facts": [
+  "The valley has real data centre campuses of millions of square feet (the biggest, in the south-west of the valley, is built as rows of sealed halls behind a wall); one hall's white space is the fight.",
+  "A data hall is rows of cabinets in pairs with a contained hot aisle between each pair and cold aisles outside them, on a raised floor of lift-out tiles, cooled by units the size of trucks, held up by rooms of battery strings when the grid drops.",
+  "THE ONE PLACE WITH POWER: the cabinets' lights never go out, so the aisles are lit day and night. In every other inside the dark hides a man; here nothing does.",
+  "The map's own kind 'datafort' (engine/bohemia_fight_kinds.js: the industry zone, a compound of two and three storeys) is where it is fought; the Network holds it."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (datafort_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "datafort"
+ ],
+ "share": 0.6,
+ "districts_why": "The data fort is a walled compound: six fights in ten on its cells are inside a hall, by the cell's own dice; the rest in the yard between the halls, on the zone's board.",
+ "board": {
+  "templates": {
+   "datafort": {
+    "name": "THE DATA FORT",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_white_space": [
+      "####################",
+      "#MMmMMMnMMMmMM<..c.#",
+      "#..x....c....x...b.#",
+      "#.ShS.xShS..ShSc...#",
+      "#.ShS..ShS.xShS..x.#",
+      "#cShS..ShSc.ShS....#",
+      "#.ShSx.ShS..ShS.c..#",
+      "#..c...x...c...x..b#",
+      "#.ShS.cShS..ShS..x.#",
+      "#xShS..ShS.xShS....#",
+      "#.ShS..ShSc.ShS.c..#",
+      "#.ShSc.ShS..ShSx...#",
+      "#..x....c..x....c..#",
+      "#.D..B.BB.B..g...D.#",
+      "####################"
+     ],
+     "the_cages": [
+      "####################",
+      "#.D..B.BB.B...g..D.#",
+      "#..c....x....c..x..#",
+      "#.ShS.xShS.SSSuSSS.#",
+      "#.ShS..ShS.S,,,c,S.#",
+      "#cShS..ShSxS,b,,,S.#",
+      "#.ShSx.ShS.SSSSSSS.#",
+      "#..x..c...x...c..x.#",
+      "#.>MMmMMnMM<.ShS.c.#",
+      "#..MMMMMMMM.xShS...#",
+      "#c.x...c.....ShSx..#",
+      "#.ShS.xShS.c.ShS...#",
+      "#.ShS..ShS...ShS.c.#",
+      "#..c..x...c.x...b..#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   "S": {
+    "is": "wall",
+    "wall": "air",
+    "tile": "servers"
+   },
+   ".": {
+    "is": "floor"
+   },
+   ",": {
+    "is": "floor",
+    "tile": "cage_floor"
+   },
+   "u": {
+    "is": "floor",
+    "tile": "gate",
+    "piece": "df_gate",
+    "at": [
+     0.5,
+     0.62
+    ]
+   },
+   "h": {
+    "is": "floor",
+    "tile": "hot_aisle",
+    "light": "glow",
+    "light_at": 0.5
+   },
+   "x": {
+    "is": "floor",
+    "tile": "floor_up",
+    "piece": "df_floor_up",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "crates",
+    "piece": "df_crates",
+    "at": [
+     0.3,
+     0.62
+    ],
+    "more": [
+     {
+      "piece": "df_crates_b",
+      "at": [
+       0.72,
+       0.94
+      ],
+      "share": 0.6
+     }
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "crac",
+    "piece": "df_crac",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "B": {
+    "is": "floor",
+    "tile": "batteries",
+    "piece": "df_batteries",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "g": {
+    "is": "floor",
+    "tile": "desk",
+    "piece": "df_desk",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "D": {
+    "is": "floor",
+    "tile": "door",
+    "light": "door",
+    "light_at": 0.5
+   },
+   "M": {
+    "is": "high"
+   },
+   "m": {
+    "is": "high",
+    "tile": "high_crates",
+    "piece": "df_crates",
+    "at": [
+     0.3,
+     0.82
+    ],
+    "more": [
+     {
+      "piece": "df_crates_b",
+      "at": [
+       0.72,
+       0.82
+      ]
+     }
+    ]
+   },
+   "n": {
+    "is": "high",
+    "tile": "high_desk",
+    "piece": "df_desk",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   ">": {
+    "is": "ramp"
+   },
+   "<": {
+    "is": "ramp"
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words).",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The data fort's outer wall, no window in it: no way through.",
+   "say": ""
+  },
+  "servers": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "A row of server cabinets, still running: no way through, no sight through, and their lights never go out: the aisles beside them are lit day and night.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The white floor of a cold aisle or a corridor: open floor, nothing to hide behind, and it is lit; on AUTO nobody stays on it.",
+   "say": "The white floor: open, and lit.",
+   "draft": true
+  },
+  "cage_floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "Inside a tenant's cage: steel mesh round you, one gate in. Nothing on it to hide behind, but only the gate sees you.",
+   "say": "Inside the cage: mesh round you, one way in.",
+   "draft": true
+  },
+  "gate": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "effect": "The cage's gate, its lock cut: one man at a time, slow going (3 AP a step). The way in is the way out.",
+   "say": "The cage's gate: slow going, one at a time.",
+   "draft": true
+  },
+  "hot_aisle": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "effect": "The hot aisle between two rows of servers, one man wide, cables underfoot: slow going (3 AP a step). Nobody comes at you from the side in here.",
+   "say": "The hot aisle: slow going, nobody at your side.",
+   "draft": true
+  },
+  "floor_up": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "effect": "Floor tiles pulled up and stacked beside the hole: slow going (3 AP a step) and low cover.",
+   "say": "Floor tiles pulled up: slow going, low cover.",
+   "draft": true
+  },
+  "crates": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Spare cabinets still in their crates: cover.",
+   "say": "Crated cabinets: cover.",
+   "draft": true
+  },
+  "crac": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A cooling unit the size of a truck, still blowing: nobody stands on its tile; cover for the tiles beside it.",
+   "say": ""
+  },
+  "batteries": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The battery strings that hold the fort up when the grid drops: cover. Batteries are the money; this is the room everybody came for.",
+   "say": "The battery strings: cover.",
+   "draft": true
+  },
+  "desk": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The operators' desk and its dead monitors: low cover.",
+   "say": "The operators' desk: low cover.",
+   "draft": true
+  },
+  "door": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The loading door, forced: open floor, and by day the light falls in: a man here is seen.",
+   "say": "The loading door: open floor.",
+   "say_lit": "The loading door: open floor, and the day is on you.",
+   "draft": true
+  },
+  "high": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "The control room's gallery over the white floor, half a storey up: high ground. A blow or a shot down from it lands easier, one up at it harder; a gun reaches a tile farther from it. Up the stairs it is a walk; over its rail from the floor it is a climb: no attack that turn, and a beast cannot.",
+   "say": "The gallery: you hit down easier, and a gun reaches a tile more.",
+   "roof": true,
+   "say_before": "",
+   "draft": true
+  },
+  "high_crates": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "cover": "COVER",
+   "effect": "Crated cabinets on the gallery: cover, on high ground. The best ground in the fort.",
+   "say": "Crates on the gallery: cover, and high ground.",
+   "say_before": "Crated cabinets: cover.",
+   "roof": true,
+   "draft": true
+  },
+  "high_desk": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "effect": "The operators' desk on the gallery: low cover, on high ground.",
+   "say": "The desk on the gallery: low cover, and high ground.",
+   "say_before": "The operators' desk: low cover.",
+   "roof": true,
+   "draft": true
+  },
+  "ramp": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "The stairs: the WALK up to the gallery. A step onto them from the floor costs one more; a man who walks up can still strike this turn.",
+   "say": "",
+   "say_before": "The stairs: the walk up, and you can still strike.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK FIVE's own picture for it is in datafort_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL, RAIL, HEIGHT, DOOR); 'blocks_move' means nobody stands on its tile. A DRESS piece is drawn and never counted.",
+ "kit": {
+  "df_floor_up": {
+   "like": "sb_barrier_S",
+   "kind": "LOW_COVER",
+   "name": "FLOOR TILES PULLED UP"
+  },
+  "df_crates": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "CRATED CABINETS"
+  },
+  "df_crates_b": {
+   "like": "sb_bales_S",
+   "kind": "DRESS",
+   "name": "CRATED CABINETS"
+  },
+  "df_crac": {
+   "like": "sb_container_S",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A COOLING UNIT"
+  },
+  "df_batteries": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "name": "THE BATTERY STRINGS"
+  },
+  "df_desk": {
+   "like": "casino_bar",
+   "kind": "LOW_COVER",
+   "name": "THE OPERATORS' DESK"
+  },
+  "df_gate": {
+   "like": "casino_door",
+   "kind": "DOOR",
+   "name": "THE CAGE'S GATE"
+  },
+  "df_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "df_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  },
+  "df_servers_ew": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "name": "SERVER CABINETS"
+  },
+  "df_servers_ns": {
+   "like": "casino_wall_ns",
+   "kind": "WALL"
+  },
+  "df_gallery": {
+   "like": "garage_level_aisle",
+   "kind": "HEIGHT",
+   "name": "THE CONTROL ROOM'S GALLERY"
+  },
+  "df_stair_e": {
+   "like": "garage_ramp_e",
+   "kind": "HEIGHT"
+  },
+  "df_stair_w": {
+   "like": "garage_ramp_w",
+   "kind": "HEIGHT"
+  },
+  "df_rail_ew": {
+   "like": "garage_rail_ew",
+   "kind": "RAIL"
+  },
+  "df_rail_ns": {
+   "like": "garage_rail_ns",
+   "kind": "RAIL"
+  }
+ },
+ "walls": {
+  "ew": "df_wall_ew",
+  "ns": "df_wall_ns"
+ },
+ "walls_air": {
+  "ew": "df_servers_ew",
+  "ns": "df_servers_ns"
+ },
+ "high": {
+  "deck": "df_gallery",
+  "ramp_e": "df_stair_e",
+  "ramp_w": "df_stair_w",
+  "rail_ew": "df_rail_ew",
+  "rail_ns": "df_rail_ns",
+  "h_m": 1.42
+ },
+ "floor": {
+  "floor": [
+   "block_apron_3.webp#0,1",
+   "block_apron_3.webp#1,1",
+   "block_apron_3.webp#3,1",
+   "block_apron_3.webp#4,1",
+   "block_apron_3.webp#0,2",
+   "block_apron_3.webp#1,2",
+   "block_apron_3.webp#0,3",
+   "block_apron_3.webp#2,3",
+   "block_apron_3.webp#3,3",
+   "block_apron_3.webp#4,3"
+  ],
+  "high": [
+   "block_apron_3.webp#0,1",
+   "block_apron_3.webp#1,1",
+   "block_apron_3.webp#3,1",
+   "block_apron_3.webp#4,1",
+   "block_apron_3.webp#0,2",
+   "block_apron_3.webp#1,2",
+   "block_apron_3.webp#0,3",
+   "block_apron_3.webp#2,3",
+   "block_apron_3.webp#3,3",
+   "block_apron_3.webp#4,3"
+  ],
+  "ring": [
+   "block_apron_3.webp#0,1",
+   "block_apron_3.webp#1,1",
+   "block_apron_3.webp#3,1",
+   "block_apron_3.webp#4,1",
+   "block_apron_3.webp#0,2",
+   "block_apron_3.webp#1,2",
+   "block_apron_3.webp#0,3",
+   "block_apron_3.webp#2,3",
+   "block_apron_3.webp#3,3",
+   "block_apron_3.webp#4,3"
+  ]
+ },
+ "lights": {
+  "glow": {
+   "src": "light_slot_glow.webp",
+   "radius_m": 28,
+   "day": false
+  },
+  "door": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  }
+ },
+ "open_sides": [],
+ "say": {
+  "height": "The gallery: you hit down easier, and a gun reaches a tile more."
+ },
+ "start": "gallery",
+ "gallery": {
+  "share": 0.5,
+  "least": 0.34,
+  "why": "THE NETWORK HOLDS THE CONTROL ROOM: the fort is somebody's, and they watch the white floor from the gallery. The band's shooters and its back line, and men enough to make 'least' of the band (never more than 'share'), start up on the gallery over their own side; the rest hold the aisles. His line starts on the floor: the stairs are his way up."
+ },
+ "ceiling": {
+  "kind": "tray",
+  "alpha": 0.1,
+  "src": "datafort/datafort_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the hall's cable trays, bus ducts and cold lights over the board at this alpha (10%, never past the fight's own most). 'src' is the picture COOK FIVE makes (see garage.json's ceiling); 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in."
+ }
+}

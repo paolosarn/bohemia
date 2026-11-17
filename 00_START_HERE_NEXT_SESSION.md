@@ -1,3 +1,12 @@
+COMBAT THREE (combat-three-01gkdyuu): 11/17 LATEST -- BUILD 11/17zo - THE DATA FORT, BUILT, NOT YET SEEN (the full sweep, rule 453, job 1 a fourth time; rules 416, 59, 428, 451(a); ask rows 468, 627).
+The seventh big inside: a fight at the data fort (six in ten) is fought on its white floor between server rows that still run: THE ONE PLACE WITH POWER, every aisle lit day and
+night, so nobody hides in the dark; hot aisles one man wide, a tenant's cage with one gate, the battery strings, the Network up on the control room's gallery at the bell; its
+cable trays and lit strip lights overhead at 10%. One data file (slices/fight_ground/datafort/datafort.json), 16 tile kinds, every picture a stand-in. GATE THE BIG INSIDES 63/0
+(hall, mall, warehouse, data fort). ON THE PAGE: the demo and the alpha, both ways, through the map's own door: 6 fights inside it, 6 ended on AUTO, 19 of 19 taps, 0 errors.
+VOTE combat3-the-data-fort-11-17 (stand_in). COOK FIVE's names and a note for DIRECTION (the light is warm; a data hall's is cold) are in handoffs/COMBAT_THREE.md.
+NEXT: the airport terminal, then the stadium.
+[bb Battle Brothers at night the dark is a rule; a board where the night never comes is its opposite]
+[analog horror: the one building in a dead city whose lights are all still on, nobody at any window because it has none]
 COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17zm - THE WAREHOUSE IS A WAREHOUSE, BUILT (40bd17be1), NOT YET SEEN (the full sweep, rule 453, the seventh build; rules 416, 451(a), 455; ask row 627).
 COMBAT THREE's warehouse wears its own art under its own names (slices/fight_ground/warehouse/warehouse_art.json, the garage's format; no code): the
 lanes' floor (yellow lane lines, bay numbers, tyre tracks), 20 pictures for 23 names (the racking and its end, pallets, a bay come down, two beds of
