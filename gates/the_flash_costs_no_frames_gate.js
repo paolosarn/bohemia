@@ -9,17 +9,20 @@
      F1 THE FLASH FIRED: the white went up on the glass (a big fight's guns, drawn frames counted) and the barrel flash was drawn
      F2 THE BIG FIGHT DROPS NO FRAME: over 30 s on AUTO at 4x, the frames with the flash at least 95% of the frames without it
      F3 THE FLASH ALONE COSTS NO FRAME: the same fight standing (his turn), the white fired three times a second at the biggest gun's
-        peak (the most the rules allow) in six 2.5 s blocks against six without it (off, on, on, off, three times, so a drift over the
-        blocks cancels; 9 s to settle first): the frames with it at least 90% of the frames without it (a block is about 20 frames on
-        this phone), the frames over 50 ms no more than without plus one a block. A shot's
+        peak (the most the rules allow) in twelve 2.5 s blocks against twelve without it (off, on, on, off, six times, so a drift over
+        the blocks cancels; 9 s to settle first): the frames over 50 ms with it no more than without plus one a block. WHY THE LONG
+        FRAMES AND NOT THE COUNT: a block's count jumps between two speeds on this phone (8 to 9 frames or 17 to 21) with or without
+        the white, so the totals cannot tell a cost from none (measured, four runs: the white 109%, 77%, 101%, 95% of the frames
+        without it; the planted cost 84% and 79%), while the long frames part them every time (the white 10 and 10 against 8 and 13;
+        the planted cost 47 and 51 against 17 and 15). The totals are printed; F2 judges the frames over a whole fight. A shot's
         moment in a real fight is busy on its own (the attack, the hit, its sound), so a fight alone cannot isolate the white
         (measured: 14 shots a 30 s fight, 2.3 s of their moments, 30 to 50 frames, and the planted cost read faster than none)
         WHY THERE IS NO LAYER LEG: the white is one solid element whose see-through amount changes, which the compositor lays over the
         board; on this phone the frames are set by the page's own work, and a white that only repaints (measured: a blurred full-screen
         pattern with no layer of its own) cost no frame either, so the page's time is what is judged
-     P1 PLANTED: a white that costs the page 50 ms a frame while it is up (a busy wait in its tick) costs frames in F3's blocks, so F3
+     P1 PLANTED: a white that costs the page 50 ms a frame while it is up (a busy wait in its tick) shows in F3's long frames, so F3
         can see a cost
-   node gates/the_flash_costs_no_frames_gate.js    (about 4 min) */
+   node gates/the_flash_costs_no_frames_gate.js    (about 6 min) */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
 const ROOT = path.join(__dirname, '..');
@@ -94,7 +97,7 @@ const CLOCK = "(function(){ if (window.top !== window || window.__FZ) return; va
     const B = await p.evaluate(async () => {
       const sleep = (ms) => new Promise(r => setTimeout(r, ms)), F = window.__FZ.t, out = [];
       await sleep(9000);   /* settle, not counted (measured: the page standing draws two to five times faster for its first seconds) */
-      const PAT = [0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0];   /* off, on, on, off: a drift over the blocks cancels */
+      const PAT = [0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0];   /* off, on, on, off: a drift over the blocks cancels */
       for (let k = 0; k < PAT.length; k++) {
         const on = PAT[k] === 1, t0 = performance.now(); let iv = null, n = 0;
         if (on) iv = setInterval(() => { UI.shotSeen = UI.shotSeen || { fired: 0, white: 0, volley: 0, held: 0, barrel: 0, drawn: 0, peak: 0 }; (UI.shots = UI.shots || []).push({ at: performance.now(), kind: 'shotgun', shots: 1, soft: false, n0: 0 }); n++; if (UI.shots.length > 40) UI.shots.shift(); }, 334);
@@ -118,12 +121,12 @@ const CLOCK = "(function(){ if (window.top !== window || window.__FZ) return; va
       A.frames >= O.frames * 0.95, 'with ' + A.frames + ' frames (' + A.allFps + ' a second), ' + A.over50 + ' over 50 ms; without ' + O.frames + ' frames (' + O.allFps + ' a second), ' + O.over50 + ' over 50 ms; '
       + A.shots + ' and ' + O.shots + ' shots');
     const L = await alone('ship');
-    ok('F3 THE FLASH ALONE COSTS NO FRAME: the white three times a second at the biggest gun\'s peak, in 2.5 s blocks against as many without it (off, on, on, off, three times): the frames with it at least 90% of the frames without it, and no more frames over 50 ms than without it plus one a block',
-      L.flashes >= 40 && L.drawn > 0 && L.onFr >= L.offFr * 0.9 && L.onLong <= L.offLong + 6,
+    ok('F3 THE FLASH ALONE COSTS NO FRAME: the white three times a second at the biggest gun\'s peak, in 2.5 s blocks against as many without it (off, on, on, off, six times): no more frames over 50 ms than without it plus one a block (the frames drawn in each kind printed)',
+      L.flashes >= 80 && L.drawn > 0 && L.onLong <= L.offLong + 12,
       'with the white ' + L.onFr + ' frames, ' + L.onLong + ' over 50 ms (' + L.flashes + ' flashes); without ' + L.offFr + ' frames, ' + L.offLong + ' over 50 ms; blocks ' + L.blocks.map(x => (x.on ? 'W' : '-') + x.frames).join(' '));
     const P = await alone('cost');
-    ok('P1 PLANTED: a white that costs the page 50 ms a frame while it is up costs frames in F3\'s blocks (F3 sees a cost)',
-      P.onFr < P.offFr * 0.9 || P.onLong > P.offLong + 6, 'with the planted white ' + P.onFr + ' frames, ' + P.onLong + ' over 50 ms; without ' + P.offFr + ' frames, ' + P.offLong + ' over 50 ms; blocks ' + P.blocks.map(x => (x.on ? 'W' : '-') + x.frames).join(' '));
+    ok('P1 PLANTED: a white that costs the page 50 ms a frame while it is up shows in F3\'s long frames (F3 sees a cost)',
+      P.onLong > P.offLong + 12, 'with the planted white ' + P.onFr + ' frames, ' + P.onLong + ' over 50 ms; without ' + P.offFr + ' frames, ' + P.offLong + ' over 50 ms; blocks ' + P.blocks.map(x => (x.on ? 'W' : '-') + x.frames).join(' '));
     ok('A1 no page error in the two fights', !A.errs && !O.errs, [A.errs, O.errs].join(' / '));
   } catch (e) { ok('the fights ran', false, String(e && e.message || e).slice(0, 240)); }
   await b.close(); srv.close();

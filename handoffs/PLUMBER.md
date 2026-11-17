@@ -1,7 +1,7 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
-PLUMBER 8 (chat 18) 11/17, the coordinator's routine 'PLUMBER 8 the freezes'. BUILD 11/17x A SHEET IS READ ONCE. Rows 613, 620, 561, 622 marked.
-THE SITE'S WEIGHT, re-measured on main b94bd492 (twenty-one builds after 11/14e): the list 838.4 MB in 15,032 files, under the 860 line
+PLUMBER 8 (chat 18) 11/17, the coordinator's routine 'PLUMBER 8 the freezes'. BUILD 11/17s A SHEET IS READ ONCE. Rows 613, 620, 561, 622 marked.
+THE SITE'S WEIGHT, re-measured on main b94bd492 (twenty-one builds after 11/14e): the list 838.4 MB in 15,032 files (842 MB on this ship's tree, 25 builds later), under the 860 line
 and the 900 cap; the deploy's lossless squeeze takes the site about 26 MB under that. No trim this round.
 THIS ROUND'S BOX (READ BEFORE TRUSTING A CENSUS ON IT): the census's long freezes here carry no page code (its GPU is software), and the
 11/11k build walked it just as badly (a fight's start 4.3 s, AUTO at 4x 12.1 s) where the same walk was under 0.8 s on 11/10; the reload
@@ -12,8 +12,9 @@ after; a census number from a box like this is not a number about the game.
   ONCE 4/0; CHARACTER's four armour gates green: 18/0, 14/0, 19/0, 14/0). Making camp under the line here (433 and 450 ms). LEFT: the fight
   page's first draw of its men (drawImage 2.4 s) and the shell's 1.2 s task at the hand-over.
   ROW 620: every freeze inside a fight carried no page task over 50 ms: it wants a GPU trace on a real phone, not page code.
-  ROW 622 (FIGHT SCREEN's white flash): PROVEN free. Gate THE FLASH COSTS NO FRAMES 5/0: a big AUTO fight 478 vs 490 frames (six runs mean
-  98%); the white alone three a second at its peak 90 vs 95 frames; a planted 50 ms white is caught. No change made to it.
+  ROW 622 (FIGHT SCREEN's white flash): PROVEN free. Gate THE FLASH COSTS NO FRAMES 5/0 (solo, about 6 min): a big AUTO fight 507 vs 507
+  frames (eight runs 95 to 101%, mean 98%); the white alone three a second at its peak, long frames 10 to 16 vs 8 to 13; a planted 50 ms
+  white reads 47 to 58 vs 9 to 17. A block's frame TOTAL jumps between two speeds on this box either way: judge long frames. No change made.
   ROW 561: unchanged (ready 13.2 to 14.8 s here); the map page's one 2.6 to 2.9 s start task is still what is left.
   SEEN, NOT STARTED: EYES's NOTE below (ask row 632, 'Search the lot' 4.65 s of blank glass); it is next.
 
