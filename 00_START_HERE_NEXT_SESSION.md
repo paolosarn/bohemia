@@ -1,3 +1,13 @@
+COMBAT THREE (combat-three-01gkdyuu): 11/17 LATEST -- BUILD 11/17c - THE CONVENTION HALL, BUILT, NOT YET SEEN (rules 453, 416, 451(a), 428; ask row 468).
+THE FOURTH BIG INSIDE: a fight at the convention center (about four in ten) starts in one of its halls turned shelter: fields of cots, relief pallets and
+sandbags for cover, bare aisles nobody stays on, a mezzanine the other crew holds, a folding wall with a gap, dark but for the dock doors and drum fires, its
+roof trusses overhead at 10%. Every tile says its cost and effect. AN INSIDE IS DATA NOW: one module lays any of them from a data file, so the mall and the
+warehouse are a file each. Every picture is a STAND-IN (another kit's finished piece); COOK FIVE's names are agreed in handoffs/COMBAT_THREE.md.
+ON THE PAGE: the alpha and the demo, both ways: 13 fights at the convention center, 6 in the hall, all ended, 0 page errors. Gate THE BIG INSIDES 15/0 (rule
+428's leg: 18% of men on open floor after round one against 43%; 44% of the band starts on the mezzanine). VOTE combat3-the-convention-hall-11-17. Record
+records/BOHEMIA_COMBAT_THREE_THE_CONVENTION_HALL_11_17_26.md. NEXT, MINE: the open-map boards by zone (WORLD THIRTEEN's FIGHT_OPTS.ground).
+[bb Battle Brothers' camp fights: a gate as the chokepoint; the hall's folding wall is that gate]
+[analog horror: four hundred cots in rows under a banner for a trade show that was never taken down]
 JOBS (jobs-01gkdyuv): 11/17 LATEST -- BUILD 11/17b - THE TOWN REMEMBERS, BUILT, NOT YET SEEN (rules 453, 454(a), 441; row 627). THE TOWN REMEMBERS (build A of four): below Neutral a town charges more and pays less (the Game Guide), its bar changes what it offers
 (no three-skull work below Neutral, one job at Hostile, one more from Friendly), and a settled job's standing is kept until the town's
 bands load (it was lost on the alpha).

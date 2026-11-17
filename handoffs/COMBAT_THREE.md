@@ -1,5 +1,32 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
+COMBAT THREE (rules 453, 416, 451(a), 428; ask row 468): 11/17 LATEST -- [the convention hall] SHIPPED SHIPSHA, BUILD 11/17c - THE CONVENTION HALL, BUILT, NOT YET SEEN. VOTE combat3-the-convention-hall-11-17 (stand_in).
+Record: records/BOHEMIA_COMBAT_THREE_THE_CONVENTION_HALL_11_17_26.md. The full sweep's job 1 (the next big inside from the researched list: the fourth).
+WHAT: a fight at the convention center (0.7 of what the garage leaves there, by the cell's dice; opts.inside 'hall' anywhere) is fought in one corner of a hall turned shelter:
+bare aisles (open floor), fields of cots (low cover), relief pallets and sandbags (cover), chairs (rough, low cover), containers and columns (blockers), a mezzanine along the
+north wall they hold (high ground; stairs the walk, the rail a climb), a folding wall with a gap (one of two layouts), the dock doors' day, drum fires, its trusses overhead at 10%.
+AN INSIDE IS DATA NOW: slices/bohemia_big_inside.js (kit, deal, check) lays any inside from slices/fight_ground/<id>/<id>.json; slices/fight_ground/insides.json lists them.
+FIGHT.html __A_BIG_INSIDE_FROM_ITS_DATA__: the loader (DB.insides), insidePiece in pieceDef/pieceSrc, bigInside(opts) in the chain after casinoFloor, ceiling kind 'truss'.
+The mall, the warehouse, the data fort next are a data file each. GATE THE BIG INSIDES 15/0 (I0 to I9 per inside, six plants), registered.
+ON THE PAGE (this stamp): the alpha and the demo, upright and on its side: 13 fights at the convention center, 6 of them in the hall; all ended; 14 of 14 tile taps; 0 page errors.
+*** FOR COOK FIVE (the names, agreed here as the coordinator asked; every picture of the hall is a STAND-IN today, drawn as another kit's finished piece): yours replace
+them with no code. Put slices/fight_ground/hall/hall_art.json in the folder, THE GARAGE'S FORMAT ({ "floor": { "floor": [...], "high": [...], "ring": [...] }, "kit": { name:
+{ "src", "w", "h_px", "foot": [x, y], ... } } }), with any of these names; a name you leave out stays its stand-in:
+  the floor      floor.floor (the show floor's sealed slab: aisle tape, booth numbers), floor.high (the mezzanine's carpet), floor.ring (the hall going on past the fight)
+  hall_cots_a, hall_cots_b      a block of cots, about HALF a tile wide: four are laid on a tile (at .27/.73 across, .5/.95 down); hall_beds_a, hall_beds_b are the same
+                                pictures drawn and never counted (the rest of the field)
+  hall_pallets, hall_stack      shrink-wrapped relief pallets (stack: the drawn-only second one); hall_container   a shipping container, a tile's blocker
+  hall_chairs, hall_seats       a row of folding chairs, a tile wide (seats: the drawn-only second row); hall_desk   the registration desk
+  hall_sandbags, hall_barrier   a sandbag checkpoint; crowd barriers
+  hall_column; hall_wall_ew, hall_wall_ns (the outer wall, on a wall tile's edge); hall_airwall_ew, hall_airwall_ns (the folding partition)
+  hall_mezz (a whole tile of the raised deck, foot at the tile's south edge middle, the garage_level's way); hall_stair_e, hall_stair_w (the deck east / west of it);
+  hall_rail_ew, hall_rail_ns
+  and the ceiling: slices/fight_ground/hall/hall_ceiling.webp, then "have": true in hall.json's ceiling (tile [5, 5]; roof trusses, catwalks, dead banners).
+Sizes are yours: the module reads w, h_px and foot from your file. Say in your handoff if a name or a way of laying should change and I take yours. ***
+NOT DONE: no people on the cots (CHARACTER / PEOPLE); only six convention cells on a valley.
+[bb Battle Brothers' camp fights: palisades and tents as cover, a gate as the chokepoint; the hall's folding wall is that gate]
+[analog horror: four hundred cots in rows under a banner for a trade show that was never taken down]
+
 COMBAT THREE (rule 451(a)(b), his vote sheet of 11/14; ask rows 623 and 624): 11/14 LATEST -- [the ceiling, the tunnels] SHIPPED c15ab305a, BUILD 11/14p - THE CEILING OVER YOUR HEAD, BUILT, NOT YET SEEN. VOTE combat3-the-ceiling-over-your-head-11-14 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_CEILING_OVER_YOUR_HEAD_11_14_26.md.
 (a) AN INSIDE SHOWS ITS CEILING (FIGHT.html __AN_INSIDE_SHOWS_ITS_CEILING__: ceilingOf, ceilingSheet, drawCeiling after drawLash): the garage, the casino floor and the

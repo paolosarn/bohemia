@@ -1,0 +1,692 @@
+{
+ "version": 1,
+ "lane": "COMBAT THREE",
+ "id": "hall",
+ "name": "THE CONVENTION HALL",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 453, 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428 (roofs and cover); ask row 468's list, the fourth: 'THE CONVENTION CENTER'S HALLS: the biggest roof in the valley; in the collapse a shelter for thousands. The people's fight, the crowd as the board.'",
+ "facts": [
+  "The Las Vegas Convention Center has about 2.5 million square feet of exhibit space (LVCVA); one hall of it is hundreds of house tiles, so a fight takes one corner of one hall.",
+  "The model for a hall as a shelter is New Orleans' Convention Center and Superdome after Katrina, 2005: cots in rows on the show floor, relief pallets off the loading docks, the folding walls left half shut.",
+  "Exhibit halls are long-span rooms: few columns, roll-up dock doors along one wall, folding 'air walls' that split a hall in two, a mezzanine of meeting rooms over the concourse side."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (hall_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "convention"
+ ],
+ "share": 0.7,
+ "districts_why": "The convention centre is the one map kind with halls. The parking garage takes its own share there first (garage.json); of the rest, this share is fought in a hall, by the cell's own dice; the rest on the street outside.",
+ "board": {
+  "templates": {
+   "hall": {
+    "name": "THE CONVENTION HALL",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_split_hall": [
+      "####################",
+      "#MMmMMMMPMMMmMMMMmM#",
+      "#.>MMMMMMMMMMMMMM<.#",
+      "#.cc.cc..A.ss..K.o.#",
+      "#fcc.cc..A.ss....s.#",
+      "#........A....b....#",
+      "#.cc.tt.....h.hh.s.#",
+      "#.cc.tto.A..h.hh...#",
+      "#........A....f..K.#",
+      "#.tt.cc..A.bb...ss.#",
+      "#.tt.cc.......o.ss.#",
+      "#...f.....r.r......#",
+      "#.cc.tt.d...s.K..b.#",
+      "#..D...D....D...D..#",
+      "####################"
+     ],
+     "the_long_hall": [
+      "####################",
+      "#MmMMMPMMmMMMMMm.s.#",
+      "#.>MMMMMMMMMMMM<...#",
+      "#ccc..ttt..hhh.d...#",
+      "#ccc..ttt..hhh.....#",
+      "#....o....o....o.f.#",
+      "#.tt.......r..K.ss.#",
+      "#.tt..ccc..b....ss.#",
+      "#.tt..ccc.....K....#",
+      "#..f....r...b...ss.#",
+      "#....o....o....oss.#",
+      "#ccc..ttt.....K....#",
+      "#ccc..ttt.f.s...s..#",
+      "#.D.....D....D...D.#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   "A": {
+    "is": "wall",
+    "wall": "air",
+    "tile": "airwall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "c": {
+    "is": "floor",
+    "tile": "cots",
+    "piece": "hall_cots_a",
+    "at": [
+     0.27,
+     0.5
+    ],
+    "more": [
+     {
+      "piece": [
+       "hall_beds_a",
+       "hall_beds_b"
+      ],
+      "at": [
+       0.73,
+       0.5
+      ]
+     },
+     {
+      "piece": [
+       "hall_beds_a",
+       "hall_beds_b"
+      ],
+      "at": [
+       0.27,
+       0.95
+      ]
+     },
+     {
+      "piece": [
+       "hall_beds_a",
+       "hall_beds_b"
+      ],
+      "at": [
+       0.73,
+       0.95
+      ],
+      "share": 0.8
+     }
+    ]
+   },
+   "t": {
+    "is": "floor",
+    "tile": "cots",
+    "piece": "hall_cots_b",
+    "at": [
+     0.27,
+     0.5
+    ],
+    "more": [
+     {
+      "piece": [
+       "hall_beds_a",
+       "hall_beds_b"
+      ],
+      "at": [
+       0.73,
+       0.5
+      ]
+     },
+     {
+      "piece": [
+       "hall_beds_a",
+       "hall_beds_b"
+      ],
+      "at": [
+       0.27,
+       0.95
+      ]
+     },
+     {
+      "piece": [
+       "hall_beds_a",
+       "hall_beds_b"
+      ],
+      "at": [
+       0.73,
+       0.95
+      ],
+      "share": 0.8
+     }
+    ]
+   },
+   "s": {
+    "is": "floor",
+    "tile": "pallets",
+    "piece": "hall_pallets",
+    "at": [
+     0.3,
+     0.62
+    ],
+    "more": [
+     {
+      "piece": "hall_stack",
+      "at": [
+       0.72,
+       0.94
+      ]
+     },
+     {
+      "piece": "hall_stack",
+      "at": [
+       0.72,
+       0.5
+      ],
+      "share": 0.5
+     }
+    ]
+   },
+   "K": {
+    "is": "floor",
+    "tile": "container",
+    "piece": "hall_container",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "h": {
+    "is": "floor",
+    "tile": "chairs",
+    "piece": "hall_chairs",
+    "at": [
+     0.5,
+     0.5
+    ],
+    "more": [
+     {
+      "piece": "hall_seats",
+      "at": [
+       0.5,
+       0.96
+      ]
+     }
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "sandbags",
+    "piece": "hall_sandbags",
+    "at": [
+     0.5,
+     0.7
+    ],
+    "more": [
+     {
+      "piece": "hall_sandbags",
+      "at": [
+       0.5,
+       0.35
+      ]
+     }
+    ]
+   },
+   "r": {
+    "is": "floor",
+    "tile": "barrier",
+    "piece": "hall_barrier",
+    "at": [
+     0.5,
+     0.6
+    ]
+   },
+   "d": {
+    "is": "floor",
+    "tile": "desk",
+    "piece": "hall_desk",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "o": {
+    "is": "floor",
+    "tile": "column",
+    "piece": "hall_column",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "dock",
+    "light": "dock",
+    "light_at": 1.0
+   },
+   "M": {
+    "is": "high"
+   },
+   "m": {
+    "is": "high",
+    "tile": "high_cots",
+    "piece": [
+     "hall_cots_a",
+     "hall_cots_b"
+    ],
+    "at": [
+     0.27,
+     0.78
+    ],
+    "more": [
+     {
+      "piece": [
+       "hall_beds_a",
+       "hall_beds_b"
+      ],
+      "at": [
+       0.73,
+       0.78
+      ]
+     }
+    ]
+   },
+   "P": {
+    "is": "high",
+    "tile": "high_pallets",
+    "piece": "hall_pallets",
+    "at": [
+     0.3,
+     0.82
+    ],
+    "more": [
+     {
+      "piece": "hall_stack",
+      "at": [
+       0.72,
+       0.82
+      ]
+     }
+    ]
+   },
+   ">": {
+    "is": "ramp"
+   },
+   "<": {
+    "is": "ramp"
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words).",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The hall's outer wall: no way through.",
+   "say": ""
+  },
+  "airwall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The folding wall that splits the hall, left half shut: no way through, no sight through. The gaps in it are the ways across.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The show floor's bare aisles: open floor, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The aisle: open floor, nothing to hide behind.",
+   "draft": true
+  },
+  "cots": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A field of cots: low cover (some against a shot).",
+   "say": "Cots in rows: low cover.",
+   "draft": true
+  },
+  "pallets": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Relief pallets, shrink-wrapped and stacked: cover.",
+   "say": "Relief pallets: cover.",
+   "draft": true
+  },
+  "container": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A shipping container off the docks: nobody stands on its tile; cover for the tiles beside it.",
+   "say": ""
+  },
+  "chairs": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "effect": "Rows of folding chairs: slow going (3 AP a step) and low cover.",
+   "say": "Rows of chairs: slow going, low cover.",
+   "draft": true
+  },
+  "sandbags": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A checkpoint somebody built of sandbags: cover.",
+   "say": "Sandbags: cover.",
+   "draft": true
+  },
+  "barrier": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "effect": "Crowd barriers: low cover.",
+   "say": "Crowd barriers: low cover.",
+   "draft": true
+  },
+  "desk": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The registration desk: low cover.",
+   "say": "The desk: low cover.",
+   "draft": true
+  },
+  "column": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A column: nobody stands on its tile.",
+   "say": ""
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire in a drum somebody keeps. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A drum fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "dock": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "A loading dock's door, rolled up: open floor, and by day the light falls in: a man here is seen.",
+   "say": "A dock door: open floor.",
+   "say_lit": "A dock door: open floor, and the day is on you.",
+   "draft": true
+  },
+  "high": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "The mezzanine over the concourse, half a storey up: high ground. A blow or a shot down from it lands easier, one up at it harder; a gun reaches a tile farther from it. Up the stairs it is a walk; over its rail from the floor it is a climb: no attack that turn, and a beast cannot.",
+   "say": "The mezzanine: you hit down easier, and a gun reaches a tile more.",
+   "roof": true,
+   "say_before": "",
+   "draft": true
+  },
+  "high_cots": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "effect": "Cots on the mezzanine: low cover, on high ground.",
+   "say": "Cots on the mezzanine: low cover, and high ground.",
+   "say_before": "Cots: low cover.",
+   "roof": true,
+   "draft": true
+  },
+  "high_pallets": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "cover": "COVER",
+   "effect": "Pallets on the mezzanine: cover, on high ground. The best ground in the hall.",
+   "say": "Pallets on the mezzanine: cover, and high ground.",
+   "say_before": "Pallets: cover.",
+   "roof": true,
+   "draft": true
+  },
+  "ramp": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "The stairs: the WALK up to the mezzanine. A step onto them from the floor costs one more; a man who walks up can still strike this turn.",
+   "say": "",
+   "say_before": "The stairs: the walk up, and you can still strike.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK FIVE's own picture for it is in hall_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL, RAIL, HEIGHT); 'blocks_move' means nobody stands on its tile. A DRESS piece is drawn and never counted: the rest of a field of cots, the second stack of pallets.",
+ "kit": {
+  "hall_cots_a": {
+   "like": "tunnel_camp_a",
+   "kind": "LOW_COVER",
+   "name": "COTS"
+  },
+  "hall_cots_b": {
+   "like": "tunnel_camp_b",
+   "kind": "LOW_COVER",
+   "name": "COTS"
+  },
+  "hall_pallets": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "RELIEF PALLETS"
+  },
+  "hall_container": {
+   "like": "sb_container_S",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A CONTAINER"
+  },
+  "hall_chairs": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "ROWS OF CHAIRS"
+  },
+  "hall_sandbags": {
+   "like": "sb_sandbags_S",
+   "kind": "COVER",
+   "name": "A SANDBAG CHECKPOINT"
+  },
+  "hall_barrier": {
+   "like": "sb_barrier_S",
+   "kind": "LOW_COVER",
+   "name": "CROWD BARRIERS"
+  },
+  "hall_desk": {
+   "like": "casino_bar",
+   "kind": "LOW_COVER",
+   "name": "THE REGISTRATION DESK"
+  },
+  "hall_column": {
+   "like": "garage_column",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A COLUMN"
+  },
+  "hall_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "hall_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  },
+  "hall_airwall_ew": {
+   "like": "casino_wall_ew",
+   "kind": "WALL"
+  },
+  "hall_airwall_ns": {
+   "like": "casino_wall_ns",
+   "kind": "WALL"
+  },
+  "hall_mezz": {
+   "like": "garage_level_aisle",
+   "kind": "HEIGHT",
+   "name": "THE MEZZANINE"
+  },
+  "hall_stair_e": {
+   "like": "garage_ramp_e",
+   "kind": "HEIGHT"
+  },
+  "hall_stair_w": {
+   "like": "garage_ramp_w",
+   "kind": "HEIGHT"
+  },
+  "hall_rail_ew": {
+   "like": "garage_rail_ew",
+   "kind": "RAIL"
+  },
+  "hall_rail_ns": {
+   "like": "garage_rail_ns",
+   "kind": "RAIL"
+  },
+  "hall_beds_a": {
+   "like": "tunnel_camp_a",
+   "kind": "DRESS",
+   "name": "COTS"
+  },
+  "hall_beds_b": {
+   "like": "tunnel_camp_b",
+   "kind": "DRESS",
+   "name": "COTS"
+  },
+  "hall_stack": {
+   "like": "sb_bales_S",
+   "kind": "DRESS",
+   "name": "RELIEF PALLETS"
+  },
+  "hall_seats": {
+   "like": "casino_seats",
+   "kind": "DRESS",
+   "name": "ROWS OF CHAIRS"
+  }
+ },
+ "walls": {
+  "ew": "hall_wall_ew",
+  "ns": "hall_wall_ns"
+ },
+ "walls_air": {
+  "ew": "hall_airwall_ew",
+  "ns": "hall_airwall_ns"
+ },
+ "high": {
+  "deck": "hall_mezz",
+  "ramp_e": "hall_stair_e",
+  "ramp_w": "hall_stair_w",
+  "rail_ew": "hall_rail_ew",
+  "rail_ns": "hall_rail_ns",
+  "h_m": 1.42
+ },
+ "floor": {
+  "floor": [
+   "garage/garage_floor_0.webp#0,2",
+   "garage/garage_floor_0.webp#1,2",
+   "garage/garage_floor_0.webp#2,2",
+   "garage/garage_floor_0.webp#3,2",
+   "garage/garage_floor_0.webp#4,2",
+   "garage/garage_floor_0.webp#0,3",
+   "garage/garage_floor_0.webp#1,3",
+   "garage/garage_floor_0.webp#2,3",
+   "garage/garage_floor_0.webp#3,3",
+   "garage/garage_floor_0.webp#4,3",
+   "garage/garage_floor_0.webp#0,4",
+   "garage/garage_floor_0.webp#1,4",
+   "garage/garage_floor_0.webp#2,4",
+   "garage/garage_floor_0.webp#3,4",
+   "garage/garage_floor_0.webp#4,4"
+  ],
+  "high": [
+   "garage/garage_floor_0.webp#0,2",
+   "garage/garage_floor_0.webp#1,2",
+   "garage/garage_floor_0.webp#2,2",
+   "garage/garage_floor_0.webp#3,2",
+   "garage/garage_floor_0.webp#4,2",
+   "garage/garage_floor_0.webp#0,3",
+   "garage/garage_floor_0.webp#1,3",
+   "garage/garage_floor_0.webp#2,3",
+   "garage/garage_floor_0.webp#3,3",
+   "garage/garage_floor_0.webp#4,3",
+   "garage/garage_floor_0.webp#0,4",
+   "garage/garage_floor_0.webp#1,4",
+   "garage/garage_floor_0.webp#2,4",
+   "garage/garage_floor_0.webp#3,4",
+   "garage/garage_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "garage/garage_floor_0.webp#0,2",
+   "garage/garage_floor_0.webp#1,2",
+   "garage/garage_floor_0.webp#2,2",
+   "garage/garage_floor_0.webp#3,2",
+   "garage/garage_floor_0.webp#4,2",
+   "garage/garage_floor_0.webp#0,3",
+   "garage/garage_floor_0.webp#1,3",
+   "garage/garage_floor_0.webp#2,3",
+   "garage/garage_floor_0.webp#3,3",
+   "garage/garage_floor_0.webp#4,3",
+   "garage/garage_floor_0.webp#0,4",
+   "garage/garage_floor_0.webp#1,4",
+   "garage/garage_floor_0.webp#2,4",
+   "garage/garage_floor_0.webp#3,4",
+   "garage/garage_floor_0.webp#4,4"
+  ]
+ },
+ "lights": {
+  "dock": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {
+  "height": "The mezzanine: you hit down easier, and a gun reaches a tile more."
+ },
+ "start": "gallery",
+ "gallery": {
+  "share": 0.5,
+  "least": 0.34,
+  "why": "THEY HOLD THE MEZZANINE: a shelter is somebody's ground. The band's shooters and its back line, and men enough to make 'least' of the band (never more than 'share'), start up on the mezzanine over their own side; the rest hold the floor. His line starts on the floor: the stairs are his way up."
+ },
+ "ceiling": {
+  "kind": "truss",
+  "alpha": 0.1,
+  "src": "hall/hall_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the hall's roof trusses over the board at this alpha (10%, never past the fight's own most). 'src' is the picture COOK FIVE makes (see garage.json's ceiling); 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in."
+ }
+}

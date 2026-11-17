@@ -9554,6 +9554,14 @@ GATES = [
      "and says that line, dry, in the flood and on the silt (T7); the main channel is open floor and AUTO gets off it after the first round (T8). "
      "Planted: the fill across every culvert, a flood that never drops, the grates live at night, a tile kind with no row, a wrong AP, the channel "
      "not open floor. About 40 s", True),
+    ('THE BIG INSIDES', ['node', 'gates/the_big_insides_gate.js'],
+     "COMBAT THREE gate, 11/17, VAMILY rules 416, 453, 59, 428, 451(a) (ask row 468's list from the fourth on: THE CONVENTION HALL first; PAOLO "
+     "11/6: 'what are some large ass interiors that we could fight... I still want this to be a block and turf war'). Every inside listed in "
+     "fight_ground/insides.json, laid from its data file by slices/bohemia_big_inside.js: a fight at its districts may go inside by the cell's "
+     "dice, never on a place's own cell (I1); the floor joined, both lines with a walk, every layout dealt and mirrored (I2); the stairs the "
+     "walk up and the rail a climb (I3); dark but for its doors by day and its drums (I4); every piece with its picture and size, the stand-ins "
+     "counted (I5); a fight on AUTO to the end (I6); every tile its cost and effect (I7); both sides off the open floor onto cover and the high "
+     "ground (I8, rule 428); its ceiling at 10% (I9). Six plants. About a minute an inside", True),
     ('AN INSIDE SHOWS ITS CEILING', ['node', 'gates/an_inside_shows_its_ceiling_gate.js'],
      "COMBAT THREE gate, 11/14, VAMILY rule 451(a) (ask row 623; PAOLO's vote on the parking garage: 'a 10% opacity for real... I still need to "
      "see the parking garage ceiling'). Each inside's data file names its ceiling: an alpha from 0.05 to 0.12, a kind the fight draws, COOK "

@@ -30,7 +30,7 @@
 <!-- __THE_CRAWL__ (ANIMATION [the crawl], rule 390, Paolo 11/4: 'a fucked up scary sad murders type of crawl'): a man struck down who lives drags himself away -->
 <script src="../engine/bohemia_crawl.js"></script>
 <script src="../engine/bohemia_wear.js"></script>  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour drawn on him -->
-<script src="bohemia_street_board.js"></script>  <script src="../engine/bohemia_fight_kinds.js"></script>  <!-- __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (COMBAT TWO 11/7, rule 429(b)): WORLD THIRTEEN's one table, the map and the fight on one storey mix -->  <script src="bohemia_freeway_boards.js"></script>  <script src="bohemia_casino_floor.js"></script>  <script src="bohemia_flood_tunnels.js"></script>  <script src="bohemia_parking_garage.js"></script>  <!-- __THE_FLOOD_TUNNELS__ (COMBAT TWO 11/9, rule 440(a)): under the city -->  <!-- __THE_CASINO_FLOOR__ (COMBAT TWO 11/8, rule 416): the first big interior -->  <!-- __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432): the deck, the overpass, the underpass, the interchange -->  <!-- __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ (COMBAT TWO 11/6, rule 407(g) step one, ask line 450): the board laid from the map's own block -->
+<script src="bohemia_street_board.js"></script>  <script src="../engine/bohemia_fight_kinds.js"></script>  <!-- __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (COMBAT TWO 11/7, rule 429(b)): WORLD THIRTEEN's one table, the map and the fight on one storey mix -->  <script src="bohemia_freeway_boards.js"></script>  <script src="bohemia_casino_floor.js"></script>  <script src="bohemia_flood_tunnels.js"></script>  <script src="bohemia_parking_garage.js"></script>  <script src="bohemia_big_inside.js"></script>  <!-- __THE_FLOOD_TUNNELS__ (COMBAT TWO 11/9, rule 440(a)): under the city -->  <!-- __THE_CASINO_FLOOR__ (COMBAT TWO 11/8, rule 416): the first big interior -->  <!-- __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432): the deck, the overpass, the underpass, the interchange -->  <!-- __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ (COMBAT TWO 11/6, rule 407(g) step one, ask line 450): the board laid from the map's own block -->
 <script src="bohemia_fight_why.js"></script>  <!-- __THE_WHY_LINE__ (FIGHT SCREEN 11/14, rule 449(a)): the chooser of the fight's one opening sentence; its table is records/target/bb/fight_reasons.json -->
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every line the crew says rolls; about 1 in 8 comes out Spanglish, some men lean more, never you -->
 <!-- ============================================================================
@@ -493,6 +493,14 @@ function loadAll() {
         Object.keys(art.kit).forEach(function (k) { kit[k] = Object.assign({}, art.kit[k], (d.rules || {})[k] || {}); });
         Object.keys(d.kit).forEach(function (k) { const q = (d.sizes || {})[d.kit[k].like || k.replace(/^garage_/, '')]; kit[k] = Object.assign({}, q ? { src: q.src } : {}, d.kit[k]); }); }
       DB.garage = d && d.board && d.kit && art && art.floor ? { data: d, art: art, sizes: d.sizes || {}, kit: kit } : null; })
+    /* __A_BIG_INSIDE_FROM_ITS_DATA__ (COMBAT THREE 11/17, rules 416 and 453; ask row 468's list from the fourth on: the convention hall
+       first): the insides laid from data (fight_ground/insides.json lists them; each its own folder, its own art file once COOK FIVE's is
+       in); slices/bohemia_big_inside.js builds each one's pieces from its data and the finished kits loaded above */
+    .then(function () { return fetch('fight_ground/insides.json', FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })
+    .then(function (ix) { DB.insides = {}; const ids = (ix && ix.insides) || [], BI = window.BohemiaBigInside;
+      return Promise.all(ids.map(function (id) { return Promise.all(['fight_ground/' + id + '/' + id + '.json', 'fight_ground/' + id + '/' + id + '_art.json'].map(function (u) { return fetch(u, FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); }))
+        .then(function (f) { const d = f[0], art = f[1]; if (!d || !d.board || !d.kit || !BI) return;
+          DB.insides[id] = { data: d, art: art, kit: BI.kit(d, art, { garage: DB.garage, tunnels: DB.tunnels, casino: DB.casino, dress: DB.streetDress && DB.streetDress.kit }) }; }); })); })
     /* __THE_WHY_LINE__ (FIGHT SCREEN 11/14, rule 449(a), ask row 617): why this group is on him, one file a modder edits (how a fight began,
        who they are, the sentences); a fight without it plays as before and says nothing (gates/the_why_line_gate.js holds the file) */
     .then(function () { return fetch('../records/target/bb/fight_reasons.json', FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })
@@ -1552,6 +1560,26 @@ const FIGHT = (function () {
     const c = data && data.ceiling; if (!c || !(+c.alpha > 0)) return null;
     return { kind: c.kind || 'slab', alpha: Math.min(CEILING_MOST, +c.alpha), src: c.have && c.src ? c.src : null, name: c.src || null, tile: c.tile || [5, 5], bay: c.bay || 5 };
   }
+  /* __A_BIG_INSIDE_FROM_ITS_DATA__ (COMBAT THREE 11/17, VAMILY rules 416 and 453; ask row 468's list, the fourth: THE CONVENTION HALL). A
+     fight the map hands from a place with one of the data-laid insides (its data file's districts, its share of them by the cell's
+     own dice; opts.inside '<id>' anywhere; opts.inside false never; never on a cell a place's own board stands on) is fought inside
+     it (slices/bohemia_big_inside.js): house tiles, the roof cut away, every tile its cost and effect, dark but for its own lights */
+  function bigInside(opts) {
+    const BI = typeof window !== 'undefined' ? window.BohemiaBigInside : null, I = DB.insides;
+    if (!BI || !I || opts.inside === false || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
+    if (opts.template && opts.template.board && !opts.inside) return false;
+    const ids = Object.keys(I).filter(function (id) { return opts.inside ? opts.inside === id : I[id].data.districts.indexOf(opts.district) >= 0; });
+    for (let i = 0; i < ids.length; i++) { const id = ids[i], D = I[id], X = D.data;
+      const by = X.share_by_district || {}, share = by[opts.district] != null ? by[opts.district] : (X.share == null ? 1 : X.share), roll = (((SEED >>> 0) ^ 0x7f4a7c15 ^ (i * 0x9e3779b9)) >>> 0) % 1000 / 1000;
+      if (opts.inside !== id && roll >= share) continue;
+      const B = BI.deal(((SEED >>> 0) ^ 0x2545f491 ^ (i * 0x85ebca6b)) >>> 0, D, DB.ground, S.w, S.h, Object.assign({ night: S.night }, opts.insideAsk || {})); if (!B) continue;
+      const was = [S.night, S.power];
+      S.night = true; S.power = true;   /* under a roof it is night; the day through its doors and the drums' fire need no grid */
+      applyBoard(B); if (!connected()) { S.insideErr = id + ': not joined'; S.night = was[0]; S.power = was[1]; continue; }
+      S.inside = B.inside; S.boardDef.ceiling = ceilingOf(X); return true;
+    }
+    return false;
+  }
   function floodTunnels(opts) {
     const FT = typeof window !== 'undefined' ? window.BohemiaFloodTunnels : null, D = DB.tunnels;
     if (!FT || !D || opts.inside === false || (opts.inside && opts.inside !== 'tunnels') || opts.flat || opts.boss || opts.arena || opts.cut || opts.board) return false;
@@ -1793,8 +1821,9 @@ const FIGHT = (function () {
   }
   /* every cover piece the board can stand: COMBAT TWO's (fight_ground: cover, cover_extra) and the graveyard's (fight_ghosts);
      src is the picture's path under slices/ */
-  function pieceDef(p) { const G = DB.ground, Y = DB.graveyard && DB.graveyard.pieces, K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit, C = DB.casino && DB.casino.kit, U = DB.tunnels && DB.tunnels.kit, PG = DB.garage && DB.garage.kit; return G.cover[p] || G.cover_extra[p] || (Y && Y[p]) || (K && K[p]) || (F && F[p]) || (C && C[p]) || (U && U[p]) || (PG && PG[p]) || null; }   /* __THE_BOARDS_WEAR_THEIR_DRESSING__: the street board's kit too; __THE_FREEWAY_FIGHT__: the freeway's (the drop, the parapet, the fallen sign) */
-  function pieceSrc(p) { const G = DB.ground, d = pieceDef(p), K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit, C = DB.casino && DB.casino.kit, U = DB.tunnels && DB.tunnels.kit, PG = DB.garage && DB.garage.kit; return d && d.src ? (G.cover[p] || G.cover_extra[p] || (K && K[p]) || (F && F[p]) || (C && C[p]) || (U && U[p]) || (PG && PG[p]) ? 'fight_ground/' : 'fight_ghosts/') + d.src : null; }   /* a piece modelled into its block's picture (baked) has no sprite of its own */
+  function insidePiece(p) { const I = DB.insides; if (!I) return null; for (const id in I) if (I[id].kit && I[id].kit[p]) return I[id].kit[p]; return null; }   /* __A_BIG_INSIDE_FROM_ITS_DATA__: a data-laid inside's own pieces */
+  function pieceDef(p) { const G = DB.ground, Y = DB.graveyard && DB.graveyard.pieces, K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit, C = DB.casino && DB.casino.kit, U = DB.tunnels && DB.tunnels.kit, PG = DB.garage && DB.garage.kit; return G.cover[p] || G.cover_extra[p] || (Y && Y[p]) || (K && K[p]) || (F && F[p]) || (C && C[p]) || (U && U[p]) || (PG && PG[p]) || insidePiece(p) || null; }   /* __THE_BOARDS_WEAR_THEIR_DRESSING__: the street board's kit too; __THE_FREEWAY_FIGHT__: the freeway's (the drop, the parapet, the fallen sign) */
+  function pieceSrc(p) { const G = DB.ground, d = pieceDef(p), K = DB.streetDress && DB.streetDress.kit, F = DB.freeway && DB.freeway.kit.kit, C = DB.casino && DB.casino.kit, U = DB.tunnels && DB.tunnels.kit, PG = DB.garage && DB.garage.kit; return d && d.src ? (G.cover[p] || G.cover_extra[p] || (K && K[p]) || (F && F[p]) || (C && C[p]) || (U && U[p]) || (PG && PG[p]) || insidePiece(p) ? 'fight_ground/' : 'fight_ghosts/') + d.src : null; }   /* a piece modelled into its block's picture (baked) has no sprite of its own */
   /* ---------------- OUR GRAVEYARD (COMBAT [ghosts and apparitions], rule 134(a), Paolo 10/23: 'like in Battle Brothers, one of
      the enemies are ghosts and apparitions... it fits our world too good'; 134(a): 'a place full of them is our graveyard') ----
      The city's cemetery after the water stopped: the valley's open scrub (COMBAT TWO's scrub blocks, laid so no block stands
@@ -2141,6 +2170,8 @@ const FIGHT = (function () {
       /* __THE_PARKING_GARAGE__: a fight at a place with a parking structure may be fought on one deck of it (rule 440(a)) */
     } else if (casinoFloor(opts)) {
       /* __THE_CASINO_FLOOR__: a fight at a casino with an inside is fought on its floor (rule 416) */
+    } else if (bigInside(opts)) {
+      /* __A_BIG_INSIDE_FROM_ITS_DATA__: the convention hall and the insides after it (rule 416) */
     } else if (freewayBoard(opts)) {
       /* __THE_FREEWAY_FIGHT__: a fight on the freeway is fought on the freeway (rule 432) */
     } else if (streetBoard(opts, ask, fromMap)) {
@@ -2161,6 +2192,7 @@ const FIGHT = (function () {
     let dealt = S.boardDef;
     if (!(S.boardDef && S.boardDef.interior === 'tunnels')) { S.flood = null; S.tunnels = null; }
     if (!(S.boardDef && S.boardDef.interior === 'garage')) S.garage = null;
+    if (!(S.boardDef && S.inside && S.boardDef.interior === S.inside.id)) S.inside = null;
     S.units = []; S.events = []; S.log = []; S.staleTurns = 0; S.staleLast = null; S.round = 0; S.cellsBurned = 0; S.over = false; S.result = null; S.contact = false; S.roadFaction = null; S.runDown = false; S.fromLine = false; S.retreat = false; S.allFlee = false; S.chaseAt = null; S.chaseOK = false; S.withdrew = false; S.chaseCalc = null; S.firstBlow = 0; S.lastHitBy = {};
     /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS, rule 427(c)): the origin's own way, the fight keys of its rule (records/target/bb/origins.json
        personal.rule.does; the shell hands them as opts.originWay, engine/bohemia_origin_ways.js fight()): first_round, never_confident,
@@ -11292,6 +11324,13 @@ function ceilingSheet() {
     g.fillStyle = '#8b877d'; g.fillRect(0, 0, W2, H2);
     for (let x = 0; x < W2; x += tw * .7) { g.fillStyle = hash(x) < .5 ? '#5f5b53' : '#6c685f'; g.fillRect(x, 0, 2, H2); }   /* the form-work seams across the run */
     for (let y = 0; y < S.h; y++) { g.fillStyle = 'rgba(40,36,30,.55)'; g.fillRect(0, y * th + th * .62 - 2, W2, 4); for (let k = 0; k < 5; k++) { const x = hash(y * 13 + k) * W2; g.fillStyle = 'rgba(30,26,22,.5)'; g.fillRect(x, y * th + th * .62, 3, th * (.3 + hash(x) * .6)); } }   /* the crown's stain, and what runs down from it */
+  } else if (C.kind === 'truss') {   /* a long-span hall: the roof deck far up, a truss every two and a half tiles with its web, the catwalks, the dead banners */
+    g.fillStyle = '#6a6862'; g.fillRect(0, 0, W2, H2); const pw = tw * 2.5;
+    for (let y = 0; y < H2; y += th * .5) { g.fillStyle = '#5a5852'; g.fillRect(0, y, W2, 2); }   /* the deck's ribs */
+    for (let x = pw * .4; x < W2; x += pw) { g.fillStyle = '#24221f'; g.fillRect(x - 6, 0, 3, H2); g.fillRect(x + 4, 0, 3, H2);
+      g.strokeStyle = '#2c2a26'; g.lineWidth = 2; g.beginPath(); for (let y = 0; y < H2; y += th * .8) { g.moveTo(x - 5, y); g.lineTo(x + 5, y + th * .4); g.lineTo(x - 5, y + th * .8); } g.stroke(); }
+    for (let y = th * 3.2; y < H2; y += th * 5.5) { g.fillStyle = '#3a3833'; g.fillRect(0, y, W2, 6); g.fillStyle = '#1d1c1a'; g.fillRect(0, y + 2, W2, 1); }   /* the catwalks */
+    for (let k = 0; k < S.w / 3; k++) { const x = hash(k + 40) * W2, y = hash(k + 71) * H2; g.fillStyle = hash(k) < .5 ? '#7d2f28' : '#2f4a6a'; g.fillRect(x, y, tw * .5, th * 1.1); g.fillStyle = '#d9d2bd'; g.fillRect(x + 3, y + 5, tw * .5 - 6, 3); }   /* the last show's banners */
   } else {   /* 'deck' */
     g.fillStyle = '#9a968c'; g.fillRect(0, 0, W2, H2);
     for (let x = 0; x < W2; x += tw * .37) { g.fillStyle = '#6f6b62'; g.fillRect(x, 0, 3, H2); }   /* the double tees' stems */
