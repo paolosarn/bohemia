@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/17 LATEST -- [the data fort] SHIPPED SHIPSHA, BUILD 11/17zo - THE DATA FORT, BUILT, NOT YET SEEN. VOTE combat3-the-data-fort-11-17 (stand_in).
+COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/17 LATEST -- [the data fort] SHIPPED 972f6aaa8, BUILD 11/17zo - THE DATA FORT, BUILT, NOT YET SEEN. VOTE combat3-the-data-fort-11-17 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_DATA_FORT_11_17_26.md. The full sweep, job 1 a fourth time: the seventh big inside of row 468's list.
 WHAT: a fight at the data fort (0.6 by the cell's dice; opts.inside 'datafort' anywhere) is fought on its white floor: server rows as walls that LIGHT THE AISLES DAY AND NIGHT
 (the one place with power: nobody hides in the dark here), hot aisles one man wide (3 AP), floor tiles pulled up (3 AP, low cover), crated cabinets and the battery strings
