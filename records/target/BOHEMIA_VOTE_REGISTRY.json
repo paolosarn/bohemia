@@ -19910,7 +19910,50 @@
     "line": "Oye, jefe. Two days no food. I don't want batteries, just something to eat. My brother says ask the ones with guns, they got food."
    }
   },
-  {"id": "jobs-the-town-remembers-11-17", "kind": "ui", "lane": "jobs", "sha": "daae83714", "made": "11/17", "draft": true, "title": "THE TOWN REMEMBERS: A TOWN THAT LIKES YOU OFFERS MORE, ONE THAT DOES NOT CHARGES MORE", "said": "a full sweep: the jobs' systems the way Battle Brothers runs them, no new talk: how a town feels about him moves with the jobs and changes what it offers and charges; pay he can push at a cost; what failing or walking away costs; a job paid into his own place", "why": "A town's standing now changes what it offers you and what it charges: a friendly town posts one more job, a cold one keeps its biggest jobs from you and a hostile one gives you one small job, and below neutral its shelves charge up to 30% more. You see it on a town's board (tap BOARD) and on its shelves.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_THE_TOWN_REMEMBERS.jpg"}, "before_after": {"before": "the bar bent a job's pay and, above Neutral, the shelves; below Neutral nothing moved; every town offered the same board whatever it thought of him; a finished job's standing was lost if he walked in before the town loaded", "after": "Friendly 4 jobs where Neutral posts 3; Unfriendly (25) charges x1.15 and keeps three-skull work; Hostile one one-skull job; the standing never lost", "scale": "left: the game on a phone upright (390 x 844 at 3), the demo; right: what changed, measured"}, "record": "records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md", "build": "BUILD 11/17b - THE TOWN REMEMBERS"}
+  {"id": "jobs-the-town-remembers-11-17", "kind": "ui", "lane": "jobs", "sha": "daae83714", "made": "11/17", "draft": true, "title": "THE TOWN REMEMBERS: A TOWN THAT LIKES YOU OFFERS MORE, ONE THAT DOES NOT CHARGES MORE", "said": "a full sweep: the jobs' systems the way Battle Brothers runs them, no new talk: how a town feels about him moves with the jobs and changes what it offers and charges; pay he can push at a cost; what failing or walking away costs; a job paid into his own place", "why": "A town's standing now changes what it offers you and what it charges: a friendly town posts one more job, a cold one keeps its biggest jobs from you and a hostile one gives you one small job, and below neutral its shelves charge up to 30% more. You see it on a town's board (tap BOARD) and on its shelves.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_THE_TOWN_REMEMBERS.jpg"}, "before_after": {"before": "the bar bent a job's pay and, above Neutral, the shelves; below Neutral nothing moved; every town offered the same board whatever it thought of him; a finished job's standing was lost if he walked in before the town loaded", "after": "Friendly 4 jobs where Neutral posts 3; Unfriendly (25) charges x1.15 and keeps three-skull work; Hostile one one-skull job; the standing never lost", "scale": "left: the game on a phone upright (390 x 844 at 3), the demo; right: what changed, measured"}, "record": "records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md", "build": "BUILD 11/17b - THE TOWN REMEMBERS"},
+  {
+   "id": "cook5-the-newest-bosses-map-pieces-11-17",
+   "kind": "tile",
+   "lane": "cook 5",
+   "sha": "SHIPSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "THE PLATE'S WAGON, THE TOOTH'S COLLECTOR AND THE LENS'S HAZE, IN FINISHED ART",
+   "said": "do a full sweep, let's have some fun",
+   "why": "The steel wagon, the man taking batteries at the town gate and the smoky eye boards were quick first paintings; now each is finished: an armoured cart in patched steel with a lamp behind its slit, a toll pole and a table under a tooth sprayed on the wall, an eye sprayed over an eye test with smoke pots burning. You see them on the map: the wagon on the Plate's road, the collector at a town's gate, the boards inside the Lens's blur.",
+   "options": [
+    "A, yes, that's them",
+    "B, close, change something (say what)",
+    "C, no, the first ones were better"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK5_THE_NEWEST_BOSSES_MAP_PIECES_11_17.webp",
+    "first": "../records/target/vote_first/cook5-the-newest-bosses-map-pieces-11-17.webp",
+    "firstAt": [
+     650,
+     98,
+     315,
+     236
+    ]
+   },
+   "before_after": {
+    "before": "main fafbea7e0: the six pieces as BOSSES first painted them (a grey box on discs, a blank wall with a man, a blank board with pots)",
+    "after": "the same six pictures redrawn through the same rig and frame: a patched steel wagon with a plough and a lamp; a toll pole, a table and his tooth on the wall; an eye over an eye test, smoke pots on scorched ground",
+    "scale": "twice the map's own pixels, the first one beside the finished one; and the map itself on his phone (390 x 844), each boss before and after he falls"
+   },
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "twin": {
+    "src": "boss_places/curfew_night_0.png",
+    "diffs": [
+     "THE SAME FRAME AND RIG as the Locksmith's gate (a piece one street block across, through the map's rig, two beat frames).",
+     "WHAT HE SPRAYED IS ON THE FACE YOU SEE: the first tooth and the first chart's letters were painted on the far side of the wall and the board.",
+     "ONE THING BURNS ON THE BEAT in each: the wagon's lamp, the collector's lantern, the pots' embers and smoke."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_FIVE_THE_WAGON_THE_COLLECTOR_AND_THE_HAZE_11_17_26.md"
+  }
  ],
  "verdicts": [
   {

@@ -1,5 +1,5 @@
 {
- "about": "BOSSES 11/2: the three places painted in the map's own look (tools/bohemia_bosses_paint_their_places_11_2_26.py), before and after he falls, two beat frames each; and the four small things his verbs leave. bx/by = the block's ground centre in the picture, plate = the ground plate across in picture pixels (the game scales it to the block). BOSSES 4 11/3: THE FUEL YARD, THE SURVEY OFFICE, THE HOIST and the three small things their verbs leave (barrel, stake, rope), the same way (tools/bohemia_bosses_paint_four_to_six_11_3_26.py). BOSSES 11/8 (rule 437(a)): THE POT's crew's CHECKPOINT that shuts a street, closed and then shoved to the kerb, for a street along x and along y (tools/bohemia_bosses_the_pots_ground_11_8_26.py); plate = ONE street block across, no ground. BOSSES 11/8 (rule 437(a)): THE POT's crew's CHECKPOINT that shuts a street, closed and then shoved to the kerb, for a street along x and along y (tools/bohemia_bosses_the_pots_ground_11_8_26.py); plate = ONE street block across, no ground. BOSSES 11/8 (rule 437(a)): THE POT's crew's CHECKPOINT that shuts a street, closed and then shoved to the kerb, for a street along x and along y (tools/bohemia_bosses_the_pots_ground_11_8_26.py); plate = ONE street block across, no ground. BOSSES 11/9 (rule 440(b)): THE TAP's PIPE, his watcher on it with a crossbow, then a standpipe and a trough, along x and along y (tools/bohemia_bosses_the_taps_pipe_11_9_26.py); plate = ONE street block across, no ground. And THE FILTER's MACHINE, the plant robot standing its post, then dropped where it stood (tools/bohemia_bosses_the_filters_machines_11_9_26.py); plate = ONE street block across, no ground. And THE NEXT THREE (tools/bohemia_bosses_the_next_three_11_10_26.py): THE BURN's DRUM (his stoker's fire, then the neighbours'), THE SURVEYOR's SIGNPOST (the blades cut off, then back), THE CLIMB's RIGGERS (his party, then the one he kept up top, come down); plate = ONE street block across, no ground. And SEVEN TO NINE (tools/bohemia_bosses_seven_to_nine_places_11_11_26.py): THE LOCK SHOP, THE POWDER YARD, THE PIPE SHOP before and after; the cut lock, the rubble and the welding bench their verbs leave; THE LOCKSMITH's CURFEW gate (night, day, after), THE CHARGE's MINE, THE MACHINIST's NAILS on a street block. COOK FIVE 11/14 (rule 447, the production pass, tools/bohemia_cook5_the_bosses_map_pieces_finished_11_14_26.py): the CURFEW gate, the MINE and the NAILS redrawn as finished pieces, the same keys, frame and rig.",
+ "about": "BOSSES 11/2: the three places painted in the map's own look (tools/bohemia_bosses_paint_their_places_11_2_26.py), before and after he falls, two beat frames each; and the four small things his verbs leave. bx/by = the block's ground centre in the picture, plate = the ground plate across in picture pixels (the game scales it to the block). BOSSES 4 11/3: THE FUEL YARD, THE SURVEY OFFICE, THE HOIST and the three small things their verbs leave (barrel, stake, rope), the same way (tools/bohemia_bosses_paint_four_to_six_11_3_26.py). BOSSES 11/8 (rule 437(a)): THE POT's crew's CHECKPOINT that shuts a street, closed and then shoved to the kerb, for a street along x and along y (tools/bohemia_bosses_the_pots_ground_11_8_26.py); plate = ONE street block across, no ground. BOSSES 11/8 (rule 437(a)): THE POT's crew's CHECKPOINT that shuts a street, closed and then shoved to the kerb, for a street along x and along y (tools/bohemia_bosses_the_pots_ground_11_8_26.py); plate = ONE street block across, no ground. BOSSES 11/8 (rule 437(a)): THE POT's crew's CHECKPOINT that shuts a street, closed and then shoved to the kerb, for a street along x and along y (tools/bohemia_bosses_the_pots_ground_11_8_26.py); plate = ONE street block across, no ground. BOSSES 11/9 (rule 440(b)): THE TAP's PIPE, his watcher on it with a crossbow, then a standpipe and a trough, along x and along y (tools/bohemia_bosses_the_taps_pipe_11_9_26.py); plate = ONE street block across, no ground. And THE FILTER's MACHINE, the plant robot standing its post, then dropped where it stood (tools/bohemia_bosses_the_filters_machines_11_9_26.py); plate = ONE street block across, no ground. And THE NEXT THREE (tools/bohemia_bosses_the_next_three_11_10_26.py): THE BURN's DRUM (his stoker's fire, then the neighbours'), THE SURVEYOR's SIGNPOST (the blades cut off, then back), THE CLIMB's RIGGERS (his party, then the one he kept up top, come down); plate = ONE street block across, no ground. And SEVEN TO NINE (tools/bohemia_bosses_seven_to_nine_places_11_11_26.py): THE LOCK SHOP, THE POWDER YARD, THE PIPE SHOP before and after; the cut lock, the rubble and the welding bench their verbs leave; THE LOCKSMITH's CURFEW gate (night, day, after), THE CHARGE's MINE, THE MACHINIST's NAILS on a street block. COOK FIVE 11/14 (rule 447, the production pass, tools/bohemia_cook5_the_bosses_map_pieces_finished_11_14_26.py): the CURFEW gate, the MINE and the NAILS redrawn as finished pieces, the same keys, frame and rig. COOK FIVE 11/17 (rule 453, tools/bohemia_cook5_the_newest_bosses_map_pieces_finished_11_17_26.py): THE PLATE's WAGON, THE TOOTH's COLLECTOR and THE LENS's HAZE redrawn as finished pieces, the same keys, frame and rig.",
  "draft": true,
  "pictures": {
   "kitchen_before": {
@@ -730,76 +730,82 @@
    "through_the_rig": true
   },
   "wagon_before": {
-   "w": 139,
+   "w": 145,
    "h": 116,
-   "bx": 75,
+   "bx": 80,
    "by": 78,
    "plate": 116,
    "frames": [
     "wagon_before_0.png",
     "wagon_before_1.png"
    ],
-   "through_the_rig": true
+   "through_the_rig": true,
+   "finished": "cook 5, 11/17"
   },
   "wagon_after": {
-   "w": 139,
+   "w": 145,
    "h": 116,
-   "bx": 75,
+   "bx": 80,
    "by": 78,
    "plate": 116,
    "frames": [
     "wagon_after_0.png",
     "wagon_after_1.png"
    ],
-   "through_the_rig": true
+   "through_the_rig": true,
+   "finished": "cook 5, 11/17"
   },
   "collector_before": {
-   "w": 130,
-   "h": 117,
-   "bx": 65,
+   "w": 146,
+   "h": 120,
+   "bx": 81,
    "by": 78,
    "plate": 116,
    "frames": [
     "collector_before_0.png",
     "collector_before_1.png"
    ],
-   "through_the_rig": true
+   "through_the_rig": true,
+   "finished": "cook 5, 11/17"
   },
   "collector_after": {
-   "w": 130,
-   "h": 117,
-   "bx": 65,
+   "w": 146,
+   "h": 120,
+   "bx": 81,
    "by": 78,
    "plate": 116,
    "frames": [
     "collector_after_0.png",
     "collector_after_1.png"
    ],
-   "through_the_rig": true
+   "through_the_rig": true,
+   "finished": "cook 5, 11/17"
   },
   "haze_before": {
-   "w": 128,
+   "w": 129,
    "h": 116,
-   "bx": 64,
+   "bx": 65,
    "by": 78,
    "plate": 116,
    "frames": [
     "haze_before_0.png",
     "haze_before_1.png"
    ],
-   "through_the_rig": true
+   "through_the_rig": true,
+   "finished": "cook 5, 11/17"
   },
   "haze_after": {
-   "w": 128,
+   "w": 129,
    "h": 116,
-   "bx": 64,
+   "bx": 65,
    "by": 78,
    "plate": 116,
    "frames": [
     "haze_after_0.png",
     "haze_after_1.png"
    ],
-   "through_the_rig": true
+   "through_the_rig": true,
+   "finished": "cook 5, 11/17"
   }
  }
 }

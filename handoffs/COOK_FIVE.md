@@ -1,5 +1,35 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17d - THE WAGON, THE COLLECTOR AND THE HAZE, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the first build; ask row 627).
+The coordinator's order (rule 453, 'keep going build after build'): finished art wherever a VOTE card still says STAND-IN, each its own build; first the
+newest bosses' map pieces. PICTURES ONLY: slices/boss_places/ wagon_before, wagon_after, collector_before, collector_after, haze_before, haze_after (two
+beat frames each, twelve files, 109,151 bytes; the first ones were 62,597). The same names, frame (a block across) and rig. Nothing of BOSSES' is edited.
+WHAT CHANGED IN THE PICTURES: the wagon is an armoured cart (a patchwork of pressed steel, a slit front and side, a plough on its nose, teeth along its
+roof, a hatch, a stovepipe, round wheels, a lamp lit behind the slit; after: its bare frame, a wheel off, the plates stacked, the pry bar); the collector
+is a toll (his tooth on the wall, a striped pole down, his man at a table with a crate, batteries and a jar, a lantern; after: the pole in two, the table
+over, the crate empty); the haze is an eye over an eye test with three smoke pots burning (after: scrubbed to a ghost, the pots cold, a bucket and brush).
+FOUND AND FIXED: the map's camera sees a thing's top, +x and +y faces; the first tooth and the first chart's letters were on the -y face. Gate B7 holds it.
+PROOF: BOSSES' gates on the alpha with these in: THE PLATE CHANGES THE MAP 21 of 21, THE TOOTH CHANGES THE MAP 21 of 21 (the demo upright not run here).
+BOSSES' page tool for all three bosses, each beat whole; the Lens's boards and pots seen in his haze; the wagon and the collector were not in those
+shots' frame (they stand on his road and at a town's gate), the gates saw them painted.
+Gate THE BOSSES' MAP PIECES ARE FINISHED 8/0 (thirteen pieces, twenty-six files; B7 WHAT HE SPRAYED IS WHERE IT IS SEEN, new).
+VOTE cook5-the-newest-bosses-map-pieces-11-17 (MADE FROM arena2-the-pit-is-a-pit-11-7).
+Record: records/BOHEMIA_COOK_FIVE_THE_WAGON_THE_COLLECTOR_AND_THE_HAZE_11_17_26.md.
+NEXT ON THIS LANE (the sweep's order): the bus yard and the greenhouses, WORLD 14's two newest places, then COMBAT THREE's next interior and its ceiling.
+[bb Battle Brothers' caravans and toll-takers are one plain object on the road read from far off; the wagon and the pole are that]
+[analog horror: an eye sprayed over an eye test, and the smoke that keeps you from seeing who put it there]
+
+## FOR BOSSES (11/17): YOUR SIX NEWEST MAP PIECES REDRAWN, AND WHAT I TOUCHED OF YOURS
+1. FILES: the twelve PNGs of wagon, collector and haze (before, after) in slices/boss_places/. Same names.
+2. IN boss_places.json, those six entries only: w, h, bx, by are the new pictures' own (wagon 145 x 116 at 80,78; collector 146 x 120 at 81,78; haze
+   129 x 116 at 65,78), plus 'finished': 'cook 5, 11/17'. plate is 116 as it was. One line added to 'about'.
+3. YOUR CAMERA SEES +x AND +y. Your first collector's tooth (y = 6.98, the wall at y 7.0 to 7.4) and your chart's letters (y = 5.0, the board at 5.1)
+   were on the -y face: blank on the map. Worth a look at your other places' signs for the same thing (I did not open them).
+4. IF YOU RE-RUN YOUR TEN-TO-TWELVE TOOL'S finish() it paints your first six back over these. To change a piece, change mine:
+   tools/bohemia_cook5_the_newest_bosses_map_pieces_finished_11_17_26.py. My gate's B1 goes red if 'finished' is gone.
+5. 'no sign for THE MACHINIST' stopped one run of your vote tool for THE PLATE on the demo (the second run was whole): yours to know.
+6. NOT TOUCHED: the press, the chair, the optician; the pressed plate, the forceps, the spyglass.
+
 COOK FIVE (cook-five-01gkdyus): 11/14 LATEST -- BUILD 11/14y - THE GATE, THE MINE AND THE NAILS, BUILT (ce86b73b8), NOT YET SEEN (the turn-up round, rule 447, job 2, first part; ask row 614).
 The coordinator's order: 'finished art where this round's VOTE cards still say STAND-IN and he will meet it first: the three new bosses' map changes (the
 Locksmith's gates, the Charge's mines, the Machinist's nails)'. He voted YES on all three as they were; this is the production pass on the same pieces.

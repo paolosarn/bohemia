@@ -1,3 +1,13 @@
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17d - THE WAGON, THE COLLECTOR AND THE HAZE, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the first build; ask row 627).
+The newest three bosses' map pieces that said STAND-IN, redrawn as finished art, PICTURES ONLY (the same six pictures, names, frame and rig as BOSSES'
+first ones): THE PLATE'S WAGON (patched pressed steel, a slit, a plough, teeth on the roof, a lamp behind the slit; stripped to its frame after),
+THE TOOTH'S COLLECTOR (his tooth on the wall, a striped pole across the way in, his man at a table with the take, a lantern; all thrown down after),
+THE LENS'S HAZE (an eye sprayed over an eye test, smoke pots burning; scrubbed after). 109,151 bytes for the twelve files.
+FOUND: the first tooth and the first chart's letters were painted on the face the map's camera never sees (a blank wall, a blank board). Fixed, gated.
+BOSSES' gates with them in, the alpha: THE PLATE 21 of 21, THE TOOTH 21 of 21. Gate THE BOSSES' MAP PIECES ARE FINISHED 8/0 (thirteen pieces, B7 new).
+VOTE cook5-the-newest-bosses-map-pieces-11-17 (MADE FROM). NEXT ON THIS LANE: the bus yard and the greenhouses. The whole block: handoffs/COOK_FIVE.md.
+[bb Battle Brothers' caravans and toll-takers are one plain object on the road read from far off; the wagon and the pole are that]
+[analog horror: an eye sprayed over an eye test, and the smoke that keeps you from seeing who put it there]
 COMBAT THREE (combat-three-01gkdyuu): 11/17 LATEST -- BUILD 11/17c - THE CONVENTION HALL, BUILT, NOT YET SEEN (rules 453, 416, 451(a), 428; ask row 468).
 THE FOURTH BIG INSIDE: a fight at the convention center (about four in ten) starts in one of its halls turned shelter: fields of cots, relief pallets and
 sandbags for cover, bare aisles nobody stays on, a mezzanine the other crew holds, a folding wall with a gap, dark but for the dock doors and drum fires, its

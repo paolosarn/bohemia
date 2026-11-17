@@ -9701,7 +9701,8 @@ GATES = [
      "(tools/bohemia_cook5_the_bosses_map_pieces_finished_11_14_26.py): B1 the seven entries marked finished, both frames of each a file of its size; B2 ONE BOX A "
      "PIECE (the map swaps a state for another in place); B3 THE BEAT (the lamp, the rag and the caltrops move, nothing else does); B4 IT IS THERE (4 in 100 of "
      "its box, 60 steps of tone); B5 THE LAMP IS LIT WHILE THE STREET IS SHUT; B6 light, no purple. P1 planted: another anchor, a frame copied over its twin, a "
-     "piece wiped to four dots: each red. A second", False),
+     "piece wiped to four dots: each red. 11/17, rule 453: the newest three bosses' pieces held the same way (THE PLATE's wagon, THE TOOTH's collector, THE LENS's haze, "
+     "tools/bohemia_cook5_the_newest_bosses_map_pieces_finished_11_17_26.py), thirteen pieces; B7 WHAT HE SPRAYED IS WHERE IT IS SEEN (his tooth, his eye, on the face the camera sees). A second", False),
     ('YOUR PLACE, PLANTED', ['node', 'gates/home_base_gate.js'],
      "HOME BASE gate, 11/8, rule 437(b) (PAOLO 11/3: 'you plant your part of the city kind of wherever you want... a smart system... the daily battery usage... "
      "are you sure you wanna plant down here, like this is permanent'): ENGINE E1 the place's plan, 12 lots, every lot on a road, one network (429(h)); E2 planted: a lot cut off, "
