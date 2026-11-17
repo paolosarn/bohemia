@@ -71,3 +71,32 @@ wall, not a toll, not a time cost. When he falls the stripe is painted over grey
 - VOTE bosses-the-barbers-line-11-17: records/target/bosses_vote_barber_11_17/VOTE.webp (the gate's own phone: his line with his razor men,
   painted over, your man's card with no words); his moving card records/target/bosses_thirteen_to_fifteen/VOTE_BOSS_BARBER.webp.
 
+
+## THE INK (the ladder's 14th: the last needles and pigment). BUILD 11/17@@
+
+HIS OWN WAY: A STAIN THAT GROWS. While he stands his ink spreads out from his door: 2 blocks the day he is in the world, a block more
+each day after, up to 10 blocks or as far as the second-nearest town, whichever is further (so it always takes towns). Every town
+inside his ink is his (its people carry his mark) and its gate refuses you: a tap on it walks you to its gate, SHUT rises off your
+men, and it does not open (never your own place). The longer he stands, the more of the valley is shut.
+The ground under his ink goes dark and his tags stand at the gates he holds. When he falls the gates open and his tags are painted over
+grey, kept after a reload.
+- Found by WORLD TWO's inked wall. Nobody asks (rule 454(a)); one of yours stands at the wall, the card carries the way to his place.
+- Fight: BB's Barbarian Chosen's numbers at 1.6 blood with a Spiked Impaler (THE NEEDLE), two thralls and a reaver, on the ruin board.
+  His one line, on his card: 'Hold still.' (draft).
+- Verb: MARK (MARK A MAN). On your place's doorstep (or at his), one man a day takes the company's mark for good: +50 CLOUT once a
+  man ('others read it'). When every man carries it, the button says so. MARK comes before FADE in the verbs' order (at your own
+  doorstep both would answer; MARK is the one that only works there).
+- MEASURED: the first runs shut the blocks round a town in his ink. A town is entered from ANY block touching its painted ground,
+  even one off the street (RUN's __ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR__), so that shut nothing, and shutting wider would have cut the
+  streets past it; the town's own door (loopOpenTown, wrapped here) refuses now. A parlor near the valley's edge reached no town in 10
+  blocks: the reach goes to the second-nearest town. Your place is a town on the map, its own blocks never walked: MARK works on
+  its doorstep (two blocks out), not 'within one'.
+- Prize: HIS NEEDLES through HOME BASE's seam. Code: slices/bohemia_bosses.js (22) HIS INK. Data: row THE INK, 'ink'.
+- MARK first failed on both phones (no block where it was the button): it counted only men with a fight's record, and the gate's
+  fight had been ended by the checker, so the crew had none. It counts the company as the condition lists it (members) now.
+- HIS FIGHT beat the auto crew on both phones (the checker ended it): BB's Barbarian Chosen and three barbarians is a hard 14th.
+  TUNING: his row's hp_x and crew are yours to move.
+- RESULTS: THE INK CHANGES THE MAP 23/0 on the demo upright and 23/0 on the alpha on its side.
+- VOTE bosses-the-inks-stain-11-17: records/target/bosses_vote_ink_11_17/VOTE.webp (the gate's own phone: his ink dark on the ground and his
+  tags on the gate he holds, the tags painted over, your man's card with no words); his moving card
+  records/target/bosses_thirteen_to_fifteen/VOTE_BOSS_INK.webp.

@@ -8639,6 +8639,23 @@ GATES = [
      "stripe painted over (C1b); FADE on a town's doorstep, a battery for CLOUT (V1); his razor seen on your place's CAM 2 (H1); the reload "
      "holds (R1). Planted: a line that cuts nobody, the line back after the fall, a fade with no CLOUT, a lot nothing stands on, a phone "
      "that forgot the save, a prize the seam never got. about 40 min a way", True),
+    ('THE INK CHANGES THE MAP', ['node', 'gates/the_next_three_change_the_map_gate.js', 'THE INK'],
+     "BOSSES gate, 11/17, the coordinator's round 'BOSSES full sweep' (rules 441, 453, 454(a)), ask lines 167, 522, 571: the stranger's game "
+     "on the DEMO UPRIGHT and the ALPHA ON ITS SIDE, the thirteen before him first, then THE INK end to end, a boss of no words: his inked "
+     "wall (T1, T2); HIS INK: 2 blocks the day he is in the world, grown to its full reach days on, towns inside it (I1); the nearest town "
+     "inside it shut to the map's own walk, one outside it open (I2); the ground dark and his tags at its gates (I3); his card, his fight, "
+     "the beat, his needles to your place (B0, B1, B2, G1); the town open again (C1a), the tags painted over (C1b); MARK at your place puts "
+     "the company's mark on a man for CLOUT (V1); his needles at your place (H1); the reload holds (R1). Planted: a town in his ink the walk "
+     "still enters, his ink back after the fall, a mark nobody took, a phone that forgot the save, a prize the seam never got. about 40 "
+     "min a way", True),
+    ('THE DOGS CHANGES THE MAP', ['node', 'gates/the_next_three_change_the_map_gate.js', 'THE DOGS'],
+     "BOSSES gate, 11/17, the coordinator's round 'BOSSES full sweep' (rules 441, 453, 454(a)), ask lines 167, 522, 571: the stranger's game "
+     "on the DEMO UPRIGHT and the ALPHA ON ITS SIDE, the fourteen before him first, then THE DOGS end to end, a boss of no words: the man at "
+     "the bar (T1, T2); HIS PACKS: they sleep in his runs by day, none on the street, and are out at night (K1); at night a pack smells the "
+     "crew and comes, a man bitten, the condition's own blood (K2); his card, his fight, the beat, his dog to your place (B0, B1, B2, G1); "
+     "the night by his kennel bites nobody (C1a), a stake and a broken chain where each pack slept (C1b); TRACK finds the next boss's sign "
+     "(V1); his dog at your place (H1); the reload holds (R1). Planted: a pack that bites nobody, his packs back after the fall, a trail to "
+     "nowhere, a phone that forgot the save, a prize the seam never got. about 40 min a way", True),
     ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
      "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
      "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "

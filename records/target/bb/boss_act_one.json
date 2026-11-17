@@ -11,11 +11,11 @@
   "weld",
   "climb",
   "survey",
+  "mark",
   "fade",
   "burn",
   "track",
   "look",
-  "mark",
   "cook"
  ],
  "bosses": [
@@ -1470,6 +1470,75 @@
     "pic": "razorline",
     "rise": "-{hp}",
     "card": "HIS LINE IS GONE"
+   }
+  },
+  {
+   "n": "THE INK",
+   "quiet": true,
+   "words": "rule 454(a): a name and one line at most, draft",
+   "place": {
+    "name": "THE PARLOR",
+    "art": "parlor",
+    "paint": "parlor"
+   },
+   "boss": {
+    "kind": "barbarian_chosen",
+    "name": "THE INK",
+    "hp_x": 1.6,
+    "weapon": "Spiked Impaler",
+    "shield": null,
+    "look": "boss_ink_0",
+    "says": "Hold still."
+   },
+   "crew": [
+    "barbarian_thrall",
+    "barbarian_thrall",
+    "barbarian_reaver"
+   ],
+   "board": "ruin",
+   "tip": "",
+   "verb": {
+    "id": "mark",
+    "word": "MARK",
+    "button": "MARK A MAN",
+    "quiet": true,
+    "rule": "at your place (or his), one man a day takes the company's mark for good: 'clout' CLOUT each, once a man",
+    "clout": 50,
+    "cooldown_days": 1,
+    "first": {
+     "plate": "+{clout} CLOUT",
+     "rise": "+{clout} CLOUT",
+     "rise_none": "EVERY MAN CARRIES IT"
+    },
+    "cooling": "MARK TOMORROW",
+    "tip": "A MAN TAKES THE MARK, +50 CLOUT",
+    "tip_cooling": "TOMORROW",
+    "place_after": "inkmark",
+    "hand": {
+     "name": "HIS NEEDLES",
+     "pic": "hand_mark.png",
+     "line": "MARK: AT YOUR PLACE, ONE MAN A DAY TAKES THE COMPANY'S MARK FOR GOOD. +50 CLOUT EACH."
+    }
+   },
+   "fallen_art": "parlor_after",
+   "lead": {
+    "thing": {
+     "head": "THE WALL",
+     "says": ""
+    }
+   },
+   "after": {
+    "quiet": true
+   },
+   "ink": {
+    "start": 2,
+    "grow": 1,
+    "max": 10,
+    "pic": "inktag",
+    "rise": "HIS INK",
+    "card": "{towns} OPEN AGAIN",
+    "towns": 2,
+    "shut": "SHUT"
    }
   }
  ]

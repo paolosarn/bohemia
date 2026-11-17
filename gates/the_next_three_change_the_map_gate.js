@@ -902,13 +902,25 @@ const BARBER = {
   }
 };
 
-/* ---------------- THE INK: his ink spreads, the towns in it shut (BOSSES 11/17) ---------------- */
+/* ---------------- THE INK: his ink spreads, the towns in it refuse you at the gate (BOSSES 11/17) ---------------- */
+/* the map's own tap on a town (townTap: the walk to the touching block, then the town's own door) and what came of it */
+const tapTown = async (c, t) => {
+  const t0 = Date.now();
+  await c.fr.evaluate((t) => { try { travelSpeedSet(4); } catch (e) {} townTap({ name: t.name, x: t.x, y: t.y, tier: mapTierOf(t.name) }); }, t);
+  for (let i = 0; i < 160; i++) { await c.page.waitForTimeout(500);
+    const q = await c.fr.evaluate(() => ({ walking: !!(TRAVEL && TRAVEL.path && TRAVEL.i < TRAVEL.path.length), town: (function () { const sf = document.getElementById('settleFrame'); return !!sf && sf.style.display === 'block'; })() })).catch(() => ({}));
+    if (q.town || (!q.walking && i > 3)) break; }
+  await c.page.waitForTimeout(1500);
+  return c.fr.evaluate((a) => { const t = a[0], R = window.__BOSS_INK_REFUSED, sf = document.getElementById('settleFrame');
+    return { at: [city.x, city.y], touching: townFootDist(townFoot({ name: t.name, x: t.x, y: t.y, tier: mapTierOf(t.name) }), city.x, city.y) <= 1, opened: !!sf && sf.style.display === 'block',
+      refused: !!(R && R.town === t.name && R.t >= a[1]) }; }, [t, t0]);
+};
 const INKQ = {
   I1: (q) => !!q && q.r0 === q.start && q.r6 > q.r0 && q.towns >= 1,
-  I2: (q) => !!q && q.inWalk === false && q.inRoute === false && q.outRoute === true,
-  C1a: (q) => !!q && q.walk === true && q.route === true,
+  I2: (q) => !!q && q.touching && q.refused && !q.opened && q.outHeld === false,
+  C1a: (q) => !!q && q.opened && !q.refused,
   V1: (q) => !!q && q.verb === 'mark' && q.clout > 0 && q.marked >= 1 && q.cooling,
-  R1: (q, b) => !!q && q.fallen && q.down && q.walk === true
+  R1: (q, b) => !!q && q.fallen && q.down && q.held === false
 };
 const INK = {
   R1: INKQ.R1, cam: true,
@@ -918,67 +930,69 @@ const INK = {
     for (let i = 0; i < 30 && !(Q && Q.at); i++) { Q = await fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.ink(n) || null)), NAME); if (!(Q && Q.at)) await c.page.waitForTimeout(500); }
     if (!(Q && Q.at)) { ok('I1 his ink', false, 'none'); return false; }
     const r0 = await fr.evaluate((n) => BohemiaBosses.inkRadius(n), NAME);
-    /* days on (the state's own day he came, set back until the ink is at its full reach): the ink has grown, the towns in it are his */
-    const six = await fr.evaluate((a) => { const n = a[0], Q = BohemiaBosses.ink(n); Q.made = (Q.made | 0) - a[1]; BohemiaBosses.inkDirty(); try { render(); } catch (e) {} return { r: BohemiaBosses.inkRadius(n), towns: BohemiaBosses.inkTowns(n) }; }, [NAME, Math.max(1, Math.ceil(((G.max | 0) - (G.start | 0)) / Math.max(1, G.grow | 0)))]);
-    const tw = await fr.evaluate((a) => { const bs = ctBases(), h = [city.x, city.y], ins = a[1], Q = a[0]; const inT = ins.map(t => ({ t, b: bs[t] })).filter(o => o.b)[0];
-      let outT = null, bd = 1e9; for (const t in bs) { if (ins.indexOf(t) >= 0) continue; const b = bs[t], d = Math.max(Math.abs((b.x | 0) - h[0]), Math.abs((b.y | 0) - h[1])); if (d < bd) { bd = d; outT = t; } }
+    /* days on (the state's own day he came, set back a long way): the ink at its full reach, the towns in it his */
+    const six = await fr.evaluate((n) => { const Q = BohemiaBosses.ink(n); Q.made = (Q.made | 0) - 40; BohemiaBosses.inkDirty(); try { render(); } catch (e) {} return { r: BohemiaBosses.inkRadius(n), towns: BohemiaBosses.inkTowns(n) }; }, NAME);
+    const tw = await fr.evaluate((a) => { const bs = ctBases(), h = [city.x, city.y], ins = a[1], mine = (function () { try { return BohemiaBetween.mine(); } catch (e) { return null; } })();
+      const inT = ins.map(t => ({ t, b: bs[t] })).filter(o => o.b)[0];
+      let outT = null, bd = 1e9; for (const t in bs) { if (ins.indexOf(t) >= 0 || t === mine) continue; const b = bs[t], d = Math.max(Math.abs((b.x | 0) - h[0]), Math.abs((b.y | 0) - h[1])); if (d < bd) { bd = d; outT = t; } }
       return { inT: inT ? { name: inT.t, x: inT.b.x | 0, y: inT.b.y | 0 } : null, outT: outT ? { name: outT, x: bs[outT].x | 0, y: bs[outT].y | 0 } : null }; }, [Q, six.towns]);
     c.inT = tw.inT; c.outT = tw.outT;
     const q1 = { start: G.start, r0, r6: six.r, towns: six.towns.length, names: six.towns };
     ok('I1 his ink spreads from his door: ' + q1.r0 + ' blocks the day he is in the world, ' + q1.r6 + ' at its full reach days on, ' + q1.towns + ' towns inside it', INKQ.I1(q1), JSON.stringify(q1));
     if (!tw.inT) { ok('I2 a town in his ink', false, 'none'); return false; }
-    /* the walk to the nearest town in his ink and to one out of it, from a street near him */
-    const near = await fr.evaluate((t) => { const h = [city.x, city.y]; let best = null, bd = 1e9; for (let dy = -6; dy <= 6; dy++) for (let dx = -6; dx <= 6; dx++) { const x = t.x + dx, y = t.y + dy, d = Math.max(Math.abs(dx), Math.abs(dy));
-      if (d < 3 || !cityWalkable(x, y) || loopTownAt(x, y, 1) || !cityRoute(h[0], h[1], x, y)) continue; const dd = Math.max(Math.abs(x - h[0]), Math.abs(y - h[1])); if (dd < bd) { bd = dd; best = [x, y]; } } return best; }, tw.inT);
-    if (near) await c.goTo(near);
-    c.near = near;
-    await fr.evaluate(() => render()); await c.page.waitForTimeout(800);
-    const q2 = await fr.evaluate((a) => { const h = [city.x, city.y], i = a[0], o = a[1]; return { at: h, inWalk: cityWalkable(i.x, i.y), inRoute: !!cityRoute(h[0], h[1], i.x, i.y), outRoute: !!(o && cityRoute(h[0], h[1], o.x, o.y)),
-      wash: ((BohemiaBosses.last().drew || {}).ink || {}).wash | 0, tags: (((BohemiaBosses.last().drew || {}).ink || {}).tags || []).map(t => t.key), told: JSON.parse(JSON.stringify(window.__BOSS_INK_TOLD || null)) }; }, [tw.inT, tw.outT]);
+    /* a real tap on the nearest town in his ink: the walk goes to its gate and nobody lets you in */
+    const q2 = await tapTown(c, tw.inT);
+    q2.outHeld = tw.outT ? !!(await fr.evaluate((n) => BohemiaBosses.inkHolds(n), tw.outT.name)) : null;
+    c.door = q2.at;
+    await fr.evaluate(() => render()); await c.page.waitForTimeout(600);
+    const dr = await fr.evaluate(() => ({ wash: ((BohemiaBosses.last().drew || {}).ink || {}).wash | 0, tags: (((BohemiaBosses.last().drew || {}).ink || {}).tags || []).map(t => t.key) }));
     await c.shot('2_his_ink');
-    ok('I2 ' + tw.inT.name + ', in his ink, is shut: the map\'s own walk will not go in; ' + (tw.outT ? tw.outT.name : 'a town') + ', out of it, it will', INKQ.I2(q2), JSON.stringify(q2).slice(0, 240));
-    ok('I3 his ink drawn: the ground under it dark (' + q2.wash + ' blocks), his tags at the gates he holds', q2.wash > 0 && q2.tags.some(k => k === (G.pic || 'inktag') + '_before'), q2.tags.join(' '));
-    ok('P2 planted: a town in his ink the walk still goes into turns I2 red', !INKQ.I2(Object.assign({}, q2, { inWalk: true, inRoute: true })), 'open');
+    ok('I2 a tap on ' + tw.inT.name + ', in his ink: the walk goes to its gate and it does not open (refused, said on the map); ' + (tw.outT ? tw.outT.name : 'a town') + ', out of it, is not his', INKQ.I2(q2), JSON.stringify(q2));
+    ok('I3 his ink drawn: the ground under it dark (' + dr.wash + ' blocks), his tags at the gates he holds', dr.wash > 0 && dr.tags.some(k => k === (G.pic || 'inktag') + '_before'), dr.tags.join(' '));
+    ok('P2 planted: a town in his ink that opens anyway turns I2 red', !INKQ.I2(Object.assign({}, q2, { refused: false, opened: true })), 'open');
+    await c.leaveTown();
     return true;
   },
   async card(G, c) { const n = await c.fr.evaluate((n) => ((BohemiaBosses.ink(n) || {}).towns || []).length, NAME); return n ? G.card.replace('{towns}', n + (n === 1 ? ' TOWN' : ' TOWNS')) : (G.card_none || null); },
   async after(c) {
     const { fr, G } = c;
-    if (c.near) await c.goTo(c.near);
-    await fr.evaluate(() => render()); await c.page.waitForTimeout(800);
-    const q = await fr.evaluate((t) => { const h = [city.x, city.y]; return { walk: cityWalkable(t.x, t.y), route: !!cityRoute(h[0], h[1], t.x, t.y), tags: (((BohemiaBosses.last().drew || {}).ink || {}).tags || []).map(x => x.key), wash: ((BohemiaBosses.last().drew || {}).ink || {}).wash | 0 }; }, c.inT);
-    ok('C1a his ink is dead: ' + c.inT.name + ' opens again, the walk goes in', INKQ.C1a(q), JSON.stringify(q));
-    ok('C1b his tags painted over grey, the ground clean', q.wash === 0 && q.tags.length >= 1 && q.tags.every(k => k === (G.pic || 'inktag') + '_after'), JSON.stringify(q.tags));
+    const q = await tapTown(c, c.inT);
+    const keys = await (async () => { await c.leaveTown(); await fr.evaluate(() => render()); await c.page.waitForTimeout(600);
+      return fr.evaluate(() => ({ tags: (((BohemiaBosses.last().drew || {}).ink || {}).tags || []).map(x => x.key), wash: ((BohemiaBosses.last().drew || {}).ink || {}).wash | 0 })); })();
+    ok('C1a his ink is dead: a tap on ' + c.inT.name + ' and it opens', INKQ.C1a(q), JSON.stringify(q));
+    ok('C1b his tags painted over grey, the ground clean', keys.wash === 0 && keys.tags.length >= 1 && keys.tags.every(k => k === (G.pic || 'inktag') + '_after'), JSON.stringify(keys));
     await c.shot('5_his_ink_dead');
     const p3 = await fr.evaluate((a) => { const Q = BohemiaBosses.ink(a[0]), H = BohemiaHisMap.state(), was = Q.fell, f = H.boss.fallen[a[0]]; Q.fell = null; delete H.boss.fallen[a[0]]; BohemiaBosses.inkDirty();
-      const w = cityWalkable(a[1].x, a[1].y); Q.fell = was; H.boss.fallen[a[0]] = f; BohemiaBosses.inkDirty(); return w; }, [NAME, c.inT]);
-    ok('P3 planted: his ink back after the fall turns C1a red (the town shut again)', p3 === false, String(p3));
-    /* MARK at your place: plant it the way HOME BASE's own gates do, walk there, a man takes the company's mark */
+      const w = !!BohemiaBosses.inkHolds(a[1]); Q.fell = was; H.boss.fallen[a[0]] = f; BohemiaBosses.inkDirty(); return w; }, [NAME, c.inT.name]);
+    ok('P3 planted: his ink back after the fall turns C1a red (the town his again)', p3 === true, String(p3));
+    /* MARK on your place's doorstep: plant it the way HOME BASE's own gates do, walk there, a man takes the company's mark */
     const home = await fr.evaluate(() => { let r = BohemiaHomeMap.rec(); if (!(r && r.planted)) { const rs = BohemiaHomeMap.rawSeat && BohemiaHomeMap.rawSeat(); if (rs) BohemiaHomeMap.plantAt(rs.x, rs.y); else BohemiaHomeMap.plantAt(city.x, city.y); }
       r = BohemiaHomeMap.rec(); return r && r.planted ? [r.planted.x | 0, r.planted.y | 0] : null; });
     let v = { home };
     if (home) {
       await noonOf(fr);
       const at = await fr.evaluate((hm) => { const h = [city.x, city.y], ord = BohemiaBosses.data().verbs_order, before = ord.slice(0, ord.indexOf('mark')); let best = null, bd = 1e9;
-        for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) { const x = hm[0] + dx, y = hm[1] + dy; if (!cityWalkable(x, y)) continue; const a = BohemiaBosses.applies('mark', x, y); if (!a || a.off) continue;
-          if (before.some(id => { const b = BohemiaBosses.applies(id, x, y); return b && !b.off && id !== 'fix'; })) continue; if (!cityRoute(h[0], h[1], x, y) && !(x === h[0] && y === h[1])) continue;
-          const d = Math.abs(dx) + Math.abs(dy); if (d < bd) { bd = d; best = [x, y]; } } return best; }, home);
+        for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) { const x = hm[0] + dx, y = hm[1] + dy; if (!cityWalkable(x, y)) continue; const a = BohemiaBosses.applies('mark', x, y); if (!a || a.off) continue;
+          if (before.some(id => { const b = BohemiaBosses.applies(id, x, y); return b && !b.off && id !== 'fix'; })) continue; if (!(x === h[0] && y === h[1]) && !cityRoute(h[0], h[1], x, y)) continue;
+          const d = Math.max(Math.abs(x - h[0]), Math.abs(y - h[1])); if (d < bd) { bd = d; best = [x, y]; } } return best; }, home);
       if (at) {
         await c.goTo(at); await c.leaveTown(); await noonOf(fr);
         await fr.evaluate(() => { const a = BohemiaBosses.applies('fix', city.x, city.y); if (a && !a.off) BohemiaBosses.use('fix'); });
         v = await fr.evaluate(() => { const c0 = BohemiaRenown.score(), vh = BohemiaBosses.verbHere(), g = BohemiaBosses.use('mark'), ap = BohemiaBosses.applies('mark', city.x, city.y);
           return { verb: vh && vh.id, clout: BohemiaRenown.score() - c0, marked: ((BohemiaBosses.state().verbs.mark || {}).men || []).length, name: g && g.name, cooling: !!(ap && ap.off), at: [city.x, city.y] }; });
         await c.page.waitForTimeout(2400); await c.shot('5_a_man_takes_the_mark');
-      } else v.why = 'no block at your place where MARK is the button';
+      } else { v.why = 'no block on your place\'s doorstep where MARK is the button';
+        v.blocks = await fr.evaluate((hm) => { const out = [], ord = BohemiaBosses.data().verbs_order, before = ord.slice(0, ord.indexOf('mark'));
+          for (let dy = -2; dy <= 2; dy++) for (let dx = -2; dx <= 2; dx++) { const x = hm[0] + dx, y = hm[1] + dy; if (!cityWalkable(x, y)) continue;
+            const a = BohemiaBosses.applies('mark', x, y); out.push([x, y, a ? (a.off ? a.why : 'mark') : 'no', before.filter(id => { const b = BohemiaBosses.applies(id, x, y); return b && !b.off; }).join('+')]); } return out.slice(0, 8); }, home); }
     }
-    ok('V1 MARK: at your place a man takes the company\'s mark for good (' + (v.name || 'nobody') + ') and the valley reads it (+' + (v.clout | 0) + ' CLOUT), a man a day', INKQ.V1(v), JSON.stringify(v));
+    ok('V1 MARK: on your place\'s doorstep a man takes the company\'s mark for good (' + (v.name || 'nobody') + ') and the valley reads it (+' + (v.clout | 0) + ' CLOUT), a man a day', INKQ.V1(v), JSON.stringify(v));
     ok('P5 planted: a mark nobody took turns V1 red', !INKQ.V1(Object.assign({}, v, { marked: 0, clout: 0 })), 'no mark');
     return { fallen: true };
   },
   async reload(e, c) {
-    if (c.near) await c.goOn(e, c.near);
     return e.fr.evaluate((a) => { try { render(); } catch (x) {} const Q = BohemiaBosses.ink(a[0]);
-      return { fallen: !!BohemiaHisMap.state().boss.fallen[a[0]], down: !!(Q && Q.fell != null), walk: cityWalkable(a[1].x, a[1].y) }; }, [NAME, c.inT]).catch(x => ({ err: String(x) }));
+      return { fallen: !!BohemiaHisMap.state().boss.fallen[a[0]], down: !!(Q && Q.fell != null), held: !!BohemiaBosses.inkHolds(a[1]) }; }, [NAME, c.inT.name]).catch(x => ({ err: String(x) }));
   }
 };
 

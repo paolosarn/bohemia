@@ -2159,15 +2159,25 @@
   }
 
   /* ---------- (22) HIS INK (BOSSES 11/17). THE INK, the ladder's 14th (the last needles and pigment). WHILE HE STANDS his ink spreads
-     out from his door: 'start' blocks the day he is in the world and 'grow' more each day after, up to 'max'. Every town inside his ink
-     is his (its people carry his mark) and its gate is shut to you: the map's own walk will not go in (cityWalkable wrapped here, the
-     town's blocks; never your own place, never the town the crew stands in or at). The longer he stands, the more of the valley is
-     shut: A STAIN THAT GROWS. His tags stand at the gates he holds, the ground under his ink goes dark. WHEN HE FALLS the gates open,
+     out from his door: 'start' blocks the day he is in the world and 'grow' more each day after, up to 'max' or the 'towns'-th nearest
+     town, whichever is further. Every town inside his ink is his (its people carry his mark) and its gate refuses you: you walk up to
+     it and the map's one door into a town (loopOpenTown, wrapped) does not open (never your own place). MEASURED 11/17 first: a town
+     is entered from any block touching its painted ground, even one off the street, so shutting blocks round it neither shut it nor
+     left the streets whole; the gate is where it is shut. The longer he stands, the more of the valley is shut: A STAIN THAT GROWS. His tags stand at the gates he holds, the ground under his ink goes dark. WHEN HE FALLS the gates open,
      his tags painted over grey, kept after a reload. */
   var INK_SHUT = null, INK_DAY = null, INK_DIRTY = true;
   function inkRow(n) { var r = row(n); return r && r.ink ? r : null; }
   function inkDown(k, Q) { var h = hs(); return Q.fell != null || !!(h && h.boss.fallen[k]); }
-  function inkRadius(Q, G) { return Math.min(G.max | 0 || 8, (G.start | 0 || 2) + (G.grow | 0 || 1) * Math.max(0, day() - (Q.made | 0))); }
+  /* how far it can grow: 'max', or as far as the 'towns'-th nearest town (never your own place), whichever is further, so his ink
+     always takes towns (MEASURED 11/17: a parlor near the valley's edge reached no town in 10 blocks) */
+  function inkReach(Q, G) {
+    if (Q.reach == null && Q.at) { var bs = bases(), mine = mineName(), d = [];
+      for (var tn in bs) { var b = bs[tn]; if (!b || tn === mine) continue; d.push(cheb(b.x | 0, b.y | 0, Q.at[0], Q.at[1])); }
+      d.sort(function (a, b) { return a - b; }); var k = Math.max(1, G.towns | 0 || 2);
+      Q.reach = Math.max(G.max | 0 || 8, d.length ? d[Math.min(k, d.length) - 1] : 0); }
+    return Q.reach != null ? Q.reach : (G.max | 0 || 8);
+  }
+  function inkRadius(Q, G) { return Math.min(inkReach(Q, G), (G.start | 0 || 2) + (G.grow | 0 || 1) * Math.max(0, day() - (Q.made | 0))); }
   function mineName() { try { return BohemiaBetween.mine(); } catch (e) { return null; } }
   function inkTowns(Q, G, R) {   /* the towns inside his ink, never your own place */
     if (R == null) R = inkRadius(Q, G); var bs = bases(), mine = mineName(), out = [];
@@ -2175,16 +2185,24 @@
       var door = null; try { door = townDoor(b.x | 0, b.y | 0); } catch (e) {} out.push({ town: tn, d: d, x: b.x | 0, y: b.y | 0, door: door ? [door[0], door[1]] : [b.x | 0, b.y | 0] }); }
     return out.sort(function (a, b) { return a.d - b.d; });
   }
-  function inkGrid() {   /* the town blocks his ink shuts, worked out once a day (the walk asks every block of every route) */
+  function inkGrid() {   /* the towns his ink holds, worked out once a day */
     var d = day(); if (INK_SHUT && INK_DAY === d && !INK_DIRTY) return INK_SHUT;
     INK_DAY = d; INK_DIRTY = false; INK_SHUT = {};
     for (var n in (S && S.ink) || {}) { var Q = S.ink[n], r = inkRow(n); if (!Q || !r || !Q.at || inkDown(n, Q)) continue;
-      inkTowns(Q, r.ink).forEach(function (t) { for (var dy = -1; dy <= 1; dy++) for (var dx = -1; dx <= 1; dx++) INK_SHUT[(t.x + dx) + ',' + (t.y + dy)] = [t.x, t.y]; }); }
+      inkTowns(Q, r.ink).forEach(function (t) { INK_SHUT[t.town] = n; }); }
     return INK_SHUT;
   }
-  function inkAt(x, y) {
-    if (!S || !S.ink) return false; var c = inkGrid()[x + ',' + y]; if (!c) return false;
-    var me = here(); return !(me && cheb(me[0], me[1], c[0], c[1]) <= 1);   /* never shut in: the town the crew stands in or at is not shut round it */
+  function inkHolds(name) { if (!S || !S.ink || !name) return null; return inkGrid()[name] || null; }
+  function inkRefuses(t) {
+    if (!DATA || !S || bench()) return false;
+    var n = inkHolds(t.name); if (!n || fightUp()) return false;
+    try { if (root.ARENA_FIGHTING) return false; } catch (e) {}
+    try { travelStop(); } catch (e) {}
+    var r = inkRow(n), me = here() || [t.x | 0, t.y | 0];
+    RISES.push({ x: me[0], y: me[1], t0: performance.now(), txt: (r && r.ink.shut) || 'SHUT', col: '#cfc6b0' }); tick();
+    LAST.inkRefused = { n: n, town: t.name, at: me.slice(), t: Date.now() }; root.__BOSS_INK_REFUSED = LAST.inkRefused;
+    try { if (typeof render === 'function') render(); } catch (e) {}
+    return true;
   }
   function inkTick() {
     if (!DATA || !S || bench() || !N()) return;
@@ -2336,9 +2354,13 @@
     return { clout: clout(V.clout | 0 || 25, 'a fresh fade', 'boss-fade:' + day()), paid: paid };
   }
   /* (MARK) his needles: at your place, one man a day takes the company's mark for good, and the valley reads it (CLOUT, once a man) */
-  function homeNear(x, y) { try { var r = BohemiaHomeMap.rec(); return !!(r && r.planted && cheb(r.planted.x | 0, r.planted.y | 0, x, y) <= 1); } catch (e) { return false; } }
-  function unmarked() { var C = root.BohemiaCondition; if (!C || !C.get) return null; var s = C.get(), have = (S.verbs.mark && S.verbs.mark.men) || [];
-    for (var k in s.men) { var m = s.men[k]; if (!m || !(m.hpMax > 0) || have.indexOf(k) >= 0) continue; try { if (C.isDead && C.isDead(k)) continue; } catch (e) {} return { k: k, name: m.shown || k }; } return null; }
+  function homeNear(x, y) { try { var r = BohemiaHomeMap.rec(); return !!(r && r.planted && cheb(r.planted.x | 0, r.planted.y | 0, x, y) <= 2); } catch (e) { return false; } }   /* on its doorstep: his place is a town on the map, its own blocks not walked */
+  function unmarked() {   /* the company as the condition lists it (its members: YOU, the men, the hired), a fight seen or not */
+    var C = root.BohemiaCondition; if (!C || !C.get) return null; var have = (S.verbs.mark && S.verbs.mark.men) || [], L = [];
+    try { L = C.members ? C.members() : []; } catch (e) { L = []; }
+    if (!L.length) { var s = C.get(); for (var k0 in s.men) L.push({ key: k0, man: { name: (s.men[k0] && s.men[k0].shown) || k0 } }); }
+    for (var i = 0; i < L.length; i++) { var e = L[i]; if (!e || !e.key || have.indexOf(e.key) >= 0) continue; try { if (C.isDead && C.isDead(e.key)) continue; } catch (x) {} return { k: e.key, name: (e.man && e.man.name) || e.key }; }
+    return null; }
   function markMan(V) { var u = unmarked(); if (!u) return { name: null, clout: 0 };
     if (!S.verbs.mark.men) S.verbs.mark.men = []; S.verbs.mark.men.push(u.k);
     return { name: u.name, clout: clout(V.clout | 0 || 50, 'the company\'s mark', 'boss-mark:' + u.k), men: S.verbs.mark.men.length }; }
@@ -2385,9 +2407,15 @@
   /* the walk refuses a shut street (the map's own walk, wrapped the way WORLD 7's shut roads wrap it; nothing shut on the bench) */
   if (typeof root.cityWalkable === 'function') {
     RAW_WALK = root.cityWalkable;
-    root.cityWalkable = function (x, y) { if (shutAt(x, y) || lockAt(x, y) || mineShut(x, y) || wagonAt(x, y) || inkAt(x, y)) return false; if (blownAt(x, y)) return true; return RAW_WALK(x, y); };   /* (15) his gates at night, (16) a mine you spotted, and a hole you blew */
+    root.cityWalkable = function (x, y) { if (shutAt(x, y) || lockAt(x, y) || mineShut(x, y) || wagonAt(x, y)) return false; if (blownAt(x, y)) return true; return RAW_WALK(x, y); };   /* (15) his gates at night, (16) a mine you spotted, and a hole you blew */
   }
 
+  /* (22) a town in his ink does not open to you: the map's one door into a town (loopOpenTown, wrapped the way cityWalkable is) refuses
+     at its gate; you walk up to it and nobody lets you in. Never your own place, never in a fight's own coming home. */
+  if (typeof root.loopOpenTown === 'function') {
+    var RAW_OPEN = root.loopOpenTown;
+    root.loopOpenTown = function (t) { try { if (t && inkRefuses(t)) return false; } catch (e) {} return RAW_OPEN.apply(this, arguments); };
+  }
   /* (17) the map's own minutes a block costs: his nails three times, his road after him faster than plain ground (cityStepMins
      wrapped the way cityWalkable is; the walk by minutes and the clock both read it) */
   if (typeof root.cityStepMins === 'function') {
@@ -2718,7 +2746,7 @@
     lens: function (n) { sync(); return S && S.lens ? (n ? (S.lens[n] || null) : S.lens) : null; }, blurAt: function (x, y) { sync(); return blurAt(x, y); },
     line: function (n) { sync(); return S && S.line ? (n ? (S.line[n] || null) : S.line) : null; }, lineTick: function () { sync(); return lineTick(); },   /* (21) */
     lineWould: function (x0, y0, x1, y1) { sync(); return lineWould(x0, y0, x1, y1); }, bleed: function (hp, why) { return bleed(hp, why || 'gate'); },
-    ink: function (n) { sync(); return S && S.ink ? (n ? (S.ink[n] || null) : S.ink) : null; }, inkAt: function (x, y) { sync(); return inkAt(x, y); },   /* (22) */
+    ink: function (n) { sync(); return S && S.ink ? (n ? (S.ink[n] || null) : S.ink) : null; }, inkHolds: function (name) { sync(); return inkHolds(name); },   /* (22) */
     inkTowns: function (n) { sync(); var Q = S && S.ink && S.ink[n], r = inkRow(n); return Q && r && Q.at ? inkTowns(Q, r.ink).map(function (t) { return t.town; }) : []; },
     inkRadius: function (n) { sync(); var Q = S && S.ink && S.ink[n], r = inkRow(n); return Q && r ? inkRadius(Q, r.ink) : 0; }, inkDirty: function () { INK_DIRTY = true; },
     packs: function (n) { sync(); return S && S.packs ? (n ? (S.packs[n] || null) : S.packs) : null; }, packsTick: function () { sync(); return packsTick(); },   /* (23) */
