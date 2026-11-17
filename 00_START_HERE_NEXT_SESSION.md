@@ -1,3 +1,14 @@
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17zj - THE MALL IS A DEAD MALL, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the sixth build; rules 416, 451(a), 455; ask row 627).
+COMBAT THREE's mall (BUILD 11/17x) wears its own art under its own names (slices/fight_ground/mall/mall_art.json, the garage's format; no code): two
+floor sheets (the terrazzo concourse with its diamonds, leaves and water marks; a store's wine carpet), 23 pictures for 27 names (the store front with
+two mannequins still dressed in one window, the shutter half down, both walls, the cart corral and two carts, stock, the counter, the kiosk, the
+planter, two camps, the food court, the fallen sky, the column, the lift, the bridge, both escalators, both rails) and the ceiling (THE PAINTED SKY,
+its paint let go, the skylight's row) with "have": true, "tile": [10, 10] in mall.json. 26 pictures, 841,870 bytes.
+ON THE PAGE on a phone both ways: 230 pieces laid, 0 stand-ins (230 of 230 before), the ceiling's picture drawn at 0.1, a tile 43.9 points upright and 22.4 sideways, 0 errors; the food court layout the same. Gate THE INSIDES WEAR FINISHED ART 34/0.
+VOTE cook5-the-mall-11-17 (MADE FROM). NOT DONE: row 646 still open (close in the furniture is not drawn: the page's draw); mall_mannequins and
+mall_fountain wait for their legend lines; no night versions.
+[bb Battle Brothers reads a fight's ground at a glance: the bridge is the hill in the middle that nobody starts on]
+[analog horror: two mannequins still dressed in a window nobody boarded]
 COMBAT THREE (combat-three-01gkdyuu): 11/17 LATEST -- BUILD 11/17zf - THE WAREHOUSE, BUILT, NOT YET SEEN (the full sweep, rule 453, job 1 a third time; rules 416, 59, 428, 451(a); ask rows 468, 627).
 The sixth big inside: a fight in the warehouse district (half of them; one in five in the industrial blocks) is fought between the racks: racking as walls, long lanes a gun
 sees down, cross-aisles, pallets and fallen bays, the conveyor to climb, dead forklifts, the dock doors' day, a pick mezzanine nobody holds at the bell; its roof joists overhead

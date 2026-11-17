@@ -1,5 +1,31 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17zj - THE MALL IS A DEAD MALL, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the sixth build; rules 416, 451(a), 455; ask row 627).
+'... the art for COMBAT THREE's next interior and its ceiling': THE MALL landed (11/17x) while this lane was on the hall; all 230 of its pieces were
+stand-ins. Now slices/fight_ground/mall/ holds mall_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 3 of mall_floor_0.webp, floor.high its row 4,
+floor.ring all 25, floor.store all 25 tiles of mall_store_0.webp; kit: every name COMBAT THREE's handoff asked for), sizes.json (my gate's), 23 piece
+pictures, the two floor sheets and mall_ceiling.webp: 26 pictures, 841,870 bytes. mall.json: only its ceiling entry's "have" (true) and "tile" ([10, 10]).
+Made by tools/bohemia_cook5_the_mall_finished_11_17_26.py ON the hall's tool. records/target/cook5_inside/calibration.json re-measured (the mall's three
+grounds and the hall's slab are in it now).
+PROOF: tools/bohemia_a_big_inside_on_the_page_11_17_26.js (takes hall or mall): 230 pieces laid, 0 stand-ins (230 of 230 before), the ceiling's picture drawn at 0.1, a tile 43.9 points upright and 22.4 sideways, 0 errors; the food court layout the same. Gate THE INSIDES WEAR FINISHED ART 34/0 (four kits,
+five ceilings). COMBAT THREE's gates on this tree: THE BIG INSIDES 43/0 (three insides on this main; I9: the mall's picture, in), AN INSIDE SHOWS ITS CEILING 6/0.
+VOTE cook5-the-mall-11-17 (MADE FROM arena2-the-pit-is-a-pit-11-7). Record: records/BOHEMIA_COOK_FIVE_THE_MALL_11_17_26.md.
+*** FOR COMBAT THREE: your names, your format, your ceiling entry; nothing else of yours edited. How each lays is in mall_art.json's how_it_lays (the
+store front and the door are a tile long and 3 m up the glass; the front's fallen letter lies 0.4 m south of it; the lift is 3.2 m square; the bridge's
+diamonds repeat every 4 m so deck tiles meet). floor.store is its own sheet. mall_mannequins and mall_fountain: say when the legend lines are in and
+they are made (the store front's window already carries two mannequins). A 'G' wall tile with a store on one side and the concourse on the other draws
+the front on both its edges: yours to keep or halve.
+*** FOR ANY LANE MAKING A KIT ON THESE TOOLS (measured this round): TWO GROUNDS ON ONE SHEET BLEED into each other's edge tiles (the gate's A3 bites):
+a ground a sheet. THE CUTTER READS BLACK AS SHADOW: a thing's own dark is 'under' (never 'black'), and a front with a dark recess is cut at shadow 1.0.
+TG.band_y CENTRES a band on ly (it does not start it). DISCS OR BOXES WITH FACES IN ONE PLANE render black: every one its own height.
+NOT DONE: row 646 (FIXES 2, COMBAT THREE: close in the furniture is not drawn); no night versions; the warehouse and the data fort wait for their names.
+*** NEXT ON THIS LANE, IN THIS ORDER: (1) the eleven real places left in kit art, the Strip's side first (shark_reef, the_tv_station,
+the_unemployment_office), then the edges, by the no-code piece pipeline (tools/bohemia_cook5_downtowns_three_wear_their_own_piece_11_17_26.py is the
+pattern: three scenes and three beats ON the places tool); (2) COMBAT THREE's WAREHOUSE (it landed on main while the mall was being gated: slices/fight_ground/insides.json lists it; all stand-ins; the
+names in handoffs/COMBAT_THREE.md) and then the data fort: one small tool each ON the mall's. IF HE MEETS FIGHTS MORE THAN THE MAP, DO (2) BEFORE (1); (3) mall_mannequins and mall_fountain when COMBAT THREE says the legend lines are in.
+[bb Battle Brothers reads a fight's ground at a glance: the bridge is the hill in the middle that nobody starts on]
+[analog horror: two mannequins still dressed in a window nobody boarded]
+
 COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17ze - THE BANK, THE MOB MUSEUM AND THE DINOSAUR, BUILT (4c0a4afc4), NOT YET SEEN (the full sweep, rule 453, the fifth build; rules 408, 409(c), 455; ask row 627).
 The sweep goes on (rule 453): 'finished art wherever a VOTE card still says STAND-IN and he meets it first'. No code: slices/place_pieces/
 place_pieces.json gained the_bank, the_mob_museum and the_natural_history_museum, the folder six lossless WebP pictures (174,891 bytes in all).

@@ -1,0 +1,474 @@
+{
+ "version": "cook5-mall-art-11-17",
+ "lane": "cook 5",
+ "stage": "finished",
+ "for": "COMBAT THREE's mall (slices/fight_ground/mall/mall.json, BUILD 11/17x): the names its handoff asked for, the garage's format. floor.floor is the concourse (rows 0 to 3 of mall_floor_0: terrazzo, the diamonds, the leaves), floor.store a store's carpet (all of mall_store_0, a sheet of its own: two grounds on one sheet bleed into each other's edge tiles), floor.high the terrazzo bare (row 4, under the bridge's own picture), floor.ring every terrazzo tile (the mall going on past the fight). Any tile meets any tile of its list.",
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "store": [
+   "mall/mall_store_0.webp#0,0",
+   "mall/mall_store_0.webp#1,0",
+   "mall/mall_store_0.webp#2,0",
+   "mall/mall_store_0.webp#3,0",
+   "mall/mall_store_0.webp#4,0",
+   "mall/mall_store_0.webp#0,1",
+   "mall/mall_store_0.webp#1,1",
+   "mall/mall_store_0.webp#2,1",
+   "mall/mall_store_0.webp#3,1",
+   "mall/mall_store_0.webp#4,1",
+   "mall/mall_store_0.webp#0,2",
+   "mall/mall_store_0.webp#1,2",
+   "mall/mall_store_0.webp#2,2",
+   "mall/mall_store_0.webp#3,2",
+   "mall/mall_store_0.webp#4,2",
+   "mall/mall_store_0.webp#0,3",
+   "mall/mall_store_0.webp#1,3",
+   "mall/mall_store_0.webp#2,3",
+   "mall/mall_store_0.webp#3,3",
+   "mall/mall_store_0.webp#4,3",
+   "mall/mall_store_0.webp#0,4",
+   "mall/mall_store_0.webp#1,4",
+   "mall/mall_store_0.webp#2,4",
+   "mall/mall_store_0.webp#3,4",
+   "mall/mall_store_0.webp#4,4"
+  ],
+  "high": [
+   "mall/mall_floor_0.webp#0,4",
+   "mall/mall_floor_0.webp#1,4",
+   "mall/mall_floor_0.webp#2,4",
+   "mall/mall_floor_0.webp#3,4",
+   "mall/mall_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3",
+   "mall/mall_floor_0.webp#0,4",
+   "mall/mall_floor_0.webp#1,4",
+   "mall/mall_floor_0.webp#2,4",
+   "mall/mall_floor_0.webp#3,4",
+   "mall/mall_floor_0.webp#4,4"
+  ]
+ },
+ "kit": {
+  "mall_bridge": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "THE BRIDGE",
+   "stage": "finished",
+   "src": "mall/mall_bridge.webp",
+   "w": 516,
+   "h_px": 428,
+   "foot": [
+    258.2,
+    427
+   ]
+  },
+  "mall_escalator_e": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "A DEAD ESCALATOR, EAST",
+   "stage": "finished",
+   "src": "mall/mall_escalator_e.webp",
+   "w": 515,
+   "h_px": 456,
+   "foot": [
+    257.8,
+    455
+   ]
+  },
+  "mall_escalator_w": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "A DEAD ESCALATOR, WEST",
+   "stage": "finished",
+   "src": "mall/mall_escalator_w.webp",
+   "w": 515,
+   "h_px": 456,
+   "foot": [
+    257.5,
+    455
+   ]
+  },
+  "mall_rail_ew": {
+   "kind": "RAIL",
+   "h": 1.04,
+   "name": "THE GLASS RAIL",
+   "stage": "finished",
+   "src": "mall/mall_rail_ew.webp",
+   "w": 516,
+   "h_px": 73,
+   "foot": [
+    258.2,
+    58
+   ]
+  },
+  "mall_rail_ns": {
+   "kind": "RAIL",
+   "h": 1.04,
+   "name": "THE GLASS RAIL",
+   "stage": "finished",
+   "src": "mall/mall_rail_ns.webp",
+   "w": 77,
+   "h_px": 414,
+   "foot": [
+    21.7,
+    413
+   ]
+  },
+  "mall_wall_ew": {
+   "kind": "WALL",
+   "h": 1.6,
+   "name": "THE MALL'S WALL",
+   "stage": "finished",
+   "src": "mall/mall_wall_ew.webp",
+   "w": 515,
+   "h_px": 79,
+   "foot": [
+    257.8,
+    78
+   ]
+  },
+  "mall_wall_ns": {
+   "kind": "WALL",
+   "h": 1.6,
+   "name": "THE MALL'S WALL",
+   "stage": "finished",
+   "src": "mall/mall_wall_ns.webp",
+   "w": 91,
+   "h_px": 439,
+   "foot": [
+    22.4,
+    438
+   ]
+  },
+  "mall_front_ew": {
+   "kind": "WALL",
+   "h": 3.0,
+   "name": "A STORE FRONT",
+   "stage": "finished",
+   "src": "mall/mall_front_ew.webp",
+   "w": 515,
+   "h_px": 175,
+   "foot": [
+    257.5,
+    145
+   ]
+  },
+  "mall_storewall_ns": {
+   "kind": "WALL",
+   "h": 3.0,
+   "name": "THE WALL BETWEEN TWO STORES",
+   "stage": "finished",
+   "src": "mall/mall_storewall_ns.webp",
+   "w": 121,
+   "h_px": 505,
+   "foot": [
+    26.6,
+    503
+   ]
+  },
+  "mall_door": {
+   "kind": "DRESS",
+   "h": 3.0,
+   "name": "A SHUTTER STUCK HALF DOWN",
+   "stage": "finished",
+   "src": "mall/mall_door.webp",
+   "w": 516,
+   "h_px": 162,
+   "foot": [
+    258.1,
+    144
+   ]
+  },
+  "mall_lift": {
+   "kind": "WALL",
+   "h": 3.2,
+   "name": "THE LIFT",
+   "stage": "finished",
+   "src": "mall/mall_lift.webp",
+   "w": 270,
+   "h_px": 251,
+   "foot": [
+    81.7,
+    246
+   ]
+  },
+  "mall_carts": {
+   "kind": "COVER",
+   "h": 1.04,
+   "name": "A CORRAL OF CARTS",
+   "stage": "finished",
+   "src": "mall/mall_carts.webp",
+   "w": 493,
+   "h_px": 212,
+   "foot": [
+    236.4,
+    203
+   ]
+  },
+  "mall_counter": {
+   "kind": "COVER",
+   "h": 1.9,
+   "name": "A STORE'S COUNTER",
+   "stage": "finished",
+   "src": "mall/mall_counter.webp",
+   "w": 348,
+   "h_px": 185,
+   "foot": [
+    150.8,
+    182
+   ]
+  },
+  "mall_kiosk": {
+   "kind": "COVER",
+   "h": 2.36,
+   "name": "A KIOSK",
+   "stage": "finished",
+   "src": "mall/mall_kiosk.webp",
+   "w": 240,
+   "h_px": 200,
+   "foot": [
+    85.8,
+    189
+   ]
+  },
+  "mall_stock": {
+   "kind": "COVER",
+   "h": 1.4,
+   "name": "STOCK ON PALLETS",
+   "stage": "finished",
+   "src": "mall/mall_stock.webp",
+   "w": 180,
+   "h_px": 173,
+   "foot": [
+    77.7,
+    140
+   ]
+  },
+  "mall_camp_a": {
+   "kind": "LOW_COVER",
+   "h": 1.6,
+   "name": "SOMEBODY LIVES HERE",
+   "stage": "finished",
+   "src": "mall/mall_camp_a.webp",
+   "w": 275,
+   "h_px": 167,
+   "foot": [
+    120.5,
+    161
+   ]
+  },
+  "mall_camp_b": {
+   "kind": "LOW_COVER",
+   "h": 1.6,
+   "name": "SOMEBODY LIVES HERE",
+   "stage": "finished",
+   "src": "mall/mall_camp_b.webp",
+   "w": 275,
+   "h_px": 167,
+   "foot": [
+    120.9,
+    161
+   ]
+  },
+  "mall_tables": {
+   "kind": "LOW_COVER",
+   "h": 0.86,
+   "name": "THE FOOD COURT'S TABLES",
+   "stage": "finished",
+   "src": "mall/mall_tables.webp",
+   "w": 524,
+   "h_px": 127,
+   "foot": [
+    249.4,
+    125
+   ]
+  },
+  "mall_rubble": {
+   "kind": "LOW_COVER",
+   "h": 0.9,
+   "name": "THE CEILING, COME DOWN",
+   "stage": "finished",
+   "src": "mall/mall_rubble.webp",
+   "w": 339,
+   "h_px": 170,
+   "foot": [
+    168.0,
+    143
+   ]
+  },
+  "mall_planter": {
+   "kind": "COVER",
+   "h": 3.0,
+   "name": "A PLANTER",
+   "stage": "finished",
+   "src": "mall/mall_planter.webp",
+   "w": 275,
+   "h_px": 267,
+   "foot": [
+    94.9,
+    243
+   ]
+  },
+  "mall_column": {
+   "kind": "WALL",
+   "h": 2.6,
+   "name": "A COLUMN",
+   "stage": "finished",
+   "src": "mall/mall_column.webp",
+   "w": 167,
+   "h_px": 179,
+   "foot": [
+    38.7,
+    158
+   ]
+  },
+  "mall_cart_a": {
+   "kind": "DRESS",
+   "h": 1.04,
+   "name": "A CART",
+   "stage": "finished",
+   "src": "mall/mall_cart_a.webp",
+   "w": 107,
+   "h_px": 94,
+   "foot": [
+    30.2,
+    89
+   ]
+  },
+  "mall_cart_b": {
+   "kind": "DRESS",
+   "h": 0.56,
+   "name": "A CART",
+   "stage": "finished",
+   "src": "mall/mall_cart_b.webp",
+   "w": 120,
+   "h_px": 66,
+   "foot": [
+    42.9,
+    61
+   ]
+  },
+  "mall_boxes": {
+   "kind": "DRESS",
+   "h": 1.4,
+   "name": "STOCK ON PALLETS",
+   "stage": "finished",
+   "src": "mall/mall_stock.webp",
+   "w": 180,
+   "h_px": 173,
+   "foot": [
+    77.7,
+    140
+   ]
+  },
+  "mall_bedding_a": {
+   "kind": "DRESS",
+   "h": 1.6,
+   "name": "SOMEBODY LIVES HERE",
+   "stage": "finished",
+   "src": "mall/mall_camp_a.webp",
+   "w": 275,
+   "h_px": 167,
+   "foot": [
+    120.5,
+    161
+   ]
+  },
+  "mall_bedding_b": {
+   "kind": "DRESS",
+   "h": 1.6,
+   "name": "SOMEBODY LIVES HERE",
+   "stage": "finished",
+   "src": "mall/mall_camp_b.webp",
+   "w": 275,
+   "h_px": 167,
+   "foot": [
+    120.9,
+    161
+   ]
+  },
+  "mall_seats": {
+   "kind": "DRESS",
+   "h": 0.86,
+   "name": "THE FOOD COURT'S TABLES",
+   "stage": "finished",
+   "src": "mall/mall_tables.webp",
+   "w": 524,
+   "h_px": 127,
+   "foot": [
+    249.4,
+    125
+   ]
+  }
+ },
+ "how_it_lays": {
+  "store fronts and doors": "mall_front_ew is a tile long, 3 m up the glass, foot its south base middle (the garage's wall way); the sign's fallen letter lies 0.4 m south of it. mall_door is a tile wide: two piers, the header, the shutter's curtain down to 1.35 m; foot the doorway's south base middle (a man on the tile stands under it). mall_storewall_ns is a tile deep, foot its south end middle.",
+  "the outer wall": "mall_wall_ew / mall_wall_ns: 1.6 m with the wainscot, a tile long",
+  "carts": "mall_carts is 10.6 m wide, 3.5 m deep, foot its south edge middle; mall_cart_a stands, mall_cart_b lies with somebody's bags",
+  "stock, counter, kiosk, planter, camp, tables, rubble": "foot the piece's south edge middle; mall_boxes is mall_stock's picture, mall_bedding_a/b the camps', mall_seats the tables'",
+  "the column and the lift": "mall_column is 1 m square, foot its base middle; mall_lift is 3.2 m square, 3.2 m up, foot its south base middle (the doors face south)",
+  "the bridge": "mall_bridge on every high tile, foot at the tile's south edge middle; 1.42 m up; its diamonds repeat every 4 m so deck tiles meet. mall_escalator_e climbs to the east, mall_escalator_w to the west (the same foot). mall_rail_ew / mall_rail_ns on its open edges (the hall's glass rail)."
+ },
+ "bytes": {
+  "floor": 284398,
+  "store": 38012,
+  "ceiling": 23672
+ },
+ "ceiling": {
+  "sheet": "mall/mall_ceiling.webp",
+  "bays": [
+   5,
+   5
+  ],
+  "bay_px": [
+   129,
+   91
+  ],
+  "covers": [
+   10,
+   10
+  ],
+  "what": "the painted sky, faded: clouds on a pale sky, the paint let go in patches down to the plaster, a rib on every bay's line both ways, the skylight's grid across one row of bays (some panes gone to the dark), the uplights dead but one",
+  "contract": "mall.json 'ceiling' (COMBAT THREE's: the fight draws it over the board at that alpha, rule 451(a))"
+ }
+}
