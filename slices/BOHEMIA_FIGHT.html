@@ -1449,7 +1449,13 @@ const FIGHT = (function () {
   function placeOwn(opts) {
     const P = DB.ours && DB.ours.place_boards ? R('ours.place_boards') : null;
     if (!P || !opts.district || opts.boss) return null;
-    const lib = blockLibrary(), id = Object.keys(P.places).filter(function (k) { const p = P.places[k]; return p.built && p.districts.indexOf(opts.district) >= 0; })[0];
+    const lib = blockLibrary(); let id = Object.keys(P.places).filter(function (k) { const p = P.places[k]; return p.built && p.districts.indexOf(opts.district) >= 0; })[0];
+    /* __EVERY_ZONE_ITS_GROUND__ (WORLD THIRTEEN 11/17, rule 453(2); a marked line, COMBAT THREE's from here, the seam in
+       handoffs/WORLD_THIRTEEN.md): a map kind with no place of its own (a mile street, a solar farm, a resort, an apartment court)
+       deals the place its ground is (FIGHT_OPTS.ground.zone_place: its own place, else its zone's, a mile street the land's beside it);
+       the ground is the cell's own truth, so it leads (a road cell's fight carries a nearby block's district, measured on the page: a
+       mile street through the desert dealt the suburbs'); only a cell the map handed over, never a place's cell (opts.template) */
+    if (opts.ground && opts.ground.zone_place && !opts.template) { const z = String(opts.ground.zone_place).replace(/^place_/, ''); if (P.places[z] && P.places[z].built) id = z; }
     const p = id ? P.places[id] : null; if (!p) return null;
     const every = [p.landmark_block].concat(p.field, [].concat.apply([], Object.values(p.cols || {})), [].concat.apply([], Object.values(p.rows || {})));
     if (every.some(function (n) { return !lib[n]; })) return null;

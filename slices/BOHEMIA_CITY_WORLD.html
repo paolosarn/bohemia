@@ -69656,6 +69656,42 @@ function meetCampBroke(why){
 try { window.MEET_CAMP = MEET_CAMP; window.meetStill = meetStill; } catch (_e) {}
 /* ==== /__MAKE_CAMP_NEARBY__ ==== */
 /* ==== /__MEET_BEFORE_YOU_FIGHT__ ==== */
+/* __EVERY_ZONE_ITS_GROUND__ (WORLD THIRTEEN 11/17, VAMILY rule 453(2); the coordinator: 'every zone's cells handed to COMBAT THREE with
+   their ground so its open-map boards match the zone'). MEASURED: on 22 valleys 31 in 100 of the cells are map kinds with no place board of
+   their own (the mile streets alone 25 in 100; the strip malls, the solar farms, the resorts, the apartment courts, the farms), and a
+   fight there dealt its kind's shared blocks: a mile street through the open desert was a suburb's stems and strip malls. NOW the
+   ground the map hands over (cityHandOver's FIGHT_OPTS.ground) carries:
+     zone_place  the place board whose own blocks the cell's ground is (the one table's piece.deal.zone_place: its own place, else its
+                 zone's by land_use.json); a mile street the place of the land it runs through
+     land        a road cell's land: the commonest kind beside it, ring by ring out to four
+     street      where no house street runs: a road cell's own way (the road cells beside it: way, ends, mouths, road) or a dirt
+                 track's (way, ends, mouths, track: true)
+     track       the dirt track's bits (1 N, 2 E, 4 S, 8 W)
+     sides       the kind north, east, south and west of the cell (what each edge of the board faces)
+   A pure function of the valley (m), the ground already built, the one table (FK) and the tracks (TR); gates/every_zone_its_ground_gate.js
+   runs this same text on 22 valleys. */
+function vbZoneGround(m, G, FK, TR){
+  var x0=G.cell[0], y0=G.cell[1], N=m.n, ROAD={arterial:1,freeway:1,beltway:1,interchange:1};
+  var dAt=function(x,y){ if(x<0||y<0||x>=N||y>=N) return null; var t=m.at(x,y); return t?t.district:null; }, rd=function(x,y){ var d=dAt(x,y); return !!(d&&ROAD[d]); };
+  var gp=G.district?FK.piece(G.district):null, zp=gp&&gp.deal?gp.deal.zone_place:null;
+  G.sides={ n:dAt(x0,y0-1), e:dAt(x0+1,y0), s:dAt(x0,y0+1), w:dAt(x0-1,y0) };
+  if(ROAD[G.district]){ var best=null;
+    for(var r=1;r<=4&&!best;r++){ var cnt={}, bn=0;
+      for(var b=-r;b<=r;b++) for(var a=-r;a<=r;a++){ if(Math.max(Math.abs(a),Math.abs(b))!==r) continue; var d=dAt(x0+a,y0+b); if(!d||ROAD[d]) continue; cnt[d]=(cnt[d]||0)+1; }
+      for(var k in cnt) if(cnt[k]>bn||(cnt[k]===bn&&k<best)){ bn=cnt[k]; best=k; } }
+    G.land=best;
+    if(zp==='beside'){ var lp=best?FK.piece(best):null; zp=lp&&lp.deal?lp.deal.zone_place:null; }
+    if(!G.street||!G.street.way){ var ew=0, ns=0; for(var i=-3;i<=3;i++){ if(i){ if(rd(x0+i,y0)) ew++; if(rd(x0,y0+i)) ns++; } }
+      var w=ew>ns?'ew':ns>ew?'ns':ew?'ew':null, hm=G.street?(G.street.mouths|0):0;   /* a house street's mouth on the mile street stays a mouth */
+      if(w) G.street={ way:w, ends:w==='ew'?(rd(x0-1,y0)?1:0)|(rd(x0+1,y0)?2:0):(rd(x0,y0-1)?1:0)|(rd(x0,y0+1)?2:0),
+        mouths:hm|(w==='ew'?(rd(x0,y0-1)?1:0)|(rd(x0,y0+1)?4:0):(rd(x0+1,y0)?2:0)|(rd(x0-1,y0)?8:0)), road:G.district }; } }
+  if(zp==='beside') zp=null;
+  G.zone_place=zp||null;
+  var tk=TR?TR[y0*N+x0]|0:0;
+  if(tk){ G.track=tk; if(!G.street){ var tw=(tk&10)?'ew':'ns';
+    G.street={ way:tw, ends:tw==='ew'?((tk&8)?1:0)|((tk&2)?2:0):((tk&1)?1:0)|((tk&4)?2:0), mouths:tw==='ew'?(tk&5):(tk&10), track:true }; } }
+  return G;
+}
 function cityHandOver(msg, skin){
   /* WORLD [the job tells the truth, in blood] (rule 208(e), WORLD's line in RUN's door): the party is rolled here, once, by the fight's
      own math (slices/bohemia_job_danger.js), so the meet card says what stands on the board and the fight deals that band */
@@ -69728,6 +69764,10 @@ function cityHandOver(msg, skin){
     if(_gr) msg.ground={ cell:[_gx,_gy], district:_gd, zone:_gr.zone||null, cls:_gr.class||null, building:_gr.building||null,
       ground:_gp&&_gp.deal?_gp.deal.ground:null, kind:_gp&&_gp.deal?_gp.deal.kind:null, families:_gp&&_gp.deal?_gp.deal.families.slice():[],
       street:_gl?{ way:(_gl&3)===1?'ew':(_gl&3)===2?'ns':null, ends:(_gl&12)>>2, mouths:(_gl&240)>>4 }:null }; } }catch(_e){}
+  /* __EVERY_ZONE_ITS_GROUND__ (WORLD THIRTEEN 11/17, rule 453(2)): the ground's zone place, the land beside a road, its way, the track,
+     the four sides (vbZoneGround, above) */
+  try{ if(msg && msg.ground && msg.ground.cell && window.BohemiaFightKinds){ var _TRk=null; try{ _TRk=vbTracksValley(); }catch(_e3){}
+    vbZoneGround(om, msg.ground, BohemiaFightKinds, _TRk); } }catch(_e){}
   try{ if(msg && window.BohemiaWorldStateMap && BohemiaWorldStateMap.handOver) BohemiaWorldStateMap.handOver(msg); }catch(_e){}   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ (WORLD 7): a burned block deals a burned board; the block's state and its power go with the fight */
   /* __EVERY_FIGHT_SIZED_TO_THE_CREW__ (RUN 10/23): which day it is and how many he has, on the one door, so the shell can
      hold the first day's line for a hand-over that never asked partyMath (the street's rosters) */

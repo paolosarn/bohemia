@@ -8460,6 +8460,11 @@ GATES = [
      "blocks, what is off it named: dirt-track pockets, Strip stubs), every building lump on it (98 in 100) or fronting a road "
      "(99.5), not every part a suburb (houses at most 30 in 100, desert 15, works 2.5, Strip 2, lake 0.7); a fight on a cell no place "
      "stands on carries its ground and zone to the fight, upright and on its side; planted fails red. about 2 min", True),
+    ('EVERY ZONE ITS GROUND', ['node', 'gates/every_zone_its_ground_gate.js'],
+     "WORLD THIRTEEN gate, 11/17, rule 453(2): every map kind names the place board its ground is (its own, its zone's by "
+     "land_use.json, a mile street the land beside it); on 22 valleys 81 in 100 of the cells deal a place's own ground (was 51), every "
+     "road cell its way, every dirt track its bits; the fight's own code deals it (36 kinds, never two alike); on the demo upright and "
+     "on its side a fight on a mile street through the desert is the desert's board; planted fails red. about 6 min", True),
     ('THE MOMENTS BETWEEN', ['node', 'gates/the_moments_between_gate.js'],
      "WORLD gate, 11/2, ask line 273 (Paolo 11/2: 'The transition of the camp to when time passes by and an enemy wants to attack you, "
      "it's just like sloppy quick bullshit... less choppy... less AI slop'): on the demo at phone size, every drawn frame: making camp "

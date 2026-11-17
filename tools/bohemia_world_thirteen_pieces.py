@@ -139,9 +139,22 @@ def cut_thing(key, row):
 # the region's real places that stand outside the valley (no map kind): the map kind whose board the fight deals there
 OUTSIDE = {'the_lab': 'medical', 'lenzie_station': 'powerplant', 'spring_mountain_ranch': 'farm', 'callville_bay': 'water'}
 
+def zone_place(d, row, dl, S):
+    """__EVERY_ZONE_ITS_GROUND__ (11/17, rule 453(2)): the place board whose own blocks a plain cell of this map kind deals: its own
+    place where one is built there, else its zone's (land_use.json zones[z].place, place_by_district first); 'beside' for a mile
+    street (the map hands the place of the land beside it); None where the zone deals its own blocks or board."""
+    if not dl: return None
+    if dl.get('place'): return dl['place']
+    LU = S['lu']; pl = S['ours']['place_boards']['value']['places']
+    z = row.get('zone'); want = LU.get('place_by_district', {}).get(d, (LU['zones'].get(z) or {}).get('place'))
+    if want == 'beside': return 'beside'
+    return ('place_' + want) if want and pl.get(want, {}).get('built') else None
+
 def pieces(J, S):
+    S.setdefault('lu', json.load(open(os.path.join(ROOT, 'records/target/bb/land_use.json'), encoding='utf8')))
     for d, row in J['districts'].items():
         p = {'deal': deal(d, S), 'cut': cut_district(d, row, S)}
+        if p['deal']: p['deal']['zone_place'] = zone_place(d, row, p['deal'], S)
         row['piece'] = p
     for ns in ('lots', 'marks', 'works'):
         for k, row in J['town'][ns].items(): row['piece'] = {'deal': 'town', 'cut': cut_thing(k, row)}

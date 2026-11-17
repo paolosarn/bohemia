@@ -1,5 +1,29 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN; newest block on top)
 
+WORLD THIRTEEN (11/17, round six, build two): BUILD 11/17zd - EVERY ZONE ITS GROUND, BUILT, NOT YET SEEN (rule 453(2); rules
+429(a)(g); asks 504, 507, 508). Record: records/BOHEMIA_WORLD_THIRTEEN_EVERY_ZONE_ITS_GROUND_11_17_26.md. VOTE
+world13-every-zone-its-ground-11-17 (STAND-IN).
+- land_use.json zones[z].place (+ place_by_district) -> map_fight_kinds.json piece.deal.zone_place (tools/bohemia_world_thirteen_pieces.py,
+  then the fight-kinds sync) -> the map's vbZoneGround in cityHandOver -> FIGHT_OPTS.ground -> the fight's placeOwn (one marked line).
+- 22 valleys: 81.2 in 100 of the cells deal a place board's own ground (was 51.0), 10.8 the freeway's board. Gate EVERY ZONE ITS GROUND
+  14/0, in the suite.
+*** THE SEAM, FOR COMBAT THREE (the fields only grew; nothing of yours moved but one marked line): ***
+- FIGHT_OPTS.ground now also carries:
+    zone_place  'place_<id>': the place board whose own blocks the cell's ground is (its own place, else its zone's); null where the
+                cell deals its own (strip malls, civic buildings) or the freeway's board
+    land        a road cell's land (the commonest kind beside it, ring by ring out to four)
+    street      for a road cell its own way { way, ends, mouths (a house street's mouth kept), road }; for a dirt track
+                { way, ends, mouths, track: true }
+    track       the dirt track's bits (1 N, 2 E, 4 S, 8 W)
+    sides       { n, e, s, w }: the map kind on each side of the cell
+- ONE MARKED LINE in your placeOwn (__EVERY_ZONE_ITS_GROUND__): with opts.ground.zone_place (and no opts.template) the place is the
+  zone place, ahead of the shell's district. MEASURED: a road cell's fight carries a nearby block's district ('school', 'park',
+  'trailer'), so a mile street through the desert dealt the suburbs'. It is yours from here.
+- OWED READS, YOURS IF YOU WANT THEM: dealZone's mix-in kinds come from the shell's district (a desert road mixes a 'park' golf
+  block in): ground.district (the road's own stems, strip, lots) or ground.land is the cell's truth; ground.sides could close a board's
+  edge (water, the freeway's berm, the mountain); a street's ends a dead end.
+- NEXT, MINE (rule 453(3)): the map measured on a cheap phone at every zoom on many seeds (tools/bohemia_world_thirteen_map_speed.js).
+
 WORLD THIRTEEN (11/17, round six, build one): BUILD 11/17q - EACH ZONE LOOKS LIKE ITSELF, BUILT, NOT YET SEEN (rule 453; rules
 429(g)(h); asks 508, 509). Record: records/BOHEMIA_WORLD_THIRTEEN_EACH_ZONE_LOOKS_LIKE_ITSELF_11_17_26.md. VOTE
 world13-each-zone-looks-like-itself-11-17 (STAND-IN).
