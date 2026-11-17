@@ -1,3 +1,8 @@
+JOBS (jobs-01gkdyuv): 11/17 LATEST -- BUILD 11/17z - WHAT WALKING AWAY COSTS, BUILT, NOT YET SEEN (rules 453, 454(a), 441; row 627). WHAT WALKING AWAY COSTS (build C of four): every job's card says, before the yes, what dropping it and failing it cost: this
+town's bar from and to (the band it falls into) and CLOUT from and to (never under 0), the numbers the game already took.
+On the phone, the demo and the alpha both ways. Gate THE TOWN'S BOOK. VOTE jobs-what-walking-away-costs-11-17 (STAND-IN), sha 166e10bd0. Record records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md.
+[bb Battle Brothers: cancelling a contract costs the town 10 and renown, failing a civilian one 20; ours says both on the card before you sign]
+
 COMBAT THREE (combat-three-01gkdyuu): 11/17 LATEST -- BUILD 11/17x - THE MALL, BUILT, NOT YET SEEN (the full sweep, rule 453, job 1 again; rules 416, 59, 428, 451(a); ask rows 468, 627).
 The fifth big inside: a fight at the mall (0.7 of what the garage leaves) is fought on its concourse between store fronts: stores as rooms with one slow doorway, the food
 court, the day through the skylight, and the upper level's bridge in the middle that nobody holds at the bell; its painted sky overhead at 10%. One data file

@@ -1,5 +1,22 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/17 LATEST -- BUILD 11/17z - WHAT WALKING AWAY COSTS (build C of four), BUILT, NOT YET SEEN (rules
+453, 454(a), 441; row 627). Record: records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md section 3. His vote of 11/16: YES on build A.
+- MEASURED FIRST: dropping a job already cost its town 10 and 100 CLOUT, failing it 20 and 75 (relations.json, renown.json, the wiki's);
+  the job's card never said so before the yes.
+- THE CARD: one more line of numbers on every job's card, this town's own, two lines: 'DROP IT 50→40 · CLOUT 300→200' / 'FAIL IT 50→30
+  COLD · CLOUT 300→225' (the band named when the bar falls into another; CLOUT never under 0, so a new company reads 0→0). Labels only,
+  draft (rule 454(a)); no number is new. slices/BOHEMIA_SETTLEMENT_SCREEN.html __WHAT_WALKING_AWAY_COSTS__ (costOf, costWords).
+- ON THE PHONE (demo and alpha, both ways; 300 CLOUT set in the game's own record, the one shortcut, said): the Network's TV-mast job
+  dropped in town with a finger, 50 -> 40, CLOUT 300 -> 200; the courier job that changes halfway walked away from at its turn with a
+  finger, lost, 40 -> 20, CLOUT 200 -> 125: all exactly as the cards said.
+- THE CARD GREW A LINE: the ask sits beside Take it on every phone now (upright, the label over its cost); every card button measured on
+  the glass (B3, C3).
+GATE THE TOWN'S BOOK: C1 files, C2 the card's words on the real bands and gains, C3 the phone: 10/0 with JOBS_BUILD=B,C on the rebased tree.
+NEXT: build D (any job paid into his own place), built and proven in a second worktree, ships next.
+[bb Battle Brothers: cancelling a contract costs the town 10 and renown, failing a civilian one 20; ours says both on the card before you sign]
+[analog horror: the card already knows how it ends if you run, and it tells you in numbers, in a colour like old blood]
+
 JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/17 LATEST -- BUILD 11/17u - PUSH THE PAY (build B of four), BUILT, NOT YET SEEN (rules 453,
 454(a), 441; row 627). Record: records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md section 2.
 - THE ASK: on every job's card, above Take it, 'Ask +7%' with its cost beside it ('-0.5 STANDING'): 7% on the pay (the middle of the
