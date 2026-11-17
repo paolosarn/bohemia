@@ -1,5 +1,22 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17n - THE COOLING CENTER AND THE DOME, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the third build; rules 408, 409(c); ask row 627).
+The order's third item: 'WORLD 14's two newest places'. No code: slices/place_pieces/place_pieces.json gained the_cooling_center and the_dome, the folder
+four lossless WebP pictures (99,016 bytes in all). Made by the same tool and frame as the bus yard and the greenhouses.
+THE COOLING CENTER: a county building (the gym's tall block, the rooms beside it), every window lit cool, the blue banner, roof chillers, the generator
+on its trailer with its smoke and its cable to the open doors, two canopies with cots, water barrels, a line of five. THE DOME: ten courses of pink glass
+on a drum (five read as a cake), ribs at its foot and waist, the coaster's red track round the glass and its loop at the front, a marquee with three
+letters gone; on the beat the train's lamps go from one side of the glass to the other (WORLD FOURTEEN's own analog horror line).
+PROOF: the page tool on the demo upright and sideways: both drawn, 51 points, no error. Gate THE PLACES WEAR THEIR OWN PIECE 8/0 with four places.
+VOTE cook5-the-cooling-center-and-the-dome-11-17 (MADE FROM arena2-the-pit-is-a-pit-11-7).
+Record: records/BOHEMIA_COOK_FIVE_THE_COOLING_CENTER_AND_THE_DOME_11_17_26.md.
+NOT DONE: the four places' own arrival screens (each opens its tier's generic screen); fourteen real places in kit art.
+NEXT ON THIS LANE: THE CONVENTION HALL's art and ceiling (COMBAT THREE's names: slices/fight_ground/hall/hall_art.json, hall_ceiling.webp).
+FOR WORLD FOURTEEN: the two entries are yours to check against what the places are (the cooling center's line of five and its generator; the dome's
+coaster running empty is your line). Nothing of yours edited.
+[bb Battle Brothers' map: a landmark is read by its silhouette from a screen away; a dome among towers is that]
+[analog horror: a coaster's lamps going round a pink dome once, empty]
+
 COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17k - THE BUS YARD AND THE GREENHOUSES, BUILT (23745cd78), NOT YET SEEN (the full sweep, rule 453, the second build; rules 408, 409(c); ask row 627).
 The order (rule 453): finished art wherever a VOTE card says STAND-IN, each its own build; second, the bus yard and the greenhouses.
 WHAT WAS THERE: WORLD FOURTEEN's two places (11/11o) wore the kit art of the kind each is like. slices/bohemia_real_places.js: 'until COOK FOUR's golden

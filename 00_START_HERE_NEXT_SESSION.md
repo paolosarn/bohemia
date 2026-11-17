@@ -1,3 +1,12 @@
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17n - THE COOLING CENTER AND THE DOME, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the third build; rules 408, 409(c); ask row 627).
+WORLD FOURTEEN's two newest places wear their own piece on the map, on the 11/17k draw (no code in this build): THE COOLING CENTER (the gym and its rooms,
+every window lit cool, the county's blue banner, the generator on its trailer smoking, shade and cots, the line to the door) and THE DOME (ten courses of
+pink glass, the coaster's red track and its loop, a dead marquee; the train's lamps go round on the beat, empty). Rose, never purple. 99,016 bytes for the
+folder (four places now). ON THE DEMO on a phone both ways: 51 points across. Gate THE PLACES WEAR THEIR OWN PIECE 8/0 with all four.
+VOTE cook5-the-cooling-center-and-the-dome-11-17 (MADE FROM). NOT DONE: the places' own arrival screens; fourteen real places still in kit art.
+NEXT ON THIS LANE: COMBAT THREE's convention hall (every picture of it is a stand-in today) and its ceiling, by the names in its handoff.
+[bb Battle Brothers' map: a landmark is read by its silhouette from a screen away; a dome among towers is that]
+[analog horror: a coaster's lamps going round a pink dome once, empty]
 COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17k - THE BUS YARD AND THE GREENHOUSES, BUILT (23745cd78), NOT YET SEEN (the full sweep, rule 453, the second build; rules 408, 409(c); ask row 627).
 THE BUS YARD AND THE GREENHOUSES WEAR THEIR OWN PIECE ON THE MAP. They wore the kit art of the kind each is like (a terminal, a farm); WORLD TEN's file
 said 'until COOK FOUR's golden piece' and nothing could draw one. NOW: two pieces through the map's rig (buses in ranks before the long maintenance shed,

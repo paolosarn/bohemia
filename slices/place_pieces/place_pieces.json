@@ -34,6 +34,36 @@
    "like": "farm",
    "through_the_rig": true,
    "finished": "cook 5, 11/17"
+  },
+  "the_cooling_center": {
+   "w": 166,
+   "h": 172,
+   "bx": 83,
+   "by": 123,
+   "plate": 150,
+   "frames": [
+    "the_cooling_center_0.webp",
+    "the_cooling_center_1.webp"
+   ],
+   "name": "THE COOLING CENTER",
+   "like": "school",
+   "through_the_rig": true,
+   "finished": "cook 5, 11/17"
+  },
+  "the_dome": {
+   "w": 166,
+   "h": 158,
+   "bx": 83,
+   "by": 110,
+   "plate": 150,
+   "frames": [
+    "the_dome_0.webp",
+    "the_dome_1.webp"
+   ],
+   "name": "THE DOME",
+   "like": "casino",
+   "through_the_rig": true,
+   "finished": "cook 5, 11/17"
   }
  }
 }

@@ -14,6 +14,14 @@ on its block (the way BOSSES' places are drawn on theirs).
                    with its bay doors (one still lit: the mechanics who stayed), and the buses in rows, nose out, white with the
                    transit band, the battery packs on their roofs. One is up on blocks with its pack pulled and stacked on a
                    pallet beside it; one burned; one still has its sign lit.
+  THE COOLING CENTER (the county's Cambridge Recreation Center, the third build) the gym's tall block and the rooms beside
+                   it, every window lit cool (the only cool light in the valley), the county's blue banner, the generator on
+                   its trailer breathing smoke with its cable across the lot to the open doors, shade and cots for the ones who
+                   wait, the water, and the line to the door that does not move.
+  THE DOME         (the Adventuredome) five courses of pink glass on a drum, ribbed, the coaster's red track out round the glass
+                   and its loop stood at the front, the way in under a marquee with three letters gone. The train's lamps go
+                   round once, empty (WORLD FOURTEEN's own line: 'every night at eleven the coaster under the pink glass runs
+                   once, empty, and finishes the run').
   THE GREENHOUSES  (Urban Seed's on Wynn Road) four long plastic houses side by side, hoop after hoop, the plastic lit rose
                    from inside by the grow lights (rose, never purple: PURPLE RESERVATION), a door planked shut, the water
                    totes in their cages, the crates of greens stacked by the way in.
@@ -171,9 +179,87 @@ def the_greenhouses(_after=False):
     return s
 
 
-PLACES = {'the_bus_yard': the_bus_yard, 'the_greenhouses': the_greenhouses}
-SAY = {'the_bus_yard': 'THE BUS YARD', 'the_greenhouses': 'THE GREENHOUSES'}
-LIKE = {'the_bus_yard': 'terminal', 'the_greenhouses': 'farm'}
+# ---------------------------------------------------------------------------------------------------- THE COOLING CENTER
+# (11/17, the sweep's third build: WORLD FOURTEEN's two newest places, BUILD 11/14q)
+COOL, COOL_DK = (196, 222, 234), (120, 150, 170)                # the only cool light in the valley: its windows
+WALL, WALL_DK = (176, 160, 136), (136, 122, 104)                # a county building's tan block
+TARP_B, TARP_W = (52, 104, 156), (226, 226, 218)
+GEN, GEN_DK = (190, 150, 52), (132, 102, 36)
+BARREL = (44, 92, 150)
+COT = (204, 198, 184)
+GEN_PIPE = (10.9, 7.3, 2.3)
+COOL_DOOR = (4.6, 5.3, 1.2)
+
+
+def canopy(s, x, y, w=2.6, d=2.2, h=2.0):
+    for (dx, dy) in ((0, 0), (w - 0.1, 0), (0, d - 0.1), (w - 0.1, d - 0.1)): s.box((x + dx, y + dy, 0), (0.1, 0.1, h), C(FRAME))
+    s.box((x - 0.1, y - 0.1, h), (w + 0.2, d + 0.2, 0.12), {'top': C(TARP_W), 'px': C((190, 190, 184)), 'py': C(TARP_W), 'nx': C((190, 190, 184)), 'ny': C((190, 190, 184))})
+
+
+def the_cooling_center(_after=False):
+    H = PB.HF(); from bohemia_iso3d import Scene
+    s = Scene()
+    H._ground(s, (-2, -2, 12, 12), groundc=LOT)
+    lit = {'c': WALL, 'glass': COOL}
+    s.box((-1.5, -1.5, 0), (6.0, 6.4, 5.0), {'top': C(ROOF), 'px': C(WALL_DK), 'py': C(WALL), 'nx': C(WALL_DK), 'ny': C(WALL_DK)})          # the gym, the tall block
+    s.box((4.5, -1.2, 0), (7.0, 6.2, 3.2), {'top': C(ROOF), 'px': C(WALL_DK), 'py': C(WALL), 'nx': C(WALL_DK), 'ny': C(WALL_DK)})           # the rooms beside it
+    for k in range(5): s.box((5.0 + k * 1.3, 5.0, 1.3), (0.9, 0.04, 1.1), C(COOL))                                                           # the windows, lit cool
+    for k in range(3): s.box((11.5, -0.6 + k * 1.8, 1.3), (0.04, 1.1, 1.1), C(COOL))
+    for k in range(3): s.box((-0.9 + k * 1.8, 4.9, 3.2), (1.2, 0.04, 1.0), C(COOL))                                                          # the gym's high windows
+    s.box((3.6, 4.9, 0), (1.8, 0.05, 2.4), C((226, 240, 246))); s.box((3.5, 4.9, 2.4), (2.0, 0.3, 0.2), C(FRAME))                             # the doors, open, the cold light out of them
+    s.box((-1.2, 4.95, 1.2), (4.4, 0.05, 1.5), C(TARP_B)); s.box((-0.6, 5.0, 1.75), (3.2, 0.03, 0.4), C(TARP_W))                               # the county's banner: blue, a white bar
+    s.box((6.0, 0.4, 3.2), (2.4, 2.0, 1.0), C(STEEL)); s.box((9.2, 2.6, 3.2), (1.6, 1.4, 0.8), C(STEEL)); s.box((0.6, 0.4, 5.0), (2.6, 2.2, 0.9), C(STEEL))   # the roof's chillers
+    # the generator that keeps it cold, on its trailer, its cable across the lot to the door
+    s.box((9.4, 7.0, 0.5), (2.4, 1.3, 1.3), {'top': C(GEN), 'px': C(GEN_DK), 'py': C(GEN), 'nx': C(GEN_DK), 'ny': C(GEN_DK)}); s.box((9.2, 6.9, 0.3), (2.8, 1.5, 0.2), C(FRAME))
+    for xx in (9.7, 11.1): s.box((xx, 8.3, 0), (0.6, 0.14, 0.6), C(TYRE))
+    s.prism(10.9, 7.3, 1.8, 0.14, 0.9, 8, C(SOOT), C(SOOT))
+    for k in range(9): s.box((9.0 - k * 0.55, 7.4 - 0.26 * k, 0.02), (0.6, 0.12, 0.08), C((20, 20, 20)))
+    for k in range(4): s.prism(8.2 + 0.7 * (k % 2), 9.6 + 0.6 * (k // 2), 0, 0.3, 0.8, 9, C(BARREL), C((30, 66, 110)))                        # water
+    canopy(s, -1.4, 6.4); canopy(s, 1.6, 6.4)                                                                                                 # shade for the ones who wait, cots under it
+    for (x, y) in ((-1.1, 6.7), (-1.1, 7.7), (1.9, 6.7), (1.9, 7.7)): s.box((x, y, 0.3), (1.9, 0.7, 0.12), C(COT)); s.box((x, y, 0), (0.1, 0.7, 0.3), C(FRAME)); s.box((x + 1.8, y, 0), (0.1, 0.7, 0.3), C(FRAME))
+    for k, (x, y) in enumerate(((4.4, 6.0), (4.5, 7.0), (4.3, 8.0), (4.6, 9.0), (4.4, 10.0))): ST.body(s, x, y, ((96, 90, 80), (70, 66, 60), (110, 84, 60), (60, 70, 80), (84, 84, 76))[k], (48, 46, 42))   # the line to the door
+    return s
+
+
+# ---------------------------------------------------------------------------------------------------- THE DOME
+GLASS_P, GLASS_P2, GLASS_LT = (206, 122, 132), (190, 108, 120), (226, 150, 156)       # the pink glass (rose: never purple)
+RIB = (88, 60, 66)
+TRACK, TRACK_DK = (176, 46, 36), (120, 32, 26)
+CAR = (236, 196, 60)
+DOME_C = (4.6, 4.6)
+CARS = ((9.9, 4.6, 2.5), (4.6, 9.9, 2.5))                       # where the coaster's train is, frame 0 and frame 1
+
+
+def the_dome(_after=False):
+    H = PB.HF(); from bohemia_iso3d import Scene
+    s = Scene(); cx, cy = DOME_C
+    H._ground(s, (-2, -2, 12, 12), groundc=LOT)
+    s.prism(cx, cy, 0, 5.3, 0.5, 20, C(CONC_DK), C(CONC))                                                  # the drum it stands on
+    N = 10; z = 0.5                                            # the dome: ten courses of pink glass on a round (the first cut's five read as a stepped cake)
+    for i in range(N):
+        t0, t1 = 1.45 * i / N, 1.45 * (i + 1) / N; r = 5.0 * math.cos(t0); dz = 4.3 * (math.sin(t1) - math.sin(t0))
+        s.prism(cx, cy, z, r, dz, 24, C(GLASS_P if i % 2 == 0 else GLASS_P2), C(GLASS_LT)); z += dz
+        if i in (0, 4): s.prism(cx, cy, z - 0.05, r + 0.04, 0.07, 24, C(RIB), C(RIB), inner=r - 0.12)       # a rib at its foot and at its waist
+    s.prism(cx, cy, z, 0.5, 0.5, 10, C(RIB), C(STEEL_DK))                                                  # the lantern on its crown
+    for k in range(10):                                        # its ribs, down the glass the camera sees
+        a = -0.6 + k * 0.42; s.box((cx + 5.0 * math.cos(a) - 0.07, cy + 5.0 * math.sin(a) - 0.07, 0.5), (0.14, 0.14, 1.5), C(RIB))
+    s.prism(cx, cy, 2.2, 5.9, 0.16, 28, C(TRACK), C(TRACK_DK), inner=5.5)                                   # the coaster's track, out round the glass
+    for k in range(12):
+        a = k * 0.5236; s.box((cx + 5.7 * math.cos(a) - 0.08, cy + 5.7 * math.sin(a) - 0.08, 0), (0.16, 0.16, 2.2), C(STEEL_DK))
+    n = 14                                                     # and its loop, stood at the front
+    for k in range(n):
+        a0, a1 = 6.2832 * k / n, 6.2832 * (k + 1) / n; R0, R1, yc, zc, xc = 1.75, 2.25, 11.2, 2.6, 8.4
+        s.quad((xc + R0 * math.cos(a0), yc, zc + R0 * math.sin(a0)), (xc + R1 * math.cos(a0), yc, zc + R1 * math.sin(a0)), (xc + R1 * math.cos(a1), yc, zc + R1 * math.sin(a1)), (xc + R0 * math.cos(a1), yc, zc + R0 * math.sin(a1)), C(TRACK), (0, 1, 0))
+    s.box((8.3, 11.1, 0), (0.2, 0.2, 0.5), C(STEEL_DK)); s.box((6.3, 11.1, 0), (0.18, 0.18, 2.6), C(STEEL_DK)); s.box((10.4, 11.1, 0), (0.18, 0.18, 2.6), C(STEEL_DK))
+    s.box((0.2, 9.4, 0), (3.6, 1.6, 2.4), {'top': C(ROOF), 'px': C((140, 60, 70)), 'py': C((168, 78, 88)), 'nx': C((140, 60, 70)), 'ny': C((140, 60, 70))})   # the way in, its dead marquee
+    s.box((0.4, 11.0, 0.2), (1.2, 0.04, 1.9), C((24, 22, 24))); s.box((0.0, 9.2, 2.4), (4.0, 2.0, 0.5), {'top': C(ROOF_DK), 'px': C(RIB), 'py': C((226, 214, 190)), 'nx': C(RIB), 'ny': C(RIB)})
+    for k in range(7): s.box((0.3 + k * 0.5, 11.2, 2.52), (0.3, 0.02, 0.26), C((40, 36, 36) if k in (1, 4, 5) else (176, 46, 36)))                         # its letters, three gone
+    return s
+
+
+PLACES = {'the_bus_yard': the_bus_yard, 'the_greenhouses': the_greenhouses, 'the_cooling_center': the_cooling_center, 'the_dome': the_dome}
+SAY = {'the_bus_yard': 'THE BUS YARD', 'the_greenhouses': 'THE GREENHOUSES', 'the_cooling_center': 'THE COOLING CENTER', 'the_dome': 'THE DOME'}
+LIKE = {'the_bus_yard': 'terminal', 'the_greenhouses': 'farm', 'the_cooling_center': 'school', 'the_dome': 'casino'}
 
 
 def moving(sc, frame):
@@ -188,6 +274,12 @@ def moving(sc, frame):
             for xx in (0.5, 4.3, 8.2):
                 x, y = PJ((xx, yc + HW * 0.5, HH * 0.85)); blob(L, x, y, 9.0, ROSE, (0.3 if (i % 2) == frame else 0.16))
             x, y = PJ((HX1 + 0.1, yc, 0.8)); blob(L, x, y, 3.2, ROSE, 0.7 if (i % 2) == frame else 0.4)
+    elif key == 'the_cooling_center':                          # the generator's breath, and the cold light out of the doors
+        x, y = PJ(GEN_PIPE); blob(L, x + (3 if frame else -1), y - (5 if frame else 1), 5.0, (96, 92, 88), 0.55); blob(L, x + (6 if frame else 1), y - (11 if frame else 5), 6.5, (110, 106, 102), 0.3)
+        x, y = PJ(COOL_DOOR); blob(L, x, y, 7.0, (214, 236, 246), 0.36 if frame else 0.24)
+    elif key == 'the_dome':                                    # rule 20: the coaster runs once, empty: its train's lamps, one side of the glass then the other
+        x, y = PJ(CARS[frame]); blob(L, x, y, 2.6, (255, 220, 110), 0.95); blob(L, x, y, 6.0, (255, 200, 90), 0.3)
+        x, y = PJ((DOME_C[0], DOME_C[1], 3.6)); blob(L, x, y, 16.0, (255, 150, 150), 0.14 if frame else 0.08)
     return L
 
 
@@ -230,7 +322,7 @@ def finish():
     json.dump(man, open(mp, 'w'), indent=1)
 
 
-def sheet(shots, name='COOK5_THE_BUS_YARD_AND_THE_GREENHOUSES_11_17', keys=None, card='cook5-the-bus-yard-and-the-greenhouses-11-17'):
+def sheet(shots, name='COOK5_THE_BUS_YARD_AND_THE_GREENHOUSES_11_17', keys=('the_bus_yard', 'the_greenhouses'), card='cook5-the-bus-yard-and-the-greenhouses-11-17'):
     """the VOTE card's picture: each place's piece at three times its pixels, and the map on his phone with the piece off and on
     (<shots>/<id>_off.png, <id>_on.png, from tools/bohemia_the_place_pieces_on_the_page_11_17_26.js)"""
     from PIL import Image, ImageDraw, ImageFont
@@ -271,4 +363,5 @@ if __name__ == '__main__':
     elif cmd == 'render': render()
     elif cmd == 'finish': finish()
     elif cmd == 'sheet': sheet(a[1])
+    elif cmd == 'sheet2': sheet(a[1], 'COOK5_THE_COOLING_CENTER_AND_THE_DOME_11_17', ('the_cooling_center', 'the_dome'), 'cook5-the-cooling-center-and-the-dome-11-17')
     else: print(__doc__)

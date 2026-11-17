@@ -20003,7 +20003,50 @@
    "record": "records/BOHEMIA_COOK_FIVE_THE_BUS_YARD_AND_THE_GREENHOUSES_11_17_26.md"
   },
   {"id": "home-base-his-own-buildings-11-17", "kind": "ui", "lane": "home base", "sha": "a08072436", "made": "11/17", "draft": true, "title": "YOUR PLACE BUILDS ITS OWN: A TRAINING YARD, A FORGE, A LOOKOUT", "said": "do a full sweep, let's have some fun", "why": "At your place you can now put up a training yard where a man you train climbs 35% faster over his next three fights, a forge that turns scrap tape into rounds, and a lookout that tells you the nearest crew. You see it in your place on the demo: build them, wait a day, and they stand on your lots on CAM 2, each one a tap.", "show": {"how": "image", "src": "../records/target/home_base/vote_his_own_buildings.webp", "first": "../records/target/vote_first/home-base-his-own-buildings-11-17.webp", "firstAt": [0, 0, 585, 616]}, "before_after": {"before": "BUILD 11/14o: his place could build eight things that give goods; nothing trained his men, nothing crafted, nothing watched", "after": "a training yard (+35% XP over 3 fights, his level's price, counted on the crew screen), a forge (2 tape into 6 rounds), a lookout (the nearest crew within 10 blocks); each stands on a lot as a door, seen on CAM 2; the desk lists eleven, nothing cut", "scale": "the demo and the alpha on his phone upright (390 x 844 at 3) and sideways (844 x 390 at 3)"}, "stage": "stand_in", "record": "records/BOHEMIA_HOME_BASE_HIS_OWN_BUILDINGS_11_17_26.md"},
-  {"id": "bestiary-the-mammoth-11-17", "kind": "animation", "lane": "bestiary", "sha": "9d737f81", "made": "11/17", "draft": true, "title": "THE COLUMBIAN MAMMOTH: THE EIGHTEENTH LAB BEAST, AND IT WALKS THROUGH YOUR LINE", "said": "More everything pls", "why": "A Columbian mammoth, Tule Springs' own Ice Age giant grown in an elephant, now roams the wash at night as a rare hunt, and it does one thing no other animal does: it walks straight through a line of your men, knocking each one down and aside. You see it in a fight on the map, the COMBAT screen, when a mammoth meets you near the springs.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/BESTIARY_THE_MAMMOTH.jpg", "first": "../records/target/vote_first/bestiary-the-mammoth-11-17.webp", "firstAt": [0, 70, 320, 692]}, "before_after": {"before": "17 lab-made beasts; nothing walked through a line", "after": "18 lab-made beasts: the mammoth, a rare giant, on the alpha and the demo, a phone both ways", "scale": "the fight's own sheet at the fight's pixels (66 px a metre, as every rig); the strip beside the long-horned bison and a 1.72 m man; a first cut, DIRECTION's golden check not run"}, "art_kind": "beast", "record": "records/BOHEMIA_BESTIARY_THE_MAMMOTH_11_17_26.md"}
+  {"id": "bestiary-the-mammoth-11-17", "kind": "animation", "lane": "bestiary", "sha": "9d737f81", "made": "11/17", "draft": true, "title": "THE COLUMBIAN MAMMOTH: THE EIGHTEENTH LAB BEAST, AND IT WALKS THROUGH YOUR LINE", "said": "More everything pls", "why": "A Columbian mammoth, Tule Springs' own Ice Age giant grown in an elephant, now roams the wash at night as a rare hunt, and it does one thing no other animal does: it walks straight through a line of your men, knocking each one down and aside. You see it in a fight on the map, the COMBAT screen, when a mammoth meets you near the springs.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/BESTIARY_THE_MAMMOTH.jpg", "first": "../records/target/vote_first/bestiary-the-mammoth-11-17.webp", "firstAt": [0, 70, 320, 692]}, "before_after": {"before": "17 lab-made beasts; nothing walked through a line", "after": "18 lab-made beasts: the mammoth, a rare giant, on the alpha and the demo, a phone both ways", "scale": "the fight's own sheet at the fight's pixels (66 px a metre, as every rig); the strip beside the long-horned bison and a 1.72 m man; a first cut, DIRECTION's golden check not run"}, "art_kind": "beast", "record": "records/BOHEMIA_BESTIARY_THE_MAMMOTH_11_17_26.md"},
+  {
+   "id": "cook5-the-cooling-center-and-the-dome-11-17",
+   "kind": "tile",
+   "lane": "cook 5",
+   "sha": "SHIPSHA",
+   "made": "11/17",
+   "draft": true,
+   "title": "THE COOLING CENTER AND THE DOME LOOK LIKE THEMSELVES ON THE MAP",
+   "said": "do a full sweep, let's have some fun",
+   "why": "The cooling center looked like any school and the amusement dome like any casino; now each has its own picture: a county building with cold blue windows, a generator smoking and a line at the door, and a pink glass dome with a red coaster looping round it. You see them on the map, the cooling center east of the Strip and the dome at its north end.",
+   "options": [
+    "A, yes, that's them",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK5_THE_COOLING_CENTER_AND_THE_DOME_11_17.webp",
+    "first": "../records/target/vote_first/cook5-the-cooling-center-and-the-dome-11-17.webp",
+    "firstAt": [
+     0,
+     72,
+     500,
+     536
+    ]
+   },
+   "before_after": {
+    "before": "main bdaaae24e: both places wear the kit art of the kind they are like (a school, a casino)",
+    "after": "each place's own piece through the map's rig, drawn on its block under the fog and the night, 51 points across on his phone",
+    "scale": "the piece at three times its pixels; the map on his phone upright (390 x 844), six blocks from the place, the same frame with the piece off and on"
+   },
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "twin": {
+    "src": "place_pieces/the_bus_yard_1.webp",
+    "diffs": [
+     "THE SAME FRAME, RIG AND DRAW as the bus yard and the greenhouses: no code in this build, two entries in the list and four pictures.",
+     "A DOME, NOT A CAKE: ten courses of glass on a round (five read as steps).",
+     "ONE THING MOVES ON THE BEAT in each: the generator's smoke, the coaster's lamps going round."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_FIVE_THE_COOLING_CENTER_AND_THE_DOME_11_17_26.md"
+  }
  ],
  "verdicts": [
   {
