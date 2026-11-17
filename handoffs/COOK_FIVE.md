@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
-COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17k - THE BUS YARD AND THE GREENHOUSES, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the second build; rules 408, 409(c); ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17k - THE BUS YARD AND THE GREENHOUSES, BUILT (23745cd78), NOT YET SEEN (the full sweep, rule 453, the second build; rules 408, 409(c); ask row 627).
 The order (rule 453): finished art wherever a VOTE card says STAND-IN, each its own build; second, the bus yard and the greenhouses.
 WHAT WAS THERE: WORLD FOURTEEN's two places (11/11o) wore the kit art of the kind each is like. slices/bohemia_real_places.js: 'until COOK FOUR's golden
 piece (rule 408)'. WORLD FOURTEEN's handoff: 'the yard of buses in rows and the long plastic houses with the lights'. Not made; nothing could draw one.

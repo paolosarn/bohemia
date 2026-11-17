@@ -1,4 +1,4 @@
-COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17k - THE BUS YARD AND THE GREENHOUSES, BUILT (SHIPSHA), NOT YET SEEN (the full sweep, rule 453, the second build; rules 408, 409(c); ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17k - THE BUS YARD AND THE GREENHOUSES, BUILT (23745cd78), NOT YET SEEN (the full sweep, rule 453, the second build; rules 408, 409(c); ask row 627).
 THE BUS YARD AND THE GREENHOUSES WEAR THEIR OWN PIECE ON THE MAP. They wore the kit art of the kind each is like (a terminal, a farm); WORLD TEN's file
 said 'until COOK FOUR's golden piece' and nothing could draw one. NOW: two pieces through the map's rig (buses in ranks before the long maintenance shed,
 one sign still lit, one pack pulled; four plastic houses lit rose, a door planked shut) and slices/bohemia_place_pieces.js (50 lines, mine): for every real
