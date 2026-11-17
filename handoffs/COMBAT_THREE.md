@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/17 LATEST -- [the mall] SHIPPED SHIPSHA, BUILD 11/17x - THE MALL, BUILT, NOT YET SEEN. VOTE combat3-the-mall-11-17 (stand_in).
+COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/17 LATEST -- [the mall] SHIPPED 850c75fc5, BUILD 11/17x - THE MALL, BUILT, NOT YET SEEN. VOTE combat3-the-mall-11-17 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_MALL_11_17_26.md. The full sweep, job 1 again: the fifth big inside of row 468's list.
 WHAT: a fight at the mall (0.7 of what the garage leaves there, by the cell's dice; opts.inside 'mall' anywhere) is fought on its concourse: eight stores as rooms (a shutter stuck
 half down in each doorway: 3 AP, one at a time), carts, stock, counters, bedding, planters, kiosks, the food court's tables (3 AP, low cover), a column, the lift, the day through
