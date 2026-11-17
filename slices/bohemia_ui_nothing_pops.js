@@ -67,6 +67,11 @@
     { id: 'notes', page: /CITY_WORLD/, sel: '#notewrap', how: 'card', from: 'phone' },
     { id: 'town talk', page: /CITY_WORLD/, sel: '#cttalk', how: 'card', voice: '#cttalk', from: 'phone' },
     { id: 'town warning', page: /SETTLEMENT/, sel: '#campwarn', how: 'card', voice: '#campwarn', own: true, from: 'phone' },
+    /* __THE_SWEEP__ (UI FOUR 11/17, rule 448(c), ask row 632): the town's arrival card was a fade from nowhere, the scavenge a bare cut. The
+       scavenge is two pieces laid at once, its cover and over it the game's own frame (whose page paints its dark glass the moment it
+       loads): both grow out of the lot together, and the cover's copy goes back into it when the game ends */
+    { id: 'arrival card', page: /SETTLEMENT/, sel: '#arrive', how: 'card', from: 'phone' },
+    { id: 'scavenge', page: /SETTLEMENT/, sel: '#scavcover, #scavgame', how: 'card', from: 'world', at: function (w) { try { var p = w.BohemiaSettlement.where('lot'); if (p) return { left: p.x - 28, top: p.y - 28, width: 56, height: 56 }; } catch (e) {} return null; } },
     { id: 'let him go?', page: /ROSTER/, sel: '#card .ask', how: 'piece', from: 'piece' },
     { id: 'level-up', page: /ROSTER/, sel: '#levelup', how: 'piece', from: 'piece' },
     { id: 'fight veteran', page: /FIGHT/, sel: '#vet', how: 'card', voice: '#vet', from: 'top' },

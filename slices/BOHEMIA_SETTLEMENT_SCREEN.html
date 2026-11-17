@@ -5496,12 +5496,18 @@ function arrive(){
     o.appendChild(f);
   }
   var gone = false;
-  function off(how){ if(gone) return; gone = true; clearTimeout(t); o.classList.remove('on'); setTimeout(function(){ o.remove(); }, 200); post('arrived', {how:how}); }
+  /* __THE_SWEEP__ (UI FOUR 11/17, rule 448(b)(c): 'when in doubt... just have it come out from where the phone is'; it was a fade from
+     nowhere and a fade to nowhere): where the house's pop-up layer stands (bohemia_ui_nothing_pops.js, its row 'arrival card'), the card
+     comes out of the phone's spot and goes back into it, so its own fade steps aside: it is whole the moment it is on the page and gone
+     the moment it leaves, and the layer does the travel both ways. With no layer (this page alone) or its switch off, the old fade */
+  var byDoor = false; try{ byDoor = !S.standalone && !!window.BohemiaPops && !BohemiaPops.isOff() && BohemiaPops.POPS.some(function(r){ return r.id === 'arrival card'; }); }catch(e){}
+  function off(how){ if(gone) return; gone = true; clearTimeout(t); if(byDoor){ o.remove(); } else { o.classList.remove('on'); setTimeout(function(){ o.remove(); }, 200); } post('arrived', {how:how}); }
   o.addEventListener('pointerdown', function(e){ e.preventDefault(); e.stopPropagation(); off('tap'); });
   try{ var Ob = FIT.open; if(Ob && FIT.phone && !S.standalone){   /* __NOTHING_TAPPABLE_UNDER_THE_PHONE__ (rule 279: words never under the phone): the card in the open area; measured 11/3, upright its WHAT THEY THINK OF YOU ran under the phone ('NEUTRAI') */
     o.style.paddingBottom = Math.max(16, Math.round(view.H - Ob.y1 + 8)) + 'px'; o.style.paddingLeft = Math.max(16, Math.round(Ob.x0 + 8)) + 'px'; o.style.paddingRight = Math.max(16, Math.round(view.W - Ob.x1 + 8)) + 'px'; } }catch(e){}
+  if(byDoor){ o.style.transition = 'none'; o.classList.add('on'); o.dataset.door = 'phone'; }
   sc.appendChild(o);
-  requestAnimationFrame(function(){ o.classList.add('on'); });
+  if(!byDoor) requestAnimationFrame(function(){ o.classList.add('on'); });
   var t = setTimeout(function(){ off('time'); }, ARRIVE_MS);
   /* no sound of its own: SOUNDS' arrival cue already fires once per new town on the map (cf9b7d8b) */
   post('arrive', {tier:tier, traits:(S.traits||[]).map(function(t){ return t.id; }), opinion:op, band:band, faction:S.faction ? S.faction.name : null, line:line});
