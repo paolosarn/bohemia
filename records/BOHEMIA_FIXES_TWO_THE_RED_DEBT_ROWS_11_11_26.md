@@ -349,8 +349,9 @@ seam on the face) and 650 (four flashes in a second, PLAUSIBLE) are FIGHT SCREEN
 - NOW (slices/BOHEMIA_SPOILS_SCREEN.html __THE_RECEIPT_STAYS_IN_ITS_WINDOW__): on a narrow glass the rolled receipt is as tall as its
   window at every step (sp-d1: 10vh less 6). A tap still unrolls all of it. One CSS line; no word and no layout else moved.
 - PROOF (rule 441): gate THE FOURTEEN EYES FOUND F649, the game through the driver: a new game, a road fight, his three men made one
-  blow from down and theirs kept whole (the leg's hand: the wipe is the state under test; at one hitpoint each his three still WON
-  the alpha's fight once), AUTO at 4x to a REAL wipe, the game's own end screen. THE DEMO upright 390x844: the screen at sp-d1, the roll
+  blow from down and theirs made impossible to drop (the leg's hand: the wipe is the state under test; at one hitpoint each his
+  three still WON the fight twice, once on the shipped tree, with theirs only made whole each second; hardened after the ship and
+  read again on the shipped tree, the leg and its plant both), AUTO at 4x to a REAL wipe, the game's own end screen. THE DEMO upright 390x844: the screen at sp-d1, the roll
   [245,155,408,239], the window [169,254], no word of the line under the roll. THE ALPHA on its side 844x390: no word under it (on
   its side the line never reached the roll; the plant does not bite there and is upright only). PLANT upright (the roll at the old
   height): the roll to y 324, '124 px of a line at y 269; 14 px of a line at y 286' under it: EYES' own picture.

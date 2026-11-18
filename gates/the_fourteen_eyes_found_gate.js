@@ -1239,13 +1239,13 @@ async function f649(shape, plant) {
     await f.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && !!FIGHT_UI.board && !!FIGHT_UI.tw, null, { timeout: 40000 }).catch(() => {});
     await p.waitForTimeout(1200);
     await f.evaluate(() => { const b = document.getElementById('bspeed'); for (let i = 0; i < 4 && b.textContent.trim() !== '4x'; i++) b.click(); try { if (FIGHT.S.deploy) fightNow(); } catch (e) {}
-      FIGHT.S.units.forEach(u => { if (u.side === 'you') { u.hp = 1; if (u.armor) { if (typeof u.armor === 'object') { for (const k in u.armor) if (typeof u.armor[k] === 'number') u.armor[k] = 0; } else u.armor = 0; } } });
+      FIGHT.S.units.forEach(u => { if (u.side === 'them') u.hp = 9999; if (u.side === 'you') { u.hp = 1; if (u.armor) { if (typeof u.armor === 'object') { for (const k in u.armor) if (typeof u.armor[k] === 'number') u.armor[k] = 0; } else u.armor = 0; } } });
       if (!FIGHT_UI.auto) document.getElementById('bauto').click(); });
     const SF = () => p.frames().find(x => /BOHEMIA_SPOILS_SCREEN/.test(x.url()));
-    let sf = null; for (let i = 0; i < 240 && !sf; i++) { await p.waitForTimeout(1000);
-      /* a man of his who would not fall: one blow from down again, every second; theirs who stand are made whole (his three won
-       the alpha's fight at one hitpoint each) */
-      await f.evaluate(() => { if (!FIGHT.S.over) FIGHT.S.units.forEach(u => { if (u.side === 'you' && u.hp > 1) u.hp = 1; else if (u.side === 'them' && u.hp > 0 && !u.dead && u.hpMax > u.hp) u.hp = u.hpMax; }); }).catch(() => {});
+    let sf = null; for (let i = 0; i < 480 && !sf; i++) { await p.waitForTimeout(500);
+      /* a man of his who would not fall: one blow from down again, every second; theirs cannot be dropped (his three won the
+       fight at one hitpoint each, twice, with theirs only made whole each second) */
+      await f.evaluate(() => { if (!FIGHT.S.over) FIGHT.S.units.forEach(u => { if (u.side === 'you' && u.hp > 1) u.hp = 1; else if (u.side === 'them' && u.hp > 0 && !u.dead) u.hp = 9999; }); }).catch(() => {});
       const x = SF(); if (x && await x.evaluate(() => !!window.BohemiaSpoilsScreen && !!BohemiaSpoilsScreen.state && !!BohemiaSpoilsScreen.state.fight).catch(() => false)) sf = x; }
     if (!sf) { ok('F649 ' + name + ': the fight ended on the end screen', false, await f.evaluate(() => JSON.stringify({ over: FIGHT.S.over, round: FIGHT.S.round, you: FIGHT.S.units.filter(u => u.side === 'you').map(u => u.name + ' ' + u.hp) })).catch(e => String(e).slice(0, 120))); return; }
     await p.waitForTimeout(5000);   /* the roll prints a line a quarter beat; the screen steps down to fit */
