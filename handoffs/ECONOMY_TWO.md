@@ -4,6 +4,8 @@
 
 ECONOMY TWO (session_01GKDyusZ6qyN3PkoeqVY5Ny): 11/18 LATEST -- BUILD 11/18t - THE BATTERY IS REAL, BUILT (647591ebe), NOT YET SEEN; VOTE card economy-two-the-battery-is-real-11-18 (STAND-IN) (rule 459(b)(d), ask line 645;
 rules 441, 454(a)). Record: records/BOHEMIA_ECONOMY_TWO_EVERY_NUMBER_OF_BATTERIES_11_18_26.md.
+- LIVE: the pages run 4619 on 647591ebe (the build) and 4620 on 260d357b3 (the VOTE card, ask row 645, START) both concluded SUCCESS.
+  The lane's word named ask row 643 (WORDS TWO's); 645 is this job's row and the one marked. This session has no branch of its own: main only.
 - WHAT MADE 1,000: a job's base (to 251) x the start screen's FULL SHELVES (x1.5) x CLOUT (to x4.5) x the town's standing (to x1.15)
   x two pushes of the pay (x1.07 each) = 2,236 at the most. Nothing else in the game pays 1,000 at once.
 - THE ONE TABLE: records/target/bb/battery_table.json. The AA is the unit (one AA, a bag of rice). 669 numbers of batteries in 18
