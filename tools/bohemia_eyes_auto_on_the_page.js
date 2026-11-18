@@ -193,6 +193,7 @@ const HOOKS = `(function(){
       why: UI.whySaid ? { line: UI.whySaid.line, by: UI.whySaid.by, why: UI.whySaid.why, none: UI.whySaid.none, card: !!UI.whySaid.card } : null,
       shots: UI.shotSeen || null, flash: (() => { const F = window.__EYES_FLASH || { starts: [] }, s = F.starts; let most = 0; for (let i = 0; i < s.length; i++) { let k = 0; for (let j = i; j < s.length && s[j] - s[i] < 1000; j++) k++; most = Math.max(most, k); }
         let gap = Infinity; for (let i = 1; i < s.length; i++) gap = Math.min(gap, s[i] - s[i - 1]); return { starts: s.length, mostInASecond: most, closest: isFinite(gap) ? gap : null, peak: Math.round(F.peak * 100) / 100, frames: F.frames }; })(),
+      shotLog: (UI.shotLog || []).slice(0, 400), pageMost: (() => { const L = UI.shotLog || []; const s = []; let prev = null; L.forEach(q => { if (!prev || q[0] - prev[0] > 80) s.push(q[0]); prev = q; });   /* the log holds only lit frames: a gap over 80 ms is a new flash */ let m = 0; for (let i = 0; i < s.length; i++) { let k = 0; for (let j = i; j < s.length && s[j] - s[i] < 1000; j++) k++; m = Math.max(m, k); } return m; })(),
       ceil: UI.ceilOn || null, ceilDef: S.boardDef && S.boardDef.ceiling ? { kind: S.boardDef.ceiling.kind, alpha: S.boardDef.ceiling.alpha } : null,
       tunnel: (S.tunnels && S.tunnels.layout) || null,
       stale: { n: S.staleTurns | 0, last: S.staleLast || null } }); });

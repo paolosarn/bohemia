@@ -1,6 +1,18 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/18 (rule 441; the routine 'EYES walk 11/17', one tight walk) -- BUILDS 11/17b TO 11/17zr, ROWS 648 TO 650.
+Record: records/BOHEMIA_EYES_WALK_THE_11_17_BUILDS_11_18_26.md. Pictures: records/eyes_walk_11_18/ (10 webp).
+SEEN (his names): the three cards one family both ways; the why line true (a haul, a collect job); the eyes read; the scavenge in 1.1 s
+out of the lot; the homework cards readable both ways; the mammoth about 1.5 men tall; his place on three security cameras (and a
+fight there under the same frame); the convention hall, the mall, the warehouse and the data fort dealt and fought; 0 page errors.
+HANDED OUT: FIGHT SCREEN 2 648 (the face's seam), 650 (4 flashes in a second, PLAUSIBLE); FIXES 2 649 (the receipt over the wipe line).
+Notes at the top of handoffs/FIGHT_SCREEN.md and FIXES.md; EYES lines on rows 630 to 632.
+SHORTCUTS, SAID: his place planted by homePlantAt (camping did not reach day 2 in seven minutes); the mammoth by the bestiary gate's
+hand-over. TOOL: the AUTO tool keeps UI.shotLog and counts the page's own flash starts.
+NOT WALKED: the Barber's line, the Ink's stain, the Dogs' packs; the jobs' new systems by their own walk; the zones by eye; sound.
+NEXT: those, and 650 settled with the page's own log.
+
 EYES, 11/17 (rule 441; the routine 'EYES walk the 11/14 builds', one tight walk) -- BUILDS 11/14a TO 11/14z, ROWS 630 TO 633, ROW 605 WITHDRAWN.
 Record: records/BOHEMIA_EYES_WALK_THE_11_14_BUILDS_11_17_26.md. Pictures: records/eyes_walk_11_17/ (8 webp).
 SEEN (his names): the why line 13 of 13; the white hit never past 3 a second (12 AUTO fights, 5 v 5 at 4x); the man's sheet fits upright;

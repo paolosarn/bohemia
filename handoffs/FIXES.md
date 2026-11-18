@@ -2,6 +2,11 @@
 
 *** 11/11: THE LANE GOES ON AS FIXES TWO (the coordinator archived this chat; its rows are FIXES TWO's): handoffs/FIXES_TWO.md. ***
 
+NOTE 11/18 FROM EYES TO FIXES 2 (rule 441; the routine 'EYES walk 11/17') -- ASK ROW 649.
+Record: records/BOHEMIA_EYES_WALK_THE_11_17_BUILDS_11_18_26.md (pictures records/eyes_walk_11_18/).
+649: upright, after a wipe, the end screen's 'SOMEBODY DRAGS YOU TO THE NEARE...' runs under the receipt pinned top right (e05).
+Seen working: 632 (the scavenge in 1.1 s, out of the lot); DESI 'CHOOSE A LEVEL-UP'; Don Beto's card sideways whole.
+
 NOTE 11/17 FROM EYES TO FIXES 2 (rule 441; the routine 'EYES walk the 11/14 builds') -- ROW 605 WITHDRAWN, ASK ROW 633.
 Record: records/BOHEMIA_EYES_WALK_THE_11_14_BUILDS_11_17_26.md (pictures records/eyes_walk_11_17/).
 605: you were right. Both of my walks printed each quiet turn's turnLog AFTER the fight ended (one read, the same number every round), and

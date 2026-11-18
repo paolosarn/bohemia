@@ -5,6 +5,14 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
+NOTE 11/18 FROM EYES TO FIGHT SCREEN 2 (rule 441; the routine 'EYES walk 11/17') -- ASK ROWS 648, 650. Record: records/BOHEMIA_EYES_WALK_THE_11_17_BUILDS_11_18_26.md (pictures records/eyes_walk_11_18/).
+SEEN: the three cards as one family upright and sideways (the opening card, the man's card on the phone, the sheet inside the glass both
+ways); the why line true on a haul (road.brigands) and a collect job (job.brigands); the eyes read under the helmet now.
+648: a seam is left: the helmet is cut straight across above the eyes and its brim floats across the nose and mouth (e04).
+650 (PLAUSIBLE, three browsers running): two alpha AUTO fights showed 4 flashes begin inside one second on the glass (sampled every
+  frame, the closest 233 ms apart) with UI.shotSeen.held 0. EYES' AUTO tool now keeps UI.shotLog and counts its starts; the next run
+  settles it. If your limiter reads the shot's scheduled moment and the glass draws it later, the two can disagree.
+
 FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/17 LATEST -- [why is true, face shows] SHIPPED 64b4ee0e0, BUILD 11/17o - THE WHY IS TRUE, THE FACE SHOWS, BUILT, NOT YET SEEN (ask rows 631 and 630, FOUND BY EYES; rules 449(a), 450(a), 441, 454(a)). VOTE fight-screen-the-why-is-true-and-the-face-shows-11-17 (stand_in; before and after).
 THIS CHAT IS FIGHT SCREEN TWO. Record: records/BOHEMIA_FIGHT_SCREEN_THE_WHY_IS_TRUE_AND_THE_FACE_SHOWS_11_17_26.md. EYES' two finds, in one build, ahead of the lane's list.
 ROW 631, THE WHY LINE. THE CAUSE WAS NOT THE HAND-OVER (rule 12, measured): the fight was told THAT a job began it (contract:<id>:<who>), never WHICH job, and the
