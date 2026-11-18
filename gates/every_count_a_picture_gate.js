@@ -65,9 +65,15 @@ async function walk(b, vp, off) {
       await p.evaluate(t => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); BohemiaSettlement.open({ place: { name: 'BLUE DIAMOND', tier: t }, traits: [], day: 3, batteries: 3000 }); }, home ? 'camp' : 'town');
       await p.waitForTimeout(700);
       if (home) { await p.evaluate(h => window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'), HOME); await p.waitForTimeout(500); }
-      const hx = await p.evaluate(k => BohemiaSettlement.where(k), bld); if (!hx) { out[bld] = { err: 'no ' + bld + ' on this town' }; continue; }
+      let hx = await p.evaluate(k => BohemiaSettlement.where(k), bld); if (!hx) { out[bld] = { err: 'no ' + bld + ' on this town' }; continue; }
+      /* RE-AIMED (UI FOUR 11/18): his place is seen through its cameras since HOME BASE's 11/17zr, and a building can stand outside the
+         camera it opens on (upright, BUILD is off CAM 1's frame). The cameras are pressed one at a time, as he would, until it is on the glass */
+      let cam = null; const onGlass = h => !!h && h.x >= 0 && h.y >= 0 && h.x <= vp.width && h.y <= vp.height;
+      if (home && !onGlass(hx)) { const cams = await p.evaluate(() => [...document.querySelectorAll('button, [role=button]')].filter(x => /^CAM \d/.test(x.textContent.trim()) && x.getBoundingClientRect().width > 2).map(x => { const r = x.getBoundingClientRect(); return { t: x.textContent.trim(), x: r.left + r.width / 2, y: r.top + r.height / 2 }; }));
+        for (const c of cams) { await p.touchscreen.tap(c.x, c.y); await p.waitForTimeout(1200); hx = await p.evaluate(k => BohemiaSettlement.where(k), bld); if (onGlass(hx)) { cam = c.t; break; } }
+        if (!onGlass(hx)) { out[bld] = { err: 'no camera of his place shows its ' + bld }; continue; } }
       await p.touchscreen.tap(hx.x, hx.y); await p.waitForTimeout(2600);
-      out[bld] = await p.evaluate(READ);
+      out[bld] = await p.evaluate(READ); out[bld].cam = cam;
       if (out[bld].open !== bld) out[bld].err = 'the tap opened ' + out[bld].open;
     }
   } catch (e) { out.err = e && e.message; }
@@ -84,7 +90,7 @@ function judge(name, on, off) {
     Object.keys(r.cost || {}).forEach(g => need.push([g === 'medicine' ? 'meds' : g, r.cost[g] | 0, false])); Object.keys(r.gives || {}).forEach(g => need.push([g === 'medicine' ? 'meds' : g, r.gives[g] | 0, true]));
     need.forEach(n => { if (!chips.some(c => c.k === n[0] && +c.n === n[1] && c.up === n[2] && c.num === String(n[1]) && c.pics.some(x => /supply_icons\/small\//.test(x.bg)) && (!n[2] || c.pics.some(x => /uc-a/.test(x.cls))))) wrongB.push(id + ' ' + (n[2] ? '+' : '') + n[1] + ' ' + n[0]); }); });
   const desk = L(on, 'build', 'desk'), night = desk.reduce((a, l) => a.concat(l.chips), []).filter(c => c.k === 'batteries' && c.dn && +c.n === HOME.bill.due), heads = desk.reduce((a, l) => a.concat(l.chips), []).filter(c => c.k === 'heads');
-  ok(name + ' B THE BUILD SHEET AT HIS PLACE: ' + nB + ' builds, every cost the battery and the goods with the file\'s numbers, every gain a green arrow up; the night a red arrow down and ' + HOME.bill.due + '; nobody living there one dim head',
+  ok(name + ' B THE BUILD SHEET AT HIS PLACE' + ((on.build || {}).cam ? ' (BUILD is off the camera his place opens on: reached on ' + on.build.cam + ')' : '') + ': ' + nB + ' builds, every cost the battery and the goods with the file\'s numbers, every gain a green arrow up; the night a red arrow down and ' + HOME.bill.due + '; nobody living there one dim head',
     !(on.build || {}).err && nB >= 6 && !wrongB.length && night.length === 1 && heads.length === 1 && heads[0].pics.length === 1 && heads[0].pics[0].dim, (on.build || {}).err || wrongB.slice(0, 4).join('; ') || ('night ' + night.length + ' heads ' + heads.length));
   /* J the board */
   const jobs = L(on, 'board', 'em'), jobsOff = L(off, 'board', 'em'), payOf = t => (String(t).match(/(\d+) batter/) || [])[1];

@@ -1168,7 +1168,8 @@ function shopArrows(box){
   /* UI 9's own measure (nothing runs past its box); the sheet's own most height (72% of the glass) keeps it on the glass, and its
      place is not read here because it slides in */
   function fits(sh){ return !over(sh) && !over(document.getElementById('sbody')); }
-  function strip(){ var sh = sheet(); if (!sh) return; [].forEach.call(sh.querySelectorAll('.ui3-whole'), function(e){ e.classList.remove('ui3-whole'); }); sh.classList.remove(TIGHT); }
+  function strip(){ var sh = sheet(); if (!sh) return; [].forEach.call(sh.querySelectorAll('.ui3-whole'), function(e){ e.classList.remove('ui3-whole'); }); sh.classList.remove(TIGHT);
+    [].forEach.call(sh.querySelectorAll('[data-u4hole]'), function(e){ e.removeAttribute('data-u4hole'); e.style.removeProperty('--u4r'); }); [].forEach.call(sh.querySelectorAll('.u4-empty'), function(e){ e.classList.remove('u4-empty'); }); }
   /* ==== __THE_FULLEST_HALL_FITS__ (UI FOUR 11/17, ask row 612's last spot, rule 402 as amended 11/7 'SMALLER, NEVER PAGES', rule 441).
      MEASURED (the scrolling gate's own fullest hall: a fortress on a fair day with the recruiter in camp, ten men and three who would
      travel): at UI 9's last step the sheet still ran 119 px past the glass upright (two followers off it) and 80 px sideways (three
@@ -1190,9 +1191,28 @@ function shopArrows(box){
       +   A + '>.hire{grid-column:span 6!important;margin:0 3px!important}' + A + '>.retf{grid-column:span 4!important;margin:0 3px!important;order:1}'
       +   A + '>.act:not(.hire){grid-column:span 9!important;order:2}' + A + '>.retf.open{grid-column:span 4!important;order:1}'
       +   Q + '.hire .nm{line-height:12px!important}' + Q + '.hire .hstats{row-gap:0!important}' + Q + '.hire .hstats>*{max-height:14px}}';
+    /* __THE_STALL_FITS_ON_ITS_SIDE__ (UI FOUR 11/18, rules 402 as amended and 441; named in this lane's 11/17 handoffs). MEASURED, a
+       fortress's stall with a trade good made there, the phone on its side: at UI 9's last step the sheet ran 37 px past its box (57
+       in a town whose rows say THEY NEED IT) and the line that says how to buy stood off the glass. Five goods two across leave the
+       sixth place empty: the stall's three one-line notes (the shelf's count, the trade goods' heading, 'nothing in the stash') stand
+       in that empty place, and a row gives up its two points of air. Nothing is cut, nothing is paged, no word changes */
+    var B = Q.replace('ui4-tight', 'ui4-tight.stalling') + '.acts';
+    t.textContent += '@media (orientation:landscape){' + B + '>.stline{padding-top:0!important;padding-bottom:0!important}'
+      + B + '[data-u4hole]>#stallgoods{display:contents!important}' + B + '[data-u4hole] #stallgoods>.tgline{grid-column:1/-1!important}'
+      + B + '[data-u4hole]>#tapeleft,' + B + '[data-u4hole] #stallgoods>.slots,' + B + '[data-u4hole]>#stallgear.u4-empty{grid-column:2!important;grid-row:var(--u4r)!important;margin:0!important;line-height:14px!important;white-space:nowrap;overflow:visible}'
+      + B + '[data-u4hole]>#tapeleft{align-self:start}' + B + '[data-u4hole] #stallgoods>.slots{align-self:center}' + B + '[data-u4hole]>#stallgear.u4-empty{align-self:end}' + B + '[data-u4hole]>#stallgear.u4-empty>.slots{margin:0!important;line-height:14px!important}}';
     (document.head || document.documentElement).appendChild(t); })();
+  function tightStall(sh){
+    var acts = sh.querySelector('#sbody .acts'); if (!acts) return false;
+    if (!sh.classList.contains(TIGHT)) { sh.classList.add(TIGHT); LOG.tight = (LOG.tight | 0) + 1; }
+    var n = acts.querySelectorAll(':scope > .stline').length, cols = String(getComputedStyle(acts).gridTemplateColumns || '').split(' ').filter(Boolean).length;
+    if (cols === 2 && n % 2 === 1 && innerWidth > innerHeight) { acts.dataset.u4hole = '1'; acts.style.setProperty('--u4r', String((n + 1) / 2));
+      var g = acts.querySelector(':scope > #stallgear'); if (g) g.classList.toggle('u4-empty', g.children.length === 1 && g.firstElementChild.classList.contains('slots')); }
+    return true;
+  }
   function tight(sh){
-    if (!sh.querySelector('#sbody .acts > .hire')) return false;   /* a hall only: the one sheet UI 9's last step can leave past the glass */
+    if (sh.classList.contains('stalling')) return tightStall(sh);
+    if (!sh.querySelector('#sbody .acts > .hire')) return false;   /* a hall or a stall only: the sheets UI 9's last step can leave past the glass */
     if (!sh.classList.contains(TIGHT)) { sh.classList.add(TIGHT); LOG.tight = (LOG.tight | 0) + 1; }
     [].forEach.call(sh.querySelectorAll('#sbody .acts > .retf'), function(r){ if (r.dataset.tip) return; var d = r.querySelector('.rdoes'), b = r.querySelector('.rname b');
       if (d && d.textContent.trim()) r.dataset.tip = (b ? b.textContent + ': ' : '') + d.textContent.trim(); });   /* his own words, whole, on a held finger */

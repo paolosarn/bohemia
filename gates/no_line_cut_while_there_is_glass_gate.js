@@ -11,7 +11,10 @@
       ten men and three who would travel): upright and sideways every man and every follower stands whole on the glass, the sheet
       runs past nothing, no line is cut (the speaker's too), every follower's own line is a held finger away (data-tip carries it
       letter for letter), his button keeps 44 px, no word under 11 px; a tap on a follower keeps it all on the glass;
-   --plant: the pass that lets the lines go whole never runs (L1 red); the hall's one more step never runs (L4 red).
+   L5 THE STALL ON ITS SIDE (UI FOUR 11/18): a fortress's stall with a trade good made there (CARAVANS' coffee), sideways: the sheet
+      runs past nothing, every row, both notes and the line that says how to buy stand on the glass, the three one-line notes stand
+      in the empty sixth place without lying on each other or on a row, every buy and sell button keeps 44 px; upright it is as it was.
+   --plant: the pass that lets the lines go whole never runs (L1 red); the one more step never runs (L4 and L5 red).
    Run: node gates/no_line_cut_while_there_is_glass_gate.js [--plant] */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
@@ -98,6 +101,31 @@ function judgeFull(o) {
   if (!o.tapped) bad.push('no follower to tap'); else { if (T.over > 1) bad.push('a tap on a follower runs the sheet ' + T.over + ' px past'); const o2 = T.rows.filter(r => !r.on).length; if (o2) bad.push('a tap on a follower puts ' + o2 + ' off the glass'); if (!/\S: \S/.test(o.heard || '')) bad.push('the follower tapped says nothing'); }
   return { good: !bad.length, said: men.length + ' men, ' + fol.length + ' followers, the sheet ' + R.cls.replace(/^on /, '') + '; a tap: "' + String(o.heard || '').slice(0, 40) + '"', bad: [...new Set(bad)] };
 }
+/* L5: the stall with a trade good's row */
+const STALL = () => { const sh = document.getElementById('sheet'), sb = document.getElementById('sbody'), R = e => e.getBoundingClientRect(), bot = Math.min(innerHeight, R(sh).bottom) + 0.5;
+  const pieces = [...sh.querySelectorAll('.acts > .stline, #stallgoods > .tgline, #tapeleft, #stallgoods > .slots, #stallgear > .slots, #stallstrip')].filter(e => R(e).width > 2);
+  const box = e => { const r = R(e); return { k: e.id || String(e.className).split(' ').slice(0, 2).join('.'), l: r.left, t: r.top, r: r.right, b: r.bottom }; };
+  const B = pieces.map(box), off = B.filter(x => x.b > bot || x.t < -0.5).map(x => x.k), lap = [];
+  for (let i = 0; i < B.length; i++) for (let j = i + 1; j < B.length; j++) { const a = B[i], c = B[j]; if (Math.min(a.r, c.r) - Math.max(a.l, c.l) > 1 && Math.min(a.b, c.b) - Math.max(a.t, c.t) > 1.5) lap.push(a.k + ' on ' + c.k); }
+  const taps = [...sh.querySelectorAll('.stline .sb, .tgline .sb')].map(b => Math.round(Math.min(R(b).width, R(b).height)));
+  return { cls: sh.className, over: Math.max(sh.scrollHeight - sh.clientHeight, sb.scrollHeight - sb.clientHeight), rows: sh.querySelectorAll('.acts > .stline').length, trade: sh.querySelectorAll('#stallgoods > .tgline').length, hint: !!document.querySelector('#stallstrip') && R(document.querySelector('#stallstrip')).bottom <= bot, off, lap, minTap: Math.min.apply(null, taps.concat([99])), text: sb.innerText.replace(/\s+/g, ' ').trim() }; };
+async function stallWalk(b, prof, plant) {
+  const srv = await serve(plant), port = srv.address().port;
+  const ctx = await b.newContext({ viewport: prof.vp, deviceScaleFactor: 2, hasTouch: true, isMobile: true }), p = await ctx.newPage(), errs = []; p.on('pageerror', e => errs.push(e.message));
+  let o = {}; try {
+    await p.goto('http://127.0.0.1:' + port + '/slices/BOHEMIA_SETTLEMENT_SCREEN.html', { waitUntil: 'load' });
+    await p.waitForFunction(() => window.BohemiaSettlement && BohemiaSettlement.ready(), null, { timeout: 30000 });
+    await p.addScriptTag({ url: 'bohemia_ui_materials.js' }); await p.addScriptTag({ url: 'bohemia_ui_no_scroll.js' });
+    await p.evaluate(() => BohemiaSettlement.open({ place: { name: 'Caravans', tier: 'fortress' }, traits: [], day: 3, batteries: 3000 })); await p.waitForTimeout(700);
+    for (let t = 0; t < 3; t++) { const xy = await p.evaluate(() => BohemiaSettlement.where('stall')); if (!xy) break; await p.touchscreen.tap(xy.x, xy.y); await p.waitForTimeout(2600); if (await p.evaluate(() => BohemiaSettlement.state.open === 'stall')) break; }
+    o = await p.evaluate(STALL); o.open = await p.evaluate(() => BohemiaSettlement.state.open);
+  } catch (e) { o.err = e && e.message; }
+  o.errs = errs.filter(e => !/ResizeObserver/.test(e)); await ctx.close(); srv.close(); return o;
+}
+function judgeStall(o) { const bad = []; if (o.err || o.open !== 'stall') return { good: false, bad: [o.err || 'the tap opened ' + o.open], said: '' };
+  if (o.rows < 5 || o.trade < 1) bad.push(o.rows + ' goods and ' + o.trade + ' trade goods stand in it'); if (o.over > 1) bad.push('the sheet runs ' + o.over + ' px past its box'); if (!o.hint) bad.push('the line that says how to buy is off the glass');
+  if (o.off.length) bad.push('off the glass: ' + o.off.join(', ')); if (o.lap.length) bad.push(o.lap.slice(0, 2).join('; ')); if (o.minTap < 44) bad.push('a button is ' + o.minTap + ' px');
+  return { good: !bad.length, bad, said: o.rows + ' goods, ' + o.trade + ' trade good, the sheet ' + o.cls.replace(/^on stalling /, '') }; }
 const PLANT4 = { '/slices/BOHEMIA_SETTLEMENT_SCREEN.html': [["if (!sh.classList.contains(TIGHT)) { sh.classList.add(TIGHT);", "if (false) { sh.classList.add(TIGHT);"]] };
 const PROFS = [{ name: 'upright', vp: { width: 390, height: 844 } }, { name: 'sideways', vp: { width: 844, height: 390 } }];
 const PLANT = { '/slices/BOHEMIA_SETTLEMENT_SCREEN.html': [["T = 0; var sh = sheet(); if (!sh || !sh.classList.contains('on')", "T = 0; return; var sh = sheet(); if (!sh || !sh.classList.contains('on')"]] };
@@ -124,12 +152,17 @@ function judge(name, o, legs) {
   }
   for (const prof of PROFS) { const o = await fullest(b, prof, null), j = judgeFull(o); errs.push(...(o.errs || []));
     ok(prof.name + ' L4 THE FULLEST HALL: every man and every follower whole on the glass, no line cut, a follower\'s line a held finger away, 44 px buttons, 11 px words, a tap keeps it so (' + j.said + ')', j.good, (j.bad || []).slice(0, 4).join('; ')); }
+  { const oS = await stallWalk(b, PROFS[1], null), jS = judgeStall(oS), oU = await stallWalk(b, PROFS[0], null), jU = judgeStall(oU); errs.push(...(oS.errs || []), ...(oU.errs || []));
+    ok('sideways L5 THE STALL ON ITS SIDE with a trade good\'s row: nothing past the box, every row, note and the how-to-buy line on the glass, the notes in the empty sixth place, 44 px buttons (' + jS.said + ')', jS.good, (jS.bad || []).slice(0, 4).join('; '));
+    ok('upright L5 the same stall upright is as it was: it fits with no step taken (' + jU.said + ')', jU.good && !/ui4-tight/.test(oU.cls || ''), (jU.bad || []).slice(0, 3).join('; ')); }
   ok('E nothing thrown', !errs.length, errs.slice(0, 2).join(' | '));
   if (process.argv.includes('--plant')) {
     QUIET = true; const legs = {}, o = await walk(b, PROFS[0], PLANT, legs, false), j = judge('upright', o, legs); QUIET = false;
     ok('PLANT the pass never runs: L1 goes red (' + j.cut.length + ' cut)', j.cut.length > 0, j.cut.slice(0, 2).join('; '));
     const o4 = await fullest(b, PROFS[1], PLANT4), j4 = judgeFull(o4);
     ok('PLANT the hall\'s one more step never runs: L4 goes red sideways (' + (j4.bad || []).slice(0, 2).join('; ') + ')', !j4.good);
+    const o5 = await stallWalk(b, PROFS[1], PLANT4), j5 = judgeStall(o5);
+    ok('PLANT the stall\'s one more step never runs: L5 goes red sideways (' + (j5.bad || []).slice(0, 2).join('; ') + ')', !j5.good);
   }
   await b.close();
   console.log('NO LINE CUT WHILE THERE IS GLASS: ' + pass + ' passed, ' + fail + ' failed');
