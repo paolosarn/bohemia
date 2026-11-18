@@ -9712,8 +9712,10 @@ GATES = [
      "(laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md) is his page: it leads with SCARY FIRST and five rules (V1); every block of his words and every "
      "quoted sentence in the rules is in his own record word for word (V2, V3); every example is a homework card he answered, his line to "
      "the letter beside the line the card showed him (V4); nothing is bleeped (V5); every homework sheet's waiting cards still show the "
-     "game's own line (V6). Planted: a swear taken out of his line, a rule reworded, a bleep. It does not judge a game line for being "
-     "scary first: nothing is rewritten yet (454(a)). Node only, seconds", False),
+     "game's own line (V6); 11/18: the page keeps its order, his words first, the counting second, the unknown third, the game today last "
+     "(V7), and the count a mouth on the page is the hand reading's own count (V8). Planted: a swear taken out of his line, a rule "
+     "reworded, a bleep, his words moved under the counting. It does not judge a game line for being scary first: nothing is rewritten "
+     "yet (454(a)). Node only, seconds", False),
     ('EVERY SHOT IS FELT', ['node', 'gates/every_shot_is_felt_gate.js'],
      "FIGHT SCREEN gate, 11/14, VAMILY rule 450(b)(c)(d) (ask row 622; PAOLO 11/14: 'anytime anyone fires a shot I want a muzzle flash on the "
      "screen, some quick shit, like it goes all white... I want people to feel this shot for real'). The numbers (records/target/bb/"

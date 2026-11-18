@@ -1,3 +1,10 @@
+WORDS TWO (words-two-01gkdyutlu): 11/18 LATEST -- [the voice in parts] FILED (PENDINGSHA), NOTHING REWRITTEN (rules 455, 454(a)(d), 458(a); ask rows 637, 643, 628). Its block is handoffs/WORDS_TWO.md.
+THE VOICE (laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md) is in four parts: HIS WORDS (the law in his sentences, his four lines exactly, his missing apostrophes kept and marked open); WHAT CAN BE
+MEASURED (ours beside his on eleven counts, who is named, what is left dark, what is offered, how it ends, and M1 to M11, what each difference points to, each marked a reading); WHAT IS STILL
+UNKNOWN, each with the card that asks; THE GAME TODAY, the count a mouth. THE COUNT, BY HAND, 887 LINES (eight mouths read whole): 349 scary first; a town falling 53 of 53, the why line 93 of
+163, road strangers 42 of 81, job givers 34 of 102, keepers 16 of 66, hires 7 of 32, the far feed 31 of 150, boss askers 12 of 60. DESPERATE, the kind two of his four lines are, is one line in
+ten outside a town falling. Gate THE VOICE IS HIS WORDS 9/0. No card added (28 wait on him); sheet two is live (inside pages run 4589 SUCCESS). Record
+records/BOHEMIA_WORDS_TWO_THE_SECOND_READING_AND_THE_VOICE_IN_THREE_PARTS_11_18_26.md. NEXT: his next sheet when its path lands.
 JOBS (jobs-01gkdyuv): 11/18 LATEST -- BUILD 11/18a - THE BIG WORK WAITS FOR A NAME, BUILT, NOT YET SEEN (rules 453, 454(a), 441; row 627). THE BIG WORK WAITS FOR A NAME (build E): a fortress's three-skull work waits for 1050 CLOUT (the wiki's Professional), its
 two-skull work and any town's or camp's three-skull work for 250; a board is never empty; the board says the next number.
 On the phone, the demo and the alpha both ways. Gate THE TOWN'S BOOK. VOTE jobs-the-big-work-waits-for-a-name-11-18 (STAND-IN), sha d3e5c0709. Record records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md.

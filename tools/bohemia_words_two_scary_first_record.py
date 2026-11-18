@@ -183,7 +183,8 @@ may sit from his valley.
   says otherwise.
 '''
 assert '—' not in voice
-open('laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md','w',encoding='utf-8').write(voice)
+# 11/18: THE PAGE MOVED. tools/bohemia_words_two_the_voice.py writes laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md now (three parts and the count); this
+# script still writes the 11/17 record and the first hand reading, and must never write the page again.
 recmd=f'''# WORDS TWO: SCARY FIRST, MEASURED ON EVERY MOUTH; WHAT HIS FIRST FOUR ANSWERS TAUGHT; THE NEXT TWELVE CARDS (11/17/26)
 
 VAMILY rules 455 (SCARY FIRST: IT IS HELL), 454(c)(d), 458(a); ask rows 637, 643, 629. draft:true. NOTHING IN THE GAME WAS REWRITTEN.

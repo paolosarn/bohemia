@@ -6,6 +6,41 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
+WORDS TWO (words-two-01gkdyutlu): 11/18 LATEST -- [the voice in parts] FILED (PENDINGSHA), rules 455, 454(a)(d), 458(a); ask rows 637, 643, 628. NOTHING IN THE GAME WAS REWRITTEN. No card added: 28 of this lane's cards already wait on him.
+TWO ROUTINES OF THE COORDINATOR ARRIVED TOGETHER ('his first four answers', a day and a half late, and 'WORDS TWO next'): no new sheet of his has
+landed; do THE VOICE as far as four answers and rule 455 carry it (his words first, the measured differences second, the unknown third) and the
+count a mouth of scary first.
+SHEET TWO IS LIVE: 9f4bae9d7 is inside 354ba008, the head of pages run 4589 SUCCESS (run 4560 for 9f4bae9d7 itself was cancelled by this lane's own
+second push twelve seconds later; the later runs carry it). LESSON: do not push the sha-naming commit until the work commit's run has started.
+(1) THE VOICE IN ITS PARTS (laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md, written now by tools/bohemia_words_two_the_voice.py; the 11/17 script no longer
+writes the page). PART ONE HIS WORDS: page one as before, his four lines exactly; HIS TEXT IS NOT CORRECTED ('well' for we'll, 'Theyre' kept as
+typed, marked OPEN, the coordinator asked nothing). PART TWO WHAT CAN BE MEASURED: ours beside his on eleven counts (words, sentences, words a
+sentence, swears, numbers, questions, please/help, a word of the deal, Spanish, the last sentence, what it ends on); then line by line who is named,
+what is explained and what is left dark, what is offered, how it ends, how a post is spelled; then M1 to M11, what each difference POINTS TO, each
+marked a reading: a body is in the line; the young and the armed swear; length follows the person; a number is for what hurts, never the enemy or the
+pay; nobody says a crew's name; the danger is left dark and the need is plain; the deal is said and is never a number; it ends on the ask; a threat
+is an order, an insult, a debt and the body; a post is typed and cold; no Spanish added. PART THREE WHAT IS STILL UNKNOWN, each with its card.
+PART FOUR THE GAME TODAY: the count a mouth.
+(2) THE COUNT A MOUTH, BY HAND, 887 LINES (records/words_two/scary_first_second_reading.json; the draw scary_first_to_read.json; the marks
+scary_first_marks.py): eight mouths read WHOLE, five by 36 drawn lines. SCARY FIRST 349 (39%); outside a town falling 296 of 834 (35%). A town
+falling 53 of 53; the why line 93 of 163; road strangers 42 of 81; side quests 18 of 36; job givers 34 of 102; the survivor 12 of 36; his men
+mid-fight 11 of 36; the valley feed 11 of 36; road answers 9 of 36; keepers 16 of 66; hires 7 of 32; the far feed 31 of 150; boss askers 12 of 60.
+THE FIRST READING'S ORDER IS REPLACED: twelve lines had the job givers at 2 of 12 and the boss askers at 0 of 12 (an unlucky draw; all 156 lines
+read twice got the same mark both times).
+THE KINDS: desperate 125, a threat 112, eerie 90, cold 22. OUTSIDE A TOWN FALLING DESPERATE IS 81 OF 834, ONE LINE IN TEN, and two of his four
+lines are that. The hires: none desperate. The valley feed: none desperate. The why line: 70 of its 93 a threat.
+Record: records/BOHEMIA_WORDS_TWO_THE_SECOND_READING_AND_THE_VOICE_IN_THREE_PARTS_11_18_26.md.
+GATE THE VOICE IS HIS WORDS 9/0 (two legs added: V7 the page keeps its order and his words sit only in part one; V8 the count on the page is the
+reading file's own count, 13 mouths; a fourth plant, his words moved under the counting, caught).
+THE FIRST ROUTINE'S LIST OF UNKNOWNS (a man of his crew mid-fight, a shopkeeper, a boss, a hire's pitch, a post that is not a joke, someone kind,
+someone proud) IS ALREADY COVERED by cards that are out: 1.5 and 1.15, 1.14, 1.12, 1.9, 1.10 and 1.18 and 2.5 and 2.9, 2.7, 2.8. No third sheet.
+WEAK, SAID: one reader; 90 of the 349 are eerie and none of his four lines is (if eerie is not his scary the game is at 29%, not 39%); five mouths
+are still a draw of 36; M1 to M11 are eleven readings from four lines.
+NEXT: (1) his next sheet when its path lands: every answer onto part one by the tool (it grows by itself), its counts into part two, what it breaks
+of M1 to M11 said plainly. (2) Then the rewrite's order, on his word: by this count the boss askers, the far feed, the hires and the keepers first.
+[bb Battle Brothers' recruits never beg: a hire is a number and a background; his rule 4 says ours should need the job and say so, and today not one of our 32 does]
+[analog horror: 90 of our scary lines are eerie, and none of his four is; his hell is a kid counting days, not a voice on channel 9]
+
 WORDS TWO (words-two-01gkdyutlu): 11/17 LATEST -- [scary first] BUILD 11/17zb - HIS HOMEWORK, SHEET TWO: SCARY, THEN WHAT, BUILT (9f4bae9d7), NOT YET SEEN (rules 455, 454(c)(d), 458(a); ask rows 637, 643, 629). NOTHING IN THE GAME WAS REWRITTEN.
 THE COORDINATOR'S ROUTINE 'WORDS TWO scary first' brought his new law (rule 455) and his first four answers (rule 458(a)). Three things came out:
 (1) THE VOICE, PAGE ONE: laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md. His law in his own words, nothing softened (three blocks of his speech, five rules, each
