@@ -1,3 +1,8 @@
+JOBS (jobs-01gkdyuv): 11/18 LATEST -- BUILD 11/18a - THE BIG WORK WAITS FOR A NAME, BUILT, NOT YET SEEN (rules 453, 454(a), 441; row 627). THE BIG WORK WAITS FOR A NAME (build E): a fortress's three-skull work waits for 1050 CLOUT (the wiki's Professional), its
+two-skull work and any town's or camp's three-skull work for 250; a board is never empty; the board says the next number.
+On the phone, the demo and the alpha both ways. Gate THE TOWN'S BOOK. VOTE jobs-the-big-work-waits-for-a-name-11-18 (STAND-IN), sha d3e5c0709. Record records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md.
+[bb Battle Brothers: the higher your Renown, the more difficult contracts people entrust you; a fortified town's contracts wait for Professional (1050)]
+
 COMBAT THREE (combat-three-01gkdyuu): 11/17 LATEST -- BUILD 11/17zo - THE DATA FORT, BUILT, NOT YET SEEN (the full sweep, rule 453, job 1 a fourth time; rules 416, 59, 428, 451(a); ask rows 468, 627).
 The seventh big inside: a fight at the data fort (six in ten) is fought on its white floor between server rows that still run: THE ONE PLACE WITH POWER, every aisle lit day and
 night, so nobody hides in the dark; hot aisles one man wide, a tenant's cage with one gate, the battery strings, the Network up on the control room's gallery at the bell; its

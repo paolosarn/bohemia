@@ -1,5 +1,25 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/18 LATEST -- BUILD 11/18a - THE BIG WORK WAITS FOR A NAME (build E), BUILT, NOT YET SEEN (rules 453, 454(a), 441;
+row 627; the coordinator's routine 'JOBS next'). Record: records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md section 6. The pay inventory for
+ECONOMY TWO (rule 459) is the 11/18 block below; this build moves no pay number.
+- MEASURED FIRST: CLOUT raised the pay and opened the retinue, and opened no work: a crew of nobody got a fortress's three-skull work
+  on day one wherever the day's floor let it through. Battle Brothers: 'the more difficult Contracts people will entrust you' with
+  Renown, and a fortified town's contracts 'require... Professional Renown (1050) to unlock' (bb_all/1679, bb_all/0724).
+- THE GATE: records/target/bb/job_clout.json needs (JOBS' file; TUNING row job_clout.needs 250 / 1050): a fortress's three-skull work
+  waits for 1050 CLOUT, its two-skull work and any town's or camp's three-skull work for 250; the news's and a raid's work ask no
+  name. slices/bohemia_board_shelf.js __THE_BIG_WORK_WAITS_FOR_A_NAME__ (needOf, the deal keyed by the CLOUT level, never empty:
+  the least dangerous waiting job stands, waits()). The board's one label: 'MORE WORK HERE AT 250 CLOUT · YOU HAVE 200' (draft).
+- MEASURED (node): fortress boards at 0 CLOUT 1.40 jobs (3.00 before), 3.00 at 250; towns and camps unchanged; never an empty board.
+- ON THE PHONE (demo and alpha, both ways; 200 CLOUT set, the one shortcut, said): Caravans day 1, two one-skull jobs and the line; the
+  singer played to the pay (+100, 300); Caravans when its board turned, the two-skull ring trucks job and the line at 1050 (that same
+  window posts none at 200).
+GATE THE TOWN'S BOOK: E1 files, E2 the boards by CLOUT (planted bites), E3 the phone: 13/0 with JOBS_BUILD=E (the demo and the alpha, both ways); THE BOARDS ALWAYS HAVE WORK the same 5 reds main had, every board still offering work.
+NEXT (nothing waits on him): Battle Brothers' daily Renown decay (-3 a day, bb_all/1679) is not ours yet (CLOUT never fades);
+the town's bar on the board itself.
+[bb Battle Brothers: the higher your Renown, the more difficult contracts people entrust you; the Noble Houses wait for Professional]
+[analog horror: the fortress has work, you can hear it behind the gate; they just do not know your name yet]
+
 JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/18 FOR ECONOMY TWO (rule 459, THE BATTERY IS REAL; the coordinator's routine 'JOBS next'): EVERY
 PLACE A JOB'S PAY IS SET OR MULTIPLIED. JOBS moved no pay number; ECONOMY TWO re-prices from its table. Read on main at c869a5eda.
 WHY HE SAW 1,000 AND 3,000: no base pay is over 251 (jb-hold-substation; jb-ring-solar 240; the shelf's 249). The multipliers stack on
