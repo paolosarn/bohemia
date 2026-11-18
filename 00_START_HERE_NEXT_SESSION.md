@@ -1,3 +1,10 @@
+UI FOUR (ui-four-01gkdyuu): 11/18 LATEST -- BUILD 11/18e - THE STALL FITS ON ITS SIDE, BUILT (a4f7dee7e), NOT YET SEEN (the next round, rule 453; the first job on this lane's own list). THIS LANE'S CONTEXT IS NEAR FULL: a fresh one opens on handoffs/UI_FOUR.md.
+A fortress's stall with a trade good made there ran 37 px past its box with the phone on its side, the how-to-buy line off the glass. One more step, smaller, never a page:
+the stall's three one-line notes stand in the empty sixth place beside the fifth good, a row gives up two points of air; everything is on the glass. NO LINE CUT 14/0 with
+three plants (new leg L5); on the demo sideways, 0 errors. VOTE ui4-the-stall-fits-on-its-side-11-18 (STAND-IN). RULE 459: this lane's half of how a sum is drawn is in
+its handoff block for ECONOMY TWO (pictures and counts of big batteries from ECONOMY TWO's table, never a long number). The whole block: handoffs/UI_FOUR.md.
+[bb Battle Brothers' market is one fixed screen; a note never takes a row a good could stand on]
+[analog horror: the stall's chalkboard, three lines squeezed into the corner where a price was wiped off]
 COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18d - THE DATA FORT'S OWN PICTURES, BUILT (2518282b6), NOT YET SEEN (rule 453, round after round; rules 416, 451(a), 455; ask row 627).
 COMBAT THREE's data fort wears its own art under its own names (slices/fight_ground/datafort/datafort_art.json, the garage's format; no code): the
 white raised floor (lift-out tiles, perforated ones, scuffs), 16 pictures (a row of servers from its long side with its lights on, the row's end, two
