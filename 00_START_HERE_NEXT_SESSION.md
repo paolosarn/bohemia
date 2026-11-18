@@ -1,4 +1,4 @@
-FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/18 LATEST -- BUILD 11/18q - THE CAP IS ON THE GLASS, ONE HONEST HEAD, BUILT (PENDINGSHA), NOT YET SEEN (ask rows 650 and 648, FOUND BY EYES; rules 450(c), 450(a), 441). Its block is handoffs/FIGHT_SCREEN.md.
+FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/18 LATEST -- BUILD 11/18q - THE CAP IS ON THE GLASS, ONE HONEST HEAD, BUILT (947ec28f2), NOT YET SEEN (ask rows 650 and 648, FOUND BY EYES; rules 450(c), 450(a), 441). Its block is handoffs/FIGHT_SCREEN.md.
 THIS CHAT IS FIGHT SCREEN TWO. THE FLASH (row 650): reproduced first: the three-a-second cap counted when shots were SCHEDULED, and one late frame put four
 whites inside 933 ms on the glass with the page's count holding none. The cap now sits where the white is drawn, on the drawn frame's own clock: never more than
 three begin in any 1100 ms of real time at any speed; a white the glass will not take is not drawn (the barrel flash and the sound stay); the vest's whole-board

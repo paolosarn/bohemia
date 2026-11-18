@@ -5,7 +5,7 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
-FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/18 LATEST -- [cap on the glass, one honest head] SHIPPED PENDINGSHA, BUILD 11/18q - THE CAP IS ON THE GLASS, ONE HONEST HEAD, BUILT, NOT YET SEEN (ask rows 650 and 648, FOUND BY EYES, the NOTE below; rules 450(c), 450(a), 441). VOTE fight-screen-the-cap-is-on-the-glass-and-one-honest-head-11-18 (stand_in; before and after).
+FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/18 LATEST -- [cap on the glass, one honest head] SHIPPED 947ec28f2, BUILD 11/18q - THE CAP IS ON THE GLASS, ONE HONEST HEAD, BUILT, NOT YET SEEN (ask rows 650 and 648, FOUND BY EYES, the NOTE below; rules 450(c), 450(a), 441). VOTE fight-screen-the-cap-is-on-the-glass-and-one-honest-head-11-18 (stand_in; before and after).
 THIS CHAT IS FIGHT SCREEN TWO. Record: records/BOHEMIA_FIGHT_SCREEN_THE_CAP_IS_ON_THE_GLASS_AND_ONE_HONEST_HEAD_11_18_26.md.
 ROW 650, THE FLASH. REPRODUCED FIRST: the cap counted the moments the shots were SCHEDULED for; the glass draws on its own frames; four shots a third of a second
 apart are legal by the schedule and one frame 90 ms late made all four begin inside 933 ms on the glass with 'held' 0. Not the speed: the fight's clock is real time.
