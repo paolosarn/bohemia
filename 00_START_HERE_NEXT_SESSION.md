@@ -1,3 +1,15 @@
+FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/18 LATEST -- BUILD 11/18q - THE CAP IS ON THE GLASS, ONE HONEST HEAD, BUILT (PENDINGSHA), NOT YET SEEN (ask rows 650 and 648, FOUND BY EYES; rules 450(c), 450(a), 441). Its block is handoffs/FIGHT_SCREEN.md.
+THIS CHAT IS FIGHT SCREEN TWO. THE FLASH (row 650): reproduced first: the three-a-second cap counted when shots were SCHEDULED, and one late frame put four
+whites inside 933 ms on the glass with the page's count holding none. The cap now sits where the white is drawn, on the drawn frame's own clock: never more than
+three begin in any 1100 ms of real time at any speed; a white the glass will not take is not drawn (the barrel flash and the sound stay); the vest's whole-board
+white asks the same cap and is soft on FLASH: SOFT. THE FACE (row 648): the band this lane cut over his eyes was a seam and is gone; nothing of the gear is cleared.
+CHARACTER's portrait pieces are whole but drawn for a taller head than PORTRAIT's round one, so a hat is now FITTED WHOLE with its brim on his brow (a new
+slices/bohemia_fight_face.js; nothing of CHARACTER's or PORTRAIT's edited). Said plainly: RAUL is a man in a hard hat now but still the smallest.
+Gates EVERY SHOT IS FELT (S6 the glass itself read every drawn frame at 1x, 2x and 4x on AUTO; a plant) and THE FACE SHOWS UNDER THE HELMET 10/0 (315 faces,
+no seam, two plants). On the alpha and the demo, upright and sideways, AUTO at 2x and 4x with a finger: never more than 3 begin in a second; 0 errors.
+VOTE fight-screen-the-cap-is-on-the-glass-and-one-honest-head-11-18 (STAND-IN). NEXT ON THIS LANE: one material for the speaking cards, the Rogue Fable 4 page.
+[bb Battle Brothers has no gun and no flash; its helmets are drawn on the face they were made for. Ours fits a hat to a head it was not drawn for]
+[analog horror: three camera flashes and then the fourth man fires in the dark; you hear him and see only his barrel]
 COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18p - THE TERMINAL IS AN AIRPORT, BUILT (4c0cf87e7), NOT YET SEEN (rule 453, round after round, this round's fifth build; rules 416, 451(a), 455; ask row 627).
 COMBAT THREE's airport terminal wears its own art under its own names (slices/fight_ground/terminal/terminal_art.json, the garage's format; no code):
 the terrazzo floor, 25 pictures under 27 names (the checkpoint a tile with its tubs, both screens, the desks, the queue, the newsstand, the luggage

@@ -10,6 +10,9 @@
   "frames_why": "'a frame or two': the peak stands hold_ms (two frames at 60 a second) and is always drawn once even on a slow phone, then falls to nothing in fade_ms",
   "volley_ms": 150,
   "max_per_second": 3,
+  "glass_second_ms": 1100,
+  "rise": 0.02,
+  "glass_why": "THE CAP IS ON THE GLASS (FIGHT SCREEN TWO 11/18/26, ask row 650): the three-a-second line is counted where the white is drawn, on the drawn frame's own clock, never on the moments the shots were scheduled for (a late frame squeezed four scheduled a third of a second apart into 933 ms). No more than max_per_second whites BEGIN inside any glass_second_ms of real time, at any game speed: a second and a tenth, the tenth so one late frame can never make a fourth. A white begins on a frame where the glass gets whiter by more than rise; the vest's white asks the same cap.",
   "soft": { "white_x": 0.3, "hold_ms": 34, "fade_x": 2.2, "barrel_x": 0.7 },
   "soft_why": "for eyes that cannot take flashing: the white at under a third, a slower fall, the barrel flash smaller; the shot is still seen",
   "barrel": {

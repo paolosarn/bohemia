@@ -5,6 +5,40 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
+FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/18 LATEST -- [cap on the glass, one honest head] SHIPPED PENDINGSHA, BUILD 11/18q - THE CAP IS ON THE GLASS, ONE HONEST HEAD, BUILT, NOT YET SEEN (ask rows 650 and 648, FOUND BY EYES, the NOTE below; rules 450(c), 450(a), 441). VOTE fight-screen-the-cap-is-on-the-glass-and-one-honest-head-11-18 (stand_in; before and after).
+THIS CHAT IS FIGHT SCREEN TWO. Record: records/BOHEMIA_FIGHT_SCREEN_THE_CAP_IS_ON_THE_GLASS_AND_ONE_HONEST_HEAD_11_18_26.md.
+ROW 650, THE FLASH. REPRODUCED FIRST: the cap counted the moments the shots were SCHEDULED for; the glass draws on its own frames; four shots a third of a second
+apart are legal by the schedule and one frame 90 ms late made all four begin inside 933 ms on the glass with 'held' 0. Not the speed: the fight's clock is real time.
+ - slices/BOHEMIA_FIGHT.html __THE_CAP_IS_ON_THE_GLASS__ (inside __EVERY_SHOT_IS_FELT__): glassMayBegin(now) is THE ONE CAP, asked where the white is drawn
+   (tickShot) on the drawn frame's clock: no more than max_per_second begin inside any glass_second_ms (1100). shotFelt holds NO cap now (only the volley join).
+   A white the glass will not take is never drawn (q.off); its barrel flash and sound stay. UI.shotSeen.white / .held are counted at the glass. UI.glass = the cap's
+   own state (began, n, held). The drawer reads every scheduled white (it read the last four: a fifth scheduled ahead dropped one).
+ - THE VEST'S WHITE (drawSmoke's whole-board fill, a cell vest going off) asks the same cap through glassSpark(now), ONE MARKED LINE, and is the soft share when
+   FLASH is soft. ANY NEW WHOLE-BOARD OR WHOLE-GLASS WHITE MUST ASK glassMayBegin: the gate's S2 fails a whole-board fill it does not know.
+ - records/target/bb/fight_shot.json: glass_second_ms 1100, rise 0.02, glass_why.
+ROW 648, THE FACE. EYES was right: the 11/17 band was a cut and a cut is a seam. NOTHING OF THE GEAR IS CLEARED NOW.
+ - THE REAL CAUSE: CHARACTER's portrait pieces (slices/wear/wear_face.webp) are whole and right, drawn for a head taller than it is wide; PORTRAIT's cell is a round
+   head; a brim made for a tall brow lands on his eyes. Measured: hats end 0.20 to 0.47 of his head under his eye line, closed helms and masks past 0.59.
+ - slices/bohemia_fight_face.js, REBUILT: head() reads his eye line off his own picture; shape() reads the piece off the wear file's own drawing and names it
+   hat / mask / face / open; a hat is FITTED WHOLE (lift + a press no flatter than SQUASH 0.6) so its brim is on his brow; a mask that began at his eyes begins under
+   them; the rest are left whole. The picture stands back so the fitted piece is in the frame. draw() has the same signature; layer() hands the gear alone for gates.
+ - SAID PLAINLY: RAUL is a man in a hard hat now but still the smallest (68 in 100; his hair is as wide as the cell so his hat is the widest and pressed the most).
+   A sheet of pieces drawn on PORTRAIT's own head is CHARACTER's and PORTRAIT's (routed in the record, with the wear file's widest-row anchor).
+GATES: EVERY SHOT IS FELT amended 11/0: S6 the glass itself at 1x, 2x, 4x on AUTO side by side (the gate's own eye on every drawn frame: the white's real opacity and
+the TRUE MEAN of the board's pixels: a 64-point eye called a hit's camera kick a flash, twice; never sample a few points), S7 a late frame never makes a fourth, S8 the vest's white; plant: the cap out of the glass. THE FACE SHOWS UNDER THE HELMET rebuilt 10/0
+(H2 NO SEAM, H6 the brim on his brow; plants: the file out, a band cut again).
+ON THE PAGE (tools/bohemia_fight_screen_the_why_is_true.js with GLASS=<1|2|4>: a finger on AUTO and the speed button, the tool's eye on the glass): alpha 4x 19
+flashes begun, most in a second 3; alpha sideways 2x 18, 3; demo 4x 17, 3; demo sideways 2x 15, 3; the cap held one in three of the four; the crew's hard hat fitted
+as a hat on all three; 0 page errors.
+NEXT, in order (unchanged):
+ (1) ONE MATERIAL FOR THE SPEAKING CARDS: #vet is still pale paper beside the three (five gates read it). #why and #call are dark glass. Make all three the family's board.
+ (2) THE LIBRARY PAGE on Rogue Fable 4's screen and card (the library has none): owed before any card is called final against it.
+ (3) THE END SCREEN and THE STRIP #say, in the family's look (rule 449(b)).
+ (4) The opening card's men as BODIES (the fight's own sheets of the dealt looks, slices/fight_rig).
+ (5) The turn order: NOT owed unless he asks (his note 9 of 11/2).
+[bb Battle Brothers has no gun and no flash; its helmets are drawn on the face they were made for. Ours fits a hat to a head it was not drawn for]
+[analog horror: three camera flashes and then the fourth man fires in the dark; you hear him and see only his barrel]
+
 NOTE 11/18 FROM EYES TO FIGHT SCREEN 2 (rule 441; the routine 'EYES walk 11/17') -- ASK ROWS 648, 650. Record: records/BOHEMIA_EYES_WALK_THE_11_17_BUILDS_11_18_26.md (pictures records/eyes_walk_11_18/).
 SEEN: the three cards as one family upright and sideways (the opening card, the man's card on the phone, the sheet inside the glass both
 ways); the why line true on a haul (road.brigands) and a collect job (job.brigands); the eyes read under the helmet now.

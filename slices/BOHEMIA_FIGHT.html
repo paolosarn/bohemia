@@ -7681,9 +7681,30 @@ function tickVet(now) {
    more than three flashes start in any second; the rest are still seen at the barrel and heard. SOFT for eyes that cannot take
    flashing: SETTINGS' FLASH switch (boh.flash), MOTION: LESS, or the phone's own reduce-motion. A shot out of the dark whites
    the screen and is heard but draws no barrel flash (it would give the shooter away, rule 157(c)). Every number is in
-   records/target/bb/fight_shot.json. What happened is counted on UI.shotSeen for the gate and for EYES. */
+   records/target/bb/fight_shot.json. What happened is counted on UI.shotSeen for the gate and for EYES.
+   __THE_CAP_IS_ON_THE_GLASS__ (FIGHT SCREEN TWO 11/18/26, ask row 650, FOUND BY EYES: 'four white flashes in one second in two
+   alpha AUTO fights, the page's own count holding none'). THE CAUSE, MEASURED: the cap counted the moments the shots were
+   SCHEDULED for, and the glass draws on its own frames: four shots a third of a second apart are three-a-second by the schedule
+   (the fourth is 1002 ms after the first), but a first frame 90 ms late draws the first one late and all four begin inside 933
+   ms on the glass. NOW THE CAP IS WHERE THE WHITE IS DRAWN, ON THE FRAME'S OWN CLOCK (glassMayBegin): a white BEGINS on the frame
+   the glass gets whiter than it was the frame before; no more than max_per_second begin inside any glass_second_ms (a second and
+   a tenth, the tenth for a late frame), at any game speed, whoever fires. A flash the glass will not take is never drawn (its
+   barrel flash and its sound stay). The vest's white (drawSmoke) asks the same cap, and is soft when FLASH is soft. */
 const SHOT_SOFT_KEY = 'boh.flash';
 let SHOT_EL = null;
+const GLASS = { began: [], n: 0, held: 0, spark: undefined, sparkOk: false, sparkSoft: 1 };
+function glassMayBegin(now) {
+  const D = DB.shot || {}, W = D.glass_second_ms || 1100, M = D.max_per_second || 3, G = GLASS;
+  if (G.began.length && Math.abs(now - G.began[G.began.length - 1]) < 1) return true;   /* this drawn frame has begun one already: the same flash */
+  while (G.began.length && now - G.began[0] >= W) G.began.shift();
+  if (G.began.length >= M) { G.held++; return false; }
+  G.began.push(now); G.n++; return true;
+}
+/* the vest's white (the whole board, drawSmoke): one ask a spark, the answer kept for its beat */
+function glassSpark(now) {
+  const G = GLASS; if (G.spark === UI.whiteAt) return G.sparkOk;
+  G.spark = UI.whiteAt; G.sparkSoft = shotSoft() && DB.shot ? DB.shot.soft.white_x : 1; G.sparkOk = glassMayBegin(now); return G.sparkOk;
+}
 function shotSoft() {
   if (window.__SHOT_SOFT !== undefined) return !!window.__SHOT_SOFT;   /* a page that shows the flash both ways (its VOTE card) says which; his own setting is not touched */
   try { const v = localStorage.getItem(SHOT_SOFT_KEY); if (v === 'soft') return true; if (v === 'full') return false; } catch (_e) {}
@@ -7697,20 +7718,28 @@ function shotFelt(u, t, at, B) {
   N.fired++;
   if (u.side === 'you' || FIGHT.shown(u)) { (UI.muzzle = UI.muzzle || {})[u.id] = { at: at, kind: kind, d: wDir(u, t), n: 0, soft: soft }; N.barrel++; }
   /* a volley is one flash: a shot that lands inside the last flash's window joins it (and makes it the bigger gun's) */
-  for (let i = L.length - 1; i >= 0 && i >= L.length - 4; i--) if (Math.abs(at - L[i].at) <= D.volley_ms) { if (D.white[kind] > D.white[L[i].kind] && !L[i].n0) L[i].kind = kind; L[i].shots++; N.volley++; return; }
-  /* never more than three in a second: the flashes that begin inside the second before this one and the second after */
-  if (L.filter(function (q) { return Math.abs(at - q.at) < 1000; }).length >= D.max_per_second) { N.held++; return; }
-  L.push({ at: at, kind: kind, shots: 1, soft: soft, n0: 0 }); if (L.length > 40) L.shift(); N.white++;
+  for (let i = L.length - 1; i >= 0; i--) if (Math.abs(at - L[i].at) <= D.volley_ms) { if (D.white[kind] > D.white[L[i].kind] && !L[i].n0) L[i].kind = kind; L[i].shots++; N.volley++; return; }
+  /* never more than three begin in a second: counted where the white is drawn, on the glass's own clock (tickShot, glassMayBegin) */
+  L.push({ at: at, kind: kind, shots: 1, soft: soft, n0: 0 }); if (L.length > 40) L.shift();
 }
 function tickShot(now) {
-  const D = DB.shot, L = UI.shots; if (!D || !L || !L.length) { if (SHOT_EL && SHOT_EL._a) { SHOT_EL.style.opacity = '0'; SHOT_EL._a = 0; } return; }
-  let a = 0;
-  for (let i = L.length - 1; i >= 0 && i >= L.length - 4; i--) {
-    const q = L[i], t = now - q.at; if (t < 0) continue;
+  const D = DB.shot, L = UI.shots; if (UI.glass !== GLASS) UI.glass = GLASS;
+  if (!D || !L || !L.length) { if (SHOT_EL && SHOT_EL._a) { SHOT_EL.style.opacity = '0'; SHOT_EL._a = 0; } return; }
+  const N = UI.shotSeen, was = (SHOT_EL && SHOT_EL._a) || 0, fresh = [];
+  let a = 0, top = 0;
+  for (let i = L.length - 1; i >= 0; i--) {
+    const q = L[i], t = now - q.at; if (t < 0 || q.off) continue;
     const peak = D.white[q.kind] * (q.soft ? D.soft.white_x : 1), hold = q.soft ? D.soft.hold_ms : D.hold_ms, fade = D.fade_ms[q.kind] * (q.soft ? D.soft.fade_x : 1);
-    /* its peak is drawn once whatever the phone's frame took (a shot is never missed), then held, then it falls */
-    const k = !q.n0 ? 1 : t < hold ? 1 : t < hold + fade ? 1 - (t - hold) / fade : 0;
-    if (k > 0) { q.n0 = (q.n0 | 0) + 1; a = Math.max(a, peak * k); }
+    if (!q.n0) { q.pk = peak; fresh.push(q); top = Math.max(top, peak); continue; }
+    const k = t < hold ? 1 : t < hold + fade ? 1 - (t - hold) / fade : 0;
+    if (k > 0) { q.n0++; a = Math.max(a, peak * k); } else q.off = 1;
+  }
+  if (fresh.length) {
+    /* a white BEGINS on the frame the glass gets whiter than it was a frame ago: the glass's own cap is asked, on this frame's
+       clock. Its peak is drawn once whatever the phone's frame took (a shot it takes is never missed), then held, then it falls.
+       Whites that reach the glass on one frame are one flash; one that comes under a brighter standing white joins it. */
+    const rises = top > was + (D.rise || 0.02), may = !rises || glassMayBegin(now);
+    fresh.forEach(function (q, i) { if (may) { q.n0 = 1; a = Math.max(a, q.pk); if (N) { if (rises && i === 0) N.white++; else N.volley++; } } else { q.off = 1; if (N) N.held++; } });
   }
   if (!SHOT_EL) SHOT_EL = document.getElementById('shotflash');
   a = Math.round(a * 100) / 100;
@@ -11813,9 +11842,9 @@ function drawSmoke(now, tw, th) {
     mkCell(c0 - k, r0 - k, bw + 2 * k, bh + 2 * k, L.edge); mkCell(c0, r0, bw, bh, L.wire);
     for (let r = 0; r < 2; r++) for (let i = 0; i < n; i++) { mkCell(c0 + k + i * 2 * k, r0 + k + r * 3 * k, k, k, L.cap); mkCell(c0 + k + i * 2 * k, r0 + 2 * k + r * 3 * k, k, k, L.cell); }
   });
-  if (UI.whiteAt !== undefined && now >= UI.whiteAt && now - UI.whiteAt < beatMs()) {
+  if (UI.whiteAt !== undefined && now >= UI.whiteAt && now - UI.whiteAt < beatMs() && glassSpark(now)) {   /* __THE_CAP_IS_ON_THE_GLASS__ (FIGHT SCREEN TWO, row 650): this white begins only if the glass's cap takes it, and is soft when FLASH is soft */
     const st = Math.min(2, Math.floor((now - UI.whiteAt) / beatMs() * 3));
-    cx.fillStyle = 'rgba(255,250,238,' + [.88, .5, .2][st] + ')'; cx.fillRect(0, 0, cx.canvas.width, cx.canvas.height);
+    cx.fillStyle = 'rgba(255,250,238,' + Math.round([.88, .5, .2][st] * GLASS.sparkSoft * 100) / 100 + ')'; cx.fillRect(0, 0, cx.canvas.width, cx.canvas.height);
   }
   mkOff();
 }

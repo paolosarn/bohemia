@@ -10,6 +10,9 @@
    For each: the card's sentence, the bell's own account (UI.whySaid: the sentence, what it needed, what was so), a still of each.
    Then FIGHT is pressed and one of his men is on the phone's card: a still of the card and of his sheet (a finger on his face), and
    the fight's account of how it framed his face under his head gear (BohemiaFightFace.said).
+   GLASS=<1|2|4> (FIGHT SCREEN TWO 11/18, ask rows 650 and 648): after his sheet, a finger presses AUTO and the speed button until it
+   reads that speed, and the fight is played to its end with the tool's own eye on the glass (the white's real opacity and the
+   board's own pixels, every drawn frame, never the page's count): how many flashes began, and the most in any one second.
    node tools/bohemia_fight_screen_the_why_is_true.js <alpha|demo> <upright|sideways> <outdir> <job|ceiling>
    ========================================================================== */
 'use strict';
@@ -55,7 +58,8 @@ const OLD = {}; if (process.env.BEFORE) for (const f of ['slices/BOHEMIA_FIGHT.h
   await until(async () => city().evaluate(() => MODE === 'city'), 8000); await wait(1500);
   await city().evaluate(offTheTown).catch(() => null);
   await until(async () => city().evaluate(() => !!(window.BohemiaJobDanger && BohemiaJobDanger.ready())), 30000);
-  T.met = await city().evaluate((CASE) => { const band = ['brigand_thug', 'brigand_thug', 'brigand_raider'];
+  if (process.env.GLASS) await city().evaluate(() => { window.__GLASS_BAND = true; });
+  T.met = await city().evaluate((CASE) => { const band = window.__GLASS_BAND ? ['brigand_raider', 'brigand_thug', 'brigand_raider', 'brigand_thug', 'brigand_raider', 'brigand_thug'] : ['brigand_thug', 'brigand_thug', 'brigand_raider'];
     let at = (function () { try { return roadWhere(); } catch (e) { return [city.x, city.y]; } })(), why = 'road:toll_crew', label = 'the toll crew', job = null;
     if (CASE === 'job') { job = { id: 'fs631', plays: 'recover-return', title: 'Get the cold box back', from: 'Mob', item: 'the cold box', stage: 'get', pay: 40, skulls: 1, draft: true }; LOOP.held.push(job); why = 'contract:fs631:holders'; label = 'the ones holding the cold box'; }
     else { let hit = null; for (let y = 0; y < om.n && !hit; y++) for (let x = 0; x < om.n; x++) { const t = om.at(x, y); if (t && /^(casino|resort)$/.test(String(t.district))) { hit = [x, y, t.district]; break; } } if (hit) at = [hit[0], hit[1]]; }   /* the meeting is named on a casino's cell (the card reads that ground as inside); the party itself cannot stand there for a road stop: the town's door holds what comes for him off a town's ground, so the bell's inside leg is proven on the fight's own page (THE WHY LINE gate, W12) */
@@ -79,6 +83,27 @@ const OLD = {}; if (process.env.BEFORE) for (const f of ['slices/BOHEMIA_FIGHT.h
   await tapSel(page.mainFrame(), '#bohphone .fh .fme'); await wait(1300); await shot('4_his_sheet');
   T.faces = await f.evaluate(() => { const FF = window.BohemiaFightFace || null, mine = FIGHT.S.units.filter(u => u.side === 'you'); return { framed: !!FF, drawn: FF ? FF.n : 0, last: FF ? FF.said : null, crew: mine.map(u => ({ name: u.name, look: u.look, head: (function () { try { const w = BohemiaWear.of(u); return w && w.head; } catch (e) { return null; } })() })) }; });
   log('FACES', JSON.stringify(T.faces).slice(0, 500));
+  if (process.env.GLASS) { const want = +process.env.GLASS;
+    await f.evaluate(() => { const G = window.__GLASS = { frames: 0, starts: [], white: [], maxGap: 0 }; let chain = null, prev = null, pa = 0, last = 0;
+      /* the board's true mean light (halved and halved again), never a few sample points: a hit's camera kick is not a flash */
+      const mean = (cv) => { if (!chain || chain.w !== cv.width || chain.h !== cv.height) { chain = { w: cv.width, h: cv.height, L: [] }; let w = cv.width, h = cv.height; while (w > 16 || h > 16) { w = Math.max(1, Math.ceil(w / 2)); h = Math.max(1, Math.ceil(h / 2)); const c = document.createElement('canvas'); c.width = w; c.height = h; chain.L.push(c); } }
+        let src = cv; chain.L.forEach((c, k) => { const g = c.getContext('2d', { willReadFrequently: k === chain.L.length - 1 }); g.imageSmoothingEnabled = true; g.clearRect(0, 0, c.width, c.height); g.drawImage(src, 0, 0, c.width, c.height); src = c; });
+        const e = chain.L[chain.L.length - 1], d = e.getContext('2d').getImageData(0, 0, e.width, e.height).data, n = e.width * e.height; let s = 0; for (let i = 0; i < n; i++) s += (0.2126 * d[i * 4] + 0.7152 * d[i * 4 + 1] + 0.0722 * d[i * 4 + 2]) / 255; return s / n; };
+      const tick = (now) => { requestAnimationFrame(tick); try { const el = document.getElementById('shotflash'), a = el ? +getComputedStyle(el).opacity || 0 : 0, lum = mean(cx.canvas);
+          const glass = lum * (1 - a) + a; G.frames++; if (last) G.maxGap = Math.max(G.maxGap, now - last); last = now;
+          if (prev !== null && glass - prev >= 0.10) G.starts.push(Math.round(now)); if (a > 0 && pa === 0) G.white.push(Math.round(now)); prev = glass; pa = a; } catch (e) { G.err = String(e); } };
+      requestAnimationFrame(tick); });
+    await page.touchscreen.tap(VP.width * 0.3, VP.height * 0.9); await wait(700);   /* a finger off the sheet puts it away */
+    const phoneB = async (c) => tapSel(page.mainFrame(), '#bohphone button[data-c="' + c + '"]');
+    await phoneB('auto'); await wait(700);
+    for (let i = 0; i < 4; i++) { const h = await f.evaluate(() => UI.hand); if (h === want) break; await phoneB('speed'); await wait(450); }
+    const st = await f.evaluate(() => ({ auto: !!UI.auto, hand: UI.hand })); if (!st.auto) { await phoneB('auto'); await wait(600); }
+    const t0 = Date.now(); while (Date.now() - t0 < 80000) { const o = await f.evaluate(() => !!FIGHT.S.over).catch(() => true); if (o) break; await wait(500); }
+    await wait(600); await shot('5_after_auto');
+    const most = (s) => s.reduce((m, t) => Math.max(m, s.filter(x => x >= t && x < t + 1000).length), 0);
+    T.glass = await f.evaluate(() => ({ G: window.__GLASS, seen: UI.shotSeen || {}, cap: UI.glass ? { n: UI.glass.n, held: UI.glass.held } : null, hand: UI.hand, auto: !!UI.auto, over: !!FIGHT.S.over })).catch(e => ({ err: String(e) }));
+    if (T.glass.G) { T.glass.most = most(T.glass.G.starts); T.glass.mostWhite = most(T.glass.G.white); }
+    log('GLASS', JSON.stringify({ want: want, hand: T.glass.hand, auto: T.glass.auto, over: T.glass.over, shots: T.glass.seen && T.glass.seen.fired, held: T.glass.seen && T.glass.seen.held, begun: T.glass.G && T.glass.G.starts.length, whites: T.glass.G && T.glass.G.white.length, mostInASecond: T.glass.most, mostWhite: T.glass.mostWhite, frames: T.glass.G && T.glass.G.frames, longestFrame: T.glass.G && Math.round(T.glass.G.maxGap), err: T.glass.err || (T.glass.G && T.glass.G.err) })); }
   T.errs = errs; fs.writeFileSync(path.join(OUT, 'why_true.json'), JSON.stringify(T, null, 1));
   log('DONE', WHICH, WAY, CASE, 'page errors', errs.length, errs.slice(0, 2).join(' | '));
   await page.close(); await ctx.close(); await browser.close(); process.exit(0);

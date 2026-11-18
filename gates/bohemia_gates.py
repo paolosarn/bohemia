@@ -9704,13 +9704,15 @@ GATES = [
      "names no road or sky (W12, a browser). Planted: a how with no rules, a kind in no group, a line of two sentences, the page's tick "
      "taken out, the needs stripped. About a minute", True),
     ('THE FACE SHOWS UNDER THE HELMET', ['node', 'gates/the_face_shows_under_the_helmet_gate.js'],
-     "FIGHT SCREEN TWO gate, 11/17, VAMILY rules 450(a), 441 and the law EVERYBODY HAS A FACE (ask row 630, FOUND BY EYES: 'THE CREW'S FACES "
-     "ARE UNDER THEIR HELMETS: the helmet fills two thirds; YOU and DESI show a nose and a mouth, no eyes; RAUL the helmet only'). Where this "
-     "lane draws a face with head gear (the fight's strip, the phone's card, his sheet, the speaking cards, the opening card): the page "
-     "loads the framing and every face goes through it (H1); the three of the crew x every head piece in the wear table, on the fight's own "
-     "page: the band over his eyes is his own face, clear of the gear (H2); the gear stands inside the frame, clear of its rim, never cut by "
-     "it (H3); the face never stands back past 64 parts in 100 and a man with nothing on his head is drawn as before (H4); the wear file, "
-     "the gear's pictures and PORTRAIT's cells are not edited (H5). Planted: this lane's file served empty. About a minute", True),
+     "FIGHT SCREEN TWO gate, 11/17, REBUILT 11/18, VAMILY rules 450(a), 441 and the law EVERYBODY HAS A FACE (ask rows 630 and 648, FOUND BY "
+     "EYES: 'THE CREW'S FACES ARE UNDER THEIR HELMETS', then on the first answer 'THE FACE HAS A SEAM: the helmet is cut straight across "
+     "above the eyes and its brim floats across the nose and mouth'). ONE HONEST HEAD: nothing of the gear is ever cut; a hat is fitted "
+     "whole with its brim on his brow. The three of the crew x every head piece in the wear table, on the fight's own page: his eyes read "
+     "under a hat or over a mask (H1); NO SEAM: the gear as drawn has no cleared row its own picture does not have, and this lane's file "
+     "clears nothing (H2); the gear inside the frame (H3); a bare head as before (H4); his sheet, the phone's card and the why line draw that "
+     "picture (H5); a fitted hat's edge is on his brow, not floating, and the crew's own hard hat is such a hat (H6); the gear is still on "
+     "him (H7); the wear file, the gear's pictures and PORTRAIT's cells are not edited. Planted: this lane's file served empty (H1 red); a "
+     "band cut out of the gear again (H2 red). About a minute", True),
     ("THE MAN'S SHEET", ['node', 'gates/the_mans_sheet_gate.js'],
      "FIGHT SCREEN gate, 11/14, VAMILY rule 450(a) (ask row 621; PAOLO 11/14: 'The card bro, the combat card is UGLY AS SHIT, TRY TO MAKE SOME "
      "AWESOME BIG BRAIN FINAL SHIT'). The sheet a finger on a man's face opens, on the fight's page on a phone upright and on its side, for his man "
@@ -9754,7 +9756,11 @@ GATES = [
      "on the fight's page every gun shot, his and theirs, whites the screen to its gun's peak and is gone inside a quarter second, the barrel "
      "is drawn, no second begins more than three, a bow throws none (S3, a browser); eight shots in a tenth of a second are one flash and "
      "twelve a fifth apart never begin more than three in a second (S4); FLASH: SOFT and MOTION: LESS soften it, FLASH: FULL wins (S5). "
-     "Planted: the three-a-second line taken out, the gun's line taken out. About 50 s", True),
+     "Planted: the three-a-second line taken out, the gun's line taken out. AMENDED 11/18 by FIGHT SCREEN TWO (ask row 650, FOUND BY EYES: four white flashes in one second in two alpha AUTO fights, the "
+     "page's own count holding none): THE CAP IS ON THE GLASS, IN REAL TIME: three fights side by side on AUTO at 1x, 2x and 4x, each read "
+     "by the gate's own eye on every drawn frame (the white's real opacity and the board's own pixels, never the page's count): in no second "
+     "do more than three flashes begin (S6); a late frame never makes a fourth (S7); the vest's white asks the same cap and is soft when "
+     "FLASH is soft (S8). Planted: the cap taken out of the glass (four begin in a second on the glass). About two and a half minutes", True),
     ('THE PARKING GARAGE', ['node', 'gates/the_parking_garage_gate.js'],
      "COMBAT THREE gate, 11/11, VAMILY rule 440(a) (ask row 539; PAOLO 11/9: 'More everything pls'; rule 416's list, the third big interior). "
      "A fight at a place with a parking structure is fought on one deck of it for the data's share of the fights there, by the cell's own dice, never "
