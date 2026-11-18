@@ -2,7 +2,7 @@
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes). On VAMILY: pull main, re-read CLAUDE.md and
 # the VAMILY front page (rules 459, 441, 454(a)), then continue from the newest block below.
 
-ECONOMY TWO (session_01GKDyusZ6qyN3PkoeqVY5Ny): 11/18 LATEST -- BUILD 11/18t - THE BATTERY IS REAL, BUILT, NOT YET SEEN (rule 459(b)(d), ask line 645;
+ECONOMY TWO (session_01GKDyusZ6qyN3PkoeqVY5Ny): 11/18 LATEST -- BUILD 11/18t - THE BATTERY IS REAL, BUILT (647591ebe), NOT YET SEEN; VOTE card economy-two-the-battery-is-real-11-18 (STAND-IN) (rule 459(b)(d), ask line 645;
 rules 441, 454(a)). Record: records/BOHEMIA_ECONOMY_TWO_EVERY_NUMBER_OF_BATTERIES_11_18_26.md.
 - WHAT MADE 1,000: a job's base (to 251) x the start screen's FULL SHELVES (x1.5) x CLOUT (to x4.5) x the town's standing (to x1.15)
   x two pushes of the pay (x1.07 each) = 2,236 at the most. Nothing else in the game pays 1,000 at once.

@@ -1,3 +1,13 @@
+ECONOMY TWO (economy-two-01gkdyus): 11/18 LATEST -- BUILD 11/18t - THE BATTERY IS REAL, BUILT (647591ebe), NOT YET SEEN (rule 459(b)(d); rules 441, 454(a); ask row 645). Its block is handoffs/ECONOMY_TWO.md.
+WHAT MADE 1,000: a job's base (to 251) x FULL SHELVES (x1.5) x CLOUT (to x4.5) x the town's standing x two pushes of the pay = 2,236 at the most. THE ONE TABLE is
+records/target/bb/battery_table.json (the AA is the unit, one AA a bag of rice): 669 numbers in 18 data files are its rows, 122 typed copies and 17 numbers inside sentences are held to it.
+A PRICE MOVES ONE WAY: edit the row, `node tools/bohemia_economy_two_the_battery_table.js stamp`, then `check`. A LANE THAT ADDS A NUMBER OF BATTERIES adds its place to the table (the handoff says how)
+or gate THE BATTERY IS REAL goes red. A SUM IS DRAWN AS THE BATTERIES IT IS PAID IN on every page (slices/bohemia_the_battery.js): a car battery 250, a tool pack 20, a phone battery 6, AA's; never
+over three kinds; 1,000 is 4 car batteries; the page's words stay in it at no size. Every ratio kept; changed: seven who join the camp (300 to 290, 400 to 390), the door's typed start purse.
+Gate THE BATTERY IS REAL 43/0 (the table with eight planted faults; nine legs a walk on the demo and the alpha, upright and sideways). VOTE economy-two-the-battery-is-real-11-18 (STAND-IN).
+FOR UI FOUR, JOBS, HOME BASE, WORDS TWO, TUNING, DIRECTION: each has lines in the handoff. NOT DECIDED AND NOT BUILT ON: who holds the working sun (459(e)).
+[bb Battle Brothers counts one coin and lets the number run to tens of thousands; ours is the coin and the things a coin is]
+[analog horror: a man counting out twelve drill batteries on a hood, slowly, because a wrong count gets somebody killed]
 FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/18 LATEST -- BUILD 11/18q - THE CAP IS ON THE GLASS, ONE HONEST HEAD, BUILT (947ec28f2), NOT YET SEEN (ask rows 650 and 648, FOUND BY EYES; rules 450(c), 450(a), 441). Its block is handoffs/FIGHT_SCREEN.md.
 THIS CHAT IS FIGHT SCREEN TWO. THE FLASH (row 650): reproduced first: the three-a-second cap counted when shots were SCHEDULED, and one late frame put four
 whites inside 933 ms on the glass with the page's count holding none. The cap now sits where the white is drawn, on the drawn frame's own clock: never more than

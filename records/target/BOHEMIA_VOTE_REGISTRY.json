@@ -20862,7 +20862,37 @@
   {"id": "world13-the-lake-has-its-ring-11-18", "kind": "tile", "lane": "world 13", "sha": "d2da133c", "made": "11/18", "draft": true, "title": "THE LAKE LOOKS DRAINED, LIKE LAKE MEAD: A CRACKED MUD BED, THE WHITE BATHTUB RING, BOATS LEFT ON THE MUD", "said": "Amazing (THE GENERATED WORLD HOLDS); the coordinator: every zone itself, the lake shore", "why": "The lake was flat blue water that stopped at a straight edge, then desert. Now it looks like the real Lake Mead after the drought: a cracked, dried mud bed where the water used to be, a dark line where the water is now, the white mineral bathtub ring on the sand and rock around it, and now and then a boat left stuck on the mud. It is painted at every zoom. Left two: zoomed in, before and now. Right two: zoomed in all the way, before and now. You see it on the lake in the RUN tab.", "show": {"how": "image", "src": "../records/target/WORLD13_THE_LAKE_HAS_ITS_RING_11_18.webp",
     "first": "../records/target/vote_first/world13-the-lake-has-its-ring-11-18.webp",
     "firstAt": [398, 140, 390, 390]
-   }, "before_after": {"before": "main 11/18r: the lake flat water to a straight block edge and the desert's pebbles at once", "after": "the drained bed inside the old waterline (cracked, 27 to 35 in 100 of it cracks), the new waterline, the bathtub ring on the sand and rock, a hull on the bed now and then; the painting's own count: 47 shore blocks, the bed 8,180 texels, the ring 3,944", "scale": "the demo on the phone upright, the near stop and the street stop, the lake's south shore"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_THIRTEEN_THE_LAKE_HAS_ITS_RING_11_18_26.md", "build": "BUILD 11/18s - THE LAKE HAS ITS RING"}
+   }, "before_after": {"before": "main 11/18r: the lake flat water to a straight block edge and the desert's pebbles at once", "after": "the drained bed inside the old waterline (cracked, 27 to 35 in 100 of it cracks), the new waterline, the bathtub ring on the sand and rock, a hull on the bed now and then; the painting's own count: 47 shore blocks, the bed 8,180 texels, the ring 3,944", "scale": "the demo on the phone upright, the near stop and the street stop, the lake's south shore"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_THIRTEEN_THE_LAKE_HAS_ITS_RING_11_18_26.md", "build": "BUILD 11/18s - THE LAKE HAS ITS RING"},
+  {
+   "id": "economy-two-the-battery-is-real-11-18",
+   "kind": "ui",
+   "lane": "economy two",
+   "sha": "647591ebe",
+   "made": "11/18",
+   "draft": true,
+   "title": "THE BATTERY IS REAL: ONE AA BUYS A BAG OF RICE, AND A BIG SUM IS PAID IN BIG BATTERIES",
+   "said": "some of the quests, it's like 3000 or like 1000 batteries to complete a quest and I'm like bro that's a lot... I want people to really feel like they can look at their battery right now and relate it from the game to real life",
+   "why": "A big sum is no longer one long number: it is drawn as the batteries a crew would carry it in, so a job that read 747 batteries now reads 2 car batteries, 12 tool packs, 7 AA, and one AA still buys a bag of rice. You see it in the CITY tab and on the demo: the top bar, a town's job board, the stall and the shops.",
+   "stage": "stand_in",
+   "show": {
+    "how": "image",
+    "src": "../records/target/economy_two/VOTE_THE_BATTERY_IS_REAL.webp",
+    "first": "../records/target/vote_first/economy-two-the-battery-is-real-11-18.webp",
+    "firstAt": [
+     0,
+     0,
+     1170,
+     560
+    ]
+   },
+   "before_after": {
+    "before": "every sum was one number beside one small pile: at the top of CLOUT a job read 747 batteries and the purse 2,236",
+    "after": "the same sums as the batteries they are paid in, never over three kinds: the job 2 car batteries, 12 tool packs, 7 AA, the purse 8 car batteries, 11 tool packs, 16 AA; no price moved but seven who join the camp (300 to 290, 400 to 390)",
+    "scale": "the four batteries at their own pixels with what each is worth in AA's and bags of rice; then the demo on his phone upright (390 x 844 at 3): the stall's rows, the top bar and a job at the top of CLOUT"
+   },
+   "record": "records/BOHEMIA_ECONOMY_TWO_EVERY_NUMBER_OF_BATTERIES_11_18_26.md",
+   "build": "BUILD 11/18t - THE BATTERY IS REAL"
+  }
  ],
  "verdicts": [
   {
