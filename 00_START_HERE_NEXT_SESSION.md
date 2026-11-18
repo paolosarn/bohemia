@@ -1,4 +1,4 @@
-COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18d - THE DATA FORT'S OWN PICTURES, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round; rules 416, 451(a), 455; ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18d - THE DATA FORT'S OWN PICTURES, BUILT (2518282b6), NOT YET SEEN (rule 453, round after round; rules 416, 451(a), 455; ask row 627).
 COMBAT THREE's data fort wears its own art under its own names (slices/fight_ground/datafort/datafort_art.json, the garage's format; no code): the
 white raised floor (lift-out tiles, perforated ones, scuffs), 16 pictures (a row of servers from its long side with its lights on, the row's end, two
 sets of crated cabinets, the floor pulled up, a cooling unit, the battery strings, the desk, the cage's gate, the gallery, both stairs, both rails,

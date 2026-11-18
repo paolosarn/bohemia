@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
-COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18d - THE DATA FORT'S OWN PICTURES, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round; rules 416, 451(a), 455; ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18d - THE DATA FORT'S OWN PICTURES, BUILT (2518282b6), NOT YET SEEN (rule 453, round after round; rules 416, 451(a), 455; ask row 627).
 The first job on this lane's own list: THE DATA FORT (COMBAT THREE's BUILD 11/17zo): all 259 of its pieces were stand-ins. Now
 slices/fight_ground/datafort/ holds datafort_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 3 of datafort_floor_0.webp, floor.high its row 4,
 floor.ring all 25; kit: every name COMBAT THREE's handoff asked for), sizes.json (my gate's), 16 piece pictures, the floor sheet and
