@@ -1,5 +1,48 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/18 FOR ECONOMY TWO (rule 459, THE BATTERY IS REAL; the coordinator's routine 'JOBS next'): EVERY
+PLACE A JOB'S PAY IS SET OR MULTIPLIED. JOBS moved no pay number; ECONOMY TWO re-prices from its table. Read on main at c869a5eda.
+WHY HE SAW 1,000 AND 3,000: no base pay is over 251 (jb-hold-substation; jb-ring-solar 240; the shelf's 249). The multipliers stack on
+it: FULL SHELVES x1.5, CLOUT up to x4.5, Allied x1.15, two asks x1.14: 251 reaches 1,956 before an ask and 2,236 after two.
+1. THE BASE (set once, baked):
+   - records/target/bb/job_pay.json: the formula's numbers (crew_cost_per_map_hour 1.375, margin 1, minutes_per_block 8.5, per_fight 26,
+     skull_mult 1/2/3, floor_per_skull 30, base_men 4/6/8, pack_size 3, hold/dark waits, place_blocks) and 'pays' (every job's baked
+     base, with its before and its why). The formula: engine/bohemia_job_pay.js base() (hours x crew cost + fights x per_fight x
+     skulls, at least floor_per_skull x skulls).
+   - THE BAKER: tools/bohemia_economy_job_pay.js (writes job_pay.json 'pays', BOHEMIA_JOB_KINDS.json board_people[].pay, and runs
+     tools/bohemia_run2_board_shelf.py, which writes BOHEMIA_BOARD_SHELF.json offers[].pay); --check is the gates' (the new kinds N5).
+     So the pay a modder sees in BOHEMIA_BOARD_SHELF.json and BOHEMIA_JOB_KINDS.json is a bake output: change job_pay.json, re-bake.
+   - THE FALLBACK: slices/BOHEMIA_SETTLEMENT_SCREEN.html var OFFERS: four drafted offers with a TYPED pay (ct-escort-water 30 ... ct-dogs
+     90), shown only until the shelf loads. records/target/BOHEMIA_JOB_KINDS.json offers carry no pay of their own (0 of 105; 101 are
+     baked in job_pay.json 'pays', the other 4 are these fallback four, whose legs live there).
+2. THE MULTIPLIERS (every one applied twice, the same sum, on the card and on the map, so what he is shown is what he is paid):
+   - THE START: slices/BOHEMIA_ALPHA_0_9.html ECON (FULL SHELVES 1.5, THIN 1, BARE 0.75; the start screen's pick) and ORIGINS[].pay
+     (+0 or +1 to every job; records/target/bb/origins.json 'pay' when it loads); they ride in picks() as LOOP.start.mult and .pay.
+   - CLOUT: engine/bohemia_renown.js payMult(), records/target/bb/renown.json pay_mult (x1 at 0 to x4.5 at 4,000 CLOUT, flat after).
+   - THE TOWN'S STANDING: records/target/bb/job_pay.json standing (Hostile x0.85 to Allied x1.15), engine/bohemia_job_pay.js
+     standing()/at(), read from the town's bar (bohemia.relations.v1).
+   - THE MAP'S SUM: slices/BOHEMIA_CITY_WORLD.html loopJobPay(base, place, st) = (base + start.pay) x start.mult x CLOUT x standing;
+     used by loopTakeContract (the job held), the phone's list (slices/bohemia_phone_board.js) and every 'Pays N' line.
+   - THE CARD'S SUM: slices/BOHEMIA_SETTLEMENT_SCREEN.html payShown() (the same sum; S.payRule is the start's add and mult, handed by
+     the map) and standHere().
+3. WHAT HE CAN MOVE ON THE CARD (JOBS, this week):
+   - PUSH THE PAY: hagPay() x(1 + relations.json haggle.step 0.07) an ask, two asks (haggle.lands); the pushed base rides to the map.
+   - PAID INTO HIS PLACE: payOf() takes a build's worth (records/target/bb/job_into_place.json worth: a battery and its tape; share
+     0.25 the most) off the shown pay; loopTakeContract takes the same off job.pay.
+4. WHAT THE JOB PAYS AT THE END (slices/bohemia_job_kinds.js paid(job, n): BohemiaPurse.credit of n; a part pays 'poor'):
+   - a cargo job pays per crate/person that arrives (job.perCrate = pay / count; escort, find-person home);
+   - a camp or a patrol: a flat share and a share per head (records/target/BOHEMIA_JOB_KINDS.json kinds: clear-camp flat 0.6 /
+     per_head_share 0.4; patrol flat 0.5, the rest per head, capped at the pay); the T17 twist locks the fee;
+   - a hold: part pay by the waves held (pay x waves held / waves);
+   - a job told as legs: x job.payMult, set by a talk's choice (opts[].pay, e.g. 0.3, 0.6 on the turn jobs);
+   - the map's own fight-job path: slices/BOHEMIA_CITY_WORLD.html (won: job.pay in full); a rescue pays 0.
+5. NOT A JOB'S PAY BUT A PRICE ECONOMY TWO WILL MEET IN THE SAME FILES: the town's shelves by its bar (records/target/settlement_traits.json
+   relation_prices, above and below), wages (billWages, BohemiaCamp 'wage'), the side quests' own endings (records/target/
+   BOHEMIA_SIDE_QUESTS.json), the road's battery gifts (slices/bohemia_road_events.js fx), the home builds' tape and battery
+   (records/target/bb/home_base.json, engine/bohemia_lotbuild.js).
+TUNING's one table already carries the multipliers' rows (relation_prices.below, relations.board, relations.haggle, relations.acts.haggle,
+job_into_place.share, job_into_place.worth, and ECONOMY 2's job pay rows); the start's ECON and ORIGINS numbers live in the alpha's code.
+
 JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/17 LATEST -- BUILD 11/17za - PAID INTO YOUR PLACE (build D of four), BUILT, NOT YET SEEN (rules 453,
 454(a), 441; row 627). Record: records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md section 4. THE ROUND'S FOUR BUILDS ARE ALL IN.
 - THE SHAPE: on any job's card 'Into your place' moves part of the pay into one of his builds (a panel 5, a pump 4, a tank 3, a garden
