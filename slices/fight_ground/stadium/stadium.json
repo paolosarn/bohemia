@@ -1,0 +1,502 @@
+{
+ "version": 1,
+ "lane": "COMBAT THREE",
+ "id": "stadium",
+ "name": "THE STADIUM",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 453, 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428 (roofs and cover); ask row 468's list, the ninth: 'THE STADIUM (Allegiant): the field, the concourse ring, the stands as high ground.'",
+ "facts": [
+  "The valley's stadium seats about 65,000 under a fixed translucent roof: by day the field is lit from above with no window in the bowl; a field is about 110 m by 49 m, so the board is the field and the first rows of both long stands.",
+  "In a disaster a stadium is where people are sent (the Superdome, 2005) and where the relief is staged: pallets and tents on the turf, trucks driven in through the tunnels.",
+  "A bowl is a killing ground by shape: the stands on both long sides look down on every tile of the field. Whoever is in the stands at the bell owns the field until somebody climbs up.",
+  "The world is dry and dead: the turf is dead turf (the golf course's own ground), never green."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (stadium_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "stadium"
+ ],
+ "share": 0.7,
+ "districts_why": "The stadium is the one map kind with a bowl. The parking garage takes its own share there first (garage.json); of the rest, this share is fought on the field, by the cell's own dice; the rest on the lots outside.",
+ "board": {
+  "templates": {
+   "stadium": {
+    "name": "THE STADIUM",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_bowl": [
+      "####################",
+      "#>mMmMMmMmMMmMmMm<.#",
+      "#.e.e....r....e.e..#",
+      "#...s..y....s..y.w.#",
+      "#.w...s...T....s...#",
+      "#...x......r..x....#",
+      "#D..x...s...x..w..D#",
+      "#..s...T..y..s...f.#",
+      "#D...w....s...x...D#",
+      "#....r..x.....r....#",
+      "#.s....x.T...w..s..#",
+      "#.f.w.sy....s..y...#",
+      "#.e.e...r.....e.e..#",
+      "#>mMmMMmMmMMmMmMm<.#",
+      "####################"
+     ],
+     "the_last_show": [
+      "####################",
+      "#>mMmMMmMmMMmMmMm<.#",
+      "#.e..r.r.r.r.r..e..#",
+      "#..y...k....k..y.s.#",
+      "#.s..r...kk...r....#",
+      "#...x..........x.w.#",
+      "#D..x..r.TT.r..x..D#",
+      "#.w...r..y...r...f.#",
+      "#D..x..r.TT.r..x..D#",
+      "#.w.x..........x...#",
+      "#.s..r...kk...r..w.#",
+      "#.fy...k....k..y...#",
+      "#.e..r.r.r.r.r..e..#",
+      "#>mMmMMmMmMMmMmMm<.#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "y": {
+    "is": "floor",
+    "tile": "midfield",
+    "light": "sky",
+    "light_at": 0.5
+   },
+   "x": {
+    "is": "floor",
+    "tile": "torn",
+    "floor": "mud"
+   },
+   "s": {
+    "is": "floor",
+    "tile": "supplies",
+    "piece": "st_supplies",
+    "at": [
+     0.3,
+     0.64
+    ],
+    "more": [
+     {
+      "piece": "st_supplies_b",
+      "at": [
+       0.72,
+       0.94
+      ],
+      "share": 0.7
+     }
+    ]
+   },
+   "T": {
+    "is": "floor",
+    "tile": "tent",
+    "piece": "st_tent",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "w": {
+    "is": "floor",
+    "tile": "wreck",
+    "piece": [
+     "st_wreck_a",
+     "st_wreck_b"
+    ],
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "rig",
+    "piece": "st_rig",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "r": {
+    "is": "floor",
+    "tile": "barrier",
+    "piece": "st_barrier",
+    "at": [
+     0.5,
+     0.62
+    ]
+   },
+   "e": {
+    "is": "floor",
+    "tile": "bench",
+    "piece": "st_bench",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "tunnel",
+    "light": "tunnel",
+    "light_at": 0.5
+   },
+   "M": {
+    "is": "high"
+   },
+   "m": {
+    "is": "high",
+    "tile": "high_seats",
+    "piece": "st_seats",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   ">": {
+    "is": "ramp"
+   },
+   "<": {
+    "is": "ramp"
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words).",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The bowl's wall: no way through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The field: dead turf, open ground, nothing to hide behind, and both stands look down on it; on AUTO nobody stays on it.",
+   "say": "The field: open ground, and the stands look down on it.",
+   "draft": true
+  },
+  "midfield": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "Under the roof's clear ring: open ground, and by day the light comes straight down: a man here is seen.",
+   "say": "Under the roof's ring: open ground.",
+   "say_lit": "Under the roof's ring: open ground, and the day is on you.",
+   "draft": true
+  },
+  "torn": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "effect": "Turf torn up to the dirt where the trucks turned: slow going (3 AP a step).",
+   "say": "Torn turf: slow going.",
+   "draft": true
+  },
+  "supplies": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Relief supplies still on their pallets, left on the field: cover.",
+   "say": "Supplies on pallets: cover.",
+   "draft": true
+  },
+  "tent": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A relief tent, or what the last show left standing: nobody stands on its tile; cover for the tiles beside it.",
+   "say": ""
+  },
+  "wreck": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A truck or an ambulance where it stopped on the turf: cover.",
+   "say": "A wreck on the field: cover.",
+   "draft": true
+  },
+  "rig": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The last show's rig: speaker stacks and a sound desk still cabled: cover.",
+   "say": "The show's rig: cover.",
+   "draft": true
+  },
+  "barrier": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Crowd barriers: low cover.",
+   "say": "Crowd barriers: low cover.",
+   "draft": true
+  },
+  "bench": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A team's bench on the sideline: low cover.",
+   "say": "The bench: low cover.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire in a drum somebody keeps. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A drum fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "tunnel": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "A tunnel's mouth onto the field: open ground, and by day the light falls in: a man here is seen.",
+   "say": "A tunnel's mouth: open ground.",
+   "say_lit": "A tunnel's mouth: open ground, and the day is on you.",
+   "draft": true
+  },
+  "high": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "An aisle of the stands, a storey over the field: high ground. A blow or a shot down from it lands easier, one up at it harder; a gun reaches a tile farther from it. Up the stairs at the stand's ends it is a walk; over the rail from the field it is a climb: no attack that turn, and a beast cannot.",
+   "say": "The stands: you hit down easier, and a gun reaches a tile more.",
+   "roof": true,
+   "say_before": "",
+   "draft": true
+  },
+  "high_seats": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "effect": "The stands' seats: low cover, on high ground. They hold them at the bell.",
+   "say": "The stands' seats: low cover, and high ground.",
+   "say_before": "The stands' seats: low cover.",
+   "roof": true,
+   "draft": true
+  },
+  "ramp": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "The stairs at a stand's end: the WALK up. A step onto them from the field costs one more; a man who walks up can still strike this turn.",
+   "say": "",
+   "say_before": "The stairs: the walk up, and you can still strike.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK FIVE's own picture for it is in stadium_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL, RAIL, HEIGHT); 'blocks_move' means nobody stands on its tile. A DRESS piece is drawn and never counted.",
+ "kit": {
+  "st_supplies": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "SUPPLIES ON PALLETS"
+  },
+  "st_supplies_b": {
+   "like": "sb_bales_S",
+   "kind": "DRESS",
+   "name": "SUPPLIES ON PALLETS"
+  },
+  "st_tent": {
+   "like": "sb_container_S",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A RELIEF TENT"
+  },
+  "st_wreck_a": {
+   "like": "sb_wreck_S",
+   "kind": "COVER",
+   "name": "A WRECK ON THE FIELD"
+  },
+  "st_wreck_b": {
+   "like": "sb_patrol_S",
+   "kind": "COVER",
+   "name": "A WRECK ON THE FIELD"
+  },
+  "st_rig": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "name": "THE SHOW'S RIG"
+  },
+  "st_barrier": {
+   "like": "sb_barrier_S",
+   "kind": "LOW_COVER",
+   "name": "CROWD BARRIERS"
+  },
+  "st_bench": {
+   "like": "casino_bar",
+   "kind": "LOW_COVER",
+   "name": "THE BENCH"
+  },
+  "st_seats": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "THE STANDS' SEATS"
+  },
+  "st_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "st_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  },
+  "st_stand": {
+   "like": "garage_level_aisle",
+   "kind": "HEIGHT",
+   "name": "THE STANDS"
+  },
+  "st_stair_e": {
+   "like": "garage_ramp_e",
+   "kind": "HEIGHT"
+  },
+  "st_stair_w": {
+   "like": "garage_ramp_w",
+   "kind": "HEIGHT"
+  },
+  "st_rail_ew": {
+   "like": "garage_rail_ew",
+   "kind": "RAIL"
+  }
+ },
+ "walls": {
+  "ew": "st_wall_ew",
+  "ns": "st_wall_ns"
+ },
+ "high": {
+  "deck": "st_stand",
+  "ramp_e": "st_stair_e",
+  "ramp_w": "st_stair_w",
+  "rail_ew": "st_rail_ew",
+  "h_m": 1.42,
+  "rail_why": "A stand is one row of tiles with its stairs at both ends, so its only rail is the one along the field (rail_ew); there is no end rail to draw."
+ },
+ "floor": {
+  "floor": [
+   "block_golf_1.webp#3,0",
+   "block_golf_1.webp#3,1",
+   "block_golf_1.webp#4,1",
+   "block_golf_1.webp#0,3",
+   "block_golf_1.webp#1,3",
+   "block_golf_1.webp#2,3",
+   "block_golf_1.webp#0,4",
+   "block_golf_1.webp#1,4",
+   "block_golf_1.webp#4,4",
+   "block_golf_1.webp#4,3",
+   "block_golf_2.webp#0,0",
+   "block_golf_2.webp#1,0",
+   "block_golf_2.webp#2,0",
+   "block_golf_2.webp#0,1",
+   "block_golf_2.webp#1,3",
+   "block_golf_2.webp#3,4"
+  ],
+  "mud": [
+   "block_lakebed_2.webp#0,0",
+   "block_lakebed_2.webp#1,0",
+   "block_lakebed_2.webp#0,2",
+   "block_lakebed_2.webp#0,3",
+   "block_lakebed_2.webp#4,0"
+  ],
+  "high": [
+   "hall/hall_floor_0.webp#0,4",
+   "hall/hall_floor_0.webp#1,4",
+   "hall/hall_floor_0.webp#2,4",
+   "hall/hall_floor_0.webp#3,4",
+   "hall/hall_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "block_golf_1.webp#3,0",
+   "block_golf_1.webp#3,1",
+   "block_golf_1.webp#4,1",
+   "block_golf_1.webp#0,3",
+   "block_golf_1.webp#1,3",
+   "block_golf_1.webp#2,3",
+   "block_golf_1.webp#0,4",
+   "block_golf_1.webp#1,4",
+   "block_golf_1.webp#4,4",
+   "block_golf_1.webp#4,3",
+   "block_golf_2.webp#0,0",
+   "block_golf_2.webp#1,0",
+   "block_golf_2.webp#2,0",
+   "block_golf_2.webp#0,1",
+   "block_golf_2.webp#1,3",
+   "block_golf_2.webp#3,4"
+  ]
+ },
+ "lights": {
+  "sky": {
+   "src": null,
+   "radius_m": 26,
+   "day": true
+  },
+  "tunnel": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {
+  "height": "The stands: you hit down easier, and a gun reaches a tile more."
+ },
+ "start": "gallery",
+ "gallery": {
+  "share": 0.4,
+  "least": 0.25,
+  "why": "THEY HOLD THE STANDS: a bowl is somebody's the moment they are up in it. The band's shooters and its back line, and men enough to make 'least' of the band (never more than 'share'), start up in the stands over their own side; the rest hold the field. His line starts on the field: the stairs at the stands' ends are his way up."
+ },
+ "ceiling": {
+  "kind": "dome",
+  "alpha": 0.1,
+  "src": "stadium/stadium_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the stadium's translucent roof, its cable net and its clear ring over the board at this alpha (10%, never past the fight's own most). 'src' is the picture COOK FIVE makes (see garage.json's ceiling); 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in."
+ }
+}

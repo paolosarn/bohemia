@@ -1,3 +1,11 @@
+COMBAT THREE (combat-three-01gkdyuu): 11/18 LATEST -- BUILD 11/18m - THE STADIUM, BUILT, NOT YET SEEN (the coordinator's round of 11/18, its second build; rules 416, 59, 428, 451(a); ask rows 468, 627).
+The ninth big inside: a fight at the stadium (0.7 of what the garage leaves) is fought on its field: dead turf in the open, relief pallets, wrecks and the last show's rig for
+cover, a stand along each long side as high ground with a third of the other crew already up in it, the day through the roof's ring; the roof's cables and ring overhead at 10%.
+One data file (slices/fight_ground/stadium/stadium.json), 15 tile kinds, every picture a stand-in. GATE THE BIG INSIDES 93/0 (six insides). ON THE PAGE: the demo and the alpha,
+both ways, through the map's own door: 4 fights on the field, 4 ended on AUTO, 13 of 13 taps, 0 errors. VOTE combat3-the-stadium-11-18 (stand_in). COOK FIVE's names are in
+handoffs/COMBAT_THREE.md. NEXT: the dam's powerhouse, then the Sphere.
+[bb Battle Brothers' hill fights: a bowl is two slopes facing each other]
+[analog horror: a stadium's own wide shot with nobody in it, the scoreboard dark, a relief tent at the fifty]
 COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18k - THE MINT, THE DOGS AND THE SCRAP YARD, BUILT (25873c94c), NOT YET SEEN (rule 453, round after round, this round's third build; rules 408, 409(c), 455; ask row 627).
 Three more real places wear their own piece on the map (no code): CLARK STATION (the 1954 boiler house and its stack, the turbine hall, four gas units
 cold, the switchyard, the dry gas main, the tires and pallets at the hatch, the charging racks and four who wait; on the beat the hatch's fire and

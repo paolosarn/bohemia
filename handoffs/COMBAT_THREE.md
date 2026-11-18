@@ -1,6 +1,32 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/18 LATEST -- [the terminal] SHIPPED 826827b9f, BUILD 11/18g - THE TERMINAL, BUILT, NOT YET SEEN. VOTE combat3-the-terminal-11-18 (stand_in).
+COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/18 LATEST -- [the stadium] SHIPPED SHIPSHA, BUILD 11/18m - THE STADIUM, BUILT, NOT YET SEEN. VOTE combat3-the-stadium-11-18 (stand_in).
+Record: records/BOHEMIA_COMBAT_THREE_THE_STADIUM_11_18_26.md. The coordinator's round of 11/18, its second build: the ninth big inside.
+WHAT: a fight at the stadium (0.7 of what the garage leaves, by the cell's dice; opts.inside 'stadium' anywhere) is fought on its field: eleven rows of dead turf (open ground),
+pallets, wrecks and the last show's rig (cover), barriers and benches (low cover), tents (blockers), torn turf (3 AP), tunnel mouths, and A STAND ALONG EACH LONG SIDE (high ground,
+seats low cover, stairs at the ends) THEY hold at the bell (start 'gallery'). By day the field is lit through the roof's ring. Two layouts: the_bowl, the_last_show.
+ONE DATA FILE: slices/fight_ground/stadium/stadium.json (15 tile kinds, 15 pieces all stand-ins), sixth in insides.json. No new rule code; the ceiling kind 'dome'.
+GATE THE BIG INSIDES 93/0 (six insides; about six minutes). ON THE PAGE (this stamp): the demo and the alpha, upright and on its side, through the map's own door: 4 fights on the
+field, 4 ended on AUTO, 13 of 13 tile taps, 0 page errors; the ceiling moves a pixel 3.6 of 255 on average.
+*** FOR COOK FIVE (THE STADIUM'S NAMES, the same contract; every name below is already in the legend; the terminal's stand, below): put slices/fight_ground/stadium/
+stadium_art.json in the folder, THE GARAGE'S FORMAT; a name you leave out stays its stand-in:
+  the floors     floor.floor (DEAD turf: the yard lines and a hash mark still there, never green), floor.mud (turf torn to the dirt by trucks), floor.high (a stand's
+                 concrete step), floor.ring
+  st_stand       one tile of a stand seen from the field's side: concrete steps (the deck under the seats); st_seats   a block of the stand's seats on it, a tile wide,
+                 some torn out (low cover); st_stair_e, st_stair_w   the stairs at a stand's end; st_rail_ew   the rail along the field
+  st_supplies, st_supplies_b   relief pallets, half a tile (b: the drawn-only second); st_tent   a relief tent (a tile's blocker)
+  st_wreck_a, st_wreck_b   a truck, an ambulance, stopped on the turf; st_rig   the last show's speaker stack and sound desk, a tile wide
+  st_barrier     crowd barriers; st_bench   a team's bench; st_wall_ew, st_wall_ns   the bowl's wall
+  stadium/stadium_ceiling.webp   THE CEILING: the translucent roof's panels, cables from the ring out, the clear ring over midfield with panes out, the dead scoreboard;
+                 tiles every 5 by 5 tiles (the ring is the stand-in's one thing that does not tile: yours may be one picture the size of the board, 20 by 15, if you set
+                 "tile": [20, 15]); set "have": true in stadium.json's ceiling the day it is in
+*** SAID PLAINLY: only the_last_show was dealt by the map in these runs (the_bowl: gate, and a look on the fight page alone). My first cut had stands two rows deep and nobody
+used the field (163 of 249 men up after round one); one row now. No concourse layout.
+NEXT: the dam's powerhouse, then the Sphere.
+[bb Battle Brothers' hill fights: the side on the slope shoots first and the side below pays to climb; a bowl is two slopes facing each other]
+[analog horror: a stadium's own wide shot with nobody in it, the scoreboard dark, a relief tent at the fifty]
+
+COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/18 -- [the terminal] SHIPPED 826827b9f, BUILD 11/18g - THE TERMINAL, BUILT, NOT YET SEEN. VOTE combat3-the-terminal-11-18 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_TERMINAL_11_18_26.md. The coordinator's round of 11/18 (next on my own list; no FOUND BY EYES row open on this lane): the eighth big inside.
 WHAT: a fight at the airport terminal (0.7 of what the garage leaves, by the cell's dice; opts.inside 'terminal' anywhere) is fought inside it. the_checkpoint: THE CHECKPOINT IS A
 WALL (no way, no sight) with four lanes one man wide between the ticketing hall and the gates, and the upper walkway over its end for whoever takes the stairs first.

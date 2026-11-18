@@ -11689,6 +11689,14 @@ function ceilingSheet() {
       g.strokeStyle = '#2c2a26'; g.lineWidth = 2; g.beginPath(); for (let y = 0; y < H2; y += th * .8) { g.moveTo(x - 5, y); g.lineTo(x + 5, y + th * .4); g.lineTo(x - 5, y + th * .8); } g.stroke(); }
     for (let y = th * 3.2; y < H2; y += th * 5.5) { g.fillStyle = '#3a3833'; g.fillRect(0, y, W2, 6); g.fillStyle = '#1d1c1a'; g.fillRect(0, y + 2, W2, 1); }   /* the catwalks */
     for (let k = 0; k < S.w / 3; k++) { const x = hash(k + 40) * W2, y = hash(k + 71) * H2; g.fillStyle = hash(k) < .5 ? '#7d2f28' : '#2f4a6a'; g.fillRect(x, y, tw * .5, th * 1.1); g.fillStyle = '#d9d2bd'; g.fillRect(x + 3, y + 5, tw * .5 - 6, 3); }   /* the last show's banners */
+  } else if (C.kind === 'dome') {   /* a stadium's fixed roof: pale translucent panels on a net of cables, the clear ring over midfield (panes out), the dead scoreboard and its catwalk */
+    g.fillStyle = '#b4b7b0'; g.fillRect(0, 0, W2, H2);
+    for (let x = 0; x < W2; x += tw * 1.25) { g.fillStyle = '#8f928c'; g.fillRect(x, 0, 2, H2); }
+    for (let y = 0; y < H2; y += th * 1.25) { g.fillStyle = '#8f928c'; g.fillRect(0, y, W2, 2); }   /* the panels' seams */
+    g.strokeStyle = '#3b3a37'; g.lineWidth = 2; g.beginPath(); for (let k = 0; k < 16; k++) { const a0 = k * Math.PI / 8; g.moveTo(W2 / 2, H2 / 2); g.lineTo(W2 / 2 + Math.cos(a0) * W2, H2 / 2 + Math.sin(a0) * W2); } g.stroke();   /* the cables, from the ring out */
+    g.fillStyle = '#23221f'; g.beginPath(); g.ellipse(W2 / 2, H2 / 2, W2 * .22, H2 * .2, 0, 0, Math.PI * 2); g.fill(); g.fillStyle = '#d6dacb'; g.beginPath(); g.ellipse(W2 / 2, H2 / 2, W2 * .2, H2 * .17, 0, 0, Math.PI * 2); g.fill();   /* the clear ring */
+    for (let k = 0; k < 9; k++) { g.fillStyle = '#17161a'; g.fillRect(W2 / 2 + (hash(k + 3) - .5) * W2 * .36, H2 / 2 + (hash(k + 17) - .5) * H2 * .3, tw * .5, th * .4); }   /* its panes out */
+    g.fillStyle = '#15171c'; g.fillRect(W2 * .06, H2 * .44, tw * 1.6, th * 1.6); g.fillStyle = '#7d2f28'; g.fillRect(W2 * .06 + 6, H2 * .44 + 6, tw * 1.6 - 12, 4);   /* the scoreboard, dead */
   } else if (C.kind === 'span') {   /* a terminal's long roof: white panels far up, a rib every bay, strips of skylight along the concourse (panes out), and the dead hanging signs: gate numbers, the departures board */
     g.fillStyle = '#a9aca8'; g.fillRect(0, 0, W2, H2);
     for (let y = 0; y < H2; y += th * .5) { g.fillStyle = '#9a9d99'; g.fillRect(0, y, W2, 1); }
