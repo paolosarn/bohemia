@@ -625,6 +625,8 @@ reproduced a third time, a one-read tell shipped (FIGHT.S.staleTurns), the row s
 hint leaves when a sheet opens); 633 is not a one-mark fix (DID NOT DECIDE: who DESI is); 634 to 636 found and filed.
 11/17 (b) BUILD 11/17v - THE WALK BACK ASKS: a job he fell back from can be fought again (592: the walk back to it asks; it never did);
 577 closed; 578's checker from 8 reds to 2 (left and real: the underpass's aftermath near black); new gate THE WALK BACK ASKS (in the table).
+11/18 BUILD 11/18r - THE FALL IS HEARD ON ITS BEAT: EYES' 649, the wipe's line reads whole (the rolled receipt stays in its window on the field); a death is heard on the beat its fall begins on (581: its sound was asked with nothing
+ahead and came about a sixteenth late; the grids never drifted); 634 closed (UI FOUR's tight hall holds it); 542, 555 tidied.
 The whole block: handoffs/FIXES_TWO.md.
 [bb Battle Brothers lets you type your company's name on the new campaign screen and never touches the box again while you type.]
 [analog horror: a box that swallows the name you gave your crew and keeps three letters of it is the wrong kind of wrong; it is gone.]

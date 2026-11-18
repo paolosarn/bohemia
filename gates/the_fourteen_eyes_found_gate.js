@@ -1133,8 +1133,8 @@ async function f612(shape, plant) {
      of 390): FILED as its own ask row for UI 9 and RETINUE, read here and said, never judged by this leg */
   const face = await p.$('#sbody .acts>.retf .rface'); let B = null;
   if (face) { const fb = await face.boundingBox(); await p.touchscreen.tap(fb.x + fb.width / 2, fb.y + fb.height / 2); await p.waitForTimeout(1600); B = await p.evaluate(READ); }
-  ok('F612 ' + shape + ': the fullest hall (' + A.hires + ' at the posts, ' + A.n + ' by the door in ' + A.rows + (A.rows === 1 ? ' row' : ' rows') + '): no effect line cut (' + A.cut.length + '), every name and button whole, the sheet inside its box and on the glass (a man opened, not judged here: ' + (B ? (B.bad.length ? B.bad.length + ' under the glass, FILED' : 'all on the glass') : 'not read') + ')',
-    A.n === 3 && A.hires >= 6 && A.cut.length === 0 && A.bad.length === 0 && !A.over && A.onGlass && errs.length === 0, JSON.stringify([A, B]) + (errs[0] || ''));
+  ok('F612 ' + shape + ': the fullest hall (' + A.hires + ' at the posts, ' + A.n + ' by the door in ' + A.rows + (A.rows === 1 ? ' row' : ' rows') + '): no effect line cut (' + A.cut.length + '), every name and button whole, the sheet inside its box and on the glass; a man opened: ' + (B ? (B.bad.length ? B.bad.length + ' UNDER THE GLASS' : 'every card and button on the glass') : 'not read') + ' (row 634: UI FOUR\'s tight hall, 11/17j, judged here from 11/18)',
+    A.n === 3 && A.hires >= 6 && A.cut.length === 0 && A.bad.length === 0 && !A.over && A.onGlass && !!B && B.bad.length === 0 && B.onGlass && !B.over && errs.length === 0, JSON.stringify([A, B]) + (errs[0] || ''));
   await ctx.close();
 }
 
@@ -1180,6 +1180,93 @@ async function f612h(shape, plant) {
   await ctx.close();
 }
 
+/* ---------------- F581 (FIXES 2 11/18, FOUND BY PLUMBER 8, the red DEATH SOUNDS THAT TERRIFY 'ON THE BEAT') ----------------
+   F581 THE FALL IS HEARD ON ITS BEAT: the game through the one driver (the demo upright, the alpha on its side), a road fight on
+        AUTO at 1x, the shell's own book of every sound (__ONEBEAT.log): a death's sound is asked AHEAD of its moment (it was asked
+        at the fall's own start with nothing ahead: 'kill at d 0', heard about a sixteenth late) and lands on the song's sixteenth
+        (within 20 ms); the fight's own list says which it sent ahead.  PLANT: the fall's sound never sent ahead (the old way):
+        every death at d 0. */
+async function f581(shape, plant) {
+  const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
+  const alpha = shape === 'phone_landscape' && !plant, name = (alpha ? 'the alpha' : 'the demo') + ', ' + shape;
+  let d; try { d = await drive.open({ keepCards: true, engage: true, profile: shape, alpha: alpha, fog: true }); } catch (e) { ok('F581 ' + name + ': the game boots', false, String(e.message).slice(0, 160)); return; }
+  const p = d.page, errs = []; p.on('pageerror', e => errs.push(String(e && e.message || e).slice(0, 160)));
+  try {
+    await p.waitForTimeout(2500);
+    /* the alpha comes out of its town in the close view: the pinch out is the game's own swapMode() */
+    await d.fr.evaluate(() => { try { const sf = document.getElementById('settleFrame'); if (sf && sf.style.display === 'block') loopClose(); } catch (e) {} }).catch(() => {});
+    await p.waitForTimeout(900);
+    await d.fr.evaluate(() => { try { if (MODE === 'human' && !INSIDE) swapMode(); } catch (e) {} }).catch(() => {}); await p.waitForTimeout(1500);
+    await p.evaluate(() => { window.__offOf = function (T) { const g = BOHEMIA_BEAT.grid(T - 0.0625); return g == null ? null : (T - g) * 1000; }; });
+    const f = await drive.roadFightOffTheTown(d, { id: 'toll_crew', name: 'the toll crew', seq: 51 });
+    if (!f) { ok('F581 ' + name + ': a road fight through the map\'s own door', false); return; }
+    await f.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && !!FIGHT_UI.board && !!FIGHT_UI.tw, null, { timeout: 40000 }).catch(() => {});
+    /* the plant, in the fight's own page (the shell loads that page before any fight, so a planted file would come too late): the
+       fight's own soundAhead() made to do nothing, which is the fight as it was */
+    if (plant) await f.evaluate(() => { window.soundAhead = function () {}; });
+    await p.waitForTimeout(1500);
+    const n0 = await p.evaluate(() => __ONEBEAT.log.length);
+    await f.evaluate(() => { const b = document.getElementById('bspeed'); for (let i = 0; i < 4 && b.textContent.trim() !== '1x'; i++) b.click(); try { if (FIGHT.S.deploy) fightNow(); } catch (e) {} if (!FIGHT_UI.auto) document.getElementById('bauto').click(); });
+    for (let i = 0; i < 170; i++) { if (await f.evaluate(() => !!FIGHT.S.over && !FIGHT_UI.anim.length).catch(() => true)) break; await p.waitForTimeout(1000); }
+    await p.waitForTimeout(1500);
+    const kills = await p.evaluate((n) => __ONEBEAT.log.slice(n).filter(e => e.ev === 'kill' || e.ev === 'went_down').map(e => ({ ev: e.ev, why: e.why, d: e.d, off: __offOf(e.T) == null ? null : +__offOf(e.T).toFixed(1) })), n0);
+    const sent = await f.evaluate(() => (FIGHT_UI.firstAhead || []).filter(x => x.t === 'dead' || x.t === 'down').map(x => x.t + ' ' + x.ahead + ' ms ahead')).catch(() => []);
+    const ahead = kills.filter(k => k.why === 'at' && k.d >= 100), onBeat = ahead.filter(k => k.off != null && Math.abs(k.off) <= 20);
+    const said = kills.length + ' falls heard: ' + kills.map(k => k.ev + ' asked ' + k.d + ' ms ahead, ' + k.off + ' ms off the sixteenth').join('; ');
+    if (plant) { ok('F581 ' + name + ' PLANTED (the fall\'s sound never sent ahead): the leg sees every death asked with nothing ahead (' + said + ')', kills.length >= 1 && ahead.length === 0, JSON.stringify(sent)); return; }
+    ok('F581 ' + name + ': a road fight on AUTO: ' + said + '; ' + ahead.length + ' of ' + kills.length + ' asked ahead of their moment, every one of those on the sixteenth',
+      kills.length >= 1 && ahead.length >= Math.ceil(kills.length * 0.75) && onBeat.length === ahead.length && errs.length === 0, 'the fight sent ahead: ' + sent.join(', ') + (errs[0] ? ' | ' + errs[0] : ''));
+  } catch (e) { ok('F581 ' + name + ' ran to the end', false, String(e && e.stack || e).slice(0, 300)); }
+  finally { await d.close().catch(() => {}); }
+}
+
+/* F649 (ask row 649, EYES 11/18: 'THE RECEIPT LIES OVER THE WIPE'S LINE: upright after a wipe, SOMEBODY DRAGS YOU TO THE NEARE and the
+   rest runs under the receipt pinned top right'). THE GAME through the driver: a new game, a road fight, his men made one blow from
+   down (the leg's hand: a wipe is the state under test), AUTO at 4x to a real wipe, the game's own end screen. Holds: every word of
+   the fight's lines stands clear of the rolled receipt. PLANT: the first step down's roll at the full window's height again. */
+async function f649(shape, plant) {
+  const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
+  const alpha = shape === 'phone_landscape' && !plant, name = (alpha ? 'the alpha' : 'the demo') + ', ' + shape;
+  let d; try { d = await drive.open({ keepCards: true, engage: true, profile: shape, alpha: alpha, fog: true }); } catch (e) { ok('F649 ' + name + ': the game boots', false, String(e.message).slice(0, 160)); return; }
+  const p = d.page, errs = []; p.on('pageerror', e => errs.push(String(e && e.message || e).slice(0, 160)));
+  try {
+    await p.waitForTimeout(2500);
+    await d.fr.evaluate(() => { try { const sf = document.getElementById('settleFrame'); if (sf && sf.style.display === 'block') loopClose(); } catch (e) {} }).catch(() => {});
+    await p.waitForTimeout(900);
+    await d.fr.evaluate(() => { try { if (MODE === 'human' && !INSIDE) swapMode(); } catch (e) {} }).catch(() => {}); await p.waitForTimeout(1500);
+    const f = await drive.roadFightOffTheTown(d, { id: 'toll_crew', name: 'the toll crew', seq: 52 });
+    if (!f) { ok('F649 ' + name + ': a road fight through the map\'s own door', false); return; }
+    await f.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && !!FIGHT_UI.board && !!FIGHT_UI.tw, null, { timeout: 40000 }).catch(() => {});
+    await p.waitForTimeout(1200);
+    await f.evaluate(() => { const b = document.getElementById('bspeed'); for (let i = 0; i < 4 && b.textContent.trim() !== '4x'; i++) b.click(); try { if (FIGHT.S.deploy) fightNow(); } catch (e) {}
+      FIGHT.S.units.forEach(u => { if (u.side === 'you') { u.hp = 1; if (u.armor) { if (typeof u.armor === 'object') { for (const k in u.armor) if (typeof u.armor[k] === 'number') u.armor[k] = 0; } else u.armor = 0; } } });
+      if (!FIGHT_UI.auto) document.getElementById('bauto').click(); });
+    const SF = () => p.frames().find(x => /BOHEMIA_SPOILS_SCREEN/.test(x.url()));
+    let sf = null; for (let i = 0; i < 240 && !sf; i++) { await p.waitForTimeout(1000);
+      /* a man of his who would not fall: one blow from down again, every second; theirs who stand are made whole (his three won
+       the alpha's fight at one hitpoint each) */
+      await f.evaluate(() => { if (!FIGHT.S.over) FIGHT.S.units.forEach(u => { if (u.side === 'you' && u.hp > 1) u.hp = 1; else if (u.side === 'them' && u.hp > 0 && !u.dead && u.hpMax > u.hp) u.hp = u.hpMax; }); }).catch(() => {});
+      const x = SF(); if (x && await x.evaluate(() => !!window.BohemiaSpoilsScreen && !!BohemiaSpoilsScreen.state && !!BohemiaSpoilsScreen.state.fight).catch(() => false)) sf = x; }
+    if (!sf) { ok('F649 ' + name + ': the fight ended on the end screen', false, await f.evaluate(() => JSON.stringify({ over: FIGHT.S.over, round: FIGHT.S.round, you: FIGHT.S.units.filter(u => u.side === 'you').map(u => u.name + ' ' + u.hp) })).catch(e => String(e).slice(0, 120))); return; }
+    await p.waitForTimeout(5000);   /* the roll prints a line a quarter beat; the screen steps down to fit */
+    if (plant) { await sf.evaluate(() => { const st = document.createElement('style'); st.textContent = 'html.sp-d1 #till:not(.open) .paper{max-height:calc(20vh - 6px) !important}'; document.head.appendChild(st); }); await p.waitForTimeout(600); }
+    const m = await sf.evaluate(() => {
+      const paper = document.querySelector('#till .paper'), t = paper && paper.getBoundingClientRect(), ln = document.getElementById('lines'), fld = document.getElementById('field').getBoundingClientRect();
+      const under = [], lines = [];
+      Array.from(ln ? ln.querySelectorAll('p') : []).forEach(q => { lines.push(q.textContent); const r = document.createRange(); r.selectNodeContents(q);
+        Array.from(r.getClientRects()).forEach(c => { if (t && c.width > 0 && c.right > t.left + 1 && c.left < t.right - 1 && c.bottom > t.top + 1 && c.top < t.bottom - 1) under.push(Math.round(Math.min(c.right, t.right) - Math.max(c.left, t.left)) + ' px of a line at y ' + Math.round(c.top)); }); });
+      const F = BohemiaSpoilsScreen.state.fight;
+      return { wipe: !!F.wipe, step: (document.documentElement.className.match(/sp-d\d/) || ['sp-d0'])[0], lines: lines, under: under, paper: t ? [Math.round(t.left), Math.round(t.top), Math.round(t.right), Math.round(t.bottom)] : null,
+        field: [Math.round(fld.top), Math.round(fld.bottom)], open: document.getElementById('till').classList.contains('open'), rolls: document.querySelectorAll('#till .tl').length, glass: innerWidth + 'x' + innerHeight };
+    });
+    if (SHOTS) await p.screenshot({ path: path.join(SHOTS, 'F649_' + shape + (plant ? '_planted' : '') + '.png') }).catch(() => {});
+    const said = 'a real wipe (' + m.lines.length + ' lines: "' + (m.lines[m.lines.length - 1] || '').slice(0, 60) + '"), the screen at ' + m.step + ' on ' + m.glass + ', the rolled receipt ' + JSON.stringify(m.paper) + ' (' + m.rolls + ' lines printed), the window ' + JSON.stringify(m.field);
+    if (plant) { ok('F649 ' + name + ' PLANTED (the roll at the full window\'s height on the first step down): the leg sees the words under it (' + m.under.join('; ') + ')', m.wipe && m.under.length >= 1, said); return; }
+    ok('F649 ' + name + ': ' + said + ': no word of the fight\'s lines under the receipt', m.wipe && m.lines.length >= 1 && !!m.paper && m.rolls >= 3 && !m.open && m.under.length === 0 && errs.length === 0, m.under.join('; ') + (errs[0] ? ' | ' + errs[0] : ''));
+  } catch (e) { ok('F649 ' + name + ' ran to the end', false, String(e && e.stack || e).slice(0, 300)); }
+  finally { await d.close().catch(() => {}); }
+}
+
 (async () => {
   await new Promise(r => srv.listen(0, '127.0.0.1', r)); BASE = 'http://127.0.0.1:' + srv.address().port;
   browser = await chromium.launch();
@@ -1208,6 +1295,10 @@ async function f612h(shape, plant) {
     for (const s of SH) { if (want('F605')) { await f605(s, false); if (s === SH[0]) await f605(s, true); } }
     for (const s of SH) { if (want('F612')) { await f612(s, false); if (s === 'phone_landscape' || SH.indexOf('phone_landscape') < 0) await f612(s, true); } }
     for (const s of SH) { if (want('F612h')) { await f612h(s, false); if (s === SH[0]) await f612h(s, true); } }
+    /* the red debt, a real one (row 581), FIXES 2 11/18: the driver's own pages, so asked for by name (--only F581) or in the whole run */
+    for (const s of SH) { if (want('F581')) { await f581(s, false); if (s === SH[0]) await f581(s, true); } }
+    /* the plant is upright only: on its side the line never reached the roll (EYES met it upright) */
+    for (const s of SH) { if (want('F649')) { await f649(s, false); if (s === 'phone_portrait') await f649(s, true); } }
   } catch (e) { ok('the gate ran [' + String(e && e.stack || e).slice(0, 400) + ']', false); }
   await browser.close(); srv.close();
   console.log('THE FOURTEEN EYES FOUND: ' + pass + ' passed, ' + fail + ' failed');

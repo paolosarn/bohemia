@@ -333,6 +333,59 @@ first)'. Each gate run ALONE (two browsers at once on this box turn real reds in
 ### 594, 582: read, run alone, said in the rows: 594's lineup leg is stale (the line is dealt zigzag) and its seam leg is the
 board's art (COMBAT THREE, COOK FIVE); 582's five set-ups are the AUTO brain's (COMBAT THREE, seeds 2 and 5).
 
+## ROUND FIVE (rule 453): BUILD 11/18r - THE FALL IS HEARD ON ITS BEAT (rows 649 and 581 fixed; 634 closed; 542, 555 tidied)
+
+The coordinator's order: 'every FOUND BY EYES row still OPEN, player-felt first (EYES is walking the forty builds of 11/17: take its
+new rows as they land), then the red debt you named real. Rule 441 on each fix; rule 454(a): no line rewritten.'
+EYES' walk of the 11/17 builds landed rows 648 to 650 while this round ran: 649 is FIXES 2's and is in this build; 648 (the helmet's
+seam on the face) and 650 (four flashes in a second, PLAUSIBLE) are FIGHT SCREEN 2's. No spoken line was touched.
+
+### 649 THE RECEIPT STAYS IN ITS WINDOW (FIXED; TAB: RUN, the end screen after a wipe)
+- EYES: upright after a wipe, 'SOMEBODY DRAGS YOU TO THE NEARE' and the rest ran under the receipt pinned top right.
+- THE CAUSE (my own 11/9 block, __THE_END_SCREEN_FITS__): the screen's first step down (sp-d1) halves the window on the field from 20vh to
+  10vh; the second (sp-d2) makes it 48 px AND makes the rolled receipt 46 px. The first step had no rule for the roll, so it stayed
+  at the full window's height (20vh less 6) and hung 80 px past the window's foot, over #lines (the wipe's line, a retreat's lines).
+  A wipe with three men lands exactly on that first step upright.
+- NOW (slices/BOHEMIA_SPOILS_SCREEN.html __THE_RECEIPT_STAYS_IN_ITS_WINDOW__): on a narrow glass the rolled receipt is as tall as its
+  window at every step (sp-d1: 10vh less 6). A tap still unrolls all of it. One CSS line; no word and no layout else moved.
+- PROOF (rule 441): gate THE FOURTEEN EYES FOUND F649, the game through the driver: a new game, a road fight, his three men made one
+  blow from down and theirs kept whole (the leg's hand: the wipe is the state under test; at one hitpoint each his three still WON
+  the alpha's fight once), AUTO at 4x to a REAL wipe, the game's own end screen. THE DEMO upright 390x844: the screen at sp-d1, the roll
+  [245,155,408,239], the window [169,254], no word of the line under the roll. THE ALPHA on its side 844x390: no word under it (on
+  its side the line never reached the roll; the plant does not bite there and is upright only). PLANT upright (the roll at the old
+  height): the roll to y 324, '124 px of a line at y 269; 14 px of a line at y 286' under it: EYES' own picture.
+
+### 581 A DEATH IS HEARD ON ITS BEAT (FIXED; TAB: RUN, any fight)
+- THE RED: DEATH SOUNDS THAT TERRIFY, 'ON THE BEAT: every death starts on the song's sixteenth (within 20 ms)': 8 deaths, 13 to 109 ms
+  off. The row's reading was 'the grids drift'. MEASURED, they do not: the shell's audio anchor against its own clock holds to 0.6 ms
+  over ten seconds (probe p581.js), and in a road fight on the demo the fight's song grid is the shell's to 0.1 ms (p581b.js).
+- WHAT IS WRONG (p581b.js, the shell's own book of sounds, __ONEBEAT.log): 104 of 106 timed sounds are asked 80 ms ahead and land on
+  their sixteenth. A DEATH'S is asked with d 0: at the moment its fall begins. A sound asked for now can only be played now, and now
+  is the way to the ear (72 to 92 ms here) plus the message's own time behind the fall. The fall's note starts back to back with the
+  blow before it, and a motion is only looked at when the one before it ends, so there was no earlier moment to send from.
+- A TIMER IS NO CURE on a slow phone: the first cut of this fix set a timer 80 to 300 ms ahead; on the checker's phone (CPU 4x
+  slower) it ran 25 to 170 ms AFTER the booking moment ('kill at d 0' again, 7 of 7 off).
+- NOW (slices/BOHEMIA_FIGHT.html __THE_FALL_IS_HEARD_ON_ITS_BEAT__): soundAhead(n, q): the first sound of a fall he will see (dead,
+  down) and of a reload goes the moment that note is next in line (the motion before it still playing, and not a walk, which he can
+  hurry), carrying the moment it is heard, its own grid point; within 850 ms ahead it goes at once, no timer (the shell's delay line
+  holds a second). The note then says nothing twice (a.firstSent). A fall nobody sees, an unplugged machine and a note that had no
+  time ahead sound as before. FIGHT_UI.firstAhead lists what was sent and how far ahead.
+- PROOF (rule 441): gate THE FOURTEEN EYES FOUND F581, the game through the driver, a new game, a road fight on AUTO at 1x:
+  THE DEMO upright: 3 of 3 deaths asked 586 to 712 ms ahead, 0 ms off the sixteenth; THE ALPHA on its side: 3 of 3, 615 to 636 ms
+  ahead, 0 ms off; PLANT (soundAhead made to do nothing, the fight as it was), upright and on its side: 'asked 0 ms ahead', 12.8 to
+  46.8 ms off. DEATH SOUNDS THAT TERRIFY alone: 19 passed, 1 failed: the computer 7 of 7 deaths on the sixteenth; the slowed phone 5 of
+  6, the sixth 39.6 ms off.
+- LEFT, AND WHY: a death that becomes known under a tenth of a second before its beat (a fall with nothing before it in the queue)
+  cannot be asked ahead. Its picture keeps the beat; its sound is late by the shortfall. Moving that fall a whole beat later is the
+  pace he refused (rule 274: 'never a beat later'). So the checker's leg stays red on a slow phone by about one death in six.
+- FOR SOUNDS / COMBAT (the same weakness, not this row): every sound on a later() timer (the shot's kick, the landing) is asked 80
+  to 300 ms ahead by a timer; on a slow phone that timer runs late. They could go at the motion's start the same way, EXCEPT that
+  some later() bodies also turn the music (MUSIC.hit), which must not come early. ONE BEAT FOR EVERYTHING is red on this.
+
+### 634 CLOSED, ALREADY RIGHT ON MAIN: UI FOUR's 11/17j (the tight hall) holds a fortress's hall with a follower opened on the glass,
+both ways; F612 judges that state now. The layout I started for it was not needed and did not ship.
+### 542, 555: the quiet-turn rows read FIXED (they were, by three builds; their first word still said OPEN).
+
 ## THE PROBES (scratch tools, kept as the method; none ship)
 serve the repo's three published roots at /, a phone context (touch, mobile, the service worker blocked when a request is held),
 every pageerror with its stack, every 4xx. The stranger's walk; setItem wrapped to name who writes a save; focus/input traced on

@@ -245,6 +245,11 @@ html.sp-d1 #ground.empty{margin-top:0}
 html.sp-d2 .man:has(.perk){position:relative;padding-right:132px;min-height:52px}
 html.sp-d2 .man .perk{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:122px;margin:0;padding:2px 6px;font-size:11px;line-height:1.2;white-space:normal;min-height:44px}
 html.sp-d2 #till .paper{max-height:46px}
+/* __THE_RECEIPT_STAYS_IN_ITS_WINDOW__ (FIXES 2 11/18, ask row 649, EYES: upright after a wipe 'SOMEBODY DRAGS YOU TO THE NEARE' ran under
+   the receipt). The first step down halves the window on the field (10vh) and left the closed roll at the full window's height
+   (20vh), so it hung 80 px past the window's foot, over the fight's own lines. The closed roll is as tall as its window at every
+   step; a tap still unrolls all of it. */
+@media (max-width:699px){ html.sp-d1 #till:not(.open) .paper{max-height:calc(10vh - 6px)} html.sp-d2 #till:not(.open) .paper{max-height:46px} }
 .man .lv .lvup{font-style:normal}
 html.sp-d2 .man:has(.perk) .lv .lvup{display:none}
 html.sp-d2 .man:has(.perk) .nm{flex-wrap:wrap;justify-content:flex-start;column-gap:8px}

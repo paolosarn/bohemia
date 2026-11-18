@@ -1,6 +1,29 @@
 # FIXES TWO -- the handoff block (written only by FIXES TWO, newest first; the heir of FIXES, whose blocks stay in handoffs/FIXES.md)
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 
+FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/18 LATEST -- [round five] rows 649 (EYES: the receipt over the wipe's
+line) and 581 (a death is heard on its beat) FIXED IN THE GAME, 634 CLOSED (UI FOUR had it), 542 and 555 tidied. BUILD 11/18r - THE FALL IS HEARD ON ITS BEAT, BUILT, NOT YET SEEN. Commit SHIPSHAX.
+Record: the ROUND FIVE section of records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md. No VOTE card (a sound's timing; no picture).
+WHAT HE WOULD MEET (TAB: RUN, and the demo link):
+- 649 after a wipe, upright: the line 'SOMEBODY DRAGS YOU TO THE NEAREST TOWN...' reads whole; the rolled receipt ends inside its
+  window on the field (it hung 80 px past it, over the line, on the end screen's first step down). A tap still unrolls it.
+  slices/BOHEMIA_SPOILS_SCREEN.html __THE_RECEIPT_STAYS_IN_ITS_WINDOW__ (one CSS line in my own 11/9 block).
+- 581 in any fight, a man's death (and a man struck down, and a reload's click) is heard ON the beat its fall begins on. Before, it
+  was heard about a sixteenth late every time: the sound was asked at the fall's own start, with nothing ahead. The grids never
+  drifted (measured). slices/BOHEMIA_FIGHT.html __THE_FALL_IS_HEARD_ON_ITS_BEAT__ (soundAhead, firstSoundOf, FIRST_AHEAD_MS 850).
+PROVEN (rule 441): gate THE FOURTEEN EYES FOUND F581: the demo upright and the alpha on its side, 3 of 3 deaths each asked 0.6 to 0.7 s
+ahead and 0 ms off the sixteenth; its PLANT both ways. DEATH SOUNDS THAT TERRIFY alone 19/1 (was red both ways): the computer 7 of 7;
+the slowed phone 5 of 6 (LEFT: a death known under a tenth of a second before its beat is late by the shortfall; in the row).
+649 PROVEN (rule 441): F649, a REAL wipe through the driver: the demo upright (roll to y 239, window's foot 254, no word under it),
+the alpha on its side (clean), its PLANT upright (124 px of the line under the roll).
+EYES' ROWS 648 (the helmet's seam) and 650 (four flashes, PLAUSIBLE) are FIGHT SCREEN 2's. No spoken line touched (rule 454(a)).
+FOR SOUNDS / COMBAT: the later() timers (the shot's kick, the landing) have the same weakness on a slow phone (a late timer); they
+could be asked at the motion's start the same way, but some later() bodies also turn the music (MUSIC.hit). ONE BEAT FOR EVERYTHING.
+STILL OPEN, each with who must in its row: 574 (TUNING), 578 (the underpass's aftermath near black: COMBAT THREE / COOK FIVE / RUN),
+582 (the AUTO brain: COMBAT THREE), 594 (the canal bank's seam), 633 (who DESI is: his call, then CHARACTER), 635, 636.
+ONE BROWSER AT A TIME on this box (two at once kill the worker and turn green checkers red).
+NEXT (if woken): EYES' rows from its walk of the forty builds of 11/17; the roster gate's S2 and S5 with WORLD.
+
 FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/17 (b) LATEST -- [the red debt read alone] row 592 FIXED IN THE GAME,
 577 CLOSED, 578 down to its one real item, 594 and 582 read and handed on. BUILD 11/17v - THE WALK BACK ASKS, BUILT, NOT YET SEEN. Commit 57068d3ee.
 Record: the ROUND FOUR, SECOND SHIP section of records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md. No VOTE card (no picture).

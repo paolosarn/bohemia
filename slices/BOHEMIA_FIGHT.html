@@ -8103,8 +8103,8 @@ function startAnimHeard(a) {
       if (u.side === 'them') MUSIC.kill(u);   /* rule 126: the ladder climbs on the fall he sees (unseen, it still counts) */
       if (e.t === 'dead' && u.side === 'them' && u._seen) killCut(u, e, a); }   /* THE KILL CAMS (COMBAT 7, rule 351(f)) */
     if (e.t === 'dead' && e.unplugged) { u.seenFall = true; if (!UI.unpluggedAt) { UI.unpluggedAt = performance.now(); SND.fall(true, { side: u.side, victim: 'machine' }); say('The mechanic is down. His machines drop.'); } pop(u, '', '#7fd6c4', false, u.name + ' drops: nobody runs it now.'); }
-    else if (e.t === 'dead') { SND.fall(true, SND.death(u, e)); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); callSoon(u.side === 'you' ? 'man_down' : 'kill', u); }
-    if (e.t === 'down') { SND.fall(false, { side: u.side, victim: u.machine ? 'machine' : undefined }); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); if (u.side === 'you') callSoon('man_down', u); }
+    else if (e.t === 'dead') { if (a.firstSent === undefined) SND.fall(true, SND.death(u, e)); u.seenFall = true; pop(u, u.side === 'you' ? 'dead' : 'down', '#e05a44', true); callSoon(u.side === 'you' ? 'man_down' : 'kill', u); }
+    if (e.t === 'down') { if (a.firstSent === undefined) SND.fall(false, { side: u.side, victim: u.machine ? 'machine' : undefined }); u.seenFall = true; pop(u, 'struck down', '#e0a044', true); if (u.side === 'you') callSoon('man_down', u); }
     if (e.t === 'fled') { SND.flee(); if (u && !u.decoy && !u.ranOff) outStart(u, a.at);   /* __YOU_SEE_THEM_RUN__: off the glass from the edge, never a blink */
       if (e.retreat && u) pop(u, 'gets out', '#c9d6a8', true, u.name + ' gets out.'); }
     if (FIGHT.S.arena && u && (e.t === 'fled' || (e.t === 'morale' && e.to === 'Fleeing'))) sfx('arena_ran', { side: u.side });   /* __THE_ARENA__: the crowd boos a man who runs */
@@ -8124,7 +8124,7 @@ function startAnimHeard(a) {
       if (e.t === 'crack') { const t2 = FIGHT.byId(e.to); if (t2) pop(t2, 'CRACK', '#f0e0b0', false, u.name + "'s bullwhip cracks over " + t2.name + '.'); } }
 
     /* THE MAG SEATS (rule 124; the approved 'mag_home': 'the beat where you cannot shoot, and the player has to HEAR it') */
-    if (e.t === 'reload' && u) { sfx('mag_home', { gun: u.job, side: u.side }); pop(u, '', '#f0d296', false, u.name + ' reloads.'); u._reloadAt = performance.now();   /* __WHAT_A_MAN_HOLDS__: he reloads on his body (ANIMATION) */
+    if (e.t === 'reload' && u) { if (a.firstSent === undefined) sfx('mag_home', { gun: u.job, side: u.side }); pop(u, '', '#f0d296', false, u.name + ' reloads.'); u._reloadAt = performance.now();   /* __WHAT_A_MAN_HOLDS__: he reloads on his body (ANIMATION) */
       if (crewControlled(u)) { const r = FIGHT.rounds(u); say('Loaded' + (r && r.of > 1 ? ': ' + r.left + ' rounds.' : '.')); } }
     if (e.t === 'rally') pop(u, 'rallies', '#a8d08a');
     if (e.t === 'pinned' && u) pop(u, 'PINNED', '#e8c39c', false, u.name + ' is down under it. He has to fight his way up.');   /* FIVE MORE BEASTS, draft:true */
@@ -8356,7 +8356,10 @@ function tick(now) {
       const a = UI.anim[0];
       if (!a.at && !onTheBeat(a, now)) return;   /* rule 158: the request waits for its beat on the song */
       if (a.k === 'step') walkTick(a, Math.min(now, a.at + a.dur));
-      if (now - a.at < a.dur) { endOnTime(a.at + a.dur); if (UI.anim.length === 1) aheadOnTime(a); break; }
+      if (now - a.at < a.dur) { endOnTime(a.at + a.dur); if (UI.anim.length === 1) aheadOnTime(a);
+        /* __THE_FALL_IS_HEARD_ON_ITS_BEAT__: the fall (or the reload) behind this motion begins on the grid point this one ends on */
+        if (UI.anim.length > 1 && a.k !== 'step') { const nx = UI.anim[1], gb = beatMs(), en = a.at + a.dur; soundAhead(nx, songGrid(en - Math.min(GRID_SNAP_MS, gb / 8), gb)); }   /* not behind a walk: a walk he hurries ends sooner than it said */
+        break; }
       UI.anim.shift(); UI.animEnd = a.at + a.dur; endAnim(a);
     }
     if (UI.anim.length) { thinkAhead(now); return; }
@@ -8420,6 +8423,38 @@ function roundFit() {
   if (!UI.pinched && !(gest && gest.moved) && (off || f.z > UI.zoom * FIT_CLOSER)) { glideTo(f.cx, f.cy, f.z, beatMs(), off); return off; }
   return false;
 }
+/* __THE_FALL_IS_HEARD_ON_ITS_BEAT__ (FIXES 2 11/18, ask row 581, FOUND BY PLUMBER 8: DEATH SOUNDS THAT TERRIFY 'ON THE BEAT' red, and
+   ONE BEAT FOR EVERYTHING with it). MEASURED on the demo, a road fight on AUTO at 1x, alone: the fight's song grid is the shell's
+   to a tenth of a millisecond and 104 of 106 timed sounds land on their sixteenth, booked 80 ms ahead; but a DEATH's sound was asked
+   at the very moment its fall begins (the note's own start), with nothing ahead of it, so the shell could only play it at once:
+   'kill at d 0', heard the whole way to the ear and the message's own time LATE (about 100 to 140 ms: a sixteenth behind the fall;
+   the checker's eight read 13 to 109 ms off). A reload's click the same way. A motion that starts back to back with the one before
+   is only looked at when that one ends, so its first sound had no earlier moment to be sent from. NOW the first sound of a fall
+   he will see (the death, the man struck down) and of a reload is sent while the motion before it still plays, SFX_LEAD before
+   the way to the ear, carrying the moment it is heard: the fall's own grid point. The note then says nothing twice. A fall
+   nobody sees, an unplugged machine and a note that got no time ahead sound as they did. */
+function firstSoundOf(n, u) {
+  const e = n.e;
+  if (e.t === 'dead') SND.fall(true, SND.death(u, e));
+  else if (e.t === 'down') SND.fall(false, { side: u.side, victim: u.machine ? 'machine' : undefined });
+  else if (e.t === 'reload') sfx('mag_home', { gun: u.job, side: u.side });
+}
+function soundAhead(n, q) {   /* n: a note not begun yet; q: the grid point it will begin on */
+  if (!n || n.firstT || n.firstSent !== undefined || n.at !== undefined || n.k !== 'note' || !n.e || n.e.unplugged) return;
+  if (n.e.t !== 'dead' && n.e.t !== 'down' && n.e.t !== 'reload') return;
+  const u = FIGHT.byId(n.e.id); if (!u) return;
+  if ((n.e.t === 'dead' || n.e.t === 'down') && u.side === 'them' && !u._seen) return;   /* a fall nobody watches holds no beat */
+  /* AS SOON AS IT IS KNOWN, never on a timer when it can be helped: the shell books a sound that carries its moment to the sample
+     however early it is asked (its delay line holds a second), and a timer on a busy phone fires late (MEASURED on the checker's
+     slowed phone: a timer set 80 to 300 ms ahead ran 25 to 170 ms AFTER the booking moment, 'kill at d 0' again). So the sound goes
+     the moment the fall is next in line, if its moment is within FIRST_AHEAD_MS; only a fall further off than that waits */
+  const send = function () { n.firstT = 0;
+    if (UI.anim.indexOf(n) < 0 || n.at !== undefined || n.firstSent !== undefined) return;   /* skipped, begun, or said */
+    const p0 = UI.sfxAt; UI.sfxAt = q; try { firstSoundOf(n, u); n.firstSent = q; (UI.firstAhead = UI.firstAhead || []).push({ t: n.e.t, q: q, ahead: Math.round(q - SONG.lat - performance.now()) }); if (UI.firstAhead.length > 80) UI.firstAhead.shift(); } finally { UI.sfxAt = p0; } };
+  const wait = q - SONG.lat - FIRST_AHEAD_MS - performance.now();
+  if (wait <= 0) send(); else n.firstT = setTimeout(send, wait);
+}
+const FIRST_AHEAD_MS = 850;   /* under the shell's one second of delay line (__ONE_BEAT_FOR_EVERYTHING__ createDelay(1)) */
 /* ONE PACE (rule 274(c)): a motion's end is caught by a timer at its own time, not the next frame (measured: the next motion
    came a frame late, 17 ms at 60 a second and 34 at 30, so on a slow phone it missed its grid point and lost a beat) */
 function endOnTime(end) {
@@ -8503,6 +8538,7 @@ function onTheBeat(a, now) {
     if (a.log) { a.log.at = a.qAt; a.log.land = a.qAt + land; a.log.late = true; }
   }
   if (t < a.qAt - lead - 1) {
+    if (a.g) soundAhead(a, a.qAt);   /* __THE_FALL_IS_HEARD_ON_ITS_BEAT__: a fall with nothing before it, in the time it waits */
     /* a timer, not the next frame, starts it: a frame is 16 ms late at best and a busy phone's far more */
     if (UI.beatFor !== a.qAt) { clearTimeout(UI.beatT); UI.beatFor = a.qAt;
       UI.beatT = setTimeout(function () { UI.beatFor = null; try { tick(performance.now()); } catch (e) { setTimeout(function () { throw e; }); } }, Math.max(0, a.qAt - lead - t)); }
