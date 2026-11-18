@@ -6,7 +6,7 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
-WORDS TWO (words-two-01gkdyutlu): 11/18 LATEST -- [the voice in parts] FILED (PENDINGSHA), rules 455, 454(a)(d), 458(a); ask rows 637, 643, 628. NOTHING IN THE GAME WAS REWRITTEN. No card added: 28 of this lane's cards already wait on him.
+WORDS TWO (words-two-01gkdyutlu): 11/18 LATEST -- [the voice in parts] FILED (c2a4b88ab), rules 455, 454(a)(d), 458(a); ask rows 637, 643, 628. NOTHING IN THE GAME WAS REWRITTEN. No card added: 28 of this lane's cards already wait on him.
 TWO ROUTINES OF THE COORDINATOR ARRIVED TOGETHER ('his first four answers', a day and a half late, and 'WORDS TWO next'): no new sheet of his has
 landed; do THE VOICE as far as four answers and rule 455 carry it (his words first, the measured differences second, the unknown third) and the
 count a mouth of scary first.

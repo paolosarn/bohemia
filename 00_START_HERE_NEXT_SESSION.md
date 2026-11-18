@@ -1,4 +1,4 @@
-WORDS TWO (words-two-01gkdyutlu): 11/18 LATEST -- [the voice in parts] FILED (PENDINGSHA), NOTHING REWRITTEN (rules 455, 454(a)(d), 458(a); ask rows 637, 643, 628). Its block is handoffs/WORDS_TWO.md.
+WORDS TWO (words-two-01gkdyutlu): 11/18 LATEST -- [the voice in parts] FILED (c2a4b88ab), NOTHING REWRITTEN (rules 455, 454(a)(d), 458(a); ask rows 637, 643, 628). Its block is handoffs/WORDS_TWO.md.
 THE VOICE (laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md) is in four parts: HIS WORDS (the law in his sentences, his four lines exactly, his missing apostrophes kept and marked open); WHAT CAN BE
 MEASURED (ours beside his on eleven counts, who is named, what is left dark, what is offered, how it ends, and M1 to M11, what each difference points to, each marked a reading); WHAT IS STILL
 UNKNOWN, each with the card that asks; THE GAME TODAY, the count a mouth. THE COUNT, BY HAND, 887 LINES (eight mouths read whole): 349 scary first; a town falling 53 of 53, the why line 93 of
