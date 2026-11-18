@@ -52799,8 +52799,10 @@ function vbCityInput(){
   return { kind: 'city', N: N, S: VB_CS, PAD: VB_CPAD, seed: om.seed, cls: cls, live: live, sub: sub, lanes: lanes, tracks: (VB_LANES && VB_LANES.tr) || null, key: om.seed + ':' + h + ':c' + VB_COOK.v + (tws ? ':t' + VB_TOWNS.key : '') + (window.__WS_KEY ? ':ws' + window.__WS_KEY : ''), wst: window.__WS_CELL || null,   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ */
            thm: VB_COOK.themes ? thm : null, cook: VB_COOK.themes, towns: tws, townPal: tws ? VB_TOWNS.pal : null };
 }
+var VB_CITY_ON_VB = false;   /* the old way (the painting on VB.worker, behind the land): the speed probe's --quick 0 and the gate's plant */
 function vbCityLand(r){
-  VBC.busy = false;
+  if (r && r.key && VBT.flying[r.key]) vbTileLand({ key: r.key, flightOnly: true });   /* __THE_MAP_PAINTS_ON_EVERY_CORE__: the painter's slot back */
+  VBC.busy = false; if (VBC.askAt) VBC.landMs = Math.round(performance.now() - VBC.askAt);
   if (!r || r.seed !== om.seed) return;
   function cv(a){ var c = document.createElement('canvas'); c.width = r.P; c.height = r.P; c.getContext('2d').putImageData(new ImageData(a, r.P, r.P), 0, 0); return c; }
   VBC.day = cv(r.day); VBC.night = null; VBC.lights = r.lights ? cv(r.lights) : null; VBC.dep = r.dep || null; VBC.blk = r.blk || null; VBC.S = r.S; VBC.PAD = r.PAD;   /* __YOU_WALK_BEHIND_IT__ */   /* __ONE_MAP_AT_EVERY_ZOOM__: the night picture was a 2,400-square canvas (22 MB) nothing draws: the night pass lights the day picture */ VBC.key = r.key; VBC.seed = r.seed; VBC.ms = r.ms; VBC.P = r.P; VBC.stand = r.stand;
@@ -52812,7 +52814,11 @@ function vbCityReady(){
   if (!cookWait && !VBC.busy && (VBC.seed !== om.seed || now - VBC.checked > 5000)) {   /* the lights are read at most every 5 s */
     VBC.checked = now;
     var inp = vbCityInput();
-    if (inp.key !== VBC.key) { VBC.busy = true; VBC.asks++;
+    if (inp.key !== VBC.key) { VBC.busy = true; VBC.asks++; VBC.askAt = performance.now();   /* ask to landed: VBC.landMs */
+      /* __THE_MAP_PAINTS_ON_EVERY_CORE__ (11/18): the whole painting goes to the painters' pool, never in line behind the land past the
+         map on VB.worker. MEASURED (a new valley, the far stop, the CPU four times slower): it waited 27 to 32 s there behind the land's
+         own job, against 2 to 3 s painted on a free painter; the page's own thread was 77 in 100 idle the whole wait */
+      if (typeof Worker !== 'undefined' && !VB_CITY_ON_VB) { vbTileSend(inp); return !!VBC.day && VBC.seed === om.seed; }
       try { if (!VB.worker) VB.worker = vbWorker(); VB.worker.postMessage(inp); }
       catch (e) { VBC.err = String(e && e.message || e); setTimeout(function () { var c = vbCityCore(inp); c.kind = 'city'; vbCityLand(c); }, 0); } }
   }
@@ -52872,20 +52878,26 @@ var VBT = { S: 0, seed: null, lk: null, tiles: new Map(), busy: false, asked: 0,
    of their own, half the cores (the glass, the compositor and the GPU keep the rest), at most three (each holds a copy of the painter),
    the nearest first, never the same tile twice; the whole painting and the land past the map keep VB.worker. busy stays 'any tile
    in flight' (fly counts them) */
-VBT.fly = 0; VBT.flying = {}; VBT.idle = []; VBT.pool = []; VBT.bare = 0;
+VBT.fly = 0; VBT.flying = {}; VBT.idle = []; VBT.pool = []; VBT.bare = 0; VBT.queue = [];
 var VB_QUICK_S = 60;   /* the quick picture's texels a block: the opening stop's own detail */
-function vbTileReap(){ var now = performance.now(); for (var k in VBT.flying) { if (now - VBT.flying[k].at > 45000) { delete VBT.flying[k]; VBT.fly = Math.max(0, VBT.fly - 1); } } VBT.busy = VBT.fly > 0; }   /* a painter that died never holds the glass */
+function vbTileReap(){ var now = performance.now(); for (var k in VBT.flying) { var f = VBT.flying[k]; if (now - f.at > (f.city ? 120000 : 45000)) { delete VBT.flying[k]; VBT.fly = Math.max(0, VBT.fly - 1); if (f.city) VBC.busy = false;
+    if (f.w) { try { f.w.terminate(); } catch (_e) {} VBT.pool = VBT.pool.filter(function (x) { return x !== f.w; }); VBT.idle = VBT.idle.filter(function (x) { return x !== f.w; }); } } }
+  while (VBT.queue.length && (VBT.idle.length || VBT.pool.length < vbTilePool())) vbTileSend(VBT.queue.shift());
+  VBT.busy = VBT.fly > 0 || VBT.queue.length > 0; }   /* a painter that died never holds the glass */
 function vbTilePool(){ var n = 1; try { n = Math.max(1, Math.min(3, Math.floor(((navigator.hardwareConcurrency | 0) || 2) / 2))); } catch (_e) {} return VBT.poolN || n; }   /* half the cores: MEASURED, one fewer than the cores starved the glass (frames of 10 seconds while three painters ran on four cores) */
 function vbTileSend(inp){
-  VBT.fly++; VBT.busy = true; VBT.asked++;
   var w = VBT.idle.pop() || null;
+  if (!w && VBT.pool.length < vbTilePool()) { try { w = vbWorker(); w.onerror = function (e) { VBT.err = 'tile worker: ' + (e && e.message); }; VBT.pool.push(w); } catch (e) { w = null; VBT.err = String(e && e.message || e); } }
+  if (!w && VBT.pool.length) { VBT.queue.push(inp); VBT.busy = true; return; }   /* every painter busy: it waits its turn (the whole painting's quarters) */
+  VBT.fly++; VBT.busy = true; VBT.asked++;
   try {
-    if (!w && VBT.pool.length < vbTilePool()) { w = vbWorker(); w.onerror = function (e) { VBT.err = 'tile worker: ' + (e && e.message); }; VBT.pool.push(w); }
-    if (!w) throw new Error('no painter free');
-    VBT.flying[inp.key] = { w: w, at: performance.now() };
+    if (!w) throw new Error('no painter');
+    VBT.flying[inp.key] = { w: w, at: performance.now(), city: inp.kind === 'city' };
     w.postMessage(inp, [inp.cls.buffer, inp.live.buffer, inp.sub.buffer]);
-  } catch (e) { VBT.err = String(e && e.message || e); VBT.onPage = (VBT.onPage | 0) + 1; VBT.flying[inp.key] = { w: w, at: performance.now() };
-    setTimeout(function () { var c = vbCityCore(inp); vbTileLand({ key: inp.key, seed: inp.seed, tx: inp.tx, ty: inp.ty, org: inp.org, S: c.S, P: c.P, ms: c.ms, day: c.day, lights: c.lights, dep: c.dep, lots: c.lots, flat: c.flat }); }, 0); }
+  } catch (e) { VBT.err = String(e && e.message || e); VBT.onPage = (VBT.onPage | 0) + 1; VBT.flying[inp.key] = { w: null, at: performance.now() };
+    setTimeout(function () { var c = vbCityCore(inp);
+      if (inp.kind === 'city') { c.kind = 'city'; c.key = inp.key; vbCityLand(c); return; }
+      vbTileLand({ key: inp.key, seed: inp.seed, tx: inp.tx, ty: inp.ty, org: inp.org, S: c.S, P: c.P, ms: c.ms, day: c.day, lights: c.lights, dep: c.dep, lots: c.lots, flat: c.flat }); }, 0); }
 }
 window.VBT = VBT;
 /* three steps of detail, not one a pixel of zoom: a pinch crosses few, so it rarely waits on new tiles */
@@ -52905,7 +52917,13 @@ var VB_TILE_TOP = true;
 function vbTileKey(tx, ty, S){ return om.seed + ':' + (VBC.key || '') + ':' + S + (vbTileFlat() ? 'f' : '') + ':' + tx + ',' + ty; }   /* __THE_HOUSES_STAND_UP_CLOSE__: a yard tile is its own picture */
 function vbTileFlat(){ try { return !!(window.BohemiaMapHouses && BohemiaMapHouses.flat()); } catch (_e) { return false; } }
 function vbTileInput(tx, ty, S){
-  var N = om.n, n = VB_TILE + 2 * VB_TILE_M, x0 = tx * VB_TILE - VB_TILE_M, y0 = ty * VB_TILE - VB_TILE_M;
+  var n = VB_TILE + 2 * VB_TILE_M, x0 = tx * VB_TILE - VB_TILE_M, y0 = ty * VB_TILE - VB_TILE_M;
+  return Object.assign(vbBoxInput(x0, y0, n, S), { key: vbTileKey(tx, ty, S), tx: tx, ty: ty, lots: true, flat: vbTileFlat() });   /* __THE_HOUSES_STAND_UP_CLOSE__ */
+}
+/* __THE_MAP_PAINTS_ON_EVERY_CORE__ (11/18): any n x n box of the valley's blocks from (x0, y0), for the painter on the valley's own
+   coordinates (a tile, or a quarter of the whole painting); was the body of vbTileInput, word for word */
+function vbBoxInput(x0, y0, n, S){
+  var N = om.n;
   var cls = new Uint8Array(n * n), live = new Uint8Array(n * n), sub = new Uint8Array(n * n), thm = new Uint8Array(n * n);
   var WSC = window.__WS_CELL || null, wst = WSC ? new Uint8Array(n * n) : null;   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ */
   for (var y = 0; y < n; y++) for (var x = 0; x < n; x++) { var gx = x0 + x, gy = y0 + y, k = y * n + x;
@@ -52921,13 +52939,15 @@ function vbTileInput(tx, ty, S){
   var tracks = null; try { var TV = VB_LANES.tr; if (TV) { tracks = new Uint8Array(n * n);   /* __THE_DESERT_HAS_ITS_TRACKS__ */
     for (var y4 = 0; y4 < n; y4++) for (var x4 = 0; x4 < n; x4++) { var gx4 = x0 + x4, gy4 = y0 + y4; if (gx4 >= 0 && gy4 >= 0 && gx4 < N && gy4 < N) tracks[y4 * n + x4] = TV[gy4 * N + gx4]; } } } catch (_e) { tracks = null; }
   return { kind: 'tile', N: n, NF: N, S: S, PAD: 0, hashPad: VB_CPAD, org: [x0, y0], seed: om.seed, cls: cls, live: live, sub: sub, wst: wst, lanes: lanes, tracks: tracks,
-           thm: VB_COOK.themes ? thm : null, cook: VB_COOK.themes, key: vbTileKey(tx, ty, S), tx: tx, ty: ty,
-           jm: jm, xg: xg, rp: rp, lots: true, flat: vbTileFlat(),   /* __THE_HOUSES_STAND_UP_CLOSE__ */
+           thm: VB_COOK.themes ? thm : null, cook: VB_COOK.themes,
+           jm: jm, xg: xg, rp: rp,
            towns: VB_TOWNS.list, townPal: VB_TOWNS.list ? VB_TOWNS.pal : null };   /* __THE_TOWN_IS_PAINTED_IN__: the same towns as the whole painting whose key the tile carries */
 }
 function vbTileLand(r){
   if (r && r.key && VBT.flying[r.key]) { var wk = VBT.flying[r.key]; delete VBT.flying[r.key]; VBT.fly = Math.max(0, VBT.fly - 1); if (wk.w) VBT.idle.push(wk.w); }   /* __THE_MAP_PAINTS_ON_EVERY_CORE__ */
-  VBT.busy = VBT.fly > 0;
+  if (VBT.queue.length && VBT.idle.length) vbTileSend(VBT.queue.shift());   /* the next waiting job takes the painter now free */
+  VBT.busy = VBT.fly > 0 || VBT.queue.length > 0;
+  if (r && r.flightOnly) return;
   if (!r || r.seed !== om.seed) return;
   /* __THE_MAP_SHARPENS_TO_ITS_OWN_PIXELS__: only the blocks this tile draws are kept (the margin's are its neighbour's to draw) */
   var cx0 = Math.max(0, (r.tx * VB_TILE - r.org[0]) * r.S), cy0 = Math.max(0, (r.ty * VB_TILE - r.org[1]) * r.S),

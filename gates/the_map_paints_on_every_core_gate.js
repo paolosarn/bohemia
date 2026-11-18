@@ -17,6 +17,8 @@
         painter, no quick picture) on the same spots, summed over the stops (this box shares its cores with its software GPU, so
         the sum is the measure, each stop is printed)
      Q4 PLANTED: the pool switched to the old one painter and the quick picture off: Q1 and Q2 read red
+     Q6 A NEW VALLEY'S WHOLE PAINTING goes to a free painter, not in line behind the land past the map on the one old worker
+        (MEASURED: the first painting after the page opens waited 10.5 s there, 2.4 s on the pool); planted: the old worker
      Q5 THE ALPHA ON ITS SIDE (rule 441): the same near stop on the alpha, the phone on its side: it fills, the pool and the quick
         picture at work, nothing thrown
 
@@ -68,6 +70,17 @@ async function structure(planted, prof, alpha) {
   const P = await structure(true);
   ok('Q4 PLANTED FAIL: the old one painter and no quick picture: Q1 red (' + P.pool + ' painter, up to ' + P.maxFly + ' at once) and Q2 red (' + P.quickN + ' quick)', !(P.poolN === P.want && P.maxFly >= Math.min(2, P.want)) && P.quickN === 0);
   ok('Q nothing threw on the page', A.errs.length === 0 && P.errs.length === 0, A.errs.concat(P.errs).slice(0, 2).join(' | '));
+  /* Q6 (11/18): the whole painting of a new valley goes to a free painter, never in line behind the land past the map */
+  { const d = await open({ keepCards: true, profile: 'phone_portrait', gpu: true }); const fr = d.fr;
+    for (let i = 0; i < 160; i++) { if (await fr.evaluate(() => !!(window.om && om.n && window.VBC && typeof vbTileSend === 'function'))) break; await sleep(400); }
+    for (let i = 0; i < 20; i++) { const t = await fr.evaluate(() => !!(window.LOOP && LOOP.frame && LOOP.frame.style.display === 'block')).catch(() => false); if (!t && i > 6) break; if (t) await fr.evaluate(() => loopClose()).catch(() => {}); await sleep(400); }
+    const run = (old) => fr.evaluate((old) => new Promise((res) => { VB_CITY_ON_VB = !!old; const sent = []; const S0 = window.vbTileSend; window.vbTileSend = function (inp) { sent.push(inp.kind); return S0(inp); };
+      try { travelStop(); } catch (e) {} setZoomAt(zoomBounds()[0]); try { camHold(); } catch (e) {} const t0 = performance.now(); document.getElementById('reroll').click();
+      const tick = () => { render(); if ((VBC.day && VBC.seed === om.seed && !VBC.busy) || performance.now() - t0 > 120000) { window.vbTileSend = S0; VB_CITY_ON_VB = false; res({ city: sent.filter((k) => k === 'city').length, landMs: VBC.landMs, ok: VBC.seed === om.seed }); } else requestAnimationFrame(tick); };
+      requestAnimationFrame(tick); }), old);
+    const A6 = await run(false), P6 = await run(true);
+    ok('Q6 A NEW VALLEY\'S WHOLE PAINTING ON A FREE PAINTER (' + A6.city + ' asked of the pool, landed in ' + A6.landMs + ' ms), never behind the land; planted on the old worker: ' + P6.city + ' asked of the pool (red)', A6.ok && A6.city >= 1 && P6.city === 0);
+    try { await d.close(); } catch (e) {} }
   const L = await structure(false, 'phone_landscape', true);
   ok('Q5 THE ALPHA ON ITS SIDE: the near stop fills (' + L.ms + ' ms) with the pool (' + L.pool + ' painters, up to ' + L.maxFly + ' at once) and the quick picture first (' + L.quickN + ' quick), nothing thrown',
     !L.timedOut && L.pool >= 1 && L.quickN >= 1 && L.firstQuick === 0 && L.twice.length === 0 && L.onPage === 0 && L.errs.length === 0, L.errs.slice(0, 2).join(' | '));

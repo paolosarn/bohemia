@@ -1,6 +1,16 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN; newest block on top)
 
-WORLD THIRTEEN (11/17, round six, build three): BUILD 11/17zq - THE MAP PAINTS ON EVERY CORE, BUILT, NOT YET SEEN (rule 453(3);
+WORLD THIRTEEN (11/18, round seven, build one): BUILD 11/18o - THE PAINTING NEVER WAITS IN LINE, BUILT, NOT YET SEEN (rule 453;
+asks 440, 475). Record: records/BOHEMIA_WORLD_THIRTEEN_THE_PAINTING_NEVER_WAITS_IN_LINE_11_18_26.md. VOTE
+world13-the-painting-never-waits-in-line-11-18 (STAND-IN).
+- The whole painting (vbCityReady) is asked of the painters' pool (vbTileSend), never VB.worker's line behind the land past the map:
+  the first after the page opens 10.5 s -> 2.4 s, warm 2 to 3 s both ways. VB_CITY_ON_VB the old way (plant). VBT.queue: a job with
+  every painter busy waits its turn (it was painted on the page). The reaper replaces a dead painter. VBC.askAt / VBC.landMs.
+- TRIED AND TAKEN BACK: the painting in four stitched quarters (no gain warm, and it changes buildings' rolls); in the record.
+- FOR PLUMBER 8: on this box the far stop's long frames are the software GPU (getImageData readbacks), the page thread 77 in 100 idle.
+- Gate THE MAP PAINTS ON EVERY CORE now 7 legs (Q6 the whole painting on the pool). Neighbours green (in the record).
+
+WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/17 LATEST -- (the START head until 11/18o) round six, build three: BUILD 11/17zq - THE MAP PAINTS ON EVERY CORE, BUILT, NOT YET SEEN (rule 453(3);
 rules 418(c), 441; asks 440, 475). Record: records/BOHEMIA_WORLD_THIRTEEN_THE_MAP_PAINTS_ON_EVERY_CORE_11_17_26.md. VOTE
 world13-the-map-paints-on-every-core-11-17 (STAND-IN).
 - THE MEASURE: tools/bohemia_world_thirteen_map_speed.js (the demo at a phone's size, --throttle, --valleys, --pool, --quick,

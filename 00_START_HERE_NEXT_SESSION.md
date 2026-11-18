@@ -572,11 +572,10 @@ VOTE jobs-jobs-that-fit-the-crew-11-10 (STAND-IN), sha da588c127. Record records
 The whole block: handoffs/JOBS.md.
 [bb a Battle Brothers contract is one budget spent on each enemy's own cost; ours now spends it the same way and still shows the crew's own odds in red]
 [analog horror: the board in the Network's camp still lists the hyenas as three red stars; the muralist only asks for three of them now]
-WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/17 LATEST -- BUILD 11/17zq - THE MAP PAINTS ON EVERY CORE, BUILT, NOT YET SEEN (rule
-453(3); asks 440, 475): the close map tiles go to a pool of painters (half the cores) with a quick 60-texel picture first; measured
-on three valleys at the near stop, a whole picture in 6.6/9.0/11.1 s instead of 23.9/19.4/16.1 (full detail about the same on this
-box). The measure: tools/bohemia_world_thirteen_map_speed.js. Before it this round: 11/17zd EVERY ZONE ITS GROUND (a desert road is
-fought in the desert; THE SEAM FOR COMBAT THREE in the handoff), 11/17q EACH ZONE LOOKS LIKE ITSELF (works as sheds, desert tracks).
+WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/18 LATEST -- BUILD 11/18o - THE PAINTING NEVER WAITS IN LINE, BUILT, NOT YET SEEN (rule 453;
+asks 440, 475): zoomed all the way out on a new valley, the whole painting goes to a free painter (10.5 s -> 2.4 s the first after the
+page opens). Before: 11/17zq THE MAP PAINTS ON EVERY CORE, 11/17zd EVERY ZONE ITS GROUND, 11/17q EACH ZONE LOOKS LIKE ITSELF. Next this
+round: THE LAKE HAS ITS RING (the drained lake's bathtub ring, mud flats and stranded boats).
 The whole block: handoffs/WORLD_THIRTEEN.md.
 
 FIXES TWO (fixes-two-01gkdyuv): 11/11 LATEST -- BUILD 11/11l - HIS LETTERS STAY HIS, BUILT, NOT YET SEEN (the red debt rows, round one:

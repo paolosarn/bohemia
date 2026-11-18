@@ -35,7 +35,7 @@ async function measure(opts) {
   const cdp = d.cdp || await d.page.context().newCDPSession(d.page);
   const stops = await fr.evaluate(() => { const b = zoomBounds(); let st = b[1]; try { if (window.BohemiaMapHouses && BohemiaMapHouses.on()) st = Math.max(st, BohemiaMapHouses.streetTW() / TW0); } catch (e) {} return { far: b[0], opening: 1, near: st * 0.45, street: st }; });
   const pool = (opts && opts.pool != null) ? opts.pool : POOL, quick = (opts && opts.quick != null) ? opts.quick : QUICK, stopList = (opts && opts.stops) || STOPS;
-  await fr.evaluate(([p, q]) => { if (p != null && window.VBT) VBT.poolN = +p; if (q != null) VB_QUICK_S = +q || 0; }, [pool, quick]);   /* --pool 1 --quick 0: the map as it was before 11/17 */
+  await fr.evaluate(([p, q]) => { if (p != null && window.VBT) VBT.poolN = +p; if (q != null) { VB_QUICK_S = +q || 0; if (!+q && typeof VB_CITY_ON_VB !== 'undefined') VB_CITY_ON_VB = true; } }, [pool, quick]);   /* --pool 1 --quick 0: the map as it was before 11/17 */
   const rows = [];
   for (let v = 0; v < nv; v++) {
     await cdp.send('Emulation.setCPUThrottlingRate', { rate: thr });
