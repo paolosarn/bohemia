@@ -1,4 +1,4 @@
-COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18k - THE MINT, THE DOGS AND THE SCRAP YARD, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round, this round's third build; rules 408, 409(c), 455; ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18k - THE MINT, THE DOGS AND THE SCRAP YARD, BUILT (25873c94c), NOT YET SEEN (rule 453, round after round, this round's third build; rules 408, 409(c), 455; ask row 627).
 Three more real places wear their own piece on the map (no code): CLARK STATION (the 1954 boiler house and its stack, the turbine hall, four gas units
 cold, the switchyard, the dry gas main, the tires and pallets at the hatch, the charging racks and four who wait; on the beat the hatch's fire and
 the black smoke), the ANIMAL SHELTER (two blocks of runs with every gate open, the control truck, the keeper, seven dogs eating in a row at the door,

@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
-COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18k - THE MINT, THE DOGS AND THE SCRAP YARD, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round, this round's third build; rules 408, 409(c), 455; ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18k - THE MINT, THE DOGS AND THE SCRAP YARD, BUILT (25873c94c), NOT YET SEEN (rule 453, round after round, this round's third build; rules 408, 409(c), 455; ask row 627).
 The real places left in kit art, going on. No code: slices/place_pieces/place_pieces.json gained clark_station, the_animal_shelter and the_scrap_mill,
 the folder six lossless WebP pictures (322,674 bytes in all, thirteen places).
 Made by tools/bohemia_cook5_the_east_sides_three_wear_their_own_piece_11_18_26.py (three scenes and three beats ON the places tool, the downtown tool
