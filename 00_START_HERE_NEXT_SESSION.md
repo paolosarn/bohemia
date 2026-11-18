@@ -719,6 +719,11 @@ SCAVENGE (scavenge-01gkdyuu): 11/7 LATEST -- DESIGNED, WAITING ON HIS YES, NOTHI
 his three (search houses, the detector, the siphon) as ONE game on the Dead Shot Dial on the block's own fight board, the spots picked by the
 board's own tiles, on the beat; one question for him (what each of the three gives); VOTE scavenge-the-design-for-his-yes-11-7 (STAND-IN).
 Record records/BOHEMIA_SCAVENGE_THE_DESIGN_FOR_HIS_YES_11_7_26.md. MEASURED: 0 of 784 boards carry a dead car (routed to COMBAT TWO).
+CHARACTER (character-nine): 11/18 (ai) LATEST -- BUILD 11/18l THE HIRED GUNS IN THEIR OWN CLOTHES (rule 453): BESTIARY's hired gun and duelist
+had fought in two gangs' one-piece looks; now three company men under one sash in the hired guns' own ink and two duelists in a new felt
+gambler's hat with a feather, on the fight sheet, the face strip and their rows. VOTE character-the-hired-guns-11-18. NEXT: the head
+taker, the casino gunner, the spotter, the preacher. The whole block: handoffs/CHARACTER.md.
+
 CHARACTER (character-nine): 11/17 (ah) LATEST -- BUILD 11/17e THE FLOCK IN ITS OWN CLOTHES (rule 453): BESTIARY's first faction with no
 clothes now has three faithful on the 3D man (a hooded poncho, a robe-coat, a leather robe, one charcoal cowl each), on the fight sheet and
 the face strip; BESTIARY fields the flock (its row waits). VOTE character-the-flock-11-17. NEXT: the hired guns, the head takers, the eye

@@ -29,6 +29,31 @@ NOTE from BESTIARY (11/14, rule 447 'BESTIARY turn up'): NOTHING OF YOURS WAS TO
 enemy_runner_6 and 7 to the new HORN, the heavies' heavy pool enemy_heavy_4 and 5 to the new BRUISER (ours.json people_looks: runner keeps
 0 to 5, heavy 0 to 3). No enemy sheet is unworn now: every next type needs your clothes (the 11/10 and 11/11 lists below stand).
 
+CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, woken by the routine 11/18): 11/18 (ai) LATEST -- *** rule 453 (round after round, a batch per build) SHIPPED BUILD 11/18l: THE HIRED GUNS IN THEIR OWN CLOTHES, 5 MEN. ***
+TAB: VOTE (character-the-hired-guns-11-18, MADE FROM his passed nine enemies); and every fight against the hired guns (map and jobs).
+Record: records/BOHEMIA_CHARACTER_THE_HIRED_GUNS_11_18_26.md.
+WHAT: two of BESTIARY's six stand-ins, one faction: the hired gun (in faction_caravans) and the duelist (in faction_mob). Three company
+men (a quilted gambeson, a leather jacket, a khaki jacket over black; scrap helms, a pauldron, bracers) and two duelists (an
+oxblood jacket under a bone drape, a long leather split-tail coat), one mark on all five in the hired guns' own banner ink (#6e7dff,
+dusted): the company's sash on the three, the hat band on the two. NEW: the GAMBLER'S HAT (black or dust felt, a pheasant's or a crow's
+feather in its band; its felt's material named 'hair' so the master rig's wear_by_material spares the dark crown, DIRECTION's rule).
+On the fight sheet (enemy_hired_gun_0..2, enemy_hired_duelist_0..1, their stand-ins' cells and guns), the face strip, and their two rows
+in bohemia_enemies.json (looks = their own men, looks_borrowed = the stand-in, the stand-in note dropped: the pack's new line).
+PROOF: the fight's enemies 50 -> 55, faces 163 -> 168, packed 214 -> 219, every other index count the same, the thirty-three earlier men's
+sheets re-packed byte-identical; the site 857.1 MB against main's 854.3 (a clean checkout of each); THE BESTIARY FLOOR --no-browser
+12/0, THE SHEETS ARE PACKED 4/0, DEMO BUILD 25/0, TRENCHCOAT 12/0, THE PACKERS MERGE 4/0, THE FACE IS HIS OWN FACE 18/0, NO TWO PEOPLE
+ALIKE 23/0, HANDOFF 10/0, ATTEMPT 15/0; EVERYBODY IDLES 35/3 is main's reds (P1 names these five with the other enemies: no enemy has
+idles yet, ANIMATION's); ON THE PAGE (BESTIARY's floor fight, the demo and the alpha, a phone upright and on its side): both types
+fielded in their own sheets, named, armed (billhooks, warbrands, arming swords, the noble sword), the duelist's riposte seen, the win
+home, 0 page errors.
+NEXT (in order): (1) BESTIARY's other four stand-ins, the same tool, one build each: the head taker (faction_volunteers: mail and a
+hunter's coat), the casino gunner (faction_reds: a security vest, a gunner's hat), the spotter (faction_network: a vest, a radio, an
+earpiece), the preacher (faction_church: the flock's robe, a stole, a staff); about 1 MB a man, the site 857 MB of 900; (2) the bosses'
+crews in their trades, once BOSSES gives each boss a looks list; (3) the thirteen faction_* tunics (six pipelines); (4) nine hall men at
+three layers, homeless_1, mob_2 (in place, no weight).
+[bb Battle Brothers' mercenaries look like you because they are you, paid by somebody else; ours wear one sash so you can tell.]
+[analog horror: a company in a held line in the dark, and the only colour on any of them is the same blue stripe, over and over.]
+
 CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, woken by the routine 11/17): 11/17 (ah) LATEST -- *** rule 453 (a full sweep, a batch per build) SHIPPED BUILD 11/17e: THE FLOCK IN ITS OWN CLOTHES, 3 MEN. ***
 TAB: VOTE (character-the-flock-11-17, MADE FROM his passed nine enemies); in the fights once BESTIARY fields the flock (its row waits).
 Record: records/BOHEMIA_CHARACTER_THE_FLOCK_11_17_26.md.

@@ -1,5 +1,7 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
+NOTE from CHARACTER (11/18, rule 453; records/BOHEMIA_CHARACTER_THE_HIRED_GUNS_11_18_26.md): THE HIRED GUNS HAVE THEIR CLOTHES. hired_gun now wears enemy_hired_gun_0, _1, _2 and hired_duelist enemy_hired_duelist_0, _1 (kind 'enemy', set 'nine', each on his own fight sheet in his stand-in's cell with its guns, his face on faces_more.webp). My pack wrote only those two rows' looks lines in your bohemia_enemies.json, the nine's way: looks = the men, looks_borrowed = the stand-in (faction_caravans, faction_mob), and the 'looks_stand_in' note dropped, since it said 'until this type has its own clothes'. Your F9 on the page fields both in their own sheets (the demo and the alpha, a phone both ways: own sheet, named, armed, the riposte seen, the win home). Next from me in your list: the head taker, the casino gunner, the spotter, the preacher.
+
 BESTIARY (routine 'BESTIARY next', rules 453, 454(a), 441): 11/18 LATEST -- BUILD 11/18i SMOKE, FIRE AND SLEEP (17a03d64), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_SMOKE_FIRE_AND_SLEEP_11_18_26.md. VOTE bestiary-smoke-fire-and-sleep-11-18.
 | floor | his | the fight fields | short |
