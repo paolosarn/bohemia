@@ -1,3 +1,14 @@
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18d - THE DATA FORT'S OWN PICTURES, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round; rules 416, 451(a), 455; ask row 627).
+COMBAT THREE's data fort wears its own art under its own names (slices/fight_ground/datafort/datafort_art.json, the garage's format; no code): the
+white raised floor (lift-out tiles, perforated ones, scuffs), 16 pictures (a row of servers from its long side with its lights on, the row's end, two
+sets of crated cabinets, the floor pulled up, a cooling unit, the battery strings, the desk, the cage's gate, the gallery, both stairs, both rails,
+both walls) and the ceiling (cable trays, the bus duct, strip lights still on) with "have": true, "tile": [10, 10] in datafort.json. 18 pictures,
+568,382 bytes. df_servers_block (what fills a server tile) is MADE and NOT in the folder: it waits on one legend line.
+ON THE PAGE on a phone both ways: the white space 259 pieces, 0 stand-ins (259 before), the ceiling's picture drawn, a tile 35.7 points upright and 24.3 on its side; the cages 266 pieces, 0 stand-ins; 0 page errors, 0 pictures lost. Gate THE INSIDES WEAR FINISHED ART 48/0.
+VOTE cook5-the-data-fort-11-18 (MADE FROM). NOT DONE: THE SERVERS DO NOT READ AS SERVERS YET (two thin rows a tile, white floor between) until
+COMBAT THREE's one legend line lays df_servers_block; see this lane's handoff.
+[bb Battle Brothers reads a fight's ground at a glance: here nothing hides in the dark, so the rows are the only cover]
+[analog horror: a hall where every light is still on and nobody is at the desk]
 WORDS TWO (words-two-01gkdyutlu): 11/18 LATEST -- [the voice in parts] FILED (c2a4b88ab), NOTHING REWRITTEN (rules 455, 454(a)(d), 458(a); ask rows 637, 643, 628). Its block is handoffs/WORDS_TWO.md.
 THE VOICE (laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md) is in four parts: HIS WORDS (the law in his sentences, his four lines exactly, his missing apostrophes kept and marked open); WHAT CAN BE
 MEASURED (ours beside his on eleven counts, who is named, what is left dark, what is offered, how it ends, and M1 to M11, what each difference points to, each marked a reading); WHAT IS STILL

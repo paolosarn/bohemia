@@ -2,9 +2,9 @@
 // slices/fight_ground/insides.json: the mall is the second). It changes nothing in the game: it opens the real fight page on a
 // phone (390 x 844 and 844 x 390 at 2), asks for the inside by name (opts.inside, a named layout), and shoots what he meets: the
 // opening view with the ceiling off (UI.noCeiling, the page test's own switch) and as the data file says, then close on named
-// spots (one as the page is; then every spot with the page's close-in draw mended IN MEMORY, the shots named 'held': ask row 646).
-//   node tools/bohemia_a_big_inside_on_the_page_11_17_26.js <outdir> <hall|mall|warehouse> [upright,sideways] [layout]
-// writes <inside>_<shape>_open_a0.png, _open_a01.png, _<spot>_close_as_is.png, _<spot>_close_held.png and page_<shape>.json (the
+// spots, as the page is (ask row 646 is fixed: nothing is mended in memory any more).
+//   node tools/bohemia_a_big_inside_on_the_page_11_17_26.js <outdir> <hall|mall|warehouse|datafort> [upright,sideways] [layout]
+// writes <inside>_<shape>_open_a0.png, _open_a01.png, _<spot>_close.png and page_<shape>.json (the
 // board's own count of stand-ins, the pieces with no picture, whether the ceiling's picture drew, a fight tile's size in points).
 const http = require('http'), fs = require('fs'), path = require('path');
 const ROOT = path.resolve(__dirname, '..');
@@ -14,8 +14,10 @@ const SPOTS = { the_split_hall: { cots: [2.5, 4], mezz: [3, 1.6], stair_w: [16.5
   the_atrium: { fronts: [2.5, 3.4], bridge: [9, 6.4], escalator: [5.6, 6.8], store: [2, 1.6], camp: [7.4, 1.4], tables: [13.6, 5], kiosk: [6, 5], rubble: [14, 6], lift: [8.6, 8], south_stores: [3, 12] },
   the_food_court: { fronts: [2.5, 3.4], bridge: [9, 6.4], tables: [13.6, 5] },
   the_lanes: { racks: [2.5, 3.6], mezz: [5, 1.4], stair: [12.4, 1.4], lane: [3, 4.4], camp: [12.6, 4.4], conveyor: [9, 11], forklift: [4.6, 11.2], trailer: [3.6, 13], cage: [16.6, 11], desk: [2, 12] },
-  the_cross_dock: { racks: [2.5, 3.6], mezz: [5, 1.4] } };
-const INSIDES = { hall: { district: 'convention', layout: 'the_split_hall' }, mall: { district: 'mall', layout: 'the_atrium' }, warehouse: { district: 'warehouse', layout: 'the_lanes' } };
+  the_cross_dock: { racks: [2.5, 3.6], mezz: [5, 1.4] },
+  the_white_space: { pod: [3, 4.4], gallery: [5, 1.4], stair: [13, 1.4], crac: [16.6, 2], pod_end: [3, 7], floor_up: [5.4, 6.4], desk: [13, 12.4], batteries: [7.5, 12.4], crates: [10, 5.2] },
+  the_cages: { pod: [3, 4.4], gallery: [5, 1.4] } };
+const INSIDES = { hall: { district: 'convention', layout: 'the_split_hall' }, mall: { district: 'mall', layout: 'the_atrium' }, warehouse: { district: 'warehouse', layout: 'the_lanes' }, datafort: { district: 'datafort', layout: 'the_white_space' } };
 (async () => {
   const out = process.argv[2], inside = process.argv[3] || 'hall', shapes = (process.argv[4] || 'upright,sideways').split(','), layout = process.argv[5] || INSIDES[inside].layout;
   fs.mkdirSync(out, { recursive: true });
@@ -39,16 +41,12 @@ const INSIDES = { hall: { district: 'convention', layout: 'the_split_hall' }, ma
     const shot = async (tag) => { await p.waitForTimeout(700); await p.screenshot({ path: path.join(out, inside + '_' + shape[0] + '_' + tag + '.png') }); };
     await p.evaluate(() => { eval('UI').noCeiling = true; }); await shot('open_a0');
     await p.evaluate(() => { eval('UI').noCeiling = false; }); await shot('open_a01');
-    // CLOSE IN. As the page is (ask row: an inside's furniture is not drawn close in once the camera stops), one spot, counted;
-    // then the same spots with groundOn's three cxDraw(...) calls turned to sheetDraw(cx, [...]) IN MEMORY, to see the pictures
-    // at their size (the page's file is not touched; the shots' names say 'held').
+    // CLOSE IN, as the page is. (Ask row 646, an inside's furniture not drawn close in once the camera stops, was FIXED by COMBAT
+    // THREE in BUILD 11/17zl: groundOn draws on the canvas it is given. Until then this tool turned the three calls in memory and
+    // named its shots 'held'. It counts the old calls still: 0 on a mended page, and nothing is turned.)
     const aim = async (at) => { await p.evaluate(([tx, ty]) => { const U = eval('UI'); eval('camMine')(); U.zoom = U.near; U.cx = (tx + 0.5) * U.tw; U.cy = (ty + 0.5) * U.th; eval('clampCam')(); }, at); };
-    const first = Object.entries(SPOTS[layout] || {})[0];
-    if (first) { await aim(first[1]); await shot(first[0] + '_close_as_is'); }
-    info.held = await p.evaluate(() => { const src = String(window.groundOn), n = (src.match(/cxDraw\(/g) || []).length;
-      (0, eval)('groundOn = ' + src.replace(/cxDraw\(([^;]*?)\);/g, 'sheetDraw(cx, [$1]);')); const U = eval('UI'); U.gprev = null; U.gkey = null; U.gsheet = null;
-      return { calls_turned: n, left: (String(window.groundOn).match(/cxDraw\(/g) || []).length }; });
-    for (const [name, at] of Object.entries(SPOTS[layout] || {})) { await aim(at); await shot(name + '_close_held'); }
+    info.old_calls = await p.evaluate(() => (String(window.groundOn).match(/cxDraw\(/g) || []).length);
+    for (const [name, at] of Object.entries(SPOTS[layout] || {})) { await aim(at); await shot(name + '_close'); }
     info.lost = lost.slice(); info.errors = errs.slice(0, 4);
     fs.writeFileSync(path.join(out, 'page_' + shape[0] + '.json'), JSON.stringify(info, null, 1));
     await ctx.close();

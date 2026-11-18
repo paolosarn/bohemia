@@ -1,0 +1,303 @@
+{
+ "version": "cook5-datafort-art-11-18",
+ "lane": "cook 5",
+ "stage": "finished",
+ "for": "COMBAT THREE's data fort (slices/fight_ground/datafort/datafort.json, BUILD 11/17zo): the names its handoff asked for, the garage's format. floor.floor is the raised white floor (rows 0 to 3 of the sheet: the lift-out tiles, a perforated one here and there, scuffs), floor.high its row 4 with no marks (under the gallery's own picture, which carries the carpet tile), floor.ring every tile (the hall going on past the fight). Any tile meets any tile.",
+ "floor": {
+  "floor": [
+   "datafort/datafort_floor_0.webp#0,0",
+   "datafort/datafort_floor_0.webp#1,0",
+   "datafort/datafort_floor_0.webp#2,0",
+   "datafort/datafort_floor_0.webp#3,0",
+   "datafort/datafort_floor_0.webp#4,0",
+   "datafort/datafort_floor_0.webp#0,1",
+   "datafort/datafort_floor_0.webp#1,1",
+   "datafort/datafort_floor_0.webp#2,1",
+   "datafort/datafort_floor_0.webp#3,1",
+   "datafort/datafort_floor_0.webp#4,1",
+   "datafort/datafort_floor_0.webp#0,2",
+   "datafort/datafort_floor_0.webp#1,2",
+   "datafort/datafort_floor_0.webp#2,2",
+   "datafort/datafort_floor_0.webp#3,2",
+   "datafort/datafort_floor_0.webp#4,2",
+   "datafort/datafort_floor_0.webp#0,3",
+   "datafort/datafort_floor_0.webp#1,3",
+   "datafort/datafort_floor_0.webp#2,3",
+   "datafort/datafort_floor_0.webp#3,3",
+   "datafort/datafort_floor_0.webp#4,3"
+  ],
+  "high": [
+   "datafort/datafort_floor_0.webp#0,4",
+   "datafort/datafort_floor_0.webp#1,4",
+   "datafort/datafort_floor_0.webp#2,4",
+   "datafort/datafort_floor_0.webp#3,4",
+   "datafort/datafort_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "datafort/datafort_floor_0.webp#0,0",
+   "datafort/datafort_floor_0.webp#1,0",
+   "datafort/datafort_floor_0.webp#2,0",
+   "datafort/datafort_floor_0.webp#3,0",
+   "datafort/datafort_floor_0.webp#4,0",
+   "datafort/datafort_floor_0.webp#0,1",
+   "datafort/datafort_floor_0.webp#1,1",
+   "datafort/datafort_floor_0.webp#2,1",
+   "datafort/datafort_floor_0.webp#3,1",
+   "datafort/datafort_floor_0.webp#4,1",
+   "datafort/datafort_floor_0.webp#0,2",
+   "datafort/datafort_floor_0.webp#1,2",
+   "datafort/datafort_floor_0.webp#2,2",
+   "datafort/datafort_floor_0.webp#3,2",
+   "datafort/datafort_floor_0.webp#4,2",
+   "datafort/datafort_floor_0.webp#0,3",
+   "datafort/datafort_floor_0.webp#1,3",
+   "datafort/datafort_floor_0.webp#2,3",
+   "datafort/datafort_floor_0.webp#3,3",
+   "datafort/datafort_floor_0.webp#4,3",
+   "datafort/datafort_floor_0.webp#0,4",
+   "datafort/datafort_floor_0.webp#1,4",
+   "datafort/datafort_floor_0.webp#2,4",
+   "datafort/datafort_floor_0.webp#3,4",
+   "datafort/datafort_floor_0.webp#4,4"
+  ]
+ },
+ "kit": {
+  "df_gallery": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "THE CONTROL ROOM'S GALLERY",
+   "stage": "finished",
+   "src": "datafort/df_gallery.webp",
+   "w": 516,
+   "h_px": 436,
+   "foot": [
+    258.2,
+    435
+   ]
+  },
+  "df_stair_e": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "ITS STAIR, EAST",
+   "stage": "finished",
+   "src": "datafort/df_stair_e.webp",
+   "w": 515,
+   "h_px": 456,
+   "foot": [
+    257.8,
+    455
+   ]
+  },
+  "df_stair_w": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "ITS STAIR, WEST",
+   "stage": "finished",
+   "src": "datafort/df_stair_w.webp",
+   "w": 515,
+   "h_px": 456,
+   "foot": [
+    257.5,
+    455
+   ]
+  },
+  "df_rail_ew": {
+   "kind": "RAIL",
+   "h": 1.04,
+   "name": "THE GLASS RAIL",
+   "stage": "finished",
+   "src": "datafort/df_rail_ew.webp",
+   "w": 516,
+   "h_px": 73,
+   "foot": [
+    258.2,
+    58
+   ]
+  },
+  "df_rail_ns": {
+   "kind": "RAIL",
+   "h": 1.04,
+   "name": "THE GLASS RAIL",
+   "stage": "finished",
+   "src": "datafort/df_rail_ns.webp",
+   "w": 77,
+   "h_px": 414,
+   "foot": [
+    21.7,
+    413
+   ]
+  },
+  "df_wall_ew": {
+   "kind": "WALL",
+   "h": 1.6,
+   "name": "THE OUTER WALL",
+   "stage": "finished",
+   "src": "datafort/df_wall_ew.webp",
+   "w": 515,
+   "h_px": 79,
+   "foot": [
+    257.8,
+    78
+   ]
+  },
+  "df_wall_ns": {
+   "kind": "WALL",
+   "h": 1.6,
+   "name": "THE OUTER WALL",
+   "stage": "finished",
+   "src": "datafort/df_wall_ns.webp",
+   "w": 91,
+   "h_px": 439,
+   "foot": [
+    22.4,
+    438
+   ]
+  },
+  "df_servers_ew": {
+   "kind": "WALL",
+   "h": 2.0,
+   "name": "A SERVER ROW'S END",
+   "stage": "finished",
+   "src": "datafort/df_servers_ew.webp",
+   "w": 515,
+   "h_px": 109,
+   "foot": [
+    257.5,
+    106
+   ]
+  },
+  "df_servers_ns": {
+   "kind": "WALL",
+   "h": 2.2,
+   "name": "A ROW OF SERVERS",
+   "stage": "finished",
+   "src": "datafort/df_servers_ns.webp",
+   "w": 146,
+   "h_px": 489,
+   "foot": [
+    35.1,
+    486
+   ]
+  },
+  "df_crac": {
+   "kind": "WALL",
+   "h": 2.4,
+   "name": "A COOLING UNIT",
+   "stage": "finished",
+   "src": "datafort/df_crac.webp",
+   "w": 361,
+   "h_px": 234,
+   "foot": [
+    138.0,
+    216
+   ]
+  },
+  "df_batteries": {
+   "kind": "COVER",
+   "h": 1.9,
+   "name": "THE BATTERY STRINGS",
+   "stage": "finished",
+   "src": "datafort/df_batteries.webp",
+   "w": 520,
+   "h_px": 157,
+   "foot": [
+    224.0,
+    136
+   ]
+  },
+  "df_desk": {
+   "kind": "LOW_COVER",
+   "h": 1.5,
+   "name": "THE OPERATORS' DESK",
+   "stage": "finished",
+   "src": "datafort/df_desk.webp",
+   "w": 326,
+   "h_px": 130,
+   "foot": [
+    138.0,
+    116
+   ]
+  },
+  "df_gate": {
+   "kind": "DRESS",
+   "h": 2.4,
+   "name": "A CAGE'S GATE, CUT OPEN",
+   "stage": "finished",
+   "src": "datafort/df_gate.webp",
+   "w": 515,
+   "h_px": 178,
+   "foot": [
+    257.5,
+    166
+   ]
+  },
+  "df_crates": {
+   "kind": "COVER",
+   "h": 2.35,
+   "name": "CABINETS STILL CRATED",
+   "stage": "finished",
+   "src": "datafort/df_crates.webp",
+   "w": 300,
+   "h_px": 185,
+   "foot": [
+    112.1,
+    158
+   ]
+  },
+  "df_crates_b": {
+   "kind": "DRESS",
+   "h": 2.35,
+   "name": "CABINETS STILL CRATED",
+   "stage": "finished",
+   "src": "datafort/df_crates_b.webp",
+   "w": 292,
+   "h_px": 161,
+   "foot": [
+    103.5,
+    158
+   ]
+  },
+  "df_floor_up": {
+   "kind": "LOW_COVER",
+   "h": 0.6,
+   "name": "THE FLOOR, PULLED UP",
+   "stage": "finished",
+   "src": "datafort/df_floor_up.webp",
+   "w": 201,
+   "h_px": 91,
+   "foot": [
+    90.2,
+    88
+   ]
+  }
+ },
+ "how_it_lays": {
+  "a whole tile of servers (MADE, NOT IN THIS FOLDER YET)": "df_servers_block is what fills a server tile between its two edge rows: two more rows and the three contained aisles under their roof panels, 10.08 m wide, a tile deep, 2.2 m up, foot its south base middle. The big inside's own module lays a wall tile's 'piece' at (0.5, 0.98): the one line \"piece\": \"df_servers_block\" on the legend's 'S' and a kit line for the name, and this lane's next cut puts the picture here (tools/bohemia_cook5_the_data_fort_finished_11_18_26.py cut --block). Until then a server tile is its two edge rows with the white floor between them.",
+  "the server rows": "df_servers_ns is one row of twenty cabinets 1.2 m wide and a tile deep, 2.2 m up the glass, foot its south end middle: laid on both long edges of a server tile it is the pod's two rows, their lights on their tops' edges (the map's eye is over them: a cabinet's doors face east and west and are never seen, so the lights that say it is on are on its top). df_servers_ew is the pod's end a tile wide, 2 m up, foot its south base middle.",
+  "the floor things": "df_crates is 5 m wide (three crates, one opened), df_crates_b two more; df_floor_up is the hole and its stack, 4 m; df_desk 6 m, its screens face south; df_batteries a tile wide, 1.9 m; df_crac 6 m by 2.2 m, 2.4 m up and its pipes: foot each at its south edge middle",
+  "the gate": "df_gate is a tile wide, 2.4 m of mesh with the gate open in its middle 2 m (a man on the tile stands in the gap); foot its south base middle",
+  "the gallery": "df_gallery on every high tile, foot at the tile's south edge middle; 1.42 m up; its carpet tiles repeat every 1.2 m so deck tiles meet. df_stair_e climbs to the east, df_stair_w to the west. df_rail_ew / df_rail_ns on its open edges (the hall's glass rail).",
+  "the outer wall": "df_wall_ew / df_wall_ns: windowless concrete painted white, cut at 1.6 m, a tile long"
+ },
+ "bytes": {
+  "floor": 183154,
+  "ceiling": 20606
+ },
+ "ceiling": {
+  "sheet": "datafort/datafort_ceiling.webp",
+  "bays": [
+   5,
+   5
+  ],
+  "bay_px": [
+   129,
+   91
+  ],
+  "covers": [
+   10,
+   10
+  ],
+  "what": "the slab, ladder trays of cable over every row (two a bay, north to south), the bus duct across every bay and its tap boxes, conduit, strip lights nearly all still on, red smoke heads",
+  "contract": "datafort.json 'ceiling' (COMBAT THREE's: the fight draws it over the board at that alpha, rule 451(a))"
+ }
+}

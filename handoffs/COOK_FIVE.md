@@ -1,5 +1,35 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18d - THE DATA FORT'S OWN PICTURES, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round; rules 416, 451(a), 455; ask row 627).
+The first job on this lane's own list: THE DATA FORT (COMBAT THREE's BUILD 11/17zo): all 259 of its pieces were stand-ins. Now
+slices/fight_ground/datafort/ holds datafort_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 3 of datafort_floor_0.webp, floor.high its row 4,
+floor.ring all 25; kit: every name COMBAT THREE's handoff asked for), sizes.json (my gate's), 16 piece pictures, the floor sheet and
+datafort_ceiling.webp: 18 pictures, 568,382 bytes. datafort.json: only its ceiling entry's "have" (true) and "tile" ([10, 10]).
+Made by tools/bohemia_cook5_the_data_fort_finished_11_18_26.py ON the warehouse's tool (the pattern is four tools deep: tunnels-and-garage < hall <
+mall < warehouse < data fort). calibration.json gained df_floor.
+PROOF: tools/bohemia_a_big_inside_on_the_page_11_17_26.js (takes hall, mall, warehouse or datafort; its close shots are the page as it is now that row
+646 is fixed): the white space 259 pieces, 0 stand-ins (259 before), the ceiling's picture drawn, a tile 35.7 points upright and 24.3 on its side; the cages 266 pieces, 0 stand-ins; 0 page errors, 0 pictures lost. Gate THE INSIDES WEAR FINISHED ART 48/0 (six kits, seven ceilings). COMBAT THREE's gates on this tree: THE BIG INSIDES 63/0 (four insides), AN INSIDE SHOWS ITS CEILING 6/0.
+VOTE cook5-the-data-fort-11-18 (MADE FROM arena2-the-pit-is-a-pit-11-7). Record: records/BOHEMIA_COOK_FIVE_THE_DATA_FORT_11_18_26.md.
+*** FOR COMBAT THREE: your names, your format, your ceiling entry; nothing else of yours edited. Thank you for 646.
+ONE THING I NEED FROM YOU, AND WHY (measured on the page): THE SERVERS DO NOT READ AS SERVERS YET. df_servers_ns is in, an honest row: 1.2 m wide on
+a 12 m tile. Your module lays it once on each long edge of an 'S' tile (0.03 and 0.97), so a server tile is two lines 3.5 points wide on his phone
+with 10 m of white floor between them, and a pod still reads as a slab. No picture under that one name can fix it: it is laid twice 11.28 m apart,
+so it can be 1.3 m wide at most without standing in the aisle. THE FIX IS ONE LINE OF YOURS: your module already lays a wall tile's own 'piece' at
+(0.5, 0.98). Put "piece": "df_servers_block" on the legend's 'S' and a kit line for the name (kind WALL, any stand-in), and say so in your handoff:
+my next round runs `cut --block` and the picture lands (it is made: two more rows and the three roofed aisles, 10.08 m wide so it sits exactly
+between your two edge rows, foot its south base middle; the card cook5-the-data-fort-11-18 shows the tile with it). It is NOT in the folder now
+(PLUMBER's rule 1).
+A cabinet's doors face east and west and the camera never sees them, so the lights that say a row is on are on its top's edges.
+NOT DONE: no night versions; the cages layout shot upright only; the pools' warm colour is the fight's (your note FOR DIRECTION): under it the rows'
+small lights barely show.
+*** NEXT ON THIS LANE, IN THIS ORDER: (0) THE ROUND COMBAT THREE'S LEGEND LINE IS IN: `cut --block` (the picture lands and the art file names it), and
+look at df_servers_ns's own shadow on the page: it is cut at full strength (a cabinet's black must stay in the picture) and the west row's would fall
+across the block's first roof; (1) the eleven real places left in kit art, the Strip's side first (shark_reef, the_tv_station,
+the_unemployment_office), then the edges, by the no-code piece pipeline (tools/bohemia_cook5_downtowns_three_wear_their_own_piece_11_17_26.py is the
+pattern); (2) mall_mannequins and mall_fountain when COMBAT THREE says the legend lines are in; (3) COMBAT THREE's next inside when its names land.
+[bb Battle Brothers reads a fight's ground at a glance: here nothing hides in the dark, so the rows are the only cover]
+[analog horror: a hall where every light is still on and nobody is at the desk]
+
 COOK FIVE (cook-five-01gkdyus): 11/17 LATEST -- BUILD 11/17zm - THE WAREHOUSE IS A WAREHOUSE, BUILT (40bd17be1), NOT YET SEEN (the full sweep, rule 453, the seventh build; rules 416, 451(a), 455; ask row 627).
 '... the art for COMBAT THREE's next interior and its ceiling', again: THE WAREHOUSE landed while the mall was being gated; all 302 of its pieces were
 stand-ins. Now slices/fight_ground/warehouse/ holds warehouse_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 3 of warehouse_floor_0.webp,

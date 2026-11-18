@@ -1,0 +1,178 @@
+{
+ "gallery": {
+  "w": 516,
+  "h": 436,
+  "foot": [
+   258.2,
+   435
+  ],
+  "piece": "gallery",
+  "src": "datafort/df_gallery.webp",
+  "facing": "S"
+ },
+ "stair_e": {
+  "w": 515,
+  "h": 456,
+  "foot": [
+   257.8,
+   455
+  ],
+  "piece": "stair_e",
+  "src": "datafort/df_stair_e.webp",
+  "facing": "S"
+ },
+ "stair_w": {
+  "w": 515,
+  "h": 456,
+  "foot": [
+   257.5,
+   455
+  ],
+  "piece": "stair_w",
+  "src": "datafort/df_stair_w.webp",
+  "facing": "S"
+ },
+ "rail_ew": {
+  "w": 516,
+  "h": 73,
+  "foot": [
+   258.2,
+   58
+  ],
+  "piece": "rail_ew",
+  "src": "datafort/df_rail_ew.webp",
+  "facing": "S"
+ },
+ "rail_ns": {
+  "w": 77,
+  "h": 414,
+  "foot": [
+   21.7,
+   413
+  ],
+  "piece": "rail_ns",
+  "src": "datafort/df_rail_ns.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 515,
+  "h": 79,
+  "foot": [
+   257.8,
+   78
+  ],
+  "piece": "wall_ew",
+  "src": "datafort/df_wall_ew.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 91,
+  "h": 439,
+  "foot": [
+   22.4,
+   438
+  ],
+  "piece": "wall_ns",
+  "src": "datafort/df_wall_ns.webp",
+  "facing": "S"
+ },
+ "servers_ew": {
+  "w": 515,
+  "h": 109,
+  "foot": [
+   257.5,
+   106
+  ],
+  "piece": "servers_ew",
+  "src": "datafort/df_servers_ew.webp",
+  "facing": "S"
+ },
+ "servers_ns": {
+  "w": 146,
+  "h": 489,
+  "foot": [
+   35.1,
+   486
+  ],
+  "piece": "servers_ns",
+  "src": "datafort/df_servers_ns.webp",
+  "facing": "S"
+ },
+ "crac": {
+  "w": 361,
+  "h": 234,
+  "foot": [
+   138.0,
+   216
+  ],
+  "piece": "crac",
+  "src": "datafort/df_crac.webp",
+  "facing": "S"
+ },
+ "batteries": {
+  "w": 520,
+  "h": 157,
+  "foot": [
+   224.0,
+   136
+  ],
+  "piece": "batteries",
+  "src": "datafort/df_batteries.webp",
+  "facing": "S"
+ },
+ "desk": {
+  "w": 326,
+  "h": 130,
+  "foot": [
+   138.0,
+   116
+  ],
+  "piece": "desk",
+  "src": "datafort/df_desk.webp",
+  "facing": "S"
+ },
+ "gate": {
+  "w": 515,
+  "h": 178,
+  "foot": [
+   257.5,
+   166
+  ],
+  "piece": "gate",
+  "src": "datafort/df_gate.webp",
+  "facing": "S"
+ },
+ "crates": {
+  "w": 300,
+  "h": 185,
+  "foot": [
+   112.1,
+   158
+  ],
+  "piece": "crates",
+  "src": "datafort/df_crates.webp",
+  "facing": "S"
+ },
+ "crates_b": {
+  "w": 292,
+  "h": 161,
+  "foot": [
+   103.5,
+   158
+  ],
+  "piece": "crates_b",
+  "src": "datafort/df_crates_b.webp",
+  "facing": "S"
+ },
+ "floor_up": {
+  "w": 201,
+  "h": 91,
+  "foot": [
+   90.2,
+   88
+  ],
+  "piece": "floor_up",
+  "src": "datafort/df_floor_up.webp",
+  "facing": "S"
+ }
+}
