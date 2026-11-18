@@ -61,7 +61,7 @@ spec = importlib.util.spec_from_file_location('outline', os.path.join(ROOT, 'gat
 OL = importlib.util.module_from_spec(spec); spec.loader.exec_module(OL)
 FLOOR, MARK_PX, MARK_FACINGS = OL.FLOOR, OL.MARK_PX, OL.MARK_FACINGS
 MAP_SCALE = 5                 # the map draws a beast party at about a fifth of the fight's pixels (WORLD 12's 'the map's fifth')
-TYPES_IN_THE_FIGHT_FLOOR = 67  # MEASURED 11/17 (67 with the duelist, the preacher and the spotter; 63 with the four factions, 64 with the mammoth; 59 on 11/14); 11/14 (42 before BESTIARY's seven, 49 before its five men, 54 before its three, 57 before its two): only ever raised
+TYPES_IN_THE_FIGHT_FLOOR = 70  # MEASURED 11/18 (70 with the smoker, the darter and the grenadier); 11/17 (67 with the duelist, the preacher and the spotter; 63 with the four factions, 64 with the mammoth; 59 on 11/14); 11/14 (42 before BESTIARY's seven, 49 before its five men, 54 before its three, 57 before its two): only ever raised
 FACTIONS_FIELDED_NOW = 12      # MEASURED 11/17 (8 until the flock, the hired guns, the head takers and the eye in the sky): the factions the fight fields a party for; only ever raised
 LAB_MADE_NOW = 18              # MEASURED 11/17 (17 on 11/10, the floor; the Columbian mammoth the eighteenth) (10 before BESTIARY's seven): the law's floor, met; only ever raised
 BY = 'BESTIARY'
@@ -252,6 +252,35 @@ def tallest_px(look):
     return best
 
 
+def facings_px(look):
+    from PIL import Image
+    L = J('slices/fight_rig/fight_rig.json')['looks'][look]
+    im = Image.open(os.path.join(ROOT, 'slices/fight_rig', L['file'])).convert('RGBA')
+    out = []
+    for d in range(min(8, im.height // L['h'])):
+        bb = im.crop((0, d * L['h'], L['w'], (d + 1) * L['h'])).getchannel('A').point(lambda a: 255 if a > 40 else 0).getbbox()
+        out.append(bb[3] - bb[1] if bb else 0)
+    return out, L.get('height_m')
+
+
+def every_beast(ne, plain=False):
+    # BESTIARY 11/18 (the routine 'BESTIARY next': 'every beast checked against a man for size'): each beast's picture averaged over
+    # its eight facings, at its own draw (numbers.beast_draw, by_look where it has one), against the man's: within STOOD_TOL of its
+    # model's height in metres (the sheet's height_m) against his 1.752. plain: every beast at the one scale (the plant)
+    v = (((ne.get('numbers') or {}).get('beast_draw') or {}).get('value') or {})
+    sc, by = v.get('scale', 1), ({} if plain else (v.get('by_look') or {}))
+    mf, mh = facings_px('person_town_2'); man = sum(mf) / len(mf)
+    out, bad = {}, []
+    for k, L in J('slices/fight_rig/fight_rig.json')['looks'].items():
+        if not k.startswith('beast_'): continue
+        f, hm = facings_px(k)
+        if not f or not hm: bad.append(k + ': no facings or no height'); continue
+        r = (sum(f) / len(f)) * by.get(k, sc) / man / (hm / mh)
+        out[k] = round(r, 2)
+        if abs(r - 1) > STOOD_TOL: bad.append('%s %.2f of its height' % (k, r))
+    return out, bad
+
+
 def stood(ne, scale=None):
     sc = scale if scale is not None else (((ne.get('numbers') or {}).get('beast_draw') or {}).get('value') or {}).get('scale', 1)
     man = tallest_px('person_town_2')
@@ -378,6 +407,9 @@ def main():
         if bv.get('ripostes') and not (a.get('on_guard') and a.get('riposte')): bad.append(r['id'] + ': a duelist who never strikes back')
         if bv.get('turns') and not a.get('turned'): bad.append(r['id'] + ': a preacher who never turns a man on his friend')
         if bv.get('calls') and not a.get('call_lands'): bad.append(r['id'] + ': a spotter whose called ground is never hit')
+        if bv.get('smokes') and not a.get('smoke_pot'): bad.append(r['id'] + ': a smoker who never throws smoke')
+        if bv.get('firebombs') and not (a.get('fire_pot') and a.get('burned')): bad.append(r['id'] + ': a grenadier whose fire never burns a man')
+        if bv.get('darts') and not a.get('dart'): bad.append(r['id'] + ': a darter who never puts a man to sleep')
         w6, w0 = (o.get('won_by_crew_of_6') or 0), o.get('won_without_him')
         if w6 < 6 and not (w0 is not None and w6 >= w0 - 1): bad.append('%s: a crew of 6 beats its party %s in 10 (%s without him)' % (r['id'], w6, w0))
     wait = [r['id'] for r in (D['ne'].get('waiting') or {}).get('rows', [])]
@@ -386,7 +418,7 @@ def main():
     leg(mine and not bad, 'F10 THE NEW MEN: %d enemy types BESTIARY added, each on a wiki row with its lesson, in its own clothes, dealt by its party, armed from its own gear and striking its own way on the live rules (%s)%s'
         % (len(mine), '; '.join('%s %s, %s, %d/%d struck near/far%s' % (r['id'], (HL.get('men') or {}).get(r['id'], {}).get('weapon'), r['brain'],
                                 (HL.get('men') or {}).get(r['id'], {}).get('acts', {}).get('melee', 0), (HL.get('men') or {}).get(r['id'], {}).get('acts', {}).get('ranged', 0),
-                                ''.join(', %d %s' % (v, {'kick': 'great swings', 'charge': 'charges', 'flings': 'throws', 'horrific_scream': 'horn blasts', 'martyr': 'surges', 'trample': 'tramples', 'riposte': 'strikes back', 'turned': 'men turned on a friend', 'call_lands': 'called crosses hit', 'toward_main': 'steps past a nearer man toward the main man'}[k]) for k, v in ((HL.get('men') or {}).get(r['id'], {}).get('acts', {}) or {}).items() if k in ('kick', 'charge', 'flings', 'horrific_scream', 'martyr', 'trample', 'riposte', 'turned', 'call_lands') and v or (k == 'toward_main' and v and ((D['ne']['brains'].get(r.get('brain')) or {}).get('value') or {}).get('hunts_main')))) for r in mine),
+                                ''.join(', %d %s' % (v, {'kick': 'great swings', 'charge': 'charges', 'flings': 'throws', 'horrific_scream': 'horn blasts', 'martyr': 'surges', 'trample': 'tramples', 'riposte': 'strikes back', 'turned': 'men turned on a friend', 'call_lands': 'called crosses hit', 'smoke_pot': 'smoke pots', 'burned': 'burns from his fire', 'dart': 'men put to sleep', 'toward_main': 'steps past a nearer man toward the main man'}[k]) for k, v in ((HL.get('men') or {}).get(r['id'], {}).get('acts', {}) or {}).items() if k in ('kick', 'charge', 'flings', 'horrific_scream', 'martyr', 'trample', 'riposte', 'turned', 'call_lands', 'smoke_pot', 'burned', 'dart') and v or (k == 'toward_main' and v and ((D['ne']['brains'].get(r.get('brain')) or {}).get('value') or {}).get('hunts_main')))) for r in mine),
            (('; WAITING FOR ITS OWN CLOTHES (CHARACTER): ' + ', '.join(wait)) if wait else '') + (('; IN A STAND-IN LOOK (CHARACTER): ' + ', '.join(r['id'] for r in mine if r.get('looks_stand_in'))) if any(r.get('looks_stand_in') for r in mine) else '')),
         '; '.join(bad[:4]))
     # ---------------- F9: the five end to end on the page, a phone upright and sideways (rule 441(a)) ----------------
@@ -416,7 +448,7 @@ def main():
                 ok = (o.get('fight') and fl and all(x.get('own') and x.get('drawn') and x.get('look') in r['looks'] and x.get('name') == r['board_name'] and x.get('weapon') for x in fl)
                       and o.get('says') and o.get('home'))
                 bv = (D['ne']['brains'].get(r.get('brain')) or {}).get('value') or {}
-                if any(bv.get(k) for k in ('ripostes', 'turns', 'calls')) and not (o.get('move') or {}).get('seen'): ok = False   # his one thing, played on the page (BESTIARY 11/17)
+                if any(bv.get(k) for k in ('ripostes', 'turns', 'calls', 'smokes', 'firebombs', 'darts')) and not (o.get('move') or {}).get('seen'): ok = False   # his one thing, played on the page (BESTIARY 11/17)
                 if not ok: bad.append('%s %s: %s' % (prof, r['id'], json.dumps(o)[:160]))
             ch = runs.get('champion') or {}
             if not (ch.get('named') and ch.get('inList') and all(x.get('onBoard') for x in ch['named']) and ch.get('home')
@@ -429,6 +461,10 @@ def main():
     _, st_plant, _ = stood(D['ne'], 1.0)   # PLANTED: drawn at the sheet's own size, the mammoth a tower again
     leg(not st_bad and bool(st_plant), 'F11 AS TALL AS IT STOOD (rule 458(b)): each big beast\'s tallest facing, at numbers.beast_draw %.2f, against a man as it stood at the shoulder in life (%s); the mammoth a little over twice a man; the herd in order; PLANTED at the sheet\'s own size: %s'
         % (st_sc, ', '.join('%s %.2f men (stood %.2f)' % (a, v, STOOD_M[a][0] / MAN_M) for a, v in st_out.items()), '; '.join(st_plant[:2]) or 'NOT CAUGHT'), '; '.join(st_bad[:3]))
+    eb_out, eb_bad = every_beast(D['ne'])
+    _, eb_plant = every_beast(D['ne'], plain=True)   # PLANTED: every beast at the one scale, no animal its own
+    leg(eb_out and not eb_bad and bool(eb_plant), 'F11b EVERY BEAST AGAINST A MAN (the routine \'BESTIARY next\'): each of the %d beasts\' pictures averaged over its eight facings, at its own draw, within %d%% of its height in life against a man (from %.2f to %.2f); PLANTED, every beast at the one scale: %s'
+        % (len(eb_out), round(STOOD_TOL * 100), min(eb_out.values() or [0]), max(eb_out.values() or [0]), '; '.join(eb_plant[:4]) or 'NOT CAUGHT'), '; '.join(eb_bad[:4]))
     # ---------------- F8 ----------------
     r = subprocess.run([sys.executable, 'tools/bohemia_combat_the_roster.py', '--check'], cwd=ROOT, capture_output=True, text=True)
     leg(r.returncode == 0, 'F8 THE ROSTER FILE IS FRESH (tools/bohemia_combat_the_roster.py --check)', r.stdout.strip())

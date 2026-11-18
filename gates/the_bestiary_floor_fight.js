@@ -20,7 +20,7 @@ const OURS = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/ours.
 const ONLY = process.env.ONLY_TYPES ? process.env.ONLY_TYPES.split(',') : null;   /* a quick run of some types (the gate runs them all) */
 /* BESTIARY 11/17: a man whose one thing is his own is played on the page on AUTO until he does it (the first skill seen, its picture;
    the last, the proof): the duelist's blow back, the preacher's man striking his friend, the spotter's ground called and hit */
-const MOVES = { ripostes: ['on_guard', 'riposte'], turns: ['turn', 'turned'], calls: ['call', 'call_lands'] };
+const MOVES = { ripostes: ['on_guard', 'riposte'], turns: ['turn', 'turned'], calls: ['call', 'call_lands'], smokes: ['smoke_pot'], firebombs: ['fire_pot'], darts: ['dart'] };
 const MEN = NE.rows.filter(r => String(r.added_by || '').startsWith('BESTIARY') && !r.beast && (!ONLY || ONLY.indexOf(r.id) >= 0)).map(r => {
   const m = NE.mix[r.faction] || OURS.enemy_tiers.value.mix[r.faction] || {}, ph = PH.filter(p => m[p.name] && m[p.name][r.id])[0];   /* the kids' and heavies' bands live in ours.json */
   const bv = (NE.brains[r.brain] || {}).value || {}, mv = Object.keys(MOVES).filter(k => bv[k]).reduce((a, k) => a.concat(MOVES[k]), []);
@@ -133,7 +133,7 @@ const CH = (NE.champions && NE.champions.kinds) || {};
               if (await f.evaluate(() => !!FIGHT.S.deploy)) { await tapIn('#bohphone .fight [data-c="go"]'); await waitFor(() => f.evaluate(() => !FIGHT.S.deploy), 15000); }   /* FIGHT: the line set */
               await tapIn('#bohphone .fight [data-c="auto"]'); o.auto = await f.evaluate(() => !!UI.auto);   /* AUTO */
               for (let i = 0; i < 4 && await f.evaluate(() => (UI.hand || 1) < Math.max.apply(null, SPEEDS)); i++) await tapIn('#bohphone .fight [data-c="speed"]');   /* his fastest speed */
-              const seen = (sk) => f.evaluate((q) => { const S = FIGHT.S, e = S.log.filter(x => x.t === 'skill' && x.skill === q.sk && !(x.skill === 'turn' && x.held) && ((FIGHT.byId(x.skill === 'turned' ? x.by : x.id) || {}).kind === q.id))[0];
+              const seen = (sk) => f.evaluate((q) => { const S = FIGHT.S, e = S.log.filter(x => x.t === 'skill' && x.skill === q.sk && !(x.skill === 'turn' && x.held) && !(x.skill === 'dart' && !x.hit) && ((FIGHT.byId(x.skill === 'turned' ? x.by : x.id) || {}).kind === q.id))[0];
                 return e ? { skill: e.skill, round: e.round } : (S.over ? { over: true, result: S.result } : null); }, { sk, id: m.id });
               const first = await waitFor(() => seen(m.moves[0]), Number(process.env.MOVE_MS || 240000));
               if (process.env.SHOTS && first && !first.over) { await sleep(700); await p.screenshot({ path: path.join(process.env.SHOTS, 'move_' + m.id + '_' + (ro.alpha ? 'alpha_' : '') + profile + '.jpg'), quality: 80 }); }

@@ -1,5 +1,24 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
+BESTIARY (routine 'BESTIARY next', rules 453, 454(a), 441): 11/18 LATEST -- BUILD STAMP5_HERE SMOKE, FIRE AND SLEEP (SHA5_HERE), BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_BESTIARY_SMOKE_FIRE_AND_SLEEP_11_18_26.md. VOTE bestiary-smoke-fire-and-sleep-11-18.
+| floor | his | the fight fields | short |
+|---|---|---|---|
+| factions | 12 | 12 | 0 |
+| enemy types | about 75 | 70 | 5 |
+| beasts | 17 | 18 lab-made (23 fielded) | 0 |
+| bosses | 3 | 10 | 0 |
+| champions | some | 3 kinds, named | 0 |
+- THIS BUILD: the head takers' SMOKER (the smoke pot: a cross of smoke, a shot through it -20) and DARTER (the dart: a man sleeps until
+  struck or a friend ends a turn beside him), the hired guns' GRENADIER (the fire pot: a cross of fire on two or more of yours). Each
+  played on the real page on AUTO until he does it (F9's leg). Fewest words. Stand-ins: three hall men (CHARACTER has the list).
+- EVERY BEAST AGAINST A MAN (F11b): each picture averaged over its facings within 15% of its height in life; the llama 0.95, the goat
+  0.90, the two lions 0.65 on their own numbers (numbers.beast_draw.by_look); the rest 0.75.
+- NEXT (5 types to 75): the flock's and the eye in the sky's third, the old order's machines once robot art exists (2 fielded), Tule
+  Springs' Harlan's ground sloth if its outline stays its own.
+[bb Battle Brothers' Assassin throws his pots, no more than two; ours are the hired guns' and the head takers', the player's own tools turned on him.]
+[analog horror: the smoke rolls between the houses and when it clears one of yours is lying down, breathing, and will not wake.]
+
 BESTIARY (routine 'BESTIARY the mammoth is too big', rule 458(b), ask row 641): 11/17 LATEST -- BUILD 11/17zk THE MAMMOTH, NOT A BUILDING (f9a8a036), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_AS_TALL_AS_IT_STOOD_11_17_26.md. VOTE bestiary-the-mammoth-11-17 (re-shot).
 | beast | at the shoulder in life | before (tallest picture) | now |

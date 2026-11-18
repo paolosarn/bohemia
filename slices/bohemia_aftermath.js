@@ -88,7 +88,7 @@
         var key = L._key || v.look || null, idle = key, B = sc.idles;
         try { if (key && B && B.has && B.has('fight_' + key)) idle = 'fight_' + key; } catch (e) {}
         sc.men.push({ id: v.id, name: v.name, side: v.side, main: !!v.main, x: v.x, y: v.y, face: v._face || 0, L: L, look: idle, town: key, sheet: sheet,
-          gun: gs && gs.row > 0 ? gs : null, beast: !!v.beast, machine: !!v.machine, ghost: !!v.ghost,
+          gun: gs && gs.row > 0 ? gs : null, beast: !!v.beast, kind: v.kind, machine: !!v.machine, ghost: !!v.ghost,
           state: v.dead ? 'dead' : v.down ? 'down' : 'up' });
       });
       return sc.men.some(function (m) { return m.side === 'you' && m.state === 'up'; }) || sc.men.length ? sc : null;
@@ -306,7 +306,7 @@
     var people = lying.map(function (m) { return { m: m, y: m.y, lie: true }; }).concat(up.map(function (m) { return { m: m, y: m.wy }; })).sort(function (a, b) { return a.y - b.y; });
     people.forEach(function (p) {
       /* BESTIARY 11/17: a beast as tall as it stood (the fight's own bodyK) */
-      var m = p.m, bk = 1; if (m.beast && sc.fw && typeof sc.fw.bodyK === 'function') { try { bk = sc.fw.bodyK({ beast: true }); } catch (e) { bk = 1; } }
+      var m = p.m, bk = 1; if (m.beast && sc.fw && typeof sc.fw.bodyK === 'function') { try { bk = sc.fw.bodyK({ beast: true, kind: m.kind }); } catch (e) { bk = 1; } }
       var s2 = s * bk, L = m.L, x = X(p.lie ? m.x : m.wx, p.lie ? m.y : m.wy), y = Y(p.lie ? m.y : m.wy), x0 = Math.round(x) - L.foot[0] * s2, y0 = Math.round(y) - L.foot[1] * s2;
       var clips = L.clips || CLIPS;
       if (p.lie) { var fc = clips.fall || CLIPS.fall; cell(g, m.sheet, fc[fc.length - 1], m.face || 0, L, x0, y0, s2); return; }
