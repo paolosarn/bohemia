@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
-COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18h - SHARK REEF, CHANNEL 8 AND THE LINE, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round, this round's second build; rules 408, 409(c), 455; ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18h - SHARK REEF, CHANNEL 8 AND THE LINE, BUILT (2a1b36490), NOT YET SEEN (rule 453, round after round, this round's second build; rules 408, 409(c), 455; ask row 627).
 The second job on this lane's list: the real places left in kit art, the Strip's side first. No code: slices/place_pieces/place_pieces.json gained
 shark_reef, the_tv_station and the_unemployment_office, the folder six lossless WebP pictures (249,754 bytes in all, ten places).
 Made by tools/bohemia_cook5_the_strips_three_wear_their_own_piece_11_18_26.py (three scenes and three beats ON the places tool and the downtown tool,

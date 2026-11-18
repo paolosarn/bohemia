@@ -1,4 +1,4 @@
-COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18h - SHARK REEF, CHANNEL 8 AND THE LINE, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round, this round's second build; rules 408, 409(c), 455; ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18h - SHARK REEF, CHANNEL 8 AND THE LINE, BUILT (2a1b36490), NOT YET SEEN (rule 453, round after round, this round's second build; rules 408, 409(c), 455; ask row 627).
 Three more real places wear their own piece on the map (no code): SHARK REEF (the bay's dead gold tower, the reef's hall with its roof light bare
 over the big tank; on the beat the tank lights green by itself and a long pale shape is in it), CHANNEL 8 (the brick wing, the studio box and its 8,
 the red and white mast with lamps down it, the dishes, the live truck on its rims, a camera aimed at an empty chair; on the beat the lamps and studio
