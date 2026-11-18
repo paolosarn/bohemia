@@ -1,5 +1,17 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/18, the coordinator's routine 'PLUMBER 8 next'. BUILD 11/18a THE CREW'S RENDER PASSES STAY HOME. Rows 563, 561, 613 marked.
+THE SITE'S WEIGHT, re-measured on main c869a5ed (forty builds after 11/17): the list 857.3 MB, 2.7 MB under the 860 line. TRIMMED to
+853.2 MB (rule 6's new kind: the crew rigs' raw, object, id, rig-object, rig-id and shadow passes and the calibration shapes, 4.1 MB,
+1,276 files; their one loader builds rig_<turn>.png). THE SITE SERVES WHAT THE GAME LOADS --quick 5/0, PAGES PUBLISH 30/0. The next big
+lever is not a trim: the fight sheets ship twice, packed 59 MB (the fight) and whole 59 MB (the town, the scavenge, the roster read
+them); moving those readers to the packed sheets frees about 59 MB (FIGHT and SCAVENGE own the readers).
+THE FREEZES (this round's box is slower again: the boot's ready 21.6 to 21.8 s where it was 13.2 to 14.8 s on 11/17):
+  ROW 561: the worst boot freeze 3.9 s is the map page's own start script (2.7 s) and its first draws (4.5 s, the ground's blit 1.5 s);
+  the first quest's people are always found live now (1.6 s on idle time: the baked ring went with the 2-D cast, rule 174). Not cut.
+  ROW 613: the shell's hand-over is small (0.29 s). The phone's tick walks every page up to three times a frame; one walk a tick cut the
+  walks 70 -> 30 and the tick's time did not move (516 vs 489 ms): NOT shipped (another lane's busy file, no felt gain).
+
 PLUMBER 8 (chat 18) 11/17, the coordinator's routine 'PLUMBER 8 the scavenge blank screen'. BUILD 11/17zn THE LOT IS BAKED WHILE HE READS. Row 632 marked.
 THE WAIT WAS THE BAKE: 'Search the lot' -> the board 3.9 to 5.1 s on the demo at 4x, 2.5 to 3.0 s of it the block's board baked in a hidden
 fight page AFTER the press. The board is the block's own (scavAsk deals the same board every time), so the lot's sheet bakes it while he

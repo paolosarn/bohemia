@@ -74,6 +74,9 @@ const DEAD_KINDS = [
     why: "the side portraits: the one loader of a barber portrait (engine/bohemia_main_man.js) asks for rig_portrait_S.png by its whole name" },
   { dir: 'records/target/portrait/rig/crew', kind: /\/(rig|portrait)\.json$/, tell: /(^|[^\w.])(rig|portrait)\.json/,
     why: "PORTRAIT's sidecars for the crew's renders: the folder's one loader (engine/bohemia_rig_bodies.js) builds <look>/rig_<turn>.png and reads no sidecar" },
+  { dir: 'records/target/portrait/rig/crew', kind: /\/((raw|obj|id|rigobj|rigid|shadow)_(S|SE|E|NE|N|NW|W|SW)|calibration_(cube|sphere))\.png$/,
+    tell: /(['"`\/])(raw|obj|id|rigobj|rigid|shadow)_(S|SE|E|NE|N|NW|W|SW)\b|calibration_(cube|sphere)|(raw|obj|rigobj|rigid|shadow)_['"`]\s*\+/,
+    why: "PORTRAIT's render passes for each crew look (the raw, object, id, rig-object, rig-id and shadow passes a turn, the calibration cube and sphere; 4.1 MB, PLUMBER 8 11/18): the folder's one loader (engine/bohemia_rig_bodies.js) builds <look>/rig_<turn>.png only" },
   { dir: 'records/target/portrait/rig/crew', kind: /\/(raw|rig)_portrait_[^/]*\.png$/, tell: /raw_portrait|portrait\/rig\/crew[^\n]*rig_portrait/,
     why: "PORTRAIT's renders of the crew's faces: the folder's one loader (engine/bohemia_rig_bodies.js) builds <look>/rig_<turn>.png, the turns S SE E NE N NW W SW" },
 ];
