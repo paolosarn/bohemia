@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/18 LATEST -- [the terminal] SHIPPED SHIPSHA, BUILD 11/18g - THE TERMINAL, BUILT, NOT YET SEEN. VOTE combat3-the-terminal-11-18 (stand_in).
+COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/18 LATEST -- [the terminal] SHIPPED 826827b9f, BUILD 11/18g - THE TERMINAL, BUILT, NOT YET SEEN. VOTE combat3-the-terminal-11-18 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_TERMINAL_11_18_26.md. The coordinator's round of 11/18 (next on my own list; no FOUND BY EYES row open on this lane): the eighth big inside.
 WHAT: a fight at the airport terminal (0.7 of what the garage leaves, by the cell's dice; opts.inside 'terminal' anywhere) is fought inside it. the_checkpoint: THE CHECKPOINT IS A
 WALL (no way, no sight) with four lanes one man wide between the ticketing hall and the gates, and the upper walkway over its end for whoever takes the stairs first.
