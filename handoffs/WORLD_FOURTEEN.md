@@ -9,7 +9,11 @@ BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_14_THE_BILLBOARDS_11_18_26.md
   no word). FOR COOK FOUR: the piece is owed (rule 408): a dead billboard on steel poles with its catwalk, seen at the map's stop.
   FOR WORLD TWO / WORLD 8: fogRadius is wrapped once more (after the bosses' night and dark); your sight reads the same function.
   FOR FEED: 'a prop the feed can use' waits for words (454(a)); BohemiaBillboards.list() is where the boards are.
-- STILL OWED from item 13: a fishing pond (needs a shelf a place can make food on, ECONOMY's), the public works yard (no address).
+- STILL OWED from item 13: a fishing pond (needs a shelf a place can make food on, ECONOMY's), the public works yard. ITS ADDRESS FOUND
+  11/18: Clark County Public Works' Field Operations facility, 9935 S. Jones Blvd, southwest valley (south of the Beltway), 77.5 acres
+  of leased BLM land, opened September 2018, the road, construction and traffic divisions, a fuel station and an auction yard planned
+  (Las Vegas Review-Journal 2018-09-13, 'Clark County unveils new $22M public works facility'; jnka architects' project page). Its
+  wordless use still to choose (Battle Brothers first).
 - GATES: THE BILLBOARDS (demo) and (alpha).
 [bb the high ground widens the company's sight on the world map; ours is a billboard's catwalk beside the 15.]
 [analog horror: under the peeled paper there is always an older face, and nobody can say what it was selling.]
