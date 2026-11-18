@@ -51497,6 +51497,14 @@ var VB_TALL = { on: true, house: 3, trailer: 2, apartment: 3, works: 3, shop: 2.
      about two houses tall and wide (MEASURED on the phone at the near stop: the works' boxes at 3 times were 17 to 23 T against a
      house model's 6, a wall of grey towers), the shops one storey, the casinos lower but still over everything round them; the far view keeps his 10/25 'taller taller taller' (the numbers above) */
 window.VB_TALL = VB_TALL;
+/* __THE_LAKE_HAS_ITS_RING__ (WORLD THIRTEEN 11/18, VAMILY rule 453: 'every zone itself', the lake shore). MEASURED on the phone: the lake
+   was flat water to a straight block edge and the desert's pebbles at once, no shore at all. The real Lake Mead after the drought is
+   known by its BATHTUB RING (the pale mineral band the water left on the rock, a hundred and more feet of it) and the cracked mud flats
+   and stranded boats where the water went back. In block units from the water's old edge: the bed (the outer 'bed' of every lake
+   block, dried and cracked, the cracks a cell 'crack' texels-a-twelfth across), the new waterline ('wet'), the ring on the rock and
+   sand beside it ('ring'), a hull on the bed in one lake block in 'hull'; the edge wanders by 'wander'. */
+var VB_SHORE = { on: true, bed: 0.34, wet: 0.05, ring: 0.17, wander: 0.11, crack: 0.8, hull: 0.22 };   /* crack 1.6 read as paving stones at the near stop (measured on the phone) */
+window.VB_SHORE = VB_SHORE;
 var VB_CLASS = { lot: 0, road: 1, freeway: 2, blvd: 3, houses: 4, roof: 5, tower: 6, casino: 7, green: 8, water: 9, land: 10, mountain: 11, solar: 12, field: 13, dam: 14, rail: 15 };
 /* __FIGHT_KINDS__ (WORLD THIRTEEN 11/7, rule 429(b)): the storey a mix gives a roll (engine/bohemia_fight_kinds.js mixStorey, the same
    walk, written here as well because the painter's worker cannot see the module); the table for the worker; and the one question the
@@ -51554,7 +51562,9 @@ var VB_CCOL = { yard: '#696c67', yard2: '#797a7a', roofA: '#8b7977', roofB: '#72
   rail: '#494643', tie: '#524946', dam: '#9a9b9a', lit: '#e3b866', lamp: '#f0d488', neonN: '#e8708a',
   /* __THE_DISTRICTS_READ_APART__ (10/23): the families' own roofs and grounds, tan and dust, never bright (his 'more tan') */
   lawn: '#626760', pool: '#6e7b88', poolDry: '#9c9d9e', wallG: '#a7a6a4', roofE: '#987d78', roofE2: '#7f6a66', gravel: '#6a6864', trailer: '#908887', trailer2: '#868986',
-  slab: '#81807f', court: '#585654', park: '#424240', stripe: '#666461', shop: '#b9b7b2', rust: '#54473e', dirt: '#686766' , lotS: '#c6c4bf'};
+  slab: '#81807f', court: '#585654', park: '#424240', stripe: '#666461', shop: '#b9b7b2', rust: '#54473e', dirt: '#686766' , lotS: '#c6c4bf',
+  /* __THE_LAKE_HAS_ITS_RING__ (11/18): the drained lake's bed, its cracks, the new waterline, the old one's mineral ring, a stranded hull */
+  mud: '#8b8478', crack: '#5c564e', wet: '#474d52', ring: '#c3c0b7', hull: '#aeaba5'};
 /* a block's family inside its class: the houses (suburb 0, estate, gated, trailer, apartment) and the works (civic 0, shop, works) */
 var VB_SUB = { estate: 1, gated: 2, trailer: 3, apartment: 4, shop: 1, works: 2 };
 function vbSubOf(d){
@@ -51771,6 +51781,7 @@ function vbCityCore(inp){
      the Strip's pylons and palms with them; the cars and the kerbs stay as they lie. Taller for reading, Battle Brothers' way, not
      to scale (his trade). The sun's sweep below casts every one of them, so the shadows lengthen with them. VB_TALL, one table. */
   var TALL = (typeof VB_TALL !== 'undefined' && VB_TALL && VB_TALL.on) ? VB_TALL : null;
+  var SHORE = (typeof VB_SHORE !== 'undefined' && VB_SHORE && VB_SHORE.on) ? VB_SHORE : null;   /* __THE_LAKE_HAS_ITS_RING__ */
   var TB = TALL && TALL.closeK && S >= (TALL.closeS || 96) ? Object.assign({}, TALL, TALL.closeK) : TALL;   /* __EACH_ZONE_LOOKS_LIKE_ITSELF__: the close tiles' own scale */
   /* __FIGHT_KINDS__ (WORLD THIRTEEN 11/7, rule 429(b)): a house's storeys come from the one table (records/target/bb/map_fight_kinds.json
      through engine/bohemia_fight_kinds.js), on the house's own roll, so the house the map stands two storeys tall is the two-storey
@@ -52089,6 +52100,7 @@ function vbCityCore(inp){
      the Boulevard's signs are boards, not posts. The neon is the one faded accent, lit at night only where there is power. */
   var STRIP_NEON = [vbHex('#c9a456'), vbHex('#9c6e68'), vbHex('#5e8480')];   /* a resort's marquee: gold, rose or teal, all three faded (rule 159(c): the Strip's neon the one accent) */
   var STRIP_ST = { fronts: 0, marquees: 0, shapes: [0, 0, 0, 0], pools: 0, signs: 0 }, STRIP_SEEN = {};   /* what the gate reads (ST.strip) */
+  var SHORE_ST = { lake: 0, shoreBlocks: 0, bed: 0, crack: 0, wet: 0, ring: 0, hull: 0, middle: 0, middleBed: 0 };   /* __THE_LAKE_HAS_ITS_RING__: what the gate reads (ST.shore), texels */
   function stripResort(k, front, f, a, ha){
     var TH = (6 + Math.floor(ha * 3)) * 3 * T;   /* 18 to 24 T, the Strip's towers */
     if (front) {
@@ -52118,6 +52130,14 @@ function vbCityCore(inp){
     var gx = cx + X0, gy = cy + Y0;   /* __ONE_MAP_AT_EVERY_ZOOM__: the valley's own block */
     if (cls[cy * N + cx] === 255) continue;   /* past the valley's edge: nothing, like the whole painting's pad */
     var cl = cls[cy * N + cx], h0 = vbHash(gx, gy, sd), h1 = vbHash(gy, gx, sd + 1), h2 = vbHash(gx + 7, gy + 3, sd + 2);
+    /* __THE_LAKE_HAS_ITS_RING__: which sides and corners of this block meet the other side of the shore (a lake block's land, a rock or
+       sand block's lake); the bed and the ring only where the lake meets open ground, the rock or another lake block's bed */
+    var SHM = 0, SHW = cl === VB_CLASS.water;
+    if (SHORE && (SHW || cl === VB_CLASS.land || cl === VB_CLASS.mountain)) { var shAt = function (x, y) { if (x < 0 || y < 0 || x >= N || y >= N) return -1; var c = cls[y * N + x]; return c === 255 ? -1 : c; };
+      var shOther = function (c) { return c >= 0 && (SHW ? (c !== VB_CLASS.water && c !== VB_CLASS.dam) : c === VB_CLASS.water); };
+      var shNb = [[0, -1], [1, 0], [0, 1], [-1, 0], [1, -1], [1, 1], [-1, 1], [-1, -1]];
+      for (var shi = 0; shi < 8; shi++) if (shOther(shAt(cx + shNb[shi][0], cy + shNb[shi][1]))) SHM |= 1 << shi; }
+    if (SHW) { SHORE_ST.lake++; if (SHM) SHORE_ST.shoreBlocks++; }
     /* __THE_STREETS_READ_AS_STREETS__: NO BUILDING IN A STREET'S LANE (rule 164 item 29, Paolo 10/24: 'there are some buildings
        in the street lanes'). MEASURED: 14 blocks the valley's roll set inside a street's line, the street running into them
        from both sides (a fire station and the sign in the middle of the Strip, a resort and a casino in arterials, five suburbs);
@@ -52509,6 +52529,28 @@ function vbCityCore(inp){
         if ((tko & 1) && tkv <= 6) tkd = Math.min(tkd, Math.abs(tku - 6)); if ((tko & 4) && tkv >= 6) tkd = Math.min(tkd, Math.abs(tku - 6));
         if ((tko & 2) && tku >= 6) tkd = Math.min(tkd, Math.abs(tkv - 6)); if ((tko & 8) && tku <= 6) tkd = Math.min(tkd, Math.abs(tkv - 6));
         if (tkd < 1.15) { if (cl !== VB_CLASS.mountain) lift = 0; clX = VB_CLASS.land; part = Math.abs(tkd - 0.55) < Math.max(0.16, 0.6 / Q) ? PART.edge : PART.line; } }   /* the packed strip smooth, its two ruts dark */
+      if (SHM && clX < 0) {   /* __THE_LAKE_HAS_ITS_RING__ */
+        var shu = (tx + 0.5) / S, shv = (ty + 0.5) / S, shd = 9;
+        if (SHM & 1) shd = Math.min(shd, shv); if (SHM & 2) shd = Math.min(shd, 1 - shu); if (SHM & 4) shd = Math.min(shd, 1 - shv); if (SHM & 8) shd = Math.min(shd, shu);
+        if ((SHM & 16) && !(SHM & 3)) shd = Math.min(shd, Math.hypot(1 - shu, shv)); if ((SHM & 32) && !(SHM & 6)) shd = Math.min(shd, Math.hypot(1 - shu, 1 - shv));
+        if ((SHM & 64) && !(SHM & 12)) shd = Math.min(shd, Math.hypot(shu, 1 - shv)); if ((SHM & 128) && !(SHM & 9)) shd = Math.min(shd, Math.hypot(shu, shv));
+        shd += (vbNoise((u + XS) / (4 * Q), (v + YS) / (4 * Q), sd + 71) - 0.5) * 2 * SHORE.wander;
+        if (SHW) {
+          if (shd < SHORE.bed) { lift = 0; part = PART.line;
+            var shc = Math.max(SHORE.crack * Q, 3), shU = (u + XS) / shc, shV = (v + YS) / shc, shix = Math.floor(shU), shiy = Math.floor(shV), shf1 = 9, shf2 = 9;
+            for (var shj = -1; shj <= 1; shj++) for (var shk = -1; shk <= 1; shk++) { var shx = shix + shk + vbHash(shix + shk, shiy + shj, sd + 73), shy = shiy + shj + vbHash(shiy + shj, shix + shk, sd + 79), shq = Math.hypot(shU - shx, shV - shy);
+              if (shq < shf1) { shf2 = shf1; shf1 = shq; } else if (shq < shf2) shf2 = shq; }
+            if (shf2 - shf1 < Math.max(0.06, 0.45 / shc)) part = PART.spot;   /* the mud's cracks, a hairline */
+            if (h2 < SHORE.hull) {   /* a hull run aground, along the shore */
+              var hcx = 0.5 + (h0 - 0.5) * 0.5, hcy = 0.5 + (h1 - 0.5) * 0.5, hb = SHM & 5 ? 0 : 1, ha = (hb ? shv - hcy : shu - hcx), hc = (hb ? shu - hcx : shv - hcy);
+              var hl = SHORE.hull * 0.55, hw = SHORE.hull * 0.17, he = (ha * ha) / (hl * hl) + (hc * hc) / (hw * hw);
+              if (he < 1) { part = he < 0.25 ? PART.spot : PART.top; lift = (1 - he) * 0.9 * T; } }
+          } else if (shd < SHORE.bed + SHORE.wet) { lift = 0; part = PART.edge; } }
+        else if (shd < SHORE.ring) { part = PART.top; if (cl !== VB_CLASS.mountain) lift = 0; }   /* the bathtub ring */
+        if (SHW) { if (part === PART.line) SHORE_ST.bed++; else if (part === PART.spot && lift === 0) SHORE_ST.crack++; else if (part === PART.edge) SHORE_ST.wet++; else if (part === PART.top || (part === PART.spot && lift > 0)) SHORE_ST.hull++;
+          if (Math.abs(shu - 0.5) < 0.1 && Math.abs(shv - 0.5) < 0.1) { SHORE_ST.middle++; if (part !== PART.ground) SHORE_ST.middleBed++; } }
+        else if (part === PART.top) SHORE_ST.ring++;
+      }
       if (TALL && lift > 0) lift *= tallOf(cl, lift, sb);   /* __THE_MAP_STANDS_TALLER__ */
       var twOwn = 0;
       if (twi >= 0) { twOwn = twPaint(TWL[twi], cl, gx, gy, tx, ty, lift, part, r, horiz, vert); lift = TW_L; part = TW_P; if (TALL && twOwn === 1) lift *= TB.town; }   /* __THE_TOWN_IS_PAINTED_IN__: the town's own texel rides its index above the class */
@@ -52576,9 +52618,9 @@ function vbCityCore(inp){
       case VB_CLASS.tower: return part === PART.top ? C.tower : part === PART.spot ? C.mark : C.field;
       case VB_CLASS.casino: return part === PART.top ? C.gold : part === PART.neon ? STRIP_NEON[(sb + 2) % 3] : part === PART.spot ? C.neon : part === PART.line ? C.poolDry : C.field;   /* __THE_STRIP_READS_AS_THE_STRIP__: the drained pool, the marquee */
       case VB_CLASS.green: return part === PART.tree ? C.tree : C.green;
-      case VB_CLASS.water: return C.water;
-      case VB_CLASS.land: return part === PART.spot ? C.brush : part === PART.row ? C.pebble : part === PART.line ? (C.dirt || C.floor) : part === PART.edge ? (C.rail || C.brush) : C.floor;   /* line, edge: __THE_DESERT_HAS_ITS_TRACKS__' packed strip and its ruts */
-      case VB_CLASS.mountain: return part === PART.spot ? C.brush : C.floor;
+      case VB_CLASS.water: return part === PART.line ? C.mud : part === PART.spot ? C.crack : part === PART.edge ? C.wet : part === PART.top ? C.hull : C.water;   /* __THE_LAKE_HAS_ITS_RING__ */
+      case VB_CLASS.land: return part === PART.spot ? C.brush : part === PART.row ? C.pebble : part === PART.line ? (C.dirt || C.floor) : part === PART.edge ? (C.rail || C.brush) : part === PART.top ? C.ring : C.floor;   /* line, edge: __THE_DESERT_HAS_ITS_TRACKS__' packed strip and its ruts */
+      case VB_CLASS.mountain: return part === PART.spot ? C.brush : part === PART.top ? C.ring : C.floor;   /* the ring on the rock */
       case VB_CLASS.solar: return part === PART.row ? C.solarRow : C.solar;
       case VB_CLASS.field: return part === PART.line ? C.mark : C.field;
       case VB_CLASS.dam: return C.dam;
@@ -52707,6 +52749,7 @@ function vbCityCore(inp){
     }
   }
   ST.T = T; ST.strip = STRIP_ST;   /* __THE_STRIP_READS_AS_THE_STRIP__ */
+  ST.shore = SHORE_ST;   /* __THE_LAKE_HAS_ITS_RING__ */
   ST.lights = { burnTop: LST.burnTop, embers: Object.keys(LST.cells).length, emberCore: LST.emberCore, emberLight: Math.round(LST.emberLight * 10) / 10, pool: LST.pool, poolLight: Math.round(LST.poolLight * 10) / 10, glow: LST.glow, lampTex: LST.lampTex, darkLamp: LST.darkLamp, old: LOLD };   /* __THE_MAP_S_LIGHTS_READ_AS_LIGHTS__ */
   if (inp.wantH) { ST.HS = HS; ST.COLI = COLI; }   /* a checker's own reading of every texel's height (never in the game: the gate asks) */
   return { seed: inp.seed, key: inp.key, P: P, S: S, PAD: PAD, day: day, night: night, lights: lights, stand: ST, dep: DEP, blk: BLK, ms: Math.round(performance.now() - t0), coli: inp.coli ? COLI : undefined, hs: inp.coli ? HS : undefined, lots: LOTS, flat: FLATH };   /* __THE_HOUSES_STAND_UP_CLOSE__ */   /* __THE_STREETS_JOIN__ (WORLD 11/2): the parts, for the join gate's reading only */
@@ -52761,6 +52804,7 @@ function vbWorker(){
         + '\nvar VB_FRONT=' + VB_FRONT + ';'
         + '\nvar VB_CLASS=' + JSON.stringify(VB_CLASS) + ';\nvar VB_CCOL=' + JSON.stringify(VB_CCOL) + ';\nvar VB_SUB=' + JSON.stringify(VB_SUB) + ';\nvar VB_LAST=null;'
         + '\nvar VB_TALL=' + JSON.stringify(VB_TALL) + ';' + '\nvar VB_JOIN=' + JSON.stringify(VB_JOIN) + ';'   /* __THE_MAP_STANDS_TALLER__ */
+        + '\nvar VB_SHORE=' + JSON.stringify(VB_SHORE) + ';'   /* __THE_LAKE_HAS_ITS_RING__ */
         + '\nvar VB_STOREYS=' + JSON.stringify(vbStoreysTable()) + ';'   /* __FIGHT_KINDS__ */
         + '\nonmessage=function(e){ if(e.data&&e.data.kind===\'view\'){ var v=vbView(e.data); postMessage(v, v.px?[v.px.buffer]:[]); return; }'
         + ' if(e.data&&e.data.kind===\'city\'){ var c=vbCityCore(e.data); c.kind=\'city\'; postMessage(c,[c.day.buffer,c.night.buffer,c.lights.buffer,c.dep.buffer,c.blk.buffer]); return; }'

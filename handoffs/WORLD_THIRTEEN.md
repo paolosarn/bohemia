@@ -1,5 +1,15 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN; newest block on top)
 
+WORLD THIRTEEN (11/18, round seven, build two): BUILD 11/18s - THE LAKE HAS ITS RING, BUILT, NOT YET SEEN (rule 453; ask 508).
+Record: records/BOHEMIA_WORLD_THIRTEEN_THE_LAKE_HAS_ITS_RING_11_18_26.md. VOTE world13-the-lake-has-its-ring-11-18 (STAND-IN).
+- VB_SHORE (bed, wet, ring, wander, crack, hull), carried into the painters; in the painter (__THE_LAKE_HAS_ITS_RING__) each lake
+  block's and each sand or rock block's shore sides; the bed, cracks, waterline, hull on the lake side, the bathtub ring on the land
+  side; five palette colours (mud, crack, wet, ring, hull); counted in stand.shore. Every zoom (the painting and every tile).
+- Gate gates/the_lake_has_its_ring_gate.js 8/0 (demo upright, alpha on its side, the shore off planted), in the suite.
+- FOR COMBAT THREE (owed, mine first): a fight on a lake block's bed could stand on the bed; FIGHT_OPTS.ground does not carry the
+  shore yet.
+- NEXT, MINE: the trailer parks' own look; the 15 place boards' layouts painted onto the map at their cells.
+
 WORLD THIRTEEN (11/18, round seven, build one): BUILD 11/18o - THE PAINTING NEVER WAITS IN LINE, BUILT, NOT YET SEEN (rule 453;
 asks 440, 475). Record: records/BOHEMIA_WORLD_THIRTEEN_THE_PAINTING_NEVER_WAITS_IN_LINE_11_18_26.md. VOTE
 world13-the-painting-never-waits-in-line-11-18 (STAND-IN).

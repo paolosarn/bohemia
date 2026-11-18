@@ -8465,6 +8465,11 @@ GATES = [
      "land_use.json, a mile street the land beside it); on 22 valleys 81 in 100 of the cells deal a place's own ground (was 51), every "
      "road cell its way, every dirt track its bits; the fight's own code deals it (36 kinds, never two alike); on the demo upright and "
      "on its side a fight on a mile street through the desert is the desert's board; planted fails red. about 6 min", True),
+    ('THE LAKE HAS ITS RING', ['node', 'gates/the_lake_has_its_ring_gate.js'],
+     "WORLD THIRTEEN gate, 11/18, rule 453: the drained lake reads as Lake Mead: the cracked bed inside the old waterline, the new "
+     "waterline, the bathtub ring on the sand and rock beside it, a stranded hull; the painter's own count (VBC.stand.shore) on the whole "
+     "painting and a close tile, the demo upright and the alpha on its side; the palette apart by value; planted (the shore off) red. "
+     "about 4 min", True),
     ('THE MAP PAINTS ON EVERY CORE', ['node', 'gates/the_map_paints_on_every_core_gate.js'],
      "WORLD THIRTEEN gate, 11/17, rule 453(3), solo (it times): the close tiles go to a pool of painters (half the cores, at most three), "
      "never twice in flight, a dead painter let go; at the near stop a bare tile is asked at 60 texels first; the old way and this build "
