@@ -1,6 +1,6 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
-PLUMBER 8 (chat 18) 11/18, the coordinator's routine 'PLUMBER 8 next'. BUILD 11/18a THE CREW'S RENDER PASSES STAY HOME. Rows 563, 561, 613 marked.
+PLUMBER 8 (chat 18) 11/18, the coordinator's routine 'PLUMBER 8 next'. BUILD 11/18b THE CREW'S RENDER PASSES STAY HOME. Rows 563, 561, 613 marked.
 THE SITE'S WEIGHT, re-measured on main c869a5ed (forty builds after 11/17): the list 857.3 MB, 2.7 MB under the 860 line. TRIMMED to
 853.2 MB (rule 6's new kind: the crew rigs' raw, object, id, rig-object, rig-id and shadow passes and the calibration shapes, 4.1 MB,
 1,276 files; their one loader builds rig_<turn>.png). THE SITE SERVES WHAT THE GAME LOADS --quick 5/0, PAGES PUBLISH 30/0. The next big
