@@ -1,3 +1,14 @@
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18k - THE MINT, THE DOGS AND THE SCRAP YARD, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round, this round's third build; rules 408, 409(c), 455; ask row 627).
+Three more real places wear their own piece on the map (no code): CLARK STATION (the 1954 boiler house and its stack, the turbine hall, four gas units
+cold, the switchyard, the dry gas main, the tires and pallets at the hatch, the charging racks and four who wait; on the beat the hatch's fire and
+the black smoke), the ANIMAL SHELTER (two blocks of runs with every gate open, the control truck, the keeper, seven dogs eating in a row at the door,
+the brindle alone at the kerb; on the beat the intake lamp and its bell) and THE SCRAP MILL (two walls of flat cars, the heap, the crane and its
+magnet, the baler and its bales, a truck's battery running it, copper, transformers, white goods; on the beat the baler's lamp and a torch).
+322,674 bytes for the folder: THIRTEEN OF THE VALLEY'S FIFTEEN real places now; the two home centers left; four more are out in the region.
+ON THE DEMO on a phone both ways: each drawn 51 points wide on an 18 point block, 0 errors. Gate THE PLACES WEAR THEIR OWN PIECE 8/0.
+VOTE cook5-the-east-sides-three-11-18 (MADE FROM). The data fort's ASK OF COMBAT THREE STANDS (handoffs/COOK_FIVE.md, the BUILD 11/18d block).
+[bb Battle Brothers' map: a place worth the walk is told from a village at a glance]
+[analog horror: a bell that rings for intake at an empty door]
 COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18h - SHARK REEF, CHANNEL 8 AND THE LINE, BUILT (2a1b36490), NOT YET SEEN (rule 453, round after round, this round's second build; rules 408, 409(c), 455; ask row 627).
 Three more real places wear their own piece on the map (no code): SHARK REEF (the bay's dead gold tower, the reef's hall with its roof light bare
 over the big tank; on the beat the tank lights green by itself and a long pale shape is in it), CHANNEL 8 (the brick wing, the studio box and its 8,

@@ -154,6 +154,51 @@
    "like": "library",
    "through_the_rig": true,
    "finished": "cook 5, 11/18"
+  },
+  "clark_station": {
+   "w": 166,
+   "h": 208,
+   "bx": 83,
+   "by": 160,
+   "plate": 150,
+   "frames": [
+    "clark_station_0.webp",
+    "clark_station_1.webp"
+   ],
+   "name": "CLARK STATION",
+   "like": "battery",
+   "through_the_rig": true,
+   "finished": "cook 5, 11/18"
+  },
+  "the_animal_shelter": {
+   "w": 166,
+   "h": 161,
+   "bx": 83,
+   "by": 112,
+   "plate": 150,
+   "frames": [
+    "the_animal_shelter_0.webp",
+    "the_animal_shelter_1.webp"
+   ],
+   "name": "ANIMAL SHELTER",
+   "like": "warehouse",
+   "through_the_rig": true,
+   "finished": "cook 5, 11/18"
+  },
+  "the_scrap_mill": {
+   "w": 166,
+   "h": 159,
+   "bx": 83,
+   "by": 111,
+   "plate": 150,
+   "frames": [
+    "the_scrap_mill_0.webp",
+    "the_scrap_mill_1.webp"
+   ],
+   "name": "THE SCRAP MILL",
+   "like": "industrial",
+   "through_the_rig": true,
+   "finished": "cook 5, 11/18"
   }
  }
 }

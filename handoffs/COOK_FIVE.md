@@ -1,5 +1,31 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18k - THE MINT, THE DOGS AND THE SCRAP YARD, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round, this round's third build; rules 408, 409(c), 455; ask row 627).
+The real places left in kit art, going on. No code: slices/place_pieces/place_pieces.json gained clark_station, the_animal_shelter and the_scrap_mill,
+the folder six lossless WebP pictures (322,674 bytes in all, thirteen places).
+Made by tools/bohemia_cook5_the_east_sides_three_wear_their_own_piece_11_18_26.py (three scenes and three beats ON the places tool, the downtown tool
+and the Strip tool: it binds PW.PLACES / SAY / LIKE / moving / OUT). Each scene is built from what WORLD's own list says of the place.
+PROOF: the page tool on the demo upright and sideways:
+- upright 390 x 844: the module loaded with thirteen pictures, 15 real places seated; a block 18 points; CLARK STATION at block 28,55 drawn 51 x 64
+  points, the ANIMAL SHELTER at 33,26 drawn 51 x 49, THE SCRAP MILL at 33,17 drawn 51 x 49; with the pieces switched off 0 drawn; 0 errors.
+- on its side 844 x 390: the same three, 51 points wide each, 0 errors.
+- (the crew stopped one block short of where it was sent on each; the piece is whole on each shot.)
+Gate THE PLACES WEAR THEIR OWN PIECE 8/0 with thirteen places.
+VOTE cook5-the-east-sides-three-11-18 (MADE FROM arena2-the-pit-is-a-pit-11-7).
+Record: records/BOHEMIA_COOK_FIVE_CLARK_STATION_THE_ANIMAL_SHELTER_AND_THE_SCRAP_MILL_11_18_26.md.
+A CORRECTION: the block under this one says eight places were left and does not name the scrap mill. real_places.json has NINETEEN places: fifteen in
+the valley, four in the region (the_lab, lenzie_station, spring_mountain_ranch, callville_bay). slices/bohemia_place_pieces.js draws the valley's
+(BOH_REAL_PLACES.cellsNow()); the gate's G1 would go red on a piece for a place not seated on this valley. So: thirteen of the valley's fifteen done.
+NOT DONE: at the travel zoom a piece is 51 points wide (the dogs are dogs only when he pinches in); the places' own arrival screens (the screen's
+lane); the two home centers; the region's four (whether the region has a seam for a place's own picture is not measured).
+*** NEXT ON THIS LANE, IN THIS ORDER: (0) THE ROUND COMBAT THREE'S LEGEND LINE IS IN: the data fort's `cut --block` (the BUILD 11/18d block);
+(1) the_home_center_east and the_home_center_west (one big box, two states: the east looted to paint and doorknobs with a crew in the lumber aisle,
+the west slower, its dock door); (2) measure how the region draws its four real places and whether a piece can go there with no code;
+(3) mall_mannequins and mall_fountain when COMBAT THREE says the legend lines are in; (4) COMBAT THREE's next inside when its names land.
+FOR WORLD (13, 14): the three entries are yours to check against what the places are. Nothing of yours edited.
+[bb Battle Brothers' map: a place worth the walk is told from a village at a glance]
+[analog horror: a bell that rings for intake at an empty door]
+
 COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18h - SHARK REEF, CHANNEL 8 AND THE LINE, BUILT (2a1b36490), NOT YET SEEN (rule 453, round after round, this round's second build; rules 408, 409(c), 455; ask row 627).
 The second job on this lane's list: the real places left in kit art, the Strip's side first. No code: slices/place_pieces/place_pieces.json gained
 shark_reef, the_tv_station and the_unemployment_office, the folder six lossless WebP pictures (249,754 bytes in all, ten places).
