@@ -1,3 +1,13 @@
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18n - THE SERVERS, THE MANNEQUINS, THE FOUNTAIN, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round, this round's fourth build; rules 416, 455; ask row 627).
+The three pictures COMBAT THREE's legend lines (its BUILD 11/18g) waited on, under its names, no code: df_servers_block (the data fort: a server tile
+is four rows of cabinets and three roofed aisles now, not two thin rows; 48 stand-ins to 0; df_servers_ns cut again with its cast shadow at three
+tenths), mall_mannequins (a catwalk of faceless forms in long coats, two down, one stripped, one on the floor facing the rest) and mall_fountain
+(dry, a piece of its rim broken out, every coin still in it; 5 stand-ins to 0 in the atrium).
+ON THE PAGE on a phone both ways: the fort 307 pieces, 0 stand-ins; the mall 234 pieces, 0 stand-ins; 0 page errors. Gate THE INSIDES WEAR FINISHED ART
+48/0. THE MALL'S KIT IS AT ITS BUDGET (899,920 of 900,000 bytes; the two ship at quality 60).
+VOTE cook5-the-three-that-waited-11-18 (MADE FROM). NEXT ON THIS LANE: THE TERMINAL's art (27 pieces and its ceiling, the names in COMBAT THREE's handoff).
+[bb Battle Brothers reads a fight's ground at a glance: a wall has to look like a wall]
+[analog horror: a row of dressed figures with no faces and one of them on the floor facing the rest]
 COMBAT THREE (combat-three-01gkdyuu): 11/18 LATEST -- BUILD 11/18m - THE STADIUM, BUILT, NOT YET SEEN (the coordinator's round of 11/18, its second build; rules 416, 59, 428, 451(a); ask rows 468, 627).
 The ninth big inside: a fight at the stadium (0.7 of what the garage leaves) is fought on its field: dead turf in the open, relief pallets, wrecks and the last show's rig for
 cover, a stand along each long side as high ground with a third of the other crew already up in it, the day through the roof's ring; the roof's cables and ring overhead at 10%.

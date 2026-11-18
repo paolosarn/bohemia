@@ -109,6 +109,7 @@ DF_AT = dict(gallery=(10.0, 45.0), stair_e=(26.0, 45.0), stair_w=(42.0, 45.0), r
              crac=(5.5, 27.5), batteries=(17.5, 28.5), desk=(29.5, 28.5), gate=(42.0, 29.0),
              crates=(4.5, 18.0), crates_b=(12.5, 18.0), floor_up=(21.0, 18.0), servers_block=(38.0, 2.5))
 CAB_H, END_H, GATE_H = 2.2, 2.0, 2.4
+NS_CAST = 0.3                                                 # the long-side row's cast shadow, a share of the render's
 
 
 def cab_row(P, ox, oy, rng, gap=None, door=None):
@@ -394,6 +395,12 @@ def cut(block=False):
     x, y = A['wall_ns']; one('wall_ns', (x - 0.5, x + 1.6, y - 0.05, y + 14.4), 0.5)
     x, y = A['servers_ew']; one('servers_ew', (x - 6.0, x + 6.0 + 0.01, y - 0.1, y + 0.6 + END_H * 1.45), 1.0)       # 1.0: a cabinet's dark is the picture's, never the ground's shadow
     x, y = A['servers_ns']; one('servers_ns', (x - 0.8, x + 2.6, y - 0.1, y + 12.1 + 2.7 * 1.45), 1.0)
+    # 11/18, the block laid: the row's CAST shadow at three tenths (it fell across the block's first roof, and a cabinet's top and
+    # that roof are one height), its own blacks whole. The cutter reads any black as shadow; here a shadow is black AND not solid
+    # (the catcher's shadow is 0.8 to 0.9 at its core, measured; a cabinet's dark face is 1.0)
+    fn = os.path.join(SHIP, 'df_servers_ns.webp'); q = np.asarray(Image.open(fn).convert('RGBA'), np.float32) / 255.0
+    cast = (q[..., :3].max(-1) <= 0.05) & (q[..., 3] < 0.95); q[..., 3] = np.where(cast, q[..., 3] * NS_CAST, q[..., 3])
+    Image.fromarray((np.clip(q, 0, 1) * 255).astype(np.uint8), 'RGBA').save(fn, 'WEBP', quality=86, method=6)
     x, y = A['crac']; one('crac', (x - 3.2, x + 5.2, y - 0.6, y + 2.3 + 4.8), 0.7)
     x, y = A['batteries']; one('batteries', (x - 5.2, x + 6.9, y - 0.7, y + 1.1 + 3.4), 0.7)
     x, y = A['desk']; one('desk', (x - 3.2, x + 4.4, y - 0.5, y + 1.6 + 2.2), 0.7)
@@ -431,8 +438,10 @@ def cut(block=False):
         fn = os.path.join(SHIP, 'datafort_ceiling.webp'); bg.convert('RGB').resize(TG.CEIL_PX, Image.LANCZOS).save(fn, 'WEBP', quality=70, method=6); bytes_['ceiling'] = os.path.getsize(fn)
         p = os.path.join(FG, 'datafort/datafort.json'); s = open(p).read(); i = s.index('"ceiling"'); j = s.index('}', i); e = s[i:j]
         assert '"src": "datafort/datafort_ceiling.webp"' in e
-        e = re.sub(r'"have":\s*(false|true)', '"have": true', e); e = re.sub(r'"tile":\s*\[[^\]]*\]', '"tile": [%d, %d]' % (TG.CEIL_COVERS, TG.CEIL_COVERS), e)
-        open(p, 'w').write(s[:i] + e + s[j:])
+        now = json.loads(s)['ceiling']
+        if not (now.get('have') is True and now.get('tile') == [TG.CEIL_COVERS, TG.CEIL_COVERS]):      # (COMBAT THREE's file is written only when the entry is not already so)
+            e = re.sub(r'"have":\s*(false|true)', '"have": true', e); e = re.sub(r'"tile":\s*\[[^\]]*\]', '"tile": [%d, %d]' % (TG.CEIL_COVERS, TG.CEIL_COVERS), e)
+            open(p, 'w').write(s[:i] + e + s[j:])
         art['ceiling'] = dict(sheet='datafort/datafort_ceiling.webp', bays=[5, 5], bay_px=[TG.CEIL_PX[0] // 5, TG.CEIL_PX[1] // 5], covers=[TG.CEIL_COVERS, TG.CEIL_COVERS], what=TG.CEILINGS['datafort'][2],
                               contract="datafort.json 'ceiling' (COMBAT THREE's: the fight draws it over the board at that alpha, rule 451(a))")
     json.dump(art, open(os.path.join(SHIP, 'datafort_art.json'), 'w'), indent=1)

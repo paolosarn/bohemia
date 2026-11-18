@@ -174,5 +174,16 @@
   "piece": "floor_up",
   "src": "datafort/df_floor_up.webp",
   "facing": "S"
+ },
+ "servers_block": {
+  "w": 438,
+  "h": 489,
+  "foot": [
+   219.8,
+   486
+  ],
+  "piece": "servers_block",
+  "src": "datafort/df_servers_block.webp",
+  "facing": "S"
  }
 }

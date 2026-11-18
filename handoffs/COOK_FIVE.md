@@ -1,5 +1,29 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18n - THE SERVERS, THE MANNEQUINS, THE FOUNTAIN, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round, this round's fourth build; rules 416, 455; ask row 627).
+COMBAT THREE's BUILD 11/18g answered this lane's ask the same round ('the legend lines you wait on are in'). Their pictures:
+slices/fight_ground/datafort/df_servers_block.webp (50,816 bytes; datafort_art.json's kit names it; sizes.json) and df_servers_ns.webp cut again;
+slices/fight_ground/mall/mall_mannequins.webp (30,998) and mall_fountain.webp (27,052), mall_art.json's kit and sizes.json gained the two.
+Nothing of COMBAT THREE's edited (datafort.json's ceiling entry is already so: the fort's cut writes that file only when it is not).
+Made by tools/bohemia_cook5_the_three_that_waited_11_18_26.py (the mall's two in one small pieces scene 'wait_pieces' ON the mall's tool; the fort's
+block by the fort's own `cut --block`). Its cut_light is the cutter's own cut at a quality you name.
+PROOF: the page tool (it takes the mall's new spots: fountain, mannequins): the fort 307 pieces, 48 stand-ins before, 0 now, both ways; the mall's
+atrium 234 pieces, 5 before, 0 now, both ways; 0 page errors. Gate THE INSIDES WEAR FINISHED ART 48/0. COMBAT THREE's gates on this tree: THE BIG INSIDES 78/0 (five insides), AN INSIDE SHOWS ITS CEILING 6/0.
+VOTE cook5-the-three-that-waited-11-18 (MADE FROM arena2-the-pit-is-a-pit-11-7). Record: records/BOHEMIA_COOK_FIVE_THE_THREE_THAT_WAITED_11_18_26.md.
+TWO THINGS MEASURED, FOR THE NEXT KIT: (1) THE CUTTER KEEPS A CAST SHADOW WHOLE WHEN A PIECE IS CUT AT 1.0 (a piece with its own blacks must be):
+laid beside another piece the shadow falls on it. A cast shadow is black AND not solid (0.8 to 0.9 at its core; a thing's own black is 1.0): the
+fort's cut thins only those (NS_CAST). (2) THE MALL'S KIT IS FULL: 899,920 of its 900,000 bytes. At the cutter's 86 the two new pictures made it
+918,404 (my gate's A5 red); they ship at 60. A next mall picture needs room made first (mall_floor_0.webp is 284,398 of it).
+*** FOR COMBAT THREE: thank you: the same round. All three are in under your names; nothing of yours edited. The terminal's names are read; its art is
+this lane's next build (the page asks for terminal_art.json and gets a 404 until then: the one 'lost' line in every page run now).
+NOT DONE: the fort's small lights under the warm pools (your note FOR DIRECTION); the food court and the cages layouts not shot this build.
+*** NEXT ON THIS LANE, IN THIS ORDER: (1) THE TERMINAL (slices/fight_ground/terminal/terminal.json, 27 pieces all stand-ins, ceiling kind 'span';
+the names in handoffs/COMBAT_THREE.md): one tool ON the data fort's (the pattern is five tools deep); (2) the_home_center_east and
+the_home_center_west on the map (the last two of the valley's fifteen); (3) measure how the region draws its four real places; (4) COMBAT THREE's
+next insides (the stadium, the dam's powerhouse) when their names land.
+[bb Battle Brothers reads a fight's ground at a glance: a wall has to look like a wall]
+[analog horror: a row of dressed figures with no faces and one of them on the floor facing the rest]
+
 COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18k - THE MINT, THE DOGS AND THE SCRAP YARD, BUILT (25873c94c), NOT YET SEEN (rule 453, round after round, this round's third build; rules 408, 409(c), 455; ask row 627).
 The real places left in kit art, going on. No code: slices/place_pieces/place_pieces.json gained clark_station, the_animal_shelter and the_scrap_mill,
 the folder six lossless WebP pictures (322,674 bytes in all, thirteen places).

@@ -20767,7 +20767,50 @@
    },
    "record": "records/BOHEMIA_COOK_FIVE_CLARK_STATION_THE_ANIMAL_SHELTER_AND_THE_SCRAP_MILL_11_18_26.md"
   },
-  {"id": "character-the-hired-guns-11-18", "kind": "outfit", "lane": "character", "made": "11/18", "sha": "0d364516e", "draft": true, "title": "THE HIRED GUNS IN THEIR OWN CLOTHES: A RIVAL COMPANY UNDER ONE SASH, AND ITS DUELISTS IN FELT HATS", "said": "do a full sweep / the clothes look good: leather and layering", "why": "The hired guns fought in two gangs' borrowed one-piece looks; now three company men wear a gambeson or a leather jacket over black and the company's own blue-violet sash, and two duelists wear a good coat and a felt gambler's hat with a feather in its band. You see it in every fight against the hired guns, and on this card.", "options": ["A, yes, the hired guns look like this", "B, close, change something (say which one and what)", "C, no, not like this"], "show": {"how": "image", "src": "../records/target/character/the_hired_guns/CHARACTER_THE_HIRED_GUNS.webp", "first": "../records/target/character/the_hired_guns/CHARACTER_THE_HIRED_GUNS_FIRST.webp", "firstAt": [0, 0, 788, 568]}, "twin": {"src": "records/target/cook3/rig/thug/rig_S.png", "diffs": ["A RIVAL COMPANY'S OWN LOOK (Battle Brothers' mercenaries: a company like yours in its own kit): a quilted gambeson, a leather jacket, a khaki jacket over black, scrap helms, a pauldron, bracers.", "ONE MARK FOR THE COMPANY: the same sash on every one of them in the hired guns' own banner ink (blue-violet), so a band of them reads as one company across a fight; the duelists wear it as their hat band.", "THE PAID BLADE (Battle Brothers' swordmaster, a feathered hat): a new felt gambler's hat, black or dust, a pheasant's or a crow's feather in the band, over an oxblood jacket and a bone drape or a long leather split-tail coat."]}, "stage": "made_from", "golden": "character-the-nine-enemies-their-own-clothes-11-7", "recipe": "the nine enemies' frozen recipe (layers that read apart, leather where it fits, no trench added), the two new types in tools/bohemia_character_the_nine_enemies.py (TYPES['Hired Gun'] and TYPES['Duelist'], the gambler's hat, roll-more, make, pack)"}
+  {"id": "character-the-hired-guns-11-18", "kind": "outfit", "lane": "character", "made": "11/18", "sha": "0d364516e", "draft": true, "title": "THE HIRED GUNS IN THEIR OWN CLOTHES: A RIVAL COMPANY UNDER ONE SASH, AND ITS DUELISTS IN FELT HATS", "said": "do a full sweep / the clothes look good: leather and layering", "why": "The hired guns fought in two gangs' borrowed one-piece looks; now three company men wear a gambeson or a leather jacket over black and the company's own blue-violet sash, and two duelists wear a good coat and a felt gambler's hat with a feather in its band. You see it in every fight against the hired guns, and on this card.", "options": ["A, yes, the hired guns look like this", "B, close, change something (say which one and what)", "C, no, not like this"], "show": {"how": "image", "src": "../records/target/character/the_hired_guns/CHARACTER_THE_HIRED_GUNS.webp", "first": "../records/target/character/the_hired_guns/CHARACTER_THE_HIRED_GUNS_FIRST.webp", "firstAt": [0, 0, 788, 568]}, "twin": {"src": "records/target/cook3/rig/thug/rig_S.png", "diffs": ["A RIVAL COMPANY'S OWN LOOK (Battle Brothers' mercenaries: a company like yours in its own kit): a quilted gambeson, a leather jacket, a khaki jacket over black, scrap helms, a pauldron, bracers.", "ONE MARK FOR THE COMPANY: the same sash on every one of them in the hired guns' own banner ink (blue-violet), so a band of them reads as one company across a fight; the duelists wear it as their hat band.", "THE PAID BLADE (Battle Brothers' swordmaster, a feathered hat): a new felt gambler's hat, black or dust, a pheasant's or a crow's feather in the band, over an oxblood jacket and a bone drape or a long leather split-tail coat."]}, "stage": "made_from", "golden": "character-the-nine-enemies-their-own-clothes-11-7", "recipe": "the nine enemies' frozen recipe (layers that read apart, leather where it fits, no trench added), the two new types in tools/bohemia_character_the_nine_enemies.py (TYPES['Hired Gun'] and TYPES['Duelist'], the gambler's hat, roll-more, make, pack)"},
+  {
+   "id": "cook5-the-three-that-waited-11-18",
+   "kind": "tile",
+   "lane": "cook 5",
+   "sha": "SHIPSHA",
+   "made": "11/18",
+   "draft": true,
+   "title": "THE SERVERS LOOK LIKE SERVERS NOW, AND THE MALL HAS ITS MANNEQUINS AND ITS DRY FOUNTAIN",
+   "said": "do a full sweep, let's have some fun",
+   "why": "Last card I told you the data fort's server rows were thin lines with empty floor between them. That is fixed: each block is four rows of cabinets under roofed aisles now. And the mall got two things it was missing: a row of dressed mannequins with no faces on a catwalk (one stands on the floor, facing the others), and the fountain in the middle, dry, with every coin still in it. You meet them when a fight starts at the data fort or the mall, in the RUN tab.",
+   "options": [
+    "A, yes, like that",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK5_THE_THREE_THAT_WAITED_11_18.webp",
+    "first": "../records/target/vote_first/cook5-the-three-that-waited-11-18.webp",
+    "firstAt": [
+     295,
+     96,
+     285,
+     416
+    ]
+   },
+   "before_after": {
+    "before": "main cf1cf0174: a stand-in on every server tile of the data fort (48) and on the mall's four displays and its fountain (5)",
+    "after": "three pictures under COMBAT THREE's names, through the master rig; the fort and the mall lay them with no code changed",
+    "scale": "the fight on his phone upright (390 x 844): the fort as it opens and close in on a pod, a store and the atrium close in, before and now; then the three pictures at their own pixels"
+   },
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "twin": {
+    "src": "fight_ground/datafort/df_servers_ew.webp",
+    "diffs": [
+     "THE SAME RIG AND CUT as the data fort's kit and the mall's: COMBAT THREE's names, its data lines, no code.",
+     "THE BLOCK FITS BETWEEN THE TWO EDGE ROWS the fight already laid: four rows and three roofed aisles a tile.",
+     "THE MANNEQUINS WEAR LONG COATS, NO FACES; THE FOUNTAIN KEEPS ITS COINS: the two things in a dead mall nobody took."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_FIVE_THE_THREE_THAT_WAITED_11_18_26.md"
+  }
  ],
  "verdicts": [
   {

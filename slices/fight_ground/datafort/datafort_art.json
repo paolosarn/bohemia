@@ -269,6 +269,19 @@
     90.2,
     88
    ]
+  },
+  "df_servers_block": {
+   "kind": "WALL",
+   "h": 2.2,
+   "name": "A BLOCK OF SERVERS",
+   "stage": "finished",
+   "src": "datafort/df_servers_block.webp",
+   "w": 438,
+   "h_px": 489,
+   "foot": [
+    219.8,
+    486
+   ]
   }
  },
  "how_it_lays": {

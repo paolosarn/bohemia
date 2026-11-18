@@ -439,6 +439,32 @@
     249.4,
     125
    ]
+  },
+  "mall_mannequins": {
+   "kind": "LOW_COVER",
+   "h": 1.9,
+   "name": "THE MANNEQUINS",
+   "stage": "finished",
+   "src": "mall/mall_mannequins.webp",
+   "w": 468,
+   "h_px": 226,
+   "foot": [
+    227.8,
+    225
+   ]
+  },
+  "mall_fountain": {
+   "kind": "COVER",
+   "h": 3.05,
+   "name": "THE FOUNTAIN, DRY",
+   "stage": "finished",
+   "src": "mall/mall_fountain.webp",
+   "w": 429,
+   "h_px": 412,
+   "foot": [
+    197.7,
+    410
+   ]
   }
  },
  "how_it_lays": {
@@ -447,7 +473,8 @@
   "carts": "mall_carts is 10.6 m wide, 3.5 m deep, foot its south edge middle; mall_cart_a stands, mall_cart_b lies with somebody's bags",
   "stock, counter, kiosk, planter, camp, tables, rubble": "foot the piece's south edge middle; mall_boxes is mall_stock's picture, mall_bedding_a/b the camps', mall_seats the tables'",
   "the column and the lift": "mall_column is 1 m square, foot its base middle; mall_lift is 3.2 m square, 3.2 m up, foot its south base middle (the doors face south)",
-  "the bridge": "mall_bridge on every high tile, foot at the tile's south edge middle; 1.42 m up; its diamonds repeat every 4 m so deck tiles meet. mall_escalator_e climbs to the east, mall_escalator_w to the west (the same foot). mall_rail_ew / mall_rail_ns on its open edges (the hall's glass rail)."
+  "the bridge": "mall_bridge on every high tile, foot at the tile's south edge middle; 1.42 m up; its diamonds repeat every 4 m so deck tiles meet. mall_escalator_e climbs to the east, mall_escalator_w to the west (the same foot). mall_rail_ew / mall_rail_ns on its open edges (the hall's glass rail).",
+  "the mannequins and the fountain (11/18)": "mall_mannequins is the store tile 'display': a plinth 10 m wide and 2.2 m deep with what still stands on it, the rail and one figure on the floor south of it; foot its south edge middle (the floor things' way). mall_fountain is a round basin 8.8 m across, 3 m up at its finial, foot its south rim middle: laid at (0.5, 0.92) it sits inside its tile."
  },
  "bytes": {
   "floor": 284398,

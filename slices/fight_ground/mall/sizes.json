@@ -251,5 +251,27 @@
   "piece": "cart_b",
   "src": "mall/mall_cart_b.webp",
   "facing": "S"
+ },
+ "mannequins": {
+  "w": 468,
+  "h": 226,
+  "foot": [
+   227.8,
+   225
+  ],
+  "piece": "mannequins",
+  "src": "mall/mall_mannequins.webp",
+  "facing": "S"
+ },
+ "fountain": {
+  "w": 429,
+  "h": 412,
+  "foot": [
+   197.7,
+   410
+  ],
+  "piece": "fountain",
+  "src": "mall/mall_fountain.webp",
+  "facing": "S"
  }
 }
