@@ -580,6 +580,12 @@ ways. VOTE bestiary-the-mammoth-11-17 re-shot. Record records/BOHEMIA_BESTIARY_A
 types 67 of about 75, beasts 18 lab-made, bosses 10, champions named (handoffs/BESTIARY.md).
 [bb Battle Brothers draws its Unhold a head and a half over a brother, not three; the board reads the size, the rules carry the weight.]
 [analog horror: the mammoth between the houses at night, two men and a half tall, which is worse than a tower: it is real.]
+WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/18 LATEST -- BUILD 11/18f - THE BILLBOARDS, BUILT, NOT YET SEEN (rule 453's rounds; rule
+454(a), no words; rule 441). Dead billboards stand beside the freeways now (36 on a valley), and each is a lookout: by one he sees 3
+blocks farther by day and 1 by night, and the fog keeps what he saw. Gate THE BILLBOARDS on demo and alpha, a phone both ways. VOTE
+world14-the-billboards-11-18 (STAND-IN). Still owed from the list: a fishing pond, the public works yard. The block: handoffs/WORLD_FOURTEEN.md.
+[bb the high ground widens the company's sight on the world map; ours is a billboard's catwalk beside the 15.]
+[analog horror: under the peeled paper there is always an older face, and nobody can say what it was selling.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/17 LATEST (build two) -- BUILD 11/17zg - THE SCRAP MILL, BUILT, NOT YET SEEN (rule 453's sweep;
 rule 454(a), no person talks; rule 441). The list's scrap mill is on the map in North Las Vegas; its stall holds twice the tape and sells
 copper wire at the maker's price, to carry where it sells for more. Gate THE SCRAP MILL on demo and alpha, a phone both ways. VOTE

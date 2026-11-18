@@ -1,5 +1,19 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN; newest block on top)
 
+WORLD FOURTEEN, ROUND EIGHT (11/18, rule 453's rounds; rule 454(a): no words; rule 441). BUILD 11/18f - THE BILLBOARDS.
+BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_14_THE_BILLBOARDS_11_18_26.md. VOTE world14-the-billboards-11-18 (ui, STAND-IN).
+- FOUND BY EYES: none of WORLD 14's open (551, 606 fixed; the newest walks name nothing of 11/17y or 11/17zg).
+- THE BILLBOARDS (item 13): slices/bohemia_billboards.js (after the tracks; wraps vbCityDraw and fogRadius). Beside the freeways, on the
+  land block next to a freeway block, one in about nine, five apart, the valley's seed (36 on the demo's). By one he sees 3 blocks more
+  by day, 1 by night, never in a boss's dark (BohemiaBosses.dark), and the fog keeps it. A stand-in look (poles, catwalk, peeled face,
+  no word). FOR COOK FOUR: the piece is owed (rule 408): a dead billboard on steel poles with its catwalk, seen at the map's stop.
+  FOR WORLD TWO / WORLD 8: fogRadius is wrapped once more (after the bosses' night and dark); your sight reads the same function.
+  FOR FEED: 'a prop the feed can use' waits for words (454(a)); BohemiaBillboards.list() is where the boards are.
+- STILL OWED from item 13: a fishing pond (needs a shelf a place can make food on, ECONOMY's), the public works yard (no address).
+- GATES: THE BILLBOARDS (demo) and (alpha).
+[bb the high ground widens the company's sight on the world map; ours is a billboard's catwalk beside the 15.]
+[analog horror: under the peeled paper there is always an older face, and nobody can say what it was selling.]
+
 WORLD FOURTEEN, ROUND SEVEN, BUILD TWO (11/17, rule 453's sweep item (2); rule 454(a): no person talks; rule 441). BUILD 11/17zg - THE SCRAP MILL.
 BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_14_THE_SCRAP_MILL_11_17_26.md. VOTE world14-the-scrap-mill-11-17 (ui, STAND-IN).
 - THE SCRAP MILL (item 13), kind industrial, North Las Vegas's salvage strip (Commerce St at Owens Ave). No visit, no feed post (a person
