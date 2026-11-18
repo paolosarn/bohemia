@@ -1,4 +1,4 @@
-HOME BASE (home-base-01gkdyuv): 11/18 LATEST -- BUILD 11/18c - HELD THE GATE, BUILT, NOT YET SEEN (rule 453; ask line 571).
+HOME BASE (home-base-01gkdyuv): 11/18 LATEST -- BUILD 11/18c - HELD THE GATE (e7f447c8b), SHIPPED (rule 453; ask line 571).
 Record: records/BOHEMIA_HOME_BASE_HELD_THE_GATE_11_18_26.md.
 - A raid he HELD at his place's gate is pinned on his cork board (the seam's deed, held: true; the map's __HIS_GATE_HELD__ reads
   FACTIONS' ledger, read only). Seen close on the camera. Gate E12, D18.
