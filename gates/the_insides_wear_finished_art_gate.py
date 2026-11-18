@@ -56,7 +56,8 @@ KITS = {'tunnels': dict(art='tunnels_art.json', budget=900000, walls=('wall_ew',
         'hall': dict(art='hall_art.json', budget=900000, walls=('wall_ew', 'airwall_ew', 'rail_ew', 'mezz', 'stair_e', 'stair_w'), beside=[('floor', 'ring')]),   # (11/17) COMBAT THREE's convention hall
         'mall': dict(art='mall_art.json', budget=900000, walls=('wall_ew', 'front_ew', 'door', 'rail_ew', 'bridge', 'escalator_e', 'escalator_w'), beside=[('floor', 'ring'), ('floor', 'high')]),   # (11/17) and its mall
         'warehouse': dict(art='warehouse_art.json', budget=900000, walls=('wall_ew', 'rack_ew', 'conveyor', 'rail_ew', 'mezz', 'stair_e', 'stair_w'), beside=[('floor', 'ring'), ('floor', 'high')]),   # (11/17) and its warehouse
-        'datafort': dict(art='datafort_art.json', budget=900000, walls=('wall_ew', 'servers_ew', 'gate', 'rail_ew', 'gallery', 'stair_e', 'stair_w'), beside=[('floor', 'ring'), ('floor', 'high')])}   # (11/18) and its data fort
+        'datafort': dict(art='datafort_art.json', budget=900000, walls=('wall_ew', 'servers_ew', 'gate', 'rail_ew', 'gallery', 'stair_e', 'stair_w'), beside=[('floor', 'ring'), ('floor', 'high')]),   # (11/18) and its data fort
+        'terminal': dict(art='terminal_art.json', budget=900000, walls=('wall_ew', 'screen_ew', 'belt', 'rail_ew', 'walkway', 'stair_e', 'stair_w'), beside=[('floor', 'ring'), ('floor', 'high')])}   # (11/18) and its airport terminal
 passed = failed = 0
 
 
@@ -146,7 +147,7 @@ def a4(kit, K, sizes):
 
 
 CEIL_ALPHA_MAX, CEIL_BYTES, CEIL_SPREAD, CEIL_LINES, CEIL_MEET = 0.15, 80000, 60.0, (25.0, 0.10), 8.0
-CEIL_DATA = {'garage': 'garage/garage.json', 'casino': 'casino/casino_floor.json', 'tunnels': 'tunnels/tunnels.json', 'hall': 'hall/hall.json', 'mall': 'mall/mall.json', 'warehouse': 'warehouse/warehouse.json', 'datafort': 'datafort/datafort.json'}   # COMBAT THREE's: each one's 'ceiling' entry is the contract
+CEIL_DATA = {'garage': 'garage/garage.json', 'casino': 'casino/casino_floor.json', 'tunnels': 'tunnels/tunnels.json', 'hall': 'hall/hall.json', 'mall': 'mall/mall.json', 'warehouse': 'warehouse/warehouse.json', 'datafort': 'datafort/datafort.json', 'terminal': 'terminal/terminal.json'}   # COMBAT THREE's: each one's 'ceiling' entry is the contract
 
 
 def c1(C, exists=os.path.exists):

@@ -1,0 +1,446 @@
+{
+ "version": "cook5-terminal-art-11-18",
+ "lane": "cook 5",
+ "stage": "finished",
+ "for": "COMBAT THREE's airport terminal (slices/fight_ground/terminal/terminal.json, BUILD 11/18g): the names its handoff asked for, the garage's format. floor.floor is the terrazzo (rows 0 to 3 of the sheet: two-metre panels, the wayfinding arrows inlaid, the lines trolley wheels left), floor.high its row 4 with no marks (under the walkway's own picture, which carries the carpet), floor.ring every tile. Any tile meets any tile.",
+ "floor": {
+  "floor": [
+   "terminal/terminal_floor_0.webp#0,0",
+   "terminal/terminal_floor_0.webp#1,0",
+   "terminal/terminal_floor_0.webp#2,0",
+   "terminal/terminal_floor_0.webp#3,0",
+   "terminal/terminal_floor_0.webp#4,0",
+   "terminal/terminal_floor_0.webp#0,1",
+   "terminal/terminal_floor_0.webp#1,1",
+   "terminal/terminal_floor_0.webp#2,1",
+   "terminal/terminal_floor_0.webp#3,1",
+   "terminal/terminal_floor_0.webp#4,1",
+   "terminal/terminal_floor_0.webp#0,2",
+   "terminal/terminal_floor_0.webp#1,2",
+   "terminal/terminal_floor_0.webp#2,2",
+   "terminal/terminal_floor_0.webp#3,2",
+   "terminal/terminal_floor_0.webp#4,2",
+   "terminal/terminal_floor_0.webp#0,3",
+   "terminal/terminal_floor_0.webp#1,3",
+   "terminal/terminal_floor_0.webp#2,3",
+   "terminal/terminal_floor_0.webp#3,3",
+   "terminal/terminal_floor_0.webp#4,3"
+  ],
+  "high": [
+   "terminal/terminal_floor_0.webp#0,4",
+   "terminal/terminal_floor_0.webp#1,4",
+   "terminal/terminal_floor_0.webp#2,4",
+   "terminal/terminal_floor_0.webp#3,4",
+   "terminal/terminal_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "terminal/terminal_floor_0.webp#0,0",
+   "terminal/terminal_floor_0.webp#1,0",
+   "terminal/terminal_floor_0.webp#2,0",
+   "terminal/terminal_floor_0.webp#3,0",
+   "terminal/terminal_floor_0.webp#4,0",
+   "terminal/terminal_floor_0.webp#0,1",
+   "terminal/terminal_floor_0.webp#1,1",
+   "terminal/terminal_floor_0.webp#2,1",
+   "terminal/terminal_floor_0.webp#3,1",
+   "terminal/terminal_floor_0.webp#4,1",
+   "terminal/terminal_floor_0.webp#0,2",
+   "terminal/terminal_floor_0.webp#1,2",
+   "terminal/terminal_floor_0.webp#2,2",
+   "terminal/terminal_floor_0.webp#3,2",
+   "terminal/terminal_floor_0.webp#4,2",
+   "terminal/terminal_floor_0.webp#0,3",
+   "terminal/terminal_floor_0.webp#1,3",
+   "terminal/terminal_floor_0.webp#2,3",
+   "terminal/terminal_floor_0.webp#3,3",
+   "terminal/terminal_floor_0.webp#4,3",
+   "terminal/terminal_floor_0.webp#0,4",
+   "terminal/terminal_floor_0.webp#1,4",
+   "terminal/terminal_floor_0.webp#2,4",
+   "terminal/terminal_floor_0.webp#3,4",
+   "terminal/terminal_floor_0.webp#4,4"
+  ]
+ },
+ "kit": {
+  "tm_walkway": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "THE UPPER WALKWAY",
+   "stage": "finished",
+   "src": "terminal/tm_walkway.webp",
+   "w": 516,
+   "h_px": 436,
+   "foot": [
+    258.2,
+    435
+   ]
+  },
+  "tm_stair_e": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "ITS STAIR, EAST",
+   "stage": "finished",
+   "src": "terminal/tm_stair_e.webp",
+   "w": 515,
+   "h_px": 456,
+   "foot": [
+    257.8,
+    455
+   ]
+  },
+  "tm_stair_w": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "ITS STAIR, WEST",
+   "stage": "finished",
+   "src": "terminal/tm_stair_w.webp",
+   "w": 515,
+   "h_px": 456,
+   "foot": [
+    257.5,
+    455
+   ]
+  },
+  "tm_rail_ew": {
+   "kind": "RAIL",
+   "h": 1.04,
+   "name": "THE GLASS RAIL",
+   "stage": "finished",
+   "src": "terminal/tm_rail_ew.webp",
+   "w": 516,
+   "h_px": 73,
+   "foot": [
+    258.2,
+    58
+   ]
+  },
+  "tm_rail_ns": {
+   "kind": "RAIL",
+   "h": 1.04,
+   "name": "THE GLASS RAIL",
+   "stage": "finished",
+   "src": "terminal/tm_rail_ns.webp",
+   "w": 77,
+   "h_px": 414,
+   "foot": [
+    21.7,
+    413
+   ]
+  },
+  "tm_wall_ew": {
+   "kind": "WALL",
+   "h": 1.6,
+   "name": "THE TERMINAL'S WALL",
+   "stage": "finished",
+   "src": "terminal/tm_wall_ew.webp",
+   "w": 515,
+   "h_px": 94,
+   "foot": [
+    257.8,
+    84
+   ]
+  },
+  "tm_wall_ns": {
+   "kind": "WALL",
+   "h": 1.6,
+   "name": "THE TERMINAL'S WALL",
+   "stage": "finished",
+   "src": "terminal/tm_wall_ns.webp",
+   "w": 91,
+   "h_px": 439,
+   "foot": [
+    22.4,
+    438
+   ]
+  },
+  "tm_screen_ew": {
+   "kind": "WALL",
+   "h": 2.0,
+   "name": "THE CHECKPOINT'S SCREENS",
+   "stage": "finished",
+   "src": "terminal/tm_screen_ew.webp",
+   "w": 515,
+   "h_px": 127,
+   "foot": [
+    257.5,
+    97
+   ]
+  },
+  "tm_screen_ns": {
+   "kind": "WALL",
+   "h": 2.0,
+   "name": "THE CHECKPOINT'S SCREENS",
+   "stage": "finished",
+   "src": "terminal/tm_screen_ns.webp",
+   "w": 86,
+   "h_px": 455,
+   "foot": [
+    18.0,
+    454
+   ]
+  },
+  "tm_booth": {
+   "kind": "WALL",
+   "h": 2.3,
+   "name": "THE CHECKPOINT",
+   "stage": "finished",
+   "src": "terminal/tm_booth.webp",
+   "w": 438,
+   "h_px": 304,
+   "foot": [
+    215.5,
+    298
+   ]
+  },
+  "tm_carousel": {
+   "kind": "COVER",
+   "h": 2.9,
+   "name": "THE CAROUSEL, HEAPED",
+   "stage": "finished",
+   "src": "terminal/tm_carousel.webp",
+   "w": 438,
+   "h_px": 384,
+   "foot": [
+    207.0,
+    381
+   ]
+  },
+  "tm_belt": {
+   "kind": "LOW_COVER",
+   "h": 0.8,
+   "name": "THE CAROUSEL'S BELT",
+   "stage": "finished",
+   "src": "terminal/tm_belt.webp",
+   "w": 516,
+   "h_px": 112,
+   "foot": [
+    258.2,
+    110
+   ]
+  },
+  "tm_counter": {
+   "kind": "LOW_COVER",
+   "h": 1.5,
+   "name": "A COUNTER",
+   "stage": "finished",
+   "src": "terminal/tm_counter.webp",
+   "w": 515,
+   "h_px": 149,
+   "foot": [
+    253.2,
+    144
+   ]
+  },
+  "tm_queue": {
+   "kind": "LOW_COVER",
+   "h": 1.0,
+   "name": "THE QUEUE'S RAILS",
+   "stage": "finished",
+   "src": "terminal/tm_queue.webp",
+   "w": 446,
+   "h_px": 191,
+   "foot": [
+    215.0,
+    180
+   ]
+  },
+  "tm_seats": {
+   "kind": "LOW_COVER",
+   "h": 0.92,
+   "name": "GATE SEATS",
+   "stage": "finished",
+   "src": "terminal/tm_seats.webp",
+   "w": 515,
+   "h_px": 121,
+   "foot": [
+    249.4,
+    106
+   ]
+  },
+  "tm_seats_b": {
+   "kind": "DRESS",
+   "h": 0.92,
+   "name": "GATE SEATS",
+   "stage": "finished",
+   "src": "terminal/tm_seats_b.webp",
+   "w": 515,
+   "h_px": 76,
+   "foot": [
+    249.8,
+    74
+   ]
+  },
+  "tm_luggage": {
+   "kind": "COVER",
+   "h": 1.6,
+   "name": "A WALL OF LUGGAGE",
+   "stage": "finished",
+   "src": "terminal/tm_luggage.webp",
+   "w": 331,
+   "h_px": 123,
+   "foot": [
+    151.0,
+    112
+   ]
+  },
+  "tm_bags": {
+   "kind": "DRESS",
+   "h": 0.8,
+   "name": "BAGS, GONE THROUGH",
+   "stage": "finished",
+   "src": "terminal/tm_bags.webp",
+   "w": 171,
+   "h_px": 104,
+   "foot": [
+    60.4,
+    74
+   ]
+  },
+  "tm_newsstand": {
+   "kind": "COVER",
+   "h": 2.62,
+   "name": "A NEWSSTAND",
+   "stage": "finished",
+   "src": "terminal/tm_newsstand.webp",
+   "w": 314,
+   "h_px": 261,
+   "foot": [
+    125.2,
+    259
+   ]
+  },
+  "tm_column": {
+   "kind": "WALL",
+   "h": 2.8,
+   "name": "A COLUMN",
+   "stage": "finished",
+   "src": "terminal/tm_column.webp",
+   "w": 146,
+   "h_px": 173,
+   "foot": [
+    34.8,
+    153
+   ]
+  },
+  "tm_trolley_a": {
+   "kind": "LOW_COVER",
+   "h": 1.02,
+   "name": "LUGGAGE TROLLEYS",
+   "stage": "finished",
+   "src": "terminal/tm_trolley_a.webp",
+   "w": 292,
+   "h_px": 109,
+   "foot": [
+    125.1,
+    107
+   ]
+  },
+  "tm_trolley_b": {
+   "kind": "DRESS",
+   "h": 1.1,
+   "name": "A TROLLEY, LOADED AND LEFT",
+   "stage": "finished",
+   "src": "terminal/tm_trolley_b.webp",
+   "w": 103,
+   "h_px": 94,
+   "foot": [
+    21.5,
+    92
+   ]
+  },
+  "tm_trolley_c": {
+   "kind": "DRESS",
+   "h": 0.5,
+   "name": "A TROLLEY, DOWN",
+   "stage": "finished",
+   "src": "terminal/tm_trolley_c.webp",
+   "w": 112,
+   "h_px": 81,
+   "foot": [
+    35.2,
+    72
+   ]
+  },
+  "tm_camp_a": {
+   "kind": "LOW_COVER",
+   "h": 0.92,
+   "name": "SOMEBODY'S BEDDING",
+   "stage": "finished",
+   "src": "terminal/tm_camp_a.webp",
+   "w": 275,
+   "h_px": 133,
+   "foot": [
+    129.6,
+    128
+   ]
+  },
+  "tm_camp_b": {
+   "kind": "LOW_COVER",
+   "h": 1.06,
+   "name": "SOMEBODY'S BEDDING",
+   "stage": "finished",
+   "src": "terminal/tm_camp_b.webp",
+   "w": 275,
+   "h_px": 133,
+   "foot": [
+    129.4,
+    128
+   ]
+  },
+  "tm_bedding_a": {
+   "kind": "DRESS",
+   "h": 0.92,
+   "name": "SOMEBODY'S BEDDING",
+   "stage": "finished",
+   "src": "terminal/tm_camp_a.webp",
+   "w": 275,
+   "h_px": 133,
+   "foot": [
+    129.6,
+    128
+   ]
+  },
+  "tm_bedding_b": {
+   "kind": "DRESS",
+   "h": 1.06,
+   "name": "SOMEBODY'S BEDDING",
+   "stage": "finished",
+   "src": "terminal/tm_camp_b.webp",
+   "w": 275,
+   "h_px": 133,
+   "foot": [
+    129.4,
+    128
+   ]
+  }
+ },
+ "how_it_lays": {
+  "the checkpoint": "tm_booth is the piece of a checkpoint tile, 10 m wide and 6.5 m deep, 2.3 m up, foot its south edge middle (laid at (0.5, 0.98) it sits inside the tile between the two screens). tm_screen_ns is a glass screen a tile deep, foot its south end middle; tm_screen_ew the same a tile wide, foot its south base middle.",
+  "the carousels": "tm_belt is a strip of belt a tile wide and 2.2 m deep, 0.45 m up, the same at both ends so belt tiles meet; foot its south edge middle. tm_carousel is the island and its heap, 9.2 m wide and 8 m deep, 2.9 m up; foot its south edge middle.",
+  "the floor things": "tm_counter is five desks a tile wide; tm_queue the maze 10 m by 4; tm_seats three banks back to back a tile wide, tm_seats_b the single row; tm_luggage a wall of cases 5.4 m wide and 1.6 m up, tm_bags the heap beside it; tm_trolley_a a nested row and two loose, _b one loaded, _c one down; tm_newsstand 5.2 m wide, its shutter lying 1.9 m south of it; tm_camp_a / _b (tm_bedding_a / _b are the same two pictures): foot each at its south edge middle",
+  "the column": "tm_column is round, 1.1 m across, cut at 2.8 m; foot its base middle",
+  "the walkway": "tm_walkway on every high tile, foot at the tile's south edge middle; 1.42 m up; its carpet's bands repeat every 2 m so deck tiles meet. tm_stair_e climbs to the east, tm_stair_w to the west (the fort's stair). tm_rail_ew / tm_rail_ns on its open edges (the hall's glass rail).",
+  "the outer wall": "tm_wall_ew / tm_wall_ns: white panels with the wayfinding band, cut at 1.6 m, a tile long"
+ },
+ "bytes": {
+  "floor": 216238,
+  "ceiling": 20398
+ },
+ "ceiling": {
+  "sheet": "terminal/terminal_ceiling.webp",
+  "bays": [
+   5,
+   5
+  ],
+  "bay_px": [
+   129,
+   91
+  ],
+  "covers": [
+   10,
+   10
+  ],
+  "what": "the long white roof, a rib every bay with its steel flange, a strip of skylight across every bay (its mullions, panes out), the gate numbers hung dead and the departures board every other bay with every row dark, the light fittings dead, smoke heads",
+  "contract": "terminal.json 'ceiling' (COMBAT THREE's: the fight draws it over the board at that alpha, rule 451(a))"
+ }
+}

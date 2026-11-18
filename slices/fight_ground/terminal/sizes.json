@@ -1,0 +1,277 @@
+{
+ "walkway": {
+  "w": 516,
+  "h": 436,
+  "foot": [
+   258.2,
+   435
+  ],
+  "piece": "walkway",
+  "src": "terminal/tm_walkway.webp",
+  "facing": "S"
+ },
+ "stair_e": {
+  "w": 515,
+  "h": 456,
+  "foot": [
+   257.8,
+   455
+  ],
+  "piece": "stair_e",
+  "src": "terminal/tm_stair_e.webp",
+  "facing": "S"
+ },
+ "stair_w": {
+  "w": 515,
+  "h": 456,
+  "foot": [
+   257.5,
+   455
+  ],
+  "piece": "stair_w",
+  "src": "terminal/tm_stair_w.webp",
+  "facing": "S"
+ },
+ "rail_ew": {
+  "w": 516,
+  "h": 73,
+  "foot": [
+   258.2,
+   58
+  ],
+  "piece": "rail_ew",
+  "src": "terminal/tm_rail_ew.webp",
+  "facing": "S"
+ },
+ "rail_ns": {
+  "w": 77,
+  "h": 414,
+  "foot": [
+   21.7,
+   413
+  ],
+  "piece": "rail_ns",
+  "src": "terminal/tm_rail_ns.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 515,
+  "h": 94,
+  "foot": [
+   257.8,
+   84
+  ],
+  "piece": "wall_ew",
+  "src": "terminal/tm_wall_ew.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 91,
+  "h": 439,
+  "foot": [
+   22.4,
+   438
+  ],
+  "piece": "wall_ns",
+  "src": "terminal/tm_wall_ns.webp",
+  "facing": "S"
+ },
+ "screen_ew": {
+  "w": 515,
+  "h": 127,
+  "foot": [
+   257.5,
+   97
+  ],
+  "piece": "screen_ew",
+  "src": "terminal/tm_screen_ew.webp",
+  "facing": "S"
+ },
+ "screen_ns": {
+  "w": 86,
+  "h": 455,
+  "foot": [
+   18.0,
+   454
+  ],
+  "piece": "screen_ns",
+  "src": "terminal/tm_screen_ns.webp",
+  "facing": "S"
+ },
+ "booth": {
+  "w": 438,
+  "h": 304,
+  "foot": [
+   215.5,
+   298
+  ],
+  "piece": "booth",
+  "src": "terminal/tm_booth.webp",
+  "facing": "S"
+ },
+ "carousel": {
+  "w": 438,
+  "h": 384,
+  "foot": [
+   207.0,
+   381
+  ],
+  "piece": "carousel",
+  "src": "terminal/tm_carousel.webp",
+  "facing": "S"
+ },
+ "belt": {
+  "w": 516,
+  "h": 112,
+  "foot": [
+   258.2,
+   110
+  ],
+  "piece": "belt",
+  "src": "terminal/tm_belt.webp",
+  "facing": "S"
+ },
+ "counter": {
+  "w": 515,
+  "h": 149,
+  "foot": [
+   253.2,
+   144
+  ],
+  "piece": "counter",
+  "src": "terminal/tm_counter.webp",
+  "facing": "S"
+ },
+ "queue": {
+  "w": 446,
+  "h": 191,
+  "foot": [
+   215.0,
+   180
+  ],
+  "piece": "queue",
+  "src": "terminal/tm_queue.webp",
+  "facing": "S"
+ },
+ "seats": {
+  "w": 515,
+  "h": 121,
+  "foot": [
+   249.4,
+   106
+  ],
+  "piece": "seats",
+  "src": "terminal/tm_seats.webp",
+  "facing": "S"
+ },
+ "seats_b": {
+  "w": 515,
+  "h": 76,
+  "foot": [
+   249.8,
+   74
+  ],
+  "piece": "seats_b",
+  "src": "terminal/tm_seats_b.webp",
+  "facing": "S"
+ },
+ "luggage": {
+  "w": 331,
+  "h": 123,
+  "foot": [
+   151.0,
+   112
+  ],
+  "piece": "luggage",
+  "src": "terminal/tm_luggage.webp",
+  "facing": "S"
+ },
+ "bags": {
+  "w": 171,
+  "h": 104,
+  "foot": [
+   60.4,
+   74
+  ],
+  "piece": "bags",
+  "src": "terminal/tm_bags.webp",
+  "facing": "S"
+ },
+ "newsstand": {
+  "w": 314,
+  "h": 261,
+  "foot": [
+   125.2,
+   259
+  ],
+  "piece": "newsstand",
+  "src": "terminal/tm_newsstand.webp",
+  "facing": "S"
+ },
+ "column": {
+  "w": 146,
+  "h": 173,
+  "foot": [
+   34.8,
+   153
+  ],
+  "piece": "column",
+  "src": "terminal/tm_column.webp",
+  "facing": "S"
+ },
+ "trolley_a": {
+  "w": 292,
+  "h": 109,
+  "foot": [
+   125.1,
+   107
+  ],
+  "piece": "trolley_a",
+  "src": "terminal/tm_trolley_a.webp",
+  "facing": "S"
+ },
+ "trolley_b": {
+  "w": 103,
+  "h": 94,
+  "foot": [
+   21.5,
+   92
+  ],
+  "piece": "trolley_b",
+  "src": "terminal/tm_trolley_b.webp",
+  "facing": "S"
+ },
+ "trolley_c": {
+  "w": 112,
+  "h": 81,
+  "foot": [
+   35.2,
+   72
+  ],
+  "piece": "trolley_c",
+  "src": "terminal/tm_trolley_c.webp",
+  "facing": "S"
+ },
+ "camp_a": {
+  "w": 275,
+  "h": 133,
+  "foot": [
+   129.6,
+   128
+  ],
+  "piece": "camp_a",
+  "src": "terminal/tm_camp_a.webp",
+  "facing": "S"
+ },
+ "camp_b": {
+  "w": 275,
+  "h": 133,
+  "foot": [
+   129.4,
+   128
+  ],
+  "piece": "camp_b",
+  "src": "terminal/tm_camp_b.webp",
+  "facing": "S"
+ }
+}

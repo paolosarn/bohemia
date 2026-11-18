@@ -15,9 +15,11 @@ const SPOTS = { the_split_hall: { cots: [2.5, 4], mezz: [3, 1.6], stair_w: [16.5
   the_food_court: { fronts: [2.5, 3.4], bridge: [9, 6.4], tables: [13.6, 5] },
   the_lanes: { racks: [2.5, 3.6], mezz: [5, 1.4], stair: [12.4, 1.4], lane: [3, 4.4], camp: [12.6, 4.4], conveyor: [9, 11], forklift: [4.6, 11.2], trailer: [3.6, 13], cage: [16.6, 11], desk: [2, 12] },
   the_cross_dock: { racks: [2.5, 3.6], mezz: [5, 1.4] },
+  the_checkpoint: { checkpoint: [9, 4.4], desks: [2, 4], gate: [11.4, 1.6], luggage: [5.6, 5.6], camp: [14, 3], walkway: [9.4, 12.4], newsstand: [14.6, 4] },
+  the_baggage_hall: { carousel: [3, 4], camp: [2, 8], walkway: [6, 1.4] },
   the_white_space: { pod: [3, 4.4], gallery: [5, 1.4], stair: [13, 1.4], crac: [16.6, 2], pod_end: [3, 7], floor_up: [5.4, 6.4], desk: [13, 12.4], batteries: [7.5, 12.4], crates: [10, 5.2] },
   the_cages: { pod: [3, 4.4], gallery: [5, 1.4] } };
-const INSIDES = { hall: { district: 'convention', layout: 'the_split_hall' }, mall: { district: 'mall', layout: 'the_atrium' }, warehouse: { district: 'warehouse', layout: 'the_lanes' }, datafort: { district: 'datafort', layout: 'the_white_space' } };
+const INSIDES = { hall: { district: 'convention', layout: 'the_split_hall' }, mall: { district: 'mall', layout: 'the_atrium' }, warehouse: { district: 'warehouse', layout: 'the_lanes' }, datafort: { district: 'datafort', layout: 'the_white_space' }, terminal: { district: 'terminal', layout: 'the_checkpoint' } };
 (async () => {
   const out = process.argv[2], inside = process.argv[3] || 'hall', shapes = (process.argv[4] || 'upright,sideways').split(','), layout = process.argv[5] || INSIDES[inside].layout;
   fs.mkdirSync(out, { recursive: true });

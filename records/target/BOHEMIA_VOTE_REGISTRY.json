@@ -20814,7 +20814,50 @@
   {"id": "world13-the-painting-never-waits-in-line-11-18", "kind": "tile", "lane": "world 13", "sha": "8b47a28e", "made": "11/18", "draft": true, "title": "ZOOMED ALL THE WAY OUT, THE CITY PICTURE COMES UP WITHOUT WAITING IN LINE", "said": "(the coordinator, round after round) the map fast on a cheap phone on every seed", "why": "Zoomed all the way out on a new map, the whole-city picture used to wait in line behind the picture of the land around it, so right after the game opened it took 10.5 seconds to show up. Now a free painter takes it straight away: 2.4 seconds. After the first one it is about 2 to 3 seconds both ways. I also tried painting the city in four pieces at once: no faster on this computer, and it changed how some buildings look, so I took it back out. You feel it zooming all the way out on a new map in the RUN tab.", "show": {"how": "image", "src": "../records/target/WORLD13_THE_PAINTING_NEVER_WAITS_IN_LINE_11_18.webp",
     "first": "../records/target/vote_first/world13-the-painting-never-waits-in-line-11-18.webp",
     "firstAt": [0, 0, 420, 420]
-   }, "before_after": {"before": "main 11/18n: the whole painting asked of the one worker that paints the land past the map; the first after the page opens landed in 10.5 s", "after": "asked of a free painter in the pool: 2.4 s; warm, 2 to 3 s both ways; a job with every painter busy waits its turn instead of being painted on the page", "scale": "the demo on the phone upright, the far stop, a new valley, full speed"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_THIRTEEN_THE_PAINTING_NEVER_WAITS_IN_LINE_11_18_26.md", "build": "BUILD 11/18o - THE PAINTING NEVER WAITS IN LINE"}
+   }, "before_after": {"before": "main 11/18n: the whole painting asked of the one worker that paints the land past the map; the first after the page opens landed in 10.5 s", "after": "asked of a free painter in the pool: 2.4 s; warm, 2 to 3 s both ways; a job with every painter busy waits its turn instead of being painted on the page", "scale": "the demo on the phone upright, the far stop, a new valley, full speed"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_THIRTEEN_THE_PAINTING_NEVER_WAITS_IN_LINE_11_18_26.md", "build": "BUILD 11/18o - THE PAINTING NEVER WAITS IN LINE"},
+  {
+   "id": "cook5-the-terminal-11-18",
+   "kind": "tile",
+   "lane": "cook 5",
+   "sha": "SHIPSHA",
+   "made": "11/18",
+   "draft": true,
+   "title": "THE AIRPORT TERMINAL LOOKS LIKE AN AIRPORT NOW: THE CHECKPOINT, THE CAROUSELS HEAPED WITH BAGS, THE PEOPLE WHO NEVER GOT A FLIGHT OUT",
+   "said": "do a full sweep, let's have some fun",
+   "why": "The fight inside the airport terminal was built from the parking garage's and the casino's pictures; now it has its own: the security checkpoint with the grey tubs still holding the shoes people took off, the check-in desks, the queue ropes, the gate seats, walls of suitcases, the baggage carousels heaped with bags nobody collected, and the beds of people who never got a flight out, their shoes side by side. You meet it when a fight starts at the airport, in the RUN tab.",
+   "options": [
+    "A, yes, that's an airport",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK5_THE_TERMINAL_11_18.webp",
+    "first": "../records/target/vote_first/cook5-the-terminal-11-18.webp",
+    "firstAt": [
+     786,
+     96,
+     383,
+     559
+    ]
+   },
+   "before_after": {
+    "before": "main 3fe072739: all 195 pieces of the terminal (the checkpoint layout) are stand-ins from the garage, the casino, the street and the tunnels; the ceiling is drawn by the page",
+    "after": "the terminal's own floor, 25 pictures under 27 names and its ceiling, through the master rig; the terminal lays them with no code changed",
+    "scale": "the fight on his phone upright (390 x 844) as it opens, the same fight before and now; close in on the page; then the pieces at their own pixels"
+   },
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "twin": {
+    "src": "fight_ground/datafort/df_servers_ew.webp",
+    "diffs": [
+     "THE SAME RIG AND CUT as the data fort's kit and the mall's: one tool on the other, COMBAT THREE's names, its data file's own ceiling entry.",
+     "LUGGAGE IS THE TERMINAL'S COLOUR: every other inside is grey or rust; here the cover is walls and heaps of cases in every colour a case comes in.",
+     "WHAT PEOPLE LEFT: shoes in the tubs, shoes by the beds, boarding passes in a row, a case standing in a queue with its handle up."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_FIVE_THE_AIRPORT_TERMINAL_11_18_26.md"
+  }
  ],
  "verdicts": [
   {

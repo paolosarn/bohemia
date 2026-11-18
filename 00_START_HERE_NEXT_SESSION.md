@@ -1,3 +1,14 @@
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18p - THE TERMINAL IS AN AIRPORT, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round, this round's fifth build; rules 416, 451(a), 455; ask row 627).
+COMBAT THREE's airport terminal wears its own art under its own names (slices/fight_ground/terminal/terminal_art.json, the garage's format; no code):
+the terrazzo floor, 25 pictures under 27 names (the checkpoint a tile with its tubs, both screens, the desks, the queue, the newsstand, the luggage
+wall and the bags, three trolleys, the seats and the second row, the carousel's belt and its heap, two camps (the bedding names are the same two
+pictures), the column, the walkway, both stairs, both rails, both walls) and the ceiling (ribs, skylights with panes out, dead signs) with "have":
+true, "tile": [10, 10] in terminal.json. 27 pictures, 751,156 bytes.
+ON THE PAGE on a phone both ways: the checkpoint 195 pieces, 0 stand-ins (195 before), the ceiling's picture drawn, a tile 43.9 points upright and 29.1 on its side; the baggage hall 215 pieces, 0 stand-ins; 0 page errors. Gate THE INSIDES WEAR FINISHED ART 55/0.
+VOTE cook5-the-terminal-11-18 (MADE FROM). NEXT ON THIS LANE: THE STADIUM's art (COMBAT THREE's BUILD 11/18m: 15 pieces and its ceiling), then the two
+home centers on the map.
+[bb Battle Brothers' hardest ground is a wall with gaps: the checkpoint has to read as a wall of machines at a glance]
+[analog horror: a checkpoint's tubs still holding what people took off to go through]
 COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18n - THE SERVERS, THE MANNEQUINS, THE FOUNTAIN, BUILT (b3b01634a), NOT YET SEEN (rule 453, round after round, this round's fourth build; rules 416, 455; ask row 627).
 The three pictures COMBAT THREE's legend lines (its BUILD 11/18g) waited on, under its names, no code: df_servers_block (the data fort: a server tile
 is four rows of cabinets and three roofed aisles now, not two thin rows; 48 stand-ins to 0; df_servers_ns cut again with its cast shadow at three
