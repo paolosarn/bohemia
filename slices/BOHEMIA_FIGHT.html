@@ -2744,7 +2744,7 @@ const FIGHT = (function () {
     u.walled = false; u.hooked = false; u.rallied = false; u.swung = false;   /* THE SHIELD's wall lasts until his next turn; one hook, one rally a turn */
     if (u.poison > 0) u.ap = Math.max(0, u.ap - NEW('poison').ap);   /* THE NEEDLE (Goblin Poison's page): -1 AP for 3 turns */
     if (u.stunned) { u.ap = 0; emit({ t: 'stunned_turn', id: u.id }); }   /* ARMORY 2: the live wire's stun, Battle Brothers' way: he loses this turn */
-    u.onGuard = false; turnedTurn(u); callLands(u);   /* BESTIARY 11/17: the duelist's guard lasts until his next turn; the preacher's man; the spotter's ground */
+    u.onGuard = false; turnedTurn(u); callLands(u); sleepTurn(u);   /* BESTIARY 11/17: the duelist's guard lasts until his next turn; the preacher's man; the spotter's ground */
     u.resting = false;   /* the rest (rule 283(b)) lasts until his next turn begins */
     u.threw = false; u.kited = false; u.shoved = false; u.swappedFree = false;   /* Quick Hands: one free swap a turn */
     /* THE NET: his melee skill against it, -10 the first try, +10 for every try that failed (the Throwing Net's page) */
@@ -2758,7 +2758,7 @@ const FIGHT = (function () {
     }
   }
   /* what lasts 'for one turn' or 'for 2 turns' counts down when his own turn closes */
-  function turnOver(u) { burnTick(u); u.overwhelmed = 0; if (u.frenzy > 0) u.frenzy--; if (u.poison > 0) u.poison--; u.tauntedBy = null; restOrNot(u);
+  function turnOver(u) { wakeBeside(u); burnTick(u); u.overwhelmed = 0; if (u.frenzy > 0) u.frenzy--; if (u.poison > 0) u.poison--; u.tauntedBy = null; restOrNot(u);
     u.disarmed = false; u.stunned = false; bleedTick(u); }   /* ARMORY 2: the whip's disarm and stun last his one turn; his bleeding ticks as it closes */
   /* A REST (rules 283(b), 285(b)): END TURN with no AP spent; at his next turn ours.rest_recovery comes back instead of 15 (MEASURED
      10/26: a car door and a spear among three brigands, ending his turn to rest, went 81 -> 83 -> 83 of 83 and never swung again).
@@ -3299,6 +3299,7 @@ const FIGHT = (function () {
       return;
     }
     a.missStack = 0;
+    if (t.asleep) { t.asleep = null; emit({ t: 'skill', id: t.id, skill: 'wakes', to: t.id, why: 'struck' }); }   /* BESTIARY 11/18: struck, the sleeper wakes */
     if (PK(a, 'head_hunter')) a.headNext = a.headNext ? false : r.head;
     const ra = PK(a, 'reach_advantage');
     if (ra && a.weapon.hands === 1 + 1 && !isRanged(a.weapon)) a.reachStacks = Math.min(ra.max_stacks, a.reachStacks + 1);
@@ -3973,6 +3974,68 @@ const FIGHT = (function () {
       });
     });
     afterAction(u);   /* the call can end the fight */
+  }
+  /* THE SMOKE POT (BESTIARY 11/18, rule 453; the head takers' smoker; Battle Brothers' Smoke Pot, bb_all/1822_Smoke Pot.txt and the
+     Assassin's pots, bb_all/0155_Assassin (Enemy).txt; bohemia_enemies.json numbers.smoke_pot): he throws a cross of smoke over the man
+     of his whom the most of your shooters can see; the smoke is the cell vest's own (ours.cell_vest.smoke: its rounds, a shot through
+     it -20). Two pots a man. No other enemy makes smoke */
+  function smokeTarget(u) {
+    const P = NEW('smoke_pot'); if ((u.pots === undefined ? P.uses : u.pots) <= 0 || u.ap < P.ap || u.fat + P.fatigue > fatMax(u)) return null;
+    let best = null;
+    [u].concat(friends(u)).forEach(function (f) { if (!onField(f) || dist(u, f) > P.range_tiles || smokeAt(f.x, f.y)) return;
+      const n = foes(u).filter(function (o) { return isRanged(o.weapon) && dist(o, f) >= 2 && sees(o, f); }).length;
+      if (n >= 1 && (!best || n > best.n)) best = { x: f.x, y: f.y, n: n, to: f.id }; });
+    return best;
+  }
+  function smokePot(u, c) {
+    const P = NEW('smoke_pot'), V = CV(); u.ap -= P.ap; u.fat += P.fatigue; u.pots = (u.pots === undefined ? P.uses : u.pots) - 1;
+    S.smoke = (S.smoke || []).filter(function (f) { return f.until >= S.round; });
+    callCross(c.x, c.y).forEach(function (q) { S.smoke.push({ x: q.x, y: q.y, until: S.round + V.smoke.rounds - 1, pot: true }); });
+    emit({ t: 'skill', id: u.id, skill: 'smoke_pot', to: c.to, x: c.x, y: c.y, n: c.n }); afterAction(u); return true;
+  }
+  /* THE FIRE POT (BESTIARY 11/18, rule 453; the hired guns' grenadier; Battle Brothers' Fire Pot, bb_all/0770_Fire Pot.txt: 'Anyone
+     ending their turn inside the burning area will catch fire and take damage - friend and foe alike'; numbers.fire_pot): a cross of
+     fire where two or more of yours stand, never on a tile of his own man's; the fire is the cell vest's own burning ground (ours.cell_vest.burn: its
+     rounds, its damage to a man who ends his turn in it, burnTick). Two pots a man. No other enemy sets the ground alight */
+  function fireTarget(u) {
+    const P = NEW('fire_pot'); if ((u.pots === undefined ? P.uses : u.pots) <= 0 || u.ap < P.ap || u.fat + P.fatigue > fatMax(u)) return null;
+    let best = null;
+    foes(u).forEach(function (f) { if (!onField(f) || !sideSees(u.side, f) || dist(u, f) > P.range_tiles || dist(u, f) < 2) return;
+      const c = { x: f.x, y: f.y }; if (fireAt(c.x, c.y)) return;
+      const on = S.units.filter(function (o) { return onField(o) && o.side !== u.side && onCall(o, c); });   /* his own men's tiles are spared (firePot) */
+      if (on.length >= P.min_men && (!best || on.length > best.n)) best = { x: c.x, y: c.y, n: on.length, to: f.id }; });
+    return best;
+  }
+  function firePot(u, c) {
+    const P = NEW('fire_pot'), V = CV(); u.ap -= P.ap; u.fat += P.fatigue; u.pots = (u.pots === undefined ? P.uses : u.pots) - 1;
+    S.fire = (S.fire || []).filter(function (f) { return f.until >= S.round; });
+    callCross(c.x, c.y).forEach(function (q) { const o = unitAt(q.x, q.y); if (passable(q.x, q.y) && !(o && o.side === u.side)) S.fire.push({ x: q.x, y: q.y, until: S.round + V.burn.rounds - 1, by: u.id }); });   /* never under his own men */
+    emit({ t: 'skill', id: u.id, skill: 'fire_pot', to: c.to, x: c.x, y: c.y, n: c.n }); afterAction(u); return true;
+  }
+  /* THE DART (BESTIARY 11/18, rule 453; the head takers' darter, paid for men alive; Battle Brothers' Alp's Sleep, bb_all/0046_Alp.txt:
+     asleep until struck, or woken by a friend; numbers.dart): at his crossbow's chance a dart puts a man of yours to sleep, the lonely
+     one first; asleep he loses his turns (up to dart.turns), and wakes the moment he is struck or a friend ends a turn beside him.
+     No other enemy puts a man to sleep */
+  function dartTarget(u) {
+    const D = NEW('dart'); if (u.ap < D.ap || u.fat + D.fatigue > fatMax(u) || u.darted === S.round || !isRanged(u.weapon) || !strikeSkill(u.weapon)) return null;
+    return foes(u).filter(function (f) { return onField(f) && !f.asleep && dist(u, f) <= D.range_tiles && sees(u, f) && sideSees(u.side, f) && (f.immune || []).indexOf('Morale') < 0; })
+      .sort(function (p, q) { const lp = friends(p).filter(function (o) { return dist(o, p) === 1; }).length, lq = friends(q).filter(function (o) { return dist(o, q) === 1; }).length; return lp - lq || dist(u, p) - dist(u, q); })[0] || null;
+  }
+  function dart(u, t) {
+    const D = NEW('dart'); u.ap -= D.ap; u.fat += D.fatigue; u.darted = S.round;
+    const hit = die() <= hitChance(u, t, strikeSkill(u.weapon)).chance;
+    if (hit) t.asleep = { by: u.id, turns: D.turns };
+    emit({ t: 'skill', id: u.id, skill: 'dart', to: t.id, hit: hit }); afterAction(u); return true;
+  }
+  function sleepTurn(u) {
+    if (!u.asleep) return;
+    u.ap = 0; u.asleep.turns--; emit({ t: 'skill', id: u.id, skill: 'asleep', to: u.id });
+    if (u.asleep.turns <= 0) { u.asleep = null; u.wakeNext = true; }
+  }
+  function wakeBeside(u) {
+    if (u.wakeNext) { u.wakeNext = false; emit({ t: 'skill', id: u.id, skill: 'wakes', to: u.id, why: 'slept' }); }
+    if (!onField(u)) return;
+    friends(u).forEach(function (f) { if (f.asleep && dist(f, u) === 1) { f.asleep = null; emit({ t: 'skill', id: f.id, skill: 'wakes', to: f.id, by: u.id, why: 'friend' }); } });
   }
   function chargeTarget(u) {
     const C = NEW('charge');
@@ -5505,6 +5568,9 @@ const FIGHT = (function () {
     if (A.ripostes && canGuard(u, foes(u).filter(function (f) { return dist(f, u) === 1; }))) return onGuard(u);   /* BESTIARY 11/17: the duelist, after his blow or with two on him */
     if (A.turns) { const tt = turnTarget(u); if (tt) return turnMan(u, tt); }   /* BESTIARY 11/17: the preacher */
     if (A.calls) { const cg = callTarget(u); if (cg) return callGround(u, cg); }   /* BESTIARY 11/17: the spotter */
+    if (A.smokes) { const sg = smokeTarget(u); if (sg) return smokePot(u, sg); }   /* BESTIARY 11/18: the smoker */
+    if (A.firebombs) { const fg = fireTarget(u); if (fg) return firePot(u, fg); }   /* BESTIARY 11/18: the grenadier */
+    if (A.darts) { const dt = dartTarget(u); if (dt) return dart(u, dt); }   /* BESTIARY 11/18: the darter */
     if (A.charges && !adj.length) { const ct = chargeTarget(u); if (ct) return charge(u, ct); }
     if (A.hooks && !u.hooked) { const ht = hookTarget(u); if (ht) return hook(u, ht); }   /* THE HOOK */
     if (A.volley) { const vt = volleyTarget(u); if (vt) { strike(u, vt); return true; } }   /* THE CROSSBOWS */
@@ -8076,6 +8142,11 @@ function startAnimHeard(a) {
     else if (e.t === 'skill' && e.skill === 'turn') { const t = FIGHT.byId(e.to); sfx('ghost_whisper'); if (t) pop(t, e.held ? 'HOLDS' : 'TURNED', '#b49ce0', !e.held, e.held ? t.name + ' holds.' : u.name + ' turns ' + t.name + '.'); }
     else if (e.t === 'skill' && e.skill === 'turned') { const t = FIGHT.byId(e.to); pop(u, '', '#b49ce0', false, t && t !== u ? u.name + ' hits ' + t.name + '.' : u.name + ' loses his turn.'); }
     else if (e.t === 'skill' && e.skill === 'call') { sfx('power_on', { side: 'them' }); pop(u, 'CALLED', '#e04030', true, u.name + ' calls your ground.'); }
+    else if (e.t === 'skill' && e.skill === 'smoke_pot') { sfx('swing_air'); later(function () { sfx('cloth_on', { side: u.side }); }, B * 0.3); pop(u, 'SMOKE', '#c8c4b8', true, u.name + ' throws smoke.'); }   /* BESTIARY 11/18; draft:true */
+    else if (e.t === 'skill' && e.skill === 'fire_pot') { sfx('swing_air'); later(function () { sfx('cell_vest'); }, B * 0.3); pop(u, 'FIRE', '#f08a3a', true, u.name + ' throws fire.'); }
+    else if (e.t === 'skill' && e.skill === 'dart') { const t = FIGHT.byId(e.to); sfx('dry_fire'); if (t) pop(t, e.hit ? 'ASLEEP' : '', '#9cb4d8', !!e.hit, e.hit ? t.name + ' sleeps.' : u.name + ' misses.'); }
+    else if (e.t === 'skill' && e.skill === 'asleep') { pop(u, 'asleep', '#9cb4d8', false, u.name + ' sleeps.'); }
+    else if (e.t === 'skill' && e.skill === 'wakes') { pop(u, 'wakes', '#c9b48a', false, u.name + ' wakes.'); }
     else if (e.t === 'skill' && e.skill === 'call_lands') { sfx('shot', { side: u.side }); pop(u, '', '#e04030', false, e.n ? 'The roof hits ' + e.n + '.' : 'The roof hits nothing.'); }
     else if (e.t === 'skill' && e.skill === 'charge') { sfx('door_drag'); pop(u, 'CHARGE', '#e8a07c', false, u.name + (u.beast ? ' puts its head down and runs at ' : ' runs straight at ') + nameOf(e.to) + '.'); }   /* BESTIARY 11/11: a man runs straight in (the water outlaw); draft:true */
     else if (e.t === 'skill' && e.skill === 'feeds') { pop(u, 'FEEDS', '#c06050', false, u.name + ' eats from ' + nameOf(e.to) + ' and gets back up.'); }
@@ -9349,7 +9420,9 @@ function rigBeast(v) { if (!v.beast) return null; const m = DB.ours.beast_rig_lo
    a man, the mammoth 3.1 men, a tower over the blocks. A beast is drawn at bohemia_enemies.json numbers.beast_draw.scale of its
    sheet (three quarters): its tallest facing now stands as tall against a man as the animal stood in life (the mammoth 2.3 men, a
    little over twice a man at four metres), the herd's sizes to each other untouched. Men are never scaled (rule 21) */
-function bodyK(v) { if (!v || !v.beast) return 1; const n = DB.newEnemies && DB.newEnemies.numbers && DB.newEnemies.numbers.beast_draw; return n && n.value && n.value.scale > 0 ? n.value.scale : 1; }
+function bodyK(v) { if (!v || !v.beast) return 1; const n = DB.newEnemies && DB.newEnemies.numbers && DB.newEnemies.numbers.beast_draw; if (!n || !n.value || !(n.value.scale > 0)) return 1;
+  const key = v.look_key || (DB.ours.beast_rig_looks ? DB.ours.beast_rig_looks.value[v.kind] : null), by = n.value.by_look || {};   /* 11/18: the animals whose picture stood off its height on its own number */
+  return by[key] > 0 ? by[key] : n.value.scale; }
 function lookOf(v) { return rigBeast(v) || DB.rig.looks[v.look] || DB.rig.looks[R('ours.people_looks').crew[0]] || DB.rig.looks[Object.keys(DB.rig.looks).filter(function (k) { return DB.rig.looks[k].kind !== 'beast'; })[0]]; }
 function clipCol(name, k, L) { const c = (L && L.clips || DB.rig.clips)[name]; return c[Math.max(0, Math.min(c.length - 1, k))]; }
 /* the sheet a man is drawn from: his look's, in the night's colour where no lamp reaches him (cached per sheet) */
@@ -11719,7 +11792,9 @@ function drawSmoke(now, tw, th) {
     const T = mkTile(f.x, f.y), w = T.x1 - T.x0, h = T.y1 - T.y0, k = Math.max(3, Math.round(w / 10));
     for (let y = 0; y < h - k; y += k) for (let x = 0; x < w - k; x += k) {
       const r = mulberry(seedOf('smoke:' + f.x + ',' + f.y + ':' + x + ':' + ((y / k + key) % 7)))();
-      if (r < .45) mkCell(T.x0 + x, T.y0 + y, k, k, 'rgba(140,138,132,' + (.12 + r * .3).toFixed(2) + ')');
+      /* BESTIARY 11/18: a thrown pot's smoke is thick and dirty, so a man can see where his shots will go wrong (the vest's stays thin) */
+      if (f.pot) { if (r < .72) mkCell(T.x0 + x, T.y0 + y, k, k, 'rgba(86,84,80,' + (.34 + r * .4).toFixed(2) + ')'); }
+      else if (r < .45) mkCell(T.x0 + x, T.y0 + y, k, k, 'rgba(140,138,132,' + (.12 + r * .3).toFixed(2) + ')');
     }
   });
   S.units.forEach(function (v) {

@@ -589,17 +589,17 @@ past the glass) and its receipt never scrolls the page sideways. Gate THE FOURTE
 fail). The whole block: handoffs/FIXES.md.
 [bb Battle Brothers' recruit list keeps every man one line and the one you pick in his own panel; our hall on its side the same.]
 [analog horror: a talking face with a blank name tag is the one wrong thing the bible saves for on purpose; this one was an accident.]
-BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/17zk THE MAMMOTH, NOT A BUILDING, BUILT, NOT YET SEEN (routine 'BESTIARY the
-mammoth is too big', rule 458(b), ask row 641; after BUILD 11/17zi THREE NEW WAYS). His words: 'Make it not so big this shit bigger than
-the empire state building'. MEASURED: side on every beast was its size in metres against a man (the mammoth 2.3 men), but facing the
-glass a long body stacks its length up the picture: every animal read about 1.35 times its height, the mammoth 3.1 men. ONE NUMBER:
-bohemia_enemies.json numbers.beast_draw 0.75, read wherever a beast is drawn (the fight, the map's animal and its kill, the after-fight
-picture): the mammoth 2.3 men, the long-horned bison 1.5, the ancient bison 1.3, the short-faced bear 1.0; men never scaled; no art
-changed. Gate THE BESTIARY FLOOR F11 AS TALL AS IT STOOD (planted at the old size: red). Seen on the alpha and the demo, a phone both
-ways. VOTE bestiary-the-mammoth-11-17 re-shot. Record records/BOHEMIA_BESTIARY_AS_TALL_AS_IT_STOOD_11_17_26.md. THE FLOOR: factions 12,
-types 67 of about 75, beasts 18 lab-made, bosses 10, champions named (handoffs/BESTIARY.md).
-[bb Battle Brothers draws its Unhold a head and a half over a brother, not three; the board reads the size, the rules carry the weight.]
-[analog horror: the mammoth between the houses at night, two men and a half tall, which is worse than a tower: it is real.]
+BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/18i SMOKE, FIRE AND SLEEP, BUILT, NOT YET SEEN (routine 'BESTIARY next', rules 453,
+454(a), 441; after BUILD 11/17zk THE MAMMOTH, NOT A BUILDING). THE FLOOR: factions 12 of 12, types 70 of about 75, beasts 18 lab-made,
+bosses 10, champions named (the table: handoffs/BESTIARY.md). Three types for the factions furthest from the floor (the head takers had
+one): the head takers' SMOKER (the smoke pot: a thick cross of smoke over his men, a shot through it -20) and DARTER (a dart that puts a
+man to sleep until struck or a friend ends a turn beside him), the hired guns' GRENADIER (the fire pot: fire on two or more of yours,
+never under his own). Each played on the real page on AUTO until he does it, demo and alpha, a phone both ways. EVERY BEAST AGAINST A MAN
+(THE BESTIARY FLOOR F11b): each picture averaged over its facings within 15% of its height in life; the llama, the goat and the two lions
+on their own numbers. Stand-ins: three hall men (CHARACTER has the list). VOTE bestiary-smoke-fire-and-sleep-11-18.
+Record records/BOHEMIA_BESTIARY_SMOKE_FIRE_AND_SLEEP_11_18_26.md.
+[bb Battle Brothers' Assassin throws his pots, no more than two; ours are the hired guns' and the head takers', the player's own tools turned on him.]
+[analog horror: the smoke rolls between the houses and when it clears one of yours is lying down, breathing, and will not wake.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/18 LATEST -- BUILD 11/18f - THE BILLBOARDS, BUILT, NOT YET SEEN (rule 453's rounds; rule
 454(a), no words; rule 441). Dead billboards stand beside the freeways now (36 on a valley), and each is a lookout: by one he sees 3
 blocks farther by day and 1 by night, and the fog keeps what he saw. Gate THE BILLBOARDS on demo and alpha, a phone both ways. VOTE

@@ -1,5 +1,13 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+NOTE from BESTIARY (11/18, the routine 'BESTIARY next'): NOTHING OF YOURS WAS TOUCHED but three hall men taken out of the shared
+enemy pools (ours.json people_looks.band; each pool keeps four or more): person_volunteers_1 to the new SMOKER and person_volunteers_2 to
+the new DARTER (the head takers), person_caravans_2 to the new GRENADIER (the hired guns). WHO WEARS A STAND-IN NOW: the hired gun
+(faction_caravans), the duelist (faction_mob), the grenadier (person_caravans_2), the head taker (faction_volunteers), the smoker
+(person_volunteers_1), the darter (person_volunteers_2), the casino gunner (faction_reds), the spotter (faction_network), the preacher
+(faction_church). The three new ones' own clothes: the smoker (a hood and a satchel of pots), the darter (a hunter's coat, a light
+crossbow), the grenadier (a company jacket, bottles in a bandolier).
+
 NOTE from BESTIARY (11/17, build 3 of the sweep, rule 453): NOTHING OF YOURS WAS TOUCHED but three pools' spares (as on 11/14):
 the raiders' pool (brigand_raider, lower_brigand_raider, orc_young) gave faction_mob to the new DUELIST (hired guns); the brigand
 leader's gave faction_church to the new PREACHER (the flock); the marksmen's gave faction_network to the new SPOTTER (the eye in the

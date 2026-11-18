@@ -1685,8 +1685,8 @@
   var BEAST = {}, BEAST_ALIAS = { wolf: 'beast_dire_wolf', hyena: 'beast_cave_hyena', beasts: 'beast_dire_wolf' };
   function beastSheet(look) { var L = (DATA && DATA.beast_looks) || {}; return BEAST_ALIAS[look] || (L[look] && L[look].look) || (/^beast_/.test(String(look)) ? look : 'beast_dire_wolf'); }
   /* k: an animal is drawn as tall as it stood (BESTIARY 11/17, rule 458(b): the fight's bodyK, bohemia_enemies.json numbers.beast_draw) */
-  function beastK(D) { var n = D && D.newEnemies && D.newEnemies.numbers && D.newEnemies.numbers.beast_draw; return n && n.value && n.value.scale > 0 ? n.value.scale : 1; }
-  function beastMeta(look) { var D = jdb(), m = D && D.rig && D.rig.looks && D.rig.looks[beastSheet(look)]; return m ? { file: 'fight_rig/' + m.file, w: m.w, h: m.h, foot: m.foot, k: beastK(D) } : null; }
+  function beastK(D, key) { var n = D && D.newEnemies && D.newEnemies.numbers && D.newEnemies.numbers.beast_draw; if (!n || !n.value || !(n.value.scale > 0)) return 1; var by = n.value.by_look || {}; return by[key] > 0 ? by[key] : n.value.scale; }
+  function beastMeta(look) { var D = jdb(), key = beastSheet(look), m = D && D.rig && D.rig.looks && D.rig.looks[key]; return m ? { file: 'fight_rig/' + m.file, w: m.w, h: m.h, foot: m.foot, k: beastK(D, key) } : null; }
   var SHEET_DIRS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
   function beastImg(look) {
     var m = beastMeta(look); if (!m) return null; var im = BEAST[m.file];

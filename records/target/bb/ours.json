@@ -756,8 +756,7 @@
      "person_trades_1",
      "person_trades_2",
      "person_caravans_0",
-     "person_caravans_1",
-     "person_caravans_2"
+     "person_caravans_1"
     ],
     "lower_brigand_raider": [
      "person_mob_0",
@@ -775,9 +774,7 @@
      "person_network_0",
      "person_network_1",
      "person_network_2",
-     "person_volunteers_0",
-     "person_volunteers_1",
-     "person_volunteers_2"
+     "person_volunteers_0"
     ],
     "brigand_raider": [
      "person_mob_0",
@@ -820,11 +817,8 @@
     "brigand_poacher": [
      "tier_poacher",
      "person_volunteers_0",
-     "person_volunteers_1",
-     "person_volunteers_2",
      "person_caravans_0",
-     "person_caravans_1",
-     "person_caravans_2"
+     "person_caravans_1"
     ],
     "necromancer": [
      "faction_trades",
@@ -838,13 +832,10 @@
      "person_homeless_2",
      "person_caravans_0",
      "person_caravans_1",
-     "person_caravans_2",
      "person_reds_0",
      "person_reds_1",
      "person_reds_2",
-     "person_volunteers_0",
-     "person_volunteers_1",
-     "person_volunteers_2"
+     "person_volunteers_0"
     ],
     "armored_wiederganger": [
      "faction_blues",

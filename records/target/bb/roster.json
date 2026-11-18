@@ -11,8 +11,8 @@
  },
  "count": {
   "families": 14,
-  "types": 177,
-  "types_in_the_fight": 67,
+  "types": 180,
+  "types_in_the_fight": 70,
   "beasts": 17,
   "bosses": 5,
   "champions": 21
@@ -83,12 +83,14 @@
     "head_taker",
     "hedge_knight",
     "hired_duelist",
+    "hired_grenadier",
     "hired_gun",
     "master_archer",
     "mercenary",
     "mercenary_marksman",
     "oathbringer",
-    "swordmaster"
+    "swordmaster",
+    "taker_darter"
    ],
    "in_the_fight": [
     "hired",
@@ -165,10 +167,12 @@
     "gunner",
     "indebted",
     "mortar",
-    "officer"
+    "officer",
+    "taker_smoker"
    ],
    "in_the_fight": [
-    "casino"
+    "casino",
+    "takers"
    ],
    "draft": true
   },
@@ -2282,6 +2286,27 @@
    "page": "bb_all/1918_Swordmaster (Enemy).txt"
   },
   {
+   "type": "hired_grenadier",
+   "bb_name": "Grenadier",
+   "bb_faction": "mercenaries",
+   "family": "rival_companies",
+   "rows": [
+    "hired_grenadier"
+   ],
+   "name": "GRENADIER",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "hired"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/1258_Mercenary.txt"
+  },
+  {
    "type": "hired_gun",
    "bb_name": "Hired Gun",
    "bb_faction": "mercenaries",
@@ -3673,6 +3698,48 @@
    "champion": true,
    "boss": false,
    "page": "bb_all/1918_Swordmaster (Enemy).txt"
+  },
+  {
+   "type": "taker_darter",
+   "bb_name": "Darter",
+   "bb_faction": "bounty_hunters",
+   "family": "rival_companies",
+   "rows": [
+    "taker_darter"
+   ],
+   "name": "DARTER",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "takers"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0271_Bounty Hunter Marksman.txt"
+  },
+  {
+   "type": "taker_smoker",
+   "bb_name": "Smoker",
+   "bb_faction": "city_states",
+   "family": "casino_security",
+   "rows": [
+    "taker_smoker"
+   ],
+   "name": "SMOKER",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "takers"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0155_Assassin (Enemy).txt"
   },
   {
    "type": "teratorn",
