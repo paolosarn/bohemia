@@ -69,7 +69,8 @@
    "S": {
     "is": "wall",
     "wall": "air",
-    "tile": "servers"
+    "tile": "servers",
+    "piece": "df_servers_block"
    },
    ".": {
     "is": "floor"
@@ -415,6 +416,12 @@
   "df_rail_ns": {
    "like": "garage_rail_ns",
    "kind": "RAIL"
+  },
+  "df_servers_block": {
+   "like": "garage_core",
+   "kind": "WALL",
+   "name": "SERVER CABINETS",
+   "why": "COOK FIVE's ask of 11/18 (handoffs/COOK_FIVE.md): the two edge rows of a server tile leave 10 m of white floor between them, so a pod read as a slab. This is the tile's own piece, laid at its middle (0.5, 0.98): the rows and roofed aisles between the two edge rows. A stand-in until COOK FIVE's picture is in datafort_art.json under this name."
   }
  },
  "walls": {
@@ -498,7 +505,10 @@
   "alpha": 0.1,
   "src": "datafort/datafort_ceiling.webp",
   "have": true,
-  "tile": [10, 10],
+  "tile": [
+   10,
+   10
+  ],
   "bay": 5,
   "how": "VAMILY rule 451(a): the hall's cable trays, bus ducts and cold lights over the board at this alpha (10%, never past the fight's own most). 'src' is the picture COOK FIVE makes (see garage.json's ceiling); 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in."
  }

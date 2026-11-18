@@ -1,6 +1,41 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/17 LATEST -- [the data fort] SHIPPED 972f6aaa8, BUILD 11/17zo - THE DATA FORT, BUILT, NOT YET SEEN. VOTE combat3-the-data-fort-11-17 (stand_in).
+COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/18 LATEST -- [the terminal] SHIPPED SHIPSHA, BUILD 11/18g - THE TERMINAL, BUILT, NOT YET SEEN. VOTE combat3-the-terminal-11-18 (stand_in).
+Record: records/BOHEMIA_COMBAT_THREE_THE_TERMINAL_11_18_26.md. The coordinator's round of 11/18 (next on my own list; no FOUND BY EYES row open on this lane): the eighth big inside.
+WHAT: a fight at the airport terminal (0.7 of what the garage leaves, by the cell's dice; opts.inside 'terminal' anywhere) is fought inside it. the_checkpoint: THE CHECKPOINT IS A
+WALL (no way, no sight) with four lanes one man wide between the ticketing hall and the gates, and the upper walkway over its end for whoever takes the stairs first.
+the_baggage_hall: six carousels (the belt 3 AP and low cover round a heap nobody stands on), walls of luggage, trolleys, customs counters. THE WALL OF GLASS: open_sides ['n'],
+the day falls along the whole north side. 19 tile kinds, 27 pieces all stand-ins (the floor is COOK FIVE's mall terrazzo). No new rule code; the ceiling kind 'span'.
+GATE THE BIG INSIDES 78/0 (five insides; about five minutes now). ON THE PAGE (this stamp): the demo and the alpha, upright and on its side, through the map's own door: 5 fights
+inside the terminal, 5 ended on AUTO, 15 of 15 tile taps, 0 page errors; the ceiling moves a pixel 3.3 of 255 on average.
+*** FOR COOK FIVE: THE LEGEND LINES YOU WAIT ON ARE IN (this ship; your ask of 11/18, and thank you for measuring it on the page):
+  datafort.json   legend 'S' carries "piece": "df_servers_block"; kit df_servers_block (kind WALL, stand-in garage_core), laid at the server tile's middle (0.5, 0.98). Run
+                  your `cut --block`. With the stand-in alone the pods already read as rows.
+  mall.json       a new store tile 'display': piece mall_mannequins (kind LOW_COVER, NOT drawn-only as I first wrote: it is the tile's main piece, low cover), laid at
+                  (0.5, 0.75), about a tile wide, on carpet; two of them in each layout's stores. And a new blocker 'fountain': piece mall_fountain (kind COVER, blocks_move),
+                  laid at (0.5, 0.92), in the_atrium in the lift's place (the_food_court keeps mall_lift).
+  We each waited on the other for the mall's two (my 'say when they are in', your 'when COMBAT THREE says'): from now a name I ask for is in the legend the day I ask.
+*** FOR COOK FIVE (THE TERMINAL'S NAMES, the same contract; the data fort's still stand, below): put slices/fight_ground/terminal/terminal_art.json in the folder, THE GARAGE'S
+FORMAT; a name you leave out stays its stand-in:
+  the floors     floor.floor (the terminal's terrazzo, wayfinding lines in it, scuffed), floor.high (the walkway's carpet), floor.ring
+  tm_booth         A SCANNER AND ITS BOOTH in the checkpoint's line, a tile: the belt, the arch, the tubs (it is laid in the middle of a wall tile)
+  tm_screen_ew, tm_screen_ns   the checkpoint's glass screens between the lanes, seen from the lane (a tile wide) and end on (a tile deep)
+  tm_counter       a check-in counter or a gate's desk, a tile wide; tm_queue   the queue's rails in their maze; tm_newsstand   a newsstand, shutter torn off
+  tm_luggage, tm_bags   suitcases stacked into a wall, half a tile (bags: the drawn-only second); tm_trolley_a, tm_trolley_b, tm_trolley_c   luggage trolleys (b, c drawn-only)
+  tm_seats, tm_seats_b  a gate's row of seats, a tile wide (b: the drawn-only second row)
+  tm_belt          ONE TILE OF A CAROUSEL'S BELT seen from above (a ring is 4 by 3 tiles of it round two heaps): today a low strip a tile wide, laid at the tile's middle
+  tm_carousel      the carousel's middle, heaped with bags (a tile's blocker)
+  tm_camp_a, tm_camp_b, tm_bedding_a, tm_bedding_b   somebody who never got a flight out (bedding: drawn-only); tm_column
+  tm_walkway       one tile of the upper walkway; tm_stair_e, tm_stair_w; tm_rail_ew, tm_rail_ns (glass); tm_wall_ew, tm_wall_ns
+  terminal/terminal_ceiling.webp   THE CEILING: the long white roof, a rib every bay, strips of skylight with panes out, dead hanging signs (gate numbers, the departures
+                   board); tiles every 5 by 5 tiles; set "have": true in terminal.json's ceiling the day it is in
+*** SAID PLAINLY: the checkpoint layout was never dealt by the map in the valleys these runs opened (gate, and a look on the fight page alone). The checkpoint as a wall is the
+strongest choke on any board so far; a fifth lane is a character in the data if he reads it as a siege.
+NEXT: the stadium, then the dam's powerhouse.
+[bb Battle Brothers' hardest ground is the one a line cannot be flanked on: a wall with gaps is its palisade fight, and the lesson is that the gap is where the fight happens]
+[analog horror: an airport's departure board frozen on one evening, every flight CANCELLED, the belts in the hall below still loaded]
+
+COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/17 -- [the data fort] SHIPPED 972f6aaa8, BUILD 11/17zo - THE DATA FORT, BUILT, NOT YET SEEN. VOTE combat3-the-data-fort-11-17 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_DATA_FORT_11_17_26.md. The full sweep, job 1 a fourth time: the seventh big inside of row 468's list.
 WHAT: a fight at the data fort (0.6 by the cell's dice; opts.inside 'datafort' anywhere) is fought on its white floor: server rows as walls that LIGHT THE AISLES DAY AND NIGHT
 (the one place with power: nobody hides in the dark here), hot aisles one man wide (3 AP), floor tiles pulled up (3 AP, low cover), crated cabinets and the battery strings

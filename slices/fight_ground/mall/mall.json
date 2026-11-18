@@ -28,24 +28,24 @@
      "the_atrium": [
       "####################",
       "#s,,kA,pp,Ak,,sAs,s#",
-      "#,,c,A,,,sA,c,,A,,,#",
+      "#j,c,A,,,sA,c,,A,j,#",
       "#GGuGAG,,GAGuGGAGuG#",
       "#...n....o....n....#",
       "#D....K..yy..t.t..D#",
       "#..f...MNMMPM.r....#",
       "#.....>MMMMMM<.....#",
-      "#....n...L....f....#",
+      "#....n...W....f....#",
       "#D.t.t...yy..K....D#",
       "#...n....o....n....#",
       "#GuGGAG,,GAGGuGAGuG#",
-      "#,c,,As,,,A,,p,A,k,#",
+      "#,c,,As,j,A,,p,A,kj#",
       "#k,,sA,,ckAs,p,As,s#",
       "####################"
      ],
      "the_food_court": [
       "####################",
       "#,,s,,kA,c,,A,,,s,k#",
-      "#c,,,s,A,,p,Ap,,c,,#",
+      "#c,j,s,A,,p,Ap,,c,j#",
       "#GG,,GGAGuGGAGGGuGG#",
       "#......n....n......#",
       "#D...MPMMMNM......D#",
@@ -55,7 +55,7 @@
       "#..K..........r..f.#",
       "#D...n...L...n....D#",
       "#GuGGAGGuGAG,,GAGuG#",
-      "#s,,,A,k,sA,,,cA,p,#",
+      "#s,j,A,k,sA,j,cA,p,#",
       "#,,ckAs,,,Ak,s,As,,#",
       "####################"
      ]
@@ -299,6 +299,25 @@
    },
    "<": {
     "is": "ramp"
+   },
+   "j": {
+    "is": "floor",
+    "tile": "display",
+    "floor": "store",
+    "piece": "mall_mannequins",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "W": {
+    "is": "floor",
+    "tile": "fountain",
+    "piece": "mall_fountain",
+    "at": [
+     0.5,
+     0.92
+    ]
    }
   }
  },
@@ -514,6 +533,24 @@
    "say": "",
    "say_before": "The escalator, dead: the walk up, and you can still strike.",
    "draft": true
+  },
+  "display": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A store's window display, what is left of it: mannequins still dressed, some down. Low cover.",
+   "say": "The mannequins: low cover.",
+   "draft": true
+  },
+  "fountain": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "The atrium's fountain, dry, coins still in it: nobody stands on its tile; cover for the tiles beside it.",
+   "say": ""
   }
  },
  "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK FIVE's own picture for it is in mall_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL, RAIL, HEIGHT, DOOR); 'blocks_move' means nobody stands on its tile. A DRESS piece is drawn and never counted: the loose carts, the second stack, the rest of a camp.",
@@ -647,6 +684,19 @@
   "mall_rail_ns": {
    "like": "garage_rail_ns",
    "kind": "RAIL"
+  },
+  "mall_mannequins": {
+   "like": "sb_drums_S",
+   "kind": "LOW_COVER",
+   "name": "THE MANNEQUINS",
+   "why": "COOK FIVE waits on this legend line (handoffs/COOK_FIVE.md, 11/18): the main piece of the store tile 'display' (low cover), laid at (0.5, 0.75), about a tile wide. THE RUNWAY LIVES HERE. A stand-in until the picture is in mall_art.json under this name."
+  },
+  "mall_fountain": {
+   "like": "sb_heap_S",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "THE FOUNTAIN, DRY",
+   "why": "COOK FIVE waits on this legend line: the atrium layout's blocker in the lift's place (the food court keeps the lift), laid at (0.5, 0.92), a tile. A stand-in until the picture is in mall_art.json under this name."
   }
  },
  "walls": {
@@ -758,7 +808,10 @@
   "alpha": 0.1,
   "src": "mall/mall_ceiling.webp",
   "have": true,
-  "tile": [10, 10],
+  "tile": [
+   10,
+   10
+  ],
   "bay": 5,
   "how": "VAMILY rule 451(a): the mall's painted sky and its skylight over the board at this alpha (10%, never past the fight's own most). 'src' is the picture COOK FIVE makes (see garage.json's ceiling); 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in."
  }

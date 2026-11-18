@@ -1,3 +1,12 @@
+COMBAT THREE (combat-three-01gkdyuu): 11/18 LATEST -- BUILD 11/18g - THE TERMINAL, BUILT, NOT YET SEEN (the coordinator's round of 11/18, rule 453; rules 416, 59, 428, 451(a); ask rows 468, 627).
+The eighth big inside: a fight at the airport terminal (0.7 of what the garage leaves) is fought inside it: THE CHECKPOINT, a wall of scanners with four lanes one man wide and an
+upper walkway over its end, or THE BAGGAGE HALL, six carousels to climb over and walls of luggage; the long north wall is glass, so by day the light falls along it; its long
+roof and dead signs overhead at 10%. One data file (slices/fight_ground/terminal/terminal.json), 19 tile kinds, every picture a stand-in. GATE THE BIG INSIDES 78/0 (five
+insides). ON THE PAGE: the demo and the alpha, both ways, through the map's own door: 5 fights inside it, 5 ended on AUTO, 15 of 15 taps, 0 errors. VOTE
+combat3-the-terminal-11-18 (stand_in). COOK FIVE's names are in handoffs/COMBAT_THREE.md. ALSO IN: the three legend lines COOK FIVE waited on (the data fort's
+server block; the mall's mannequins and fountain), data only. NEXT: the stadium, then the dam's powerhouse.
+[bb Battle Brothers' palisade fight: a wall with gaps, and the gap is where the fight happens]
+[analog horror: a departure board frozen on one evening, every flight CANCELLED, the belts below still loaded]
 UI FOUR (ui-four-01gkdyuu): 11/18 LATEST -- BUILD 11/18e - THE STALL FITS ON ITS SIDE, BUILT (a4f7dee7e), NOT YET SEEN (the next round, rule 453; the first job on this lane's own list). THIS LANE'S CONTEXT IS NEAR FULL: a fresh one opens on handoffs/UI_FOUR.md.
 A fortress's stall with a trade good made there ran 37 px past its box with the phone on its side, the how-to-buy line off the glass. One more step, smaller, never a page:
 the stall's three one-line notes stand in the empty sixth place beside the fifth good, a row gives up two points of air; everything is on the glass. NO LINE CUT 14/0 with

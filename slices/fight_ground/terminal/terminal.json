@@ -1,0 +1,690 @@
+{
+ "version": 1,
+ "lane": "COMBAT THREE",
+ "id": "terminal",
+ "name": "THE AIRPORT TERMINAL",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 453, 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428 (roofs and cover); ask row 468's list, the eighth: 'THE AIRPORT TERMINAL: the long concourse, the gates, the baggage hall.'",
+ "facts": [
+  "The valley's airport sits beside the Strip and moved tens of millions of passengers a year; a terminal is a ticketing hall, one checkpoint line everybody is squeezed through, a long concourse of gates behind a wall of glass, and a baggage hall below.",
+  "A CHECKPOINT IS BUILT TO BE A CHOKE: a line of scanners with lanes one person wide between them. In a fight that is the board: the floor's only ways across are the lanes, and the upper walkway over them.",
+  "When flights stop, a terminal fills with people who cannot leave and luggage nobody collects (every grounding has shown it: cots at the gates, bags in heaps at the carousels).",
+  "The map's own kind 'terminal' (engine/bohemia_fight_kinds.js: the transport zone, a roof of two and three storeys) is where it is fought."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (terminal_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "terminal"
+ ],
+ "share": 0.7,
+ "districts_why": "The terminal is the one map kind with a concourse and a baggage hall. The parking garage takes its own share there first (garage.json); of the rest, this share is fought inside the terminal, by the cell's own dice; the rest on the kerb outside.",
+ "board": {
+  "templates": {
+   "terminal": {
+    "name": "THE AIRPORT TERMINAL",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_checkpoint": [
+      "####################",
+      "#k.k..l..X..k..k..k#",
+      "#..q.q...X.h.h..h.h#",
+      "#.t...l.......c....#",
+      "#kk.q....X..l..K...#",
+      "#..q..t..X.h.h....f#",
+      "#D...l.....o...l...#",
+      "#f.o.......t..h.h.D#",
+      "#kk.q....X.l....c..#",
+      "#..q..l..X...K..h.h#",
+      "#.t.....c....l.....#",
+      "#....l...X.h.h.t...#",
+      "#.q.....MMM.....l..#",
+      "#>MMmMMMMMnMMM<..D.#",
+      "####################"
+     ],
+     "the_baggage_hall": [
+      "####################",
+      "#>MMmMMMMMnMMM<..l.#",
+      "#..t..MMM....t.....#",
+      "#.bbbb..bbbb..bbbb.#",
+      "#.bCCb.lbCCb..bCCbl#",
+      "#.bbbb..bbbb..bbbb.#",
+      "#l...t.....o..c..t.#",
+      "#D..o....l.....l..D#",
+      "#.c.....t...K......#",
+      "#.bbbb..bbbb..bbbb.#",
+      "#lbCCb..bCCbl.bCCb.#",
+      "#.bbbb..bbbb..bbbb.#",
+      "#..t...f....t...f..#",
+      "#.k.kq.D..k.kq.D.l.#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "X": {
+    "is": "wall",
+    "wall": "air",
+    "tile": "checkpoint",
+    "piece": "tm_booth"
+   },
+   "k": {
+    "is": "floor",
+    "tile": "counter",
+    "piece": "tm_counter",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "q": {
+    "is": "floor",
+    "tile": "queue",
+    "piece": "tm_queue",
+    "at": [
+     0.5,
+     0.72
+    ]
+   },
+   "l": {
+    "is": "floor",
+    "tile": "luggage",
+    "piece": "tm_luggage",
+    "at": [
+     0.3,
+     0.64
+    ],
+    "more": [
+     {
+      "piece": "tm_bags",
+      "at": [
+       0.72,
+       0.94
+      ],
+      "share": 0.7
+     }
+    ]
+   },
+   "t": {
+    "is": "floor",
+    "tile": "trolleys",
+    "piece": "tm_trolley_a",
+    "at": [
+     0.3,
+     0.7
+    ],
+    "more": [
+     {
+      "piece": "tm_trolley_b",
+      "at": [
+       0.62,
+       0.9
+      ]
+     },
+     {
+      "piece": "tm_trolley_c",
+      "at": [
+       0.78,
+       0.5
+      ],
+      "share": 0.6
+     }
+    ]
+   },
+   "h": {
+    "is": "floor",
+    "tile": "seats",
+    "piece": "tm_seats",
+    "at": [
+     0.5,
+     0.5
+    ],
+    "more": [
+     {
+      "piece": "tm_seats_b",
+      "at": [
+       0.5,
+       0.96
+      ]
+     }
+    ]
+   },
+   "K": {
+    "is": "floor",
+    "tile": "newsstand",
+    "piece": "tm_newsstand",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "camp",
+    "piece": [
+     "tm_camp_a",
+     "tm_camp_b"
+    ],
+    "at": [
+     0.3,
+     0.55
+    ],
+    "more": [
+     {
+      "piece": [
+       "tm_bedding_a",
+       "tm_bedding_b"
+      ],
+      "at": [
+       0.72,
+       0.95
+      ],
+      "share": 0.7
+     }
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "belt",
+    "piece": "tm_belt",
+    "at": [
+     0.5,
+     0.6
+    ]
+   },
+   "C": {
+    "is": "floor",
+    "tile": "carousel",
+    "piece": "tm_carousel",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "o": {
+    "is": "floor",
+    "tile": "column",
+    "piece": "tm_column",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   },
+   "M": {
+    "is": "high"
+   },
+   "m": {
+    "is": "high",
+    "tile": "high_seats",
+    "piece": "tm_seats",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "n": {
+    "is": "high",
+    "tile": "high_luggage",
+    "piece": "tm_luggage",
+    "at": [
+     0.3,
+     0.82
+    ],
+    "more": [
+     {
+      "piece": "tm_bags",
+      "at": [
+       0.72,
+       0.82
+      ]
+     }
+    ]
+   },
+   ">": {
+    "is": "ramp"
+   },
+   "<": {
+    "is": "ramp"
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words).",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The terminal's wall: no way through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The terminal's floor, and the lanes through the checkpoint: open floor, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The terminal's floor: open, nothing to hide behind.",
+   "draft": true
+  },
+  "checkpoint": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "A scanner and its screens in the checkpoint's line: no way through, no sight through. The lanes between them are the only way across on the floor, and the only way a shot gets across.",
+   "say": ""
+  },
+  "counter": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A check-in counter or a gate's desk: low cover.",
+   "say": "A counter: low cover.",
+   "draft": true
+  },
+  "queue": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "effect": "The queue's rails, still set out in their maze: slow going (3 AP a step) and low cover.",
+   "say": "The queue's rails: slow going, low cover.",
+   "draft": true
+  },
+  "luggage": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Suitcases nobody came back for, stacked into a wall: cover.",
+   "say": "A wall of luggage: cover.",
+   "draft": true
+  },
+  "trolleys": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Luggage trolleys jammed together: low cover.",
+   "say": "Luggage trolleys: low cover.",
+   "draft": true
+  },
+  "seats": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "effect": "A gate's rows of seats, bolted down: slow going (3 AP a step) and low cover.",
+   "say": "Gate seats: slow going, low cover.",
+   "draft": true
+  },
+  "newsstand": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A newsstand, its shutter torn off: cover.",
+   "say": "A newsstand: cover.",
+   "draft": true
+  },
+  "camp": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Somebody who never got a flight out lives here: bedding and bags. Low cover.",
+   "say": "Somebody's bedding: low cover.",
+   "draft": true
+  },
+  "belt": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "effect": "A baggage carousel's belt: you climb over it, slow going (3 AP a step), and it is low cover.",
+   "say": "The carousel's belt: slow going, low cover.",
+   "draft": true
+  },
+  "carousel": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "The middle of a carousel, heaped with bags that came round and round: nobody stands on its tile; cover for the tiles beside it.",
+   "say": ""
+  },
+  "column": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A column: nobody stands on its tile.",
+   "say": ""
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire in a drum somebody keeps. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A drum fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The doors to the kerb, the glass gone: open floor, and by day the light falls in: a man here is seen.",
+   "say": "The kerb's doors: open floor.",
+   "say_lit": "The kerb's doors: open floor, and the day is on you.",
+   "draft": true
+  },
+  "high": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "The upper walkway, half a storey up: high ground, nobody's at the bell, and at the checkpoint it is the one way across that is not a lane. A blow or a shot down from it lands easier, one up at it harder; a gun reaches a tile farther from it. Up the stairs it is a walk; over its rail from the floor it is a climb: no attack that turn, and a beast cannot.",
+   "say": "The upper walkway: you hit down easier, and a gun reaches a tile more.",
+   "roof": true,
+   "say_before": "",
+   "draft": true
+  },
+  "high_seats": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "effect": "Seats on the upper walkway: low cover, on high ground.",
+   "say": "Seats on the walkway: low cover, and high ground.",
+   "say_before": "Gate seats: low cover.",
+   "roof": true,
+   "draft": true
+  },
+  "high_luggage": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "cover": "COVER",
+   "effect": "Luggage stacked on the upper walkway: cover, on high ground. The best ground in the terminal.",
+   "say": "Luggage on the walkway: cover, and high ground.",
+   "say_before": "A wall of luggage: cover.",
+   "roof": true,
+   "draft": true
+  },
+  "ramp": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "The stairs: the WALK up to the upper walkway. A step onto them from the floor costs one more; a man who walks up can still strike this turn.",
+   "say": "",
+   "say_before": "The stairs: the walk up, and you can still strike.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK FIVE's own picture for it is in terminal_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL, RAIL, HEIGHT); 'blocks_move' means nobody stands on its tile. A DRESS piece is drawn and never counted.",
+ "kit": {
+  "tm_booth": {
+   "like": "garage_booth",
+   "kind": "WALL",
+   "name": "THE CHECKPOINT"
+  },
+  "tm_counter": {
+   "like": "casino_bar",
+   "kind": "LOW_COVER",
+   "name": "A COUNTER"
+  },
+  "tm_queue": {
+   "like": "sb_corral_S",
+   "kind": "LOW_COVER",
+   "name": "THE QUEUE'S RAILS"
+  },
+  "tm_luggage": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "A WALL OF LUGGAGE"
+  },
+  "tm_bags": {
+   "like": "sb_bales_S",
+   "kind": "DRESS",
+   "name": "A WALL OF LUGGAGE"
+  },
+  "tm_trolley_a": {
+   "like": "sb_cart_S",
+   "kind": "LOW_COVER",
+   "name": "LUGGAGE TROLLEYS"
+  },
+  "tm_trolley_b": {
+   "like": "sb_cart_E",
+   "kind": "DRESS",
+   "name": "LUGGAGE TROLLEYS"
+  },
+  "tm_trolley_c": {
+   "like": "sb_cart_S",
+   "kind": "DRESS",
+   "name": "LUGGAGE TROLLEYS"
+  },
+  "tm_seats": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "GATE SEATS"
+  },
+  "tm_seats_b": {
+   "like": "casino_seats",
+   "kind": "DRESS",
+   "name": "GATE SEATS"
+  },
+  "tm_newsstand": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "name": "A NEWSSTAND"
+  },
+  "tm_camp_a": {
+   "like": "tunnel_camp_a",
+   "kind": "LOW_COVER",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "tm_camp_b": {
+   "like": "tunnel_camp_b",
+   "kind": "LOW_COVER",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "tm_bedding_a": {
+   "like": "tunnel_camp_a",
+   "kind": "DRESS",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "tm_bedding_b": {
+   "like": "tunnel_camp_b",
+   "kind": "DRESS",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "tm_belt": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "THE CAROUSEL'S BELT"
+  },
+  "tm_carousel": {
+   "like": "sb_heap_S",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "THE CAROUSEL, HEAPED"
+  },
+  "tm_column": {
+   "like": "garage_column",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A COLUMN"
+  },
+  "tm_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "tm_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  },
+  "tm_walkway": {
+   "like": "garage_level_aisle",
+   "kind": "HEIGHT",
+   "name": "THE UPPER WALKWAY"
+  },
+  "tm_stair_e": {
+   "like": "garage_ramp_e",
+   "kind": "HEIGHT"
+  },
+  "tm_stair_w": {
+   "like": "garage_ramp_w",
+   "kind": "HEIGHT"
+  },
+  "tm_rail_ew": {
+   "like": "garage_rail_ew",
+   "kind": "RAIL"
+  },
+  "tm_rail_ns": {
+   "like": "garage_rail_ns",
+   "kind": "RAIL"
+  },
+  "tm_screen_ew": {
+   "like": "casino_wall_ew",
+   "kind": "WALL",
+   "name": "THE CHECKPOINT'S SCREENS"
+  },
+  "tm_screen_ns": {
+   "like": "casino_wall_ns",
+   "kind": "WALL",
+   "name": "THE CHECKPOINT'S SCREENS"
+  }
+ },
+ "walls": {
+  "ew": "tm_wall_ew",
+  "ns": "tm_wall_ns"
+ },
+ "walls_air": {
+  "ew": "tm_screen_ew",
+  "ns": "tm_screen_ns"
+ },
+ "high": {
+  "deck": "tm_walkway",
+  "ramp_e": "tm_stair_e",
+  "ramp_w": "tm_stair_w",
+  "rail_ew": "tm_rail_ew",
+  "rail_ns": "tm_rail_ns",
+  "h_m": 1.42
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "high": [
+   "mall/mall_floor_0.webp#0,4",
+   "mall/mall_floor_0.webp#1,4",
+   "mall/mall_floor_0.webp#2,4",
+   "mall/mall_floor_0.webp#3,4",
+   "mall/mall_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "side": {
+   "src": null,
+   "radius_m": 17,
+   "day": true,
+   "every": 3
+  },
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [
+  "n"
+ ],
+ "open_sides_why": "THE WALL OF GLASS: the terminal's long north side faces the apron and is glass from floor to roof, so by day the light falls along the whole of it and a man there is seen; at night it is as dark as anywhere.",
+ "say": {
+  "height": "The upper walkway: you hit down easier, and a gun reaches a tile more."
+ },
+ "start": null,
+ "start_why": "NOBODY HOLDS THE UPPER WALKWAY AT THE BELL: both lines start on the floor; the walkway is whoever takes the stairs first.",
+ "ceiling": {
+  "kind": "span",
+  "alpha": 0.1,
+  "src": "terminal/terminal_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the terminal's long white roof, its ribs, its strips of skylight and its dead hanging signs over the board at this alpha (10%, never past the fight's own most). 'src' is the picture COOK FIVE makes (see garage.json's ceiling); 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in."
+ }
+}

@@ -11616,6 +11616,12 @@ function ceilingSheet() {
       g.strokeStyle = '#2c2a26'; g.lineWidth = 2; g.beginPath(); for (let y = 0; y < H2; y += th * .8) { g.moveTo(x - 5, y); g.lineTo(x + 5, y + th * .4); g.lineTo(x - 5, y + th * .8); } g.stroke(); }
     for (let y = th * 3.2; y < H2; y += th * 5.5) { g.fillStyle = '#3a3833'; g.fillRect(0, y, W2, 6); g.fillStyle = '#1d1c1a'; g.fillRect(0, y + 2, W2, 1); }   /* the catwalks */
     for (let k = 0; k < S.w / 3; k++) { const x = hash(k + 40) * W2, y = hash(k + 71) * H2; g.fillStyle = hash(k) < .5 ? '#7d2f28' : '#2f4a6a'; g.fillRect(x, y, tw * .5, th * 1.1); g.fillStyle = '#d9d2bd'; g.fillRect(x + 3, y + 5, tw * .5 - 6, 3); }   /* the last show's banners */
+  } else if (C.kind === 'span') {   /* a terminal's long roof: white panels far up, a rib every bay, strips of skylight along the concourse (panes out), and the dead hanging signs: gate numbers, the departures board */
+    g.fillStyle = '#a9aca8'; g.fillRect(0, 0, W2, H2);
+    for (let y = 0; y < H2; y += th * .5) { g.fillStyle = '#9a9d99'; g.fillRect(0, y, W2, 1); }
+    for (let y = th * 1.5; y < H2; y += th * 4) { g.fillStyle = '#2a2927'; g.fillRect(0, y - 3, W2, th * .7 + 6); for (let x = 0, i = 0; x < W2; x += tw * .6, i++) { g.fillStyle = hash(i * 7 + y) < .25 ? '#151412' : (hash(i + y) < .5 ? '#d9dccd' : '#c6cabb'); g.fillRect(x + 2, y, tw * .6 - 4, th * .7); } }   /* the skylight strips */
+    for (let x = 0; x <= S.w; x += C.bay) { g.fillStyle = '#3a3936'; g.fillRect(x * tw - 5, 0, 10, H2); }   /* a rib on every bay line */
+    for (let k = 0; k < S.w / 2; k++) { const x = hash(k + 13) * W2, y = hash(k + 61) * H2; g.fillStyle = '#1c2a44'; g.fillRect(x, y, tw * .9, th * .45); g.fillStyle = hash(k) < .5 ? '#d8b23a' : '#cfd3c6'; g.fillRect(x + 4, y + 4, tw * .9 - 8, 3); g.fillRect(x + 4, y + 11, tw * .5, 2); }   /* the hanging signs */
   } else if (C.kind === 'tray') {   /* a data hall: the white slab far up, a ladder tray of cable over every row, the bus ducts across, the cold strip lights nearly all still ON (the one place with power), the smoke heads' red eyes */
     g.fillStyle = '#b9bcba'; g.fillRect(0, 0, W2, H2);
     for (let x = tw * .5; x < W2; x += tw * 1.5) { g.fillStyle = '#3a3d40'; g.fillRect(x - 5, 0, 10, H2); g.fillStyle = '#6a6f74'; for (let y = 0; y < H2; y += 6) g.fillRect(x - 5, y, 10, 1);
