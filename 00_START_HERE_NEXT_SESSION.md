@@ -610,7 +610,11 @@ Earlier: 11/9c, 11/9f, 11/9j, fourteen places that talk. Still open: the bus yar
 handoffs/WORLD_FOURTEEN.md.
 [bb Battle Brothers' company events steal from the stash and call a man home; ours are the plasma van, the swollen cans and the rent crew.]
 [analog horror: the dead bank machine still runs on its own battery, says her balance is zero every morning, and asks if she would like a receipt.]
-HOME BASE (home-base-01gkdyuv): 11/17 LATEST -- BUILD 11/17zr - SEEN THROUGH THE CAMERAS (2da472b49), SHIPPED (rule 458(c); ask line 642): his
+HOME BASE (home-base-01gkdyuv): 11/18 LATEST -- BUILD 11/18c - HELD THE GATE, BUILT, NOT YET SEEN (rule 453): a raid he holds at his
+place's gate is pinned on his cork board (HELD THE GATE and the crew), seen close on the camera; the jobs' count stays the jobs'. The
+defence fight at his place exists (LIFE + CITY's, on his block's own ground); his builds as its cover is rule 86's retired shape, not
+built [PENDING Paolo]. Rule 459: where HOME BASE's prices live, listed in handoffs/HOME_BASE.md. VOTE home-base-held-the-gate-11-18.
+HOME BASE (home-base-01gkdyuv): 11/17 EARLIER -- BUILD 11/17zr - SEEN THROUGH THE CAMERAS (2da472b49), SHIPPED (rule 458(c); ask line 642): his
 place is only ever seen through its cameras: each a tilted pole camera with the act-one sensor, the title feed's tape and a wrong clock,
 all twelve lots in every frame; a tap cuts close on what he taps; his men stand at his buildings; BUILD cuts to his lots on their ground
 and a tap there picks one (the top-down plan is gone). Taps go through the lens. Gate YOUR PLACE, PLANTED D19 new, D8 and D10 rewritten.

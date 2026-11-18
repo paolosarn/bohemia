@@ -156,6 +156,13 @@ ok('E11 a job done is a deed: before planting it waits, planting pins it, the sa
   dw.waiting && dpw.length === 1 && rD.deeds.length === 2 && d2b.again && rD.deeds.every(x => x.lot == null) && rD.deeds[0].saved && bd.ok, JSON.stringify(rD.deeds));
 const pinned = acts => acts.filter(a => /^civilian_contract_(done|poor)$/.test(a)).length;
 ok('E11 planted: a lost or cancelled job pinned as a deed is caught (only done and paid-in-part pin)', pinned(['civilian_contract_done', 'fail_civilian_contract', 'cancel_contract', 'civilian_contract_poor']) === 2 && pinned(['fail_civilian_contract']) === 0);
+/* E12 A GATE HE HELD (rule 453, his impact): a raid he held is a deed marked held, kept apart from the jobs */
+{ const r12 = H.make(); H.plant(r12, { x: 4, y: 4, name: 'Gate' }, 2); const g12 = H.give(r12, { id: 'raid:1:3', kind: 'deed', name: 'Held the gate', from: 'Colorful', held: true, day: 3 }, []);
+  const j12 = H.give(r12, { id: 'deed:j1', kind: 'deed', name: 'Haul the salt', from: 'JEAN', day: 3 }, []);
+  const dd = r12.deeds || [];
+  ok('E12 a gate he held is pinned, marked held; a job beside it is not (' + dd.map(x => x.name + (x.held ? '*' : '')).join(', ') + ')', g12.ok && j12.ok && dd.length === 2 && dd[0].held === true && dd[1].held === false, JSON.stringify(dd));
+  const z12 = H.make(); H.plant(z12, { x: 4, y: 4, name: 'Gate' }, 2); const x12 = Object.assign({}, { id: 'raid:2:3', kind: 'deed', name: 'Held the gate', from: 'Colorful', day: 3 }); H.give(z12, x12, []);
+  ok('E12 planted: the held mark left off, the gate reads as a job (the leg above would be red)', !((z12.deeds || [])[0] || {}).held); }
 if (process.argv.includes('--engine')) done();
 
 /* ---------------- ON THE DEMO ---------------- */
@@ -433,10 +440,22 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       await tap15(bk18, () => window.__HOME_THING && window.__HOME_THING.id === 'board');
       const t18 = await fr.evaluate(() => ({ say: (document.querySelector('#sbody .say p') || {}).textContent || '', lines: [...document.querySelectorAll('#sbody [data-deed]')].map(e => e.textContent) }));
       ok('D18 a real tap on it: "' + t18.say + '" and the jobs pinned (' + t18.lines.join(' | ') + ')', /2 jobs done\. 1 brought home\./.test(t18.say) && t18.lines.length === 2 && /MEDIC/.test(t18.lines.join(' ')), JSON.stringify(t18));
+      /* D18 a gate he held (rule 453, his impact): a raid held at his place is pinned; one held elsewhere is not; the jobs' count stays the jobs' */
+      const h18 = await F.evaluate(() => { const H = BohemiaHomeBases, rec = hbRec(), mine = BohemiaBetween.mine(), other = Object.keys(ctBases()).find(n => n !== mine);
+        const o1 = H.openRaid(rec, { base: mine, by: 'Colorful', day: DAY.day }), c1 = H.closeRaid(rec, { base: mine, outcome: 'held', day: DAY.day, how: 'fought' });
+        const o2 = other ? H.openRaid(rec, { base: other, by: 'Colorful', day: DAY.day }) : null; if (o2 && o2.applied) H.closeRaid(rec, { base: other, outcome: 'held', day: DAY.day, how: 'fought' });
+        window.__HOME_RAIDS_HELD(); window.__HOME_RAIDS_HELD();
+        const s = BohemiaHomeMap.state(); return { opened: !!(o1 && o1.applied), other: !!(o2 && o2.applied), deeds: (s.deeds || []).map(x => x.name + (x.held ? '*' : '') + '@' + x.from) }; });
+      ok('D18 a raid he held at his gate is pinned on the board, once; one held at another place is not (' + h18.deeds.join(', ') + ')', h18.opened && h18.deeds.filter(x => /^Held the gate\*@Colorful/.test(x)).length === 1, JSON.stringify(h18));
+      await close15(); await F.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); }); await P.waitForTimeout(2500); await gone15(); await close15();
+      await tap15(bk18, () => window.__HOME_THING && window.__HOME_THING.id === 'board');
+      const t18h = await fr.evaluate(() => ({ say: (document.querySelector('#sbody .say p') || {}).textContent || '', lines: [...document.querySelectorAll('#sbody [data-deed]')].map(e => e.textContent), lens: (window.__HOME_LENS || {}).close || null }));
+      ok('D18 seen on the camera: a tap on the board, close (' + t18h.lens + '): the held gate among the papers, the jobs still counted as jobs ("' + t18h.say + '")', /2 jobs done\./.test(t18h.say) && t18h.lines.some(l => /HELD THE GATE/.test(l) && /COLORFUL/.test(l)) && t18h.lens === 'CORK BOARD', JSON.stringify(t18h));
       await close15(); await camTap16(0);
       await fr.evaluate(() => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); h.places = []; window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); }); await P.waitForTimeout(700);
       const m18 = await fr.evaluate(k => (window.__HOME_DOORS || []).indexOf(k) >= 0, bk18);
       ok('D18 planted: the board taken off the message leaves no door (the leg above would be red)', m18 === false);
+      await F.evaluate(() => { try { const R = hbRec(), m = BohemiaBetween.mine(); R.raids = (R.raids || []).filter(x => x.base !== m || x.by !== 'Colorful'); } catch (e) {} });   /* the gate's own raid comes down with the board, or the poll pins it again */
       await F.evaluate(() => { const r = BohemiaHomeMap.rec(); r.places = []; r.deeds = []; r.things = r.things.filter(t => t.kind !== 'deed'); const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); });
       await P.waitForTimeout(2500); await gone15(); await close15();   /* the board comes down so the legs after build where they always did */
       for (let t = 0; t < 3 && sg; t++) {   /* a slow phone: the press is asked again, as a thumb would, until the building answers */

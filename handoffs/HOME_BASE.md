@@ -1,4 +1,18 @@
-HOME BASE (home-base-01gkdyuv): 11/17 LATEST -- BUILD 11/17zr - SEEN THROUGH THE CAMERAS (2da472b49), SHIPPED (rule 458(c); ask line 642).
+HOME BASE (home-base-01gkdyuv): 11/18 LATEST -- BUILD 11/18c - HELD THE GATE, BUILT, NOT YET SEEN (rule 453; ask line 571).
+Record: records/BOHEMIA_HOME_BASE_HELD_THE_GATE_11_18_26.md.
+- A raid he HELD at his place's gate is pinned on his cork board (the seam's deed, held: true; the map's __HIS_GATE_HELD__ reads
+  FACTIONS' ledger, read only). Seen close on the camera. Gate E12, D18.
+- *** FOR THE COORDINATOR: the defence fight at his place EXISTS (LIFE + CITY's raidDefend, 10/9) and is on his block's own ground
+  (COMBAT THREE's zone board via FIGHT_OPTS.ground, measured: a trailer park, a suburb block); nothing he built is on it, gated by
+  A RAID ON YOUR BASE D (rule 86). His walls and roofs as cover is rule 86's retired shape: NOT BUILT, [PENDING Paolo]. ***
+- FOR LIFE + CITY (raidDefend): the fight starts the moment he stands at his gate. If a camera beat is wanted first (the crew at his
+  gate on CAM 1, FIGHT from the feed), raidDefend would wait for his tap; HOME BASE draws the crew in the feed if you hand an open
+  raid in BohemiaHomeMap.state() (ask; nothing of yours touched).
+- RULE 459, FOR ECONOMY TWO: HOME BASE's costs and pay live in records/target/bb/home_base.json builds{}, places{} (the yard's
+  per_level and min, the forge's takes and makes, the lookout's reach), bill{} (keep, water and power by mark, prize_pays), and
+  records/target/bb/nightly_bill.json; the one battery a build costs is the town screen's desk (P.debit 1) and lotbuild's catalogue;
+  engine/bohemia_home.js trainCost only reads the file. HOME BASE moved none.
+HOME BASE (home-base-01gkdyuv): 11/17 EARLIER -- BUILD 11/17zr - SEEN THROUGH THE CAMERAS (2da472b49), SHIPPED (rule 458(c); ask line 642).
 Record: records/BOHEMIA_HOME_BASE_SEEN_AS_HE_WILL_SEE_IT_11_17_26.md.
 - His place (only his) is seen through its cameras: slices/BOHEMIA_SETTLEMENT_SCREEN.html __HIS_PLACE_SEEN_AS_HE_WILL_SEE_IT__. One
   perspective transform on the canvas per camera (HLENS_CAMS, the mounts), the sensor (HLENS_SENSOR), the title feed's tape (#hlens), a

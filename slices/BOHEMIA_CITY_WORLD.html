@@ -95328,6 +95328,21 @@ function homeBossGifts(){
   return n;
 }
 setInterval(function(){ try { homeBossGifts(); } catch (_e) {} }, 2000);   /* a kill's prize reaches his place within two seconds, planted or not */
+/* ==== __HIS_GATE_HELD__ (HOME BASE 11/18, rule 453's 'his impact shown there'; rule 86 kept): a raid he HELD at his place's gate is
+   pinned on his cork board as a deed, as a job done is (the seam's kind 'deed', held: true). Read only: FACTIONS' ledger
+   (hbRec().raids, closeRaid's 'held'); a raid that went moot, one on another base, one taken, pin nothing. The fight itself is the
+   raid's own (LIFE + CITY's raidDefend) on his block's own ground (COMBAT THREE's zone board); nothing he built is on it (rule 86).
+   Words draft:true, the fewest (rule 454(a)): 'Held the gate'. ==== */
+function homeRaidsHeld(){
+  var r = homeRec(); if (!r || !r.planted) return 0; var mine = null; try { mine = BohemiaBetween.mine(); } catch (_e) {} if (!mine) return 0;
+  var list = []; try { list = (hbRec().raids || []); } catch (_e) {} var n = 0;
+  list.forEach(function(x){ if (!x || x.base !== mine || x.state !== 'held' || x.how === 'moot') return;
+    var res = homeGive({ id: 'raid:' + x.n + ':' + x.day, kind: 'deed', name: 'Held the gate', from: String(x.by || ''), held: true, day: (x.end && x.end.day) || x.day | 0 });
+    if (res && res.ok && !res.again) n++; });
+  return n; }
+setInterval(function(){ try { homeRaidsHeld(); } catch (_e) {} }, 2000);   /* a held gate is on his board within two seconds */
+window.__HOME_RAIDS_HELD = function(){ return homeRaidsHeld(); };   /* read only, for the gate: pin now */
+/* ==== /__HIS_GATE_HELD__ ==== */
 /* for checkers only (the game plants through plant(), graded): the seed's own seat for his outfit, and planting at a given block */
 function homeRawSeat(){ try { var b = HOME.rawBases(), m = homeMine(); return b && b[m] ? { x: b[m].x | 0, y: b[m].y | 0 } : null; } catch (_e) { return null; } }
 function homePlantAt(x, y){ var cx = city.x, cy = city.y; city.x = x | 0; city.y = y | 0; var r = homeRec(), g = BohemiaHome.grade(homeProbe(x, y));
