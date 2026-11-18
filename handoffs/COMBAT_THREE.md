@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/18 LATEST -- [the stadium] SHIPPED SHIPSHA, BUILD 11/18m - THE STADIUM, BUILT, NOT YET SEEN. VOTE combat3-the-stadium-11-18 (stand_in).
+COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/18 LATEST -- [the stadium] SHIPPED 5827603ec, BUILD 11/18m - THE STADIUM, BUILT, NOT YET SEEN. VOTE combat3-the-stadium-11-18 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_STADIUM_11_18_26.md. The coordinator's round of 11/18, its second build: the ninth big inside.
 WHAT: a fight at the stadium (0.7 of what the garage leaves, by the cell's dice; opts.inside 'stadium' anywhere) is fought on its field: eleven rows of dead turf (open ground),
 pallets, wrecks and the last show's rig (cover), barriers and benches (low cover), tents (blockers), torn turf (3 AP), tunnel mouths, and A STAND ALONG EACH LONG SIDE (high ground,
