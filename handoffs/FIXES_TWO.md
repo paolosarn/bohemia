@@ -2,7 +2,7 @@
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 
 FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/18 LATEST -- [round five] rows 649 (EYES: the receipt over the wipe's
-line) and 581 (a death is heard on its beat) FIXED IN THE GAME, 634 CLOSED (UI FOUR had it), 542 and 555 tidied. BUILD 11/18r - THE FALL IS HEARD ON ITS BEAT, BUILT, NOT YET SEEN. Commit SHIPSHAX.
+line) and 581 (a death is heard on its beat) FIXED IN THE GAME, 634 CLOSED (UI FOUR had it), 542 and 555 tidied. BUILD 11/18r - THE FALL IS HEARD ON ITS BEAT, BUILT, NOT YET SEEN. Commit 80ac1ffab.
 Record: the ROUND FIVE section of records/BOHEMIA_FIXES_TWO_THE_RED_DEBT_ROWS_11_11_26.md. No VOTE card (a sound's timing; no picture).
 WHAT HE WOULD MEET (TAB: RUN, and the demo link):
 - 649 after a wipe, upright: the line 'SOMEBODY DRAGS YOU TO THE NEAREST TOWN...' reads whole; the rolled receipt ends inside its
