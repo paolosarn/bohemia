@@ -986,6 +986,186 @@
     "pack_after_1.png"
    ],
    "through_the_rig": true
+  },
+  "clinic_before": {
+   "w": 166,
+   "h": 171,
+   "bx": 83,
+   "by": 122,
+   "plate": 150,
+   "frames": [
+    "clinic_before_0.png",
+    "clinic_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "clinic_after": {
+   "w": 166,
+   "h": 171,
+   "bx": 83,
+   "by": 122,
+   "plate": 150,
+   "frames": [
+    "clinic_after_0.png",
+    "clinic_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "rooftanks_before": {
+   "w": 166,
+   "h": 192,
+   "bx": 83,
+   "by": 142,
+   "plate": 150,
+   "frames": [
+    "rooftanks_before_0.png",
+    "rooftanks_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "rooftanks_after": {
+   "w": 166,
+   "h": 191,
+   "bx": 83,
+   "by": 141,
+   "plate": 150,
+   "frames": [
+    "rooftanks_after_0.png",
+    "rooftanks_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "forge_before": {
+   "w": 166,
+   "h": 169,
+   "bx": 83,
+   "by": 120,
+   "plate": 150,
+   "frames": [
+    "forge_before_0.png",
+    "forge_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "forge_after": {
+   "w": 166,
+   "h": 171,
+   "bx": 83,
+   "by": 122,
+   "plate": 150,
+   "frames": [
+    "forge_after_0.png",
+    "forge_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "bandage": {
+   "w": 62,
+   "h": 59,
+   "bx": 31,
+   "by": 45,
+   "plate": 46,
+   "frames": [
+    "bandage_0.png",
+    "bandage_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "raintarp": {
+   "w": 62,
+   "h": 79,
+   "bx": 31,
+   "by": 59,
+   "plate": 46,
+   "frames": [
+    "raintarp_0.png",
+    "raintarp_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "ingot": {
+   "w": 62,
+   "h": 68,
+   "bx": 29,
+   "by": 49,
+   "plate": 46,
+   "frames": [
+    "ingot_0.png",
+    "ingot_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "wardtape_before": {
+   "w": 128,
+   "h": 116,
+   "bx": 64,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "wardtape_before_0.png",
+    "wardtape_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "wardtape_after": {
+   "w": 128,
+   "h": 116,
+   "bx": 64,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "wardtape_after_0.png",
+    "wardtape_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "tank_before": {
+   "w": 128,
+   "h": 116,
+   "bx": 64,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "tank_before_0.png",
+    "tank_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "tank_after": {
+   "w": 128,
+   "h": 116,
+   "bx": 64,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "tank_after_0.png",
+    "tank_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "anvil_before": {
+   "w": 128,
+   "h": 116,
+   "bx": 64,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "anvil_before_0.png",
+    "anvil_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "anvil_after": {
+   "w": 128,
+   "h": 116,
+   "bx": 64,
+   "by": 78,
+   "plate": 116,
+   "frames": [
+    "anvil_after_0.png",
+    "anvil_after_1.png"
+   ],
+   "through_the_rig": true
   }
  }
 }

@@ -32,7 +32,8 @@ THINGS = {'pot': 'cook', 'wrench': 'open', 'filter': 'purify',
           'fuel': 'burn', 'map': 'survey', 'hook': 'climb',   # the thing -> the verb it is (BOSSES 4 11/3: THE BURN's, THE SURVEYOR's, THE CLIMB's)
           'picks': 'pick', 'charge': 'blow', 'pipegun': 'weld',   # BOSSES 11/11: THE LOCKSMITH's, THE CHARGE's, THE MACHINIST's
           'mallet': 'press', 'forceps': 'fix', 'spyglass': 'look',   # BOSSES 11/14: THE PLATE's, THE TOOTH's, THE LENS's
-          'razor': 'fade', 'needles': 'mark', 'dog': 'track'}   # BOSSES 11/17: THE BARBER's, THE INK's, THE DOGS'
+          'razor': 'fade', 'needles': 'mark', 'dog': 'track',   # BOSSES 11/17: THE BARBER's, THE INK's, THE DOGS'
+          'medbag': 'treat', 'tarp': 'catch', 'crucible': 'smelt'}   # BOSSES 11/18: THE WARD's, THE CISTERN's, THE SMITH's
 
 
 def ship_of(n):
@@ -196,6 +197,33 @@ def build(n, bpy, P, IC):
         P.rod(bpy, 'tail', fur, (-0.15, 0, 0.2), (-0.24, 0, 0.27), 0.014, verts=8)
         P.cyl(bpy, 'collar', dark, 0.048, 0.02, (0.19, 0, 0.245), rot=(0, math.radians(-45), 0), verts=14)
         P.rod(bpy, 'chain', chain, (0.19, 0.0, 0.225), (0.18, 0.0, 0.09), 0.005, verts=6)
+    elif n == 'medbag':                # BOSSES 11/18: THE WARD's bag, a red trauma bag open, a roll of gauze and a syringe on its lid
+        red, dark, gauze, steel, blood = M('red', 'blood', 1), M('dark', 'rubber', 2), M('gauze', 'clay_bone', 4), M('steel', 'tape_grey', 3), M('blood2', 'rubber', 1)
+        P.box(bpy, 'bag', red, (0.26, 0.14, 0.12), (0, 0, 0.06), bevel=0.025)
+        P.box(bpy, 'zip', dark, (0.262, 0.012, 0.012), (0, -0.065, 0.11), bevel=0.003)
+        P.box(bpy, 'crossh', gauze, (0.08, 0.142, 0.022), (0, 0, 0.122), bevel=0.003)
+        P.box(bpy, 'crossv', gauze, (0.022, 0.142, 0.08), (0, 0, 0.122), bevel=0.003)
+        P.cyl(bpy, 'roll', gauze, 0.035, 0.05, (0.17, 0.0, 0.035), rot=(math.radians(90), 0, 0), verts=16)
+        P.box(bpy, 'tail', gauze, (0.09, 0.05, 0.004), (0.22, 0.0, 0.002), bevel=0.001)
+        P.box(bpy, 'stain', blood, (0.03, 0.05, 0.005), (0.25, 0.0, 0.003), bevel=0.001)
+        P.rod(bpy, 'barrel', steel, (-0.08, 0.02, 0.135), (0.02, 0.02, 0.135), 0.008, verts=10)
+        P.rod(bpy, 'needle', steel, (0.02, 0.02, 0.135), (0.06, 0.02, 0.135), 0.0015, verts=6)
+    elif n == 'tarp':                  # BOSSES 11/18: THE CISTERN's catch, a blue tarp pulled into a funnel over a blue barrel
+        blue, dkblue, pole = M('blue', 'clay_teal', 2), M('dkblue', 'clay_teal', 1), M('pole', 'clay_rust', 2)
+        P.cyl(bpy, 'barrel', dkblue, 0.09, 0.2, (0, 0, 0.1), verts=18)
+        for z in (0.06, 0.14): P.cyl(bpy, 'rib', blue, 0.092, 0.012, (0, 0, z), verts=18)
+        IC.lathe(bpy, 'funnel', blue, [(0.015, 0.205), (0.05, 0.215), (0.14, 0.27), (0.19, 0.3), (0.192, 0.305), (0.14, 0.278), (0.05, 0.222), (0.015, 0.21)], n=4)
+        for s_ in (-1, 1):
+            for t_ in (-1, 1): P.rod(bpy, 'pole', pole, (s_ * 0.13, t_ * 0.13, 0.0), (s_ * 0.13, t_ * 0.13, 0.3), 0.007, verts=6)
+    elif n == 'crucible':              # BOSSES 11/18: THE SMITH's fire, a crucible in its tongs over the coals, an ingot cooling by it
+        iron, dark, ember, lead = M('iron', 'tape_grey', 1), M('dark', 'rubber', 2), M('ember', 'clay_rust', 3), M('lead', 'tape_grey', 3)
+        P.cyl(bpy, 'coals', dark, 0.12, 0.04, (0, 0, 0.02), verts=16)
+        for (x, y) in ((0.04, 0.02), (-0.05, -0.03), (0.0, -0.06), (-0.02, 0.06)): P.box(bpy, 'ember', ember, (0.03, 0.03, 0.02), (x, y, 0.045), bevel=0.006)
+        IC.lathe(bpy, 'crucible', iron, [(0, 0.05), (0.04, 0.05), (0.06, 0.08), (0.065, 0.16), (0.06, 0.165), (0.055, 0.1), (0, 0.095)], n=18)
+        P.cyl(bpy, 'melt', ember, 0.056, 0.005, (0, 0, 0.155), verts=16)
+        P.rod(bpy, 'tong1', dark, (0.06, 0.0, 0.13), (0.24, 0.02, 0.2), 0.006, verts=6)
+        P.rod(bpy, 'tong2', dark, (0.06, 0.0, 0.11), (0.24, -0.02, 0.18), 0.006, verts=6)
+        P.box(bpy, 'ingot', lead, (0.09, 0.04, 0.025), (0.16, -0.1, 0.0125), bevel=0.006)
     else:
         raise KeyError(n)
 
@@ -205,7 +233,8 @@ D.FACE['wrench'] = 'S'   # a flat tool reads side-on (DIRECTION's flat signs' wa
 D.FACE['map'] = 'S'; D.FACE['hook'] = 'S'
 D.FACE['picks'] = 'S'; D.FACE['pipegun'] = 'S'
 D.FACE['forceps'] = 'S'; D.FACE['spyglass'] = 'S'   # BOSSES 11/14
-D.FACE['razor'] = 'S'; D.FACE['needles'] = 'S'; D.FACE['dog'] = 'S'   # BOSSES 11/17   # BOSSES 11/11: flat things side-on
+D.FACE['razor'] = 'S'; D.FACE['needles'] = 'S'; D.FACE['dog'] = 'S'   # BOSSES 11/17
+D.FACE['medbag'] = 'S'; D.FACE['tarp'] = 'S'; D.FACE['crucible'] = 'S'   # BOSSES 11/18   # BOSSES 11/11: flat things side-on
 D.VENV = os.environ.get('BOHEMIA_BPY') or D.VENV
 D.ship_of = ship_of
 D.build = build

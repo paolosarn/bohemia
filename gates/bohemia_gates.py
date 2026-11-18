@@ -8661,6 +8661,33 @@ GATES = [
      "the night by his kennel bites nobody (C1a), a stake and a broken chain where each pack slept (C1b); TRACK finds the next boss's sign "
      "(V1); his dog at your place (H1); the reload holds (R1). Planted: a pack that bites nobody, his packs back after the fall, a trail to "
      "nowhere, a phone that forgot the save, a prize the seam never got. about 40 min a way", True),
+    ('THE WARD CHANGES THE MAP', ['node', 'gates/the_next_three_change_the_map_gate.js', 'THE WARD'],
+     "BOSSES gate, 11/18, the coordinator's round 'BOSSES next' (rules 441, 453, 454(a), 455), ask lines 167, 522, 571: the stranger's game "
+     "on the DEMO UPRIGHT and the ALPHA ON ITS SIDE, the fifteen before him first, then THE WARD end to end, a boss of no words: the radio "
+     "(T1, T2); HIS WARD: his tape and his black cross on posts where his reach ends, painted (W1); in his reach two hours of the map's own "
+     "clock give no blood back, out of it they do (W2); his card, his fight, the beat, his nurse to your place (B0, B1, B2, G1); the blood "
+     "comes back twice as fast in his reach (C1a), his tape cut (C1b); TREAT puts every man's blood back (V1); his nurse lives at your "
+     "place and CAM 3 has her (H1); the reload holds (R1). Planted: blood that comes back in his reach, his ward standing after the fall, a "
+     "treat that healed nobody, somebody who does not live there, a phone that forgot the save, a prize the seam never got. about 40 min a "
+     "way", True),
+    ('THE CISTERN CHANGES THE MAP', ['node', 'gates/the_next_three_change_the_map_gate.js', 'THE CISTERN'],
+     "BOSSES gate, 11/18, the coordinator's round 'BOSSES next' (rules 441, 453, 454(a), 455), ask lines 167, 522, 571: the stranger's game "
+     "on the DEMO UPRIGHT and the ALPHA ON ITS SIDE, the sixteen before him first, then THE CISTERN end to end, a boss of no words: the "
+     "gutter tag (T1, T2); HIS TANKS: chained on their stands where his reach ends, painted (T1); in his reach his men take a FOOD every "
+     "three hours of the map's own clock, out of it nothing (T2); his card, his fight, the beat, his keeper to your place (B0, B1, B2, G1); "
+     "his reach takes nothing and a stop on his tank gives a FOOD (C1a), the taps open (C1b); CATCH takes two FOOD off a roof (V1); his "
+     "keeper lives at your place and CAM 3 has her (H1); the reload holds (R1). Planted: a reach that takes nothing, a tank that gave "
+     "nothing, rain that filled nothing, somebody who does not live there, a phone that forgot the save, a prize the seam never got. about "
+     "40 min a way", True),
+    ('THE SMITH CHANGES THE MAP', ['node', 'gates/the_next_three_change_the_map_gate.js', 'THE SMITH'],
+     "BOSSES gate, 11/18, the coordinator's round 'BOSSES next' (rules 441, 453, 454(a), 455), ask lines 167, 522, 571: the stranger's game "
+     "on the DEMO UPRIGHT and the ALPHA ON ITS SIDE, the seventeen before him first, then THE SMITH end to end, a boss of no words: the "
+     "man at the bar (T1, T2); HIS ANVILS: chained under his scrap where his reach ends, painted (A1); in his reach two hours of the map's "
+     "own clock mend no armour and spend no tape, out of it they mend (A2); his card, his fight, the beat, his apprentice to your place "
+     "(B0, B1, B2, G1); a stop on his anvil mends the company's armour whole for no tape (C1a), the chains cut (C1b); SMELT at your place "
+     "makes TAPE (V1); his apprentice lives at your place and CAM 3 has him (H1); the reload holds (R1). Planted: armour mended in his "
+     "reach, an anvil that mended nothing, a fire that made nothing, somebody who does not live there, a phone that forgot the save, a "
+     "prize the seam never got. about 40 min a way", True),
     ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
      "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
      "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "

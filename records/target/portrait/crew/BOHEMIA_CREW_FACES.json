@@ -445,6 +445,45 @@
     "O": "records/target/portrait/crew/boss_dogs_0/O_{64|128}.png",
     "M": "records/target/portrait/crew/boss_dogs_0/M_{64|128}.png"
    }
+  },
+  "boss_ward_0": {
+   "name": "THE WARD",
+   "look": "boss_ward_0",
+   "model": "the barber and the master rig (tools/bohemia_bosses_the_three_men.py)",
+   "boss": true,
+   "files": {
+    "rest": "records/target/portrait/crew/boss_ward_0/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/boss_ward_0/A_{64|128}.png",
+    "E": "records/target/portrait/crew/boss_ward_0/E_{64|128}.png",
+    "O": "records/target/portrait/crew/boss_ward_0/O_{64|128}.png",
+    "M": "records/target/portrait/crew/boss_ward_0/M_{64|128}.png"
+   }
+  },
+  "boss_cistern_0": {
+   "name": "THE CISTERN",
+   "look": "boss_cistern_0",
+   "model": "the barber and the master rig (tools/bohemia_bosses_the_three_men.py)",
+   "boss": true,
+   "files": {
+    "rest": "records/target/portrait/crew/boss_cistern_0/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/boss_cistern_0/A_{64|128}.png",
+    "E": "records/target/portrait/crew/boss_cistern_0/E_{64|128}.png",
+    "O": "records/target/portrait/crew/boss_cistern_0/O_{64|128}.png",
+    "M": "records/target/portrait/crew/boss_cistern_0/M_{64|128}.png"
+   }
+  },
+  "boss_smith_0": {
+   "name": "THE SMITH",
+   "look": "boss_smith_0",
+   "model": "the barber and the master rig (tools/bohemia_bosses_the_three_men.py)",
+   "boss": true,
+   "files": {
+    "rest": "records/target/portrait/crew/boss_smith_0/rest_{64|128}.png",
+    "A": "records/target/portrait/crew/boss_smith_0/A_{64|128}.png",
+    "E": "records/target/portrait/crew/boss_smith_0/E_{64|128}.png",
+    "O": "records/target/portrait/crew/boss_smith_0/O_{64|128}.png",
+    "M": "records/target/portrait/crew/boss_smith_0/M_{64|128}.png"
+   }
   }
  },
  "groups": {

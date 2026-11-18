@@ -1,0 +1,267 @@
+{
+ "look": "PERSON_WARD_0",
+ "shape": "person_ward_0: THE WARD: the last clinic; surgeon's green, a sage car coat over a green shirt, green trousers, white sneakers, a stethoscope, his mask pulled down, the amputation knife, his own skin skin_light 3, WHITE TEE under SAGE CAR COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "WHITE TEE",
+  "outer": "SAGE CAR COAT",
+  "legs": "SAGE TROUSERS",
+  "feet": "WHITE SNEAKERS",
+  "outfit": [
+   "the sleeves pushed up the forearm"
+  ]
+ },
+ "dials": {
+  "height": 0.3,
+  "belly": -0.3,
+  "shoulders": -0.2,
+  "hips": -0.1
+ },
+ "layers": {
+  "base": {
+   "under": "CAR COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "sleeve_to": 1.42,
+   "push": true
+  }
+ },
+ "model": "records/character/rig/person_ward_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7458,
+ "real_height_for_rig": 1.7519,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_ward_0_shoe": 3500,
+  "person_ward_0_shirt": 40160,
+  "person_ward_0_collar": 1536,
+  "person_ward_0_hem": 1792,
+  "person_ward_0_coat": 63576,
+  "person_ward_0_coat_skirt": 5670,
+  "person_ward_0_collar.001": 1536,
+  "person_ward_0_lapels": 396,
+  "person_ward_0_pushed": 2048,
+  "person_ward_0_pockets": 252,
+  "person_ward_0_pocket_flaps": 252,
+  "person_ward_0_ward_grip": 20,
+  "person_ward_0_ward_guard": 8,
+  "person_ward_0_ward_blade": 8,
+  "person_ward_0_ward_tube": 1792,
+  "person_ward_0_ward_tubes": 132,
+  "person_ward_0_ward_chestpiece": 54,
+  "person_ward_0_ward_mask": 1344,
+  "person_ward_0_trouser": 43706,
+  "person_ward_0_rolled_hem": 2048,
+  "person_ward_0_crease": 180,
+  "person_ward_0_sole_1": 242,
+  "person_ward_0_midsole_1": 242,
+  "person_ward_0_sole_0": 242,
+  "person_ward_0_midsole_0": 242,
+  "person_ward_0_tongue_1": 98,
+  "person_ward_0_laces_1": 200,
+  "person_ward_0_heel_1": 90,
+  "person_ward_0_tongue_0": 98,
+  "person_ward_0_laces_0": 200,
+  "person_ward_0_heel_0": 90,
+  "person_ward_0_hair": 17968,
+  "person_ward_0_hand_L": 392,
+  "person_ward_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_ward_0_coat": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_ward_0_coat_skirt": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_ward_0_collar": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_ward_0_crease": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_ward_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_ward_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_ward_0_heel_0": [
+   0.4179,
+   0.3916,
+   0.3372
+  ],
+  "person_ward_0_heel_1": [
+   0.4179,
+   0.3916,
+   0.3372
+  ],
+  "person_ward_0_hem": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_ward_0_laces_0": [
+   0.4179,
+   0.3916,
+   0.3372
+  ],
+  "person_ward_0_laces_1": [
+   0.4179,
+   0.3916,
+   0.3372
+  ],
+  "person_ward_0_lapels": [
+   0.0382,
+   0.063,
+   0.0343
+  ],
+  "person_ward_0_midsole_0": [
+   0.9131,
+   0.8879,
+   0.8228
+  ],
+  "person_ward_0_midsole_1": [
+   0.9131,
+   0.8879,
+   0.8228
+  ],
+  "person_ward_0_pocket_flaps": [
+   0.0382,
+   0.063,
+   0.0343
+  ],
+  "person_ward_0_pockets": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_ward_0_pushed": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_ward_0_rolled_hem": [
+   0.1878,
+   0.2623,
+   0.162
+  ],
+  "person_ward_0_shirt": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_ward_0_shoe": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_ward_0_shoes": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_ward_0_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "person_ward_0_sole_0": [
+   0.0232,
+   0.0212,
+   0.0194
+  ],
+  "person_ward_0_sole_1": [
+   0.0232,
+   0.0212,
+   0.0194
+  ],
+  "person_ward_0_tongue_0": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_ward_0_tongue_1": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_ward_0_trouser": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_ward_0_trousers": [
+   0.0931,
+   0.1441,
+   0.0823
+  ],
+  "person_ward_0_ward_blade": [
+   0.4342,
+   0.4452,
+   0.4564
+  ],
+  "person_ward_0_ward_blade_back": [
+   0.0612,
+   0.0612,
+   0.0648
+  ],
+  "person_ward_0_ward_chestpiece": [
+   0.3916,
+   0.402,
+   0.4125
+  ],
+  "person_ward_0_ward_grip": [
+   0.0212,
+   0.0176,
+   0.0144
+  ],
+  "person_ward_0_ward_guard": [
+   0.0612,
+   0.0612,
+   0.0648
+  ],
+  "person_ward_0_ward_mask": [
+   0.305,
+   0.4793,
+   0.5776
+  ],
+  "person_ward_0_ward_mask_pleat": [
+   0.2016,
+   0.3515,
+   0.4452
+  ],
+  "person_ward_0_ward_tube": [
+   0.013,
+   0.0144,
+   0.016
+  ],
+  "person_ward_0_ward_tubes": [
+   0.013,
+   0.0144,
+   0.016
+  ]
+ }
+}

@@ -1,0 +1,239 @@
+{
+ "look": "PERSON_CISTERN_0",
+ "shape": "person_cistern_0: THE CISTERN: every roof worth catching rain off; a storm poncho over a slate tank, slate work pants, ranch boots, the water key, a five-gallon blue jug, a coiled hose, his own skin skin_mid 3, SOOT TANK under STORM PONCHO",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "SOOT TANK",
+  "outer": "STORM PONCHO",
+  "legs": "SLATE WORK PANTS",
+  "feet": "RANCH BOOTS",
+  "waist": "LEATHER BELT",
+  "outfit": []
+ },
+ "dials": {
+  "height": 0.05,
+  "belly": 0.55,
+  "shoulders": 0.3,
+  "hips": 0.35
+ },
+ "layers": {
+  "base": {},
+  "mid": {},
+  "outer": {}
+ },
+ "model": "records/character/rig/person_cistern_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7243,
+ "real_height_for_rig": 1.7304,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_cistern_0_shoe": 4484,
+  "person_cistern_0_shirt": 21064,
+  "person_cistern_0_poncho": 23728,
+  "person_cistern_0_poncho_neck": 1536,
+  "person_cistern_0_cistern_tbar": 20,
+  "person_cistern_0_cistern_shaft": 20,
+  "person_cistern_0_cistern_socket": 8,
+  "person_cistern_0_cistern_drum": 36,
+  "person_cistern_0_cistern_neck": 60,
+  "person_cistern_0_cistern_cap": 24,
+  "person_cistern_0_cistern_handle": 116,
+  "person_cistern_0_cistern_hose": 396,
+  "person_cistern_0_cistern_nozzle": 16,
+  "person_cistern_0_trouser": 43706,
+  "person_cistern_0_rolled_hem": 2048,
+  "person_cistern_0_double_knee": 252,
+  "person_cistern_0_hammer_loop": 50,
+  "person_cistern_0_sole_1": 242,
+  "person_cistern_0_midsole_1": 242,
+  "person_cistern_0_sole_0": 242,
+  "person_cistern_0_midsole_0": 242,
+  "person_cistern_0_boot_collar": 2048,
+  "person_cistern_0_boot_collar_line": 2048,
+  "person_cistern_0_boot_strap": 2048,
+  "person_cistern_0_leather_belt": 1792,
+  "person_cistern_0_leather_belt_buckle": 34,
+  "person_cistern_0_hair": 17968,
+  "person_cistern_0_hand_L": 392,
+  "person_cistern_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_cistern_0_boot_collar": [
+   0.2664,
+   0.1413,
+   0.0529
+  ],
+  "person_cistern_0_boot_collar_line": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_cistern_0_boot_strap": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_cistern_0_cistern_cap": [
+   0.016,
+   0.0452,
+   0.1559
+  ],
+  "person_cistern_0_cistern_drum": [
+   0.0612,
+   0.2232,
+   0.491
+  ],
+  "person_cistern_0_cistern_drum_rib": [
+   0.0252,
+   0.107,
+   0.2623
+  ],
+  "person_cistern_0_cistern_handle": [
+   0.0252,
+   0.107,
+   0.2623
+  ],
+  "person_cistern_0_cistern_hose": [
+   0.0343,
+   0.162,
+   0.0423
+  ],
+  "person_cistern_0_cistern_hose_dk": [
+   0.013,
+   0.0612,
+   0.0176
+  ],
+  "person_cistern_0_cistern_neck": [
+   0.0612,
+   0.2232,
+   0.491
+  ],
+  "person_cistern_0_cistern_nozzle": [
+   0.4342,
+   0.2874,
+   0.0612
+  ],
+  "person_cistern_0_cistern_shaft": [
+   0.117,
+   0.117,
+   0.107
+  ],
+  "person_cistern_0_cistern_socket": [
+   0.0369,
+   0.0369,
+   0.0343
+  ],
+  "person_cistern_0_cistern_tbar": [
+   0.0369,
+   0.0369,
+   0.0343
+  ],
+  "person_cistern_0_double_knee": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_cistern_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_cistern_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_cistern_0_hammer_loop": [
+   0.0262,
+   0.0319,
+   0.0437
+  ],
+  "person_cistern_0_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_cistern_0_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_cistern_0_midsole_0": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_cistern_0_midsole_1": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_cistern_0_poncho": [
+   0.0595,
+   0.0648,
+   0.0802
+  ],
+  "person_cistern_0_poncho_band": [
+   0.1248,
+   0.1384,
+   0.1651
+  ],
+  "person_cistern_0_poncho_neck": [
+   0.0242,
+   0.0273,
+   0.0343
+  ],
+  "person_cistern_0_rolled_hem": [
+   0.1248,
+   0.1559,
+   0.2016
+  ],
+  "person_cistern_0_shirt": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_cistern_0_shoe": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_cistern_0_shoes": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_cistern_0_skin": [
+   0.6105,
+   0.3515,
+   0.1714
+  ],
+  "person_cistern_0_sole_0": [
+   0.0513,
+   0.0319,
+   0.0176
+  ],
+  "person_cistern_0_sole_1": [
+   0.0513,
+   0.0319,
+   0.0176
+  ],
+  "person_cistern_0_trouser": [
+   0.0612,
+   0.0762,
+   0.0999
+  ],
+  "person_cistern_0_trousers": [
+   0.0612,
+   0.0762,
+   0.0999
+  ]
+ }
+}

@@ -1,0 +1,10 @@
+{
+ "model": "records/target/bosses_hand_rig/models/crucible.glb",
+ "ppm": 679.5138082717854,
+ "files": [
+  "records/target/bosses_hand_rig/crucible/rig_S.png",
+  "records/target/bosses_hand_rig/crucible/rig_SE.png",
+  "records/target/bosses_hand_rig/crucible/rig_SW.png"
+ ],
+ "box": null
+}

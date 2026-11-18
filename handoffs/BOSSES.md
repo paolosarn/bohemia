@@ -1,5 +1,24 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/18/26: THE WARD, HIS OWN WAY, TWO WORDS, HIS NURSE ON CAM 3 (the coordinator's round 'BOSSES next', rules 441, 453, 454(a), 455; ask lines 167, 522, 571), BUILD 11/18j
+Record: records/BOHEMIA_BOSSES_SIXTEEN_TO_EIGHTEEN_11_18_26.md. Gate: "THE WARD" (THE WARD CHANGES THE MAP, registered; both ways green).
+VOTE bosses-the-wards-reach-11-18. SIXTEEN BOSSES ARE LIVE; THE CISTERN (17) and THE SMITH (18) are made (men, places, pieces, things,
+moving cards, code, gate legs, gate registrations) and go live one build each, next.
+- THE CAMERAS: HOME BASE's 12 lots were full from the 13th prize on (kept in the hall, not on camera). These three hand a PERSON with
+  the thing (prizes(): a hand with 'person' goes through BohemiaHomeMap.give as kind 'person', the same id 'prize:<verb>'): she lives
+  there and stands on CAM 3 THE PEOPLE. Gate H1 taps CAM 3 for real and reads her by name (BohemiaSettlement.folk/toScreen/fit).
+- *** FOR HOME BASE (your file, not touched): homeFolk draws the first 8 residents of up to 24 (S.home.residents.slice(0, 8)), so in a
+  long game the newest people (a boss's nurse, keeper, apprentice) are not drawn on CAM 3. The newest first, or more than 8, is yours. ***
+- (24) HIS WARD / (25) HIS TANKS / (26) HIS ANVILS: one REACH engine (radius blocks round his place, off a town; 'marks' painted where it
+  ends). THE WARD holds blood: bohemia_bosses.js wraps BohemiaCondition.elapse and holds its RATES at nothing while it runs (never takes
+  the healing back after: CAMP ends a camp on a whole company), so the bar, camp and sums read the truth; x2 after he falls.
+- TREAT (verb 'treat'): off a town, once a day, a man hurt: every man's blood back, every fresh untreated wound through the condition's
+  own treat (half its days and debuff). Order: right after fix. FOR CAMP / TUNING: TREAT and the town clinic now overlap (the clinic
+  halves a wound for batteries; TREAT does it free once a day from boss 16 on); the numbers are yours.
+- FOR ANY LANE TESTING: BohemiaBosses.bleed(hp) and the new dent(pts) (armour) put a hurt on the company the condition's own way.
+- THE GATE: the reload leg now leaves a town first (MEASURED: the reopened game came up inside BLUES on the alpha, so the walk back to
+  his reach never left the town and R1 read nothing).
+
 ## BOSSES, 11/17/26: THE DOGS' PACKS, HIS OWN WAY, NO WORDS, AND THE ROUND'S THREE ARE LIVE (the coordinator's round 'BOSSES full sweep', rules 441, 453, 454(a); ask lines 167, 522, 571), BUILD 11/17zp
 Record: records/BOHEMIA_BOSSES_THIRTEEN_TO_FIFTEEN_11_17_26.md. Gate: "THE DOGS" (THE DOGS CHANGES THE MAP, registered; both ways green).
 VOTE bosses-the-dogs-packs-11-17. FIFTEEN BOSSES ARE LIVE; the ladder's 16th (THE WARD) is next; WORLD TWO's boss_map already places his

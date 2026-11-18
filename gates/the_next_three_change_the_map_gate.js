@@ -38,7 +38,7 @@ const { open } = require(path.join(ROOT, 'tools', 'bohemia_drive_the_demo.js'));
 let pass = 0, fail = 0;
 const ok = (n, c, w) => { if (c) pass++; else fail++; console.log((c ? '  ok   ' : '  FAIL ') + n + (w != null ? '  [' + w + ']' : '')); };
 const NAME = process.argv[2] || 'THE BURN';
-const LADDER = ['THE POT', 'THE TAP', 'THE FILTER', 'THE BURN', 'THE SURVEYOR', 'THE CLIMB', 'THE LOCKSMITH', 'THE CHARGE', 'THE MACHINIST', 'THE PLATE', 'THE TOOTH', 'THE LENS', 'THE BARBER', 'THE INK', 'THE DOGS'];
+const LADDER = ['THE POT', 'THE TAP', 'THE FILTER', 'THE BURN', 'THE SURVEYOR', 'THE CLIMB', 'THE LOCKSMITH', 'THE CHARGE', 'THE MACHINIST', 'THE PLATE', 'THE TOOTH', 'THE LENS', 'THE BARBER', 'THE INK', 'THE DOGS', 'THE WARD', 'THE CISTERN', 'THE SMITH'];
 const SLUG = NAME.replace(/^THE /, '').toLowerCase();
 const SHOTS = process.env.BOSSES_SHOTS === '0' ? null : path.join(ROOT, 'records', 'target', 'the_next_three_change_the_map', SLUG);
 const NIGHT = 22 * 60;
@@ -1089,7 +1089,241 @@ const DOGS = {
   }
 };
 
-const LEGS = { 'THE BURN': BURN, 'THE SURVEYOR': SURVEYOR, 'THE CLIMB': CLIMB, 'THE LOCKSMITH': LOCK, 'THE CHARGE': MINE, 'THE MACHINIST': NAIL, 'THE PLATE': PLATE, 'THE TOOTH': TOOTH, 'THE LENS': LENS, 'THE BARBER': BARBER, 'THE INK': INK, 'THE DOGS': DOGS };
+/* ---------------- THE WARD: nothing heals in his reach (BOSSES 11/18) ---------------- */
+const passHours = (fr, h) => fr.evaluate((h) => { try { advance(h * 60); render(); } catch (e) { return String(e); } return null; }, h);   /* the map's own clock: advance() hands the minutes to the condition */
+const reachOf = (fr, k) => fr.evaluate((a) => JSON.parse(JSON.stringify(BohemiaBosses[a[0]](a[1]) || null)), [k, NAME]);
+const drewReach = (fr, k) => fr.evaluate((k) => ((BohemiaBosses.last().drew || {}).reach || []).filter(d => d.k === k).map(d => d.key), k);
+const WARDQ = {
+  W1: (q) => !!q && q.marks >= 2 && q.drawn >= 1,
+  W2: (q) => !!q && q.cut > 0 && q.inGot <= 0.05 && q.hold === 0 && q.outGot >= 1,   /* in his reach the hours give nothing back; out of it they do */
+  C1a: (q) => !!q && q.cut > 0 && q.mult >= 2 && q.inGot >= q.rate * q.hours * q.mult - 0.5,
+  V1: (q) => !!q && q.verb === 'treat' && q.men >= 1 && q.healed >= 1 && q.lostAfter <= 0.05 && q.cooling,
+  R1: (q, b) => !!q && q.fallen && q.down && q.mult >= 2 && q.out === 0
+};
+const WARD = {
+  R1: WARDQ.R1, cam: true,
+  async before(c) {
+    const { fr, G } = c;
+    let Q = null;
+    for (let i = 0; i < 30 && !(Q && Q.marks && Q.marks.length); i++) { Q = await reachOf(fr, 'ward'); if (!(Q && Q.marks && Q.marks.length)) await c.page.waitForTimeout(500); }
+    if (!(Q && Q.marks && Q.marks.length)) { ok('W1 his tape where his reach ends', false, 'none'); return false; }
+    c.Q = Q; const RQ = { at: Q.at, radius: G.radius };
+    const inAt = await ringPick(fr, RQ, c.f, true), outAt = await ringPick(fr, RQ, c.f, false);
+    if (!inAt || !outAt) { ok('W2 a street inside his reach and one out of it', false, JSON.stringify({ inAt, outAt })); return false; }
+    c.at = inAt; c.out = outAt;
+    await noonOf(fr); await c.goTo(inAt); await noonOf(fr); await c.page.waitForTimeout(800);
+    const drawn = (await drewReach(fr, 'ward')).filter(k => k === (G.pic || 'ward') + '_before').length;
+    await c.shot('2_his_tape');
+    const rate = await fr.evaluate(() => BohemiaCondition.RATE.hp_per_hour_march);
+    const cut = await fr.evaluate(() => { const g = BohemiaBosses.bleed(30, 'gate:ward'); return g ? g.hp | 0 : 0; });
+    const l0 = await lostOf(fr); await passHours(fr, 2); const l1 = await lostOf(fr);
+    const e1 = await lastOf(fr, '__BOSS_REACH_ELAPSE'), told = await lastOf(fr, '__BOSS_REACH_TOLD');
+    await c.goTo(outAt); await noonOf(fr);
+    const l2 = await lostOf(fr); await passHours(fr, 2); const l3 = await lostOf(fr);
+    const q = { marks: Q.marks.length, drawn, cut, rate, inGot: Math.round((l0 - l1) * 10) / 10, outGot: Math.round((l2 - l3) * 10) / 10, hold: e1 && e1.hold ? e1.hold.blood : null, told: told && told.k };
+    ok('W1 his tape and his black cross on ' + q.marks + ' posts where his reach ends, painted (' + q.drawn + ' on the screen)', WARDQ.W1(q), JSON.stringify({ marks: q.marks, drawn: q.drawn }));
+    ok('W2 in his reach two hours give no blood back (' + q.inGot + ' of ' + q.cut + ' cut); out of it the same two hours give ' + q.outGot + ' (the condition\'s own clock)', WARDQ.W2(q), JSON.stringify(q));
+    ok('P2 planted: blood that comes back in his reach turns W2 red', !WARDQ.W2(Object.assign({}, q, { inGot: 2, hold: null })), 'healed');
+    c.rate = rate;
+    return true;
+  },
+  card(G, c) { return G.card; },
+  async after(c) {
+    const { fr, G } = c;
+    await noonOf(fr); await c.goTo(c.at); await noonOf(fr); await c.page.waitForTimeout(600);
+    const drew = await drewReach(fr, 'ward');
+    const cut = await fr.evaluate(() => { const g = BohemiaBosses.bleed(30, 'gate:ward'); return g ? g.hp | 0 : 0; });
+    const l0 = await lostOf(fr); await passHours(fr, 2); const l1 = await lostOf(fr);
+    const e1 = await lastOf(fr, '__BOSS_REACH_ELAPSE');
+    const q = { cut, rate: c.rate || 1, hours: 2, mult: e1 && e1.hold ? e1.hold.blood : null, inGot: Math.round((l0 - l1) * 10) / 10, out: drew.filter(k => /_before$/.test(k)).length, after: drew.filter(k => /_after$/.test(k)).length };
+    ok('C1a his clinic\'s lights are on: in his reach the blood comes back ' + q.mult + ' times as fast (' + q.inGot + ' in two hours)', WARDQ.C1a(q), JSON.stringify(q));
+    ok('C1b his tape cut and hanging, his sheet on the ground, on every post', q.after >= 1 && q.out === 0, JSON.stringify(drew));
+    await c.shot('5_his_tape_cut');
+    const p3 = await fr.evaluate((n) => { const Q = BohemiaBosses.ward(n), H = BohemiaHisMap.state(), was = Q.fell, f = H.boss.fallen[n]; Q.fell = null; delete H.boss.fallen[n];
+      const hold = BohemiaBosses.reachHolds(); Q.fell = was; H.boss.fallen[n] = f; return hold ? hold.blood : null; }, NAME);
+    ok('P3 planted: his ward standing again after the fall turns C1a red (nothing heals)', p3 === 0, String(p3));
+    /* TREAT: off a town, a man hurt: every man's blood back, once a day */
+    await fr.evaluate(() => { const a = BohemiaBosses.applies('fix', city.x, city.y); if (a && !a.off) BohemiaBosses.use('fix'); BohemiaBosses.bleed(25, 'gate:treat'); });
+    const v = await fr.evaluate(() => { const vh = BohemiaBosses.verbHere(), s0 = BohemiaCondition.get(); let l0 = 0; for (const k in s0.men) l0 += s0.men[k].lostHp || 0;
+      const g = BohemiaBosses.use('treat'), s1 = BohemiaCondition.get(); let l1 = 0; for (const k in s1.men) l1 += s1.men[k].lostHp || 0; BohemiaBosses.bleed(4, 'gate:treat-again'); const ap = BohemiaBosses.applies('treat', city.x, city.y);
+      return { verb: vh && vh.id, lost0: Math.round(l0), men: g && typeof g === 'object' ? g.men | 0 : 0, healed: g && typeof g === 'object' ? g.healed | 0 : 0, wounds: g && typeof g === 'object' ? g.wounds | 0 : 0, lostAfter: Math.round(l1 * 10) / 10, cooling: !!(ap && ap.off), at: [city.x, city.y] }; });   /* hurt again the same day: TREAT is cooling */
+    await c.page.waitForTimeout(2400); await c.shot('5_he_treats');
+    ok('V1 TREAT: off a town, a man hurt: every man\'s blood back (' + v.healed + ' across ' + v.men + ' men), fresh wounds halved (' + v.wounds + '), once a day', WARDQ.V1(v), JSON.stringify(v));
+    ok('P5 planted: a treat that healed nobody turns V1 red', !WARDQ.V1(Object.assign({}, v, { men: 0, healed: 0, lostAfter: v.lost0 })), 'nobody');
+    return { fallen: true };
+  },
+  async reload(e, c) {
+    await c.goOn(e, c.at);
+    await e.page.waitForTimeout(800);
+    return e.fr.evaluate((n) => { try { render(); } catch (x) {} const Q = BohemiaBosses.ward(n), hold = BohemiaBosses.reachHolds();
+      return { fallen: !!BohemiaHisMap.state().boss.fallen[n], down: !!(Q && Q.fell != null), mult: hold ? hold.blood : null, out: ((BohemiaBosses.last().drew || {}).reach || []).filter(d => d.k === 'ward' && /_before$/.test(d.key)).length }; }, NAME).catch(x => ({ err: String(x) }));
+  }
+};
+
+/* a block where a verb is the phone's button: the crew's own block first, never by a town's door when the verb is off one, every verb
+   before it in the file's order not lit there (fix and mark are used up first, the way a player taps what lights) */
+const pickVerb = (fr, id, near, far) => fr.evaluate((a) => { const id = a[0], near = a[1], far = a[2], h = near || [city.x, city.y], me = [city.x, city.y], ord = BohemiaBosses.data().verbs_order, before = ord.slice(0, ord.indexOf(id)).filter(v => v !== 'fix' && v !== 'mark');
+  let best = null, bd = 1e9;
+  for (let dy = -far; dy <= far; dy++) for (let dx = -far; dx <= far; dx++) { const x = h[0] + dx, y = h[1] + dy, d = Math.max(Math.abs(x - me[0]), Math.abs(y - me[1])); if (d >= bd || !cityWalkable(x, y)) continue;
+    const ap = BohemiaBosses.applies(id, x, y); if (!ap || ap.off) continue; if (before.some(v => { const b = BohemiaBosses.applies(v, x, y); return b && !b.off; })) continue;
+    if (!(x === me[0] && y === me[1]) && !cityRoute(me[0], me[1], x, y)) continue; bd = d; best = [x, y]; } return best; }, [id, near || null, far || 12]);
+const useUp = (fr, ids) => fr.evaluate((ids) => { ids.forEach(id => { const a = BohemiaBosses.applies(id, city.x, city.y); if (a && !a.off) BohemiaBosses.use(id); }); }, ids);
+const foodOf = (fr) => fr.evaluate(() => { const s = BohemiaOriginStart.supplies(); return s ? s.food | 0 : null; });
+const tapeOf = (fr) => fr.evaluate(() => { const s = BohemiaOriginStart.supplies(); return s ? s.tape | 0 : null; });
+const armourLost = (fr) => fr.evaluate(() => { const s = BohemiaCondition.get(); let t = 0; for (const k in s.men) t += ((s.men[k] && s.men[k].lostH) || 0) + ((s.men[k] && s.men[k].lostB) || 0); return Math.round(t * 10) / 10; });
+const morningOf = (fr) => fr.evaluate(() => { try { DAY.min = 7 * 60; daySync(); render(); } catch (e) {} });   /* seven hours from here stay in the day: the night's own bill never runs */
+
+/* ---------------- THE CISTERN: his men take your water (BOSSES 11/18) ---------------- */
+const CISTQ = {
+  T1: (q) => !!q && q.marks >= 2 && q.drawn >= 1,
+  T2: (q) => !!q && q.food0 != null && q.inTook >= 2 && q.took && q.took.n === NAME && q.outTook === 0,
+  C1a: (q) => !!q && q.inTook === 0 && q.got >= 1 && q.used && q.used.k === 'tanks',
+  V1: (q) => !!q && q.verb === 'catch' && q.food >= 1 && q.gained === q.food && q.cooling,
+  R1: (q, b) => !!q && q.fallen && q.down && q.out === 0
+};
+const CISTERN = {
+  R1: CISTQ.R1, cam: true,
+  async before(c) {
+    const { fr, G } = c;
+    let Q = null;
+    for (let i = 0; i < 30 && !(Q && Q.marks && Q.marks.length); i++) { Q = await reachOf(fr, 'tanks'); if (!(Q && Q.marks && Q.marks.length)) await c.page.waitForTimeout(500); }
+    if (!(Q && Q.marks && Q.marks.length)) { ok('T1 his tanks', false, 'none'); return false; }
+    c.Q = Q; const RQ = { at: Q.at, radius: G.radius };
+    const inAt = await ringPick(fr, RQ, c.f, true), outAt = await ringPick(fr, RQ, c.f, false);
+    if (!inAt || !outAt) { ok('T2 a street inside his reach and one out of it', false, JSON.stringify({ inAt, outAt })); return false; }
+    c.at = inAt; c.out = outAt;
+    await fr.evaluate(() => { const s = BohemiaOriginStart.supplies(); if (s && (s.food | 0) < 12) BohemiaOriginStart.addSupply('food', 12 - (s.food | 0)); });   /* the wagon carries some (NEW GAME's own count, topped up so a take is seen) */
+    /* the clock set to the morning BEFORE each walk, never after it (a clock wound back under his count would hide a take), and seven
+       hours from there stay in the day (the night's own bill never runs) */
+    await morningOf(fr); await c.goTo(inAt); await c.page.waitForTimeout(800);
+    const drawn = (await drewReach(fr, 'tanks')).filter(k => k === (G.pic || 'tanks') + '_before').length;
+    await c.shot('2_his_tanks');
+    const k0 = await lastOf(fr, '__BOSS_TANK_TOOK'), f0 = await foodOf(fr);
+    await passHours(fr, 7); await c.page.waitForTimeout(600);
+    const f1 = await foodOf(fr), k1 = await lastOf(fr, '__BOSS_TANK_TOOK');
+    await morningOf(fr); await c.goTo(outAt); await c.page.waitForTimeout(600);
+    const f2 = await foodOf(fr); await passHours(fr, 7); await c.page.waitForTimeout(600); const f3 = await foodOf(fr);
+    const q = { marks: Q.marks.length, drawn, food0: f0, inTook: (f0 | 0) - (f1 | 0), outTook: (f2 | 0) - (f3 | 0), took: k1 && (!k0 || k1.t !== k0.t) ? k1 : null, every: G.every_mins };
+    ok('T1 his tanks up on their stands, chained, his man by each: ' + q.marks + ' where his reach ends, painted (' + q.drawn + ')', CISTQ.T1(q), JSON.stringify({ marks: q.marks, drawn: q.drawn }));
+    ok('T2 in his reach his men take water: seven hours there cost ' + q.inTook + ' FOOD (one every ' + q.every + ' minutes); out of it the same seven cost ' + q.outTook, CISTQ.T2(q), JSON.stringify(q));
+    ok('P2 planted: a reach that takes nothing turns T2 red', !CISTQ.T2(Object.assign({}, q, { inTook: 0, took: null })), 'nothing taken');
+    return true;
+  },
+  card(G, c) { return G.card.replace('{marks}', c.Q.marks.length); },
+  async after(c) {
+    const { fr, G } = c;
+    await morningOf(fr); await c.goTo(c.at); await c.page.waitForTimeout(600);
+    const drew = await drewReach(fr, 'tanks');
+    const f0 = await foodOf(fr); await passHours(fr, 7); await c.page.waitForTimeout(600); const f1 = await foodOf(fr);
+    /* a stop on one of his tanks: its tap is open */
+    const tk = c.Q.marks.map(m => m.at)[0], u0 = await lastOf(fr, '__BOSS_REACH_USED');
+    await morningOf(fr); const g0 = await foodOf(fr); await c.goTo(tk); await c.page.waitForTimeout(1200);
+    const g1 = await foodOf(fr), u1 = await lastOf(fr, '__BOSS_REACH_USED');
+    const q = { inTook: (f0 | 0) - (f1 | 0), got: (g1 | 0) - (g0 | 0), used: u1 && (!u0 || u1.t !== u0.t) ? u1 : null, out: drew.filter(k => /_before$/.test(k)).length, after: drew.filter(k => /_after$/.test(k)).length, tank: tk };
+    ok('C1a his tanks are open: seven hours in his reach take nothing, and a stop on his tank gives ' + q.got + ' FOOD', CISTQ.C1a(q), JSON.stringify(q));
+    ok('C1b each tank\'s tap open, the jugs under it, nobody guarding', q.after >= 1 && q.out === 0, JSON.stringify(drew));
+    await c.shot('5_his_tanks_open');
+    ok('P3 planted: a tank that gave nothing turns C1a red', !CISTQ.C1a(Object.assign({}, q, { got: 0, used: null })), 'dry');
+    /* CATCH: off a town, beside a roof, once a day */
+    await useUp(fr, ['fix', 'mark']);
+    const at = await pickVerb(fr, 'catch', null, 14);
+    let v = { at };
+    if (at) {
+      await c.goTo(at); await c.leaveTown(); await morningOf(fr); await useUp(fr, ['fix', 'mark']);
+      v = await fr.evaluate(() => { const f0 = BohemiaOriginStart.supplies().food | 0, vh = BohemiaBosses.verbHere(), g = BohemiaBosses.use('catch'), f1 = BohemiaOriginStart.supplies().food | 0, ap = BohemiaBosses.applies('catch', city.x, city.y);
+        return { verb: vh && vh.id, food: g && typeof g === 'object' ? g.food | 0 : 0, gained: f1 - f0, cooling: !!(ap && ap.off), at: [city.x, city.y] }; });
+      await c.page.waitForTimeout(2400); await c.shot('5_he_catches_the_rain');
+    } else v.why = 'no block where CATCH is the button';
+    ok('V1 CATCH: beside a roof, off a town, the tarp and the barrel: +' + (v.food | 0) + ' FOOD, once a day', CISTQ.V1(v), JSON.stringify(v));
+    ok('P5 planted: rain that filled nothing turns V1 red', !CISTQ.V1(Object.assign({}, v, { food: 0, gained: 0 })), 'dry');
+    return { fallen: true };
+  },
+  async reload(e, c) {
+    await c.goOn(e, c.at);
+    await e.page.waitForTimeout(800);
+    return e.fr.evaluate((n) => { try { render(); } catch (x) {} const Q = BohemiaBosses.tanks(n);
+      return { fallen: !!BohemiaHisMap.state().boss.fallen[n], down: !!(Q && Q.fell != null), used: Q ? Q.marks.filter(m => m.used != null).length : 0, out: ((BohemiaBosses.last().drew || {}).reach || []).filter(d => d.k === 'tanks' && /_before$/.test(d.key)).length }; }, NAME).catch(x => ({ err: String(x) }));
+  }
+};
+
+/* ---------------- THE SMITH: nothing is mended in his reach (BOSSES 11/18) ---------------- */
+const SMITHQ = {
+  A1: (q) => !!q && q.marks >= 2 && q.drawn >= 1,
+  A2: (q) => !!q && q.dent > 0 && q.inGot <= 0.05 && q.hold === 0 && q.outGot >= 1 && q.tapeIn === 0,
+  C1a: (q) => !!q && q.dent > 0 && q.got >= q.dent - 0.5 && q.lostAfter <= 0.05 && q.used && q.used.k === 'anvils' && q.tapeAnvil === 0,
+  V1: (q) => !!q && q.verb === 'smelt' && q.tape >= 1 && q.gained === q.tape && q.cooling,
+  R1: (q, b) => !!q && q.fallen && q.down && q.hold === null && q.out === 0
+};
+const SMITH = {
+  R1: SMITHQ.R1, cam: true,
+  async before(c) {
+    const { fr, G } = c;
+    let Q = null;
+    for (let i = 0; i < 30 && !(Q && Q.marks && Q.marks.length); i++) { Q = await reachOf(fr, 'anvils'); if (!(Q && Q.marks && Q.marks.length)) await c.page.waitForTimeout(500); }
+    if (!(Q && Q.marks && Q.marks.length)) { ok('A1 his anvils', false, 'none'); return false; }
+    c.Q = Q; const RQ = { at: Q.at, radius: G.radius };
+    const inAt = await ringPick(fr, RQ, c.f, true), outAt = await ringPick(fr, RQ, c.f, false);
+    if (!inAt || !outAt) { ok('A2 a street inside his reach and one out of it', false, JSON.stringify({ inAt, outAt })); return false; }
+    c.at = inAt; c.out = outAt;
+    await fr.evaluate(() => { const s = BohemiaOriginStart.supplies(); if (s && (s.tape | 0) < 10) BohemiaOriginStart.addSupply('tape', 10 - (s.tape | 0)); });   /* tape in the wagon, so a mend is never short of it */
+    await noonOf(fr); await c.goTo(inAt); await noonOf(fr); await c.page.waitForTimeout(800);
+    const drawn = (await drewReach(fr, 'anvils')).filter(k => k === (G.pic || 'anvils') + '_before').length;
+    await c.shot('2_his_anvils');
+    const dn = await fr.evaluate(() => { const g = BohemiaBosses.dent(30); return g ? g.pts | 0 : 0; });
+    const a0 = await armourLost(fr), t0 = await tapeOf(fr); await passHours(fr, 2); const a1 = await armourLost(fr), t1 = await tapeOf(fr);
+    const e1 = await lastOf(fr, '__BOSS_REACH_ELAPSE');
+    await c.goTo(outAt); await noonOf(fr);
+    const a2 = await armourLost(fr); await passHours(fr, 2); const a3 = await armourLost(fr);
+    const q = { marks: Q.marks.length, drawn, dent: dn, inGot: Math.round((a0 - a1) * 10) / 10, outGot: Math.round((a2 - a3) * 10) / 10, tapeIn: (t0 | 0) - (t1 | 0), hold: e1 && e1.hold ? e1.hold.armour : null };
+    ok('A1 his anvils on their stumps, chained under his scrap: ' + q.marks + ' where his reach ends, painted (' + q.drawn + ')', SMITHQ.A1(q), JSON.stringify({ marks: q.marks, drawn: q.drawn }));
+    ok('A2 in his reach two hours mend no armour (' + q.inGot + ' of ' + q.dent + ' dented) and spend no tape; out of it the same two hours mend ' + q.outGot, SMITHQ.A2(q), JSON.stringify(q));
+    ok('P2 planted: armour mended in his reach turns A2 red', !SMITHQ.A2(Object.assign({}, q, { inGot: 3, hold: null })), 'mended');
+    return true;
+  },
+  card(G, c) { return G.card.replace('{marks}', c.Q.marks.length); },
+  async after(c) {
+    const { fr, G } = c;
+    await noonOf(fr); await c.goTo(c.at); await noonOf(fr); await c.page.waitForTimeout(600);
+    const drew = await drewReach(fr, 'anvils');
+    const hold = await fr.evaluate(() => { const h = BohemiaBosses.reachHolds(); return h ? h.armour : null; });
+    /* a stop on one of his anvils: the company's armour whole, no tape */
+    const an = c.Q.marks.map(m => m.at)[0], u0 = await lastOf(fr, '__BOSS_REACH_USED');
+    const dn = await fr.evaluate(() => { const g = BohemiaBosses.dent(20); return g ? g.pts | 0 : 0; });
+    const a0 = await armourLost(fr), t0 = await tapeOf(fr);
+    await c.goTo(an); await c.page.waitForTimeout(1200);
+    const a1 = await armourLost(fr), t1 = await tapeOf(fr), u1 = await lastOf(fr, '__BOSS_REACH_USED');
+    const q = { hold, dent: dn, lost0: a0, got: Math.round((a0 - a1) * 10) / 10, lostAfter: a1, tapeAnvil: (t0 | 0) - (t1 | 0), used: u1 && (!u0 || u1.t !== u0.t) ? u1 : null, out: drew.filter(k => /_before$/.test(k)).length, after: drew.filter(k => /_after$/.test(k)).length, anvil: an };
+    ok('C1a his anvils are anybody\'s: a stop on one mends the company\'s armour whole (' + q.got + '), no tape; in his reach the hours mend again', SMITHQ.C1a(q) && q.hold === null, JSON.stringify(q));
+    ok('C1b his chain cut, the anvil there for anybody', q.after >= 1 && q.out === 0, JSON.stringify(drew));
+    await c.shot('5_his_anvils_free');
+    ok('P3 planted: an anvil that mended nothing turns C1a red', !SMITHQ.C1a(Object.assign({}, q, { got: 0, used: null })), 'cold');
+    /* SMELT: at your place (planted the way HOME BASE's own gates do), once a day */
+    const home = await fr.evaluate(() => { let r = BohemiaHomeMap.rec(); if (!(r && r.planted)) { const rs = BohemiaHomeMap.rawSeat && BohemiaHomeMap.rawSeat(); if (rs) BohemiaHomeMap.plantAt(rs.x, rs.y); else BohemiaHomeMap.plantAt(city.x, city.y); }
+      r = BohemiaHomeMap.rec(); return r && r.planted ? [r.planted.x | 0, r.planted.y | 0] : null; });
+    let v = { home };
+    if (home) {
+      await noonOf(fr);
+      const at = await pickVerb(fr, 'smelt', home, 2);
+      if (at) {
+        await c.goTo(at); await c.leaveTown(); await noonOf(fr); await useUp(fr, ['fix', 'mark']);
+        v = await fr.evaluate(() => { const t0 = BohemiaOriginStart.supplies().tape | 0, vh = BohemiaBosses.verbHere(), g = BohemiaBosses.use('smelt'), t1 = BohemiaOriginStart.supplies().tape | 0, ap = BohemiaBosses.applies('smelt', city.x, city.y);
+          return { verb: vh && vh.id, tape: g && typeof g === 'object' ? g.tape | 0 : 0, gained: t1 - t0, cooling: !!(ap && ap.off), at: [city.x, city.y] }; });
+        await c.page.waitForTimeout(2400); await c.shot('5_he_smelts');
+      } else v.why = 'no block on your place\'s doorstep where SMELT is the button';
+    }
+    ok('V1 SMELT: at your place, the scrap you hauled melted down: +' + (v.tape | 0) + ' TAPE, once a day', SMITHQ.V1(v), JSON.stringify(v));
+    ok('P5 planted: a fire that made nothing turns V1 red', !SMITHQ.V1(Object.assign({}, v, { tape: 0, gained: 0 })), 'cold');
+    return { fallen: true };
+  },
+  async reload(e, c) {
+    await c.goOn(e, c.at);
+    await e.page.waitForTimeout(800);
+    return e.fr.evaluate((n) => { try { render(); } catch (x) {} const Q = BohemiaBosses.anvils(n), h = BohemiaBosses.reachHolds();
+      return { fallen: !!BohemiaHisMap.state().boss.fallen[n], down: !!(Q && Q.fell != null), hold: h ? (h.armour == null ? null : h.armour) : null, out: ((BohemiaBosses.last().drew || {}).reach || []).filter(d => d.k === 'anvils' && /_before$/.test(d.key)).length }; }, NAME).catch(x => ({ err: String(x) }));
+  }
+};
+
+const LEGS = { 'THE BURN': BURN, 'THE SURVEYOR': SURVEYOR, 'THE CLIMB': CLIMB, 'THE LOCKSMITH': LOCK, 'THE CHARGE': MINE, 'THE MACHINIST': NAIL, 'THE PLATE': PLATE, 'THE TOOTH': TOOTH, 'THE LENS': LENS, 'THE BARBER': BARBER, 'THE INK': INK, 'THE DOGS': DOGS, 'THE WARD': WARD, 'THE CISTERN': CISTERN, 'THE SMITH': SMITH };
 
 async function run(prof, alpha) {
   console.log('\n-- ' + NAME + ' on ' + (alpha ? 'the alpha' : 'the demo') + ', ' + prof + ' --');
@@ -1187,7 +1421,30 @@ async function run(prof, alpha) {
   /* H1 (rule 445, ask line 571; HOME BASE's cameras, rule 451(c)): his thing stands on a lot at your place and CAM 2 THE LOTS shows it.
      His place is planted through HOME BASE's own door (plantAt on its raw seat, the way its gates plant), opened through the map's own
      door to a town (loopOpenTown), CAM 2 pressed by a real tap */
+  /* H1 for a person (BOSSES 11/18: his nurse, his keeper, his apprentice): she moves in through the same seam and lives there, so CAM 3
+     THE PEOPLE, pressed by a real tap, has her on the glass (HOME BASE's own D16 reading: BohemiaSettlement.folk(), toScreen, fit) */
+  const camSeesPerson = async (c, row, P) => {
+    const pl = await fr.evaluate(() => { let r = BohemiaHomeMap.rec(); if (!(r && r.planted)) { const rs = BohemiaHomeMap.rawSeat && BohemiaHomeMap.rawSeat(); if (rs) BohemiaHomeMap.plantAt(rs.x, rs.y); else BohemiaHomeMap.plantAt(city.x, city.y); }
+      r = BohemiaHomeMap.rec(); return { planted: !!(r && r.planted) }; }).catch(e => ({ err: String(e) }));
+    let lives = null; for (let i = 0; i < 20 && !(lives && lives.at >= 0); i++) { await page.waitForTimeout(500);
+      lives = await fr.evaluate((nm) => { const r = BohemiaHomeMap.rec(); const L = (r && r.residents) || []; return { at: L.map(x => x.name).indexOf(nm), of: L.length }; }, P.name).catch(() => null); }
+    if (!lives || lives.at < 0) return { planted: pl.planted, person: P.name, lives, why: 'she does not live there' };
+    await leaveTown();
+    await fr.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); });
+    let sf = null; for (let i = 0; i < 40 && !sf; i++) { await page.waitForTimeout(500); const f = page.frames().find(x => /SETTLEMENT_SCREEN/.test(x.url()));
+      if (f && await f.evaluate(() => !!window.BohemiaSettlement && !!document.getElementById('hcamb') && !document.getElementById('arrive')).catch(() => false)) sf = f; }
+    if (!sf) return { planted: pl.planted, person: P.name, lives, why: 'his place did not open on its cameras' };
+    await sf.evaluate(() => { const cl = document.getElementById('close'); if (cl && BohemiaSettlement.state.open) cl.click(); }).catch(() => {}); await page.waitForTimeout(500);
+    const btn = await sf.$('#hcamb button[data-cam="2"]'); if (btn) await btn.tap(); await page.waitForTimeout(1600);
+    const q = await sf.evaluate((nm) => { const v = BohemiaSettlement.fit(), L = BohemiaSettlement.folk().filter(p => p.resident).map(p => { const s = BohemiaSettlement.toScreen(p.x, p.y); return { name: p.name, on: s.x >= 0 && s.x <= v.W && s.y >= 0 && s.y <= v.H, at: [Math.round(s.x), Math.round(s.y)] }; });
+      const her = L.filter(x => x.name === nm)[0] || null; return { cam: window.__HOME_CAM && window.__HOME_CAM.n, camName: window.__HOME_CAM && window.__HOME_CAM.name, drawn: L.length, her, ghost: L.filter(x => x.name === 'NOBODY OF HIS')[0] || null }; }, P.name).catch(e => ({ err: String(e) }));
+    q.planted = pl.planted; q.person = P.name; q.lives = lives; q.tapped = !!btn; q.on = !!(q.her && q.her.on); q.ghostOn = !!(q.ghost && q.ghost.on);
+    await shot('7_on_his_camera');
+    await leaveTown();
+    return q;
+  };
   const camSees = async (c, row) => {
+    if (row.verb.hand.person) return camSeesPerson(c, row, row.verb.hand.person);
     const pl = await fr.evaluate(() => { let r = BohemiaHomeMap.rec(); if (!(r && r.planted)) { const rs = BohemiaHomeMap.rawSeat && BohemiaHomeMap.rawSeat(); if (rs) BohemiaHomeMap.plantAt(rs.x, rs.y); else BohemiaHomeMap.plantAt(city.x, city.y); }
       r = BohemiaHomeMap.rec(); return { planted: !!(r && r.planted) }; }).catch(e => ({ err: String(e) }));
     let th = null; for (let i = 0; i < 20 && !(th && th.lot != null && th.lot >= 0); i++) { await page.waitForTimeout(500);
@@ -1213,7 +1470,13 @@ async function run(prof, alpha) {
     return q;
   };
   /* the reopened phone walks the same way */
-  c.goOn = async (e, to) => { for (let k = 0; k < 4; k++) { await e.fr.evaluate((c) => { try { if (TRAVEL_SPEED === 0) travelSpeedSet(TRAVEL_SPEED_LAST || 1); travelSpeedSet(4); travelTo(0, 0, c); travelGoes(); } catch (x) {} }, to).catch(() => {});
+  c.goOn = async (e, to) => {
+    /* the reopened game can come up inside a town (MEASURED 11/18 on the alpha: in BLUES, LEAVE on the phone): the walk starts on the map */
+    const inT = () => e.fr.evaluate(() => { const sf = document.getElementById('settleFrame'); return !!sf && sf.style.display === 'block'; }).catch(() => false);
+    for (let k = 0; k < 3 && await inT(); k++) { await e.page.waitForTimeout(900); const b = await e.page.$('#bohphone .bpctx.town .lv'), bb = b && await b.boundingBox();
+      if (bb) await e.page.touchscreen.tap(bb.x + bb.width / 2, bb.y + bb.height / 2); else { const sfr = e.page.frames().find(f => /SETTLEMENT/.test(f.url())), lv = sfr && await sfr.$('#leave'), lb = lv && await lv.boundingBox(); if (lb) await e.page.touchscreen.tap(lb.x + lb.width / 2, lb.y + lb.height / 2); }
+      await e.page.waitForTimeout(1300); }
+    for (let k = 0; k < 4; k++) { await e.fr.evaluate((c) => { try { if (TRAVEL_SPEED === 0) travelSpeedSet(TRAVEL_SPEED_LAST || 1); travelSpeedSet(4); travelTo(0, 0, c); travelGoes(); } catch (x) {} }, to).catch(() => {});
     for (let i = 0; i < 100; i++) { await e.page.waitForTimeout(500); if (await e.fr.evaluate(() => !TRAVEL || TRAVEL.i >= TRAVEL.path.length).catch(() => true)) break; }
     await e.page.waitForTimeout(1200); const at = await e.fr.evaluate(() => [city.x, city.y]).catch(() => [0, 0]); if (at[0] === to[0] && at[1] === to[1]) return true; } return false; };
 
@@ -1222,7 +1485,7 @@ async function run(prof, alpha) {
   for (const n of before) downs.push(n + ' ' + await downBy(n));
   ok('T0 every boss before him first, the ladder\'s order (each one\'s sign read, his fall through the map\'s own fell(), his card answered)', downs.every(x => /true$/.test(x)), downs.join(', '));
   /* ---------- T1, T2 ---------- */
-  const row = await rowOf(NAME), key = Object.keys(row).filter(k => ['dark', 'hole', 'riggers', 'curfew', 'mines', 'nails', 'wagon', 'tooth', 'lens', 'line', 'ink', 'packs'].indexOf(k) >= 0)[0], G = row[key];
+  const row = await rowOf(NAME), key = Object.keys(row).filter(k => ['dark', 'hole', 'riggers', 'curfew', 'mines', 'nails', 'wagon', 'tooth', 'lens', 'line', 'ink', 'packs', 'ward', 'tanks', 'anvils'].indexOf(k) >= 0)[0], G = row[key];
   c.G = G; c.row = row; c.light = (row.verb && row.verb.light_blocks) || 2;
   let s = await waitSign(NAME);
   ok('T1 ' + NAME + ': his sign (the ' + ((s.boss.sign || {}).kind || '?') + ') is in the world' + (row.quiet ? ' (rule 454(a): no rumour, no words)' : ' and his rumour is on the feed'), !!(s.boss.sign && s.boss.sign.n === NAME) && (row.quiet ? !s.rumours[NAME] : !!s.rumours[NAME]),
@@ -1256,12 +1519,12 @@ async function run(prof, alpha) {
   const bt = await fr.evaluate(() => JSON.parse(JSON.stringify(window.__BOSS_BEAT || null))).catch(() => null);
   if (af) { await page.waitForTimeout(500); await shot('4_she_says_what_changed'); }
   s = await st();
-  const want = okBefore ? await L.card(G, c) : null, onTape = bt ? (bt.drums | 0) + (bt.posts | 0) + (bt.riggers | 0) + (bt.gates | 0) + (bt.mines | 0) + (bt.nails | 0) + (bt.wagon | 0) + (bt.collectors | 0) + (bt.charts | 0) + (bt.line | 0) + (bt.ink | 0) + (bt.packs | 0) : 0;
+  const want = okBefore ? await L.card(G, c) : null, onTape = bt ? (bt.drums | 0) + (bt.posts | 0) + (bt.riggers | 0) + (bt.gates | 0) + (bt.mines | 0) + (bt.nails | 0) + (bt.wagon | 0) + (bt.collectors | 0) + (bt.charts | 0) + (bt.line | 0) + (bt.ink | 0) + (bt.packs | 0) + (bt.reach | 0) : 0;
   ok('B2 he falls: the beat plays his change on the tape with his place, ' + (row.quiet ? 'one of yours, no line (rule 454(a)),' : row.after.name + ' says the valley\'s line,') + ' hands his ' + row.verb.hand.name.replace(/^HIS /, '').toLowerCase() + ', and says what changed on the map',
      !!s.boss.fallen[NAME] && !!s.verbs[row.verb.id] && !!bt && bt.n === NAME && onTape >= 1 && !!af && af.text === (row.quiet ? '' : row.after.valley) && af.name !== 'YOU' && !!af.hand && af.hand.name === row.verb.hand.name && af.ground === want,
      'fallen ' + !!s.boss.fallen[NAME] + ', ' + row.verb.id.toUpperCase() + ' ' + !!s.verbs[row.verb.id] + ', the beat ' + (bt ? bt.phases.join('>') + ' with ' + onTape + ' pieces on the tape' : 'none') + ', card: ' + (af ? '"' + af.text + '" + ' + (af.hand ? af.hand.name : 'NO THING') + ' + "' + af.ground + '"' : 'none'));
   /* G1 (rule 445, ask line 571): what he gives stands in his settlement through HOME BASE's one seam; before he plants it waits, and her card says which */
-  const G1 = (gv, card) => !!gv && gv.name === row.verb.hand.name && gv.from === NAME && /^boss_places\//.test(gv.pic || '') && !!card && card.where === (gv.where === 'placed' ? 'IT STANDS AT YOUR PLACE' : gv.where === 'waiting' ? 'IT WAITS FOR YOUR PLACE' : '?');
+  const G1 = (gv, card) => !!gv && gv.name === (row.verb.hand.person ? row.verb.hand.person.name : row.verb.hand.name) && gv.from === NAME && /^boss_places\//.test(gv.pic || '') && !!card && card.where === (row.verb.hand.person ? (gv.where === 'placed' ? 'LIVES AT YOUR PLACE' : gv.where === 'waiting' ? 'WAITS FOR YOUR PLACE' : '?') : (gv.where === 'placed' ? 'IT STANDS AT YOUR PLACE' : gv.where === 'waiting' ? 'IT WAITS FOR YOUR PLACE' : '?'));
   const gv = await fr.evaluate((id) => { const r = BohemiaHomeMap.rec(), k = 'prize:' + id; const t = ((r && r.things) || []).concat((r && r.waiting) || []).filter(x => x.id === k)[0];
     return t ? { name: t.name, from: t.from, pic: t.pic, where: BohemiaBosses.prizeWhere(id), planted: !!(r && r.planted) } : null; }, row.verb.id).catch(() => null);
   ok('G1 what he gives goes to your settlement through HOME BASE\'s seam: ' + row.verb.hand.name + ' from ' + NAME + ', with his picture, and her card says where it is', G1(gv, af && af.hand), JSON.stringify(gv) + ', her card: "' + (af && af.hand ? af.hand.where : 'none') + '"');
@@ -1276,10 +1539,16 @@ async function run(prof, alpha) {
   const b4 = okBefore ? await L.after(c) : null;
   if (L.cam && b4) {
     const h1 = await camSees(c, row);
+    if (row.verb.hand.person) {
+      const H1p = (q) => !!q && q.planted !== false && q.cam === 2 && q.on;
+      ok('H1 ' + row.verb.hand.person.name + ' lives at your place (HOME BASE\'s seam, a person) and CAM 3 THE PEOPLE has her on the glass (rule 451(c))', H1p(h1), JSON.stringify(h1));
+      ok('P6 planted: somebody who does not live there is not on CAM 3 (H1 reads her by name, not anybody)', !!h1 && !h1.ghostOn && !H1p(Object.assign({}, h1, { on: h1.ghostOn })), JSON.stringify(h1 && h1.ghost));
+    } else {
     const H1 = (q) => !!q && q.planted !== false && ((q.cam === 1 && q.on) || (q.hall && q.lots > 0 && q.used >= q.lots));
     ok('H1 ' + row.verb.hand.name + ' is at your place through HOME BASE\'s seam: ' + (h1 && h1.hall ? 'NOT ON CAMERA: all ' + h1.lots + ' of the plan\'s lots hold earlier things, so HOME BASE\'s own rule keeps it in the hall (named on the desk)' : 'on a lot, CAM 2 THE LOTS sees it on the glass (rule 451(c))'), H1(h1), JSON.stringify(h1));
     ok('P6 planted: ' + (h1 && h1.hall ? 'kept in the hall while a lot was free turns H1 red' : 'a lot nothing stands on is not on CAM 2 (H1 reads the door his thing has, not any door)'),
        !!h1 && (h1.hall ? !H1(Object.assign({}, h1, { used: 0 })) : !h1.offOn), JSON.stringify(h1 && (h1.hall ? { lots: h1.lots, used: h1.used } : h1.off)));
+    }
   }
   clearInterval(guard);
   /* ---------- R1 ---------- */

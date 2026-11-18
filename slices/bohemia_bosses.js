@@ -110,6 +110,7 @@
     if (!S.line) S.line = {};
     if (!S.ink) { S.ink = {}; INK_DIRTY = true; }
     if (!S.packs) S.packs = {};
+    if (!S.ward) S.ward = {}; if (!S.tanks) S.tanks = {}; if (!S.anvils) S.anvils = {};
     if (DATA) DATA.bosses.forEach(function (r) { if (r.verb && h.boss.fallen[r.n] && !S.verbs[r.verb.id]) grant(r, h.boss.fallen[r.n]); });   /* a save from before this file */
     groundCatchUp();   /* (8) his ground follows WORLD TWO's fallen flag */
     pipeCatchUp();     /* (9) his pipe too */
@@ -122,6 +123,7 @@
     nailsCatchUp();    /* (17) and his nails */
     wagonCatchUp(); toothCatchUp(); lensCatchUp();   /* (18) his wagon, (19) his collectors, (20) his blur */
     lineCatchUp(); inkCatchUp(); packsCatchUp();      /* (21) his line, (22) his ink, (23) his packs */
+    reachCatchUp();   /* (24) his ward, (25) his tanks, (26) his anvils */
     if (NAIL_DIRTY) nailGrid();
     if (MINE_DIRTY) mineGrid();
     if (LOCK_DIRTY) lockGrid();
@@ -245,11 +247,13 @@
     } catch (e) { LAST.err = String(e && e.message || e); }
   }
   /* (14) where his thing went, in four words: it stands at your place, or it waits for one (rule 445) */
-  function whereWords(r) { try { prizes(); } catch (e) {} var w = r && r.verb ? prizeWhere(r.verb.id) : null; return w === 'placed' ? 'IT STANDS AT YOUR PLACE' : w === 'waiting' ? 'IT WAITS FOR YOUR PLACE' : ''; }
+  function whereWords(r) { try { prizes(); } catch (e) {} var w = r && r.verb ? prizeWhere(r.verb.id) : null, pn = !!(r && r.verb && r.verb.hand && r.verb.hand.person);
+    if (pn) return w === 'placed' ? 'LIVES AT YOUR PLACE' : w === 'waiting' ? 'WAITS FOR YOUR PLACE' : '';   /* a person moves in (BOSSES 11/18) */
+    return w === 'placed' ? 'IT STANDS AT YOUR PLACE' : w === 'waiting' ? 'IT WAITS FOR YOUR PLACE' : ''; }
   /* (8) under it, what his ground did, in one plain line with its numbers (the streets open, his till) */
   function groundOnCard(r) {
     try {
-      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) g = S && S.machines && S.machines[r.n]; if (!g || !g.said) g = S && S.dark && S.dark[r.n]; if (!g || !g.said) g = S && S.hole && S.hole[r.n]; if (!g || !g.said) g = S && S.riggers && S.riggers[r.n]; if (!g || !g.said) g = S && S.curfew && S.curfew[r.n]; if (!g || !g.said) g = S && S.mines && S.mines[r.n]; if (!g || !g.said) g = S && S.nails && S.nails[r.n]; if (!g || !g.said) g = S && S.wagon && S.wagon[r.n]; if (!g || !g.said) g = S && S.tooth && S.tooth[r.n]; if (!g || !g.said) g = S && S.lens && S.lens[r.n]; if (!g || !g.said) g = S && S.line && S.line[r.n]; if (!g || !g.said) g = S && S.ink && S.ink[r.n]; if (!g || !g.said) g = S && S.packs && S.packs[r.n]; if (!g || !g.said) return;   /* (8) his ground, (9) his pipe, (10) his machines or (11) his dark */
+      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) g = S && S.machines && S.machines[r.n]; if (!g || !g.said) g = S && S.dark && S.dark[r.n]; if (!g || !g.said) g = S && S.hole && S.hole[r.n]; if (!g || !g.said) g = S && S.riggers && S.riggers[r.n]; if (!g || !g.said) g = S && S.curfew && S.curfew[r.n]; if (!g || !g.said) g = S && S.mines && S.mines[r.n]; if (!g || !g.said) g = S && S.nails && S.nails[r.n]; if (!g || !g.said) g = S && S.wagon && S.wagon[r.n]; if (!g || !g.said) g = S && S.tooth && S.tooth[r.n]; if (!g || !g.said) g = S && S.lens && S.lens[r.n]; if (!g || !g.said) g = S && S.line && S.line[r.n]; if (!g || !g.said) g = S && S.ink && S.ink[r.n]; if (!g || !g.said) g = S && S.packs && S.packs[r.n]; if (!g || !g.said) g = S && S.ward && S.ward[r.n]; if (!g || !g.said) g = S && S.tanks && S.tanks[r.n]; if (!g || !g.said) g = S && S.anvils && S.anvils[r.n]; if (!g || !g.said) return;   /* (8) his ground, (9) his pipe, (10) his machines or (11) his dark */
       var el = document.getElementById('roadcard'), at = el && (el.querySelector('.rchand') || el.querySelector('.rctext')); if (!at) return;
       var d = document.createElement('div'); d.className = 'rcground'; d.setAttribute('data-draft', 'true');
       d.style.cssText = 'margin-top:6px;padding:5px 8px;background:rgba(10,8,6,.45);box-shadow:inset 0 0 0 1px #3a2e20;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;line-height:1.35;color:#e2b45a';
@@ -452,6 +456,24 @@
       var lt = S.verbs.track.last; if (lt != null && day() - lt < (V.cooldown_days || 1)) return { id: id, off: true, why: 'cooling' };
       return { id: id };
     }
+    /* BOSSES 11/18: THE WARD's bag (off a town, when a man is hurt, once a day), THE CISTERN's tarp (off a town, beside a roof, once a
+       day), THE SMITH's fire (at your place or his forge, once a day) */
+    if (id === 'treat') {
+      if (nearTown(x, y, 1) && !hisPlace('treat', x, y)) return null;
+      if (!hurtNow()) return null;
+      var lr = S.verbs.treat.last; if (lr != null && day() - lr < (V.cooldown_days || 1)) return { id: id, off: true, why: 'cooling' };
+      return { id: id };
+    }
+    if (id === 'catch') {
+      if ((nearTown(x, y, 1) || !nearKind(x, y, V.roof_districts || [])) && !hisPlace('catch', x, y)) return null;
+      var lq = S.verbs['catch'].last; if (lq != null && day() - lq < (V.cooldown_days || 1)) return { id: id, off: true, why: 'cooling' };
+      return { id: id };
+    }
+    if (id === 'smelt') {
+      if (!hisPlace('smelt', x, y) && !homeNear(x, y)) return null;
+      var lm = S.verbs.smelt.last; if (lm != null && day() - lm < (V.cooldown_days || 1)) return { id: id, off: true, why: 'cooling' };
+      return { id: id };
+    }
     if (id === 'weld') {
       if (!hisPlace('weld', x, y) && !nearKind(x, y, V.scrap_districts || [])) return null;
       var ld = S.verbs.weld.last; if (ld != null && day() - ld < (V.cooldown_days || 1)) return { id: id, off: true, why: 'cooling' };
@@ -524,10 +546,13 @@
     if (id === 'fade') { got = fadeUp(V); S.verbs.fade.last = day(); }
     if (id === 'mark') { got = markMan(V); S.verbs.mark.last = day(); }
     if (id === 'track') { got = trackSign(h); S.verbs.track.last = day(); }
+    if (id === 'treat') { got = treatAll(); S.verbs.treat.last = day(); }
+    if (id === 'catch') { got = { food: supply('food', V.food | 0 || 2) }; S.verbs['catch'].last = day(); }
+    if (id === 'smelt') { got = { tape: supply('tape', V.tape | 0 || 3) }; S.verbs.smelt.last = day(); }
     if (id === 'pick') { got = { paid: V.pay_batteries | 0 }; try { if (got.paid > 0) BohemiaPurse.credit(purseGet(), 'electricity', got.paid, 'a locked door on ' + w, 'boss-verb:pick:' + h[0] + ',' + h[1], day()); } catch (e) { got.paid = 0; } }
-    var nums = { where: w, name: (got && got.name) || '', NAME: String((got && got.name) || '').toUpperCase(), healed: (got && got.healed) | 0, men: (got && got.men) | 0, paid: (got && got.paid) | 0, blocks: (got && got.blocks) | 0, clout: (got && got.clout) | 0 };
+    var nums = { where: w, name: (got && got.name) || '', NAME: String((got && got.name) || '').toUpperCase(), healed: (got && got.healed) | 0, men: (got && got.men) | 0, paid: (got && got.paid) | 0, blocks: (got && got.blocks) | 0, clout: (got && got.clout) | 0, food: (got && got.food) | 0, tape: (got && got.tape) | 0 };
     nums.wounds = nums.men + (nums.men === 1 ? ' wound' : ' wounds'); nums.WOUNDS = nums.wounds.toUpperCase();   /* '1 wound', never '1 wounds' */
-    var none = (id === 'cook' && !nums.healed) || (id === 'purify' && !nums.men) || (id === 'survey' && !nums.blocks) || ((id === 'climb' || id === 'pick') && !nums.paid) || (id === 'blow' && !nums.blocks) || ((id === 'weld' || id === 'press') && !(got && got.made)) || (id === 'fix' && !(got && got.name)) || (id === 'look' && !nums.blocks) || ((id === 'fade' || id === 'mark') && !nums.clout) || (id === 'track' && !nums.blocks), F = V.first || {};   /* nothing to heal: say so plainly, never '0 blood back' */
+    var none = (id === 'cook' && !nums.healed) || (id === 'purify' && !nums.men) || (id === 'survey' && !nums.blocks) || ((id === 'climb' || id === 'pick') && !nums.paid) || (id === 'blow' && !nums.blocks) || ((id === 'weld' || id === 'press') && !(got && got.made)) || (id === 'fix' && !(got && got.name)) || (id === 'look' && !nums.blocks) || ((id === 'fade' || id === 'mark') && !nums.clout) || (id === 'track' && !nums.blocks) || (id === 'treat' && !nums.men) || (id === 'catch' && !nums.food) || (id === 'smelt' && !nums.tape), F = V.first || {};   /* nothing to heal: say so plainly, never '0 blood back' */
     var mk = { k: id, x: h[0], y: h[1], day: day(), first: first ? fill((none && F.plate_none) || F.plate, nums) : null, t: Date.now() };
     if (id === 'climb') { var tw = towerOf(h[0], h[1]); if (tw) { mk.tx = tw[0]; mk.ty = tw[1]; } }
     if (id === 'pick') { var dr = doorOf(h[0], h[1]); if (dr) { mk.tx = dr[0]; mk.ty = dr[1]; } }
@@ -2076,6 +2101,19 @@
     return { ok: !(body || head) || !!A, hpMax: (m.stats && +m.stats.hp > 0) ? +m.stats.hp : ((C.RATE && +C.RATE.unknown_hp_max) || 60),
       armH: head && A ? A['head:' + head] | 0 : 0, armB: body && A ? A['body:' + body] | 0 : 0, head: head, body: body };
   }
+  /* his armour's dents, for a checker (the condition's own record, the man with the most armour left; a fight does this in the game) */
+  function dent(pts) {
+    var C = root.BohemiaCondition; if (!C || !C.get || !C.KEY) return null;
+    try { bleed(1, 'dent'); } catch (e) {}   /* every man has a whole record first */
+    var s = C.get(), bk = null, left = 0;
+    for (var k in s.men) { var m = s.men[k]; if (!m) continue; var l = ((m.armBMax || 0) - (m.lostB || 0)) + ((m.armHMax || 0) - (m.lostH || 0)); if (l > left) { left = l; bk = k; } }
+    if (!bk) return { name: null, pts: 0 };
+    var M = s.men[bk], want = Math.min(Math.max(1, pts | 0), left), b = Math.min(want, (M.armBMax || 0) - (M.lostB || 0)), h = want - b;
+    M.lostB = (M.lostB || 0) + b; M.lostH = (M.lostH || 0) + h;
+    try { root.localStorage.setItem(C.KEY, JSON.stringify(s)); } catch (e) {}
+    try { root.dispatchEvent(new CustomEvent('bohemia:condition', { detail: { dent: want } })); } catch (e) {}
+    return { name: M.shown || bk, pts: want };
+  }
   function bleed(hp, why) {
     var C = root.BohemiaCondition; if (!C || !C.get || !C.KEY) return null;
     var s = C.get(), keys = {}, best = null, bk = null, left = -1;
@@ -2348,6 +2386,176 @@
     var c = 0; (Q.packs || []).forEach(function (p) { var bb = rectOf(packsKey(r, true), p.home[0], p.home[1], ox, oy, 0.95, 0); if (!bb) return; wipe(x, packsKey(r, false), packsKey(r, true), bb, beat, u, alpha); c++; });
     return c;
   }
+  /* ---------- (24) HIS WARD, (25) HIS TANKS, (26) HIS ANVILS (BOSSES 11/18). THE WARD, THE CISTERN and THE SMITH, the ladder's 16th
+     to 18th. Each holds the 'radius' blocks round his place (off a town), his 'marks' painted on street blocks where his reach ends,
+     wherever the crew has seen:
+     THE WARD (the last clinic, and what is left in it). WHILE HE STANDS nothing heals in his reach: the hours there give no blood back
+       (the condition's own elapse, its blood rates held at nothing while it runs, so its bar, its camp and its sums all read the truth);
+       his tape and his black cross on its posts where his reach ends. WHEN HE FALLS his clinic's lights are on: in the same blocks the
+       blood comes back 'after_mult' times as fast.
+     THE CISTERN (every roof worth catching rain off). WHILE HE STANDS his men take water off the crew in his reach: 'take' FOOD (food
+       and water are one count, rule 209) every 'every_mins' of the clock there; his tanks up on their stands, chained, his man by each.
+       WHEN HE FALLS each tank's tap is open: a stop on its block gives 'give' FOOD, once a day a tank.
+     THE SMITH (the last forge that still lights). WHILE HE STANDS nothing is mended in his reach: the hours there mend no armour and
+       spend no tape (the same elapse, its mending rate held at nothing); his anvils chained under his scrap. WHEN HE FALLS each anvil
+       is anybody's: a stop on its block mends the company's armour whole, once a day an anvil, no tape.
+     Battle Brothers: a location's owners hold what is round it (its resources) until it is taken. */
+  var REACH = ['ward', 'tanks', 'anvils'], REACH_SALT = { ward: 0x3c6ef372, tanks: 0x5be0cd19, anvils: 0x1f83d9ab };
+  function reachRow(n, k) { var r = row(n); return r && r[k] ? r : null; }
+  function reachDown(n, Q) { var h = hs(); return Q.fell != null || !!(h && h.boss.fallen[n]); }
+  function reachR(G) { return Math.max(3, G.radius | 0 || 6); }
+  function supply(k, n) {   /* the company's counts (bohemia.supplies.v1, RUN TWO's): add or take, never under nothing; what moved */
+    var O = root.BohemiaOriginStart; if (!O || !O.supplies || !O.addSupply) return 0;
+    var s0 = O.supplies(); if (!s0) return 0; var a = s0[k === 'water' ? 'food' : k] | 0;
+    var s1 = O.addSupply(k, n); if (!s1) return 0;
+    try { if (typeof root.__barPaintRead === 'function') root.__barPaintRead(); } catch (e) {}
+    try { var P = root.parent && root.parent !== root ? root.parent : null; if (P && typeof P.__barPaintRead === 'function') P.__barPaintRead(); } catch (e) {}
+    return Math.abs((s1[k === 'water' ? 'food' : k] | 0) - a);
+  }
+  function reachTick() {
+    if (!DATA || !S || bench() || !N()) return;
+    var h = hs(); if (!h) return;
+    REACH.forEach(function (k) { if (!S[k]) S[k] = {}; });
+    DATA.bosses.forEach(function (r) {
+      REACH.forEach(function (k) {
+        if (!r[k] || S[k][r.n]) return;
+        var sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign : null, f = h.boss.found[r.n], at = f || (sg && sg.boss);
+        if (!at || h.boss.fallen[r.n]) return;
+        try { if (!FOG.ready) return; } catch (e) { return; }
+        var G = r[k], R = reachR(G), c = spots([at.x, at.y], Math.max(2, R - 1), R + 1, Math.max(1, G.marks | 0 || 3), sg ? [sg.x, sg.y] : here(), REACH_SALT[k]);
+        S[k][r.n] = { at: [at.x, at.y], marks: c.map(function (q) { return { at: [q.x, q.y], used: null }; }), took: 0, last: null, fell: null, told: null, made: day(), draft: true }; save();
+        LAST[k] = { n: r.n, marks: c.length, at: Date.now() };
+      });
+    });
+    wrapElapse();
+    var me = here(); if (!me || inTown() || fightUp()) return;
+    try { if (MEET && MEET.up) return; } catch (e) {}
+    var dirty = false, now = clockMins(), d = day();
+    REACH.forEach(function (k) {
+      for (var n in S[k]) {
+        var Q = S[k][n], r = reachRow(n, k); if (!Q || !r || !Q.at) continue;
+        var G = r[k], inR = cheb(me[0], me[1], Q.at[0], Q.at[1]) <= reachR(G), down = reachDown(n, Q);
+        if (!down && inR && Q.told !== d) {   /* the first time a day the crew is in his reach, the number rises off it: whose ground */
+          Q.told = d; dirty = true; RISES.push({ x: me[0], y: me[1], t0: performance.now(), txt: G.told || n, col: '#e6dcc4' }); tick();
+          LAST.reachTold = { k: k, n: n, at: me.slice(), t: Date.now() }; root.__BOSS_REACH_TOLD = LAST.reachTold; }
+        if (k === 'tanks' && !down) {   /* his men take water off you: a count of the clock while you stand in his reach */
+          if (!inR) { if (Q.last != null) { Q.last = null; dirty = true; } continue; }
+          if (Q.last == null) { Q.last = now; dirty = true; continue; }
+          var ev = Math.max(10, G.every_mins | 0 || 180);
+          for (var g = 0; g < 24 && now - Q.last >= ev; g++) {
+            Q.last += ev; dirty = true;
+            var took = supply('food', -(G.take | 0 || 1)); if (!took) continue;
+            Q.took = (Q.took | 0) + took;
+            RISES.push({ x: me[0], y: me[1], t0: performance.now(), txt: fill(G.rise || '-{n} FOOD', { n: took }), col: '#7fb2e0' }); tick();
+            LAST.tankTook = { n: n, at: me.slice(), took: took, t: Date.now() }; root.__BOSS_TANK_TOOK = LAST.tankTook;
+          }
+          continue;
+        }
+        if (down && (k === 'tanks' || k === 'anvils')) {   /* what he held is anybody's: a stop on its block, once a day each */
+          Q.marks.forEach(function (m) {
+            if (m.used === d || cheb(m.at[0], m.at[1], me[0], me[1]) > 0) return;
+            var got = k === 'tanks' ? supply('food', G.give | 0 || 1) : mendAll();
+            m.used = d; dirty = true; if (!got) return;
+            RISES.push({ x: me[0], y: me[1], t0: performance.now(), txt: fill(G.rise_after || '+{n}', { n: got }), col: k === 'tanks' ? '#7fb2e0' : '#cfc6b0' }); tick();
+            LAST.reachUsed = { k: k, n: n, at: me.slice(), got: got, t: Date.now() }; root.__BOSS_REACH_USED = LAST.reachUsed;
+          });
+        }
+      }
+    });
+    if (dirty) save();
+  }
+  /* THE SMITH's anvil, his: the company's armour whole (the condition's own record, every worn piece), no tape */
+  function mendAll() {
+    var C = root.BohemiaCondition; if (!C || !C.get || !C.KEY) return 0;
+    var s = C.get(), n = 0;
+    for (var k in s.men) { var m = s.men[k]; if (!m) continue; var a = (m.lostH || 0) + (m.lostB || 0); if (a > 0) { n += a; m.lostH = 0; m.lostB = 0; } }
+    if (!n) return 0;
+    try { root.localStorage.setItem(C.KEY, JSON.stringify(s)); } catch (e) {}
+    try { root.dispatchEvent(new CustomEvent('bohemia:condition', { detail: { mended: n } })); } catch (e) {}
+    return Math.round(n);
+  }
+  /* where the crew stands now: what his reach does to the hours (blood held at nothing or sped up, armour held at nothing) */
+  function reachHolds() {
+    if (!DATA || !S || bench()) return null;
+    var me = here(); if (!me || inTown()) return null;
+    var out = null;
+    ['ward', 'anvils'].forEach(function (k) {
+      for (var n in (S[k] || {})) { var Q = S[k][n], r = reachRow(n, k); if (!Q || !r || !Q.at) continue;
+        if (cheb(me[0], me[1], Q.at[0], Q.at[1]) > reachR(r[k])) continue;
+        var down = reachDown(n, Q); out = out || {};
+        if (k === 'ward') { if (!down) out.blood = 0; else if (out.blood !== 0) out.blood = Math.max(out.blood || 1, +r[k].after_mult || 2); out.ward = n; }
+        if (k === 'anvils' && !down) { out.armour = 0; out.smith = n; } }
+    });
+    return out && (out.blood != null || out.armour != null) ? out : null;
+  }
+  var ELAPSE_RAW = null;
+  function wrapElapse() {
+    var C = root.BohemiaCondition; if (!C || typeof C.elapse !== 'function' || !C.RATE || C.__bossReach) return;
+    ELAPSE_RAW = C.elapse; C.__bossReach = true;
+    C.elapse = function (hours, ctx) {
+      var hold = null; try { hold = reachHolds(); } catch (e) { hold = null; }
+      if (!hold) return ELAPSE_RAW.apply(this, arguments);
+      var R = C.RATE, ks = ['hp_per_hour_march', 'hp_per_hour_camp', 'cook_hp_per_hour', 'armour_per_hour'], keep = {}, out = null;
+      ks.forEach(function (k) { keep[k] = R[k]; });
+      try {
+        if (hold.blood === 0) { R.hp_per_hour_march = 0; R.hp_per_hour_camp = 0; R.cook_hp_per_hour = 0; }
+        else if (hold.blood > 1) { R.hp_per_hour_march *= hold.blood; R.hp_per_hour_camp *= hold.blood; R.cook_hp_per_hour *= hold.blood; }
+        if (hold.armour === 0) R.armour_per_hour = 0;
+        out = ELAPSE_RAW.apply(this, arguments);
+      } finally { ks.forEach(function (k) { R[k] = keep[k]; }); }
+      LAST.reachElapse = { hours: +hours || 0, hold: hold, healed: out ? out.healed : null, mended: out ? out.mended : null, t: Date.now() }; root.__BOSS_REACH_ELAPSE = LAST.reachElapse;
+      return out;
+    };
+  }
+  function reachFell(r, h, k) {
+    var G = r[k]; if (!G || !S) return null;
+    if (!S[k]) S[k] = {};
+    var Q = S[k][r.n]; if (!Q) Q = S[k][r.n] = { at: null, marks: [], took: 0, last: null, fell: null, told: null, made: day(), draft: true };
+    if (Q.fell != null) return Q;
+    Q.fell = day(); Q.last = null;
+    Q.said = Q.marks.length ? fill(G.card, { marks: Q.marks.length }) : (G.card_none || null);
+    save(); LAST.reachFell = { k: k, n: r.n, said: Q.said, at: Date.now() };
+    return Q;
+  }
+  function reachCatchUp() { if (!DATA || !S) return; var h = hs(); if (!h) return;
+    REACH.forEach(function (k) { for (var n in (S[k] || {})) { var Q = S[k][n]; if (Q && Q.fell == null && h.boss.fallen[n]) { var r = reachRow(n, k); if (r) reachFell(r, h, k); } } }); }
+  function reachKey(G, k, after) { return (G.pic || k) + (after ? '_after' : '_before'); }
+  function reachDraw(gx, ox, oy, beat) {
+    if (!S) return;
+    var h = hs(); LAST.drew.reach = [];
+    REACH.forEach(function (k) {
+      for (var n in (S[k] || {})) {
+        var Q = S[k][n], r = reachRow(n, k); if (!Q || !r) continue;
+        var fell = reachDown(n, Q), down = fell && !beatOwed(n), inBeat = !!(BEAT && BEAT.n === n), known = !!(h && h.boss.found[n]);
+        Q.marks.forEach(function (m) {
+          var q = m.at, vis = seen(q[0], q[1]); if (!vis && !known) return;
+          if (inBeat && fell) { LAST.drew.reach.push({ k: k, n: n, at: q.slice(), key: 'beat' }); return; }
+          var key = reachKey(r[k], k, down), b = paint(gx, key, q[0], q[1], ox, oy, beat, 0.95, 0, !vis);
+          if (b) { LAST.drew.reach.push({ k: k, n: n, at: q.slice(), key: key }); LAST.drew.painted++; } });
+      }
+    });
+  }
+  function reachBeat(x, ox, oy, beat, u, alpha) {
+    if (!S || !BEAT) return 0; var c = 0;
+    REACH.forEach(function (k) {
+      var Q = S[k] && S[k][BEAT.n], r = reachRow(BEAT.n, k); if (!Q || !r) return;
+      (Q.marks || []).forEach(function (m) { var bb = rectOf(reachKey(r[k], k, true), m.at[0], m.at[1], ox, oy, 0.95, 0); if (!bb) return; wipe(x, reachKey(r[k], k, false), reachKey(r[k], k, true), bb, beat, u, alpha); c++; });
+    });
+    return c;
+  }
+  /* (TREAT) his bag: off a town, once a day, when a man is hurt: every man's blood back and every fresh wound treated the clinic's way
+     (the condition's own treat: half its days and half its debuff, once a wound) */
+  function hurtNow() { var C = root.BohemiaCondition; if (!C || !C.get) return false; var s = C.get();
+    for (var k in s.men) { var m = s.men[k]; if (!m || (C.isDead && C.isDead(k))) continue; if (m.lostHp > 0 || (m.wound && m.wound.left > 0 && !m.wound.treated)) return true; } return false; }
+  function treatAll() {
+    var C = root.BohemiaCondition; if (!C || !C.get || !C.KEY) return { men: 0, healed: 0, wounds: 0 };
+    var s = C.get(), men = {}, healed = 0, wounds = 0;
+    for (var k in s.men) { var m = s.men[k]; if (!m || !(m.lostHp > 0)) continue; healed += m.lostHp; m.lostHp = 0; men[k] = 1; }
+    try { root.localStorage.setItem(C.KEY, JSON.stringify(s)); } catch (e) {}
+    try { (C.wounded ? C.wounded() : []).forEach(function (w) { if (w.treated) return; var t = C.treat(w.name); if (t) { wounds++; men[w.key] = 1; } }); } catch (e) { LAST.err = String(e && e.message || e); }
+    try { root.dispatchEvent(new CustomEvent('bohemia:condition', { detail: { treated: Object.keys(men).length } })); } catch (e) {}
+    return { men: Object.keys(men).length, healed: Math.round(healed), wounds: wounds };
+  }
   /* (FADE) his razor and his bleach: on a town's doorstep, a battery's worth of real materials, the crew walks in looking sharp and the
      valley's name for you (CLOUT, BohemiaRenown: Battle Brothers' Renown) goes up; once a day */
   function clout(n, why, key) { var R = root.BohemiaRenown; if (!R || !R.add) return 0; var a = R.score(); R.add(n, why, key); return Math.max(0, R.score() - a); }
@@ -2395,7 +2603,11 @@
     for (var id in S.verbs) {
       if (theirs[id]) continue;   /* HOME BASE's own table hands it */
       var r = verbRow(id), Hd = r && r.verb && r.verb.hand; if (!Hd) continue;
-      var res = null; try { res = M.give({ id: 'prize:' + id, kind: 'prize', name: Hd.name, pic: Hd.pic ? 'boss_places/' + String(Hd.pic).replace(/[^\w.]/g, '') : null, from: r.n, says: Hd.line || null, day: S.verbs[id].day | 0 }); } catch (e) { res = null; }
+      /* BOSSES 11/18: a hand that is a person (his nurse, his keeper, his apprentice) moves in: kind 'person' through the same seam, one
+         of the people who live there, seen on CAM 3 THE PEOPLE (a lot takes things; the twelve are full by the fifteenth boss) */
+      var Pn = Hd.person || null, pic = Hd.pic ? 'boss_places/' + String(Hd.pic).replace(/[^\w.]/g, '') : null;
+      var res = null; try { res = M.give(Pn ? { id: 'prize:' + id, kind: 'person', name: Pn.name, look: Pn.look || null, pic: pic, from: r.n, says: Pn.says || null, day: S.verbs[id].day | 0 }
+        : { id: 'prize:' + id, kind: 'prize', name: Hd.name, pic: pic, from: r.n, says: Hd.line || null, day: S.verbs[id].day | 0 }); } catch (e) { res = null; }
       if (res && res.ok && !res.again) { n++; LAST.given = (LAST.given || []).concat([{ id: id, from: r.n, waiting: !!res.waiting, t: Date.now() }]).slice(-12); root.__BOSS_GIVEN = LAST.given; }
     }
     return n;
@@ -2472,7 +2684,7 @@
        building beside him, and his place was painted under his own men; it stands on the block behind him (up the screen) instead */
     return [at.x - 1, at.y - 1];
   }
-  var PROP = { cook: 'fire', open: 'main_after', purify: 'clean', burn: 'barrel', survey: 'stake', climb: 'rope', pick: 'cutlock', blow: 'rubble', weld: 'weldbench', press: 'pressplate', fix: 'pulled', look: 'spyglass', fade: 'fadepole', mark: 'inkmark', track: 'pawprints' }, MARK_OFF = [0.34, 0.16];
+  var PROP = { cook: 'fire', open: 'main_after', purify: 'clean', burn: 'barrel', survey: 'stake', climb: 'rope', pick: 'cutlock', blow: 'rubble', weld: 'weldbench', press: 'pressplate', fix: 'pulled', look: 'spyglass', fade: 'fadepole', mark: 'inkmark', track: 'pawprints', treat: 'bandage', 'catch': 'raintarp', smelt: 'ingot' }, MARK_OFF = [0.34, 0.16];
 
   /* ---------- (5) THE MOMENT HE FALLS: the camera, the change over his men, then her line ---------- */
   var BEAT = null, UB = null, OV = null, RAF = 0;
@@ -2582,6 +2794,7 @@
         try { LAST.beat.nails = nailsBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (17) his nails swept */
         try { LAST.beat.wagon = wagonBeat(x, ox, oy, beat, u, fade); LAST.beat.collectors = toothBeat(x, ox, oy, beat, u, fade); LAST.beat.charts = lensBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (18) (19) (20) */   /* (13) the people he kept come down */   /* (8) his checkpoints roll open on the same tape */
         try { LAST.beat.line = lineBeat(x, ox, oy, beat, u, fade); LAST.beat.ink = inkBeat(x, ox, oy, beat, u, fade); LAST.beat.packs = packsBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (21) (22) (23) */
+        try { LAST.beat.reach = reachBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (24) (25) (26) */
         wipe(x, paintKey(r, false), paintKey(r, true), b, beat, u, fade);
         LAST.beat.rect = { x: b.x, y: b.y, w: b.w, h: b.h, cssW: Math.round(b.w / ppc()) }; LAST.beat.u = Math.round(u * 100) / 100;
         try { var F = mapFocus(); LAST.beat.focus = [Math.round(F.x), Math.round(F.y)]; LAST.beat.mid = [Math.round(b.x + b.w / 2), Math.round(b.y + b.h / 2)]; } catch (e) {}
@@ -2646,6 +2859,7 @@
       try { inkTick(); inkDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (22) his ink, the gates he holds */
       try { lineTick(); lineDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (21) his line across the streets */
       try { packsTick(); packsDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (23) his packs at night */
+      try { reachTick(); reachDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (24) (25) (26) his ward, his tanks, his anvils */
       DATA.bosses.forEach(function (r) {
         var f = h.boss.found[r.n], sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign.boss : null, at = f || sg; if (!at) return;
         var pa = placeAt(at), bx = pa[0], by = pa[1];
@@ -2689,6 +2903,7 @@
     if (r.nails) nailsFell(r, h);   /* (17) his nails swept, his road */
     if (r.wagon) wagonFell(r, h); if (r.tooth) toothFell(r, h); if (r.lens) lensFell(r, h);   /* (18) (19) (20) */
     if (r.line) lineFell(r, h); if (r.ink) inkFell(r, h); if (r.packs) packsFell(r, h);   /* (21) (22) (23) */
+    REACH.forEach(function (k) { if (r[k]) reachFell(r, h, k); });   /* (24) (25) (26) */
     var L = lead(r.n); L.afterDue = true; save();
     try { if (typeof render === 'function') render(); } catch (e) {}
   });
@@ -2749,11 +2964,14 @@
     tooth: function (n) { sync(); return S && S.tooth ? (n ? (S.tooth[n] || null) : S.tooth) : null; }, toothTick: function () { sync(); return toothTick(); },
     lens: function (n) { sync(); return S && S.lens ? (n ? (S.lens[n] || null) : S.lens) : null; }, blurAt: function (x, y) { sync(); return blurAt(x, y); },
     line: function (n) { sync(); return S && S.line ? (n ? (S.line[n] || null) : S.line) : null; }, lineTick: function () { sync(); return lineTick(); },   /* (21) */
-    lineWould: function (x0, y0, x1, y1) { sync(); return lineWould(x0, y0, x1, y1); }, bleed: function (hp, why) { return bleed(hp, why || 'gate'); },
+    lineWould: function (x0, y0, x1, y1) { sync(); return lineWould(x0, y0, x1, y1); }, bleed: function (hp, why) { return bleed(hp, why || 'gate'); }, dent: function (pts) { return dent(pts); },
     ink: function (n) { sync(); return S && S.ink ? (n ? (S.ink[n] || null) : S.ink) : null; }, inkHolds: function (name) { sync(); return inkHolds(name); },   /* (22) */
     inkTowns: function (n) { sync(); var Q = S && S.ink && S.ink[n], r = inkRow(n); return Q && r && Q.at ? inkTowns(Q, r.ink).map(function (t) { return t.town; }) : []; },
     inkRadius: function (n) { sync(); var Q = S && S.ink && S.ink[n], r = inkRow(n); return Q && r ? inkRadius(Q, r.ink) : 0; }, inkDirty: function () { INK_DIRTY = true; },
     packs: function (n) { sync(); return S && S.packs ? (n ? (S.packs[n] || null) : S.packs) : null; }, packsTick: function () { sync(); return packsTick(); },   /* (23) */
+    ward: function (n) { sync(); return S && S.ward ? (n ? (S.ward[n] || null) : S.ward) : null; }, tanks: function (n) { sync(); return S && S.tanks ? (n ? (S.tanks[n] || null) : S.tanks) : null; },
+    anvils: function (n) { sync(); return S && S.anvils ? (n ? (S.anvils[n] || null) : S.anvils) : null; }, reachTick: function () { sync(); return reachTick(); }, reachHolds: function () { sync(); return reachHolds(); },
+    wrapElapse: function () { wrapElapse(); return !!(root.BohemiaCondition && root.BohemiaCondition.__bossReach); },   /* (24) (25) (26) */
     track: function () { sync(); return S ? (S.track || null) : null; },
     rawStep: function (x, y) { try { return RAW_STEP ? RAW_STEP(x, y) : cityStepMins(x, y); } catch (e) { return null; } },
     /* row 611, for the gate: whether a card may open now, and a card opened through this file's own door */

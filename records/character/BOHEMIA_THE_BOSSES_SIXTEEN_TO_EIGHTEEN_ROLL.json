@@ -1,0 +1,140 @@
+[
+ {
+  "id": "ward_0",
+  "gang": "Ward",
+  "heritage": "white",
+  "tone": "chalk",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "DRY TAPER",
+  "hair": [
+   "clay_bone",
+   2
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 24,
+   "face.jawW": 22,
+   "face.chinW": 10,
+   "face.foreheadW": 22,
+   "face.eyeY": -2,
+   "face.browY": 1,
+   "mouth.w": 6,
+   "brows.len": 4
+  },
+  "face_name": "SKULL",
+  "facial_hair": "CHIN STRAP",
+  "new_beard": "chin_strap",
+  "legs": "SAGE TROUSERS",
+  "feet": "WHITE SNEAKERS",
+  "kit": [],
+  "type": "Ward",
+  "top": "WHITE TEE",
+  "coat": "SAGE CAR COAT",
+  "pieces": [
+   "ward_knife",
+   "ward_scope",
+   "ward_mask"
+  ],
+  "dials": {
+   "height": 0.3,
+   "belly": -0.3,
+   "shoulders": -0.2,
+   "hips": -0.1
+  },
+  "boss": "THE WARD"
+ },
+ {
+  "id": "cistern_0",
+  "gang": "Cistern",
+  "heritage": "hispanic",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "SALT SKULL",
+  "hair": [
+   "cloth_black",
+   1
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 24,
+   "face.jawW": 22,
+   "face.chinW": 10,
+   "face.foreheadW": 22,
+   "face.eyeY": -2,
+   "face.browY": 1,
+   "mouth.w": 6,
+   "brows.len": 4
+  },
+  "face_name": "SKULL",
+  "facial_hair": "STUBBLE",
+  "stubble": true,
+  "legs": "SLATE WORK PANTS",
+  "feet": "RANCH BOOTS",
+  "kit": [
+   "LEATHER BELT"
+  ],
+  "type": "Cistern",
+  "top": "SOOT TANK",
+  "coat": "STORM PONCHO",
+  "pieces": [
+   "cistern_key",
+   "cistern_jug",
+   "cistern_hose"
+  ],
+  "dials": {
+   "height": 0.05,
+   "belly": 0.55,
+   "shoulders": 0.3,
+   "hips": 0.35
+  },
+  "boss": "THE CISTERN"
+ },
+ {
+  "id": "smith_0",
+  "gang": "Smith",
+  "heritage": "hispanic",
+  "tone": "bronze",
+  "skin": [
+   "skin_mid",
+   2
+  ],
+  "hair_cut": "SCORCH",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.craniumH": 15,
+   "face.len": 31,
+   "face.foreheadW": 28,
+   "face.cheekW": 31
+  },
+  "face_name": "HIGH DOME",
+  "legs": "RUST CARGOS",
+  "feet": "BRICK STACK BOOT",
+  "kit": [
+   "LEATHER GLOVES"
+  ],
+  "type": "Smith",
+  "top": "BLACK TANK",
+  "coat": "SMITH'S APRON",
+  "pieces": [
+   "smith_hammer",
+   "smith_tongs",
+   "smith_goggles"
+  ],
+  "dials": {
+   "height": 0.2,
+   "belly": 0.25,
+   "shoulders": 1.0,
+   "hips": 0.2
+  },
+  "boss": "THE SMITH"
+ }
+]

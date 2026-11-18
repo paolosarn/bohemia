@@ -157,6 +157,12 @@
 "fill": 0.252,
 "packedMB": 5.06
 },
+"boss_cistern_0.webp": {
+"bytes": 318130,
+"decodedMB": 17.2,
+"fill": 0.28,
+"packedMB": 5.48
+},
 "boss_climb_0.webp": {
 "bytes": 313582,
 "decodedMB": 17.2,
@@ -211,6 +217,12 @@
 "fill": 0.233,
 "packedMB": 4.98
 },
+"boss_smith_0.webp": {
+"bytes": 279006,
+"decodedMB": 18.86,
+"fill": 0.203,
+"packedMB": 4.26
+},
 "boss_surveyor_0.webp": {
 "bytes": 293304,
 "decodedMB": 18.86,
@@ -228,6 +240,12 @@
 "decodedMB": 18.86,
 "fill": 0.191,
 "packedMB": 4.15
+},
+"boss_ward_0.webp": {
+"bytes": 284958,
+"decodedMB": 17.2,
+"fill": 0.208,
+"packedMB": 4.14
 },
 "cast_apron.webp": {
 "bytes": 203058,
@@ -1287,8 +1305,8 @@
 }
 },
 "totals": {
-"decodedMB": 4334.2,
-"packedMB": 877.6,
-"sheets": 214
+"decodedMB": 4387.5,
+"packedMB": 891.5,
+"sheets": 217
 }
 }
