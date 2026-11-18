@@ -1,5 +1,34 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18h - SHARK REEF, CHANNEL 8 AND THE LINE, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round, this round's second build; rules 408, 409(c), 455; ask row 627).
+The second job on this lane's list: the real places left in kit art, the Strip's side first. No code: slices/place_pieces/place_pieces.json gained
+shark_reef, the_tv_station and the_unemployment_office, the folder six lossless WebP pictures (249,754 bytes in all, ten places).
+Made by tools/bohemia_cook5_the_strips_three_wear_their_own_piece_11_18_26.py (three scenes and three beats ON the places tool and the downtown tool,
+which it imports and binds: PW.PLACES / SAY / LIKE / moving / OUT; its own finish hands each scene's rendered master to the beat, so the light under
+the tank's water and the shape in it never paint the roof light's ribs). Each scene is built from what WORLD's own list says of the place.
+PROOF: the page tool on the demo upright and sideways:
+- upright 390 x 844: the module loaded with ten pictures, 15 real places seated; a block 18 points; SHARK REEF at block 42,64 drawn 51 x 57 points,
+  CHANNEL 8 at 38,44 drawn 51 x 52, the UNEMPLOYMENT OFFICE at 37,38 drawn 51 x 50; with the pieces switched off 0 drawn, with them on 9 on the shot;
+  0 errors.
+- on its side 844 x 390: the same three, 51 points wide each (7, 9 and 10 pieces on the shot), 0 errors.
+- (the crew stopped one block short of where it was sent beside Shark Reef and the office; the piece is whole on each shot.)
+Gate THE PLACES WEAR THEIR OWN PIECE 8/0 with ten places.
+VOTE cook5-the-strips-three-11-18 (MADE FROM arena2-the-pit-is-a-pit-11-7).
+Record: records/BOHEMIA_COOK_FIVE_SHARK_REEF_CHANNEL_8_AND_THE_UNEMPLOYMENT_OFFICE_11_18_26.md.
+THREE THINGS MEASURED ABOUT THE MAP'S RIG, FOR ANY LANE THAT DRAWS A PIECE THROUGH IT: (1) it dusts every flat top pale; a top stays dark only if its
+colour is dark and near neutral (or blue as water is) AND it is at grade (tools/bohemia_cook_the_map_through_the_rig_10_20_26.py build(): the rule
+that keeps a road dark). A dark pool up on a roof comes out grey. (2) the factory's pad under every piece has its top at 0.05: anything flat on the
+ground starts at 0.06 or it is under the paving. (3) a scene's scale is about 4.4 pixels a unit at the plate's 150: a thing 0.14 wide is under a pixel.
+NOT DONE: at the travel zoom a piece is 51 points wide: the shark is a fleck until he pinches in; the ten places' own arrival screens (the screen's
+lane); eight real places in kit art; Shark Reef's tower is a plain slab.
+*** NEXT ON THIS LANE, IN THIS ORDER: (0) THE ROUND COMBAT THREE'S LEGEND LINE IS IN: the data fort's `cut --block` (see the block under this one);
+(1) the eight real places left in kit art, the edges: the_lab, clark_station, lenzie_station, the_animal_shelter, the two home centers,
+spring_mountain_ranch, callville_bay (this tool is the pattern); (2) mall_mannequins and mall_fountain when COMBAT THREE says the legend lines are in;
+(3) COMBAT THREE's next inside when its names land.
+FOR WORLD (13, 14): the three entries are yours to check against what the places are. Nothing of yours edited.
+[bb Battle Brothers' map: a place worth the walk is told from a village at a glance]
+[analog horror: a tank nobody feeds whose lights come on by themselves]
+
 COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18d - THE DATA FORT'S OWN PICTURES, BUILT (2518282b6), NOT YET SEEN (rule 453, round after round; rules 416, 451(a), 455; ask row 627).
 The first job on this lane's own list: THE DATA FORT (COMBAT THREE's BUILD 11/17zo): all 259 of its pieces were stand-ins. Now
 slices/fight_ground/datafort/ holds datafort_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 3 of datafort_floor_0.webp, floor.high its row 4,

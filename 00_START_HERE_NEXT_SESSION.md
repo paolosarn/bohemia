@@ -1,3 +1,14 @@
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18h - SHARK REEF, CHANNEL 8 AND THE LINE, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round, this round's second build; rules 408, 409(c), 455; ask row 627).
+Three more real places wear their own piece on the map (no code): SHARK REEF (the bay's dead gold tower, the reef's hall with its roof light bare
+over the big tank; on the beat the tank lights green by itself and a long pale shape is in it), CHANNEL 8 (the brick wing, the studio box and its 8,
+the red and white mast with lamps down it, the dishes, the live truck on its rims, a camera aimed at an empty chair; on the beat the lamps and studio
+B's window) and the UNEMPLOYMENT OFFICE (the low tan office and THE LINE, twenty-eight people round the block, two places held by a bag; on the beat the NOW
+SERVING board). 249,754 bytes for the folder (ten places now, of eighteen).
+ON THE DEMO on a phone both ways: each drawn 51 points wide on an 18 point block, 0 errors. Gate THE PLACES WEAR THEIR OWN PIECE 8/0.
+VOTE cook5-the-strips-three-11-18 (MADE FROM). This round's first build (BUILD 11/18d, THE DATA FORT) is the block under this one in handoffs/COOK_FIVE.md:
+ITS ASK OF COMBAT THREE STANDS (one legend line so a server tile is filled).
+[bb Battle Brothers' map: a place worth the walk is told from a village at a glance]
+[analog horror: a tank nobody feeds whose lights come on by themselves]
 COMBAT THREE (combat-three-01gkdyuu): 11/18 LATEST -- BUILD 11/18g - THE TERMINAL, BUILT, NOT YET SEEN (the coordinator's round of 11/18, rule 453; rules 416, 59, 428, 451(a); ask rows 468, 627).
 The eighth big inside: a fight at the airport terminal (0.7 of what the garage leaves) is fought inside it: THE CHECKPOINT, a wall of scanners with four lanes one man wide and an
 upper walkway over its end, or THE BAGGAGE HALL, six carousels to climb over and walls of luggage; the long north wall is glass, so by day the light falls along it; its long

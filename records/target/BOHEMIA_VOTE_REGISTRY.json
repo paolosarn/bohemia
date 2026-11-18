@@ -20677,7 +20677,50 @@
   {"id": "world14-the-billboards-11-18", "kind": "tile", "lane": "world 14", "sha": "177cbed1e", "made": "11/18", "draft": true, "title": "DEAD BILLBOARDS BY THE FREEWAY: CLIMB ONE, SEE FARTHER", "said": "next round, round after round", "why": "Dead billboards with peeled paper now stand beside the freeways, and standing by one lets your crew see 3 blocks farther by day (1 at night), so driving the freeway past them opens up more of the map. You see them on the map in the RUN tab, beside the I-15 and the 95.", "show": {"how": "image", "src": "../records/target/WORLD14_THE_BILLBOARDS_11_18.webp",
     "first": "../records/target/vote_first/world14-the-billboards-11-18.webp",
     "firstAt": [0, 0, 1170, 840]
-   }, "before_after": {"before": "main c869a5eda: no billboard anywhere; nothing on the ground widened what he sees", "after": "36 boards beside the freeways on a valley, each a lookout: sight 6 to 9 by day, 3 to 4 by night, the fog keeps it", "scale": "his phone upright (390 x 844 at 3, top) and sideways (844 x 390 at 3, bottom), the alpha's RUN tab map, one zoom step in, cut round a board"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_14_THE_BILLBOARDS_11_18_26.md"}
+   }, "before_after": {"before": "main c869a5eda: no billboard anywhere; nothing on the ground widened what he sees", "after": "36 boards beside the freeways on a valley, each a lookout: sight 6 to 9 by day, 3 to 4 by night, the fog keeps it", "scale": "his phone upright (390 x 844 at 3, top) and sideways (844 x 390 at 3, bottom), the alpha's RUN tab map, one zoom step in, cut round a board"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_14_THE_BILLBOARDS_11_18_26.md"},
+  {
+   "id": "cook5-the-strips-three-11-18",
+   "kind": "tile",
+   "lane": "cook 5",
+   "sha": "SHIPSHA",
+   "made": "11/18",
+   "draft": true,
+   "title": "SHARK REEF, CHANNEL 8 AND THE UNEMPLOYMENT OFFICE LOOK LIKE THEMSELVES ON THE MAP",
+   "said": "do a full sweep, let's have some fun",
+   "why": "Shark Reef looked like any resort, Channel 8 like any radio station and the unemployment office like any library. Now Shark Reef is a dead gold tower over a dark tank that lights up green by itself with something long and pale in it; Channel 8 is its red and white mast with lamps blinking down it and a camera aimed at an empty chair; and the unemployment office is a line of twenty-eight people round the block with one board still lit over the door. You see them on the map, east and south of the Strip, in the RUN tab.",
+   "options": [
+    "A, yes, that's them",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK5_THE_STRIPS_THREE_11_18.webp",
+    "first": "../records/target/vote_first/cook5-the-strips-three-11-18.webp",
+    "firstAt": [
+     0,
+     72,
+     500,
+     578
+    ]
+   },
+   "before_after": {
+    "before": "main 47f73d0b4: the three places wear the kit art of the kind they are like (a resort, a radio station, a library)",
+    "after": "each place's own piece through the map's rig, drawn on its block under the fog and the night",
+    "scale": "the piece at three times its pixels; the map on his phone upright (390 x 844), six blocks from the place, the same frame with the piece off and on"
+   },
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "twin": {
+    "src": "place_pieces/the_bank_1.webp",
+    "diffs": [
+     "THE SAME FRAME, RIG AND DRAW as the seven places before: no code, three entries in the list and six pictures.",
+     "EACH SHOWS WHAT THE WORLD'S OWN LIST SAYS OF IT: the tank nobody feeds, the picture put up in lamps on the mast, the line that never went home.",
+     "ONE THING MOVES ON THE BEAT in each: the tank's lights and the shape in it, the mast's lamps and studio B's window, the NOW SERVING board."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_FIVE_SHARK_REEF_CHANNEL_8_AND_THE_UNEMPLOYMENT_OFFICE_11_18_26.md"
+  }
  ],
  "verdicts": [
   {

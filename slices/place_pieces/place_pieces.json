@@ -109,6 +109,51 @@
    "like": "library",
    "through_the_rig": true,
    "finished": "cook 5, 11/17"
+  },
+  "shark_reef": {
+   "w": 166,
+   "h": 186,
+   "bx": 83,
+   "by": 138,
+   "plate": 150,
+   "frames": [
+    "shark_reef_0.webp",
+    "shark_reef_1.webp"
+   ],
+   "name": "SHARK REEF",
+   "like": "resort",
+   "through_the_rig": true,
+   "finished": "cook 5, 11/18"
+  },
+  "the_tv_station": {
+   "w": 166,
+   "h": 169,
+   "bx": 83,
+   "by": 121,
+   "plate": 150,
+   "frames": [
+    "the_tv_station_0.webp",
+    "the_tv_station_1.webp"
+   ],
+   "name": "CHANNEL 8",
+   "like": "radio",
+   "through_the_rig": true,
+   "finished": "cook 5, 11/18"
+  },
+  "the_unemployment_office": {
+   "w": 166,
+   "h": 162,
+   "bx": 83,
+   "by": 114,
+   "plate": 150,
+   "frames": [
+    "the_unemployment_office_0.webp",
+    "the_unemployment_office_1.webp"
+   ],
+   "name": "UNEMPLOYMENT OFFICE",
+   "like": "library",
+   "through_the_rig": true,
+   "finished": "cook 5, 11/18"
   }
  }
 }
