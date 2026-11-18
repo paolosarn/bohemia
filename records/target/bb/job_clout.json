@@ -1,0 +1,24 @@
+{
+ "_about": "THE BIG WORK WAITS FOR A NAME (JOBS 11/18, VAMILY rule 453, the jobs' systems the way Battle Brothers runs them). Battle Brothers: 'The higher your Renown, the higher the reward from Contracts and the more difficult Contracts people will entrust you' (bb_all/1679 Renown), and its fortified settlements give no regular contracts, only the Noble House's, which 'require completing an ambition to reach Professional Renown (1050) to unlock' (bb_all/0724). Ours had the first half (CLOUT raises the pay, engine/bohemia_renown.js payMult) and not the second: CLOUT opened no work. NOW the work below waits on a board until the company's CLOUT reaches its number (slices/bohemia_board_shelf.js __THE_BIG_WORK_WAITS_FOR_A_NAME__); a board is never empty (rule 335): a place whose every job waits posts its least dangerous one. The board says the number (one label, draft). Read by tier (a fortress is the wiki's fortified settlement; our fortresses are the factions' strongholds) and skulls. TUNING's to move.",
+ "draft": true,
+ "lane": "jobs",
+ "row": 627,
+ "needs": {
+  "value": {
+   "fortress": {
+    "2": 250,
+    "3": 1050
+   },
+   "town": {
+    "3": 250
+   },
+   "camp": {
+    "3": 250
+   }
+  },
+  "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/0724_Factions and Relations.txt; bb_all/1679_Renown.txt",
+  "quote": "Contracts found here are given out by the Noble House and require completing an ambition to reach Professional Renown (1050) to unlock.",
+  "quote2": "The higher your Renown, the higher the reward from Contracts and the more difficult Contracts people will entrust you",
+  "why": "the wiki's 1050 for a fortress's three-skull work (its noble work); ours on the wiki's second line: a fortress's two-skull work and any town's or camp's three-skull work wait for 250, the wiki's Recognized (our SEEN AROUND), about three jobs done. A fortress's one-skull work and every job a town's news brings ask no name."
+ }
+}

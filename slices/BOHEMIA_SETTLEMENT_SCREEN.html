@@ -118,6 +118,7 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 .act.client em{margin-left:auto}
 .act em{font-style:normal;color:var(--gold);white-space:nowrap}
 .slots{margin-top:10px;color:var(--dim);font-size:12px}
+.slots.waits{color:#c98a6a;letter-spacing:.6px;margin-top:6px}   /* JOBS 11/18 __THE_BIG_WORK_WAITS_FOR_A_NAME__ */
 #close{position:absolute;right:8px;top:6px;min-width:44px;min-height:44px;background:none;border:0;color:var(--dim);font:inherit;font-size:20px}
 /* the shelf and the bag: square slots, Battle Brothers' stash grid */
 .gridh{margin:10px 0 4px;font-size:11px;letter-spacing:1px;color:var(--dim)}
@@ -5315,6 +5316,8 @@ function openB(k, line){
     S.held.map(heldRow).forEach(function(c){ acts.appendChild(heldAct(c)); });   /* __DROP_A_JOB_RIGHT_IN_THE_TOWN__: the jobs he is on, on top; __TWO_JOBS_AT_ONCE__: both, from the tap */
     setTimeout(function(){ heldFill(0); }, 150);
     var bh = boardHere(); bh.forEach(function(o){ acts.appendChild(clientAct(o, full && !jobsK())); });   /* full or not, a person can be talked to: a full board asks to swap */
+    try{ var WN = window.BohemiaBoardShelf && BohemiaBoardShelf.waits ? BohemiaBoardShelf.waits(S.place.name) : null;   /* JOBS 11/18 __THE_BIG_WORK_WAITS_FOR_A_NAME__: the CLOUT that opens more of this board's work, said in numbers */
+      if(WN && WN.need){ var wn = document.createElement('div'); wn.className = 'slots waits'; wn.textContent = 'MORE WORK HERE AT ' + WN.need + ' CLOUT \u00b7 YOU HAVE ' + (WN.have | 0); body.appendChild(wn); } }catch(e){}   /* draft */
     try{ if(window.BohemiaBoardShelf && BohemiaBoardShelf.seen && bh.length) BohemiaBoardShelf.seen(S.place.name, bh.map(function(o){ return o.id; }), buildDay()); }catch(e){}   /* __A_READ_BOARD_STAYS_READ__ (JOBS 11/14, row 610): what he reads here is the board until its time is up */
     var sl = document.createElement('div'); sl.className = 'slots';
     sl.textContent = 'Held: '+S.held.length+' of '+SLOTS+' contracts. They show on your map.';   /* EYES [eyes: the phone line] (rule 150): the phone shows the city's two best-paying jobs (rule 148); a held job is the map's plate */

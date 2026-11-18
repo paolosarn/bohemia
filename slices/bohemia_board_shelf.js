@@ -35,7 +35,8 @@
       var more = (k && k.board_people && k.board_people.rows) || [], have = {};
       doc.offers.forEach(function (o) { have[o.id] = 1; });
       more.forEach(function (o) { if (o && o.id && !have[o.id] && /\{pay\}/.test(o.says || '')) doc.offers.push(o); });
-      return doc; }).catch(function () { return doc; });
+      return doc; }).catch(function () { return doc; })
+      .then(function (d) { return fetch('../records/target/bb/job_clout.json').then(function (r) { return r.json(); }).then(function (c) { if (d && c && c.needs && c.needs.value) d.clout_needs = c.needs.value; return d; }).catch(function () { return d; }); });   /* __THE_BIG_WORK_WAITS_FOR_A_NAME__ */
   }
   /* WORLD __THE_BOARD_GROWS_WITH_THE_DAYS__ (rule 255, 10/26): a place posts only what its day lets it post for the crew he has
      (WORLD's slices/bohemia_job_danger.js fits(): no job under the day's floor, at most the day's share of red ones); the reader
@@ -45,6 +46,14 @@
   function trust(name, day) { try { var P = root.BohemiaJobPay || (root.parent && root.parent !== root && root.parent.BohemiaJobPay); return P && P.board ? P.board(name, day) : null; } catch (e) { return null; } }
   function trusted(o, T) { return !T || ((o.skulls | 0) || 1) <= T.maxSkulls; }
   function sized(n, T, C) { if (!T) return n; if (T.cap != null) return Math.min(n, T.cap); return Math.min(n + (T.more | 0), C.max || 4); }
+  /* __THE_BIG_WORK_WAITS_FOR_A_NAME__ (JOBS 11/18, rule 453): Battle Brothers' 'the more difficult Contracts people will entrust you'
+     with Renown, and its fortified towns' work behind Professional (1050): records/target/bb/job_clout.json needs (by tier and skulls),
+     read against the company's CLOUT (BohemiaRenown, this frame's or the map's). No reader or no file: nothing waits. WAITS keeps, per
+     place, the least CLOUT that would open more of its work, for the board's one label. */
+  function clout() { try { var R = root.BohemiaRenown || (root.parent && root.parent !== root && root.parent.BohemiaRenown); return R && R.score ? R.score() : null; } catch (e) { return null; } }
+  function needOf(o, tier) { var N = SHELF && SHELF.clout_needs && SHELF.clout_needs[tier]; return N ? (+N[String((o.skulls | 0) || 1)] || 0) : 0; }
+  function cloutLevel(have) { if (have == null || !SHELF || !SHELF.clout_needs) return ''; var n = 0; Object.keys(SHELF.clout_needs).forEach(function (t) { var N = SHELF.clout_needs[t]; Object.keys(N).forEach(function (k) { if (have >= +N[k]) n++; }); }); return 'c' + n; }
+  var WAITS = {};
   function fitter() { try { var W = root.BohemiaJobDanger || (root.parent && root.parent !== root && root.parent.BohemiaJobDanger); return W && W.fits ? W : null; } catch (e) { return null; } }
   function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
   /* a copy that is safe to hand around: {crew} said, the client copied */
@@ -77,7 +86,7 @@
   function campaign() { try { var w = root.WORLD_SEED; if (w == null && root.parent && root.parent !== root) w = root.parent.WORLD_SEED; return String(w || ''); } catch (e) { return ''; } }
   function dealt(day, opt) {
     var win = Math.floor((day || 0) / (SHELF.refresh_days || 3)), C = SHELF.counts || {};
-    var FW = fitter(), key = win + '|' + (FW ? FW.fitVer() + '|' + (day | 0) : '') + '|' + (opt.held || []).join(',') + '|' + (opt.done || []).join(',') + '|' + (opt.crew || '') + '|' + opt.places.map(function (p) { return p.name + ':' + p.tier + ':' + (p.traits || []).join('+'); }).join(';');
+    var FW = fitter(), key = win + '|' + (FW ? FW.fitVer() + '|' + (day | 0) : '') + '|' + (opt.held || []).join(',') + '|' + (opt.done || []).join(',') + '|' + (opt.crew || '') + '|' + cloutLevel(clout()) + '|' + opt.places.map(function (p) { return p.name + ':' + p.tier + ':' + (p.traits || []).join('+'); }).join(';');
     if (DEAL.key === key) return DEAL.map;
     var order = opt.places.slice().sort(function (a, b) { return seedOf(a.name + ':order:' + win) - seedOf(b.name + ':order:' + win) || (a.name < b.name ? -1 : 1); });
     var taken = {}, map = {}, want = {};
@@ -149,7 +158,10 @@
         seen[o.id] = 1; out.push(said(o, opt.crew)); });
     }
     var TR = trust(String(place.name), day), ordinary = all.filter(function (o) { return !o.when && (o.tiers || []).indexOf(tier) >= 0 && (!o.towns || o.towns.indexOf(String(place.name)) >= 0) && trusted(o, TR); }),   /* __THE_TOWN_REMEMBERS__: the work it trusts him with */
-      own = ordinary.filter(function (o) { return !!o.towns; });   /* JOBS 11/11 (rule 425): a job that fits its town is posted there only, and the town's own person asks first, one of them */
+      CL = clout(), waiting = [], waitNeed = 0;
+    if (CL != null) ordinary = ordinary.filter(function (o) { var nd = needOf(o, tier); if (CL >= nd) return true; waiting.push(o); waitNeed = waitNeed ? Math.min(waitNeed, nd) : nd; return false; });   /* __THE_BIG_WORK_WAITS_FOR_A_NAME__ */
+    WAITS[String(place.name)] = waiting.length ? { need: waitNeed, have: CL } : null;
+    var own = ordinary.filter(function (o) { return !!o.towns; });   /* JOBS 11/11 (rule 425): a job that fits its town is posted there only, and the town's own person asks first, one of them */
     if (traits.indexOf('raided') >= 0) {   /* the raid leaves one job, and it is the crew that hit it */
       var raid = all.filter(function (o) { return o.when === 'raided'; });
       take(raid, C.raided || 1);
@@ -178,6 +190,10 @@
           var c = Q && Q.state === 'read' ? +Q.clean : 0; if (c > bc) { bc = c; best = o; } });
         if (best) { out.push(said(best, opt.crew)); return out; }
       }
+      if (waiting.length) {   /* __THE_BIG_WORK_WAITS_FOR_A_NAME__: a place whose every job waits for a name posts its least dangerous one (rule 335) */
+        var lw = waiting.filter(function (o) { return !seen[o.id] && !taken[o.id] && held.indexOf(o.id) < 0; }).sort(function (x, y) { return ((x.skulls | 0) || 1) - ((y.skulls | 0) || 1) || (x.id < y.id ? -1 : 1); })[0];
+        if (lw) { out.push(said(lw, opt.crew)); return out; }
+      }
       for (var i = 0; i < done.length; i++) {   /* done is oldest first */
         var id = done[i], o = null; if (held.indexOf(id) >= 0 || taken[id]) continue;
         pool.forEach(function (p) { if (!o && p.id === id) o = p; });
@@ -196,6 +212,6 @@
         out.push({ name: name, tier: tier, traits: tr }); });
       return out.length ? out : null; } catch (e) { return null; }
   }
-  root.BohemiaBoardShelf = { load: load, set: set, ready: function () { return !!SHELF; }, pick: pick, mapPlaces: mapPlaces, seen: seen,
+  root.BohemiaBoardShelf = { load: load, set: set, ready: function () { return !!SHELF; }, pick: pick, mapPlaces: mapPlaces, seen: seen, waits: function (name) { return WAITS[String(name)] || null; },
     shelf: function () { return SHELF; } };
 })(typeof window !== 'undefined' ? window : this);

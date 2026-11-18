@@ -12,6 +12,8 @@
 // and CLOUT each time against what its card said.
 // --build D: PAID INTO HIS PLACE: a one-skull find's card, 'Into your place' tapped with a finger (the pay drops by the build's worth),
 // taken and played to the pay; the batteries paid are the card's and the build is his (standing, or waiting for his place).
+// --build E: THE BIG WORK WAITS FOR A NAME: a company at 200 CLOUT; a fortress's board with no two-skull work and its label; one job
+// played to the pay (+100 CLOUT); the same board again with the two-skull work open.
 // node tools/bohemia_jobs_the_towns_book_on_the_phone.js --build A [--alpha] [--shapes phone_portrait,phone_landscape] [--out dir] [--tag t]
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -288,6 +290,45 @@ async function walk(shape) {
       } catch (e) { row.err = String(e && e.message || e).slice(0, 200); }
       out.push(row);
       console.log('  ' + TAG + ' ' + shape + ' D PAID INTO HIS PLACE: ' + (row.err ? 'ERR ' + row.err : row.town + ' day ' + row.day + ' ' + row.id + ': the card ' + row.pay0 + ' batteries, [' + row.into1.label + '] ' + row.pay1 + '; held ' + JSON.stringify(row.held) + '; paid ' + JSON.stringify(row.paid) + '; his place ' + JSON.stringify(row.home) + (row.ok ? ' OK' : ' NOT OK') + (row.cardFits ? '' : '; A BUTTON OFF THE GLASS ' + JSON.stringify(row.fit))));
+    }
+    if (BUILDS.indexOf('E') >= 0) {
+      const row = { build: 'E' };
+      try {
+        /* THE BIG WORK WAITS FOR A NAME: a company at 200 CLOUT (the game's own renown record, the one shortcut, said); a fortress's board
+           on a day its two-skull work would post at 250: none of it, and the label; one job done for real (the singer, played to the pay,
+           +100 CLOUT); the same board again: the two-skull work is there and the label names the next number */
+        await fr.evaluate(() => { LOOP.held = []; LOOP.fighting = null; try { loopClose(); } catch (e) {} localStorage.setItem('bohemia.renown.v1', JSON.stringify({ score: 200, keys: [], log: [] })); });
+        /* the probe leaves no mark: the boards' posted and read records are put back after each look */
+        const cands = await fr.evaluate(() => { const bs = ctBases() || {}, step = BohemiaBoardShelf.shelf().refresh_days || 3, out = [], put = (c) => localStorage.setItem('bohemia.renown.v1', JSON.stringify({ score: c, keys: [], log: [] }));
+          const keep = ['bohemia.board.posted.v1', 'bohemia.board.read.v1'].map(k => [k, localStorage.getItem(k)]);
+          const look = (c, p, d, P) => { put(c); const L = BohemiaBoardShelf.pick({ name: p.name, tier: p.tier }, d, { traits: p.traits || [], held: [], places: P }) || []; keep.forEach(([k, v]) => { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); }); return L; };
+          for (let d = 1; d <= 1 + 12 * step && !out.length; d += step) { const P = BohemiaBoardShelf.mapPlaces(d) || [], d2 = d + step, P2 = BohemiaBoardShelf.mapPlaces(d2) || [];
+            for (const p of P) { if (p.tier !== 'fortress' || !bs[p.name]) continue; const p2 = P2.filter(q => q.name === p.name)[0] || p;
+              const lo = look(200, p, d, P).filter(o => (o.skulls | 0) >= 2), hi2 = look(300, p2, d2, P2).filter(o => (o.skulls | 0) === 2).map(o => o.id), lo2 = look(200, p2, d2, P2).filter(o => (o.skulls | 0) >= 2).map(o => o.id);
+              if (!lo.length && hi2.length && !lo2.length) { out.push({ n: p.name, day: d, day2: d2, opens: hi2, without: lo2 }); break; } } }
+          put(200); return out; });
+        if (!cands.length) throw new Error('no fortress board opens two-skull work between 200 and 300 CLOUT in thirteen windows (the next window, the same without the CLOUT)');
+        const K = cands[0], tn = K.n; row.town = tn; row.day = K.day; row.day2 = K.day2; row.opens = K.opens; row.without = K.without;
+        await setBar(tn, 50);
+        const label = () => fr.evaluate(() => { const f = document.getElementById('settleFrame'); try { const e = f.contentWindow.document.querySelector('#sheet .waits'); return e ? e.textContent : null; } catch (x) { return null; } });
+        const before = await openTown(tn, K.day, 'E_before', true); row.before = { ids: before.ids, skulls: before.skulls, label: await label(), clout: await fr.evaluate(() => BohemiaRenown.score()) }; row.pngBefore = before.png;
+        await fr.evaluate(() => { try { loopClose(); } catch (e) {} }); await page.waitForTimeout(500);
+        /* one job done, for real: the singer, by the board's own message, played to the pay */
+        await fr.evaluate(() => { const o = BohemiaBoardShelf.shelf().offers.filter(x => x.id === 'jb-find-singer')[0]; const c = Object.assign({}, o, { says: String(o.says).replace(/\{pay\}/g, o.pay) });
+          loopTakeContract(c); });   /* the function the town's own 'contract' message calls (the map takes messages only from the town's frame once one is open) */
+        if (!await waitFor(() => fr.evaluate(() => LOOP.held.some(h => h.id === 'jb-find-singer')), 10000)) throw new Error('the singer was not taken');
+        for (let s = 0; s < 10; s++) { const st = await fr.evaluate(() => { const j = LOOP.held.filter(h => h.id === 'jb-find-singer')[0]; if (!j) return 'gone';
+            const at = (x, y) => { travelStop(); city.x = x; city.y = y; }; const x = j.stage === 'look' ? j.spot.x : j.target.x, y = j.stage === 'look' ? j.spot.y : j.target.y; at(x, y); BohemiaJobKinds.arrived(x, y) || BohemiaJobKinds.step(); return j.stage; });
+          if (st === 'gone') break; await page.waitForTimeout(900); if (await fightUp()) throw new Error('a fight on a one-skull find'); }
+        row.paid = await fr.evaluate(() => (window.__JOB_PAID || []).filter(p => p.id === 'jb-find-singer').slice(-1)[0] || null);
+        row.cloutAfterJob = await fr.evaluate(() => BohemiaRenown.score());
+        const after = await openTown(tn, K.day2, 'E_after', true);   /* the board turns (refresh_days): a posted job stays posted for its window */ row.after = { ids: after.ids, skulls: after.skulls, label: await label() }; row.png = after.png;
+        await fr.evaluate(() => { try { loopClose(); } catch (e) {} }); await page.waitForTimeout(500);
+        row.ok = !!(row.before.clout === 200 && !row.before.skulls.some(k => k >= 2) && /AT 250 CLOUT/.test(row.before.label || '') && row.paid && row.cloutAfterJob === 300 &&
+          row.after.skulls.some(k => k === 2) && row.after.ids.some(id => K.opens.indexOf(id) >= 0) && !/AT 250 CLOUT/.test(row.after.label || '') && row.before.ids.length > 0 && row.after.ids.length > 0);
+      } catch (e) { row.err = String(e && e.message || e).slice(0, 200); }
+      out.push(row);
+      console.log('  ' + TAG + ' ' + shape + ' E THE BIG WORK WAITS FOR A NAME: ' + (row.err ? 'ERR ' + row.err : row.town + ' day ' + row.day + ' then ' + row.day2 + ' (at 200 that window would post ' + JSON.stringify(row.without) + '): at ' + row.before.clout + ' CLOUT ' + JSON.stringify(row.before.ids) + ' skulls ' + JSON.stringify(row.before.skulls) + ' [' + row.before.label + ']; the singer paid ' + (row.paid && row.paid.paid) + ', CLOUT ' + row.cloutAfterJob + '; again ' + JSON.stringify(row.after.ids) + ' skulls ' + JSON.stringify(row.after.skulls) + ' [' + row.after.label + ']' + (row.ok ? ' OK' : ' NOT OK')));
     }
   } catch (e) { out.push({ err: String(e && e.message || e).slice(0, 300) }); console.log('  ' + TAG + ' ' + shape + ' ERR ' + String(e && e.message || e).slice(0, 300)); }
   await d.close().catch(() => {});

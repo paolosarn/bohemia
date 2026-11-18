@@ -119,6 +119,33 @@ shown, exactly; D3 fails any card whose pay falls by more or less than the butto
 GATE: THE TOWN'S BOOK with JOBS_BUILD=B,C,D 13/0.
 
 
+## 6. BUILD E (11/18), THE BIG WORK WAITS FOR A NAME (the coordinator's routine 'JOBS next': the next systems job, no new prose)
+HOW BATTLE BROTHERS DOES IT: 'The higher your Renown, the higher the reward from Contracts and the more difficult Contracts people will
+entrust you' (bb_all/1679 Renown); 'Fortified settlements also do not give out regular contracts like non-fortified settlements.
+Contracts found here are given out by the Noble House and require completing an ambition to reach Professional Renown (1050) to
+unlock' (bb_all/0724).
+MEASURED FIRST: ours had the first half only: CLOUT multiplied the pay (x1 to x4.5) and opened the retinue's slots, and opened no work; a
+company of nobody was handed a fortress's three-skull work on day one wherever the day's floor let it through.
+OURS (records/target/bb/job_clout.json, JOBS' file; TUNING's one table job_clout.needs; slices/bohemia_board_shelf.js
+__THE_BIG_WORK_WAITS_FOR_A_NAME__; the town screen's one label, draft):
+- A fortress's three-skull work (its noble work) waits for 1050 CLOUT, the wiki's own Professional; a fortress's two-skull work and any
+  town's or camp's three-skull work wait for 250 (the wiki's Recognized, our SEEN AROUND: about three jobs done). The news's work (a
+  sickness, a market day) and a raid's crew ask no name.
+- A board is never empty (rule 335): a place whose every job waits posts its least dangerous one.
+- A posted job stays posted for its window (11/14's rule): work CLOUT opens shows when the board turns, the way Battle Brothers keeps
+  a contract on a board; the deal's key carries the CLOUT level, so the next deal reads it.
+- The board says it in one line of numbers: 'MORE WORK HERE AT 250 CLOUT · YOU HAVE 200' (the CLOUT that opens the next of its work).
+MEASURED (node, gate E2; the valley's own tiers, fourteen places, ten windows): at 0 CLOUT no fortress posts two- or three-skull work and
+no town or camp three-skull; at 250 the fortresses' two-skull work (48 boards) and the towns' and camps' three-skull (26) open; at 1050
+the fortresses' three-skull (38); never an empty board, a valley whose fortresses hold only three-skull work included; planted (no
+needs) the big work is back at 0. A fortress board at 0 CLOUT holds 1.40 jobs on average (3.00 without the rule), back to 3.00 at 250;
+towns 2.00 and camps 1.00 either way.
+ON HIS PHONE (tools/bohemia_jobs_the_towns_book_on_the_phone.js --build E; gate E3, the demo and the alpha, upright and sideways; a new
+crew at 200 CLOUT, the one shortcut, said): Caravans on day 1: two one-skull jobs and 'MORE WORK HERE AT 250 CLOUT · YOU HAVE 200';
+the singer taken and played to the pay (27 batteries, +100 CLOUT: 300); Caravans when its board turned (day 4): the ring-trucks job
+(two skulls) is there and the line reads 1050; at 200 CLOUT that same window posts no two-skull work (measured, the boards' records put
+back after the look).
+
 ## 5. WHAT IS NOT HERE, SAID
 - No line a person speaks is new or rewritten (rule 454(a)); the only new words are the fewest labels, draft.
 - The phone proof sets a town's bar in the game's own relations record to reach Friendly or Unfriendly at once, and build C sets CLOUT to
@@ -126,5 +153,5 @@ GATE: THE TOWN'S BOOK with JOBS_BUILD=B,C,D 13/0.
 - No price is re-based here: rule 459 (the battery is real) is ECONOMY TWO's re-base, and every number of this round is a row of TUNING's
   one table it will move.
 
-[bb Battle Brothers' towns trade better with friends and hand big contracts only to a company they know; ours now do both]
+[bb Battle Brothers' towns trade better with friends and hand big contracts only to a company they know; ours now do both, and the fortresses wait for Professional, the wiki's 1050]
 [analog horror: the board is shorter at the town that remembers what you did there, and nobody says why]
