@@ -56,7 +56,7 @@ const SRC = { batteries: 'pack_11_survival_props_045', food: 'pack_11_survival_p
     await p.waitForTimeout(2000); try { await d.clearCards(); } catch (_e) {}
     const read = () => fr.evaluate(() => { const g = document.querySelector('#bmtb [data-tb=g]'), gr = g.getBoundingClientRect();
       return [...g.querySelectorAll('.s')].filter(e => e.offsetWidth > 0).map(e => { const r = e.getBoundingClientRect(), im = e.querySelector('img'), b = e.querySelector('b'), i = e.querySelector('i');
-        return { f: e.dataset.f, n: b ? b.textContent.trim() : '', low: !!(b && b.classList.contains('low')), src: im ? im.getAttribute('src') : '', icon: im ? Math.round(im.getBoundingClientRect().height) : 0, iw: im ? Math.round(im.getBoundingClientRect().width) : 0,
+        return { f: e.dataset.f, n: b ? b.textContent.trim() : '', low: !!(b && b.classList.contains('low')), src: im ? im.getAttribute('src') : '', icon: (function () { var k = e.querySelector('.bsum > i.bsum-k'); /* ECONOMY TWO 11/18 (rule 459): the purse's prop is the ladder's pictures (a car's battery, a tool pack, an AA), the pack's pile kept in the page and not drawn */ return k ? Math.round(parseFloat(getComputedStyle(k, '::before').height) || 0) : im ? Math.round(im.getBoundingClientRect().height) : 0; })(), iw: im ? Math.round(im.getBoundingClientRect().width) : 0,
           inside: r.left >= gr.left - 1 && r.right <= gr.right + 1, i: i && i.offsetWidth > 0 ? i.textContent.trim() : '' }; }); });
     let r0 = await read();
     /* RE-AIMED 10/25 (RUN TWO __THE_WAGON__): the game counts the six now (bohemia.supplies.v1, seeded at the door: the origin's

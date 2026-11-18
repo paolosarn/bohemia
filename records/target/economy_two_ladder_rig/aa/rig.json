@@ -1,0 +1,10 @@
+{
+ "model": "records/target/economy_two_ladder_rig/models/aa.glb",
+ "ppm": 4944.251157439115,
+ "files": [
+  "records/target/economy_two_ladder_rig/aa/rig_S.png",
+  "records/target/economy_two_ladder_rig/aa/rig_SE.png",
+  "records/target/economy_two_ladder_rig/aa/rig_SW.png"
+ ],
+ "box": null
+}

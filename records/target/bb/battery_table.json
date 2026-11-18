@@ -1,0 +1,2486 @@
+{
+ "_about": "THE BATTERY IS REAL (ECONOMY TWO, 11/18/26; VAMILY rule 459, ask line 645). THE ONE TABLE for every number of batteries the game shows, pays or takes. Paolo 9/4: 'for one AA battery a bag of rice.' Paolo 11/17: 'some of the quests, it's like 3000 or like 1000 batteries to complete a quest and I'm like bro that's a lot... I want people to really feel like they can look at their battery right now and relate it from the game to real life.' THE AA IS THE UNIT. A sum is paid in the fewest kinds of battery, the biggest first: a car's battery, a tool pack, a phone's battery, AA's (the research, records/BOHEMIA_RESEARCH_HOW_MANY_BATTERIES_ARE_IN_THE_UNITED_STATES_11_17_26.md). HOW TO MOVE A PRICE: edit the number under 'rows', run `node tools/bohemia_economy_two_the_battery_table.js stamp`, then `check`. HOW TO ADD ONE: add its place to 'where' (a data file) or 'copies' (typed in code) in tools/bohemia_economy_two_write_the_table.py, run it, then `seed`. gates/the_battery_is_real_gate.js fails a number of batteries that is not here. MECHANISM-MINE / CONTENTS-PAOLO'S: every number carries where it came from; the words (the four names) are draft:true.",
+ "draft": true,
+ "rule": "VAMILY.md rule 459; laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_TILE_IS_A_HOUSE_9_4_26.md s1 and s4; laws/BOHEMIA_LAW_THE_FIGHT_GETS_DEEP_TUNING_AND_MODS_9_27_26.md s4",
+ "unit": {
+  "id": "aa",
+  "worth": 1,
+  "buys": "a bag of rice",
+  "his_words": "for one AA battery a bag of rice",
+  "source": "Paolo 9/4 (laws/BOHEMIA_ADDENDUM_BATTERIES_ARE_THE_MONEY_AND_A_TILE_IS_A_HOUSE_9_4_26.md); the research: a rechargeable AA holds about 2.4 Wh and weighs about 27 g",
+  "in_the_old_numbers": "one AA is ten crowns of the wiki's worth (his 10/1 ten to one, reference/library/grok/GROK_31_TEN_TO_ONE_2026_10_01.md), never under one (GROK_33)"
+ },
+ "ladder": {
+  "value": [
+   {
+    "id": "aa",
+    "worth": 1,
+    "name": "AA",
+    "many": "AA",
+    "wh": 2.4,
+    "kg": 0.027,
+    "real": "one rechargeable AA cell, 14.5 x 50.5 mm",
+    "icon": "battery_ladder/aa.png",
+    "small": "battery_ladder/small/aa.png",
+    "buys": "a bag of rice",
+    "draft": true
+   },
+   {
+    "id": "phone_battery",
+    "worth": 6,
+    "name": "PHONE BATTERY",
+    "many": "PHONE BATTERIES",
+    "wh": 15,
+    "kg": 0.045,
+    "only_whole": true,
+    "real": "the pack out of a phone: one full phone charge, about 15 Wh",
+    "icon": "battery_ladder/phone_battery.png",
+    "small": "battery_ladder/small/phone_battery.png",
+    "buys": "six bags of rice",
+    "draft": true
+   },
+   {
+    "id": "tool_pack",
+    "worth": 20,
+    "name": "TOOL PACK",
+    "many": "TOOL PACKS",
+    "wh": 50,
+    "kg": 0.6,
+    "real": "an 18 V cordless tool pack, about 50 Wh",
+    "icon": "battery_ladder/tool_pack.png",
+    "small": "battery_ladder/small/tool_pack.png",
+    "buys": "twenty bags of rice",
+    "draft": true
+   },
+   {
+    "id": "car_battery",
+    "worth": 250,
+    "name": "CAR BATTERY",
+    "many": "CAR BATTERIES",
+    "wh": 600,
+    "kg": 18,
+    "real": "a car's 12-volt starter battery, about 600 Wh",
+    "icon": "battery_ladder/car_battery.png",
+    "small": "battery_ladder/small/car_battery.png",
+    "buys": "two hundred and fifty bags of rice",
+    "draft": true
+   }
+  ],
+  "source": "records/BOHEMIA_RESEARCH_HOW_MANY_BATTERIES_ARE_IN_THE_UNITED_STATES_11_17_26.md (\"IN AA'S (2.4 Wh each): a phone charge is about 6; a tool pack (50 Wh) about 20; a car's starter battery (600 Wh) about 250\"); the weights of the three big ones are general knowledge, not from the lookups",
+  "paid": "fewest kinds, biggest first: car batteries, then tool packs; what is left under a tool pack is phone batteries when they make it exactly (6, 12, 18), else AA's",
+  "why_paid_so": "every count on the glass is small (never more than 12 tool packs, 3 phone batteries, 19 AA's) and a sum is never more than three kinds; the prices were written in tens, and ten is ten AA's, not a phone battery and four",
+  "most_kinds": 3,
+  "never": "an electric car's pack (about 31,000 AA's) is not a thing a crew carries: nothing is priced in it. Who holds the working solar is NOT DECIDED (rule 459(e)): nothing here is built on it."
+ },
+ "bands": {
+  "everyday": {
+   "min": 1,
+   "max": 10,
+   "say": "everyday things cost 1 to 10",
+   "zero_ok": true
+  },
+  "a_mans_night": {
+   "min": 1,
+   "max": 9,
+   "say": "a man's day costs a few: fed for 2, paid 1 to 9 on top",
+   "zero_ok": true
+  },
+  "trade_good": {
+   "min": 1,
+   "max": 99,
+   "say": "a trade good is tens"
+  },
+  "the_road": {
+   "min": 1,
+   "max": 60,
+   "say": "what the road gives or takes at one stop is 1 to 60, three tool packs at the most",
+   "zero_ok": true
+  },
+  "job": {
+   "min": 10,
+   "max": 300,
+   "say": "a job on a board pays 10 to 300 before anybody knows your name: a car battery and change at the most"
+  },
+  "job_part": {
+   "min": 1,
+   "max": 60,
+   "say": "the parts a job's pay is built from"
+  },
+  "purse": {
+   "min": 20,
+   "max": 400,
+   "say": "what a crew starts with: tool packs to a car battery and change"
+  },
+  "big": {
+   "min": 100,
+   "max": 500,
+   "say": "the big standing buys (a man who joins the camp) are a car battery or two"
+  },
+  "prize": {
+   "min": 5,
+   "max": 250,
+   "say": "a purse in the pit is tool packs, never over a car battery"
+  },
+  "gear_piece": {
+   "min": 1,
+   "max": 300,
+   "say": "a made thing with its own price is tens to a few hundred"
+  },
+  "one_job": {
+   "min": 1,
+   "max": 2500,
+   "say": "the most one job ever pays is ten car batteries: a crew can carry it"
+  }
+ },
+ "catalogs": {
+  "_about": "the things with a worth in the wiki's crowns (every weapon, armour, helmet, shield, a man's daily wage, a rare man's base, a wound's treatment): one rule turns each into batteries, so nobody types 600 prices twice",
+  "crowns_per_battery": 10,
+  "floor": 1,
+  "rounding": "to the nearest, a half up",
+  "source": "reference/library/grok/GROK_31_TEN_TO_ONE_2026_10_01.md and GROK_33_PRICE_FLOOR_2026_10_01.md (his, 10/1); records/target/bb/price_table.json conversion",
+  "band": {
+   "min": 1,
+   "max": 1000,
+   "say": "gear costs tens to a few hundred (the dearest piece in the game is three car batteries and change)"
+  },
+  "files": [
+   {
+    "file": "records/target/bb/weapons.json",
+    "paths": [
+     "rows[*].value"
+    ],
+    "what": "a weapon's worth"
+   },
+   {
+    "file": "records/target/bb/armor.json",
+    "paths": [
+     "body[*].value",
+     "head[*].value",
+     "shields[*].value",
+     "body[*].wiki_value",
+     "head[*].wiki_value"
+    ],
+    "what": "a body armour's, a helmet's, a shield's worth"
+   },
+   {
+    "file": "records/target/bb/backgrounds.json",
+    "paths": [
+     "rows[*].daily_wage",
+     "hiring_and_wage_rules.**"
+    ],
+    "what": "a hired man's wage a day and the wiki's hiring rules"
+   },
+   {
+    "file": "records/target/bb/rare_recruits.json",
+    "paths": [
+     "men[*].base_crowns",
+     "men[*].bb.base_wage"
+    ],
+    "what": "a rare man's base hire price and wage"
+   },
+   {
+    "file": "records/target/bb/arena.json",
+    "paths": [
+     "pit_gear.value.*.value"
+    ],
+    "what": "the pit's two prizes"
+   },
+   {
+    "file": "records/target/bb/injuries.json",
+    "paths": [
+     "rules.temporary_healing.**"
+    ],
+    "what": "a wound's treatment (the clinic)"
+   },
+   {
+    "file": "records/target/bb/price_table.json",
+    "paths": [
+     "wageAndHire.**"
+    ],
+    "what": "the hall's base hire range and kit multiplier"
+   },
+   {
+    "file": "records/target/bb/ours.json",
+    "paths": [
+     "armour_weight.**",
+     "cell_vest.**"
+    ],
+    "what": "named armour rows carried for the fight (their worth is not a price on a shelf)"
+   },
+   {
+    "file": "records/target/bb/origins.json",
+    "paths": [
+     "origins[*].crowns.*"
+    ],
+    "what": "the wiki's own start purse, kept beside ours"
+   },
+   {
+    "file": "records/target/bb/contract_terms.json",
+    "paths": [
+     "**"
+    ],
+    "what": "the wiki's worked contract, in its crowns: read by no page"
+   }
+  ]
+ },
+ "ratios": {
+  "_about": "what MULTIPLIES a number of batteries into the sum he sees. None of these is a price; each is why a price grows.",
+  "shelves": {
+   "full": 1.5,
+   "thin": 1,
+   "bare": 0.75,
+   "what": "the start screen's pick: every job pays half again on FULL SHELVES (the pick the door opens on), as posted on THIN, a quarter less on BARE",
+   "where": "typed in the shell (slices/BOHEMIA_ALPHA_0_9.html ECON; the demo is cut from it): no data file holds it"
+  },
+  "kept": [
+   "A JOB AGAINST A CREW'S KEEP (records/target/bb/job_pay.json): an hour on a job pays double what twelve men burn in it, and a fight pays 26 a skull. KEPT.",
+   "CLOUT (records/target/bb/renown.json pay_mult): x1 for a crew nobody knows to x4.5 at 4,000. KEPT: a man's wage grows x2.6 by level 11 and the crew grows from 3 to 12, so the keep grows about as fast as the pay; cut the one without the other and the late game cannot pay its men.",
+   "TEN CROWNS TO ONE (catalogs): KEPT. It is what makes an everyday thing cost 1 to 10 and a gun cost tens.",
+   "THE STALL PAYS HALF, A SHOP A SEVENTH (stall_prices.json sell_share; the settlement screen's SELL_CUT): KEPT."
+  ],
+  "changed": [
+   "THE SEVEN WHO JOIN THE CAMP AT 300 AND 400 (the blacksmith, the negotiator, the quartermaster, the recruiter, the scavenger; the agent, the bounty hunter) ARE 290 AND 390: a car battery and two tool packs, a car battery and seven. WHY: a standing price over a car battery is whole tool packs, so it is two kinds of battery on a small button, never three (300 was a car battery, two tool packs and ten AA's). Ten AA's cheaper, 3 in 100: nothing a crew's keep rests on (rule 117: start easier than Battle Brothers).",
+   "THE DOOR'S TYPED START PURSE (the shell's copy until origins.json lands) WAS 3 TO 7, a number from EVERYTHING COSTS ONE; it is each origin's THIN purse now (70 to 270), so a phone that never gets the file starts a real game. No ratio: origins.json is unchanged."
+  ]
+ },
+ "live_data": [
+  "records/target/bb/nightly_bill.json",
+  "records/target/bb/stall_prices.json",
+  "records/target/bb/job_pay.json",
+  "records/target/bb/job_into_place.json",
+  "records/target/bb/origins.json",
+  "records/target/bb/retinue.json",
+  "records/target/bb/arena.json",
+  "records/target/bb/home_base.json",
+  "records/target/bb/loot.json",
+  "records/target/bb/boss_act_one.json",
+  "records/target/bb/real_places.json",
+  "records/target/bb/renown.json",
+  "records/target/bb/relations.json",
+  "records/target/bb/price_table.json",
+  "records/target/bb/weapons.json",
+  "records/target/bb/armor.json",
+  "records/target/bb/backgrounds.json",
+  "records/target/bb/rare_recruits.json",
+  "records/target/bb/injuries.json",
+  "records/target/bb/ours.json",
+  "records/target/bb/tape_income.json",
+  "records/target/bb/carcass.json",
+  "records/target/bb/arrival_traits.json",
+  "records/target/bb/feed_kinds.json",
+  "records/target/bb/feed_world.json",
+  "records/target/bb/radio_lines.json",
+  "records/target/bb/contract_terms.json",
+  "records/target/bb/party_math.json",
+  "records/target/bb/condition.json",
+  "records/target/BOHEMIA_BOARD_SHELF.json",
+  "records/target/BOHEMIA_JOB_KINDS.json",
+  "records/target/BOHEMIA_ROAD_EVENTS.json",
+  "records/target/BOHEMIA_SIDE_QUESTS.json",
+  "records/target/BOHEMIA_HALL_PRICE.json",
+  "records/target/settlement_traits.json"
+ ],
+ "live_code": [
+  "slices/BOHEMIA_CITY_WORLD.html",
+  "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+  "slices/BOHEMIA_ROSTER_SCREEN.html",
+  "slices/BOHEMIA_FIGHT.html",
+  "slices/BOHEMIA_ALPHA_0_9.html",
+  "slices/bohemia_job_kinds.js",
+  "slices/bohemia_bosses.js",
+  "slices/bohemia_road_events.js",
+  "slices/bohemia_road_more.js",
+  "slices/bohemia_place_visits.js",
+  "slices/bohemia_phone_board.js",
+  "slices/bohemia_carcass.js",
+  "slices/bohemia_his_map.js",
+  "slices/bohemia_scavenge_game.js",
+  "slices/bohemia_arena_town.js",
+  "slices/bohemia_board_shelf.js",
+  "slices/bohemia_bar_news.js",
+  "slices/bohemia_busy_heard.js",
+  "slices/bohemia_injury_card.js",
+  "slices/bohemia_ui_three_items.js",
+  "slices/bohemia_ui_materials.js",
+  "slices/bohemia_aftermath.js",
+  "slices/bohemia_camp_map.js",
+  "slices/bohemia_the_battery.js",
+  "engine/bohemia_stall_prices.js",
+  "engine/bohemia_wages.js",
+  "engine/bohemia_job_pay.js",
+  "engine/bohemia_renown.js",
+  "engine/bohemia_purse.js",
+  "engine/bohemia_lotbuild.js",
+  "engine/bohemia_powerbuild.js",
+  "engine/bohemia_scavenge.js",
+  "engine/bohemia_followers.js",
+  "engine/bohemia_goodbros.js",
+  "engine/bohemia_camp.js",
+  "engine/bohemia_home.js",
+  "engine/bohemia_arena.js",
+  "engine/bohemia_barber.js",
+  "engine/bohemia_roster.js",
+  "engine/bohemia_origin_start.js",
+  "engine/bohemia_origin_ways.js"
+ ],
+ "where": [
+  {
+   "file": "records/target/bb/nightly_bill.json",
+   "paths": [
+    "per_man_per_night.value"
+   ],
+   "what": "food and water for one man for one night: the bill at nightfall (two bags of rice's worth: a can and a bottle)",
+   "band": "a_mans_night"
+  },
+  {
+   "file": "records/target/bb/origins.json",
+   "paths": [
+    "origins[*].door.wage_per_man_per_night",
+    "origins[*].personal.rule.does.wage"
+   ],
+   "what": "the fight pit's founding men are paid, each a night",
+   "band": "a_mans_night"
+  },
+  {
+   "file": "records/target/bb/stall_prices.json",
+   "paths": [
+    "goods.*.buy.value"
+   ],
+   "what": "the stall, one unit: a night of food and water, a dose of meds, six rounds, a roll of tape",
+   "band": "everyday"
+  },
+  {
+   "file": "records/target/bb/stall_prices.json",
+   "paths": [
+    "buy_floor.value",
+    "trade.sold_floor.value"
+   ],
+   "what": "nothing at a stall costs or pays under one AA",
+   "band": "everyday"
+  },
+  {
+   "file": "records/target/bb/stall_prices.json",
+   "paths": [
+    "trade.goods[*].worth"
+   ],
+   "what": "a trade good's price where it is made (twelve goods)",
+   "band": "trade_good"
+  },
+  {
+   "file": "records/target/bb/loot.json",
+   "paths": [
+    "counts.batteries.pocket",
+    "counts.batteries.machine_cell"
+   ],
+   "what": "what one beaten man had in his pocket (55 in 100) and the cell out of a machine",
+   "band": "everyday"
+  },
+  {
+   "file": "records/target/bb/job_into_place.json",
+   "paths": [
+    "worth.value.battery",
+    "worth.value.per_tape"
+   ],
+   "what": "what a build is worth when a job pays it into his place: its AA and an AA a roll of tape",
+   "band": "everyday",
+   "owner": "JOBS"
+  },
+  {
+   "file": "records/target/bb/home_base.json",
+   "paths": [
+    "bill.keep",
+    "bill.power_cost_by_mark.*"
+   ],
+   "what": "his place's keep a night and what the dark costs it",
+   "band": "everyday",
+   "owner": "HOME BASE"
+  },
+  {
+   "file": "records/target/bb/home_base.json",
+   "paths": [
+    "builds.solar.worked.batteries"
+   ],
+   "what": "what one worked solar panel at his place puts by a morning (GAMIFIED, 9/5 s4; who holds the sun is not decided)",
+   "band": "everyday",
+   "owner": "HOME BASE"
+  },
+  {
+   "file": "records/target/bb/home_base.json",
+   "paths": [
+    "places.yard.per_level",
+    "places.yard.min"
+   ],
+   "what": "his training yard: an AA a level of the man, never under two",
+   "band": "everyday",
+   "owner": "HOME BASE"
+  },
+  {
+   "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "paths": [
+    "events[*].opts[*].**.bats"
+   ],
+   "what": "what a stop on the road gives, takes or asks (81 stops)",
+   "band": "the_road"
+  },
+  {
+   "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+   "paths": [
+    "quests.*.stages.*.fx.bats",
+    "quests.*.stages.*.fx.**.bats",
+    "quests.*.stages.*.fx.pay_why.win"
+   ],
+   "what": "what a side quest's end pays (and the worked line beside it)",
+   "band": "the_road"
+  },
+  {
+   "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+   "paths": [
+    "quests.*.stages.*.fx.pay_why.quiet_rate"
+   ],
+   "what": "the quiet rate a side quest's pay was worked from",
+   "band": "job_part"
+  },
+  {
+   "file": "records/target/bb/real_places.json",
+   "paths": [
+    "places[*].visit.opts[*].**.bats"
+   ],
+   "what": "what a real place gives, takes or asks on a visit",
+   "band": "the_road"
+  },
+  {
+   "file": "records/target/BOHEMIA_JOB_KINDS.json",
+   "paths": [
+    "kinds.*.legs[*].talk.opts[*].fx.bats",
+    "offers.*.legs[*].talk.opts[*].fx.bats"
+   ],
+   "what": "a talk inside a job: paying a man's debt yourself, what a deal puts in your hand",
+   "band": "the_road",
+   "owner": "JOBS"
+  },
+  {
+   "file": "records/target/bb/job_pay.json",
+   "paths": [
+    "pays.*.pay"
+   ],
+   "what": "THE BOARD: what each of the 102 jobs pays before fame, shelves and standing",
+   "band": "job",
+   "owner": "JOBS"
+  },
+  {
+   "file": "records/target/BOHEMIA_BOARD_SHELF.json",
+   "paths": [
+    "offers[*].pay"
+   ],
+   "what": "the board's own copy of those pays (39 people)",
+   "band": "job",
+   "owner": "JOBS"
+  },
+  {
+   "file": "records/target/BOHEMIA_JOB_KINDS.json",
+   "paths": [
+    "board_people.rows[*].pay"
+   ],
+   "what": "the job kinds' own copy of those pays (63 people)",
+   "band": "job",
+   "owner": "JOBS"
+  },
+  {
+   "file": "records/target/bb/job_pay.json",
+   "paths": [
+    "per_fight.value",
+    "floor_per_skull.value",
+    "violence.value.quiet_floor_per_skull"
+   ],
+   "what": "what a job's pay is built from: a fight at one skull, the least a killing job pays a skull, the least a quiet one pays",
+   "band": "job_part",
+   "owner": "JOBS"
+  },
+  {
+   "file": "records/target/BOHEMIA_BOARD_SHELF.json",
+   "paths": [
+    "pay_per_skull"
+   ],
+   "what": "the old floor a skull, kept on the shelf",
+   "band": "job_part",
+   "owner": "JOBS"
+  },
+  {
+   "file": "records/target/bb/origins.json",
+   "paths": [
+    "origins[*].pay"
+   ],
+   "what": "an origin's bonus on every job (four origins: one AA)",
+   "band": "everyday"
+  },
+  {
+   "file": "records/target/bb/boss_act_one.json",
+   "paths": [
+    "bosses[*].verb.pay_batteries",
+    "bosses[*].ground.till",
+    "bosses[*].tooth.tax",
+    "bosses[*].verb.cost"
+   ],
+   "what": "the bosses: what a verb pays a time, THE POT's till, THE TOOTH's tax a town a day, a fade",
+   "band": "the_road",
+   "owner": "BOSSES"
+  },
+  {
+   "file": "records/target/bb/boss_act_one.json",
+   "paths": [
+    "bosses[*].verb.item.price"
+   ],
+   "what": "the two things a boss's verb makes (a pipe gun, a pressed plate)",
+   "band": "gear_piece",
+   "owner": "BOSSES"
+  },
+  {
+   "file": "records/target/bb/retinue.json",
+   "paths": [
+    "followers.value[*].price"
+   ],
+   "what": "the eighteen who join the camp, once each",
+   "band": "big",
+   "owner": "RETINUE"
+  },
+  {
+   "file": "records/target/bb/retinue.json",
+   "paths": [
+    "followers.value[*].nums.champPayLo",
+    "followers.value[*].nums.champPayHi",
+    "followers.value[*].nums.placePayLo",
+    "followers.value[*].nums.placePayHi"
+   ],
+   "what": "what two of them bring in: a champion's head, a place found",
+   "band": "prize",
+   "owner": "RETINUE"
+  },
+  {
+   "file": "records/target/bb/arena.json",
+   "paths": [
+    "opponents.value[*].purse",
+    "tournament.value.purse[*]"
+   ],
+   "what": "the pit: a night's purse and the tournament's three rounds",
+   "band": "prize",
+   "owner": "ARENA"
+  },
+  {
+   "file": "records/target/bb/arena.json",
+   "paths": [
+    "purse_per_extra.value"
+   ],
+   "what": "the pit: more a head when they send extra",
+   "band": "everyday",
+   "owner": "ARENA"
+  },
+  {
+   "file": "records/target/bb/origins.json",
+   "paths": [
+    "origins[*].batteries.*"
+   ],
+   "what": "THE START: what each of the fifteen origins has on full, thin and bare shelves",
+   "band": "purse"
+  },
+  {
+   "file": "records/target/bb/origins.json",
+   "paths": [
+    "origins[*].door.wagon_goods_batteries"
+   ],
+   "what": "the water truck's goods, counted in AA's (read by a tool, not the game)",
+   "band": "purse"
+  },
+  {
+   "file": "records/target/bb/renown.json",
+   "paths": [
+    "pay_mult.value.from",
+    "pay_mult.value.to",
+    "pay_mult.value.at"
+   ],
+   "what": "CLOUT: every job pays from x1 to x4.5, full at 4,000",
+   "unit": "ratio"
+  },
+  {
+   "file": "records/target/bb/job_pay.json",
+   "paths": [
+    "standing.value.*.mult"
+   ],
+   "what": "the client town's standing bends the pay: 0.85 to 1.15",
+   "unit": "ratio",
+   "owner": "JOBS"
+  },
+  {
+   "file": "records/target/bb/job_pay.json",
+   "paths": [
+    "crew_cost_per_map_hour.value",
+    "margin.value",
+    "violence.value.quiet_margin"
+   ],
+   "what": "what twelve men burn an hour, and how much over it an hour of a job pays",
+   "unit": "ratio",
+   "owner": "JOBS"
+  },
+  {
+   "file": "records/target/bb/job_into_place.json",
+   "paths": [
+    "share.value"
+   ],
+   "what": "the most of a job's pay that can be a build",
+   "unit": "ratio",
+   "owner": "JOBS"
+  },
+  {
+   "file": "records/target/bb/stall_prices.json",
+   "paths": [
+    "sell_share.value",
+    "sell_share_max.value",
+    "sell_floor_share.value",
+    "size_mult.value.*",
+    "trade.made_here.value.*",
+    "trade.not_made.value.*"
+   ],
+   "what": "the stall: what it pays back, what a place's size does, a good made here or not",
+   "unit": "ratio"
+  },
+  {
+   "file": "records/target/BOHEMIA_HALL_PRICE.json",
+   "paths": [
+    "easier"
+   ],
+   "what": "the hall: a hire costs four fifths of the wiki's formula",
+   "unit": "ratio"
+  },
+  {
+   "file": "records/target/bb/price_table.json",
+   "paths": [
+    "conversion.crownsPerBattery",
+    "conversion.floorBatteries"
+   ],
+   "what": "the catalog rule's copy the old price engine reads",
+   "unit": "ratio"
+  },
+  {
+   "file": "records/target/bb/origins.json",
+   "paths": [
+    "defaults.crowns_per_battery.value"
+   ],
+   "what": "the catalog rule's copy beside the origins",
+   "unit": "ratio"
+  },
+  {
+   "file": "records/target/BOHEMIA_JOB_KINDS.json",
+   "paths": [
+    "kinds.*.legs[*].talk.opts[*].pay",
+    "offers.*.legs[*].talk.opts[*].pay"
+   ],
+   "what": "a talk inside a job: the share of the pay a choice leaves (0 to 1.2)",
+   "unit": "ratio",
+   "owner": "JOBS"
+  },
+  {
+   "file": "records/target/bb/retinue.json",
+   "paths": [
+    "followers.value[*].nums.wage",
+    "followers.value[*].nums.hire",
+    "followers.value[*].nums.food"
+   ],
+   "what": "the paymaster, the recruiter and the cook: what each takes off the wages, a hire, the food",
+   "unit": "ratio",
+   "owner": "RETINUE"
+  },
+  {
+   "file": "records/target/bb/home_base.json",
+   "paths": [
+    "bill.water_cost_by_mark.*"
+   ],
+   "what": "his place: far water makes a man's night dearer (x1 to x1.5)",
+   "unit": "ratio",
+   "owner": "HOME BASE"
+  }
+ ],
+ "copies": [
+  {
+   "file": "engine/bohemia_lotbuild.js",
+   "find": "var COST = \\{ currency: 'electricity', amount: (\\d+) \\}",
+   "what": "a build on a lot costs one AA and a day (HOME BASE's; its tape is home_base.json)",
+   "is": 1
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "var COST = \\{ currency: 'electricity', amount: (\\d+) \\}",
+   "what": "a build on a lot costs one AA and a day (HOME BASE's; its tape is home_base.json)",
+   "is": 1
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "var AMOUNT = (\\d+);",
+   "what": "a power building puts by one AA a day (GAMIFIED 9/5; who holds the sun is not decided)",
+   "is": 1
+  },
+  {
+   "file": "engine/bohemia_powerbuild.js",
+   "find": "var AMOUNT = (\\d+);",
+   "what": "a power building puts by one AA a day",
+   "is": 1
+  },
+  {
+   "file": "engine/bohemia_barber.js",
+   "find": "var COST = \\{ currency: 'electricity', amount: (\\d+) \\}",
+   "what": "the barber's chair costs one AA",
+   "is": 1
+  },
+  {
+   "file": "engine/bohemia_purse.js",
+   "find": "COMPLETE: \\{ electricity: (\\d+)",
+   "what": "a day's work pays one AA (the walked city's WORK, hidden in the demo)",
+   "is": 1
+  },
+  {
+   "file": "engine/bohemia_purse.js",
+   "find": "out\\[id\\] = \\{ currency: 'electricity', amount: (\\d+)",
+   "what": "every good at the walked city's market costs one AA (hidden in the demo)",
+   "is": 1
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "COMPLETE: \\{ electricity: (\\d+)",
+   "what": "a day's work pays one AA (the walked city's WORK, hidden in the demo)",
+   "is": 1
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "out\\[id\\] = \\{ currency: 'electricity', amount: (\\d+)",
+   "what": "every good at the walked city's market costs one AA (hidden in the demo)",
+   "is": 1
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "var COST_AMOUNT = (\\d+)",
+   "what": "a builder plot costs one AA (the builder, hidden in the demo)",
+   "is": 1
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "'electricity',\\s*(\\d+),\\s*'rent on '",
+   "what": "RENT: one AA for a billed block of a faction's ground crossed that day",
+   "is": 1
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "'electricity', (\\d+), 'build:'",
+   "what": "his own place (yard, forge, lookout) costs one AA and its tape",
+   "is": 1
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "'electricity',(\\d+),'yard:swap'",
+   "what": "swapping a veteran's mastery at a fortress yard costs one AA",
+   "is": 1
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "'electricity', (\\d+), 'scavenge:battery'",
+   "what": "a battery found scavenging is one AA",
+   "is": 1,
+   "n": 2
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "short:'(\\d+) battery'\\}",
+   "what": "the barber's door says its price",
+   "is": 1
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "'(\\d+) battery, 1 day'",
+   "what": "the BUILD door says its price",
+   "is": 1,
+   "n": 2
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "'(\\d+) battery\\s+' \\+ buildDoes",
+   "what": "a build row says its price",
+   "is": 1
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "'(\\d+) BATTERY' \\+ \\(",
+   "what": "a build row at his place says its price",
+   "is": 1,
+   "n": 4
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "act\\('Sit in the chair', '(\\d+) battery'",
+   "what": "the barber's button says its price",
+   "is": 1
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "mastery', '(\\d+) battery'",
+   "what": "the yard's swap button says its price",
+   "is": 1
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "id=\"bat\">0 BATTERIES<",
+   "what": "the town bar's empty text before the purse lands (not a price)"
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "function roundPrice\\(\\)\\{ return Math\\.max\\(1, S\\.crewSize \\|\\| 3\\); \\}",
+   "what": "a round at the bar is one AA a head: the crew's size (not typed as a number)"
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "function battWord\\(n\\)\\{ return n===1\\?'1 battery'",
+   "what": "the word for one (not a price)"
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "var BILL = \\{ per_man: (\\d+)",
+   "what": "the map's copy of a man's night until nightly_bill.json lands",
+   "row": "records/target/bb/nightly_bill.json#per_man_per_night.value"
+  },
+  {
+   "file": "slices/BOHEMIA_ROSTER_SCREEN.html",
+   "find": "var NIGHT = \\{per:(\\d+)",
+   "what": "the crew screen's copy of a man's night",
+   "row": "records/target/bb/nightly_bill.json#per_man_per_night.value"
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "good:'food'[^}]*price:(\\d+)\\}",
+   "what": "the stall's copy of a night of food and water until stall_prices.json lands",
+   "row": "records/target/bb/stall_prices.json#goods.food.buy.value"
+  },
+  {
+   "file": "engine/bohemia_stall_prices.js",
+   "find": "buy_floor, (\\d+)\\)",
+   "what": "the stall engine's copy of the floor",
+   "row": "records/target/bb/stall_prices.json#buy_floor.value",
+   "n": 2
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "function priceOf\\(v\\)\\{ return Math\\.max\\((\\d+), Math\\.round\\(\\(v\\|\\|0\\)/10\\)\\)",
+   "what": "the shops: never under one",
+   "rule": "catalogs.floor"
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "function priceOf\\(v\\)\\{ return Math\\.max\\(1, Math\\.round\\(\\(v\\|\\|0\\)/(\\d+)\\)\\)",
+   "what": "the shops: ten crowns to one",
+   "rule": "catalogs.crowns_per_battery"
+  },
+  {
+   "file": "engine/bohemia_roster.js",
+   "find": "function priceOf\\(v\\) \\{ return Math\\.max\\(1, Math\\.round\\(\\(v \\|\\| 0\\) / (\\d+)\\)\\)",
+   "what": "the roster: ten crowns to one",
+   "rule": "catalogs.crowns_per_battery"
+  },
+  {
+   "file": "engine/bohemia_roster.js",
+   "find": "daily_wage \\|\\| 10\\) / (\\d+)",
+   "what": "the roster's wage: ten crowns to one",
+   "rule": "catalogs.crowns_per_battery"
+  },
+  {
+   "file": "engine/bohemia_arena.js",
+   "find": "value \\|\\| 0\\) / (\\d+)",
+   "what": "the pit's prizes: ten crowns to one",
+   "rule": "catalogs.crowns_per_battery"
+  },
+  {
+   "file": "engine/bohemia_wages.js",
+   "find": "w / (\\d+) \\* Math\\.pow",
+   "what": "a wage: ten crowns to one",
+   "rule": "catalogs.crowns_per_battery"
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "priceCrowns / (\\d+)",
+   "what": "the post's fallback hire price: ten crowns to one",
+   "rule": "catalogs.crowns_per_battery"
+  },
+  {
+   "file": "slices/bohemia_road_events.js",
+   "find": "value \\|\\| 30\\) / (\\d+)\\)",
+   "what": "a weapon found on the road: ten crowns to one",
+   "rule": "catalogs.crowns_per_battery"
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "Math\\.round\\(crowns / (\\d+)\\)",
+   "what": "the clinic: ten crowns to one",
+   "rule": "catalogs.crowns_per_battery"
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "var crowns = (\\d+) \\* 1 \\* traitMult",
+   "what": "the clinic's copy of the wiki's wound treatment base",
+   "leaf": "records/target/bb/injuries.json#rules.temporary_healing.base_wound_treatment_price"
+  },
+  {
+   "file": "slices/BOHEMIA_ROSTER_SCREEN.html",
+   "find": "Math\\.round\\((\\d+) \\* m\\.hurt\\.days",
+   "what": "the crew screen's copy of the same base",
+   "leaf": "records/target/bb/injuries.json#rules.temporary_healing.base_wound_treatment_price"
+  },
+  {
+   "file": "slices/BOHEMIA_ROSTER_SCREEN.html",
+   "find": "\\(1 \\+ \\(m\\.level - 1\\) \\* 0\\.2\\) / (\\d+)\\)",
+   "what": "the crew screen's clinic price: ten crowns to one",
+   "rule": "catalogs.crowns_per_battery"
+  },
+  {
+   "file": "engine/bohemia_job_pay.js",
+   "find": "v\\('per_fight', (\\d+)\\)",
+   "what": "the job engine's copy of a fight's pay",
+   "row": "records/target/bb/job_pay.json#per_fight.value"
+  },
+  {
+   "file": "engine/bohemia_job_pay.js",
+   "find": "v\\('floor_per_skull', (\\d+)\\)",
+   "what": "the job engine's copy of the floor a skull",
+   "row": "records/target/bb/job_pay.json#floor_per_skull.value"
+  },
+  {
+   "file": "engine/bohemia_job_pay.js",
+   "find": "VI\\.quiet_floor_per_skull : (\\d+)\\)",
+   "what": "the job engine's copy of the quiet floor",
+   "row": "records/target/bb/job_pay.json#violence.value.quiet_floor_per_skull"
+  },
+  {
+   "file": "engine/bohemia_job_pay.js",
+   "find": "v\\('crew_cost_per_map_hour', ([\\d.]+)\\)",
+   "what": "the job engine's copy of what twelve men burn an hour",
+   "row": "records/target/bb/job_pay.json#crew_cost_per_map_hour.value"
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "id:'ct-escort-water'[^}]*?pay:(\\d+)",
+   "what": "the board's four fallback jobs (shown only if the shelf has not loaded): the floor a skull",
+   "row": "records/target/bb/job_pay.json#floor_per_skull.value",
+   "times": 1
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "id:'ct-road-crew'[^}]*?pay:(\\d+)",
+   "what": "the board's four fallback jobs (shown only if the shelf has not loaded): the floor a skull",
+   "row": "records/target/bb/job_pay.json#floor_per_skull.value",
+   "times": 2
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "id:'ct-find-the-kid'[^}]*?pay:(\\d+)",
+   "what": "the board's four fallback jobs (shown only if the shelf has not loaded): the floor a skull",
+   "row": "records/target/bb/job_pay.json#floor_per_skull.value",
+   "times": 2
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "id:'ct-dogs'[^}]*?pay:(\\d+)",
+   "what": "the board's four fallback jobs (shown only if the shelf has not loaded): the floor a skull",
+   "row": "records/target/bb/job_pay.json#floor_per_skull.value",
+   "times": 3
+  },
+  {
+   "file": "engine/bohemia_renown.js",
+   "find": "pay: \\{ from: ([\\d.]+), to: [\\d.]+, at: \\d+ \\}",
+   "what": "CLOUT's copy until renown.json lands",
+   "row": "records/target/bb/renown.json#pay_mult.value.from"
+  },
+  {
+   "file": "engine/bohemia_renown.js",
+   "find": "pay: \\{ from: [\\d.]+, to: ([\\d.]+), at: \\d+ \\}",
+   "what": "CLOUT's copy until renown.json lands",
+   "row": "records/target/bb/renown.json#pay_mult.value.to"
+  },
+  {
+   "file": "engine/bohemia_renown.js",
+   "find": "pay: \\{ from: [\\d.]+, to: [\\d.]+, at: (\\d+) \\}",
+   "what": "CLOUT's copy until renown.json lands",
+   "row": "records/target/bb/renown.json#pay_mult.value.at"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "id:'full', name:'[A-Z ]+', sub:'[^']*',\\s*mult:([\\d.]+)",
+   "what": "THE SHELVES: what the start screen's pick multiplies every job by",
+   "rule": "ratios.shelves.full"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "id:'thin', name:'[A-Z ]+', sub:'[^']*',\\s*mult:([\\d.]+)",
+   "what": "THE SHELVES: what the start screen's pick multiplies every job by",
+   "rule": "ratios.shelves.thin"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "id:'bare', name:'[A-Z ]+', sub:'[^']*',\\s*mult:([\\d.]+)",
+   "what": "THE SHELVES: what the start screen's pick multiplies every job by",
+   "rule": "ratios.shelves.bare"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'rebuild',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:(\\d+),",
+   "what": "the door's copy of the start purse until origins.json lands: the THIN purse (the pick multiplies it)",
+   "row": "records/target/bb/origins.json#origins[id=rebuild].batteries.thin"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'newcrew',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:(\\d+),",
+   "what": "the door's copy of the start purse until origins.json lands: the THIN purse (the pick multiplies it)",
+   "row": "records/target/bb/origins.json#origins[id=newcrew].batteries.thin"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'south',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:(\\d+),",
+   "what": "the door's copy of the start purse until origins.json lands: the THIN purse (the pick multiplies it)",
+   "row": "records/target/bb/origins.json#origins[id=south].batteries.thin"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'truck',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:(\\d+),",
+   "what": "the door's copy of the start purse until origins.json lands: the THIN purse (the pick multiplies it)",
+   "row": "records/target/bb/origins.json#origins[id=truck].batteries.thin"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'watch',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:(\\d+),",
+   "what": "the door's copy of the start purse until origins.json lands: the THIN purse (the pick multiplies it)",
+   "row": "records/target/bb/origins.json#origins[id=watch].batteries.thin"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'scav',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:(\\d+),",
+   "what": "the door's copy of the start purse until origins.json lands: the THIN purse (the pick multiplies it)",
+   "row": "records/target/bb/origins.json#origins[id=scav].batteries.thin"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'promise',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:(\\d+),",
+   "what": "the door's copy of the start purse until origins.json lands: the THIN purse (the pick multiplies it)",
+   "row": "records/target/bb/origins.json#origins[id=promise].batteries.thin"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'desert',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:(\\d+),",
+   "what": "the door's copy of the start purse until origins.json lands: the THIN purse (the pick multiplies it)",
+   "row": "records/target/bb/origins.json#origins[id=desert].batteries.thin"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'raid',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:(\\d+),",
+   "what": "the door's copy of the start purse until origins.json lands: the THIN purse (the pick multiplies it)",
+   "row": "records/target/bb/origins.json#origins[id=raid].batteries.thin"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'lab',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:(\\d+),",
+   "what": "the door's copy of the start purse until origins.json lands: the THIN purse (the pick multiplies it)",
+   "row": "records/target/bb/origins.json#origins[id=lab].batteries.thin"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'faith',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:(\\d+),",
+   "what": "the door's copy of the start purse until origins.json lands: the THIN purse (the pick multiplies it)",
+   "row": "records/target/bb/origins.json#origins[id=faith].batteries.thin"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'debt',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:(\\d+),",
+   "what": "the door's copy of the start purse until origins.json lands: the THIN purse (the pick multiplies it)",
+   "row": "records/target/bb/origins.json#origins[id=debt].batteries.thin"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'hunt',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:(\\d+),",
+   "what": "the door's copy of the start purse until origins.json lands: the THIN purse (the pick multiplies it)",
+   "row": "records/target/bb/origins.json#origins[id=hunt].batteries.thin"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'pit',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:(\\d+),",
+   "what": "the door's copy of the start purse until origins.json lands: the THIN purse (the pick multiplies it)",
+   "row": "records/target/bb/origins.json#origins[id=pit].batteries.thin"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'wolf',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:(\\d+),",
+   "what": "the door's copy of the start purse until origins.json lands: the THIN purse (the pick multiplies it)",
+   "row": "records/target/bb/origins.json#origins[id=wolf].batteries.thin"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "id: 'handcart', word: '[^']*', slots: \\d+, price: (\\d+)",
+   "what": "THE CART: its four steps, bought once each (five tool packs, ten, a car battery and five, two car batteries)",
+   "is": 100
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "id: 'pickup', word: '[^']*', slots: \\d+, price: (\\d+)",
+   "what": "THE CART: its four steps, bought once each (five tool packs, ten, a car battery and five, two car batteries)",
+   "is": 200
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "id: 'boxtruck', word: '[^']*', slots: \\d+, price: (\\d+)",
+   "what": "THE CART: its four steps, bought once each (five tool packs, ten, a car battery and five, two car batteries)",
+   "is": 350
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "id: 'trailer', word: '[^']*', slots: \\d+, price: (\\d+)",
+   "what": "THE CART: its four steps, bought once each (five tool packs, ten, a car battery and five, two car batteries)",
+   "is": 500
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"cook\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=cook].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"scout\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=scout].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"lookout\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=lookout].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"paymaster\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=paymaster].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"blacksmith\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=blacksmith].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"surgeon\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=surgeon].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"agent\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=agent].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"alchemist\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=alchemist].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"bounty_hunter\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=bounty_hunter].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"brigand\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=brigand].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"cartographer\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=cartographer].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"drill_sergeant\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=drill_sergeant].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"minstrel\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=minstrel].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"negotiator\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=negotiator].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"quartermaster\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=quartermaster].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"recruiter\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=recruiter].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"scavenger\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=scavenger].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "\"id\":\"trader\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "what": "the camp engine's copy of a follower's price until retinue.json lands",
+   "row": "records/target/bb/retinue.json#followers.value[id=trader].price"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "he pays (\\d+) to \\d+ batteries a head",
+   "what": "the camp engine's copy of the bounty hunter's line",
+   "row": "records/target/bb/retinue.json#followers.value[id=bounty_hunter].nums.champPayLo"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "he pays \\d+ to (\\d+) batteries a head",
+   "what": "the camp engine's copy of the bounty hunter's line",
+   "row": "records/target/bb/retinue.json#followers.value[id=bounty_hunter].nums.champPayHi"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "He pays you (\\d+) to \\d+ batteries",
+   "what": "the camp engine's copy of the cartographer's line",
+   "row": "records/target/bb/retinue.json#followers.value[id=cartographer].nums.placePayLo"
+  },
+  {
+   "file": "engine/bohemia_camp.js",
+   "find": "He pays you \\d+ to (\\d+) batteries",
+   "what": "the camp engine's copy of the cartographer's line",
+   "row": "records/target/bb/retinue.json#followers.value[id=cartographer].nums.placePayHi"
+  },
+  {
+   "file": "engine/bohemia_followers.js",
+   "find": "\\{ id: 'cook', bb: '[^']*', price: (\\d+)",
+   "what": "the old camp staff's copy of a follower's price (the walked city; the camp reads retinue.json)",
+   "row": "records/target/bb/retinue.json#followers.value[id=cook].price"
+  },
+  {
+   "file": "engine/bohemia_followers.js",
+   "find": "A cook, for (\\d+) batteries, once",
+   "what": "the old camp staff's line names the same price",
+   "row": "records/target/bb/retinue.json#followers.value[id=cook].price"
+  },
+  {
+   "file": "engine/bohemia_followers.js",
+   "find": "\\{ id: 'scout', bb: '[^']*', price: (\\d+)",
+   "what": "the old camp staff's copy of a follower's price (the walked city; the camp reads retinue.json)",
+   "row": "records/target/bb/retinue.json#followers.value[id=scout].price"
+  },
+  {
+   "file": "engine/bohemia_followers.js",
+   "find": "A scout, for (\\d+) batteries, once",
+   "what": "the old camp staff's line names the same price",
+   "row": "records/target/bb/retinue.json#followers.value[id=scout].price"
+  },
+  {
+   "file": "engine/bohemia_followers.js",
+   "find": "\\{ id: 'lookout', bb: '[^']*', price: (\\d+)",
+   "what": "the old camp staff's copy of a follower's price (the walked city; the camp reads retinue.json)",
+   "row": "records/target/bb/retinue.json#followers.value[id=lookout].price"
+  },
+  {
+   "file": "engine/bohemia_followers.js",
+   "find": "A lookout, for (\\d+) batteries, once",
+   "what": "the old camp staff's line names the same price",
+   "row": "records/target/bb/retinue.json#followers.value[id=lookout].price"
+  },
+  {
+   "file": "engine/bohemia_followers.js",
+   "find": "\\{ id: 'paymaster', bb: '[^']*', price: (\\d+)",
+   "what": "the old camp staff's copy of a follower's price (the walked city; the camp reads retinue.json)",
+   "row": "records/target/bb/retinue.json#followers.value[id=paymaster].price"
+  },
+  {
+   "file": "engine/bohemia_followers.js",
+   "find": "A paymaster, for (\\d+) batteries, once",
+   "what": "the old camp staff's line names the same price",
+   "row": "records/target/bb/retinue.json#followers.value[id=paymaster].price"
+  },
+  {
+   "file": "engine/bohemia_followers.js",
+   "find": "\\{ id: 'blacksmith', bb: '[^']*', price: (\\d+)",
+   "what": "the old camp staff's copy of a follower's price (the walked city; the camp reads retinue.json)",
+   "row": "records/target/bb/retinue.json#followers.value[id=blacksmith].price"
+  },
+  {
+   "file": "engine/bohemia_followers.js",
+   "find": "A blacksmith, for (\\d+) batteries, once",
+   "what": "the old camp staff's line names the same price",
+   "row": "records/target/bb/retinue.json#followers.value[id=blacksmith].price"
+  },
+  {
+   "file": "engine/bohemia_followers.js",
+   "find": "\\{ id: 'surgeon', bb: '[^']*', price: (\\d+)",
+   "what": "the old camp staff's copy of a follower's price (the walked city; the camp reads retinue.json)",
+   "row": "records/target/bb/retinue.json#followers.value[id=surgeon].price"
+  },
+  {
+   "file": "engine/bohemia_followers.js",
+   "find": "A surgeon, for (\\d+) batteries, once",
+   "what": "the old camp staff's line names the same price",
+   "row": "records/target/bb/retinue.json#followers.value[id=surgeon].price"
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "\\{ id: 'cook', bb: '[^']*', price: (\\d+)",
+   "what": "the old camp staff's copy of a follower's price (the walked city; the camp reads retinue.json)",
+   "row": "records/target/bb/retinue.json#followers.value[id=cook].price"
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "A cook, for (\\d+) batteries, once",
+   "what": "the old camp staff's line names the same price",
+   "row": "records/target/bb/retinue.json#followers.value[id=cook].price"
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "\\{ id: 'scout', bb: '[^']*', price: (\\d+)",
+   "what": "the old camp staff's copy of a follower's price (the walked city; the camp reads retinue.json)",
+   "row": "records/target/bb/retinue.json#followers.value[id=scout].price"
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "A scout, for (\\d+) batteries, once",
+   "what": "the old camp staff's line names the same price",
+   "row": "records/target/bb/retinue.json#followers.value[id=scout].price"
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "\\{ id: 'lookout', bb: '[^']*', price: (\\d+)",
+   "what": "the old camp staff's copy of a follower's price (the walked city; the camp reads retinue.json)",
+   "row": "records/target/bb/retinue.json#followers.value[id=lookout].price"
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "A lookout, for (\\d+) batteries, once",
+   "what": "the old camp staff's line names the same price",
+   "row": "records/target/bb/retinue.json#followers.value[id=lookout].price"
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "\\{ id: 'paymaster', bb: '[^']*', price: (\\d+)",
+   "what": "the old camp staff's copy of a follower's price (the walked city; the camp reads retinue.json)",
+   "row": "records/target/bb/retinue.json#followers.value[id=paymaster].price"
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "A paymaster, for (\\d+) batteries, once",
+   "what": "the old camp staff's line names the same price",
+   "row": "records/target/bb/retinue.json#followers.value[id=paymaster].price"
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "\\{ id: 'blacksmith', bb: '[^']*', price: (\\d+)",
+   "what": "the old camp staff's copy of a follower's price (the walked city; the camp reads retinue.json)",
+   "row": "records/target/bb/retinue.json#followers.value[id=blacksmith].price"
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "A blacksmith, for (\\d+) batteries, once",
+   "what": "the old camp staff's line names the same price",
+   "row": "records/target/bb/retinue.json#followers.value[id=blacksmith].price"
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "\\{ id: 'surgeon', bb: '[^']*', price: (\\d+)",
+   "what": "the old camp staff's copy of a follower's price (the walked city; the camp reads retinue.json)",
+   "row": "records/target/bb/retinue.json#followers.value[id=surgeon].price"
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "A surgeon, for (\\d+) batteries, once",
+   "what": "the old camp staff's line names the same price",
+   "row": "records/target/bb/retinue.json#followers.value[id=surgeon].price"
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "(\\d+) \\* Math\\.pow\\(Math\\.max\\(0, \\(r\\.level \\|\\| 1\\) - 1\\), 1\\.5\\)",
+   "what": "the hall: the wiki's level cost, 500 crowns x (level - 1) ^ 1.5",
+   "is": 500,
+   "n": 3
+  },
+  {
+   "file": "engine/bohemia_home.js",
+   "find": "Y\\.min \\| 0 \\|\\| (\\d+),",
+   "what": "the home engine's copy of the yard's least",
+   "row": "records/target/bb/home_base.json#places.yard.min"
+  },
+  {
+   "file": "engine/bohemia_home.js",
+   "find": "\\(Y\\.per_level \\|\\| (\\d+)\\)",
+   "what": "the home engine's copy of the yard's AA a level",
+   "row": "records/target/bb/home_base.json#places.yard.per_level"
+  },
+  {
+   "file": "slices/bohemia_bosses.js",
+   "find": "cost = V\\.cost \\| 0 \\|\\| (\\d+)",
+   "what": "the fade's copy of its price until boss_act_one.json lands",
+   "row": "records/target/bb/boss_act_one.json#bosses[12].verb.cost"
+  }
+ ],
+ "prose": [
+  {
+   "file": "records/target/bb/boss_act_one.json",
+   "path": "bosses[1].verb.tip",
+   "nums": [
+    "records/target/bb/boss_act_one.json#bosses[1].verb.pay_batteries"
+   ]
+  },
+  {
+   "file": "records/target/bb/boss_act_one.json",
+   "path": "bosses[1].verb.hand.line",
+   "nums": [
+    "records/target/bb/boss_act_one.json#bosses[1].verb.pay_batteries"
+   ]
+  },
+  {
+   "file": "records/target/bb/boss_act_one.json",
+   "path": "bosses[1].after.says",
+   "nums": [
+    "records/target/bb/boss_act_one.json#bosses[1].verb.pay_batteries"
+   ]
+  },
+  {
+   "file": "records/target/bb/boss_act_one.json",
+   "path": "bosses[5].verb.tip",
+   "nums": [
+    "records/target/bb/boss_act_one.json#bosses[5].verb.pay_batteries"
+   ]
+  },
+  {
+   "file": "records/target/bb/boss_act_one.json",
+   "path": "bosses[5].verb.hand.line",
+   "nums": [
+    "records/target/bb/boss_act_one.json#bosses[5].verb.pay_batteries"
+   ]
+  },
+  {
+   "file": "records/target/bb/boss_act_one.json",
+   "path": "bosses[5].after.says",
+   "nums": [
+    "records/target/bb/boss_act_one.json#bosses[5].verb.pay_batteries"
+   ]
+  },
+  {
+   "file": "records/target/bb/boss_act_one.json",
+   "path": "bosses[6].verb.tip",
+   "nums": [
+    "records/target/bb/boss_act_one.json#bosses[6].verb.pay_batteries"
+   ]
+  },
+  {
+   "file": "records/target/bb/boss_act_one.json",
+   "path": "bosses[6].verb.hand.line",
+   "nums": [
+    "records/target/bb/boss_act_one.json#bosses[6].verb.pay_batteries"
+   ]
+  },
+  {
+   "file": "records/target/bb/boss_act_one.json",
+   "path": "bosses[6].after.says",
+   "nums": [
+    "records/target/bb/boss_act_one.json#bosses[6].verb.pay_batteries"
+   ]
+  },
+  {
+   "file": "records/target/bb/boss_act_one.json",
+   "path": "bosses[12].verb.hand.line",
+   "nums": [
+    "records/target/bb/boss_act_one.json#bosses[12].verb.cost",
+    25
+   ]
+  },
+  {
+   "file": "records/target/bb/origins.json",
+   "path": "origins[id=pit].personal.rule.says",
+   "nums": [
+    "records/target/bb/origins.json#origins[id=pit].door.wage_per_man_per_night",
+    12
+   ]
+  },
+  {
+   "file": "records/target/bb/retinue.json",
+   "path": "followers.value[id=bounty_hunter].does",
+   "nums": [
+    "records/target/bb/retinue.json#followers.value[id=bounty_hunter].nums.champPayLo",
+    "records/target/bb/retinue.json#followers.value[id=bounty_hunter].nums.champPayHi"
+   ]
+  },
+  {
+   "file": "records/target/bb/retinue.json",
+   "path": "followers.value[id=cartographer].does",
+   "nums": [
+    "records/target/bb/retinue.json#followers.value[id=cartographer].nums.placePayLo",
+    "records/target/bb/retinue.json#followers.value[id=cartographer].nums.placePayHi"
+   ]
+  },
+  {
+   "file": "records/target/BOHEMIA_JOB_KINDS.json",
+   "path": "kinds.collect.legs[0].talk.opts[2].t",
+   "nums": [
+    "records/target/BOHEMIA_JOB_KINDS.json#kinds.collect.legs[0].talk.opts[2].fx.bats"
+   ]
+  },
+  {
+   "file": "records/target/BOHEMIA_JOB_KINDS.json",
+   "path": "offers.jb-collect-tito.legs[0].talk.opts[2].t",
+   "nums": [
+    "records/target/BOHEMIA_JOB_KINDS.json#offers.jb-collect-tito.legs[0].talk.opts[2].fx.bats"
+   ]
+  },
+  {
+   "file": "records/target/BOHEMIA_JOB_KINDS.json",
+   "path": "offers.jb-collect-rent.legs[0].talk.opts[2].t",
+   "nums": [
+    "records/target/BOHEMIA_JOB_KINDS.json#offers.jb-collect-rent.legs[0].talk.opts[2].fx.bats"
+   ]
+  },
+  {
+   "file": "records/target/BOHEMIA_JOB_KINDS.json",
+   "path": "offers.jb-collect-chips.legs[0].talk.opts[2].t",
+   "nums": [
+    "records/target/BOHEMIA_JOB_KINDS.json#offers.jb-collect-chips.legs[0].talk.opts[2].fx.bats"
+   ]
+  }
+ ],
+ "prose_not_shown": [
+  {
+   "file": "*",
+   "path": "**.source"
+  },
+  {
+   "file": "*",
+   "path": "**.why"
+  },
+  {
+   "file": "*",
+   "path": "**.worked"
+  },
+  {
+   "file": "*",
+   "path": "**.note"
+  },
+  {
+   "file": "*",
+   "path": "**.about"
+  },
+  {
+   "file": "*",
+   "path": "**._about"
+  },
+  {
+   "file": "*",
+   "path": "_about"
+  },
+  {
+   "file": "*",
+   "path": "**.wage_about"
+  },
+  {
+   "file": "*",
+   "path": "fills.*"
+  },
+  {
+   "file": "*",
+   "path": "**.quote"
+  },
+  {
+   "file": "*",
+   "path": "**._source"
+  },
+  {
+   "file": "*",
+   "path": "**._corrected"
+  }
+ ],
+ "sweep": {
+  "keys": "^(bats|batteries|pay|price|purse|wage|tax|till|worth|bounty|bribe|toll|fee|prize|cost)$|batter|_bats$|^pay_|_pay$|_price$|^price_|crowns",
+  "not_batteries": [
+   {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "path": "kinds.*.blocks[*]",
+    "why": "blocks of road, the bounty kind"
+   },
+   {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "path": "kinds.*.legs[*].blocks[*]",
+    "why": "blocks of road, the bounty kind"
+   },
+   {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "path": "offers.*.legs[*].blocks[*]",
+    "why": "blocks of road"
+   },
+   {
+    "file": "records/target/bb/price_table.json",
+    "path": "dailyRates.**",
+    "why": "the wiki's food stacks and tools worked at ten to one for the old price engine (engine/bohemia_pricetable.js, loaded by no page); the stall's live prices are stall_prices.json"
+   },
+   {
+    "file": "records/target/bb/price_table.json",
+    "path": "contractPay.**",
+    "why": "the wiki's one worked contract at ten to one, for the same unloaded engine; a job's live pay is job_pay.json"
+   },
+   {
+    "file": "records/target/bb/party_math.json",
+    "path": "closeness_bands.**",
+    "why": "TUNING's closeness bands: a rung on a ladder of gear, not a price shown"
+   },
+   {
+    "file": "records/target/bb/ours.json",
+    "path": "road_network.**",
+    "why": "what a board's road costs to lay, in the layer's own points"
+   },
+   {
+    "file": "records/target/bb/ours.json",
+    "path": "range_bands_step_in.**",
+    "why": "what a step closer is worth to the auto brain"
+   },
+   {
+    "file": "records/target/bb/ours.json",
+    "path": "chase_calc.**",
+    "why": "what a chase is worth to the auto brain"
+   },
+   {
+    "file": "records/target/bb/loot.json",
+    "path": "counts.batteries.pocket_chance_pct",
+    "why": "a chance in a hundred"
+   },
+   {
+    "file": "*",
+    "path": "**.kinds.battery",
+    "why": "a district kind called the battery yard (grid storage), not money"
+   },
+   {
+    "file": "*",
+    "path": "districts.battery.**",
+    "why": "the same district kind"
+   },
+   {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "path": "quests.*.stages.*.fx.pay_why.hours",
+    "why": "hours of his clock"
+   },
+   {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "path": "quests.*.stages.*.fx.pay_why.food",
+    "why": "nights of food"
+   },
+   {
+    "file": "records/target/bb/home_base.json",
+    "path": "**.cost.tape",
+    "why": "rolls of tape (HOME BASE's builds cost tape, and one AA each: the lot build's typed copy below)"
+   }
+  ]
+ },
+ "rows": {
+  "records/target/bb/nightly_bill.json": {
+   "per_man_per_night.value": 2
+  },
+  "records/target/bb/origins.json": {
+   "origins[id=pit].door.wage_per_man_per_night": 6,
+   "origins[id=pit].personal.rule.does.wage": 6,
+   "origins[id=rebuild].pay": 0,
+   "origins[id=newcrew].pay": 0,
+   "origins[id=south].pay": 0,
+   "origins[id=truck].pay": 1,
+   "origins[id=watch].pay": 0,
+   "origins[id=scav].pay": 0,
+   "origins[id=promise].pay": 0,
+   "origins[id=desert].pay": 0,
+   "origins[id=raid].pay": 1,
+   "origins[id=lab].pay": 0,
+   "origins[id=faith].pay": 0,
+   "origins[id=debt].pay": 1,
+   "origins[id=hunt].pay": 0,
+   "origins[id=pit].pay": 1,
+   "origins[id=wolf].pay": 0,
+   "origins[id=rebuild].batteries.full": 250,
+   "origins[id=rebuild].batteries.thin": 200,
+   "origins[id=rebuild].batteries.bare": 150,
+   "origins[id=newcrew].batteries.full": 290,
+   "origins[id=newcrew].batteries.thin": 240,
+   "origins[id=newcrew].batteries.bare": 190,
+   "origins[id=south].batteries.full": 290,
+   "origins[id=south].batteries.thin": 240,
+   "origins[id=south].batteries.bare": 190,
+   "origins[id=truck].batteries.full": 165,
+   "origins[id=truck].batteries.thin": 140,
+   "origins[id=truck].batteries.bare": 115,
+   "origins[id=watch].batteries.full": 125,
+   "origins[id=watch].batteries.thin": 100,
+   "origins[id=watch].batteries.bare": 75,
+   "origins[id=scav].batteries.full": 250,
+   "origins[id=scav].batteries.thin": 200,
+   "origins[id=scav].batteries.bare": 150,
+   "origins[id=promise].batteries.full": 150,
+   "origins[id=promise].batteries.thin": 100,
+   "origins[id=promise].batteries.bare": 50,
+   "origins[id=desert].batteries.full": 125,
+   "origins[id=desert].batteries.thin": 100,
+   "origins[id=desert].batteries.bare": 75,
+   "origins[id=raid].batteries.full": 125,
+   "origins[id=raid].batteries.thin": 100,
+   "origins[id=raid].batteries.bare": 75,
+   "origins[id=lab].batteries.full": 320,
+   "origins[id=lab].batteries.thin": 270,
+   "origins[id=lab].batteries.bare": 220,
+   "origins[id=faith].batteries.full": 290,
+   "origins[id=faith].batteries.thin": 240,
+   "origins[id=faith].batteries.bare": 190,
+   "origins[id=debt].batteries.full": 250,
+   "origins[id=debt].batteries.thin": 200,
+   "origins[id=debt].batteries.bare": 150,
+   "origins[id=hunt].batteries.full": 188,
+   "origins[id=hunt].batteries.thin": 150,
+   "origins[id=hunt].batteries.bare": 113,
+   "origins[id=pit].batteries.full": 95,
+   "origins[id=pit].batteries.thin": 70,
+   "origins[id=pit].batteries.bare": 45,
+   "origins[id=wolf].batteries.full": 125,
+   "origins[id=wolf].batteries.thin": 100,
+   "origins[id=wolf].batteries.bare": 75,
+   "origins[id=truck].door.wagon_goods_batteries": 134,
+   "defaults.crowns_per_battery.value": 10
+  },
+  "records/target/bb/stall_prices.json": {
+   "goods.food.buy.value": 2,
+   "goods.meds.buy.value": 1,
+   "goods.rounds.buy.value": 1,
+   "goods.tape.buy.value": 1,
+   "buy_floor.value": 1,
+   "trade.sold_floor.value": 1,
+   "trade.goods[id=charcoal].worth": 10,
+   "trade.goods[id=casino_linen].worth": 14,
+   "trade.goods[id=mountain_timber].worth": 18,
+   "trade.goods[id=copper_wire].worth": 22,
+   "trade.goods[id=turquoise].worth": 26,
+   "trade.goods[id=hides].worth": 30,
+   "trade.goods[id=coffee].worth": 32,
+   "trade.goods[id=salt].worth": 34,
+   "trade.goods[id=candles].worth": 38,
+   "trade.goods[id=pharmacy_stock].worth": 40,
+   "trade.goods[id=runway_cloth].worth": 46,
+   "trade.goods[id=pawn_gold].worth": 52,
+   "sell_share.value": 0.5,
+   "sell_share_max.value": 0.85,
+   "size_mult.value.camp": 0.95,
+   "size_mult.value.town": 1.02,
+   "size_mult.value.fortress": 1.1,
+   "sell_floor_share.value": 0.15,
+   "trade.made_here.value.buy": 1,
+   "trade.made_here.value.sell": 0.15,
+   "trade.not_made.value.buy": 1.5,
+   "trade.not_made.value.sell": 1.1
+  },
+  "records/target/bb/loot.json": {
+   "counts.batteries.pocket": 1,
+   "counts.batteries.machine_cell": 1
+  },
+  "records/target/bb/job_into_place.json": {
+   "worth.value.battery": 1,
+   "worth.value.per_tape": 1,
+   "share.value": 0.25
+  },
+  "records/target/bb/home_base.json": {
+   "bill.keep": 1,
+   "bill.power_cost_by_mark.3": 0,
+   "bill.power_cost_by_mark.2": 0,
+   "bill.power_cost_by_mark.1": 1,
+   "bill.power_cost_by_mark.0": 1,
+   "builds.solar.worked.batteries": 1,
+   "places.yard.per_level": 1,
+   "places.yard.min": 2,
+   "bill.water_cost_by_mark.3": 1,
+   "bill.water_cost_by_mark.2": 1,
+   "bill.water_cost_by_mark.1": 1.5
+  },
+  "records/target/BOHEMIA_ROAD_EVENTS.json": {
+   "events[id=ev_the_hungry_kid].opts[1].need.bats": 5,
+   "events[id=ev_the_hungry_kid].opts[1].fx.bats": -5,
+   "events[id=ev_the_kid_comes_back].opts[1].fx.bats": 6,
+   "events[id=ev_the_broken_truck].opts[1].fx.bats": 10,
+   "events[id=ev_the_trucker_pays_back].opts[1].fx.bats": 25,
+   "events[id=ev_the_lost_drone].opts[0].fx.bats": 18,
+   "events[id=ev_the_drone_owners].opts[0].need.bats": 25,
+   "events[id=ev_the_drone_owners].opts[0].fx.bats": -25,
+   "events[id=ev_the_drone_owners].opts[1].fx.fight.win.bats": 10,
+   "events[id=ev_the_drone_owners].opts[1].fx.fight.lose.bats": -15,
+   "events[id=ev_the_network_remembers].opts[0].fx.bats": 20,
+   "events[id=ev_the_network_remembers].opts[1].fx.bats": 8,
+   "events[id=ev_the_toll_kids].opts[0].need.bats": 10,
+   "events[id=ev_the_toll_kids].opts[0].fx.bats": -10,
+   "events[id=ev_the_toll_kids].opts[1].fx.fight.win.bats": 12,
+   "events[id=ev_the_toll_kids].opts[1].fx.fight.lose.bats": -10,
+   "events[id=ev_the_toll_remembers].opts[0].fx.bats": 5,
+   "events[id=ev_the_toll_remembers].opts[1].need.bats": 8,
+   "events[id=ev_the_toll_remembers].opts[1].fx.bats": -8,
+   "events[id=ev_the_dead_courier].opts[0].fx.bats": 14,
+   "events[id=ev_the_runway_stall].opts[0].need.bats": 12,
+   "events[id=ev_the_runway_stall].opts[0].fx.bats": -12,
+   "events[id=ev_the_runway_stall].opts[1].fx.bats": 6,
+   "events[id=ev_the_coyote_kid].opts[0].need.bats": 3,
+   "events[id=ev_the_coyote_kid].opts[0].fx.bats": -3,
+   "events[id=ev_the_coyote_kid].opts[0].fx.fight.win.bats": 15,
+   "events[id=ev_the_preacher].opts[0].need.bats": 5,
+   "events[id=ev_the_preacher].opts[0].fx.bats": -5,
+   "events[id=ev_the_water_thief].opts[1].fx.bats": 12,
+   "events[id=ev_the_static_radio].opts[0].fx.bats": 4,
+   "events[id=ev_the_radio_keeper].opts[0].need.bats": 8,
+   "events[id=ev_the_radio_keeper].opts[0].fx.bats": -8,
+   "events[id=ev_the_radio_keeper].opts[1].fx.fight.lose.bats": -10,
+   "events[id=ev_the_deserters].opts[1].fx.bats": 20,
+   "events[id=ev_the_casino_chip].opts[0].need.bats": 10,
+   "events[id=ev_the_casino_chip].opts[0].fx.chance.yes.bats": 20,
+   "events[id=ev_the_casino_chip].opts[0].fx.chance.no.bats": -10,
+   "events[id=ev_the_wedding].opts[0].need.bats": 10,
+   "events[id=ev_the_wedding].opts[0].fx.bats": -10,
+   "events[id=ev_the_cave_cat].opts[0].fx.fight.win.bats": 30,
+   "events[id=ev_the_scrap_pile].opts[0].fx.bats": 10,
+   "events[id=ev_the_scrap_pile].opts[1].fx.bats": 18,
+   "events[id=ev_the_night_walker].opts[1].fx.bats": 8,
+   "events[id=ev_the_cartel_checkpoint].opts[0].fx.bats": -8,
+   "events[id=ev_the_cartel_checkpoint].opts[1].fx.chance.no.fight.win.bats": 25,
+   "events[id=ev_the_cartel_checkpoint].opts[1].fx.chance.no.fight.lose.bats": -20,
+   "events[id=ev_the_dog].opts[0].need.bats": 2,
+   "events[id=ev_the_dog].opts[0].fx.bats": -2,
+   "events[id=ev_the_mirror_man].opts[0].fx.chance.yes.bats": 10,
+   "events[id=ev_the_blue_patrol].opts[0].fx.fight.win.bats": 20,
+   "events[id=ev_the_rodeo_man].opts[0].need.bats": 60,
+   "events[id=ev_the_rodeo_man].opts[0].fx.bats": -60,
+   "events[id=ev_the_pool_hall_kid].opts[0].need.bats": 12,
+   "events[id=ev_the_pool_hall_kid].opts[0].fx.bats": -12,
+   "events[id=ev_the_pool_hall_kid].opts[1].need.bats": 4,
+   "events[id=ev_the_pool_hall_kid].opts[1].fx.bats": -4,
+   "events[id=ev_the_spark].opts[0].need.bats": 12,
+   "events[id=ev_the_spark].opts[0].fx.bats": -12,
+   "events[id=ev_the_broken_delivery].opts[0].fx.bats": 18,
+   "events[id=ev_the_broken_delivery].opts[1].fx.fight.win.bats": 24,
+   "events[id=ev_the_broken_delivery].opts[1].fx.fight.lose.bats": -6,
+   "events[id=ev_the_convoy_robbers].opts[0].fx.fight.win.bats": 34,
+   "events[id=ev_the_convoy_robbers].opts[0].fx.fight.lose.bats": -8,
+   "events[id=ev_the_convoy_robbers].opts[1].fx.bats": 12,
+   "events[id=ev_the_robbers_remember].opts[0].need.bats": 20,
+   "events[id=ev_the_robbers_remember].opts[0].fx.bats": -20,
+   "events[id=ev_the_robbers_remember].opts[1].fx.fight.win.bats": 10,
+   "events[id=ev_the_robbers_remember].opts[1].fx.fight.lose.bats": -12,
+   "events[id=ev_the_cairn].opts[0].need.bats": 1,
+   "events[id=ev_the_cairn].opts[0].fx.bats": -1,
+   "events[id=ev_the_cairn].opts[1].fx.bats": 6,
+   "events[id=ev_the_cairn].opts[1].fx.chance.no.fight.lose.bats": -6,
+   "events[id=ev_the_last_bus].opts[0].fx.bats": 12,
+   "events[id=ev_the_last_bus].opts[1].fx.bats": 14,
+   "events[id=ev_the_rock_tax].opts[0].need.bats": 5,
+   "events[id=ev_the_rock_tax].opts[0].fx.bats": -5,
+   "events[id=ev_the_rock_tax].opts[1].fx.bats": 4,
+   "events[id=ev_the_rock_tax].opts[2].fx.fight.win.bats": 15,
+   "events[id=ev_the_rock_tax].opts[2].fx.fight.lose.bats": -10,
+   "events[id=ev_the_raid_wagon].opts[1].fx.fight.win.bats": 28,
+   "events[id=ev_the_raid_wagon].opts[1].fx.fight.lose.bats": -10,
+   "events[id=ev_the_looter].opts[0].fx.bats": 14,
+   "events[id=ev_the_egg_tape].opts[1].need.bats": 2,
+   "events[id=ev_the_egg_tape].opts[1].fx.bats": -2,
+   "events[id=ev_the_buffet_sign].opts[1].fx.bats": 6,
+   "events[id=ev_the_debt_follows].opts[0].need.bats": 20,
+   "events[id=ev_the_debt_follows].opts[0].fx.bats": -20,
+   "events[id=ev_the_three_oclock_bell].opts[1].need.bats": 1,
+   "events[id=ev_the_three_oclock_bell].opts[1].fx.bats": -1,
+   "events[id=ev_the_lake_water].opts[0].need.bats": 6,
+   "events[id=ev_the_lake_water].opts[0].fx.bats": -6,
+   "events[id=ev_the_short_box].opts[0].fx.bats": -6,
+   "events[id=ev_the_short_box].opts[1].fx.chance.no.bats": -6,
+   "events[id=ev_the_short_box].opts[2].fx.bats": 4,
+   "events[id=ev_the_word_from_home].opts[1].fx.bats": -5,
+   "events[id=ev_the_word_from_home].opts[2].fx.chance.no.bats": -5,
+   "events[id=ev_the_plasma_van].opts[0].fx.bats": 4,
+   "events[id=ev_the_rent_crew].opts[0].fx.bats": -3,
+   "events[id=ev_the_rent_crew].opts[1].fx.fight.win.bats": 6,
+   "events[id=ev_the_rent_crew].opts[1].fx.fight.lose.bats": -3,
+   "events[id=ev_the_copper_men].opts[0].fx.bats": 4,
+   "events[id=ev_the_timeshare_man].opts[1].fx.bats": -10,
+   "events[id=ev_the_picket_line].opts[1].fx.bats": 3,
+   "events[id=ev_the_dead_atm].opts[0].fx.bats": 3,
+   "events[id=ev_the_solar_cart].opts[0].fx.bats": -10,
+   "events[id=ev_the_water_tank].opts[0].fx.bats": -6,
+   "events[id=ev_the_water_tank].opts[1].fx.bats": 3,
+   "events[id=ev_the_seed_library].opts[0].fx.bats": -3,
+   "events[id=ev_the_runaway_cook].opts[1].fx.bats": -5,
+   "events[id=ev_the_runaway_cook].opts[2].fx.bats": 4,
+   "events[id=ev_the_assessors_map].opts[0].fx.bats": -4,
+   "events[id=ev_the_roadblock].opts[0].fx.bats": -4,
+   "events[id=ev_the_roadblock].opts[2].fx.fight.win.bats": 6,
+   "events[id=ev_the_roadblock].opts[2].fx.fight.lose.bats": -4,
+   "events[id=ev_the_leaderless].opts[1].fx.bats": -6,
+   "events[id=ev_the_rival_crew].opts[0].fx.bats": -4,
+   "events[id=ev_the_rival_crew].opts[1].fx.fight.win.bats": 3,
+   "events[id=ev_the_rival_crew].opts[1].fx.fight.lose.bats": -4,
+   "events[id=ev_the_underpass].opts[0].fx.bats": -2,
+   "events[id=ev_the_brother_of_the_boss].opts[0].fx.bats": -6,
+   "events[id=ev_the_brother_of_the_boss].opts[1].fx.fight.win.bats": 2,
+   "events[id=ev_the_brother_of_the_boss].opts[1].fx.fight.lose.bats": -6,
+   "events[id=ev_the_tribute_box].opts[1].fx.bats": 6,
+   "events[id=ev_the_deposit].opts[0].fx.bats": -5,
+   "events[id=ev_the_second_chance].opts[0].fx.bats": 3,
+   "events[id=ev_the_song].opts[0].fx.bats": -2,
+   "events[id=ev_the_good_price].opts[0].fx.bats": -3,
+   "events[id=ev_the_good_price].opts[1].fx.bats": 4
+  },
+  "records/target/BOHEMIA_SIDE_QUESTS.json": {
+   "quests.bq_last_good_doctor.stages.30.fx.bats": 10,
+   "quests.bq_last_good_doctor.stages.31.fx.bats": 15,
+   "quests.bq_last_good_doctor.stages.32.fx.bats": 30,
+   "quests.bq_what_the_dog_knows.stages.30.fx.bats": 8,
+   "quests.bq_what_the_dog_knows.stages.31.fx.bats": 12,
+   "quests.bq_what_the_dog_knows.stages.32.fx.bats": 20,
+   "quests.bq_deep_cry.stages.30.fx.bats": 12,
+   "quests.bq_deep_cry.stages.31.fx.bats": 12,
+   "quests.bq_deep_cry.stages.32.fx.bats": 12,
+   "quests.bq_seed_no_return.stages.32.fx.bats": 25,
+   "quests.bq_a01_the_killing_summer.stages.30.fx.bats": 10,
+   "quests.bq_a01_the_killing_summer.stages.30.fx.pay_why.bats": 10,
+   "quests.bq_a01_the_killing_summer.stages.31.fx.bats": 10,
+   "quests.bq_a01_the_killing_summer.stages.31.fx.pay_why.bats": 10,
+   "quests.bq_a01_the_killing_summer.stages.32.fx.bats": 5,
+   "quests.bq_a01_the_killing_summer.stages.32.fx.pay_why.bats": 5,
+   "quests.bq_a02_the_elders_accident.stages.30.fx.bats": 10,
+   "quests.bq_a02_the_elders_accident.stages.30.fx.pay_why.bats": 10,
+   "quests.bq_a02_the_elders_accident.stages.31.fx.bats": 10,
+   "quests.bq_a02_the_elders_accident.stages.31.fx.pay_why.bats": 10,
+   "quests.bq_a02_the_elders_accident.stages.32.fx.bats": 10,
+   "quests.bq_a02_the_elders_accident.stages.32.fx.pay_why.bats": 10,
+   "quests.bq_a03_the_faction_that_died.stages.30.fx.bats": 5,
+   "quests.bq_a03_the_faction_that_died.stages.30.fx.pay_why.bats": 5,
+   "quests.bq_a03_the_faction_that_died.stages.31.fx.bats": 5,
+   "quests.bq_a03_the_faction_that_died.stages.31.fx.pay_why.bats": 5,
+   "quests.bq_a03_the_faction_that_died.stages.32.fx.bats": 10,
+   "quests.bq_a03_the_faction_that_died.stages.32.fx.pay_why.bats": 10,
+   "quests.bq_a05_the_dry_taps.stages.30.fx.fight.win.bats": 30,
+   "quests.bq_a05_the_dry_taps.stages.30.fx.pay_why.win": 30,
+   "quests.bq_a05_the_dry_taps.stages.30.fx.pay_why.bats": 0,
+   "quests.bq_a05_the_dry_taps.stages.31.fx.bats": -8,
+   "quests.bq_a05_the_dry_taps.stages.31.fx.pay_why.bats": -8,
+   "quests.bq_a05_the_dry_taps.stages.32.fx.fight.win.bats": 30,
+   "quests.bq_a05_the_dry_taps.stages.32.fx.pay_why.win": 30,
+   "quests.bq_a05_the_dry_taps.stages.32.fx.pay_why.bats": 0,
+   "quests.bq_a06_the_first_harvest.stages.30.fx.bats": 10,
+   "quests.bq_a06_the_first_harvest.stages.30.fx.pay_why.bats": 10,
+   "quests.bq_a06_the_first_harvest.stages.31.fx.bats": 10,
+   "quests.bq_a06_the_first_harvest.stages.31.fx.pay_why.bats": 10,
+   "quests.bq_a06_the_first_harvest.stages.32.fx.bats": 10,
+   "quests.bq_a06_the_first_harvest.stages.32.fx.pay_why.bats": 10,
+   "quests.bq_a07_the_two_families.stages.30.fx.bats": 10,
+   "quests.bq_a07_the_two_families.stages.30.fx.pay_why.bats": 10,
+   "quests.bq_a07_the_two_families.stages.31.fx.bats": 10,
+   "quests.bq_a07_the_two_families.stages.31.fx.pay_why.bats": 10,
+   "quests.bq_a07_the_two_families.stages.32.fx.bats": 5,
+   "quests.bq_a07_the_two_families.stages.32.fx.pay_why.bats": 5,
+   "quests.bq_d013_long_walk_home.stages.30.fx.bats": 10,
+   "quests.bq_d013_long_walk_home.stages.30.fx.pay_why.bats": 10,
+   "quests.bq_d013_long_walk_home.stages.31.fx.bats": 10,
+   "quests.bq_d013_long_walk_home.stages.31.fx.pay_why.bats": 10,
+   "quests.bq_d013_long_walk_home.stages.32.fx.fight.win.bats": 34,
+   "quests.bq_d013_long_walk_home.stages.32.fx.pay_why.win": 34,
+   "quests.bq_d013_long_walk_home.stages.32.fx.pay_why.bats": 0,
+   "quests.bq_meter_reader.stages.30.fx.bats": 10,
+   "quests.bq_meter_reader.stages.30.fx.pay_why.bats": 10,
+   "quests.bq_meter_reader.stages.31.fx.bats": 10,
+   "quests.bq_meter_reader.stages.31.fx.pay_why.bats": 10,
+   "quests.bq_meter_reader.stages.32.fx.bats": 10,
+   "quests.bq_meter_reader.stages.32.fx.pay_why.bats": 10,
+   "quests.bq_the_count.stages.30.fx.pay_why.bats": 0,
+   "quests.bq_the_count.stages.31.fx.pay_why.bats": 0,
+   "quests.bq_the_count.stages.32.fx.pay_why.bats": 0,
+   "quests.bq_sixty_seconds.stages.30.fx.bats": 10,
+   "quests.bq_sixty_seconds.stages.30.fx.pay_why.bats": 10,
+   "quests.bq_sixty_seconds.stages.31.fx.bats": 10,
+   "quests.bq_sixty_seconds.stages.31.fx.pay_why.bats": 10,
+   "quests.bq_sixty_seconds.stages.32.fx.bats": 5,
+   "quests.bq_sixty_seconds.stages.32.fx.pay_why.bats": 5,
+   "quests.bq_a01_the_killing_summer.stages.30.fx.pay_why.quiet_rate": 10,
+   "quests.bq_a01_the_killing_summer.stages.31.fx.pay_why.quiet_rate": 10,
+   "quests.bq_a01_the_killing_summer.stages.32.fx.pay_why.quiet_rate": 10,
+   "quests.bq_a02_the_elders_accident.stages.30.fx.pay_why.quiet_rate": 10,
+   "quests.bq_a02_the_elders_accident.stages.31.fx.pay_why.quiet_rate": 10,
+   "quests.bq_a02_the_elders_accident.stages.32.fx.pay_why.quiet_rate": 10,
+   "quests.bq_a03_the_faction_that_died.stages.30.fx.pay_why.quiet_rate": 10,
+   "quests.bq_a03_the_faction_that_died.stages.31.fx.pay_why.quiet_rate": 10,
+   "quests.bq_a03_the_faction_that_died.stages.32.fx.pay_why.quiet_rate": 10,
+   "quests.bq_a05_the_dry_taps.stages.30.fx.pay_why.quiet_rate": 10,
+   "quests.bq_a05_the_dry_taps.stages.31.fx.pay_why.quiet_rate": 10,
+   "quests.bq_a05_the_dry_taps.stages.32.fx.pay_why.quiet_rate": 10,
+   "quests.bq_a06_the_first_harvest.stages.30.fx.pay_why.quiet_rate": 10,
+   "quests.bq_a06_the_first_harvest.stages.31.fx.pay_why.quiet_rate": 10,
+   "quests.bq_a06_the_first_harvest.stages.32.fx.pay_why.quiet_rate": 10,
+   "quests.bq_a07_the_two_families.stages.30.fx.pay_why.quiet_rate": 10,
+   "quests.bq_a07_the_two_families.stages.31.fx.pay_why.quiet_rate": 10,
+   "quests.bq_a07_the_two_families.stages.32.fx.pay_why.quiet_rate": 10,
+   "quests.bq_d013_long_walk_home.stages.30.fx.pay_why.quiet_rate": 10,
+   "quests.bq_d013_long_walk_home.stages.31.fx.pay_why.quiet_rate": 10,
+   "quests.bq_d013_long_walk_home.stages.32.fx.pay_why.quiet_rate": 10,
+   "quests.bq_meter_reader.stages.30.fx.pay_why.quiet_rate": 10,
+   "quests.bq_meter_reader.stages.31.fx.pay_why.quiet_rate": 10,
+   "quests.bq_meter_reader.stages.32.fx.pay_why.quiet_rate": 10,
+   "quests.bq_the_count.stages.30.fx.pay_why.quiet_rate": 10,
+   "quests.bq_the_count.stages.31.fx.pay_why.quiet_rate": 10,
+   "quests.bq_the_count.stages.32.fx.pay_why.quiet_rate": 10,
+   "quests.bq_sixty_seconds.stages.30.fx.pay_why.quiet_rate": 10,
+   "quests.bq_sixty_seconds.stages.31.fx.pay_why.quiet_rate": 10,
+   "quests.bq_sixty_seconds.stages.32.fx.pay_why.quiet_rate": 10
+  },
+  "records/target/bb/real_places.json": {
+   "places[id=the_lab].visit.opts[id=pens].fx.fight.win.bats": 6,
+   "places[id=the_bank].visit.opts[id=boxes].fx.chance.yes.bats": 8,
+   "places[id=the_bank].visit.opts[id=boxes].fx.chance.no.bats": 2,
+   "places[id=the_bank].visit.opts[id=upstairs].fx.fight.win.bats": 4,
+   "places[id=the_bank].visit.opts[id=upstairs].fx.fight.lose.bats": -4,
+   "places[id=the_home_center_east].visit.opts[id=back].fx.chance.yes.bats": 3,
+   "places[id=the_home_center_east].visit.opts[id=back].fx.chance.no.bats": 1,
+   "places[id=the_home_center_east].visit.opts[id=aisle].fx.fight.win.bats": 2,
+   "places[id=the_home_center_west].visit.opts[id=dock].fx.chance.yes.bats": 3,
+   "places[id=the_home_center_west].visit.opts[id=dock].fx.chance.no.bats": 1,
+   "places[id=clark_station].visit.opts[id=charge].fx.bats": 6,
+   "places[id=clark_station].visit.opts[id=guards].fx.fight.win.bats": 12,
+   "places[id=clark_station].visit.opts[id=guards].fx.fight.lose.bats": -6,
+   "places[id=lenzie_station].visit.opts[id=battery_room].fx.chance.yes.bats": 10,
+   "places[id=lenzie_station].visit.opts[id=battery_room].fx.chance.no.bats": 4,
+   "places[id=lenzie_station].visit.opts[id=switchyard].fx.fight.win.bats": 6,
+   "places[id=shark_reef].visit.opts[id=tunnel].fx.chance.yes.bats": 4,
+   "places[id=shark_reef].visit.opts[id=tunnel].fx.chance.no.bats": 1,
+   "places[id=the_mob_museum].visit.opts[id=debt].fx.fight.win.bats": 10,
+   "places[id=the_natural_history_museum].visit.opts[id=battery].fx.bats": 5,
+   "places[id=the_tv_station].visit.opts[id=air].need.bats": 5,
+   "places[id=the_tv_station].visit.opts[id=air].fx.bats": -5,
+   "places[id=the_tv_station].visit.opts[id=studio_b].fx.chance.yes.bats": 4,
+   "places[id=the_tv_station].visit.opts[id=studio_b].fx.chance.no.bats": 1,
+   "places[id=the_bus_yard].visit.opts[id=banks].fx.bats": 6,
+   "places[id=the_greenhouses].visit.opts[id=greens].need.bats": 3,
+   "places[id=the_greenhouses].visit.opts[id=greens].fx.bats": -3,
+   "places[id=the_cooling_center].visit.opts[id=generator].need.bats": 5,
+   "places[id=the_cooling_center].visit.opts[id=generator].fx.bats": -5,
+   "places[id=the_dome].visit.opts[id=battery_room].fx.chance.yes.bats": 8,
+   "places[id=the_dome].visit.opts[id=battery_room].fx.chance.no.bats": 3,
+   "places[id=the_dome].visit.opts[id=arcade].fx.fight.win.bats": 6,
+   "places[id=the_dome].visit.opts[id=arcade].fx.fight.lose.bats": -3,
+   "places[id=spring_mountain_ranch].visit.opts[id=beef].need.bats": 6,
+   "places[id=spring_mountain_ranch].visit.opts[id=beef].fx.bats": -6,
+   "places[id=spring_mountain_ranch].visit.opts[id=rustlers].fx.fight.win.bats": 4,
+   "places[id=callville_bay].visit.opts[id=bass].need.bats": 4,
+   "places[id=callville_bay].visit.opts[id=bass].fx.bats": -4
+  },
+  "records/target/BOHEMIA_JOB_KINDS.json": {
+   "kinds.collect.legs[0].talk.opts[2].fx.bats": -20,
+   "kinds.signal.legs[2].talk.opts[1].fx.bats": 6,
+   "kinds.follow.legs[1].talk.opts[2].fx.bats": 15,
+   "offers.jb-collect-tito.legs[0].talk.opts[2].fx.bats": -15,
+   "offers.jb-collect-rent.legs[0].talk.opts[2].fx.bats": -30,
+   "offers.jb-collect-chips.legs[0].talk.opts[2].fx.bats": -45,
+   "board_people.rows[id=jk-patrol-dam].pay": 119,
+   "board_people.rows[id=jk-patrol-wash].pay": 41,
+   "board_people.rows[id=jk-ambush-cut].pay": 76,
+   "board_people.rows[id=jk-envoy-clerk].pay": 16,
+   "board_people.rows[id=jk-bounty-chuy].pay": 78,
+   "board_people.rows[id=jk-scout-wells].pay": 10,
+   "board_people.rows[id=jk-burn-tires].pay": 60,
+   "board_people.rows[id=jk-collect-beto].pay": 40,
+   "board_people.rows[id=jk-biggame-lion].pay": 90,
+   "board_people.rows[id=jk-signal-voice].pay": 22,
+   "board_people.rows[id=jk-free-pen].pay": 65,
+   "board_people.rows[id=jk-lair-waterpark].pay": 60,
+   "board_people.rows[id=jk-find-out-stew].pay": 10,
+   "board_people.rows[id=jk-meat-vultures].pay": 10,
+   "board_people.rows[id=jk-follow-courier].pay": 78,
+   "board_people.rows[id=jk-farm-mob].pay": 76,
+   "board_people.rows[id=jk-biggame-sabre].pay": 110,
+   "board_people.rows[id=jk-biggame-sloth].pay": 95,
+   "board_people.rows[id=jb-escort-tanks].pay": 40,
+   "board_people.rows[id=jb-escort-seed].pay": 80,
+   "board_people.rows[id=jb-escort-clinic].pay": 168,
+   "board_people.rows[id=jb-hold-pumps].pay": 43,
+   "board_people.rows[id=jb-hold-market].pay": 121,
+   "board_people.rows[id=jb-hold-substation].pay": 251,
+   "board_people.rows[id=jb-carry-insulin].pay": 11,
+   "board_people.rows[id=jb-carry-deed].pay": 20,
+   "board_people.rows[id=jb-carry-fuses].pay": 30,
+   "board_people.rows[id=jb-clear-lot].pay": 43,
+   "board_people.rows[id=jb-clear-motel].pay": 80,
+   "board_people.rows[id=jb-clear-yard].pay": 120,
+   "board_people.rows[id=jb-collect-tito].pay": 33,
+   "board_people.rows[id=jb-collect-rent].pay": 60,
+   "board_people.rows[id=jb-collect-chips].pay": 90,
+   "board_people.rows[id=jb-root-stash].pay": 62,
+   "board_people.rows[id=jb-root-pures].pay": 114,
+   "board_people.rows[id=jb-root-skims].pay": 166,
+   "board_people.rows[id=jb-ring-trucks].pay": 162,
+   "board_people.rows[id=jb-ring-gardens].pay": 84,
+   "board_people.rows[id=jb-ring-solar].pay": 240,
+   "board_people.rows[id=jb-get-drive].pay": 61,
+   "board_people.rows[id=jb-get-die].pay": 35,
+   "board_people.rows[id=jb-get-reels].pay": 90,
+   "board_people.rows[id=jb-restore-school].pay": 50,
+   "board_people.rows[id=jb-restore-chapel].pay": 84,
+   "board_people.rows[id=jb-restore-pumps].pay": 119,
+   "board_people.rows[id=jb-find-singer].pay": 15,
+   "board_people.rows[id=jb-find-clerk].pay": 22,
+   "board_people.rows[id=jb-find-dealers].pay": 30,
+   "board_people.rows[id=jb-escort-water].pay": 38,
+   "board_people.rows[id=jb-escort-trunks].pay": 64,
+   "board_people.rows[id=jb-escort-strongbox].pay": 168,
+   "board_people.rows[id=jb-watch-clinic].pay": 85,
+   "board_people.rows[id=jb-watch-tunnel].pay": 137,
+   "board_people.rows[id=jb-watch-depot].pay": 189,
+   "board_people.rows[id=jb-turn-speakers].pay": 34,
+   "board_people.rows[id=jb-turn-panels].pay": 60,
+   "board_people.rows[id=jb-turn-courier].pay": 90,
+   "board_people.rows[id=jb-bid-water-blues].pay": 34,
+   "board_people.rows[id=jb-bid-water-reds].pay": 34,
+   "board_people.rows[id=jb-bid-tv-network].pay": 60,
+   "board_people.rows[id=jb-bid-tv-anarchists].pay": 60,
+   "board_people.rows[id=jb-bid-hall-church].pay": 90,
+   "board_people.rows[id=jb-bid-hall-mob].pay": 90,
+   "kinds.collect.legs[0].talk.opts[1].pay": 0.5,
+   "kinds.signal.legs[2].talk.opts[1].pay": 0.6,
+   "kinds.investigate.legs[1].talk.opts[1].pay": 1.2,
+   "kinds.follow.legs[1].talk.opts[2].pay": 0,
+   "kinds.obtain.legs[0].talk.opts[1].pay": 0.6,
+   "kinds.turn.legs[1].talk.opts[1].pay": 0.5,
+   "offers.jb-turn-speakers.legs[1].talk.opts[1].pay": 0.6,
+   "offers.jb-turn-panels.legs[1].talk.opts[1].pay": 0.5,
+   "offers.jb-turn-panels.legs[1].talk.opts[2].pay": 0.3,
+   "offers.jb-turn-courier.legs[1].talk.opts[1].pay": 0.4,
+   "offers.jb-get-drive.legs[0].talk.opts[1].pay": 0.6,
+   "offers.jb-get-die.legs[0].talk.opts[1].pay": 0.6,
+   "offers.jb-get-reels.legs[0].talk.opts[1].pay": 0.6,
+   "offers.jb-collect-tito.legs[0].talk.opts[1].pay": 0.5,
+   "offers.jb-collect-rent.legs[0].talk.opts[1].pay": 0.5,
+   "offers.jb-collect-chips.legs[0].talk.opts[1].pay": 0.5
+  },
+  "records/target/bb/job_pay.json": {
+   "pays.jb-bid-hall-church.pay": 90,
+   "pays.jb-bid-hall-mob.pay": 90,
+   "pays.jb-bid-tv-anarchists.pay": 60,
+   "pays.jb-bid-tv-network.pay": 60,
+   "pays.jb-bid-water-blues.pay": 34,
+   "pays.jb-bid-water-reds.pay": 34,
+   "pays.jb-carry-deed.pay": 20,
+   "pays.jb-carry-fuses.pay": 30,
+   "pays.jb-carry-insulin.pay": 11,
+   "pays.jb-clear-lot.pay": 43,
+   "pays.jb-clear-motel.pay": 80,
+   "pays.jb-clear-yard.pay": 120,
+   "pays.jb-collect-chips.pay": 90,
+   "pays.jb-collect-rent.pay": 60,
+   "pays.jb-collect-tito.pay": 33,
+   "pays.jb-escort-clinic.pay": 168,
+   "pays.jb-escort-seed.pay": 80,
+   "pays.jb-escort-strongbox.pay": 168,
+   "pays.jb-escort-tanks.pay": 40,
+   "pays.jb-escort-trunks.pay": 64,
+   "pays.jb-escort-water.pay": 38,
+   "pays.jb-find-clerk.pay": 22,
+   "pays.jb-find-dealers.pay": 30,
+   "pays.jb-find-singer.pay": 15,
+   "pays.jb-get-die.pay": 35,
+   "pays.jb-get-drive.pay": 61,
+   "pays.jb-get-reels.pay": 90,
+   "pays.jb-hold-market.pay": 121,
+   "pays.jb-hold-pumps.pay": 43,
+   "pays.jb-hold-substation.pay": 251,
+   "pays.jb-restore-chapel.pay": 84,
+   "pays.jb-restore-pumps.pay": 119,
+   "pays.jb-restore-school.pay": 50,
+   "pays.jb-ring-gardens.pay": 84,
+   "pays.jb-ring-solar.pay": 240,
+   "pays.jb-ring-trucks.pay": 162,
+   "pays.jb-root-pures.pay": 114,
+   "pays.jb-root-skims.pay": 166,
+   "pays.jb-root-stash.pay": 62,
+   "pays.jb-turn-courier.pay": 90,
+   "pays.jb-turn-panels.pay": 60,
+   "pays.jb-turn-speakers.pay": 34,
+   "pays.jb-watch-clinic.pay": 85,
+   "pays.jb-watch-depot.pay": 189,
+   "pays.jb-watch-tunnel.pay": 137,
+   "pays.jk-ambush-cut.pay": 76,
+   "pays.jk-biggame-lion.pay": 90,
+   "pays.jk-biggame-sabre.pay": 110,
+   "pays.jk-biggame-sloth.pay": 95,
+   "pays.jk-bounty-chuy.pay": 78,
+   "pays.jk-burn-tires.pay": 60,
+   "pays.jk-collect-beto.pay": 40,
+   "pays.jk-envoy-clerk.pay": 16,
+   "pays.jk-farm-mob.pay": 76,
+   "pays.jk-find-out-stew.pay": 10,
+   "pays.jk-follow-courier.pay": 78,
+   "pays.jk-free-pen.pay": 65,
+   "pays.jk-lair-waterpark.pay": 60,
+   "pays.jk-meat-vultures.pay": 10,
+   "pays.jk-patrol-dam.pay": 119,
+   "pays.jk-patrol-wash.pay": 41,
+   "pays.jk-scout-wells.pay": 10,
+   "pays.jk-signal-voice.pay": 22,
+   "pays.qd-a02.pay": 38,
+   "pays.qd-aa01.pay": 116,
+   "pays.qd-aa09.pay": 27,
+   "pays.qd-aa15.pay": 60,
+   "pays.qd-ae09.pay": 38,
+   "pays.qd-ae10.pay": 199,
+   "pays.qd-ap01.pay": 34,
+   "pays.qd-ap02.pay": 121,
+   "pays.qd-ap03.pay": 47,
+   "pays.qd-ap05.pay": 22,
+   "pays.qd-ap07.pay": 34,
+   "pays.qd-ap08.pay": 90,
+   "pays.qd-ap09.pay": 10,
+   "pays.qd-ap10.pay": 60,
+   "pays.qd-ap11.pay": 14,
+   "pays.qd-ap13.pay": 60,
+   "pays.qd-ap15.pay": 60,
+   "pays.qd-ap16.pay": 34,
+   "pays.qd-ap19.pay": 73,
+   "pays.qd-aq03.pay": 60,
+   "pays.qd-ar02.pay": 129,
+   "pays.qd-ar03.pay": 117,
+   "pays.qd-ar05.pay": 249,
+   "pays.qd-ar06.pay": 63,
+   "pays.qd-ar08.pay": 23,
+   "pays.qd-ar09.pay": 121,
+   "pays.qd-ar10.pay": 30,
+   "pays.qd-c02.pay": 34,
+   "pays.qd-r01.pay": 69,
+   "pays.qd-s01.pay": 118,
+   "pays.qd-s03.pay": 38,
+   "pays.qd-s04.pay": 38,
+   "pays.qd-s06.pay": 38,
+   "pays.qd-s08.pay": 10,
+   "pays.qd-s10.pay": 30,
+   "pays.qd-s15.pay": 251,
+   "pays.qd-s17.pay": 20,
+   "pays.qd-t02.pay": 121,
+   "pays.qd-t06.pay": 101,
+   "per_fight.value": 26,
+   "floor_per_skull.value": 30,
+   "violence.value.quiet_floor_per_skull": 10,
+   "standing.value.hostile.mult": 0.85,
+   "standing.value.threatening.mult": 0.88,
+   "standing.value.unfriendly.mult": 0.92,
+   "standing.value.cold.mult": 0.96,
+   "standing.value.neutral.mult": 1,
+   "standing.value.open.mult": 1.04,
+   "standing.value.friendly.mult": 1.08,
+   "standing.value.very_friendly.mult": 1.12,
+   "standing.value.allied.mult": 1.15,
+   "crew_cost_per_map_hour.value": 1.375,
+   "margin.value": 1,
+   "violence.value.quiet_margin": 0.5
+  },
+  "records/target/BOHEMIA_BOARD_SHELF.json": {
+   "offers[id=qd-ae10].pay": 199,
+   "offers[id=qd-ap01].pay": 34,
+   "offers[id=qd-ap03].pay": 47,
+   "offers[id=qd-ap07].pay": 34,
+   "offers[id=qd-ap10].pay": 60,
+   "offers[id=qd-ap11].pay": 14,
+   "offers[id=qd-ap16].pay": 34,
+   "offers[id=qd-ae09].pay": 38,
+   "offers[id=qd-ar03].pay": 117,
+   "offers[id=qd-r01].pay": 69,
+   "offers[id=qd-ap13].pay": 60,
+   "offers[id=qd-aq03].pay": 60,
+   "offers[id=qd-s08].pay": 10,
+   "offers[id=qd-s10].pay": 30,
+   "offers[id=qd-s17].pay": 20,
+   "offers[id=qd-ar10].pay": 30,
+   "offers[id=qd-ar08].pay": 23,
+   "offers[id=qd-aa01].pay": 116,
+   "offers[id=qd-s01].pay": 118,
+   "offers[id=qd-s03].pay": 38,
+   "offers[id=qd-ap02].pay": 121,
+   "offers[id=qd-ap05].pay": 22,
+   "offers[id=qd-ap08].pay": 90,
+   "offers[id=qd-ap09].pay": 10,
+   "offers[id=qd-ap19].pay": 73,
+   "offers[id=qd-aa15].pay": 60,
+   "offers[id=qd-ar02].pay": 129,
+   "offers[id=qd-ap15].pay": 60,
+   "offers[id=qd-t02].pay": 121,
+   "offers[id=qd-s15].pay": 251,
+   "offers[id=qd-ar09].pay": 121,
+   "offers[id=qd-t06].pay": 101,
+   "offers[id=qd-s06].pay": 38,
+   "offers[id=qd-aa09].pay": 27,
+   "offers[id=qd-ar06].pay": 63,
+   "offers[id=qd-c02].pay": 34,
+   "offers[id=qd-s04].pay": 38,
+   "offers[id=qd-ar05].pay": 249,
+   "offers[id=qd-a02].pay": 38,
+   "pay_per_skull": 30
+  },
+  "records/target/bb/boss_act_one.json": {
+   "bosses[0].ground.till": 30,
+   "bosses[1].verb.pay_batteries": 6,
+   "bosses[5].verb.pay_batteries": 12,
+   "bosses[6].verb.pay_batteries": 8,
+   "bosses[10].tooth.tax": 3,
+   "bosses[12].verb.cost": 1,
+   "bosses[8].verb.item.price": 120,
+   "bosses[9].verb.item.price": 13
+  },
+  "records/target/bb/retinue.json": {
+   "followers.value[id=cook].price": 200,
+   "followers.value[id=scout].price": 250,
+   "followers.value[id=lookout].price": 250,
+   "followers.value[id=paymaster].price": 350,
+   "followers.value[id=blacksmith].price": 290,
+   "followers.value[id=surgeon].price": 350,
+   "followers.value[id=agent].price": 390,
+   "followers.value[id=alchemist].price": 250,
+   "followers.value[id=bounty_hunter].price": 390,
+   "followers.value[id=brigand].price": 250,
+   "followers.value[id=cartographer].price": 250,
+   "followers.value[id=drill_sergeant].price": 350,
+   "followers.value[id=minstrel].price": 200,
+   "followers.value[id=negotiator].price": 290,
+   "followers.value[id=quartermaster].price": 290,
+   "followers.value[id=recruiter].price": 290,
+   "followers.value[id=scavenger].price": 290,
+   "followers.value[id=trader].price": 350,
+   "followers.value[id=bounty_hunter].nums.champPayLo": 30,
+   "followers.value[id=bounty_hunter].nums.champPayHi": 75,
+   "followers.value[id=cartographer].nums.placePayLo": 10,
+   "followers.value[id=cartographer].nums.placePayHi": 40,
+   "followers.value[id=cook].nums.food": 0.85,
+   "followers.value[id=paymaster].nums.wage": 0.85,
+   "followers.value[id=recruiter].nums.hire": 0.9
+  },
+  "records/target/bb/arena.json": {
+   "opponents.value[id=hyenas].purse": 35,
+   "opponents.value[id=raiders].purse": 35,
+   "opponents.value[id=camel].purse": 45,
+   "opponents.value[id=gladiators].purse": 50,
+   "opponents.value[id=bull].purse": 50,
+   "opponents.value[id=lion].purse": 55,
+   "opponents.value[id=bear].purse": 60,
+   "opponents.value[id=sloth].purse": 70,
+   "opponents.value[id=champion].purse": 75,
+   "tournament.value.purse[0]": 60,
+   "tournament.value.purse[1]": 90,
+   "tournament.value.purse[2]": 150,
+   "purse_per_extra.value": 5
+  },
+  "records/target/bb/renown.json": {
+   "pay_mult.value.from": 1,
+   "pay_mult.value.to": 4.5,
+   "pay_mult.value.at": 4000
+  },
+  "records/target/BOHEMIA_HALL_PRICE.json": {
+   "easier": 0.8
+  },
+  "records/target/bb/price_table.json": {
+   "conversion.crownsPerBattery": 10,
+   "conversion.floorBatteries": 1
+  }
+ },
+ "sums": {
+  "job_day_one": {
+   "is": 378,
+   "how": "the dearest board job (251) + the origin's bonus (1), on FULL SHELVES (x1.5), nobody knows you yet (x1), a town that does not know you (x1)",
+   "paid": "1 CAR BATTERY, 6 TOOL PACKS, 8 AA"
+  },
+  "job_at_the_top": {
+   "is": 1956,
+   "how": "the same job at the top of CLOUT (x4.5 at 4000) in a town that calls you family (x1.15)",
+   "paid": "7 CAR BATTERIES, 10 TOOL PACKS, 1 PHONE BATTERY"
+  },
+  "job_pushed_twice": {
+   "is": 2236,
+   "how": "and the pay pushed 2 times (+7% each): the most one job can ever pay",
+   "paid": "8 CAR BATTERIES, 11 TOOL PACKS, 16 AA"
+  },
+  "job_smallest": {
+   "is": 6,
+   "how": "the smallest board job (10) on BARE SHELVES (x0.75) in a town that hates you (x0.85)",
+   "paid": "1 PHONE BATTERY"
+  },
+  "a_mans_night_fed": {
+   "is": 2,
+   "how": "food and water for one man for one night",
+   "paid": "2 AA"
+  },
+  "a_hired_mans_night_first": {
+   "is": 6,
+   "how": "fed (2) and paid, the best-paid kind of man at level 1 (4)",
+   "paid": "1 PHONE BATTERY"
+  },
+  "a_hired_mans_night_top": {
+   "is": 11,
+   "how": "fed (2) and paid, the best-paid kind of man at level 11 (9)",
+   "paid": "11 AA"
+  },
+  "dearest_weapon": {
+   "is": 350,
+   "how": "masterwork_bow, 3500 crowns of worth at 10 to one",
+   "paid": "1 CAR BATTERY, 5 TOOL PACKS"
+  },
+  "dearest_body_armour": {
+   "is": 800,
+   "how": "wolf_gilded_riot_armour, 8000 crowns of worth",
+   "paid": "3 CAR BATTERIES, 2 TOOL PACKS, 10 AA"
+  },
+  "dearest_helmet": {
+   "is": 600,
+   "how": "wolf_gilded_riot_helm, 6000 crowns of worth",
+   "paid": "2 CAR BATTERIES, 5 TOOL PACKS"
+  },
+  "dearest_shield": {
+   "is": 120,
+   "how": "kraken_shield, 1200 crowns of worth",
+   "paid": "6 TOOL PACKS"
+  },
+  "start_purse_least": {
+   "is": 45,
+   "how": "the poorest start (the fight pit, bare shelves)",
+   "paid": "2 TOOL PACKS, 5 AA"
+  },
+  "start_purse_most": {
+   "is": 320,
+   "how": "the richest start (the lab rats, full shelves)",
+   "paid": "1 CAR BATTERY, 3 TOOL PACKS, 10 AA"
+  },
+  "retinue_least": {
+   "is": 200,
+   "how": "the cheapest of the eighteen who join the camp",
+   "paid": "10 TOOL PACKS"
+  },
+  "retinue_most": {
+   "is": 390,
+   "how": "the dearest of the eighteen",
+   "paid": "1 CAR BATTERY, 7 TOOL PACKS"
+  }
+ },
+ "count": {
+  "rows": 669,
+  "files": 18,
+  "copies": 122,
+  "prose": 17
+ }
+}

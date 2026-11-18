@@ -5,6 +5,7 @@
 <!-- __SETTINGS_IN_OUR_MATERIALS__ (UI 10/4, [settings and the slider], rules 73, 66): the gear's card dressed in the
      materials, MUSIC / SOUNDS / BRIGHT rows, and BohemiaSettings.open() for RUN's start screen. -->
 <script src="bohemia_ui_materials.js"></script>
+<script src="bohemia_the_battery.js"></script>   <!-- ECONOMY TWO [the battery is real], rule 459: a sum of batteries is drawn as the things it is paid in (the AA, a phone's battery, a tool pack, a car's battery); records/target/bb/battery_table.json is the one table -->
 <!-- UI round 3 (11/2, asks 280 261 262): THE FIRST MINUTE in the Crashbox hand: the machine on the loading screen, the picks on tin, the hints switch, the door switching off like an old set -->
 <script src="bohemia_ui_crashbox.js"></script>
 <script src="bohemia_settings.js"></script>
@@ -1588,7 +1589,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/18s - THE LAKE HAS ITS RING</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/18t - THE BATTERY IS REAL</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13860,21 +13861,21 @@ var BOH_START = (function(){
   /* Battle Brothers' fifteen, in order, translated. d: 1 easy .. 4 very hard (its own, recall-grade).
      start: batteries. crew/pay: added to every job. Lines are draft:true. */
   var ORIGINS = [
-    { id:'rebuild',  bb:'Rebuilding a Company', name:'THE CREW THAT IS LEFT', d:1, start:6, crew:0, pay:0, line:'Three of you, a debt paid off, and a name to fix.' },
-    { id:'newcrew',  bb:'A New Company',        name:'A NEW CREW',            d:1, start:5, crew:0, pay:0, line:'Three of you and a battery each. Start clean.' },
-    { id:'south',    bb:'Southern Mercenaries', name:'UP FROM HENDERSON',     d:2, start:5, crew:0, pay:0, line:'You came north on the 95 with three guns and no friends.' },
-    { id:'truck',    bb:'Trading Caravan',      name:'THE WATER TRUCK',       d:1, start:7, crew:0, pay:1, line:'Two drivers and a tank. The water gets more respect than you do.' },
-    { id:'watch',    bb:'Peasant Militia',      name:'THE BLOCK WATCH',       d:2, start:3, crew:-1,pay:0, line:'Ten neighbours with pipes. Nobody brings a small crew against you.' },
-    { id:'scav',     bb:'Band of Poachers',     name:'THE SCAVENGERS',        d:2, start:4, crew:0, pay:0, line:'You know every gutted store from here to the dam.' },
-    { id:'promise',  bb:'Oathtakers',           name:'THE PROMISE KEEPERS',   d:3, start:4, crew:0, pay:0, line:'Two of you and a promise you made at a grave.' },
-    { id:'desert',   bb:'Deserters',            name:'THE DESERTERS',         d:3, start:4, crew:1, pay:0, line:'You walked off a faction\'s line. They have not forgotten.' },
-    { id:'raid',     bb:'Northern Raiders',     name:'THE RAIDERS',           d:3, start:3, crew:1, pay:1, line:'You take, and the valley knows your faces.' },
-    { id:'lab',      bb:'Anatomists',           name:'THE LAB RATS',          d:3, start:4, crew:0, pay:0, line:'You worked at the lab the animals broke out of.' },
-    { id:'faith',    bb:'Davkul Cultists',      name:'THE FAITHFUL',          d:3, start:3, crew:0, pay:0, line:'Four of you, and something you pray to that is not a god.' },
-    { id:'debt',     bb:'Manhunters',           name:'THE DEBT COLLECTORS',   d:3, start:5, crew:0, pay:1, line:'Half your crew owes you. The other half collects.' },
-    { id:'hunt',     bb:'Beast Slayers',        name:'THE HUNTERS',           d:2, start:4, crew:0, pay:0, line:'You track what came out of the lab. It tracks you back.' },
-    { id:'pit',      bb:'Gladiators',           name:'THE FIGHT PIT',         d:4, start:6, crew:1, pay:1, line:'Three of you off a casino floor that charged to watch.' },
-    { id:'wolf',     bb:'Lone Wolf',            name:'THE LONE WOLF',         d:4, start:3, crew:1, pay:0, line:'Just you. If you go down, it ends.' }
+    { id:'rebuild',  bb:'Rebuilding a Company', name:'THE CREW THAT IS LEFT', d:1, start:200, crew:0, pay:0, line:'Three of you, a debt paid off, and a name to fix.' },
+    { id:'newcrew',  bb:'A New Company',        name:'A NEW CREW',            d:1, start:240, crew:0, pay:0, line:'Three of you and a battery each. Start clean.' },
+    { id:'south',    bb:'Southern Mercenaries', name:'UP FROM HENDERSON',     d:2, start:240, crew:0, pay:0, line:'You came north on the 95 with three guns and no friends.' },
+    { id:'truck',    bb:'Trading Caravan',      name:'THE WATER TRUCK',       d:1, start:140, crew:0, pay:1, line:'Two drivers and a tank. The water gets more respect than you do.' },
+    { id:'watch',    bb:'Peasant Militia',      name:'THE BLOCK WATCH',       d:2, start:100, crew:-1,pay:0, line:'Ten neighbours with pipes. Nobody brings a small crew against you.' },
+    { id:'scav',     bb:'Band of Poachers',     name:'THE SCAVENGERS',        d:2, start:200, crew:0, pay:0, line:'You know every gutted store from here to the dam.' },
+    { id:'promise',  bb:'Oathtakers',           name:'THE PROMISE KEEPERS',   d:3, start:100, crew:0, pay:0, line:'Two of you and a promise you made at a grave.' },
+    { id:'desert',   bb:'Deserters',            name:'THE DESERTERS',         d:3, start:100, crew:1, pay:0, line:'You walked off a faction\'s line. They have not forgotten.' },
+    { id:'raid',     bb:'Northern Raiders',     name:'THE RAIDERS',           d:3, start:100, crew:1, pay:1, line:'You take, and the valley knows your faces.' },
+    { id:'lab',      bb:'Anatomists',           name:'THE LAB RATS',          d:3, start:270, crew:0, pay:0, line:'You worked at the lab the animals broke out of.' },
+    { id:'faith',    bb:'Davkul Cultists',      name:'THE FAITHFUL',          d:3, start:240, crew:0, pay:0, line:'Four of you, and something you pray to that is not a god.' },
+    { id:'debt',     bb:'Manhunters',           name:'THE DEBT COLLECTORS',   d:3, start:200, crew:0, pay:1, line:'Half your crew owes you. The other half collects.' },
+    { id:'hunt',     bb:'Beast Slayers',        name:'THE HUNTERS',           d:2, start:150, crew:0, pay:0, line:'You track what came out of the lab. It tracks you back.' },
+    { id:'pit',      bb:'Gladiators',           name:'THE FIGHT PIT',         d:4, start:70, crew:1, pay:1, line:'Three of you off a casino floor that charged to watch.' },
+    { id:'wolf',     bb:'Lone Wolf',            name:'THE LONE WOLF',         d:4, start:100, crew:1, pay:0, line:'Just you. If you go down, it ends.' }
   ];
   var NAMES = ['THE NIGHT SHIFT','LOW BATTERY','DEAD AIR','THE LAST CREW','NO SIGNAL','THE GRID','BLACKOUT','THE METER READERS','STATIC','THE LATE CREW'];  /* draft:true */
   var D = ['','EASY','NORMAL','HARD','VERY HARD'];   /* the wiki has three: Easy, Medium (ours NORMAL), Hard */

@@ -8512,6 +8512,21 @@ GATES = [
      "the shop's bag prices it the same, the crew screen's tap lights the map best first and its second tap closes onto the marks, "
      "nobody wears it, the last sale takes the marks away, and a planted stall without the engine reads red. green at registration, "
      "4/0 data and 11/0 a profile, about 4 min a profile", True),
+    ('THE BATTERY IS REAL', ['node', 'gates/the_battery_is_real_gate.js'],
+     "ECONOMY TWO gate, 11/18, rule 459 (ask line 645; rules 441, 454(a); Paolo 9/4: 'for one AA battery a bag of rice'; Paolo 11/17: "
+     "'some of the quests, it's like 3000 or like 1000 batteries to complete a quest and I'm like bro that's a lot... look at their "
+     "battery right now and relate it from the game to real life'). THE ONE TABLE (records/target/bb/battery_table.json through "
+     "tools/bohemia_economy_two_the_battery_table.js): the unit is one AA and it buys a bag of rice, the ladder is the research's (a "
+     "phone's battery 6, a tool pack 20, a car's battery 250) with the rig's own pictures; EVERY NUMBER OF BATTERIES IS THE TABLE'S "
+     "(every place in a data file, every typed copy in code, every number inside a sentence; a battery number in a live data file or "
+     "a typed 'N batteries' in live code that the table does not hold is red; every row in its band; the worked sums the table's); "
+     "eight planted faults each red by its own words; the page's copy of the ladder and its split are the table's; a sum is small "
+     "numbers (three kinds, 12 tool packs, 3 phone batteries, 19 AA's at the most; 1,000 is 4 car batteries). THE REAL PAGE, the demo "
+     "and the alpha on a phone upright and sideways: the bar's purse, the board's pays, the stall's boxes, the hall's hires, the "
+     "shelves' tiles each drawn as the batteries they are paid in, adding up to what the page wrote, inside their boxes, the old pile "
+     "gone; at the top of CLOUT with 2,236 the bar says 8 car batteries, 11 tool packs, 16 AA's and no count is over 19 but the car "
+     "batteries; the map's line for a job taken; a planted switch-off reads red. green at registration, 7/0 the table and 9/0 a "
+     "walk; about 4 min a walk (node gates/the_battery_is_real_gate.js data | demo | alpha [phone_portrait | phone_landscape])", True),
     ('HIS MAP', ['node', 'gates/his_map_gate.js'],
      "WORLD TWO gate, 10/26, row [the best of both maps] (rule 243, Paolo 10/26: 'think about Valheim's map and how Battle "
      "Brothers' map is, let's do the best of both worlds... bosses where you're able to alter the map and what's going on in the "

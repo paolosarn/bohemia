@@ -1,0 +1,66 @@
+{
+ "aa": {
+  "file": "slices/battery_ladder/aa.png",
+  "sha1": "f8987412964b98f536e7f56dece8e6b73e21e596",
+  "size": [
+   92,
+   73
+  ]
+ },
+ "car_battery": {
+  "file": "slices/battery_ladder/car_battery.png",
+  "sha1": "5a738a88639e658a666ace2670de4d566df43fa1",
+  "size": [
+   70,
+   92
+  ]
+ },
+ "phone_battery": {
+  "file": "slices/battery_ladder/phone_battery.png",
+  "sha1": "0d82c5988bae68f07b695527967b7d1dbc5d47da",
+  "size": [
+   50,
+   92
+  ]
+ },
+ "small/aa": {
+  "file": "slices/battery_ladder/small/aa.png",
+  "sha1": "3fc8b0c3323c23ba09c2e001a12682bd67777b6d",
+  "size": [
+   30,
+   30
+  ]
+ },
+ "small/car_battery": {
+  "file": "slices/battery_ladder/small/car_battery.png",
+  "sha1": "ef478cab6b670004176b422989e406cf6bf49ad3",
+  "size": [
+   30,
+   30
+  ]
+ },
+ "small/phone_battery": {
+  "file": "slices/battery_ladder/small/phone_battery.png",
+  "sha1": "5ca5b2732e2b8c788f351b15693b3069571a87d2",
+  "size": [
+   30,
+   30
+  ]
+ },
+ "small/tool_pack": {
+  "file": "slices/battery_ladder/small/tool_pack.png",
+  "sha1": "3efc0a0b47a56d24a1f09adc01434b63334c6ce9",
+  "size": [
+   30,
+   30
+  ]
+ },
+ "tool_pack": {
+  "file": "slices/battery_ladder/tool_pack.png",
+  "sha1": "88ddc7005a02532555290b316b2acbadd1250075",
+  "size": [
+   90,
+   92
+  ]
+ }
+}

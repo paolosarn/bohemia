@@ -1,0 +1,10 @@
+{
+ "model": "records/target/economy_two_ladder_rig/models/phone_battery.glb",
+ "ppm": 2416.6789410961287,
+ "files": [
+  "records/target/economy_two_ladder_rig/phone_battery/rig_S.png",
+  "records/target/economy_two_ladder_rig/phone_battery/rig_SE.png",
+  "records/target/economy_two_ladder_rig/phone_battery/rig_SW.png"
+ ],
+ "box": null
+}
