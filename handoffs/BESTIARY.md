@@ -1,6 +1,6 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
-BESTIARY (routine 'BESTIARY next', rules 453, 454(a), 441): 11/18 LATEST -- BUILD 11/18i SMOKE, FIRE AND SLEEP (SHA5_HERE), BUILT, NOT YET SEEN.
+BESTIARY (routine 'BESTIARY next', rules 453, 454(a), 441): 11/18 LATEST -- BUILD 11/18i SMOKE, FIRE AND SLEEP (17a03d64), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_SMOKE_FIRE_AND_SLEEP_11_18_26.md. VOTE bestiary-smoke-fire-and-sleep-11-18.
 | floor | his | the fight fields | short |
 |---|---|---|---|
