@@ -1,4 +1,4 @@
-COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18n - THE SERVERS, THE MANNEQUINS, THE FOUNTAIN, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round, this round's fourth build; rules 416, 455; ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18n - THE SERVERS, THE MANNEQUINS, THE FOUNTAIN, BUILT (b3b01634a), NOT YET SEEN (rule 453, round after round, this round's fourth build; rules 416, 455; ask row 627).
 The three pictures COMBAT THREE's legend lines (its BUILD 11/18g) waited on, under its names, no code: df_servers_block (the data fort: a server tile
 is four rows of cabinets and three roofed aisles now, not two thin rows; 48 stand-ins to 0; df_servers_ns cut again with its cast shadow at three
 tenths), mall_mannequins (a catwalk of faceless forms in long coats, two down, one stripped, one on the floor facing the rest) and mall_fountain

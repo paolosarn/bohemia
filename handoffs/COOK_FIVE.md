@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
-COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18n - THE SERVERS, THE MANNEQUINS, THE FOUNTAIN, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round, this round's fourth build; rules 416, 455; ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18n - THE SERVERS, THE MANNEQUINS, THE FOUNTAIN, BUILT (b3b01634a), NOT YET SEEN (rule 453, round after round, this round's fourth build; rules 416, 455; ask row 627).
 COMBAT THREE's BUILD 11/18g answered this lane's ask the same round ('the legend lines you wait on are in'). Their pictures:
 slices/fight_ground/datafort/df_servers_block.webp (50,816 bytes; datafort_art.json's kit names it; sizes.json) and df_servers_ns.webp cut again;
 slices/fight_ground/mall/mall_mannequins.webp (30,998) and mall_fountain.webp (27,052), mall_art.json's kit and sizes.json gained the two.
