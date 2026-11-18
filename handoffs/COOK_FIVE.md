@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE; newest block on top)
 
-COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18p - THE TERMINAL IS AN AIRPORT, BUILT (SHIPSHA), NOT YET SEEN (rule 453, round after round, this round's fifth build; rules 416, 451(a), 455; ask row 627).
+COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18p - THE TERMINAL IS AN AIRPORT, BUILT (4c0cf87e7), NOT YET SEEN (rule 453, round after round, this round's fifth build; rules 416, 451(a), 455; ask row 627).
 THE TERMINAL (COMBAT THREE's BUILD 11/18g): all of its pieces were stand-ins. Now slices/fight_ground/terminal/ holds terminal_art.json (THE GARAGE'S
 FORMAT: floor.floor rows 0 to 3 of terminal_floor_0.webp, floor.high its row 4, floor.ring all 25; kit: every name COMBAT THREE's handoff asked for),
 sizes.json (my gate's), 25 piece pictures, the floor sheet and terminal_ceiling.webp: 27 pictures, 751,156 bytes. terminal.json: only its ceiling
