@@ -234,10 +234,48 @@ TYPES = {
         kit=[['DRAPED COWL', 'HAND WRAPS'], ['DRAPED COWL', 'BONE SHOULDER DRAPE', 'LEATHER BELT'], ['DRAPED COWL', 'OXBLOOD BRACERS']],
         hats=[None, 'HAT BONE HEAD WRAP', 'HAT SOOT HEAD WRAP'], eyewear=[None, None, None],
         pieces=[[], [], []], cuts=['HOME CLIPPERS', 'LAYERED FALL', 'TEMPLE TAPER', 'SHORT ROPES']),
+    # CHARACTER 11/18 (rule 453, round after round; BESTIARY's stand-in list in handoffs/CHARACTER.md: the hired gun in
+    # faction_caravans, the duelist in faction_mob). Battle Brothers' mercenaries are a rival company in its own kit; roster.json's
+    # family: 'OTHER COMPANIES like yours, the rival crew with a runway look'. Ours wear what a paid company buys: a quilted
+    # gambeson or a leather jacket over black, a scrap helm, and ONE mark on every man, the company's sash in its own banner ink
+    # (factions.json mercenaries #6e7dff, a value down and dusted: COLOUR IS TERRITORY, the Watch's captain wears his the same way).
+    'Hired Gun': dict(
+        row='hired_gun', faction='hired', stand_in='Caravans', cell='faction_caravans', count=3,
+        what='a rival company\'s man: a gambeson or a leather jacket over black, a scrap helm, the company\'s sash in its banner ink',
+        dials=[dict(height=0.35, belly=0.15, shoulders=0.70, hips=0.10), dict(height=0.15, belly=-0.10, shoulders=0.55, hips=0.0),
+               dict(height=0.50, belly=0.05, shoulders=0.80, hips=0.15)],
+        tops=['CHARCOAL TURTLENECK', 'BONE HENLEY', 'FADED BLACK LONGSLEEVE'],
+        coats=['QUILTED VEST', 'LEATHER JACKET', 'KHAKI JACKET'],
+        legs=['LEATHER STACK PANT', 'SOOT CARGOS', 'BLACK CARGOS'],
+        feet=['TALL MOTO BOOTS', 'FIELD BOOTS', 'LEATHER STACK BOOT'],
+        # the build wears one piece a slot: a gorget and a pauldron (or bracers) are both 'gear', the later one wins, so the
+        # gorgets the first roll named were never worn and are off the list (the renders unchanged)
+        kit=[['LEATHER GLOVES', 'SCRAP PAULDRON'], ['LEATHER GLOVES', 'WORN BRACERS', 'LEATHER BELT'],
+             ['SOOT GLOVES', 'OXBLOOD BRACERS']],
+        hats=['HAT SCRAP HELM', 'HAT DUST WORK CAP', 'HAT SCRAP HELM'], eyewear=[None, None, None],
+        pieces=[['sash']] * 3, sash=(84, 92, 150), cuts=['TEMPLE TAPER', 'DRY TAPER', 'DEEP TAPER', 'RAZOR SKULL']),
+    # the paid blade (Battle Brothers' Swordmaster, who strikes back): BESTIARY's 'a good coat, a feathered hat'. Ours is a Strip
+    # gambler with a sword: a black or a dust felt gambler's hat, the company's ink as its band, a feather in it (a pheasant's
+    # barred tail, a crow's), a good coat over a pressed shirt.
+    'Duelist': dict(
+        row='hired_duelist', faction='hired', stand_in='Mob', cell='faction_mob', count=2,
+        what='a paid blade: a good coat over a pressed shirt, a felt gambler\'s hat banded in the company\'s ink, a feather in the band',
+        dials=[dict(height=0.45, belly=-0.35, shoulders=0.20, hips=-0.15), dict(height=0.60, belly=-0.45, shoulders=0.10, hips=-0.20)],
+        tops=['BONE BUTTON-UP', 'CHARCOAL TURTLENECK'],
+        coats=['OXBLOOD JACKET', 'LEATHER SPLIT-TAIL COAT'],
+        legs=['DROP RISE TROUSER', 'LEATHER STACK PANT'],
+        feet=['TALL MOTO BOOTS', 'LEATHER STACK BOOT'],
+        kit=[['BONE SHOULDER DRAPE', 'LEATHER GLOVES', 'LEATHER BELT'], ['OXBLOOD BRACERS', 'LEATHER GLOVES']],   # loop 1: the ash one-shoulder drape read grey-blue (cool 18 in 100)
+        hats=['GAMBLER HAT SOOT', 'GAMBLER HAT DUST'], eyewear=[None, None],
+        pieces=[[], []], cuts=['TEMPLE TAPER', 'GREASE BACK', 'DEEP TAPER']),
 }
 ORDER = list(TYPES)
 POOL = {t: TYPES[t]['row'] for t in ORDER}
-NEW_HATS = ('HUBCAP KETTLE', 'MAIL COIF', 'COYOTE PELT', 'BIKE HELMET BONE', 'BIKE HELMET RED', 'BIKE HELMET ASH')
+NEW_HATS = ('HUBCAP KETTLE', 'MAIL COIF', 'COYOTE PELT', 'BIKE HELMET BONE', 'BIKE HELMET RED', 'BIKE HELMET ASH',
+            'GAMBLER HAT SOOT', 'GAMBLER HAT DUST')
+# the gambler's hat (11/18, the Duelist): its felt, its band (the hired guns' ink, dusted), its feather and the feather's bars
+GAMBLER = {'GAMBLER HAT SOOT': dict(felt=(38, 35, 33), band=(84, 92, 150), quill=(176, 160, 128), bar=(92, 56, 36)),
+           'GAMBLER HAT DUST': dict(felt=(112, 98, 78), band=(84, 92, 150), quill=(30, 28, 30), bar=None)}
 HELMET_SHELL = {'BIKE HELMET BONE': (180, 174, 158), 'BIKE HELMET RED': (138, 64, 52), 'BIKE HELMET ASH': (112, 110, 104)}
 
 
@@ -552,15 +590,16 @@ def body_pieces(names, X, spec):
 
         # ---- THE CAPTAIN'S SASH: the Watch's green, his left shoulder to his right hip, knotted, the tails hanging
         elif nm == 'sash':
+            SASH = tuple(TYPES.get(spec.get('gang'), {}).get('sash', WATCH_GREEN))   # 11/18: a company's sash in its own ink (the hired guns)
             ring = tilted(0.88, 1, over + 0.024)
-            made.append(weighted(band('sash', [ring], 0.072, 0.010, WATCH_GREEN, seg=8), torso_w))
+            made.append(weighted(band('sash', [ring], 0.072, 0.010, SASH, seg=8), torso_w))
             lo = min(ring, key=lambda pd: pd[0].z)[0]
             bm = bmesh.new(); ball(bm, lo + V((0, -0.012, 0)), 0.030, seg=10, ring=6, sq=(1.2, 0.7, 1.0))
-            made.append(solid('sash_knot', bm, WATCH_GREEN, 'Skeleton_torso_joint_1', 0))
+            made.append(solid('sash_knot', bm, SASH, 'Skeleton_torso_joint_1', 0))
             for k, dx in enumerate((-0.020, 0.018)):
                 bm = bmesh.new(); p0 = lo + V((dx, -0.020, -0.01))
                 box(bm, p0 + V((dx * 0.4, -0.004, -0.085)), V((0.020, 0, 0)), V((0, 0.004, 0)), V((0, 0, 0.085)))
-                made.append(weighted(solid('sash_tail_%d' % k, bm, WATCH_GREEN, 'Skeleton_torso_joint_1', 1),
+                made.append(weighted(solid('sash_tail_%d' % k, bm, SASH, 'Skeleton_torso_joint_1', 1),
                                      lambda p, sx=(1 if lo.x > 0 else -1): {'Skeleton_torso_joint_1': 0.6, ('leg_joint_L_1' if sx > 0 else 'leg_joint_R_1'): 0.4}))
 
         # ---- THE CAPTAIN'S BADGE: a brass shield on his left breast
@@ -984,6 +1023,84 @@ def head_pieces(cut, L):
                 sp.append(C + Vector((math.sin(az) * (r + 0.005), -math.cos(az) * (r + 0.005), z)))
             for a_, b_ in zip(sp, sp[1:]): cylb(bm, a_, b_, 0.0040, seg=6)
         made.append(solid_bm(bm, 'helmet_straps', (36, 36, 36)))
+    # ---- THE GAMBLER'S HAT (Duelist, 11/18): a felt crown with a flat top, a flat brim turned up a little at the sides, the
+    # company's ink as its band and a feather in the band on his left. The brim is 5.4 cm at the front and 6.6 at the sides and
+    # back, flat at the front (the kettle's loop 1: a wide brim drooping hid the whole face from the game's camera)
+    elif cut in GAMBLER:
+        G = GAMBLER[cut]; BZ = 0.050; NA, NZ = 72, 6
+        hit = bvh_head.ray_cast(C + Vector((0, 0, 0.5)), Vector((0, 0, -1)), 1.0)   # the crown stands 2.6 cm over his own skull's top
+        TOP = max(0.150, ((hit[0] - C).z if hit[0] is not None else 0.14) + 0.026)
+        def zb(az): return BZ - 0.016 * sstep(1.6, 3.0, abs(az))
+        def rb(az): return (skull_r(az, zb(az) + 0.004) or 0.115) + 0.018
+        def ring_at(az, r, z): return C + Vector((math.sin(az) * r, -math.cos(az) * r, z))
+        # loop 1 (looking, both at 1:1 and x3): a straight wall to a flat top read as a bucket with a hole in it from the game's
+        # camera (the top ring left open, the up-face dust turning the felt top chalk): the wall now rounds in at the shoulder,
+        # the top closes on one point pressed 1.6 cm down (the crease), and the top's felt is a value darker than the wall's
+        rows = []
+        for j in range(NZ + 1):   # the crown's wall, up from the brim, a little narrower at the top
+            u = j / NZ; row = []
+            for i in range(NA + 1):
+                az = -math.pi + 2 * math.pi * i / NA
+                z = zb(az) + (TOP - 0.010 - 0.004 * math.cos(az) - zb(az)) * u
+                row.append(ring_at(az, rb(az) * (1.0 - 0.05 * u), z))
+            rows.append(row)
+        for f, dz in ((0.90, 0.006), (0.74, 0.009), (0.52, 0.007), (0.28, 0.000)):   # the shoulder, then the top drawn in
+            row = []
+            for i in range(NA + 1):
+                az = -math.pi + 2 * math.pi * i / NA
+                row.append(ring_at(az, rb(az) * 0.95 * f, TOP - 0.010 - 0.004 * math.cos(az) + dz))
+            rows.append(row)
+        bm = bmesh.new(); vs = [[bm.verts.new(p) for p in row] for row in rows]
+        for jj in range(len(vs) - 1):
+            for ii in range(NA): bm.faces.new((vs[jj][ii], vs[jj][ii + 1], vs[jj + 1][ii + 1], vs[jj + 1][ii]))
+        mid = bm.verts.new(C + Vector((0, 0, TOP - 0.016)))
+        for ii in range(NA): bm.faces.new((vs[-1][ii], vs[-1][ii + 1], mid))
+        bmesh.ops.remove_doubles(bm, verts=bm.verts[:], dist=1e-6)
+        bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+        # loop 3: at half value the top was the same pale grey: the master rig's dust is pale on any dark up face, by
+        # design, and only its wear_by_material spares a dark crown ('hair' 0.15, DIRECTION's rule for every dark crown that
+        # rendered grey). A felt hat IS hair (rabbit fur, pressed): its felt's material is named for it, the colours back up
+        crown = finish(bm, 'gambler_crown', mat('gambler_fur_felt_hair', G['felt'], 0.95), 0.004)
+        # loop 2 (x8): the rig's up-face dust still took the top and the brim to a pale grey over a black wall (the kettle's
+        # loop 1 again); drawn at half value they came out the same grey (loop 3 below)
+        multi(crown, [(G['band'], lambda q: q.z < zb(az_of(q)) + 0.026 and math.hypot(q.x, q.y) > 0.06)])   # the top keeps the felt's own (hair) material
+        made.append(crown)
+        NR = 6; rows = []
+        def brim_w(az): return 0.054 + 0.012 * sstep(0.5, 1.4, abs(az))
+        for j in range(NR + 1):
+            u = j / NR; row = []
+            for i in range(NA + 1):
+                az = -math.pi + 2 * math.pi * i / NA
+                side = sstep(0.9, 1.6, abs(az)) * (1.0 - sstep(2.3, 2.9, abs(az)))
+                z = zb(az) + 0.016 * u * u * side - 0.004 * u * (1.0 - sstep(0.3, 0.9, abs(az)))
+                row.append(ring_at(az, rb(az) - 0.003 + brim_w(az) * u, z))
+            rows.append(row)
+        brim = finish(grid_mesh(rows), 'gambler_brim', mat('gambler_brim_fur_felt_hair', tuple(int(c * 0.86) for c in G['felt']), 0.95), 0.005)
+        made.append(brim)
+        # the feather: tucked in the band on his left (+x: he faces -y), its quill up and back, a curve to the tip
+        # loop 1: 3 cm wide by 20 long it was a line of one pixel; now 4.6 by 25, leaning out from the crown so the front sees it
+        AF = 1.75; base = ring_at(AF, rb(AF) + 0.006, zb(AF) + 0.010) - C
+        a_, b_ = Vector((0.30, 0.42, 0.86)).normalized(), Vector((0.06, 0.40, -0.30)); Lf = 0.25
+        bm = bmesh.new(); prev = None; NT = 14; spine = []
+        for k in range(NT + 1):
+            t = k / NT; p = base + (a_ * t + b_ * t * t) * Lf
+            tan = (a_ + b_ * 2 * t).normalized(); side_v = tan.cross(Vector((1, 0, 0))).normalized()
+            w = 0.046 * (math.sin(math.pi * (0.12 + 0.86 * t)) ** 0.7) * (0.35 + 0.65 * sstep(0.0, 0.25, t))
+            spine.append((C + p, side_v, w, t))
+        # loop 2 (x8): a flat ribbon is a line of one pixel from the front, an aerial on his hat; the feather is a plume with a
+        # body now, an ellipse 5.5 cm by 3 through its middle, so it reads as a feather from every facing
+        NS = 8; vs = []
+        for (p, sv, w, t) in spine:
+            nv = sv.cross((a_ + b_ * 2 * t).normalized()).normalized(); w2 = w * 5.5 / 4.6
+            vs.append([bm.verts.new(p + sv * math.cos(2 * math.pi * s / NS) * w2 * 0.5 + nv * math.sin(2 * math.pi * s / NS) * w2 * 0.28) for s in range(NS)])
+        for k in range(NT):
+            for s in range(NS): bm.faces.new((vs[k][s], vs[k][(s + 1) % NS], vs[k + 1][(s + 1) % NS], vs[k + 1][s]))
+        bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+        fe = finish(bm, 'gambler_feather', mat('gambler_quill', G['quill'], 0.9), 0)
+        if G['bar']:
+            B0 = C + base
+            multi(fe, [(G['bar'], lambda q: int(((q + C) - B0).length / 0.017) % 2 == 1 and ((q + C) - B0).length > 0.03)])
+        made.append(fe)
     return made
 
 
@@ -1189,6 +1306,7 @@ def pack():
     F = I['faces']; S = F['size']
     assert not [l for l in F['order'] if l in mine], 'a nine-enemies face is on the first strip: take it off before packing here'
     MORE = 'faces_more.webp'
+    at = next((i for i, M in enumerate(F.get('more', [])) if M['file'] == MORE), len(F.get('more', [])))   # 11/18: the strip keeps its place among the others (BOSSES' faces_bosses.webp came after it)
     more = [M for M in F.get('more', []) if M['file'] != MORE]
     # the strip holds every man of the roll whose sheet is on the fight (his street face is committed, so a man not made on
     # this box keeps his tile)
@@ -1199,7 +1317,7 @@ def pack():
         out = Image.new('RGBA', (S * len(tiles), S), (0, 0, 0, 0))
         for i, t in enumerate(tiles): out.paste(t, (i * S, 0))
         out.save(os.path.join(FR, MORE), 'WEBP', quality=85, alpha_quality=100, method=6)
-        more.append(dict(file=MORE, order=[lk for p, lk in strip], by='CHARACTER 11/7, tools/bohemia_character_the_nine_enemies.py pack'))
+        more.insert(at, dict(file=MORE, order=[lk for p, lk in strip], by='CHARACTER 11/7, tools/bohemia_character_the_nine_enemies.py pack'))
     F['more'] = more
     I['enemies_nine'] = ("CHARACTER [more enemy types, their own art] 11/7 (rule 427(b)): FACTIONS' nine act-one types in their own "
                          "garments (kind 'enemy', set 'nine'), packed by tools/bohemia_character_the_nine_enemies.py pack into each type's old "
@@ -1223,6 +1341,9 @@ def pack():
         was = row.get('looks_borrowed') or row['looks']
         new = '"looks": %s, "looks_borrowed": %s' % (json.dumps(ids), json.dumps(was))
         if row.get('looks_borrowed'): old += ', "looks_borrowed": %s' % json.dumps(row['looks_borrowed'])
+        # 11/18: a row BESTIARY fielded in a stand-in carries its note beside the looks; its own men end the stand-in, so the note goes
+        if row.get('looks_stand_in') and txt.count(old + ', "looks_stand_in": %s' % json.dumps(row['looks_stand_in'])) == 1:
+            old += ', "looks_stand_in": %s' % json.dumps(row['looks_stand_in'])
         assert txt.count(old) == 1, 'the looks line of %s is not where it was: re-read the file' % POOL[t]
         txt = txt.replace(old, new)
     note = '  "looks_note": "CHARACTER 11/7 (rule 427(b), asks 286 and 238): every human type wears its own men (tools/bohemia_character_the_nine_enemies.py); looks_borrowed keeps the people it stood in before, for the record",\n'

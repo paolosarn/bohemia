@@ -445,6 +445,36 @@
 "fill": 0.264,
 "packedMB": 5.1
 },
+"enemy_hired_duelist_0.webp": {
+"bytes": 311416,
+"decodedMB": 17.2,
+"fill": 0.226,
+"packedMB": 4.41
+},
+"enemy_hired_duelist_1.webp": {
+"bytes": 311450,
+"decodedMB": 17.2,
+"fill": 0.223,
+"packedMB": 4.36
+},
+"enemy_hired_gun_0.webp": {
+"bytes": 292808,
+"decodedMB": 18.62,
+"fill": 0.186,
+"packedMB": 4.01
+},
+"enemy_hired_gun_1.webp": {
+"bytes": 280266,
+"decodedMB": 18.62,
+"fill": 0.185,
+"packedMB": 4.0
+},
+"enemy_hired_gun_2.webp": {
+"bytes": 278276,
+"decodedMB": 18.62,
+"fill": 0.185,
+"packedMB": 4.03
+},
 "enemy_house_crossbow_0.webp": {
 "bytes": 306764,
 "decodedMB": 18.86,
@@ -1305,8 +1335,8 @@
 }
 },
 "totals": {
-"decodedMB": 4387.5,
-"packedMB": 891.5,
-"sheets": 217
+"decodedMB": 4477.7,
+"packedMB": 912.3,
+"sheets": 222
 }
 }

@@ -3663,6 +3663,86 @@
    "rig": "records/target/combat/rig/boss_smith_0/rig.json",
    "own_kit": true,
    "dressed": "BOSSES [sixteen to eighteen] 11/18: his own pieces on his model (tools/bohemia_bosses_sixteen_to_eighteen_11_18_26.py)"
+  },
+  "enemy_hired_gun_0": {
+   "file": "enemy_hired_gun_0.webp",
+   "w": 147,
+   "h": 166,
+   "foot": [
+    68,
+    109
+   ],
+   "height_m": 1.75,
+   "kind": "enemy",
+   "ref": "faction_caravans",
+   "guns": "faction_caravans_guns.webp",
+   "type": "hired_gun",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_hired_gun_0/rig.json"
+  },
+  "enemy_hired_gun_1": {
+   "file": "enemy_hired_gun_1.webp",
+   "w": 147,
+   "h": 166,
+   "foot": [
+    68,
+    109
+   ],
+   "height_m": 1.746,
+   "kind": "enemy",
+   "ref": "faction_caravans",
+   "guns": "faction_caravans_guns.webp",
+   "type": "hired_gun",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_hired_gun_1/rig.json"
+  },
+  "enemy_hired_gun_2": {
+   "file": "enemy_hired_gun_2.webp",
+   "w": 147,
+   "h": 166,
+   "foot": [
+    68,
+    109
+   ],
+   "height_m": 1.743,
+   "kind": "enemy",
+   "ref": "faction_caravans",
+   "guns": "faction_caravans_guns.webp",
+   "type": "hired_gun",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_hired_gun_2/rig.json"
+  },
+  "enemy_hired_duelist_0": {
+   "file": "enemy_hired_duelist_0.webp",
+   "w": 140,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.755,
+   "kind": "enemy",
+   "ref": "faction_mob",
+   "guns": "faction_mob_guns.webp",
+   "type": "hired_duelist",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_hired_duelist_0/rig.json"
+  },
+  "enemy_hired_duelist_1": {
+   "file": "enemy_hired_duelist_1.webp",
+   "w": 140,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.751,
+   "kind": "enemy",
+   "ref": "faction_mob",
+   "guns": "faction_mob_guns.webp",
+   "type": "hired_duelist",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_hired_duelist_1/rig.json"
   }
  },
  "faces": {
@@ -3835,7 +3915,12 @@
      "enemy_water_needle_2",
      "enemy_flock_faithful_0",
      "enemy_flock_faithful_1",
-     "enemy_flock_faithful_2"
+     "enemy_flock_faithful_2",
+     "enemy_hired_gun_0",
+     "enemy_hired_gun_1",
+     "enemy_hired_gun_2",
+     "enemy_hired_duelist_0",
+     "enemy_hired_duelist_1"
     ],
     "by": "CHARACTER 11/7, tools/bohemia_character_the_nine_enemies.py pack"
    },

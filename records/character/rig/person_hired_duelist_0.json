@@ -1,0 +1,245 @@
+{
+ "look": "PERSON_HIRED_DUELIST_0",
+ "shape": "person_hired_duelist_0: a paid blade: a good coat over a pressed shirt, a felt gambler's hat banded in the company's ink, a feather in the band, his own skin skin_light 3, BONE BUTTON-UP under OXBLOOD JACKET",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE BUTTON-UP",
+  "outer": "OXBLOOD JACKET",
+  "legs": "DROP RISE TROUSER",
+  "feet": "TALL MOTO BOOTS",
+  "back": "BONE SHOULDER DRAPE",
+  "hands": "LEATHER GLOVES",
+  "waist": "LEATHER BELT",
+  "outfit": [
+   "the button shirt's hem below the jacket",
+   "the sleeve ends short of the cuff under it"
+  ]
+ },
+ "dials": {
+  "height": 0.45,
+  "belly": -0.35,
+  "shoulders": 0.2,
+  "hips": -0.15
+ },
+ "layers": {
+  "base": {
+   "under": "JACKET",
+   "hem_drop": 0.05,
+   "arms_covered": true,
+   "cuff_to": 1.89
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "sleeve_to": 1.7
+  }
+ },
+ "model": "records/character/rig/person_hired_duelist_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7587,
+ "real_height_for_rig": 1.7649,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_hired_duelist_0_shoe": 4484,
+  "person_hired_duelist_0_shirt": 71212,
+  "person_hired_duelist_0_collar": 1536,
+  "person_hired_duelist_0_collar_points": 180,
+  "person_hired_duelist_0_placket": 162,
+  "person_hired_duelist_0_buttons": 204,
+  "person_hired_duelist_0_cuffs": 2048,
+  "person_hired_duelist_0_tail": 2912,
+  "person_hired_duelist_0_coat": 61458,
+  "person_hired_duelist_0_collar.001": 1536,
+  "person_hired_duelist_0_lapels": 396,
+  "person_hired_duelist_0_waistband": 1792,
+  "person_hired_duelist_0_cuffs.001": 2048,
+  "person_hired_duelist_0_trouser": 43706,
+  "person_hired_duelist_0_drop_yoke": 5600,
+  "person_hired_duelist_0_ankle": 2048,
+  "person_hired_duelist_0_sole_1": 242,
+  "person_hired_duelist_0_midsole_1": 242,
+  "person_hired_duelist_0_sole_0": 242,
+  "person_hired_duelist_0_midsole_0": 242,
+  "person_hired_duelist_0_boot_collar": 2048,
+  "person_hired_duelist_0_boot_collar_line": 2048,
+  "person_hired_duelist_0_boot_strap": 2048,
+  "person_hired_duelist_0_bone_shoulder_drape": 25216,
+  "person_hired_duelist_0_leather_gloves_L": 392,
+  "person_hired_duelist_0_leather_gloves_R": 392,
+  "person_hired_duelist_0_leather_gloves_cuff": 2048,
+  "person_hired_duelist_0_leather_belt": 1792,
+  "person_hired_duelist_0_leather_belt_buckle": 34,
+  "person_hired_duelist_0_hair": 17968,
+  "person_hired_duelist_0_hand_L": 392,
+  "person_hired_duelist_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_hired_duelist_0_ankle": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_hired_duelist_0_bone_shoulder_drape": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_hired_duelist_0_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_hired_duelist_0_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_hired_duelist_0_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_hired_duelist_0_buttons": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_hired_duelist_0_coat": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_hired_duelist_0_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_hired_duelist_0_collar_points": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_hired_duelist_0_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_hired_duelist_0_drop_yoke": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_hired_duelist_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_hired_duelist_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_hired_duelist_0_lapels": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_hired_duelist_0_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_hired_duelist_0_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_hired_duelist_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_hired_duelist_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_hired_duelist_0_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_hired_duelist_0_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_hired_duelist_0_placket": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_hired_duelist_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_hired_duelist_0_shoe": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_hired_duelist_0_shoes": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_hired_duelist_0_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "person_hired_duelist_0_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_hired_duelist_0_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_hired_duelist_0_tail": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_hired_duelist_0_trouser": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_hired_duelist_0_trousers": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_hired_duelist_0_waistband": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_hired_duelist_0_yoke_drape": [
+   0.0152,
+   0.013,
+   0.0152
+  ]
+ }
+}

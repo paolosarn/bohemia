@@ -1,0 +1,236 @@
+{
+ "look": "PERSON_HIRED_GUN_0",
+ "shape": "person_hired_gun_0: a rival company's man: a gambeson or a leather jacket over black, a scrap helm, the company's sash in its banner ink, his own skin skin_light 1, CHARCOAL TURTLENECK under QUILTED VEST",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "CHARCOAL TURTLENECK",
+  "outer": "QUILTED VEST",
+  "legs": "LEATHER STACK PANT",
+  "feet": "TALL MOTO BOOTS",
+  "gear": "SCRAP PAULDRON",
+  "hands": "LEATHER GLOVES",
+  "outfit": [
+   "QUILTED VEST worn open to the neck",
+   "the turtleneck's hem below the vest"
+  ]
+ },
+ "dials": {
+  "height": 0.35,
+  "belly": 0.15,
+  "shoulders": 0.7,
+  "hips": 0.1
+ },
+ "layers": {
+  "base": {
+   "under": "VEST",
+   "hem_drop": 0.04
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "open": true,
+   "ohw": 0.056,
+   "collar_z": 1.115,
+   "fo_add": 0.25
+  }
+ },
+ "model": "records/character/rig/person_hired_gun_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7501,
+ "real_height_for_rig": 1.7563,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_hired_gun_0_shoe": 4484,
+  "person_hired_gun_0_shirt": 79720,
+  "person_hired_gun_0_cuffs": 2048,
+  "person_hired_gun_0_tail": 2016,
+  "person_hired_gun_0_coat": 21158,
+  "person_hired_gun_0_lapels": 396,
+  "person_hired_gun_0_sash": 2048,
+  "person_hired_gun_0_sash_knot": 52,
+  "person_hired_gun_0_sash_tail_0": 26,
+  "person_hired_gun_0_sash_tail_1": 26,
+  "person_hired_gun_0_trouser": 43706,
+  "person_hired_gun_0_sole_1": 242,
+  "person_hired_gun_0_midsole_1": 242,
+  "person_hired_gun_0_sole_0": 242,
+  "person_hired_gun_0_midsole_0": 242,
+  "person_hired_gun_0_boot_collar": 2048,
+  "person_hired_gun_0_boot_collar_line": 2048,
+  "person_hired_gun_0_boot_strap": 2048,
+  "person_hired_gun_0_soot_gorget": 1536,
+  "person_hired_gun_0_soot_gorget_rim": 1536,
+  "person_hired_gun_0_leather_gloves_L": 392,
+  "person_hired_gun_0_leather_gloves_R": 392,
+  "person_hired_gun_0_leather_gloves_cuff": 2048,
+  "person_hired_gun_0_scrap_pauldron": 8778,
+  "person_hired_gun_0_scrap_pauldron_strap": 1792,
+  "person_hired_gun_0_hair": 17968,
+  "person_hired_gun_0_hand_L": 392,
+  "person_hired_gun_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_hired_gun_0_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_hired_gun_0_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_hired_gun_0_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_hired_gun_0_coat": [
+   0.2307,
+   0.1812,
+   0.0953
+  ],
+  "person_hired_gun_0_cuffs": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_hired_gun_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_hired_gun_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_hired_gun_0_lapels": [
+   0.1144,
+   0.0887,
+   0.0437
+  ],
+  "person_hired_gun_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_hired_gun_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_hired_gun_0_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_hired_gun_0_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_hired_gun_0_sash": [
+   0.0887,
+   0.107,
+   0.305
+  ],
+  "person_hired_gun_0_sash_knot": [
+   0.0887,
+   0.107,
+   0.305
+  ],
+  "person_hired_gun_0_sash_tail_0": [
+   0.0887,
+   0.107,
+   0.305
+  ],
+  "person_hired_gun_0_sash_tail_1": [
+   0.0887,
+   0.107,
+   0.305
+  ],
+  "person_hired_gun_0_scrap_pauldron": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_hired_gun_0_scrap_pauldron_rim": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_hired_gun_0_scrap_pauldron_strap": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_hired_gun_0_shirt": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_hired_gun_0_shoe": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_hired_gun_0_shoes": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_hired_gun_0_skin": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "person_hired_gun_0_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_hired_gun_0_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_hired_gun_0_soot_gorget": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_hired_gun_0_soot_gorget_rim": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_hired_gun_0_tail": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_hired_gun_0_trouser": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_hired_gun_0_trouser_folds": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_hired_gun_0_trousers": [
+   0.1301,
+   0.0513,
+   0.016
+  ]
+ }
+}

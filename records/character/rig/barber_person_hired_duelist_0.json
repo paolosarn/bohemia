@@ -1,0 +1,38 @@
+{
+ "cut": "PERSON hired_duelist_0",
+ "tag": "person_hired_duelist_0",
+ "bank": {
+  "kind": "person",
+  "gang": "Duelist"
+ },
+ "worn_by": "Duelist, rolled",
+ "model": "records/character/rig/barber_person_hired_duelist_0.glb",
+ "body": "records/character/rig/person_hired_duelist_0.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "clay_mustard",
+  0
+ ],
+ "hair_rgb": [
+  76,
+  39,
+  14
+ ],
+ "skin_rgb": [
+  224,
+  189,
+  155
+ ],
+ "model_top_m": 1.559,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7546,
+ "pieces": {
+  "barber_temple_taper_fade": 33613,
+  "barber_temple_taper": 163338,
+  "gambler_crown": 1586,
+  "gambler_brim": 1022,
+  "gambler_feather": 120
+ }
+}

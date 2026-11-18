@@ -1523,5 +1523,226 @@
    "shoulders": 0.2,
    "hips": 0.1
   }
+ },
+ {
+  "id": "hired_gun_0",
+  "gang": "Hired Gun",
+  "heritage": "black",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 29,
+   "face.cheekW": 37,
+   "face.jawW": 30,
+   "face.chinW": 13,
+   "face.foreheadW": 27,
+   "face.craniumH": 11,
+   "nose.w": 4
+  },
+  "face_name": "ROUND",
+  "legs": "LEATHER STACK PANT",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "LEATHER GLOVES",
+   "SCRAP PAULDRON"
+  ],
+  "type": "Hired Gun",
+  "top": "CHARCOAL TURTLENECK",
+  "coat": "QUILTED VEST",
+  "hat": "HAT SCRAP HELM",
+  "pieces": [
+   "sash"
+  ],
+  "dials": {
+   "height": 0.35,
+   "belly": 0.15,
+   "shoulders": 0.7,
+   "hips": 0.1
+  }
+ },
+ {
+  "id": "hired_gun_1",
+  "gang": "Hired Gun",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.len": 29,
+   "face.cheekW": 37,
+   "face.jawW": 30,
+   "face.chinW": 13,
+   "face.foreheadW": 27,
+   "face.craniumH": 11,
+   "nose.w": 4
+  },
+  "face_name": "ROUND",
+  "legs": "SOOT CARGOS",
+  "feet": "FIELD BOOTS",
+  "kit": [
+   "LEATHER GLOVES",
+   "WORN BRACERS",
+   "LEATHER BELT"
+  ],
+  "type": "Hired Gun",
+  "top": "BONE HENLEY",
+  "coat": "LEATHER JACKET",
+  "hat": "HAT DUST WORK CAP",
+  "pieces": [
+   "sash"
+  ],
+  "dials": {
+   "height": 0.15,
+   "belly": -0.1,
+   "shoulders": 0.55,
+   "hips": 0.0
+  }
+ },
+ {
+  "id": "hired_gun_2",
+  "gang": "Hired Gun",
+  "heritage": "hispanic",
+  "tone": "bronze",
+  "skin": [
+   "skin_mid",
+   2
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "cloth_black",
+   1
+  ],
+  "face": {
+   "mouth.w": 6,
+   "nose.w": 2,
+   "eyes.gap": 5,
+   "face.chinW": 9,
+   "face.len": 30,
+   "brows.len": 5
+  },
+  "face_name": "SMALL FEATURES",
+  "facial_hair": "HORSESHOE MOUSTACHE",
+  "new_beard": "horseshoe",
+  "mark_name": "LIP SCAR",
+  "scar": "lip",
+  "legs": "BLACK CARGOS",
+  "feet": "LEATHER STACK BOOT",
+  "kit": [
+   "SOOT GLOVES",
+   "OXBLOOD BRACERS"
+  ],
+  "type": "Hired Gun",
+  "top": "FADED BLACK LONGSLEEVE",
+  "coat": "KHAKI JACKET",
+  "hat": "HAT SCRAP HELM",
+  "pieces": [
+   "sash"
+  ],
+  "dials": {
+   "height": 0.5,
+   "belly": 0.05,
+   "shoulders": 0.8,
+   "hips": 0.15
+  }
+ },
+ {
+  "id": "hired_duelist_0",
+  "gang": "Duelist",
+  "heritage": "white",
+  "tone": "chalk",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "clay_mustard",
+   0
+  ],
+  "face": {
+   "face.len": 30,
+   "face.cheekW": 36,
+   "face.jawW": 34,
+   "face.chinW": 18,
+   "face.foreheadW": 28,
+   "brows.len": 10,
+   "mouth.w": 11
+  },
+  "face_name": "BROAD AND SQUARE",
+  "legs": "DROP RISE TROUSER",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "BONE SHOULDER DRAPE",
+   "LEATHER GLOVES",
+   "LEATHER BELT"
+  ],
+  "type": "Duelist",
+  "top": "BONE BUTTON-UP",
+  "coat": "OXBLOOD JACKET",
+  "hat": "GAMBLER HAT SOOT",
+  "pieces": [],
+  "dials": {
+   "height": 0.45,
+   "belly": -0.35,
+   "shoulders": 0.2,
+   "hips": -0.15
+  }
+ },
+ {
+  "id": "hired_duelist_1",
+  "gang": "Duelist",
+  "heritage": "white",
+  "tone": "porcelain",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "DEEP TAPER",
+  "hair": [
+   "tape_masking",
+   1
+  ],
+  "face": {
+   "face.browY": 2,
+   "brows.len": 11,
+   "face.eyeY": 1,
+   "face.jawW": 30,
+   "face.chinW": 15,
+   "face.craniumH": 8,
+   "nose.w": 4
+  },
+  "face_name": "HEAVY BROW",
+  "legs": "LEATHER STACK PANT",
+  "feet": "LEATHER STACK BOOT",
+  "kit": [
+   "OXBLOOD BRACERS",
+   "LEATHER GLOVES"
+  ],
+  "type": "Duelist",
+  "top": "CHARCOAL TURTLENECK",
+  "coat": "LEATHER SPLIT-TAIL COAT",
+  "hat": "GAMBLER HAT DUST",
+  "pieces": [],
+  "dials": {
+   "height": 0.6,
+   "belly": -0.45,
+   "shoulders": 0.1,
+   "hips": -0.2
+  }
  }
 ]
