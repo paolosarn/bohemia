@@ -128,3 +128,6 @@ holds the blood, THE SMITH the steel: the two halves of the condition's bar.
 Three more bosses are live, each changing the map his own way and each with two words: THE WARD (nothing heals near his clinic; TREAT),
 THE CISTERN (his men take your water; CATCH), THE SMITH (nothing is mended near his forge; SMELT). Each one's prize is a person who
 moves into your place and stands on CAM 3, because the twelve lots were already full.
+- POST-CHECKS ON WHAT LANDED: THE CISTERN on main at 8cfae4a1b, the demo upright 22/0 and the alpha on its side 22/0 (the map, fight
+  and settlement files had moved under him since his gate's base). THE SMITH's gate ran on main as it stood (main did not move between
+  his run and his push).
