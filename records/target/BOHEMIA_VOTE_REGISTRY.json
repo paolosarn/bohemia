@@ -20892,7 +20892,8 @@
    },
    "record": "records/BOHEMIA_ECONOMY_TWO_EVERY_NUMBER_OF_BATTERIES_11_18_26.md",
    "build": "BUILD 11/18t - THE BATTERY IS REAL"
-  }
+  },
+  {"id": "bosses-the-cisterns-tanks-11-18", "kind": "tile", "lane": "bosses", "sha": "ecdd77c27", "made": "11/18", "draft": true, "title": "THE CISTERN OWNS THE RAIN: HIS MEN TAKE YOUR WATER NEAR HIM. KILL HIM AND HIS TANKS ARE OPEN", "said": "the ladder's 16th, 17th and 18th, each changing the map its own way, the fewest words, each prize seen on his place's cameras (the coordinator's round 'BOSSES next', rules 453, 454(a))", "why": "Left is THE CISTERN's roof tanks and his chained tanks on their stands round them, where every three hours in his reach his men take a FOOD off your wagon, middle is the same streets once he falls with the taps open and the jugs under them, a FOOD for every stop, and right is your own man's card with no words: his keeper moves into your place, and CATCH takes two FOOD off any roof once a day. You see it on the MAP after THE WARD, at the gutter tag, and his keeper on CAM 3 at your place.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/bosses_vote_cistern_11_18/VOTE.webp"}, "before_after": {"before": "main a10145c37: sixteen bosses; nothing on the map took your water", "after": "THE CISTERN's reach: 1 FOOD taken every 3 hours in 6 blocks round his roof tanks while he stands; his 3 tanks open when he falls (+1 FOOD a stop, once a day each), kept after a reload; CATCH (beside a roof, off a town, +2 FOOD once a day); his keeper lives at your place, on CAM 3", "scale": "the MAP on a 390 x 844 phone, the kill's own camera beat, twice the pixels"}, "record": "records/BOHEMIA_BOSSES_SIXTEEN_TO_EIGHTEEN_11_18_26.md"}
  ],
  "verdicts": [
   {
