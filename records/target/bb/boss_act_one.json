@@ -1685,6 +1685,90 @@
     "told": "NO HEALING",
     "card": "HIS CLINIC IS OPEN"
    }
+  },
+  {
+   "n": "THE CISTERN",
+   "quiet": true,
+   "words": "rule 454(a): a name and one line at most, draft; rule 455: the line is two words, scary first",
+   "place": {
+    "name": "THE ROOF TANKS",
+    "art": "rooftanks",
+    "paint": "rooftanks"
+   },
+   "boss": {
+    "kind": "nomad_leader",
+    "name": "THE CISTERN",
+    "hp_x": 1.8,
+    "weapon": "Tire Iron",
+    "shield": null,
+    "look": "boss_cistern_0",
+    "says": "Die thirsty."
+   },
+   "crew": [
+    "nomad_slinger",
+    "nomad_slinger",
+    "nomad_outlaw"
+   ],
+   "board": "culdesac",
+   "tip": "",
+   "verb": {
+    "id": "catch",
+    "word": "CATCH",
+    "button": "CATCH THE RAIN",
+    "quiet": true,
+    "rule": "off a town, beside a roof, once a day: the tarp and the barrel, 'food' FOOD (food and water are one count, rule 209)",
+    "food": 2,
+    "cooldown_days": 1,
+    "roof_districts": [
+     "suburb",
+     "estate",
+     "gated",
+     "apartment",
+     "trailer",
+     "residential",
+     "ranch"
+    ],
+    "first": {
+     "plate": "+{food} FOOD",
+     "rise": "+{food} FOOD",
+     "rise_none": "NO WAGON"
+    },
+    "cooling": "CATCH TOMORROW",
+    "tip": "+2 FOOD OFF A ROOF",
+    "tip_cooling": "TOMORROW",
+    "place_after": "raintarp",
+    "hand": {
+     "name": "HIS KEEPER",
+     "pic": "hand_catch.png",
+     "line": "CATCH: BESIDE A ROOF, OFF A TOWN, ONCE A DAY: +2 FOOD.",
+     "person": {
+      "name": "THE KEEPER",
+      "look": "person_rare_10"
+     }
+    }
+   },
+   "fallen_art": "rooftanks_after",
+   "lead": {
+    "thing": {
+     "head": "THE GUTTER",
+     "says": ""
+    }
+   },
+   "after": {
+    "quiet": true
+   },
+   "tanks": {
+    "radius": 6,
+    "marks": 3,
+    "every_mins": 180,
+    "take": 1,
+    "give": 1,
+    "pic": "tank",
+    "told": "HIS WATER",
+    "rise": "-{n} FOOD",
+    "rise_after": "+{n} FOOD",
+    "card": "{marks} TANKS OPEN"
+   }
   }
  ]
 }

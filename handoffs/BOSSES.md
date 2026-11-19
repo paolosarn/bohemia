@@ -1,5 +1,18 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/18/26: THE CISTERN, HIS OWN WAY, TWO WORDS, HIS KEEPER ON CAM 3 (the coordinator's round 'BOSSES next', rules 441, 453, 454(a), 455; ask lines 167, 522, 571), BUILD 11/18u
+Record: records/BOHEMIA_BOSSES_SIXTEEN_TO_EIGHTEEN_11_18_26.md. Gate: "THE CISTERN" (registered; 22/0 both ways). VOTE
+bosses-the-cisterns-tanks-11-18. SEVENTEEN BOSSES ARE LIVE; THE SMITH (18) is green both ways in this lane's head and ships next.
+- HIS TANKS (25): in 6 blocks round his roof tanks (off a town) his men take 1 FOOD every 3 hours of the game's clock (food and water
+  are one, rule 209); 3 tanks chained where his reach ends. After his fall a stop on a tank gives 1 FOOD, once a day each.
+- *** FOR RUN TWO / ECONOMY TWO: the wagon on the map is wagonGet/wagonPut (bohemia.supplies.v1); BohemiaOriginStart is NOT loaded on
+  the map's page (MEASURED: the first take found no wagon). bohemia_bosses.js supply() reads the map's own. ***
+- CATCH (verb 'catch'): off a town, beside a roof (suburb, estate, gated, apartment, trailer, residential, ranch), once a day, +2 FOOD.
+- *** FOR UI / RUN: the phone's band shows ONE verb, the file's order deciding. MEASURED: while a boss's sign is out THE DOGS' TRACK
+  lights on every block off a town (303 of 303 round the crew), and after a fight TREAT does too, so every verb after them waits until
+  they are used that day. A band of two would show both. Yours to judge; nothing changed in the band. ***
+- THE KEEPER moves into your place (a person, CAM 3). THE WARD's post-check on what landed: 22/0 both ways.
+
 ## BOSSES, 11/18/26: THE WARD, HIS OWN WAY, TWO WORDS, HIS NURSE ON CAM 3 (the coordinator's round 'BOSSES next', rules 441, 453, 454(a), 455; ask lines 167, 522, 571), BUILD 11/18j
 Record: records/BOHEMIA_BOSSES_SIXTEEN_TO_EIGHTEEN_11_18_26.md. Gate: "THE WARD" (THE WARD CHANGES THE MAP, registered; both ways green).
 VOTE bosses-the-wards-reach-11-18. SIXTEEN BOSSES ARE LIVE; THE CISTERN (17) and THE SMITH (18) are made (men, places, pieces, things,

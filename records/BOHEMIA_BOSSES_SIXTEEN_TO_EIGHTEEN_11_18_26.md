@@ -75,3 +75,32 @@ round it until it is taken.
   times as fast; TREAT put 64 to 87 blood back across the hurt men; THE NURSE on CAM 3 by a real tap. MEASURED: the reopened game came
   up inside a town on the alpha (BLUES), so the reload's walk back to his reach never started and R1 read nothing: the gate's reload walk
   now leaves a town first (the game is right; the checker walked from the wrong place).
+- POST-CHECK ON WHAT LANDED (main at cbfad9d18, with BESTIARY's fight changes under it): the demo upright 22/0 and the alpha on its
+  side 22/0, run from a clean checkout of that sha.
+
+## THE CISTERN (the ladder's 17th: every roof worth catching rain off). BUILD 11/18u
+
+HIS OWN WAY: HIS MEN TAKE YOUR WATER. While he stands, every 3 hours of the game's own clock the crew spends in the 6 blocks round his
+roof tanks (off a town), his men take 1 FOOD off the wagon (food and water are one count, rule 209: a man's night of a can and a
+bottle). His tanks stand up on their stands where his reach ends, chained, his man by each (3 of them). When he falls each tank's tap is
+open: a stop on its block gives 1 FOOD, once a day a tank, kept after a reload. Battle Brothers: a location's owners hold what is round
+it until it is taken; the water you could not get without asking is on the map for anybody.
+- Found by WORLD TWO's tag on a gutter. Nobody asks (rule 454(a)).
+- Fight: BB's Nomad Leader's numbers (the desert's water lord) at 1.8 blood with a Tire Iron (his water key), two Nomad Slingers (on
+  the roofs) and a Nomad Outlaw, on the cul-de-sac board. His one line: 'Die thirsty.' (draft).
+- Verb: CATCH. Off a town, beside a roof (suburb, estate, gated, apartment, trailer, residential, ranch), once a day: the tarp and the
+  barrel, +2 FOOD. In the order it comes after TRACK, before LOOK.
+- Prize: the after card says HIS KEEPER IS YOURS over his tarp; THE KEEPER moves into your place and stands on CAM 3. Data: row THE
+  CISTERN, 'tanks'.
+- MEASURED ON THE WAY (the band shows one verb at a time, the file's order deciding): after his fight TREAT lit on every block off a
+  town (the men were hurt), and while the next boss's sign is out TRACK lights on every block off a town too; CATCH was lit on 303 of
+  the blocks round the crew and TRACK on all 303. So a player taps TRACK (once a day) and then CATCH shows: the gate taps them the same
+  way. FOR UI / RUN: the more verbs he holds, the more one daily verb hides the next until it is used; a band of two (the first two
+  lit) would show both.
+- GATE (THE CISTERN CHANGES THE MAP, registered): the demo upright 22/0 and the alpha on its side 22/0. Seven hours in his reach cost 2
+  FOOD, the same seven out of it 0; after his fall seven hours there cost nothing and a stop on his tank gave 1 FOOD; CATCH gave +2;
+  THE KEEPER on CAM 3 by a real tap. MEASURED ON THE WAY: (1) RUN TWO's BohemiaOriginStart is not on the map's page, so the first build
+  of the take found no wagon: the map's own wagonGet/wagonPut carry it now; (2) on the alpha on its side the camera sits close and his
+  tanks at the edge of his reach were off the glass: the gate reads his marks beside one, and reads the open ones standing on one;
+  (3) with three phones running at once the sign's card came up late and covered the next legs: the gate waits 30 s for it; (4) a
+  clock wound back under his count hid a take: the gate sets the morning before each walk and leaves his reach first.

@@ -30,7 +30,7 @@ const OUT = process.argv[3] || path.join(ROOT, 'records', 'target', 'bosses_vote
     if (a[1]) { L.afterDue = false; L.beatDone = 1; } }, [n, !!felled]);   /* the ones before him fall quietly; his own beat and card play */
   for (const n of order) {
     let s = null;
-    for (let i = 0; i < 80; i++) { await page.waitForTimeout(500); s = await fr.evaluate(() => JSON.parse(JSON.stringify(BohemiaHisMap.state().boss))); if (s.sign && s.sign.n === n) break; }
+    for (let i = 0; i < 160; i++) { await page.waitForTimeout(500); s = await fr.evaluate(() => JSON.parse(JSON.stringify(BohemiaHisMap.state().boss))); if (s.sign && s.sign.n === n) break; }   /* 80 s: with three phones running a sign came after 40 (BOSSES 11/18) */
     if (!s.sign || s.sign.n !== n) { console.log('no sign for', n); process.exit(1); }
     await go([s.sign.x, s.sign.y]); await settle();
     await quiet(n);

@@ -2404,13 +2404,16 @@
   function reachRow(n, k) { var r = row(n); return r && r[k] ? r : null; }
   function reachDown(n, Q) { var h = hs(); return Q.fell != null || !!(h && h.boss.fallen[n]); }
   function reachR(G) { return Math.max(3, G.radius | 0 || 6); }
-  function supply(k, n) {   /* the company's counts (bohemia.supplies.v1, RUN TWO's): add or take, never under nothing; what moved */
-    var O = root.BohemiaOriginStart; if (!O || !O.supplies || !O.addSupply) return 0;
-    var s0 = O.supplies(); if (!s0) return 0; var a = s0[k === 'water' ? 'food' : k] | 0;
-    var s1 = O.addSupply(k, n); if (!s1) return 0;
+  function supply(k, n) {   /* the company's wagon (bohemia.supplies.v1, the map's own wagonGet/wagonPut; RUN TWO's counts): add or take,
+                               never under nothing; what moved. MEASURED 11/18: RUN TWO's BohemiaOriginStart is not on the map's page */
+    if (k === 'water') k = 'food';
+    var get = typeof wagonGet === 'function' ? wagonGet : function () { try { return JSON.parse(root.localStorage.getItem('bohemia.supplies.v1') || 'null'); } catch (e) { return null; } };
+    var put = typeof wagonPut === 'function' ? wagonPut : function (w) { try { root.localStorage.setItem('bohemia.supplies.v1', JSON.stringify(w)); } catch (e) {} };
+    var w = get(); if (!w) return 0;
+    var a = w[k] | 0, b = Math.max(0, a + (n | 0)); if (b === a) return 0;
+    w[k] = b; put(w);
     try { if (typeof root.__barPaintRead === 'function') root.__barPaintRead(); } catch (e) {}
-    try { var P = root.parent && root.parent !== root ? root.parent : null; if (P && typeof P.__barPaintRead === 'function') P.__barPaintRead(); } catch (e) {}
-    return Math.abs((s1[k === 'water' ? 'food' : k] | 0) - a);
+    return Math.abs(b - a);
   }
   function reachTick() {
     if (!DATA || !S || bench() || !N()) return;
