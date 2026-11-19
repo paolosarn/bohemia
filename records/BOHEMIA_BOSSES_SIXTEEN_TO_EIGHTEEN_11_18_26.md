@@ -104,3 +104,27 @@ it until it is taken; the water you could not get without asking is on the map f
   tanks at the edge of his reach were off the glass: the gate reads his marks beside one, and reads the open ones standing on one;
   (3) with three phones running at once the sign's card came up late and covered the next legs: the gate waits 30 s for it; (4) a
   clock wound back under his count hid a take: the gate sets the morning before each walk and leaves his reach first.
+
+## THE SMITH (the ladder's 18th: the last forge that still lights). BUILD 11/18v
+
+HIS OWN WAY: NOTHING IS MENDED NEAR HIM. While he stands, the 6 blocks round his forge (off a town) mend no armour: the hours there,
+marching or camped, put no point back on a helmet or a coat and spend no tape (the condition's own elapse, its mending rate held at
+nothing while it runs). His anvils stand on their stumps where his reach ends, chained under his scrap (3 of them). When he falls each
+anvil is anybody's: a stop on its block mends the company's armour whole, no tape, once a day an anvil, kept after a reload. THE WARD
+holds the blood, THE SMITH the steel: the two halves of the condition's bar.
+- Found by WORLD TWO's man at the bar. Nobody asks (rule 454(a)).
+- Fight: BB's Knight's numbers (the man in armour he made himself; the lesson is a hammer through plate) at 1.6 blood with a Warhammer,
+  a Footman, a Man-at-Arms and a Billman (his apprentices in his own steel), on the works board. His one line: 'Burn, kid.' (draft).
+- Verb: SMELT. At your place (its doorstep) or his forge, once a day: the scrap you hauled melted down, +3 TAPE (what mends armour,
+  and what HOME BASE's forge presses into rounds). In the order it comes after MARK: at your place the mark goes first.
+- Prize: the after card says HIS APPRENTICE IS YOURS over his fire; THE APPRENTICE moves into your place and stands on CAM 3. Data: row
+  THE SMITH, 'anvils'.
+- GATE (THE SMITH CHANGES THE MAP, registered): the demo upright 22/0 and the alpha on its side 22/0, on THE CISTERN's landed build
+  (8cfae4a1b) with his row on it. In his reach two hours mended none of 30 dented points and spent no tape; out of it the same two
+  hours mended about 18; after his fall one stop at his anvil mended the company's armour whole (146 points); SMELT gave +3 TAPE at
+  your place; THE APPRENTICE on CAM 3 by a real tap.
+
+## THE ROUND, SAID PLAINLY
+Three more bosses are live, each changing the map his own way and each with two words: THE WARD (nothing heals near his clinic; TREAT),
+THE CISTERN (his men take your water; CATCH), THE SMITH (nothing is mended near his forge; SMELT). Each one's prize is a person who
+moves into your place and stands on CAM 3, because the twelve lots were already full.

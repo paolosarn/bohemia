@@ -1,5 +1,21 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/18/26: THE SMITH, HIS OWN WAY, TWO WORDS, HIS APPRENTICE ON CAM 3, AND THE ROUND'S THREE ARE LIVE (the coordinator's round 'BOSSES next', rules 441, 453, 454(a), 455; ask lines 167, 522, 571), BUILD 11/18v
+Record: records/BOHEMIA_BOSSES_SIXTEEN_TO_EIGHTEEN_11_18_26.md. Gate: "THE SMITH" (registered; both ways green). VOTE
+bosses-the-smiths-anvils-11-18. EIGHTEEN BOSSES ARE LIVE; the ladder's 19th is THE MIDWIFE, who CLOSES ACT 1 (ladder row 94; WORLD TWO's
+boss_map row 19 already holds her: 'falls': {'holds': 'you'}, 'how': 'meet', so she is not a fight like the others: a new kind of row).
+- HIS ANVILS (26): in 6 blocks round his forge, off a town, nothing is mended: the condition's mending rate held at nothing while the
+  hours run, so no armour comes back and no tape is spent; his 3 anvils chained under his scrap where his reach ends. After his fall a
+  stop on an anvil mends the company's armour whole, no tape, once a day each. With THE WARD's reach the bar's two halves each have a
+  boss that holds them.
+- SMELT (verb 'smelt'): at your place's doorstep (or his forge), once a day, +3 TAPE (what mends armour, and what HOME BASE's forge
+  presses into rounds). Order: after MARK (at your place the mark goes first).
+- THE APPRENTICE moves into your place (a person, CAM 3). *** FOR HOME BASE: three people now come from bosses 16 to 18 on top of THE
+  CLIMB's kept; homeFolk draws the first 8 residents only (S.home.residents.slice(0, 8)). ***
+- FOR WHOEVER OPENS THE NEXT BOSSES ROUND: the tools for these three are tools/bohemia_bosses_sixteen_to_eighteen_11_18_26.py and its
+  places tool (copy them for new men); the REACH engine in slices/bohemia_bosses.js (24)-(26) takes a new row key in REACH; the gate's
+  legs use seeMarks, pickVerb and useUp (a player's taps), ringPick, passHours (advance()).
+
 ## BOSSES, 11/18/26: THE CISTERN, HIS OWN WAY, TWO WORDS, HIS KEEPER ON CAM 3 (the coordinator's round 'BOSSES next', rules 441, 453, 454(a), 455; ask lines 167, 522, 571), BUILD 11/18u
 Record: records/BOHEMIA_BOSSES_SIXTEEN_TO_EIGHTEEN_11_18_26.md. Gate: "THE CISTERN" (registered; 22/0 both ways). VOTE
 bosses-the-cisterns-tanks-11-18. SEVENTEEN BOSSES ARE LIVE; THE SMITH (18) is green both ways in this lane's head and ships next.

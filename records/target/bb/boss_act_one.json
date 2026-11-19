@@ -1769,6 +1769,77 @@
     "rise_after": "+{n} FOOD",
     "card": "{marks} TANKS OPEN"
    }
+  },
+  {
+   "n": "THE SMITH",
+   "quiet": true,
+   "words": "rule 454(a): a name and one line at most, draft; rule 455: the line is two words, scary first",
+   "place": {
+    "name": "THE FORGE",
+    "art": "forge",
+    "paint": "forge"
+   },
+   "boss": {
+    "kind": "knight",
+    "name": "THE SMITH",
+    "hp_x": 1.6,
+    "weapon": "Warhammer",
+    "shield": null,
+    "look": "boss_smith_0",
+    "says": "Burn, kid."
+   },
+   "crew": [
+    "footman",
+    "man_at_arms",
+    "billman"
+   ],
+   "board": "place_works",
+   "tip": "",
+   "verb": {
+    "id": "smelt",
+    "word": "SMELT",
+    "button": "SMELT",
+    "quiet": true,
+    "rule": "at your place (or his forge), once a day: the scrap you hauled melted down, 'tape' TAPE (what mends armour)",
+    "tape": 3,
+    "cooldown_days": 1,
+    "first": {
+     "plate": "+{tape} TAPE",
+     "rise": "+{tape} TAPE",
+     "rise_none": "NO WAGON"
+    },
+    "cooling": "SMELT TOMORROW",
+    "tip": "+3 TAPE AT YOUR PLACE",
+    "tip_cooling": "TOMORROW",
+    "place_after": "ingot",
+    "hand": {
+     "name": "HIS APPRENTICE",
+     "pic": "hand_smelt.png",
+     "line": "SMELT: AT YOUR PLACE, ONCE A DAY: +3 TAPE.",
+     "person": {
+      "name": "THE APPRENTICE",
+      "look": "person_trades_7"
+     }
+    }
+   },
+   "fallen_art": "forge_after",
+   "lead": {
+    "thing": {
+     "head": "THE MAN AT THE BAR",
+     "says": ""
+    }
+   },
+   "after": {
+    "quiet": true
+   },
+   "anvils": {
+    "radius": 6,
+    "marks": 3,
+    "pic": "anvil",
+    "told": "NO MENDING",
+    "rise_after": "+{n} ARMOUR",
+    "card": "{marks} ANVILS ARE YOURS"
+   }
   }
  ]
 }
