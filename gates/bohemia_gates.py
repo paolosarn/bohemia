@@ -9413,6 +9413,12 @@ GATES = [
      "lost (no picture changes; looks, faces, map files, pools as committed; on main a pack took 69 fight men, 154 map men and 54 "
      "fight idles out); M2 one man re-packed into a shared map sheet keeps every man, every cell pixel for pixel; P1 the old way "
      "(BOHEMIA_PACK_REBUILD=1) loses entries. About 2 min", True),
+    ('SCROLLING IS ILLEGAL', ['node', 'gates/scrolling_is_illegal_gate.js'],
+     "UI's no-scroll checker (Paolo 11/4 and 11/7: 'scrolling is fucking illegal... find a way to make things TINIER'; rules 402, 403), "
+     "tabled in the suite 11/20 by PLUMBER 8 (ask row 635: it was never in the table and so never on the red list): on the demo, a phone "
+     "upright and sideways, N1 the title and all fifteen origins, N2 the start at rest, N3 every building's sheet, N4 the settings card "
+     "(every row on the glass at once), N5 the crew screen, N6 a full company and stash, N7 the fight's page, N8 the fullest hall, N9 every "
+     "UI size: nothing scrolls, every press on the glass, the floors. Over 10 min", True),
     ('THE LOT IS BAKED WHILE HE READS', ['node', 'gates/the_lot_is_baked_while_he_reads_gate.js'],
      "PLUMBER 8 gate, 11/17, ask row 632 (rule 441(c): 'the scavenge opens on a blank screen for over 4.6 s'): 'Search the lot' to the "
      "board 3.9 to 5.1 s on a phone at 4x, 2.5 to 3.0 s of it the block's board baked after the press. The lot's sheet bakes its block's "

@@ -1,5 +1,14 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/20, rule 461 THE WHOLE ENCHILADA (the coordinator's routine 'PLUMBER 8: the whole enchilada'). Rows 566, 596, 562, 635 marked; the full suite next.
+  ROW 566 THE TOWN AT REST: 9.9 fps as it is, 16.9 without the town's picture, 12.0 without the edge shade, 12.2 without the people, AND the
+  page's thread 64% idle: the frames are this box's software GPU, not the town's code. Not rebuilt for the box; EYES to read it on a phone.
+  ROW 596: nothing crosses the wire twice; the repeats are cache reads and parses (ours.json 188 KB x 8): not felt, bottom of the list.
+  ROW 562: 3,257 MB now, about 49 MB a day over the week; the levers (a stamp outside the alpha, the demo cut at deploy only, the VOTE
+  pictures out of git) are the COORDINATOR's.
+  ROW 635: SCROLLING IS ILLEGAL tabled in the suite; 36/1 on main (N4 the settings card upright, 23 of 24 rows); its red FILED to UI FOUR.
+  THE RED DEBT: 368 NAMED (one new checker tabled with its red filed), 350 LEFT.
+
 PLUMBER 8 (chat 18) 11/18, the coordinator's routine 'PLUMBER 8 next'. BUILD 11/18b THE CREW'S RENDER PASSES STAY HOME. Rows 563, 561, 613 marked.
 THE SITE'S WEIGHT, re-measured on main c869a5ed (forty builds after 11/17): the list 857.3 MB, 2.7 MB under the 860 line. TRIMMED to
 853.2 MB (rule 6's new kind: the crew rigs' raw, object, id, rig-object, rig-id and shadow passes and the calibration shapes, 4.1 MB,

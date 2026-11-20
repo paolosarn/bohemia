@@ -57,3 +57,8 @@ visible, then scavCover() and your growth run as before. Your __THE_SCAVENGE_COM
 re-run on it: 17/0, its L6 worst frame 50 ms (the warm game's start waits 0.3 s for your move: started inside it, L6 read 117 ms). If your move ever builds its own frame, grow the warm copy instead of a new one.
   AND, re-run on the final merged tree: L6 upright read over your 100 ms line on CLEAN MAIN too (the box's software GPU, the same leg red
   both ways, MAIN 16/1 and mine 16/1); sideways green both ways. Not from the warm copy; yours to judge on a quieter box.
+
+NOTE FROM PLUMBER 8, 11/20 (rule 461, ask row 635): your no-scroll checker SCROLLING IS ILLEGAL is now in the suite (gates/bohemia_gates.py)
+and its one red is on the list under your name (FILED ask row 635): on main c8469eb3 it reads 36 passed, 1 failed, N4 THE SETTINGS CARD
+upright shows 23 of its 24 rows on the glass at once (374 x 828, 94% of the glass). N8 and N9 (the fullest hall) are green since 11/17h.
+The fit of the card is yours; the line comes off the list the run it goes green.
