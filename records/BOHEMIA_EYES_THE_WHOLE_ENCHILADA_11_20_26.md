@@ -98,3 +98,21 @@ THE COUNT AT THE START: 231 rows with a 'NOT YET SEEN' and no EYES verdict after
 FOUND (batch 3): DESI's town hint over the open settings card (new row, FIXES 2 with UI FOUR; e06).
 
 NOT A FIND, SAID: the stadium inside's art file 404s on every alpha load (slices/fight_ground/stadium/stadium_art.json): its pieces are stand-ins until COOK FIVE draws them, by design (slices/bohemia_big_inside.js).
+
+## BATCH 4 (rows marked)
+
+- 509 NOT MEASURABLE BY EYES' READER: the same as 485: no road kind in the board's grid
+- 502 SEEN: at the bell both sides stood on open ground in 5 of 5 fights read (his 15 of 15, theirs 15 of 15), the company walking down the street
+- 501 SEEN: one, two and three storeys on the same boards (the suburb: 27 one-storey tiles, 32 two, 5 three); the board's own levels
+- 488 SEEN: the alpha on AUTO, 5 fights (the suburb, the Strip, Fremont, THE DECK, an apartment block): 47 turns of his ended, 23 on a roof or in a house, 24 beside cover, 0 in the open street
+- 487 SEEN: the boards' houses come as height, height2 and height3 (one, two, three storeys), no ladder kind on any board read
+- 486 SEEN IN PART: on the suburb board every house tile is a height tile you can stand on (no blocked tile on it); the Strip and Fremont carry blocked tiles (the big buildings, 109 and 34), not houses
+- 485 NOT MEASURABLE BY EYES' READER: the board's ground kinds are flat, height, rough and blocked: a road and a yard are both 'flat', so 'every house touches a road' cannot be told from the grid; by eye the suburb's houses face their streets
+- 467 SEEN: on the second RETREAT the three ran to the left edge one after another (4,8 to 0,4; 4,7 to 0,3; 4,6 to 0,2) over about four seconds, none vanished where they stood
+- 433 SEEN IN PART: the crew screen after a retreat stands on rubble and a lamp, not the camp; whether it is the fight's own ground and his men scavenge on it was not told apart
+- 404 SEEN: the demo upright: one tap on the job's card on the phone ('Clear the water plant for the co-op') and the crew set off for it at once (TRAVEL to the job's own cell, 53, 81)
+- 393 SEEN: the crew screen after a fight: no brown backdrop; his man stands on the ground in the light, the paper doll and the bars over it (e10)
+- 389 SEEN: RETREAT asks once ('Retreat? Your men run for the nearest edge. Who reaches it gets out. No pay. Tap again.'), then each man runs for the nearest edge and gets out; 'YOU PULLED OUT', '3 got out, 0 did not. No pay.' (e09)
+- 388 SEEN: Blues' armourer: the padded flat-top riot helmet bought (80 batteries); every other piece stayed on the shelf, none greyed (the plate carrier, the dog man's riot helmet, the vest, the hard hat, the two doors, the jacket)
+
+FOUND (batch 4): the perk page overlaps its said line and scrolls upright (new row, UI FOUR with FIXES 2; e08).
