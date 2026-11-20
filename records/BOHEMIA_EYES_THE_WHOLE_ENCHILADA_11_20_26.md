@@ -131,3 +131,22 @@ FOUND (batch 4): the perk page overlaps its said line and scrolls upright (new r
 - 520 SEEN: every AUTO run since 11/9: no able man of his stands a fight (11/17 160 of 164 turns acted, 11/20 47 of 47 turn ends placed)
 - 519 SEEN AS AMENDED BY 523: no signs float (523); the lot is found by a tap on it and 'Search the lot' answers in Remnants, Blues and Volunteers
 - 518 SEEN: the armourer's shelf shows pictures and prices only; a tap on the riot helmet shows 'ARMOUR 150, FATIGUE -9, INITIATIVE -9, ON YOU', and a second tap buys
+
+## BATCH 6 (rows marked)
+
+- 610 SEEN: Blues' board read at DAY 2 11:37 and again at 12:52 after a walk out and back: the same job ('Get the clinic's cold box back'), nothing re-dealt
+- 538 SEEN: MAKE CAMP from a won fight's screen on the demo upright: the worst freeze 0.73 s, none over 1 s (one other browser running)
+- 529 SEEN: the crew screen, YOU's main hand: 'PISTOL, 30-45. REACH 1 TO 4 TILES. 5 ROUNDS, THEN RELOAD.', its skill SHOOT (no THROW JAVELIN); the fight's phone still labels a gun's press STRIKE
+- 508 SEEN: the board follows the cell's zone in 34 fights read since 11/17 (the suburb's yards and cul-de-sacs, the Strip's boulevard, Fremont downtown, a trailer park, the apartments' lots)
+- 493 SEEN: the scavenge as a rhythm game (EYES 11/11), lit spots and no floating words (11/17), out of the lot in 1.1 s (11/18)
+- 491 SEEN: the boards met this round hold a recover, a haul, a bid, a collect, a clear, a hold, a man to bring in: more kinds than hunts
+- 490 SEEN: the smith's shelf alone: three machetes, two axes, a pole, a bowie knife beside the two-handers
+- 489 SEEN IN PART: rifles, pistols, shields and blades drawn in the men's hands in every fight picture since 11/14; not every two-hander checked
+- 484 SEEN IN PART: the house boards (yards, cul-de-sacs, apartments) with the new house pictures, by eye
+- 481 FOUND: the perk page on the crew screen runs past the glass and scrolls upright (row 655)
+- 479 SEEN: more than fifteen different boards met since 11/14 (street boards cut from the cell, nine insides, the deck)
+- 476 SEEN: after RETREAT from the water plant's squatters the crew walked into Blues and its screen opened
+- 471 SEEN: EYES 11/11: a save after a fight came back the same (the block, the batteries, the place, the clock)
+- 463 SEEN: EYES 11/18 on the VOTE tab: '28 ART PIECES ARE HELD BACK. Their makers have not said yet if each is the real look or a stand-in, so they wait off your list until they are marked.'
+
+NOT REACHED THIS BATCH, SAID: 588 (no orange hatch showed in six turns by hand), 536 (no man with a level to spend), 584 (the Decoy is past the perk page's glass), 553 (the place page offered the next block).
