@@ -1,0 +1,50 @@
+POST-MORTEM: THE THREE BATTERIES (a sum of money drawn as pictures of car batteries, tool packs and AA's)
+Killed by Paolo, 11/20/26, VAMILY rule 463: 'I dont like how u made the new battery shit like 3 batteries thats so fucking ugly'
+Buried by ECONOMY THREE, 11/20/26. Lived 11/18 (ECONOMY TWO, BUILD 11/18t THE BATTERY IS REAL) to 11/20 (ECONOMY THREE, BUILD 11/20o
+AFTER THE FIGHT, THE SAME BATTERIES carried it to the spoils screen).
+
+WHAT IT WAS
+  slices/bohemia_the_battery.js, loaded by the map, the town, the crew screen, the fight, the spoils, the alpha and the demo. It
+  watched every page and turned every sum of batteries into pictures: car batteries (250), then tool packs (20), then phone
+  batteries (6) when they paid what was left exactly, then AA's; never more than three kinds. 290 drew as a car battery and two
+  tool packs, 2,236 as 8 car batteries, 11 tool packs and 16 AA. The four pictures (slices/battery_ladder/, and a 30 x 30 set)
+  were models put through the master rig (records/target/economy_two_ladder_rig/), STAND-INS. It hid every lane's old battery
+  mark (the bar's pile, the stall's icon, the shelf tile's ::before, UI FOUR's chip mark) and drew its pictures in their place.
+
+WHY IT DIED (his word is the reason; these are what the build did that made it so)
+  1. THREE KINDS OF PICTURE FOR ONE NUMBER. A purse that read '290' with one small pile read as three icons and three counts;
+     the top bar at 2,236 carried three kinds with tiny counts ahead of food, tape, meds and rounds. He reads numbers; the build
+     made him add.
+  2. IT ANSWERED A QUESTION HE ASKED IN WORDS WITH A PICTURE HE DID NOT ASK FOR. His 11/17 ask was that the PRICES be real (a
+     thousand batteries is too many to carry); the research and the one table answered that. The pictures were this lane's own
+     reading on top, never asked, shipped on every screen at once.
+  3. ITS PICTURES WERE STAND-INS shipped as the look (rule 408 THE FIRST TIME IS THE FINAL TIME).
+  4. IT SPREAD: the spoils screen joined it 11/20o, and it split the phone's crew face line so a man's night fell off the phone
+     (found and patched 11/20o: a fix to a problem the drawing made).
+  5. NAME COLLISION, found in the burial: it took the global name BohemiaBattery, which engine/bohemia_battery.js (the world's
+     battery-charge engine, married 7/23) already owns on the map. On the map the engine loaded second and kept the name; any page
+     loading both in the other order would have handed the world engine's callers a money drawer.
+
+WHAT STAYS (rule 463)
+  The ONE TABLE and every price in it (records/target/bb/battery_table.json; rule 459, the research he asked for): 673 numbers,
+  169 typed copies, 17 sentences, the sweep. The research's worths (a phone charge 6 AA, a tool pack 20, a car battery 250) stay
+  in the table as WORDS AND RESEARCH ONLY (what a job pays against things he can hold, said in a handoff or a record), never drawn.
+  Every page's words, letter for letter. Every price the drawing's build moved (seven who join the camp at 290 and 390, the
+  door's offline start purses) stays: those were prices, not the drawing.
+
+WHAT WENT BACK, EXACTLY AS BEFORE 11/18t
+  The five pages lost their <script src="bohemia_the_battery.js">; the spoils screen and the phone went back to their text before
+  11/20o; UI FOUR's gate EVERY COUNT A PICTURE and THE SIX ON THE BAR went back to their text before 11/18t. Every sum is its
+  number beside the old battery mark (the pack's supply icon), as the drawer's own 'page as it was' switch showed.
+
+THE GRAVE (graveyard/THREE_BATTERIES_11_20_26/): bohemia_the_battery.js, battery_ladder/ (the eight pictures),
+  economy_two_ladder_rig/ (the models, the rig renders, the ledger), the rig tool, the two VOTE card tools and the two VOTE
+  cards' pictures (economy-two-the-battery-is-real-11-18, economy-three-after-the-fight-the-same-batteries-11-20; both cards came
+  off the VOTE tab: he ruled the look in his own words, and their ids are never used again).
+
+A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME (laws/BOHEMIA_LAW_A_DEAD_SHAPE_DOES_NOT_COME_BACK_UNDER_A_NEW_NAME_8_30_26.md):
+  NO OTHER SPLIT-INTO-KINDS DRAWING OF MONEY, under any name (coins of kinds, stacks of kinds, a sum as several pictures with
+  counts). A new way to draw money is made only if he asks for one. THE GATE: tools/bohemia_economy_two_the_battery_table.js
+  check 7b (deadShape: no live page or live script loads the drawing, draws its classes or its pictures, or writes a sum as kinds
+  of battery; neither file back in slices/), run by gates/the_battery_is_real_gate.js T2 and T4 (in the suite), with a planted
+  fault (the dead drawing put back on a page's list) and a planted load on the live page (L8).

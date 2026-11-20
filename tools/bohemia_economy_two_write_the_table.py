@@ -38,21 +38,19 @@ SRC = 'records/BOHEMIA_RESEARCH_HOW_MANY_BATTERIES_ARE_IN_THE_UNITED_STATES_11_1
 T['ladder'] = {
     'value': [
         {'id': 'aa', 'worth': 1, 'name': 'AA', 'many': 'AA', 'wh': 2.4, 'kg': 0.027, 'real': 'one rechargeable AA cell, 14.5 x 50.5 mm',
-         'icon': 'battery_ladder/aa.png', 'small': 'battery_ladder/small/aa.png', 'buys': 'a bag of rice', 'draft': True},
+         'buys': 'a bag of rice', 'draft': True},
         {'id': 'phone_battery', 'worth': 6, 'name': 'PHONE BATTERY', 'many': 'PHONE BATTERIES', 'wh': 15, 'kg': 0.045, 'only_whole': True,
          'real': 'the pack out of a phone: one full phone charge, about 15 Wh',
-         'icon': 'battery_ladder/phone_battery.png', 'small': 'battery_ladder/small/phone_battery.png', 'buys': 'six bags of rice', 'draft': True},
+         'buys': 'six bags of rice', 'draft': True},
         {'id': 'tool_pack', 'worth': 20, 'name': 'TOOL PACK', 'many': 'TOOL PACKS', 'wh': 50, 'kg': 0.6,
          'real': 'an 18 V cordless tool pack, about 50 Wh',
-         'icon': 'battery_ladder/tool_pack.png', 'small': 'battery_ladder/small/tool_pack.png', 'buys': 'twenty bags of rice', 'draft': True},
+         'buys': 'twenty bags of rice', 'draft': True},
         {'id': 'car_battery', 'worth': 250, 'name': 'CAR BATTERY', 'many': 'CAR BATTERIES', 'wh': 600, 'kg': 18,
          'real': 'a car\'s 12-volt starter battery, about 600 Wh',
-         'icon': 'battery_ladder/car_battery.png', 'small': 'battery_ladder/small/car_battery.png', 'buys': 'two hundred and fifty bags of rice', 'draft': True},
+         'buys': 'two hundred and fifty bags of rice', 'draft': True},
     ],
     'source': SRC + ' ("IN AA\'S (2.4 Wh each): a phone charge is about 6; a tool pack (50 Wh) about 20; a car\'s starter battery (600 Wh) about 250"); the weights of the three big ones are general knowledge, not from the lookups',
-    'paid': 'fewest kinds, biggest first: car batteries, then tool packs; what is left under a tool pack is phone batteries when they make it exactly (6, 12, 18), else AA\'s',
-    'why_paid_so': 'every count on the glass is small (never more than 12 tool packs, 3 phone batteries, 19 AA\'s) and a sum is never more than three kinds; the prices were written in tens, and ten is ten AA\'s, not a phone battery and four',
-    'most_kinds': 3,
+    'drawn': 'NEVER AS PICTURES (rule 463, Paolo 11/20: \'I dont like how u made the new battery shit like 3 batteries thats so fucking ugly\'): the drawing that split a sum into car batteries, tool packs and AA\'s (11/18t to 11/20) is in graveyard/THREE_BATTERIES_11_20_26/ with its post-mortem; a sum shows as its number with the old battery mark. These four are what a thing he can hold is worth, for words and research only (what a job pays against a phone charge or a car battery); no other split-into-kinds drawing of money (A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME)',
     'never': 'an electric car\'s pack (about 31,000 AA\'s) is not a thing a crew carries: nothing is priced in it. Who holds the working solar is NOT DECIDED (rule 459(e)): nothing here is built on it.'
 }
 T['bands'] = {

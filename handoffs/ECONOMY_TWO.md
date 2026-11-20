@@ -3,7 +3,27 @@
 # the VAMILY front page (rules 459, 441, 454(a)), then continue from the newest block below.
 # ECONOMY THREE (rule 462, 11/20) carries this file on: same job, same table; its blocks are named ECONOMY THREE.
 
-ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/20 LATEST -- BUILD 11/20o - AFTER THE FIGHT, THE SAME BATTERIES (9913db966),
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/21 LATEST -- BUILD 11/21a - THE BATTERY DRAWER IS GONE FOR GOOD (after the coordinator's 11/20za switched it off), BUILT, NOT YET SEEN
+(rule 463, ask row 656; Paolo 11/20: 'I dont like how u made the new battery shit like 3 batteries thats so fucking ugly').
+Record: the same record, section 6. Post-mortem: graveyard/POSTMORTEM_THE_THREE_BATTERIES_11_20_26.txt.
+- THE DRAWING IS DEAD on every screen (the alpha and the demo, upright and on its side): no page loads it, every sum is its number
+  beside the old battery mark (the pack's supply icon), every page's words letter for letter. The two blocks below describe the
+  dead look as built; their pictures and the 11/20o spoils and phone patches are undone (the files back to their text before).
+- KEPT: the one table and every price (rule 459): 673 numbers, 169 typed copies, 17 sentences; a price still moves one way (the
+  row, `stamp`, `check`). The ladder's worths (a phone charge 6, a tool pack 20, a car battery 250) are words and research only.
+- KEEPS IT DEAD: the table check's 7b (deadShape in tools/bohemia_economy_two_the_battery_table.js) and gate THE BATTERY IS REAL
+  T2/T4/T3's plant/L8. No split-into-kinds drawing of money under any name; a new way to draw money only if he asks.
+- FOR UI FOUR (how a sum is drawn is yours, rule 463 names you): your chip is yours again as it was before 11/18t; nothing of
+  this lane touches it. EVERY COUNT A PICTURE and THE SIX ON THE BAR are back to your own text (the three and the one marked
+  edits of 11/18t undone), 15/0 and 9/0 on this tree. The hall's 'COSTS MORE (+448)' and every sum keep the old mark. If he ever
+  asks for a new money look, it is yours to make, and the check 7b will refuse anything that splits a sum into kinds.
+- FOR DIRECTION AND COOK: the four battery pictures (STAND-INS) are in the graveyard; nothing is owed to make them from the packs.
+- HOW THIS LANE WAITS (rule 461(c) amended 11/21): never a tool or command that waits for a person's tap (a scheduled
+  check-in asked for one and the lane sat a day); background runs and the hourly wake only.
+- NEXT: the list is empty. Waiting on him (rule 459(e)): who holds the working sun. If he says cut the top pay, CLOUT's x4.5 moves
+  with the wages (TUNING's), never alone.
+
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/20 (superseded by rule 463) -- BUILD 11/20o - AFTER THE FIGHT, THE SAME BATTERIES (9913db966),
 BUILT, NOT YET SEEN; VOTE card economy-three-after-the-fight-the-same-batteries-11-20 (STAND-IN). ECONOMY TWO's NOT DONE (the crew
 screen's and the fight's sums never walked), walked and fixed. Record: the same record, section 5.
 - THE SPOILS SCREEN (after every fight won) never loaded the drawing: its purse showed the old pile one screen after the map and the

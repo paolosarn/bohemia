@@ -247,6 +247,20 @@ function sums(T) {
 }
 
 /* ---------------- check: every fault, in plain words ---------------- */
+/* ---------------- rule 463: the split-into-kinds drawing of money is dead; this finds it coming back ---------------- */
+const DEAD = [
+  { re: /bohemia_the_battery\.js/, what: 'loads the dead drawing (slices/bohemia_the_battery.js)' },
+  { re: /battery_ladder\//, what: 'draws a picture of the dead ladder (battery_ladder/)' },
+  { re: /class=["'][^"']*\bbsum\b|classList\.add\(\s*['"]bsum|['"]bsum-(?:k|w|host|s)['"]|\.bsum-k\b|data-bsum/, what: 'the dead drawing\'s classes (bsum)' },
+  { re: /\b(?:CAR BATTER(?:Y|IES)|TOOL PACKS?)\b[^\n]{0,40}\b(?:TOOL PACKS?|PHONE BATTER(?:Y|IES)|AA)\b/, what: 'a sum written as kinds of battery (car batteries, tool packs, AA)' }
+];
+function deadShape(T) {
+  const out = [];
+  ['slices/bohemia_the_battery.js', 'slices/battery_ladder'].forEach(f => { if (has(f)) out.push(f + ' is back in slices/ (its place is graveyard/THREE_BATTERIES_11_20_26/)'); });
+  (T.live_code || []).concat(T.live_pages || []).filter((f, i, a) => a.indexOf(f) === i).forEach(f => { if (!has(f)) return; const t = file(f).text;
+    DEAD.forEach(d => { const m = d.re.exec(t); if (m && !inComment(t, m.index)) out.push(f + ':' + lineOf(t, m.index) + ' ' + d.what + ' [' + t.slice(Math.max(0, m.index - 30), m.index + 50).replace(/\s+/g, ' ') + ']'); }); });
+  return out;
+}
 function check(T, opts) {
   opts = opts || {}; const bad = [], rows = T.rows || {};
   /* 1 every place is the table's number */
@@ -288,12 +302,13 @@ function check(T, opts) {
   placed(T).forEach(x => { if (!x.leaf) return; const b = B[x.place.band]; if (!b) { if (x.place.band) bad.push('NO SUCH BAND: ' + x.place.band + ' (' + x.file + ')'); return; }
     const v = Math.abs((rows[x.file] || {})[x.leaf.key]); if (v === 0 && b.zero_ok) return;
     if (!(v >= b.min && v <= b.max)) bad.push('OUT OF ITS BAND: ' + x.file + ' ' + x.leaf.key + ' = ' + v + ', ' + x.place.band + ' is ' + b.min + ' to ' + b.max + ' (' + b.say + ')'); });
-  /* 7 the ladder: the unit is there, every sum is paid in small counts */
+  /* 7 the ladder: the unit is there (the four are what a thing he can hold is worth: words and research, never pictures) */
   const L = (T.ladder.value || []).slice().sort((a, b) => a.worth - b.worth);
   if (!L.length || L[0].worth !== 1 || L[0].id !== T.unit.id) bad.push('THE LADDER: its smallest is not the unit (one ' + T.unit.id + ')');
-  L.forEach(k => { ['icon', 'small'].forEach(q => { if (!k[q] || !has('slices/' + k[q])) bad.push('THE LADDER: ' + k.id + ' has no picture on disk (' + k[q] + ')'); }); });
-  let worst = 0; for (let n = 0; n <= 6000; n++) { const s = split(T, n); if (s.reduce((a, p) => a + p.n * L.filter(k => k.id === p.id)[0].worth, 0) !== n) { bad.push('THE LADDER: ' + n + ' is not paid exactly'); break; } if (s.length > worst) worst = s.length; }
-  if (worst > (T.ladder.most_kinds || 3)) bad.push('THE LADDER: a sum is drawn in ' + worst + ' kinds of battery, the table allows ' + (T.ladder.most_kinds || 3));
+  /* 7b THE THREE BATTERIES ARE DEAD (rule 463, Paolo 11/20: 'I dont like how u made the new battery shit like 3 batteries thats so
+     fucking ugly'; graveyard/POSTMORTEM_THE_THREE_BATTERIES_11_20_26.txt): no live page loads the drawing, no live code draws a sum
+     split into kinds of battery, and the drawing's files are not back in slices/ (A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME) */
+  deadShape(T).forEach(x => bad.push('THE THREE BATTERIES ARE DEAD (rule 463): ' + x));
   /* 8 the worked sums are what the table says */
   let S = null; try { S = sums(T); } catch (e) { bad.push('THE WORKED SUMS could not be worked: ' + e.message); }
   if (S) { Object.keys(T.sums || {}).forEach(k => { if (!S[k]) return bad.push('A WORKED SUM NOBODY WORKS: ' + k); if (!numEq(S[k].is, T.sums[k].is)) bad.push('A WORKED SUM MOVED: ' + k + ' is ' + S[k].is + ' now, the table says ' + T.sums[k].is + ' (run seed and read what changed)'); });
@@ -332,7 +347,7 @@ function list(T) {
   return o.join('\n');
 }
 
-module.exports = { load, pageScripts, save, check, seed, stamp, sums, split, words, list, placed, copyHits, typedInCode, sweep, proseHits, leaves, TABLE, ROOT, reset: () => { Object.keys(FILES).forEach(k => delete FILES[k]); } };
+module.exports = { load, pageScripts, deadShape, save, check, seed, stamp, sums, split, words, list, placed, copyHits, typedInCode, sweep, proseHits, leaves, TABLE, ROOT, reset: () => { Object.keys(FILES).forEach(k => delete FILES[k]); } };
 if (require.main === module) {
   const cmd = process.argv[2] || 'check', T = load();
   if (cmd === 'seed') { const m = seed(T); save(T); console.log(m.join('\n') || 'nothing moved'); console.log('THE TABLE: ' + T.count.rows + ' numbers in ' + T.count.files + ' files, ' + T.count.copies + ' typed copies, ' + T.count.prose + ' sentences'); }

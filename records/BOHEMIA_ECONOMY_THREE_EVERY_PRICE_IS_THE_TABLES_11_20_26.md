@@ -131,3 +131,25 @@ red the same with this build's three page files put back to main's: not this bui
 
 [bb Battle Brothers prices a contract in crowns that run to thousands and nobody asks what a crown weighs; ours weighs 18 kg a car battery]
 [analog horror: the board's clerk reading the pay off a card and then looking at the size of your truck]
+
+## 6. THE THREE BATTERIES ARE GONE (rule 463, ask row 656; BUILD 11/21a, after the coordinator's 11/20za switched it off)
+
+HIS WORDS, 11/20: 'I dont like how u made the new battery shit like 3 batteries thats so fucking ugly'.
+DONE THE SAME ROUND: the drawing that split every sum into pictures of car batteries, tool packs and AA's is off every screen,
+the alpha and the demo, upright and on its side. Every sum is its number beside the old battery mark again (the bar's pile, the
+board's chip mark, the stall's icon, the hall's mark, a shelf tile's mark, the spoils' pile, count and strip), and every page's
+words are letter for letter what they were. Sections 2 to 5 above describe the dead look as it was built; its pictures are gone.
+- REMOVED: the <script> of the drawing from the map, the town, the crew screen, the fight and the alpha (the demo re-cut); the
+  spoils screen and the phone back to their text before 11/20o (the phone's crew face reads a man's line whole again because
+  nothing splits it; '-3 BATT' on the home card as it was); UI FOUR's EVERY COUNT A PICTURE and THE SIX ON THE BAR back to their
+  text before 11/18t (15/0 and 9/0).
+- GRAVEYARD: graveyard/THREE_BATTERIES_11_20_26/ (the drawing, its eight pictures, the rig models and renders, the rig tool, the
+  two VOTE card tools and pictures) with graveyard/POSTMORTEM_THE_THREE_BATTERIES_11_20_26.txt. The two VOTE cards came off the tab.
+- KEPT: the one table and every price (673 numbers, 169 typed copies, 17 sentences, the sweep of every script the pages load);
+  the research's worths as words only (no kind carries a picture).
+- THE GATE THAT KEEPS IT DEAD: the table check's 7b (no live page or script loads the drawing, uses its classes or pictures,
+  or writes a sum as kinds of battery; neither file back in slices/), THE BATTERY IS REAL T2 and T4, a planted fault (the dead
+  drawing put back on a page's list) and a planted load on the live page (L8: the town loads the dead drawing from the
+  graveyard and the stall's check reads red). The page legs prove every sum is its number beside the old mark.
+- FOUND IN THE BURIAL: the drawing took the global name BohemiaBattery, which the world's battery engine (engine/bohemia_battery.js,
+  on the map) owns; on the map the engine loaded second and kept it.

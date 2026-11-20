@@ -20859,36 +20859,6 @@
     "first": "../records/target/vote_first/world13-the-lake-has-its-ring-11-18.webp",
     "firstAt": [398, 140, 390, 390]
    }, "before_after": {"before": "main 11/18r: the lake flat water to a straight block edge and the desert's pebbles at once", "after": "the drained bed inside the old waterline (cracked, 27 to 35 in 100 of it cracks), the new waterline, the bathtub ring on the sand and rock, a hull on the bed now and then; the painting's own count: 47 shore blocks, the bed 8,180 texels, the ring 3,944", "scale": "the demo on the phone upright, the near stop and the street stop, the lake's south shore"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_THIRTEEN_THE_LAKE_HAS_ITS_RING_11_18_26.md", "build": "BUILD 11/18s - THE LAKE HAS ITS RING"},
-  {
-   "id": "economy-two-the-battery-is-real-11-18",
-   "kind": "ui",
-   "lane": "economy two",
-   "sha": "647591ebe",
-   "made": "11/18",
-   "draft": true,
-   "title": "THE BATTERY IS REAL: ONE AA BUYS A BAG OF RICE, AND A BIG SUM IS PAID IN BIG BATTERIES",
-   "said": "some of the quests, it's like 3000 or like 1000 batteries to complete a quest and I'm like bro that's a lot... I want people to really feel like they can look at their battery right now and relate it from the game to real life",
-   "why": "A big sum is no longer one long number: it is drawn as the batteries a crew would carry it in, so a job that read 747 batteries now reads 2 car batteries, 12 tool packs, 7 AA, and one AA still buys a bag of rice. You see it in the CITY tab and on the demo: the top bar, a town's job board, the stall and the shops.",
-   "stage": "stand_in",
-   "show": {
-    "how": "image",
-    "src": "../records/target/economy_two/VOTE_THE_BATTERY_IS_REAL.webp",
-    "first": "../records/target/vote_first/economy-two-the-battery-is-real-11-18.webp",
-    "firstAt": [
-     0,
-     0,
-     1170,
-     560
-    ]
-   },
-   "before_after": {
-    "before": "every sum was one number beside one small pile: at the top of CLOUT a job read 747 batteries and the purse 2,236",
-    "after": "the same sums as the batteries they are paid in, never over three kinds: the job 2 car batteries, 12 tool packs, 7 AA, the purse 8 car batteries, 11 tool packs, 16 AA; no price moved but seven who join the camp (300 to 290, 400 to 390)",
-    "scale": "the four batteries at their own pixels with what each is worth in AA's and bags of rice; then the demo on his phone upright (390 x 844 at 3): the stall's rows, the top bar and a job at the top of CLOUT"
-   },
-   "record": "records/BOHEMIA_ECONOMY_TWO_EVERY_NUMBER_OF_BATTERIES_11_18_26.md",
-   "build": "BUILD 11/18t - THE BATTERY IS REAL"
-  },
   {"id": "bosses-the-cisterns-tanks-11-18", "kind": "tile", "lane": "bosses", "sha": "ecdd77c27", "made": "11/18", "draft": true, "title": "THE CISTERN OWNS THE RAIN: HIS MEN TAKE YOUR WATER NEAR HIM. KILL HIM AND HIS TANKS ARE OPEN", "said": "the ladder's 16th, 17th and 18th, each changing the map its own way, the fewest words, each prize seen on his place's cameras (the coordinator's round 'BOSSES next', rules 453, 454(a))", "why": "Left is THE CISTERN's roof tanks and his chained tanks on their stands round them, where every three hours in his reach his men take a FOOD off your wagon, middle is the same streets once he falls with the taps open and the jugs under them, a FOOD for every stop, and right is your own man's card with no words: his keeper moves into your place, and CATCH takes two FOOD off any roof once a day. You see it on the MAP after THE WARD, at the gutter tag, and his keeper on CAM 3 at your place.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/bosses_vote_cistern_11_18/VOTE.webp"}, "before_after": {"before": "main a10145c37: sixteen bosses; nothing on the map took your water", "after": "THE CISTERN's reach: 1 FOOD taken every 3 hours in 6 blocks round his roof tanks while he stands; his 3 tanks open when he falls (+1 FOOD a stop, once a day each), kept after a reload; CATCH (beside a roof, off a town, +2 FOOD once a day); his keeper lives at your place, on CAM 3", "scale": "the MAP on a 390 x 844 phone, the kill's own camera beat, twice the pixels"}, "record": "records/BOHEMIA_BOSSES_SIXTEEN_TO_EIGHTEEN_11_18_26.md"},
   {"id": "bosses-the-smiths-anvils-11-18", "kind": "tile", "lane": "bosses", "sha": "c82803c4e", "made": "11/18", "draft": true, "title": "THE SMITH HOLDS THE LAST FORGE: NOTHING IS MENDED NEAR HIM. KILL HIM AND HIS ANVILS ARE ANYBODY'S", "said": "the ladder's 16th, 17th and 18th, each changing the map its own way, the fewest words, each prize seen on his place's cameras (the coordinator's round 'BOSSES next', rules 453, 454(a))", "why": "Left is THE SMITH's forge and his anvils chained under his scrap, where two hours in his reach mend none of your armour, middle is the same streets once he falls with the chains cut, where a stop at an anvil mends the company's armour whole for no tape, and right is your own man's card with no words: his apprentice moves into your place, and SMELT there makes three TAPE a day. You see it on the MAP after THE CISTERN, at the man at the bar, and his apprentice on CAM 3 at your place.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/bosses_vote_smith_11_18/VOTE.webp"}, "before_after": {"before": "main 8cfae4a1b: seventeen bosses; nothing on the map stopped armour being mended", "after": "THE SMITH's reach: 6 blocks round his forge mend no armour and spend no tape while he stands; his 3 anvils free when he falls (a stop mends the armour whole, once a day each), kept after a reload; SMELT (at your place, +3 TAPE once a day); his apprentice lives at your place, on CAM 3", "scale": "the MAP on a 390 x 844 phone, the kill's own camera beat, twice the pixels"}, "record": "records/BOHEMIA_BOSSES_SIXTEEN_TO_EIGHTEEN_11_18_26.md"},
   {"id": "home-base-where-you-build-11-20", "kind": "ui", "lane": "home base", "sha": "212695d2c", "made": "11/20", "draft": true, "title": "YOUR PLACE SHOWS WHERE YOU BUILD, AND ITS CAMERAS SEE AT NIGHT", "said": "Bro, every time you show me my settlement, I wanna see the view that I'm gonna be seeing the settlement in.", "why": "Your empty lots are now chalked on the ground under a hammer sign, and a tap on one opens BUILD with that lot picked, and at night your cameras switch to infrared instead of going black. You see it in your place on the demo: open it by day and tap an empty lot, then come back at night.", "show": {"how": "image", "src": "../records/target/home_base/vote_where_you_build.webp", "first": "../records/target/vote_first/home-base-where-you-build-11-20.webp", "firstAt": [0, 0, 585, 616]}, "before_after": {"before": "BUILD 11/17zr: EYES 11/18 found no BUILD button on his screen (the BUILD corner was bare ground), and at night his three cameras were near black", "after": "with nothing open his empty lots are chalked on their ground under a hammer's plate, a tap on one is BUILD with it picked; at night the cameras' own infrared (black and white, bright near), switched within a second at dusk and dawn", "scale": "the demo and the alpha on his phone upright (390 x 844 at 3) and sideways (844 x 390 at 3)"}, "stage": "stand_in", "record": "records/BOHEMIA_HOME_BASE_WHERE_YOU_BUILD_11_20_26.md"},
@@ -21756,36 +21726,6 @@
    },
    "record": "records/BOHEMIA_COOK_SIX_THE_REGIONS_FOUR_11_20_26.md"
   },
- {
-  "id": "economy-three-after-the-fight-the-same-batteries-11-20",
-  "kind": "ui",
-  "lane": "economy three",
-  "sha": "9913db966",
-  "made": "11/20",
-  "draft": true,
-  "title": "AFTER A FIGHT, THE SAME BATTERIES: THE SPOILS COUNT LIKE EVERY OTHER SCREEN, AND A MAN'S NIGHT IS BACK ON THE PHONE",
-  "said": "I want people to really feel like they can look at their battery right now and relate it from the game to real life",
-  "why": "After a fight the spoils screen now shows your purse and what a town pays for a looted piece as the batteries they are, and the phone shows what a man costs a night again. You see it on the demo after a fight you win, and on the phone when you open your company.",
-  "stage": "stand_in",
-  "show": {
-   "how": "image",
-   "src": "../records/target/economy_three/VOTE_AFTER_THE_FIGHT_THE_SAME_BATTERIES.webp",
-   "first": "../records/target/vote_first/economy-three-after-the-fight-the-same-batteries-11-20.webp",
-   "firstAt": [
-    0,
-    0,
-    1170,
-    436
-   ]
-  },
-  "before_after": {
-   "before": "the spoils screen showed the purse with the old pile of cells and a looted piece's price with the old icon, one screen after the map and the fight drew them as batteries; the phone's crew face had lost a man's night (since 11/18)",
-   "after": "the spoils' purse 2,236 = 8 car batteries, 11 tool packs, 16 AA; a fire axe off a thug: 5 AA; a man's night: 2 AA, on its own line on the phone; no price moved",
-   "scale": "the demo on his phone upright (390 x 844 at 3): the spoils' bar, the strip under the stash, the phone's crew face"
-  },
-  "record": "records/BOHEMIA_ECONOMY_THREE_EVERY_PRICE_IS_THE_TABLES_11_20_26.md",
-  "build": "BUILD 11/20o - AFTER THE FIGHT, THE SAME BATTERIES"
- },
   {"id": "jobs-a-name-fades-11-20", "kind": "ui", "lane": "jobs", "sha": "b87db3ddb", "made": "11/20", "draft": true, "title": "A NAME FADES: A COMPANY THAT STOPS WORKING IS FORGOTTEN", "said": "the whole enchilada: a full sweep, don't forget anything; the handoff's next job (Battle Brothers' daily renown decay)", "why": "Your CLOUT now drops by 3 every day you pass without working, like Battle Brothers' daily renown decay, so the big work a name opened can close again. And a NEW GAME now starts as a stranger: the towns forget how they felt about your last company. You see it on a town's BOARD: MORE WORK HERE AT 250 CLOUT, with what you have.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_A_NAME_FADES.jpg"}, "before_after": {"before": "CLOUT only ever went up; a new game kept the old company's grudges, its pushed-away clients and its finished jobs on their way to a town", "after": "260 CLOUT and five quiet days is 245, and the fortress work waits again; NEW GAME wipes all four old records", "scale": "left: the game on a phone upright (390 x 844 at 3), the demo; right: what changed, measured"}, "record": "records/BOHEMIA_JOBS_A_NAME_FADES_11_20_26.md", "build": "BUILD 11/20p - A NAME FADES"},
   {
    "id": "cook6-the-powerhouse-11-20",
