@@ -4,6 +4,7 @@ NOTE from CHARACTER (11/20, rule 461; records/BOHEMIA_CHARACTER_THE_HEAD_TAKERS_
 
 NOTE from CHARACTER (11/18, rule 453; records/BOHEMIA_CHARACTER_THE_HIRED_GUNS_11_18_26.md): THE HIRED GUNS HAVE THEIR CLOTHES. hired_gun now wears enemy_hired_gun_0, _1, _2 and hired_duelist enemy_hired_duelist_0, _1 (kind 'enemy', set 'nine', each on his own fight sheet in his stand-in's cell with its guns, his face on faces_more.webp). My pack wrote only those two rows' looks lines in your bohemia_enemies.json, the nine's way: looks = the men, looks_borrowed = the stand-in (faction_caravans, faction_mob), and the 'looks_stand_in' note dropped, since it said 'until this type has its own clothes'. Your F9 on the page fields both in their own sheets (the demo and the alpha, a phone both ways: own sheet, named, armed, the riposte seen, the win home). Next from me in your list: the head taker, the casino gunner, the spotter, the preacher.
 
+CONTEXT LONG (this session ran three builds in rule 461's round on top of the 11/17 to 11/18 rounds): the next job opens a fresh BESTIARY on this block.
 BESTIARY (routine 'BESTIARY: the whole enchilada', rules 461, 454(a), 441): 11/20 LATEST -- BUILD 11/20m THE SIREN AND THE BATTERY MAN (e7f8edfd), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_THE_SIREN_AND_THE_BATTERY_MAN_11_20_26.md. VOTE bestiary-the-siren-and-the-battery-man-11-20.
 | floor | his | the fight fields | short |
@@ -16,7 +17,8 @@ Record: records/BOHEMIA_BESTIARY_THE_SIREN_AND_THE_BATTERY_MAN_11_20_26.md. VOTE
 - THIS BUILD: the block watch's SIREN (the Ancient Priest's Horror: a cross of your men, each a morale check at -15) and the machines'
   BATTERY MAN (the Lindwurm's Acid Blood: a melee blow on him sprays the striker, 10% of his armour a turn for three turns). Each played
   on the real page on AUTO until he does it.
-- THE FLOOR IS MET (74 of about 75). NEXT, beyond the floor: CHARACTER's clothes for the 8 stand-ins left (the casino's gunner, spotter and doorman; the flock's preacher and penitent; the grenadier; the siren; the battery man: CHARACTER dressed the head takers and the hired gun and duelist while this round ran);
+- THE FLOOR IS MET (74 of about 75). This round's three builds: 11/20b THE PENITENT AND THE DOORMAN, 11/20m THE SIREN AND THE
+  BATTERY MAN (and the spotter's stray call fixed). NEXT, beyond the floor (a fresh session): CHARACTER's clothes for the 8 stand-ins left (the casino's gunner, spotter and doorman; the flock's preacher and penitent; the grenadier; the siren; the battery man: CHARACTER dressed the head takers and the hired gun and duelist while this round ran);
   the machines' own look once robot art can tell two machines apart; Tule Springs' Harlan's ground sloth if its outline stays its own.
 [bb Battle Brothers' Ancient Priest's Horror shakes every brother in its area; ours is a neighbour with an air-raid siren he found in a school.]
 [analog horror: the siren winds up from nothing, the same note the valley heard the night the dollar died.]
