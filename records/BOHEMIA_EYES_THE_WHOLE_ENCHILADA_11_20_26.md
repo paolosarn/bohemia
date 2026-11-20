@@ -69,4 +69,32 @@ THE COUNT AT THE START: 231 rows with a 'NOT YET SEEN' and no EYES verdict after
 
 ## FOUND THIS ROUND (new rows)
 
-- 651 (FIXES 2, with UI FOUR): the smith's own line cut upright ('Everybody wants a blade sharp fo...').
+- 653 (FIXES 2, with UI FOUR): the smith's own line cut upright ('Everybody wants a blade sharp fo...').
+
+## BATCH 3 (rows marked)
+
+- 514 SEEN IN PART: THE DECK met four times; the overpass, the underpass and the interchange were not dealt in my runs
+- 513 SEEN: a fight that starts on a freeway cell is fought on THE DECK (the alpha's AUTO 11/20 and 11/18, the demo's haul on 11/18)
+- 505 SEEN IN PART: the big insides answer their buildings: the garage, the casino floor, the tunnels, the convention hall, the mall, the warehouse, the data fort, the terminal's garage
+- 504 SEEN: the boards are cut from the map at the cell: named by the blocks they were cut from ('lots + strip + main', 'landfill + rail + ruin', 'stripw + blvd + stripe', 'shore + wash + scrub'), no two the same over 34 fights
+- 473 SEEN: over 60 AUTO fights at 4x in the walks since 11/14 (up to 5 against 5), 0 page errors, no crash; 11 against 16 was not dealt
+- 469 SEEN: EYES 11/11: MAKE CAMP from the victory screen stays on the fight's own board
+- 468 SEEN: nine big insides met as fights since 11/14, each fought to the end on AUTO (records of 11/14, 11/17, 11/18)
+- 466 SEEN: every town walked into this round opened its screen on arrival (Church, Caravans, Cartel, Remnants, Blues), the demo upright and sideways
+- 465 SEEN: EYES 11/17 and 11/20: after FALL BACK the crew holds, standing beside them reopens nothing; walking away and back at them, their card asks again
+- 459 SEEN: the demo upright, a new game walked south from (71, 26): SEVEN MAGIC MOUNTAINS stood through the fog from 14 blocks off (27, 119), named, its painted stacks drawn; standing on it at (22, 133) lifted the fog round it and sent its feed post (BOH_REGION.landmarks: seen, climbed, posts 1) (e04)
+- 456 SEEN: riot shields drawn on the men who carry them in every fight picture since 11/14 (THE DECK, the garage, the wash, the house fights)
+- 449 SEEN: EYES 11/11: the camp pitched on the fight board of his block
+- 445 SEEN IN PART: SETTINGS on the demo upright: UI SIZE with four choices (SMALL, NORMAL, LARGE, LARGEST); whether the whole interface scales was not measured (my walk's stray tap quit to the title, my mistake)
+- 439 SEEN: six boards read this round: a cold box, a haul of tyres, closing two houses, a chapel back, a fuel depot held, stash houses, a man brought in, a debt collected, the vultures' find; not all hunts, no sabre-tooth on any
+- 435 SEEN: the demo upright, a march at 2x: a finger held on PLAY ran it at 4x (__PHONE_HOLD4 on, from 2, top 4; the clock about 1.7 times as fast in the same seconds); let go, back to 2x, still marching
+- 414 SEEN: the town screens and his place's cameras have no straight cut where the phone sits (Church, Caravans, his place 11/18)
+- 413 SEEN: the new game page: 'ROOM FOR 20, 12 IN A FIGHT'
+- 408 SEEN: SETTINGS: KILL CAMS ON / OFF, 'NO KILL CAM. THE FIGHT NEVER STOPS FOR ONE.'
+- 392 SEEN: the top bar holds the batteries (drawn as batteries), food, tyres, meds and rounds only; the day and the crew are on the phone
+- 386 SEEN ON THE MAP: every frame's text on the map screen read on the demo: no 'Vegas' anywhere (the names are Frenchman Mountain, Sheep Range, the I-15, the towns); the town screens and the feed's archive not scanned
+- 360 SEEN: the phone's feed showed its posts in every screen of every walk since 11/14 (never an empty feed)
+
+FOUND (batch 3): DESI's town hint over the open settings card (new row, FIXES 2 with UI FOUR; e06).
+
+NOT A FIND, SAID: the stadium inside's art file 404s on every alpha load (slices/fight_ground/stadium/stadium_art.json): its pieces are stand-ins until COOK FIVE draws them, by design (slices/bohemia_big_inside.js).

@@ -122,7 +122,7 @@ const HOOKS = `(function(){
   /* ---- THE DOOR: a new game, the crew it gives ---- */
   await page.goto(BASE + FILE, { waitUntil: 'load', timeout: 300000 });
   log('opened', FILE);
-  await until(async () => !!(await anyFrameTap('div,button,span', '^NEW GAME$')), 90000);
+  await until(async () => !!(await anyFrameTap('div,button,span', '^NEW GAME$')), WHICH === 'alpha' ? 12000 : 90000);   /* EYES 11/20: the alpha opens on the crew page, no NEW GAME */
   await wait(2000);
   await until(async () => { const f = page.frames().find(x => true); const r = await anyFrameTap('#fronttap', 'BEGIN'); return !!r; }, 90000);
   await wait(3500);
@@ -157,6 +157,21 @@ const HOOKS = `(function(){
         if (a > 0.02 && was <= 0.02) L.starts.push(Math.round(now)); if (a > L.peak) L.peak = a; was = a; } catch (e) {} if (!FIGHT.S || !FIGHT.S.over) requestAnimationFrame(tick); };
       requestAnimationFrame(tick); }).catch(() => {});
     await wait(2500);
+    /* EYES 11/20 (rule 461, the fight-board rows 485-488, 501-503, 509): the board as dealt, where both sides stand at the bell, and
+       where each of his men ends his turn (a house or its roof, beside cover, or the open street) */
+    await f.evaluate(() => { try { const S = FIGHT.S, K = {}, H = S.h, W = S.w, T = S.terrain;
+        const road = (k) => /street|road|lane|alley|side|kerb|curb|asphalt|path|drive|lot|parking/i.test(String(k)), high = (k) => /^height/.test(String(k));
+        for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) K[T[y][x]] = (K[T[y][x]] || 0) + 1;
+        const seen = {}; let comps = 0, noRoad = 0, maxSt = 0; const sizes = [];
+        for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { if (!high(T[y][x]) || seen[x + ',' + y]) continue; comps++; let touch = false, n = 0; const q = [[x, y]]; seen[x + ',' + y] = 1;
+          while (q.length) { const [a, b] = q.pop(); n++; maxSt = Math.max(maxSt, Number(String(T[b][a]).slice(6)) || 1);
+            [[1,0],[-1,0],[0,1],[0,-1]].forEach(([dx, dy]) => { const c = a + dx, d = b + dy; if (c < 0 || d < 0 || c >= W || d >= H) return; const k = T[d][c]; if (high(k) && !seen[c + ',' + d]) { seen[c + ',' + d] = 1; q.push([c, d]); } else if (road(k)) touch = true; }); }
+          if (!touch) noRoad++; sizes.push(n); }
+        const tileOf = (u) => { const k = T[u.y] && T[u.y][u.x]; let cov = !!(S.cover[u.y] && S.cover[u.y][u.x]); for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) { const r = S.cover[u.y + dy]; if (r && r[u.x + dx]) cov = true; } return { k: String(k), high: high(k), road: road(k), cov }; };
+        const dep = { you: [], them: [] }; S.units.forEach(u => { if (u.x != null) (dep[u.side] || (dep[u.side] = [])).push(tileOf(u)); });
+        window.__EYES_BOARD = { kinds: K, comps, noRoad, maxSt, sizes: sizes.slice(0, 40), dep, ends: [] };
+        let cur = null; setInterval(() => { try { const u = FIGHT.current(); if (u && cur && u.id !== cur.id && cur.side === 'you' && !cur.dead && !cur.down) window.__EYES_BOARD.ends.push(Object.assign({ id: cur.id, r: S.round }, tileOf(cur))); cur = u; } catch (e) {} }, 40);
+      } catch (e) { window.__EYES_BOARD = { err: String(e) }; } }).catch(() => {});
     const o = await f.evaluate(() => ({ kind: FIGHT_OPTS.kind, district: FIGHT_OPTS.district, board: FIGHT.S.boardDef && FIGHT.S.boardDef.name, deploy: FIGHT.S.deploy,
       men: FIGHT.S.units.map(u => ({ id: u.id, name: u.name, side: u.side, w: u.weapon && u.weapon.name, hp: u.hp, hpMax: u.hpMax || u.hp_max || null, main: !!u.main || u.id === 'c0' })) }));
     /* his finger: AUTO, then the speed button until it reads what this fight wants */
@@ -193,6 +208,7 @@ const HOOKS = `(function(){
       why: UI.whySaid ? { line: UI.whySaid.line, by: UI.whySaid.by, why: UI.whySaid.why, none: UI.whySaid.none, card: !!UI.whySaid.card } : null,
       shots: UI.shotSeen || null, flash: (() => { const F = window.__EYES_FLASH || { starts: [] }, s = F.starts; let most = 0; for (let i = 0; i < s.length; i++) { let k = 0; for (let j = i; j < s.length && s[j] - s[i] < 1000; j++) k++; most = Math.max(most, k); }
         let gap = Infinity; for (let i = 1; i < s.length; i++) gap = Math.min(gap, s[i] - s[i - 1]); return { starts: s.length, mostInASecond: most, closest: isFinite(gap) ? gap : null, peak: Math.round(F.peak * 100) / 100, frames: F.frames }; })(),
+      board: window.__EYES_BOARD || null,
       glass: (() => { try { return { n: GLASS.n, held: GLASS.held }; } catch (e) { return null; } })(),
       fallAhead: (() => { const A = UI.firstAhead || []; const d = A.filter(x => x.t === 'dead' || x.t === 'down'); return { n: d.length, minAhead: d.length ? Math.min.apply(null, d.map(x => x.ahead)) : null, late: d.filter(x => x.ahead < 0).length }; })(),
       shotLog: (UI.shotLog || []).slice(0, 400), pageMost: (() => { const L = UI.shotLog || []; const s = []; let prev = null; L.forEach(q => { if (!prev || q[0] - prev[0] > 80) s.push(q[0]); prev = q; });   /* the log holds only lit frames: a gap over 80 ms is a new flash */ let m = 0; for (let i = 0; i < s.length; i++) { let k = 0; for (let j = i; j < s.length && s[j] - s[i] < 1000; j++) k++; m = Math.max(m, k); } return m; })(),
