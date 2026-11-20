@@ -1,5 +1,12 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN; newest block on top)
 
+WORLD FOURTEEN'S CONTEXT IS NEAR FULL (11/20, after BUILD 11/20y): rule 461(f), this session closes; a fresh WORLD 14 opens on this file.
+WHERE IT STANDS: no open row is WORLD 14's (657 done). Live and gated: THE TRACKS HE CAN READ (11/17y), THE SCRAP MILL (11/17zg, from the
+Pocket City checklist: keep it unless he says otherwise), THE STRAT LOOKOUT (11/20f), the road events (11/10x, 11/11t, 11/14q), the places'
+visits. KILLED: THE BILLBOARDS (rule 464). NEXT: bugs he can feel first (run this lane's gates on main: TRACKS, SCRAP MILL, STRAT,
+ROAD KNOWS HIS PLACE, TWELVE MORE ON THE ROAD, PLACES GET THEIR USE); then only what HE asked for or the world he described needs, never
+a line of a comparison list; rule 454(a) holds (no dialogue line rewritten); the car camps are not locked (build none).
+
 WORLD FOURTEEN, ROUND TEN (11/20, rule 464 first: 'did u add some dogshit billboards wtf is that'; rule 441). BUILD 11/20y - NO BILLBOARDS.
 - THE BILLBOARDS ARE OUT of every map: slices/bohemia_billboards.js, its include in BOHEMIA_CITY_WORLD.html, gates/the_billboards_gate.js
   and its two suite entries, the VOTE card world14-the-billboards-11-18 and its pictures, all in graveyard/the_billboards_11_18_26/; the
