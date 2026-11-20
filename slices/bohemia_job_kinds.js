@@ -73,10 +73,16 @@
      makes tens a year) are never drawn for a pack, a hunt or a job's guards; each is ONE animal, a named rare hunt on a board (big
      game, its own row's legs), so a hunt for one is an event. A giant named as a foe anywhere is one beast, never a pack */
   function giant(f) { var G = DATA && DATA.giants && DATA.giants.kinds; return !!(G && G.indexOf(String(f)) >= 0); }
+  /* __A_HUNT_FITS_THE_CREW__ (JOBS 11/20, row 574, rule 461): a beast whose look carries min_men (BOHEMIA_JOB_KINDS.json beast_looks,
+     measured: one ancient bison beats 3 men 8 in 10, 6 men win 10 in 10) is never drawn for a company of fewer men (the map's own
+     crewCount, the men he has); Battle Brothers never sends a new company at an Unhold. No count to read: nothing is held back */
+  function company() { try { return typeof root.crewCount === 'function' ? root.crewCount() : null; } catch (e) { return null; } }
+  function tooBig(k, men) { var L = DATA && DATA.beast_looks && DATA.beast_looks[k]; return !!(L && L.min_men && men != null && men < +L.min_men); }
   function beastFor(x, y, R) {
     var T = DATA && DATA.beasts_by_ground; if (!T) return 'beasts';
-    var w = T[groundAt(x, y)] || T['default'], ks = Object.keys(w).filter(function (k) { return k.charAt(0) !== '_' && !giant(k) && w[k] > 0; });   /* __THE_GIANTS_ARE_RARE__ */
-    if (!ks.length) { w = T['default']; ks = Object.keys(w).filter(function (k) { return k.charAt(0) !== '_' && !giant(k) && w[k] > 0; }); }
+    var men = company();
+    var w = T[groundAt(x, y)] || T['default'], ks = Object.keys(w).filter(function (k) { return k.charAt(0) !== '_' && !giant(k) && !tooBig(k, men) && w[k] > 0; });   /* __THE_GIANTS_ARE_RARE__, __A_HUNT_FITS_THE_CREW__ */
+    if (!ks.length) { w = T['default']; ks = Object.keys(w).filter(function (k) { return k.charAt(0) !== '_' && !giant(k) && !tooBig(k, men) && w[k] > 0; }); }
     var r = (R || Math.random)() * ks.reduce(function (t, k) { return t + w[k]; }, 0);
     return ks.filter(function (k) { r -= w[k]; return r < 0; })[0] || ks[0];
   }

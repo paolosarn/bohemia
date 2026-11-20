@@ -166,6 +166,8 @@ where(BB + 'renown.json', ['pay_mult.value.from', 'pay_mult.value.to', 'pay_mult
 where(BB + 'job_pay.json', ['standing.value.*.mult'], 'the client town\'s standing bends the pay: 0.85 to 1.15', unit='ratio', owner='JOBS')
 where(BB + 'job_pay.json', ['crew_cost_per_map_hour.value', 'margin.value', 'violence.value.quiet_margin'], 'what twelve men burn an hour, and how much over it an hour of a job pays', unit='ratio', owner='JOBS')
 where(BB + 'job_into_place.json', ['share.value'], 'the most of a job\'s pay that can be a build', unit='ratio', owner='JOBS')
+where(BB + 'relations.json', ['haggle.value.step'], 'an ask on a job\'s card: what each ask lands on the pay (two land, the third ends it; JOBS 11/17 PUSH THE PAY)', unit='ratio', owner='JOBS')   # JOBS 11/20 (rule 461): brought in
+where(RT + 'BOHEMIA_JOB_KINDS.json', ['kinds.clear-camp.flat', 'kinds.clear-camp.per_head_share', 'kinds.patrol.flat'], 'a camp and a patrol: the share of the pay on the flat and the share by the head', unit='ratio', owner='JOBS')   # JOBS 11/20 (rule 461): brought in
 where(BB + 'stall_prices.json', ['sell_share.value', 'sell_share_max.value', 'sell_floor_share.value', 'size_mult.value.*', 'trade.made_here.value.*', 'trade.not_made.value.*'], 'the stall: what it pays back, what a place\'s size does, a good made here or not', unit='ratio')
 where(RT + 'BOHEMIA_HALL_PRICE.json', ['easier'], 'the hall: a hire costs four fifths of the wiki\'s formula', unit='ratio')
 where(BB + 'price_table.json', ['conversion.crownsPerBattery', 'conversion.floorBatteries'], 'the catalog rule\'s copy the old price engine reads', unit='ratio')

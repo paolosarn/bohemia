@@ -2429,6 +2429,11 @@ GATES = [
      'below Neutral a town charges more and pays less (the Game Guide), and its bar changes what it offers (no three-skull work below '
      'Neutral, one job at Hostile, one more from Friendly); a settled job kept until the town\'s bands load; on the phone, the demo and '
      'the alpha both ways (records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md).', True),
+    ('A HUNT FITS THE CREW', ['node', 'gates/the_hunt_fits_the_crew_gate.js'],
+     'JOBS 11/20, row 574, rules 461, 441: a hunt never deals a beast one of which beats the company (Battle Brothers never sends a new '
+     'company at an Unhold): the ancient bison waits for six men (BOHEMIA_JOB_KINDS.json beast_looks.bison.min_men; measured, one bison '
+     'beats 3 farmhands 8 in 10, 6 win 10 in 10); the draw on the real file, the fight again, and on the phone (the demo and the alpha, '
+     'both ways) every hunt at every town by the map\'s own door and one played to the end (records/BOHEMIA_JOBS_A_HUNT_FITS_THE_CREW_11_20_26.md).', True),
     ('THE FIGHT IS CLOSE', ['node', 'gates/the_fight_is_close_gate.js'],
      'TUNING 2 [the fight is close], rule 370: measured by closeness, not wins. The bands per level (records/target/bb/party_math.json '
      'closeness_bands) on the live fight, routine and tough job, pooled over the Lone Wolf, a fresh company and rare men in the '

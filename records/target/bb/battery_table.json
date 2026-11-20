@@ -654,6 +654,26 @@
    "owner": "JOBS"
   },
   {
+   "file": "records/target/bb/relations.json",
+   "paths": [
+    "haggle.value.step"
+   ],
+   "what": "an ask on a job's card: what each ask lands on the pay (two land, the third ends it; JOBS 11/17 PUSH THE PAY)",
+   "unit": "ratio",
+   "owner": "JOBS"
+  },
+  {
+   "file": "records/target/BOHEMIA_JOB_KINDS.json",
+   "paths": [
+    "kinds.clear-camp.flat",
+    "kinds.clear-camp.per_head_share",
+    "kinds.patrol.flat"
+   ],
+   "what": "a camp and a patrol: the share of the pay on the flat and the share by the head",
+   "unit": "ratio",
+   "owner": "JOBS"
+  },
+  {
    "file": "records/target/bb/stall_prices.json",
    "paths": [
     "sell_share.value",
@@ -2451,6 +2471,9 @@
    "board_people.rows[id=jb-bid-tv-anarchists].pay": 60,
    "board_people.rows[id=jb-bid-hall-church].pay": 90,
    "board_people.rows[id=jb-bid-hall-mob].pay": 90,
+   "kinds.clear-camp.flat": 0.6,
+   "kinds.clear-camp.per_head_share": 0.4,
+   "kinds.patrol.flat": 0.5,
    "kinds.collect.legs[0].talk.opts[1].pay": 0.5,
    "kinds.signal.legs[2].talk.opts[1].pay": 0.6,
    "kinds.investigate.legs[1].talk.opts[1].pay": 1.2,
@@ -2686,6 +2709,9 @@
    "pay_mult.value.to": 4.5,
    "pay_mult.value.at": 4000
   },
+  "records/target/bb/relations.json": {
+   "haggle.value.step": 0.07
+  },
   "records/target/BOHEMIA_HALL_PRICE.json": {
    "easier": 0.8
   },
@@ -2772,8 +2798,8 @@
   }
  },
  "count": {
-  "rows": 669,
-  "files": 18,
+  "rows": 673,
+  "files": 19,
   "copies": 167,
   "prose": 17
  }
