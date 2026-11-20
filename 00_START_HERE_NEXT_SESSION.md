@@ -1,4 +1,4 @@
-COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list since its model hit its weekly limit -- BUILD 11/20d - THE STADIUM IS A STADIUM, BUILT (SHIPSHA), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 451(a), 455; ask rows 627, 651).
+COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list since its model hit its weekly limit -- BUILD 11/20d - THE STADIUM IS A STADIUM, BUILT (fe8f3c4f9), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 451(a), 455; ask rows 627, 651).
 THE STADIUM (COMBAT THREE's BUILD 11/18m): all of its pieces were stand-ins (185 of 185 in the last show layout). Now slices/fight_ground/stadium/ holds stadium_art.json
 (THE GARAGE'S FORMAT: floor.floor rows 0 to 2 of stadium_floor_0.webp, the dead turf with a yard line down every tile's middle; floor.mud its row 3, the turf torn to the dirt
 with a turf margin on every edge; floor.high its row 4; floor.ring rows 0 to 2; kit: all 15 names your handoff asked for), sizes.json, 15 piece pictures, the floor sheet and
