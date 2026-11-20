@@ -31,18 +31,15 @@ Gate THE BATTERY IS REAL 43/0 (the table with eight planted faults; nine legs a 
 FOR UI FOUR, JOBS, HOME BASE, WORDS TWO, TUNING, DIRECTION: each has lines in the handoff. NOT DECIDED AND NOT BUILT ON: who holds the working sun (459(e)).
 [bb Battle Brothers counts one coin and lets the number run to tens of thousands; ours is the coin and the things a coin is]
 [analog horror: a man counting out twelve drill batteries on a hood, slowly, because a wrong count gets somebody killed]
-FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/18 LATEST -- BUILD 11/18q - THE CAP IS ON THE GLASS, ONE HONEST HEAD, BUILT (947ec28f2), NOT YET SEEN (ask rows 650 and 648, FOUND BY EYES; rules 450(c), 450(a), 441). Its block is handoffs/FIGHT_SCREEN.md.
-THIS CHAT IS FIGHT SCREEN TWO. THE FLASH (row 650): reproduced first: the three-a-second cap counted when shots were SCHEDULED, and one late frame put four
-whites inside 933 ms on the glass with the page's count holding none. The cap now sits where the white is drawn, on the drawn frame's own clock: never more than
-three begin in any 1100 ms of real time at any speed; a white the glass will not take is not drawn (the barrel flash and the sound stay); the vest's whole-board
-white asks the same cap and is soft on FLASH: SOFT. THE FACE (row 648): the band this lane cut over his eyes was a seam and is gone; nothing of the gear is cleared.
-CHARACTER's portrait pieces are whole but drawn for a taller head than PORTRAIT's round one, so a hat is now FITTED WHOLE with its brim on his brow (a new
-slices/bohemia_fight_face.js; nothing of CHARACTER's or PORTRAIT's edited). Said plainly: RAUL is a man in a hard hat now but still the smallest.
-Gates EVERY SHOT IS FELT (S6 the glass itself read every drawn frame at 1x, 2x and 4x on AUTO; a plant) and THE FACE SHOWS UNDER THE HELMET 10/0 (315 faces,
-no seam, two plants). On the alpha and the demo, upright and sideways, AUTO at 2x and 4x with a finger: never more than 3 begin in a second; 0 errors.
-VOTE fight-screen-the-cap-is-on-the-glass-and-one-honest-head-11-18 (STAND-IN). NEXT ON THIS LANE: one material for the speaking cards, the Rogue Fable 4 page.
-[bb Battle Brothers has no gun and no flash; its helmets are drawn on the face they were made for. Ours fits a hat to a head it was not drawn for]
-[analog horror: three camera flashes and then the fourth man fires in the dark; you hear him and see only his barrel]
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/20 LATEST -- BUILD 11/20e - ONE MOUTH AT A TIME, BUILT (07f40d8e), NOT YET SEEN (rule 461's walk; rules 449(b), 450(a), 441; ask row 616). Its block is handoffs/FIGHT_SCREEN.md.
+THIS CHAT IS FIGHT SCREEN THREE (TWO stopped at its weekly limit, no branch left). THE WALK (tools/bohemia_fight_screen_the_walk.js): the whole fight on a phone both
+ways, the demo and the alpha, first second to end screen and back to the map, the glass read at every still. It found two people talking at once on his first turn
+(one card on the other, words past its edge), a tile's note standing the whole fight and under the end screen, and THEIR first man on his phone's card before FIGHT.
+NOW: one person talks at a time; a mouth is the house's dark board with a pinned face and a gold or red edge, a print stays receipt paper; a tile's note goes with its
+turn, AUTO or the fight's end; his own man on the card in the lineup. Four walks again: 0, 0, his own 4 of 4, 0 errors. The Rogue Fable 4 library page is written
+(reference/library/rogue_fable_4/). VOTE fight-screen-one-mouth-at-a-time-11-20 (STAND-IN). NEXT ON THIS LANE: the last hit drawn on the bar, the end screen.
+[bb Battle Brothers puts one man's words in one place at a time; ours put two at once, and now says one]
+[analog horror: a security monitor's caption box that only ever holds one speaker, the last one cut mid-word when the next one keys in]
 COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18p - THE TERMINAL IS AN AIRPORT, BUILT (4c0cf87e7), NOT YET SEEN (rule 453, round after round, this round's fifth build; rules 416, 451(a), 455; ask row 627).
 COMBAT THREE's airport terminal wears its own art under its own names (slices/fight_ground/terminal/terminal_art.json, the garage's format; no code):
 the terrazzo floor, 25 pictures under 27 names (the checkpoint a tile with its tubs, both screens, the desks, the queue, the newsstand, the luggage

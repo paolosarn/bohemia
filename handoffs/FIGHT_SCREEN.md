@@ -5,6 +5,39 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/20 LATEST -- [one mouth] SHIPPED 07f40d8e, BUILD 11/20e - ONE MOUTH AT A TIME, BUILT, NOT YET SEEN (rule 461's walk; rules 449(b), 450(a), 441, 454(a); ask row 616). VOTE fight-screen-one-mouth-at-a-time-11-20 (stand_in; before and after).
+THIS CHAT IS FIGHT SCREEN THREE (FIGHT SCREEN TWO stopped at its model's weekly limit; it left no pushed branch). Record: records/BOHEMIA_FIGHT_SCREEN_ONE_MOUTH_AT_A_TIME_11_20_26.md.
+THE WALK, THE LANE'S NEW EYE: tools/bohemia_fight_screen_the_walk.js <alpha|demo> <upright|sideways> <outdir> [road|beasts] (SCALE=2 for stills he sees; BEFORE=1 serves this
+lane's files as HEAD has them). The whole fight by a finger, first second to end screen to the map; at every still it READS the glass: every card up, its box, off the
+glass, words cut, every pair of cards on each other, whose man on the phone's card. Run it on every build of this lane, all four surfaces, before calling it done.
+FOUND ON MAIN 64ab8c77 AND FIXED (slices/BOHEMIA_FIGHT.html):
+ - __ONE_MOUTH_AT_A_TIME__ (teach()): the lesson and a crew's shout were up at once (the shout waited for the lesson, the lesson never waited for the shout); a lesson
+   takes the floor now and cuts the shout. ANY NEW SPEAKING CARD ASKS FOR THE FLOOR THE SAME WAY (UI.why, UI.vet, UI.call: one at a time).
+ - __THE_STRIP_KEEPS_ITS_TURN__ (sayForTurn): a tile's line, the far walk's and the spent line had no turn and stood the whole fight and under the end screen; they carry
+   their turn now (UI.sayTurn, the director takes them down); AUTO pressed and the fight's end clear the strip; OUT OF ACTION POINTS goes off his turn.
+   ANY NEW LINE SAID ON HIS TURN THAT IS ABOUT THAT TURN CALLS sayForTurn(u) AFTER say().
+ - __HIS_MAN_IN_THE_LINEUP__ (hud()): before FIGHT the card wore their first man; now the man he is placing (UI.dsel) or his lead.
+ - __ONE_BOARD_FOR_EVERY_MOUTH__ (css + mouthLook()): A MOUTH IS BOARD, A PRINT IS PAPER. #why, #call, #vet: the house's dark board (UI's kit 'board' at 0.6), a pinned
+   face in the sheet's paper frame, a ::before edge gold his / red theirs (#why.them, #call.hot). #say, #drawer (but the sheet), #over stay UI's receipt on purpose.
+ - slices/bohemia_fight_opener.js: 'THE FREEWAY · FREEWAY' says the place once.
+ - tools/bohemia_fight_screen_the_phone_card.js puts a man of theirs on the card by UI.pend.target (it had read the lineup's wrong card as 'theirs').
+ON THE PAGE: four walks on the rebased build (demo upright road, demo sideways beasts, alpha upright beasts, alpha sideways road): two cards on each other 0 (was 3 of 4),
+a stale line 0 (was 4 of 4), his own man in the lineup 4 of 4 (was 0), nothing cut, home 4 of 4, 0 page errors.
+GATES: THE WHY LINE 20/0, THE CREW'S COMMENTARY 10/0, NOTHING POPS VOICES CLEAR 38/0, THE MAN'S CARD ON THE PHONE 9/0, THE MAN'S SHEET 7/0, THE CARD THAT OPENS A FIGHT 8/0,
+EVERY SHOT IS FELT 11/0, THE FACE SHOWS UNDER THE HELMET 10/0, EVERY PANEL CLOSES 14/0, ICONS 8/0, LANGUAGE 107/0, DEMO BUILD 25/0, NOTHING POPS UP 23/0, PAGES PUBLISH 30/0.
+NAMED, NOT MINE (the same legs red with this lane's files as HEAD had them): THE FIRST FIGHT TEACHES 7/3, THE FIGHT BY HAND QUICKER 18/2, THE LOSS IS UNDERSTOOD 14/1.
+DONE FROM THE OLD LIST: (1) one material for the speaking cards; (2) the Rogue Fable 4 library page: reference/library/rogue_fable_4/01_THE_FIGHT_SCREEN_AND_THE_CARD.md
+(sourced from search results; the store pages were refused by this box's network, NO screenshot opened; say so whenever it is cited).
+ROUTED IN THE RECORD: WEAPONS (the weak ring's bare '-7'); RUN FIVE (the end screen's receipt shows only its dashed rule from behind the header).
+NEXT, in order:
+ (1) THE LAST HIT ON THE BAR (the library page's rule 3: Rogue Fable IV draws last turn's damage in red on the HP bar): the bars over the men on the board and the phone's
+     card's bars show what is left, never what was just lost.
+ (2) THE END SCREEN (rule 449(b)): the spoils page is RUN's (BOHEMIA_SPOILS_SCREEN.html, rule 404 'at final'); this lane's part is the fight's own end (#over, the wipe).
+ (3) The opening card's men as BODIES (the fight's own sheets of the dealt looks, slices/fight_rig).
+ (4) The turn order: NOT owed unless he asks (his note 9 of 11/2).
+[bb Battle Brothers puts one man's words in one place at a time; ours put two at once, and now says one]
+[analog horror: a security monitor's caption box that only ever holds one speaker, the last one cut mid-word when the next one keys in]
+
 FIGHT SCREEN (fight-screen-two-01gkdyuss): 11/18 LATEST -- [cap on the glass, one honest head] SHIPPED 947ec28f2, BUILD 11/18q - THE CAP IS ON THE GLASS, ONE HONEST HEAD, BUILT, NOT YET SEEN (ask rows 650 and 648, FOUND BY EYES, the NOTE below; rules 450(c), 450(a), 441). VOTE fight-screen-the-cap-is-on-the-glass-and-one-honest-head-11-18 (stand_in; before and after).
 THIS CHAT IS FIGHT SCREEN TWO. Record: records/BOHEMIA_FIGHT_SCREEN_THE_CAP_IS_ON_THE_GLASS_AND_ONE_HONEST_HEAD_11_18_26.md.
 ROW 650, THE FLASH. REPRODUCED FIRST: the cap counted the moments the shots were SCHEDULED for; the glass draws on its own frames; four shots a third of a second
