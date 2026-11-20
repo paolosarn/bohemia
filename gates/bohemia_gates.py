@@ -13,7 +13,9 @@ about: laws enforced by memory are not enforced.
 Run it before any absorption, any wrap, and after any engine edit. Green or it
 does not ship.
 """
-import subprocess, sys, time, os, re
+import subprocess, sys, time, os, re, json
+DONE_FILE = None
+DONE_NAMES = set()
 
 # The repo layout (7/17/26): gates live in gates/, engine modules in engine/.
 # Every gate runs with cwd = repo root, so data reads are repo-root-relative.
@@ -10443,8 +10445,25 @@ def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False, lenient
         suite_from = int(os.environ.get('BOHEMIA_SUITE_FROM') or 0)
     except ValueError:
         suite_from = 0
+    # BOHEMIA_SUITE_DONE=<file.jsonl>: the gates already answered in that file are not run again (the container restarts every
+    # half hour or so; a full run is eight hours), and every gate this run answers is added to it the moment it lands
+    global DONE_FILE, DONE_NAMES
+    DONE_FILE = os.environ.get('BOHEMIA_SUITE_DONE') or None
+    DONE_NAMES = set()
+    if DONE_FILE and os.path.exists(DONE_FILE):
+        try:
+            for ln in open(DONE_FILE):
+                try:
+                    DONE_NAMES.add(json.loads(ln)['name'])
+                except Exception:
+                    pass
+        except Exception:
+            pass
+        print('  BOHEMIA_SUITE_DONE: %d gates already answered in %s, not run again' % (len(DONE_NAMES), DONE_FILE), flush=True)
     for i, (name, argv, what, slow) in enumerate(GATES):
         if suite_from and i < suite_from - 1:
+            continue
+        if name in DONE_NAMES:
             continue
         if fast and slow:
             print('  %-15s SKIP     %s' % (name, what))
@@ -10590,6 +10609,15 @@ def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False, lenient
                 _trace('OUT', name)
             with lock:
                 results[i] = (name, what, rc == 0, out, time.time() - t)
+                # BOHEMIA_SUITE_DONE (PLUMBER 8, 11/20): every answer is written the moment it lands, so a run the container kills
+                # keeps every gate it finished and the next run with the same file takes up only the rest
+                if DONE_FILE:
+                    try:
+                        with open(DONE_FILE, 'a') as fh:
+                            fh.write(json.dumps({'i': i, 'name': name, 'ok': rc == 0, 'secs': round(time.time() - t, 1),
+                                                 'tail': (out or '')[-1500:]}) + '\n')
+                    except Exception:
+                        pass
 
     # THE REPORT IS STILL IN TABLE ORDER, AND IT STILL STREAMS. Results arrive
     # out of order because that is what parallel means, and that stays an
