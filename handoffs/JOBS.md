@@ -1,6 +1,22 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/20 LATEST -- BUILD 11/20l - A HUNT FITS THE CREW (row 574, JOBS' part), BUILT, NOT YET SEEN (rules 461, 441,
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/20 LATEST -- BUILD 11/20p - A NAME FADES, AND A NEW COMPANY IS A STRANGER, BUILT, NOT YET SEEN
+(rules 461, 441, 454(a); row 651; the coordinator's routine 'JOBS: the whole enchilada'). Record: records/BOHEMIA_JOBS_A_NAME_FADES_11_20_26.md.
+- A NAME FADES (the handoff's next since 11/18): records/target/bb/job_clout.json fade 3 (bb_all/1679 'Daily Renown Decay -3'; TUNING
+  job_clout.fade); slices/bohemia_job_kinds.js __A_NAME_FADES__: each day the map's clock passed since his last step takes 3 CLOUT on
+  the next (BohemiaRenown.add, never under 0), per campaign (bohemia.clout.fade.v1). The big work a name opened (11/18) waits again.
+- 11/18'S LINE FIXED: the board's CLOUT line showed only when the shelf dealt a new board; bohemia_board_shelf.js waits(name, tier,
+  day) works it out each time (THE TOWN'S BOOK E1, E2 read it).
+- A NEW COMPANY IS A STRANGER (a bug he can feel): the title's forget list now carries bohemia.relations.v1, bohemia.haggle.v1,
+  bohemia.job.settled.v1 and bohemia.clout.fade.v1. The title is the demo's alone (the workshop opens on VOTE; no NEW GAME there).
+GATE A NAME FADES (new, in the suite): N1 files, N2 the fade lifted out, N3 the four phones (260 -> 245; Caravans' board 'MORE WORK
+HERE AT 250 CLOUT · YOU HAVE 245'; the demo's NEW GAME: 4/4 gone; the alpha: no title), N4. THE TOWN'S BOOK JOBS_BUILD=E 13/0.
+Build F (11/20l) deployed: pages SUCCESS on 79a29957f.
+NEXT: the town's bar on its board (the bar sizes the board and bends its pay, and the board never says so).
+[bb Battle Brothers: Daily Renown Decay -3; a quiet company is forgotten]
+[analog horror: nobody says your name out loud any more; the fortress gate stays shut and they do not tell you why]
+
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/20 -- BUILD 11/20l - A HUNT FITS THE CREW (row 574, JOBS' part), BUILT, NOT YET SEEN (rules 461, 441,
 454(a); rows 574, 651; the coordinator's routine 'JOBS: the whole enchilada'). Record: records/BOHEMIA_JOBS_A_HUNT_FITS_THE_CREW_11_20_26.md.
 - ROW 574 MEASURED: the longhorn, bear and sloth are giants (never a pack); the ANCIENT BISON was still drawn for a hunt's pack on the open
   desert and the park. One bison beats 3 farmhands 8 in 10, 6 win 10 in 10 (tools/bohemia_fight_headless.js); every other pack beast

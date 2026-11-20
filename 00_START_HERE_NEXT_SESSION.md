@@ -1,3 +1,9 @@
+JOBS (jobs-01gkdyuv): 11/20 LATEST -- BUILD 11/20p - A NAME FADES, BUILT, NOT YET SEEN (rules 461, 441, 454(a); row 651). A NAME FADES: 3 CLOUT a day the map's clock passes (Battle Brothers' Daily Renown Decay -3, TUNING job_clout.fade), so the big
+work a name opened waits again; the board works its own line out each time; NEW GAME forgets the towns' bars, the pushed-away
+clients, the settled queue and the fade's day.
+On the phone, the demo and the alpha both ways. Gate A NAME FADES. VOTE jobs-a-name-fades-11-20 (STAND-IN), sha b87db3ddb. Record records/BOHEMIA_JOBS_A_NAME_FADES_11_20_26.md.
+[bb Battle Brothers: Daily Renown Decay -3; a quiet company is forgotten]
+
 COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20n - THE REGION'S FOUR, BUILT (1ca23ef49), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 408, 409(c), 455; ask rows 627, 651).
 COOK FIVE's list said 'measure how the region draws its four real places and whether a piece can go there with no code'. MEASURED: no. The region's places
 (TULE SPRINGS LAB, LENZIE STATION, SPRING MOUNTAIN RANCH, CALLVILLE BAY) are drawn by slices/bohemia_region.js drawPlaces after the whole frame, through the map's
