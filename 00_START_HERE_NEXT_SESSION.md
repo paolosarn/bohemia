@@ -1,4 +1,4 @@
-WORDS THREE (words-three-01gkdyuvnl): 11/20 LATEST -- BUILD 11/20z - HE IS NOT DONE: SHEET FOUR, AND HIS ANSWER IS KEPT, BUILT (this commit), NOT YET SEEN (rule 465; ask row 629). Its block is handoffs/WORDS_TWO.md.
+WORDS THREE (words-three-01gkdyuvnl): 11/20 LATEST -- BUILD 11/20z - HE IS NOT DONE: SHEET FOUR, AND HIS ANSWER IS KEPT, BUILT (8bb71a2fa), NOT YET SEEN (rule 465; ask row 629). Its block is handoffs/WORDS_TWO.md.
 Rule 465: he is still typing his lines into the homework cards; nothing goes into the game until he says he is done; THE VOICE HOLDS asleep, 0 of 15 open.
 A line he types into a card is now KEPT on his phone as he types (it was wiped by MORE, UNDO and a reload); the homework box says 'type how it should sound'
 (the VOTE tab, RUN TWO's and UI's file, three small pieces; gate HIS ANSWER IS KEPT 15/0). SHEET FOUR (words-two-hw04-01 to -12) waits behind sheet three: 52 cards out.

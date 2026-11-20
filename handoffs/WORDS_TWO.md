@@ -6,7 +6,7 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
-WORDS THREE (words-three-01gkdyuvnl): 11/20 LATEST -- BUILD 11/20z - HE IS NOT DONE: SHEET FOUR, AND HIS ANSWER IS KEPT, BUILT (this commit), NOT YET SEEN (rule 465; rules 454(a)(c), 441; ask row 629). NOTHING IN THE GAME WAS REWRITTEN.
+WORDS THREE (words-three-01gkdyuvnl): 11/20 LATEST -- BUILD 11/20z - HE IS NOT DONE: SHEET FOUR, AND HIS ANSWER IS KEPT, BUILT (8bb71a2fa), NOT YET SEEN (rule 465; rules 454(a)(c), 441; ask row 629). NOTHING IN THE GAME WAS REWRITTEN.
 THE COORDINATOR'S ROUTINE 'WORDS THREE: he is not done' (rule 465, Paolo 11/20: 'im still not done with the replacement text vibes from the voting shit'): keep
 the sheets ready, make them easy to answer on a phone, fold each uploaded sheet into THE VOICE when its path comes. No sheet of his uploaded yet (4 verdicts
 on homework cards in the registry). THE VOICE HOLDS 11/0 on main 43 commits after it landed: 0 of 15 mouths open, no frozen line touched by any lane.
