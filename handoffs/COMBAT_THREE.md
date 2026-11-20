@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441; ask rows 468, 651): 11/20 LATEST -- [the sphere] SHIPPED SHIPSHA, BUILD 11/20k - THE SPHERE, BUILT, NOT YET SEEN. VOTE combat4-the-sphere-11-20 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441; ask rows 468, 651): 11/20 LATEST -- [the sphere] SHIPPED 690c01943, BUILD 11/20k - THE SPHERE, BUILT, NOT YET SEEN. VOTE combat4-the-sphere-11-20 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_SPHERE_11_20_26.md. The round's second build (rule 461: keep going), the eleventh big inside (the list's tenth line).
 WHAT: a fight at the Sphere (0.7 of what the garage leaves; opts.inside 'sphere' anywhere) is fought in the dead bowl: the floor in the open, the stage across the front (a
 blocker), fallen screen panels, fallen speakers, road cases, the sound desk (cover), barricade, bedding (low cover), broken floor where the rigging came down (open AND 3 AP),
