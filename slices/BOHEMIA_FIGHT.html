@@ -187,7 +187,7 @@ html[data-materials] #bend.hit::before{background-image:var(--mark-hit)}
 /* THE FIRST FIGHT TEACHES (COMBAT [the first fight teaches]): one veteran of the company says it, his own face beside his
    words, on receipt paper at the top of the board under the strip; it covers no man's middle and takes no tap */
 #vet{position:fixed;left:8px;display:none;z-index:4;pointer-events:none;align-items:center;gap:8px;max-width:min(calc(100vw - 16px),420px);
-  padding:6px 10px 8px 6px;color:var(--paper-ink);background:var(--mat-receipt,#e2dac6) center/100% 100%;filter:drop-shadow(0 1px 0 rgba(0,0,0,.8));transform:rotate(.5deg)}
+  padding:6px 10px 8px 6px;color:#efe3cc;background:rgba(14,11,8,.9);filter:drop-shadow(0 1px 0 rgba(0,0,0,.8))}
 #vet canvas{flex:0 0 auto;width:44px;height:44px;border-radius:2px;background:#0d0b09}
 #call{position:fixed;left:8px;display:none;z-index:4;pointer-events:none;align-items:center;gap:7px;max-width:min(calc(100vw - 16px),380px);
   padding:4px 10px 5px 4px;color:#efe3cc;background:rgba(14,11,8,.86);border-left:3px solid var(--gold);filter:drop-shadow(0 1px 0 rgba(0,0,0,.8))}
@@ -210,8 +210,18 @@ html[data-materials] #bend.hit::before{background-image:var(--mark-hit)}
 #call span{display:block;font-family:var(--face-rom,ui-monospace,monospace);font-size:13px;font-weight:700;line-height:1.25}
 #call.hot{border-left-color:#ff5a40}#call.hot b{color:#ff8a6a}
 #over .quote{font-style:italic;margin-top:8px}
-#vet b{display:block;font-family:var(--face-casing,ui-monospace,monospace);font-weight:400;font-size:11px;letter-spacing:.5px;color:#5c2410}
-#vet span{display:block;font-family:var(--face-rom,ui-monospace,monospace);font-size:12px;line-height:1.3;min-height:1.3em}
+#vet b{display:block;font-family:var(--face-casing,ui-monospace,monospace);font-weight:400;font-size:10px;letter-spacing:.5px;color:var(--gold)}
+#vet span{display:block;font-family:var(--face-rom,ui-monospace,monospace);font-size:13px;font-weight:700;line-height:1.3;min-height:1.3em}
+/* __ONE_BOARD_FOR_EVERY_MOUTH__ (FIGHT SCREEN THREE 11/20; rule 449(b), rule 450(a); the handoff's item 1): ONE LOOK FOR A MOUTH. Whoever
+   talks on the glass (the why line, the crew's shout, the veteran's lesson) talks from the house's dark board, the man's sheet's and the
+   opening card's own: his face a photograph in a paper frame pinned on it, a strip down its edge gold for his men and red for theirs,
+   his name in the casing, his words light ink. What the GAME prints (the strip's line, the aim, the end's numbers) stays receipt paper:
+   a mouth is board, a print is paper, so the eye knows which is which. The lesson was pale paper beside two dark cards (the walk). */
+#why,#call,#vet{border-left:0!important;padding-left:9px;color:#f2e4c6;background-color:#2a2016;filter:drop-shadow(3px 2px 0 rgba(10,6,3,.6))}
+#why::before,#call::before,#vet::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);pointer-events:none}
+#why.them::before,#call.hot::before{background:#ff5a40}
+#why canvas,#call canvas,#vet canvas{margin:4px 3px 4px 4px;box-shadow:0 0 0 1px #0d0a07,0 0 0 3px #d8ceb6,0 0 0 4px #0d0a07,3px 4px 0 rgba(0,0,0,.55);transform:rotate(-1.2deg)}
+#why span,#call span,#vet span{color:#f2e4c6;text-shadow:0 1px 0 #000}
 /* THE TURN ENDS ITSELF (COMBAT [the turn ends itself], rule 125): Battle Brothers' numbers on his bar (the AP and the wind
    left, as numbers beside the pips), and when he can afford nothing, OUT OF ACTION POINTS over his bars for a beat and a
    half, the same VCR warning as the empty gun, before the turn passes by itself */
@@ -7693,6 +7703,10 @@ function teach(k) {
   if (performance.now() - UI.t0 < Math.max(TEACH_QUIET_MS, UI.openUntil - UI.t0)) return false;   /* never in the first second */
   const T = taughtNow(); if (T[k]) return false;
   const v = veteran(); if (!v) return false;
+  /* __ONE_MOUTH_AT_A_TIME__ (FIGHT SCREEN THREE 11/20, rule 461's walk, rule 449(b)): the lesson and a crew's shout were up at once on his
+     first turn, one card on the other and the under one's words showing past its edge (the walk, both ways, demo and alpha). One
+     person talks at a time: the lesson is about this moment and takes the floor; the shout is cut, its voice with it */
+  if (UI.call) callHide(true);
   T[k] = 1; try { localStorage.setItem(TEACH_KEY, JSON.stringify(T)); } catch (_e) {}
   /* WORDS [spanglish at ten percent] (rule 143a, Paolo 10/24: 'now all my crew members are in Spanglish'): the line is rolled for
      the man who says it; plain English most times, his one word of Spanish about 1 in 8 (more if he leans to it) */
@@ -7702,7 +7716,7 @@ function teach(k) {
   UI.vet = { k: k, who: v.id, line: line, t: performance.now() };
   drawPortrait(document.getElementById('vetface').getContext('2d'), v, document.getElementById('vetface').width);
   document.getElementById('vetname').textContent = v.name; document.getElementById('vetline').textContent = '';
-  const el = document.getElementById('vet'); el.style.top = (TOPH + 6) + 'px'; el.style.display = 'flex';
+  mouthLook(); const el = document.getElementById('vet'); el.style.top = (TOPH + 6) + 'px'; el.style.display = 'flex';
   feed(v.name + ': ' + line);
   /* HIS VETERAN IS HEARD (SOUNDS [the squiggle, creepier], rule 135: 'every time people speak'): the same look, the same voice as on the map */
   try { window.top.postMessage({ type: 'BOHEMIA_VOICE', speaker: 'face:' + v.look, text: line }, '*'); } catch (_e) {}
@@ -7716,7 +7730,7 @@ function tickVet(now) {
   const beat = beatMs(), slot = Math.floor((now - V.t) / (beat / 6)), n = Math.min(V.line.length, slot * TYPE_PER_BEAT / 6);
   const ln = document.getElementById('vetline'); if (ln.textContent.length !== n) ln.textContent = V.line.slice(0, n);
   const typing = n < V.line.length;
-  document.getElementById('vetface').style.transform = typing && slot % 2 ? 'translateY(-2px)' : '';   /* his mouth works on the slots */
+  document.getElementById('vetface').style.transform = typing && slot % 2 ? 'translateY(-2px) rotate(-1.2deg)' : '';   /* his mouth works on the slots */
   if (!typing && !V.done) V.done = now;
   if ((V.done && now - V.done > beat * TEACH_HOLD_BEATS) || FIGHT.S.over) { document.getElementById('vet').style.display = 'none'; UI.vet = null; }
 }
@@ -7914,7 +7928,7 @@ function whyOpen(now) {
   UI.whySaid = { why: why, how: P.how, who: P.who, cls: P.cls, rule: P.rule, reason: P.reason, side: P.side, by: v.name, byId: v.id, byLook: v.look, line: P.line, at: now - UI.t0, round: S.round, deploy: !!S.deploy, card: kept, i: P.i, needs: P.needs || null, truth: (function () { const f = whyFacts(them); return { outside: !!f.outside, job_clears: !!f.job_clears, job_hunts: !!f.job_hunts, plays: f.plays === undefined ? null : f.plays }; })(), draft: true };
   const cv = document.getElementById('whyface'); drawPortrait(cv.getContext('2d'), v, cv.width, true);
   document.getElementById('whyname').textContent = v.name; document.getElementById('whyline').textContent = '';
-  const el = document.getElementById('why'); el.classList.toggle('them', P.side === 'them'); el.classList.toggle('said', said); el.style.top = (TOPH + 6) + 'px'; el.style.display = 'flex';
+  mouthLook(); const el = document.getElementById('why'); el.classList.toggle('them', P.side === 'them'); el.classList.toggle('said', said); el.style.top = (TOPH + 6) + 'px'; el.style.display = 'flex';
   feed(v.name + ': ' + P.line, P.side === 'them' ? '#ff8a6a' : undefined);
   try { window.top.postMessage({ type: 'BOHEMIA_VOICE', speaker: 'face:' + v.look, text: P.line }, '*'); } catch (_e) {}
 }
@@ -7927,7 +7941,7 @@ function tickWhy(now) {
   const beat = songBeat(), slot = Math.max(0, Math.floor((now - Y.t) / (beat / 6))), n = Math.min(Y.line.length, slot * TYPE_PER_BEAT / 6);
   const ln = document.getElementById('whyline'); if (ln.textContent.length !== n) ln.textContent = Y.line.slice(0, n);
   const typing = n < Y.line.length;
-  document.getElementById('whyface').style.transform = typing && slot % 2 ? 'translateY(-2px)' : '';   /* his mouth works on the slots */
+  document.getElementById('whyface').style.transform = typing && slot % 2 ? 'translateY(-2px) rotate(-1.2deg)' : '';   /* his mouth works on the slots */
   if (!typing && !Y.done) Y.done = now;
   if ((Y.done && now - Y.done > beat * (Y.said ? WHY_SAID_BEATS : WHY_HOLD_BEATS)) || FIGHT.S.over) whyHide();
 }
@@ -8009,7 +8023,7 @@ function callShow(q) {
   (UI.calls = UI.calls || []).push({ who: v.name, id: v.id, type: crewType(v), moment: q.moment, line: L.text, sp: L.sp, main: !!v.main }); if (UI.calls.length > 80) UI.calls.shift();
   drawPortrait(document.getElementById('callface').getContext('2d'), v, document.getElementById('callface').width);
   document.getElementById('callname').textContent = v.name; document.getElementById('callline').textContent = L.text;
-  const el = document.getElementById('call'); el.style.top = (TOPH + 6) + 'px'; el.style.display = 'flex'; el.classList.toggle('hot', q.prio >= 4);
+  mouthLook(); const el = document.getElementById('call'); el.style.top = (TOPH + 6) + 'px'; el.style.display = 'flex'; el.classList.toggle('hot', q.prio >= 4);
   feed(v.name + ': ' + L.text);
   try { window.top.postMessage({ type: 'BOHEMIA_VOICE', speaker: 'face:' + v.look, text: L.text }, '*'); } catch (_e) {}
   return true;
@@ -8381,7 +8395,7 @@ function showSpent(w) {
   el.style.left = Math.round(st.left - 4) + 'px'; el.style.top = Math.round(st.top - 3) + 'px';
   el.style.width = Math.round(st.width + 8) + 'px'; el.style.height = Math.round(st.height + 6) + 'px';
   el.style.setProperty('--beat', beatMs() + 'ms'); el.style.display = 'flex';
-  say(spentLine(w));
+  say(spentLine(w)); sayForTurn();   /* __THE_STRIP_KEEPS_ITS_TURN__: 'Turn over.' stood through AUTO's next three rounds (the walk) */
 }
 function spentCheck(u, now) {
   if (UI.skillMode || FIGHT.S.deploy || FIGHT.S.over || UI.auto) { if (UI.spent) hideSpent(); return false; }
@@ -8436,6 +8450,7 @@ function tick(now) {
   MUSIC.turn(u.side === 'you' ? 'you' : 'them');   /* rule 126(e): the turn is heard, after the last act's motion, not when the rules pass it */
   const sayEl = document.getElementById('say');
   if (UI.sayTurn && UI.sayTurn !== turnKeyOf(u)) say('');
+  if (UI.spent && !crewControlled(u)) hideSpent();   /* __THE_STRIP_KEEPS_ITS_TURN__: AUTO took the turn while OUT OF ACTION POINTS was up; it stood the whole fight */
   breathOnce(u);
   if (crewControlled(u)) {
     /* HIS TURN WITH AN EMPTY GUN (rule 124): the click as it comes to him, and the line says the one thing to do first */
@@ -10999,7 +11014,11 @@ function hud() {
   const ord = document.getElementById('order'), line = S.order.slice(S.idx).map(FIGHT.byId).filter(FIGHT.onField).slice(0, 9);
   const okey = line.map(function (v) { return v.id + v.morale[0] + (FIGHT.shown(v) ? '' : '?'); }).join(',');
   if (ord.dataset.key !== okey) { ord.dataset.key = okey; ord.textContent = ''; line.forEach(function (v, i) { ord.appendChild(stripFace(v, i ? 36 : 42, !i)); }); }
-  const show = (UI.pend && UI.pend.target) || u || S.units[0];
+  /* __HIS_MAN_IN_THE_LINEUP__ (FIGHT SCREEN THREE 11/20, rule 461's walk): before FIGHT the turn's first man is one of THEIRS, and the
+     phone's card wore him (RAIDER LV 6, FIGHT, his STRIKE, 'No skills on this man yet') as if he were one of his to set. In the lineup the
+     card is the man he is placing, else his own lead */
+  const lineup = S.deploy ? (UI.dsel || S.units.filter(function (v) { return v.side === 'you' && FIGHT.onField(v); }).sort(function (a, b) { return (b.main ? 1 : 0) - (a.main ? 1 : 0); })[0] || null) : null;
+  const show = (UI.pend && UI.pend.target) || lineup || u || S.units[0];
   const fkey = show.id + ':' + show.morale + ':' + FIGHT.onField(show);
   if (UI.faceKey !== fkey) { UI.faceKey = fkey; drawPortrait(document.getElementById('face').getContext('2d'), show, document.getElementById('face').width); }
   /* A NAME FITS THE FIGHT BAR (UI [eyes: the cut name], rule 150, EYES 10/24 item 25: 'OCTAVIO ELLI'): the whole name when
@@ -11059,7 +11078,7 @@ function hud() {
   const bagK = mine && u.bag ? u.bag.map(function (w, i) { return (w ? w.id : '-') + (FIGHT.canSwap(u, i) ? 1 : 0) + FIGHT.swapCostOf(u, i); }).join(',') + (u.shield ? u.shield.id : '') : '';
   const upNow = mine && FIGHT.climbedNow(u);   /* rule 328: CLIMBED THIS TURN on the strike square */
   const vestK = mine && FIGHT.vestLive(u) ? 'v' + (FIGHT.canSpark(u) ? 1 : 0) + (UI.skillMode === 'spark' ? 'on' : '') + u.vest.cells : '';   /* rule 305 */
-  const key = (u ? u.id + u.job + (u.weapon && u.weapon.id) : '') + '|' + (upNow ? 'up' : '') + '|' + bagK + '|' + chance + '|' + canR + dry + (rd ? rd.left : '') + '|' + back + '|' + want.map(function (id) { return id + (FIGHT.canUse(u, id) ? 1 : 0) + (UI.skillMode === id ? 'on' : ''); }).join(',')
+  const key = (lineup ? 'L' + lineup.id + lineup.job : '') + (u ? u.id + u.job + (u.weapon && u.weapon.id) : '') + '|' + (upNow ? 'up' : '') + '|' + bagK + '|' + chance + '|' + canR + dry + (rd ? rd.left : '') + '|' + back + '|' + want.map(function (id) { return id + (FIGHT.canUse(u, id) ? 1 : 0) + (UI.skillMode === id ? 'on' : ''); }).join(',')
     + '|' + sweeps.map(function (k) { return k.name + (UI.sweep === k.name ? 'on' : '') + (u.ap >= FIGHT._t.skillAP(u.weapon, k, u) ? 1 : 0); }).join(',') + '|' + vestK;
   if (sk.dataset.key !== key) {
     sk.dataset.key = key;
@@ -11081,14 +11100,14 @@ function hud() {
       sk.appendChild(b);
     });
     bs.textContent = ''; bs.disabled = !tgt; bs.className = 'sq' + (tgt ? ' hot' : ''); bs.title = 'STRIKE'; bs.style.display = dry && !tgt ? 'none' : '';
-    if (u) bs.appendChild(iconCanvas(JOB_ICON[u.job] || 'mace_mastery', 30));
+    const su = lineup || u; if (su) bs.appendChild(iconCanvas(JOB_ICON[su.job] || 'mace_mastery', 30));   /* __HIS_MAN_IN_THE_LINEUP__ */
     const bt = document.createElement('b'); bt.textContent = tgt ? chance + '%' : upNow ? CLIMB_SAYS.square : ''; bs.appendChild(bt);
     if (upNow) { bs.title = CLIMB_SAYS.title; bs.classList.add('up'); bs.dataset.why = 'climbed'; } else delete bs.dataset.why;
     const cut = tgt && FIGHT.isRanged(u.weapon) ? FIGHT.coverCut(u, tgt) : null;   /* rule 230(c): the man in the way's cut, a red arrow and how much */
     if (cut) { const B = window.BohemiaStats; let ci;   /* UI's arrow (rule 224): red, down, and how much */
       if (B && B.change) { B.css(); ci = B.change(-cut.cut); ci.classList.add('bst-glass'); } else { ci = document.createElement('b'); ci.textContent = '\u25BC' + cut.cut; }
       ci.classList.add('cut'); ci.dataset.cut = cut.cut; bt.appendChild(ci); }
-    br.textContent = ''; br.disabled = !canR; br.style.display = u && FIGHT.reloadSkill(u.weapon) ? '' : 'none'; br.title = 'RELOAD';
+    br.textContent = ''; br.disabled = !canR; br.style.display = (lineup || u) && FIGHT.reloadSkill((lineup || u).weapon) ? '' : 'none'; br.title = 'RELOAD';
     br.className = 'sq' + (dry ? ' big' : '') + (lastRd ? ' last' : '') + (br.classList.contains('poke') ? ' poke' : '');
     br.style.setProperty('--beat', beatMs() + 'ms'); br.style.setProperty('--ph', -Math.round(beatPh(performance.now()) * beatMs()) + 'ms');   /* the glow breathes on the song's beat (rule 158) */
     br.appendChild(roundsCanvas(rd || { left: 0, of: 1 }, dry ? '#ff5a40' : lastRd ? '#f0b04a' : '#e0b062', dry ? 26 : 30, dry));
@@ -11318,6 +11337,13 @@ function drawer(v) {
   d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'grid';
 }
 /* the board and the well are the kit's rendered pieces (light and form, never a flat fill); laid once */
+/* __ONE_BOARD_FOR_EVERY_MOUTH__: the mouths' board is the kit's own board piece (UI's), the sheet's and the opening card's, a size down */
+function mouthLook() {
+  if (document.getElementById('mouth-look')) return;
+  const M = window.BohemiaMaterials, st = document.createElement('style'); st.id = 'mouth-look';
+  try { if (M && M.kit) st.textContent = 'html[data-kit] body #why,html[data-kit] body #call,html[data-kit] body #vet{' + M.kit('board', 0.6) + 'padding-top:7px;padding-bottom:8px}'; } catch (_e) {}
+  (document.head || document.documentElement).appendChild(st);
+}
 function sheetLook() {
   if (document.getElementById('sheet-look')) return;
   const M = window.BohemiaMaterials, st = document.createElement('style'); st.id = 'sheet-look';
@@ -11573,6 +11599,7 @@ function showOver(result) {
      fight (the shell's SPOILS, a won or a lost fight), the card is handed to it, never shown first; the bench and a pull-back keep it */
   const handed = (function () { try { return window.parent !== window && !!window.parent.SPOILS && (result === 'won' || result === 'lost'); } catch (_e) { return false; } })();
   o.classList.toggle('handed', handed);
+  say('');   /* __THE_STRIP_KEEPS_ITS_TURN__ (FIGHT SCREEN THREE 11/20): the fight is over; no line of it stands under the end screen ('They are breaking...' stood there on the alpha) */
   o.style.display = 'flex';
   /* THE RECAP VOICE IS PULLED (SOUNDS, row [a desert, not a rainforest], 10/18). PAOLO
      10/17, voting the narrator DOWN: "this voice was so fucking bad, I don't know if
@@ -12120,6 +12147,7 @@ function farPreview(u, p, far) {
   const sc = FIGHT.strikeCost(u), leftAP = u.ap - far.cost;
   const short = sc && leftAP < sc.ap ? wfill(REFUSE_SAYS.walk, { left: leftAP, what: sc.shot ? 'a shot' : 'a blow', need: sc.ap }) : '';
   say([ringWord(u, p, far.path.slice(0, far.n)), wfill(u.main ? FAR_SAYS.you : FAR_SAYS.far, { name: u.name, n: far.n, m: far.path.length }), swingWord(u, swings), climbWord(u, far.path.slice(0, far.n)), short].filter(Boolean).join(' '));
+  sayForTurn(u);   /* __THE_STRIP_KEEPS_ITS_TURN__ */
 }
 /* the first tap on a tile (or the mouse over it): the walk picked, its tag on the tile, and the line of what standing there does */
 function walkPreview(u, p, f, path) {
@@ -12136,7 +12164,13 @@ function walkPreview(u, p, f, path) {
   const sc = FIGHT.strikeCost(u), leftAP = u.ap - (UI.pend.cost || 0), foeSeen = S.units.some(function (v) { return v.side === 'them' && FIGHT.onField(v) && FIGHT.shown(v); });
   const short = foeSeen && sc && leftAP < sc.ap ? wfill(REFUSE_SAYS.walk, { left: leftAP, what: sc.shot ? 'a shot' : 'a blow', need: sc.ap }) : '';
   say([ringWord(u, p, path), gs || '', swingWord(u, swings), climbWord(u, path), short].filter(Boolean).join(' '));
+  sayForTurn(u);   /* __THE_STRIP_KEEPS_ITS_TURN__ */
 }
+/* __THE_STRIP_KEEPS_ITS_TURN__ (FIGHT SCREEN THREE 11/20, rule 461's walk): what a tile does ('High ground, 1 up: +10% to hit...',
+   'Orange stripes: their reach. Rough ground: slow.') was said with no turn of its own, so it stood on the glass from his first step
+   through every round of AUTO and under the end screen (the walk: 4 of 4 surfaces, 6 and 7 rounds). A tile's line belongs to the
+   turn it was said in, as an aim does; the director takes it down when the turn passes */
+function sayForTurn(u) { const e = document.getElementById('say'); if (e && e.textContent && FIGHT.S && FIGHT.S.order) UI.sayTurn = turnKeyOf(u || FIGHT.current()); }
 /* who a finger (or the mouse) at px, py means: the man ON the tile first; a body over an empty tile answers only if it is theirs
    (aim), never one of yours (rule 104a: zoomed out to both teams, your own men's bodies cover the tiles behind them, and those
    tiles must still be walkable); NO BODY COVERS A TILE HE NEEDS: a body of theirs drawn over an empty tile his arm cannot reach
@@ -12263,8 +12297,8 @@ document.getElementById('bend').onclick = function () { audio();
 document.getElementById('breload').onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } const u = FIGHT.current(); if (crewControlled(u)) { UI.pend = null; if (FIGHT.reload(u)) say(''); take(); } };
 document.getElementById('bauto').onclick = function () { audio();
   /* THE FIGHT READS ITS ODDS (change 10(a)): glowing, one tap finishes it, AUTO at his own pace to the end (rule 274) */
-  if (!UI.auto && oddsGlow()) { UI.auto = true; UI.finish = true; UI.pend = null; UI.skillMode = null; UI.back = null; hud(); return; }
-  UI.auto = !UI.auto; if (!UI.auto) UI.finish = false; UI.pend = null; UI.skillMode = null; };
+  if (!UI.auto && oddsGlow()) { UI.auto = true; UI.finish = true; UI.pend = null; UI.skillMode = null; UI.back = null; if (UI.sayTurn) say(''); hud(); return; }
+  UI.auto = !UI.auto; if (!UI.auto) UI.finish = false; UI.pend = null; UI.skillMode = null; if (UI.auto && UI.sayTurn) say('');   /* __THE_STRIP_KEEPS_ITS_TURN__: AUTO takes the turn, a tile's line goes with it */ };
 document.getElementById('bspeed').onclick = function () { audio(); const i = SPEEDS.indexOf(UI.hand || 1); handSpeed(SPEEDS[(i + 1) % SPEEDS.length]); };
 document.getElementById('bback').onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } takeBack(); };
 document.getElementById('oagain').onclick = function () { document.getElementById('over').style.display = 'none'; start(); };

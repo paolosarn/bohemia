@@ -276,7 +276,9 @@
     if (men) wall.appendChild(men);   /* the map's own drawing stands until the fight has answered (and stays for a band the fight cannot be asked about) */
     mc.insertBefore(head, mc.firstChild); mc.insertBefore(wall, head.nextSibling);
     if (mcg) { mcg.style.cssText = 'padding:7px 10px 8px;color:#cdb98e;font:400 11px/1.4 BohemiaROM,ui-monospace,monospace;background:rgba(0,0,0,.3);' + kit('well', 1);
-      var g0 = mcg.firstElementChild; if (g0) { g0.style.color = '#e2b45a'; g0.style.textShadow = '0 1px 0 #000'; } mc.insertBefore(mcg, mcb); }
+      var g0 = mcg.firstElementChild; if (g0) { g0.style.color = '#e2b45a'; g0.style.textShadow = '0 1px 0 #000';
+        /* FIGHT SCREEN THREE 11/20 (rule 461's walk): 'THE GROUND: THE FREEWAY · FREEWAY' said the place twice; the district goes when the kind already names it */
+        g0.textContent = String(g0.textContent || '').replace(/^(THE GROUND: )(.*?) \u00b7 (.+)$/, function (m, a, k, d) { return k.toUpperCase().indexOf(d.trim().toUpperCase()) >= 0 ? a + k : m; }); } mc.insertBefore(mcg, mcb); }
     var state = { at: Date.now(), why: String(msg && msg.why || ''), read: null, fit: null, typed: false, face: null };
     api.last = state; state.fit = fit(el);
     var onSize = function () { if (!el.isConnected) { root.removeEventListener('resize', onSize); return; } state.fit = fit(el); };

@@ -82,7 +82,10 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
       strip: getComputedStyle(hd, '::before').backgroundColor, stripW: getComputedStyle(hd, '::before').width, frame: cv ? getComputedStyle(cv).boxShadow.replace(/\s+/g, ' ').slice(0, 60) : '', kept: { hp: (hd.querySelector('.fb.hp em') || {}).textContent || '', ap: (hd.querySelector('.fap em') || {}).textContent || '' },
       face: cv ? R(cv) : null, faceInk: cv ? inked(cv) : 0, says: window.__PHONE_CARD_SAYS || null, fightBtn: (function () { const g = fi.querySelector('.fgo'); return g ? R(g) : null; })(), skills: (function () { const a = fi.querySelector('.ab'); return a ? { box: R(a), cut: a.scrollHeight > a.clientHeight + 1 } : null; })() }; });
   await until(async () => f.evaluate(() => !!UI.whySaid), 15000, 80); await wait(1800);
-  await until(async () => { const c = await READ(); return c && !c.none && !!c.name; }, 8000);
+  /* FIGHT SCREEN THREE 11/20 (__HIS_MAN_IN_THE_LINEUP__): in the lineup the card is HIS man now (it wore their first man as if his); a man
+     of theirs is put on the card the way a finger on him does (UI.pend.target, the same door the plates below use) */
+  await f.evaluate(() => { const v = FIGHT.S.units.find(u => u.side === 'them' && FIGHT.onField(u)); if (v) { UI.pend = { target: v }; hud(); } });
+  await until(async () => { const c = await READ(); return c && !c.none && !!c.name && c.them; }, 8000);
   T.cards.theirs = await READ(); await shot('2_phone_theirs');
   log('THEIRS', JSON.stringify(T.cards.theirs));
   /* every man of theirs put on the card in turn: the phone's marks against the fight's own read of him */
@@ -98,7 +101,8 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
   await wait(900); T.cards.long = await READ(); T.cards.long.set = longOk; await shot('3_phone_long_name');
   log('LONG', JSON.stringify({ name: T.cards.long.name, long: T.cards.long.long, cut: T.cards.long.nameCut, nameBox: T.cards.long.nameBox, card: T.cards.long.card, off: T.cards.long.off, bars: T.cards.long.bars.map(b => b.track[3]) }));
   await f.evaluate(() => { try { const v = FIGHT.S.units.find(u => u.__was); if (v) { v.name = v.__was; delete v.__was; hud(); } } catch (e) {} }); await wait(500);
-  /* the sheet of a man of theirs: a finger on the face */
+  /* the sheet of a man of theirs: a finger on the face (a man of theirs put on the card first: in the lineup the card is his) */
+  await f.evaluate(() => { const v = FIGHT.S.units.find(u => u.side === 'them' && FIGHT.onField(u)); if (v) { UI.pend = { target: v }; hud(); } }); await wait(500);
   await tapSel(page.mainFrame(), '#bohphone .fh .fme'); await wait(1200); await shot('4_sheet_theirs');
   T.sheetTheirs = await f.evaluate(() => { const d = document.getElementById('drawer'); if (!d || getComputedStyle(d).display === 'none') return { shown: false }; const p = d.querySelector('.sh-plate'), r = d.getBoundingClientRect();
     return { shown: true, strip: getComputedStyle(d, '::before').backgroundColor, plateDrawn: p ? [...p.querySelectorAll('.pmk')].every(m => /^url\(/.test(getComputedStyle(m).backgroundImage)) : null, name: (d.querySelector('.sh-name') || {}).textContent, sub: (d.querySelector('.sh-sub') || {}).textContent, plate: p ? [...p.querySelectorAll('em')].map(e => e.textContent) : null, plateMarks: p ? p.querySelectorAll('.pmk').length : 0, edge: getComputedStyle(d).borderLeftColor, fit: UI.sheetFit && UI.sheetFit.fits, box: [Math.round(r.left), Math.round(r.top), Math.round(r.width), Math.round(r.height)] }; });
@@ -106,7 +110,7 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
   const mk = await f.evaluate(() => { const m = document.querySelector('#drawer .sh-plate .pmk'), rd = document.querySelector('#drawer .sh-read'); if (!m || !rd) return null; const r = m.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, word: m.nextSibling ? m.nextSibling.textContent : '' }; });
   if (mk) { const fb = await box(f); await page.touchscreen.tap(fb.x + mk.x, fb.y + mk.y); await wait(450); T.sheetTheirs.markRead = await f.evaluate(() => ({ up: getComputedStyle(document.getElementById('drawer')).display !== 'none', text: (document.querySelector('#drawer .sh-read') || {}).textContent || '' })); T.sheetTheirs.markRead.word = mk.word; await shot('4b_sheet_mark_read'); }
   log('SHEET', JSON.stringify(T.sheetTheirs));
-  await tapSel(page.mainFrame(), '#bohphone .fh .fme'); await wait(600);
+  await tapSel(page.mainFrame(), '#bohphone .fh .fme'); await wait(600); await f.evaluate(() => { UI.pend = null; hud(); });
   /* FIGHT: the line is set, one of his is up */
   await tapSel(page.mainFrame(), '#bohphone .fgo'); 
   await until(async () => { const c = await READ(); return c && !c.none && !c.them && c.pips > 0; }, 25000, 250); await wait(700);
