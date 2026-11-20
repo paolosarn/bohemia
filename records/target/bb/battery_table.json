@@ -232,6 +232,11 @@
    "what": "the start screen's pick: every job pays half again on FULL SHELVES (the pick the door opens on), as posted on THIN, a quarter less on BARE",
    "where": "typed in the shell (slices/BOHEMIA_ALPHA_0_9.html ECON; the demo is cut from it): no data file holds it"
   },
+  "shop_pays_back": {
+   "one_in": 7,
+   "what": "a shop buys a piece back for one seventh of its worth (Battle Brothers' seventh, TUNING 10/10), before the town's standing and its trait",
+   "where": "typed as SELL_CUT = 1/7 in the town (slices/BOHEMIA_SETTLEMENT_SCREEN.html) and the spoils (engine/bohemia_spoils.js): held here since ECONOMY THREE 11/20"
+  },
   "kept": [
    "A JOB AGAINST A CREW'S KEEP (records/target/bb/job_pay.json): an hour on a job pays double what twelve men burn in it, and a fight pays 26 a skull. KEPT.",
    "CLOUT (records/target/bb/renown.json pay_mult): x1 for a crew nobody knows to x4.5 at 4,000. KEPT: a man's wage grows x2.6 by level 11 and the crew grows from 3 to 12, so the keep grows about as fast as the pay; cut the one without the other and the late game cannot pay its men.",
@@ -286,6 +291,8 @@
   "slices/BOHEMIA_ROSTER_SCREEN.html",
   "slices/BOHEMIA_FIGHT.html",
   "slices/BOHEMIA_ALPHA_0_9.html",
+  "slices/BOHEMIA_SPOILS_SCREEN.html",
+  "slices/BOHEMIA_SCAVENGE.html",
   "slices/bohemia_job_kinds.js",
   "slices/bohemia_bosses.js",
   "slices/bohemia_road_events.js",
@@ -328,7 +335,9 @@
   "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
   "slices/BOHEMIA_ROSTER_SCREEN.html",
   "slices/BOHEMIA_FIGHT.html",
-  "slices/BOHEMIA_ALPHA_0_9.html"
+  "slices/BOHEMIA_ALPHA_0_9.html",
+  "slices/BOHEMIA_SPOILS_SCREEN.html",
+  "slices/BOHEMIA_SCAVENGE.html"
  ],
  "code_not_money": [
   {
@@ -1750,6 +1759,18 @@
    "find": "var mult = \\(HIREPT && HIREPT\\.equipmentCostMultiplier\\) \\|\\| ([\\d.]+);",
    "what": "the hall's kit multiplier before price_table.json lands",
    "leaf": "records/target/bb/price_table.json#wageAndHire.equipmentCostMultiplier"
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "var SELL_CUT = 1/(\\d+);",
+   "what": "a shop buys a piece back for one seventh of its worth",
+   "rule": "ratios.shop_pays_back.one_in"
+  },
+  {
+   "file": "engine/bohemia_spoils.js",
+   "find": "var SELL_CUT = 1 / (\\d+);",
+   "what": "the spoils: what a town pays for a looted piece, the same seventh",
+   "rule": "ratios.shop_pays_back.one_in"
   }
  ],
  "prose": [
@@ -1999,6 +2020,11 @@
     "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
     "path": "quests.*.stages.*.fx.pay_why.food",
     "why": "nights of food"
+   },
+   {
+    "file": "*",
+    "path": "**.machine_battery_man",
+    "why": "an enemy (BESTIARY 11/20m THE BATTERY MAN) and its weight in a tier's mix, not money (ECONOMY THREE 11/20: it turned the table red on main)"
    },
    {
     "file": "records/target/bb/home_base.json",
@@ -2800,7 +2826,7 @@
  "count": {
   "rows": 673,
   "files": 19,
-  "copies": 167,
+  "copies": 169,
   "prose": 17
  }
 }

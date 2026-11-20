@@ -105,7 +105,7 @@
     + '.bsum>i.bsum-w{position:absolute!important;font-size:0!important;line-height:0!important;letter-spacing:0!important;width:0;height:0;overflow:hidden;margin:0!important;padding:0!important}'   /* the words, for the reader and for every screen that reads the line */
     /* the places a lane drew the old mark beside a number: the mark goes, the pictures stand in the number's place */
     + 'em.money.bsum-host::before{display:none!important}em.money.bsum-host{gap:0!important}'
-    + '.sp.bsum-host>img,.pay.bsum-host>img.batt,.s.bats.bsum-host>img{display:none!important}'
+    + '.sp.bsum-host>img,.pay.bsum-host>img.batt,.s.bats.bsum-host>img,.sell.bsum-host>img.bat{display:none!important}'   /* .sell: the spoils screen's strip, what a town pays for a piece (ECONOMY THREE 11/20) */
     + '.nsp.bsum-host::after{display:none!important}.nsn.bsum-host>i.nsb{display:none!important}'
     + '.nsp.bsum-host .bsum,.nsn.bsum-host .bsum{gap:3px}.nsp.bsum-host .bsum>i.bsum-k,.nsn.bsum-host .bsum>i.bsum-k{gap:1px}.nsp.bsum-host .bsum>i.bsum-k::before,.nsn.bsum-host .bsum>i.bsum-k::before{width:12px;height:12px}'
     + '.nsn.bsum-host .bsum{margin-right:.4em}'
@@ -121,6 +121,9 @@
     + '.slot em.money.bsum-host .bsum[data-kinds="3"]>i.bsum-k:first-of-type{flex-basis:100%;justify-content:center}'
     + '.slot:has(em.money.bsum-host .bsum[data-kinds="3"])>img,.slot:has(em.money.bsum-host .bsum[data-wide="1"])>img,.slot:has(em.money.bsum-host .bsum[data-kinds="3"])>canvas,.slot:has(em.money.bsum-host .bsum[data-wide="1"])>canvas{height:46%!important;max-height:46%;min-height:0;flex:0 1 auto}'
     + '.slot em.money.bsum-host{flex:0 0 auto}'
+    /* the phone's crew face: the picked man's line is 6 px words on 8 px lines, two lines at the most (ECONOMY THREE 11/20: a 13 px
+       picture made the line taller and cut 'A NIGHT' under the XP bar) */
+    + '#bohphone .cman em .bsum{gap:2px;vertical-align:baseline}#bohphone .cman em .bsum>i.bsum-k{gap:1px}#bohphone .cman em .bsum>i.bsum-k::before{width:8px;height:8px}'
     + '.count[data-count="batteries"]:has(.bsum)::before{display:none!important}.count[data-count="batteries"]:has(.bsum){padding-left:8px!important}'
     + '#bmtb .s.bats.bsum-host b{min-width:0!important}#bmtb .s.bats.bsum-host .bsum{gap:7px}#bmtb .s.bats.bsum-host .bsum>i.bsum-k{gap:3px}#bmtb .s.bats.bsum-host .bsum>i.bsum-k::before{width:26px;height:26px}'
     + '@media (max-width:480px){#bmtb .s.bats.bsum-host .bsum[data-kinds="3"]{gap:4px}#bmtb .s.bats.bsum-host .bsum[data-kinds="3"]>i.bsum-k{gap:1px}#bmtb .s.bats.bsum-host .bsum[data-kinds="3"]>i.bsum-k::before{width:20px;height:20px}#bmtb .s.bats.bsum-host:has(.bsum[data-kinds="3"]) b{font-size:14px!important}}'

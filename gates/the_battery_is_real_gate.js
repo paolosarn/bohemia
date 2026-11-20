@@ -147,6 +147,84 @@ const filesOk = (xs) => xs.every(x => x.files.every(f => /battery_ladder\/small\
 const good = (xs) => xs.length > 0 && xs.every(x => !x.none && x.said === x.sum && x.pic && !x.old && !x.big) && filesOk(xs);
 const why = (xs) => JSON.stringify(xs.filter(x => x.none || x.said !== x.sum || !x.pic || x.old || x.big || x.over > 1).slice(0, 3).map(x => x.none ? x : { t: x.text, said: x.said, sum: x.sum, k: x.kinds, over: x.over, old: x.old, pic: x.pic }));
 
+/* ECONOMY THREE 11/20 (ECONOMY TWO's NOT DONE: the crew screen's and the fight's sums walked): the crew screen, opened by the one
+   CREW, a real tap on his second man: what that man costs a night is drawn as its batteries where it shows (the phone's crew face,
+   or the screen's own line when no phone stands), its words whole, nothing cut under the XP bar (MEASURED 11/20: the drawing split
+   the line and the phone read only its first piece, 'OLD FRIEND LEVEL 2', the night gone). Then a road fight off the town, WON BY
+   THE GATE (the one shortcut, said: every man of theirs set down), and the spoils after it, the one page the drawing never loaded:
+   the bar's purse, the batteries off their bodies, what a town pays for a piece (a real tap on it), drawn; the receipt keeps its
+   printed words. */
+const { openCrew } = require(path.join(ROOT, 'tools', 'bohemia_open_the_crew.js'));
+/* no town is left first: the alpha's new game starts inside one (measured 11/20: its phone carries CREW there), and leaving it on the
+   alpha drops into the walked city the alpha keeps by rule (no phone, the old bar), which is not the page this walks */
+async function crewAndSpoils(d, tag, prof, shot) {
+  const P = d.page, mouse = !/^phone_/.test(prof), tap = async (x, y) => { if (mouse) await P.mouse.click(x, y); else await P.touchscreen.tap(x, y); };
+  /* C1 the crew screen */
+  try {
+    let who = null; for (let k = 0; k < 10 && !who; k++) { who = await openCrew(P, d.fr, { mouse }); if (!who) await P.waitForTimeout(800);
+      if (!who && k === 3) await town(d, '^Mob$');   /* no CREW on the glass (the alpha can open on the walked city it keeps, no phone): a town, where the phone stands, by the walk's own travel shortcut */ }
+    let rf = null; for (let k = 0; k < 50 && !rf; k++) { await P.waitForTimeout(300); rf = P.frames().find(x => /ROSTER_SCREEN/.test(x.url())); }
+    if (!rf) { await shot('9_crew_none'); ok('C1 ' + tag + ': the crew screen through the one CREW (' + who + ')', false, JSON.stringify(await P.evaluate(() => { const b = document.querySelector('#bohphone'); return b ? { cls: b.className, face: [...b.querySelectorAll('.bpctx')].map(x => x.className).join(','), crew: !!document.querySelector('#bohphone.on .bprow .app[data-app=crew]') } : null; }).catch(() => null))); }
+    else {
+      await rf.waitForFunction(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready && BohemiaRosterScreen.state.crew.length > 0, null, { timeout: 30000 }).catch(() => {});
+      await P.waitForTimeout(1200);
+      const at = await rf.evaluate(() => { const m = BohemiaRosterScreen.state.crew.find(x => !x.main && !x.dead); if (!m) return null; const N = String(m.name).toUpperCase();
+        const r = [...document.querySelectorAll('*')].filter(x => x.children.length === 0 && x.textContent.trim().toUpperCase() === N).map(x => x.getBoundingClientRect()).find(q => q.width > 0 && q.height > 0);
+        return r ? { x: r.x + r.width / 2, y: r.y + r.height / 2, name: m.name } : null; });
+      if (at) { const fb = await (await rf.frameElement()).boundingBox(); await tap(fb.x + at.x, fb.y + at.y); await P.waitForTimeout(1300); }
+      const want = await rf.evaluate(() => { const S = BohemiaRosterScreen.state, m = S.crew[S.sel], l = document.querySelector('#card .who .sub'), k = l && /(\d[\d,]*) BATTER(?:Y|IES) A NIGHT/.exec(l.textContent); return m && !m.main && k ? +k[1].replace(/,/g, '') : null; });   /* the crew screen's own line (its night: the bill's per man and his wage) */
+      const read = (el) => { if (!el) return null; const r = el.getBoundingClientRect(); if (r.width < 2 || r.height < 2) return null;
+        const s = el.querySelector('.bsum'), bar = el.parentElement && el.parentElement.querySelector(':scope > s'), xb = bar ? bar.getBoundingClientRect() : null;
+        return { text: el.textContent.replace(/\s+/g, ' ').trim(), sum: s ? +s.dataset.bsum : null, title: s ? s.title : null,
+          pic: !!s && [...s.querySelectorAll(':scope > i.bsum-k')].every(k => parseFloat(getComputedStyle(k, '::before').width) >= 6),
+          cut: [...el.querySelectorAll('.cnight, .bsum, .bsum > i.bsum-k')].concat([el]).some(x => { const q = x.getBoundingClientRect(); return q.width > 0 && (q.bottom > r.bottom + 1 || q.right > r.right + 1 || (!!xb && xb.height > 0 && q.bottom > xb.top + 1)); }) }; };   /* what shows: every piece inside the line's box and above the XP bar */
+      let seen = await P.evaluate(new Function('read', 'return (' + read.toString() + ')(document.querySelector("#bohphone .crewp .cman em"))')).catch(() => null);
+      let where = 'the phone\'s crew face';
+      if (!seen) { seen = await rf.evaluate(new Function('return (' + read.toString() + ')(document.querySelector("#card .who .sub"))')).catch(() => null); where = 'the crew screen\'s own line'; }
+      await shot('9_crew');
+      ok('C1 ' + tag + ': THE CREW SCREEN, his second man (' + (at ? at.name : '?') + ', a real ' + (mouse ? 'click' : 'tap') + '): what he costs a night (' + want + ') is drawn on ' + where + ' as ' + (seen && seen.title) + ', "A NIGHT" whole, nothing cut',
+        want != null && !!seen && seen.sum === want && seen.pic && /A NIGHT$/.test(seen.text) && !seen.cut, JSON.stringify(seen));
+      await rf.evaluate(() => { const b = document.getElementById('done'); if (b) b.click(); }).catch(() => {});
+      for (let k = 0; k < 20; k++) { await P.waitForTimeout(250); const up = await rf.evaluate(() => { const f = window.frameElement; return !!f && f.getBoundingClientRect().width > 2 && getComputedStyle(f).visibility !== 'hidden'; }).catch(() => false); if (!up) break; }
+    }
+  } catch (e) { ok('C1 ' + tag + ': the crew screen walked', false, String(e && e.message || e).slice(0, 300)); }
+  /* S1 the spoils */
+  try {
+    await d.fr.evaluate(() => { loopSettleBats(2236, 'the gate: the biggest purse'); try { updHud(); } catch (e) {} try { if (window.__barPaintRead) window.__barPaintRead(); } catch (e) {} }); await P.waitForTimeout(1200);   /* three kinds on the spoils' bar: the widest sum */
+    const f = await drive.roadFightOffTheTown(d, { id: 'toll_crew', name: 'the toll crew', seq: 459 });
+    if (!f) { ok('S1 ' + tag + ': a road fight through the map\'s own door', false); return; }
+    await f.evaluate(() => { const S = FIGHT.S; S.units.filter(u => u.side === 'them').forEach(u => { u.dead = true; u.armB = 0; u.armH = 0; }); S.over = true; S.result = 'won'; showOver('won'); });
+    const SF = () => P.frames().find(x => /SPOILS_SCREEN/.test(x.url()));
+    for (let i = 0; i < 100 && !(SF() && await SF().evaluate(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened).catch(() => false)); i++) await P.waitForTimeout(200);
+    const sf = SF(); if (!sf) { ok('S1 ' + tag + ': the spoils after the fight', false); return; }
+    await P.waitForTimeout(1500);
+    const purse = await d.fr.evaluate(() => { const b = document.querySelector('#bmtb .s.bats'), q = b && b.querySelector('.bsum'), w = b && b.querySelector('b'); return q ? +q.dataset.bsum : w ? parseInt(String(w.textContent).replace(/[^0-9]/g, ''), 10) : null; });   /* the map's own bar: ONE HUD, the spoils lays the same (a town open over the map shows the purse it is spending) */
+    const s1 = await sf.evaluate(() => { const W = {}; BohemiaBattery.ladder().forEach(k => { W[k.id] = k.worth; });
+      const add = s => s ? [...s.querySelectorAll(':scope > i.bsum-k')].reduce((a, k) => a + (+k.dataset.n) * (W[k.dataset.kind] || 0), 0) : null;
+      const bar = document.querySelector('#bmtb .s.bats'), bs = bar && bar.querySelector('.bsum'), im = bar && bar.querySelector('img'), last = bar ? [...document.querySelectorAll('#bmtb .s')].filter(x => x.getBoundingClientRect().width > 0).reduce((a, x) => Math.max(a, x.getBoundingClientRect().right), 0) : 0;
+      const c = BohemiaSpoilsScreen.state.counts || {}, cb = document.querySelector('#counts .count[data-count=batteries]'), cs = cb && cb.querySelector('.bsum');
+      return { bar: bs ? +bs.dataset.bsum : null, barAdds: add(bs), barTitle: bs ? bs.title : null, barOld: !!im && getComputedStyle(im).display !== 'none', barFits: last <= innerWidth + 1,
+        cells: c.batteries | 0, count: cs ? +cs.dataset.bsum : null, countAdds: add(cs), countOld: !!cb && getComputedStyle(cb, '::before').display !== 'none' && !!cs,
+        receipt: !!document.getElementById('tillpaper') && !document.querySelector('#tillpaper .bsum') }; });
+    ok('S1 ' + tag + ': THE SPOILS (the fight won by the gate): the bar draws the map bar\'s purse (' + purse + ' = ' + s1.barTitle + ') inside the glass, the old pile gone; the batteries off their bodies (' + s1.cells + ') drawn, the old mark gone; the receipt keeps its printed words',
+      s1.bar === purse && s1.barAdds === purse && !s1.barOld && s1.barFits && (s1.cells === 0 ? s1.count === null : (s1.count === s1.cells && s1.countAdds === s1.cells && !s1.countOld)) && s1.receipt, JSON.stringify(s1));
+    /* a real tap on a piece: the strip says what a town pays for it */
+    const pc = await sf.evaluate(() => { const s = document.querySelector('#ground .slot, #stash .slot'); if (!s) return null; const r = s.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+    if (!pc) { ok('S2 ' + tag + ': a piece on the ground to tap', false); return; }
+    const fb = await (await sf.frameElement()).boundingBox(); await tap(fb.x + pc.x, fb.y + pc.y); await P.waitForTimeout(800); await shot('10_spoils');
+    const s2 = await sf.evaluate(() => { const S = BohemiaSpoilsScreen.state, it = S.sel, sv = document.querySelector('#said .sell'), s = sv && sv.querySelector('.bsum'), im = sv && sv.querySelector('img'), r = sv && sv.getBoundingClientRect(), b = document.getElementById('said').getBoundingClientRect();
+      let pays = null; try { pays = it ? BohemiaSpoils.sellBack(it, S.at) : null; } catch (e) {}
+      return { pays, sum: s ? +s.dataset.bsum : null, title: s ? s.title : null, old: !!im && getComputedStyle(im).display !== 'none', inside: !!r && r.right <= b.right + 1 && r.left >= b.left - 1 }; });
+    ok('S2 ' + tag + ': a real ' + (mouse ? 'click' : 'tap') + ' on a piece: what a town pays for it (' + s2.pays + ') is drawn as ' + s2.title + ' inside the strip, the old mark gone',
+      s2.pays != null && s2.sum === s2.pays && !s2.old && s2.inside, JSON.stringify(s2));
+    /* out the spoils' own LEAVE, a real press, and back to the map for the rest of the walk */
+    const lv = await sf.evaluate(() => { const b = document.getElementById('leave'); if (!b) return null; const r = b.getBoundingClientRect(); return r.width > 0 ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; });
+    if (lv) { const fb2 = await (await sf.frameElement()).boundingBox(); await tap(fb2.x + lv.x, fb2.y + lv.y); }
+    for (let k = 0; k < 40; k++) { await P.waitForTimeout(300); const up = await P.evaluate(() => [...document.querySelectorAll('iframe')].some(f => /SPOILS_SCREEN|BOHEMIA_FIGHT/.test(f.src) && f.getBoundingClientRect().width > 2 && getComputedStyle(f).visibility !== 'hidden' && getComputedStyle(f).display !== 'none')).catch(() => false); if (!up) break; }
+    await P.waitForTimeout(1500);
+  } catch (e) { ok('S1 ' + tag + ': the spoils walked', false, String(e && e.message || e).slice(0, 300)); }
+}
+
 async function live(page, prof) {
   const tag = page + ' ' + prof.replace('phone_', '');
   console.log('\n-- ' + tag + ' --');
@@ -155,12 +233,14 @@ async function live(page, prof) {
   const shot = async (n) => { if (!SHOTS) return; const dir = SHOTDIR; fs.mkdirSync(dir, { recursive: true }); await P.screenshot({ path: path.join(dir, 'walk_' + page + '_' + prof.replace('phone_', '') + '_' + n + '.png') }); };
   try {
     await P.waitForTimeout(3000);
+    await crewAndSpoils(d, tag, prof, shot);   /* ECONOMY THREE: first, on a game no town has been opened in */
     /* L1 the bar, at the purse he starts with (set to 290 so every phone reads the same sum; his own start draws the same way) */
-    await d.fr.evaluate(() => loopSettleBats(290, 'the gate: a start purse')); await P.waitForTimeout(1600);
+    await d.fr.evaluate(() => { loopSettleBats(290, 'the gate: a start purse'); try { updHud(); } catch (e) {} try { if (window.__barPaintRead) window.__barPaintRead(); } catch (e) {} }); await P.waitForTimeout(1600);   /* the bar repainted as the game's own settle does */
     const bar = async () => d.fr.evaluate(() => { const s = document.querySelector('#bmtb .s.bats'), b = s && s.querySelector('b'), q = s && s.querySelector('.bsum'), im = s && s.querySelector('img'), r = s && s.getBoundingClientRect(), bb = document.getElementById('bmtb').getBoundingClientRect();
       const last = [...document.querySelectorAll('#bmtb .s')].filter(x => x.getBoundingClientRect().width > 0).map(x => x.getBoundingClientRect().right).reduce((a, v) => Math.max(a, v), 0);
       return s ? { words: b.textContent, kinds: q ? [...q.querySelectorAll('.bsum-k')].map(k => k.dataset.kind + ':' + k.dataset.n).join(',') : null, old: im ? getComputedStyle(im).display !== 'none' : false, right: Math.round(last), glass: Math.round(bb.right), w: innerWidth, title: q ? q.title : '' } : null; });
-    const b1 = await bar(); await shot('1_map');
+    let b1 = await bar(); for (let k = 0; k < 24 && b1 && b1.words !== '290'; k++) { await P.waitForTimeout(500); b1 = await bar(); }   /* a big change counts down on the beat (the bar's own count): its last number lands */
+    await shot('1_map');
     ok('L1 ' + tag + ': THE BAR draws a purse of 290 as one car battery and two tool packs, its own number still in it, the old pile gone, nothing past the glass', !!b1 && b1.words === '290' && b1.kinds === 'car_battery:1,tool_pack:2' && !b1.old && b1.right <= b1.w + 1, JSON.stringify(b1));
     /* into a town through the map's own door */
     let sf = await town(d, '^Mob$'); if (!sf) { ok('L2 ' + tag + ': the Mob\'s town through the map\'s door', false); return; }
@@ -181,8 +261,8 @@ async function live(page, prof) {
     await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await P.waitForTimeout(400);
     await d.fr.evaluate(() => { BohemiaRenown.add(4000, 'the gate: the top of clout', 'gate:battery'); });
     const { leaveTown } = require(path.join(ROOT, 'tools', 'bohemia_leave_the_town.js'));
-    await leaveTown(d, sf).catch(() => {}); await P.waitForTimeout(900);
-    await d.fr.evaluate(() => loopSettleBats(2236, 'the gate: the biggest job')); await P.waitForTimeout(1200);
+    await leaveTown(P, sf, { mouse: !/^phone_/.test(prof), ms: 6000 }).catch(() => {}); await P.waitForTimeout(900);   /* ECONOMY THREE 11/20: the page, not the drive (it was handed the drive and never left: the town was opened again over it) */
+    await d.fr.evaluate(() => { loopSettleBats(2236, 'the gate: the biggest job'); try { updHud(); } catch (e) {} try { if (window.__barPaintRead) window.__barPaintRead(); } catch (e) {} }); await P.waitForTimeout(1200);   /* the bar repainted as the game's own settle does */
     sf = await town(d, '^Mob$'); if (sf) { await sf.evaluate(() => BohemiaSettlement.open({ traits: [] })); await P.waitForTimeout(600); /* the board, opened with a finger until its jobs stand on it (a loaded machine once read it before it opened: red for the gate, not the game) */
       for (let k = 0; k < 4; k++) { await openIt(sf, P, 'board'); if (await sf.waitForFunction(() => BohemiaSettlement.state.open === 'board' && document.querySelectorAll('#sheet .act.client em i.uc[data-uc="batteries"]').length > 0, null, { timeout: 7000 }).then(() => true).catch(() => false)) break; }
       await P.waitForTimeout(2600); await shot('8_top_board'); }

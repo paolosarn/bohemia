@@ -90,6 +90,8 @@ T['ratios'] = {
     '_about': 'what MULTIPLIES a number of batteries into the sum he sees. None of these is a price; each is why a price grows.',
     'shelves': {'full': 1.5, 'thin': 1, 'bare': 0.75, 'what': 'the start screen\'s pick: every job pays half again on FULL SHELVES (the pick the door opens on), as posted on THIN, a quarter less on BARE',
                 'where': 'typed in the shell (slices/BOHEMIA_ALPHA_0_9.html ECON; the demo is cut from it): no data file holds it'},
+    'shop_pays_back': {'one_in': 7, 'what': 'a shop buys a piece back for one seventh of its worth (Battle Brothers\' seventh, TUNING 10/10), before the town\'s standing and its trait',
+                       'where': 'typed as SELL_CUT = 1/7 in the town (slices/BOHEMIA_SETTLEMENT_SCREEN.html) and the spoils (engine/bohemia_spoils.js): held here since ECONOMY THREE 11/20'},
     'kept': [
         'A JOB AGAINST A CREW\'S KEEP (records/target/bb/job_pay.json): an hour on a job pays double what twelve men burn in it, and a fight pays 26 a skull. KEPT.',
         'CLOUT (records/target/bb/renown.json pay_mult): x1 for a crew nobody knows to x4.5 at 4,000. KEPT: a man\'s wage grows x2.6 by level 11 and the crew grows from 3 to 12, so the keep grows about as fast as the pay; cut the one without the other and the late game cannot pay its men.',
@@ -107,6 +109,7 @@ T['live_data'] = [BB + f for f in ['nightly_bill.json', 'stall_prices.json', 'jo
     'party_math.json', 'condition.json']] + [RT + f for f in ['BOHEMIA_BOARD_SHELF.json', 'BOHEMIA_JOB_KINDS.json', 'BOHEMIA_ROAD_EVENTS.json', 'BOHEMIA_SIDE_QUESTS.json',
     'BOHEMIA_HALL_PRICE.json', 'settlement_traits.json']]
 T['live_code'] = ['slices/' + f for f in ['BOHEMIA_CITY_WORLD.html', 'BOHEMIA_SETTLEMENT_SCREEN.html', 'BOHEMIA_ROSTER_SCREEN.html', 'BOHEMIA_FIGHT.html', 'BOHEMIA_ALPHA_0_9.html',
+    'BOHEMIA_SPOILS_SCREEN.html', 'BOHEMIA_SCAVENGE.html',
     'bohemia_job_kinds.js', 'bohemia_bosses.js', 'bohemia_road_events.js', 'bohemia_road_more.js', 'bohemia_place_visits.js', 'bohemia_phone_board.js', 'bohemia_carcass.js',
     'bohemia_his_map.js', 'bohemia_scavenge_game.js', 'bohemia_arena_town.js', 'bohemia_board_shelf.js', 'bohemia_bar_news.js', 'bohemia_busy_heard.js', 'bohemia_injury_card.js',
     'bohemia_ui_three_items.js', 'bohemia_ui_materials.js', 'bohemia_aftermath.js', 'bohemia_camp_map.js', 'bohemia_the_battery.js']] + ['engine/' + f for f in [
@@ -115,7 +118,8 @@ T['live_code'] = ['slices/' + f for f in ['BOHEMIA_CITY_WORLD.html', 'BOHEMIA_SE
     'bohemia_origin_start.js', 'bohemia_origin_ways.js']]
 # ECONOMY THREE 11/20 (rule 461): every <script src> these pages load is swept as live code too (the tool adds them on load, never
 # baked), so a lane's new script is held the day a page loads it, the way every data file in records/target/bb already is
-T['live_pages'] = ['slices/' + f for f in ['BOHEMIA_CITY_WORLD.html', 'BOHEMIA_SETTLEMENT_SCREEN.html', 'BOHEMIA_ROSTER_SCREEN.html', 'BOHEMIA_FIGHT.html', 'BOHEMIA_ALPHA_0_9.html']]
+T['live_pages'] = ['slices/' + f for f in ['BOHEMIA_CITY_WORLD.html', 'BOHEMIA_SETTLEMENT_SCREEN.html', 'BOHEMIA_ROSTER_SCREEN.html', 'BOHEMIA_FIGHT.html', 'BOHEMIA_ALPHA_0_9.html',
+    'BOHEMIA_SPOILS_SCREEN.html', 'BOHEMIA_SCAVENGE.html']]   # the spoils after a fight and the scavenge game: two play pages the list never named (found 11/20)
 # a number in live code that reads like money and is not: file, find (a regular expression over the whole field), why
 T['code_not_money'] = []
 
@@ -210,6 +214,7 @@ T['sweep'] = {
         {'file': '*', 'path': 'districts.battery.**', 'why': 'the same district kind'},
         {'file': RT + 'BOHEMIA_SIDE_QUESTS.json', 'path': 'quests.*.stages.*.fx.pay_why.hours', 'why': 'hours of his clock'},
         {'file': RT + 'BOHEMIA_SIDE_QUESTS.json', 'path': 'quests.*.stages.*.fx.pay_why.food', 'why': 'nights of food'},
+        {'file': '*', 'path': '**.machine_battery_man', 'why': 'an enemy (BESTIARY 11/20m THE BATTERY MAN) and its weight in a tier\'s mix, not money (ECONOMY THREE 11/20: it turned the table red on main)'},
         {'file': BB + 'home_base.json', 'path': '**.cost.tape', 'why': 'rolls of tape (HOME BASE\'s builds cost tape, and one AA each: the lot build\'s typed copy below)'},
     ]
 }

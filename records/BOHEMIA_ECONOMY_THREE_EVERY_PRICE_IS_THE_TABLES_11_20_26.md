@@ -91,5 +91,43 @@ place found for the cartographer 10 to 40; a beaten man had 1 AA in his pocket h
   proof line.
 - Pre-push pass: the gates that read the files in this diff are this lane's own gate (the only gate that reads the table's tools).
 
+## 5. THE SECOND SHIP: THE CREW SCREEN AND THE FIGHT, WALKED (ECONOMY TWO's NOT DONE; rule 441)
+
+Walked on the demo, a phone upright, the way he plays: the crew screen by the one CREW and a real tap on a man; a road fight off a
+town and the spoils after it. What the walk found, all fixed in this ship:
+1. THE SPOILS SCREEN (after every fight won) NEVER LOADED THE DRAWING. Its bar showed the purse with the old pile of cells (the
+   map and the fight drew the same 290 as a car battery and two tool packs one screen before), the batteries off their bodies
+   wore the old mark, and what a town pays for a looted piece wore the old icon. Now the page loads the drawing: the bar, the
+   count ('+2' as the AA picture) and the price on the strip (a chain: 4 AA) are drawn; the receipt keeps its printed words
+   (a till prints characters: data-bsum-raw). The drawing already carried the count's rule; only the page was never named.
+2. THE PHONE'S CREW FACE LOST A MAN'S NIGHT, SINCE 11/18t (this lane's own build). The phone reads the picked man's line off the
+   crew screen, but only its FIRST piece of text; the drawing turns '2 BATTERIES' into its pictures, which split the line, so
+   the phone said 'OLD FRIEND LEVEL 2' and his night was gone. Now the phone reads the line whole and sets his night as one
+   piece on its own line (the AA picture, '2 A NIGHT'), its picture sized to the phone's 8-point line (at the drawing's 13
+   points the line grew and 'A NIGHT' was cut under the XP bar: seen, then fixed).
+3. THE PHONE'S 'HIS PLACE' CARD wrote the night's bill as '-3 BATT', which the drawing cannot read; it says '-3 batteries' now
+   and is drawn like every other sum.
+4. TWO PLAY PAGES THE TABLE NEVER NAMED (the spoils, the scavenge game) are swept now: 119 scripts.
+5. A SHOP BUYS A PIECE BACK FOR ONE SEVENTH OF ITS WORTH: typed twice (the town, the spoils engine), named only in a sentence. It
+   is a number in the table now (ratios.shop_pays_back.one_in = 7) and both copies are held (169 copies).
+6. THE GATE'S OWN TWO HOLES: its 'leave the town' step was handed the drive instead of the page and never left a town (silently:
+   the walk opened the town again over itself); and a purse moved by the gate's shortcut never repainted the bar (the bar
+   repaints when the game's own flows say so: measured, the map's bar kept 290 for 5 s after the purse went to 500). The gate
+   now leaves through the town's own way out and repaints the bar as the game's settle does.
+NOT FOUND: on the scavenge game a find is one word (BATTERY), never a sum: nothing to draw.
+
+GATE THE BATTERY IS REAL now walks C1 (the crew screen: his second man's night drawn where it shows, 'A NIGHT' whole, nothing
+cut), S1 (the spoils: the bar draws the purse the map's bar shows, the batteries off their bodies, the receipt in words) and S2
+(a real tap on a piece: what a town pays for it), first, on a fresh game. The fight is WON BY THE GATE (every man of theirs set
+down): the one shortcut, said. L1 now waits for the bar's own count-down to land (a big change counts on the beat, by design).
+FOUND ON THE ALPHA, NOT THIS LANE'S: the alpha's new game opens either inside a town (the phone on its town face) or on the walked
+city the alpha keeps by rule (STANDING, BUILD HERE, SCAVENGE 8H, BIKE, SLEEP, the pad: no phone, no CREW); leaving its first town
+lands there too. RUN's, if the alpha should open like the demo. The legs open the Mob's town by the walk's own travel shortcut
+when no CREW is on the glass.
+
+PROOF: GATE THE BATTERY IS REAL 55/0 (the table 7/0 with ten plants; the demo and the alpha, upright and sideways, 12 legs each).
+Neighbours on this tree: OPTIMIZE LOOT 22/0, SCRAP IS TAPE 11/0. THE RECEIPT IS THE END SCREEN 8/1, R3 ('a tap unrolls it')
+red the same with this build's three page files put back to main's: not this build's.
+
 [bb Battle Brothers prices a contract in crowns that run to thousands and nobody asks what a crown weighs; ours weighs 18 kg a car battery]
 [analog horror: the board's clerk reading the pay off a card and then looking at the size of your truck]

@@ -108,6 +108,8 @@ copy(H, r"var crowns = 20 \* 1 \* traitMult\(\)\.buy \* w\.days \* \(1 \+ \(w\.l
 copy(RS, r"\(1 \+ \(m\.level - 1\) \* ([\d.]+)\) / \d+\)", 'the crew screen\'s clinic: a fifth more a level', leaf=INJ + '#rules.temporary_healing.per_level_price_factor')
 copy(H, r"baseCrowns:\+spec\.base_crowns \|\| (\d+),", 'a rare man with no base in rare_recruits.json is priced from the top of the wiki\'s base range', leaf=BB + 'price_table.json#wageAndHire.hiringBaseRange.maxApprox')
 copy(H, r"var mult = \(HIREPT && HIREPT\.equipmentCostMultiplier\) \|\| ([\d.]+);", 'the hall\'s kit multiplier before price_table.json lands', leaf=BB + 'price_table.json#wageAndHire.equipmentCostMultiplier')
+copy(H, r"var SELL_CUT = 1/(\d+);", 'a shop buys a piece back for one seventh of its worth', rule='ratios.shop_pays_back.one_in')
+copy(E + 'bohemia_spoils.js', r"var SELL_CUT = 1 / (\d+);", 'the spoils: what a town pays for a looted piece, the same seventh', rule='ratios.shop_pays_back.one_in')
 T['code_not_money'] = [
     {'file': CW, 'find': r"opts: \[ \{ a:'pay',\s+t:'(?:GIVE HIM SOMETHING|PAY THE CUT)', pay:\d+", 'why': 'the walked road\'s choices are paid in SALVAGE, not batteries (BohemiaPockets.hand(... \'resources\', o.pay)); the road on the map is BOHEMIA_ROAD_EVENTS.json'},
     {'file': CW, 'find': r"key\[r\] = \{ reason:r, currency:e\.currency, amount:0,", 'why': 'a running total that starts at nothing'},

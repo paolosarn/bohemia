@@ -365,7 +365,11 @@
        says it, so the camp under the screen keeps his slots and him and fewer words */
     var cq = function (q) { var e = document.querySelector('#card ' + q); return e ? String(e.firstChild && e.firstChild.nodeType === 3 ? e.firstChild.nodeValue : e.textContent || '').replace(/\s+/g, ' ').trim() : ''; };
     var xi = document.querySelector('#card .xpbar i'), tr = cq('.trait');
-    var man = { name: cq('.nm'), sub: cq('.sub'), tally: cq('.ktally'), trait: tr ? tr.split(/\s{2,}/)[0] : '', xp: xi ? (parseFloat(xi.style.width) || 0) / 100 : null };
+    /* ECONOMY THREE 11/20: his line is read WHOLE. Measured: the battery drawing (rule 459) turns '2 BATTERIES' into its pictures,
+       which splits the line's text, and the first piece alone ended at his level: the phone said 'OLD FRIEND LEVEL 2' and his
+       night ('2 BATTERIES A NIGHT') was gone. The words are still in the line (the drawing keeps them at no size) */
+    var cw = function (q) { var e = document.querySelector('#card ' + q); return e ? String(e.textContent || '').replace(/\s+/g, ' ').trim() : ''; };
+    var man = { name: cq('.nm'), sub: cw('.sub'), tally: cq('.ktally'), trait: tr ? tr.split(/\s{2,}/)[0] : '', xp: xi ? (parseFloat(xi.style.width) || 0) / 100 : null };
     return { man: man, title: ti ? String(ti.textContent || '').replace(/\s+/g, ' ').trim() : '', n: n ? String(n.textContent || '').trim() : '',
       tabs: [].slice.call(t.querySelectorAll('button')).map(function (b, i) { return { i: i, t: String(b.textContent || '').replace(/\s+/g, ' ').trim(), on: b.classList.contains('on'), perk: b.id === 'pick' || b.classList.contains('perk'), off: !!b.disabled }; }) };
   };
@@ -751,7 +755,7 @@
       + '#bohphone .cph em,#bohphone .cph span{font-style:normal;font-size:6px;line-height:8px;color:#cdbd98;white-space:nowrap;overflow:hidden}'
       + '#bohphone .cman{flex:0 0 auto;padding:1px 3px 3px;display:flex;flex-direction:column;gap:2px}'
       + '#bohphone .cman b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:10px;letter-spacing:1px;color:#f6cf74;white-space:nowrap;overflow:hidden}'
-      + '#bohphone .cman em,#bohphone .cman span{font-style:normal;font-size:6px;line-height:8px;color:#e6d8b6;white-space:normal;overflow:hidden;max-height:16px}'
+      + '#bohphone .cman em .cnight{white-space:nowrap;font-size:inherit;line-height:inherit;color:inherit;max-height:none;overflow:visible}#bohphone .cman em,#bohphone .cman span{font-style:normal;font-size:6px;line-height:8px;color:#e6d8b6;white-space:normal;overflow:hidden;max-height:16px}'
       + '#bohphone .cman s{display:block;height:3px;background:rgba(255,236,200,.14);text-decoration:none}#bohphone .cman s i{display:block;height:100%;background:#d9a650}'
       + '#bohphone .ctabs{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:30px;gap:3px;align-content:start;overflow:hidden}'
       + '#bohphone .ctabs button{padding:0 3px;margin:0;border:0;cursor:pointer;color:#1f1710;font:8px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:.8px;white-space:nowrap;overflow:hidden;' + kit('tin', 0.5) + '}'
@@ -1288,7 +1292,7 @@
       else h += '<button type="button" class="go" data-h="plant"' + (g && g.ok ? '' : ' disabled') + '>' + esc(W.plant_yes || 'PLANT HERE') + '</button>';
     } else {
       h += '<div class="hd">' + esc(hs.name) + '</div><div class="ln">PLANTED DAY ' + esc(hs.day) + '</div>';
-      if (hs.bill) h += '<div class="mk"><b>A NIGHT</b><s>-' + esc(hs.bill.due) + ' BATT</s></div><div class="ln">keep ' + hs.bill.keep + (hs.bill.power ? ' + lights ' + hs.bill.power : '') + (hs.bill.people ? ' + ' + hs.bill.people + ' living there ' + hs.bill.eat : '') + (hs.bill.back ? ' - prizes ' + hs.bill.back : '') + '</div>';
+      if (hs.bill) h += '<div class="mk"><b>A NIGHT</b><s>-' + esc(hs.bill.due) + (+hs.bill.due === 1 ? ' battery' : ' batteries') + '</s></div><div class="ln">keep ' + hs.bill.keep + (hs.bill.power ? ' + lights ' + hs.bill.power : '') + (hs.bill.people ? ' + ' + hs.bill.people + ' living there ' + hs.bill.eat : '') + (hs.bill.back ? ' - prizes ' + hs.bill.back : '') + '</div>';
       h += '<div class="mk"><b>LIVING THERE</b><s>' + hs.residents.length + '</s></div>';
       if (hs.prizes.length) h += '<div class="ln">' + hs.prizes.map(function (p) { return esc(p.name); }).join(', ') + '</div>';
       h += '<div class="mk"><b>STANDING</b><s>' + hs.standing + ' OF ' + hs.lotsOpen + '</s></div><button type="button" class="go" data-h="home">GO HOME</button>';
@@ -1695,8 +1699,9 @@
     var m = /^(YOUR COMPANY)\s*(.*)$/.exec(o.title) || [0, o.title, ''];
     var cp = H.el.querySelector('.crewp'); cp.querySelector('.cph b').textContent = m[1] || 'YOUR COMPANY'; cp.querySelector('.cph em').textContent = m[2] || ''; cp.querySelector('.cph span').textContent = o.n || '';
     var mn = o.man || {}, cm = cp.querySelector('.cman');   /* UI 7 (rule 369): who is picked, on the phone */
-    if (cm) { cm.style.display = mn.name ? '' : 'none'; cm.querySelector('b').textContent = mn.name || ''; cm.querySelector('em').textContent = mn.sub || '';
-      cm.querySelector('span').textContent = [mn.trait, mn.tally].filter(Boolean).join('  ');
+    if (cm) { cm.style.display = mn.name ? '' : 'none'; cm.querySelector('b').textContent = mn.name || ''; var cem = cm.querySelector('em'), nt = /^(.*?)\s*(\d[\d,]* BATTER(?:Y|IES) A NIGHT)$/.exec(mn.sub || '');
+      cem.textContent = nt ? nt[1] + ' ' : (mn.sub || ''); if (nt) { var ns = el('span', 'cnight'); ns.textContent = nt[2]; cem.appendChild(ns); }   /* ECONOMY THREE: his night, one piece (drawn as its batteries) */
+      cm.querySelector(':scope > span').textContent = [mn.trait, mn.tally].filter(Boolean).join('  ');
       var xb = cm.querySelector('s'); xb.style.display = mn.xp == null ? 'none' : ''; xb.querySelector('i').style.width = Math.round(Math.max(0, Math.min(1, mn.xp || 0)) * 100) + '%'; }
     var tb = cp.querySelector('.ctabs'); tb.textContent = '';
     o.tabs.forEach(function (t) { var b = el('button', (t.on ? 'on' : '') + (t.perk ? ' perk' : '')); b.type = 'button'; b.dataset.i = t.i; b.disabled = t.off; b.textContent = t.t; b.setAttribute('aria-label', t.t.toLowerCase()); tb.appendChild(b); });

@@ -310,7 +310,7 @@ html.sp-d3 .man .state .short{display:inline}
 <body>
 <canvas id="after" aria-hidden="true"></canvas>
 <div id="bar"><span class="word" id="word"></span><span class="sub" id="head"></span></div>
-<div id="tillclip"><div id="till" role="button" aria-label="the receipt: tap to unroll it"><div class="paper" id="tillpaper"></div></div></div>
+<div id="tillclip"><div id="till" role="button" aria-label="the receipt: tap to unroll it"><div class="paper" id="tillpaper" data-bsum-raw></div></div></div>
 <div id="field" aria-hidden="true"></div>
 <div id="lines" class="lines"></div>
 <div id="cols">
@@ -342,6 +342,7 @@ html.sp-d3 .man .state .short{display:inline}
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS: the one dial, for the survivor's word -->
 <script src="../engine/bohemia_survivor_word.js"></script>  <!-- WORDS [the survivor's word] (rule 315): one man still standing says how it went, in place of YOU WON -->
 <script src="bohemia_ui_materials.js"></script>
+<script src="bohemia_the_battery.js"></script>   <!-- ECONOMY THREE 11/20 (rule 459, 461): the one page the drawing missed: the bar's purse, the batteries off their bodies and what a town pays for a piece are drawn as the batteries they are paid in, as on the map, the town and the fight; the receipt keeps its printed words (data-bsum-raw) -->
 <script src="bohemia_ui_three_items.js"></script>  <!-- UI THREE [the item box] (rule 249(d)): the loot's boxes as lit wells framed by quality -->
 <script src="../engine/bohemia_idles.js"></script>  <!-- RUN FOUR: the idles, for the scene behind it when no fight stands behind (the fight's own when it does) -->
 <script src="bohemia_aftermath.js"></script>  <!-- RUN FOUR [the aftermath plays behind the loot screen] -->
@@ -524,7 +525,7 @@ function facts(it, where){
   ln.appendChild(document.createTextNode(where === 'ground' ? (it.from ? 'OFF ' + String(it.from).toUpperCase() + '. ' : '') + how + ' TO TAKE IT' : how + ' TO PUT IT BACK'));
   fx.appendChild(ln); el.appendChild(fx);
   if(where === 'stash' && SP.fixed(it)){ var kp = document.createElement('span'); kp.className = 'kp'; kp.textContent = 'KEEP'; kp.title = 'OPTIMIZE LOOT never moves it'; el.appendChild(kp); }
-  var sv = document.createElement('span'); sv.className = 'sell'; sv.title = 'a town pays ' + SP.sellBack(it, S.at) + ' batteries for it';
+  var sv = document.createElement('span'); sv.className = 'sell'; sv.title = 'a town pays ' + SP.sellBack(it, S.at) + ' batteries for it'; sv.setAttribute('data-bsum-sum', '');   /* ECONOMY THREE: drawn as the batteries it is paid in */
   sv.appendChild(batImg()); sv.appendChild(document.createTextNode(String(SP.sellBack(it, S.at)))); el.appendChild(sv);
 }
 function drawCounts(){
@@ -536,7 +537,7 @@ function drawCounts(){
     if(!(c[k[0]] > 0)) return; if(c[k[0]] === 1) k[1] = k[3];
     var b = document.createElement('button'); b.type = 'button'; b.className = 'count' + (S.countsTaken ? ' taken' : ''); b.dataset.count = k[0];
     var cap = (k[0] === 'tape' && S.scav && S.scav.tape > 0) ? 'MENDS ARMOUR, ' + S.scav.tape + ' FROM THE SCAVENGER' : k[2];   /* FINISHER 11/2: whose tape */
-    b.innerHTML = '<b>+' + c[k[0]] + '<i class="cw"> ' + k[1] + '</i></b><span>' + (S.countsTaken ? 'TAKEN' : cap) + '</span>'; b.setAttribute('aria-label', '+' + c[k[0]] + ' ' + k[1] + ', ' + (S.countsTaken ? 'taken' : cap)); b.title = b.getAttribute('aria-label');   /* FIXES 11/9 (row 525): the word in its own piece, so a tight glass shows the number by its picture and never half a word */
+    b.innerHTML = '<b' + (k[0] === 'batteries' ? ' data-bsum-sum' : '') + '>+' + c[k[0]] + '<i class="cw"> ' + k[1] + '</i></b><span>' + (S.countsTaken ? 'TAKEN' : cap) + '</span>'; b.setAttribute('aria-label', '+' + c[k[0]] + ' ' + k[1] + ', ' + (S.countsTaken ? 'taken' : cap)); b.title = b.getAttribute('aria-label');   /* FIXES 11/9 (row 525): the word in its own piece, so a tight glass shows the number by its picture and never half a word */
     b.addEventListener('click', function(){ takeCounts(); }); el.appendChild(b); });
   try{ tillSync(); }catch(e){}   /* __THE_RECEIPT__: the pay prints when it is taken */
 }
@@ -644,8 +645,8 @@ function report(r){
   r.took.slice(0, 4).forEach(function(it){ rep.appendChild(pic(it, 24)); });
   if(r.took.length > 4){ var m2 = document.createElement('i'); m2.className = 'gup'; m2.textContent = '+' + (r.took.length - 4); rep.appendChild(m2); }
   el.appendChild(rep);
-  var sv = document.createElement('span'); sv.className = 'sell'; sv.style.marginLeft = 'auto'; sv.appendChild(batImg());
-  var g = document.createElement('i'); g.className = 'gup'; g.textContent = '\u25b2' + r.gain; sv.appendChild(g); el.appendChild(sv);
+  var sv = document.createElement('span'); sv.className = 'sell'; sv.style.marginLeft = 'auto'; sv.setAttribute('data-bsum-sum', ''); sv.appendChild(batImg());
+  var g = document.createElement('i'); g.className = 'gup'; g.textContent = '\u25b2'; sv.appendChild(g); sv.appendChild(document.createTextNode(String(r.gain))); el.appendChild(sv);   /* ECONOMY THREE: the gain is its own number, so it is drawn as batteries beside the arrow */
   S.lastReport = { left:r.left.map(function(it){ return it.id; }), took:r.took.map(function(it){ return it.id; }), gain:r.gain };
 }
 function hasCounts(){ var c = S.counts || {}; return (c.batteries | 0) + (c.rounds | 0) + (c.tape | 0) > 0; }
