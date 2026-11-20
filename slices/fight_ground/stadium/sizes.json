@@ -1,0 +1,167 @@
+{
+ "stand": {
+  "w": 516,
+  "h": 445,
+  "foot": [
+   258.2,
+   444
+  ],
+  "piece": "stand",
+  "src": "stadium/st_stand.webp",
+  "facing": "S"
+ },
+ "stair_e": {
+  "w": 515,
+  "h": 456,
+  "foot": [
+   257.8,
+   455
+  ],
+  "piece": "stair_e",
+  "src": "stadium/st_stair_e.webp",
+  "facing": "S"
+ },
+ "stair_w": {
+  "w": 515,
+  "h": 456,
+  "foot": [
+   257.5,
+   455
+  ],
+  "piece": "stair_w",
+  "src": "stadium/st_stair_w.webp",
+  "facing": "S"
+ },
+ "rail_ew": {
+  "w": 515,
+  "h": 81,
+  "foot": [
+   257.8,
+   66
+  ],
+  "piece": "rail_ew",
+  "src": "stadium/st_rail_ew.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 516,
+  "h": 122,
+  "foot": [
+   258.2,
+   109
+  ],
+  "piece": "wall_ew",
+  "src": "stadium/st_wall_ew.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 52,
+  "h": 465,
+  "foot": [
+   26.2,
+   464
+  ],
+  "piece": "wall_ns",
+  "src": "stadium/st_wall_ns.webp",
+  "facing": "S"
+ },
+ "seats": {
+  "w": 515,
+  "h": 339,
+  "foot": [
+   257.5,
+   328
+  ],
+  "piece": "seats",
+  "src": "stadium/st_seats.webp",
+  "facing": "S"
+ },
+ "rig": {
+  "w": 532,
+  "h": 408,
+  "foot": [
+   266.2,
+   384
+  ],
+  "piece": "rig",
+  "src": "stadium/st_rig.webp",
+  "facing": "S"
+ },
+ "tent": {
+  "w": 455,
+  "h": 404,
+  "foot": [
+   227.8,
+   381
+  ],
+  "piece": "tent",
+  "src": "stadium/st_tent.webp",
+  "facing": "S"
+ },
+ "wreck_a": {
+  "w": 464,
+  "h": 267,
+  "foot": [
+   275.5,
+   255
+  ],
+  "piece": "wreck_a",
+  "src": "stadium/st_wreck_a.webp",
+  "facing": "S"
+ },
+ "wreck_b": {
+  "w": 378,
+  "h": 245,
+  "foot": [
+   223.5,
+   233
+  ],
+  "piece": "wreck_b",
+  "src": "stadium/st_wreck_b.webp",
+  "facing": "S"
+ },
+ "bench": {
+  "w": 502,
+  "h": 121,
+  "foot": [
+   266.2,
+   97
+  ],
+  "piece": "bench",
+  "src": "stadium/st_bench.webp",
+  "facing": "S"
+ },
+ "barrier": {
+  "w": 447,
+  "h": 105,
+  "foot": [
+   223.8,
+   72
+  ],
+  "piece": "barrier",
+  "src": "stadium/st_barrier.webp",
+  "facing": "S"
+ },
+ "supplies": {
+  "w": 224,
+  "h": 175,
+  "foot": [
+   112.5,
+   145
+  ],
+  "piece": "supplies",
+  "src": "stadium/st_supplies.webp",
+  "facing": "S"
+ },
+ "supplies_b": {
+  "w": 155,
+  "h": 113,
+  "foot": [
+   78.2,
+   95
+  ],
+  "piece": "supplies_b",
+  "src": "stadium/st_supplies_b.webp",
+  "facing": "S"
+ }
+}

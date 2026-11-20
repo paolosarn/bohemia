@@ -20900,7 +20900,50 @@
   {"id": "world13-the-places-are-laid-out-11-20", "kind": "tile", "lane": "world 13", "sha": "ff0a77a2", "made": "11/20", "draft": true, "title": "THE MAP SHOWS EACH PLACE THE WAY ITS FIGHT IS LAID OUT: THE AIRPORT'S HANGAR ROW AND ITS APRON, AT THE SAME SPOTS", "said": "(11/7, the one map) the boards' layouts written into the map at their places, so the map gets their good layouts and the fight gets them back", "why": "Each of the special places (the airport, the works, the wash, the landfill, the pass, the marina and the rest) is fought on its own hand-made fight board. Until now the map drew those spots like any other block. Now the map lays each place's board onto its cells: what blocks in the fight is a building or a boulder on the map, its high ground a platform or a mound, its water water, always at the same spots the fight uses (296 map cells on this valley, the map and the fight agreeing at every one). It shows best at the airport: the hangar row and the boxes on the apron (left before, right now). Elsewhere it adds a few obstacles among what the map already draws. The suburbs, the trailer park, the Strip and downtown keep the map's own layout, which is already the same kind of thing. You see it in the RUN tab, zoomed in on a place.", "show": {"how": "image", "src": "../records/target/WORLD13_THE_PLACES_ARE_LAID_OUT_11_20.webp",
     "first": "../records/target/vote_first/world13-the-places-are-laid-out-11-20.webp",
     "firstAt": [398, 100, 390, 390]
-   }, "before_after": {"before": "main 11/20b: a place's cells drawn as any block of their kind; its board's walls, planes, banks and heaps only in the fight", "after": "296 cells of 11 places laid with their board's tiles (1,500 objects standing where the fight stands them, never over a street); the map and the fight agree at every laid cell", "scale": "the demo on the phone upright, the near stop at the airport"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_THIRTEEN_THE_PLACES_ARE_LAID_OUT_11_20_26.md", "build": "BUILD 11/20c - THE PLACES ARE LAID OUT ON THE MAP"}
+   }, "before_after": {"before": "main 11/20b: a place's cells drawn as any block of their kind; its board's walls, planes, banks and heaps only in the fight", "after": "296 cells of 11 places laid with their board's tiles (1,500 objects standing where the fight stands them, never over a street); the map and the fight agree at every laid cell", "scale": "the demo on the phone upright, the near stop at the airport"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_THIRTEEN_THE_PLACES_ARE_LAID_OUT_11_20_26.md", "build": "BUILD 11/20c - THE PLACES ARE LAID OUT ON THE MAP"},
+  {
+   "id": "cook6-the-stadium-11-20",
+   "kind": "tile",
+   "lane": "cook 6",
+   "sha": "SHIPSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "THE STADIUM LOOKS LIKE A STADIUM NOW: DEAD TURF WITH THE YARD LINES, THE STANDS THEY HOLD, THE RELIEF LEFT ON THE FIELD, AND THE ROOF OVER IT",
+   "said": "full sweep, whole enchilada, dont forget nothing",
+   "why": "The fight on the stadium's field was built from the parking garage's, the casino's and the street's pictures; now it has its own: dead turf (never green) with a yard line down every tile and the ticks still there in places, turf torn to the dirt where the trucks turned, the concrete stands with their black seats folded up (some torn out, some with bedding across them), the rail with a bedsheet of painted words over it, relief pallets and tents on the field, a box truck and an ambulance with its stretcher half out, the last concert's speakers and sound desk, a team's bench with the helmets still in a row, and over it all the roof at his 10%: the cable net, the ring over midfield with its panes out, the dead lights. You meet it when a fight starts at the stadium, in the RUN tab.",
+   "options": [
+    "A, yes, that's a stadium",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK6_THE_STADIUM_11_20.webp",
+    "first": "../records/target/vote_first/cook6-the-stadium-11-20.webp",
+    "firstAt": [
+     786,
+     96,
+     383,
+     559
+    ]
+   },
+   "before_after": {
+    "before": "main 64ab8c777: all 185 pieces of the stadium (the last show layout) are stand-ins from the garage, the casino and the street board; the roof is drawn by the page",
+    "after": "the stadium's own floor (dead turf, torn turf, the stand's step), 15 pictures under its 15 names and ONE roof picture the size of the board, through the master rig; the stadium lays them with no code changed",
+    "scale": "the fight on his phone upright (390 x 844) as it opens, the same fight before and now; close in on the page; then the pieces at their own pixels"
+   },
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "twin": {
+    "src": "fight_ground/terminal/tm_seats.webp",
+    "diffs": [
+     "THE SAME RIG AND CUT as the terminal's kit and the hall's: one tool on the other, COMBAT THREE's names, its data file's own ceiling entry.",
+     "THE GROUND IS THE FIELD: every other inside is a floor; here it is dead turf with a yard line down every tile, so the board reads as the field it is.",
+     "WHAT PEOPLE LEFT: bedding across the seats, a bedsheet of words over the rail, names chalked on the padding, a stretcher half out of an ambulance, the helmets in a row."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_SIX_THE_STADIUM_11_20_26.md"
+  }
  ],
  "verdicts": [
   {

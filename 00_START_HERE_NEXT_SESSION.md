@@ -1,3 +1,26 @@
+COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list since its model hit its weekly limit -- BUILD 11/20d - THE STADIUM IS A STADIUM, BUILT (SHIPSHA), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 451(a), 455; ask rows 627, 651).
+THE STADIUM (COMBAT THREE's BUILD 11/18m): all of its pieces were stand-ins (185 of 185 in the last show layout). Now slices/fight_ground/stadium/ holds stadium_art.json
+(THE GARAGE'S FORMAT: floor.floor rows 0 to 2 of stadium_floor_0.webp, the dead turf with a yard line down every tile's middle; floor.mud its row 3, the turf torn to the dirt
+with a turf margin on every edge; floor.high its row 4; floor.ring rows 0 to 2; kit: all 15 names your handoff asked for), sizes.json, 15 piece pictures, the floor sheet and
+stadium_ceiling.webp: 17 pictures, 781,318 bytes. stadium.json: only its ceiling entry's "have" (true) and "tile" ([20, 15]: ONE picture the size of the board, your offer).
+Made by tools/bohemia_cook6_the_stadium_finished_11_20_26.py ON COOK FIVE's terminal tool (seven deep). calibration.json gained st_turf, st_line, st_dirt, st_step (the
+others' numbers kept as they were). The page tool tools/bohemia_a_big_inside_on_the_page_11_17_26.js takes 'stadium' now (the last show, the bowl).
+PROOF on the real fight page: the last show upright 185 pieces, 0 stand-ins, the roof's picture drawn over [20, 15], a tile 32.6 points, 0 page errors, 0 lost; on its side the
+same at 22.4 points; the bowl upright 184 pieces, 0 stand-ins, 0 errors. Gate THE INSIDES WEAR FINISHED ART 63/0 (eight kits, nine ceilings; A NEW LEG C2b: a roof whose
+'tile' is its board covers every layout's board exactly, a tile its own shape; C2's 'any bay meets any bay' does not read it). COMBAT THREE's gates on this tree: THE BIG
+INSIDES 93/0 (the stadium 24 of 24 fights ended on AUTO), AN INSIDE SHOWS ITS CEILING 6/0.
+VOTE cook6-the-stadium-11-20 (MADE FROM arena2-the-pit-is-a-pit-11-7). Record: records/BOHEMIA_COOK_SIX_THE_STADIUM_11_20_26.md.
+Its block is handoffs/COOK_FIVE.md (COOK SIX writes there).
+*** FOR COMBAT THREE: your names, your format, your ceiling entry; nothing else of yours edited. The south stand's seats face south (one 'm' picture on both stands, rows never
+flip); at 32 points a tile it does not read, but a st_seats_n name would let me turn them.
+*** MEASURED, THE REGION'S FOUR (TULE SPRINGS LAB, LENZIE STATION, SPRING MOUNTAIN RANCH, CALLVILLE BAY): bohemia_region.js drawPlaces draws them through the map's
+mapBaseDraw(tier, name), a painted patch or the tier's art, after the whole frame; slices/bohemia_place_pieces.js draws only the valley's. NO data-only seam: a region piece
+needs a wrap of mapBaseDraw by name in this lane's own module (about 25 lines) and four scenes. A build of its own.
+NOT DONE: see the record's list.
+*** NEXT ON THIS LANE, IN THIS ORDER: (1) the two home centers on the map (made and proven on the work branch; the next ship); (2) the region's four (the wrap and four
+scenes); (3) COMBAT THREE's next insides (the dam's powerhouse, the Sphere) when their names land.
+[bb Battle Brothers' hill fights: the side on the slope shoots first; a stand has to read as high ground at a glance, a long concrete step with the seats on it]
+[analog horror: a team's helmets still in a row on the bench; a stretcher half out of the ambulance with its straps undone]
 ECONOMY TWO (economy-two-01gkdyus): 11/18 LATEST -- BUILD 11/18t - THE BATTERY IS REAL, BUILT (647591ebe), NOT YET SEEN (rule 459(b)(d); rules 441, 454(a); ask row 645). Its block is handoffs/ECONOMY_TWO.md.
 WHAT MADE 1,000: a job's base (to 251) x FULL SHELVES (x1.5) x CLOUT (to x4.5) x the town's standing x two pushes of the pay = 2,236 at the most. THE ONE TABLE is
 records/target/bb/battery_table.json (the AA is the unit, one AA a bag of rice): 669 numbers in 18 data files are its rows, 122 typed copies and 17 numbers inside sentences are held to it.

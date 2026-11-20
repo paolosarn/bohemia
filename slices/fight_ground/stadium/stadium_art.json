@@ -1,0 +1,280 @@
+{
+ "version": "cook6-stadium-art-11-20",
+ "lane": "cook 6 (COOK FIVE's list)",
+ "stage": "finished",
+ "for": "COMBAT THREE's stadium (slices/fight_ground/stadium/stadium.json, BUILD 11/18m): the names its handoff asked for, the garage's format. floor.floor is the dead turf (rows 0 to 2 of the sheet: straw gone grey, never green, a yard line down every tile's middle so one tile is five yards, the yard's ticks in a row on two tiles, bleached and bare patches, the trucks' tyre marks, two rings of soot); floor.mud is the turf torn to the dirt where the trucks turned (row 3: a turf margin on every edge, so it meets the field and itself); floor.high a stand's concrete step (row 4, under the stand's own picture); floor.ring the turf. Any tile of a list meets any tile of it.",
+ "floor": {
+  "floor": [
+   "stadium/stadium_floor_0.webp#0,0",
+   "stadium/stadium_floor_0.webp#1,0",
+   "stadium/stadium_floor_0.webp#2,0",
+   "stadium/stadium_floor_0.webp#3,0",
+   "stadium/stadium_floor_0.webp#4,0",
+   "stadium/stadium_floor_0.webp#0,1",
+   "stadium/stadium_floor_0.webp#1,1",
+   "stadium/stadium_floor_0.webp#2,1",
+   "stadium/stadium_floor_0.webp#3,1",
+   "stadium/stadium_floor_0.webp#4,1",
+   "stadium/stadium_floor_0.webp#0,2",
+   "stadium/stadium_floor_0.webp#1,2",
+   "stadium/stadium_floor_0.webp#2,2",
+   "stadium/stadium_floor_0.webp#3,2",
+   "stadium/stadium_floor_0.webp#4,2"
+  ],
+  "mud": [
+   "stadium/stadium_floor_0.webp#0,3",
+   "stadium/stadium_floor_0.webp#1,3",
+   "stadium/stadium_floor_0.webp#2,3",
+   "stadium/stadium_floor_0.webp#3,3",
+   "stadium/stadium_floor_0.webp#4,3"
+  ],
+  "high": [
+   "stadium/stadium_floor_0.webp#0,4",
+   "stadium/stadium_floor_0.webp#1,4",
+   "stadium/stadium_floor_0.webp#2,4",
+   "stadium/stadium_floor_0.webp#3,4",
+   "stadium/stadium_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "stadium/stadium_floor_0.webp#0,0",
+   "stadium/stadium_floor_0.webp#1,0",
+   "stadium/stadium_floor_0.webp#2,0",
+   "stadium/stadium_floor_0.webp#3,0",
+   "stadium/stadium_floor_0.webp#4,0",
+   "stadium/stadium_floor_0.webp#0,1",
+   "stadium/stadium_floor_0.webp#1,1",
+   "stadium/stadium_floor_0.webp#2,1",
+   "stadium/stadium_floor_0.webp#3,1",
+   "stadium/stadium_floor_0.webp#4,1",
+   "stadium/stadium_floor_0.webp#0,2",
+   "stadium/stadium_floor_0.webp#1,2",
+   "stadium/stadium_floor_0.webp#2,2",
+   "stadium/stadium_floor_0.webp#3,2",
+   "stadium/stadium_floor_0.webp#4,2"
+  ]
+ },
+ "kit": {
+  "st_stand": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "THE STANDS",
+   "stage": "finished",
+   "src": "stadium/st_stand.webp",
+   "w": 516,
+   "h_px": 445,
+   "foot": [
+    258.2,
+    444
+   ]
+  },
+  "st_stair_e": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "ITS STAIRS, EAST",
+   "stage": "finished",
+   "src": "stadium/st_stair_e.webp",
+   "w": 515,
+   "h_px": 456,
+   "foot": [
+    257.8,
+    455
+   ]
+  },
+  "st_stair_w": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "ITS STAIRS, WEST",
+   "stage": "finished",
+   "src": "stadium/st_stair_w.webp",
+   "w": 515,
+   "h_px": 456,
+   "foot": [
+    257.5,
+    455
+   ]
+  },
+  "st_rail_ew": {
+   "kind": "RAIL",
+   "h": 1.08,
+   "name": "THE STANDS' RAIL",
+   "stage": "finished",
+   "src": "stadium/st_rail_ew.webp",
+   "w": 515,
+   "h_px": 81,
+   "foot": [
+    257.8,
+    66
+   ]
+  },
+  "st_wall_ew": {
+   "kind": "WALL",
+   "h": 2.2,
+   "name": "THE BOWL'S WALL",
+   "stage": "finished",
+   "src": "stadium/st_wall_ew.webp",
+   "w": 516,
+   "h_px": 122,
+   "foot": [
+    258.2,
+    109
+   ]
+  },
+  "st_wall_ns": {
+   "kind": "WALL",
+   "h": 2.2,
+   "name": "THE BOWL'S WALL",
+   "stage": "finished",
+   "src": "stadium/st_wall_ns.webp",
+   "w": 52,
+   "h_px": 465,
+   "foot": [
+    26.2,
+    464
+   ]
+  },
+  "st_seats": {
+   "kind": "LOW_COVER",
+   "h": 0.86,
+   "name": "THE STANDS' SEATS",
+   "stage": "finished",
+   "src": "stadium/st_seats.webp",
+   "w": 515,
+   "h_px": 339,
+   "foot": [
+    257.5,
+    328
+   ]
+  },
+  "st_rig": {
+   "kind": "COVER",
+   "h": 5.0,
+   "name": "THE SHOW'S RIG",
+   "stage": "finished",
+   "src": "stadium/st_rig.webp",
+   "w": 532,
+   "h_px": 408,
+   "foot": [
+    266.2,
+    384
+   ]
+  },
+  "st_tent": {
+   "kind": "COVER",
+   "h": 3.4,
+   "name": "A RELIEF TENT",
+   "stage": "finished",
+   "src": "stadium/st_tent.webp",
+   "w": 455,
+   "h_px": 404,
+   "foot": [
+    227.8,
+    381
+   ]
+  },
+  "st_wreck_a": {
+   "kind": "COVER",
+   "h": 3.3,
+   "name": "A TRUCK ON THE FIELD",
+   "stage": "finished",
+   "src": "stadium/st_wreck_a.webp",
+   "w": 464,
+   "h_px": 267,
+   "foot": [
+    275.5,
+    255
+   ]
+  },
+  "st_wreck_b": {
+   "kind": "COVER",
+   "h": 2.95,
+   "name": "AN AMBULANCE ON THE FIELD",
+   "stage": "finished",
+   "src": "stadium/st_wreck_b.webp",
+   "w": 378,
+   "h_px": 245,
+   "foot": [
+    223.5,
+    233
+   ]
+  },
+  "st_bench": {
+   "kind": "LOW_COVER",
+   "h": 1.2,
+   "name": "THE BENCH",
+   "stage": "finished",
+   "src": "stadium/st_bench.webp",
+   "w": 502,
+   "h_px": 121,
+   "foot": [
+    266.2,
+    97
+   ]
+  },
+  "st_barrier": {
+   "kind": "LOW_COVER",
+   "h": 1.08,
+   "name": "CROWD BARRIERS",
+   "stage": "finished",
+   "src": "stadium/st_barrier.webp",
+   "w": 447,
+   "h_px": 105,
+   "foot": [
+    223.8,
+    72
+   ]
+  },
+  "st_supplies": {
+   "kind": "COVER",
+   "h": 1.42,
+   "name": "SUPPLIES ON PALLETS",
+   "stage": "finished",
+   "src": "stadium/st_supplies.webp",
+   "w": 224,
+   "h_px": 175,
+   "foot": [
+    112.5,
+    145
+   ]
+  },
+  "st_supplies_b": {
+   "kind": "DRESS",
+   "h": 0.8,
+   "name": "SUPPLIES, TORN OPEN",
+   "stage": "finished",
+   "src": "stadium/st_supplies_b.webp",
+   "w": 155,
+   "h_px": 113,
+   "foot": [
+    78.2,
+    95
+   ]
+  }
+ },
+ "how_it_lays": {
+  "the stands": "st_stand on every high tile, foot at the tile's south edge middle; 1.42 m up; concrete treads every 12/14 m (the same on every tile's edge, so stand tiles meet), the brackets of torn-out seats on them, the dead ribbon board and the padding along its south face. st_seats on it (your 'at' [0.5, 0.82], lifted): eleven rows of 23 seats, 9.4 m deep, a tile wide, foot its south base middle. st_stair_e climbs to the east, st_stair_w to the west (the hall's concrete stair). st_rail_ew along the field edge: steel, a bedsheet with words on it, foot its base middle.",
+  "the field": "st_supplies is six pallets 4.4 m by 2.6 m, foot its south edge middle; st_supplies_b two pallets torn open, 2.6 m wide. st_tent 8 m by 6, 3.4 m to its ridge, foot its south edge middle (your 'at' [0.5, 0.95] puts it inside the tile). st_wreck_a a box truck 8.6 m long nose east, st_wreck_b an ambulance 7.6 m with its stretcher half out to the west: foot each its south side's middle. st_rig 12 m wide, 5 m to the truss's head. st_barrier four barriers along 10 m, one down. st_bench two benches 10 m with the helmets, the heater at the west end, the cooler at the east.",
+  "the bowl": "st_wall_ew / st_wall_ns: concrete to 2.2 m, the padding to 1.25 (one panel torn to the foam), the ribbon board dead above it, names chalked on the pad; a tile long."
+ },
+ "bytes": {
+  "floor": 155962,
+  "ceiling": 72824
+ },
+ "ceiling": {
+  "sheet": "stadium/stadium_ceiling.webp",
+  "bays": [
+   5,
+   5
+  ],
+  "bay_px": [
+   258,
+   137
+  ],
+  "covers": [
+   20,
+   15
+  ],
+  "whole": true,
+  "what": "the translucent roof's panels on a net of cables running out from the ring over midfield (its glazing grid, most panes out), panels gone here and there, the rim solid over the stands, the light banks round it with every head dead, the catwalks, the dead scoreboard over the west end zone: one picture the size of the board",
+  "contract": "stadium.json 'ceiling' (COMBAT THREE's: the fight draws it over the board at that alpha, rule 451(a)); 'tile' [20, 15] is the board: ONE picture, never repeated (COMBAT THREE's own offer)"
+ }
+}

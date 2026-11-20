@@ -7,7 +7,8 @@ are made ahead through the master rig (tools/bohemia_cook5_the_tunnels_and_the_g
 slices/fight_ground/<kit>/ with an art file a board reads its lists from. A board picks ANY tile of a sheet for ANY place,
 so the one thing a picture can get wrong without anybody seeing it in the tool is the join: this gate measures it.
 
-  for each kit in KITS (the tunnels, the garage, and from 11/17 the convention hall, the mall, the warehouse and the data fort):
+  for each kit in KITS (the tunnels, the garage, and from 11/17 the convention hall, the mall, the warehouse and the data fort; from
+  11/18 the terminal; from 11/20 the stadium):
   A1 the art file says finished, names a board to be for, and every picture it names (sheets and pieces) is a file; no picture
      lies in the folder unnamed
   A2 every sheet is five by five tiles of 515 x 364 (2575 x 1820); every ground list entry names a tile on its sheet
@@ -40,6 +41,9 @@ is too flat to be read at a tenth, its bays do not meet, or it is heavy for what
      25 steps darker than the picture's middle tone)
   C4 LIGHT: a ceiling no heavier than 80,000 bytes (the site is near its cap; the kits' own budgets, A5, count them too)
   C5 PURPLE RESERVATION: not one purple pixel
+  C2b (COOK SIX 11/20) ONE PICTURE THE SIZE OF THE BOARD: a ceiling whose 'tile' is its inside's board, every layout of it (the
+     stadium: the ring over midfield does not repeat; COMBAT THREE's own offer) is drawn once and never meets itself, so C2 does
+     not read it; it covers every layout's board exactly, a tile on it the board's own shape (within a tenth)
   P2 PLANTED (in memory): a flat picture turns C3 red, a strength of 0.5 turns C1 red, a bay an eighth darker turns C2 red
 python3 gates/the_insides_wear_finished_art_gate.py   (about 8 s)
 """
@@ -57,7 +61,8 @@ KITS = {'tunnels': dict(art='tunnels_art.json', budget=900000, walls=('wall_ew',
         'mall': dict(art='mall_art.json', budget=900000, walls=('wall_ew', 'front_ew', 'door', 'rail_ew', 'bridge', 'escalator_e', 'escalator_w'), beside=[('floor', 'ring'), ('floor', 'high')]),   # (11/17) and its mall
         'warehouse': dict(art='warehouse_art.json', budget=900000, walls=('wall_ew', 'rack_ew', 'conveyor', 'rail_ew', 'mezz', 'stair_e', 'stair_w'), beside=[('floor', 'ring'), ('floor', 'high')]),   # (11/17) and its warehouse
         'datafort': dict(art='datafort_art.json', budget=900000, walls=('wall_ew', 'servers_ew', 'gate', 'rail_ew', 'gallery', 'stair_e', 'stair_w'), beside=[('floor', 'ring'), ('floor', 'high')]),   # (11/18) and its data fort
-        'terminal': dict(art='terminal_art.json', budget=900000, walls=('wall_ew', 'screen_ew', 'belt', 'rail_ew', 'walkway', 'stair_e', 'stair_w'), beside=[('floor', 'ring'), ('floor', 'high')])}   # (11/18) and its airport terminal
+        'terminal': dict(art='terminal_art.json', budget=900000, walls=('wall_ew', 'screen_ew', 'belt', 'rail_ew', 'walkway', 'stair_e', 'stair_w'), beside=[('floor', 'ring'), ('floor', 'high')]),   # (11/18) and its airport terminal
+        'stadium': dict(art='stadium_art.json', budget=900000, walls=('wall_ew', 'rail_ew', 'stand', 'stair_e', 'stair_w'), beside=[('floor', 'ring')])}   # (COOK SIX 11/20) and its stadium (the torn turf meets itself; the field meets it on a turf margin, by eye)
 passed = failed = 0
 
 
@@ -147,7 +152,7 @@ def a4(kit, K, sizes):
 
 
 CEIL_ALPHA_MAX, CEIL_BYTES, CEIL_SPREAD, CEIL_LINES, CEIL_MEET = 0.15, 80000, 60.0, (25.0, 0.10), 8.0
-CEIL_DATA = {'garage': 'garage/garage.json', 'casino': 'casino/casino_floor.json', 'tunnels': 'tunnels/tunnels.json', 'hall': 'hall/hall.json', 'mall': 'mall/mall.json', 'warehouse': 'warehouse/warehouse.json', 'datafort': 'datafort/datafort.json', 'terminal': 'terminal/terminal.json'}   # COMBAT THREE's: each one's 'ceiling' entry is the contract
+CEIL_DATA = {'garage': 'garage/garage.json', 'casino': 'casino/casino_floor.json', 'tunnels': 'tunnels/tunnels.json', 'hall': 'hall/hall.json', 'mall': 'mall/mall.json', 'warehouse': 'warehouse/warehouse.json', 'datafort': 'datafort/datafort.json', 'terminal': 'terminal/terminal.json', 'stadium': 'stadium/stadium.json'}   # COMBAT THREE's: each one's 'ceiling' entry is the contract
 
 
 def c1(C, exists=os.path.exists):
@@ -188,18 +193,40 @@ def c3(a):
     return float(hi - lo), float((a < mid - CEIL_LINES[0]).mean())
 
 
+def boards(k):
+    """every layout's board size, [W, H], in the inside's own data"""
+    d = json.load(open(os.path.join(FG, CEIL_DATA[k]))); out = set()
+    for t in ((d.get('board') or {}).get('templates') or {}).values():
+        for rows in (t.get('layouts') or {}).values(): out.add((len(rows[0]), len(rows)))
+    return out
+
+
+def whole(k, c):
+    """(COOK SIX 11/20) a ceiling whose 'tile' is its inside's board, every layout of it: ONE picture the size of the board (the
+    stadium's ring over midfield: COMBAT THREE's own offer), never repeated, so C2's bays need not meet; C2b holds it to the board"""
+    b = boards(k); return bool(b) and all(list(x) == list(c.get('tile') or []) for x in b)
+
+
 def ceilings():
     C = {k: json.load(open(os.path.join(FG, f))).get('ceiling') for k, f in CEIL_DATA.items()}; b1 = c1(C)
     ok('C1 the ceilings: each inside has its picture in (five bays by five, whole), drawn really low (no more than %s), and its kit names it' % CEIL_ALPHA_MAX, not b1,
        '; '.join(b1[:4]) if b1 else ', '.join('%s %s at %s over %sx%s tiles' % (k, os.path.basename(c['src']), c['alpha'], c['tile'][0], c['tile'][1]) for k, c in C.items()))
     if b1: return
     cache = {}; res = {}; read = {}; tiles = {}
+    ones = {}
     for k, c in C.items():
         w, h = Image.open(os.path.join(FG, c['src'])).size; tw, th = w // 5, h // 5
         tiles[k] = [tiles_of(None, '%s#%d,%d' % (c['src'], x, y), cache, tw, th) for y in range(5) for x in range(5)]
-        res[k] = meets(tiles[k]); read[k] = c3(cache[c['src']])
+        read[k] = c3(cache[c['src']])
+        if whole(k, c): ones[k] = (c['tile'], sorted(boards(k)), round((w / c['tile'][0]) / (h / c['tile'][1]), 3)); continue
+        res[k] = meets(tiles[k])
     bad = {k: v for k, v in res.items() if v[0] > v[2]}
     ok('*** C2 the ceilings: ANY BAY MEETS ANY BAY *** (the picture repeats edge to edge)', not bad, '; '.join('%s worst %.1f over itself, middle %.1f, allowed %.1f' % (k, v[0], v[1], v[2]) for k, v in res.items()))
+    # C2b: a picture the size of the board covers every layout's board exactly (never repeated, so never a seam), at a tile's own shape
+    # (a tile's width over its height on the picture within a tenth of the board's own 515 / 364, so the ring is not squashed)
+    sq = TW / TH; badw = {k: v for k, v in ones.items() if abs(v[2] / sq - 1) > 0.1}
+    ok('C2b the ceilings: ONE PICTURE THE SIZE OF THE BOARD covers every layout of its board exactly, at a tile\'s own shape', not badw,
+       '; '.join('%s covers %s, its boards %s, a tile %.3f wide for its height (the board %.3f)' % (k, v[0], v[1], v[2], sq) for k, v in ones.items()) or 'none')
     flat = {k: v for k, v in read.items() if v[0] < CEIL_SPREAD or v[1] < CEIL_LINES[1]}
     ok('C3 the ceilings: EACH CAN BE READ AT A TENTH (60 steps of tone or more between its dark and its pale, a tenth of it or more its lines)', not flat,
        '; '.join('%s %.0f steps, %.0f%% lines' % (k, v[0], v[1] * 100) for k, v in read.items()))

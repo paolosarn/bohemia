@@ -3,7 +3,7 @@
 // phone (390 x 844 and 844 x 390 at 2), asks for the inside by name (opts.inside, a named layout), and shoots what he meets: the
 // opening view with the ceiling off (UI.noCeiling, the page test's own switch) and as the data file says, then close on named
 // spots, as the page is (ask row 646 is fixed: nothing is mended in memory any more).
-//   node tools/bohemia_a_big_inside_on_the_page_11_17_26.js <outdir> <hall|mall|warehouse|datafort> [upright,sideways] [layout]
+//   node tools/bohemia_a_big_inside_on_the_page_11_17_26.js <outdir> <hall|mall|warehouse|datafort|terminal|stadium> [upright,sideways] [layout]
 // writes <inside>_<shape>_open_a0.png, _open_a01.png, _<spot>_close.png and page_<shape>.json (the
 // board's own count of stand-ins, the pieces with no picture, whether the ceiling's picture drew, a fight tile's size in points).
 const http = require('http'), fs = require('fs'), path = require('path');
@@ -18,8 +18,10 @@ const SPOTS = { the_split_hall: { cots: [2.5, 4], mezz: [3, 1.6], stair_w: [16.5
   the_checkpoint: { checkpoint: [9, 4.4], desks: [2, 4], gate: [11.4, 1.6], luggage: [5.6, 5.6], camp: [14, 3], walkway: [9.4, 12.4], newsstand: [14.6, 4] },
   the_baggage_hall: { carousel: [3, 4], camp: [2, 8], walkway: [6, 1.4] },
   the_white_space: { pod: [3, 4.4], gallery: [5, 1.4], stair: [13, 1.4], crac: [16.6, 2], pod_end: [3, 7], floor_up: [5.4, 6.4], desk: [13, 12.4], batteries: [7.5, 12.4], crates: [10, 5.2] },
-  the_cages: { pod: [3, 4.4], gallery: [5, 1.4] } };
-const INSIDES = { hall: { district: 'convention', layout: 'the_split_hall' }, mall: { district: 'mall', layout: 'the_atrium' }, warehouse: { district: 'warehouse', layout: 'the_lanes' }, datafort: { district: 'datafort', layout: 'the_white_space' }, terminal: { district: 'terminal', layout: 'the_checkpoint' } };
+  the_cages: { pod: [3, 4.4], gallery: [5, 1.4] },
+  the_last_show: { stand: [5, 1.4], stairs: [1.4, 1.6], bench: [2, 2.4], rig: [9.4, 4], tents: [9.5, 6.6], supplies: [2, 4.4], wreck: [2, 7], torn: [4, 5.4], south_stand: [8, 12.6], fire: [17, 7] },
+  the_bowl: { stand: [5, 1.4], tent: [10, 4.4], wreck: [2, 4.4], supplies: [6, 4.4] } };
+const INSIDES = { hall: { district: 'convention', layout: 'the_split_hall' }, mall: { district: 'mall', layout: 'the_atrium' }, warehouse: { district: 'warehouse', layout: 'the_lanes' }, datafort: { district: 'datafort', layout: 'the_white_space' }, terminal: { district: 'terminal', layout: 'the_checkpoint' }, stadium: { district: 'stadium', layout: 'the_last_show' } };
 (async () => {
   const out = process.argv[2], inside = process.argv[3] || 'hall', shapes = (process.argv[4] || 'upright,sideways').split(','), layout = process.argv[5] || INSIDES[inside].layout;
   fs.mkdirSync(out, { recursive: true });
