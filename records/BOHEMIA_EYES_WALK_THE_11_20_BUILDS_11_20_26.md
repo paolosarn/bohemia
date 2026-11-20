@@ -6,13 +6,18 @@ Pures (two fights on AUTO), the Strat tower, five crews met once each by the bes
 are rare on a fresh map) and left by RETREAT, Remnants' board at night. THE ALPHA ON AUTO with EYES' tool at the Sphere, the stadium,
 the home center, the hospital, the cell block, the dam and the power plant: 14 fights, 1x/2x/4x. Pictures: records/eyes_walk_11_20/.
 
-RULES 463 AND 464 (the three batteries killed, no billboards): NOT LIVE when this walk ended (no commit after 7ff2059a7; the battery
-drawing still on the top bar and the job rows at 16:52 UTC, slices/bohemia_billboards.js still on main). EYES checks both on the glass
-the round they land (no battery pictures on any sum, no billboard on any map, the Strat still climbs).
+RULE 464, NO BILLBOARDS (BUILD 11/20y, c2a6bd379), CHECKED ON THE GLASS AT ONCE: a fresh demo, every frame read (the shell, the map,
+the town screen and the empty frames): no billboard module and no billboard script anywhere. THE STRAT DOES NOT CLIMB this time (row
+below). RULE 463, THE THREE BATTERIES: NOT LIVE when this walk ended (the drawing still on the top bar and the job rows); EYES checks
+it on the glass the round it lands.
 
 ## BROKEN, TO HAND OUT
 
-Nothing new found this round.
+- THE STRAT DOES NOT CLIMB WHEN THE TRIP ENDS IN THE TOWN AT ITS FOOT (WORLD 14; rules 461, 464's 'the Strat still climbs'). A fresh
+  demo after 11/20y: the tower at (43, 28); a trip to it (BohemiaStrat.goal true) ended in Network at (44, 30) from the south and at
+  (45, 27) from the east, the town's screen opened, climbs 0, both times. slices/bohemia_the_strat.js climbs only when the trip's end
+  is within 1 block of the tower; the map moves a trip to a building onto the nearest door, here the town's gate 2 blocks off. (At
+  16:57 the same tower climbed once, from a trip whose end was nearer; nothing in 11/20y changed the Strat's own code.)
 
 ## SEEN WORKING (one line each)
 
