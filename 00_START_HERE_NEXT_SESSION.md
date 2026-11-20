@@ -1,4 +1,4 @@
-COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20u - THE SPHERE, BUILT (SHIPSHA), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 451(a), 455; ask row 651).
+COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20u - THE SPHERE, BUILT (ed6b7cd5d), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 451(a), 455; ask row 651).
 THE SPHERE (COMBAT FOUR's BUILD 11/20k, its 'FOR COOK 2)'): all 182 pieces of the_horseshoe were stand-ins. Now slices/fight_ground/sphere/ holds sphere_art.json (THE
 GARAGE'S FORMAT: floor.floor rows 0 to 2 of sphere_floor_0.webp, the bowl's sealed concrete with the last show's spike tape, scuffs and glass in drifts; floor.torn its row 3,
 plates round a hole to the fill where the rigging came down, a margin of whole floor; floor.high its row 4; floor.ring rows 0 to 2; kit: all 20 names, the bedding names the
