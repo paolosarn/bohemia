@@ -113,6 +113,11 @@ T['live_code'] = ['slices/' + f for f in ['BOHEMIA_CITY_WORLD.html', 'BOHEMIA_SE
     'bohemia_stall_prices.js', 'bohemia_wages.js', 'bohemia_job_pay.js', 'bohemia_renown.js', 'bohemia_purse.js', 'bohemia_lotbuild.js', 'bohemia_powerbuild.js',
     'bohemia_scavenge.js', 'bohemia_followers.js', 'bohemia_goodbros.js', 'bohemia_camp.js', 'bohemia_home.js', 'bohemia_arena.js', 'bohemia_barber.js', 'bohemia_roster.js',
     'bohemia_origin_start.js', 'bohemia_origin_ways.js']]
+# ECONOMY THREE 11/20 (rule 461): every <script src> these pages load is swept as live code too (the tool adds them on load, never
+# baked), so a lane's new script is held the day a page loads it, the way every data file in records/target/bb already is
+T['live_pages'] = ['slices/' + f for f in ['BOHEMIA_CITY_WORLD.html', 'BOHEMIA_SETTLEMENT_SCREEN.html', 'BOHEMIA_ROSTER_SCREEN.html', 'BOHEMIA_FIGHT.html', 'BOHEMIA_ALPHA_0_9.html']]
+# a number in live code that reads like money and is not: file, find (a regular expression over the whole field), why
+T['code_not_money'] = []
 
 W = []
 def where(file, paths, what, band=None, unit='aa', owner=None, note=None):

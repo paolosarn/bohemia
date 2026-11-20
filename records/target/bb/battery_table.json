@@ -323,6 +323,30 @@
   "engine/bohemia_origin_start.js",
   "engine/bohemia_origin_ways.js"
  ],
+ "live_pages": [
+  "slices/BOHEMIA_CITY_WORLD.html",
+  "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+  "slices/BOHEMIA_ROSTER_SCREEN.html",
+  "slices/BOHEMIA_FIGHT.html",
+  "slices/BOHEMIA_ALPHA_0_9.html"
+ ],
+ "code_not_money": [
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "opts: \\[ \\{ a:'pay',\\s+t:'(?:GIVE HIM SOMETHING|PAY THE CUT)', pay:\\d+",
+   "why": "the walked road's choices are paid in SALVAGE, not batteries (BohemiaPockets.hand(... 'resources', o.pay)); the road on the map is BOHEMIA_ROAD_EVENTS.json"
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "key\\[r\\] = \\{ reason:r, currency:e\\.currency, amount:0,",
+   "why": "a running total that starts at nothing"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "o = \\{ id: d\\.id, start: 0, crew: 0, pay: 0 \\}",
+   "why": "a modder's origin, empty until the line under it fills it from origins.json"
+  }
+ ],
  "where": [
   {
    "file": "records/target/bb/nightly_bill.json",
@@ -1436,6 +1460,276 @@
    "find": "cost = V\\.cost \\| 0 \\|\\| (\\d+)",
    "what": "the fade's copy of its price until boss_act_one.json lands",
    "row": "records/target/bb/boss_act_one.json#bosses[12].verb.cost"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'rebuild',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:\\d+, crew:\\s*-?\\d+,\\s*pay:(\\d+),",
+   "what": "the door's copy of the origin's bonus on every job until origins.json lands",
+   "row": "records/target/bb/origins.json#origins[id=rebuild].pay"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'newcrew',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:\\d+, crew:\\s*-?\\d+,\\s*pay:(\\d+),",
+   "what": "the door's copy of the origin's bonus on every job until origins.json lands",
+   "row": "records/target/bb/origins.json#origins[id=newcrew].pay"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'south',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:\\d+, crew:\\s*-?\\d+,\\s*pay:(\\d+),",
+   "what": "the door's copy of the origin's bonus on every job until origins.json lands",
+   "row": "records/target/bb/origins.json#origins[id=south].pay"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'truck',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:\\d+, crew:\\s*-?\\d+,\\s*pay:(\\d+),",
+   "what": "the door's copy of the origin's bonus on every job until origins.json lands",
+   "row": "records/target/bb/origins.json#origins[id=truck].pay"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'watch',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:\\d+, crew:\\s*-?\\d+,\\s*pay:(\\d+),",
+   "what": "the door's copy of the origin's bonus on every job until origins.json lands",
+   "row": "records/target/bb/origins.json#origins[id=watch].pay"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'scav',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:\\d+, crew:\\s*-?\\d+,\\s*pay:(\\d+),",
+   "what": "the door's copy of the origin's bonus on every job until origins.json lands",
+   "row": "records/target/bb/origins.json#origins[id=scav].pay"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'promise',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:\\d+, crew:\\s*-?\\d+,\\s*pay:(\\d+),",
+   "what": "the door's copy of the origin's bonus on every job until origins.json lands",
+   "row": "records/target/bb/origins.json#origins[id=promise].pay"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'desert',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:\\d+, crew:\\s*-?\\d+,\\s*pay:(\\d+),",
+   "what": "the door's copy of the origin's bonus on every job until origins.json lands",
+   "row": "records/target/bb/origins.json#origins[id=desert].pay"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'raid',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:\\d+, crew:\\s*-?\\d+,\\s*pay:(\\d+),",
+   "what": "the door's copy of the origin's bonus on every job until origins.json lands",
+   "row": "records/target/bb/origins.json#origins[id=raid].pay"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'lab',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:\\d+, crew:\\s*-?\\d+,\\s*pay:(\\d+),",
+   "what": "the door's copy of the origin's bonus on every job until origins.json lands",
+   "row": "records/target/bb/origins.json#origins[id=lab].pay"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'faith',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:\\d+, crew:\\s*-?\\d+,\\s*pay:(\\d+),",
+   "what": "the door's copy of the origin's bonus on every job until origins.json lands",
+   "row": "records/target/bb/origins.json#origins[id=faith].pay"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'debt',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:\\d+, crew:\\s*-?\\d+,\\s*pay:(\\d+),",
+   "what": "the door's copy of the origin's bonus on every job until origins.json lands",
+   "row": "records/target/bb/origins.json#origins[id=debt].pay"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'hunt',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:\\d+, crew:\\s*-?\\d+,\\s*pay:(\\d+),",
+   "what": "the door's copy of the origin's bonus on every job until origins.json lands",
+   "row": "records/target/bb/origins.json#origins[id=hunt].pay"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'pit',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:\\d+, crew:\\s*-?\\d+,\\s*pay:(\\d+),",
+   "what": "the door's copy of the origin's bonus on every job until origins.json lands",
+   "row": "records/target/bb/origins.json#origins[id=pit].pay"
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "find": "\\{ id:'wolf',\\s+bb:'[^']*',\\s+name:'[^']*',\\s+d:\\d, start:\\d+, crew:\\s*-?\\d+,\\s*pay:(\\d+),",
+   "what": "the door's copy of the origin's bonus on every job until origins.json lands",
+   "row": "records/target/bb/origins.json#origins[id=wolf].pay"
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'farmhand', name: '[^']*', wage: (\\d+),",
+   "what": "the post's copy of the trade's wage a day, in the wiki's crowns (ten to one AA)",
+   "leaf": "records/target/bb/backgrounds.json#rows[id=farmhand].daily_wage"
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'farmhand', name: '[^']*', wage: \\d+, hireMin: (\\d+),",
+   "what": "the post's low end of the Game Guide's observed hire range (crowns; backgrounds.json hiring_cost_game_guide_observed, a sentence there): only WHERE in the hall's range a man stands, and his price before price_table.json lands",
+   "is": 115
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'farmhand', name: '[^']*', wage: \\d+, hireMin: \\d+, hireMax: (\\d+),",
+   "what": "the post's high end of the same observed range (crowns)",
+   "is": 409
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'messenger', name: '[^']*', wage: (\\d+),",
+   "what": "the post's copy of the trade's wage a day, in the wiki's crowns (ten to one AA)",
+   "leaf": "records/target/bb/backgrounds.json#rows[id=messenger].daily_wage"
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'messenger', name: '[^']*', wage: \\d+, hireMin: (\\d+),",
+   "what": "the post's low end of the Game Guide's observed hire range (crowns; backgrounds.json hiring_cost_game_guide_observed, a sentence there): only WHERE in the hall's range a man stands, and his price before price_table.json lands",
+   "is": 117
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'messenger', name: '[^']*', wage: \\d+, hireMin: \\d+, hireMax: (\\d+),",
+   "what": "the post's high end of the same observed range (crowns)",
+   "is": 217
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'butcher', name: '[^']*', wage: (\\d+),",
+   "what": "the post's copy of the trade's wage a day, in the wiki's crowns (ten to one AA)",
+   "leaf": "records/target/bb/backgrounds.json#rows[id=butcher].daily_wage"
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'butcher', name: '[^']*', wage: \\d+, hireMin: (\\d+),",
+   "what": "the post's low end of the Game Guide's observed hire range (crowns; backgrounds.json hiring_cost_game_guide_observed, a sentence there): only WHERE in the hall's range a man stands, and his price before price_table.json lands",
+   "is": 187
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'butcher', name: '[^']*', wage: \\d+, hireMin: \\d+, hireMax: (\\d+),",
+   "what": "the post's high end of the same observed range (crowns)",
+   "is": 287
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'brawler', name: '[^']*', wage: (\\d+),",
+   "what": "the post's copy of the trade's wage a day, in the wiki's crowns (ten to one AA)",
+   "leaf": "records/target/bb/backgrounds.json#rows[id=brawler].daily_wage"
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'brawler', name: '[^']*', wage: \\d+, hireMin: (\\d+),",
+   "what": "the post's low end of the Game Guide's observed hire range (crowns; backgrounds.json hiring_cost_game_guide_observed, a sentence there): only WHERE in the hall's range a man stands, and his price before price_table.json lands",
+   "is": 120
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'brawler', name: '[^']*', wage: \\d+, hireMin: \\d+, hireMax: (\\d+),",
+   "what": "the post's high end of the same observed range (crowns)",
+   "is": 170
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'thief', name: '[^']*', wage: (\\d+),",
+   "what": "the post's copy of the trade's wage a day, in the wiki's crowns (ten to one AA)",
+   "leaf": "records/target/bb/backgrounds.json#rows[id=thief].daily_wage"
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'thief', name: '[^']*', wage: \\d+, hireMin: (\\d+),",
+   "what": "the post's low end of the Game Guide's observed hire range (crowns; backgrounds.json hiring_cost_game_guide_observed, a sentence there): only WHERE in the hall's range a man stands, and his price before price_table.json lands",
+   "is": 195
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'thief', name: '[^']*', wage: \\d+, hireMin: \\d+, hireMax: (\\d+),",
+   "what": "the post's high end of the same observed range (crowns)",
+   "is": 452
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'militia', name: '[^']*', wage: (\\d+),",
+   "what": "the post's copy of the trade's wage a day, in the wiki's crowns (ten to one AA)",
+   "leaf": "records/target/bb/backgrounds.json#rows[id=militia].daily_wage"
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'militia', name: '[^']*', wage: \\d+, hireMin: (\\d+),",
+   "what": "the post's low end of the Game Guide's observed hire range (crowns; backgrounds.json hiring_cost_game_guide_observed, a sentence there): only WHERE in the hall's range a man stands, and his price before price_table.json lands",
+   "is": 254
+  },
+  {
+   "file": "engine/bohemia_goodbros.js",
+   "find": "\\{ id: 'militia', name: '[^']*', wage: \\d+, hireMin: \\d+, hireMax: (\\d+),",
+   "what": "the post's high end of the same observed range (crowns)",
+   "is": 2248
+  },
+  {
+   "file": "engine/bohemia_roster.js",
+   "find": "stats: D\\.backgrounds\\.base_stats\\.stats, daily_wage: (\\d+) \\}",
+   "what": "the roster's wage for a trade the file does not know: ten crowns a day, the commonest wage in backgrounds.json (one AA a night)",
+   "is": 10
+  },
+  {
+   "file": "slices/bohemia_road_events.js",
+   "find": "cls: 'dagger', name: String\\(id\\), price: (\\d+),",
+   "what": "a weapon off the road whose row is gone: the same 30-crown fallback as above, at ten to one",
+   "is": 3
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "title: 'Get your men back from ' \\+ by, pay: (\\d+),",
+   "what": "a rescue pays nothing: the job is getting your own men back",
+   "is": 0
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "find": "var REWARD = \\{ currency: 'electricity', amount: (\\d+), tuned: false \\}",
+   "what": "an ambition kept pays two AA (the walked city's company goals; its bark needs a man walking with you, which died with the walk 9/28)",
+   "is": 2
+  },
+  {
+   "file": "engine/bohemia_ambitions.js",
+   "find": "var REWARD = \\{ currency: 'electricity', amount: (\\d+), tuned: false \\}",
+   "what": "an ambition kept pays two AA (the walked city's company goals; its bark needs a man walking with you, which died with the walk 9/28)",
+   "is": 2
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "W = \\(INTO && INTO\\.worth && INTO\\.worth\\.value\\) \\|\\| \\{ battery: (\\d+), per_tape: \\d+ \\}",
+   "what": "the town's copy of what a build is worth when a job pays it into his place, until job_into_place.json lands",
+   "row": "records/target/bb/job_into_place.json#worth.value.battery"
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "W = \\(INTO && INTO\\.worth && INTO\\.worth\\.value\\) \\|\\| \\{ battery: \\d+, per_tape: (\\d+) \\}",
+   "what": "the same: an AA a roll of tape",
+   "row": "records/target/bb/job_into_place.json#worth.value.per_tape"
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "var crowns = 20 \\* (\\d+) \\* traitMult",
+   "what": "the clinic: the wiki's treatment price multiplier",
+   "leaf": "records/target/bb/injuries.json#rules.temporary_healing.treatment_price_multiplier"
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "var crowns = 20 \\* 1 \\* traitMult\\(\\)\\.buy \\* w\\.days \\* \\(1 \\+ \\(w\\.level - 1\\) \\* ([\\d.]+)\\)",
+   "what": "the clinic: a fifth more a level, the wiki's",
+   "leaf": "records/target/bb/injuries.json#rules.temporary_healing.per_level_price_factor"
+  },
+  {
+   "file": "slices/BOHEMIA_ROSTER_SCREEN.html",
+   "find": "\\(1 \\+ \\(m\\.level - 1\\) \\* ([\\d.]+)\\) / \\d+\\)",
+   "what": "the crew screen's clinic: a fifth more a level",
+   "leaf": "records/target/bb/injuries.json#rules.temporary_healing.per_level_price_factor"
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "baseCrowns:\\+spec\\.base_crowns \\|\\| (\\d+),",
+   "what": "a rare man with no base in rare_recruits.json is priced from the top of the wiki's base range",
+   "leaf": "records/target/bb/price_table.json#wageAndHire.hiringBaseRange.maxApprox"
+  },
+  {
+   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "find": "var mult = \\(HIREPT && HIREPT\\.equipmentCostMultiplier\\) \\|\\| ([\\d.]+);",
+   "what": "the hall's kit multiplier before price_table.json lands",
+   "leaf": "records/target/bb/price_table.json#wageAndHire.equipmentCostMultiplier"
   }
  ],
  "prose": [
@@ -2480,7 +2774,7 @@
  "count": {
   "rows": 669,
   "files": 18,
-  "copies": 122,
+  "copies": 167,
   "prose": 17
  }
 }

@@ -76,7 +76,11 @@ function data() {
     plant('a sentence still saying the old number', P => { P.rows[BOSS]['bosses[5].verb.pay_batteries'] = 14; }, /THE NUMBER IN A SENTENCE IS NOT THE TABLE'S: records\/target\/bb\/boss_act_one\.json/),
     plant('an everyday thing at 40', P => { P.rows['records/target/bb/stall_prices.json']['goods.meds.buy.value'] = 40; }, /OUT OF ITS BAND: records\/target\/bb\/stall_prices\.json goods\.meds/),
     plant('a ladder kind with no picture', P => { P.ladder.value[1].small = 'battery_ladder/small/nothing_here.png'; }, /THE LADDER: phone_battery has no picture/),
-    plant('a job that pays over ten car batteries', P => { P.bands.one_job.max = 2000; }, /THE BIGGEST JOB pays/)
+    plant('a job that pays over ten car batteries', P => { P.bands.one_job.max = 2000; }, /THE BIGGEST JOB pays/),
+    /* ECONOMY THREE 11/20: a price typed as a FIELD is held too, and a script a page loads is swept though no list names it */
+    plant('the door\'s job bonus typed as a field, its copy taken out', P => { P.copies = P.copies.filter(c => !/pay:\(\\d\+\),/.test(c.find)); }, /TYPED IN CODE, NOT FROM THE TABLE: slices\/BOHEMIA_ALPHA_0_9\.html:\d+ a money field/),
+    plant('the post\'s wages, in a script only the town page loads, its name and copies taken out', P => { const g = 'engine/bohemia_goodbros.js';
+      P.live_code = P.live_code.filter(f => f !== g); P.copies = P.copies.filter(c => c.file !== g); TT.pageScripts(P).forEach(f => { if (P.live_code.indexOf(f) < 0) P.live_code.push(f); }); }, /TYPED IN CODE, NOT FROM THE TABLE: engine\/bohemia_goodbros\.js:\d+ a money field/)
   ];
   TT.reset();
   ok('T3 PLANTED: ' + P3.map(p => p[0]).join('; ') + ': every one red by its own words', P3.every(p => p[1]), P3.filter(p => !p[1]).map(p => p[0] + ' (' + p[2] + ' faults, none its own)').join('; '));

@@ -77,9 +77,20 @@ function load() {
   const T = JSON.parse(fs.readFileSync(TABLE, 'utf8'));
   /* EVERY data file in records/target/bb is swept, named in the table or not: a lane's new file is held the day it lands */
   try { fs.readdirSync(path.join(ROOT, 'records/target/bb')).filter(f => /\.json$/.test(f) && f !== 'battery_table.json').forEach(f => { const r = 'records/target/bb/' + f; if ((T.live_data || []).indexOf(r) < 0) (T.live_data = T.live_data || []).push(r); }); } catch (e) {}
+  /* ECONOMY THREE 11/20 (rule 461 'dont forget nothing'): EVERY script the live pages load is swept too, named in the table or
+     not, the same way: a lane's new script is held the day a page loads it (measured: the pages load 101 scripts, the list
+     named 41; 'a script' is a <script src> in one of live_pages, resolved from slices/) */
+  pageScripts(T).forEach(r => { if ((T.live_code = T.live_code || []).indexOf(r) < 0) T.live_code.push(r); });
   return T;
 }
-function save(T) { const W = JSON.parse(JSON.stringify(T)); try { const hand = JSON.parse(fs.readFileSync(TABLE, 'utf8')).live_data; if (hand) W.live_data = hand; } catch (e) {} fs.writeFileSync(TABLE, JSON.stringify(W, null, 1) + '\n'); }   /* the swept folder is read fresh each time, never baked */
+function pageScripts(T) {   /* every local <script src> the live pages load, as a path from the repo's root */
+  const out = [];
+  try { (T.live_pages || []).forEach(pg => { if (!has(pg)) return; const t = rd(pg), re = /<script[^>]*\bsrc=["']([^"'?#]+\.js)["']/gi; let m;
+    while ((m = re.exec(t))) { if (/^(https?:)?\/\//.test(m[1])) continue; const r = path.relative(ROOT, path.resolve(path.join(ROOT, path.dirname(pg)), m[1])).split(path.sep).join('/');
+      if (has(r) && out.indexOf(r) < 0) out.push(r); } }); } catch (e) {}
+  return out;
+}
+function save(T) { const W = JSON.parse(JSON.stringify(T)); try { const H = JSON.parse(fs.readFileSync(TABLE, 'utf8')); if (H.live_data) W.live_data = H.live_data; if (H.live_code) W.live_code = H.live_code; } catch (e) {} fs.writeFileSync(TABLE, JSON.stringify(W, null, 1) + '\n'); }   /* the swept folder and the pages' scripts are read fresh each time, never baked */
 const FILES = {};
 function file(f) { if (!FILES[f]) { const text = rd(f); FILES[f] = { text, leaves: /\.json$/.test(f) ? leaves(text) : null, edits: [] }; } return FILES[f]; }
 function placed(T) {   /* every leaf a place names: [{ place, file, leaf }] */
@@ -95,7 +106,7 @@ function want(T, c) {   /* the number a copy must say */
   if (c.row) { let v = rowOf(T, c.row); if (v === undefined) return undefined; if (c.times != null) v = v * c.times; return v; }
   if (c.ladder) { const k = (T.ladder.value || []).filter(x => x.id === c.ladder)[0]; return k ? k.worth : undefined; }
   if (c.rule) { let n = T; c.rule.split('.').forEach(k => { n = n == null ? n : n[k]; }); return n; }
-  if (c.leaf) { const k = c.leaf.indexOf('#'), f = c.leaf.slice(0, k), p = c.leaf.slice(k + 1); if (!has(f)) return undefined; const l = file(f).leaves.filter(x => x.key === p)[0]; return l && typeof l.v === 'number' ? l.v : undefined; }   /* a worth in a catalog (crowns): the code's copy is that file's number */
+  if (c.leaf) { const k = c.leaf.indexOf('#'), f = c.leaf.slice(0, k), p = c.leaf.slice(k + 1); if (!has(f)) return undefined; const l = file(f).leaves.filter(x => x.key === p)[0]; return l && typeof l.v === 'number' ? (c.times != null ? Math.round(l.v * c.times * 1e6) / 1e6 : l.v) : undefined; }   /* a worth in a catalog (crowns): the code's copy is that file's number (times: a copy already turned by the rule) */
   return c.is;
 }
 
@@ -128,13 +139,24 @@ function copyHits(T) {   /* every typed copy: where it matched and what it says 
 const TYPED = [   /* the ways a number of batteries is typed into code */
   { re: /(?<![\/\d.:,] ?)(\d{1,3}(?:,\d{3})+|\d+) ?batter(?:y|ies)\b/gi, what: "a string that says 'N batteries'" },
   { re: /'electricity',\s*(\d+)\b/g, what: 'a purse line with a typed number' },
-  { re: /\bbats\s*:\s*[-+]?(\d+)\b/g, what: 'a bats field with a typed number' }
+  { re: /\bbats\s*:\s*[-+]?(\d+)\b/g, what: 'a bats field with a typed number' },
+  /* ECONOMY THREE 11/20: a price or a pay typed as a field ('pay:1', 'price: 3', 'wage: 10', 'amount: 2'), not only in words:
+     measured, the door's fifteen job bonuses, the post's six wages and twelve hire prices, the ambition's reward and the road's
+     dagger were all typed this way and no row held them */
+  { re: /(?<![\w.$])(?:pay|price|wage|daily_wage|amount|purse|reward|hireMin|hireMax|base_crowns)\s*:\s*(\d+(?:\.\d+)?)(?![\d.\w])/g, what: 'a money field with a typed number' }
 ];
+function notMoney(T) {   /* spans of live code a lane named as a number that is not money (T.code_not_money: file, find, why) */
+  const out = {};
+  (T.code_not_money || []).forEach(x => { if (!has(x.file)) return; const text = file(x.file).text, re = new RegExp(x.find, 'g'); let m;
+    while ((m = re.exec(text))) { if (m[0] === '') { re.lastIndex++; continue; } (out[x.file] = out[x.file] || []).push([m.index, m.index + m[0].length]); } });
+  return out;
+}
 function typedInCode(T) {
-  const out = [];
+  const out = [], skip = notMoney(T);
   (T.live_code || []).forEach(f => { if (!has(f)) return; const text = file(f).text;
     TYPED.forEach(t => { t.re.lastIndex = 0; let m;
       while ((m = t.re.exec(text))) { if (inComment(text, m.index)) continue;
+        if ((skip[f] || []).some(s => m.index >= s[0] && m.index + m[0].length <= s[1])) continue;
         out.push({ file: f, at: m.index, end: m.index + m[0].length, says: m[1], what: t.what, near: text.slice(Math.max(0, m.index - 50), m.index + m[0].length + 30).replace(/\s+/g, ' ') }); } }); });
   return out;
 }
@@ -310,7 +332,7 @@ function list(T) {
   return o.join('\n');
 }
 
-module.exports = { load, save, check, seed, stamp, sums, split, words, list, placed, copyHits, typedInCode, sweep, proseHits, leaves, TABLE, ROOT, reset: () => { Object.keys(FILES).forEach(k => delete FILES[k]); } };
+module.exports = { load, pageScripts, save, check, seed, stamp, sums, split, words, list, placed, copyHits, typedInCode, sweep, proseHits, leaves, TABLE, ROOT, reset: () => { Object.keys(FILES).forEach(k => delete FILES[k]); } };
 if (require.main === module) {
   const cmd = process.argv[2] || 'check', T = load();
   if (cmd === 'seed') { const m = seed(T); save(T); console.log(m.join('\n') || 'nothing moved'); console.log('THE TABLE: ' + T.count.rows + ' numbers in ' + T.count.files + ' files, ' + T.count.copies + ' typed copies, ' + T.count.prose + ' sentences'); }

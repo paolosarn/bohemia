@@ -1,6 +1,41 @@
 # ECONOMY TWO -- the handoff block (rule 215; written only by ECONOMY TWO, newest first). The heir of ECONOMY for rule 459.
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes). On VAMILY: pull main, re-read CLAUDE.md and
 # the VAMILY front page (rules 459, 441, 454(a)), then continue from the newest block below.
+# ECONOMY THREE (rule 462, 11/20) carries this file on: same job, same table; its blocks are named ECONOMY THREE.
+
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/20 LATEST -- EVERY PRICE IS THE TABLE'S (rule 461 'dont forget nothing',
+rule 459(b), ask row 645). Record: records/BOHEMIA_ECONOMY_THREE_EVERY_PRICE_IS_THE_TABLES_11_20_26.md. No pushed branch of
+ECONOMY TWO's existed (main only); 11/18t was SEEN by EYES 11/20 (row 645).
+- THE SWEEP, from what the demo really loads (a driven phone: 331 files, 101 scripts) and every credit and debit of the purse (32,
+  each traced to its file). THE TABLE'S OWN SWEEP HAD TWO HOLES, both shut: it read 41 named scripts (the pages load 101; it now
+  reads every <script src> of the five live pages, fresh each run: 114), and in code it saw only WORDS ('N batteries'); a price
+  typed as a FIELD ('pay:1', 'wage: 10', 'amount: 2') is now seen too.
+- BROUGHT IN, 45 typed copies (167 in all): the door's 15 job bonuses (origins.json pay), the hire post's 6 wages (backgrounds.json)
+  and 12 hire-range ends, the clinic's multiplier and a fifth a level (injuries.json, town and crew screen), the hall's two
+  fallbacks (price_table.json), a build's worth paid into his place (job_into_place.json), the road's lost dagger (3), the roster's
+  unknown trade (10 crowns), the rescue that pays 0, the dead walk's ambition reward (2). NOTHING WAS WRONG: every one already said
+  its home's number, so NO NUMBER MOVED and nothing he plays changed; each now moves with `stamp` and goes red if it drifts
+  (proved: one row moved data and copy together, put back). NOT MONEY (the table's code_not_money): the walked road's choices are
+  SALVAGE; a running total; a modder's empty origin. FOR ARMORY: the live wire's 'a cell a lash' is never charged (nothing counts
+  a burned cell); yours if the whip should cost.
+- GATE: two more plants (ten in T3), each red by its own words: the door's bonus with its copies out; the post's script off every
+  list (the page sweep still finds it). The table 7/0.
+- WHAT A JOB PAYS IN THINGS HE CAN HOLD (an AA = a bag of rice; a PHONE CHARGE 6; a TOOL PACK 20; a CAR BATTERY 250; day one =
+  FULL SHELVES x1.5; the top = CLOUT x4.5 in a family town x1.15):
+    ERRANDS (carry, find, scout, a message): day one about 32, five phone charges; at the top about 163, eight tool packs.
+    GET IT BACK, GUARD THE ROAD (bring it back, ride with a truck, collect): day one about 60, three tool packs; at the top about
+      310, a car battery and three tool packs (the big caravan to 1,933, about 8 car batteries).
+    A FIGHT (run a crew off, burn, free, ambush, bounty, patrol, clear a camp): day one about 110, five tool packs; at the top
+      about 567, two car batteries and change (to 931).
+    THE BIG ONES (hunt a beast, root out, hold a place, night watch, siege): day one about 176, nine tool packs; at the top about
+      908, three and a half car batteries (to 1,948).
+    THE MOST ONE JOB EVER PAYS: 2,236 = 8 car batteries, 11 tool packs, 16 AA, a cart's load (a car battery is commonly 18 kg).
+    KEPT, NOT CUT (the research does not say cut; twelve veterans eat about five tool packs a night). He can say cut it.
+    A crew eats: three men on day one one phone charge a night; a man's night 2 fed, 3 to 11 fed and paid.
+- NEXT (this lane's own NOT DONE from 11/18): the crew screen's and the fight's sums walked by the gate (they load the drawing,
+  no walk proves them); then a sound for a big battery set down is SOUNDS' to make (asked, not built here).
+[bb Battle Brothers prices a contract in crowns that run to thousands and nobody asks what a crown weighs; ours weighs 18 kg a car battery]
+[analog horror: the board's clerk reading the pay off a card and then looking at the size of your truck]
 
 ECONOMY TWO (session_01GKDyusZ6qyN3PkoeqVY5Ny): 11/18 LATEST -- BUILD 11/18t - THE BATTERY IS REAL, BUILT (647591ebe), NOT YET SEEN; VOTE card economy-two-the-battery-is-real-11-18 (STAND-IN) (rule 459(b)(d), ask line 645;
 rules 441, 454(a)). Record: records/BOHEMIA_ECONOMY_TWO_EVERY_NUMBER_OF_BATTERIES_11_18_26.md.

@@ -86,6 +86,34 @@ copy(E + 'bohemia_home.js', r"\(Y\.per_level \|\| (\d+)\)", 'the home engine\'s 
 # ---- the bosses' fallbacks
 copy('slices/bohemia_bosses.js', r"cost = V\.cost \| 0 \|\| (\d+)", 'the fade\'s copy of its price until boss_act_one.json lands', row=BB + 'boss_act_one.json#bosses[id=the_barber].verb.cost')
 
+# ---- ECONOMY THREE 11/20 (rule 461 'dont forget nothing'; rule 459(b)): the money typed as a FIELD ('pay:1', 'wage: 10'), which
+# the words-only sweep never saw. Each one measured against its home before it was held.
+for o in _org:   # the door's copy of each origin's bonus on every job, until origins.json lands (four origins: one AA)
+    copy(AL, r"\{ id:'" + o['id'] + r"',\s+bb:'[^']*',\s+name:'[^']*',\s+d:\d, start:\d+, crew:\s*-?\d+,\s*pay:(\d+),", 'the door\'s copy of the origin\'s bonus on every job until origins.json lands', row=OR + '#origins[id=' + o['id'] + '].pay')
+BG = BB + 'backgrounds.json'
+_post = (('farmhand', 115, 409), ('messenger', 117, 217), ('butcher', 187, 287), ('brawler', 120, 170), ('thief', 195, 452), ('militia', 254, 2248))
+for bid, lo, hi in _post:   # the six at the post: the wiki's wage a day (crowns) and the Game Guide's observed hire range (crowns)
+    copy(E + 'bohemia_goodbros.js', r"\{ id: '" + bid + r"', name: '[^']*', wage: (\d+),", 'the post\'s copy of the trade\'s wage a day, in the wiki\'s crowns (ten to one AA)', leaf=BG + '#rows[id=' + bid + '].daily_wage')
+    copy(E + 'bohemia_goodbros.js', r"\{ id: '" + bid + r"', name: '[^']*', wage: \d+, hireMin: (\d+),", 'the post\'s low end of the Game Guide\'s observed hire range (crowns; backgrounds.json hiring_cost_game_guide_observed, a sentence there): only WHERE in the hall\'s range a man stands, and his price before price_table.json lands', is_=lo)
+    copy(E + 'bohemia_goodbros.js', r"\{ id: '" + bid + r"', name: '[^']*', wage: \d+, hireMin: \d+, hireMax: (\d+),", 'the post\'s high end of the same observed range (crowns)', is_=hi)
+copy(E + 'bohemia_roster.js', r"stats: D\.backgrounds\.base_stats\.stats, daily_wage: (\d+) \}", 'the roster\'s wage for a trade the file does not know: ten crowns a day, the commonest wage in backgrounds.json (one AA a night)', is_=10)
+copy('slices/bohemia_road_events.js', r"cls: 'dagger', name: String\(id\), price: (\d+),", 'a weapon off the road whose row is gone: the same 30-crown fallback as above, at ten to one', is_=3)
+copy(CW, r"title: 'Get your men back from ' \+ by, pay: (\d+),", 'a rescue pays nothing: the job is getting your own men back', is_=0)
+for f in (CW, E + 'bohemia_ambitions.js'):
+    copy(f, r"var REWARD = \{ currency: 'electricity', amount: (\d+), tuned: false \}", 'an ambition kept pays two AA (the walked city\'s company goals; its bark needs a man walking with you, which died with the walk 9/28)', is_=2)
+copy(H, r"W = \(INTO && INTO\.worth && INTO\.worth\.value\) \|\| \{ battery: (\d+), per_tape: \d+ \}", 'the town\'s copy of what a build is worth when a job pays it into his place, until job_into_place.json lands', row=BB + 'job_into_place.json#worth.value.battery')
+copy(H, r"W = \(INTO && INTO\.worth && INTO\.worth\.value\) \|\| \{ battery: \d+, per_tape: (\d+) \}", 'the same: an AA a roll of tape', row=BB + 'job_into_place.json#worth.value.per_tape')
+copy(H, r"var crowns = 20 \* (\d+) \* traitMult", 'the clinic: the wiki\'s treatment price multiplier', leaf=INJ + '#rules.temporary_healing.treatment_price_multiplier')
+copy(H, r"var crowns = 20 \* 1 \* traitMult\(\)\.buy \* w\.days \* \(1 \+ \(w\.level - 1\) \* ([\d.]+)\)", 'the clinic: a fifth more a level, the wiki\'s', leaf=INJ + '#rules.temporary_healing.per_level_price_factor')
+copy(RS, r"\(1 \+ \(m\.level - 1\) \* ([\d.]+)\) / \d+\)", 'the crew screen\'s clinic: a fifth more a level', leaf=INJ + '#rules.temporary_healing.per_level_price_factor')
+copy(H, r"baseCrowns:\+spec\.base_crowns \|\| (\d+),", 'a rare man with no base in rare_recruits.json is priced from the top of the wiki\'s base range', leaf=BB + 'price_table.json#wageAndHire.hiringBaseRange.maxApprox')
+copy(H, r"var mult = \(HIREPT && HIREPT\.equipmentCostMultiplier\) \|\| ([\d.]+);", 'the hall\'s kit multiplier before price_table.json lands', leaf=BB + 'price_table.json#wageAndHire.equipmentCostMultiplier')
+T['code_not_money'] = [
+    {'file': CW, 'find': r"opts: \[ \{ a:'pay',\s+t:'(?:GIVE HIM SOMETHING|PAY THE CUT)', pay:\d+", 'why': 'the walked road\'s choices are paid in SALVAGE, not batteries (BohemiaPockets.hand(... \'resources\', o.pay)); the road on the map is BOHEMIA_ROAD_EVENTS.json'},
+    {'file': CW, 'find': r"key\[r\] = \{ reason:r, currency:e\.currency, amount:0,", 'why': 'a running total that starts at nothing'},
+    {'file': AL, 'find': r"o = \{ id: d\.id, start: 0, crew: 0, pay: 0 \}", 'why': 'a modder\'s origin, empty until the line under it fills it from origins.json'},
+]
+
 # ---- THE NUMBER INSIDE A SENTENCE (a data file's own words). nums: every run of digits in the sentence, in order: a row
 # (the sentence must say that row's number; `stamp` moves the digits, never a word, rule 454(a)) or a plain number that is
 # not batteries. A boss is named by its place in the ladder (the file gives a boss no id).
