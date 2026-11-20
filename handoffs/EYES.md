@@ -1,14 +1,17 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
-EYES, 11/20 (rule 461 THE WHOLE ENCHILADA; the routine 'EYES: the whole enchilada') -- IN FLIGHT: the 11/18 builds walked, 104 rows marked.
-Record (running, batch by batch): records/BOHEMIA_EYES_THE_WHOLE_ENCHILADA_11_20_26.md. Pictures: records/eyes_enchilada_11_20/.
-WALKED: 11/18q (650 the cap holds on the glass, 648 no seam), 11/18r (649, 581), 11/18t (645 sums drawn as batteries); 11/18v THE SMITH
-not reachable on a fresh game (18th on the ladder). FOUND: 653 the smith's line cut (FIXES 2), 654 DESI's hint over the settings card
-(FIXES 2), 655 the perk page overlaps and scrolls upright (UI FOUR).
-HOW: scratch helpers apply a verdict file onto the newest main's ask list (never a hand merge; the list moves under every lane). The
-AUTO tool now reads the board (houses, storeys, where men end turns), the glass cap, the falls' timing, the page's flash log.
-NEXT: the rows still owed (about 140: run the filter in the record's head), newest first; 588, 536, 584, 553 need their moment.
+EYES, 11/20 (rule 461 THE WHOLE ENCHILADA; the routine 'EYES: the whole enchilada') -- DONE THIS ROUND: every owed row has its word.
+Record: records/BOHEMIA_EYES_THE_WHOLE_ENCHILADA_11_20_26.md (batches 1 to 8 and the count). Pictures: records/eyes_enchilada_11_20/ (12).
+WALKED: 11/18q (650, 648), 11/18r (649, 581), 11/18t (645), 11/20a WHERE YOU BUILD (the chalked lots, a tap is BUILD with the lot
+picked); 11/18v THE SMITH not reachable on a fresh game. 231 rows owed at the start, all marked (about 120 SEEN, 45 in part).
+FOUND: 653 the smith's line cut (FIXES 2), 654 DESI's hint over the settings card (FIXES 2), 655 the perk page overlaps and scrolls
+upright (UI FOUR).
+HOW: the scratch helpers apply a verdict file onto the newest main's ask list (the list moves under every lane; never a hand merge).
+The AUTO tool now reads the board (storeys, where men end turns, the bell), the glass cap, the falls' timing and the page's flash log;
+on the alpha it waits 12 s for NEW GAME (there is none) instead of 90.
+NEXT: the NOT REACHED list at the record's foot (night fights, a level-up, the arena, a beast won, the vultures, the Decoy, selling),
+and every build that lands.
 
 EYES, 11/18 (rule 441; the routine 'EYES walk 11/17', one tight walk) -- BUILDS 11/17b TO 11/17zr, ROWS 648 TO 650.
 Record: records/BOHEMIA_EYES_WALK_THE_11_17_BUILDS_11_18_26.md. Pictures: records/eyes_walk_11_18/ (10 webp).

@@ -293,3 +293,19 @@ NOT REACHED THIS BATCH, SAID: 588 (no orange hatch showed in six turns by hand),
 - 103 NOT MEASURED THIS ROUND: the origins' starts not compared
 - 102 NOT MEASURED THIS ROUND: fifty days not played
 - 39 NOT MEASURED THIS ROUND: sight down the streets not judged
+
+## A NEW BUILD DURING THE SWEEP: HOME BASE 11/20a WHERE YOU BUILD (212695d2c)
+
+The demo upright, a fresh game, his place planted by the game's own call (homePlantAt, a shortcut) and walked into: with nothing open
+his three empty lots are chalked faint on the ground under the hammer's plate on CAM 1 (e11); a tap on one cut to CAM 2 THE LOTS with
+the lots numbered 1 to 4, lot 1 picked, and BUILD's sheet under it ('YOUR PLACE. One battery and a day for any of these. What goes
+up?', eleven builds, YOUR PLACE CAN TRADE MEND HEAL TRAIN CRAFT WATCH) (e12). SEEN. The night's infrared: NOT REACHED (no night at his
+place this round).
+
+## THE COUNT AT THE END OF THE SWEEP
+
+Every one of the 231 rows owed at the start now carries an EYES 11/20 word: about 120 SEEN (with their evidence), about 45 SEEN IN
+PART or BY EYE, 2 FOUND (444 and 481, to row 655), and the rest NOT REACHED, NOT MEASURED THIS ROUND, NOT MEASURABLE HERE, NOT A THING
+TO SEE or NOT EYES'S CALL, each with its reason. NEW ROWS FOUND: 653 (the smith's line cut, FIXES 2), 654 (DESI's hint over the settings
+card, FIXES 2), 655 (the perk page overlaps and scrolls upright, UI FOUR). The NOT REACHED rows are the next walk's list: 588, 585, 584,
+553, 536, 517, 516, 497, 496, 477, 438, 427, 418, 403, 402, 400, 391, 354, 312, 196, 173, 139, and 11/18v THE SMITH's anvils.
