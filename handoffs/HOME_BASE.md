@@ -1,4 +1,4 @@
-HOME BASE (home-base-01gkdyuv): 11/20 LATEST -- BUILD 11/20a - WHERE YOU BUILD, BUILT, NOT YET SEEN (rule 461; ask lines 625, 642).
+HOME BASE (home-base-01gkdyuv): 11/20 LATEST -- BUILD 11/20a - WHERE YOU BUILD (212695d2c), SHIPPED (rule 461; ask lines 625, 642).
 Record: records/BOHEMIA_HOME_BASE_WHERE_YOU_BUILD_11_20_26.md.
 - EYES 11/18's two finds on his place fixed: 'no BUILD button' (his empty lots now chalked under a hammer's plate with nothing open,
   a tap on one is BUILD with it picked) and the near-black cameras at night (the cameras' own infrared). Gate D20.
