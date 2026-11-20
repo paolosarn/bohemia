@@ -2429,6 +2429,11 @@ GATES = [
      'below Neutral a town charges more and pays less (the Game Guide), and its bar changes what it offers (no three-skull work below '
      'Neutral, one job at Hostile, one more from Friendly); a settled job kept until the town\'s bands load; on the phone, the demo and '
      'the alpha both ways (records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md).', True),
+    ('A NAME FADES', ['node', 'gates/a_name_fades_gate.js'],
+     'JOBS 11/20, rules 461, 441: Battle Brothers\' Daily Renown Decay -3: every day the map\'s clock passes takes 3 CLOUT, never under '
+     '0 (job_clout.json fade), and the big work waits again; the board works out its own line; and a new game forgets the towns\' bars, '
+     'the pushed-away clients, the settled queue and the fade\'s day (a new company is a stranger); on the phone, the demo and the alpha, '
+     'both ways (records/BOHEMIA_JOBS_A_NAME_FADES_11_20_26.md).', True),
     ('A HUNT FITS THE CREW', ['node', 'gates/the_hunt_fits_the_crew_gate.js'],
      'JOBS 11/20, row 574, rules 461, 441: a hunt never deals a beast one of which beats the company (Battle Brothers never sends a new '
      'company at an Unhold): the ancient bison waits for six men (BOHEMIA_JOB_KINDS.json beast_looks.bison.min_men; measured, one bison '

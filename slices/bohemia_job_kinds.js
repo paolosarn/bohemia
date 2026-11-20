@@ -1606,8 +1606,23 @@
       var t = townNear(x, y, 1); return !!(t && t.name === j.dest.name); }
     return false;
   }
+  /* __A_NAME_FADES__ (JOBS 11/20, rule 461): Battle Brothers' 'Daily Renown Decay -3' (bb_all/1679): every day the map's clock has
+     passed since he last moved takes job_clout.json fade CLOUT (through RUN TWO's BohemiaRenown.add, never under 0). The day he last
+     moved is kept by campaign (bohemia.clout.fade.v1); a new game or a clock behind it starts the count again */
+  var FADEKEY = 'bohemia.clout.fade.v1';
+  function fadeName() {
+    var RN = root.BohemiaRenown, SH = root.BohemiaBoardShelf && root.BohemiaBoardShelf.shelf ? root.BohemiaBoardShelf.shelf() : null, per = SH && SH.clout_fade;
+    if (!RN || !RN.add || !(per > 0)) return 0;
+    var d = day(), camp = String(root.WORLD_SEED || ''), m = null; if (!(d >= 0)) return 0;
+    try { m = JSON.parse(root.localStorage.getItem(FADEKEY) || 'null'); } catch (e) { m = null; }
+    var put = function () { try { root.localStorage.setItem(FADEKEY, JSON.stringify({ day: d, camp: camp })); } catch (e) {} };
+    if (!m || typeof m.day !== 'number' || m.camp !== camp || d < m.day) { put(); return 0; }
+    if (d === m.day) return 0;
+    var n = (d - m.day) * per; put(); RN.add(-n, 'the name fades', null); root.__NAME_FADED = (root.__NAME_FADED | 0) + n; return n;
+  }
   function step() {
     STEPS++;
+    try { fadeName(); } catch (e) {}   /* __A_NAME_FADES__ */
     var H = held();
     for (var i = 0; i < H.length; i++) { var f = STEP[H[i].plays], k = K(H[i].plays) || {}; if (f && f(H[i], k) === true) return true; }
     var P = held().slice();

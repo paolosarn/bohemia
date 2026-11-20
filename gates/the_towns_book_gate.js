@@ -125,8 +125,8 @@ function boards(src, band) {
   const e1 = [N.fortress && N.fortress['3'] === 1050 && N.fortress['2'] === 250 && N.town && N.town['3'] === 250 && N.camp && N.camp['3'] === 250,
     /require completing an ambition to reach Professional Renown \(1050\) to unlock/.test(JC.needs.quote || '') && /bb_all\/0724/.test(JC.needs.source || '') && /more difficult Contracts people will entrust you/.test(JC.needs.quote2 || ''),
     rowOf('job_clout.needs') === '250 / 1050',
-    /function needOf\(o, tier\)/.test(SH) && /if \(CL != null\) ordinary = ordinary\.filter\(function \(o\) \{ var nd = needOf\(o, tier\); if \(CL >= nd\) return true; waiting\.push\(o\)/.test(SH) && /cloutLevel\(clout\(\)\)/.test(SH) && /if \(waiting\.length\) \{/.test(SH) && /waits: function \(name\)/.test(SH) && /job_clout\.json/.test(SH),
-    /BohemiaBoardShelf\.waits\(S\.place\.name\)/.test(SS) && /'MORE WORK HERE AT ' \+ WN\.need \+ ' CLOUT \\u00b7 YOU HAVE '/.test(SS)];
+    /function needOf\(o, tier\)/.test(SH) && /if \(CL != null\) ordinary = ordinary\.filter\(function \(o\) \{ var nd = needOf\(o, tier\); if \(CL >= nd\) return true; waiting\.push\(o\)/.test(SH) && /cloutLevel\(clout\(\)\)/.test(SH) && /if \(waiting\.length\) \{/.test(SH) && /function waits\(name, tier, day\)/.test(SH) && /waits: waits,/.test(SH) && /job_clout\.json/.test(SH),
+    /BohemiaBoardShelf\.waits\(S\.place\.name, S\.place\.tier, buildDay\(\)\)/.test(SS) && /'MORE WORK HERE AT ' \+ WN\.need \+ ' CLOUT \\u00b7 YOU HAVE '/.test(SS)];
   ok('E1 the files: a fortress\'s three-skull work waits for 1050 CLOUT (the wiki\'s Professional, quoted), its two-skull work and any town\'s or camp\'s three-skull work for 250; TUNING\'s row; the shelf\'s gate, its never-empty, the board\'s label', e1.every(Boolean), e1.map(x => x ? 1 : 0).join('')); }
 { /* the shelf itself, on the valley's own tiers, at CLOUT 0, 250 and 1050 over ten windows; planted: the needs gone */
   const TIER = { Caravans: 'fortress', Cartel: 'fortress', Mob: 'fortress', Network: 'fortress', Remnants: 'fortress', Anarchists: 'town', Blues: 'town', Church: 'town', Reds: 'town', Colorful: 'camp', Homeless: 'camp', Trades: 'camp', Volunteers: 'camp' };
@@ -139,7 +139,7 @@ function boards(src, band) {
     const o = { fort2: 0, fort3: 0, small3: 0, empty: 0, n: 0, label: {} };
     for (let d = 0; d < 30; d += 3) P.forEach(p => { const L = S.pick(p, d, { places: P }) || []; o.n++; if (!L.length) o.empty++;
       if (p.tier === 'fortress') { if (L.some(x => (x.skulls | 0) === 2)) o.fort2++; if (L.some(x => (x.skulls | 0) >= 3)) o.fort3++; } else if (L.some(x => (x.skulls | 0) >= 3)) o.small3++;
-      const w = S.waits(p.name); if (w) o.label[p.tier + ':' + w.need] = 1; });
+      const w = S.waits(p.name, p.tier, d); if (w) o.label[p.tier + ':' + w.need] = 1;   /* the board's own line, worked out when it is asked */ });
     o.label = Object.keys(o.label).sort().join(','); return o; };
   const c0 = run(0, NEEDS), c250 = run(250, NEEDS), c1050 = run(1050, NEEDS), plant = run(0, null), lone = run(0, NEEDS, true);
   const e2 = c0.fort2 === 0 && c0.fort3 === 0 && c0.small3 === 0 && c250.fort2 > 0 && c250.fort3 === 0 && c250.small3 > 0 && c1050.fort3 > 0 && [c0, c250, c1050, lone].every(x => x.empty === 0) && plant.fort3 > 0 && plant.small3 > 0 && /fortress:250/.test(c0.label) && /fortress:1050/.test(c250.label) && c1050.label === '';

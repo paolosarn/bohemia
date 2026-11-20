@@ -36,7 +36,7 @@
       doc.offers.forEach(function (o) { have[o.id] = 1; });
       more.forEach(function (o) { if (o && o.id && !have[o.id] && /\{pay\}/.test(o.says || '')) doc.offers.push(o); });
       return doc; }).catch(function () { return doc; })
-      .then(function (d) { return fetch('../records/target/bb/job_clout.json').then(function (r) { return r.json(); }).then(function (c) { if (d && c && c.needs && c.needs.value) d.clout_needs = c.needs.value; return d; }).catch(function () { return d; }); });   /* __THE_BIG_WORK_WAITS_FOR_A_NAME__ */
+      .then(function (d) { return fetch('../records/target/bb/job_clout.json').then(function (r) { return r.json(); }).then(function (c) { if (d && c && c.needs && c.needs.value) d.clout_needs = c.needs.value; if (d && c && c.fade && c.fade.value != null) d.clout_fade = +c.fade.value; return d; }).catch(function () { return d; }); });   /* __THE_BIG_WORK_WAITS_FOR_A_NAME__ */
   }
   /* WORLD __THE_BOARD_GROWS_WITH_THE_DAYS__ (rule 255, 10/26): a place posts only what its day lets it post for the crew he has
      (WORLD's slices/bohemia_job_danger.js fits(): no job under the day's floor, at most the day's share of red ones); the reader
@@ -54,6 +54,16 @@
   function needOf(o, tier) { var N = SHELF && SHELF.clout_needs && SHELF.clout_needs[tier]; return N ? (+N[String((o.skulls | 0) || 1)] || 0) : 0; }
   function cloutLevel(have) { if (have == null || !SHELF || !SHELF.clout_needs) return ''; var n = 0; Object.keys(SHELF.clout_needs).forEach(function (t) { var N = SHELF.clout_needs[t]; Object.keys(N).forEach(function (k) { if (have >= +N[k]) n++; }); }); return 'c' + n; }
   var WAITS = {};
+  /* the board's line, worked out each time it is asked (JOBS 11/20: a board held whole from what it posted for its window never ran
+     pickOwn, so its line was missing): the place's own work that waits for a name, the least CLOUT that opens more of it */
+  function waits(name, tier, day) {
+    if (!SHELF || tier == null) return WAITS[String(name)] || null;
+    var CL = clout(); if (CL == null || !SHELF.clout_needs) return null;
+    var TR = trust(String(name), day), need = 0;
+    SHELF.offers.forEach(function (o) { if (o.when || (o.tiers || []).indexOf(tier) < 0 || (o.towns && o.towns.indexOf(String(name)) < 0) || !trusted(o, TR)) return;
+      var nd = needOf(o, tier); if (CL < nd) need = need ? Math.min(need, nd) : nd; });
+    return need ? { need: need, have: CL } : null;
+  }
   function fitter() { try { var W = root.BohemiaJobDanger || (root.parent && root.parent !== root && root.parent.BohemiaJobDanger); return W && W.fits ? W : null; } catch (e) { return null; } }
   function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
   /* a copy that is safe to hand around: {crew} said, the client copied */
@@ -212,6 +222,6 @@
         out.push({ name: name, tier: tier, traits: tr }); });
       return out.length ? out : null; } catch (e) { return null; }
   }
-  root.BohemiaBoardShelf = { load: load, set: set, ready: function () { return !!SHELF; }, pick: pick, mapPlaces: mapPlaces, seen: seen, waits: function (name) { return WAITS[String(name)] || null; },
+  root.BohemiaBoardShelf = { load: load, set: set, ready: function () { return !!SHELF; }, pick: pick, mapPlaces: mapPlaces, seen: seen, waits: waits,
     shelf: function () { return SHELF; } };
 })(typeof window !== 'undefined' ? window : this);
