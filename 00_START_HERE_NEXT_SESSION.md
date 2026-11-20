@@ -720,15 +720,15 @@ past the glass) and its receipt never scrolls the page sideways. Gate THE FOURTE
 fail). The whole block: handoffs/FIXES.md.
 [bb Battle Brothers' recruit list keeps every man one line and the one you pick in his own panel; our hall on its side the same.]
 [analog horror: a talking face with a blank name tag is the one wrong thing the bible saves for on purpose; this one was an accident.]
-BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/20b THE PENITENT AND THE DOORMAN, BUILT, NOT YET SEEN (routine 'BESTIARY: the whole
-enchilada', rules 461, 454(a), 441; after BUILD 11/18i SMOKE, FIRE AND SLEEP). THE FLOOR: factions 12 of 12, types 72 of about 75, beasts 18
-lab-made each its size against a man, bosses 10, champions named (handoffs/BESTIARY.md). The flock's PENITENT (the Hexe's Hex: his bound
-man takes every hurt he takes) and the eye in the sky's DOORMAN (once a fight out of a door beside a lone shooter of yours), each played on
-the real page on AUTO until he does it, demo and alpha, a phone both ways. A bug fixed: the spotter's called ground could outlive its
-fight. Stand-ins (CHARACTER has the list). VOTE bestiary-the-penitent-and-the-doorman-11-20.
-Record records/BOHEMIA_BESTIARY_THE_PENITENT_AND_THE_DOORMAN_11_20_26.md.
-[bb Battle Brothers' Hexe makes a brother pay for every blow she takes; ours is a man of the flock who asked for it.]
-[analog horror: a man you never touched falls down bleeding in the back row, and across the street the penitent smiles.]
+BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/20m THE SIREN AND THE BATTERY MAN, BUILT, NOT YET SEEN (routine 'BESTIARY: the whole
+enchilada', rules 461, 454(a), 441; after BUILD 11/20b THE PENITENT AND THE DOORMAN, the same turn). THE FLOOR MET: factions 12 of 12, types
+74 of about 75, beasts 18 lab-made each its size against a man, bosses 10, champions named (handoffs/BESTIARY.md). The block watch's SIREN
+(the Ancient Priest's Horror: a cross of your men, each a morale check at -15) and the machines' BATTERY MAN (the Lindwurm's Acid Blood: a
+melee blow on him eats the striker's armour three turns), each played on the real page on AUTO until he does it, demo and alpha, a phone
+both ways. Next beyond the floor: CHARACTER's clothes for the 13 stand-ins. VOTE bestiary-the-siren-and-the-battery-man-11-20.
+Record records/BOHEMIA_BESTIARY_THE_SIREN_AND_THE_BATTERY_MAN_11_20_26.md.
+[bb Battle Brothers' Ancient Priest's Horror shakes every brother in its area; ours is a neighbour with an air-raid siren he found in a school.]
+[analog horror: the siren winds up from nothing, the same note the valley heard the night the dollar died.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/20 LATEST -- BUILD 11/20f - THE STRAT LOOKOUT, BUILT, NOT YET SEEN (rule 461; rule 454(a), no
 words; rule 441). Bugs first: this lane's gates swept, no bug he feels (two old gates re-timed). Then a place to arrive at: tap the Strat
 and the crew climbs it (90 minutes); by day the map opens 30 blocks round it, by night only the towns' lights. Gate THE STRAT LOOKOUT on

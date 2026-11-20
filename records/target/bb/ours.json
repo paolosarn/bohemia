@@ -751,10 +751,8 @@
      "person_anarchists_2",
      "person_reds_0",
      "person_reds_1",
-     "person_reds_2",
      "person_trades_0",
      "person_trades_1",
-     "person_trades_2",
      "person_caravans_0",
      "person_caravans_1"
     ],
@@ -821,8 +819,7 @@
     "necromancer": [
      "faction_trades",
      "person_trades_0",
-     "person_trades_1",
-     "person_trades_2"
+     "person_trades_1"
     ],
     "wiederganger": [
      "person_homeless_0",
@@ -832,7 +829,6 @@
      "person_caravans_1",
      "person_reds_0",
      "person_reds_1",
-     "person_reds_2",
      "person_volunteers_0"
     ],
     "armored_wiederganger": [
@@ -1044,11 +1040,13 @@
      },
      "middle": {
       "wiederganger": 2,
-      "armored_wiederganger": 2
+      "armored_wiederganger": 2,
+      "machine_battery_man": 1
      },
      "late": {
       "wiederganger": 1,
-      "armored_wiederganger": 2
+      "armored_wiederganger": 2,
+      "machine_battery_man": 1
      }
     },
     "kids": {

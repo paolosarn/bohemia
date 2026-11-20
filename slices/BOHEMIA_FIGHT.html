@@ -2769,7 +2769,7 @@ const FIGHT = (function () {
     }
   }
   /* what lasts 'for one turn' or 'for 2 turns' counts down when his own turn closes */
-  function turnOver(u) { wakeBeside(u); burnTick(u); u.overwhelmed = 0; if (u.frenzy > 0) u.frenzy--; if (u.poison > 0) u.poison--; u.tauntedBy = null; restOrNot(u);
+  function turnOver(u) { wakeBeside(u); acidTick(u); burnTick(u); u.overwhelmed = 0; if (u.frenzy > 0) u.frenzy--; if (u.poison > 0) u.poison--; u.tauntedBy = null; restOrNot(u);
     u.disarmed = false; u.stunned = false; bleedTick(u); }   /* ARMORY 2: the whip's disarm and stun last his one turn; his bleeding ticks as it closes */
   /* A REST (rules 283(b), 285(b)): END TURN with no AP spent; at his next turn ours.rest_recovery comes back instead of 15 (MEASURED
      10/26: a car door and a spear among three brigands, ending his turn to rest, went 81 -> 83 -> 83 of 83 and never swung again).
@@ -3318,6 +3318,7 @@ const FIGHT = (function () {
     a.dealt = (a.dealt || 0) + Math.min(r.hp, Math.max(0, t.hp)); t.taken = (t.taken || 0) + Math.min(r.hp, Math.max(0, t.hp));
     t.hp -= r.hp;
     bondHurt(t, a, Math.min(r.hp, t.hp + r.hp));   /* BESTIARY 11/20: the penitent's bound man takes what he takes */
+    acidSpray(t, a, r);   /* BESTIARY 11/20: the battery man's acid on the man who struck him */
     const mace = R('fatigue.on_struck_by_mace');
     tire(t, a.weapon.class === 'mace' ? (a.weapon.hands === 1 ? mace.one_handed_mace : mace.two_handed_mace) : R('fatigue.on_struck'), a.weapon.class === 'mace' ? 'mace' : a.weapon.class === 'natural' ? 'bite' : 'struck', a);
     const nl = PK(t, 'nine_lives');
@@ -4092,6 +4093,39 @@ const FIGHT = (function () {
     const D = NEW('back_door'); u.ap -= D.ap; u.fat += D.fatigue; u.doored = true;
     emit({ t: 'skill', id: u.id, skill: 'back_door', to: d.t.id, fx: u.x, fy: u.y, x: d.x, y: d.y });
     u.x = d.x; u.y = d.y; afterAction(u); return true;
+  }
+  /* THE SIREN (BESTIARY 11/20, rule 461; the watch's siren; Battle Brothers' Ancient Priest's Horror, bb_all/1027_Horror (0 fatigue).txt:
+     resolve checks at -15 on everyone in an area; bohemia_enemies.json numbers.siren): every second round a neighbour's hand-crank
+     air-raid siren over a cross of ground where two or more of yours stand; each makes a morale check at siren.modifier. No other enemy
+     shakes more than one man at once */
+  function sirenTarget(u) {
+    const H = NEW('siren'); if (u.ap < H.ap || u.fat + H.fatigue > fatMax(u) || (u.sirenAt !== undefined && S.round - u.sirenAt < H.every_rounds)) return null;
+    let best = null;
+    foes(u).forEach(function (f) { if (!onField(f) || !sideSees(u.side, f) || dist(u, f) > H.range_tiles) return;
+      const c = { x: f.x, y: f.y }, on = foes(u).filter(function (o) { return onField(o) && onCall(o, c) && o.resolve !== null && o.morale !== 'Fleeing' && (o.immune || []).indexOf('Morale') < 0; });
+      if (on.length >= H.min_men && (!best || on.length > best.on.length)) best = { x: c.x, y: c.y, to: f.id, on: on }; });
+    return best;
+  }
+  function siren(u, c) {
+    const H = NEW('siren'); u.ap -= H.ap; u.fat += H.fatigue; u.sirenAt = S.round;
+    emit({ t: 'skill', id: u.id, skill: 'siren', to: c.to, x: c.x, y: c.y, n: c.on.length });
+    c.on.forEach(function (o) { if (onField(o)) check(o, 'neg', H.modifier); });
+    afterAction(u); return true;
+  }
+  /* THE ACID (BESTIARY 11/20; the machines' battery man; Battle Brothers' Lindwurm's Acid Blood, bb_all/0008_Acid Blood.txt and
+     Sprayed with Acid, bb_all/1860: a melee blow of 10 or more on him sprays the striker beside him (ours: a shot from the next tile too), 10% of his armour gone after each of
+     his turns for three turns, refreshed, never stacked; numbers.acid). No other enemy hurts the man who hits him */
+  function acidSpray(t, a, r) {
+    if (!a || !t || a.side === t.side || !arche(t).acid || dist(a, t) !== 1 || !(r.hp >= NEW('acid').min_hp)) return;   /* ours: a shot from the next tile is up close too (guns shoot the man beside them, rule 185) */
+    const fresh = !a.acid; a.acid = { turns: NEW('acid').turns, by: t.id };
+    emit({ t: 'skill', id: t.id, skill: 'acid', to: a.id, fresh: fresh });
+  }
+  function acidTick(u) {
+    if (!u.acid || !onField(u)) { if (u.acid && !onField(u)) u.acid = null; return; }
+    const A = NEW('acid'), b = Math.round(u.armB * A.armour_pct / 100), h = Math.round(u.armH * A.armour_pct / 100);
+    u.armB = Math.max(0, u.armB - b); u.armH = Math.max(0, u.armH - h); u.acid.turns--;
+    emit({ t: 'skill', id: u.id, skill: 'acid_tick', to: u.id, armour: b + h, by: u.acid.by });
+    if (u.acid.turns <= 0) u.acid = null;
   }
   function chargeTarget(u) {
     const C = NEW('charge');
@@ -5629,6 +5663,7 @@ const FIGHT = (function () {
     if (A.darts) { const dt = dartTarget(u); if (dt) return dart(u, dt); }   /* BESTIARY 11/18: the darter */
     if (A.binds) { const bt2 = bondTarget(u); if (bt2) return bond(u, bt2); }   /* BESTIARY 11/20: the penitent */
     if (A.doors) { const dd = doorTarget(u); if (dd) return backDoor(u, dd); }   /* BESTIARY 11/20: the doorman */
+    if (A.sirens) { const sc = sirenTarget(u); if (sc) return siren(u, sc); }   /* BESTIARY 11/20: the watch's siren */
     if (A.charges && !adj.length) { const ct = chargeTarget(u); if (ct) return charge(u, ct); }
     if (A.hooks && !u.hooked) { const ht = hookTarget(u); if (ht) return hook(u, ht); }   /* THE HOOK */
     if (A.volley) { const vt = volleyTarget(u); if (vt) { strike(u, vt); return true; } }   /* THE CROSSBOWS */
@@ -8234,6 +8269,9 @@ function startAnimHeard(a) {
     else if (e.t === 'skill' && e.skill === 'turn') { const t = FIGHT.byId(e.to); sfx('ghost_whisper'); if (t) pop(t, e.held ? 'HOLDS' : 'TURNED', '#b49ce0', !e.held, e.held ? t.name + ' holds.' : u.name + ' turns ' + t.name + '.'); }
     else if (e.t === 'skill' && e.skill === 'turned') { const t = FIGHT.byId(e.to); pop(u, '', '#b49ce0', false, t && t !== u ? u.name + ' hits ' + t.name + '.' : u.name + ' loses his turn.'); }
     else if (e.t === 'skill' && e.skill === 'call') { sfx('power_on', { side: 'them' }); pop(u, 'CALLED', '#e04030', true, u.name + ' calls your ground.'); }
+    else if (e.t === 'skill' && e.skill === 'siren') { sfx('tape_pull'); pop(u, 'SIREN', '#e04030', true, u.name + ' sounds the siren.'); }   /* BESTIARY 11/20; draft:true */
+    else if (e.t === 'skill' && e.skill === 'acid') { const t = FIGHT.byId(e.to); sfx('cell_vest'); if (t) pop(t, 'ACID', '#a8e07c', true, t.name + "'s armour burns."); }
+    else if (e.t === 'skill' && e.skill === 'acid_tick') { if (e.armour > 0) pop(u, '-' + e.armour + ' armour', '#a8e07c', false); }
     else if (e.t === 'skill' && e.skill === 'back_door') { sfx('door_drag'); u._at = undefined; const t = FIGHT.byId(e.to); pop(u, 'BEHIND', '#e04030', true, u.name + ' comes out behind ' + (t ? t.name : 'you') + '.'); }   /* BESTIARY 11/20; draft:true */
     else if (e.t === 'skill' && e.skill === 'bond') { const t = FIGHT.byId(e.to); sfx('ghost_whisper'); if (t) pop(t, 'BOUND', '#b49ce0', true, u.name + ' binds ' + t.name + '.'); }
     else if (e.t === 'skill' && e.skill === 'bond_hurt') { const t = FIGHT.byId(e.to); if (t) pop(t, '-' + e.hp, '#b49ce0', false, t.name + ' bleeds with him.'); }
