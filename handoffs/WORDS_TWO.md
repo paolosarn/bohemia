@@ -1,10 +1,55 @@
-# WORDS TWO -- the handoff block (written only by WORDS TWO, newest first)
+# WORDS TWO -- the handoff block (written only by this lane, newest first: WORDS TWO, and from 11/20 WORDS THREE on rule 462)
 # A fresh lane opened by the coordinator 11/17 on Paolo's words (VAMILY rule 454; ask rows 628, 629). On VAMILY: pull main, re-read
 # CLAUDE.md and the VAMILY front page (rules 454, 441, 442(b), 355, 22f), then continue from the newest block below.
 # WHAT THIS LANE OWNS: how people talk. The research on every mouth, HIS HOMEWORK (the cards in the VOTE tab where he says how a line
 # should sound), and after his answers THE VOICE (one page of rules in his words, his rewrites as the examples, and a gate).
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
+
+WORDS THREE (words-three-01gkdyuvnl): 11/20 LATEST -- BUILD 11/20h - HIS HOMEWORK, SHEET THREE, AND THE VOICE IN PLAIN WORDS, BUILT (this commit), NOT YET SEEN (rules 454(a)(c)(d), 455, 458(a), 461, 462; ask rows 628, 629, 637, 643). NOTHING IN THE GAME WAS REWRITTEN.
+THIS CHAT IS WORDS THREE, opened by the coordinator on rule 462 (WORDS TWO's model hit its weekly limit). Same lane, same file: write the newest block on top, never
+another lane's. WORDS TWO left no pushed branch. No new sheet of his has landed since his first four answers (newest export records/BOHEMIA_PAOLO_VOTE_11_16_26.txt).
+(1) THE VOICE, PLAINLY (laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md; NOW WRITTEN BY tools/bohemia_words_three_the_voice.py; the 11/18 tool no longer writes the
+page). Part one: page one in his words (rule 455); his four lines each with WAS, HIS and WHAT IT TEACHES (five to seven plain points each, every one marked our
+reading); 21 more of his lines about how people talk, grouped by mouth (every mouth 9, the player 1, the Spanish 2, his men in a fight 2, the enemy 1, the feed
+and radio 5, a line he wrote himself 1), each word for word from where he said it (5 VOTE notes by card id, 10 records, 6 only the coordinator's copy in
+VAMILY.md, said so) and each beside what it teaches; then THE VOICE SO FAR ON ONE PAGE, 13 lines a writer follows, each marked HIS or OUR READING. Parts two to
+four: the counts, the unknowns tied to all 40 cards out, the count a mouth. FOUND, said on the page: he asked 'just one sentence' for the why (11/14) and wrote
+his own enemy line in two; not asked.
+GATE THE VOICE IS HIS WORDS 11/0 (V9 every other line of his word for word where its FROM line says; V10 each of his lines beside what it teaches; two plants).
+(2) SHEET THREE, TWELVE CARDS (words-two-hw03-01 to -12; records/target/words_two/homework_03.json; the same tool, --sheet 03; --check 12 of 12): the mouths 32
+cards never reached: the boss's asker (a grown man, MANNY), his man's why before animals ('boss' filled in), the line with no mouth after a choice, HIS OWN
+BUTTON, is eerie scary (@denver_coldmeg, the data center that hums), a loss, a real place (the bank's last teller, nine sentences), a sign read out (THE POT's
+flyer), a man's past on his card (the thief), his men outnumbered (the believer), a thank-you for help nobody paid for (EL TUERTO), a second job giver (DOÑA
+CHELO's stew). QUEUED BEHIND SHEET TWO: tagged yellow in records/target/BOHEMIA_VOTE_TRIAGE.json, only these twelve, each tag saying why and that the
+coordinator may lift it; measured with the tab's own sort at the cut: sheet two at places 38 to 49, sheet one's 16 at 58 to 73, sheet three at the end (129 to
+140 of 140); on the real VOTE tab page upright and sideways: all twelve pictures open with LOOK AT IT, 0 px off the side, 0 errors. Not on his first screen (rule 118): in the VOTE tab behind MORE, after sheet two.
+(3) THE VOICE HOLDS, BUILT AND ASLEEP (gates/the_voice_holds_gate.py, in the suite, python, under a second, 11/0). It writes no game line and opens nothing.
+records/words_two/the_mouths.py (the 13 counted mouths, two small ones: real places 74, his second 12, and his 200 buttons; measure_every_mouth.py reads it
+now, output byte-identical); THE FREEZE records/words_two/the_voice_freeze.json (2,824 standing lines in 15 mouths, pinned by hash; MEASURED: zero of the 13
+mouths' 2,738 lines changed since 11/17, so it costs no lane anything today);
+THE SWITCH records/words_two/the_voice_switch.json ('open' empty: a mouth opens only by an entry with HIS words, checked where it says he said them; 'let_go'
+empty: a standing line cut for a length cap or with its feature goes there with why); THE MARKS records/words_two/the_voice_marks.json (empty: when a mouth
+opens, every new line is marked with its scary and second word by a person). Legs H0 the switch honest; H1 the freeze holds for closed mouths; open mouths
+only: H2 marked scary, H3 never a second word alone, H4 help names the deal, H5 no new Spanish, H7 his lines to the letter; live now: H5 none of his 200 buttons
+speaks Spanish, H6 nothing bleeped; H8 the freeze is the pinned freeze. Eleven plants caught and ONE GOOD REWRITE passes every leg. EERIE stays a kind of scary
+in the gate until he answers card 3.5; a no takes it out the same commit.
+FOR EVERY LANE THAT WRITES WORDS: adding a line is fine (454(a): the fewest, draft); changing or deleting a standing line of the 15 frozen mouths turns THE VOICE HOLDS
+red unless the line goes on the switch's let_go with why (a length cap, rule 355(a); its feature deleted). A rewrite to THE VOICE waits for his go.
+Record: records/BOHEMIA_WORDS_THREE_THE_VOICE_PLAIN_SHEET_THREE_AND_THE_GATE_ASLEEP_11_20_26.md.
+PRE-PUSH PASS (rule 13): pre-push pass green on my own gates (THE VOICE IS HIS WORDS 11/0, THE VOICE HOLDS 11/0, STRUCTURE 134/0, DEMO BUILD 25/0, PAGES PUBLISH 30/0, ALPHA LOADS 20/0). Of the 111 gates that read a file in this diff (most read the VOTE registry for their own rows), 73 ran before I
+stopped the pass (two passes fighting over four cores timed browser gates out): 40 green; 21 reds on the red list; the rest checked: THE VOTE TAB 61/5, THE
+CARD I NAME 24/2, NOTHING COMES TWICE 4/1, THE FRONT SCREEN JUST THE FONT 39/3 the same on clean main; BB PLACES, PLACES ARE BLOCKS, RUMOURS TRAVEL, IT IS
+CALLED BOHEMIA red on world content, none naming a card of this lane; RAGDOLL HITS, THE TOWN YOU DID NOT DEFEND, THE ROSARY green alone; 38 never ran.
+Full suite unmeasured since PLUMBER 8's line.
+WEAK, SAID: what each of his lines teaches is one reader's reading of four lines and 21 quotes; six quotes are only the coordinator's cut copy; the yellow tags
+sit in the coordinator's file; the freeze holds 15 mouths, not the ones inside scripts and pages (the crew card, the street, the bookie, the door's origin lines); nothing here is on the play surface, so nothing was played.
+NEXT: (1) his next sheet when its path lands: every answer onto part one by the tool (WAS / HIS / WHAT IT TEACHES), counts into part two, what it breaks of THE
+VOICE SO FAR said plainly; card 3.5 decides eerie on the page and in the gate. (2) On his go for a mouth: his words on the switch, that mouth only rewritten,
+every new line marked, the gate red until it is all his; by the count the boss askers, the far feed, the hires and the keepers first. (3) If he answers nothing
+for a long while: a sheet four only when the 40 out run low, never a 13th card on a screen.
+[bb the library reads Battle Brothers' event button as the captain's own shrug, said in his mouth; nearly all of ours are stage directions and a handful ('Not our fight.') are his mouth, and card 3.4 asks which he wants]
+[analog horror: 'somebody keeps the lights on' is the most analog-horror line we own, and card 3.5 asks whether that is his scary or only ours]
 
 WORDS TWO (words-two-01gkdyutlu): 11/18 LATEST -- [the voice in parts] FILED (c2a4b88ab), rules 455, 454(a)(d), 458(a); ask rows 637, 643, 628. NOTHING IN THE GAME WAS REWRITTEN. No card added: 28 of this lane's cards already wait on him.
 TWO ROUTINES OF THE COORDINATOR ARRIVED TOGETHER ('his first four answers', a day and a half late, and 'WORDS TWO next'): no new sheet of his has

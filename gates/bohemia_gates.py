@@ -9781,7 +9781,20 @@ GATES = [
      "game's own line (V6); 11/18: the page keeps its order, his words first, the counting second, the unknown third, the game today last "
      "(V7), and the count a mouth on the page is the hand reading's own count (V8). Planted: a swear taken out of his line, a rule "
      "reworded, a bleep, his words moved under the counting. It does not judge a game line for being scary first: nothing is rewritten "
-     "yet (454(a)). Node only, seconds", False),
+     "yet (454(a)). 11/20 WORDS THREE, the page rewritten plainly from everything he has given (rule 461): every other line of his on the "
+     "page is word for word where its FROM line says he said it, a VOTE note, a record or VAMILY (V9), and each of his lines stands beside "
+     "what it teaches (V10); planted: another line of his reworded, a WHAT IT TEACHES taken away. Node only, seconds", False),
+    ('THE VOICE HOLDS', ['python3', 'gates/the_voice_holds_gate.py'],
+     "WORDS THREE gate, 11/20, VAMILY rules 454(a)(d), 455, 461 (ask rows 628, 637, 643; PAOLO 11/17: 'don't do anything to fix it yet'). "
+     "The gate that will hold the game to THE VOICE the day he says go, BUILT AND ASLEEP: it rewrites nothing and opens nothing. A mouth "
+     "opens only by an entry in records/words_two/the_voice_switch.json carrying his own words, found where it says he said them (H0; "
+     "0 of 15 open). THE FREEZE HOLDS (454(a)): every standing line of 15 mouths (2,824: the 13 counted and the real places and his second; "
+     "records/words_two/the_voice_freeze.json, pinned) is still in the game word for word unless his go opened its mouth; adding a line is allowed; a line cut for a length cap or "
+     "with its feature goes on the switch's let_go with why (H1). For an OPEN mouth only: every new line marked with its scary "
+     "(records/words_two/the_voice_marks.json) (H2), never a second word without scary (H3), a line that asks for help names the deal (H4), "
+     "no new Spanish line (H5), a line marked his is his to the letter (H7). LIVE TODAY: none of his 200 buttons speaks Spanish (H5), "
+     "nothing bleeped in any mouth (H6), the freeze is the pinned freeze (H8). Planted: eleven breaks each caught, and one good rewrite "
+     "that passes every leg. Python, under a second", False),
     ('EVERY SHOT IS FELT', ['node', 'gates/every_shot_is_felt_gate.js'],
      "FIGHT SCREEN gate, 11/14, VAMILY rule 450(b)(c)(d) (ask row 622; PAOLO 11/14: 'anytime anyone fires a shot I want a muzzle flash on the "
      "screen, some quick shit, like it goes all white... I want people to feel this shot for real'). The numbers (records/target/bb/"

@@ -1,3 +1,4 @@
+# (11/20: THE PAGE IS NOW WRITTEN BY tools/bohemia_words_three_the_voice.py; this one writes the 11/18 record and the second reading.)
 # WORDS TWO 11/18: writes THE VOICE (laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md) in its parts: HIS WORDS first, WHAT CAN BE MEASURED
 # second, WHAT IS STILL UNKNOWN third, and THE GAME TODAY AGAINST PAGE ONE (the count a mouth) last; the second hand reading
 # (records/words_two/scary_first_second_reading.json, from scary_first_to_read.json and scary_first_marks.py); and the record
@@ -238,7 +239,9 @@ and its mark: records/words_two/scary_first_second_reading.json. The marks are h
   says otherwise.
 '''
 assert '—' not in voice
-open('laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md','w',encoding='utf-8').write(voice)
+# 11/20 WORDS THREE: this tool no longer writes the page; tools/bohemia_words_three_the_voice.py does (from everything he has given, each
+# of his lines beside what it teaches). The page text built above is kept only so the 11/18 record below still reads as it did.
+# open('laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md','w',encoding='utf-8').write(voice)
 old1=J('records/words_two/scary_first_hand_reading.json'); O1={m['mouth']:m for m in old1['mouths']}
 cmp_tbl='\n'.join("| %s | %d of %d | %d of %d | %s |"%(k,O1[k]['scary_first'],O1[k]['read'],MM[k]['scary_first'],MM[k]['read'],'read whole' if MM[k]['how']=='whole' else '36 drawn') for k in order)
 def exs(k):

@@ -1,0 +1,281 @@
+{
+ "draft": true,
+ "tool": "tools/bohemia_words_two_homework.js",
+ "sheet": 3,
+ "note": "every line below was read out of the named game file by this tool; none was typed",
+ "cards": [
+  {
+   "n": 1,
+   "id": "words-two-hw03-01-the-trucker-sends-you-11-20",
+   "mouth": "A BOSS'S ASKER",
+   "who": "MANNY",
+   "pulled_from": "records/target/bb/boss_act_one.json",
+   "locator": [
+    "bosses",
+    {
+     "find": {
+      "n": "THE SURVEYOR"
+     }
+    },
+    "lead",
+    "asker",
+    "says"
+   ],
+   "in_the_file": "Ey. 20 years I drove this valley. Now I can't find a town without paying THE SURVEYOR for a piece of his map. Ask the man at the bar, he knows where he works.",
+   "line": "Ey. 20 years I drove this valley. Now I can't find a town without paying THE SURVEYOR for a piece of his map. Ask the man at the bar, he knows where he works.",
+   "picture_pt": [
+    390,
+    333
+   ]
+  },
+  {
+   "n": 2,
+   "id": "words-two-hw03-02-why-the-animals-come-11-20",
+   "mouth": "YOUR MAN, BEFORE A FIGHT WITH ANIMALS",
+   "who": "ONE OF YOUR MEN",
+   "pulled_from": "records/target/bb/fight_reasons.json",
+   "locator": [
+    "rules",
+    {
+     "find": {
+      "id": "road.beasts"
+     }
+    },
+    "ours",
+    1
+   ],
+   "in_the_file": "Lab animals never learned to fear people{boss}, so they just come.",
+   "filled_with": {
+    "boss": ", boss"
+   },
+   "line": "Lab animals never learned to fear people, boss, so they just come.",
+   "picture_pt": [
+    390,
+    346
+   ]
+  },
+  {
+   "n": 3,
+   "id": "words-two-hw03-03-what-comes-back-told-11-20",
+   "mouth": "A ROAD STOP: WHAT COMES BACK",
+   "who": "A MAN ON A MATTRESS",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_sick_man"
+     }
+    },
+    "opts",
+    1,
+    "fx",
+    "say"
+   ],
+   "in_the_file": "You carried a stranger. People there saw you do it.",
+   "line": "You carried a stranger. People there saw you do it.",
+   "picture_pt": [
+    390,
+    312
+   ]
+  },
+  {
+   "n": 4,
+   "id": "words-two-hw03-04-your-own-button-11-20",
+   "mouth": "YOU, ON A BUTTON",
+   "who": "YOU",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_word_from_home"
+     }
+    },
+    "opts",
+    2,
+    "t"
+   ],
+   "in_the_file": "Say the company needs every hand.",
+   "line": "Say the company needs every hand.",
+   "picture_pt": [
+    390,
+    293
+   ]
+  },
+  {
+   "n": 5,
+   "id": "words-two-hw03-05-is-eerie-scary-11-20",
+   "mouth": "THE FEED, FAR AWAY",
+   "who": "@denver_coldmeg",
+   "pulled_from": "records/target/bb/feed_world.json",
+   "locator": [
+    "kinds",
+    {
+     "find": {
+      "id": "far_bubble"
+     }
+    },
+    "words",
+    5,
+    "en"
+   ],
+   "in_the_file": "the data center up the road still hums. nobody works there that we know of. somebody keeps the lights on.",
+   "line": "the data center up the road still hums. nobody works there that we know of. somebody keeps the lights on.",
+   "picture_pt": [
+    390,
+    261
+   ]
+  },
+  {
+   "n": 6,
+   "id": "words-two-hw03-06-after-a-loss-11-20",
+   "mouth": "YOUR MAN, AFTER A LOSS",
+   "who": "YOUR MAN, THE OLD HAND",
+   "pulled_from": "records/target/bb/crew_voices.json",
+   "locator": [
+    "types",
+    "old_hand",
+    "lines",
+    "lost",
+    "en",
+    0
+   ],
+   "in_the_file": "We lost. Get up. Count heads.",
+   "line": "We lost. Get up. Count heads.",
+   "picture_pt": [
+    390,
+    312
+   ]
+  },
+  {
+   "n": 7,
+   "id": "words-two-hw03-07-the-last-teller-11-20",
+   "mouth": "A REAL PLACE",
+   "who": "THE LAST TELLER",
+   "pulled_from": "records/target/bb/real_places.json",
+   "locator": [
+    "places",
+    {
+     "find": {
+      "id": "the_bank"
+     }
+    },
+    "visit",
+    "says"
+   ],
+   "in_the_file": "Welcome to the bank, jefe. Everything is still here. Forty million in hundreds, in the cages, and nobody wants it. People come look and they laugh. The big vault has a wind-up time lock and nobody wound it. It stopped at ten past four on a Friday and that door has not opened since. The boxes room was open when it stopped. Some men sleep upstairs. They burn the twenties to cook.",
+   "line": "Welcome to the bank, jefe. Everything is still here. Forty million in hundreds, in the cages, and nobody wants it. People come look and they laugh. The big vault has a wind-up time lock and nobody wound it. It stopped at ten past four on a Friday and that door has not opened since. The boxes room was open when it stopped. Some men sleep upstairs. They burn the twenties to cook.",
+   "picture_pt": [
+    390,
+    468
+   ]
+  },
+  {
+   "n": 8,
+   "id": "words-two-hw03-08-a-flyer-on-a-pole-11-20",
+   "mouth": "A SIGN, READ OUT",
+   "who": "ONE OF YOUR MEN",
+   "pulled_from": "records/target/bb/boss_act_one.json",
+   "locator": [
+    "bosses",
+    {
+     "find": {
+      "n": "THE POT"
+     }
+    },
+    "lead",
+    "thing",
+    "says"
+   ],
+   "in_the_file": "It says HOT FOOD. ASK FOR THE POT. Under it somebody wrote: only for his crew, the rest can starve. It points to the kitchen with the black smoke. His line cooks shut the streets round it with carts, only his front is open. I marked it.",
+   "line": "It says HOT FOOD. ASK FOR THE POT. Under it somebody wrote: only for his crew, the rest can starve. It points to the kitchen with the black smoke. His line cooks shut the streets round it with carts, only his front is open. I marked it.",
+   "picture_pt": [
+    390,
+    378
+   ]
+  },
+  {
+   "n": 9,
+   "id": "words-two-hw03-09-a-mans-past-11-20",
+   "mouth": "A MAN, ON HIS CARD",
+   "who": "THE THIEF IN YOUR CREW",
+   "pulled_from": "engine/bohemia_roster.js",
+   "locator": "thief: '((?:[^'\\\\]|\\\\.)*)'",
+   "in_the_file": "Took a man's last cell once. Still hears him asking for it.",
+   "line": "Took a man's last cell once. Still hears him asking for it.",
+   "picture_pt": [
+    390,
+    312
+   ]
+  },
+  {
+   "n": 10,
+   "id": "words-two-hw03-10-outnumbered-11-20",
+   "mouth": "YOUR MAN, OUTNUMBERED",
+   "who": "YOUR MAN, THE BELIEVER",
+   "pulled_from": "records/target/bb/crew_voices.json",
+   "locator": [
+    "types",
+    "believer",
+    "lines",
+    "outnumbered",
+    "en",
+    2
+   ],
+   "in_the_file": "Lord, that is a lot of them.",
+   "line": "Lord, that is a lot of them.",
+   "picture_pt": [
+    390,
+    277
+   ]
+  },
+  {
+   "n": 11,
+   "id": "words-two-hw03-11-thanks-for-nothing-11-20",
+   "mouth": "A SIDE QUEST ON THE ROAD",
+   "who": "EL TUERTO",
+   "pulled_from": "records/target/BOHEMIA_SIDE_QUESTS.json",
+   "locator": [
+    "quests",
+    "bq_say_it_back",
+    "nodes",
+    "true_end",
+    "says",
+    1
+   ],
+   "in_the_file": "Nobody will ever know you did this. It doesn't pay. Thank you for doing it anyway.",
+   "line": "Nobody will ever know you did this. It doesn't pay. Thank you for doing it anyway.",
+   "picture_pt": [
+    390,
+    326
+   ]
+  },
+  {
+   "n": 12,
+   "id": "words-two-hw03-12-whats-in-the-stew-11-20",
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "who": "Doña Chelo",
+   "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+   "locator": [
+    "board_people",
+    "rows",
+    {
+     "find": {
+      "id": "jk-find-out-stew"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "My grandson eats at the stew cart every night and comes home happy. Find out what is in that stew for me, and it pays {pay} batteries.",
+   "filled_with": {
+    "pay": "10"
+   },
+   "line": "My grandson eats at the stew cart every night and comes home happy. Find out what is in that stew for me, and it pays 10 batteries.",
+   "picture_pt": [
+    390,
+    337
+   ]
+  }
+ ]
+}

@@ -5,69 +5,9 @@ import json,re,statistics,sys,collections
 import os
 R=os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','..'))+'/'
 def J(p): return json.load(open(R+p,encoding='utf-8'))
-pools=collections.OrderedDict()
-ev=J('records/target/BOHEMIA_ROAD_EVENTS.json')['events']
-def says_under(o,out):
-    if isinstance(o,dict):
-        for k,v in o.items():
-            if k=='say' and isinstance(v,str): out.append(v)
-            else: says_under(v,out)
-    elif isinstance(o,list):
-        for v in o: says_under(v,out)
-pools['road: what the stranger says']=[e['says'] for e in ev]
-a=[]; [says_under(e.get('opts'),a) for e in ev]; pools['road: the answer after his choice']=a
-sq=J('records/target/BOHEMIA_SIDE_QUESTS.json')['quests']
-a=[]
-for q in (sq.values() if isinstance(sq,dict) else sq):
-    for n in (q.get('nodes') or {}).values():
-        for s in n.get('says') or []: a.append(s)
-pools['road: side quest talk']=a
-bs=J('records/target/BOHEMIA_BOARD_SHELF.json')['offers']; jk=J('records/target/BOHEMIA_JOB_KINDS.json')['board_people']['rows']
-pools['town: job givers at the board']=[o['says'] for o in bs]+[o['says'] for o in jk]
-tr=J('records/target/settlement_traits.json')['traits']; a=[]
-for t in tr:
-    for v in t['says'].values(): a.append(v)
-ru=J('records/target/settlement_rumours.json'); a+= [r['says'] for r in ru['rumours']]
-for v in ru['news']['lines'].values(): a+=v
-pools['town: keepers, the Elder, the bar']=a
-rr=J('records/target/bb/rare_recruits.json')['men']; rt=J('records/target/bb/retinue.json')['followers']['value']
-pools['hires: rare men and the retinue']=[m['line'] for m in rr]+[f['ask'] for f in rt]
-cv=J('records/target/bb/crew_voices.json'); fight=[]; after=[]
-for t in cv['types'].values():
-    for m,v in t['lines'].items():
-        tgt = after if m in('win','lost','ran','wipe') else fight
-        def grab(x):
-            if isinstance(x,dict):
-                for k,y in x.items():
-                    if k=='sp': continue
-                    grab(y)
-            elif isinstance(x,list):
-                for y in x:
-                    if isinstance(y,str): tgt.append(y)
-        grab(v)
-pools['fight: his men mid-fight']=fight
-pools['fight: the survivor after']=after
-fr=J('records/target/bb/fight_reasons.json')['rules']; a=[]
-for r in fr: a+=r.get('them',[])+r.get('ours',[])
-pools['fight: the why line']=a
-ba=J('records/target/bb/boss_act_one.json')['bosses']; a=[]
-for b in ba:   # a boss made after 11/17 may carry no words at all (rule 454(a): BOSSES' 13th is 'a boss of no words')
-    L=(b.get('lead') or {}).get('asker') or {}
-    a+=[x for x in [L.get('says'),L.get('yes_says'),L.get('no_says'),((b.get('lead') or {}).get('thing') or {}).get('says'),(b.get('after') or {}).get('valley')] if x]
-pools['bosses: the asker and after']=a
-fk=J('records/target/bb/feed_kinds.json'); a=[]
-for k in fk['kinds']+fk['replies']+fk['followups']:
-    for w in k.get('words',[]):
-        if isinstance(w,dict) and w.get('en'): a.append(w['en'])
-pools['feed: the valley']=a
-fw=J('records/target/bb/feed_world.json'); a=[]
-for k in fw['kinds']:
-    for w in k.get('words',[]):
-        if w.get('en'): a.append(w['en'])
-pools['feed: far away']=a
-rl=J('records/target/bb/radio_lines.json'); a=[]
-for t in rl['towns'].values(): a+=[l['say'] for l in t['lines']]
-pools['feed: a town falling']=a
+sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
+from the_mouths import pools as _pools   # 11/20 WORDS THREE: the mouths live in one place (the_mouths.py), shared with gates/the_voice_holds_gate.py
+pools=_pools(J)
 his_t=[];his_v=[]
 for line in open(R+'records/words_two/his_words/corpus.jsonl',encoding='utf-8'):
     r=json.loads(line)

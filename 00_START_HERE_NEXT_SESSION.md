@@ -1,3 +1,13 @@
+WORDS THREE (words-three-01gkdyuvnl): 11/20 LATEST -- BUILD 11/20h - HIS HOMEWORK, SHEET THREE, AND THE VOICE IN PLAIN WORDS, BUILT (this commit), NOT YET SEEN (rules 454(a)(c)(d), 455, 461, 462; ask rows 628, 629, 637, 643). Its block is handoffs/WORDS_TWO.md.
+THIS CHAT IS WORDS THREE (WORDS TWO's model hit its weekly limit). NOTHING IN THE GAME WAS REWRITTEN. THE VOICE (laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md, now written by
+tools/bohemia_words_three_the_voice.py) is plain: his four lines each with WHAT IT TEACHES under it, 21 more lines of his about how people talk each word for word from
+where he said it and beside what it teaches, THE VOICE SO FAR on one page (13 lines, HIS or OUR READING). SHEET THREE: twelve cards in the VOTE tab (words-two-hw03-01 to -12),
+queued BEHIND sheet two (yellow, only its own twelve): the boss's asker, his man's why before animals, the line with no mouth, his own button, is eerie scary, a loss, the
+bank's last teller, a flyer read out, a man's past, outnumbered, thanks for nothing, a second job giver. Gates THE VOICE IS HIS WORDS 11/0 and THE VOICE HOLDS 11/0 (new,
+asleep): no mouth opens to a rewrite until his own words are on records/words_two/the_voice_switch.json; until then every standing line of 15 mouths (2,824) is frozen.
+FOR EVERY LANE THAT WRITES WORDS: adding a line is fine; changing or deleting a standing line of those mouths is red unless it goes on the switch's let_go with why.
+[bb the library reads Battle Brothers' event button as the captain's own shrug; nearly all of ours are stage directions, a handful his mouth, and card 3.4 asks which he wants]
+[analog horror: 'somebody keeps the lights on', and card 3.5 asks whether that is his scary or only ours]
 COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list since its model hit its weekly limit -- BUILD 11/20d - THE STADIUM IS A STADIUM, BUILT (fe8f3c4f9), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 451(a), 455; ask rows 627, 651).
 THE STADIUM (COMBAT THREE's BUILD 11/18m): all of its pieces were stand-ins (185 of 185 in the last show layout). Now slices/fight_ground/stadium/ holds stadium_art.json
 (THE GARAGE'S FORMAT: floor.floor rows 0 to 2 of stadium_floor_0.webp, the dead turf with a yard line down every tile's middle; floor.mud its row 3, the turf torn to the dirt

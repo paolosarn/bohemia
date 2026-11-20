@@ -18,8 +18,14 @@
          last; his words are never under a later part, and a lane's counting is never above them
      V8  (11/18) the count a mouth printed on the page is the hand reading's own count, mouth for mouth
          (records/words_two/scary_first_second_reading.json), and that file's counts are its own lines added up
-     P   PLANTS: a copy with one swear taken out of his line, a copy with a rule's quote reworded, and a copy with a bleep, each
-         caught by its own leg
+     V9  (11/20, WORDS THREE) every other line of his on the page (a line starting '>> "', under EVERYTHING ELSE HE HAS SAID) is word
+         for word in the source its FROM line names: a VOTE registry verdict of his (the card named), his record, or VAMILY.md
+     V10 (11/20) each of his lines stands beside what it teaches: every WAS/HIS pair has WHAT IT TEACHES and at least one point under
+         it, and every '>>' line of his has its TEACHES line (the coordinator's ask, rule 461: 'each of his lines beside what it
+         teaches')
+     P   PLANTS: a copy with one swear taken out of his line, a copy with a rule's quote reworded, a copy with a bleep, his words
+         moved under the counting, one of his other lines reworded (V9), and a WHAT IT TEACHES taken away (V10), each caught by its
+         own leg
    WHAT IT DOES NOT HOLD, ON PURPOSE: it does not fail a game line for not being scary first. Nothing may be rewritten yet (rule
    454(a)), and the only count of scary this lane has agrees with a reader 96 times in 156
    (records/BOHEMIA_WORDS_TWO_SCARY_FIRST_MEASURED_AND_THE_NEXT_TWELVE_CARDS_11_17_26.md). That leg comes with the rewrite.
@@ -34,7 +40,7 @@ const norm = s => String(s).replace(/\s+/g, ' ').trim();
 const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
 
 function check(page, rec, reg) {
-  const R = { v1: [], v2: [], v3: [], v4: [], v5: [], v7: [], blocks: 0, quotes: 0, pairs: 0 };
+  const R = { v1: [], v2: [], v3: [], v4: [], v5: [], v7: [], v9: [], v10: [], blocks: 0, quotes: 0, pairs: 0, others: 0 };
   const recN = norm(rec), lines = page.split('\n');
   /* V1 */
   if (!/^## PAGE ONE\. SCARY FIRST/m.test(page)) R.v1.push('no PAGE ONE. SCARY FIRST head');
@@ -61,12 +67,28 @@ function check(page, rec, reg) {
     const w = lines[k].match(/^\s+WAS \(the game today\): "(.*)"\s*$/); if (!w) continue;
     const h = (lines[k + 1] || '').match(/^\s+HIS: "(.*)"\s*$/); R.pairs++;
     if (!h) { R.v4.push('a WAS with no HIS under it'); continue; }
+    if (!/^\s+WHAT IT TEACHES/.test(lines[k + 2] || '') || !/^\s+- \S/.test(lines[k + 3] || '')) R.v10.push('a line of his with no WHAT IT TEACHES under it: ' + h[1].slice(0, 40));
     const id = ids.find(x => said[x] === h[1]);
     if (!id) R.v4.push('HIS is not a verdict of his: ' + h[1].slice(0, 40));
     else if (shown[id] !== w[1]) R.v4.push('WAS is not what the card showed: ' + id);
   }
   if (!R.pairs) R.v4.push('no example pair on the page');
   R.unlisted = ids.filter(id => page.indexOf('"' + said[id] + '"') < 0);
+  /* V9 / V10: every other line of his, word for word in the source its FROM line names, with its TEACHES */
+  const verdict = {}; (reg.verdicts || []).forEach(v => { if (v && v.id) verdict[v.id] = v.said || ''; });
+  const fileN = {};
+  for (let k = 0; k < lines.length; k++) {
+    const m = lines[k].match(/^\s+>> "(.*)"\s*$/); if (!m) continue;
+    R.others++;
+    const f = (lines[k + 1] || '').match(/^\s+FROM: (\S+)(?: \(his note on the card ([^)\s]+)\))?\s*$/);
+    if (!f) { R.v9.push('no FROM under: ' + m[1].slice(0, 40)); continue; }
+    let src = '';
+    if (f[2]) src = verdict[f[2]] || '';
+    else { if (!(f[1] in fileN)) { try { fileN[f[1]] = norm(read(f[1])); } catch (e) { fileN[f[1]] = ''; } } src = fileN[f[1]]; }
+    if (!src || norm(src).indexOf(norm(m[1])) < 0) R.v9.push('not his words in ' + (f[2] ? 'his note on ' + f[2] : f[1]) + ': ' + m[1].slice(0, 40));
+    if (!/^\s+TEACHES: \S/.test(lines[k + 2] || '')) R.v10.push('a line of his with no TEACHES: ' + m[1].slice(0, 40));
+  }
+  if (!R.others) R.v9.push('none of his other lines is on the page');
   /* V7: the parts, in order, and his words only in part one */
   const heads = ['## PART ONE: HIS WORDS', '## PART TWO: WHAT CAN BE MEASURED', '## PART THREE: WHAT IS STILL UNKNOWN', '## PART FOUR: THE GAME TODAY'];
   const at = heads.map(h => page.indexOf(h));
@@ -76,6 +98,7 @@ function check(page, rec, reg) {
     const two = page.slice(at[1]);
     if (/^> '/m.test(two)) R.v7.push('a block of his words sits under a later part');
     if (/^\s+HIS: "/m.test(two)) R.v7.push('a line of his sits under a later part');
+    if (/^\s+>> "/m.test(two)) R.v7.push('one of his other lines sits under a later part');
     if (page.indexOf('## PAGE ONE. SCARY FIRST') < at[0] || page.indexOf('## PAGE ONE. SCARY FIRST') > at[1]) R.v7.push('page one is not inside part one');
   }
   /* V5 */
@@ -90,6 +113,8 @@ ok('V2 every block of his words on the page is in his own record, word for word 
 ok('V3 every quoted sentence in the five rules is in his own record, word for word (' + R.quotes + ' quotes)', R.v3.length === 0, R.v3.join(' | '));
 ok('V4 every example is a card he answered: HIS to the letter, WAS the line the card showed (' + R.pairs + ' pairs)', R.v4.length === 0, R.v4.join(' | '));
 ok('V5 nothing is bleeped', R.v5.length === 0, R.v5.join(', '));
+ok('V9 every other line of his on the page is word for word where its FROM line says he said it (' + R.others + ' lines)', R.v9.length === 0, R.v9.slice(0, 3).join(' | '));
+ok('V10 each of his lines stands beside what it teaches (' + R.pairs + ' of his answers, ' + R.others + ' other lines)', R.v10.length === 0, R.v10.slice(0, 3).join(' | '));
 ok('V7 the page keeps its order: his words first, the counting second, the unknown third, the game today last', R.v7.length === 0, R.v7.join('; '));
 if (R.unlisted.length) console.log('    note: ' + R.unlisted.length + ' answer' + (R.unlisted.length === 1 ? '' : 's') + ' of his on the homework ' + (R.unlisted.length === 1 ? 'is' : 'are') + ' not on the page yet (WORDS TWO adds them when it reads them): ' + R.unlisted.slice(0, 4).join(', '));
 
@@ -121,9 +146,12 @@ ok('V6 every homework sheet\'s waiting cards still show the game\'s own line (' 
   const p3 = page.replace(/fuck faces/, 'f*** faces');                       /* a bleep */
   const p4 = page.replace('## PART TWO: WHAT CAN BE MEASURED', '## PART TWO: WHAT CAN BE MEASURED\n\n> \'' + (page.match(/^> '(.*)'\s*$/m) || [])[1] + '\'');   /* his words moved under the counting */
   const r4 = check(p4, rec, reg), g4 = p4 !== page && r4.v7.length > 0;
+  const p5 = page.replace(/^(\s+>> ".*?)\bbro\b/m, '$1man');                 /* one of his other lines reworded */
+  const p6 = page.replace(/\n\s+WHAT IT TEACHES[^\n]*\n(\s+- [^\n]*\n)+/, '\n');   /* a WHAT IT TEACHES taken away */
+  const r5 = check(p5, rec, reg), r6 = check(p6, rec, reg), g5 = p5 !== page && r5.v9.length > 0, g6 = p6 !== page && r6.v10.length > 0;
   const r1 = check(p1, rec, reg), r2 = check(p2, rec, reg), r3 = check(p3, rec, reg);
   const g1 = p1 !== page && r1.v4.length > 0, g2 = p2 !== page && (r2.v2.length + r2.v3.length) > 0, g3 = p3 !== page && r3.v5.length > 0 && r3.v4.length > 0;
-  ok('P  the plants are caught: a swear taken out of his line (V4), a rule reworded (V2, V3), a bleep (V5), his words moved under the counting (V7)', !!firstHis && g1 && g2 && g3 && g4, [g1 ? '' : 'the softened line passed', g2 ? '' : 'the reworded rule passed', g3 ? '' : 'the bleep passed', g4 ? '' : 'the moved block passed'].filter(Boolean).join('; '));
+  ok('P  the plants are caught: a swear taken out of his line (V4), a rule reworded (V2, V3), a bleep (V5), his words moved under the counting (V7), another line of his reworded (V9), a WHAT IT TEACHES taken away (V10)', !!firstHis && g1 && g2 && g3 && g4 && g5 && g6, [g5 ? '' : 'the reworded other line passed', g6 ? '' : 'the missing teaching passed', g1 ? '' : 'the softened line passed', g2 ? '' : 'the reworded rule passed', g3 ? '' : 'the bleep passed', g4 ? '' : 'the moved block passed'].filter(Boolean).join('; '));
 }
 console.log('\n=== THE VOICE IS HIS WORDS: ' + pass + ' passed, ' + fail + ' failed ===');
 process.exit(fail ? 1 : 0);

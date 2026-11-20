@@ -1,0 +1,6 @@
+{
+ "draft": false,
+ "_about": "THE SWITCH (WORDS THREE 11/20; VAMILY rules 454(a)(d), 455, 461). A mouth of the game is rewritten to THE VOICE (laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md) ONLY after Paolo says go for it. 'open' gets one entry per mouth he says go for: {\"mouth\": one of the 15 in records/words_two/the_voice_freeze.json, \"said\": HIS words, exactly, \"from\": the VOTE card id his note is on, or the record that holds his words, \"date\": \"m/d\"}. A lane never types a go for him; gates/the_voice_holds_gate.py checks each one against where it says he said it. 'let_go' is for a standing line of a CLOSED mouth that changed for a reason that is not a rewrite (cut to fit a length cap under rule 355(a), its feature deleted): {\"mouth\", \"line\" (the frozen line, exactly), \"why\", \"by\"}. Both are empty: nothing is open, nothing has been let go.",
+ "open": [],
+ "let_go": []
+}

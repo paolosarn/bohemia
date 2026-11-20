@@ -1,0 +1,3 @@
+{
+ "_about": "THE MARKS (WORDS THREE 11/20; rule 455). For an OPEN mouth only (records/words_two/the_voice_switch.json): every new or rewritten line's reading, {\"line\": the line exactly as the game holds it, \"scary\": \"desperate\" | \"a threat\" | \"eerie\" | \"cold\", \"second\": his second word or null, \"his\": a VOTE card id when the line is one of his own, \"by\": who marked it}, under the mouth's name. A machine cannot hear scary, so a person marks it and gates/the_voice_holds_gate.py holds the mark to the line. Empty: no mouth is open."
+}

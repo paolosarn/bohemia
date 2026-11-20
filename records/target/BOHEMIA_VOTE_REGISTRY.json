@@ -20949,7 +20949,367 @@
     "first": "../records/target/vote_first/world14-the-strat-lookout-11-20.webp",
     "firstAt": [0, 0, 1170, 695]
    }, "before_after": {"before": "main 64ab8c777: the Strat stood on the map and arriving there did nothing", "after": "a trip to the tower climbs it: 90 minutes, the fog opens 30 blocks by day (on the demo 5 to 9 towns, 0 to 11 real places found), at night only the lit towns within 40", "scale": "his phone upright (390 x 844 at 3), the alpha's RUN tab map, before the climb (left) and after (right), one stop out"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_14_THE_STRAT_LOOKOUT_11_20_26.md"},
-  {"id": "character-the-head-takers-11-20", "kind": "outfit", "lane": "character", "made": "11/20", "sha": "1bde82723", "draft": true, "title": "THE HEAD TAKERS IN THEIR OWN CLOTHES: MEN WHO HUNT MEN, IN THE HUNTER'S BLAZE", "said": "full sweep, whole enchilada, dont forget nothing / the clothes look good: leather and layering", "why": "The head takers fought in the Volunteers' one-piece look and two hall men's clothes; now three head takers in work coats with plate strapped over them, two smokers in ponchos and dust masks with a satchel of pots, and two darters in field coats with a bolt quiver, every one with a hunter's blaze scarf in the head takers' own yellow-green. You see it in every fight against the head takers, and on this card.", "options": ["A, yes, the head takers look like this", "B, close, change something (say which one and what)", "C, no, not like this"], "show": {"how": "image", "src": "../records/target/character/the_head_takers/CHARACTER_THE_HEAD_TAKERS.webp", "first": "../records/target/character/the_head_takers/CHARACTER_THE_HEAD_TAKERS_FIRST.webp", "firstAt": [0, 0, 884, 528]}, "twin": {"src": "records/target/cook3/rig/thug/rig_S.png", "diffs": ["BOUNTY HUNTERS' OWN LOOK (Battle Brothers' bounty hunters: a hunter's coat and plate): a rust work coat, a chore coat, an oxblood drifter's coat, a soot or a scrap chest plate strapped over, a shell bandolier.", "ONE MARK FOR ALL SEVEN: a blaze scarf in the head takers' own banner ink (yellow-green), what a hunter wears so his own side does not shoot him; it reads at the throat from every facing.", "THE SMOKE AND THE SLEEP: the smokers in an oxblood or a dust poncho, a dust mask and a satchel of pots; the darters in a charcoal car coat or a barn coat with a bolt quiver on the back."]}, "stage": "made_from", "golden": "character-the-nine-enemies-their-own-clothes-11-7", "recipe": "the nine enemies' frozen recipe (layers that read apart, leather where it fits, no blue, no trench added), the three new types in tools/bohemia_character_the_nine_enemies.py (TYPES['Head Taker'], ['Smoker'], ['Darter'], the BLAZE SCARF, roll-more, make, pack)"}
+  {"id": "character-the-head-takers-11-20", "kind": "outfit", "lane": "character", "made": "11/20", "sha": "1bde82723", "draft": true, "title": "THE HEAD TAKERS IN THEIR OWN CLOTHES: MEN WHO HUNT MEN, IN THE HUNTER'S BLAZE", "said": "full sweep, whole enchilada, dont forget nothing / the clothes look good: leather and layering", "why": "The head takers fought in the Volunteers' one-piece look and two hall men's clothes; now three head takers in work coats with plate strapped over them, two smokers in ponchos and dust masks with a satchel of pots, and two darters in field coats with a bolt quiver, every one with a hunter's blaze scarf in the head takers' own yellow-green. You see it in every fight against the head takers, and on this card.", "options": ["A, yes, the head takers look like this", "B, close, change something (say which one and what)", "C, no, not like this"], "show": {"how": "image", "src": "../records/target/character/the_head_takers/CHARACTER_THE_HEAD_TAKERS.webp", "first": "../records/target/character/the_head_takers/CHARACTER_THE_HEAD_TAKERS_FIRST.webp", "firstAt": [0, 0, 884, 528]}, "twin": {"src": "records/target/cook3/rig/thug/rig_S.png", "diffs": ["BOUNTY HUNTERS' OWN LOOK (Battle Brothers' bounty hunters: a hunter's coat and plate): a rust work coat, a chore coat, an oxblood drifter's coat, a soot or a scrap chest plate strapped over, a shell bandolier.", "ONE MARK FOR ALL SEVEN: a blaze scarf in the head takers' own banner ink (yellow-green), what a hunter wears so his own side does not shoot him; it reads at the throat from every facing.", "THE SMOKE AND THE SLEEP: the smokers in an oxblood or a dust poncho, a dust mask and a satchel of pots; the darters in a charcoal car coat or a barn coat with a bolt quiver on the back."]}, "stage": "made_from", "golden": "character-the-nine-enemies-their-own-clothes-11-7", "recipe": "the nine enemies' frozen recipe (layers that read apart, leather where it fits, no blue, no trench added), the three new types in tools/bohemia_character_the_nine_enemies.py (TYPES['Head Taker'], ['Smoker'], ['Darter'], the BLAZE SCARF, roll-more, make, pack)"},
+  {
+   "id": "words-two-hw03-12-whats-in-the-stew-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“My grandson eats at the stew cart every night and comes home happy. Find out what is in that stew for me, and it pays 10 batteries.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? A grandmother at the job board says it to you when you ask what her job is and what it pays (you see it in a camp or TOWN, at the board where people offer jobs); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_03/words-two-hw03-12-whats-in-the-stew-11-20.webp",
+    "first": "vote/words_two_homework_03/words-two-hw03-12-whats-in-the-stew-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     674
+    ]
+   },
+   "homework": {
+    "sheet": 3,
+    "n": 12,
+    "mouth": "A JOB GIVER AT THE BOARD",
+    "teaches": "THE SAME MOUTH AS THE OLD WOMAN YOU STARRED, ANOTHER PERSON: does your star carry ('dark shadows', the ask at the end, 'some batteries', never a number) to a grandmother who is afraid of what is in her grandson's stew",
+    "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+    "line": "My grandson eats at the stew cart every night and comes home happy. Find out what is in that stew for me, and it pays 10 batteries."
+   }
+  },
+  {
+   "id": "words-two-hw03-11-thanks-for-nothing-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“Nobody will ever know you did this. It doesn't pay. Thank you for doing it anyway.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? A one-eyed man who did a dying woman wrong, at the end of her story says it to you when you carried a dying woman's words to him and asked nothing for it (you see it on the MAP, on the side quest's last card); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_03/words-two-hw03-11-thanks-for-nothing-11-20.webp",
+    "first": "vote/words_two_homework_03/words-two-hw03-11-thanks-for-nothing-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     654
+    ]
+   },
+   "homework": {
+    "sheet": 3,
+    "n": 11,
+    "mouth": "A SIDE QUEST ON THE ROAD",
+    "teaches": "A THANK-YOU FOR HELP NOBODY PAID FOR: your law says nobody helps out of kindness and everybody knows it; this line thanks you for exactly that; does it stand in hell, and how does thanks sound",
+    "pulled_from": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "line": "Nobody will ever know you did this. It doesn't pay. Thank you for doing it anyway."
+   }
+  },
+  {
+   "id": "words-two-hw03-10-outnumbered-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“Lord, that is a lot of them.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? The man in your crew who prays says it to the crew when the fight opens and there are a lot more of them than of you (you see it in a FIGHT, over his head); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_03/words-two-hw03-10-outnumbered-11-20.webp",
+    "first": "vote/words_two_homework_03/words-two-hw03-10-outnumbered-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     556
+    ]
+   },
+   "homework": {
+    "sheet": 3,
+    "n": 10,
+    "mouth": "YOUR MAN, OUTNUMBERED",
+    "teaches": "THE MOST SCARED SECOND OF A FIGHT, from a man of God: does a praying man swear when he is this scared (your 10/24 ask: 'if someone dies be like oh fuck they got shot'), and how loud is fear in a fight",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "Lord, that is a lot of them."
+   }
+  },
+  {
+   "id": "words-two-hw03-09-a-mans-past-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“Took a man's last cell once. Still hears him asking for it.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? Nobody says it: one line about your man, on his card says it to whoever reads his card when you open the card of a man who was a thief before he joined you (you see it on the crew screen, on his card); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_03/words-two-hw03-09-a-mans-past-11-20.webp",
+    "first": "vote/words_two_homework_03/words-two-hw03-09-a-mans-past-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     624
+    ]
+   },
+   "homework": {
+    "sheet": 3,
+    "n": 9,
+    "mouth": "A MAN, ON HIS CARD",
+    "teaches": "A MAN TALKED ABOUT, NOT TALKING: every man's card has one line of his past in the third person; who is saying it (him, the crew, nobody), and how much of his hell goes in it",
+    "pulled_from": "engine/bohemia_roster.js",
+    "line": "Took a man's last cell once. Still hears him asking for it."
+   }
+  },
+  {
+   "id": "words-two-hw03-08-a-flyer-on-a-pole-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“It says HOT FOOD. ASK FOR THE POT. Under it somebody wrote: only for his crew, the rest can starve. It points to the kitchen with the black smoke. His line cooks shut the streets round it with carts, only his front is open. I marked it.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? One of your own men, reading out the flyer the boss called THE POT put up, and what somebody wrote under it says it to you when you go and look at the flyer a hungry cook told you about (you see it on the MAP, on the card of the thing that leads to a boss); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_03/words-two-hw03-08-a-flyer-on-a-pole-11-20.webp",
+    "first": "vote/words_two_homework_03/words-two-hw03-08-a-flyer-on-a-pole-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     756
+    ]
+   },
+   "homework": {
+    "sheet": 3,
+    "n": 8,
+    "mouth": "A SIGN, READ OUT",
+    "teaches": "WRITTEN WORDS, READ OUT: a flyer and a scrawl under it, read by one of your men (the game never lets you speak for the valley); how should a sign in hell read, and how does your man read it to you",
+    "pulled_from": "records/target/bb/boss_act_one.json",
+    "line": "It says HOT FOOD. ASK FOR THE POT. Under it somebody wrote: only for his crew, the rest can starve. It points to the kitchen with the black smoke. His line cooks shut the streets round it with carts, only his front is open. I marked it."
+   }
+  },
+  {
+   "id": "words-two-hw03-07-the-last-teller-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“Welcome to the bank, jefe. Everything is still here. Forty million in hundreds, in the cages, and nobody wants it. People come look and they laugh. The big vault has a wind-up time lock and nobody wound it. It stopped at ten past four on a Friday and that door has not opened since. The boxes room was open when it stopped. Some men sleep upstairs. They burn the twenties to cook.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? The last teller at the bank on Fourth Street says it to you when you walk into the bank, where the money nobody wants is still in the cages (you see it on the MAP, on the card of a real place you visit); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_03/words-two-hw03-07-the-last-teller-11-20.webp",
+    "first": "vote/words_two_homework_03/words-two-hw03-07-the-last-teller-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     936
+    ]
+   },
+   "homework": {
+    "sheet": 3,
+    "n": 7,
+    "mouth": "A REAL PLACE",
+    "teaches": "THE LONGEST MOUTH: a real place's keeper talks for nine sentences about the dead dollar, the heart of the game (an economic crash); how long may a person talk, and is the money dying scary or funny",
+    "pulled_from": "records/target/bb/real_places.json",
+    "line": "Welcome to the bank, jefe. Everything is still here. Forty million in hundreds, in the cages, and nobody wants it. People come look and they laugh. The big vault has a wind-up time lock and nobody wound it. It stopped at ten past four on a Friday and that door has not opened since. The boxes room was open when it stopped. Some men sleep upstairs. They burn the twenties to cook."
+   }
+  },
+  {
+   "id": "words-two-hw03-06-after-a-loss-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“We lost. Get up. Count heads.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? The oldest man in your crew, still standing says it to the crew when you LOSE a fight and the ones left get up off the ground (you see it on the screen after a FIGHT you lost); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_03/words-two-hw03-06-after-a-loss-11-20.webp",
+    "first": "vote/words_two_homework_03/words-two-hw03-06-after-a-loss-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     624
+    ]
+   },
+   "homework": {
+    "sheet": 3,
+    "n": 6,
+    "mouth": "YOUR MAN, AFTER A LOSS",
+    "teaches": "A LOSS: every card so far was a win or a talk; this is the worst moment the crew lives through and it is three short sentences, two of them orders",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "We lost. Get up. Count heads."
+   }
+  },
+  {
+   "id": "words-two-hw03-05-is-eerie-scary-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“the data center up the road still hums. nobody works there that we know of. somebody keeps the lights on.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? A woman in Denver says it to everybody on the feed when it is a quiet day and she posts about what is still running up the road (you see it on the phone's FEED); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_03/words-two-hw03-05-is-eerie-scary-11-20.webp",
+    "first": "vote/words_two_homework_03/words-two-hw03-05-is-eerie-scary-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     524
+    ]
+   },
+   "homework": {
+    "sheet": 3,
+    "n": 5,
+    "mouth": "THE FEED, FAR AWAY",
+    "teaches": "IS EERIE SCARY? Nobody's body is in danger in this post, only something wrong that nobody can explain. 90 of the 349 lines we count as scary first are this kind and none of your four lines is; your answer decides whether they count",
+    "pulled_from": "records/target/bb/feed_world.json",
+    "line": "the data center up the road still hums. nobody works there that we know of. somebody keeps the lights on."
+   }
+  },
+  {
+   "id": "words-two-hw03-04-your-own-button-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“Say the company needs every hand.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? You, the player says it to one of your men, who just asked to leave and go to his mother and two sisters when a man at the fire says the wells went dry on his family's street and he has to go to them (you see it on the MAP, the third button under a card at the night stop); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_03/words-two-hw03-04-your-own-button-11-20.webp",
+    "first": "vote/words_two_homework_03/words-two-hw03-04-your-own-button-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     588
+    ]
+   },
+   "homework": {
+    "sheet": 3,
+    "n": 4,
+    "mouth": "YOU, ON A BUTTON",
+    "teaches": "YOUR OWN VOICE: the first card about what YOU say. Nearly all of your 200 buttons are written like this, as a thing you do ('Say...'); a handful are in your own mouth ('Not our fight.', 'Forget it. We have work.'); which should a button be, and how hard is your boss voice",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "Say the company needs every hand."
+   }
+  },
+  {
+   "id": "words-two-hw03-03-what-comes-back-told-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“You carried a stranger. People there saw you do it.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? Nobody: the card itself, under the sick man's face says it to you when you carried a sick stranger to the nearest town (you see it on the MAP, on the road card, after you pick); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_03/words-two-hw03-03-what-comes-back-told-11-20.webp",
+    "first": "vote/words_two_homework_03/words-two-hw03-03-what-comes-back-told-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     624
+    ]
+   },
+   "homework": {
+    "sheet": 3,
+    "n": 3,
+    "mouth": "A ROAD STOP: WHAT COMES BACK",
+    "teaches": "THE LINE WITH NO MOUTH: 231 lines come back after a choice and about half are told, not said, yet they sit under a person's face; who should say this: him, one of your men, or nobody",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "You carried a stranger. People there saw you do it."
+   }
+  },
+  {
+   "id": "words-two-hw03-02-why-the-animals-come-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“Lab animals never learned to fear people, boss, so they just come.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? One of your own men says it to you when lab animals come at your crew on the road and the fight opens (you see it on the card that opens a FIGHT); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_03/words-two-hw03-02-why-the-animals-come-11-20.webp",
+    "first": "vote/words_two_homework_03/words-two-hw03-02-why-the-animals-come-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     694
+    ]
+   },
+   "homework": {
+    "sheet": 3,
+    "n": 2,
+    "mouth": "YOUR MAN, BEFORE A FIGHT WITH ANIMALS",
+    "teaches": "WHY THE ANIMALS ATTACK (your 11/14 ask: 'why the fuck the animals are attacking you') said by your own man, and WHAT YOUR MEN CALL YOU: the game fills in 'boss' (slices/bohemia_fight_why.js); is 'boss' right",
+    "pulled_from": "records/target/bb/fight_reasons.json",
+    "line": "Lab animals never learned to fear people, boss, so they just come."
+   }
+  },
+  {
+   "id": "words-two-hw03-01-the-trucker-sends-you-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“Ey. 20 years I drove this valley. Now I can't find a town without paying THE SURVEYOR for a piece of his map. Ask the man at the bar, he knows where he works.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? A trucker with no truck, a grown man in the middle of his life says it to you when he stops you to send you after the boss who sells the only map of the valley (you see it on the MAP, on the card that starts a boss's trail); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_03/words-two-hw03-01-the-trucker-sends-you-11-20.webp",
+    "first": "vote/words_two_homework_03/words-two-hw03-01-the-trucker-sends-you-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     666
+    ]
+   },
+   "homework": {
+    "sheet": 3,
+    "n": 1,
+    "mouth": "A BOSS'S ASKER",
+    "teaches": "THE ASKER WHO SENDS YOU AFTER A BOSS, the mouth furthest from page one (12 of 60 lines scary first); and AGE: a grown man between his kid and his old woman; is losing his work his hell, and does he offer anything",
+    "pulled_from": "records/target/bb/boss_act_one.json",
+    "line": "Ey. 20 years I drove this valley. Now I can't find a town without paying THE SURVEYOR for a piece of his map. Ask the man at the bar, he knows where he works."
+   }
+  }
  ],
  "verdicts": [
   {
