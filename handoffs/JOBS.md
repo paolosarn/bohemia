@@ -1,6 +1,21 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/20 LATEST -- BUILD 11/20p - A NAME FADES, AND A NEW COMPANY IS A STRANGER, BUILT, NOT YET SEEN
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/20 LATEST -- BUILD 11/20s - THE TOWN'S BAR ON ITS BOARD, BUILT, NOT YET SEEN (rules 461, 441,
+454(a); row 651; the coordinator's routine 'JOBS: the whole enchilada'). Record: records/BOHEMIA_JOBS_THE_TOWNS_BAR_ON_ITS_BOARD_11_20_26.md.
+- THE LINE: the board says 'WHAT THEY THINK OF YOU: ' + band + number + rail (the arrival card's words, BohemiaJobPay.board's number)
+  and what the bar does to this board: '· 1 JOB' one red star, '· UP TO' two red stars, '· +1 JOB', each only when the board in front of
+  him keeps it (a read board stays read; a new crew's floor can leave a friend's extra job unposted: Caravans at Friendly, 2 of 3).
+- A BUG ON THE WAY: the shelf's deal key did not carry the bars (a board dealt at one bar kept its size after the bar moved);
+  bohemia_board_shelf.js barsSig() puts the towns' record in the key (one window, only the bar moved: 2 then 3; planted 2 then 2).
+- MY OWN GATE, RED UNDER ME: THE TOWN'S BOOK A4's friendly town Network (a fortress) gets no fourth job for a new crew any more (+0 on
+  all four phones); A4 now asks Blues (+1). JOBS_BUILD=A,H: A 15/0, H3 on the four phones.
+- G (11/20p, A NAME FADES) is live (dcc7ddb0d).
+NEXT: [the CLOUT a man beaten] the card's CLOUT for a job (5 a man beaten) against a played job (+130 where the card said about +140);
+then [a night's roll] a night watch's card naming its fights.
+[bb Battle Brothers keeps a town's relation on the town's own screen, and a town that likes you has more work for you]
+[analog horror: the elder does not say it; the board does, in the same handwriting as the jobs]
+
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/20 -- BUILD 11/20p - A NAME FADES, AND A NEW COMPANY IS A STRANGER, BUILT, NOT YET SEEN
 (rules 461, 441, 454(a); row 651; the coordinator's routine 'JOBS: the whole enchilada'). Record: records/BOHEMIA_JOBS_A_NAME_FADES_11_20_26.md.
 - A NAME FADES (the handoff's next since 11/18): records/target/bb/job_clout.json fade 3 (bb_all/1679 'Daily Renown Decay -3'; TUNING
   job_clout.fade); slices/bohemia_job_kinds.js __A_NAME_FADES__: each day the map's clock passed since his last step takes 3 CLOUT on

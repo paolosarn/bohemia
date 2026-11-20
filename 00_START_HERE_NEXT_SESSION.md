@@ -1,3 +1,8 @@
+JOBS (jobs-01gkdyuv): 11/20 LATEST -- BUILD 11/20s - THE TOWN'S BAR ON ITS BOARD, BUILT, NOT YET SEEN (rules 461, 441, 454(a); row 651). THE TOWN'S BAR ON ITS BOARD: the board says WHAT THEY THINK OF YOU (band, number, rail; the arrival card's words) and what
+it does to this board (1 JOB, UP TO two skulls, +1 JOB), each only when the board keeps it; the shelf deals again when a bar moves.
+On the phone, the demo and the alpha both ways. Gate THE TOWN'S BOOK (H1 to H3). VOTE jobs-the-towns-bar-on-its-board-11-20 (STAND-IN), sha b92300d98. Record records/BOHEMIA_JOBS_THE_TOWNS_BAR_ON_ITS_BOARD_11_20_26.md.
+[bb Battle Brothers keeps a town's relation on the town's own screen, and a town that likes you has more work for you]
+
 COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20r - THE SOUTH STAND TURNS, BUILT (beea99578), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 455; ask row 651).
 THE SOUTH STAND (COMBAT FOUR's BUILD 11/20k, its 'FOR COOK 1)'): the stadium's south stand wore the north stand's seats, facing away from the field. Now
 slices/fight_ground/stadium/st_seats_n.webp is the same eleven rows of 23 seats TURNED to face north, so the map's eye sees their backs (a blanket thrown over four, a coat,
