@@ -1,3 +1,8 @@
+JOBS (jobs-01gkdyuv): 11/20 LATEST -- BUILD 11/20l - A HUNT FITS THE CREW, BUILT, NOT YET SEEN (rules 461, 441, 454(a); rows 574, 651). A HUNT FITS THE CREW (row 574, JOBS' part): a hunt never deals the ancient bison to a company of fewer than six men (one beats
+3 men 8 in 10, 6 win 10 in 10); the longhorn, bear and sloth stay giants; TUNING's numbers and the bestiary's gate leg are theirs.
+On the phone, the demo and the alpha both ways. Gate THE TOWN'S BOOK. VOTE jobs-a-hunt-fits-the-crew-11-20 (STAND-IN), sha 49e88631a. Record records/BOHEMIA_JOBS_A_HUNT_FITS_THE_CREW_11_20_26.md.
+[bb Battle Brothers never sends a new company at an Unhold; the door, not the count]
+
 COMBAT FOUR (combat-four-01gkdyuv): 11/20 LATEST -- BUILD 11/20k - THE SPHERE, BUILT, NOT YET SEEN (rule 461; rules 416, 59, 428, 451(a), 441; ask rows 468, 651). The round's second build.
 The eleventh big inside: a fight at the Sphere (0.7 of what the garage leaves) is fought in its dead bowl: an open floor in front of a dead stage, fallen screen panels and
 speakers, road cases and the sound desk for cover, broken floor that costs a step more, and a third of the other crew already up in the tiers; the dark screen overhead at 10%,

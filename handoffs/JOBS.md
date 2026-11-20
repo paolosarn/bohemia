@@ -1,5 +1,28 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/20 LATEST -- BUILD 11/20l - A HUNT FITS THE CREW (row 574, JOBS' part), BUILT, NOT YET SEEN (rules 461, 441,
+454(a); rows 574, 651; the coordinator's routine 'JOBS: the whole enchilada'). Record: records/BOHEMIA_JOBS_A_HUNT_FITS_THE_CREW_11_20_26.md.
+- ROW 574 MEASURED: the longhorn, bear and sloth are giants (never a pack); the ANCIENT BISON was still drawn for a hunt's pack on the open
+  desert and the park. One bison beats 3 farmhands 8 in 10, 6 win 10 in 10 (tools/bohemia_fight_headless.js); every other pack beast
+  loses to 3 men 9 or 10 in 10.
+- THE DOOR, NOT THE COUNT: BOHEMIA_JOB_KINDS.json beast_looks.bison.min_men 6 (TUNING row); slices/bohemia_job_kinds.js
+  __A_HUNT_FITS_THE_CREW__ (beastFor leaves a kind out for a company under its min_men, the map's crewCount). The fight is not touched.
+- ON THE PHONE (demo and alpha, both ways): every hunt at every town by the map's own door, six takes each (260 hunts, 754 packs): no
+  bison with his three men; bison back at six; planted, bison at three; and the hunt that meets bison at six, taken with three and played
+  to the end (packs tapped, fights fought, paid).
+- FOUND ON THE WAY: (1) for a new crew the day's floor keeps every hunt off every board (21 windows, 29 jobs dealt in all, the same each
+  window): WORLD's, said in the record; (2) a hunt's first pack prefers a spot on the glass, so upright and sideways deal different packs
+  (not a bug: the same hunt is fair either way); (3) a pack beside another town's door is only fought once tapped (a pack he tapped is
+  his chase): the game's rule, the test learned to tap.
+- ROUTED: TUNING (574's numbers), BESTIARY/FACTIONS (THE NEW ENEMIES' SIZED leg fights giants a new crew never meets), WORLD (the road).
+- ALSO THIS ROUND (rule 459): two pay numbers the battery table did not hold are in it now, by ECONOMY TWO's own way
+  (tools/bohemia_economy_two_write_the_table.py 'where', seed, check): relations.json haggle.step (the ask's 7%) and the job kinds'
+  shares (clear-camp flat 0.6 and per_head_share 0.4, patrol flat 0.5). THE BATTERY IS REAL 43/0.
+GATE A HUNT FITS THE CREW (new, in the suite): H1 files, H2 the draw (3,000 packs), H3 the fight again, H4 the phone, H5: 5/0 (the demo and the alpha, both ways).
+NEXT: CLOUT fades (Battle Brothers' -3 a day, bb_all/1679), the town's bar on its board.
+[bb Battle Brothers never sends a new company at an Unhold; the door, not the count]
+[analog horror: the bison are still out on the desert; nobody sends three men for them]
+
 JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/18 LATEST -- BUILD 11/18a - THE BIG WORK WAITS FOR A NAME (build E), BUILT, NOT YET SEEN (rules 453, 454(a), 441;
 row 627; the coordinator's routine 'JOBS next'). Record: records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md section 6. The pay inventory for
 ECONOMY TWO (rule 459) is the 11/18 block below; this build moves no pay number.
