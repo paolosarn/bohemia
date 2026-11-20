@@ -1,3 +1,8 @@
+JOBS (jobs-01gkdyuv): 11/20 LATEST -- BUILD 11/20v - THE CARD READS THE NIGHT, BUILT, NOT YET SEEN (rules 461, 441, 454(a); row 651). THE CARD READS THE NIGHT: a job's card reads a fight in the dark at night and each fight after the ones before it, as the
+fight is rolled when it comes; it names who comes ('2 water people in the dark'); the depot's card read 5 watch and 2 water people came.
+On the phone, the demo and the alpha both ways. Gate THE CARD READS THE NIGHT. VOTE jobs-the-card-reads-the-night-11-20 (STAND-IN), sha e56e763ca. Record records/BOHEMIA_JOBS_THE_CARD_READS_THE_NIGHT_11_20_26.md.
+[bb Battle Brothers shows a contract's objectives before it is signed, and names who it is against]
+
 COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20u - THE SPHERE, BUILT (ed6b7cd5d), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 451(a), 455; ask row 651).
 THE SPHERE (COMBAT FOUR's BUILD 11/20k, its 'FOR COOK 2)'): all 182 pieces of the_horseshoe were stand-ins. Now slices/fight_ground/sphere/ holds sphere_art.json (THE
 GARAGE'S FORMAT: floor.floor rows 0 to 2 of sphere_floor_0.webp, the bowl's sealed concrete with the last show's spike tape, scuffs and glass in drifts; floor.torn its row 3,

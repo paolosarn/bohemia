@@ -21561,7 +21561,8 @@
     ]
    },
    "record": "records/BOHEMIA_COOK_SIX_THE_SPHERE_11_20_26.md"
-  }
+  },
+  {"id": "jobs-the-card-reads-the-night-11-20", "kind": "ui", "lane": "jobs", "sha": "e56e763ca", "made": "11/20", "draft": true, "title": "THE CARD READS THE NIGHT: A NIGHT JOB'S CARD SAYS WHO COMES IN THE DARK", "said": "the whole enchilada: a full sweep, bugs he can feel first (the handoff's [a night's roll])", "why": "A night job's card used to say 'about 5 of whoever comes in the dark', because it guessed with the daytime crowd. At night the Block Watch goes home and the water people come out, so once it guessed 5 men and 2 water people came. Now the card reads the night the way the fight will: 'a fight with 2 water people in the dark', and its CLOUT is right. You see it on a night watch's card on a town's BOARD; the picture is a night fight whose card said '4 men in the dark' (4 came).", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_THE_CARD_READS_THE_NIGHT.jpg"}, "before_after": {"before": "a night job's card said 'about N of whoever comes in the dark' and could count the wrong crowd (5 Block Watch read, 2 water people came)", "after": "every night fight's crowd on the card is the one that comes, named: '2 water people in the dark', '1 teratorn in the dark'", "scale": "left: the game on a phone upright (390 x 844 at 3), the demo; right: what changed, measured"}, "record": "records/BOHEMIA_JOBS_THE_CARD_READS_THE_NIGHT_11_20_26.md", "build": "BUILD 11/20v - THE CARD READS THE NIGHT"}
  ],
  "verdicts": [
   {

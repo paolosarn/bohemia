@@ -1,6 +1,21 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/20 LATEST -- BUILD 11/20t - EVERY FIGHT WON COUNTS, BUILT, NOT YET SEEN (rules 461, 441, 454(a);
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/20 LATEST -- BUILD 11/20v - THE CARD READS THE NIGHT, BUILT, NOT YET SEEN (rules 461, 441, 454(a);
+row 651; the coordinator's routine 'JOBS: the whole enchilada'). Record: records/BOHEMIA_JOBS_THE_CARD_READS_THE_NIGHT_11_20_26.md.
+- MEASURED: the roll weighs who walks by the hour (the block watch goes home at night, the water people come out) and by the fights met;
+  the card read every fight at the hour of reading: the fuel depot's watch till dawn read 5 Block Watch, 2 water people came.
+- slices/bohemia_job_kinds.js fightsOf marks a fight in the dark; slices/bohemia_job_danger.js (WORLD's reader, marked block
+  __THE_CARD_READS_THE_NIGHT__) rolls it at night and each sure fight after the ones before it (roll ctx.night, ctx.met); the card
+  names it ('a fight with 2 water people in the dark').
+- FOUND BY THE GATE ON THE ALPHA: a job's animal is picked once where first asked; the fight asked on the road beside the place (the
+  tunnel watch: card 1 dire wolf, 3 coyotes came). fight() now asks at the card's place first.
+GATE THE CARD READS THE NIGHT (new, in the suite) 3/0 on the four phones. I (11/20t) is pushed; its deploy follows the queue.
+NEXT (the jump list): [the survey repeats] two boots of one tree read a job's danger differently (the crew key at boot); [the stars and the
+hour] a job's stars read at the map's hour, not the hour he meets it (WORLD's reader); [a siege for a big crew]; [the block watch's crews].
+[bb Battle Brothers shows a contract's objectives before it is signed, and names who it is against]
+[analog horror: the card knew the water people would come up out of the canal at three in the morning, and now it says so]
+
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/20 -- BUILD 11/20t - EVERY FIGHT WON COUNTS, BUILT, NOT YET SEEN (rules 461, 441, 454(a);
 row 651; the coordinator's routine 'JOBS: the whole enchilada'). Record: records/BOHEMIA_JOBS_EVERY_FIGHT_WON_COUNTS_11_20_26.md.
 - THE BUG HE COULD FEEL: a won fight's CLOUT (five a man) was keyed by the fight's map spot, sent as {gx, gy}: every key read
   'fight:[object Object]', so only the company's FIRST won fight ever paid. slices/BOHEMIA_CITY_WORLD.html __EVERY_FIGHT_WON_COUNTS__
