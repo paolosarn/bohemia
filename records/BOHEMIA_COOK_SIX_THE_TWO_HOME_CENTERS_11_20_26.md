@@ -1,7 +1,7 @@
 # COOK SIX: THE TWO HOME CENTERS WEAR THEIR OWN PIECE (11/20/26)
 
 COOK FIVE's list carried on by COOK SIX (VAMILY rule 461, THE WHOLE ENCHILADA; rules 453, 441, 408, 409(c), 455). BUILD
-11/20g - THE HOME CENTERS, EAST AND WEST. COOK FIVE's next job after the stadium: 'the_home_center_east and the_home_center_west on the map (the last two of
+11/20i - THE HOME CENTERS, EAST AND WEST. COOK FIVE's next job after the stadium: 'the_home_center_east and the_home_center_west on the map (the last two of
 the valley's fifteen)'.
 
 ## WHAT THIS IS

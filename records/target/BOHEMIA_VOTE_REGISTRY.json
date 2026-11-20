@@ -21309,6 +21309,49 @@
     "pulled_from": "records/target/bb/boss_act_one.json",
     "line": "Ey. 20 years I drove this valley. Now I can't find a town without paying THE SURVEYOR for a piece of his map. Ask the man at the bar, he knows where he works."
    }
+  },
+  {
+   "id": "cook6-the-home-centers-11-20",
+   "kind": "tile",
+   "lane": "cook 6",
+   "sha": "SHIPSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "THE TWO HOME CENTERS HAVE THEIR OWN PIECE ON THE MAP: THE EAST ONE STRIPPED, PAINT POURED ON THE LOT; THE WEST ONE SLOWER, ITS DOCK DOOR STILL OPEN",
+   "said": "full sweep, whole enchilada, dont forget nothing",
+   "why": "The last two of the valley's fifteen real places still looked like any shop on the map. Now each big hardware store has its own piece: the EAST SIDE with its doors gone, the lumber racks bare, a crew's fire burning through a hole in the roof over the lumber aisle, and the paint nobody could use poured out in pools of every colour in front of the doors; the WEST SIDE slower, its doors open but whole, plywood still stacked, three cars that never left, and round the side the receiving dock with a pallet still in its wrap and the key cutter in the door with his lantern. You meet them on the map, in the RUN tab.",
+   "options": [
+    "A, yes, that's them",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK6_THE_HOME_CENTERS_11_20.webp",
+    "first": "../records/target/vote_first/cook6-the-home-centers-11-20.webp",
+    "firstAt": [
+     0,
+     72,
+     500,
+     527
+    ]
+   },
+   "before_after": {
+    "before": "main 64ab8c777: both home centers wear the kit art of the kind they are like (a commercial block)",
+    "after": "each store's own piece through the map's rig, drawn on its block under the fog and the night",
+    "scale": "the piece at three times its pixels; the map on his phone upright (390 x 844), beside the store, the same frame with the piece off and on"
+   },
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "twin": {
+    "src": "place_pieces/the_scrap_mill_1.webp",
+    "diffs": [
+     "THE SAME FRAME, RIG AND DRAW as COOK FIVE's thirteen places: no code, two entries in the list and four pictures.",
+     "ONE BOX, TWO STATES, from what the world's own list says of each: the east looted to paint and doorknobs with a crew in the lumber aisle, the west slower with its dock door.",
+     "ONE THING MOVES ON THE BEAT in each: the crew's fire through the roof and the night manager's lantern; the key cutter's lantern and the key machine's spark."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_SIX_THE_TWO_HOME_CENTERS_11_20_26.md"
   }
  ],
  "verdicts": [

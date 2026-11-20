@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
-COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20g - THE HOME CENTERS, EAST AND WEST, BUILT (SHIPSHA), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 408, 409(c), 455; ask rows 627, 651).
+COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20i - THE HOME CENTERS, EAST AND WEST, BUILT (SHIPSHA), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 408, 409(c), 455; ask rows 627, 651).
 The last two of the valley's fifteen real places wear their own piece on the map. No code: slices/place_pieces/place_pieces.json gained the_home_center_east and
 the_home_center_west, the folder four lossless WebP pictures (about 21,000 bytes a store). ONE BOX, TWO STATES, each from WORLD's own words: the EAST SIDE with its doors
 gone, the lumber racks bare, the crew's fire through a hole in the roof over the lumber aisle, the garden centre's shade cloth down over dead plants and the night manager

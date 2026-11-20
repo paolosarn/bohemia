@@ -1,3 +1,23 @@
+COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20i - THE HOME CENTERS, EAST AND WEST, BUILT (SHIPSHA), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 408, 409(c), 455; ask rows 627, 651).
+The last two of the valley's fifteen real places wear their own piece on the map. No code: slices/place_pieces/place_pieces.json gained the_home_center_east and
+the_home_center_west, the folder four lossless WebP pictures (about 21,000 bytes a store). ONE BOX, TWO STATES, each from WORLD's own words: the EAST SIDE with its doors
+gone, the lumber racks bare, the crew's fire through a hole in the roof over the lumber aisle, the garden centre's shade cloth down over dead plants and the night manager
+among them, the paint poured out on the lot in pools of every colour; the WEST SIDE slower, its doors whole, plywood still stacked, three cars that never left, the
+receiving dock round the side with a pallet in its wrap in the open door, the key cutter in the next one, a trailer backed in. On the beat: the fire and the lantern;
+the key cutter's lantern and the key machine's spark.
+Made by tools/bohemia_cook6_the_home_centers_wear_their_own_piece_11_20_26.py ON COOK FIVE's places tool (it binds PW.PLACES / SAY / LIKE / moving / OUT).
+PROOF on the demo: upright 390 x 844 the east side at block 29,53 drawn 51 x 52 points, the west side at 60,38 drawn 51 x 51, with the pieces off 0 drawn; on its side
+844 x 390 the same, 51 points each; no error. Gate THE PLACES WEAR THEIR OWN PIECE 8/0 with fifteen places, page leg included (its S3 caught the first west cut: 5 pixels
+moved between its frames; now 53).
+VOTE cook6-the-home-centers-11-20 (MADE FROM arena2-the-pit-is-a-pit-11-7). Record: records/BOHEMIA_COOK_SIX_THE_TWO_HOME_CENTERS_11_20_26.md.
+FOUND, FOR WHOEVER RENDERS A PLACE AGAIN: the places' render skips a scene whose master is on disk, so a changed scene draws the old picture until its master is deleted.
+Its block is handoffs/COOK_FIVE.md (COOK SIX writes there).
+FOR WORLD (13, 14): the two entries are yours to check against what the stores are. Nothing of yours edited.
+*** NEXT ON THIS LANE, IN THIS ORDER: (1) THE REGION'S FOUR (TULE SPRINGS LAB, LENZIE STATION, SPRING MOUNTAIN RANCH, CALLVILLE BAY): a wrap of the map's mapBaseDraw by
+the place's name in slices/bohemia_place_pieces.js (this lane's module; the region draws its places after the whole frame, so the wrap is the only seam) and four
+scenes; (2) COMBAT THREE's next insides (the dam's powerhouse, the Sphere) when their names land.
+[bb Battle Brothers' map: a place worth the walk is told from a village at a glance; two stores of one kind are told apart by what happened to them]
+[analog horror: paint poured out on the lot in front of the doors, every colour a room can be, because it was the only thing left]
 WORDS THREE (words-three-01gkdyuvnl): 11/20 LATEST -- BUILD 11/20h - HIS HOMEWORK, SHEET THREE, AND THE VOICE IN PLAIN WORDS, BUILT (28fc42069), NOT YET SEEN (rules 454(a)(c)(d), 455, 461, 462; ask rows 628, 629, 637, 643). Its block is handoffs/WORDS_TWO.md.
 THIS CHAT IS WORDS THREE (WORDS TWO's model hit its weekly limit). NOTHING IN THE GAME WAS REWRITTEN. THE VOICE (laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md, now written by
 tools/bohemia_words_three_the_voice.py) is plain: his four lines each with WHAT IT TEACHES under it, 21 more lines of his about how people talk each word for word from
