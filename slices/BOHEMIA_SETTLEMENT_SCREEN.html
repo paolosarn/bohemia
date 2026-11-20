@@ -2188,6 +2188,8 @@ function homeCamPlace(){ if(!HCAM.btns || !HCAM.el) return; var P = FIT.phone, s
 var HLENS = { on: false, cam: -1, F: null, s: 1, k: 1, tx: 0, ty: 0, close: null, el: null, ts: null, timer: 0, t0: 0, hit: null };
 var HLENS_CAMS = [ { tilt: 13, roll: 0 }, { tilt: 20, roll: 0 }, { tilt: 16, roll: -2.4 } ];   /* draft: the three mounts */
 var HLENS_SENSOR = 'grayscale(.82) sepia(.3) hue-rotate(52deg) saturate(.9) contrast(1.12) brightness(.92)';   /* act one: a dying system */
+var HLENS_SENSOR_NIGHT = 'grayscale(1) contrast(1.22) brightness(1.6)';   /* at night the camera's own infrared: black and white, bright near (measured 11/18 by EYES: at night his three cameras were near black) */
+function homeLensSensor(){ return view.night ? HLENS_SENSOR_NIGHT : HLENS_SENSOR; }
 function homeLensWH(){ return { W: cv.offsetWidth || view.W || 1, H: cv.offsetHeight || view.H || 1 }; }
 function homeLensMat(c, s, tx, ty, yaw, px){ var D = homeLensWH(), d = 1.3 * Math.max(D.W, D.H), ox = D.W * (px == null ? .5 : px), oy = D.H * .55, P = new DOMMatrix(); P.m34 = -1 / d;   /* px: where across the glass the camera pivots */
   return new DOMMatrix().translate(tx || 0, ty || 0).translate(ox, oy).multiply(P).rotate(c.tilt, yaw || 0, c.roll).scale(s, s).translate(-ox, -oy); }   /* yaw: the camera turned toward what it watches */
@@ -2206,7 +2208,7 @@ function homeLensSet(i){   /* a camera at its own mount: the smallest zoom that 
 function homeLensApply(i, scale, tx, ty, yaw, px){
   var c = HLENS_CAMS[i] || HLENS_CAMS[0], F = homeLensMat(c, scale, tx, ty, yaw, px), D = homeLensWH();
   HLENS.on = true; HLENS.cam = i; HLENS.tx = tx || 0; HLENS.ty = ty || 0; HLENS.yaw = yaw || 0; HLENS.px = px == null ? .5 : px; HLENS.F = F; HLENS.W = D.W; HLENS.H = D.H;
-  cv.style.transformOrigin = '0 0'; cv.style.transform = F.toString(); cv.style.filter = HLENS_SENSOR;
+  cv.style.transformOrigin = '0 0'; cv.style.transform = F.toString(); cv.style.filter = homeLensSensor();
   if(!HLENS.el){ var sc = document.getElementById('scene'), el = document.createElement('div'); el.id = 'hlens'; el.setAttribute('aria-hidden', 'true');
     ['scan', 'roll', 'vig'].forEach(function(n2){ var x = document.createElement('i'); x.className = n2; el.appendChild(x); });
     HLENS.ts = document.createElement('b'); HLENS.ts.className = 'ts'; el.appendChild(HLENS.ts);
@@ -2217,7 +2219,8 @@ function homeLensOff(){ if(!HLENS.on && !HLENS.el) return; HLENS.on = false; HLE
   cv.style.transform = ''; cv.style.transformOrigin = ''; cv.style.filter = ''; if(HLENS.el){ HLENS.el.remove(); HLENS.el = null; } if(HLENS.timer){ clearInterval(HLENS.timer); HLENS.timer = 0; }
   window.__HOME_LENS = { on: false }; }
 /* the wrong clock a forgotten camera keeps: 01-01-80, running from when you came in */
-function homeLensClock(){ if(!HLENS.ts) return; var t = Math.floor((performance.now() - HLENS.t0) / 1000), p = function(n){ return (n < 10 ? '0' : '') + n; };
+function homeLensClock(){ if(!HLENS.ts) return; try{ var sn = homeLensSensor(); if(HLENS.on && cv.style.filter !== sn){ cv.style.filter = sn; if(window.__HOME_LENS) window.__HOME_LENS.sensor = sn; } }catch(e){}   /* dusk and dawn switch the sensor within a second */
+  var t = Math.floor((performance.now() - HLENS.t0) / 1000), p = function(n){ return (n < 10 ? '0' : '') + n; };
   HLENS.ts.textContent = '01-01-80  ' + p(Math.floor(t / 3600) % 24) + ':' + p(Math.floor(t / 60) % 60) + ':' + p(t % 60); }
 /* the canvas's own box on the glass as if no lens: every tap below is mapped into it */
 function homeLensRect(){ var sc = document.getElementById('scene').getBoundingClientRect(), x = sc.left + cv.offsetLeft, y = sc.top + cv.offsetTop, w = cv.offsetWidth, h = cv.offsetHeight;
@@ -2310,7 +2313,22 @@ function homeLotFoot(i){ var bx = VAR && VAR.boxes.build; if(!bx) return null;
 function homeLotsBox(){ var n = Math.max(1, Math.min(12, buildLots())), f = []; for(var i = 0; i < n; i++){ var q = homeLotFoot(i); if(q) f.push(q); } if(!f.length) return VAR && VAR.boxes.build;
   return [Math.min.apply(null, f.map(function(q){ return q[0]; })), Math.min.apply(null, f.map(function(q){ return q[1]; })), Math.max.apply(null, f.map(function(q){ return q[2]; })), Math.max.apply(null, f.map(function(q){ return q[3]; }))]; }   /* the open lots' own ground: what he taps */
 function homeLotsOn(){ return HLENS.on && S.open === 'build' && S.home && S.home.planted && VAR && VAR.boxes.build; }
-function homeDrawLots(s){ if(!homeLotsOn()) return;
+/* WHERE HE BUILDS, SEEN WITH NOTHING OPEN (measured 11/18 by EYES: 'no BUILD button on his screen'): his empty open lots chalked faint
+   on their ground and a hammer's plate over them, the camera's own picture; a tap on one is BUILD with that lot picked. No words. */
+var HOME_HAMMER = new Image(); HOME_HAMMER.src = 'market_icons/own_framing_hammer.png';
+function homeDrawEmpty(s){ window.__HOME_EMPTY_LOTS = []; window.__HOME_HAMMER_AT = null; if(!HLENS.on || S.open || !S.home || !S.home.planted || !VAR || !VAR.boxes.build) return;
+  var held = {}; homeThingsHere().forEach(function(t){ held[t.lot] = 1; }); var open = buildLots(), E = [];
+  for(var i = 0; i < Math.min(12, open); i++) if(!held[i]){ var f = homeLotFoot(i); if(f) E.push([i, f]); }
+  window.__HOME_EMPTY_LOTS = E.map(function(e){ return e[0]; }); if(!E.length) return;
+  cx.save(); cx.lineWidth = Math.max(1.2, 2 * s); cx.setLineDash([6 * s, 6 * s]); cx.strokeStyle = 'rgba(239,228,204,.5)';
+  E.forEach(function(e){ var f = e[1]; cx.strokeRect(view.ox + f[0] * s, view.oy + f[1] * s, (f[2] - f[0]) * s, (f[3] - f[1]) * s); });
+  var x0 = Math.min.apply(null, E.map(function(e){ return e[1][0]; })), x1 = Math.max.apply(null, E.map(function(e){ return e[1][2]; })), y0 = Math.min.apply(null, E.map(function(e){ return e[1][1]; }));
+  if(HOME_HAMMER.complete && HOME_HAMMER.naturalWidth){ var w = Math.min(96, personH() * .62), h = w * .8, X = view.ox + ((x0 + x1) / 2 - w / 2) * s, Y = view.oy + (y0 - h - 8) * s;
+    cx.setLineDash([]); cx.fillStyle = 'rgba(10,8,6,.86)'; cx.fillRect(X, Y, w * s, h * s); cx.strokeStyle = 'rgba(200,170,110,.6)'; cx.strokeRect(X + .5, Y + .5, w * s - 1, h * s - 1);
+    var k = Math.min(w * .78 / HOME_HAMMER.naturalWidth, h * .78 / HOME_HAMMER.naturalHeight) * s; cx.drawImage(HOME_HAMMER, X + (w * s - HOME_HAMMER.naturalWidth * k) / 2, Y + (h * s - HOME_HAMMER.naturalHeight * k) / 2, HOME_HAMMER.naturalWidth * k, HOME_HAMMER.naturalHeight * k);
+    window.__HOME_HAMMER_AT = [x0, y0, x1]; }
+  cx.restore(); }
+function homeDrawLots(s){ try{ homeDrawEmpty(s); }catch(e){} if(!homeLotsOn()) return;
   var open = buildLots(), names = {}; homeThingsHere().forEach(function(t){ names[t.lot] = String(t.kind === 'build' ? t.id : t.name).toUpperCase().replace(/^(YOUR|HIS|HER) /, ''); });
   cx.save(); cx.lineWidth = Math.max(1.5, 2.5 * s); cx.font = '700 ' + Math.round(Math.max(11, 22 * s)) + 'px ui-monospace,Menlo,monospace'; cx.textBaseline = 'bottom';
   for(var i = 0; i < 12; i++){ var f = homeLotFoot(i); if(!f) continue; var X0 = view.ox + f[0] * s, Y0 = view.oy + f[1] * s, X1 = view.ox + f[2] * s, Y1 = view.oy + f[3] * s, on = i < open, pk = S.homePick === i;

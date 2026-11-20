@@ -1,4 +1,10 @@
-HOME BASE (home-base-01gkdyuv): 11/18 LATEST -- BUILD 11/18c - HELD THE GATE (e7f447c8b), SHIPPED (rule 453; ask line 571).
+HOME BASE (home-base-01gkdyuv): 11/20 LATEST -- BUILD 11/20a - WHERE YOU BUILD, BUILT, NOT YET SEEN (rule 461; ask lines 625, 642).
+Record: records/BOHEMIA_HOME_BASE_WHERE_YOU_BUILD_11_20_26.md.
+- EYES 11/18's two finds on his place fixed: 'no BUILD button' (his empty lots now chalked under a hammer's plate with nothing open,
+  a tap on one is BUILD with it picked) and the near-black cameras at night (the cameras' own infrared). Gate D20.
+- NEXT ON THIS LIST: row 638 (the grinder) waits on his A/B/C, nothing built on the player's side; the defence fight's builds-as-cover
+  waits on his word on rule 86; the 3D camera renders and a camera sound are owed (bigger builds, named in the 11/17 record).
+HOME BASE (home-base-01gkdyuv): 11/18 EARLIER -- BUILD 11/18c - HELD THE GATE (e7f447c8b), SHIPPED (rule 453; ask line 571).
 Record: records/BOHEMIA_HOME_BASE_HELD_THE_GATE_11_18_26.md.
 - A raid he HELD at his place's gate is pinned on his cork board (the seam's deed, held: true; the map's __HIS_GATE_HELD__ reads
   FACTIONS' ledger, read only). Seen close on the camera. Gate E12, D18.

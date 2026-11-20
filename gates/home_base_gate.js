@@ -43,6 +43,8 @@
      D18 HIS IMPACT (rule 453(3)): jobs ending through the jobs' own settle: the done are pinned, the lost not; the cork board goes up
          by itself, CAM 2 sees it, a real tap says the jobs done and the people brought home. PLANTED: the board off the message, no door;
          E11: a lost or cancelled job pinned is caught.
+     D20 WHERE HE BUILDS (EYES 11/18): with nothing open his empty lots chalked under a hammer's plate, a real tap on one is BUILD with
+         it picked (planted: no planted place, no lots); at night the cameras' infrared (planted: the day back, the day sensor).
      D19 HIS PLACE SEEN AS HE WILL SEE IT (rule 458(c), ask row 639): every camera its own mount through a perspective, the sensor, the
          tape and the wrong clock, the glass filled, all twelve lots in its frame; a finger goes through the lens (planted: the spot read
          flat answers wrong); a real tap on the yard cuts close on it above the sheet; his men at his buildings, each once; the sheet put
@@ -423,6 +425,27 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       await close15();
       const back19 = await fr.evaluate(() => ({ close: (window.__HOME_LENS || {}).close || null, n: (window.__HOME_CAM || {}).n }));
       ok('D19 the sheet put away, the camera is back on its mount (CAM ' + ((back19.n | 0) + 1) + ')', back19.close === null && back19.n === 0, JSON.stringify(back19));
+      /* D20 WHERE HE BUILDS, SEEN WITH NOTHING OPEN (EYES 11/18: 'no BUILD button on his screen'): his empty lots chalked, a hammer's
+         plate over them; a real tap on an empty lot is BUILD with that lot picked. AT NIGHT the cameras' own infrared (EYES 11/18: near black) */
+      await P.waitForTimeout(400);
+      const e20 = await fr.evaluate(() => ({ empty: (window.__HOME_EMPTY_LOTS || []).slice(), hammer: window.__HOME_HAMMER_AT, open: BohemiaSettlement.state.open }));
+      ok('D20 with nothing open his empty lots are chalked on their ground (' + e20.empty.map(i => i + 1).join(', ') + ') under a hammer\'s plate', !e20.open && e20.empty.length >= 1 && !!e20.hammer, JSON.stringify(e20));
+      const lp20 = e20.empty.length ? await fr.evaluate(i => window.__HOME_LOT_AT(i), e20.empty[0]) : null;
+      if (lp20) { await P.touchscreen.tap(fb.x + lp20.x, fb.y + lp20.y); await P.waitForTimeout(1200); }
+      const t20 = await fr.evaluate(() => ({ open: BohemiaSettlement.state.open, pick: window.__HOME_PICK }));
+      ok('D20 a real tap on empty lot ' + ((e20.empty[0] | 0) + 1) + ' in the feed opens BUILD with it picked (' + JSON.stringify(t20) + ')', t20.open === 'build' && t20.pick === e20.empty[0], JSON.stringify({ lp20, t20 }));
+      await close15();
+      await fr.evaluate(() => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); h.planted = false; window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); }); await P.waitForTimeout(700);
+      const e20p = await fr.evaluate(() => ({ empty: (window.__HOME_EMPTY_LOTS || []).slice(), hammer: window.__HOME_HAMMER_AT }));
+      ok('D20 planted: a place that is not his planted place shows no lots and no plate (the leg above would be red)', !e20p.empty.length && !e20p.hammer, JSON.stringify(e20p));
+      await F.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); }); await P.waitForTimeout(2500); await gone15(); await close15();
+      const nightOf = () => fr.evaluate(() => ({ night: BohemiaSettlement.night(), sensor: document.getElementById('cv').style.filter }));
+      await fr.evaluate(() => window.postMessage({ type: 'BOHEMIA_CAMP_TIME', town: true, day: 2, min: 23 * 60, night: true }, '*')); await P.waitForTimeout(1800);
+      const n20 = await nightOf();
+      ok('D20 at night every camera turns to its infrared (' + n20.sensor + ')', n20.night && /grayscale\(1\)/.test(n20.sensor) && /brightness\(1\.6\)/.test(n20.sensor), JSON.stringify(n20));
+      await fr.evaluate(() => window.postMessage({ type: 'BOHEMIA_CAMP_TIME', town: true, day: 2, min: 12 * 60, night: false }, '*')); await P.waitForTimeout(1800);
+      const d20 = await nightOf();
+      ok('D20 planted: the day back, the day sensor (the night leg above reads red on it)', !d20.night && !/brightness\(1\.6\)/.test(d20.sensor), JSON.stringify(d20));
       await F.evaluate(() => { const r = BohemiaHomeMap.rec(); r.places = []; localStorage.removeItem('bohemia.home.trained.v1'); DAY.day = (DAY.day | 0) - 2; const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); });
       await P.waitForTimeout(2500); await gone15(); await close15();   /* the gate's three come down so the legs after build where they always did */
       /* D18 HIS IMPACT SEEN AT HIS PLACE (rule 453(3)): a job he did is pinned on the cork board, which goes up by itself, seen at CAM 2 */
