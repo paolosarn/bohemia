@@ -1,5 +1,10 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+NOTE from BESTIARY (11/20, rule 461, the second build): NOTHING OF YOURS WAS TOUCHED but person_reds_2 and person_trades_2, taken out of
+the pools that shared them (brigand_thug keeps 13, wiederganger 8) for the new SIREN (the block watch) and BATTERY MAN (the machines'
+crew). Their own clothes: the siren (a neighbour's housecoat, the crank siren on a strap), the battery man (a work suit hung with taped
+cells, gloves eaten through). The stand-in list: the 11/18 note's nine, the 11/20 two, and these two.
+
 NOTE from BESTIARY (11/20, rule 461): NOTHING OF YOURS WAS TOUCHED but person_mob_2, taken out of the raiders' pools (brigand_raider,
 lower_brigand_raider, orc_young keep 5, 5, 6) for the new DOORMAN (the eye in the sky); the new PENITENT (the flock) wears faction_homeless,
 which no enemy band wore. Their own clothes: the penitent (sackcloth, a rope belt, ash on his face), the doorman (casino security's black

@@ -30,7 +30,7 @@ for (const r of MINE) {
   const u = setup({ party: [{ kind: r.id, count: 1 }] }).units.filter(v => v.side === 'them')[0];
   o.name = u.name; o.look = u.look; o.weapon = u.weapon && u.weapon.name; o.ranged = !!(u.weapon && F.isRanged(u.weapon));
   o.fromGear = (r.gear || null) ? (r.gear.indexOf(o.weapon) >= 0) : true;
-  const acts = { melee: 0, ranged: 0, kick: 0, charge: 0, flings: 0, horrific_scream: 0, martyr: 0, trample: 0, on_guard: 0, riposte: 0, turn: 0, turned: 0, call: 0, call_lands: 0, smoke_pot: 0, fire_pot: 0, burned: 0, dart: 0, asleep: 0, bond: 0, bond_hurt: 0, back_door: 0, toward_main: 0, toward_nearest: 0 }; let won = 0;
+  const acts = { melee: 0, ranged: 0, kick: 0, charge: 0, flings: 0, horrific_scream: 0, martyr: 0, trample: 0, on_guard: 0, riposte: 0, turn: 0, turned: 0, call: 0, call_lands: 0, smoke_pot: 0, fire_pot: 0, burned: 0, dart: 0, asleep: 0, bond: 0, bond_hurt: 0, back_door: 0, siren: 0, acid: 0, acid_tick: 0, toward_main: 0, toward_nearest: 0 }; let won = 0;
   if (ph) for (let s = 1; s <= 10; s++) {
     ctx.setSeed(s); F.setup({ auto: true, formation: null, kind: ['ruin', 'suburb', 'strip'][s % 3], deploy: false, company: crew(6), party: { faction: r.faction, count: 6, days: ph.from_day + 1, difficulty: 0 } });
     let g = 0; while (!F.S.over && g < 200000) { const c = F.current(); if (!c) break; F.aiStep(c);
@@ -40,7 +40,8 @@ for (const r of MINE) {
           const near = others.sort((p, q) => D(e.fx, e.fy, p) - D(e.fx, e.fy, q))[0]; if (!near || D(e.fx, e.fy, near) >= D(e.fx, e.fy, m)) return;
           const tm = D(e.x, e.y, m) < D(e.fx, e.fy, m), tn = D(e.x, e.y, near) < D(e.fx, e.fy, near);
           if (tm && !tn) acts.toward_main++; else if (tn && !tm) acts.toward_nearest++; return; }
-        if (e.t === 'skill' && (e.skill === 'kick' || e.skill === 'charge' || e.skill === 'flings' || e.skill === 'horrific_scream' || e.skill === 'martyr' || e.skill === 'trample' || e.skill === 'on_guard' || e.skill === 'riposte' || (e.skill === 'turn' && !e.held) || e.skill === 'call' || e.skill === 'call_lands' || e.skill === 'smoke_pot' || e.skill === 'fire_pot' || (e.skill === 'dart' && e.hit) || e.skill === 'bond' || e.skill === 'bond_hurt' || e.skill === 'back_door')) { const a = F.byId(e.id); if (a && a.kind === r.id) acts[e.skill] = (acts[e.skill] || 0) + 1; return; }
+        if (e.t === 'skill' && (e.skill === 'kick' || e.skill === 'charge' || e.skill === 'flings' || e.skill === 'horrific_scream' || e.skill === 'martyr' || e.skill === 'trample' || e.skill === 'on_guard' || e.skill === 'riposte' || (e.skill === 'turn' && !e.held) || e.skill === 'call' || e.skill === 'call_lands' || e.skill === 'smoke_pot' || e.skill === 'fire_pot' || (e.skill === 'dart' && e.hit) || e.skill === 'bond' || e.skill === 'bond_hurt' || e.skill === 'back_door' || e.skill === 'siren' || e.skill === 'acid')) { const a = F.byId(e.id); if (a && a.kind === r.id) acts[e.skill] = (acts[e.skill] || 0) + 1; return; }
+        if (e.t === 'skill' && e.skill === 'acid_tick' && e.by) { const by = F.byId(e.by); if (by && by.kind === r.id) acts.acid_tick++; return; }
         if (e.t === 'burn' && e.by) { const by = F.byId(e.by); if (by && by.kind === r.id) acts.burned++; return; }
         if (e.t === 'skill' && e.skill === 'turned') { const by = F.byId(e.by); if (by && by.kind === r.id) acts.turned++; return; }
         if (e.t !== 'attack') return; const a = F.byId(e.id), t = F.byId(e.to); if (!a || a.kind !== r.id || !t) return;
