@@ -119,6 +119,12 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 .act em{font-style:normal;color:var(--gold);white-space:nowrap}
 .slots{margin-top:10px;color:var(--dim);font-size:12px}
 .slots.waits{color:#c98a6a;letter-spacing:.6px;margin-top:6px}   /* JOBS 11/18 __THE_BIG_WORK_WAITS_FOR_A_NAME__ */
+.slots.bar{letter-spacing:.6px;margin-top:6px;max-width:340px}   /* JOBS 11/20 __THE_TOWNS_BAR_ON_ITS_BOARD__: the arrival card's own look */
+.slots.bar .bandw{color:var(--ink)}
+.slots.bar .cap{display:inline-flex;vertical-align:middle}
+.slots.bar .rail{position:relative;height:8px;margin-top:4px;background:#16110c;border:1px solid var(--line);display:grid;grid-template-columns:repeat(9,1fr)}
+.slots.bar .rail i{border-right:1px solid #2a2119}
+.slots.bar .rail b{position:absolute;top:-4px;width:4px;height:14px;margin-left:-2px;background:var(--gold);box-shadow:0 1px 0 #000}
 #close{position:absolute;right:8px;top:6px;min-width:44px;min-height:44px;background:none;border:0;color:var(--dim);font:inherit;font-size:20px}
 /* the shelf and the bag: square slots, Battle Brothers' stash grid */
 .gridh{margin:10px 0 4px;font-size:11px;letter-spacing:1px;color:var(--dim)}
@@ -5355,6 +5361,25 @@ function openB(k, line){
     S.held.map(heldRow).forEach(function(c){ acts.appendChild(heldAct(c)); });   /* __DROP_A_JOB_RIGHT_IN_THE_TOWN__: the jobs he is on, on top; __TWO_JOBS_AT_ONCE__: both, from the tap */
     setTimeout(function(){ heldFill(0); }, 150);
     var bh = boardHere(); bh.forEach(function(o){ acts.appendChild(clientAct(o, full && !jobsK())); });   /* full or not, a person can be talked to: a full board asks to swap */
+    /* __THE_TOWNS_BAR_ON_ITS_BOARD__ (JOBS 11/20, rule 461; the handoff's next since 11/17): how this town feels about him already sizes
+       this board (relations.json board, BohemiaJobPay.board: below Neutral two skulls at most, at Hostile one job, from Friendly up one
+       more) and bends every offer's pay, and the board never said so: it showed on the arrival card for a moment and on the phone's
+       RELATIONS. Battle Brothers keeps a town's relation on its own screen. NOW the board says it on its own line, read by the same
+       reader the shelf sizes a board with (BohemiaJobPay.board): the arrival card's own words and its rail, the number as the phone says
+       it, and what it does to this board in the offers' own marks, each said only when the board in front of him keeps it (a board he
+       read keeps what he read until its window turns). Labels only, draft (rule 454(a)) */
+    try{ var JP = window.BohemiaJobPay, TB = JP && JP.board ? JP.board(S.place.name, buildDay()) : null;
+      if(TB && TB.band){ var bl = document.createElement('div'); bl.className = 'slots bar op'; bl.dataset.band = TB.band; bl.dataset.score = Math.round(TB.score);
+        bl.appendChild(document.createTextNode('WHAT THEY THINK OF YOU: '));
+        var bw = document.createElement('span'); bw.className = 'bandw'; bw.textContent = String(TB.band).replace(/_/g, ' ').toUpperCase() + ' ' + Math.round(TB.score); bl.appendChild(bw);
+        var M = window.BohemiaMaterials, stars = function(n){ var e = M && M.stars ? M.stars(n, { gap: 0, red: true }) : null; if(!e){ e = document.createElement('span'); e.textContent = new Array(n + 1).join('★'); } e.className = (e.className ? e.className + ' ' : '') + 'cap'; return e; };
+        var sk = function(o){ return (o && o.skulls | 0) || 1; }, under = function(n){ return bh.every(function(o){ return sk(o) <= n; }); };   /* each mark is said only when the board in front of him keeps it (a board he read stays what he read until its window turns) */
+        if(TB.cap != null){ if(bh.length <= TB.cap && under(TB.maxSkulls)){ bl.appendChild(document.createTextNode(' · ' + TB.cap + ' JOB ')); bl.appendChild(stars(1)); } }
+        else if(TB.maxSkulls < 3){ if(under(TB.maxSkulls)){ bl.appendChild(document.createTextNode(' · UP TO ')); bl.appendChild(stars(TB.maxSkulls)); } }
+        else if(TB.more > 0){ var SC = (window.BohemiaBoardShelf && BohemiaBoardShelf.shelf && BohemiaBoardShelf.shelf() || {}).counts || {}, base = Math.min(SC[S.place.tier || 'camp'] || 1, SC.max || 4);
+          if(bh.length > base) bl.appendChild(document.createTextNode(' · +' + (bh.length - base) + ' JOB')); }   /* said only when the board holds it: a new crew's floor can leave a friend's extra job unposted (measured: Caravans at Friendly, 2 people of a fortress's 3) */
+        var rl = document.createElement('div'); rl.className = 'rail'; rl.innerHTML = '<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><b></b>'; rl.querySelector('b').style.left = Math.max(0, Math.min(100, TB.score)) + '%'; bl.appendChild(rl);
+        body.appendChild(bl); } }catch(e){}   /* draft */
     try{ var WN = window.BohemiaBoardShelf && BohemiaBoardShelf.waits ? BohemiaBoardShelf.waits(S.place.name, S.place.tier, buildDay()) : null;   /* JOBS 11/18 __THE_BIG_WORK_WAITS_FOR_A_NAME__: the CLOUT that opens more of this board's work, said in numbers */
       if(WN && WN.need){ var wn = document.createElement('div'); wn.className = 'slots waits'; wn.textContent = 'MORE WORK HERE AT ' + WN.need + ' CLOUT \u00b7 YOU HAVE ' + (WN.have | 0); body.appendChild(wn); } }catch(e){}   /* draft */
     try{ if(window.BohemiaBoardShelf && BohemiaBoardShelf.seen && bh.length) BohemiaBoardShelf.seen(S.place.name, bh.map(function(o){ return o.id; }), buildDay()); }catch(e){}   /* __A_READ_BOARD_STAYS_READ__ (JOBS 11/14, row 610): what he reads here is the board until its time is up */

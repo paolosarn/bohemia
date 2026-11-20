@@ -94,9 +94,14 @@
   function readGet() { try { var m = JSON.parse(root.localStorage.getItem(READKEY) || '{}'); return m && typeof m === 'object' ? m : {}; } catch (e) { return {}; } }
   function readPut(m) { try { root.localStorage.setItem(READKEY, JSON.stringify(m)); } catch (e) {} }
   function campaign() { try { var w = root.WORLD_SEED; if (w == null && root.parent && root.parent !== root) w = root.parent.WORLD_SEED; return String(w || ''); } catch (e) { return ''; } }
+  /* JOBS 11/20 (__THE_TOWNS_BAR_ON_ITS_BOARD__): the towns' bars size the boards (trust, 11/17), so a bar that moved deals again (a
+     board dealt at Neutral kept a Neutral size after the town turned Friendly or Cold until something else changed the key; measured
+     with the cache: Anarchists 2 people at Neutral and at Friendly; without it, 2 and 3). The towns' own record and what is still on its
+     way to it, read raw (no parse): a posted job stays posted (__A_POSTED_JOB_STAYS_POSTED__) and a read board stays read */
+  function barsSig() { try { var L = root.localStorage; return (L.getItem('bohemia.relations.v1') || '') + '#' + (L.getItem('bohemia.job.settled.v1') || ''); } catch (e) { return ''; } }
   function dealt(day, opt) {
     var win = Math.floor((day || 0) / (SHELF.refresh_days || 3)), C = SHELF.counts || {};
-    var FW = fitter(), key = win + '|' + (FW ? FW.fitVer() + '|' + (day | 0) : '') + '|' + (opt.held || []).join(',') + '|' + (opt.done || []).join(',') + '|' + (opt.crew || '') + '|' + cloutLevel(clout()) + '|' + opt.places.map(function (p) { return p.name + ':' + p.tier + ':' + (p.traits || []).join('+'); }).join(';');
+    var FW = fitter(), key = win + '|' + (FW ? FW.fitVer() + '|' + (day | 0) : '') + '|' + (opt.held || []).join(',') + '|' + (opt.done || []).join(',') + '|' + (opt.crew || '') + '|' + cloutLevel(clout()) + '|' + barsSig() + '|' + opt.places.map(function (p) { return p.name + ':' + p.tier + ':' + (p.traits || []).join('+'); }).join(';');
     if (DEAL.key === key) return DEAL.map;
     var order = opt.places.slice().sort(function (a, b) { return seedOf(a.name + ':order:' + win) - seedOf(b.name + ':order:' + win) || (a.name < b.name ? -1 : 1); });
     var taken = {}, map = {}, want = {};

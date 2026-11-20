@@ -31,7 +31,10 @@
    offers on the real files; D3 on his phone (--build D): a one-skull find paid partly as a build, played to the pay, the build his.
    BUILD E (11/18), THE BIG WORK WAITS FOR A NAME: E1 the files (job_clout.json, TUNING's row, the shelf's gate, the board's label);
    E2 the boards by CLOUT on the real shelf (planted: the needs gone); E3 on his phone (--build E): a job done opens a fortress's work.
-   node gates/the_towns_book_gate.js     JOBS_FILES=1 the files only     JOBS_BUILD=A,B,C,D,E (the phone legs of those builds)
+   BUILD H (11/20), THE TOWN'S BAR ON ITS BOARD: H1 the files (the board's line and its marks, the rail, the shelf's key carries the
+   bars); H2 the deal follows the bar on the real shelf (planted: the old key); H3 on his phone (--build H): four bars on a fortress's
+   board and a friend's extra job on a town's, the line against the board and the arrival card's number.
+   node gates/the_towns_book_gate.js     JOBS_FILES=1 the files only     JOBS_BUILD=A,B,C,D,E,H (the phone legs of those builds)
    ========================================================================== */
 'use strict';
 const fs = require('fs'), path = require('path'), cp = require('child_process'), os = require('os'), vm = require('vm');
@@ -145,6 +148,33 @@ function boards(src, band) {
   const e2 = c0.fort2 === 0 && c0.fort3 === 0 && c0.small3 === 0 && c250.fort2 > 0 && c250.fort3 === 0 && c250.small3 > 0 && c1050.fort3 > 0 && [c0, c250, c1050, lone].every(x => x.empty === 0) && plant.fort3 > 0 && plant.small3 > 0 && /fortress:250/.test(c0.label) && /fortress:1050/.test(c250.label) && c1050.label === '';
   ok('E2 the boards by CLOUT (14 places, ten windows): at 0 no fortress posts two- or three-skull work and no town or camp three-skull; at 250 the two-skull fortress work and the towns\' three-skull open; at 1050 the fortresses\' three-skull work; no board is ever empty (a valley whose fortresses hold only three-skull work too); the label says 250, then 1050, then nothing; planted (no needs) the big work is back at 0',
     e2, 'CLOUT 0 ' + JSON.stringify(c0) + ' | 250 ' + JSON.stringify(c250) + ' | 1050 ' + JSON.stringify(c1050) + ' | planted ' + JSON.stringify(plant) + ' | only three-skull fortresses ' + JSON.stringify(lone)); }
+/* ---------- BUILD H (11/20), THE TOWN'S BAR ON ITS BOARD ---------- */
+{ const h1 = [/__THE_TOWNS_BAR_ON_ITS_BOARD__/.test(SS) && /TB = JP && JP\.board \? JP\.board\(S\.place\.name, buildDay\(\)\) : null/.test(SS) && /bl\.appendChild\(document\.createTextNode\('WHAT THEY THINK OF YOU: '\)\)/.test(SS),
+    /if\(bh\.length <= TB\.cap && under\(TB\.maxSkulls\)\)/.test(SS) && /if\(under\(TB\.maxSkulls\)\)\{ bl\.appendChild\(document\.createTextNode\(' · UP TO '\)\)/.test(SS) && /if\(bh\.length > base\) bl\.appendChild/.test(SS),
+    /function barsSig\(\)/.test(SH) && /cloutLevel\(clout\(\)\) \+ '\|' \+ barsSig\(\) \+ '\|'/.test(SH),
+    /\.slots\.bar\{/.test(SS) && /\.slots\.bar \.rail\{/.test(SS)];
+  ok('H1 the files: the board\'s own line (the arrival card\'s words, read by the reader that sizes the board), each mark said only when the board in front of him keeps it, its rail; the shelf deals again when a bar moves',
+    h1.every(Boolean), h1.map(b => b ? 1 : 0).join('')); }
+{ /* the deal follows the bar: the shelf's own file, a reader of the bars that reads only the towns' record (as the game's does), one
+     window, the same ask twice with only the bar moved between; planted (the old key, no bars in it) the second ask is the first */
+  const run = (src) => { const store = {}, B = REL.board.value, W = { localStorage: { getItem: k => (store[k] == null ? null : store[k]), setItem: (k, v) => { store[k] = String(v); } }, WORLD_SEED: 'K7QM9X',
+      BohemiaJobDanger: { fits: () => true, fitVer: () => 'v' } };
+    W.BohemiaJobPay = { board: (name) => { let v = 50; try { const r = JSON.parse(store['bohemia.relations.v1'] || '{}'); if (r.bars && typeof r.bars[name] === 'number') v = r.bars[name]; } catch (e) {}
+      const band = v < 10 ? 'hostile' : v < 40 ? 'cold' : v >= 70 ? 'friendly' : 'neutral'; return { band, score: v, maxSkulls: B.max_skulls[band] == null ? 3 : B.max_skulls[band], cap: band === 'hostile' ? B.hostile_jobs : null, more: (B.more[band] | 0) }; } };
+    W.window = W; vm.createContext(W); vm.runInContext(src, W);
+    const doc = J('records/target/BOHEMIA_BOARD_SHELF.json'), K = J('records/target/BOHEMIA_JOB_KINDS.json'), have = {}; doc.offers.forEach(o => have[o.id] = 1); K.board_people.rows.forEach(o => { if (!have[o.id] && /\{pay\}/.test(o.says || '')) doc.offers.push(o); });
+    W.BohemiaBoardShelf.set(doc); const SHx = W.BohemiaBoardShelf, tiers = ['camp', 'town', 'fortress'], P = TOWNS.map((n, i) => ({ name: n, tier: tiers[i % 3], traits: [] }));
+    /* each ask on a clean board (a job posted in a window stays posted for it, the game's own rule: a board posted at Neutral keeps its
+       work when the town turns Cold, and the line says nothing it does not keep) */
+    const put = (n, v) => { delete store['bohemia.board.posted.v1']; delete store['bohemia.board.read.v1']; store['bohemia.relations.v1'] = JSON.stringify({ bars: { [n]: v }, seen: {} }); }, o = { more: 0, less: 0, same: 0, cold3: 0, hostileOver: 0 };
+    for (let d = 0; d < 30; d += 3) P.forEach(p => {
+      put(p.name, 50); const a = (SHx.pick(p, d, { places: P }) || []).length; put(p.name, 75); const b = (SHx.pick(p, d, { places: P }) || []).length;
+      put(p.name, 34); const c = SHx.pick(p, d, { places: P }) || []; put(p.name, 5); const h = SHx.pick(p, d, { places: P }) || [];
+      if (b > a) o.more++; else if (b < a) o.less++; else o.same++; if (c.some(x => (x.skulls | 0) >= 3)) o.cold3++; if (h.length > 1) o.hostileOver++; });
+    return o; };
+  const now = run(SH), plant = run(SH.replace("'|' + barsSig() + '|'", "'|'"));
+  ok('H2 the deal follows the bar (the shelf\'s own file, 14 places, ten windows, one window each, only the bar moved): Friendly posts more where it can and never less, Cold then no three-skull work, Hostile then one job; planted (the old key) Friendly the same as Neutral every time',
+    now.more > 0 && now.less === 0 && now.cold3 === 0 && now.hostileOver === 0 && plant.more === 0, 'now ' + JSON.stringify(now) + ' | planted ' + JSON.stringify(plant)); }
 if (process.env.JOBS_FILES) done();
 
 /* ---------- ON HIS PHONE ---------- */
@@ -177,6 +207,9 @@ try {
   if (BUILDS.indexOf('E') >= 0) { const ee = rows.filter(r => r.build === 'E');
     ok('E3 on his phone, the demo and the alpha, upright and sideways: at 200 CLOUT a fortress\'s board has no two-skull work and says MORE WORK HERE AT 250 CLOUT; one job played to the pay (+100); when the board turns its two-skull work is there (at 200 that window would post none) and the label names 1050', ee.length === 4 && ee.every(r => !r.err && r.ok),
       ee.map(r => (r.alpha ? 'alpha ' : 'demo ') + (r.shape === 'phone_portrait' ? 'up' : 'side') + ': ' + (r.err ? 'ERR ' + r.err : r.town + ' ' + JSON.stringify(r.before.skulls) + ' [' + r.before.label + '] -> paid ' + (r.paid || {}).paid + ', CLOUT ' + r.cloutAfterJob + ' -> ' + JSON.stringify(r.after.skulls) + ' [' + r.after.label + ']' + (r.ok ? '' : ' NOT OK'))).join(' | ')); }
+  if (BUILDS.indexOf('H') >= 0) { const hh = rows.filter(r => r.build === 'H');
+    ok('H3 on his phone, the demo and the alpha, upright and sideways: a fortress\'s board at Hostile 5, Cold 34, Neutral 50 and Friendly 75 says WHAT THEY THINK OF YOU with the band and the number the arrival card reads, its rail at the number, on the glass, each mark only as the board keeps it (1 JOB, UP TO two, the extra job only when posted); a town at Neutral then Friendly: 2 people then 3 and +1 JOB; one window, only the bar moved: 2 then 3',
+      hh.length === 4 && hh.every(r => !r.err && r.ok), hh.map(r => (r.alpha ? 'alpha ' : 'demo ') + (r.shape === 'phone_portrait' ? 'up' : 'side') + ': ' + (r.err ? 'ERR ' + r.err : r.bars.map(b => b.set + ' [' + (b.line ? b.line.text.replace('WHAT THEY THINK OF YOU: ', '') : 'NONE') + '] ' + b.ids.length).join(', ') + '; ' + r.town2 + ' ' + r.friend.map(f => f.set + ' [' + (f.line ? f.line.text.replace('WHAT THEY THINK OF YOU: ', '') : 'NONE') + '] ' + f.ids.length).join(', ') + ', redeal ' + JSON.stringify(r.redeal) + (r.ok ? '' : ' NOT OK'))).join(' | ')); }
   ok('A5 nothing threw', !errs.length, errs.slice(0, 3).join(' | '));
 } catch (e) { ok('the phone legs ran', false, String(e && e.message || e).slice(0, 300)); }
 done();

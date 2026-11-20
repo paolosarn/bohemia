@@ -104,7 +104,7 @@ async function walk(shape) {
         row.barAfter = await barOf(row.town); row.doneMove = Math.round((row.barAfter - row.barBefore) * 100) / 100;
         row.relRec = await fr.evaluate(() => { try { return JSON.parse(localStorage.getItem('bohemia.relations.v1') || 'null'); } catch (e) { return 'ERR'; } });
         /* Friendly: the next board (a fresh window) against Neutral's */
-        const t2 = 'Network'; await setBar(t2, 50); const n0 = await openTown(t2, 4); await setBar(t2, 75); const n1 = await openTown(t2, 7, 'A_friendly_board'); row.boardPng = n1.png;
+        const t2 = 'Blues'; await setBar(t2, 50);   /* JOBS 11/20: Network is a fortress and a new crew's floor no longer leaves it a fourth job in these windows (probed: 0 more); a town where the friend's extra job is there (Blues, days 4 and 7: 2 then 3) */ const n0 = await openTown(t2, 4); await setBar(t2, 75); const n1 = await openTown(t2, 7, 'A_friendly_board'); row.boardPng = n1.png;
         row.friendly = { neutral: n0.ids, friendly: n1.ids }; row.friendlyMore = n1.ids.length - n0.ids.length;
         /* Unfriendly: the shelf's prices against Neutral's in one window, and the board in a fresh one */
         const t3 = 'Mob'; await setBar(t3, 50); const p0 = await openTown(t3, 10); await setBar(t3, 25); const p1 = await openTown(t3, 10); const b1 = await openTown(t3, 13);
@@ -329,6 +329,52 @@ async function walk(shape) {
       } catch (e) { row.err = String(e && e.message || e).slice(0, 200); }
       out.push(row);
       console.log('  ' + TAG + ' ' + shape + ' E THE BIG WORK WAITS FOR A NAME: ' + (row.err ? 'ERR ' + row.err : row.town + ' day ' + row.day + ' then ' + row.day2 + ' (at 200 that window would post ' + JSON.stringify(row.without) + '): at ' + row.before.clout + ' CLOUT ' + JSON.stringify(row.before.ids) + ' skulls ' + JSON.stringify(row.before.skulls) + ' [' + row.before.label + ']; the singer paid ' + (row.paid && row.paid.paid) + ', CLOUT ' + row.cloutAfterJob + '; again ' + JSON.stringify(row.after.ids) + ' skulls ' + JSON.stringify(row.after.skulls) + ' [' + row.after.label + ']' + (row.ok ? ' OK' : ' NOT OK')));
+    }
+    if (BUILDS.indexOf('H') >= 0) {
+      const row = { build: 'H', town: 'Caravans', bars: [] };
+      try {
+        /* THE TOWN'S BAR ON ITS BOARD: one fortress at four bars (Hostile 5, Cold 34, Neutral 50, Friendly 75), each on a fresh window (the
+           board turns every refresh_days, so each bar is dealt its own board): the board opened with a finger, its line (on the glass),
+           its people and their skulls, and the same town's bar as the arrival card reads it (the settlement's own record) */
+        await fr.evaluate(() => { LOOP.held = []; LOOP.fighting = null; try { loopClose(); } catch (e) {} });
+        const step = await fr.evaluate(() => BohemiaBoardShelf.shelf().refresh_days || 3);
+        const vals = [5, 34, 50, 75], tn = row.town; let dd = 31;
+        for (const v of vals) {
+          await fr.evaluate((x) => { DAY.day = x; }, dd); await setBar(tn, v);
+          const T = await openTown(tn, dd, v === 34 ? 'H_cold_board' : (v === 75 ? 'H_friendly_board' : null), true), sf = T.sf;
+          const L = await sf.evaluate(() => { const e = document.querySelector('#sheet .slots.bar'); if (!e) return null; const r = e.getBoundingClientRect(), b = e.querySelector('.rail b');
+            return { text: e.textContent, band: e.dataset.band, score: +e.dataset.score, stars: e.querySelector('.cap') ? +(e.querySelector('.cap').dataset.stars || e.querySelectorAll('.cap .bmstar').length) : null,
+              onGlass: r.top >= 0 && r.bottom <= innerHeight && r.left >= 0 && r.right <= innerWidth + 1 && r.height > 0, rail: b ? parseFloat(b.style.left) : null }; });
+          const arrive = await sf.evaluate(() => { try { const P = BohemiaSettlement.state.place; return Math.round(BohemiaRelations.score(JSON.parse(localStorage.getItem('bohemia.relations.v1')), String(P.id || P.name))); } catch (e) { return null; } });
+          row.bars.push({ set: v, day: dd, line: L, arrive, ids: T.ids, skulls: T.skulls, png: T.png || null });
+          await fr.evaluate(() => { try { loopClose(); } catch (e) {} }); await page.waitForTimeout(500);
+          dd += step;
+        }
+        /* the friend's extra job where the board can hold it: a town (two people at Neutral), Neutral then Friendly on the next window
+           (days 4 and 7, where a new crew's floor leaves Anarchists a third job; measured by the probe: 2 at Neutral, 3 at Friendly) */
+        const t2 = 'Anarchists'; row.town2 = t2; row.friend = []; dd = 4;
+        /* the deal follows the bar (the shelf's cache): one window, the same ask twice, only the bar moved between (the boards' records put back) */
+        row.redeal = await fr.evaluate(([n, x]) => { const keep = ['bohemia.board.posted.v1', 'bohemia.board.read.v1', 'bohemia.relations.v1'].map(k => [k, localStorage.getItem(k)]);
+          const put = (v) => { const r = { bars: {}, seen: {} }; r.bars[n] = v; r.seen[n] = x; localStorage.setItem('bohemia.relations.v1', JSON.stringify(r)); };
+          const P = BohemiaBoardShelf.mapPlaces(x) || [], p = P.filter(q => q.name === n)[0] || { name: n, tier: 'town' }, ask = () => (BohemiaBoardShelf.pick({ name: p.name, tier: p.tier }, x, { traits: p.traits || [], held: ['jobs-h-probe'], places: P }) || []).length;
+          put(50); const a = ask(); put(75); const b = ask(); keep.forEach(([k, v]) => { if (v == null) localStorage.removeItem(k); else localStorage.setItem(k, v); }); return [a, b]; }, [t2, dd]);
+        for (const v of [50, 75]) { await fr.evaluate((x) => { DAY.day = x; }, dd); await setBar(t2, v);
+          const T = await openTown(t2, dd, v === 75 ? 'H_friend_more' : null, true), sf = T.sf;
+          const L = await sf.evaluate(() => { const e = document.querySelector('#sheet .slots.bar'); if (!e) return null; const r = e.getBoundingClientRect(); return { text: e.textContent, score: +e.dataset.score, onGlass: r.top >= 0 && r.bottom <= innerHeight && r.height > 0 }; });
+          row.friend.push({ set: v, day: dd, line: L, ids: T.ids, png: T.png || null });
+          await fr.evaluate(() => { try { loopClose(); } catch (e) {} }); await page.waitForTimeout(500); dd += step; }
+        const B = {}; row.bars.forEach(b => { B[b.set] = b; });
+        const ln = (b) => (b.line && b.line.text) || '';
+        row.ok = !!(row.bars.every(b => b.line && b.line.onGlass && b.line.score === b.set && b.arrive === b.set && /WHAT THEY THINK OF YOU: /.test(ln(b)) && Math.abs(b.line.rail - b.set) < 0.01 && b.ids.length > 0) &&
+          /HOSTILE 5 · 1 JOB/.test(ln(B[5])) && B[5].ids.length === 1 && B[5].skulls.every(k => k <= 1) &&
+          /COLD 34 · UP TO/.test(ln(B[34])) && B[34].line.stars === 2 && B[34].skulls.every(k => k <= 2) &&
+          /NEUTRAL 50$/.test(ln(B[50]).trim()) && /FRIENDLY 75/.test(ln(B[75])) && (B[75].ids.length > 3) === /\+\d JOB/.test(ln(B[75])) &&   /* a fortress posts 3: the extra job said only when it is there */
+          row.redeal[0] === 2 && row.redeal[1] === 3 && row.friend.length === 2 && row.friend.every(f => f.line && f.line.onGlass && f.line.score === f.set) && row.friend[1].ids.length === row.friend[0].ids.length + 1 && row.friend[0].ids.length === 2 &&
+          /FRIENDLY 75 · \+1 JOB/.test(ln(row.friend[1])) && !/JOB/.test(ln(row.friend[0])));
+        row.png = (B[34] || {}).png;
+      } catch (e) { row.err = String(e && e.message || e).slice(0, 200); }
+      out.push(row);
+      console.log('  ' + TAG + ' ' + shape + " H THE TOWN'S BAR ON ITS BOARD: " + (row.err ? 'ERR ' + row.err : row.town + ' ' + row.bars.map(b => b.set + ' [' + (b.line ? b.line.text : 'NO LINE') + (b.line && !b.line.onGlass ? ' OFF THE GLASS' : '') + '] arrival ' + b.arrive + ', ' + b.ids.length + ' people, skulls ' + JSON.stringify(b.skulls)).join(' | ')) + '; ' + row.town2 + ' (one window, only the bar moved: ' + JSON.stringify(row.redeal) + ') ' + row.friend.map(f => f.set + ' [' + (f.line ? f.line.text : 'NO LINE') + '] ' + f.ids.length + ' people').join(' | ') + ' -> ' + (row.ok ? 'ok' : 'NOT OK'));
     }
   } catch (e) { out.push({ err: String(e && e.message || e).slice(0, 300) }); console.log('  ' + TAG + ' ' + shape + ' ERR ' + String(e && e.message || e).slice(0, 300)); }
   await d.close().catch(() => {});
