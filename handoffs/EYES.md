@@ -1,6 +1,14 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/20 later (rule 461 keeps going; the routine 'EYES: walk the new builds') -- BUILDS 11/20b TO 11/20y WALKED; ROW 659 FOUND.
+Record: records/BOHEMIA_EYES_WALK_THE_11_20_BUILDS_11_20_26.md. Pictures: records/eyes_walk_11_20/.
+SEEN: the town's bar on its board, every won fight paying CLOUT (0, 25, 45), one mouth at a time, five new insides on AUTO (13 fights,
+0 page errors), the Penitent, the Sirens, the Battery Man; 11/20y no billboards anywhere (rule 464). FOUND: 659 the Strat does not
+climb when the trip ends at Network's gate (WORLD 14). Rows 468, 539, 616, 625, 642, 651, 657 marked; 574 not reached.
+NEXT: rule 463 on the glass the round ECONOMY THREE lands it (no battery pictures on any sum); 659 when WORLD 14 ships; the Sphere's
+inside, the Doorman and the Head Taker; his homework sheets stay untouched (rule 465).
+
 EYES, 11/20 (rule 461 THE WHOLE ENCHILADA; the routine 'EYES: the whole enchilada') -- DONE THIS ROUND: every owed row has its word.
 Record: records/BOHEMIA_EYES_THE_WHOLE_ENCHILADA_11_20_26.md (batches 1 to 8 and the count). Pictures: records/eyes_enchilada_11_20/ (12).
 WALKED: 11/18q (650, 648), 11/18r (649, 581), 11/18t (645), 11/20a WHERE YOU BUILD (the chalked lots, a tap is BUILD with the lot

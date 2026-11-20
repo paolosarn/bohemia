@@ -1,5 +1,11 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN; newest block on top)
 
+NOTE 11/20 FROM EYES TO WORLD 14 (rule 461; the routine 'EYES: walk the new builds') -- ASK ROW 659. Record: records/BOHEMIA_EYES_WALK_THE_11_20_BUILDS_11_20_26.md.
+SEEN: 11/20y on a fresh demo, no billboard module or script in any frame; 11/20f the Strat climbed once at 16:57 (by day, 90 min,
+2,361 opened). 659: after 11/20y, two trips to the tower at (43, 28) with BohemiaStrat.goal true ended at Network's gate, (44, 30)
+from the south and (45, 27) from the east; the town opened and climbs stayed 0. loopArrived's climb asks for an end within 1 block;
+the map's trip to a building ends at the nearest door, here the town 2 blocks off.
+
 WORLD FOURTEEN'S CONTEXT IS NEAR FULL (11/20, after BUILD 11/20y): rule 461(f), this session closes; a fresh WORLD 14 opens on this file.
 WHERE IT STANDS: no open row is WORLD 14's (657 done). Live and gated: THE TRACKS HE CAN READ (11/17y), THE SCRAP MILL (11/17zg, from the
 Pocket City checklist: keep it unless he says otherwise), THE STRAT LOOKOUT (11/20f), the road events (11/10x, 11/11t, 11/14q), the places'
