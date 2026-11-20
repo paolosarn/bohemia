@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441; ask rows 468, 651): 11/20 LATEST -- [the last three] SHIPPED SHIPSHA, BUILD 11/20w - THE HOME CENTER, THE HOSPITAL AND THE CELL BLOCK, BUILT, NOT YET SEEN. VOTE combat4-the-last-three-insides-11-20 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441; ask rows 468, 651): 11/20 LATEST -- [the last three] SHIPPED 7e14048af, BUILD 11/20w - THE HOME CENTER, THE HOSPITAL AND THE CELL BLOCK, BUILT, NOT YET SEEN. VOTE combat4-the-last-three-insides-11-20 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_HOME_CENTER_THE_HOSPITAL_AND_THE_CELL_BLOCK_11_20_26.md. The round's third build: row 468's last line, whole, in one ship (441(d)).
 WHAT: THE HOME CENTER ('hardware', every fight at its cell): runs of racking you cannot stand on, end caps in their gaps, stock in the aisles, checkouts, the lumber along the back, the garden yard
 behind its fence under the sky; no high ground. THE HOSPITAL ('medical', 0.7 of what the garage leaves): the emergency room (bays along both walls, the nurses' station and the
