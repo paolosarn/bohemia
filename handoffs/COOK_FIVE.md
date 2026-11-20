@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
-COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20q - THE DAM'S POWERHOUSE, BUILT (SHIPSHA), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 451(a), 455; ask rows 627, 651).
+COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20q - THE DAM'S POWERHOUSE, BUILT (811c3d21d), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 451(a), 455; ask rows 627, 651).
 THE POWERHOUSE (COMBAT FOUR's BUILD 11/20j, its 'FOR COOK (FIVE or SIX)'): all 165 pieces of the generator floor were stand-ins. Now slices/fight_ground/powerhouse/ holds
 powerhouse_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 2 of powerhouse_floor_0.webp, the terrazzo with one of Allen Tupper True's patterns on fewer than half its
 tiles; floor.wet its row 3, wet where the dam weeps, a dry margin on every edge; floor.high its row 4; floor.ring rows 0 to 2; kit: all 22 names, the bedding names the camps'
