@@ -228,7 +228,17 @@ function row(card, line, sha, px) {
       const b = block(row(p.card, p.line, sha, p.px)), head = '\n  {\n   "id": ' + JSON.stringify(p.card.id) + ',';
       const at = txt.indexOf(head);
       if (at >= 0) { const end = txt.indexOf('\n  }', at + 1); if (end < 0) throw new Error('no end for ' + p.card.id); txt = txt.slice(0, at + 1) + b + txt.slice(end + 4); fresh++; }
-      else { const m = txt.match(/\n(\s*)\],\n(\s*)"verdicts"/); if (!m) throw new Error('cannot find the end of items[]'); txt = txt.slice(0, m.index) + ',\n' + b + txt.slice(m.index); added++; }
+      else {
+        /* 11/20 WORDS THREE (rule 465: he is still answering, the sheets must queue in order): the tab draws a day's cards newest
+           first by where they sit in the file, so a new sheet made the same day as the one before it would jump ahead of it. A new
+           sheet's rows go in just BEFORE the earliest row of the sheet before it (so it waits behind it); the first sheet, or one
+           whose earlier sheet is gone, goes at the end of items[] as before. */
+        const prevHead = '\n  {\n   "id": "words-two-hw' + String(+SHEET - 1).padStart(2, '0') + '-';
+        const at2 = txt.indexOf(prevHead);
+        if (+SHEET > 1 && at2 >= 0) { txt = txt.slice(0, at2) + '\n' + b + ',' + txt.slice(at2); }
+        else { const m = txt.match(/\n(\s*)\],\n(\s*)"verdicts"/); if (!m) throw new Error('cannot find the end of items[]'); txt = txt.slice(0, m.index) + ',\n' + b + txt.slice(m.index); }
+        added++;
+      }
     });
     const back = JSON.parse(txt);   /* it must still be one valid file, and every card on it exactly once */
     pulled.forEach(p => { if (back.items.filter(i => i.id === p.card.id).length !== 1 && !judged.has(p.card.id)) throw new Error(p.card.id + ' is not on the file exactly once'); });

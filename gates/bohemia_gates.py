@@ -9803,6 +9803,14 @@ GATES = [
      "yet (454(a)). 11/20 WORDS THREE, the page rewritten plainly from everything he has given (rule 461): every other line of his on the "
      "page is word for word where its FROM line says he said it, a VOTE note, a record or VAMILY (V9), and each of his lines stands beside "
      "what it teaches (V10); planted: another line of his reworded, a WHAT IT TEACHES taken away. Node only, seconds", False),
+    ('HIS ANSWER IS KEPT', ['node', 'gates/his_answer_is_kept_gate.js'],
+     "WORDS THREE gate, 11/20, VAMILY rules 465, 454(c), 441 (ask row 629; PAOLO 11/20: 'im still not done with the replacement text vibes "
+     "from the voting shit'). He types his own lines into the homework cards on his phone. MEASURED BEFORE: a line typed into a card "
+     "behind MORE and not yet thumbed was wiped by closing and opening MORE and by a reload. The real VOTE tab page, upright and "
+     "sideways: a homework card's box asks for the line his way (K1); a typed line survives MORE closed and opened (K2) and a reload (K3); "
+     "a thumb sends his words exactly and clears the kept copy (K4); UNDO brings the card back with his words (K5); every other card's "
+     "box is as it was (K6); no page error (K7). Planted: the tab with the keeping taken out, served in its place, goes red. A browser, "
+     "about ten seconds", False),
     ('THE VOICE HOLDS', ['python3', 'gates/the_voice_holds_gate.py'],
      "WORDS THREE gate, 11/20, VAMILY rules 454(a)(d), 455, 461 (ask rows 628, 637, 643; PAOLO 11/17: 'don't do anything to fix it yet'). "
      "The gate that will hold the game to THE VOICE the day he says go, BUILT AND ASLEEP: it rewrites nothing and opens nothing. A mouth "

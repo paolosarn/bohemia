@@ -224,22 +224,30 @@ our 2; a body is at stake, said out loud, in all 4 of his and one of ours.
 
 ## PART THREE: WHAT IS STILL UNKNOWN
 
-EACH WAITS ON HIS ANSWER, and the card that asks it is in the VOTE tab. 40 cards are out: 16 of sheet one (1.5, 1.6, 1.7, 1.8, 1.9, 1.10, 1.11, 1.12, 1.13, 1.14, 1.15, 1.16, 1.17, 1.18, 1.19, 1.20),
-12 of sheet two, and 12 of sheet three (queued behind sheet two so he never runs out).
+EACH WAITS ON HIS ANSWER, and the card that asks it is in the VOTE tab. 52 cards are out: 16 of sheet one (1.5, 1.6, 1.7, 1.8, 1.9, 1.10, 1.11, 1.12, 1.13, 1.14, 1.15, 1.16, 1.17, 1.18, 1.19, 1.20),
+12 of sheet two, 12 of sheet three and 12 of sheet four (each queued behind the one before, so he never runs out).
+HE IS NOT DONE (rule 465): he is still typing his lines into the cards; nothing he writes there goes into the game, and no line is
+rewritten from it, until he says he is done. Each sheet he uploads is folded onto part one here, line by line, the same way as his four.
 - HOW EACH PAIR SOUNDS. His law names the pairs; his four answers show scary begging, scary threatening, scary funny on the feed and scary asking. Still to hear: scary funny (card 2.1), scary happy (card 2.2), scary serious (card 2.3), scary confident (card 2.4), scary trying to be a leader (card 2.5), scary political (card 2.6), scary kind (card 2.7), scary proud (card 2.8), scary begging (card 2.9), scary selling (card 2.10), scary sad (card 2.11), scary angry (card 2.12). Six of those second words are his (funny, happy, serious, confident, trying to be a leader, political); kind, proud, begging, selling, sad and angry are guesses the cards test.
 - IS EERIE SCARY? Part four counts a line as scary first when it is desperate, a threat, eerie or cold. None of his four is eerie, and 90 of the 349 we count are. A post where nobody is in danger, only something wrong nobody can explain, asks it straight (card 3.5). If eerie is not his scary, the count falls from 39% to 29%.
 - THE BOSS, AND WHO SENDS YOU TO HIM. Does the top dog talk more, less, or not at all (card 1.12); today a boss has no printed line of his own. The asker who sends you after a boss is the mouth furthest from page one (12 of 60 scary first) (card 3.1).
 - YOUR MEN, TO YOU. What do they call you? The game fills in "boss" (card 3.2); no answer of his is from his own crew yet (card 1.5, card 1.8, card 1.11, card 1.15; card 2.3, card 2.11, card 2.12).
 - YOUR OWN WORDS. Nearly all of your 200 buttons are written as a thing you do ("Say the company needs every hand."); a handful are already said in your own mouth ("Not our fight.", "Forget it. We have work."). Which should a button be, and how hard is your voice (card 3.4).
-- THE LINES WITH NO MOUTH. What comes back after a road choice (231 lines, about half told, not said) sits under a person's face (card 3.3); one line of every man's past sits on his card in the third person (card 3.9); a sign is read out by one of your men (card 3.8). Who says each, or nobody.
+- THE LINES WITH NO MOUTH. What comes back after a road choice (231 lines, about half told, not said) sits under a person's face (card 3.3); one line of every man's past sits on his card in the third person (card 3.9); a sign is read out by one of your men (card 3.8); a stranger's line opens with what he does in brackets (card 4.9); a whole road card is a description with nobody talking (card 4.12). Who says each, or nobody.
+- THE FIGHT'S WORST SECONDS. A kid's first kill (card 4.1), the enemy's turn when all you can do is wait (card 4.2), a pack of machines somebody brought back (card 4.3).
+- WHEN THE MONEY CHANGES HANDS. Every job ends with the client paying, and no card had asked it (card 4.4).
+- A MAN HURT FOR A MONTH. His 9/27 rule: struck down is 30 to 40 days laid up. How the man says it (card 4.5).
+- THE TEACHING VOICE. The game teaching you how to play through your second's mouth: can a lesson be scary first (card 4.6).
+- AFTER YOU SAY NO. His kid begged and offered work; a kid you turned down speaks once more (card 4.7).
+- THE DYING. The last thing somebody says, three breaths long (card 4.10).
 - THE SWEAR, MOUTH BY MOUTH. A kid and an armed man swear, an old woman does not. A man who prays, at his most scared (card 3.10), a shopkeeper (card 1.14), a doc (card 2.7), a boss (card 1.12): not known.
 - AGE. One kid and one old woman answered. A grown man in the middle of his life is asked (card 3.1); the kid after a death (card 2.11).
 - A LOSS. Every answer so far is a win or a talk. Three short sentences after a lost fight, two of them orders (card 3.6).
 - HOW LONG A PERSON MAY TALK. The longest mouth is a real place's keeper, nine sentences about the dead dollar (card 3.7); the longest road card (card 1.13).
-- KINDNESS. His law says nobody helps out of kindness. One side quest thanks you for help nobody paid for (card 3.11); the doc is the one whose job is to help (card 2.7). Does it stand in hell.
+- KINDNESS. His law says nobody helps out of kindness. One side quest thanks you for help nobody paid for (card 3.11); the doc is the one whose job is to help (card 2.7); a woman running for her life offers nothing but please (card 4.11). Does the deal hold at the very edge.
 - DOES THE STAR CARRY. His starred old woman is one job giver of 102. A grandmother afraid of what is in her grandson's stew asks the same mouth again (card 3.12).
 - THE SPANISH, MOUTH BY MOUTH. He took it out of his kid. A cartel man (card 1.6), the Elder (card 1.7) and the bank's last teller (card 3.7) still say it on their cards.
-- THE FEED, FAR AND FALLING. He has answered one post, a joke. A far post (card 1.18), a town falling on the radio (card 1.10), a watch's page (card 2.5), a plea (card 2.9).
+- THE FEED, FAR AND FALLING. He has answered one post, a joke. A far post (card 1.18), a town falling on the radio (card 1.10), a watch's page (card 2.5), a plea (card 2.9), a warning about a boss (card 4.8).
 - A HIRE. Does a man pitch himself (card 1.9), and how does a cook brag (card 1.19).
 - ONE SENTENCE OR TWO FOR THE WHY. He asked for "just one sentence" on 11/14 and wrote his own enemy line in two. Not asked; the cards will show it.
 - THE APOSTROPHES. Two of his spoken lines have a word with none ('well' for we'll, 'Theyre'). Kept as typed; whether the game prints speech that way is not asked.

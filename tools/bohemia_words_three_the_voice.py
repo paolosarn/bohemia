@@ -218,7 +218,7 @@ hs = [a['fh'] for a in ans]; os_ = [a['fo'] for a in ans]
 qs_his = sum(1 for x in hs if x['q']); qs_ours = sum(1 for x in os_ if x['q'])
 
 # ---------- part three: the unknowns, each with its card ----------
-s1 = sorted([r for r in WAIT if r.startswith('1.')], key=lambda r: int(r[2:])); s2 = sorted([r for r in WAIT if r.startswith('2.')], key=lambda r: int(r[2:])); s3 = sorted([r for r in WAIT if r.startswith('3.')], key=lambda r: int(r[2:]))
+s1 = sorted([r for r in WAIT if r.startswith('1.')], key=lambda r: int(r[2:])); s2 = sorted([r for r in WAIT if r.startswith('2.')], key=lambda r: int(r[2:])); s3 = sorted([r for r in WAIT if r.startswith('3.')], key=lambda r: int(r[2:])); s4 = sorted([r for r in WAIT if r.startswith('4.')], key=lambda r: int(r[2:]))
 pairs = ', '.join('scary %s (%s)' % (WAIT[r]['homework']['second'].lower(), card(r)) for r in s2 if WAIT[r]['homework'].get('second'))
 UNK = [
  ('HOW EACH PAIR SOUNDS.', 'His law names the pairs; his four answers show scary begging, scary threatening, scary funny on the feed and scary asking. Still to hear: ' + pairs + '. Six of those second words are his (funny, happy, serious, confident, trying to be a leader, political); kind, proud, begging, selling, sad and angry are guesses the cards test.'),
@@ -226,20 +226,26 @@ UNK = [
  ('THE BOSS, AND WHO SENDS YOU TO HIM.', 'Does the top dog talk more, less, or not at all (%s); today a boss has no printed line of his own. The asker who sends you after a boss is the mouth furthest from page one (%d of %d scary first) (%s).' % (card('1.12'), MM['bosses: the asker and after']['scary_first'], MM['bosses: the asker and after']['read'], card('3.1'))),
  ('YOUR MEN, TO YOU.', 'What do they call you? The game fills in "boss" (%s); no answer of his is from his own crew yet (%s, %s, %s, %s; %s, %s, %s).' % (card('3.2'), card('1.5'), card('1.8'), card('1.11'), card('1.15'), card('2.3'), card('2.11'), card('2.12'))),
  ('YOUR OWN WORDS.', 'Nearly all of your 200 buttons are written as a thing you do ("Say the company needs every hand."); a handful are already said in your own mouth ("Not our fight.", "Forget it. We have work."). Which should a button be, and how hard is your voice (%s).' % card('3.4')),
- ('THE LINES WITH NO MOUTH.', 'What comes back after a road choice (231 lines, about half told, not said) sits under a person\'s face (%s); one line of every man\'s past sits on his card in the third person (%s); a sign is read out by one of your men (%s). Who says each, or nobody.' % (card('3.3'), card('3.9'), card('3.8'))),
+ ('THE LINES WITH NO MOUTH.', 'What comes back after a road choice (231 lines, about half told, not said) sits under a person\'s face (%s); one line of every man\'s past sits on his card in the third person (%s); a sign is read out by one of your men (%s); a stranger\'s line opens with what he does in brackets (%s); a whole road card is a description with nobody talking (%s). Who says each, or nobody.' % (card('3.3'), card('3.9'), card('3.8'), card('4.9'), card('4.12'))),
+ ('THE FIGHT\'S WORST SECONDS.', 'A kid\'s first kill (%s), the enemy\'s turn when all you can do is wait (%s), a pack of machines somebody brought back (%s).' % (card('4.1'), card('4.2'), card('4.3'))),
+ ('WHEN THE MONEY CHANGES HANDS.', 'Every job ends with the client paying, and no card had asked it (%s).' % card('4.4')),
+ ('A MAN HURT FOR A MONTH.', 'His 9/27 rule: struck down is 30 to 40 days laid up. How the man says it (%s).' % card('4.5')),
+ ('THE TEACHING VOICE.', 'The game teaching you how to play through your second\'s mouth: can a lesson be scary first (%s).' % card('4.6')),
+ ('AFTER YOU SAY NO.', 'His kid begged and offered work; a kid you turned down speaks once more (%s).' % card('4.7')),
+ ('THE DYING.', 'The last thing somebody says, three breaths long (%s).' % card('4.10')),
  ('THE SWEAR, MOUTH BY MOUTH.', 'A kid and an armed man swear, an old woman does not. A man who prays, at his most scared (%s), a shopkeeper (%s), a doc (%s), a boss (%s): not known.' % (card('3.10'), card('1.14'), card('2.7'), card('1.12'))),
  ('AGE.', 'One kid and one old woman answered. A grown man in the middle of his life is asked (%s); the kid after a death (%s).' % (card('3.1'), card('2.11'))),
  ('A LOSS.', 'Every answer so far is a win or a talk. Three short sentences after a lost fight, two of them orders (%s).' % card('3.6')),
  ('HOW LONG A PERSON MAY TALK.', 'The longest mouth is a real place\'s keeper, nine sentences about the dead dollar (%s); the longest road card (%s).' % (card('3.7'), card('1.13'))),
- ('KINDNESS.', 'His law says nobody helps out of kindness. One side quest thanks you for help nobody paid for (%s); the doc is the one whose job is to help (%s). Does it stand in hell.' % (card('3.11'), card('2.7'))),
+ ('KINDNESS.', 'His law says nobody helps out of kindness. One side quest thanks you for help nobody paid for (%s); the doc is the one whose job is to help (%s); a woman running for her life offers nothing but please (%s). Does the deal hold at the very edge.' % (card('3.11'), card('2.7'), card('4.11'))),
  ('DOES THE STAR CARRY.', 'His starred old woman is one job giver of %d. A grandmother afraid of what is in her grandson\'s stew asks the same mouth again (%s).' % (MM['town: job givers at the board']['read'], card('3.12'))),
  ('THE SPANISH, MOUTH BY MOUTH.', 'He took it out of his kid. A cartel man (%s), the Elder (%s) and the bank\'s last teller (%s) still say it on their cards.' % (card('1.6'), card('1.7'), card('3.7'))),
- ('THE FEED, FAR AND FALLING.', 'He has answered one post, a joke. A far post (%s), a town falling on the radio (%s), a watch\'s page (%s), a plea (%s).' % (card('1.18'), card('1.10'), card('2.5'), card('2.9'))),
+ ('THE FEED, FAR AND FALLING.', 'He has answered one post, a joke. A far post (%s), a town falling on the radio (%s), a watch\'s page (%s), a plea (%s), a warning about a boss (%s).' % (card('1.18'), card('1.10'), card('2.5'), card('2.9'), card('4.8'))),
  ('A HIRE.', 'Does a man pitch himself (%s), and how does a cook brag (%s).' % (card('1.9'), card('1.19'))),
  ('ONE SENTENCE OR TWO FOR THE WHY.', 'He asked for "just one sentence" on 11/14 and wrote his own enemy line in two. Not asked; the cards will show it.'),
  ('THE APOSTROPHES.', "Two of his spoken lines have a word with none ('well' for we'll, 'Theyre'). Kept as typed; whether the game prints speech that way is not asked."),
 ]
-assert all(r in ' '.join(t for _, t in UNK) for r in ['card ' + x for x in s3]), 'a card of sheet three is not tied to an unknown on the page'
+assert all(r in ' '.join(t for _, t in UNK) for r in ['card ' + x for x in s3 + s4]), 'a card of sheet three or four is not tied to an unknown on the page'
 unknown = '\n'.join('- %s %s' % (h, t) for h, t in UNK)
 out_now = len(waiting)
 
@@ -320,7 +326,9 @@ our {sum(x['span'] for x in os_)}; a body is at stake, said out loud, in all {le
 ## PART THREE: WHAT IS STILL UNKNOWN
 
 EACH WAITS ON HIS ANSWER, and the card that asks it is in the VOTE tab. {out_now} cards are out: {len(s1)} of sheet one ({', '.join(s1)}),
-{len(s2)} of sheet two, and {len(s3)} of sheet three (queued behind sheet two so he never runs out).
+{len(s2)} of sheet two, {len(s3)} of sheet three and {len(s4)} of sheet four (each queued behind the one before, so he never runs out).
+HE IS NOT DONE (rule 465): he is still typing his lines into the cards; nothing he writes there goes into the game, and no line is
+rewritten from it, until he says he is done. Each sheet he uploads is folded onto part one here, line by line, the same way as his four.
 {unknown}
 
 ## PART FOUR: THE GAME TODAY AGAINST PAGE ONE
@@ -353,4 +361,4 @@ and its mark: records/words_two/scary_first_second_reading.json. The marks are h
 '''
 assert '—' not in voice, 'an em dash'
 open(PAGE, 'w', encoding='utf-8').write(voice)
-print('THE VOICE written: %d answers of his, %d other lines of his, %d cards out (%d/%d/%d), %d mouths counted' % (len(ans), other_n, out_now, len(s1), len(s2), len(s3), len(order)))
+print('THE VOICE written: %d answers of his, %d other lines of his, %d cards out (%d/%d/%d/%d), %d mouths counted' % (len(ans), other_n, out_now, len(s1), len(s2), len(s3), len(s4), len(order)))

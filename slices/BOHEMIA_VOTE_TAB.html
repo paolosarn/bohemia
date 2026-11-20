@@ -241,6 +241,18 @@
   function writePhone(){
     try{ localStorage.setItem(KEY, JSON.stringify(mine)); }catch(e){}
   }
+  /* WORDS THREE 11/20 (rule 465, Paolo: 'im still not done with the replacement text vibes from the voting shit'): what he
+     types in a card's box is KEPT AS HE TYPES, the way the ANYTHING ELSE box below has always been kept (NOTEKEY). Measured
+     before: a line typed into a homework card and not yet thumbed was wiped by closing and opening MORE (draw() rebuilds every
+     row), by UNDO, and by a reload. Now the box is written to this phone on every keystroke, put back when the card is drawn
+     again, cleared when he thumbs it (the words go with the vote, as before), and handed back to the box if he UNDOes. */
+  var DRAFTKEY = 'bohemia.vote.drafts.v1';
+  var drafts = {};
+  try{ drafts = JSON.parse(localStorage.getItem(DRAFTKEY) || '{}') || {}; }catch(e){ drafts = {}; }
+  function keepDraft(id, v){
+    if(v && String(v).trim()) drafts[id] = String(v); else delete drafts[id];
+    try{ localStorage.setItem(DRAFTKEY, JSON.stringify(drafts)); }catch(e){}
+  }
   function judged(id){ return !!(mine[id] || theirs[id]); }
 
   function stamp(){
@@ -548,7 +560,10 @@
 
     var n = document.createElement('textarea');
     n.className = 'note';
-    n.placeholder = 'say why, if you want to';
+    /* a homework card's box IS the answer (rule 454(c)): it asks for the line his way, not a reason */
+    n.placeholder = it.box || (it.homework ? 'type how it should sound, then tap a thumb' : 'say why, if you want to');
+    if(drafts[it.id]) n.value = drafts[it.id];
+    n.addEventListener('input', function(){ keepDraft(it.id, n.value); });
     n.style.margin = '0 12px 12px';
     n.style.width = 'calc(100% - 24px)';
     r.appendChild(n);
@@ -557,6 +572,7 @@
       mine[it.id] = { vote: v, said: n.value.trim(), when: stamp(),
                       kind: it.kind, lane: it.lane, title: it.title };
       if(star) mine[it.id].star = true;
+      keepDraft(it.id, '');   /* the words leave with the vote */
       writePhone();
       lastGone = it.id;
       r.classList.add('gone');
@@ -703,6 +719,7 @@
   document.getElementById('undo').addEventListener('click', function(){
     if(!lastGone || !mine[lastGone]){ said('Nothing to put back.'); return; }
     var id = lastGone;
+    if(mine[id].said) keepDraft(id, mine[id].said);   /* what he wrote comes back into the box with the card */
     delete mine[id];
     writePhone();
     lastGone = null;

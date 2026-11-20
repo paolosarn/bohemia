@@ -20947,6 +20947,366 @@
    }, "before_after": {"before": "main 64ab8c777: the Strat stood on the map and arriving there did nothing", "after": "a trip to the tower climbs it: 90 minutes, the fog opens 30 blocks by day (on the demo 5 to 9 towns, 0 to 11 real places found), at night only the lit towns within 40", "scale": "his phone upright (390 x 844 at 3), the alpha's RUN tab map, before the climb (left) and after (right), one stop out"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_14_THE_STRAT_LOOKOUT_11_20_26.md"},
   {"id": "character-the-head-takers-11-20", "kind": "outfit", "lane": "character", "made": "11/20", "sha": "1bde82723", "draft": true, "title": "THE HEAD TAKERS IN THEIR OWN CLOTHES: MEN WHO HUNT MEN, IN THE HUNTER'S BLAZE", "said": "full sweep, whole enchilada, dont forget nothing / the clothes look good: leather and layering", "why": "The head takers fought in the Volunteers' one-piece look and two hall men's clothes; now three head takers in work coats with plate strapped over them, two smokers in ponchos and dust masks with a satchel of pots, and two darters in field coats with a bolt quiver, every one with a hunter's blaze scarf in the head takers' own yellow-green. You see it in every fight against the head takers, and on this card.", "options": ["A, yes, the head takers look like this", "B, close, change something (say which one and what)", "C, no, not like this"], "show": {"how": "image", "src": "../records/target/character/the_head_takers/CHARACTER_THE_HEAD_TAKERS.webp", "first": "../records/target/character/the_head_takers/CHARACTER_THE_HEAD_TAKERS_FIRST.webp", "firstAt": [0, 0, 884, 528]}, "twin": {"src": "records/target/cook3/rig/thug/rig_S.png", "diffs": ["BOUNTY HUNTERS' OWN LOOK (Battle Brothers' bounty hunters: a hunter's coat and plate): a rust work coat, a chore coat, an oxblood drifter's coat, a soot or a scrap chest plate strapped over, a shell bandolier.", "ONE MARK FOR ALL SEVEN: a blaze scarf in the head takers' own banner ink (yellow-green), what a hunter wears so his own side does not shoot him; it reads at the throat from every facing.", "THE SMOKE AND THE SLEEP: the smokers in an oxblood or a dust poncho, a dust mask and a satchel of pots; the darters in a charcoal car coat or a barn coat with a bolt quiver on the back."]}, "stage": "made_from", "golden": "character-the-nine-enemies-their-own-clothes-11-7", "recipe": "the nine enemies' frozen recipe (layers that read apart, leather where it fits, no blue, no trench added), the three new types in tools/bohemia_character_the_nine_enemies.py (TYPES['Head Taker'], ['Smoker'], ['Darter'], the BLAZE SCARF, roll-more, make, pack)"},
   {
+   "id": "words-two-hw04-12-nobody-talking-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“(a courier, two days dead, still holding the strap of a bag. The bag has a Remnants seal. A crow looks at you like you're next in line.)”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? Nobody: a dead courier in a ditch and a crow on him says it to you when you pass a body on the road (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_04/words-two-hw04-12-nobody-talking-11-20.webp",
+    "first": "vote/words_two_homework_04/words-two-hw04-12-nobody-talking-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     916
+    ]
+   },
+   "homework": {
+    "sheet": 4,
+    "n": 12,
+    "mouth": "A ROAD STOP WITH NOBODY TALKING",
+    "teaches": "A CARD WITH NOBODY TALKING: the whole line is a description in brackets, written by nobody; should the game ever describe a scene, or must every word come from a mouth (your 9/20 rule)",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "(a courier, two days dead, still holding the strap of a bag. The bag has a Remnants seal. A crow looks at you like you're next in line.)"
+   }
+  },
+  {
+   "id": "words-two-hw04-11-a-woman-running-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“¡Ayúdame! They say I steal the water, but it's my pump, my father dug it! They're coming. Hide me in your wagon, please.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? A woman running from a pump house with two jugs says it to your crew when she runs up to your wagon with men coming after her (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_04/words-two-hw04-11-a-woman-running-11-20.webp",
+    "first": "vote/words_two_homework_04/words-two-hw04-11-a-woman-running-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     950
+    ]
+   },
+   "homework": {
+    "sheet": 4,
+    "n": 11,
+    "mouth": "A ROAD STOP",
+    "teaches": "RUNNING FOR HER LIFE: your law says nobody asks for free; she has seconds and offers nothing but 'please'; does a person this scared still name a deal, and does she cry out in Spanish",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "¡Ayúdame! They say I steal the water, but it's my pump, my father dug it! They're coming. Hide me in your wagon, please."
+   }
+  },
+  {
+   "id": "words-two-hw04-10-a-dying-woman-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“Come close, I don't have the breath to say it twice. There's one thing left and I can't walk it there myself. / There's a man. He took my son from me, years back, in the ugly way. I've carried it so long my hands ache from it. / I want to put it down before I go. I want you to find him and tell him, in my words, that I forgive him. Say it back to me first so I know you have it.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? An old woman dying in a chair at the side of the road says it to you when you stop beside her and she asks one last thing of you (you see it on the MAP, on a side quest's first card); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_04/words-two-hw04-10-a-dying-woman-11-20.webp",
+    "first": "vote/words_two_homework_04/words-two-hw04-10-a-dying-woman-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     936
+    ]
+   },
+   "homework": {
+    "sheet": 4,
+    "n": 10,
+    "mouth": "A SIDE QUEST ON THE ROAD",
+    "teaches": "A DYING WOMAN: the last thing somebody says; three breaths, forgiveness for the man who took her son; how long may the dying talk, and is she in hell",
+    "pulled_from": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "line": "Come close, I don't have the breath to say it twice. There's one thing left and I can't walk it there myself.\nThere's a man. He took my son from me, years back, in the ugly way. I've carried it so long my hands ache from it.\nI want to put it down before I go. I want you to find him and tell him, in my words, that I forgive him. Say it back to me first so I know you have it."
+   }
+  },
+  {
+   "id": "words-two-hw04-09-the-smiling-man-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) Everything is recorded. Do you want to see what happens next?”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? A smiling man in the road holding a TV that shows your crew from above says it to your crew when he stops you on the road (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_04/words-two-hw04-09-the-smiling-man-11-20.webp",
+    "first": "vote/words_two_homework_04/words-two-hw04-09-the-smiling-man-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     842
+    ]
+   },
+   "homework": {
+    "sheet": 4,
+    "n": 9,
+    "mouth": "A ROAD STOP",
+    "teaches": "THE TAPE: the most analog-horror stranger we have, and a line that starts with what he does in brackets before a word is said; is a bracket allowed in a mouth, and is the smile scary",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) Everything is recorded. Do you want to see what happens next?"
+   }
+  },
+  {
+   "id": "words-two-hw04-08-a-post-about-a-boss-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“Every lock in town still works and THE LOCKSMITH has every key. At dark his keymen chain the gates across the streets round his shop, and you walk the long way or you don't walk. Careful, his chain comes over a shield and finds your head.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? An old woman locked out of her own house says it to everybody on the feed when she posts about the boss who took every key in town (you see it on the phone's FEED); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_04/words-two-hw04-08-a-post-about-a-boss-11-20.webp",
+    "first": "vote/words_two_homework_04/words-two-hw04-08-a-post-about-a-boss-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     570
+    ]
+   },
+   "homework": {
+    "sheet": 4,
+    "n": 8,
+    "mouth": "THE FEED, ABOUT A BOSS",
+    "teaches": "A POST THAT WARNS: the feed teaching the valley about a boss and how he fights; an old woman typing, three sentences and a capital name",
+    "pulled_from": "records/target/bb/boss_act_one.json",
+    "line": "Every lock in town still works and THE LOCKSMITH has every key. At dark his keymen chain the gates across the streets round his shop, and you walk the long way or you don't walk. Careful, his chain comes over a shield and finds your head."
+   }
+  },
+  {
+   "id": "words-two-hw04-07-the-kid-you-said-no-to-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“Okay. His tag is still on the pipe.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? A kid whose street's water was shut off says it to you when he asked you to go after the boss who shut the water off, and you said 'Not my problem.' (you see it on the MAP, on the card that starts a boss's trail); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_04/words-two-hw04-07-the-kid-you-said-no-to-11-20.webp",
+    "first": "vote/words_two_homework_04/words-two-hw04-07-the-kid-you-said-no-to-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     660
+    ]
+   },
+   "homework": {
+    "sheet": 4,
+    "n": 7,
+    "mouth": "THE KID YOU SAID NO TO",
+    "teaches": "AFTER YOU SAY NO: your own kid begged and offered work; this kid hears no; what does a desperate kid say to the armed men who walk away",
+    "pulled_from": "records/target/bb/boss_act_one.json",
+    "line": "Okay. His tag is still on the pipe."
+   }
+  },
+  {
+   "id": "words-two-hw04-06-your-second-teaches-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“Oye. Posts on the phone are work. Touch one, it lights up.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? Your second, the man who walks beside you says it to you when a job shows on your phone and you have not taken one yet (you see it on the MAP, on the small face plate); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_04/words-two-hw04-06-your-second-teaches-11-20.webp",
+    "first": "vote/words_two_homework_04/words-two-hw04-06-your-second-teaches-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     624
+    ]
+   },
+   "homework": {
+    "sheet": 4,
+    "n": 6,
+    "mouth": "YOUR SECOND, TEACHING",
+    "teaches": "THE TEACHING VOICE: the game showing you how to play through a man's mouth; can a lesson be scary first, and does it open in Spanish",
+    "pulled_from": "records/target/words/the_second_speaks.json",
+    "line": "Oye. Posts on the phone are work. Touch one, it lights up."
+   }
+  },
+  {
+   "id": "words-two-hw04-05-laid-up-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“They got me. 34 days, then I'm back.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? One of your men, badly hurt in the fight says it to you when the fight is over and he cannot fight for weeks (you see it on the MAP, on the small face plate after a fight); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_04/words-two-hw04-05-laid-up-11-20.webp",
+    "first": "vote/words_two_homework_04/words-two-hw04-05-laid-up-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     624
+    ]
+   },
+   "homework": {
+    "sheet": 4,
+    "n": 5,
+    "mouth": "YOUR MAN, LAID UP",
+    "teaches": "A MAN HURT FOR A MONTH (your 9/27 rule: struck down is a debilitating injury of 30 to 40 days): is he scared, angry, joking; and is the number of days his to say",
+    "pulled_from": "records/target/words/the_second_speaks.json",
+    "line": "They got me. 34 days, then I'm back."
+   }
+  },
+  {
+   "id": "words-two-hw04-04-the-client-pays-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“10 batteries, like we said. Gracias.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? The person who posted the job you just did says it to you when you come back with the job done and the pay is counted out (you see it on the MAP, on the small face plate when a job pays); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_04/words-two-hw04-04-the-client-pays-11-20.webp",
+    "first": "vote/words_two_homework_04/words-two-hw04-04-the-client-pays-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     624
+    ]
+   },
+   "homework": {
+    "sheet": 4,
+    "n": 4,
+    "mouth": "THE CLIENT, PAYING YOU",
+    "teaches": "THE MONEY CHANGES HANDS: every job ends here and no card has asked it; does somebody who paid for killing say thank you, and is it scary",
+    "pulled_from": "records/target/words/the_second_speaks.json",
+    "line": "10 batteries, like we said. Gracias."
+   }
+  },
+  {
+   "id": "words-two-hw04-03-against-machines-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“Somebody's driving all of those.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? One of your own men says it to the crew when a fight opens against a pack of old robots with somebody running them (you see it in a FIGHT, over his head); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_04/words-two-hw04-03-against-machines-11-20.webp",
+    "first": "vote/words_two_homework_04/words-two-hw04-03-against-machines-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     624
+    ]
+   },
+   "homework": {
+    "sheet": 4,
+    "n": 3,
+    "mouth": "YOUR MAN, AGAINST MACHINES",
+    "teaches": "MACHINES: the only enemy that is not a person or an animal; how scared are people of a robot somebody brought back",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "Somebody's driving all of those."
+   }
+  },
+  {
+   "id": "words-two-hw04-02-under-fire-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“Heads down, babies.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? The one in your crew who keeps count of everybody says it to the crew when it is the enemy's turn and they are about to shoot (you see it in a FIGHT, over his head); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_04/words-two-hw04-02-under-fire-11-20.webp",
+    "first": "vote/words_two_homework_04/words-two-hw04-02-under-fire-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     556
+    ]
+   },
+   "homework": {
+    "sheet": 4,
+    "n": 2,
+    "mouth": "YOUR MAN, UNDER FIRE",
+    "teaches": "BEING SHOT AT: the moment the other side moves and you can only wait; is it an order, a prayer, or a scream",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "Heads down, babies."
+   }
+  },
+  {
+   "id": "words-two-hw04-01-the-kids-kill-11-20",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "“Okay. Okay. That's real.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? The seventeen-year-old in your crew says it to nobody, out loud when his shot kills a man and the man does not get up (you see it in a FIGHT, over his head); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_04/words-two-hw04-01-the-kids-kill-11-20.webp",
+    "first": "vote/words_two_homework_04/words-two-hw04-01-the-kids-kill-11-20.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     556
+    ]
+   },
+   "homework": {
+    "sheet": 4,
+    "n": 1,
+    "mouth": "YOUR MAN, HIS KILL",
+    "teaches": "A KILL: the first card on the moment somebody of yours kills a man; a kid who thought it was the movies; is it scary, and does he swear",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "Okay. Okay. That's real."
+   }
+  },
+  {
    "id": "words-two-hw03-12-whats-in-the-stew-11-20",
    "kind": "line",
    "lane": "words two",

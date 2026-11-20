@@ -1,0 +1,262 @@
+{
+ "draft": true,
+ "tool": "tools/bohemia_words_two_homework.js",
+ "sheet": 4,
+ "note": "every line below was read out of the named game file by this tool; none was typed",
+ "cards": [
+  {
+   "n": 1,
+   "id": "words-two-hw04-01-the-kids-kill-11-20",
+   "mouth": "YOUR MAN, HIS KILL",
+   "who": "YOUR MAN, THE KID",
+   "pulled_from": "records/target/bb/crew_voices.json",
+   "locator": [
+    "types",
+    "kid",
+    "lines",
+    "kill",
+    "en",
+    2
+   ],
+   "in_the_file": "Okay. Okay. That's real.",
+   "line": "Okay. Okay. That's real.",
+   "picture_pt": [
+    390,
+    277
+   ]
+  },
+  {
+   "n": 2,
+   "id": "words-two-hw04-02-under-fire-11-20",
+   "mouth": "YOUR MAN, UNDER FIRE",
+   "who": "YOUR MAN, THE ONE WHO COUNTS",
+   "pulled_from": "records/target/bb/crew_voices.json",
+   "locator": [
+    "types",
+    "mother",
+    "lines",
+    "their_turn",
+    "en",
+    0
+   ],
+   "in_the_file": "Heads down, babies.",
+   "line": "Heads down, babies.",
+   "picture_pt": [
+    390,
+    277
+   ]
+  },
+  {
+   "n": 3,
+   "id": "words-two-hw04-03-against-machines-11-20",
+   "mouth": "YOUR MAN, AGAINST MACHINES",
+   "who": "ONE OF YOUR MEN",
+   "pulled_from": "records/target/bb/crew_voices.json",
+   "locator": [
+    "enemy",
+    "machine",
+    "outnumbered",
+    1
+   ],
+   "in_the_file": "Somebody's driving all of those.",
+   "line": "Somebody's driving all of those.",
+   "picture_pt": [
+    390,
+    312
+   ]
+  },
+  {
+   "n": 4,
+   "id": "words-two-hw04-04-the-client-pays-11-20",
+   "mouth": "THE CLIENT, PAYING YOU",
+   "who": "THE CLIENT",
+   "pulled_from": "records/target/words/the_second_speaks.json",
+   "locator": [
+    "lines",
+    "client_pay",
+    "line"
+   ],
+   "in_the_file": "{pay} batteries, like we said. Gracias.",
+   "filled_with": {
+    "pay": "10"
+   },
+   "line": "10 batteries, like we said. Gracias.",
+   "picture_pt": [
+    390,
+    312
+   ]
+  },
+  {
+   "n": 5,
+   "id": "words-two-hw04-05-laid-up-11-20",
+   "mouth": "YOUR MAN, LAID UP",
+   "who": "YOUR MAN, LAID UP",
+   "pulled_from": "records/target/words/the_second_speaks.json",
+   "locator": [
+    "lines",
+    "hurt",
+    "line"
+   ],
+   "in_the_file": "They got me. {days} days, then I'm back.",
+   "filled_with": {
+    "days": "34"
+   },
+   "line": "They got me. 34 days, then I'm back.",
+   "picture_pt": [
+    390,
+    312
+   ]
+  },
+  {
+   "n": 6,
+   "id": "words-two-hw04-06-your-second-teaches-11-20",
+   "mouth": "YOUR SECOND, TEACHING",
+   "who": "YOUR SECOND",
+   "pulled_from": "records/target/words/the_second_speaks.json",
+   "locator": [
+    "lines",
+    "phone_job",
+    "line"
+   ],
+   "in_the_file": "Oye. Posts on the phone are work. Touch one, it lights up.",
+   "line": "Oye. Posts on the phone are work. Touch one, it lights up.",
+   "picture_pt": [
+    390,
+    312
+   ]
+  },
+  {
+   "n": 7,
+   "id": "words-two-hw04-07-the-kid-you-said-no-to-11-20",
+   "mouth": "THE KID YOU SAID NO TO",
+   "who": "EL CHINO",
+   "pulled_from": "records/target/bb/boss_act_one.json",
+   "locator": [
+    "bosses",
+    {
+     "find": {
+      "n": "THE TAP"
+     }
+    },
+    "lead",
+    "asker",
+    "no_says"
+   ],
+   "in_the_file": "Okay. His tag is still on the pipe.",
+   "line": "Okay. His tag is still on the pipe.",
+   "picture_pt": [
+    390,
+    329
+   ]
+  },
+  {
+   "n": 8,
+   "id": "words-two-hw04-08-a-post-about-a-boss-11-20",
+   "mouth": "THE FEED, ABOUT A BOSS",
+   "who": "@dona_lupe",
+   "pulled_from": "records/target/bb/boss_act_one.json",
+   "locator": [
+    "bosses",
+    {
+     "find": {
+      "n": "THE LOCKSMITH"
+     }
+    },
+    "rumour",
+    "txt"
+   ],
+   "in_the_file": "Every lock in town still works and THE LOCKSMITH has every key. At dark his keymen chain the gates across the streets round his shop, and you walk the long way or you don't walk. Careful, his chain comes over a shield and finds your head.",
+   "line": "Every lock in town still works and THE LOCKSMITH has every key. At dark his keymen chain the gates across the streets round his shop, and you walk the long way or you don't walk. Careful, his chain comes over a shield and finds your head.",
+   "picture_pt": [
+    390,
+    285
+   ]
+  },
+  {
+   "n": 9,
+   "id": "words-two-hw04-09-the-smiling-man-11-20",
+   "mouth": "A ROAD STOP",
+   "who": "THE SMILING MAN",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_mirror_man"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) Everything is recorded. Do you want to see what happens next?",
+   "line": "(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) Everything is recorded. Do you want to see what happens next?",
+   "picture_pt": [
+    390,
+    420
+   ]
+  },
+  {
+   "n": 10,
+   "id": "words-two-hw04-10-a-dying-woman-11-20",
+   "mouth": "A SIDE QUEST ON THE ROAD",
+   "who": "DOÑA REFUGIO",
+   "pulled_from": "records/target/BOHEMIA_SIDE_QUESTS.json",
+   "locator": [
+    "quests",
+    "bq_say_it_back",
+    "nodes",
+    "bedside",
+    "says"
+   ],
+   "in_the_file": "Come close, I don't have the breath to say it twice. There's one thing left and I can't walk it there myself.\nThere's a man. He took my son from me, years back, in the ugly way. I've carried it so long my hands ache from it.\nI want to put it down before I go. I want you to find him and tell him, in my words, that I forgive him. Say it back to me first so I know you have it.",
+   "line": "Come close, I don't have the breath to say it twice. There's one thing left and I can't walk it there myself.\nThere's a man. He took my son from me, years back, in the ugly way. I've carried it so long my hands ache from it.\nI want to put it down before I go. I want you to find him and tell him, in my words, that I forgive him. Say it back to me first so I know you have it.",
+   "picture_pt": [
+    390,
+    468
+   ]
+  },
+  {
+   "n": 11,
+   "id": "words-two-hw04-11-a-woman-running-11-20",
+   "mouth": "A ROAD STOP",
+   "who": "A WOMAN WITH TWO JUGS",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_water_thief"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "¡Ayúdame! They say I steal the water, but it's my pump, my father dug it! They're coming. Hide me in your wagon, please.",
+   "line": "¡Ayúdame! They say I steal the water, but it's my pump, my father dug it! They're coming. Hide me in your wagon, please.",
+   "picture_pt": [
+    390,
+    475
+   ]
+  },
+  {
+   "n": 12,
+   "id": "words-two-hw04-12-nobody-talking-11-20",
+   "mouth": "A ROAD STOP WITH NOBODY TALKING",
+   "who": "A CROW ON A BODY",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_dead_courier"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "(a courier, two days dead, still holding the strap of a bag. The bag has a Remnants seal. A crow looks at you like you're next in line.)",
+   "line": "(a courier, two days dead, still holding the strap of a bag. The bag has a Remnants seal. A crow looks at you like you're next in line.)",
+   "picture_pt": [
+    390,
+    457
+   ]
+  }
+ ]
+}

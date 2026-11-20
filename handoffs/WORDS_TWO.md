@@ -6,6 +6,28 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
+WORDS THREE (words-three-01gkdyuvnl): 11/20 LATEST -- BUILD 11/20z - HE IS NOT DONE: SHEET FOUR, AND HIS ANSWER IS KEPT, BUILT (this commit), NOT YET SEEN (rule 465; rules 454(a)(c), 441; ask row 629). NOTHING IN THE GAME WAS REWRITTEN.
+THE COORDINATOR'S ROUTINE 'WORDS THREE: he is not done' (rule 465, Paolo 11/20: 'im still not done with the replacement text vibes from the voting shit'): keep
+the sheets ready, make them easy to answer on a phone, fold each uploaded sheet into THE VOICE when its path comes. No sheet of his uploaded yet (4 verdicts
+on homework cards in the registry). THE VOICE HOLDS 11/0 on main 43 commits after it landed: 0 of 15 mouths open, no frozen line touched by any lane.
+(1) HIS ANSWER IS KEPT. MEASURED: a line typed into a card behind MORE and not yet thumbed was wiped by closing and opening MORE, by UNDO and by a reload,
+and the box asked 'say why'. slices/BOHEMIA_VOTE_TAB.html (RUN TWO's and UI's file; three small pieces in the pattern of its own ANYTHING ELSE box): every
+card's box is kept on the phone as he types (bohemia.vote.drafts.v1), put back when drawn, cleared when thumbed, handed back on UNDO; a homework card's box
+says 'type how it should sound, then tap a thumb'; the export unchanged. Gate HIS ANSWER IS KEPT (gates/his_answer_is_kept_gate.js, in the suite) 15/0 on
+the real tab upright and sideways, the plant (keeping taken out) red. The alpha frames this same file; its own path into VOTE is red on main for everyone
+(THE VOTE TAB GATE's alpha legs; 60/6 with this change and on clean main, the same six).
+(2) SHEET FOUR, twelve cards (words-two-hw04-01 to -12; records/target/words_two/homework_04.json): the moments no card asked: the kid's kill, under fire,
+machines, the client paying, laid up 34 days, his second teaching, EL CHINO told no, @dona_lupe warning about THE LOCKSMITH, THE SMILING MAN's tape, DOÑA
+REFUGIO dying, a woman running for her life, a card with nobody talking. QUEUED BEHIND SHEET THREE (yellow, only its own twelve): sheet two 54 to 65, sheet
+one 74 to 89, sheet three 145 to 156, sheet four 157 to 168 of 168, card 1 first. THE SHEET TOOL now files a new sheet just before the one ahead of it
+(reproduced this queue byte for byte). All twelve pictures open on the tab both ways, 0 errors. THE VOICE's part three ties all 52 cards out and says rule
+465 plainly. Gate THE VOICE IS HIS WORDS 11/0.
+Record: records/BOHEMIA_WORDS_THREE_HE_IS_NOT_DONE_SHEET_FOUR_AND_HIS_ANSWER_IS_KEPT_11_20_26.md.
+NEXT: his sheet when its path lands, folded onto part one (WAS / HIS / WHAT IT TEACHES), nothing into the game until he says he is done; a fifth sheet only
+when the 52 run low.
+[bb Battle Brothers never asks the player to write a line; ours asks him, so the box he writes in has to be as safe as a save file]
+[analog horror: card 4.9, the tape of your own crew walking this road ten minutes ago]
+
 WORDS THREE (words-three-01gkdyuvnl): 11/20 LATEST -- BUILD 11/20h - HIS HOMEWORK, SHEET THREE, AND THE VOICE IN PLAIN WORDS, BUILT (28fc42069), NOT YET SEEN (rules 454(a)(c)(d), 455, 458(a), 461, 462; ask rows 628, 629, 637, 643). NOTHING IN THE GAME WAS REWRITTEN.
 THIS CHAT IS WORDS THREE, opened by the coordinator on rule 462 (WORDS TWO's model hit its weekly limit). Same lane, same file: write the newest block on top, never
 another lane's. WORDS TWO left no pushed branch. No new sheet of his has landed since his first four answers (newest export records/BOHEMIA_PAOLO_VOTE_11_16_26.txt).
