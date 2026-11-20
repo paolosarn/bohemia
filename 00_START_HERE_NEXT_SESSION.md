@@ -681,6 +681,12 @@ fight. Stand-ins (CHARACTER has the list). VOTE bestiary-the-penitent-and-the-do
 Record records/BOHEMIA_BESTIARY_THE_PENITENT_AND_THE_DOORMAN_11_20_26.md.
 [bb Battle Brothers' Hexe makes a brother pay for every blow she takes; ours is a man of the flock who asked for it.]
 [analog horror: a man you never touched falls down bleeding in the back row, and across the street the penitent smiles.]
+WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/20 LATEST -- BUILD 11/20f - THE STRAT LOOKOUT, BUILT, NOT YET SEEN (rule 461; rule 454(a), no
+words; rule 441). Bugs first: this lane's gates swept, no bug he feels (two old gates re-timed). Then a place to arrive at: tap the Strat
+and the crew climbs it (90 minutes); by day the map opens 30 blocks round it, by night only the towns' lights. Gate THE STRAT LOOKOUT on
+demo and alpha, a phone both ways. VOTE world14-the-strat-lookout-11-20 (STAND-IN). The block: handoffs/WORLD_FOURTEEN.md.
+[bb the high ground widens the company's sight; ours is the Strat's pod, and the climb costs the afternoon.]
+[analog horror: from the pod the valley is quiet; you can see three fires and you know somebody is sitting at each one.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/18 LATEST -- BUILD 11/18f - THE BILLBOARDS, BUILT, NOT YET SEEN (rule 453's rounds; rule
 454(a), no words; rule 441). Dead billboards stand beside the freeways now (36 on a valley), and each is a lookout: by one he sees 3
 blocks farther by day and 1 by night, and the fog keeps what he saw. Gate THE BILLBOARDS on demo and alpha, a phone both ways. VOTE

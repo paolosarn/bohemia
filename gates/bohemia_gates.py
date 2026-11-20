@@ -9630,6 +9630,9 @@ GATES = [
     ('THE BILLBOARDS (demo)', ['node', 'gates/the_billboards_gate.js', 'demo'],
      "WORLD 14 gate, 11/18 (rule 453's rounds; the checklist's item 13 'billboards'; rule 454(a), no words; rule 441). slices/bohemia_billboards.js stands the boards beside the freeways (land beside the block each faces, never a town or a place, five apart, the valley's seed) and makes each a lookout, Battle Brothers' high ground: by one he sees 3 blocks farther by day, 1 by night, never in a boss's dark, and the fog keeps it. The seam, then on the real page upright and sideways: the boards, the sight with its mutation, the fog keeping it, the face on the map's own canvas, nothing thrown. About 4 min", True),
     ('THE BILLBOARDS (alpha)', ['node', 'gates/the_billboards_gate.js', 'alpha'], "WORLD 14 gate: the same, the alpha upright and sideways. About 4 min", True),
+    ('THE STRAT LOOKOUT (demo)', ['node', 'gates/the_strat_lookout_gate.js', 'demo'],
+     "WORLD 14 gate, 11/20 (rule 461: more places to arrive at; rule 454(a), no words; rule 441). slices/bohemia_the_strat.js: a trip to the tower he tapped climbs it at its foot (90 minutes on the map's own clock); by day the fog opens 30 blocks round it, by night only the lit towns within 40; once a day; a trip to the block beside it climbs nothing. On the real page upright and sideways, each trip by the map's own travel. About 4 min", True),
+    ('THE STRAT LOOKOUT (alpha)', ['node', 'gates/the_strat_lookout_gate.js', 'alpha'], "WORLD 14 gate: the same, the alpha upright and sideways. About 4 min", True),
     ('THE PLACES GET THEIR USE', ['node', 'gates/the_places_get_their_use_gate.js'],
      "WORLD 14 gate, 11/8, VAMILY rule 436(b) (ask line 521; rules 409(c), 429(b)(h)): the lab, the bank, the unemployment office and the two "
      "home centres each have a visit (records/target/bb/real_places.json visit; slices/bohemia_place_visits.js): the person there in Spanglish, two or three "

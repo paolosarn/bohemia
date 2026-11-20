@@ -231,7 +231,8 @@ async function page(alpha, profile, full) {
                 lost: JSON.stringify((C.get() || {}).men || {}), hidden: RM.hidden().map(p => p.id) };
               const R0 = Math.random; Math.random = () => r;
               let tapped = false;
-              try { RE.fire(id); await new Promise(z => setTimeout(z, 300)); const b = document.querySelectorAll('#roadcard button')[oi];
+              /* the card takes no tap in its first half second (its own GUARD_MS, a stray tap from the map is not a choice): tap once it has settled */
+              try { RE.fire(id); await new Promise(z => setTimeout(z, 700)); const b = document.querySelectorAll('#roadcard button')[oi];
                 if (b && !b.disabled) { b.dispatchEvent(new PointerEvent('pointerup', { bubbles: true })); tapped = true; } } finally { Math.random = R0; }
               await new Promise(z => setTimeout(z, 1500));
               const ch = (window.__ROADEV_CHOSE || []).slice(-1)[0] || null, fought = (window.__ROADEV_FIGHTS | 0) > before.fights;
@@ -253,7 +254,7 @@ async function page(alpha, profile, full) {
             if (!want.fight && res.dFood !== want.food) why.push('food ' + res.dFood + ' want ' + want.food);
             if (want.leaves !== (res.gone.length === 1)) why.push('gone ' + res.gone.join(','));
             if (want.wound !== (res.wounds.length >= 1)) why.push('wounds ' + res.wounds.join(','));
-            if (want.open !== (res.opened.length === 1)) why.push('opened ' + res.opened.join(','));
+            if (want.open !== (res.opened.length >= 1 && /ON THE MAP/.test((res.got || []).join(' ')))) why.push('opened ' + res.opened.join(','));   /* the place's fog lifts with the blocks round it, so a real place a few blocks off comes out with it (the museum by Cashman Field and THE SCRAP MILL on Commerce, 11/20): the named one, at least */
             if (want.fight && !(res.fought && res.won && res.won.bats === (fx.fight.win.bats || 0))) why.push('fight ' + JSON.stringify(res.won));
             if (want.mins && res.dMins < want.mins - 1) why.push('mins ' + res.dMins + ' want ' + want.mins);
             seen.push(e.id + '#' + oi + (fx.chance ? (r < 0.5 ? 'y' : 'n') : '') + ':' + JSON.stringify(res.got || []));
@@ -272,7 +273,7 @@ async function page(alpha, profile, full) {
         const q = await fr.evaluate((id) => { const RE = BohemiaRoadEvents; try { RE.close(false); } catch (e) {} RE.fire(id);
           const b = document.querySelector('#roadcard button'); if (!b || b.disabled) return null; const r = b.getBoundingClientRect(); window.__CH0 = (window.__ROADEV_CHOSE || []).length; return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; }, e.id);
         if (!q) { miss.push(e.id + ' no button'); continue; }
-        await pg.waitForTimeout(400);
+        await pg.waitForTimeout(700);   /* past the card's own half-second guard */
         await pg.touchscreen.tap(fb.x + q.x, fb.y + q.y);
         await pg.waitForTimeout(900);
         const took = await fr.evaluate(() => (window.__ROADEV_CHOSE || []).length > window.__CH0 || (window.__ROADEV_FIGHTS | 0) > 0 && !document.getElementById('roadcard'));

@@ -70,17 +70,27 @@ async function page(alpha, profile) {
       const tx = b.fx + 8, ty = b.fy; o.seenBefore = fogSeen(tx, ty);
       window.isNight = () => false; city.x = b.fx; city.y = b.fy; FOG.last = null; fogTick(); window.isNight = nightWas;
       o.seenAfter = fogSeen(tx, ty);
-      /* T5: drawn (he stands six blocks off, the board's ground seen; the ground painted fresh each frame) */
-      city.x = b.x + 6; city.y = b.y + 2; try { fogReveal(b.x, b.y, 3); fogReveal(city.x, city.y, 3); } catch (e) {}
-      for (let i = 0, last = ''; i < 60; i++) { MAP_GROUND.key = ''; render(); await wait(100); const k = Math.round(__MAP_OXY.ox) + ',' + Math.round(__MAP_OXY.oy) + ',' + Math.round(TW * 10); if (k === last) break; last = k; }
+      /* T5: drawn (he stands six blocks off, the board's ground seen; the ground painted fresh each frame). The map animates things
+         of its own (a party passing, the smoke columns): the measure is taken at the first board, of up to six, whose spot holds still
+         with the boards off */
       const cv = document.getElementById('cv'), cx = cv.getContext('2d'), dpr = cv.width / cv.clientWidth;
-      const a = iso(b.x, b.y, __MAP_OXY.ox, __MAP_OXY.oy), px = a.sx, py = a.sy + TH * 0.62 - TW * 0.95;
-      const at = async () => { MAP_GROUND.key = ''; render(); await wait(120); const q = cx.getImageData(Math.round(px * dpr) - 2, Math.round(py * dpr) - 2, 5, 5).data; let s = [0, 0, 0]; for (let i = 0; i < q.length; i += 4) { s[0] += q[i]; s[1] += q[i + 1]; s[2] += q[i + 2]; } return s; };
       const d3 = (A, B) => Math.abs(A[0] - B[0]) + Math.abs(A[1] - B[1]) + Math.abs(A[2] - B[2]);
-      /* three frames each way, the middle of each channel (a walker passing one frame is not the board) */
       const med = (L) => [0, 1, 2].map(i => L.map(v => v[i]).sort((x, y) => x - y)[1]);
-      const onS = [await at(), await at(), await at()]; BB.on = false; const offS = [await at(), await at(), await at()]; BB.on = true; await at();
-      o.change = d3(med(onS), med(offS)); o.flicker = [d3(offS[0], offS[1]), d3(offS[1], offS[2]), d3(offS[0], offS[2])].sort((x, y) => x - y)[1]; o.drawn = BB.status().drawn; o.tw = TW; o.hid = fogHides(b.x, b.y);
+      const cands = [b].concat(L.filter(q => q !== b && Math.max(Math.abs(q.x - b.x), Math.abs(q.y - b.y)) > 6)).slice(0, 6);
+      o.tries = [];
+      for (const q of cands) {
+        city.x = q.x + 6; city.y = q.y + 2; try { fogReveal(q.x, q.y, 3); fogReveal(city.x, city.y, 3); } catch (e) {}
+        for (let i = 0, last = ''; i < 60; i++) { MAP_GROUND.key = ''; render(); await wait(100); const k = Math.round(__MAP_OXY.ox) + ',' + Math.round(__MAP_OXY.oy) + ',' + Math.round(TW * 10); if (k === last) break; last = k; }
+        const a = iso(q.x, q.y, __MAP_OXY.ox, __MAP_OXY.oy), px = a.sx, py = a.sy + TH * 0.62 - TW * 0.95;
+        const at = async () => { MAP_GROUND.key = ''; render(); await wait(120); const z = cx.getImageData(Math.round(px * dpr) - 2, Math.round(py * dpr) - 2, 5, 5).data; let s = [0, 0, 0]; for (let i = 0; i < z.length; i += 4) { s[0] += z[i]; s[1] += z[i + 1]; s[2] += z[i + 2]; } return s; };
+        BB.on = false; const offS = [await at(), await at(), await at()];
+        const flick = [d3(offS[0], offS[1]), d3(offS[1], offS[2]), d3(offS[0], offS[2])].sort((x, y) => x - y)[1];
+        BB.on = true; const onS = [await at(), await at(), await at()];
+        const t = { board: [q.x, q.y], change: d3(med(onS), med(offS)), flicker: flick, hid: fogHides(q.x, q.y) }; o.tries.push(t);
+        if (flick < 150) break;
+      }
+      const best = o.tries[o.tries.length - 1] || {}; o.change = best.change; o.flicker = best.flicker; o.hid = best.hid; o.b = best.board;
+      o.drawn = BB.status().drawn; o.tw = TW;
       return o; });
     ok(W + ' T2 the boards: ' + r.n + ' beside the freeways, each on land beside the block it faces, none on a town or a place, five apart, the same twice',
        r.n >= 15 && r.n <= 150 && r.nbad === 0 && r.same, JSON.stringify({ bad: r.bad, same: r.same }));
@@ -88,7 +98,7 @@ async function page(alpha, profile) {
        r.day && r.day.at === r.day.base + 3 && r.off6 === r.day.base && r.night && r.night.at === r.night.base + 1 && r.mut === r.day.base, JSON.stringify({ day: r.day, night: r.night, off6: r.off6, mut: r.mut }));
     ok(W + ' T4 the fog keeps it: a block 8 off, unseen, is seen once he stands by the board', r.seenBefore === false && r.seenAfter === true, JSON.stringify({ before: r.seenBefore, after: r.seenAfter }));
     ok(W + ' T5 drawn on the map\'s own canvas: the face moves the pixels by ' + r.change + ' with the boards on, ' + r.flicker + ' between two frames off',
-       r.drawn > 0 && r.change > 150 && r.change >= 4 * r.flicker && !r.hid, JSON.stringify({ drawn: r.drawn, tw: r.tw, hid: r.hid, board: r.b }));
+       r.drawn > 0 && r.change > 150 && r.change >= 4 * r.flicker && !r.hid, JSON.stringify({ drawn: r.drawn, tw: r.tw, hid: r.hid, board: r.b, tries: (r.tries || []).length }));
     ok(W + ' T6 nothing threw', !errs.length, errs.slice(0, 2).join(' | '));
   } finally { await d.close(); }
 }
