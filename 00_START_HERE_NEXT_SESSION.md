@@ -1,3 +1,23 @@
+COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20n - THE REGION'S FOUR, BUILT (SHIPSHA), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 408, 409(c), 455; ask rows 627, 651).
+COOK FIVE's list said 'measure how the region draws its four real places and whether a piece can go there with no code'. MEASURED: no. The region's places
+(TULE SPRINGS LAB, LENZIE STATION, SPRING MOUNTAIN RANCH, CALLVILLE BAY) are drawn by slices/bohemia_region.js drawPlaces after the whole frame, through the map's
+mapBaseDraw(tier, name): a painted patch. So: ONE SEAM in this lane's module slices/bohemia_place_pieces.js (at its foot): mapBaseDraw wrapped BY NAME; a region place
+with a picture is drawn as its own piece (the plate scaled to its patch's blocks, a fortress 4, a camp 2, x 0.85), its size handed back so the region's draw takes the tap
+and sets the name by it; anything else goes on to the map's own draw. Nothing of the region's file edited. Four scenes (the lab and pen four's wolves, Lenzie's stacks and
+its fan deck, the ranch under Red Rock with the last cattle, the motorhomes and the marina on the mud), their plates the far land's own tone. place_pieces.json: 'where':
+'region' on the four, and 'region' (how they lay).
+Made by tools/bohemia_cook6_the_regions_four_wear_their_own_piece_11_20_26.py (its render clears its masters first). Proof tool:
+tools/bohemia_cook6_the_region_pieces_on_the_page_11_20_26.js (the crew WALKS out to each by travelTo; 'put' if the camera had to be placed, and the gate refuses that).
+PROOF on the demo, both ways: all four walked to, drawn 68, 68, 51, 51 points, none with the switch off, 0 page errors. Gate THE PLACES WEAR THEIR OWN PIECE 11/0 (G1 the
+valley's fifteen; NEW R1 to R3 the region's four). Green too: THE MISSING REAL PLACES 16/0, NO NAME COVERS ANOTHER 10/0, THE REGION HAS ITS CITIES 5/0.
+VOTE cook6-the-regions-four-11-20 (MADE FROM arena2-the-pit-is-a-pit-11-7). Record: records/BOHEMIA_COOK_SIX_THE_REGIONS_FOUR_11_20_26.md.
+Its block is handoffs/COOK_FIVE.md (COOK SIX writes there).
+FOR WORLD (10, 14) and RUN: the four entries are yours to check against what the places are; the seam calls your mapBaseDraw for every name it does not own.
+*** NEXT ON THIS LANE: (1) COMBAT FOUR's powerhouse art (22 names and its crane roof; the tool is written: tools/bohemia_cook6_the_powerhouse_finished_11_20_26.py,
+renders next; its roof one picture the size of the board like the stadium's, since its runways are on the long walls); (2) COMBAT FOUR's next insides (the Sphere) when
+their names land.
+[bb Battle Brothers' map: a place worth the walk is told from a village at a glance, out in the wilds most of all]
+[analog horror: red lights on the stacks every night for airplanes that do not come]
 JOBS (jobs-01gkdyuv): 11/20 LATEST -- BUILD 11/20l - A HUNT FITS THE CREW, BUILT, NOT YET SEEN (rules 461, 441, 454(a); rows 574, 651). A HUNT FITS THE CREW (row 574, JOBS' part): a hunt never deals the ancient bison to a company of fewer than six men (one beats
 3 men 8 in 10, 6 win 10 in 10); the longhorn, bear and sloth stay giants; TUNING's numbers and the bestiary's gate leg are theirs.
 On the phone, the demo and the alpha both ways. Gate THE TOWN'S BOOK. VOTE jobs-a-hunt-fits-the-crew-11-20 (STAND-IN), sha 49e88631a. Record records/BOHEMIA_JOBS_A_HUNT_FITS_THE_CREW_11_20_26.md.

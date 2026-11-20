@@ -22,6 +22,11 @@ met on a phone, and a draw that never runs on the map he plays.
   G1 the module and its pictures are loaded on the map he plays, and every place with a piece is seated on this valley
   G2 with the switch off no piece is drawn; with it on each place's piece is drawn on the glass, 44 points across or more
   G3 it is SEEN: inside the piece's rectangle the shot with it on differs from the shot with it off (a third of it or more)
+  THE REGION'S PLACES (COOK SIX 11/20; where 'region' in the list): the region draws them itself, through the module's seam (a wrap
+  of the map's mapBaseDraw by name); tools/bohemia_cook6_the_region_pieces_on_the_page_11_20_26.js walks the crew out to each:
+  R1 the seam is loaded, every region place with a piece is seated on the region and walked to (never put), no page error
+  R2 with the switch off the region paints its own patch; on, each piece is on the glass, 44 points across or more
+  R3 it is SEEN, a third of its rectangle or more
 python3 gates/the_places_wear_their_own_piece_gate.py [--static]
 """
 import json, os, subprocess, sys, tempfile
@@ -76,9 +81,9 @@ def purple(a):
     return int(((r > g + 25) & (b > g + 25) & (r > 80) & (al > 40)).sum())
 
 
-def page():
+def page(tool='tools/bohemia_the_place_pieces_on_the_page_11_17_26.js', timeout=900):
     out = tempfile.mkdtemp(prefix='place_pieces_')
-    try: subprocess.run(['node', os.path.join(ROOT, 'tools/bohemia_the_place_pieces_on_the_page_11_17_26.js'), out, 'phone_portrait'], cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=900)
+    try: subprocess.run(['node', os.path.join(ROOT, tool), out, 'phone_portrait'], cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=timeout)
     except Exception as e: return None, out, str(e)
     p = os.path.join(out, 'page_phone_portrait.json')
     return (json.load(open(p)) if os.path.exists(p) else None), out, ''
@@ -105,8 +110,8 @@ def main():
     if '--static' not in sys.argv:
         res, out, err = page()
         if not res: ok('G1 the page ran', False, err or 'no result'); print('\nTHE PLACES WEAR THEIR OWN PIECE: %d passed, %d failed' % (passed, failed)); return 1
-        L = res.get('loaded') or {}; got = res.get('places') or {}
-        ok('G1 ON THE PAGE: the module and its pictures are loaded on the demo, every place with a piece is seated on this valley', bool(L.get('module')) and sorted(L.get('pictures') or []) == sorted(P) and sorted(got) == sorted(P), 'pictures %s, seated %s' % (len(L.get('pictures') or []), ', '.join(sorted(got))))
+        L = res.get('loaded') or {}; got = res.get('places') or {}; PV = [k for k, e in P.items() if e.get('where') != 'region']
+        ok('G1 ON THE PAGE: the module and its pictures are loaded on the demo, every valley place with a piece is seated on this valley', bool(L.get('module')) and sorted(L.get('pictures') or []) == sorted(P) and sorted(got) == sorted(PV), 'pictures %s, seated %s' % (len(L.get('pictures') or []), ', '.join(sorted(got))))
         bad = [k for k, v in got.items() if v.get('off_drew') != 0 or not v.get('rect') or v.get('err') or not v.get('on_shot') or v['on_shot']['w'] < MIN_POINTS]
         ok('G2 ON THE PAGE: off, none is drawn; on, each place\'s piece is on the glass, %d points across or more' % MIN_POINTS, not bad and bool(got), ', '.join('%s %s points at %s (a block is %s)' % (k, (v.get('on_shot') or {}).get('w'), v.get('at'), v.get('block_css')) for k, v in got.items()))
         seen = {}
@@ -117,6 +122,24 @@ def main():
             kk = a.shape[1] / float(v['shot_points'][0]); x0, y0, x1, y1 = (int(max(0, t * kk)) for t in (q['x'] + q['w'] * 0.2, q['y'] + q['h'] * 0.45, q['x'] + q['w'] * 0.8, q['y'] + q['h'] * 0.9))
             d = np.abs(a[y0:y1, x0:x1] - b[y0:y1, x0:x1]).max(2); seen[k] = float((d > 24).mean()) if d.size else 0.0
         ok('G3 ON THE PAGE: IT IS SEEN: inside its rectangle the glass with it on is another picture (a third of it or more)', bool(seen) and all(v >= SEEN for v in seen.values()), ', '.join('%s %.0f%%' % (k, v * 100) for k, v in seen.items()))
+        PR = sorted(k for k, e in P.items() if e.get('where') == 'region')
+        if PR:   # (COOK SIX 11/20) THE REGION'S PLACES: drawn by the region's own draw through the module's seam
+            rr, rout, rerr = page('tools/bohemia_cook6_the_region_pieces_on_the_page_11_20_26.js', 1500)
+            if not rr: ok('R1 the region\'s page ran', False, rerr or 'no result')
+            else:
+                RL = rr.get('loaded') or {}; rg = rr.get('places') or {}
+                ok('R1 ON THE PAGE: the module\'s region seam is loaded, every region place with a piece is seated on the region, and the crew walked to it (no page error)', bool(RL.get('seam')) and sorted(rr.get('seated') or []) == PR and sorted(rg) == PR and all(v.get('walked') and not v.get('put') for v in rg.values()) and not rr.get('errors'),
+                   'seated %s; walked %s; errors %d' % (', '.join(rr.get('seated') or []), ', '.join(k for k, v in rg.items() if v.get('walked')), len(rr.get('errors') or [])))
+                bad = [k for k, v in rg.items() if v.get('off_drew') != 0 or not v.get('rect') or v.get('err') or not v.get('on_shot') or v['on_shot']['w'] < MIN_POINTS]
+                ok('R2 ON THE PAGE: off, the region paints its own patch; on, each region place\'s piece is on the glass, %d points across or more' % MIN_POINTS, not bad and bool(rg), ', '.join('%s %s points at %s' % (k, (v.get('on_shot') or {}).get('w'), v.get('at')) for k, v in rg.items()))
+                rs = {}
+                for k, v in rg.items():
+                    q = v.get('on_shot')
+                    if not q: rs[k] = 0.0; continue
+                    a = np.asarray(Image.open(os.path.join(rout, k + '_off.png')).convert('RGB')).astype(int); b = np.asarray(Image.open(os.path.join(rout, k + '_on.png')).convert('RGB')).astype(int)
+                    kk = a.shape[1] / float(v['shot_points'][0]); x0, y0, x1, y1 = (int(max(0, t * kk)) for t in (q['x'] + q['w'] * 0.2, q['y'] + q['h'] * 0.45, q['x'] + q['w'] * 0.8, q['y'] + q['h'] * 0.9))
+                    d = np.abs(a[y0:y1, x0:x1] - b[y0:y1, x0:x1]).max(2); rs[k] = float((d > 24).mean()) if d.size else 0.0
+                ok('R3 ON THE PAGE: IT IS SEEN: inside its rectangle the glass with it on is another picture (a third of it or more)', bool(rs) and all(v >= SEEN for v in rs.values()), ', '.join('%s %.0f%%' % (k, v * 100) for k, v in rs.items()))
     print('\nTHE PLACES WEAR THEIR OWN PIECE: %d passed, %d failed' % (passed, failed))
     return 1 if failed else 0
 

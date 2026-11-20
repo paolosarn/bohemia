@@ -16,6 +16,8 @@
    The map calls BohemiaPlacePieces.draw(ox, oy) once a frame (one line in BOHEMIA_CITY_WORLD.html, before the fog).
    The pictures: tools/bohemia_cook5_the_places_wear_their_own_piece_11_17_26.py, through the map's rig.
    BohemiaPlacePieces.on = false is the page test's switch (the kit art alone), never the game's.
+   THE REGION'S FOUR (COOK SIX 11/20): a region place's piece is drawn by the region's own draw through a wrap of mapBaseDraw by
+   its name (the seam at the foot of this file); PP.region counts them.
    ========================================================================== */
 (function () {
   'use strict';
@@ -29,7 +31,7 @@
     }).catch(function (e) { PP.err = String(e && e.message || e); });
   } catch (_e) {}
   PP.draw = function (ox, oy) {
-    PP.drew = 0; PP.last = {};
+    PP.drew = 0; PP.last = {}; if (PP.region) { PP.region.drew = 0; PP.region.last = {}; }   /* (the region's are counted after the frame, in its own draw) */
     if (!PP.on || !PP.pics) return;
     try {
       if (typeof MODE === 'undefined' || MODE !== 'city') return;
@@ -49,4 +51,44 @@
       });
     } catch (e) { PP.err = String(e && e.message || e); }
   };
+
+  /* THE REGION'S PLACES (COOK SIX 11/20, VAMILY rules 461, 408, 409(c); COOK FIVE's list: 'measure how the region draws its four
+     real places'). MEASURED: the four places out past the rim (real_places.json where 'region': TULE SPRINGS LAB, LENZIE STATION,
+     SPRING MOUNTAIN RANCH, CALLVILLE BAY) are drawn by slices/bohemia_region.js drawPlaces, after the whole map frame, through the
+     map's own mapBaseDraw(tier, name, sx, footY, mine, beat): the patch the map paints of the far land, or the tier's art. PP.draw
+     above sees only the valley's. So this is the one seam: mapBaseDraw is wrapped by NAME. A region place whose id has a picture
+     here is drawn as its own piece in place of the patch (its ground plate scaled to the patch's own blocks, a fortress 4 and a
+     camp 2, times 0.85, never under min_css) and its size goes back to the region's draw, which takes the tap and sets the name
+     by it as before. Any other name, the switch off (PP.on false), a picture not loaded or the far stops: the map's own draw. */
+  PP.region = { drew: 0, last: {}, ids: null };
+  function regionId(name) {
+    if (!PP.region.ids) { var RP = window.BOH_REAL_PLACES; if (!RP || !RP.loaded || !RP.list) return null; var m = {};
+      RP.list.forEach(function (p) { if (p && p.where === 'region' && p.name && p.id) m[p.name] = p.id; }); PP.region.ids = m; }
+    return PP.region.ids[name] || null;
+  }
+  try {
+    var _mbd = window.mapBaseDraw;
+    if (typeof _mbd === 'function') window.mapBaseDraw = function (tier, name, sx, footY) {
+      try {
+        if (PP.on && PP.pics && typeof MODE !== 'undefined' && MODE === 'city' && window.BOH_REGION && typeof vbRegionPlaceOf === 'function' && vbRegionPlaceOf(name)) {
+          var id = regionId(name), P = id && PP.pics[id], minPx = (PP.man && PP.man.min_block_px) || 10;
+          if (P && TW >= minPx) {
+            var beat = 0; try { beat = mapArtBeat(); } catch (_e) {}
+            var im = PP.img[P.frames[beat % P.frames.length]];
+            if (im && im.complete && im.naturalWidth) {
+              var ppc = 1; try { var r = cv.getBoundingClientRect(); if (r.width) ppc = CVW / r.width; } catch (_e) {}
+              var n = tier === 'fortress' ? 4 : tier === 'town' ? 3 : 2, minCss = (PP.man && PP.man.min_css) || 0;   /* the map's own patch (vbRegionPatchGeom) */
+              var sc = Math.max(TW * n * 0.85, minCss * ppc) / P.plate, gy = footY - 6;                                   /* the block's ground centre (the region's foot is it + 6) */
+              var x = Math.round(sx - P.bx * sc), y = Math.round(gy - P.by * sc), w = Math.round(P.w * sc), h = Math.round(P.h * sc);
+              g.imageSmoothingEnabled = w < P.w; g.drawImage(im, x, y, w, h); g.imageSmoothingEnabled = false;
+              PP.region.drew++; PP.region.last[id] = { x: x, y: y, w: w, h: h, frame: beat % P.frames.length, name: name };
+              try { if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.buildings++; } catch (_e) {}
+              return { width: Math.round(w * 0.85), height: Math.max(6, Math.round(footY - y)), piece: 1 };
+            }
+          }
+        }
+      } catch (e) { PP.err = String(e && e.message || e); }
+      return _mbd.apply(this, arguments);
+    };
+  } catch (_e) {}
 })();

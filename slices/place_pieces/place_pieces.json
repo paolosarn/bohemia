@@ -229,6 +229,71 @@
    "like": "commercial",
    "through_the_rig": true,
    "finished": "cook 6, 11/20"
+  },
+  "the_lab": {
+   "w": 166,
+   "h": 162,
+   "bx": 83,
+   "by": 114,
+   "plate": 150,
+   "frames": [
+    "the_lab_0.webp",
+    "the_lab_1.webp"
+   ],
+   "name": "TULE SPRINGS LAB",
+   "like": "region:fortress",
+   "through_the_rig": true,
+   "finished": "cook 6, 11/20",
+   "where": "region"
+  },
+  "lenzie_station": {
+   "w": 166,
+   "h": 174,
+   "bx": 83,
+   "by": 126,
+   "plate": 150,
+   "frames": [
+    "lenzie_station_0.webp",
+    "lenzie_station_1.webp"
+   ],
+   "name": "LENZIE STATION",
+   "like": "region:fortress",
+   "through_the_rig": true,
+   "finished": "cook 6, 11/20",
+   "where": "region"
+  },
+  "spring_mountain_ranch": {
+   "w": 166,
+   "h": 172,
+   "bx": 83,
+   "by": 123,
+   "plate": 150,
+   "frames": [
+    "spring_mountain_ranch_0.webp",
+    "spring_mountain_ranch_1.webp"
+   ],
+   "name": "SPRING MOUNTAIN RANCH",
+   "like": "region:camp",
+   "through_the_rig": true,
+   "finished": "cook 6, 11/20",
+   "where": "region"
+  },
+  "callville_bay": {
+   "w": 166,
+   "h": 158,
+   "bx": 83,
+   "by": 110,
+   "plate": 150,
+   "frames": [
+    "callville_bay_0.webp",
+    "callville_bay_1.webp"
+   ],
+   "name": "CALLVILLE BAY",
+   "like": "region:camp",
+   "through_the_rig": true,
+   "finished": "cook 6, 11/20",
+   "where": "region"
   }
- }
+ },
+ "region": "A place with where 'region' is drawn by the region's own draw (slices/bohemia_region.js drawPlaces, through the map's mapBaseDraw by its name): its picture in place of the painted patch, the plate scaled to the patch's own blocks (a fortress 4, a camp 2) times 0.85, never under min_css (COOK SIX 11/20)"
 }
