@@ -13,7 +13,7 @@ const ROOT = path.join(__dirname, '..');
 const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const { fightPress } = require(path.join(ROOT, 'tools/bohemia_fight_press.js'));
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
-const ALPHA = process.argv.indexOf('--alpha') > 0, CODE = arg('--code', 'K7QM9X'), JOBS = +arg('--jobs', 2);
+const ALPHA = process.argv.indexOf('--alpha') > 0, NIGHT = process.argv.indexOf('--night') > 0, CODE = arg('--code', 'K7QM9X'), JOBS = +arg('--jobs', 2);   /* --night: only the jobs whose card says who comes in the dark */
 const SHAPES = arg('--shapes', 'phone_portrait,phone_landscape').split(','), OUTD = path.resolve(ROOT, arg('--out', 'records/target/jobs_11_20')), TAG = arg('--tag', ALPHA ? 'alpha' : 'demo');
 fs.mkdirSync(OUTD, { recursive: true });
 
@@ -39,6 +39,7 @@ async function walk(shape) {
     out.auto = await ff.evaluate(() => !!FIGHT_UI.auto).catch(() => null);
     const t0 = Date.now();
     while (Date.now() - t0 < 300000) { const st = await ff.evaluate(() => FIGHT.S.over).catch(() => true); if (st) break; await page.waitForTimeout(500); }
+    out.night = await ff.evaluate(() => !!FIGHT.S.night).catch(() => null);
     Object.assign(out, await ff.evaluate(() => { const t = FIGHT.S.units.filter(u => u.side === 'them');
       return { over: FIGHT.S.over, result: FIGHT.S.result, rounds: FIGHT.S.round, them: t.length, dead: t.filter(u => u.dead).length, fled: t.filter(u => u.fled).length, down: t.filter(u => !u.dead && !u.fled && u.down).length, standing: t.filter(u => !u.dead && !u.fled && !u.down).length }; }).catch(() => ({ over: null })));
     out.ms = Date.now() - t0;
@@ -54,12 +55,12 @@ async function walk(shape) {
     await fr.waitForFunction(() => window.BohemiaJobKinds && BohemiaJobKinds.ready() && window.BohemiaBoardShelf && BohemiaBoardShelf.ready() && window.BohemiaJobDanger && BohemiaJobDanger.ready() && window.BohemiaRenown && window.LOOP && LOOP.start, null, { timeout: 180000 });
     await page.waitForTimeout(4000);
     /* the jobs: every offer at every town the map has, read by the card's own words; one-skull, every fight sure, no talk, no hunt, no night */
-    row.cands = await fr.evaluate(() => { const out = [], seen = {}, bs = ctBases() || {};
-      BohemiaBoardShelf.shelf().offers.forEach(o => { if (seen[o.id] || (o.skulls | 0) > 1) return; Object.keys(bs).forEach(n => { if (seen[o.id]) return;
+    row.cands = await fr.evaluate((NIGHT) => { const out = [], seen = {}, bs = ctBases() || {};
+      BohemiaBoardShelf.shelf().offers.forEach(o => { if (seen[o.id] || (o.skulls | 0) > (NIGHT ? 2 : 1)) return; Object.keys(bs).forEach(n => { if (seen[o.id]) return;
         let A = null; try { A = BohemiaJobKinds.asks(o, n); } catch (e) { A = null; }
-        if (!A || A.sure < 1 || A.maybe || A.choose || /hunt/.test(A.plays || '') || /in the dark|night/.test(A.words)) return;
+        if (!A || A.sure < 1 || A.maybe || A.choose || /hunt/.test(A.plays || '') || (NIGHT ? !/in the dark/.test(A.words) : /in the dark|night/.test(A.words))) return;
         seen[o.id] = 1; out.push({ id: o.id, town: n, plays: A.plays, sure: A.sure, clout: A.clout, words: A.words }); }); });
-      return out; });
+      return out; }, NIGHT);
     for (const C of row.cands.slice(0, 12)) {
       if (row.jobs.filter(j => j.done).length >= JOBS) break;
       const J = { id: C.id, town: C.town, plays: C.plays, card: C.clout, cardWords: C.words, fights: [] };
@@ -79,6 +80,7 @@ async function walk(shape) {
           const st = await fr.evaluate((id) => { const j = LOOP.held.filter(h => h.id === id)[0]; if (!j) return 'gone';
             const p = j.stage === 'look' && j.spot ? j.spot : (j.target || j.spot); if (!p) { BohemiaJobKinds.step(); return 'step:' + j.stage; }
             travelStop(); city.x = p.x; city.y = p.y; BohemiaJobKinds.arrived(p.x, p.y) || BohemiaJobKinds.step(); return String(j.stage || '?'); }, C.id);
+          (J.trace = J.trace || []).push(st + '@' + (await fr.evaluate(() => { try { return loopDay() + ' ' + Math.floor(T.min / 60) + ':' + String(T.min % 60).padStart(2, '0'); } catch (e) { return '?'; } })));
           if (st === 'gone') break;
           await page.waitForTimeout(900);
           await waitFor(fightUp, 2500);
@@ -90,6 +92,7 @@ async function walk(shape) {
         try { J.png = path.relative(ROOT, path.join(OUTD, TAG + '_' + (shape === 'phone_portrait' ? 'upright' : 'sideways') + '_job' + (row.jobs.length + 1) + '.png')); await page.screenshot({ path: path.join(ROOT, J.png) }); } catch (e) {}
       } catch (e) { J.err = String(e && e.message || e).slice(0, 200); }
       row.jobs.push(J);
+      try { fs.writeFileSync(path.join(OUTD, 'clout_pays_' + TAG + '.partial.json'), JSON.stringify(row, null, 1)); } catch (e) {}   /* kept job by job */
       console.log('  ' + TAG + ' ' + shape + ' ' + J.id + ' @' + J.town + ' (' + J.plays + '): card +' + J.card + (J.cardHeld != null && J.cardHeld !== J.card ? ' (held ' + J.cardHeld + ')' : '') + (J.err ? ' ERR ' + J.err : ', gained +' + J.gain + ' (' + J.clout0 + ' -> ' + J.clout1 + '), fights ' + J.fights.map(f => f.result + ' ' + f.them + ' (' + f.dead + ' dead ' + f.fled + ' ran ' + f.down + ' down ' + f.standing + ' up, auto ' + f.auto + ')').join(', ') + ', paid ' + (J.paid ? J.paid.paid : 'no')));
     }
   } catch (e) { row.err = String(e && e.message || e).slice(0, 300); console.log('  ' + TAG + ' ' + shape + ' ERR ' + row.err); }

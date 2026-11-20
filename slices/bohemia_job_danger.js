@@ -156,8 +156,9 @@
     var gy = false; try { gy = !!ctx.district && E.F.isGraveyard({ district: ctx.district }); } catch (e) {}
     /* FACTIONS 11/3 (records/target/bb/bohemia_enemies.json road): the ground he meets them on picks WHO they are (roadDistrict), never
        the board, which stays dealt from the seed alone */
-    var o = { auto: true, formation: null, party: P, met: metNow(), district: gy ? ctx.district : null, roadDistrict: ctx.district || null, act: P.act };
+    var o = { auto: true, formation: null, party: P, met: ctx.met != null ? ctx.met : metNow(), district: gy ? ctx.district : null, roadDistrict: ctx.district || null, act: P.act };
     try { if (typeof isNight === 'function') o.night = !!isNight(); } catch (e) {}   /* the hour picks who walks (FACTIONS 11/3) */
+    if (ctx.night != null) o.night = !!ctx.night;   /* JOBS 11/20 __THE_CARD_READS_THE_NIGHT__: a card reads a fight at its own hour and after the fights it comes after */
     ROLLN++;   /* a roll deals on the same rules a phone's slices play on: the slice in flight starts its run again */
     try {
       E.seed(seedOf('band:' + (ctx.key || '') + ':' + P.count + ':' + P.faction));
@@ -312,12 +313,19 @@
     if (!job) return null;
     var list = BohemiaJobKinds.fightsOf(job, held ? {} : { offer: o, place: place });
     if (!list) return null;
+    /* __THE_CARD_READS_THE_NIGHT__ (JOBS 11/20, rule 461; a marked block in WORLD's reader): the fight is rolled when it comes, at its
+       hour and after the fights before it (the night picks who walks; the company's first fight is brigands, the road's factions after
+       it, ours.json road_factions after_fights). The card read them all at the hour of reading and the fights met so far: a night
+       watch's card named the day's crowd, so it said 'whoever comes in the dark'. Now a fight in the dark (fightsOf's dark) is read at
+       night and each sure fight after the ones that come before it */
+    var metBase = 0, before = 0; try { metBase = metNow(); } catch (e) {}
     return list.map(function (f) {
+      var metAt = f.road ? metBase : metBase + before; if (!f.road && f.p >= 0.999) before++;
       var party = null; try { party = f.road ? partyMath('roaming', { x: f.at ? f.at.x : 0, y: f.at ? f.at.y : 0 }) : partyMath('job', { skulls: job.skulls }); } catch (e) { party = { count: f.n, days: 1, difficulty: 1 }; }
       party = { count: f.n, faction: f.faction || 'brigands', days: party.days, difficulty: party.difficulty };
       var at = f.at ? [f.at.x | 0, f.at.y | 0] : null, why = f.why || (f.road ? 'road:' + o.id : 'contract:' + o.id + ':' + f.what);   /* the hand-over's own why, so the band read is the band met */
-      var r = roll(party, { key: why + ':' + f.n, district: at ? districtAt(at) : null });
-      return r ? { what: f.what, why: why, n: f.n, p: f.p, band: r.band, faction: r.faction, days: r.days, difficulty: r.difficulty, at: at, road: !!f.road, hours: f.hours } : null;
+      var r = roll(party, { key: why + ':' + f.n, district: at ? districtAt(at) : null, night: f.dark ? true : undefined, met: metAt });
+      return r ? { what: f.what, why: why, n: f.n, p: f.p, band: r.band, faction: r.faction, days: r.days, difficulty: r.difficulty, at: at, road: !!f.road, hours: f.hours, dark: !!f.dark } : null;
     }).filter(Boolean);
   }
   function readKey(o, place) { return String(o && o.id) + '@' + String(place || (o && o.from) || '') + (o && o.plays ? ':held:' + (o.stage || '') + ':' + (o.wave | 0) + ':' + (o.got | 0) + ':' + ((o.ambush || []).length) + ':' + (o.bands | 0) + ':' + (o.holders ? o.holders.n : '') : ''); }

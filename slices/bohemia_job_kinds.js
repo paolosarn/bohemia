@@ -245,6 +245,7 @@
         if (L.go === 'client') { stops.push(i === job.legs.length - 1 ? 'back to ' + job.from + ' to be paid' : 'back to ' + job.from + ': ' + String(L.act || 'go').toLowerCase()); return; }
         var f = fs.filter(function (x) { return x.what === 'leg' + i; })[0], w = String(L.name || L.townName || 'the place').toUpperCase() + ': ' + String(L.act || job.word || 'go').toLowerCase();
         if (L.talk) w += ', a word with ' + String(L.talk.name || 'them') + (f ? ', and it can come to a fight with ' + who(f) : '');
+        else if (f && f.dark && f.band) w += ', a fight with ' + who(f) + ' in the dark';   /* JOBS 11/20 __THE_CARD_READS_THE_NIGHT__: rolled at night, so it can name them */
         else if (f && (L.dark || (L.wait && i > 0 && job.legs[0].dark))) w += ', a fight with about ' + (f.band ? f.band.length : f.n) + ' of whoever comes in the dark';   /* JOBS 11/14: after nightfall the day has turned, and who comes is the night's (measured: the card said 2 men, a bull came) */
         else if (f) w += ', a fight with ' + who(f) + odds(f.p);
         if (L.clout && cloutOf(L.clout)) { places += cloutOf(L.clout); w += ' (+' + cloutOf(L.clout) + ' ' + ((root.BohemiaRenown && BohemiaRenown.WORD) || 'CLOUT') + ')'; }
@@ -276,21 +277,22 @@
     var w = [city.x, city.y]; try { w = roadWhere(); } catch (e) {}
     var party = null; try { party = partyMath('job', { skulls: job.skulls }); } catch (e) { party = { count: count, days: 1, difficulty: 1 }; }
     party.count = Math.max(1, count | 0); try { party.word = partyWord(party.count); } catch (e) {}
-    party.faction = foeOf(job, faction || 'brigands', w);
-    if (!(extra && extra.pack != null)) { party.count = costed(party.count, party.faction); try { party.word = partyWord(party.count); } catch (e) {} }   /* __THE_CONTRACT_IS_THE_BUDGET__ */
-    var roster = []; for (var i = 0; i < party.count; i++) roster.push({ arch: isBeastFoe(party.faction) ? 'beast' : 'human' });
-    job.fight = { what: what, n: party.count, pack: extra && extra.pack != null ? extra.pack : null };
-    LOOP.fighting = job.id;
     /* __THE_CARD_S_PLACE_IS_THE_FIGHT_S__ (JOBS 11/20, rule 461): the card reads who holds a fight's place at the place itself (fightsOf's
        at: the spot, the camp, the lair, the post) and the danger reader turns the job's brigands into whoever holds that district; the
        fight read it where he stands (roadWhere, the road beside the place), which can be the next district: measured on the alpha, a
        card's '2 keepers' (+110 CLOUT) met 4 of the Block Watch (+120). The hand-over now carries the district of the card's own place
        (the nearest of this fight's kind in the job's own list) for the roll alone (rollDistrict; the board is still cut where he
-       stands), so the band read is the band met */
+       stands), so the band read is the band met; and a job's animal is picked where the card picked it (foeOf keeps the first ground
+       it is asked at: the fight asked first, on the road, and the tunnel watch's card said 1 dire wolf where 3 coyotes came, the alpha) */
     var dz = null;
     try { var near = null, nd = 1e9; (fightsOf(job, {}) || []).forEach(function (f) { if (f.what !== what || f.road || !f.at) return; var px = f.at.x != null ? f.at.x : f.at[0], py = f.at.y != null ? f.at.y : f.at[1], dd = Math.abs(px - w[0]) + Math.abs(py - w[1]); if (dd < nd) { nd = dd; near = [px, py]; } });
       if (near && what !== 'pack') { var c0 = om.at(near[0] | 0, near[1] | 0); dz = c0 && c0.district ? c0.district : null; } } catch (e) { dz = null; }
     root.__FIGHT_DISTRICT = { id: job.id, what: what, card: dz, here: (function () { try { var c1 = om.at(w[0] | 0, w[1] | 0); return c1 ? c1.district : null; } catch (e) { return null; } })() };
+    party.faction = foeOf(job, faction || 'brigands', near || w);   /* the card's place first (fightsOf above asked foeOf there) */
+    if (!(extra && extra.pack != null)) { party.count = costed(party.count, party.faction); try { party.word = partyWord(party.count); } catch (e) {} }   /* __THE_CONTRACT_IS_THE_BUDGET__ */
+    var roster = []; for (var i = 0; i < party.count; i++) roster.push({ arch: isBeastFoe(party.faction) ? 'beast' : 'human' });
+    job.fight = { what: what, n: party.count, pack: extra && extra.pack != null ? extra.pack : null };
+    LOOP.fighting = job.id;
     var ok = false;
     try { ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: label, faction: null, draft: true, rollDistrict: dz || undefined,
       packageId: (LOOP.start && LOOP.start.pkg != null) ? LOOP.start.pkg : 1, roster: roster, party: party, street: true,
@@ -2203,7 +2205,8 @@
     var add = function (p, what, n, faction, at, why) { if (p > 0 && n > 0) { var fo = foeOf(job, faction || 'brigands', at || job.target);
       out.push({ what: what, why: why || ('contract:' + job.id + ':' + what), p: Math.min(1, p), n: Math.max(1, (what === 'pack' ? n : costed(n, fo)) | 0), faction: fo, at: at || job.target || null }); } };   /* __THE_CONTRACT_IS_THE_BUDGET__: one count, the fight's and the stars' */
     var held = !opt.offer, sk = clamp(job.skulls | 0 || 1, 1, 3);
-    if (k.legs) (job.legs || k.legs).forEach(function (L, i) { if (!L.fight || L.done) return; var n = L.fight.left || (L.fight.n === 'party' || !L.fight.n ? legShare(jm(), L.fight) : L.fight.n); add(L.talk ? 0.5 : 1, 'leg' + i, n, L.fight.foe || 'brigands', L.x != null ? L : job.target); });   /* CONTENT 11/2: LEGS */
+    if (k.legs) (job.legs || k.legs).forEach(function (L, i, LL) { if (!L.fight || L.done) return; var n = L.fight.left || (L.fight.n === 'party' || !L.fight.n ? legShare(jm(), L.fight) : L.fight.n), n0 = out.length; add(L.talk ? 0.5 : 1, 'leg' + i, n, L.fight.foe || 'brigands', L.x != null ? L : job.target);
+      if (out.length > n0 && (L.dark || (L.wait && i > 0 && LL[0].dark))) out[out.length - 1].dark = true; });   /* JOBS 11/20 __THE_CARD_READS_THE_NIGHT__: a fight that comes in the dark is read at night */   /* CONTENT 11/2: LEGS */
     else switch (job.plays) {
       case 'haul-caravan': {
         var rn = Math.max(2, shareOf(jm(), job.raids || (job.ambush || []).length) + ((k.ambush_extra | 0) || 0));   /* JOBS 11/10: as the raid will be */

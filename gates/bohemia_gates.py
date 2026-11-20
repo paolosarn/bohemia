@@ -2431,6 +2431,11 @@ GATES = [
      'below Neutral a town charges more and pays less (the Game Guide), and its bar changes what it offers (no three-skull work below '
      'Neutral, one job at Hostile, one more from Friendly); a settled job kept until the town\'s bands load; on the phone, the demo and '
      'the alpha both ways (records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md).', True),
+    ('THE CARD READS THE NIGHT', ['node', 'gates/the_card_reads_the_night_gate.js'],
+     'JOBS 11/20, rules 461, 441: a job\'s card reads a fight in the dark at night and each fight after the ones before it, as the '
+     'fight is rolled when it comes (the block watch goes home at night, the water people come out), and names who comes; on the '
+     'phone, the demo and the alpha, upright and sideways, every job with a fight in the dark: the crowd rolled is the card\'s '
+     '(records/BOHEMIA_JOBS_THE_CARD_READS_THE_NIGHT_11_20_26.md).', True),
     ('EVERY FIGHT WON COUNTS', ['node', 'gates/every_fight_won_counts_gate.js'],
      'JOBS 11/20, rules 461, 441: a won fight pays five CLOUT a man beaten, keyed by the hand-over that started it; it was keyed by the '
      'fight\'s map spot, sent as an object, so only the company\'s first won fight ever paid; on the phone, the demo and the alpha, '
