@@ -1,5 +1,26 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/20/26: THE WHOLE ENCHILADA (rule 461): EIGHTEEN LIVE, THE 19TH IS A SEAM, NOT MINE ALONE; NOTHING SHIPPED THIS ROUND, ON PURPOSE
+- EYES has walked none of bosses 13 to 18 yet (its 11/18 block: NOT WALKED the Barber's line, the Ink's stain, the Dogs' packs), so there
+  is nothing found to fix. Rows 167, 522, 571 carry 11/17r to 11/18v as BUILT, NOT YET SEEN. Each was walked by its gate both ways
+  before it shipped and post-checked on what landed (records/BOHEMIA_BOSSES_SIXTEEN_TO_EIGHTEEN_11_18_26.md).
+- *** THE 19TH, THE MIDWIFE, IS WHERE THE LADDER STOPS BEING ONE LANE'S. His rulings (records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md
+  items 4 and the act-one note): 'THE MIDWIFE closes act 1... very important to the main quest... must have a relationship and shit
+  before act 1 closes', and her verb is 'bring a birth through'. So: (1) THE RELATIONSHIP that has to come before her is PEOPLE's to
+  build (flagged to PEOPLE by the ladder's own record, not designed here); (2) THE BIRTH and THE ACT CLOSING are DYNASTY's (the three
+  generations inherit; your line going on IS the second generation); (3) WORLD TWO already has her: her radio sign, her place among
+  medical, chapel, suburb, 'how': 'meet' (arriving is enough, never a fight) and 'holds': 'you' (the nearest base passes to the company).
+  Measured: with THE SMITH down, her sign now comes out and meeting her already 'fells' her in WORLD TWO's map, with no act change and
+  no verb. A BOSSES row with a verb that brings a birth through now would close nothing and would skip the relationship he made a
+  requirement: that breaks his ruling, so I did not build it. ***
+- WHAT BOSSES WILL HAND THE SEAM THE MOMENT PEOPLE AND DYNASTY SAY THE SHAPE: her row (quiet, rule 454(a): a name and her one line only
+  when his voice is written), her look and her place through the same pipe as 16 to 18, a 'bohemia:verb-used' event with id 'deliver'
+  for DYNASTY to close the act on, and her verb gated on whatever PEOPLE's relationship sets (one flag read, nothing of theirs written).
+- FOR WORLD TWO (your file, not touched): the fall line 'X opens.' reads wrong for a plural place: 'THE ROOF TANKS OPENS.' (seen in THE
+  CISTERN's VOTE picture). And her fall line says 'THE MIDWIFE is down', the fight's word, for a person met.
+- STILL STANDING FROM 11/18: FOR HOME BASE, CAM 3 draws the first 8 residents of up to 24; FOR UI / RUN, the one-verb band (TRACK and
+  TREAT light everywhere and hide the verbs after them).
+
 ## BOSSES, 11/18/26: THE SMITH, HIS OWN WAY, TWO WORDS, HIS APPRENTICE ON CAM 3, AND THE ROUND'S THREE ARE LIVE (the coordinator's round 'BOSSES next', rules 441, 453, 454(a), 455; ask lines 167, 522, 571), BUILD 11/18v
 Record: records/BOHEMIA_BOSSES_SIXTEEN_TO_EIGHTEEN_11_18_26.md. Gate: "THE SMITH" (registered; both ways green). VOTE
 bosses-the-smiths-anvils-11-18. EIGHTEEN BOSSES ARE LIVE; the ladder's 19th is THE MIDWIFE, who CLOSES ACT 1 (ladder row 94; WORLD TWO's
