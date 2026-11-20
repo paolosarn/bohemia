@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
-COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20n - THE REGION'S FOUR, BUILT (SHIPSHA), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 408, 409(c), 455; ask rows 627, 651).
+COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20n - THE REGION'S FOUR, BUILT (1ca23ef49), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 408, 409(c), 455; ask rows 627, 651).
 COOK FIVE's list said 'measure how the region draws its four real places and whether a piece can go there with no code'. MEASURED: no. The region's places
 (TULE SPRINGS LAB, LENZIE STATION, SPRING MOUNTAIN RANCH, CALLVILLE BAY) are drawn by slices/bohemia_region.js drawPlaces after the whole frame, through the map's
 mapBaseDraw(tier, name): a painted patch. So: ONE SEAM in this lane's module slices/bohemia_place_pieces.js (at its foot): mapBaseDraw wrapped BY NAME; a region place
