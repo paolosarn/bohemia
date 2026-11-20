@@ -150,3 +150,55 @@ FOUND (batch 4): the perk page overlaps its said line and scrolls upright (new r
 - 463 SEEN: EYES 11/18 on the VOTE tab: '28 ART PIECES ARE HELD BACK. Their makers have not said yet if each is the real look or a stand-in, so they wait off your list until they are marked.'
 
 NOT REACHED THIS BATCH, SAID: 588 (no orange hatch showed in six turns by hand), 536 (no man with a level to spend), 584 (the Decoy is past the perk page's glass), 553 (the place page offered the next block).
+
+## BATCH 7 (rows marked; the older asks, each with its honest word)
+
+- 498 NOT REACHED: as 365
+- 448 SEEN IN PART: the end screen this round: one screen, the receipt pinned top right and inside its window, LEAVE torn off; older screens playing first not watched frame by frame
+- 447 SEEN: no fill, cut, fade or bar round the phone in the five towns walked this round
+- 444 FOUND: the perk page scrolls upright (row 655); the man's sheet both ways, the settings card, the new game page, Don Beto's card sideways and the end screen did not
+- 437 SEEN IN PART: the pistol's card names its moves in plain words (SHOOT, STRIKE, RELOAD) with its reach and rounds; a weapon with no move ('NO SPECIAL ABILITY') not met
+- 422 NOT A THING TO SEE: a research answer
+- 417 SEEN IN PART: the alpha on AUTO: on the suburb 12 of 12 of his turn ends on a roof or in a house, Fremont 8 of 9; a man coming down for a shot not watched
+- 416 SEEN IN PART: as 417: where houses stand his men end their turns up (20 of 21 on the two house boards)
+- 411 SEEN: after RETREAT from the water plant's squatters the crew walked into Blues and it opened (row 476)
+- 410 SEEN: Caravans' hall: two melee hires with real ceilings (Tasha Stanton, BRAWLER 80 MELEE, BARGAIN; Shane Stovall, BUTCHER 66 MELEE) beside the shooters
+- 409 NOT A THING TO SEE: TUNING's research row
+- 406 SEEN IN PART: the crew screen says the weight in words ('ARMOUR: MEDIUM, WALKS FREE'); the heaviest class's tile cost not walked
+- 398 SEEN BY EYE: the feed this round reads as people and the town's bots: '@lupe_s_sews: if you're in Blues and you see the Night Shift, they're hiring at the post, my nephew says.', '@CoralLounge_HH Happy Hour 4 to 7 ...'
+- 397 SEEN: no radio system met anywhere; the world's moments come as feed posts on the phone
+- 396 NOT A THING TO SEE: TUNING's research row; the fights this round went both ways (wins, two wipes, a retreat)
+- 385 NOT MEASURABLE HERE: sound: the box has no ears
+- 380 SEEN: the loading menu on a fresh phone both ways: BOHEMIA, POST-ECONOMIC APOCALYPSE, NEW GAME, CONTINUE, REC and the tape clock, unchanged across this round's loads
+- 379 SEEN: the start screen's words a clean overlay over the scene, not drawn into it
+- 378 SEEN: no box or shadow behind the start screen's words (a fresh phone, both ways)
+- 376 SEEN: the phone in the towns and at his place has no duct tape (11/18 cameras, 11/20 towns)
+- 365 NOT REACHED: kill cams are OFF by the settings ('NO KILL CAM. THE FIGHT NEVER STOPS FOR ONE.')
+- 363 SEEN: SETTINGS: FIGHTS NEW HERE / SEEN IT / OUTLIVED IT, 'FROM THE NEXT FIGHT', changeable in play
+- 362 SEEN: no two men share a whole name in this round's crews (YOU, DESI, RAUL) or the hall's seven (two Ocampo by family name)
+- 361 SEEN IN PART: Caravans' hall: seven to hire with ceilings 99, 84, 80, 66, 29, 15, 11 and traits (QUICK, BRAVE, SURE FOOTING, DEXTEROUS)
+- 356 SEEN: EYES 11/11 and 11/18: PLANT where he stands, the page grading the block, 'Are you sure? This is permanent.'
+- 346 SEEN: EYES 11/14: THE POT's fall on the card ('HIS LINE COOKS RAN. 5 STREETS OPEN ON THE MAP', +30 batteries) and his pot as the heal at your place
+- 345 SEEN IN PART: THE POT's own fight and card (11/14); armour as its own model on the body not judged
+- 343 SEEN IN PART: the mammoth fought at its size (11/18); the other new beasts not met
+- 342 SEEN IN PART: road events (Dona Mercedes 11/11), the boss askers on the road (Tia Carmen every round), a place's card (the unemployment office 11/14)
+- 340 NOT A THING TO SEE: a question to him
+- 324 SEEN: the scavenge played on the block's own board, houses and the street (11/17, 11/18, 11/20)
+- 282 SEEN: the fight's phone draws RELOAD and STRIKE as the two big squares under the card
+- 278 SEEN IN PART: the three fight cards and the phone's own boards (11/18 both ways); 'nothing just appears' not watched frame by frame
+- 257 SEEN IN PART: the scavenge grows out of the lot and the arrival card out of the phone (11/18, the pop-up layer's own rows)
+- 238 NOT EYES'S CALL: taste is DIRECTION's
+- 206 NOT A THING TO SEE: a research row
+- 197 SEEN: the stall: 'TRADE GOODS: BUY WHERE IT IS MADE, SELL WHERE IT IS NOT' (Blues, 11/17)
+- 195 SEEN: Blues' stall sells 'A stack of tape, 20 rolls'
+- 175 NOT EYES'S CALL: taste is DIRECTION's
+- 174 SEEN: the armourer: a first tap shows the piece's facts in place (ARMOUR 150, FATIGUE -9, INITIATIVE -9, ON YOU), a second buys
+- 154 SEEN: the phone shows the jobs he holds ('Clear the water plant', 'Get the cold box') and nothing else
+- 151 SEEN IN PART: as 257
+- 146 SEEN IN PART: the man's sheet and the crew screen: bars with their numbers, stars on the good stats, the battery pictures; the shop's facts still words and numbers
+- 145 SEEN: the crew screen's eight stats as bars to their maximum, gold stars on the strong ones (11/20)
+- 133 SEEN IN PART: SETTINGS: THE PHONE CORNER LEFT / RIGHT; the phone's CREW, RELATIONS, SETTINGS; both orientations (11/18 sideways)
+- 129 SEEN IN PART: the job cards and the fight's card carry red stars (one to two this round); their truth not counted
+- 114 SEEN IN PART: this round's jobs: two won clean on AUTO, one wipe with my men at 1 hitpoint (my shortcut), one retreat
+- 108 SEEN IN PART: the pistol's card: 'REACH 1 TO 4 TILES'; the rifle's line 'You pay for the range with a reload between shots'
+- 106 SEEN BY EYE: Church, Caravans, Blues, Remnants and Cartel each drawn as its own place
