@@ -1,0 +1,309 @@
+{
+ "look": "PERSON_TAKER_DARTER_0",
+ "shape": "person_taker_darter_0: the head takers' marksman, paid for men alive: a field coat, a bolt quiver on his back, the blaze at his throat, his own skin skin_deep 3, BONE HENLEY under CAR COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE HENLEY",
+  "outer": "CAR COAT",
+  "legs": "DUST TROUSERS",
+  "feet": "FIELD BOOTS",
+  "neck": "BLAZE SCARF",
+  "back": "RUST QUIVER",
+  "hands": "LEATHER GLOVES",
+  "outfit": [
+   "the sleeve ends short of the cuff under it"
+  ]
+ },
+ "dials": {
+  "height": 0.2,
+  "belly": -0.25,
+  "shoulders": 0.2,
+  "hips": -0.05
+ },
+ "layers": {
+  "base": {
+   "under": "CAR COAT",
+   "arms_covered": true,
+   "cuff_to": 1.89
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "sleeve_to": 1.7
+  }
+ },
+ "model": "records/character/rig/person_taker_darter_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7372,
+ "real_height_for_rig": 1.7433,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_taker_darter_0_shoe": 3716,
+  "person_taker_darter_0_shirt": 67560,
+  "person_taker_darter_0_collar": 1536,
+  "person_taker_darter_0_placket": 126,
+  "person_taker_darter_0_buttons": 102,
+  "person_taker_darter_0_cuffs": 2048,
+  "person_taker_darter_0_hem": 1792,
+  "person_taker_darter_0_coat": 66560,
+  "person_taker_darter_0_coat_skirt": 5670,
+  "person_taker_darter_0_collar.001": 1536,
+  "person_taker_darter_0_lapels": 396,
+  "person_taker_darter_0_cuffs.001": 2048,
+  "person_taker_darter_0_pockets": 252,
+  "person_taker_darter_0_pocket_flaps": 252,
+  "person_taker_darter_0_trouser": 43706,
+  "person_taker_darter_0_rolled_hem": 2048,
+  "person_taker_darter_0_crease": 180,
+  "person_taker_darter_0_sole_1": 242,
+  "person_taker_darter_0_midsole_1": 242,
+  "person_taker_darter_0_sole_0": 242,
+  "person_taker_darter_0_midsole_0": 242,
+  "person_taker_darter_0_boot_collar": 2048,
+  "person_taker_darter_0_boot_collar_line": 2048,
+  "person_taker_darter_0_eyelets_1": 120,
+  "person_taker_darter_0_eyelets_0": 120,
+  "person_taker_darter_0_blaze_scarf": 3072,
+  "person_taker_darter_0_blaze_scarf_tail": 162,
+  "person_taker_darter_0_blaze_scarf_fringe": 54,
+  "person_taker_darter_0_rust_quiver_tube": 86,
+  "person_taker_darter_0_rust_quiver_mouth": 28,
+  "person_taker_darter_0_rust_quiver_arrow_0": 12,
+  "person_taker_darter_0_rust_quiver_fletch_0": 6,
+  "person_taker_darter_0_rust_quiver_arrow_1": 12,
+  "person_taker_darter_0_rust_quiver_fletch_1": 6,
+  "person_taker_darter_0_rust_quiver_arrow_2": 12,
+  "person_taker_darter_0_rust_quiver_fletch_2": 6,
+  "person_taker_darter_0_rust_quiver_strap": 1792,
+  "person_taker_darter_0_leather_gloves_L": 392,
+  "person_taker_darter_0_leather_gloves_R": 392,
+  "person_taker_darter_0_leather_gloves_cuff": 2048,
+  "person_taker_darter_0_hair": 17968,
+  "person_taker_darter_0_hand_L": 392,
+  "person_taker_darter_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_taker_darter_0_blaze_scarf": [
+   0.2159,
+   0.305,
+   0.0452
+  ],
+  "person_taker_darter_0_blaze_scarf_fringe": [
+   0.0823,
+   0.1356,
+   0.0044
+  ],
+  "person_taker_darter_0_blaze_scarf_tail": [
+   0.2159,
+   0.305,
+   0.0452
+  ],
+  "person_taker_darter_0_boot_collar": [
+   0.0908,
+   0.1845,
+   0.0685
+  ],
+  "person_taker_darter_0_boot_collar_line": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_taker_darter_0_buttons": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_taker_darter_0_coat": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_taker_darter_0_coat_skirt": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_taker_darter_0_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_taker_darter_0_crease": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_taker_darter_0_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_taker_darter_0_eyelets_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_taker_darter_0_eyelets_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_taker_darter_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_taker_darter_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_taker_darter_0_hem": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_taker_darter_0_lapels": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_taker_darter_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_taker_darter_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_taker_darter_0_midsole_0": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_taker_darter_0_midsole_1": [
+   0.0185,
+   0.0356,
+   0.016
+  ],
+  "person_taker_darter_0_placket": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_taker_darter_0_pocket_flaps": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_taker_darter_0_pockets": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_taker_darter_0_rolled_hem": [
+   0.4072,
+   0.2831,
+   0.1221
+  ],
+  "person_taker_darter_0_rust_quiver_arrow_0": [
+   0.1878,
+   0.1384,
+   0.0802
+  ],
+  "person_taker_darter_0_rust_quiver_arrow_1": [
+   0.1878,
+   0.1384,
+   0.0802
+  ],
+  "person_taker_darter_0_rust_quiver_arrow_2": [
+   0.1878,
+   0.1384,
+   0.0802
+  ],
+  "person_taker_darter_0_rust_quiver_fletch_0": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_taker_darter_0_rust_quiver_fletch_1": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_taker_darter_0_rust_quiver_fletch_2": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_taker_darter_0_rust_quiver_mouth": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_taker_darter_0_rust_quiver_seam": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_taker_darter_0_rust_quiver_strap": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_taker_darter_0_rust_quiver_tube": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_taker_darter_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_taker_darter_0_shoe": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_taker_darter_0_shoes": [
+   0.0437,
+   0.0887,
+   0.0331
+  ],
+  "person_taker_darter_0_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_taker_darter_0_sole_0": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_taker_darter_0_sole_1": [
+   0.0212,
+   0.0343,
+   0.0194
+  ],
+  "person_taker_darter_0_trouser": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_taker_darter_0_trousers": [
+   0.2423,
+   0.1529,
+   0.0561
+  ]
+ }
+}

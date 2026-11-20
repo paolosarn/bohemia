@@ -1,0 +1,43 @@
+{
+ "head_px": 128,
+ "head_m": 1.7546,
+ "head_how": "measured from f1_person_head_taker_0, person_head_taker_0_blaze_scarf, person_head_taker_0_blaze_scarf_fringe, person_head_taker_0_blaze_scarf_tail, person_head_taker_0_boot_collar, person_head_taker_0_boot_collar_line, person_head_taker_0_boot_strap, person_head_taker_0_coat, person_head_taker_0_coat_skirt, person_head_taker_0_collar, person_head_taker_0_cuffs, person_head_taker_0_cuffs.001, person_head_taker_0_hand_L, person_head_taker_0_hand_R, person_head_taker_0_hem, person_head_taker_0_lapels, person_head_taker_0_leather_gloves_cuff, person_head_taker_0_leather_gloves_L, person_head_taker_0_leather_gloves_R, person_head_taker_0_midsole_0, person_head_taker_0_midsole_1, person_head_taker_0_pocket_flaps, person_head_taker_0_pockets, person_head_taker_0_shirt, person_head_taker_0_shoe, person_head_taker_0_sole_0, person_head_taker_0_sole_1, person_head_taker_0_soot_chest_plate, person_head_taker_0_soot_chest_plate_x, person_head_taker_0_trouser, person_head_taker_0_turtle, portrait_head, portrait_head_eyes, portrait_head_lids: 1.755 m",
+ "ppm": 72.95,
+ "res": 218,
+ "camera": {
+  "tilt_deg": 80.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "facings": [
+  "S",
+  "SE",
+  "SW"
+ ],
+ "expressions": [
+  "A",
+  "E",
+  "O",
+  "M"
+ ],
+ "files": [
+  "records/character/enemies_nine_street/enemy_head_taker_0/rig_portrait_S.png",
+  "records/character/enemies_nine_street/enemy_head_taker_0/rig_portrait_SE.png",
+  "records/character/enemies_nine_street/enemy_head_taker_0/rig_portrait_SW.png"
+ ],
+ "expression_files": {
+  "A": "records/character/enemies_nine_street/enemy_head_taker_0/rig_portrait_S_A.png",
+  "E": "records/character/enemies_nine_street/enemy_head_taker_0/rig_portrait_S_E.png",
+  "O": "records/character/enemies_nine_street/enemy_head_taker_0/rig_portrait_S_O.png",
+  "M": "records/character/enemies_nine_street/enemy_head_taker_0/rig_portrait_S_M.png"
+ },
+ "crop_box_px": [
+  87,
+  46,
+  129,
+  175
+ ],
+ "model": "records/character/rig/barber_person_head_taker_0.glb",
+ "body_rig": "rig.json",
+ "colours": 7366
+}

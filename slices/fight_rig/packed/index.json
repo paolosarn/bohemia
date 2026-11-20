@@ -409,6 +409,24 @@
 "fill": 0.206,
 "packedMB": 4.05
 },
+"enemy_head_taker_0.webp": {
+"bytes": 277878,
+"decodedMB": 18.05,
+"fill": 0.188,
+"packedMB": 3.84
+},
+"enemy_head_taker_1.webp": {
+"bytes": 293854,
+"decodedMB": 18.05,
+"fill": 0.19,
+"packedMB": 3.99
+},
+"enemy_head_taker_2.webp": {
+"bytes": 295438,
+"decodedMB": 18.05,
+"fill": 0.193,
+"packedMB": 4.08
+},
 "enemy_heavy_0.webp": {
 "bytes": 372964,
 "decodedMB": 17.32,
@@ -630,6 +648,30 @@
 "decodedMB": 17.07,
 "fill": 0.222,
 "packedMB": 4.26
+},
+"enemy_taker_darter_0.webp": {
+"bytes": 307598,
+"decodedMB": 18.05,
+"fill": 0.192,
+"packedMB": 4.01
+},
+"enemy_taker_darter_1.webp": {
+"bytes": 304352,
+"decodedMB": 18.05,
+"fill": 0.194,
+"packedMB": 4.06
+},
+"enemy_taker_smoker_0.webp": {
+"bytes": 323016,
+"decodedMB": 18.05,
+"fill": 0.223,
+"packedMB": 4.59
+},
+"enemy_taker_smoker_1.webp": {
+"bytes": 359036,
+"decodedMB": 18.05,
+"fill": 0.222,
+"packedMB": 4.57
 },
 "enemy_watch_captain_0.webp": {
 "bytes": 288828,
@@ -1335,8 +1377,8 @@
 }
 },
 "totals": {
-"decodedMB": 4477.7,
-"packedMB": 912.3,
-"sheets": 222
+"decodedMB": 4604.1,
+"packedMB": 941.4,
+"sheets": 229
 }
 }

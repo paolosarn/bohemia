@@ -3743,6 +3743,118 @@
    "type": "hired_duelist",
    "set": "nine",
    "rig": "records/target/combat/rig/enemy_hired_duelist_1/rig.json"
+  },
+  "enemy_head_taker_0": {
+   "file": "enemy_head_taker_0.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.755,
+   "kind": "enemy",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "type": "head_taker",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_head_taker_0/rig.json"
+  },
+  "enemy_head_taker_1": {
+   "file": "enemy_head_taker_1.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.74,
+   "kind": "enemy",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "type": "head_taker",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_head_taker_1/rig.json"
+  },
+  "enemy_head_taker_2": {
+   "file": "enemy_head_taker_2.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.746,
+   "kind": "enemy",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "type": "head_taker",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_head_taker_2/rig.json"
+  },
+  "enemy_taker_smoker_0": {
+   "file": "enemy_taker_smoker_0.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.742,
+   "kind": "enemy",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "type": "taker_smoker",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_taker_smoker_0/rig.json"
+  },
+  "enemy_taker_smoker_1": {
+   "file": "enemy_taker_smoker_1.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.752,
+   "kind": "enemy",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "type": "taker_smoker",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_taker_smoker_1/rig.json"
+  },
+  "enemy_taker_darter_0": {
+   "file": "enemy_taker_darter_0.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "enemy",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "type": "taker_darter",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_taker_darter_0/rig.json"
+  },
+  "enemy_taker_darter_1": {
+   "file": "enemy_taker_darter_1.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.769,
+   "kind": "enemy",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "type": "taker_darter",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_taker_darter_1/rig.json"
   }
  },
  "faces": {
@@ -3920,7 +4032,14 @@
      "enemy_hired_gun_1",
      "enemy_hired_gun_2",
      "enemy_hired_duelist_0",
-     "enemy_hired_duelist_1"
+     "enemy_hired_duelist_1",
+     "enemy_head_taker_0",
+     "enemy_head_taker_1",
+     "enemy_head_taker_2",
+     "enemy_taker_smoker_0",
+     "enemy_taker_smoker_1",
+     "enemy_taker_darter_0",
+     "enemy_taker_darter_1"
     ],
     "by": "CHARACTER 11/7, tools/bohemia_character_the_nine_enemies.py pack"
    },

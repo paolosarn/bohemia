@@ -87,6 +87,7 @@ SOOT, CARPET, BRASS, BONE = (30, 28, 27), (34, 30, 30), (146, 114, 58), (178, 16
 STEEL, STEEL_DK, STEEL_LT, RUSTED = (108, 106, 100), (62, 60, 58), (150, 148, 140), (106, 70, 46)
 WOVEN = (132, 92, 56)              # Bottega's tan, woven: every strap
 HIVIS = dict(dk=(122, 124, 64), mid=(166, 166, 90), lt=(196, 196, 128))
+BLAZE = dict(dk=(84, 100, 36), mid=(128, 150, 56), lt=(166, 188, 92))   # the head takers' ink (factions.json bounty_hunters #aacd32) a value down and dusted: a hunter's blaze
 SILVER = (176, 176, 170)
 WATCH_GREEN = (44, 86, 58)         # the Block Watch's ink (#006432) a value up and dusted
 CORAL = (178, 120, 104)            # the Keepers' ink (#ffa591) bleached by the sun
@@ -268,6 +269,46 @@ TYPES = {
         kit=[['BONE SHOULDER DRAPE', 'LEATHER GLOVES', 'LEATHER BELT'], ['OXBLOOD BRACERS', 'LEATHER GLOVES']],   # loop 1: the ash one-shoulder drape read grey-blue (cool 18 in 100)
         hats=['GAMBLER HAT SOOT', 'GAMBLER HAT DUST'], eyewear=[None, None],
         pieces=[[], []], cuts=['TEMPLE TAPER', 'GREASE BACK', 'DEEP TAPER']),
+    # CHARACTER 11/20 (rule 461, the whole enchilada; BESTIARY's stand-in list: the head taker in faction_volunteers, the smoker in
+    # person_volunteers_1, the darter in person_volunteers_2). Battle Brothers' bounty hunters: mail and a hunter's coat (BESTIARY); the
+    # smoker a hood and a satchel of pots, the darter a hunter's coat and a light crossbow. Ours hunt men the way men hunt deer: a
+    # work coat or a field coat, plate strapped over it, and ONE mark on all seven, a BLAZE SCARF in the head takers' own ink
+    # (#aacd32 dusted): what a hunter wears so his own side does not shoot him. Their cell is faction_volunteers (its guns), all three.
+    'Head Taker': dict(
+        row='head_taker', faction='takers', stand_in='Volunteers', cell='faction_volunteers', count=3,
+        what='a man paid for one head: a work coat with plate strapped over it, a bandolier, the hunter\'s blaze at his throat',
+        dials=[dict(height=0.40, belly=-0.15, shoulders=0.60, hips=0.0), dict(height=0.25, belly=0.10, shoulders=0.45, hips=0.10),
+               dict(height=0.55, belly=-0.30, shoulders=0.50, hips=-0.10)],
+        tops=['CHARCOAL TURTLENECK', 'BONE HENLEY', 'FADED BLACK LONGSLEEVE'],
+        coats=['RUST WORK COAT', 'CHORE COAT', "DRIFTER'S COAT"],
+        legs=['LEATHER STACK PANT', 'SOOT CARGOS', 'DUST TROUSERS'],
+        feet=['TALL MOTO BOOTS', 'LEATHER STACK BOOT', 'FIELD BOOTS'],
+        kit=[['BLAZE SCARF', 'LEATHER GLOVES', 'SOOT CHEST PLATE'], ['BLAZE SCARF', 'SOOT GLOVES', 'SHELL BANDOLIER', 'LEATHER BELT'],
+             ['BLAZE SCARF', 'LEATHER GLOVES', 'SCRAP CHEST PLATE']],
+        hats=[None, 'HAT DUST WORK CAP', 'HAT KHAKI SLOUCH BEANIE'], eyewear=[None, None, None],
+        pieces=[[], [], []], cuts=['TEMPLE TAPER', 'DRY TAPER', 'DEEP TAPER', 'RAZOR SKULL']),
+    'Smoker': dict(
+        row='taker_smoker', faction='takers', stand_in='Volunteers', cell='faction_volunteers', count=2,
+        what='the head takers\' smoke man: a poncho and a hood, a dust mask, a satchel of pots, the blaze at his throat',
+        dials=[dict(height=0.10, belly=-0.30, shoulders=0.10, hips=0.0), dict(height=0.30, belly=-0.45, shoulders=0.0, hips=-0.10)],
+        tops=['BONE TURTLENECK', 'RUST HENLEY'],
+        coats=['OXBLOOD PONCHO', 'HOODED DUST PONCHO'],
+        legs=['CHARCOAL CROP TROUSER', 'DUST BROWN TROUSERS'],
+        feet=['WRAPPED BOOTS', 'SANDWALKERS'],
+        kit=[['BLAZE SCARF', 'SALVAGE SATCHEL', 'SOOT HAND WRAPS'], ['BLAZE SCARF', 'OXBLOOD SATCHEL', 'HAND WRAPS']],
+        hats=['HAT SOOT HEAD WRAP', None], eyewear=['FACE CHARCOAL DUST MASK', 'FACE BONE DUST MASK'],
+        pieces=[[], []], cuts=['TEMPLE TAPER', 'HOME CLIPPERS', 'RAZOR SKULL']),
+    'Darter': dict(
+        row='taker_darter', faction='takers', stand_in='Volunteers', cell='faction_volunteers', count=2,
+        what='the head takers\' marksman, paid for men alive: a field coat, a bolt quiver on his back, the blaze at his throat',
+        dials=[dict(height=0.20, belly=-0.25, shoulders=0.20, hips=-0.05), dict(height=0.45, belly=-0.10, shoulders=0.30, hips=0.05)],
+        tops=['BONE HENLEY', 'FADED BLACK LONGSLEEVE'],
+        coats=['CAR COAT', 'BARN COAT'],   # loop 1: the sage field coat came out mint, and the blaze on it was lost: a charcoal car coat
+        legs=['DUST TROUSERS', 'KHAKI CARGOS'],
+        feet=['FIELD BOOTS', 'RANCH BOOTS'],
+        kit=[['BLAZE SCARF', 'RUST QUIVER', 'LEATHER GLOVES'], ['BLAZE SCARF', 'SCRAP QUIVER', 'OXBLOOD BRACERS']],
+        hats=['HAT DUST WORK CAP', 'HAT KHAKI SLOUCH BEANIE'], eyewear=[None, None],
+        pieces=[[], []], cuts=['TEMPLE TAPER', 'DRY TAPER', 'GREASE BACK']),
 }
 ORDER = list(TYPES)
 POOL = {t: TYPES[t]['row'] for t in ORDER}
@@ -290,6 +331,11 @@ def pid_of(t, k): return '%s_%d' % (POOL[t], k)
 # ---- THE NEW GARMENT IN THE WARDROBE (in memory, beside OUTER's 74) --------------------------------------------------------
 def register_garments():
     import bohemia_character_garments_outer as OUTER
+    import bohemia_character_garments_gear as GEAR
+    if 'BLAZE SCARF' not in GEAR.BY:   # 11/20: the head takers' mark, the gear's own scarf cut in their ink (a hunter's blaze)
+        S = dict(GEAR.BY['SAGE SCARF'])
+        S.update(name='BLAZE SCARF', tag='kit_blaze_scarf', ramp='BLAZE', words=['BLAZE', 'SCARF'], **BLAZE)
+        GEAR.BY['BLAZE SCARF'] = S
     if 'HI-VIS VEST' in OUTER.BY: return
     G = dict(OUTER.BY['OLIVE VEST'])   # OUTER's own plain vest cut (no pouches, no quilting): the colour is the new thing
     G.update(name='HI-VIS VEST', tag='outer_hi_vis_vest', ramp='HIVIS', words=['HI', 'VEST', 'VIS'], **HIVIS)

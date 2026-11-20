@@ -1,0 +1,43 @@
+{
+ "head_px": 128,
+ "head_m": 1.7221,
+ "head_how": "measured from person_head_taker_1_blaze_scarf, person_head_taker_1_blaze_scarf_fringe, person_head_taker_1_blaze_scarf_tail, person_head_taker_1_boot_collar, person_head_taker_1_boot_collar_line, person_head_taker_1_buttons, person_head_taker_1_cargo_flaps, person_head_taker_1_cargo_pockets, person_head_taker_1_coat, person_head_taker_1_coat_skirt, person_head_taker_1_collar, person_head_taker_1_collar.001, person_head_taker_1_cuffs, person_head_taker_1_hand_L, person_head_taker_1_hand_R, person_head_taker_1_hem, person_head_taker_1_lapels, person_head_taker_1_leather_belt, person_head_taker_1_leather_belt_buckle, person_head_taker_1_midsole_0, person_head_taker_1_midsole_1, person_head_taker_1_placket, person_head_taker_1_pocket_flaps, person_head_taker_1_pockets, person_head_taker_1_pushed, person_head_taker_1_rolled_hem, person_head_taker_1_shell_bandolier, person_head_taker_1_shell_bandolier_pouch, person_head_taker_1_shell_bandolier_shells, person_head_taker_1_shirt, person_head_taker_1_shoe, person_head_taker_1_sole_0, person_head_taker_1_sole_1, person_head_taker_1_soot_gloves_cuff, person_head_taker_1_soot_gloves_L, person_head_taker_1_soot_gloves_R, person_head_taker_1_trouser, portrait_head, portrait_head_eyes, portrait_head_lids: 1.722 m",
+ "ppm": 74.329,
+ "res": 218,
+ "camera": {
+  "tilt_deg": 80.0,
+  "turn_deg": 0,
+  "ortho": true
+ },
+ "facings": [
+  "S",
+  "SE",
+  "SW"
+ ],
+ "expressions": [
+  "A",
+  "E",
+  "O",
+  "M"
+ ],
+ "files": [
+  "records/character/enemies_nine_street/enemy_head_taker_1/rig_portrait_S.png",
+  "records/character/enemies_nine_street/enemy_head_taker_1/rig_portrait_SE.png",
+  "records/character/enemies_nine_street/enemy_head_taker_1/rig_portrait_SW.png"
+ ],
+ "expression_files": {
+  "A": "records/character/enemies_nine_street/enemy_head_taker_1/rig_portrait_S_A.png",
+  "E": "records/character/enemies_nine_street/enemy_head_taker_1/rig_portrait_S_E.png",
+  "O": "records/character/enemies_nine_street/enemy_head_taker_1/rig_portrait_S_O.png",
+  "M": "records/character/enemies_nine_street/enemy_head_taker_1/rig_portrait_S_M.png"
+ },
+ "crop_box_px": [
+  86,
+  44,
+  129,
+  175
+ ],
+ "model": "records/character/rig/barber_person_head_taker_1.glb",
+ "body_rig": "rig.json",
+ "colours": 7507
+}

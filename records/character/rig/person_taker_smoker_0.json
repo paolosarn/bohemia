@@ -1,0 +1,238 @@
+{
+ "look": "PERSON_TAKER_SMOKER_0",
+ "shape": "person_taker_smoker_0: the head takers' smoke man: a poncho and a hood, a dust mask, a satchel of pots, the blaze at his throat, his own skin skin_deep 3, BONE TURTLENECK under OXBLOOD PONCHO",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE TURTLENECK",
+  "outer": "OXBLOOD PONCHO",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "WRAPPED BOOTS",
+  "neck": "BLAZE SCARF",
+  "back": "SALVAGE SATCHEL",
+  "hands": "SOOT HAND WRAPS",
+  "outfit": []
+ },
+ "dials": {
+  "height": 0.1,
+  "belly": -0.3,
+  "shoulders": 0.1,
+  "hips": 0.0
+ },
+ "layers": {
+  "base": {},
+  "mid": {},
+  "outer": {}
+ },
+ "model": "records/character/rig/person_taker_smoker_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7286,
+ "real_height_for_rig": 1.7347,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_taker_smoker_0_shoe": 3716,
+  "person_taker_smoker_0_shirt": 79720,
+  "person_taker_smoker_0_cuffs": 2048,
+  "person_taker_smoker_0_hem": 1792,
+  "person_taker_smoker_0_poncho": 23728,
+  "person_taker_smoker_0_poncho_neck": 1536,
+  "person_taker_smoker_0_trouser": 35674,
+  "person_taker_smoker_0_turn_up": 2048,
+  "person_taker_smoker_0_turn_up_edge": 2048,
+  "person_taker_smoker_0_sole_1": 242,
+  "person_taker_smoker_0_midsole_1": 242,
+  "person_taker_smoker_0_sole_0": 242,
+  "person_taker_smoker_0_midsole_0": 242,
+  "person_taker_smoker_0_boot_collar": 2048,
+  "person_taker_smoker_0_boot_collar_line": 2048,
+  "person_taker_smoker_0_eyelets_1": 120,
+  "person_taker_smoker_0_eyelets_0": 120,
+  "person_taker_smoker_0_blaze_scarf": 3072,
+  "person_taker_smoker_0_blaze_scarf_tail": 162,
+  "person_taker_smoker_0_blaze_scarf_fringe": 54,
+  "person_taker_smoker_0_salvage_satchel_bag": 98,
+  "person_taker_smoker_0_salvage_satchel_flap": 26,
+  "person_taker_smoker_0_salvage_satchel_strap": 1792,
+  "person_taker_smoker_0_soot_hand_wraps_L": 392,
+  "person_taker_smoker_0_soot_hand_wraps_R": 392,
+  "person_taker_smoker_0_soot_hand_wraps_wrap_0": 2048,
+  "person_taker_smoker_0_soot_hand_wraps_wrap_1": 2048,
+  "person_taker_smoker_0_soot_hand_wraps_wrap_2": 2048,
+  "person_taker_smoker_0_hair": 17968,
+  "person_taker_smoker_0_hand_L": 392,
+  "person_taker_smoker_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_taker_smoker_0_blaze_scarf": [
+   0.2159,
+   0.305,
+   0.0452
+  ],
+  "person_taker_smoker_0_blaze_scarf_fringe": [
+   0.0823,
+   0.1356,
+   0.0044
+  ],
+  "person_taker_smoker_0_blaze_scarf_tail": [
+   0.2159,
+   0.305,
+   0.0452
+  ],
+  "person_taker_smoker_0_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_taker_smoker_0_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_taker_smoker_0_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_taker_smoker_0_eyelets_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_taker_smoker_0_eyelets_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_taker_smoker_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_taker_smoker_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_taker_smoker_0_hem": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_taker_smoker_0_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_taker_smoker_0_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_taker_smoker_0_poncho": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_taker_smoker_0_poncho_band": [
+   0.2789,
+   0.0578,
+   0.0369
+  ],
+  "person_taker_smoker_0_poncho_neck": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_taker_smoker_0_salvage_satchel_bag": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_taker_smoker_0_salvage_satchel_flap": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_taker_smoker_0_salvage_satchel_strap": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_taker_smoker_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_taker_smoker_0_shoe": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_taker_smoker_0_shoes": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_taker_smoker_0_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_taker_smoker_0_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_taker_smoker_0_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_taker_smoker_0_soot_hand_wraps": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_taker_smoker_0_soot_hand_wraps_wrap_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_taker_smoker_0_soot_hand_wraps_wrap_1": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_taker_smoker_0_soot_hand_wraps_wrap_2": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_taker_smoker_0_trouser": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_taker_smoker_0_trousers": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_taker_smoker_0_turn_up": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_taker_smoker_0_turn_up_edge": [
+   0.0152,
+   0.013,
+   0.0152
+  ]
+ }
+}

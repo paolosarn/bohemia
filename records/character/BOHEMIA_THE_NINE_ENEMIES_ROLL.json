@@ -1744,5 +1744,313 @@
    "shoulders": 0.1,
    "hips": -0.2
   }
+ },
+ {
+  "id": "head_taker_0",
+  "gang": "Head Taker",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "clay_mustard",
+   1
+  ],
+  "face": {
+   "face.craniumH": 15,
+   "face.len": 31,
+   "face.foreheadW": 28,
+   "face.cheekW": 31
+  },
+  "face_name": "HIGH DOME",
+  "facial_hair": "PATCHY BEARD",
+  "new_beard": "patchy",
+  "stubble": true,
+  "legs": "LEATHER STACK PANT",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "BLAZE SCARF",
+   "LEATHER GLOVES",
+   "SOOT CHEST PLATE"
+  ],
+  "type": "Head Taker",
+  "top": "CHARCOAL TURTLENECK",
+  "coat": "RUST WORK COAT",
+  "pieces": [],
+  "dials": {
+   "height": 0.4,
+   "belly": -0.15,
+   "shoulders": 0.6,
+   "hips": 0.0
+  }
+ },
+ {
+  "id": "head_taker_1",
+  "gang": "Head Taker",
+  "heritage": "white",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "face.len": 37,
+   "face.cheekW": 26,
+   "face.jawW": 24,
+   "face.chinW": 12,
+   "face.foreheadW": 22,
+   "face.eyeY": -1,
+   "mouth.w": 7
+  },
+  "face_name": "GAUNT",
+  "legs": "SOOT CARGOS",
+  "feet": "LEATHER STACK BOOT",
+  "kit": [
+   "BLAZE SCARF",
+   "SOOT GLOVES",
+   "SHELL BANDOLIER",
+   "LEATHER BELT"
+  ],
+  "type": "Head Taker",
+  "top": "BONE HENLEY",
+  "coat": "CHORE COAT",
+  "hat": "HAT DUST WORK CAP",
+  "pieces": [],
+  "dials": {
+   "height": 0.25,
+   "belly": 0.1,
+   "shoulders": 0.45,
+   "hips": 0.1
+  }
+ },
+ {
+  "id": "head_taker_2",
+  "gang": "Head Taker",
+  "heritage": "hispanic",
+  "tone": "bronze",
+  "skin": [
+   "skin_mid",
+   2
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "tape_masking",
+   1
+  ],
+  "face": {
+   "face.jawW": 33,
+   "face.chinW": 20,
+   "face.len": 38,
+   "face.cheekW": 34,
+   "face.mouthY": 1
+  },
+  "face_name": "LANTERN JAW",
+  "facial_hair": "SOUL PATCH",
+  "new_beard": "soul_patch",
+  "legs": "DUST TROUSERS",
+  "feet": "FIELD BOOTS",
+  "kit": [
+   "BLAZE SCARF",
+   "LEATHER GLOVES",
+   "SCRAP CHEST PLATE"
+  ],
+  "type": "Head Taker",
+  "top": "FADED BLACK LONGSLEEVE",
+  "coat": "DRIFTER'S COAT",
+  "hat": "HAT KHAKI SLOUCH BEANIE",
+  "pieces": [],
+  "dials": {
+   "height": 0.55,
+   "belly": -0.3,
+   "shoulders": 0.5,
+   "hips": -0.1
+  }
+ },
+ {
+  "id": "taker_smoker_0",
+  "gang": "Smoker",
+  "heritage": "asian",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "HOME CLIPPERS",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 27,
+   "face.jawW": 23,
+   "face.chinW": 9,
+   "face.foreheadW": 23,
+   "nose.w": 2,
+   "face.craniumH": 12
+  },
+  "face_name": "LONG AND NARROW",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "WRAPPED BOOTS",
+  "kit": [
+   "BLAZE SCARF",
+   "SALVAGE SATCHEL",
+   "SOOT HAND WRAPS"
+  ],
+  "type": "Smoker",
+  "top": "BONE TURTLENECK",
+  "coat": "OXBLOOD PONCHO",
+  "hat": "HAT SOOT HEAD WRAP",
+  "eyewear": "FACE CHARCOAL DUST MASK",
+  "pieces": [],
+  "dials": {
+   "height": 0.1,
+   "belly": -0.3,
+   "shoulders": 0.1,
+   "hips": 0.0
+  }
+ },
+ {
+  "id": "taker_smoker_1",
+  "gang": "Smoker",
+  "heritage": "black",
+  "tone": "onyx",
+  "skin": [
+   "skin_light",
+   0
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "mouth.w": 6,
+   "nose.w": 2,
+   "eyes.gap": 5,
+   "face.chinW": 9,
+   "face.len": 30,
+   "brows.len": 5
+  },
+  "face_name": "SMALL FEATURES",
+  "facial_hair": "SOUL PATCH",
+  "new_beard": "soul_patch",
+  "legs": "DUST BROWN TROUSERS",
+  "feet": "SANDWALKERS",
+  "kit": [
+   "BLAZE SCARF",
+   "OXBLOOD SATCHEL",
+   "HAND WRAPS"
+  ],
+  "type": "Smoker",
+  "top": "RUST HENLEY",
+  "coat": "HOODED DUST PONCHO",
+  "eyewear": "FACE BONE DUST MASK",
+  "pieces": [],
+  "dials": {
+   "height": 0.3,
+   "belly": -0.45,
+   "shoulders": 0.0,
+   "hips": -0.1
+  }
+ },
+ {
+  "id": "taker_darter_0",
+  "gang": "Darter",
+  "heritage": "mixed",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "GREASE BACK",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.craniumH": 7,
+   "face.browY": 2,
+   "face.len": 34,
+   "nose.w": 5,
+   "face.noseY": 1,
+   "mouth.w": 13,
+   "face.foreheadW": 26
+  },
+  "face_name": "FLAT AND LOW",
+  "facial_hair": "PATCHY BEARD",
+  "new_beard": "patchy",
+  "stubble": true,
+  "legs": "DUST TROUSERS",
+  "feet": "FIELD BOOTS",
+  "kit": [
+   "BLAZE SCARF",
+   "RUST QUIVER",
+   "LEATHER GLOVES"
+  ],
+  "type": "Darter",
+  "top": "BONE HENLEY",
+  "coat": "CAR COAT",
+  "hat": "HAT DUST WORK CAP",
+  "pieces": [],
+  "dials": {
+   "height": 0.2,
+   "belly": -0.25,
+   "shoulders": 0.2,
+   "hips": -0.05
+  }
+ },
+ {
+  "id": "taker_darter_1",
+  "gang": "Darter",
+  "heritage": "hispanic",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "DRY TAPER",
+  "hair": [
+   "clay_mustard",
+   1
+  ],
+  "face": {
+   "face.len": 40,
+   "face.craniumH": 14,
+   "face.foreheadW": 22,
+   "face.cheekW": 25,
+   "face.jawW": 20,
+   "face.chinW": 7,
+   "nose.w": 2,
+   "eyes.gap": 4,
+   "face.noseY": -2
+  },
+  "face_name": "BIRD",
+  "legs": "KHAKI CARGOS",
+  "feet": "RANCH BOOTS",
+  "kit": [
+   "BLAZE SCARF",
+   "SCRAP QUIVER",
+   "OXBLOOD BRACERS"
+  ],
+  "type": "Darter",
+  "top": "FADED BLACK LONGSLEEVE",
+  "coat": "BARN COAT",
+  "hat": "HAT KHAKI SLOUCH BEANIE",
+  "pieces": [],
+  "dials": {
+   "height": 0.45,
+   "belly": -0.1,
+   "shoulders": 0.3,
+   "hips": 0.05
+  }
  }
 ]

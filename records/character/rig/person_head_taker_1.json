@@ -1,0 +1,280 @@
+{
+ "look": "PERSON_HEAD_TAKER_1",
+ "shape": "person_head_taker_1: a man paid for one head: a work coat with plate strapped over it, a bandolier, the hunter's blaze at his throat, his own skin skin_deep 4, BONE HENLEY under CHORE COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE HENLEY",
+  "outer": "CHORE COAT",
+  "legs": "SOOT CARGOS",
+  "feet": "LEATHER STACK BOOT",
+  "neck": "BLAZE SCARF",
+  "hands": "SOOT GLOVES",
+  "gear": "SHELL BANDOLIER",
+  "waist": "LEATHER BELT",
+  "outfit": [
+   "the sleeves pushed up the forearm"
+  ]
+ },
+ "dials": {
+  "height": 0.25,
+  "belly": 0.1,
+  "shoulders": 0.45,
+  "hips": 0.1
+ },
+ "layers": {
+  "base": {
+   "under": "CHORE COAT",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "sleeve_to": 1.42,
+   "push": true
+  }
+ },
+ "model": "records/character/rig/person_head_taker_1.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7415,
+ "real_height_for_rig": 1.7476,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_head_taker_1_shoe": 3836,
+  "person_head_taker_1_shirt": 67488,
+  "person_head_taker_1_collar": 1536,
+  "person_head_taker_1_placket": 126,
+  "person_head_taker_1_buttons": 102,
+  "person_head_taker_1_cuffs": 2048,
+  "person_head_taker_1_hem": 1792,
+  "person_head_taker_1_coat": 63676,
+  "person_head_taker_1_coat_skirt": 3990,
+  "person_head_taker_1_collar.001": 1536,
+  "person_head_taker_1_lapels": 396,
+  "person_head_taker_1_pushed": 2048,
+  "person_head_taker_1_pockets": 252,
+  "person_head_taker_1_pocket_flaps": 252,
+  "person_head_taker_1_trouser": 43706,
+  "person_head_taker_1_rolled_hem": 2048,
+  "person_head_taker_1_cargo_pockets": 252,
+  "person_head_taker_1_cargo_flaps": 108,
+  "person_head_taker_1_sole_1": 242,
+  "person_head_taker_1_midsole_1": 242,
+  "person_head_taker_1_sole_0": 242,
+  "person_head_taker_1_midsole_0": 242,
+  "person_head_taker_1_boot_collar": 2048,
+  "person_head_taker_1_boot_collar_line": 2048,
+  "person_head_taker_1_blaze_scarf": 3072,
+  "person_head_taker_1_blaze_scarf_tail": 162,
+  "person_head_taker_1_blaze_scarf_fringe": 54,
+  "person_head_taker_1_soot_gloves_L": 392,
+  "person_head_taker_1_soot_gloves_R": 392,
+  "person_head_taker_1_soot_gloves_cuff": 2048,
+  "person_head_taker_1_shell_bandolier": 1792,
+  "person_head_taker_1_shell_bandolier_shells": 374,
+  "person_head_taker_1_shell_bandolier_pouch": 26,
+  "person_head_taker_1_leather_belt": 1792,
+  "person_head_taker_1_leather_belt_buckle": 34,
+  "person_head_taker_1_hair": 17968,
+  "person_head_taker_1_hand_L": 392,
+  "person_head_taker_1_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_head_taker_1_blaze_scarf": [
+   0.2159,
+   0.305,
+   0.0452
+  ],
+  "person_head_taker_1_blaze_scarf_fringe": [
+   0.0823,
+   0.1356,
+   0.0044
+  ],
+  "person_head_taker_1_blaze_scarf_tail": [
+   0.2159,
+   0.305,
+   0.0452
+  ],
+  "person_head_taker_1_boot_collar": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_head_taker_1_boot_collar_line": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_head_taker_1_buttons": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_head_taker_1_cargo_flaps": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_head_taker_1_cargo_pockets": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_head_taker_1_coat": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_head_taker_1_coat_skirt": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_head_taker_1_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_head_taker_1_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_head_taker_1_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_head_taker_1_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_head_taker_1_hem": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_head_taker_1_lapels": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_head_taker_1_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_head_taker_1_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_head_taker_1_midsole_0": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_head_taker_1_midsole_1": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_head_taker_1_placket": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_head_taker_1_pocket_flaps": [
+   0.0595,
+   0.0307,
+   0.013
+  ],
+  "person_head_taker_1_pockets": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_head_taker_1_pushed": [
+   0.1413,
+   0.0742,
+   0.0273
+  ],
+  "person_head_taker_1_rolled_hem": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_head_taker_1_shell_bandolier": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_head_taker_1_shell_bandolier_pouch": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_head_taker_1_shell_bandolier_shells": [
+   0.4342,
+   0.2623,
+   0.0612
+  ],
+  "person_head_taker_1_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_head_taker_1_shoe": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_head_taker_1_shoes": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_head_taker_1_skin": [
+   0.5972,
+   0.4072,
+   0.2542
+  ],
+  "person_head_taker_1_sole_0": [
+   0.0452,
+   0.0232,
+   0.0116
+  ],
+  "person_head_taker_1_sole_1": [
+   0.0452,
+   0.0232,
+   0.0116
+  ],
+  "person_head_taker_1_soot_gloves": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_head_taker_1_soot_gloves_cuff": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_head_taker_1_trouser": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_head_taker_1_trousers": [
+   0.0382,
+   0.0343,
+   0.0382
+  ]
+ }
+}
