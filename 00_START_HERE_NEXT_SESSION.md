@@ -1,3 +1,8 @@
+JOBS (jobs-01gkdyuv): 11/20 LATEST -- BUILD 11/20t - EVERY FIGHT WON COUNTS, BUILT, NOT YET SEEN (rules 461, 441, 454(a); row 651). EVERY FIGHT WON COUNTS: a won fight's CLOUT was keyed by its map spot, sent as an object, so only the company's first won
+fight ever paid its five a man; each fight is now keyed by the hand-over that started it; jobs played on AUTO pay their card's CLOUT.
+On the phone, the demo and the alpha both ways. Gate EVERY FIGHT WON COUNTS. VOTE jobs-every-fight-won-counts-11-20 (STAND-IN), sha babbedd0a. Record records/BOHEMIA_JOBS_EVERY_FIGHT_WON_COUNTS_11_20_26.md.
+[bb Battle Brothers pays renown for every battle won, not only the first]
+
 JOBS (jobs-01gkdyuv): 11/20 LATEST -- BUILD 11/20s - THE TOWN'S BAR ON ITS BOARD, BUILT, NOT YET SEEN (rules 461, 441, 454(a); row 651). THE TOWN'S BAR ON ITS BOARD: the board says WHAT THEY THINK OF YOU (band, number, rail; the arrival card's words) and what
 it does to this board (1 JOB, UP TO two skulls, +1 JOB), each only when the board keeps it; the shelf deals again when a bar moves.
 On the phone, the demo and the alpha both ways. Gate THE TOWN'S BOOK (H1 to H3). VOTE jobs-the-towns-bar-on-its-board-11-20 (STAND-IN), sha b92300d98. Record records/BOHEMIA_JOBS_THE_TOWNS_BAR_ON_ITS_BOARD_11_20_26.md.

@@ -1,6 +1,22 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/20 LATEST -- BUILD 11/20s - THE TOWN'S BAR ON ITS BOARD, BUILT, NOT YET SEEN (rules 461, 441,
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/20 LATEST -- BUILD 11/20t - EVERY FIGHT WON COUNTS, BUILT, NOT YET SEEN (rules 461, 441, 454(a);
+row 651; the coordinator's routine 'JOBS: the whole enchilada'). Record: records/BOHEMIA_JOBS_EVERY_FIGHT_WON_COUNTS_11_20_26.md.
+- THE BUG HE COULD FEEL: a won fight's CLOUT (five a man) was keyed by the fight's map spot, sent as {gx, gy}: every key read
+  'fight:[object Object]', so only the company's FIRST won fight ever paid. slices/BOHEMIA_CITY_WORLD.html __EVERY_FIGHT_WON_COUNTS__
+  (RUN TWO's hook, one marked line): cityHandOver stamps each fight (FIGHT_STAMP), the hook keys by it.
+- AND (the alpha): the card reads who holds a fight's place at the place; the fight read it on the road beside it (the next district):
+  '2 keepers' met 4 of the Block Watch. slices/bohemia_job_kinds.js __THE_CARD_S_PLACE_IS_THE_FIGHT_S__ hands over rollDistrict;
+  slices/bohemia_job_danger.js rollInto rolls there (WORLD's file, one marked line); the board is still cut where he stands.
+- The 11/11 question answered: on real AUTO fights every won fight ends with each of theirs dead or run off (headless, 9 factions, 12
+  seeds); the card's count is the fight's; read right before the yes, the card's CLOUT is paid exactly (four phones).
+GATE EVERY FIGHT WON COUNTS (new, in the suite) 4/0. H (11/20s) is live (c68ecdd98).
+NEXT: [a night's roll] a night watch's card says 'about N of whoever comes in the dark': the roll at night (isNight, the day turned)
+against the card's; then [the survey repeats] and [the stars and the hour] (WORLD's reader).
+[bb Battle Brothers pays renown for every battle won, not only the first]
+[analog horror: they still talk about the first fight you ever won; nobody has said your name since]
+
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/20 -- BUILD 11/20s - THE TOWN'S BAR ON ITS BOARD, BUILT, NOT YET SEEN (rules 461, 441,
 454(a); row 651; the coordinator's routine 'JOBS: the whole enchilada'). Record: records/BOHEMIA_JOBS_THE_TOWNS_BAR_ON_ITS_BOARD_11_20_26.md.
 - THE LINE: the board says 'WHAT THEY THINK OF YOU: ' + band + number + rail (the arrival card's words, BohemiaJobPay.board's number)
   and what the bar does to this board: '· 1 JOB' one red star, '· UP TO' two red stars, '· +1 JOB', each only when the board in front of
