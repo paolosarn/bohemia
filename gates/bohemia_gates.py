@@ -9687,7 +9687,7 @@ GATES = [
      "counted (I5); a fight on AUTO to the end (I6); every tile its cost and effect (I7); both sides off the open floor onto cover and the high "
      "ground (I8, rule 428: the high ground by the inside's own word, 'gallery' = a quarter to a half of the band up on it at the bell, any other "
      "start = nobody on it at the bell and men on it after round one); its ceiling at 10% (I9). Six plants an inside. 11/17: THE MALL the "
-     "second (the fifth of row 468's list), THE DISTRIBUTION WAREHOUSE the third (the sixth), THE DATA FORT the fourth (the seventh), THE AIRPORT TERMINAL the fifth (the eighth, 11/18), THE STADIUM the sixth (the ninth). I10 (THE CELL SAYS WHERE): a road cell beside the "
+     "second (the fifth of row 468's list), THE DISTRIBUTION WAREHOUSE the third (the sixth), THE DATA FORT the fourth (the seventh), THE AIRPORT TERMINAL the fifth (the eighth, 11/18), THE STADIUM the sixth (the ninth), THE POWERHOUSE the seventh (the eleventh of the list, 11/20, COMBAT FOUR: the dam's generator hall, and a third of the gas plant's fights). I10 (THE CELL SAYS WHERE): a road cell beside the "
      "building handed with its district is never inside, the building's own cell handed with a neighbour's district may be. G1 (ask row 646): "
      "the ground draws its pictures on the canvas it is given, so the still camera's sheet holds the board's pieces. About fifty seconds an inside", True),
     ('AN INSIDE SHOWS ITS CEILING', ['node', 'gates/an_inside_shows_its_ceiling_gate.js'],

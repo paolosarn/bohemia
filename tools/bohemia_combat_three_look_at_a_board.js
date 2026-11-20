@@ -17,7 +17,7 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
     if (!fs.existsSync(f) || fs.statSync(f).isDirectory()) return route.fulfill({ status: 404, body: '' });
     return route.fulfill({ status: 200, body: fs.readFileSync(f), headers: { 'Content-Type': MIME[path.extname(f).toLowerCase()] || 'application/octet-stream' } });
   });
-  await ctx.addInitScript({ content: 'window.FIGHT_OPTS = ' + JSON.stringify(OPTS ? Object.assign({ seed: SEED, teach: false }, OPTS) : { district: ID === 'hall' ? 'convention' : ID, inside: ID, insideAsk: { layout: LAYOUT, flip: [false, false] }, seed: SEED, teach: false }) + ';' });
+  await ctx.addInitScript({ content: 'window.FIGHT_OPTS = ' + JSON.stringify(OPTS ? Object.assign({ seed: SEED, teach: false }, OPTS) : { district: ID === 'hall' ? 'convention' : ID === 'powerhouse' ? 'dam' : ID, inside: ID, insideAsk: { layout: LAYOUT, flip: [false, false] }, seed: SEED, teach: false }) + ';' });
   const page = await ctx.newPage(), errs = []; page.on('pageerror', e => errs.push(String(e).slice(0, 160)));
   await page.goto(BASE + 'slices/BOHEMIA_FIGHT.html');
   await page.waitForFunction(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units && FIGHT.S.units.length > 0 && typeof UI !== 'undefined' && UI.board && UI.tw > 0, null, { timeout: 60000 });

@@ -1,3 +1,12 @@
+COMBAT FOUR (combat-four-01gkdyuv): 11/20 LATEST -- COMBAT THREE's lane on a fresh model (rule 462; its block is handoffs/COMBAT_THREE.md) -- BUILD 11/20j - THE POWERHOUSE, BUILT, NOT YET SEEN (rule 461; rules 416, 59, 428, 451(a), 441; ask rows 468, 651).
+The tenth big inside: a fight at the dam (six in ten) or the gas plant (a third) is fought in the generator hall: a terrazzo floor in the open, a line of generators you cannot
+stand on with their control boards beside them, crated spares and the crane's hook for cover, cable reels and wet floor that cost a step more, the visitors' balcony a storey up that
+nobody holds at the bell; the crane's roof overhead at 10%. One data file (slices/fight_ground/powerhouse/powerhouse.json), 17 tile kinds, every picture a stand-in (the names for
+COOK are in handoffs/COMBAT_THREE.md). GATE THE BIG INSIDES 108/0 (seven insides). ON THE PAGE: the demo and the alpha, both ways, through the map's own door: 19 fights inside it,
+19 ended on AUTO, 18 of 18 taps, 0 errors. THE PAGE DRIVER's tile taps were coming back empty (the fight still drawing a move); fixed, so '0 of 0' taps before 11/20 were the
+driver. VOTE combat4-the-powerhouse-11-20 (stand_in). NEXT: the Sphere, then the list's twelfth.
+[bb Battle Brothers' boulders: a stone you cannot stand on breaks a line into the gaps between; a row of generators is that row of stones]
+[analog horror: the dam's own tour video, the generator hall from the balcony, the floor below empty, one lamp of forty still on]
 COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20i - THE HOME CENTERS, EAST AND WEST, BUILT (62bb89619), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 408, 409(c), 455; ask rows 627, 651).
 The last two of the valley's fifteen real places wear their own piece on the map. No code: slices/place_pieces/place_pieces.json gained the_home_center_east and
 the_home_center_west, the folder four lossless WebP pictures (about 21,000 bytes a store). ONE BOX, TWO STATES, each from WORLD's own words: the EAST SIDE with its doors

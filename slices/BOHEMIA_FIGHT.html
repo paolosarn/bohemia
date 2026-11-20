@@ -11862,6 +11862,14 @@ function ceilingSheet() {
     for (let y = 0; y <= S.h; y += C.bay) { g.fillStyle = '#26241f'; g.fillRect(0, y * th - 4, W2, 8); }   /* a girder on every bay line */
     for (let y = 0; y < S.h; y += 2) for (let x = 0; x < S.w; x += 3) { const dead = hash(x * 5 + y * 11) < .7; g.fillStyle = dead ? '#4d4b45' : '#ece6c4'; g.fillRect(x * tw + tw * .3, y * th + th * .5, tw * 1.4, 3); }   /* the strip lights */
     for (let y = th * 2.5; y < H2; y += th * 5) { g.fillStyle = '#7d2f28'; g.fillRect(0, y, W2, 3); }   /* the sprinkler mains, red */
+  } else if (C.kind === 'crane') {   /* a powerhouse's generator hall (COMBAT FOUR 11/20): the roof far up in concrete panels, the crane runways along both long walls, two bridge cranes spanning the hall with their trolleys and hooks, the hanging lamps nearly all dead */
+    g.fillStyle = '#86837b'; g.fillRect(0, 0, W2, H2);
+    for (let y = 0; y < H2; y += th * 1.5) for (let x = 0; x < W2; x += tw * 1.5) { g.fillStyle = hash(x * 3 + y * 7) < .5 ? '#77746c' : '#7d7a72'; g.fillRect(x + 5, y + 4, tw * 1.5 - 10, th * 1.5 - 8); }   /* the roof's panels */
+    for (const ry of [th * .7, H2 - th * .7]) { g.fillStyle = '#26241f'; g.fillRect(0, ry - 5, W2, 10); g.fillStyle = '#4a4740'; g.fillRect(0, ry - 1, W2, 2); }   /* the runways, a rail on each */
+    for (const bx of [W2 * .28, W2 * .71]) { const bw = tw * .42; g.fillStyle = '#2b2924'; g.fillRect(bx - bw / 2, 0, bw, H2);
+      g.strokeStyle = '#46433b'; g.lineWidth = 2; g.beginPath(); for (let y = 0; y < H2; y += th * .45) { g.moveTo(bx - bw / 2, y); g.lineTo(bx + bw / 2, y + th * .45); } g.stroke();   /* the bridge girder and its lattice */
+      const ty = H2 * (.3 + hash(bx) * .4); g.fillStyle = '#8f7a35'; g.fillRect(bx - bw * .8, ty, bw * 1.6, th * .5); g.fillStyle = '#17160f'; g.beginPath(); g.arc(bx, ty + th * .8, 5, 0, Math.PI * 2); g.fill(); }   /* the trolley, the hook hanging */
+    for (let y = 1; y < S.h; y += 3) for (let x = 1; x < S.w; x += 3) { const dead = hash(x * 11 + y * 5) < .85; g.fillStyle = dead ? '#3d3b35' : '#ebe3bd'; g.beginPath(); g.arc(x * tw + tw * .5, y * th + th * .5, 6, 0, Math.PI * 2); g.fill(); }   /* the hanging lamps */
   } else if (C.kind === 'sky') {   /* a mall's painted sky (the Forum Shops' ceiling): a faded blue vault with its clouds, the paint let go in patches, a rib every bay, and over the middle the skylight's own grid, panes out */
     g.fillStyle = '#6f8494'; g.fillRect(0, 0, W2, H2);
     for (let k = 0; k < S.w * S.h / 5; k++) { const x = hash(k + 11) * W2, y = hash(k + 57) * H2, rx = tw * (.5 + hash(k + 3)), ry = th * (.25 + hash(k + 9) * .4); g.fillStyle = hash(k) < .7 ? 'rgba(214,208,190,.75)' : 'rgba(190,170,150,.6)'; g.beginPath(); g.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); g.fill(); g.beginPath(); g.ellipse(x + rx * .6, y + ry * .3, rx * .7, ry * .7, 0, 0, Math.PI * 2); g.fill(); }   /* the clouds, painted */

@@ -204,6 +204,8 @@ const HOOKS = `(function(){
       if (await f.evaluate(() => UI.auto)) await press('auto');
       const mine = await until(async () => f.evaluate(() => { const u = FIGHT.current(); return !FIGHT.S.over && !!u && u.side === 'you' && !UI.anim.length && !UI.cut && !UI.auto; }), 30000);
       if (mine) {
+        /* COMBAT FOUR 11/20: the opening card can still lie over the glass when his turn comes; a finger waits until the board is clear (else every tile reads covered and nothing is tapped) */
+        await until(async () => f.evaluate(() => { const el = document.elementFromPoint(innerWidth / 2, innerHeight * 0.45); return !!el && el.id === 'cv'; }), 12000);
         const tiles = await f.evaluate(() => { const S = FIGHT.S, u = FIGHT.current(), F = FIGHT.reach(u), B = S.boardDef, LT = B.laid.tiles, seen = {}, out = [];
           for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) { const k = LT[y][x], c = F.best[F.key(x, y)]; if (c == null || c <= 0 || seen[k]) continue;
             if (S.units.some(v => FIGHT.onField(v) && v.x === x && v.y === y)) continue;
@@ -214,6 +216,7 @@ const HOOKS = `(function(){
         const fb = await box(f);
         for (const t of tiles) {
           /* where the tile is on the glass NOW (a tap may slide the camera): read, then tap at once */
+          await until(async () => f.evaluate(() => !UI.anim.length && !!FIGHT.current() && FIGHT.current().side === 'you'), 4000);   /* COMBAT FOUR 11/20: a move still drawing makes every tile read null; wait it out */
           const at = await f.evaluate(([x, y]) => { if (UI.anim.length || !FIGHT.current() || FIGHT.current().side !== 'you') return null; const X = sx((x + .5 + stagger(y)) * UI.tw), Y = sy((y + .6) * UI.th);
             if (X < 20 || Y < 60 || X > innerWidth - 20 || Y > innerHeight - 20) return null; const el = document.elementFromPoint(X, Y); if (!el || el.id !== 'cv') return null;
             const p = tileAt(X, Y); return p.x === x && p.y === y ? { X: X, Y: Y, word: FIGHT.level(x, y) ? heightSay(x, y) : FIGHT.groundSay(x, y), before: (FIGHT.tileKeyAt(x, y) || {}).say_before || '' } : null; }, [t.x, t.y]);

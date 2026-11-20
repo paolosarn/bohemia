@@ -1,0 +1,621 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "powerhouse",
+ "name": "THE POWERHOUSE",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461, 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428 (roofs and cover), 441; ask row 468's list, the eleventh: 'THE DAM'S POWERHOUSE (Hoover): the generator hall, the galleries in the concrete.'",
+ "facts": [
+  "The dam's powerhouse stands at the foot of the dam in two wings, one on each side of the river, each about 650 feet (198 m) long (Bureau of Reclamation): about 16 fight tiles, so the board is one wing's length of the generator floor.",
+  "Down each wing's floor stands a line of generators, 17 main units in the two wings (Reclamation); the floor between them is terrazzo laid in the patterns Allen Tupper True drew from the Southwest's own designs. Overhead, bridge cranes run the hall's length on rails along both walls: they are what lifts a rotor out.",
+  "The real units stand closer than every third tile; here they are spaced so a man can pass between them, and the line of them is the fight: a row of steel you cannot stand on, its control boards beside it, the lanes either side.",
+  "The lake decides the hall: below about 950 feet of water the turbines cannot run (Reclamation's minimum power pool), below 895 no water leaves through them at all (dead pool). Whether the units still turn in this world is not set (rule 459(e): who holds working power); this board is dark like every inside: the day at its doors, the drums.",
+  "The visitors' balcony over the generator floor is a storey up, its stairs at the ends: high ground nobody holds at the bell.",
+  "The gas plant's turbine hall is the same kind of room (a line of machines down a long hall, a crane over it): a share of its fights is fought on this board too."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (powerhouse_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "dam",
+  "powerplant"
+ ],
+ "share": 0.6,
+ "share_by_district": {
+  "powerplant": 0.35
+ },
+ "districts_why": "The dam is the one map kind with a powerhouse under it: six in ten of its fights go inside the generator hall, by the cell's own dice; the rest are fought on the crest and the shore outside. The gas plant's turbine hall is the same room: about a third of its fights inside, the rest in its yard.",
+ "board": {
+  "templates": {
+   "powerhouse": {
+    "name": "THE POWERHOUSE",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_generator_floor": [
+      "####################",
+      "#>MMmMMMMmMMMMmMM<.#",
+      "#...k...s...c...f..#",
+      "#.s...c....h...k.s.#",
+      "#..~.s...k...s..~..#",
+      "#.k...c.s...c..s.z.#",
+      "#.s..b..b..b..b..s.#",
+      "#.c..U..U..U..U..c.#",
+      "#..s.b..b..b..b.s..#",
+      "#.~..s...c..k...~..#",
+      "#..k...s..h...s..k.#",
+      "#.s..z...c...s..f..#",
+      "#..c....s...k...s..#",
+      "#.D...~..D...~..D..#",
+      "####################"
+     ],
+     "the_service_bay": [
+      "####################",
+      "#.k..s..c.U..s...f.#",
+      "#..s...k..b..c...k.#",
+      "#.....~.s.U....s...#",
+      "#.z..h....b...h..R.#",
+      "#...s..c..U..c..k..#",
+      "#D.s....s.b.....s.D#",
+      "#..k..c...U...O..k.#",
+      "#D..s...k.b..c...sD#",
+      "#..c..~...U..s..h..#",
+      "#.s..z..s.b..s...R.#",
+      "#...k..c..U.....f..#",
+      "#.c...s.......c....#",
+      "#>MMMmMMMMMMmMMM<..#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "U": {
+    "is": "floor",
+    "tile": "unit",
+    "piece": "pw_unit",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "R": {
+    "is": "floor",
+    "tile": "rotor",
+    "piece": "pw_rotor",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "h": {
+    "is": "floor",
+    "tile": "hook",
+    "piece": "pw_hook",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "s": {
+    "is": "floor",
+    "tile": "spares",
+    "piece": "pw_spares",
+    "at": [
+     0.3,
+     0.64
+    ],
+    "more": [
+     {
+      "piece": "pw_spares_b",
+      "at": [
+       0.72,
+       0.94
+      ],
+      "share": 0.6
+     }
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "cable",
+    "piece": "pw_cable",
+    "at": [
+     0.4,
+     0.7
+    ],
+    "more": [
+     {
+      "piece": "pw_cable_b",
+      "at": [
+       0.75,
+       0.92
+      ],
+      "share": 0.5
+     }
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "board",
+    "piece": "pw_board",
+    "at": [
+     0.5,
+     0.62
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "cart",
+    "piece": "pw_cart",
+    "at": [
+     0.5,
+     0.75
+    ],
+    "more": [
+     {
+      "piece": "pw_cart_b",
+      "at": [
+       0.25,
+       0.92
+      ],
+      "share": 0.5
+     }
+    ]
+   },
+   "z": {
+    "is": "floor",
+    "tile": "camp",
+    "piece": [
+     "pw_camp_a",
+     "pw_camp_b"
+    ],
+    "at": [
+     0.3,
+     0.55
+    ],
+    "more": [
+     {
+      "piece": [
+       "pw_bedding_a",
+       "pw_bedding_b"
+      ],
+      "at": [
+       0.72,
+       0.95
+      ],
+      "share": 0.7
+     }
+    ]
+   },
+   "~": {
+    "is": "floor",
+    "tile": "seep",
+    "floor": "wet"
+   },
+   "O": {
+    "is": "floor",
+    "tile": "column",
+    "piece": "pw_column",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   },
+   "M": {
+    "is": "high"
+   },
+   "m": {
+    "is": "high",
+    "tile": "high_bench",
+    "piece": "pw_bench",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   ">": {
+    "is": "ramp"
+   },
+   "<": {
+    "is": "ramp"
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words). [bb] each kind is a Battle Brothers ground: flat, rough (its swamp's and its brush's extra cost), a hill (height), an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The hall's concrete, poured against the canyon: no way through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The generator floor: terrazzo with the old patterns in it, open ground, nothing to hide behind, and the balcony looks down on it; on AUTO nobody stays on it.",
+   "say": "The generator floor: open ground.",
+   "draft": true
+  },
+  "unit": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A generator in its housing, steel two storeys round: nobody stands on its tile; cover for the tiles beside it. [bb] a boulder on its map.",
+   "say": ""
+  },
+  "rotor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A rotor lifted out and set on its stand in the service bay: nobody stands on its tile; cover for the tiles beside it.",
+   "say": ""
+  },
+  "hook": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The crane's hook block, let down to the floor and left with its cable slack: cover.",
+   "say": "The crane's hook: cover.",
+   "draft": true
+  },
+  "spares": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Spare parts still in their crates: cover.",
+   "say": "Crated spares: cover.",
+   "draft": true
+  },
+  "cable": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Cable reels, and the cable run off them across the floor: low cover, and slow going (3 AP a step). [bb] its brush: cover that costs to cross.",
+   "say": "Cable reels: low cover, slow going.",
+   "draft": true
+  },
+  "board": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A unit's control board beside it, the dials dead: low cover, and the one way between two generators.",
+   "say": "A unit's board: low cover.",
+   "draft": true
+  },
+  "cart": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Tool carts and a parts trolley: low cover.",
+   "say": "Tool carts: low cover.",
+   "draft": true
+  },
+  "camp": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Somebody sleeps between the generators: bedding and bags. Low cover.",
+   "say": "Somebody's bedding: low cover.",
+   "draft": true
+  },
+  "seep": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "open": true,
+   "effect": "Where the dam weeps through the concrete: the floor wet and slick, open ground and slow going (3 AP a step). [bb] its swamp: slow, and nothing to hide behind.",
+   "say": "Wet floor: slow going, open ground.",
+   "draft": true
+  },
+  "column": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A column of the hall: nobody stands on its tile.",
+   "say": ""
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire in a drum somebody keeps. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A drum fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The service bay's doors to the river, rolled up: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The river doors: open ground.",
+   "say_lit": "The river doors: open ground, and the day is on you.",
+   "draft": true
+  },
+  "high": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "The visitors' balcony, a storey over the generator floor: high ground. A blow or a shot down from it lands easier, one up at it harder; a gun reaches a tile farther from it. Up the stairs at its ends it is a walk; over the rail from the floor it is a climb: no attack that turn, and a beast cannot. [bb] its hill.",
+   "say": "The balcony: you hit down easier, and a gun reaches a tile more.",
+   "roof": true,
+   "say_before": "",
+   "draft": true
+  },
+  "high_bench": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "effect": "The balcony's benches, where the tours stood: low cover, on high ground.",
+   "say": "The balcony's benches: low cover, and high ground.",
+   "say_before": "The balcony's benches: low cover.",
+   "roof": true,
+   "draft": true
+  },
+  "ramp": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "The stairs at the balcony's end: the WALK up. A step onto them from the floor costs one more; a man who walks up can still strike this turn.",
+   "say": "",
+   "say_before": "The stairs: the walk up, and you can still strike.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in powerhouse_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL, RAIL, HEIGHT); 'blocks_move' means nobody stands on its tile. A DRESS piece is drawn and never counted.",
+ "kit": {
+  "pw_unit": {
+   "like": "garage_core",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A GENERATOR"
+  },
+  "pw_rotor": {
+   "like": "sb_container_S",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A ROTOR ON ITS STAND"
+  },
+  "pw_hook": {
+   "like": "sb_heap_S",
+   "kind": "COVER",
+   "name": "THE CRANE'S HOOK"
+  },
+  "pw_spares": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "CRATED SPARES"
+  },
+  "pw_spares_b": {
+   "like": "sb_bales_S",
+   "kind": "DRESS",
+   "name": "CRATED SPARES"
+  },
+  "pw_cable": {
+   "like": "sb_tyres_S",
+   "kind": "LOW_COVER",
+   "name": "CABLE REELS"
+  },
+  "pw_cable_b": {
+   "like": "sb_tyres_E",
+   "kind": "DRESS",
+   "name": "CABLE REELS"
+  },
+  "pw_board": {
+   "like": "casino_screens",
+   "kind": "LOW_COVER",
+   "name": "A UNIT'S BOARD"
+  },
+  "pw_cart": {
+   "like": "sb_cart_S",
+   "kind": "LOW_COVER",
+   "name": "TOOL CARTS"
+  },
+  "pw_cart_b": {
+   "like": "sb_cart_E",
+   "kind": "DRESS",
+   "name": "TOOL CARTS"
+  },
+  "pw_camp_a": {
+   "like": "tunnel_camp_a",
+   "kind": "LOW_COVER",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "pw_camp_b": {
+   "like": "tunnel_camp_b",
+   "kind": "LOW_COVER",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "pw_bedding_a": {
+   "like": "tunnel_camp_a",
+   "kind": "DRESS",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "pw_bedding_b": {
+   "like": "tunnel_camp_b",
+   "kind": "DRESS",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "pw_column": {
+   "like": "garage_column",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A COLUMN"
+  },
+  "pw_bench": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "THE BALCONY'S BENCHES"
+  },
+  "pw_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "pw_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  },
+  "pw_balcony": {
+   "like": "garage_level_aisle",
+   "kind": "HEIGHT",
+   "name": "THE BALCONY"
+  },
+  "pw_stair_e": {
+   "like": "garage_ramp_e",
+   "kind": "HEIGHT"
+  },
+  "pw_stair_w": {
+   "like": "garage_ramp_w",
+   "kind": "HEIGHT"
+  },
+  "pw_rail_ew": {
+   "like": "garage_rail_ew",
+   "kind": "RAIL"
+  }
+ },
+ "walls": {
+  "ew": "pw_wall_ew",
+  "ns": "pw_wall_ns"
+ },
+ "high": {
+  "deck": "pw_balcony",
+  "ramp_e": "pw_stair_e",
+  "ramp_w": "pw_stair_w",
+  "rail_ew": "pw_rail_ew",
+  "h_m": 1.42,
+  "rail_why": "The balcony is one row of tiles with its stairs at both ends, so its only rail is the one along the floor (rail_ew); there is no end rail to draw."
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "wet": [
+   "tunnels/tunnel_floor_0.webp#0,0",
+   "tunnels/tunnel_floor_0.webp#1,0",
+   "tunnels/tunnel_floor_0.webp#2,0",
+   "tunnels/tunnel_floor_0.webp#3,0",
+   "tunnels/tunnel_floor_0.webp#4,0",
+   "tunnels/tunnel_floor_0.webp#0,1",
+   "tunnels/tunnel_floor_0.webp#1,1",
+   "tunnels/tunnel_floor_0.webp#2,1",
+   "tunnels/tunnel_floor_0.webp#3,1",
+   "tunnels/tunnel_floor_0.webp#4,1"
+  ],
+  "high": [
+   "hall/hall_floor_0.webp#0,4",
+   "hall/hall_floor_0.webp#1,4",
+   "hall/hall_floor_0.webp#2,4",
+   "hall/hall_floor_0.webp#3,4",
+   "hall/hall_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {
+  "height": "The balcony: you hit down easier, and a gun reaches a tile more."
+ },
+ "start": null,
+ "gallery": null,
+ "start_why": "THE BALCONY IS NOBODY'S AT THE BELL: both lines start on the generator floor, and whoever takes the stairs first owns the floor under it.",
+ "ceiling": {
+  "kind": "crane",
+  "alpha": 0.1,
+  "src": "powerhouse/powerhouse_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the generator hall's roof far up, the crane runways along both walls, the two bridge cranes across the hall with their trolleys and hooks, the hanging lamps nearly all dead, over the board at this alpha (10%, never past the fight's own most). 'src' is the picture COOK makes (see garage.json's ceiling); 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in."
+ }
+}

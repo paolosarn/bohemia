@@ -1,4 +1,37 @@
-# COMBAT THREE (combat 3) -- the handoff block (written only by COMBAT THREE, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
+# COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
+
+COMBAT FOUR (rules 461, 462, 416, 59, 428, 451(a), 441; ask rows 468, 651): 11/20 LATEST -- [the powerhouse] SHIPPED SHIPSHA, BUILD 11/20j - THE POWERHOUSE, BUILT, NOT YET SEEN. VOTE combat4-the-powerhouse-11-20 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_POWERHOUSE_11_20_26.md. THIS CHAT IS COMBAT FOUR, opened fresh on COMBAT THREE's handoff (rule 462: COMBAT THREE's model hit its weekly
+limit). Taken over: EYES marked 623 and 624 SEEN 11/20, nothing found; no FOUND BY EYES row names this lane; COMBAT THREE's pushed branch claude/combat-three-01gkdyuu is wholly on
+main. So the job was the list's next: the tenth big inside.
+WHAT: a fight at the dam (0.6 by the cell's dice) or the gas plant (0.35: its turbine hall is the same room; opts.inside 'powerhouse' anywhere) is fought in the generator hall:
+terrazzo floor (open), generators you cannot stand on (blockers), each with its control board (low cover), crated spares and the crane's hook (cover), cable reels (low cover AND
+3 AP), wet floor where the dam weeps (open AND 3 AP), tool carts, bedding, drum fires, the river doors (the day), and THE VISITORS' BALCONY a storey up that NOBODY holds at the bell
+(start null). Two layouts: the_generator_floor (four units down the middle, two lanes), the_service_bay (six units in a line across the hall, their boards the only gaps, a rotor
+on its stand). ONE DATA FILE: slices/fight_ground/powerhouse/powerhouse.json (17 tile kinds, 22 pieces all stand-ins), seventh in insides.json. No new rule code; the ceiling kind
+'crane' (the roof, the crane runways, two bridge cranes, dead lamps).
+GATE THE BIG INSIDES 108/0 (seven insides; about four minutes). ON THE PAGE (this stamp): the demo and the alpha, upright and on its side, through the map's own door (district:dam):
+19 fights in the powerhouse, 19 ended on AUTO, 18 of 18 tile taps, 0 page errors, both layouts dealt by the map; the ceiling moves a pixel 1.3 to 1.8 of 255 on average.
+THE DRIVER, FIXED (tools/bohemia_combat_three_on_the_page.js): its tile taps came back EMPTY on three ways of four (16 tiles in reach, every one skipped: the fight was still drawing
+a move). The finger now waits for a clear glass and a still board before each tap. Any lane's tap counts from before 11/20 that read '0 of 0' were this, not the board.
+*** FOR COOK (FIVE or SIX: THE POWERHOUSE'S NAMES, the same contract; every name below is already in the legend): put slices/fight_ground/powerhouse/powerhouse_art.json in the
+folder, THE GARAGE'S FORMAT; a name you leave out stays its stand-in:
+  the floors     floor.floor (the generator floor's terrazzo, Allen Tupper True's Southwest patterns in it, dust), floor.wet (the same floor wet where the dam weeps),
+                 floor.high (the balcony's floor), floor.ring
+  pw_unit        A GENERATOR in its housing, a tile: the round steel housing two storeys up, the exciter on top, its rail (a tile's blocker; today the garage's core)
+  pw_board       the unit's control board beside it, a tile wide, dials dead (low cover; today the casino's dead screens)
+  pw_rotor       a rotor lifted out and set on its stand in the service bay (a tile's blocker)
+  pw_hook        the crane's hook block let down to the floor, its cable slack (cover)
+  pw_spares, pw_spares_b   spares in their crates, half a tile (b: drawn-only); pw_cable, pw_cable_b   cable reels and the cable run off them (b: drawn-only)
+  pw_cart, pw_cart_b   tool carts, a parts trolley (b: drawn-only); pw_camp_a, pw_camp_b, pw_bedding_a, pw_bedding_b (bedding: drawn-only); pw_column
+  pw_balcony     one tile of the visitors' balcony; pw_bench   its benches; pw_stair_e, pw_stair_w; pw_rail_ew; pw_wall_ew, pw_wall_ns (the hall's concrete)
+  powerhouse/powerhouse_ceiling.webp   THE CEILING: the hall's roof far up, the crane runways along both long walls, the bridge cranes across with their trolleys and hooks,
+                 the hanging lamps nearly all dead; tiles every 5 by 5 tiles; set "have": true in powerhouse.json's ceiling the day it is in
+*** SAID PLAINLY: 'the galleries in the concrete' are not on the board: a gallery is a few metres wide and a tile is a house (rule 416: never a man in a hallway). No gas plant
+fight went inside on the page (its two cells in these valleys rolled outside; the gate deals 19 of 40). Whether the units still turn is not said anywhere (rule 459(e)).
+NEXT: THE SPHERE (in flight: the generator is written, not yet in the list), then the list's twelfth (the home center, the hospital, the prison's cell blocks).
+[bb Battle Brothers' boulders: a stone you cannot stand on breaks a line into the gaps between; a row of generators is that row of stones]
+[analog horror: the dam's own tour video, the generator hall from the balcony, the floor below empty, one lamp of forty still on]
 
 COMBAT THREE (rules 453, 416, 59, 428, 451(a); ask rows 468, 627): 11/18 LATEST -- [the stadium] SHIPPED 5827603ec, BUILD 11/18m - THE STADIUM, BUILT, NOT YET SEEN. VOTE combat3-the-stadium-11-18 (stand_in).
 Record: records/BOHEMIA_COMBAT_THREE_THE_STADIUM_11_18_26.md. The coordinator's round of 11/18, its second build: the ninth big inside.
