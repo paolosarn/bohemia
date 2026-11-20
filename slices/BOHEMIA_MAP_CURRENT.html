@@ -1,7 +1,7 @@
 <!doctype html><html><head><meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
 <title>BOHEMIA MAP</title>
-<!-- engine-md5:engine/bohemia_district_kit.js:125ad9e6ab66cc591732eb9dfdbbae4c -->
+<!-- engine-md5:engine/bohemia_district_kit.js:e7e1e80f1988421d80fd6abea3841f03 -->
 <!-- engine-md5:engine/bohemia_suburb.js:bd5cee7826161546778809a232882065 -->
 <!-- engine-md5:engine/bohemia_commercial.js:742c9adf76df9cbd50ab0bc798d5be3b -->
 <!-- engine-md5:engine/bohemia_industrial.js:4ad82e35be86eee279e852ba27dd7bab -->
@@ -54,7 +54,7 @@
 <!-- engine-md5:engine/bohemia_resort.js:ae973be63f4bda6eeae1f34ad42c3ce5 -->
 <!-- engine-md5:engine/bohemia_casino.js:d709e2aabe16b9e44d54ec19ae952c4d -->
 <!-- engine-md5:engine/bohemia_strip.js:12ac87c4c0a4c02360b85a3edc8de2a5 -->
-<!-- engine-md5:engine/bohemia_overmap.js:09c858b19dc83d879acdefdf7e715970 -->
+<!-- engine-md5:engine/bohemia_overmap.js:aa6fe6fee3dc367a11f4cd4b132abb1f -->
 <!-- engine-md5:engine/bohemia_overmap_bridge.js:cb5c055641140370279b9fe742c28e0f -->
 <!-- engine-md5:engine/bohemia_blockgen.js:4848f4d2a32638eada381692e7bbc113 -->
 <!-- engine-md5:engine/bohemia_floorplan.js:ac7ee01dfbd100634ca9f5a58da97a2f -->
@@ -62,7 +62,7 @@
 <!-- engine-md5:engine/bohemia_crypt.js:f5ad6ba56dbf810ae70c28f3e94a5852 -->
 <!-- engine-md5:engine/bohemia_utility.js:bc902a35960a5189f2fbf272a8da79c0 -->
 <!-- engine-md5:engine/bohemia_rooms.js:22bc9a94d23596d77c83183ea1f50ae0 -->
-<!-- engine-md5:engine/bohemia_world.js:a30bfa9b77f1ba5a8c37134a50141404 -->
+<!-- engine-md5:engine/bohemia_world.js:2498b1aeedd89a29915734bb8dd20393 -->
 <!-- engine-md5:engine/bohemia_valleymap.js:36a0564d30ad03bd11f7a383d301adc4 -->
 <style>
   html,body{margin:0;padding:0;background:#0d0b08;overflow:hidden;height:100%;touch-action:none}
@@ -13404,7 +13404,10 @@
 const OVER_N=96, TILE_FINE=128, SLOT_FINE=128, CELL_M=0.75, TILE_M=TILE_FINE*CELL_M;
 const DISTRICT={MOUNTAIN:'mountain',DESERT:'desert',STRIP:'strip',RESORT:'resort',MALL:'mall',DOWNTOWN:'downtown',SUBURB:'suburb',INDUSTRIAL:'industrial',COMMERCIAL:'commercial',DAM:'dam',SOLAR:'solar',WASH:'wash',WATER:'water',FREEWAY:'freeway',ARTERIAL:'arterial',BELTWAY:'beltway',PARK:'park',AIRPORT:'airport',AIRBASE:'airbase',CAMPUS:'campus',RAIL:'rail',RAILYARD:'railyard',TOWN:'town',MEDICAL:'medical',INTERCHANGE:'interchange',GOLF:'golf',GATED:'gated',SCHOOL:'school',CASINO:'casino',STADIUM:'stadium',SPEEDWAY:'speedway',CONVENTION:'convention',WATERPARK:'waterpark',MINIGP:'minigp',ESTATE:'estate',
 RECLAIM:'reclaim',LANDFILL:'landfill',INTAKE:'intake',SUBSTATION:'substation',CEMETERY:'cemetery',PRISON:'prison',TERMINAL:'terminal',
-SPHERE:'sphere',BONEYARD:'boneyard',CHAPEL:'chapel',FORT:'fort',BASIN:'basin',BALLPARK:'ballpark',SWAPMEET:'swapmeet',DRIVEIN:'drivein',HIGHROLLER:'highroller',TRAILER:'trailer',STORAGE:'storage',WATERTREAT:'watertreat',RESERVOIR:'reservoir',PUMPSTATION:'pumpstation',FARM:'farm',SIGN:'sign',STRAT:'strat',DATAFORT:'datafort',ARSENAL:'arsenal',FIRESTATION:'firestation',POLICESTATION:'policestation',JAIL:'jail',COURTHOUSE:'courthouse',CITYHALL:'cityhall',WAREHOUSE:'warehouse',TRUCKSTOP:'truckstop',BATTERY:'battery',QUARRY:'quarry',GYPSUM:'gypsum',SPRINGS:'springs',LUXOR:'luxor',FUELDEPOT:'fueldepot',GRANARY:'granary',LIBRARY:'library',RADIO:'radio',ROBOFACTORY:'robofactory',APARTMENT:'apartment'};
+SPHERE:'sphere',BONEYARD:'boneyard',CHAPEL:'chapel',FORT:'fort',BASIN:'basin',BALLPARK:'ballpark',SWAPMEET:'swapmeet',DRIVEIN:'drivein',HIGHROLLER:'highroller',TRAILER:'trailer',STORAGE:'storage',WATERTREAT:'watertreat',RESERVOIR:'reservoir',PUMPSTATION:'pumpstation',FARM:'farm',SIGN:'sign',STRAT:'strat',DATAFORT:'datafort',ARSENAL:'arsenal',FIRESTATION:'firestation',POLICESTATION:'policestation',JAIL:'jail',COURTHOUSE:'courthouse',CITYHALL:'cityhall',WAREHOUSE:'warehouse',TRUCKSTOP:'truckstop',BATTERY:'battery',QUARRY:'quarry',GYPSUM:'gypsum',SPRINGS:'springs',LUXOR:'luxor',FUELDEPOT:'fueldepot',GRANARY:'granary',LIBRARY:'library',RADIO:'radio',ROBOFACTORY:'robofactory',APARTMENT:'apartment',
+// __THE_MISSING_REAL_PLACES__ (WORLD TEN 11/6, VAMILY rule 409(c), ask line 458): Pocket City 2's building kinds we did not have, each a
+// real Las Vegas place seated at its real spot; the seats and the data are records/target/bb/real_places.json (REAL_PLACES below).
+BANK:'bank',JOBSOFFICE:'jobsoffice',HARDWARE:'hardware',POWERPLANT:'powerplant',AQUARIUM:'aquarium',SHELTER:'shelter',MOBMUSEUM:'mobmuseum',NATMUSEUM:'natmuseum',TVSTATION:'tvstation'};
 const ROAD={freeway:1,arterial:1,strip:1,beltway:1};
 // BIG ARCHITECTURE (Paolo 7/18/26): "even monuments... would just be in their big ass plots not
 // breaking any city streets" — the ONLY district types allowed to sit without touching the
@@ -13423,11 +13426,99 @@ function hash2(seed,x,y){let h=(seed^Math.imul(x,73856093)^Math.imul(y,19349663)
 function segDist(px,py,ax,ay,bx,by){const dx=bx-ax,dy=by-ay;const t=Math.max(0,Math.min(1,((px-ax)*dx+(py-ay)*dy)/(dx*dx+dy*dy)));return Math.hypot(px-(ax+t*dx),py-(ay+t*dy));}
 function inRect(x,y,R){return x>=R.x&&x<R.x+R.w&&y>=R.y&&y<R.y+R.h;}
 
+/* ==== __THE_MISSING_REAL_PLACES__ (WORLD TEN 11/6, VAMILY rules 409(c) and 411, ask line 458; Paolo 11/5: 'research every building
+   type in Pocket City 2... and see if you're missing any of those buildings'). Pocket City 2 is a CHECKLIST of building kinds only (rule
+   409(b)); every place here is a REAL Las Vegas place in the collapse at its real spot: the bank (Valley Bank Plaza, 300 S 4th), the
+   unemployment office (JobConnect, Maryland Pkwy), two home centres (the big-box hardware stores on the mile-street corners), Clark
+   Station (the valley's own gas plant at Whitney, 1954), Shark Reef (under Mandalay Bay), the animal shelter (Mojave Rd), the Mob
+   Museum (the 1933 courthouse), the natural history museum (by Cashman Field) and Channel 8. The DATA is records/target/bb/
+   real_places.json; the block between the two DATA lines is that file's valley seats WORD FOR WORD, written by
+   tools/bohemia_world_ten_real_places_sync.js (never by hand; gates/the_missing_real_places_gate.js holds the two together).
+   SEATED LAST, after every other piece has been nudged, so nothing that was already on the valley moves: each takes the nearest
+   clear block to its real spot (the FACTORY LAW nudger's own clear test) that FRONTS A MILE STREET and is never on a half-mile
+   collector (the grid re-assert below would pave it), so every one is reachable and none sits on another. ==== */
+/* __THE_MISSING_REAL_PLACES__ DATA BEGIN */
+const REAL_PLACES=[
+  {id:"the_bank",kind:"bank",seat:{x:{from:"courthouse",east:3},y:{from:"courthouse",south:1}}},
+  {id:"the_unemployment_office",kind:"jobsoffice",seat:{x:{from:"strip",east:9},y:{of:0.42}}},
+  {id:"the_home_center_east",kind:"hardware",seat:{x:{from:"strip",east:14},y:{of:0.56}}},
+  {id:"the_home_center_west",kind:"hardware",seat:{x:{from:"strip",east:-16},y:{of:0.4}}},
+  {id:"clark_station",kind:"powerplant",seat:{x:{from:"strip",east:16},y:{of:0.57}}},
+  {id:"shark_reef",kind:"aquarium",seat:{x:{from:"luxor",east:0},y:{from:"luxor",south:2}}},
+  {id:"the_animal_shelter",kind:"shelter",seat:{x:{from:"strip",east:12},y:{of:0.27}}},
+  {id:"the_mob_museum",kind:"mobmuseum",seat:{x:{from:"courthouse",east:-1},y:{from:"courthouse",south:-2}}},
+  {id:"the_natural_history_museum",kind:"natmuseum",seat:{x:{from:"cashman",east:3},y:{from:"cashman",south:0}}},
+  {id:"the_tv_station",kind:"tvstation",seat:{x:{from:"strip",east:5},y:{of:0.46}}},
+  {id:"the_bus_yard",kind:"terminal",seat:{x:{from:"strip",east:-9},y:{of:0.76}}},
+  {id:"the_greenhouses",kind:"farm",seat:{x:{from:"strip",east:-5},y:{of:0.63}}},
+  {id:"the_cooling_center",kind:"school",seat:{x:{from:"strip",east:7},y:{of:0.54}}},
+  {id:"the_dome",kind:"casino",seat:{x:{from:"strip",east:1},y:{of:0.44}}},
+  {id:"the_scrap_mill",kind:"industrial",seat:{x:{from:"strip",east:6},y:{of:0.18}}}
+];
+/* __THE_MISSING_REAL_PLACES__ DATA END */
+function seatRealPlaces(A, clearOf){
+  /* the layout's half: for each place, its real spot and the clear blocks round it nearest first (the FACTORY LAW nudger's own
+     clear test, off the rim, never on a half-mile collector). Nothing is pushed into the layout: the valley is built exactly as it
+     was, and stampRealPlaces puts each place on the FINISHED valley, on the first of these that fronts a street there. */
+  const out=[], OFF=[[0,0]];
+  for(let rr=1;rr<=14;rr++)for(let dy=-rr;dy<=rr;dy++)for(let dx=-rr;dx<=rr;dx++){ if(Math.max(Math.abs(dx),Math.abs(dy))===rr)OFF.push([dx,dy]); }
+  const offCollector=(x,y)=>!(x%9===4||x%9===5||y%9===4||y%9===5);    /* never where the half-mile collector may run */
+  const inland=(x,y)=>x>=11&&x<=84&&y>=8&&y<=88;                       /* off the rim's mountains and their foothill estates */
+  for(const p of REAL_PLACES){
+    const sx=p.seat.x, sy=p.seat.y;
+    const bx=sx.from==='strip'?A.stripX:(A[sx.from]?A[sx.from].x:A.stripX);
+    const by=sy.of!=null?Math.round(A.N*sy.of):(A[sy.from]?A[sy.from].y:Math.round(A.N/2));
+    const x0=bx+A.dirE*(sx.east||0), y0=by+(sy.south||0), cands=[];
+    for(const [ox,oy] of OFF){ const x=x0+ox, y=y0+oy;
+      if(inland(x,y)&&offCollector(x,y)&&clearOf(x,y))cands.push([x,y]); }
+    out.push({id:p.id,kind:p.kind,x:null,y:null,w:1,h:1,want:[x0,y0],cands});
+  }
+  return out;
+}
+/* the finished valley's half: the first candidate that is ordinary ground (a home, a shop, a lot, downtown, the Strip's resort
+   row, never a street, a mass or another landmark) with a street beside it, two blocks from any place already stamped. The block
+   keeps what it was (t.was), so the faction seats are chosen from the same valley as before (engine/bohemia_towns.js reads it). */
+const REAL_GROUND={suburb:1,commercial:1,apartment:1,desert:1,downtown:1,resort:1,trailer:1,industrial:1,storage:1};
+function placeRealPlace(R, at, others, keepOut){
+  for(const [x,y] of R.cands){
+    const t=at(x,y); if(!t||!REAL_GROUND[t.district])continue;
+    if(keepOut&&keepOut(x,y))continue;
+    if(!REAL_ROAD_NEIGHBOUR(at,x,y))continue;
+    if(others.some(D=>D.x!=null&&Math.max(Math.abs(D.x-x),Math.abs(D.y-y))<=1))continue;
+    t.was=t.district; t.wasFixed=t.fixed; t.district=R.kind; t.fixed=true; t.real=R.id; R.x=x; R.y=y; return true;
+  }
+  R.x=null; R.y=null; return false;
+}
+function stampRealPlaces(L, at){
+  const done=[];
+  for(const R of (L.realPlaces||[])){ if(placeRealPlace(R, at, done))done.push(R); }
+}
+/* A TOWN WAS BUILT FIRST. The faction seats are chosen after the valley (engine/bohemia_towns.js, from what each block WAS, so
+   they never move), and a seat's painted ground can cover a place (measured: 101 of 1,200 across 120 valleys). The page hands
+   in the towns' ground and every place standing on it moves to its next candidate clear of all of them; the block it leaves is
+   what it was. Deterministic: the same valley and the same towns put every place on the same block. */
+function restampRealPlaces(m, keepOut){
+  const L=m&&m.layout, at=m&&m.at, moved=[]; if(!L||!at||typeof keepOut!=='function')return moved;
+  const all=L.realPlaces||[];
+  for(const R of all){
+    if(R.x!=null&&!keepOut(R.x,R.y))continue;
+    if(R.x!=null){ const t=at(R.x,R.y); if(t&&t.real===R.id){ t.district=t.was; t.fixed=t.wasFixed; delete t.was; delete t.wasFixed; delete t.real; } }
+    placeRealPlace(R, at, all.filter(o=>o!==R), keepOut); moved.push(R.id);
+  }
+  return moved;
+}
+function REAL_ROAD_NEIGHBOUR(at,x,y){ for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){ const n=at(x+dx,y+dy); if(n&&ROAD[n.district])return true; } return false; }
 function layoutFromSeed(seed){
   const r=rng((seed^0xA5C3D7)>>>0);
   const N=OVER_N, cx=N/2, cy=N/2;
-  const axisFlip=r()<0.5;
-  const stripMirror=r()<0.5;              // [PENDING Paolo confirm]
+  /* THE MAP CAN TURN (WORLD 8, 11/3, rule 344, Paolo 11/2: 'Dont forget u can flip the map 90 degrees fuck it! While changing the
+     locations and shit'): a new game's code may flip the valley north to south, east to west, or both (a half turn), on top of
+     the land's own two rolls (VALLEY_TURN, set by the page from the campaign code before the valley is built; none = the land's
+     own valley, so an old save and every checker's bench stay the same). The rolls are still drawn, so the rest of the land's
+     stream, and so everything else about the valley, is unchanged. */
+  const TURN=(typeof globalThis!=='undefined'&&globalThis.VALLEY_TURN)||null;
+  const axisFlip=(r()<0.5)!==!!(TURN&&TURN.ns);
+  const stripMirror=(r()<0.5)!==!!(TURN&&TURN.ew);              // [PENDING Paolo confirm]
   const stripX=Math.round(cx+(stripMirror?-4:4));
   const fwySide=stripMirror?1:-1;
   const fwyX=stripX+fwySide*7;            // pushed out past the 2-cell resort buffer
@@ -13785,6 +13876,7 @@ function layoutFromSeed(seed){
       return false; };
     let g6=0; while(bad()&&g6++<12){ datafort.x+=dxs*2; datafort.y+=dys*2; }
   }
+  let realPlaces=[];   /* __THE_MISSING_REAL_PLACES__ */
   // ===== GENERIC CLEAR-SPOT NUDGER (FACTORY LAW, 7/5/26) =====
   // One mechanism for every small piece: forbidden = all freeway geometry +
   // every placed rect. Spiral-search offsets until clear. No more ad-hoc dodges.
@@ -13831,6 +13923,7 @@ function layoutFromSeed(seed){
     for(const p of fueldepots)nudge(p);
     nudge(granary); nudge(library); nudge(radiostation); nudge(robofactory);
     for(const p of reservoirs)nudge(p);
+    realPlaces=seatRealPlaces({stripX,dirE,N,courthouse,cashman,luxor}, clearOf);   /* __THE_MISSING_REAL_PLACES__: the spots and their clear blocks; stamped on the finished valley */
   }
   return {axisFlip, stripX, fwyX, beltInset, beltVarW, beltVarH, beltRect,
           ind1, ind2, exits, hri, apSE, apNW, airbase, unlv, csn,
@@ -13842,7 +13935,7 @@ function layoutFromSeed(seed){
           cashman, boneyard, fort, ballparkS, chapels, basins, swapmeet, drivein, highroller,
           watertreat, reservoirs, pumpstation, vegassign, strat, datafort, arsenal,
           firestations, policestations, jail, courthouse, cityhall, warehouse, truckstop,
-          battery, quarry, gypsum, springs, luxor, fueldepots, granary, library, radiostation, robofactory, seed};
+          battery, quarry, gypsum, springs, luxor, fueldepots, granary, library, radiostation, robofactory, realPlaces, seed};
 }
 
 function skeleton(x,y,L){
@@ -14066,6 +14159,118 @@ function proceduralDistrict(x,y,r,L){
 }
 
 function OM_rr(seed){ return (hash2(seed,911,373)%1000)/1000; }
+/* ==== __THE_VALLEY_HAS_ITS_ZONES__ (WORLD THIRTEEN 11/10, VAMILY rule 429(g), ask line 508; Paolo 11/7: 'not every part of town is
+   gonna be this suburb shit... where there's more desert landscape, where there's more industrial or building going on... some sort
+   of smart system'). MEASURED FIRST, 22 seeds (tools/bohemia_world_thirteen_zones_measure.js): every zone was on the map but out of the
+   real valley's balance: industry 0.6 to 0.8 in 100 blocks, scattered singles (2,328 house blocks touched one, 6 sat inside one), the
+   trailer parks and swap meets 0.2 to 0.3 in 100. The districts are laid as before (nothing of the roll moves); THEN this pass zones
+   them the way the real valley is zoned (records/target/bb/land_use.json, its numbers word for word below):
+     1. THE WORKS: every block within corridor_reach of the rail between the freeway's bends (Industrial Road and the UP yards) and
+        every block inside the two industrial parks (the layout's own ind1 and ind2, grown to park_radius) that is a tract, an
+        apartment block, a shop block or a vacant lot becomes industrial, warehouse or storage by its own roll; keep of them stay as
+        they were (the blend: a diner, a house that would not sell).
+     2. THE SEAM: an estate or a gated tract never touches the works: a works block beside one becomes shops.
+     3. NO HOUSE INSIDE THE WORKS: a house block with five or more of its eight neighbours works is taken into them.
+     4. THE CHEAP EDGE: a tract block beside the works, the freeway or the rail turns trailer park at its chance.
+   Fixed blocks (the landmarks, the mile streets, the real places) are never touched. The streets each zone carries are the street
+   pass below (houseLanes: a house street down every house block, a truck drive down every works block, joined to the mile streets).
+   [bb] Battle Brothers' world map has its regions (the north's snow, the south's desert) each with its own settlements; ours zones
+   one valley the way its county did. [analog horror] the works by the tracks, every gate chained, a hundred trailers by the freeway
+   with their lights out. Gate: gates/the_valley_has_its_zones_gate.js. ==== */
+/* __LAND_USE__ DATA BEGIN */
+const LAND_USE={industry:{"corridor_reach":3,"corridor_y":[0.16,0.8],"park_radius":5.5,"keep":0.12,"takes":["suburb","apartment","commercial","desert"],"kinds":{"industrial":0.5,"warehouse":0.35,"storage":0.15}},
+  cheap_edge:{"takes":["suburb"],"near":["industrial","warehouse","storage","railyard","freeway","interchange","rail"],"chance":0.12},
+  works_zone:["industrial","warehouse","storage","railyard","fueldepot","granary","robofactory","reclaim","substation","pumpstation","watertreat","battery","arsenal","datafort","powerplant","boneyard","landfill","quarry","gypsum","shelter"],
+  house_zone:["suburb","estate","gated","apartment","town"]};
+/* __LAND_USE__ DATA END */
+const LU_WORKS={industrial:1,warehouse:1,storage:1};
+const LU_HOUSE={suburb:1,estate:1,gated:1,apartment:1};
+function landUse(tiles,at,L,seed,N){
+  const LI=LAND_USE.industry, LC=LAND_USE.cheap_edge, TAKE=new Set(LI.takes), NEAR=new Set(LC.near), CTAKE=new Set(LC.takes);
+  const hh=(x,y,s)=>hash2((seed^s)>>>0,x,y)/4294967296;
+  const kinds=Object.keys(LI.kinds), wsum=kinds.reduce((a,k)=>a+LI.kinds[k],0);
+  const kindAt=(x,y)=>{ let v=hh(x,y,0x5e1d)*wsum; for(const k of kinds){ v-=LI.kinds[k]; if(v<0)return k; } return kinds[0]; };
+  const WZ=new Set(LAND_USE.works_zone), works=(t)=>!!t&&WZ.has(t.district);   /* the whole industry zone: the works, the yards, the dumps, the plants */
+  const N8=[[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]];
+  let made=0;
+  for(const t of tiles){
+    if(t.fixed||t.real||!TAKE.has(t.district))continue;
+    const corr=Math.abs(t.x-L.railX)<=LI.corridor_reach&&t.x!==L.railX&&t.y>=N*LI.corridor_y[0]&&t.y<=N*LI.corridor_y[1];
+    const park=Math.hypot(t.x-L.ind1.x,t.y-L.ind1.y)<LI.park_radius||Math.hypot(t.x-L.ind2.x,t.y-L.ind2.y)<LI.park_radius;
+    if(!corr&&!park)continue;
+    if(hh(t.x,t.y,0x2b07)<LI.keep)continue;
+    t.district=kindAt(t.x,t.y); t.zoned='works'; made++;
+  }
+  /* no house inside the works (again until none: a house taken in can close the ring round the next) */
+  for(let pass=0,ch=1;ch&&pass<8;pass++){ ch=0;
+    for(const t of tiles){ if(!LU_HOUSE[t.district]||t.fixed||t.real)continue; let w=0;
+      for(const [dx,dy] of N8){ if(works(at(t.x+dx,t.y+dy)))w++; }
+      if(w>=5){ t.district=kindAt(t.x,t.y); t.zoned='works'; ch=1; } } }
+  /* the seam, last of the works' rules: an estate or a gated tract never touches the works */
+  for(const t of tiles){ if(t.district!=='estate'&&t.district!=='gated')continue;
+    for(const [dx,dy] of N8){ const n=at(t.x+dx,t.y+dy); if(n&&LU_WORKS[n.district]&&!n.fixed&&!n.real){ n.district=DISTRICT.COMMERCIAL; n.zoned='seam'; } } }
+  /* the cheap edge */
+  for(const t of tiles){ if(!CTAKE.has(t.district)||t.fixed||t.real)continue;
+    let near=false; for(const [dx,dy] of N8){ const n=at(t.x+dx,t.y+dy); if(n&&NEAR.has(n.district)){ near=true; break; } }
+    if(near&&hh(t.x,t.y,0x7ca1)<LC.chance){ t.district=DISTRICT.TRAILER; t.zoned='edge'; } }
+  return made;
+}
+/* ==== __THE_PLACES_ARE_TEMPLATES__ (WORLD THIRTEEN 11/11, VAMILY rules 429(a)(c)(f), 430; ask lines 504, 506, 507). The coordinator:
+   'the templates and the 20+ seeds, so it holds on a generated world'. The 15 place boards (fight_ground.json boards place_*, their
+   layouts kept whole) are templates the generator places wherever that kind of place lands: a board is 20 x 15 fight tiles, a map
+   block 3 x 3 of them, so a template stands on 7 x 5 blocks and every block of its kinds under it is a cell of it (the fight there is
+   that board, the cell's own tiles under the spot it starts). Rarest place first, each footprint scored by the blocks of its kinds it
+   covers, the best that keeps its spacing stands, up to per_valley; ties by the valley's own hash. A pure function of the finished
+   valley (m.n, m.at, m.seed): no roll moves, and the page re-asks it when a block's kind changes. The numbers are
+   records/target/bb/place_templates.json's, word for word (tools/bohemia_world_thirteen_place_templates_sync.js).
+   [bb] Battle Brothers places its locations on the world map by type and terrain; ours stands each hand-made place board where
+   its kind of place is. [analog horror] the same trailer park, the same backyards, met again in another valley, as if remembered.
+   Gate: gates/the_places_are_templates_gate.js. ==== */
+/* __PLACE_TEMPLATES__ DATA BEGIN */
+const PLACE_TEMPLATES={tiles_per_block:3,footprint:[7,5],order:["lab","redrock","landfill","shore","airport","downtown","strip","marina","golf","wash","trailer","pass","works","desert","suburb"],
+  templates:{
+    lab:{"board":"place_lab","kinds":["medical"],"per_valley":1,"min_cells":1,"spacing":0,"mirror":false,"lay":"built","terrain":["##^.......##^.......","....................","##........##........","....................","....................","...............##^..","....................","...............##...",".......;............","....................","##^.......##^.......","....................","##........##........","....................","...................."]},
+    redrock:{"board":"place_redrock","kinds":["springs"],"per_valley":1,"min_cells":1,"spacing":0,"mirror":false,"lay":"natural","terrain":["..^^...^^...^^...^^.",".^^^..^^^..^^^..^^^.","....................","^..^.^..^.^..^.^..^.","..,....,....,....,..","..^^..^#^...^^...^^.",".^^^..^#^..^^^..^^^.","......^.^...........","^..^..^#^.^..^.^..^.","..,..,.#.,..,....,..","..^^...^^...^^...^^.",".^^^..^^^..^^^..^^^.","....................","^..^.^..^.^..^.^..^.","..,....,....,....,.."]},
+    landfill:{"board":"place_landfill","kinds":["landfill"],"per_valley":1,"min_cells":2,"spacing":0,"mirror":false,"lay":"natural","terrain":[".^.^..^.^..^.^..^.^.","....................","^....^....^....^....","..^.^..^.^..^.^..^.^","....................",".^.^.^^.^^.^.^..^.^.","....................","^.....#..^^....^....","..^.^..#....^.^..^.^",".....^...^..........",".^.^..^.^..^.^..^.^.","....................","^....^....^....^....","..^.^..^.^..^.^..^.^","...................."]},
+    shore:{"board":"place_shore","kinds":["reservoir","dam"],"per_valley":1,"min_cells":3,"spacing":0,"mirror":false,"lay":"built","terrain":["~~.~~~~.~~~~.~~~~.~~","~...~~...~~...~~...~","...^^...^^...^^...^^","~~..~~~..~~~..~~~..~","~~.~~~~.~~~~.~~~~.~~","~~.~~~~.~~~~.~~~~.~~","~...~~.#^^~...~~...~","...^^..#.....^^...^^","~~..~~~.~~~~..~~~..~","~~.~~~~.~~~~.~~~~.~~","~~.~~~~.~~~~.~~~~.~~","^^^^^^^^^^^^^^^^^^^^","....................",".^^...^^...^^...^^..","..#....#....#....#.."]},
+    airport:{"board":"place_airport","kinds":["airport","airbase","terminal"],"per_valley":1,"min_cells":12,"spacing":0,"mirror":false,"lay":"built","terrain":["####################","..#....#....#....#..","....................","....................","....................","...............^^...",".#.........#...^^...","......##..........#.","...##........##.....","....................","^^........^^........","^^....#...^^....#...","...#.........#......","........##........##","...................."]},
+    downtown:{"board":"place_downtown","kinds":["downtown"],"per_valley":1,"min_cells":5,"spacing":0,"mirror":false,"lay":"own","terrain":["^^^..^^^..^^^..^^^..","^,.##^^^#.^,.##^^^#.","^..##^^^..^..##^^^..","......##........##..","....................","####################","^.........^....^....","....................","...^.........^....^.","^^^^^^^^^^^^^^^^^^^^","^^^^^^^^^^^^^^^^^^^^","^^^^^^^^^^^^^^^^^^^^","....................","....................","...................."]},
+    strip:{"board":"place_strip","kinds":["strip","sign","sphere","strat","convention"],"per_valley":1,"min_cells":12,"spacing":0,"mirror":false,"slack":4,"lay":"own","terrain":["##...........####...","##.^.......^.####.#.","##.^.......^.####...","##....#....######.#.","##....#......####...","##...........####...","##.#.......#.####...","##....^^.....####.#.","##.#..#....#.####...","##...........####...","##...........####...","##.........^.####.^.","##.#.......^.####.^.","##....#....######...","##....#......####..."]},
+    marina:{"board":"place_marina","kinds":["water","intake"],"per_valley":1,"min_cells":10,"spacing":0,"mirror":false,"lay":"built","terrain":["..#....#....#....#..","....................","....................",".#....#....#....#...","....................","..#.........#....#..",".........#..........","......^^^^..........",".#...#.....#....#...","....................","..#....#....#....#..","....................","....................",".#....#....#....#...","...................."]},
+    golf:{"board":"place_golf","kinds":["golf","park"],"per_valley":2,"min_cells":2,"spacing":20,"mirror":false,"lay":"built","terrain":["....................",".;;...;;...;;...;;..","....................","..;;...;;...;;...;;.","....................","....................",".;;..^^....;;...;;..","....................","..;;....;...;;...;;.","....................","....................",".;;...;;...;;...;;..","....................","..;;...;;...;;...;;.","...................."]},
+    wash:{"board":"place_wash","kinds":["wash","basin"],"per_valley":2,"min_cells":5,"spacing":20,"mirror":false,"lay":"natural","terrain":[".....^.,.^..........","..#..^.,.^..#....#..",".....^.,.^..........",".....^,,.^..........",".....^.,.^..........",".....^.,.^..........","..#..^.,.^..#....#..",".....^#.#^..........",".....^.,.^..........",".....^.,.^..........",".....^.,.^..........","..#..^.,.^..#....#..",".....^.,.^..........",".....^,,.^..........",".....^.,.^.........."]},
+    trailer:{"board":"place_trailer","kinds":["trailer"],"per_valley":3,"min_cells":3,"spacing":16,"mirror":false,"lay":"own","terrain":["##...##...##...##...","...#....#....#....#.","....................",".##...##...##...##..","....................","##...#.#.###...##...","...#.#.#.#...#....#.","....................",".##...#.#..##...##..","......#.#...........","##...##...##...##...","...#....#....#....#.","....................",".##...##...##...##..","...................."]},
+    pass:{"board":"place_pass","kinds":["mountain"],"per_valley":2,"min_cells":20,"spacing":24,"mirror":false,"lay":"natural","terrain":["#^#^##^#^##^#^##^#^#",",^,,^,^,,^,^,,^,^,,^",",,^,,,,^,,,,^,,,,^,,",",#,,,,#,,,,#,,,,#,,,",",,,^,,,,^,,,,^,,,,^,",",^,,#,,^#,,^,,#,^,,#",",,,^,,,.,,,,,^,,,,^,","......##^...........","......##............",",,;,,,,,,,,,;,,,,;,,",",^,,#,^,,#,^,,#,^,,#",",,,^,,,,^,,,,^,,,,^,","....................","....................",",,;,,,,;,,,,;,,,,;,,"]},
+    works:{"board":"place_works","kinds":["industrial","rail","railyard","warehouse","storage"],"per_valley":3,"min_cells":18,"spacing":16,"mirror":false,"lay":"built","terrain":["....................",".#....#....#....#...","..##...##...##...##.","....................","...#....#....#....#.",".........#..........",".#.........#....#...","..##.##.##..##...##.","....................","...#.........#....#.","....................",".#....#....#....#...","..##...##...##...##.","....................","...#....#....#....#."]},
+    desert:{"board":"place_desert","kinds":["desert"],"per_valley":3,"min_cells":12,"spacing":20,"mirror":false,"lay":"natural","terrain":[".....^;;^...........","..,..^;;^...,....,..",".....^;;^...........",",....^;;^.,....,....",".....^;;^...........",".....^;;^...........","..,..^;;^...,....,..",".....^;;^...........",",....^;;^.,....,....",".....^;;^...........",".....^;;^...........","..,..^;;^...,....,..",".....^;;^...........",",....^;;^.,....,....",".....^;;^..........."]},
+    suburb:{"board":"place_suburb","kinds":["suburb","estate","gated","town","school","chapel","library"],"per_valley":4,"min_cells":20,"spacing":16,"mirror":false,"lay":"own","terrain":["^^.^^^^.^^^^.^^^^.^^","...,....,....,....,.","....................",".,....,....,....,...","....................","^^.^^^^^^^^^.^^^^.^^","...,..,..,...,....,.","....................",".,...,..,..,....,...","....................","^^.^^^^.^^^^.^^^^.^^","...,....,....,....,.","....................",".,....,....,....,...","...................."]}}};
+/* __PLACE_TEMPLATES__ DATA END */
+function placeTemplates(m){
+  const N=m.n, PT=PLACE_TEMPLATES, FW=PT.footprint[0], FH=PT.footprint[1], TPB=PT.tiles_per_block, W=N+1;
+  const D=(x,y)=>{ const t=m.at(x,y); return t?t.district:null; }, own=new Int16Array(N*N), list=[], seed=(m.seed>>>0)||1;
+  const dist=new Array(N*N); for(let y=0;y<N;y++)for(let x=0;x<N;x++)dist[y*N+x]=D(x,y);
+  PT.order.forEach((id,ti)=>{ const T=PT.templates[id]; if(!T)return; const K={}; T.kinds.forEach(k=>{K[k]=1;});
+    const S=new Int32Array(W*W);
+    for(let y=0;y<N;y++)for(let x=0;x<N;x++) S[(y+1)*W+x+1]=(K[dist[y*N+x]]&&!own[y*N+x]?1:0)+S[y*W+x+1]+S[(y+1)*W+x]-S[y*W+x];
+    const cand=[];
+    for(let y0=0;y0+FH<=N;y0++)for(let x0=0;x0+FW<=N;x0++){ const c=S[(y0+FH)*W+x0+FW]-S[y0*W+x0+FW]-S[(y0+FH)*W+x0]+S[y0*W+x0];
+      if(c>=T.min_cells) cand.push([c,hash2(seed+ti*7919,x0,y0),x0,y0]); }
+    cand.sort((a,b)=>b[0]-a[0]||a[1]-b[1]);
+    if(T.slack&&cand.length){ const top=cand[0][0]-T.slack; cand.sort((a,b)=>((b[0]>=top)-(a[0]>=top))||(a[0]>=top&&b[0]>=top?a[1]-b[1]:b[0]-a[0]||a[1]-b[1])); }   /* slack: near the best is as good, the hash picks (a narrow place uses every part of its board over many valleys) */
+    const mine=[];
+    for(const [c,h,x0,y0] of cand){ if(mine.length>=T.per_valley)break;
+      if(mine.some(q=>Math.max(Math.abs(q.x0-x0),Math.abs(q.y0-y0))<Math.max(T.spacing,Math.max(FW,FH))))continue;
+      const cells=[];
+      for(let dy=0;dy<FH;dy++)for(let dx=0;dx<FW;dx++){ const x=x0+dx,y=y0+dy,i=y*N+x; if(K[dist[i]]&&!own[i])cells.push([x,y,dx*TPB,dy*TPB]); }
+      if(cells.length<T.min_cells)continue;
+      const I={id,board:T.board,x0,y0,w:FW,h:FH,flip:!!T.mirror&&(h&1)===1,cells};
+      list.push(I); mine.push(I); cells.forEach(([x,y])=>{own[y*N+x]=list.length;});
+    } });
+  return {list,own,n:N,tpb:TPB};
+}
+/* the template cell at a block: the board, where on it (its top-left tile of the block's three by three), mirrored or not */
+function templateAt(TP,x,y){ if(!TP||x<0||y<0||x>=TP.n||y>=TP.n)return null; const k=TP.own[y*TP.n+x]; if(!k)return null; const I=TP.list[k-1];
+  return {id:I.id,board:I.board,tx:(x-I.x0)*TP.tpb,ty:(y-I.y0)*TP.tpb,flip:I.flip,x0:I.x0,y0:I.y0}; }
 function buildOvermap(seed){
   seed=seed>>>0||1;
   const L=layoutFromSeed(seed);
@@ -14491,10 +14696,189 @@ function buildOvermap(seed){
       }
     }
   }
-  return{seed,n:OVER_N,tileFine:TILE_FINE,tiles,layout:L,at,under,
+  landUse(tiles, at, L, seed, OVER_N);   /* __THE_VALLEY_HAS_ITS_ZONES__: zoned on the finished districts, before the real places take their seats */
+  stampRealPlaces(L, at);   /* __THE_MISSING_REAL_PLACES__: last of all, on the finished valley, so nothing else of it moves */
+  { const LN=houseLanes({n:OVER_N,at}), TRK=landTracks({n:OVER_N,at},LN); for(const t of tiles){ const v=LN[t.y*OVER_N+t.x], k=TRK[t.y*OVER_N+t.x]; if(v)t.lane=v; else delete t.lane; if(k)t.track=k; else delete t.track; } }   /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__; __THE_DESERT_HAS_ITS_TRACKS__ */
+  let TP=null; const tpOf=()=>TP||(TP=placeTemplates({n:OVER_N,at,seed}));   /* __THE_PLACES_ARE_TEMPLATES__: on the finished valley, asked for, never at a boot that does not */
+  return{seed,n:OVER_N,tileFine:TILE_FINE,tiles,layout:L,at,under,get templates(){return tpOf().list;},templateAt(x,y){return templateAt(tpOf(),x,y);},
     tileToFine(x,y){return{x0:x*TILE_FINE,y0:y*TILE_FINE,size:TILE_FINE};}};
 }
 function census(overmap){const c={};overmap.tiles.forEach(t=>{c[t.district]=(c[t.district]||0)+1;});return c;}
+
+/* ==== __A_STREET_IN_FRONT_OF_EVERY_HOUSE__ (WORLD THIRTEEN 11/7, VAMILY rules 426(a), 429(d), 423(b); ask lines 492, 505).
+   Paolo 11/7: 'each house should be connected by road or mini road'; 'most houses are gonna have a street connecting them...
+   there's never really gonna be a house unless it's a trailer park... if there's a house there's a street in front... even on
+   the big map scale'. The coordinator: the map's generation is WORLD THIRTEEN's alone, and the fix is here, once, for the map and
+   the fight both (the fight is cut from the map).
+   MEASURED BEFORE on six seeds (1337, 7, 42, 2026, 99, 31337): of about 2,760 house blocks a valley (suburb, estate, gated,
+   apartment) 28 to 33 in 100 had NO street on any side, the biggest lump of houses with no street between them 26 to 33 blocks,
+   11 to 26 lumps with no street at all; and inside a block the painter stood two by two or three by three houses with no way
+   between them, so a three-by-three block's middle house never fronted anything (the fight's '4 x 4 of house tiles').
+   NOW every house block carries its own street: a residential street down its middle (one fight tile wide, 12 m, a sidewalk each
+   side), a row of houses each side of it, every one facing it. The street's way through the block is picked here so it JOINS:
+   straight on into the next house block's street or out onto a mile street, else as a T into a neighbour's street through one lot
+   of that neighbour's row (0-1 breadth first from every mile street: straight before a T, so streets run long). A pocket of houses
+   with no mile street anywhere it can reach (measured: one to four blocks out on the desert or the rim) gets a dirt track out
+   onto the open land; nothing is moved or thrown away. A trailer park keeps its own lanes (the one exception, 426(a)).
+   houseLanes(m) is a pure function of the finished valley (m.n, m.at), so the page recomputes it whenever the valley's districts
+   change; buildOvermap writes it on the tiles too (t.lane). One byte a block:
+     bits 1|2  the street's way: 1 east-west, 2 north-south
+     bit  4    its west (E-W) or north (N-S) end runs on (a mile street, the next block's street, a T, a dirt track); clear: it ends
+               in a turning bulb (a cul-de-sac)
+     bit  8    its east or south end runs on
+     bits 16, 32, 64, 128   a neighbour's street comes in from the north, east, south, west through one lot of this block's row
+   [bb] Battle Brothers' settlements are houses along a road; ours are tract streets, every house on one.
+   [analog horror] the same quiet street repeating block after block, each one a dead end you only see once you are in it.
+   Gate: gates/a_street_in_front_of_every_house_gate.js. ==== */
+const LANE_HOUSES={suburb:1,estate:1,gated:1,apartment:1};
+const LANE_WORKS={industrial:1,warehouse:1,storage:1};   /* __THE_VALLEY_HAS_ITS_ZONES__ (429(g)(h)): a works block's truck drive, laid and joined the same way */
+const LANE_WALK={arterial:1,strip:1};
+const LANE_LAND={desert:1,wash:1,basin:1,springs:1,gypsum:1,quarry:1,farm:1,park:1,golf:1,landfill:1};
+/* __THE_CORNERS_JOIN__ (WORLD THIRTEEN 11/10, VAMILY rule 442(d); Paolo 11/9: 'you really need to make sure intersections, the sidewalk
+   and the streets continue looking good like they're supposed to'): where a house street or a works drive runs out onto a mile street
+   or the Strip, the mile street's block is told so, so its painter opens its kerb there (the side street's asphalt runs through, a
+   crosswalk across it, the two sidewalks turning the corner into each other). The mouth rides the mile street's own byte: bits 16, 32,
+   64, 128 a side street comes in from the north, east, south, west (a mile street has no house street of its own). Re-read after any
+   block's street is taken away (a home base's square), so a mouth never opens onto a street that is not there. */
+function laneMouths(m,LN){
+  const N=m.n, D=(x,y)=>{ const t=(x<0||y<0||x>=N||y>=N)?null:m.at(x,y); return t?t.district:null; };
+  for(let i=0;i<N*N;i++){ if(LANE_WALK[D(i%N,(i/N)|0)])LN[i]&=~240; }
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){ const v=LN[y*N+x], d=D(x,y); if(!(v&3)||!(LANE_HOUSES[d]||LANE_WORKS[d]))continue;
+    const E=(v&3)===1?[[-1,0,4,32],[1,0,8,128]]:[[0,-1,4,64],[0,1,8,16]];   /* the end, and the side of the street it meets */
+    for(const [dx,dy,b,side] of E){ if(!(v&b))continue; const nx=x+dx, ny=y+dy; if(LANE_WALK[D(nx,ny)])LN[ny*N+nx]|=side; } }
+  return LN;
+}
+/* ==== __THE_DESERT_HAS_ITS_TRACKS__ (WORLD THIRTEEN 11/17, VAMILY rules 429(g)(h), 453; Paolo 11/14 on the generated world: 'Amazing';
+   the coordinator: each zone looks and plays like itself, with its own places and roads). The open desert's own road is the dirt
+   track: MEASURED on 22 valleys, 427 blocks of house and works pockets ran out on a track one block onto open land and stopped there
+   (the 11/7 pocket tracks), and the lake's intake, a lone truck stop, a farm, a few shops stood with no road at all. NOW every one is
+   joined to the valley's one network by a track across the open ground (desert, wash, basin, springs, the quarries, the farms, the
+   parks, the golf courses, the landfill; a switchback over the rim only where nothing else gets through), the shortest way, breadth first from what it serves to the nearest block of the network or of
+   a track already joined; a track never crosses a house, a works block or water, and crosses at least one block of open ground. One byte a block: bits 1, 2, 4, 8 the
+   track runs on to the north, east, south, west. A pure function of the finished valley and its streets (houseLanes).
+   [bb] Battle Brothers' map has its dirt roads between the paved ones; ours are the desert's jeep trails.
+   [analog horror] a two-rut track out of the last cul-de-sac into the dark desert, and the tyre marks stop halfway.
+   Gate: gates/the_generated_world_holds_gate.js. ==== */
+const TRACK_OVER={desert:1,wash:1,basin:1,springs:1,gypsum:1,quarry:1,farm:1,park:1,golf:1,landfill:1,boneyard:1,solar:1};
+const TRACK_FWY={freeway:1,beltway:1,interchange:1};
+const TRACK_RIM=Object.assign({mountain:1},TRACK_OVER);   /* a switchback where the open ground does not get through */
+const TRACK_ROAD={arterial:1,strip:1,freeway:1,beltway:1,interchange:1};
+const TRACK_NOBUILD={water:1,reservoir:1,mountain:1};   /* never a building that needs a track */
+function landTracks(m,LN){
+  const N=m.n, D=(x,y)=>{ const t=(x<0||y<0||x>=N||y>=N)?null:m.at(x,y); return t?t.district:null; }, TR=new Uint8Array(N*N);
+  const node=(i)=>!!TRACK_ROAD[D(i%N,(i/N)|0)]||(LN[i]&3)!==0||TR[i]!==0, SIDE=[[0,-1,1,4],[1,0,2,8],[0,1,4,1],[-1,0,8,2]];
+  /* the network as it joins (road to road, a street's open end, a T, a track's own bits) */
+  const comp=new Int32Array(N*N), parent=[];
+  const find=(a)=>{ while(parent[a]!==a){ parent[a]=parent[parent[a]]; a=parent[a]; } return a; };
+  const unite=(a,b)=>{ a=find(a); b=find(b); if(a!==b)parent[b]=a; };
+  const build=()=>{ comp.fill(-1); parent.length=0; let k=0;
+    for(let i=0;i<N*N;i++)if(node(i)){ comp[i]=k; parent.push(k); k++; }
+    for(let i=0;i<N*N;i++){ if(comp[i]<0)continue; const x=i%N,y=(i/N)|0,v=LN[i],d=D(x,y),t=TR[i];
+      const J=(nx,ny)=>{ if(nx<0||ny<0||nx>=N||ny>=N)return; const j=ny*N+nx; if(comp[j]>=0)unite(comp[i],comp[j]); };
+      if(TRACK_ROAD[d]){ if(x+1<N&&TRACK_ROAD[D(x+1,y)])J(x+1,y); if(y+1<N&&TRACK_ROAD[D(x,y+1)])J(x,y+1); }
+      if(v&3){ if((v&3)===1){ if(v&4)J(x-1,y); if(v&8)J(x+1,y); } else { if(v&4)J(x,y-1); if(v&8)J(x,y+1); } if(v&16)J(x,y-1); if(v&32)J(x+1,y); if(v&64)J(x,y+1); if(v&128)J(x-1,y); }
+      if(t)SIDE.forEach(([dx,dy,b])=>{ if(t&b)J(x+dx,y+dy); }); } };
+  build();
+  const size={}; for(let i=0;i<N*N;i++)if(comp[i]>=0){ const r=find(comp[i]); size[r]=(size[r]||0)+1; }
+  let mainR=null, best=-1; for(const r in size)if(size[r]>best){ best=size[r]; mainR=+r; }
+  const onMain=(i)=>comp[i]>=0&&find(comp[i])===mainR;
+  /* what needs a track: every block of a part of the network off the main, every lump of a building kind with no road at its side */
+  const need=[], seenL=new Uint8Array(N*N), done={};
+  for(let i=0;i<N*N;i++){ if(comp[i]<0||onMain(i))continue; const r=find(comp[i]); if(done[r])continue; done[r]=1; const cells=[]; for(let j=0;j<N*N;j++)if(comp[j]>=0&&find(comp[j])===r)cells.push(j); need.push({cells,net:r}); }
+  for(let i=0;i<N*N;i++){ const d=D(i%N,(i/N)|0); if(seenL[i]||!d||TRACK_ROAD[d]||TRACK_OVER[d]||TRACK_NOBUILD[d]||comp[i]>=0)continue;
+    const q=[i],cells=[]; seenL[i]=1; while(q.length){ const c=q.pop(); cells.push(c); const x=c%N,y=(c/N)|0; SIDE.forEach(([dx,dy])=>{ const nx=x+dx,ny=y+dy; if(nx<0||ny<0||nx>=N||ny>=N)return; const j=ny*N+nx; if(!seenL[j]&&D(nx,ny)===d&&comp[j]<0){ seenL[j]=1; q.push(j); } }); }
+    const roaded=cells.some((c)=>{ const x=c%N,y=(c/N)|0; return SIDE.some(([dx,dy])=>{ const nx=x+dx,ny=y+dy; return nx>=0&&ny>=0&&nx<N&&ny<N&&node(ny*N+nx); }); });
+    if(!roaded)need.push({cells,net:null}); }
+  /* each, nearest first to the main: breadth first over the open ground to a block of the main network or of a joined track */
+  const joined=new Uint8Array(N*N); for(let i=0;i<N*N;i++)if(onMain(i))joined[i]=1;
+  need.sort((a,b)=>a.cells[0]-b.cells[0]);
+  let laid=0, reached=0;
+  for(const T of need){
+    /* over the open ground first; a switchback over the rim only where nothing else gets through (the foothill estates) */
+    let from=null, goal=-1, own=new Uint8Array(N*N); T.cells.forEach((c)=>{ own[c]=1; });
+    for(const OVER of [TRACK_OVER, TRACK_RIM]){
+      from=new Int32Array(N*N).fill(-2); const q=[];
+      /* a track crosses at least one block of open ground: a street that ends against a neighbour's side is not a join */
+      T.cells.forEach((c)=>{ const x=c%N,y=(c/N)|0; SIDE.forEach(([dx,dy])=>{ const nx=x+dx,ny=y+dy; if(nx<0||ny<0||nx>=N||ny>=N)return; const j=ny*N+nx; if(own[j]||from[j]!==-2)return;
+        if(OVER[D(nx,ny)]&&!(joined[j]&&!TR[j])){ from[j]=c; q.push(j); } }); });
+      let head=0;
+      while(goal<0&&head<q.length){ const c=q[head++]; const x=c%N,y=(c/N)|0;
+        if(TR[c]&&joined[c]){ goal=c; break; }
+        for(const [dx,dy] of SIDE){ const nx=x+dx,ny=y+dy; if(nx<0||ny<0||nx>=N||ny>=N)continue; const j=ny*N+nx; if(from[j]!==-2||own[j])continue;
+          if(joined[j]&&!TRACK_FWY[D(nx,ny)]){ from[j]=c; goal=j; break; } if(OVER[D(nx,ny)]&&head<4000){ from[j]=c; q.push(j); } } }   /* never onto a freeway: a track joins a street */
+      if(goal>=0)break;
+    }
+    if(goal<0)continue;
+    /* lay it: each step's two ends get the bit toward the other, on the open-ground blocks (a road or a street keeps its own) */
+    let c=goal; const bit=(a,b)=>{ const ax=a%N,ay=(a/N)|0,bx=b%N,by=(b/N)|0; return by<ay?1:bx>ax?2:by>ay?4:8; }, OPP={1:4,2:8,4:1,8:2};
+    while(true){ const p=from[c]; if(p<0||p===undefined)break; const b=bit(c,p);
+      if(TRACK_RIM[D(c%N,(c/N)|0)])TR[c]|=b; if(TRACK_RIM[D(p%N,(p/N)|0)])TR[p]|=OPP[b]; laid++;
+      if(TR[c]||(c!==goal))joined[c]=1; if(own[p])break; joined[p]=1; c=p; }
+    if(T.net!=null)T.cells.forEach((cc)=>{ joined[cc]=1; }); reached++;   /* a pocket's own streets join the network; a building is served, never a way through */
+  }
+  TR.reached=reached; TR.needed=need.length;
+  return TR;
+}
+function houseLanes(m){
+  const N=m.n, LN=new Uint8Array(N*N), AX=new Uint8Array(N*N), D=(x,y)=>{ const t=(x<0||y<0||x>=N||y>=N)?null:m.at(x,y); return t?t.district:null; };
+  const isH=(x,y)=>!!(LANE_HOUSES[D(x,y)]||LANE_WORKS[D(x,y)]), isW=(x,y)=>!!LANE_WALK[D(x,y)], isL=(x,y)=>!!LANE_LAND[D(x,y)];
+  const k=(x,y)=>y*N+x, hsh=(x,y)=>{ let h=(Math.imul(x,73856093)^Math.imul(y,19349663)^0x5f3a)>>>0; h=Math.imul(h^h>>>16,2246822507); return ((h^h>>>13)>>>0)/4294967296; };
+  const run=(x,y,dx,dy)=>{ let n=0; for(let i=1;i<40&&isH(x+dx*i,y+dy*i);i++)n++; return n; };   /* house blocks straight on that way */
+  const dq=[]; let head=0;   /* 0-1 breadth first: a straight step goes in at the front, a T at the back */
+  const front=[], back=[];
+  const set=(x,y,a)=>{ AX[k(x,y)]=a; };
+  /* every house block on a mile street is reached first: its street runs out onto it (the longer run of houses behind it wins, so
+     the street runs deep into the tract; a tie by the block's roll) */
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){ if(!isH(x,y))continue;
+    const ew=isW(x-1,y)||isW(x+1,y), ns=isW(x,y-1)||isW(x,y+1); if(!ew&&!ns)continue;
+    let a=ew&&!ns?1:ns&&!ew?2:0;
+    if(!a){ const re=run(x,y,1,0)+run(x,y,-1,0), rn=run(x,y,0,1)+run(x,y,0,-1); a=re>rn?1:rn>re?2:(hsh(x,y)<0.5?1:2); }
+    set(x,y,a); front.push([x,y]); }
+  const DIR=[[0,-1,16,64],[1,0,32,128],[0,1,64,16],[-1,0,128,32]];   /* dx, dy, the bit on the reached block's side, the bit on ours */
+  const tee=[];   /* [x, y, side bit on the block a T goes through] */
+  let q=front;
+  for(;;){
+    const nextFront=[];
+    while(q.length){ const [x,y]=q.pop(), a=AX[k(x,y)];
+      for(const [dx,dy] of a===1?[[1,0],[-1,0]]:[[0,1],[0,-1]]){ const nx=x+dx, ny=y+dy; if(!isH(nx,ny)||AX[k(nx,ny)])continue; set(nx,ny,a); q.push([nx,ny]); }
+      for(const [dx,dy,sb] of DIR){ if(a===1?dx!==0:dy!==0)continue; const nx=x+dx, ny=y+dy; if(!isH(nx,ny)||AX[k(nx,ny)])continue; back.push([nx,ny,x,y,sb]); } }
+    /* the straight ones are all in; now one round of T's, each its own street running on from there */
+    let any=false;
+    while(back.length){ const [nx,ny,x,y,sb]=back.shift(); if(AX[k(nx,ny)])continue; const a2=AX[k(x,y)]===1?2:1; set(nx,ny,a2); tee.push([x,y,sb]); nextFront.push([nx,ny]); any=true; }
+    if(!any)break; q=nextFront;
+  }
+  /* the pockets no mile street can reach: a dirt track out onto the open land on the longer side, else the longer run */
+  const POCKET=new Uint8Array(N*N);
+  /* a pocket's track runs out onto open land first; failing that onto any ground a man can cross (the rim's foot, a lot, the
+     freeway's shoulder): never into water, never into another house block's yards */
+  const POCKET_OUT=(ex,ey)=>{ const d=D(ex,ey); return !!d&&!isH(ex,ey)&&d!=='water'&&d!=='reservoir'&&d!=='intake'&&d!=='dam'; };
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){ if(!isH(x,y)||AX[k(x,y)])continue;
+    const le=isL(x-1,y)||isL(x+1,y), ln=isL(x,y-1)||isL(x,y+1);
+    let a=le&&!ln?1:ln&&!le?2:0;
+    if(!a){ const oe=POCKET_OUT(x-1,y)||POCKET_OUT(x+1,y), on2=POCKET_OUT(x,y-1)||POCKET_OUT(x,y+1);
+      if(oe&&!on2)a=1; else if(on2&&!oe)a=2; else { const re=run(x,y,1,0)+run(x,y,-1,0), rn=run(x,y,0,1)+run(x,y,0,-1); a=re>=rn?1:2; } }
+    const st=[[x,y]]; set(x,y,a); POCKET[k(x,y)]=1;
+    while(st.length){ const [cx,cy]=st.pop(); for(const [dx,dy] of a===1?[[1,0],[-1,0]]:[[0,1],[0,-1]]){ const nx=cx+dx, ny=cy+dy; if(isH(nx,ny)&&!AX[k(nx,ny)]){ set(nx,ny,a); POCKET[k(nx,ny)]=1; st.push([nx,ny]); } } } }
+  /* the ends and the T's */
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){ const a=AX[k(x,y)]; if(!a)continue; let v=a;
+    const e0=a===1?[x-1,y]:[x,y-1], e1=a===1?[x+1,y]:[x,y+1];
+    const on=(ex,ey)=>isW(ex,ey)||(isH(ex,ey)&&AX[k(ex,ey)]===a)||(POCKET[k(x,y)]&&POCKET_OUT(ex,ey));   /* a pocket's street runs on out as a track */
+    if(on(e0[0],e0[1]))v|=4; if(on(e1[0],e1[1]))v|=8;
+    LN[k(x,y)]=v; }
+  for(const [x,y,sb] of tee){ LN[k(x,y)]|=sb; const d=DIR.find(r=>r[2]===sb), nx=x+d[0], ny=y+d[1], a=AX[k(nx,ny)];
+    /* the block the T comes from: its end toward us runs on */
+    if(a===1)LN[k(nx,ny)]|=(nx<x?8:4); else LN[k(nx,ny)]|=(ny<y?8:4); }
+  /* CROSS STREETS (WORLD THIRTEEN 11/10, 423(b), 429(h)): two house blocks side by side whose streets run the same way are two rows
+     of houses back to back; every third block along, a short cross street runs from one street to the other through one lot of each
+     row (a T on both), so a tract is a grid you can cross, never a wall of houses between two streets (the real valley's tracts: a
+     cross street every two or three houses' widths of block). Houses only; a works block keeps its yards. */
+  const HO=(x,y)=>!!LANE_HOUSES[D(x,y)];
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){ if(!HO(x,y))continue; const a=AX[k(x,y)];
+    if(a===1&&HO(x,y+1)&&AX[k(x,y+1)]===1&&((x+(hsh(0,y)*3|0))%3)===0){ LN[k(x,y)]|=64; LN[k(x,y+1)]|=16; }
+    if(a===2&&HO(x+1,y)&&AX[k(x+1,y)]===2&&((y+(hsh(x,0)*3|0))%3)===0){ LN[k(x,y)]|=32; LN[k(x+1,y)]|=128; } }
+  laneMouths({n:N,at:m.at},LN);
+  return LN;
+}
 
 
 /* ==========================================================================
@@ -14635,7 +15019,7 @@ function landlockConnect(m, opts){
   var out={}; for(var k in extra) out[k]=Object.keys(extra[k]); return out;
 }
 
-const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG,landlockConnect};
+const API={buildOvermap,census,DISTRICT,OVER_N,TILE_FINE,SLOT_FINE,CELL_M,TILE_M,layoutFromSeed,rng,hash2,BIG,landlockConnect,REAL_PLACES,restampRealPlaces,houseLanes,laneMouths,LANE_HOUSES,LANE_WALK,LANE_WORKS,landUse,LAND_USE,placeTemplates,templateAt,PLACE_TEMPLATES,landTracks,TRACK_OVER};
 if(typeof module!=='undefined'&&module.exports){module.exports=API;}
 global.BohemiaOvermap=API;
 })(typeof window!=='undefined'?window:globalThis);

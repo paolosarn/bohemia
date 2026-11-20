@@ -10451,14 +10451,20 @@ def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False, lenient
     work = []
     # BOHEMIA_SUITE_FROM=N (PLUMBER 8, 11/20): a run the container killed at table entry N-1 is taken up at N, not begun again
     # (the report streams in table order, so its last line is how far it got); the numbers printed restart at 1 for the rest
+    # BOTH ARE TAKEN OUT OF THE ENVIRONMENT THE MOMENT THEY ARE READ (PLUMBER 8, 11/20, measured): SUITE HONESTY runs this
+    # runner inside itself four times with --dry-run, and those inner runs inherited the file and wrote 425 dry 'passes' into
+    # it (secs 0, no output), so a gate the real run had not reached yet read as green in the file. A child never sees them
+    # now, and a dry run neither reads nor writes the file (SUITE HONESTY A21, planted).
     try:
-        suite_from = int(os.environ.get('BOHEMIA_SUITE_FROM') or 0)
+        suite_from = int(os.environ.pop('BOHEMIA_SUITE_FROM', None) or 0)
     except ValueError:
         suite_from = 0
     # BOHEMIA_SUITE_DONE=<file.jsonl>: the gates already answered in that file are not run again (the container restarts every
     # half hour or so; a full run is eight hours), and every gate this run answers is added to it the moment it lands
     global DONE_FILE, DONE_NAMES
-    DONE_FILE = os.environ.get('BOHEMIA_SUITE_DONE') or None
+    DONE_FILE = os.environ.pop('BOHEMIA_SUITE_DONE', None) or None
+    if dry and not os.environ.get('BOHEMIA_SUITE_DONE_PLANT_DRY'):
+        DONE_FILE = None
     DONE_NAMES = set()
     if DONE_FILE and os.path.exists(DONE_FILE):
         try:

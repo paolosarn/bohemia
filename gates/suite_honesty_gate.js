@@ -387,5 +387,36 @@ ok('A10 every gate line carries its position in the table, so a killed run\'s '
     looked >= 5, 'only ' + looked + ' gate(s) matched the run-frame pattern');
 }
 
+/* ---- 8. A RUN THAT IS NOT REAL NEVER WRITES THE ANSWER BOOK ----------------
+   PLUMBER 8, 11/20, measured: BOHEMIA_SUITE_DONE is the file a long run writes
+   every answer into, so a run the container kills is taken up where it stopped.
+   This gate runs the suite inside itself with --dry-run four times above, and
+   those inner runs inherited the file from the real run and wrote 425 dry
+   'passes' into it (no seconds, no output): gates the real run had not reached
+   yet read as green, and 88 red-debt lines were nearly lifted on them. The
+   runner now takes both settings out of the environment the moment it reads
+   them (no child sees them) and a dry run neither reads nor writes the file.
+   TESTED BY RUNNING IT: a dry run with the file set leaves it empty; planted
+   (BOHEMIA_SUITE_DONE_PLANT_DRY, the old way), the same run fills it. */
+{
+  const os3 = require('os');
+  const run = (plant) => {
+    const f = path.join(os3.tmpdir(), 'bohemia_done_' + process.pid + '_' + (plant ? 'p' : 'r') + '.jsonl');
+    try { fs.unlinkSync(f); } catch (e) { }
+    const env = { BOHEMIA_SUITE_DONE: f };
+    if (plant) env.BOHEMIA_SUITE_DONE_PLANT_DRY = '1';
+    runSuite(env, ['--dry-run']);
+    let n = 0;
+    try { n = fs.readFileSync(f, 'utf8').split('\n').filter(Boolean).length; } catch (e) { n = 0; }
+    try { fs.unlinkSync(f); } catch (e) { }
+    return n;
+  };
+  const real = run(false), planted = run(true);
+  ok('A21 A DRY RUN NEVER WRITES THE ANSWER BOOK: --dry-run with BOHEMIA_SUITE_DONE set leaves the file empty, '
+    + 'so a gate nobody ran can never read as green there', real === 0, real + ' line(s) written');
+  ok('A21 …PLANTED: the old way (a dry run that writes, BOHEMIA_SUITE_DONE_PLANT_DRY) fills it, so the leg can see the bug it was written for',
+    planted > 100, planted + ' line(s) written');
+}
+
 console.log('\nSUITE HONESTY GATE: ' + pass + ' passed, ' + fail + ' failed');
 process.exit(fail ? 1 : 0);

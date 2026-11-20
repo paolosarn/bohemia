@@ -38,7 +38,7 @@ Water allocation and the growing that depends on it. They do not own it - they R
 ### HOW THEY DRESS
 
 HIS, ALREADY CHOSEN (the faction table in the alpha) - family #2e6fae + motif "grid". COBALT, already chosen, and his motif for them is GRID - which is exactly what an irrigation system looks like from above. Blue reads as WATER and water is what this faction is. SECOND SIGNAL: the rice hat and the field kit. They are the only people in the valley dressed for standing in water.
-VETERAN KIT (forced layers): base -> COPPER WORK SHIRT, SAGE FLANNEL; feet -> FIELD BOOTS; hands -> DUST GLOVES; head -> CHINESE RICE FARMER HAT; legs -> COBALT WORK PANTS; outer -> FIELD JACKET, DENIM VEST
+VETERAN KIT (forced layers): base -> PATINA WORK SHIRT, SAGE FLANNEL; feet -> FIELD BOOTS; hands -> DUST GLOVES; head -> CHINESE RICE FARMER HAT; legs -> COBALT WORK PANTS; outer -> FIELD JACKET, DENIM VEST
 
 ### HOW THEY TALK
 

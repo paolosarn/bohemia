@@ -213,6 +213,15 @@ function buildWorktree() {
   /* Overlay the working tree so we check what is about to be PUSHED, not what was
    * last committed. Without this a derived file you edited but did not regenerate
    * reads as fresh, which is the failure mode this gate is named after. */
+  return overlay();
+}
+
+/* THE OVERLAY IS PUT BACK AFTER EVERY RESET (PLUMBER 8, 11/20, measured). resetWorktree() runs before
+ * each maker and is a `git checkout -- .` plus a clean, so it threw the overlay away before the FIRST
+ * maker ran: the gate only ever checked HEAD, never what was about to be pushed. Found by fixing a
+ * maker (the tile bank's carry, which dropped RUN's FINAL_ONLY script) and watching the gate still
+ * run the old maker. Planted: BOHEMIA_DERIVED_NO_REOVERLAY=1 is the old way. */
+function overlay() {
   const st = git(['status', '--porcelain', '-uall']).stdout || '';
   let copied = 0;
   for (const line of st.split('\n')) {
@@ -234,6 +243,7 @@ function buildWorktree() {
 function resetWorktree() {
   git(['checkout', '--', '.'], WT);
   git(['clean', '-fdq', '.'], WT);
+  if (!process.env.BOHEMIA_DERIVED_NO_REOVERLAY) overlay();
 }
 
 /* EVERY PATH A MAKER COULD WRITE, LISTED ONCE.
@@ -353,6 +363,25 @@ function allPaths(dir, out) {
       }
     }
   }
+  /* THE COPY STILL CARRIES WHAT IS ABOUT TO BE PUSHED (PLUMBER 8, 11/20): every working-tree file overlaid
+   * and not rewritten by a maker must still be byte-equal in the copy after the last maker ran. The old
+   * reset reverted them before the first maker, so this is what catches it (planted:
+   * BOHEMIA_DERIVED_NO_REOVERLAY=1). On a clean tree there is nothing to overlay and it says so. */
+  const over = [], lost = [];
+  for (const line of (git(['status', '--porcelain', '-uall']).stdout || '').split('\n')) {
+    if (!line.trim()) continue;
+    const rel = line.slice(3).trim().replace(/^"|"$/g, '');
+    if (rel.includes(' -> ') || rel.endsWith('/') || wrote.includes(rel)) continue;
+    let a = null, b = null;
+    try { a = fs.readFileSync(path.join(ROOT, rel)); } catch (e) { continue; }
+    try { b = fs.readFileSync(path.join(WT, rel)); } catch (e) { b = null; }
+    over.push(rel);
+    if (!b || !a.equals(b)) lost.push(rel);
+  }
+  ok(lost.length === 0, 'THE COPY IS WHAT IS ABOUT TO BE PUSHED: every working-tree file overlaid on HEAD is still '
+     + 'there after the makers ran, so a maker is run as it stands in your tree, not as it was last committed',
+     lost.length ? 'REVERTED IN THE COPY: ' + lost.slice(0, 6).join(', ') + (lost.length > 6 ? ' and ' + (lost.length - 6) + ' more' : '')
+       : (over.length ? over.length + ' overlaid file(s), all still there' : 'a clean tree: nothing to overlay'));
   resetWorktree();
   git(['worktree', 'remove', '--force', WT]);
 

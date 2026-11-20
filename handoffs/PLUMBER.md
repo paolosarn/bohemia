@@ -1,5 +1,27 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/20, rule 461 still (BUILD 11/20x EVERY CHECKER HONEST). The full suite's first pass is still running (a separate
+  copy of main 5883b97c, 849 of 1,179 answered for real so far); six checkers that were lying or rotting fixed while it runs:
+  (1) MY OWN RESUME FILE LIED: BOHEMIA_SUITE_DONE (the file a long run writes every answer into) was inherited by SUITE HONESTY's four
+  inner --dry-run suites, which wrote 425 dry 'passes' into it (no seconds, no output). My first triage read them as green and lifted
+  119 debt lines on them; only 30 rest on a real green run, the other 89 are back on the list. The runner now pops both settings from
+  the environment as it reads them and a dry run never touches the file (SUITE HONESTY A21, planted: 28/0).
+  (2) DERIVED FRESH checked HEAD, never what is about to be pushed: its reset before each maker threw the working-tree overlay away.
+  Re-applied after every reset, with a leg that the overlay survives (planted BOHEMIA_DERIVED_NO_REOVERLAY: red). 11/0.
+  (3) THE TILE BANK MAKER WOULD HAVE DELETED RUN'S FINAL_ONLY (rule 174, the switch that keeps the old 2-D world off the demo): it kept
+  only one-line src tags in its region. It now keeps every foreign <script>, inline too, in order, before its own tags; RUN's longer
+  STOP note carried into the maker. The city and the alpha re-derive byte for byte.
+  (4) FIVE STALE BAKES REBUILT: the faction dossiers (a garment renamed COPPER -> PATINA WORK SHIRT) and the three engine-carrying
+  slices (MAP_CURRENT, CURRENT_SLICE, RUN_CURRENT; WORLD TEN's real places 11/6 never baked into them).
+  (5) DEAD CODE judged a new random valley every boot since 11/2 (11, 12, 14 on one tree): pinned to the code PTBTDN; 11 there on main
+  and on the 11/8 tree that set 10, so nothing died; DEBT re-aimed to 11 with the eleven named (WORLD's). 6/0.
+  (6) FEEDBACK MASTER: the law cited my retired build_the_world gate; re-pointed to the graveyard and its post-mortem. 20/0.
+  NO HUNTING: my own row 563 tripped it ('the RUN tab:'), reworded. 7/0.
+  LEFT ON MY ROW 664: THE LOOP PLAYS ON THE PUBLISHED SITE (a road event's card stayed up after a real tap) and NO FREEZE OVER HALF A
+  SECOND (the fight's end 1,233 ms against 1,100): both measured on a box at load 10 to 12; to be re-run alone when the suite is done.
+  NEXT: when the pass ends, the ledger from real runs only (filter: no seconds and no output is not an answer), rows 656-664 corrected
+  to the real counts, every red to its owner.
+
 PLUMBER 8 (chat 18) 11/20, rule 461 THE WHOLE ENCHILADA (the coordinator's routine 'PLUMBER 8: the whole enchilada'). Rows 566, 596, 562, 635 marked; the full suite next.
   ROW 566 THE TOWN AT REST: 9.9 fps as it is, 16.9 without the town's picture, 12.0 without the edge shade, 12.2 without the people, AND the
   page's thread 64% idle: the frames are this box's software GPU, not the town's code. Not rebuilt for the box; EYES to read it on a phone.

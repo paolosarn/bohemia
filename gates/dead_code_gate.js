@@ -60,11 +60,19 @@ const CONDITIONAL = {
 
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  /* ONE VALLEY, NAMED (PLUMBER 8, 11/20, measured): since A NEW VALLEY EVERY GAME (11/2) a boot with no save rolls its own
+     campaign code, so this gate judged a different valley every run: 11, 12 and 14 dead on the same tree within the hour
+     (the freeway's rail ballast alive in one valley, the datafort's mast in another), against a debt of 10 set on one roll.
+     A checker that moves on its own is not a ratchet. The gate now stages one fixed code the way the new-game screen
+     stages a typed one (BOHEMIA_DEAD_CODE_SEED overrides it), so the same tree gives the same count. */
+  const SEED = process.env.BOHEMIA_DEAD_CODE_SEED || 'PTBTDN';
+  await page.addInitScript((c) => { try { localStorage.setItem('bohemia.world.next.v1', c); } catch (e) {} }, SEED);
   let pageErr = null;
   page.on('pageerror', e => { pageErr = pageErr || String(e).slice(0, 160); });
   await page.goto('file://' + path.join(REPO, 'slices/BOHEMIA_CITY_WORLD.html'),
                   { waitUntil: 'load' });
   await page.waitForFunction(() => typeof render === 'function', null, { timeout: 90000 });
+  const seedUsed = await page.evaluate(() => (window.__WORLD_SEED || {}).code || '');
 
   // SAMPLE EVERY DISTRICT AS THE WORLD ACTUALLY BUILT IT. Up to CAP cells each, spread evenly
   // across every cell that district occupies, so a multi-cell field contributes windows from
@@ -146,7 +154,11 @@ const CONDITIONAL = {
   // THE RATCHET. Whatever is dead today is written down; it may only come down. A district
   // author adding a legend row the world never builds is told immediately -- this class has
   // stayed invisible for weeks at a time.
-  const DEBT = 10;
+  // 11 ON THE NAMED VALLEY (PLUMBER 8, 11/20): the 10 was set 11/8 on one random roll. Measured with the valley pinned to
+  // PTBTDN: 11 on main 5883b97c, twice, and 11 on the very tree that set 10 (7271fcdd8), so no code died since; other codes
+  // give 9 (KQXRWM) and 14, which is the wobble the pin removed. The eleven: arterial:0, casino:7, convention:5, downtown:0,
+  // freeway:16, freeway:17, fueldepot:14, industrial:0, mountain:8, railyard:9, resort:9 (WORLD's).
+  const DEBT = 11;
   ok(`read the BUILT valley, not a synthetic generate (${districts} districts, ${codes} codes)`,
      districts >= 40 && codes >= 600);
   // NOBODY QUIETLY LOWERS THE SAMPLE DEPTH. Halving it would "improve" the dead count by
@@ -155,6 +167,7 @@ const CONDITIONAL = {
      /\}, 160\);/.test(require('fs').readFileSync(__filename, 'utf8')));
   ok('every named-conditional entry carries a REASON (a bare allowlist explains nothing)',
      Object.values(CONDITIONAL).every(v => typeof v === 'string' && v.length > 20));
+  ok(`THE VALLEY JUDGED IS THE ONE NAMED (${SEED}; the page built ${seedUsed || 'no code'})`, seedUsed === SEED);
   ok(`DEAD LEGEND CODES only ever SHRINK (${dead.length}, was ${DEBT})`, dead.length <= DEBT);
 
   if (dead.length) {

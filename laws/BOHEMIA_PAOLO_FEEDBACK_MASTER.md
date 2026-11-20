@@ -143,7 +143,9 @@ Each line is a ruling he made, in his words, with the machine that holds it.
   `gates/answered_for_gate.js` + the ANSWER SHEET he can actually look at.
 - **7/31 — BUILD THE WORLD.** "NO QUESTS BULLSHIT RIGHT NOW. NO FACTION SHIT EITHER!
   WE GOTTA BUILD THIS FUCKING WORLD!!! AND MAKE IT LOOK GOOD DUMBASS." Quests,
-  factions and the economy are OFF. `gates/build_the_world_gate.py`
+  factions and the economy are OFF. (SUPERSEDED: batteries are the money 9/4, the six resources rule 47, the economy
+  and factions lanes run; its machine retired 11/10 to graveyard/old_gates_retired_11_10_26/build_the_world_gate.py,
+  post-mortem graveyard/POSTMORTEM_OLD_GATES_RETIRED_11_10_26.txt.)
 - **7/30 — NO BUILDING IS A FLAT RECTANGLE.** A flat rectangle is not a building. He circled three buildings and asked
   what they were. Every mass carries a roof and a door. Held in the district gates.
 - **7/30 — the tennis courts are dead.** "Remove the tennis courts make do what you
