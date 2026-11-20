@@ -16,7 +16,7 @@ const ROOT = path.join(__dirname, '..');
 const FILE = path.join(ROOT, 'records/target/bb/place_templates.json');
 const ENGINE = path.join(ROOT, 'engine/bohemia_overmap.js');
 const BEGIN = '/* __PLACE_TEMPLATES__ DATA BEGIN */', END = '/* __PLACE_TEMPLATES__ DATA END */';
-const KEEP = ['board', 'kinds', 'per_valley', 'min_cells', 'spacing', 'mirror', 'slack'];
+const KEEP = ['board', 'kinds', 'per_valley', 'min_cells', 'spacing', 'mirror', 'slack', 'lay', 'terrain'];   /* lay, terrain: __THE_PLACES_ARE_LAID_OUT__ (11/20) */
 
 function block(file) {
   const J = JSON.parse(fs.readFileSync(file || FILE, 'utf8')), t = {};

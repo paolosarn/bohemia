@@ -605,11 +605,10 @@ VOTE jobs-jobs-that-fit-the-crew-11-10 (STAND-IN), sha da588c127. Record records
 The whole block: handoffs/JOBS.md.
 [bb a Battle Brothers contract is one budget spent on each enemy's own cost; ours now spends it the same way and still shows the crew's own odds in red]
 [analog horror: the board in the Network's camp still lists the hyenas as three red stars; the muralist only asks for three of them now]
-WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/18 LATEST -- BUILD 11/18s - THE LAKE HAS ITS RING, BUILT, NOT YET SEEN (rule 453; ask 508):
-the lake reads as Lake Mead after the drought at every zoom: the cracked bed inside the old waterline, the new waterline, the white
-bathtub ring on the sand and rock, a stranded hull now and then. Before it this round: 11/18o THE PAINTING NEVER WAITS IN LINE (the
-far stop's painting on a free painter, 10.5 s -> 2.4 s the first after the page opens). Next: the trailer parks, the place boards'
-layouts on the map.
+WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/20 LATEST -- BUILD 11/20c - THE PLACES ARE LAID OUT ON THE MAP, BUILT, NOT YET SEEN (rules
+429(c), 461; ask 504): each place's fight board is laid onto its map cells (boxes, mounds, water, rubble at the fight's own tiles; 296
+cells of 11 places, the map and the fight agreeing at every one; the suburbs, trailer park, Strip and downtown keep the map's own).
+Before: 11/18s THE LAKE HAS ITS RING, 11/18o THE PAINTING NEVER WAITS IN LINE.
 The whole block: handoffs/WORLD_THIRTEEN.md.
 
 FIXES TWO (fixes-two-01gkdyuv): 11/11 LATEST -- BUILD 11/11l - HIS LETTERS STAY HIS, BUILT, NOT YET SEEN (the red debt rows, round one:

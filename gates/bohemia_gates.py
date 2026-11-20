@@ -8465,6 +8465,11 @@ GATES = [
      "land_use.json, a mile street the land beside it); on 22 valleys 81 in 100 of the cells deal a place's own ground (was 51), every "
      "road cell its way, every dirt track its bits; the fight's own code deals it (36 kinds, never two alike); on the demo upright and "
      "on its side a fight on a mile street through the desert is the desert's board; planted fails red. about 6 min", True),
+    ('THE PLACES ARE LAID OUT ON THE MAP', ['node', 'gates/the_places_are_laid_out_gate.js'],
+     "WORLD THIRTEEN gate, 11/20, rules 429(c), 461; ask 504: the place boards' terrain carried with their templates word for word; "
+     "every cell of a place laid built or natural shows its board's tiles on the map (boxes, mounds, water, rubble, never over a street), "
+     "the own places untouched; the map and the fight agree at every laid cell; the demo upright and the alpha on its side; planted (the "
+     "laying off) red. about 4 min", True),
     ('THE LAKE HAS ITS RING', ['node', 'gates/the_lake_has_its_ring_gate.js'],
      "WORLD THIRTEEN gate, 11/18, rule 453: the drained lake reads as Lake Mead: the cracked bed inside the old waterline, the new "
      "waterline, the bathtub ring on the sand and rock beside it, a stranded hull; the painter's own count (VBC.stand.shore) on the whole "

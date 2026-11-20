@@ -2822,21 +2822,21 @@ function landUse(tiles,at,L,seed,N){
 /* __PLACE_TEMPLATES__ DATA BEGIN */
 const PLACE_TEMPLATES={tiles_per_block:3,footprint:[7,5],order:["lab","redrock","landfill","shore","airport","downtown","strip","marina","golf","wash","trailer","pass","works","desert","suburb"],
   templates:{
-    lab:{"board":"place_lab","kinds":["medical"],"per_valley":1,"min_cells":1,"spacing":0,"mirror":false},
-    redrock:{"board":"place_redrock","kinds":["springs"],"per_valley":1,"min_cells":1,"spacing":0,"mirror":false},
-    landfill:{"board":"place_landfill","kinds":["landfill"],"per_valley":1,"min_cells":2,"spacing":0,"mirror":false},
-    shore:{"board":"place_shore","kinds":["reservoir","dam"],"per_valley":1,"min_cells":3,"spacing":0,"mirror":false},
-    airport:{"board":"place_airport","kinds":["airport","airbase","terminal"],"per_valley":1,"min_cells":12,"spacing":0,"mirror":false},
-    downtown:{"board":"place_downtown","kinds":["downtown"],"per_valley":1,"min_cells":5,"spacing":0,"mirror":false},
-    strip:{"board":"place_strip","kinds":["strip","sign","sphere","strat","convention"],"per_valley":1,"min_cells":12,"spacing":0,"mirror":false,"slack":4},
-    marina:{"board":"place_marina","kinds":["water","intake"],"per_valley":1,"min_cells":10,"spacing":0,"mirror":false},
-    golf:{"board":"place_golf","kinds":["golf","park"],"per_valley":2,"min_cells":2,"spacing":20,"mirror":false},
-    wash:{"board":"place_wash","kinds":["wash","basin"],"per_valley":2,"min_cells":5,"spacing":20,"mirror":false},
-    trailer:{"board":"place_trailer","kinds":["trailer"],"per_valley":3,"min_cells":3,"spacing":16,"mirror":false},
-    pass:{"board":"place_pass","kinds":["mountain"],"per_valley":2,"min_cells":20,"spacing":24,"mirror":false},
-    works:{"board":"place_works","kinds":["industrial","rail","railyard","warehouse","storage"],"per_valley":3,"min_cells":18,"spacing":16,"mirror":false},
-    desert:{"board":"place_desert","kinds":["desert"],"per_valley":3,"min_cells":12,"spacing":20,"mirror":false},
-    suburb:{"board":"place_suburb","kinds":["suburb","estate","gated","town","school","chapel","library"],"per_valley":4,"min_cells":20,"spacing":16,"mirror":false}}};
+    lab:{"board":"place_lab","kinds":["medical"],"per_valley":1,"min_cells":1,"spacing":0,"mirror":false,"lay":"built","terrain":["##^.......##^.......","....................","##........##........","....................","....................","...............##^..","....................","...............##...",".......;............","....................","##^.......##^.......","....................","##........##........","....................","...................."]},
+    redrock:{"board":"place_redrock","kinds":["springs"],"per_valley":1,"min_cells":1,"spacing":0,"mirror":false,"lay":"natural","terrain":["..^^...^^...^^...^^.",".^^^..^^^..^^^..^^^.","....................","^..^.^..^.^..^.^..^.","..,....,....,....,..","..^^..^#^...^^...^^.",".^^^..^#^..^^^..^^^.","......^.^...........","^..^..^#^.^..^.^..^.","..,..,.#.,..,....,..","..^^...^^...^^...^^.",".^^^..^^^..^^^..^^^.","....................","^..^.^..^.^..^.^..^.","..,....,....,....,.."]},
+    landfill:{"board":"place_landfill","kinds":["landfill"],"per_valley":1,"min_cells":2,"spacing":0,"mirror":false,"lay":"natural","terrain":[".^.^..^.^..^.^..^.^.","....................","^....^....^....^....","..^.^..^.^..^.^..^.^","....................",".^.^.^^.^^.^.^..^.^.","....................","^.....#..^^....^....","..^.^..#....^.^..^.^",".....^...^..........",".^.^..^.^..^.^..^.^.","....................","^....^....^....^....","..^.^..^.^..^.^..^.^","...................."]},
+    shore:{"board":"place_shore","kinds":["reservoir","dam"],"per_valley":1,"min_cells":3,"spacing":0,"mirror":false,"lay":"built","terrain":["~~.~~~~.~~~~.~~~~.~~","~...~~...~~...~~...~","...^^...^^...^^...^^","~~..~~~..~~~..~~~..~","~~.~~~~.~~~~.~~~~.~~","~~.~~~~.~~~~.~~~~.~~","~...~~.#^^~...~~...~","...^^..#.....^^...^^","~~..~~~.~~~~..~~~..~","~~.~~~~.~~~~.~~~~.~~","~~.~~~~.~~~~.~~~~.~~","^^^^^^^^^^^^^^^^^^^^","....................",".^^...^^...^^...^^..","..#....#....#....#.."]},
+    airport:{"board":"place_airport","kinds":["airport","airbase","terminal"],"per_valley":1,"min_cells":12,"spacing":0,"mirror":false,"lay":"built","terrain":["####################","..#....#....#....#..","....................","....................","....................","...............^^...",".#.........#...^^...","......##..........#.","...##........##.....","....................","^^........^^........","^^....#...^^....#...","...#.........#......","........##........##","...................."]},
+    downtown:{"board":"place_downtown","kinds":["downtown"],"per_valley":1,"min_cells":5,"spacing":0,"mirror":false,"lay":"own","terrain":["^^^..^^^..^^^..^^^..","^,.##^^^#.^,.##^^^#.","^..##^^^..^..##^^^..","......##........##..","....................","####################","^.........^....^....","....................","...^.........^....^.","^^^^^^^^^^^^^^^^^^^^","^^^^^^^^^^^^^^^^^^^^","^^^^^^^^^^^^^^^^^^^^","....................","....................","...................."]},
+    strip:{"board":"place_strip","kinds":["strip","sign","sphere","strat","convention"],"per_valley":1,"min_cells":12,"spacing":0,"mirror":false,"slack":4,"lay":"own","terrain":["##...........####...","##.^.......^.####.#.","##.^.......^.####...","##....#....######.#.","##....#......####...","##...........####...","##.#.......#.####...","##....^^.....####.#.","##.#..#....#.####...","##...........####...","##...........####...","##.........^.####.^.","##.#.......^.####.^.","##....#....######...","##....#......####..."]},
+    marina:{"board":"place_marina","kinds":["water","intake"],"per_valley":1,"min_cells":10,"spacing":0,"mirror":false,"lay":"built","terrain":["..#....#....#....#..","....................","....................",".#....#....#....#...","....................","..#.........#....#..",".........#..........","......^^^^..........",".#...#.....#....#...","....................","..#....#....#....#..","....................","....................",".#....#....#....#...","...................."]},
+    golf:{"board":"place_golf","kinds":["golf","park"],"per_valley":2,"min_cells":2,"spacing":20,"mirror":false,"lay":"built","terrain":["....................",".;;...;;...;;...;;..","....................","..;;...;;...;;...;;.","....................","....................",".;;..^^....;;...;;..","....................","..;;....;...;;...;;.","....................","....................",".;;...;;...;;...;;..","....................","..;;...;;...;;...;;.","...................."]},
+    wash:{"board":"place_wash","kinds":["wash","basin"],"per_valley":2,"min_cells":5,"spacing":20,"mirror":false,"lay":"natural","terrain":[".....^.,.^..........","..#..^.,.^..#....#..",".....^.,.^..........",".....^,,.^..........",".....^.,.^..........",".....^.,.^..........","..#..^.,.^..#....#..",".....^#.#^..........",".....^.,.^..........",".....^.,.^..........",".....^.,.^..........","..#..^.,.^..#....#..",".....^.,.^..........",".....^,,.^..........",".....^.,.^.........."]},
+    trailer:{"board":"place_trailer","kinds":["trailer"],"per_valley":3,"min_cells":3,"spacing":16,"mirror":false,"lay":"own","terrain":["##...##...##...##...","...#....#....#....#.","....................",".##...##...##...##..","....................","##...#.#.###...##...","...#.#.#.#...#....#.","....................",".##...#.#..##...##..","......#.#...........","##...##...##...##...","...#....#....#....#.","....................",".##...##...##...##..","...................."]},
+    pass:{"board":"place_pass","kinds":["mountain"],"per_valley":2,"min_cells":20,"spacing":24,"mirror":false,"lay":"natural","terrain":["#^#^##^#^##^#^##^#^#",",^,,^,^,,^,^,,^,^,,^",",,^,,,,^,,,,^,,,,^,,",",#,,,,#,,,,#,,,,#,,,",",,,^,,,,^,,,,^,,,,^,",",^,,#,,^#,,^,,#,^,,#",",,,^,,,.,,,,,^,,,,^,","......##^...........","......##............",",,;,,,,,,,,,;,,,,;,,",",^,,#,^,,#,^,,#,^,,#",",,,^,,,,^,,,,^,,,,^,","....................","....................",",,;,,,,;,,,,;,,,,;,,"]},
+    works:{"board":"place_works","kinds":["industrial","rail","railyard","warehouse","storage"],"per_valley":3,"min_cells":18,"spacing":16,"mirror":false,"lay":"built","terrain":["....................",".#....#....#....#...","..##...##...##...##.","....................","...#....#....#....#.",".........#..........",".#.........#....#...","..##.##.##..##...##.","....................","...#.........#....#.","....................",".#....#....#....#...","..##...##...##...##.","....................","...#....#....#....#."]},
+    desert:{"board":"place_desert","kinds":["desert"],"per_valley":3,"min_cells":12,"spacing":20,"mirror":false,"lay":"natural","terrain":[".....^;;^...........","..,..^;;^...,....,..",".....^;;^...........",",....^;;^.,....,....",".....^;;^...........",".....^;;^...........","..,..^;;^...,....,..",".....^;;^...........",",....^;;^.,....,....",".....^;;^...........",".....^;;^...........","..,..^;;^...,....,..",".....^;;^...........",",....^;;^.,....,....",".....^;;^..........."]},
+    suburb:{"board":"place_suburb","kinds":["suburb","estate","gated","town","school","chapel","library"],"per_valley":4,"min_cells":20,"spacing":16,"mirror":false,"lay":"own","terrain":["^^.^^^^.^^^^.^^^^.^^","...,....,....,....,.","....................",".,....,....,....,...","....................","^^.^^^^^^^^^.^^^^.^^","...,..,..,...,....,.","....................",".,...,..,..,....,...","....................","^^.^^^^.^^^^.^^^^.^^","...,....,....,....,.","....................",".,....,....,....,...","...................."]}}};
 /* __PLACE_TEMPLATES__ DATA END */
 function placeTemplates(m){
   const N=m.n, PT=PLACE_TEMPLATES, FW=PT.footprint[0], FH=PT.footprint[1], TPB=PT.tiles_per_block, W=N+1;
@@ -51670,6 +51670,30 @@ function vbTemplatesValley(){
 }
 function vbTracksValley(){ vbLanesValley(); return VB_LANES.tr || null; }   /* __THE_DESERT_HAS_ITS_TRACKS__ */
 function vbTemplateAt(x, y){ var tp = vbTemplatesValley(); try { return tp ? BohemiaOvermap.templateAt(tp, x | 0, y | 0) : null; } catch (e) { return null; } }
+/* __THE_PLACES_ARE_LAID_OUT__ (WORLD THIRTEEN 11/20, VAMILY rules 429(c), 461; ask line 504: 'the 15 place boards' layouts are
+   written INTO the world map at their places, so the map gets their good layouts and the fight gets them back by being the map').
+   MEASURED: the map stood the 15 places as templates (11/11b) and fought each place's cell on its board (11/11h), but drew the
+   cell as any block of its kind: the wash's channel banks, the landfill's heaps, the airport's hangar row, the pass's rocks were in
+   the fight and nowhere on the map. NOW every cell of a place the generator stood carries its board's own three by three tiles
+   (place_templates.json 'terrain', copied from the fight's board word for word), and the painter lays them: what the board blocks
+   is a box ('built') or a boulder ('natural'), its high ground a platform or a mound, its water water, its rough and debris the
+   ground's brush and rubble; open ground stays the map's; never over a street. The suburbs, the trailer park, the Strip and
+   downtown keep the map's own layout ('own': it is already the same kind of thing, lay_why). One array set a valley. */
+var VB_LAY = { key: null, idx: null, lx: null, ly: null, T: [], K: [], ms: 0 };
+window.VB_LAY = VB_LAY;
+var VB_LAY_ON = true;   /* the map's own layout at every place (the gate's plant, the before picture) */
+function vbLayValley(){
+  if (!VB_LAY_ON) return null;
+  var tp = vbTemplatesValley(); if (!tp || !window.BohemiaOvermap || !BohemiaOvermap.PLACE_TEMPLATES) return null;
+  if (VB_LAY.key === VB_TEMPLATES.key && VB_LAY.idx) return VB_LAY;
+  var t0 = performance.now(), N = om.n, PT = BohemiaOvermap.PLACE_TEMPLATES.templates, idx = new Uint8Array(N * N), lx = new Uint8Array(N * N), ly = new Uint8Array(N * N), T = [], K = [], at = {};
+  for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) { var c = null; try { c = BohemiaOvermap.templateAt(tp, x, y); } catch (_e) {} if (!c) continue;
+    var P = PT[c.id]; if (!P || !P.terrain || !P.lay || P.lay === 'own') continue;
+    if (at[c.id] == null) { at[c.id] = T.length; T.push(P.terrain.join('')); K.push(P.lay === 'natural' ? 1 : 0); }
+    var k = y * N + x; idx[k] = at[c.id] + 1; lx[k] = c.tx; ly[k] = c.ty; }
+  VB_LAY = { key: VB_TEMPLATES.key, idx: idx, lx: lx, ly: ly, T: T, K: K, ms: Math.round((performance.now() - t0) * 10) / 10 }; window.VB_LAY = VB_LAY;
+  return VB_LAY;
+}
 function vbLanesValley(){
   if (!VB_LANES.on || typeof om === 'undefined' || !om || !om.n) return null;
   var N = om.n, h = om.seed | 0;   /* every block's kind as the painter reads it (om.at, the city builder's edits on it), every time (about a millisecond): a real place re-seated a moment after the valley is rolled must never leave a street where it no longer is */
@@ -52102,6 +52126,7 @@ function vbCityCore(inp){
   var STRIP_NEON = [vbHex('#c9a456'), vbHex('#9c6e68'), vbHex('#5e8480')];   /* a resort's marquee: gold, rose or teal, all three faded (rule 159(c): the Strip's neon the one accent) */
   var STRIP_ST = { fronts: 0, marquees: 0, shapes: [0, 0, 0, 0], pools: 0, signs: 0 }, STRIP_SEEN = {};   /* what the gate reads (ST.strip) */
   var SHORE_ST = { lake: 0, shoreBlocks: 0, bed: 0, crack: 0, wet: 0, ring: 0, hull: 0, middle: 0, middleBed: 0 };   /* __THE_LAKE_HAS_ITS_RING__: what the gate reads (ST.shore), texels */
+  var LAY_ST = { cells: 0, checked: 0, objects: 0, missed: 0, water: 0, rough: 0, street: 0 };   /* __THE_PLACES_ARE_LAID_OUT__: what the gate reads (ST.lay), a board tile's middle each */
   function stripResort(k, front, f, a, ha){
     var TH = (6 + Math.floor(ha * 3)) * 3 * T;   /* 18 to 24 T, the Strip's towers */
     if (front) {
@@ -52139,6 +52164,9 @@ function vbCityCore(inp){
       var shNb = [[0, -1], [1, 0], [0, 1], [-1, 0], [1, -1], [1, 1], [-1, 1], [-1, -1]];
       for (var shi = 0; shi < 8; shi++) if (shOther(shAt(cx + shNb[shi][0], cy + shNb[shi][1]))) SHM |= 1 << shi; }
     if (SHW) { SHORE_ST.lake++; if (SHM) SHORE_ST.shoreBlocks++; }
+    /* __THE_PLACES_ARE_LAID_OUT__: a place's cell carries its board's three by three tiles */
+    var LYI = inp.lay ? inp.lay[cy * N + cx] : 0, LYT = LYI && inp.layT ? inp.layT[LYI - 1] : null, LYX = LYT ? inp.layx[cy * N + cx] : 0, LYY = LYT ? inp.layy[cy * N + cx] : 0, LYK = LYT ? inp.layK[LYI - 1] : 0;
+    if (LYT) LAY_ST.cells++;
     /* __THE_STREETS_READ_AS_STREETS__: NO BUILDING IN A STREET'S LANE (rule 164 item 29, Paolo 10/24: 'there are some buildings
        in the street lanes'). MEASURED: 14 blocks the valley's roll set inside a street's line, the street running into them
        from both sides (a fire station and the sign in the middle of the Strip, a resort and a casino in arterials, five suburbs);
@@ -52552,6 +52580,22 @@ function vbCityCore(inp){
           if (Math.abs(shu - 0.5) < 0.1 && Math.abs(shv - 0.5) < 0.1) { SHORE_ST.middle++; if (part !== PART.ground) SHORE_ST.middleBed++; } }
         else if (part === PART.top) SHORE_ST.ring++;
       }
+      if (LYT) {   /* __THE_PLACES_ARE_LAID_OUT__: the board's tile under this texel */
+        var lyu = (tx + 0.5) / S * 3, lyv = (ty + 0.5) / S * 3, lsx = Math.min(2, lyu | 0), lsy = Math.min(2, lyv | 0), lbx = LYX + lsx, lby = LYY + lsy;
+        var lyc = lbx < 20 && lby < 15 ? LYT.charCodeAt(lby * 20 + lbx) : 46, lfu = lyu - lsx, lfv = lyv - lsy, lmw = Math.max(0.06, 1.5 / S + 0.001), lmid = Math.abs(lfu - 0.5) < lmw && Math.abs(lfv - 0.5) < lmw;
+        if (clX === VB_CLASS.road) { if (lyc !== 46 && lmid) LAY_ST.street++; }   /* never over a street: the street stays */
+        else if (lyc === 126) { clX = VB_CLASS.water; part = PART.ground; lift = 0; if (lmid) LAY_ST.water++; }   /* ~ water */
+        else if (lyc === 44) { if (r < 0.3) part = PART.spot; if (lmid) LAY_ST.rough++; }   /* , rough: the ground's brush */
+        else if (lyc === 59) { if (r < 0.4) { part = PART.row; if (cl !== VB_CLASS.land && cl !== VB_CLASS.mountain) clX = VB_CLASS.land; } if (lmid) LAY_ST.rough++; }   /* ; debris */
+        else if (lyc === 35 || lyc === 94) {   /* # blocked, ^ high ground */
+          var lsame = function (dx, dy) { var x2 = lbx + dx, y2 = lby + dy; return x2 >= 0 && y2 >= 0 && x2 < 20 && y2 < 15 && LYT.charCodeAt(y2 * 20 + x2) === lyc; };
+          var led = 9; if (!lsame(-1, 0)) led = Math.min(led, lfu); if (!lsame(1, 0)) led = Math.min(led, 1 - lfu); if (!lsame(0, -1)) led = Math.min(led, lfv); if (!lsame(0, 1)) led = Math.min(led, 1 - lfv);
+          var lH = (lyc === 35 ? 1.5 : 0.8) * T;
+          if (LYK === 1) { if (led > 0.1) { clX = VB_CLASS.mountain; part = r < 0.06 ? PART.spot : PART.ground; lift = Math.max(lift, Math.min(1, (led - 0.1) / 0.3) * lH * 1.4); } }   /* a boulder, a mound */
+          else if (led > 0.14) { clX = VB_CLASS.roof; lift = Math.max(lift, lH); part = led < 0.22 ? PART.roofL : PART.roof; }   /* a box, a platform */
+          if (lmid) { if (lift > 0) LAY_ST.objects++; else LAY_ST.missed++; } }
+        if (lmid) LAY_ST.checked++;
+      }
       if (TALL && lift > 0) lift *= tallOf(cl, lift, sb);   /* __THE_MAP_STANDS_TALLER__ */
       var twOwn = 0;
       if (twi >= 0) { twOwn = twPaint(TWL[twi], cl, gx, gy, tx, ty, lift, part, r, horiz, vert); lift = TW_L; part = TW_P; if (TALL && twOwn === 1) lift *= TB.town; }   /* __THE_TOWN_IS_PAINTED_IN__: the town's own texel rides its index above the class */
@@ -52751,6 +52795,7 @@ function vbCityCore(inp){
   }
   ST.T = T; ST.strip = STRIP_ST;   /* __THE_STRIP_READS_AS_THE_STRIP__ */
   ST.shore = SHORE_ST;   /* __THE_LAKE_HAS_ITS_RING__ */
+  ST.lay = LAY_ST;   /* __THE_PLACES_ARE_LAID_OUT__ */
   ST.lights = { burnTop: LST.burnTop, embers: Object.keys(LST.cells).length, emberCore: LST.emberCore, emberLight: Math.round(LST.emberLight * 10) / 10, pool: LST.pool, poolLight: Math.round(LST.poolLight * 10) / 10, glow: LST.glow, lampTex: LST.lampTex, darkLamp: LST.darkLamp, old: LOLD };   /* __THE_MAP_S_LIGHTS_READ_AS_LIGHTS__ */
   if (inp.wantH) { ST.HS = HS; ST.COLI = COLI; }   /* a checker's own reading of every texel's height (never in the game: the gate asks) */
   return { seed: inp.seed, key: inp.key, P: P, S: S, PAD: PAD, day: day, night: night, lights: lights, stand: ST, dep: DEP, blk: BLK, ms: Math.round(performance.now() - t0), coli: inp.coli ? COLI : undefined, hs: inp.coli ? HS : undefined, lots: LOTS, flat: FLATH };   /* __THE_HOUSES_STAND_UP_CLOSE__ */   /* __THE_STREETS_JOIN__ (WORLD 11/2): the parts, for the join gate's reading only */
@@ -52841,7 +52886,8 @@ function vbCityInput(){
     var lv = 0; try { lv = POWER && POWER.at(x, y).live ? 1 : 0; } catch (_e) {} live[y * N + x] = lv; h = (Math.imul(h, 31) + lv * (x * 131 + y + 1)) | 0; }
   var tws = vbTownsInput();   /* __THE_TOWN_IS_PAINTED_IN__: the home bases built into the painting, and in its key */
   var lanes = vbLanesValley();   /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__ */
-  return { kind: 'city', N: N, S: VB_CS, PAD: VB_CPAD, seed: om.seed, cls: cls, live: live, sub: sub, lanes: lanes, tracks: (VB_LANES && VB_LANES.tr) || null, key: om.seed + ':' + h + ':c' + VB_COOK.v + (tws ? ':t' + VB_TOWNS.key : '') + (window.__WS_KEY ? ':ws' + window.__WS_KEY : ''), wst: window.__WS_CELL || null,   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ */
+  var LYC = null; try { LYC = vbLayValley(); } catch (_e) { LYC = null; }   /* __THE_PLACES_ARE_LAID_OUT__ */
+  return { kind: 'city', N: N, S: VB_CS, PAD: VB_CPAD, seed: om.seed, cls: cls, live: live, sub: sub, lanes: lanes, tracks: (VB_LANES && VB_LANES.tr) || null, lay: LYC ? LYC.idx : null, layx: LYC ? LYC.lx : null, layy: LYC ? LYC.ly : null, layT: LYC ? LYC.T : null, layK: LYC ? LYC.K : null, key: om.seed + ':' + h + ':c' + VB_COOK.v + (tws ? ':t' + VB_TOWNS.key : '') + (window.__WS_KEY ? ':ws' + window.__WS_KEY : ''), wst: window.__WS_CELL || null,   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ */
            thm: VB_COOK.themes ? thm : null, cook: VB_COOK.themes, towns: tws, townPal: tws ? VB_TOWNS.pal : null };
 }
 var VB_CITY_ON_VB = false;   /* the old way (the painting on VB.worker, behind the land): the speed probe's --quick 0 and the gate's plant */
@@ -52981,9 +53027,13 @@ function vbBoxInput(x0, y0, n, S){
       var k2 = y2 * n + x2, kw = gy2 * W + gx2; jm[k2] = F.f.jm[kw]; xg[k2] = F.f.xg[kw]; rp[k2] = F.f.rp[kw]; } } catch (_e) { jm = xg = rp = null; }
   var lanes = null; try { var LV = vbLanesValley(); if (LV) { lanes = new Uint8Array(n * n);   /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__: the valley's own streets for these blocks */
     for (var y3 = 0; y3 < n; y3++) for (var x3 = 0; x3 < n; x3++) { var gx3 = x0 + x3, gy3 = y0 + y3; if (gx3 >= 0 && gy3 >= 0 && gx3 < N && gy3 < N) lanes[y3 * n + x3] = LV[gy3 * N + gx3]; } } } catch (_e) { lanes = null; }
+  var lay = null, layx = null, layy = null, LYV = null; try { LYV = vbLayValley(); } catch (_e) { LYV = null; }   /* __THE_PLACES_ARE_LAID_OUT__ */
+  if (LYV) { lay = new Uint8Array(n * n); layx = new Uint8Array(n * n); layy = new Uint8Array(n * n);
+    for (var y5 = 0; y5 < n; y5++) for (var x5 = 0; x5 < n; x5++) { var gx5 = x0 + x5, gy5 = y0 + y5; if (gx5 < 0 || gy5 < 0 || gx5 >= N || gy5 >= N) continue; var k5 = gy5 * N + gx5, o5 = y5 * n + x5; lay[o5] = LYV.idx[k5]; layx[o5] = LYV.lx[k5]; layy[o5] = LYV.ly[k5]; } }
   var tracks = null; try { var TV = VB_LANES.tr; if (TV) { tracks = new Uint8Array(n * n);   /* __THE_DESERT_HAS_ITS_TRACKS__ */
     for (var y4 = 0; y4 < n; y4++) for (var x4 = 0; x4 < n; x4++) { var gx4 = x0 + x4, gy4 = y0 + y4; if (gx4 >= 0 && gy4 >= 0 && gx4 < N && gy4 < N) tracks[y4 * n + x4] = TV[gy4 * N + gx4]; } } } catch (_e) { tracks = null; }
   return { kind: 'tile', N: n, NF: N, S: S, PAD: 0, hashPad: VB_CPAD, org: [x0, y0], seed: om.seed, cls: cls, live: live, sub: sub, wst: wst, lanes: lanes, tracks: tracks,
+           lay: lay, layx: layx, layy: layy, layT: LYV ? LYV.T : null, layK: LYV ? LYV.K : null,
            thm: VB_COOK.themes ? thm : null, cook: VB_COOK.themes,
            jm: jm, xg: xg, rp: rp,
            towns: VB_TOWNS.list, townPal: VB_TOWNS.list ? VB_TOWNS.pal : null };   /* __THE_TOWN_IS_PAINTED_IN__: the same towns as the whole painting whose key the tile carries */

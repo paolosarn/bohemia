@@ -1,6 +1,18 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN; newest block on top)
 
-WORLD THIRTEEN (11/18, round seven, build two): BUILD 11/18s - THE LAKE HAS ITS RING, BUILT, NOT YET SEEN (rule 453; ask 508).
+WORLD THIRTEEN (11/20, round eight, build one, rule 461): BUILD 11/20c - THE PLACES ARE LAID OUT ON THE MAP, BUILT, NOT YET SEEN (rules
+429(c), 461; ask 504). Record: records/BOHEMIA_WORLD_THIRTEEN_THE_PLACES_ARE_LAID_OUT_11_20_26.md. VOTE world13-the-places-are-laid-out-11-20.
+- place_templates.json 'terrain' (from the fight's boards: tools/bohemia_world_thirteen_place_layouts.py) and 'lay' (built, natural,
+  own + lay_why); the templates sync carries both (KEEP lay, terrain); the map page's vbLayValley() and the painter
+  (__THE_PLACES_ARE_LAID_OUT__): 296 cells of 11 places laid on the demo valley, the map and the fight agree at every one.
+- Gate gates/the_places_are_laid_out_gate.js 8/0, in the suite.
+*** FOR COMBAT THREE (owed, yours if you want it): 60 board tiles on the demo valley carry an object where the map runs a street (the
+  map keeps its street there); the fight could lay the street instead of the object on those tiles (vbLayValley's cells and the
+  board's tx, ty are on FIGHT_OPTS.template already). ***
+- NOTHING OF WORLD 14'S TOUCHED (its __THE_MISSING_REAL_PLACES__ block in the generator untouched; only the __PLACE_TEMPLATES__ DATA
+  block written by its sync).
+
+WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/18 LATEST -- (the START head until 11/20c) round seven, build two: BUILD 11/18s - THE LAKE HAS ITS RING, BUILT, NOT YET SEEN (rule 453; ask 508).
 Record: records/BOHEMIA_WORLD_THIRTEEN_THE_LAKE_HAS_ITS_RING_11_18_26.md. VOTE world13-the-lake-has-its-ring-11-18 (STAND-IN).
 - VB_SHORE (bed, wet, ring, wander, crack, hull), carried into the painters; in the painter (__THE_LAKE_HAS_ITS_RING__) each lake
   block's and each sand or rock block's shore sides; the bed, cracks, waterline, hull on the lake side, the bathtub ring on the land
