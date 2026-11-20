@@ -281,8 +281,18 @@
     var roster = []; for (var i = 0; i < party.count; i++) roster.push({ arch: isBeastFoe(party.faction) ? 'beast' : 'human' });
     job.fight = { what: what, n: party.count, pack: extra && extra.pack != null ? extra.pack : null };
     LOOP.fighting = job.id;
+    /* __THE_CARD_S_PLACE_IS_THE_FIGHT_S__ (JOBS 11/20, rule 461): the card reads who holds a fight's place at the place itself (fightsOf's
+       at: the spot, the camp, the lair, the post) and the danger reader turns the job's brigands into whoever holds that district; the
+       fight read it where he stands (roadWhere, the road beside the place), which can be the next district: measured on the alpha, a
+       card's '2 keepers' (+110 CLOUT) met 4 of the Block Watch (+120). The hand-over now carries the district of the card's own place
+       (the nearest of this fight's kind in the job's own list) for the roll alone (rollDistrict; the board is still cut where he
+       stands), so the band read is the band met */
+    var dz = null;
+    try { var near = null, nd = 1e9; (fightsOf(job, {}) || []).forEach(function (f) { if (f.what !== what || f.road || !f.at) return; var px = f.at.x != null ? f.at.x : f.at[0], py = f.at.y != null ? f.at.y : f.at[1], dd = Math.abs(px - w[0]) + Math.abs(py - w[1]); if (dd < nd) { nd = dd; near = [px, py]; } });
+      if (near && what !== 'pack') { var c0 = om.at(near[0] | 0, near[1] | 0); dz = c0 && c0.district ? c0.district : null; } } catch (e) { dz = null; }
+    root.__FIGHT_DISTRICT = { id: job.id, what: what, card: dz, here: (function () { try { var c1 = om.at(w[0] | 0, w[1] | 0); return c1 ? c1.district : null; } catch (e) { return null; } })() };
     var ok = false;
-    try { ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: label, faction: null, draft: true,
+    try { ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: label, faction: null, draft: true, rollDistrict: dz || undefined,
       packageId: (LOOP.start && LOOP.start.pkg != null) ? LOOP.start.pkg : 1, roster: roster, party: party, street: true,
       foe: (extra && extra.foe) || foeSays(job, what, party.faction, label) || null,   /* FIXES 11/9 (row 530): a leg's own name for its enemy, for the end screen; __EVERY_JOB_NAMES_ITS_FOE__: every other fight's */
       why: 'contract:' + job.id + ':' + what, at: { gx: w[0] | 0, gy: w[1] | 0 } }); } catch (e) { ok = false; }

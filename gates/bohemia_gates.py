@@ -2431,6 +2431,11 @@ GATES = [
      'below Neutral a town charges more and pays less (the Game Guide), and its bar changes what it offers (no three-skull work below '
      'Neutral, one job at Hostile, one more from Friendly); a settled job kept until the town\'s bands load; on the phone, the demo and '
      'the alpha both ways (records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md).', True),
+    ('EVERY FIGHT WON COUNTS', ['node', 'gates/every_fight_won_counts_gate.js'],
+     'JOBS 11/20, rules 461, 441: a won fight pays five CLOUT a man beaten, keyed by the hand-over that started it; it was keyed by the '
+     'fight\'s map spot, sent as an object, so only the company\'s first won fight ever paid; on the phone, the demo and the alpha, '
+     'upright and sideways, jobs played on AUTO by a finger pay the card\'s CLOUT, job after job '
+     '(records/BOHEMIA_JOBS_EVERY_FIGHT_WON_COUNTS_11_20_26.md).', True),
     ('A NAME FADES', ['node', 'gates/a_name_fades_gate.js'],
      'JOBS 11/20, rules 461, 441: Battle Brothers\' Daily Renown Decay -3: every day the map\'s clock passes takes 3 CLOUT, never under '
      '0 (job_clout.json fade), and the big work waits again; the board works out its own line; and a new game forgets the towns\' bars, '

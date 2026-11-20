@@ -46324,7 +46324,12 @@ window.addEventListener('message', function(ev){
    valley does not run on while he fights); a fight he finished hands the pad back as he left it */
 window.addEventListener('message', function(ev){ var d = ev && ev.data; if(!d || d.type !== 'BOHEMIA_CITY_COMBAT_END') return;
   /* __CLOUT__ (RUN TWO [the camp and the retinue], rule 151(d)): a fight won raises the company's name, five a man beaten (draft, TUNING) */
-  try{ var oc = d.outcome || {}; if(window.BohemiaRenown && (oc.victory || oc.result === 'win') && !((oc.alive | 0) > 0)) BohemiaRenown.fightWon((oc.dead | 0) + (oc.fled | 0), d.at || Date.now()); }catch(_e){}
+  /* __EVERY_FIGHT_WON_COUNTS__ (JOBS 11/20, rule 461; the card's 'Your name: about +N CLOUT' against a job played on AUTO): the key
+     that keeps one fight from paying twice was the fight's map spot, and a job's fight sends it as an object ({gx, gy}), so every
+     key read 'fight:[object Object]' and only the company's FIRST won fight ever paid its five a man (measured on the demo: a job's
+     4 men +20, the next job's 2 men +0). The key is now the hand-over that started this fight (FIGHT_STAMP, below), the same for a
+     repeated end message and new for the next fight */
+  try{ var oc = d.outcome || {}; if(window.BohemiaRenown && (oc.victory || oc.result === 'win') && !((oc.alive | 0) > 0)) BohemiaRenown.fightWon((oc.dead | 0) + (oc.fled | 0), FIGHT_STAMP || (d.at && typeof d.at === 'object' ? JSON.stringify(d.at) : d.at) || Date.now()); }catch(_e){}
   setTimeout(function(){ try{ if(TRAVEL_SPEED === 0) travelSpeedSet(TRAVEL_SPEED_LAST || 1); window.__RESUMED_AFTER_FIGHT = (window.__RESUMED_AFTER_FIGHT | 0) + 1; }catch(_e){} }, 0); });
 /* ==== /__THE_FIRST_TAP_GOES_SOMEWHERE__ + __LOOK_BEFORE_YOU_FIGHT__ ==== */
 
@@ -69838,7 +69843,11 @@ function vbZoneGround(m, G, FK, TR){
     G.street={ way:tw, ends:tw==='ew'?((tk&8)?1:0)|((tk&2)?2:0):((tk&1)?1:0)|((tk&4)?2:0), mouths:tw==='ew'?(tk&5):(tk&10), track:true }; } }
   return G;
 }
+/* __EVERY_FIGHT_WON_COUNTS__ (JOBS 11/20): each fight handed over gets its own stamp (its why and the moment), the key its CLOUT is
+   paid under when it ends; a card first and ENGAGE after hand it over twice, and the second stamp is the fight's */
+var FIGHT_STAMP = null;
 function cityHandOver(msg, skin){
+  try{ if(msg && msg.type === 'BOHEMIA_CITY_ENCOUNTER') FIGHT_STAMP = String(msg.why || 'fight') + '@' + Date.now(); }catch(_e){}
   /* WORLD [the job tells the truth, in blood] (rule 208(e), WORLD's line in RUN's door): the party is rolled here, once, by the fight's
      own math (slices/bohemia_job_danger.js), so the meet card says what stands on the board and the fight deals that band */
   try{ if(window.BohemiaJobDanger) BohemiaJobDanger.rollInto(msg); }catch(_e){}
