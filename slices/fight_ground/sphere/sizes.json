@@ -1,0 +1,200 @@
+{
+ "tier": {
+  "w": 516,
+  "h": 427,
+  "foot": [
+   258.2,
+   425
+  ],
+  "piece": "tier",
+  "src": "sphere/sp_tier.webp",
+  "facing": "S"
+ },
+ "stair_e": {
+  "w": 515,
+  "h": 425,
+  "foot": [
+   257.8,
+   425
+  ],
+  "piece": "stair_e",
+  "src": "sphere/sp_stair_e.webp",
+  "facing": "S"
+ },
+ "stair_w": {
+  "w": 515,
+  "h": 425,
+  "foot": [
+   257.5,
+   425
+  ],
+  "piece": "stair_w",
+  "src": "sphere/sp_stair_w.webp",
+  "facing": "S"
+ },
+ "stage": {
+  "w": 516,
+  "h": 452,
+  "foot": [
+   258.2,
+   449
+  ],
+  "piece": "stage",
+  "src": "sphere/sp_stage.webp",
+  "facing": "S"
+ },
+ "screen": {
+  "w": 567,
+  "h": 396,
+  "foot": [
+   283.8,
+   396
+  ],
+  "piece": "screen",
+  "src": "sphere/sp_screen.webp",
+  "facing": "S"
+ },
+ "desk": {
+  "w": 309,
+  "h": 212,
+  "foot": [
+   154.6,
+   212
+  ],
+  "piece": "desk",
+  "src": "sphere/sp_desk.webp",
+  "facing": "S"
+ },
+ "rail_ew": {
+  "w": 515,
+  "h": 92,
+  "foot": [
+   257.8,
+   66
+  ],
+  "piece": "rail_ew",
+  "src": "sphere/sp_rail_ew.webp",
+  "facing": "S"
+ },
+ "rail_ns": {
+  "w": 52,
+  "h": 417,
+  "foot": [
+   26.7,
+   414
+  ],
+  "piece": "rail_ns",
+  "src": "sphere/sp_rail_ns.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 516,
+  "h": 133,
+  "foot": [
+   258.2,
+   121
+  ],
+  "piece": "wall_ew",
+  "src": "sphere/sp_wall_ew.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 52,
+  "h": 456,
+  "foot": [
+   26.2,
+   455
+  ],
+  "piece": "wall_ns",
+  "src": "sphere/sp_wall_ns.webp",
+  "facing": "S"
+ },
+ "seats": {
+  "w": 515,
+  "h": 345,
+  "foot": [
+   257.5,
+   330
+  ],
+  "piece": "seats",
+  "src": "sphere/sp_seats.webp",
+  "facing": "S"
+ },
+ "speaker": {
+  "w": 317,
+  "h": 177,
+  "foot": [
+   137.6,
+   135
+  ],
+  "piece": "speaker",
+  "src": "sphere/sp_speaker.webp",
+  "facing": "S"
+ },
+ "panels": {
+  "w": 360,
+  "h": 187,
+  "foot": [
+   172.0,
+   163
+  ],
+  "piece": "panels",
+  "src": "sphere/sp_panels.webp",
+  "facing": "S"
+ },
+ "cases": {
+  "w": 159,
+  "h": 134,
+  "foot": [
+   77.7,
+   119
+  ],
+  "piece": "cases",
+  "src": "sphere/sp_cases.webp",
+  "facing": "S"
+ },
+ "cases_b": {
+  "w": 107,
+  "h": 114,
+  "foot": [
+   60.1,
+   84
+  ],
+  "piece": "cases_b",
+  "src": "sphere/sp_cases_b.webp",
+  "facing": "S"
+ },
+ "barricade": {
+  "w": 515,
+  "h": 129,
+  "foot": [
+   258.1,
+   121
+  ],
+  "piece": "barricade",
+  "src": "sphere/sp_barricade.webp",
+  "facing": "S"
+ },
+ "camp_a": {
+  "w": 223,
+  "h": 147,
+  "foot": [
+   124.5,
+   123
+  ],
+  "piece": "camp_a",
+  "src": "sphere/sp_camp_a.webp",
+  "facing": "S"
+ },
+ "camp_b": {
+  "w": 223,
+  "h": 147,
+  "foot": [
+   125.0,
+   123
+  ],
+  "piece": "camp_b",
+  "src": "sphere/sp_camp_b.webp",
+  "facing": "S"
+ }
+}

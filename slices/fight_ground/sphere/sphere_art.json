@@ -1,0 +1,347 @@
+{
+ "version": "cook6-sphere-art-11-20",
+ "lane": "cook 6 (COOK FIVE's list)",
+ "stage": "finished",
+ "for": "COMBAT FOUR's Sphere (slices/fight_ground/sphere/sphere.json, BUILD 11/20k): the names its handoff asked for, the garage's format. floor.floor is the bowl's floor (rows 0 to 2: sealed concrete gone dark, the last show's spike tape in yellow and white, forklift scuffs, glass from the panels in drifts on half the tiles; nothing within 1.2 m of an edge but the floor); floor.torn the floor broken where the rigging came down (row 3: plates round a hole to the fill under the slab, its dust thrown out, a margin of whole floor so it meets the floor); floor.high the tiers' step (row 4); floor.ring the bowl's floor. Any tile of a list meets any tile of it.",
+ "floor": {
+  "floor": [
+   "sphere/sphere_floor_0.webp#0,0",
+   "sphere/sphere_floor_0.webp#1,0",
+   "sphere/sphere_floor_0.webp#2,0",
+   "sphere/sphere_floor_0.webp#3,0",
+   "sphere/sphere_floor_0.webp#4,0",
+   "sphere/sphere_floor_0.webp#0,1",
+   "sphere/sphere_floor_0.webp#1,1",
+   "sphere/sphere_floor_0.webp#2,1",
+   "sphere/sphere_floor_0.webp#3,1",
+   "sphere/sphere_floor_0.webp#4,1",
+   "sphere/sphere_floor_0.webp#0,2",
+   "sphere/sphere_floor_0.webp#1,2",
+   "sphere/sphere_floor_0.webp#2,2",
+   "sphere/sphere_floor_0.webp#3,2",
+   "sphere/sphere_floor_0.webp#4,2"
+  ],
+  "torn": [
+   "sphere/sphere_floor_0.webp#0,3",
+   "sphere/sphere_floor_0.webp#1,3",
+   "sphere/sphere_floor_0.webp#2,3",
+   "sphere/sphere_floor_0.webp#3,3",
+   "sphere/sphere_floor_0.webp#4,3"
+  ],
+  "high": [
+   "sphere/sphere_floor_0.webp#0,4",
+   "sphere/sphere_floor_0.webp#1,4",
+   "sphere/sphere_floor_0.webp#2,4",
+   "sphere/sphere_floor_0.webp#3,4",
+   "sphere/sphere_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "sphere/sphere_floor_0.webp#0,0",
+   "sphere/sphere_floor_0.webp#1,0",
+   "sphere/sphere_floor_0.webp#2,0",
+   "sphere/sphere_floor_0.webp#3,0",
+   "sphere/sphere_floor_0.webp#4,0",
+   "sphere/sphere_floor_0.webp#0,1",
+   "sphere/sphere_floor_0.webp#1,1",
+   "sphere/sphere_floor_0.webp#2,1",
+   "sphere/sphere_floor_0.webp#3,1",
+   "sphere/sphere_floor_0.webp#4,1",
+   "sphere/sphere_floor_0.webp#0,2",
+   "sphere/sphere_floor_0.webp#1,2",
+   "sphere/sphere_floor_0.webp#2,2",
+   "sphere/sphere_floor_0.webp#3,2",
+   "sphere/sphere_floor_0.webp#4,2"
+  ]
+ },
+ "kit": {
+  "sp_tier": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "THE BOWL",
+   "stage": "finished",
+   "src": "sphere/sp_tier.webp",
+   "w": 516,
+   "h_px": 427,
+   "foot": [
+    258.2,
+    425
+   ]
+  },
+  "sp_stair_e": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "ITS STAIRS, EAST",
+   "stage": "finished",
+   "src": "sphere/sp_stair_e.webp",
+   "w": 515,
+   "h_px": 425,
+   "foot": [
+    257.8,
+    425
+   ]
+  },
+  "sp_stair_w": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "ITS STAIRS, WEST",
+   "stage": "finished",
+   "src": "sphere/sp_stair_w.webp",
+   "w": 515,
+   "h_px": 425,
+   "foot": [
+    257.5,
+    425
+   ]
+  },
+  "sp_stage": {
+   "kind": "COVER",
+   "h": 1.3,
+   "name": "THE STAGE",
+   "stage": "finished",
+   "src": "sphere/sp_stage.webp",
+   "w": 516,
+   "h_px": 452,
+   "foot": [
+    258.2,
+    449
+   ]
+  },
+  "sp_screen": {
+   "kind": "COVER",
+   "h": 2.1,
+   "name": "A SECTION OF THE SCREEN, DOWN",
+   "stage": "finished",
+   "src": "sphere/sp_screen.webp",
+   "w": 567,
+   "h_px": 396,
+   "foot": [
+    283.8,
+    396
+   ]
+  },
+  "sp_desk": {
+   "kind": "COVER",
+   "h": 1.5,
+   "name": "THE SOUND DESK",
+   "stage": "finished",
+   "src": "sphere/sp_desk.webp",
+   "w": 309,
+   "h_px": 212,
+   "foot": [
+    154.6,
+    212
+   ]
+  },
+  "sp_rail_ew": {
+   "kind": "RAIL",
+   "h": 1.07,
+   "name": "THE TIERS' RAIL",
+   "stage": "finished",
+   "src": "sphere/sp_rail_ew.webp",
+   "w": 515,
+   "h_px": 92,
+   "foot": [
+    257.8,
+    66
+   ]
+  },
+  "sp_rail_ns": {
+   "kind": "RAIL",
+   "h": 1.07,
+   "name": "THE TIERS' RAIL",
+   "stage": "finished",
+   "src": "sphere/sp_rail_ns.webp",
+   "w": 52,
+   "h_px": 417,
+   "foot": [
+    26.7,
+    414
+   ]
+  },
+  "sp_wall_ew": {
+   "kind": "WALL",
+   "h": 2.4,
+   "name": "THE SCREEN'S FOOT",
+   "stage": "finished",
+   "src": "sphere/sp_wall_ew.webp",
+   "w": 516,
+   "h_px": 133,
+   "foot": [
+    258.2,
+    121
+   ]
+  },
+  "sp_wall_ns": {
+   "kind": "WALL",
+   "h": 2.4,
+   "name": "THE SCREEN'S FOOT",
+   "stage": "finished",
+   "src": "sphere/sp_wall_ns.webp",
+   "w": 52,
+   "h_px": 456,
+   "foot": [
+    26.2,
+    455
+   ]
+  },
+  "sp_seats": {
+   "kind": "LOW_COVER",
+   "h": 0.98,
+   "name": "THE BOWL'S SEATS",
+   "stage": "finished",
+   "src": "sphere/sp_seats.webp",
+   "w": 515,
+   "h_px": 345,
+   "foot": [
+    257.5,
+    330
+   ]
+  },
+  "sp_speaker": {
+   "kind": "COVER",
+   "h": 1.75,
+   "name": "A FALLEN SPEAKER",
+   "stage": "finished",
+   "src": "sphere/sp_speaker.webp",
+   "w": 317,
+   "h_px": 177,
+   "foot": [
+    137.6,
+    135
+   ]
+  },
+  "sp_panels": {
+   "kind": "COVER",
+   "h": 1.9,
+   "name": "FALLEN SCREEN PANELS",
+   "stage": "finished",
+   "src": "sphere/sp_panels.webp",
+   "w": 360,
+   "h_px": 187,
+   "foot": [
+    172.0,
+    163
+   ]
+  },
+  "sp_cases": {
+   "kind": "COVER",
+   "h": 1.6,
+   "name": "ROAD CASES",
+   "stage": "finished",
+   "src": "sphere/sp_cases.webp",
+   "w": 159,
+   "h_px": 134,
+   "foot": [
+    77.7,
+    119
+   ]
+  },
+  "sp_cases_b": {
+   "kind": "DRESS",
+   "h": 0.9,
+   "name": "ROAD CASES",
+   "stage": "finished",
+   "src": "sphere/sp_cases_b.webp",
+   "w": 107,
+   "h_px": 114,
+   "foot": [
+    60.1,
+    84
+   ]
+  },
+  "sp_barricade": {
+   "kind": "LOW_COVER",
+   "h": 1.15,
+   "name": "BARRICADE",
+   "stage": "finished",
+   "src": "sphere/sp_barricade.webp",
+   "w": 515,
+   "h_px": 129,
+   "foot": [
+    258.1,
+    121
+   ]
+  },
+  "sp_camp_a": {
+   "kind": "LOW_COVER",
+   "h": 1.1,
+   "name": "SOMEBODY'S BEDDING",
+   "stage": "finished",
+   "src": "sphere/sp_camp_a.webp",
+   "w": 223,
+   "h_px": 147,
+   "foot": [
+    124.5,
+    123
+   ]
+  },
+  "sp_camp_b": {
+   "kind": "LOW_COVER",
+   "h": 1.06,
+   "name": "SOMEBODY'S BEDDING",
+   "stage": "finished",
+   "src": "sphere/sp_camp_b.webp",
+   "w": 223,
+   "h_px": 147,
+   "foot": [
+    125.0,
+    123
+   ]
+  },
+  "sp_bedding_a": {
+   "kind": "DRESS",
+   "h": 1.1,
+   "name": "SOMEBODY'S BEDDING",
+   "stage": "finished",
+   "src": "sphere/sp_camp_a.webp",
+   "w": 223,
+   "h_px": 147,
+   "foot": [
+    124.5,
+    123
+   ]
+  },
+  "sp_bedding_b": {
+   "kind": "DRESS",
+   "h": 1.06,
+   "name": "SOMEBODY'S BEDDING",
+   "stage": "finished",
+   "src": "sphere/sp_camp_b.webp",
+   "w": 223,
+   "h_px": 147,
+   "foot": [
+    125.0,
+    123
+   ]
+  }
+ },
+ "how_it_lays": {
+  "the stage": "sp_stage on every stage tile, a tile wide and deep, 1.3 m, foot its south edge middle (your 'at' [0.5, 1.0]); its deck units are the same at every edge, so the tiles meet into one stage.",
+  "the screen": "sp_screen a section 12.6 m long lying west to east and 3 m south over the tile, its middle 5 m north of the foot (your 'at' [0.5, 0.92] puts it across the tile's middle), so a P beside a p reads as one section down; sp_panels the stack and its leaning panels, foot its south edge middle; sp_speaker the array on its side, 5.2 m, facing south.",
+  "the floor things": "sp_desk the riser, the console and the pen, 6.4 m; sp_cases a stack about 3 m wide, sp_cases_b two and a lid; sp_barricade a tile wide (twelve sections), the crowd's plates to the north; sp_camp_a / _b (sp_bedding_a / _b the same pictures): foot each at its south edge middle.",
+  "the tiers": "sp_tier on every high tile, 1.42 m up, foot its south edge middle, its treads the same at both edges; sp_seats on it (your 'at' [0.5, 0.82], lifted): eleven rows of 21 seats facing south, 9.4 m deep, a tile wide; sp_stair_e / _w the hall's concrete stair; sp_rail_ew the glass rail along a tier's front, sp_rail_ns along its side.",
+  "the bowl": "sp_wall_ew / _ns THE SCREEN'S FOOT: the concrete plinth to 0.7 m and the screen's lowest panels on their frame to 2.4 m; a tile long."
+ },
+ "bytes": {
+  "floor": 111930,
+  "ceiling": 71156
+ },
+ "ceiling": {
+  "sheet": "sphere/sphere_ceiling.webp",
+  "bays": [
+   5,
+   5
+  ],
+  "bay_px": [
+   258,
+   137
+  ],
+  "covers": [
+   20,
+   15
+  ],
+  "whole": true,
+  "what": "the screen from inside, dark: its panels in rows round its crown, curving over from the stage; panels out and the frame and the speakers' grilles behind them; a long tear where a section came down, the frame's members across it and one panel hanging in it by its cable; nothing lit: one picture the size of the board",
+  "contract": "sphere.json 'ceiling' (COMBAT FOUR's: the fight draws it over the board at that alpha, rule 451(a)); 'tile' [20, 15] is the board: ONE picture, never repeated (the screen's rows ring its crown)"
+ }
+}

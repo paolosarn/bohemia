@@ -1,5 +1,24 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
+COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20u - THE SPHERE, BUILT (SHIPSHA), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 451(a), 455; ask row 651).
+THE SPHERE (COMBAT FOUR's BUILD 11/20k, its 'FOR COOK 2)'): all 182 pieces of the_horseshoe were stand-ins. Now slices/fight_ground/sphere/ holds sphere_art.json (THE
+GARAGE'S FORMAT: floor.floor rows 0 to 2 of sphere_floor_0.webp, the bowl's sealed concrete with the last show's spike tape, scuffs and glass in drifts; floor.torn its row 3,
+plates round a hole to the fill where the rigging came down, a margin of whole floor; floor.high its row 4; floor.ring rows 0 to 2; kit: all 20 names, the bedding names the
+camps' pictures), sizes.json, 18 piece pictures, the floor sheet and sphere_ceiling.webp: 20 pictures, about 613,000 bytes. sphere.json: only its ceiling entry's "have"
+(true) and "tile" ([20, 15]: ONE picture the size of the board, as the stadium's and the powerhouse's; the screen's rows ring its crown, so it cannot repeat).
+NO NEW GROUND (the rig's calibration board holds 25 and 24 are taken: one slot left for whoever adds the next kind).
+Made by tools/bohemia_cook6_the_sphere_finished_11_20_26.py ON the powerhouse tool (nine deep). The page tool takes 'sphere'.
+PROOF on the real fight page: the_horseshoe upright 182 pieces, 0 stand-ins (before: 182), the roof's picture drawn, a tile 30 points, 0 page errors, nothing missing; on its
+side the same at 26; the_screen_came_down both ways 169 pieces, 0 stand-ins, 0 errors. FOUND BY EYE: panels and cases outside the rig's black family took its full dust (pale
+panels like concrete, camouflage cases, a cobblestone roof; now a third); the tiers and stairs read white over the dark floor (now dark); the floor's dust read as blotches.
+Gate THE INSIDES WEAR FINISHED ART 77/0 (ten kits, eleven ceilings). COMBAT FOUR's gates: THE BIG INSIDES 123/0, AN INSIDE SHOWS ITS CEILING 6/0.
+VOTE cook6-the-sphere-11-20 (MADE FROM arena2-the-pit-is-a-pit-11-7). Record: records/BOHEMIA_COOK_SIX_THE_SPHERE_11_20_26.md.
+*** FOR COMBAT FOUR: your names, your format, your ceiling entry; nothing else of yours edited. The stage's one picture serves all twelve stage tiles (its cable repeats close
+in); a second stage name ('more', the cases' trick) and this lane paints a second deck. The stadium's south stand step (st_stand) still faces away: a name and this lane turns it.
+*** NEXT ON THIS LANE: COMBAT FOUR's next insides (its list's twelfth: the home center, the hospital, the prison's cell blocks) as their names land.
+[bb Battle Brothers' hill fights: the tiers read as high ground at a glance, dark and ribbed over a pale floor]
+[analog horror: the biggest screen in the world, black, and one panel hanging by its cable in the tear]
+
 COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20r - THE SOUTH STAND TURNS, BUILT (beea99578), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 455; ask row 651).
 THE SOUTH STAND (COMBAT FOUR's BUILD 11/20k, its 'FOR COOK 1)'): the stadium's south stand wore the north stand's seats, facing away from the field. Now
 slices/fight_ground/stadium/st_seats_n.webp is the same eleven rows of 23 seats TURNED to face north, so the map's eye sees their backs (a blanket thrown over four, a coat,

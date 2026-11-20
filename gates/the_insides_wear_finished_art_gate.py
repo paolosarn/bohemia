@@ -63,7 +63,8 @@ KITS = {'tunnels': dict(art='tunnels_art.json', budget=900000, walls=('wall_ew',
         'datafort': dict(art='datafort_art.json', budget=900000, walls=('wall_ew', 'servers_ew', 'gate', 'rail_ew', 'gallery', 'stair_e', 'stair_w'), beside=[('floor', 'ring'), ('floor', 'high')]),   # (11/18) and its data fort
         'terminal': dict(art='terminal_art.json', budget=900000, walls=('wall_ew', 'screen_ew', 'belt', 'rail_ew', 'walkway', 'stair_e', 'stair_w'), beside=[('floor', 'ring'), ('floor', 'high')]),   # (11/18) and its airport terminal
         'stadium': dict(art='stadium_art.json', budget=900000, walls=('wall_ew', 'rail_ew', 'stand', 'stair_e', 'stair_w'), beside=[('floor', 'ring')]),
-        'powerhouse': dict(art='powerhouse_art.json', budget=900000, walls=('wall_ew', 'rail_ew', 'balcony', 'stair_e', 'stair_w'), beside=[('floor', 'ring')])}   # (COOK SIX 11/20) COMBAT FOUR's powerhouse   # (COOK SIX 11/20) and its stadium (the torn turf meets itself; the field meets it on a turf margin, by eye)
+        'powerhouse': dict(art='powerhouse_art.json', budget=900000, walls=('wall_ew', 'rail_ew', 'balcony', 'stair_e', 'stair_w'), beside=[('floor', 'ring')]),
+        'sphere': dict(art='sphere_art.json', budget=900000, walls=('wall_ew', 'rail_ew', 'tier', 'stair_e', 'stair_w', 'stage'), beside=[('floor', 'ring')])}   # (COOK SIX 11/20) COMBAT FOUR's Sphere (its stage a tile wide too, so six stage tiles meet as one)   # (COOK SIX 11/20) COMBAT FOUR's powerhouse   # (COOK SIX 11/20) and its stadium (the torn turf meets itself; the field meets it on a turf margin, by eye)
 passed = failed = 0
 
 
@@ -153,7 +154,7 @@ def a4(kit, K, sizes):
 
 
 CEIL_ALPHA_MAX, CEIL_BYTES, CEIL_SPREAD, CEIL_LINES, CEIL_MEET = 0.15, 80000, 60.0, (25.0, 0.10), 8.0
-CEIL_DATA = {'garage': 'garage/garage.json', 'casino': 'casino/casino_floor.json', 'tunnels': 'tunnels/tunnels.json', 'hall': 'hall/hall.json', 'mall': 'mall/mall.json', 'warehouse': 'warehouse/warehouse.json', 'datafort': 'datafort/datafort.json', 'terminal': 'terminal/terminal.json', 'stadium': 'stadium/stadium.json', 'powerhouse': 'powerhouse/powerhouse.json'}   # COMBAT THREE's: each one's 'ceiling' entry is the contract
+CEIL_DATA = {'garage': 'garage/garage.json', 'casino': 'casino/casino_floor.json', 'tunnels': 'tunnels/tunnels.json', 'hall': 'hall/hall.json', 'mall': 'mall/mall.json', 'warehouse': 'warehouse/warehouse.json', 'datafort': 'datafort/datafort.json', 'terminal': 'terminal/terminal.json', 'stadium': 'stadium/stadium.json', 'powerhouse': 'powerhouse/powerhouse.json', 'sphere': 'sphere/sphere.json'}   # COMBAT THREE's: each one's 'ceiling' entry is the contract
 
 
 def c1(C, exists=os.path.exists):
