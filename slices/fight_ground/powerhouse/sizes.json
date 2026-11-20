@@ -1,0 +1,222 @@
+{
+ "balcony": {
+  "w": 516,
+  "h": 427,
+  "foot": [
+   258.2,
+   425
+  ],
+  "piece": "balcony",
+  "src": "powerhouse/pw_balcony.webp",
+  "facing": "S"
+ },
+ "stair_e": {
+  "w": 515,
+  "h": 425,
+  "foot": [
+   257.8,
+   425
+  ],
+  "piece": "stair_e",
+  "src": "powerhouse/pw_stair_e.webp",
+  "facing": "S"
+ },
+ "stair_w": {
+  "w": 515,
+  "h": 425,
+  "foot": [
+   257.5,
+   425
+  ],
+  "piece": "stair_w",
+  "src": "powerhouse/pw_stair_w.webp",
+  "facing": "S"
+ },
+ "rail_ew": {
+  "w": 515,
+  "h": 79,
+  "foot": [
+   257.8,
+   67
+  ],
+  "piece": "rail_ew",
+  "src": "powerhouse/pw_rail_ew.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 516,
+  "h": 133,
+  "foot": [
+   258.2,
+   122
+  ],
+  "piece": "wall_ew",
+  "src": "powerhouse/pw_wall_ew.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 52,
+  "h": 456,
+  "foot": [
+   26.2,
+   455
+  ],
+  "piece": "wall_ns",
+  "src": "powerhouse/pw_wall_ns.webp",
+  "facing": "S"
+ },
+ "bench": {
+  "w": 515,
+  "h": 82,
+  "foot": [
+   257.5,
+   73
+  ],
+  "piece": "bench",
+  "src": "powerhouse/pw_bench.webp",
+  "facing": "S"
+ },
+ "unit": {
+  "w": 455,
+  "h": 574,
+  "foot": [
+   228.2,
+   559
+  ],
+  "piece": "unit",
+  "src": "powerhouse/pw_unit.webp",
+  "facing": "S"
+ },
+ "rotor": {
+  "w": 377,
+  "h": 402,
+  "foot": [
+   188.8,
+   360
+  ],
+  "piece": "rotor",
+  "src": "powerhouse/pw_rotor.webp",
+  "facing": "S"
+ },
+ "board": {
+  "w": 480,
+  "h": 160,
+  "foot": [
+   240.5,
+   137
+  ],
+  "piece": "board",
+  "src": "powerhouse/pw_board.webp",
+  "facing": "S"
+ },
+ "column": {
+  "w": 94,
+  "h": 177,
+  "foot": [
+   34.6,
+   172
+  ],
+  "piece": "column",
+  "src": "powerhouse/pw_column.webp",
+  "facing": "S"
+ },
+ "hook": {
+  "w": 185,
+  "h": 214,
+  "foot": [
+   39.5,
+   193
+  ],
+  "piece": "hook",
+  "src": "powerhouse/pw_hook.webp",
+  "facing": "S"
+ },
+ "spares": {
+  "w": 206,
+  "h": 180,
+  "foot": [
+   103.8,
+   163
+  ],
+  "piece": "spares",
+  "src": "powerhouse/pw_spares.webp",
+  "facing": "S"
+ },
+ "spares_b": {
+  "w": 121,
+  "h": 98,
+  "foot": [
+   52.3,
+   84
+  ],
+  "piece": "spares_b",
+  "src": "powerhouse/pw_spares_b.webp",
+  "facing": "S"
+ },
+ "cable": {
+  "w": 266,
+  "h": 178,
+  "foot": [
+   112.5,
+   142
+  ],
+  "piece": "cable",
+  "src": "powerhouse/pw_cable.webp",
+  "facing": "S"
+ },
+ "cable_b": {
+  "w": 146,
+  "h": 115,
+  "foot": [
+   35.0,
+   98
+  ],
+  "piece": "cable_b",
+  "src": "powerhouse/pw_cable_b.webp",
+  "facing": "S"
+ },
+ "cart": {
+  "w": 223,
+  "h": 109,
+  "foot": [
+   103.3,
+   92
+  ],
+  "piece": "cart",
+  "src": "powerhouse/pw_cart.webp",
+  "facing": "S"
+ },
+ "cart_b": {
+  "w": 95,
+  "h": 79,
+  "foot": [
+   30.8,
+   76
+  ],
+  "piece": "cart_b",
+  "src": "powerhouse/pw_cart_b.webp",
+  "facing": "S"
+ },
+ "camp_a": {
+  "w": 223,
+  "h": 119,
+  "foot": [
+   129.0,
+   110
+  ],
+  "piece": "camp_a",
+  "src": "powerhouse/pw_camp_a.webp",
+  "facing": "S"
+ },
+ "camp_b": {
+  "w": 223,
+  "h": 119,
+  "foot": [
+   129.0,
+   110
+  ],
+  "piece": "camp_b",
+  "src": "powerhouse/pw_camp_b.webp",
+  "facing": "S"
+ }
+}

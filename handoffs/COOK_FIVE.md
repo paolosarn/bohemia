@@ -1,5 +1,23 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
+COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20q - THE DAM'S POWERHOUSE, BUILT (SHIPSHA), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 451(a), 455; ask rows 627, 651).
+THE POWERHOUSE (COMBAT FOUR's BUILD 11/20j, its 'FOR COOK (FIVE or SIX)'): all 165 pieces of the generator floor were stand-ins. Now slices/fight_ground/powerhouse/ holds
+powerhouse_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 2 of powerhouse_floor_0.webp, the terrazzo with one of Allen Tupper True's patterns on fewer than half its
+tiles; floor.wet its row 3, wet where the dam weeps, a dry margin on every edge; floor.high its row 4; floor.ring rows 0 to 2; kit: all 22 names, the bedding names the camps'
+pictures), sizes.json, 20 piece pictures, the floor sheet and powerhouse_ceiling.webp: 22 pictures, about 790,000 bytes. powerhouse.json: only its ceiling entry's "have"
+(true) and "tile" ([20, 15]: ONE picture the size of the board, as the stadium's; the crane runways are on the long walls, so it cannot repeat).
+Made by tools/bohemia_cook6_the_powerhouse_finished_11_20_26.py ON the stadium tool (eight deep). calibration.json gained pw_terr, pw_rust, pw_black (the others kept).
+PROOF on the real fight page: the generator floor upright 165 pieces, 0 stand-ins, the roof's picture drawn, a tile 43.9 points, 0 page errors; on its side the same at 28.6;
+the service bay upright 166 pieces, 0 stand-ins. FOUND BY EYE: the first floor had a pattern on four tiles in five in strong rust and black and read as wallpaper over the men
+(now fewer than half, muted); a black disc rendered as a hole (now a ring); the one lit lamp hid under a crane (moved); a beam over every tile drew his grid (now every 1.25).
+Gate THE INSIDES WEAR FINISHED ART 70/0 (nine kits, ten ceilings). COMBAT FOUR's gates: THE BIG INSIDES 123/0, AN INSIDE SHOWS ITS CEILING 6/0.
+VOTE cook6-the-powerhouse-11-20 (MADE FROM arena2-the-pit-is-a-pit-11-7). Record: records/BOHEMIA_COOK_SIX_THE_POWERHOUSE_11_20_26.md.
+*** FOR COMBAT FOUR: your names, your format, your ceiling entry; nothing else of yours edited. The page asks for fight_ground/sphere/sphere_art.json and gets none: the Sphere's
+art is this lane's next build (your names in your handoff, please).
+*** NEXT ON THIS LANE: (1) THE SPHERE when its names are in COMBAT FOUR's handoff; (2) COMBAT FOUR's next insides.
+[bb Battle Brothers' boulders: a row of generators is a row of stones you cannot stand on, read at a glance]
+[analog horror: the dam's tour from the balcony, the floor below empty, one lamp of forty still on]
+
 COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20n - THE REGION'S FOUR, BUILT (1ca23ef49), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 408, 409(c), 455; ask rows 627, 651).
 COOK FIVE's list said 'measure how the region draws its four real places and whether a piece can go there with no code'. MEASURED: no. The region's places
 (TULE SPRINGS LAB, LENZIE STATION, SPRING MOUNTAIN RANCH, CALLVILLE BAY) are drawn by slices/bohemia_region.js drawPlaces after the whole frame, through the map's

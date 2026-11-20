@@ -8,7 +8,7 @@ slices/fight_ground/<kit>/ with an art file a board reads its lists from. A boar
 so the one thing a picture can get wrong without anybody seeing it in the tool is the join: this gate measures it.
 
   for each kit in KITS (the tunnels, the garage, and from 11/17 the convention hall, the mall, the warehouse and the data fort; from
-  11/18 the terminal; from 11/20 the stadium):
+  11/18 the terminal; from 11/20 the stadium and the dam's powerhouse):
   A1 the art file says finished, names a board to be for, and every picture it names (sheets and pieces) is a file; no picture
      lies in the folder unnamed
   A2 every sheet is five by five tiles of 515 x 364 (2575 x 1820); every ground list entry names a tile on its sheet
@@ -62,7 +62,8 @@ KITS = {'tunnels': dict(art='tunnels_art.json', budget=900000, walls=('wall_ew',
         'warehouse': dict(art='warehouse_art.json', budget=900000, walls=('wall_ew', 'rack_ew', 'conveyor', 'rail_ew', 'mezz', 'stair_e', 'stair_w'), beside=[('floor', 'ring'), ('floor', 'high')]),   # (11/17) and its warehouse
         'datafort': dict(art='datafort_art.json', budget=900000, walls=('wall_ew', 'servers_ew', 'gate', 'rail_ew', 'gallery', 'stair_e', 'stair_w'), beside=[('floor', 'ring'), ('floor', 'high')]),   # (11/18) and its data fort
         'terminal': dict(art='terminal_art.json', budget=900000, walls=('wall_ew', 'screen_ew', 'belt', 'rail_ew', 'walkway', 'stair_e', 'stair_w'), beside=[('floor', 'ring'), ('floor', 'high')]),   # (11/18) and its airport terminal
-        'stadium': dict(art='stadium_art.json', budget=900000, walls=('wall_ew', 'rail_ew', 'stand', 'stair_e', 'stair_w'), beside=[('floor', 'ring')])}   # (COOK SIX 11/20) and its stadium (the torn turf meets itself; the field meets it on a turf margin, by eye)
+        'stadium': dict(art='stadium_art.json', budget=900000, walls=('wall_ew', 'rail_ew', 'stand', 'stair_e', 'stair_w'), beside=[('floor', 'ring')]),
+        'powerhouse': dict(art='powerhouse_art.json', budget=900000, walls=('wall_ew', 'rail_ew', 'balcony', 'stair_e', 'stair_w'), beside=[('floor', 'ring')])}   # (COOK SIX 11/20) COMBAT FOUR's powerhouse   # (COOK SIX 11/20) and its stadium (the torn turf meets itself; the field meets it on a turf margin, by eye)
 passed = failed = 0
 
 
@@ -152,7 +153,7 @@ def a4(kit, K, sizes):
 
 
 CEIL_ALPHA_MAX, CEIL_BYTES, CEIL_SPREAD, CEIL_LINES, CEIL_MEET = 0.15, 80000, 60.0, (25.0, 0.10), 8.0
-CEIL_DATA = {'garage': 'garage/garage.json', 'casino': 'casino/casino_floor.json', 'tunnels': 'tunnels/tunnels.json', 'hall': 'hall/hall.json', 'mall': 'mall/mall.json', 'warehouse': 'warehouse/warehouse.json', 'datafort': 'datafort/datafort.json', 'terminal': 'terminal/terminal.json', 'stadium': 'stadium/stadium.json'}   # COMBAT THREE's: each one's 'ceiling' entry is the contract
+CEIL_DATA = {'garage': 'garage/garage.json', 'casino': 'casino/casino_floor.json', 'tunnels': 'tunnels/tunnels.json', 'hall': 'hall/hall.json', 'mall': 'mall/mall.json', 'warehouse': 'warehouse/warehouse.json', 'datafort': 'datafort/datafort.json', 'terminal': 'terminal/terminal.json', 'stadium': 'stadium/stadium.json', 'powerhouse': 'powerhouse/powerhouse.json'}   # COMBAT THREE's: each one's 'ceiling' entry is the contract
 
 
 def c1(C, exists=os.path.exists):

@@ -1,0 +1,372 @@
+{
+ "version": "cook6-powerhouse-art-11-20",
+ "lane": "cook 6 (COOK FIVE's list)",
+ "stage": "finished",
+ "for": "COMBAT FOUR's powerhouse (slices/fight_ground/powerhouse/powerhouse.json, BUILD 11/20j): the names its handoff asked for, the garage's format. floor.floor is the terrazzo (rows 0 to 2: cream, one of Allen Tupper True's Southwest patterns in a tile's middle on most tiles, rust and black, never on an edge); floor.wet the same floor wet where the dam weeps (row 3: dark water in the middle, the lime where it dried, a dry margin so it meets the floor); floor.high the balcony's floor (row 4); floor.ring the terrazzo. Any tile of a list meets any tile of it.",
+ "floor": {
+  "floor": [
+   "powerhouse/powerhouse_floor_0.webp#0,0",
+   "powerhouse/powerhouse_floor_0.webp#1,0",
+   "powerhouse/powerhouse_floor_0.webp#2,0",
+   "powerhouse/powerhouse_floor_0.webp#3,0",
+   "powerhouse/powerhouse_floor_0.webp#4,0",
+   "powerhouse/powerhouse_floor_0.webp#0,1",
+   "powerhouse/powerhouse_floor_0.webp#1,1",
+   "powerhouse/powerhouse_floor_0.webp#2,1",
+   "powerhouse/powerhouse_floor_0.webp#3,1",
+   "powerhouse/powerhouse_floor_0.webp#4,1",
+   "powerhouse/powerhouse_floor_0.webp#0,2",
+   "powerhouse/powerhouse_floor_0.webp#1,2",
+   "powerhouse/powerhouse_floor_0.webp#2,2",
+   "powerhouse/powerhouse_floor_0.webp#3,2",
+   "powerhouse/powerhouse_floor_0.webp#4,2"
+  ],
+  "wet": [
+   "powerhouse/powerhouse_floor_0.webp#0,3",
+   "powerhouse/powerhouse_floor_0.webp#1,3",
+   "powerhouse/powerhouse_floor_0.webp#2,3",
+   "powerhouse/powerhouse_floor_0.webp#3,3",
+   "powerhouse/powerhouse_floor_0.webp#4,3"
+  ],
+  "high": [
+   "powerhouse/powerhouse_floor_0.webp#0,4",
+   "powerhouse/powerhouse_floor_0.webp#1,4",
+   "powerhouse/powerhouse_floor_0.webp#2,4",
+   "powerhouse/powerhouse_floor_0.webp#3,4",
+   "powerhouse/powerhouse_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "powerhouse/powerhouse_floor_0.webp#0,0",
+   "powerhouse/powerhouse_floor_0.webp#1,0",
+   "powerhouse/powerhouse_floor_0.webp#2,0",
+   "powerhouse/powerhouse_floor_0.webp#3,0",
+   "powerhouse/powerhouse_floor_0.webp#4,0",
+   "powerhouse/powerhouse_floor_0.webp#0,1",
+   "powerhouse/powerhouse_floor_0.webp#1,1",
+   "powerhouse/powerhouse_floor_0.webp#2,1",
+   "powerhouse/powerhouse_floor_0.webp#3,1",
+   "powerhouse/powerhouse_floor_0.webp#4,1",
+   "powerhouse/powerhouse_floor_0.webp#0,2",
+   "powerhouse/powerhouse_floor_0.webp#1,2",
+   "powerhouse/powerhouse_floor_0.webp#2,2",
+   "powerhouse/powerhouse_floor_0.webp#3,2",
+   "powerhouse/powerhouse_floor_0.webp#4,2"
+  ]
+ },
+ "kit": {
+  "pw_balcony": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "THE BALCONY",
+   "stage": "finished",
+   "src": "powerhouse/pw_balcony.webp",
+   "w": 516,
+   "h_px": 427,
+   "foot": [
+    258.2,
+    425
+   ]
+  },
+  "pw_stair_e": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "ITS STAIRS, EAST",
+   "stage": "finished",
+   "src": "powerhouse/pw_stair_e.webp",
+   "w": 515,
+   "h_px": 425,
+   "foot": [
+    257.8,
+    425
+   ]
+  },
+  "pw_stair_w": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "ITS STAIRS, WEST",
+   "stage": "finished",
+   "src": "powerhouse/pw_stair_w.webp",
+   "w": 515,
+   "h_px": 425,
+   "foot": [
+    257.5,
+    425
+   ]
+  },
+  "pw_rail_ew": {
+   "kind": "RAIL",
+   "h": 1.1,
+   "name": "THE BALCONY'S RAIL",
+   "stage": "finished",
+   "src": "powerhouse/pw_rail_ew.webp",
+   "w": 515,
+   "h_px": 79,
+   "foot": [
+    257.8,
+    67
+   ]
+  },
+  "pw_wall_ew": {
+   "kind": "WALL",
+   "h": 2.4,
+   "name": "THE HALL'S WALL",
+   "stage": "finished",
+   "src": "powerhouse/pw_wall_ew.webp",
+   "w": 516,
+   "h_px": 133,
+   "foot": [
+    258.2,
+    122
+   ]
+  },
+  "pw_wall_ns": {
+   "kind": "WALL",
+   "h": 2.4,
+   "name": "THE HALL'S WALL",
+   "stage": "finished",
+   "src": "powerhouse/pw_wall_ns.webp",
+   "w": 52,
+   "h_px": 456,
+   "foot": [
+    26.2,
+    455
+   ]
+  },
+  "pw_bench": {
+   "kind": "LOW_COVER",
+   "h": 0.86,
+   "name": "THE BALCONY'S BENCHES",
+   "stage": "finished",
+   "src": "powerhouse/pw_bench.webp",
+   "w": 515,
+   "h_px": 82,
+   "foot": [
+    257.5,
+    73
+   ]
+  },
+  "pw_unit": {
+   "kind": "COVER",
+   "h": 5.6,
+   "name": "A GENERATOR",
+   "stage": "finished",
+   "src": "powerhouse/pw_unit.webp",
+   "w": 455,
+   "h_px": 574,
+   "foot": [
+    228.2,
+    559
+   ]
+  },
+  "pw_rotor": {
+   "kind": "COVER",
+   "h": 3.1500000000000004,
+   "name": "A ROTOR ON ITS STAND",
+   "stage": "finished",
+   "src": "powerhouse/pw_rotor.webp",
+   "w": 377,
+   "h_px": 402,
+   "foot": [
+    188.8,
+    360
+   ]
+  },
+  "pw_board": {
+   "kind": "LOW_COVER",
+   "h": 2.0,
+   "name": "A UNIT'S BOARD",
+   "stage": "finished",
+   "src": "powerhouse/pw_board.webp",
+   "w": 480,
+   "h_px": 160,
+   "foot": [
+    240.5,
+    137
+   ]
+  },
+  "pw_column": {
+   "kind": "WALL",
+   "h": 2.94,
+   "name": "A COLUMN",
+   "stage": "finished",
+   "src": "powerhouse/pw_column.webp",
+   "w": 94,
+   "h_px": 177,
+   "foot": [
+    34.6,
+    172
+   ]
+  },
+  "pw_hook": {
+   "kind": "COVER",
+   "h": 2.2,
+   "name": "THE CRANE'S HOOK",
+   "stage": "finished",
+   "src": "powerhouse/pw_hook.webp",
+   "w": 185,
+   "h_px": 214,
+   "foot": [
+    39.5,
+    193
+   ]
+  },
+  "pw_spares": {
+   "kind": "COVER",
+   "h": 1.8,
+   "name": "CRATED SPARES",
+   "stage": "finished",
+   "src": "powerhouse/pw_spares.webp",
+   "w": 206,
+   "h_px": 180,
+   "foot": [
+    103.8,
+    163
+   ]
+  },
+  "pw_spares_b": {
+   "kind": "DRESS",
+   "h": 0.9,
+   "name": "CRATED SPARES",
+   "stage": "finished",
+   "src": "powerhouse/pw_spares_b.webp",
+   "w": 121,
+   "h_px": 98,
+   "foot": [
+    52.3,
+    84
+   ]
+  },
+  "pw_cable": {
+   "kind": "LOW_COVER",
+   "h": 1.8,
+   "name": "CABLE REELS",
+   "stage": "finished",
+   "src": "powerhouse/pw_cable.webp",
+   "w": 266,
+   "h_px": 178,
+   "foot": [
+    112.5,
+    142
+   ]
+  },
+  "pw_cable_b": {
+   "kind": "DRESS",
+   "h": 1.2,
+   "name": "CABLE REELS",
+   "stage": "finished",
+   "src": "powerhouse/pw_cable_b.webp",
+   "w": 146,
+   "h_px": 115,
+   "foot": [
+    35.0,
+    98
+   ]
+  },
+  "pw_cart": {
+   "kind": "LOW_COVER",
+   "h": 1.04,
+   "name": "TOOL CARTS",
+   "stage": "finished",
+   "src": "powerhouse/pw_cart.webp",
+   "w": 223,
+   "h_px": 109,
+   "foot": [
+    103.3,
+    92
+   ]
+  },
+  "pw_cart_b": {
+   "kind": "DRESS",
+   "h": 1.04,
+   "name": "TOOL CARTS",
+   "stage": "finished",
+   "src": "powerhouse/pw_cart_b.webp",
+   "w": 95,
+   "h_px": 79,
+   "foot": [
+    30.8,
+    76
+   ]
+  },
+  "pw_camp_a": {
+   "kind": "LOW_COVER",
+   "h": 0.45,
+   "name": "SOMEBODY'S BEDDING",
+   "stage": "finished",
+   "src": "powerhouse/pw_camp_a.webp",
+   "w": 223,
+   "h_px": 119,
+   "foot": [
+    129.0,
+    110
+   ]
+  },
+  "pw_camp_b": {
+   "kind": "LOW_COVER",
+   "h": 1.08,
+   "name": "SOMEBODY'S BEDDING",
+   "stage": "finished",
+   "src": "powerhouse/pw_camp_b.webp",
+   "w": 223,
+   "h_px": 119,
+   "foot": [
+    129.0,
+    110
+   ]
+  },
+  "pw_bedding_a": {
+   "kind": "DRESS",
+   "h": 0.45,
+   "name": "SOMEBODY'S BEDDING",
+   "stage": "finished",
+   "src": "powerhouse/pw_camp_a.webp",
+   "w": 223,
+   "h_px": 119,
+   "foot": [
+    129.0,
+    110
+   ]
+  },
+  "pw_bedding_b": {
+   "kind": "DRESS",
+   "h": 1.08,
+   "name": "SOMEBODY'S BEDDING",
+   "stage": "finished",
+   "src": "powerhouse/pw_camp_b.webp",
+   "w": 223,
+   "h_px": 119,
+   "foot": [
+    129.0,
+    110
+   ]
+  }
+ },
+ "how_it_lays": {
+  "the units": "pw_unit is a generator 10.2 m across and 5.6 m to its exciter, foot its south edge middle (your 'at' [0.5, 0.9]); pw_board six cabinets and the desk a tile wide; pw_rotor 7.2 m across on its cribbing; pw_column 1.2 m square, foot its base middle.",
+  "the balcony": "pw_balcony on every high tile, 1.42 m up, foot its south edge middle, its runner pattern the same at both ends; pw_bench three benches a tile wide (your 'at' [0.5, 0.82], lifted); pw_stair_e / _w the hall's concrete stair; pw_rail_ew its bronze rail.",
+  "the floor things": "pw_hook the block, the hook and its cable in coils; pw_spares six crates, pw_spares_b two and what was in one; pw_cable two reels and the cable run off them, pw_cable_b one; pw_cart two tool carts and a parts trolley, pw_cart_b one; pw_camp_a / _b (pw_bedding_a / _b the same pictures): foot each at its south edge middle.",
+  "the hall": "pw_wall_ew / _ns: cast concrete to 2.4 m, its panels, the bronze band, a plaque, where it weeps; a tile long."
+ },
+ "bytes": {
+  "floor": 284848,
+  "ceiling": 56316
+ },
+ "ceiling": {
+  "sheet": "powerhouse/powerhouse_ceiling.webp",
+  "bays": [
+   5,
+   5
+  ],
+  "bay_px": [
+   258,
+   137
+  ],
+  "covers": [
+   20,
+   15
+  ],
+  "whole": true,
+  "what": "the generator hall's roof far up, a beam across it every tile and its purlins, the crane runways along both long walls, two bridge cranes across the hall with their trolleys and their hooks hanging, forty hanging lamps and one of them still on, the stains where it leaks: one picture the size of the board",
+  "contract": "powerhouse.json 'ceiling' (COMBAT FOUR's: the fight draws it over the board at that alpha, rule 451(a)); 'tile' [20, 15] is the board: ONE picture, never repeated (the runways are on its long walls)"
+ }
+}

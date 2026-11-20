@@ -21430,7 +21430,50 @@
   "record": "records/BOHEMIA_ECONOMY_THREE_EVERY_PRICE_IS_THE_TABLES_11_20_26.md",
   "build": "BUILD 11/20o - AFTER THE FIGHT, THE SAME BATTERIES"
  },
-  {"id": "jobs-a-name-fades-11-20", "kind": "ui", "lane": "jobs", "sha": "b87db3ddb", "made": "11/20", "draft": true, "title": "A NAME FADES: A COMPANY THAT STOPS WORKING IS FORGOTTEN", "said": "the whole enchilada: a full sweep, don't forget anything; the handoff's next job (Battle Brothers' daily renown decay)", "why": "Your CLOUT now drops by 3 every day you pass without working, like Battle Brothers' daily renown decay, so the big work a name opened can close again. And a NEW GAME now starts as a stranger: the towns forget how they felt about your last company. You see it on a town's BOARD: MORE WORK HERE AT 250 CLOUT, with what you have.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_A_NAME_FADES.jpg"}, "before_after": {"before": "CLOUT only ever went up; a new game kept the old company's grudges, its pushed-away clients and its finished jobs on their way to a town", "after": "260 CLOUT and five quiet days is 245, and the fortress work waits again; NEW GAME wipes all four old records", "scale": "left: the game on a phone upright (390 x 844 at 3), the demo; right: what changed, measured"}, "record": "records/BOHEMIA_JOBS_A_NAME_FADES_11_20_26.md", "build": "BUILD 11/20p - A NAME FADES"}
+  {"id": "jobs-a-name-fades-11-20", "kind": "ui", "lane": "jobs", "sha": "b87db3ddb", "made": "11/20", "draft": true, "title": "A NAME FADES: A COMPANY THAT STOPS WORKING IS FORGOTTEN", "said": "the whole enchilada: a full sweep, don't forget anything; the handoff's next job (Battle Brothers' daily renown decay)", "why": "Your CLOUT now drops by 3 every day you pass without working, like Battle Brothers' daily renown decay, so the big work a name opened can close again. And a NEW GAME now starts as a stranger: the towns forget how they felt about your last company. You see it on a town's BOARD: MORE WORK HERE AT 250 CLOUT, with what you have.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_A_NAME_FADES.jpg"}, "before_after": {"before": "CLOUT only ever went up; a new game kept the old company's grudges, its pushed-away clients and its finished jobs on their way to a town", "after": "260 CLOUT and five quiet days is 245, and the fortress work waits again; NEW GAME wipes all four old records", "scale": "left: the game on a phone upright (390 x 844 at 3), the demo; right: what changed, measured"}, "record": "records/BOHEMIA_JOBS_A_NAME_FADES_11_20_26.md", "build": "BUILD 11/20p - A NAME FADES"},
+  {
+   "id": "cook6-the-powerhouse-11-20",
+   "kind": "tile",
+   "lane": "cook 6",
+   "sha": "SHIPSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "THE FIGHT INSIDE THE DAM'S POWERHOUSE LOOKS LIKE THE DAM NOW: THE GENERATORS IN A ROW, THE TERRAZZO, THE BALCONY, THE CRANES OVERHEAD",
+   "said": "full sweep, whole enchilada, dont forget nothing",
+   "why": "The fight inside Hoover Dam's generator hall was built from the parking garage's and the casino's pictures; now it has its own: the big round generators in a row with their numbers and the exciters on top, their control boards of dead dials, a rotor lifted out on its stand, the crane's hook let down to the floor, crates and cable reels and tool carts, families sleeping against the generators, the terrazzo floor with its Southwest patterns and wet where the dam weeps, the visitors' balcony with its bronze rail, and over it at his 10% the roof with its two yellow cranes and forty lamps, one still on. You meet it when a fight starts at the dam, in the RUN tab.",
+   "options": [
+    "A, yes, that's the dam",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK6_THE_POWERHOUSE_11_20.webp",
+    "first": "../records/target/vote_first/cook6-the-powerhouse-11-20.webp",
+    "firstAt": [
+     786,
+     96,
+     383,
+     559
+    ]
+   },
+   "before_after": {
+    "before": "main d972db85a: all 165 pieces of the powerhouse (the generator floor layout) are stand-ins from the garage, the casino and the street board; the roof is drawn by the page",
+    "after": "the powerhouse's own floor, 20 pictures under its 22 names and ONE roof picture the size of the board, through the master rig; the powerhouse lays them with no code changed",
+    "scale": "the fight on his phone upright (390 x 844) as it opens, the same fight before and now; close in on the page; then the pieces at their own pixels"
+   },
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "twin": {
+    "src": "fight_ground/stadium/st_rig.webp",
+    "diffs": [
+     "THE SAME RIG AND CUT as the stadium's kit and the terminal's: one tool on the other, COMBAT FOUR's names, its data file's own ceiling entry.",
+     "THE GENERATORS ARE THE BOARD: a row of steel drums you cannot stand on, each 10 m across with its number on its face, read as stones at a glance.",
+     "THE FLOOR IS THE DAM'S OWN: terrazzo with Allen Tupper True's patterns on fewer than half the tiles, wet where the dam weeps."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_SIX_THE_POWERHOUSE_11_20_26.md"
+  }
  ],
  "verdicts": [
   {

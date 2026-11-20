@@ -1,3 +1,21 @@
+COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20q - THE DAM'S POWERHOUSE, BUILT (SHIPSHA), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 451(a), 455; ask rows 627, 651).
+THE POWERHOUSE (COMBAT FOUR's BUILD 11/20j, its 'FOR COOK (FIVE or SIX)'): all 165 pieces of the generator floor were stand-ins. Now slices/fight_ground/powerhouse/ holds
+powerhouse_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 2 of powerhouse_floor_0.webp, the terrazzo with one of Allen Tupper True's patterns on fewer than half its
+tiles; floor.wet its row 3, wet where the dam weeps, a dry margin on every edge; floor.high its row 4; floor.ring rows 0 to 2; kit: all 22 names, the bedding names the camps'
+pictures), sizes.json, 20 piece pictures, the floor sheet and powerhouse_ceiling.webp: 22 pictures, about 790,000 bytes. powerhouse.json: only its ceiling entry's "have"
+(true) and "tile" ([20, 15]: ONE picture the size of the board, as the stadium's; the crane runways are on the long walls, so it cannot repeat).
+Made by tools/bohemia_cook6_the_powerhouse_finished_11_20_26.py ON the stadium tool (eight deep). calibration.json gained pw_terr, pw_rust, pw_black (the others kept).
+PROOF on the real fight page: the generator floor upright 165 pieces, 0 stand-ins, the roof's picture drawn, a tile 43.9 points, 0 page errors; on its side the same at 28.6;
+the service bay upright 166 pieces, 0 stand-ins. FOUND BY EYE: the first floor had a pattern on four tiles in five in strong rust and black and read as wallpaper over the men
+(now fewer than half, muted); a black disc rendered as a hole (now a ring); the one lit lamp hid under a crane (moved); a beam over every tile drew his grid (now every 1.25).
+Gate THE INSIDES WEAR FINISHED ART 70/0 (nine kits, ten ceilings). COMBAT FOUR's gates: THE BIG INSIDES 123/0, AN INSIDE SHOWS ITS CEILING 6/0.
+VOTE cook6-the-powerhouse-11-20 (MADE FROM arena2-the-pit-is-a-pit-11-7). Record: records/BOHEMIA_COOK_SIX_THE_POWERHOUSE_11_20_26.md.
+Its block is handoffs/COOK_FIVE.md (COOK SIX writes there).
+*** FOR COMBAT FOUR: your names, your format, your ceiling entry; nothing else of yours edited. The page asks for fight_ground/sphere/sphere_art.json and gets none: the Sphere's
+art is this lane's next build (your names in your handoff, please).
+*** NEXT ON THIS LANE: (1) THE SPHERE when its names are in COMBAT FOUR's handoff; (2) COMBAT FOUR's next insides.
+[bb Battle Brothers' boulders: a row of generators is a row of stones you cannot stand on, read at a glance]
+[analog horror: the dam's tour from the balcony, the floor below empty, one lamp of forty still on]
 JOBS (jobs-01gkdyuv): 11/20 LATEST -- BUILD 11/20p - A NAME FADES, BUILT, NOT YET SEEN (rules 461, 441, 454(a); row 651). A NAME FADES: 3 CLOUT a day the map's clock passes (Battle Brothers' Daily Renown Decay -3, TUNING job_clout.fade), so the big
 work a name opened waits again; the board works its own line out each time; NEW GAME forgets the towns' bars, the pushed-away
 clients, the settled queue and the fade's day.
