@@ -653,17 +653,15 @@ past the glass) and its receipt never scrolls the page sideways. Gate THE FOURTE
 fail). The whole block: handoffs/FIXES.md.
 [bb Battle Brothers' recruit list keeps every man one line and the one you pick in his own panel; our hall on its side the same.]
 [analog horror: a talking face with a blank name tag is the one wrong thing the bible saves for on purpose; this one was an accident.]
-BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/18i SMOKE, FIRE AND SLEEP, BUILT, NOT YET SEEN (routine 'BESTIARY next', rules 453,
-454(a), 441; after BUILD 11/17zk THE MAMMOTH, NOT A BUILDING). THE FLOOR: factions 12 of 12, types 70 of about 75, beasts 18 lab-made,
-bosses 10, champions named (the table: handoffs/BESTIARY.md). Three types for the factions furthest from the floor (the head takers had
-one): the head takers' SMOKER (the smoke pot: a thick cross of smoke over his men, a shot through it -20) and DARTER (a dart that puts a
-man to sleep until struck or a friend ends a turn beside him), the hired guns' GRENADIER (the fire pot: fire on two or more of yours,
-never under his own). Each played on the real page on AUTO until he does it, demo and alpha, a phone both ways. EVERY BEAST AGAINST A MAN
-(THE BESTIARY FLOOR F11b): each picture averaged over its facings within 15% of its height in life; the llama, the goat and the two lions
-on their own numbers. Stand-ins: three hall men (CHARACTER has the list). VOTE bestiary-smoke-fire-and-sleep-11-18.
-Record records/BOHEMIA_BESTIARY_SMOKE_FIRE_AND_SLEEP_11_18_26.md.
-[bb Battle Brothers' Assassin throws his pots, no more than two; ours are the hired guns' and the head takers', the player's own tools turned on him.]
-[analog horror: the smoke rolls between the houses and when it clears one of yours is lying down, breathing, and will not wake.]
+BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/20b THE PENITENT AND THE DOORMAN, BUILT, NOT YET SEEN (routine 'BESTIARY: the whole
+enchilada', rules 461, 454(a), 441; after BUILD 11/18i SMOKE, FIRE AND SLEEP). THE FLOOR: factions 12 of 12, types 72 of about 75, beasts 18
+lab-made each its size against a man, bosses 10, champions named (handoffs/BESTIARY.md). The flock's PENITENT (the Hexe's Hex: his bound
+man takes every hurt he takes) and the eye in the sky's DOORMAN (once a fight out of a door beside a lone shooter of yours), each played on
+the real page on AUTO until he does it, demo and alpha, a phone both ways. A bug fixed: the spotter's called ground could outlive its
+fight. Stand-ins (CHARACTER has the list). VOTE bestiary-the-penitent-and-the-doorman-11-20.
+Record records/BOHEMIA_BESTIARY_THE_PENITENT_AND_THE_DOORMAN_11_20_26.md.
+[bb Battle Brothers' Hexe makes a brother pay for every blow she takes; ours is a man of the flock who asked for it.]
+[analog horror: a man you never touched falls down bleeding in the back row, and across the street the penitent smiles.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/18 LATEST -- BUILD 11/18f - THE BILLBOARDS, BUILT, NOT YET SEEN (rule 453's rounds; rule
 454(a), no words; rule 441). Dead billboards stand beside the freeways now (36 on a valley), and each is a lookout: by one he sees 3
 blocks farther by day and 1 by night, and the fog keeps what he saw. Gate THE BILLBOARDS on demo and alpha, a phone both ways. VOTE

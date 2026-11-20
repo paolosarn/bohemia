@@ -2,6 +2,23 @@
 
 NOTE from CHARACTER (11/18, rule 453; records/BOHEMIA_CHARACTER_THE_HIRED_GUNS_11_18_26.md): THE HIRED GUNS HAVE THEIR CLOTHES. hired_gun now wears enemy_hired_gun_0, _1, _2 and hired_duelist enemy_hired_duelist_0, _1 (kind 'enemy', set 'nine', each on his own fight sheet in his stand-in's cell with its guns, his face on faces_more.webp). My pack wrote only those two rows' looks lines in your bohemia_enemies.json, the nine's way: looks = the men, looks_borrowed = the stand-in (faction_caravans, faction_mob), and the 'looks_stand_in' note dropped, since it said 'until this type has its own clothes'. Your F9 on the page fields both in their own sheets (the demo and the alpha, a phone both ways: own sheet, named, armed, the riposte seen, the win home). Next from me in your list: the head taker, the casino gunner, the spotter, the preacher.
 
+BESTIARY (routine 'BESTIARY: the whole enchilada', rules 461, 454(a), 441): 11/20 LATEST -- BUILD 11/20b THE PENITENT AND THE DOORMAN (SHA6_HERE), BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_BESTIARY_THE_PENITENT_AND_THE_DOORMAN_11_20_26.md. VOTE bestiary-the-penitent-and-the-doorman-11-20.
+| floor | his | the fight fields | short |
+|---|---|---|---|
+| factions | 12 | 12 | 0 |
+| enemy types | about 75 | 72 | 3 |
+| beasts | 17 | 18 lab-made (23 fielded), each its size against a man | 0 |
+| bosses | 3 | 10 | 0 |
+| champions | some | 3 kinds, named | 0 |
+- THIS BUILD: the flock's PENITENT (the Hexe's Hex: his bound man takes every hurt he takes) and the eye in the sky's DOORMAN (once a
+  fight he comes out beside a lone shooter of yours). Each played on the real page on AUTO until he does it. A bug found and fixed: the
+  spotter's called ground could outlive its fight (setup clears S.calls now).
+- NEXT (3 types to 75): the keepers' fourth (an enemy whip: the disarm no enemy has), the machines' third once robot art can tell it
+  apart, Tule Springs' Harlan's ground sloth if its outline stays its own.
+[bb Battle Brothers' Hexe makes a brother pay for every blow she takes; ours is a man of the flock who asked for it.]
+[analog horror: a man you never touched falls down bleeding in the back row, and across the street the penitent smiles.]
+
 BESTIARY (routine 'BESTIARY next', rules 453, 454(a), 441): 11/18 LATEST -- BUILD 11/18i SMOKE, FIRE AND SLEEP (17a03d64), BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_SMOKE_FIRE_AND_SLEEP_11_18_26.md. VOTE bestiary-smoke-fire-and-sleep-11-18.
 | floor | his | the fight fields | short |

@@ -61,7 +61,7 @@ spec = importlib.util.spec_from_file_location('outline', os.path.join(ROOT, 'gat
 OL = importlib.util.module_from_spec(spec); spec.loader.exec_module(OL)
 FLOOR, MARK_PX, MARK_FACINGS = OL.FLOOR, OL.MARK_PX, OL.MARK_FACINGS
 MAP_SCALE = 5                 # the map draws a beast party at about a fifth of the fight's pixels (WORLD 12's 'the map's fifth')
-TYPES_IN_THE_FIGHT_FLOOR = 70  # MEASURED 11/18 (70 with the smoker, the darter and the grenadier); 11/17 (67 with the duelist, the preacher and the spotter; 63 with the four factions, 64 with the mammoth; 59 on 11/14); 11/14 (42 before BESTIARY's seven, 49 before its five men, 54 before its three, 57 before its two): only ever raised
+TYPES_IN_THE_FIGHT_FLOOR = 72  # MEASURED 11/20 (72 with the penitent and the doorman); 11/18 (70 with the smoker, the darter and the grenadier); 11/17 (67 with the duelist, the preacher and the spotter; 63 with the four factions, 64 with the mammoth; 59 on 11/14); 11/14 (42 before BESTIARY's seven, 49 before its five men, 54 before its three, 57 before its two): only ever raised
 FACTIONS_FIELDED_NOW = 12      # MEASURED 11/17 (8 until the flock, the hired guns, the head takers and the eye in the sky): the factions the fight fields a party for; only ever raised
 LAB_MADE_NOW = 18              # MEASURED 11/17 (17 on 11/10, the floor; the Columbian mammoth the eighteenth) (10 before BESTIARY's seven): the law's floor, met; only ever raised
 BY = 'BESTIARY'
@@ -410,6 +410,8 @@ def main():
         if bv.get('smokes') and not a.get('smoke_pot'): bad.append(r['id'] + ': a smoker who never throws smoke')
         if bv.get('firebombs') and not (a.get('fire_pot') and a.get('burned')): bad.append(r['id'] + ': a grenadier whose fire never burns a man')
         if bv.get('darts') and not a.get('dart'): bad.append(r['id'] + ': a darter who never puts a man to sleep')
+        if bv.get('binds') and not a.get('bond_hurt'): bad.append(r['id'] + ': a penitent whose bound man never bleeds with him')
+        if bv.get('doors') and not a.get('back_door'): bad.append(r['id'] + ': a doorman who never comes out behind a shooter')
         w6, w0 = (o.get('won_by_crew_of_6') or 0), o.get('won_without_him')
         if w6 < 6 and not (w0 is not None and w6 >= w0 - 1): bad.append('%s: a crew of 6 beats its party %s in 10 (%s without him)' % (r['id'], w6, w0))
     wait = [r['id'] for r in (D['ne'].get('waiting') or {}).get('rows', [])]
@@ -418,7 +420,7 @@ def main():
     leg(mine and not bad, 'F10 THE NEW MEN: %d enemy types BESTIARY added, each on a wiki row with its lesson, in its own clothes, dealt by its party, armed from its own gear and striking its own way on the live rules (%s)%s'
         % (len(mine), '; '.join('%s %s, %s, %d/%d struck near/far%s' % (r['id'], (HL.get('men') or {}).get(r['id'], {}).get('weapon'), r['brain'],
                                 (HL.get('men') or {}).get(r['id'], {}).get('acts', {}).get('melee', 0), (HL.get('men') or {}).get(r['id'], {}).get('acts', {}).get('ranged', 0),
-                                ''.join(', %d %s' % (v, {'kick': 'great swings', 'charge': 'charges', 'flings': 'throws', 'horrific_scream': 'horn blasts', 'martyr': 'surges', 'trample': 'tramples', 'riposte': 'strikes back', 'turned': 'men turned on a friend', 'call_lands': 'called crosses hit', 'smoke_pot': 'smoke pots', 'burned': 'burns from his fire', 'dart': 'men put to sleep', 'toward_main': 'steps past a nearer man toward the main man'}[k]) for k, v in ((HL.get('men') or {}).get(r['id'], {}).get('acts', {}) or {}).items() if k in ('kick', 'charge', 'flings', 'horrific_scream', 'martyr', 'trample', 'riposte', 'turned', 'call_lands', 'smoke_pot', 'burned', 'dart') and v or (k == 'toward_main' and v and ((D['ne']['brains'].get(r.get('brain')) or {}).get('value') or {}).get('hunts_main')))) for r in mine),
+                                ''.join(', %d %s' % (v, {'kick': 'great swings', 'charge': 'charges', 'flings': 'throws', 'horrific_scream': 'horn blasts', 'martyr': 'surges', 'trample': 'tramples', 'riposte': 'strikes back', 'turned': 'men turned on a friend', 'call_lands': 'called crosses hit', 'smoke_pot': 'smoke pots', 'burned': 'burns from his fire', 'dart': 'men put to sleep', 'bond_hurt': 'hurts shared with a bound man', 'back_door': 'doors behind a shooter', 'toward_main': 'steps past a nearer man toward the main man'}[k]) for k, v in ((HL.get('men') or {}).get(r['id'], {}).get('acts', {}) or {}).items() if k in ('kick', 'charge', 'flings', 'horrific_scream', 'martyr', 'trample', 'riposte', 'turned', 'call_lands', 'smoke_pot', 'burned', 'dart', 'bond_hurt', 'back_door') and v or (k == 'toward_main' and v and ((D['ne']['brains'].get(r.get('brain')) or {}).get('value') or {}).get('hunts_main')))) for r in mine),
            (('; WAITING FOR ITS OWN CLOTHES (CHARACTER): ' + ', '.join(wait)) if wait else '') + (('; IN A STAND-IN LOOK (CHARACTER): ' + ', '.join(r['id'] for r in mine if r.get('looks_stand_in'))) if any(r.get('looks_stand_in') for r in mine) else '')),
         '; '.join(bad[:4]))
     # ---------------- F9: the five end to end on the page, a phone upright and sideways (rule 441(a)) ----------------
@@ -448,7 +450,7 @@ def main():
                 ok = (o.get('fight') and fl and all(x.get('own') and x.get('drawn') and x.get('look') in r['looks'] and x.get('name') == r['board_name'] and x.get('weapon') for x in fl)
                       and o.get('says') and o.get('home'))
                 bv = (D['ne']['brains'].get(r.get('brain')) or {}).get('value') or {}
-                if any(bv.get(k) for k in ('ripostes', 'turns', 'calls', 'smokes', 'firebombs', 'darts')) and not (o.get('move') or {}).get('seen'): ok = False   # his one thing, played on the page (BESTIARY 11/17)
+                if any(bv.get(k) for k in ('ripostes', 'turns', 'calls', 'smokes', 'firebombs', 'darts', 'binds', 'doors')) and not (o.get('move') or {}).get('seen'): ok = False   # his one thing, played on the page (BESTIARY 11/17)
                 if not ok: bad.append('%s %s: %s' % (prof, r['id'], json.dumps(o)[:160]))
             ch = runs.get('champion') or {}
             if not (ch.get('named') and ch.get('inList') and all(x.get('onBoard') for x in ch['named']) and ch.get('home')

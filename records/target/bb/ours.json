@@ -761,7 +761,6 @@
     "lower_brigand_raider": [
      "person_mob_0",
      "person_mob_1",
-     "person_mob_2",
      "person_cartel_0",
      "person_cartel_1",
      "person_cartel_2"
@@ -779,7 +778,6 @@
     "brigand_raider": [
      "person_mob_0",
      "person_mob_1",
-     "person_mob_2",
      "person_cartel_0",
      "person_cartel_1",
      "person_cartel_2"
@@ -896,7 +894,6 @@
     "orc_young": [
      "person_mob_0",
      "person_mob_1",
-     "person_mob_2",
      "faction_cartel",
      "person_cartel_0",
      "person_cartel_1",
