@@ -28,6 +28,12 @@
    ============================================================================ */
 (function (root) {
   'use strict';
+  /* __THE_THREE_BATTERIES_ARE_DEAD__ (the coordinator, 11/20; VAMILY rule 463, Paolo 11/20: 'I dont like how u made the new
+     battery shit like 3 batteries thats so fucking ugly'): the drawing of a sum as car batteries, tool packs and AA's is killed
+     on every page that loads this file; every sum is the page as it was before 11/18t (the drawer's own switch below, the one
+     its gate's L8 proved is the page as it was). The look is in the graveyard; no other split-into-kinds money drawing comes
+     back under a new name. The table and its prices (rule 459) are untouched. ECONOMY THREE removes the file's loads. */
+  root.__BATTERY_OFF = true;
   if (root.BohemiaBattery) return;
   var doc = root.document;
   /* __THE_TABLE_COPY__ the table's ladder, so the first frame before the file lands draws right. The gate

@@ -8539,8 +8539,8 @@ GATES = [
      "the shop's bag prices it the same, the crew screen's tap lights the map best first and its second tap closes onto the marks, "
      "nobody wears it, the last sale takes the marks away, and a planted stall without the engine reads red. green at registration, "
      "4/0 data and 11/0 a profile, about 4 min a profile", True),
-    ('THE BATTERY IS REAL', ['node', 'gates/the_battery_is_real_gate.js'],
-     "ECONOMY TWO gate, 11/18, rule 459 (ask line 645; rules 441, 454(a); Paolo 9/4: 'for one AA battery a bag of rice'; Paolo 11/17: "
+    ('THE BATTERY IS REAL', ['node', 'gates/the_battery_is_real_gate.js', 'data'],
+     "AMENDED 11/20 by the coordinator, rule 463 (Paolo: 'I dont like how u made the new battery shit like 3 batteries thats so fucking ugly'): the drawing is dead, so the REAL PAGE legs L1 to L8 (which proved the drawing) retire with it and the suite runs the table legs only; the table stands. ECONOMY TWO gate, 11/18, rule 459 (ask line 645; rules 441, 454(a); Paolo 9/4: 'for one AA battery a bag of rice'; Paolo 11/17: "
      "'some of the quests, it's like 3000 or like 1000 batteries to complete a quest and I'm like bro that's a lot... look at their "
      "battery right now and relate it from the game to real life'). THE ONE TABLE (records/target/bb/battery_table.json through "
      "tools/bohemia_economy_two_the_battery_table.js): the unit is one AA and it buys a bag of rice, the ladder is the research's (a "
