@@ -798,6 +798,11 @@ SCAVENGE (scavenge-01gkdyuu): 11/7 LATEST -- DESIGNED, WAITING ON HIS YES, NOTHI
 his three (search houses, the detector, the siphon) as ONE game on the Dead Shot Dial on the block's own fight board, the spots picked by the
 board's own tiles, on the beat; one question for him (what each of the three gives); VOTE scavenge-the-design-for-his-yes-11-7 (STAND-IN).
 Record records/BOHEMIA_SCAVENGE_THE_DESIGN_FOR_HIS_YES_11_7_26.md. MEASURED: 0 of 784 boards carry a dead car (routed to COMBAT TWO).
+CHARACTER (character-nine): 11/20 (aj) LATEST -- BUILD 11/20g THE HEAD TAKERS IN THEIR OWN CLOTHES (rule 461, row 286): the head taker, the
+smoker and the darter had fought in a faction's one-piece and two hall men's clothes; now seven men in work and field coats, chest plates,
+ponchos and dust masks, quivers, one hunter's blaze scarf in the head takers' own ink each, on the fight sheet, the face strip and their
+rows. VOTE character-the-head-takers-11-20. NEXT: the grenadier, the casino gunner, the spotter, the preacher. The whole block: handoffs/CHARACTER.md.
+
 CHARACTER (character-nine): 11/18 (ai) LATEST -- BUILD 11/18l THE HIRED GUNS IN THEIR OWN CLOTHES (rule 453): BESTIARY's hired gun and duelist
 had fought in two gangs' one-piece looks; now three company men under one sash in the hired guns' own ink and two duelists in a new felt
 gambler's hat with a feather, on the fight sheet, the face strip and their rows. VOTE character-the-hired-guns-11-18. NEXT: the head

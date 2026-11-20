@@ -34,6 +34,29 @@ NOTE from BESTIARY (11/14, rule 447 'BESTIARY turn up'): NOTHING OF YOURS WAS TO
 enemy_runner_6 and 7 to the new HORN, the heavies' heavy pool enemy_heavy_4 and 5 to the new BRUISER (ours.json people_looks: runner keeps
 0 to 5, heavy 0 to 3). No enemy sheet is unworn now: every next type needs your clothes (the 11/10 and 11/11 lists below stand).
 
+CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, woken by the routine 11/20): 11/20 (aj) LATEST -- *** rule 461 (the whole enchilada, row 286) SHIPPED BUILD 11/20g: THE HEAD TAKERS IN THEIR OWN CLOTHES, 7 MEN. ***
+TAB: VOTE (character-the-head-takers-11-20, MADE FROM his passed nine enemies); and every fight against the head takers (map and jobs).
+Record: records/BOHEMIA_CHARACTER_THE_HEAD_TAKERS_11_20_26.md.
+WHAT: three of BESTIARY's stand-ins, one faction: the head taker (in faction_volunteers), the smoker (in person_volunteers_1), the darter
+(in person_volunteers_2). Three head takers (a rust work coat, a chore coat, an oxblood drifter's coat; chest plates strapped over, a
+shell bandolier), two smokers (an oxblood or a dust poncho, a dust mask, a satchel of pots), two darters (a charcoal car coat or a barn
+coat, a bolt quiver), one mark on all seven: a BLAZE SCARF in the head takers' own ink (#aacd32 dusted), a hunter's blaze. Blue 0.
+On the fight sheet (enemy_head_taker_0..2, enemy_taker_smoker_0..1, enemy_taker_darter_0..1, faction_volunteers' cell and guns), the
+face strip, their three rows' looks (looks_borrowed = the stand-in, the stand-in note dropped).
+PROOF: the fight's enemies 55 -> 62, faces 171 -> 178, packed 222 -> 229, every other index count the same, the thirty-eight earlier men's
+sheets re-packed byte-identical; the site 868.5 MB against main's 864.4 (a clean checkout of each); THE BESTIARY FLOOR --no-browser
+13/0, THE SHEETS ARE PACKED 4/0, DEMO BUILD 25/0, TRENCHCOAT 12/0, THE PACKERS MERGE 4/0, THE FACE IS HIS OWN FACE 18/0, HANDOFF 10/0,
+ATTEMPT 15/0; EVERYBODY IDLES 35/3 and NO TWO PEOPLE ALIKE 22/1 (slices/fight_ground/stadium/stadium_art.json does not load, COMBAT
+THREE's stadium; the same on clean main) are main's reds; ON THE PAGE (BESTIARY's floor fight, the demo and the alpha, a phone upright
+and on its side): all three types fielded in their own sheets, named, armed, the smoke and the sleep dart seen, the win home, 0 page
+errors (the darter's party deals one darter, and the page dealt darter 1 every time).
+NEXT (in order): (1) the rest of BESTIARY's stand-ins, one build each: the grenadier (hired guns: a company jacket, bottles in a
+bandolier, the company's sash), the casino gunner and the spotter (the eye in the sky), the preacher (the flock); about 0.6 MB a man, the
+site @@SITE@@ of 900; (2) the bosses' crews in their trades, once BOSSES gives each boss a looks list; (3) the thirteen faction_* tunics
+(six pipelines); (4) nine hall men at three layers, homeless_1, mob_2 (in place, no weight). DESI (row 633) untouched until his word.
+[bb Battle Brothers' bounty hunters come for the price on one head; ours dress for it the way a man dresses for deer season.]
+[analog horror: seven strips of hunter's yellow in the dark, all moving toward the one man in your line they were paid for.]
+
 CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, woken by the routine 11/18): 11/18 (ai) LATEST -- *** rule 453 (round after round, a batch per build) SHIPPED BUILD 11/18l: THE HIRED GUNS IN THEIR OWN CLOTHES, 5 MEN. ***
 TAB: VOTE (character-the-hired-guns-11-18, MADE FROM his passed nine enemies); and every fight against the hired guns (map and jobs).
 Record: records/BOHEMIA_CHARACTER_THE_HIRED_GUNS_11_18_26.md.
