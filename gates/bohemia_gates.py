@@ -10432,7 +10432,15 @@ def _run_all(fast, strict, only=None, dry=False, shard=None, pure=False, lenient
     # already (it counted the other shard's gates as unreached); deriving both
     # from one list means they cannot disagree again.
     work = []
+    # BOHEMIA_SUITE_FROM=N (PLUMBER 8, 11/20): a run the container killed at table entry N-1 is taken up at N, not begun again
+    # (the report streams in table order, so its last line is how far it got); the numbers printed restart at 1 for the rest
+    try:
+        suite_from = int(os.environ.get('BOHEMIA_SUITE_FROM') or 0)
+    except ValueError:
+        suite_from = 0
     for i, (name, argv, what, slow) in enumerate(GATES):
+        if suite_from and i < suite_from - 1:
+            continue
         if fast and slow:
             print('  %-15s SKIP     %s' % (name, what))
             continue
