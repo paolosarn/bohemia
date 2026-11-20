@@ -1,4 +1,4 @@
-WORDS THREE (words-three-01gkdyuvnl): 11/20 LATEST -- BUILD 11/20h - HIS HOMEWORK, SHEET THREE, AND THE VOICE IN PLAIN WORDS, BUILT (this commit), NOT YET SEEN (rules 454(a)(c)(d), 455, 461, 462; ask rows 628, 629, 637, 643). Its block is handoffs/WORDS_TWO.md.
+WORDS THREE (words-three-01gkdyuvnl): 11/20 LATEST -- BUILD 11/20h - HIS HOMEWORK, SHEET THREE, AND THE VOICE IN PLAIN WORDS, BUILT (28fc42069), NOT YET SEEN (rules 454(a)(c)(d), 455, 461, 462; ask rows 628, 629, 637, 643). Its block is handoffs/WORDS_TWO.md.
 THIS CHAT IS WORDS THREE (WORDS TWO's model hit its weekly limit). NOTHING IN THE GAME WAS REWRITTEN. THE VOICE (laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md, now written by
 tools/bohemia_words_three_the_voice.py) is plain: his four lines each with WHAT IT TEACHES under it, 21 more lines of his about how people talk each word for word from
 where he said it and beside what it teaches, THE VOICE SO FAR on one page (13 lines, HIS or OUR READING). SHEET THREE: twelve cards in the VOTE tab (words-two-hw03-01 to -12),

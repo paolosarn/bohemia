@@ -6,7 +6,7 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
-WORDS THREE (words-three-01gkdyuvnl): 11/20 LATEST -- BUILD 11/20h - HIS HOMEWORK, SHEET THREE, AND THE VOICE IN PLAIN WORDS, BUILT (this commit), NOT YET SEEN (rules 454(a)(c)(d), 455, 458(a), 461, 462; ask rows 628, 629, 637, 643). NOTHING IN THE GAME WAS REWRITTEN.
+WORDS THREE (words-three-01gkdyuvnl): 11/20 LATEST -- BUILD 11/20h - HIS HOMEWORK, SHEET THREE, AND THE VOICE IN PLAIN WORDS, BUILT (28fc42069), NOT YET SEEN (rules 454(a)(c)(d), 455, 458(a), 461, 462; ask rows 628, 629, 637, 643). NOTHING IN THE GAME WAS REWRITTEN.
 THIS CHAT IS WORDS THREE, opened by the coordinator on rule 462 (WORDS TWO's model hit its weekly limit). Same lane, same file: write the newest block on top, never
 another lane's. WORDS TWO left no pushed branch. No new sheet of his has landed since his first four answers (newest export records/BOHEMIA_PAOLO_VOTE_11_16_26.txt).
 (1) THE VOICE, PLAINLY (laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md; NOW WRITTEN BY tools/bohemia_words_three_the_voice.py; the 11/18 tool no longer writes the
