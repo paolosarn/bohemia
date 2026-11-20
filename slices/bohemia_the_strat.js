@@ -7,8 +7,8 @@
    350 m, the pod at about 260 m; its stair race ('Scale the Strat') is 1,455 steps, 108 floors. With the power gone the elevators
    are dead: a crew climbs it, an hour and a half up and down with their gear. From the pod the whole valley lies open in the desert
    air; what a man can pick out in the dust of a dead city is a few miles.
-   BATTLE BROTHERS FIRST: the high ground widens the company's sight (the billboards' rule, slices/bohemia_billboards.js); the Strat
-   is the valley's highest ground.
+   BATTLE BROTHERS FIRST: the high ground widens the company's sight on the world map; the Strat is the valley's highest ground.
+   (The billboards that once stood beside the freeways are in the graveyard, rule 464; this file never needed them.)
 
    SO: when HE GOES THERE (he tapped the tower itself and the trip has ended at its foot: its block is a building, so a trip to it
    stops on the block beside it; a trip to anything else, the town beside it or the street past it, climbs nothing: nothing is

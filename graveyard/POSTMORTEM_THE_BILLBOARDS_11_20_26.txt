@@ -1,0 +1,21 @@
+POSTMORTEM: THE BILLBOARDS (WORLD 14, built 11/18f, killed 11/20; VAMILY rule 464, ask row 657)
+
+WHAT DIED (now in graveyard/the_billboards_11_18_26/): slices/bohemia_billboards.js (dead billboards on steel poles beside the
+freeways, one in about nine freeway blocks, a peeled pale face with an older one under it; standing by one widened his sight 3 blocks
+by day and 1 by night), its include in slices/BOHEMIA_CITY_WORLD.html, gates/the_billboards_gate.js and its two suite entries, and the
+VOTE card world14-the-billboards-11-18 with its pictures.
+
+WHY: Paolo 11/20, the first time he met them: 'did u add some dogshit billboards wtf is that'. He never asked for them.
+
+HOW IT GOT IN: the coordinator's round of 11/17 pointed this lane at the next building kinds 'from the checklist'
+(records/BOHEMIA_PAOLO_POCKET_CITY_2_BUILDINGS_AGAINST_OURS_11_5_26.md). Item 13 of that list said 'billboards (a prop the feed can
+use)', and this lane took the line as an order and built it, a stand-in look and a sight rule of its own invention.
+
+THE LESSON: a list he asked to SEE is not a list of things to build. Rule 409 asked for a CHECK of Pocket City 2's building kinds
+against ours, 'a list only'; the lines on it were findings, not his wishes. A thing goes on the map when HE asked for that thing, or
+when the world he described needs it, never because it appeared on a comparison list. Nothing else of that checklist is built from it
+without his word on that piece (rule 464).
+
+NOT TO COME BACK UNDER A NEW NAME: no billboard, hoarding, sign board or ad board drawn on the map, and no prop whose job is to widen his
+sight beside the road. gates/the_strat_lookout_gate.js T1 and T9 refuse a billboard file or include in any slice and a board module on
+the page. THE STRAT LOOKOUT (11/20f, the valley's real tower) stays: it never needed the boards.

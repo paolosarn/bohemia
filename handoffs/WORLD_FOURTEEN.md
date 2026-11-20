@@ -1,5 +1,19 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN; newest block on top)
 
+WORLD FOURTEEN, ROUND TEN (11/20, rule 464 first: 'did u add some dogshit billboards wtf is that'; rule 441). BUILD 11/20y - NO BILLBOARDS.
+- THE BILLBOARDS ARE OUT of every map: slices/bohemia_billboards.js, its include in BOHEMIA_CITY_WORLD.html, gates/the_billboards_gate.js
+  and its two suite entries, the VOTE card world14-the-billboards-11-18 and its pictures, all in graveyard/the_billboards_11_18_26/; the
+  post-mortem graveyard/POSTMORTEM_THE_BILLBOARDS_11_20_26.txt. LESSON: a list he asked to SEE (rule 409, 'a list only') is not a list
+  to build. Ask row 657 done; row 458's billboard line marked killed.
+- THE STRAT LOOKOUT stays and never needed them: its gate T1 refuses a billboard file or include in any slice, T9 a board module or
+  script on the page and a widened sight by a freeway; green on demo and alpha, a phone both ways.
+- MY LIST CHANGES (rule 464: nothing else of that checklist is built without his word on that piece): THE WORKS YARD and THE FISHING POND
+  are OFF this lane's list (both were the checklist's item 13). The scrap mill (11/17zg, also item 13) stays on the map until he says;
+  if he does not want it, it comes out the same way. Next on the list: bugs he can feel, then the world he described (more places he
+  named or the world needs, more on the road), never from a comparison list.
+[bb Battle Brothers' map has no billboards; ours does not either.]
+[analog horror: the freeway is bare again; the only thing taller than the houses is the tower, and you climbed it.]
+
 WORLD FOURTEEN, ROUND NINE (11/20, rule 461 THE WHOLE ENCHILADA; rule 454(a): no words; rule 441). BUILD 11/20f - THE STRAT LOOKOUT.
 BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_14_THE_STRAT_LOOKOUT_11_20_26.md. VOTE world14-the-strat-lookout-11-20 (ui, STAND-IN).
 - BUGS FIRST: this lane's gates swept on main 64ab8c777. No bug he feels. Re-timed: TWELVE MORE ON THE ROAD taps after the road card's own
@@ -9,8 +23,7 @@ BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_14_THE_STRAT_LOOKOUT_11_20_26
   the crew climbs: 90 minutes on the map's own clock (advance); by day the fog opens 30 blocks, by night only the towns within 40; once a
   day; a trip to the block beside it (the street, or a town at its foot) climbs nothing. FOR WORLD TWO / WORLD 8: fogReveal and fogSave
   only, your memory draws it. FOR COOK FOUR: none owed (the needle is the map's own).
-- NEXT ON THIS LIST: more on the road (rule 461), the works yard (9935 S. Jones Blvd, south of the valley: a region place), the pond
-  (ECONOMY's food shelf). Rules 456/457 as the world's truth; the car camps not locked: build none.
+- NEXT ON THIS LIST: more on the road (rule 461). (The works yard and the pond came off the list 11/20, rule 464.) Rules 456/457 as the world's truth; the car camps not locked: build none.
 - GATES: THE STRAT LOOKOUT (demo) and (alpha); TWELVE MORE ON THE ROAD demo 14/0, alpha 14/0; THE BILLBOARDS alpha sideways 6/0.
 [bb the high ground widens the company's sight; ours is the Strat's pod, and the climb costs the afternoon.]
 [analog horror: from the pod the valley is quiet; you can see three fires and you know somebody is sitting at each one.]

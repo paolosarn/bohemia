@@ -1,5 +1,8 @@
 # THE BILLBOARDS (WORLD 14, 11/18)
 
+*** KILLED BY HIM 11/20 (rule 464, ask row 657: 'did u add some dogshit billboards wtf is that'). Graveyarded with a post-mortem:
+graveyard/POSTMORTEM_THE_BILLBOARDS_11_20_26.txt. This page is history. ***
+
 The coordinator's round under rule 453 ("next round, round after round: take the next jobs on your own list, one build each: the
 world, no new prose"). No FOUND BY EYES row is WORLD 14's (rows 551 and 606 are fixed; the newest EYES walks name nothing of
 11/17y or 11/17zg). The next job on WORLD 14's list (handoffs/WORLD_FOURTEEN.md, 11/17): the checklist's item 13

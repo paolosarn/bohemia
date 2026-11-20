@@ -13,6 +13,8 @@
      T6 BY NIGHT: the next day after dark, the climb shows the towns within 40 and opens no dark ground between them
      T7 MUTATION: the lookout off, arriving by the tower opens nothing
      T8 nothing threw
+     T9 NO BILLBOARD (rule 464, Paolo 11/20): no board module or script on the page, the sight by a freeway the map's own; the node leg:
+        no billboard file or include in any slice
    Run: node gates/the_strat_lookout_gate.js [node|demo|alpha|demo-up|demo-side|alpha-up|alpha-side] */
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -28,8 +30,12 @@ function nodeChecks() {
   if (!/root\.advance\(ST\.CLIMB_MINS\)/.test(code)) why.push('not the map\'s own clock');
   if (!/root\.fogReveal\(/.test(code)) why.push('not the map\'s own fog');
   if (/fillText|strokeText|innerHTML|textContent/.test(code)) why.push('writes words');
-  if (!(city.indexOf('src="bohemia_the_strat.js"') > city.indexOf('src="bohemia_billboards.js"'))) why.push('not loaded after the billboards');
-  ok('T1 the seam: wraps the arrival, the map\'s own clock and fog, no word', !why.length, why.join(', ') || 'all');
+  if (!(city.indexOf('src="bohemia_the_strat.js"') > city.indexOf('src="bohemia_tracks_read.js"') && city.indexOf('src="bohemia_tracks_read.js"') > 0)) why.push('not loaded after the tracks');
+  /* RULE 464 (Paolo 11/20: 'did u add some dogshit billboards wtf is that'): no board on any map, the file and its include gone */
+  const fsx = require('fs'), slicesDir = path.join(ROOT, 'slices');
+  const inc = fsx.readdirSync(slicesDir).filter(f => /\.html$/.test(f)).filter(f => /bohemia_billboards\.js/.test(fsx.readFileSync(path.join(slicesDir, f), 'utf8')));
+  if (fsx.existsSync(path.join(slicesDir, 'bohemia_billboards.js')) || inc.length) why.push('a billboard is back (' + (inc.join(', ') || 'the file') + ')');
+  ok('T1 the seam: wraps the arrival, the map\'s own clock and fog, no word; no billboard file or include anywhere (rule 464)', !why.length, why.join(', ') || 'all');
 }
 
 async function page(alpha, profile) {
@@ -89,6 +95,12 @@ async function page(alpha, profile) {
     ok(W + ' T5 nothing is forced: a trip to the block beside it, ' + (r.far && r.far.mins) + ' minutes, nothing opens', r.far && r.far.mins === 0 && r.far.opened === false, JSON.stringify(r.far));
     ok(W + ' T6 by night: ' + (r.night && r.night.shown) + ' of ' + (r.night && r.night.towns) + ' towns within 40 show, the dark between stays dark', r.night && r.night.mins === 90 && r.night.towns > 0 && r.night.shown === r.night.towns && r.night.darkSeen === false, JSON.stringify(r.night));
     ok(W + ' T7 MUTATION: the lookout off, nothing opens and no clock moves', r.mut && r.mut.mins === 0 && r.mut.opened === false, JSON.stringify(r.mut));
+    const nb = await fr.evaluate(() => { const o = { module: typeof window.BohemiaBillboards, scripts: [...document.scripts].filter(x => /billboard/i.test(x.src || '')).length };
+      /* by a freeway the sight is the map's own (no board widens it) */
+      let f = null; for (let y = 0; y < om.n && !f; y++) for (let x = 0; x < om.n && !f; x++) { const c = om.at(x, y); if (c && c.district === 'freeway' && !c.xing) f = [x, y]; }
+      const was = window.isNight; window.isNight = () => false; const x0 = city.x, y0 = city.y;
+      if (f) { city.x = f[0]; city.y = f[1]; o.atFreeway = fogRadius(); } window.isNight = was; city.x = x0; city.y = y0; return o; });
+    ok(W + ' T9 NO BILLBOARD (rule 464): no board module, no board script, the sight by a freeway the map\'s own', nb.module === 'undefined' && nb.scripts === 0 && (nb.atFreeway == null || nb.atFreeway <= 9), JSON.stringify(nb));
     ok(W + ' T8 nothing threw', !errs.length && !r.err, (errs.slice(0, 2).join(' | ') || '') + (r.err || ''));
   } finally { await d.close(); }
 }

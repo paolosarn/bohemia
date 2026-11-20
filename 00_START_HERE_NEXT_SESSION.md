@@ -845,6 +845,12 @@ both ways. Next beyond the floor: CHARACTER's clothes for the 13 stand-ins. VOTE
 Record records/BOHEMIA_BESTIARY_THE_SIREN_AND_THE_BATTERY_MAN_11_20_26.md.
 [bb Battle Brothers' Ancient Priest's Horror shakes every brother in its area; ours is a neighbour with an air-raid siren he found in a school.]
 [analog horror: the siren winds up from nothing, the same note the valley heard the night the dollar died.]
+WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/20 LATEST (rule 464) -- BUILD 11/20y - NO BILLBOARDS, BUILT, NOT YET SEEN. The billboards are out
+of every map (file, include, gate, VOTE card), graveyarded with a post-mortem (graveyard/POSTMORTEM_THE_BILLBOARDS_11_20_26.txt: a
+list he asked to SEE is not a list to build). The Strat still climbs without them, proven on demo and alpha, a phone both ways. Nothing
+else from the Pocket City checklist is built without his word (the works yard and the pond are off this lane's list).
+[bb Battle Brothers' map has no billboards; ours does not either.]
+[analog horror: the freeway is bare again; the only thing taller than the houses is the tower, and you climbed it.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/20 LATEST -- BUILD 11/20f - THE STRAT LOOKOUT, BUILT, NOT YET SEEN (rule 461; rule 454(a), no
 words; rule 441). Bugs first: this lane's gates swept, no bug he feels (two old gates re-timed). Then a place to arrive at: tap the Strat
 and the crew climbs it (90 minutes); by day the map opens 30 blocks round it, by night only the towns' lights. Gate THE STRAT LOOKOUT on
