@@ -3,7 +3,31 @@
 # the VAMILY front page (rules 459, 441, 454(a)), then continue from the newest block below.
 # ECONOMY THREE (rule 462, 11/20) carries this file on: same job, same table; its blocks are named ECONOMY THREE.
 
-ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/20 LATEST -- EVERY PRICE IS THE TABLE'S (rule 461 'dont forget nothing',
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/20 LATEST -- BUILD 11/20o - AFTER THE FIGHT, THE SAME BATTERIES (9913db966),
+BUILT, NOT YET SEEN; VOTE card economy-three-after-the-fight-the-same-batteries-11-20 (STAND-IN). ECONOMY TWO's NOT DONE (the crew
+screen's and the fight's sums never walked), walked and fixed. Record: the same record, section 5.
+- THE SPOILS SCREEN (after every fight won) never loaded the drawing: its purse showed the old pile one screen after the map and the
+  fight drew it as batteries; the cells off their bodies and a looted piece's price wore the old marks. It loads the drawing now
+  (the count's <b> and the strip's .sell carry data-bsum-sum; the receipt #tillpaper is data-bsum-raw: a till prints characters).
+- THE PHONE'S CREW FACE had lost a man's night since 11/18t: slices/bohemia_phone.js P.roster read only the FIRST text piece of the
+  crew screen's .sub, and the drawing splits it at '2 BATTERIES'. It reads the line whole; crewPaint sets his night as one piece
+  (span.cnight, nowrap) on its own line; the drawing sizes its picture 8 px there (at 13 'A NIGHT' was cut under the XP bar).
+  The kills line is :scope > span now (the night's span would have taken it).
+- The phone's home card wrote '-3 BATT' (unreadable to the drawing): '-3 batteries' now.
+- THE TABLE: the spoils and scavenge pages in live_pages (119 scripts); the shop's seventh is ratios.shop_pays_back.one_in = 7
+  (two copies); BESTIARY's 11/20m BATTERY MAN ('machine_battery_man' in ours.json's tier mix) turned the table red on main:
+  named not money in sweep.not_batteries. JOBS' three ratios (relations haggle, the camp's and the patrol's shares) kept.
+- THE GATE: C1 / S1 / S2 walked first on a fresh game (the demo and the alpha, upright and sideways), 55/0. On the alpha a new
+  game can open on the walked city it keeps (no phone, no CREW): the leg then opens the Mob's town by the walk's own travel
+  shortcut. Its own holes fixed: leaveTown was handed the drive (never left a town); a purse jumped by the gate repaints the
+  bar as the game's settle does; L1 waits for the bar's count-down to land.
+- RED, NOT THIS BUILD'S (each run with this build's three page files put back to main's): THE RECEIPT IS THE END SCREEN R3
+  ('a tap unrolls it'), THE SPOILS GATE's #pick tap; VOTE TAB's alpha landing and two old cards' whys.
+- FOR RUN: the alpha's new game opens inside a town or on the walked city it keeps; leaving its first town lands on the walk.
+- NEXT: nothing open in this lane's list. Waiting on him (rule 459(e)): who holds the working sun. If he says cut the top pay,
+  CLOUT's x4.5 moves with the wages (TUNING's), never alone. A sound for a big battery set down is SOUNDS' to make.
+
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/20 (the round's first ship) -- EVERY PRICE IS THE TABLE'S (rule 461 'dont forget nothing',
 rule 459(b), ask row 645). Record: records/BOHEMIA_ECONOMY_THREE_EVERY_PRICE_IS_THE_TABLES_11_20_26.md. No pushed branch of
 ECONOMY TWO's existed (main only); 11/18t was SEEN by EYES 11/20 (row 645).
 - THE SWEEP, from what the demo really loads (a driven phone: 331 files, 101 scripts) and every credit and debit of the purse (32,

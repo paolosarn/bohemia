@@ -21399,7 +21399,37 @@
     ]
    },
    "record": "records/BOHEMIA_COOK_SIX_THE_REGIONS_FOUR_11_20_26.md"
-  }
+  },
+ {
+  "id": "economy-three-after-the-fight-the-same-batteries-11-20",
+  "kind": "ui",
+  "lane": "economy three",
+  "sha": "9913db966",
+  "made": "11/20",
+  "draft": true,
+  "title": "AFTER A FIGHT, THE SAME BATTERIES: THE SPOILS COUNT LIKE EVERY OTHER SCREEN, AND A MAN'S NIGHT IS BACK ON THE PHONE",
+  "said": "I want people to really feel like they can look at their battery right now and relate it from the game to real life",
+  "why": "After a fight the spoils screen now shows your purse and what a town pays for a looted piece as the batteries they are, and the phone shows what a man costs a night again. You see it on the demo after a fight you win, and on the phone when you open your company.",
+  "stage": "stand_in",
+  "show": {
+   "how": "image",
+   "src": "../records/target/economy_three/VOTE_AFTER_THE_FIGHT_THE_SAME_BATTERIES.webp",
+   "first": "../records/target/vote_first/economy-three-after-the-fight-the-same-batteries-11-20.webp",
+   "firstAt": [
+    0,
+    0,
+    1170,
+    436
+   ]
+  },
+  "before_after": {
+   "before": "the spoils screen showed the purse with the old pile of cells and a looted piece's price with the old icon, one screen after the map and the fight drew them as batteries; the phone's crew face had lost a man's night (since 11/18)",
+   "after": "the spoils' purse 2,236 = 8 car batteries, 11 tool packs, 16 AA; a fire axe off a thug: 5 AA; a man's night: 2 AA, on its own line on the phone; no price moved",
+   "scale": "the demo on his phone upright (390 x 844 at 3): the spoils' bar, the strip under the stash, the phone's crew face"
+  },
+  "record": "records/BOHEMIA_ECONOMY_THREE_EVERY_PRICE_IS_THE_TABLES_11_20_26.md",
+  "build": "BUILD 11/20o - AFTER THE FIGHT, THE SAME BATTERIES"
+ }
  ],
  "verdicts": [
   {
