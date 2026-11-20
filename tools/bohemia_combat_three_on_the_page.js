@@ -202,7 +202,11 @@ const HOOKS = `(function(){
     if (wanted && o.hasKey) {
       await press('auto'); await wait(900); await press('auto');   /* the deploy over (AUTO), then his hand again */
       if (await f.evaluate(() => UI.auto)) await press('auto');
-      const mine = await until(async () => f.evaluate(() => { const u = FIGHT.current(); return !FIGHT.S.over && !!u && u.side === 'you' && !UI.anim.length && !UI.cut && !UI.auto; }), 30000);
+      let mine = await until(async () => f.evaluate(() => { const u = FIGHT.current(); return !FIGHT.S.over && !!u && u.side === 'you' && !UI.anim.length && !UI.cut && !UI.auto; }), 30000);
+      /* COMBAT FOUR 11/20: the man whose turn it is may have spent his steps under AUTO before the finger came: hand the turn back to AUTO and take the next fresh one (up to four tries) */
+      for (let tries = 0; mine && tries < 4 && !(await f.evaluate(() => { const u = FIGHT.current(); return !!u && (u.ap || 0) >= 4; })); tries++) {
+        await press('auto'); await until(async () => f.evaluate((id) => { const u = FIGHT.current(); return FIGHT.S.over || !u || u.id !== id; }, await f.evaluate(() => (FIGHT.current() || {}).id)), 8000); await press('auto');
+        mine = await until(async () => f.evaluate(() => { const u = FIGHT.current(); return !FIGHT.S.over && !!u && u.side === 'you' && !UI.anim.length && !UI.cut && !UI.auto; }), 30000); }
       if (mine) {
         /* COMBAT FOUR 11/20: the opening card can still lie over the glass when his turn comes; a finger waits until the board is clear (else every tile reads covered and nothing is tapped) */
         await until(async () => f.evaluate(() => { const el = document.elementFromPoint(innerWidth / 2, innerHeight * 0.45); return !!el && el.id === 'cv'; }), 12000);

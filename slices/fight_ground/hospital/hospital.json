@@ -1,0 +1,430 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "hospital",
+ "name": "THE HOSPITAL",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461, 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428 (roofs and cover), 441; ask row 468's list, the twelfth: 'THE HOSPITAL: smaller, still house-tiled.'",
+ "facts": [
+  "A big hospital's emergency department is treatment bays along its walls, each a bed behind a curtain, round a central nurses' station, with the ambulance bay's doors at one end and the waiting room at the other; a ward is beds in rows.",
+  "On house tiles a bay is smaller than a tile, so a tile of bays is a run of them, its partitions the walls between.",
+  "In a collapse a hospital is emptied of what can be carried first: the drugs, then the oxygen, then the beds. The pharmacy's cage is the last thing anybody fights over and the first thing anybody opened.",
+  "The valley's medical district is the hospital and its labs; the labs' pens out the back are the lab's own board (the place), never this one."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (hospital_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "medical"
+ ],
+ "share": 0.7,
+ "districts_why": "The medical district is the hospital: the parking garage takes its own share there first (garage.json); of the rest, seven in ten are fought inside, by the cell's own dice.",
+ "board": {
+  "templates": {
+   "hospital": {
+    "name": "THE HOSPITAL",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_emergency_room": [
+      "####################",
+      "#cWcWcWcW..WcWcWcWc#",
+      "#.........g........#",
+      "#.g..k..h.h..k..g..#",
+      "#...x..g.k..g..x...#",
+      "#.k..g..nn.P..g..k.#",
+      "#D..h..k.nnPP.k..h.#",
+      "#..g..x.k...g..x..D#",
+      "#.k..g..h.h..g..k..#",
+      "#...x..k....k..x...#",
+      "#.g..f..g..g..f..g.#",
+      "#........k.........#",
+      "#cWcWcWcW..WcWcWcWc#",
+      "#D..hh.hh.D.hh.hh.D#",
+      "####################"
+     ],
+     "the_ward": [
+      "####################",
+      "#bbb.bbb.bb.bbb.bbb#",
+      "#..k...g....k...g..#",
+      "#.bb..x..bb..x..bb.#",
+      "#..g..k...k..g.....#",
+      "#.bb.g..bbnn..bb.k.#",
+      "#D..k...g.nn.x...gD#",
+      "#.bb.x..bb..k.bb...#",
+      "#..g..k..k...g..k..#",
+      "#.bb..g..bb..x..bb.#",
+      "#..f..k......g..f..#",
+      "#.bb..x..bb..k..bb.#",
+      "#..k...g....g...k..#",
+      "#bbb.bbb.bb.bbb.bbb#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   "W": {
+    "is": "wall",
+    "wall": "air",
+    "tile": "partition"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "c": {
+    "is": "floor",
+    "tile": "bay",
+    "piece": "hs_bay",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "beds",
+    "piece": "hs_beds",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "g": {
+    "is": "floor",
+    "tile": "gurney",
+    "piece": "hs_gurney",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "carts",
+    "piece": "hs_carts",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "h": {
+    "is": "floor",
+    "tile": "chairs",
+    "piece": "hs_chairs",
+    "at": [
+     0.5,
+     0.6
+    ]
+   },
+   "n": {
+    "is": "floor",
+    "tile": "station",
+    "piece": "hs_station",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "P": {
+    "is": "floor",
+    "tile": "pharmacy",
+    "piece": "hs_pharmacy",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "x": {
+    "is": "floor",
+    "tile": "slick",
+    "floor": "wet"
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The hospital's wall: no way through.",
+   "say": ""
+  },
+  "partition": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "A partition between two runs of bays: no way through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The corridor's floor: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The corridor: open ground.",
+   "draft": true
+  },
+  "bay": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A run of treatment bays, the curtains torn down, a bed and its dead machines in each: low cover.",
+   "say": "Treatment bays: low cover.",
+   "draft": true
+  },
+  "beds": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A ward's beds in their row, the mattresses gone: low cover.",
+   "say": "Ward beds: low cover.",
+   "draft": true
+  },
+  "gurney": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Gurneys pushed together, one on its side: low cover.",
+   "say": "Gurneys: low cover.",
+   "draft": true
+  },
+  "carts": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Crash carts and IV poles, the drawers pulled out and empty: low cover.",
+   "say": "Crash carts: low cover.",
+   "draft": true
+  },
+  "chairs": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The waiting room's chairs in their rows: low cover, and slow going over them (3 AP). [bb] its brush.",
+   "say": "Waiting room chairs: low cover, slow going.",
+   "draft": true
+  },
+  "station": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The nurses' station, its counter chest high: cover.",
+   "say": "The nurses' station: cover.",
+   "draft": true
+  },
+  "pharmacy": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "The pharmacy's cage, cut open and emptied long ago: nobody stands on its tile; cover for the tiles beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "slick": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "open": true,
+   "effect": "The floor slick with what was spilled and never cleaned: open ground and slow going (3 AP a step). [bb] its swamp.",
+   "say": "Slick floor: slow going, open ground.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a steel bin. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The ambulance bay's doors, jammed open: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The ambulance doors: open ground.",
+   "say_lit": "The ambulance doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in hospital_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "hs_bay": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "TREATMENT BAYS"
+  },
+  "hs_beds": {
+   "like": "tunnel_camp_a",
+   "kind": "LOW_COVER",
+   "name": "WARD BEDS"
+  },
+  "hs_gurney": {
+   "like": "sb_cart_S",
+   "kind": "LOW_COVER",
+   "name": "GURNEYS"
+  },
+  "hs_carts": {
+   "like": "sb_drums_S",
+   "kind": "LOW_COVER",
+   "name": "CRASH CARTS"
+  },
+  "hs_chairs": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "WAITING ROOM CHAIRS"
+  },
+  "hs_station": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "THE NURSES' STATION"
+  },
+  "hs_pharmacy": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "THE PHARMACY'S CAGE"
+  },
+  "hs_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "hs_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  },
+  "hs_partition_ew": {
+   "like": "casino_wall_ew",
+   "kind": "WALL"
+  },
+  "hs_partition_ns": {
+   "like": "casino_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "hs_wall_ew",
+  "ns": "hs_wall_ns"
+ },
+ "walls_air": {
+  "ew": "hs_partition_ew",
+  "ns": "hs_partition_ns"
+ },
+ "floor": {
+  "floor": [
+   "datafort/datafort_floor_0.webp#0,0",
+   "datafort/datafort_floor_0.webp#1,0",
+   "datafort/datafort_floor_0.webp#2,0",
+   "datafort/datafort_floor_0.webp#3,0",
+   "datafort/datafort_floor_0.webp#4,0",
+   "datafort/datafort_floor_0.webp#0,1",
+   "datafort/datafort_floor_0.webp#1,1",
+   "datafort/datafort_floor_0.webp#2,1",
+   "datafort/datafort_floor_0.webp#3,1",
+   "datafort/datafort_floor_0.webp#4,1",
+   "datafort/datafort_floor_0.webp#0,2",
+   "datafort/datafort_floor_0.webp#1,2",
+   "datafort/datafort_floor_0.webp#2,2",
+   "datafort/datafort_floor_0.webp#3,2",
+   "datafort/datafort_floor_0.webp#4,2",
+   "datafort/datafort_floor_0.webp#0,3",
+   "datafort/datafort_floor_0.webp#1,3",
+   "datafort/datafort_floor_0.webp#2,3",
+   "datafort/datafort_floor_0.webp#3,3",
+   "datafort/datafort_floor_0.webp#4,3"
+  ],
+  "wet": [
+   "tunnels/tunnel_floor_0.webp#0,0",
+   "tunnels/tunnel_floor_0.webp#1,0",
+   "tunnels/tunnel_floor_0.webp#2,0",
+   "tunnels/tunnel_floor_0.webp#3,0",
+   "tunnels/tunnel_floor_0.webp#4,0",
+   "tunnels/tunnel_floor_0.webp#0,1",
+   "tunnels/tunnel_floor_0.webp#1,1",
+   "tunnels/tunnel_floor_0.webp#2,1",
+   "tunnels/tunnel_floor_0.webp#3,1",
+   "tunnels/tunnel_floor_0.webp#4,1"
+  ],
+  "ring": [
+   "datafort/datafort_floor_0.webp#0,0",
+   "datafort/datafort_floor_0.webp#1,0",
+   "datafort/datafort_floor_0.webp#2,0",
+   "datafort/datafort_floor_0.webp#3,0",
+   "datafort/datafort_floor_0.webp#4,0",
+   "datafort/datafort_floor_0.webp#0,1",
+   "datafort/datafort_floor_0.webp#1,1",
+   "datafort/datafort_floor_0.webp#2,1",
+   "datafort/datafort_floor_0.webp#3,1",
+   "datafort/datafort_floor_0.webp#4,1",
+   "datafort/datafort_floor_0.webp#0,2",
+   "datafort/datafort_floor_0.webp#1,2",
+   "datafort/datafort_floor_0.webp#2,2",
+   "datafort/datafort_floor_0.webp#3,2",
+   "datafort/datafort_floor_0.webp#4,2",
+   "datafort/datafort_floor_0.webp#0,3",
+   "datafort/datafort_floor_0.webp#1,3",
+   "datafort/datafort_floor_0.webp#2,3",
+   "datafort/datafort_floor_0.webp#3,3",
+   "datafort/datafort_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: a ground floor. The bays and the station are the board.",
+ "ceiling": {
+  "kind": "grid",
+  "alpha": 0.1,
+  "src": "hospital/hospital_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the dropped ceiling's grid, tiles out where the wiring hangs, the light panels dead, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in."
+ }
+}

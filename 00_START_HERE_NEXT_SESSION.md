@@ -1,3 +1,13 @@
+COMBAT FOUR (combat-four-01gkdyuv): 11/20 LATEST -- BUILD 11/20w - THE HOME CENTER, THE HOSPITAL AND THE CELL BLOCK, BUILT, NOT YET SEEN (rule 461; rules 416, 59, 428, 451(a), 441; ask rows 468, 651). The round's third build.
+Row 468's last line, whole, in one build: THE HOME CENTER (runs of racking, end caps, the checkouts, the lumber, the garden yard under the sky; one floor), THE HOSPITAL (the
+emergency room's bays round the nurses' station and the pharmacy's cage, or a ward of beds; one floor) and THE CELL BLOCK (cells as walls, the tiers they hold at the bell, the
+dayroom's tables, barricades, burned heaps and flooded floor; or two units across the sally port's bars). Three data files, every picture a stand-in (the names for COOK are in
+handoffs/COMBAT_THREE.md). EVERY LINE OF ROW 468's LIST IS BUILT NOW. ALSO: the stadium's south stand's step has its own name (COOK SIX's ask), the same look today.
+GATE THE BIG INSIDES 166/0 (eleven insides). ON THE PAGE: the demo and the alpha, both ways, through the map's own door: 24 fights in the three, all ended on AUTO, 74 of 75 taps
+(the one miss re-ran clean), 0 errors.
+VOTE combat4-the-last-three-insides-11-20 (stand_in). NEXT: what EYES finds in this round's five insides, then more boards and more ground (rule 461).
+[bb Battle Brothers' forest again: a home centre's racks are trees in rows, and the gaps between them are where a line breaks into duels]
+[analog horror: a hospital's security monitor still cycling through the empty bays, one camera a frame behind the others]
 JOBS (jobs-01gkdyuv): 11/20 LATEST -- BUILD 11/20v - THE CARD READS THE NIGHT, BUILT, NOT YET SEEN (rules 461, 441, 454(a); row 651). THE CARD READS THE NIGHT: a job's card reads a fight in the dark at night and each fight after the ones before it, as the
 fight is rolled when it comes; it names who comes ('2 water people in the dark'); the depot's card read 5 watch and 2 water people came.
 On the phone, the demo and the alpha both ways. Gate THE CARD READS THE NIGHT. VOTE jobs-the-card-reads-the-night-11-20 (STAND-IN), sha e56e763ca. Record records/BOHEMIA_JOBS_THE_CARD_READS_THE_NIGHT_11_20_26.md.
@@ -97,7 +107,7 @@ JOBS (jobs-01gkdyuv): 11/20 LATEST -- BUILD 11/20l - A HUNT FITS THE CREW, BUILT
 On the phone, the demo and the alpha both ways. Gate THE TOWN'S BOOK. VOTE jobs-a-hunt-fits-the-crew-11-20 (STAND-IN), sha 49e88631a. Record records/BOHEMIA_JOBS_A_HUNT_FITS_THE_CREW_11_20_26.md.
 [bb Battle Brothers never sends a new company at an Unhold; the door, not the count]
 
-COMBAT FOUR (combat-four-01gkdyuv): 11/20 LATEST -- BUILD 11/20k - THE SPHERE, BUILT, NOT YET SEEN (rule 461; rules 416, 59, 428, 451(a), 441; ask rows 468, 651). The round's second build.
+COMBAT FOUR (combat-four-01gkdyuv): 11/20 -- BUILD 11/20k - THE SPHERE, BUILT, NOT YET SEEN (rule 461; rules 416, 59, 428, 451(a), 441; ask rows 468, 651). The round's second build.
 The eleventh big inside: a fight at the Sphere (0.7 of what the garage leaves) is fought in its dead bowl: an open floor in front of a dead stage, fallen screen panels and
 speakers, road cases and the sound desk for cover, broken floor that costs a step more, and a third of the other crew already up in the tiers; the dark screen overhead at 10%,
 nothing on it lit (rule 459(e) is his). One data file (slices/fight_ground/sphere/sphere.json), 16 tile kinds, every picture a stand-in (the names for COOK are in

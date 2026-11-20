@@ -1,0 +1,575 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "homecenter",
+ "name": "THE HOME CENTER",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461, 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428 (roofs and cover), 441; ask row 468's list, the twelfth: 'THE HOME CENTER (WORLD TEN's new place), THE HOSPITAL, THE PRISON's cell blocks: smaller, still house-tiled.'",
+ "facts": [
+  "A big home-improvement store is about 105,000 square feet under its roof with about 24,000 more of garden centre (Home Depot's own average, its annual report): about 68 fight tiles inside and 15 outside, so the board is the store, the lumber along its back wall and the garden yard at its side.",
+  "The racks are steel pallet racking twice a man's height with stock above, in rows with an aisle between: here a rack is a tile you cannot stand on, and a row of them is a wall with gaps at the main aisles.",
+  "In the collapse a home centre is the most useful building in a town: lumber, fasteners, tools, wire, propane, seed. What is left is what nobody could carry: the heavy racks, the lumber nobody needed, the checkout lanes.",
+  "The garden centre has no roof but its shade cloth: by day the light falls on the whole yard."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (homecenter_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "hardware"
+ ],
+ "share": 1.0,
+ "districts_why": "The home centre is its own map kind and this board is all of it: the store, the lumber along its back wall and the garden yard at its side. So every fight at its cell is fought on it. (Measured: at seven in ten, the alpha's valley never dealt it: both its home centre cells rolled the lot.)",
+ "board": {
+  "templates": {
+   "homecenter": {
+    "name": "THE HOME CENTER",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_store_and_the_garden": [
+      "####################",
+      "#LLL.LLL.LLLL#gvgbg#",
+      "#..c..s...t..#vgbgv#",
+      "#.HHcHHeHHsHHGgvbvg#",
+      "#.s..t..c..s.#bgvgb#",
+      "#.HHeHHsHHeHH#vgbgv#",
+      "#D..c..s..t..Ggvgfg#",
+      "#.HHtHHeHHcHH#bgvgb#",
+      "#..t..c..s..c#vgbgv#",
+      "#.HHeHHsHHeHHGgvbvg#",
+      "#.s..t..p..s.#bgvgb#",
+      "#.k.k.k.k.k..#vgbgv#",
+      "#..f...c...s.Ggvgfg#",
+      "#D....D....D.#ggDgg#",
+      "####################"
+     ],
+     "the_long_aisles": [
+      "####################",
+      "#LL.LLLLLLL.LLL.LLL#",
+      "#..c...s....t...c..#",
+      "#.HHHeHHHeeHHHeHHH.#",
+      "#..s..c..t..s..c...#",
+      "#.HHHeHHHeeHHHeHHH.#",
+      "#D...sc.r.r..s....D#",
+      "#.HHHexst..c..HHHe.#",
+      "#...c..s..t..s..c..#",
+      "#.HHHeHHHeeHHHeHHH.#",
+      "#..t..sc.p..c..s...#",
+      "#.HHHeHHHeeHHHeHHH.#",
+      "#..f..k.k.k.k...f..#",
+      "#.D....D.....D...D.#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "G": {
+    "is": "floor",
+    "tile": "gate"
+   },
+   "H": {
+    "is": "floor",
+    "tile": "rack",
+    "piece": "hc_rack",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "L": {
+    "is": "floor",
+    "tile": "lumber",
+    "piece": "hc_lumber",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "cart",
+    "piece": "hc_cart",
+    "at": [
+     0.4,
+     0.7
+    ],
+    "more": [
+     {
+      "piece": "hc_cart_b",
+      "at": [
+       0.75,
+       0.92
+      ],
+      "share": 0.5
+     }
+    ]
+   },
+   "e": {
+    "is": "floor",
+    "tile": "endcap",
+    "piece": "hc_endcap",
+    "at": [
+     0.5,
+     0.72
+    ]
+   },
+   "s": {
+    "is": "floor",
+    "tile": "stock",
+    "piece": "hc_stock",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "t": {
+    "is": "floor",
+    "tile": "spill",
+    "piece": "hc_spill",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "x": {
+    "is": "floor",
+    "tile": "fallen",
+    "floor": "yard"
+   },
+   "k": {
+    "is": "floor",
+    "tile": "checkout",
+    "piece": "hc_checkout",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "p": {
+    "is": "floor",
+    "tile": "propane",
+    "piece": "hc_propane",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "r": {
+    "is": "floor",
+    "tile": "rental",
+    "piece": "hc_rental",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "v": {
+    "is": "floor",
+    "tile": "plants",
+    "floor": "yard",
+    "piece": "hc_plants",
+    "at": [
+     0.5,
+     0.7
+    ],
+    "light": "sky",
+    "light_at": 0.5
+   },
+   "b": {
+    "is": "floor",
+    "tile": "bags",
+    "floor": "yard",
+    "piece": "hc_bags",
+    "at": [
+     0.5,
+     0.8
+    ],
+    "light": "sky",
+    "light_at": 0.5
+   },
+   "g": {
+    "is": "floor",
+    "tile": "yard",
+    "floor": "yard",
+    "light": "sky",
+    "light_at": 0.5
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The store's tilt-up wall, or the garden yard's fence: no way through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The sales floor: sealed concrete, open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The sales floor: open ground.",
+   "draft": true
+  },
+  "gate": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "A gap in the garden yard's fence: open ground, one way between the store and the yard.",
+   "say": "The yard's gate: open ground.",
+   "draft": true
+  },
+  "rack": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "Steel racking twice a man's height, what nobody could carry still on it: nobody stands on its tile; cover for the tiles beside it. [bb] its forest: a row of them is a wall with gaps.",
+   "say": ""
+  },
+  "lumber": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Lumber still banded in its bunks along the back wall: cover.",
+   "say": "Lumber bunks: cover.",
+   "draft": true
+  },
+  "cart": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Flatbed carts, one tipped: low cover.",
+   "say": "Flatbed carts: low cover.",
+   "draft": true
+  },
+  "endcap": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "An end cap at the end of a run of racks, its display knocked flat: low cover, and the way through the row.",
+   "say": "An end cap: low cover.",
+   "draft": true
+  },
+  "stock": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A pallet of stock pulled down into the aisle and left: cover.",
+   "say": "A pallet of stock: cover.",
+   "draft": true
+  },
+  "spill": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A rack's load spilled across the aisle: low cover, and slow going over it (3 AP). [bb] its brush.",
+   "say": "A spilled rack: low cover, slow going.",
+   "draft": true
+  },
+  "fallen": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "open": true,
+   "effect": "Where a whole run of racking came down and was picked clean: open ground and slow going (3 AP a step). [bb] its rough ground.",
+   "say": "Fallen racking: slow going, open ground.",
+   "draft": true
+  },
+  "checkout": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A checkout lane, its counter and its belt: low cover.",
+   "say": "A checkout lane: low cover.",
+   "draft": true
+  },
+  "propane": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The propane exchange cage, its tanks long gone: cover.",
+   "say": "The propane cage: cover.",
+   "draft": true
+  },
+  "rental": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The tool rental counter, a mixer and a lift left behind: cover.",
+   "say": "The rental counter: cover.",
+   "draft": true
+  },
+  "plants": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Benches of dead plants in their pots: low cover, under the sky.",
+   "say": "Dead plants on benches: low cover.",
+   "say_lit": "Dead plants on benches: low cover, and the day is on you.",
+   "draft": true
+  },
+  "bags": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Soil and gravel bags stacked on pallets: cover, under the sky.",
+   "say": "Stacked bags: cover.",
+   "say_lit": "Stacked bags: cover, and the day is on you.",
+   "draft": true
+  },
+  "yard": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The garden yard: open ground under the shade cloth's rags; by day a man here is seen.",
+   "say": "The garden yard: open ground.",
+   "say_lit": "The garden yard: open ground, and the day is on you.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire in a drum somebody keeps. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A drum fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The store's doors, the glass gone: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The doors: open ground.",
+   "say_lit": "The doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in homecenter_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile. A DRESS piece is drawn and never counted.",
+ "kit": {
+  "hc_rack": {
+   "like": "casino_screens",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A RUN OF RACKING"
+  },
+  "hc_lumber": {
+   "like": "sb_rolled_S",
+   "kind": "COVER",
+   "name": "LUMBER BUNKS"
+  },
+  "hc_cart": {
+   "like": "sb_cart_S",
+   "kind": "LOW_COVER",
+   "name": "FLATBED CARTS"
+  },
+  "hc_cart_b": {
+   "like": "sb_cart_E",
+   "kind": "DRESS",
+   "name": "FLATBED CARTS"
+  },
+  "hc_endcap": {
+   "like": "sb_corral_S",
+   "kind": "LOW_COVER",
+   "name": "AN END CAP"
+  },
+  "hc_stock": {
+   "like": "sb_heap_S",
+   "kind": "COVER",
+   "name": "A PALLET OF STOCK"
+  },
+  "hc_spill": {
+   "like": "sb_rubble_S",
+   "kind": "LOW_COVER",
+   "name": "A SPILLED RACK"
+  },
+  "hc_checkout": {
+   "like": "casino_bar",
+   "kind": "LOW_COVER",
+   "name": "A CHECKOUT LANE"
+  },
+  "hc_propane": {
+   "like": "sb_propane_S",
+   "kind": "COVER",
+   "name": "THE PROPANE CAGE"
+  },
+  "hc_rental": {
+   "like": "sb_dozer_S",
+   "kind": "COVER",
+   "name": "THE RENTAL COUNTER"
+  },
+  "hc_plants": {
+   "like": "sb_drums_S",
+   "kind": "LOW_COVER",
+   "name": "DEAD PLANTS"
+  },
+  "hc_bags": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "STACKED BAGS"
+  },
+  "hc_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "hc_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "hc_wall_ew",
+  "ns": "hc_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "warehouse/warehouse_floor_0.webp#0,0",
+   "warehouse/warehouse_floor_0.webp#1,0",
+   "warehouse/warehouse_floor_0.webp#2,0",
+   "warehouse/warehouse_floor_0.webp#3,0",
+   "warehouse/warehouse_floor_0.webp#4,0",
+   "warehouse/warehouse_floor_0.webp#0,1",
+   "warehouse/warehouse_floor_0.webp#1,1",
+   "warehouse/warehouse_floor_0.webp#2,1",
+   "warehouse/warehouse_floor_0.webp#3,1",
+   "warehouse/warehouse_floor_0.webp#4,1",
+   "warehouse/warehouse_floor_0.webp#0,2",
+   "warehouse/warehouse_floor_0.webp#1,2",
+   "warehouse/warehouse_floor_0.webp#2,2",
+   "warehouse/warehouse_floor_0.webp#3,2",
+   "warehouse/warehouse_floor_0.webp#4,2",
+   "warehouse/warehouse_floor_0.webp#0,3",
+   "warehouse/warehouse_floor_0.webp#1,3",
+   "warehouse/warehouse_floor_0.webp#2,3",
+   "warehouse/warehouse_floor_0.webp#3,3",
+   "warehouse/warehouse_floor_0.webp#4,3"
+  ],
+  "yard": [
+   "block_apron_3.webp#0,0",
+   "block_apron_3.webp#1,0",
+   "block_apron_3.webp#2,0",
+   "block_apron_3.webp#3,0",
+   "block_apron_3.webp#4,0",
+   "block_apron_3.webp#0,1",
+   "block_apron_3.webp#1,1",
+   "block_apron_3.webp#2,1",
+   "block_apron_3.webp#3,1",
+   "block_apron_3.webp#4,1",
+   "block_apron_3.webp#0,2",
+   "block_apron_3.webp#1,2",
+   "block_apron_3.webp#2,2",
+   "block_apron_3.webp#3,2",
+   "block_apron_3.webp#4,2",
+   "block_apron_3.webp#0,3",
+   "block_apron_3.webp#1,3",
+   "block_apron_3.webp#2,3",
+   "block_apron_3.webp#3,3",
+   "block_apron_3.webp#4,3",
+   "block_apron_3.webp#0,4",
+   "block_apron_3.webp#1,4",
+   "block_apron_3.webp#2,4",
+   "block_apron_3.webp#3,4",
+   "block_apron_3.webp#4,4"
+  ],
+  "ring": [
+   "warehouse/warehouse_floor_0.webp#0,0",
+   "warehouse/warehouse_floor_0.webp#1,0",
+   "warehouse/warehouse_floor_0.webp#2,0",
+   "warehouse/warehouse_floor_0.webp#3,0",
+   "warehouse/warehouse_floor_0.webp#4,0",
+   "warehouse/warehouse_floor_0.webp#0,1",
+   "warehouse/warehouse_floor_0.webp#1,1",
+   "warehouse/warehouse_floor_0.webp#2,1",
+   "warehouse/warehouse_floor_0.webp#3,1",
+   "warehouse/warehouse_floor_0.webp#4,1",
+   "warehouse/warehouse_floor_0.webp#0,2",
+   "warehouse/warehouse_floor_0.webp#1,2",
+   "warehouse/warehouse_floor_0.webp#2,2",
+   "warehouse/warehouse_floor_0.webp#3,2",
+   "warehouse/warehouse_floor_0.webp#4,2",
+   "warehouse/warehouse_floor_0.webp#0,3",
+   "warehouse/warehouse_floor_0.webp#1,3",
+   "warehouse/warehouse_floor_0.webp#2,3",
+   "warehouse/warehouse_floor_0.webp#3,3",
+   "warehouse/warehouse_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "sky": {
+   "src": null,
+   "radius_m": 14,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: a home centre is one floor. The racks are the board: rows of them with gaps, so a line breaks into duels at the main aisles.",
+ "ceiling": {
+  "kind": "joist",
+  "alpha": 0.1,
+  "src": "homecenter/homecenter_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the store's roof, a warehouse roof (the corrugated deck, open-web joists, the strip lights most of them dead, a few clear panels), over the board at this alpha (10%, never past the fight's own most). 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the warehouse's)."
+ }
+}

@@ -1,6 +1,40 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441; ask rows 468, 651): 11/20 LATEST -- [the sphere] SHIPPED 690c01943, BUILD 11/20k - THE SPHERE, BUILT, NOT YET SEEN. VOTE combat4-the-sphere-11-20 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441; ask rows 468, 651): 11/20 LATEST -- [the last three] SHIPPED SHIPSHA, BUILD 11/20w - THE HOME CENTER, THE HOSPITAL AND THE CELL BLOCK, BUILT, NOT YET SEEN. VOTE combat4-the-last-three-insides-11-20 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_HOME_CENTER_THE_HOSPITAL_AND_THE_CELL_BLOCK_11_20_26.md. The round's third build: row 468's last line, whole, in one ship (441(d)).
+WHAT: THE HOME CENTER ('hardware', every fight at its cell): runs of racking you cannot stand on, end caps in their gaps, stock in the aisles, checkouts, the lumber along the back, the garden yard
+behind its fence under the sky; no high ground. THE HOSPITAL ('medical', 0.7 of what the garage leaves): the emergency room (bays along both walls, the nurses' station and the
+pharmacy's cage in the middle, the ambulance doors) and a ward (beds in rows); no high ground. THE CELL BLOCK ('prison' and 'jail', 0.6): cells as walls, the tiers they hold
+at the bell, the dayroom between (bolted tables, mattress barricades, burned heaps, flooded floor, the picket); or two units across the sally port's bars. Three data files
+(homecenter.json, hospital.json, prison.json: 18, 13, 16 tile kinds; 14, 11, 15 pieces, all stand-ins), ninth to eleventh in insides.json; one ceiling painter ('grid').
+ROW 468's LIST IS BUILT, EVERY LINE OF IT.
+ALSO, COOK SIX's SECOND ASK: the south stand's step. A legend entry may name its own deck now (slices/bohemia_big_inside.js q.deck); the stadium's row 13 is 'N' / 'n' on
+deck st_stand_n, drawn as your st_stand until you paint it. Today it looks the same.
+GATE THE BIG INSIDES 166/0 (eleven insides). ON THE PAGE: the demo and the alpha, upright and on its side, through the map's own door: the home center 9 fights (25 of 25 taps),
+the hospital 5 (19 of 19), the cell block 10 (31 of 32; the miss re-ran clean); all 24 ended on AUTO; 0 page errors. THE HOME CENTER's share is 1.0: the alpha's fixed valley
+rolled both its home-centre cells to the lot at 0.7. THE DRIVER: a third fix (a man with no steps left gives his turn back to AUTO before the finger taps).
+*** FOR COOK (SIX): 1) st_stand_n: the stadium's SOUTH stand's step, turned to face the field (st_stand's size and foot); into stadium_art.json's kit under that name.
+2) THE HOME CENTER'S NAMES (homecenter_art.json, THE GARAGE'S FORMAT): floor.floor (the sealed slab, aisle numbers), floor.yard (the garden yard's concrete under the shade
+  cloth's rags), floor.ring; hc_rack (A RUN OF RACKING, a tile wide: orange beams, what nobody could carry still up there; a tile's blocker; today the casino's dead screens),
+  hc_endcap (an end cap's display knocked flat, low), hc_stock (a pallet of stock in the aisle), hc_spill (a rack's load spilled across the aisle), hc_lumber (lumber in its
+  bunks), hc_cart, hc_cart_b (flatbed carts; b drawn-only), hc_checkout (a checkout lane), hc_propane (the propane exchange cage, empty), hc_rental (the rental counter, a mixer
+  and a lift), hc_plants (benches of dead plants in pots), hc_bags (soil and gravel bags on pallets), hc_wall_ew, hc_wall_ns (tilt-up wall; the yard's fence uses the same
+  names); homecenter/homecenter_ceiling.webp (the store's roof: deck, joists, dead strip lights, clear panels); "have": true in homecenter.json's ceiling.
+3) THE HOSPITAL'S NAMES (hospital_art.json): floor.floor (the corridor's vinyl), floor.wet (the same, slick), floor.ring; hs_bay (a run of treatment bays, curtains torn
+  down, a bed and its machines in each), hs_beds (a ward's beds in a row, mattresses gone), hs_gurney, hs_carts (crash carts and IV poles), hs_chairs (the waiting room's
+  chairs), hs_station (the nurses' station), hs_pharmacy (the pharmacy's cage, cut open; a tile's blocker), hs_wall_ew, hs_wall_ns, hs_partition_ew, hs_partition_ns (the bays'
+  partitions); hospital/hospital_ceiling.webp (the dropped ceiling: tees, tiles out, wiring, dead panels, stains); "have": true in hospital.json's ceiling.
+4) THE CELL BLOCK'S NAMES (prison_art.json): floor.floor (the dayroom's sealed concrete, a painted line), floor.wet (flooded), floor.high (the tier's steel deck), floor.ring;
+  pr_cells_ew (A RUN OF CELLS seen from the dayroom: doors racked open, a tile wide), pr_cells_ns (end on), pr_bars_ew, pr_bars_ns (the sally port's bars), pr_table (a steel
+  table and its stools, bolted), pr_mattresses (a mattress barricade), pr_burned (a burned heap), pr_desk (the officers' desk on its side), pr_picket (the picket, glass
+  starred; a tile's blocker), pr_tier_mattress (a mattress hung on the tier's rail), pr_tier (one tile of the upper tier's walkway), pr_stair_e, pr_stair_w, pr_rail_ew,
+  pr_rail_ns; prison/prison_ceiling.webp (the unit's concrete ceiling, caged lights, the skylight's bars); "have": true in prison.json's ceiling.
+*** SAID PLAINLY: no high ground in the home centre or the hospital (one floor each). The hospital is dealt only on what the garage leaves at 'medical' (16 of 40).
+NEXT: whatever EYES finds in this round's five insides; then more boards and more ground (rule 461), every floor tile from Battle Brothers with its cost and effect.
+[bb Battle Brothers' forest again: a home centre's racks are trees in rows, and the gaps between them are where a line breaks into duels]
+[analog horror: a hospital's security monitor still cycling through the empty bays, one camera a frame behind the others]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441; ask rows 468, 651): 11/20 -- [the sphere] SHIPPED 690c01943, BUILD 11/20k - THE SPHERE, BUILT, NOT YET SEEN. VOTE combat4-the-sphere-11-20 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_SPHERE_11_20_26.md. The round's second build (rule 461: keep going), the eleventh big inside (the list's tenth line).
 WHAT: a fight at the Sphere (0.7 of what the garage leaves; opts.inside 'sphere' anywhere) is fought in the dead bowl: the floor in the open, the stage across the front (a
 blocker), fallen screen panels, fallen speakers, road cases, the sound desk (cover), barricade, bedding (low cover), broken floor where the rigging came down (open AND 3 AP),

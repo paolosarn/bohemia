@@ -103,7 +103,8 @@
         if (q2.piece) put(one(q2.piece, x2, y2, 7), x2, y2, 0.5, 0.98, q2.tile || 'wall');
         continue;
       }
-      if (hi && HI.deck) put(one(HI.deck, x2, y2, 9), x2, y2, 0.5, 1.0, 'deck');
+      var dk = q2.deck || HI.deck;   /* a legend entry may name its own deck (COMBAT FOUR 11/20, COOK SIX's ask: the stadium's south stand's step turned to the field) */
+      if (hi && dk) put(one(dk, x2, y2, 9), x2, y2, 0.5, 1.0, 'deck');
       if (q2.is === 'ramp') { var re = isHigh(x2 + 1, y2) ? HI.ramp_e : HI.ramp_w; if (re) put(re, x2, y2, 0.5, 1.0, 'ramp'); n.ramps++; }
       if (q2.piece) { var at = q2.at || [0.5, 0.8]; put(one(q2.piece, x2, y2, 11), x2, y2, at[0], at[1], q2.tile || 'piece', hi); }
       (q2.more || []).forEach(function (m, i) { if (hz(x2, y2, 60 + i, seed) < (m.share == null ? 1 : m.share)) put(one(m.piece, x2, y2, 20 + i), x2, y2, m.at[0], m.at[1], 'more', hi); });

@@ -39,7 +39,7 @@
       "#.s....x.T...w..s..#",
       "#.f.w.sy....s..y...#",
       "#.e.e...r.....e.e..#",
-      "#>nMnMMnMnMMnMnMn<.#",
+      "#>nNnNNnNnNNnNnNn<.#",
       "####################"
      ],
      "the_last_show": [
@@ -56,7 +56,7 @@
       "#.s..r...kk...r..w.#",
       "#.fy...k....k..y...#",
       "#.e..r.r.r.r.r..e..#",
-      "#>nMnMMnMnMMnMnMn<.#",
+      "#>nNnNNnNnNNnNnNn<.#",
       "####################"
      ]
     }
@@ -183,7 +183,12 @@
     "at": [
      0.5,
      0.82
-    ]
+    ],
+    "deck": "st_stand_n"
+   },
+   "N": {
+    "is": "high",
+    "deck": "st_stand_n"
    }
   }
  },
@@ -409,6 +414,12 @@
    "kind": "LOW_COVER",
    "name": "THE STANDS' SEATS",
    "why": "COMBAT FOUR 11/20, COOK SIX's ask: the SOUTH stand's seats, which must face north to the field. One picture served both stands, so the south stand faced away from the field. Until COOK's own picture for this name is in, it is drawn as the north stand's seats (st_seats: this inside's own finished piece)."
+  },
+  "st_stand_n": {
+   "like": "st_stand",
+   "kind": "HEIGHT",
+   "name": "THE STANDS",
+   "why": "COMBAT FOUR 11/20, COOK SIX's ask: the SOUTH stand's own step, turned to face the field (its padding and ribbon board on the field's side). Until COOK's own picture for this name is in, it is drawn as the north stand's step (st_stand: this inside's own finished piece)."
   }
  },
  "walls": {
