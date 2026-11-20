@@ -1,6 +1,37 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 462, 416, 59, 428, 451(a), 441; ask rows 468, 651): 11/20 LATEST -- [the powerhouse] SHIPPED fd69ba7d1, BUILD 11/20j - THE POWERHOUSE, BUILT, NOT YET SEEN. VOTE combat4-the-powerhouse-11-20 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441; ask rows 468, 651): 11/20 LATEST -- [the sphere] SHIPPED SHIPSHA, BUILD 11/20k - THE SPHERE, BUILT, NOT YET SEEN. VOTE combat4-the-sphere-11-20 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_SPHERE_11_20_26.md. The round's second build (rule 461: keep going), the eleventh big inside (the list's tenth line).
+WHAT: a fight at the Sphere (0.7 of what the garage leaves; opts.inside 'sphere' anywhere) is fought in the dead bowl: the floor in the open, the stage across the front (a
+blocker), fallen screen panels, fallen speakers, road cases, the sound desk (cover), barricade, bedding (low cover), broken floor where the rigging came down (open AND 3 AP),
+the concourse doors (the day), and THE TIERS they hold at the bell (start 'gallery', a third of the band up). Two layouts: the_horseshoe (the tiers along the back and down
+both sides), the_screen_came_down (one row of tiers; a section of the screen down across the floor in a diagonal). ONE DATA FILE: slices/fight_ground/sphere/sphere.json (16
+tile kinds, 20 pieces all stand-ins), eighth in insides.json. No new rule code; the ceiling kind 'screen' (dark panels in curved rows, the steel behind where they are out, the
+tear; NOTHING LIT, rule 459(e) is his).
+ALSO, COOK SIX's ASK (handoffs/COOK_FIVE.md 11/20): THE STADIUM'S SOUTH STAND faced away from the field (one seats picture on both stands). Its row is now its own letter 'n'
+with the piece st_seats_n (stadium.json, row 13 of both layouts). slices/bohemia_big_inside.js: a piece's 'like' may name a piece of the SAME inside, so st_seats_n is drawn
+with your finished st_seats until you paint it: the stands look exactly as before today.
+GATE THE BIG INSIDES 123/0 (eight insides). ON THE PAGE: the demo and the alpha, upright and on its side, through the map's own door (district:sphere): 8 fights in the bowl, 8 ended on AUTO, 41 of 41 tile
+taps, 0 page errors; the ceiling moves a pixel 3.2 to 7.8 of 255; only the_horseshoe dealt by the map at these cells (the other: the gate, 14 of 24, and a look).
+*** FOR COOK (SIX, carrying FIVE's list): 1) st_seats_n: the stadium's south stand's seats, FACING NORTH to the field, the st_seats picture's size and foot; drop it in
+stadium_art.json's kit under that name and the south stand turns with no code. 2) THE SPHERE'S NAMES, the same contract (sphere_art.json in the folder, THE GARAGE'S FORMAT):
+  the floors     floor.floor (the bowl's floor: sealed concrete, tape marks of the last show, glass from the panels), floor.torn (broken where the rigging came down),
+                 floor.high (the tiers' concrete step), floor.ring
+  sp_stage       the stage, a tile of it, chest high, black, the screen's foot behind (a tile's blocker; today the casino's stage)
+  sp_panels      fallen screen panels stacked against each other (cover; today the casino's dead screens); sp_screen   a whole section down with its frame (a blocker)
+  sp_speaker     a speaker array come down on its side (cover); sp_desk   the sound desk in its pen (cover)
+  sp_cases, sp_cases_b   road cases, half a tile (b: drawn-only); sp_barricade   crowd barricade
+  sp_camp_a, sp_camp_b, sp_bedding_a, sp_bedding_b (bedding: drawn-only)
+  sp_tier        one tile of the tiers' aisle; sp_seats   the tiers' seats FACING SOUTH to the floor (the back row; the arms are aisles); sp_stair_e, sp_stair_w; sp_rail_ew,
+                 sp_rail_ns; sp_wall_ew, sp_wall_ns
+  sphere/sphere_ceiling.webp   THE CEILING: the screen from inside, dark, its panels in rows curving over from the stage, panels out (the steel, the speakers' grilles), a long
+                 tear where a section came down; NOTHING LIT; tiles every 5 by 5 tiles; set "have": true in sphere.json's ceiling the day it is in
+*** SAID PLAINLY: the tiers are one row deep (one level of high ground). One Sphere fight on the demo upright ran 20 rounds (the gate's average is 6.3).
+NEXT: the list's twelfth (the home center, the hospital, the prison's cell blocks), one data file each; the powerhouse's and the Sphere's art when COOK lands it.
+[bb Battle Brothers' hill fights again: the bowl is one long slope facing the stage, and the side on it shoots first]
+[analog horror: the biggest screen in the world, black, and one panel hanging by its cable, turning slowly in the draft from the concourse doors]
+
+COMBAT FOUR (rules 461, 462, 416, 59, 428, 451(a), 441; ask rows 468, 651): 11/20 -- [the powerhouse] SHIPPED fd69ba7d1, BUILD 11/20j - THE POWERHOUSE, BUILT, NOT YET SEEN. VOTE combat4-the-powerhouse-11-20 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_POWERHOUSE_11_20_26.md. THIS CHAT IS COMBAT FOUR, opened fresh on COMBAT THREE's handoff (rule 462: COMBAT THREE's model hit its weekly
 limit). Taken over: EYES marked 623 and 624 SEEN 11/20, nothing found; no FOUND BY EYES row names this lane; COMBAT THREE's pushed branch claude/combat-three-01gkdyuu is wholly on
 main. So the job was the list's next: the tenth big inside.
@@ -29,7 +60,7 @@ folder, THE GARAGE'S FORMAT; a name you leave out stays its stand-in:
                  the hanging lamps nearly all dead; tiles every 5 by 5 tiles; set "have": true in powerhouse.json's ceiling the day it is in
 *** SAID PLAINLY: 'the galleries in the concrete' are not on the board: a gallery is a few metres wide and a tile is a house (rule 416: never a man in a hallway). No gas plant
 fight went inside on the page (its two cells in these valleys rolled outside; the gate deals 19 of 40). Whether the units still turn is not said anywhere (rule 459(e)).
-NEXT: THE SPHERE (in flight: the generator is written, not yet in the list), then the list's twelfth (the home center, the hospital, the prison's cell blocks).
+LIVE: the pages run for c68573a00 SUCCESS 03:39 UTC. NEXT was THE SPHERE (the block above).
 [bb Battle Brothers' boulders: a stone you cannot stand on breaks a line into the gaps between; a row of generators is that row of stones]
 [analog horror: the dam's own tour video, the generator hall from the balcony, the floor below empty, one lamp of forty still on]
 

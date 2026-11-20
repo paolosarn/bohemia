@@ -44,7 +44,11 @@
     Object.keys(K).forEach(function (p) {
       var own = K[p], a = AK[p];
       if (a && a.src && a.foot) { out[p] = Object.assign({}, a, own, { src: a.src, size: [a.w, a.h_px, a.foot[0], a.foot[1]], stand_in: false }); delete out[p].like; return; }
-      var h = own.like ? home(own.like, P || {}) : null; if (!h) return;   /* a piece with no picture is never laid (the gate counts them) */
+      /* 'like' may name a piece of THIS inside (COMBAT FOUR 11/20, COOK SIX's ask: the stadium's south stand's seats drawn as the north's
+         until their own picture faces the field): its finished picture if the art has it, else that piece's own stand-in */
+      var mine = own.like && AK[own.like], kin = own.like && K[own.like] && K[own.like] !== own ? K[own.like] : null;
+      var h = mine && mine.src && mine.foot ? { def: mine, size: [mine.w, mine.h_px, mine.foot[0], mine.foot[1]] } : own.like ? (home(own.like, P || {}) || (kin && kin.like ? home(kin.like, P || {}) : null)) : null;
+      if (!h) return;   /* a piece with no picture is never laid (the gate counts them) */
       out[p] = Object.assign({}, h.def, own, { src: h.def.src, size: h.size, stand_in: true });
     });
     return out;

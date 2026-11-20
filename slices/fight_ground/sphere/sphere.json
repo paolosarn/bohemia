@@ -1,0 +1,563 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "sphere",
+ "name": "THE SPHERE",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461, 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428 (roofs and cover), 441; ask row 468's list, the tenth: 'THE SPHERE: the dead bowl under the biggest screen in the world.'",
+ "facts": [
+  "The Sphere off the Strip is about 366 feet (112 m) tall and 516 feet (157 m) across: about 13 fight tiles, so the board is the whole bowl from the stage to the back of the tiers.",
+  "Inside, one LED screen of about 160,000 square feet wraps up, over and behind about 17,600 seats; the seats rise steep from a floor in front of the stage, so every seat looks down on the floor.",
+  "In this world the screen is dark. Panels have come off it and lie on the floor where they fell, and in places a whole section came down with its frame. The board's ceiling is that screen at 10%: dead panels, the ribs behind them where they are out.",
+  "A bowl is a killing ground by shape (the stadium's lesson): whoever is in the tiers at the bell owns the floor until somebody climbs up. The tiers here are one row of house tiles: one tile stands for the steep lower bowl.",
+  "Whether the screen could ever be lit again is not this board's to say (rule 459(e): who holds working power)."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (sphere_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "sphere"
+ ],
+ "share": 0.7,
+ "districts_why": "The Sphere is the one map kind with this bowl. The parking garage takes its own share there first (garage.json); of the rest, this share is fought in the bowl, by the cell's own dice; the rest on the plaza outside.",
+ "board": {
+  "templates": {
+   "sphere": {
+    "name": "THE SPHERE",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_horseshoe": [
+      "####################",
+      "#.MmMMmMMmMMmMMmMM.#",
+      "#.M<..c....s...c>M.#",
+      "#.M....r.....r...M.#",
+      "#.M..p..s.k...p..M.#",
+      "#.M<..s..c..z..c>M.#",
+      "#...c..r.x..s..r...#",
+      "#D...sp..k..p.c..D.#",
+      "#..s...zc..c.s..z..#",
+      "#...r..x.p...x.r...#",
+      "#.f...s..r...s...f.#",
+      "#....r..r..r..r....#",
+      "#..c....SSSSSS..c..#",
+      "#.......SSSSSS.....#",
+      "####################"
+     ],
+     "the_screen_came_down": [
+      "####################",
+      "#>MmMMmMMmMMmMMmMM<#",
+      "#.....c....s.....c.#",
+      "#..s....pP....r....#",
+      "#.r...k...pP...s...#",
+      "#...z..c..s.pP...c.#",
+      "#D.c...s.k..r.pP..D#",
+      "#....s.x.c..p..s...#",
+      "#..p...r..s..c.x.r.#",
+      "#.Pp..r..c..z..c...#",
+      "#..s...c..p......f.#",
+      "#.f......pP...s....#",
+      "#...c..SSSSSSS..c..#",
+      "#......SSSSSSS.....#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "S": {
+    "is": "floor",
+    "tile": "stage",
+    "piece": "sp_stage",
+    "at": [
+     0.5,
+     1.0
+    ]
+   },
+   "p": {
+    "is": "floor",
+    "tile": "panels",
+    "piece": "sp_panels",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "P": {
+    "is": "floor",
+    "tile": "screen",
+    "piece": "sp_screen",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "cases",
+    "piece": "sp_cases",
+    "at": [
+     0.3,
+     0.64
+    ],
+    "more": [
+     {
+      "piece": "sp_cases_b",
+      "at": [
+       0.72,
+       0.94
+      ],
+      "share": 0.6
+     }
+    ]
+   },
+   "s": {
+    "is": "floor",
+    "tile": "speaker",
+    "piece": "sp_speaker",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "desk",
+    "piece": "sp_desk",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "r": {
+    "is": "floor",
+    "tile": "barricade",
+    "piece": "sp_barricade",
+    "at": [
+     0.5,
+     0.62
+    ]
+   },
+   "z": {
+    "is": "floor",
+    "tile": "camp",
+    "piece": [
+     "sp_camp_a",
+     "sp_camp_b"
+    ],
+    "at": [
+     0.3,
+     0.55
+    ],
+    "more": [
+     {
+      "piece": [
+       "sp_bedding_a",
+       "sp_bedding_b"
+      ],
+      "at": [
+       0.72,
+       0.95
+      ],
+      "share": 0.7
+     }
+    ]
+   },
+   "x": {
+    "is": "floor",
+    "tile": "torn",
+    "floor": "torn"
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   },
+   "M": {
+    "is": "high"
+   },
+   "m": {
+    "is": "high",
+    "tile": "high_seats",
+    "piece": "sp_seats",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   ">": {
+    "is": "ramp"
+   },
+   "<": {
+    "is": "ramp"
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words). [bb] each kind is a Battle Brothers ground: flat, rough, a hill, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The bowl's wall, the screen's frame behind it: no way through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The floor in front of the stage: open ground, nothing to hide behind, and every seat in the bowl looks down on it; on AUTO nobody stays on it.",
+   "say": "The floor: open ground, and the bowl looks down on it.",
+   "draft": true
+  },
+  "stage": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "The stage, chest high, the dead screen's foot behind it: nobody stands on its tile; cover for the tiles beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "panels": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Panels of the screen where they fell, stacked against each other: cover.",
+   "say": "Fallen screen panels: cover.",
+   "draft": true
+  },
+  "screen": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A whole section of the screen come down with its frame: nobody stands on its tile; cover for the tiles beside it.",
+   "say": ""
+  },
+  "cases": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The last show's road cases, still latched: cover.",
+   "say": "Road cases: cover.",
+   "draft": true
+  },
+  "speaker": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A speaker array that came down with the screen, on its side: cover.",
+   "say": "A fallen speaker: cover.",
+   "draft": true
+  },
+  "desk": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The sound desk in its pen in the middle of the floor: cover.",
+   "say": "The sound desk: cover.",
+   "draft": true
+  },
+  "barricade": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Crowd barricade: low cover.",
+   "say": "Barricade: low cover.",
+   "draft": true
+  },
+  "camp": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Somebody sleeps under the dead screen: bedding and bags. Low cover.",
+   "say": "Somebody's bedding: low cover.",
+   "draft": true
+  },
+  "torn": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "open": true,
+   "effect": "Where the rigging came down: the floor broken, glass from the panels in it: open ground and slow going (3 AP a step). [bb] its rough ground.",
+   "say": "Broken floor: slow going, open ground.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire in a drum somebody keeps. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A drum fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "A tunnel in from the concourse, its doors gone: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The concourse doors: open ground.",
+   "say_lit": "The concourse doors: open ground, and the day is on you.",
+   "draft": true
+  },
+  "high": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "An aisle of the bowl, a storey over the floor: high ground. A blow or a shot down from it lands easier, one up at it harder; a gun reaches a tile farther from it. Up the stairs it is a walk; over the rail from the floor it is a climb: no attack that turn, and a beast cannot. [bb] its hill.",
+   "say": "The bowl: you hit down easier, and a gun reaches a tile more.",
+   "roof": true,
+   "say_before": "",
+   "draft": true
+  },
+  "high_seats": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "effect": "The bowl's seats: low cover, on high ground. They hold them at the bell.",
+   "say": "The bowl's seats: low cover, and high ground.",
+   "say_before": "The bowl's seats: low cover.",
+   "roof": true,
+   "draft": true
+  },
+  "ramp": {
+   "row": "height",
+   "terrain": "height",
+   "ap": 2,
+   "effect": "The stairs up into the bowl: the WALK up. A step onto them from the floor costs one more; a man who walks up can still strike this turn.",
+   "say": "",
+   "say_before": "The stairs: the walk up, and you can still strike.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in sphere_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL, RAIL, HEIGHT); 'blocks_move' means nobody stands on its tile. A DRESS piece is drawn and never counted.",
+ "kit": {
+  "sp_stage": {
+   "like": "casino_stage",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "THE STAGE"
+  },
+  "sp_panels": {
+   "like": "casino_screens",
+   "kind": "COVER",
+   "name": "FALLEN SCREEN PANELS"
+  },
+  "sp_screen": {
+   "like": "sb_heap_S",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A SECTION OF THE SCREEN, DOWN"
+  },
+  "sp_cases": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "ROAD CASES"
+  },
+  "sp_cases_b": {
+   "like": "sb_bales_S",
+   "kind": "DRESS",
+   "name": "ROAD CASES"
+  },
+  "sp_speaker": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "name": "A FALLEN SPEAKER"
+  },
+  "sp_desk": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "THE SOUND DESK"
+  },
+  "sp_barricade": {
+   "like": "sb_barrier_S",
+   "kind": "LOW_COVER",
+   "name": "BARRICADE"
+  },
+  "sp_camp_a": {
+   "like": "tunnel_camp_a",
+   "kind": "LOW_COVER",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "sp_camp_b": {
+   "like": "tunnel_camp_b",
+   "kind": "LOW_COVER",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "sp_bedding_a": {
+   "like": "tunnel_camp_a",
+   "kind": "DRESS",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "sp_bedding_b": {
+   "like": "tunnel_camp_b",
+   "kind": "DRESS",
+   "name": "SOMEBODY'S BEDDING"
+  },
+  "sp_seats": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "THE BOWL'S SEATS"
+  },
+  "sp_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "sp_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  },
+  "sp_tier": {
+   "like": "garage_level_aisle",
+   "kind": "HEIGHT",
+   "name": "THE BOWL"
+  },
+  "sp_stair_e": {
+   "like": "garage_ramp_e",
+   "kind": "HEIGHT"
+  },
+  "sp_stair_w": {
+   "like": "garage_ramp_w",
+   "kind": "HEIGHT"
+  },
+  "sp_rail_ew": {
+   "like": "garage_rail_ew",
+   "kind": "RAIL"
+  },
+  "sp_rail_ns": {
+   "like": "garage_rail_ns",
+   "kind": "RAIL"
+  }
+ },
+ "walls": {
+  "ew": "sp_wall_ew",
+  "ns": "sp_wall_ns"
+ },
+ "high": {
+  "deck": "sp_tier",
+  "ramp_e": "sp_stair_e",
+  "ramp_w": "sp_stair_w",
+  "rail_ew": "sp_rail_ew",
+  "rail_ns": "sp_rail_ns",
+  "h_m": 1.42
+ },
+ "floor": {
+  "floor": [
+   "hall/hall_floor_0.webp#0,0",
+   "hall/hall_floor_0.webp#1,0",
+   "hall/hall_floor_0.webp#2,0",
+   "hall/hall_floor_0.webp#3,0",
+   "hall/hall_floor_0.webp#4,0",
+   "hall/hall_floor_0.webp#0,1",
+   "hall/hall_floor_0.webp#1,1",
+   "hall/hall_floor_0.webp#2,1",
+   "hall/hall_floor_0.webp#3,1",
+   "hall/hall_floor_0.webp#4,1",
+   "hall/hall_floor_0.webp#0,2",
+   "hall/hall_floor_0.webp#1,2",
+   "hall/hall_floor_0.webp#2,2",
+   "hall/hall_floor_0.webp#3,2",
+   "hall/hall_floor_0.webp#4,2",
+   "hall/hall_floor_0.webp#0,3",
+   "hall/hall_floor_0.webp#1,3",
+   "hall/hall_floor_0.webp#2,3",
+   "hall/hall_floor_0.webp#3,3",
+   "hall/hall_floor_0.webp#4,3"
+  ],
+  "torn": [
+   "street_board/ground_rubble_0.webp",
+   "street_board/ground_rubble_1.webp",
+   "street_board/ground_rubble_2.webp"
+  ],
+  "high": [
+   "hall/hall_floor_0.webp#0,4",
+   "hall/hall_floor_0.webp#1,4",
+   "hall/hall_floor_0.webp#2,4",
+   "hall/hall_floor_0.webp#3,4",
+   "hall/hall_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "hall/hall_floor_0.webp#0,0",
+   "hall/hall_floor_0.webp#1,0",
+   "hall/hall_floor_0.webp#2,0",
+   "hall/hall_floor_0.webp#3,0",
+   "hall/hall_floor_0.webp#4,0",
+   "hall/hall_floor_0.webp#0,1",
+   "hall/hall_floor_0.webp#1,1",
+   "hall/hall_floor_0.webp#2,1",
+   "hall/hall_floor_0.webp#3,1",
+   "hall/hall_floor_0.webp#4,1",
+   "hall/hall_floor_0.webp#0,2",
+   "hall/hall_floor_0.webp#1,2",
+   "hall/hall_floor_0.webp#2,2",
+   "hall/hall_floor_0.webp#3,2",
+   "hall/hall_floor_0.webp#4,2",
+   "hall/hall_floor_0.webp#0,3",
+   "hall/hall_floor_0.webp#1,3",
+   "hall/hall_floor_0.webp#2,3",
+   "hall/hall_floor_0.webp#3,3",
+   "hall/hall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {
+  "height": "The bowl: you hit down easier, and a gun reaches a tile more."
+ },
+ "start": "gallery",
+ "gallery": {
+  "share": 0.4,
+  "least": 0.25,
+  "why": "THEY HOLD THE BOWL: whoever is up in the tiers at the bell owns the floor. The band's shooters and its back line, and men enough to make 'least' of the band (never more than 'share'), start up in the tiers over their own side; the rest hold the floor. His line starts on the floor: the stairs are his way up."
+ },
+ "ceiling": {
+  "kind": "screen",
+  "alpha": 0.1,
+  "src": "sphere/sphere_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the biggest screen in the world, dark: its panels in their grid, the ribs and the speakers behind where panels are out, over the board at this alpha (10%, never past the fight's own most). 'src' is the picture COOK makes (see garage.json's ceiling); 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in."
+ }
+}

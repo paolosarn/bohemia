@@ -1,4 +1,13 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/20 LATEST -- COMBAT THREE's lane on a fresh model (rule 462; its block is handoffs/COMBAT_THREE.md) -- BUILD 11/20j - THE POWERHOUSE, BUILT, NOT YET SEEN (rule 461; rules 416, 59, 428, 451(a), 441; ask rows 468, 651).
+COMBAT FOUR (combat-four-01gkdyuv): 11/20 LATEST -- BUILD 11/20k - THE SPHERE, BUILT, NOT YET SEEN (rule 461; rules 416, 59, 428, 451(a), 441; ask rows 468, 651). The round's second build.
+The eleventh big inside: a fight at the Sphere (0.7 of what the garage leaves) is fought in its dead bowl: an open floor in front of a dead stage, fallen screen panels and
+speakers, road cases and the sound desk for cover, broken floor that costs a step more, and a third of the other crew already up in the tiers; the dark screen overhead at 10%,
+nothing on it lit (rule 459(e) is his). One data file (slices/fight_ground/sphere/sphere.json), 16 tile kinds, every picture a stand-in (the names for COOK are in
+handoffs/COMBAT_THREE.md). ALSO: the stadium's south stand has its own seats name (st_seats_n), COOK SIX's ask, so COOK can turn it to face the field; it looks as before today.
+GATE THE BIG INSIDES 123/0 (eight insides). ON THE PAGE: the demo and the alpha, both ways, through the map's own door: 8 fights in the bowl, 8 ended on AUTO, 41 of 41
+taps, 0 errors. VOTE combat4-the-sphere-11-20 (stand_in). NEXT: the home center (drafted, 17/0 in a scratch gate), then the hospital and the prison's cell blocks.
+[bb Battle Brothers' hill fights again: the bowl is one long slope facing the stage, and the side on it shoots first]
+[analog horror: the biggest screen in the world, black, and one panel hanging by its cable, turning slowly in the draft from the concourse doors]
+COMBAT FOUR (combat-four-01gkdyuv): 11/20 -- COMBAT THREE's lane on a fresh model (rule 462; its block is handoffs/COMBAT_THREE.md) -- BUILD 11/20j - THE POWERHOUSE, BUILT, NOT YET SEEN (rule 461; rules 416, 59, 428, 451(a), 441; ask rows 468, 651).
 The tenth big inside: a fight at the dam (six in ten) or the gas plant (a third) is fought in the generator hall: a terrazzo floor in the open, a line of generators you cannot
 stand on with their control boards beside them, crated spares and the crane's hook for cover, cable reels and wet floor that cost a step more, the visitors' balcony a storey up that
 nobody holds at the bell; the crane's roof overhead at 10%. One data file (slices/fight_ground/powerhouse/powerhouse.json), 17 tile kinds, every picture a stand-in (the names for

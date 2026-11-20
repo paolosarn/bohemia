@@ -39,7 +39,7 @@
       "#.s....x.T...w..s..#",
       "#.f.w.sy....s..y...#",
       "#.e.e...r.....e.e..#",
-      "#>mMmMMmMmMMmMmMm<.#",
+      "#>nMnMMnMnMMnMnMn<.#",
       "####################"
      ],
      "the_last_show": [
@@ -56,7 +56,7 @@
       "#.s..r...kk...r..w.#",
       "#.fy...k....k..y...#",
       "#.e..r.r.r.r.r..e..#",
-      "#>mMmMMmMmMMmMmMm<.#",
+      "#>nMnMMnMnMMnMnMn<.#",
       "####################"
      ]
     }
@@ -175,6 +175,15 @@
    },
    "<": {
     "is": "ramp"
+   },
+   "n": {
+    "is": "high",
+    "tile": "high_seats",
+    "piece": "st_seats_n",
+    "at": [
+     0.5,
+     0.82
+    ]
    }
   }
  },
@@ -394,6 +403,12 @@
   "st_rail_ew": {
    "like": "garage_rail_ew",
    "kind": "RAIL"
+  },
+  "st_seats_n": {
+   "like": "st_seats",
+   "kind": "LOW_COVER",
+   "name": "THE STANDS' SEATS",
+   "why": "COMBAT FOUR 11/20, COOK SIX's ask: the SOUTH stand's seats, which must face north to the field. One picture served both stands, so the south stand faced away from the field. Until COOK's own picture for this name is in, it is drawn as the north stand's seats (st_seats: this inside's own finished piece)."
   }
  },
  "walls": {
