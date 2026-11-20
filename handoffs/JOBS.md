@@ -10,8 +10,14 @@ row 651; the coordinator's routine 'JOBS: the whole enchilada'). Record: records
 - FOUND BY THE GATE ON THE ALPHA: a job's animal is picked once where first asked; the fight asked on the road beside the place (the
   tunnel watch: card 1 dire wolf, 3 coyotes came). fight() now asks at the card's place first.
 GATE THE CARD READS THE NIGHT (new, in the suite) 3/0 on the four phones. I (11/20t) is pushed; its deploy follows the queue.
-NEXT (the jump list): [the survey repeats] two boots of one tree read a job's danger differently (the crew key at boot); [the stars and the
-hour] a job's stars read at the map's hour, not the hour he meets it (WORLD's reader); [a siege for a big crew]; [the block watch's crews].
+[the survey repeats] MEASURED (after J, the demo upright, a new crew, K7QM9X, two boots, every job on every board on day 1, read to the
+end): the STARS are the same on 21 of 21 (what he sees never changes on a reload); the danger under them moved 7 to 11 points on 4 of 21
+(qd-s06 38/31, jb-escort-water 35/27, qd-a02 32/22, qd-ar05 38/27; the same runs, the same crew key): the reader's plays are not
+repeatable boot to boot (a roll and a play share one engine, 'the slice in flight starts its run again', so the order of reads moves
+the draw). WORLD's reader; for WORLD: seed each play by its job and run, or keep rolls off the playing engine. A card's blood follows the
+danger (bleed), so the blood on those four can differ a little after a reload; a job near a star's cut could flip.
+NEXT (the jump list): [the stars and the hour] a job's stars read at the map's hour, not the hour he meets it (WORLD's reader; J now rolls
+a night fight at night on the card, the stars' own read is WORLD's); [a siege for a big crew]; [the block watch's crews] (FACTIONS/TUNING).
 [bb Battle Brothers shows a contract's objectives before it is signed, and names who it is against]
 [analog horror: the card knew the water people would come up out of the canal at three in the morning, and now it says so]
 
