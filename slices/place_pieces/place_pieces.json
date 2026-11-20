@@ -199,6 +199,36 @@
    "like": "industrial",
    "through_the_rig": true,
    "finished": "cook 5, 11/18"
+  },
+  "the_home_center_east": {
+   "w": 166,
+   "h": 169,
+   "bx": 83,
+   "by": 120,
+   "plate": 150,
+   "frames": [
+    "the_home_center_east_0.webp",
+    "the_home_center_east_1.webp"
+   ],
+   "name": "HOME CENTER, EAST SIDE",
+   "like": "commercial",
+   "through_the_rig": true,
+   "finished": "cook 6, 11/20"
+  },
+  "the_home_center_west": {
+   "w": 166,
+   "h": 165,
+   "bx": 83,
+   "by": 116,
+   "plate": 150,
+   "frames": [
+    "the_home_center_west_0.webp",
+    "the_home_center_west_1.webp"
+   ],
+   "name": "HOME CENTER, WEST SIDE",
+   "like": "commercial",
+   "through_the_rig": true,
+   "finished": "cook 6, 11/20"
   }
  }
 }

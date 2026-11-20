@@ -1,5 +1,25 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
+COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20g - THE HOME CENTERS, EAST AND WEST, BUILT (SHIPSHA), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 408, 409(c), 455; ask rows 627, 651).
+The last two of the valley's fifteen real places wear their own piece on the map. No code: slices/place_pieces/place_pieces.json gained the_home_center_east and
+the_home_center_west, the folder four lossless WebP pictures (about 21,000 bytes a store). ONE BOX, TWO STATES, each from WORLD's own words: the EAST SIDE with its doors
+gone, the lumber racks bare, the crew's fire through a hole in the roof over the lumber aisle, the garden centre's shade cloth down over dead plants and the night manager
+among them, the paint poured out on the lot in pools of every colour; the WEST SIDE slower, its doors whole, plywood still stacked, three cars that never left, the
+receiving dock round the side with a pallet in its wrap in the open door, the key cutter in the next one, a trailer backed in. On the beat: the fire and the lantern;
+the key cutter's lantern and the key machine's spark.
+Made by tools/bohemia_cook6_the_home_centers_wear_their_own_piece_11_20_26.py ON COOK FIVE's places tool (it binds PW.PLACES / SAY / LIKE / moving / OUT).
+PROOF on the demo: upright 390 x 844 the east side at block 29,53 drawn 51 x 52 points, the west side at 60,38 drawn 51 x 51, with the pieces off 0 drawn; on its side
+844 x 390 the same, 51 points each; no error. Gate THE PLACES WEAR THEIR OWN PIECE 8/0 with fifteen places, page leg included (its S3 caught the first west cut: 5 pixels
+moved between its frames; now 53).
+VOTE cook6-the-home-centers-11-20 (MADE FROM arena2-the-pit-is-a-pit-11-7). Record: records/BOHEMIA_COOK_SIX_THE_TWO_HOME_CENTERS_11_20_26.md.
+FOUND, FOR WHOEVER RENDERS A PLACE AGAIN: the places' render skips a scene whose master is on disk, so a changed scene draws the old picture until its master is deleted.
+FOR WORLD (13, 14): the two entries are yours to check against what the stores are. Nothing of yours edited.
+*** NEXT ON THIS LANE, IN THIS ORDER: (1) THE REGION'S FOUR (TULE SPRINGS LAB, LENZIE STATION, SPRING MOUNTAIN RANCH, CALLVILLE BAY): a wrap of the map's mapBaseDraw by
+the place's name in slices/bohemia_place_pieces.js (this lane's module; the region draws its places after the whole frame, so the wrap is the only seam) and four
+scenes; (2) COMBAT THREE's next insides (the dam's powerhouse, the Sphere) when their names land.
+[bb Battle Brothers' map: a place worth the walk is told from a village at a glance; two stores of one kind are told apart by what happened to them]
+[analog horror: paint poured out on the lot in front of the doors, every colour a room can be, because it was the only thing left]
+
 COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list since its model hit its weekly limit -- BUILD 11/20d - THE STADIUM IS A STADIUM, BUILT (fe8f3c4f9), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 451(a), 455; ask rows 627, 651).
 THE STADIUM (COMBAT THREE's BUILD 11/18m): all of its pieces were stand-ins (185 of 185 in the last show layout). Now slices/fight_ground/stadium/ holds stadium_art.json
 (THE GARAGE'S FORMAT: floor.floor rows 0 to 2 of stadium_floor_0.webp, the dead turf with a yard line down every tile's middle; floor.mud its row 3, the turf torn to the dirt
