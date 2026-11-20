@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 462, 416, 59, 428, 451(a), 441; ask rows 468, 651): 11/20 LATEST -- [the powerhouse] SHIPPED SHIPSHA, BUILD 11/20j - THE POWERHOUSE, BUILT, NOT YET SEEN. VOTE combat4-the-powerhouse-11-20 (stand_in).
+COMBAT FOUR (rules 461, 462, 416, 59, 428, 451(a), 441; ask rows 468, 651): 11/20 LATEST -- [the powerhouse] SHIPPED fd69ba7d1, BUILD 11/20j - THE POWERHOUSE, BUILT, NOT YET SEEN. VOTE combat4-the-powerhouse-11-20 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_POWERHOUSE_11_20_26.md. THIS CHAT IS COMBAT FOUR, opened fresh on COMBAT THREE's handoff (rule 462: COMBAT THREE's model hit its weekly
 limit). Taken over: EYES marked 623 and 624 SEEN 11/20, nothing found; no FOUND BY EYES row names this lane; COMBAT THREE's pushed branch claude/combat-three-01gkdyuu is wholly on
 main. So the job was the list's next: the tenth big inside.
