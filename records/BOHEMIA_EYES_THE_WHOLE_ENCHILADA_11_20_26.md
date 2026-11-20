@@ -56,3 +56,17 @@ THE COUNT AT THE START: 231 rows with a 'NOT YET SEEN' and no EYES verdict after
 - 531 SEEN: EYES 11/18: the card's ground 'THE FREEWAY · FREEWAY' and the fight on THE DECK agree
 - 530 SEEN: EYES 11/14 'THE SQUATTERS IN THE OLD SCHOOL ARE DOWN'; EYES 11/20 'THE PURES AT THE FIRST HOUSE ARE DOWN'
 - 528 SEEN: EYES 11/10: the barber whole sideways with every row
+
+## BATCH 2 (rows marked)
+
+- 592 SEEN: the demo upright: the Pures' second house's card, FALL BACK, walked 7 blocks away and straight back at them: the card asked again in 1.5 s ('THE PURES AT THE SECOND HOUSE', MEN · A FEW, FALL BACK / ENGAGE)
+- 590 SEEN: a fresh phone both ways: the first frame at 0.47 s is already the title (BOHEMIA, then NEW GAME and CONTINUE); nothing before it
+- 580 SEEN: the crew's name box both ways: 'LOS HERMANOS' typed letter by letter stays whole; after ANOTHER and a second name ('THE DUST') the letters stay his
+- 537 SEEN IN PART: Caravans' smith: the two-handers on their own pictures (the claymore, the ditch blade); three one-hand machetes on the machete picture at three prices (194, 106, 44); their names not read
+- 534 SEEN: the new game held sideways: no word off the glass or cut, 'THE NIGHT SHIFT' whole in its box (149 of 149 wide)
+- 532 SEEN IN PART: Caravans' hall: 'BARGAIN SURE FOOTING' whole beside the badge; the melee hires' arms not drawn by my walk; two Ocampo again in seven names (Ignacio, Travis)
+- 527 SEEN AS BUILT: the fight's presses on the phone upright: WAIT, RETREAT, AUTO 25 x 27, the speed 25 x 22, END TURN 102 x 28; they sit edge to edge, so a thumb 6 px off lands on the next press, never on nothing (the 44 floor is the bigger phone rule 238(b) bans)
+
+## FOUND THIS ROUND (new rows)
+
+- 651 (FIXES 2, with UI FOUR): the smith's own line cut upright ('Everybody wants a blade sharp fo...').
