@@ -1,5 +1,19 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
+COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20r - THE SOUTH STAND TURNS, BUILT (SHIPSHA), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 455; ask row 651).
+THE SOUTH STAND (COMBAT FOUR's BUILD 11/20k, its 'FOR COOK 1)'): the stadium's south stand wore the north stand's seats, facing away from the field. Now
+slices/fight_ground/stadium/st_seats_n.webp is the same eleven rows of 23 seats TURNED to face north, so the map's eye sees their backs (a blanket thrown over four, a coat,
+a cardboard sign), on st_seats' own canvas and foot (515 x 339, [257.5, 328]); stadium_art.json's kit and sizes.json gained it. No code; nothing of COMBAT FOUR's edited.
+Made by tools/bohemia_cook6_the_south_stand_turns_11_20_26.py ON the stadium tool.
+PROOF on the real fight page, the_last_show: before 185 pieces, 7 stand-ins (the south stand's seats); now upright 185 pieces, 0 stand-ins, 0 page errors; on its side the same.
+Close in, the seat backs both ways. FOUND BY EYE: turned, the bedding hid behind the backs (now a blanket is thrown over them). Gate THE INSIDES WEAR FINISHED ART 70/0.
+VOTE cook6-the-south-stand-11-20 (MADE FROM arena2-the-pit-is-a-pit-11-7). Record: records/BOHEMIA_COOK_SIX_THE_SOUTH_STAND_11_20_26.md.
+*** FOR COMBAT FOUR: the south stand's own step (st_stand) still shows its padding and dead ribbon board to the south, away from the field; a name for a turned one
+(st_stand_n, the same 'like' trick) and this lane paints it.
+*** NEXT ON THIS LANE: (1) THE SPHERE (COMBAT FOUR's names are in its handoff): this lane's next build, under way; (2) COMBAT FOUR's next insides.
+[bb Battle Brothers' hills: a stand has a front, and it faces the field]
+[analog horror: from the field the south stand is a wall of black seat backs, a blanket over four, shoes under the seats]
+
 COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20q - THE DAM'S POWERHOUSE, BUILT (811c3d21d), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 451(a), 455; ask rows 627, 651).
 THE POWERHOUSE (COMBAT FOUR's BUILD 11/20j, its 'FOR COOK (FIVE or SIX)'): all 165 pieces of the generator floor were stand-ins. Now slices/fight_ground/powerhouse/ holds
 powerhouse_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 2 of powerhouse_floor_0.webp, the terrazzo with one of Allen Tupper True's patterns on fewer than half its

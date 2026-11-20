@@ -21473,6 +21473,49 @@
     ]
    },
    "record": "records/BOHEMIA_COOK_SIX_THE_POWERHOUSE_11_20_26.md"
+  },
+  {
+   "id": "cook6-the-south-stand-11-20",
+   "kind": "tile",
+   "lane": "cook 6",
+   "sha": "SHIPSHA",
+   "made": "11/20",
+   "draft": true,
+   "title": "THE STADIUM'S SOUTH STAND FACES THE FIELD NOW: YOU SEE THE BACKS OF ITS SEATS",
+   "said": "full sweep, whole enchilada, dont forget nothing",
+   "why": "In the stadium fight both stands used one picture of the seats, so the south stand's seats faced away from the field. Now they turn to face it, and from where you look you see their backs, the way you see a stand from the row behind: black seat backs, a blanket thrown over four where somebody sleeps, a coat left on one, a cardboard sign taped to another. You meet it when a fight starts at the stadium, in the RUN tab.",
+   "options": [
+    "A, yes, that's right",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK6_THE_SOUTH_STAND_11_20.webp",
+    "first": "../records/target/vote_first/cook6-the-south-stand-11-20.webp",
+    "firstAt": [
+     584,
+     96,
+     574,
+     560
+    ]
+   },
+   "before_after": {
+    "before": "main c354d3258: the south stand's seven seat tiles drawn with the north stand's picture (facing south, away from the field), seven stand-ins",
+    "after": "st_seats_n: the same seats turned to face north to the field, the same canvas and foot; 0 stand-ins",
+    "scale": "the fight on his phone upright (390 x 844) close in on the south stand, before and now; on its side; the two pictures at their own pixels"
+   },
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "twin": {
+    "src": "fight_ground/stadium/st_seats.webp",
+    "diffs": [
+     "THE SAME SEATS, TURNED: eleven rows of 23 at the same spacing, the same black, the north stand's own picture is the twin.",
+     "A STAND HAS A FRONT: the south stand's faces the field now, so the map's eye sees the backs.",
+     "STILL LIVED IN: a blanket thrown over the backs, a coat, a sign, where the row behind sees them."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_SIX_THE_SOUTH_STAND_11_20_26.md"
   }
  ],
  "verdicts": [

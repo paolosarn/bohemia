@@ -163,5 +163,16 @@
   "piece": "supplies_b",
   "src": "stadium/st_supplies_b.webp",
   "facing": "S"
+ },
+ "seats_n": {
+  "w": 515,
+  "h": 339,
+  "foot": [
+   257.5,
+   328
+  ],
+  "piece": "seats_n",
+  "src": "stadium/st_seats_n.webp",
+  "facing": "N"
  }
 }

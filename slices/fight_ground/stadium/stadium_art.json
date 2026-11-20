@@ -248,6 +248,20 @@
     78.2,
     95
    ]
+  },
+  "st_seats_n": {
+   "kind": "LOW_COVER",
+   "h": 0.86,
+   "name": "THE STANDS' SEATS, THE SOUTH STAND",
+   "stage": "finished",
+   "src": "stadium/st_seats_n.webp",
+   "w": 515,
+   "h_px": 339,
+   "foot": [
+    257.5,
+    328
+   ],
+   "why": "COMBAT FOUR's st_seats_n (BUILD 11/20k): the south stand's seats facing NORTH to the field, so the map's eye sees their backs; st_seats' size and foot"
   }
  },
  "how_it_lays": {
