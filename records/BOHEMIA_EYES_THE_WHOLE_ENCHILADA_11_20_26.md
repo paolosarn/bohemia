@@ -202,3 +202,94 @@ NOT REACHED THIS BATCH, SAID: 588 (no orange hatch showed in six turns by hand),
 - 114 SEEN IN PART: this round's jobs: two won clean on AUTO, one wipe with my men at 1 hitpoint (my shortcut), one retreat
 - 108 SEEN IN PART: the pistol's card: 'REACH 1 TO 4 TILES'; the rifle's line 'You pay for the range with a reload between shots'
 - 106 SEEN BY EYE: Church, Caravans, Blues, Remnants and Cartel each drawn as its own place
+
+## BATCH 8 (every row left, its honest word)
+
+- 588 NOT REACHED: no orange hatch showed in six turns by hand on the demo, so the veteran's line never came
+- 585 NOT REACHED: no night fight on the Strip met this round
+- 584 NOT REACHED: the Decoy's card lies past the perk page's glass (row 655)
+- 583 NOT MEASURED THIS ROUND: the map's strangers' lines were not counted for Spanglish
+- 571 SEEN IN PART: his place on its three cameras, his men at his buildings (11/18); the bosses' prizes standing there not met (no boss fell this round)
+- 557 NOT EYES'S CALL: finished art is DIRECTION's; THE DECK is drawn and plays (four fights)
+- 553 NOT REACHED: the place page offered the next block each time, so its refusal words never showed
+- 547 NOT MEASURED THIS ROUND: the corners not judged board by board
+- 546 SEEN IN PART: his planted place reads YOUR PLACE on the phone and his cameras; nothing else on the map called his
+- 536 NOT REACHED: no man had a level to spend in this round's games
+- 522 SEEN IN PART: THE POT found by his flyer and changing the map (11/14); his place on cameras (11/18)
+- 521 SEEN IN PART: the scavenge and the arrival card morph (11/18); the lab and the bank not visited
+- 517 NOT REACHED: no vulture met on the map or in a fight this round
+- 516 NOT REACHED: as 517
+- 515 SEEN IN PART: the smith's two-handers are their own pieces (the claymore, the ditch blade), not a second machete
+- 511 NOT MEASURED THIS ROUND: the cap on living things not counted
+- 510 SEEN IN PART: no vulture seen on the map in four games' walks this round
+- 503 NOT MEASURED THIS ROUND: the enemy outclassed was not set up
+- 500 SEEN IN PART: place and inside boards with their own layouts (THE DECK, the garage, the tunnels, the insides)
+- 499 SEEN IN PART: a sweep: its fight and clothes builds met through the walks since 11/8
+- 497 NOT REACHED: the arena not visited this round
+- 496 NOT REACHED: no beast fight won this round (the mammoth was not finished)
+- 494 NOT EYES'S CALL: the pistol's size in the hand is a look
+- 492 NOT MEASURED THIS ROUND: the map's streets not judged block by block
+- 480 NOT MEASURABLE HERE: a move of a third of a second needs a faster camera than this box's
+- 478 NOT MEASURABLE HERE: as 441
+- 477 NOT REACHED: a band glued after a retreat did not happen this round
+- 475 NOT MEASURABLE HERE: a little laptop's load is not this box's
+- 464 NOT EYES'S CALL: the golden piece is DIRECTION's bar
+- 458 NOT A THING TO SEE: a research row (its first adds, the billboards, not met on the map)
+- 454 SEEN IN PART: the start screen as he loved it, unchanged; the glitches he reported not met
+- 450 NOT MEASURABLE HERE: as 480
+- 443 NOT MEASURED THIS ROUND: the slide at a card not measured
+- 442 NOT MEASURABLE HERE: as 480
+- 441 NOT MEASURABLE HERE: 60 frames a second is a phone's GPU, not this box's
+- 438 NOT REACHED: no road event came while the march ran at 4x
+- 436 NOT MEASURED THIS ROUND: zooming not tried
+- 432 NOT MEASURED THIS ROUND: the shield by hand not played
+- 431 NOT MEASURED THIS ROUND: weapon choices on AUTO not scored
+- 430 NOT EYES'S CALL: the burned parts' size is a look
+- 429 NOT MEASURED THIS ROUND: as 431
+- 428 NOT EYES'S CALL: the embers' look
+- 427 NOT REACHED: as 496
+- 423 NOT MEASURED THIS ROUND: the crawl not watched
+- 418 NOT REACHED: as 517
+- 415 NOT MEASURED THIS ROUND: as 436
+- 407 NOT MEASURED THIS ROUND: no cap felt; the biggest fight met was 5 against 5
+- 403 NOT REACHED: as 497
+- 402 NOT REACHED: as 497
+- 400 NOT REACHED: no big beast came close to his men this round
+- 391 NOT REACHED: as 584
+- 390 NOT MEASURED THIS ROUND: the enemy's own choices not scored
+- 384 NOT EYES'S CALL: the dead's count on the boards is a look
+- 381 SEEN IN PART: the mammoth reads as a mammoth (11/18); the other lab beasts not met
+- 375 SEEN IN PART: the boards met join their streets edge to edge (the suburb, the Strip, Fremont); not all six named boards met
+- 374 NOT MEASURED THIS ROUND: as 492
+- 367 SEEN IN PART: the feed carries the world's moments; a death transcript not met
+- 366 NOT MEASURED THIS ROUND: too few posts read to judge
+- 364 SEEN IN PART: AUTO one button: every man acts, ends on high or cover (0 of 47 turn ends in the open)
+- 355 NOT EYES'S CALL: the Strip's and downtown's look is DIRECTION's
+- 354 NOT REACHED: the bull, the coyote and the wolf not met
+- 353 NOT MEASURED THIS ROUND: the map's turn per game not compared across seeds
+- 350 SEEN: the fights this round were not all suburb: the Strip's boulevard, Fremont, the deck, a trailer park, landfill and rail, the apartments' lots, nine insides
+- 347 NOT MEASURED THIS ROUND: seeds not compared this round
+- 341 SEEN IN PART: the content of that round met through the walks; THE BURN, THE SURVEYOR and THE CLIMB not met as fights
+- 338 NOT MEASURED THIS ROUND: the VOTE tab's loading-screen items not opened
+- 331 SEEN IN PART: as 364; a swap from the bag not watched
+- 319 SEEN IN PART: as 364
+- 312 NOT REACHED: a long press on the top bar showed no tip to my walk (not conclusive)
+- 287 SEEN IN PART: THE POT hands his COOK (11/14); the other verbs not met
+- 253 SEEN IN PART: the five towns walked upright: the town's own ground round the phone, no pad
+- 244 SEEN IN PART: as 253
+- 242 NOT MEASURED THIS ROUND: a job's hours against the clock not timed this round
+- 241 SEEN IN PART: towns tall this round; wide only Don Beto's card (11/18)
+- 233 SEEN IN PART: fifteen origins on the new game page, each its own line and numbers
+- 226 SEEN IN PART: as 241
+- 219 SEEN IN PART: the phone's corner clear in the towns walked upright
+- 196 NOT REACHED: my walk did not find the sell path (a double tap on a bag piece did not sell)
+- 185 NOT MEASURED THIS ROUND: the pinch not tried
+- 178 SEEN IN PART: the man's sheet: damage as a lit bar (11/17); the shop's card still words and numbers
+- 173 NOT REACHED: as 196
+- 167 SEEN IN PART: THE POT changes the streets (11/14); Seven Magic Mountains lifts the fog round it (11/20)
+- 142 SEEN IN PART: as 241
+- 139 NOT REACHED: no enemy broke at its last two in a fight played by hand
+- 117 NOT EYES'S CALL: the map's height is a look
+- 103 NOT MEASURED THIS ROUND: the origins' starts not compared
+- 102 NOT MEASURED THIS ROUND: fifty days not played
+- 39 NOT MEASURED THIS ROUND: sight down the streets not judged
