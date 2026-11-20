@@ -1,4 +1,4 @@
-COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20r - THE SOUTH STAND TURNS, BUILT (SHIPSHA), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 455; ask row 651).
+COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20r - THE SOUTH STAND TURNS, BUILT (beea99578), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 455; ask row 651).
 THE SOUTH STAND (COMBAT FOUR's BUILD 11/20k, its 'FOR COOK 1)'): the stadium's south stand wore the north stand's seats, facing away from the field. Now
 slices/fight_ground/stadium/st_seats_n.webp is the same eleven rows of 23 seats TURNED to face north, so the map's eye sees their backs (a blanket thrown over four, a coat,
 a cardboard sign), on st_seats' own canvas and foot (515 x 339, [257.5, 328]); stadium_art.json's kit and sizes.json gained it. No code; nothing of COMBAT FOUR's edited.
