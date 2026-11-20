@@ -116,3 +116,18 @@ NOT A FIND, SAID: the stadium inside's art file 404s on every alpha load (slices
 - 388 SEEN: Blues' armourer: the padded flat-top riot helmet bought (80 batteries); every other piece stayed on the shelf, none greyed (the plate carrier, the dog man's riot helmet, the vest, the hard hat, the two doors, the jacket)
 
 FOUND (batch 4): the perk page overlaps its said line and scrolls upright (new row, UI FOUR with FIXES 2; e08).
+
+## BATCH 5 (rows marked)
+
+- 651 EYES'S HALF UNDER WAY: EYES walks every build since 11/18 and marks the not-yet-seen rows, batch by batch, in this record
+- 627 SEEN THROUGH ITS BUILDS: its builds walked on the phone in records/BOHEMIA_EYES_WALK_THE_11_14_BUILDS_11_17_26.md and records/BOHEMIA_EYES_WALK_THE_11_17_BUILDS_11_18_26.md (the why line, the white hit, the three cards, the shops, the scavenge, the ceilings, the cameras, the insides, the mammoth)
+- 614 SEEN THROUGH ITS BUILDS: EYES 11/17 and 11/18 walked its builds; of the new job kinds, a bid ('Clear the water plant', two towns bidding) and a haul seen; the night watch and the turn not met
+- 576 SEEN BY EYE: the street boards met this round in full colour (the suburb, the Strip, Fremont, the house fights' blocks); no grey board
+- 567 SEEN IN PART: a shot lights the street (11/14 on), the road events (11/11), the fight's weight; a block on a shield's own keys not watched
+- 543 SEEN IN PART: the smooth half on the phone this round: in four sessions one freeze over 1 s (1.53 s at a fight's start with two browsers running), the rest under 0.75 s
+- 539 SEEN IN PART: the flood tunnels, the garage and seven more insides, the bosses' map pieces' places, his place on its cameras seen since 11/14; the Plate, the Tooth and the Lens not met as fights
+- 525 SEEN: EYES 11/10: the end screen whole upright and sideways (records/BOHEMIA_EYES_WALK_BUILD_11_9O_11_10_26.md); EYES 11/20 the wipe's line whole (row 649)
+- 523 SEEN: no word floats over any town's building in five towns; a tap opens the building's sheet with its keeper's name and trade ('ODELL HATCHER, THE SMITH', 'RUBEN BRAMBLE, THE ARMOURER')
+- 520 SEEN: every AUTO run since 11/9: no able man of his stands a fight (11/17 160 of 164 turns acted, 11/20 47 of 47 turn ends placed)
+- 519 SEEN AS AMENDED BY 523: no signs float (523); the lot is found by a tap on it and 'Search the lot' answers in Remnants, Blues and Volunteers
+- 518 SEEN: the armourer's shelf shows pictures and prices only; a tap on the riot helmet shows 'ARMOUR 150, FATIGUE -9, INITIATIVE -9, ON YOU', and a second tap buys
