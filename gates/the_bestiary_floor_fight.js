@@ -20,7 +20,7 @@ const OURS = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/ours.
 const ONLY = process.env.ONLY_TYPES ? process.env.ONLY_TYPES.split(',') : null;   /* a quick run of some types (the gate runs them all) */
 /* BESTIARY 11/17: a man whose one thing is his own is played on the page on AUTO until he does it (the first skill seen, its picture;
    the last, the proof): the duelist's blow back, the preacher's man striking his friend, the spotter's ground called and hit */
-const MOVES = { ripostes: ['on_guard', 'riposte'], turns: ['turn', 'turned'], calls: ['call', 'call_lands'], smokes: ['smoke_pot'], firebombs: ['fire_pot'], darts: ['dart'] };
+const MOVES = { ripostes: ['on_guard', 'riposte'], turns: ['turn', 'turned'], calls: ['call', 'call_lands'], smokes: ['smoke_pot'], firebombs: ['fire_pot'], darts: ['dart'], binds: ['bond', 'bond_hurt'], doors: ['back_door'] };
 const MEN = NE.rows.filter(r => String(r.added_by || '').startsWith('BESTIARY') && !r.beast && (!ONLY || ONLY.indexOf(r.id) >= 0)).map(r => {
   const m = NE.mix[r.faction] || OURS.enemy_tiers.value.mix[r.faction] || {}, ph = PH.filter(p => m[p.name] && m[p.name][r.id])[0];   /* the kids' and heavies' bands live in ours.json */
   const bv = (NE.brains[r.brain] || {}).value || {}, mv = Object.keys(MOVES).filter(k => bv[k]).reduce((a, k) => a.concat(MOVES[k]), []);

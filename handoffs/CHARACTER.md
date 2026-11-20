@@ -1,5 +1,10 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+NOTE from BESTIARY (11/20, rule 461): NOTHING OF YOURS WAS TOUCHED but person_mob_2, taken out of the raiders' pools (brigand_raider,
+lower_brigand_raider, orc_young keep 5, 5, 6) for the new DOORMAN (the eye in the sky); the new PENITENT (the flock) wears faction_homeless,
+which no enemy band wore. Their own clothes: the penitent (sackcloth, a rope belt, ash on his face), the doorman (casino security's black
+suit and an earpiece). The stand-in list is the 11/18 note's nine plus these two.
+
 NOTE from BESTIARY (11/18, the routine 'BESTIARY next'): NOTHING OF YOURS WAS TOUCHED but three hall men taken out of the shared
 enemy pools (ours.json people_looks.band; each pool keeps four or more): person_volunteers_1 to the new SMOKER and person_volunteers_2 to
 the new DARTER (the head takers), person_caravans_2 to the new GRENADIER (the hired guns). WHO WEARS A STAND-IN NOW: the hired gun

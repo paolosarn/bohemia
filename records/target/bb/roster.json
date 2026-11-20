@@ -11,8 +11,8 @@
  },
  "count": {
   "families": 14,
-  "types": 180,
-  "types_in_the_fight": 70,
+  "types": 182,
+  "types_in_the_fight": 72,
   "beasts": 17,
   "bosses": 5,
   "champions": 21
@@ -158,6 +158,7 @@
    "lesson": "Guns and a mortar: stay out of the open and close the distance.",
    "types": [
     "assassin",
+    "casino_doorman",
     "casino_gunner",
     "casino_spotter",
     "conscript",
@@ -186,6 +187,7 @@
    "types": [
     "cultist",
     "flock_faithful",
+    "flock_penitent",
     "flock_preacher"
    ],
    "in_the_fight": [
@@ -1364,6 +1366,27 @@
    "page": "bb_all/0349_Caravan Hand (Enemy).txt"
   },
   {
+   "type": "casino_doorman",
+   "bb_name": "Doorman",
+   "bb_faction": "city_states",
+   "family": "casino_security",
+   "rows": [
+    "casino_doorman"
+   ],
+   "name": "DOORMAN",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "casino"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0155_Assassin (Enemy).txt"
+  },
+  {
    "type": "casino_gunner",
    "bb_name": "Gunner",
    "bb_faction": "city_states",
@@ -1807,6 +1830,27 @@
     "flock_faithful"
    ],
    "name": "FAITHFUL",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "flock"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0477_Cultist (Enemy).txt"
+  },
+  {
+   "type": "flock_penitent",
+   "bb_name": "Penitent",
+   "bb_faction": "cultists",
+   "family": "the_faithful",
+   "rows": [
+    "flock_penitent"
+   ],
+   "name": "PENITENT",
    "act_weights": [
     1,
     1,
