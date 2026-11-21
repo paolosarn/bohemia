@@ -1,6 +1,26 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 104a, 288(b), 441, 465; ask row 651): 11/21 LATEST -- [his line whole] SHIPPED 224929ccc, BUILD 11/21p - HIS LINE WHOLE, BUILT, NOT YET SEEN. VOTE combat4-his-line-whole-11-21 (built).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the courthouse] SHIPPED SHIPSHA, BUILD 11/21y - THE COURTHOUSE, BUILT, NOT YET SEEN. VOTE combat4-the-courthouse-11-21 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_COURTHOUSE_11_21_26.md. More boards (rule 461): the Mob Museum ('mobmuseum', 0.8), the 1933 courthouse downtown: the_courtroom (pews in two
+banks: rough 3 AP and low cover; the bar with its gaps; the well's counsel tables, cover; the judge's bench a blocker; the witness stand; the jury box, rough 3 AP) and
+the_museum_floor (exhibit cases, stands, dead kiosks, free-standing exhibit walls cutting it into bays, doors on three sides). One data file (15 tile kinds, 14 pieces all
+stand-ins), thirteenth in insides.json; no high ground; the ceiling the casino's 'coffer'. GATE THE BIG INSIDES courthouse 18/0 (22% bare after round one against 42%).
+ON THE PAGE: the demo and the alpha, both ways: 4 fights (both rooms on both pages), all ended, 13 of 13 taps, 0 errors.
+NOT DONE: the map's other courthouse ('courthouse', the modern justice centre, two cells downtown) still fights outside: a courtroom floor of its own is a next board.
+*** FOR COOK (SIX): THE COURTHOUSE'S NAMES (courthouse_art.json, THE GARAGE'S FORMAT): floor.floor (the terrazzo; the courtroom's carpet runs), floor.ring; ct_pews (a row of
+wooden pews, a tile deep), ct_bar (the oak rail, its gate gone), ct_counsel (a counsel table on its side), ct_chairs (chairs piled), ct_bench (the judge's raised oak bench),
+ct_jury (the jury box, two rows of chairs behind a rail), ct_witness (the witness stand, boxed in oak), ct_case (an exhibit case, glass broken, emptied), ct_stand (an exhibit's
+waist-high stand), ct_kiosk (a dead screen on its kiosk), ct_wall_ew, ct_wall_ns (the courthouse's stone), ct_exhibit_ew, ct_exhibit_ns (a free-standing exhibit wall, panels
+faded; one the bullet-marked brick wall); courthouse/courthouse_ceiling.webp (the courtroom's coffered plaster, its lamps dead); "have": true in courthouse.json's ceiling.
+*** FOR UI / MOTION (the camera's lane measured it, 11/21): THE REBUILT FIGHT PLAYS' 'both teams stay on the glass' leg, the phone on its side on the Strip, 23 of 132: the
+fight page's open area is 234 of 390 points tall there (the bar stands 156 tall on its side), the men stand on 14 of the board's 15 rows, and at the far stop (the ring
+filling the glass left to right) two heads are 4.4 points past: no frame holds them without black at the sides or a smaller man. A shorter bar on its side is the cure.
+My walks on the alpha and the demo on their side never cut a man he can see.
+NEXT: the justice centre's courtroom floor ('courthouse'), the truck stop's store; more ground from Battle Brothers' table.
+[bb Battle Brothers' brush and palisade: the pews slow you, the bar is waist-high cover with gaps]
+[analog horror: a museum's audio guide still playing the 1950 hearing to an empty courtroom]
+
+COMBAT FOUR (rules 461, 104a, 288(b), 441, 465; ask row 651): 11/21 -- [his line whole] SHIPPED 224929ccc, BUILD 11/21p - HIS LINE WHOLE, BUILT, NOT YET SEEN. VOTE combat4-his-line-whole-11-21 (built).
 Record: records/BOHEMIA_COMBAT_FOUR_HIS_LINE_WHOLE_11_21_26.md. FIGHT SCREEN 3's routed camera find (its NOTE below), both cases measured again with a copy of its walk:
 (1) UPRIGHT, IN THE LINEUP, AT THE FAR STOP: REAL. The lines stand eleven tiles apart, the glass holds twelve at the far stop, the frame centred between them cut both ends (his
 men 6 points past). NOW slices/BOHEMIA_FIGHT.html hisLineWhole (inside fitBoth, the lineup only): where the far stop cannot hold every man, the frame slides only as far as his

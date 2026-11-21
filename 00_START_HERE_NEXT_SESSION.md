@@ -1,3 +1,9 @@
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21y - THE COURTHOUSE, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE COURTHOUSE: a fight at the Mob Museum (the 1933 courthouse downtown; eight in ten) is fought in its old courtroom (pews you climb over, the bar, the judge's bench, the
+jury box) or on the museum floor (broken exhibit cases, free-standing walls cutting it into bays). One data file, every picture a stand-in (the names for COOK in the handoff).
+GATE THE BIG INSIDES courthouse 18/0. ON THE PAGE: 4 fights, both pages both ways, both rooms, all ended, 13 of 13 taps, 0 errors. VOTE combat4-the-courthouse-11-21.
+[bb Battle Brothers' brush and palisade: the pews slow you, the bar is waist-high cover with gaps]
+[analog horror: a museum's audio guide still playing the 1950 hearing to an empty courtroom]
 JOBS (jobs-01gkdyuv): 11/21 LATEST -- BUILD 11/21t - DO LESS, SHOW THE CLOUT, BUILT, NOT YET SEEN (rules 466(c), 461, 441, 454(a); row 651). DO LESS, SHOW THE CLOUT (rule 466(c)): PUSH THE PAY and PAID INTO YOUR PLACE killed and graveyarded with post-mortems; the card
 no longer explains what dropping or failing costs (the costs stay); CLOUT stands at the end of the map's top bar, one number.
 On the phone, the demo and the alpha both ways. Gate THE TOWN'S BOOK (B1, C1, C3, D1). VOTE jobs-do-less-show-the-clout-11-21 (STAND-IN), sha aa4003d1a. Record records/BOHEMIA_JOBS_DO_LESS_SHOW_THE_CLOUT_11_21_26.md.
@@ -23,7 +29,7 @@ court with its lines and the hallway's tile. The bleachers step up to the north;
 [bb Battle Brothers' palisade: a wall with two gaps a room, and the gaps are the fight]
 [analog horror: a shelter that never emptied, the clock on the wall stopped, the PA's grille in every room's ceiling]
 
-COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21p - HIS LINE WHOLE, BUILT, NOT YET SEEN (rules 461, 104a, 288(b), 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 -- BUILD 11/21p - HIS LINE WHOLE, BUILT, NOT YET SEEN (rules 461, 104a, 288(b), 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 HIS LINE WHOLE: FIGHT SCREEN 3's camera find. Upright, setting his line at the farthest zoom, the two lines can stand wider apart than the glass (eleven tiles on a glass
 twelve wide): the frame centred between them and cut both ends, his men 6 points off on the alpha, half off on the demo. Now it slides only as far as his outermost man
 needs and theirs run off the far side; a frame that holds everyone is untouched. The find's other case (on its side, his turn) is men he cannot see: not a bug.
@@ -102,7 +108,7 @@ block (15 names); then the other Wips.
 [bb Battle Brothers' forest: a home centre's racks are trees in rows, and the gaps between them are where a line breaks into duels]
 [analog horror: an aisle's number still on the floor of an aisle with nothing in it; footprints out of a spilled gallon of paint, off into the dark]
 
-COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21c - STANDING WATER IS SWAMP, BUILT, NOT YET SEEN (rules 461, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 -- BUILD 11/21c - STANDING WATER IS SWAMP, BUILT, NOT YET SEEN (rules 461, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 STANDING WATER IS SWAMP: Battle Brothers' swamp row was in the fight's rules and in WORLD's table but no board laid it. The cell block's flooded floor is it now: 4 AP a
 step, and a man standing in it fights worse (a quarter off melee and both defences); it reads as dark still water on the glass (drawStanding). Gate THE BIG INSIDES I11
 with a plant. The tap line unchanged (465). VOTE combat4-standing-water-is-swamp-11-21 (stand_in). This lane schedules nothing (461(c) amended).
