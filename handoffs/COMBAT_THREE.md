@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the justice center] SHIPPED SHIPSHA, BUILD 11/21za - THE JUSTICE CENTER, BUILT, NOT YET SEEN. VOTE combat4-the-justice-center-11-21 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the justice center] SHIPPED f5bfb7b6b, BUILD 11/21za - THE JUSTICE CENTER, BUILT, NOT YET SEEN. VOTE combat4-the-justice-center-11-21 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_JUSTICE_CENTER_11_21_26.md. More boards (rule 461): the justice center ('courthouse', 0.8), the county's courts tower downtown:
 the_courts_floor (a corridor of waiting benches, planters and piled chairs, six courtrooms off it, each a tile row a part: the bench with the witness stand and the jury box,
 the counsel tables, the bar, the gallery's benches; TWO DOORS TO EVERY COURTROOM) and the_screening_lobby (x-ray belts, dead metal detectors, podiums and queue posts across the

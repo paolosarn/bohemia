@@ -28,7 +28,7 @@ the ring's middle; a patrol's bands are the share of the bands it had, from the 
 On the phone, the demo and the alpha both ways. Gate THE CARD READS THE NIGHT (R5 no misses, R6). VOTE jobs-the-fight-is-the-cards-11-21 (STAND-IN), sha 6b556d3df. Record records/BOHEMIA_JOBS_THE_FIGHT_IS_THE_CARDS_11_21_26.md.
 [bb Battle Brothers names who a contract is against before it is signed; when the brigands move camp, they are the same brigands]
 
-COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21y - THE COURTHOUSE, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 -- BUILD 11/21y - THE COURTHOUSE, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE COURTHOUSE: a fight at the Mob Museum (the 1933 courthouse downtown; eight in ten) is fought in its old courtroom (pews you climb over, the bar, the judge's bench, the
 jury box) or on the museum floor (broken exhibit cases, free-standing walls cutting it into bays). One data file, every picture a stand-in (the names for COOK in the handoff).
 GATE THE BIG INSIDES courthouse 18/0. ON THE PAGE: 4 fights, both pages both ways, both rooms, all ended, 13 of 13 taps, 0 errors. VOTE combat4-the-courthouse-11-21.
