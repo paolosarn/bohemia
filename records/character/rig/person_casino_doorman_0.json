@@ -1,0 +1,231 @@
+{
+ "look": "PERSON_CASINO_DOORMAN_0",
+ "shape": "person_casino_doorman_0: the casino's doorman: a black tailcoat to the knee, a white shirt, the house's gold tie, gloves, his own skin skin_light 3, SOOT BUTTON-UP under SPLIT-TAIL COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "SOOT BUTTON-UP",
+  "outer": "SPLIT-TAIL COAT",
+  "legs": "DROP RISE TROUSER",
+  "feet": "TALL MOTO BOOTS",
+  "hands": "LEATHER GLOVES"
+ },
+ "dials": {
+  "height": 0.55,
+  "belly": -0.1,
+  "shoulders": 0.45,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/person_casino_doorman_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7673,
+ "real_height_for_rig": 1.7735,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_casino_doorman_0_shoe": 4484,
+  "person_casino_doorman_0_shirt": 71252,
+  "person_casino_doorman_0_collar": 1536,
+  "person_casino_doorman_0_collar_points": 180,
+  "person_casino_doorman_0_placket": 162,
+  "person_casino_doorman_0_buttons": 204,
+  "person_casino_doorman_0_cuffs": 2048,
+  "person_casino_doorman_0_tail": 2016,
+  "person_casino_doorman_0_coat": 73304,
+  "person_casino_doorman_0_coat_skirt": 5850,
+  "person_casino_doorman_0_collar.001": 1536,
+  "person_casino_doorman_0_lapels": 396,
+  "person_casino_doorman_0_pockets": 252,
+  "person_casino_doorman_0_pocket_flaps": 252,
+  "person_casino_doorman_0_tie_blade": 72,
+  "person_casino_doorman_0_tie_knot": 8,
+  "person_casino_doorman_0_trouser": 43706,
+  "person_casino_doorman_0_drop_yoke": 5600,
+  "person_casino_doorman_0_ankle": 2048,
+  "person_casino_doorman_0_sole_1": 242,
+  "person_casino_doorman_0_midsole_1": 242,
+  "person_casino_doorman_0_sole_0": 242,
+  "person_casino_doorman_0_midsole_0": 242,
+  "person_casino_doorman_0_boot_collar": 2048,
+  "person_casino_doorman_0_boot_collar_line": 2048,
+  "person_casino_doorman_0_boot_strap": 2048,
+  "person_casino_doorman_0_leather_gloves_L": 392,
+  "person_casino_doorman_0_leather_gloves_R": 392,
+  "person_casino_doorman_0_leather_gloves_cuff": 2048,
+  "person_casino_doorman_0_hair": 17968,
+  "person_casino_doorman_0_hand_L": 392,
+  "person_casino_doorman_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_casino_doorman_0_ankle": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_casino_doorman_0_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_casino_doorman_0_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_casino_doorman_0_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_casino_doorman_0_buttons": [
+   0.063,
+   0.0578,
+   0.063
+  ],
+  "person_casino_doorman_0_coat": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_casino_doorman_0_coat_skirt": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_casino_doorman_0_collar": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_doorman_0_collar_points": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_doorman_0_cuffs": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_doorman_0_drop_yoke": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_casino_doorman_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_casino_doorman_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_casino_doorman_0_lapels": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_casino_doorman_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_casino_doorman_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_casino_doorman_0_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_casino_doorman_0_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_casino_doorman_0_placket": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_doorman_0_pocket_flaps": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_casino_doorman_0_pockets": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_casino_doorman_0_shirt": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_doorman_0_shoe": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_casino_doorman_0_shoes": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_casino_doorman_0_skin": [
+   0.7454,
+   0.5089,
+   0.3278
+  ],
+  "person_casino_doorman_0_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_casino_doorman_0_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_casino_doorman_0_tail": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_doorman_0_tie_blade": [
+   0.305,
+   0.2384,
+   0.0723
+  ],
+  "person_casino_doorman_0_tie_knot": [
+   0.1779,
+   0.1384,
+   0.0437
+  ],
+  "person_casino_doorman_0_trouser": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_casino_doorman_0_trousers": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_casino_doorman_0_yoke_drape": [
+   0.0152,
+   0.013,
+   0.0152
+  ]
+ }
+}

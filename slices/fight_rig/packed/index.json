@@ -391,6 +391,42 @@
 "fill": 0.022,
 "packedMB": 0.9
 },
+"enemy_casino_doorman_0.webp": {
+"bytes": 277678,
+"decodedMB": 18.17,
+"fill": 0.186,
+"packedMB": 3.95
+},
+"enemy_casino_doorman_1.webp": {
+"bytes": 288468,
+"decodedMB": 18.17,
+"fill": 0.185,
+"packedMB": 3.94
+},
+"enemy_casino_gunner_0.webp": {
+"bytes": 283412,
+"decodedMB": 18.17,
+"fill": 0.188,
+"packedMB": 3.96
+},
+"enemy_casino_gunner_1.webp": {
+"bytes": 274110,
+"decodedMB": 18.17,
+"fill": 0.185,
+"packedMB": 3.8
+},
+"enemy_casino_spotter_0.webp": {
+"bytes": 292158,
+"decodedMB": 18.17,
+"fill": 0.185,
+"packedMB": 3.85
+},
+"enemy_casino_spotter_1.webp": {
+"bytes": 313092,
+"decodedMB": 18.17,
+"fill": 0.189,
+"packedMB": 3.99
+},
 "enemy_flock_faithful_0.webp": {
 "bytes": 349282,
 "decodedMB": 16.83,
@@ -1377,8 +1413,8 @@
 }
 },
 "totals": {
-"decodedMB": 4604.1,
-"packedMB": 941.4,
-"sheets": 229
+"decodedMB": 4713.1,
+"packedMB": 964.9,
+"sheets": 235
 }
 }

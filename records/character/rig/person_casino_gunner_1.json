@@ -1,0 +1,238 @@
+{
+ "look": "PERSON_CASINO_GUNNER_1",
+ "shape": "person_casino_gunner_1: the casino's shotgun man: a vest over a white shirt, the house's gold tie, a bandolier of shells, his own skin skin_mid 3, SOOT BUTTON-UP under LEATHER VEST",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "SOOT BUTTON-UP",
+  "outer": "LEATHER VEST",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "CHARCOAL BOOTS",
+  "gear": "SHELL BANDOLIER",
+  "hands": "SOOT GLOVES"
+ },
+ "dials": {
+  "height": 0.15,
+  "belly": 0.4,
+  "shoulders": 0.55,
+  "hips": 0.25
+ },
+ "model": "records/character/rig/person_casino_gunner_1.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7329,
+ "real_height_for_rig": 1.739,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_casino_gunner_1_shoe": 3716,
+  "person_casino_gunner_1_shirt": 71268,
+  "person_casino_gunner_1_collar": 1536,
+  "person_casino_gunner_1_collar_points": 180,
+  "person_casino_gunner_1_placket": 162,
+  "person_casino_gunner_1_buttons": 204,
+  "person_casino_gunner_1_cuffs": 2048,
+  "person_casino_gunner_1_tail": 2016,
+  "person_casino_gunner_1_coat": 22310,
+  "person_casino_gunner_1_lapels": 396,
+  "person_casino_gunner_1_zip": 324,
+  "person_casino_gunner_1_tie_blade": 72,
+  "person_casino_gunner_1_tie_knot": 8,
+  "person_casino_gunner_1_trouser": 35674,
+  "person_casino_gunner_1_turn_up": 2048,
+  "person_casino_gunner_1_turn_up_edge": 2048,
+  "person_casino_gunner_1_sole_1": 242,
+  "person_casino_gunner_1_midsole_1": 242,
+  "person_casino_gunner_1_sole_0": 242,
+  "person_casino_gunner_1_midsole_0": 242,
+  "person_casino_gunner_1_boot_collar": 2048,
+  "person_casino_gunner_1_boot_collar_line": 2048,
+  "person_casino_gunner_1_eyelets_1": 120,
+  "person_casino_gunner_1_eyelets_0": 120,
+  "person_casino_gunner_1_shell_bandolier": 1792,
+  "person_casino_gunner_1_shell_bandolier_shells": 374,
+  "person_casino_gunner_1_shell_bandolier_pouch": 26,
+  "person_casino_gunner_1_soot_gloves_L": 392,
+  "person_casino_gunner_1_soot_gloves_R": 392,
+  "person_casino_gunner_1_soot_gloves_cuff": 2048,
+  "person_casino_gunner_1_hair": 17968,
+  "person_casino_gunner_1_hand_L": 392,
+  "person_casino_gunner_1_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_casino_gunner_1_boot_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_casino_gunner_1_boot_collar_line": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_casino_gunner_1_buttons": [
+   0.063,
+   0.0578,
+   0.063
+  ],
+  "person_casino_gunner_1_coat": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_casino_gunner_1_collar": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_gunner_1_collar_points": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_gunner_1_cuffs": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_gunner_1_eyelets_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_casino_gunner_1_eyelets_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_casino_gunner_1_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_casino_gunner_1_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_casino_gunner_1_lapels": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_casino_gunner_1_midsole_0": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_casino_gunner_1_midsole_1": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_casino_gunner_1_placket": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_gunner_1_shell_bandolier": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_casino_gunner_1_shell_bandolier_pouch": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_casino_gunner_1_shell_bandolier_shells": [
+   0.4342,
+   0.2623,
+   0.0612
+  ],
+  "person_casino_gunner_1_shirt": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_gunner_1_shoe": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_casino_gunner_1_shoes": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_casino_gunner_1_skin": [
+   0.6105,
+   0.3515,
+   0.1714
+  ],
+  "person_casino_gunner_1_sole_0": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_casino_gunner_1_sole_1": [
+   0.007,
+   0.006,
+   0.007
+  ],
+  "person_casino_gunner_1_soot_gloves": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_casino_gunner_1_soot_gloves_cuff": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_casino_gunner_1_tail": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_gunner_1_tie_blade": [
+   0.305,
+   0.2384,
+   0.0723
+  ],
+  "person_casino_gunner_1_tie_knot": [
+   0.1779,
+   0.1384,
+   0.0437
+  ],
+  "person_casino_gunner_1_trouser": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_casino_gunner_1_trousers": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_casino_gunner_1_turn_up": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_casino_gunner_1_turn_up_edge": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_casino_gunner_1_zip": [
+   0.0545,
+   0.0222,
+   0.0075
+  ]
+ }
+}

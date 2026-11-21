@@ -87,7 +87,8 @@ SOOT, CARPET, BRASS, BONE = (30, 28, 27), (34, 30, 30), (146, 114, 58), (178, 16
 STEEL, STEEL_DK, STEEL_LT, RUSTED = (108, 106, 100), (62, 60, 58), (150, 148, 140), (106, 70, 46)
 WOVEN = (132, 92, 56)              # Bottega's tan, woven: every strap
 HIVIS = dict(dk=(122, 124, 64), mid=(166, 166, 90), lt=(196, 196, 128))
-BLAZE = dict(dk=(84, 100, 36), mid=(128, 150, 56), lt=(166, 188, 92))   # the head takers' ink (factions.json bounty_hunters #aacd32) a value down and dusted: a hunter's blaze
+BLAZE = dict(dk=(84, 100, 36), mid=(128, 150, 56), lt=(166, 188, 92))
+CASINO_GOLD = (150, 134, 76)   # the eye in the sky's ink (factions.json city_states #af9b5a) a value down and dusted: its tie   # the head takers' ink (factions.json bounty_hunters #aacd32) a value down and dusted: a hunter's blaze
 SILVER = (176, 176, 170)
 WATCH_GREEN = (44, 86, 58)         # the Block Watch's ink (#006432) a value up and dusted
 CORAL = (178, 120, 104)            # the Keepers' ink (#ffa591) bleached by the sun
@@ -309,6 +310,44 @@ TYPES = {
         kit=[['BLAZE SCARF', 'RUST QUIVER', 'LEATHER GLOVES'], ['BLAZE SCARF', 'SCRAP QUIVER', 'OXBLOOD BRACERS']],
         hats=['HAT DUST WORK CAP', 'HAT KHAKI SLOUCH BEANIE'], eyewear=[None, None],
         pieces=[[], []], cuts=['TEMPLE TAPER', 'DRY TAPER', 'GREASE BACK']),
+    # CHARACTER 11/21 (rule 461 as amended 11/21; BESTIARY's stand-in list: the gunner in faction_reds, the spotter in faction_network,
+    # the doorman in person_mob_2). The eye in the sky is the casino's guns (BESTIARY: 'a security vest and a gunner's hat'; 'casino
+    # security: a vest, a radio, an earpiece'; 'casino security's black suit and an earpiece'). Ours: the floor's men still in the house's
+    # black, a black shirt (loop 1: on a white shirt the gold tie was a pale line; THE OUTFIT off, the tie is the contrast), and ONE mark on all six, a TIE in the casino's own ink (#af9b5a dusted), the brass-gold of its signs.
+    # The gunner a shell bandolier over a vest, the spotter dark glasses, the doorman a tailcoat. Their cell is faction_reds (its guns).
+    'Gunner': dict(
+        row='casino_gunner', faction='casino', stand_in='Reds', cell='faction_reds', count=2,
+        what='the casino\'s shotgun man: a vest over a white shirt, the house\'s gold tie, a bandolier of shells',
+        dials=[dict(height=0.30, belly=0.25, shoulders=0.65, hips=0.15), dict(height=0.15, belly=0.40, shoulders=0.55, hips=0.25)],
+        tops=['SOOT BUTTON-UP', 'SOOT BUTTON-UP'],
+        coats=['TACTICAL VEST', 'LEATHER VEST'],
+        legs=['DROP RISE TROUSER', 'CHARCOAL CROP TROUSER'],
+        feet=['TALL MOTO BOOTS', 'CHARCOAL BOOTS'],
+        kit=[['SHELL BANDOLIER', 'LEATHER GLOVES'], ['SHELL BANDOLIER', 'SOOT GLOVES']],
+        hats=['HAT DUST WORK CAP', None], eyewear=[None, None],
+        pieces=[['tie'], ['tie']], tie=CASINO_GOLD, outfit=False, cuts=['TEMPLE TAPER', 'GREASE BACK', 'DEEP TAPER']),
+    'Spotter': dict(
+        row='casino_spotter', faction='casino', stand_in='Reds', cell='faction_reds', count=2,
+        what='the casino\'s eye on the street: a black suit coat, dark glasses, the house\'s gold tie',
+        dials=[dict(height=0.35, belly=-0.20, shoulders=0.25, hips=-0.05), dict(height=0.20, belly=0.05, shoulders=0.30, hips=0.05)],
+        tops=['SOOT BUTTON-UP', 'SOOT BUTTON-UP'],
+        coats=['CAR COAT', 'COMMA COAT'],
+        legs=['DROP RISE TROUSER', 'CHARCOAL CROP TROUSER'],
+        feet=['CHARCOAL BOOTS', 'TALL MOTO BOOTS'],
+        kit=[['LEATHER GLOVES'], ['SOOT GLOVES', 'LEATHER BELT']],
+        hats=[None, None], eyewear=['FACE WRAPAROUND SHADES', 'FACE GREY WRAPAROUNDS'],
+        pieces=[['tie'], ['tie']], tie=CASINO_GOLD, outfit=False, cuts=['GREASE BACK', 'TEMPLE TAPER', 'DEEP TAPER']),
+    'Doorman': dict(
+        row='casino_doorman', faction='casino', stand_in='Reds', cell='faction_reds', count=2,
+        what='the casino\'s doorman: a black tailcoat to the knee, a white shirt, the house\'s gold tie, gloves',
+        dials=[dict(height=0.55, belly=-0.10, shoulders=0.45, hips=0.0), dict(height=0.40, belly=0.10, shoulders=0.60, hips=0.10)],
+        tops=['SOOT BUTTON-UP', 'SOOT BUTTON-UP'],
+        coats=['SPLIT-TAIL COAT', 'SPLIT-TAIL COAT'],
+        legs=['DROP RISE TROUSER', 'CHARCOAL CROP TROUSER'],
+        feet=['TALL MOTO BOOTS', 'CHARCOAL BOOTS'],
+        kit=[['LEATHER GLOVES'], ['OXBLOOD GLOVES']],
+        hats=[None, None], eyewear=[None, 'FACE WRAPAROUND SHADES'],
+        pieces=[['tie'], ['tie']], tie=CASINO_GOLD, outfit=False, cuts=['GREASE BACK', 'TEMPLE TAPER', 'RAZOR SKULL']),
 }
 ORDER = list(TYPES)
 POOL = {t: TYPES[t]['row'] for t in ORDER}
@@ -332,6 +371,11 @@ def pid_of(t, k): return '%s_%d' % (POOL[t], k)
 def register_garments():
     import bohemia_character_garments_outer as OUTER
     import bohemia_character_garments_gear as GEAR
+    import bohemia_character_garments_base as BASE_
+    if 'SOOT BUTTON-UP' not in BASE_.BY:   # 11/21: the casino's black shirt, the base's own button-up cut in charcoal cloth
+        T_ = dict(BASE_.BY['BONE BUTTON-UP'])
+        T_.update(name='SOOT BUTTON-UP', tag='base_soot_button-up', ramp='CHARCLOTH', dk=(28, 26, 28), mid=(46, 44, 46), lt=(70, 68, 70))
+        BASE_.BY['SOOT BUTTON-UP'] = T_
     if 'BLAZE SCARF' not in GEAR.BY:   # 11/20: the head takers' mark, the gear's own scarf cut in their ink (a hunter's blaze)
         S = dict(GEAR.BY['SAGE SCARF'])
         S.update(name='BLAZE SCARF', tag='kit_blaze_scarf', ramp='BLAZE', words=['BLAZE', 'SCARF'], **BLAZE)
@@ -647,6 +691,24 @@ def body_pieces(names, X, spec):
                 box(bm, p0 + V((dx * 0.4, -0.004, -0.085)), V((0.020, 0, 0)), V((0, 0.004, 0)), V((0, 0, 0.085)))
                 made.append(weighted(solid('sash_tail_%d' % k, bm, SASH, 'Skeleton_torso_joint_1', 1),
                                      lambda p, sx=(1 if lo.x > 0 else -1): {'Skeleton_torso_joint_1': 0.6, ('leg_joint_L_1' if sx > 0 else 'leg_joint_R_1'): 0.4}))
+
+        # ---- THE CASINO'S TIE (11/21, the eye in the sky): a narrow tie down the middle of the chest from the collar to the belt
+        # in the casino's own ink (its type's 'tie'), a knot at the throat, the blade widening to a point; it lies on the outermost
+        # cloth so it reads on a vest and between a coat's lapels from the game's camera
+        elif nm == 'tie':
+            TIE = tuple(TYPES.get(spec.get('gang'), {}).get('tie', BRASS)); KNOT = tuple(int(c * 0.78) for c in TIE)
+            vo = 0.058 if 'VEST' in str(worn.get('outer')) else 0.0   # loops 2 and 3: a vest's padded front (the tactical vest's pouches) stood up to 5.5 cm over the tie and hid it
+            NZ = 9; zs = [1.055 - 0.245 * k / NZ for k in range(NZ + 1)]
+            bm = bmesh.new()
+            for k in range(NZ):
+                za, zb_ = zs[k], zs[k + 1]; zc = (za + zb_) / 2
+                u = (k + 0.5) / NZ; hw = 0.019 + 0.010 * u - (0.016 * sstep(0.80, 1.0, u))   # loop 1: 2.4 to 3.8 cm wide it was a one-pixel line
+                c = front(0.0, zc) + V((0, -(over + vo + 0.024), 0))
+                box(bm, c, V((hw, 0, 0)), V((0, 0.003, 0)), V((0, 0, (za - zb_) / 2 + 0.002)))
+            made.append(weighted(solid('tie_blade', bm, TIE, 'torso_joint_3', 0), torso_w))
+            bm = bmesh.new(); c = front(0.0, 1.066) + V((0, -(over + vo + 0.028), 0))
+            box(bm, c, V((0.016, 0, 0)), V((0, 0.007, 0)), V((0, 0, 0.012)))
+            made.append(weighted(solid('tie_knot', bm, KNOT, 'torso_joint_3', 0), torso_w))
 
         # ---- THE CAPTAIN'S BADGE: a brass shield on his left breast
         elif nm == 'badge':

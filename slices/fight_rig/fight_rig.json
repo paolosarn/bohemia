@@ -3855,6 +3855,102 @@
    "type": "taker_darter",
    "set": "nine",
    "rig": "records/target/combat/rig/enemy_taker_darter_1/rig.json"
+  },
+  "enemy_casino_gunner_0": {
+   "file": "enemy_casino_gunner_0.webp",
+   "w": 147,
+   "h": 162,
+   "foot": [
+    68,
+    110
+   ],
+   "height_m": 1.72,
+   "kind": "enemy",
+   "ref": "faction_reds",
+   "guns": "faction_reds_guns.webp",
+   "type": "casino_gunner",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_casino_gunner_0/rig.json"
+  },
+  "enemy_casino_gunner_1": {
+   "file": "enemy_casino_gunner_1.webp",
+   "w": 147,
+   "h": 162,
+   "foot": [
+    68,
+    110
+   ],
+   "height_m": 1.724,
+   "kind": "enemy",
+   "ref": "faction_reds",
+   "guns": "faction_reds_guns.webp",
+   "type": "casino_gunner",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_casino_gunner_1/rig.json"
+  },
+  "enemy_casino_spotter_0": {
+   "file": "enemy_casino_spotter_0.webp",
+   "w": 147,
+   "h": 162,
+   "foot": [
+    68,
+    110
+   ],
+   "height_m": 1.747,
+   "kind": "enemy",
+   "ref": "faction_reds",
+   "guns": "faction_reds_guns.webp",
+   "type": "casino_spotter",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_casino_spotter_0/rig.json"
+  },
+  "enemy_casino_spotter_1": {
+   "file": "enemy_casino_spotter_1.webp",
+   "w": 147,
+   "h": 162,
+   "foot": [
+    68,
+    110
+   ],
+   "height_m": 1.734,
+   "kind": "enemy",
+   "ref": "faction_reds",
+   "guns": "faction_reds_guns.webp",
+   "type": "casino_spotter",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_casino_spotter_1/rig.json"
+  },
+  "enemy_casino_doorman_0": {
+   "file": "enemy_casino_doorman_0.webp",
+   "w": 147,
+   "h": 162,
+   "foot": [
+    68,
+    110
+   ],
+   "height_m": 1.717,
+   "kind": "enemy",
+   "ref": "faction_reds",
+   "guns": "faction_reds_guns.webp",
+   "type": "casino_doorman",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_casino_doorman_0/rig.json"
+  },
+  "enemy_casino_doorman_1": {
+   "file": "enemy_casino_doorman_1.webp",
+   "w": 147,
+   "h": 162,
+   "foot": [
+    68,
+    110
+   ],
+   "height_m": 1.723,
+   "kind": "enemy",
+   "ref": "faction_reds",
+   "guns": "faction_reds_guns.webp",
+   "type": "casino_doorman",
+   "set": "nine",
+   "rig": "records/target/combat/rig/enemy_casino_doorman_1/rig.json"
   }
  },
  "faces": {
@@ -4039,7 +4135,13 @@
      "enemy_taker_smoker_0",
      "enemy_taker_smoker_1",
      "enemy_taker_darter_0",
-     "enemy_taker_darter_1"
+     "enemy_taker_darter_1",
+     "enemy_casino_gunner_0",
+     "enemy_casino_gunner_1",
+     "enemy_casino_spotter_0",
+     "enemy_casino_spotter_1",
+     "enemy_casino_doorman_0",
+     "enemy_casino_doorman_1"
     ],
     "by": "CHARACTER 11/7, tools/bohemia_character_the_nine_enemies.py pack"
    },

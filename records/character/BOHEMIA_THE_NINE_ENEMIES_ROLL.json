@@ -2052,5 +2052,277 @@
    "shoulders": 0.3,
    "hips": 0.05
   }
+ },
+ {
+  "id": "casino_gunner_0",
+  "gang": "Gunner",
+  "heritage": "asian",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "GREASE BACK",
+  "hair": [
+   "clay_mustard",
+   1
+  ],
+  "face": {
+   "face.len": 29,
+   "face.craniumH": 7,
+   "face.cheekW": 37,
+   "face.jawW": 34,
+   "face.chinW": 20,
+   "mouth.w": 14,
+   "nose.w": 5,
+   "face.browY": 2
+  },
+  "face_name": "BULLDOG",
+  "facial_hair": "MUTTON CHOPS",
+  "new_beard": "mutton_chops",
+  "legs": "DROP RISE TROUSER",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "SHELL BANDOLIER",
+   "LEATHER GLOVES"
+  ],
+  "type": "Gunner",
+  "top": "SOOT BUTTON-UP",
+  "coat": "TACTICAL VEST",
+  "hat": "HAT DUST WORK CAP",
+  "pieces": [
+   "tie"
+  ],
+  "dials": {
+   "height": 0.3,
+   "belly": 0.25,
+   "shoulders": 0.65,
+   "hips": 0.15
+  }
+ },
+ {
+  "id": "casino_gunner_1",
+  "gang": "Gunner",
+  "heritage": "hispanic",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "GREASE BACK",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.foreheadW": 19,
+   "face.cheekW": 32,
+   "face.jawW": 31,
+   "face.chinW": 18,
+   "face.craniumH": 8,
+   "face.len": 32,
+   "mouth.w": 11
+  },
+  "face_name": "PEAR",
+  "mark_name": "BROW SCAR",
+  "scar": "brow",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "CHARCOAL BOOTS",
+  "kit": [
+   "SHELL BANDOLIER",
+   "SOOT GLOVES"
+  ],
+  "type": "Gunner",
+  "top": "SOOT BUTTON-UP",
+  "coat": "LEATHER VEST",
+  "pieces": [
+   "tie"
+  ],
+  "dials": {
+   "height": 0.15,
+   "belly": 0.4,
+   "shoulders": 0.55,
+   "hips": 0.25
+  }
+ },
+ {
+  "id": "casino_spotter_0",
+  "gang": "Spotter",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "cloth_black",
+   1
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 27,
+   "face.jawW": 23,
+   "face.chinW": 9,
+   "face.foreheadW": 23,
+   "nose.w": 2,
+   "face.craniumH": 12
+  },
+  "face_name": "LONG AND NARROW",
+  "legs": "DROP RISE TROUSER",
+  "feet": "CHARCOAL BOOTS",
+  "kit": [
+   "LEATHER GLOVES"
+  ],
+  "type": "Spotter",
+  "top": "SOOT BUTTON-UP",
+  "coat": "CAR COAT",
+  "eyewear": "FACE WRAPAROUND SHADES",
+  "pieces": [
+   "tie"
+  ],
+  "dials": {
+   "height": 0.35,
+   "belly": -0.2,
+   "shoulders": 0.25,
+   "hips": -0.05
+  }
+ },
+ {
+  "id": "casino_spotter_1",
+  "gang": "Spotter",
+  "heritage": "hispanic",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "mouth.w": 6,
+   "nose.w": 2,
+   "eyes.gap": 5,
+   "face.chinW": 9,
+   "face.len": 30,
+   "brows.len": 5
+  },
+  "face_name": "SMALL FEATURES",
+  "facial_hair": "CHIN STRAP",
+  "new_beard": "chin_strap",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "SOOT GLOVES",
+   "LEATHER BELT"
+  ],
+  "type": "Spotter",
+  "top": "SOOT BUTTON-UP",
+  "coat": "COMMA COAT",
+  "eyewear": "FACE GREY WRAPAROUNDS",
+  "pieces": [
+   "tie"
+  ],
+  "dials": {
+   "height": 0.2,
+   "belly": 0.05,
+   "shoulders": 0.3,
+   "hips": 0.05
+  }
+ },
+ {
+  "id": "casino_doorman_0",
+  "gang": "Doorman",
+  "heritage": "white",
+  "tone": "chalk",
+  "skin": [
+   "skin_light",
+   3
+  ],
+  "hair_cut": "GREASE BACK",
+  "hair": [
+   "clay_mustard",
+   1
+  ],
+  "face": {
+   "face.len": 29,
+   "face.craniumH": 7,
+   "face.cheekW": 37,
+   "face.jawW": 34,
+   "face.chinW": 20,
+   "mouth.w": 14,
+   "nose.w": 5,
+   "face.browY": 2
+  },
+  "face_name": "BULLDOG",
+  "facial_hair": "PATCHY BEARD",
+  "new_beard": "patchy",
+  "stubble": true,
+  "legs": "DROP RISE TROUSER",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "LEATHER GLOVES"
+  ],
+  "type": "Doorman",
+  "top": "SOOT BUTTON-UP",
+  "coat": "SPLIT-TAIL COAT",
+  "pieces": [
+   "tie"
+  ],
+  "dials": {
+   "height": 0.55,
+   "belly": -0.1,
+   "shoulders": 0.45,
+   "hips": 0.0
+  }
+ },
+ {
+  "id": "casino_doorman_1",
+  "gang": "Doorman",
+  "heritage": "white",
+  "tone": "pale",
+  "skin": [
+   "skin_light",
+   2
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "mouth.w": 15,
+   "face.mouthY": 2,
+   "face.jawW": 31,
+   "face.chinW": 14,
+   "face.len": 31,
+   "nose.w": 3,
+   "eyes.gap": 9,
+   "face.cheekW": 35
+  },
+  "face_name": "WIDE MOUTH",
+  "facial_hair": "SOUL PATCH",
+  "new_beard": "soul_patch",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "CHARCOAL BOOTS",
+  "kit": [
+   "OXBLOOD GLOVES"
+  ],
+  "type": "Doorman",
+  "top": "SOOT BUTTON-UP",
+  "coat": "SPLIT-TAIL COAT",
+  "eyewear": "FACE WRAPAROUND SHADES",
+  "pieces": [
+   "tie"
+  ],
+  "dials": {
+   "height": 0.4,
+   "belly": 0.1,
+   "shoulders": 0.6,
+   "hips": 0.1
+  }
  }
 ]

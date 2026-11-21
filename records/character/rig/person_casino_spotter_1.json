@@ -1,0 +1,227 @@
+{
+ "look": "PERSON_CASINO_SPOTTER_1",
+ "shape": "person_casino_spotter_1: the casino's eye on the street: a black suit coat, dark glasses, the house's gold tie, his own skin skin_light 1, SOOT BUTTON-UP under COMMA COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "SOOT BUTTON-UP",
+  "outer": "COMMA COAT",
+  "legs": "CHARCOAL CROP TROUSER",
+  "feet": "TALL MOTO BOOTS",
+  "hands": "SOOT GLOVES",
+  "waist": "LEATHER BELT"
+ },
+ "dials": {
+  "height": 0.2,
+  "belly": 0.05,
+  "shoulders": 0.3,
+  "hips": 0.05
+ },
+ "model": "records/character/rig/person_casino_spotter_1.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7372,
+ "real_height_for_rig": 1.7433,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_casino_spotter_1_shoe": 4484,
+  "person_casino_spotter_1_shirt": 71212,
+  "person_casino_spotter_1_collar": 1536,
+  "person_casino_spotter_1_collar_points": 180,
+  "person_casino_spotter_1_placket": 162,
+  "person_casino_spotter_1_buttons": 204,
+  "person_casino_spotter_1_cuffs": 2048,
+  "person_casino_spotter_1_tail": 2016,
+  "person_casino_spotter_1_coat": 73308,
+  "person_casino_spotter_1_coat_skirt": 7630,
+  "person_casino_spotter_1_collar.001": 1536,
+  "person_casino_spotter_1_lapels": 396,
+  "person_casino_spotter_1_tie_blade": 72,
+  "person_casino_spotter_1_tie_knot": 8,
+  "person_casino_spotter_1_trouser": 35674,
+  "person_casino_spotter_1_turn_up": 2048,
+  "person_casino_spotter_1_turn_up_edge": 2048,
+  "person_casino_spotter_1_sole_1": 242,
+  "person_casino_spotter_1_midsole_1": 242,
+  "person_casino_spotter_1_sole_0": 242,
+  "person_casino_spotter_1_midsole_0": 242,
+  "person_casino_spotter_1_boot_collar": 2048,
+  "person_casino_spotter_1_boot_collar_line": 2048,
+  "person_casino_spotter_1_boot_strap": 2048,
+  "person_casino_spotter_1_soot_gloves_L": 392,
+  "person_casino_spotter_1_soot_gloves_R": 392,
+  "person_casino_spotter_1_soot_gloves_cuff": 2048,
+  "person_casino_spotter_1_leather_belt": 1792,
+  "person_casino_spotter_1_leather_belt_buckle": 34,
+  "person_casino_spotter_1_hair": 17968,
+  "person_casino_spotter_1_hand_L": 392,
+  "person_casino_spotter_1_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_casino_spotter_1_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_casino_spotter_1_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_casino_spotter_1_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_casino_spotter_1_buttons": [
+   0.063,
+   0.0578,
+   0.063
+  ],
+  "person_casino_spotter_1_coat": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_casino_spotter_1_coat_skirt": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_casino_spotter_1_collar": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_spotter_1_collar_points": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_spotter_1_cuffs": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_spotter_1_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_casino_spotter_1_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_casino_spotter_1_lapels": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_casino_spotter_1_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_casino_spotter_1_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_casino_spotter_1_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_casino_spotter_1_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_casino_spotter_1_placket": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_spotter_1_shirt": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_spotter_1_shoe": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_casino_spotter_1_shoes": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_casino_spotter_1_skin": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "person_casino_spotter_1_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_casino_spotter_1_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_casino_spotter_1_soot_gloves": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_casino_spotter_1_soot_gloves_cuff": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_casino_spotter_1_tail": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_casino_spotter_1_tie_blade": [
+   0.305,
+   0.2384,
+   0.0723
+  ],
+  "person_casino_spotter_1_tie_knot": [
+   0.1779,
+   0.1384,
+   0.0437
+  ],
+  "person_casino_spotter_1_trouser": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_casino_spotter_1_trousers": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_casino_spotter_1_turn_up": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_casino_spotter_1_turn_up_edge": [
+   0.0152,
+   0.013,
+   0.0152
+  ]
+ }
+}
