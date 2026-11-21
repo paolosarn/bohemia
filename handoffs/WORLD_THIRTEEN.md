@@ -1,5 +1,16 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN; newest block on top)
 
+WORLD THIRTEEN (11/21, round nine, rule 461 amended): A MEASURE AND A FIND, no game file changed. Record:
+records/BOHEMIA_WORLD_THIRTEEN_THE_MAP_ON_SIX_VALLEYS_11_21_26.md; the numbers records/target/world13_map_speed_six_valleys_11_21.json.
+- Six valleys at every stop, full speed: every stop finished, 0 page errors (the close stops' whole picture 0.3 to 20 s).
+- THE FIND, filed as row 661 for PLUMBER 8 (its marked block, not mine): at the far stop right after a new valley single frames
+  freeze 7 to 16 s on 3 of 6 valleys; 73.7 in 100 of the page thread is mapInkTop's off-thread read (a GPU bitmap drawn into a CPU
+  canvas still waits for the GPU queue). Probe: tools/bohemia_world_thirteen_far_freeze_probe.js.
+- LOOKED AT AND LEFT: the trailer parks already read as themselves up close (rows of trailer models on their pads by the road); more
+  dressing would be COOK's colour dials.
+- MY LIST, what is left: the 60 board tiles under a map street (COMBAT THREE's half, named in 11/20c); the own places' rows (only if
+  he wants them); the close tile's margin (12 x 12 blocks painted for 8 x 8 shown). WORLD 14's files are WORLD 15's: untouched.
+
 WORLD THIRTEEN (11/20, round eight, build one, rule 461): BUILD 11/20c - THE PLACES ARE LAID OUT ON THE MAP, BUILT, NOT YET SEEN (rules
 429(c), 461; ask 504). Record: records/BOHEMIA_WORLD_THIRTEEN_THE_PLACES_ARE_LAID_OUT_11_20_26.md. VOTE world13-the-places-are-laid-out-11-20.
 - place_templates.json 'terrain' (from the fight's boards: tools/bohemia_world_thirteen_place_layouts.py) and 'lay' (built, natural,
