@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
-COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21o - THE HOSPITAL, THE CELL BLOCK, THE SPHERE AGAIN, BUILT (SHIPSHA), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 466(e), 453, 441, 416, 451(a), 455; ask row 651).
+COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21o - THE HOSPITAL, THE CELL BLOCK, THE SPHERE AGAIN, BUILT (c8ca3ecc1), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 466(e), 453, 441, 416, 451(a), 455; ask row 651).
 THREE IN ONE SHIP. (1) THE HOSPITAL (COMBAT FOUR's BUILD 11/20w, 'FOR COOK (SIX) 3)'): all 175 pieces of the_emergency_room were stand-ins; now slices/fight_ground/hospital/
 holds hospital_art.json (THE GARAGE'S FORMAT; floor.floor the corridor's vinyl, floor.wet the same slick, floor.ring; all 11 names), 11 pieces and its dropped ceiling (five
 bays by five that repeat, the casino's grid, tiles out in clusters, a camera's dome): about 533,000 bytes. (2) THE CELL BLOCK ('4)'): all 173 pieces of the_dayroom were
