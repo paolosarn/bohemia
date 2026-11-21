@@ -1,0 +1,167 @@
+{
+ "tier": {
+  "w": 516,
+  "h": 427,
+  "foot": [
+   258.2,
+   425
+  ],
+  "piece": "tier",
+  "src": "prison/pr_tier.webp",
+  "facing": "S"
+ },
+ "stair_e": {
+  "w": 515,
+  "h": 425,
+  "foot": [
+   257.8,
+   425
+  ],
+  "piece": "stair_e",
+  "src": "prison/pr_stair_e.webp",
+  "facing": "S"
+ },
+ "stair_w": {
+  "w": 515,
+  "h": 425,
+  "foot": [
+   257.5,
+   425
+  ],
+  "piece": "stair_w",
+  "src": "prison/pr_stair_w.webp",
+  "facing": "S"
+ },
+ "cells_ew": {
+  "w": 516,
+  "h": 181,
+  "foot": [
+   258.2,
+   130
+  ],
+  "piece": "cells_ew",
+  "src": "prison/pr_cells_ew.webp",
+  "facing": "S"
+ },
+ "cells_ns": {
+  "w": 52,
+  "h": 456,
+  "foot": [
+   26.2,
+   455
+  ],
+  "piece": "cells_ns",
+  "src": "prison/pr_cells_ns.webp",
+  "facing": "S"
+ },
+ "rail_ew": {
+  "w": 515,
+  "h": 84,
+  "foot": [
+   257.8,
+   63
+  ],
+  "piece": "rail_ew",
+  "src": "prison/pr_rail_ew.webp",
+  "facing": "S"
+ },
+ "rail_ns": {
+  "w": 52,
+  "h": 414,
+  "foot": [
+   26.7,
+   411
+  ],
+  "piece": "rail_ns",
+  "src": "prison/pr_rail_ns.webp",
+  "facing": "S"
+ },
+ "bars_ew": {
+  "w": 515,
+  "h": 140,
+  "foot": [
+   257.5,
+   131
+  ],
+  "piece": "bars_ew",
+  "src": "prison/pr_bars_ew.webp",
+  "facing": "S"
+ },
+ "bars_ns": {
+  "w": 51,
+  "h": 487,
+  "foot": [
+   26.0,
+   486
+  ],
+  "piece": "bars_ns",
+  "src": "prison/pr_bars_ns.webp",
+  "facing": "S"
+ },
+ "picket": {
+  "w": 498,
+  "h": 451,
+  "foot": [
+   241.2,
+   403
+  ],
+  "piece": "picket",
+  "src": "prison/pr_picket.webp",
+  "facing": "S"
+ },
+ "table": {
+  "w": 334,
+  "h": 145,
+  "foot": [
+   171.8,
+   128
+  ],
+  "piece": "table",
+  "src": "prison/pr_table.webp",
+  "facing": "S"
+ },
+ "mattresses": {
+  "w": 146,
+  "h": 134,
+  "foot": [
+   69.0,
+   129
+  ],
+  "piece": "mattresses",
+  "src": "prison/pr_mattresses.webp",
+  "facing": "S"
+ },
+ "burned": {
+  "w": 189,
+  "h": 158,
+  "foot": [
+   95.2,
+   132
+  ],
+  "piece": "burned",
+  "src": "prison/pr_burned.webp",
+  "facing": "S"
+ },
+ "desk": {
+  "w": 151,
+  "h": 111,
+  "foot": [
+   56.6,
+   91
+  ],
+  "piece": "desk",
+  "src": "prison/pr_desk.webp",
+  "facing": "S"
+ },
+ "tier_mattress": {
+  "w": 176,
+  "h": 148,
+  "foot": [
+   55.8,
+   69
+  ],
+  "piece": "tier_mattress",
+  "src": "prison/pr_tier_mattress.webp",
+  "facing": "S"
+ }
+}

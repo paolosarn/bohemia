@@ -1,5 +1,27 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
+COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21o - THE HOSPITAL, THE CELL BLOCK, THE SPHERE AGAIN, BUILT (SHIPSHA), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 466(e), 453, 441, 416, 451(a), 455; ask row 651).
+THREE IN ONE SHIP. (1) THE HOSPITAL (COMBAT FOUR's BUILD 11/20w, 'FOR COOK (SIX) 3)'): all 175 pieces of the_emergency_room were stand-ins; now slices/fight_ground/hospital/
+holds hospital_art.json (THE GARAGE'S FORMAT; floor.floor the corridor's vinyl, floor.wet the same slick, floor.ring; all 11 names), 11 pieces and its dropped ceiling (five
+bays by five that repeat, the casino's grid, tiles out in clusters, a camera's dome): about 533,000 bytes. (2) THE CELL BLOCK ('4)'): all 173 pieces of the_dayroom were
+stand-ins; now slices/fight_ground/prison/ holds prison_art.json (floor.floor the dayroom, floor.wet flooded, floor.high the tier's steel deck, floor.ring; all 15 names), 15
+pieces and its concrete ceiling (caged lights, one on, barred skylights, soot): about 517,000 bytes. hospital.json and prison.json: only their ceiling entries' "have" and
+"tile" ([10, 10]). COMBAT FOUR's 'FOR COOK (SIX)' list of 11/20w is DONE, every line. (3) THE SPHERE AGAIN (his vote 11/21: 'Wip looks like shit'; rule 466(e)): on his
+phone the first roof's rings were centred on the board and drew a bullseye over every fight at 10%; now the screen's crown is far past the tiers, its rows cross the board as
+bands, its panels in columns, the tear and the hanging panel kept; the floor darker with the last show's confetti; a lighting truss fallen the length of the stage; the seats
+blue. Tools: tools/bohemia_cook6_the_hospital_finished_11_21_26.py, tools/bohemia_cook6_the_cell_block_finished_11_21_26.py (each ON the one before it), the Sphere's own tool.
+PROOF on the real fight page, a phone both ways: the hospital 175 pieces (the ward 151), the cell block 173 (two units 159), the Sphere 182 (169): 0 stand-ins, the ceilings'
+pictures drawn, 0 page errors. FOUND BY EYE: the slick vinyl first read as holes, the smear as dashes, the hospital's scattered tiles out as noise; then the gate caught its
+ceiling too faint at a tenth (52 steps, 9%; now 63, 13%); the cell block's tide marks drew as outlines. Gate THE INSIDES WEAR FINISHED ART 98/0 (fourteen kits).
+COMBAT FOUR's gates: THE BIG INSIDES 167/0, AN INSIDE SHOWS ITS CEILING 6/0.
+VOTE cook6-the-hospital-11-21, cook6-the-cell-block-11-21, cook6-the-sphere-again-11-21 (MADE FROM). Records: records/BOHEMIA_COOK_SIX_THE_HOSPITAL_11_21_26.md,
+records/BOHEMIA_COOK_SIX_THE_CELL_BLOCK_11_21_26.md, records/BOHEMIA_COOK_SIX_THE_SPHERE_AGAIN_11_21_26.md.
+*** FOR COMBAT FOUR: your names, your format, your ceiling entries; nothing else of yours edited. Two shapes the data makes that you may want to see: the hospital's 'W' tiles
+draw as small walled rooms between the bays; the picket's two by two lays four booths side by side. The rig's ground calibration board is at 24 of 25.
+*** NEXT ON THIS LANE: the other Wips of his 11/21 votes (the stadium, the south stand, the powerhouse), looked at on his phone as the Sphere was; then COMBAT FOUR's next.
+[bb Battle Brothers' ruins: rooms you fight in and between; the tier is the high ground round the dayroom]
+[analog horror: a camera's dome over the bays that nobody watches; the cards of the last game still on the dayroom's table]
+
 COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21d - THE HOME CENTER, BUILT (4bd2d86e5), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 453, 441, 416, 451(a), 455; ask row 651).
 THE HOME CENTER (COMBAT FOUR's BUILD 11/20w, its 'FOR COOK (SIX) 2)'): all 201 pieces of the_store_and_the_garden were stand-ins. Now slices/fight_ground/homecenter/ holds
 homecenter_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 2 of homecenter_floor_0.webp, the slab with an aisle's number on a floor decal, forklift tracks, a spill of white

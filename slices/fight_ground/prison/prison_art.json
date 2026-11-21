@@ -1,0 +1,280 @@
+{
+ "version": "cook6-prison-art-11-21",
+ "lane": "cook 6 (COOK FIVE's list)",
+ "stage": "finished",
+ "for": "COMBAT FOUR's cell block (slices/fight_ground/prison/prison.json, BUILD 11/20w): the names its handoff asked for, the garage's format. floor.floor is the dayroom's sealed concrete (rows 0 to 2: its painted red line, soot where the fires burned, water's tide marks; nothing within 1.2 m of an edge but the concrete); floor.wet the dayroom flooded (row 3: water over it where they plugged the toilets, papers floating, a dry margin so it meets the floor); floor.high the tier's steel deck (row 4, plate joints every 1.2 m, the same at every edge); floor.ring the concrete. Any tile of a list meets any tile of it.",
+ "floor": {
+  "floor": [
+   "prison/prison_floor_0.webp#0,0",
+   "prison/prison_floor_0.webp#1,0",
+   "prison/prison_floor_0.webp#2,0",
+   "prison/prison_floor_0.webp#3,0",
+   "prison/prison_floor_0.webp#4,0",
+   "prison/prison_floor_0.webp#0,1",
+   "prison/prison_floor_0.webp#1,1",
+   "prison/prison_floor_0.webp#2,1",
+   "prison/prison_floor_0.webp#3,1",
+   "prison/prison_floor_0.webp#4,1",
+   "prison/prison_floor_0.webp#0,2",
+   "prison/prison_floor_0.webp#1,2",
+   "prison/prison_floor_0.webp#2,2",
+   "prison/prison_floor_0.webp#3,2",
+   "prison/prison_floor_0.webp#4,2"
+  ],
+  "wet": [
+   "prison/prison_floor_0.webp#0,3",
+   "prison/prison_floor_0.webp#1,3",
+   "prison/prison_floor_0.webp#2,3",
+   "prison/prison_floor_0.webp#3,3",
+   "prison/prison_floor_0.webp#4,3"
+  ],
+  "high": [
+   "prison/prison_floor_0.webp#0,4",
+   "prison/prison_floor_0.webp#1,4",
+   "prison/prison_floor_0.webp#2,4",
+   "prison/prison_floor_0.webp#3,4",
+   "prison/prison_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "prison/prison_floor_0.webp#0,0",
+   "prison/prison_floor_0.webp#1,0",
+   "prison/prison_floor_0.webp#2,0",
+   "prison/prison_floor_0.webp#3,0",
+   "prison/prison_floor_0.webp#4,0",
+   "prison/prison_floor_0.webp#0,1",
+   "prison/prison_floor_0.webp#1,1",
+   "prison/prison_floor_0.webp#2,1",
+   "prison/prison_floor_0.webp#3,1",
+   "prison/prison_floor_0.webp#4,1",
+   "prison/prison_floor_0.webp#0,2",
+   "prison/prison_floor_0.webp#1,2",
+   "prison/prison_floor_0.webp#2,2",
+   "prison/prison_floor_0.webp#3,2",
+   "prison/prison_floor_0.webp#4,2"
+  ]
+ },
+ "kit": {
+  "pr_tier": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "THE TIER",
+   "stage": "finished",
+   "src": "prison/pr_tier.webp",
+   "w": 516,
+   "h_px": 427,
+   "foot": [
+    258.2,
+    425
+   ]
+  },
+  "pr_stair_e": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "ITS STAIRS, EAST",
+   "stage": "finished",
+   "src": "prison/pr_stair_e.webp",
+   "w": 515,
+   "h_px": 425,
+   "foot": [
+    257.8,
+    425
+   ]
+  },
+  "pr_stair_w": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "ITS STAIRS, WEST",
+   "stage": "finished",
+   "src": "prison/pr_stair_w.webp",
+   "w": 515,
+   "h_px": 425,
+   "foot": [
+    257.5,
+    425
+   ]
+  },
+  "pr_cells_ew": {
+   "kind": "WALL",
+   "h": 2.6,
+   "name": "A RUN OF CELLS",
+   "stage": "finished",
+   "src": "prison/pr_cells_ew.webp",
+   "w": 516,
+   "h_px": 181,
+   "foot": [
+    258.2,
+    130
+   ]
+  },
+  "pr_cells_ns": {
+   "kind": "WALL",
+   "h": 2.6,
+   "name": "A RUN OF CELLS",
+   "stage": "finished",
+   "src": "prison/pr_cells_ns.webp",
+   "w": 52,
+   "h_px": 456,
+   "foot": [
+    26.2,
+    455
+   ]
+  },
+  "pr_rail_ew": {
+   "kind": "RAIL",
+   "h": 1.07,
+   "name": "THE TIER'S RAIL",
+   "stage": "finished",
+   "src": "prison/pr_rail_ew.webp",
+   "w": 515,
+   "h_px": 84,
+   "foot": [
+    257.8,
+    63
+   ]
+  },
+  "pr_rail_ns": {
+   "kind": "RAIL",
+   "h": 1.07,
+   "name": "THE TIER'S RAIL",
+   "stage": "finished",
+   "src": "prison/pr_rail_ns.webp",
+   "w": 52,
+   "h_px": 414,
+   "foot": [
+    26.7,
+    411
+   ]
+  },
+  "pr_bars_ew": {
+   "kind": "WALL",
+   "h": 2.7,
+   "name": "THE SALLY PORT'S BARS",
+   "stage": "finished",
+   "src": "prison/pr_bars_ew.webp",
+   "w": 515,
+   "h_px": 140,
+   "foot": [
+    257.5,
+    131
+   ]
+  },
+  "pr_bars_ns": {
+   "kind": "WALL",
+   "h": 2.7,
+   "name": "THE SALLY PORT'S BARS",
+   "stage": "finished",
+   "src": "prison/pr_bars_ns.webp",
+   "w": 51,
+   "h_px": 487,
+   "foot": [
+    26.0,
+    486
+   ]
+  },
+  "pr_picket": {
+   "kind": "COVER",
+   "h": 2.6,
+   "name": "THE PICKET",
+   "stage": "finished",
+   "src": "prison/pr_picket.webp",
+   "w": 498,
+   "h_px": 451,
+   "foot": [
+    241.2,
+    403
+   ]
+  },
+  "pr_table": {
+   "kind": "LOW_COVER",
+   "h": 0.86,
+   "name": "A BOLTED TABLE",
+   "stage": "finished",
+   "src": "prison/pr_table.webp",
+   "w": 334,
+   "h_px": 145,
+   "foot": [
+    171.8,
+    128
+   ]
+  },
+  "pr_mattresses": {
+   "kind": "COVER",
+   "h": 1.75,
+   "name": "A MATTRESS BARRICADE",
+   "stage": "finished",
+   "src": "prison/pr_mattresses.webp",
+   "w": 146,
+   "h_px": 134,
+   "foot": [
+    69.0,
+    129
+   ]
+  },
+  "pr_burned": {
+   "kind": "LOW_COVER",
+   "h": 0.6,
+   "name": "A BURNED HEAP",
+   "stage": "finished",
+   "src": "prison/pr_burned.webp",
+   "w": 189,
+   "h_px": 158,
+   "foot": [
+    95.2,
+    132
+   ]
+  },
+  "pr_desk": {
+   "kind": "COVER",
+   "h": 0.75,
+   "name": "THE OFFICERS' DESK",
+   "stage": "finished",
+   "src": "prison/pr_desk.webp",
+   "w": 151,
+   "h_px": 111,
+   "foot": [
+    56.6,
+    91
+   ]
+  },
+  "pr_tier_mattress": {
+   "kind": "LOW_COVER",
+   "h": 1.17,
+   "name": "A MATTRESS ON THE RAIL",
+   "stage": "finished",
+   "src": "prison/pr_tier_mattress.webp",
+   "w": 176,
+   "h_px": 148,
+   "foot": [
+    55.8,
+    69
+   ]
+  }
+ },
+ "how_it_lays": {
+  "the cells": "pr_cells_ew is a tile wide: five cell fronts at 2.4 m, 2.6 m up to the slab's edge, foot its face's middle; pr_cells_ns end on. pr_bars_ew / _ns: the sally port's bars, 2.7 m, a tile long (your 'Y', an air wall), the gate run open.",
+  "the tier": "pr_tier on every high tile, 1.42 m up, foot its south edge middle; pr_stair_e / _w the steel stair; pr_rail_ew / _ns the rail with its mesh; pr_tier_mattress (your 'at' [0.5, 0.82], lifted) hangs on the rail 2.16 m south of its foot.",
+  "the dayroom": "pr_table two tables and their stools; pr_mattresses; pr_burned (its soot on the floor round it); pr_desk; foot each at its south edge middle.",
+  "the picket": "pr_picket a glass control room 9 by 7.5 m, 2.6 m up, foot its south face middle (your 'at' [0.5, 0.95]); your two by two of 'P' lays four, one block of glass."
+ },
+ "bytes": {
+  "floor": 98622,
+  "ceiling": 13436
+ },
+ "ceiling": {
+  "sheet": "prison/prison_ceiling.webp",
+  "bays": [
+   5,
+   5
+  ],
+  "bay_px": [
+   129,
+   91
+  ],
+  "covers": [
+   10,
+   10
+  ],
+  "what": "the unit's concrete ceiling far up: the slab and a beam on every bay's line, the caged lights (most dead, one on), the skylight's bars in some bays, a camera's dome, the smoke detectors, the soot of the fires",
+  "contract": "prison.json 'ceiling' (COMBAT FOUR's: the fight draws it over the board at that alpha, rule 451(a)); five bays by five that repeat"
+ }
+}

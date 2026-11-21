@@ -110,7 +110,8 @@ def plan_sp_floor(ID, seed=171):
     gid = np.full((H, W), ID['gar_deck'], np.uint8)
     w = TG.win(lx, ly, 0.5, 1.5)
     dust = TG.mixn(FW.vnoise((H, W), 2.0 * PPM, rng), TG.pnoise(rng, 2.0), w)
-    pale = np.clip((dust - 0.6) / 0.3, 0, 1) * 0.08; dark = 0.16 + np.clip((0.4 - dust) / 0.3, 0, 1) * 0.04    # the bowl's floor, sealed and gone dark
+    pale = np.clip((dust - 0.6) / 0.3, 0, 1) * 0.06; dark = 0.42 + np.clip((0.4 - dust) / 0.3, 0, 1) * 0.04    # the bowl's floor, sealed and gone dark
+    # (11/21, his 'Wip looks like shit': the first floor was a light grey and the bowl read as nothing on his phone; a dead venue is dark)
     # (the dust soft: the first render's read as blotches of camouflage over the dark floor)
     wear = FW.vnoise((H, W), 0.25 * PPM, rng)                            # tape torn up in places
     for r in range(4):
@@ -118,8 +119,8 @@ def plan_sp_floor(ID, seed=171):
             sy, sx = tile_xy(r, c); X, Y = lx[sy, sx], ly[sy, sx]; G, D, Pl, Wr = gid[sy, sx], dark[sy, sx], pale[sy, sx], wear[sy, sx]
             yel, wht = tape(X, Y, rng)
             if r == TORN: yel &= False                                    # (on the torn row only loose white, outside the hole)
-            G[yel & (Wr > 0.25)] = ID['gar_yellow']; G[wht & (Wr > 0.22)] = ID['gar_white']
-            D[(yel | wht)] = 0.08
+            yel |= wht                                                    # (only the faded yellow: the white dashes read as marks on the glass)
+            G[yel & (Wr > 0.25)] = ID['gar_yellow']; D[yel] = 0.25
             for _ in range(rng.randint(1, 3)):                           # a forklift's scuffs, curving
                 ax, ay, R_ = rng.uniform(-4, 16), rng.uniform(-4, 16), rng.uniform(3, 7); d = np.hypot(X - ax, Y - ay)
                 m = (np.abs(d - R_) < 0.07) & (X > 1.2) & (X < 10.8) & (Y > 1.2) & (Y < 10.8) & (np.arctan2(Y - ay, X - ax) % 1.2 < 0.55)
@@ -143,6 +144,12 @@ def plan_sp_floor(ID, seed=171):
                     m = (e >= 0.9) & (e < 1.9) & (np.abs(((ang - a0 + math.pi) % (2 * math.pi)) - math.pi) < 0.02 + 0.01 * nn) & (X > 1.0) & (X < 11.0) & (Y > 1.0) & (Y < 11.0)
                     D[m] = 0.6
                 sh, gl = glass(X, Y, rng, 2, (1.5, 2.8)); sh &= ~core; G[sh & ~inside] = ID['gar_deck']; D[sh] = 0.72; D[gl] = 0.0; Pl[gl] = 0.55
+    # THE LAST SHOW'S CONFETTI, still on the floor: silver and gold flakes (a few centimetres; two or three pixels), in drifts that thin
+    # to a scatter, never thicker at a tile's edge than its middle so any tile meets any tile
+    fl = row < STEP; drift = TG.mixn(FW.vnoise((H, W), 1.6 * PPM, rng), TG.pnoise(rng, 1.6), w)
+    dens = (0.014 + 0.03 * np.clip((drift - 0.45) / 0.35, 0, 1)) * fl              # (a sprinkle: thick drifts read as blotches at his zoom)
+    flake = rng.rand(H, W) < dens; gold = flake & (rng.rand(H, W) < 0.35)
+    pale = np.where(flake & ~gold, 0.75, pale); dark = np.where(flake, 0.0, dark); gid[gold] = ID['gar_yellow']
     st = row == STEP; gid[st] = ID['st_step']; dark = np.where(st, 0.08, dark); pale = np.where(st, 0.05, pale)
     return gid, np.clip(dark, 0, 1), np.clip(pale, 0, 1)
 
@@ -263,6 +270,22 @@ def stage(P, ox, oy, rng):
     for (p0, p1) in zip(pts[:-1], pts[1:]): P.bar('black', (p0[0], p0[1], S + 0.02), (p1[0], p1[1], S + 0.02), 0.02)
     P.drum('black', ox - 2.4, oy + 5.2, S, S + 0.03, 0.16, 12); P.bar('chrome', (ox - 2.4, oy + 5.2, S + 0.04), (ox - 1.0, oy + 5.6, S + 0.04), 0.012)   # a mic stand, down
     P.drum('tape', ox + 3.4, oy + 2.0, S, S + 0.05, 0.07, 12); P.box('paper', ox - 0.5, ox - 0.29, oy + 1.5, oy + 1.8, S, S + 0.003)   # tape; the set list
+    # (11/21) THE LIGHTING TRUSS, FALLEN the length of the stage: a box truss on the deck at the same line on every stage tile, so the
+    # twelve tiles make one long truss; its dead moving lights hanging off it, two fallen onto the deck, their cables
+    ty, tz = oy + 7.6, S
+    for (dy, dz) in ((0.0, 0.03), (0.5, 0.03), (0.0, 0.53), (0.5, 0.53)): P.tube_x('chrome', ox - 6, ox + 6, ty + dy, tz + dz, 0.025, 6)
+    for k in range(24):
+        x = ox - 6 + k * 0.5
+        for (y0, z0, y1, z1) in ((ty, tz + 0.03, ty, tz + 0.53), (ty + 0.5, tz + 0.03, ty + 0.5, tz + 0.53), (ty, tz + 0.53, ty + 0.5, tz + 0.53)):
+            P.bar('chrome', (x + 0.02, y0, z0), (x + 0.02, y1, z1), 0.012)
+        P.bar('chrome', (x + 0.02, ty, tz + 0.03), (x + 0.48, ty, tz + 0.53), 0.01); P.bar('chrome', (x + 0.02, ty + 0.5, tz + 0.53), (x + 0.48, ty + 0.5, tz + 0.03), 0.01)
+    for k in range(5):
+        x = ox - 4.8 + k * 2.4
+        if k in (1, 3):                                                   # fallen off it onto the deck, on its side
+            P.box('black', x - 0.25, x + 0.25, ty - 1.3, ty - 0.85, tz, tz + 0.38); P.wheel('sp_grille', x, ty - 1.32, tz + 0.19, 0.14, 0.02, 12)
+            P.bar('black', (x, ty - 0.85, tz + 0.1), (x + 0.3, ty, tz + 0.3), 0.015)
+        else:                                                             # still clamped to its south side, its head hanging down
+            P.box('black', x - 0.18, x + 0.18, ty - 0.42, ty - 0.02, tz + 0.12, tz + 0.5); P.wheel('sp_grille', x, ty - 0.44, tz + 0.3, 0.11, 0.02, 12)
 
 
 def led_flat(P, x, y, w, d, z, face=True):
@@ -455,8 +478,8 @@ def sp_mats(bpy, NF, F, M, which):
     #  panels came out pale grey and read as concrete, the cases' tops mottled like camouflage, the roof like cobblestones)
     M.update(sp_deck=NF.material(bpy, 'in_paint_stage_deck', 'rubber', 1, 0.95), sp_deck_d=NF.material(bpy, 'in_paint_stage_seam', 'rubber', 0, 1.0),
              sp_led=NF.material(bpy, 'in_black_led_panel', 'rubber', 1, 0.9), sp_led_d=NF.material(bpy, 'in_black_led_panel_d', 'rubber', 0, 0.95),
-             sp_back=NF.material(bpy, 'in_black_led_back', 'tape_grey', 1, 0.9), sp_grille=NF.material(bpy, 'in_spk_grille', 'tape_grey', 1, 0.95),
-             sp_seat=NF.material(bpy, 'in_cloth_seat', 'clay_teal', 0, 0.9), sp_seat_d=NF.material(bpy, 'in_cloth_seat_d', 'clay_teal', 0, 0.7),
+             sp_back=NF.material(bpy, 'in_black_led_back', 'tape_grey', 2, 0.9), sp_grille=NF.material(bpy, 'in_spk_grille', 'tape_grey', 1, 0.95),
+             sp_seat=NF.material(bpy, 'in_cloth_seat', 'clay_teal', 1, 0.95), sp_seat_d=NF.material(bpy, 'in_cloth_seat_d', 'clay_teal', 0, 0.8),
              sp_case=NF.material(bpy, 'in_black_case_ply', 'rubber', 1, 0.95), sp_desk=NF.material(bpy, 'in_desk_console', 'tape_grey', 0, 0.95),
              sp_frame=NF.material(bpy, 'in_black_screen_frame', 'tape_grey', 2, 0.8), sp_tread=NF.material(bpy, 'in_black_tread', 'tape_grey', 1, 0.9))
 
@@ -468,7 +491,9 @@ TG.MAT_HOOKS.append(sp_mats)
 # ---- the ceiling: the screen from inside, one picture the size of the board --------------------------------------------------
 CT = SIDE / BOARD[0]
 bat = SD.bat
-CROWN = (10.0, 5.2)                                                      # the screen's crown over the board (tiles; y from the north): its rows ring it
+CROWN = (10.0, -30.0)                                                    # the screen's crown, far past the tiers (tiles; y from the north): its rows cross the board
+# as long gentle bands curving over from the stage (11/21, his 'Wip looks like shit': the first roof put the crown over the board, and at
+# his 10% its rings drew a bullseye over the whole fight)
 
 
 def ceil_sphere(P, rng):
@@ -482,33 +507,36 @@ def ceil_sphere(P, rng):
         x = bat(i * 1.0, 0)[0]; P.box('truss', x - 0.1, x + 0.1, -3.0, 63.0, 0.0, 0.052)
     for _ in range(140):
         bx, by = rng.uniform(-0.5, BOARD[0] + 0.5), rng.uniform(-0.5, BOARD[1] + 0.5); x, y = bat(bx, by, 0.1); P.box('sp_grille', x - 0.6, x + 0.6, y - 0.35, y + 0.35, 0.06, 0.1)
-    cx, cy = CROWN; tear = lambda r, a: 4.2 < r < 5.4 and -0.5 < a < 1.1          # (radius in tiles, angle) where the section came down
+    cx, cy = CROWN; R0 = 29.0; tear = lambda r, x: R0 + 7.4 < r < R0 + 8.7 and 6.0 < x < 15.5   # (radius, x in tiles) where the section came down
     ring_w, gap = 0.62, 0.07; n_out = 0; hang = None
-    for k in range(26):
-        r0, r1 = 0.4 + k * ring_w + gap / 2, 0.4 + (k + 1) * ring_w - gap / 2; rm = (r0 + r1) / 2
-        n = max(6, int(round(2 * math.pi * rm / 1.0))); da = 2 * math.pi / n; off = rng.uniform(0, da)
+    for k in range(30):
+        r0, r1 = R0 + k * ring_w + gap / 2, R0 + (k + 1) * ring_w - gap / 2; rm = (r0 + r1) / 2
+        da = 1.05 / (R0 + 8.0); n = int(2 * math.pi / da); off = 0.0   # (one angle for every row, so the panels line up in columns as a screen's do:
+                                                                    #  staggered, the second roof read as a brick vault)
         for i in range(n):
             a0, a1 = off + i * da, off + (i + 1) * da; am = (a0 + a1) / 2
             px_, py_ = cx + rm * math.cos(am), cy + rm * math.sin(am)
             if px_ < -1.0 or px_ > BOARD[0] + 1.0 or py_ < -1.0 or py_ > BOARD[1] + 1.0: continue
-            amod = math.atan2(math.sin(am), math.cos(am))
-            if tear(rm, amod):
-                if hang is None and k == 7: hang = (rm, am)
+            if tear(rm, px_):
+                if hang is None and k == 13: hang = (rm, am)
                 continue
-            if rng.rand() < 0.045: n_out += 1; continue                 # a panel out: the frame and a grille behind
+            if rng.rand() < 0.025: n_out += 1; continue                 # a panel out: the frame and a grille behind
             ga = gap / (2 * rm); pts = []
             for (rr, aa) in ((r0, a0 + ga), (r0, a1 - ga), (r1, a1 - ga), (r1, a0 + ga)):
                 b = bat(cx + rr * math.cos(aa), cy + rr * math.sin(aa), 0.3); pts.append(b)
             if (pts[1][0] - pts[0][0]) * (pts[2][1] - pts[0][1]) - (pts[1][1] - pts[0][1]) * (pts[2][0] - pts[0][0]) < 0: pts = pts[::-1]
-            P.poly('sp_led' if rng.rand() > 0.25 else 'sp_led_d', pts, 0.2, 0.3 + 0.004 * (k % 3))
-    for k in range(9):                                                   # the tear: the frame's members across it, bent
-        a = -0.45 + k * 0.19; p0 = bat(cx + 4.25 * math.cos(a), cy + 4.25 * math.sin(a), 0.35); p1 = bat(cx + 5.35 * math.cos(a + 0.05 * (k % 3 - 1)), cy + 5.35 * math.sin(a + 0.05 * (k % 3 - 1)), 0.35)
+            P.poly('sp_led_d' if rng.rand() > 0.2 else 'sp_led', pts, 0.2, 0.3 + 0.004 * (k % 3))
+    for k in range(10):                                                  # the tear: the frame's members across it, bent
+        x = 6.4 + k * 0.95; a = math.atan2(0, 1)
+        ra, rb = R0 + 7.45, R0 + 8.65; ang = math.asin((x - cx) / ((ra + rb) / 2))
+        p0 = bat(cx + ra * math.sin(ang), cy + ra * math.cos(ang), 0.35); p1 = bat(cx + rb * math.sin(ang + 0.004 * (k % 3 - 1)), cy + rb * math.cos(ang + 0.004 * (k % 3 - 1)), 0.35)
         P.bar('truss', (p0[0], p0[1], 0.35), (p1[0], p1[1], 0.35), 0.12)
-    for s_ in range(24):
-        a0, a1 = -0.5 + s_ * 1.6 / 24, -0.5 + (s_ + 1) * 1.6 / 24
-        for rr in (4.3, 5.3):
-            p0 = bat(cx + rr * math.cos(a0), cy + rr * math.sin(a0), 0.32); p1 = bat(cx + rr * math.cos(a1), cy + rr * math.sin(a1), 0.32); P.bar('sp_back', (p0[0], p0[1], 0.32), (p1[0], p1[1], 0.32), 0.1)
-    rm, am = hang if hang else (4.8, 0.3)                                # one panel hanging in it by its cable, turned
+    for rr in (R0 + 7.45, R0 + 8.65):                                    # its torn edges
+        for s_ in range(24):
+            x0, x1 = 6.0 + s_ * 9.5 / 24, 6.0 + (s_ + 1) * 9.5 / 24
+            a0, a1 = math.asin((x0 - cx) / rr), math.asin((x1 - cx) / rr)
+            p0 = bat(cx + rr * math.sin(a0), cy + rr * math.cos(a0), 0.32); p1 = bat(cx + rr * math.sin(a1), cy + rr * math.cos(a1), 0.32); P.bar('sp_back', (p0[0], p0[1], 0.32), (p1[0], p1[1], 0.32), 0.1)
+    rm, am = hang if hang else (R0 + 8.0, math.pi / 2)                   # one panel hanging in it by its cable, turned
     hx, hy = cx + rm * math.cos(am), cy + rm * math.sin(am); z = 1.6
     q = [bat(hx + dx * math.cos(0.5) - dy * math.sin(0.5), hy + dx * math.sin(0.5) + dy * math.cos(0.5), z) for (dx, dy) in ((-0.35, -0.22), (0.35, -0.22), (0.35, 0.22), (-0.35, 0.22))]
     P.poly('sp_led', q, z - 0.06, z); t0 = bat(hx, hy - 0.3, 0.3); t1 = bat(hx, hy, z)

@@ -323,8 +323,8 @@
   "the bowl": "sp_wall_ew / _ns THE SCREEN'S FOOT: the concrete plinth to 0.7 m and the screen's lowest panels on their frame to 2.4 m; a tile long."
  },
  "bytes": {
-  "floor": 111930,
-  "ceiling": 71156
+  "floor": 177526,
+  "ceiling": 59936
  },
  "ceiling": {
   "sheet": "sphere/sphere_ceiling.webp",

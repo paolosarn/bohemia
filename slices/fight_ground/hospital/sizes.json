@@ -1,0 +1,123 @@
+{
+ "bay": {
+  "w": 516,
+  "h": 221,
+  "foot": [
+   258.2,
+   213
+  ],
+  "piece": "bay",
+  "src": "hospital/hs_bay.webp",
+  "facing": "S"
+ },
+ "beds": {
+  "w": 515,
+  "h": 142,
+  "foot": [
+   257.8,
+   128
+  ],
+  "piece": "beds",
+  "src": "hospital/hs_beds.webp",
+  "facing": "S"
+ },
+ "pharmacy": {
+  "w": 429,
+  "h": 395,
+  "foot": [
+   215.3,
+   335
+  ],
+  "piece": "pharmacy",
+  "src": "hospital/hs_pharmacy.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 516,
+  "h": 139,
+  "foot": [
+   258.2,
+   119
+  ],
+  "piece": "wall_ew",
+  "src": "hospital/hs_wall_ew.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 52,
+  "h": 456,
+  "foot": [
+   26.2,
+   455
+  ],
+  "piece": "wall_ns",
+  "src": "hospital/hs_wall_ns.webp",
+  "facing": "S"
+ },
+ "partition_ew": {
+  "w": 515,
+  "h": 113,
+  "foot": [
+   257.8,
+   102
+  ],
+  "piece": "partition_ew",
+  "src": "hospital/hs_partition_ew.webp",
+  "facing": "S"
+ },
+ "partition_ns": {
+  "w": 52,
+  "h": 461,
+  "foot": [
+   26.7,
+   460
+  ],
+  "piece": "partition_ns",
+  "src": "hospital/hs_partition_ns.webp",
+  "facing": "S"
+ },
+ "station": {
+  "w": 258,
+  "h": 222,
+  "foot": [
+   129.3,
+   192
+  ],
+  "piece": "station",
+  "src": "hospital/hs_station.webp",
+  "facing": "S"
+ },
+ "gurney": {
+  "w": 198,
+  "h": 129,
+  "foot": [
+   95.3,
+   105
+  ],
+  "piece": "gurney",
+  "src": "hospital/hs_gurney.webp",
+  "facing": "S"
+ },
+ "carts": {
+  "w": 180,
+  "h": 159,
+  "foot": [
+   69.3,
+   135
+  ],
+  "piece": "carts",
+  "src": "hospital/hs_carts.webp",
+  "facing": "S"
+ },
+ "chairs": {
+  "w": 309,
+  "h": 163,
+  "foot": [
+   129.2,
+   145
+  ],
+  "piece": "chairs",
+  "src": "hospital/hs_chairs.webp",
+  "facing": "S"
+ }
+}

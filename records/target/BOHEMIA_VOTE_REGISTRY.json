@@ -22281,7 +22281,136 @@
   {"id": "fight-screen-the-last-hit-on-the-card-11-21", "kind": "ui", "lane": "fight screen", "sha": "282e065a", "made": "11/21", "draft": true, "title": "YOUR MAN'S CARD SHOWS WHAT THE LAST ROUND TOOK OFF HIM", "said": "The card bro, the combat card is UGLY AS SHIT, TRY TO MAKE SOME AWESOME BIG BRAIN FINAL SHIT", "why": "Left is before, right is now, the phone's card in a fight, upright and on its side. Before: the card showed only how much health and armour a man has left, so you could not tell a man who walked in whole from one who just lost a quarter of his health. Now: what the blows took off him since his last turn sits on his bars in bone white, the same mark the board flashes when a hit lands, and stays until his turn is over. No number, the size of the piece is the size of the hit. You see it on the phone every turn of a fight.", "show": {"how": "image", "src": "../records/target/FIGHT_SCREEN_THE_LAST_HIT_ON_THE_CARD_11_21.webp", "first": "../records/target/vote_first/fight-screen-the-last-hit-on-the-card-11-21.webp", "firstAt": [0, 0, 1765, 622]}, "before_after": {"before": "main 9479dc8d: his card with a quarter of his health and a third of his armour taken shows what is left and nothing else", "after": "the same man: what was taken sits on both bars in the board's punch colour, right of what is left, until his turn ends", "scale": "the demo on a phone upright (390 x 844) and on its side (844 x 390) at 2; the phone cut out at 1.6"}, "stage": "stand_in", "record": "records/BOHEMIA_FIGHT_SCREEN_THE_LAST_HIT_ON_THE_CARD_11_21_26.md"},
   {"id": "character-the-eye-in-the-sky-11-21", "kind": "outfit", "lane": "character", "made": "11/21", "sha": "b06b3af4b", "draft": true, "title": "THE EYE IN THE SKY IN ITS OWN CLOTHES: THE CASINO'S MEN IN BLACK, ONE GOLD TIE EACH", "said": "full sweep, whole enchilada, dont forget nothing / the clothes look good: leather and layering", "why": "The casino's gunner, spotter and doorman fought in two gangs' one-piece looks and a Mob hall man's clothes; now six casino men in black shirts under a vest, a black suit coat or a tailcoat, dark glasses on the spotters, and one tie each in the casino's own brass-gold. You see it in every fight against the eye in the sky, and on this card.", "options": ["A, yes, the casino's men look like this", "B, close, change something (say which one and what)", "C, no, not like this"], "show": {"how": "image", "src": "../records/target/character/the_eye_in_the_sky/CHARACTER_THE_EYE_IN_THE_SKY.webp", "first": "../records/target/character/the_eye_in_the_sky/CHARACTER_THE_EYE_IN_THE_SKY_FIRST.webp", "firstAt": [0, 0, 740, 528]}, "twin": {"src": "records/target/cook3/rig/thug/rig_S.png", "diffs": ["THE CASINO'S OWN LOOK (the eye in the sky, Battle Brothers' city-state soldiery as the Strip's house guard): the floor's black still worn, a black shirt under a tactical or a leather vest, a car coat, a comma coat, a tailcoat to the knee.", "ONE MARK FOR ALL SIX: a tie in the casino's banner ink (a dusted brass-gold, its signs' colour) down a black chest; it reads from the front and the side.", "THE THREE TRADES: the gunners with a shell bandolier over the vest (the only real guns), the spotters in dark wraparound glasses, the doormen in a tailcoat and gloves."]}, "stage": "made_from", "golden": "character-the-nine-enemies-their-own-clothes-11-7", "recipe": "the nine enemies' frozen recipe (layers that read apart, leather where it fits, no blue, no trench added), the three new types in tools/bohemia_character_the_nine_enemies.py (TYPES['Gunner'], ['Spotter'], ['Doorman'], the SOOT BUTTON-UP, the tie, roll-more, make, pack)"},
   {"id": "combat4-the-school-11-21", "kind": "tile", "lane": "combat 4", "sha": "04bdc064c", "made": "11/21", "draft": true, "title": "A FIGHT CAN START INSIDE A SCHOOL: THE GYM STILL FULL OF THE TOWN'S COTS, OR THE CLASSROOM WING WHERE EVERY ROOM HAS TWO DOORS", "said": "what are some large ass interiors that we could fight", "why": "Six fights in ten at a school now happen inside it: the gym, still the town's shelter with its cots, mats and folded tables and the bleachers you climb over, or the classroom wing, where the lockers wall the hallway and each room's two doors are where the fight is. You see it on the fight screen when a fight starts at a school on the map (tap any tile and it says what it does).", "show": {"how": "image", "src": "../records/target/COMBAT4_THE_SCHOOL_11_21.webp", "first": "../records/target/vote_first/combat4-the-school-11-21.webp", "firstAt": [0, 0, 1170, 826]}, "before_after": {"before": "main 7ee36c614: a fight at a school was fought on the suburb's blocks outside", "after": "the school: two layouts mirrored, 15 kinds of tile each with its cost and effect, no high ground; one data file, every picture a STAND-IN until COOK's kit is in; and in every inside a walkable cover tile can no longer be a wall because of a borrowed picture", "scale": "the top row is the fight page opened alone with each layout asked for, far out; the bottom is the fight's own camera on his phone, a real fight opened through the map's own door"}, "stage": "stand_in", "record": "records/BOHEMIA_COMBAT_FOUR_THE_SCHOOL_11_21_26.md"},
-  {"id": "jobs-the-card-reads-the-hour-11-21", "kind": "ui", "lane": "jobs", "sha": "0cebf42ed", "made": "11/21", "draft": true, "title": "THE CARD READS THE HOUR: A JOB'S CARD NAMES WHO WILL BE THERE WHEN YOU ARRIVE", "said": "carry on (rule 461): the handoff's next job, bugs he can feel first ([the stars and the hour])", "why": "A job's card said who you would fight based on the time you read it, but you meet them when you get there, often hours later, after dark. Read in the late afternoon, about 4 in 10 cards for fights after dark named the wrong crowd (9 Block Watch on the card, 4 water people came). Now the card works out when you'll arrive and names who will be there then. Tap a town, then BOARD, then a person: the 'What it asks' line.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_THE_CARD_READS_THE_HOUR.jpg"}, "before_after": {"before": "a card read at 16:30 named the daytime crowd for a fight he would reach after dark: 9 Block Watch read, 4 water people came", "after": "every card fight is read at the hour he gets there: 27 of 27 jobs walked from 16:30 met the card's crowd, 10 fights after dark", "scale": "left: the game on a phone upright (390 x 844 at 3), the demo; right: what changed, measured"}, "record": "records/BOHEMIA_JOBS_THE_CARD_READS_THE_HOUR_11_21_26.md", "build": "BUILD 11/21n - THE CARD READS THE HOUR"}
+  {"id": "jobs-the-card-reads-the-hour-11-21", "kind": "ui", "lane": "jobs", "sha": "0cebf42ed", "made": "11/21", "draft": true, "title": "THE CARD READS THE HOUR: A JOB'S CARD NAMES WHO WILL BE THERE WHEN YOU ARRIVE", "said": "carry on (rule 461): the handoff's next job, bugs he can feel first ([the stars and the hour])", "why": "A job's card said who you would fight based on the time you read it, but you meet them when you get there, often hours later, after dark. Read in the late afternoon, about 4 in 10 cards for fights after dark named the wrong crowd (9 Block Watch on the card, 4 water people came). Now the card works out when you'll arrive and names who will be there then. Tap a town, then BOARD, then a person: the 'What it asks' line.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_THE_CARD_READS_THE_HOUR.jpg"}, "before_after": {"before": "a card read at 16:30 named the daytime crowd for a fight he would reach after dark: 9 Block Watch read, 4 water people came", "after": "every card fight is read at the hour he gets there: 27 of 27 jobs walked from 16:30 met the card's crowd, 10 fights after dark", "scale": "left: the game on a phone upright (390 x 844 at 3), the demo; right: what changed, measured"}, "record": "records/BOHEMIA_JOBS_THE_CARD_READS_THE_HOUR_11_21_26.md", "build": "BUILD 11/21n - THE CARD READS THE HOUR"},
+  {
+   "kind": "tile",
+   "lane": "cook 6",
+   "sha": "SHIPSHA",
+   "made": "11/21",
+   "draft": true,
+   "said": "full sweep, whole enchilada, dont forget nothing",
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "id": "cook6-the-hospital-11-21",
+   "title": "THE FIGHT INSIDE THE HOSPITAL LOOKS LIKE AN EMERGENCY ROOM NOW: THE BAYS, THE STATION, THE PHARMACY'S CAGE, THE WARD",
+   "why": "The fight inside the hospital was built from the casino's and the street's pictures; now it has its own: treatment bays along the walls with their stretchers, dead monitors and torn-down curtains, the nurses' station with the phone hanging by its cord, the pharmacy's cage cut open and its pill bottles spilled, crash carts with their drawers pulled out, the waiting room's chairs, a ward of bed frames with the mattresses gone, the corridor's vinyl with a dark smear dragged a few metres, and over it at his 10% the dropped ceiling with tiles out and a camera's dome. You meet it when a fight starts at the hospital, in the RUN tab.",
+   "options": [
+    "A, yes, that's the hospital",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK6_THE_HOSPITAL_11_21.webp",
+    "first": "../records/target/vote_first/cook6-the-hospital-11-21.webp",
+    "firstAt": [
+     786,
+     96,
+     383,
+     559
+    ]
+   },
+   "before_after": {
+    "before": "before the cut: all 175 pieces of the hospital (the_emergency_room) are stand-ins from the casino, the tunnels and the street board; the ceiling is drawn by the page",
+    "after": "the hospital's own floor, 11 pictures under its 11 names and its ceiling, through the master rig; the hospital lays them with no code changed",
+    "scale": "the fight on his phone upright (390 x 844) as it opens, before and now; close in; the ward; the pieces at their own pixels"
+   },
+   "twin": {
+    "src": "fight_ground/homecenter/hc_checkout.webp",
+    "diffs": [
+     "THE SAME RIG AND CUT as the home center's kit: one tool on the other, COMBAT FOUR's names, its data file's own ceiling entry.",
+     "THE CEILING IS THE CASINO'S GRID, made a hospital's: dark tees, tiles out in clusters with the wiring hanging, a camera's dome.",
+     "EMPTIED IN ORDER: the drugs first (the cage cut open), then the oxygen (the rack empty), then the beds (the mattresses gone)."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_SIX_THE_HOSPITAL_11_21_26.md"
+  },
+  {
+   "kind": "tile",
+   "lane": "cook 6",
+   "sha": "SHIPSHA",
+   "made": "11/21",
+   "draft": true,
+   "said": "full sweep, whole enchilada, dont forget nothing",
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "id": "cook6-the-cell-block-11-21",
+   "title": "THE FIGHT INSIDE THE CELL BLOCK LOOKS LIKE A PRISON UNIT NOW: THE CELLS, THE TIER, THE DAYROOM, THE PICKET",
+   "why": "The fight inside the prison's unit was built from the casino's and the garage's pictures; now it has its own: runs of cells with their doors racked open and the dark inside, one shut with a towel stuffed in its window, the tier over them with its rail and a mattress hung on it, the steel stairs, the dayroom's bolted tables with the cards of the last game still on one, mattress barricades, burned heaps and their soot, the floor flooded where they plugged the toilets, the officers' desk on its side with every radio gone, the glass picket starred and holed, the sally port's bars bent apart, and over it at his 10% the concrete ceiling with its caged lights, one still on. You meet it when a fight starts at the prison or the jail, in the RUN tab.",
+   "options": [
+    "A, yes, that's a cell block",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK6_THE_CELL_BLOCK_11_21.webp",
+    "first": "../records/target/vote_first/cook6-the-cell-block-11-21.webp",
+    "firstAt": [
+     786,
+     96,
+     383,
+     559
+    ]
+   },
+   "before_after": {
+    "before": "before the cut: all 173 pieces of the cell block (the_dayroom) are stand-ins from the casino, the garage and the street board; the ceiling is drawn by the page",
+    "after": "the unit's own floor, 15 pictures under its 15 names and its ceiling, through the master rig; it lays them with no code changed",
+    "scale": "the fight on his phone upright (390 x 844) as it opens, before and now; close in; the two units; the pieces at their own pixels"
+   },
+   "twin": {
+    "src": "fight_ground/hospital/hs_station.webp",
+    "diffs": [
+     "THE SAME RIG AND CUT as the hospital's kit, one tool on the other, COMBAT FOUR's names.",
+     "THE CELLS ARE THE WALLS: a tile of five cell fronts, the tier over them is the high ground they hold at the bell.",
+     "TAKEN FROM INSIDE: barricades, the flood, the fire, in that order."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_SIX_THE_CELL_BLOCK_11_21_26.md"
+  },
+  {
+   "kind": "tile",
+   "lane": "cook 6",
+   "sha": "SHIPSHA",
+   "made": "11/21",
+   "draft": true,
+   "said": "Wip looks like shit",
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "id": "cook6-the-sphere-again-11-21",
+   "title": "THE SPHERE AGAIN, AFTER 'WIP LOOKS LIKE SHIT': NO MORE BULLSEYE OVER THE FIGHT, A DARKER BOWL, THE TRUSS DOWN ON THE STAGE",
+   "why": "You said the Sphere looked like shit. On your phone the worst of it was the roof: its rows of screen panels were rings round the middle of the board, so at 10% a bullseye sat over every fight. Now the screen's rows cross the bowl as long bands curving over from the stage, its panels lined up in columns like a real screen, with the tear and the one panel hanging by its cable. The bowl's floor is darker with the last show's confetti on it, a lighting truss lies fallen the length of the stage with its dead lights, and the seats have their dark blue back. You meet it when a fight starts at the Sphere, in the RUN tab.",
+   "options": [
+    "A, yes, better",
+    "B, close, change something (say what)",
+    "C, no, still not it"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK6_THE_SPHERE_AGAIN_11_21.webp",
+    "first": "../records/target/vote_first/cook6-the-sphere-again-11-21.webp",
+    "firstAt": [
+     393,
+     96,
+     383,
+     559
+    ]
+   },
+   "before_after": {
+    "before": "cook6-the-sphere-11-20 as he voted it ('Wip looks like shit'): the screen's rings centred on the board drew a bullseye over the fight at 10%, a light grey floor, a flat stage",
+    "after": "the screen's crown far past the tiers, its rows long bands, its panels in columns; a darker floor with confetti; the fallen truss along the stage; the seats blue",
+    "scale": "the fight on his phone upright (390 x 844) as it opens with the screen at 10%, the version he saw and now; close in; the screen at full strength"
+   },
+   "twin": {
+    "src": "fight_ground/sphere/sp_stage.webp",
+    "diffs": [
+     "THE SAME KIT, A SECOND PASS: his 'Wip' carried on (rule 466(e)).",
+     "THE ROOF NO LONGER AIMS AT THE FIGHT: the rows cross the board instead of ringing its middle.",
+     "THE STAGE HAS A THING ON IT you see from the map's eye: the truss, the length of it."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_SIX_THE_SPHERE_AGAIN_11_21_26.md"
+  }
  ],
  "verdicts": [
   {

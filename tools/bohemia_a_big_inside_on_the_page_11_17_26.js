@@ -3,7 +3,7 @@
 // phone (390 x 844 and 844 x 390 at 2), asks for the inside by name (opts.inside, a named layout), and shoots what he meets: the
 // opening view with the ceiling off (UI.noCeiling, the page test's own switch) and as the data file says, then close on named
 // spots, as the page is (ask row 646 is fixed: nothing is mended in memory any more).
-//   node tools/bohemia_a_big_inside_on_the_page_11_17_26.js <outdir> <hall|mall|warehouse|datafort|terminal|stadium|powerhouse|sphere|homecenter> [upright,sideways] [layout]
+//   node tools/bohemia_a_big_inside_on_the_page_11_17_26.js <outdir> <hall|mall|warehouse|datafort|terminal|stadium|powerhouse|sphere|homecenter|hospital|prison> [upright,sideways] [layout]
 // writes <inside>_<shape>_open_a0.png, _open_a01.png, _<spot>_close.png and page_<shape>.json (the
 // board's own count of stand-ins, the pieces with no picture, whether the ceiling's picture drew, a fight tile's size in points).
 const http = require('http'), fs = require('fs'), path = require('path');
@@ -26,8 +26,12 @@ const SPOTS = { the_split_hall: { cots: [2.5, 4], mezz: [3, 1.6], stair_w: [16.5
   the_horseshoe: { tiers: [8, 1.4], side_tiers: [2.5, 3.4], desk: [9.5, 4.4], panels: [5, 4.4], camp: [12, 5.4], torn: [9, 6.4], cases: [4, 6.4], stage: [10, 12.6], barricade: [8, 11.4] },
   the_screen_came_down: { screen: [10.5, 4.4], screen_w: [2.5, 9.4], tiers: [8, 1.4], desk: [6, 4.4], stage: [10, 12.6], camp: [12, 9.4] },
   the_store_and_the_garden: { racks: [5, 3.4], checkouts: [6, 11.4], yard: [16, 4.4], lumber: [5, 1.4], aisle: [7, 6.4] },
-  the_long_aisles: { rental: [8, 6.4], lumber: [9, 1.4], racks: [9, 3.4], propane: [9, 10.4] } };
-const INSIDES = { hall: { district: 'convention', layout: 'the_split_hall' }, mall: { district: 'mall', layout: 'the_atrium' }, warehouse: { district: 'warehouse', layout: 'the_lanes' }, datafort: { district: 'datafort', layout: 'the_white_space' }, terminal: { district: 'terminal', layout: 'the_checkpoint' }, stadium: { district: 'stadium', layout: 'the_last_show' }, powerhouse: { district: 'dam', layout: 'the_generator_floor' }, sphere: { district: 'sphere', layout: 'the_horseshoe' }, homecenter: { district: 'hardware', layout: 'the_store_and_the_garden' } };
+  the_long_aisles: { rental: [8, 6.4], lumber: [9, 1.4], racks: [9, 3.4], propane: [9, 10.4] },
+  the_emergency_room: { bays: [4, 1.4], station: [10, 5.4], chairs: [4, 13.2], wet: [4, 4.4], carts: [7, 6.4] },
+  the_ward: { beds: [3, 3.4], wet: [6, 3.4], fire: [3, 10.4] },
+  the_dayroom: { cells: [5, 2.4], dayroom: [7, 4.4], picket: [11, 6.6], flood: [5, 4.4], tier: [9, 12.4] },
+  the_two_units: { bars: [10, 5.4], cells: [2, 4.4], tier: [17, 6.4] } };
+const INSIDES = { hall: { district: 'convention', layout: 'the_split_hall' }, mall: { district: 'mall', layout: 'the_atrium' }, warehouse: { district: 'warehouse', layout: 'the_lanes' }, datafort: { district: 'datafort', layout: 'the_white_space' }, terminal: { district: 'terminal', layout: 'the_checkpoint' }, stadium: { district: 'stadium', layout: 'the_last_show' }, powerhouse: { district: 'dam', layout: 'the_generator_floor' }, sphere: { district: 'sphere', layout: 'the_horseshoe' }, homecenter: { district: 'hardware', layout: 'the_store_and_the_garden' }, hospital: { district: 'medical', layout: 'the_emergency_room' }, prison: { district: 'prison', layout: 'the_dayroom' } };
 (async () => {
   const out = process.argv[2], inside = process.argv[3] || 'hall', shapes = (process.argv[4] || 'upright,sideways').split(','), layout = process.argv[5] || INSIDES[inside].layout;
   fs.mkdirSync(out, { recursive: true });

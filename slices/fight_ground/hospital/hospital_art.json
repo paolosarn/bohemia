@@ -1,0 +1,227 @@
+{
+ "version": "cook6-hospital-art-11-21",
+ "lane": "cook 6 (COOK FIVE's list)",
+ "stage": "finished",
+ "for": "COMBAT FOUR's hospital (slices/fight_ground/hospital/hospital.json, BUILD 11/20w): the names its handoff asked for, the garage's format. floor.floor is the corridor's sheet vinyl (rows 0 to 2: its welded seams every 2 m, heel marks, a gurney's tracks, pills and a glove, now and then a dark smear dragged a few metres; nothing within 1.2 m of an edge but the vinyl); floor.wet the same vinyl slick (rows 3 and 4: water standing in the middle, its tide marks, the mop's arcs, a dry margin so it meets the floor); floor.ring the vinyl. Any tile of a list meets any tile of it.",
+ "floor": {
+  "floor": [
+   "hospital/hospital_floor_0.webp#0,0",
+   "hospital/hospital_floor_0.webp#1,0",
+   "hospital/hospital_floor_0.webp#2,0",
+   "hospital/hospital_floor_0.webp#3,0",
+   "hospital/hospital_floor_0.webp#4,0",
+   "hospital/hospital_floor_0.webp#0,1",
+   "hospital/hospital_floor_0.webp#1,1",
+   "hospital/hospital_floor_0.webp#2,1",
+   "hospital/hospital_floor_0.webp#3,1",
+   "hospital/hospital_floor_0.webp#4,1",
+   "hospital/hospital_floor_0.webp#0,2",
+   "hospital/hospital_floor_0.webp#1,2",
+   "hospital/hospital_floor_0.webp#2,2",
+   "hospital/hospital_floor_0.webp#3,2",
+   "hospital/hospital_floor_0.webp#4,2"
+  ],
+  "wet": [
+   "hospital/hospital_floor_0.webp#0,3",
+   "hospital/hospital_floor_0.webp#1,3",
+   "hospital/hospital_floor_0.webp#2,3",
+   "hospital/hospital_floor_0.webp#3,3",
+   "hospital/hospital_floor_0.webp#4,3",
+   "hospital/hospital_floor_0.webp#0,4",
+   "hospital/hospital_floor_0.webp#1,4",
+   "hospital/hospital_floor_0.webp#2,4",
+   "hospital/hospital_floor_0.webp#3,4",
+   "hospital/hospital_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "hospital/hospital_floor_0.webp#0,0",
+   "hospital/hospital_floor_0.webp#1,0",
+   "hospital/hospital_floor_0.webp#2,0",
+   "hospital/hospital_floor_0.webp#3,0",
+   "hospital/hospital_floor_0.webp#4,0",
+   "hospital/hospital_floor_0.webp#0,1",
+   "hospital/hospital_floor_0.webp#1,1",
+   "hospital/hospital_floor_0.webp#2,1",
+   "hospital/hospital_floor_0.webp#3,1",
+   "hospital/hospital_floor_0.webp#4,1",
+   "hospital/hospital_floor_0.webp#0,2",
+   "hospital/hospital_floor_0.webp#1,2",
+   "hospital/hospital_floor_0.webp#2,2",
+   "hospital/hospital_floor_0.webp#3,2",
+   "hospital/hospital_floor_0.webp#4,2"
+  ]
+ },
+ "kit": {
+  "hs_bay": {
+   "kind": "LOW_COVER",
+   "h": 2.35,
+   "name": "TREATMENT BAYS",
+   "stage": "finished",
+   "src": "hospital/hs_bay.webp",
+   "w": 516,
+   "h_px": 221,
+   "foot": [
+    258.2,
+    213
+   ]
+  },
+  "hs_beds": {
+   "kind": "LOW_COVER",
+   "h": 1.0,
+   "name": "WARD BEDS",
+   "stage": "finished",
+   "src": "hospital/hs_beds.webp",
+   "w": 515,
+   "h_px": 142,
+   "foot": [
+    257.8,
+    128
+   ]
+  },
+  "hs_pharmacy": {
+   "kind": "COVER",
+   "h": 2.7,
+   "name": "THE PHARMACY'S CAGE",
+   "stage": "finished",
+   "src": "hospital/hs_pharmacy.webp",
+   "w": 429,
+   "h_px": 395,
+   "foot": [
+    215.3,
+    335
+   ]
+  },
+  "hs_wall_ew": {
+   "kind": "WALL",
+   "h": 2.4,
+   "name": "THE HOSPITAL'S WALL",
+   "stage": "finished",
+   "src": "hospital/hs_wall_ew.webp",
+   "w": 516,
+   "h_px": 139,
+   "foot": [
+    258.2,
+    119
+   ]
+  },
+  "hs_wall_ns": {
+   "kind": "WALL",
+   "h": 2.4,
+   "name": "THE HOSPITAL'S WALL",
+   "stage": "finished",
+   "src": "hospital/hs_wall_ns.webp",
+   "w": 52,
+   "h_px": 456,
+   "foot": [
+    26.2,
+    455
+   ]
+  },
+  "hs_partition_ew": {
+   "kind": "WALL",
+   "h": 2.1,
+   "name": "THE BAYS' PARTITION",
+   "stage": "finished",
+   "src": "hospital/hs_partition_ew.webp",
+   "w": 515,
+   "h_px": 113,
+   "foot": [
+    257.8,
+    102
+   ]
+  },
+  "hs_partition_ns": {
+   "kind": "WALL",
+   "h": 2.1,
+   "name": "THE BAYS' PARTITION",
+   "stage": "finished",
+   "src": "hospital/hs_partition_ns.webp",
+   "w": 52,
+   "h_px": 461,
+   "foot": [
+    26.7,
+    460
+   ]
+  },
+  "hs_station": {
+   "kind": "COVER",
+   "h": 1.2,
+   "name": "THE NURSES' STATION",
+   "stage": "finished",
+   "src": "hospital/hs_station.webp",
+   "w": 258,
+   "h_px": 222,
+   "foot": [
+    129.3,
+    192
+   ]
+  },
+  "hs_gurney": {
+   "kind": "LOW_COVER",
+   "h": 0.9,
+   "name": "GURNEYS",
+   "stage": "finished",
+   "src": "hospital/hs_gurney.webp",
+   "w": 198,
+   "h_px": 129,
+   "foot": [
+    95.3,
+    105
+   ]
+  },
+  "hs_carts": {
+   "kind": "LOW_COVER",
+   "h": 1.62,
+   "name": "CRASH CARTS",
+   "stage": "finished",
+   "src": "hospital/hs_carts.webp",
+   "w": 180,
+   "h_px": 159,
+   "foot": [
+    69.3,
+    135
+   ]
+  },
+  "hs_chairs": {
+   "kind": "LOW_COVER",
+   "h": 0.9,
+   "name": "WAITING ROOM CHAIRS",
+   "stage": "finished",
+   "src": "hospital/hs_chairs.webp",
+   "w": 309,
+   "h_px": 163,
+   "foot": [
+    129.2,
+    145
+   ]
+  }
+ },
+ "how_it_lays": {
+  "the bays": "hs_bay is a tile wide: three bays of 4 m, each a stretcher at its headwall 3.4 m north of the foot (your 'at' [0.5, 0.75]), the curtain tracks at 2.35 m. hs_partition_ew / _ns: the bays' partition, a tile long, 2.1 m (your 'W', an air wall).",
+  "the ward": "hs_beds is a tile wide: five frames 2.4 m apart, so a run of tiles is one row of beds.",
+  "the middle": "hs_station a counter in a U 5.2 m wide (your two by two of 'n' lays four); hs_pharmacy a cage 9.6 by 6.4 m, 2.7 m up, foot its south face middle (your 'at' [0.5, 0.95]), the bottles out of its hole to the south.",
+  "the corridor": "hs_gurney (and a wheelchair), hs_carts (the crash cart, two IV poles, the oxygen rack), hs_chairs (two rows and one more): foot each at its south edge middle.",
+  "the walls": "hs_wall_ew / _ns: painted block to 2.4 m, the crash rail, a tile long."
+ },
+ "bytes": {
+  "floor": 234572,
+  "ceiling": 24090
+ },
+ "ceiling": {
+  "sheet": "hospital/hospital_ceiling.webp",
+  "bays": [
+   5,
+   5
+  ],
+  "bay_px": [
+   129,
+   91
+  ],
+  "covers": [
+   10,
+   10
+  ],
+  "what": "the dropped ceiling: its lay-in grid and tiles, tiles out in runs where the wiring hangs and the dark over them, the 2 by 4 light panels dead, a diffuser in every bay, a camera's dome in some, the stains where the roof leaked",
+  "contract": "hospital.json 'ceiling' (COMBAT FOUR's: the fight draws it over the board at that alpha, rule 451(a)); five bays by five that repeat"
+ }
+}
