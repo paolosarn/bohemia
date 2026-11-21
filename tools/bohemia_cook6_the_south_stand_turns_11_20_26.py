@@ -70,14 +70,8 @@ def stand_n(P, ox, oy, rng):
     P.box('conc', ox - 6, ox + 6, oy, oy + 12, 0.0, LH - 0.02); P.box('st_tread', ox - 6, ox + 6, oy, oy + 12, LH - 0.02, LH)
     for k in range(14):                                         # the treads' nosings, mirrored (the same on every tile's edge)
         y = oy + (k + 1) * ROW_P
-        P.box('under', ox - 6, ox + 6, y, y + 0.05, LH, LH + 0.004); P.box('conc', ox - 6, ox + 6, y - 0.06, y, LH, LH + 0.01)
-    for k in range(11):                                         # the brackets, in the turned seats' own rows
-        y = oy + SD.SEAT_Y0 + k * ROW_P
-        for i in range(23):
-            if rng.rand() < 0.3: continue
-            x = ox - 5.98 + 0.3 + i * 0.52
-            P.box('steel', x - 0.05, x + 0.05, y + 0.06, y + 0.3, LH, LH + 0.03)
-            if rng.rand() < 0.35: P.box('steel', x - 0.025, x + 0.025, y + 0.12, y + 0.24, LH + 0.03, LH + rng.uniform(0.06, 0.14))
+        P.box('under', ox - 6, ox + 6, y, y + 0.05, LH, LH + 0.004); P.box('st_nose', ox - 6, ox + 6, y - 0.06, y, LH, LH + 0.01)
+    SD.deck_rows(P, ox, oy + SD.SEAT_Y0, rng, seat_n)            # (11/21) a run or two of seats nobody unbolted, the brackets of the rest
     P.box('ribbon', ox - 6, ox + 6, oy + 12, oy + 12.04, LH - 0.66, LH - 0.08); P.box('pad', ox - 6, ox + 6, oy + 12, oy + 12.03, 0.0, LH - 0.7)   # on the field's side
     P.box('conc', ox - 6, ox + 6, oy - 0.03, oy, 0.0, LH - 0.02)                                       # its back, toward the camera
     P.box('stain', ox + 2.3, ox + 2.8, oy - 0.034, oy - 0.03, 0.0, LH - 0.1)                            # where a drain ran down it

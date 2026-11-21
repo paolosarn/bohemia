@@ -284,8 +284,8 @@
   "the bowl": "st_wall_ew / st_wall_ns: concrete to 2.2 m, the padding to 1.25 (one panel torn to the foam), the ribbon board dead above it, names chalked on the pad; a tile long."
  },
  "bytes": {
-  "floor": 155962,
-  "ceiling": 72824
+  "floor": 137688,
+  "ceiling": 53920
  },
  "ceiling": {
   "sheet": "stadium/stadium_ceiling.webp",
@@ -302,7 +302,7 @@
    15
   ],
   "whole": true,
-  "what": "the translucent roof's panels on a net of cables running out from the ring over midfield (its glazing grid, most panes out), panels gone here and there, the rim solid over the stands, the light banks round it with every head dead, the catwalks, the dead scoreboard over the west end zone: one picture the size of the board",
+  "what": "the translucent roof's cushions in rows stand to stand between their cables, on cable trusses every few rows, dust in them darker toward the rims, a ragged patch of them torn out over midfield (the day through it) and one here and there, a few sagged, the rim solid over the stands, the light banks with every head dead, the catwalks, the scoreboard dead over the west end zone: one picture the size of the board (no ring: the first one's drew a target over the fight)",
   "contract": "stadium.json 'ceiling' (COMBAT THREE's: the fight draws it over the board at that alpha, rule 451(a)); 'tile' [20, 15] is the board: ONE picture, never repeated (COMBAT THREE's own offer)"
  }
 }

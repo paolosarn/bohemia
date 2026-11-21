@@ -22457,7 +22457,93 @@
   },
   {"id": "jobs-do-less-show-the-clout-11-21", "kind": "ui", "lane": "jobs", "sha": "aa4003d1a", "made": "11/21", "draft": true, "title": "DO LESS, SHOW THE CLOUT: TWO JOB EXTRAS GONE, THE CARD QUIETER, CLOUT ON THE TOP BAR", "said": "his votes of 11/21 (rule 466(c)): push the pay and paid into your place killed; the card stops explaining; 'Where tf do you see your clout????'", "why": "Your votes: the Ask button on a job card and Into your place are gone. The card no longer spells out what dropping or failing costs; it still costs the same, quietly. And your CLOUT is on the top bar now, the last number after your supplies, so you always see it.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_DO_LESS_SHOW_THE_CLOUT.jpg"}, "before_after": {"before": "a job card had Ask +7% and Into your place buttons and two lines of DROP IT / FAIL IT numbers; CLOUT was nowhere you looked", "after": "a job card has Take it and Not now; dropping or failing still costs the same; the top bar ends with CLOUT and your number", "scale": "left: the game on a phone upright (390 x 844 at 3), the demo; right: what changed, measured"}, "record": "records/BOHEMIA_JOBS_DO_LESS_SHOW_THE_CLOUT_11_21_26.md", "build": "BUILD 11/21t - DO LESS, SHOW THE CLOUT"},
   {"id": "combat4-the-courthouse-11-21", "kind": "tile", "lane": "combat 4", "sha": "8ac1eb5f5", "made": "11/21", "draft": true, "title": "A FIGHT CAN START INSIDE THE MOB MUSEUM: THE OLD COURTROOM'S PEWS AND JUDGE'S BENCH, OR THE MUSEUM FLOOR'S EXHIBIT CASES", "said": "what are some large ass interiors that we could fight", "why": "Eight fights in ten at the Mob Museum, the old 1933 courthouse downtown, now happen inside it: the courtroom, where the pews slow you down and the bar, the bench and the jury box are cover, or the museum floor, where broken exhibit cases and walls cut the room into bays. You see it on the fight screen when a fight starts at the Mob Museum on the map (tap any tile and it says what it does).", "show": {"how": "image", "src": "../records/target/COMBAT4_THE_COURTHOUSE_11_21.webp", "first": "../records/target/vote_first/combat4-the-courthouse-11-21.webp", "firstAt": [0, 0, 1170, 826]}, "before_after": {"before": "main before this build: a fight at the Mob Museum was fought on the downtown blocks outside", "after": "the courthouse: two layouts mirrored, 15 kinds of tile each with its cost and effect, no high ground; one data file, every picture a STAND-IN until COOK's kit is in", "scale": "the top row is the fight page opened alone with each layout asked for, far out; the bottom is the fight's own camera, a real fight opened through the map's own door"}, "stage": "stand_in", "record": "records/BOHEMIA_COMBAT_FOUR_THE_COURTHOUSE_11_21_26.md"},
-  {"id": "jobs-the-fight-is-the-cards-11-21", "kind": "ui", "lane": "jobs", "sha": "6b556d3df", "made": "11/21", "draft": true, "title": "THE FIGHT IS THE ONE THE CARD SAID: FOUR JOBS THAT SWAPPED WHO SHOWS UP", "said": "the handoff's next job after his votes (rule 461): [a job that changes after the yes]", "why": "Four jobs named one crowd on the card and sent another to the fight. The camp at Hoover Dam said 4 water people and 7 coyotes came. The pump station job said 2 water people; when they moved the stolen part two blocks, 4 thugs came instead. The farm job read its guards in the wrong spot. The patrol to the dam said two crews of 2 kids and sent 2 bison, then a bull. Now the fight is the card's on every job we walked, on the demo and the alpha, upright and sideways. Tap a town, then BOARD, then a person: the 'What it asks' line is who you will fight.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_THE_FIGHT_IS_THE_CARDS.jpg"}, "before_after": {"before": "4 jobs met a different crowd than the card said: the dam camp (4 water people read, 7 coyotes came), the pump station after the move (2 read, 4 thugs came), the farm (3 house men read, 4 kids came), the dam patrol (2 kids twice read, 2 bison then a bull came)", "after": "every job walked to its fight: 37 of 37 fights met the card's crowd on all four phones; the camp at the dam read 8 Block Watch and 8 Block Watch came at 22:59", "scale": "left: the game on a phone upright (390 x 844 at 3), the demo; right: what changed, measured"}, "record": "records/BOHEMIA_JOBS_THE_FIGHT_IS_THE_CARDS_11_21_26.md", "build": "BUILD 11/21z - THE FIGHT IS THE ONE THE CARD SAID"}
+  {"id": "jobs-the-fight-is-the-cards-11-21", "kind": "ui", "lane": "jobs", "sha": "6b556d3df", "made": "11/21", "draft": true, "title": "THE FIGHT IS THE ONE THE CARD SAID: FOUR JOBS THAT SWAPPED WHO SHOWS UP", "said": "the handoff's next job after his votes (rule 461): [a job that changes after the yes]", "why": "Four jobs named one crowd on the card and sent another to the fight. The camp at Hoover Dam said 4 water people and 7 coyotes came. The pump station job said 2 water people; when they moved the stolen part two blocks, 4 thugs came instead. The farm job read its guards in the wrong spot. The patrol to the dam said two crews of 2 kids and sent 2 bison, then a bull. Now the fight is the card's on every job we walked, on the demo and the alpha, upright and sideways. Tap a town, then BOARD, then a person: the 'What it asks' line is who you will fight.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_THE_FIGHT_IS_THE_CARDS.jpg"}, "before_after": {"before": "4 jobs met a different crowd than the card said: the dam camp (4 water people read, 7 coyotes came), the pump station after the move (2 read, 4 thugs came), the farm (3 house men read, 4 kids came), the dam patrol (2 kids twice read, 2 bison then a bull came)", "after": "every job walked to its fight: 37 of 37 fights met the card's crowd on all four phones; the camp at the dam read 8 Block Watch and 8 Block Watch came at 22:59", "scale": "left: the game on a phone upright (390 x 844 at 3), the demo; right: what changed, measured"}, "record": "records/BOHEMIA_JOBS_THE_FIGHT_IS_THE_CARDS_11_21_26.md", "build": "BUILD 11/21z - THE FIGHT IS THE ONE THE CARD SAID"},
+  {
+   "kind": "tile",
+   "lane": "cook 6",
+   "sha": "SHIPSHA",
+   "made": "11/21",
+   "draft": true,
+   "said": "Wip",
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "id": "cook6-the-stadium-again-11-21",
+   "title": "THE STADIUM AGAIN, AFTER YOUR 'WIP': NO MORE TARGET OVER THE FIGHT, THE STANDS ONE DARK BAND, A DARKER FIELD",
+   "why": "You said the stadium was a work in progress. On your phone the worst of it was the roof: a ring over midfield with 28 cables out of it and four rings round it, so at 10% a spider's web sat over every fight. Now the roof is what a see-through stadium roof is from under it: long cushions in rows from stand to stand on their cables, a ragged patch torn out over midfield where the day comes through, the scoreboard's face black. The stands were a black-and-white checkerboard (the bare concrete between the seat blocks was white); now the concrete is dark, with a run of seats left in a row and the brackets of the rest. The field is a step darker with the old mower's stripes still in the dead grass. You meet it when a fight starts at the stadium, in the RUN tab.",
+   "options": [
+    "A, yes, better",
+    "B, close, change something (say what)",
+    "C, no, still not it"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK6_THE_STADIUM_AGAIN_11_21.webp",
+    "first": "../records/target/vote_first/cook6-the-stadium-again-11-21.webp",
+    "firstAt": [
+     590,
+     96,
+     580,
+     847
+    ]
+   },
+   "before_after": {
+    "before": "cook6-the-stadium-11-20 as he voted it ('Wip'): the roof's ring, spokes and cable rings drew a target over the fight at 10%; the stand row a checkerboard of black seats and white concrete; a light tan field",
+    "after": "the roof's cushions in rows stand to stand, torn out over midfield; the deck dark with seats left in runs; the field darker with the mower's stripes",
+    "scale": "the fight on his phone upright (390 x 844) as it opens with the roof at 10%, the version he saw and now; close in on the stand; the roof at full strength; a tile of the field and the deck"
+   },
+   "twin": {
+    "src": "fight_ground/sphere/sp_stage.webp",
+    "diffs": [
+     "THE SAME FINDING AS THE SPHERE'S: a roof that rings the middle of the board aims at the fight; the answer the same, rows that cross it.",
+     "THE STANDS READ AS ONE STAND: the deck between the seat blocks dark, not white.",
+     "THE FIELD QUIETER: darker, the stripes soft at every join so any tile meets any tile."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_SIX_THE_STADIUM_AGAIN_11_21_26.md"
+  },
+  {
+   "kind": "tile",
+   "lane": "cook 6",
+   "sha": "SHIPSHA",
+   "made": "11/21",
+   "draft": true,
+   "said": "Wip",
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "id": "cook6-the-powerhouse-again-11-21",
+   "title": "THE POWERHOUSE AGAIN, AFTER YOUR 'WIP': THE RED SUNBURSTS OFF THE FLOOR",
+   "why": "You said the powerhouse was a work in progress. On your phone the floor was the loudest thing in the fight: a red-and-white sunburst ring on near half the tiles, so the whole board read as peppermint wallpaper under your men. Now the dam's terrazzo is plain cream with its joints and dust, and one Southwest pattern here and there (a stepped diamond, a zigzag band), faded where the feet went. The generators, the cranes, the balcony and the roof are as they were. You meet it when a fight starts inside the dam's powerhouse, in the RUN tab.",
+   "options": [
+    "A, yes, better",
+    "B, close, change something (say what)",
+    "C, no, still not it"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK6_THE_POWERHOUSE_AGAIN_11_21.webp",
+    "first": "../records/target/vote_first/cook6-the-powerhouse-again-11-21.webp",
+    "firstAt": [
+     590,
+     96,
+     580,
+     743
+    ]
+   },
+   "before_after": {
+    "before": "cook6-the-powerhouse-11-20 as he voted it ('Wip'): a ring of red chevrons a tile wide on near half the floor's tiles, laid at random over the whole board",
+    "after": "plain terrazzo; a pattern on two of its fifteen tiles, faded",
+    "scale": "the fight on his phone upright (390 x 844) as it opens with the roof at 10%, the version he saw and now; close in by the generators; the floor's tiles"
+   },
+   "twin": {
+    "src": "fight_ground/powerhouse/pw_unit.webp",
+    "diffs": [
+     "THE SAME KIT, A SECOND PASS: his 'Wip' carried on (rule 466(e)).",
+     "THE FLOOR IS QUIET so the men are loud (Battle Brothers reads its ground at a glance).",
+     "THE PATTERN IS RARE, as the dam's own floor sets them: single inlays in a plain field."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_SIX_THE_POWERHOUSE_AGAIN_11_21_26.md"
+  }
  ],
  "verdicts": [
   {

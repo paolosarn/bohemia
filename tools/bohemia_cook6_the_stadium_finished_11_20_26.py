@@ -92,7 +92,7 @@ def plan_st_floor(ID, seed=137):
     patch = TG.mixn(FW.vnoise((H, W), 2.2 * PPM, rng), TG.pnoise(rng, 2.0), w)
     blot = TG.mixn(FW.vnoise((H, W), 1.1 * PPM, rng), TG.pnoise(rng, 1.0), w)
     # the straw is not one tone: bleached where the sun had it, darker where the last water stood
-    pale = np.clip((patch - 0.55) / 0.25, 0, 1) * 0.3
+    pale = np.clip((patch - 0.55) / 0.25, 0, 1) * 0.18                       # (11/21: 0.3 read as pale stains at his zoom)
     dark = np.clip((0.42 - patch) / 0.22, 0, 1) * 0.22
     turf = np.isin(row, TURF_ROWS)
     # the grain of dead grass: a fine mottle of paler and darker straw (tufts a hand across), the same everywhere
@@ -102,7 +102,7 @@ def plan_st_floor(ID, seed=137):
     # the patches where the turf died to dust, inside a tile, in rounds: bleached pale, never a dark stain (the first render
     # read them as oil on the field)
     tb = TG.top(blot * w, 0.03); bare = turf & (blot * w > tb)
-    pale = np.maximum(pale, np.clip((blot * w - (tb - 0.05)) / 0.05, 0, 1) * 0.5 * turf)
+    pale = np.maximum(pale, np.clip((blot * w - (tb - 0.05)) / 0.05, 0, 1) * 0.32 * turf)
     # what the trucks' tyres pressed into it: a pair of curved ruts across a few tiles, fading out before a tile's edge
     for (r, c, x0, y0, a0, bend) in ((0, 1, 1.5, 9.0, -0.25, 0.05), (1, 4, 1.0, 3.0, 0.3, -0.04), (2, 2, 2.0, 10.0, -0.45, 0.06), (1, 0, 1.2, 6.5, 0.12, 0.03)):
         for off in (-0.95, 0.95):
@@ -154,6 +154,15 @@ def plan_st_floor(ID, seed=137):
     tread = np.abs(((ly + 0.25) % (TMT / 14.0)) - 0.03) < 0.03
     dark = np.where(st, np.maximum(tread * 0.38, np.clip((0.4 - patch) / 0.3, 0, 1) * 0.12), dark)
     pale = np.where(st, 0.06, pale)
+    # (11/21, after his 'Wip', looked at on his phone) A DEAD VENUE IS DARK: the straw a step down everywhere (the first field read
+    # as sand under the day's pools), and THE MOWER'S STRIPES still in it, the west half of every tile a shade darker than the east,
+    # so the stripes change at every yard line and every tile's edge (any tile meets any tile); the step row with the stand's deck
+    fld = np.isin(row, TURF_ROWS) | (row == TORN_ROW)
+    # (the stripe eases over about a metre at the yard line and at the tile's edge, half way at both, so a join is never a step: THE GATE's
+    #  A3 caught the first, hard-edged stripes as a step of 7.8 at every join against 6.8 allowed)
+    stripe = 0.5 + 0.5 * np.clip(np.sin(2 * np.pi * lx / TMT) * 2.6, -1, 1)
+    dark = np.where(fld, np.clip(dark + 0.28 + 0.13 * stripe, 0, 1), dark)   # (0.15 and 0.08 moved the field 143 to 133, the stripes unseen)
+    dark = np.where(st, np.clip(dark + 0.22, 0, 1), dark)
     return gid, np.clip(dark, 0, 1), np.clip(pale, 0, 1)
 
 
@@ -187,21 +196,29 @@ def stand(P, ox, oy, rng):
     P.box('conc', ox - 6, ox + 6, oy, oy + 12, 0.0, LEVEL_H - 0.02); P.box('st_tread', ox - 6, ox + 6, oy, oy + 12, LEVEL_H - 0.02, LEVEL_H)
     for k in range(14):                                         # the treads' nosings (the same on every tile's edge)
         y = oy + 12 - (k + 1) * ROW_P
-        P.box('under', ox - 6, ox + 6, y - 0.05, y, LEVEL_H, LEVEL_H + 0.004); P.box('conc', ox - 6, ox + 6, y, y + 0.06, LEVEL_H, LEVEL_H + 0.01)
-    for k in range(11):                                         # the brackets: what is left where a seat was torn out (the seats' own rows and places, so
-        y = oy + SEAT_Y0 + k * ROW_P                            # on a seats tile a bracket stands under its own seat; the front walk clear)
-        for i in range(23):
-            if rng.rand() < 0.3: continue
-            x = ox - 5.98 + 0.3 + i * 0.52
-            P.box('steel', x - 0.05, x + 0.05, y + 0.06, y + 0.3, LEVEL_H, LEVEL_H + 0.03)                    # its foot plate, bolted down
-            if rng.rand() < 0.35: P.box('steel', x - 0.025, x + 0.025, y + 0.12, y + 0.24, LEVEL_H + 0.03, LEVEL_H + rng.uniform(0.06, 0.14))   # a stub of the standard, sawn off
-            # (the first render stood every standard to 0.42 m: its shadow read as a scratch on the concrete, row after row)
+        P.box('under', ox - 6, ox + 6, y - 0.05, y, LEVEL_H, LEVEL_H + 0.004); P.box('st_nose', ox - 6, ox + 6, y, y + 0.06, LEVEL_H, LEVEL_H + 0.01)
+    deck_rows(P, ox, oy + SEAT_Y0, rng, seat)
     P.box('ribbon', ox - 6, ox + 6, oy - 0.04, oy, LEVEL_H - 0.66, LEVEL_H - 0.08)                       # the ribbon board, dead
     for k in range(3): x = ox - 5 + rng.uniform(0, 9); P.box('tape', x, x + 0.6, oy - 0.046, oy - 0.04, LEVEL_H - 0.6, LEVEL_H - 0.14)   # its dead modules
     P.box('pad', ox - 6, ox + 6, oy - 0.03, oy, 0.0, LEVEL_H - 0.7)                                       # the padding under it
     for x in (ox - 6, ox - 4, ox - 2, ox, ox + 2, ox + 4): P.box('under', x, x + 0.02, oy - 0.034, oy - 0.03, 0.0, LEVEL_H - 0.7)
     P.box('rug', ox - 3.4, ox - 1.6, oy + 0.4, oy + 1.5, LEVEL_H, LEVEL_H + 0.05); P.box('white', ox - 3.3, ox - 2.9, oy + 0.5, oy + 0.9, LEVEL_H + 0.05, LEVEL_H + 0.12)   # somebody's blanket on the front walk
     for _ in range(12): x = ox + rng.uniform(-5.6, 5.6); y = oy + rng.uniform(0.3, 2.1); P.drum(('jug', 'paper', 'can')[rng.randint(3)], x, y, LEVEL_H, LEVEL_H + 0.12, 0.045, 8)   # the cups
+
+
+def deck_rows(P, ox, y0, rng, seat_fn):
+    """(11/21, after his 'Wip': the first deck read as a white sheet between the seats, a checkerboard down the stand) what is left
+    in a stand's rows where the seats were taken: a run or two of seats in a row nobody unbolted (folded up, one down), the brackets
+    of the rest with a stub of the standard sawn off. In the seats' own rows and places, so on a seats tile they stand under its seats."""
+    for k in range(11):
+        y = y0 + k * ROW_P; left = np.zeros(23, bool)
+        for _ in range(rng.randint(0, 3)): a = rng.randint(0, 23); left[a:a + rng.randint(3, 8)] = True
+        for i in range(23):
+            x = ox - 5.98 + 0.3 + i * 0.52
+            if left[i] and rng.rand() > 0.1: seat_fn(P, x, y, LEVEL_H, 'down' if rng.rand() < 0.12 else 'up', rng, 'seat'); continue
+            if rng.rand() < 0.2: continue
+            P.box('steel', x - 0.05, x + 0.05, y + 0.06, y + 0.3, LEVEL_H, LEVEL_H + 0.03)                    # its foot plate, bolted down
+            if rng.rand() < 0.45: P.box('steel', x - 0.025, x + 0.025, y + 0.12, y + 0.24, LEVEL_H + 0.03, LEVEL_H + rng.uniform(0.06, 0.14))   # a stub of the standard, sawn off
 
 
 def seat(P, x, y, z, how, rng, m='seat'):
@@ -443,18 +460,21 @@ def st_parts(P, rng):
 
 
 def st_mats(bpy, NF, F, M, which):
-    if which not in ('st_pieces', 'tun_pieces'): return         # ('tun_pieces' is what the ceiling's scene asks its materials by)
-    if which == 'st_pieces': TM.tm_mats(bpy, NF, F, M, 'tm_pieces')            # the terminal's, the fort's, the warehouse's and the mall's own
+    if which not in ('st_pieces', 'tun_pieces', 'st_deck'): return         # ('tun_pieces' is what the ceiling's scene asks its materials by)
+    if which in ('st_pieces', 'st_deck'): TM.tm_mats(bpy, NF, F, M, 'tm_pieces')            # the terminal's, the fort's, the warehouse's and the mall's own
     M.update(seat=NF.material(bpy, 'in_seat_black', 'rubber', 1, 0.95), seat_g=NF.material(bpy, 'in_seat_grey', 'tape_grey', 2, 0.85),
-             st_tread=NF.material(bpy, 'in_stall_tread', 'tape_grey', 3, 0.92), pad=NF.material(bpy, 'in_pad_vinyl', 'clay_teal', 0, 0.85),
+             st_tread=NF.material(bpy, 'in_black_stall_tread', 'tape_grey', 1, 0.92), st_nose=NF.material(bpy, 'in_stall_nose', 'tape_grey', 2, 0.9), pad=NF.material(bpy, 'in_pad_vinyl', 'clay_teal', 0, 0.85),
              ribbon=NF.material(bpy, 'in_ribbon_dead', 'rubber', 0, 1.0), paint_k=NF.material(bpy, 'in_paint_black', 'rubber', 1, 0.9),
              canvas=NF.material(bpy, 'in_tarp_canvas', 'tape_masking', 3, 0.92), canvas_r=NF.material(bpy, 'in_tarp_canvas_roof', 'tape_masking', 2, 0.88),
              wrap=NF.material(bpy, 'in_wrap', 'tape_grey', 4, 0.75), helm=NF.material(bpy, 'in_paint_helmet', 'tape_grey', 1, 1.0),
              truss=NF.material(bpy, 'in_ceil_truss', 'tape_grey', 1, 0.6), etfe=NF.material(bpy, 'in_ceil_etfe', 'clay_bone', 4, 1.0),
-             etfe_d=NF.material(bpy, 'in_ceil_etfe_dirty', 'tape_masking', 3, 0.85), cable=NF.material(bpy, 'in_ceil_cable', 'rubber', 1, 0.9))
+             etfe_d=NF.material(bpy, 'in_ceil_etfe_dirty', 'tape_masking', 3, 0.85), cable=NF.material(bpy, 'in_ceil_cable', 'rubber', 1, 0.9),
+             etfe_m=NF.material(bpy, 'in_ceil_etfe_mid', 'tape_masking', 2, 0.9), etfe_k=NF.material(bpy, 'in_black_etfe_dust', 'tape_masking', 1, 0.95),
+             sb_face=NF.material(bpy, 'in_black_scoreboard', 'rubber', 0, 1.0))
 
 
 TG.PARTS['st_pieces'] = st_parts
+TG.PARTS['st_deck'] = lambda P, rng: stand(P, *ST_AT['stand'], rng)     # (11/21) the stand's deck alone, for its second pass
 TG.MAT_HOOKS.append(st_mats)
 
 
@@ -469,68 +489,45 @@ def bat(bx, by, z=0.0):
 
 
 def ceil_stadium(P, rng):
-    """the translucent roof's panels on a net of cables running out from the ring, the ring over midfield with its panes out, the
-    light banks round the rim (every head dead), the catwalks, the dead scoreboard over the west end zone"""
+    """(11/21, after his 'Wip') the translucent roof as a roof of its kind is: long ETFE cushions in rows across the short span,
+    stand to stand, between parallel cables, on cable trusses every few rows; years of dust in the cushions, darker toward the rims;
+    cushions torn out in a ragged patch over midfield (the clear part COMBAT THREE's midfield sits under: the light comes straight
+    down) and one here and there; a few sagged; the rim solid over the stands; the light banks with every head dead; the catwalks;
+    the scoreboard, dead, over the west end zone. NO RING AND NO RADIAL NET: the first roof's ellipse, its 28 radial cables and
+    four cable rings drew a target over the whole fight at his 10% (found on his phone, the same as the Sphere's)."""
     cx, cy = BOARD[0] / 2.0, BOARD[1] / 2.0
-    P.box('etfe', -3.0, 63.0, -3.0, 63.0, -0.3, 0.0)                                                    # the panels, pale (the day through them)
-    rx, ry = 4.2, 3.0                                                                                   # the ring, in tiles
-    # the panels' own dirt: what years of dust and birds did, darker toward the rim
-    for _ in range(260):
-        bx, by = rng.uniform(-0.5, BOARD[0] + 0.5), rng.uniform(-0.5, BOARD[1] + 0.5); e = ((bx - cx) / (BOARD[0] / 2)) ** 2 + ((by - cy) / (BOARD[1] / 2)) ** 2
-        if e < 0.55 or rng.rand() > min(1.0, e * 0.8): continue
-        x, y = bat(bx, by, 0.01); r_ = rng.uniform(0.6, 1.8) * CT * 0.4
-        P.drum('etfe_d', x, y, 0.0, 0.01 + 0.002 * rng.rand(), r_, 10)
+    P.box('etfe_k', -3.0, 63.0, -3.0, 63.0, -0.3, 0.0)                                                  # the valleys between the cushions: dark with years of dust
+    SP = 20.0 / 48                                                                                      # a row of cushions: 48 across the board, stand to stand
+    JN = 15.0 / 8                                                                                       # their cross joints, eight down a row (lined up: a roof's grid)
+    hole_n = lambda bx, by: math.sin(bx * 1.31 + 0.7) * math.cos(by * 0.93 - 0.4) * 0.5 + math.sin(bx * 0.47 - by * 0.61) * 0.5
+    for i in range(48):
+        for j in range(8):
+            bx0, bx1, by0, by1 = i * SP + 0.035, (i + 1) * SP - 0.035, j * JN + 0.06, (j + 1) * JN - 0.06
+            mx, my = (bx0 + bx1) / 2, (by0 + by1) / 2
+            if by1 < 1.4 or by0 > BOARD[1] - 1.4: continue                                           # (the rim covers these)
+            e = max(abs(mx - cx) / (BOARD[0] / 2), abs(my - cy) / (BOARD[1] / 2))                     # 0 midfield, 1 the rim
+            mid = abs(mx - cx) < 4.2 and abs(my - cy) < 2.9
+            gone = (mid and rng.rand() < 0.42 + 0.35 * hole_n(mx, my)) or rng.rand() < 0.025
+            xa, ya = bat(bx0, by1, 0.02); xb, yb = bat(bx1, by0, 0.02)
+            if gone:                                                                                    # out: the day through it, and a rag of it hanging off its frame
+                P.box('white', xa, xb, ya, yb, 0.012, 0.016)
+                if rng.rand() < 0.5:
+                    f = rng.uniform(0.15, 0.35); P.box('etfe_d', xa, xb, yb - (yb - ya) * f, yb, 0.017, 0.019) if rng.rand() < 0.5 else P.box('etfe_d', xa, xb, ya, ya + (yb - ya) * f, 0.017, 0.019)
+                continue
+            t = e * 0.75 + rng.uniform(-0.18, 0.18) + 0.12 * math.sin(mx * 0.9 + my * 0.4)
+            m = 'etfe' if t < 0.3 else ('etfe_m' if t < 0.62 else 'etfe_d')
+            if rng.rand() < 0.035: m = 'etfe_k'                                                        # a cushion gone soft, its dirt run into a pool
+            P.box(m, xa, xb, ya, yb, 0.01, 0.016)
+    for i in range(0, 49, 6):                                                                           # the cable trusses, stand to stand, every sixth row
+        x = bat(i * SP, 0)[0]; ya = bat(0, BOARD[1] + 0.5, 0.1)[1]; yb = bat(0, -0.5, 0.1)[1]
+        P.box('truss', x - 0.11, x + 0.11, ya, yb, 0.03, 0.06); P.box('cable', x + 0.2, x + 0.26, ya, yb, 0.03, 0.05)
+    for j in range(1, 8):                                                                               # the cross cables at the joints
+        y = bat(0, j * JN, 0.05)[1]; P.box('cable', bat(-0.5, 0)[0], bat(BOARD[0] + 0.5, 0)[0], y - 0.03, y + 0.03, 0.02, 0.03)
     # the rim: the roof goes solid over the stands (north and south rows and the end walls)
     # (the ends stop at the long sides' rims and stand a hair higher: two faces at one height render black, and the first
     #  render's four corners came out black)
-    for (x0, x1, y0, y1, h) in ((-0.5, BOARD[0] + 0.5, -0.5, 1.6, 0.05), (-0.5, BOARD[0] + 0.5, BOARD[1] - 1.6, BOARD[1] + 0.5, 0.05), (-0.5, 1.4, 1.6, BOARD[1] - 1.6, 0.056), (BOARD[0] - 1.4, BOARD[0] + 0.5, 1.6, BOARD[1] - 1.6, 0.056)):
+    for (x0, x1, y0, y1, h) in ((-0.5, BOARD[0] + 0.5, -0.5, 1.6, 0.07), (-0.5, BOARD[0] + 0.5, BOARD[1] - 1.6, BOARD[1] + 0.5, 0.07), (-0.5, 1.4, 1.6, BOARD[1] - 1.6, 0.076), (BOARD[0] - 1.4, BOARD[0] + 0.5, 1.6, BOARD[1] - 1.6, 0.076)):
         xa, ya = bat(x0, y1, h); xb, yb = bat(x1, y0, h); P.box('truss', xa, xb, ya, yb, 0.0, h)
-    # the radial cables, from the ring out to the rim; and the rings of cable round it
-    for k in range(28):
-        a = k * 2 * math.pi / 28; ca, sa = math.cos(a), math.sin(a)
-        p0 = (cx + rx * ca, cy + ry * sa); t = min(abs((BOARD[0] / 2 + 0.6) / ca) if abs(ca) > 1e-6 else 99, abs((BOARD[1] / 2 + 0.6) / sa) if abs(sa) > 1e-6 else 99)
-        p1 = (cx + t * ca, cy + t * sa); n = 24
-        for i in range(n):
-            q0 = (p0[0] + (p1[0] - p0[0]) * i / n, p0[1] + (p1[1] - p0[1]) * i / n); q1 = (p0[0] + (p1[0] - p0[0]) * (i + 1) / n, p0[1] + (p1[1] - p0[1]) * (i + 1) / n)
-            a0, a1 = bat(q0[0], q0[1], 0.12), bat(q1[0], q1[1], 0.12); P.bar('cable', (a0[0], a0[1], 0.08), (a1[0], a1[1], 0.08), 0.07)
-    for s_ in (1.35, 1.75, 2.2, 2.75):
-        n = 80
-        for i in range(n):
-            a0, a1 = i * 2 * math.pi / n, (i + 1) * 2 * math.pi / n
-            q0 = (cx + rx * s_ * math.cos(a0), cy + ry * s_ * math.sin(a0)); q1 = (cx + rx * s_ * math.cos(a1), cy + ry * s_ * math.sin(a1))
-            if not (-0.4 < q0[0] < BOARD[0] + 0.4 and -0.4 < q0[1] < BOARD[1] + 0.4): continue
-            b0, b1 = bat(q0[0], q0[1], 0.1), bat(q1[0], q1[1], 0.1); P.bar('cable', (b0[0], b0[1], 0.05), (b1[0], b1[1], 0.05), 0.05)
-    # some panels gone: holes in the skin (the day through them, brighter still: drawn as the white of the sky)
-    for _ in range(40):
-        a = rng.uniform(0, 2 * math.pi); s_ = rng.uniform(1.05, 2.9)
-        bx, by = cx + rx * s_ * math.cos(a), cy + ry * s_ * math.sin(a)
-        if not (0.5 < bx < BOARD[0] - 0.5 and 0.5 < by < BOARD[1] - 0.5): continue
-        x, y = bat(bx, by, 0.02); w_ = rng.uniform(0.25, 0.5) * CT
-        P.box('white', x - w_ / 2, x + w_ / 2, y - w_ * 0.35, y + w_ * 0.35, 0.015, 0.02)
-    # THE RING over midfield: the steel ring, its glazing bars, most panes out (white: the sky), the rest grey with dirt
-    n = 96
-    for i in range(n):
-        a0, a1 = i * 2 * math.pi / n, (i + 1) * 2 * math.pi / n
-        for (s_, w_) in ((1.0, 0.16), (0.94, 0.08)):
-            q0 = (cx + rx * s_ * math.cos(a0), cy + ry * s_ * math.sin(a0)); q1 = (cx + rx * s_ * math.cos(a1), cy + ry * s_ * math.sin(a1))
-            b0, b1 = bat(q0[0], q0[1], 0.3), bat(q1[0], q1[1], 0.3); P.bar('truss', (b0[0], b0[1], 0.25), (b1[0], b1[1], 0.25), w_ * CT * 0.5)
-    for i in range(-int(rx) - 1, int(rx) + 2):                                                          # its glazing grid
-        for j in range(-int(ry) - 1, int(ry) + 2):
-            bx, by = cx + i * 0.95, cy + j * 0.95
-            if ((bx - cx) / rx) ** 2 + ((by - cy) / ry) ** 2 > 0.82: continue
-            x, y = bat(bx, by, 0.04)
-            if rng.rand() < 0.62: P.box('white', x - 0.42 * CT, x + 0.42 * CT, y - 0.42 * CT, y + 0.42 * CT, 0.03, 0.035)   # a pane out: the sky
-            else: P.box('etfe_d', x - 0.42 * CT, x + 0.42 * CT, y - 0.42 * CT, y + 0.42 * CT, 0.03, 0.035)
-    for i in range(-int(rx), int(rx) + 2):                                                              # its glazing bars, each cut to the ring's own chord
-        bx = cx + (i - 0.5) * 0.95; u = (bx - cx) / (rx * 0.95)
-        if abs(u) >= 1: continue
-        hh = ry * 0.95 * math.sqrt(1 - u * u); ya_, yb_ = bat(bx, cy - hh, 0.08)[1], bat(bx, cy + hh, 0.08)[1]; x = bat(bx, 0)[0]
-        P.box('truss', x - 0.06, x + 0.06, yb_, ya_, 0.06, 0.08)
-    for j in range(-int(ry), int(ry) + 2):
-        by = cy + (j - 0.5) * 0.95; v = (by - cy) / (ry * 0.95)
-        if abs(v) >= 1: continue
-        hw = rx * 0.95 * math.sqrt(1 - v * v); xa_, xb_ = bat(cx - hw, by, 0.08)[0], bat(cx + hw, by, 0.08)[0]; y = bat(0, by, 0.08)[1]
-        P.box('truss', xa_, xb_, y - 0.06, y + 0.06, 0.065, 0.085)
     # the light banks round the rim, every head dead; a catwalk along each long side
     for side in (1.15, BOARD[1] - 1.15):
         x0, y = bat(1.6, side, 0.5); x1, _ = bat(BOARD[0] - 1.6, side, 0.5)
@@ -542,14 +539,15 @@ def ceil_stadium(P, rng):
         x0, y = bat(1.5, side, 0.3); x1, _ = bat(BOARD[0] - 1.5, side, 0.3)
         P.box('steel', x0, x1, y - 0.35, y + 0.35, 0.28, 0.3)
         for k in range(60): x = x0 + (x1 - x0) * k / 59; P.box('truss', x - 0.03, x + 0.03, y - 0.38, y + 0.38, 0.3, 0.32)
-    # the dead scoreboard over the west end zone, its frame and the catwalk to it
+    # the dead scoreboard over the west end zone: its face black (the first one's dusted grey read as a block), its frame, the
+    # catwalk out to it
     x0, y0 = bat(1.0, cy + 2.4, 0.9); x1, y1 = bat(3.2, cy - 2.4, 0.9)
-    P.box('truss', x0 - 0.4, x1 + 0.4, y0 - 0.4, y1 + 0.4, 0.6, 0.8); P.box('ribbon', x0, x1, y0, y1, 0.8, 0.95)
+    P.box('truss', x0 - 0.4, x1 + 0.4, y0 - 0.4, y1 + 0.4, 0.6, 0.8); P.box('sb_face', x0, x1, y0, y1, 0.8, 0.95)
     for k in range(4): P.box('tape', x0 + 0.6 + k * 1.3, x0 + 1.4 + k * 1.3, y0 + 2.0, y0 + 2.6, 0.95, 0.96)   # its dead modules
-    xa, ya = bat(3.2, cy, 0.4); xb, yb = bat(cx - rx, cy, 0.4); P.box('steel', xa, xb, ya - 0.3, ya + 0.3, 0.3, 0.4)
+    xa, ya = bat(3.2, cy, 0.4); xb, yb = bat(5.5, cy, 0.4); P.box('steel', xa, xb, ya - 0.3, ya + 0.3, 0.3, 0.4)
 
 
-TG.CEILINGS['stadium'] = (ceil_stadium, 'stadium/stadium_ceiling.webp', "the translucent roof's panels on a net of cables running out from the ring over midfield (its glazing grid, most panes out), panels gone here and there, the rim solid over the stands, the light banks round it with every head dead, the catwalks, the dead scoreboard over the west end zone: one picture the size of the board")
+TG.CEILINGS['stadium'] = (ceil_stadium, 'stadium/stadium_ceiling.webp', "the translucent roof's cushions in rows stand to stand between their cables, on cable trusses every few rows, dust in them darker toward the rims, a ragged patch of them torn out over midfield (the day through it) and one here and there, a few sagged, the rim solid over the stands, the light banks with every head dead, the catwalks, the scoreboard dead over the west end zone: one picture the size of the board (no ring: the first one's drew a target over the fight)")
 TG.CEIL_DATA['stadium'] = 'stadium/stadium.json'
 CEIL_SHIP = (1290, 685)                                         # the picture as it ships: 20 tiles of 64.5 by 15 of 45.7 (the other ceilings' own density)
 
@@ -622,6 +620,30 @@ def cut():
     print('stadium: bytes', bytes_, 'pieces', {k: (v['w'], v['h'], v['foot']) for k, v in sz.items()})
 
 
+def recut(which):
+    """(11/21, the stadium's second pass, after his 'Wip') re-cut only what changed, into the folder as it stands: the whole cut()
+    rebuilds the kit from st_pieces alone and would drop the south stand's two pictures. 'floor', 'stand' (from the st_deck
+    render, laid on st_stand's own canvas: the same size and foot), 'ceiling'."""
+    p = os.path.join(SHIP, 'stadium_art.json'); art = json.load(open(p)); b = art.setdefault('bytes', {})
+    if 'floor' in which:
+        im = Image.open(os.path.join(REND, 'st_floor.png')).convert('RGB'); fn = os.path.join(SHIP, 'stadium_floor_0.webp'); im.save(fn, 'WEBP', quality=TG.QS, method=6); b['floor'] = os.path.getsize(fn)
+    if 'stand' in which:
+        im = Image.open(os.path.join(REND, 'st_deck.png')).convert('RGBA'); x, y = ST_AT['stand']; hh = LEVEL_H * PPM / PYM
+        v = TG.cut_piece(im, (x, y), (x - 6.0, x + 6.0 + 0.01, y - 0.05, y + 12.0 + hh + 0.6), 'st_stand', 'stadium', 1.0)
+        old = art['kit']['st_stand']; fn = os.path.join(SHIP, 'st_stand.webp'); q = Image.open(fn).convert('RGBA')
+        o = Image.new('RGBA', (old['w'], old['h_px']), (0, 0, 0, 0))
+        dx = int(round(old['foot'][0] - v['foot'][0])); dy = int(round(old['foot'][1] - v['foot'][1]))
+        o.alpha_composite(q.crop((max(0, -dx), max(0, -dy), q.width, q.height)), (max(0, dx), max(0, dy))); o.save(fn, 'WEBP', quality=76, method=6)
+        print('st_stand', o.size, 'shift', (dx, dy), os.path.getsize(fn))
+    if 'ceiling' in which:
+        im = Image.open(os.path.join(REND, 'ceil_stadium.png')).convert('RGBA'); bg = Image.new('RGBA', im.size, tuple(int(v) for v in np.asarray(im)[..., :3].reshape(-1, 3).mean(0)) + (255,)); bg.alpha_composite(im)
+        h15 = int(round(im.height * BOARD[1] / BOARD[0])); fn = os.path.join(SHIP, 'stadium_ceiling.webp')
+        bg.convert('RGB').crop((0, 0, im.width, h15)).resize(CEIL_SHIP, Image.LANCZOS).save(fn, 'WEBP', quality=70, method=6); b['ceiling'] = os.path.getsize(fn)
+        art['ceiling']['what'] = TG.CEILINGS['stadium'][2]
+    json.dump(art, open(p, 'w'), indent=1)
+    print('folder', sum(os.path.getsize(os.path.join(SHIP, f)) for f in os.listdir(SHIP) if f.endswith('.webp')), 'bytes', b)
+
+
 def plan_png():
     """the floor's plan as a picture (no Blender): what each pixel is and how dark and pale, for a look before the render"""
     ID = TG.ids(); gid, dark, pale = plan_st_floor(ID)
@@ -680,15 +702,54 @@ def sheet(before_dir, page_dir):
     print('sheet', out.size, os.path.getsize(fn), 'first', fst.size, os.path.getsize(f2), 'firstAt', first_at)
 
 
+def sheet_again(before_dir, page_dir, old_dir):
+    """(11/21) records/target/COOK6_THE_STADIUM_AGAIN_11_21.webp: his 'Wip' on the first, and what changed. The phone shots are the
+    game's own fight page, the same fight before (the first version) and now, as he meets it (the roof at his 10%); then close in
+    on the stand; then the roof and a tile of the field, the first and now, at full strength."""
+    from PIL import ImageDraw, ImageFont
+    font = lambda z: ImageFont.truetype(os.path.join(R, 'slices/fonts/BohemiaROM-Regular.ttf'), z)
+    WID = 1170; INK, DIM, BG = (232, 222, 196), (150, 140, 118), (16, 14, 12); rows = []
+    def title(t, sub):
+        im = Image.new('RGB', (WID, 64), BG); d = ImageDraw.Draw(im); d.text((10, 6), t, font=font(24), fill=INK); d.text((10, 38), sub, font=font(14), fill=DIM); rows.append(im)
+    def strip(items, cw, ch):
+        r = Image.new('RGB', (WID, ch + 26), BG); d = ImageDraw.Draw(r); x = 0
+        for lab, n in items: n = n.convert('RGB').resize((cw, ch), Image.LANCZOS); d.text((x + 4, 4), lab, font=font(14), fill=INK); r.paste(n, (x, 26)); x += cw + 10
+        rows.append(r)
+    up = lambda fn: (lambda n: n.crop((0, int(n.width * 150 / 390), n.width, int(n.width * 720 / 390))))(Image.open(fn))
+    cw = (WID - 10) // 2; ch = int(570 * cw / 390)
+    title('THE STADIUM AGAIN, AS HE MEETS IT', "his 'Wip' on the first; on his phone, 390 x 844, as the fight opens, the roof at his 10%: the first, and now")
+    strip((('THE FIRST: THE ROOF A TARGET, THE STANDS A CHECKERBOARD', up(os.path.join(before_dir, 'stadium_upright_open_a01.png'))), ('NOW', up(os.path.join(page_dir, 'stadium_upright_open_a01.png')))), cw, ch)
+    first_row = len(rows) - 1
+    title('CLOSE IN ON THE STAND THEY HOLD', 'the first deck a white sheet between the seats; now dark concrete, a run of seats left in a row, the brackets of the rest')
+    strip((('THE FIRST', up(os.path.join(before_dir, 'stadium_upright_stand_close.png'))), ('NOW', up(os.path.join(page_dir, 'stadium_upright_stand_close.png')))), cw, ch)
+    title('THE ROOF AT FULL STRENGTH, THE FIRST AND NOW', 'the first: a ring over midfield, 28 cables out of it and four rings round it; now: cushions in rows stand to stand, torn out over midfield')
+    a = Image.open(os.path.join(old_dir, 'old_stadium_ceiling.webp')); b = Image.open(os.path.join(SHIP, 'stadium_ceiling.webp')); hc = int(a.height * cw / a.width)
+    strip((('THE FIRST', a), ('NOW', b)), cw, hc)
+    title('A TILE OF THE FIELD AND THE DECK, THE FIRST AND NOW', "the straw a step darker with the mower's stripes in it; the stand's deck")
+    fa = Image.open(os.path.join(old_dir, 'old_stadium_floor_0.webp')).convert('RGB'); fb = Image.open(os.path.join(SHIP, 'stadium_floor_0.webp')).convert('RGB')
+    def piece(fn):
+        im = Image.open(fn).convert('RGBA'); o = Image.new('RGBA', im.size, (150, 146, 132, 255)); o.alpha_composite(im); return o
+    q = (WID - 30) // 4; strip((('THE FIRST', fa.crop((TW, 0, TW * 2, TH))), ('NOW', fb.crop((TW, 0, TW * 2, TH))), ('THE FIRST', piece(os.path.join(old_dir, 'old_st_stand.webp'))), ('NOW', piece(os.path.join(SHIP, 'st_stand.webp')))), q, int(q * 0.86))
+    out = Image.new('RGB', (WID, sum(r.height for r in rows) + 6 * len(rows)), BG); y = 0; first_at = None
+    for i, r in enumerate(rows):
+        if i == first_row: first_at = [cw + 10, y + 26, cw, ch]
+        out.paste(r, (0, y)); y += r.height + 6
+    fn = os.path.join(R, 'records/target/COOK6_THE_STADIUM_AGAIN_11_21.webp'); out.save(fn, 'WEBP', quality=74, method=6)
+    x, y0, w, h = first_at; fst = out.crop((x, y0, x + w, y0 + h)); f2 = os.path.join(R, 'records/target/vote_first/cook6-the-stadium-again-11-21.webp'); fst.save(f2, 'WEBP', quality=78, method=6)
+    print('sheet', out.size, os.path.getsize(fn), 'first', fst.size, os.path.getsize(f2), 'firstAt', first_at)
+
+
 if __name__ == '__main__':
     a = sys.argv[1:]
     if a and a[0] == 'render':
         quick = '--quick' in a
         for n in [x for x in a[1:] if not x.startswith('--')]:
-            fn = TG.scene_ground(n, quick) if n == 'st_floor' else TG.scene_pieces(n, quick) if n == 'st_pieces' else TG.scene_ceiling('stadium', quick)
+            fn = TG.scene_ground(n, quick) if n == 'st_floor' else TG.scene_pieces(n, quick) if n in ('st_pieces', 'st_deck') else TG.scene_ceiling('stadium', quick)
             print('  rendered', n, fn, flush=True)
     elif a and a[0] == 'cal': TG.scene_cal(True); TG.calibrate()
     elif a and a[0] == 'plan': plan_png()
     elif a and a[0] == 'cut': cut()
+    elif a and a[0] == 'recut': recut(a[1:])
     elif a and a[0] == 'sheet': sheet(a[1], a[2])
+    elif a and a[0] == 'sheet_again': sheet_again(a[1], a[2], a[3])
     else: print(__doc__)

@@ -1,3 +1,21 @@
+COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21za - THE STADIUM AGAIN, THE POWERHOUSE AGAIN, BUILT (SHIPSHA), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rule 466(e); rules 453, 441, 451(a); ask row 651).
+HIS TWO OTHER 'WIP's, LOOKED AT ON HIS PHONE AS THE SPHERE WAS (the fight as it opens, upright, the roof at his 10%):
+THE STADIUM: the roof drew a target over the fight (an ellipse over midfield, 28 cables out of it, four cable rings: the Sphere's fault again); the stand row read as a
+checkerboard (black seats, white deck, 35 against 145); the field read as sand. NOW stadium_ceiling.webp is ETFE cushions in rows stand to stand on parallel cables and
+trusses, torn out in a ragged patch over midfield, no ring, no spokes (C3 148 steps, 12% lines); st_stand and st_stand_n are dark concrete (87) with a run or two of seats
+left in a row and the brackets of the rest (SD.deck_rows, both tools); the field a step darker (143 to 127) with the mower's stripes eased at every join. New re-cut path:
+the stadium tool's 'recut floor|stand|ceiling' (cut() would rebuild the kit from st_pieces and drop the south stand's two pictures). Folder 838,338 of 900,000.
+THE POWERHOUSE: the floor read as peppermint wallpaper (a red chevron ring a tile wide on near half the tiles, laid at random). NOW two of fifteen terrazzo tiles carry a
+pattern (a stepped diamond, a zigzag band), faded; the ring is gone ('recut_floor'). Nothing else of it changed.
+PROOF on the real fight page, a phone both ways: the_last_show 185 / the_bowl 184 / the_generator_floor 165 pieces, 0 stand-ins, the roofs drawn, 0 page errors.
+Gate THE INSIDES WEAR FINISHED ART 105/0 (its A3 caught the first, hard-edged stripes: 7.8 at every join against 6.8). COMBAT FOUR's: THE BIG INSIDES 193/0, CEILING 6/0.
+VOTE cook6-the-stadium-again-11-21 and cook6-the-powerhouse-again-11-21 (MADE FROM arena2-the-pit-is-a-pit-11-7). Records: records/BOHEMIA_COOK_SIX_THE_STADIUM_AGAIN_11_21_26.md,
+records/BOHEMIA_COOK_SIX_THE_POWERHOUSE_AGAIN_11_21_26.md. Its block is handoffs/COOK_FIVE.md (COOK SIX writes there).
+*** NOT MINE, SAID FOR COMBAT FOUR: on both boards the squares of day (the 'sky' light) are the loudest thing left at the opening zoom; a softer edge would be yours.
+*** NEXT ON THIS LANE: COMBAT FOUR's courthouse (BUILD 11/21y, its 14 names and its ceiling, in handoffs/COMBAT_THREE.md).
+[bb Battle Brothers reads its ground at a glance: a floor is quiet so the men are loud]
+[analog horror: a stadium roof's cushions gone soft and grey, one torn and hanging by its frame over the field; the mower's stripes still in grass that died years ago]
+
 JOBS (jobs-01gkdyuv): 11/21 LATEST -- BUILD 11/21z - THE FIGHT IS THE ONE THE CARD SAID, BUILT, NOT YET SEEN (rules 461, 441, 454(a), 465; row 651). THE FIGHT IS THE ONE THE CARD SAID: a camp on no district rolls no district at the fight too (the dam: 4 water people read, 7
 coyotes came); 'they moved it' keeps the crowd of the ground they took it from; a find job's holders are read at the place, not
 the ring's middle; a patrol's bands are the share of the bands it had, from the post they come after.

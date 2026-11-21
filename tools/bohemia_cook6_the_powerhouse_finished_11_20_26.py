@@ -88,12 +88,18 @@ def plan_pw_floor(ID, seed=163):
     dust = TG.mixn(FW.vnoise((H, W), 2.0 * PPM, rng), TG.pnoise(rng, 2.0), w)
     pale = np.clip((dust - 0.5) / 0.3, 0, 1) * 0.28; dark = np.clip((0.4 - dust) / 0.3, 0, 1) * 0.1
     kinds = rng.randint(0, 3, size=(5, 5))
+    # (11/21, after his 'Wip', looked at on his phone) THE RING OF CHEVRONS IS GONE: a red sunburst a tile wide on near half the
+    # tiles, and the page lays them at random, so the whole board and the ground past it read as peppermint wallpaper. Now three
+    # tiles of the fifteen carry a pattern, the stepped diamond and the zigzag band only, worn: the field is plain terrazzo
+    PICK = {(0, 1): 0, (1, 3): 1}                                        # (three of fifteen still read as one tile in five, a hundred tiles on his screen: two)
     for r in range(4):
         for c in range(5):
-            if r < 3 and rng.rand() < 0.55: continue                     # most tiles plain: the first render had a pattern on four tiles in five and the board
-                                                                             # read as wallpaper over the men (Battle Brothers reads its ground at a glance)
-            m = (row == r) & (col == c); ru, bl = motif(lx, ly, kinds[r, c])
+            if r < 3 and (r, c) not in PICK: continue
+            if r == 3 and c != 1: continue                                    # (the wet row: one of five, so a weep is not always a pattern)
+            k = PICK.get((r, c), kinds[r, c] % 2)
+            m = (row == r) & (col == c); ru, bl = motif(lx, ly, k)
             gid[m & ru] = ID['pw_rust']; gid[m & bl] = ID['pw_black']
+            pale = np.where(m & (ru | bl), np.maximum(pale, 0.3 + 0.2 * (dust > 0.45)), pale)   # worn: faded, walked pale where the feet went
     # THE WET ROW: the dam weeps: dark water standing in the middle, lime crust where it dried at its edge, a dry margin round the tile
     wn = FW.vnoise((H, W), 1.3 * PPM, rng); wt = TG.win(lx, ly, 0.8, 2.4)
     wet = (row == WET) & ((wt * (0.4 + 0.7 * wn)) > 0.4)
@@ -357,6 +363,14 @@ NAME = dict(balcony="THE BALCONY", stair_e='ITS STAIRS, EAST', stair_w='ITS STAI
 ALSO = dict(bedding_a='camp_a', bedding_b='camp_b')
 
 
+def recut_floor():
+    """(11/21, the powerhouse's second pass) the floor alone, into the folder as it stands"""
+    p = os.path.join(SHIP, 'powerhouse_art.json'); art = json.load(open(p))
+    im = Image.open(os.path.join(REND, 'pw_floor.png')).convert('RGB'); fn = os.path.join(SHIP, 'powerhouse_floor_0.webp'); im.save(fn, 'WEBP', quality=TG.QS, method=6)
+    art.setdefault('bytes', {})['floor'] = os.path.getsize(fn); json.dump(art, open(p, 'w'), indent=1)
+    print('floor', os.path.getsize(fn), 'folder', sum(os.path.getsize(os.path.join(SHIP, f)) for f in os.listdir(SHIP) if f.endswith('.webp')))
+
+
 def cut():
     os.makedirs(SHIP, exist_ok=True); bytes_ = {}
     im = Image.open(os.path.join(REND, 'pw_floor.png')).convert('RGB'); fn = os.path.join(SHIP, 'powerhouse_floor_0.webp'); im.save(fn, 'WEBP', quality=TG.QS, method=6); bytes_['floor'] = os.path.getsize(fn)
@@ -417,12 +431,46 @@ def cut():
     print('powerhouse: bytes', bytes_, 'pieces', {k: (v['w'], v['h'], v['foot']) for k, v in sz.items()})
 
 
+def sheet_again(before_dir, page_dir, old_dir):
+    """(11/21) records/target/COOK6_THE_POWERHOUSE_AGAIN_11_21.webp: his 'Wip' on the first, and what changed. The game's own fight
+    page, the same fight before (the first floor) and now, as he meets it (the roof at his 10%); close in; the floor's fifteen tiles,
+    the first and now."""
+    from PIL import ImageDraw, ImageFont
+    font = lambda z: ImageFont.truetype(os.path.join(R, 'slices/fonts/BohemiaROM-Regular.ttf'), z)
+    WID = 1170; INK, DIM, BG = (232, 222, 196), (150, 140, 118), (16, 14, 12); rows = []
+    def title(t, sub):
+        im = Image.new('RGB', (WID, 64), BG); d = ImageDraw.Draw(im); d.text((10, 6), t, font=font(24), fill=INK); d.text((10, 38), sub, font=font(14), fill=DIM); rows.append(im)
+    def strip(items, cw, ch):
+        r = Image.new('RGB', (WID, ch + 26), BG); d = ImageDraw.Draw(r); x = 0
+        for lab, n in items: n = n.convert('RGB').resize((cw, ch), Image.LANCZOS); d.text((x + 4, 4), lab, font=font(14), fill=INK); r.paste(n, (x, 26)); x += cw + 10
+        rows.append(r)
+    up = lambda fn: (lambda n: n.crop((0, int(n.width * 120 / 390), n.width, int(n.width * 620 / 390))))(Image.open(fn))
+    cw = (WID - 10) // 2; ch = int(500 * cw / 390)
+    title('THE POWERHOUSE AGAIN, AS HE MEETS IT', "his 'Wip' on the first; on his phone, 390 x 844, as the fight opens, the roof at his 10%: the first, and now")
+    strip((('THE FIRST: A RED SUNBURST ON NEAR HALF THE TILES', up(os.path.join(before_dir, 'powerhouse_upright_open_a01.png'))), ('NOW: PLAIN TERRAZZO, A PATTERN HERE AND THERE', up(os.path.join(page_dir, 'powerhouse_upright_open_a01.png')))), cw, ch)
+    first_row = len(rows) - 1
+    title('CLOSE IN, BY THE GENERATORS', 'the first and now')
+    strip((('THE FIRST', up(os.path.join(before_dir, 'powerhouse_upright_units_close.png'))), ('NOW', up(os.path.join(page_dir, 'powerhouse_upright_units_close.png')))), cw, ch)
+    title("THE FLOOR'S TILES, THE FIRST AND NOW", "the terrazzo's fifteen and the wet row: the ring of chevrons gone; one stepped diamond and one zigzag band, worn")
+    fa = Image.open(os.path.join(old_dir, 'old_powerhouse_floor_0.webp')).convert('RGB'); fb = Image.open(os.path.join(SHIP, 'powerhouse_floor_0.webp')).convert('RGB')
+    hh = int(fa.height * 4 / 5); strip((('THE FIRST', fa.crop((0, 0, fa.width, hh))), ('NOW', fb.crop((0, 0, fb.width, hh)))), cw, int(cw * hh / fa.width))
+    out = Image.new('RGB', (WID, sum(r.height for r in rows) + 6 * len(rows)), BG); y = 0; first_at = None
+    for i, r in enumerate(rows):
+        if i == first_row: first_at = [cw + 10, y + 26, cw, ch]
+        out.paste(r, (0, y)); y += r.height + 6
+    fn = os.path.join(R, 'records/target/COOK6_THE_POWERHOUSE_AGAIN_11_21.webp'); out.save(fn, 'WEBP', quality=74, method=6)
+    x, y0, w, h = first_at; fst = out.crop((x, y0, x + w, y0 + h)); f2 = os.path.join(R, 'records/target/vote_first/cook6-the-powerhouse-again-11-21.webp'); fst.save(f2, 'WEBP', quality=78, method=6)
+    print('sheet', out.size, os.path.getsize(fn), 'first', fst.size, os.path.getsize(f2), 'firstAt', first_at)
+
+
 if __name__ == '__main__':
     a = sys.argv[1:]
     if a and a[0] == 'render':
         for n in [x for x in a[1:] if not x.startswith('--')]:
             fn = TG.scene_ground(n, '--quick' in a) if n == 'pw_floor' else TG.scene_pieces(n, '--quick' in a) if n == 'pw_pieces' else TG.scene_ceiling('powerhouse', '--quick' in a)
             print('  rendered', n, fn, flush=True)
+    elif a and a[0] == 'recut_floor': recut_floor()
+    elif a and a[0] == 'sheet_again': sheet_again(a[1], a[2], a[3])
     elif a and a[0] == 'cal': TG.scene_cal(True); TG.calibrate()
     elif a and a[0] == 'cut': cut()
     else: print(__doc__)
