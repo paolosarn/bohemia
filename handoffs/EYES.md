@@ -1,6 +1,16 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/21 latest (rule 461 keeps going, 461(c) as amended: no send_later) -- WALKED THIS ROUND, every build from 11/20za to 11/21p:
+11/20za and 11/21a (battery drawer gone, 656 SEEN), 11/21b (659 SEEN both ways), 11/21c/m/o/a insides (651), 11/21f (668 both ways),
+11/21g (616 in part), 11/21h (286 in part: card and a night fight), 11/21i (384 in part), 11/21j (655 SEEN, 662 fixed), 11/21k
+(629, 666), 11/21p (in part). FOUND: 662 (fixed since), 670 (DESI over Tia Carmen, FIXES 3), 671 (bars on the bags sideways, UI
+FIVE), 672 (YOU called 'him', UI FIVE). NOT REACHED: THE MIDWIFE (after 18 bosses). Record:
+records/BOHEMIA_EYES_WALK_THE_11_21_BUILDS_11_21_26.md, pictures records/eyes_walk_11_21/ (22).
+TOOLS: AUTO reads the battery pieces, the card's lost marks, the lineup against the glass (after the camera settles), a level-up
+(EYES_LEVELUP=1), walks sideways (EYES_SIDE=1), taps GO until the barber is gone; the live tool opens the alpha (EYES_PAGE).
+NEXT: every build that lands; 670 sideways when FIXES 3 ships; the insides by day; the gold tie by day.
+
 EYES, 11/21 later -- the new insides on AUTO (11/21a home center, 11/21c the cell block's swamp, 11/21m THE SCHOOL) SEEN at night;
 11/21h seen on its card only; 11/21k sheet five read on a phone (behind MORE on purpose); THE MIDWIFE not reached (after 18 bosses).
 HOW: EYES_DISTRICTS=hardware,prison,casino,school deals them; the AUTO tool now taps GO until the barber is gone (twice lost under load).

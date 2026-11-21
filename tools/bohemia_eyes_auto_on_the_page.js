@@ -172,6 +172,12 @@ const HOOKS = `(function(){
         if (a > 0.02 && was <= 0.02) L.starts.push(Math.round(now)); if (a > L.peak) L.peak = a; was = a; } catch (e) {} if (!FIGHT.S || !FIGHT.S.over) requestAnimationFrame(tick); };
       requestAnimationFrame(tick); }).catch(() => {});
     await wait(2500);
+    /* EYES 11/21 (BUILD 11/21p HIS LINE WHOLE): at the lineup, every one of his men against the open glass (COMBAT FOUR's own reading:
+       how far each figure stands past the open area, 0 or less is on the glass), and the frame's zoom against its far stop */
+    for (let i = 0; i < 40; i++) { const settled = await f.evaluate(() => typeof FIGHT_UI !== 'undefined' && !!FIGHT_UI.board && performance.now() > (FIGHT_UI.openUntil || 0) && !FIGHT_UI.glide && FIGHT_UI.zoom !== 1).catch(() => false); if (settled) break; await wait(200); }
+    let lineupRead = null; try { lineupRead = await f.evaluate(() => { if (!FIGHT.S.deploy || typeof manBox !== 'function' || typeof OPEN === 'undefined') return { deploy: !!FIGHT.S.deploy };
+      const h = manH(), fh = h * FIG_HALF, o = OPEN; const men = FIGHT.S.units.filter(v => FIGHT.onField(v) && FIGHT.shown(v)).map(v => { const b = manBox(v.x, v.y); return { s: v.side, out: +Math.max(o.l - (b.x - fh), (b.x + fh) - o.r, o.t - b.head, b.feet - o.b).toFixed(1) }; });
+      return { deploy: true, z: +FIGHT_UI.zoom.toFixed(3), far: +(FIGHT_UI.coverFar || FIGHT_UI.far).toFixed(3), his: men.filter(m => m.s === 'you').map(m => m.out), theirs: men.filter(m => m.s !== 'you').map(m => m.out) }; }); } catch (e) { lineupRead = { err: String(e).slice(0, 120) }; }
     /* EYES 11/20 (rule 461, the fight-board rows 485-488, 501-503, 509): the board as dealt, where both sides stand at the bell, and
        where each of his men ends his turn (a house or its roof, beside cover, or the open street) */
     await f.evaluate(() => { try { const S = FIGHT.S, K = {}, H = S.h, W = S.w, T = S.terrain;
@@ -198,6 +204,7 @@ const HOOKS = `(function(){
     const a = await autoB(); if (a) { await tap(a.x, a.y); await wait(600); }
     let st = await f.evaluate(() => ({ auto: UI.auto, hand: UI.hand }));
     if (!st.auto) { const a2 = await autoB(); if (a2) { await tap(a2.x, a2.y); await wait(600); } st = await f.evaluate(() => ({ auto: UI.auto, hand: UI.hand })); }
+    log('  lineup', JSON.stringify(lineupRead));
     log('fight', n, how, o.kind + '/' + o.district, o.board, 'men', o.men.filter(m => m.side === 'you').length, 'v', o.men.filter(m => m.side !== 'you').length, 'auto', st.auto, 'x' + st.hand);
     /* watch: a still whenever a man of his is passed with nothing drawn */
     let seen = 0, stills = 0, over = false, tseen = 0; const pend = [];

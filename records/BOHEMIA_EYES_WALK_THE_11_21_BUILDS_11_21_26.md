@@ -172,3 +172,11 @@ than 3 flashes in a second, 0 page errors:
 - THE SPHERE (his 11/21 vote on the old roof): its new roof drawn at 0.10 (screen, picture true); on the glass no bullseye over the
   fight, the floor dark with debris (e20). The fallen truss and the blue seats not made out at night.
 - THE PARKING GARAGE came up once at the medical cells too (its share), its deck drawn.
+
+## 11/21p HIS LINE WHOLE (COMBAT FOUR, 224929ccc): SEEN IN PART
+
+EYES' AUTO tool now reads the lineup the way COMBAT FOUR's gate does (each figure against the open area, 0 or less on the glass),
+after the frame settles. The demo upright, two real fights (an arterial job 3 v 2, the suburb 5 v 5): the frame at zoom 0.274 (its
+far stop 0.213), every one of his men inside the open area by 14 to 79 points, theirs inside too. The case the build fixes (the two
+lines eleven tiles apart at the far stop, wider than the glass) did not arise in a real fight; a frame that holds everyone stood
+untouched. (My first read came before the camera settled, zoom 1, and read every man hundreds of points off: my tool, fixed.)
