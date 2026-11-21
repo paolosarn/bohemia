@@ -27,9 +27,10 @@ JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/21 LATEST -- BUILD 11/21z - THE FIGH
   two is 8 of the Block Watch (the camp's size, TUNING's).
 GATE THE CARD READS THE NIGHT: R6 new (files), R5 tightened to no misses: 6/0 (R5: 32 of 32 on each of four phones); the walk re-run after it learned
 the patrol's road: every job walked, 37 of 37 fights the card's on each phone. EVERY FIGHT WON COUNTS C1 follows the line.
-NEXT: [the map's crew job on the walk] the one job the walk never brings to its fight is the map's own crew job (qd-s10; its loop
-is the map's, not the job file's): teach the walk the map's crew loop, then read its card against its fight.
-Then [a siege for a big crew]; the reader's plays repeatable boot to boot (WORLD's).
+NEXT: nothing measured is left wrong between a card and its fight (every job walked, 37 of 37 on four phones; the map's crew job is
+walked the map's way since this build). [a siege for a big crew] is DROPPED from the jump list: his votes of 11/21 (rule 466(c)) said
+the jobs do way too much, and a new kind of fight is more, from this lane's own list, never his ask (rule 464). A fresh JOBS takes bugs
+he can feel (EYES' rows naming a job, the VOTE tab's NOs on JOBS' cards) and the reader's plays repeatable boot to boot stays WORLD's.
 [bb Battle Brothers names who a contract is against before it is signed; when the brigands move camp, they are the same brigands]
 [analog horror: the tracks went on two blocks into the freeway, and the same two people were waiting at the end of them]
 
