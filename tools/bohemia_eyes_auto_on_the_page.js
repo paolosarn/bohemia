@@ -80,7 +80,7 @@ const HOOKS = `(function(){
 
 (async () => {
   const browser = await chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
-  const VP = { width: 390, height: 844 };
+  const VP = process.env.EYES_SIDE ? { width: 844, height: 390 } : { width: 390, height: 844 };   /* EYES 11/21: EYES_SIDE=1 walks it sideways */
   const ctx = await browser.newContext({ viewport: VP, deviceScaleFactor: 3, hasTouch: true, isMobile: true, serviceWorkers: 'block',
     recordVideo: { dir: path.join(OUT, 'video'), size: VP } });
   await ctx.route('**/*', async (route) => {
@@ -132,6 +132,9 @@ const HOOKS = `(function(){
   await until(async () => { const c = city(); return c && await c.evaluate(() => typeof LOOP !== 'undefined' && typeof city !== 'undefined' && MODE === 'city' && !!LOOP.open); }, 90000);
   await wait(6000);
   log('in the first town', await city().evaluate(() => LOOP.open && LOOP.open.name));
+  /* EYES 11/21 (rule 463): the three batteries' pictures, counted in every frame (none, since 11/20za) */
+  const batPics = async () => { let n = 0; for (const fr of page.frames()) { try { n += await fr.evaluate(() => document.querySelectorAll('.uc-k, .uc-bsum, .bsum-host').length); } catch (e) {} } return n; };
+  log('battery pictures in the first town', await batPics(), '| BATTERY_OFF', await page.evaluate(() => !!window.__BATTERY_OFF));
   await shot('00_first_town');
 
   const sf = async () => { const c = city(); if (!c) return null; const h = await c.$('#settleFrame'); return h ? h.contentFrame() : null; };
@@ -217,6 +220,7 @@ const HOOKS = `(function(){
       stale: { n: S.staleTurns | 0, last: S.staleLast || null } }); });
     await shot('f' + String(n).padStart(2, '0') + '_end');
     try { const sp = frame(/SPOILS_SCREEN/); if (sp) E.spoils = await sp.evaluate(() => document.body.innerText.replace(/\s+/g, ' ').slice(0, 900)); } catch (e) {}
+    try { const sp = frame(/SPOILS_SCREEN/); if (sp) E.spoilsBatPics = await sp.evaluate(() => document.querySelectorAll('.uc-k, .uc-bsum, .bsum-host').length); } catch (e) {}
     log('  read', 'why', E.why && (E.why.by + ': ' + E.why.line), '| flash', JSON.stringify(E.flash), '| shots', JSON.stringify(E.shots), '| ceil', JSON.stringify(E.ceil), '| stale', E.stale.n);
     const R = { n, how, want, auto: st.auto, hand: st.hand, kind: o.kind, district: o.district, board: o.board, men: o.men, secs: Math.round((Date.now() - t0) / 1000), over, E };
     results.push(R);

@@ -1,6 +1,16 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/21 (rule 461 keeps going, 461(c) as amended 11/21: no send_later, no waiting on a tap; the routine 'EYES: walk what lands')
+-- BUILD 11/20za THE THREE BATTERIES ARE GONE SEEN ON THE GLASS; ROW 656 MARKED SEEN.
+Record: records/BOHEMIA_EYES_WALK_THE_11_21_BUILDS_11_21_26.md.
+SEEN: 0 battery pictures in every frame, the demo by hand upright and sideways and AUTO on the alpha both ways and the demo upright
+(first towns, 8 spoils screens); the money a plain number. Owed to ECONOMY THREE: the dead file still loads, off, on 7 pages.
+HOW: EYES' AUTO tool counts the battery pieces in the first town and on every spoils screen, and walks sideways with EYES_SIDE=1.
+NEXT: every build stamped after 11/20za as it lands (COOK SIX, COMBAT FOUR, FIGHT SCREEN 3, ECONOMY THREE, PLUMBER 8, HOME BASE,
+WORLD 13, CHARACTER, BOSSES, JOBS, FIXES 3, UI FIVE, WORLD 15), things he can feel first; 659 when WORLD 15 ships; the Sphere's
+inside, the Doorman and the Head Taker; his homework sheets stay untouched (rule 465).
+
 EYES, 11/20 later (rule 461 keeps going; the routine 'EYES: walk the new builds') -- BUILDS 11/20b TO 11/20y WALKED; ROW 659 FOUND.
 Record: records/BOHEMIA_EYES_WALK_THE_11_20_BUILDS_11_20_26.md. Pictures: records/eyes_walk_11_20/.
 SEEN: the town's bar on its board, every won fight paying CLOUT (0, 25, 45), one mouth at a time, five new insides on AUTO (13 fights,
