@@ -1,4 +1,4 @@
-COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21r - THE SCHOOL, BUILT (SHIPSHA), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 453, 441, 416, 451(a), 455; ask row 651).
+COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21r - THE SCHOOL, BUILT (92cf451d4), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 453, 441, 416, 451(a), 455; ask row 651).
 THE SCHOOL (COMBAT FOUR's BUILD 11/21m, its 'FOR COOK (SIX)'): all 154 pieces of the_gym were stand-ins. Now slices/fight_ground/school/ holds school_art.json (THE GARAGE'S
 FORMAT: floor.floor and floor.ring the school's maple on all 25 tiles, its strips' ends staggered on 0.3 m so every edge meets, worn grey where people walked, scuffs, cot
 leg marks, a hopscotch in chalk; all 13 names), 13 pieces (bleachers pulled out with blankets on them; shelter cots, one pair behind a tarp with a toy; gym mats on their
