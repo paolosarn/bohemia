@@ -51,3 +51,17 @@ filed.)
    RANGED...') wraps onto three lines over the first perk card, and the cards run past the glass (e02).
 
 Pictures: records/eyes_walk_11_21/ (2 webp).
+
+## BUILD 11/21b THE STRAT FROM THE TOWN'S GATE (WORLD 15, 2944852e0; row 659): SEEN, UPRIGHT AND SIDEWAYS
+
+The demo on the valley that seats Network on the tower (code B35BT9, staged the gate's way: about 1 game in 13 rolls it), the
+phone's own cards ON, a stranger's fog. Upright 390 x 844 and sideways 844 x 390, the same three tries each:
+- THE TRIP: from the first town (53, 24) the map's own travel to the tower (43, 28). Upright, Tia Carmen's asker came on the road,
+  answered by a real tap ('Not my problem.', then 'GO ON'). The trip ended at Network's gate (45, 27), 2 blocks off, and the crew
+  CLIMBED: 90 minutes on the tower, 163 in all, the fog 25 blocks out opened, then Network opened ('NETWORK, A FORTRESS', the Elder)
+  (e03). My find was the same trip ending at the same gate with 0 climbs, twice.
+- A REAL FINGER ON THE TOWER the next day, standing at the gate (the day moved by hand, a shortcut, said; the near zoom set the way
+  his pinch would): a click on the glass on the tower's block, off the town's name: climbed at once (90 minutes), then Network.
+- A REAL FINGER ON THE TOWN'S NAME the day after: Network opened, no climb (the town alone, nothing forced).
+0 page errors. (My own first tries failed on my tool: a code click on Tia Carmen's answer does not close her card, a real tap does;
+ her card then took my taps. Not the game.)

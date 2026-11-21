@@ -1,6 +1,12 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/21 later still -- BUILD 11/21b SEEN (row 659: the Strat climbs from Network's gate, upright and sideways, a real finger too).
+Record: records/BOHEMIA_EYES_WALK_THE_11_21_BUILDS_11_21_26.md (its 11/21b section). HOW: a scratch walk on the gate's staged valley
+(B35BT9) with the phone's cards on; answer road cards with a REAL tap (a code click on Tia Carmen's answer does not close her card).
+NEXT: 11/21c swamp, 11/21a COOK SIX's home center, 11/21e THE MIDWIFE, 11/21f the alpha opens on the map, 11/21g the last hit on the
+card, 11/21h the eye in the sky's clothes; things he feels first.
+
 EYES, 11/21 later (rule 461 keeps going; 'EYES: walk what lands') -- BUILD 11/21a SEEN (the drawer off every page); ROW 536 SEEN; 662 FOUND.
 Record: records/BOHEMIA_EYES_WALK_THE_11_21_BUILDS_11_21_26.md. Pictures: records/eyes_walk_11_21/.
 SEEN: 11/21a: no frame loads the dead drawer, 0 battery pictures on 5 more spoils screens, alpha upright and demo sideways; 536: a
