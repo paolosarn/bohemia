@@ -2690,8 +2690,17 @@
     try { if (LOOP.frame && LOOP.frame.style.display === 'block') return 'a place is open'; } catch (e) {}
     try { if (window.parent !== window && window.parent.eval('typeof CITYFIGHT!=="undefined"&&!!CITYFIGHT')) return 'a fight'; } catch (e) {}
     if (!window.BohemiaCrewFaces) return 'no faces yet';
+    if (voiceCardUp()) return 'a card asks';   /* __ONE_VOICE_AT_A_TIME__ */
+    if (voiceHintUp()) return 'the hint plate';
     return '';
   }
+  /* ==== __ONE_VOICE_AT_A_TIME__ (FIXES 3 11/21, ask row 670, FOUND BY EYES 11/21, e05: on the alpha's map about 8 s after LEAVE, Tia
+     Carmen's card asked, DESI's hint plate stood over its NOT MY PROBLEM. and this voice said 'Oye. Posts on the phone are work.' at the
+     foot: three at once). A card that asks (the road's, a boss asker's, a side quest's: BohemiaRoadEvents.card) or DESI's hint plate
+     on the glass holds this voice: it waits, and a line a card cuts off comes back whole after it (the second votes: nothing pops up
+     over anything; rule 32a: one face speaks at a time) ==== */
+  function voiceCardUp() { try { return !!(window.BohemiaRoadEvents && BohemiaRoadEvents.up && BohemiaRoadEvents.up()); } catch (e) { return false; } }
+  function voiceHintUp() { try { var t = window.top.document.getElementById('cbxsay'); return !!(t && t !== VOICE.el && t.style.display !== 'none' && t.offsetWidth > 0); } catch (e) { return false; } }
   function voiceSyl(w) { var m = String(w).toLowerCase().match(/[aeiouy]+/g); return Math.max(1, m ? m.length : 1); }
   function voiceShow(o) {
     var F = window.BohemiaCrewFaces; if (!F || !F.has(o.who.look)) return false;   /* no face, no line (rule 19c) */
@@ -2747,6 +2756,9 @@
   }
   function voicePump() {
     var now = performance.now();
+    if (VOICE.on && voiceCardUp()) { var cut = VOICE.on; voiceHide('a card');   /* __ONE_VOICE_AT_A_TIME__: the card speaks; this line comes back after it */
+      if (cut.once) { delete VOICE.said[cut.id]; try { localStorage.setItem(VOICE_KEY, JSON.stringify(VOICE.said)); } catch (e) {} }
+      cut.asked = now; VOICE.q.unshift(cut); window.__VOICE_CUT_BY_CARD = (window.__VOICE_CUT_BY_CARD | 0) + 1; return; }
     if (VOICE.on) { if (now >= VOICE.on.until) voiceHide('time'); else return; }
     VOICE.q = VOICE.q.filter(function (x) { return now - x.asked < (x.ttl || 45) * 1000; });
     if (!VOICE.q.length || (VOICE.gap && now < VOICE.gap)) return;

@@ -1220,6 +1220,56 @@ async function f653(shape, men, plant) {
   await ctx.close();
 }
 
+/* F670 ONE VOICE AT A TIME (FIXES 3 11/21, ask row 670, FOUND BY EYES 11/21, e05: on the map after LEAVE, Tia Carmen's card asked while
+        DESI's hint plate stood over NOT MY PROBLEM. and the map's voice spoke at the foot): the demo, a new game, off the first town
+        onto the map, DESI's map line up on its plate; a card that asks (BohemiaRoadEvents.card, every asker's door): the plate is off
+        the glass within half a second and does not come back while the card asks; the map's voice asked to speak while the card asks
+        waits (nothing on the glass) and speaks after the card is answered.
+        PLANT: the plate's and the voice's new waits off: the plate stays over the card and the voice speaks over it. */
+async function f670(shape, plant) {
+  const ctx = await browser.newContext(Object.assign({}, SHAPES[shape], { serviceWorkers: 'block' }));
+  const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(String(e && e.message || e).slice(0, 200)));
+  if (plant) {
+    await p.route(/bohemia_ui_crashbox\.js/, async route => { const r = await route.fetch(); const b = (await r.text()).split('(covered() || talkingElsewhere())').join('(covered())').replace("if (talkingElsewhere()) { SAY.since = now(); return; }", ''); await route.fulfill({ response: r, body: b }); });
+    await p.route(/bohemia_ui_materials\.js/, async route => { const r = await route.fetch(); const b = (await r.text()).replace("if (voiceCardUp()) return 'a card asks';", '').replace("if (voiceHintUp()) return 'the hint plate';", '').replace('if (VOICE.on && voiceCardUp()) {', 'if (false) {'); await route.fulfill({ response: r, body: b }); });
+  }
+  const P = plant ? ' PLANTED (the waits off)' : '';
+  await p.goto(BASE + '/slices/BOHEMIA_DEMO.html', { waitUntil: 'load', timeout: 180000 });
+  for (let i = 0; i < 480; i++) { if (await p.evaluate(() => !!window.__LOAD_READY && !!document.getElementById('title')).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.waitForTimeout(1200); await throughTheTitle(p);
+  for (let i = 0; i < 240; i++) { if (await p.evaluate(() => { const b = document.getElementById('fronttap'); return !!(b && /BEGIN/.test(b.innerText)); }).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.evaluate(() => { const b = document.getElementById('fronttap'); if (b) b.click(); });
+  for (let i = 0; i < 120; i++) { if (await p.evaluate(() => !!document.querySelector('#mainmaker .go')).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.waitForTimeout(1000); await p.evaluate(() => { const g = document.querySelector('#mainmaker .go'); if (g) g.click(); });
+  let sf = null; for (let i = 0; i < 360 && !sf; i++) { await p.waitForTimeout(250); const f = p.frames().find(x => /SETTLEMENT_SCREEN/.test(x.url())); if (f && await f.evaluate(() => window.BohemiaSettlement && BohemiaSettlement.ready() && !!BohemiaSettlement.state.place && !BohemiaSettlement.state.open).catch(() => false)) sf = f; }
+  const fr = p.frames().find(x => /CITY_WORLD/.test(x.url()));
+  if (!sf || !fr) { ok('F670 ' + shape + P + ': the start town is up', false, 'no town'); await ctx.close(); return; }
+  await p.waitForTimeout(1500);
+  const { leaveTown } = require(path.join(ROOT, 'tools/bohemia_leave_the_town.js'));
+  await leaveTown(p, sf, { ms: 6000 }); await p.waitForTimeout(1500);
+  await p.evaluate(() => { try { localStorage.removeItem('bohemia.hints.said'); } catch (e) {} });
+  const plate = () => p.evaluate(() => { const d = document.getElementById('cbxsay'); if (!d || d.style.display === 'none' || !d.offsetWidth || +getComputedStyle(d).opacity < 0.05) return null; const r = d.getBoundingClientRect(); return { who: d.querySelector('b').textContent, line: d.querySelector('span').textContent.slice(0, 40), r: [Math.round(r.left), Math.round(r.top), Math.round(r.right), Math.round(r.bottom)] }; });
+  let up = null; for (let i = 0; i < 160 && !up; i++) { await p.waitForTimeout(250); up = await plate(); }
+  if (!up) { ok('F670 ' + shape + P + ': DESI\'s map line comes up on its plate', false, JSON.stringify(await p.evaluate(() => ({ hints: BohemiaCrashbox.hintsOn(), said: localStorage.getItem('bohemia.hints.said') })).catch(e => String(e.message)))); await ctx.close(); return; }
+  await p.waitForTimeout(300);
+  const t0 = Date.now();
+  await fr.evaluate(() => { window.__F670 = 0; BohemiaRoadEvents.card({ look: 'you', name: 'TIA CARMEN', from: 'a card that asks', head: 'SOMEONE NEEDS HELP', text: 'Mijo, wait.', opts: [{ t: 'I hear you.', fn: function () { window.__F670++; BohemiaRoadEvents.close(false); } }] }); });
+  let gone = null; for (let i = 0; i < 25; i++) { await p.waitForTimeout(80); if (!(await plate())) { gone = Date.now() - t0; break; } }
+  /* the map's voice asked to speak while the card asks: its first minute wound past, a line in DESI's mouth */
+  await fr.evaluate(() => { const M = window.BohemiaMaterials && BohemiaMaterials.ten; if (!M) return; const V = M.voice; V.t0 = performance.now() - 61000; window.HUNT_T0 = V.t0; V.gap = 0;
+    const D = window.CREW_DEFS || {}, look = (D.looks || [])[1] || (D.looks || [])[0]; M.say({ id: 'f670-probe', kind: 'teach', who: { name: 'DESI', look: look }, line: 'Posts on the phone are work.', prio: 0, ttl: 60 }); });
+  let overVoice = 0, back = null; for (let i = 0; i < 20; i++) { await p.waitForTimeout(100);
+    if (await fr.evaluate(() => { const v = document.getElementById('bmvoice'); return !!(v && v.classList.contains('on')); })) overVoice++; if (!back) back = await plate(); }
+  const cardStill = await fr.evaluate(() => !!(BohemiaRoadEvents.up && BohemiaRoadEvents.up()));
+  await fr.evaluate(() => { try { BohemiaRoadEvents.close(false); } catch (e) {} });
+  let after = false; for (let i = 0; i < 40 && !after; i++) { await p.waitForTimeout(150); after = await fr.evaluate(() => { const v = document.getElementById('bmvoice'); return !!(v && v.classList.contains('on')); }); }
+  const R = { up, gone, overVoice, back: !!back, cardStill, after };
+  if (plant) { ok('F670 ' + shape + P + ': the leg sees a second voice over the card (the plate ' + (gone == null ? 'still up' : 'gone at ' + gone + ' ms') + ', the voice on in ' + overVoice + ' of 20 looks)', cardStill && (gone == null || gone > 1500) && overVoice > 0, JSON.stringify(R)); await ctx.close(); return; }
+  ok('F670 ' + shape + ': ' + up.who + '\'s map line on its plate ("' + up.line + '..."); a card asks: the plate is off the glass at ' + gone + ' ms and not back; the map\'s voice asked meanwhile is on in ' + overVoice + ' of 20 looks while the card asks, and speaks after it is answered (' + after + ')',
+    gone != null && gone <= 500 && !back && cardStill && overVoice === 0 && after && errs.length === 0, JSON.stringify(R) + (errs[0] || ''));
+  await ctx.close();
+}
+
 /* F654 THE HINT STEPS ASIDE FOR SETTINGS (FIXES 3 11/21, ask row 654, FOUND BY EYES 11/20, e06: in Cartel, upright, DESI's 'Tap a
         building...' stood over the MOTION row and half the SETTINGS row of the open settings card): the demo, a new game, the start
         town, the town's line on its plate; a thumb on the phone's SETTINGS: the plate is off the glass within half a second of
@@ -1228,7 +1278,7 @@ async function f653(shape, men, plant) {
 async function f654(shape, plant) {
   const ctx = await browser.newContext(Object.assign({}, SHAPES[shape], { serviceWorkers: 'block' }));
   const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(String(e && e.message || e).slice(0, 200)));
-  if (plant) await p.route(/bohemia_ui_crashbox\.js/, async route => { const r = await route.fetch(); const b = (await r.text()).replace('if (SAY.busy && SAY.aside && covered()) {', 'if (false) {'); await route.fulfill({ response: r, body: b }); });
+  if (plant) await p.route(/bohemia_ui_crashbox\.js/, async route => { const r = await route.fetch(); const b = (await r.text()).replace('if (SAY.busy && SAY.aside && (covered() || talkingElsewhere())) {', 'if (false) {'); await route.fulfill({ response: r, body: b }); });
   const P = plant ? ' PLANTED (the watcher off)' : '';
   await p.goto(BASE + '/slices/BOHEMIA_DEMO.html', { waitUntil: 'load', timeout: 180000 });
   for (let i = 0; i < 480; i++) { if (await p.evaluate(() => !!window.__LOAD_READY && !!document.getElementById('title')).catch(() => false)) break; await p.waitForTimeout(250); }
@@ -1378,6 +1428,8 @@ async function f649(shape, plant) {
     for (const s of SH) { if (want('F612h')) { await f612h(s, false); if (s === SH[0]) await f612h(s, true); } }
     /* FOUND BY EYES 11/20 (row 653), FIXES 3: upright one man broken and three, the plant upright; on its side three */
     if (want('F653')) { if (SH.indexOf('phone_portrait') >= 0) { await f653('phone_portrait', 1, false); await f653('phone_portrait', 3, false); await f653('phone_portrait', 1, true); } if (SH.indexOf('phone_landscape') >= 0) await f653('phone_landscape', 3, false); }
+    /* FOUND BY EYES 11/21 (row 670), FIXES 3 */
+    for (const s of SH) { if (want('F670')) { await f670(s, false); if (s === SH[0]) await f670(s, true); } }
     /* FOUND BY EYES 11/20 (row 654), FIXES 3 */
     for (const s of SH) { if (want('F654')) { await f654(s, false); if (s === SH[0]) await f654(s, true); } }
     /* the red debt, a real one (row 581), FIXES 2 11/18: the driver's own pages, so asked for by name (--only F581) or in the whole run */

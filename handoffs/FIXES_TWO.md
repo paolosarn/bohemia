@@ -2,7 +2,21 @@
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 # FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
 
-FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/21 (b) LATEST -- [the smith's line] BUILD 11/21q - THE SMITH'S LINE IS WHOLE, BUILT, NOT
+FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/21 (c) LATEST -- [one voice] BUILD 11/21z - ONE VOICE AT A TIME, BUILT, NOT YET SEEN:
+ask row 670 (EYES 11/21 e05: Tia Carmen's card, DESI's hint plate over its NOT MY PROBLEM. and the map's voice at the foot, three at once)
+FIXED. 11/21q (the block below) is live (its pages run SUCCESS). Record: the same record, section 7. No VOTE card (a timing; no new look).
+WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): on the map, when a card asks (the road's, a boss asker's like Tia
+Carmen, a side quest's), DESI's hint plate leaves the glass at once and waits, and the map's own voice (the line at the foot) waits;
+whoever speaks first holds the glass and nothing is dropped: a cut line comes back after the card is answered.
+slices/bohemia_ui_crashbox.js talkingElsewhere (the plate: a card in the map's frame, or #bmvoice on); slices/bohemia_ui_materials.js
+voiceCardUp / voiceHintUp (the voice: a card, or the plate), __ONE_VOICE_AT_A_TIME__.
+PROVEN (rule 441): THE FOURTEEN EYES FOUND F670 (both shapes; the plate gone 0.1 to 0.18 s after the card, the voice 0 of 20 looks
+over it and speaking after; PLANTED both waits off: the plate over the card and the voice over it 20 of 20), F654 3/0 (its plant
+re-aimed to the new function), F612h green; NOTHING POPS, VOICES CLEAR 38/0; A FRESH PHONE SEES THE DOOR 9/0; THE JOBS' PART 29/2 and
+THE UI BELONGS TO THE WORLD 29/4 the same reds on main (the job's words N2, D7; the start screen's settings and the map's bar: theirs).
+NEXT (if woken): EYES' new rows as they land.
+
+FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/21 (b) -- [the smith's line] BUILD 11/21q - THE SMITH'S LINE IS WHOLE, BUILT, NOT
 YET SEEN: ask row 653's other cause FIXED, 654 made instant, 574 CLOSED (a checker re-aimed to two newer rulings; the red debt 368 to 367).
 11/21f (the block below) is SEEN by EYES on a phone both ways (row 668). Record: the same record, sections 5 and 6. No VOTE card (a fit).
 WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link):

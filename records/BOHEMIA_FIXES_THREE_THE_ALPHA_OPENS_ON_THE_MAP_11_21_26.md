@@ -117,3 +117,18 @@ NOW (gates/the_new_enemies_gate.js leg 11): a giant's cell, and a cell under its
 floor; every other cell keeps 6 in 10; and the dealer's own filter is held (slices/bohemia_job_kinds.js filters both, the page leg is
 JOBS' A HUNT FITS THE CREW). `--plant` holds every cell again, as before: red on the same numbers.
 THE RED DEBT: its quarantine line struck, 368 NAMED to 367 (the line was FILED, so 350 LEFT stays).
+
+## 7. ONE VOICE AT A TIME (ask row 670, FOUND BY EYES 11/21, e05)
+
+On the alpha's map about 8 s after LEAVE (a fresh phone, upright), three spoke at once: Tia Carmen's card asked (SOMEONE NEEDS HELP,
+I'LL READ THE FLYER / NOT MY PROBLEM.), DESI's hint plate ('Tap anywhere on the map and we walk there...') stood over the right two
+thirds of NOT MY PROBLEM., and the map's own voice said 'Oye. Posts on the phone are work...' at the foot. The card is drawn in the
+map's frame, so the plate's 'is the place covered' test (the top page only) never saw it, and the map's voice had no wait for a card.
+NOW: DESI's plate steps aside at once and never starts while a card asks in the map's frame (BohemiaRoadEvents.card: the road, a boss
+asker, a side quest) or the map's voice is on the glass (slices/bohemia_ui_crashbox.js talkingElsewhere, __ONE_VOICE_AT_A_TIME__); the
+map's voice waits while a card asks or the plate is up, and a line a card cuts off comes back whole after it (slices/bohemia_ui_
+materials.js voiceCardUp, voiceHintUp). Whoever speaks first holds the glass; nothing is dropped, it waits.
+GATE THE FOURTEEN EYES FOUND, new leg F670 (the demo, a new game, off the first town onto the map, DESI's map line up; a card asks; the
+map's voice asked to speak meanwhile): the plate off the glass at 100 to 183 ms upright, 95 on its side, never back while the card
+asks; the voice on in 0 of 20 looks while the card asks, and it speaks after the card is answered. PLANTED (both waits off): the plate
+stays over the card and the voice speaks over it 20 of 20 looks: the three at once, exactly.

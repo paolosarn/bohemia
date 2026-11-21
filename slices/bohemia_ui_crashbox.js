@@ -814,8 +814,20 @@
   }
   /* __THE_HINT_STEPS_ASIDE_FOR_SETTINGS__ (FIXES 3 11/21, row 654): gone at once, no slide over the card (MEASURED: the slide and the
      half-second watcher kept it 0.4 to 0.9 s on the card); checked every 120 ms while a plate is up, nothing at all while none is */
+  /* __ONE_VOICE_AT_A_TIME__ (FIXES 3 11/21, ask row 670, EYES e05: DESI's plate over Tia Carmen's NOT MY PROBLEM. while the map's own
+     voice spoke at the foot): a card that asks in the map's frame (BohemiaRoadEvents.card: the road, a boss asker, a side quest) or the
+     map's voice on the glass (#bmvoice) is somebody already talking; the plate steps aside for it, and never starts over it */
+  function talkingElsewhere() {
+    try { var fs = document.getElementsByTagName('iframe');
+      for (var i = 0; i < fs.length; i++) { var w = null; try { w = fs[i].contentWindow; if (!w || !w.document) continue; } catch (e) { continue; }
+        var r = fs[i].getBoundingClientRect(); if (r.width < 2 || r.height < 2) continue;   /* a frame off the glass (another tab) says nothing */
+        try { if (w.BohemiaRoadEvents && w.BohemiaRoadEvents.up && w.BohemiaRoadEvents.up()) return 'card'; } catch (e) {}
+        try { var v = w.document.getElementById('bmvoice'); if (v && v.classList.contains('on') && v.offsetWidth > 0) return 'voice'; } catch (e) {} }
+    } catch (e) {}
+    return '';
+  }
   function asideIfCovered() {
-    if (SAY.busy && SAY.aside && covered()) { SAY.aside(); if (SAY.el) SAY.el.style.display = 'none'; window.__HINT_ASIDE_COVERED = (window.__HINT_ASIDE_COVERED | 0) + 1; }
+    if (SAY.busy && SAY.aside && (covered() || talkingElsewhere())) { SAY.aside(); if (SAY.el) SAY.el.style.display = 'none'; window.__HINT_ASIDE_COVERED = (window.__HINT_ASIDE_COVERED | 0) + 1; }
   }
   function hintTick() {
     if (!hintsOn()) { SAY.on = null; return; }
@@ -831,6 +843,7 @@
     if (!scr || SAY.busy || !D.hints.lines[scr] || said()[scr]) return;
     var f = $('front'); if (f && f.style.display !== 'none') return;     /* never over the door */
     if (covered()) { SAY.since = now(); return; }                       /* nor while a screen of the game's own is over the place (the barber's mirror, a card) */
+    if (talkingElsewhere()) { SAY.since = now(); return; }              /* __ONE_VOICE_AT_A_TIME__: nor while a card asks or the map's voice talks */
     if (scr === 'town' && townSheetOpen()) { SAY.since = now(); return; }   /* __THE_HINT_STEPS_ASIDE__: nor over a building's sheet */
     if (now() - SAY.since < (D.hints.quiet_ms[scr] || 8000)) return;
     crewLooks();
