@@ -20,7 +20,12 @@
          own read of him (outclasses, dodges, armour), each a drawn mark named by the plate's own word; his sheet says the same level
          and reads each mark beside its word; a finger on a mark reads its word on the reading line and the sheet stays
      P7  ONE FAMILY: the phone's card, his sheet and the card that opens a fight wear the same edge in the same red
+     P8  THE LAST HIT ON THE CARD (FIGHT SCREEN THREE 11/20; the library's Rogue Fable IV page, rule 3): a quarter of his health and a third
+         of his armour taken since his mark (the bell, or his last turn's end): his card's health and armour bars carry what is left and,
+         right of it in the board's punch colour (bone), what was taken, within a point and a half of the share; fatigue carries none;
+         put back, the piece is what the fight itself says was taken (a real blow before the test counts)
      planted: the two-line fit taken out (P2 red: the long name is cut)
+     planted: the last hit's drawing taken out (P8 red)
    Run: node gates/the_mans_card_on_the_phone_gate.js      (about four minutes: three boots of the demo) */
 'use strict';
 const fs = require('fs'), path = require('path'), os = require('os'), { spawn } = require('child_process');
@@ -55,8 +60,13 @@ const run = (way, env) => new Promise((res) => { const out = fs.mkdtempSync(path
     'the plate as marks: ' + nP + ' men of theirs put on the card, ' + badP.length + ' wrong, ' + marked + ' wearing a mark (' + U.plates.map(p => p.want.name + ' ' + p.lv + (p.marks.length ? ' ' + p.marks.join('+') : '')).join(', ') + '); his sheet: "' + ((U.sheetTheirs || {}).sub || '').trim() + '"' + ((U.sheetTheirs || {}).plate ? ', the marks read ' + U.sheetTheirs.plate.join(', ') : '') + ((U.sheetTheirs || {}).markRead ? '; a finger on a mark reads "' + U.sheetTheirs.markRead.text.trim() + '" and the sheet ' + (U.sheetTheirs.markRead.up ? 'stays' : 'WENT') : '') + ((S.sheetTheirs || {}).markRead ? '; on its side "' + S.sheetTheirs.markRead.text.trim() + '"' : '') + (badP.length ? ' | WRONG: ' + JSON.stringify(badP[0]).slice(0, 200) : ''));
   check(all(T => T.openingStrip === RED && T.sheetTheirs && T.sheetTheirs.strip === RED && T.cards.theirs.strip === RED), 'P7',
     'one family: the edge of the card that opens a fight ' + U.openingStrip + ', of his sheet ' + (U.sheetTheirs || {}).strip + ', of the phone\'s card ' + U.cards.theirs.strip);
+  const lhOk = (T) => { const L = T.lastHit; return !!L && L.want.mark && L.hp && L.arm && Math.abs(L.hp.lost - L.want.hp) <= 1.5 && Math.abs(L.hp.at - L.hp.left) <= 1.5 && (L.want.arm < 1 || Math.abs(L.arm.lost - L.want.arm) <= 1.5)
+    && /rgb\(242, 234, 216\)/.test(L.hp.colour || '') && (!L.fat || !L.fat.lost) && Math.abs(L.after - (L.wantAfter < 0.4 ? 0 : L.wantAfter)) <= 1.5; };
+  check(lhOk(U) && lhOk(S), 'P8', 'the last hit on the card: ' + W.map(w => { const L = w[1].lastHit; return w[0] + (L ? ' health ' + L.hp.lost + ' of ' + L.want.hp + ' at ' + L.hp.at + ' (what is left ' + L.hp.left + '), armour ' + L.arm.lost + ' of ' + L.want.arm + ', ' + L.hp.colour + ', put back: ' + L.after + ' of ' + L.wantAfter : ' none'); }).join('; '));
   check(!(U.errs || []).length && !(S.errs || []).length, 'errors', (U.errs || []).length + (S.errs || []).length + ' page errors');
   const P = await run('upright', { PLANT: '1' });
   check(!!P && !!P.cards && !!P.cards.long && (P.cards.long.nameCut || P.cards.long.cutText.length > 0), 'planted', 'the two-line fit taken out: the long name is ' + (P && P.cards && P.cards.long ? (P.cards.long.nameCut || P.cards.long.cutText.length ? 'cut (P2 is red on it)' : 'NOT cut') : 'not read'));
+  const PL = await run('upright', { LASTHIT_PLANT: '1' });
+  check(!!PL && !!PL.lastHit && !lhOk(PL), 'planted', 'the last hit\'s drawing taken out: P8 reads ' + (PL && PL.lastHit ? 'health ' + PL.lastHit.hp.lost + ' of ' + PL.lastHit.want.hp : 'nothing') + ' (red)');
   console.log('\nTHE MAN\'S CARD ON THE PHONE: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0);
 })();

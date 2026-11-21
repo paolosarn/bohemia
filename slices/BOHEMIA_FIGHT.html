@@ -8484,6 +8484,9 @@ function tick(now) {
   roundFit();
   const u = FIGHT.current();
   if (!u) return;
+  /* __THE_LAST_HIT_ON_THE_CARD__ (FIGHT SCREEN THREE 11/20; the library's Rogue Fable IV page, rule 3: last turn's damage drawn on the bar):
+     what a man had when his turn ended (at the bell for everyone), so his card can show what was taken since */
+  if (UI.lastMan !== u) { const p0 = UI.lastMan; if (p0) { p0._hpEnd = Math.max(0, p0.hp); p0._armEnd = p0.armB + p0.armH; } UI.lastMan = u; }
   MUSIC.turn(u.side === 'you' ? 'you' : 'them');   /* rule 126(e): the turn is heard, after the last act's motion, not when the rules pass it */
   const sayEl = document.getElementById('say');
   if (UI.sayTurn && UI.sayTurn !== turnKeyOf(u)) say('');
@@ -11079,6 +11082,9 @@ function hud() {
      same widths kept the last man's number (his bar said 0/74 on a man of 73, measured 10/26), so each bar carries its man's numbers */
   hpBar.style.setProperty('--n', '"' + show.id + ' ' + show.hp + '/' + show.hpMax + '"'); ab.style.setProperty('--n', '"' + show.id + ' ' + (show.armB + show.armH) + '/' + (show.armBMax + show.armHMax) + '"');
   fb.style.setProperty('--n', '"' + show.id + ' ' + Math.round(show.fat) + '/' + fm + '"');
+  /* __THE_LAST_HIT_ON_THE_CARD__: what the blows took off him since his last turn ended, as a share of the bar (the phone's card draws it) */
+  hpBar.dataset.lost = show._hpEnd != null ? (100 * Math.max(0, Math.min(show._hpEnd, show.hpMax) - Math.max(0, show.hp)) / Math.max(1, show.hpMax)).toFixed(1) : '0';
+  ab.dataset.lost = show._armEnd != null ? (100 * Math.max(0, show._armEnd - (show.armB + show.armH)) / Math.max(1, show.armBMax + show.armHMax)).toFixed(1) : '0';
   const pi = document.getElementById('picons'), pk = show.id + ':' + show.perks.join(',');
   if (pi.dataset.key !== pk) { pi.dataset.key = pk; pi.textContent = ''; show.perks.forEach(function (id) { pi.appendChild(perkArt(id, 16)); }); }
   const ap = document.getElementById('ap'); ap.textContent = '';
@@ -12139,6 +12145,7 @@ function fitNow(ms) { const f = fitBoth(); if (ms) glideTo(f.cx, f.cy, f.z, ms);
 function fightNow() {
   if (!FIGHT.startFight()) return;
   UI.dsel = null; UI.drag = null; keepLine(); say(UI.auto ? '' : walkSay());
+  FIGHT.S.units.forEach(function (v) { v._hpEnd = Math.max(0, v.hp); v._armEnd = v.armB + v.armH; });   /* __THE_LAST_HIT_ON_THE_CARD__: the bell is everyone's first mark */
   fitNow(beatMs() * (1 + 1));   /* both teams stay on the glass (rule 104a) */
   hud();
 }
@@ -12463,6 +12470,7 @@ function start() {
   UI.hauntSeen = null; UI.hauntName = null;
   UI.wipe = null; UI.dodge = {}; UI.stains = []; UI.drops = []; UI.flash = {}; UI.fleeArm = 0; document.getElementById('bflee').classList.remove('arm'); UI.call = null; UI.callQ = null; UI.callOdds = false; UI.callBetter = null; UI.callLastAt = 0; UI.calls = []; UI.callLast = false; UI.callCrewMax = 0; UI.callFallSeen = -1; UI.fallN = 0; document.getElementById('call').style.display = 'none'; document.body.classList.remove('wiped'); document.getElementById('wipe').style.display = 'none';   /* rule 143: a new fight starts clean */
   UI.anim = []; UI.pops = []; UI.beats = 0; UI.feedLines = []; FIGHT.S.events = []; clearTimeout(UI.beatT); UI.beatFor = null; UI.onBeat = []; SONG.read = -1e9;
+  UI.lastMan = null;   /* __THE_LAST_HIT_ON_THE_CARD__ */
   UI.vet = null; UI.teachQ = []; UI.tapped = false; UI.pend = null; document.getElementById('vet').style.display = 'none';
   UI.why = null; UI.whyDone = false; UI.whySaid = null; document.getElementById('why').style.display = 'none';   /* __THE_WHY_LINE__ */
   UI.shots = []; UI.muzzle = {}; UI.shotSeen = null; UI.shotLog = []; document.getElementById('shotflash').style.opacity = '0';   /* __EVERY_SHOT_IS_FELT__ */

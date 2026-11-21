@@ -33,6 +33,7 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
   await ctx.route('**/*', async (route) => { const u = route.request().url(); if (!u.startsWith(BASE)) return route.abort();
     const rel = decodeURIComponent(u.slice(BASE.length).split('?')[0].split('#')[0]), f = path.join(ROOT, rel);
     if (OLD[rel]) return route.fulfill({ status: 200, body: OLD[rel], headers: { 'Content-Type': MIME[path.extname(rel)] } });
+    if (process.env.LASTHIT_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("lo.style.display = lw > 0.4 ? '' : 'none';", "lo.style.display = 'none';"); if (cut === src) throw new Error('the last-hit plant did not take'); return route.fulfill({ status: 200, body: cut, headers: { 'Content-Type': 'text/javascript' } }); }
     if (process.env.PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("nb.classList.add('long'); if (nb.scrollHeight > 15)", "if (nb.scrollHeight > 15)"); if (cut === src) throw new Error('the plant did not take'); return route.fulfill({ status: 200, body: cut, headers: { 'Content-Type': 'text/javascript' } }); }
     if (!PUBLISHED.some(p => rel.startsWith(p)) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) return route.fulfill({ status: 404, body: '' });
     return route.fulfill({ status: 200, body: fs.readFileSync(f), headers: { 'Content-Type': MIME[path.extname(f).toLowerCase()] || 'application/octet-stream', 'Cache-Control': 'max-age=600' } }); });
@@ -113,9 +114,27 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
   await tapSel(page.mainFrame(), '#bohphone .fh .fme'); await wait(600); await f.evaluate(() => { UI.pend = null; hud(); });
   /* FIGHT: the line is set, one of his is up */
   await tapSel(page.mainFrame(), '#bohphone .fgo'); 
-  await until(async () => { const c = await READ(); return c && !c.none && !c.them && c.pips > 0; }, 25000, 250); await wait(700);
+  await until(async () => { const c = await READ(); return c && !c.none && !c.them && c.pips > 0; }, 60000, 250); await wait(700);
   T.cards.his = await READ(); await shot('5_phone_his');
   log('HIS', JSON.stringify(T.cards.his));
+  /* __THE_LAST_HIT_ON_THE_CARD__ (FIGHT SCREEN THREE 11/20): a quarter of his health and a third of his armour taken since the bell (his mark);
+     the card's bars carry what is left and, in the board's punch colour, what was taken; then put back. LASTHIT_PLANT=1 takes the drawing out */
+  const hit = await f.evaluate(() => { let u = FIGHT.current(); if (!u || u.side !== 'you') { u = FIGHT.S.units.find(v => v.side === 'you' && FIGHT.onField(v)); if (!u) return null; UI.pend = { target: u }; }   /* his man on the card even if the turn is theirs */
+    const w = { id: u.id, hp: u.hp, armB: u.armB };
+    const dh = Math.max(0, Math.min(Math.round(u.hpMax * 0.25), u.hp - 1)), da = Math.min(u.armB, Math.round((u.armBMax + u.armHMax) / 3)); u.hp -= dh; u.armB -= da; hud();
+    /* what the fight itself says was taken since his mark (a real blow before this one counts too) */
+    return { w: w, wantHp: 100 * (Math.min(u._hpEnd, u.hpMax) - u.hp) / u.hpMax, wantArm: 100 * Math.max(0, u._armEnd - (u.armB + u.armH)) / Math.max(1, u.armBMax + u.armHMax), mark: u._hpEnd != null, before: 100 * (Math.min(u._hpEnd, u.hpMax) - w.hp) / u.hpMax }; });
+  if (hit) { await wait(700); await shot('6_phone_his_hit');
+    T.lastHit = await page.evaluate(() => { const r = (sel) => { const s = document.querySelector('#bohphone .fh .fb.' + sel + ' s'), u = s && s.querySelector('u.lost'), i = s && s.querySelector('i'); if (!s) return null;
+        const sb = s.getBoundingClientRect(), ub = u && getComputedStyle(u).display !== 'none' ? u.getBoundingClientRect() : null, ib = i.getBoundingClientRect();
+        return { lost: ub ? Math.round(1000 * ub.width / sb.width) / 10 : 0, at: ub ? Math.round(1000 * (ub.left - sb.left) / sb.width) / 10 : null, left: Math.round(1000 * ib.width / sb.width) / 10, colour: u ? getComputedStyle(u).backgroundColor : null }; };
+      return { hp: r('hp'), arm: r('arm'), fat: r('fat') }; });
+    T.lastHit.want = { hp: Math.round(hit.wantHp * 10) / 10, arm: Math.round(hit.wantArm * 10) / 10, mark: hit.mark };
+    await f.evaluate((w) => { const u = FIGHT.byId(w.id); u.hp = w.hp; u.armB = w.armB; hud(); }, hit.w); await wait(500);
+    await f.evaluate(() => { if (UI.pend && UI.pend.target && UI.pend.target.side === 'you') { UI.pend = null; hud(); } }).catch(() => null);
+    T.lastHit.after = await page.evaluate(() => { const u = document.querySelector('#bohphone .fh .fb.hp s u.lost'), s = u && u.parentNode; return u && getComputedStyle(u).display !== 'none' ? Math.round(1000 * u.getBoundingClientRect().width / s.getBoundingClientRect().width) / 10 : 0; });
+    T.lastHit.wantAfter = await f.evaluate(() => { const e = document.getElementById('bhp'); return Math.round((parseFloat(e && e.dataset.lost) || 0) * 10) / 10; });   /* whoever is on the card now: the fight's own share (the turn may have moved on) */
+    log('LAST HIT', JSON.stringify(T.lastHit)); }
   T.errs = errs; fs.writeFileSync(path.join(OUT, 'phone_card.json'), JSON.stringify(T, null, 1));
   log('DONE', WHICH, WAY, BEFORE ? 'BEFORE' : '', 'page errors', errs.length, errs.slice(0, 2).join(' | '));
   await page.close(); await ctx.close(); await browser.close(); process.exit(0);

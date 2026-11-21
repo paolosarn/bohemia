@@ -44,7 +44,9 @@ const READ_GLASS = () => {
   for (let i = 0; i < up.length; i++) for (let j = i + 1; j < up.length; j++) { const a = up[i], b = up[j]; if (!talk.includes(a.id) && !talk.includes(b.id)) continue;
     const ix = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x), iy = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y); if (ix > 2 && iy > 2) over.push(a.id + '/' + b.id + ' ' + ix + 'x' + iy); }
   let S = null; try { const s = FIGHT.S; S = { round: s.round, deploy: !!s.deploy, over: !!s.over, mine: (function () { const u = FIGHT.current(); return u ? u.side + ':' + u.name : null; })(), hand: UI.hand, auto: !!UI.auto, log: s.log.length, alive: s.units.filter(u => u.hp > 0).map(u => u.side[0]).join('') }; } catch (e) {}
-  return { W, H, up, over, S };
+  /* the men on the glass: a man's whole figure (his box and half a figure either side, the fight's own allFramed) inside the glass, never under the phone's corner counted here */
+  let men = null; try { const f = manH() * FIG_HALF; men = FIGHT.S.units.filter(v => FIGHT.onField(v)).map(v => { const b = manBox(v.x, v.y); return { s: v.side[0], off: b.x - f < -1 || b.x + f > W + 1 || b.head < -1 || b.feet > H + 1, cut: Math.round(Math.max(0, -(b.x - f), (b.x + f) - W)) }; }); } catch (e) { men = { err: String(e).slice(0, 80) }; }
+  return { W, H, up, over, S, men, zoom: (function () { try { return { z: +UI.zoom.toFixed(3), far: +UI.far.toFixed(3), near: +UI.near.toFixed(3), coverFar: UI.coverFar || null }; } catch (e) { return null; } })() };
 };
 
 (async () => {
@@ -68,7 +70,7 @@ const READ_GLASS = () => {
       const ph = await phoneBox(); if (g && g.up && ph && fb) { g.phone = ph; g.underPhone = g.up.filter(c => ['why', 'vet', 'call', 'say', 'drawer', 'pick'].includes(c.id)).filter(c => { const x = c.x + fb.x, y = c.y + fb.y; return Math.min(x + c.w, ph.x + ph.w) - Math.max(x, ph.x) > 2 && Math.min(y + c.h, ph.y + ph.h) - Math.max(y, ph.y) > 2; }).map(c => c.id); } }
     const sp = frame(/SPOILS_SCREEN/); if (sp) g = Object.assign(g || {}, { spoils: await sp.evaluate(() => (document.body.innerText || '').replace(/\s+/g, ' ').slice(0, 300)).catch(() => null) });
     try { await page.screenshot({ path: path.join(OUT, 'shots', n + '.png') }); } catch (e) {}
-    W.stills.push({ n, t: Date.now(), g }); log('STILL', n, g && g.up ? g.up.map(c => c.id + (c.off ? '!OFF' : '') + (c.cut.length ? '!CUT' : '')).join(',') : '', g && g.over && g.over.length ? 'OVERLAP ' + g.over.join(';') : '', g && g.underPhone && g.underPhone.length ? 'UNDER PHONE ' + g.underPhone.join(',') : '', g && g.S ? JSON.stringify(g.S) : '', g && g.phone && g.phone.card ? 'PHONE ' + g.phone.card : '', g && g.spoils ? 'SPOILS ' + g.spoils.slice(0, 80) : ''); };
+    W.stills.push({ n, t: Date.now(), g }); log('STILL', n, g && g.up ? g.up.map(c => c.id + (c.off ? '!OFF' : '') + (c.cut.length ? '!CUT' : '')).join(',') : '', g && g.over && g.over.length ? 'OVERLAP ' + g.over.join(';') : '', g && g.underPhone && g.underPhone.length ? 'UNDER PHONE ' + g.underPhone.join(',') : '', g && g.S ? JSON.stringify(g.S) : '', g && g.phone && g.phone.card ? 'PHONE ' + g.phone.card : '', g && Array.isArray(g.men) && g.men.some(m => m.off) ? 'MEN OFF ' + g.men.filter(m => m.off).map(m => m.s + m.cut).join(',') + ' z' + JSON.stringify(g.zoom) : '', g && g.spoils ? 'SPOILS ' + g.spoils.slice(0, 80) : ''); };
   await page.goto(BASE + FILE, { waitUntil: 'load', timeout: 300000 });
   await until(() => tapText('div,button,span', '^NEW GAME$'), 90000); await wait(2000);
   await until(() => tapText('#fronttap', 'BEGIN'), 90000); await wait(3500);
@@ -106,11 +108,18 @@ const READ_GLASS = () => {
     W.step = sq; if (sq && sq.x != null) { const fb = await box(f); await page.touchscreen.tap(fb.x + sq.x, fb.y + sq.y); await wait(500); await still('08_square_tapped'); await page.touchscreen.tap(fb.x + sq.x, fb.y + sq.y); await wait(1200); await still('09_after_step'); } }
   /* AUTO at 2x, a still every 2.5 s, to the end */
   const phoneB = async (c) => tapSel(page.mainFrame(), '#bohphone button[data-c="' + c + '"]');
+  /* END=retreat: he pulls out on his turn (RETREAT, armed, pressed again), the rest of the fight played to its end on AUTO */
+  if (process.env.END === 'retreat') { for (let i = 0; i < 40; i++) { const st = await f.evaluate(() => ({ over: !!FIGHT.S.over, mine: (function () { const u = FIGHT.current(); return !!u && u.side === 'you' && !UI.anim.length; })(), ret: !!FIGHT.S.retreat })).catch(() => ({ over: true }));
+      if (st.over || st.ret) break; if (st.mine) { await phoneB('flee'); await wait(400); if (i === 0) await still('09r_retreat_armed'); await phoneB('flee'); await wait(800); } else await wait(400); }
+    await still('09r_retreat_pressed'); }
   if (!(await f.evaluate(() => !!UI.auto).catch(() => true))) { await phoneB('auto'); await wait(500); }
   for (let i = 0; i < 4; i++) { const h = await f.evaluate(() => UI.hand).catch(() => 2); if (h === 2) break; await phoneB('speed'); await wait(400); }
   let k = 10; const tA = Date.now(); while (Date.now() - tA < 150000) { const o = await f.evaluate(() => !!FIGHT.S.over).catch(() => true); if (o) break; await wait(2500); await still(String(k++).padStart(2, '0') + '_auto'); if (k > 60) break; }
   await wait(300); await still('80_over_0_3s'); await wait(1200); await still('81_over_1_5s'); await wait(2500); await still('82_over_4s');
   await until(() => !!frame(/SPOILS_SCREEN/), 12000, 300); await wait(1500); await still('83_end_screen');
+  W.overCard = await f.evaluate(() => { const o = document.getElementById('over'); if (!o) return null; const st = getComputedStyle(o); return { display: st.display, visibility: st.visibility, handed: o.classList.contains('handed'), head: (document.getElementById('oh') || {}).textContent, text: (o.innerText || '').replace(/\s+/g, ' ').slice(0, 300) }; }).catch(() => null);
+  log('OVER CARD', JSON.stringify(W.overCard));
+  if (W.overCard && W.overCard.display !== 'none' && W.overCard.visibility !== 'hidden') { await tapText('button', '^(LEAVE|AGAIN|DONE|BACK TO THE MAP)$', fightF()); await wait(2500); await still('83b_after_over_button'); }
   for (let i = 0; i < 14; i++) { const sp = frame(/SPOILS_SCREEN/); if (!sp) break; await tapText('button', '^LEAVE$', sp); await wait(2500); if (i === 0) await still('84_after_leave'); }
   await wait(2000); await still('85_map_again');
   W.home = await city().evaluate(() => MODE === 'city' && !document.querySelector('iframe[src*="BOHEMIA_FIGHT"]')).catch(() => null);

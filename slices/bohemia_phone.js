@@ -432,7 +432,7 @@
   P.man = function () {
     var g = function (id) { return document.getElementById(id); };
     var bar = function (id) { var e = g(id); if (!e) return null; var n = String(e.style.getPropertyValue('--n') || '').replace(/"/g, '').trim().split(' ').pop();
-      return { w: parseFloat(e.style.width) || 0, c: String(e.style.backgroundColor || e.style.background || ''), n: /\d\/\d/.test(n) ? n : '' }; };
+      return { w: parseFloat(e.style.width) || 0, c: String(e.style.backgroundColor || e.style.background || ''), n: /\d\/\d/.test(n) ? n : '', l: parseFloat(e.dataset.lost) || 0 }; };   /* l: __THE_LAST_HIT_ON_THE_CARD__ (FIGHT SCREEN THREE 11/20, a marked line): what was taken since his last turn */
     var ap = g('ap'), cl = g('cls'), r = g('round'), nm = g('cnm');
     return { name: nm ? String(nm.textContent || '').replace(/\s*\*$/, '') : '', main: !!nm && /\*$/.test(String(nm.textContent || '')), face: g('face'),
       hp: bar('bhp'), arm: bar('barm'), fat: bar('bfat'), ap: ap ? ap.querySelectorAll('i.on').length : 0, apTurn: ap ? ap.children.length : 0,
@@ -933,6 +933,7 @@
       + '#bohphone .fb{height:5px;gap:0}'
       + '#bohphone .fb s{height:5px;background:rgba(255,236,200,.1);box-shadow:inset 0 1px 0 rgba(0,0,0,.6),inset 0 0 0 1px rgba(0,0,0,.35)}'
       + '#bohphone .fb s i{box-shadow:inset 0 1px 0 rgba(255,255,255,.36),inset 0 -1px 0 rgba(0,0,0,.34)}'
+      + '#bohphone .fb s u.lost{position:absolute;top:0;bottom:0;display:block;text-decoration:none;background:#f2ead8;opacity:.78;box-shadow:inset 1px 0 0 rgba(0,0,0,.55);pointer-events:none}'   /* __THE_LAST_HIT_ON_THE_CARD__ (FIGHT SCREEN THREE 11/20) */
       + '#bohphone .fb em,#bohphone .fap em{display:none}'
       /* one height for every man (the skills under it never move): his bars 5, a man of theirs' 4 (his plate takes the row his AP had), a two-line name's thinner */
       + '#bohphone .fh.them .fb,#bohphone .fh.them .fb s{height:4px}'
@@ -1778,7 +1779,7 @@
   }
   function manPaint(force) {
     var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F || !F.man) return;
-    var M = F.man(), bars = [M.hp, M.arm, M.fat].map(function (b) { return b ? [b.w, b.c, b.n].join(',') : ''; });
+    var M = F.man(), bars = [M.hp, M.arm, M.fat].map(function (b) { return b ? [b.w, b.c, b.n, b.l].join(',') : ''; });   /* b.l: __THE_LAST_HIT_ON_THE_CARD__ */
     var key = [M.name, M.main, bars.join(';'), M.ap, M.apTurn, M.cls, M.round, M.full, (M.plate || []).join(',')].join('|');
     if (!force && key === H.manKey) return; H.manKey = key;
     H.el.querySelector('.stat .wh').textContent = M.round || '';
@@ -1789,6 +1790,11 @@
     [['hp', M.hp], ['arm', M.arm], ['fat', M.fat]].forEach(function (p) {
       var row = hd.querySelector('.fb.' + p[0]), b = p[1] || { w: 0, c: '', n: '' }, i = row.querySelector('i');
       i.style.width = Math.max(0, Math.min(100, b.w)) + '%'; i.style.backgroundColor = b.c || ''; row.querySelector('em').textContent = b.n || '';
+      /* __THE_LAST_HIT_ON_THE_CARD__ (FIGHT SCREEN THREE 11/20/26; rule 450(a); the library's Rogue Fable IV page, rule 3: last turn's damage is drawn
+         on the bar itself; a marked block by rule 449(b)'s word, the card is this lane's): what the blows took off him since his last turn ended
+         sits on the bar right of what is left, in the board's own punch colour (bone), so a glance says how hard the last round hit him */
+      if (p[0] !== 'fat') { var s0 = row.querySelector('s'), lo = s0 && s0.querySelector('u.lost'); if (s0 && !lo) { lo = document.createElement('u'); lo.className = 'lost'; s0.appendChild(lo); }
+        if (lo) { var w0 = Math.max(0, Math.min(100, b.w)), lw = Math.max(0, Math.min(100 - w0, b.l || 0)); lo.style.left = w0 + '%'; lo.style.width = lw + '%'; lo.style.display = lw > 0.4 ? '' : 'none'; } }
     });
     var fa = hd.querySelector('.fap'), pp = fa.querySelector('.pp');
     fa.classList.toggle('cls', !!M.cls);
