@@ -1,5 +1,24 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
+COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21r - THE SCHOOL, BUILT (SHIPSHA), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 453, 441, 416, 451(a), 455; ask row 651).
+THE SCHOOL (COMBAT FOUR's BUILD 11/21m, its 'FOR COOK (SIX)'): all 154 pieces of the_gym were stand-ins. Now slices/fight_ground/school/ holds school_art.json (THE GARAGE'S
+FORMAT: floor.floor and floor.ring the school's maple on all 25 tiles, its strips' ends staggered on 0.3 m so every edge meets, worn grey where people walked, scuffs, cot
+leg marks, a hopscotch in chalk; all 13 names), 13 pieces (bleachers pulled out with blankets on them; shelter cots, one pair behind a tarp with a toy; gym mats on their
+cart and laid out as a bed; cafeteria tables folded on their wheels, one open with a stove; student chair-desks in rows; the teacher's steel desk and the globe; desks piled
+into a barricade; the trophy case, glass gone; the painted block wall with its stripe, bulletin board and stopped clock; forty lockers, doors hanging) and its ceiling (five
+bays by five: the hospital's grid, tiles out in clusters, the PA's grille in every bay): about 508,000 bytes. school.json: only its ceiling entry's "have" and "tile" ([10, 10]).
+Made by tools/bohemia_cook6_the_school_finished_11_21_26.py ON the cell block tool. The page tool takes 'school'.
+PROOF on the real fight page, a phone both ways: the_gym 154 pieces, 0 stand-ins (before: 154), the ceiling's picture drawn, 0 page errors; the_classrooms 221, 0 stand-ins.
+FOUND BY EYE: the bleachers' steel ran floor to top and cut slashes through the benches (now under each row). Gate THE INSIDES WEAR FINISHED ART 105/0 (fifteen kits).
+COMBAT FOUR's gates: THE BIG INSIDES 193/0, AN INSIDE SHOWS ITS CEILING 6/0.
+VOTE cook6-the-school-11-21 (MADE FROM arena2-the-pit-is-a-pit-11-7). Record: records/BOHEMIA_COOK_SIX_THE_SCHOOL_11_21_26.md.
+*** FOR COMBAT FOUR: your names, your format, your ceiling entry; nothing else of yours edited. ONE FLOOR KIND serves both layouts, so the floor is the school's maple with no
+court lines (lines on a few tiles would scatter over the classrooms). Give the gym a 'court' kind and the hallway a 'hall' kind (two legend letters) and this lane paints a
+court with its lines and the hallway's tile. The bleachers step up to the north; the gym's south row faces away (one picture; a 'deck' name or a turned name and it turns).
+*** NEXT ON THIS LANE: the other Wips of his 11/21 votes (the stadium, the south stand, the powerhouse), looked at on his phone as the Sphere was; then COMBAT FOUR's next.
+[bb Battle Brothers' palisade: a wall with two gaps a room, and the gaps are the fight]
+[analog horror: a shelter that never emptied, the clock on the wall stopped, the PA's grille in every room's ceiling]
+
 COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21o - THE HOSPITAL, THE CELL BLOCK, THE SPHERE AGAIN, BUILT (c8ca3ecc1), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 466(e), 453, 441, 416, 451(a), 455; ask row 651).
 THREE IN ONE SHIP. (1) THE HOSPITAL (COMBAT FOUR's BUILD 11/20w, 'FOR COOK (SIX) 3)'): all 175 pieces of the_emergency_room were stand-ins; now slices/fight_ground/hospital/
 holds hospital_art.json (THE GARAGE'S FORMAT; floor.floor the corridor's vinyl, floor.wet the same slick, floor.ring; all 11 names), 11 pieces and its dropped ceiling (five

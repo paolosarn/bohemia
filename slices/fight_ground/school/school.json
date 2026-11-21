@@ -453,11 +453,8 @@
   "kind": "grid",
   "alpha": 0.1,
   "src": "school/school_ceiling.webp",
-  "have": false,
-  "tile": [
-   5,
-   5
-  ],
+  "have": true,
+  "tile": [10, 10],
   "bay": 5,
   "how": "VAMILY rule 451(a): a school's dropped ceiling (the classrooms) and the gym's roof deck, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the hospital's grid)."
  }

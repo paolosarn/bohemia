@@ -1,0 +1,145 @@
+{
+ "bleachers": {
+  "w": 516,
+  "h": 231,
+  "foot": [
+   258.2,
+   223
+  ],
+  "piece": "bleachers",
+  "src": "school/sc_bleachers.webp",
+  "facing": "S"
+ },
+ "lockers_ew": {
+  "w": 515,
+  "h": 114,
+  "foot": [
+   257.8,
+   100
+  ],
+  "piece": "lockers_ew",
+  "src": "school/sc_lockers_ew.webp",
+  "facing": "S"
+ },
+ "lockers_ns": {
+  "w": 52,
+  "h": 452,
+  "foot": [
+   26.7,
+   451
+  ],
+  "piece": "lockers_ns",
+  "src": "school/sc_lockers_ns.webp",
+  "facing": "S"
+ },
+ "case": {
+  "w": 154,
+  "h": 173,
+  "foot": [
+   77.5,
+   131
+  ],
+  "piece": "case",
+  "src": "school/sc_case.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 516,
+  "h": 130,
+  "foot": [
+   258.2,
+   119
+  ],
+  "piece": "wall_ew",
+  "src": "school/sc_wall_ew.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 52,
+  "h": 456,
+  "foot": [
+   26.2,
+   455
+  ],
+  "piece": "wall_ns",
+  "src": "school/sc_wall_ns.webp",
+  "facing": "S"
+ },
+ "cots_a": {
+  "w": 232,
+  "h": 115,
+  "foot": [
+   103.8,
+   103
+  ],
+  "piece": "cots_a",
+  "src": "school/sc_cots_a.webp",
+  "facing": "S"
+ },
+ "cots_b": {
+  "w": 171,
+  "h": 168,
+  "foot": [
+   85.8,
+   159
+  ],
+  "piece": "cots_b",
+  "src": "school/sc_cots_b.webp",
+  "facing": "S"
+ },
+ "mats": {
+  "w": 180,
+  "h": 132,
+  "foot": [
+   56.3,
+   123
+  ],
+  "piece": "mats",
+  "src": "school/sc_mats.webp",
+  "facing": "S"
+ },
+ "tables": {
+  "w": 249,
+  "h": 132,
+  "foot": [
+   112.4,
+   126
+  ],
+  "piece": "tables",
+  "src": "school/sc_tables.webp",
+  "facing": "S"
+ },
+ "desks": {
+  "w": 206,
+  "h": 152,
+  "foot": [
+   103.5,
+   141
+  ],
+  "piece": "desks",
+  "src": "school/sc_desks.webp",
+  "facing": "S"
+ },
+ "teacher": {
+  "w": 129,
+  "h": 125,
+  "foot": [
+   52.5,
+   124
+  ],
+  "piece": "teacher",
+  "src": "school/sc_teacher.webp",
+  "facing": "S"
+ },
+ "barricade": {
+  "w": 150,
+  "h": 116,
+  "foot": [
+   73.3,
+   110
+  ],
+  "piece": "barricade",
+  "src": "school/sc_barricade.webp",
+  "facing": "S"
+ }
+}

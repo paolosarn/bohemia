@@ -22411,7 +22411,50 @@
    },
    "record": "records/BOHEMIA_COOK_SIX_THE_SPHERE_AGAIN_11_21_26.md"
   },
-  {"id": "combat4-his-line-whole-11-21", "kind": "ui", "lane": "combat 4", "sha": "224929ccc", "made": "11/21", "draft": true, "title": "SETTING YOUR LINE ON AN UPRIGHT PHONE: YOUR MEN ARE NEVER CUT OFF THE EDGE ANY MORE", "said": "A full sweep, the whole enchilada, don't forget anything", "why": "Setting your line on an upright phone, your own men used to hang off the left edge when the two lines stood wider apart than the screen; now the camera slides just enough that your whole line shows and theirs runs off the far side (a drag shows them). You see it on the fight screen at the start of a fight, before you press FIGHT.", "show": {"how": "image", "src": "../records/target/COMBAT4_HIS_LINE_WHOLE_11_21.webp", "first": "../records/target/vote_first/combat4-his-line-whole-11-21.webp", "firstAt": [0, 0, 1176, 560]}, "before_after": {"before": "main before this build: upright, in the lineup, the frame centred between the lines: on the alpha two of his men 6 points past the left edge, on the demo his men half off the glass", "after": "his line whole (the camera slides only as far as his outermost man needs), theirs run off the right; on its side, and wherever both lines fit, nothing changes", "scale": "the fight page upright, the same fight, the left picture with the slide taken out, the right as it ships"}, "stage": "stand_in", "record": "records/BOHEMIA_COMBAT_FOUR_HIS_LINE_WHOLE_11_21_26.md"}
+  {"id": "combat4-his-line-whole-11-21", "kind": "ui", "lane": "combat 4", "sha": "224929ccc", "made": "11/21", "draft": true, "title": "SETTING YOUR LINE ON AN UPRIGHT PHONE: YOUR MEN ARE NEVER CUT OFF THE EDGE ANY MORE", "said": "A full sweep, the whole enchilada, don't forget anything", "why": "Setting your line on an upright phone, your own men used to hang off the left edge when the two lines stood wider apart than the screen; now the camera slides just enough that your whole line shows and theirs runs off the far side (a drag shows them). You see it on the fight screen at the start of a fight, before you press FIGHT.", "show": {"how": "image", "src": "../records/target/COMBAT4_HIS_LINE_WHOLE_11_21.webp", "first": "../records/target/vote_first/combat4-his-line-whole-11-21.webp", "firstAt": [0, 0, 1176, 560]}, "before_after": {"before": "main before this build: upright, in the lineup, the frame centred between the lines: on the alpha two of his men 6 points past the left edge, on the demo his men half off the glass", "after": "his line whole (the camera slides only as far as his outermost man needs), theirs run off the right; on its side, and wherever both lines fit, nothing changes", "scale": "the fight page upright, the same fight, the left picture with the slide taken out, the right as it ships"}, "stage": "stand_in", "record": "records/BOHEMIA_COMBAT_FOUR_HIS_LINE_WHOLE_11_21_26.md"},
+  {
+   "id": "cook6-the-school-11-21",
+   "kind": "tile",
+   "lane": "cook 6",
+   "sha": "SHIPSHA",
+   "made": "11/21",
+   "draft": true,
+   "title": "THE FIGHT INSIDE THE SCHOOL LOOKS LIKE A SCHOOL NOW: THE GYM FULL OF COTS, THE BLEACHERS, THE CLASSROOMS, THE LOCKERS",
+   "said": "full sweep, whole enchilada, dont forget nothing",
+   "why": "The fight inside the school was built from the casino's, the tunnels' and the street's pictures; now it has its own: the gym as the town's shelter that never emptied, its canvas cots with their blankets and bags, a tarp strung for a wall, a toy on a cot, the bleachers pulled out with blankets left on them, gym mats laid out as a bed, the cafeteria tables folded on their wheels and one open with a stove on it; the classroom wing's rows of chair-desks, the teacher's steel desk with the globe, desks piled into a barricade, the hallway's lockers with their doors hanging, the trophy case with its glass gone, the maple floor worn grey where people walked, a hopscotch in chalk, and over it at his 10% the dropped ceiling with the PA's speaker in every room. You meet it when a fight starts at a school, in the RUN tab.",
+   "options": [
+    "A, yes, that's the school",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK6_THE_SCHOOL_11_21.webp",
+    "first": "../records/target/vote_first/cook6-the-school-11-21.webp",
+    "firstAt": [
+     786,
+     96,
+     383,
+     559
+    ]
+   },
+   "before_after": {
+    "before": "before the cut: all 154 pieces of the school (the_gym) are stand-ins from the casino, the tunnels and the street board; the ceiling is drawn by the page",
+    "after": "the school's own maple floor, 13 pictures under its 13 names and its ceiling, through the master rig; it lays them with no code changed",
+    "scale": "the fight on his phone upright (390 x 844) as it opens, before and now; close in; the classrooms; the pieces at their own pixels"
+   },
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "twin": {
+    "src": "fight_ground/hospital/hs_beds.webp",
+    "diffs": [
+     "THE SAME RIG AND CUT as the hospital's and the cell block's kits; the hospital's ceiling grid, with the PA in every bay.",
+     "THE SHELTER NEVER EMPTIED: cots in rows where the court was, the bleachers a place to sleep.",
+     "ONE FLOOR FOR BOTH LAYOUTS (COMBAT FOUR's one kind): maple, no court lines; asked for a court kind and a hallway kind."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_SIX_THE_SCHOOL_11_21_26.md"
+  }
  ],
  "verdicts": [
   {
