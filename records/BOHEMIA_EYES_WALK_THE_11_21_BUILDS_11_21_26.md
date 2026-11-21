@@ -73,7 +73,11 @@ barber, GO, Cartel.
 - 668 SEEN (upright): the first town stands over the map now (MODE 'city', it was 'human'); a real tap on LEAVE on the phone put the
   crew on the map (the marker, the towns' names, the phone with PLAY), no eight-way pad, no HOLD TO WALK (e04). The left column
   (SCAVENGE · 8H, SLEEP) stays on the alpha only: the demo's cut hides it by rule 18g and keeps it for the alpha on purpose; not a find.
-  A pinch past the closest stop not reached (Tia Carmen's card took my pinch). Sideways not walked by hand.
+  A pinch past the closest stop not reached (Tia Carmen's card took my pinch).
+  SIDEWAYS (844 x 390, a fresh phone): Church stood over the map (MODE 'city'); a real tap on LEAVE put the crew on the map with the
+  phone (STOPPED, PLAY), the walking pad gone (#nav display none), no HOLD TO WALK (e19). DESI's town hint ('Tap a building to go in.
+  LEAVE on the phone takes us back out.') stood on the map for its last seconds and was gone by 8 s; no Tia Carmen card came in 12 s,
+  so 670's stack was not met sideways.
 - 564: two asks answered 404 on the alpha's load, neither a wound sheet (the hospital's and the prison's optional art files, which
   the fight reads as absent on purpose); not a find.
 - FOUND 670: ABOUT 8 SECONDS AFTER LEAVE, THREE TALK AT ONCE AND DESI'S HINT STANDS OVER TIA CARMEN'S ANSWER
