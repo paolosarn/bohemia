@@ -9966,6 +9966,8 @@ GATES = [
      "F527 the fight's phone: every press reaches past its icon, never over another, the ability wells whole, the phone never grows (238(b)); F531 the meet "
      "card says the board the fight deals (every district dealt by the fight itself against engine/bohemia_meet_ground.js; the card on the demo); F538 the "
      "camp's and the scavenge game's board page decodes its ground off the main thread, the scavenge game under 1 s of pause on the demo (MAKE CAMP OWED). "
+     "FIXES 3 11/21: F653 (row 653) the smith's line whole and his sheet inside its box with his men's gear broken (one and three upright, "
+     "three on its side, a PLANT); F654 (row 654) DESI's plate off the glass within half a second of the settings card (both shapes, a PLANT). "
      "About 15 min (--only F525,F528,..., --shape phone_portrait|phone_landscape|none)", True),
     ('THE WALK BACK ASKS', ['node', 'gates/the_walk_back_asks_gate.js'],
      "FIXES 2 gate, 11/17, ask row 592 (rule 413, Paolo 11/6: 'I should be fully able to get away'; RUN SIX's law under it: 'only his own walk aimed at them "

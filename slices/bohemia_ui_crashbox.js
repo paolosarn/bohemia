@@ -812,6 +812,11 @@
     } catch (e) {}
     return false;
   }
+  /* __THE_HINT_STEPS_ASIDE_FOR_SETTINGS__ (FIXES 3 11/21, row 654): gone at once, no slide over the card (MEASURED: the slide and the
+     half-second watcher kept it 0.4 to 0.9 s on the card); checked every 120 ms while a plate is up, nothing at all while none is */
+  function asideIfCovered() {
+    if (SAY.busy && SAY.aside && covered()) { SAY.aside(); if (SAY.el) SAY.el.style.display = 'none'; window.__HINT_ASIDE_COVERED = (window.__HINT_ASIDE_COVERED | 0) + 1; }
+  }
   function hintTick() {
     if (!hintsOn()) { SAY.on = null; return; }
     var st = phoneState(), scr = st && st.on ? st.screen : null;
@@ -820,7 +825,7 @@
        building to go in...' stood over the MOTION row and half the SETTINGS row of the open settings card). A plate up when one of
        the game's own screens comes over the place (the settings card, the barber's chair, the squad's tape, the title) goes at once,
        the way it goes for a building's sheet; cut before it was all typed, it comes back whole when the place is quiet again. */
-    if (SAY.busy && SAY.aside && covered()) { SAY.aside(); window.__HINT_ASIDE_COVERED = (window.__HINT_ASIDE_COVERED | 0) + 1; }
+    asideIfCovered();
     if (SAY.busy && SAY.el) placeSay(st);
     if (scr !== SAY.on) { SAY.on = scr; SAY.since = now(); return; }
     if (!scr || SAY.busy || !D.hints.lines[scr] || said()[scr]) return;
@@ -851,7 +856,7 @@
     } catch (e) { LOG.push({ k: 'loop threw', e: String(e) }); }
     requestAnimationFrame(loop);
   }
-  function boot() { style(); vars(); requestAnimationFrame(loop); setInterval(hintTick, 500); }
+  function boot() { style(); vars(); requestAnimationFrame(loop); setInterval(hintTick, 500); setInterval(function () { if (SAY.busy && SAY.aside) asideIfCovered(); }, 120); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
 
   window.BohemiaCrashbox = {

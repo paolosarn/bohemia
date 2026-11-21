@@ -1180,10 +1180,50 @@ async function f612h(shape, plant) {
   await ctx.close();
 }
 
+/* F653 THE SMITH'S LINE IS WHOLE (FIXES 3 11/21, ask row 653, FOUND BY EYES 11/20, e05: Caravans' smith upright, 'Everybody wants a
+        blade sharp fo...'): the demo, a new game's start town on market day, his men's gear broken (one man, then three), the smith
+        (the armourer where the town has no smith) opened with a thumb: the keeper's line whole, the sheet inside its box, every button
+        on the glass; on its side the same sheet inside its box and on the glass.
+        PLANT: the new last step off (the keeper held to one line, the sheet past its box). */
+async function f653(shape, men, plant) {
+  const ctx = await browser.newContext(Object.assign({}, SHAPES[shape], { serviceWorkers: 'block' }));
+  const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(String(e && e.message || e).slice(0, 200)));
+  if (plant) await p.route(/bohemia_ui_no_scroll\.js/, async route => { const r = await route.fetch(); const b = (await r.text()).split('html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x)').join('html body #sheet.ns-d1.ns-d3.shopping.never:not(#ns-x)'); await route.fulfill({ response: r, body: b }); });
+  const P = plant ? ' PLANTED (the step off)' : '';
+  await p.goto(BASE + '/slices/BOHEMIA_DEMO.html', { waitUntil: 'load', timeout: 180000 });
+  for (let i = 0; i < 480; i++) { if (await p.evaluate(() => !!window.__LOAD_READY && !!document.getElementById('title')).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.waitForTimeout(1200); await throughTheTitle(p);
+  for (let i = 0; i < 240; i++) { if (await p.evaluate(() => { const b = document.getElementById('fronttap'); return !!(b && /BEGIN/.test(b.innerText)); }).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.evaluate(() => { const b = document.getElementById('fronttap'); if (b) b.click(); });
+  for (let i = 0; i < 120; i++) { if (await p.evaluate(() => !!document.querySelector('#mainmaker .go')).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.waitForTimeout(1000); await p.evaluate(() => { const g = document.querySelector('#mainmaker .go'); if (g) g.click(); });
+  let sf = null; for (let i = 0; i < 360 && !sf; i++) { await p.waitForTimeout(250); const f = p.frames().find(x => /SETTLEMENT_SCREEN/.test(x.url())); if (f && await f.evaluate(() => window.BohemiaSettlement && BohemiaSettlement.ready() && !!BohemiaSettlement.state.place && !BohemiaSettlement.state.open).catch(() => false)) sf = f; }
+  if (!sf) { ok('F653 ' + shape + P + ': the start town is up', false, 'no town'); await ctx.close(); return; }
+  await p.waitForTimeout(1500);
+  /* his men's helmets and armour broken, as after a fight (the mend rows), and EYES' town on market day, opened in the game's own
+     town frame (the shell's phone, its fit and its kit planted as he meets them; the start town is rolled and may have no smith) */
+  await sf.evaluate((n) => { const names = ['YOU', 'DESI', 'RAUL', 'TITO', 'NOVA', 'OSO'];
+    BohemiaCondition.broken = function () { return names.slice(0, n).map((m, i) => ({ name: m, key: m.toLowerCase(), main: i === 0, pieces: [{ part: 'head', missing: 20, max: 60 }, { part: 'body', missing: 30, max: 90 }] })); };
+    BohemiaSettlement.open({ place: { name: 'Caravans', tier: 'town' }, traits: ['market_day'], day: 1, batteries: 300 }); }, men);
+  await p.waitForTimeout(2500);
+  const place = 'Caravans', k = 'smith', fb = await (await sf.frameElement()).boundingBox();
+  for (let t = 0; t < 5; t++) { const q = await sf.evaluate(() => BohemiaSettlement.where('smith')); if (q) await p.touchscreen.tap(fb.x + q.x, fb.y + q.y); await p.waitForTimeout(1500); if (await sf.evaluate(() => BohemiaSettlement.state.open === 'smith')) break; }
+  await p.waitForTimeout(1800);
+  const A = await sf.evaluate(() => { const sh = document.getElementById('sheet'), sb = document.getElementById('sbody'), pp = sb && sb.querySelector('.who .say p');
+    const low = Math.max.apply(null, [...sh.querySelectorAll('button,.act')].filter(b => b.getClientRects().length && getComputedStyle(b).visibility !== 'hidden').map(b => b.getBoundingClientRect().bottom));
+    return { open: BohemiaSettlement.state.open, line: pp && pp.textContent, cut: !!pp && pp.scrollHeight > pp.clientHeight + 1, step: (sh.className.match(/ns-d\d/g) || []).pop(), past: sh.scrollHeight - sh.clientHeight, low: Math.round(low), glass: innerHeight,
+      mends: sh.querySelectorAll('#mendall, .mendman').length }; });
+  const whole = !A.cut && A.past <= 1 && A.low <= A.glass + 0.5;
+  if (plant) { ok('F653 ' + shape + P + ', ' + men + ' broken: the leg sees the line cut or the sheet past its box (' + (A.cut ? 'the line cut' : 'the line whole') + ', ' + A.past + ' px past)', A.open === k && A.mends === men + 1 && !whole, JSON.stringify(A)); await ctx.close(); return; }
+  ok('F653 ' + shape + ', ' + men + ' broken, ' + place + '\'s ' + k + ' (' + A.mends + ' mend buttons, at ' + A.step + '): ' + (A.cut ? 'THE LINE CUT' : 'the line whole') + ' ("' + String(A.line).slice(0, 40) + '..."), ' + A.past + ' px past the box, the lowest button at ' + A.low + ' of ' + A.glass,
+    A.open === k && A.mends === men + 1 && whole && errs.length === 0, JSON.stringify(A) + (errs[0] || ''));
+  await ctx.close();
+}
+
 /* F654 THE HINT STEPS ASIDE FOR SETTINGS (FIXES 3 11/21, ask row 654, FOUND BY EYES 11/20, e06: in Cartel, upright, DESI's 'Tap a
         building...' stood over the MOTION row and half the SETTINGS row of the open settings card): the demo, a new game, the start
-        town, the town's line on its plate; a thumb on the phone's SETTINGS: the plate is off the glass within three quarters of a
-        second of the card being up, never over the card after that, and it does not come back while the card is open.
+        town, the town's line on its plate; a thumb on the phone's SETTINGS: the plate is off the glass within half a second of
+        the card being up (at once, no slide over it), never over the card after that, and it does not come back while the card is open.
         PLANT: the new watcher off (the plate stays its seconds over the card). */
 async function f654(shape, plant) {
   const ctx = await browser.newContext(Object.assign({}, SHAPES[shape], { serviceWorkers: 'block' }));
@@ -1217,7 +1257,7 @@ async function f654(shape, plant) {
   const back = await plate(), still = await p.evaluate(() => { const w = document.getElementById('setwrap'); return !!(w && w.classList.contains('on')); });
   if (plant) { ok('F654 ' + shape + P + ': the leg sees the plate still up over the open card (' + (gone == null ? 'never gone in ' + (Date.now() - t0) : 'gone at ' + gone) + ' ms, ' + over + ' ms over the card)', card != null && (gone == null || gone > card + 1500), JSON.stringify({ up, card, gone, over })); await ctx.close(); return; }
   ok('F654 ' + shape + ': ' + up.who + '\'s town line is on its plate; a thumb on the phone\'s SETTINGS (the card up at ' + card + ' ms): the plate is off the glass at ' + gone + ' ms (' + over + ' ms of it over the card), and it does not come back while the card is open',
-    card != null && gone != null && gone <= card + 750 && !back && still && errs.length === 0, JSON.stringify({ up, card, gone, over, back, still }) + (errs[0] || ''));
+    card != null && gone != null && gone <= card + 500 && !back && still && errs.length === 0, JSON.stringify({ up, card, gone, over, back, still }) + (errs[0] || ''));
   await ctx.close();
 }
 
@@ -1336,6 +1376,8 @@ async function f649(shape, plant) {
     for (const s of SH) { if (want('F605')) { await f605(s, false); if (s === SH[0]) await f605(s, true); } }
     for (const s of SH) { if (want('F612')) { await f612(s, false); if (s === 'phone_landscape' || SH.indexOf('phone_landscape') < 0) await f612(s, true); } }
     for (const s of SH) { if (want('F612h')) { await f612h(s, false); if (s === SH[0]) await f612h(s, true); } }
+    /* FOUND BY EYES 11/20 (row 653), FIXES 3: upright one man broken and three, the plant upright; on its side three */
+    if (want('F653')) { if (SH.indexOf('phone_portrait') >= 0) { await f653('phone_portrait', 1, false); await f653('phone_portrait', 3, false); await f653('phone_portrait', 1, true); } if (SH.indexOf('phone_landscape') >= 0) await f653('phone_landscape', 3, false); }
     /* FOUND BY EYES 11/20 (row 654), FIXES 3 */
     for (const s of SH) { if (want('F654')) { await f654(s, false); if (s === SH[0]) await f654(s, true); } }
     /* the red debt, a real one (row 581), FIXES 2 11/18: the driver's own pages, so asked for by name (--only F581) or in the whole run */

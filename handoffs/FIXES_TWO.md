@@ -2,7 +2,29 @@
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 # FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
 
-FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/21 LATEST -- [the alpha's map] BUILD 11/21f - THE ALPHA OPENS ON THE MAP, BUILT, NOT YET
+FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/21 (b) LATEST -- [the smith's line] BUILD 11/21q - THE SMITH'S LINE IS WHOLE, BUILT, NOT
+YET SEEN: ask row 653's other cause FIXED, 654 made instant, 574 CLOSED (a checker re-aimed to two newer rulings; the red debt 368 to 367).
+11/21f (the block below) is SEEN by EYES on a phone both ways (row 668). Record: the same record, sections 5 and 6. No VOTE card (a fit).
+WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link):
+- 653 at a smith or an armourer after a fight (his men's helmets and armour broken): the keeper's line whole (it was cut to one line,
+  '...sharp fo...') and the whole sheet on the glass, BUY IT included (it ran 49 px past upright, 192 on its side); the MEND buttons two
+  to a row upright, four in a band with the shelf on its side, their words untouched; the bag shows its pieces and one row of empty
+  boxes. Only in a shop showing MEND, only at the last step: every other shop exactly as before. UI FIVE fixed the other cause (a full
+  bag, 11/21j). slices/bohemia_ui_no_scroll.js __THE_SMITHS_LINE_IS_WHOLE__.
+- 654 DESI's plate goes the moment the settings card opens (it slid 0.4 to 0.9 s over it): slices/bohemia_ui_crashbox.js asideIfCovered,
+  a 120 ms check only while a plate is up.
+PROVEN (rule 441): THE FOURTEEN EYES FOUND F653 (upright one and three broken, on its side three, a PLANT) and F654 (both shapes, a PLANT:
+the plate gone 0.11 and 0.25 s after the card, 0 ms over it); SCROLLING IS ILLEGAL 36/1 (N9 unchanged; the one red N3 is the board on
+its side, row 669, JOBS', red on main too); THE ITEM CARD 42/0; NO LINE CUT 12/0; THE SHOP TAPS 9/0; THE BAG SORTS 9/0; EVERY SHOP
+DEAREST FIRST 10/0; THE RETINUE 29/0; THE SETTLEMENT SCREEN 71/4 the same four as main (the board's answers and contracts, the bar's
+price: not this build's); THE NEW ENEMIES 12/0 (leg 11 re-aimed: a giant or the bison over the crew is said, never held, the dealer's
+filter held, --plant); THE RED DEBT ONLY SHRINKS 4/0.
+NOT MINE, HANDED ON (each read, each in its row): 582 the AUTO brain's roof (COMBAT FOUR, the brain's lane); 594 the canal bank's seam
+(art: COOK SIX with COMBAT FOUR); 578 the underpass's aftermath near black on a computer (the board's own light: COMBAT FOUR / COOK SIX;
+a dim floor was tried by FIXES 2 and taken out); 655 and 662 were UI FIVE's and are done (11/21j, 11/21l).
+NEXT (if woken): EYES' new rows as they land; the red debt's FILED rows for FIXES.
+
+FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/21 -- [the alpha's map] BUILD 11/21f - THE ALPHA OPENS ON THE MAP, BUILT, NOT YET
 SEEN: ask rows 668 (new: the alpha's new game over the dead walk), 564 (the town asked for wound faces that do not exist) and 654
 (DESI's hint over the settings card) FIXED IN THE GAME. Record: records/BOHEMIA_FIXES_THREE_THE_ALPHA_OPENS_ON_THE_MAP_11_21_26.md.
 No VOTE card (no new picture: the map he already plays, on the alpha too). fixes2-work was read: its tip is in main, nothing to pick up.

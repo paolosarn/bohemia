@@ -302,7 +302,6 @@ THE MAP IS HOW YOU TRAVEL | CITY | 11/10 | ALIVE STALE (an old gate, before 10/1
 THE MAP STANDS TALLER | WORLD | 11/10 | UNSURE: W1, W3b pixel and depth reads; a run alone decides
 THE MOMENTS BETWEEN | WORLD | 11/10 | UNSURE: measured before 11/10g and 11/10k; a run alone decides
 THE NEIGHBOUR TAKES THE REFUGEES | RUN TWO | 11/10 | FILED ask row 595: ALIVE REAL (an old gate, before 10/1): town: the refugees card fails its check (caused not rolled, its people say where they came from); first failing line on d97cecd3: FAIL it is caused, never rolled, and its people say where they came from (every line c
-THE NEW ENEMIES | FACTIONS, BEASTS, TUNING | 11/10 | FILED ask row 574: STALE + REAL: three legs re-aimed (BEASTS 2 11/3, rule 428(d)); REAL MEDIUM: at their sized count a new crew of 3 or 6 beats wolves 2 in 10, hyenas and prides 0 to 3 in 10, bison 2 in 10: a day-one hunt can wipe his crew (re-aimed: gates/the_new_enemies_gate.js, not yet run alone)
 THE NORMIE HOUR, WORLD | WORLD | 11/10 | FILED ask row 579: ALIVE REAL (an old gate, before 10/1): phone and map: a far job shows a different time on the phone than on its town, so job times still disagree (rules 290, 307); first failing line on d97cecd3: FAIL N5 F5: a job at a town away from him says the same time on the phone as on that 
 THE ONE BEAT | SOUNDS | 11/10 | LOAD: B9's snaps match; the rest needs two calls within 0.01 ms, missed on a loaded box
 THE ONE SONG | MUSIC | 11/10 | ROAD + LOAD: patched (55e3ad43); S1 at 40 samples where more than 40 are asked: LOAD

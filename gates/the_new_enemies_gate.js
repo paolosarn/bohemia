@@ -159,7 +159,23 @@ const one = (kind, n) => setup({ party: [{ kind, count: n || 1 }] });
     let won = 0; for (let s = 1; s <= 10; s++) { ctx.setSeed(s); F.setup({ auto: true, formation: null, kind: ['ruin', 'suburb', 'strip'][s % 3], deploy: false, company: crew(men), party: { count: line(men), days: 1, difficulty: 0, faction: f } });
       let g = 0; while (!F.S.over && g < 200000) { const u = F.current(); if (!u) break; F.aiStep(u); F.S.events = []; g++; } if (F.S.result === 'won') won++; }
     cells.push({ f, men, won }); }));
-  leg(cells.every(c => c.won >= 6), '*** SIZED TO THE CREW ***: a new crew of 3 and 6 beats each new faction at its sized count 6 in 10 or better (AUTO, 10 seeds)', cells.map(c => c.f + ' ' + c.men + ': ' + c.won + '/10').join(', ')); }
+  /* RE-AIMED 11/21 (FIXES 3, ask row 574; rules 389 and 461): two newer rulings decide what a crew of three can meet. THE GIANTS ARE
+     RARE (WORLD 9 11/5, rule 389's default): a giant (records/target/BOHEMIA_JOB_KINDS.json giants.kinds) is never drawn for a pack, a
+     hunt or a job's guards: each is ONE animal on a named big-game card he chooses, its skulls on it (Battle Brothers lets a company take
+     a contract above it). A HUNT FITS THE CREW (JOBS 11/20l): a beast whose look carries min_men is never dealt to fewer men (the bison,
+     6). So such a cell is read and said, never held to the floor; every other cell keeps 6 in 10, and the dealer's own filter is held
+     here (gates/the_hunt_fits_the_crew_gate.js holds it on the page). MEASURED 11/21 before the re-aim: every red cell was one of these
+     (bears, sloths, longhorns 5/10, mammoths 4/10, bison 2/10 for 3 men); every pack, faction and gang 7 to 10 in 10. */
+  const JK = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/BOHEMIA_JOB_KINDS.json'), 'utf8'));
+  const GIANTS = (JK.giants && JK.giants.kinds) || [], minMen = f => +((JK.beast_looks && JK.beast_looks[f] && JK.beast_looks[f].min_men) || 0);
+  const exempt = c => GIANTS.indexOf(c.f) >= 0 ? 'giant' : minMen(c.f) > c.men ? 'min ' + minMen(c.f) : null;
+  const held = cells.filter(c => !exempt(c)), said = cells.filter(c => exempt(c));
+  const SRC = fs.readFileSync(path.join(ROOT, 'slices/bohemia_job_kinds.js'), 'utf8');
+  const dealer = (SRC.match(/!giant\(k\) && !tooBig\(k, men\)/g) || []).length >= 2;
+  const PLANT = process.argv.indexOf('--plant') > 0;
+  const keep = PLANT ? cells : held;   /* --plant: the floor over every cell again, as before the re-aim: red */
+  leg(keep.every(c => c.won >= 6) && GIANTS.length > 0 && dealer, '*** SIZED TO THE CREW ***: a new crew of 3 and 6 beats each new faction it can be dealt at its sized count 6 in 10 or better (AUTO, 10 seeds); a giant and a beast over the crew are never dealt (the dealer filters both)' + (PLANT ? ' PLANTED (every cell held)' : ''),
+    'held: ' + held.map(c => c.f + ' ' + c.men + ': ' + c.won + '/10').join(', ') + ' | never dealt, said: ' + said.map(c => c.f + ' ' + c.men + ' (' + exempt(c) + '): ' + c.won + '/10').join(', ') + ' | the dealer ' + dealer); }
 
 /* 12 */
 /* 1,000 draws, not 200 (BESTIARY 11/17, measured): with twelve factions and the giants on the road the keepers' desert-to-suburb

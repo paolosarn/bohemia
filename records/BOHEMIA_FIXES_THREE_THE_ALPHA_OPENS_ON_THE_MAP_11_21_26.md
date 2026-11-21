@@ -64,6 +64,8 @@ it comes back whole when the place is quiet again (a face tells you once, whole)
 GATE THE FOURTEEN EYES FOUND, new leg F654 (the demo, a new game's start town, DESI's line up, a thumb on the phone's SETTINGS):
 upright the card up at 168 ms, the plate off the glass at 883 ms; on its side 314 and 854; never back while the card is open;
 PLANTED (the watcher off): the plate 5.1 s over the card. 3 passed, 0 failed.
+SECOND SHIP (the same round): read again after main moved, the slide-out kept the plate 0.5 to 0.9 s on the card (945 ms
+once, over the leg's own bar); a plate a screen covers now goes at once, no slide (the leg's bar tightened to half a second).
 
 ## THE CHECKERS
 
@@ -83,3 +85,35 @@ READ 21/0 (the alpha's two shapes included).
 it is the map again, every time.
 [analog horror] a game that drops you back onto a street you were told was gone is the machine forgetting what it promised; the map is
 the one place the company stands now, on every screen he plays.
+
+## 5. THE SMITH'S LINE IS WHOLE WHEN HIS GEAR IS BROKEN (ask row 653, FOUND BY EYES 11/20, e05; a second cause beside UI FIVE's)
+
+UI FIVE's BUILD 11/21j fixed one cause of row 653 (a FULL BAG: the junk button's two parts side by side made its row about 80 px).
+This is the other one, measured on the demo through the game's own town frame (Caravans' smith, market day), a phone upright:
+with nothing of his broken the smith's sheet fits at its first step and ODELL's line is whole; with a man's helmet and armour broken
+(as after any fight) the two MEND rows push the sheet to the last step, where the keeper is held to ONE line ('Everybody wants a blade
+sharp fo...', EYES' picture exactly), and even so the sheet ran 49 px past its box (BUY IT half under the glass); three men broken,
+141 px; on its side, three men broken, 192 px (the mend rows piled into the 182 px column, 61 px each).
+
+NOW (slices/bohemia_ui_no_scroll.js __THE_SMITHS_LINE_IS_WHOLE__, the last step, a shop only): the mend buttons' header off (every
+button says Mend), their words wrap by the word beside small stacked damage bars, no word changed; the bag shows what is in it and
+ONE row of empty boxes, not all 36 (its header still says how many of 36; the crew screen dropped its 36 empties the same way).
+Upright: the keeper's words in two lines (12 px, as on a short glass), the mend buttons two to a row, the bag's header beside its
+junk bar. On its side: the mend buttons four to a row in one band with the shelf, the bag under it, the strip on the right.
+GATE THE FOURTEEN EYES FOUND, new leg F653 (the demo, Caravans opened in the game's own town frame on market day, his men's gear
+broken, a thumb on the smith): upright one man and three: the line whole, 0 px past the box, the lowest button 753 of 781; on its
+side three: the same, 302 of 330; PLANTED (the step off): the line cut, 49 px past. Every rule waits on a shop that shows its MEND
+buttons: a shop with nothing broken is exactly as before (UI 9's N9 holds all 43 boxes on the glass there, W5 holds nothing moves).
+
+## 6. THE NEW ENEMIES, LEG 11 RE-AIMED TO THE NEWER RULES (ask row 574, FOUND BY PLUMBER 8 11/10; the red debt)
+
+Run alone on main (11/21): 11 passed, 1 failed, and the one red, SIZED TO THE CREW, was only these cells, a crew of 3 against ONE
+animal: bears 5/10, sloths 5/10, longhorns 5/10, mammoths 4/10, bison 2/10. Every pack, faction and gang: 7 to 10 in 10 (wolves,
+hyenas and prides were sized by BESTIARY 11/11). Two newer rulings decide what a crew of three can meet, and the leg knew neither:
+THE GIANTS ARE RARE (WORLD 9 11/5, rule 389's default: a giant is never drawn for a pack, a hunt or a job's guards; each is ONE animal
+on a named big-game card he chooses, its skulls on the card) and A HUNT FITS THE CREW (JOBS 11/20l: a beast whose look carries
+min_men, the bison's 6, is never dealt to fewer men; Battle Brothers never sends a new company at an Unhold).
+NOW (gates/the_new_enemies_gate.js leg 11): a giant's cell, and a cell under its beast's min_men, is read and said, never held to the
+floor; every other cell keeps 6 in 10; and the dealer's own filter is held (slices/bohemia_job_kinds.js filters both, the page leg is
+JOBS' A HUNT FITS THE CREW). `--plant` holds every cell again, as before: red on the same numbers.
+THE RED DEBT: its quarantine line struck, 368 NAMED to 367 (the line was FILED, so 350 LEFT stays).

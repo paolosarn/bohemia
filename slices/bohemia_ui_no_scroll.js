@@ -266,7 +266,44 @@
     +   S + ' .act.client{grid-template-columns:32px minmax(0,1fr) auto!important;grid-template-areas:"face cl em"!important;align-items:center!important}' + S + ' .act.client>em{white-space:nowrap!important}'
     +   S + ' .acts:has(>.act.client){display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:3px 6px}' + S + ' .acts:has(>.act.client)>:not(.act){grid-column:1 / -1}'
     +   S + '.stalling .acts{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:8px;row-gap:3px;align-content:start}'
-    +   S + '.stalling .acts>:not(.act){grid-column:1 / -1}}';
+    +   S + '.stalling .acts>:not(.act){grid-column:1 / -1}}'
+    /* ==== __THE_SMITHS_LINE_IS_WHOLE__ (FIXES 3 11/21, ask row 653, FOUND BY EYES 11/20, e05: Caravans' smith upright, 'Everybody wants
+       a blade sharp fo...'). MEASURED on the demo upright, a smith's sheet on market day: with nothing of his broken the sheet fits at its
+       first step and the line is whole (two lines); with a man's gear broken the two MEND rows push it to the last step, where the
+       keeper is held to ONE line, and even so it ran 49 px past its box (BUY IT half under the glass); three men broken, 141; on its side
+       three men broken, 192. NOW, at the last step and only in a shop showing its MEND buttons (every other shop exactly as before): the mend buttons' header off (every button says Mend), their
+       words wrap by the word beside small stacked damage bars (his words on each untouched); the bag shows what is in it and ONE row of
+       empty boxes, not all 36 (the header still says how many of 36; the crew screen dropped its 36 empties the same way). Upright the
+       keeper's words in two lines (12 px, as on a short glass), the mend buttons two to a row, the bag's header beside its junk bar (as
+       on its side). On its side the mend buttons four to a row in one band with the shelf over the bag. MEASURED after: upright one,
+       three and six men broken, on its side one and three: the line whole, the sheet inside its box, BUY IT on the glass. ==== */
+    /* both ways: the mend header off (every button says Mend), the tape mark small, the words wrap by the word, the bars stacked; the bag's
+       full boxes and one row of empty ones */
+    + 'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .ns-shelf>.gridh:has(+#mendall){display:none}'
+    + 'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .ns-shelf>#mendall .pk{width:22px!important;height:22px!important;flex:none}'
+    + 'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .ns-shelf>#mendall>span,html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .ns-shelf>.mendman>span:first-child{flex:1 1 auto;white-space:normal;line-height:13px;font-size:11px;letter-spacing:0;min-width:0;overflow-wrap:normal;word-break:normal}'
+    + 'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .ns-shelf>.mendman .mbars{flex:0 0 30px;flex-direction:column;gap:2px}'
+    + 'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .ns-shelf>#mendall>em,html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .ns-shelf>.mendman>em{flex:none;padding-left:4px!important;margin-left:0!important}'
+    + 'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) #baggrid>.slot:not(.full)~.slot:not(.full)~.slot:not(.full)~.slot:not(.full)~.slot:not(.full)~.slot:not(.full)~.slot:not(.full)~.slot:not(.full)~.slot:not(.full){display:none!important}'   /* the ninth empty box on */
+    /* upright: the keeper in two lines, the mend buttons two to a row, the bag's header beside its junk bar */
+    + '@media (orientation:portrait){'
+    +   'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) #sbody>.who .say p{-webkit-line-clamp:2;font-size:12px;line-height:15px}'
+    +   'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .ns-shelf:has(>#mendall){display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2px 4px}'
+    +   'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .ns-shelf:has(>#mendall)>*{grid-column:1 / -1}'
+    +   'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .ns-shelf:has(>#mendall)>#mendall,html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .ns-shelf:has(>#mendall)>.mendman{grid-column:auto;min-width:0;padding:2px 6px!important;column-gap:4px}'
+    +   'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .ns-bag{grid-template-columns:auto minmax(0,1fr) minmax(0,1fr)}'
+    +   'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .ns-bag>.ns-bagh{grid-column:1;align-self:center;white-space:nowrap}'
+    +   'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .ns-bag>#selljunk{grid-column:2 / -1}' + 'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .ns-bag>#selljunk:has(~#sortbag){grid-column:2}' + 'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .ns-bag>#sortbag{grid-column:3}}'
+    /* on its side (its shop's three columns keep their places otherwise): the mend buttons, four to a row, and the shelf in one band
+       across the first two columns, the bag under it, the strip on the right the whole height (MEASURED before: three men broken, the
+       mend rows piled into the 182 px column at 61 px each and the sheet ran 192 px past its box) */
+    + '@media ' + SHORT + '{'
+    +   'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .acts:has(>.ns-shelf>#mendall){grid-template-rows:auto 1fr}'
+    +   'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .acts:has(>.ns-shelf>#mendall)>.ns-shelf{grid-column:1 / 3;grid-row:1;display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px 4px}'
+    +   'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .acts:has(>.ns-shelf>#mendall)>.ns-shelf>*{grid-column:1 / -1}'
+    +   'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .acts:has(>.ns-shelf>#mendall)>.ns-shelf>#mendall,html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .acts:has(>.ns-shelf>#mendall)>.ns-shelf>.mendman{grid-column:auto;min-width:0;padding:2px 4px!important;column-gap:3px;min-height:44px!important}'
+    +   'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .acts:has(>.ns-shelf>#mendall)>.ns-shelf #shelfgrid{grid-template-columns:repeat(auto-fill,44px)!important}'
+    +   'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .acts:has(>.ns-shelf>#mendall)>.ns-bag{grid-column:1 / 3;grid-row:2}' + 'html body #sheet.ns-d1.ns-d3.shopping:has(#mendall):not(#ns-x) .acts:has(>.ns-shelf>#mendall)>#shopstrip{grid-column:3;grid-row:1 / 3}}';
 
   /* the hall's row: his ceiling, his gun, his trait and the rare words in one line (ns-hl), HIRE's money as marks; the words
      his row no longer shows are on a held finger (data-tip) */
