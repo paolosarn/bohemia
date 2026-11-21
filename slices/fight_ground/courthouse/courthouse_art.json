@@ -1,0 +1,273 @@
+{
+ "version": "cook6-courthouse-art-11-21",
+ "lane": "cook 6 (COOK FIVE's list)",
+ "stage": "finished",
+ "for": "COMBAT FOUR's courthouse (slices/fight_ground/courthouse/courthouse.json, BUILD 11/21y): the names its handoff asked for, the garage's format. floor.floor is the 1933 terrazzo (all 25 tiles: its brass strips every 1.5 m so every tile's edge is a strip, the polish worn dull where people walked, a fan of broken glass, a scorched patch where papers were burned, a scrape where something was dragged; nothing within a metre of an edge but the strips); floor.ring the same. ONE FLOOR FOR BOTH ROOMS, as your file has one kind: no carpet runs, which would scatter over the museum floor; give the courtroom's aisle a 'carpet' kind and this lane paints it.",
+ "floor": {
+  "floor": [
+   "courthouse/courthouse_floor_0.webp#0,0",
+   "courthouse/courthouse_floor_0.webp#1,0",
+   "courthouse/courthouse_floor_0.webp#2,0",
+   "courthouse/courthouse_floor_0.webp#3,0",
+   "courthouse/courthouse_floor_0.webp#4,0",
+   "courthouse/courthouse_floor_0.webp#0,1",
+   "courthouse/courthouse_floor_0.webp#1,1",
+   "courthouse/courthouse_floor_0.webp#2,1",
+   "courthouse/courthouse_floor_0.webp#3,1",
+   "courthouse/courthouse_floor_0.webp#4,1",
+   "courthouse/courthouse_floor_0.webp#0,2",
+   "courthouse/courthouse_floor_0.webp#1,2",
+   "courthouse/courthouse_floor_0.webp#2,2",
+   "courthouse/courthouse_floor_0.webp#3,2",
+   "courthouse/courthouse_floor_0.webp#4,2",
+   "courthouse/courthouse_floor_0.webp#0,3",
+   "courthouse/courthouse_floor_0.webp#1,3",
+   "courthouse/courthouse_floor_0.webp#2,3",
+   "courthouse/courthouse_floor_0.webp#3,3",
+   "courthouse/courthouse_floor_0.webp#4,3",
+   "courthouse/courthouse_floor_0.webp#0,4",
+   "courthouse/courthouse_floor_0.webp#1,4",
+   "courthouse/courthouse_floor_0.webp#2,4",
+   "courthouse/courthouse_floor_0.webp#3,4",
+   "courthouse/courthouse_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "courthouse/courthouse_floor_0.webp#0,0",
+   "courthouse/courthouse_floor_0.webp#1,0",
+   "courthouse/courthouse_floor_0.webp#2,0",
+   "courthouse/courthouse_floor_0.webp#3,0",
+   "courthouse/courthouse_floor_0.webp#4,0",
+   "courthouse/courthouse_floor_0.webp#0,1",
+   "courthouse/courthouse_floor_0.webp#1,1",
+   "courthouse/courthouse_floor_0.webp#2,1",
+   "courthouse/courthouse_floor_0.webp#3,1",
+   "courthouse/courthouse_floor_0.webp#4,1",
+   "courthouse/courthouse_floor_0.webp#0,2",
+   "courthouse/courthouse_floor_0.webp#1,2",
+   "courthouse/courthouse_floor_0.webp#2,2",
+   "courthouse/courthouse_floor_0.webp#3,2",
+   "courthouse/courthouse_floor_0.webp#4,2",
+   "courthouse/courthouse_floor_0.webp#0,3",
+   "courthouse/courthouse_floor_0.webp#1,3",
+   "courthouse/courthouse_floor_0.webp#2,3",
+   "courthouse/courthouse_floor_0.webp#3,3",
+   "courthouse/courthouse_floor_0.webp#4,3",
+   "courthouse/courthouse_floor_0.webp#0,4",
+   "courthouse/courthouse_floor_0.webp#1,4",
+   "courthouse/courthouse_floor_0.webp#2,4",
+   "courthouse/courthouse_floor_0.webp#3,4",
+   "courthouse/courthouse_floor_0.webp#4,4"
+  ]
+ },
+ "kit": {
+  "ct_pews": {
+   "kind": "LOW_COVER",
+   "h": 1.0,
+   "name": "PEWS",
+   "stage": "finished",
+   "src": "courthouse/ct_pews.webp",
+   "w": 516,
+   "h_px": 267,
+   "foot": [
+    258.2,
+    247
+   ]
+  },
+  "ct_bar": {
+   "kind": "LOW_COVER",
+   "h": 0.98,
+   "name": "THE BAR'S RAIL",
+   "stage": "finished",
+   "src": "courthouse/ct_bar.webp",
+   "w": 515,
+   "h_px": 99,
+   "foot": [
+    257.8,
+    60
+   ]
+  },
+  "ct_bench": {
+   "kind": "COVER",
+   "h": 1.6,
+   "name": "THE JUDGE'S BENCH",
+   "stage": "finished",
+   "src": "courthouse/ct_bench.webp",
+   "w": 515,
+   "h_px": 383,
+   "foot": [
+    257.5,
+    378
+   ]
+  },
+  "ct_wall_ew": {
+   "kind": "WALL",
+   "h": 2.4,
+   "name": "THE COURTHOUSE'S STONE",
+   "stage": "finished",
+   "src": "courthouse/ct_wall_ew.webp",
+   "w": 516,
+   "h_px": 133,
+   "foot": [
+    258.2,
+    122
+   ]
+  },
+  "ct_wall_ns": {
+   "kind": "WALL",
+   "h": 2.4,
+   "name": "THE COURTHOUSE'S STONE",
+   "stage": "finished",
+   "src": "courthouse/ct_wall_ns.webp",
+   "w": 52,
+   "h_px": 456,
+   "foot": [
+    26.2,
+    455
+   ]
+  },
+  "ct_exhibit_ew": {
+   "kind": "WALL",
+   "h": 2.6,
+   "name": "AN EXHIBIT WALL",
+   "stage": "finished",
+   "src": "courthouse/ct_exhibit_ew.webp",
+   "w": 515,
+   "h_px": 150,
+   "foot": [
+    257.8,
+    127
+   ]
+  },
+  "ct_exhibit_ns": {
+   "kind": "WALL",
+   "h": 2.6,
+   "name": "AN EXHIBIT WALL",
+   "stage": "finished",
+   "src": "courthouse/ct_exhibit_ns.webp",
+   "w": 52,
+   "h_px": 483,
+   "foot": [
+    26.7,
+    482
+   ]
+  },
+  "ct_counsel": {
+   "kind": "COVER",
+   "h": 1.1,
+   "name": "A COUNSEL TABLE",
+   "stage": "finished",
+   "src": "courthouse/ct_counsel.webp",
+   "w": 197,
+   "h_px": 147,
+   "foot": [
+    103.5,
+    111
+   ]
+  },
+  "ct_jury": {
+   "kind": "LOW_COVER",
+   "h": 1.05,
+   "name": "THE JURY BOX",
+   "stage": "finished",
+   "src": "courthouse/ct_jury.webp",
+   "w": 266,
+   "h_px": 153,
+   "foot": [
+    133.3,
+    144
+   ]
+  },
+  "ct_witness": {
+   "kind": "COVER",
+   "h": 1.25,
+   "name": "THE WITNESS STAND",
+   "stage": "finished",
+   "src": "courthouse/ct_witness.webp",
+   "w": 120,
+   "h_px": 139,
+   "foot": [
+    64.6,
+    130
+   ]
+  },
+  "ct_case": {
+   "kind": "COVER",
+   "h": 1.62,
+   "name": "AN EXHIBIT CASE",
+   "stage": "finished",
+   "src": "courthouse/ct_case.webp",
+   "w": 154,
+   "h_px": 147,
+   "foot": [
+    77.5,
+    111
+   ]
+  },
+  "ct_stand": {
+   "kind": "LOW_COVER",
+   "h": 0.92,
+   "name": "AN EXHIBIT STAND",
+   "stage": "finished",
+   "src": "courthouse/ct_stand.webp",
+   "w": 81,
+   "h_px": 80,
+   "foot": [
+    34.4,
+    68
+   ]
+  },
+  "ct_kiosk": {
+   "kind": "LOW_COVER",
+   "h": 1.13,
+   "name": "A DEAD KIOSK",
+   "stage": "finished",
+   "src": "courthouse/ct_kiosk.webp",
+   "w": 73,
+   "h_px": 77,
+   "foot": [
+    26.5,
+    74
+   ]
+  },
+  "ct_chairs": {
+   "kind": "LOW_COVER",
+   "h": 1.2,
+   "name": "PILED CHAIRS",
+   "stage": "finished",
+   "src": "courthouse/ct_chairs.webp",
+   "w": 150,
+   "h_px": 104,
+   "foot": [
+    73.4,
+    95
+   ]
+  }
+ },
+ "how_it_lays": {
+  "the gallery": "ct_pews a tile wide, seven rows a metre apart facing north (the bench), two pews a row, the tile's south row at your 'at' [0.5, 0.72], the rows up to 1.6 m from its north edge; ct_bar the oak rail a tile long at its foot (your 'at' [0.5, 0.6]).",
+  "the well and the bench": "ct_bench a tile wide: its paneled front at the foot (your 'at' [0.5, 0.95]), the dais 9.3 m to the north; two B rows make the clerk's front and the bench's. ct_counsel a table on its side; ct_chairs a pile; ct_jury the box 5.6 m wide; ct_witness the box 2 m.",
+  "the museum floor": "ct_case a vitrine 2 m; ct_stand a reading stand and the audio guide; ct_kiosk a dead screen; ct_exhibit_ew / _ns a free-standing wall 2.6 m, a tile long (your 'W', an air wall).",
+  "the walls": "ct_wall_ew / _ns: cut limestone to 2.4 m on a dark marble base, a tile long."
+ },
+ "bytes": {
+  "floor": 300890,
+  "ceiling": 48384
+ },
+ "ceiling": {
+  "sheet": "courthouse/courthouse_ceiling.webp",
+  "bays": [
+   5,
+   5
+  ],
+  "bay_px": [
+   129,
+   91
+  ],
+  "covers": [
+   10,
+   10
+  ],
+  "what": "the courtroom's coffered plaster: a square grid of deep coffers with a rosette in each, the pendant lamps dead, a patch fallen to the lath, the stains where the roof leaked, cracks",
+  "contract": "courthouse.json 'ceiling' (COMBAT FOUR's: the fight draws it over the board at that alpha, rule 451(a)); five bays by five that repeat"
+ }
+}

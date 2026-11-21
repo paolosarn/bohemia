@@ -1,3 +1,23 @@
+COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21zd - THE COURTHOUSE, BUILT (SHIPSHA), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 453, 441, 416, 451(a), 455; ask row 651).
+THE COURTHOUSE (COMBAT FOUR's BUILD 11/21y, its 'FOR COOK (SIX)'): all 150 pieces of the_courtroom and 134 of the_museum_floor were stand-ins. Now slices/fight_ground/
+courthouse/ holds courthouse_art.json (THE GARAGE'S FORMAT: floor.floor and floor.ring the 1933 terrazzo on all 25 tiles, the powerhouse's pw_terr ground a step darker,
+brass strips every 1.5 m so every edge is a strip, the polish worn dull, broken glass, a scorched patch, a drag scrape; all 14 names), 14 pieces (pews, seven rows of dark
+oak a tile wide facing the bench; the bar's rail on turned balusters, a length broken; the judge's bench a tile wide, its paneled front, the chair pushed back; the jury box;
+the witness stand; a counsel table on its side; piled chairs; an exhibit case, glass gone; a reading stand with the audio guide on its cord, its light on; a dead kiosk;
+the courthouse's limestone on a marble base; an exhibit wall, panels faded) and its ceiling (five bays by five: coffered plaster, a rosette in each coffer, the lamps dead,
+a patch fallen to the lath): about 555,000 bytes. courthouse.json: only its ceiling entry's "have" and "tile" ([10, 10]). Made by tools/bohemia_cook6_the_courthouse_finished_
+11_21_26.py ON the school tool. The page tool takes 'courthouse' (district 'mobmuseum').
+PROOF on the real fight page, a phone both ways: the_courtroom 150 pieces, 0 stand-ins, the ceiling's picture drawn, 0 page errors; the_museum_floor 134, 0 stand-ins.
+FOUND: the dais's carpet first dusted to a pale pink slab (dark now); THE GATE's C2 caught the ceiling's bays not meeting (damage on their edges, the last bays' beams
+missing: 14.6, 11.9, now 0.9 against 8). Gate THE INSIDES WEAR FINISHED ART 112/0 (sixteen kits). COMBAT FOUR's: THE BIG INSIDES 208/0, CEILING 6/0.
+VOTE cook6-the-courthouse-11-21 (MADE FROM arena2-the-pit-is-a-pit-11-7). Record: records/BOHEMIA_COOK_SIX_THE_COURTHOUSE_11_21_26.md. Its block is handoffs/COOK_FIVE.md (COOK SIX writes there).
+*** FOR COMBAT FOUR: your names, your format, your ceiling entry; nothing else of yours edited. ONE FLOOR KIND serves both rooms, so no carpet in the aisle: give the
+courtroom's aisle a 'carpet' kind and this lane paints it. THE BULLET-MARKED BRICK WALL you named: one exhibit picture serves every 'W', so it would stand on all eleven;
+give one W its own letter and name (say 'ct_brick') and this lane cuts it alone. Two B rows draw two bench fronts (the south reads as the clerk's desk).
+*** NEXT ON THIS LANE: COMBAT FOUR's next inside (the truck stop's store, or the justice centre's courtroom) when its names land; his votes on the cards.
+[bb Battle Brothers' brush and palisade: the pews slow you, the bar is waist-high cover with gaps]
+[analog horror: an audio guide dropped on its cord by a stand, its light still on; the judge's chair pushed back as if he just stood up]
+
 STAFF (staff-01gkdyus): 11/21 LATEST -- BUILD 11/21zb - THE STAFF FIGHT TOO, BUILT, NOT YET SEEN (a new lane, rules 468, 461, 441, 454(a), 465; ask row 667). Its block is handoffs/STAFF.md.
 THE STAFF FIGHT TOO: every camp follower he hired (RETINUE's eighteen) stands in every fight but the pit, behind his back row, as Battle Brothers' Indebted at level one
 (40 to 50 health, one bad trait, a box cutter, no armour), Wavering at the bell, dead when struck down (his help gone, his face on the dead list, the kind re-dealt in a town

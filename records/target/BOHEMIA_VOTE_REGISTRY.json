@@ -22546,7 +22546,50 @@
   },
   {"id": "combat4-the-justice-center-11-21", "kind": "tile", "lane": "combat 4", "sha": "f5bfb7b6b", "made": "11/21", "draft": true, "title": "A FIGHT CAN START INSIDE THE JUSTICE CENTER: A FLOOR OF COURTROOMS OFF ONE CORRIDOR, OR THE SECURITY SCREENING AT THE FRONT DOORS", "said": "what are some large ass interiors that we could fight", "why": "Eight fights in ten at the county justice center downtown now happen inside it: a floor of six courtrooms off one corridor, each with two doors, or the lobby, where the dead metal detectors, x-ray belts and deputies' podiums stand between the two lines. You see it on the fight screen when a fight starts at the justice center on the map (tap any tile and it says what it does).", "show": {"how": "image", "src": "../records/target/COMBAT4_THE_JUSTICE_CENTER_11_21.webp", "first": "../records/target/vote_first/combat4-the-justice-center-11-21.webp", "firstAt": [0, 0, 1170, 826]}, "before_after": {"before": "main before this build: a fight at the justice center was fought on the downtown blocks outside", "after": "the justice center: two layouts mirrored, 21 kinds of tile each with its cost and effect, no high ground; one data file, every picture a STAND-IN until COOK's kit is in", "scale": "the top row is the fight page opened alone with each layout asked for, far out; the bottom is the fight's own camera, a real fight opened through the map's own door"}, "stage": "stand_in", "record": "records/BOHEMIA_COMBAT_FOUR_THE_JUSTICE_CENTER_11_21_26.md"},
   {"id": "staff-the-staff-fight-too-11-21", "kind": "ui", "lane": "staff", "sha": "06742cf79", "made": "11/21", "draft": true, "title": "YOUR CAMP PEOPLE FIGHT TOO: THE COOK, THE SCOUT AND THE SURGEON STAND BEHIND YOUR LINE, WEAK AND SCARED, AND DEAD FOR GOOD IF THEY FALL", "said": "it's just a little too easy... the game becomes more about protecting your staff... if your staff permanently dies you gotta get new people at different settlements... the better you want your camp to be, that means less people you can run around with, because there's a limit", "why": "Everyone you hired for your camp now stands in every fight behind your back row with 40 to 50 health, a box cutter and no armour; they run after two bad nerve checks, raiders go for them, one who goes down is dead for good and you hire a new person for that job in a town, and each one takes one of your 12 places in a fight. You see it on the fight screen whenever you have camp people (a small tent over their health bars), and on a town's HALL, where Hire and TAKE ON shut once your company is full.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/STAFF_THE_STAFF_FIGHT_TOO_11_21.webp"}, "before_after": {"before": "main 4523d2a4: the camp's people never came to a fight, a full camp cost nothing in a fight, and the company's cap was shown and never held", "after": "every camp person stands behind your line in every fight but the pit, takes one of your 12 places, breaks sooner, dies for good when struck down (his help gone with him) and is hired again as a new person in a town; the hall shuts at your company's cap", "scale": "left: the demo on a phone upright (390 x 844 at 3) at the bell; right: the same moment close, his camp behind his line"}, "record": "records/BOHEMIA_STAFF_THE_STAFF_FIGHT_TOO_11_21_26.md", "build": "BUILD 11/21zb - THE STAFF FIGHT TOO"},
-  {"id": "home-base-his-cameras-as-promised-11-21", "kind": "ui", "lane": "home base", "sha": "12b2e71f4", "made": "11/21", "draft": true, "title": "YOUR PLACE ON THE SECURITY CAMERAS YOU WERE FIRST SHOWN", "said": "Go back to when you originally showed me what the shit would look like from the different camera angles", "why": "Your place is now the camera footage from the start: three cameras on a street light, a power pole and a billboard across the street, cutting on their own every 20 seconds, with everything you built standing on its own lot, low things in front and tall things at the back, and your people standing there. Tap a lot to open what is on it, tap an empty one to build. You see it in your place on the demo: plant it from day 2 and open it.", "show": {"how": "image", "src": "../records/target/home_base/vote_his_cameras_as_promised.webp", "first": "../records/target/vote_first/home-base-his-cameras-as-promised-11-21.webp", "firstAt": [0, 0, 585, 616]}, "before_after": {"before": "BUILD 11/17zr to 11/21s: his place was the town's 45-degree picture under a skewed perspective with a CAM 1/2/3 switch (his NO 11/21)", "after": "the 11/3 footage: three fixed cameras, a bent wide lens, PS1 size, night; his builds as their own pieces on the lots of their rows, his people on them; the cameras cut on their own; a tap on a lot opens it", "scale": "the demo and the alpha on his phone upright (390 x 844 at 3) and sideways (844 x 390 at 3)"}, "stage": "stand_in", "record": "records/BOHEMIA_HOME_BASE_HIS_CAMERAS_AS_PROMISED_11_21_26.md"}
+  {"id": "home-base-his-cameras-as-promised-11-21", "kind": "ui", "lane": "home base", "sha": "12b2e71f4", "made": "11/21", "draft": true, "title": "YOUR PLACE ON THE SECURITY CAMERAS YOU WERE FIRST SHOWN", "said": "Go back to when you originally showed me what the shit would look like from the different camera angles", "why": "Your place is now the camera footage from the start: three cameras on a street light, a power pole and a billboard across the street, cutting on their own every 20 seconds, with everything you built standing on its own lot, low things in front and tall things at the back, and your people standing there. Tap a lot to open what is on it, tap an empty one to build. You see it in your place on the demo: plant it from day 2 and open it.", "show": {"how": "image", "src": "../records/target/home_base/vote_his_cameras_as_promised.webp", "first": "../records/target/vote_first/home-base-his-cameras-as-promised-11-21.webp", "firstAt": [0, 0, 585, 616]}, "before_after": {"before": "BUILD 11/17zr to 11/21s: his place was the town's 45-degree picture under a skewed perspective with a CAM 1/2/3 switch (his NO 11/21)", "after": "the 11/3 footage: three fixed cameras, a bent wide lens, PS1 size, night; his builds as their own pieces on the lots of their rows, his people on them; the cameras cut on their own; a tap on a lot opens it", "scale": "the demo and the alpha on his phone upright (390 x 844 at 3) and sideways (844 x 390 at 3)"}, "stage": "stand_in", "record": "records/BOHEMIA_HOME_BASE_HIS_CAMERAS_AS_PROMISED_11_21_26.md"},
+  {
+   "kind": "tile",
+   "lane": "cook 6",
+   "sha": "SHIPSHA",
+   "made": "11/21",
+   "draft": true,
+   "said": "full sweep, whole enchilada, dont forget nothing",
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "id": "cook6-the-courthouse-11-21",
+   "title": "THE FIGHT INSIDE THE MOB MUSEUM LOOKS LIKE A 1930s COURTROOM NOW: THE PEWS, THE BAR, THE JUDGE'S BENCH, THE MUSEUM'S CASES",
+   "why": "The fight in the old courthouse downtown (the Mob Museum) was built from the casino's, the street's and the garage's pictures; now it has its own. The courtroom: rows of dark oak pews you climb over (one gone, one knocked over, a blanket left on a seat), the oak rail of the bar with balusters kicked out, the judge's raised bench with its chair pushed back as if he just stood up, the jury box, the witness stand with its microphone, a counsel table turned on its side for cover. The museum floor: exhibit cases with the glass gone, reading stands with an audio guide dropped on its cord and still on, dead touchscreens, exhibit walls with the photographs gone grey. Under it the 1930s terrazzo with its brass strips, broken glass and a scorched patch where somebody burned papers; over it at your 10% the coffered plaster ceiling with its lamps dead and a patch fallen to the lath. You meet it when a fight starts at the Mob Museum, in the RUN tab.",
+   "options": [
+    "A, yes, that's the courthouse",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK6_THE_COURTHOUSE_11_21.webp",
+    "first": "../records/target/vote_first/cook6-the-courthouse-11-21.webp",
+    "firstAt": [
+     786,
+     96,
+     383,
+     559
+    ]
+   },
+   "before_after": {
+    "before": "before the cut: all 150 pieces of the courtroom (and 134 of the museum floor) are stand-ins from the casino, the street board and the garage; the ceiling drawn by the page",
+    "after": "the courthouse's own terrazzo, 14 pictures under its 14 names and its coffered ceiling, through the master rig; it lays them with no code changed",
+    "scale": "the fight on his phone upright (390 x 844) as it opens, before and now; close in; the museum floor; the pieces at their own pixels"
+   },
+   "twin": {
+    "src": "fight_ground/school/sc_desks.webp",
+    "diffs": [
+     "THE SAME RIG AND CUT as the school's and the hospital's kits.",
+     "A ROOM YOU CLIMB THROUGH: the pews are rows a tile deep, slow going and low cover, the bar a rail with gaps.",
+     "THE CEILING IS PLASTER, not a dropped grid: deep square coffers, the lamps hanging dead."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_SIX_THE_COURTHOUSE_11_21_26.md"
+  }
  ],
  "verdicts": [
   {

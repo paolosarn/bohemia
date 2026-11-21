@@ -56,6 +56,7 @@ records/target/cook5_places_strip/
 records/target/cook5_places_east/
 # COOK SIX 11/20: the home centers' scenes and masters (tools/bohemia_cook6_the_home_centers_wear_their_own_piece_11_20_26.py scenes/render rebuild them), and the stadium floor's plan preview (... stadium ... plan)
 records/target/cook6_places_home_centers/
+records/target/cook5_inside/ct_floor_plan.png
 records/target/cook5_inside/sc_floor_plan.png
 records/target/cook5_inside/pr_floor_plan.png
 records/target/cook5_inside/hs_floor_plan.png
