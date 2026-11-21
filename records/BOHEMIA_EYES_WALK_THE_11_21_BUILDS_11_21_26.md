@@ -133,8 +133,12 @@ Not walked: the pit at the landfill, the freeway's jam, the camps, the graves, s
 ## 11/21h THE EYE IN THE SKY IN ITS OWN CLOTHES (CHARACTER, b06b3af4b): SEEN ON ITS CARD ONLY
 
 The VOTE tab on the alpha upright, LOOK AT IT: the gunner before (the Reds' one-piece, a stand-in) and now (a dust work cap, a tactical
-vest over a soot button-up, a shell bandolier, tall boots) from four sides (e15); the gold tie does not read at the card's size. A
-fight against the casino's own men was not met on AUTO (the road crews were raiders).
+vest over a soot button-up, a shell bandolier, tall boots) from four sides (e15); the gold tie does not read at the card's size.
+IN A FIGHT (the demo upright, a fresh phone; THE SHORTCUT, said: the bestiary check's own hand-over with the casino as the crew, a
+first day's band, so one man): the casino's GUNNER, his own sheet drawn (enemy_casino_gunner_0, 3675 x 1296, loaded), his portrait
+in a cap saying the opening line ('Leave the cart and the batteries, and you can keep walking.') (e17). The fight was at night
+(06:00, R1 NIGHT): pinched in close he reads as a dark figure with a gun; the cap, the vest and the gold tie do not read under the
+night (the sheet itself carries the dark coat, the brown bandolier and the cap: e18). By day not met.
 
 ## 11/21k HIS SHEETS ON THE VOICE, SHEET FIVE (WORDS THREE, 0c0a61f6e): SEEN
 
