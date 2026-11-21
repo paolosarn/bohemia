@@ -33,7 +33,8 @@ THINGS = {'pot': 'cook', 'wrench': 'open', 'filter': 'purify',
           'picks': 'pick', 'charge': 'blow', 'pipegun': 'weld',   # BOSSES 11/11: THE LOCKSMITH's, THE CHARGE's, THE MACHINIST's
           'mallet': 'press', 'forceps': 'fix', 'spyglass': 'look',   # BOSSES 11/14: THE PLATE's, THE TOOTH's, THE LENS's
           'razor': 'fade', 'needles': 'mark', 'dog': 'track',   # BOSSES 11/17: THE BARBER's, THE INK's, THE DOGS'
-          'medbag': 'treat', 'tarp': 'catch', 'crucible': 'smelt'}   # BOSSES 11/18: THE WARD's, THE CISTERN's, THE SMITH's
+          'medbag': 'treat', 'tarp': 'catch', 'crucible': 'smelt',   # BOSSES 11/18: THE WARD's, THE CISTERN's, THE SMITH's
+          'midbag': 'deliver'}   # BOSSES 11/21: THE MIDWIFE's
 
 
 def ship_of(n):
@@ -224,6 +225,15 @@ def build(n, bpy, P, IC):
         P.rod(bpy, 'tong1', dark, (0.06, 0.0, 0.13), (0.24, 0.02, 0.2), 0.006, verts=6)
         P.rod(bpy, 'tong2', dark, (0.06, 0.0, 0.11), (0.24, -0.02, 0.18), 0.006, verts=6)
         P.box(bpy, 'ingot', lead, (0.09, 0.04, 0.025), (0.16, -0.1, 0.0125), bevel=0.006)
+    elif n == 'midbag':                # BOSSES 11/21: THE MIDWIFE's bag, an old doctor's bag of brown leather open at its mouth, a towel out of it
+        leather, dark, brass, towel = M('leather', 'clay_rust', 2), M('dark', 'rubber', 2), M('brass', 'clay_rust', 4), M('towel', 'clay_bone', 4)
+        P.box(bpy, 'bag', leather, (0.30, 0.15, 0.16), (0, 0, 0.08), bevel=0.04)
+        P.box(bpy, 'mouth', dark, (0.28, 0.06, 0.02), (0, 0, 0.165), bevel=0.006)
+        for x in (-0.13, 0.13): P.box(bpy, 'clasp', brass, (0.02, 0.155, 0.02), (x, 0, 0.165), bevel=0.004)
+        P.rod(bpy, 'handle1', dark, (-0.06, 0, 0.17), (-0.02, 0, 0.24), 0.008, verts=8)
+        P.rod(bpy, 'handle2', dark, (0.06, 0, 0.17), (0.02, 0, 0.24), 0.008, verts=8)
+        P.rod(bpy, 'handle3', dark, (-0.02, 0, 0.24), (0.02, 0, 0.24), 0.008, verts=8)
+        P.box(bpy, 'towel', towel, (0.10, 0.12, 0.05), (0.08, 0.0, 0.19), bevel=0.02)
     else:
         raise KeyError(n)
 
@@ -234,7 +244,8 @@ D.FACE['map'] = 'S'; D.FACE['hook'] = 'S'
 D.FACE['picks'] = 'S'; D.FACE['pipegun'] = 'S'
 D.FACE['forceps'] = 'S'; D.FACE['spyglass'] = 'S'   # BOSSES 11/14
 D.FACE['razor'] = 'S'; D.FACE['needles'] = 'S'; D.FACE['dog'] = 'S'   # BOSSES 11/17
-D.FACE['medbag'] = 'S'; D.FACE['tarp'] = 'S'; D.FACE['crucible'] = 'S'   # BOSSES 11/18   # BOSSES 11/11: flat things side-on
+D.FACE['medbag'] = 'S'; D.FACE['tarp'] = 'S'; D.FACE['crucible'] = 'S'   # BOSSES 11/18
+D.FACE['midbag'] = 'S'   # BOSSES 11/21   # BOSSES 11/11: flat things side-on
 D.VENV = os.environ.get('BOHEMIA_BPY') or D.VENV
 D.ship_of = ship_of
 D.build = build

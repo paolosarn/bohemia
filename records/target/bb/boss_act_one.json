@@ -4,6 +4,7 @@
  "verbs_order": [
   "fix",
   "treat",
+  "deliver",
   "mark",
   "smelt",
   "open",
@@ -1839,6 +1840,72 @@
     "told": "NO MENDING",
     "rise_after": "+{n} ARMOUR",
     "card": "{marks} ANVILS ARE YOURS"
+   }
+  },
+  {
+   "n": "THE MIDWIFE",
+   "quiet": true,
+   "meet": true,
+   "words": "rule 454(a) and 465: no line until his voice is written; she is met, never fought (WORLD TWO's boss_map row 19, 'how': 'meet')",
+   "place": {
+    "name": "THE BIRTH HOUSE",
+    "art": "birthhouse",
+    "paint": "birthhouse"
+   },
+   "boss": {
+    "kind": "citizen",
+    "name": "THE MIDWIFE",
+    "hp_x": 1.0,
+    "weapon": null,
+    "shield": null,
+    "look": "person_woman_1",
+    "says": ""
+   },
+   "crew": [],
+   "board": null,
+   "tip": "",
+   "verb": {
+    "id": "deliver",
+    "word": "DELIVER",
+    "button": "DELIVER",
+    "quiet": true,
+    "rule": "beside a house where a birth is coming (her marks), once a day: the birth brought through, the house's window warm and a cradle by the door for good, 'clout' CLOUT; the first birth closes act one if somebody speaks for you (the standing web's whoVouches)",
+    "clout": 25,
+    "cooldown_days": 1,
+    "first": {
+     "plate": "+{clout} CLOUT",
+     "rise": "+{clout} CLOUT",
+     "rise_none": "NO BIRTH HERE"
+    },
+    "cooling": "DELIVER TOMORROW",
+    "tip": "A BIRTH BROUGHT THROUGH",
+    "tip_cooling": "TOMORROW",
+    "place_after": "cradle",
+    "hand": {
+     "name": "HER BAG",
+     "pic": "hand_deliver.png",
+     "line": "DELIVER: BESIDE A HOUSE WHERE A BIRTH IS COMING, ONCE A DAY. THE FIRST ONE CLOSES ACT ONE IF SOMEBODY SPEAKS FOR YOU.",
+     "person": {
+      "name": "THE MIDWIFE",
+      "look": "person_woman_1"
+     }
+    }
+   },
+   "fallen_art": "birthhouse_after",
+   "lead": {
+    "thing": {
+     "head": "THE RADIO",
+     "says": ""
+    }
+   },
+   "after": {
+    "quiet": true
+   },
+   "cradles": {
+    "radius": 6,
+    "marks": 3,
+    "pic": "cradles",
+    "card": "{marks} BIRTHS TO BRING THROUGH"
    }
   }
  ]

@@ -1,0 +1,10 @@
+{
+ "model": "records/target/bosses_hand_rig/models/midbag.glb",
+ "ppm": 655.4900194671237,
+ "files": [
+  "records/target/bosses_hand_rig/midbag/rig_S.png",
+  "records/target/bosses_hand_rig/midbag/rig_SE.png",
+  "records/target/bosses_hand_rig/midbag/rig_SW.png"
+ ],
+ "box": null
+}

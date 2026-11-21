@@ -1166,6 +1166,66 @@
     "anvil_after_1.png"
    ],
    "through_the_rig": true
+  },
+  "birthhouse_before": {
+   "w": 166,
+   "h": 167,
+   "bx": 83,
+   "by": 118,
+   "plate": 150,
+   "frames": [
+    "birthhouse_before_0.png",
+    "birthhouse_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "birthhouse_after": {
+   "w": 166,
+   "h": 167,
+   "bx": 83,
+   "by": 118,
+   "plate": 150,
+   "frames": [
+    "birthhouse_after_0.png",
+    "birthhouse_after_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "cradle": {
+   "w": 62,
+   "h": 60,
+   "bx": 31,
+   "by": 40,
+   "plate": 46,
+   "frames": [
+    "cradle_0.png",
+    "cradle_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "cradles_before": {
+   "w": 128,
+   "h": 122,
+   "bx": 64,
+   "by": 85,
+   "plate": 116,
+   "frames": [
+    "cradles_before_0.png",
+    "cradles_before_1.png"
+   ],
+   "through_the_rig": true
+  },
+  "cradles_after": {
+   "w": 128,
+   "h": 122,
+   "bx": 64,
+   "by": 85,
+   "plate": 116,
+   "frames": [
+    "cradles_after_0.png",
+    "cradles_after_1.png"
+   ],
+   "through_the_rig": true
   }
  }
 }

@@ -110,7 +110,7 @@
     if (!S.line) S.line = {};
     if (!S.ink) { S.ink = {}; INK_DIRTY = true; }
     if (!S.packs) S.packs = {};
-    if (!S.ward) S.ward = {}; if (!S.tanks) S.tanks = {}; if (!S.anvils) S.anvils = {};
+    if (!S.ward) S.ward = {}; if (!S.tanks) S.tanks = {}; if (!S.anvils) S.anvils = {}; if (!S.cradles) S.cradles = {};
     if (DATA) DATA.bosses.forEach(function (r) { if (r.verb && h.boss.fallen[r.n] && !S.verbs[r.verb.id]) grant(r, h.boss.fallen[r.n]); });   /* a save from before this file */
     groundCatchUp();   /* (8) his ground follows WORLD TWO's fallen flag */
     pipeCatchUp();     /* (9) his pipe too */
@@ -124,6 +124,7 @@
     wagonCatchUp(); toothCatchUp(); lensCatchUp();   /* (18) his wagon, (19) his collectors, (20) his blur */
     lineCatchUp(); inkCatchUp(); packsCatchUp();      /* (21) his line, (22) his ink, (23) his packs */
     reachCatchUp();   /* (24) his ward, (25) his tanks, (26) his anvils */
+    cradlesCatchUp(); if (S.actOne) root.__BOSS_ACT_ONE = S.actOne;   /* (27) her cradles, and act one closed after a reload */
     if (NAIL_DIRTY) nailGrid();
     if (MINE_DIRTY) mineGrid();
     if (LOCK_DIRTY) lockGrid();
@@ -226,7 +227,7 @@
     var L = lead(r.n); L.told = day() + 1; L.afterDue = false; save();
     var V = r.verb || {}, Hd = V.hand || null, src = null;
     var Aw = A.quiet ? mate() : A;   /* rule 454(a): a quiet row's card is one of yours, his thing and what changed, no line */
-    var ok = talk('after', r.n, { look: Aw.look, name: Aw.name, from: A.quiet ? null : A.from, head: r.n + ' IS DOWN', text: A.quiet ? '' : (A.valley || A.says), opts: [{ t: (Hd && A.take) || A.ok || 'GOT IT', tag: V.button || '',
+    var ok = talk('after', r.n, { look: Aw.look, name: Aw.name, from: A.quiet ? null : A.from, head: r.meet ? 'YOU MET ' + r.n : r.n + ' IS DOWN', text: A.quiet ? '' : (A.valley || A.says), opts: [{ t: (Hd && A.take) || A.ok || 'GOT IT', tag: V.button || '',
       fn: function () { src = handBox(); HUSH = Date.now() + HUSH_MS; closeCard(); if (Hd) fly(r, src); else camBack(); } }] });   /* the hush before the close (the close redraws, and a redraw asks) */
     if (ok && Hd) handOnCard(r, Hd);
     if (ok) groundOnCard(r);
@@ -253,7 +254,7 @@
   /* (8) under it, what his ground did, in one plain line with its numbers (the streets open, his till) */
   function groundOnCard(r) {
     try {
-      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) g = S && S.machines && S.machines[r.n]; if (!g || !g.said) g = S && S.dark && S.dark[r.n]; if (!g || !g.said) g = S && S.hole && S.hole[r.n]; if (!g || !g.said) g = S && S.riggers && S.riggers[r.n]; if (!g || !g.said) g = S && S.curfew && S.curfew[r.n]; if (!g || !g.said) g = S && S.mines && S.mines[r.n]; if (!g || !g.said) g = S && S.nails && S.nails[r.n]; if (!g || !g.said) g = S && S.wagon && S.wagon[r.n]; if (!g || !g.said) g = S && S.tooth && S.tooth[r.n]; if (!g || !g.said) g = S && S.lens && S.lens[r.n]; if (!g || !g.said) g = S && S.line && S.line[r.n]; if (!g || !g.said) g = S && S.ink && S.ink[r.n]; if (!g || !g.said) g = S && S.packs && S.packs[r.n]; if (!g || !g.said) g = S && S.ward && S.ward[r.n]; if (!g || !g.said) g = S && S.tanks && S.tanks[r.n]; if (!g || !g.said) g = S && S.anvils && S.anvils[r.n]; if (!g || !g.said) return;   /* (8) his ground, (9) his pipe, (10) his machines or (11) his dark */
+      var g = S && S.ground && S.ground[r.n]; if (!g || !g.said) g = S && S.pipe && S.pipe[r.n]; if (!g || !g.said) g = S && S.machines && S.machines[r.n]; if (!g || !g.said) g = S && S.dark && S.dark[r.n]; if (!g || !g.said) g = S && S.hole && S.hole[r.n]; if (!g || !g.said) g = S && S.riggers && S.riggers[r.n]; if (!g || !g.said) g = S && S.curfew && S.curfew[r.n]; if (!g || !g.said) g = S && S.mines && S.mines[r.n]; if (!g || !g.said) g = S && S.nails && S.nails[r.n]; if (!g || !g.said) g = S && S.wagon && S.wagon[r.n]; if (!g || !g.said) g = S && S.tooth && S.tooth[r.n]; if (!g || !g.said) g = S && S.lens && S.lens[r.n]; if (!g || !g.said) g = S && S.line && S.line[r.n]; if (!g || !g.said) g = S && S.ink && S.ink[r.n]; if (!g || !g.said) g = S && S.packs && S.packs[r.n]; if (!g || !g.said) g = S && S.ward && S.ward[r.n]; if (!g || !g.said) g = S && S.tanks && S.tanks[r.n]; if (!g || !g.said) g = S && S.anvils && S.anvils[r.n]; if (!g || !g.said) g = S && S.cradles && S.cradles[r.n]; if (!g || !g.said) return;   /* (8) his ground, (9) his pipe, (10) his machines or (11) his dark */
       var el = document.getElementById('roadcard'), at = el && (el.querySelector('.rchand') || el.querySelector('.rctext')); if (!at) return;
       var d = document.createElement('div'); d.className = 'rcground'; d.setAttribute('data-draft', 'true');
       d.style.cssText = 'margin-top:6px;padding:5px 8px;background:rgba(10,8,6,.45);box-shadow:inset 0 0 0 1px #3a2e20;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;line-height:1.35;color:#e2b45a';
@@ -464,6 +465,11 @@
       var lr = S.verbs.treat.last; if (lr != null && day() - lr < (V.cooldown_days || 1)) return { id: id, off: true, why: 'cooling' };
       return { id: id };
     }
+    if (id === 'deliver') {   /* BOSSES 11/21: THE MIDWIFE's bag, beside a house where a birth is coming, once a day */
+      if (!cradleBeside(x, y)) return null;
+      var lv2 = S.verbs.deliver.last; if (lv2 != null && day() - lv2 < (V.cooldown_days || 1)) return { id: id, off: true, why: 'cooling' };
+      return { id: id };
+    }
     if (id === 'catch') {
       if ((nearTown(x, y, 1) || !nearKind(x, y, V.roof_districts || [])) && !hisPlace('catch', x, y)) return null;
       var lq = S.verbs['catch'].last; if (lq != null && day() - lq < (V.cooldown_days || 1)) return { id: id, off: true, why: 'cooling' };
@@ -549,10 +555,11 @@
     if (id === 'treat') { got = treatAll(); S.verbs.treat.last = day(); }
     if (id === 'catch') { got = { food: supply('food', V.food | 0 || 2) }; S.verbs['catch'].last = day(); }
     if (id === 'smelt') { got = { tape: supply('tape', V.tape | 0 || 3) }; S.verbs.smelt.last = day(); }
+    if (id === 'deliver') { got = deliverAt(V, h[0], h[1]); S.verbs.deliver.last = day(); }
     if (id === 'pick') { got = { paid: V.pay_batteries | 0 }; try { if (got.paid > 0) BohemiaPurse.credit(purseGet(), 'electricity', got.paid, 'a locked door on ' + w, 'boss-verb:pick:' + h[0] + ',' + h[1], day()); } catch (e) { got.paid = 0; } }
     var nums = { where: w, name: (got && got.name) || '', NAME: String((got && got.name) || '').toUpperCase(), healed: (got && got.healed) | 0, men: (got && got.men) | 0, paid: (got && got.paid) | 0, blocks: (got && got.blocks) | 0, clout: (got && got.clout) | 0, food: (got && got.food) | 0, tape: (got && got.tape) | 0 };
     nums.wounds = nums.men + (nums.men === 1 ? ' wound' : ' wounds'); nums.WOUNDS = nums.wounds.toUpperCase();   /* '1 wound', never '1 wounds' */
-    var none = (id === 'cook' && !nums.healed) || (id === 'purify' && !nums.men) || (id === 'survey' && !nums.blocks) || ((id === 'climb' || id === 'pick') && !nums.paid) || (id === 'blow' && !nums.blocks) || ((id === 'weld' || id === 'press') && !(got && got.made)) || (id === 'fix' && !(got && got.name)) || (id === 'look' && !nums.blocks) || ((id === 'fade' || id === 'mark') && !nums.clout) || (id === 'track' && !nums.blocks) || (id === 'treat' && !nums.men) || (id === 'catch' && !nums.food) || (id === 'smelt' && !nums.tape), F = V.first || {};   /* nothing to heal: say so plainly, never '0 blood back' */
+    var none = (id === 'cook' && !nums.healed) || (id === 'purify' && !nums.men) || (id === 'survey' && !nums.blocks) || ((id === 'climb' || id === 'pick') && !nums.paid) || (id === 'blow' && !nums.blocks) || ((id === 'weld' || id === 'press') && !(got && got.made)) || (id === 'fix' && !(got && got.name)) || (id === 'look' && !nums.blocks) || ((id === 'fade' || id === 'mark') && !nums.clout) || (id === 'track' && !nums.blocks) || (id === 'treat' && !nums.men) || (id === 'catch' && !nums.food) || (id === 'smelt' && !nums.tape) || (id === 'deliver' && !(got && got.births)), F = V.first || {};   /* nothing to heal: say so plainly, never '0 blood back' */
     var mk = { k: id, x: h[0], y: h[1], day: day(), first: first ? fill((none && F.plate_none) || F.plate, nums) : null, t: Date.now() };
     if (id === 'climb') { var tw = towerOf(h[0], h[1]); if (tw) { mk.tx = tw[0]; mk.ty = tw[1]; } }
     if (id === 'pick') { var dr = doorOf(h[0], h[1]); if (dr) { mk.tx = dr[0]; mk.ty = dr[1]; } }
@@ -2559,6 +2566,90 @@
     try { root.dispatchEvent(new CustomEvent('bohemia:condition', { detail: { treated: Object.keys(men).length } })); } catch (e) {}
     return { men: Object.keys(men).length, healed: Math.round(healed), wounds: wounds };
   }
+  /* ---------- (27) HER CRADLES (BOSSES 11/21). THE MIDWIFE, the ladder's 19th (every birth in the valley goes through her), MET, NEVER
+     FOUGHT (WORLD TWO's row 19, 'how': 'meet': arriving at her house is enough). Her 'marks' are houses on street blocks round her house
+     where a birth is coming: a dark front, one candle in the window, a pail by the door, painted wherever the crew has seen. Nothing
+     hostile: she is a person to reach. WHEN SHE IS MET she hands DELIVER: at one of those houses, once a day, a birth is brought
+     through (the window warm, a cradle by the door, kept after a reload) and the valley reads it (CLOUT).
+     HIS RULINGS (records/BOHEMIA_THE_BOSS_LADDER_v7_8_7_26.md): 'bring a birth through -- AND THIS CLOSES ACT 1' and 'must have a
+     relationship and shit before act 1 closes'. So ACT ONE CLOSES on the first birth brought through only when somebody in the valley
+     already speaks for you: the standing web's own answer (BohemiaStanding.whoVouches, PEOPLE's: a named person warm on you because
+     they saw or heard what you did; nobody invented, no partner chosen, who you can marry stays his). Closing records the day, who
+     spoke for you and the births in this file's state, and sends 'bohemia:act-one-closes' for DYNASTY. WHAT ACT TWO IS WHEN ACT ONE
+     CLOSES IS UNRULED: nothing here flips an act (engine/bohemia_acts.js is DYNASTY's); the handoff says so plainly. */
+  function cradlesRow(n) { var r = row(n); return r && r.cradles ? r : null; }
+  var VOUCH_AT = 0, VOUCH = null;
+  function vouched() {   /* who speaks for you now (the standing web), read at most once a second */
+    var t = Date.now(); if (t - VOUCH_AT < 1000) return VOUCH; VOUCH_AT = t; VOUCH = null;
+    try { if (!root.BohemiaStanding || !BohemiaStanding.whoVouches || typeof ctMindsList !== 'function') return null;
+      var vs = BohemiaStanding.whoVouches(ctMindsList(), '@', typeof ctMinuteNow === 'function' ? ctMinuteNow() : clockMins(), { limit: 1 });
+      if (vs && vs.length) VOUCH = { who: vs[0].who, value: vs[0].value, rung: vs[0].rung || null, kind: vs[0].kind || null }; } catch (e) { VOUCH = null; }
+    return VOUCH;
+  }
+  function births() { var b = 0; for (var n in (S && S.cradles) || {}) b += (S.cradles[n].births | 0); return b; }
+  function actOneCheck(why) {
+    if (!S || S.actOne || births() < 1) return S && S.actOne;
+    var v = vouched(); if (!v) { LAST.actOneWaits = { births: births(), why: 'nobody speaks for you yet', t: Date.now() }; root.__BOSS_ACT_ONE_WAITS = LAST.actOneWaits; return null; }
+    S.actOne = { day: day(), by: 'THE MIDWIFE', with: v.who, value: v.value, births: births(), why: why || 'a birth', draft: true }; save();
+    root.__BOSS_ACT_ONE = S.actOne;
+    try { root.dispatchEvent(new CustomEvent('bohemia:act-one-closes', { detail: JSON.parse(JSON.stringify(S.actOne)) })); } catch (e) {}
+    var me = here(); if (me) { RISES.push({ x: me[0], y: me[1], t0: performance.now(), txt: 'ACT ONE', col: '#f0e0b8' }); tick(); }
+    return S.actOne;
+  }
+  function cradlesTick() {
+    if (!DATA || !S || bench() || !N()) return;
+    var h = hs(); if (!h) return;
+    if (!S.cradles) S.cradles = {};
+    DATA.bosses.forEach(function (r) {
+      if (!r.cradles || S.cradles[r.n]) return;
+      var sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign : null, f = h.boss.found[r.n], at = f || (sg && sg.boss);
+      if (!at) return;
+      try { if (!FOG.ready) return; } catch (e) { return; }
+      var G = r.cradles, R = reachR(G), c = spots([at.x, at.y], 2, R, Math.max(1, G.marks | 0 || 3), sg ? [sg.x, sg.y] : here(), 0x6a09e667);
+      S.cradles[r.n] = { at: [at.x, at.y], marks: c.map(function (q) { return { at: [q.x, q.y], born: null }; }), births: 0, fell: null, made: day(), draft: true }; save();
+      LAST.cradles = { n: r.n, marks: c.length, at: Date.now() };
+    });
+    if (births() > 0 && !S.actOne) actOneCheck('a birth, and now somebody speaks for you');
+  }
+  function cradlesFell(r, h) {
+    var G = r.cradles; if (!G || !S) return null;
+    if (!S.cradles) S.cradles = {};
+    var Q = S.cradles[r.n]; if (!Q) Q = S.cradles[r.n] = { at: null, marks: [], births: 0, fell: null, made: day(), draft: true };
+    if (Q.fell != null) return Q;
+    Q.fell = day(); Q.said = Q.marks.length ? fill(G.card, { marks: Q.marks.length }) : (G.card_none || null);
+    save(); LAST.cradlesFell = { n: r.n, said: Q.said, at: Date.now() };
+    return Q;
+  }
+  function cradlesCatchUp() { if (!DATA || !S || !S.cradles) return; var h = hs(); if (!h) return;
+    for (var k in S.cradles) { var Q = S.cradles[k]; if (Q && Q.fell == null && h.boss.fallen[k]) { var r = cradlesRow(k); if (r) cradlesFell(r, h); } } }
+  function cradlesDraw(gx, ox, oy, beat) {
+    if (!S || !S.cradles) return;
+    var h = hs(); LAST.drew.cradles = [];
+    for (var k in S.cradles) {
+      var Q = S.cradles[k], r = cradlesRow(k); if (!Q || !r) continue;
+      var known = !!(h && h.boss.found[k]), pic = r.cradles.pic || 'cradles';
+      Q.marks.forEach(function (m) {
+        var q = m.at, vis = seen(q[0], q[1]); if (!vis && !known) return;
+        var key = pic + (m.born != null ? '_after' : '_before'), b = paint(gx, key, q[0], q[1], ox, oy, beat, 0.95, 0, !vis);
+        if (b) { LAST.drew.cradles.push({ n: k, at: q.slice(), key: key }); LAST.drew.painted++; } });
+    }
+  }
+  function cradlesBeat() {   /* the meeting's beat glides over the houses where a birth is coming (they change when one is brought through) */
+    var Q = S && S.cradles && BEAT && S.cradles[BEAT.n]; return Q ? Q.marks.filter(function (m) { return m.born == null; }).length : 0;
+  }
+  function cradleBeside(x, y) {
+    for (var k in (S && S.cradles) || {}) { var Q = S.cradles[k]; if (!Q || Q.fell == null) continue;
+      for (var i = 0; i < Q.marks.length; i++) { var m = Q.marks[i]; if (m.born == null && cheb(m.at[0], m.at[1], x, y) <= 1) return { Q: Q, m: m, n: k }; } }
+    return null;
+  }
+  function deliverAt(V, x, y) {
+    var c = cradleBeside(x, y); if (!c) return { births: 0, clout: 0 };
+    c.m.born = day(); c.Q.births = (c.Q.births | 0) + 1;
+    var got = { births: 1, at: c.m.at.slice(), clout: clout(V.clout | 0 || 25, 'a birth brought through', 'boss-deliver:' + c.m.at.join(',')) };
+    save(); got.act = actOneCheck('a birth brought through') ? true : false;
+    LAST.delivered = { at: c.m.at.slice(), births: births(), act: got.act, t: Date.now() }; root.__BOSS_DELIVERED = LAST.delivered;
+    return got;
+  }
   /* (FADE) his razor and his bleach: on a town's doorstep, a battery's worth of real materials, the crew walks in looking sharp and the
      valley's name for you (CLOUT, BohemiaRenown: Battle Brothers' Renown) goes up; once a day */
   function clout(n, why, key) { var R = root.BohemiaRenown; if (!R || !R.add) return 0; var a = R.score(); R.add(n, why, key); return Math.max(0, R.score() - a); }
@@ -2687,7 +2778,7 @@
        building beside him, and his place was painted under his own men; it stands on the block behind him (up the screen) instead */
     return [at.x - 1, at.y - 1];
   }
-  var PROP = { cook: 'fire', open: 'main_after', purify: 'clean', burn: 'barrel', survey: 'stake', climb: 'rope', pick: 'cutlock', blow: 'rubble', weld: 'weldbench', press: 'pressplate', fix: 'pulled', look: 'spyglass', fade: 'fadepole', mark: 'inkmark', track: 'pawprints', treat: 'bandage', 'catch': 'raintarp', smelt: 'ingot' }, MARK_OFF = [0.34, 0.16];
+  var PROP = { cook: 'fire', open: 'main_after', purify: 'clean', burn: 'barrel', survey: 'stake', climb: 'rope', pick: 'cutlock', blow: 'rubble', weld: 'weldbench', press: 'pressplate', fix: 'pulled', look: 'spyglass', fade: 'fadepole', mark: 'inkmark', track: 'pawprints', treat: 'bandage', 'catch': 'raintarp', smelt: 'ingot', deliver: 'cradle' }, MARK_OFF = [0.34, 0.16];
 
   /* ---------- (5) THE MOMENT HE FALLS: the camera, the change over his men, then her line ---------- */
   var BEAT = null, UB = null, OV = null, RAF = 0;
@@ -2798,6 +2889,7 @@
         try { LAST.beat.wagon = wagonBeat(x, ox, oy, beat, u, fade); LAST.beat.collectors = toothBeat(x, ox, oy, beat, u, fade); LAST.beat.charts = lensBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (18) (19) (20) */   /* (13) the people he kept come down */   /* (8) his checkpoints roll open on the same tape */
         try { LAST.beat.line = lineBeat(x, ox, oy, beat, u, fade); LAST.beat.ink = inkBeat(x, ox, oy, beat, u, fade); LAST.beat.packs = packsBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (21) (22) (23) */
         try { LAST.beat.reach = reachBeat(x, ox, oy, beat, u, fade); } catch (e) { LAST.err = String(e && e.message || e); }   /* (24) (25) (26) */
+        try { LAST.beat.cradles = cradlesBeat(); } catch (e) { LAST.err = String(e && e.message || e); }   /* (27) */
         wipe(x, paintKey(r, false), paintKey(r, true), b, beat, u, fade);
         LAST.beat.rect = { x: b.x, y: b.y, w: b.w, h: b.h, cssW: Math.round(b.w / ppc()) }; LAST.beat.u = Math.round(u * 100) / 100;
         try { var F = mapFocus(); LAST.beat.focus = [Math.round(F.x), Math.round(F.y)]; LAST.beat.mid = [Math.round(b.x + b.w / 2), Math.round(b.y + b.h / 2)]; } catch (e) {}
@@ -2863,6 +2955,7 @@
       try { lineTick(); lineDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (21) his line across the streets */
       try { packsTick(); packsDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (23) his packs at night */
       try { reachTick(); reachDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (24) (25) (26) his ward, his tanks, his anvils */
+      try { cradlesTick(); cradlesDraw(gx, ox, oy, beat); } catch (e) { LAST.err = String(e && e.message || e); }   /* (27) her cradles */
       DATA.bosses.forEach(function (r) {
         var f = h.boss.found[r.n], sg = (h.boss.sign && h.boss.sign.n === r.n) ? h.boss.sign.boss : null, at = f || sg; if (!at) return;
         var pa = placeAt(at), bx = pa[0], by = pa[1];
@@ -2907,6 +3000,7 @@
     if (r.wagon) wagonFell(r, h); if (r.tooth) toothFell(r, h); if (r.lens) lensFell(r, h);   /* (18) (19) (20) */
     if (r.line) lineFell(r, h); if (r.ink) inkFell(r, h); if (r.packs) packsFell(r, h);   /* (21) (22) (23) */
     REACH.forEach(function (k) { if (r[k]) reachFell(r, h, k); });   /* (24) (25) (26) */
+    if (r.cradles) cradlesFell(r, h);   /* (27) */
     var L = lead(r.n); L.afterDue = true; save();
     try { if (typeof render === 'function') render(); } catch (e) {}
   });
@@ -2975,6 +3069,8 @@
     ward: function (n) { sync(); return S && S.ward ? (n ? (S.ward[n] || null) : S.ward) : null; }, tanks: function (n) { sync(); return S && S.tanks ? (n ? (S.tanks[n] || null) : S.tanks) : null; },
     anvils: function (n) { sync(); return S && S.anvils ? (n ? (S.anvils[n] || null) : S.anvils) : null; }, reachTick: function () { sync(); return reachTick(); }, reachHolds: function () { sync(); return reachHolds(); },
     wrapElapse: function () { wrapElapse(); return !!(root.BohemiaCondition && root.BohemiaCondition.__bossReach); },   /* (24) (25) (26) */
+    cradles: function (n) { sync(); return S && S.cradles ? (n ? (S.cradles[n] || null) : S.cradles) : null; }, actOne: function () { sync(); return S ? (S.actOne || null) : null; },
+    vouched: function () { VOUCH_AT = 0; return vouched(); }, actOneCheck: function () { sync(); return actOneCheck('asked'); },   /* (27) */
     track: function () { sync(); return S ? (S.track || null) : null; },
     rawStep: function (x, y) { try { return RAW_STEP ? RAW_STEP(x, y) : cityStepMins(x, y); } catch (e) { return null; } },
     /* row 611, for the gate: whether a card may open now, and a card opened through this file's own door */

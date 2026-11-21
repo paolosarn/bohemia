@@ -8735,6 +8735,15 @@ GATES = [
      "makes TAPE (V1); his apprentice lives at your place and CAM 3 has him (H1); the reload holds (R1). Planted: armour mended in his "
      "reach, an anvil that mended nothing, a fire that made nothing, somebody who does not live there, a phone that forgot the save, a "
      "prize the seam never got. about 40 min a way", True),
+    ('THE MIDWIFE CHANGES THE MAP', ['node', 'gates/the_next_three_change_the_map_gate.js', 'THE MIDWIFE'],
+     "BOSSES gate, 11/21, the coordinator's routine 'BOSSES: the Midwife is yours' (rules 441, 461, 454(a), 465), ask lines 167, 522, 571: "
+     "the stranger's game on the DEMO UPRIGHT and the ALPHA ON ITS SIDE, the eighteen before her first, then THE MIDWIFE end to end, met "
+     "and never fought: the radio (T1, T2); the houses where a birth is coming round her house, painted, nothing of hers yours before "
+     "her (K1); the walk to her house is the meeting, no card asks for a fight, nothing handed to the fight's door (B0, B1); the beat, "
+     "she moves into your place (B2, G1); DELIVER brings a birth through, the window warm and a cradle by the door, CLOUT (V1); act one "
+     "closes on the first birth only if somebody speaks for you (A1), and then it is kept and DYNASTY is told (A2); she is on CAM 3 "
+     "(H1); the reload holds (R1). Planted: DELIVER before her, a meeting that asked for a fight, a delivery that brought nothing, a close "
+     "nobody was told of, somebody who does not live there, a phone that forgot the save, a prize the seam never got. about 40 min a way", True),
     ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
      "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
      "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "

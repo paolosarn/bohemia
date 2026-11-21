@@ -38,7 +38,7 @@ const { open } = require(path.join(ROOT, 'tools', 'bohemia_drive_the_demo.js'));
 let pass = 0, fail = 0;
 const ok = (n, c, w) => { if (c) pass++; else fail++; console.log((c ? '  ok   ' : '  FAIL ') + n + (w != null ? '  [' + w + ']' : '')); };
 const NAME = process.argv[2] || 'THE BURN';
-const LADDER = ['THE POT', 'THE TAP', 'THE FILTER', 'THE BURN', 'THE SURVEYOR', 'THE CLIMB', 'THE LOCKSMITH', 'THE CHARGE', 'THE MACHINIST', 'THE PLATE', 'THE TOOTH', 'THE LENS', 'THE BARBER', 'THE INK', 'THE DOGS', 'THE WARD', 'THE CISTERN', 'THE SMITH'];
+const LADDER = ['THE POT', 'THE TAP', 'THE FILTER', 'THE BURN', 'THE SURVEYOR', 'THE CLIMB', 'THE LOCKSMITH', 'THE CHARGE', 'THE MACHINIST', 'THE PLATE', 'THE TOOTH', 'THE LENS', 'THE BARBER', 'THE INK', 'THE DOGS', 'THE WARD', 'THE CISTERN', 'THE SMITH', 'THE MIDWIFE'];
 const SLUG = NAME.replace(/^THE /, '').toLowerCase();
 const SHOTS = process.env.BOSSES_SHOTS === '0' ? null : path.join(ROOT, 'records', 'target', 'the_next_three_change_the_map', SLUG);
 const NIGHT = 22 * 60;
@@ -1339,7 +1339,76 @@ const SMITH = {
   }
 };
 
-const LEGS = { 'THE BURN': BURN, 'THE SURVEYOR': SURVEYOR, 'THE CLIMB': CLIMB, 'THE LOCKSMITH': LOCK, 'THE CHARGE': MINE, 'THE MACHINIST': NAIL, 'THE PLATE': PLATE, 'THE TOOTH': TOOTH, 'THE LENS': LENS, 'THE BARBER': BARBER, 'THE INK': INK, 'THE DOGS': DOGS, 'THE WARD': WARD, 'THE CISTERN': CISTERN, 'THE SMITH': SMITH };
+/* ---------------- THE MIDWIFE: met, never fought; the houses where a birth is coming; DELIVER; act one (BOSSES 11/21) ---------------- */
+const drewCradles = (fr) => fr.evaluate(() => ((BohemiaBosses.last().drew || {}).cradles || []).map(d => d.key));
+const besideMark = (c, m) => c.fr.evaluate((a) => { const m = a[0], f = a[1], h = [city.x, city.y]; let best = null, bd = 1e9;
+  for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) { const x = m[0] + dx, y = m[1] + dy; if (!cityWalkable(x, y) || loopTownAt(x, y, 1) || (f && x === f.x && y === f.y) || !(x === h[0] && y === h[1] || cityRoute(h[0], h[1], x, y))) continue;
+    const d = Math.max(Math.abs(x - h[0]), Math.abs(y - h[1])); if (d < bd) { bd = d; best = [x, y]; } } return best; }, [m, c.f]);
+const MIDQ = {
+  K1: (q) => !!q && q.marks >= 2 && q.drawn >= 1 && !q.before,
+  V1: (q) => !!q && q.verb === 'deliver' && q.births === 1 && q.clout > 0 && q.after >= 1 && q.cooling,
+  A1: (q) => !!q && (q.vouch0 ? !!q.act && q.act.with === q.vouch0.who : (!q.act && !!q.waits)),
+  A2: (q) => !!q && !!q.act && q.act.births >= 1 && q.act.by === NAME && !!q.event && q.event.by === NAME,
+  R1: (q, b) => !!q && q.fallen && q.births >= 1 && !!q.act
+};
+const MIDWIFE = {
+  R1: MIDQ.R1, cam: true,
+  async before(c) {
+    const { fr, G } = c;
+    let Q = null;
+    for (let i = 0; i < 30 && !(Q && Q.marks && Q.marks.length); i++) { Q = await fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.cradles(n) || null)), NAME); if (!(Q && Q.marks && Q.marks.length)) await c.page.waitForTimeout(500); }
+    if (!(Q && Q.marks && Q.marks.length)) { ok('K1 the houses where a birth is coming', false, 'none'); return false; }
+    c.Q = Q; await noonOf(fr);
+    let drawn = (await drewCradles(fr)).filter(k => k === (G.pic || 'cradles') + '_before').length;
+    const by = await besideMark(c, Q.marks[0].at);
+    if (by) { await c.goTo(by); await c.page.waitForTimeout(800); drawn = Math.max(drawn, (await drewCradles(fr)).filter(k => k === (G.pic || 'cradles') + '_before').length); c.by = by; }
+    await c.shot('2_where_a_birth_is_coming');
+    const before = await fr.evaluate(() => { const a = BohemiaBosses.applies('deliver', city.x, city.y); return a ? a.id : null; });
+    const q = { marks: Q.marks.length, drawn, before };
+    ok('K1 ' + q.marks + ' houses where a birth is coming, round her house, painted (a dark front, one candle, a pail by the door: ' + q.drawn + ' on the screen); before she is met nothing of hers is yours', MIDQ.K1(q), JSON.stringify(q));
+    ok('P2 planted: DELIVER before she is met turns K1 red', !MIDQ.K1(Object.assign({}, q, { before: 'deliver' })), 'too soon');
+    return true;
+  },
+  card(G, c) { return G.card.replace('{marks}', c.Q.marks.length); },
+  async after(c) {
+    const { fr, G } = c;
+    await noonOf(fr);
+    const Q = await fr.evaluate((n) => JSON.parse(JSON.stringify(BohemiaBosses.cradles(n) || null)), NAME);
+    const m = (Q.marks.filter(x => x.born == null)[0] || Q.marks[0]).at;
+    const at = c.by && Math.max(Math.abs(c.by[0] - m[0]), Math.abs(c.by[1] - m[1])) <= 1 ? c.by : await besideMark(c, m);
+    let v = { at };
+    if (at) {
+      await c.goTo(at); await c.leaveTown(); await noonOf(fr); await useUp(fr, ['fix', 'treat']);
+      v = await fr.evaluate(() => { window.__ACT_EVT = null; addEventListener('bohemia:act-one-closes', (e) => { window.__ACT_EVT = e.detail; }, { once: true });
+        const vouch0 = BohemiaBosses.vouched(), c0 = BohemiaRenown.score(), vh = BohemiaBosses.verbHere(), g = BohemiaBosses.use('deliver'), st = BohemiaBosses.state();
+        return { verb: vh && vh.id, births: g && typeof g === 'object' ? g.births | 0 : 0, clout: BohemiaRenown.score() - c0, cooling: !!(st.verbs.deliver && st.verbs.deliver.last != null),
+          vouch0, act: JSON.parse(JSON.stringify(BohemiaBosses.actOne() || null)), waits: window.__BOSS_ACT_ONE_WAITS || null, event: window.__ACT_EVT, at: [city.x, city.y] }; });
+      await fr.evaluate(() => { try { render(); } catch (e) {} }); await c.page.waitForTimeout(600);
+      v.after = (await drewCradles(fr)).filter(k => k === (G.pic || 'cradles') + '_after').length;
+      await c.page.waitForTimeout(2000); await c.shot('5_a_birth_brought_through');
+    } else v.why = 'no block beside a house where a birth is coming';
+    ok('V1 DELIVER: beside a house where a birth is coming, the birth brought through (' + (v.births | 0) + '), its window warm and a cradle by the door, the valley reads it (+' + (v.clout | 0) + ' CLOUT), once a day', MIDQ.V1(v), JSON.stringify(v));
+    ok('P5 planted: a delivery that brought nothing through turns V1 red', !MIDQ.V1(Object.assign({}, v, { births: 0, after: 0 })), 'nothing');
+    ok('A1 act one closes on the first birth only if somebody speaks for you (the standing web, PEOPLE\'s): ' + (v.vouch0 ? 'somebody did (' + v.vouch0.who + '), so it closed' : 'nobody did yet, so it waits'), MIDQ.A1(v), JSON.stringify({ vouch0: v.vouch0, act: v.act, waits: v.waits }));
+    let q2 = v;
+    if (!v.vouch0 && v.births) {   /* the relationship his ruling asks for: the standing web's answer planted for one call (the web itself is PEOPLE's, walked by its own gates) */
+      q2 = await fr.evaluate(() => { window.__ACT_EVT = null; addEventListener('bohemia:act-one-closes', (e) => { window.__ACT_EVT = e.detail; }, { once: true });
+        const W = BohemiaStanding.whoVouches; BohemiaStanding.whoVouches = function () { return [{ who: '@gate-planted', value: 5, rung: 'warm', kind: 'gate' }]; };
+        let act = null; try { BohemiaBosses.vouched(); act = BohemiaBosses.actOneCheck(); } finally { BohemiaStanding.whoVouches = W; BohemiaBosses.vouched(); }
+        return { act: JSON.parse(JSON.stringify(act || null)), event: window.__ACT_EVT, planted: true }; });
+    }
+    ok('A2 with somebody who speaks for you, act one closes: the day, who, the births kept, and \'bohemia:act-one-closes\' sent for DYNASTY' + (q2.planted ? ' (the standing web\'s answer planted for one call)' : ''), MIDQ.A2(q2), JSON.stringify({ act: q2.act, event: q2.event }));
+    ok('P6 planted: a close nobody was told of turns A2 red', !MIDQ.A2(Object.assign({}, q2, { event: null })), 'silent');
+    return { fallen: true };
+  },
+  async reload(e, c) {
+    await e.page.waitForTimeout(800);
+    return e.fr.evaluate((n) => { try { render(); } catch (x) {} const Q = BohemiaBosses.cradles(n);
+      return { fallen: !!BohemiaHisMap.state().boss.fallen[n], births: Q ? Q.births | 0 : 0, act: BohemiaBosses.actOne(), born: Q ? Q.marks.filter(m => m.born != null).length : 0 }; }, NAME).catch(x => ({ err: String(x) }));
+  }
+};
+
+const LEGS = { 'THE BURN': BURN, 'THE SURVEYOR': SURVEYOR, 'THE CLIMB': CLIMB, 'THE LOCKSMITH': LOCK, 'THE CHARGE': MINE, 'THE MACHINIST': NAIL, 'THE PLATE': PLATE, 'THE TOOTH': TOOTH, 'THE LENS': LENS, 'THE BARBER': BARBER, 'THE INK': INK, 'THE DOGS': DOGS, 'THE WARD': WARD, 'THE CISTERN': CISTERN, 'THE SMITH': SMITH, 'THE MIDWIFE': MIDWIFE };
 
 async function run(prof, alpha) {
   console.log('\n-- ' + NAME + ' on ' + (alpha ? 'the alpha' : 'the demo') + ', ' + prof + ' --');
@@ -1501,7 +1570,7 @@ async function run(prof, alpha) {
   for (const n of before) downs.push(n + ' ' + await downBy(n));
   ok('T0 every boss before him first, the ladder\'s order (each one\'s sign read, his fall through the map\'s own fell(), his card answered)', downs.every(x => /true$/.test(x)), downs.join(', '));
   /* ---------- T1, T2 ---------- */
-  const row = await rowOf(NAME), key = Object.keys(row).filter(k => ['dark', 'hole', 'riggers', 'curfew', 'mines', 'nails', 'wagon', 'tooth', 'lens', 'line', 'ink', 'packs', 'ward', 'tanks', 'anvils'].indexOf(k) >= 0)[0], G = row[key];
+  const row = await rowOf(NAME), key = Object.keys(row).filter(k => ['dark', 'hole', 'riggers', 'curfew', 'mines', 'nails', 'wagon', 'tooth', 'lens', 'line', 'ink', 'packs', 'ward', 'tanks', 'anvils', 'cradles'].indexOf(k) >= 0)[0], G = row[key];
   c.G = G; c.row = row; c.light = (row.verb && row.verb.light_blocks) || 2;
   let s = await waitSign(NAME);
   ok('T1 ' + NAME + ': his sign (the ' + ((s.boss.sign || {}).kind || '?') + ') is in the world' + (row.quiet ? ' (rule 454(a): no rumour, no words)' : ' and his rumour is on the feed'), !!(s.boss.sign && s.boss.sign.n === NAME) && (row.quiet ? !s.rumours[NAME] : !!s.rumours[NAME]),
@@ -1521,24 +1590,53 @@ async function run(prof, alpha) {
   /* ---------- while he stands, his own way ---------- */
   const okBefore = await L.before(c);
   /* ---------- B0, B1: his card, his fight ---------- */
-  const xf = await fightAt(NAME, 120);
+  /* a boss who is MET, never fought (WORLD TWO's 'how': 'meet', THE MIDWIFE): the walk to her house is the whole meeting; no card asks
+     for a fight and nothing is handed to the fight's door */
+  const meetAt = async (n) => {
+    let s0 = await st(); const f = s0.boss.found[n]; if (!f) return { met: false, why: 'not found' };
+    const ho0 = await fr.evaluate(() => window.__LAST_HANDOVER || null).catch(() => null); let card = false, fallen = false;
+    await go([f.x, f.y]);
+    for (let i = 0; i < 120 && !fallen; i++) { await page.waitForTimeout(500);
+      card = card || await fr.evaluate((n) => { try { return !!(MEET.up && MEET.up.msg && MEET.up.msg.why === 'boss:' + n); } catch (e) { return false; } }, n).catch(() => false);
+      fallen = !!(await st()).boss.fallen[n];
+      if (!fallen && i % 20 === 19 && await fr.evaluate(() => !TRAVEL || TRAVEL.i >= TRAVEL.path.length).catch(() => true)) await go([f.x, f.y]); }
+    const ho1 = await fr.evaluate(() => window.__LAST_HANDOVER || null).catch(() => null);
+    const said = await fr.evaluate(() => { const l = document.getElementById('packline'); return l ? l.textContent : null; }).catch(() => null);
+    return { met: fallen, card, handed: JSON.stringify(ho1) !== JSON.stringify(ho0), at: [f.x, f.y], said };
+  };
+  const MEETS = !!row.meet;
+  const xf = MEETS ? { meet: false } : await fightAt(NAME, 120);
+  const xm = MEETS ? await meetAt(NAME) : null;
   /* where the fight handed him back (the alpha can hand him back in the close view): read, then he pinches out to the map like anybody */
   const diag = await fr.evaluate(() => { const P = window.parent, F = P.document.getElementById('fightFrame'); let up = null; try { up = BohemiaRoadEvents.up(); } catch (e) {}
     return { mode: MODE, fightFrame: F ? F.style.display + '/' + P.getComputedStyle(F).display : null, spoils: !!(P.SPOILS && P.SPOILS.frame), fighting: (function () { try { return !!LOOP.fighting; } catch (e) { return null; } })(),
       card: window.__BOSS_CARD ? window.__BOSS_CARD.kind + ':' + window.__BOSS_CARD.n : null, cardUp: up, talk: !!window.__BOSSES_TALK, origin: (performance.timeOrigin | 0) % 100000, beat: JSON.stringify(window.__BOSS_BEAT ? { n: window.__BOSS_BEAT.n, done: !!window.__BOSS_BEAT.done } : null), town: (function () { const sf = document.getElementById('settleFrame'); return !!sf && sf.style.display === 'block'; })() }; }).catch(e => ({ err: String(e).slice(0, 80) }));
   console.log('  ..   after his fight: ' + JSON.stringify(diag));
   await leaveTown(); await toMap(fr);
+  if (MEETS) {
+    const B0m = (q) => !!q && q.met && !q.card, B1m = (q) => !!q && q.met && !q.handed;
+    ok('B0 ' + NAME + ' is met, never fought: the walk to her house is the meeting, no card asks for a fight (WORLD TWO\'s \'how\': \'meet\')', B0m(xm), JSON.stringify(xm));
+    ok('B1 nothing is handed to the fight\'s door when she is met', B1m(xm), JSON.stringify(xm));
+    ok('P1 planted: a meeting that asked for a fight turns B0 red, one handed to the fight\'s door turns B1 red', !B0m(Object.assign({}, xm, { card: true })) && !B1m(Object.assign({}, xm, { handed: true })), 'a fight');
+  } else {
   ok('B0 ' + NAME + '\'s card first: his own face, his title, his tip, ENGAGE or FALL BACK', xf.meet && !!xf.mc && xf.mc.look === row.boss.look && xf.mc.face === row.boss.look && xf.mc.text.indexOf(row.tip) >= 0 && xf.mc.go && xf.mc.back, JSON.stringify(xf.mc));
   ok('B1 his fight stands with the man himself (' + row.boss.look + ') and is won', xf.ff && !!xf.him && xf.him.name === row.boss.name && xf.him.look === row.boss.look, (xf.him ? xf.him.name + ' in ' + xf.him.look : 'no boss') + ', won by ' + xf.by);
+  }
   /* ---------- B2: the beat, the asker's card ---------- */
   const af = await bossCard('after', NAME, 30000);
   const bt = await fr.evaluate(() => JSON.parse(JSON.stringify(window.__BOSS_BEAT || null))).catch(() => null);
   if (af) { await page.waitForTimeout(500); await shot('4_she_says_what_changed'); }
   s = await st();
-  const want = okBefore ? await L.card(G, c) : null, onTape = bt ? (bt.drums | 0) + (bt.posts | 0) + (bt.riggers | 0) + (bt.gates | 0) + (bt.mines | 0) + (bt.nails | 0) + (bt.wagon | 0) + (bt.collectors | 0) + (bt.charts | 0) + (bt.line | 0) + (bt.ink | 0) + (bt.packs | 0) + (bt.reach | 0) : 0;
+  const want = okBefore ? await L.card(G, c) : null, onTape = bt ? (bt.drums | 0) + (bt.posts | 0) + (bt.riggers | 0) + (bt.gates | 0) + (bt.mines | 0) + (bt.nails | 0) + (bt.wagon | 0) + (bt.collectors | 0) + (bt.charts | 0) + (bt.line | 0) + (bt.ink | 0) + (bt.packs | 0) + (bt.reach | 0) + (bt.cradles | 0) : 0;
   ok('B2 he falls: the beat plays his change on the tape with his place, ' + (row.quiet ? 'one of yours, no line (rule 454(a)),' : row.after.name + ' says the valley\'s line,') + ' hands his ' + row.verb.hand.name.replace(/^HIS /, '').toLowerCase() + ', and says what changed on the map',
      !!s.boss.fallen[NAME] && !!s.verbs[row.verb.id] && !!bt && bt.n === NAME && onTape >= 1 && !!af && af.text === (row.quiet ? '' : row.after.valley) && af.name !== 'YOU' && !!af.hand && af.hand.name === row.verb.hand.name && af.ground === want,
      'fallen ' + !!s.boss.fallen[NAME] + ', ' + row.verb.id.toUpperCase() + ' ' + !!s.verbs[row.verb.id] + ', the beat ' + (bt ? bt.phases.join('>') + ' with ' + onTape + ' pieces on the tape' : 'none') + ', card: ' + (af ? '"' + af.text + '" + ' + (af.hand ? af.hand.name : 'NO THING') + ' + "' + af.ground + '"' : 'none'));
+  /* B3 (BOSSES 11/21, seen on her VOTE picture): a boss you meet is never 'down', on the map's line or on her card */
+  if (MEETS) {
+    const B3m = (said, head) => typeof said === 'string' && /^You met /.test(said) && !/down/i.test(said) && typeof head === 'string' && head === 'YOU MET ' + NAME;
+    ok('B3 the words when she is met say you met her, never that she is down: the map\'s line and her card\'s head', B3m(xm && xm.said, af && af.head), JSON.stringify({ said: xm && xm.said, head: af && af.head }));
+    ok('P7 planted: \'' + NAME + ' is down.\' on the map\'s line turns B3 red, and so does \'' + NAME + ' IS DOWN\' on her card', !B3m(NAME + ' is down. The lights are back on.', af && af.head) && !B3m(xm && xm.said, NAME + ' IS DOWN'), 'down');
+  }
   /* G1 (rule 445, ask line 571): what he gives stands in his settlement through HOME BASE's one seam; before he plants it waits, and her card says which */
   const G1 = (gv, card) => !!gv && gv.name === (row.verb.hand.person ? row.verb.hand.person.name : row.verb.hand.name) && gv.from === NAME && /^boss_places\//.test(gv.pic || '') && !!card && card.where === (row.verb.hand.person ? (gv.where === 'placed' ? 'LIVES AT YOUR PLACE' : gv.where === 'waiting' ? 'WAITS FOR YOUR PLACE' : '?') : (gv.where === 'placed' ? 'IT STANDS AT YOUR PLACE' : gv.where === 'waiting' ? 'IT WAITS FOR YOUR PLACE' : '?'));
   const gv = await fr.evaluate((id) => { const r = BohemiaHomeMap.rec(), k = 'prize:' + id; const t = ((r && r.things) || []).concat((r && r.waiting) || []).filter(x => x.id === k)[0];

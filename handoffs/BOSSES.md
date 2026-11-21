@@ -1,5 +1,35 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/21/26: THIS LANE'S CONTEXT IS NEAR FULL: OPEN A FRESH BOSSES LANE ON THIS FILE FOR THE 20TH (rule 461(f)). THE MIDWIFE (the 19th) IS LIVE, MET AND NEVER FOUGHT, AND ACT ONE CLOSES THROUGH HER (the routine 'BOSSES: the Midwife is yours', rules 441, 461, 454(a), 465; ask lines 167, 522, 571), BUILD 11/21e
+Record: records/BOHEMIA_BOSSES_THE_MIDWIFE_11_21_26.md. Gate: "THE MIDWIFE" (THE MIDWIFE CHANGES THE MAP, registered; 24/0 the demo
+upright and 24/0 the alpha on its side, on the merged tree, with B3). VOTE bosses-the-midwife-11-21. NINETEEN BOSSES ARE LIVE: ACT ONE'S LADDER IS WHOLE.
+- MET, NEVER FOUGHT: WORLD TWO's row 19 ('how': 'meet') fells her on arrival; the gate's meetAt checks no fight card and nothing handed
+  to the fight's door (B0, B1).
+  Her card's head says YOU MET THE MIDWIFE and the map's line 'You met THE MIDWIFE.' (never 'down'; the map's line is WORLD TWO's
+  file, the meet branch only, seen on her own VOTE picture; gate B3).
+- (27) HER CRADLES: 3 houses round her house where a birth is coming (a candle, a pail); DELIVER (after TREAT in the band): beside one,
+  once a day, the birth brought through (the window warm, a cradle by the door, kept), +25 CLOUT. She moves into your place (CAM 3).
+- ACT ONE'S CLOSE (his rulings: 'bring a birth through, AND THIS CLOSES ACT 1'; 'must have a relationship before act 1 closes'): on the
+  first birth, ONLY IF somebody speaks for you in PEOPLE's standing web (BohemiaStanding.whoVouches on the map's minds; nobody invented,
+  no partner chosen). Kept in BohemiaBosses.actOne() (day, who, births), and 'bohemia:act-one-closes' is sent with it. With nobody
+  speaking for you the birth counts and the close waits; the next tick after somebody does, it closes.
+- *** THE ONE PIECE HE HAS NEVER RULED, LEFT PLAIN: WHAT ACT TWO IS WHEN ACT ONE CLOSES. Nothing flips an act or changes the era (DYNASTY's
+  engine/bohemia_acts.js is untouched). Whether the close starts act two at once, opens the flip, hands the company to an heir, or only
+  marks act one done, is his. Whoever builds it listens for 'bohemia:act-one-closes' or reads BohemiaBosses.actOne(). ***
+- *** THE 20TH, FOR THE FRESH LANE: THE SOIL (ladder row 20, act two's first: 'the golf courses, irrigation already in the ground'; the
+  lock 'your population is capped by food'; grants 'farm the fairways'). WORLD TWO's boss_map stops at 19, so his sign, district list
+  (golf, park) and fall need a row 20 there first (WORLD TWO has no lane open; the routine says build it whole). He is act two's: until
+  the act question above is ruled, the plain default is the same valley, his sign out only after act one has closed
+  (BohemiaBosses.actOne()), and his verb on the fairways (golf districts: 6 on the measured valley). The tools to copy: the
+  sixteen-to-eighteen pair (a fighting man) and the reach engine (24)-(26). ***
+- FOR HOME BASE: CAM 3 drew 4 to 7 people across her runs, her among them (only the first 8 residents are drawn); bosses 16 to 19 each add one.
+- HIS VOTES OF 11/21 (rule 466): all 16 boss cards he voted on are YES, no notes (THE POT to THE SMITH, the Plate/Tooth/Lens pieces).
+  Rule 466(a) KILLS the skewed board his place was shown through (HOME BASE 2 owns the real low security cameras): the H1 leg in every
+  boss gate from THE WARD on reads CAM 3 through BohemiaSettlement.folk/toScreen; when HOME BASE 2 replaces that view, H1 must read
+  the new one (it asks 'is the person on the glass', not 'on this board'). Rule 467 (they curse) touches no boss line here: every
+  boss row from the 16th on is quiet (rules 454(a), 465). Rule 466(c) CLOUT IS SEEN: DELIVER's +25 CLOUT rises over the crew; where
+  clout lives on the screen is JOBS'.
+
 ## BOSSES, 11/20/26: THE WHOLE ENCHILADA (rule 461): EIGHTEEN LIVE, THE 19TH IS A SEAM, NOT MINE ALONE; NOTHING SHIPPED THIS ROUND, ON PURPOSE
 - EYES has walked none of bosses 13 to 18 yet (its 11/18 block: NOT WALKED the Barber's line, the Ink's stain, the Dogs' packs), so there
   is nothing found to fix. Rows 167, 522, 571 carry 11/17r to 11/18v as BUILT, NOT YET SEEN. Each was walked by its gate both ways

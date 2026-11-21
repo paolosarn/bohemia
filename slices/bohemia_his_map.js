@@ -206,7 +206,7 @@
     var word = (tn && td <= 14) ? 'the ' + tn + ' side' : 'that block';
     try { if (root.BOHEMIA_FEED && r.feed) root.BOHEMIA_FEED.push({ who: '@valleyradio', txt: String(r.feed).replace(/\{district\}/g, word), kind: 'world', draft: true }); } catch (e) {}
     var what = { lights: 'The lights are back on.', place: (fx.place ? String(fx.place) + ' opens.' : ''), wall: 'A wall came down.', reveal: 'Every town is on your map.', holds: 'Who holds it changed.' };
-    say(r.n + ' is down. ' + done.slice(0, 2).map(function (k) { return what[k]; }).join(' '));   /* draft:true */
+    say((r.how === 'meet' ? 'You met ' + r.n + '. ' : r.n + ' is down. ') + done.slice(0, 2).map(function (k) { return what[k]; }).join(' '));   /* draft:true; BOSSES 11/21: a boss you meet (THE MIDWIFE) is met, never 'down' */
     try { root.dispatchEvent(new CustomEvent('bohemia:boss-fell', { detail: { n: n, at: [f.x, f.y], did: done } })); } catch (e) {}
     try { if (typeof saveNow === 'function') saveNow('boss:' + n); } catch (e) {}
     try { if (typeof render === 'function') render(); } catch (e) {}
