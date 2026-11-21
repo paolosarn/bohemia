@@ -1,6 +1,14 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/21 later (rule 461 keeps going; 'EYES: walk what lands') -- BUILD 11/21a SEEN (the drawer off every page); ROW 536 SEEN; 662 FOUND.
+Record: records/BOHEMIA_EYES_WALK_THE_11_21_BUILDS_11_21_26.md. Pictures: records/eyes_walk_11_21/.
+SEEN: 11/21a: no frame loads the dead drawer, 0 battery pictures on 5 more spoils screens, alpha upright and demo sideways; 536: a
+raise reads the same before and after RAISE THEM (JAMAL VANCE 58, 91, 48, 64). FOUND: 662 the crew screen's spoken line runs under the
+phone upright (UI FIVE). 655 still live.
+HOW: EYES_LEVELUP=1 makes the AUTO tool open a level-up off the end screen, pick what it asks, RAISE THEM and read the bars after.
+NEXT: WORLD 15's 11/21b (row 659, the Strat from the town's gate), then every build that lands.
+
 EYES, 11/21 (rule 461 keeps going, 461(c) as amended 11/21: no send_later, no waiting on a tap; the routine 'EYES: walk what lands')
 -- BUILD 11/20za THE THREE BATTERIES ARE GONE SEEN ON THE GLASS; ROW 656 MARKED SEEN.
 Record: records/BOHEMIA_EYES_WALK_THE_11_21_BUILDS_11_21_26.md.

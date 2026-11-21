@@ -133,7 +133,7 @@ const HOOKS = `(function(){
   await wait(6000);
   log('in the first town', await city().evaluate(() => LOOP.open && LOOP.open.name));
   /* EYES 11/21 (rule 463): the three batteries' pictures, counted in every frame (none, since 11/20za) */
-  const batPics = async () => { let n = 0; for (const fr of page.frames()) { try { n += await fr.evaluate(() => document.querySelectorAll('.uc-k, .uc-bsum, .bsum-host').length); } catch (e) {} } return n; };
+  const batPics = async () => { let n = 0; for (const fr of page.frames()) { try { n += await fr.evaluate(() => document.querySelectorAll('.uc-k, .uc-bsum, .bsum-host').length + 1000 * document.querySelectorAll('script[src*="bohemia_the_battery"]').length); } catch (e) {} } return n; };   /* a thousand per page that still loads the dead drawer */
   log('battery pictures in the first town', await batPics(), '| BATTERY_OFF', await page.evaluate(() => !!window.__BATTERY_OFF));
   await shot('00_first_town');
 
@@ -222,6 +222,40 @@ const HOOKS = `(function(){
     try { const sp = frame(/SPOILS_SCREEN/); if (sp) E.spoils = await sp.evaluate(() => document.body.innerText.replace(/\s+/g, ' ').slice(0, 900)); } catch (e) {}
     try { const sp = frame(/SPOILS_SCREEN/); if (sp) E.spoilsBatPics = await sp.evaluate(() => document.querySelectorAll('.uc-k, .uc-bsum, .bsum-host').length); } catch (e) {}
     log('  read', 'why', E.why && (E.why.by + ': ' + E.why.line), '| flash', JSON.stringify(E.flash), '| shots', JSON.stringify(E.shots), '| ceil', JSON.stringify(E.ceil), '| stale', E.stale.n);
+    /* EYES 11/21 (ask row 536, EYES_LEVELUP=1): a man with a level to spend: tap his button on the end screen, read the picks' numbers
+       as the eye reads them, pick three, read them lit, RAISE THEM, read the same bars after. A raise must read higher, never lower. */
+    if (process.env.EYES_LEVELUP && !E.levelUp) { try {
+      const sp = frame(/SPOILS_SCREEN/);
+      const who = sp && await sp.evaluate(() => { const b = [...document.querySelectorAll('button.perk')].find(x => x.getBoundingClientRect().width > 4); return b ? b.dataset.perk + ' | ' + b.textContent : null; });
+      if (who) {
+        await tapText(sp, 'button.perk', 'LEVEL'); await wait(4000);
+        const ro = async () => { for (const f of page.frames()) { try { if (await f.evaluate(() => !!document.querySelector('#levelup'))) return f; } catch (e) {} } return null; };
+        let rf = null; for (let i = 0; i < 10 && !(rf = await ro()); i++) await wait(1000);
+        const rd = (sel) => rf.evaluate((sel) => [...document.querySelectorAll(sel)].map(b => ({ k: b.dataset.raise || b.dataset.stat, shown: +b.dataset.shown, eye: b.innerText.replace(/\s+/g, ' ').trim().slice(0, 40), on: b.classList.contains('on') })), sel);
+        const L = { who };
+        if (rf) {
+          await shot('f' + String(n).padStart(2, '0') + '_lvl_a');
+          L.head = await rf.evaluate(() => { const h = document.querySelector('#levelup b'); return h && h.textContent; });
+          L.before = await rd('#levelup [data-raise]');
+          const pick = L.before.map(x => x.k), want = +((String(L.head || '').match(/PICK (\d+)/) || [0, 3])[1]);
+          for (let i = 0; i < want && i < pick.length; i++) { await tapText(rf, '#levelup [data-raise="' + pick[i] + '"]'); await wait(700); }
+          L.lit = (await rd('#levelup [data-raise]')).filter(x => x.on);
+          L.said = await rf.evaluate(() => document.body.innerText.match(/[A-Z][A-Za-z ]+ \+\d+\.[^\n]{0,60}/g) || []).catch(() => null);
+          await shot('f' + String(n).padStart(2, '0') + '_lvl_b');
+          await tapText(rf, '#raise', 'RAISE'); await wait(2500);
+          /* the same card after: his bars, or the next level's picks (unlit, his new numbers) when another level waits */
+          L.after = await rf.evaluate(() => { const q = [...document.querySelectorAll('.stats [data-stat]')]; const r = q.length ? q : [...document.querySelectorAll('#levelup [data-raise]')];
+            return { from: q.length ? 'bars' : 'next level', rows: r.map(b => ({ k: b.dataset.stat || b.dataset.raise, shown: +b.dataset.shown, eye: b.innerText.replace(/\s+/g, ' ').trim().slice(0, 40) })) }; });
+          L.afterFrom = L.after.from; L.after = L.after.rows;
+          L.lower = L.after ? L.lit.filter(x => { const a = L.after.find(y => y.k === x.k); return a && a.shown < x.shown; }).map(x => x.k) : null;
+          L.notMatched = L.after ? L.lit.filter(x => { const a = L.after.find(y => y.k === x.k); return !a || a.shown !== x.shown; }).map(x => x.k + ' ' + x.shown + ' -> ' + ((L.after.find(y => y.k === x.k) || {}).shown)) : null;
+          await shot('f' + String(n).padStart(2, '0') + '_lvl_c');
+          /* back to the end screen: the crew screen's own way out */
+          for (let i = 0; i < 4; i++) { let hit = false; for (const f of page.frames()) { if (!/ROSTER_SCREEN/.test(f.url())) continue; try { if (await tapText(f, 'button,div', '^(BACK|DONE|CLOSE|×|X)$')) hit = true; } catch (e) {} } if (!hit) break; await wait(1500); }
+        } else L.err = 'no level-up page opened';
+        E.levelUp = L; log('  level-up', JSON.stringify(L).slice(0, 1200));
+      }
+    } catch (e) { E.levelUp = { err: String(e).slice(0, 200) }; } }
     const R = { n, how, want, auto: st.auto, hand: st.hand, kind: o.kind, district: o.district, board: o.board, men: o.men, secs: Math.round((Date.now() - t0) / 1000), over, E };
     results.push(R);
     fs.writeFileSync(path.join(OUT, 'turns.json'), JSON.stringify({ file: FILE, errs, results }, null, 0));

@@ -27,8 +27,27 @@ frame of the first town and on every spoils screen, and walks sideways with EYES
 - 0 page errors in the AUTO runs. One run's last step failed after its spoils were read ('Frame has been detached'): EYES' tool walking
   off the closing spoils frame, not the game.
 
-## NOT WALKED THIS ROUND
+## BUILD 11/21a THE BATTERY DRAWER IS GONE FOR GOOD (ECONOMY THREE, fd7bc9210): SEEN
 
-No build stamped after 11/20za had landed by c2b3cd1cd (only HOME BASE's handoff). The lanes the routine names (COOK SIX, COMBAT FOUR,
-FIGHT SCREEN 3, ECONOMY THREE, PLUMBER 8, HOME BASE, WORLD 13, CHARACTER, BOSSES, JOBS, FIXES 3, UI FIVE, WORLD 15) are walked as they
-land, below this line, in later blocks.
+- The drawer's file is off the disk and NO frame of any page loads it (EYES' tool counts a script that names it in every frame): the
+  alpha upright and the demo sideways, the first town 0, every spoils screen 0 of 5 (alpha upright 3, demo sideways 2).
+- Every sum its number: the spoils purse 204, 207, 208 (alpha upright), 243, 244 (demo sideways); the end screen's words read as before.
+- This closes the one gap left above: the demo's spoils screen SIDEWAYS is now seen (0 pictures).
+
+## ROW 536 (a raised stat looked like it fell): SEEN
+
+The alpha on AUTO upright, after the strip fight: JAMAL VANCE, 'CHOOSE HIS LEVEL-UP', 'LEVEL 2: PICK 4 TO RAISE'. The picks showed
+hitpoints 54, fatigue 88, ranged skill 44, melee skill 61 (with his gear, as his card reads). Four picked lit as 58, 91, 48, 64. After
+RAISE THEM the same bars read 58, 91, 48, 64 with the green arrows +4 +3 +4 +3 (e02). Nothing fell; every number he picked is the
+number he got. (A second man's level-up after the next fight did not open for EYES' tool: my tool had left the crew screen open; not
+filed.)
+
+## FOUND BY EYES
+
+662. THE CREW SCREEN'S SPOKEN LINE RUNS UNDER THE PHONE (UI FIVE, with FIXES 3; rule 279, row 219 'speech never under the phone').
+   Upright, picking a level: 'MELEE SKILL +3. RAISE THEM puts them c' and the rest is cut at the phone's left edge (e01). The
+   sentence that tells him what the big button does is the one cut.
+655 STILL LIVE on 11/21a: after RAISE THEM the perk page opens itself and the said line ('JAMAL VANCE: HITPOINTS +4, FATIGUE +3,
+   RANGED...') wraps onto three lines over the first perk card, and the cards run past the glass (e02).
+
+Pictures: records/eyes_walk_11_21/ (2 webp).
