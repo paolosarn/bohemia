@@ -175,6 +175,15 @@
     + S + ' .ns-bag{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:2px 4px;min-width:0;align-content:start}'
     + S + ' .ns-bag>*{grid-column:1 / -1;margin:0!important}' + S + ' .ns-bag>#selljunk:has(~#sortbag),' + S + ' .ns-bag>#sortbag{grid-column:auto}'
     + S + ' #selljunk{margin:2px 0!important;min-height:44px!important}' + S + ' #selljunk span,' + S + ' #selljunk em{font-size:11px!important}'
+    /* __THE_JUNK_BUTTON_IN_HALF_A_ROW__ (UI FIVE 11/21, ask row 653, FOUND BY EYES 11/20: on an upright phone Caravans' smith said
+       'Everybody wants a blade sharp fo...'). MEASURED (the demo, 390 x 844, Caravans' smith with a bag of 30): the sheet at its last
+       step, the keeper's line held to one line; beside SORT the junk button had half a row, and its two parts stood side by side in it,
+       so 'NO JUNK IN YOUR BAG' broke one word a line and its note was cut ('WHAT YOU KEEP SAYS KE'), the row about 80 px. In half a row
+       its two parts stand one over the other, each whole, the row a thumb tall again; the 36 px it gives back is what lets the
+       keeper's line stand whole (UI THREE's __NO_LINE_CUT_WHILE_THERE_IS_GLASS__ un-cuts it when the sheet still fits). No word changes */
+    + S + ' .ns-bag>#selljunk:has(~#sortbag){flex-direction:column!important;align-items:flex-start!important;justify-content:center!important;gap:0!important;padding-top:2px!important;padding-bottom:2px!important}'
+    + S + ' .ns-bag>#selljunk:has(~#sortbag)>span,' + S + ' .ns-bag>#selljunk:has(~#sortbag)>em{letter-spacing:0!important;line-height:14px!important;max-width:100%;overflow-wrap:normal;word-break:normal}'
+    + S + ' .ns-bag>#selljunk:has(~#sortbag)>em{border-left:0!important;padding-left:0!important;white-space:normal!important}'
     + S + ' .shopstrip{position:static!important;margin:4px 0 0!important;padding:4px 0 0!important;box-shadow:none!important;gap:3px!important}'
     + S + ' .onman.ss-man{height:var(--ns-man-h,100px)!important;max-height:none}'   /* one height while he browses (rule 250): set by how many faces the company has (manHeight) */
     + S + ' .onman.ss-man .fstrip{flex-wrap:wrap!important;overflow:visible!important;gap:2px!important}'   /* every man's face on the glass: they wrap, never a strip that slides */
@@ -348,7 +357,15 @@
     + C + ' .ns-span{grid-column:span 2}'
     + C + ' .ns-gone{display:none!important}'
     + C + ' #setui{display:flex;gap:3px}' + C + ' #setui .setbtn{flex:1 1 0;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:flex-start;padding:0 6px!important}'
-    + C + ' #setui .setbtn.on{background:linear-gradient(#e8b85e,#a8752c)!important;color:#1f1710!important}';
+    + C + ' #setui .setbtn.on{background:linear-gradient(#e8b85e,#a8752c)!important;color:#1f1710!important}'
+    /* __THE_SETTINGS_FIT_UPRIGHT__ (UI FIVE 11/21, ask row 635, PLUMBER 8's red: upright the card showed 23 of its 24 rows, BACK TO
+       THE GAME 794 to 838 in a card that ends at 836, 8 px over at the second step). The third step, only where the second still runs
+       over: the three sound sliders (music, ambience, effects) take one place each, two to a row, so the card loses a whole row of 44;
+       each keeps a thumb's travel (about 86 px of a 170 place) and its number. The volume's own bars and the light's keep two places. */
+    + 'html body #setwrap.ns-d1.ns-d3 #setcard .setrow.ns-span:has(> .setslide){grid-column:span 1!important}'
+    /* and the card's name takes its own row there, so the grid's filling never pulls a slider up beside it: the sound stays together
+       in its order (the volume, MUSIC beside AMBIENCE, EFFECTS beside MUTE) and the light's picture stays under its own row */
+    + 'html body #setwrap.ns-d1.ns-d3 #setcard>.seth{grid-column:1 / -1!important}';
   function settingsCard() {
     var w = document.getElementById('setwrap'), card = document.getElementById('setcard'); if (!w || !card) return false;
     css(document, 'ns-set', SET_CSS);
@@ -361,7 +378,7 @@
         var ctl = r.lastElementChild; r.classList.toggle('ns-span', !!ctl && ctl !== r.firstElementChild && (ctl.children.length >= 3 || ctl.classList.contains('setslide'))); }   /* a slider needs a thumb's travel: two places */
     };
     sizeRow(card);
-    fit(w, { box: card, levels: 2, before: mark, sized: function (z) {
+    fit(w, { box: card, levels: 3, before: mark, sized: function (z) {   /* __THE_SETTINGS_FIT_UPRIGHT__: a third step */
       if (z === 1) { card.style.removeProperty('width'); card.style.removeProperty('max-height'); return; }
       card.style.setProperty('width', (Math.min(innerWidth - 16, 920) / z).toFixed(1) + 'px', 'important');
       card.style.setProperty('max-height', ((innerHeight - 16) / z).toFixed(1) + 'px', 'important'); } });
@@ -469,7 +486,17 @@
     +   K + '.ns-d2 #keptrow .line,' + K + '.ns-d2 #hurtrow .line{flex-direction:column;flex-wrap:wrap;max-height:92px;align-content:flex-start}'
     +   K + '.ns-d2 #keptrow .cell,' + K + '.ns-d2 #hurtrow .cell{flex:0 0 44px;width:44px;height:44px}'
     +   K + '.ns-d3 #card .stats>*{min-height:13px!important;height:13px!important}' + K + '.ns-d3 .doll{margin-top:2px!important}}'
-    + K + '.ns-d3 .gslot img.pk,' + K + '.ns-d3 .gslot canvas,' + K + '.ns-d3 .gslot .bm-icon{margin-top:0!important;height:18px!important;width:auto!important}';
+    + K + '.ns-d3 .gslot img.pk,' + K + '.ns-d3 .gslot canvas,' + K + '.ns-d3 .gslot .bm-icon{margin-top:0!important;height:18px!important;width:auto!important}'
+    /* __THE_PERKS_FIT__ (UI FIVE 11/21, ask row 655): the last step, the perk page only: each perk its picture and its name, its
+       words off the card and into the said line on the first tap (the roster's drawPerks); the said line a whole row over the
+       cards, never empty (the line that says how), the lit card gold */
+    + K + '.ns-pk #plist{gap:3px!important}'
+    + K + '.ns-pk #plist button{min-height:44px!important;padding:2px 4px!important;gap:4px!important}'
+    + K + '.ns-pk #plist button i{display:none!important}'
+    + K + '.ns-pk #plist button .pkt{font-size:11px!important;line-height:13px!important;overflow-wrap:anywhere}'
+    + K + '.ns-pk #plist button.pklit{outline:2px solid #e6c475!important;outline-offset:-2px}'
+    + K + '.ns-pk #said{width:100%!important;display:block!important}'
+    + K + '.ns-pk #said:empty::before{content:"TAP A PERK TO READ IT"}';   /* draft:true */
   var CREW = { t: 0, log: [] };
   function crewScreen() {
     css(document, 'ns-crew', CREW_CSS);
@@ -506,18 +533,40 @@
     st.style.setProperty('top', Math.round(mr.bottom - cr.top - st.getBoundingClientRect().height) + 'px', 'important');
     return true;
   }
+  /* __THE_PERKS_FIT__ (UI FIVE 11/21, ask row 655): at the third step the said line stands in the stash's heading, over STASH n/36;
+     with the phone on the glass the phone holds the stash's buttons and its count, so that heading has no height and the line lay
+     on the first perk card (EYES: said 12,324 to 158,368, the first card at 12,328). On the perk page the cards start under the
+     said line instead (a margin the size of the overlap); in the last step the said line is a whole row and kept clear of the
+     phone. The stash's own cells are left as they were (their two taps must not move under the finger). reset: take it all off */
+  function saidClear(reset) {
+    var sd = document.getElementById('said'), bag = document.getElementById('bag'), pl = document.getElementById('plist');
+    if (!bag || !sd) return;
+    bag.style.removeProperty('margin-top'); sd.style.removeProperty('width');
+    if (reset || !pl) return;
+    var a = sd.getBoundingClientRect(); if (a.height < 2 || a.width < 2) return;
+    if (document.body.classList.contains('ns-pk')) {   /* the said line's row, clear of the phone */
+      var R = getComputedStyle(document.documentElement), v = function (k) { return parseFloat(R.getPropertyValue(k)) || 0; };
+      var pl0 = v('--boh-phone-left'), pt = v('--boh-phone-top'), pw = v('--boh-phone-w'), ph = v('--boh-phone-h');
+      if (document.documentElement.classList.contains('boh-phone-on') && pw > 0 && a.right > pl0 && a.left < pl0 + pw && a.bottom > pt && a.top < pt + ph && pl0 > a.left + 120) {
+        sd.style.setProperty('width', Math.floor(pl0 - 6 - a.left) + 'px', 'important'); a = sd.getBoundingClientRect(); }
+    }
+    var c = bag.getBoundingClientRect(), m0 = parseFloat(getComputedStyle(bag).marginTop) || 0;   /* the bag's own margin is in c.top already */
+    if (a.left < c.right && a.right > c.left && a.top < c.bottom && a.bottom > c.top) bag.style.setProperty('margin-top', Math.ceil(m0 + a.bottom - c.top + 3) + 'px', 'important');
+  }
   /* the crew screen is the whole glass: it fits when the page itself does not run past the glass */
   function fitBody() {
     var b = document.body, se = document.scrollingElement || document.documentElement;
-    if (OFF) { b.classList.remove('ns-d1', 'ns-d2', 'ns-d3', 'ns-d4'); placeStats(false, true); setZoom(b, 1); return { level: 0, fits: true, over: 0 }; }
+    if (OFF) { b.classList.remove('ns-d1', 'ns-d2', 'ns-d3', 'ns-d4', 'ns-pk'); placeStats(false, true); saidClear(true); setZoom(b, 1); return { level: 0, fits: true, over: 0 }; }
     var bag = document.getElementById('bag'); if (bag) { bag.style.maxHeight = ''; }
     var over = function () { return Math.max(0, se.scrollHeight - innerHeight - 1) + (bag ? Math.max(0, bag.scrollHeight - bag.clientHeight - 2) : 0); };
     var n = uiSize(), zs = zoomsFor(n), lv = 1, zi = 0;
     for (zi = 0; zi < zs.length; zi++) {
-      setZoom(b, zs[zi]); b.classList.remove('ns-d2', 'ns-d3', 'ns-d4'); placeStats(false, true); b.classList.add('ns-d1'); lv = 1;
+      setZoom(b, zs[zi]); b.classList.remove('ns-d2', 'ns-d3', 'ns-d4', 'ns-pk'); placeStats(false, true); saidClear(true); b.classList.add('ns-d1'); lv = 1;
       if (SIZES[n].lv >= 2 || over() > 0) { b.classList.add('ns-d2'); lv = 2; }
       if (over() > 0) { b.classList.add('ns-d3'); lv = 3; }
       if (over() > 0 && placeStats(true)) { b.classList.add('ns-d4'); lv = 4; placeStats(); }
+      saidClear();
+      if (over() > 0 && document.getElementById('plist')) { b.classList.add('ns-pk'); lv = 5; saidClear(); }   /* __THE_PERKS_FIT__ */
       if (over() <= 0) break;
     }
     if (zi >= zs.length) zi = zs.length - 1;

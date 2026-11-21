@@ -9455,6 +9455,14 @@ GATES = [
      "upright and sideways, N1 the title and all fifteen origins, N2 the start at rest, N3 every building's sheet, N4 the settings card "
      "(every row on the glass at once), N5 the crew screen, N6 a full company and stash, N7 the fight's page, N8 the fullest hall, N9 every "
      "UI size: nothing scrolls, every press on the glass, the floors. Over 10 min", True),
+    ('THE PERKS FIT', ['node', 'gates/the_perks_fit_gate.js'],
+     "UI FIVE gate, 11/21, ask row 655 (FOUND BY EYES 11/20: 'the said line lies over the first perk card, and the nine perk cards run to "
+     "y 888 on an 844 glass, so the page scrolls'; rules 444, 441, 402 as amended 11/7 SMALLER NEVER PAGES, 252(c)): on the demo, a "
+     "phone upright and sideways, a road fight won through the map's door, the end screen's CHOOSE HIS LEVEL-UP, his picks and RAISE "
+     "THEM, the perk page: P1 nothing scrolls, every card inside the glass and none under the phone, the said line on no card, names 11 "
+     "px, every picture; P2 where the words left the cards the first tap lights a card and says its own words whole, nothing taken, no "
+     "card moved, the second takes it (one tap where the words are on the card); P3 nothing threw; PLANTED upright on the same page: the "
+     "step taken away, the cards past the glass and the line on a card. About 6 min a side", True),
     ('THE LOT IS BAKED WHILE HE READS', ['node', 'gates/the_lot_is_baked_while_he_reads_gate.js'],
      "PLUMBER 8 gate, 11/17, ask row 632 (rule 441(c): 'the scavenge opens on a blank screen for over 4.6 s'): 'Search the lot' to the "
      "board 3.9 to 5.1 s on a phone at 4x, 2.5 to 3.0 s of it the block's board baked after the press. The lot's sheet bakes its block's "

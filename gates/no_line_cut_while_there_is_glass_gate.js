@@ -14,7 +14,11 @@
    L5 THE STALL ON ITS SIDE (UI FOUR 11/18): a fortress's stall with a trade good made there (CARAVANS' coffee), sideways: the sheet
       runs past nothing, every row, both notes and the line that says how to buy stand on the glass, the three one-line notes stand
       in the empty sixth place without lying on each other or on a row, every buy and sell button keeps 44 px; upright it is as it was.
-   --plant: the pass that lets the lines go whole never runs (L1 red); the one more step never runs (L4 and L5 red).
+   L6 THE SMITH WITH A FULL BAG (UI FIVE 11/21, ask row 653): Caravans' smith on MARKET DAY with a bag of 30, upright, the town's frame
+      the demo's 781 under its top bar: his line whole, the junk button
+      beside SORT a thumb tall, its two parts one over the other and whole, the sheet runs past nothing.
+   --plant: the pass that lets the lines go whole never runs (L1 red); the one more step never runs (L4 and L5 red); the junk button's
+   two parts side by side again (L6 red).
    Run: node gates/no_line_cut_while_there_is_glass_gate.js [--plant] */
 'use strict';
 const fs = require('fs'), path = require('path'), http = require('http');
@@ -126,6 +130,41 @@ function judgeStall(o) { const bad = []; if (o.err || o.open !== 'stall') return
   if (o.rows < 5 || o.trade < 1) bad.push(o.rows + ' goods and ' + o.trade + ' trade goods stand in it'); if (o.over > 1) bad.push('the sheet runs ' + o.over + ' px past its box'); if (!o.hint) bad.push('the line that says how to buy is off the glass');
   if (o.off.length) bad.push('off the glass: ' + o.off.join(', ')); if (o.lap.length) bad.push(o.lap.slice(0, 2).join('; ')); if (o.minTap < 44) bad.push('a button is ' + o.minTap + ' px');
   return { good: !bad.length, bad, said: o.rows + ' goods, ' + o.trade + ' trade good, the sheet ' + o.cls.replace(/^on stalling /, '') }; }
+/* L6: THE SMITH WITH A FULL BAG (UI FIVE 11/21, ask row 653, FOUND BY EYES 11/20: 'Caravans' smith ODELL HATCHER says "Everybody
+   wants a blade sharp fo..." under his name, one line with an ellipsis'): Caravans' smith with a bag of 30 (the company screen's own
+   stash, every third piece worn), upright: his line is whole, the junk button beside SORT stands a thumb tall with its two parts whole
+   (no word broken over two lines, nothing cut), the sheet runs past nothing. */
+const SMITH = () => { const sh = document.getElementById('sheet'), sb = document.getElementById('sbody'), p = document.querySelector('#sbody>.who .say p'), j = document.getElementById('selljunk'), so = document.getElementById('sortbag');
+  const R = e => e.getBoundingClientRect(), parts = j ? [...j.children].filter(c => R(c).width > 1) : [];
+  const broken = parts.filter(c => { const words = c.textContent.trim().split(/\s+/).length, lh = parseFloat(getComputedStyle(c).lineHeight) || 14; return c.scrollWidth > c.clientWidth + 1 || (R(c).height > lh * 1.6 && words > 1 && R(c).height / lh >= words - 0.5); }).map(c => c.textContent.trim());
+  return { open: BohemiaSettlement.state.open, cls: sh.className, over: Math.max(sh.scrollHeight - sh.clientHeight, sb.scrollHeight - sb.clientHeight), bag: (JSON.parse(localStorage.getItem('bohemia.bag.v1') || '[]') || []).length,
+    line: p ? p.textContent.trim() : '', lineCut: !!p && p.scrollHeight > p.clientHeight + 1, junkH: j ? Math.round(R(j).height) : 0, sortBeside: !!(j && so && Math.abs(R(j).top - R(so).top) < 6), broken, junk: j ? j.textContent.replace(/\s+/g, ' ').trim() : '' }; };
+async function smithWalk(b, prof, plant) {
+  const srv = await serve(plant), port = srv.address().port;
+  /* the town's frame as the demo lays it upright: under the top bar the frame is 781 of the 844 glass (measured on the demo 11/21) */
+  const vp = prof.vp.height > prof.vp.width ? { width: prof.vp.width, height: prof.vp.height - 63 } : prof.vp;
+  const ctx = await b.newContext({ viewport: vp, deviceScaleFactor: 2, hasTouch: true, isMobile: true }), p = await ctx.newPage(), errs = []; p.on('pageerror', e => errs.push(e.message));
+  const T = require(path.join(ROOT, 'tools', 'bohemia_ui_company_screen_count.js')), bag = [];
+  for (let i = 0; i < 30; i++) { const it = Object.assign({}, T.STASH[i % T.STASH.length]); if (i % 3 === 0) it.cond = 0.4; bag.push(it); }
+  await p.addInitScript(bg => { try { localStorage.setItem('bohemia.bag.v1', JSON.stringify(bg)); } catch (e) {} }, bag);
+  let o = {}; try {
+    await p.goto('http://127.0.0.1:' + port + '/slices/BOHEMIA_SETTLEMENT_SCREEN.html', { waitUntil: 'load' });
+    await p.waitForFunction(() => window.BohemiaSettlement && BohemiaSettlement.ready(), null, { timeout: 30000 });
+    await p.addScriptTag({ url: 'bohemia_ui_materials.js' }); await p.addScriptTag({ url: 'bohemia_ui_no_scroll.js' });
+    /* MARKET DAY, as EYES met it ('Everybody wants a blade sharp for market day'): its line and its shelf a quarter fuller */
+    const md = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/settlement_traits.json'), 'utf8')).traits.filter(t => t && t.id === 'market_day');
+    await p.evaluate(tr => BohemiaSettlement.open({ place: { name: 'Caravans', tier: 'fortress' }, traits: tr, day: 3, batteries: 3000 }), md); await p.waitForTimeout(700);
+    for (let t = 0; t < 3; t++) { const xy = await p.evaluate(() => BohemiaSettlement.where('smith')); if (!xy) break; await p.touchscreen.tap(xy.x, xy.y); await p.waitForTimeout(2800); if (await p.evaluate(() => BohemiaSettlement.state.open === 'smith')) break; }
+    o = await p.evaluate(SMITH);
+  } catch (e) { o.err = e && e.message; }
+  o.errs = errs.filter(e => !/ResizeObserver/.test(e)); await ctx.close(); srv.close(); return o;
+}
+function judgeSmith(o) { const bad = []; if (o.err || o.open !== 'smith') return { good: false, bad: [o.err || 'the tap opened ' + o.open], said: '' };
+  if (o.bag < 30) bad.push('the bag holds ' + o.bag); if (!o.sortBeside) bad.push('SORT is not beside the junk button'); if (o.lineCut) bad.push('his line is cut: "' + o.line.slice(0, 40) + '"');
+  if (o.broken.length) bad.push('broken or cut on the junk button: ' + o.broken.join(' | ')); if (o.junkH > 48) bad.push('the junk button is ' + o.junkH + ' px tall'); if (o.over > 1) bad.push('the sheet runs ' + o.over + ' px past its box');
+  return { good: !bad.length, bad, said: 'a bag of ' + o.bag + ', the sheet ' + String(o.cls).replace(/^on /, '') + ', the junk button ' + o.junkH + ' px: "' + o.junk + '"' }; }
+const PLANT6 = { '/slices/bohemia_ui_no_scroll.js': [["#selljunk:has(~#sortbag){flex-direction:column!important", "#selljunk:has(~#sortbag~#nothing){flex-direction:column!important"],
+  ["#selljunk:has(~#sortbag)>", "#selljunk:has(~#sortbag~#nothing)>"]] };   /* all three of the step's rules off: the two parts side by side as before */
 const PLANT4 = { '/slices/BOHEMIA_SETTLEMENT_SCREEN.html': [["if (!sh.classList.contains(TIGHT)) { sh.classList.add(TIGHT);", "if (false) { sh.classList.add(TIGHT);"]] };
 const PROFS = [{ name: 'upright', vp: { width: 390, height: 844 } }, { name: 'sideways', vp: { width: 844, height: 390 } }];
 const PLANT = { '/slices/BOHEMIA_SETTLEMENT_SCREEN.html': [["T = 0; var sh = sheet(); if (!sh || !sh.classList.contains('on')", "T = 0; return; var sh = sheet(); if (!sh || !sh.classList.contains('on')"]] };
@@ -155,6 +194,8 @@ function judge(name, o, legs) {
   { const oS = await stallWalk(b, PROFS[1], null), jS = judgeStall(oS), oU = await stallWalk(b, PROFS[0], null), jU = judgeStall(oU); errs.push(...(oS.errs || []), ...(oU.errs || []));
     ok('sideways L5 THE STALL ON ITS SIDE with a trade good\'s row: nothing past the box, every row, note and the how-to-buy line on the glass, the notes in the empty sixth place, 44 px buttons (' + jS.said + ')', jS.good, (jS.bad || []).slice(0, 4).join('; '));
     ok('upright L5 the same stall upright is as it was: it fits with no step taken (' + jU.said + ')', jU.good && !/ui4-tight/.test(oU.cls || ''), (jU.bad || []).slice(0, 3).join('; ')); }
+  { const o6 = await smithWalk(b, PROFS[0], null), j6 = judgeSmith(o6); errs.push(...(o6.errs || []));
+    ok('upright L6 THE SMITH WITH A FULL BAG: his line whole, the junk button beside SORT a thumb tall with its two parts whole, nothing past the box (' + j6.said + ')', j6.good, (j6.bad || []).slice(0, 4).join('; ')); }
   ok('E nothing thrown', !errs.length, errs.slice(0, 2).join(' | '));
   if (process.argv.includes('--plant')) {
     QUIET = true; const legs = {}, o = await walk(b, PROFS[0], PLANT, legs, false), j = judge('upright', o, legs); QUIET = false;
@@ -163,6 +204,8 @@ function judge(name, o, legs) {
     ok('PLANT the hall\'s one more step never runs: L4 goes red sideways (' + (j4.bad || []).slice(0, 2).join('; ') + ')', !j4.good);
     const o5 = await stallWalk(b, PROFS[1], PLANT4), j5 = judgeStall(o5);
     ok('PLANT the stall\'s one more step never runs: L5 goes red sideways (' + (j5.bad || []).slice(0, 2).join('; ') + ')', !j5.good);
+    const o6 = await smithWalk(b, PROFS[0], PLANT6), j6 = judgeSmith(o6);
+    ok('PLANT the junk button\'s two parts side by side again: L6 goes red upright (' + (j6.bad || []).slice(0, 2).join('; ') + ')', !j6.good);
   }
   await b.close();
   console.log('NO LINE CUT WHILE THERE IS GLASS: ' + pass + ' passed, ' + fail + ' failed');

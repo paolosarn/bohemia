@@ -26,7 +26,8 @@
      D3 STOP-MOTION HOLDS: the danger raised, the clay steps one stage at a time, every frame held (250 ms; at least 150 measured), to
         soaked; lowered, it steps back (each frame held 150 ms or more of its 250: a loaded box reads 198)
      D4 from the first stage the words carry the halo of what the clay sits on (invisible on clean paper)
-     D5 on the glass: a soaked row is at least a third red clay, a one-star row under a twentieth
+     D5 on the glass: a soaked row is at least a third red clay, a one-star row under a twentieth (RE-AIMED 11/21, ask row 636: of the
+        paper the clay may cover, the row less the holes it is cut with under the words; the plant of W1 reads every word, not the first)
      D6 the offer's Take it wears the same blood as the person who offered it
      W1 THE WORDS ARE WIPED CLEAN (EYES 10/26 k17, q17, k18): at every stage, on the glass, no red clay pixel inside any word
         on a board row; W2 no star over a letter or a digit
@@ -172,11 +173,20 @@ async function side(profile, d0) {
     const up = await watch(0.9);
     ok('D3 ' + profile + ': raised, the clay steps one stage at a time, each held, to soaked', steps(up) && holds(up) && up[up.length - 1].v === 8,
       up.map(x => x.v + '(' + Math.round(x.held) + ')').join(' '));
-    const shotRow = async () => { const r = await sf.evaluate(() => { const b = document.querySelector('#sbody .act.client'); b.scrollIntoView({ block: 'center' }); const q = b.getBoundingClientRect(); return [q.x, q.y, q.width, q.height]; });
-      await p.waitForTimeout(150); const buf = await p.screenshot({ clip: { x: box.x + r[0] + 2, y: box.y + r[1] + 2, width: r[2] - 4, height: r[3] - 4 } });
-      return p.evaluate(async (b64) => { const im = new Image(); im.src = 'data:image/png;base64,' + b64; await im.decode(); const c = document.createElement('canvas'); c.width = im.width; c.height = im.height;
-        const g = c.getContext('2d'); g.drawImage(im, 0, 0); const px = g.getImageData(0, 0, c.width, c.height).data; let red = 0;
-        for (let i = 0; i < px.length; i += 4) if (px[i] > 90 && px[i] > 2.2 * px[i + 1] && px[i] > 2.2 * px[i + 2]) red++; return red / (px.length / 4); }, buf.toString('base64')); };
+    /* RE-AIMED 11/21 by UI FIVE (ask row 636: 'a soaked row is 30.2% red clay where the leg wants a third'): the clay is cut out under
+       every word, star and picture on the row (bloodHoles, the words wiped clean: W1), and since 11/17 a row carries more of them (its
+       counts drawn as pictures, EVERY COUNT A PICTURE), so the clay's share of the WHOLE row fell with no change to the clay. The leg
+       now reads the clay on the paper it may cover: the row less its holes (read off the row's own mask), the same third and the same
+       twentieth. Its own planted fault still bites (D1's gradient), and a thinner clay reads thinner here exactly as before */
+    const shotRow = async () => { const r = await sf.evaluate(() => { const b = document.querySelector('#sbody .act.client'); b.scrollIntoView({ block: 'center' }); const q = b.getBoundingClientRect();
+        const holes = []; String(b.style.getPropertyValue('--bm-blood-mask') || '').replace(/linear-gradient\(#000,\s*#000\)\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s*\/\s*([\d.]+)px\s+([\d.]+)px/g, (m, x, y, w, h) => { holes.push([+x, +y, +w, +h]); return m; });
+        return { r: [q.x, q.y, q.width, q.height], holes }; });
+      await p.waitForTimeout(150); const buf = await p.screenshot({ clip: { x: box.x + r.r[0] + 2, y: box.y + r.r[1] + 2, width: r.r[2] - 4, height: r.r[3] - 4 } });
+      return p.evaluate(async ({ b64, holes, w }) => { const im = new Image(); im.src = 'data:image/png;base64,' + b64; await im.decode(); const c = document.createElement('canvas'); c.width = im.width; c.height = im.height;
+        const g = c.getContext('2d'); g.drawImage(im, 0, 0); const px = g.getImageData(0, 0, c.width, c.height).data, k = im.width / (w - 4); let red = 0, paper = 0;
+        const inHole = (x, y) => holes.some(h => x >= h[0] && x < h[0] + h[2] && y >= h[1] && y < h[1] + h[3]);
+        for (let yy = 0; yy < c.height; yy++) for (let xx = 0; xx < c.width; xx++) { if (inHole(xx / k + 2, yy / k + 2)) continue; paper++; const i = (yy * c.width + xx) * 4; if (px[i] > 90 && px[i] > 2.2 * px[i + 1] && px[i] > 2.2 * px[i + 2]) red++; }
+        return paper ? red / paper : 0; }, { b64: buf.toString('base64'), holes: r.holes, w: r.r[2] }); };
     const soaked = await shotRow();
     const halo = await sf.evaluate(() => { const e = document.querySelector('#sbody .act.client'); return e.getAttribute('data-blood-halo') + ' ' + getComputedStyle(e.querySelector('span') || e).textShadow.slice(0, 40); });
     ok('D4 ' + profile + ': with blood on it the words carry a halo of what the clay sits on', /^bone /.test(halo) && /rgb\(233, 221, 194\)/.test(halo), halo);
@@ -186,7 +196,7 @@ async function side(profile, d0) {
     const down = await watch(lowTo);
     ok('D3 ' + profile + ': lowered, it steps back the same way', steps(down) && holds(down) && down[down.length - 1].v === 1, down.map(x => x.v + '(' + Math.round(x.held) + ')').join(' '));
     const one = await shotRow();
-    ok('D5 ' + profile + ': on the glass a soaked row is at least a third red clay, a one-star row under a twentieth', soaked >= 0.33 && one < 0.05,
+    ok('D5 ' + profile + ': on the glass a soaked row is at least a third red clay, a one-star row under a twentieth (of the paper the clay may cover: the row less the holes it is cut with under the words)', soaked >= 0.33 && one < 0.05,
       'soaked ' + (100 * soaked).toFixed(1) + '%, one star ' + (100 * one).toFixed(1) + '%');
     if (PLANT) {
       await sf.evaluate(() => { const s = document.createElement('style'); s.id = 'plant'; s.textContent = 'html[data-kit] body [data-blood]::after{background-image:linear-gradient(#a00,#300)!important}'; document.head.appendChild(s); });
@@ -232,12 +242,17 @@ async function side(profile, d0) {
           const s = document.createElement('style'); s.id = 'plantmask'; s.textContent = 'html[data-kit] body [data-bm-blood]::after{-webkit-mask:none!important;mask:none!important}'; document.head.appendChild(s);
           e.setAttribute('data-danger', 0.95); });
         await p.waitForTimeout(3000);
-        const g2 = await sf.evaluate(() => { const e = document.querySelector('#sbody .act.client'); const R = e.getBoundingClientRect(); const rg = document.createRange(); const tw = document.createTreeWalker(e, NodeFilter.SHOW_TEXT, null); let n, w = null;
-          while ((n = tw.nextNode())) { if (/\S/.test(n.nodeValue)) { rg.selectNodeContents(n); const q = rg.getClientRects()[0]; if (q) { w = [q.left, q.top, q.width, q.height]; break; } } } return { R: [R.left, R.top, R.width, R.height], w }; });
-        const b64 = (await p.screenshot({ clip: { x: box.x + g2.w[0], y: box.y + g2.w[1], width: Math.max(1, g2.w[2]), height: Math.max(1, g2.w[3]) } })).toString('base64');
-        const n = await p.evaluate(async (b64) => { const im = new Image(); im.src = 'data:image/png;base64,' + b64; await im.decode(); const c = document.createElement('canvas'); c.width = im.width; c.height = im.height;
-          const x = c.getContext('2d'); x.drawImage(im, 0, 0); const px = x.getImageData(0, 0, c.width, c.height).data; let r = 0; for (let i = 0; i < px.length; i += 4) if (px[i] > 90 && px[i] > 2.2 * px[i + 1] && px[i] > 2.2 * px[i + 2]) r++; return r; }, b64);
-        ok('PLANTED: the clay not cut under the words is caught by W1', n > 0, n + ' red pixels in the first word');
+        /* RE-AIMED 11/21 by UI FIVE (ask row 636: 'its PLANTED W1 is blind (0 red pixels in the first word)'): the first word on the row
+           is the client's name at the top left, where no clay of the soaked stage lies, so the plant read 0 with the mask off. It reads
+           every word on the row now, the way W1 itself does */
+        const g2 = await sf.evaluate(() => { const e = document.querySelector('#sbody .act.client'); e.scrollIntoView({ block: 'center' }); const R = e.getBoundingClientRect(), out = []; const rg = document.createRange(); const tw = document.createTreeWalker(e, NodeFilter.SHOW_TEXT, null); let n;
+          while ((n = tw.nextNode())) { if (!/\S/.test(n.nodeValue)) continue; rg.selectNodeContents(n); for (const q of rg.getClientRects()) out.push([q.left + 1 - R.left, q.top + 1 - R.top, q.width - 2, q.height - 2]); } return { R: [R.left, R.top, R.width, R.height], words: out }; });
+        const b64 = (await p.screenshot({ clip: { x: box.x + g2.R[0], y: box.y + g2.R[1], width: g2.R[2], height: g2.R[3] } })).toString('base64');
+        const n = await p.evaluate(async ({ b64, g }) => { const im = new Image(); im.src = 'data:image/png;base64,' + b64; await im.decode(); const c = document.createElement('canvas'); c.width = im.width; c.height = im.height;
+          const x = c.getContext('2d'); x.drawImage(im, 0, 0); const k = im.width / g.R[2], px = x.getImageData(0, 0, c.width, c.height).data; let r = 0;
+          g.words.forEach(w => { for (let yy = Math.ceil(w[1] * k); yy < Math.floor((w[1] + w[3]) * k); yy++) for (let xx = Math.ceil(w[0] * k); xx < Math.floor((w[0] + w[2]) * k); xx++) { if (xx < 0 || yy < 0 || xx >= c.width || yy >= c.height) continue; const i = (yy * c.width + xx) * 4; if (px[i] > 90 && px[i] > 2.2 * px[i + 1] && px[i] > 2.2 * px[i + 2]) r++; } });
+          return r; }, { b64, g: g2 });
+        ok('PLANTED: the clay not cut under the words is caught by W1', n > 0, n + ' red pixels inside the row\'s words');
         await sf.evaluate(() => { document.getElementById('plantmask').remove(); const e = document.querySelector('#sbody .act.client'); e.style.removeProperty('--bm-blood-mask'); BohemiaMaterials.bloodHoles(e); });
       }
     }

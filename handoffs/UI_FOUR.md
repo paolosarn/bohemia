@@ -3,6 +3,33 @@
 # On VAMILY: pull main, re-read CLAUDE.md and the VAMILY front page (rules 453, 448, 452, 442(b), 441, 454(a), 402 as amended 11/7:
 # SMALLER, NEVER PAGES), then continue from the newest block below. FIGHT SCREEN 2 owns everything on the glass over the fight.
 
+UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/21 LATEST -- (the heir of UI FOUR, whose model hit its weekly limit; blocks written here under this name): BUILD 11/21j -
+THE PERKS FIT, BUILT, NOT YET SEEN. Four jobs in one build, things he can feel first (rule 461 as amended 11/21: no tool that waits for
+a tap). Record records/BOHEMIA_UI_FIVE_THE_PERKS_FIT_AND_THE_HINT_STEPS_ASIDE_11_21_26.md. No VOTE card: no new look, each is a fit.
+- ROW 655 THE PERK PAGE FITS (TAB: RUN, the crew screen after a fight; the demo link): with the phone on the glass the said line lay on
+  the first perk card and nine cards ran to 932 on 844. slices/bohemia_ui_no_scroll.js saidClear + the step ns-pk (the crew screen's
+  last step, the perk page only); slices/BOHEMIA_ROSTER_SCREEN.html __THE_PERKS_FIT__ (drawPerks: S.pkLit, the first tap lights and
+  says the words, the second takes; one tap where the words are on the card). Gate THE PERKS FIT 7/0 (new, in the suite).
+- ROW 635 THE SETTINGS CARD UPRIGHT (TAB: the gear / the phone's SETTINGS): __THE_SETTINGS_FIT_UPRIGHT__, a third step: the three sound
+  sliders one place each, the card's name its own row. SCROLLING IS ILLEGAL upright 13/0, computer 12/0, sideways 11/1 (N3 the board
+  57%: JOBS' 11/20s, the same on clean main, ask row 669; the red list's line re-owned to JOBS).
+- ROW 653 THE SMITH'S LINE (TAB: CITY, a smith with a full bag): __THE_JUNK_BUTTON_IN_HALF_A_ROW__ (the junk button's two parts one
+  over the other beside SORT). Gate NO LINE CUT WHILE THERE IS GLASS, new leg L6 with its plant.
+- ROW 636 THE BLOOD IS CRASHBOX re-aimed (D5 on the paper the clay may cover; the W1 plant reads every word): 30/0.
+- ROW 654 AND RULE 463: built here too, but FIXES 3 (11/21f, the hint steps aside of the settings card, its leg F654) and ECONOMY
+  THREE (11/21a, the drawer out of every page) shipped them first; this lane's copies were dropped at the rebase. If EYES finds the
+  plate lingering on a slow phone: a look every frame while a plate is up took it off 0.7 s after the card (the half-second watcher
+  1.1 s), and FIXES 3's plant would then have to read both lines. How a sum is drawn: the number with the old battery mark (463).
+- FOUND, NOT MINE: row 669 (JOBS): the board's sheet on its side is 57% of the glass (the same on clean main). Row 653 was 'FIXES 2
+  with UI FOUR': built here.
+- TOOLS (scratch, not committed; the same steps are in the new gate): the demo to the perk page (a road fight through the map's door,
+  won, CHOOSE HIS LEVEL-UP, the picks, RAISE THEM); a town's building with a seeded bag (beforeGoto(cdp, page) -> page.addInitScript).
+NEXT for this lane, in order: (1) what EYES finds in this build; (2) [an icon for every perk] (252) where any still lacks one; (3) the
+crew screen's weight line as a picture with RUN TWO; (4) in the fullest hall, what a follower does on the glass if he wants it there;
+(5) row 669 a step for the board on its side if JOBS asks for one.
+[bb Battle Brothers' perk tree is pictures, the words on the hover; ours, the first tap is the hover]
+[analog horror: a pawn shop's case where every tag lies face down until you knock on the glass]
+
 UI FOUR (ui-four-01gkdyuu, session_01GKDyuuZ7PgHfWaC64cRaXo): 11/18 LATEST (the coordinator's routine "UI FOUR next", rule 453; one build) -- BUILD 11/18e - THE STALL FITS ON ITS SIDE (a4f7dee7e), BUILT, NOT YET SEEN; VOTE card ui4-the-stall-fits-on-its-side-11-18 (STAND-IN). Record records/BOHEMIA_UI_FOUR_THE_STALL_FITS_ON_ITS_SIDE_11_18_26.md.
 - THIS LANE'S CONTEXT IS NEAR FULL (rule 453): close it and open a fresh one on this file. Everything it needs is in these blocks and the four records named in them.
 - slices/BOHEMIA_SETTLEMENT_SCREEN.html __THE_STALL_FITS_ON_ITS_SIDE__ (beside __THE_FULLEST_HALL_FITS__): tight(sh) now takes a stall too (tightStall): #sheet.ui4-tight.stalling; with an odd count of goods two across on a glass wider than tall, .acts gets data-u4hole and --u4r (the row of the empty place): #tapeleft, the trade goods' heading (#stallgoods becomes display:contents) and #stallgear while it is the bare note (.u4-empty) stand in that place; a .stline gives up its two points of padding. strip() takes all of it off before UI 9 measures again. UI 9's file untouched.

@@ -1120,12 +1120,27 @@ function tapGood(i, it){
    master rig (slices/perk_icons/<id>.png, one for every id of perks.json); a perk with no picture shows its words alone */
 function perkIcon(id, px){ if(!id || !/^[a-z0-9_]+$/.test(id)) return null; var im = document.createElement('img'); im.className = 'pki'; im.alt = ''; im.width = px; im.height = px;
   im.src = 'perk_icons/' + id + '.png'; im.onerror = function(){ im.remove(); }; return im; }
+/* __THE_PERKS_FIT__ (UI FIVE 11/21, ask row 655, FOUND BY EYES 11/20: on the crew screen after a fight, upright, with the phone on
+   the glass, the nine perk cards stood beside the phone two to a 226-px row and ran to y 932 on an 844 glass, and the said line lay
+   over the first card). The fit (slices/bohemia_ui_no_scroll.js, the crew screen's last step) gives the said line its own row and,
+   when the nine still run past the glass, puts body.ns-pk on: each card is its picture and its name, its words leave the card.
+   Then the card's words are not on the button, so one tap cannot take it: the first tap lights the card and says its words in the
+   said line, the second takes it (the stash's own two taps on this screen: one shows, the second puts it on; Battle Brothers' perk
+   tree is pictures, its words on the hover). With the words on the card (every other glass) one tap takes it, as before. */
+function perkTight(){ return document.body.classList.contains('ns-pk'); }
 function drawPerks(m, el){
   var pl = document.createElement('div'); pl.className = 'plist'; pl.id = 'plist';
+  if(S.pkLit && S.pkLit.man !== S.sel) S.pkLit = null;
   C.perkChoices(m).forEach(function(r){ var x = document.createElement('button'); x.type = 'button'; x.dataset.perk = r.id;
+    if(S.pkLit && S.pkLit.id === r.id) x.className = 'pklit';
     var ic = perkIcon(r.id, 32); if(ic) x.appendChild(ic);
     var tx = document.createElement('span'); tx.className = 'pkt'; tx.textContent = r.name; var i2 = document.createElement('i'); i2.textContent = r.skin; tx.appendChild(i2); x.appendChild(tx);
-    x.addEventListener('click', function(){ if(!C.takePerk(m, r.id)) return; saveClimb(); post('perk', {who:m.name, perk:r.id}); sfx('equip');
+    x.addEventListener('click', function(){
+      if(perkTight() && !(S.pkLit && S.pkLit.id === r.id && S.pkLit.man === S.sel)){   /* __THE_PERKS_FIT__: the first tap shows it */
+        S.pkLit = {id:r.id, man:S.sel}; [].forEach.call(pl.querySelectorAll('button'), function(b){ b.classList.toggle('pklit', b === x); });
+        say('<b>' + esc(String(r.name).toUpperCase()) + '</b> ' + esc(r.skin) + ' <b>TAP IT AGAIN TO TAKE IT</b>', true); return; }   /* draft:true */
+      S.pkLit = null;
+      if(!C.takePerk(m, r.id)) return; saveClimb(); post('perk', {who:m.name, perk:r.id}); sfx('equip');
       if(!(m.points > 0)) S.tab = 'all'; say(m.name + ' took ' + r.name + '.' + (m.points > 0 ? ' ' + m.points + ' more to take.' : '')); draw(); });
     pl.appendChild(x); });
   el.appendChild(pl);

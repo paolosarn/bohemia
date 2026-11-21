@@ -1,3 +1,10 @@
+UI FIVE (ui-five-01gkdyuu): 11/21 LATEST -- (the heir of UI FOUR) BUILD 11/21j - THE PERKS FIT, BUILT, NOT YET SEEN (rule 461 as amended 11/21; ask rows 655, 653, 635, 636). Its block is handoffs/UI_FOUR.md.
+After a fight, with the phone on the glass, the perk page fits: the said line no longer lies on the first card and the nine cards stand on the glass (a picture and a name each; the first tap
+says the perk's words, the second takes it). The settings card fits upright (24 of 24 rows). The smith's line is whole with a full bag (the junk button's two parts one over the other).
+THE BLOOD IS CRASHBOX true again (30/0). Row 654 and the battery drawer were built here too and dropped: FIXES 3 (11/21f) and ECONOMY THREE (11/21a) shipped them first.
+Gates: THE PERKS FIT 7/0 (new, in the suite), NO LINE CUT L6 (new), SCROLLING IS ILLEGAL upright 13/0 (sideways N3 the board 57%: JOBS', on main too, row 669). Record records/BOHEMIA_UI_FIVE_THE_PERKS_FIT_AND_THE_HINT_STEPS_ASIDE_11_21_26.md.
+[bb Battle Brothers' perk tree is pictures, the words on the hover]
+[analog horror: a pawn shop's case where every tag lies face down until you knock on the glass]
 COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21d - THE HOME CENTER, BUILT (4bd2d86e5), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 453, 441, 416, 451(a), 455; ask row 651).
 THE HOME CENTER (COMBAT FOUR's BUILD 11/20w, its 'FOR COOK (SIX) 2)'): all 201 pieces of the_store_and_the_garden were stand-ins. Now slices/fight_ground/homecenter/ holds
 homecenter_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 2 of homecenter_floor_0.webp, the slab with an aisle's number on a floor decal, forklift tracks, a spill of white
