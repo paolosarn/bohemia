@@ -1,6 +1,22 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the truck stop] SHIPPED d790bf7d3, BUILD 11/21ze - THE TRUCK STOP, BUILT, NOT YET SEEN. VOTE combat4-the-truck-stop-11-21 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the hangar] SHIPPED af96283f7, BUILD 11/21zf - THE HANGAR, BUILT, NOT YET SEEN. VOTE combat4-the-hangar-11-21 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_HANGAR_11_21_26.md. More boards (rule 461): the hangar ('airport' and 'airbase', 0.35: the ground is mostly runway and apron):
+the_cargo_jet (the jet in the middle: nose, fuselage, tail a line nobody stands on, wings across five rows, under the wing rough 3 AP and low cover, an engine under each
+wing; tugs, power carts, stairs, carts, cargo dollies, spare engines, tool cribs on the walls, the doors the whole front) and the_two_fighters (two jets a side, munitions
+trailers, the same crew's gear). One data file (18 tile kinds, 16 pieces all stand-ins), sixteenth in insides.json; no high ground; the ceiling the warehouse's 'joist'.
+GATE THE BIG INSIDES 253/0 (sixteen insides) (the hangar 18/0, 21% bare after round one against 39%). My first cut: the wing's tiles had no piece and gave no cover; no fires (black at night).
+ON THE PAGE: the demo and the alpha, both ways: 8 fights, both layouts, all ended, 35 of 35 taps, 0 errors (at the first share, six in ten; the board is the same).
+*** FOR COOK (SIX): THE HANGAR'S NAMES (hangar_art.json, THE GARAGE'S FORMAT): floor.floor (the hangar's painted concrete, oil-stained, its tie-down rings), floor.ring;
+hg_nose, hg_fuselage, hg_tail (a cargo jet's, panels off; the fighters' in the second layout share them until two sizes are wanted), hg_engine (an engine under the wing,
+cowling open), hg_wing (under the wing: jacks, hoses, the gear), hg_tug (a tow tractor), hg_gpu (a ground power cart), hg_stairs (boarding stairs on wheels), hg_carts
+(parts carts), hg_dollies (cargo dollies in a train), hg_toolbox, hg_enginestand (a spare engine on its stand), hg_crib (a tool crib behind its cage), hg_munitions (a
+munitions trailer, racks empty), hg_wall_ew, hg_wall_ns; hangar/hangar_ceiling.webp (the steel trusses, dead light banks); "have": true in hangar.json's ceiling.
+NEXT: more boards (the aquarium's tanks, the robot factory's floor); more ground from Battle Brothers' table.
+[bb Battle Brothers' wall and brush: the fuselage blocks the shot, the wing is where you crouch]
+[analog horror: a hangar's PA reading a maintenance checklist to nobody, item by item]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 -- [the truck stop] SHIPPED d790bf7d3, BUILD 11/21ze - THE TRUCK STOP, BUILT, NOT YET SEEN. VOTE combat4-the-truck-stop-11-21 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_TRUCK_STOP_11_21_26.md. More boards (rule 461): the truck stop ('truckstop', 0.7): the_travel_store (coolers on the back wall,
 runs of shelving you cannot stand on with end caps, pulled-down cases, pallets where the water was, stacked water, the deli's booths, the hot food cases, the coffee island,
 the counter) and the_service_bay (two rigs a side, cab and trailer, raised lifts, stacked tires, tool chests, drums, the compressor, bay doors both ends). One data file (22

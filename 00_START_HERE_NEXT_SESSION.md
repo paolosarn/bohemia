@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21ze - THE TRUCK STOP, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21zf - THE HANGAR, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE HANGAR: about one fight in three at the airport's field or the air base is fought inside a hangar: round a cargo jet (its fuselage a wall, its wings low cover) or
+between two fighters and their munitions trailers. One data file, every picture a stand-in (the names for COOK in the handoff).
+GATE THE BIG INSIDES 253/0 (sixteen insides). ON THE PAGE: 8 fights, both pages both ways, both layouts, all ended, 35 of 35 taps, 0 errors. VOTE combat4-the-hangar-11-21.
+[bb Battle Brothers' wall and brush: the fuselage blocks the shot, the wing is where you crouch]
+[analog horror: a hangar's PA reading a maintenance checklist to nobody, item by item]
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 -- BUILD 11/21ze - THE TRUCK STOP, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE TRUCK STOP: a fight at the truck stop on the freeway (seven in ten) is fought in its stripped store (runs of shelving, pallets where the water was, the deli, the
 counter) or its service bay (rigs, raised lifts, stacked tires). One data file, every picture a stand-in (the names for COOK in the handoff).
 GATE THE BIG INSIDES 238/0 (fifteen insides). ON THE PAGE: 6 fights in the store, both pages both ways, all ended, 17 of 17 taps, 0 errors. VOTE combat4-the-truck-stop-11-21.
