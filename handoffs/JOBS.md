@@ -1,11 +1,32 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS CONTEXT NEAR FULL (11/21, rule 461(f)): session_01GKDyuv5CeFx6bTxT23Pv5Q closes after BUILD 11/21n; open a fresh JOBS on this file.
+JOBS CONTEXT NEAR FULL (11/21, rule 461(f)): session_01GKDyuv5CeFx6bTxT23Pv5Q closes after BUILD 11/21t; open a fresh JOBS on this file.
 Its next job is the block below's NEXT ([a job that changes after the yes]). Its tools: the CLOUT walk (tools/bohemia_jobs_the_clout_a_job_pays_on_the_phone.js,
 --night), the card-against-fight walk (tools/bohemia_jobs_the_card_reads_the_night_on_the_phone.js, --hour M), whose rows carry each
-fight's card at the yes ('held'), at the hand-over ('now'), the roll's inputs and the minute.
+fight's card at the yes ('held'), at the hand-over ('now'), the roll's inputs and the minute; the town's book walk
+(tools/bohemia_jobs_the_towns_book_on_the_phone.js, JOBS_BUILD=C) reads the card's buttons and the bar's CLOUT.
 
-JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/21 LATEST -- BUILD 11/21n - THE CARD READS THE HOUR, BUILT, NOT YET SEEN (rules 461, 441, 454(a), 465;
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/21 LATEST -- BUILD 11/21t - DO LESS, SHOW THE CLOUT, BUILT, NOT YET SEEN (rules 466(c), 461,
+441, 454(a), 465; row 651; the coordinator's routine 'JOBS: do less, show the clout'). Record: records/BOHEMIA_JOBS_DO_LESS_SHOW_THE_CLOUT_11_21_26.md.
+- HIS VOTES 11/21: PUSH THE PAY killed ('Doing way too much'), PAID INTO YOUR PLACE killed ('so fucking confusing'), WHAT WALKING AWAY
+  COSTS keeps its numbers and stops explaining them, and 'Where tf do you see your clout????'.
+- KILLED AND GRAVEYARDED: the card's Ask button and the board's walk-out (slices/BOHEMIA_SETTLEMENT_SCREEN.html hag*, bohemia_board_shelf.js),
+  the Into button and its pay into the home (the settlement screen's into*, bohemia_job_kinds.js paid(), the map's loopTakeContract line,
+  records/target/bb/job_into_place.json moved to graveyard/jobs_paid_into_your_place_11_17_26/); post-mortems
+  graveyard/POSTMORTEM_JOBS_PUSH_THE_PAY_11_21_26.txt and graveyard/POSTMORTEM_JOBS_PAID_INTO_YOUR_PLACE_11_21_26.txt. ECONOMY TWO's table
+  and TUNING's one table drop the rows (relations.haggle marked DEAD); THE BATTERY IS REAL 53/0.
+- THE CARD: Take it / Not now; no DROP IT / FAIL IT lines. The costs stay in the background (relations.json drop and fail, renown cancel -100
+  and fail -75).
+- CLOUT ON THE BAR (slices/bohemia_ui_materials.js hudParts, __CLOUT_ON_THE_BAR__): the map's top bar ends with CLOUT and the company's
+  number (BohemiaRenown.score()), repainted with the bar; seen upright and sideways.
+GATE THE TOWN'S BOOK (B1, D1 the kills; C1 files; C3 four phones): 12/0. Dropped 50 to 40 (43.75 on the demo, the dawn drift), CLOUT
+300 to 200; failed 20 more, CLOUT 200 to 125; the bar read 300, 200, 125 each time.
+NEXT: [a job that changes after the yes] (the block below's NEXT, unchanged: qd-ap01's guards 2 then 4; qd-s01's camp met 7 coyotes
+where the card says water people). Then [a siege for a big crew]; the reader's plays repeatable boot to boot (WORLD's).
+[bb Battle Brothers keeps renown with the company, on screen, and a contract is offered, not argued]
+[analog horror: the number in the corner went down by a hundred and nobody said a word about it]
+
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/21 -- BUILD 11/21n - THE CARD READS THE HOUR, BUILT, NOT YET SEEN (rules 461, 441, 454(a), 465;
 row 651; the coordinator's routine 'JOBS: carry on'). Record: records/BOHEMIA_JOBS_THE_CARD_READS_THE_HOUR_11_21_26.md.
 - MEASURED: a card read each fight at the hour of reading; he meets it when the trip brings him there. Read at 16:30 (every job at every
   town): 858 first fights land past nightfall, 363 named another crowd. On the phone (old reader): 2 of 27 walked jobs wrong (qd-s01 9

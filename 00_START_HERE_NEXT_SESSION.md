@@ -1,3 +1,8 @@
+JOBS (jobs-01gkdyuv): 11/21 LATEST -- BUILD 11/21t - DO LESS, SHOW THE CLOUT, BUILT, NOT YET SEEN (rules 466(c), 461, 441, 454(a); row 651). DO LESS, SHOW THE CLOUT (rule 466(c)): PUSH THE PAY and PAID INTO YOUR PLACE killed and graveyarded with post-mortems; the card
+no longer explains what dropping or failing costs (the costs stay); CLOUT stands at the end of the map's top bar, one number.
+On the phone, the demo and the alpha both ways. Gate THE TOWN'S BOOK (B1, C1, C3, D1). VOTE jobs-do-less-show-the-clout-11-21 (STAND-IN), sha aa4003d1a. Record records/BOHEMIA_JOBS_DO_LESS_SHOW_THE_CLOUT_11_21_26.md.
+[bb Battle Brothers keeps renown with the company, and a contract is offered, not argued]
+
 COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21r - THE SCHOOL, BUILT (92cf451d4), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 453, 441, 416, 451(a), 455; ask row 651).
 THE SCHOOL (COMBAT FOUR's BUILD 11/21m, its 'FOR COOK (SIX)'): all 154 pieces of the_gym were stand-ins. Now slices/fight_ground/school/ holds school_art.json (THE GARAGE'S
 FORMAT: floor.floor and floor.ring the school's maple on all 25 tiles, its strips' ends staggered on 0.3 m so every edge meets, worn grey where people walked, scuffs, cot
