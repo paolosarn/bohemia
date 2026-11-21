@@ -1,5 +1,24 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN and from 11/21 by WORLD FIFTEEN, its successor; newest block on top)
 
+WORLD FIFTEEN, ROUND ONE, BUILD THREE (11/21; rule 461: keep going; rule 454(a): no words; rule 441). BUILD 11/21i - THE DEAD ON THE MAP.
+BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_15_THE_DEAD_ON_THE_MAP_11_21_26.md. VOTE world15-the-dead-on-the-map-11-21 (tile, STAND-IN).
+- BUGS FIRST: this lane's gates on main ed219cd2, all green: THE STRAT LOOKOUT 26/0 both pages, THE SCRAP MILL 11/0, THE TRACKS HE CAN
+  READ 11/0, THE PLACES GET THEIR USE 30/0, TWELVE MORE ON THE ROAD 14/0, THE ROAD KNOWS HIS PLACE 10/0. No bug he feels.
+- WHAT HE ASKED FOR: rule 360 (Paolo 11/3, 'we don't see enough corpses even throughout the world... billions of people have died'),
+  ask row 384, WORLD's half OPEN since 11/3: COOK DEAD's thirteen were on no page. NOW slices/bohemia_the_dead_on_the_map.js lays them
+  on the map up close (from a block 96 px, the house models' own scale x2): 711 on the demo's valley across 18 kinds of ground
+  (slices/map_dead/rules.json, a modder's file, COOK DEAD's own counts), the pit at the landfill and the stadiums, graves only within
+  2 blocks of a town or a place (rule 360(a)), never in the fog, never on a tower's face (the map's own depth read mapDepthAt), drawn
+  just before the house models in vbCityDraw and into the ground's cached picture (the cull reaches its margin, MAP_GROUND.M).
+  The pictures: tools/bohemia_world15_the_dead_on_the_map.py (16 px a metre, toned like the houses, 135 KB, loaded on the first close
+  zoom). The doorway piece is kept OFF the map (it brings its own storefront wall: on the glass it was a box on a tower's face).
+- GATE: THE DEAD ON THE MAP (demo) and (alpha), 18/0 each, a phone both ways. FOR COMBAT MAPS 3: the boards' half of row 384 is yours.
+  FOR TUNING: rules.json's densities are draft. FOR COOK SIX: none owed (the pictures are COOK DEAD's, only resized and toned).
+- NEXT ON THIS LIST: the dead's futures (manifest 'futures': raided uncovers, reclaimed buries) once the map reads a place's future;
+  then what he asks or the world he described; never a comparison list (rule 464).
+[bb Battle Brothers' map shows the burned farm and the ruined town; ours shows who they were, if you look close.]
+[analog horror: the pit at the landfill is long and straight; whoever dug it meant to keep going.]
+
 WORLD FIFTEEN, ROUND ONE, THE SCRAP MILL DECIDED (11/21; the coordinator's word: decide it by rule 464's lesson, do not ask him): IT STAYS.
 - WHY: HE VOTED YES ON IT in the tab 11/21 (records/BOHEMIA_PAOLO_VOTE_11_21_26.txt: 'YES THE SCRAP MILL: CHEAP COPPER WIRE AND TWICE
   THE TAPE', world14-the-scrap-mill-11-17, no note). Rule 464's lesson keeps a checklist piece off the map only 'without his word on that

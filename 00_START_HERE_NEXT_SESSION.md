@@ -879,6 +879,12 @@ both ways. Next beyond the floor: CHARACTER's clothes for the 13 stand-ins. VOTE
 Record records/BOHEMIA_BESTIARY_THE_SIREN_AND_THE_BATTERY_MAN_11_20_26.md.
 [bb Battle Brothers' Ancient Priest's Horror shakes every brother in its area; ours is a neighbour with an air-raid siren he found in a school.]
 [analog horror: the siren winds up from nothing, the same note the valley heard the night the dollar died.]
+WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/21 LATEST (build three) -- BUILD 11/21i - THE DEAD ON THE MAP, BUILT, NOT YET SEEN (rule 360,
+ask row 384's map half; rule 441; no words). Zoom the map in close and COOK DEAD's dead lie on the ground nobody holds: 711 on the demo's
+valley across 18 kinds of ground, the pit at the landfill and the stadiums, graves only near towns and places, never in the fog or on a
+tower's face. Gate THE DEAD ON THE MAP 18/0 on demo and alpha, a phone both ways. VOTE world15-the-dead-on-the-map-11-21.
+[bb Battle Brothers' map shows the burned farm and the ruined town; ours shows who they were, if you look close.]
+[analog horror: the pit at the landfill is long and straight; whoever dug it meant to keep going.]
 WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/21 LATEST (the mill) -- THE SCRAP MILL STAYS: he voted YES on its card 11/21, his word on that
 piece (rule 464); my take-it-out build was undone before any push. Proved on main ed219cd2: THE SCRAP MILL 11/0. For the coordinator: its
 name says 'scrap' (rule 276 was the loot word); he saw the name and said yes, so it stands.

@@ -1,0 +1,227 @@
+{
+ "about": "THE DEAD ON THE MAP (WORLD 15 11/21, rule 360): COOK DEAD's thirteen dead (records/target/dead/) at the map's 16 px a metre, toned to the map's light; written by tools/bohemia_world15_the_dead_on_the_map.py. Where they lie is slices/map_dead/rules.json (the one file a modder edits).",
+ "ppm": 16.0,
+ "pieces": {
+  "tarp": {
+   "file": "tarp.webp",
+   "w": 42,
+   "h": 29,
+   "anchor_px": [
+    3.99,
+    17.71
+   ],
+   "size_m": [
+    2.23,
+    2.22,
+    0.52
+   ],
+   "grave": false,
+   "name": "A BODY UNDER A TARP",
+   "from": "records/target/dead/tarp.webp"
+  },
+  "doorway": {
+   "file": "doorway.webp",
+   "w": 119,
+   "h": 80,
+   "anchor_px": [
+    43.69,
+    58.9
+   ],
+   "size_m": [
+    4.42,
+    2.25,
+    3.45
+   ],
+   "grave": false,
+   "name": "A BODY IN A SLEEPING BAG IN A DOORWAY",
+   "from": "records/target/dead/doorway.webp"
+  },
+  "bag_row": {
+   "file": "bag_row.webp",
+   "w": 160,
+   "h": 88,
+   "anchor_px": [
+    81.38,
+    52.83
+   ],
+   "size_m": [
+    9.24,
+    3.24,
+    2.76
+   ],
+   "grave": false,
+   "name": "A ROW OF BODY BAGS AT A CLINIC",
+   "from": "records/target/dead/bag_row.webp"
+  },
+  "car_driver": {
+   "file": "car_driver.webp",
+   "w": 103,
+   "h": 63,
+   "anchor_px": [
+    48.65,
+    33.33
+   ],
+   "size_m": [
+    4.84,
+    2.78,
+    1.61
+   ],
+   "grave": false,
+   "name": "A BODY SLUMPED OUT OF A CAR'S DRIVER SEAT",
+   "from": "records/target/dead/car_driver.webp"
+  },
+  "desert_skeleton": {
+   "file": "desert_skeleton.webp",
+   "w": 112,
+   "h": 61,
+   "anchor_px": [
+    48.39,
+    34.75
+   ],
+   "size_m": [
+    6.34,
+    4.5,
+    1.67
+   ],
+   "grave": false,
+   "name": "A SKELETON BY A DEAD CAR IN THE DESERT",
+   "from": "records/target/dead/desert_skeleton.webp"
+  },
+  "bones": {
+   "file": "bones.webp",
+   "w": 66,
+   "h": 41,
+   "anchor_px": [
+    33.81,
+    26.28
+   ],
+   "size_m": [
+    4.06,
+    2.71,
+    0.86
+   ],
+   "grave": false,
+   "name": "BONES IN THE SAND, HALF BURIED",
+   "from": "records/target/dead/bones.webp"
+  },
+  "grave_cross": {
+   "file": "grave_cross.webp",
+   "w": 28,
+   "h": 50,
+   "anchor_px": [
+    11.74,
+    35.31
+   ],
+   "size_m": [
+    1.43,
+    2.61,
+    1.28
+   ],
+   "grave": true,
+   "name": "A GRAVE WITH A REBAR CROSS",
+   "from": "records/target/dead/grave_cross.webp"
+  },
+  "grave_row": {
+   "file": "grave_row.webp",
+   "w": 201,
+   "h": 43,
+   "anchor_px": [
+    96.89,
+    27.92
+   ],
+   "size_m": [
+    11.88,
+    2.61,
+    1.58
+   ],
+   "grave": true,
+   "name": "A ROW OF FRESH GRAVES",
+   "from": "records/target/dead/grave_row.webp"
+  },
+  "sidewalk": {
+   "file": "sidewalk.webp",
+   "w": 51,
+   "h": 24,
+   "anchor_px": [
+    27.44,
+    13.83
+   ],
+   "size_m": [
+    3.12,
+    1.88,
+    0.5
+   ],
+   "grave": false,
+   "name": "A BODY FACE DOWN ON THE SIDEWALK, ONE SHOE OFF",
+   "from": "records/target/dead/sidewalk.webp"
+  },
+  "cart": {
+   "file": "cart.webp",
+   "w": 42,
+   "h": 37,
+   "anchor_px": [
+    16.74,
+    24.49
+   ],
+   "size_m": [
+    1.55,
+    0.76,
+    1.46
+   ],
+   "grave": false,
+   "name": "REMAINS IN A SHOPPING CART",
+   "from": "records/target/dead/cart.webp"
+  },
+  "mass_grave": {
+   "file": "mass_grave.webp",
+   "w": 470,
+   "h": 143,
+   "anchor_px": [
+    205.23,
+    94.81
+   ],
+   "size_m": [
+    28.29,
+    10.26,
+    7.92
+   ],
+   "grave": true,
+   "name": "THE PIT: A MASS GRAVE'S EDGE",
+   "from": "records/target/dead/mass_grave.webp"
+  },
+  "coat_fence": {
+   "file": "coat_fence.webp",
+   "w": 119,
+   "h": 69,
+   "anchor_px": [
+    52.08,
+    36.42
+   ],
+   "size_m": [
+    5.54,
+    0.95,
+    2.29
+   ],
+   "grave": false,
+   "name": "A COAT ON A FENCE",
+   "from": "records/target/dead/coat_fence.webp"
+  },
+  "bench": {
+   "file": "bench.webp",
+   "w": 94,
+   "h": 76,
+   "anchor_px": [
+    29.75,
+    51.04
+   ],
+   "size_m": [
+    3.85,
+    1.88,
+    2.61
+   ],
+   "grave": false,
+   "name": "A MAN ON A BUS BENCH",
+   "from": "records/target/dead/bench.webp"
+  }
+ }
+}
