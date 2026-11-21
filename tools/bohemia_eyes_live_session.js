@@ -79,7 +79,7 @@ const log = (...a) => fs.appendFileSync(LOG, new Date().toISOString().slice(11, 
   watch(page);
   const cdpOf = async (p) => ctx.newCDPSession(p);
   let cdp = await cdpOf(page);
-  await page.goto(BASE + 'slices/BOHEMIA_DEMO.html', { waitUntil: 'load', timeout: 300000 });
+  await page.goto(BASE + (process.env.EYES_PAGE || 'slices/BOHEMIA_DEMO.html'), { waitUntil: 'load', timeout: 300000 });
   log('opened', PROFILE, page.url());
 
   const frameBy = (re) => page.frames().filter(f => re.test(f.url()))[0] || null;
@@ -138,7 +138,7 @@ const log = (...a) => fs.appendFileSync(LOG, new Date().toISOString().slice(11, 
     /* the same phone, the tab killed and opened again (rule 141) */
     reopen: async () => { try { await page.goto('chrome://crash', { timeout: 3000 }); } catch (e) {} await page.close().catch(() => {});
       page = await ctx.newPage(); watch(page); cdp = await cdpOf(page);
-      await page.goto(BASE + 'slices/BOHEMIA_DEMO.html', { waitUntil: 'load', timeout: 300000 }); return page.url(); },
+      await page.goto(BASE + (process.env.EYES_PAGE || 'slices/BOHEMIA_DEMO.html'), { waitUntil: 'load', timeout: 300000 }); return page.url(); },
     keep: {},
   };
 

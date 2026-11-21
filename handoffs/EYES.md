@@ -1,6 +1,11 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/21 on -- 11/21f (668 SEEN upright; a new find: DESI's plate over Tia Carmen's answer on the alpha's map), 11/21g (the last
+hit on the card SEEN both ways, row 616 in part). The AUTO tool reads the card's lost marks; the live tool opens the alpha with
+EYES_PAGE=slices/BOHEMIA_ALPHA_0_9.html (tap RUN after the alpha settles on VOTE). NEXT: 11/21j THE PERKS FIT (655, 653), 11/21i THE
+DEAD ON THE MAP, 11/21c swamp, 11/21e THE MIDWIFE, COOK SIX's home center, 11/21h the eye in the sky's clothes.
+
 EYES, 11/21 later still -- BUILD 11/21b SEEN (row 659: the Strat climbs from Network's gate, upright and sideways, a real finger too).
 Record: records/BOHEMIA_EYES_WALK_THE_11_21_BUILDS_11_21_26.md (its 11/21b section). HOW: a scratch walk on the gate's staged valley
 (B35BT9) with the phone's cards on; answer road cards with a REAL tap (a code click on Tia Carmen's answer does not close her card).

@@ -65,3 +65,30 @@ phone's own cards ON, a stranger's fog. Upright 390 x 844 and sideways 844 x 390
 - A REAL FINGER ON THE TOWN'S NAME the day after: Network opened, no climb (the town alone, nothing forced).
 0 page errors. (My own first tries failed on my tool: a code click on Tia Carmen's answer does not close her card, a real tap does;
  her card then took my taps. Not the game.)
+
+## BUILD 11/21f THE ALPHA OPENS ON THE MAP (FIXES 3, 5611e2fd4; rows 668, 654, 564)
+
+The alpha, upright 390 x 844, a fresh phone, the phone's own cards ON (EYES_AS_PHONE=1): the loading page, the RUN tab, BEGIN, the
+barber, GO, Cartel.
+- 668 SEEN (upright): the first town stands over the map now (MODE 'city', it was 'human'); a real tap on LEAVE on the phone put the
+  crew on the map (the marker, the towns' names, the phone with PLAY), no eight-way pad, no HOLD TO WALK (e04). The left column
+  (SCAVENGE · 8H, SLEEP) stays on the alpha only: the demo's cut hides it by rule 18g and keeps it for the alpha on purpose; not a find.
+  A pinch past the closest stop not reached (Tia Carmen's card took my pinch). Sideways not walked by hand.
+- 564: two asks answered 404 on the alpha's load, neither a wound sheet (the hospital's and the prison's optional art files, which
+  the fight reads as absent on purpose); not a find.
+- FOUND 663 (the number at filing): ABOUT 8 SECONDS AFTER LEAVE, THREE TALK AT ONCE AND DESI'S HINT STANDS OVER TIA CARMEN'S ANSWER
+  (FIXES 3, with BOSSES; the class of 654). On the map: Tia Carmen's card ('SOMEONE NEEDS HELP', I'LL READ THE FLYER / NOT MY PROBLEM.),
+  DESI's plate ('Tap anywhere on the map and we walk there. The clock runs while we walk.', about 120 to 378 by 472 to 548) laid over
+  the right two thirds of NOT MY PROBLEM. (34 to 355 by about 495 to 530: only 'NOT MY PROBL' shows), and a second DESI box at the
+  foot ('Oye. Posts on the phone are work. Touch one.') (e05). 654's fix steps the hint aside for the settings card only. Both DESI
+  boxes were gone about 30 s later.
+
+## BUILD 11/21g THE LAST HIT ON THE CARD (FIGHT SCREEN 3, 282e065a3; row 616): SEEN
+
+EYES' AUTO tool now reads the phone's fight card every 150 ms for its 'lost' marks (u.lost, the bone strip right of what is left).
+- The demo upright, a job met on the road (the arterial, 3 v 2, AUTO x2): RAUL's card drew health lost 19 px of a 65 px bar starting
+  at 70% (what he had left) and armour lost 38 px from 42%; two THUGs' cards drew theirs the same way (40 and 58 px; 38 and 9 px).
+- The alpha sideways, the strip (3 v 3, AUTO x2): two THUGs' cards, health and armour lost marks (34 and 15 px; 10 and 16 px of 58.5).
+- Always on the right of what is left, health and armour, no number and no word. Fatigue none. 0 page errors.
+- My tool stopped after each first fight ('Frame was detached': it tapped LEAVE on an end screen that had already closed); fixed in
+  the tool, not the game.

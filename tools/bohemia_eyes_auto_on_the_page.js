@@ -135,6 +135,14 @@ const HOOKS = `(function(){
   /* EYES 11/21 (rule 463): the three batteries' pictures, counted in every frame (none, since 11/20za) */
   const batPics = async () => { let n = 0; for (const fr of page.frames()) { try { n += await fr.evaluate(() => document.querySelectorAll('.uc-k, .uc-bsum, .bsum-host').length + 1000 * document.querySelectorAll('script[src*="bohemia_the_battery"]').length); } catch (e) {} } return n; };   /* a thousand per page that still loads the dead drawer */
   log('battery pictures in the first town', await batPics(), '| BATTERY_OFF', await page.evaluate(() => !!window.__BATTERY_OFF));
+  /* EYES 11/21 (BUILD 11/21g THE LAST HIT ON THE CARD): every 150 ms, in every frame that has the phone, what the card draws as lost
+     (u.lost, the bone mark right of what is left) and whose card it is; the first sighting per man is shot */
+  const lostSampler = async () => { for (const f of page.frames()) { try { await f.evaluate(() => { if (window.__EYES_LOST || !document.getElementById('bohphone')) return; window.__EYES_LOST = { seen: [], max: 0 };
+      setInterval(() => { const L = [...document.querySelectorAll('#bohphone .fb s u.lost')].filter(u => u.getBoundingClientRect().width > 0.5); if (!L.length) return;
+        const card = L[0].closest('.fh') || L[0].closest('#bohphone'); const who = card ? (card.querySelector('b') || card).textContent.trim().slice(0, 20) : '?';
+        const row = L.map(u => { const s = u.parentElement.getBoundingClientRect(), r = u.getBoundingClientRect(); return { lostPx: +r.width.toFixed(1), barPx: +s.width.toFixed(1), at: +((r.left - s.left) / s.width).toFixed(2) }; });
+        const k = who + '|' + row.map(x => x.lostPx).join(','); const S = window.__EYES_LOST; if (S.seen.length < 40 && !S.seen.some(x => x.k === k)) S.seen.push({ k, who, row, t: Math.round(performance.now()) }); S.max = Math.max(S.max, L.length); }, 150); }); } catch (e) {} } };
+  await lostSampler();
   await shot('00_first_town');
 
   const sf = async () => { const c = city(); if (!c) return null; const h = await c.$('#settleFrame'); return h ? h.contentFrame() : null; };
@@ -220,6 +228,8 @@ const HOOKS = `(function(){
       stale: { n: S.staleTurns | 0, last: S.staleLast || null } }); });
     await shot('f' + String(n).padStart(2, '0') + '_end');
     try { const sp = frame(/SPOILS_SCREEN/); if (sp) E.spoils = await sp.evaluate(() => document.body.innerText.replace(/\s+/g, ' ').slice(0, 900)); } catch (e) {}
+    for (const f of page.frames()) { try { const L = await f.evaluate(() => window.__EYES_LOST || null); if (L) { E.lost = { n: L.seen.length, max: L.max, seen: L.seen.slice(0, 12) }; await f.evaluate(() => { window.__EYES_LOST.seen = []; window.__EYES_LOST.max = 0; }); } } catch (e) {} }
+    if (E.lost) log('  last hit on the card', JSON.stringify(E.lost).slice(0, 900));
     try { const sp = frame(/SPOILS_SCREEN/); if (sp) E.spoilsBatPics = await sp.evaluate(() => document.querySelectorAll('.uc-k, .uc-bsum, .bsum-host').length); } catch (e) {}
     log('  read', 'why', E.why && (E.why.by + ': ' + E.why.line), '| flash', JSON.stringify(E.flash), '| shots', JSON.stringify(E.shots), '| ceil', JSON.stringify(E.ceil), '| stale', E.stale.n);
     /* EYES 11/21 (ask row 536, EYES_LEVELUP=1): a man with a level to spend: tap his button on the end screen, read the picks' numbers
@@ -261,7 +271,7 @@ const HOOKS = `(function(){
     fs.writeFileSync(path.join(OUT, 'turns.json'), JSON.stringify({ file: FILE, errs, results }, null, 0));
     /* out: the spoils' LEAVE, back on the map */
     await wait(1500);
-    for (let i = 0; i < 10; i++) { const sp = frame(/SPOILS_SCREEN/); if (!sp) break; await tapText(sp, 'button', '^LEAVE$'); await wait(3000); }
+    for (let i = 0; i < 10; i++) { const sp = frame(/SPOILS_SCREEN/); if (!sp) break; try { await tapText(sp, 'button', '^LEAVE$'); } catch (e) { /* the end screen closed under the tap: it left */ } await wait(3000); }
     /* a wipe-out drags him to a town: wait for the map (or the town) to be his again before the next meeting */
     await until(async () => !fightF() && !frame(/SPOILS_SCREEN/) && await city().evaluate(() => !LOOP.fighting), 40000);
     try { if (await city().evaluate(() => !!LOOP.open)) await leaveTown(); } catch (e) {}
