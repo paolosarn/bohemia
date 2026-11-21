@@ -1,0 +1,422 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "natmuseum",
+ "name": "THE NATURAL HISTORY MUSEUM",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "The valley's natural history museum stands downtown by Cashman Field: halls of mounted skeletons on their plinths, habitat dioramas behind glass along the walls, display cases on the floor.",
+  "The valley's own Ice Age is at Tule Springs, north of the city: Columbian mammoths, ground sloths, camels and American lions in the old spring beds; a Columbian mammoth stood about four metres at the shoulder.",
+  "On house tiles a mounted mammoth on its plinth is a tile nobody stands on that you see through; a diorama's glass the same along the wall."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (natmuseum_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "natmuseum"
+ ],
+ "share": 0.8,
+ "districts_why": "The natural history museum is its own map kind by Cashman Field: eight fights in ten there are fought inside it, by the cell's own dice; the rest at its doors and its lot.",
+ "board": {
+  "templates": {
+   "natmuseum": {
+    "name": "THE NATURAL HISTORY MUSEUM",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_ice_age_hall": [
+      "####################",
+      "#VVV.VVV.VV.VVV.VVV#",
+      "#..b...e.f..e...b..#",
+      "#.e..MM.bq..qb.MM..#",
+      "#....MM.e....e.MM.e#",
+      "#.k.e.x.b..x.e..k..#",
+      "#...S..e.bb.e..S...#",
+      "#D.x..bq....qb...xD#",
+      "#...S..e.bb.e..S...#",
+      "#.k.e.x.b..x.e..k..#",
+      "#e...MM.e....e.MM..#",
+      "#..e.MM.bq..qb.MM..#",
+      "#..b...e..f.e...b..#",
+      "#VVV.VVV.DD.VVV.VVV#",
+      "####################"
+     ],
+     "the_dioramas": [
+      "####################",
+      "#VVVVV.VVVVVV.VVVVV#",
+      "#..b..e...f..e..b..#",
+      "#.e.ee.e..e.ee.e.e.#",
+      "#..b..WWW..WWW..b..#",
+      "#.e...WeW..WeW...e.#",
+      "#..k..e..x..e..k...#",
+      "#D..e.b.eSe.b.e...D#",
+      "#..k..e..x..e..k...#",
+      "#.e...WeW..WeW...e.#",
+      "#..b..WWW..WWW..b..#",
+      "#.e.ee.e..e.ee.e.e.#",
+      "#..b..e.f....e..b..#",
+      "#VVVVV.VVDDVV.VVVVV#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "V": {
+    "is": "floor",
+    "tile": "diorama",
+    "piece": "nm_diorama",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "W": {
+    "is": "floor",
+    "tile": "showcase",
+    "piece": "nm_showcase",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "M": {
+    "is": "floor",
+    "tile": "mammoth",
+    "piece": "nm_mammoth",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "S": {
+    "is": "floor",
+    "tile": "sloth",
+    "piece": "nm_sloth",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "e": {
+    "is": "floor",
+    "tile": "case",
+    "piece": "nm_case",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "benches",
+    "piece": "nm_benches",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "kiosk",
+    "piece": "nm_kiosk",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "x": {
+    "is": "floor",
+    "tile": "bones",
+    "piece": "nm_bones",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "q": {
+    "is": "floor",
+    "tile": "ropes",
+    "piece": "nm_ropes",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The museum's wall: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The hall's stone floor: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The floor: open ground.",
+   "draft": true
+  },
+  "diorama": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A habitat diorama behind its glass, the desert painted on its back wall: nobody passes; you see through it; cover beside it. [bb] its wall you see over.",
+   "say": ""
+  },
+  "showcase": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A walk-round showcase, glass on four sides: nobody passes; you see through it; cover beside it. [bb] its wall you see over.",
+   "say": ""
+  },
+  "mammoth": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A Columbian mammoth's skeleton on its plinth, four metres at the shoulder: nobody stands there; you see through its ribs; cover beside its plinth. [bb] its boulder.",
+   "say": ""
+  },
+  "sloth": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A ground sloth's skeleton reared up on its plinth: nobody stands there; cover beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "case": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A display case, its glass starred, its fossils taken or not: cover.",
+   "say": "A display case: cover.",
+   "draft": true
+  },
+  "benches": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Benches facing the skeletons: low cover.",
+   "say": "A bench: low cover.",
+   "draft": true
+  },
+  "kiosk": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A dead touch-screen kiosk: low cover.",
+   "say": "A dead kiosk: low cover.",
+   "draft": true
+  },
+  "bones": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A skeleton pulled off its plinth, bones and armature across the floor: low cover, and slow going (3 AP). [bb] its brush.",
+   "say": "Scattered bones: low cover, slow going.",
+   "draft": true
+  },
+  "ropes": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "effect": "Rope stanchions round an exhibit: no cover, and slow going through them (3 AP). [bb] its rough ground.",
+   "say": "Rope posts: slow going, no cover.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a trash can. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The museum's doors, open: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The doors: open ground.",
+   "say_lit": "The doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in natmuseum_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "nm_case": {
+   "like": "casino_screens",
+   "kind": "COVER",
+   "name": "A DISPLAY CASE"
+  },
+  "nm_benches": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "BENCHES"
+  },
+  "nm_kiosk": {
+   "like": "garage_booth",
+   "kind": "LOW_COVER",
+   "name": "A DEAD KIOSK"
+  },
+  "nm_bones": {
+   "like": "sb_rubble_S",
+   "kind": "LOW_COVER",
+   "name": "SCATTERED BONES"
+  },
+  "nm_ropes": {
+   "like": "sb_barrier_S",
+   "kind": "DRESS",
+   "name": "ROPE POSTS"
+  },
+  "nm_diorama": {
+   "like": "casino_glass",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A DIORAMA"
+  },
+  "nm_showcase": {
+   "like": "casino_glass",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A SHOWCASE"
+  },
+  "nm_mammoth": {
+   "like": "casino_stage",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A MAMMOTH"
+  },
+  "nm_sloth": {
+   "like": "garage_column",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A GROUND SLOTH"
+  },
+  "nm_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "nm_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "nm_wall_ew",
+  "ns": "nm_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: one floor; a plinth is a step, and its skeleton is not a place to stand.",
+ "ceiling": {
+  "kind": "coffer",
+  "alpha": 0.1,
+  "src": "natmuseum/natmuseum_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the halls' high ceiling, its track lights dead, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the casino's coffers)."
+ }
+}
