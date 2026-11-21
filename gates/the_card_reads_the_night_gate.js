@@ -19,6 +19,9 @@
      R4  (11/21, THE CARD READS THE HOUR) the files: each card fight read at the minute the trip brings him there, its hour and day
      R5  on his phone (--hour 990): every job with a sure fight, its card read in its town at 16:30, each fight met after the trip's own
          minutes (some after nightfall): the crowd rolled is the card's
+     R6  (11/21, A JOB THAT CHANGES AFTER THE YES) the files: no district stays none, the ones who moved it, a find's holders at the place,
+         a patrol's bands the share of the bands it had (the walk now reaches a patrol's bands on the road)
+     R5 from 11/21 (A JOB THAT CHANGES AFTER THE YES): the crowd is the card's on every fight (no misses allowed)
    node gates/the_card_reads_the_night_gate.js        NIGHT_FILES=1 the files only
    ========================================================================== */
 'use strict';
@@ -33,10 +36,17 @@ const JK = T('slices/bohemia_job_kinds.js'), DG = T('slices/bohemia_job_danger.j
 { const r1 = [/if \(out\.length > n0 && \(L\.dark \|\| \(L\.wait && i > 0 && LL\[0\]\.dark\)\)\) out\[out\.length - 1\]\.dark = true;/.test(JK),
     /night: f\.dark \? true : \(W \? W\.night : undefined\), met: metAt/.test(DG) && /if \(ctx\.night != null\) o\.night = !!ctx\.night;/.test(DG) && /met: ctx\.met != null \? ctx\.met : metNow\(\)/.test(DG) && /if \(!f\.road && f\.p >= 0\.999\) before\+\+;/.test(DG),
     /else if \(f && f\.dark && f\.band\) w \+= ', a fight with ' \+ who\(f\) \+ ' in the dark';/.test(JK),
-    /party\.faction = foeOf\(job, faction \|\| 'brigands', near \|\| w\);/.test(JK) && JK.indexOf('var dz = null;') < JK.indexOf("party.faction = foeOf(job, faction || 'brigands', near || w);")];
+    /party\.faction = foeOf\(job, faction \|\| 'brigands', nearG \|\| near \|\| w\);/.test(JK) && JK.indexOf('var dz = null, dzSet = false;') < JK.indexOf("party.faction = foeOf(job, faction || 'brigands', nearG || near || w);")];
   ok('R1 the files: a fight that comes in the dark is marked, the reader rolls it at night and after the fights before it, the card names it, and a job\'s animal is picked at the card\'s place', r1.every(Boolean), r1.map(b => b ? 1 : 0).join('')); }
 { const r4 = [/__THE_CARD_READS_THE_HOUR__/.test(DG) && /var whenOf = function \(f\)/.test(DG), /night: f\.dark \? true : \(W \? W\.night : undefined\), met: metAt, day: W \? W\.day : undefined/.test(DG), /\(ctx\.day != null \? ctx\.day : dayNow\(\)\) <= 1/.test(DG)];
   ok('R4 the files: every card fight is read at the minute the trip brings him to it, its hour and its day', r4.every(Boolean), r4.map(b => b ? 1 : 0).join('')); }
+{ const CW = T('slices/BOHEMIA_CITY_WORLD.html');
+  const r6 = [/rollDistrict: dzSet \? dz : undefined,/.test(JK) && /msg\.rollDistrict !== undefined \? msg\.rollDistrict : msg\.district/.test(DG),
+    /__THE_ONES_WHO_MOVED_IT__/.test(JK) && /if \(!job\.ground\) job\.ground = \{ x: job\.spot\.x, y: job\.spot\.y \};/.test(JK) && /add\(1, 'guards', job\.guards, job\.foe, gAt, null, gGround\);/.test(JK) && /var gnd = f\.ground \?/.test(DG) && /district: gnd \? districtAt\(gnd\) : null/.test(DG),
+    (JK.match(/job\.holders \|\| job\.ring, null, job\.holders \? null : job\.spot\)/g) || []).length === 2,
+    /if\(!job\.target\) return undefined; var c = om\.at\(job\.target\.x \| 0, job\.target\.y \| 0\); return \(c && c\.district\) \|\| null;/.test(CW),
+    /job\.bandsOf = job\.bands;/.test(JK) && /n = shareOf\(n, job\.bandsOf \|\| job\.bands \+ 1\);/.test(JK) && /job\.bandPost = \{ x: p\.x, y: p\.y \};/.test(JK) && /ground: job\.bandPost \|\| null/.test(JK) && /var bsh = shareOf\(jm\(\), job\.bandsOf \|\| job\.bands\)/.test(JK)];
+  ok('R6 (11/21, A JOB THAT CHANGES AFTER THE YES) the files: a card\'s place with no district rolls none at the fight too (the camp at the dam), the ones who moved a thing are from the ground they took it from, a find job\'s holders are read at the place, the map\'s own crew job keeps its mark\'s no-district, and a patrol\'s bands are the share of the bands the contract had, read at the post they come after', r6.every(Boolean), r6.map(b => b ? 1 : 0).join('')); }
 if (process.env.NIGHT_FILES) done();
 
 function walk(args, tag) {
@@ -59,8 +69,8 @@ try {
   const nightAt = m => { m = ((m % 1440) + 1440) % 1440; return m >= 1080 || m < 360; };
   const hourOf = (w) => { let n = 0, ok = 0, night = 0, same = 0, miss = []; (w.jobs || []).forEach(j => { j.met.forEach((m, i) => { const h = (j.held || [])[i]; if (!h || h.comes == null || m.min == null) return; n++;
       if (nightAt(j.start + h.comes) === !!m.night) ok++; if (m.night) night++; if (JSON.stringify(h.band) === JSON.stringify(m.band)) same++; else miss.push(j.id); }); }); return { n, ok, night, same, miss }; };
-  const hbad = hrows.filter(w => { const H = hourOf(w); return w.err || H.n < 20 || H.ok !== H.n || H.night < 3 || H.same < H.n - 3; });
-  ok('R5 on his phone, the demo and the alpha, upright and sideways: every job with a sure fight taken in its town at 16:30 and walked on the card\'s own minutes: each fight comes at the hour its card read it (night or day), some after nightfall; the crowd is the card\'s on all but a few, named',
+  const hbad = hrows.filter(w => { const H = hourOf(w); return w.err || H.n < 20 || H.ok !== H.n || H.night < 3 || H.same < H.n; });   /* 11/21: no misses (the three found were a job that changes after the yes, fixed) */
+  ok('R5 on his phone, the demo and the alpha, upright and sideways: every job with a sure fight taken in its town at 16:30 and walked on the card\'s own minutes: each fight comes at the hour its card read it (night or day), some after nightfall; the crowd is the card\'s on every fight',
     hrows.length === 4 && !hbad.length, hrows.map(w => { const H = hourOf(w); return (w.alpha ? 'alpha ' : 'demo ') + (w.shape === 'phone_portrait' ? 'up' : 'side') + ': ' + (w.err ? 'ERR ' + w.err : H.ok + ' of ' + H.n + ' at the card\'s hour, ' + H.night + ' after nightfall, the crowd the card\'s ' + H.same + ' of ' + H.n + (H.miss.length ? ' (not: ' + H.miss.join(',') + ')' : '')); }).join(' | '));
   ok('R3 nothing threw', !errs.length, errs.slice(0, 3).join(' | '));
 } catch (e) { ok('the phone legs ran', false, String(e && e.message || e).slice(0, 300)); }

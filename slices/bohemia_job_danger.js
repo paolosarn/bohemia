@@ -205,7 +205,7 @@
     if (!at) { try { at = [city.x, city.y]; } catch (e) { at = [0, 0]; } }
     if (!msg.district) msg.district = districtAt(at);
     var asked = msg.party.faction;
-    var r = roll(msg.party, { key: String(msg.why || msg.label || 'encounter') + ':' + (msg.party.count | 0), district: msg.rollDistrict || msg.district });   /* JOBS 11/20 __THE_CARD_S_PLACE_IS_THE_FIGHT_S__: a job's fight rolls at the card's own place */
+    var r = roll(msg.party, { key: String(msg.why || msg.label || 'encounter') + ':' + (msg.party.count | 0), district: msg.rollDistrict !== undefined ? msg.rollDistrict : msg.district });   /* JOBS 11/21: a card's place with no district rolls no district (null), never the road beside it */   /* JOBS 11/20 __THE_CARD_S_PLACE_IS_THE_FIGHT_S__: a job's fight rolls at the card's own place */
     if (!r || !r.band.length) return false;
     msg.party.band = r.band; msg.party.count = r.band.length; msg.party.faction = r.faction; msg.party.rolled = true;
     msg.party.what = kindWord(r.band, r.faction);
@@ -341,7 +341,8 @@
       var party = null; try { party = f.road ? partyMath('roaming', { x: f.at ? f.at.x : 0, y: f.at ? f.at.y : 0 }) : partyMath('job', { skulls: job.skulls }); } catch (e) { party = { count: f.n, days: 1, difficulty: 1 }; }
       party = { count: f.n, faction: f.faction || 'brigands', days: party.days, difficulty: party.difficulty };
       var at = f.at ? [f.at.x | 0, f.at.y | 0] : null, why = f.why || (f.road ? 'road:' + o.id : 'contract:' + o.id + ':' + f.what);   /* the hand-over's own why, so the band read is the band met */
-      var r = roll(party, { key: why + ':' + f.n, district: at ? districtAt(at) : null, night: f.dark ? true : (W ? W.night : undefined), met: metAt, day: W ? W.day : undefined });
+      var gnd = f.ground ? [f.ground.x != null ? f.ground.x | 0 : f.ground[0] | 0, f.ground.y != null ? f.ground.y | 0 : f.ground[1] | 0] : at;   /* JOBS 11/21 __THE_ONES_WHO_MOVED_IT__: the crowd's own ground */
+      var r = roll(party, { key: why + ':' + f.n, district: gnd ? districtAt(gnd) : null, night: f.dark ? true : (W ? W.night : undefined), met: metAt, day: W ? W.day : undefined });
       return r ? { what: f.what, why: why, n: f.n, p: f.p, band: r.band, faction: r.faction, days: r.days, difficulty: r.difficulty, at: at, road: !!f.road, hours: f.hours, dark: !!f.dark, comes: W ? W.mins : null, waits: W ? W.waits : null } : null;
     }).filter(Boolean);
   }

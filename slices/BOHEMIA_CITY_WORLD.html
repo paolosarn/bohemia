@@ -47720,7 +47720,7 @@ function loopArrived(to, town){
     try{ ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: job.title, faction: null, draft: true,
       packageId: (LOOP.start && LOOP.start.pkg != null) ? LOOP.start.pkg : 1,   /* __THE_FRONT_DOOR__: the fights' tier */
       roster: roster, party: job.party, street: true, why: 'contract:' + job.id, at: { gx: w[0] | 0, gy: w[1] | 0 },
-      rollDistrict: (function(){ try{ var c = job.target ? om.at(job.target.x | 0, job.target.y | 0) : null; return (c && c.district) || undefined; }catch(_e){ return undefined; } })() }); }catch(_e){ ok = false; }   /* JOBS 11/21 __THE_CARD_S_PLACE_IS_THE_FIGHT_S__: a crew job's crowd is rolled at its mark, where its card reads it (fightsOf's crew at job.target), not on the road beside it */
+      rollDistrict: (function(){ try{ if(!job.target) return undefined; var c = om.at(job.target.x | 0, job.target.y | 0); return (c && c.district) || null; }catch(_e){ return undefined; } })() }); }catch(_e){ ok = false; }   /* JOBS 11/21 __THE_CARD_S_PLACE_IS_THE_FIGHT_S__: a crew job's crowd is rolled at its mark, where its card reads it (fightsOf's crew at job.target), not on the road beside it; a mark with no district rolls none, as its card does */
     if(!ok) LOOP.fighting = null;
     return;
   }

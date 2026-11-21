@@ -284,17 +284,20 @@
        (the nearest of this fight's kind in the job's own list) for the roll alone (rollDistrict; the board is still cut where he
        stands), so the band read is the band met; and a job's animal is picked where the card picked it (foeOf keeps the first ground
        it is asked at: the fight asked first, on the road, and the tunnel watch's card said 1 dire wolf where 3 coyotes came, the alpha) */
-    var dz = null;
-    try { var near = null, nd = 1e9; (fightsOf(job, {}) || []).forEach(function (f) { if (f.what !== what || f.road || !f.at) return; var px = f.at.x != null ? f.at.x : f.at[0], py = f.at.y != null ? f.at.y : f.at[1], dd = Math.abs(px - w[0]) + Math.abs(py - w[1]); if (dd < nd) { nd = dd; near = [px, py]; } });
-      if (near && what !== 'pack') { var c0 = om.at(near[0] | 0, near[1] | 0); dz = c0 && c0.district ? c0.district : null; } } catch (e) { dz = null; }
+    var dz = null, dzSet = false;
+    /* JOBS 11/21 (the handoff's [a job that changes after the yes]): the card's place reads its own ground even when the place has no
+       district (a camp at the dam: the card rolled no ground, the fight fell back to the suburb road beside it and 7 coyotes came for 4
+       water people), and the ones who moved a thing are from the ground they took it from (__THE_ONES_WHO_MOVED_IT__) */
+    try { var near = null, nearG = null, nd = 1e9; (fightsOf(job, {}) || []).forEach(function (f) { if (f.what !== what || f.road || !f.at) return; var px = f.at.x != null ? f.at.x : f.at[0], py = f.at.y != null ? f.at.y : f.at[1], dd = Math.abs(px - w[0]) + Math.abs(py - w[1]); if (dd < nd) { nd = dd; near = [px, py]; nearG = f.ground ? [f.ground.x != null ? f.ground.x : f.ground[0], f.ground.y != null ? f.ground.y : f.ground[1]] : null; } });
+      if (near && what !== 'pack') { var g0 = nearG || near, c0 = om.at(g0[0] | 0, g0[1] | 0); dz = c0 && c0.district ? c0.district : null; dzSet = true; } } catch (e) { dz = null; dzSet = false; }
     root.__FIGHT_DISTRICT = { id: job.id, what: what, card: dz, here: (function () { try { var c1 = om.at(w[0] | 0, w[1] | 0); return c1 ? c1.district : null; } catch (e) { return null; } })() };
-    party.faction = foeOf(job, faction || 'brigands', near || w);   /* the card's place first (fightsOf above asked foeOf there) */
+    party.faction = foeOf(job, faction || 'brigands', nearG || near || w);   /* the card's place first (fightsOf above asked foeOf there) */
     if (!(extra && extra.pack != null)) { party.count = costed(party.count, party.faction); try { party.word = partyWord(party.count); } catch (e) {} }   /* __THE_CONTRACT_IS_THE_BUDGET__ */
     var roster = []; for (var i = 0; i < party.count; i++) roster.push({ arch: isBeastFoe(party.faction) ? 'beast' : 'human' });
     job.fight = { what: what, n: party.count, pack: extra && extra.pack != null ? extra.pack : null };
     LOOP.fighting = job.id;
     var ok = false;
-    try { ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: label, faction: null, draft: true, rollDistrict: dz || undefined,
+    try { ok = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: label, faction: null, draft: true, rollDistrict: dzSet ? dz : undefined,
       packageId: (LOOP.start && LOOP.start.pkg != null) ? LOOP.start.pkg : 1, roster: roster, party: party, street: true,
       foe: (extra && extra.foe) || foeSays(job, what, party.faction, label) || null,   /* FIXES 11/9 (row 530): a leg's own name for its enemy, for the end screen; __EVERY_JOB_NAMES_ITS_FOE__: every other fight's */
       why: 'contract:' + job.id + ':' + what, at: { gx: w[0] | 0, gy: w[1] | 0 } }); } catch (e) { ok = false; }
@@ -1024,7 +1027,8 @@
       if (job.twist === 'moved' && !job.twistDone) {   /* they moved it: the tracks go on */
         job.twistDone = true;
         var s2 = movedSpot(job);
-        if (s2) { job.spot = { x: s2[0], y: s2[1] }; job.target = { x: s2[0], y: s2[1] };
+        if (s2) { if (!job.ground) job.ground = { x: job.spot.x, y: job.spot.y };   /* JOBS 11/21 __THE_ONES_WHO_MOVED_IT__: they carried it from here */
+          job.spot = { x: s2[0], y: s2[1] }; job.target = { x: s2[0], y: s2[1] };
           now('Empty. They moved it; fresh tracks go ' + way(s2[0] - x, s2[1] - y) + ', ' + cheb(s2[0], s2[1], x, y) + ' blocks.'); try { render(); } catch (e) {} return false; }   /* draft:true */
       }
       if (job.guards > 0) return fight(job, 'guards', job.guards, job.foe, 'the ones holding ' + job.item) || true;
@@ -1056,7 +1060,7 @@
     if (posts.length < 2) return false;
     var sk = clamp(job.skulls, 1, 3);
     job.posts = posts; job.heads = 0; job.cap = row.cap || (k.cap_by_skulls || [4, 7, 10])[sk - 1];
-    job.bands = (k.bands_by_skulls || [1, 2, 2])[sk - 1]; job.band = null; job.walked = 0;
+    job.bands = (k.bands_by_skulls || [1, 2, 2])[sk - 1]; job.bandsOf = job.bands; job.band = null; job.walked = 0;   /* JOBS 11/21: the bands the contract is split between, kept (the card's share) */
     job.flat = Math.max(1, Math.round(job.pay * (k.flat == null ? 0.5 : k.flat)));
     job.perHead = Math.max(1, Math.round((job.pay - job.flat) / job.cap));
     job.target = { x: posts[0].x, y: posts[0].y };
@@ -1079,7 +1083,7 @@
     }
     if (left) { var nx = postNext(job); job.target = { x: nx.x, y: nx.y }; line += ' On to the next.'; }
     else { job.stage = 'back'; backTo(job); line += ' Back to ' + job.from + ' to be paid.'; }
-    if (job.bands > 0) { job.bands--; job.bandDue = (job.walked | 0) + 3; }
+    if (job.bands > 0) { job.bands--; job.bandDue = (job.walked | 0) + 3; job.bandPost = { x: p.x, y: p.y }; }   /* JOBS 11/21: the band due comes off this post's road (its ground, as the card read it) */
     sayLine(line); save('contract:post');   /* draft:true */
   }
   function bandFight(job) { var b = job.band; return b ? fight(job, 'band', b.n, 'brigands', 'a crew on the patrol road') : false; }
@@ -1092,8 +1096,10 @@
       job.bandDue = 0;
       var at = aheadOf(job.id + ':band:' + job.walked);
       if (at) { var n = 2; try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) {}
-        n = shareOf(n, job.bands);   /* JOBS 11/10: the patrol's bands split one contract */
-        job.band = { x: at[0], y: at[1], n: n }; newBand(job, 'band'); window.__JOB_BANDS = (window.__JOB_BANDS | 0) + 1;
+        n = shareOf(n, job.bandsOf || job.bands + 1);   /* JOBS 11/10: the patrol's bands split one contract. JOBS 11/21 (A JOB THAT CHANGES AFTER THE YES): split
+           by the bands the contract had, never the bands left (postWalked counts one down before this band comes): MEASURED on the demo, the
+           dam patrol's card read two bands of 3 asked (2 kids each) and each band came asked 4 (2 ancient bison, then a feral bull) */
+        job.band = { x: at[0], y: at[1], n: n, ground: job.bandPost || null }; newBand(job, 'band'); window.__JOB_BANDS = (window.__JOB_BANDS | 0) + 1;
         now('A crew on the patrol road, ' + n + ' of them, coming your way.'); try { render(); } catch (e) {} }   /* draft:true */
     }
     if (job.stage === 'patrol') { var p = null; job.posts.forEach(function (q) { if (!q.done && !p && postAt(q, city.x, city.y)) p = q; }); if (p) postWalked(job, p); }
@@ -2200,8 +2206,8 @@
     opt = opt || {};
     if (!job) return null;
     var k = K(job.plays) || {}, out = [], jm = function () { var n = 3; try { n = partyMath('job', { skulls: job.skulls }).count; } catch (e) {} return n; };
-    var add = function (p, what, n, faction, at, why) { if (p > 0 && n > 0) { var fo = foeOf(job, faction || 'brigands', at || job.target);
-      out.push({ what: what, why: why || ('contract:' + job.id + ':' + what), p: Math.min(1, p), n: Math.max(1, (what === 'pack' ? n : costed(n, fo)) | 0), faction: fo, at: at || job.target || null }); } };   /* __THE_CONTRACT_IS_THE_BUDGET__: one count, the fight's and the stars' */
+    var add = function (p, what, n, faction, at, why, ground) { if (p > 0 && n > 0) { var fo = foeOf(job, faction || 'brigands', ground || at || job.target);
+      out.push({ what: what, why: why || ('contract:' + job.id + ':' + what), p: Math.min(1, p), n: Math.max(1, (what === 'pack' ? n : costed(n, fo)) | 0), faction: fo, at: at || job.target || null, ground: ground || null }); } };   /* JOBS 11/21 __THE_ONES_WHO_MOVED_IT__: ground, where the crowd is from when it is not where the fight comes */   /* __THE_CONTRACT_IS_THE_BUDGET__: one count, the fight's and the stars' */
     var held = !opt.offer, sk = clamp(job.skulls | 0 || 1, 1, 3);
     if (k.legs) (job.legs || k.legs).forEach(function (L, i, LL) { if (!L.fight || L.done) return; var n = L.fight.left || (L.fight.n === 'party' || !L.fight.n ? legShare(jm(), L.fight) : L.fight.n), n0 = out.length; add(L.talk ? 0.5 : 1, 'leg' + i, n, L.fight.foe || 'brigands', L.x != null ? L : job.target);
       if (out.length > n0 && (L.dark || (L.wait && i > 0 && LL[0].dark))) out[out.length - 1].dark = true; });   /* JOBS 11/20 __THE_CARD_READS_THE_NIGHT__: a fight that comes in the dark is read at night */   /* CONTENT 11/2: LEGS */
@@ -2213,10 +2219,10 @@
         if (!job.twistDone) add(held ? (job.twist === 'T18' ? 1 : 0) : twistP(k, 'T18'), 'gate', job.holders ? job.holders.n : jm(), 'brigands', job.holders || job.target);
         break; }
       case 'find-place':
-        if (job.stage === 'look' && !job.twistDone) add(held ? (job.twist === 'T22' ? 1 : 0) : twistP(k, 'T22'), 'ambush', job.holders ? job.holders.n : jm(), 'brigands', job.holders || job.ring);
+        if (job.stage === 'look' && !job.twistDone) add(held ? (job.twist === 'T22' ? 1 : 0) : twistP(k, 'T22'), 'ambush', job.holders ? job.holders.n : jm(), 'brigands', job.holders || job.ring, null, job.holders ? null : job.spot);   /* JOBS 11/21: the ones holding a place are at the place (holdBy at job.spot), never the ring's middle */
         break;
       case 'find-person':
-        if (job.stage === 'look' && job.guarded && !job.guardsDone) add(1, 'guards', job.holders ? job.holders.n : jm(), 'brigands', job.holders || job.ring);
+        if (job.stage === 'look' && job.guarded && !job.guardsDone) add(1, 'guards', job.holders ? job.holders.n : jm(), 'brigands', job.holders || job.ring, null, job.holders ? null : job.spot);   /* JOBS 11/21: measured on the demo sideways, qd-ar10's card read 3 house men at the ring's middle and 4 kids came at the farm, the district beside it */
         break;
       case 'hunt-kind': {
         var left = Math.max(0, (job.need | 0) - (job.got | 0)), packs = (job.packs || []).slice(), i = 0, last = packs[packs.length - 1];
@@ -2235,11 +2241,26 @@
         for (var w = (job.wave | 0) + 1; w <= nw; w++) add(1, 'wave', Math.max(2, n0 + (w > 1 ? 1 : 0) - (w === 1 && nw > 1 ? 1 : 0)), job.foe, job.target);
         break; }
       case 'recover-return':
-        if (job.stage === 'get' && job.guards > 0) add(1, 'guards', job.guards, job.foe, job.spot);
+        if (job.stage === 'get' && job.guards > 0) {
+          /* __THE_ONES_WHO_MOVED_IT__ (JOBS 11/21, rule 461; the handoff's [a job that changes after the yes]): 'they moved it' (the R1
+             twist) carries the thing on two to four blocks, and the ones holding it carry it: they are the same crowd, from the same
+             ground. MEASURED (the alpha sideways): qd-ap01's card read 2 water people at the pump station, the thing moved onto the
+             freeway and 4 brigand thugs came (the new spot's ground). The fight rolls on the ground they took it from (ground), and a
+             held job's card reads the fight where it comes (the moved spot, the trip's own tracks leg, never the board's: the board
+             does not spoil the twist) */
+          var gAt = job.spot, gGround = job.ground || null;
+          if (held && job.twist === 'moved' && !job.twistDone) { var s2m = null; try { s2m = movedSpot(job); } catch (e) { s2m = null; } if (s2m) { gGround = { x: job.spot.x, y: job.spot.y }; gAt = { x: s2m[0], y: s2m[1] }; } }
+          add(1, 'guards', job.guards, job.foe, gAt, null, gGround);
+        }
         break;
       case 'patrol': {
-        if (job.band) add(1, 'band', job.band.n, 'brigands', job.band);
-        for (var b = 0; b < (job.bands | 0); b++) add(1, 'band', shareOf(jm(), job.bands), 'brigands', (job.posts || [])[b] || job.target);   /* JOBS 11/10: as the bands will be */
+        /* JOBS 11/21 (A JOB THAT CHANGES AFTER THE YES): each band is the share of the bands the contract had, read at the post it comes
+           after (its ground; the band itself stands ahead on the road): the card read band one at the first post and the fight rolled
+           the road where the band stood. A band due (the post walked, the band not yet on the road) stays on the card */
+        var bsh = shareOf(jm(), job.bandsOf || job.bands), left = (job.posts || []).filter(function (q) { return !q.done; });
+        if (job.band) add(1, 'band', job.band.n, 'brigands', job.band, null, job.band.ground || null);
+        else if (job.bandDue && job.bandPost) add(1, 'band', bsh, 'brigands', job.bandPost);
+        for (var b = 0; b < (job.bands | 0); b++) add(1, 'band', bsh, 'brigands', left[b] || (job.posts || [])[b] || job.target);   /* JOBS 11/10: as the bands will be */
         break; }
       default:   /* today's crew job: the map's loop hands it 'contract:<id>' */
         if (job.target) add(1, 'crew', jm(), 'brigands', job.target, 'contract:' + job.id);

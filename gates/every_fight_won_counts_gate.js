@@ -39,7 +39,7 @@ const STAMP = (CW.split('\n').filter(l => /FIGHT_STAMP = String\(msg\.why/.test(
 { const c1 = [/var FIGHT_STAMP = null;/.test(CW) && !!STAMP && /__EVERY_FIGHT_WON_COUNTS__/.test(CW),
     /BohemiaRenown\.fightWon\(\(oc\.dead \| 0\) \+ \(oc\.fled \| 0\), FIGHT_STAMP \|\|/.test(HOOK),
     /cloutOf\('civilian_contract_done'\) \+ Math\.round\(men \* cloutOf\('fight_won_per_enemy'\)\) \+ places/.test(JK) && /fight_won_per_enemy: 5/.test(RN),
-    /__THE_CARD_S_PLACE_IS_THE_FIGHT_S__/.test(JK) && /rollDistrict: dz \|\| undefined/.test(JK) && /district: msg\.rollDistrict \|\| msg\.district/.test(DG)];
+    /__THE_CARD_S_PLACE_IS_THE_FIGHT_S__/.test(JK) && /rollDistrict: dzSet \? dz : undefined/.test(JK) && /district: msg\.rollDistrict !== undefined \? msg\.rollDistrict : msg\.district/.test(DG)];   /* 11/21 (A JOB THAT CHANGES AFTER THE YES): a card's place with no district hands over none (null), and the roll honours it */
   ok('C1 the files: each fight handed over is stamped, the won fight\'s CLOUT is keyed by its stamp, the card\'s sum reads the same gains (the job +100, five a man); a job\'s fight rolls who comes at the card\'s own place', c1.every(Boolean), c1.map(b => b ? 1 : 0).join('')); }
 
 /* C2: the hook and the stamp, lifted out and run on the real CLOUT file */
