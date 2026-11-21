@@ -19,6 +19,37 @@
       "shut": "why his hire is shut (null when he works); nobody pays for help that never comes"
     }
   },
+  "staff": {
+    "value": {
+      "stats": { "hp": [40, 50], "resolve": [25, 40], "melee_skill": [47, 57], "ranged_skill": [32, 42], "melee_defense": [0, 5], "ranged_defense": [0, 5], "initiative": [95, 105], "fatigue": [90, 100] },
+      "level": 1,
+      "xp": false,
+      "traits": ["clumsy", "craven", "fainthearted", "fragile", "hesitant"],
+      "weapon": "box_cutter",
+      "armour": false,
+      "starts": "Wavering",
+      "top": "Steady",
+      "struck_down": "dead",
+      "shakes_fighters": true,
+      "shakes_staff": true,
+      "in_the_pit": false,
+      "rehire_price": "the same",
+      "words": { "take": "Stands in your fights. One of your {cap}.", "full": "No room: your company is {n} of {cap}.", "camp": "CAMP" }
+    },
+    "draft": true,
+    "source": "VAMILY rule 468 (Paolo 11/21: 'they are forced to being in combat... the game becomes more about protecting your staff... they're not gonna have the best traits... they try to run away way quicker'); records/BOHEMIA_RESEARCH_THE_STAFF_FIGHT_TOO_11_21_26.md section C3, C4, C7: Battle Brothers' Indebted row at level one (bb_all/1073 Indebted (Background): hitpoints 40-50, resolve 25-40, initiative 95-105, 'Is permanently dead if struck down', no brave traits; bb_all/0368 the Daytaler's base for the rest)",
+    "why": {
+      "stats": "the Indebted's row (C3): ten less health than a fighter, a lower nerve floor, slower; the skills and defences the Daytaler's",
+      "traits": "exactly one, rolled once when he joins and kept: Battle Brothers' five bad traits a recruit can carry (records/target/bb/traits.json, each at_the_post); never a brave one (the Indebted's excluded list)",
+      "weapon": "his work blade, the box cutter (records/target/bb/weapons.json box_cutter, cleaver class, 25 to 35, one hand), his work clothes, nothing can be put on him: a cook in plate is a fighter (D3). MEASURED (STAFF 11/21): the research's knife row IS the game's PISTOL (weapon_lines.json dagger = PISTOL; ours.pistol_shot by_row.knife rides a thrown row), so a 'knife' would have put a gun in every cook's hand",
+      "starts": "one rung low at the bell (C4): two failed nerve checks and he runs, a fighter needs three; he may climb back to Steady, never to Confident",
+      "struck_down": "down means dead, every time (C7; the Indebted's 'permanently dead if struck down'); the Surgeon does not save him",
+      "shakes_fighters": "his fall or his flight shakes the line like any man of his (Battle Brothers' ally-dies check, his level one's small worth, nearer more) and the other staff. The research's default was the Indebted's rule ('No morale check triggered for non-indebted allies upon dying'): Battle Brothers' debtors are the company's fodder, ours are the camp, the cook and the doctor, the people the soldiers live with (Naseby's dead were 'soldiers' wives'). MEASURED (STAFF 11/21, the live fight headless, 100 fights a row, 8 of his against 9 with 3 staff): with no shake the camp made the fight EASIER (73% won against 65% with no camp: their blows spent on the camp); with the shake 69% and his line wavers when the cook dies, so keeping her alive is part of the fight",
+      "in_the_pit": "an arena fight takes only the men he picked; the staff wait outside (C1)",
+      "rehire_price": "the kind goes back in the town deal; a NEW person of the valley at the same one-time price (C7, D9)",
+      "words": "draft:true, for WORDS (rule 454(a): the fewest words a build needs)"
+    }
+  },
   "followers": {
     "source": "Battle Brothers wiki, Retinue and the eighteen follower pages (bb_all/1940 to 1975, the coordinator's copy); prices the wiki's crowns at ten to one through TUNING (rule 264's pace); GROK_121 PASSED FILTER for the six",
     "value": [

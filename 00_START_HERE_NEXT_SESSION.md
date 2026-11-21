@@ -1,3 +1,10 @@
+STAFF (staff-01gkdyus): 11/21 LATEST -- BUILD 11/21zb - THE STAFF FIGHT TOO, BUILT, NOT YET SEEN (a new lane, rules 468, 461, 441, 454(a), 465; ask row 667). Its block is handoffs/STAFF.md.
+THE STAFF FIGHT TOO: every camp follower he hired (RETINUE's eighteen) stands in every fight but the pit, behind his back row, as Battle Brothers' Indebted at level one
+(40 to 50 health, one bad trait, a box cutter, no armour), Wavering at the bell, dead when struck down (his help gone, his face on the dead list, the kind re-dealt in a town
+as a new person); raiders go for him, one fight in five two come from behind; each takes one of the 12 (16) places first; the hall shuts at the company cap. The camp's
+thirteen missing fight bodies rendered and packed. Gate THE STAFF FIGHT TOO 32/0 (plant red). On the phone, the demo and the alpha, both ways, green. Measured: a full
+company carrying five staff wins 26% where it won 68%; under the cap the fight holds and the camp dies (12% each a routine fight, 26% a tough one). VOTE staff-the-staff-fight-too-11-21.
+[bb Battle Brothers' followers never fight; its Indebted die when they fall] [analog horror: the cook's pot stays on the fire]
 COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21za - THE JUSTICE CENTER, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE JUSTICE CENTER: a fight at the county's courts tower downtown (eight in ten) is fought on a courts floor (six courtrooms off one corridor, two doors each) or in
 the screening lobby (x-ray belts, dead metal detectors, the deputies' podiums between the lines). One data file, every picture a stand-in (the names for COOK in the handoff).

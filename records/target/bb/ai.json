@@ -310,6 +310,18 @@
    "source": "bb_all/1501_Orc Warrior.txt",
    "quote": "They have the ability to disrupt formations and they use it mostly to get close to vulnerable backliners or to claim the high ground. They often end up surrounded after doing it.",
    "why": "COMBAT [bestiary] 10/24, THE HEAVY (records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_BESTIARY_COUNT_9_29_26.md: 'ORCS (mass, shove) -> THE HEAVY: exo-suit men, crash-bar shields, they push you off the tile'): he shoves the man in his way off the tile toward a shooter behind him, then walks into the hole"
+  },
+  "staff": {
+   "value": {
+    "advance": false,
+    "hold_line": false,
+    "stays_behind": true,
+    "knife_when_cornered": true,
+    "never_by_hand": true
+   },
+   "source": "records/BOHEMIA_RESEARCH_THE_STAFF_FIGHT_TOO_11_21_26.md C9 (VAMILY rule 468); bb_all/1073 Indebted (Background)",
+   "quote": "Is permanently dead if struck down and will not survive with a permanent injury.",
+   "why": "a camp follower moves by himself, never by his hand: he holds the camp while nobody of theirs can reach him by their next turn; threatened, he steps where the fewest of theirs can reach him, beside one of his fighters if he can (+3 a man beside him on a nerve check), farther from them, never ending in their reach; the blade only when he is cornered (no tile out of their reach) or has stepped; fleeing, he runs as any man. One beat a turn"
   }
  },
  "hunt": {
@@ -325,5 +337,95 @@
    "quote": "Surrounding an opponent from multiple sides makes it easier to score a hit.",
    "why": "every brain weighs a tile by friends beside it against foes beside it, so nobody walks alone into three men"
   }
+ },
+ "camp_pull": {
+  "value": {
+   "families": {
+    "roaming_crews": 1.5,
+    "desert_road_crews": 1.5,
+    "lab_breakout_keepers": 1.5,
+    "kids_and_runners": 1.5,
+    "beasts": 0.6
+   },
+   "default": 0.5,
+   "factions": {
+    "roaming_crews": [
+     "brigands"
+    ],
+    "desert_road_crews": [
+     "nomads",
+     "water"
+    ],
+    "lab_breakout_keepers": [
+     "barbarians",
+     "dogs",
+     "keepers"
+    ],
+    "kids_and_runners": [
+     "goblins",
+     "greenskins",
+     "kids",
+     "water"
+    ],
+    "beasts": [
+     "animals",
+     "bears",
+     "beasts",
+     "bison",
+     "bulls",
+     "camels",
+     "cheetahs",
+     "coyotes",
+     "dogs",
+     "goats",
+     "hogs",
+     "horses",
+     "hyenas",
+     "jaguars",
+     "lions",
+     "llamas",
+     "longhorns",
+     "mammoths",
+     "prides",
+     "sabres",
+     "shrub_oxen",
+     "sloths",
+     "stilts",
+     "teratorns",
+     "wolves"
+    ]
+   },
+   "walk_weight": 2,
+   "hunt_steps": 4
+  },
+  "source": "records/BOHEMIA_RESEARCH_THE_STAFF_FIGHT_TOO_11_21_26.md C5 (VAMILY rule 468); bb_all/0657 Donkey: 'Enemies prefer attacking donkeys over your brothers'",
+  "quote": "As the English were collecting prisoners, a band of French peasants led by local noblemen began plundering Henry's baggage behind the lines (Britannica, Agincourt)",
+  "why": "a staff member's worth as a target, times his attacker's family's pull, ON TOP of what the fight already does (a blow already goes where it hurts most, and the marksman already prefers the soft: an unarmoured cook at level one is the softest thing on the board). Raiders and looters go for the baggage (x1.5: roaming crews, desert road crews, the lab's keepers, the kids). MEASURED (STAFF 11/21, the live fight headless, 8 of his with 3 staff against 6 to 9): at the research's draft (beasts x1.25, everyone else x1) a third to a half of the camp died every fight, most of it to the house's crossbows and to beasts; so soldiers (every other family) fight the company first (x0.5: they still take a staff member when he is the best hit in reach), and beasts x0.6 (at x1 54% of the camp died a beast fight, at x0.6 30%: still the family that kills the most of it). A man's family is the one whose factions (records/target/bb/roster.json families: in_the_fight and bb_factions, copied here and held equal by gates/the_staff_fight_too_gate.js) hold his own; two families, the bigger pull. walk_weight: a tile of theirs that reaches one of his staff is worth (pull - 1) x walk_weight x the hit cap more on their walk (only a pull over 1); hunt_steps: to their hunt his camp stands (pull - 1) x hunt_steps steps nearer than it is (x1.5: two steps), so raiders walk round his line for it. Draft, TUNING",
+  "draft": true
+ },
+ "raid": {
+  "value": {
+   "one_in": 5,
+   "men": 2,
+   "families": [
+    "roaming_crews",
+    "desert_road_crews"
+   ],
+   "turns_away": 1,
+   "not_before_day": 2
+  },
+  "source": "records/BOHEMIA_RESEARCH_THE_STAFF_FIGHT_TOO_11_21_26.md C5 step two (VAMILY rule 468); the Agincourt raid came from behind the line, Arsuf's enemy struck the separated baggage",
+  "why": "in a fight against raiders with staff on the board, one fight in five up to two of their men (never the leader, a boss, a champion, a beast or a machine) start on his back edge (the west side, and the north and south sides behind his line), more than turns_away turns' run from the nearest staff member, so no blow lands on the camp in their first turn; never on the game's first day (not_before_day); no tile that far, no raid. MEASURED (STAFF 11/21): the research's two turns' run (8 tiles) is never there: on the 20 by 15 board his camp stands 3 tiles from the west edge and 5 to 9 from the others. Draft, TUNING",
+  "draft": true
+ },
+ "guards_the_camp": {
+  "value": {
+   "next_to_staff": 1.3,
+   "beside": 15,
+   "threat_tiles": 4
+  },
+  "source": "records/BOHEMIA_RESEARCH_THE_STAFF_FIGHT_TOO_11_21_26.md C9 (VAMILY rule 468)",
+  "why": "AUTO guards the camp: a blow on a man of theirs who stands next to one of his staff is worth next_to_staff more to AUTO's pick; and a turn that ends beside one of his staff while a man of theirs is within threat_tiles of him, with no other fighter beside him yet, is worth beside more (AUTO's own units: a blow's expected harm, about 10 to 20). MEASURED (STAFF 11/21): x1.3/8 and x2/20 lost the same camp in the same 40 fights: the guard fires (165 blows, 119 turns in 8 fights) but the man who hits the cook is already AUTO's best blow; the camp is kept by where it stands and how it moves (archetypes.staff), so the numbers stay at the research's x1.3 with a turn beside worth 15. Draft, TUNING",
+  "draft": true
  }
 }

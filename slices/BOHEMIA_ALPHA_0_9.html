@@ -1588,7 +1588,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/21za - THE JUSTICE CENTER</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/21zb - THE STAFF FIGHT TOO</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12575,8 +12575,19 @@ function nfOpts(d){
   /* __THE_CAMP_ON_THE_BOARD__ (CAMP THREE, rule 406(c), a marked line in RUN's door): a crew that found him at camp: the camp he pitched,
      each piece on its tile, goes to the fight, which stands it on the same board (the map's campFightAt sent the camp's block and die) */
   try{ if(d && d.camp && Array.isArray(d.camp.pieces)) o.camp = JSON.parse(JSON.stringify(d.camp)); }catch(_e){}
+  /* ==== __THE_STAFF_FIGHT_TOO__ (STAFF, VAMILY rule 468, Paolo 11/21: 'maybe they are forced to being in combat, they're roaming around with
+     you... the better you want your camp to be, that means less people you can run around with, because there's a limit'): every camp
+     follower with him goes to the fight as himself (engine/bohemia_camp.js staff(): his rolled numbers, his one bad trait, his knife), in
+     his own list beside the company, never in it, so the first fights' 'company plus one' and the map's party size count his fighters
+     only (records/BOHEMIA_RESEARCH_THE_STAFF_FIGHT_TOO_11_21_26.md C6); the fight stands them behind the back row and takes their places
+     out of the cap first. The pit takes only the men he picked: no staff (C1). window.__STAFF_OFF is a gate's control, never the game's */
+  try{ if(!o.arena && !window.__STAFF_OFF){ var BCs = nfCamp(); if(BCs && BCs.staff){ var sf = BCs.staff(); if(sf && sf.length) o.staff = sf; } } }catch(_e){}
+  window.__NF_STAFF = o.staff ? o.staff.map(function(p){ return p.id; }) : [];
+  /* ==== end __THE_STAFF_FIGHT_TOO__ ==== */
   return o;
 }
+/* __THE_STAFF_FIGHT_TOO__: the camp's book, the city frame's (where the hall hires) else this page's own */
+function nfCamp(){ try{ var cf = document.getElementById('cityFrame'), C = cf && cf.contentWindow && cf.contentWindow.BohemiaCamp; if(C) return C; }catch(_e){} return window.BohemiaCamp || null; }
 function nfOpen(d){
   var pc = document.getElementById('p-combat'); if (!pc) return false;
   fightVeil(true);
@@ -12840,6 +12851,11 @@ function nfOverIn(d, src){
   try{ if(window.BohemiaCondition && d && Array.isArray(d.crew)){ d.crew.forEach(function(r){ if(r && r.down && r.laidUpDays > 0) r.laidUpDays = BohemiaCondition.laidUpDays(r.laidUpDays); });
     BohemiaCondition.afterFight(d.crew, { day: NF.day }); } }catch(_e){}
   try{ nfAfterKeep(d); }catch(_e){}   /* __WHO_YOU_HIRE_FIGHTS__ (RUN TWO): who died, who fell, who climbed, kept for the crew screen */
+  /* __THE_STAFF_FIGHT_TOO__ (C7, C8): a camp follower struck down is dead, one still on the board when his side lost or left is taken with
+     the company's taken; each leaves the camp for good (his help with him), his face on the dead list, his kind back in the town deal */
+  try{ var BCl = nfCamp(); window.__NF_STAFF_LOST = [];
+    if(BCl && BCl.lose && d && Array.isArray(d.staff)) d.staff.forEach(function(r){ if(!r || !r.id || !(r.dead || r.taken)) return;
+      var gone = BCl.lose(r.id, r.dead ? 'dead' : 'taken', { day: NF.day | 0, board: outcome.board || null }); if(gone) window.__NF_STAFF_LOST.push({ id: r.id, name: gone.name, why: gone.why }); }); }catch(_e){}
   /* ARMORY 2 (rule 320): THE LIVE WIRE burns a cell a lash; the fight counts them (cellsBurned) and they leave the purse here, once,
      never more than it holds */
   try{ var cfW = document.getElementById('cityFrame'), wW = cfW && cfW.contentWindow, nW = d ? (d.cellsBurned | 0) : 0;

@@ -82,13 +82,21 @@
     });
   }
   index(ROWS);
-  function row(id) { return BY[id] || null; }
+  function row0(id) { return BY[id] || null; }
+  /* __THE_STAFF_FIGHT_TOO__: the row as the person who does the job now (after a death, a new person: his name and face, none of the
+     dead one's words) */
+  function row(id) { var r = row0(id); if (!r) return null; if (!lostOf(state(), id)) return r; var p = person(id);
+    return Object.assign({}, r, { name: p.name, look: p.look, sex: p.sex || null, was: '', ask: '', joins: '', person: p.n, draft: true }); }
   function rows() { return ROWS.slice(); }
   /* the file, again at load (a modder's rows over the copy; a row with no id is skipped, a bad file changes nothing) */
   var LOADED = { asked: false, read: false }, PER_PLACE = 3;
+  /* __THE_STAFF_FIGHT_TOO__ (STAFF, VAMILY rule 468): the camp's people in a fight, the file's staff block (records/target/bb/retinue.json
+     staff; the copy below is that block, `node tools/bohemia_retinue_bake.js` writes it, gates/the_staff_fight_too_gate.js holds them equal) */
+  var STAFF = /* __STAFF_RULES__ */ {"stats":{"hp":[40,50],"resolve":[25,40],"melee_skill":[47,57],"ranged_skill":[32,42],"melee_defense":[0,5],"ranged_defense":[0,5],"initiative":[95,105],"fatigue":[90,100]},"level":1,"xp":false,"traits":["clumsy","craven","fainthearted","fragile","hesitant"],"weapon":"box_cutter","armour":false,"starts":"Wavering","top":"Steady","struck_down":"dead","shakes_fighters":true,"shakes_staff":true,"in_the_pit":false,"rehire_price":"the same","words":{"take":"Stands in your fights. One of your {cap}.","full":"No room: your company is {n} of {cap}.","camp":"CAMP"}} /* /__STAFF_RULES__ */;
   function readFile(j) {
     var v = j && j.followers && (j.followers.value || j.followers); if (!Array.isArray(v) || !v.length) return false;
     if (j.met_per_place && typeof j.met_per_place.value === 'number') PER_PLACE = Math.max(0, j.met_per_place.value | 0);
+    if (j.staff && j.staff.value && typeof j.staff.value === 'object' && j.staff.value.stats) STAFF = j.staff.value;   /* __THE_STAFF_FIGHT_TOO__: a modder's staff line */
     ROWS = v; index(ROWS); LOADED.read = true; return true; }
   try {
     if (typeof module !== 'undefined' && module.exports && typeof require === 'function') {
@@ -136,7 +144,7 @@
      does it), each with who he is, his face and his words (the file's rows; RUN TWO's shape kept: word, price, says, hireSays, soon) */
   function offer() {
     var h = hired(), met = state().met || {};
-    var all = ROWS.filter(function (r) { return r && r.id; }).map(function (r) {
+    var all = ROWS.filter(function (r) { return r && r.id; }).map(function (r0) { var r = row(r0.id) || r0;   /* __THE_STAFF_FIGHT_TOO__: the person now */
       return { id: r.id, word: WORD[r.id], name: r.name || WORD[r.id], was: r.was || '', look: r.look || null, price: price(r.id, h), says: r.does || '',
         ask: r.ask || '', line: r.ask || '', hireSays: r.joins || (WORD[r.id] + ' is with you.'), hired: !!h[r.id], soon: r.shut ? (r.shut || undefined) : undefined,
         who: r.was || '', met: met[r.id] || null }; });
@@ -168,7 +176,92 @@
     return { fire: true, camped: on, cart: c.now ? c.now.id : null, cartWord: c.now ? c.now.word : null, cartLevel: c.level, cartMax: CART.length,
       followers: r.map(function (id) { return { id: id, word: WORD[id] || id.toUpperCase() }; }), tents: 1 + r.length, stash: stashSlots() };
   }
-  root.BohemiaCamp = { READY: READY, xpDrill: xpDrill, KEY: KEY, BASE_SLOTS: BASE_SLOTS, CART: CART, LIVE: LIVE, WORD: WORD, state: state, stashSlots: stashSlots, cart: cart, buyCart: buyCart,
+  /* ==== __THE_STAFF_FIGHT_TOO__ (STAFF, VAMILY rule 468, Paolo 11/21: 'maybe they are forced to being in combat, they're roaming around
+     with you, and the game becomes more about protecting your staff... if your staff permanently dies you gotta get new people at different
+     settlements... they're not gonna have the best traits... they try to run away way quicker'; the design:
+     records/BOHEMIA_RESEARCH_THE_STAFF_FIGHT_TOO_11_21_26.md section C). Every follower with you stands in every fight, as the person he is:
+       BohemiaCamp.staffRules()      the file's staff block (the Indebted's stat line, the five bad traits, the knife, Wavering at the bell)
+       BohemiaCamp.person(id)        who does this job now: the file's own person, or, after one died, a NEW person of the valley (a face
+                                     nobody of yours wears and nobody dead wore, a name rolled for him, the same job, numbers and price)
+       BohemiaCamp.staff()           the followers with you as the fight's people: id, name, look, his rolled numbers and his one bad trait,
+                                     rolled once when he joined (from his id and which person he is) and kept, the same person every fight
+       BohemiaCamp.lose(id, why, at) he died (or was taken): out of the retinue, his help gone with him (has/mult/plus read the retinue), his
+                                     face on the dead list for good; the kind goes back in the town deal as a new person
+       BohemiaCamp.dead()            the dead and the taken, newest last
+       BohemiaCamp.deadLooks()       { look: id } every face that died, dealt to nobody again
+     A new game clears it with the camp (one key). Words are drafts (rule 454(a)). */
+  function staffRules() { return STAFF; }
+  function lostOf(s, id) { return ((s.lost || {})[id]) | 0; }
+  function deadLooks() { var o = {}; (state().dead || []).forEach(function (d) { if (d && d.look) o[d.look] = d.id; }); return o; }
+  /* the faces in use: his company (the crew screen's hand-over and the men hired since), the man he made, every follower's own face (so
+     a new cook never wears the scout's, hired or not), the camp's people now, and the dead */
+  function facesTaken(s) {
+    var o = {}; ROWS.forEach(function (r) { if (r && r.look) o[r.look] = 1; });
+    try { ['bohemia.company.v1', 'bohemia.hired.v1'].forEach(function (k) { (JSON.parse(root.localStorage.getItem(k) || '[]') || []).forEach(function (m) { if (m && m.look) o[m.look] = 1; }); }); } catch (e) {}
+    try { var mm = JSON.parse(root.localStorage.getItem('bohemia.main.v1') || 'null'); if (mm && mm.look) o[mm.look] = 1; } catch (e) {}
+    var P = (s.persons || {}); for (var k in P) if (P[k] && P[k].look) o[P[k].look] = 1;
+    (s.dead || []).forEach(function (d) { if (d && d.look) o[d.look] = 1; });
+    return o;
+  }
+  /* a new person for a kind whose person died: a valley person whose body is on the fight's board and whose face is drawn (the people
+     mix's fight people, the same pool the hall's post hires from, the place's own first), the first by this kind's own deal nobody wears */
+  function newPerson(s, id, n) {
+    var M = root.BOHEMIA_PEOPLE_MIX || (root.parent && root.parent !== root && root.parent.BOHEMIA_PEOPLE_MIX), taken = facesTaken(s), r = row0(id) || {};
+    var ppl = M && M.people ? M.people.filter(function (p) { return p && p.fight && !p.company && !taken[p.look]; }) : [];
+    var key = function (p) { return seedOf('staff:' + id + ':' + n + ':' + p.look); };
+    ppl.sort(function (a, b) { return ((a.gang === 'town' ? 0 : 1) - (b.gang === 'town' ? 0 : 1)) || (key(a) - key(b)); });
+    var p = ppl[0] || null, look = p ? p.look : (r.look || null), sex = p && p.sex === 'f' ? 'f' : 'm';
+    var N = root.BohemiaNames || (root.parent && root.parent !== root && root.parent.BohemiaNames), name = null;
+    try { if (N && N.roll) { var q = N.roll('staff:' + id + ':' + n, { sex: sex, look: look }); name = q && q.full; } } catch (e) {}
+    if (!name) { var F = ['RAY', 'LINDA', 'TERRY', 'DONNA', 'LUIS', 'PAM', 'CARL', 'ROSA', 'DALE', 'JUNE'], L = ['MOORE', 'ORTIZ', 'HAYES', 'KIM', 'BAKER', 'SOTO', 'REED', 'LANE'];
+      var h = seedOf('staffname:' + id + ':' + n); name = F[h % F.length] + ' ' + L[(h >>> 8) % L.length]; }
+    return { n: n, name: name, look: look, sex: sex, draft: true };
+  }
+  /* who does this job now (the row's own person until one died) */
+  function person(id) {
+    var r = row0(id); if (!r) return null; var s = state(), n = lostOf(s, id);
+    if (!n) return { id: id, n: 0, name: r.name, look: r.look, was: r.was, ask: r.ask, joins: r.joins, own: true };
+    s.persons = s.persons || {};
+    var P = s.persons[id];
+    if (!P || P.n !== n) { P = s.persons[id] = newPerson(s, id, n); save(s); }
+    return { id: id, n: n, name: P.name, look: P.look, sex: P.sex, was: '', ask: '', joins: '', own: false, draft: true };
+  }
+  /* his numbers, rolled once (his id and which person he is) and kept: the Indebted's ranges, one of the five bad traits on top */
+  function staffRoll(s, id) {
+    var R0 = STAFF || {}, ST = R0.stats || {}, n = lostOf(s, id); s.staffRoll = s.staffRoll || {};
+    var k = s.staffRoll[id]; if (k && k.n === n && k.stats) return k;
+    var x = seedOf('staffroll:' + id + ':' + n), rnd = function () { x = (Math.imul(x ^ (x >>> 15), 2246822507) + 0x6d2b79f5) >>> 0; return (x >>> 8) / 16777216; };
+    var stats = {}; Object.keys(ST).forEach(function (q) { var a = ST[q]; stats[q] = a[0] + Math.floor(rnd() * (a[a.length - 1] - a[0] + 1)); });
+    var TR = R0.traits || [], t = TR.length ? TR[Math.floor(rnd() * TR.length)] : null, eff = (R0.trait_effects || TRAIT_EFFECT)[t] || null;
+    if (eff) for (var q2 in eff) if (typeof stats[q2] === 'number') stats[q2] += eff[q2];
+    k = s.staffRoll[id] = { n: n, stats: stats, trait: t }; save(s); return k;
+  }
+  /* the five bad traits' flat numbers (records/target/bb/traits.json effects, each at_the_post), keyed by the fight's stat names */
+  var TRAIT_EFFECT = { clumsy: { melee_skill: -5 }, craven: { resolve: -10 }, fainthearted: { resolve: -5 }, fragile: { hp: -10 }, hesitant: { initiative: -10 } };
+  function staff() {
+    var s = state(), R0 = STAFF || {};
+    return s.retinue.filter(function (id) { return !!row0(id); }).map(function (id) {
+      var p = person(id), k = staffRoll(state(), id);
+      return { id: id, staff: true, name: p.name, look: p.look, sex: p.sex || null, role: WORD[id] || String(id).toUpperCase(), person: p.n,
+        stats: Object.assign({}, k.stats), trait: k.trait, traits: k.trait ? [k.trait] : [], weapon: R0.weapon || 'box_cutter', starts: R0.starts || 'Wavering',
+        top: R0.top || 'Steady', level: R0.level || 1, shakes: !!R0.shakes_fighters };
+    });
+  }
+  function lose(id, why, at) {
+    var s = state(); if (s.retinue.indexOf(id) < 0) return null;
+    var p = person(id); s = state();
+    s.retinue = s.retinue.filter(function (x) { return x !== id; });
+    s.dead = s.dead || []; s.lost = s.lost || {};
+    var d = { id: id, name: p ? p.name : id, look: p ? p.look : null, why: String(why || 'dead'), at: at || null, n: p ? p.n : 0 };
+    s.dead.push(d); s.lost[id] = (s.lost[id] | 0) + 1;
+    if (s.staffRoll) delete s.staffRoll[id];
+    if (s.met) delete s.met[id];
+    save(s); return d;
+  }
+  function dead() { return (state().dead || []).slice(); }
+  /* ==== /__THE_STAFF_FIGHT_TOO__ ==== */
+  root.BohemiaCamp = { READY: READY, xpDrill: xpDrill,
+    /* __THE_STAFF_FIGHT_TOO__ */ staffRules: staffRules, person: person, staff: staff, lose: lose, dead: dead, deadLooks: deadLooks, KEY: KEY, BASE_SLOTS: BASE_SLOTS, CART: CART, LIVE: LIVE, WORD: WORD, state: state, stashSlots: stashSlots, cart: cart, buyCart: buyCart,
     retinue: retinue, has: has, hired: hired, offer: offer, hire: hire, letGo: letGo, mult: mult, plus: plus, look: look, MORE: MORE, NUMS: NUMS, moreOf: moreOf, scavenge: scavenge,
     /* __THE_RETINUE_DATA__ (RETINUE 11/7) */ row: row, rows: rows, price: price, inTown: inTown, meet: meet, looks: looks, LOADED: LOADED,
     get PER_PLACE() { return PER_PLACE; } };

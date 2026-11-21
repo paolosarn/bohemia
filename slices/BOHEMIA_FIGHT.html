@@ -2318,7 +2318,13 @@ const FIGHT = (function () {
        so the map keeps them as they were); the main man always stands. Their side keeps no cap (rule 378(c)). The origin's number
        comes in with opts.cap (the alpha's door: BOH_START.picks().cap, origins.json field_cap); with none handed, ours.field_size */
     const fieldCap = opts.cap > 0 ? opts.cap | 0 : R('ours.field_size');
-    const capN = Math.max(1, Math.min(fieldCap, roster.length));
+    /* __THE_STAFF_FIGHT_TOO__ (STAFF, VAMILY rule 468, Paolo 11/21: 'the better you want your camp to be, that means less people you can
+       run around with, because there's a limit'; records/BOHEMIA_RESEARCH_THE_STAFF_FIGHT_TOO_11_21_26.md C1, C6): every camp follower with
+       him (the door's opts.staff, engine/bohemia_camp.js staff()) stands in the fight and takes one of the cap's places FIRST; his fighters
+       fill the rest in the line's order, YOU always; fighters past it wait in the reserve as before; staff are never in the reserve. The
+       pit takes only the men he picked (C1): no staff there */
+    const staffIn = !S.arena && Array.isArray(opts.staff) ? opts.staff.filter(function (p) { return p && p.stats && typeof p.stats.hp === 'number'; }).slice(0, Math.max(0, fieldCap - 1)) : [];
+    const capN = Math.max(1, Math.min(fieldCap - staffIn.length, roster.length));
     let pickI = roster.map(function (c, i) { return i; }).slice(0, capN);
     const mainI = roster.findIndex(function (c) { return c && c.main; });
     if (mainI >= capN) pickI = [mainI].concat(pickI.slice(0, capN - 1)).sort(function (a, b) { return a - b; });   /* YOU always stands */
@@ -2327,10 +2333,12 @@ const FIGHT = (function () {
     S.fieldCap = fieldCap;
     dealKit(crew);
     const crewUnits = crew.map(crewUnit);
+    const staffUnits = staffIn.map(staffUnit);   /* __THE_STAFF_FIGHT_TOO__ */
+    S.staffIn = staffUnits.map(function (u) { return u.id; });
     /* __EACH_ORIGIN_ITS_OWN__: the standard (the promise keepers' old one, Battle Brothers' Battle Standard) is carried by his main man */
     if (S.way && S.way.standard) { const sb = crewUnits.filter(function (u) { return u.main; })[0] || crewUnits[0]; if (sb) sb.standard = S.way.standard; }
     const band = isGraveyard(opts) && !opts.band && !Array.isArray(opts.party) && !(opts.party && Array.isArray(opts.party.band) && opts.party.band.length) ? graveyardBand(opts, crewUnits.length) : bandOf(roadOpts(opts), crewUnits.length);   /* WORLD (rule 208(e)): a rolled band holds in the graveyard too */
-    LOOKS_TAKEN = new Set(crewUnits.map(function (u) { return u.look; }));   /* NO TWO PEOPLE ALIKE: his men's faces are taken too */
+    LOOKS_TAKEN = new Set(crewUnits.concat(staffUnits).map(function (u) { return u.look; }));   /* NO TWO PEOPLE ALIKE: his men's faces are taken too (__THE_STAFF_FIGHT_TOO__: and his camp's) */
     const bandUnits = band.map(enemyUnit);
     /* __THE_BOSS_IS_A_MAN__ (BOSSES 11/2, rule 302; Paolo: 'unique locations and bosses with themes'): the map's hand-over names the
        boss (slices/bohemia_bosses.js, records/target/bb/boss_act_one.json): the first of his kind in the band IS him, his name on him,
@@ -2362,7 +2370,7 @@ const FIGHT = (function () {
        taller, the same deal and its seed, until both fit: a board of blocks, never a black margin. A named board is what it is. */
     if (!opts.board && !isGraveyard(opts) && !S.handed) {   /* a board handed whole is what it was */
       const roomFor = function (x0, x1) { let n = 0; for (let x = x0; x <= x1; x++) for (let y = 0; y < S.h; y++) if (passable(x, y) && !(level(x, y) > 0)) n++; return n; };
-      for (let g = 0; g < 40 && (roomFor(0, S.cols[0]) < crewUnits.length || roomFor(S.cols[1], S.w - 1) < bandUnits.length); g++) {
+      for (let g = 0; g < 40 && (roomFor(0, S.cols[0]) < crewUnits.length + staffUnits.length || roomFor(S.cols[1], S.w - 1) < bandUnits.length); g++) {
         S.h += G.block_tiles; S.grown = (S.grown || 0) + 1; dealBoard(); dealt = S.boardDef;
       }
     }
@@ -2406,7 +2414,7 @@ const FIGHT = (function () {
         const roomAt = function (f) { S.cols = [f, Math.min(S.w - 2, f + d0)]; const M = meetMap();
           const open = function (x) { let k = 0; for (let y = 0; y < S.h; y++) if (M[y * S.w + x] && !(level(x, y) > 0)) k++; return k; };
           let his = 0, theirs = 0; for (let x = f; x >= Math.max(0, f - 2); x--) his += open(x); for (let x = f + gap; x < S.w; x++) theirs += open(x);
-          return his >= crewUnits.length && theirs >= bandUnits.length; };
+          return his >= crewUnits.length + staffUnits.length && theirs >= bandUnits.length; };   /* __THE_STAFF_FIGHT_TOO__: his camp stands behind his line */
         let front = Math.max(lo, Math.min(hi, want)); while (front > lo && !roomAt(front)) front--;
         S.cols = [front, Math.min(S.w - 2, front + d0)];
         S.rowMid = Math.max(1, Math.min(S.h - 2, (CT.ty | 0) + 1));
@@ -2416,6 +2424,7 @@ const FIGHT = (function () {
     if (st === 'wide') S.cols = [S.cols[0], Math.min(S.w - 2, S.cols[1] + R('ours.place_boards').wide_extra)];
     sidesMeet(bandUnits.length);
     deployCrew(crewUnits, S.cols[0], -1, kept);
+    deployStaff(staffUnits, S.cols[0], -1, opts.camp);   /* __THE_STAFF_FIGHT_TOO__: behind his back row (at camp, by the fire) */
     S.formation = formationNow();
     if ((st === 'camp' || st === 'pincer') && S.boardDef.camp) { placeOwnStart(bandUnits, st, S.boardDef.camp); placeBack(bandUnits); }   /* __ROOM_TO_RUN__: the camp and the pincer keep the head start too (measured: 145 of 753 dire wolves in 200 beast fights stood on the gap's line, columns 11 and 12) */
     else { place(bandUnits, S.cols[1], 1); placeBack(bandUnits); }   /* rule 256(a): the fast ones start back by their extra run */
@@ -2425,6 +2434,7 @@ const FIGHT = (function () {
        board's gallery.least; never more than gallery.share of it, never a beast or a machine), start up on the high bay, on the
        cover nearest the rail over their own side; the rest hold the low bay as any line. His line starts where it always does: the ramps are his way up */
     if (st === 'gallery') galleryStart(bandUnits);
+    raidFromBehind(bandUnits, staffUnits, opts);   /* __THE_STAFF_FIGHT_TOO__ (C5 step two): the raid on the baggage */
     S.meet = null;   /* rule 435: the meet map is the start's only */
     /* Battle Brothers' formation screen, hosted by the fight until RUN TWO's roster exists: before turn one he may move
        any man inside his two columns; FIGHT starts it; AUTO (or a loop that asks for none) skips it and holds the kept line */
@@ -2625,6 +2635,143 @@ const FIGHT = (function () {
     more.forEach(function (u) { u.x = -1; u.y = -1; u.slot = 'more'; later.push({ u: u, x: col, y: midR }); });
     later.forEach(function (l) { const at = nearest(l.x, l.y) || anyOpen(l.x, l.y); if (at) { l.u.x = at.x; l.u.y = at.y; if (l.u.slot === 'kept') S.formationKept = true; } });
   }
+  /* ==== __THE_STAFF_FIGHT_TOO__ (STAFF, VAMILY rule 468; Paolo 11/21: 'maybe they are forced to being in combat, they're roaming around
+     with you, and the game becomes more about protecting your staff... they're not gonna have the best traits... they try to run away way
+     quicker'; records/BOHEMIA_RESEARCH_THE_STAFF_FIGHT_TOO_11_21_26.md section C). The camp's people on the board: Battle Brothers'
+     Indebted at level one (records/target/bb/retinue.json staff: 40 to 50 health, a knife, no armour, one bad trait, Wavering at the bell,
+     dead when struck down, his fall shakes no fighter), standing behind the back row (C2), moving by themselves (ai.json archetypes.staff),
+     the raiders' and the beasts' favourite target (ai.json camp_pull), guarded by AUTO (ai.json guards_the_camp). ==== */
+  function staffUnit(p, i) {
+    const st = p.stats, w0 = weaponRow(p.weapon || 'box_cutter') || weaponRow('box_cutter'), w = pistolShot(w0) || isRanged(w0) ? weaponRow('box_cutter') : w0, xp = R('parsed.brother_xp');   /* never a gun: the camp's blade is a work blade */
+    const job = ((DB.wlines.rows[w.class] || {}).job) || w.class;
+    const lk = p.look && DB.rig && DB.rig.looks && DB.rig.looks[p.look] ? p.look : (p.look || null);
+    return makeUnit({ id: 's' + i, side: 'you', staff: true, staffId: p.id, role: p.role || null, person: p.person | 0, name: String(p.name || p.role || 'CAMP'), look: lk,
+      sex: (p.sex === 'f' || p.sex === 'm') ? p.sex : null, main: false, kind: 'staff', job: job, level: 1, perks: [], traits: Array.isArray(p.traits) ? p.traits.slice() : [], injuries: [],
+      hp: st.hp, fatigue: st.fatigue, resolve: st.resolve, initiative: st.initiative, mskill: st.melee_skill, rskill: st.ranged_skill, mdef: st.melee_defense, rdef: st.ranged_defense,
+      apTurn: R('ap.per_turn'), weapon: w, shield: null, bodyRow: null, headRow: null, bag: [], bagKit: true, bagState: [], armH: 0, armB: 0, xp: xp.base, arche: 'staff',
+      morale: STATES().indexOf(p.starts) >= 0 ? p.starts : 'Wavering', staffTop: STATES().indexOf(p.top) >= 0 ? p.top : 'Steady', shakes: !!p.shakes });
+  }
+  /* behind his back row (C2): the third column (his back column's own 'more' placement, filled from the middle out), then the column behind
+     it; never his front column, never beside a man of theirs at the bell; a board with no tile there stands him on the open tile nearest it */
+  function deployStaff(units, col, back, camp) {
+    S.campFire = null;
+    if (!units.length) return;
+    const mid = S.rowMid != null ? S.rowMid : (S.h - 1) / (1 + 1);
+    const free = function (x, y) { return inBoard(x, y) && passable(x, y) && !unitAt(x, y) && !(level(x, y) > 0) && meets(x, y); };
+    const left = units.slice();
+    /* AT CAMP (C2, a crew found him camped: CAMP THREE's opts.camp): by the fire, on the tiles nearest it behind his front column, within
+       three of it; the third column for whoever the fire has no room for */
+    const fire = camp && Array.isArray(camp.pieces) ? camp.pieces.filter(function (p) { return p && p.sprite === 'fire' && isFinite(p.u) && isFinite(p.v); })[0] : null;
+    if (fire) { const fx = Math.floor(fire.u), fy = Math.floor(fire.v), near = [];
+      for (let y = 0; y < S.h; y++) for (let x = 0; x <= col + back && x < S.w; x++) { const d = Math.max(Math.abs(x - fx), Math.abs(y - fy)); if (d >= 1 && d <= 3 && free(x, y)) near.push({ x: x, y: y, d: d }); }
+      near.sort(function (a, b) { return a.d - b.d || a.x - b.x; });
+      while (left.length && near.length) { const u = left.shift(), t = near.shift(); u.x = t.x; u.y = t.y; u.slot = 'camp:fire'; }
+      S.campFire = { x: fx, y: fy }; }
+    for (let x = col + back + back; left.length && x >= 0 && x < S.w; x += back) {
+      const ys = []; for (let y = 0; y < S.h; y++) if (free(x, y)) ys.push(y);
+      ys.sort(function (a, b) { return Math.abs(a - mid) - Math.abs(b - mid); });
+      while (left.length && ys.length) { const u = left.shift(); u.x = x; u.y = ys.shift(); u.slot = 'camp'; }
+    }
+    left.forEach(function (u) { u.x = -1; u.y = -1; const at = anyOpen(col + back + back, Math.round(mid)); if (at) { u.x = at.x; u.y = at.y; u.slot = 'camp'; } });
+  }
+  /* where he may stand one in the lineup (C2): his back column and behind it, never the front column */
+  function staffZone(x, y) { const col = (S.cols || R('ours.start_cols'))[0]; return inBoard(x, y) && x <= col - 1; }
+  /* a man of theirs' own faction (his row's), for the family's pull */
+  const FACTION_OF = {};
+  function factionOf(u) {
+    if (!u || !u.kind) return null; if (FACTION_OF[u.kind] !== undefined) return FACTION_OF[u.kind];
+    const r = DB.enemies && DB.enemies.rows ? DB.enemies.rows.filter(function (e) { return e.id === u.kind; })[0] : null;
+    return (FACTION_OF[u.kind] = r && r.faction ? String(r.faction) : null);
+  }
+  /* the pull (C5): a blow of theirs on one of his staff is worth his family's pull more (raiders x1.5, beasts x1.25, the rest x1) */
+  function campPull(u, t) {
+    if (!t || !t.staff || !u || u.side === t.side) return 1;
+    const P = DB.ai.camp_pull && DB.ai.camp_pull.value; if (!P) return 1;
+    DB.read['ai.camp_pull'] = DB.ai.camp_pull.source;
+    const f = factionOf(u); let m = P.default || 1;
+    Object.keys(P.factions || {}).forEach(function (fam) { if (f && P.factions[fam].indexOf(f) >= 0) m = Math.max(m, P.families[fam] || 1); });
+    if (u.beast && P.families.beasts) m = Math.max(m, P.families.beasts);
+    return FIGHT_OPTS_PULL !== null ? FIGHT_OPTS_PULL : m;
+  }
+  let FIGHT_OPTS_PULL = null;   /* a gate's control: the pull set to one number (null = the file's) */
+  /* AUTO GUARDS THE CAMP (C9): a blow on a man of theirs who stands next to one of his staff is worth ai.json guards_the_camp more */
+  function guardsCamp(u, t) {
+    if (!u || u.side !== 'you' || u.staff || !t || t.side === 'you' || !(S.staffIn && S.staffIn.length)) return 1;   /* no camp on the board, nothing to weigh */
+    const G = DB.ai.guards_the_camp && DB.ai.guards_the_camp.value; if (!G) return 1;
+    return S.units.some(function (v) { return v.staff && onField(v) && dist(v, t) === 1; }) ? G.next_to_staff : 1;
+  }
+  /* AUTO KEEPS A MAN BESIDE HIS CAMP (C9, ai.json guards_the_camp): a turn of his that ends beside one of his staff with a man of theirs
+     within threat_tiles of him, and no other fighter of his beside him yet, is worth guards_the_camp.beside more (one man, the nearest) */
+  function campBeside(u, E) {
+    if (!u || u.side !== 'you' || u.staff || !E || !(S.staffIn && S.staffIn.length)) return 0;
+    const G = DB.ai.guards_the_camp && DB.ai.guards_the_camp.value; if (!G || !G.beside) return 0;
+    const near = S.units.filter(function (v) { return v.staff && onField(v) && v.morale !== 'Fleeing' && Math.max(Math.abs(v.x - E.x), Math.abs(v.y - E.y)) === 1
+      && foes(v).some(function (f) { return f.morale !== 'Fleeing' && dist(f, v) <= G.threat_tiles; })
+      && !friends(v).some(function (f) { return f !== u && !f.staff && dist(f, v) === 1; }); });
+    return near.length ? G.beside : 0;
+  }
+  /* HIS TURN (C9, ai.json archetypes.staff): never by his hand. With a man of theirs next to him and not Breaking, the knife; else one step
+     to the open tile nearest his nearest fighter, farther from theirs, where fewer of theirs can reach him; then he ends his turn */
+  function staffStep(u) {
+    const adj = foes(u).filter(function (f) { return dist(f, u) === 1 && canStrike(u, f) && sideSees(u.side, f); });
+    /* CORNERED (ai.json staff knife_when_cornered): a camp follower is no soldier; he gets out of their reach when a tile his walk reaches
+       is out of every man of theirs' reach, and only with nowhere to go (or once he has stepped) does he use the knife */
+    const out = adj.length && u.staffMovedAt !== u.turnLog ? (function () { const f = reach(u); return Object.keys(f.best).some(function (k) { k = Number(k);
+      const x = k % S.w, y = Math.floor(k / S.w); return (x !== u.x || y !== u.y) && !zocOn(u, x, y).length; }); })() : false;
+    if (adj.length && u.morale !== 'Breaking' && !out) {
+      const t = adj.slice().sort(function (a, b) { return (a.hp + a.armB) - (b.hp + b.armB); })[0];
+      if (strike(u, t)) return true;
+    }
+    if (u.staffMovedAt !== u.turnLog) {
+      u.staffMovedAt = u.turnLog;
+      /* he holds the camp while nobody of theirs can reach him by their next turn; threatened, he goes where the fewest of theirs can
+         reach him, beside one of his fighters if he can (Battle Brothers' +3 a man beside him on a nerve check), farther from them */
+      const mine = friends(u).filter(function (f) { return !f.staff && f.morale !== 'Fleeing'; }), theirs = foes(u);
+      if (theirs.length && dangerAt(u, u.x, u.y) > 0) {
+        const score = function (x, y) {
+          const near = mine.reduce(function (m, f) { return Math.min(m, Math.max(Math.abs(f.x - x), Math.abs(f.y - y))); }, Infinity);
+          const foe = theirs.reduce(function (m, f) { return Math.min(m, Math.max(Math.abs(f.x - x), Math.abs(f.y - y))); }, Infinity);
+          return dangerAt(u, x, y) * 10 + (near <= 1 ? 0 : Math.min(near, 6)) - Math.min(foe, 6);
+        };
+        const f = reach(u); let best = null, bs = score(u.x, u.y) - 0.5;   /* he stays unless a step is clearly better */
+        Object.keys(f.best).forEach(function (k) { k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
+          if (zocOn(u, x, y).length) return;   /* never ends his step in their reach */
+          const sc = score(x, y); if (sc < bs) { bs = sc; best = { x: x, y: y }; } });
+        if (best && (best.x !== u.x || best.y !== u.y) && moveTo(u, best.x, best.y)) return true;
+      }
+    }
+    u.btWhy = 'camp'; endTurn(u); return false;
+  }
+  /* THE RAID FROM BEHIND (C5 step two, ai.json raid; Agincourt's peasants on the baggage): against raiders, with his camp on the board,
+     one fight in raid.one_in, up to raid.men of theirs (never the leader, a boss, a champion, a beast or a machine) start at his back
+     edge, at least raid.turns_away turns' run from the nearest of his staff; never on the game's first days; no tile that far, no raid */
+  function raidFromBehind(band, staffU, opts) {
+    S.raid = null;
+    const RD = DB.ai.raid && DB.ai.raid.value, P = DB.ai.camp_pull && DB.ai.camp_pull.value;
+    if (!RD || !P || !staffU.length || S.arena || S.handed || opts.raid === false) return;
+    if ((S.days || 1) < (RD.not_before_day || 1)) return;
+    const fams = RD.families || [], fit = band.filter(function (u) { const f = factionOf(u);
+      return onField(u) && !u.boss && !u.champion && !u.beast && !u.machine && !isRanged(u.weapon) && !/leader/.test(u.kind || '') && fams.some(function (fm) { return (P.factions[fm] || []).indexOf(f) >= 0; }); });
+    if (!fit.length) return;
+    if (opts.raid !== true && rng() * RD.one_in >= 1) return;
+    const run = Math.floor(R('ap.per_turn') / R('ap.move_cost.flat')), need = Math.ceil(run * RD.turns_away) + 1;   /* more than his run: no blow on the camp in their first turn */
+    const far = function (x, y) { return staffU.every(function (v) { return Math.max(Math.abs(v.x - x), Math.abs(v.y - y)) >= need; }); };
+    const back = Math.max(0, S.cols[0] - 2), edge = function (x, y) { return x === 0 || ((y === 0 || y === S.h - 1) && x <= back); };   /* his back edge: the west side, and the north and south sides behind his line */
+    const tiles = []; for (let x = 0; x <= back; x++) for (let y = 0; y < S.h; y++) if (edge(x, y) && inBoard(x, y) && passable(x, y) && !unitAt(x, y) && !(level(x, y) > 0) && meets(x, y) && far(x, y)) tiles.push({ x: x, y: y });
+    if (!tiles.length) return;
+    tiles.sort(function (a, b) { return a.x - b.x || Math.abs(b.y - S.h / 2) - Math.abs(a.y - S.h / 2); });
+    const men = fit.slice(-Math.min(RD.men, fit.length)), out = [];
+    men.forEach(function (u) { const t = tiles.shift(); if (!t) return; u.x = t.x; u.y = t.y; u.raider = true; out.push({ id: u.id, x: t.x, y: t.y }); });
+    if (out.length) { S.raid = { men: out, need: need }; DB.read['ai.raid'] = DB.ai.raid.source; }
+  }
+  /* what the camp's people did, for the door (C8): the dead, the taken (still on the board when his side lost or left), the cowering */
+  function staffOut(result) {
+    return S.units.filter(function (v) { return v.staff; }).map(function (v) {
+      const taken = !v.dead && !v.escaped && result !== 'won';
+      return { id: v.staffId, name: v.name, look: v.look || null, dead: !!v.dead, taken: taken, cowering: !!v.atEdge, fled: !!v.fled, escaped: !!v.escaped, hp: Math.max(0, Math.round(v.hp || 0)), hpMax: v.hpMax, kills: v.kills | 0 };
+    });
+  }
+  /* ==== end __THE_STAFF_FIGHT_TOO__ ==== */
   /* rule 378: the last resort for a man with no tile on his side, the open tile nearest x,y anywhere on the board */
   function anyOpen(x, y) {
     let best = null, bd = Infinity;
@@ -2642,7 +2789,7 @@ const FIGHT = (function () {
   }
   function formationNow() {
     const zone = zoneCols(), midR = Math.round(S.rowMid != null ? S.rowMid : (S.h - 1) / (1 + 1));   /* __THE_CREW_STARTS_ON_ITS_CELL__: counted from the row the line was stood on, so the memory is the same line on any cell */
-    return { placed: S.units.filter(function (u) { return u.side === 'you' && onField(u) && zone.indexOf(u.x) >= 0; })
+    return { placed: S.units.filter(function (u) { return u.side === 'you' && !u.staff && onField(u) && zone.indexOf(u.x) >= 0; })
       .map(function (u) { return { name: u.name, line: zone.indexOf(u.x), off: u.y - midR }; }) };
   }
   function saveFormation() {
@@ -2654,9 +2801,10 @@ const FIGHT = (function () {
   function forgetFormation() { try { localStorage.removeItem(FORMATION_KEY); } catch (_e) {} }
   /* before turn one: one of your men to a tile of your two columns; onto a friend, they trade places; the line is kept */
   function deployMove(u, x, y) {
-    if (!S.deploy || !u || u.side !== 'you' || !onField(u) || !inZone(x, y) || !passable(x, y)) return false;
+    if (!S.deploy || !u || u.side !== 'you' || !onField(u) || !(u.staff ? staffZone(x, y) : inZone(x, y)) || !passable(x, y)) return false;
     const o = unitAt(x, y);
     if (o && o.side !== 'you') return false;
+    if (o && o !== u && (o.staff ? !staffZone(u.x, u.y) : !inZone(u.x, u.y))) return false;   /* __THE_STAFF_FIGHT_TOO__ (C2): a swap never stands a camp follower in his front column */
     if (o === u) return true;
     if (o) { o.x = u.x; o.y = u.y; }
     u.x = x; u.y = y; emit({ t: 'deploy', id: u.id, x: x, y: y, swap: o ? o.id : null });
@@ -2702,7 +2850,7 @@ const FIGHT = (function () {
       if (u.waitedLast && !PK(u, 'relentless')) ini *= (1 + R('initiative_and_turn_order.wait_penalty_next_round'));
       if (u.adrenaline) { ini += R('initiative_and_turn_order.adrenaline'); u.adrenaline = false; }
       if (u.morale === 'Fleeing') ini += R('initiative_and_turn_order.fleeing_turn_order');
-      if (S.round === 1 && S.way && S.way.first_round && u.side === 'you') ini += 100000;   /* __EACH_ORIGIN_ITS_OWN__: the deserters act first in the first round (bb_all/0571_Deserters) */
+      if (S.round === 1 && S.way && S.way.first_round && u.side === 'you' && !u.staff) ini += 100000;   /* __EACH_ORIGIN_ITS_OWN__: the deserters act first in the first round (bb_all/0571_Deserters) */
       u.turnIni = ini;
     });
     S.order = live.sort(function (a, b) { return b.turnIni - a.turnIni; }).map(function (u) { return u.id; });
@@ -2812,7 +2960,7 @@ const FIGHT = (function () {
   function tooHeavy(u) { return !!(u && u.weapon && skillFat(u, strikeSkill(u.weapon)) > fatMax(u)); }
   /* the last man of a side put down as a turn closes (the burning ground, rule 305; the whip's bleeding, ARMORY 2) ends the fight
      the way a blow does (COMBAT 6, measured: the cell vest gate's fights 2 and 5 ran 6,600 rounds with all of his men down) */
-  function closedOut(u) { if (!S.over && (!alive('you').length || !alive('them').length)) afterAction(u); return S.over; }
+  function closedOut(u) { if (!S.over && (!alive('you').some(function (v) { return !v.staff; }) || !alive('them').length)) afterAction(u); return S.over; }
   function advance(u) { turnOver(u); u.begun = false; S.idx++; if (closedOut(u)) return; if (!S.over) settle(); }
   function endTurn(u) {
     if (S.over || current() !== u) return false;
@@ -3353,6 +3501,7 @@ const FIGHT = (function () {
   }
   /* WHO DIES (his fifth votes): a flat 20 in 100, a little more per mark carried, capped */
   function deathChance(t) {
+    if (t && t.staff) return 1;   /* __THE_STAFF_FIGHT_TOO__ (C7) */
     const pm = R('ours.struck_down_death_per_mark'), n = t.injuries.filter(function (j) { return j.kind === 'permanent'; }).length;
     return (R('ours.struck_down_death_chance') + pm.per_mark * Math.min(pm.cap_marks, n)) * (1 - (t.arenaSurvive || 0));   /* __THE_ARENA__: Arena Veteran, bb_all/0134 '+50% chance to survive if struck down' */
   }
@@ -3363,6 +3512,7 @@ const FIGHT = (function () {
        vest's share (vestShare) since he is in the fire */
     const sw = vestLive(t); if (sw) { t.vest.gone = true; t.vestLit = true; }
     if (t.side === 'them') { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); martyrs(t); }
+    else if (t.staff) { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null, staff: true }); }   /* __THE_STAFF_FIGHT_TOO__ (C7): down means dead, every time */
     else if (t.main && !R('ours.main_character_dies')) { t.down = true; emit({ t: 'down', id: t.id }); }
     else if (rng() < deathChance(t) + (t.vestLit ? vestShare(t) : 0)) { t.dead = true; emit({ t: 'dead', id: t.id, by: a ? a.id : null }); }
     else {
@@ -3496,7 +3646,7 @@ const FIGHT = (function () {
   /* a kill's experience: 20% to the killer, 80% shared by the whole party, all less the wiki's flat 15% */
   function experience(t, a) {
     const xs = R('experience.kill_split'), whole = t.xp * (1 + R('experience.global_modifier'));
-    const party = S.units.filter(function (u) { return u.side === 'you'; });
+    const party = S.units.filter(function (u) { return u.side === 'you' && !u.staff; });   /* __THE_STAFF_FIGHT_TOO__ (C3): level one forever, no share */
     party.forEach(function (u) { u.xpGained = (u.xpGained || 0) + whole * xs.shared_among_party / party.length; });
     if (a && a.side === 'you') a.xpGained = (a.xpGained || 0) + whole * xs.killer;
   }
@@ -3516,6 +3666,7 @@ const FIGHT = (function () {
     S.units.filter(onField).forEach(function (u) {
       if (u === t) return;
       const d = dist(u, t);
+      if (u.side === t.side && t.staff && !u.staff && !t.shakes) return;   /* __THE_STAFF_FIGHT_TOO__ (C4, the Indebted's rule, unless the camp's file says his fall shakes the line: retinue.json staff.shakes_fighters): it always shakes the other staff */
       if (u.side === t.side) {
         const p = what === 'dies' ? R('parsed.morale_ally_dies') : R('parsed.morale_ally_flees');
         check(u, 'neg', p.base + p.per_xp * t.xp + p.distance_sign * distTerm(p.distance_table, d));
@@ -3546,8 +3697,9 @@ const FIGHT = (function () {
     const st = STATES(), i = st.indexOf(u.morale), step = R('morale.check.step');
     /* __EACH_ORIGIN_ITS_OWN__: the lab rats never climb to confident (bb_all/0080_Anatomists); the faithful's nerve stops short of
        fleeing; a debtor's stops at the whip's floor while a collector stands within its tiles (bb_all/0449_Crack the Whip) */
-    const W8 = u.side === 'you' && S.way ? S.way : null;
-    const topI = W8 && W8.never_confident ? st.indexOf('Confident') + 1 : st.indexOf('Confident');
+    const W8 = u.side === 'you' && S.way && !u.staff ? S.way : null;   /* __THE_STAFF_FIGHT_TOO__: the origin's way is his fighters' (staff are no debtors, no faithful) */
+    let topI = W8 && W8.never_confident ? st.indexOf('Confident') + 1 : st.indexOf('Confident');
+    if (u.staff) topI = Math.max(topI, st.indexOf(u.staffTop || 'Steady'));   /* __THE_STAFF_FIGHT_TOO__ (C4): back to Steady, never Confident */
     let botI = st.indexOf('Fleeing');
     if (W8 && W8.never_flees) botI = st.indexOf('Fleeing') - 1;
     if (W8 && W8.whip && (W8.whip.men || []).indexOf(u.kind) >= 0 && st.indexOf(W8.whip.floor) >= 0
@@ -4434,7 +4586,7 @@ const FIGHT = (function () {
      END THE FIGHT wins it (endFight, Battle Brothers': the runners get away, the fallen are his). A runner runs for the edge on
      his own turns (flee), can be caught and killed, and can rally (Battle Brothers' stop-fleeing check, beginTurn). */
   function afterAction(u) {
-    const you = alive('you'), them = alive('them');
+    const you = alive('you').filter(function (v) { return !v.staff; }), them = alive('them');   /* __THE_STAFF_FIGHT_TOO__ (C8): staff alone never hold the board */
     if (!them.length || !you.length) {
       S.over = true; S.allFlee = false;
       S.result = !you.length ? 'lost' : 'won';
@@ -4865,6 +5017,7 @@ const FIGHT = (function () {
       if (A.spread_attacks) { const n = (S.aimed || {})[u.side + t.id] || 0; if (u.side === 'you') s *= Math.pow(R('ours.auto_brain').focus_per_strike, n); else s /= 1 + n; }  /* 70b: not every swing on the weakest */
       if (A.prefers_soft && isRanged(u.weapon)) s *= 1 + softness(t);       /* the marksman: the shieldless, the rookie, the bare head */
       if (fearsSpark(u, t)) s *= isRanged(u.weapon) ? 1 + CV().fear.shoot_bonus : CV().fear.melee_share;   /* rule 305: shoot the Spark, never club him */
+      s *= campPull(u, t);   /* __THE_STAFF_FIGHT_TOO__ (C5): raiders and beasts go for the camp */
       if (s > bs) { bs = s; best = t; }
     });
     return best;
@@ -4926,6 +5079,13 @@ const FIGHT = (function () {
     fill(stand.length ? stand : all);
     const standing = stand.length > 0 && stand.length < all.length && d[key(u.x, u.y)] !== undefined;
     if (stand.length < all.length && !standing) fill(all);
+    /* __THE_STAFF_FIGHT_TOO__ (C5): to raiders and beasts his camp is nearer than it stands, by its pull (ai.json camp_pull.hunt_steps a
+       whole pull: x1.5 two steps, x1.25 one at 4): they walk round his line for it */
+    if (!open && u.side !== 'you' && S.staffIn && S.staffIn.length) { const camp = all.filter(function (f) { return f.staff && campPull(u, f) > 1; });
+      if (camp.length) { const near = {}; Object.keys(d).forEach(function (k) { near[k] = d[k]; });
+        const by = camp.reduce(function (m, f) { return Math.max(m, Math.round((campPull(u, f) - 1) * (DB.ai.camp_pull.value.hunt_steps || 0))); }, 0);
+        fill(camp); Object.keys(d).forEach(function (k) { const v = d[k] - by; if (near[k] === undefined || v < near[k]) near[k] = v; });
+        Object.keys(d).forEach(function (k) { delete d[k]; }); Object.keys(near).forEach(function (k) { d[k] = near[k]; }); } }
     const h = function (x, y) { const v = d[key(x, y)]; return v === undefined ? Infinity : v; };
     h.keepOffRunners = standing;   /* a man of theirs who stands is in his walk's reach: he walks after none who runs */
     return h;
@@ -5234,6 +5394,7 @@ const FIGHT = (function () {
       if (shapeOf(s0)) shapeFoes(u, t, s0).forEach(function (o) { if (o === t) return; const ho = hurtOn(u, o, s0); val += blowDeal(u, o, ho, B, dw); gone[o.id] = ownKill(u, o, ho.p); });
       if (fearsSpark(u, t)) val *= isRanged(w) ? 1 + CV().fear.shoot_bonus : CV().fear.melee_share;   /* rule 305 */
       if (u.side !== 'you' && arche(u).spread_attacks) val /= 1 + ((S.aimed || {})[u.side + t.id] || 0);   /* theirs keep Battle Brothers' spread (201(e)) */
+      val *= campPull(u, t) * guardsCamp(u, t);   /* __THE_STAFF_FIGHT_TOO__ (C5, C9): theirs go for his camp, AUTO guards it */
       out.push({ kind: 'strike', t: t, deal: val, pk: pk, gone: gone, fat: skillFat(u, s0), w: w });
     });
     if (forced) return out;
@@ -5305,7 +5466,7 @@ const FIGHT = (function () {
     /* an option ending on E, walked with the chance ps that no free swing stops him (a stopped walk leaves him here), z the free
        swings' hurt; fatigue: what the action costs his breath; w the weapon in his hands after it */
     const add = function (o, E, ps, z, act) {
-      o.value = -z + ps * (o.deal - dangerOn(u, E.x, E.y, P, o.gone)) + (1 - ps) * holdV;
+      o.value = -z + ps * (o.deal - dangerOn(u, E.x, E.y, P, o.gone)) + (1 - ps) * holdV + campBeside(u, E);   /* __THE_STAFF_FIGHT_TOO__ (C9): AUTO keeps a man beside his camp */
       o.E = E; o.act = act; opts.push(o);
     };
     /* 1. from where he stands */
@@ -5629,6 +5790,7 @@ const FIGHT = (function () {
     if (S.retreat && u.side === 'you') return retreatStep(u);
     if (u.side === 'you' && allFleeing() && !S.byHand && !S.runDown && !chaseRun() && !S.arena) { endFight(); return false; }   /* __THE_ARENA__: in the pit AUTO hunts them down */   /* rule 198(h): by hand the choice is his; on AUTO his RUN THEM DOWN holds (COMBAT 7, row 139) */
     if (u.morale === 'Fleeing') { const moved = flee(u); if (u.fled) return false; if (!moved || u.ap <= 0) { u.btWhy = 'fleeing'; endTurn(u); return false; } return true; }
+    if (u.staff) return staffStep(u);   /* __THE_STAFF_FIGHT_TOO__ (C9): the camp moves itself */
     /* A WINDED MAN OF HIS RESTS (rules 283(d), 285(a)): on AUTO, a man of his too winded for his own blow ends his turn with nothing
        spent, a rest, so the next turn brings ours.rest_recovery and his swing (MEASURED BEFORE: in the heaviest kit AUTO kept him
        shuffling, 1,670 of 3,624 turns winded, one man 30 turns running).
@@ -5796,6 +5958,7 @@ const FIGHT = (function () {
         if (A.hunts_main) { const mm = mainOf(u);   /* the head taker: a tile that reaches the main man first; a blow on another man is worth less than a step closer to him */
           if (tgts.some(function (t2) { return t2.main; })) sc += R('hit_chance.cap').max; else if (mm) sc -= (Math.max(Math.abs(x - mm.x), Math.abs(y - mm.y)) + 2) * R('hit_chance.cap').max; }
         if (tv) sc += R('ours.auto_finds_a_shot').club_target_weight * tv;
+        if (u.side !== 'you') { const cp = tgts.reduce(function (m, t2) { return Math.max(m, campPull(u, t2)); }, 1); if (cp > 1) sc += (cp - 1) * (DB.ai.camp_pull.value.walk_weight || 0) * R('hit_chance.cap').max; }   /* __THE_STAFF_FIGHT_TOO__ (C5): a tile that reaches his camp */
         sc -= groundSteps(x, y) * R('ours.open_street').strike;   /* rule 428(c): of the tiles he can strike from, the one off the street */
         /* rule 187(d): a rifleman keeps his distance; a gun whose damage falls off with it (the shotgun) closes in */
         if (ranged) sc += (wantsClose(w) ? -1 : 1) * Math.min.apply(null, tgts.map(function (t2) { return dist(ghost, t2); }));
@@ -5939,7 +6102,8 @@ const FIGHT = (function () {
     level: level, isRoof: isRoof, storeysAt: storeysAt, reachLevel: reachLevel, rangeUp: rangeUp, openStreet: openStreet, tileKeyAt: tileKeyAt, streetCost: streetCost, goodGround: goodGround, groundSteps: groundSteps, oddsOf: oddsOf, digsIn: digsIn, sidePower: sidePower, dangerOn: dangerOn, canSpark: canSpark, spark: spark, sparkPreview: sparkPreview, vestLive: vestLive, fireAt: fireAt, smokeAt: smokeAt, nothingLeft: nothingLeft, sparkDeath: sparkDeath, climbedNow: climbedNow, climbsOn: climbsOn, climbsUp: climbsUp, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, kitFloored: kitFloored, breathFloor: breathFloor, rawFatMax: rawFatMax, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, isWhip: isWhip, reachOf: reachOf, rangeMax: rangeMax, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
-    deployMove: deployMove, startFight: startFight, inZone: inZone, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
+    deployMove: deployMove, startFight: startFight, inZone: inZone, /* __THE_STAFF_FIGHT_TOO__ */ staffZone: staffZone, campPull: campPull, guardsCamp: guardsCamp, staffOut: staffOut,
+    setPull: function (n) { FIGHT_OPTS_PULL = n === null || n === undefined ? null : +n; }, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
     _t: { neverIdle: neverIdle, reach: reach, nearFoe: nearFoe, actedNow: actedNow, expected: expected, nerve: check /* __EACH_ORIGIN_ITS_OWN__: the morale check, for the origins' gate */, keepsRoof: keepsRoof, holdsRoof: holdsRoof, roofSeen: roofSeen, tightFight: tightFight, bestTurn: bestTurn, inRange: inRange, wornWeight: wornWeight, weightClass: weightClass, walkCap: walkCap, walkLeft: walkLeft, dangerOn: dangerOn, threatReach: threatReach, longChase: longChase, endSpend: endSpend, sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
       makeUnit: makeUnit, pickPerks: pickPerks, perksByName: perksByName, perkRow: perkRow, squeezes: squeezes, bleedTick: bleedTick }
@@ -8444,7 +8608,7 @@ function spentCheck(u, now) {
   hideSpent(); FIGHT.endTurn(u); take(); hud(); return true;
 }
 /* ---------------- the director: whose turn, what happens next ---------------- */
-function crewControlled(u) { return u && u.side === 'you' && !UI.auto && u.morale !== 'Fleeing' && !FIGHT.S.retreat; }
+function crewControlled(u) { return u && u.side === 'you' && !u.staff && !UI.auto && u.morale !== 'Fleeing' && !FIGHT.S.retreat; }   /* __THE_STAFF_FIGHT_TOO__ (C9): the camp is never his hand's */
 function tick(now) {
   if (!UI.board) return;
   /* the skip tap cuts in at once, even mid-step */
@@ -10474,6 +10638,8 @@ function riseAt(x, y) { return R('ours.roof_storeys').rise[FIGHT.level(x, y)] ||
 const ROOF_MARK = '#d8c9a8';
 /* rule 230(c): the shield-cover mark, the car door's steel, over a man of theirs covered from his shooter by a man in the way */
 const COVER_MARK = '#9aa6b0', SHIELD_MARK = ['.###.', '#####', '#####', '#####', '.###.', '..#..'];
+/* __THE_STAFF_FIGHT_TOO__ (STAFF, rule 468, C2): a camp follower's mark, a small tent right of his bars, so he reads 'camp' at a glance */
+const CAMP_MARK = '#d8b478', TENT_MARK = ['..#..', '.#.#.', '.#.#.', '#.#.#', '#####'];
 function coverOn(v) {
   const u = FIGHT.current(); if (!u || v.side === 'you' || !crewControlled(u) || !FIGHT.isRanged(u.weapon) || !FIGHT.onField(v) || FIGHT.S.deploy) return null;
   const key = u.id + ':' + u.x + ',' + u.y + ':' + v.id + ':' + v.x + ',' + v.y + ':' + FIGHT.S.round + ':' + FIGHT.S.idx + ':' + (u.weapon && u.weapon.id);
@@ -10728,6 +10894,10 @@ function drawMan(v, tw, th) {
       SHIELD_MARK.forEach(function (row, j) { for (let i = 0; i < row.length; i++) if (row[i] === '#') { mkCell(c0 + i * k, r0 + j * k + k, k, k, MK.ink); } });
       SHIELD_MARK.forEach(function (row, j) { for (let i = 0; i < row.length; i++) if (row[i] === '#') { mkCell(c0 + i * k, r0 + j * k, k, k, COVER_MARK); } });
       mkOff(); v._cover = { cut: cc.cut, x: (c0 + k) * MKU / DPR, y: r0 * MKU / DPR, at: now }; }
+    if (v.staff) { mkOn(); const k = Math.max(1, Math.round(h / 46)), c0 = mc(bx + bw + 4), r0 = mc(by - 1);   /* __THE_STAFF_FIGHT_TOO__: his tent */
+      TENT_MARK.forEach(function (row, j) { for (let i = 0; i < row.length; i++) if (row[i] === '#') { mkCell(c0 + i * k, r0 + j * k + k, k, k, MK.ink); } });
+      TENT_MARK.forEach(function (row, j) { for (let i = 0; i < row.length; i++) if (row[i] === '#') { mkCell(c0 + i * k, r0 + j * k, k, k, CAMP_MARK); } });
+      mkOff(); v._camp = { x: (c0 + k) * MKU / DPR, y: r0 * MKU / DPR, at: now }; }
     cx.fillStyle = '#9aa6b0'; cx.fillRect(bx, by, bw * Math.max(0, (v.armB + v.armH) / Math.max(1, v.armBMax + v.armHMax)), BAR_PT);
     cx.fillStyle = you ? '#8fae6a' : '#c4553f'; cx.fillRect(bx, by + BAR_PT + 1, bw * Math.max(0, v.hp / v.hpMax), BAR_PT);
     chipOn(v, bx, by, bw, now);   /* THE PUNCH: what the blow took stays bright on his bars, then drains */
@@ -11692,7 +11862,7 @@ function spoilsOf() {
         body: wear(t, 'body', t.armB, t.armBMax), head: wear(t, 'head', t.armH, t.armHMax) }; }),
     /* WHAT EACH HAND HOLDS WHEN IT ENDS (COMBAT, rule 164 item 15, RUN TWO's note 10/25): a swap in the fight is kept, so the crew
        screen can put back main, off and the bag as they ended (item ids; the car door on his back counts as the off hand) */
-    looks: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, look: v.look || null, sex: v.sex || null,   /* ask row 619: the end screen reads the person, the fight hands her over */
+    looks: S.units.filter(function (v) { return v.side === 'you' && !v.staff; }).map(function (v) { return { name: v.name, look: v.look || null, sex: v.sex || null,   /* ask row 619: the end screen reads the person, the fight hands her over */
       held: { main: v.weapon ? v.weapon.id : null, off: (v.shield || v.shieldBack) ? (v.shield || v.shieldBack).id : null, bag: v.bagKit ? null : (v.bag || []).map(function (w) { return w ? w.id : null; }) } }; }),   /* the kit's stand-ins were never his: no bag */
     recap: recapOf() };
 }
@@ -11707,7 +11877,7 @@ function recapOf() {
     return { head: oh ? oh.textContent : '', lines: ob ? Array.prototype.map.call(ob.querySelectorAll('p.what'), function (p) { return p.textContent; }) : [],
       secs: Math.round((UI.beats || 0) * 60 / R('ours.beat_bpm')), theirs: theirs.length,
       down: theirs.filter(function (v) { return v.dead; }).length, ran: theirs.filter(function (v) { return v.fled; }).length,
-      men: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, kills: v.kills | 0, dealt: v.dealt | 0, taken: v.taken | 0 }; }),
+      men: S.units.filter(function (v) { return v.side === 'you' && !v.staff; }).map(function (v) { return { name: v.name, kills: v.kills | 0, dealt: v.dealt | 0, taken: v.taken | 0 }; }),
       call: call ? { who: call.who, line: call.line, look: (S.units.filter(function (v) { return v.name === call.who; })[0] || {}).look || null } : null };
   } catch (_e) { return null; }
 }
@@ -11716,7 +11886,7 @@ function isGunW(w) { try { return R('ours.gun_classes').indexOf(w.class) >= 0; }
 /* the fight's word home when it ends: the result, and every man of his with what the fight did to him (the roster's pain line) */
 function homeMessage(result) {
   const S = FIGHT.S;
-  return { type: 'BOHEMIA_FIGHT_OVER', result: result, reserve: (S.reserve || []).map(function (m) { return m.name; }),   /* rule 378 amended: who waited it out (never in crew) */ arena: S.arena ? (S.arena.id || true) : null,   /* __THE_ARENA__ */ cellsBurned: S.cellsBurned | 0,   /* ARMORY 2: the live wire's cells, taken from the purse by the shell */ withdrew: result === 'withdrew', retreat: !!S.retreat && !UI.wipe, wipe: !!UI.wipe, wipeInfo: UI.wipe || null, rounds: S.round, crew: S.units.filter(function (v) { return v.side === 'you'; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
+  return { type: 'BOHEMIA_FIGHT_OVER', result: result, reserve: (S.reserve || []).map(function (m) { return m.name; }),   /* rule 378 amended: who waited it out (never in crew) */ arena: S.arena ? (S.arena.id || true) : null,   /* __THE_ARENA__ */ cellsBurned: S.cellsBurned | 0,   /* ARMORY 2: the live wire's cells, taken from the purse by the shell */ withdrew: result === 'withdrew', retreat: !!S.retreat && !UI.wipe, wipe: !!UI.wipe, wipeInfo: UI.wipe || null, rounds: S.round, staff: FIGHT.staffOut(result) /* __THE_STAFF_FIGHT_TOO__ (C8): the camp rides home in its own list, never in crew */, crew: S.units.filter(function (v) { return v.side === 'you' && !v.staff; }).map(function (v) { return { name: v.name, level: v.level, xpGained: Math.round(v.xpGained || 0), dead: !!v.dead, perks: v.perks.slice(),
       main: !!v.main, down: !!v.down, laidUpDays: v.laidUp || 0, injury: v.longInjury || null, kills: v.kills | 0, best: v.best || null,   /* WORDS rule 316: his kills and his best foe, for his record */
       /* __DAMAGE_STAYS__ (CAMP, rule 226): what he ends with, against his whole numbers, and the pieces he wore, for the next fight */
       look: v.look || null, hp: Math.max(0, Math.round(v.hp || 0)), hpMax: v.hpMax, armH: Math.max(0, Math.round(v.armH || 0)), armHMax: v.armHMax || 0,

@@ -1261,11 +1261,59 @@
 "fill": 0.188,
 "packedMB": 3.76
 },
+"person_town_14.webp": {
+"bytes": 287852,
+"decodedMB": 17.69,
+"fill": 0.192,
+"packedMB": 3.86
+},
+"person_town_17.webp": {
+"bytes": 287346,
+"decodedMB": 17.69,
+"fill": 0.194,
+"packedMB": 4.0
+},
+"person_town_18.webp": {
+"bytes": 309498,
+"decodedMB": 17.69,
+"fill": 0.225,
+"packedMB": 4.56
+},
+"person_town_19.webp": {
+"bytes": 281686,
+"decodedMB": 17.69,
+"fill": 0.193,
+"packedMB": 3.97
+},
 "person_town_2.webp": {
 "bytes": 274540,
 "decodedMB": 17.69,
 "fill": 0.194,
 "packedMB": 4.02
+},
+"person_town_23.webp": {
+"bytes": 281432,
+"decodedMB": 17.69,
+"fill": 0.192,
+"packedMB": 3.85
+},
+"person_town_26.webp": {
+"bytes": 283136,
+"decodedMB": 17.69,
+"fill": 0.197,
+"packedMB": 4.06
+},
+"person_town_28.webp": {
+"bytes": 275242,
+"decodedMB": 17.69,
+"fill": 0.194,
+"packedMB": 3.99
+},
+"person_town_29.webp": {
+"bytes": 265840,
+"decodedMB": 17.69,
+"fill": 0.188,
+"packedMB": 3.75
 },
 "person_town_3.webp": {
 "bytes": 281554,
@@ -1273,11 +1321,41 @@
 "fill": 0.19,
 "packedMB": 3.92
 },
+"person_town_36.webp": {
+"bytes": 296976,
+"decodedMB": 17.69,
+"fill": 0.198,
+"packedMB": 4.03
+},
+"person_town_39.webp": {
+"bytes": 264914,
+"decodedMB": 17.69,
+"fill": 0.194,
+"packedMB": 4.01
+},
 "person_town_4.webp": {
 "bytes": 272318,
 "decodedMB": 17.69,
 "fill": 0.191,
 "packedMB": 3.91
+},
+"person_town_42.webp": {
+"bytes": 287758,
+"decodedMB": 17.69,
+"fill": 0.198,
+"packedMB": 4.07
+},
+"person_town_43.webp": {
+"bytes": 265078,
+"decodedMB": 17.69,
+"fill": 0.189,
+"packedMB": 3.82
+},
+"person_town_44.webp": {
+"bytes": 288840,
+"decodedMB": 17.69,
+"fill": 0.196,
+"packedMB": 4.04
 },
 "person_town_5.webp": {
 "bytes": 274406,
@@ -1413,8 +1491,8 @@
 }
 },
 "totals": {
-"decodedMB": 4713.1,
-"packedMB": 964.9,
-"sheets": 235
+"decodedMB": 4943.1,
+"packedMB": 1016.9,
+"sheets": 248
 }
 }

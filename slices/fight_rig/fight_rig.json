@@ -3951,6 +3951,201 @@
    "type": "casino_doorman",
    "set": "nine",
    "rig": "records/target/combat/rig/enemy_casino_doorman_1/rig.json"
+  },
+  "person_town_42": {
+   "file": "person_town_42.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.764,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_42/rig.json"
+  },
+  "person_town_29": {
+   "file": "person_town_29.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.722,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_29/rig.json"
+  },
+  "person_town_36": {
+   "file": "person_town_36.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.737,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_36/rig.json"
+  },
+  "person_town_23": {
+   "file": "person_town_23.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.74,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_23/rig.json"
+  },
+  "person_town_44": {
+   "file": "person_town_44.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.755,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_44/rig.json"
+  },
+  "person_town_19": {
+   "file": "person_town_19.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.717,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_19/rig.json"
+  },
+  "person_town_26": {
+   "file": "person_town_26.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.765,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_26/rig.json"
+  },
+  "person_town_43": {
+   "file": "person_town_43.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.712,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_43/rig.json"
+  },
+  "person_town_28": {
+   "file": "person_town_28.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.763,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_28/rig.json"
+  },
+  "person_town_14": {
+   "file": "person_town_14.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.734,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_14/rig.json"
+  },
+  "person_town_17": {
+   "file": "person_town_17.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.711,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_17/rig.json"
+  },
+  "person_town_39": {
+   "file": "person_town_39.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.732,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_39/rig.json"
+  },
+  "person_town_18": {
+   "file": "person_town_18.webp",
+   "w": 144,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.731,
+   "kind": "person",
+   "ref": "you",
+   "guns": "you_guns.webp",
+   "gang": "town",
+   "rig": "records/target/combat/rig/person_town_18/rig.json"
   }
  },
  "faces": {
@@ -4156,6 +4351,25 @@
      "boss_smith_0"
     ],
     "by": "BOSSES 11/17, tools/bohemia_bosses_thirteen_to_fifteen_11_17_26.py pack (the first strip stops at the WebP limit); BOSSES 11/18 adds THE WARD, THE CISTERN, THE SMITH (tools/bohemia_bosses_sixteen_to_eighteen_11_18_26.py)"
+   },
+   {
+    "file": "faces_camp.webp",
+    "order": [
+     "person_town_42",
+     "person_town_29",
+     "person_town_36",
+     "person_town_23",
+     "person_town_44",
+     "person_town_19",
+     "person_town_26",
+     "person_town_43",
+     "person_town_28",
+     "person_town_14",
+     "person_town_17",
+     "person_town_39",
+     "person_town_18"
+    ],
+    "what": "STAFF [the camp bodies] 11/21 (VAMILY rule 468): the camp people's faces, the head of each one's own model (records/target/character/barber/person_<id>/face/rest_128.png)"
    }
   ]
  },

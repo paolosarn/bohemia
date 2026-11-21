@@ -9984,6 +9984,18 @@ GATES = [
      "LEAVE: M1 the first town stands on the map (both shapes), M2 LEAVE is the map with the phone and no walk pad (both shapes), M3 a save from the walk "
      "comes back on the map, M4 the closest zoom stops, M5 nothing threw, B1 the bench (the city opened on its own) still boots on the walk, and a PLANT "
      "(the shell's frame not counted as the game): the walk again. About 2 min", True),
+    ('THE STAFF FIGHT TOO', ['node', 'gates/the_staff_fight_too_gate.js'],
+     "STAFF gate, 11/21, VAMILY rule 468, ask row 667 (Paolo 11/21: \"it's just a little too easy... maybe they are forced to being in combat, "
+     "they're roaming around with you, and the game becomes more about protecting your staff... if your staff permanently dies you gotta get new "
+     "people at different settlements... they try to run away way quicker... the better you want your camp to be, that means less people you can run "
+     "around with, because there's a limit\"). On the live fight's own rules headless and the camp's own book (records/BOHEMIA_RESEARCH_THE_STAFF_"
+     "FIGHT_TOO_11_21_26.md C11): S1 the cap (a new crew's 14 and 3 staff stand 9 and 3, 5 waiting, YOU standing; the Block Watch 13 and 3; none in "
+     "the pit), S2 where they stand (behind his back row, never in front, never beside them, 300 over 60 boards), S3 their nerve (Wavering at the "
+     "bell, never Confident, a staff death checks no fighter and does check the camp), S4 down is dead (100 of 100) and BohemiaCamp.lose takes the "
+     "help with him, S5 the pull (raiders' blows on the camp above the pull at 1), S6 the enemy is sized to his fighters, S7 re-hire (a new person, "
+     "a new face and name), S8 the hall's Hire and TAKE ON shut at the company cap, S9 the data (the engine's copy, roster.json's families, the "
+     "five bad traits), S10 a full company with five staff wins less, S11 the door and the hand-back; and --plant (staff outside the cap, staff "
+     "rolling 20%): S1a and S4a red. About 8 min", False),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

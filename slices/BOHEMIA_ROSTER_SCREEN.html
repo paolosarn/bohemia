@@ -737,7 +737,9 @@ function draw(){
   S.hover = null;   /* a mouse's comparison is painted over the drawn screen (paintCmp), never kept through a redraw */
   /* EYES [eyes: one company number] (rule 150): one number for how many he can have, the same on the door, the bar and here,
      and how many fight, named so */
-  document.getElementById('title').textContent = 'YOUR COMPANY  ' + S.crew.filter(function(m){ return !m.dead; }).length + ' / ' + (S.cap || 20) + '   ' + (S.field || 12) + ' IN A FIGHT';
+  /* __THE_STAFF_FIGHT_TOO__ (STAFF, VAMILY rule 468, C10): his camp's people are in the company's count and stand in every fight (draft:true) */
+  var campN = 0; try{ campN = window.BohemiaCamp ? BohemiaCamp.retinue().length : 0; }catch(e){}
+  document.getElementById('title').textContent = 'YOUR COMPANY  ' + (S.crew.filter(function(m){ return !m.dead; }).length + campN) + ' / ' + (S.cap || 20) + '   ' + (S.field || 12) + ' IN A FIGHT' + (campN ? ', ' + campN + ' CAMP' : '');
   ['front','back'].forEach(function(row){
     var el = document.getElementById(row); el.textContent = '';
     S[row].forEach(function(ix, si){

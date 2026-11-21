@@ -3825,10 +3825,34 @@ function retinueSay(fc, f, line){
   try{ mouth(fc, line); }catch(e){}
   heard((f.name || f.word) + ': ' + line);
 }
+/* ==== __THE_STAFF_FIGHT_TOO__ (STAFF, VAMILY rule 468, Paolo 11/21: 'the better you want your camp to be, that means less people you can
+   run around with, because there's a limit'; records/BOHEMIA_RESEARCH_THE_STAFF_FIGHT_TOO_11_21_26.md C6, B7: 'the company's cap is SHOWN
+   but NOT ENFORCED'). EVERYONE WITH HIM COUNTS: his fighters (the crew screen's company, else the origin's, the men hired since, less the
+   dead, the walked and the taken) and his camp's people, against the origin's company cap (origins.json roster_cap: 20, 25, 18 or 12); the
+   hall's Hire and TAKE ON shut at it, with the words why. Each follower is also one of the fight's places (field_cap). Words draft:true */
+function companyNow(){
+  var pk = null; try{ pk = window.top && window.top.BOH_START && window.top.BOH_START.picks ? window.top.BOH_START.picks() : null; }catch(e){}
+  var co = null; try{ co = (window.BohemiaCrewDoor && BohemiaCrewDoor.company()) || null; }catch(e){}
+  if(!Array.isArray(co) || !co.length) co = (pk && Array.isArray(pk.company)) ? pk.company : [{ main: true }];
+  var gone = {}, have = {}, n = 0;
+  try{ (JSON.parse(localStorage.getItem('bohemia.fight.after.v1') || '[]') || []).forEach(function(f){ (f.rows || []).forEach(function(r){ if(r && r.dead && !r.main && r.name) gone[r.name] = 1; }); }); }catch(e){}
+  try{ (JSON.parse(localStorage.getItem('bohemia.walked.v1') || '[]') || []).forEach(function(x){ if(x && x.dismissed && x.name) gone[x.name] = 1; }); }catch(e){}
+  try{ (JSON.parse(localStorage.getItem('bohemia.taken.v1') || '[]') || []).forEach(function(t){ ((t && t.names) || []).forEach(function(nm){ gone[nm] = 1; }); }); }catch(e){}
+  co.forEach(function(m, i){ var k = (m && m.name) || ('#' + i); if(i > 0 && gone[k]) return; have[k] = 1; n++; });
+  try{ (JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || []).forEach(function(h){ if(h && h.name && !have[h.name] && !gone[h.name]){ have[h.name] = 1; n++; } }); }catch(e){}
+  var C = window.BohemiaCamp, staff = C ? C.retinue().length : 0;
+  return { fighters: n, staff: staff, all: n + staff, cap: (pk && pk.roster) || 20, field: (pk && pk.cap) || 12 };
+}
+function staffWords(k, c){ var W = (window.BohemiaCamp && BohemiaCamp.staffRules && BohemiaCamp.staffRules() && BohemiaCamp.staffRules().words) || {};
+  var t = W[k] || ({ take: 'Stands in your fights. One of your {cap}.', full: 'No room: your company is {n} of {cap}.' })[k] || '';
+  return t.replace('{cap}', String(k === 'take' ? c.field : c.cap)).replace('{n}', String(c.all)); }
+function companyFull(){ var c = companyNow(); return c.all >= c.cap ? c : null; }
+/* ==== end __THE_STAFF_FIGHT_TOO__ ==== */
 function retinueTake(f, where){
   var C = window.BohemiaCamp, R = window.BohemiaRenown, sl = R ? R.slots() : 0, mine = C ? C.retinue() : [];
   if(!C) return false;
   if(mine.length >= sl){ heard(sl ? 'No place left by the fire.' : 'Nobody follows a crew with no name.'); return false; }
+  var full0 = companyFull(); if(full0){ heard(staffWords('full', full0)); return false; }   /* __THE_STAFF_FIGHT_TOO__ (C6) */
   var pr = C.price(f.id);
   if(bats() < pr){ heard('Not enough batteries.'); return false; }
   P.debit(S.purse, 'electricity', pr, 'the retinue: ' + f.id, 'follower:' + f.id, S.mapDay || 0);
@@ -3856,6 +3880,7 @@ function retinueCard(f, o){
       var tx = document.createElement('div');
       if(f.was){ var wp = document.createElement('p'); wp.className = 'rwas'; wp.textContent = f.was; tx.appendChild(wp); }   /* draft:true */
       if(f.line){ var q = document.createElement('p'); q.className = 'rsays'; q.textContent = '\u201C' + f.line + '\u201D'; tx.appendChild(q); }   /* draft:true */
+      if(!f.soon){ var cost = document.createElement('p'); cost.className = 'rcost'; cost.textContent = staffWords('take', companyNow()); tx.appendChild(cost); }   /* __THE_STAFF_FIGHT_TOO__ (C10): what he costs in the fight; draft:true */
       more.appendChild(tx); }
     var on = !row.classList.contains('open'); row.classList.toggle('open', on);
     if(on) retinueSay(fc, f, f.hired ? f.hireSays : f.line);
@@ -3866,7 +3891,7 @@ function retinueCard(f, o){
   if(f.soon && !f.hired) bt = act('Not yet', String(f.price), function(){ heard((f.name || f.word) + ' is not with anybody yet.'); }, true);   /* his work waits on its screen: his hire stays shut, nobody pays for nothing; draft:true */
   else if(f.hired) bt = act('Let go', '', function(){ C.letGo(f.id); post('retinue', {retinue:C.retinue()}); heard((f.name || f.word) + ' walks off.'); again(); });
   else bt = act('Take on', String(f.price), function(){
-    if(retinueTake(f, o.town ? S.place.name : null)){ again(); var nw = document.querySelector('#sbody .retf[data-id="' + f.id + '"] .rface'); if(nw) retinueSay(nw, f, f.hireSays); } }, mine.length >= sl || bats() < f.price);
+    if(retinueTake(f, o.town ? S.place.name : null)){ again(); var nw = document.querySelector('#sbody .retf[data-id="' + f.id + '"] .rface'); if(nw) retinueSay(nw, f, f.hireSays); } }, mine.length >= sl || bats() < f.price || !!companyFull());   /* __THE_STAFF_FIGHT_TOO__: shut at the company's cap */
   bt.dataset.price = f.price; bt.setAttribute('aria-label', bt.textContent + ' batteries, ' + (f.name || f.word));
   row.appendChild(bt); row.appendChild(more);
   return row;
@@ -4507,6 +4532,7 @@ function recruitLooks(key, n){
   var mine = {}; try{ ((window.BohemiaCrewDoor && BohemiaCrewDoor.company()) || []).concat(JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]'))
     .forEach(function(m){ if(m && m.look) mine[m.look] = 1; }); }catch(e){}   /* your company and the men hired since it was saved */
   var me = mainLookOf(); if(me) mine[me] = 1;   /* and the man he made (RUN THREE, rule 263(b)) */
+  try{ if(window.BohemiaCamp){ var cl = BohemiaCamp.looks(), dl = BohemiaCamp.deadLooks ? BohemiaCamp.deadLooks() : {}; Object.keys(cl).concat(Object.keys(dl)).forEach(function(l){ mine[l] = 1; }); } }catch(e){}   /* __THE_STAFF_FIGHT_TOO__: his camp's faces and the dead's, never at the post */
   var deal = function(L){ return L.map(function(p){ return {l:p.look, k:seedOf(key + ':' + p.look)}; }).sort(function(a, b){ return a.k - b.k; }).map(function(x){ return x.l; }); };
   var pool = deal(ready.filter(function(p){ return p.gang === 'town'; })).concat(deal(ready.filter(function(p){ return p.gang !== 'town'; })))
     .filter(function(l){ return !mine[l]; });
@@ -4899,6 +4925,7 @@ function hireCard(r){
   t.appendChild(st); c.appendChild(t);
   var price = hallPrice(r), night = HIRE.bill ? HIRE.bill + (window.BohemiaWages ? Math.round(BohemiaWages.wage(r.backgroundId, r.level) * (window.BohemiaCamp ? BohemiaCamp.mult('wage') : 1)) : 0) : null;   /* __THE_HIRED_ARE_PAID__: his food and his pay, what the map takes at nightfall */
   c.appendChild(act('Hire', moneyWord(price) + (night ? '  ·  ' + moneyWord(night) + ' a night' : ''), function(){
+    var full1 = companyFull(); if(full1) return openB('hall', staffWords('full', full1));   /* __THE_STAFF_FIGHT_TOO__ (C6): the company's cap, his camp counted */
     if(bats() < price) return openB('hall', r.name + ' wants ' + price + '. You have ' + bats() + '.');
     P.debit(S.purse, 'electricity', price, 'hire:' + r.backgroundId, S.place.name, S.day);
     S.taken[r.id] = true;
@@ -4910,7 +4937,7 @@ function hireCard(r){
     post('hireMan', {man:def, price:price}); shelf();
     if(r.rare) return openB('hall', r.name + ' is yours. He walks in wearing his own kit' + (kit.length > ['main','off','body','head'].filter(function(k){ return wears[k]; }).length ? ', the rest is in your bag.' : '.'));
     openB('hall', r.name + ' is yours. ' + (inHand ? 'He walks in with the ' + objWord(inHand['class'], handsOfRow(inHand)) + ' in his hands' + (kit.filter(Boolean).length > (wears.body ? 2 : 1) ? ', the rest is in your bag.' : '.') : 'They came with nothing but their hands.'));
-  }, bats() < price));
+  }, bats() < price || !!companyFull()));
   return c;
 }
 /* ==== __UI_THREE_STATS__ (UI THREE [the stat order], [stats are bars and arrows]; rules 223(a), 247(a)(c)(d), Paolo 10/26:

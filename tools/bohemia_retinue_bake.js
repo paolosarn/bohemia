@@ -14,7 +14,11 @@ const body = '[\n' + rows.map(r => '    ' + JSON.stringify(r)).join(',\n') + '\n
 const src = fs.readFileSync(ENGINE, 'utf8');
 const re = /(\/\* __RETINUE_ROWS__ \*\/ )[\s\S]*?( \/\* \/__RETINUE_ROWS__ \*\/)/;
 if (!re.test(src)) { console.error('no __RETINUE_ROWS__ marks in engine/bohemia_camp.js'); process.exit(2); }
-const out = src.replace(re, (m, a, b) => a + body + b);
+let out = src.replace(re, (m, a, b) => a + body + b);
+/* __THE_STAFF_FIGHT_TOO__ (STAFF, VAMILY rule 468): the file's staff block, the camp's people in a fight, between __STAFF_RULES__ marks */
+const staff = JSON.parse(fs.readFileSync(FILE, 'utf8')).staff;
+const reS = /(\/\* __STAFF_RULES__ \*\/ )[\s\S]*?( \/\* \/__STAFF_RULES__ \*\/)/;
+if (staff && staff.value) { if (!reS.test(out)) { console.error('no __STAFF_RULES__ marks in engine/bohemia_camp.js'); process.exit(2); } out = out.replace(reS, (m, a, b) => a + JSON.stringify(staff.value) + b); }
 if (process.argv.includes('--check')) { const same = out === src; console.log(same ? 'the engine copy equals the file' : 'the engine copy differs from records/target/bb/retinue.json: run node tools/bohemia_retinue_bake.js'); process.exit(same ? 0 : 1); }
 fs.writeFileSync(ENGINE, out);
-console.log('baked ' + rows.length + ' followers into engine/bohemia_camp.js');
+console.log('baked ' + rows.length + ' followers' + (staff && staff.value ? ' and the staff line' : '') + ' into engine/bohemia_camp.js');
