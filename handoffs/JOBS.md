@@ -1,12 +1,39 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS CONTEXT NEAR FULL (11/21, rule 461(f)): session_01GKDyuv5CeFx6bTxT23Pv5Q closes after BUILD 11/21t; open a fresh JOBS on this file.
+JOBS CONTEXT NEAR FULL (11/21, rule 461(f)): session_01GKDyuv5CeFx6bTxT23Pv5Q closes after BUILD 11/21z; open a fresh JOBS on this file.
 Its next job is the block below's NEXT ([a job that changes after the yes]). Its tools: the CLOUT walk (tools/bohemia_jobs_the_clout_a_job_pays_on_the_phone.js,
 --night), the card-against-fight walk (tools/bohemia_jobs_the_card_reads_the_night_on_the_phone.js, --hour M), whose rows carry each
 fight's card at the yes ('held'), at the hand-over ('now'), the roll's inputs and the minute; the town's book walk
 (tools/bohemia_jobs_the_towns_book_on_the_phone.js, JOBS_BUILD=C) reads the card's buttons and the bar's CLOUT.
 
-JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/21 LATEST -- BUILD 11/21t - DO LESS, SHOW THE CLOUT, BUILT, NOT YET SEEN (rules 466(c), 461,
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/21 LATEST -- BUILD 11/21z - THE FIGHT IS THE ONE THE CARD SAID, BUILT, NOT YET SEEN (rules 461,
+441, 454(a), 465; row 651; the handoff's [a job that changes after the yes]). Record: records/BOHEMIA_JOBS_THE_FIGHT_IS_THE_CARDS_11_21_26.md.
+- MEASURED (Build K's walk, read fight by fight): three jobs, four fights met another crowd than the card. The camp at Hoover Dam
+  (qd-s01) stands on no district: the card rolled no district, the hand-over sent none and the roll fell back to the suburb road
+  beside it (4 water people read, 7 coyotes came). 'They moved it' (qd-ap01): the thing moved onto the freeway and the fight rolled
+  the freeway (2 water people read, 4 brigand thugs came). A find job (qd-ar10): the card read the holders at the ring's middle, the
+  fight put them at the farm (3 house men read, 4 kids came).
+- slices/bohemia_job_kinds.js fight(): the card's place hands over 'no district' (null) when it has none; a fight's 'ground' (where the
+  crowd is from) is read. __THE_ONES_WHO_MOVED_IT__: job.ground keeps where they took it from; a held job's card reads the fight at
+  the moved spot (the trip's tracks leg) with the first ground's crowd; the board's card does not spoil the twist. The find kinds read
+  their holders at the place (ground: job.spot).
+- THE PATROL (found while the gates ran, a probe on the demo): the dam patrol's card read two bands of 2 kids (3 asked each) and each
+  band came asked 4 (2 ancient bison, then a feral bull): postWalked counted the bands down before the band was sized, and the fight
+  read the road where the band stood. Now job.bandsOf keeps the split and a band's ground is the post it comes after (job.bandPost);
+  after: 2 kids and 2 kids. The walk steps on after a post till the band is on the road and walks to it.
+- slices/bohemia_job_danger.js (WORLD's reader, two marked lines): the hand-over honours a null district; fightsFor reads f.ground.
+- slices/BOHEMIA_CITY_WORLD.html (RUN's map, Build K's marked line): the map's crew job on a mark with no district hands over none.
+- Not changed, said: a job's spot differs upright and sideways (picked on the glass, WORLD's spotOut); a camp for a new crew on day
+  two is 8 of the Block Watch (the camp's size, TUNING's).
+GATE THE CARD READS THE NIGHT: R6 new (files), R5 tightened to no misses: 6/0 (R5: 32 of 32 on each of four phones); the walk re-run after it learned
+the patrol's road: every job walked, 37 of 37 fights the card's on each phone. EVERY FIGHT WON COUNTS C1 follows the line.
+NEXT: [the map's crew job on the walk] the one job the walk never brings to its fight is the map's own crew job (qd-s10; its loop
+is the map's, not the job file's): teach the walk the map's crew loop, then read its card against its fight.
+Then [a siege for a big crew]; the reader's plays repeatable boot to boot (WORLD's).
+[bb Battle Brothers names who a contract is against before it is signed; when the brigands move camp, they are the same brigands]
+[analog horror: the tracks went on two blocks into the freeway, and the same two people were waiting at the end of them]
+
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/21 -- BUILD 11/21t - DO LESS, SHOW THE CLOUT, BUILT, NOT YET SEEN (rules 466(c), 461,
 441, 454(a), 465; row 651; the coordinator's routine 'JOBS: do less, show the clout'). Record: records/BOHEMIA_JOBS_DO_LESS_SHOW_THE_CLOUT_11_21_26.md.
 - HIS VOTES 11/21: PUSH THE PAY killed ('Doing way too much'), PAID INTO YOUR PLACE killed ('so fucking confusing'), WHAT WALKING AWAY
   COSTS keeps its numbers and stops explaining them, and 'Where tf do you see your clout????'.
