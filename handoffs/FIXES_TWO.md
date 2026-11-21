@@ -1,5 +1,33 @@
 # FIXES TWO -- the handoff block (written only by FIXES TWO, newest first; the heir of FIXES, whose blocks stay in handoffs/FIXES.md)
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
+# FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
+
+FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/21 LATEST -- [the alpha's map] BUILD 11/21f - THE ALPHA OPENS ON THE MAP, BUILT, NOT YET
+SEEN: ask rows 668 (new: the alpha's new game over the dead walk), 564 (the town asked for wound faces that do not exist) and 654
+(DESI's hint over the settings card) FIXED IN THE GAME. Record: records/BOHEMIA_FIXES_THREE_THE_ALPHA_OPENS_ON_THE_MAP_11_21_26.md.
+No VOTE card (no new picture: the map he already plays, on the alpha too). fixes2-work was read: its tip is in main, nothing to pick up.
+WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link):
+- 668 the alpha's NEW GAME: his first town stands over the MAP (it stood over the dead walk); LEAVE is the map with its phone (it was the
+  walked street: the pad, HOLD TO WALK, no phone); a phone that kept a save from the walk comes back on the map; a pinch past the closest
+  stop stops; no walk pad under the phone. slices/BOHEMIA_CITY_WORLD.html __THE_ALPHA_OPENS_ON_THE_MAP__ (CT_IN_SHELL, ctTheMapIsTheGame).
+  The demo's other looks (final art only, the lean map, the street stop, the ending) stay the demo's (CT_IS_DEMO); the city on its own
+  keeps the bench's walk for the 237 checkers that open it alone.
+- 564 the town never asks for a wound sheet a face does not have (178 do): engine/bohemia_wound_faces.js __ONLY_THE_SHEETS_THAT_EXIST__,
+  the list records/target/portrait/wounds/BOHEMIA_WOUND_LOOKS.json (the wound tool writes it after every pack: `... looks`).
+- 654 DESI's plate slides off the moment the settings card (or any screen of the game's own) comes over the place, as it does for a
+  building's sheet. slices/bohemia_ui_crashbox.js __THE_HINT_STEPS_ASIDE_FOR_SETTINGS__.
+PROVEN (rule 441): NEW GATE THE ALPHA OPENS ON THE MAP 9/0 (both shapes, real taps on the phone's LEAVE, B1 the bench, a PLANT);
+THE FOURTEEN EYES FOUND F654 3/0 (both shapes, a PLANT); THE FACE SHOWS THE WOUND 32/0 (F2b and its PLANT); THE GAME STARTS IN A
+TOWN 15/0; A FRESH PHONE SEES THE DOOR 9/0; THE LOTS ARE KEPT 12/0; THE TRACKS HE CAN READ 21/0.
+FOR EVERY LANE THAT DRIVES THE ALPHA: its city now opens on the map, as the demo's does. A checker that holds something on the walk
+asks the driver for walk: true (window.__BOH_THE_BENCH_WALKS, a checker's switch only). Re-aimed this way, same legs: THE WALK NEVER
+MISSES 19/0, THE MOMENT ENDS, THE POOL IS REAL, TIME NOT TAPS 19/0; THE DEMO BOOTS LIGHT's B7 now holds 'the alpha is seated on the
+map' (12/0). THE DRIVER no longer waits out its 120 s for a walk the demo never has (a demo open took 148 s; the map up counts now).
+ONE BROWSER AT A TIME on this box (FIXES 2's lesson stands).
+NEXT, IN ORDER: 653 (the smith's line held to one line: UI 9's last density step upright, slices/bohemia_ui_no_scroll.js line
+'.ns-d3 #sbody>.who .say p{-webkit-line-clamp:1}', and UI THREE's whole-line pass finds no room in a shop; the probe is ready), 655
+and 662 (the crew screen's said line: UI FIVE is fresh and co-owns both: check its handoff first, one system one session), then the
+debt: 582, 594 (COMBAT THREE's), 574 (JOBS 11/20l, not yet seen), 578.
 
 FIXES TWO (fixes-two-01gkdyuv, session_01GKDyuv8f15hNcmCt8AxXXP): 11/18 LATEST -- [round five] rows 649 (EYES: the receipt over the wipe's
 line) and 581 (a death is heard on its beat) FIXED IN THE GAME, 634 CLOSED (UI FOUR had it), 542 and 555 tidied. BUILD 11/18r - THE FALL IS HEARD ON ITS BEAT, BUILT, NOT YET SEEN. Commit 80ac1ffab.

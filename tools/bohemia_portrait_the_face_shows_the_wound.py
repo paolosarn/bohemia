@@ -1257,6 +1257,19 @@ def pack(look):
     os.makedirs(os.path.join(ROOT, LOGS), exist_ok=True)   # the runner's log: committed, never published (records/target is)
     json.dump(rj, open(os.path.join(ROOT, LOGS, '%s.json' % look), 'w'), indent=1, default=str)
     print('PACK %s: %d patches, atlas %dx%d, marks %d, drift %s, failed %s' % (look, len(patches), W, H, len(rows), drift, idx['failed']))
+    looks_index()
+
+
+def looks_index():
+    """FIXES 3 11/21 (ask row 564): the folder's own list of looks with a sheet, BOHEMIA_WOUND_LOOKS.json; the engine never asks
+    for a sheet that is not on it (engine/bohemia_wound_faces.js __ONLY_THE_SHEETS_THAT_EXIST__, its inlined copy held by the gate)."""
+    od = os.path.join(ROOT, OUT)
+    looks = sorted(f[:-5] for f in os.listdir(od) if f.endswith('.json') and not f.startswith('BOHEMIA_') and os.path.exists(os.path.join(od, f[:-5] + '.png')))
+    p = os.path.join(od, 'BOHEMIA_WOUND_LOOKS.json')
+    old = json.load(open(p)) if os.path.exists(p) else {}
+    old['looks'] = looks
+    json.dump(old, open(p, 'w'), indent=1)
+    print('LOOKS %d with a sheet (BOHEMIA_WOUND_LOOKS.json); copy them into engine/bohemia_wound_faces.js LOOKS' % len(looks))
 
 
 def wear(face, J, A, mark, key, n):
@@ -1337,5 +1350,6 @@ if __name__ == '__main__':
     elif cmd == 'shard': shard(int(sys.argv[2]), int(sys.argv[3]))
     elif cmd == 'pack': pack(sys.argv[2])
     elif cmd == 'sheet': sheet(*sys.argv[2:3])
+    elif cmd == 'looks': looks_index()
     elif cmd == 'people': print('\n'.join(people()))
     else: print(__doc__)

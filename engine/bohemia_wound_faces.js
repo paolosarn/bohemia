@@ -26,6 +26,14 @@
   var FRESH = { blood: ['blood', 'bandaid'], bandage: ['bandaid'] };
   var COVERED = 'tag';
   var IDX = {}, IMG = {}, ASK = {}, WAIT = {}, SET = {};
+  /* ==== __ONLY_THE_SHEETS_THAT_EXIST__ (FIXES 3 11/21, ask row 564, FOUND BY PLUMBER 8 11/10; PORTRAIT has no lane): the town asked
+     for <look>.json for every person it might mark, and a look with no sheet (person_woman_2 and the rest: 178 of the valley's looks
+     have one) answered 404, a round trip on his phone's network for every such person a session. LOOKS is the folder's own list
+     (records/target/portrait/wounds/BOHEMIA_WOUND_LOOKS.json, written by the wound tool after every pack; this is its inlined copy
+     for the first ask, the gate holds the two to the folder); a look that is not on it is never asked for. A sheet made after
+     this copy is asked for once the fetched list names it. ==== */
+  var LOOKS = (function (a) { var o = {}; a.forEach(function (l) { o[l] = 1; }); return o; })(["cast_apron","cast_barearms","cast_bedroll","cast_cape","cast_longcoat","cast_pack","cast_poncho","cast_satchel","cast_shortcoat","cast_shorts","cast_skirt","cast_widebrim","faction_anarchists","faction_blues","faction_caravans","faction_cartel","faction_church","faction_colorful","faction_homeless","faction_mob","faction_network","faction_reds","faction_remnants","faction_trades","faction_volunteers","person_anarchists_0","person_anarchists_1","person_anarchists_2","person_anarchists_3","person_anarchists_4","person_anarchists_5","person_anarchists_6","person_anarchists_7","person_blues_0","person_blues_1","person_blues_2","person_blues_3","person_blues_4","person_blues_5","person_blues_6","person_blues_7","person_caravans_0","person_caravans_1","person_caravans_2","person_caravans_3","person_caravans_4","person_caravans_5","person_caravans_6","person_caravans_7","person_cartel_0","person_cartel_1","person_cartel_2","person_cartel_3","person_cartel_4","person_cartel_5","person_cartel_6","person_cartel_7","person_church_0","person_church_1","person_church_2","person_church_3","person_church_4","person_church_5","person_church_6","person_church_7","person_colorful_0","person_colorful_1","person_colorful_2","person_colorful_3","person_colorful_4","person_colorful_5","person_colorful_6","person_colorful_7","person_homeless_0","person_homeless_1","person_homeless_2","person_homeless_3","person_homeless_4","person_homeless_5","person_homeless_6","person_homeless_7","person_mob_0","person_mob_1","person_mob_2","person_mob_3","person_mob_4","person_mob_5","person_mob_6","person_mob_7","person_network_0","person_network_1","person_network_2","person_network_3","person_network_4","person_network_5","person_network_6","person_network_7","person_reds_0","person_reds_1","person_reds_2","person_reds_3","person_reds_4","person_reds_5","person_reds_6","person_reds_7","person_remnants_0","person_remnants_1","person_remnants_2","person_remnants_3","person_remnants_4","person_remnants_5","person_remnants_6","person_remnants_7","person_town_0","person_town_1","person_town_10","person_town_11","person_town_12","person_town_13","person_town_14","person_town_15","person_town_16","person_town_17","person_town_18","person_town_19","person_town_2","person_town_20","person_town_21","person_town_22","person_town_23","person_town_24","person_town_25","person_town_26","person_town_27","person_town_28","person_town_29","person_town_3","person_town_30","person_town_31","person_town_32","person_town_33","person_town_34","person_town_35","person_town_36","person_town_37","person_town_38","person_town_39","person_town_4","person_town_40","person_town_41","person_town_42","person_town_43","person_town_44","person_town_45","person_town_46","person_town_47","person_town_5","person_town_6","person_town_7","person_town_8","person_town_9","person_trades_0","person_trades_1","person_trades_2","person_trades_3","person_trades_4","person_trades_5","person_trades_6","person_trades_7","person_volunteers_0","person_volunteers_1","person_volunteers_2","person_volunteers_3","person_volunteers_4","person_volunteers_5","person_volunteers_6","person_volunteers_7","you"]);
+  var NOSHEET = {};
 
   function json(k) { try { return JSON.parse(root.localStorage.getItem(k) || 'null'); } catch (e) { return null; } }
   function data() {
@@ -33,6 +41,9 @@
     fetch((root.BOHEMIA_WOUNDS_BASE || BASE) + 'BOHEMIA_WOUND_MARKS.json').then(function (r) { return r.json(); }).then(function (j) {
       if (j && j.rows) { var m = {}; Object.keys(j.rows).forEach(function (k) { m[k] = j.rows[k].mark; }); ROW_MARK = m; }
       if (j && Array.isArray(j.order)) ORDER = j.order.slice();
+    }).catch(function () {});
+    fetch((root.BOHEMIA_WOUNDS_BASE || BASE) + 'BOHEMIA_WOUND_LOOKS.json').then(function (r) { return r.json(); }).then(function (j) {
+      if (j && Array.isArray(j.looks) && j.looks.length) { var o = {}; j.looks.forEach(function (l) { o[l] = 1; }); LOOKS = o; }
     }).catch(function () {});
   }
   /* the marks from what he carries: each mark for life, each temporary injury still healing, the fresh wound's stage */
@@ -73,6 +84,7 @@
 
   function load(look, cb) {
     if (IDX[look] === false) return;
+    if (LOOKS && !LOOKS[look]) { NOSHEET[look] = (NOSHEET[look] | 0) + 1; return; }   /* __ONLY_THE_SHEETS_THAT_EXIST__ */
     if (IDX[look] && IMG[look] && IMG[look].complete && IMG[look].naturalWidth) { cb(); return; }
     (WAIT[look] = WAIT[look] || []).push(cb);
     if (ASK[look] || typeof fetch === 'undefined') return; ASK[look] = 1;
@@ -189,7 +201,7 @@
   }
   /* ==== end EVERY FACE BREATHES ==== */
   root.BohemiaWoundFaces = { ROW_MARK: ROW_MARK, ORDER: ORDER, marksOf: marksOf, marksFor: marksFor, injuryOf: injuryOf, set: set,
-    over: over, has: has, load: load, live: live, lifeAt: lifeAt, lifeOver: lifeOver, KEY_MS: KEY_MS, hurt: hurt, still: still };
+    over: over, has: has, load: load, looks: function () { return LOOKS; }, noSheet: NOSHEET, live: live, lifeAt: lifeAt, lifeOver: lifeOver, KEY_MS: KEY_MS, hurt: hurt, still: still };
   if (typeof module !== 'undefined' && module.exports) module.exports = root.BohemiaWoundFaces;
   data();
 })(typeof window !== 'undefined' ? window : (typeof globalThis !== 'undefined' ? globalThis : this));

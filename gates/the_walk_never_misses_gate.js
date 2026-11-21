@@ -56,7 +56,8 @@ const DIRS = [[0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1, 0], [-1, -
      and the walk pad is stripped from it, so the walked street this gate holds lives in the
      ALPHA until [no city walk] excavates it (rule 18g: the alpha keeps everything). Same
      legs, same numbers, measured where the street still is -- not loosened. */
-  try { d = await drive.open({ alpha: true }); }
+  /* RE-AIMED 11/21 (FIXES 3, __THE_ALPHA_OPENS_ON_THE_MAP__, rule 38(b)): the alpha's city opens on the map now, as the demo's does; the walk this holds lives on the bench only, so it is measured there (the driver's walk: true). Same legs, same numbers. */
+  try { d = await drive.open({ alpha: true, walk: true }); }
   catch (e) { ok('the demo boots [' + String(e.message).slice(0, 120) + ']', false); return done(); }
 
   try {

@@ -816,6 +816,11 @@
     if (!hintsOn()) { SAY.on = null; return; }
     var st = phoneState(), scr = st && st.on ? st.screen : null;
     if (SAY.busy && SAY.k === 'town' && SAY.aside && townSheetOpen()) SAY.aside();   /* __THE_HINT_STEPS_ASIDE__: he went in; the plate is off the sheet at once */
+    /* __THE_HINT_STEPS_ASIDE_FOR_SETTINGS__ (FIXES 3 11/21, ask row 654, FOUND BY EYES 11/20, e06: in Cartel, upright, DESI's 'Tap a
+       building to go in...' stood over the MOTION row and half the SETTINGS row of the open settings card). A plate up when one of
+       the game's own screens comes over the place (the settings card, the barber's chair, the squad's tape, the title) goes at once,
+       the way it goes for a building's sheet; cut before it was all typed, it comes back whole when the place is quiet again. */
+    if (SAY.busy && SAY.aside && covered()) { SAY.aside(); window.__HINT_ASIDE_COVERED = (window.__HINT_ASIDE_COVERED | 0) + 1; }
     if (SAY.busy && SAY.el) placeSay(st);
     if (scr !== SAY.on) { SAY.on = scr; SAY.since = now(); return; }
     if (!scr || SAY.busy || !D.hints.lines[scr] || said()[scr]) return;

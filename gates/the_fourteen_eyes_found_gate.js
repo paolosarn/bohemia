@@ -1180,6 +1180,47 @@ async function f612h(shape, plant) {
   await ctx.close();
 }
 
+/* F654 THE HINT STEPS ASIDE FOR SETTINGS (FIXES 3 11/21, ask row 654, FOUND BY EYES 11/20, e06: in Cartel, upright, DESI's 'Tap a
+        building...' stood over the MOTION row and half the SETTINGS row of the open settings card): the demo, a new game, the start
+        town, the town's line on its plate; a thumb on the phone's SETTINGS: the plate is off the glass within three quarters of a
+        second of the card being up, never over the card after that, and it does not come back while the card is open.
+        PLANT: the new watcher off (the plate stays its seconds over the card). */
+async function f654(shape, plant) {
+  const ctx = await browser.newContext(Object.assign({}, SHAPES[shape], { serviceWorkers: 'block' }));
+  const p = await ctx.newPage(); const errs = []; p.on('pageerror', e => errs.push(String(e && e.message || e).slice(0, 200)));
+  if (plant) await p.route(/bohemia_ui_crashbox\.js/, async route => { const r = await route.fetch(); const b = (await r.text()).replace('if (SAY.busy && SAY.aside && covered()) {', 'if (false) {'); await route.fulfill({ response: r, body: b }); });
+  const P = plant ? ' PLANTED (the watcher off)' : '';
+  await p.goto(BASE + '/slices/BOHEMIA_DEMO.html', { waitUntil: 'load', timeout: 180000 });
+  for (let i = 0; i < 480; i++) { if (await p.evaluate(() => !!window.__LOAD_READY && !!document.getElementById('title')).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.waitForTimeout(1200); await throughTheTitle(p);
+  for (let i = 0; i < 240; i++) { if (await p.evaluate(() => { const b = document.getElementById('fronttap'); return !!(b && /BEGIN/.test(b.innerText)); }).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.evaluate(() => { const b = document.getElementById('fronttap'); if (b) b.click(); });
+  for (let i = 0; i < 120; i++) { if (await p.evaluate(() => !!document.querySelector('#mainmaker .go')).catch(() => false)) break; await p.waitForTimeout(250); }
+  await p.waitForTimeout(1000); await p.evaluate(() => { const g = document.querySelector('#mainmaker .go'); if (g) g.click(); });
+  let sf = null; for (let i = 0; i < 360 && !sf; i++) { await p.waitForTimeout(250); const f = p.frames().find(x => /SETTLEMENT_SCREEN/.test(x.url())); if (f && await f.evaluate(() => window.BohemiaSettlement && BohemiaSettlement.ready() && !!BohemiaSettlement.state.place && !BohemiaSettlement.state.open).catch(() => false)) sf = f; }
+  if (!sf) { ok('F654 ' + shape + P + ': the start town is up', false, 'no town'); await ctx.close(); return; }
+  await p.waitForTimeout(1500);
+  await p.evaluate(() => { try { localStorage.removeItem('bohemia.hints.said'); } catch (e) {} });
+  const plate = () => p.evaluate(() => { const d = document.getElementById('cbxsay'); if (!d || d.style.display === 'none' || !d.offsetWidth || +getComputedStyle(d).opacity < 0.05) return null; const r = d.getBoundingClientRect(); return { who: d.querySelector('b').textContent, r: [Math.round(r.left), Math.round(r.top), Math.round(r.right), Math.round(r.bottom)] }; });
+  let up = null; for (let i = 0; i < 120 && !up; i++) { await p.waitForTimeout(250); up = await plate(); }
+  if (!up) { ok('F654 ' + shape + P + ': the town\'s line comes up on its plate', false, JSON.stringify(await p.evaluate(() => ({ hints: BohemiaCrashbox.hintsOn(), said: localStorage.getItem('bohemia.hints.said') })).catch(e => String(e.message)))); await ctx.close(); return; }
+  await p.waitForTimeout(350);
+  const g = await p.evaluate(() => { const b = document.querySelector('#bohphone [data-app=settings]'); if (!b) return null; const r = b.getBoundingClientRect(); return r.width > 4 ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; });
+  if (!g) { ok('F654 ' + shape + P + ': the phone\'s SETTINGS is on the glass', false); await ctx.close(); return; }
+  const t0 = Date.now(); await p.touchscreen.tap(g.x, g.y);
+  let gone = null, card = null, over = 0, last = Date.now();
+  for (let i = 0; i < 60; i++) { await p.waitForTimeout(80); const q = await plate(), now = Date.now();
+    const c = await p.evaluate(() => { const w = document.getElementById('setwrap'), k = document.getElementById('setcard'); if (!w || !w.classList.contains('on') || !k) return null; const r = k.getBoundingClientRect(); return r.width > 40 ? [r.left, r.top, r.right, r.bottom] : null; });
+    if (c && card == null) card = now - t0;
+    if (q && c && q.r[0] < c[2] && q.r[2] > c[0] && q.r[1] < c[3] && q.r[3] > c[1]) over += now - last;
+    last = now; if (!q && gone == null) gone = now - t0; if (gone != null && card != null && now - t0 > 2600) break; }
+  const back = await plate(), still = await p.evaluate(() => { const w = document.getElementById('setwrap'); return !!(w && w.classList.contains('on')); });
+  if (plant) { ok('F654 ' + shape + P + ': the leg sees the plate still up over the open card (' + (gone == null ? 'never gone in ' + (Date.now() - t0) : 'gone at ' + gone) + ' ms, ' + over + ' ms over the card)', card != null && (gone == null || gone > card + 1500), JSON.stringify({ up, card, gone, over })); await ctx.close(); return; }
+  ok('F654 ' + shape + ': ' + up.who + '\'s town line is on its plate; a thumb on the phone\'s SETTINGS (the card up at ' + card + ' ms): the plate is off the glass at ' + gone + ' ms (' + over + ' ms of it over the card), and it does not come back while the card is open',
+    card != null && gone != null && gone <= card + 750 && !back && still && errs.length === 0, JSON.stringify({ up, card, gone, over, back, still }) + (errs[0] || ''));
+  await ctx.close();
+}
+
 /* ---------------- F581 (FIXES 2 11/18, FOUND BY PLUMBER 8, the red DEATH SOUNDS THAT TERRIFY 'ON THE BEAT') ----------------
    F581 THE FALL IS HEARD ON ITS BEAT: the game through the one driver (the demo upright, the alpha on its side), a road fight on
         AUTO at 1x, the shell's own book of every sound (__ONEBEAT.log): a death's sound is asked AHEAD of its moment (it was asked
@@ -1295,6 +1336,8 @@ async function f649(shape, plant) {
     for (const s of SH) { if (want('F605')) { await f605(s, false); if (s === SH[0]) await f605(s, true); } }
     for (const s of SH) { if (want('F612')) { await f612(s, false); if (s === 'phone_landscape' || SH.indexOf('phone_landscape') < 0) await f612(s, true); } }
     for (const s of SH) { if (want('F612h')) { await f612h(s, false); if (s === SH[0]) await f612h(s, true); } }
+    /* FOUND BY EYES 11/20 (row 654), FIXES 3 */
+    for (const s of SH) { if (want('F654')) { await f654(s, false); if (s === SH[0]) await f654(s, true); } }
     /* the red debt, a real one (row 581), FIXES 2 11/18: the driver's own pages, so asked for by name (--only F581) or in the whole run */
     for (const s of SH) { if (want('F581')) { await f581(s, false); if (s === SH[0]) await f581(s, true); } }
     /* the plant is upright only: on its side the line never reached the roll (EYES met it upright) */

@@ -9956,6 +9956,14 @@ GATES = [
      "before its arrival was handed over. On the game through the one driver, a finger on the glass, a new game with the fog on, the demo upright and the alpha "
      "on its side: W1 the job's card, W2 FALL BACK, W3 off and back: the card asks again, W4 a touch on the job where he stands asks, W5 ENGAGE opens the "
      "fight, Z nothing threw; and a PLANT (the walk's aim not kept at its arrival): no card. About 15 min; one way: phone_landscape:alpha, --plant", True),
+    ('THE ALPHA OPENS ON THE MAP', ['node', 'gates/the_alpha_opens_on_the_map_gate.js'],
+     "FIXES 3 gate, 11/21, ask row 668 (found by ECONOMY THREE 11/20o, sent by the coordinator; rules 38(b), 236, 441). MEASURED before, a phone 390 x "
+     "844, a fresh game on the alpha (the link he plays): the first town stood over MODE 'human', the dead walk, where the demo's stood over the map; LEAVE "
+     "dropped him onto the walked street (the eight-way pad, HOLD TO WALK, no phone); a save written on the walk brought it back; a pinch past the map's "
+     "closest stop walked; the pad lived under the phone. On the alpha through the one driver, a stranger's game with the dark on, a real tap on the phone's "
+     "LEAVE: M1 the first town stands on the map (both shapes), M2 LEAVE is the map with the phone and no walk pad (both shapes), M3 a save from the walk "
+     "comes back on the map, M4 the closest zoom stops, M5 nothing threw, B1 the bench (the city opened on its own) still boots on the walk, and a PLANT "
+     "(the shell's frame not counted as the game): the walk again. About 2 min", True),
 ]
 
 # THE PER-GATE CAP, AND WHY IT CAME DOWN FROM 1800 (8/19/26).

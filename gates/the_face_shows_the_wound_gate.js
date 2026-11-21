@@ -49,6 +49,28 @@ const W = require(path.join(ROOT, 'engine/bohemia_wound_faces.js'));
 const rm = {}; Object.keys(D.rows).forEach(k => { rm[k] = D.rows[k].mark; });
 ok('the engine inlines the data file\'s rows exactly', JSON.stringify(Object.keys(W.ROW_MARK).sort().map(k => [k, W.ROW_MARK[k]])) === JSON.stringify(Object.keys(rm).sort().map(k => [k, rm[k]])));
 ok('and its drawing order', JSON.stringify(W.ORDER) === JSON.stringify(D.order), W.ORDER.length + ' layers');
+/* F2b ONLY THE SHEETS THAT EXIST (FIXES 3 11/21, ask row 564, FOUND BY PLUMBER 8 11/10): the town asked for a sheet for every person
+   it might mark and a look with none answered 404. The folder's own list, the engine's copy, and no ask for a look not on it.
+   PLANT: the engine with its guard taken out asks for the look with no sheet. */
+{
+  const WD = path.join(ROOT, 'records/target/portrait/wounds');
+  const disk = fs.readdirSync(WD).filter(f => f.endsWith('.json') && !f.startsWith('BOHEMIA_') && fs.existsSync(path.join(WD, f.slice(0, -5) + '.png'))).map(f => f.slice(0, -5)).sort();
+  const LK = J('records/target/portrait/wounds/BOHEMIA_WOUND_LOOKS.json').looks;
+  ok('F2b ONLY THE SHEETS THAT EXIST: the looks list is the folder\'s own (' + disk.length + ') and the engine inlines it exactly',
+    JSON.stringify(LK) === JSON.stringify(disk) && JSON.stringify(Object.keys(W.looks()).sort()) === JSON.stringify(disk));
+  const asks = (src) => { const calls = [], g = { localStorage: { getItem: () => null }, fetch: (u) => { calls.push(String(u)); return new Promise(() => {}); } };
+    const fn = new Function('window', 'globalThis', 'module', 'fetch', src); fn(g, g, undefined, g.fetch); calls.length = 0;
+    const noSheet = ['person_woman_2', 'person_woman_7', 'nobody_at_all'].filter(l => disk.indexOf(l) < 0);
+    noSheet.forEach(l => g.BohemiaWoundFaces.load(l, () => {})); g.BohemiaWoundFaces.load(disk[0], () => {});
+    return { calls: calls.slice(), noSheet }; };
+  const SRC = fs.readFileSync(path.join(ROOT, 'engine/bohemia_wound_faces.js'), 'utf8');
+  const now = asks(SRC);
+  ok('F2b a look with no sheet is never asked for (' + now.noSheet.join(', ') + '); a look with one is asked once (' + now.calls.join(', ') + ')',
+    now.noSheet.length >= 2 && now.calls.length === 1 && now.calls[0].endsWith(disk[0] + '.json'));
+  const GUARD = "    if (LOOKS && !LOOKS[look]) { NOSHEET[look] = (NOSHEET[look] | 0) + 1; return; }";
+  const plant = SRC.indexOf(GUARD) >= 0 ? asks(SRC.replace(GUARD, '')) : null;
+  ok('F2b PLANTED (the guard out): the leg sees the asks for looks with no sheet (' + (plant ? plant.calls.length : 'no guard found') + ')', !!plant && plant.calls.length === now.noSheet.length + 1);
+}
 const CF = fs.readFileSync(path.join(ROOT, 'engine/bohemia_crew_faces.js'), 'utf8');
 ok('the one face painter puts the marks over every face it paints (rest and every mouth)', /function paint\(x, im, size, look, key(, dy, life)?\)[\s\S]{0,400}BohemiaWoundFaces[\s\S]{0,240}\.over\(x, look/.test(CF) &&
   /paint\(x, im, size, look, 'rest'\)/.test(CF) && /paint\(x, im, size, look, frames\[key\] \? key : 'rest'\)/.test(CF));

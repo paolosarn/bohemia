@@ -48059,7 +48059,7 @@ function setZoomAt(z,pvx,pvy){
      SETTLEMENT SCREEN ([settlement screen], the next row of this lane) and until it
      exists the camera simply stops at its closest, like any camera. The alpha keeps
      the walked street (rule 18g) until [no city walk] excavates it. */
-  var __demoMap = (typeof CT_IS_DEMO!=='undefined' && CT_IS_DEMO);
+  var __demoMap = (typeof ctTheMapIsTheGame==='function' && ctTheMapIsTheGame());   /* __THE_ALPHA_OPENS_ON_THE_MAP__: the alpha's map is the game's map too */
   /* __THE_NEAR_END_IS_THE_BLOCK__: while looking at the block, the pinch scales it; and on the demo map the
      pinch past the closest stop drops into it (looking, never walking: rule 38b) */
   /* ONE GESTURE, ONE RUNG: the block opens only for a gesture that STARTED at the closest map stop, and
@@ -72000,8 +72000,29 @@ var CT_IS_DEMO = false;
    map. MEASURED: a tap there set a route and a road party met him 5 s later, which
    is the first fight the stranger's list has ever recorded inside five minutes. */
 var DEMO_ON_MAP = false;
+/* ==== __THE_ALPHA_OPENS_ON_THE_MAP__ (FIXES 3, 11/21, rules 38(b), 236, 441; found by ECONOMY THREE 11/20o, sent by the
+   coordinator): THE ALPHA'S NEW GAME OPENED OVER THE DEAD WALK. MEASURED on a phone (390 x 844), a fresh game: the first town
+   (Caravans, Cartel) was up over MODE 'human' on the alpha and over MODE 'city' on the demo; LEAVE on the alpha dropped him onto
+   the walked street (the eight-way pad, HOLD TO WALK, BUILD HERE / SCAVENGE / BIKE / SLEEP, no phone), the demo onto the map with
+   its phone. A save written on the walk brought the walk back on every reload, and a pinch in at the map's closest stop walked.
+   Rule 38(b): 'TILE-TO-TILE THROUGH THE CITY IS DEAD, immediately', and the alpha is the link he plays. So the city framed by
+   the game's own shell (the alpha's RUN or the demo: the frame the shell names cityFrame) opens on the map, comes back to the
+   map from a save, and stops at the closest zoom, exactly as the demo does; the demo's other looks (only the final art, the
+   lean map, the street stop, the ending) stay the demo's. A page that opens this file on its own (the 237 checkers that do)
+   keeps the old bench unchanged. ==== */
+var CT_IN_SHELL = (function(){ try { return !!(window.parent && window.parent !== window && window.frameElement
+  && window.frameElement.id === 'cityFrame') && !window.__BOH_THE_BENCH_WALKS; } catch (_e) { return false; } })();
+/* window.__BOH_THE_BENCH_WALKS: a checker's switch only (the driver's walk: true), for the checkers that hold what still lives on
+   the bench's walk (the walk director, the pad's hold, the stride); no page of the game sets it */
+function ctTheMapIsTheGame(){ return !!(CT_IS_DEMO || CT_IN_SHELL); }
+/* and the walk pad and DROP IN (#nav) leave the alpha's map, as the demo's cut takes them off its map (tools/bohemia_cut_the_demo.js
+   NO CITY WALK): MEASURED on the alpha's map after LEAVE, the eight wedges stood live at 294,706 under the phone (each wedge the top
+   thing at its own middle in the frame), so with the phone in the left corner a press walked the marker a cell, the tile-to-tile
+   rule 38(b) killed */
+if (CT_IN_SHELL) { try { var __noPad = document.createElement('style'); __noPad.id = 'alpha-no-walk-pad'; __noPad.textContent = '#nav{display:none!important}';
+  (document.head || document.documentElement).appendChild(__noPad); } catch (_e) {} }
 function demoOpensOnMap(tries){
-  if(DEMO_ON_MAP || !CT_IS_DEMO) return;
+  if(DEMO_ON_MAP || !ctTheMapIsTheGame()) return;
   var ready = false;
   try{ ready = (typeof om!=='undefined' && om && om.n>0 && typeof MODE!=='undefined'
                 && typeof swapMode==='function' && !transing); }catch(_e){ ready=false; }
@@ -76339,7 +76360,10 @@ function applyRestore(st){
     if(typeof RETREAT_QUIET !== 'undefined') RETREAT_QUIET.till = (st.run.quiet | 0) || 0; }catch(_e){} }   /* __A_RETREAT_GETS_HIM_AWAY__; __EVERYONE_IN_THE_FIGHT_HOLDS__ */
   if(typeof st.hzoom==='number'){ HZOOM=st.hzoom; }
   if(typeof RIDING!=='undefined'){ RIDING=!!st.riding; document.getElementById('bikebtn').classList.toggle('on',RIDING); }
-  if(st.mode==='human'){ MODE='human'; hx=st.hx; hy=st.hy; HC=HZOOM; }
+  if(st.mode==='human'){ MODE='human'; hx=st.hx; hy=st.hy; HC=HZOOM;
+    /* __THE_ALPHA_OPENS_ON_THE_MAP__: a save written on the dead walk comes back on the map, the marker on his feet */
+    if(typeof ctTheMapIsTheGame==='function' && ctTheMapIsTheGame()){ try{ SEAM_INTENT='look'; swapMode(); }catch(_e){ MODE='city'; }
+      window.__WALK_SAVE_TO_MAP=(window.__WALK_SAVE_TO_MAP|0)+1; } }
   else { MODE='city'; }
   updHud(); render();
   return true;
@@ -76667,9 +76691,9 @@ var SEATING = false;
 (function(){ try{
   if(typeof MODE!=='undefined' && MODE==='city' && typeof swapMode==='function'){
     var demo = false; try{ demo = !!(window.parent && window.parent !== window && window.parent.__BOHEMIA_DEMO_BUILD); }catch(_e){}
-    if(demo){
+    if(demo || CT_IN_SHELL){   /* __THE_ALPHA_OPENS_ON_THE_MAP__: the alpha's RUN is seated and opened on the map the same way */
       SEATING = true; try{ swapMode(); HC=HZOOM; } finally { SEATING = false; }
-      CT_IS_DEMO = true; demoOpensOnMap(0);
+      if(demo) CT_IS_DEMO = true; demoOpensOnMap(0);
     } else { swapMode(); HC=HZOOM; render(); }
   }
 }catch(_hs){} })();

@@ -134,7 +134,8 @@ function serve() {
   let browser = null;
   try {
     const drive = require(path.join(__dirname, '..', 'tools', 'bohemia_drive_the_demo.js'));
-    const dd = await drive.open({ alpha: true, keepCards: true });
+    /* RE-AIMED 11/21 (FIXES 3, __THE_ALPHA_OPENS_ON_THE_MAP__, rule 38(b)): the alpha's city opens on the map now, as the demo's does; the walk this holds lives on the bench only, so it is measured there (the driver's walk: true). Same legs, same numbers. */
+    const dd = await drive.open({ alpha: true, keepCards: true, walk: true });
     browser = dd.browser;
     const page = dd.page;
     const errs = dd.errs;

@@ -19,7 +19,8 @@
      B4 the still each person stands in is the breath's own 0.25 frame (one bake, not two)
      B5 he is still seated: on the map, the demo's look-out taken, his landing written
      B6 the page itself is fetched once in the first 20 s (no build check during the boot)
-     B7 THE WORKSHOP IS UNCHANGED: on the alpha he starts on his street and the boards are built
+     B7 THE ALPHA IS SEATED ON THE MAP (re-aimed 11/21, rule 38(b)): on the alpha he is seated from his feet and opened on the map,
+        as in the demo, and the boards are built
      ADDED 10/11 (round two): B1b no street-crowd poll and no street-walk warm-up before BEGIN; B9 the six people's breath
      and his walk are baked after the world is ready (a facing at a time); B10 the map ends with the same 280 frames as
      the workshop's one-piece bake (hashed), and no run frames (nothing draws them)
@@ -123,9 +124,11 @@ const FRAMES = () => { let h = 2166136261 >>> 0, n = 0; const mix = c => { const
   try {
     a = await drive.open({ alpha: true, keepCards: true });
     await a.page.waitForTimeout(4000);
-    const s = await a.fr.evaluate(() => ({ mode: MODE, landed: !!LANDED }));
+    const s = await a.fr.evaluate(() => ({ mode: MODE, landed: !!LANDED, onMap: DEMO_ON_MAP }));
     const boards = await a.page.evaluate(() => { const e = document.getElementById('outfitBoard'); return e ? e.querySelectorAll('canvas').length : -1; });
-    ok('B7 THE WORKSHOP IS UNCHANGED (the alpha starts him on ' + (s.mode === 'human' ? 'his street' : s.mode) + ', landed ' + s.landed + '; the faction board ' + boards + ' canvases)', s.mode === 'human' && s.landed && boards > 0);
+    /* RE-AIMED 11/21 (FIXES 3, __THE_ALPHA_OPENS_ON_THE_MAP__, rule 38(b): the walk is dead on the link he plays): the alpha is
+       seated from his feet and opened on the map, as the demo is; the workshop's boards are still built */
+    ok('B7 THE ALPHA IS SEATED ON THE MAP, ITS BOARDS BUILT (the alpha starts him on ' + (s.mode === 'human' ? 'his street' : s.mode) + ', the look-out taken ' + s.onMap + ', landed ' + s.landed + '; the faction board ' + boards + ' canvases)', s.mode === 'city' && s.onMap === true && s.landed && boards > 0);
     /* B10: the frames, against the workshop's one-piece bake */
     let af = null; for (let i = 0; i < 60; i++) { af = await a.fr.evaluate(FRAMES).catch(() => null); if (af && af.n === 280) break; await a.page.waitForTimeout(500); }
     ok('*** B10 THE DEMO\'S MAP HOLDS NO 2-D FRAME, THE WORKSHOP\'S BAKE IS WHOLE *** (the demo ' + (demoFrames && demoFrames.n) + ' frames, hash ' + (demoFrames && demoFrames.h) + '; the workshop ' + (af && af.n) + ', ' + (af && af.h) + '; his run frames ' + (demoFrames && demoFrames.runs) + '/' + (af && af.runs) + ', none drawn anywhere)',

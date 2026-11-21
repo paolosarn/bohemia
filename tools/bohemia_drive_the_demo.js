@@ -92,7 +92,11 @@ const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
    nothing changes. */
 const GPU_ARGS = ['--ignore-gpu-blocklist', '--enable-unsafe-swiftshader', '--enable-gpu-rasterization', '--use-angle=swiftshader', '--enable-accelerated-2d-canvas'];
 const KNOWN_OPTS = ['profile', 'alpha', 'again', 'arm', 'bare', 'base', 'beforeGoto', 'beforeTap', 'boot', 'door', 'engage', 'file', 'fog', 'gpu', 'keepCards', 'maker',
-                    'net', 'netlog', 'noWorker', 'pages', 'runtab', 'serve', 'settle', 'throttle', 'warmup', 'world'];
+                    'net', 'netlog', 'noWorker', 'pages', 'runtab', 'serve', 'settle', 'throttle', 'walk', 'warmup', 'world'];
+/* 'walk' ADDED 11/21 BY FIXES 3 (__THE_ALPHA_OPENS_ON_THE_MAP__, rule 38(b)): the alpha's city now opens on the map, as the demo's
+   does, and the walked street lives only on the bench. walk: true keeps the alpha's city on the bench's walk (window
+   __BOH_THE_BENCH_WALKS in every document before its scripts), for the checkers that hold what lives there (the walk director's
+   moments, the pad's hold, the stride). No player meets it. Unset, the alpha is the game. */
 /* THE WAITS ARE MILLISECONDS, AND ONLY MILLISECONDS (PLUMBER 9/29, [one driver]). Every one
    of these is read as `opts.x || default` and compared against a clock, so `runtab: true`
    became a wait of ONE millisecond: one try, and a pass only when the RUN box happened to
@@ -231,6 +235,7 @@ async function open(opts) {
      that has already painted three bodies. Arm before the page, or measure nothing.
      Off unless a caller passes it, so no existing use of this driver changes. */
   if (opts.arm && !again) await ctx.addInitScript({ content: opts.arm });
+  if (opts.walk && !again) await ctx.addInitScript({ content: 'window.__BOH_THE_BENCH_WALKS = true;' });
   /* opts.engage (RUN 10/25, __MEET_BEFORE_YOU_FIGHT__, rule 151(e)): the map now asks ENGAGE or FALL BACK before a fight his
      walking walks into. A checker that walks into a fight to measure the fight presses ENGAGE, the way a player would, the
      moment the card stands (the same precedent as spoilsLeave after a forced win). Off unless a caller passes it: a driver
@@ -532,8 +537,12 @@ async function open(opts) {
   /* the city frame exists: from here on, anything that arrives is loading DURING PLAY */
   if (firstPaintAt === null) firstPaintAt = Date.now() - t00;
   /* and the frame existing is not the world being there */
-  await until(() => fr.evaluate(() => typeof MODE !== 'undefined' && MODE === 'human'
-    && document.querySelectorAll('.pb').length === 8), opts.world || 120000);
+  /* FIXES 3 11/21 (__THE_ALPHA_OPENS_ON_THE_MAP__): THE GAME IS ON THE MAP (rule 38(b)), so the world is there when the map is up
+     (MODE 'city' with the map's own opener done), not only when the dead walk's eight pads are. MEASURED before: this wait asked
+     for the walk alone and the demo never walks, so every open of the demo sat here the whole 120 s (open took 148 s). */
+  await until(() => fr.evaluate(() => typeof MODE !== 'undefined' && ((MODE === 'human'
+    && document.querySelectorAll('.pb').length === 8) || (MODE === 'city' && typeof DEMO_ON_MAP !== 'undefined' && DEMO_ON_MAP === true))),
+    opts.world || 120000);
   /* TRAP 1: the frame's own box, added to every coordinate below. */
   let fb = await (await fr.frameElement()).boundingBox();
   /* *** TRAP 7: A HIDDEN FRAME HAS NO BOX, AND THE ALPHA NOW HIDES IT ON PURPOSE. ***
