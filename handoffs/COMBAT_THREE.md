@@ -1,6 +1,22 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the hangar] SHIPPED af96283f7, BUILD 11/21zf - THE HANGAR, BUILT, NOT YET SEEN. VOTE combat4-the-hangar-11-21 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the aquarium] SHIPPED 98602a0ac, BUILD 11/21zg - THE AQUARIUM, BUILT, NOT YET SEEN. VOTE combat4-the-aquarium-11-21 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_AQUARIUM_11_21_26.md. More boards (rule 461): the aquarium ('aquarium', 0.8): the_reef_halls (tanks and jellyfish columns you cannot cross
+but see through: the fight's sight stops only at walls, so a tank is a blocking piece on flat ground, and its glass is cover; the touch pool at the entrance end, swamp:
+4 AP and worse at fighting; rockwork, rough 3 AP and cover; kiosks, benches, fallen panels) and the_shark_tunnel (the big tank down the middle, crossed only by three glass
+tunnels, low cover; the middle one's seam leaking, swamp; viewing galleries both sides). One data file (13 tile kinds, 9 pieces all stand-ins), seventeenth in insides.json;
+no high ground; the ceiling the garage's 'deck'. GATE THE BIG INSIDES 269/0 (seventeen insides) (the aquarium 19/0 with I11 on the leak, 25% bare after round one against 39%; my first cut 46%:
+the touch pool sat between the lines and AUTO stood men in it).
+ON THE PAGE: 4 fights, both pages both ways, both layouts, all ended, 17 of 17 taps, 0 errors.
+*** FOR COOK (SIX): THE AQUARIUM'S NAMES (aquarium_art.json, THE GARAGE'S FORMAT): floor.floor (the halls' dark carpet), floor.ring, floor.pool (the touch pool's water,
+knee deep, if a floor list is wanted for it); aq_tank (a tank's glass, green water, a carcass on the sand), aq_column (a jellyfish column, empty), aq_tunnel (the glass
+tunnel's walkway and arch), aq_benches (viewing benches), aq_kiosk (a dead info kiosk), aq_rockwork (themed rockwork, fake stone over steel), aq_panel (a fallen acrylic panel),
+aq_wall_ew, aq_wall_ns (black-painted walls); aquarium/aquarium_ceiling.webp (black ceiling, ducts, dead spotlights); "have": true in aquarium.json's ceiling.
+NEXT: more boards (the robot factory's floor, the TV station's studio); more ground from Battle Brothers' table.
+[bb Battle Brothers' swamp again: the touch pool and the tunnel's leak, knee deep]
+[analog horror: the tank's last feeding-time announcement on a loop, the lights over the empty water still dimming on schedule]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 -- [the hangar] SHIPPED af96283f7, BUILD 11/21zf - THE HANGAR, BUILT, NOT YET SEEN. VOTE combat4-the-hangar-11-21 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_HANGAR_11_21_26.md. More boards (rule 461): the hangar ('airport' and 'airbase', 0.35: the ground is mostly runway and apron):
 the_cargo_jet (the jet in the middle: nose, fuselage, tail a line nobody stands on, wings across five rows, under the wing rough 3 AP and low cover, an engine under each
 wing; tugs, power carts, stairs, carts, cargo dollies, spare engines, tool cribs on the walls, the doors the whole front) and the_two_fighters (two jets a side, munitions

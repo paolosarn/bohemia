@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21zf - THE HANGAR, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21zg - THE AQUARIUM, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE AQUARIUM: a fight at the aquarium on the Strip (eight in ten) is fought in its dark halls (tanks you cannot cross but can see through, the touch pool: slow, and you
+fight worse in it) or across the shark tank by its glass tunnels (one leaking). One data file, every picture a stand-in (the names for COOK in the handoff).
+GATE THE BIG INSIDES 269/0 (seventeen insides). ON THE PAGE: 4 fights, both pages both ways, both layouts, all ended, 17 of 17 taps, 0 errors. VOTE combat4-the-aquarium-11-21.
+[bb Battle Brothers' swamp again: the touch pool and the tunnel's leak, knee deep]
+[analog horror: the tank's last feeding-time announcement on a loop, the lights over the empty water still dimming on schedule]
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 -- BUILD 11/21zf - THE HANGAR, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE HANGAR: about one fight in three at the airport's field or the air base is fought inside a hangar: round a cargo jet (its fuselage a wall, its wings low cover) or
 between two fighters and their munitions trailers. One data file, every picture a stand-in (the names for COOK in the handoff).
 GATE THE BIG INSIDES 253/0 (sixteen insides). ON THE PAGE: 8 fights, both pages both ways, both layouts, all ended, 35 of 35 taps, 0 errors. VOTE combat4-the-hangar-11-21.
