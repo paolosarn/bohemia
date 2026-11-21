@@ -242,7 +242,6 @@
   "records/target/bb/nightly_bill.json",
   "records/target/bb/stall_prices.json",
   "records/target/bb/job_pay.json",
-  "records/target/bb/job_into_place.json",
   "records/target/bb/origins.json",
   "records/target/bb/retinue.json",
   "records/target/bb/arena.json",
@@ -397,16 +396,6 @@
    ],
    "what": "what one beaten man had in his pocket (55 in 100) and the cell out of a machine",
    "band": "everyday"
-  },
-  {
-   "file": "records/target/bb/job_into_place.json",
-   "paths": [
-    "worth.value.battery",
-    "worth.value.per_tape"
-   ],
-   "what": "what a build is worth when a job pays it into his place: its AA and an AA a roll of tape",
-   "band": "everyday",
-   "owner": "JOBS"
   },
   {
    "file": "records/target/bb/home_base.json",
@@ -640,24 +629,6 @@
     "violence.value.quiet_margin"
    ],
    "what": "what twelve men burn an hour, and how much over it an hour of a job pays",
-   "unit": "ratio",
-   "owner": "JOBS"
-  },
-  {
-   "file": "records/target/bb/job_into_place.json",
-   "paths": [
-    "share.value"
-   ],
-   "what": "the most of a job's pay that can be a build",
-   "unit": "ratio",
-   "owner": "JOBS"
-  },
-  {
-   "file": "records/target/bb/relations.json",
-   "paths": [
-    "haggle.value.step"
-   ],
-   "what": "an ask on a job's card: what each ask lands on the pay (two land, the third ends it; JOBS 11/17 PUSH THE PAY)",
    "unit": "ratio",
    "owner": "JOBS"
   },
@@ -1710,18 +1681,6 @@
   },
   {
    "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
-   "find": "W = \\(INTO && INTO\\.worth && INTO\\.worth\\.value\\) \\|\\| \\{ battery: (\\d+), per_tape: \\d+ \\}",
-   "what": "the town's copy of what a build is worth when a job pays it into his place, until job_into_place.json lands",
-   "row": "records/target/bb/job_into_place.json#worth.value.battery"
-  },
-  {
-   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
-   "find": "W = \\(INTO && INTO\\.worth && INTO\\.worth\\.value\\) \\|\\| \\{ battery: \\d+, per_tape: (\\d+) \\}",
-   "what": "the same: an AA a roll of tape",
-   "row": "records/target/bb/job_into_place.json#worth.value.per_tape"
-  },
-  {
-   "file": "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
    "find": "var crowns = 20 \\* (\\d+) \\* traitMult",
    "what": "the clinic: the wiki's treatment price multiplier",
    "leaf": "records/target/bb/injuries.json#rules.temporary_healing.treatment_price_multiplier"
@@ -2126,11 +2085,6 @@
   "records/target/bb/loot.json": {
    "counts.batteries.pocket": 1,
    "counts.batteries.machine_cell": 1
-  },
-  "records/target/bb/job_into_place.json": {
-   "worth.value.battery": 1,
-   "worth.value.per_tape": 1,
-   "share.value": 0.25
   },
   "records/target/bb/home_base.json": {
    "bill.keep": 1,
@@ -2725,9 +2679,6 @@
    "pay_mult.value.to": 4.5,
    "pay_mult.value.at": 4000
   },
-  "records/target/bb/relations.json": {
-   "haggle.value.step": 0.07
-  },
   "records/target/BOHEMIA_HALL_PRICE.json": {
    "easier": 0.8
   },
@@ -2814,9 +2765,9 @@
   }
  },
  "count": {
-  "rows": 673,
-  "files": 19,
-  "copies": 169,
+  "rows": 669,
+  "files": 17,
+  "copies": 167,
   "prose": 17
  }
 }

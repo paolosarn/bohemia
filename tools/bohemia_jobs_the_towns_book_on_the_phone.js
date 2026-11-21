@@ -198,19 +198,25 @@ async function walk(shape) {
         let T = await openTown(tn, K.day, null, true), sf = T.sf, sfH = T.sfH;
         row.dropId = T.ids.filter(id => id !== K.id)[0]; if (!row.dropId) throw new Error('no second job on the board: ' + JSON.stringify(T.ids));
         const cardCost = async (id) => { if (!await tapIn(sf, sfH, '#sheet button.act.client[data-id="' + id + '"]')) throw new Error('no finger on ' + id);
-          if (!await waitFor(() => sf.evaluate(() => !!document.querySelector('#sheet .trip.quit')), 8000)) throw new Error('no cost line on ' + id + '\'s card');
+          if (!await waitFor(() => sf.evaluate(() => [...document.querySelectorAll('#sheet button.act')].some(x => /^Take it/.test(x.textContent))), 8000)) throw new Error('no card for ' + id);
           await page.waitForTimeout(400);
-          return sf.evaluate(() => ({ words: document.querySelector('#sheet .trip.quit').textContent, cost: BohemiaSettlement.state.cost ? { drop: BohemiaSettlement.state.cost.drop, fail: BohemiaSettlement.state.cost.fail } : null,
+          /* JOBS 11/21 (rule 466(c)): the card no longer explains what dropping or failing costs; the numbers stay in the background */
+          return sf.evaluate(() => ({ words: (document.querySelector('#sheet .trip.quit') || {}).textContent || null, cost: null, explains: /DROP IT|FAIL IT/.test(document.getElementById('sheet').textContent),
+            acts: [...document.querySelectorAll('#sheet .acts button')].map(b => String(b.textContent || '').trim().slice(0, 14)),
             fit: [...document.querySelectorAll('#sheet .acts button')].map(b => { const r = b.getBoundingClientRect(); return [String(b.textContent || '').slice(0, 10), Math.round(r.top), Math.round(r.bottom), innerHeight]; }) })); };
         const takeIt = async (id) => { const sel = await sf.evaluate(() => { const b = [...document.querySelectorAll('#sheet button.act')].filter(x => /^Take it/.test(x.textContent))[0]; if (!b) return null; b.dataset.take = 'yes'; return '#sheet button[data-take="yes"]'; });
           if (!sel || !await tapIn(sf, sfH, sel)) throw new Error('no finger on Take it for ' + id);
           if (!await waitFor(() => fr.evaluate((j) => LOOP.held.some(h => h.id === j), id), 10000)) throw new Error(id + ' was not taken'); };
         const clout = () => fr.evaluate(() => BohemiaRenown.score());
+        /* JOBS 11/21 __CLOUT_ON_THE_BAR__: the number on the map's bar, read off the glass (what a finger would hit there is it) */
+        const barClout = async () => { await page.waitForTimeout(700); return fr.evaluate(() => { const e = document.querySelector('#bmtb .clout'); if (!e) return null; const r = e.getBoundingClientRect(), h = r.width > 0 ? document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2) : null;
+          return { n: +((e.querySelector('b') || {}).textContent || NaN), seen: !!(h && e.contains(h)) && r.top >= 0 && r.bottom <= innerHeight && r.right <= innerWidth }; }); };
+        row.bar = [];
         /* the drop */
         row.dropCard = await cardCost(row.dropId);
         row.png = path.relative(ROOT, path.join(OUTD, TAG + '_' + (shape === 'phone_portrait' ? 'upright' : 'sideways') + '_C.png')); await page.screenshot({ path: path.join(ROOT, row.png) });
         await takeIt(row.dropId);
-        row.drop0 = { bar: await barRaw(tn), clout: await clout() };
+        row.drop0 = { bar: await barRaw(tn), clout: await clout() }; row.bar.push({ at: 'drop0', clout: row.drop0.clout, shown: await barClout() });
         await waitFor(() => sf.evaluate((j) => !!document.querySelector('#sheet [data-held="' + j + '"]'), row.dropId), 8000);
         if (!await tapIn(sf, sfH, '#sheet [data-held="' + row.dropId + '"]')) throw new Error('no finger on the held job');
         if (!await waitFor(() => sf.evaluate(() => !!document.querySelector('#sheet [data-drop="yes"]')), 6000)) throw new Error('no Drop it');
@@ -218,7 +224,7 @@ async function walk(shape) {
         if (!await waitFor(() => fr.evaluate((j) => !LOOP.held.some(h => h.id === j), row.dropId), 8000)) throw new Error('the drop did not land');
         await fr.evaluate(() => { try { loopClose(); } catch (e) {} }); await page.waitForTimeout(600);
         T = await openTown(tn, K.day, null, true); sf = T.sf; sfH = T.sfH;   /* the town hears it when he walks in again (the settled queue) */
-        row.drop1 = { bar: await barRaw(tn), clout: await clout() };
+        row.drop1 = { bar: await barRaw(tn), clout: await clout() }; row.bar.push({ at: 'drop1', clout: row.drop1.clout, shown: await barClout() });
         /* the fail */
         row.failCard = await cardCost(K.id);
         await takeIt(K.id);
@@ -238,10 +244,17 @@ async function walk(shape) {
         row.lost = await fr.evaluate((id) => ({ lost: (window.__JOB_LOST || []).some(l => l.id === id), held: LOOP.held.some(h => h.id === id) }), K.id);
         row.fail1clout = await clout();
         await openTown(tn, K.day);   /* he walks back in: the town hears it */
-        row.fail1 = { bar: await barRaw(tn), clout: row.fail1clout };
-        row.fit = row.dropCard.fit.concat(row.failCard.fit); row.cardFits = row.dropCard.fit.length >= 3 && row.fit.every(x => x[2] <= x[3]);   /* every button of both cards on the glass */
-        row.dropMatch = !!(row.dropCard.cost && row.drop1.bar === row.dropCard.cost.drop.after && row.drop1.clout === row.dropCard.cost.drop.cloutAfter && row.drop0.bar === row.dropCard.cost.drop.before);
-        row.failMatch = !!(row.failCard.cost && row.lost.lost && !row.lost.held && row.fail1.bar === row.failCard.cost.fail.after && row.fail1.clout === row.failCard.cost.fail.cloutAfter && row.fail0.bar === row.failCard.cost.fail.before);
+        row.fail1 = { bar: await barRaw(tn), clout: row.fail1clout }; row.bar.push({ at: 'fail1', clout: row.fail1clout, shown: await barClout() });
+        row.fit = row.dropCard.fit.concat(row.failCard.fit); row.cardFits = row.dropCard.fit.length >= 2 && row.fit.every(x => x[2] <= x[3]);   /* JOBS 11/21: Take it and Not now (the ask and the build are dead) */   /* every button of both cards on the glass */
+        /* the background (the game's own numbers: relations.json acts, renown.json gains, never under 0): a drop and a fail cost what they always did */
+        const RJ = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/relations.json'), 'utf8')), V = { c: +RJ.acts.cancel_contract.value, f: +RJ.acts.fail_civilian_contract.value }, G = await fr.evaluate(() => BohemiaRenown.data().gains);
+        const bar = (b, d) => Math.max(0, Math.min(100, Math.round((b + d) * 100) / 100)), cl = (c, d) => Math.max(0, c + d);
+        row.expect = { drop: { bar: bar(row.drop0.bar, V.c), clout: cl(row.drop0.clout, G.cancel_contract) }, fail: { bar: bar(row.fail0.bar, V.f), clout: cl(row.fail0.clout, G.fail_civilian_contract) } };
+        /* the bar: the act's own move, less the town's dawn drift back toward 50 (relations.json drift, 0.25 a day) while the map's clock runs
+           between (a slow phone runs it longer: measured 3.75 on the alpha held sideways); CLOUT exactly */
+        const near = (got, want) => got >= want - 0.01 && got <= want + 5;
+        row.dropMatch = near(row.drop1.bar, row.expect.drop.bar) && row.drop1.bar < row.drop0.bar && row.drop1.clout === row.expect.drop.clout;
+        row.failMatch = !!(row.lost.lost && !row.lost.held && near(row.fail1.bar, row.expect.fail.bar) && row.fail1.bar < row.fail0.bar && row.fail1.clout === row.expect.fail.clout);
       } catch (e) { row.err = String(e && e.message || e).slice(0, 200); }
       out.push(row);
       console.log('  ' + TAG + ' ' + shape + ' C WHAT WALKING AWAY COSTS: ' + (row.err ? 'ERR ' + row.err : row.town + ' day ' + row.day + ': ' + row.dropId + ' card [' + row.dropCard.words + '] dropped: bar ' + row.drop0.bar + ' -> ' + row.drop1.bar + ', CLOUT ' + row.drop0.clout + ' -> ' + row.drop1.clout + (row.dropMatch ? ' (as the card said)' : ' (NOT as the card said)') + '; ' + row.turnId + ' card [' + row.failCard.words + '] walked away at its turn (' + row.talk + '): bar ' + row.fail0.bar + ' -> ' + row.fail1.bar + ', CLOUT ' + row.fail0.clout + ' -> ' + row.fail1.clout + (row.failMatch ? ' (as the card said)' : ' (NOT as the card said)') + ' steps ' + (row.steps || []).join(' > ')));

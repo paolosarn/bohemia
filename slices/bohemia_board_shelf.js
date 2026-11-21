@@ -139,17 +139,11 @@
     if (m && m.win === win && m.camp === camp) return;   /* the first look is what he read */
     M[name] = { win: win, camp: camp, ids: (ids || []).slice() }; readPut(M); DEAL.key = null;
   }
-  /* __PUSH_THE_PAY__ (JOBS 11/17): a person he pushed past the asks that land walked out of this town's board for its window (the
-     town screen's haggle record, bohemia.haggle.v1, '<id>@<town>'), so the board and the phone's list both leave them out */
-  var HAGKEY = 'bohemia.haggle.v1';
-  function walkedOut(name, day) { var w = Math.floor((day || 0) / (SHELF.refresh_days || 3)), m = {}, out = {};
-    try { m = JSON.parse(root.localStorage.getItem(HAGKEY) || '{}') || {}; } catch (e) { m = {}; }
-    Object.keys(m).forEach(function (k) { var at = k.lastIndexOf('@'); if (at > 0 && k.slice(at + 1) === String(name) && m[k] && m[k].walked && m[k].win === w) out[k.slice(0, at)] = 1; });
-    return out; }
+  /* JOBS 11/21: PUSH THE PAY is dead (rule 466(c), graveyard/jobs_push_the_pay_11_17_26): no one walks out of a board */
   function pick(place, day, opt) {
     if (!SHELF || !place) return null;
     opt = opt || {};
-    var W = walkedOut(place.name, day), stay = function (o) { return !W[o.id]; };
+    var stay = function () { return true; };
     if (Array.isArray(opt.places) && opt.places.length && opt.places.some(function (p) { return p && p.name === place.name; })) {
       var mine = dealt(day, opt)[place.name] || [];
       return mine.filter(stay).map(function (o) { return said(o, opt.crew); });

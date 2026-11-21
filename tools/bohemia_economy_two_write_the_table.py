@@ -101,7 +101,7 @@ T['ratios'] = {
         'THE DOOR\'S TYPED START PURSE (the shell\'s copy until origins.json lands) WAS 3 TO 7, a number from EVERYTHING COSTS ONE; it is each origin\'s THIN purse now (70 to 270), so a phone that never gets the file starts a real game. No ratio: origins.json is unchanged.'
     ]
 }
-T['live_data'] = [BB + f for f in ['nightly_bill.json', 'stall_prices.json', 'job_pay.json', 'job_into_place.json', 'origins.json', 'retinue.json', 'arena.json', 'home_base.json',
+T['live_data'] = [BB + f for f in ['nightly_bill.json', 'stall_prices.json', 'job_pay.json', 'origins.json', 'retinue.json', 'arena.json', 'home_base.json',
     'loot.json', 'boss_act_one.json', 'real_places.json', 'renown.json', 'relations.json', 'price_table.json', 'weapons.json', 'armor.json', 'backgrounds.json', 'rare_recruits.json',
     'injuries.json', 'ours.json', 'tape_income.json', 'carcass.json', 'arrival_traits.json', 'feed_kinds.json', 'feed_world.json', 'radio_lines.json', 'contract_terms.json',
     'party_math.json', 'condition.json']] + [RT + f for f in ['BOHEMIA_BOARD_SHELF.json', 'BOHEMIA_JOB_KINDS.json', 'BOHEMIA_ROAD_EVENTS.json', 'BOHEMIA_SIDE_QUESTS.json',
@@ -137,7 +137,6 @@ where(BB + 'stall_prices.json', ['goods.*.buy.value'], 'the stall, one unit: a n
 where(BB + 'stall_prices.json', ['buy_floor.value', 'trade.sold_floor.value'], 'nothing at a stall costs or pays under one AA', 'everyday')
 where(BB + 'stall_prices.json', ['trade.goods[*].worth'], 'a trade good\'s price where it is made (twelve goods)', 'trade_good')
 where(BB + 'loot.json', ['counts.batteries.pocket', 'counts.batteries.machine_cell'], 'what one beaten man had in his pocket (55 in 100) and the cell out of a machine', 'everyday')
-where(BB + 'job_into_place.json', ['worth.value.battery', 'worth.value.per_tape'], 'what a build is worth when a job pays it into his place: its AA and an AA a roll of tape', 'everyday', owner='JOBS')
 where(BB + 'home_base.json', ['bill.keep', 'bill.power_cost_by_mark.*'], 'his place\'s keep a night and what the dark costs it', 'everyday', owner='HOME BASE')
 where(BB + 'home_base.json', ['builds.solar.worked.batteries'], 'what one worked solar panel at his place puts by a morning (GAMIFIED, 9/5 s4; who holds the sun is not decided)', 'everyday', owner='HOME BASE')
 where(BB + 'home_base.json', ['places.yard.per_level', 'places.yard.min'], 'his training yard: an AA a level of the man, never under two', 'everyday', owner='HOME BASE')
@@ -167,8 +166,6 @@ where(BB + 'origins.json', ['origins[*].door.wagon_goods_batteries'], 'the water
 where(BB + 'renown.json', ['pay_mult.value.from', 'pay_mult.value.to', 'pay_mult.value.at'], 'CLOUT: every job pays from x1 to x4.5, full at 4,000', unit='ratio')
 where(BB + 'job_pay.json', ['standing.value.*.mult'], 'the client town\'s standing bends the pay: 0.85 to 1.15', unit='ratio', owner='JOBS')
 where(BB + 'job_pay.json', ['crew_cost_per_map_hour.value', 'margin.value', 'violence.value.quiet_margin'], 'what twelve men burn an hour, and how much over it an hour of a job pays', unit='ratio', owner='JOBS')
-where(BB + 'job_into_place.json', ['share.value'], 'the most of a job\'s pay that can be a build', unit='ratio', owner='JOBS')
-where(BB + 'relations.json', ['haggle.value.step'], 'an ask on a job\'s card: what each ask lands on the pay (two land, the third ends it; JOBS 11/17 PUSH THE PAY)', unit='ratio', owner='JOBS')   # JOBS 11/20 (rule 461): brought in
 where(RT + 'BOHEMIA_JOB_KINDS.json', ['kinds.clear-camp.flat', 'kinds.clear-camp.per_head_share', 'kinds.patrol.flat'], 'a camp and a patrol: the share of the pay on the flat and the share by the head', unit='ratio', owner='JOBS')   # JOBS 11/20 (rule 461): brought in
 where(BB + 'stall_prices.json', ['sell_share.value', 'sell_share_max.value', 'sell_floor_share.value', 'size_mult.value.*', 'trade.made_here.value.*', 'trade.not_made.value.*'], 'the stall: what it pays back, what a place\'s size does, a good made here or not', unit='ratio')
 where(RT + 'BOHEMIA_HALL_PRICE.json', ['easier'], 'the hall: a hire costs four fifths of the wiki\'s formula', unit='ratio')

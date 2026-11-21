@@ -1,0 +1,20 @@
+POSTMORTEM: PAID INTO YOUR PLACE (JOBS, built 11/17za, killed 11/21; VAMILY rule 466(c))
+
+WHAT DIED (now in graveyard/jobs_paid_into_your_place_11_17_26/): records/target/bb/job_into_place.json (up to 25% of a job's pay taken
+as one of his builds: a panel, a pump, a tank, a garden, each worth one battery and its tape); the 'Into your place' button on a job's
+card (slices/BOHEMIA_SETTLEMENT_SCREEN.html __PAID_INTO_HIS_PLACE__: intoList, intoNow, intoNext, payOf), the map's take that cut the
+build's worth off the pay (slices/BOHEMIA_CITY_WORLD.html loopTakeContract), the pay-out that stood the build at his place
+(slices/bohemia_job_kinds.js paid, through BohemiaHomeMap.give), its rows in TUNING's one table and ECONOMY TWO's battery table. Gate THE
+TOWN'S BOOK legs D1 to D3 became the leg that holds it dead. The VOTE card jobs-paid-into-your-place-11-17 and its picture stay as voted.
+
+WHY: Paolo 11/21 in the VOTE tab: 'This mechanic is so fucking confusing. I don't know what the fuck this shit.'
+
+HOW IT GOT IN: rule 453 (4) said 'a job that pays into his own settlement'; it was built as a payment shape on every card (Battle
+Brothers' 'payment in advance' and per-head choices), a button that cycled through builds and changed the pay, a second economy riding
+inside the first. Nothing on the screen said what a 'build' was or why it cost batteries off the pay.
+
+THE LESSON: a reward he cannot read is no reward. When a job gives something besides batteries it is a thing a person hands over, said in
+their mouth (a nurse who comes to his place, the man freed from the pen), never a menu of builds priced in the pay.
+
+NOT TO COME BACK UNDER A NEW NAME: no button or slider on a job's card that turns pay into a build, a part, a share or a voucher; no pay
+that buys something at his place before the job is done.

@@ -894,6 +894,7 @@
     + '#bmtb .ticks i{display:block;position:relative;width:4px;height:14px;background:#b9ad92;box-shadow:inset 0 -1px 0 #6e6250}'
     + '#bmtb .ticks i b{position:absolute;left:0;bottom:0;display:block;width:4px;background:#2f6b2a}'
     + '#bmtb .ticks i.hurt b{background:#9a5a12} #bmtb .ticks i.bad b{background:#8a1a0c}'
+    + '#bmtb .s.clout{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:0;white-space:nowrap;line-height:1} #bmtb .s.clout i{font-style:normal;font-size:9px;letter-spacing:.5px;opacity:.8;display:block} #bmtb .s.clout b{display:block}'   /* JOBS 11/21 __CLOUT_ON_THE_BAR__ */
     /* what you have and where, on one pane of glass darkened in its own pixels */
     + '#bmtb .g{display:flex;align-items:center;gap:10px;box-sizing:border-box;min-height:32px;padding:0 8px;background:#16130f var(--bm-glass-dk) center/cover;'
     +   'box-shadow:inset 0 1px 0 rgba(255,236,200,.18),0 1px 0 #000;border:1px solid #0d0a07;border-radius:0;flex:1 1 auto;min-width:0}'
@@ -1016,6 +1017,10 @@
       g += '<span class="s six" data-f="' + k + '"><img alt="' + k.toUpperCase() + '" src="' + packIcon(k) + '"><b' + (low ? ' class="low"' : '') + '>' + n + '</b>'
         + (per ? '<i class="hold">' + last + (last === 1 ? ' NIGHT' : ' NIGHTS') + '</i>' : '') + '</span>';   /* RUN TWO __THE_WAGON__: the wagon is eaten at nightfall, so its hold counts NIGHTS like the batteries' (his NO to the bar saying DAYS twice, THE DAYS ONCE) */
     });
+    /* JOBS 11/21 __CLOUT_ON_THE_BAR__ (rule 466(c), Paolo on every-fight-won-counts: 'Where tf do you see your clout????'): the company's
+       name, one number, on the bar he reads (Battle Brothers keeps renown with the company on the world map's top); the game's own count
+       (BohemiaRenown, engine/bohemia_renown.js) and its own word, at the end of the stores (the crew tag is off the glass) */
+    try { var RN = window.BohemiaRenown; if (RN && RN.score) g += '<span class="s clout" data-f="clout"><i>' + hudEsc(RN.WORD || 'CLOUT') + '</i><b>' + RN.score() + '</b></span>'; } catch (_e) {}
     g += (f.place ? '<span class="where" data-f="place">' + f.place + '</span>' : '');
     /* ONE HUD: where you are, said once where it has room. The glass carries the six now (RUN TWO's wagon, rule 200), and on a
        phone held upright six counts fill the pane to its edge, so there the place stands in the presses' row between the crew

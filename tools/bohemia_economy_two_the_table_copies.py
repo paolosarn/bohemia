@@ -101,8 +101,6 @@ copy('slices/bohemia_road_events.js', r"cls: 'dagger', name: String\(id\), price
 copy(CW, r"title: 'Get your men back from ' \+ by, pay: (\d+),", 'a rescue pays nothing: the job is getting your own men back', is_=0)
 for f in (CW, E + 'bohemia_ambitions.js'):
     copy(f, r"var REWARD = \{ currency: 'electricity', amount: (\d+), tuned: false \}", 'an ambition kept pays two AA (the walked city\'s company goals; its bark needs a man walking with you, which died with the walk 9/28)', is_=2)
-copy(H, r"W = \(INTO && INTO\.worth && INTO\.worth\.value\) \|\| \{ battery: (\d+), per_tape: \d+ \}", 'the town\'s copy of what a build is worth when a job pays it into his place, until job_into_place.json lands', row=BB + 'job_into_place.json#worth.value.battery')
-copy(H, r"W = \(INTO && INTO\.worth && INTO\.worth\.value\) \|\| \{ battery: \d+, per_tape: (\d+) \}", 'the same: an AA a roll of tape', row=BB + 'job_into_place.json#worth.value.per_tape')
 copy(H, r"var crowns = 20 \* (\d+) \* traitMult", 'the clinic: the wiki\'s treatment price multiplier', leaf=INJ + '#rules.temporary_healing.treatment_price_multiplier')
 copy(H, r"var crowns = 20 \* 1 \* traitMult\(\)\.buy \* w\.days \* \(1 \+ \(w\.level - 1\) \* ([\d.]+)\)", 'the clinic: a fifth more a level, the wiki\'s', leaf=INJ + '#rules.temporary_healing.per_level_price_factor')
 copy(RS, r"\(1 \+ \(m\.level - 1\) \* ([\d.]+)\) / \d+\)", 'the crew screen\'s clinic: a fifth more a level', leaf=INJ + '#rules.temporary_healing.per_level_price_factor')

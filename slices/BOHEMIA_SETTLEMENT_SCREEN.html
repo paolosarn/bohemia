@@ -87,11 +87,7 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 .say p{margin:4px 0 0}
 .say .trip{margin:7px 0 0;color:var(--gold);font-size:11px;letter-spacing:.6px;line-height:1.4}   /* WORLD [a job says how far] */
 .say .trip.asks{color:var(--ink,#e8dcc4);opacity:.92;letter-spacing:.3px}
-.say .trip.quit{white-space:pre-line;color:#c98a6a}   /* JOBS 11/17 __WHAT_WALKING_AWAY_COSTS__: DROP IT and FAIL IT, a line each */   /* JOBS 11/11: what the job asks, under the trip */
 .acts{display:flex;flex-direction:column;gap:6px;margin-top:12px}
-@media (orientation:landscape) and (max-height:500px){.acts.offer:has(>[data-ask]){display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}}   /* JOBS 11/17 __PUSH_THE_PAY__: on its side the ask sits beside Take it, so Not now stays on the glass (the alpha's tabs leave the card 288 px) */
-.acts.offer:has(>[data-ask]){display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.acts.offer:has(>[data-ask])>.act{min-width:0}   /* JOBS 11/17 __WHAT_WALKING_AWAY_COSTS__: the card grew a line, so on every phone the ask sits beside Take it */
-@media (orientation:portrait){.acts.offer:has(>[data-ask])>.act{flex-direction:column;align-items:flex-start;justify-content:center;gap:1px;padding:5px 9px}.acts.offer:has(>[data-ask])>.act em{font-size:10px;max-width:100%}}   /* upright: the label over its cost */
 /* __HOME_BASE__ (HOME BASE 11/8, rule 437(b)): his own place's desk in BUILD: two columns so the sheet stays under half the glass (402) */
 .acts.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;margin-top:4px}.acts.two .act{min-width:0;min-height:44px;padding:2px 7px;font-size:12px;flex-direction:column;align-items:flex-start;justify-content:center;gap:0}
 .acts.two .act em{font-size:10px;max-width:100%;overflow:hidden;text-overflow:ellipsis}.acts.two .act em.hcost{overflow:visible;margin:0;padding:0}.acts.two .act:has(em.hcost){line-height:1.05;padding-top:1px;padding-bottom:1px}.acts.two .act em.hcost span{display:block;line-height:1.02;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}   /* HOME BASE 11/11: measured sideways, a long line held its column wide and pushed the fourth column off the glass; it ends in ... inside its own column now */
@@ -5175,66 +5171,19 @@ function dropAsk(c){
   body.appendChild(acts); document.getElementById('sheet').classList.add('on');
 }
 /* HE SPEAKS IT: two sentences, the pay in the second, under his own face; Take it or Not now */
-/* __PUSH_THE_PAY__ (JOBS 11/17, rule 453 (2): 'pay he can push up at a cost'; Battle Brothers' haggle, bb_all/0441: each ask costs 0.5 of
-   the bar, a success adds 4-11%, pushed too far you are thrown out at -2.5). OURS, the house's own rule (the street card's haggle, 9/11:
-   'Two asks land. The third ends it.', told before, never a hidden roll): each ask lands relations.json haggle.step and costs acts.haggle;
-   the ask past haggle.lands ends it (acts.haggle and acts.negotiation_fail) and the person is gone from this board until it turns. The
-   labels are the fewest words (rule 454(a)), draft */
-var HAGKEY = 'bohemia.haggle.v1';
-function hagRule(){ var h = REL && REL.haggle && REL.haggle.value; return h ? { step: +h.step || 0.07, lands: (h.lands | 0) || 2 } : null; }
-function hagWin(){ var r = 3; try{ r = (window.BohemiaBoardShelf && BohemiaBoardShelf.shelf() && BohemiaBoardShelf.shelf().refresh_days) || 3; }catch(e){} return Math.floor(buildDay() / r); }
-function hagGet(){ try{ var m = JSON.parse(localStorage.getItem(HAGKEY) || '{}'); return m && typeof m === 'object' ? m : {}; }catch(e){ return {}; } }
-function hagPut(m){ try{ localStorage.setItem(HAGKEY, JSON.stringify(m)); }catch(e){} }
-function hagOf(id){ var m = hagGet()[String(id) + '@' + String(S.place.name)]; return (m && m.win === hagWin()) ? m : { asks: 0, walked: false, win: hagWin() }; }
-function hagPay(base, asks){ var H = hagRule(); return H ? Math.max(1, Math.round((base | 0) * Math.pow(1 + H.step, asks | 0))) : (base | 0); }
-function hagWalked(id){ var h = hagOf(id); return !!h.walked; }
-function hagAct(name){ var a = REL && REL.acts && REL.acts[name]; return a ? +a.value : 0; }
-function hagAsk(o){
-  var H = hagRule(); if(!H) return; var M = hagGet(), k = String(o.id) + '@' + String(S.place.name), h = hagOf(o.id);
-  h.asks = (h.asks | 0) + 1; h.win = hagWin(); relMove(null, 'haggle');
-  if(h.asks > H.lands){ h.walked = true; relMove(null, 'negotiation_fail'); M[k] = h; hagPut(M); post('haggle', {contract:o.id, asks:h.asks, walked:true}); openB('board'); return; }
-  M[k] = h; hagPut(M); post('haggle', {contract:o.id, asks:h.asks, pay:hagPay(o.__base || o.pay, h.asks)}); offerSpeak(o);
-}
-/* __WHAT_WALKING_AWAY_COSTS__ (JOBS 11/17, rule 453 (3): 'what failing or walking away costs'). Battle Brothers takes the same two
-   things from a company that quits or fails a contract: the town's opinion (bb_all/1670: 'Cancel a contract -10', 'Fail a civilian
-   contract -20') and Renown (bb_all/1679: a cancelled contract -100 and a failed one -75, the numbers records/target/bb/renown.json
-   carries), and the contract pays nothing. Both were already taken here (bohemia_job_kinds.js settle, BohemiaRenown.fromAct) and the
-   card never said so before the yes. NOW the offer says it in numbers, this town's own: the bar from and to (its band when it falls
-   into another), and CLOUT from and to (never under 0, so a new company is told it loses none). Labels only, draft (rule 454(a)) */
-function costOf(act){
-  var b = opinionNow(), a = Math.max(0, Math.min(100, b + hagAct(act))), RN = window.BohemiaRenown, g = (RN && RN.data && RN.data().gains) || {}, c = RN ? RN.score() : 0;
-  var k = typeof g[act] === 'number' ? Math.max(0, c + g[act]) : c, B = window.BohemiaRelations, w0 = B ? B.band(b) : '', w1 = B ? B.band(a) : '';
-  return { act: act, before: Math.round(b), after: Math.round(a), band: w1 !== w0 ? String(w1).toUpperCase() : '', clout: c, cloutAfter: k };
-}
-function costWords(){ var d = costOf('cancel_contract'), f = costOf('fail_civilian_contract');
-  var one = function(x){ return x.before + '\u2192' + x.after + (x.band ? ' ' + x.band : '') + ' \u00b7 CLOUT ' + x.clout + '\u2192' + x.cloutAfter; };
-  return { drop: d, fail: f, words: 'DROP IT ' + one(d) + '\nFAIL IT ' + one(f) }; }   /* draft; two lines (.trip.quit keeps the break) */
-/* __PAID_INTO_HIS_PLACE__ (JOBS 11/17, rule 453 (4): 'a job that pays into his own settlement'). Battle Brothers' payment shapes
-   (bb_all/0441: 'If you ask for payment in advance, the game subtracts 25%...'): before the yes he can move part of the pay out of
-   batteries into one of his builds (records/target/bb/job_into_place.json): the build's worth comes off the pay and it stands at his
-   place when the job is done in full (the map's BohemiaJobKinds paid(), through BohemiaHomeMap.give). A tap moves to the next build
-   that fits under the share, then back to all batteries. The labels are the fewest words, draft (rule 454(a)) */
-var INTO = null, INTO_B = null;
-try{ fetch('../records/target/bb/job_into_place.json').then(function(r){ return r.json(); }).then(function(j){ INTO = j; if(S.open === 'board' && S.offerUp) offerSpeak(S.offerUp); }).catch(function(){});
-  fetch('../records/target/bb/home_base.json').then(function(r){ return r.json(); }).then(function(j){ INTO_B = (j && j.builds) || null; }).catch(function(){}); }catch(e){}
-function intoWorth(id){ var r = INTO_B && INTO_B[id], W = (INTO && INTO.worth && INTO.worth.value) || { battery: 1, per_tape: 1 }; if(!r) return null;
-  var t = 0; for(var k in (r.cost || {})) t += (r.cost[k] | 0) * (k === 'tape' ? (+W.per_tape || 1) : 1); return (W.battery | 0) + t; }
-function intoList(base){ if(!INTO || !INTO_B) return []; var cap = Math.floor((base | 0) * (+(INTO.share && INTO.share.value) || 0.25));
-  return ((INTO.builds && INTO.builds.value) || []).map(function(b){ return { build: b.build, name: b.name, worth: intoWorth(b.build) }; }).filter(function(b){ return b.worth != null && b.worth >= 1 && b.worth <= cap; }); }
-function payOf(o){ return Math.max(1, payShown(o.pay) - ((o.into && o.into.worth) | 0)); }   /* the pay he is shown, the build's worth off it */
-function intoNow(o, base){ var L = intoList(base), i = (S.into || {})[o.id]; return (typeof i === 'number' && L[i]) ? L[i] : null; }
-function intoNext(o, base){ var L = intoList(base), M = S.into = S.into || {}, i = M[o.id]; M[o.id] = (typeof i === 'number') ? (i + 1 < L.length ? i + 1 : null) : (L.length ? 0 : null); if(M[o.id] == null) delete M[o.id];
-  post('into', {contract:o.id, build:(intoNow(o, base) || {}).build || null}); offerSpeak(o); }
+/* JOBS 11/21 (rule 466(c), his votes 11/21: 'THE JOBS DO WAY TOO MUCH'): PUSH THE PAY ('Doing way too much I don't like it') and PAID
+   INTO YOUR PLACE ('This mechanic is so fucking confusing') are KILLED and graveyarded (graveyard/jobs_push_the_pay_11_17_26,
+   graveyard/jobs_paid_into_your_place_11_17_26, their post-mortems); WHAT WALKING AWAY COSTS keeps its numbers in the background (a
+   dropped or failed job still moves the town's bar and CLOUT, bohemia_job_kinds.js settle) and the card no longer explains them ('you
+   don't need to explain that obviously dropping a job drop your relation'). A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME. */
 function offerSpeak(o){
   S.open = 'board';
-  if(o.__orig) o = o.__orig; S.offerUp = o; var o0 = o;   /* __PAID_INTO_HIS_PLACE__: every redraw starts from the board's own offer */
-  if(hagRule()){ var b0 = o.__base || o.pay; o = Object.assign({}, o, { __base: b0, pay: hagPay(b0, hagOf(o.id).asks) }); }   /* __PUSH_THE_PAY__: the pay as pushed */
-  var IN = intoNow(o0, payShown(o.pay)); o = Object.assign({}, o, { __orig: o0 }, IN ? { into: IN } : {});   /* __PAID_INTO_HIS_PLACE__: the build's worth comes off the pay he is shown (payOf), the map takes it off the same */
+  S.offerUp = o;
   var body = document.getElementById('sbody'); body.textContent = '';
-  var w = document.createElement('div'); w.className = 'who'; w.appendChild(mouth(face(null, clientWho(o), clientLook(o)), o.says.replace(/\{pay\}/g, payOf(o))));
+  var w = document.createElement('div'); w.className = 'who'; w.appendChild(mouth(face(null, clientWho(o), clientLook(o)), o.says.replace(/\{pay\}/g, payShown(o.pay))));
   var sy = document.createElement('div'); sy.className = 'say';
   var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = clientName(o); sy.appendChild(nm);
-  var pp = document.createElement('p'); pp.textContent = o.says.replace(/\{pay\}/g, payOf(o)); sy.appendChild(pp);
+  var pp = document.createElement('p'); pp.textContent = o.says.replace(/\{pay\}/g, payShown(o.pay)); sy.appendChild(pp);
   /* WORLD [a job says how far] (rule 186(c), Paolo 10/25: 'every time a job is presented it should show how long it's going to take
      to get there'): the trip before the yes, the map's own road and clock on the job the yes would make (BohemiaJobKinds.trip) */
   try{ var JK = window.parent && window.parent.BohemiaJobKinds, TR = (JK && JK.trip) ? JK.trip(o, S.place.name) : null;
@@ -5243,16 +5192,9 @@ function offerSpeak(o){
     if(AK && AK.words){ var ak = document.createElement('div'); ak.className = 'trip asks'; ak.textContent = AK.words; sy.appendChild(ak); S.asks = AK; } }catch(e){}
   try{ var VW = window.BohemiaJobPay ? BohemiaJobPay.violenceWord(o.id) : ''; if(VW){ var vw = document.createElement('div'); vw.className = 'trip blood'; vw.textContent = VW; sy.appendChild(vw); } }catch(e){}   /* ECONOMY 2 (rule 323 amended, ask line 321): killing work or walking pay, said */
   try{ var ST = standHere(); if(ST.word){ var sw = document.createElement('div'); sw.className = 'trip stand'; sw.textContent = ST.word; sy.appendChild(sw); } }catch(e){}   /* ECONOMY 2: the standing, said on the offer */
-  try{ if(REL && REL.acts){ var CW = costWords(), cw = document.createElement('div'); cw.className = 'trip quit'; cw.textContent = CW.words; sy.appendChild(cw); S.cost = CW; } }catch(e){}   /* __WHAT_WALKING_AWAY_COSTS__: before the yes */
   w.appendChild(sy); body.appendChild(w);
   var acts = document.createElement('div'); acts.className = 'acts offer';
-  try{ var HR = hagRule(), hh = hagOf(o.id); if(HR && S.held.length < SLOTS){ var last = (hh.asks | 0) >= HR.lands;   /* __PUSH_THE_PAY__: the ask, its cost told before */
-    var ab = act(last ? 'Ask again' : 'Ask +' + Math.round(HR.step * 100) + '%', (last ? 'THEY WALK \u00b7 ' + (hagAct('haggle') + hagAct('negotiation_fail')) : hagAct('haggle')) + ' STANDING', function(){ hagAsk(o); }, false);   /* draft */
-    ab.dataset.ask = last ? 'walk' : 'more'; acts.appendChild(ab); } }catch(e){}
-  try{ var IB = payShown(o.pay), IL = intoList(IB); if(IL.length && S.held.length < SLOTS){ var cur = o.into;   /* __PAID_INTO_HIS_PLACE__: the shape, before the yes */
-    var ib = act(cur ? 'Into your place: ' + cur.name : 'Into your place', cur ? '-' + cur.worth : '', function(){ intoNext(o0, IB); }, false);   /* draft */
-    ib.dataset.into = cur ? cur.build : 'none'; acts.appendChild(ib); } }catch(e){}
-  var take = function(){ S.held.push(o.id); (S.heldInfo = S.heldInfo || {})[o.id] = {title:o.title, place:S.place.name}; post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, payOf(o)), standing:{mult:standHere().mult}})});   /* the base pay rides on, the map adds the start's bonus once (loopJobPay) */ heard('On your map: '+o.title+', for '+o.client.name+'.'); shelf(); };
+  var take = function(){ S.held.push(o.id); (S.heldInfo = S.heldInfo || {})[o.id] = {title:o.title, place:S.place.name}; post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, payShown(o.pay)), standing:{mult:standHere().mult}})});   /* the base pay rides on, the map adds the start's bonus once (loopJobPay) */ heard('On your map: '+o.title+', for '+o.client.name+'.'); shelf(); };
   var out = S.held.length >= SLOTS ? swapOut() : null, oc = out ? heldCost(out) : null;
   if(out && jobsK()){   /* __DROP_A_JOB_RIGHT_IN_THE_TOWN__ (rule 197(b)): full, so he asks once and the yes swaps in the same tap */
     /* __TWO_JOBS_AT_ONCE__ (rule 228(b)): two is the most, said plainly, and the swap for either job he holds (this town's first) */
@@ -5291,7 +5233,7 @@ function boardHere(){
   var SH = window.BohemiaBoardShelf, ids = (S.traits||[]).map(function(t){ return t.id; });
   var gone = S.held.concat(S.done || []);   /* WORLD [eyes: a done job comes back] (EYES line 114): a finished job leaves the board for good */
   var list = SH && SH.pick(S.place, buildDay(), {traits:ids, held:S.held.slice(), done:(S.done || []).slice(), crew:raidCrew(), places:S.places});   /* PLUMBER 3 (rule 335): held never comes back; done only when nothing else is left */
-  if(list) return list.filter(function(o){ return !hagWalked(o.id); });   /* __PUSH_THE_PAY__: one he pushed too far is gone until the board turns */
+  if(list) return list;
   return OFFERS.filter(function(o){ return gone.indexOf(o.id) < 0; }).slice(0, TIER_OFFERS[S.place.tier] || 1);
 }
 function raidCrew(){

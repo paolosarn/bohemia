@@ -1,0 +1,19 @@
+POSTMORTEM: PUSH THE PAY (JOBS, built 11/17u, killed 11/21; VAMILY rule 466(c))
+
+WHAT DIED: the 'Ask +7%' button on a job's card in the town screen (slices/BOHEMIA_SETTLEMENT_SCREEN.html __PUSH_THE_PAY__: hagRule,
+hagAsk, hagPay, hagOf, hagWalked and the two-wide button row's CSS), the pay pushed 7% an ask at 0.5 of the town's bar, the third ask
+that made the client walk (-2.5) and kept them off the board for its window (slices/bohemia_board_shelf.js walkedOut), and its place in
+ECONOMY TWO's battery table (relations.json haggle.step). Gate THE TOWN'S BOOK legs B1 to B3 became the leg that holds it dead.
+The VOTE card jobs-push-the-pay-11-17 and its picture records/target/JOBS_PUSH_THE_PAY.jpg stay as voted.
+
+WHY: Paolo 11/21 in the VOTE tab: 'Doing way too much I don't like it'.
+
+HOW IT GOT IN: the coordinator's 'full sweep' (rule 453 (2): 'pay he can push up at a cost') read as an order to add Battle Brothers'
+haggle to every card. It was a mechanic on top of a card that already said a lot (the trip, what it asks, the blood, the standing, the
+costs), every tap of it a choice he did not ask for.
+
+THE LESSON: a job's card is a person asking for help, not a negotiation screen. Battle Brothers' haggle is a Battle Brothers system; a
+system is only ours when he wants it on his screen. Fewer buttons on the card, never more, unless he asks.
+
+NOT TO COME BACK UNDER A NEW NAME: no ask, push, counter-offer, bargain, raise or haggle button on a job's card or board, no pay that a tap
+moves, no client who walks off a board because he asked. relations.json keeps its haggle numbers as FACTIONS' data; nothing reads them.
