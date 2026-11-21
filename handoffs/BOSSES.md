@@ -29,6 +29,8 @@ upright and 24/0 the alpha on its side, on the merged tree, with B3). VOTE bosse
   the new one (it asks 'is the person on the glass', not 'on this board'). Rule 467 (they curse) touches no boss line here: every
   boss row from the 16th on is quiet (rules 454(a), 465). Rule 466(c) CLOUT IS SEEN: DELIVER's +25 CLOUT rises over the crew; where
   clout lives on the screen is JOBS'.
+- SEEN ON HER VOTE PICTURE, NOT THIS LANE'S: two place labels drawn over each other on the map near THE KENNEL (they read 'THTHE
+  PARLOR'); for WORLD / EYES.
 
 ## BOSSES, 11/20/26: THE WHOLE ENCHILADA (rule 461): EIGHTEEN LIVE, THE 19TH IS A SEAM, NOT MINE ALONE; NOTHING SHIPPED THIS ROUND, ON PURPOSE
 - EYES has walked none of bosses 13 to 18 yet (its 11/18 block: NOT WALKED the Barber's line, the Ink's stain, the Dogs' packs), so there

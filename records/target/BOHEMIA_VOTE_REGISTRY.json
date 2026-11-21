@@ -21903,7 +21903,8 @@
     ]
    },
    "record": "records/BOHEMIA_COOK_SIX_THE_HOME_CENTER_11_21_26.md"
-  }
+  },
+  {"id": "bosses-the-midwife-11-21", "kind": "tile", "lane": "bosses", "sha": "4f2853ac7", "made": "11/21", "draft": true, "title": "THE MIDWIFE: EVERY BIRTH IN THE VALLEY GOES THROUGH HER. MEET HER, BRING A BIRTH THROUGH, AND ACT ONE CLOSES", "said": "neither PEOPLE nor DYNASTY has a lane open, so you build her yourself, whole, from their records (the coordinator's routine 'BOSSES: the Midwife is yours', rules 441, 461, 465)", "why": "Left is THE MIDWIFE's birth house on the map before you meet her, dark, middle is the same house once you meet her with its door lit, and right is your own man's card with no words: you met her, her bag is yours and she moves into your place, and DELIVER beside one of those dark houses brings a birth through once a day, and the first one closes act one if somebody in the valley speaks for you. You see it on the MAP after THE SMITH, at the radio, and her on CAM 3 at your place.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/bosses_vote_midwife_11_21/VOTE.webp"}, "before_after": {"before": "main ce08daba0: eighteen bosses, all fought; nothing on the map brought a birth through and nothing closed act one", "after": "THE MIDWIFE met, never fought (WORLD TWO's 'how': 'meet'); 3 houses where a birth is coming round her birth house; DELIVER (beside one, once a day, the window warm and a cradle by the door for good, +25 CLOUT, kept after a reload); the first birth closes act one only if somebody speaks for you in PEOPLE's standing web, kept and sent to DYNASTY; she lives at your place, on CAM 3; what act two is stays his", "scale": "the MAP on a 390 x 844 phone, the kill's own camera beat, twice the pixels"}, "record": "records/BOHEMIA_BOSSES_THE_MIDWIFE_11_21_26.md"}
  ],
  "verdicts": [
   {
