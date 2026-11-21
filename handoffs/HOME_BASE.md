@@ -1,45 +1,27 @@
-HOME BASE 2 (home-base-01gkdyuv5w1u): 11/21 -- A FRESH HOME BASE SHOULD TAKE THIS (context near full, rule 461(f)). NEXT: STEP 2 of 466(a)
-below (each build's row in the engine's placing). Live: BUILD 11/21s IT STARTS BARE (run 4710), BUILD 11/21u THE CORK BOARD IS DEAD
-(run 4716); on main, no game change: step 1, his pieces on the three cameras (9a07ae9e). Records
-records/BOHEMIA_HOME_BASE_THE_CORK_BOARD_IS_DEAD_11_21_26.md, records/BOHEMIA_HOME_BASE_IT_STARTS_BARE_11_21_26.md. No VOTE card for either (466(a) killed the camera view their screenshots go
-through; the bare ground goes on the rebuilt cameras' card).
+HOME BASE 2 (home-base-01gkdyuv5w1u): 11/21 LATEST -- BUILD 11/21zc - HIS CAMERAS AS PROMISED (rule 466(a), ask row 663), after 11/21u THE
+CORK BOARD IS DEAD (466(b), live run 4716) and 11/21s IT STARTS BARE (445(b), live run 4710). Records
+records/BOHEMIA_HOME_BASE_HIS_CAMERAS_AS_PROMISED_11_21_26.md, ..._THE_CORK_BOARD_IS_DEAD_..., ..._IT_STARTS_BARE_... A FRESH HOME BASE
+SHOULD TAKE THE NEXT JOB (context near full, rule 461(f)).
 
-## THE NEXT JOB, IN FLIGHT: HIS CAMERAS REBUILT (rule 466(a), ask row 663; his NO on home-base-seen-through-the-cameras-11-17)
-His words 11/21: 'Bro, you are hallucinating... This is not the view that we're going to be having... Go back to when you originally
-showed me what the shit would look like from the different camera angles... you're basically doing the same thing but like slightly
-skewing some of the dimensions'; on WHERE YOU BUILD: 'Not the camera view and angles i was promised'. THE ORDER: the skewed board
-(__HIS_PLACE_SEEN_AS_HE_WILL_SEE_IT__'s HLENS, a perspective transform on the 45-degree town picture) is KILLED; his place is shown as
-rules 354 and 373 say: real security cameras mounted low, a wide lens, steep, PS1 footage, several angles, intimate.
-WHAT HE WAS SHOWN FIRST (11/3, this lane's own, read these first): records/target/home_settlement/vote_intimate.webp (the NOW panels:
-3D renders, low on a street light / a power pole / a billboard, a bent wide lens, night under sodium, a fenced block of 12 lots, wires
-and a lamp at the lens) and vote_all_twelve.webp; rule 354(g) to (o) and 373.
-MEASURED: IT EXISTS, UNWIRED. tools/bohemia_home_settlement_pipeline_11_3_26.py makes every picture by machine: the lot template (12
-lots, three rows of four stepping back and up; row height limits front 2.6 m, middle 3.8, back 8.0), the three fixed cameras (CAM 1
-the street light 13 m, CAM 2 the power pole 13.6 m, CAM 3 the billboard 14.8 m; Cycles' equisolid fisheye), each shot tall 180x320 and
-wide 320x180 (the PS1 size), plates (records/target/home_settlement/plates/block_cam{1,2,3}_{tall,wide}_{0,1,2}.png), pieces rendered
-per camera, shape and lot of their row (pieces/, 528 files), what hangs at the lens (near/), tap boxes per lot per camera
-(manifest.json tap_px), draw order (order), its own gate (gates/home_settlement_gate.py: 12 of 12 lots seen, 44-point boxes). Venv:
-python3.11 -m venv bv && bv/bin/pip install bpy==4.2.0 numpy pillow scipy (works on this box; the tool's VENV path is /tmp/v). The
-standalone page slices/BOHEMIA_YOUR_SETTLEMENT.html (190 lines) draws plate + pieces + near, cycles the cameras every 20 s (rule
-354(h): he never picks the next; held while a sheet is open or a finger is down), taps a lot by tap_px. It was never wired to his
-planted place; HOME BASE built on the town screen instead and that is what he killed.
-WHAT IS MISSING (the work, in order):
-1. DONE 11/21 (records/BOHEMIA_HOME_BASE_HIS_PIECES_ON_THE_CAMERAS_11_21_26.md): wall, stall, yard (front), shed, pump, forge (middle),
-   lookout (back) modelled (tools/bohemia_home_base_his_pieces_11_21_26.py), rendered, merged by the pipeline's new post_add; 17 pieces.
-   (WAS:) PIECES for his things: the pipeline has main (THE TAP's prize), purifier (THE FILTER's), kitchen (THE POT's), garden_bed (lotbuild
-   garden), water_tank (tank), solar_panel (solar), four houses (roof can be a house); it lacks lotbuild's wall, shed, pump, stall and
-   HOME BASE's yard, forge, lookout. One model each through the pipeline's own piece() (rule 354(m): never a hand-made angle).
-2. ROWS: HOME BASE puts a build on the first free open lot (lots 0-3 open first: the front row, 2.6 m), but a piece may only stand in
-   its row's height (so all 12 lots stay seen, 354(g)). Decide each kind's row and make the engine place by row (BohemiaHome placing,
-   lotsOpen by row), gate E6/E10/D10/D13/D17 follow.
-3. THE SCREEN: at his planted place the town screen's canvas shows the camera feed (plate + his pieces by lot + near, the camera's own
-   text), the three cameras cycling on their own; a tap on a lot (tap_px) opens what the town screen opens now (BUILD with the lot
-   picked, his thing's sheet, the shop of a build that opened one); his people (residents, his men at his buildings) drawn at their
-   lots' feet scaled by the lot box. The HLENS block and the CAM buttons go (graveyard, post-mortem: the skewed board). Keep
-   __IT_STARTS_BARE__'s rules (no camp doors, keepers, crowd, strangers).
-4. Gate legs (the feed on the glass upright and sideways, every lot tappable 44 pt, the cycle, a planted skew reads red) and a VOTE
-   card from the real page: bare, then with his things.
-AFTER IT: a camera sound for his feeds (SOUNDS owns sound: ask, do not make; the 11/3 page plays crashbox/feed_b.mp3).
+## THE NEXT JOB: THE CLEANUP OF THE SKEWED BOARD, THEN A CAMERA SOUND
+1. The skewed board is OFF for good (homeCamOn() false wherever VAR.bare) but its code is inert in slices/BOHEMIA_SETTLEMENT_SCREEN.html:
+   __HIS_PLACE_SEEN_AS_HE_WILL_SEE_IT__ (HLENS, homeLens*, the lens's hitAt/where/inPad wrappers, homeDrawEmpty/homeDrawLots chalk and
+   plate), __HIS_PLACE_THROUGH_ITS_CAMERAS__ (HCAM). Take it out into graveyard/ (post-mortem written: POSTMORTEM_HOME_BASE_THE_SKEWED_
+   BOARD_11_21_26.txt), keeping what the feed and the town screen still use: homeWorkers, HOME_WORK, the crewTown filter, homeLotFoot
+   (homeAllLots), homeKitBox. Gate F1 holds it dead; run YOUR PLACE, PLANTED both ways after.
+2. A camera sound for his feeds (the 11/3 page played crashbox/feed_b.mp3, the starred night feed's hum; SOUNDS owns sound: ask, do not
+   make).
+3. The overflow: things put on his place past four in a row by a boss or a job are not drawn (none can today); if a lane adds one, it
+   needs a lot of its row or a render for the row behind.
+
+## HOW HIS PLACE IS SHOWN NOW (__HIS_CAMERAS_AS_PROMISED__, after __IT_STARTS_BARE__)
+The 11/3 manifest (records/target/home_settlement/manifest.json, fetched as ../records/target/...): plates per camera/shape/frame, 17
+pieces per camera/shape/lot of their row, tap_px per lot, order far to near, near (the lens layer). His things (homeThingsHere) go on
+the lots of their piece's row by the order he put them up (HF_PIECE maps lotbuild ids, his own buildings and the bosses' prizes to
+pieces; a thing with no piece but a picture takes any free lot). #hfeed is a canvas over the town picture, under the sheet; the town
+screen runs beneath it (its doors are what a lot's tap opens: openB(key), a shop by VAR.bareShopOf). For gates: window.__HOME_FEED
+(on, cam, sh, slots n -> key/door/pid), __HOME_FEED_AT(n), __HOME_FEED_PEOPLE(), __HOME_FEED_AGE(ms), __HOME_FEED_TAP,
+__HOME_FEED_SWALLOWED. BohemiaSettlement.where(k) answers where the footage shows k.
 
 ## WAITING ON PAOLO (build nothing of these)
 - Row 638, THE GRINDER at his place: his A, B or C (does his own crew grind the human dead) is asked; nothing of the player's side
@@ -83,7 +65,7 @@ AFTER IT: a camera sound for his feeds (SOUNDS owns sound: ask, do not make; the
 - Other towns are untouched by every HOME BASE block (all keyed on his planted place).
 - At his place there is no stall, bench or clinic door until the build stands; then the build's own picture is the door
   (BohemiaSettlement.where('stall')). The middle of the BUILD ground may be a shop: tap an empty lot (window.__HOME_LOT_AT) for BUILD.
-- Tests: node gates/home_base_gate.js (--only phone_portrait | phone_landscape; --engine). Last run 11/21u: upright 123/0, sideways 120/0 (engine 34/0).
+- Tests: node gates/home_base_gate.js (--only phone_portrait | phone_landscape; --engine). Last run 11/21zc: upright 116/0, sideways 113/0 (engine 34/0).
 
 ## RULE 459, FOR ECONOMY TWO: WHERE HOME BASE'S COSTS AND PAY ARE SET (HOME BASE moves none)
 records/target/bb/home_base.json builds{} (goods cost, gives, worked), places{} (yard: tape 3, mult 1.35, fights 3, per_level 1, min 2;

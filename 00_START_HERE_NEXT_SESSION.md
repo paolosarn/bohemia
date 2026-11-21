@@ -1083,7 +1083,15 @@ Earlier: 11/9c, 11/9f, 11/9j, fourteen places that talk. Still open: the bus yar
 handoffs/WORLD_FOURTEEN.md.
 [bb Battle Brothers' company events steal from the stash and call a man home; ours are the plasma van, the swollen cans and the rent crew.]
 [analog horror: the dead bank machine still runs on its own battery, says her balance is zero every morning, and asks if she would like a receipt.]
-HOME BASE 2: 11/21 LATEST -- A FRESH HOME BASE SHOULD TAKE handoffs/HOME_BASE.md (context near full, rule 461(f)); next: 466(a) step 2.
+HOME BASE 2: 11/21 LATEST -- BUILD 11/21zc - HIS CAMERAS AS PROMISED, BUILT, NOT YET SEEN (rule 466(a), ask row 663). His place IS the 11/3
+footage he was first shown: three cameras low across the street (street light, power pole, billboard), a bent wide lens, PS1 size,
+night; everything he built as its own piece on a lot of its row (low in front, tall at the back), his people on their lots; the cameras
+cut on their own every 20 s; a tap on a lot opens it, an empty lot opens BUILD, a full row is greyed on the desk. The skewed board is
+off for good (post-mortem in graveyard/). Gate YOUR PLACE, PLANTED F1 to F6: demo 116/0 upright, 113/0 sideways; the alpha both ways by
+real taps. VOTE card home-base-his-cameras-as-promised-11-21. A FRESH HOME BASE takes the cleanup next (handoffs/HOME_BASE.md).
+[bb Battle Brothers shows your company's camp as one painted screen; ours is three dead cameras on poles across the street.]
+[analog horror: CAM 3's web moves a little every time the picture cuts to it. Nobody has been up the billboard in years.]
+HOME BASE 2: 11/21 EARLIER -- step 1 of 466(a) on main (9a07ae9e).
 Step 1 on main (9a07ae9e, no game change): the seven missing pieces (wall, stall, yard, shed, pump, forge, lookout) on the 11/3
 pipeline's three intimate cameras, 17 pieces, HOME SETTLEMENT 12/0; records/BOHEMIA_HOME_BASE_HIS_PIECES_ON_THE_CAMERAS_11_21_26.md.
 HOME BASE 2: 11/21 EARLIER -- BUILD 11/21u - THE CORK BOARD IS DEAD (rule 466(b), his NO 'AI slop'):

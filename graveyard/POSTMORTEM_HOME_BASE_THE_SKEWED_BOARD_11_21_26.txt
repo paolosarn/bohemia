@@ -1,0 +1,25 @@
+POSTMORTEM: THE SKEWED BOARD, HIS PLACE THROUGH A PERSPECTIVE ON THE TOWN PICTURE (HOME BASE, built 11/14o and 11/17zr, killed 11/21;
+VAMILY rule 466(a))
+
+WHAT DIED: his place shown as the town screen's own 45-degree picture under a CSS perspective transform (slices/BOHEMIA_SETTLEMENT_SCREEN.html
+__HIS_PLACE_SEEN_AS_HE_WILL_SEE_IT__: HLENS, homeLensSet/Apply/Frame/Aim, the sensor filter and the tape over the town picture, the
+close shots by the town's own zoom; __HIS_PLACE_THROUGH_ITS_CAMERAS__: the CAM 1/2/3 switch and its readout; __WHERE YOU BUILD__'s chalk
+and hammer plate). It is switched off for good: homeCamOn() is never true where it ran (his planted place, VAR.bare), not even while
+the footage loads, and the gate's F1 fails a skew or a switch on his place. Its code is inert and comes out in HOME BASE's next
+cleanup. The VOTE cards home-base-seen-through-the-cameras-11-17 and home-base-where-you-build-11-20 stay as voted.
+
+WHY: Paolo 11/21 in the VOTE tab: 'Bro, you are hallucinating bro. This is not the view that we're going to be having what's wrong
+with you bro. Go back to when you originally showed me what the shit would look like from the different camera angles, bro this is
+not it bro you're basically doing the same thing but like slightly skewing some of the dimensions and shit like what the fuck are you
+doing?' and 'Not the camera view and angles i was promised'.
+
+HOW IT GOT IN: rule 451(c) and 458(c) asked for his place through security cameras; the 11/3 pipeline that renders exactly that
+(three fixed intimate cameras over a 12-lot block, rule 354 and 373) existed but held no piece for most of his builds and was never
+wired to the town screen, so the lane bent the screen it had: the same 45-degree picture, tilted. Every gate leg proved the tilt, the
+tape and the clock; none asked whether it was the view he had been shown.
+
+THE LESSON: when he says 'the view I was promised', find the picture he was shown and build that; a filter over the old picture is
+the old picture.
+
+NOT TO COME BACK UNDER A NEW NAME: no perspective, tilt, warp, fisheye or 'lens' applied to a 45-degree picture to stand for his
+cameras; his place is the 11/3 footage (records/target/home_settlement/) or nothing.
