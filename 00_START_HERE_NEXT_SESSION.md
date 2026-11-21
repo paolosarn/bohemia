@@ -1,3 +1,10 @@
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21p - HIS LINE WHOLE, BUILT, NOT YET SEEN (rules 461, 104a, 288(b), 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+HIS LINE WHOLE: FIGHT SCREEN 3's camera find. Upright, setting his line at the farthest zoom, the two lines can stand wider apart than the glass (eleven tiles on a glass
+twelve wide): the frame centred between them and cut both ends, his men 6 points off on the alpha, half off on the demo. Now it slides only as far as his outermost man
+needs and theirs run off the far side; a frame that holds everyone is untouched. The find's other case (on its side, his turn) is men he cannot see: not a bug.
+NEW GATE THE FIGHT HIS LINE WHOLE 6/0 (the plant red). ON THE PAGE: the alpha and the demo, both ways: his line whole upright; on its side nothing changes. VOTE combat4-his-line-whole-11-21.
+[bb Battle Brothers' deployment: you set your own men first, seeing them all]
+[analog horror: a security monitor whose picture is cropped by its bezel, the one man you need just past the edge]
 COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21o - THE HOSPITAL, THE CELL BLOCK, THE SPHERE AGAIN, BUILT (c8ca3ecc1), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 466(e), 453, 441, 416, 451(a), 455; ask row 651).
 THREE IN ONE SHIP. (1) THE HOSPITAL (COMBAT FOUR's BUILD 11/20w, 'FOR COOK (SIX) 3)'): all 175 pieces of the_emergency_room were stand-ins; now slices/fight_ground/hospital/
 holds hospital_art.json (THE GARAGE'S FORMAT; floor.floor the corridor's vinyl, floor.wet the same slick, floor.ring; all 11 names), 11 pieces and its dropped ceiling (five
@@ -26,14 +33,7 @@ reads it; read at 16:30, 363 of 858 first fights after nightfall named another c
 On the phone, the demo and the alpha both ways. Gate THE CARD READS THE NIGHT (R4, R5). VOTE jobs-the-card-reads-the-hour-11-21 (STAND-IN), sha 0cebf42ed. Record records/BOHEMIA_JOBS_THE_CARD_READS_THE_HOUR_11_21_26.md.
 [bb Battle Brothers names who a contract is against before it is signed, and that is who comes]
 
-COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21m - THE SCHOOL, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
-THE SCHOOL: a fight at a school (six in ten) is fought in its gym, still the town's shelter (cots, mats, folded tables, bleachers you climb over), or in its classroom wing
-(rooms of desks, lockers down the hallway, a door at each end of every room). One data file, every picture a stand-in (the names for COOK in the handoff). ALSO, A BUG FIXED IN
-EVERY INSIDE: a borrowed picture carried its own kit's 'nobody stands here', so two kinds of cover tile were walls the table priced at 2 AP; the inside's own data decides now,
-and the gate catches it. GATE THE BIG INSIDES 193/0. ON THE PAGE: 8 fights, both pages both ways, all ended, 32 of 32 taps, 0 errors. VOTE combat4-the-school-11-21.
-[bb Battle Brothers' palisade again: a wall with two gaps per room, and the gaps are the fight]
-[analog horror: a school's PA system clicking on in an empty hallway, nobody speaking]
-COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21m - THE SCHOOL, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 -- BUILD 11/21m - THE SCHOOL, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE SCHOOL: a fight at a school (six in ten) is fought in its gym, still the town's shelter (cots, mats, folded tables, bleachers you climb over), or in its classroom wing
 (rooms of desks, lockers down the hallway, a door at each end of every room). One data file, every picture a stand-in (the names for COOK in the handoff). ALSO, A BUG FIXED IN
 EVERY INSIDE: a borrowed picture carried its own kit's 'nobody stands here', so two kinds of cover tile were walls the table priced at 2 AP; the inside's own data decides now,

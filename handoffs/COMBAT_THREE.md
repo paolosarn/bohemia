@@ -1,6 +1,22 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the school] SHIPPED 04bdc064c, BUILD 11/21m - THE SCHOOL, BUILT, NOT YET SEEN. VOTE combat4-the-school-11-21 (stand_in).
+COMBAT FOUR (rules 461, 104a, 288(b), 441, 465; ask row 651): 11/21 LATEST -- [his line whole] SHIPPED SHIPSHA, BUILD 11/21p - HIS LINE WHOLE, BUILT, NOT YET SEEN. VOTE combat4-his-line-whole-11-21 (built).
+Record: records/BOHEMIA_COMBAT_FOUR_HIS_LINE_WHOLE_11_21_26.md. FIGHT SCREEN 3's routed camera find (its NOTE below), both cases measured again with a copy of its walk:
+(1) UPRIGHT, IN THE LINEUP, AT THE FAR STOP: REAL. The lines stand eleven tiles apart, the glass holds twelve at the far stop, the frame centred between them cut both ends (his
+men 6 points past). NOW slices/BOHEMIA_FIGHT.html hisLineWhole (inside fitBoth, the lineup only): where the far stop cannot hold every man, the frame slides only as far as his
+outermost man needs and theirs take the rest; a frame that holds everyone is never touched. On the alpha: slid 7 points, his three whole, one of theirs 13 past.
+(2) ON ITS SIDE, ON HIS TURN: the two of theirs off the glass are men he CANNOT SEE (FIGHT.shown false: not drawn, not framed, by design). Nothing on his glass is cut.
+*** FOR FIGHT SCREEN: the walk's MEN OFF counts every man on the field; filter it by FIGHT.shown(v) (your tool; not edited here). Twice right after FIGHT a man of theirs just
+come into sight was off while the camera eased out to him (808 and 107 points); the next still had nobody he can see off.
+NOT DONE: after FIGHT the far-stop frame still centres on everyone (no seen man measured off there); upright at the far stop the camera cannot pan up or down (the ring fills
+the glass), so a man on the board's last rows would sit under the phone (no real lineup stands there).
+GATE THE FIGHT HIS LINE WHOLE (new, in the suite) 6/0, the plant red. THE REBUILT FIGHT PLAYS 142/13, its lineup legs green; none of the 13 in the lineup (the one camera leg, on its side on the Strip mid-fight, 23 of 132, is the number COMBAT TWO named red on main). ON THE PAGE: the alpha upright his three whole (slid 7 points, one of theirs 13 past); the demo upright twice his three whole (theirs 16 to 33 past: its glass holds less across; before, both lines 16 past, his men half off); both on their side both lines fit, untouched; 0 page errors.
+NEXT: the courthouse (the Mob Museum's courtroom and museum floor, 'mobmuseum'), drafted and untracked in slices/fight_ground/courthouse/: list it, gate, page, ship. Then the
+truck stop's store; more ground from Battle Brothers' table.
+[bb Battle Brothers' deployment: you set your line seeing your own men first; the enemy's line is where you look next]
+[analog horror: a security monitor whose picture is cropped by its own bezel, the one man you need standing just past the edge]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 -- [the school] SHIPPED 04bdc064c, BUILD 11/21m - THE SCHOOL, BUILT, NOT YET SEEN. VOTE combat4-the-school-11-21 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_SCHOOL_11_21_26.md. More boards (rule 461): the school ('school', 0.6): the gym as the town's shelter (cots, mats, folded tables, the
 bleachers pulled out: rough 3 AP and low cover, not high ground) or the classroom wing (rooms of desks, lockers lining the hallway, A DOOR AT EACH END OF EVERY ROOM). One data
 file (15 tile kinds, 13 pieces all stand-ins), twelfth in insides.json; no high ground; the ceiling the hospital's 'grid'.

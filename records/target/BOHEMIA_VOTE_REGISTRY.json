@@ -22410,7 +22410,8 @@
     ]
    },
    "record": "records/BOHEMIA_COOK_SIX_THE_SPHERE_AGAIN_11_21_26.md"
-  }
+  },
+  {"id": "combat4-his-line-whole-11-21", "kind": "ui", "lane": "combat 4", "sha": "SHIPSHA", "made": "11/21", "draft": true, "title": "SETTING YOUR LINE ON AN UPRIGHT PHONE: YOUR MEN ARE NEVER CUT OFF THE EDGE ANY MORE", "said": "A full sweep, the whole enchilada, don't forget anything", "why": "Setting your line on an upright phone, your own men used to hang off the left edge when the two lines stood wider apart than the screen; now the camera slides just enough that your whole line shows and theirs runs off the far side (a drag shows them). You see it on the fight screen at the start of a fight, before you press FIGHT.", "show": {"how": "image", "src": "../records/target/COMBAT4_HIS_LINE_WHOLE_11_21.webp", "first": "../records/target/vote_first/combat4-his-line-whole-11-21.webp", "firstAt": [0, 0, 1176, 560]}, "before_after": {"before": "main before this build: upright, in the lineup, the frame centred between the lines: on the alpha two of his men 6 points past the left edge, on the demo his men half off the glass", "after": "his line whole (the camera slides only as far as his outermost man needs), theirs run off the right; on its side, and wherever both lines fit, nothing changes", "scale": "the fight page upright, the same fight, the left picture with the slide taken out, the right as it ships"}, "stage": "stand_in", "record": "records/BOHEMIA_COMBAT_FOUR_HIS_LINE_WHOLE_11_21_26.md"}
  ],
  "verdicts": [
   {
