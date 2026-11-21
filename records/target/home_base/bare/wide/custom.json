@@ -1,0 +1,22 @@
+{
+"name": "Custom",
+"tier": "camp",
+"lamps": [],
+"fires": [],
+"outlines": [],
+"outlines_whole": [],
+"boxes": {},
+"filled": 0,
+"seed": 9125,
+"ext": 600,
+"px": [
+3260,
+1092
+],
+"comp": "wide",
+"frame": [
+2060,
+1092
+],
+"bands": 13
+}

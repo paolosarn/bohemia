@@ -1035,8 +1035,14 @@ Earlier: 11/9c, 11/9f, 11/9j, fourteen places that talk. Still open: the bus yar
 handoffs/WORLD_FOURTEEN.md.
 [bb Battle Brothers' company events steal from the stash and call a man home; ours are the plasma van, the swollen cans and the rent crew.]
 [analog horror: the dead bank machine still runs on its own battery, says her balance is zero every morning, and asks if she would like a receipt.]
-HOME BASE (home-base-01gkdyuv): 11/21 -- A FRESH HOME BASE SHOULD TAKE handoffs/HOME_BASE.md (written whole; next job IT STARTS BARE, rule
-445(b)). Nothing in flight; the grinder (row 638) and his builds as the fight's cover (rule 86) wait on Paolo.
+HOME BASE 2 (takes over handoffs/HOME_BASE.md): 11/21 LATEST -- BUILD 11/21s - IT STARTS BARE, BUILT, NOT YET SEEN (rule 445(b); ask row
+571). His planted place opened on the camp's picture (a trailer, a clinic tent, a stall, a gun stand, a bar, a barber, the posts, a
+board, a junk lot; nine doors, keepers, a crowd). Now it opens on its own bare ground (the same scene, nothing placed; by night lit by
+the camera's own lamp), only BUILD and his own things; a vendor stall, shed or roof he builds is the shop's door. Gate YOUR PLACE,
+PLANTED D21 and D15, demo 125/0 upright, 122/0 sideways; the alpha both ways by real taps. No VOTE card: rule 466(a) killed the camera
+view (next job: the cameras rebuilt, and 466(b) the cork board to the graveyard). Record records/BOHEMIA_HOME_BASE_IT_STARTS_BARE_11_21_26.md.
+[bb Battle Brothers never lets you build a town; ours hands you dirt and a hammer.]
+[analog horror: an empty lot on a camera at night, lit only by the camera's own lamp. Something has to be standing there soon.]
 HOME BASE (home-base-01gkdyuv): 11/20 -- BUILD 11/20a - WHERE YOU BUILD (212695d2c), SHIPPED, LIVE (rule 461): EYES 11/18's finds on his
 place fixed: his empty lots chalked under a hammer's plate (a tap on one is BUILD with it picked) and the cameras' infrared at night.
 Gate D20. VOTE home-base-where-you-build-11-20. Record records/BOHEMIA_HOME_BASE_WHERE_YOU_BUILD_11_20_26.md.

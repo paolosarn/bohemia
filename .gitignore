@@ -63,3 +63,5 @@ records/target/cook5_inside/hc_floor_plan.png
 records/target/cook5_inside/sp_floor_plan.png
 records/target/cook6_places_region/
 records/target/cook5_inside/st_floor_plan.png
+# HOME BASE 2 (rule 445(b), IT STARTS BARE): the bare ground renders, ~25 MB, rebuilt by tools/bohemia_home_base_it_starts_bare_11_21_26.py; what ships is slices/home_base/
+records/target/home_base/bare/**/*.png

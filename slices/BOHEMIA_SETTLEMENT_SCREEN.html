@@ -2449,6 +2449,60 @@ function homePlaceRows(acts){ var H = S.home, R = H && H.placeRows; if(!R) retur
     em.textContent = ''; em.className = 'hcost'; [have ? 'BUILT' : '1 BATTERY' + (row.cost ? ' ' + homeGoodsWords(row.cost) : ''), String(row.line || '').toUpperCase()].forEach(function(x){ var sp2 = document.createElement('span'); sp2.textContent = x; em.appendChild(sp2); });
     b.dataset.place = id; if(short) b.dataset.short = '1'; acts.appendChild(b); }); }
 /* ==== /__HIS_OWN_BUILDINGS__ ==== */
+/* ==== __IT_STARTS_BARE__ (HOME BASE 2, 11/21, VAMILY rule 445(b), Paolo 11/10: 'everything will be in our own custom settlement that
+   we build from the ground up'; rules 458(c), 441). MEASURED on the demo (a new game planted on day 2, upright and sideways): his
+   planted place opened on COOK's picture of his outfit's camp (a trailer, a clinic tent, a stall, a gun stand, a bar, a barber's
+   chair, the hiring posts, the job board, a junk lot), nine doors answering and a crowd of strangers at them; he had built nothing.
+   NOW, only at his planted place: the picture is the same place's own ground with nothing on it (slices/home_base/bare_*.webp, drawn
+   by tools/bohemia_home_base_it_starts_bare_11_21_26.py from the same seed, plan, camera and light, so his lots are the same ground
+   at the same pixels); no door the camp had, no keeper, no crowd, no stranger walking, none of a town's situations (a market day, a
+   sickness: his own camp has none either); what stands is what he built, the people who live there and his company. A build that
+   opens a door IS that door once it stands (the vendor stall trades, the shed's bench mends, the roof heals), somebody come to work
+   it and, at the stall, people come to buy. Every other place is untouched; COOK's and CAMP TWO's files are not edited. ==== */
+var HOME_BARE = { 'custom.webp': 'bare_wide', 'custom_tall_left.webp': 'bare_tall', 'custom_tall_right.webp': 'bare_tall' };   /* one upright picture for either side of the phone: nothing stands in either corner */
+function homeBareOn(){ return !!(S.home && S.home.planted && !S.camp && S.place && VAR && VAR.comp && HOME_BARE[VAR.comp.src]); }
+function homeBarePre(){ Object.keys(HOME_BARE).forEach(function(k){ townIm('home_base/' + HOME_BARE[k] + '.webp'); townIm('home_base/' + HOME_BARE[k] + '_night.webp'); }); }   /* a turn of the phone finds its picture in */
+function homeBare(){
+  if(!homeBareOn()){ if(VAR) VAR.bare = null; return false; }
+  var b = HOME_BARE[VAR.comp.src];
+  VAR.pic = { dir: 'home_base/', src: b + '.webp', night: b + '_night.webp', blocks: [] }; VAR.bare = b;   /* nothing stands: nothing to walk round */
+  ['day', 'night'].forEach(function(w){ PIC[w] = townIm(VAR.pic.dir + (w === 'day' ? VAR.pic.src : VAR.pic.night)); });
+  Object.keys(VAR.boxes).forEach(function(k){ if(k !== 'build' && !/^h\d+$/.test(k)) delete VAR.boxes[k]; });
+  ORDER = ORDER.filter(function(k){ return !!VAR.boxes[k]; });
+  S.traits = []; VAR.folkKey = null; VAR.busyKey = null; WALK.grid = null;
+  try{ homeBarePre(); }catch(e){}
+  return true; }
+/* the doors his builds opened: the build is the shop's door, its own drawn picture the box (homeBuildBox), the shop's own sheet */
+function homeBareDoors(){
+  if(!VAR || !VAR.bare) return;
+  var was = (VAR.bareShops || []).join(',');
+  (VAR.bareShops || []).forEach(function(k){ delete VAR.boxes[k]; var i = ORDER.indexOf(k); if(i >= 0) ORDER.splice(i, 1); }); VAR.bareShops = [];   /* the last call's, so a door never stands twice */
+  var O = homeBareOn() && S.home.opens, T = O ? homeThingsHere() : [];
+  if(O) Object.keys(O).forEach(function(k){ var o = O[k]; if(k.charAt(0) === '_' || !o || !o.by || !homeStands(o.by)) return;
+    var t = T.filter(function(x){ return x.kind === 'build' && x.id === o.by && x.done && VAR.boxes[x.key]; })[0]; if(!t) return;
+    VAR.boxes[k] = VAR.boxes[t.key]; delete VAR.boxes[t.key]; ORDER[ORDER.indexOf(t.key)] = k; VAR.bareShops.push(k); });
+  if(VAR.bareShops.join(',') !== was){ VAR.folkKey = null; VAR.busyKey = null; } }
+(function(){ var pv = pickVariant; pickVariant = function(){ var r = pv.apply(this, arguments); try{ if(homeBare()) homeDoors(); }catch(e){} return r; }; })();
+(function(){ var hd = homeDoors; homeDoors = function(){ var r = hd.apply(this, arguments); try{ homeBareDoors(); window.__HOME_DOORS = ORDER.filter(function(k){ return /^h\d+$/.test(k); }); }catch(e){} return r; }; })();
+/* the map says it is his after the open (BOHEMIA_HOME): the picture turns bare before it is ever drawn (the same task as the open) */
+window.addEventListener('message', function(e){ var d = e.data || {}; if(d.type !== 'BOHEMIA_HOME' || !d.home || !d.home.planted) return;
+  try{ if(VAR && !VAR.bare && VAR.comp && HOME_BARE[VAR.comp.src]){ pickVariant(true); try{ draw(); }catch(e2){} } }catch(er){} });
+/* a shop's keeper stands at the build that opened it, never at the camp's old door: below its foot, his head at the foot, so his
+   body is over no lot (measured 11/21 upright at CAM 1: standing at the stall's foot his body took the tap on the empty lot beside it,
+   and a keeper answers a tap near him, so the lot opened the stall; the same rule as his men at his own buildings, homeWorkers) */
+(function(){ var td = townDoor; townDoor = function(k){ if(VAR && VAR.bare && VAR.boxes[k] && (VAR.bareShops || []).indexOf(k) >= 0){ var b = VAR.boxes[k]; return { x: (b[0] + b[2]) / 2, y: Math.min(picH() - 4, b[3] + personH() * 1.04) }; } return td.apply(this, arguments); }; })();
+/* a tap on a build that opened a shop cuts close on it like any thing of his (rule 458(c) CLOSE), after the tap, never inside it */
+(function(){ var ob = openB; openB = function(k){ var r = ob.apply(this, arguments);
+  if(VAR && VAR.bare && HLENS.on && (VAR.bareShops || []).indexOf(k) >= 0 && VAR.boxes[k]) [0, 340].forEach(function(ms){ setTimeout(function(){ try{ if(HLENS.on && S.open === k && VAR.boxes[k]) homeLensAim(VAR.boxes[k], String((B[k] && B[k].name) || k).toUpperCase()); }catch(e){} }, ms); });
+  return r; }; })();
+/* nobody walks his ground who is not his: no stranger at work on its paths (his company's walkers stay) */
+(function(){ var bc = busyCount; busyCount = function(){ return (VAR && VAR.bare) ? 0 : bc.apply(this, arguments); }; })();
+/* read only, for the gate: what his place shows */
+window.__HOME_BARE_AT = function(){ var F = (VAR && VAR.folk) || [], W = (VAR && VAR.busy) || [];
+  return { on: !!(VAR && VAR.bare), pic: PIC.day && PIC.day.src ? String(PIC.day.src).replace(/^.*\/slices\//, '') : null, night: PIC.night && PIC.night.src ? String(PIC.night.src).replace(/^.*\/slices\//, '') : null,
+    doors: ORDER.slice(), keepers: F.filter(function(p){ return p.keeper; }).map(function(p){ return p.k; }), crowd: F.filter(function(p){ return p.crowd; }).length, post: F.filter(function(p){ return p.post; }).length,
+    strangers: W.filter(function(w){ return !w.crewMan; }).length, traits: (S.traits || []).length, blocks: VAR && VAR.pic && VAR.pic.blocks ? VAR.pic.blocks.length : null }; };
+/* ==== /__IT_STARTS_BARE__ ==== */
 /* ==== /__HOME_BASE__ ==== */
 /* WHAT STANDS, ON ITS LOT: the street's own art, its foot on the box's floor; going up is faint */
 function drawBuilt(s){

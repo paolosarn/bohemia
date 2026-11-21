@@ -1,0 +1,25 @@
+{
+"name": "Custom",
+"tier": "camp",
+"stands": "the edge",
+"trade": "yard",
+"lamps": [],
+"fires": [],
+"pasted": null,
+"outlines": [],
+"filled": 0,
+"seed": 9125,
+"boxes": {},
+"comp": "tall",
+"px": [
+1024,
+2080
+],
+"cleared": [],
+"taps_in_pad": [],
+"lot_cells": 0,
+"moved": [],
+"landmark_in_pad": [],
+"ground_south": "continued (rule 383), never mirrored",
+"bands": 13
+}

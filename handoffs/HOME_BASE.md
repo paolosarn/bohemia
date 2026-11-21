@@ -1,18 +1,22 @@
-HOME BASE (home-base-01gkdyuv): 11/21 -- A FRESH HOME BASE SHOULD TAKE THIS (this session's context is near full; rule 461 as amended 11/21). NEXT JOB: IT STARTS BARE (rule 445(b)), below.
-Last ship: BUILD 11/20a - WHERE YOU BUILD (212695d2c, follow-up 5a3f2c9f1), LIVE (pages run 4676 SUCCESS contains it). Nothing in flight.
+HOME BASE 2 (takes over HOME BASE's file, home-base-01gkdyuv's context filled): 11/21 LATEST -- BUILD 11/21s - IT STARTS BARE.
+Last ship: BUILD 11/21s - IT STARTS BARE (rule 445(b)), record records/BOHEMIA_HOME_BASE_IT_STARTS_BARE_11_21_26.md. No VOTE card
+(rule 466(a) killed the camera view its screenshots go through; the bare ground goes on the rebuilt cameras' card).
 
-## THE NEXT JOB, NAMED: IT STARTS BARE (rule 445(b), the oldest thing owed on this lane)
-His words (rule 445): his settlement is built from the ground up. MEASURED and still true: his planted place opens on the CAMP picture
-(CAMP TWO's camp: the stall, the bar, the gun stand, the clinic tent, the camp's people), his things standing in its BUILD corner. The
-stall, arms and clinic doors are SHUT until he builds them (BUILD 11/11j), but their pictures stand from the first second. The honest
-version: his place's ground with only what he built on it, seen through the cameras (rule 458(c)). Measure first on the demo, upright and
-sideways (rule 441): what of the camp picture can come down at his place (the shops' sprites, the camp's crowd) without breaking the town
-screen's doors, the walk-up, the crew's spots or another lane's gate (THE SETTLEMENT SCREEN, NOTHING TAPPABLE UNDER THE PHONE, the crew in
-the town). The camp picture is CAMP TWO's and COOK's: hide at his place only, never edit their files. Through the one seam and this
-lane's own blocks.
-AFTER IT (in order): a camera sound for his feeds (the starred loading feeds each have one; SOUNDS owns sound: ask, do not make); the
-3D camera renders of rule 354/373 (tools/bohemia_home_settlement_pipeline_11_3_26.py and slices/BOHEMIA_YOUR_SETTLEMENT.html have none
-of his buildings; a big build, name it before starting); CAM 1's empty lots are 23 to 33 px on the glass (a miss still opens BUILD).
+## THE NEXT JOB, NAMED: HIS CAMERAS REBUILT (rule 466(a), his NO on home-base-seen-through-the-cameras-11-17) + THE CORK BOARD KILLED (466(b))
+His words 11/21: 'Bro, you are hallucinating... This is not the view that we're going to be having... Go back to when you originally
+showed me what the shit would look like from the different camera angles... you're basically doing the same thing but like slightly
+skewing some of the dimensions'; and on WHERE YOU BUILD: 'Not the camera view and angles i was promised'. THE ORDER (466(a)): the
+skewed board (__HIS_PLACE_SEEN_AS_HE_WILL_SEE_IT__'s HLENS perspective on the town picture) is KILLED; his place is shown the way rules
+354 and 373 say and the way the first feeds did (ui-the-camera-feeds-11-3, his YES; slices/BOHEMIA_UI_THE_CAMERA_FEEDS_11_3_26.html):
+real security cameras mounted low, wide lens, steep, PS1 footage, several angles, intimate. The 11/3 mocks are this lane's own
+(tools/bohemia_home_cameras_11_3_26.py, tools/bohemia_home_research_mocks_11_3_26.py, tools/bohemia_home_settlement_pipeline_11_3_26.py,
+slices/BOHEMIA_YOUR_SETTLEMENT.html; records/BOHEMIA_PAOLO_YOUR_SETTLEMENT_THROUGH_ITS_OWN_CAMERAS_11_3_26.md): READ WHAT HE SAW
+FIRST, then 3D renders of his bare ground (tools/bohemia_home_base_it_starts_bare_11_21_26.py's scene) and his builds from low
+mounted cameras, the doors placed in each camera's picture. 466(b): home-base-his-impact-11-17 (the cork board) KILLED ('AI slop'):
+the board, its auto-build and its sheet to graveyard/ with a post-mortem (A DEAD SHAPE DOES NOT COME BACK); the deeds stay in his
+place's memory (engine, E11). held-the-gate-11-18 was a YES that rode on the board: say so in the post-mortem.
+AFTER IT (in order): a camera sound for his feeds (SOUNDS owns sound: ask, do not make); CAM 1's empty lots are 23 to 33 px on the
+glass (a miss still opens BUILD).
 
 ## WAITING ON PAOLO (build nothing of these)
 - Row 638, THE GRINDER at his place: his A, B or C (does his own crew grind the human dead) is asked; nothing of the player's side
@@ -29,6 +33,9 @@ of his buildings; a big build, name it before starting); CAM 1's empty lots are 
 - 11/10 THE SEAM: BohemiaHomeMap.give({id, kind: prize|trophy|build|person|deed, name, pic, gives, from, says, build, look, saved,
   held, day}); before planting a thing WAITS; the same id twice is one. Bosses' prizes (BohemiaBosses' state, read only), JOBS' deeds
   (one marked line in slices/bohemia_job_kinds.js settle), JOBS' paid-into-your-place builds, held raids (FACTIONS' ledger, read only).
+- 11/21 IT STARTS BARE (HOME BASE 2): his place's own ground with nothing on it (slices/home_base/bare_tall.webp, bare_wide.webp and
+  their nights, tools/bohemia_home_base_it_starts_bare_11_21_26.py); none of the camp's doors, keepers, crowd or strangers; a build that
+  opens a door IS that door (vendor stall TRADE, shed MEND, roof HEAL). Screen block __IT_STARTS_BARE__ (window.__HOME_BARE_AT for gates).
 - 11/14 three cameras; 11/17 his own buildings (training yard, forge, lookout; +35% XP counted on the crew screen); the cork board
   (jobs done, people brought home); 11/17zr SEEN THROUGH THE CAMERAS (the lens: perspective, sensor, tape, wrong clock; taps through
   the lens; close shots; his men at his buildings; BUILD picks a lot in the feed; no top-down plan); 11/18c HELD THE GATE; 11/20a WHERE
@@ -49,7 +56,9 @@ of his buildings; a big build, name it before starting); CAM 1's empty lots are 
   BohemiaSettlement.lens() gives out/inv/hit for gates. window.__HOME_LOT_AT(i) gives a lot on the glass.
 - Wait for a sheet's opening to finish before reading a row (it grows from a tenth of its size).
 - Other towns are untouched by every HOME BASE block (all keyed on his planted place).
-- Tests: node gates/home_base_gate.js (--only phone_portrait | phone_landscape; --engine). Last run: upright 124/0, sideways 121/0.
+- At his place there is no stall, bench or clinic door until the build stands; then the build's own picture is the door
+  (BohemiaSettlement.where('stall')). The middle of the BUILD ground may be a shop: tap an empty lot (window.__HOME_LOT_AT) for BUILD.
+- Tests: node gates/home_base_gate.js (--only phone_portrait | phone_landscape; --engine). Last run 11/21s: upright 125/0, sideways 122/0.
 
 ## RULE 459, FOR ECONOMY TWO: WHERE HOME BASE'S COSTS AND PAY ARE SET (HOME BASE moves none)
 records/target/bb/home_base.json builds{} (goods cost, gives, worked), places{} (yard: tape 3, mult 1.35, fights 3, per_level 1, min 2;

@@ -56,9 +56,13 @@
      D16 HIS PLACE THROUGH ITS CAMERAS (rule 451(c), row 625): his place opens on CAM 1 (REC, the camera, his place); a real tap on
          CAM 2 frames THE LOTS closer and the pot there still answers a tap; CAM 3 has the ones who live there in the shot; CAM 1 the
          whole yard again. PLANTED: the message says not planted, no camera.
-     D15 WHAT YOU BUILD OPENS A DOOR (rule 445(b)): with no vendor stall his place's STALL is shut and says what opens it, the CLINIC
-         shut until a roof; a vendor stall standing, the same real tap trades; the desk says YOUR PLACE CAN TRADE, MEND (shut), HEAL (shut).
-         PLANTED: the rows taken off the message, the clinic opens for free and the leg is red.
+     D21 IT STARTS BARE (rule 445(b), HOME BASE 2 11/21): his place opens on its own ground with nothing built on it (home_base/bare_*,
+         by day and by night, upright and sideways), its doors only his things and BUILD: none of the camp's eight (the post, the board,
+         the stall, the bar, the bench, the barber, the clinic, the lot), no keeper, no crowd, no stranger walking, no town's situation.
+         PLANTED: a town that is not his, opened through the map, keeps its picture, doors and keepers, and the leg reads red on it.
+     D15 WHAT YOU BUILD OPENS A DOOR (rule 445(b)): with no vendor stall, shed or roof no TRADE, MEND or HEAL door stands on his ground;
+         a vendor stall standing IS the stall's door (one door), somebody come to work it, and a real tap on it trades; the desk says
+         YOUR PLACE CAN TRADE, MEND (shut), HEAL (shut). PLANTED: the rows taken off the message, the stall is a plain build, red.
      D14 EVERYTHING HIS LIVES THERE (rule 445): THE SEAM, BohemiaHomeMap.give(): a boss's prize killed before he plants WAITS and
          says so (the feed, the phone's page); planting places it; THE POT's, THE TAP's and THE FILTER's prizes stand on his place's
          back lots, each a door on the town screen with its own picture, a tap says what it is and who gave it; two builds handed
@@ -304,26 +308,42 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       const shut15 = r => !!r.shut && !r.real && r.btn;
       const close15 = async () => { await fr.evaluate(() => { const c = document.getElementById('close'); if (c && BohemiaSettlement.state.open) c.click(); window.__HOME_SHUT = null; }); await P.waitForTimeout(600); };
       await gone15(); await close15();
-      const s15 = await tap15('stall', () => !!window.__HOME_SHUT || !!document.getElementById('stallstrip'));
-      const r15 = await fr.evaluate(() => ({ shut: window.__HOME_SHUT, real: !!document.getElementById('stallstrip'), btn: !!document.querySelector('#sbody .act[data-opens="stall"]') }));
-      ok('D15 no vendor stall at his place: a real tap on THE STALL says it is shut and what opens it ("' + (r15.shut && r15.shut.line) + '"), no trading, BUILD IT one tap', s15 && shut15(r15) && r15.shut.by === 'stall', JSON.stringify(r15));
-      await close15();
-      const c15 = await tap15('clinic', () => !!window.__HOME_SHUT || /^clinic$/.test(BohemiaSettlement.state.open || ''));
-      const rc15 = await fr.evaluate(() => ({ shut: window.__HOME_SHUT, real: BohemiaSettlement.state.open === 'clinic' && !window.__HOME_SHUT, btn: !!document.querySelector('#sbody .act[data-opens="roof"]') }));
-      ok('D15 no roof: THE CLINIC is shut until a roof stands ("' + (rc15.shut && rc15.shut.line) + '")', c15 && shut15(rc15) && rc15.shut.by === 'roof', JSON.stringify(rc15));
-      await close15();
-      await fr.evaluate(() => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); h.opens = null; window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); }); await P.waitForTimeout(700);
-      await tap15('clinic', () => !!window.__HOME_SHUT || /^clinic$/.test(BohemiaSettlement.state.open || ''));
-      const m15 = await fr.evaluate(() => ({ shut: window.__HOME_SHUT, real: BohemiaSettlement.state.open === 'clinic' && !window.__HOME_SHUT, btn: !!document.querySelector('#sbody .act[data-opens="roof"]') }));
-      ok('D15 planted: the build-to-door rows taken off the message, the clinic opens for free and the leg goes red', !shut15(m15), JSON.stringify(m15));
-      await close15();
+      /* D21 IT STARTS BARE (rule 445(b): 'everything will be in our own custom settlement that we build from the ground up'): his place
+         is its own ground with nothing on it but what is his; no door, keeper, crowd or stranger of the camp's picture */
+      const bareAt = async () => { for (let i = 0; i < 24; i++) { if (await fr.evaluate(() => { const b = window.__HOME_BARE_AT && __HOME_BARE_AT(); return !!(b && b.on && BohemiaSettlement.picIn() && b.doors.indexOf('build') >= 0); }).catch(() => false)) break; await P.waitForTimeout(250); }
+        await P.waitForTimeout(600); return fr.evaluate(() => window.__HOME_BARE_AT ? __HOME_BARE_AT() : null).catch(() => null); };
+      const CAMP21 = ['hall', 'board', 'stall', 'bar', 'arms', 'barber', 'clinic', 'lot'];
+      const bare21 = b => !!b && b.on && b.doors.indexOf('build') >= 0 && b.doors.every(k => k === 'build' || /^h\d+$/.test(k)) && !b.keepers.length && !b.crowd && !b.post && !b.strangers && !b.traits;
+      const pic21 = prof === 'phone_portrait' ? /^home_base\/bare_tall\.webp$/ : /^home_base\/bare_wide\.webp$/;
+      const b21 = await bareAt();
+      ok('D21 IT STARTS BARE: his place opens on its own ground with nothing built on it (' + (b21 && b21.pic) + ', by night ' + (b21 && b21.night) + '); the doors are his things only (' + (b21 && b21.doors.join(',')) + '): none of the camp\'s ' + CAMP21.length + ', no keeper, no crowd, no stranger walking',
+        bare21(b21) && pic21.test(b21.pic || '') && /^home_base\/bare_.*_night\.webp$/.test(b21.night || ''), JSON.stringify(b21));
+      const w21 = await fr.evaluate(() => ['stall', 'arms', 'clinic', 'hall', 'bar', 'barber'].map(k => !!BohemiaSettlement.where(k)));
+      ok('D15 no vendor stall, no shed, no roof: no TRADE, MEND or HEAL door stands on his ground (nor the post, the bar, the barber)', w21.every(x => !x), JSON.stringify(w21));
+      /* planted: a town that is not his, opened through the map's own door, keeps its picture, its doors and its people: the leg reads red on it */
+      const on21 = await F.evaluate(() => { const bs = ctBases(), m = BohemiaBetween.mine(), n = Object.keys(bs).filter(k => k !== m && bs[k] && mapTierOf(k))[0]; if (!n) return null; loopOpenTown({ name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }); return n; });
+      let o21 = null; for (let i = 0; i < 40 && on21; i++) { await P.waitForTimeout(300); o21 = await fr.evaluate(n => { const S = BohemiaSettlement.state; if (!S.place || S.place.name !== n || !BohemiaSettlement.picIn()) return null; return window.__HOME_BARE_AT(); }, on21).catch(() => null); if (o21 && o21.keepers.length) break; }
+      ok('D21 planted: ' + on21 + ', a town that is not his, keeps its own picture (' + (o21 && o21.pic) + '), doors (' + (o21 && o21.doors.join(',')) + ') and keepers: the bare leg reads red on it', !!o21 && !bare21(o21) && !/^home_base\//.test(o21.pic || '') && o21.keepers.length >= 3, JSON.stringify(o21));
       await F.evaluate(() => BohemiaHomeMap.give({ id: 'gift:gate-stall', kind: 'build', build: 'stall', name: 'VENDOR STALL', from: 'THE GATE' }));
       await F.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); }); await P.waitForTimeout(2500); await gone15(); await close15();
+      await bareAt();
       const o15 = await tap15('stall', () => !!document.getElementById('stallstrip') || !!window.__HOME_SHUT);
-      const ro15 = await fr.evaluate(() => ({ shut: window.__HOME_SHUT, real: !!document.getElementById('stallstrip') }));
-      ok('D15 a vendor stall standing: the same tap on THE STALL trades (its own sheet)', o15 && ro15.real && !ro15.shut, JSON.stringify(ro15));
+      const sl15 = await F.evaluate(() => { const bk = LOT_BOOK[BohemiaBetween.mine()]; for (const k in bk.lots) if (bk.lots[k].id === 'stall') return parseInt(k, 10); return null; });
+      const ro15 = await fr.evaluate(l => { const b = __HOME_BARE_AT(); return { shut: window.__HOME_SHUT, real: !!document.getElementById('stallstrip'), doors: b.doors, keepers: b.keepers, crowd: b.crowd, hdoor: (window.__HOME_DOORS || []).indexOf('h' + l) >= 0, lot: l }; }, sl15);
+      const shop15 = r => r.real && !r.shut && r.doors.indexOf('stall') >= 0 && !r.hdoor && r.keepers.indexOf('stall') >= 0;
+      ok('D15 a vendor stall standing on lot ' + ((sl15 | 0) + 1) + ': the vendor stall IS the stall\'s door (one door, not two), somebody come to work it, ' + ro15.crowd + ' come to buy; a real tap on it trades (its own sheet)', o15 && shop15(ro15), JSON.stringify(ro15));
       await close15();
-      const d15 = await tap15('build', () => { if (/^h\d+$/.test(BohemiaSettlement.state.open || '')) { const m = document.querySelector('#sbody .act[data-home="more"]'); if (m) m.click(); } return !!document.querySelector('#sbody .hcan'); });
+      await fr.evaluate(() => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); h.opens = null; window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); }); await P.waitForTimeout(800);
+      const m15 = await fr.evaluate(l => { const b = __HOME_BARE_AT(); return { shut: null, real: true, doors: b.doors, keepers: b.keepers, hdoor: (window.__HOME_DOORS || []).indexOf('h' + l) >= 0 }; }, sl15);
+      ok('D15 planted: the build-to-door rows taken off the message, the vendor stall is a build like any other and no stall\'s door (the leg above reads red)', !shop15(m15) && m15.hdoor && m15.doors.indexOf('stall') < 0, JSON.stringify(m15));
+      await F.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); }); await P.waitForTimeout(2500); await gone15(); await close15();   /* the real message again */
+      /* the desk the way he reaches it: a real tap on an empty lot's own ground (the middle of the BUILD ground may be the vendor stall
+         now, a shop's door: __IT_STARTS_BARE__), else the BUILD ground */
+      const deskUp = () => { if (/^h\d+$/.test(BohemiaSettlement.state.open || '')) { const m = document.querySelector('#sbody .act[data-home="more"]'); if (m) m.click(); } return !!document.querySelector('#sbody .hcan'); };
+      let d15 = false;
+      for (let t = 0; t < 3 && !d15; t++) { const lp = await fr.evaluate(() => { const e = (window.__HOME_EMPTY_LOTS || [])[0]; return e != null && window.__HOME_LOT_AT ? window.__HOME_LOT_AT(e) : null; });
+        if (!lp) break; await P.touchscreen.tap(fb.x + lp.x, fb.y + lp.y); for (let i = 0; i < 12 && !d15; i++) { await P.waitForTimeout(250); d15 = await fr.evaluate(deskUp).catch(() => false); } }
+      if (!d15) d15 = await tap15('build', deskUp);
       const can15 = await fr.evaluate(() => window.__HOME_CAN || []);
       ok('D15 the desk says what his place can do: ' + can15.join(', '), d15 && can15.indexOf('TRADE') >= 0 && can15.indexOf('MEND (shut)') >= 0 && can15.indexOf('HEAL (shut)') >= 0, JSON.stringify(can15));
       await close15();
