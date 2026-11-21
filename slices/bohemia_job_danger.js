@@ -150,7 +150,7 @@
     ctx = ctx || {};
     var P = { count: party.count | 0, faction: party.faction || 'brigands', days: party.days | 0 || 1, difficulty: party.difficulty | 0, act: party.act };
     /* the first game day's line (RUN's __EVERY_FIGHT_SIZED_TO_THE_CREW__, the shell's door holds the same): the company plus one */
-    var cn = crewNow(); if (dayNow() <= 1 && cn > 0 && P.count > cn + 1) { P.count = cn + 1; P.dayOneCap = true; }
+    var cn = crewNow(); if ((ctx.day != null ? ctx.day : dayNow()) <= 1 && cn > 0 && P.count > cn + 1) { P.count = cn + 1; P.dayOneCap = true; }   /* JOBS 11/21: the day the fight comes, when the card says it */
     /* the board under the roll is dealt from the seed alone (no district), so the band is the same wherever he meets it; only the
        graveyard's ground deals its own dead */
     var gy = false; try { gy = !!ctx.district && E.F.isGraveyard({ district: ctx.district }); } catch (e) {}
@@ -319,13 +319,30 @@
        watch's card named the day's crowd, so it said 'whoever comes in the dark'. Now a fight in the dark (fightsOf's dark) is read at
        night and each sure fight after the ones that come before it */
     var metBase = 0, before = 0; try { metBase = metNow(); } catch (e) {}
+    /* __THE_CARD_READS_THE_HOUR__ (JOBS 11/21, rule 461; the handoff's [the stars and the hour]): a fight comes when he gets there, not
+       when he reads the card. MEASURED (the demo, every job at every town read at 16:30 and again at its first fight's arrival on the
+       trip's own minutes): 858 first fights land on the other side of nightfall, and 363 of them named another crowd ('2 ancient bison'
+       read, 1 ground sloth at the hour he arrives). Each fight is read at the minute the trip brings him to its place (the trip's walk:
+       the road to the town, then its legs to the nearest stop), its hour (night or day) and its day */
+    var TRP = null, nowMin = 0, nowDay = 1; try { TRP = BohemiaJobKinds.trip ? BohemiaJobKinds.trip(o, place) : null; nowMin = T.min; nowDay = dayNow(); } catch (e) { TRP = null; }
+    var NF = (typeof NIGHT_FROM === 'number') ? NIGHT_FROM : 18 * 60;
+    var whenOf = function (f) {
+      if (!TRP || !TRP.job || !f.at) return null;
+      var J = TRP.job, base = TRP.toTown && !TRP.here ? (+TRP.toTown.mins || 0) : 0, legs = J.legs || [], ends = J.ends || [], fx = f.at.x != null ? f.at.x : f.at[0], fy = f.at.y != null ? f.at.y : f.at[1], k = -1, sum = 0;
+      for (var i = 0; i < ends.length; i++) { var e = ends[i]; if (!e) continue; var ex = e.x != null ? e.x : e[0], ey = e.y != null ? e.y : e[1]; if (Math.abs(ex - fx) + Math.abs(ey - fy) <= 4) { k = i; break; } }
+      if (k < 0) k = 0;
+      var wt = 0; for (var j = 0; j <= k && j < legs.length; j++) { sum += (+legs[j].mins || 0) + (+legs[j].wait || 0); wt += +legs[j].wait || 0; }   /* a leg's own wait (an ambush's, a watch's) comes before its fight */
+      var m = nowMin + base + sum, DT = (typeof DAY !== 'undefined' && DAY && DAY.NIGHT_MIN) || 22 * 60;   /* the map's day turns at 22:00 (its day loop's NIGHT_MIN; measured) */
+      return { night: (m % 1440) >= NF || (m % 1440) < 6 * 60, day: nowDay + Math.floor((m - DT) / 1440) - Math.floor((nowMin - DT) / 1440), mins: Math.round(base + sum), waits: Math.round(wt) };
+    };
     return list.map(function (f) {
       var metAt = f.road ? metBase : metBase + before; if (!f.road && f.p >= 0.999) before++;
+      var W = f.road || f.dark ? null : whenOf(f);
       var party = null; try { party = f.road ? partyMath('roaming', { x: f.at ? f.at.x : 0, y: f.at ? f.at.y : 0 }) : partyMath('job', { skulls: job.skulls }); } catch (e) { party = { count: f.n, days: 1, difficulty: 1 }; }
       party = { count: f.n, faction: f.faction || 'brigands', days: party.days, difficulty: party.difficulty };
       var at = f.at ? [f.at.x | 0, f.at.y | 0] : null, why = f.why || (f.road ? 'road:' + o.id : 'contract:' + o.id + ':' + f.what);   /* the hand-over's own why, so the band read is the band met */
-      var r = roll(party, { key: why + ':' + f.n, district: at ? districtAt(at) : null, night: f.dark ? true : undefined, met: metAt });
-      return r ? { what: f.what, why: why, n: f.n, p: f.p, band: r.band, faction: r.faction, days: r.days, difficulty: r.difficulty, at: at, road: !!f.road, hours: f.hours, dark: !!f.dark } : null;
+      var r = roll(party, { key: why + ':' + f.n, district: at ? districtAt(at) : null, night: f.dark ? true : (W ? W.night : undefined), met: metAt, day: W ? W.day : undefined });
+      return r ? { what: f.what, why: why, n: f.n, p: f.p, band: r.band, faction: r.faction, days: r.days, difficulty: r.difficulty, at: at, road: !!f.road, hours: f.hours, dark: !!f.dark, comes: W ? W.mins : null, waits: W ? W.waits : null } : null;
     }).filter(Boolean);
   }
   function readKey(o, place) { return String(o && o.id) + '@' + String(place || (o && o.from) || '') + (o && o.plays ? ':held:' + (o.stage || '') + ':' + (o.wave | 0) + ':' + (o.got | 0) + ':' + ((o.ambush || []).length) + ':' + (o.bands | 0) + ':' + (o.holders ? o.holders.n : '') : ''); }
