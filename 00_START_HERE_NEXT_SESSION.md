@@ -917,7 +917,9 @@ Earlier: 11/9c, 11/9f, 11/9j, fourteen places that talk. Still open: the bus yar
 handoffs/WORLD_FOURTEEN.md.
 [bb Battle Brothers' company events steal from the stash and call a man home; ours are the plasma van, the swollen cans and the rent crew.]
 [analog horror: the dead bank machine still runs on its own battery, says her balance is zero every morning, and asks if she would like a receipt.]
-HOME BASE (home-base-01gkdyuv): 11/20 LATEST -- BUILD 11/20a - WHERE YOU BUILD (212695d2c), SHIPPED (rule 461): EYES 11/18's finds on his
+HOME BASE (home-base-01gkdyuv): 11/21 -- A FRESH HOME BASE SHOULD TAKE handoffs/HOME_BASE.md (written whole; next job IT STARTS BARE, rule
+445(b)). Nothing in flight; the grinder (row 638) and his builds as the fight's cover (rule 86) wait on Paolo.
+HOME BASE (home-base-01gkdyuv): 11/20 -- BUILD 11/20a - WHERE YOU BUILD (212695d2c), SHIPPED, LIVE (rule 461): EYES 11/18's finds on his
 place fixed: his empty lots chalked under a hammer's plate (a tap on one is BUILD with it picked) and the cameras' infrared at night.
 Gate D20. VOTE home-base-where-you-build-11-20. Record records/BOHEMIA_HOME_BASE_WHERE_YOU_BUILD_11_20_26.md.
 HOME BASE (home-base-01gkdyuv): 11/18 EARLIER -- BUILD 11/18c - HELD THE GATE (e7f447c8b), SHIPPED (rule 453): a raid he holds at his
