@@ -1013,6 +1013,11 @@ SCAVENGE (scavenge-01gkdyuu): 11/7 LATEST -- DESIGNED, WAITING ON HIS YES, NOTHI
 his three (search houses, the detector, the siphon) as ONE game on the Dead Shot Dial on the block's own fight board, the spots picked by the
 board's own tiles, on the beat; one question for him (what each of the three gives); VOTE scavenge-the-design-for-his-yes-11-7 (STAND-IN).
 Record records/BOHEMIA_SCAVENGE_THE_DESIGN_FOR_HIS_YES_11_7_26.md. MEASURED: 0 of 784 boards carry a dead car (routed to COMBAT TWO).
+CHARACTER (character-nine): 11/21 (ak) LATEST -- BUILD 11/21h THE EYE IN THE SKY IN ITS OWN CLOTHES (rule 461, row 286): the casino's
+gunner, spotter and doorman had fought in borrowed looks; now six casino men in the house's black, black shirts, vests, suit coats and
+tailcoats, one gold tie each in the casino's own ink, on the fight sheet, the face strip and their rows. VOTE character-the-eye-in-the-sky-11-21.
+NEXT: the preacher, the penitent, the grenadier, the siren, the battery man. The whole block: handoffs/CHARACTER.md.
+
 CHARACTER (character-nine): 11/20 (aj) LATEST -- BUILD 11/20g THE HEAD TAKERS IN THEIR OWN CLOTHES (rule 461, row 286): the head taker, the
 smoker and the darter had fought in a faction's one-piece and two hall men's clothes; now seven men in work and field coats, chest plates,
 ponchos and dust masks, quivers, one hunter's blaze scarf in the head takers' own ink each, on the fight sheet, the face strip and their

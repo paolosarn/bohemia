@@ -39,6 +39,30 @@ NOTE from BESTIARY (11/14, rule 447 'BESTIARY turn up'): NOTHING OF YOURS WAS TO
 enemy_runner_6 and 7 to the new HORN, the heavies' heavy pool enemy_heavy_4 and 5 to the new BRUISER (ours.json people_looks: runner keeps
 0 to 5, heavy 0 to 3). No enemy sheet is unworn now: every next type needs your clothes (the 11/10 and 11/11 lists below stand).
 
+CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, woken by the routine 11/21): 11/21 (ak) LATEST -- *** rule 461 (the whole enchilada as amended 11/21, row 286) SHIPPED BUILD 11/21h: THE EYE IN THE SKY IN ITS OWN CLOTHES, 6 MEN. ***
+TAB: VOTE (character-the-eye-in-the-sky-11-21, MADE FROM his passed nine enemies); and every fight against the eye in the sky.
+Record: records/BOHEMIA_CHARACTER_THE_EYE_IN_THE_SKY_11_21_26.md.
+WHAT: three of BESTIARY's stand-ins, one faction: the gunner (in faction_reds), the spotter (in faction_network), the doorman (in
+person_mob_2). Six casino men in the house's black: black shirts (the new SOOT BUTTON-UP) under a tactical or a leather vest with a shell
+bandolier (gunners), a car or a comma coat with dark wraparounds (spotters), a tailcoat (doormen), one TIE each (a new body piece) in the
+casino's own ink (#af9b5a dusted). THE OUTFIT off for them. Strict blue 0. On the fight sheet (faction_reds' cell and guns), the face
+strip, their three rows' looks (looks_borrowed = the stand-in, the stand-in note dropped). Honest: on gunner 1 the leather vest still
+closes over most of the tie.
+PROOF: the fight's enemies 62 -> 68, faces 178 -> 184, packed 229 -> 235, every other index count the same, the forty-five earlier men's
+sheets re-packed byte-identical; the site 865.6 MB against main's 862.3 (a clean checkout of each); THE BESTIARY FLOOR --no-browser
+13/0, THE SHEETS ARE PACKED 4/0, DEMO BUILD 25/0, TRENCHCOAT 12/0, THE PACKERS MERGE 4/0, THE FACE IS HIS OWN FACE 18/0, HANDOFF 10/0,
+ATTEMPT 15/0; EVERYBODY IDLES 35/3 and NO TWO PEOPLE ALIKE 22/1 (the home center's and the hospital's fight art do not load, the same
+on clean main) are main's reds; ON THE PAGE (BESTIARY's floor fight, the demo and the alpha, a phone upright and on its side): all three
+types fielded in their own sheets, named, armed (pump shotguns, handgonnes, snub revolvers, the shamshir), the spotter's call and the
+doorman's door seen, the win home, 0 page errors (the alpha upright saw no call in its first four fights, run again it called on the
+second; the doorman's party deals one and the page dealt doorman 1).
+NEXT (in order): (1) the rest of BESTIARY's stand-ins, one build each: the preacher and the penitent (the flock), the grenadier (the hired
+guns), the siren (the block watch), the battery man (the machines); about 0.6 MB a man, the site 866 MB of 900; (2) the bosses' crews in
+their trades, once BOSSES gives each boss a looks list; (3) the thirteen faction_* tunics (six pipelines); (4) nine hall men at three
+layers, homeless_1, mob_2 (in place, no weight). DESI (row 633) untouched until his word. NEVER send_later or anything that waits on a tap (461(c) amended 11/21).
+[bb Battle Brothers' city-states field soldiers in the house's colours; ours are the floor staff who never took the uniform off.]
+[analog horror: a doorman in a tailcoat and a gold tie holding a door on a dead casino, and he is still holding it when you walk up.]
+
 CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, woken by the routine 11/20): 11/20 (aj) LATEST -- *** rule 461 (the whole enchilada, row 286) SHIPPED BUILD 11/20g: THE HEAD TAKERS IN THEIR OWN CLOTHES, 7 MEN. ***
 TAB: VOTE (character-the-head-takers-11-20, MADE FROM his passed nine enemies); and every fight against the head takers (map and jobs).
 Record: records/BOHEMIA_CHARACTER_THE_HEAD_TAKERS_11_20_26.md.
