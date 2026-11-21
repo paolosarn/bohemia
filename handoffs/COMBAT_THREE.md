@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the courthouse] SHIPPED SHIPSHA, BUILD 11/21y - THE COURTHOUSE, BUILT, NOT YET SEEN. VOTE combat4-the-courthouse-11-21 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the courthouse] SHIPPED 8ac1eb5f5, BUILD 11/21y - THE COURTHOUSE, BUILT, NOT YET SEEN. VOTE combat4-the-courthouse-11-21 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_COURTHOUSE_11_21_26.md. More boards (rule 461): the Mob Museum ('mobmuseum', 0.8), the 1933 courthouse downtown: the_courtroom (pews in two
 banks: rough 3 AP and low cover; the bar with its gaps; the well's counsel tables, cover; the judge's bench a blocker; the witness stand; the jury box, rough 3 AP) and
 the_museum_floor (exhibit cases, stands, dead kiosks, free-standing exhibit walls cutting it into bays, doors on three sides). One data file (15 tile kinds, 14 pieces all
