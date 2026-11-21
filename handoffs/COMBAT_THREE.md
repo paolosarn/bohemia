@@ -1,6 +1,23 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the aquarium] SHIPPED 98602a0ac, BUILD 11/21zg - THE AQUARIUM, BUILT, NOT YET SEEN. VOTE combat4-the-aquarium-11-21 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the natural history museum] SHIPPED 4acd6dffc, BUILD 11/21zh - THE NATURAL HISTORY MUSEUM, BUILT, NOT YET SEEN. VOTE combat4-the-natural-history-museum-11-21 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_NATURAL_HISTORY_MUSEUM_11_21_26.md. More boards (rule 461): the natural history museum ('natmuseum', 0.8, by Cashman Field): the_ice_age_hall
+(Columbian mammoths and ground sloths on their plinths: blockers you see through, the tank rule; display cases, benches, kiosks, a skeleton pulled down: rough 3 AP and low
+cover; rope posts: rough, no cover; dioramas along both walls) and the_dioramas (the walls lined with dioramas, walk-round showcases in the middle, a ground sloth between
+them). One data file (13 tile kinds, 11 pieces all stand-ins), eighteenth in insides.json; no high ground; the ceiling the casino's 'coffer'. GATE THE BIG INSIDES 284/0 (eighteen insides)
+(the museum 18/0, 24% bare after round one against 45%; my first cut 31%, and a stray letter in a layout that the gate's I7 caught).
+ON THE PAGE: 4 fights, both pages both ways, all ended, 11 of 11 taps, 0 errors (every valley rolled the dioramas; the Ice Age hall on the fight page alone and in the gate).
+*** HELD: THE ROBOT FACTORY (records/BOHEMIA_COMBAT_FOUR_THE_ROBOT_FACTORY_HELD_11_21_26.md): built and gated 18/0, NOT listed: FOR WORLD: the map paves the robot factory's
+one cell with an arterial road (the page's map, 4 of 4 valleys; the engine module 10 of 300 seeds). Its two layouts are in the record for whoever lists it after the fix.
+*** FOR COOK (SIX): THE MUSEUM'S NAMES (natmuseum_art.json, THE GARAGE'S FORMAT): floor.floor (the halls' stone), floor.ring; nm_mammoth (a Columbian mammoth's skeleton
+on its plinth), nm_sloth (a ground sloth reared up), nm_diorama (a habitat diorama behind glass, the desert painted on its back), nm_showcase (a walk-round glass showcase),
+nm_case (a display case, glass starred), nm_benches, nm_kiosk (a dead touch screen), nm_bones (a skeleton pulled down, bones and armature), nm_ropes (rope posts), nm_wall_ew,
+nm_wall_ns; natmuseum/natmuseum_ceiling.webp (the halls' high ceiling, track lights dead); "have": true in natmuseum.json's ceiling.
+NEXT: more boards (the TV station's studio, the library's stacks, the police station); more ground from Battle Brothers' table.
+[bb Battle Brothers' boulders you can see past: the mammoths on their plinths]
+[analog horror: a diorama's recorded narration starting by itself when someone walks past the dead sensor]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 -- [the aquarium] SHIPPED 98602a0ac, BUILD 11/21zg - THE AQUARIUM, BUILT, NOT YET SEEN. VOTE combat4-the-aquarium-11-21 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_AQUARIUM_11_21_26.md. More boards (rule 461): the aquarium ('aquarium', 0.8): the_reef_halls (tanks and jellyfish columns you cannot cross
 but see through: the fight's sight stops only at walls, so a tank is a blocking piece on flat ground, and its glass is cover; the touch pool at the entrance end, swamp:
 4 AP and worse at fighting; rockwork, rough 3 AP and cover; kiosks, benches, fallen panels) and the_shark_tunnel (the big tank down the middle, crossed only by three glass

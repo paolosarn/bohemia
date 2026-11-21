@@ -1,4 +1,11 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21zg - THE AQUARIUM, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21zh - THE NATURAL HISTORY MUSEUM, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE NATURAL HISTORY MUSEUM: a fight at the museum by Cashman Field (eight in ten) is fought in its Ice Age hall (the valley's Columbian mammoths and ground sloths on
+their plinths: you cannot cross them but you see through them) or its hall of dioramas and showcases. One data file, every picture a stand-in (the names for COOK in the
+handoff). ALSO: the robot factory is built and HELD: the map paves its one cell with a road (for WORLD, in its record). GATE THE BIG INSIDES 284/0 (eighteen insides). ON THE PAGE: 4 fights, both pages both ways, all ended, 11 of 11 taps, 0 errors (every valley rolled the dioramas; the Ice Age hall on the fight page alone and in the gate).
+VOTE combat4-the-natural-history-museum-11-21.
+[bb Battle Brothers' boulders you can see past: the mammoths on their plinths]
+[analog horror: a diorama's recorded narration starting by itself when someone walks past the dead sensor]
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 -- BUILD 11/21zg - THE AQUARIUM, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE AQUARIUM: a fight at the aquarium on the Strip (eight in ten) is fought in its dark halls (tanks you cannot cross but can see through, the touch pool: slow, and you
 fight worse in it) or across the shark tank by its glass tunnels (one leaking). One data file, every picture a stand-in (the names for COOK in the handoff).
 GATE THE BIG INSIDES 269/0 (seventeen insides). ON THE PAGE: 4 fights, both pages both ways, both layouts, all ended, 17 of 17 taps, 0 errors. VOTE combat4-the-aquarium-11-21.
