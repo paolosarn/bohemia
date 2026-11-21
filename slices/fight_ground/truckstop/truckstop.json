@@ -1,0 +1,638 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "truckstop",
+ "name": "THE TRUCK STOP",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "A travel center on the interstate is a fuel plaza, a store the size of a small supermarket's floor (coolers along the back wall, rows of shelving, a hot food case, the counter by the doors) and, at the bigger ones, a truck service bay.",
+  "A service bay takes a whole rig: a tractor and its trailer end to end, a lift beside it, tires stacked along the walls, the bay doors at each end so a truck drives through.",
+  "On house tiles a rig is three tiles, the cab and its trailer; a run of shelving is a tile you cannot stand on."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (truckstop_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "truckstop"
+ ],
+ "share": 0.7,
+ "districts_why": "The truck stop is its own map kind on the freeway: seven fights in ten there are fought inside, in its store or its service bay, by the cell's own dice; the rest on its fuel plaza and the lot.",
+ "board": {
+  "templates": {
+   "truckstop": {
+    "name": "THE TRUCK STOP",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_travel_store": [
+      "####################",
+      "#CCCCCC.CCCCCC.CCC.#",
+      "#.s..j..bs.j..s..b.#",
+      "#.GGGnGGGnnGGGnGGG.#",
+      "#..b..j.sw.sj..b...#",
+      "#.GGGnGGG..GGGnGGG.#",
+      "#D..t.sh.HH.hs.t..D#",
+      "#...b.tw.HH.wt.b...#",
+      "#f..t.sh....hs.t..f#",
+      "#.GGGnGGG..GGGnGGG.#",
+      "#..b..j.ws.sj..b...#",
+      "#.GGGnGGGnnGGGnGGG.#",
+      "#..K.KKsK..KsKK.K..#",
+      "#.D..t..DD..t..D...#",
+      "####################"
+     ],
+     "the_service_bay": [
+      "####################",
+      "#YY.x.YY.oo.YY.x.YY#",
+      "#..o...x..x...o..x.#",
+      "#D..RTT..YY..TTR..D#",
+      "#..x..o..pp..o..x..#",
+      "#.YY.x..oppo..x.YY.#",
+      "#f..o..x....x..o..f#",
+      "#D.x..YY.cc.YY..x.D#",
+      "#f..o..x....x..o..f#",
+      "#.YY.x..oppo..x.YY.#",
+      "#..x..o..pp..o..x..#",
+      "#D..RTT..YY..TTR..D#",
+      "#..o...x..x...o..x.#",
+      "#YY.x.YY.oo.YY.x.YY#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "C": {
+    "is": "floor",
+    "tile": "cooler",
+    "piece": "ts_cooler",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "G": {
+    "is": "floor",
+    "tile": "shelving",
+    "piece": "ts_shelving",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "n": {
+    "is": "floor",
+    "tile": "endcap",
+    "piece": "ts_endcap",
+    "at": [
+     0.5,
+     0.72
+    ]
+   },
+   "s": {
+    "is": "floor",
+    "tile": "stock",
+    "piece": "ts_stock",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "j": {
+    "is": "floor",
+    "tile": "jerky",
+    "piece": "ts_jerky",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "pallets",
+    "piece": "ts_pallets",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "w": {
+    "is": "floor",
+    "tile": "water",
+    "piece": "ts_water",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "t": {
+    "is": "floor",
+    "tile": "booths",
+    "piece": "ts_booths",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "h": {
+    "is": "floor",
+    "tile": "hotcase",
+    "piece": "ts_hotcase",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "H": {
+    "is": "floor",
+    "tile": "island",
+    "piece": "ts_island",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "K": {
+    "is": "floor",
+    "tile": "counter",
+    "piece": "ts_counter",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "R": {
+    "is": "floor",
+    "tile": "cab",
+    "piece": "ts_cab",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "T": {
+    "is": "floor",
+    "tile": "trailer",
+    "piece": "ts_trailer",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "p": {
+    "is": "floor",
+    "tile": "lift",
+    "piece": "ts_lift",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "x": {
+    "is": "floor",
+    "tile": "toolchest",
+    "piece": "ts_toolchest",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "o": {
+    "is": "floor",
+    "tile": "drums",
+    "piece": "ts_drums",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "compressor",
+    "piece": "ts_compressor",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   },
+   "Y": {
+    "is": "floor",
+    "tile": "tires",
+    "piece": "ts_tires",
+    "at": [
+     0.5,
+     0.82
+    ]
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The building's block wall: no way through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The tiled floor, tracked with grit: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The floor: open ground.",
+   "draft": true
+  },
+  "cooler": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "The walk-in coolers' glass doors along the back wall, dark and empty: nobody stands there; cover for the tiles beside it. [bb] its wall.",
+   "say": ""
+  },
+  "shelving": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A run of shelving, stripped: nobody stands on it; it blocks a shot along the aisle. [bb] its palisade.",
+   "say": ""
+  },
+  "endcap": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "An end cap, the shelf at a run's end: low cover, and the way round the run.",
+   "say": "An end cap: low cover.",
+   "draft": true
+  },
+  "stock": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Cases pulled down off the shelves and left: cover.",
+   "say": "Pulled-down cases: cover.",
+   "draft": true
+  },
+  "jerky": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A jerky and lottery stand, picked over: low cover.",
+   "say": "A jerky stand: low cover.",
+   "draft": true
+  },
+  "pallets": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Empty pallets where the water was: low cover, and slow going over them (3 AP). [bb] its brush.",
+   "say": "Empty pallets: low cover, slow going.",
+   "draft": true
+  },
+  "water": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Cases of bottled water nobody could carry, stacked: cover.",
+   "say": "Stacked water: cover.",
+   "draft": true
+  },
+  "booths": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The deli's booths, bolted down: low cover.",
+   "say": "A booth: low cover.",
+   "draft": true
+  },
+  "hotcase": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The hot food case, its glass broken: cover.",
+   "say": "The hot food case: cover.",
+   "draft": true
+  },
+  "island": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "The coffee and soda island, steel and solid: nobody stands on it; cover for the tiles beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "counter": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The checkout counter, its registers gone: cover.",
+   "say": "The counter: cover.",
+   "draft": true
+  },
+  "cab": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A tractor's cab on the bay floor, its hood up: nobody stands on it; cover for the tiles beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "trailer": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "Its trailer, end to end with the cab: nobody stands on it; it blocks a shot. [bb] its wall.",
+   "say": ""
+  },
+  "lift": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A drive-on lift, raised, a pickup still up on it: nobody stands under it; cover for the tiles beside it. [bb] its obstacle.",
+   "say": ""
+  },
+  "toolchest": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A rolling tool chest, its drawers hanging: low cover.",
+   "say": "A tool chest: low cover.",
+   "draft": true
+  },
+  "drums": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Oil drums, some empty: low cover.",
+   "say": "Oil drums: low cover.",
+   "draft": true
+  },
+  "compressor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The air compressor on its tank: low cover.",
+   "say": "The compressor: low cover.",
+   "draft": true
+  },
+  "tires": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Truck tires stacked high: cover.",
+   "say": "Stacked tires: cover.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a drum. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The doors, open to the lot: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The doors: open ground.",
+   "say_lit": "The doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in truckstop_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "ts_cooler": {
+   "like": "casino_screens",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "THE COOLERS"
+  },
+  "ts_shelving": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "SHELVING"
+  },
+  "ts_endcap": {
+   "like": "sb_corral_S",
+   "kind": "LOW_COVER",
+   "name": "AN END CAP"
+  },
+  "ts_stock": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "PULLED-DOWN CASES"
+  },
+  "ts_jerky": {
+   "like": "sb_barrier_S",
+   "kind": "LOW_COVER",
+   "name": "A JERKY STAND"
+  },
+  "ts_pallets": {
+   "like": "sb_heap_S",
+   "kind": "LOW_COVER",
+   "name": "EMPTY PALLETS"
+  },
+  "ts_water": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "STACKED WATER"
+  },
+  "ts_booths": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "DELI BOOTHS"
+  },
+  "ts_hotcase": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "THE HOT FOOD CASE"
+  },
+  "ts_island": {
+   "like": "garage_booth",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "THE COFFEE ISLAND"
+  },
+  "ts_counter": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "THE COUNTER"
+  },
+  "ts_cab": {
+   "like": "sb_wreck_S",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A TRACTOR'S CAB"
+  },
+  "ts_trailer": {
+   "like": "sb_container_S",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A TRAILER"
+  },
+  "ts_lift": {
+   "like": "sb_dozer_S",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A LIFT, RAISED"
+  },
+  "ts_toolchest": {
+   "like": "sb_cart_S",
+   "kind": "LOW_COVER",
+   "name": "A TOOL CHEST"
+  },
+  "ts_drums": {
+   "like": "sb_drums_S",
+   "kind": "LOW_COVER",
+   "name": "OIL DRUMS"
+  },
+  "ts_compressor": {
+   "like": "sb_propane_S",
+   "kind": "LOW_COVER",
+   "name": "THE COMPRESSOR"
+  },
+  "ts_tires": {
+   "like": "sb_tyres_S",
+   "kind": "COVER",
+   "name": "STACKED TIRES"
+  },
+  "ts_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "ts_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "ts_wall_ew",
+  "ns": "ts_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: one floor; the cab's roof is no place to stand on house tiles.",
+ "ceiling": {
+  "kind": "joist",
+  "alpha": 0.1,
+  "src": "truckstop/truckstop_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the store's dropped ceiling and the bay's steel roof, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the warehouse's roof)."
+ }
+}
