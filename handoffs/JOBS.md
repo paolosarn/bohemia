@@ -1,5 +1,10 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
+JOBS CONTEXT NEAR FULL (11/21, rule 461(f)): session_01GKDyuv5CeFx6bTxT23Pv5Q closes after BUILD 11/21n; open a fresh JOBS on this file.
+Its next job is the block below's NEXT ([a job that changes after the yes]). Its tools: the CLOUT walk (tools/bohemia_jobs_the_clout_a_job_pays_on_the_phone.js,
+--night), the card-against-fight walk (tools/bohemia_jobs_the_card_reads_the_night_on_the_phone.js, --hour M), whose rows carry each
+fight's card at the yes ('held'), at the hand-over ('now'), the roll's inputs and the minute.
+
 JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/21 LATEST -- BUILD 11/21n - THE CARD READS THE HOUR, BUILT, NOT YET SEEN (rules 461, 441, 454(a), 465;
 row 651; the coordinator's routine 'JOBS: carry on'). Record: records/BOHEMIA_JOBS_THE_CARD_READS_THE_HOUR_11_21_26.md.
 - MEASURED: a card read each fight at the hour of reading; he meets it when the trip brings him there. Read at 16:30 (every job at every
