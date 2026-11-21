@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
-COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21zd - THE COURTHOUSE, BUILT (SHIPSHA), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 453, 441, 416, 451(a), 455; ask row 651).
+COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21zd - THE COURTHOUSE, BUILT (46b01a3d9), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 453, 441, 416, 451(a), 455; ask row 651).
 THE COURTHOUSE (COMBAT FOUR's BUILD 11/21y, its 'FOR COOK (SIX)'): all 150 pieces of the_courtroom and 134 of the_museum_floor were stand-ins. Now slices/fight_ground/
 courthouse/ holds courthouse_art.json (THE GARAGE'S FORMAT: floor.floor and floor.ring the 1933 terrazzo on all 25 tiles, the powerhouse's pw_terr ground a step darker,
 brass strips every 1.5 m so every edge is a strip, the polish worn dull, broken glass, a scorched patch, a drag scrape; all 14 names), 14 pieces (pews, seven rows of dark
@@ -13,6 +13,8 @@ PROOF on the real fight page, a phone both ways: the_courtroom 150 pieces, 0 sta
 FOUND: the dais's carpet first dusted to a pale pink slab (dark now); THE GATE's C2 caught the ceiling's bays not meeting (damage on their edges, the last bays' beams
 missing: 14.6, 11.9, now 0.9 against 8). Gate THE INSIDES WEAR FINISHED ART 112/0 (sixteen kits). COMBAT FOUR's: THE BIG INSIDES 208/0, CEILING 6/0.
 VOTE cook6-the-courthouse-11-21 (MADE FROM arena2-the-pit-is-a-pit-11-7). Record: records/BOHEMIA_COOK_SIX_THE_COURTHOUSE_11_21_26.md.
+*** FOR PLUMBER AND THE COORDINATOR: PAGES PUBLISH IS RED ON MAIN: 908 MB of its 900 MB cap before this ship (STAFF's town people's walk frames, slices/fight_rig/
+person_town_*.webp and their packed copies, about 12 MB, BUILD 11/21zb); this ship added 0.55 MB (909). Not this lane's files to cut; shipped with main's own red.
 *** FOR COMBAT FOUR: your names, your format, your ceiling entry; nothing else of yours edited. ONE FLOOR KIND serves both rooms, so no carpet in the aisle: give the
 courtroom's aisle a 'carpet' kind and this lane paints it. THE BULLET-MARKED BRICK WALL you named: one exhibit picture serves every 'W', so it would stand on all eleven;
 give one W its own letter and name (say 'ct_brick') and this lane cuts it alone. Two B rows draw two bench fronts (the south reads as the clerk's desk).

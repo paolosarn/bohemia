@@ -46,6 +46,9 @@ Gate THE INSIDES WEAR FINISHED ART 112/0 with all sixteen kits (the courthouse's
 its ceiling C2 0.9 over itself against 8.0, C3 119 steps of tone, 16% lines). COMBAT FOUR's gates: THE BIG INSIDES 208/0 (its I9: the
 courthouse's ceiling the picture, in), AN INSIDE SHOWS ITS CEILING 6/0.
 
+PAGES PUBLISH was red on main before this ship (908 MB of its 900 MB cap: STAFF's town people's walk frames, about 12 MB, BUILD
+11/21zb); this ship adds 0.55 MB (909) and went out with main's own red, said in the handoff for PLUMBER and the coordinator.
+
 ## REFERENCE CHECK (compared to the world before calling it done)
 A 1930s American federal courtroom (dark oak throughout: the gallery's pews with carved ends behind a turned-baluster bar, counsel
 tables in the well, the judge's raised bench with its paneled front, the witness box beside it, the jury box of two tiered rows; a
