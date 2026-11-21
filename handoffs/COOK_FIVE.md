@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
-COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21za - THE STADIUM AGAIN, THE POWERHOUSE AGAIN, BUILT (SHIPSHA), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rule 466(e); rules 453, 441, 451(a); ask row 651).
+COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21za - THE STADIUM AGAIN, THE POWERHOUSE AGAIN, BUILT (acb6c31e7), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rule 466(e); rules 453, 441, 451(a); ask row 651).
 HIS TWO OTHER 'WIP's, LOOKED AT ON HIS PHONE AS THE SPHERE WAS (the fight as it opens, upright, the roof at his 10%):
 THE STADIUM: the roof drew a target over the fight (an ellipse over midfield, 28 cables out of it, four cable rings: the Sphere's fault again); the stand row read as a
 checkerboard (black seats, white deck, 35 against 145); the field read as sand. NOW stadium_ceiling.webp is ETFE cushions in rows stand to stand on parallel cables and
