@@ -6,7 +6,7 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
-WORDS THREE (words-three-01gkdyuvnl): 11/21 LATEST -- BUILD 11/21k - HIS SHEETS ON THE VOICE, THEY CURSE, SHEET FIVE, BUILT (this commit), NOT YET SEEN (rules 466(f), 467, 465; ask rows 665, 666, 629, 637, 643). NOTHING IN THE GAME WAS REWRITTEN.
+WORDS THREE (words-three-01gkdyuvnl): 11/21 LATEST -- BUILD 11/21k - HIS SHEETS ON THE VOICE, THEY CURSE, SHEET FIVE, BUILT (0c0a61f6e), NOT YET SEEN (rules 466(f), 467, 465; ask rows 665, 666, 629, 637, 643). NOTHING IN THE GAME WAS REWRITTEN.
 THE COORDINATOR'S ROUTINE 'WORDS THREE: his sheet, and they curse': his sheet records/BOHEMIA_PAOLO_VOTE_11_21_26.txt (23 new homework answers). Rule 465 stands:
 THE VOICE HOLDS 11/0, 0 of 15 mouths open. Rule 461(c) amended: never call a tool that waits for a tap (no send_later from this lane).
 (1) EVERY ANSWER ON THE VOICE, as what it is (tools/bohemia_words_three_the_voice.py now sorts them): 20 LINES OF HIS (1.1 to 1.12, 1.14, 1.15; 2.4, 2.7 to

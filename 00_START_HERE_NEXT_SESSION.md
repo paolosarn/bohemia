@@ -1,4 +1,4 @@
-WORDS THREE (words-three-01gkdyuvnl): 11/21 LATEST -- BUILD 11/21k - HIS SHEETS ON THE VOICE, THEY CURSE, SHEET FIVE, BUILT (this commit), NOT YET SEEN (rules 466(f), 467, 465; ask rows 665, 666). Its block is handoffs/WORDS_TWO.md.
+WORDS THREE (words-three-01gkdyuvnl): 11/21 LATEST -- BUILD 11/21k - HIS SHEETS ON THE VOICE, THEY CURSE, SHEET FIVE, BUILT (0c0a61f6e), NOT YET SEEN (rules 466(f), 467, 465; ask rows 665, 666). Its block is handoffs/WORDS_TWO.md.
 His 27 homework answers are on THE VOICE as what they are: 20 lines of his kept exactly with what each teaches, 2 kept as they were, 5 NO as what the voice is not,
 and PAGE TWO, THEY CURSE (rule 467). FOR EVERY LANE THAT WRITES A LINE: read THE VOICE SO FAR (17 lines) before you write one; nothing standing is rewritten (rule 465).
 SHEET FIVE (words-two-hw05-01 to -12) tests his rules on the biggest mouths, each card naming the rule; 41 cards out.
