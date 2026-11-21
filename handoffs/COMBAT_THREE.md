@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 104a, 288(b), 441, 465; ask row 651): 11/21 LATEST -- [his line whole] SHIPPED SHIPSHA, BUILD 11/21p - HIS LINE WHOLE, BUILT, NOT YET SEEN. VOTE combat4-his-line-whole-11-21 (built).
+COMBAT FOUR (rules 461, 104a, 288(b), 441, 465; ask row 651): 11/21 LATEST -- [his line whole] SHIPPED 224929ccc, BUILD 11/21p - HIS LINE WHOLE, BUILT, NOT YET SEEN. VOTE combat4-his-line-whole-11-21 (built).
 Record: records/BOHEMIA_COMBAT_FOUR_HIS_LINE_WHOLE_11_21_26.md. FIGHT SCREEN 3's routed camera find (its NOTE below), both cases measured again with a copy of its walk:
 (1) UPRIGHT, IN THE LINEUP, AT THE FAR STOP: REAL. The lines stand eleven tiles apart, the glass holds twelve at the far stop, the frame centred between them cut both ends (his
 men 6 points past). NOW slices/BOHEMIA_FIGHT.html hisLineWhole (inside fitBoth, the lineup only): where the far stop cannot hold every man, the frame slides only as far as his
