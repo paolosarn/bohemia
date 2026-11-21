@@ -51,6 +51,10 @@
       if (!h) return;   /* a piece with no picture is never laid (the gate counts them) */
       out[p] = Object.assign({}, h.def, own, { src: h.def.src, size: h.size, stand_in: true });
     });
+    /* WHAT A PIECE DOES IS THIS INSIDE'S OWN WORD (COMBAT FOUR 11/21, measured: the cell block's officers' desk and the school's trophy
+       case borrowed the casino cage's picture and its 'nobody stands here' came with it, so a tile the table prices at 2 AP was a wall).
+       A picture is only a picture: whether a man may stand on the tile is the data's blocks_move, never the kit the picture came from */
+    Object.keys(out).forEach(function (p) { if (K[p] && !K[p].blocks_move) delete out[p].blocks_move; });
     return out;
   }
 

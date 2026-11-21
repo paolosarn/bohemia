@@ -1,3 +1,17 @@
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21m - THE SCHOOL, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE SCHOOL: a fight at a school (six in ten) is fought in its gym, still the town's shelter (cots, mats, folded tables, bleachers you climb over), or in its classroom wing
+(rooms of desks, lockers down the hallway, a door at each end of every room). One data file, every picture a stand-in (the names for COOK in the handoff). ALSO, A BUG FIXED IN
+EVERY INSIDE: a borrowed picture carried its own kit's 'nobody stands here', so two kinds of cover tile were walls the table priced at 2 AP; the inside's own data decides now,
+and the gate catches it. GATE THE BIG INSIDES 193/0. ON THE PAGE: 8 fights, both pages both ways, all ended, 32 of 32 taps, 0 errors. VOTE combat4-the-school-11-21.
+[bb Battle Brothers' palisade again: a wall with two gaps per room, and the gaps are the fight]
+[analog horror: a school's PA system clicking on in an empty hallway, nobody speaking]
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21m - THE SCHOOL, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE SCHOOL: a fight at a school (six in ten) is fought in its gym, still the town's shelter (cots, mats, folded tables, bleachers you climb over), or in its classroom wing
+(rooms of desks, lockers down the hallway, a door at each end of every room). One data file, every picture a stand-in (the names for COOK in the handoff). ALSO, A BUG FIXED IN
+EVERY INSIDE: a borrowed picture carried its own kit's 'nobody stands here', so two kinds of cover tile were walls the table priced at 2 AP; the inside's own data decides now,
+and the gate catches it. GATE THE BIG INSIDES 193/0. ON THE PAGE: 8 fights, both pages both ways, all ended, 32 of 32 taps, 0 errors. VOTE combat4-the-school-11-21.
+[bb Battle Brothers' palisade again: a wall with two gaps per room, and the gaps are the fight]
+[analog horror: a school's PA system clicking on in an empty hallway, nobody speaking]
 WORDS THREE (words-three-01gkdyuvnl): 11/21 LATEST -- BUILD 11/21k - HIS SHEETS ON THE VOICE, THEY CURSE, SHEET FIVE, BUILT (0c0a61f6e), NOT YET SEEN (rules 466(f), 467, 465; ask rows 665, 666). Its block is handoffs/WORDS_TWO.md.
 His 27 homework answers are on THE VOICE as what they are: 20 lines of his kept exactly with what each teaches, 2 kept as they were, 5 NO as what the voice is not,
 and PAGE TWO, THEY CURSE (rule 467). FOR EVERY LANE THAT WRITES A LINE: read THE VOICE SO FAR (17 lines) before you write one; nothing standing is rewritten (rule 465).

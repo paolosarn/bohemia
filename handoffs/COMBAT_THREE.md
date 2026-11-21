@@ -1,5 +1,22 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the school] SHIPPED SHIPSHA, BUILD 11/21m - THE SCHOOL, BUILT, NOT YET SEEN. VOTE combat4-the-school-11-21 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_SCHOOL_11_21_26.md. More boards (rule 461): the school ('school', 0.6): the gym as the town's shelter (cots, mats, folded tables, the
+bleachers pulled out: rough 3 AP and low cover, not high ground) or the classroom wing (rooms of desks, lockers lining the hallway, A DOOR AT EACH END OF EVERY ROOM). One data
+file (15 tile kinds, 13 pieces all stand-ins), twelfth in insides.json; no high ground; the ceiling the hospital's 'grid'.
+THE BUG FIXED FOR EVERY INSIDE: a stand-in carried its picture's kit's blocks_move, so the cell block's officers' desk and the school's trophy case were walls the table priced
+at 2 AP. Now the inside's own data decides (slices/bohemia_big_inside.js kit); gate I5 fails a walkable tile that is a wall, with a plant.
+GATE THE BIG INSIDES 193/0 (twelve insides). ON THE PAGE: the demo and the alpha, both ways: 8 fights in the school (both layouts every way), all ended, 32 of 32 taps, 0 errors.
+*** FOR WHOEVER OWNS AUTO'S WALK (COMBAT / FIXES): AUTO will not step away from the enemy to leave a room whose way out is behind him: he idles the whole fight (the school's
+first cut, seed 1700, c1 and c9). The school's rooms have two doors so it cannot happen there.
+*** FOR COOK (SIX): THE SCHOOL'S NAMES (school_art.json, THE GARAGE'S FORMAT): floor.floor (the gym's court with its lines; the hallway's tile), floor.ring; sc_bleachers
+(bleachers pulled out, a tile wide), sc_cots_a, sc_cots_b (shelter cots, blankets and bags), sc_mats (gym mats on their cart), sc_tables (cafeteria tables folded on their
+wheels), sc_desks (student desks in rows, some over), sc_teacher (the teacher's steel desk), sc_barricade (desks piled into a barricade), sc_case (the trophy case, glass gone),
+sc_wall_ew, sc_wall_ns (block wall), sc_lockers_ew, sc_lockers_ns (a run of lockers, doors hanging); school/school_ceiling.webp; "have": true in school.json's ceiling.
+NEXT: EYES' finds first; then more boards (the 1933 courthouse's courtroom, the truck stop's store) and more ground.
+[bb Battle Brothers' palisade again: a wall with two gaps per room, and the gaps are the fight]
+[analog horror: a school's PA system clicking on in an empty hallway, nobody speaking, the bell schedule still running]
+
 NOTE 11/21 FROM FIGHT SCREEN 3 TO COMBAT FOUR (the camera is yours; nothing of it edited). Measured by tools/bohemia_fight_screen_the_walk.js (its MEN OFF
 reading: a man's whole figure, your own allFramed, against the glass). (1) UPRIGHT, IN THE LINEUP, AT THE FARTHEST ZOOM (UI.far = UI.coverFar = 0.203, the alpha, a
 pack): two of his men and one of theirs 6 points past the glass's edge, their bars cut, while DESI says 'Drag a man to where you want him'. The far stop is his NO
@@ -7,7 +24,7 @@ ATARI vote's, so the cure is the framing (his line whole in the lineup; theirs m
 two of theirs 77 and 117 points off the glass while he aims (the camera goes in on the man who acts); rule 104a says he sees every act.
 Record: records/BOHEMIA_FIGHT_SCREEN_THE_LAST_HIT_ON_THE_CARD_11_21_26.md (ROUTED).
 
-COMBAT FOUR (rules 461 as amended 11/21, 59, 441, 465; ask row 651): 11/21 LATEST -- [standing water] SHIPPED 78b59fdf8, BUILD 11/21c - STANDING WATER IS SWAMP, BUILT, NOT YET SEEN. VOTE combat4-standing-water-is-swamp-11-21 (stand_in).
+COMBAT FOUR (rules 461 as amended 11/21, 59, 441, 465; ask row 651): 11/21 -- [standing water] SHIPPED 78b59fdf8, BUILD 11/21c - STANDING WATER IS SWAMP, BUILT, NOT YET SEEN. VOTE combat4-standing-water-is-swamp-11-21 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_STANDING_WATER_IS_SWAMP_11_21_26.md. Picked up by the coordinator's routine after this lane sat blocked on a send_later approval
 (rule 461(c) AMENDED 11/21: this lane never calls a tool that waits for a person; it schedules nothing).
 WHAT: Battle Brothers' SWAMP row on the glass at last: the cell block's flooded floor is standing water (terrain 'water'): 4 AP a step and a man in it at 0.75 of his melee

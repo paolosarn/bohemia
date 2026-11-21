@@ -1,0 +1,464 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "school",
+ "name": "THE SCHOOL",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "A school's gym is where a town is sent in a disaster: the Red Cross's shelter list is mostly schools, their gyms full of cots. This one never emptied.",
+  "Bleachers pulled out from the wall are steps a man climbs over, not a stand: on house tiles they are rough ground with low cover, never high ground.",
+  "The classroom wing is rooms off one hallway, its lockers lining both walls; a classroom has a door at each end and those doors are the only ways in and out of it, so the doors are the fight.",
+  "On house tiles a classroom is a little smaller than a tile's run of desks: a room is a few tiles of desks, and the wall between two rooms is a partition."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (school_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "school"
+ ],
+ "share": 0.6,
+ "districts_why": "The school is its own map kind: six fights in ten there are fought inside it, by the cell's own dice; the rest in its yard or on the street.",
+ "board": {
+  "templates": {
+   "school": {
+    "name": "THE SCHOOL",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_gym": [
+      "####################",
+      "#bbbbbbbb..bbbbbbbb#",
+      "#.....f......f.....#",
+      "#.cc.cc.t..t.cc.cc.#",
+      "#..................#",
+      "#D.cc.m.cc.cc.m.cc.#",
+      "#..t....m..m....t..#",
+      "#.cc.cc.cc.cc.cc.cc#",
+      "#..t....m..m....t.D#",
+      "#.cc.m.cc.cc.m.cc..#",
+      "#..................#",
+      "#.cc.cc.t..t.cc.cc.#",
+      "#....D.......D.....#",
+      "#bbbbbbbb..bbbbbbbb#",
+      "####################"
+     ],
+     "the_classrooms": [
+      "####################",
+      "#k.k.k.W.k.k.kW.k.k#",
+      "#.T..z.W.z.T..W.T.z#",
+      "#k.k.k.W.k.k.kW.k.k#",
+      "#..z...W..z...W..f.#",
+      "#LdLLdLLLdLLdLLdLdL#",
+      "#...f.c.s.z.c..s.c.#",
+      "#D.c.s.c.z.c.s.c..D#",
+      "#.s...z.c.c.s..f...#",
+      "#LdLLdLLLdLLdLLdLdL#",
+      "#k.k.k.W.k.k.kW.k.k#",
+      "#.T..z.W.z.T..W.T.z#",
+      "#k.k.k.W.k.k.kW.k.k#",
+      "#..z...W..z...W..z.#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   "W": {
+    "is": "wall",
+    "wall": "air",
+    "tile": "partition"
+   },
+   "L": {
+    "is": "wall",
+    "wall": "air",
+    "tile": "lockers"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "d": {
+    "is": "floor",
+    "tile": "doorway"
+   },
+   "b": {
+    "is": "floor",
+    "tile": "bleachers",
+    "piece": "sc_bleachers",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "cots",
+    "piece": [
+     "sc_cots_a",
+     "sc_cots_b"
+    ],
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "m": {
+    "is": "floor",
+    "tile": "mats",
+    "piece": "sc_mats",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "t": {
+    "is": "floor",
+    "tile": "tables",
+    "piece": "sc_tables",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "desks",
+    "piece": "sc_desks",
+    "at": [
+     0.5,
+     0.72
+    ]
+   },
+   "T": {
+    "is": "floor",
+    "tile": "teacher",
+    "piece": "sc_teacher",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "z": {
+    "is": "floor",
+    "tile": "barricade",
+    "piece": "sc_barricade",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "s": {
+    "is": "floor",
+    "tile": "case",
+    "piece": "sc_case",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The school's block wall: no way through.",
+   "say": ""
+  },
+  "partition": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The wall between two classrooms: no way through.",
+   "say": ""
+  },
+  "lockers": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "A run of lockers along the hallway, doors hanging: no way through but the classroom doors. [bb] its palisade.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The gym's court or the hallway's tile: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The floor: open ground.",
+   "draft": true
+  },
+  "doorway": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "A classroom's doorway, the door gone: open ground, one of the room's two ways in or out.",
+   "say": "A doorway: open ground.",
+   "draft": true
+  },
+  "bleachers": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Bleachers pulled out from the wall: steps you climb over (3 AP), low cover; not high enough to be high ground. [bb] its brush.",
+   "say": "Bleachers: low cover, slow going.",
+   "draft": true
+  },
+  "cots": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A row of shelter cots, blankets and bags still on them: low cover.",
+   "say": "Shelter cots: low cover.",
+   "draft": true
+  },
+  "mats": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Gym mats stacked on their cart: low cover.",
+   "say": "Gym mats: low cover.",
+   "draft": true
+  },
+  "tables": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Cafeteria tables folded up on their wheels: cover.",
+   "say": "Folded tables: cover.",
+   "draft": true
+  },
+  "desks": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Rows of student desks, some on their sides: low cover.",
+   "say": "Student desks: low cover.",
+   "draft": true
+  },
+  "teacher": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The teacher's steel desk: cover.",
+   "say": "The teacher's desk: cover.",
+   "draft": true
+  },
+  "barricade": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Desks and chairs piled against the doorway's side of the room: cover.",
+   "say": "Piled desks: cover.",
+   "draft": true
+  },
+  "case": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The trophy case pulled into the hallway, its glass gone: cover.",
+   "say": "The trophy case: cover.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a trash can. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The doors to the yard, chained open: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The yard doors: open ground.",
+   "say_lit": "The yard doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in school_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "sc_bleachers": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "BLEACHERS"
+  },
+  "sc_cots_a": {
+   "like": "tunnel_camp_a",
+   "kind": "LOW_COVER",
+   "name": "SHELTER COTS"
+  },
+  "sc_cots_b": {
+   "like": "tunnel_camp_b",
+   "kind": "LOW_COVER",
+   "name": "SHELTER COTS"
+  },
+  "sc_mats": {
+   "like": "sb_tyres_S",
+   "kind": "LOW_COVER",
+   "name": "GYM MATS"
+  },
+  "sc_tables": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "FOLDED TABLES"
+  },
+  "sc_desks": {
+   "like": "sb_corral_S",
+   "kind": "LOW_COVER",
+   "name": "STUDENT DESKS"
+  },
+  "sc_teacher": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "THE TEACHER'S DESK"
+  },
+  "sc_barricade": {
+   "like": "sb_heap_S",
+   "kind": "COVER",
+   "name": "PILED DESKS"
+  },
+  "sc_case": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "name": "THE TROPHY CASE"
+  },
+  "sc_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "sc_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  },
+  "sc_lockers_ew": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "name": "LOCKERS"
+  },
+  "sc_lockers_ns": {
+   "like": "casino_wall_ns",
+   "kind": "WALL",
+   "name": "LOCKERS"
+  }
+ },
+ "walls": {
+  "ew": "sc_wall_ew",
+  "ns": "sc_wall_ns"
+ },
+ "walls_air": {
+  "ew": "sc_lockers_ew",
+  "ns": "sc_lockers_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: the bleachers are steps, not a stand. The doors are the board.",
+ "ceiling": {
+  "kind": "grid",
+  "alpha": 0.1,
+  "src": "school/school_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): a school's dropped ceiling (the classrooms) and the gym's roof deck, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the hospital's grid)."
+ }
+}

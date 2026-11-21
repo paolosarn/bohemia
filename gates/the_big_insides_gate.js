@@ -88,7 +88,8 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
       if (B2.inside.missing.length) bad5.push('s' + i + ' no picture for ' + B2.inside.missing.join(', '));
       for (let y = 0; y < S2.h; y++) for (let x = 0; x < S2.w; x++) { const k = T2[y][x], t = TK[k] || {};
         if (t.cover && !(S2.coverCount[y][x] > 0)) bad5.push(k + ' at ' + x + ',' + y + ' gives no cover');
-        if (t.blocks && !S2.solid[y][x]) bad5.push(k + ' at ' + x + ',' + y + ' lets a man stand'); }
+        if (t.blocks && !S2.solid[y][x]) bad5.push(k + ' at ' + x + ',' + y + ' lets a man stand');
+        if (!t.blocks && t.row !== 'obstacles' && S2.solid[y][x]) bad5.push(k + ' at ' + x + ',' + y + ' is a wall the table prices at ' + t.ap + ' AP (its piece says nobody stands there)'); }   /* COMBAT FOUR 11/21: a borrowed picture's blocks_move leaked */
       const mine = S2.units.filter(u => u.side === 'you'), acted = {}, able = {}; mine.forEach(u => { able[u.id] = 0; });
       let cur = null, snap = null, g = 0;
       const close = () => { if (!cur || !snap) return; const u = cur; if (u.x !== snap.x || u.y !== snap.y || S2.log.slice(snap.n).some(e => e.id === u.id && /^(attack|step|skill|reload|swap|wall|rally|shot|sweep|hook|net|throw|move)$/.test(e.t))) acted[u.id] = true; };
@@ -114,6 +115,9 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
       Object.keys(FL).forEach(k => (FL[k] || []).forEach(g => { const f = String(g).split('#')[0]; if (!fs.existsSync(path.join(ROOT, FG, f))) missing.push('the floor ' + f); }));
       if (!(FL.floor || []).length) missing.push('the floor list');
       Object.keys(data.lights).forEach(k => { const s = data.lights[k].src; if (s && !fs.existsSync(path.join(ROOT, FG, s))) missing.push('light ' + k + ' ' + s); });
+      { const k0 = Object.keys(D.kit).filter(p => !D.kit[p].blocks_move && D.kit[p].kind !== 'WALL' && D.kit[p].kind !== 'HEIGHT' && D.kit[p].kind !== 'RAIL' && D.kit[p].kind !== 'DRESS' && PIECES[p])[0];
+        if (k0) { D.kit[k0].blocks_move = true; const Sp = deal(DIST[0], 3, { inside: id }), Tp = Sp.boardDef.laid.tiles; let caught = 0; for (let y = 0; y < Sp.h; y++) for (let x = 0; x < Sp.w; x++) { const t = TK[Tp[y][x]] || {}; if (!t.blocks && t.row !== 'obstacles' && Sp.solid[y][x]) caught++; } delete D.kit[k0].blocks_move;
+          check(caught > 0, 'I5p ' + N, 'planted: ' + k0 + ' made to block, ' + caught + ' tiles the table calls walkable read as walls (caught)'); } }
       check(!missing.length && !bad5.length, 'I5 ' + N, 'THE PIECES ARE REAL: ' + Object.keys(PIECES).length + ' kinds of piece (' + Object.keys(PIECES).map(p => p.replace(new RegExp('^' + id + '_'), '') + ' ' + PIECES[p]).join(', ') + '), every one with its picture on disk and its size; ' + standIn + ' of ' + laid + ' pieces laid are STAND-INS (another kit\'s finished piece until this inside\'s own art is in)' + missing.concat(bad5).slice(0, 4).map(s => '; ' + s).join('')); }
     check(ended === n && idle === 0, 'I6 ' + N, 'A FIGHT PLAYS: ' + ended + ' of ' + n + ' fights inside ended on AUTO inside 30 rounds (' + (n ? (rounds / n).toFixed(1) : 0) + ' rounds a fight); ' + idle + ' of ' + men + ' men of his stood a whole fight' + bad6.slice(0, 3).map(s => '; ' + s).join(''));
     /* I7 */
