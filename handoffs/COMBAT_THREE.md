@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461 as amended 11/21, 59, 441, 465; ask row 651): 11/21 LATEST -- [standing water] SHIPPED SHIPSHA, BUILD 11/21c - STANDING WATER IS SWAMP, BUILT, NOT YET SEEN. VOTE combat4-standing-water-is-swamp-11-21 (stand_in).
+COMBAT FOUR (rules 461 as amended 11/21, 59, 441, 465; ask row 651): 11/21 LATEST -- [standing water] SHIPPED 78b59fdf8, BUILD 11/21c - STANDING WATER IS SWAMP, BUILT, NOT YET SEEN. VOTE combat4-standing-water-is-swamp-11-21 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_STANDING_WATER_IS_SWAMP_11_21_26.md. Picked up by the coordinator's routine after this lane sat blocked on a send_later approval
 (rule 461(c) AMENDED 11/21: this lane never calls a tool that waits for a person; it schedules nothing).
 WHAT: Battle Brothers' SWAMP row on the glass at last: the cell block's flooded floor is standing water (terrain 'water'): 4 AP a step and a man in it at 0.75 of his melee
