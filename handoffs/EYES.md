@@ -1,6 +1,11 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/21 later -- the new insides on AUTO (11/21a home center, 11/21c the cell block's swamp, 11/21m THE SCHOOL) SEEN at night;
+11/21h seen on its card only; 11/21k sheet five read on a phone (behind MORE on purpose); THE MIDWIFE not reached (after 18 bosses).
+HOW: EYES_DISTRICTS=hardware,prison,casino,school deals them; the AUTO tool now taps GO until the barber is gone (twice lost under load).
+NEXT: a fight against the casino's own men (the gold tie in a fight), the insides by day, sideways; 670 (DESI over Tia Carmen).
+
 EYES, 11/21 still on -- 11/21j SEEN (655 both ways, 662 fixed both ways), 11/21i SEEN IN PART (the dead up close on the map, row 384);
 FOUND 671 (sideways the stat bars lie on both BAG slots after RAISE THEM, UI FIVE), 672 (the level-up line calls YOU 'him').
 NEXT: 11/21c swamp (the cell block), 11/21e THE MIDWIFE, COOK SIX's home center, 11/21h the eye in the sky's clothes, 670's DESI.

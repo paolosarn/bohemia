@@ -126,7 +126,11 @@ const HOOKS = `(function(){
   await wait(2000);
   await until(async () => { const f = page.frames().find(x => true); const r = await anyFrameTap('#fronttap', 'BEGIN'); return !!r; }, 90000);
   await wait(3500);
+  /* EYES 11/21: a GO tapped before the barber listens is lost and the game runs on under him: tap GO until THE BARBER is gone */
+  const barberUp = async () => { for (const f of page.frames()) { try { if (await f.evaluate(() => /THE BARBER/.test(document.body.innerText) && [...document.querySelectorAll('button,div')].some(e => /^GO$/.test((e.textContent || '').trim()) && e.getBoundingClientRect().width > 20))) return true; } catch (e) {} } return false; };
   await until(async () => !!(await anyFrameTap('button,div', '^GO$')), 30000);
+  for (let i = 0; i < 20 && await barberUp(); i++) { await wait(2500); await anyFrameTap('button,div', '^GO$'); }
+  log('the barber', (await barberUp()) ? 'STILL UP' : 'gone');
   /* the alpha lands on VOTE after the door: his RUN tab holds the game */
   if (WHICH === 'alpha') { await wait(2000); await page.evaluate(() => { const t = document.querySelector('.tab[data-p="run"]'); if (t) t.click(); }); }
   await until(async () => { const c = city(); return c && await c.evaluate(() => typeof LOOP !== 'undefined' && typeof city !== 'undefined' && MODE === 'city' && !!LOOP.open); }, 90000);

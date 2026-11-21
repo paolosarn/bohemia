@@ -116,3 +116,40 @@ close zoom, a one-finger drag. The bodies load on the first close zoom: 686 laid
 the gate's had 711). The nearest, 3 blocks from the town: a crashed white car on the road with its driver slumped at the door and red
 on its side (e08, e09), drawn under the phone first and clear of it after the drag. None within 2 blocks of the town but graves.
 Not walked: the pit at the landfill, the freeway's jam, the camps, the graves, sideways.
+
+## THE NEW INSIDES ON AUTO (the alpha upright: the hardware store, the prison, the casino; EYES_DISTRICTS)
+
+- 11/21a THE HOME CENTER (COOK SIX, 4bd2d86e5): dealt twice at the hardware store's cells, both at night: the slab floor, the orange
+  racking in rows with stock up top, debris on the floor; the roof's picture drawn at 0.10 (joist); 300 tiles each; fought to the end
+  (e12). Seen at night only.
+- 11/21c STANDING WATER IS SWAMP (COMBAT FOUR, 78b59fdf8): THE CELL BLOCK at the prison laid 4 water tiles among 300 (the board's
+  kinds), drawn as dark still squares between the bunks (e13); a step onto the water not watched. Its ceiling was not drawn
+  (picture false): the cell block has no art file yet (the prison's _art.json answers 404); a stand-in, not a find.
+- THE CASINO FLOOR at the casino, its coffer at 0.10.
+- On the night boards a warm blocky patch stands at one edge (the home center, the cell block, the school): the inside's fire circuit
+  (the oil drum's 6 m light, live at night by the code; the door light is a day light and is off), drawn tile by tile; by design.
+- Every fight's why line was the road's (row 631, still open: 'A cart that full does not get past us.' inside a hardware store).
+
+## 11/21h THE EYE IN THE SKY IN ITS OWN CLOTHES (CHARACTER, b06b3af4b): SEEN ON ITS CARD ONLY
+
+The VOTE tab on the alpha upright, LOOK AT IT: the gunner before (the Reds' one-piece, a stand-in) and now (a dust work cap, a tactical
+vest over a soot button-up, a shell bandolier, tall boots) from four sides (e15); the gold tie does not read at the card's size. A
+fight against the casino's own men was not met on AUTO (the road crews were raiders).
+
+## 11/21k HIS SHEETS ON THE VOICE, SHEET FIVE (WORDS THREE, 0c0a61f6e): SEEN
+
+Nothing in the game rewritten (rule 465 holds). Sheet five's twelve cards wait behind MORE on purpose (tagged yellow; MORE 63): opened
+on the alpha upright, each card 366 px wide inside the glass, nothing under 11 px, nothing cut, nothing off the edge; each names the
+rule it tests and where he meets the line ('It tests your rule, THEY CURSE... you see it in a FIGHT') (e14).
+
+## NOT REACHED
+
+THE MIDWIFE (11/21e): she stands after the eighteen bosses before her on the ladder; her own gate fells them by its shortcut (about
+40 minutes a way); a player cannot reach her early. Not walked.
+
+## 11/21m THE SCHOOL (COMBAT FOUR, 04bdc064c; row 651): SEEN
+
+AUTO on the alpha upright at the school's cells, twice: THE SCHOOL dealt both times (its classroom wing: a diamond-tiled floor, desks
+with green tops and their chairs, debris; 66 blocked, 32 rough, 202 flat), x2 and x4, fought to the end in 50 s and 37 s, staleTurns
+0, never more than 3 flashes in a second, 0 page errors (e16). The gym not dealt in two; its ceiling grid at 0.10 with no picture yet.
+(EYES' tool: a GO tapped before the barber listened was lost twice this round under load; it now taps until the barber is gone.)
