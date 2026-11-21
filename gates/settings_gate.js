@@ -115,6 +115,13 @@ const MIN = 44;
 
   await p.evaluate(() => document.getElementById('gearbtn').click());
   await p.waitForTimeout(450);
+  /* RE-AIMED 11/21 by UI FIVE (red on main, not on the red list): since rule 448 (11/14) the card grows out of the phone's spot, so at
+     450 ms it was still growing (every control 0.93 of its size: 41 of 44; on main's slower fit 0.70: 31 of 44). The card is read
+     once it has stopped moving: its box the same for half a second (the growth moves in stop-motion holds of a beat's fraction, so
+     two frames alike is a hold, not the end; measured: 36 of 44 read in a hold), three seconds at most; the size he presses */
+  await p.evaluate(async () => { const c = document.getElementById('setcard'); let last = '', same = 0;
+    for (let i = 0; i < 180 && same < 30; i++) { await new Promise(r => requestAnimationFrame(r)); const q = c.getBoundingClientRect(), k = [q.left, q.top, q.width, q.height].map(v => Math.round(v)).join(',');
+      same = k === last ? same + 1 : 0; last = k; } });
   /* RE-AIMED 11/7 (UI 9, rule 402 amended: 'not just do a next page bullshit'): the card is ONE card again, every row on the glass
      at once (UI 8's four tabs are gone); every control and word is read in one pass (the loop stays for one tab: T is 1) */
   const panel = await p.evaluate(() => {
@@ -184,8 +191,12 @@ const MIN = 44;
              closed: getComputedStyle(document.getElementById('setwrap')).display === 'none' }; });
   ok('QUIT puts you back at the front door with the screen closed and the gear gone',
      quit.front === true && quit.gear === true && quit.closed === true);
-  await p.mouse.click(195, 509);
-  await p.waitForTimeout(3000);
+  /* RE-AIMED 11/21 by UI FIVE: the front door now opens on the title (NEW GAME, CONTINUE, SETTINGS; RUN [the start screen]) and its
+     BEGIN is no longer at a fixed (195, 509): back in the way a stranger is, the title first, then the door's own button */
+  await throughTheTitle(p);
+  await p.waitForTimeout(800);
+  await p.evaluate(() => { const b = document.getElementById('fronttap'); if (b) b.click(); });
+  for (let i = 0; i < 40; i++) { if (await p.evaluate(() => { const f = document.getElementById('front'); return !!f && getComputedStyle(f).display === 'none'; })) break; await p.waitForTimeout(250); }
   const backIn = await p.evaluate(() => { const f=document.getElementById('front');
     return f ? getComputedStyle(f).display === 'none' : null; });
   ok('and the door still opens afterwards -- QUIT is not a dead end', backIn === true);

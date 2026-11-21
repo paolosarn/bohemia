@@ -96,6 +96,11 @@ same twentieth; the plant reads every word on the row, as W1 itself does. THE BL
 - NO LINE CUT WHILE THERE IS GLASS with --plant: see the commit (L6 new).
 - THE BLOOD IS CRASHBOX 30/0.
 - The pre-push pass on the merged tree (main 282e065a and this lane's files): in the commit message.
+- AFTER THE PUSH (65049e6b), SETTINGS AND PAUSE (gates/settings_gate.js, UI's, red on main and not on the red list) RE-AIMED to the game
+  as it is: (1) it read the settings card 450 ms after the gear, but since rule 448 the card grows out of the phone's spot in
+  stop-motion holds, so it read the controls mid-growth (41 of 44; 31 on main's slower fit; and in a hold, 36): it now reads the card
+  once its box has held still half a second; (2) after QUIT it clicked where BEGIN used to be, but the front door opens on the title
+  now: it goes back in through the title and the door's own button. 18/0 (was 16/2). Settled, every control is 44.
 - Full suite unmeasured since PLUMBER 8's line (VAMILY rule 13(b)); this lane's reds on it were 635 and 636, both green now on their own
   legs.
 
