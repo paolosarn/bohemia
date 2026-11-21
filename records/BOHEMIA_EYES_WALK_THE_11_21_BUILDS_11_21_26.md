@@ -193,3 +193,11 @@ Into your place (e24). Sideways: the bar ends with 'CLOUT 115' after the first j
 AUTO on the alpha upright at a school cell: THE SCHOOL dealt (5 v 5, x4, to the end in 40 s): a wooden gym floor with its benches,
 bleachers along the top and the foot, its ceiling drawn (grid, picture true) (e26). Both lineups held his whole line (his men 14 to
 79 points inside the glass).
+
+## 11/21s IT STARTS BARE (HOME BASE 2, 19a7c25be; row 571): SEEN UPRIGHT, BY DAY
+
+The demo, a fresh phone, cards ON. THE SHORTCUT, said: his place planted 2 blocks off the first town by the game's own call
+(homePlantAt; a real PLANT waits for the clock), then the map's own travel there; THE POT's flyer stopped the trip (Raul at the
+pole), answered LATER by a real tap. His place opened on CAM 1 · THE YARD ('YOUR PLACE DAY 1'): bare dusty ground with stones, one
+chalked lot with a pick-and-shovel sign, an old couch, two of his men; no tent, no stall, no keeper, no crowd, no stranger (e27).
+Building something there to see its door, the night and sideways not walked.
