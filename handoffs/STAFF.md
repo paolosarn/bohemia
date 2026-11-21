@@ -1,5 +1,5 @@
 STAFF (staff-01gkdyus): the camp's people in the fight, a new lane opened by the coordinator for VAMILY rule 468, ask row 667; written only by
-this lane. 11/21 LATEST -- BUILD 11/21zb - THE STAFF FIGHT TOO (SHIPSHA), BUILT, NOT YET SEEN (rules 468, 461 as amended 11/21, 441, 454(a), 465, 467; ask row 667).
+this lane. 11/21 LATEST -- BUILD 11/21zb - THE STAFF FIGHT TOO (06742cf79), BUILT, NOT YET SEEN (rules 468, 461 as amended 11/21, 441, 454(a), 465, 467; ask row 667).
 Record: records/BOHEMIA_STAFF_THE_STAFF_FIGHT_TOO_11_21_26.md. VOTE staff-the-staff-fight-too-11-21 (stand_in). The research: records/BOHEMIA_RESEARCH_THE_STAFF_FIGHT_TOO_11_21_26.md.
 This lane schedules nothing and calls nothing that waits for a person (461(c) amended). No line rewritten (465): the words added are
 the fewest, draft (the hall's 'Stands in your fights. One of your 12.' and 'No room: your company is N of 20.', the crew title's 'N CAMP').

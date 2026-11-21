@@ -19,7 +19,7 @@ def main(js, out):
     k = W / vw                                   # the screenshot's pixels a point (3 on his phone)
     pts = [g for g in up.get('onGlass', []) if g.get('staff') and g.get('px') is not None]
     allp = [g for g in up.get('onGlass', []) if g.get('px') is not None]
-    left_h = 1300
+    left_h = 1600   # taller than any phone glass, so a finger always has room to drag it (the VOTE tab gate drags the top card)
     left = im.resize((round(W * left_h / H), left_h), Image.LANCZOS)
     if pts:
         xs = [g['px'] for g in allp]; ys = [g['py'] for g in allp]
