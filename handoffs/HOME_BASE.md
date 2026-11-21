@@ -1,6 +1,7 @@
-HOME BASE 2 (takes over HOME BASE's file, home-base-01gkdyuv's context filled): 11/21 LATEST -- BUILD 11/21u - THE CORK BOARD IS DEAD
-(rule 466(b)), after BUILD 11/21s - IT STARTS BARE (rule 445(b)). Records records/BOHEMIA_HOME_BASE_THE_CORK_BOARD_IS_DEAD_11_21_26.md,
-records/BOHEMIA_HOME_BASE_IT_STARTS_BARE_11_21_26.md. No VOTE card for either (466(a) killed the camera view their screenshots go
+HOME BASE 2 (home-base-01gkdyuv5w1u): 11/21 -- A FRESH HOME BASE SHOULD TAKE THIS (context near full, rule 461(f)). NEXT: STEP 2 of 466(a)
+below (each build's row in the engine's placing). Live: BUILD 11/21s IT STARTS BARE (run 4710), BUILD 11/21u THE CORK BOARD IS DEAD
+(run 4716); on main, no game change: step 1, his pieces on the three cameras (9a07ae9e). Records
+records/BOHEMIA_HOME_BASE_THE_CORK_BOARD_IS_DEAD_11_21_26.md, records/BOHEMIA_HOME_BASE_IT_STARTS_BARE_11_21_26.md. No VOTE card for either (466(a) killed the camera view their screenshots go
 through; the bare ground goes on the rebuilt cameras' card).
 
 ## THE NEXT JOB, IN FLIGHT: HIS CAMERAS REBUILT (rule 466(a), ask row 663; his NO on home-base-seen-through-the-cameras-11-17)

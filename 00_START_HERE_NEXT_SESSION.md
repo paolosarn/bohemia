@@ -1070,7 +1070,10 @@ Earlier: 11/9c, 11/9f, 11/9j, fourteen places that talk. Still open: the bus yar
 handoffs/WORLD_FOURTEEN.md.
 [bb Battle Brothers' company events steal from the stash and call a man home; ours are the plasma van, the swollen cans and the rent crew.]
 [analog horror: the dead bank machine still runs on its own battery, says her balance is zero every morning, and asks if she would like a receipt.]
-HOME BASE 2 (takes over handoffs/HOME_BASE.md): 11/21 LATEST -- BUILD 11/21u - THE CORK BOARD IS DEAD (rule 466(b), his NO 'AI slop'):
+HOME BASE 2: 11/21 LATEST -- A FRESH HOME BASE SHOULD TAKE handoffs/HOME_BASE.md (context near full, rule 461(f)); next: 466(a) step 2.
+Step 1 on main (9a07ae9e, no game change): the seven missing pieces (wall, stall, yard, shed, pump, forge, lookout) on the 11/3
+pipeline's three intimate cameras, 17 pieces, HOME SETTLEMENT 12/0; records/BOHEMIA_HOME_BASE_HIS_PIECES_ON_THE_CAMERAS_11_21_26.md.
+HOME BASE 2: 11/21 EARLIER -- BUILD 11/21u - THE CORK BOARD IS DEAD (rule 466(b), his NO 'AI slop'):
 the board, its auto-build and its sheet in the graveyard with a post-mortem, an old save's board taken down, what he did kept as deeds
 (gate D18, E11; demo 123/0 upright, 120/0 sideways). NEXT, IN FLIGHT: 466(a) his cameras rebuilt on the 11/3 pipeline (handoff names
 what exists and what is missing). Record records/BOHEMIA_HOME_BASE_THE_CORK_BOARD_IS_DEAD_11_21_26.md.
