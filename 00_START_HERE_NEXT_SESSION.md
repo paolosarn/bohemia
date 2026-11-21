@@ -1,3 +1,9 @@
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21ze - THE TRUCK STOP, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE TRUCK STOP: a fight at the truck stop on the freeway (seven in ten) is fought in its stripped store (runs of shelving, pallets where the water was, the deli, the
+counter) or its service bay (rigs, raised lifts, stacked tires). One data file, every picture a stand-in (the names for COOK in the handoff).
+GATE THE BIG INSIDES 238/0 (fifteen insides). ON THE PAGE: 6 fights in the store, both pages both ways, all ended, 17 of 17 taps, 0 errors. VOTE combat4-the-truck-stop-11-21.
+[bb Battle Brothers' palisade: a run of shelving is a wall with ends, and the end caps are the way round]
+[analog horror: the store's PA still looping the fuel prices from the last day the pumps ran]
 COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21zd - THE COURTHOUSE, BUILT (46b01a3d9), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 453, 441, 416, 451(a), 455; ask row 651).
 THE COURTHOUSE (COMBAT FOUR's BUILD 11/21y, its 'FOR COOK (SIX)'): all 150 pieces of the_courtroom and 134 of the_museum_floor were stand-ins. Now slices/fight_ground/
 courthouse/ holds courthouse_art.json (THE GARAGE'S FORMAT: floor.floor and floor.ring the 1933 terrazzo on all 25 tiles, the powerhouse's pw_terr ground a step darker,
@@ -27,7 +33,7 @@ as a new person); raiders go for him, one fight in five two come from behind; ea
 thirteen missing fight bodies rendered and packed. Gate THE STAFF FIGHT TOO 32/0 (plant red). On the phone, the demo and the alpha, both ways, green. Measured: a full
 company carrying five staff wins 26% where it won 68%; under the cap the fight holds and the camp dies (12% each a routine fight, 26% a tough one). VOTE staff-the-staff-fight-too-11-21.
 [bb Battle Brothers' followers never fight; its Indebted die when they fall] [analog horror: the cook's pot stays on the fire]
-COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21za - THE JUSTICE CENTER, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 -- BUILD 11/21za - THE JUSTICE CENTER, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE JUSTICE CENTER: a fight at the county's courts tower downtown (eight in ten) is fought on a courts floor (six courtrooms off one corridor, two doors each) or in
 the screening lobby (x-ray belts, dead metal detectors, the deputies' podiums between the lines). One data file, every picture a stand-in (the names for COOK in the handoff).
 GATE THE BIG INSIDES 223/0 (fourteen insides). ON THE PAGE: 9 fights, both pages both ways, all ended, 54 of 54 taps, 0 errors. VOTE combat4-the-justice-center-11-21.

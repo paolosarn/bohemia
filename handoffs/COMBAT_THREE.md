@@ -1,6 +1,24 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the justice center] SHIPPED f5bfb7b6b, BUILD 11/21za - THE JUSTICE CENTER, BUILT, NOT YET SEEN. VOTE combat4-the-justice-center-11-21 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the truck stop] SHIPPED d790bf7d3, BUILD 11/21ze - THE TRUCK STOP, BUILT, NOT YET SEEN. VOTE combat4-the-truck-stop-11-21 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_TRUCK_STOP_11_21_26.md. More boards (rule 461): the truck stop ('truckstop', 0.7): the_travel_store (coolers on the back wall,
+runs of shelving you cannot stand on with end caps, pulled-down cases, pallets where the water was, stacked water, the deli's booths, the hot food cases, the coffee island,
+the counter) and the_service_bay (two rigs a side, cab and trailer, raised lifts, stacked tires, tool chests, drums, the compressor, bay doors both ends). One data file (22
+tile kinds, 20 pieces all stand-ins), fifteenth in insides.json; no high ground; the ceiling the warehouse's 'joist'. GATE THE BIG INSIDES 238/0 (fifteen insides) (the truck stop 18/0,
+18% bare after round one against 32%; my first cut 35%). The bay's inspection pits drew as plain floor (no picture): now raised lifts with one.
+ON THE PAGE: the demo and the alpha, both ways: 6 fights in the store, all ended, 17 of 17 taps, 0 errors. The map never dealt the bay on these valleys (one cell: store or lot).
+*** FOR COOK (SIX): THE TRUCK STOP'S NAMES (truckstop_art.json, THE GARAGE'S FORMAT): floor.floor (the store's gritty tile; the bay's oil-stained concrete), floor.ring;
+ts_cooler (the walk-in coolers' glass doors, dark), ts_shelving (a run of stripped gondola shelving), ts_endcap, ts_stock (cases pulled down), ts_jerky (a jerky and lottery
+stand), ts_pallets (empty pallets), ts_water (cases of bottled water stacked), ts_booths (the deli's booths), ts_hotcase (the hot food case, glass broken), ts_island (the
+coffee and soda island), ts_counter (the checkout counter), ts_cab (a tractor's cab, hood up), ts_trailer (its trailer), ts_lift (a drive-on lift raised, a pickup on it),
+ts_tires (truck tires stacked), ts_toolchest, ts_drums, ts_compressor, ts_wall_ew, ts_wall_ns; truckstop/truckstop_ceiling.webp; "have": true in truckstop.json's ceiling.
+*** FOR PLUMBER AND STAFF: gate PAGES PUBLISH is red on main since STAFF's BUILD 11/21zb (06742cf79): the published surface 903 MB against the 900 MB cap; that
+build added 40 files, 7.3 MB, in slices/fight_rig (the camp people's sheets). This lane's builds add about 0.3 MB (data files and cards). Nothing of theirs touched here.
+NEXT: the hangar (the airport's cargo side and the air base: a cargo jet, two fighters); more boards; more ground from Battle Brothers' table.
+[bb Battle Brothers' palisade: a run of shelving is a wall with ends, and the end caps are the way round]
+[analog horror: the store's PA still looping the fuel prices from the last day the pumps ran]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 -- [the justice center] SHIPPED f5bfb7b6b, BUILD 11/21za - THE JUSTICE CENTER, BUILT, NOT YET SEEN. VOTE combat4-the-justice-center-11-21 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_JUSTICE_CENTER_11_21_26.md. More boards (rule 461): the justice center ('courthouse', 0.8), the county's courts tower downtown:
 the_courts_floor (a corridor of waiting benches, planters and piled chairs, six courtrooms off it, each a tile row a part: the bench with the witness stand and the jury box,
 the counsel tables, the bar, the gallery's benches; TWO DOORS TO EVERY COURTROOM) and the_screening_lobby (x-ray belts, dead metal detectors, podiums and queue posts across the

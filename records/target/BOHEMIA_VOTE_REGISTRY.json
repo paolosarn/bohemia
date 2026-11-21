@@ -22589,7 +22589,8 @@
     ]
    },
    "record": "records/BOHEMIA_COOK_SIX_THE_COURTHOUSE_11_21_26.md"
-  }
+  },
+  {"id": "combat4-the-truck-stop-11-21", "kind": "tile", "lane": "combat 4", "sha": "d790bf7d3", "made": "11/21", "draft": true, "title": "A FIGHT CAN START INSIDE THE TRUCK STOP: ITS STRIPPED STORE, OR THE SERVICE BAY WITH THE RIGS STILL IN IT", "said": "what are some large ass interiors that we could fight", "why": "Seven fights in ten at the truck stop on the freeway now happen inside it: the store, its shelving in runs you cannot cross and the pallets where the water was, or the service bay, where the rigs, the lifts and the stacked tires are the cover. You see it on the fight screen when a fight starts at the truck stop on the map (tap any tile and it says what it does).", "show": {"how": "image", "src": "../records/target/COMBAT4_THE_TRUCK_STOP_11_21.webp", "first": "../records/target/vote_first/combat4-the-truck-stop-11-21.webp", "firstAt": [0, 0, 1170, 826]}, "before_after": {"before": "main before this build: a fight at the truck stop was fought on its lot, the scrub road and main street blocks", "after": "the truck stop: two layouts mirrored, 22 kinds of tile each with its cost and effect, no high ground; one data file, every picture a STAND-IN until COOK's kit is in", "scale": "the top row is the fight page opened alone with each layout asked for, far out; the bottom is the fight's own camera, a real fight opened through the map's own door"}, "stage": "stand_in", "record": "records/BOHEMIA_COMBAT_FOUR_THE_TRUCK_STOP_11_21_26.md"}
  ],
  "verdicts": [
   {
