@@ -11,7 +11,8 @@
    (The billboards that once stood beside the freeways are in the graveyard, rule 464; this file never needed them.)
 
    SO: when HE GOES THERE (he tapped the tower itself and the trip has ended at its foot: its block is a building, so a trip to it
-   stops on the block beside it; a trip to anything else, the town beside it or the street past it, climbs nothing: nothing is
+   stops on the block beside it, or at the gate of the town whose ground lies round it (11/21, row 659); a tap while he already
+   stands there is the arrival; a trip to anything else, the town beside it or the street past it, climbs nothing: nothing is
    forced), the crew climbs: 90 minutes on the clock (the map's own advance, the valley's parties move with it), and from the top:
      by day, the fog opens 30 blocks round the tower (about 11 km);
      by night, only the lights: every town within 40 blocks shows through the dark (rule 457: where the lights are on, people are).
@@ -56,30 +57,74 @@
     try { if (typeof root.render === 'function') root.render(); } catch (e) {}
     return ST.lastClimb;
   };
-  /* WHAT HE TAPPED: the map's own travel (travelTo hands the tapped block, or finds it from the tap the map's own way) */
+  /* WHAT HE TAPPED: the map's own travel (travelTo hands the tapped block, or finds it from the tap the map's own way).
+     __THE_TOWER_HE_TAPPED_IS_THE_TOWER__ (WORLD 15, 11/21, ask row 659, found by EYES): a new valley every game seats the Network
+     on its own places, the tower among them, so on some games a town's ground lies round the tower's foot; a tap on the tower is
+     then the map's tap on that town (any side of a town is its door) and the trip ends at the town's gate, two or three blocks off.
+     The climb asked for an end within 1 block, so it never came (twice, from the south and the east). NOW the trip HE AIMED AT THE
+     TOWER climbs where the map ends it: the end the map worked out at the tap (TRAVEL.to), as long as that end is by the tower
+     (GATE_R, a town's ground is 4 blocks wide); and when he already stands at its foot (or at that town's gate), the tap itself is
+     the arrival and the crew climbs. A trip to anything else still climbs nothing (nothing is forced). */
+  ST.GATE_R = 4;
+  function byTower(x, y, r) { var t = ST.at(); return !!(t && Math.max(Math.abs((x | 0) - t[0]), Math.abs((y | 0) - t[1])) <= r); }
+  function free() { return !(typeof LOOP !== 'undefined' && LOOP.fighting) && !(typeof MODE !== 'undefined' && MODE !== 'city'); }
+  ST.tapping = false; ST.goalTo = null; ST.taps = { travel: 0, town: 0 };
+  /* one tap he aimed at the tower, whichever of the map's own doors answers it: a trip that sets out remembers where it will end;
+     an arrival inside the tap itself (he stood there) climbs in loopArrived; a tap that went nowhere while he stands at its foot is
+     the arrival */
+  function aimedTap(aimed, self, fn, args) {
+    if (ST.tapping) return fn.apply(self, args);   /* the town's tap handing on to the travel's: one tap */
+    ST.goal = false; ST.goalTo = null; ST.tapping = aimed;
+    var r, climbed = ST.climbs;
+    try { r = fn.apply(self, args); } finally { ST.tapping = false; }
+    try {
+      if (aimed && r && typeof TRAVEL !== 'undefined' && TRAVEL && TRAVEL.to) { ST.goal = true; ST.goalTo = [TRAVEL.to[0] | 0, TRAVEL.to[1] | 0]; }
+      else if (aimed && ST.climbs === climbed && ST.on && free() && typeof city !== 'undefined' && byTower(city.x, city.y, 1)) ST.climb();   /* 'You are standing there' is the arrival */
+    } catch (e) { ST.goal = false; ST.err = String(e && e.message || e); }
+    return r;
+  }
+  function isTower(c) { var t = ST.at(); return !!(c && t && (c[0] | 0) === t[0] && (c[1] | 0) === t[1]); }
   if (typeof root.travelTo === 'function') {
     var _tt = root.travelTo;
     root.travelTo = function (sx, sy, cell) {
-      var r = _tt.apply(this, arguments);
-      try {
-        var c = null; try { c = cell ? [cell[0] | 0, cell[1] | 0] : (typeof root.CBcellAt === 'function' ? root.CBcellAt(sx, sy) : null); } catch (e) { c = null; }
-        var t = ST.at(); ST.goal = !!(r && c && t && c[0] === t[0] && c[1] === t[1]);
-      } catch (e) { ST.goal = false; }
-      return r;
+      var aimed = false;
+      try { var c = null; try { c = cell ? [cell[0] | 0, cell[1] | 0] : (typeof root.CBcellAt === 'function' ? root.CBcellAt(sx, sy) : null); } catch (e) { c = null; } aimed = isTower(c); } catch (e) { aimed = false; }
+      if (aimed) ST.taps.travel++;
+      return aimedTap(aimed, this, _tt, arguments);
     };
   }
-  /* the trip has ended at the tower's foot and the tower was what he tapped: the crew goes up, then the map's own arrival (a town at
-     the tower's foot still opens after; a fight that is already on is never climbed over) */
+  /* THE FINGER ON THE TOWER WHEN A TOWN STANDS ON IT (row 659, measured on the glass 11/21 with a real tap): the map asks a town's
+     name plate and building FIRST (mapTapWhat), so on a valley where the Network's town stands on the tower a finger on the needle
+     never reached travelTo; it walked to the town's gate and opened it, and nothing climbed, from the south, the east and the north.
+     NOW: the finger on the needle itself (the block under it is the tower's, and it is not on the town's NAME) is a tap on the tower
+     too: the same walk to the same gate, the crew climbs, then the town opens. A finger on the town's name is the town alone. */
+  if (typeof root.mapTapWhat === 'function') {
+    var _mt = root.mapTapWhat;
+    root.mapTapWhat = function (sx, sy) {
+      var aimed = false;
+      try {
+        if (typeof root.CBcellAt === 'function' && isTower(root.CBcellAt(sx, sy)) && typeof root.mapTapWhich === 'function') {
+          var w = root.mapTapWhich(sx, sy);
+          aimed = !!(w && w.what === 'town' && w.t && !(w.t.plate && typeof root.mapIn === 'function' && root.mapIn(w.t.plate, sx, sy, 4)));
+        }
+      } catch (e) { aimed = false; }
+      if (aimed) ST.taps.town++;
+      return aimedTap(aimed, this, _mt, arguments);
+    };
+  }
+  /* the trip he aimed at the tower has ended where the map sent it (its foot, or the gate of the town round its foot): the crew goes
+     up, then the map's own arrival (that town still opens after; a fight that is already on is never climbed over) */
   var _arr = root.loopArrived;
   root.loopArrived = function (to, town) {
     var go = false;
     try {
-      if (ST.on && ST.goal && !(typeof LOOP !== 'undefined' && LOOP.fighting) && !(typeof MODE !== 'undefined' && MODE !== 'city')) {
-        var c = ST.at();
-        go = !!(c && typeof city !== 'undefined' && Math.max(Math.abs((city.x | 0) - c[0]), Math.abs((city.y | 0) - c[1])) <= 1);
+      if (ST.on && free() && typeof city !== 'undefined') {
+        var cx = city.x | 0, cy = city.y | 0;
+        if (ST.tapping) go = byTower(cx, cy, ST.GATE_R);   /* the tap itself was the arrival: he stood at its foot or at the town's gate */
+        else if (ST.goal) go = byTower(cx, cy, 1) || !!(ST.goalTo && Math.max(Math.abs(cx - ST.goalTo[0]), Math.abs(cy - ST.goalTo[1])) <= 1 && byTower(ST.goalTo[0], ST.goalTo[1], ST.GATE_R));
       }
     } catch (e) { ST.err = String(e && e.message || e); }
-    ST.goal = false;
+    ST.goal = false; ST.goalTo = null;
     if (go) { try { ST.climb(); } catch (e) { ST.err = String(e && e.message || e); } }
     return _arr.apply(this, arguments);
   };

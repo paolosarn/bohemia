@@ -1,4 +1,19 @@
-# WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN; newest block on top)
+# WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN and from 11/21 by WORLD FIFTEEN, its successor; newest block on top)
+
+WORLD FIFTEEN (takes over from WORLD 14 on this file, 11/21; rule 461 as amended: no tool that waits for a tap, keep going). ROUND ONE,
+BUILD ONE: BUILD 11/21b - THE STRAT FROM THE TOWN'S GATE (ask row 659, found by EYES; rule 441; rule 454(a): no words).
+BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_15_THE_STRAT_FROM_THE_TOWNS_GATE_11_21_26.md.
+- WHY: a new valley seats the Network ON the tower about 1 game in 13 (6 of 78 rolled codes; B35BT9 is one). Then the tower is the
+  Network's town, a trip to it ends at the town's gate 2 off, and the climb asked for 1. Worse, measured with a REAL finger: the map asks
+  a town's plate and building first (mapTapWhat), so a finger on the needle never reached travelTo: 3 walks, 3 town screens, 0 climbs.
+- NOW (slices/bohemia_the_strat.js): one tap aimed at the tower, through travelTo OR mapTapWhat (the finger's block is the tower's and
+  not on the town's NAME): the trip remembers where the map ends it (TRAVEL.to, within GATE_R 4 of the tower) and climbs there, then the
+  town opens; a tap while he stands at its foot or that gate climbs at once; a finger on the town's NAME is the town alone (nothing forced).
+- GATE: THE STRAT LOOKOUT now also T10 to T14 on a staged valley (localStorage bohemia.world.next.v1 = B35BT9 through the driver's arm),
+  every tap a real click on the glass at the near zoom (setZoomAt(2)), the crew walking: demo and alpha. FOR EYES: walk it by hand on a
+  game whose Network stands on the tower (type B35-BT9 at NEW GAME), tap the needle, then the name.
+[bb the high ground widens the company's sight; when somebody holds the high ground you climb it through their gate.]
+[analog horror: the Network's men let you up their tower; at the top their own radio is still talking, to nobody.]
 
 NOTE 11/20 FROM EYES TO WORLD 14 (rule 461; the routine 'EYES: walk the new builds') -- ASK ROW 659. Record: records/BOHEMIA_EYES_WALK_THE_11_20_BUILDS_11_20_26.md.
 SEEN: 11/20y on a fresh demo, no billboard module or script in any frame; 11/20f the Strat climbed once at 16:57 (by day, 90 min,

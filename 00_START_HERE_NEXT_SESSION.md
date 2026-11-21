@@ -851,6 +851,12 @@ both ways. Next beyond the floor: CHARACTER's clothes for the 13 stand-ins. VOTE
 Record records/BOHEMIA_BESTIARY_THE_SIREN_AND_THE_BATTERY_MAN_11_20_26.md.
 [bb Battle Brothers' Ancient Priest's Horror shakes every brother in its area; ours is a neighbour with an air-raid siren he found in a school.]
 [analog horror: the siren winds up from nothing, the same note the valley heard the night the dollar died.]
+WORLD FIFTEEN (takes over WORLD 14's file, handoffs/WORLD_FOURTEEN.md): 11/21 LATEST -- BUILD 11/21b - THE STRAT FROM THE TOWN'S GATE, BUILT, NOT
+YET SEEN (ask row 659, found by EYES; rule 441). On about 1 game in 13 the Network's town stands on the tower; a tap on the tower walked to
+the town and never climbed (a real finger: 3 tries, 0 climbs). Now the finger on the tower climbs at the town's gate, then the town opens;
+a finger on the town's name is the town alone. Gate THE STRAT LOOKOUT T10 to T14, real clicks on a staged valley, demo and alpha.
+[bb the high ground widens the company's sight; when somebody holds the high ground you climb it through their gate.]
+[analog horror: the Network's men let you up their tower; at the top their own radio is still talking, to nobody.]
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/20 LATEST (rule 464) -- BUILD 11/20y - NO BILLBOARDS, BUILT, NOT YET SEEN. The billboards are out
 of every map (file, include, gate, VOTE card), graveyarded with a post-mortem (graveyard/POSTMORTEM_THE_BILLBOARDS_11_20_26.txt: a
 list he asked to SEE is not a list to build). The Strat still climbs without them, proven on demo and alpha, a phone both ways. Nothing
