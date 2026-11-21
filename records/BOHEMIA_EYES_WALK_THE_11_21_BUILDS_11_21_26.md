@@ -76,7 +76,7 @@ barber, GO, Cartel.
   A pinch past the closest stop not reached (Tia Carmen's card took my pinch). Sideways not walked by hand.
 - 564: two asks answered 404 on the alpha's load, neither a wound sheet (the hospital's and the prison's optional art files, which
   the fight reads as absent on purpose); not a find.
-- FOUND 663 (the number at filing): ABOUT 8 SECONDS AFTER LEAVE, THREE TALK AT ONCE AND DESI'S HINT STANDS OVER TIA CARMEN'S ANSWER
+- FOUND 670: ABOUT 8 SECONDS AFTER LEAVE, THREE TALK AT ONCE AND DESI'S HINT STANDS OVER TIA CARMEN'S ANSWER
   (FIXES 3, with BOSSES; the class of 654). On the map: Tia Carmen's card ('SOMEONE NEEDS HELP', I'LL READ THE FLYER / NOT MY PROBLEM.),
   DESI's plate ('Tap anywhere on the map and we walk there. The clock runs while we walk.', about 120 to 378 by 472 to 548) laid over
   the right two thirds of NOT MY PROBLEM. (34 to 355 by about 495 to 530: only 'NOT MY PROBL' shows), and a second DESI box at the
@@ -92,3 +92,27 @@ EYES' AUTO tool now reads the phone's fight card every 150 ms for its 'lost' mar
 - Always on the right of what is left, health and armour, no number and no word. Fatigue none. 0 page errors.
 - My tool stopped after each first fight ('Frame was detached': it tapped LEAVE on an end screen that had already closed); fixed in
   the tool, not the game.
+
+## BUILD 11/21j THE PERKS FIT (UI FIVE, 65049e6b2; rows 655, 653, 662): SEEN, WITH ONE FIND
+
+The alpha on AUTO with the level-up leg, upright (RAUL, then YOU) and sideways (YOU), after the strip and the suburb fights.
+- 655 SEEN both ways: after RAISE THEM the perk page opens with the said line ('YOU: HITPOINTS +4, FATIGUE +2, RANGED SKILL +4, MELEE
+  SKILL +3. Now one perk.') above the cards, never on them; the nine perks as picture and name, the last card at about y 605 of 844
+  upright (e07) and 328 of 390 sideways (e10); nothing scrolls.
+- 662 SEEN FIXED both ways: picking a level, 'MELEE SKILL +3. RAISE THEM puts them on him.' reads whole above the phone upright
+  (14 to about 300 at y 518, the phone from 562) (e06), and whole on two lines at the top right sideways.
+- 536 holds twice more: RAUL 62, 85, 60, 55 and YOU 67, 80, 41, 63 picked and the same after RAISE THEM.
+- FOUND 671: SIDEWAYS, AFTER RAISE THEM, HIS EIGHT BARS LIE ON BOTH BAG SLOTS (UI FIVE): on the perk page the stat column (the numbers
+  63 to 77, their stars and icons, about 140 to 260 by 70 to 180) is drawn over the left and the right BAG slot; 'BAG' shows through
+  beside and under the numbers (e10, e11). While picking, the bars stand below the bags and clear of them (the same man, the same
+  screen); upright the column clears the slots.
+- FOUND 672: THE LEVEL-UP LINE CALLS YOU 'HIM' (UI FIVE, with WORDS THREE; rule 465 may hold the word): picking YOUR level, 'RAISE
+  THEM puts them on him.' both ways; the end screen says YOUR for him since row 619.
+
+## BUILD 11/21i THE DEAD ON THE MAP (WORLD 15, 39d23e1fc; row 384's map half): SEEN IN PART
+
+The demo, a fresh phone upright, cards ON: out of Colorful onto the map, Tia Carmen answered by a real tap, a real pinch in to the
+close zoom, a one-finger drag. The bodies load on the first close zoom: 686 laid on this valley in 12 groups (a valley lays its own;
+the gate's had 711). The nearest, 3 blocks from the town: a crashed white car on the road with its driver slumped at the door and red
+on its side (e08, e09), drawn under the phone first and clear of it after the drag. None within 2 blocks of the town but graves.
+Not walked: the pit at the landfill, the freeway's jam, the camps, the graves, sideways.

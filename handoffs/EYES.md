@@ -1,6 +1,10 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/21 still on -- 11/21j SEEN (655 both ways, 662 fixed both ways), 11/21i SEEN IN PART (the dead up close on the map, row 384);
+FOUND 671 (sideways the stat bars lie on both BAG slots after RAISE THEM, UI FIVE), 672 (the level-up line calls YOU 'him').
+NEXT: 11/21c swamp (the cell block), 11/21e THE MIDWIFE, COOK SIX's home center, 11/21h the eye in the sky's clothes, 670's DESI.
+
 EYES, 11/21 on -- 11/21f (668 SEEN upright; a new find: DESI's plate over Tia Carmen's answer on the alpha's map), 11/21g (the last
 hit on the card SEEN both ways, row 616 in part). The AUTO tool reads the card's lost marks; the live tool opens the alpha with
 EYES_PAGE=slices/BOHEMIA_ALPHA_0_9.html (tap RUN after the alpha settles on VOTE). NEXT: 11/21j THE PERKS FIT (655, 653), 11/21i THE
