@@ -1,0 +1,28 @@
+POSTMORTEM: THE CORK BOARD, WHAT YOU DID PINNED AT YOUR PLACE (HOME BASE, built 11/17zc, killed 11/21; VAMILY rule 466(b))
+
+WHAT DIED (now in graveyard/home_base_the_cork_board_11_17_26/): the board's row in records/target/bb/home_base.json (places.board: a
+CORK BOARD, free, 'auto', put up by itself on his place's first free lot the day a job he took was done) and its line ('{n} jobs done.
+{m} brought home.'); the map's homeEnsureBoard (slices/BOHEMIA_CITY_WORLD.html), which stood it whenever a deed came in and on planting;
+the town screen's board sheet (slices/BOHEMIA_SETTLEMENT_SCREEN.html homePlaceSheet: the count and the last five papers). A save made
+before the kill has its board taken down when the place loads (__THE_CORK_BOARD_IS_DEAD__ in homeRec); a board still in an old message
+is never drawn nor a door. Gate YOUR PLACE, PLANTED: D18's board legs became the legs that hold it dead. The VOTE card
+home-base-his-impact-11-17 and its picture stay as voted.
+
+WHAT STAYS (it is not the look, it is his history): every job he finished and every raid he held at his gate is still a deed in his
+place's memory (engine/bohemia_home.js give kind 'deed', the jobs' own settle, the raids' poll), kept, shown nowhere until he asks for
+a way to see it.
+
+WHY: Paolo 11/21 in the VOTE tab, on the card's picture (a cork board on a skewed camera, '1 jobs done. 0 brought home.' and a list of
+papers): 'This looks like shit get this AI slop out of my fucking face.' The same hour he voted YES, with no words, on
+home-base-held-the-gate-11-18 (a raid held at his gate pinned on that same board): the held gate stays a deed; the board it hung on is
+what died.
+
+HOW IT GOT IN: rule 453(3) said his impact should be seen at his place. It was built as a counter on a prop: a free board that put
+itself up, a sentence of totals, a list of job titles in capitals. A tally of numbers on a cork board is a menu wearing a costume; it
+was the only thing at his place that he never built and never asked for (rule 445(b): nothing stands there he did not earn or build).
+
+THE LESSON: his impact is seen in what changes at his place and who is there because of what he did (a nurse who moved in, a man he
+freed working his lot), said from a mouth; never a scoreboard, never a prop that tallies.
+
+NOT TO COME BACK UNDER A NEW NAME: no board, wall, shrine, ledger, trophy shelf or plaque at his place that counts or lists the jobs he
+did or the raids he held; no thing that puts itself up on his lots.

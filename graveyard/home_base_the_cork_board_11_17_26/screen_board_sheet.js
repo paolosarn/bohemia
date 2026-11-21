@@ -1,0 +1,3 @@
+  else if(t.id === 'board'){ var Dd = (S.home.deeds || []);   /* __HIS_IMPACT__ (rule 453(3)): every job he did, pinned */
+    body.appendChild(speak('build', homeFill(W.board, {n: Dd.filter(function(x){ return !x.held; }).length, m: Dd.filter(function(x){ return x.saved; }).length})));   /* a held gate is pinned beside the jobs, never counted as one (__HIS_GATE_HELD__) */
+    Dd.slice(-5).reverse().forEach(function(x){ var ln = document.createElement('div'); ln.className = 'slots'; ln.dataset.deed = x.id; ln.textContent = String(x.name || '').toUpperCase() + (x.from ? '  ·  ' + String(x.from).toUpperCase() : ''); acts.appendChild(ln); }); }

@@ -1040,7 +1040,11 @@ Earlier: 11/9c, 11/9f, 11/9j, fourteen places that talk. Still open: the bus yar
 handoffs/WORLD_FOURTEEN.md.
 [bb Battle Brothers' company events steal from the stash and call a man home; ours are the plasma van, the swollen cans and the rent crew.]
 [analog horror: the dead bank machine still runs on its own battery, says her balance is zero every morning, and asks if she would like a receipt.]
-HOME BASE 2 (takes over handoffs/HOME_BASE.md): 11/21 LATEST -- BUILD 11/21s - IT STARTS BARE, BUILT, NOT YET SEEN (rule 445(b); ask row
+HOME BASE 2 (takes over handoffs/HOME_BASE.md): 11/21 LATEST -- BUILD 11/21u - THE CORK BOARD IS DEAD (rule 466(b), his NO 'AI slop'):
+the board, its auto-build and its sheet in the graveyard with a post-mortem, an old save's board taken down, what he did kept as deeds
+(gate D18, E11; demo 123/0 upright, 120/0 sideways). NEXT, IN FLIGHT: 466(a) his cameras rebuilt on the 11/3 pipeline (handoff names
+what exists and what is missing). Record records/BOHEMIA_HOME_BASE_THE_CORK_BOARD_IS_DEAD_11_21_26.md.
+HOME BASE 2: 11/21 EARLIER -- BUILD 11/21s - IT STARTS BARE, BUILT, NOT YET SEEN (rule 445(b); ask row
 571). His planted place opened on the camp's picture (a trailer, a clinic tent, a stall, a gun stand, a bar, a barber, the posts, a
 board, a junk lot; nine doors, keepers, a crowd). Now it opens on its own bare ground (the same scene, nothing placed; by night lit by
 the camera's own lamp), only BUILD and his own things; a vendor stall, shed or roof he builds is the shop's door. Gate YOUR PLACE,

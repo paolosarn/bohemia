@@ -2044,7 +2044,7 @@ function homeThingsHere(){ var out = []; if(!S.home || !S.home.planted) return o
     name: ((LB && LB.markerOf(L.id)) || {}).name || String(L.id).toUpperCase() }); }
   (S.home.things || []).forEach(function(t){ if(t.kind !== 'prize' && t.kind !== 'trophy') return; if(t.lot == null || t.lot < 0) return;
     out.push({ key: 'h' + t.lot, lot: t.lot, kind: t.kind, name: t.name, pic: t.pic, from: t.from, gives: t.gives, says: t.says }); });
-  (S.home.places || []).forEach(function(p){ out.push({ key: 'h' + p.lot, lot: p.lot, kind: 'place', id: p.id, name: p.name, piece: p.piece, done: p.done, day: p.day }); });   /* __HIS_OWN_BUILDINGS__ */
+  (S.home.places || []).forEach(function(p){ if(p.id === 'board') return; out.push({ key: 'h' + p.lot, lot: p.lot, kind: 'place', id: p.id, name: p.name, piece: p.piece, done: p.done, day: p.day }); });   /* __HIS_OWN_BUILDINGS__; the cork board is dead (rule 466(b)) */
   return out; }
 function homeDoors(){
   if(!VAR || !VAR.boxes) return;
@@ -2425,9 +2425,6 @@ function homePlaceSheet(k, t){
     var F = (S.home.placeRows || {}).forge || {}, sp = homeSupplies(), short = Object.keys(F.takes || {}).some(function(g){ return (sp[g] | 0) < (F.takes[g] | 0); });
     var pb = act(W.press || 'PRESS', homeGoodsWords(F.takes) + ' → ' + homeGoodsWords(F.makes), guard(function(){ var r = HM && HM.press(); if(!r || !r.ok) return; window.__HOME_PRESS = r; homeRefresh(); homePlaceSheet(k, t); }), short);
     pb.dataset.press = '1'; acts.appendChild(pb); }
-  else if(t.id === 'board'){ var Dd = (S.home.deeds || []);   /* __HIS_IMPACT__ (rule 453(3)): every job he did, pinned */
-    body.appendChild(speak('build', homeFill(W.board, {n: Dd.filter(function(x){ return !x.held; }).length, m: Dd.filter(function(x){ return x.saved; }).length})));   /* a held gate is pinned beside the jobs, never counted as one (__HIS_GATE_HELD__) */
-    Dd.slice(-5).reverse().forEach(function(x){ var ln = document.createElement('div'); ln.className = 'slots'; ln.dataset.deed = x.id; ln.textContent = String(x.name || '').toUpperCase() + (x.from ? '  ·  ' + String(x.from).toUpperCase() : ''); acts.appendChild(ln); }); }
   else if(t.id === 'lookout'){ var w = HM && HM.watch ? HM.watch() : null;
     body.appendChild(speak('build', w && !w.none ? homeFill(W.saw, {who: w.who, n: w.d, dir: w.dir}) : homeFill(W.none, {n: (w && w.reach) || 10}))); }
   body.appendChild(acts);

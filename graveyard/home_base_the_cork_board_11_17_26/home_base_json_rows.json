@@ -1,0 +1,11 @@
+{
+ "killed": "11/21 rule 466(b), his NO on home-base-his-impact-11-17",
+ "places.board": {
+  "name": "CORK BOARD",
+  "piece": "f_agent",
+  "auto": true,
+  "line": "what you did",
+  "_about": "no cost, never on the desk: it goes up by itself on his place's first free lot the day a job he took is done (rule 453(3), his impact seen there); a deed pins a paper"
+ },
+ "places.words.board": "{n} jobs done. {m} brought home."
+}
