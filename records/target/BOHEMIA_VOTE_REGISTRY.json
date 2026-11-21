@@ -20918,6 +20918,378 @@
    }, "before_after": {"before": "main 64ab8c777: the Strat stood on the map and arriving there did nothing", "after": "a trip to the tower climbs it: 90 minutes, the fog opens 30 blocks by day (on the demo 5 to 9 towns, 0 to 11 real places found), at night only the lit towns within 40", "scale": "his phone upright (390 x 844 at 3), the alpha's RUN tab map, before the climb (left) and after (right), one stop out"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_14_THE_STRAT_LOOKOUT_11_20_26.md"},
   {"id": "character-the-head-takers-11-20", "kind": "outfit", "lane": "character", "made": "11/20", "sha": "1bde82723", "draft": true, "title": "THE HEAD TAKERS IN THEIR OWN CLOTHES: MEN WHO HUNT MEN, IN THE HUNTER'S BLAZE", "said": "full sweep, whole enchilada, dont forget nothing / the clothes look good: leather and layering", "why": "The head takers fought in the Volunteers' one-piece look and two hall men's clothes; now three head takers in work coats with plate strapped over them, two smokers in ponchos and dust masks with a satchel of pots, and two darters in field coats with a bolt quiver, every one with a hunter's blaze scarf in the head takers' own yellow-green. You see it in every fight against the head takers, and on this card.", "options": ["A, yes, the head takers look like this", "B, close, change something (say which one and what)", "C, no, not like this"], "show": {"how": "image", "src": "../records/target/character/the_head_takers/CHARACTER_THE_HEAD_TAKERS.webp", "first": "../records/target/character/the_head_takers/CHARACTER_THE_HEAD_TAKERS_FIRST.webp", "firstAt": [0, 0, 884, 528]}, "twin": {"src": "records/target/cook3/rig/thug/rig_S.png", "diffs": ["BOUNTY HUNTERS' OWN LOOK (Battle Brothers' bounty hunters: a hunter's coat and plate): a rust work coat, a chore coat, an oxblood drifter's coat, a soot or a scrap chest plate strapped over, a shell bandolier.", "ONE MARK FOR ALL SEVEN: a blaze scarf in the head takers' own banner ink (yellow-green), what a hunter wears so his own side does not shoot him; it reads at the throat from every facing.", "THE SMOKE AND THE SLEEP: the smokers in an oxblood or a dust poncho, a dust mask and a satchel of pots; the darters in a charcoal car coat or a barn coat with a bolt quiver on the back."]}, "stage": "made_from", "golden": "character-the-nine-enemies-their-own-clothes-11-7", "recipe": "the nine enemies' frozen recipe (layers that read apart, leather where it fits, no blue, no trench added), the three new types in tools/bohemia_character_the_nine_enemies.py (TYPES['Head Taker'], ['Smoker'], ['Darter'], the BLAZE SCARF, roll-more, make, pack)"},
   {
+   "id": "words-two-hw05-12-dark-the-professor-11-21",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/21",
+   "draft": true,
+   "title": "“The lab grew one ground sloth and it walked home to Tule Springs, where its bones were found, and now it flattens tents. Put it down and it pays 95 batteries.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? It tests your rule, THE DANGER STAYS DARK: a man who explains the beast: A professor who dug the fossil beds before the crash says it to you when you ask what his job is and what it pays (you see it in a camp or TOWN, at the board where people offer jobs); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_05/words-two-hw05-12-dark-the-professor-11-21.webp",
+    "first": "vote/words_two_homework_05/words-two-hw05-12-dark-the-professor-11-21.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     702
+    ]
+   },
+   "homework": {
+    "sheet": 5,
+    "n": 12,
+    "mouth": "A JOB GIVER AT THE BOARD",
+    "rule": "THE DANGER STAYS DARK: a man who explains the beast",
+    "teaches": "THE DANGER STAYS DARK, THE EDGE: your starred old woman never explained the 'dark shadows'; this man knows exactly what the beast is and where its bones were found; may the one who knows explain it",
+    "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+    "line": "The lab grew one ground sloth and it walked home to Tule Springs, where its bones were found, and now it flattens tents. Put it down and it pays 95 batteries."
+   }
+  },
+  {
+   "id": "words-two-hw05-11-plain-or-clever-11-21",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/21",
+   "draft": true,
+   "title": "“That's the toll. Paid in full.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? It tests your rule, PLAIN BEATS CLEVER: a quip after a win: One of your own men says it to the crew when you win a fight against raiders who stopped your crew on the road (you see it on the screen after a FIGHT); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_05/words-two-hw05-11-plain-or-clever-11-21.webp",
+    "first": "vote/words_two_homework_05/words-two-hw05-11-plain-or-clever-11-21.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     626
+    ]
+   },
+   "homework": {
+    "sheet": 5,
+    "n": 11,
+    "mouth": "YOUR MAN, AFTER THE FIGHT",
+    "rule": "PLAIN BEATS CLEVER: a quip after a win",
+    "teaches": "PLAIN BEATS CLEVER, THE EDGE: you starred the cruel boots joke and turned 'out of spite' into plain words; this is a short quip with a pun ('Paid in full'); does a quip live",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "That's the toll. Paid in full."
+   }
+  },
+  {
+   "id": "words-two-hw05-10-clothes-joke-11-21",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/21",
+   "draft": true,
+   "title": "“Their tailoring was a crime. Justice served.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? It tests your rule, NO FASHION NAMES AS A JOKE: and clothes jokes: The man in your crew who cares about clothes says it to the crew when you win a fight (you see it on the screen after a FIGHT); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_05/words-two-hw05-10-clothes-joke-11-21.webp",
+    "first": "vote/words_two_homework_05/words-two-hw05-10-clothes-joke-11-21.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     660
+    ]
+   },
+   "homework": {
+    "sheet": 5,
+    "n": 10,
+    "mouth": "YOUR MAN, AFTER THE FIGHT",
+    "rule": "NO FASHION NAMES AS A JOKE: and clothes jokes?",
+    "teaches": "NO FASHION NAMES AS A JOKE, THE EDGE: no brand in this one, only a clothes joke from a man who cares about clothes (the runway is in the game's look); is a clothes joke dead too, or only the names",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "Their tailoring was a crime. Justice served."
+   }
+  },
+  {
+   "id": "words-two-hw05-09-person-the-network-11-21",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/21",
+   "draft": true,
+   "title": "“Good evening. Messages from family abroad may be delayed. Family abroad is safe. Thank you for your patience.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? It tests your rule, SAY IT LIKE A PERSON: an official voice on the feed: The Network's own page, the people who keep the internet on says it to everybody on the feed when it is night and the Network posts its notice (you see it on the phone's FEED); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_05/words-two-hw05-09-person-the-network-11-21.webp",
+    "first": "vote/words_two_homework_05/words-two-hw05-09-person-the-network-11-21.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     592
+    ]
+   },
+   "homework": {
+    "sheet": 5,
+    "n": 9,
+    "mouth": "THE FEED, FAR AWAY",
+    "rule": "SAY IT LIKE A PERSON: an official voice on the feed",
+    "teaches": "SAY IT LIKE A PERSON, THE OTHER EDGE: this is meant to sound like an office, calm and wrong ('Family abroad is safe'); is a voice that is not a person allowed when it is the creepy part, or is it slop too",
+    "pulled_from": "records/target/bb/feed_world.json",
+    "line": "Good evening. Messages from family abroad may be delayed. Family abroad is safe. Thank you for your patience."
+   }
+  },
+  {
+   "id": "words-two-hw05-08-person-the-old-soldier-11-21",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/21",
+   "draft": true,
+   "title": "“Poles, blanket, two men, ten minutes. It's clean, it's public, and it's the correct way to do a thing you don't want to feel.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? It tests your rule, SAY IT LIKE A PERSON: an old soldier's order: An old soldier telling your crew how a hard thing is done says it to your crew when something has to be killed and nobody wants to do it (you see it on the MAP, on a side quest's card); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_05/words-two-hw05-08-person-the-old-soldier-11-21.webp",
+    "first": "vote/words_two_homework_05/words-two-hw05-08-person-the-old-soldier-11-21.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     778
+    ]
+   },
+   "homework": {
+    "sheet": 5,
+    "n": 8,
+    "mouth": "A SIDE QUEST ON THE ROAD",
+    "rule": "SAY IT LIKE A PERSON: an old soldier's order",
+    "teaches": "SAY IT LIKE A PERSON: a list and a moral ('the correct way to do a thing you don't want to feel'); is that how an old soldier talks, or is it writing",
+    "pulled_from": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "line": "Poles, blanket, two men, ten minutes. It's clean, it's public, and it's the correct way to do a thing you don't want to feel."
+   }
+  },
+  {
+   "id": "words-two-hw05-07-person-the-clerk-11-21",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/21",
+   "draft": true,
+   "title": "“A sealed letter goes to the council over the pass, signed for inside six days. Do not read it, the seal is the receipt, and 23 batteries wait for you when they sign.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? It tests your rule, SAY IT LIKE A PERSON: a clerk's errand: The clerk of a tower town says it to you when you ask what his job is and what it pays (you see it in a camp or TOWN, at the board where people offer jobs); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_05/words-two-hw05-07-person-the-clerk-11-21.webp",
+    "first": "vote/words_two_homework_05/words-two-hw05-07-person-the-clerk-11-21.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     702
+    ]
+   },
+   "homework": {
+    "sheet": 5,
+    "n": 7,
+    "mouth": "A JOB GIVER AT THE BOARD",
+    "rule": "SAY IT LIKE A PERSON: a clerk's errand",
+    "teaches": "SAY IT LIKE A PERSON, THE EDGE: your NOs on 2.5 and 2.6 killed committee English; this man IS a clerk and talks like one ('signed for inside six days', 'the seal is the receipt'); is that his person, or is it the same slop",
+    "pulled_from": "records/target/BOHEMIA_BOARD_SHELF.json",
+    "line": "A sealed letter goes to the council over the pass, signed for inside six days. Do not read it, the seal is the receipt, and 23 batteries wait for you when they sign."
+   }
+  },
+  {
+   "id": "words-two-hw05-06-happy-with-no-count-11-21",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/21",
+   "draft": true,
+   "title": "“The kitchen is open again, mijo. The whole strip eats tonight, not only his crew.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? It tests your rule, NO BATTERY COUNT IN A FEELING: happy, said right: The cook who lost her kitchen to the boss called THE POT says it to you when you come back after you killed the boss who took her kitchen (you see it on the MAP, on the card after a boss falls); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_05/words-two-hw05-06-happy-with-no-count-11-21.webp",
+    "first": "vote/words_two_homework_05/words-two-hw05-06-happy-with-no-count-11-21.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     724
+    ]
+   },
+   "homework": {
+    "sheet": 5,
+    "n": 6,
+    "mouth": "AFTER A BOSS FALLS",
+    "rule": "NO BATTERY COUNT IN A FEELING: happy, said right?",
+    "teaches": "SCARY HAPPY WITHOUT THE COUNT: the same moment as your NO on 2.2, said with no payment in it; is this what happy sounds like, or is something still off (it is not scary first)",
+    "pulled_from": "records/target/bb/boss_act_one.json",
+    "line": "The kitchen is open again, mijo. The whole strip eats tonight, not only his crew."
+   }
+  },
+  {
+   "id": "words-two-hw05-05-count-money-in-grief-11-21",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/21",
+   "draft": true,
+   "title": "“TEO's share splits between us now. Sad. Lucrative.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? It tests your rule, NO BATTERY COUNT IN A FEELING: money in grief: The man in your crew who only thinks about money says it to the crew when you win a fight and one of your men died in it (you see it on the screen after a FIGHT); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_05/words-two-hw05-05-count-money-in-grief-11-21.webp",
+    "first": "vote/words_two_homework_05/words-two-hw05-05-count-money-in-grief-11-21.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     694
+    ]
+   },
+   "homework": {
+    "sheet": 5,
+    "n": 5,
+    "mouth": "YOUR MAN, AFTER THE FIGHT",
+    "rule": "NO BATTERY COUNT IN A FEELING: money in grief",
+    "teaches": "NO BATTERY COUNT IN A FEELING, THE EDGE: your NO on 2.2 killed money talk in joy; this is a greedy man talking money over a dead friend, on purpose, to be cold; does it stay or go",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "TEO's share splits between us now. Sad. Lucrative."
+   }
+  },
+  {
+   "id": "words-two-hw05-04-curse-a-little-girl-11-21",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/21",
+   "draft": true,
+   "title": "“¡Aquí abajo! My foot is stuck in the grate. The water comes when it rains, and it's going to rain. Please.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? It tests your rule, THEY CURSE: a little girl trapped in a drain: A little girl stuck in a storm drain, with rain coming says it to your crew when you hear her from the street (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_05/words-two-hw05-04-curse-a-little-girl-11-21.webp",
+    "first": "vote/words_two_homework_05/words-two-hw05-04-curse-a-little-girl-11-21.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     854
+    ]
+   },
+   "homework": {
+    "sheet": 5,
+    "n": 4,
+    "mouth": "A ROAD STOP",
+    "rule": "THEY CURSE: a little girl trapped in a drain",
+    "teaches": "THEY CURSE, THE YOUNGEST: rule 467 says a kid begging curses the way a real kid would; this one is small and about to drown; and does she cry out in Spanish",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "¡Aquí abajo! My foot is stuck in the grate. The water comes when it rains, and it's going to rain. Please."
+   }
+  },
+  {
+   "id": "words-two-hw05-03-curse-the-bar-owner-11-21",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/21",
+   "draft": true,
+   "title": "“Tito drank a month on my tab and moved across the wash. Bring back what he owes, however you do it, and 33 batteries.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? It tests your rule, THEY CURSE: a bar owner who was robbed: The woman who runs the bar with no sign says it to you when you ask what her job is and what it pays (you see it in a camp or TOWN, at the board where people offer jobs); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_05/words-two-hw05-03-curse-the-bar-owner-11-21.webp",
+    "first": "vote/words_two_homework_05/words-two-hw05-03-curse-the-bar-owner-11-21.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     744
+    ]
+   },
+   "homework": {
+    "sheet": 5,
+    "n": 3,
+    "mouth": "A JOB GIVER AT THE BOARD",
+    "rule": "THEY CURSE: a bar owner who was robbed",
+    "teaches": "THEY CURSE ON THE JOB BOARD: your old woman did not curse; an angry bar owner sending you after a man who stiffed her might; 102 job lines hang on it",
+    "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+    "line": "Tito drank a month on my tab and moved across the wash. Bring back what he owes, however you do it, and 33 batteries."
+   }
+  },
+  {
+   "id": "words-two-hw05-02-curse-the-raiders-11-21",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/21",
+   "draft": true,
+   "title": "“Your place has what we need, so we came to take it.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? It tests your rule, THEY CURSE: raiders at your own place: The leader of a crew raiding your own place says it to you when they come over your wall and the fight opens (you see it on the card that opens a FIGHT at your place); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_05/words-two-hw05-02-curse-the-raiders-11-21.webp",
+    "first": "vote/words_two_homework_05/words-two-hw05-02-curse-the-raiders-11-21.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     694
+    ]
+   },
+   "homework": {
+    "sheet": 5,
+    "n": 2,
+    "mouth": "THE ENEMY'S LEADER, AT YOUR PLACE",
+    "rule": "THEY CURSE: raiders at your own place",
+    "teaches": "THEY CURSE, THE WHY LINE: 163 why lines and none curse; your enemy line did ('fuck faces'); does every armed man say it that way, or only some",
+    "pulled_from": "records/target/bb/fight_reasons.json",
+    "line": "Your place has what we need, so we came to take it."
+   }
+  },
+  {
+   "id": "words-two-hw05-01-curse-the-old-hand-11-21",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/21",
+   "draft": true,
+   "title": "“RICO's down. Hold the line.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "HOW SHOULD THIS SOUND? It tests your rule, THEY CURSE: a calm old hand when a man drops: The oldest man in your crew says it to the crew when one of your men goes down in the middle of a fight (you see it in a FIGHT, over his head); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_05/words-two-hw05-01-curse-the-old-hand-11-21.webp",
+    "first": "vote/words_two_homework_05/words-two-hw05-01-curse-the-old-hand-11-21.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     626
+    ]
+   },
+   "homework": {
+    "sheet": 5,
+    "n": 1,
+    "mouth": "YOUR MAN, WHEN ONE OF YOURS DROPS",
+    "rule": "THEY CURSE: a calm old hand when a man drops",
+    "teaches": "THEY CURSE, THE EDGE: your own 'DESI! FUCK!' was a friend; this is the calm veteran giving an order as a man drops; does even he curse",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "RICO's down. Hold the line."
+   }
+  },
+  {
    "id": "words-two-hw04-12-nobody-talking-11-20",
    "kind": "line",
    "lane": "words two",

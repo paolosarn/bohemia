@@ -27,13 +27,28 @@ def said_in(path, q):   # a sentence of his in a record (or the coordinator's co
     assert norm(q) in norm(open(path, encoding='utf-8').read()), 'NOT IN ' + path + ': ' + q[:60]
     return q
 
-# ---------- his four answers, from the registry ----------
-ans = []
+# ---------- every answer of his on the homework, from the registry (11/21: sheets one and two, rule 466(f)) ----------
+# THREE KINDS: (1) HIS LINE, a YES or a star with his own line written (the examples); (2) KEPT AS IT IS, a YES on our line with
+# a judgement ('Decent') or nothing written; (3) NO, what the voice is not, with his words. A note of his that carries a line of his
+# own in quotes after it ("Bro, why are you scared to like curse... \n\n "Look there..."") gives the quoted line as HIS and the rest
+# as what he said with it. Nothing of his is corrected: 'your're', 'Ive', 'henderson', 'the  tax' stay as typed.
+answered = []
 for i in reg['items']:
-    if i.get('lane') == 'words two' and i['id'] in verd and verd[i['id']].get('said'):
+    if i.get('lane') == 'words two' and i.get('homework') and i['id'] in verd:
         v = verd[i['id']]; h = i['homework']
-        ans.append(dict(id=i['id'], n=h['n'], sheet=h['sheet'], mouth=h['mouth'], second=h.get('second'), ours=h['line'], his=v['said'], star=bool(v.get('star'))))
-ans.sort(key=lambda a: (a['sheet'], a['n']))
+        answered.append(dict(id=i['id'], n=h['n'], sheet=h['sheet'], mouth=h['mouth'], second=h.get('second'), ours=h['line'], said=v.get('said') or '', vote=v.get('vote'), star=bool(v.get('star'))))
+answered.sort(key=lambda a: (a['sheet'], a['n']))
+KEPT_AS_IS = {'words-two-hw02-03-serious-a-man-is-dead-11-17': "his YES, and one word: 'Decent'"}   # a YES whose note judges our line instead of rewriting it
+def split(s):
+    m = re.search(r'\n\s*"([^"\n]+)"\s*$', s)
+    return (m.group(1), s[:m.start()].strip()) if m else (s, '')
+ans, kept, nos = [], [], []
+for a in answered:
+    if a['vote'] == 'down': nos.append(a)
+    elif a['id'] in KEPT_AS_IS or not a['said'].strip(): kept.append(a)
+    else: a['his'], a['note'] = split(a['said']); ans.append(a)
+ref = lambda a: '%d.%d' % (a['sheet'], a['n'])
+flat = lambda s: re.sub(r'\s*\n+\s*', ' / ', s.strip())
 waiting = [i for i in reg['items'] if i.get('lane') == 'words two' and i['id'] not in verd and i.get('homework')]
 WAIT = {'%d.%d' % (i['homework']['sheet'], i['homework']['n']): i for i in waiting}
 def card(ref):   # a card named on the page must be one still out in the tab
@@ -90,6 +105,10 @@ def inl(a, s): assert s in a['his'], 'not in his line: ' + s; return "'" + s + "
 NAMES = {K: 'THE KID WHO BEGS (a road stop)', EN: "THE ENEMY'S WHY (their leader, as a fight opens)", PO: "THE FEED'S JOKE POST (a regular person in the valley)", OW: "THE OLD WOMAN'S JOB (a job giver at the board)"}
 SHORT = {K: 'THE KID WHO BEGS', EN: "THE ENEMY'S WHY", PO: "THE FEED'S JOKE POST", OW: "THE OLD WOMAN'S JOB"}
 k, e, p, o = A[K], A[EN], A[PO], A[OW]
+def I(key):   # 'hw01-05' -> the full card id
+    hit = [x['id'] for x in answered if x['id'].startswith('words-two-' + key + '-')]
+    assert len(hit) == 1, key; return hit[0]
+def L(key): return A[I(key)]
 TEACH = {
  K: [f"He swears about the hunger, not at you: {inl(k, 'two fucking days')}. A scared kid swears.",
      f"He counts the days, and the count goes up: two, then three. A number is for what hurts.",
@@ -112,12 +131,79 @@ TEACH = {
       f"{o['fh']['sents']} short sentences, about {round(o['fh']['per'])} words each (ours ran {round(o['fo']['per'])}). Old and scared is short of breath.",
       f"She ends on the question. Ours ended on a thought ('everybody says no').",
       f"He starred it. It is the first starred line of THE VOICE: the job board copies this shape first."],
+ I('hw01-05'): [f"The joke stays ('Ka ching') and then he insults the man he just shot: {inl(L('hw01-05'), 'you piece of shit')}. A bark is aimed at somebody.",
+      "In the middle of a fight a man swears (rule 467)."],
+ I('hw01-06'): [f"The Spanish is gone ('Inspección', 'jefe'); he calls you {inl(L('hw01-06'), 'tough guy')}.",
+      f"The threat is your body, said plain: {inl(L('hw01-06'), 'we cut your fucking head off')}.",
+      f"Two roads and nothing else: show everything, or pay {inl(L('hw01-06'), 'the  tax')} and {inl(L('hw01-06'), 'get the fuck out my face')}. Our speech about 'our law' is gone.",
+      "Both swears are aimed at you."],
+ I('hw01-07'): ["The top man of a town is not cool or clever. He is nervous, and he asks you to be peaceful.",
+      f"He says what they are doing: {inl(L('hw01-07'), 'Were trying to restart civilization round here okay?')}",
+      f"The warning is about the families, said like a dad would: {inl(L('hw01-07'), 'okay?')}, {inl(L('hw01-07'), 'alright')}.",
+      "No swear: an old man asking for peace does not curse here. No Spanish ('Bienvenido' is gone) and no joke about batteries.",
+      "He starred it: the Elder of every town copies this shape first."],
+ I('hw01-08'): ["He keeps our boots joke and makes it meaner: an insult to the dead man and a bounty on his toes.",
+      "Morbid funny like real killers (his 11/2): cruel, not clever.",
+      f"It drops a word the way people do: {inl(L('hw01-08'), 'These nice boots my size')}.",
+      "He starred it."],
+ I('hw01-09'): ["He kept our first sentence word for word: 'My crew ate each other over a water tank.' The horror was right.",
+      f"He cut our soft end ('I walked. I can walk with you.') for a brag: {inl(L('hw01-09'), 'real deal killers')}.",
+      "A man for hire sells himself by how dangerous he is, not by being gentle. He starred it."],
+ I('hw01-10'): [f"A radio call is a question, then a prayer, then it trails off: {inl(L('hw01-10'), 'God help us...')}",
+      "Capitals and question marks: a scared person calling, not a lower-case post.",
+      "Nobody swears here. They are too scared (rule 467: not every line). He starred it."],
+ I('hw01-11'): [f"His men call him {inl(L('hw01-11'), 'Boss.')}",
+      f"How a man starts a confession: {inl(L('hw01-11'), 'I gotta be honest.')} Why first, then what he did.",
+      "No exact count ('Six short', 'I counted twice' are gone) and no excuse at the end ('I was going to tell you' is gone).",
+      "Four short sentences. He starred it."],
+ I('hw01-12'): ["The top dog does not talk smooth or mysterious. He threatens you, with two swears.",
+      f"It opens on a question, {inl(L('hw01-12'), 'You got some beef?')}, and ends on what he will do to your face.",
+      "Two sentences. He starred it: every boss copies this shape first."],
+ I('hw01-14'): [f"A seller sells: {inl(L('hw01-14'), 'Whatever you need we got it.')} No rules about prices, no 'No haggling'.",
+      f"The money is said as a favour to you: {inl(L('hw01-14'), 'You\'re lucky we deal in batteries')}. No numbers."],
+ I('hw01-15'): [f"Two words: a name and a swear. {inl(L('hw01-15'), 'DESI! FUCK!')} That is the whole sound of a friend going down.",
+      "'Don't you dare' was a movie line; 'FUCK!' is a person."],
+ I('hw02-04'): [f"He points and asks if you are in: {inl(L('hw02-04'), 'you down?')}",
+      f"The fighters are named with a curse: {inl(L('hw02-04'), 'motherfuckers')} (rule 467).",
+      f"Street grammar, not written English: {inl(L('hw02-04'), 'Them the motherfuckers')}.",
+      "Our explanation of winning and losing is gone. One look, one question."],
+ I('hw02-07'): [f"He kept our first words: {inl(L('hw02-07'), 'Let me see them')}.",
+      f"The doc talks about the body, gross and real: {inl(L('hw02-07'), 'that pus bomb')}. No days, no price.",
+      f"A little kind ({inl(L('hw02-07'), 'least I can do')}), but scary first: the wound could burst. No swear here."],
+ I('hw02-08'): [f"Our clever line ('out of spite') became a man telling it plainly: {inl(L('hw02-08'), 'literally')}, {inl(L('hw02-08'), 'I don\'t know')}, {inl(L('hw02-08'), 'I guess')}.",
+      "Proud is not a punchline. It is a man still surprised he lived, and he thanks God."],
+ I('hw02-09'): [f"{inl(L('hw02-09'), 'SOS')}, not 'ISO': a cry, not an ad.",
+      f"The body is said: {inl(L('hw02-09'), 'she\'s gonna die')}.",
+      "No 'message me, please': the danger does the asking."],
+ I('hw02-10'): [f"A brand is fine when it is a real thing for sale, and this one came off the dead: {inl(L('hw02-10'), 'from some of the corpses')}.",
+      "Our insult became a pitch, and the joke and the price are gone ('Twenty batteries and you live forever').",
+      f"{inl(L('hw02-10'), 'Darling')} stays: a seller's word."],
+ I('hw02-12'): ["One sentence, the threat first. The story of what Rico did is gone.",
+      f"He puts it on you, the boss, and swears: {inl(L('hw02-12'), 'unless you solve this shit right now')}.",
+      "Our careful 'unless you tell me why I should not' is gone."],
+}
+KEPT_TEACH = {
+ I('hw02-03'): "Short, plain news of a death works: a name, 'didn't get up', 'He's gone.' It stays as it is ('carnal' too).",
+ I('hw02-11'): "Grief as one small fact about the dead man works. It stays as it is.",
+}
+LESSON = {
+ I('hw01-13'): "THE LINE AGREES WITH THE WORLD. A joke that does not fit what he can see is dead: chickens on the roof of a building that has no roof.",
+ I('hw02-01'): "NO FASHION NAMES AS A JOKE. Thirty years after the end nobody quotes a designer for a laugh, and it was not funny. (A brand stays when it is a real thing somebody looted and sells, card 2.10.)",
+ I('hw02-02'): "NO BATTERY COUNT IN A FEELING. Joy is not an invoice: a happy line that talks about who pays and how many is awkward and not real. (Rule 466(d): a person may say 'a car battery', the money on the screen is one number.)",
+ I('hw02-05'): "NO MADE-UP COMMITTEE ENGLISH. 'Bring a flashlight and your name' is a notice nobody would say, and a meeting nobody can explain. If he has to ask what it is about, it is wrong.",
+ I('hw02-06'): "SAY IT LIKE A PERSON. 'Whose ground it is' and 'guests forever' is speech English; if he has to ask what it means, it is wrong.",
 }
 for a in ans: assert a['id'] in TEACH, 'an answer of his has no WHAT IT TEACHES yet: ' + a['id']
+for a in kept: assert a['id'] in KEPT_TEACH, 'a line he kept has no WHAT IT TEACHES yet: ' + a['id']
+for a in nos: assert a['id'] in LESSON, 'a NO of his has no lesson yet: ' + a['id']
 def ex_block(a, n):
-    s = "%d. %s%s\n   WAS (the game today): %s\n   HIS: %s\n   WHAT IT TEACHES (our reading, his to correct):\n" % (n, NAMES.get(a['id'], a['mouth']), '  *** HE STARRED THIS ONE ***' if a['star'] else '', q(a['ours']), q(a['his']))
-    return s + '\n'.join('   - ' + t for t in TEACH[a['id']])
+    s = "%d. %s (card %s)%s\n   WAS (the game today): %s\n   HIS: %s\n   WHAT IT TEACHES (our reading, his to correct):\n" % (n, NAMES.get(a['id'], a['mouth']), ref(a), '  *** HE STARRED THIS ONE ***' if a['star'] else '', q(a['ours']), q(a['his']))
+    s += '\n'.join('   - ' + t for t in TEACH[a['id']])
+    if a.get('note'): s += '\n   HE SAID WITH IT: ' + q(flat(a['note']))
+    return s
 examples = '\n\n'.join(ex_block(a, n) for n, a in enumerate(ans, 1))
+kept_block = '\n'.join('- %s (card %s)\n   THE LINE (the game today, he kept it): %s\n   %s\n   WHAT IT TEACHES: %s' % (a['mouth'], ref(a), q(a['ours']), ('HE SAID: ' + q(flat(a['said']))) if a['said'].strip() else 'HE SAID: (a YES, nothing written)', KEPT_TEACH[a['id']]) for a in kept)
+no_block = '\n\n'.join('%d. %s (card %s)\n   THE LINE (the game today): %s\n   HIS NO: %s\n   THE LESSON: %s' % (n, a['mouth'] + (' (SCARY, THEN ' + a['second'] + ')' if a['second'] else ''), ref(a), q(a['ours']), q(flat(a['said'])), LESSON[a['id']]) for n, a in enumerate(nos, 1))
 
 # ---------- everything else he has said about how people talk ----------
 VAM = 'VAMILY.md'
@@ -193,72 +279,77 @@ other = '\n\n'.join(blocks)
 SHORTFORM = [
  ('HELL FIRST. The first thing anybody feels from a line is that this person is in hell.', 'HIS: rule 1'),
  ('TWO WORDS, SCARY FIRST: scary funny, scary happy, scary serious, scary confident, scary trying to be a leader, scary political. Never funny alone.', 'HIS: rules 2 and 3'),
+ ('THEY CURSE. Fuck, shit, motherfucker, in full, never bleeped, where a real person in that spot would: a man going down, a boss, a checkpoint, a fight over water. Not every line: a radio call for help, an old man asking for peace, a doc at a wound did not.', 'HIS: rule 467, and his own lines'),
  ('NOBODY HELPS FOR FREE, AND EVERYBODY SAYS SO. A line that asks for help names the deal: work, or batteries.', 'HIS: rule 4; his kid and his old woman'),
- ('A BODY IS AT STAKE, SAID OUT LOUD: days without food, a dying mother, "kill us next", your body as meat.', 'OUR READING of all four of his lines'),
+ ('A BODY IS AT STAKE, SAID OUT LOUD: days without food, a head cut off, a nephew on oxygen, a sister who is gonna die, a pus bomb, your body as meat.', 'OUR READING of his lines'),
  ('THE DANGER STAYS DARK, THE NEED IS PLAIN. Do not explain the beast or who gave the order.', 'OUR READING: his old woman, his enemy'),
- ('A NUMBER IS FOR WHAT HURTS (two days, then three), never for the enemy, never for the pay ("some batteries").', 'OUR READING'),
- ('LENGTH FOLLOWS THE PERSON. A scared kid pours it out; a scared old woman is short of breath. No house length, and less is better.', 'OUR READING; HIS: "overkill with the amount of texts"'),
+ ('NO BATTERY COUNT IN A FEELING. A number is for what hurts (two days, then three), never for the pay in a happy line, never an exact count in a confession. The money on the screen is one number; a person may say "a car battery".', 'HIS: his NO on card 2.2, rule 466(d); his confession'),
+ ('SAY IT LIKE A PERSON, NOT A NOTICE. If he would ask "what does that mean", it is wrong: no committee English, no speech English, no meeting about a flashlight.', 'HIS: his NOs on cards 2.5 and 2.6'),
+ ('NO FASHION NAMES AS A JOKE thirty years after the end. A brand stays only as a real thing somebody looted and sells.', 'HIS: his NO on card 2.1, his line on card 2.10'),
+ ('THE LINE AGREES WITH THE WORLD. A joke that does not fit what he sees is dead.', 'HIS: his NO on card 1.13'),
+ ('PLAIN BEATS CLEVER. "Don\'t you dare" became "FUCK!"; "out of spite" became "I guess god had other plans for me"; "I walked" became "real deal killers".', 'HIS: his lines'),
+ ('LENGTH FOLLOWS THE PERSON. A scared kid pours it out; a scared old woman is short of breath; a man going down says two words. Less is better.', 'OUR READING; HIS: "overkill with the amount of texts"'),
  ('END ON THE ASK, THE OFFER OR THE THREAT. No clever last line.', 'OUR READING; HIS: "Boring asf"'),
- ('THE YOUNG AND THE ARMED SWEAR. Your men swear when a man goes down. His old woman does not.', 'OUR READING; HIS: "oh fuck they got shot"'),
- ('PEOPLE CALL EACH OTHER WHAT THEY ARE TO THEM: bro, man, My Dear, fuck faces. Never a crew\'s name in a mouth.', 'OUR READING'),
- ('A POST IS TYPED LIKE A PHONE, AND COLD: short forms, no full stop, gone as soon as it is read.', 'OUR READING of his post; HIS: "sounding like a human tweeting"'),
- ('NO NEW SPANISH. About 15 in 100 lines at ship, some people not everybody, and never you.', 'HIS: 11/3 and 9/21'),
+ ('PEOPLE CALL EACH OTHER WHAT THEY ARE TO THEM: bro, man, My Dear, tough guy, Darling, fuck faces. His men call him "Boss." Never a crew\'s name in a mouth.', 'HIS: his lines'),
+ ('A POST IS TYPED LIKE A PHONE AND SAYS THE STAKES: short forms, cold, "SOS", gone as soon as it is read.', 'HIS: his posts; "sounding like a human tweeting"'),
+ ('NO NEW SPANISH. He took it out of every line he rewrote that had it (the kid, the checkpoint, the Elder). About 15 in 100 lines at ship, some people not everybody, and never you.', 'HIS: his lines, 11/3 and 9/21'),
  ('EVERY WORD FROM A PERSON WITH A FACE, AND NOBODY SAYS LAS VEGAS.', 'HIS: 9/20 and 11/3'),
 ]
 shortform = '\n'.join('%d. %s [%s]' % (n, s, w) for n, (s, w) in enumerate(SHORTFORM, 1))
 
+# ---------- page two: THEY CURSE (rule 467, 11/21), his words checked ----------
+C1 = said_in('VAMILY.md', "Are you scared to curse? I need you to curse bro real people in the apocalypse are gonna curse like what the fuck is wrong with you some of the dialog was way better than it was but it still has a long way to go for you to understand")
+C2 = said_on(I('hw02-04'), "Bro, why are you scared to like curse like I'm so serious")
 # ---------- part two: the counts ----------
 def frow(a):
     o, h = a['fo'], a['fh']
     return "| %s%s | %d / %d | %d / %d | %s / %s | %d / %d | %d / %d | %d / %d | %d / %d | %s / %s | %d / %d | %d / %d | %s / %s |" % (
-        SHORT.get(a['id'], a['mouth']), ' (STARRED)' if a['star'] else '', o['words'], h['words'], o['sents'], h['sents'], o['per'], h['per'], o['swears'], h['swears'],
+        SHORT.get(a['id'], a['mouth'] + ' (' + ref(a) + ')'), ' (STARRED)' if a['star'] else '', o['words'], h['words'], o['sents'], h['sents'], o['per'], h['per'], o['swears'], h['swears'],
         o['nums'], h['nums'], o['q'], h['q'], o['plea'], h['plea'], 'yes' if o['deal'] else 'no', 'yes' if h['deal'] else 'no', o['span'], h['span'], o['last'], h['last'], o['end'], h['end'])
 facts_tbl = '\n'.join(frow(a) for a in ans)
 hs = [a['fh'] for a in ans]; os_ = [a['fo'] for a in ans]
 qs_his = sum(1 for x in hs if x['q']); qs_ours = sum(1 for x in os_ if x['q'])
 
 # ---------- part three: the unknowns, each with its card ----------
-s1 = sorted([r for r in WAIT if r.startswith('1.')], key=lambda r: int(r[2:])); s2 = sorted([r for r in WAIT if r.startswith('2.')], key=lambda r: int(r[2:])); s3 = sorted([r for r in WAIT if r.startswith('3.')], key=lambda r: int(r[2:])); s4 = sorted([r for r in WAIT if r.startswith('4.')], key=lambda r: int(r[2:]))
-pairs = ', '.join('scary %s (%s)' % (WAIT[r]['homework']['second'].lower(), card(r)) for r in s2 if WAIT[r]['homework'].get('second'))
+s1 = sorted([r for r in WAIT if r.startswith('1.')], key=lambda r: int(r[2:])); s2 = sorted([r for r in WAIT if r.startswith('2.')], key=lambda r: int(r[2:])); s3 = sorted([r for r in WAIT if r.startswith('3.')], key=lambda r: int(r[2:])); s4 = sorted([r for r in WAIT if r.startswith('4.')], key=lambda r: int(r[2:])); s5 = sorted([r for r in WAIT if r.startswith('5.')], key=lambda r: int(r[2:]))
 UNK = [
- ('HOW EACH PAIR SOUNDS.', 'His law names the pairs; his four answers show scary begging, scary threatening, scary funny on the feed and scary asking. Still to hear: ' + pairs + '. Six of those second words are his (funny, happy, serious, confident, trying to be a leader, political); kind, proud, begging, selling, sad and angry are guesses the cards test.'),
- ('IS EERIE SCARY?', 'Part four counts a line as scary first when it is desperate, a threat, eerie or cold. None of his four is eerie, and %d of the %d we count are. A post where nobody is in danger, only something wrong nobody can explain, asks it straight (%s). If eerie is not his scary, the count falls from %d%% to %d%%.' % (T['E'], T['scary'], card('3.5'), round(100 * T['scary'] / T['read']), round(100 * (T['scary'] - T['E']) / T['read']))),
- ('THE BOSS, AND WHO SENDS YOU TO HIM.', 'Does the top dog talk more, less, or not at all (%s); today a boss has no printed line of his own. The asker who sends you after a boss is the mouth furthest from page one (%d of %d scary first) (%s).' % (card('1.12'), MM['bosses: the asker and after']['scary_first'], MM['bosses: the asker and after']['read'], card('3.1'))),
- ('YOUR MEN, TO YOU.', 'What do they call you? The game fills in "boss" (%s); no answer of his is from his own crew yet (%s, %s, %s, %s; %s, %s, %s).' % (card('3.2'), card('1.5'), card('1.8'), card('1.11'), card('1.15'), card('2.3'), card('2.11'), card('2.12'))),
+ ('IS EERIE SCARY?', 'Part four counts a line as scary first when it is desperate, a threat, eerie or cold. None of his %d lines is eerie, and %d of the %d we count are. A post where nobody is in danger, only something wrong nobody can explain, asks it straight (%s). If eerie is not his scary, the count falls from %d%% to %d%%.' % (len(ans), T['E'], T['scary'], card('3.5'), round(100 * T['scary'] / T['read']), round(100 * (T['scary'] - T['E']) / T['read']))),
+ ('WHO SENDS YOU TO A BOSS.', 'ANSWERED: the boss himself threatens and swears (his card 1.12). STILL OPEN: the asker who sends you after one, the mouth furthest from page one (%d of %d scary first) (%s).' % (MM['bosses: the asker and after']['scary_first'], MM['bosses: the asker and after']['read'], card('3.1'))),
+ ('WHY THE ANIMALS COME.', 'ANSWERED: his men call him "Boss." (card 1.11). STILL OPEN: one of his men saying why lab animals attack (%s).' % card('3.2')),
  ('YOUR OWN WORDS.', 'Nearly all of your 200 buttons are written as a thing you do ("Say the company needs every hand."); a handful are already said in your own mouth ("Not our fight.", "Forget it. We have work."). Which should a button be, and how hard is your voice (%s).' % card('3.4')),
  ('THE LINES WITH NO MOUTH.', 'What comes back after a road choice (231 lines, about half told, not said) sits under a person\'s face (%s); one line of every man\'s past sits on his card in the third person (%s); a sign is read out by one of your men (%s); a stranger\'s line opens with what he does in brackets (%s); a whole road card is a description with nobody talking (%s). Who says each, or nobody.' % (card('3.3'), card('3.9'), card('3.8'), card('4.9'), card('4.12'))),
- ('THE FIGHT\'S WORST SECONDS.', 'A kid\'s first kill (%s), the enemy\'s turn when all you can do is wait (%s), a pack of machines somebody brought back (%s).' % (card('4.1'), card('4.2'), card('4.3'))),
- ('WHEN THE MONEY CHANGES HANDS.', 'Every job ends with the client paying, and no card had asked it (%s).' % card('4.4')),
- ('A MAN HURT FOR A MONTH.', 'His 9/27 rule: struck down is 30 to 40 days laid up. How the man says it (%s).' % card('4.5')),
- ('THE TEACHING VOICE.', 'The game teaching you how to play through your second\'s mouth: can a lesson be scary first (%s).' % card('4.6')),
+ ('THE FIGHT\'S WORST SECONDS.', 'ANSWERED: a friend going down is "DESI! FUCK!" (card 1.15); a hit is a joke and an insult (card 1.5). STILL OPEN: a kid\'s first kill (%s), the enemy\'s turn when all you can do is wait (%s), machines somebody brought back (%s), a praying man outnumbered (%s).' % (card('4.1'), card('4.2'), card('4.3'), card('3.10'))),
+ ('WHEN THE MONEY CHANGES HANDS.', 'His NO on card 2.2 says no battery count in a happy line. The client paying you names the amount (%s): does the number belong at the moment the money is handed over.' % card('4.4')),
+ ('A MAN HURT FOR A MONTH.', 'His 9/27 rule: struck down is 30 to 40 days laid up. How the man says it, and whether the days are his to say (%s).' % card('4.5')),
+ ('THE TEACHING VOICE.', 'The game teaching you how to play through your second\'s mouth: can a lesson be scary first, and does it still open in Spanish (%s).' % card('4.6')),
  ('AFTER YOU SAY NO.', 'His kid begged and offered work; a kid you turned down speaks once more (%s).' % card('4.7')),
- ('THE DYING.', 'The last thing somebody says, three breaths long (%s).' % card('4.10')),
- ('THE SWEAR, MOUTH BY MOUTH.', 'A kid and an armed man swear, an old woman does not. A man who prays, at his most scared (%s), a shopkeeper (%s), a doc (%s), a boss (%s): not known.' % (card('3.10'), card('1.14'), card('2.7'), card('1.12'))),
- ('AGE.', 'One kid and one old woman answered. A grown man in the middle of his life is asked (%s); the kid after a death (%s).' % (card('3.1'), card('2.11'))),
+ ('THE DYING, AND GRIEF.', 'The last thing somebody says, three breaths long (%s); an old man\'s grief out loud (%s).' % (card('4.10'), card('1.16'))),
+ ('WHERE THE CURSING STOPS.', 'Rule 467 says a kid begging, a doc, an elder curse the way they really would; his own Elder, doc and old woman did not curse, and his radio call did not. Still to hear: a man who prays (%s), the bar\'s gossip (%s), the retinue\'s cook bragging (%s), a nobody on a corner (%s), a grown man who lost his trade (%s).' % (card('3.10'), card('1.17'), card('1.19'), card('1.20'), card('3.1'))),
  ('A LOSS.', 'Every answer so far is a win or a talk. Three short sentences after a lost fight, two of them orders (%s).' % card('3.6')),
- ('HOW LONG A PERSON MAY TALK.', 'The longest mouth is a real place\'s keeper, nine sentences about the dead dollar (%s); the longest road card (%s).' % (card('3.7'), card('1.13'))),
- ('KINDNESS.', 'His law says nobody helps out of kindness. One side quest thanks you for help nobody paid for (%s); the doc is the one whose job is to help (%s); a woman running for her life offers nothing but please (%s). Does the deal hold at the very edge.' % (card('3.11'), card('2.7'), card('4.11'))),
+ ('HOW LONG A PERSON MAY TALK.', 'The longest mouth is a real place\'s keeper, nine sentences about the dead dollar, with "jefe" in it (%s).' % card('3.7')),
+ ('KINDNESS.', 'His law says nobody helps out of kindness; his doc said "least I can do". One side quest thanks you for help nobody paid for (%s); a woman running for her life offers nothing but please (%s). Does the deal hold at the very edge.' % (card('3.11'), card('4.11'))),
  ('DOES THE STAR CARRY.', 'His starred old woman is one job giver of %d. A grandmother afraid of what is in her grandson\'s stew asks the same mouth again (%s).' % (MM['town: job givers at the board']['read'], card('3.12'))),
- ('THE SPANISH, MOUTH BY MOUTH.', 'He took it out of his kid. A cartel man (%s), the Elder (%s) and the bank\'s last teller (%s) still say it on their cards.' % (card('1.6'), card('1.7'), card('3.7'))),
- ('THE FEED, FAR AND FALLING.', 'He has answered one post, a joke. A far post (%s), a town falling on the radio (%s), a watch\'s page (%s), a plea (%s), a warning about a boss (%s).' % (card('1.18'), card('1.10'), card('2.5'), card('2.9'), card('4.8'))),
- ('A HIRE.', 'Does a man pitch himself (%s), and how does a cook brag (%s).' % (card('1.9'), card('1.19'))),
- ('ONE SENTENCE OR TWO FOR THE WHY.', 'He asked for "just one sentence" on 11/14 and wrote his own enemy line in two. Not asked; the cards will show it.'),
- ('THE APOSTROPHES.', "Two of his spoken lines have a word with none ('well' for we'll, 'Theyre'). Kept as typed; whether the game prints speech that way is not asked."),
+ ('THE SPANISH, MOUTH BY MOUTH.', 'ANSWERED so far: he took it out of every line he rewrote that had it, and let "carnal" stand in a line he kept. STILL OPEN: the bank\'s teller (%s), his second\'s "Oye" (%s), a woman crying "¡Ayúdame!" (%s).' % (card('3.7'), card('4.6'), card('4.11'))),
+ ('THE FEED.', 'ANSWERED: a joke post (card 1.3) and a plea ("SOS", card 2.9); a town falling on the radio (card 1.10). STILL OPEN: a sad post from far away (%s), a warning about a boss (%s).' % (card('1.18'), card('4.8'))),
+ ('YOUR RULES ON THE BIGGEST MOUTHS (sheet five, made by his answers).', 'Each card names the rule of his it tests. THEY CURSE: a calm old hand when a man drops (%s), raiders at your place (%s), a bar owner who was robbed (%s), a little girl in a drain (%s). NO BATTERY COUNT IN A FEELING: money talk over a dead friend (%s), a happy line with no count in it (%s). SAY IT LIKE A PERSON: a clerk who talks like a clerk (%s), an old soldier\'s order (%s), an official notice that is meant to sound wrong (%s). NO FASHION NAMES AS A JOKE: a clothes joke with no name (%s). PLAIN BEATS CLEVER: a quip after a win (%s). THE DANGER STAYS DARK: a man who knows the beast and explains it (%s).' % tuple(card('5.%d' % i) for i in range(1, 13))),
+ ('ONE SENTENCE OR TWO FOR THE WHY.', 'He asked for "just one sentence" on 11/14; his own enemy and boss lines run two. Not asked; the cards will show it.'),
+ ('THE APOSTROPHES.', "His typed lines drop apostrophes and capitals ('well' for we'll, 'Theyre', 'your're', 'Were', 'Dont', 'Ive', 'henderson', 'rico's') and one has a double space ('the  tax'). Kept as typed; whether the game prints speech that way is not asked."),
 ]
-assert all(r in ' '.join(t for _, t in UNK) for r in ['card ' + x for x in s3 + s4]), 'a card of sheet three or four is not tied to an unknown on the page'
+assert all(r in ' '.join(t for _, t in UNK) for r in ['card ' + x for x in s1 + s3 + s4 + s5]), 'a card still out is not tied to an unknown on the page'
 unknown = '\n'.join('- %s %s' % (h, t) for h, t in UNK)
 out_now = len(waiting)
 
 voice = f'''# BOHEMIA -- THE VOICE (Paolo 11/17/26. Page one is LOCKED: VAMILY rule 455.)
 # HOW EVERY MOUTH AND EVERY POST IN THE GAME TALKS: his rules in his own words, his own lines as the examples, and beside each of
 # his lines what it teaches, in plain words. He called page one '{BED}'.
-# BUILT FROM EVERYTHING HE HAS GIVEN SO FAR: rule 455 (scary first; row 637), his {len(ans)} homework answers (row 643), the complaint
-# that started it (row 628), and {other_n} other things he has said about how people talk, each checked word for word against where
-# he said it. It gains a rule only when he gives one.
+# BUILT FROM EVERYTHING HE HAS GIVEN SO FAR: rule 455 (scary first; row 637), rule 467 (THEY CURSE), his {len(answered)} homework answers
+# ({len(ans)} lines of his own, {len(kept)} kept as they were, {len(nos)} NO; rules 458(a), 466(f); row 643), the complaint that started it
+# (row 628), and {other_n} other things he has said about how people talk, each checked word for word against where he said it.
+# It gains a rule only when he gives one. HE IS NOT DONE (rule 465): more sheets of his are coming; nothing goes into the game until he says so.
 # FOUR PARTS, IN THIS ORDER: (1) HIS WORDS; (2) WHAT CAN BE MEASURED; (3) WHAT IS STILL UNKNOWN; (4) THE GAME TODAY. Only his words
 # are law. Anything marked OUR READING is this lane's, and his to correct.
 # NOTHING IN THE GAME IS REWRITTEN TO IT YET (rule 454(a)). The gate that will hold the game to it is built and asleep
-# (gates/the_voice_holds_gate.js): no mouth is open to a rewrite until he says go, mouth by mouth.
+# (gates/the_voice_holds_gate.py): no mouth is open to a rewrite until he says go, mouth by mouth.
 # Written by tools/bohemia_words_three_the_voice.py. Gate on this page: gates/the_voice_is_his_words_gate.js.
 # His record: {REC}
 
@@ -291,12 +382,33 @@ THE TEST OF A LINE (rule 455(e)): A LINE THAT IS NOT SCARY FIRST IS THE DEFECT, 
 THE HORROR UNDER IT (rule 456, the grinder; it is in his own enemy line below): '{G1}' '{G2}'
 (OUR READING: a mouth may say it flat, as duty; a joke about it belongs only to somebody the game means to be sick.)
 
-### HIS OWN LINES, EACH BESIDE WHAT IT TEACHES (exactly as he gave them in the VOTE tab, rule 458(a))
+## PAGE TWO. THEY CURSE. (rule 467, 11/21)
+
+HIS WORDS (the first is the coordinator's copy in VAMILY.md: use it for WHAT he wants; the second is his own note, typed in the VOTE tab):
+- 11/21, to the coordinator
+  >> "{C1}"
+     FROM: VAMILY.md
+     TEACHES: In hell people swear: fuck, shit, motherfucker, bitch, in full, never bleeped, where a real person in that spot would. A line a real person would say with a curse, and ours says clean, is the defect.
+- 11/21, typed in the VOTE tab, on card 2.4, with his own line under it
+  >> "{C2}"
+     FROM: records/target/BOHEMIA_VOTE_REGISTRY.json (his note on the card {I('hw02-04')})
+     TEACHES: It is not for show and it is not every line. In his own lines the man going down, the boss, the checkpoint, the bookie, the angry man and the hit all curse; his radio call, his Elder, his doc and his old woman do not.
+
+### HIS OWN LINES, EACH BESIDE WHAT IT TEACHES ({len(ans)} lines; exactly as he gave them in the VOTE tab, rules 458(a), 466(f))
 
 {examples}
 
-A STAR MAKES ITS WAY THE WAY (rule 115(h)). HIS TEXT IS KEPT AS HE TYPED IT: two spoken lines have a word with no apostrophe
-('well' for we'll in the enemy's line, 'Theyre' in the old woman's). They are not corrected here and will not be until he says.
+A STAR MAKES ITS WAY THE WAY (rule 115(h)): {sum(1 for a in ans if a['star'])} of his lines carry his star. HIS TEXT IS KEPT AS HE TYPED IT: words with no apostrophe or
+capital ('well', 'Theyre', 'your're', 'Were', 'Dont', 'Ive', 'henderson', 'rico's') and a double space ('the  tax') are not corrected here
+and will not be until he says.
+
+### KEPT AS THEY ARE (his YES on our line)
+
+{kept_block}
+
+### WHAT THE VOICE IS NOT (his NO, rule 466(f); his words exactly, and the plain lesson)
+
+{no_block}
 
 ### EVERYTHING ELSE HE HAS SAID ABOUT HOW PEOPLE TALK, EACH BESIDE WHAT IT TEACHES ({other_n} lines)
 
@@ -320,13 +432,13 @@ The counts, ours beside his, the same count on both (ours / his). What each one 
 (The kid's 'yes / no' on the deal: OUR kid says the word only to refuse it, 'I don't want batteries'. HIS kid says no such word and
 offers work. A count of words reads that backwards, so read the line.)
 
-IN ONE BREATH: his {len(ans)} lines hold {sum(x['swears'] for x in hs)} swears to our {sum(x['swears'] for x in os_)}, {qs_his} question marks to our {qs_ours}, and {sum(x['span'] for x in hs)} Spanish words to
-our {sum(x['span'] for x in os_)}; a body is at stake, said out loud, in all {len(ans)} of his and one of ours.
+IN ONE BREATH: his {len(ans)} lines hold {sum(x['swears'] for x in hs)} swears to our {sum(x['swears'] for x in os_)} ({sum(1 for x in hs if x['swears'])} of his lines curse, none of ours), {qs_his} lines with a question
+mark to our {qs_ours}, and {sum(x['span'] for x in hs)} Spanish words to our {sum(x['span'] for x in os_)}; his run {sum(x['words'] for x in hs)} words to our {sum(x['words'] for x in os_)}.
 
 ## PART THREE: WHAT IS STILL UNKNOWN
 
 EACH WAITS ON HIS ANSWER, and the card that asks it is in the VOTE tab. {out_now} cards are out: {len(s1)} of sheet one ({', '.join(s1)}),
-{len(s2)} of sheet two, {len(s3)} of sheet three and {len(s4)} of sheet four (each queued behind the one before, so he never runs out).
+{len(s3)} of sheet three and {len(s4)} of sheet four{(' and ' + str(len(s5)) + ' of sheet five') if s5 else ''} (each queued behind the one before, so he never runs out); sheet two is all answered.
 HE IS NOT DONE (rule 465): he is still typing his lines into the cards; nothing he writes there goes into the game, and no line is
 rewritten from it, until he says he is done. Each sheet he uploads is folded onto part one here, line by line, the same way as his four.
 {unknown}
@@ -344,7 +456,7 @@ and its mark: records/words_two/scary_first_second_reading.json. The marks are h
 
 - ABOUT A THIRD. {T['scary']} of {T['read']} lines read are scary first; outside the one mouth written to his own brief (a town falling), {noScary} of {noRead}
   ({round(100 * noScary / noRead)}%).
-- DESPERATE IS ONE LINE IN TEN. Two of his four lines are somebody afraid or in need, saying so. Outside the town falling, {noD} of {noRead}
+- DESPERATE IS ONE LINE IN TEN. His kid, his old woman, his town falling, his confession and his insulin post are somebody afraid or in need, saying so. Outside the town falling, {noD} of {noRead}
   of ours are ({round(100 * noD / noRead)}%). Most of our scary is a threat ({T['Th']}) or eerie ({T['E']}).
 - THE MOUTHS FURTHEST FROM PAGE ONE: the askers who send him after a boss, the far feed, the hires, the keepers. When he says go, the
   rewrite starts there, mouth by mouth.
@@ -361,4 +473,4 @@ and its mark: records/words_two/scary_first_second_reading.json. The marks are h
 '''
 assert '—' not in voice, 'an em dash'
 open(PAGE, 'w', encoding='utf-8').write(voice)
-print('THE VOICE written: %d answers of his, %d other lines of his, %d cards out (%d/%d/%d/%d), %d mouths counted' % (len(ans), other_n, out_now, len(s1), len(s2), len(s3), len(s4), len(order)))
+print('THE VOICE written: %d answers of his (%d lines, %d kept, %d NO), %d other lines of his, %d cards out (%d/%d/%d/%d/%d), %d mouths counted' % (len(answered), len(ans), len(kept), len(nos), other_n, out_now, len(s1), len(s2), len(s3), len(s4), len(s5), len(order)))

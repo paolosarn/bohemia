@@ -6,6 +6,31 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
+WORDS THREE (words-three-01gkdyuvnl): 11/21 LATEST -- BUILD 11/21k - HIS SHEETS ON THE VOICE, THEY CURSE, SHEET FIVE, BUILT (this commit), NOT YET SEEN (rules 466(f), 467, 465; ask rows 665, 666, 629, 637, 643). NOTHING IN THE GAME WAS REWRITTEN.
+THE COORDINATOR'S ROUTINE 'WORDS THREE: his sheet, and they curse': his sheet records/BOHEMIA_PAOLO_VOTE_11_21_26.txt (23 new homework answers). Rule 465 stands:
+THE VOICE HOLDS 11/0, 0 of 15 mouths open. Rule 461(c) amended: never call a tool that waits for a tap (no send_later from this lane).
+(1) EVERY ANSWER ON THE VOICE, as what it is (tools/bohemia_words_three_the_voice.py now sorts them): 20 LINES OF HIS (1.1 to 1.12, 1.14, 1.15; 2.4, 2.7 to
+2.10, 2.12), kept exactly, each with WAS / HIS / WHAT IT TEACHES, 7 starred; 2.4 is a note with his line under it (HIS the quoted line, HE SAID WITH IT
+the note); 2 KEPT AS THEY ARE (2.3 'Decent', 2.11 a YES with nothing written); 5 WHAT THE VOICE IS NOT, his words exactly and the plain lesson (1.13
+chickens on a roof that is not there, 2.1 Rick Owens, 2.2 who pays in a happy line, 2.5 the flashlight meeting, 2.6 'whose ground'). PAGE TWO, THEY
+CURSE (rule 467), his two sentences beside what they teach; measured on his lines: 11 swears in his 20 (8 lines curse), 0 in ours; the radio call,
+the Elder, the doc and the old woman do not curse. THE VOICE SO FAR now 17 lines (new: THEY CURSE, NO BATTERY COUNT IN A FEELING, SAY IT LIKE A
+PERSON, NO FASHION NAMES AS A JOKE, THE LINE AGREES WITH THE WORLD, PLAIN BEATS CLEVER, 'Boss.'). PART THREE says per bullet what he SETTLED and what is
+STILL OPEN; every one of the 41 cards out is tied. GATE THE VOICE IS HIS WORDS 12/0 (new V11: each answered card on the page as what it is; V4 takes
+a line under a note; plant: a NO softened).
+(2) SHEET FIVE, MADE BY HIS RULES (words-two-hw05-01 to -12; records/target/words_two/homework_05.json): the biggest mouths, each card naming on its face
+the rule of his it tests (the tool's new 'rule' field: YOUR RULE on the picture, 'It tests your rule' in the card's words): THEY CURSE at its edges
+(old hand, raiders at his place, a robbed bar owner, a little girl in a drain), no battery count in a feeling (money over a dead friend; happy with
+no count), say it like a person (a clerk, an old soldier, the Network's notice), no fashion names (a clothes joke with no name), plain beats clever
+(a quip), the danger stays dark (a professor who explains the beast). Yellow; dated 11/21, so it sorts ahead of sheets three and four: sheet one's
+last five at 6 to 10, then behind MORE sheet five 66 to 77, three 78 to 89, four 90 to 101 of 101. All twelve pictures open on the tab both ways, 0
+errors. HIS ANSWER IS KEPT 15/0; THE VOTE TAB GATE 61/5 (main's same five).
+Record: records/BOHEMIA_WORDS_THREE_HIS_SHEETS_ONE_AND_TWO_AND_THEY_CURSE_11_21_26.md.
+NEXT: his next sheet when its path lands, folded the same way (a new answer needs its WHAT IT TEACHES or LESSON written in the tool, which stops until
+it is); nothing into the game until he says he is done; a sixth sheet only when the 41 run low.
+[bb Battle Brothers' people curse in its events and nobody bleeps them; ours never cursed once in 34,000 words, and his 20 lines hold 11]
+[analog horror: 'Tower? Can you hear us? God help us...' is the one line of his where nobody curses, because they are past it]
+
 WORDS THREE (words-three-01gkdyuvnl): 11/20 LATEST -- BUILD 11/20z - HE IS NOT DONE: SHEET FOUR, AND HIS ANSWER IS KEPT, BUILT (8bb71a2fa), NOT YET SEEN (rule 465; rules 454(a)(c), 441; ask row 629). NOTHING IN THE GAME WAS REWRITTEN.
 THE COORDINATOR'S ROUTINE 'WORDS THREE: he is not done' (rule 465, Paolo 11/20: 'im still not done with the replacement text vibes from the voting shit'): keep
 the sheets ready, make them easy to answer on a phone, fold each uploaded sheet into THE VOICE when its path comes. No sheet of his uploaded yet (4 verdicts

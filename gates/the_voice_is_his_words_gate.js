@@ -23,6 +23,10 @@
      V10 (11/20) each of his lines stands beside what it teaches: every WAS/HIS pair has WHAT IT TEACHES and at least one point under
          it, and every '>>' line of his has its TEACHES line (the coordinator's ask, rule 461: 'each of his lines beside what it
          teaches')
+     V11 (11/21, rule 466(f)) every homework card he answered is on the page as what it is: a line of his (WAS / HIS), KEPT AS IT
+         IS (his YES on our line), or WHAT THE VOICE IS NOT (his NO, his words exactly, with THE LESSON); a NO is never shown as an
+         example, and a line of his written with a note ('Bro, why are you scared to like curse...' then "Look there...") gives HIS
+         as the quoted line and HE SAID WITH IT as the rest, both his to the letter
      P   PLANTS: a copy with one swear taken out of his line, a copy with a rule's quote reworded, a copy with a bleep, his words
          moved under the counting, one of his other lines reworded (V9), and a WHAT IT TEACHES taken away (V10), each caught by its
          own leg
@@ -37,10 +41,11 @@ const PAGE = 'laws/BOHEMIA_LAW_THE_VOICE_11_17_26.md', REC = 'records/BOHEMIA_PA
 let pass = 0, fail = 0;
 const ok = (name, good, why) => { console.log((good ? '  ok   ' : '  FAIL ') + name + (why ? '  [' + why + ']' : '')); good ? pass++ : fail++; };
 const norm = s => String(s).replace(/\s+/g, ' ').trim();
+const flat = s => String(s).trim().replace(/\s*\n+\s*/g, ' / ');
 const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
 
 function check(page, rec, reg) {
-  const R = { v1: [], v2: [], v3: [], v4: [], v5: [], v7: [], v9: [], v10: [], blocks: 0, quotes: 0, pairs: 0, others: 0 };
+  const R = { v1: [], v2: [], v3: [], v4: [], v5: [], v7: [], v9: [], v10: [], v11: [], blocks: 0, quotes: 0, pairs: 0, others: 0, kept: 0, nos: 0 };
   const recN = norm(rec), lines = page.split('\n');
   /* V1 */
   if (!/^## PAGE ONE\. SCARY FIRST/m.test(page)) R.v1.push('no PAGE ONE. SCARY FIRST head');
@@ -68,12 +73,35 @@ function check(page, rec, reg) {
     const h = (lines[k + 1] || '').match(/^\s+HIS: "(.*)"\s*$/); R.pairs++;
     if (!h) { R.v4.push('a WAS with no HIS under it'); continue; }
     if (!/^\s+WHAT IT TEACHES/.test(lines[k + 2] || '') || !/^\s+- \S/.test(lines[k + 3] || '')) R.v10.push('a line of his with no WHAT IT TEACHES under it: ' + h[1].slice(0, 40));
-    const id = ids.find(x => said[x] === h[1]);
+    const id = ids.find(x => said[x] === h[1] || said[x].indexOf('"' + h[1] + '"') >= 0);
     if (!id) R.v4.push('HIS is not a verdict of his: ' + h[1].slice(0, 40));
     else if (shown[id] !== w[1]) R.v4.push('WAS is not what the card showed: ' + id);
+    for (let j = k + 2; j < Math.min(lines.length, k + 14); j++) { const hs = lines[j].match(/^\s+HE SAID WITH IT: "(.*)"\s*$/); if (hs && id && flat(said[id]).indexOf(hs[1]) < 0) R.v4.push('HE SAID WITH IT is not his note: ' + id); if (/^\d+\. /.test(lines[j])) break; }
   }
   if (!R.pairs) R.v4.push('no example pair on the page');
-  R.unlisted = ids.filter(id => page.indexOf('"' + said[id] + '"') < 0);
+  R.unlisted = ids.filter(id => page.indexOf('"' + said[id] + '"') < 0 && page.indexOf('"' + flat(said[id]) + '"') < 0 && !((said[id].match(/"([^"\n]+)"\s*$/) || [])[1] && page.indexOf('"' + said[id].match(/"([^"\n]+)"\s*$/)[1] + '"') >= 0));
+  /* V11: every answered card is on the page as what it is */
+  {
+    const V = {}; (reg.verdicts || []).forEach(v => { if (v && /^words-two-hw/.test(v.id)) V[v.id] = v; });
+    const card = {}; (reg.items || []).forEach(i => { if (i && V[i.id] && i.homework) card[i.id] = i; });
+    const refOf = i => '(card ' + i.homework.sheet + '.' + i.homework.n + ')';
+    Object.keys(card).forEach(id => {
+      const v = V[id], i = card[id], at = page.indexOf(refOf(i));
+      if (at < 0) { R.v11.push('card ' + refOf(i) + ' he answered is not on the page'); return; }
+      const blk = page.slice(at, at + 2400).split('\n').slice(0, 12).join('\n');
+      if (v.vote === 'down') {
+        R.nos++;
+        if (blk.indexOf('THE LINE (the game today): "' + i.homework.line + '"') < 0) R.v11.push(refOf(i) + ' NO: the line it showed him is not under it');
+        if (blk.indexOf('HIS NO: "' + flat(v.said || '') + '"') < 0) R.v11.push(refOf(i) + ' NO: his words are not under it exactly');
+        if (!/THE LESSON: \S/.test(blk)) R.v11.push(refOf(i) + ' NO: no lesson');
+        if (/^\s+HIS: "/m.test(blk.split('\n').slice(0, 4).join('\n'))) R.v11.push(refOf(i) + ' NO: shown as an example');
+      } else if (blk.indexOf('THE LINE (the game today, he kept it): "' + i.homework.line + '"') >= 0) {
+        R.kept++;
+        if (!/WHAT IT TEACHES: \S/.test(blk)) R.v11.push(refOf(i) + ' KEPT: nothing taught');
+        if ((v.said || '').trim() && blk.indexOf('HE SAID: "' + flat(v.said) + '"') < 0) R.v11.push(refOf(i) + ' KEPT: his word is not under it');
+      } else if (blk.indexOf('WAS (the game today): "' + i.homework.line + '"') < 0) R.v11.push(refOf(i) + ' is on the page but not as a line of his, a kept line or a NO');
+    });
+  }
   /* V9 / V10: every other line of his, word for word in the source its FROM line names, with its TEACHES */
   const verdict = {}; (reg.verdicts || []).forEach(v => { if (v && v.id) verdict[v.id] = v.said || ''; });
   const fileN = {};
@@ -115,6 +143,7 @@ ok('V4 every example is a card he answered: HIS to the letter, WAS the line the 
 ok('V5 nothing is bleeped', R.v5.length === 0, R.v5.join(', '));
 ok('V9 every other line of his on the page is word for word where its FROM line says he said it (' + R.others + ' lines)', R.v9.length === 0, R.v9.slice(0, 3).join(' | '));
 ok('V10 each of his lines stands beside what it teaches (' + R.pairs + ' of his answers, ' + R.others + ' other lines)', R.v10.length === 0, R.v10.slice(0, 3).join(' | '));
+ok('V11 every card he answered is on the page as what it is: his line, kept as it is, or what the voice is not (' + R.pairs + ' lines, ' + R.kept + ' kept, ' + R.nos + ' NO)', R.v11.length === 0, R.v11.slice(0, 3).join(' | '));
 ok('V7 the page keeps its order: his words first, the counting second, the unknown third, the game today last', R.v7.length === 0, R.v7.join('; '));
 if (R.unlisted.length) console.log('    note: ' + R.unlisted.length + ' answer' + (R.unlisted.length === 1 ? '' : 's') + ' of his on the homework ' + (R.unlisted.length === 1 ? 'is' : 'are') + ' not on the page yet (WORDS TWO adds them when it reads them): ' + R.unlisted.slice(0, 4).join(', '));
 
@@ -149,9 +178,11 @@ ok('V6 every homework sheet\'s waiting cards still show the game\'s own line (' 
   const p5 = page.replace(/^(\s+>> ".*?)\bbro\b/m, '$1man');                 /* one of his other lines reworded */
   const p6 = page.replace(/\n\s+WHAT IT TEACHES[^\n]*\n(\s+- [^\n]*\n)+/, '\n');   /* a WHAT IT TEACHES taken away */
   const r5 = check(p5, rec, reg), r6 = check(p6, rec, reg), g5 = p5 !== page && r5.v9.length > 0, g6 = p6 !== page && r6.v10.length > 0;
+  const p7 = page.replace(/(HIS NO: "[^"\n]*?)fucking/, '$1freaking');   /* a NO of his softened */
+  const r7 = check(p7, rec, reg), g7 = p7 !== page && r7.v11.length > 0;
   const r1 = check(p1, rec, reg), r2 = check(p2, rec, reg), r3 = check(p3, rec, reg);
   const g1 = p1 !== page && r1.v4.length > 0, g2 = p2 !== page && (r2.v2.length + r2.v3.length) > 0, g3 = p3 !== page && r3.v5.length > 0 && r3.v4.length > 0;
-  ok('P  the plants are caught: a swear taken out of his line (V4), a rule reworded (V2, V3), a bleep (V5), his words moved under the counting (V7), another line of his reworded (V9), a WHAT IT TEACHES taken away (V10)', !!firstHis && g1 && g2 && g3 && g4 && g5 && g6, [g5 ? '' : 'the reworded other line passed', g6 ? '' : 'the missing teaching passed', g1 ? '' : 'the softened line passed', g2 ? '' : 'the reworded rule passed', g3 ? '' : 'the bleep passed', g4 ? '' : 'the moved block passed'].filter(Boolean).join('; '));
+  ok('P  the plants are caught: a swear taken out of his line (V4), a rule reworded (V2, V3), a bleep (V5), his words moved under the counting (V7), another line of his reworded (V9), a WHAT IT TEACHES taken away (V10), a NO of his softened (V11)', !!firstHis && g1 && g2 && g3 && g4 && g5 && g6 && g7, [g7 ? '' : 'the softened NO passed', g5 ? '' : 'the reworded other line passed', g6 ? '' : 'the missing teaching passed', g1 ? '' : 'the softened line passed', g2 ? '' : 'the reworded rule passed', g3 ? '' : 'the bleep passed', g4 ? '' : 'the moved block passed'].filter(Boolean).join('; '));
 }
 console.log('\n=== THE VOICE IS HIS WORDS: ' + pass + ' passed, ' + fail + ' failed ===');
 process.exit(fail ? 1 : 0);

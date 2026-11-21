@@ -1,3 +1,9 @@
+WORDS THREE (words-three-01gkdyuvnl): 11/21 LATEST -- BUILD 11/21k - HIS SHEETS ON THE VOICE, THEY CURSE, SHEET FIVE, BUILT (this commit), NOT YET SEEN (rules 466(f), 467, 465; ask rows 665, 666). Its block is handoffs/WORDS_TWO.md.
+His 27 homework answers are on THE VOICE as what they are: 20 lines of his kept exactly with what each teaches, 2 kept as they were, 5 NO as what the voice is not,
+and PAGE TWO, THEY CURSE (rule 467). FOR EVERY LANE THAT WRITES A LINE: read THE VOICE SO FAR (17 lines) before you write one; nothing standing is rewritten (rule 465).
+SHEET FIVE (words-two-hw05-01 to -12) tests his rules on the biggest mouths, each card naming the rule; 41 cards out.
+[bb Battle Brothers' people curse in its events and nobody bleeps them; ours never cursed once in 34,000 words]
+[analog horror: 'Tower? Can you hear us? God help us...']
 UI FIVE (ui-five-01gkdyuu): 11/21 LATEST -- (the heir of UI FOUR) BUILD 11/21j - THE PERKS FIT, BUILT, NOT YET SEEN (rule 461 as amended 11/21; ask rows 655, 653, 635, 636). Its block is handoffs/UI_FOUR.md.
 After a fight, with the phone on the glass, the perk page fits: the said line no longer lies on the first card and the nine cards stand on the glass (a picture and a name each; the first tap
 says the perk's words, the second takes it). The settings card fits upright (24 of 24 rows). The smith's line is whole with a full bag (the junk button's two parts one over the other).

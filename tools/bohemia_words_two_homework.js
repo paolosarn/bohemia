@@ -151,7 +151,7 @@ function html(card, line, face) {
         + '<div class="say' + (card.layout === 'bark' ? ' bark' : '') + '">' + esc(line) + '</div>'
         + (card.choices && card.choices.length ? '<div class="opts">' + card.choices.map(c => '<span>' + esc(c) + '</span>').join('') + '</div>' : '')
         + '</div>')
-    + '<div class="meta"><b>TO</b> ' + esc(card.to) + '<br><b>WHEN</b> ' + esc(card.when) + (card.second ? '<br><b>THE TEST</b> scary, then ' + esc(String(card.second).toLowerCase()) : '') + '</div>'
+    + '<div class="meta"><b>TO</b> ' + esc(card.to) + '<br><b>WHEN</b> ' + esc(card.when) + (card.second ? '<br><b>THE TEST</b> scary, then ' + esc(String(card.second).toLowerCase()) : '') + (card.rule ? '<br><b>YOUR RULE</b> ' + esc(card.rule) : '') + '</div>'
     + '</div>';
 }
 
@@ -165,11 +165,12 @@ function row(card, line, sha, px) {
     said: card.said || "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
     /* SCARY FIRST (rule 455, Paolo 11/17: 'there's two words, but the first word is always scary'): a card of a later sheet names
        the second word it is there to test, so his answer shows how THAT pair sounds */
-    why: 'HOW SHOULD THIS SOUND? ' + (card.second ? 'It is here to test SCARY, THEN ' + oneSentence(card.second) + ': ' : '') + oneSentence(card.who_plain) + ' says it to ' + oneSentence(card.to) + ' when ' + oneSentence(card.when)
+    /* 11/21 WORDS THREE (rules 466(f), 467): a card of sheet five on names the rule of HIS it tests, so he answers it fast */
+    why: 'HOW SHOULD THIS SOUND? ' + (card.second ? 'It is here to test SCARY, THEN ' + oneSentence(card.second) + ': ' : '') + (card.rule ? 'It tests your rule, ' + oneSentence(card.rule) + ': ' : '') + oneSentence(card.who_plain) + ' says it to ' + oneSentence(card.to) + ' when ' + oneSentence(card.when)
        + ' (you see it ' + oneSentence(card.where) + '); type your way in the box, then tap a thumb to send it.',
     /* the picture is one thing already: it is its own first picture, and a tap opens it at one image pixel to one point (rule 89) */
     show: { how: 'image', src: 'vote/words_two_homework_' + SHEET + '/' + card.id + '.webp', first: 'vote/words_two_homework_' + SHEET + '/' + card.id + '.webp', firstAt: [0, 0, px[0], px[1]] },
-    homework: { sheet: +SHEET, n: card.n, mouth: card.mouth, second: card.second || undefined, teaches: card.teaches, pulled_from: card.pull.file, line: line }
+    homework: { sheet: +SHEET, n: card.n, mouth: card.mouth, second: card.second || undefined, rule: card.rule || undefined, teaches: card.teaches, pulled_from: card.pull.file, line: line }
   };
 }
 
