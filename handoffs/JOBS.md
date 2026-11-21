@@ -1,6 +1,26 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/20 LATEST -- BUILD 11/20v - THE CARD READS THE NIGHT, BUILT, NOT YET SEEN (rules 461, 441, 454(a);
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/21 LATEST -- BUILD 11/21n - THE CARD READS THE HOUR, BUILT, NOT YET SEEN (rules 461, 441, 454(a), 465;
+row 651; the coordinator's routine 'JOBS: carry on'). Record: records/BOHEMIA_JOBS_THE_CARD_READS_THE_HOUR_11_21_26.md.
+- MEASURED: a card read each fight at the hour of reading; he meets it when the trip brings him there. Read at 16:30 (every job at every
+  town): 858 first fights land past nightfall, 363 named another crowd. On the phone (old reader): 2 of 27 walked jobs wrong (qd-s01 9
+  Block Watch read, 4 water people came; jk-free-pen 2 ancient bison read, 1 short-faced bear came).
+- slices/bohemia_job_danger.js (WORLD's reader, marked block __THE_CARD_READS_THE_HOUR__): fightsFor rolls each fight at the minute the
+  trip brings him to it (its hour and day; the first day's cap reads that day); the list carries 'comes'. The stars read through the
+  same path (cached for the day: WORLD's).
+- ROUTED to FACTIONS / BESTIARY (row 574 through the road): a one-skull FREE job's brigands turned into 2 ancient bison by day and a
+  short-faced bear by night for a new crew of three: the road's swap of who walks deals beasts the hunt guard (11/20l) never would.
+GATE THE CARD READS THE NIGHT: new R4 (files) and R5 (on his phone, --hour 990: every job with a sure fight walked from 16:30 on the
+trip's own minutes): 5/0 (R5: every fight at the card's hour, 31 of 31 on each phone, 6 or 7 after nightfall; the crowd the card's 29 to 31 of 31). Also fixed
+by the gate's runs: a leg's own wait comes before its fight (an ambush: card 17:20, fight 18:50); the map's own crew job rolls at its mark.
+Rules 463 to 465 read: none of JOBS' builds draws the three batteries or builds a billboard; no line rewritten.
+NEXT: [a job that changes after the yes] read at the fight's own minute the card IS the fight, but two alpha jobs changed after the
+yes with the hour the same: qd-ap01's guards 2 then 4 (water people read, brigands met), qd-s01's camp met 7 coyotes where the card says
+water people. Then [a siege for a big crew]; the reader's plays repeatable boot to boot (WORLD's).
+[bb Battle Brothers names who a contract is against before it is signed, and that is who comes]
+[analog horror: you read the job at half past four; by the time you got there it was dark, and the card already knew]
+
+JOBS (session_01GKDyuv5CeFx6bTxT23Pv5Q): 11/20 -- BUILD 11/20v - THE CARD READS THE NIGHT, BUILT, NOT YET SEEN (rules 461, 441, 454(a);
 row 651; the coordinator's routine 'JOBS: the whole enchilada'). Record: records/BOHEMIA_JOBS_THE_CARD_READS_THE_NIGHT_11_20_26.md.
 - MEASURED: the roll weighs who walks by the hour (the block watch goes home at night, the water people come out) and by the fights met;
   the card read every fight at the hour of reading: the fuel depot's watch till dawn read 5 Block Watch, 2 water people came.

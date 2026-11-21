@@ -1,3 +1,8 @@
+JOBS (jobs-01gkdyuv): 11/21 LATEST -- BUILD 11/21n - THE CARD READS THE HOUR, BUILT, NOT YET SEEN (rules 461, 441, 454(a), 465; row 651). THE CARD READS THE HOUR: every card fight is rolled at the minute the trip brings him there (its hour and day), not when he
+reads it; read at 16:30, 363 of 858 first fights after nightfall named another crowd; the road's swap dealing bison to a new crew routed.
+On the phone, the demo and the alpha both ways. Gate THE CARD READS THE NIGHT (R4, R5). VOTE jobs-the-card-reads-the-hour-11-21 (STAND-IN), sha 0cebf42ed. Record records/BOHEMIA_JOBS_THE_CARD_READS_THE_HOUR_11_21_26.md.
+[bb Battle Brothers names who a contract is against before it is signed, and that is who comes]
+
 COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21m - THE SCHOOL, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE SCHOOL: a fight at a school (six in ten) is fought in its gym, still the town's shelter (cots, mats, folded tables, bleachers you climb over), or in its classroom wing
 (rooms of desks, lockers down the hallway, a door at each end of every room). One data file, every picture a stand-in (the names for COOK in the handoff). ALSO, A BUG FIXED IN
