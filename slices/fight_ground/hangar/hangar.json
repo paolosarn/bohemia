@@ -1,0 +1,545 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "hangar",
+ "name": "THE HANGAR",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "A maintenance hangar is one open floor under a steel truss roof, its doors the whole front wall, big enough to take the aircraft whole with room to work round it.",
+  "A wide-body cargo jet is about 70 m long with a wingspan about the same; a fighter about 15 m long and 10 m across.",
+  "Round an aircraft in the hangar: tow tractors, ground power carts, boarding stairs, baggage and parts carts, engine stands, tool cribs along the walls; at an air base, munitions trailers and missile racks.",
+  "On house tiles the cargo jet is seven tiles of fuselage with its wings across five, and a fighter three tiles; the fuselage and the engines are tiles you cannot stand on, the wing's underside a crowd of jacks and hoses."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (hangar_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "airport",
+  "airbase"
+ ],
+ "share": 0.35,
+ "districts_why": "The airport's field and the air base are mostly runways and aprons with rows of hangars: about one fight in three there is fought inside a hangar, by the cell's own dice; the rest on the apron and the field.",
+ "board": {
+  "templates": {
+   "hangar": {
+    "name": "THE HANGAR",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_cargo_jet": [
+      "####################",
+      "#kk.g..cc..cc..g.kk#",
+      "#..b..t..s..t..b.f.#",
+      "#.c..u..e...e..u.c.#",
+      "#..t...wwwwww...t..#",
+      "#.s..u.wwEwww..u.s.#",
+      "#..c...wwwwww...c..#",
+      "#D..t.NFFFFFFT.t..D#",
+      "#..c...wwwwww...c..#",
+      "#.s..u.wwEwww..u.s.#",
+      "#..t...wwwwww...t..#",
+      "#.c..u..e...e..u.c.#",
+      "#.f.b.t..s..t..b...#",
+      "#kk.g.DD.DD.DD.g.kk#",
+      "####################"
+     ],
+     "the_two_fighters": [
+      "####################",
+      "#kk..m..c..c..m..kk#",
+      "#..t...s.f..s...t..#",
+      "#.m..wwww..wwww..m.#",
+      "#..u.NFFT..NFFT.u..#",
+      "#.c..wwww..wwww..c.#",
+      "#..t..m..e...m..t..#",
+      "#D..c..s.cc.s..c..D#",
+      "#..t..m...e..m..t..#",
+      "#.c..wwww..wwww..c.#",
+      "#..u.NFFT..NFFT.u..#",
+      "#.m..wwww..wwww..m.#",
+      "#..t...s..f.s...t..#",
+      "#kk.DD..DD..DD..DDk#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "N": {
+    "is": "floor",
+    "tile": "nose",
+    "piece": "hg_nose",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "F": {
+    "is": "floor",
+    "tile": "fuselage",
+    "piece": "hg_fuselage",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "T": {
+    "is": "floor",
+    "tile": "tail",
+    "piece": "hg_tail",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "E": {
+    "is": "floor",
+    "tile": "engine",
+    "piece": "hg_engine",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "w": {
+    "is": "floor",
+    "tile": "wing",
+    "piece": "hg_wing",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "u": {
+    "is": "floor",
+    "tile": "tug",
+    "piece": "hg_tug",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "g": {
+    "is": "floor",
+    "tile": "gpu",
+    "piece": "hg_gpu",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "s": {
+    "is": "floor",
+    "tile": "stairs",
+    "piece": "hg_stairs",
+    "at": [
+     0.5,
+     0.88
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "carts",
+    "piece": "hg_carts",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "dollies",
+    "piece": "hg_dollies",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "t": {
+    "is": "floor",
+    "tile": "toolbox",
+    "piece": "hg_toolbox",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "e": {
+    "is": "floor",
+    "tile": "enginestand",
+    "piece": "hg_enginestand",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "crib",
+    "piece": "hg_crib",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "m": {
+    "is": "floor",
+    "tile": "munitions",
+    "piece": "hg_munitions",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The hangar's steel wall: no way through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The hangar's painted concrete, oil-stained: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The hangar floor: open ground.",
+   "draft": true
+  },
+  "nose": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "The aircraft's nose on its gear: nobody stands there; cover for the tiles beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "fuselage": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "The fuselage, its skin panels off: nobody stands there; it blocks a shot. [bb] its wall.",
+   "say": ""
+  },
+  "tail": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "The tail and its stabilizers: nobody stands there; it blocks a shot. [bb] its wall.",
+   "say": ""
+  },
+  "engine": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "An engine hanging under the wing, its cowling open: nobody stands there; cover for the tiles beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "wing": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Under the wing: jacks, fuel hoses and the landing gear: low cover, and slow going (3 AP). [bb] its brush.",
+   "say": "Under the wing: low cover, slow going.",
+   "draft": true
+  },
+  "tug": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A tow tractor, low and heavy: cover.",
+   "say": "A tow tractor: cover.",
+   "draft": true
+  },
+  "gpu": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A ground power cart, dead: cover.",
+   "say": "A power cart: cover.",
+   "draft": true
+  },
+  "stairs": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Boarding stairs on their wheels: low cover.",
+   "say": "Boarding stairs: low cover.",
+   "draft": true
+  },
+  "carts": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Parts carts, picked over: low cover.",
+   "say": "Parts carts: low cover.",
+   "draft": true
+  },
+  "dollies": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Cargo dollies hitched in a train: low cover, and slow going over the hitches (3 AP).",
+   "say": "Cargo dollies: low cover, slow going.",
+   "draft": true
+  },
+  "toolbox": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A rolling tool box: low cover.",
+   "say": "A tool box: low cover.",
+   "draft": true
+  },
+  "enginestand": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A spare engine on its stand: cover.",
+   "say": "A spare engine: cover.",
+   "draft": true
+  },
+  "crib": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "A tool crib behind its cage, along the wall: nobody stands there. [bb] its wall.",
+   "say": ""
+  },
+  "munitions": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A munitions trailer, its racks empty: cover.",
+   "say": "A munitions trailer: cover.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a drum. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The hangar doors, rolled part open: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The hangar doors: open ground.",
+   "say_lit": "The hangar doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in hangar_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "hg_nose": {
+   "like": "sb_wreck_S",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "THE NOSE"
+  },
+  "hg_fuselage": {
+   "like": "sb_container_S",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "THE FUSELAGE"
+  },
+  "hg_tail": {
+   "like": "sb_container_S",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "THE TAIL"
+  },
+  "hg_engine": {
+   "like": "sb_dozer_S",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "AN ENGINE"
+  },
+  "hg_wing": {
+   "like": "sb_tyres_E",
+   "kind": "LOW_COVER",
+   "name": "UNDER THE WING"
+  },
+  "hg_tug": {
+   "like": "sb_dozer_S",
+   "kind": "COVER",
+   "name": "A TOW TRACTOR"
+  },
+  "hg_gpu": {
+   "like": "sb_propane_S",
+   "kind": "COVER",
+   "name": "A POWER CART"
+  },
+  "hg_stairs": {
+   "like": "sb_barrier_S",
+   "kind": "LOW_COVER",
+   "name": "BOARDING STAIRS"
+  },
+  "hg_carts": {
+   "like": "sb_cart_S",
+   "kind": "LOW_COVER",
+   "name": "PARTS CARTS"
+  },
+  "hg_dollies": {
+   "like": "sb_cart_E",
+   "kind": "LOW_COVER",
+   "name": "CARGO DOLLIES"
+  },
+  "hg_toolbox": {
+   "like": "sb_drums_S",
+   "kind": "LOW_COVER",
+   "name": "A TOOL BOX"
+  },
+  "hg_enginestand": {
+   "like": "sb_tyres_S",
+   "kind": "COVER",
+   "name": "A SPARE ENGINE"
+  },
+  "hg_crib": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A TOOL CRIB"
+  },
+  "hg_munitions": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "A MUNITIONS TRAILER"
+  },
+  "hg_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "hg_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "hg_wall_ew",
+  "ns": "hg_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: one floor; the wing is overhead, not a place to stand, and the stairs reach a door nobody can open.",
+ "ceiling": {
+  "kind": "joist",
+  "alpha": 0.1,
+  "src": "hangar/hangar_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the hangar's steel trusses and its dead light banks, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the warehouse's roof)."
+ }
+}
