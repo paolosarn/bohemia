@@ -9354,6 +9354,13 @@ GATES = [
      "centre away from the phone; no living fighter's body outside it on any frame (a man out of the dark and a man the camera is already gliding to hold, half a beat, counted and said); every frame a beat after the first frame "
      "that saw the last walk, fall or change is the tightest frame again, centred; the camera moves only inside a glide; where the fight draws in a tenth the man is drawn bigger (his floor said); the phone flipped re-centres in two "
      "beats; a real pinch or the wheel holds through END TURN and their turns and lets go at his next man's turn. Three plants bite. About 15 min", True),
+    ('THE FIGHT HIS LINE WHOLE', ['node', 'gates/the_fight_his_line_whole_gate.js'],
+     "COMBAT FOUR gate, 11/21, FIGHT SCREEN 3's find routed to the camera (rules 104a, 288(b), his NO ATARI vote; records/BOHEMIA_COMBAT_FOUR_HIS_LINE_WHOLE_11_21_26.md). "
+     "MEASURED before (the walk, the alpha upright, a pack): in the lineup the two lines stood eleven tiles apart, the glass held twelve at the far stop, and the frame centred between them cut "
+     "two of his men and one of theirs 6 points past the glass while DESI says 'Drag a man to where you want him'. The fight page upright, the phone up right, three of his against a pack of three, "
+     "the lines stood eleven apart: 1 the frame at its far stop and too narrow for both; 2 every one of his men's whole figure (0.3 of his height either side) inside the open area; 3 slid only as "
+     "far as his outermost man needed, theirs take the rest; 4 their line six tiles off, the frame centred and every man on the glass (a frame that holds everyone is never touched). "
+     "PLANTED: the slide taken out, leg 2 red. About 40 s", True),
     ('NO TOP BAR IN THE FIGHT', ['node', 'gates/no_top_bar_in_the_fight_gate.js'],
      "UI gate, 10/26, row [no top bar in the fight] (rule 280(d), PAOLO 10/26: 'when it's combat mode I don't need to see my batteries and the time of day... in combat it can completely go away'). "
      "MEASURED before: the fight wore the map's whole bar across its top (390 x 108 upright, 60 on its side and on a computer: the day, the crew, the batteries and the supplies) and measured its board under it. "

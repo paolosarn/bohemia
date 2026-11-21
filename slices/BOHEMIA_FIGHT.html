@@ -12112,8 +12112,8 @@ function framedMen(now) {
     return (v.side === 'you' || v.seenFall) && t - v._fallAt < hold;
   });
 }
-function framePoints(more) {
-  const men = framedMen(), ids = {}, P = [];
+function framePoints(more, side) {
+  const men = framedMen().filter(function (v) { return !side || v.side === side; }), ids = {}, P = [];
   men.forEach(function (v) { ids[v.id] = true; P.push({ x: v.x, y: v.y }); if (v._at) P.push({ x: v._at.x, y: v._at.y }); });
   UI.anim.forEach(function (a) { if (a.k === 'step' && a.path && a.e && ids[a.e.id]) a.path.forEach(function (q) { P.push({ x: q.x, y: q.y }); }); });
   return P.concat(more || []);
@@ -12133,7 +12133,24 @@ function fitBoth(more) {
   }
   m = manH(z) / z;
   if (z < UI.far) UI.far = z;   /* the pinch's far stop never closer than every fighter */
-  return { z: z, cx: (x0 + x1) / (1 + 1) * UI.tw, cy: ((y0 + y1) * UI.th - m) / (1 + 1) };
+  const f = { z: z, cx: (x0 + x1) / (1 + 1) * UI.tw, cy: ((y0 + y1) * UI.th - m) / (1 + 1) };
+  return FIGHT.S.deploy ? hisLineWhole(f, x1 - x0, y1 - y0, m) : f;
+}
+/* HIS LINE WHOLE (COMBAT FOUR 11/21, FIGHT SCREEN 3's find, records/BOHEMIA_COMBAT_FOUR_HIS_LINE_WHOLE_11_21_26.md): where even the
+   far stop cannot hold every man while he sets his line (upright, the two lines eleven tiles apart and the glass twelve wide at
+   the far stop, his NO ATARI vote's floor), the frame was centred between them and cut both ends: his men 6 points past the
+   glass, their bars cut, while DESI says 'Drag a man to where you want him'. NOW the frame slides only as far as it must for every
+   one of his men to stand whole on the glass (allFramed's own measure, his figure and what he carries), and what does not fit goes
+   off their side. A frame that holds everyone is never touched. */
+function hisLineWhole(f, spanX, spanY, m) {
+  const z = f.z, bw = spanX * UI.tw + m * BODY_HALF * (1 + 1) + FRAME_TILES * UI.tw, bh = spanY * UI.th + m + FRAME_TILES * UI.th;
+  if (bw <= OPEN.w / z + 1e-6 && bh <= OPEN.h / z + 1e-6) return f;
+  const P = framePoints(null, 'you'); if (!P.length) return f;
+  const mw = (manH(z) * FIG_HALF + 1) / z, hw = OPEN.w / z / (1 + 1), hh = OPEN.h / z / (1 + 1);
+  let l = Infinity, r = -Infinity, t = Infinity, b = -Infinity;
+  P.forEach(function (v) { const c = (v.x + .5 + stagger(v.y)) * UI.tw, ft = (v.y + .9) * UI.th; l = Math.min(l, c - mw); r = Math.max(r, c + mw); t = Math.min(t, ft - m - 1 / z); b = Math.max(b, ft + 1 / z); });
+  const cx = r - l <= hw * (1 + 1) ? Math.max(r - hw, Math.min(l + hw, f.cx)) : f.cx, cy = b - t <= hh * (1 + 1) ? Math.max(b - hh, Math.min(t + hh, f.cy)) : f.cy;
+  return { z: z, cx: cx, cy: cy };
 }
 /* every fighter's whole figure inside the open area (the auto-frame's own box, the phone's margin out) */
 function allFramed(more) {
