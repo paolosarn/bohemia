@@ -1,0 +1,156 @@
+{
+ "rack": {
+  "w": 516,
+  "h": 393,
+  "foot": [
+   258.2,
+   354
+  ],
+  "piece": "rack",
+  "src": "homecenter/hc_rack.webp",
+  "facing": "S"
+ },
+ "lumber": {
+  "w": 515,
+  "h": 240,
+  "foot": [
+   257.8,
+   216
+  ],
+  "piece": "lumber",
+  "src": "homecenter/hc_lumber.webp",
+  "facing": "S"
+ },
+ "rental": {
+  "w": 300,
+  "h": 195,
+  "foot": [
+   163.4,
+   187
+  ],
+  "piece": "rental",
+  "src": "homecenter/hc_rental.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 516,
+  "h": 130,
+  "foot": [
+   258.2,
+   119
+  ],
+  "piece": "wall_ew",
+  "src": "homecenter/hc_wall_ew.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 52,
+  "h": 456,
+  "foot": [
+   26.2,
+   455
+  ],
+  "piece": "wall_ns",
+  "src": "homecenter/hc_wall_ns.webp",
+  "facing": "S"
+ },
+ "checkout": {
+  "w": 146,
+  "h": 255,
+  "foot": [
+   68.9,
+   254
+  ],
+  "piece": "checkout",
+  "src": "homecenter/hc_checkout.webp",
+  "facing": "S"
+ },
+ "propane": {
+  "w": 137,
+  "h": 148,
+  "foot": [
+   73.1,
+   131
+  ],
+  "piece": "propane",
+  "src": "homecenter/hc_propane.webp",
+  "facing": "S"
+ },
+ "stock": {
+  "w": 98,
+  "h": 124,
+  "foot": [
+   34.3,
+   110
+  ],
+  "piece": "stock",
+  "src": "homecenter/hc_stock.webp",
+  "facing": "S"
+ },
+ "endcap": {
+  "w": 198,
+  "h": 133,
+  "foot": [
+   99.7,
+   103
+  ],
+  "piece": "endcap",
+  "src": "homecenter/hc_endcap.webp",
+  "facing": "S"
+ },
+ "spill": {
+  "w": 284,
+  "h": 113,
+  "foot": [
+   138.2,
+   95
+  ],
+  "piece": "spill",
+  "src": "homecenter/hc_spill.webp",
+  "facing": "S"
+ },
+ "cart": {
+  "w": 176,
+  "h": 124,
+  "foot": [
+   86.2,
+   109
+  ],
+  "piece": "cart",
+  "src": "homecenter/hc_cart.webp",
+  "facing": "S"
+ },
+ "cart_b": {
+  "w": 94,
+  "h": 121,
+  "foot": [
+   47.5,
+   100
+  ],
+  "piece": "cart_b",
+  "src": "homecenter/hc_cart_b.webp",
+  "facing": "S"
+ },
+ "plants": {
+  "w": 304,
+  "h": 147,
+  "foot": [
+   154.7,
+   120
+  ],
+  "piece": "plants",
+  "src": "homecenter/hc_plants.webp",
+  "facing": "S"
+ },
+ "bags": {
+  "w": 210,
+  "h": 126,
+  "foot": [
+   111.7,
+   105
+  ],
+  "piece": "bags",
+  "src": "homecenter/hc_bags.webp",
+  "facing": "S"
+ }
+}

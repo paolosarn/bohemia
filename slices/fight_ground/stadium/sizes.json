@@ -174,5 +174,16 @@
   "piece": "seats_n",
   "src": "stadium/st_seats_n.webp",
   "facing": "N"
+ },
+ "stand_n": {
+  "w": 516,
+  "h": 445,
+  "foot": [
+   258.2,
+   444
+  ],
+  "piece": "stand_n",
+  "src": "stadium/st_stand_n.webp",
+  "facing": "N"
  }
 }

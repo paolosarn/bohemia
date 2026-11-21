@@ -564,11 +564,8 @@
   "kind": "joist",
   "alpha": 0.1,
   "src": "homecenter/homecenter_ceiling.webp",
-  "have": false,
-  "tile": [
-   5,
-   5
-  ],
+  "have": true,
+  "tile": [10, 10],
   "bay": 5,
   "how": "VAMILY rule 451(a): the store's roof, a warehouse roof (the corrugated deck, open-web joists, the strip lights most of them dead, a few clear panels), over the board at this alpha (10%, never past the fight's own most). 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the warehouse's)."
  }

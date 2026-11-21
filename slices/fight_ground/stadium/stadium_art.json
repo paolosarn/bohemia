@@ -262,6 +262,20 @@
     328
    ],
    "why": "COMBAT FOUR's st_seats_n (BUILD 11/20k): the south stand's seats facing NORTH to the field, so the map's eye sees their backs; st_seats' size and foot"
+  },
+  "st_stand_n": {
+   "kind": "HEIGHT",
+   "h": 1.42,
+   "name": "THE STANDS, THE SOUTH STAND",
+   "stage": "finished",
+   "src": "stadium/st_stand_n.webp",
+   "w": 516,
+   "h_px": 445,
+   "foot": [
+    258.2,
+    444
+   ],
+   "why": "COMBAT FOUR's st_stand_n (BUILD 11/20w): the south stand's step turned to face the field, its padding and ribbon board on the field's side, its back toward the map's eye; st_stand's size and foot"
   }
  },
  "how_it_lays": {

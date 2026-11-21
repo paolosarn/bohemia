@@ -1,0 +1,266 @@
+{
+ "version": "cook6-homecenter-art-11-21",
+ "lane": "cook 6 (COOK FIVE's list)",
+ "stage": "finished",
+ "for": "COMBAT FOUR's home center (slices/fight_ground/homecenter/homecenter.json, BUILD 11/20w): the names its handoff asked for, the garage's format. floor.floor is the slab (rows 0 to 2: sealed and polished, saw cuts, an aisle's number on a yellow floor decal on most tiles, forklift tracks, pallet scrapes, a spilled gallon of paint and the footprints out of it; nothing within 1.2 m of an edge but the slab); floor.yard the garden yard's concrete (rows 3 and 4: broom-finished, under the shade cloth's shadow all over so every edge meets, the sun through its tears, soil out of a split bag, the rings where pots stood); floor.ring the slab. Any tile of a list meets any tile of it.",
+ "floor": {
+  "floor": [
+   "homecenter/homecenter_floor_0.webp#0,0",
+   "homecenter/homecenter_floor_0.webp#1,0",
+   "homecenter/homecenter_floor_0.webp#2,0",
+   "homecenter/homecenter_floor_0.webp#3,0",
+   "homecenter/homecenter_floor_0.webp#4,0",
+   "homecenter/homecenter_floor_0.webp#0,1",
+   "homecenter/homecenter_floor_0.webp#1,1",
+   "homecenter/homecenter_floor_0.webp#2,1",
+   "homecenter/homecenter_floor_0.webp#3,1",
+   "homecenter/homecenter_floor_0.webp#4,1",
+   "homecenter/homecenter_floor_0.webp#0,2",
+   "homecenter/homecenter_floor_0.webp#1,2",
+   "homecenter/homecenter_floor_0.webp#2,2",
+   "homecenter/homecenter_floor_0.webp#3,2",
+   "homecenter/homecenter_floor_0.webp#4,2"
+  ],
+  "yard": [
+   "homecenter/homecenter_floor_0.webp#0,3",
+   "homecenter/homecenter_floor_0.webp#1,3",
+   "homecenter/homecenter_floor_0.webp#2,3",
+   "homecenter/homecenter_floor_0.webp#3,3",
+   "homecenter/homecenter_floor_0.webp#4,3",
+   "homecenter/homecenter_floor_0.webp#0,4",
+   "homecenter/homecenter_floor_0.webp#1,4",
+   "homecenter/homecenter_floor_0.webp#2,4",
+   "homecenter/homecenter_floor_0.webp#3,4",
+   "homecenter/homecenter_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "homecenter/homecenter_floor_0.webp#0,0",
+   "homecenter/homecenter_floor_0.webp#1,0",
+   "homecenter/homecenter_floor_0.webp#2,0",
+   "homecenter/homecenter_floor_0.webp#3,0",
+   "homecenter/homecenter_floor_0.webp#4,0",
+   "homecenter/homecenter_floor_0.webp#0,1",
+   "homecenter/homecenter_floor_0.webp#1,1",
+   "homecenter/homecenter_floor_0.webp#2,1",
+   "homecenter/homecenter_floor_0.webp#3,1",
+   "homecenter/homecenter_floor_0.webp#4,1",
+   "homecenter/homecenter_floor_0.webp#0,2",
+   "homecenter/homecenter_floor_0.webp#1,2",
+   "homecenter/homecenter_floor_0.webp#2,2",
+   "homecenter/homecenter_floor_0.webp#3,2",
+   "homecenter/homecenter_floor_0.webp#4,2"
+  ]
+ },
+ "kit": {
+  "hc_rack": {
+   "kind": "COVER",
+   "h": 5.6,
+   "name": "A RUN OF RACKING",
+   "stage": "finished",
+   "src": "homecenter/hc_rack.webp",
+   "w": 516,
+   "h_px": 393,
+   "foot": [
+    258.2,
+    354
+   ]
+  },
+  "hc_lumber": {
+   "kind": "COVER",
+   "h": 3.6,
+   "name": "LUMBER BUNKS",
+   "stage": "finished",
+   "src": "homecenter/hc_lumber.webp",
+   "w": 515,
+   "h_px": 240,
+   "foot": [
+    257.8,
+    216
+   ]
+  },
+  "hc_rental": {
+   "kind": "COVER",
+   "h": 2.6,
+   "name": "THE RENTAL COUNTER",
+   "stage": "finished",
+   "src": "homecenter/hc_rental.webp",
+   "w": 300,
+   "h_px": 195,
+   "foot": [
+    163.4,
+    187
+   ]
+  },
+  "hc_wall_ew": {
+   "kind": "WALL",
+   "h": 2.4,
+   "name": "THE STORE'S WALL",
+   "stage": "finished",
+   "src": "homecenter/hc_wall_ew.webp",
+   "w": 516,
+   "h_px": 130,
+   "foot": [
+    258.2,
+    119
+   ]
+  },
+  "hc_wall_ns": {
+   "kind": "WALL",
+   "h": 2.4,
+   "name": "THE STORE'S WALL",
+   "stage": "finished",
+   "src": "homecenter/hc_wall_ns.webp",
+   "w": 52,
+   "h_px": 456,
+   "foot": [
+    26.2,
+    455
+   ]
+  },
+  "hc_checkout": {
+   "kind": "LOW_COVER",
+   "h": 2.6,
+   "name": "A CHECKOUT LANE",
+   "stage": "finished",
+   "src": "homecenter/hc_checkout.webp",
+   "w": 146,
+   "h_px": 255,
+   "foot": [
+    68.9,
+    254
+   ]
+  },
+  "hc_propane": {
+   "kind": "COVER",
+   "h": 1.94,
+   "name": "THE PROPANE CAGE",
+   "stage": "finished",
+   "src": "homecenter/hc_propane.webp",
+   "w": 137,
+   "h_px": 148,
+   "foot": [
+    73.1,
+    131
+   ]
+  },
+  "hc_stock": {
+   "kind": "COVER",
+   "h": 1.25,
+   "name": "A PALLET OF STOCK",
+   "stage": "finished",
+   "src": "homecenter/hc_stock.webp",
+   "w": 98,
+   "h_px": 124,
+   "foot": [
+    34.3,
+    110
+   ]
+  },
+  "hc_endcap": {
+   "kind": "LOW_COVER",
+   "h": 0.55,
+   "name": "AN END CAP",
+   "stage": "finished",
+   "src": "homecenter/hc_endcap.webp",
+   "w": 198,
+   "h_px": 133,
+   "foot": [
+    99.7,
+    103
+   ]
+  },
+  "hc_spill": {
+   "kind": "LOW_COVER",
+   "h": 0.45,
+   "name": "A SPILLED RACK",
+   "stage": "finished",
+   "src": "homecenter/hc_spill.webp",
+   "w": 284,
+   "h_px": 113,
+   "foot": [
+    138.2,
+    95
+   ]
+  },
+  "hc_cart": {
+   "kind": "LOW_COVER",
+   "h": 1.2,
+   "name": "FLATBED CARTS",
+   "stage": "finished",
+   "src": "homecenter/hc_cart.webp",
+   "w": 176,
+   "h_px": 124,
+   "foot": [
+    86.2,
+    109
+   ]
+  },
+  "hc_cart_b": {
+   "kind": "DRESS",
+   "h": 1.2,
+   "name": "FLATBED CARTS",
+   "stage": "finished",
+   "src": "homecenter/hc_cart_b.webp",
+   "w": 94,
+   "h_px": 121,
+   "foot": [
+    47.5,
+    100
+   ]
+  },
+  "hc_plants": {
+   "kind": "LOW_COVER",
+   "h": 1.3,
+   "name": "DEAD PLANTS",
+   "stage": "finished",
+   "src": "homecenter/hc_plants.webp",
+   "w": 304,
+   "h_px": 147,
+   "foot": [
+    154.7,
+    120
+   ]
+  },
+  "hc_bags": {
+   "kind": "COVER",
+   "h": 1.16,
+   "name": "STACKED BAGS",
+   "stage": "finished",
+   "src": "homecenter/hc_bags.webp",
+   "w": 210,
+   "h_px": 126,
+   "foot": [
+    111.7,
+    105
+   ]
+  }
+ },
+ "how_it_lays": {
+  "the racking": "hc_rack is a tile wide, 2.4 m deep (back to back), 5.6 m up the glass, foot its south base middle (your 'at' [0.5, 0.95]); its end uprights are inset so two tiles meet as one run. hc_lumber a tile wide too, the cantilever columns every 3 m.",
+  "the aisles": "hc_endcap, hc_stock, hc_spill, hc_cart (two carts), hc_cart_b (one): foot each at its south edge middle.",
+  "the front": "hc_checkout runs north to south (the counter 4 m, the register at its south end, the lane's pole at its north); hc_propane two bays of cage 2.6 m wide; hc_rental 7 m: the counter, the mixer, the lift.",
+  "the yard": "hc_plants two benches; hc_bags two pallets, one split, a third tipped. Their floor is floor.yard.",
+  "the walls": "hc_wall_ew / _ns: the tilt-up wall to 2.4 m, a tile long (the yard's fence uses the same names, as your file says)."
+ },
+ "bytes": {
+  "floor": 100630,
+  "ceiling": 49884
+ },
+ "ceiling": {
+  "sheet": "homecenter/homecenter_ceiling.webp",
+  "bays": [
+   5,
+   5
+  ],
+  "bay_px": [
+   129,
+   91
+  ],
+  "covers": [
+   10,
+   10
+  ],
+  "what": "the store's roof: the corrugated deck, open-web joists, a girder on every bay's line, the red sprinkler mains; rows of strip lights over the aisles, most dead and one still on; an aisle sign hanging in every bay; a clear panel in a few",
+  "contract": "homecenter.json 'ceiling' (COMBAT FOUR's: the fight draws it over the board at that alpha, rule 451(a)); five bays by five that repeat, as the warehouse's"
+ }
+}

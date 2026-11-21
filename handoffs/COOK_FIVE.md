@@ -1,5 +1,28 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
+COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21d - THE HOME CENTER, BUILT (SHIPSHA), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 453, 441, 416, 451(a), 455; ask row 651).
+THE HOME CENTER (COMBAT FOUR's BUILD 11/20w, its 'FOR COOK (SIX) 2)'): all 201 pieces of the_store_and_the_garden were stand-ins. Now slices/fight_ground/homecenter/ holds
+homecenter_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 2 of homecenter_floor_0.webp, the slab with an aisle's number on a floor decal, forklift tracks, a spill of white
+paint and the footprints out of it; floor.yard rows 3 and 4, the garden yard under the shade cloth's shadow, the sun through its tears, soil, pot rings; floor.ring the slab;
+kit: all 14 names), sizes.json, 14 piece pictures (orange racking with what nobody could carry up top; lumber bunks with a sleeping bag on the bottom arm; end cap, stock and
+its jack, a spilled rack, flatbed carts, a checkout lane, the empty propane cage, the rental counter's mixer and lift, dead plants on benches, split bags, the tilt-up wall)
+and its roof (five bays by five that repeat, as the warehouse's: rows of strip lights, one on, an aisle sign in every bay): about 413,000 bytes. homecenter.json: only its
+ceiling entry's "have" (true) and "tile" ([10, 10]).
+ALSO, 'FOR COOK (SIX) 1)': st_stand_n, the stadium's south stand's step turned to face the field (its padding to the field, its back and a chained door to the camera), on
+st_stand's canvas and foot; the two turned pictures cut a little lighter so the stadium's folder stays under 900,000 (894,292).
+Made by tools/bohemia_cook6_the_home_center_finished_11_21_26.py ON the Sphere tool (ten deep; the warehouse's racking and roof reached through it); the turned step by
+tools/bohemia_cook6_the_south_stand_turns_11_20_26.py (render sn_stand; cut_stand). The page tool takes 'homecenter'.
+PROOF on the real fight page: the_store_and_the_garden 201 pieces, 0 stand-ins (before: 201), the roof's picture drawn, 0 page errors, upright (a tile 43.9 points) and on its
+side (22); the_long_aisles 187, 0 stand-ins, both ways; the stadium 185, 0 stand-ins, both ways, its south stand's back toward the camera. FOUND BY EYE: dark plywood read as a
+black slab; sun patches sliced flat at the margin; terracotta paint and its prints read as red drops, too near blood (now white).
+Gate THE INSIDES WEAR FINISHED ART 84/0 (eleven kits). COMBAT FOUR's gates: THE BIG INSIDES 166/0, AN INSIDE SHOWS ITS CEILING 6/0.
+VOTE cook6-the-home-center-11-21 (MADE FROM arena2-the-pit-is-a-pit-11-7). Record: records/BOHEMIA_COOK_SIX_THE_HOME_CENTER_11_21_26.md.
+HIS VOTES OF 11/21 ON THIS LANE (rule 466): every card YES; 'Wip' on the stadium, the south stand, the powerhouse and the Sphere ('Wip looks like shit'): rule 466(e), the
+art lane carries them on. *** NEXT ON THIS LANE: (1) THE SPHERE again, by eye on the page, what makes it read as nothing; (2) COMBAT FOUR's hospital (11 names); (3) its cell
+block (15 names); then the other Wips.
+[bb Battle Brothers' forest: a home centre's racks are trees in rows, and the gaps between them are where a line breaks into duels]
+[analog horror: an aisle's number still on the floor of an aisle with nothing in it; footprints out of a spilled gallon of paint, off into the dark]
+
 COOK FIVE (cook-six-01gkdyut): 11/20 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/20u - THE SPHERE, BUILT (ed6b7cd5d), NOT YET SEEN (rule 461, the whole enchilada; rules 453, 441, 416, 451(a), 455; ask row 651).
 THE SPHERE (COMBAT FOUR's BUILD 11/20k, its 'FOR COOK 2)'): all 182 pieces of the_horseshoe were stand-ins. Now slices/fight_ground/sphere/ holds sphere_art.json (THE
 GARAGE'S FORMAT: floor.floor rows 0 to 2 of sphere_floor_0.webp, the bowl's sealed concrete with the last show's spike tape, scuffs and glass in drifts; floor.torn its row 3,

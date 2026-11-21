@@ -60,12 +60,64 @@ def sn_parts(P, rng):
     seats_n(P, *SD.ST_AT['seats'], rng)
 
 
+def stand_n(P, ox, oy, rng):
+    """(11/21, COMBAT FOUR's st_stand_n) the SOUTH stand's step, turned to face the field (north): the north stand's own step (the
+    stadium tool's stand) mirrored north to south. Its treads' nosings on their north edges (the edge you step down toward the field),
+    the brackets where seats were torn out in the seats' own rows, its padding and dead ribbon board on the field's side (north, so the
+    map's eye sees only their top), the cups and a blanket on the front walk along the field; toward the camera the stand's back: cast
+    concrete, a drain's stain down it, the section's number painted, a door into the concourse chained"""
+    LH = SD.LEVEL_H
+    P.box('conc', ox - 6, ox + 6, oy, oy + 12, 0.0, LH - 0.02); P.box('st_tread', ox - 6, ox + 6, oy, oy + 12, LH - 0.02, LH)
+    for k in range(14):                                         # the treads' nosings, mirrored (the same on every tile's edge)
+        y = oy + (k + 1) * ROW_P
+        P.box('under', ox - 6, ox + 6, y, y + 0.05, LH, LH + 0.004); P.box('conc', ox - 6, ox + 6, y - 0.06, y, LH, LH + 0.01)
+    for k in range(11):                                         # the brackets, in the turned seats' own rows
+        y = oy + SD.SEAT_Y0 + k * ROW_P
+        for i in range(23):
+            if rng.rand() < 0.3: continue
+            x = ox - 5.98 + 0.3 + i * 0.52
+            P.box('steel', x - 0.05, x + 0.05, y + 0.06, y + 0.3, LH, LH + 0.03)
+            if rng.rand() < 0.35: P.box('steel', x - 0.025, x + 0.025, y + 0.12, y + 0.24, LH + 0.03, LH + rng.uniform(0.06, 0.14))
+    P.box('ribbon', ox - 6, ox + 6, oy + 12, oy + 12.04, LH - 0.66, LH - 0.08); P.box('pad', ox - 6, ox + 6, oy + 12, oy + 12.03, 0.0, LH - 0.7)   # on the field's side
+    P.box('conc', ox - 6, ox + 6, oy - 0.03, oy, 0.0, LH - 0.02)                                       # its back, toward the camera
+    P.box('stain', ox + 2.3, ox + 2.8, oy - 0.034, oy - 0.03, 0.0, LH - 0.1)                            # where a drain ran down it
+    for dx in (-0.9, -0.3, 0.3): P.box('white', ox + dx, ox + dx + 0.34, oy - 0.036, oy - 0.03, 0.55, 1.05)   # the section's number
+    P.box('steel', ox - 4.4, ox - 3.4, oy - 0.05, oy - 0.03, 0.0, 1.3); P.bar('chrome', (ox - 4.3, oy - 0.07, 0.7), (ox - 3.5, oy - 0.07, 0.75), 0.02)   # a door, chained
+    P.box('rug', ox + 1.6, ox + 3.4, oy + 10.5, oy + 11.6, LH, LH + 0.05); P.box('white', ox + 2.9, ox + 3.3, oy + 11.1, oy + 11.5, LH + 0.05, LH + 0.12)   # a blanket on the front walk
+    for _ in range(12): x = ox + rng.uniform(-5.6, 5.6); y = oy + rng.uniform(9.9, 11.7); P.drum(('jug', 'paper', 'can')[rng.randint(3)], x, y, LH, LH + 0.12, 0.045, 8)
+
+
+def st_n_parts(P, rng):
+    stand_n(P, *SD.ST_AT['stand'], rng)
+
+
 def sn_mats(bpy, NF, F, M, which):
-    if which == 'sn_pieces': SD.st_mats(bpy, NF, F, M, 'st_pieces')    # the stadium's own materials, the same seat black
+    if which in ('sn_pieces', 'sn_stand'): SD.st_mats(bpy, NF, F, M, 'st_pieces')    # the stadium's own materials, the same seat black
 
 
 TG.PARTS['sn_pieces'] = sn_parts
+TG.PARTS['sn_stand'] = st_n_parts
 TG.MAT_HOOKS.append(sn_mats)
+
+
+def cut_stand():
+    """st_stand_n.webp: cut as st_stand was cut, laid on st_stand's own canvas (the same size and foot)"""
+    im = Image.open(os.path.join(SD.REND, 'sn_stand.png')).convert('RGBA'); x, y = SD.ST_AT['stand']; hh = SD.LEVEL_H * SD.PPM / SD.PYM
+    v = TG.cut_piece(im, (x, y), (x - 6.0, x + 6.0 + 0.01, y - 0.05, y + 12.0 + hh + 0.6), 'st_stand_n', 'stadium', 1.0)
+    p = os.path.join(SHIP, 'stadium_art.json'); art = json.load(open(p)); old = art['kit']['st_stand']
+    fn = os.path.join(SHIP, 'st_stand_n.webp'); q = Image.open(fn).convert('RGBA')
+    o = Image.new('RGBA', (old['w'], old['h_px']), (0, 0, 0, 0))
+    dx = int(round(old['foot'][0] - v['foot'][0])); dy = int(round(old['foot'][1] - v['foot'][1]))
+    o.alpha_composite(q.crop((max(0, -dx), max(0, -dy), q.width, q.height)), (max(0, dx), max(0, dy)))
+    o.save(fn, 'WEBP', quality=76, method=6)   # (76: the stadium's folder went over its budget at 86)
+    e = dict(old); e.update(src='stadium/st_stand_n.webp', name='THE STANDS, THE SOUTH STAND',
+                            why="COMBAT FOUR's st_stand_n (BUILD 11/20w): the south stand's step turned to face the field, its padding and ribbon board on the field's side, its back toward the map's eye; st_stand's size and foot")
+    art['kit']['st_stand_n'] = e
+    json.dump(art, open(p, 'w'), indent=1)
+    sp = os.path.join(SHIP, 'sizes.json'); sz = json.load(open(sp))
+    sz['stand_n'] = dict(w=o.width, h=o.height, foot=list(old['foot']), piece='stand_n', src='stadium/st_stand_n.webp', facing='N')
+    json.dump(sz, open(sp, 'w'), indent=1)
+    print('st_stand_n', o.size, 'foot', old['foot'], 'shift', (dx, dy), os.path.getsize(fn), 'bytes')
 
 
 def cut():
@@ -77,7 +129,7 @@ def cut():
     o = Image.new('RGBA', (old['w'], old['h_px']), (0, 0, 0, 0))
     dx = int(round(old['foot'][0] - v['foot'][0])); dy = int(round(old['foot'][1] - v['foot'][1]))
     o.alpha_composite(q.crop((max(0, -dx), max(0, -dy), q.width, q.height)), (max(0, dx), max(0, dy)))
-    o.save(fn, 'WEBP', quality=86, method=6)
+    o.save(fn, 'WEBP', quality=76, method=6)   # (76: the stadium's folder went over its budget at 86)
     e = dict(old); e.update(src='stadium/st_seats_n.webp', name="THE STANDS' SEATS, THE SOUTH STAND",
                             why="COMBAT FOUR's st_seats_n (BUILD 11/20k): the south stand's seats facing NORTH to the field, so the map's eye sees their backs; st_seats' size and foot")
     art['kit']['st_seats_n'] = e
@@ -128,4 +180,5 @@ if __name__ == '__main__':
     if a and a[0] == 'render':
         for n in [x for x in a[1:] if not x.startswith('--')]: print('  rendered', n, TG.scene_pieces(n, '--quick' in a), flush=True)
     elif a and a[0] == 'cut': cut()
+    elif a and a[0] == 'cut_stand': cut_stand()
     elif a and a[0] == 'sheet': sheet(a[1], a[2])
