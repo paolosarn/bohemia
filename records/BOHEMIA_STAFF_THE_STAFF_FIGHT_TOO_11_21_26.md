@@ -62,11 +62,14 @@ four families in turn: roaming crews, the water people, the house, beasts; day 8
 | a tough fight, 8 against 9, no camp | 65% | 8.2 | 4.02 | | |
 | the same with 3 staff, their fall shaking no fighter (the research's draft) | 73% | 8.4 | 3.52 | 22.3% | 7.8% |
 | the same with 3 staff, their fall shaking the line (the build) | 69% | 8.3 | 3.76 | 25.7% | 7.8% |
+| the tough fight again, 300 fights a row, no camp | 66.0% | 8.3 | 3.95 | | |
+| the tough fight again, 300 fights a row, 3 staff (the build) | 66.3% | 8.3 | 3.97 | 26.3% | 7.8% |
 | a full company, 12 against the same 12 (the gate's S10, 120 fights) | 68.3% | 8.3 | 5.45 | | |
 | the same company carrying 5 staff: 7 fighters stand | 25.8% | 8.8 | 5.67 | 48.7% | |
 
-WHAT IT SAYS, PLAINLY. Under his cap the camp costs no fighter, so the fight is about as winnable as before (inside the noise: 100 fights
-is about five points either way), and what it costs is the camp itself: one in eight of them dies in a routine fight, one in four in a
+WHAT IT SAYS, PLAINLY. Under his cap the camp costs no fighter, and over 300 fights the camp neither helps nor hurts the win (66.0%
+against 66.3%, his men down 3.95 against 3.97: with the shake the blows they spend on the camp no longer buy his line anything); what
+it costs is the camp itself: one in eight of them dies in a routine fight, one in four in a
 tough one, each death his help gone and his price to pay again. With a full company the camp costs fighters, and that is where the fight
 gets harder: five staff stand where five fighters stood, and against the band the map sizes for his twelve he wins a quarter of what he
 won (the map's party reads the strength of his company's twelve strongest fighters, the reserve included; the camp never counts in it,

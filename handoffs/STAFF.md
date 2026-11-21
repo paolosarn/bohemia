@@ -48,7 +48,8 @@ tool); gates/the_staff_fight_too_gate.js (THE STAFF FIGHT TOO); tools/bohemia_st
 tools/bohemia_staff_the_card_picture.py (the VOTE card's picture). Record: records/BOHEMIA_STAFF_THE_STAFF_FIGHT_TOO_11_21_26.md.
 
 NUMBERS (100 fights a row, headless, AUTO both sides): routine 8 v 6: 90% won with no camp, 92% with 3 staff, 12.0% of the camp dead a
-fight; tough 8 v 9: 65% / 69%, 25.7% dead; a full company 12 v the same 12: 68.3% -> 25.8% with 5 staff (7 fighters), 48.7% dead.
+fight; tough 8 v 9: 65% / 69%, 25.7% dead, and over 300 fights 66.0% / 66.3%, 26.3% dead (the camp neither helps nor
+hurts the win; it costs itself); a full company 12 v the same 12: 68.3% -> 25.8% with 5 staff (7 fighters), 48.7% dead.
 ON THE PHONE: the demo and the alpha, upright and on its side, all green (behind the line, own body and face, the tent, no sideways
 scroll, the cook's death kept by the camp's book, nothing threw); the camp costs no frame against a no-camp control on one valley.
 GATES: THE STAFF FIGHT TOO 32/0 (--plant red: S1a, S4a); NO CAP ON HOW MANY FIGHT 7/0; EVERY MAN ACTS ON AUTO 22/0; THE RETINUE 29/0, THE HIRE PRICE IS THE FORMULA 10/0, THE ORIGIN SETS THE COMPANY 7/0, EACH ORIGIN ITS OWN 19/0;
