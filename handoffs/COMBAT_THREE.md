@@ -1,6 +1,17 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441; ask rows 468, 651): 11/20 LATEST -- [the last three] SHIPPED 7e14048af, BUILD 11/20w - THE HOME CENTER, THE HOSPITAL AND THE CELL BLOCK, BUILT, NOT YET SEEN. VOTE combat4-the-last-three-insides-11-20 (stand_in).
+COMBAT FOUR (rules 461 as amended 11/21, 59, 441, 465; ask row 651): 11/21 LATEST -- [standing water] SHIPPED SHIPSHA, BUILD 11/21c - STANDING WATER IS SWAMP, BUILT, NOT YET SEEN. VOTE combat4-standing-water-is-swamp-11-21 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_STANDING_WATER_IS_SWAMP_11_21_26.md. Picked up by the coordinator's routine after this lane sat blocked on a send_later approval
+(rule 461(c) AMENDED 11/21: this lane never calls a tool that waits for a person; it schedules nothing).
+WHAT: Battle Brothers' SWAMP row on the glass at last: the cell block's flooded floor is standing water (terrain 'water'): 4 AP a step and a man in it at 0.75 of his melee
+skill and both defences (the fight's own rules all along; no board laid it). drawStanding in the fight draws any laid water as a dark still sheet. Gate THE BIG INSIDES leg
+I11 (struck 20% in the water, 10% dry, a plant). The tap line unchanged (465).
+FOR EYES: a finger aimed at a tile beside a tall cover piece twice got the neighbour's line this round (record, TAPS); a find if a player's tap does it too.
+NEXT: more ground for the insides from Battle Brothers' table (what it has that no board lays yet), then more boards; EYES' finds on this round's builds first.
+[bb Battle Brothers' swamp: the one ground that makes a good man fight badly; murky water to the knee]
+[analog horror: a security camera over a flooded dayroom, the water perfectly still, one ring spreading where something just went under]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441; ask rows 468, 651): 11/20 -- [the last three] SHIPPED 7e14048af, BUILD 11/20w - THE HOME CENTER, THE HOSPITAL AND THE CELL BLOCK, BUILT, NOT YET SEEN. VOTE combat4-the-last-three-insides-11-20 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_HOME_CENTER_THE_HOSPITAL_AND_THE_CELL_BLOCK_11_20_26.md. The round's third build: row 468's last line, whole, in one ship (441(d)).
 WHAT: THE HOME CENTER ('hardware', every fight at its cell): runs of racking you cannot stand on, end caps in their gaps, stock in the aisles, checkouts, the lumber along the back, the garden yard
 behind its fence under the sky; no high ground. THE HOSPITAL ('medical', 0.7 of what the garage leaves): the emergency room (bays along both walls, the nurses' station and the

@@ -1,10 +1,16 @@
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21c - STANDING WATER IS SWAMP, BUILT, NOT YET SEEN (rules 461, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+STANDING WATER IS SWAMP: Battle Brothers' swamp row was in the fight's rules and in WORLD's table but no board laid it. The cell block's flooded floor is it now: 4 AP a
+step, and a man standing in it fights worse (a quarter off melee and both defences); it reads as dark still water on the glass (drawStanding). Gate THE BIG INSIDES I11
+with a plant. The tap line unchanged (465). VOTE combat4-standing-water-is-swamp-11-21 (stand_in). This lane schedules nothing (461(c) amended).
+[bb Battle Brothers' swamp: the one ground that makes a good man fight badly]
+[analog horror: a security camera over a flooded dayroom, the water perfectly still]
 WORDS THREE (words-three-01gkdyuvnl): 11/20 LATEST -- BUILD 11/20z - HE IS NOT DONE: SHEET FOUR, AND HIS ANSWER IS KEPT, BUILT (8bb71a2fa), NOT YET SEEN (rule 465; ask row 629). Its block is handoffs/WORDS_TWO.md.
 Rule 465: he is still typing his lines into the homework cards; nothing goes into the game until he says he is done; THE VOICE HOLDS asleep, 0 of 15 open.
 A line he types into a card is now KEPT on his phone as he types (it was wiped by MORE, UNDO and a reload); the homework box says 'type how it should sound'
 (the VOTE tab, RUN TWO's and UI's file, three small pieces; gate HIS ANSWER IS KEPT 15/0). SHEET FOUR (words-two-hw04-01 to -12) waits behind sheet three: 52 cards out.
 [bb Battle Brothers never asks the player to write a line; ours asks him, so the box has to be as safe as a save file]
 [analog horror: card 4.9, the tape of your own crew walking this road ten minutes ago]
-COMBAT FOUR (combat-four-01gkdyuv): 11/20 LATEST -- BUILD 11/20w - THE HOME CENTER, THE HOSPITAL AND THE CELL BLOCK, BUILT, NOT YET SEEN (rule 461; rules 416, 59, 428, 451(a), 441; ask rows 468, 651). The round's third build.
+COMBAT FOUR (combat-four-01gkdyuv): 11/20 -- BUILD 11/20w - THE HOME CENTER, THE HOSPITAL AND THE CELL BLOCK, BUILT, NOT YET SEEN (rule 461; rules 416, 59, 428, 451(a), 441; ask rows 468, 651). The round's third build.
 Row 468's last line, whole, in one build: THE HOME CENTER (runs of racking, end caps, the checkouts, the lumber, the garden yard under the sky; one floor), THE HOSPITAL (the
 emergency room's bays round the nurses' station and the pharmacy's cage, or a ward of beds; one floor) and THE CELL BLOCK (cells as walls, the tiers they hold at the bell, the
 dayroom's tables, barricades, burned heaps and flooded floor; or two units across the sally port's bars). Three data files, every picture a stand-in (the names for COOK are in

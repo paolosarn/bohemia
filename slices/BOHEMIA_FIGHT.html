@@ -9462,6 +9462,7 @@ function draw(now) {
   goreTick(now); drawStains();
   drawFire(now);   /* THE CELL VEST (rule 305): the ground that burns, under the men */
   drawCalled(now);   /* BESTIARY 11/17: the spotter's called ground */
+  drawStanding();   /* __STANDING_WATER_IS_SWAMP__ (COMBAT FOUR 11/20): water a board lays (the cell block's flooded floor) reads as water */
   drawFlood(now);   /* __THE_FLOOD_TUNNELS__: the flash flood in the main channel, under the men */
   /* the fallen lie where they fell, from the moment their fall plays (rule 121: the fall plays whole) */
   S.units.filter(function (v) { return (v.dead || v.down) && v._fallAt !== undefined && (v.side === 'you' || v.seenFall); }).forEach(function (v) { drawBody(v, tw, th); });
@@ -11945,6 +11946,23 @@ function drawCeiling() {
   const sh = ceilingSheet(); if (!sh) return;
   cx.save(); cx.globalAlpha = C.alpha; cx.imageSmoothingEnabled = true; cxDraw(sh, 0, 0, sh.width, sh.height, sx(0), sy(0), S.w * UI.tw * UI.zoom, S.h * UI.th * UI.zoom); cx.restore();
   UI.ceilOn = { kind: C.kind, alpha: C.alpha, picture: !!(C.src && UI.imgs['fight_ground/' + C.src]) };
+}
+/* __STANDING_WATER_IS_SWAMP__ (COMBAT FOUR 11/20, rule 59: every floor tile from Battle Brothers with its cost and its effect): a tile a board
+   lays as standing water (terrain 'water': Battle Brothers' swamp, 4 AP a step, a quarter off melee and the defences of a man in it) reads as
+   water on the glass: a dark still sheet and its glints, the flood's own look with nothing moving (standing water is still). The flood's own
+   tiles are drawn by drawFlood and never here */
+function drawStanding() {
+  const S = FIGHT.S, B = S.boardDef; if (!B || !S.terrain) return;
+  if (S.standingFor !== B) { S.standingFor = B; S.standing = [];
+    for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (S.terrain[y][x] === 'water' && !(S.flood && S.flood.tiles && S.flood.tiles.some(function (q) { return q[0] === x && q[1] === y; }))) S.standing.push([x, y]); }
+  if (!S.standing.length) return;
+  mkOn();
+  S.standing.forEach(function (q) { if (S.terrain[q[1]][q[0]] !== 'water') return;
+    const T = mkTile(q[0], q[1]), w = T.x1 - T.x0, h = T.y1 - T.y0, k = Math.max(2, Math.round(w / 18));
+    mkCell(T.x0, T.y0, w, h, 'rgba(46,52,48,.6)');
+    for (let i = 0; i < 4; i++) { const r = mulberry(seedOf('standing:' + q[0] + ',' + q[1] + ':' + i)), y = T.y0 + Math.floor(r() * (h - k)), x = T.x0 + Math.floor(r() * (w - 3 * k));
+      mkCell(x, y, 3 * k, k, 'rgba(146,156,146,.32)'); } });
+  mkOff();
 }
 function drawFlood(now) {
   const S = FIGHT.S, f = S.flood; if (!f || !f.tiles || !(f.on || f.gone)) return;

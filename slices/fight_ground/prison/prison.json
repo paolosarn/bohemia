@@ -236,11 +236,11 @@
    "draft": true
   },
   "flooded": {
-   "row": "rough",
-   "terrain": "rough",
-   "ap": 3,
+   "row": "swamp",
+   "terrain": "water",
+   "ap": 4,
    "open": true,
-   "effect": "Where the toilets were plugged and the floor flooded: open ground and slow going (3 AP a step). [bb] its swamp.",
+   "effect": "Where the toilets were plugged and the floor flooded: standing water, open ground, 4 AP a step, and a man standing in it fights worse: a quarter off his melee skill, his melee defence and his ranged defence (COMBAT FOUR 11/20, before this: 3 AP and nothing else). [bb] its swamp: murky water.",
    "say": "Flooded floor: slow going, open ground.",
    "draft": true
   },

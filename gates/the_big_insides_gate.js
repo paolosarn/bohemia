@@ -158,6 +158,19 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
       for (let i = 0; i < N10; i++) { if (deal(D0, i, { inside: undefined, ground: { cell: [9, 9], district: 'arterial', land: D0, zone_place: null, street: { way: 'ew', ends: 3, mouths: 0, road: true } } }).boardDef.interior) road++;
         if (deal('suburb', i, { inside: undefined, ground: { cell: [9, 9], district: D0, zone_place: null, street: null } }).boardDef.interior === id) own++; }
       check(road === 0 && own > 0, 'I10 ' + N, 'AN INSIDE IS WHERE THE CELL IS: a road cell beside it, handed with its district, went inside on ' + road + ' of ' + N10 + '; its own cell, handed with a neighbour\'s district, on ' + own + ' of ' + N10); }
+    /* I11 (COMBAT FOUR 11/20, rule 59: every floor tile from Battle Brothers with its cost AND ITS EFFECT): standing water is Battle Brothers'
+       swamp, read by the fight as swamp: 4 AP a step (I7 prices it) and a man standing in it is hit more easily than the same man dry */
+    if (Object.keys(TK).some(k => TK[k].row === 'swamp')) {
+      const S = deal(DIST[0], 2, { inside: id }), L = S.boardDef.laid; let at = null;
+      for (let y = 0; y < S.h && !at; y++) for (let x = 0; x < S.w && !at; x++) if ((TK[L.tiles[y][x]] || {}).row === 'swamp' && !S.units.some(u => u.x === x && u.y === y)) at = [x, y];
+      const t = S.units.filter(u => u.side === 'you')[0], a = S.units.filter(u => u.side !== 'you' && u.weapon && !u.weapon.ranged)[0] || S.units.filter(u => u.side !== 'you')[0], hc = (p, q) => { const r = F.hitChance(p, q); return r && typeof r === 'object' ? r.chance : r; };
+      let ok = false, msg = 'no swamp tile dealt';
+      if (at && t && a) { t.x = at[0]; t.y = at[1]; a.x = at[0] + (at[0] + 1 < S.w ? 1 : -1); a.y = at[1];
+        const wet = hc(a, t), keep = S.terrain[at[1]][at[0]]; S.terrain[at[1]][at[0]] = 'flat'; const dry = hc(a, t); S.terrain[at[1]][at[0]] = 'rough'; const rough = hc(a, t); S.terrain[at[1]][at[0]] = keep;
+        ok = F.rowAt(at[0], at[1]) === 'swamp' && wet > dry && rough === dry;
+        msg = 'a man of his on ' + L.tiles[at[1]][at[0]] + ' at ' + at.join(',') + ' (the fight reads ' + F.rowAt(at[0], at[1]) + '): struck at ' + wet + '% in the water, ' + dry + '% on the same tile dry; planted: the water read as rough ground, ' + rough + '% (no effect: caught)'; }
+      check(ok, 'I11 ' + N, 'STANDING WATER IS SWAMP: ' + msg);
+    }
     /* I9 */
     { const c = deal(DIST[0], 1, { inside: id }).boardDef.ceiling, want = data.ceiling || {};
       check(!!c && c.kind === want.kind && c.alpha >= 0.05 && c.alpha <= 0.14 && c.name === want.src && (want.have ? fs.existsSync(path.join(ROOT, FG, want.src)) : c.src === null), 'I9 ' + N, 'ITS CEILING: ' + (c ? c.kind + ' at ' + c.alpha + ', the picture ' + want.src + (want.have ? ' (in)' : ' (owed by COOK FIVE: the fight draws the kind itself)') : 'NONE')); }
