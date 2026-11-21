@@ -1,4 +1,4 @@
-COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21d - THE HOME CENTER, BUILT (SHIPSHA), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 453, 441, 416, 451(a), 455; ask row 651).
+COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21d - THE HOME CENTER, BUILT (4bd2d86e5), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 453, 441, 416, 451(a), 455; ask row 651).
 THE HOME CENTER (COMBAT FOUR's BUILD 11/20w, its 'FOR COOK (SIX) 2)'): all 201 pieces of the_store_and_the_garden were stand-ins. Now slices/fight_ground/homecenter/ holds
 homecenter_art.json (THE GARAGE'S FORMAT: floor.floor rows 0 to 2 of homecenter_floor_0.webp, the slab with an aisle's number on a floor decal, forklift tracks, a spill of white
 paint and the footprints out of it; floor.yard rows 3 and 4, the garden yard under the shade cloth's shadow, the sun through its tears, soil, pot rings; floor.ring the slab;
