@@ -5,6 +5,31 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/21 LATEST -- [last hit] SHIPPED 282e065a, BUILD 11/21g - THE LAST HIT ON THE CARD, BUILT, NOT YET SEEN (rules 450(a), 449(b), 441, 461 as amended 11/21; ask row 616). VOTE fight-screen-the-last-hit-on-the-card-11-21 (stand_in; before and after).
+THIS CHAT IS FIGHT SCREEN THREE. Record: records/BOHEMIA_FIGHT_SCREEN_THE_LAST_HIT_ON_THE_CARD_11_21_26.md. HIS VOTES OF 11/21: ONE MOUTH AT A TIME YES, THE CAP ON THE GLASS YES.
+WHAT: the phone's card shows what the blows took off the man on it since his last turn ended (at the bell for everyone), on his health and armour bars in
+the board's own punch colour (bone #f2ead8), right of what is left, until his turn ends. The board's bars already did it briefly (chipOn, THE PUNCH).
+WHERE: slices/BOHEMIA_FIGHT.html __THE_LAST_HIT_ON_THE_CARD__ (the marks v._hpEnd / v._armEnd at fightNow and when the turn passes, UI.lastMan; hud() writes
+data-lost on #bhp and #barm for the man shown); slices/bohemia_phone.js (UI's file; marked lines in P.man's bar() and manPaint's key, a marked block in its bars'
+loop, one css line in FIGHT SCREEN TWO's block: u.lost).
+GATES: THE MAN'S CARD ON THE PHONE 11/0 (P8 + its plant new; the tool's turn wait 60 s, it read a man of theirs as his on two of four runs at 25 s).
+THE PHONE 268/0 RUN ALONE (beside three browsers it lost its sideways fight: 221/3, a flake); ONE OF ITS LEGS CORRECTED: 'the abilities open from it' took the star
+off one name only and read 6 red once 11/20e put 'YOU *' on the card in the lineup. LESSON: 11/20e changed which man the card shows and this lane did not run THE
+PHONE on it; ANY CHANGE TO WHAT THE CARD SHOWS RUNS THE PHONE ALONE.
+ALSO THIS ROUND: the walk tool has END=retreat (he pulls out on his turn) and a MEN OFF reading (each man's figure against the glass, the fight's allFramed);
+a retreat lands on the one end screen ('YOU PULLED OUT'), clear both ways. ROUTED to COMBAT FOUR as a NOTE on handoffs/COMBAT_THREE.md: the camera cuts his
+lineup by 6 points at the far stop upright, and keeps two of theirs off the glass on his turn on its side.
+MEASURED AND LEFT: the phone's four round buttons carry no word, but a held finger names each (bohemia_ui_nothing_pops.js, 'fight button') and the lessons teach
+them; the opening card's men are drawn as their faces, which meets his 'their number is their men, drawn' (rule 224): bodies are a nicety, not owed.
+NEXT, in order:
+ (1) EYES' notes on 11/20e and 11/21g, when they come (rule 441(b)).
+ (2) THE END SCREEN (rule 449(b)): the spoils page is RUN's and 'at final' (rule 404); its rolled receipt shows only its last line from behind the header (both ways,
+     routed to RUN FIVE in the 11/20 record). This lane's own end (#over) is handed to it in the game.
+ (3) The opening card's men as BODIES, only if he asks.
+ (4) The turn order: NOT owed unless he asks (his note 9 of 11/2).
+[bb Battle Brothers shows the hit on the bar for a moment and the number on hover; ours keeps it on his card until his turn is done]
+[analog horror: a strip of tape where the picture used to be, the length of what was cut out]
+
 FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/20 LATEST -- [one mouth] SHIPPED 07f40d8e, BUILD 11/20e - ONE MOUTH AT A TIME, BUILT, NOT YET SEEN (rule 461's walk; rules 449(b), 450(a), 441, 454(a); ask row 616). VOTE fight-screen-one-mouth-at-a-time-11-20 (stand_in; before and after).
 THIS CHAT IS FIGHT SCREEN THREE (FIGHT SCREEN TWO stopped at its model's weekly limit; it left no pushed branch). Record: records/BOHEMIA_FIGHT_SCREEN_ONE_MOUTH_AT_A_TIME_11_20_26.md.
 THE WALK, THE LANE'S NEW EYE: tools/bohemia_fight_screen_the_walk.js <alpha|demo> <upright|sideways> <outdir> [road|beasts] (SCALE=2 for stills he sees; BEFORE=1 serves this
