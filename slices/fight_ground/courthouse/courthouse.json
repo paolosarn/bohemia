@@ -1,0 +1,478 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "courthouse",
+ "name": "THE COURTHOUSE",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "The valley's 1933 federal courthouse and post office downtown became the Mob Museum; its restored second-floor courtroom is where the Senate's Kefauver Committee held a hearing on organized crime in November 1950.",
+  "A courtroom is the gallery's pews behind the bar, the well in front of it (the counsel tables), and at the far end the judge's bench, the witness stand and the jury box.",
+  "The museum floor is exhibits in cases and free-standing walls; one of them is a brick wall with bullet marks in it, carried here from Chicago.",
+  "On house tiles a courtroom is the whole hall: the pews are rows a tile deep, the bar a rail across the room with its gaps."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (courthouse_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "mobmuseum"
+ ],
+ "share": 0.8,
+ "districts_why": "The courthouse is its own map kind, one building of stone: eight fights in ten there are fought inside it, by the cell's own dice; the rest on its steps and the street.",
+ "board": {
+  "templates": {
+   "courthouse": {
+    "name": "THE COURTHOUSE",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_courtroom": [
+      "####################",
+      "#..j.j....BB...w.w.#",
+      "#..j.j....BB.......#",
+      "#.........t..c..c..#",
+      "#..c..c...t........#",
+      "#rrrr.rrrrrrrr.rrrr#",
+      "#.ppppppp..ppppppp.#",
+      "#.ppppppp..ppppppp.#",
+      "#.................f#",
+      "#.ppppppp..ppppppp.#",
+      "#.ppppppp..ppppppp.#",
+      "#..................#",
+      "#f.................#",
+      "#...D....DD....D...#",
+      "####################"
+     ],
+     "the_museum_floor": [
+      "####################",
+      "#.e..e..WWW..e..e..#",
+      "#....s..e.k...s....#",
+      "#.e..s..e.s.s..e...#",
+      "#.....k..k...s.....#",
+      "#..e..WWWW...e..s..#",
+      "#D..s..e.s..e......#",
+      "#..e..k.s.e.k..e..D#",
+      "#....s.k.e....s....#",
+      "#.e..e..WWWW..e....#",
+      "#.........s.....e..#",
+      "#..s..e..s.k..s....#",
+      "#.e..f..e.s..f..e..#",
+      "#....D..s.s..D.....#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   "W": {
+    "is": "wall",
+    "wall": "air",
+    "tile": "exhibit_wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "p": {
+    "is": "floor",
+    "tile": "pews",
+    "piece": "ct_pews",
+    "at": [
+     0.5,
+     0.72
+    ]
+   },
+   "r": {
+    "is": "floor",
+    "tile": "bar",
+    "piece": "ct_bar",
+    "at": [
+     0.5,
+     0.6
+    ]
+   },
+   "t": {
+    "is": "floor",
+    "tile": "counsel",
+    "piece": "ct_counsel",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "chairs",
+    "piece": "ct_chairs",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "B": {
+    "is": "floor",
+    "tile": "bench",
+    "piece": "ct_bench",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "j": {
+    "is": "floor",
+    "tile": "jury",
+    "piece": "ct_jury",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "w": {
+    "is": "floor",
+    "tile": "witness",
+    "piece": "ct_witness",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "e": {
+    "is": "floor",
+    "tile": "case",
+    "piece": "ct_case",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "s": {
+    "is": "floor",
+    "tile": "stand",
+    "piece": "ct_stand",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "kiosk",
+    "piece": "ct_kiosk",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The courthouse's stone: no way through.",
+   "say": ""
+  },
+  "exhibit_wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "A free-standing exhibit wall, its panels faded: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The terrazzo floor: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The floor: open ground.",
+   "draft": true
+  },
+  "pews": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The gallery's wooden pews in their rows: low cover, and slow going over them (3 AP). [bb] its brush.",
+   "say": "Pews: low cover, slow going.",
+   "draft": true
+  },
+  "bar": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The bar, the oak rail between the gallery and the well, its gate long gone: low cover. [bb] its palisade, waist high.",
+   "say": "The bar's rail: low cover.",
+   "draft": true
+  },
+  "counsel": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A counsel table on its side: cover.",
+   "say": "A counsel table: cover.",
+   "draft": true
+  },
+  "chairs": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Chairs from the well, piled: low cover.",
+   "say": "Piled chairs: low cover.",
+   "draft": true
+  },
+  "bench": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "The judge's bench, raised and solid oak: nobody stands on its tile; cover for the tiles beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "jury": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The jury box, its two rows of chairs behind a rail: low cover, slow going (3 AP).",
+   "say": "The jury box: low cover, slow going.",
+   "draft": true
+  },
+  "witness": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The witness stand, boxed in oak: cover.",
+   "say": "The witness stand: cover.",
+   "draft": true
+  },
+  "case": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "An exhibit case, its glass broken and its things taken: cover.",
+   "say": "An exhibit case: cover.",
+   "draft": true
+  },
+  "stand": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "An exhibit's stand, waist high: low cover.",
+   "say": "An exhibit stand: low cover.",
+   "draft": true
+  },
+  "kiosk": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A dead screen on its kiosk: low cover.",
+   "say": "A dead kiosk: low cover.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a waste bin. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The tall doors to the stair hall, open: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The tall doors: open ground.",
+   "say_lit": "The tall doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in courthouse_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "ct_pews": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "PEWS"
+  },
+  "ct_bar": {
+   "like": "sb_barrier_S",
+   "kind": "LOW_COVER",
+   "name": "THE BAR'S RAIL"
+  },
+  "ct_counsel": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "A COUNSEL TABLE"
+  },
+  "ct_chairs": {
+   "like": "sb_corral_S",
+   "kind": "LOW_COVER",
+   "name": "PILED CHAIRS"
+  },
+  "ct_bench": {
+   "like": "casino_stage",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "THE JUDGE'S BENCH"
+  },
+  "ct_jury": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "THE JURY BOX"
+  },
+  "ct_witness": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "name": "THE WITNESS STAND"
+  },
+  "ct_case": {
+   "like": "casino_screens",
+   "kind": "COVER",
+   "name": "AN EXHIBIT CASE"
+  },
+  "ct_stand": {
+   "like": "sb_drums_S",
+   "kind": "LOW_COVER",
+   "name": "AN EXHIBIT STAND"
+  },
+  "ct_kiosk": {
+   "like": "garage_booth",
+   "kind": "LOW_COVER",
+   "name": "A DEAD KIOSK"
+  },
+  "ct_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "ct_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  },
+  "ct_exhibit_ew": {
+   "like": "casino_wall_ew",
+   "kind": "WALL",
+   "name": "AN EXHIBIT WALL"
+  },
+  "ct_exhibit_ns": {
+   "like": "casino_wall_ns",
+   "kind": "WALL",
+   "name": "AN EXHIBIT WALL"
+  }
+ },
+ "walls": {
+  "ew": "ct_wall_ew",
+  "ns": "ct_wall_ns"
+ },
+ "walls_air": {
+  "ew": "ct_exhibit_ew",
+  "ns": "ct_exhibit_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: the judge's bench is raised, but a step, not a storey; it is a blocker.",
+ "ceiling": {
+  "kind": "coffer",
+  "alpha": 0.1,
+  "src": "courthouse/courthouse_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the courtroom's coffered plaster ceiling, its lamps dead, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the casino's coffers)."
+ }
+}
