@@ -161,3 +161,14 @@ AUTO on the alpha upright at the school's cells, twice: THE SCHOOL dealt both ti
 with green tops and their chairs, debris; 66 blocked, 32 rough, 202 flat), x2 and x4, fought to the end in 50 s and 37 s, staleTurns
 0, never more than 3 flashes in a second, 0 page errors (e16). The gym not dealt in two; its ceiling grid at 0.10 with no picture yet.
 (EYES' tool: a GO tapped before the barber listened was lost twice this round under load; it now taps until the barber is gone.)
+
+## 11/21o THE HOSPITAL, THE CELL BLOCK, THE SPHERE AGAIN (COOK SIX, c8ca3ecc1; row 651): SEEN AT NIGHT
+
+AUTO on the alpha upright at the medical, prison and Sphere cells (main 32ef0aa53), every fight to the end, staleTurns 0, never more
+than 3 flashes in a second, 0 page errors:
+- THE HOSPITAL (its ward): rows of ward beds on a light vinyl floor, its dropped ceiling drawn at 0.10 (grid, picture true) (e21).
+- THE CELL BLOCK: the barred cells, the tier's rail along the foot, its 4 swamp tiles; its concrete roof NOW DRAWN (deck, picture true;
+  it was false before this build) (e22).
+- THE SPHERE (his 11/21 vote on the old roof): its new roof drawn at 0.10 (screen, picture true); on the glass no bullseye over the
+  fight, the floor dark with debris (e20). The fallen truss and the blue seats not made out at night.
+- THE PARKING GARAGE came up once at the medical cells too (its share), its deck drawn.
