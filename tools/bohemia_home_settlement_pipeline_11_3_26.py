@@ -39,7 +39,7 @@ R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(R, 'tools'))
 OUT = os.path.join(R, 'records/target/home_settlement')
 RAW = '/tmp/claude-0/home_settlement_raw'
-VENV = '/tmp/v/bin/python'
+VENV = os.environ.get('BOHEMIA_BPY') or '/tmp/v/bin/python'   # HOME BASE 2 11/21: the venv's path from the environment when set
 SIZES = {'tall': (180, 320), 'wide': (320, 180)}   # each camera shot both ways from the same mount (rule 348), at the PS1's size
 PT_PX = 180 / 390.0                         # a point on the phone in source pixels (both shapes fit 180 px to 390 points)
 
@@ -99,6 +99,14 @@ PIECES = {
     'house_garage': dict(row='back', src='bld:ranch_garage', states=['built'], width=8.6),
     'house_wing': dict(row='back', src='bld:ranch_wing', states=['built'], width=8.6),
     'house_carport': dict(row='back', src='bld:ranch_carport', states=['built'], width=8.4),   # deep: seated a little smaller to fit 10 m
+    # HOME BASE 2 11/21 (rule 466(a)): his own builds' pieces, tools/bohemia_home_base_his_pieces_11_21_26.py, each in its row's height
+    'wall': dict(row='front', src='his:wall', states=['built', 'working']),
+    'stall': dict(row='front', src='his:stall', states=['built', 'working']),
+    'yard': dict(row='front', src='his:yard', states=['built', 'working']),
+    'shed': dict(row='middle', src='his:shed', states=['built']),
+    'pump': dict(row='middle', src='his:pump', states=['built', 'working']),
+    'forge': dict(row='middle', src='his:forge', states=['built', 'working']),
+    'lookout': dict(row='back', src='his:lookout', states=['built', 'working']),
 }
 # the look test's block (a default layout, data, not a picture): lot -> (piece, state)
 DEFAULT = {1: ('main', 'working'), 2: ('purifier', 'working'), 5: ('garden_bed', 'working'), 6: ('water_tank', 'built'),
@@ -283,6 +291,9 @@ def piece(pid, look='act1'):
             pl = V.Town(bpy, P, rnd); before = set(sc.objects)
             kind, name = D['src'].split(':')
             if kind == 'pieces': root = pl.here(pid, PCS.make(bpy, P, IC, V, K, pl, HAND, rnd, bt)[name], 0.0, -2.8, st)
+            elif kind == 'his':                                       # HOME BASE 2 11/21: his own builds' pieces
+                import bohemia_home_base_his_pieces_11_21_26 as HIS
+                root = pl.here(pid, HIS.make(bpy, P, IC, V, K, pl, HAND, rnd, bt)[name], 0.0, -2.8, st)
             else: root, _ = pl.model('bld_%s.glb' % name, 0.0, -5.0, width=D.get('width', 10.4))
             ms = [o for o in sc.objects if o not in before and o.type == 'MESH']
             lo, hi = pl._bounds(ms); root.location.x -= (lo[0] + hi[0]) / 2; root.location.y -= (lo[1] + hi[1]) / 2; bpy.context.view_layer.update()
@@ -596,6 +607,42 @@ def post(look='act1'):
     print('  post', look, len(man['pieces']), 'pieces;', 'gate', json.dumps(man['gate']['summary']))
 
 
+
+def post_add(pids, look='act1'):
+    """HOME BASE 2 11/21 (rule 466(a)): the look baked into NEW pieces only, merged into the manifest as it stands (post() rebuilds every
+    plate, lens layer and piece from the raw renders, and the 11/3 raw plates are not on every box: run whole it would empty the
+    manifest's plates). The same cut, medium and shadow rule as post()'s piece half, line for line."""
+    import numpy as np
+    from PIL import Image
+    mp = os.path.join(OUT, 'manifest.json'); man = json.load(open(mp))
+    for pid in pids:
+        pj = json.load(open(os.path.join(RAW, 'piece_%s.json' % pid))); ent = dict(row=PIECES[pid]['row'], src=pj['src'], states={}, cams=pj['cams'])
+        for st, S in pj['states'].items():
+            ent['states'][st] = dict(size_m=S['size_m'], pics={})
+            for cn in CAMS:
+                for sh in SIZES:
+                    E0 = np.asarray(Image.open(os.path.join(RAW, 'empty_cam%d_%s.png' % (cn, sh))).convert('RGBA'))[..., 3] / 255.0
+                    for ln in pj['lots']:
+                        pics, xy = [], None
+                        for bt in ((0, 1) if st == 'working' else (0,)):
+                            L = np.asarray(Image.open(os.path.join(RAW, 'piece_%s_%s_%d_cam%d_%s_lot%d.png' % (pid, st, bt, cn, sh, ln))).convert('RGBA'))
+                            al = L[..., 3] / 255.0
+                            al = np.where(al > 0.95, al, np.clip(al - E0 - 0.04, 0, 1))
+                            al = np.where(al > 0.12, al, 0.0); ys, xs = np.nonzero(al > 0.12)
+                            if not len(xs): continue
+                            if xy is None:
+                                x0 = 4 * (max(0, xs.min() - 2) // 4); y0 = 4 * (max(0, ys.min() - 2) // 4)
+                                x1 = min(L.shape[1], xs.max() + 3); y1 = min(L.shape[0], ys.max() + 3); xy = [int(x0), int(y0)]
+                            rgb = L[y0:y1, x0:x1, :3]; a_ = al[y0:y1, x0:x1]
+                            q = medium(rgb * a_[..., None], 0, look, alpha=a_)
+                            o = np.zeros(rgb.shape[:2] + (4,), np.uint8); o[..., :3] = q; o[..., 3] = np.where(a_ > 0.5, 255, (a_ > 0.12) * 150)
+                            nm = '%s_%s_cam%d_%s_lot%d_%d.png' % (pid, st, cn, sh, ln, bt); Image.fromarray(o).save(os.path.join(OUT, 'pieces', nm), optimize=True)
+                            pics.append(nm)
+                        if pics: ent['states'][st]['pics']['%d_%s_%d' % (cn, sh, ln)] = dict(pictures=pics, xy=xy)
+        man['pieces'][pid] = ent; print('  post_add', pid, {k: len(v['pics']) for k, v in ent['states'].items()}, flush=True)
+    json.dump(man, open(mp, 'w'), indent=1)
+
+
 def gate_numbers(src=None):
     """per camera and shape: each lot's share of itself still seen with every lot at its tallest, and the biggest square inside what is
     seen (its tap box) in points on the phone"""
@@ -703,4 +750,5 @@ if __name__ == '__main__':
     elif a[0] == 'empty': empty(); sys.stdout.flush(); os._exit(0)
     elif a[0] == 'near': near(); sys.stdout.flush(); os._exit(0)
     elif a[0] == 'post': post(a[1] if len(a) > 1 else 'act1')
+    elif a[0] == 'post_add': post_add(a[1:])   # HOME BASE 2 11/21: new pieces only, merged
     elif a[0] == 'card': card()

@@ -23,7 +23,9 @@ standalone page slices/BOHEMIA_YOUR_SETTLEMENT.html (190 lines) draws plate + pi
 354(h): he never picks the next; held while a sheet is open or a finger is down), taps a lot by tap_px. It was never wired to his
 planted place; HOME BASE built on the town screen instead and that is what he killed.
 WHAT IS MISSING (the work, in order):
-1. PIECES for his things: the pipeline has main (THE TAP's prize), purifier (THE FILTER's), kitchen (THE POT's), garden_bed (lotbuild
+1. DONE 11/21 (records/BOHEMIA_HOME_BASE_HIS_PIECES_ON_THE_CAMERAS_11_21_26.md): wall, stall, yard (front), shed, pump, forge (middle),
+   lookout (back) modelled (tools/bohemia_home_base_his_pieces_11_21_26.py), rendered, merged by the pipeline's new post_add; 17 pieces.
+   (WAS:) PIECES for his things: the pipeline has main (THE TAP's prize), purifier (THE FILTER's), kitchen (THE POT's), garden_bed (lotbuild
    garden), water_tank (tank), solar_panel (solar), four houses (roof can be a house); it lacks lotbuild's wall, shed, pump, stall and
    HOME BASE's yard, forge, lookout. One model each through the pipeline's own piece() (rule 354(m): never a hand-made angle).
 2. ROWS: HOME BASE puts a build on the first free open lot (lots 0-3 open first: the front row, 2.6 m), but a piece may only stand in
