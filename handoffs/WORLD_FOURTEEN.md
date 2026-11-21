@@ -1,5 +1,18 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN and from 11/21 by WORLD FIFTEEN, its successor; newest block on top)
 
+WORLD FIFTEEN, ROUND ONE, THE SCRAP MILL DECIDED (11/21; the coordinator's word: decide it by rule 464's lesson, do not ask him): IT STAYS.
+- WHY: HE VOTED YES ON IT in the tab 11/21 (records/BOHEMIA_PAOLO_VOTE_11_21_26.txt: 'YES THE SCRAP MILL: CHEAP COPPER WIRE AND TWICE
+  THE TAPE', world14-the-scrap-mill-11-17, no note). Rule 464's lesson keeps a checklist piece off the map only 'without his word on that
+  piece'; a YES on its own card is that word. My first call (take it out: it came only from the Pocket City list, and its name puts the
+  word 'scrap' on the map, which rule 276 took off the loot screens) was built and checked but never pushed; it was undone whole the
+  moment his vote landed on main. Nothing of it is on main.
+- FOR THE COORDINATOR (not asked of him): the place's NAME carries 'scrap' (rule 276(d): the word on no screen; his 10/26 complaint was
+  the loot word, 'what the fuck is scrap'). He saw the card titled THE SCRAP MILL and said YES, newest wins, so it stays as it is; if
+  the coordinator reads 276 as binding place names too, a rename is one row (real_places.json name, stall_prices.json made_by).
+- PROVED ON MAIN ed219cd2: THE SCRAP MILL (demo) 11/0, a phone both ways.
+[bb Battle Brothers keeps an attached location when the lord who owns the map likes it; ours stays because he said yes.]
+[analog horror: the baler on Commerce Street still runs on a truck battery some nights; nobody goes to see who feeds it.]
+
 WORLD FIFTEEN (takes over from WORLD 14 on this file, 11/21; rule 461 as amended: no tool that waits for a tap, keep going). ROUND ONE,
 BUILD ONE: BUILD 11/21b - THE STRAT FROM THE TOWN'S GATE (ask row 659, found by EYES; rule 441; rule 454(a): no words).
 BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_15_THE_STRAT_FROM_THE_TOWNS_GATE_11_21_26.md.

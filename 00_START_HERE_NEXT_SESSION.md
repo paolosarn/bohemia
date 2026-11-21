@@ -857,6 +857,9 @@ both ways. Next beyond the floor: CHARACTER's clothes for the 13 stand-ins. VOTE
 Record records/BOHEMIA_BESTIARY_THE_SIREN_AND_THE_BATTERY_MAN_11_20_26.md.
 [bb Battle Brothers' Ancient Priest's Horror shakes every brother in its area; ours is a neighbour with an air-raid siren he found in a school.]
 [analog horror: the siren winds up from nothing, the same note the valley heard the night the dollar died.]
+WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/21 LATEST (the mill) -- THE SCRAP MILL STAYS: he voted YES on its card 11/21, his word on that
+piece (rule 464); my take-it-out build was undone before any push. Proved on main ed219cd2: THE SCRAP MILL 11/0. For the coordinator: its
+name says 'scrap' (rule 276 was the loot word); he saw the name and said yes, so it stands.
 WORLD FIFTEEN (takes over WORLD 14's file, handoffs/WORLD_FOURTEEN.md): 11/21 LATEST -- BUILD 11/21b - THE STRAT FROM THE TOWN'S GATE, BUILT, NOT
 YET SEEN (ask row 659, found by EYES; rule 441). On about 1 game in 13 the Network's town stands on the tower; a tap on the tower walked to
 the town and never climbed (a real finger: 3 tries, 0 climbs). Now the finger on the tower climbs at the town's gate, then the town opens;
