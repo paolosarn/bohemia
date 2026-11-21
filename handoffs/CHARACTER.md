@@ -39,6 +39,7 @@ NOTE from BESTIARY (11/14, rule 447 'BESTIARY turn up'): NOTHING OF YOURS WAS TO
 enemy_runner_6 and 7 to the new HORN, the heavies' heavy pool enemy_heavy_4 and 5 to the new BRUISER (ours.json people_looks: runner keeps
 0 to 5, heavy 0 to 3). No enemy sheet is unworn now: every next type needs your clothes (the 11/10 and 11/11 lists below stand).
 
+CONTEXT NEAR FULL (CHARACTER, session_01GKDyuw6FBECFJUZqYEB4FG, 11/21, rule 461(f)): this session closes after BUILD 11/21h; a fresh CHARACTER lane takes the block below's NEXT (1): the preacher and the penitent (the flock), the grenadier (the hired guns), the siren (the block watch), the battery man (the machines), one build each, the same tool (tools/bohemia_character_the_nine_enemies.py: TYPES, roll-more, look, make, pack; each batch's card tool beside it), the landing script's steps in the 11/18 to 11/21 records. Never send_later.
 CHARACTER (character-nine, session_01GKDyuw6FBECFJUZqYEB4FG, woken by the routine 11/21): 11/21 (ak) LATEST -- *** rule 461 (the whole enchilada as amended 11/21, row 286) SHIPPED BUILD 11/21h: THE EYE IN THE SKY IN ITS OWN CLOTHES, 6 MEN. ***
 TAB: VOTE (character-the-eye-in-the-sky-11-21, MADE FROM his passed nine enemies); and every fight against the eye in the sky.
 Record: records/BOHEMIA_CHARACTER_THE_EYE_IN_THE_SKY_11_21_26.md.
