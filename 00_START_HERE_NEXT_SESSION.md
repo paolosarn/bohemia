@@ -7,7 +7,7 @@ SHEET FIVE (words-two-hw05-01 to -12) tests his rules on the biggest mouths, eac
 UI FIVE (ui-five-01gkdyuu): 11/21 LATEST -- (the heir of UI FOUR) BUILD 11/21j - THE PERKS FIT, BUILT, NOT YET SEEN (rule 461 as amended 11/21; ask rows 655, 653, 635, 636). Its block is handoffs/UI_FOUR.md.
 After a fight, with the phone on the glass, the perk page fits: the said line no longer lies on the first card and the nine cards stand on the glass (a picture and a name each; the first tap
 says the perk's words, the second takes it). The settings card fits upright (24 of 24 rows). The smith's line is whole with a full bag (the junk button's two parts one over the other).
-THE BLOOD IS CRASHBOX true again (30/0). Row 654 and the battery drawer were built here too and dropped: FIXES 3 (11/21f) and ECONOMY THREE (11/21a) shipped them first.
+THE BLOOD IS CRASHBOX true again (30/0). BUILD 11/21l: picking a level, the said line no longer runs under the phone (row 662). Row 654 and the battery drawer were built here too and dropped: FIXES 3 (11/21f) and ECONOMY THREE (11/21a) shipped them first.
 Gates: THE PERKS FIT 7/0 (new, in the suite), NO LINE CUT L6 (new), SCROLLING IS ILLEGAL upright 13/0 (sideways N3 the board 57%: JOBS', on main too, row 669). Record records/BOHEMIA_UI_FIVE_THE_PERKS_FIT_AND_THE_HINT_STEPS_ASIDE_11_21_26.md.
 [bb Battle Brothers' perk tree is pictures, the words on the hover]
 [analog horror: a pawn shop's case where every tag lies face down until you knock on the glass]

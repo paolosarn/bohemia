@@ -13,6 +13,8 @@
 
    On the DEMO, through the one driver, with a finger, upright (390 x 844) and on its side (844 x 390): a road fight won, one of his
    men given a level, the end screen's CHOOSE HIS LEVEL-UP tapped, his picks tapped and RAISE THEM, the perk page:
+     P0 (UI FIVE 11/21, ask row 662, EYES e01: 'MELEE SKILL +3. RAISE THEM puts them c' under the phone): picking his level, the said
+        line stands clear of the phone and whole, after the first pick and the last; PLANTED upright: the line's narrowing taken away
      P1 NOTHING SCROLLS: the page is no taller than the glass; every perk card inside the glass, none under the phone; the said line
         lies on no card and not under the phone; every card's name 11 px or more; every card its picture
      P2 A PERK IS TAKEN ON PURPOSE: where the cards carry their words, one tap takes it; where they are pictures and names, the first
@@ -80,7 +82,23 @@ async function side(profile) {
     const tap = async sel => { const el = await rf.$(sel); if (!el) return false; const bb = await el.boundingBox(); if (!bb) return false; await p.touchscreen.tap(bb.x + bb.width / 2, bb.y + bb.height / 2); await p.waitForTimeout(400); return true; };
     const ks = await rf.evaluate(() => [].map.call(document.querySelectorAll('#levelup [data-raise]'), b => b.dataset.raise));
     const picks = await rf.evaluate(() => { const m = BohemiaRosterScreen.state.crew[BohemiaRosterScreen.state.sel]; return (m.rolls && m.rolls[0] && m.rolls[0].pick) || 3; });
-    for (const k of ks.slice(0, picks)) await tap('#levelup [data-raise="' + k + '"]');
+    /* P0 (ask row 662, FOUND BY EYES 11/21 e01: 'MELEE SKILL +3. RAISE THEM puts them c' under the phone): each pick says itself in the
+       said line; the line stands clear of the phone and its words are whole, after the first pick and after the last (the sentence that
+       says what RAISE THEM does) */
+    const SAID = () => { const sd = document.getElementById('said'), r = sd.getBoundingClientRect(), cs = getComputedStyle(document.documentElement), v = k => parseFloat(cs.getPropertyValue(k)) || 0;
+      const ph = document.documentElement.classList.contains('boh-phone-on') && v('--boh-phone-w') > 0 ? [v('--boh-phone-left'), v('--boh-phone-top'), v('--boh-phone-left') + v('--boh-phone-w'), v('--boh-phone-top') + v('--boh-phone-h')] : null;
+      return { txt: sd.textContent, r: [r.left, r.top, r.right, r.bottom].map(Math.round), ph: ph && ph.map(Math.round), cut: sd.scrollHeight > sd.clientHeight + 1 || sd.scrollWidth > sd.clientWidth + 1 }; };
+    const said0 = [];
+    for (let i = 0; i < Math.min(picks, ks.length); i++) { await tap('#levelup [data-raise="' + ks[i] + '"]'); await p.waitForTimeout(250); if (i === 0 || i === Math.min(picks, ks.length) - 1) said0.push(await rf.evaluate(SAID)); }
+    const badSaid = said0.filter(x => (x.ph && ov(x.r, x.ph)) || x.cut || !x.txt.trim());
+    ok('P0 ' + name + ': picking his level, the said line stands clear of the phone and whole ("' + (said0[said0.length - 1] || {}).txt + '")', said0.length > 0 && !badSaid.length, JSON.stringify(said0));
+    if (UP) {
+      /* PLANTED: the line's narrowing taken away where it stands (no fit after it): the leg sees it under the phone */
+      await rf.evaluate(() => { const sd = document.getElementById('said'); sd.style.removeProperty('width'); sd.style.removeProperty('margin-left'); });
+      const pl0 = await rf.evaluate(SAID);
+      ok('P0 ' + name + ' PLANTED (the narrowing taken away): the leg sees the said line run under the phone', !!pl0.ph && ov(pl0.r, pl0.ph), JSON.stringify(pl0));
+      await rf.evaluate(() => window.dispatchEvent(new Event('resize'))); await p.waitForTimeout(500);
+    }
     await tap('#raise'); await p.waitForTimeout(600);
     if (!(await rf.$('#plist button'))) { const ph = await p.evaluate(() => { const b = document.querySelector('#bohphone .crewp [data-tab="perk"], #bohphone .crewp .perk'); if (!b) return null; const r = b.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; });
       if (ph) await p.touchscreen.tap(ph[0], ph[1]); else await tap('#pick'); await p.waitForTimeout(700); }

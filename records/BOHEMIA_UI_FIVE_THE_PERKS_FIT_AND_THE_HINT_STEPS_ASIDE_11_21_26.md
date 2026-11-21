@@ -88,6 +88,17 @@ reads the clay on the paper it may cover (the row less the holes it is cut with,
 same twentieth; the plant reads every word on the row, as W1 itself does. THE BLOOD IS CRASHBOX 30/0: upright soaked 66.0%, one star
 0.3%; the computer 67.8% and 0.4%; the W1 plant 13,073 red pixels inside the words; D1 and D3's plants red as before.
 
+## 5b. ROW 662: THE SAID LINE CLEARS THE PHONE (FOUND BY EYES 11/21 e01; BUILD 11/21l, the round's second build)
+
+EYES: 'upright, picking a level: MELEE SKILL +3. RAISE THEM puts them c and the rest is cut at the phone's left edge'. REPRODUCED (the
+demo, the same walk to CHOOSE HIS LEVEL-UP, one pick): at the crew screen's third step the said line stands in the stash's heading,
+which upright is level with the phone's top (the line 12,554 to 378,598; the phone from 256,558), so its right half ran under the phone.
+NOW (slices/bohemia_ui_no_scroll.js __THE_SAID_LINE_CLEAR_OF_THE_PHONE__, in saidClear, every view of the crew screen): where the line's
+box meets the phone's it ends 6 px before the phone (or starts 6 px after it with the phone on the left) and its words wrap inside its
+own three lines; nothing else moves; the fit runs again when the phone moves (the phone's own 'bohemia-phone' event). Upright the line is
+12 to 250 and reads whole: 'MELEE SKILL +3. RAISE THEM puts them on him.' THE PERKS FIT 10/0 with the new leg P0 (both ways; PLANT the
+narrowing taken away: the line under the phone); SCROLLING IS ILLEGAL --alone upright 5/0.
+
 ## 6. PROOF (rule 441: on the page he plays, the demo, upright and sideways, started the way he starts it)
 
 - THE PERKS FIT 7/0 (new): upright the page 844 of 844, the last card at 647, none under the phone, the said line on no card; the two

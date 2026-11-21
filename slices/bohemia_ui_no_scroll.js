@@ -503,7 +503,8 @@
     var go = function () { CREW.t = 0; var B = fitBody(); CREW.log.push({ H: innerHeight, level: B.level, fits: B.fits, over: B.over }); if (CREW.log.length > 20) CREW.log.shift(); };
     var soon = function () { if (!CREW.t) CREW.t = requestAnimationFrame(go); };
     try { new MutationObserver(function (ms) { for (var i = 0; i < ms.length; i++) { var t = ms[i].target; if (t && t.closest && t.closest('.ns-tip')) continue; soon(); return; } }).observe(document.body, { childList: true, subtree: true }); } catch (e) {}
-    addEventListener('resize', soon); soon(); setTimeout(soon, 600); setTimeout(soon, 2000);
+    addEventListener('resize', soon); addEventListener('bohemia-phone', soon);   /* __THE_SAID_LINE_CLEAR_OF_THE_PHONE__: the phone moved or turned */
+    soon(); setTimeout(soon, 600); setTimeout(soon, 2000);
   }
   /* his eight into the doll's open middle, at its foot: true when there is room for them there (ask), or set them there, or clear */
   function placeStats(ask, clear) {
@@ -541,16 +542,23 @@
   function saidClear(reset) {
     var sd = document.getElementById('said'), bag = document.getElementById('bag'), pl = document.getElementById('plist');
     if (!bag || !sd) return;
-    bag.style.removeProperty('margin-top'); sd.style.removeProperty('width');
-    if (reset || !pl) return;
+    bag.style.removeProperty('margin-top'); sd.style.removeProperty('width'); sd.style.removeProperty('margin-left');
+    if (reset) return;
     var a = sd.getBoundingClientRect(); if (a.height < 2 || a.width < 2) return;
-    if (document.body.classList.contains('ns-pk')) {   /* the said line's row, clear of the phone */
-      var R = getComputedStyle(document.documentElement), v = function (k) { return parseFloat(R.getPropertyValue(k)) || 0; };
-      var pl0 = v('--boh-phone-left'), pt = v('--boh-phone-top'), pw = v('--boh-phone-w'), ph = v('--boh-phone-h');
-      if (document.documentElement.classList.contains('boh-phone-on') && pw > 0 && a.right > pl0 && a.left < pl0 + pw && a.bottom > pt && a.top < pt + ph && pl0 > a.left + 120) {
-        sd.style.setProperty('width', Math.floor(pl0 - 6 - a.left) + 'px', 'important'); a = sd.getBoundingClientRect(); }
+    /* __THE_SAID_LINE_CLEAR_OF_THE_PHONE__ (UI FIVE 11/21, ask row 662, FOUND BY EYES 11/21 e01: upright, picking a level, 'MELEE SKILL +3.
+       RAISE THEM puts them c' and the rest under the phone): on every view of the crew screen, where the said line's box meets the
+       phone's, it ends 6 px before the phone (or starts 6 px after it, the phone on the left) and its words wrap inside its own lines;
+       nothing else moves, so nothing moves under a finger between two taps (rule 279: speech never under the phone) */
+    var R = getComputedStyle(document.documentElement), v = function (k) { return parseFloat(R.getPropertyValue(k)) || 0; };
+    var px = v('--boh-phone-left'), pt = v('--boh-phone-top'), pw = v('--boh-phone-w'), ph = v('--boh-phone-h');
+    if (document.documentElement.classList.contains('boh-phone-on') && pw > 0 && a.right > px && a.left < px + pw && a.bottom > pt && a.top < pt + ph) {
+      if (px > a.left + 120) sd.style.setProperty('width', Math.floor(px - 6 - a.left) + 'px', 'important');
+      else if (px + pw < a.right - 120) { sd.style.setProperty('margin-left', Math.ceil(px + pw + 6 - a.left) + 'px', 'important'); sd.style.setProperty('width', Math.floor(a.right - (px + pw + 6)) + 'px', 'important'); }
+      a = sd.getBoundingClientRect();
     }
-    var c = bag.getBoundingClientRect(), m0 = parseFloat(getComputedStyle(bag).marginTop) || 0;   /* the bag's own margin is in c.top already */
+    if (!pl) return;
+    /* the perk page: the cards start under the said line (a margin the size of the overlap; the bag's own margin is in c.top) */
+    var c = bag.getBoundingClientRect(), m0 = parseFloat(getComputedStyle(bag).marginTop) || 0;
     if (a.left < c.right && a.right > c.left && a.top < c.bottom && a.bottom > c.top) bag.style.setProperty('margin-top', Math.ceil(m0 + a.bottom - c.top + 3) + 'px', 'important');
   }
   /* the crew screen is the whole glass: it fits when the page itself does not run past the glass */

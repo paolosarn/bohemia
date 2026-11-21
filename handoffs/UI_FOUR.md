@@ -16,6 +16,9 @@ a tap). Record records/BOHEMIA_UI_FIVE_THE_PERKS_FIT_AND_THE_HINT_STEPS_ASIDE_11
 - ROW 653 THE SMITH'S LINE (TAB: CITY, a smith with a full bag): __THE_JUNK_BUTTON_IN_HALF_A_ROW__ (the junk button's two parts one
   over the other beside SORT). Gate NO LINE CUT WHILE THERE IS GLASS, new leg L6 with its plant.
 - ROW 636 THE BLOOD IS CRASHBOX re-aimed (D5 on the paper the clay may cover; the W1 plant reads every word): 30/0.
+- ROW 662 (EYES 11/21 e01) THE SAID LINE CLEARS THE PHONE, BUILD 11/21l: picking a level upright the said line ran under the phone;
+  saidClear now narrows it to end before the phone on every view of the crew screen (__THE_SAID_LINE_CLEAR_OF_THE_PHONE__). THE PERKS
+  FIT leg P0 with its plant: 10/0.
 - SETTINGS AND PAUSE (UI's gate, red on main): re-aimed after the push: it reads the card once it stops growing out of the phone (it
   read 41 then 36 of 44 mid-motion) and goes back in through the title after QUIT: 18/0.
 - ROW 654 AND RULE 463: built here too, but FIXES 3 (11/21f, the hint steps aside of the settings card, its leg F654) and ECONOMY
