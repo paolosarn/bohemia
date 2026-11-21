@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the school] SHIPPED SHIPSHA, BUILD 11/21m - THE SCHOOL, BUILT, NOT YET SEEN. VOTE combat4-the-school-11-21 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the school] SHIPPED 04bdc064c, BUILD 11/21m - THE SCHOOL, BUILT, NOT YET SEEN. VOTE combat4-the-school-11-21 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_SCHOOL_11_21_26.md. More boards (rule 461): the school ('school', 0.6): the gym as the town's shelter (cots, mats, folded tables, the
 bleachers pulled out: rough 3 AP and low cover, not high ground) or the classroom wing (rooms of desks, lockers lining the hallway, A DOOR AT EACH END OF EVERY ROOM). One data
 file (15 tile kinds, 13 pieces all stand-ins), twelfth in insides.json; no high ground; the ceiling the hospital's 'grid'.
