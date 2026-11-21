@@ -180,3 +180,16 @@ after the frame settles. The demo upright, two real fights (an arterial job 3 v 
 far stop 0.213), every one of his men inside the open area by 14 to 79 points, theirs inside too. The case the build fixes (the two
 lines eleven tiles apart at the far stop, wider than the glass) did not arise in a real fight; a frame that holds everyone stood
 untouched. (My first read came before the camera settled, zoom 1, and read every man hundreds of points off: my tool, fixed.)
+
+## 11/21t DO LESS, SHOW THE CLOUT (JOBS, aa4003d1a; row 664): SEEN BOTH WAYS
+
+The demo, a fresh phone, cards ON. Upright: the top bar ends with 'CLOUT 0' in Volunteers (e23); a finger on the board's building:
+the Elder, WHAT THEY THINK OF YOU: NEUTRAL 50, MORE WORK HERE AT 250 CLOUT, one job; its card says her line, the trip, what it asks,
+'Your name: about +115 CLOUT.', the blood price, then only Take it and Not now: no DROP IT / FAIL IT costs, no Ask (push the pay), no
+Into your place (e24). Sideways: the bar ends with 'CLOUT 115' after the first job's fight paid (e25).
+
+## 11/21x THE SCHOOL WEARS ITS OWN ART (COOK SIX, 92cf451d4): SEEN AT NIGHT
+
+AUTO on the alpha upright at a school cell: THE SCHOOL dealt (5 v 5, x4, to the end in 40 s): a wooden gym floor with its benches,
+bleachers along the top and the foot, its ceiling drawn (grid, picture true) (e26). Both lineups held his whole line (his men 14 to
+79 points inside the glass).
