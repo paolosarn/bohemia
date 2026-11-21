@@ -1,3 +1,9 @@
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21za - THE JUSTICE CENTER, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE JUSTICE CENTER: a fight at the county's courts tower downtown (eight in ten) is fought on a courts floor (six courtrooms off one corridor, two doors each) or in
+the screening lobby (x-ray belts, dead metal detectors, the deputies' podiums between the lines). One data file, every picture a stand-in (the names for COOK in the handoff).
+GATE THE BIG INSIDES 223/0 (fourteen insides). ON THE PAGE: 9 fights, both pages both ways, all ended, 54 of 54 taps, 0 errors. VOTE combat4-the-justice-center-11-21.
+[bb Battle Brothers' palisade with its gaps: every courtroom has two doors, and the doors are the fight]
+[analog horror: the screening belt's motor still trying to turn, the monitor showing the last bag scanned]
 COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21za - THE STADIUM AGAIN, THE POWERHOUSE AGAIN, BUILT (acb6c31e7), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rule 466(e); rules 453, 441, 451(a); ask row 651).
 HIS TWO OTHER 'WIP's, LOOKED AT ON HIS PHONE AS THE SPHERE WAS (the fight as it opens, upright, the roof at his 10%):
 THE STADIUM: the roof drew a target over the fight (an ellipse over midfield, 28 cables out of it, four cable rings: the Sphere's fault again); the stand row read as a

@@ -1,6 +1,23 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the courthouse] SHIPPED 8ac1eb5f5, BUILD 11/21y - THE COURTHOUSE, BUILT, NOT YET SEEN. VOTE combat4-the-courthouse-11-21 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the justice center] SHIPPED SHIPSHA, BUILD 11/21za - THE JUSTICE CENTER, BUILT, NOT YET SEEN. VOTE combat4-the-justice-center-11-21 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_JUSTICE_CENTER_11_21_26.md. More boards (rule 461): the justice center ('courthouse', 0.8), the county's courts tower downtown:
+the_courts_floor (a corridor of waiting benches, planters and piled chairs, six courtrooms off it, each a tile row a part: the bench with the witness stand and the jury box,
+the counsel tables, the bar, the gallery's benches; TWO DOORS TO EVERY COURTROOM) and the_screening_lobby (x-ray belts, dead metal detectors, podiums and queue posts across the
+hall between the lines; clerks' counters, the elevator bank, the glass doors in the corners). One data file (21 tile kinds, 18 pieces all stand-ins), fourteenth in
+insides.json; no high ground; the ceiling the hospital's 'grid'. GATE THE BIG INSIDES 223/0 (the justice center 18/0, 15% bare after round one against 33%; my first cut 38%).
+ON THE PAGE: the demo and the alpha, both ways: 9 fights on the final board, all ended, 54 of 54 taps, 0 errors (the courts floor met on the demo both ways).
+*** FOR COOK (SIX): THE JUSTICE CENTER'S NAMES (justice_art.json, THE GARAGE'S FORMAT): floor.floor (the corridor's stone; the courtrooms' carpet), floor.ring; jc_gallery
+(gallery benches, a row a tile deep), jc_bar (the rail, its gate gone), jc_counsel (a counsel table on its side), jc_bench (the judge's raised bench), jc_jury (the jury box),
+jc_witness (the witness stand), jc_benches (the corridor's waiting benches), jc_planter (a concrete planter, its tree dead), jc_barricade (courtroom chairs and tables piled),
+jc_xray (an x-ray belt, its hood dark), jc_arch (a walk-through metal detector), jc_stanchions (queue posts and their belts), jc_podium (a deputies' steel podium), jc_desk
+(a clerk's counter on its side), jc_wall_ew, jc_wall_ns (the tower's concrete), jc_panel_ew, jc_panel_ns (a courtroom's wood-panel wall); justice/justice_ceiling.webp (the
+dropped ceilings, tiles out); "have": true in justice.json's ceiling.
+NEXT: the truck stop's store; more ground from Battle Brothers' table (what it has that no board lays yet).
+[bb Battle Brothers' palisade with its gaps: every courtroom has two doors, and the doors are the fight]
+[analog horror: the screening belt's motor still trying to turn, the monitor showing the last bag scanned]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 -- [the courthouse] SHIPPED 8ac1eb5f5, BUILD 11/21y - THE COURTHOUSE, BUILT, NOT YET SEEN. VOTE combat4-the-courthouse-11-21 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_COURTHOUSE_11_21_26.md. More boards (rule 461): the Mob Museum ('mobmuseum', 0.8), the 1933 courthouse downtown: the_courtroom (pews in two
 banks: rough 3 AP and low cover; the bar with its gaps; the well's counsel tables, cover; the judge's bench a blocker; the witness stand; the jury box, rough 3 AP) and
 the_museum_floor (exhibit cases, stands, dead kiosks, free-standing exhibit walls cutting it into bays, doors on three sides). One data file (15 tile kinds, 14 pieces all
