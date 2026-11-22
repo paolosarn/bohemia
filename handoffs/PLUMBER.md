@@ -1,5 +1,19 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/22, rule 461 (the coordinator's 'PLUMBER 8: unstuck, carry on'). THE FULL SUITE IS ANSWERED: all 1,181 gates on
+  the table by a real run (the first 982 on main 5883b97c, the last 199 on 2bb6386d after the restart; a dry run's fake answer is never
+  counted): 747 green, 434 red (4 more red in the pack were green alone). THE LEDGER: 43 debt lines lifted (green for real), 105 NEW
+  reds FILED to 22 owners as ask rows 674 to 695 (one row a lane: WORLD THIRTEEN 19, BOSSES 15, RUN TWO 10, COMBAT 9, UI FOUR 8, JOBS 7,
+  PLUMBER 7, MOTION 3 5, FACTIONS 4, COMBAT THREE 3, and twelve lanes with one or two). THE RED DEBT: 429 NAMED (up from 367: 105 reds
+  landed on main since 11/10 and every one is named with its owner now), 312 LEFT (down from 350). The ratchet takes the new numbers.
+  EACH RED IS TAGGED: [red alone too] failed again with the box to itself; [re-run alone pending] is one of the 87 the restart left
+  unconfirmed (76 from the first pass, 11 past the confirm pass's 10,000 s budget), in the re-check running now on main 754d7dd2
+  (scratchpad recheck_1122.txt, done file recheck_done.jsonl: every other name, so only those 87 and any new gate run). When it ends:
+  strike every one green alone from its row and the list (NAMED and the ratchet down by as many).
+  MY ROW 677 (7): THE LOOP PLAYS ON THE PUBLISHED SITE, THE WHOLE LOOP PLAYS, NO FREEZE OVER HALF A SECOND, FIRST PLAY IS LIGHT, EVERY
+  CHANGE AT SIXTY, THE BOARDS ALWAYS HAVE WORK, THE HEAP STAYS FLAT: re-run alone first, then fix or re-aim.
+  THE BOX: two old scratch copies of the repo (6.8 GB) removed; the repo's .git is 3.6 GB (3.17 GiB packed, 288 MB loose) for row 562.
+
 PLUMBER 8 (chat 18) 11/20, rule 461 still (BUILD 11/20x EVERY CHECKER HONEST). The full suite's first pass is still running (a separate
   copy of main 5883b97c, 849 of 1,179 answered for real so far); six checkers that were lying or rotting fixed while it runs:
   (1) MY OWN RESUME FILE LIED: BOHEMIA_SUITE_DONE (the file a long run writes every answer into) was inherited by SUITE HONESTY's four
