@@ -1,4 +1,12 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22z - THE MINI GRAND PRIX, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22za - THE NEON BONEYARD, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE NEON BONEYARD (the map's, on Las Vegas Blvd North by Cashman Field and the Mormon Fort): half the fights there are fought inside (31 valleys of 40, by the cell's dice): the sign shop (a casino's
+name in giant letters and the racks of sign faces hide a man; sign faces on sawhorses and tube racks seen across, never crossed; benches, sign cans, lifts, crates cover;
+broken tube glass rough) or the dark gallery (dead signs on end in rows like headstones; projectors that still play the old show; the monsoon's water, the swamp).
+ALSO: seven VOTE cards (the storage yard to the Mini Grand Prix) opened on the water plant's picture (my copy slip since 11/22r): each opens on its own now.
+GATE THE BIG INSIDES 685/0 in three parts (230, 229, 226; thirty-nine insides; the third run again alone after the share moved, 188 s); the boneyard 21/0 alone in 47 s, 6% bare after round one against 14% with rule 428's leg off; inside in 31 valleys of 40 at 0.5 (10 at 0.4: the cell's dice, read at its five real cells). ON THE PAGE: 5 fights inside the boneyard (THE DARK GALLERY: the cell the page's valleys meet deals the same layout every time) on the demo upright, the demo on its side, the alpha upright and the alpha on its side twice, all ended on AUTO, 23 of 23 tile taps, 0 page errors; THE SIGN SHOP is seen on the fight page opened alone (the card's top left) and in the gate (24 boards). VOTE combat4-the-neon-boneyard-11-22.
+[bb Battle Brothers' palisade you see through: a sign face on sawhorses, as long as a bus, waist high]
+[analog horror: a projector that still plays the old show onto signs nobody has lit in years, the same loop, when somebody runs the generator]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22z - THE MINI GRAND PRIX, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE MINI GRAND PRIX (the map's, by the freeway): half the fights there are fought inside: the arcade (rows of cabinets and the prize wall hide a man, a few cabinets still running
 their attract loop; skee-ball lanes seen across, never crossed; air hockey, party tables, token machines, kiosks; the monsoon's water, Battle Brothers' swamp) or the kart garage
 (karts, tyre walls, fuel cans low; benches; parts shelves hide a man; an oil slick).

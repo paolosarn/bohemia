@@ -1,6 +1,29 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the mini grand prix] SHIPPED 65713a189, BUILD 11/22z - THE MINI GRAND PRIX, BUILT, NOT YET SEEN. VOTE combat4-the-mini-grand-prix-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the neon boneyard] SHIPPED ddc1eaf9c, BUILD 11/22za - THE NEON BONEYARD, BUILT, NOT YET SEEN. VOTE combat4-the-neon-boneyard-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_NEON_BONEYARD_11_22_26.md. More boards (rule 461): the Neon Boneyard ('boneyard', 0.5; one cell, in 40 of 40 valleys, inside in 31 of them by the cell's dice): the_sign_shop (giant letters and racks of sign faces the obstacles
+row, they hide a man; sign faces on sawhorses and tube racks block and are seen across; benders' benches, sign cans, scissor lifts, crates of bulbs cover; transformers and a
+fallen arrow low; broken tube glass rough 3 AP, open) and the_dark_gallery (dead signs on end and giant letters hide a man; projectors and sign cans cover; bulb rails,
+transformers, arrows low; glass; the monsoon's water the swamp row). 19 tile kinds, 15 pieces all stand-ins (I13 green); thirty-ninth in insides.json; no high ground.
+I8 TAUGHT ME: filled to 2% bare, the rule off read 4%: a board so full of cover the rule made no difference, refused; half the fill out, 6% against 14%.
+GATE THE BIG INSIDES 685/0 in three parts (230, 229, 226; thirty-nine insides; the third run again alone after the share moved, 188 s); the boneyard 21/0 alone in 47 s, 6% bare after round one against 14% with rule 428's leg off; inside in 31 valleys of 40 at 0.5 (10 at 0.4: the cell's dice, read at its five real cells)
+ON THE PAGE: 5 fights inside the boneyard (THE DARK GALLERY: the cell the page's valleys meet deals the same layout every time) on the demo upright, the demo on its side, the alpha upright and the alpha on its side twice, all ended on AUTO, 23 of 23 tile taps, 0 page errors; THE SIGN SHOP is seen on the fight page opened alone (the card's top left) and in the gate (24 boards).
+ALSO FIXED: seven VOTE cards (combat4 storage yard, radio station, speedway, granary, fuel depot, battery farm, mini grand prix) had show.first on the water plant's
+picture (ship_st.py copied ship_wt.py's path and every ship after copied it); each points at its own vote_first picture now (the pictures were always on disk).
+*** FOR COOK (SIX): THE NEON BONEYARD'S NAMES (boneyard_art.json, THE GARAGE'S FORMAT): floor.floor (paint-spattered concrete), floor.glass, floor.water (if floor
+lists are wanted for them), floor.ring; nb_letters (a giant letter from a casino's name, bulbs gone), nb_signs (a dead sign stood on end), nb_faces (racks of sign
+faces), nb_sawhorses (a sign face flat on sawhorses, a run of six), nb_tubes (a rack of tube glass), nb_bench (a glass bender's bench), nb_cans (a sign can on its side),
+nb_transformers, nb_arrow (a sign's arrow on the floor), nb_bulbs (a marquee's bulb rail), nb_lift (a scissor lift folded), nb_crates (crates of bulbs), nb_projector
+(a projector on its stand), nb_wall_ew, nb_wall_ns; boneyard/boneyard_ceiling.webp. ***
+*** FOR WORLD: the dead's own line for 'boneyard' (engine/bohemia_dead.js) reads 'a field of sealed fuselages, and what got in them', an aircraft boneyard; the map seats
+the Neon Boneyard (the Neon Museum's dead signs). Not mine and no line rewritten (465): yours to square. ***
+*** FOR SOUNDS: the projector's loop in the dark gallery is in the tiles' words (draft); its sound is yours. ***
+NEXT: more boards (the map's kinds that still fight outside: the substation, the pump station, the Mormon Fort's adobe); the robot factory and the paved places wait on
+WORLD's map.
+[bb Battle Brothers' palisade you see through: a sign face on sawhorses, as long as a bus, waist high]
+[analog horror: a projector that still plays the old show onto signs nobody has lit in years, the same loop, when somebody runs the generator]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the mini grand prix] SHIPPED 65713a189, BUILD 11/22z - THE MINI GRAND PRIX, BUILT, NOT YET SEEN. VOTE combat4-the-mini-grand-prix-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_MINI_GRAND_PRIX_11_22_26.md. More boards (rule 461): the Mini Grand Prix ('minigp', 0.5; one cell, in 40 of 40 valleys): the_arcade (cabinet rows and the prize wall the obstacles row,
 they hide a man; skee-ball lanes block and are seen across; air hockey, party tables, token machines, kiosks cover; stools low; the monsoon's water the swamp row) and
 the_kart_garage (karts, tyre walls, fuel cans low; benches cover; parts shelves hide a man; an oil slick the swamp row). 19 tile kinds, 15 pieces all stand-ins (I13 green);
