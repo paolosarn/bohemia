@@ -126,3 +126,15 @@ the true calibrated iris pixels. Invisible from behind.
     they should end where the ear would be." ---
 Profile arm now stops at the ear: the back ~30% of the head stays bare in E/W.
 Front keeps the full edge-to-edge band (approved read). Item still cooking.
+
+--- THE CONE HAT, DEAD (11/22/26) -- Paolo on a homework card (rule 470(f)): 'why are people wearing chinese rice farmer hats btw wtf???' ---
+DEAD: HATS 1's 'CHINESE RICE FARMER HAT' (shape 'cone'), every conical straw hat under any name (rice farmer, conical, coolie, cone hat,
+a bamboo or a straw cone). It came in on 8/2 as the Caravans' silhouette ('broad / mantle / wide brim': brim against the sun) and stayed
+as the gang's default head: every Caravans man without his own hat got it, the old faction_caravans look, Old Tavo (cast_widebrim), the
+Caravans' portrait face, the alpha's wardrobe.
+POST-MORTEM: the brief was a wide brim against the desert sun, and the cone answered the brim and forgot the place. This is Las Vegas
+after the collapse: a wide brim here is a rancher's felt, a cattleman's crease, a straw western, never a hat from another continent's
+rice paddy; and a hat that reads as a people, not a job, on a valley's whole trade faction is a costume. LESSON: a silhouette is chosen
+from what that place's people would really put on their heads (the compare law), then made to read; the shape alone is not the brief.
+THE LINE THAT HOLDS IT: gates/the_cone_hat_is_dead_gate.py (no new wearer; what is left only shrinks; the barber never rolls it).
+THE PLAN TO TAKE IT OFF EVERY ONE: records/BOHEMIA_CHARACTER_THE_CONE_HAT_IS_DEAD_11_22_26.md.
