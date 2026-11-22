@@ -20917,6 +20917,778 @@
    }, "before_after": {"before": "main 64ab8c777: the Strat stood on the map and arriving there did nothing", "after": "a trip to the tower climbs it: 90 minutes, the fog opens 30 blocks by day (on the demo 5 to 9 towns, 0 to 11 real places found), at night only the lit towns within 40", "scale": "his phone upright (390 x 844 at 3), the alpha's RUN tab map, before the climb (left) and after (right), one stop out"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_14_THE_STRAT_LOOKOUT_11_20_26.md"},
   {"id": "character-the-head-takers-11-20", "kind": "outfit", "lane": "character", "made": "11/20", "sha": "1bde82723", "draft": true, "title": "THE HEAD TAKERS IN THEIR OWN CLOTHES: MEN WHO HUNT MEN, IN THE HUNTER'S BLAZE", "said": "full sweep, whole enchilada, dont forget nothing / the clothes look good: leather and layering", "why": "The head takers fought in the Volunteers' one-piece look and two hall men's clothes; now three head takers in work coats with plate strapped over them, two smokers in ponchos and dust masks with a satchel of pots, and two darters in field coats with a bolt quiver, every one with a hunter's blaze scarf in the head takers' own yellow-green. You see it in every fight against the head takers, and on this card.", "options": ["A, yes, the head takers look like this", "B, close, change something (say which one and what)", "C, no, not like this"], "show": {"how": "image", "src": "../records/target/character/the_head_takers/CHARACTER_THE_HEAD_TAKERS.webp", "first": "../records/target/character/the_head_takers/CHARACTER_THE_HEAD_TAKERS_FIRST.webp", "firstAt": [0, 0, 884, 528]}, "twin": {"src": "records/target/cook3/rig/thug/rig_S.png", "diffs": ["BOUNTY HUNTERS' OWN LOOK (Battle Brothers' bounty hunters: a hunter's coat and plate): a rust work coat, a chore coat, an oxblood drifter's coat, a soot or a scrap chest plate strapped over, a shell bandolier.", "ONE MARK FOR ALL SEVEN: a blaze scarf in the head takers' own banner ink (yellow-green), what a hunter wears so his own side does not shoot him; it reads at the throat from every facing.", "THE SMOKE AND THE SLEEP: the smokers in an oxblood or a dust poncho, a dust mask and a satchel of pots; the darters in a charcoal car coat or a barn coat with a bolt quiver on the back."]}, "stage": "made_from", "golden": "character-the-nine-enemies-their-own-clothes-11-7", "recipe": "the nine enemies' frozen recipe (layers that read apart, leather where it fits, no blue, no trench added), the three new types in tools/bohemia_character_the_nine_enemies.py (TYPES['Head Taker'], ['Smoker'], ['Darter'], the BLAZE SCARF, roll-more, make, pack)"},
   {
+   "id": "words-two-hw07-12-curse-the-doctor-on-the-vote-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “In front of both families. They'll vote like it's a fair thing and go home knowing exactly what they voted for.”  ·  OUR TRY: “In front of both families. They'll vote like it's fair, and every one of them goes home knowing exactly what the fuck they voted for.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, SAY IT LIKE A PERSON, AND THEY CURSE: a doctor on what people did: A doctor outside her clinic tent, smoking says it to you when she tells you how the two families will settle it (you see it on the MAP, on a side quest's last card); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_07/words-two-hw07-12-curse-the-doctor-on-the-vote-11-22.webp",
+    "first": "vote/words_two_homework_07/words-two-hw07-12-curse-the-doctor-on-the-vote-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1112
+    ]
+   },
+   "homework": {
+    "sheet": 7,
+    "n": 12,
+    "mouth": "A SIDE QUEST ON THE ROAD",
+    "rule": "SAY IT LIKE A PERSON, AND THEY CURSE: a doctor on what people did",
+    "try": "In front of both families. They'll vote like it's fair, and every one of them goes home knowing exactly what the fuck they voted for.",
+    "teaches": "A DOCTOR WHO HAS SEEN TOO MUCH: your doc said 'pus bomb' and stayed clean; this one is bitter, smoking, and curses in our try",
+    "pulled_from": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "line": "In front of both families. They'll vote like it's a fair thing and go home knowing exactly what they voted for."
+   }
+  },
+  {
+   "id": "words-two-hw07-11-curse-told-becomes-said-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “She runs home without saying gracias. Later the whole town knows who did it.”  ·  OUR TRY: “She ran home without even saying thanks. Don't worry, the whole damn town already knows it was you who dug her out.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, A THING TOLD BECOMES A PERSON SAYING IT: after you dig a girl out: Nobody: the card itself, after you dug the girl out of the drain says it to you when you dug her out before the rain came (you see it on the MAP, on the road card, after you pick); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_07/words-two-hw07-11-curse-told-becomes-said-11-22.webp",
+    "first": "vote/words_two_homework_07/words-two-hw07-11-curse-told-becomes-said-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1022
+    ]
+   },
+   "homework": {
+    "sheet": 7,
+    "n": 11,
+    "mouth": "A ROAD STOP: WHAT COMES BACK",
+    "rule": "A THING TOLD BECOMES A PERSON SAYING IT: after you dig a girl out",
+    "try": "She ran home without even saying thanks. Don't worry, the whole damn town already knows it was you who dug her out.",
+    "teaches": "YOUR 'FUCKING COOKIE' LESSON: a told line after a choice becomes somebody talking; our try says it as a person and curses",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "She runs home without saying gracias. Later the whole town knows who did it."
+   }
+  },
+  {
+   "id": "words-two-hw07-10-curse-why-the-animals-come-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “They smell the food in our cart, boss, and they want it.”  ·  OUR TRY: “They smell the food in our cart, boss, and those hungry fuckers want it.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, MOST PEOPLE CURSE: his man, why the animals come: One of your own men says it to you when animals come at the cart for the food on it (you see it on the card that opens a FIGHT); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_07/words-two-hw07-10-curse-why-the-animals-come-11-22.webp",
+    "first": "vote/words_two_homework_07/words-two-hw07-10-curse-why-the-animals-come-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     922
+    ]
+   },
+   "homework": {
+    "sheet": 7,
+    "n": 10,
+    "mouth": "YOUR MAN, BEFORE A FIGHT WITH ANIMALS",
+    "rule": "MOST PEOPLE CURSE: his man, why the animals come",
+    "try": "They smell the food in our cart, boss, and those hungry fuckers want it.",
+    "teaches": "THE WHY LINE FROM HIS OWN MAN: your YES on 'they just come' was clean; this one curses in our try",
+    "pulled_from": "records/target/bb/fight_reasons.json",
+    "line": "They smell the food in our cart, boss, and they want it."
+   }
+  },
+  {
+   "id": "words-two-hw07-09-curse-the-ladder-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “they're coming up the ladder. i heard two shots.”  ·  OUR TRY: “They're coming up the fucking ladder. I heard two shots. Oh shit. Oh shit.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, MOST PEOPLE CURSE: the radio as they come up the ladder: The guard at a town's gate, on the radio says it to the others in the town when the men who took the gate are climbing to the roof (you see it on the phone's FEED, while the town falls); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_07/words-two-hw07-09-curse-the-ladder-11-22.webp",
+    "first": "vote/words_two_homework_07/words-two-hw07-09-curse-the-ladder-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     708
+    ]
+   },
+   "homework": {
+    "sheet": 7,
+    "n": 9,
+    "mouth": "THE FEED, A TOWN FALLING",
+    "rule": "MOST PEOPLE CURSE: the radio as they come up the ladder",
+    "try": "They're coming up the fucking ladder. I heard two shots. Oh shit. Oh shit.",
+    "teaches": "THE RADIO AT THE WORST SECOND: the church radio stays clean in our tries; this town's guard is past praying",
+    "pulled_from": "records/target/bb/radio_lines.json",
+    "line": "they're coming up the ladder. i heard two shots."
+   }
+  },
+  {
+   "id": "words-two-hw07-08-curse-the-toothache-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “Ay, mijo. My tooth. Three weeks. THE TOOTH has the only kit that works and his men sit at the town gates taking batteries for him. He puts his flyers up by the clinics.”  ·  OUR TRY: “My tooth. Three weeks, and it's killing me. THE TOOTH has the only kit that works, and his men sit at the town gates taking batteries off everybody. Find that son of a bitch. His flyers are up by the clinics.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, MOST PEOPLE CURSE: an old woman in pain: An old woman with her jaw tied up in a scarf says it to you when she stops you to send you after the boss who owns the only dentist's kit (you see it on the MAP, on the card that starts a boss's trail); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_07/words-two-hw07-08-curse-the-toothache-11-22.webp",
+    "first": "vote/words_two_homework_07/words-two-hw07-08-curse-the-toothache-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1082
+    ]
+   },
+   "homework": {
+    "sheet": 7,
+    "n": 8,
+    "mouth": "A BOSS'S ASKER",
+    "rule": "MOST PEOPLE CURSE: an old woman in pain",
+    "try": "My tooth. Three weeks, and it's killing me. THE TOOTH has the only kit that works, and his men sit at the town gates taking batteries off everybody. Find that son of a bitch. His flyers are up by the clinics.",
+    "teaches": "AN OLD WOMAN WHO CURSES: your starred old woman did not; three weeks of a rotten tooth might; and our try drops 'Ay, mijo'",
+    "pulled_from": "records/target/bb/boss_act_one.json",
+    "line": "Ay, mijo. My tooth. Three weeks. THE TOOTH has the only kit that works and his men sit at the town gates taking batteries for him. He puts his flyers up by the clinics."
+   }
+  },
+  {
+   "id": "words-two-hw07-07-clean-the-soup-line-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “The motel by the freeway was ours, beds for the soup line. A crew took it and charges at the door. Clear them out, and 80 batteries.”  ·  OUR TRY: “That motel by the freeway was ours. Beds for the soup line. A crew took it, and now the hungry pay at the door. Clear them out and I'll give you 80 batteries, everything the kitchen saved.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NEVER 'IT PAYS', AND WHO DOES NOT CURSE: the woman who feeds the hungry: The woman who runs the soup line says it to you when you ask what her job is and what you get for it (you see it in a camp or TOWN, at the board where people offer jobs); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_07/words-two-hw07-07-clean-the-soup-line-11-22.webp",
+    "first": "vote/words_two_homework_07/words-two-hw07-07-clean-the-soup-line-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1126
+    ]
+   },
+   "homework": {
+    "sheet": 7,
+    "n": 7,
+    "mouth": "A JOB GIVER AT THE BOARD",
+    "rule": "NEVER 'IT PAYS', AND WHO DOES NOT CURSE: the woman who feeds the hungry",
+    "try": "That motel by the freeway was ours. Beds for the soup line. A crew took it, and now the hungry pay at the door. Clear them out and I'll give you 80 batteries, everything the kitchen saved.",
+    "clean": "the woman who runs the soup line, asking for the hungry; she does not curse",
+    "teaches": "WHO PAYS, SAID BY THE ONE WHO PAYS: the kitchen's savings; and a woman of the soup line left clean on purpose",
+    "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+    "line": "The motel by the freeway was ours, beds for the soup line. A crew took it and charges at the door. Clear them out, and 80 batteries."
+   }
+  },
+  {
+   "id": "words-two-hw07-06-curse-the-old-sergeant-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “Two tours, one pension. The pension died first. Where do you want me?”  ·  OUR TRY: “Two tours and a pension, and the fucking pension died first. Point me where you want me.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, MOST PEOPLE CURSE: an old soldier selling himself: An old Guard sergeant whose pension died with the dollar says it to you when you look at him in the hire line (you see it in a TOWN, on the card of a man for hire); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_07/words-two-hw07-06-curse-the-old-sergeant-11-22.webp",
+    "first": "vote/words_two_homework_07/words-two-hw07-06-curse-the-old-sergeant-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1008
+    ]
+   },
+   "homework": {
+    "sheet": 7,
+    "n": 6,
+    "mouth": "A MAN FOR HIRE",
+    "rule": "MOST PEOPLE CURSE: an old soldier selling himself",
+    "try": "Two tours and a pension, and the fucking pension died first. Point me where you want me.",
+    "teaches": "A HIRE WHO WAS CHEATED: the pension died with the dollar; our try lets him be bitter",
+    "pulled_from": "records/target/bb/rare_recruits.json",
+    "line": "Two tours, one pension. The pension died first. Where do you want me?"
+   }
+  },
+  {
+   "id": "words-two-hw07-05-curse-after-a-wipe-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “RUIZ. I'm going to find RUIZ.”  ·  OUR TRY: “Ruiz did this. I'm gonna find that motherfucker and every one of his boys.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, MOST PEOPLE CURSE: waking up after everybody went down: The biggest man in your crew says it to the crew when the whole crew went down and somebody dragged you all out (you see it on the screen after a FIGHT you lost to the last man); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_07/words-two-hw07-05-curse-after-a-wipe-11-22.webp",
+    "first": "vote/words_two_homework_07/words-two-hw07-05-curse-after-a-wipe-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     906
+    ]
+   },
+   "homework": {
+    "sheet": 7,
+    "n": 5,
+    "mouth": "YOUR MAN, AFTER A WIPE",
+    "rule": "MOST PEOPLE CURSE: waking up after everybody went down",
+    "try": "Ruiz did this. I'm gonna find that motherfucker and every one of his boys.",
+    "teaches": "THE WORST LOSS: every man down, and the game puts in the name of who did it; our try names him and curses him",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "RUIZ. I'm going to find RUIZ."
+   }
+  },
+  {
+   "id": "words-two-hw07-04-curse-the-retreat-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “We didn't run. We relocated. Loudly.”  ·  OUR TRY: “We didn't run, we got the fuck out. There's a difference.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, PLAIN BEATS CLEVER, AND THEY CURSE: running away: The hothead in your crew says it to the crew when you ran from a fight and got away (you see it on the screen after a FIGHT you ran from); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_07/words-two-hw07-04-curse-the-retreat-11-22.webp",
+    "first": "vote/words_two_homework_07/words-two-hw07-04-curse-the-retreat-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     908
+    ]
+   },
+   "homework": {
+    "sheet": 7,
+    "n": 4,
+    "mouth": "YOUR MAN, AFTER RUNNING",
+    "rule": "PLAIN BEATS CLEVER, AND THEY CURSE: running away",
+    "try": "We didn't run, we got the fuck out. There's a difference.",
+    "teaches": "A RETREAT: ours is a quip ('We relocated. Loudly.'); our try says it plain and curses",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "We didn't run. We relocated. Loudly."
+   }
+  },
+  {
+   "id": "words-two-hw07-03-curse-a-kids-hit-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “I got him! Did you see that?”  ·  OUR TRY: “I fucking got him! Did you see that?!”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, MOST PEOPLE CURSE: a kid's first hit: The seventeen-year-old in your crew says it to everybody when his shot lands (you see it in a FIGHT, over his head); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_07/words-two-hw07-03-curse-a-kids-hit-11-22.webp",
+    "first": "vote/words_two_homework_07/words-two-hw07-03-curse-a-kids-hit-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     804
+    ]
+   },
+   "homework": {
+    "sheet": 7,
+    "n": 3,
+    "mouth": "YOUR MAN, MID-FIGHT",
+    "rule": "MOST PEOPLE CURSE: a kid's first hit",
+    "try": "I fucking got him! Did you see that?!",
+    "teaches": "A KID'S HIT: his kill stayed clean ('Okay. Okay. That's real.', your YES); his hit, the happy one, curses in our try",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "I got him! Did you see that?"
+   }
+  },
+  {
+   "id": "words-two-hw07-02-clean-a-memorial-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “Tommy Reyes passed in the night. 81. he wound the church clock every sunday for twenty years. who winds it now.”  ·  OUR TRY: “Tommy Reyes passed last night. 81. wound the church clock every sunday for twenty years. who's gonna wind it now”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, WHERE THE CURSING STOPS: a memorial post: A man in the valley posting that an old neighbour died says it to everybody on the feed when the old man who wound the church clock died in the night (you see it on the phone's FEED); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_07/words-two-hw07-02-clean-a-memorial-11-22.webp",
+    "first": "vote/words_two_homework_07/words-two-hw07-02-clean-a-memorial-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     898
+    ]
+   },
+   "homework": {
+    "sheet": 7,
+    "n": 2,
+    "mouth": "THE FEED",
+    "rule": "WHERE THE CURSING STOPS: a memorial post",
+    "try": "Tommy Reyes passed last night. 81. wound the church clock every sunday for twenty years. who's gonna wind it now",
+    "clean": "a memorial for an old man; grief that quiet does not curse",
+    "teaches": "GRIEF ON THE FEED: our try stays clean on purpose and plainer; is a memorial where the cursing stops",
+    "pulled_from": "records/target/bb/feed_kinds.json",
+    "line": "Tommy Reyes passed in the night. 81. he wound the church clock every sunday for twenty years. who winds it now."
+   }
+  },
+  {
+   "id": "words-two-hw07-01-curse-a-lost-brother-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “has anyone seen my brother Ernesto. he went to the depot to trade a radio. that was four days ago.”  ·  OUR TRY: “has anybody seen my brother Ernesto?? went to the depot to trade a radio 4 days ago and never came back. please. i'm losing my shit”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, MOST PEOPLE CURSE: a post about somebody missing: A grandmother in the valley whose brother never came back says it to everybody on the feed when her brother has been gone four days (you see it on the phone's FEED); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_07/words-two-hw07-01-curse-a-lost-brother-11-22.webp",
+    "first": "vote/words_two_homework_07/words-two-hw07-01-curse-a-lost-brother-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     862
+    ]
+   },
+   "homework": {
+    "sheet": 7,
+    "n": 1,
+    "mouth": "THE FEED",
+    "rule": "MOST PEOPLE CURSE: a post about somebody missing",
+    "try": "has anybody seen my brother Ernesto?? went to the depot to trade a radio 4 days ago and never came back. please. i'm losing my shit",
+    "teaches": "A POST ABOUT SOMEBODY MISSING: your insulin post was 'SOS'; our try is typed scared, with a curse",
+    "pulled_from": "records/target/bb/feed_kinds.json",
+    "line": "has anyone seen my brother Ernesto. he went to the depot to trade a radio. that was four days ago."
+   }
+  },
+  {
+   "id": "words-two-hw06-12-who-pays-the-dealer-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “One hand, high card. You win, I give you twenty. You lose, I take ten. The house always won, mijo. The house is dead now. Let's see.”  ·  OUR TRY: “One hand, high card. You win, I give you twenty batteries. You lose, I take ten. The house always won, and look at this shit now, the house is dead. Deal?”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NEVER 'IT PAYS', AND THEY CURSE: a gambler says who pays what: An old casino dealer on the road with a deck of cards says it to you when he offers you one hand of high card (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_06/words-two-hw06-12-who-pays-the-dealer-11-22.webp",
+    "first": "vote/words_two_homework_06/words-two-hw06-12-who-pays-the-dealer-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1210
+    ]
+   },
+   "homework": {
+    "sheet": 6,
+    "n": 12,
+    "mouth": "A ROAD STOP",
+    "rule": "NEVER 'IT PAYS', AND THEY CURSE: a gambler says who pays what",
+    "try": "One hand, high card. You win, I give you twenty batteries. You lose, I take ten. The house always won, and look at this shit now, the house is dead. Deal?",
+    "teaches": "WHO PAYS, SAID RIGHT: the dealer says exactly who gives what to whom ('I give you twenty'); our try drops 'mijo' and adds the curse",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "One hand, high card. You win, I give you twenty. You lose, I take ten. The house always won, mijo. The house is dead now. Let's see."
+   }
+  },
+  {
+   "id": "words-two-hw06-11-clean-the-church-radio-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “he says nobody is coming. he said it kindly.”  ·  OUR TRY: “He says nobody's coming. He said it nice, like he was sorry. God help us.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, THEY CURSE, AND WHO DOES NOT: a church under attack, on the radio: The guard at a church town's gate, on the radio says it to the others in the church when armed men are at the fence and say nobody is coming (you see it on the phone's FEED, while the town falls); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_06/words-two-hw06-11-clean-the-church-radio-11-22.webp",
+    "first": "vote/words_two_homework_06/words-two-hw06-11-clean-the-church-radio-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     708
+    ]
+   },
+   "homework": {
+    "sheet": 6,
+    "n": 11,
+    "mouth": "THE FEED, A TOWN FALLING",
+    "rule": "THEY CURSE, AND WHO DOES NOT: a church under attack, on the radio",
+    "try": "He says nobody's coming. He said it nice, like he was sorry. God help us.",
+    "clean": "a church's radio while the children hide in the crypt; your own radio call did not curse ('God help us...')",
+    "teaches": "WHERE THE CURSING STOPS: your radio call was clean, a prayer at the end; our try keeps this one clean on purpose and in capitals like yours",
+    "pulled_from": "records/target/bb/radio_lines.json",
+    "line": "he says nobody is coming. he said it kindly."
+   }
+  },
+  {
+   "id": "words-two-hw06-10-curse-the-asker-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever pays, and he throws nails on every street round his shop so you crawl in. Ask at the bar, they all know him.”  ·  OUR TRY: “You want guns? Everybody wants guns. The Machinist makes them and sells them to whoever has batteries, and he throws nails on every street around his shop so you crawl in on your fucking knees. Ask at the bar, every drunk in there knows him.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, THEY CURSE: the one who sends you after a boss: A mechanic with burned arms says it to you when she stops you to send you after the boss who makes the guns (you see it on the MAP, on the card that starts a boss's trail); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_06/words-two-hw06-10-curse-the-asker-11-22.webp",
+    "first": "vote/words_two_homework_06/words-two-hw06-10-curse-the-asker-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1172
+    ]
+   },
+   "homework": {
+    "sheet": 6,
+    "n": 10,
+    "mouth": "A BOSS'S ASKER",
+    "rule": "THEY CURSE: the one who sends you after a boss",
+    "try": "You want guns? Everybody wants guns. The Machinist makes them and sells them to whoever has batteries, and he throws nails on every street around his shop so you crawl in on your fucking knees. Ask at the bar, every drunk in there knows him.",
+    "teaches": "THE ASKER, THE FURTHEST MOUTH: your trucker card was a YES as it stood; this asker is angry and curses; which is right for the 60 asker lines",
+    "pulled_from": "records/target/bb/boss_act_one.json",
+    "line": "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever pays, and he throws nails on every street round his shop so you crawl in. Ask at the bar, they all know him."
+   }
+  },
+  {
+   "id": "words-two-hw06-09-curse-the-collector-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “I did collections. Nobody ever paid late twice.”  ·  OUR TRY: “I did collections for the casinos. Nobody paid me late twice, and the ones who tried still can't fucking walk right.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, THEY CURSE: a man selling himself as dangerous: A man the casinos used to send to collect debts says it to you when you look at him in the hire line (you see it in a TOWN, on the card of a man for hire); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_06/words-two-hw06-09-curse-the-collector-11-22.webp",
+    "first": "vote/words_two_homework_06/words-two-hw06-09-curse-the-collector-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     992
+    ]
+   },
+   "homework": {
+    "sheet": 6,
+    "n": 9,
+    "mouth": "A MAN FOR HIRE",
+    "rule": "THEY CURSE: a man selling himself as dangerous",
+    "try": "I did collections for the casinos. Nobody paid me late twice, and the ones who tried still can't fucking walk right.",
+    "teaches": "A HIRE SELLS HIMSELF BY HOW DANGEROUS HE IS (your 'real deal killers'); our try adds what happened to the ones who were late",
+    "pulled_from": "records/target/bb/rare_recruits.json",
+    "line": "I did collections. Nobody ever paid late twice."
+   }
+  },
+  {
+   "id": "words-two-hw06-08-curse-the-raided-elder-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “A crew came through three nights back. Burned the Ortega house. Half of what we had walked out with them.”  ·  OUR TRY: “A crew came through three nights ago. They burned the Ortegas' house with the grandmother still inside. Half of what we had walked out the gate with those sons of bitches.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, THEY CURSE: an Elder three nights after a raid: The head of a town that was just raided says it to you when you walk into a town a crew burned three nights ago (you see it in a TOWN, when you open it); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_06/words-two-hw06-08-curse-the-raided-elder-11-22.webp",
+    "first": "vote/words_two_homework_06/words-two-hw06-08-curse-the-raided-elder-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1126
+    ]
+   },
+   "homework": {
+    "sheet": 6,
+    "n": 8,
+    "mouth": "THE ELDER OF A RAIDED TOWN",
+    "rule": "THEY CURSE: an Elder three nights after a raid",
+    "try": "A crew came through three nights ago. They burned the Ortegas' house with the grandmother still inside. Half of what we had walked out the gate with those sons of bitches.",
+    "teaches": "YOUR STARRED ELDER WAS PEACEFUL AND CLEAN; this one is grieving and angry; does an Elder curse when it is his town that burned",
+    "pulled_from": "records/target/settlement_traits.json",
+    "line": "A crew came through three nights back. Burned the Ortega house. Half of what we had walked out with them."
+   }
+  },
+  {
+   "id": "words-two-hw06-07-curse-the-believer-loots-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “We pray for them later. Loot first.”  ·  OUR TRY: “We pray for them later. Grab their shit first.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, THEY CURSE: a man who prays, after he has won: The man in your crew who prays says it to the crew when you win a fight (you see it on the screen after a FIGHT); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_06/words-two-hw06-07-curse-the-believer-loots-11-22.webp",
+    "first": "vote/words_two_homework_06/words-two-hw06-07-curse-the-believer-loots-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     908
+    ]
+   },
+   "homework": {
+    "sheet": 6,
+    "n": 7,
+    "mouth": "YOUR MAN, AFTER THE FIGHT",
+    "rule": "THEY CURSE: a man who prays, after he has won",
+    "try": "We pray for them later. Grab their shit first.",
+    "teaches": "THE PRAYING MAN, AFTER: outnumbered he was clean ('Lord, that is a lot of them', your YES); after a win he loots; does a believer curse here",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "We pray for them later. Loot first."
+   }
+  },
+  {
+   "id": "words-two-hw06-06-curse-a-miss-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “Hit the man, not the air!”  ·  OUR TRY: “Hit the fucking man, not the air!”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, THEY CURSE: a miss in the middle of a fight: The hothead in your crew says it to whoever just missed when one of your men misses a shot he should have made (you see it in a FIGHT, over his head); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_06/words-two-hw06-06-curse-a-miss-11-22.webp",
+    "first": "vote/words_two_homework_06/words-two-hw06-06-curse-a-miss-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     810
+    ]
+   },
+   "homework": {
+    "sheet": 6,
+    "n": 6,
+    "mouth": "YOUR MAN, MID-FIGHT",
+    "rule": "THEY CURSE: a miss in the middle of a fight",
+    "try": "Hit the fucking man, not the air!",
+    "teaches": "THEY CURSE, THE SMALLEST LINE: 584 lines over his men's heads; one word added is the whole change",
+    "pulled_from": "records/target/bb/crew_voices.json",
+    "line": "Hit the man, not the air!"
+   }
+  },
+  {
+   "id": "words-two-hw06-05-curse-the-herds-why-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “The animals are hungry, so you are the meal.”  ·  OUR TRY: “The herd's starving, and you dumb fucks walked right up to their dinner.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, THEY CURSE: the enemy's why (your raiders NO: 'They not cursing bro'): The leader of the men who keep a herd of lab animals says it to you when a fight opens on the road and his animals come at you (you see it on the card that opens a FIGHT); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_06/words-two-hw06-05-curse-the-herds-why-11-22.webp",
+    "first": "vote/words_two_homework_06/words-two-hw06-05-curse-the-herds-why-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     922
+    ]
+   },
+   "homework": {
+    "sheet": 6,
+    "n": 5,
+    "mouth": "THE ENEMY'S LEADER",
+    "rule": "THEY CURSE: the enemy's why (your raiders NO: 'They not cursing bro')",
+    "try": "The herd's starving, and you dumb fucks walked right up to their dinner.",
+    "teaches": "THE WHY LINE CURSES: 163 why lines, none curse; your raiders card said so; this is our try on the next one",
+    "pulled_from": "records/target/bb/fight_reasons.json",
+    "line": "The animals are hungry, so you are the meal."
+   }
+  },
+  {
+   "id": "words-two-hw06-04-curse-the-deserters-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “We quit the Reds. They make us shoot water thieves, kids, everybody. We fight good. Take us, or don't, but don't tell the Reds you saw us.”  ·  OUR TRY: “We quit the Reds. They had us shooting water thieves, kids, fucking everybody. We can fight. Take us or don't, but if the Reds hear you saw us, we're dead men.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, THEY CURSE: men who ran from what they did: Two men who deserted the Reds says it to your crew when they step out of the brush and ask to join you (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_06/words-two-hw06-04-curse-the-deserters-11-22.webp",
+    "first": "vote/words_two_homework_06/words-two-hw06-04-curse-the-deserters-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1376
+    ]
+   },
+   "homework": {
+    "sheet": 6,
+    "n": 4,
+    "mouth": "A ROAD STOP",
+    "rule": "THEY CURSE: men who ran from what they did",
+    "try": "We quit the Reds. They had us shooting water thieves, kids, fucking everybody. We can fight. Take us or don't, but if the Reds hear you saw us, we're dead men.",
+    "teaches": "THEY CURSE ABOUT WHAT THEY DID: shame and fear from armed men; 'everybody' carries the curse",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "We quit the Reds. They make us shoot water thieves, kids, everybody. We fight good. Take us, or don't, but don't tell the Reds you saw us."
+   }
+  },
+  {
+   "id": "words-two-hw06-03-curse-grief-and-a-threat-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “You took the batteries out of my radio. My wife recorded that report the morning before. It's the last of her voice. Put four back or I follow you forever.”  ·  OUR TRY: “You took the batteries out of my fucking radio. My wife recorded that report the morning before she died. That's the last of her voice I've got. Put four back, or I swear to God I follow you till one of us is dead.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, THEY CURSE: grief and a threat in one breath: A man whose radio you took the batteries out of says it to your crew when he catches up with you on the road (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_06/words-two-hw06-03-curse-grief-and-a-threat-11-22.webp",
+    "first": "vote/words_two_homework_06/words-two-hw06-03-curse-grief-and-a-threat-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1212
+    ]
+   },
+   "homework": {
+    "sheet": 6,
+    "n": 3,
+    "mouth": "A ROAD STOP",
+    "rule": "THEY CURSE: grief and a threat in one breath",
+    "try": "You took the batteries out of my fucking radio. My wife recorded that report the morning before she died. That's the last of her voice I've got. Put four back, or I swear to God I follow you till one of us is dead.",
+    "teaches": "THEY CURSE AT THE WORST MOMENT: a widower threatening armed men over his dead wife's voice",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "You took the batteries out of my radio. My wife recorded that report the morning before. It's the last of her voice. Put four back or I follow you forever."
+   }
+  },
+  {
+   "id": "words-two-hw06-02-clean-the-sergeant-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “Raiders hit a farm west of here. We're short a gun. Ride with us one hour, the Blues pay what's fair, and we don't forget who stood with us.”  ·  OUR TRY: “Raiders hit a farm west of here. The family's still in the house. We're one gun short. Ride with us one hour and I'll pay you out of my own pocket, and the Blues don't forget who stood with us.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, THEY CURSE, AND WHO DOES NOT: a sergeant asking strangers for help: A sergeant of the Blues with a patrol one gun short says it to your crew when raiders just hit a farm and he needs one more gun (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_06/words-two-hw06-02-clean-the-sergeant-11-22.webp",
+    "first": "vote/words_two_homework_06/words-two-hw06-02-clean-the-sergeant-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1290
+    ]
+   },
+   "homework": {
+    "sheet": 6,
+    "n": 2,
+    "mouth": "A ROAD STOP",
+    "rule": "THEY CURSE, AND WHO DOES NOT: a sergeant asking strangers for help",
+    "try": "Raiders hit a farm west of here. The family's still in the house. We're one gun short. Ride with us one hour and I'll pay you out of my own pocket, and the Blues don't forget who stood with us.",
+    "clean": "a sergeant asking strangers for help, with his own men listening, keeps it clean",
+    "teaches": "WHERE THE CURSING STOPS: a disciplined man asking for help; we left him clean on purpose; and who pays is him",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "Raiders hit a farm west of here. We're short a gun. Ride with us one hour, the Blues pay what's fair, and we don't forget who stood with us."
+   }
+  },
+  {
+   "id": "words-two-hw06-01-never-it-pays-the-dam-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “Two pump posts on the dam road went quiet this week, and quiet out there means somebody is listening. Walk to both and back, and it pays 119 batteries at most, part of it for every crew you stop on the way.”  ·  OUR TRY: “Two of my pump posts on the dam road went quiet this week. Quiet out there means some motherfucker is sitting on them, listening. Walk out to both and come back breathing, and I'll pay you 119 batteries out of the turbine money myself.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NEVER 'IT PAYS': a job giver says who pays and what: The man who keeps the dam's turbines says it to you when you ask what his job is and what you get for it (you see it in a camp or TOWN, at the board where people offer jobs); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_06/words-two-hw06-01-never-it-pays-the-dam-11-22.webp",
+    "first": "vote/words_two_homework_06/words-two-hw06-01-never-it-pays-the-dam-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1172
+    ]
+   },
+   "homework": {
+    "sheet": 6,
+    "n": 1,
+    "mouth": "A JOB GIVER AT THE BOARD",
+    "rule": "NEVER 'IT PAYS': a job giver says who pays and what",
+    "try": "Two of my pump posts on the dam road went quiet this week. Quiet out there means some motherfucker is sitting on them, listening. Walk out to both and come back breathing, and I'll pay you 119 batteries out of the turbine money myself.",
+    "teaches": "YOUR 'IT PAYS' NO, FIXED ON THE BIGGEST MOUTH: 20 of the 102 job lines say 'it pays'; ours says who pays (him, out of the turbine money) and what",
+    "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+    "line": "Two pump posts on the dam road went quiet this week, and quiet out there means somebody is listening. Walk to both and back, and it pays 119 batteries at most, part of it for every crew you stop on the way."
+   }
+  },
+  {
    "id": "words-two-hw05-12-dark-the-professor-11-21",
    "kind": "line",
    "lane": "words two",

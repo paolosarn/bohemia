@@ -6,6 +6,36 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
+WORDS THREE (words-three-01gkdyuvnl): 11/22 LATEST -- BUILD 11/22zf - NEVER 'IT PAYS', OUR TRY ON EVERY CARD, SHEETS SIX AND SEVEN, BUILT (this commit), NOT YET SEEN (rules 470(g)(h), 467 AMENDED 11/22, 465; ask rows 707, 708, 710, 629). NOTHING IN THE GAME WAS REWRITTEN.
+THE COORDINATOR'S ROUTINE 'WORDS THREE: never it pays': his sheet records/BOHEMIA_PAOLO_VOTE_11_22_26.txt answered all 41 homework cards still out (sheet one's
+last five, sheets three, four, five whole). Rule 465 stands: THE VOICE HOLDS 11/0, 0 of 15 mouths open. Rule 461(c) amended: no tool that waits for a tap.
+(1) ALL 68 ANSWERS ON THE VOICE (tools/bohemia_words_three_the_voice.py): 31 LINES OF HIS kept exactly (11 new), 23 KEPT AS THEY ARE (21 new YES; three with a
+note: fog of war 470(c), the button's limit 470(h), 'Just remove lucrative'), 14 WHAT THE VOICE IS NOT (9 new: hw01-17 'I hate this', hw03-11, hw03-12, hw04-06
+the hats, hw04-07, hw04-09, hw04-10 'no one speaks like this', hw05-02, hw05-12 the raiders who do not curse), his words and the plain lesson each. PAGE THREE,
+NEVER 'IT PAYS' (470(g)), his two notes beside what they teach: a person says who pays and what, or nothing. MEASURED: 23 lines say 'it pays' or 'it doesn't
+pay', 20 on the job board (of 102), the first a rewrite fixes the day he says he is done. THE VOICE SO FAR 20 lines (new: MOST PEOPLE CURSE, NEVER 'IT PAYS',
+IF HE WOULD ASK WHAT IT MEANS IT IS WRONG, A THING SAID ABOUT A PERSON BECOMES THE PERSON SAYING IT). PART THREE says what is SETTLED (eerie is scary; a
+button may stay a thing you do; a road card may describe a scene; a clerk may talk like one) and ties every one of the 24 cards out.
+(2) OUR TRY ON EVERY CARD (467 amended): tools/bohemia_words_two_homework.js takes a card's 'try' (blanks filled as in the line) and 'clean' (why a try does
+not curse): title NOW: "..." · OUR TRY: "...", words 'IS OUR TRY RIGHT?', picture NOW IN THE GAME over OUR TRY in green; --check holds the registered try.
+SHEETS SIX (hw06-01 to -12, never 'it pays' and they curse) AND SEVEN (hw07-01 to -12): 20 of 24 tries curse in full, 4 clean on purpose (a sergeant with his
+men listening, a church radio while the children hide, a memorial post, the soup line woman); every try that pays says who pays. Yellow; on a fresh phone 2
+cards up front, then behind MORE sheet six at 3 to 14 and sheet seven at 15 to 26 of 26, card 1 first. All 24 pictures open on the tab upright and sideways, 0 errors, 0 px off the side.
+GATE THE VOICE IS HIS WORDS 14/0, new leg V12 OUR TRY CURSES (every waiting card has a try; two in three per sheet curse in full; a clean one says why; no
+bleep; never 'it pays'; plants caught). HIS ANSWER IS KEPT 15/0 (its comparison card read from what the tab draws).
+(3) 470(h) NAMED FOR THE COORDINATOR TO SEND: THE MAN WHO GOES HOME COMES BACK. OWNER: WORLD 15 (road events; works from handoffs/WORLD_FOURTEEN.md). Card 3.4
+'your own button' is 'Say the company needs every hand.' on road event ev_the_word_from_home (records/target/BOHEMIA_ROAD_EVENTS.json, once: true): 'Go.'
+(fx.leaves, food -2) and the failing half of 'Say the company needs every hand.' (chance 0.5, fx.leaves, batteries -5) both dismiss the man for good today
+(slices/bohemia_road_more.js leaves() -> BohemiaHireLock.dismiss, 'the one way a man goes'). His words: 'I like this just make sure there's a limit like is it
+gonna come back in a day or two days three days like something like that bro that's for real'. THE ASK: a man who leaves through that card comes back to the
+company after a set wait on the map's clock (one to three days; the number is TUNING's table), a line from him when he does; not gone forever. Not built here.
+ALSO ROUTED: 470(f), hw04-06 'why are people wearing chinese rice farmer hats' -> CHARACTER (done on main: THE CONE HAT IS DEAD, f770cb1de).
+Record: records/BOHEMIA_WORDS_THREE_NEVER_IT_PAYS_OUR_TRY_ON_EVERY_CARD_11_22_26.md.
+NEXT: his next sheet when its path lands, folded the same way (the tool stops until each new answer has its WHAT IT TEACHES or LESSON); a sheet eight when the
+24 out run low, our try on every card, two in three cursing; nothing into the game until he says he is done.
+[bb Battle Brothers' contracts say who is paying you and how much, in the client's own mouth; ours said 'it pays' like a machine]
+[analog horror: 'They're coming up the fucking ladder. I heard two shots. Oh shit. Oh shit.' is our try on card 7.9]
+
 WORDS THREE (words-three-01gkdyuvnl): 11/21 LATEST -- BUILD 11/21k - HIS SHEETS ON THE VOICE, THEY CURSE, SHEET FIVE, BUILT (0c0a61f6e), NOT YET SEEN (rules 466(f), 467, 465; ask rows 665, 666, 629, 637, 643). NOTHING IN THE GAME WAS REWRITTEN.
 THE COORDINATOR'S ROUTINE 'WORDS THREE: his sheet, and they curse': his sheet records/BOHEMIA_PAOLO_VOTE_11_21_26.txt (23 new homework answers). Rule 465 stands:
 THE VOICE HOLDS 11/0, 0 of 15 mouths open. Rule 461(c) amended: never call a tool that waits for a tap (no send_later from this lane).

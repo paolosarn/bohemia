@@ -1,0 +1,601 @@
+{
+ "draft": true,
+ "sheet": 6,
+ "_about": "WORDS THREE, HIS HOMEWORK, SHEET SIX: OUR TRY ON EVERY CARD (VAMILY rules 467 amended 11/22, 470(g), 465; ask rows 629, 666). He answered every card of sheets one to five, so the tab was empty. Rule 467 amended: every card shows OUR TRY in the voice beside the line the game says now, so he sees what we learned; at least two tries in three on a sheet carry a real curse in full; the ones who would not curse are left clean on purpose, each card saying why ('clean'). Every try follows THE VOICE so far: never 'it pays' (470(g): a person says who pays and what, or nothing), no battery count in a feeling, say it like a person, no fashion names as a joke, plain beats clever. Here: 10 of 12 tries curse; the sergeant and the church radio are clean on purpose. Our tries are on the cards only: nothing in the game is rewritten until he says he is done (rule 465). tools/bohemia_words_two_homework.js reads every game line out of its file; the tries are ours and marked so.",
+ "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+ "cards": [
+  {
+   "rule": "NEVER 'IT PAYS': a job giver says who pays and what",
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "tab": "A TOWN",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-patrol-dam"
+      }
+     },
+     "client",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-patrol-dam"
+      }
+     },
+     "client",
+     "from"
+    ]
+   },
+   "who_plain": "The man who keeps the dam's turbines",
+   "to": "you",
+   "when": "you ask what his job is and what you get for it",
+   "where": "in a camp or TOWN, at the board where people offer jobs",
+   "side": "other",
+   "face": {
+    "look": "cast_longcoat"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-patrol-dam"
+      }
+     },
+     "says"
+    ]
+   },
+   "fill": {
+    "pay": {
+     "json": [
+      "board_people",
+      "rows",
+      {
+       "find": {
+        "id": "jk-patrol-dam"
+       }
+      },
+      "pay"
+     ]
+    }
+   },
+   "expect": "Two pump posts",
+   "try": "Two of my pump posts on the dam road went quiet this week. Quiet out there means some motherfucker is sitting on them, listening. Walk out to both and come back breathing, and I'll pay you {pay} batteries out of the turbine money myself.",
+   "teaches": "YOUR 'IT PAYS' NO, FIXED ON THE BIGGEST MOUTH: 20 of the 102 job lines say 'it pays'; ours says who pays (him, out of the turbine money) and what",
+   "n": 1,
+   "id": "words-two-hw06-01-never-it-pays-the-dam-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "THEY CURSE, AND WHO DOES NOT: a sergeant asking strangers for help",
+   "mouth": "A ROAD STOP",
+   "tab": "MAP",
+   "who_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_blue_patrol"
+      }
+     },
+     "who",
+     "name"
+    ]
+   },
+   "role": "stops your crew on the road with his patrol",
+   "who_plain": "A sergeant of the Blues with a patrol one gun short",
+   "to": "your crew",
+   "when": "raiders just hit a farm and he needs one more gun",
+   "where": "on the MAP, on the card that stops your crew on the road",
+   "side": "other",
+   "face": {
+    "look": "faction_blues"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_blue_patrol"
+      }
+     },
+     "says"
+    ]
+   },
+   "choices_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_blue_patrol"
+      }
+     },
+     "opts"
+    ],
+    "field": "t"
+   },
+   "expect": "Raiders hit a farm",
+   "try": "Raiders hit a farm west of here. The family's still in the house. We're one gun short. Ride with us one hour and I'll pay you out of my own pocket, and the Blues don't forget who stood with us.",
+   "clean": "a sergeant asking strangers for help, with his own men listening, keeps it clean",
+   "teaches": "WHERE THE CURSING STOPS: a disciplined man asking for help; we left him clean on purpose; and who pays is him",
+   "n": 2,
+   "id": "words-two-hw06-02-clean-the-sergeant-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "THEY CURSE: grief and a threat in one breath",
+   "mouth": "A ROAD STOP",
+   "tab": "MAP",
+   "who_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_radio_keeper"
+      }
+     },
+     "who",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_radio_keeper"
+      }
+     },
+     "who",
+     "from"
+    ]
+   },
+   "who_plain": "A man whose radio you took the batteries out of",
+   "to": "your crew",
+   "when": "he catches up with you on the road",
+   "where": "on the MAP, on the card that stops your crew on the road",
+   "side": "them",
+   "face": {
+    "look": "cast_widebrim"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_radio_keeper"
+      }
+     },
+     "says"
+    ]
+   },
+   "choices_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_radio_keeper"
+      }
+     },
+     "opts"
+    ],
+    "field": "t"
+   },
+   "expect": "You took the batteries",
+   "try": "You took the batteries out of my fucking radio. My wife recorded that report the morning before she died. That's the last of her voice I've got. Put four back, or I swear to God I follow you till one of us is dead.",
+   "teaches": "THEY CURSE AT THE WORST MOMENT: a widower threatening armed men over his dead wife's voice",
+   "n": 3,
+   "id": "words-two-hw06-03-curse-grief-and-a-threat-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "THEY CURSE: men who ran from what they did",
+   "mouth": "A ROAD STOP",
+   "tab": "MAP",
+   "who_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_deserters"
+      }
+     },
+     "who",
+     "name"
+    ]
+   },
+   "role": "men who walked away from their crew",
+   "who_plain": "Two men who deserted the Reds",
+   "to": "your crew",
+   "when": "they step out of the brush and ask to join you",
+   "where": "on the MAP, on the card that stops your crew on the road",
+   "side": "other",
+   "face": {
+    "look": "faction_reds"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_deserters"
+      }
+     },
+     "says"
+    ]
+   },
+   "choices_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_deserters"
+      }
+     },
+     "opts"
+    ],
+    "field": "t"
+   },
+   "expect": "We quit the Reds",
+   "try": "We quit the Reds. They had us shooting water thieves, kids, fucking everybody. We can fight. Take us or don't, but if the Reds hear you saw us, we're dead men.",
+   "teaches": "THEY CURSE ABOUT WHAT THEY DID: shame and fear from armed men; 'everybody' carries the curse",
+   "n": 4,
+   "id": "words-two-hw06-04-curse-the-deserters-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "THEY CURSE: the enemy's why (your raiders NO: 'They not cursing bro')",
+   "mouth": "THE ENEMY'S LEADER",
+   "tab": "THE FIGHT",
+   "who": "THE HERD'S KEEPER",
+   "role": "leads the men who keep the animals",
+   "who_plain": "The leader of the men who keep a herd of lab animals",
+   "to": "you",
+   "when": "a fight opens on the road and his animals come at you",
+   "where": "on the card that opens a FIGHT",
+   "side": "them",
+   "face": {
+    "look": "enemy_keeper_thrall_0"
+   },
+   "pull": {
+    "file": "records/target/bb/fight_reasons.json",
+    "json": [
+     "rules",
+     {
+      "find": {
+       "id": "road.keepers"
+      }
+     },
+     "them",
+     1
+    ]
+   },
+   "expect": "The animals are hungry",
+   "try": "The herd's starving, and you dumb fucks walked right up to their dinner.",
+   "teaches": "THE WHY LINE CURSES: 163 why lines, none curse; your raiders card said so; this is our try on the next one",
+   "n": 5,
+   "id": "words-two-hw06-05-curse-the-herds-why-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "THEY CURSE: a miss in the middle of a fight",
+   "mouth": "YOUR MAN, MID-FIGHT",
+   "tab": "THE FIGHT",
+   "who": "YOUR MAN, THE HOTHEAD",
+   "role_pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "hothead",
+     "about"
+    ]
+   },
+   "who_plain": "The hothead in your crew",
+   "to": "whoever just missed",
+   "when": "one of your men misses a shot he should have made",
+   "where": "in a FIGHT, over his head",
+   "side": "you",
+   "face": {
+    "look": "cast_barearms"
+   },
+   "pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "hothead",
+     "lines",
+     "miss",
+     "en",
+     1
+    ]
+   },
+   "expect": "Hit the man",
+   "try": "Hit the fucking man, not the air!",
+   "teaches": "THEY CURSE, THE SMALLEST LINE: 584 lines over his men's heads; one word added is the whole change",
+   "n": 6,
+   "id": "words-two-hw06-06-curse-a-miss-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "THEY CURSE: a man who prays, after he has won",
+   "mouth": "YOUR MAN, AFTER THE FIGHT",
+   "tab": "THE FIGHT",
+   "who": "YOUR MAN, THE BELIEVER",
+   "role_pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "believer",
+     "about"
+    ]
+   },
+   "who_plain": "The man in your crew who prays",
+   "to": "the crew",
+   "when": "you win a fight",
+   "where": "on the screen after a FIGHT",
+   "side": "you",
+   "face": {
+    "look": "faction_church"
+   },
+   "pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "believer",
+     "lines",
+     "win",
+     "en",
+     5
+    ]
+   },
+   "expect": "We pray for them later",
+   "try": "We pray for them later. Grab their shit first.",
+   "teaches": "THE PRAYING MAN, AFTER: outnumbered he was clean ('Lord, that is a lot of them', your YES); after a win he loots; does a believer curse here",
+   "n": 7,
+   "id": "words-two-hw06-07-curse-the-believer-loots-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "THEY CURSE: an Elder three nights after a raid",
+   "mouth": "THE ELDER OF A RAIDED TOWN",
+   "tab": "A TOWN",
+   "who": "THE ELDER",
+   "role": "of a town raided three nights ago",
+   "who_plain": "The head of a town that was just raided",
+   "to": "you",
+   "when": "you walk into a town a crew burned three nights ago",
+   "where": "in a TOWN, when you open it",
+   "side": "other",
+   "face": {
+    "look": "person_town_3"
+   },
+   "pull": {
+    "file": "records/target/settlement_traits.json",
+    "json": [
+     "traits",
+     {
+      "find": {
+       "id": "raided"
+      }
+     },
+     "says",
+     "any"
+    ]
+   },
+   "expect": "A crew came through",
+   "try": "A crew came through three nights ago. They burned the Ortegas' house with the grandmother still inside. Half of what we had walked out the gate with those sons of bitches.",
+   "teaches": "YOUR STARRED ELDER WAS PEACEFUL AND CLEAN; this one is grieving and angry; does an Elder curse when it is his town that burned",
+   "n": 8,
+   "id": "words-two-hw06-08-curse-the-raided-elder-11-22",
+   "made": "11/22",
+   "through": "BohemiaSpanglish.plain"
+  },
+  {
+   "rule": "THEY CURSE: a man selling himself as dangerous",
+   "mouth": "A MAN FOR HIRE",
+   "tab": "A TOWN",
+   "who": "A MAN FOR HIRE",
+   "role_pull": {
+    "file": "records/target/bb/rare_recruits.json",
+    "json": [
+     "men",
+     3,
+     "who"
+    ]
+   },
+   "who_plain": "A man the casinos used to send to collect debts",
+   "to": "you",
+   "when": "you look at him in the hire line",
+   "where": "in a TOWN, on the card of a man for hire",
+   "side": "other",
+   "face": {
+    "look": "person_rare_3"
+   },
+   "pull": {
+    "file": "records/target/bb/rare_recruits.json",
+    "json": [
+     "men",
+     3,
+     "line"
+    ]
+   },
+   "expect": "I did collections",
+   "try": "I did collections for the casinos. Nobody paid me late twice, and the ones who tried still can't fucking walk right.",
+   "teaches": "A HIRE SELLS HIMSELF BY HOW DANGEROUS HE IS (your 'real deal killers'); our try adds what happened to the ones who were late",
+   "n": 9,
+   "id": "words-two-hw06-09-curse-the-collector-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "THEY CURSE: the one who sends you after a boss",
+   "mouth": "A BOSS'S ASKER",
+   "tab": "MAP",
+   "who_pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE MACHINIST"
+      }
+     },
+     "lead",
+     "asker",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE MACHINIST"
+      }
+     },
+     "lead",
+     "asker",
+     "from"
+    ]
+   },
+   "who_plain": "A mechanic with burned arms",
+   "to": "you",
+   "when": "she stops you to send you after the boss who makes the guns",
+   "where": "on the MAP, on the card that starts a boss's trail",
+   "side": "other",
+   "face": {
+    "look": "faction_anarchists"
+   },
+   "pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE MACHINIST"
+      }
+     },
+     "lead",
+     "asker",
+     "says"
+    ]
+   },
+   "expect": "You want guns?",
+   "try": "You want guns? Everybody wants guns. The Machinist makes them and sells them to whoever has batteries, and he throws nails on every street around his shop so you crawl in on your fucking knees. Ask at the bar, every drunk in there knows him.",
+   "teaches": "THE ASKER, THE FURTHEST MOUTH: your trucker card was a YES as it stood; this asker is angry and curses; which is right for the 60 asker lines",
+   "n": 10,
+   "id": "words-two-hw06-10-curse-the-asker-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "THEY CURSE, AND WHO DOES NOT: a church under attack, on the radio",
+   "mouth": "THE FEED, A TOWN FALLING",
+   "tab": "THE PHONE",
+   "who": "@church_gate",
+   "who_plain": "The guard at a church town's gate, on the radio",
+   "to": "the others in the church",
+   "when": "armed men are at the fence and say nobody is coming",
+   "where": "on the phone's FEED, while the town falls",
+   "layout": "feed",
+   "pull": {
+    "file": "records/target/bb/radio_lines.json",
+    "json": [
+     "towns",
+     "Church",
+     "lines",
+     6,
+     "say"
+    ]
+   },
+   "expect": "he says nobody is coming",
+   "try": "He says nobody's coming. He said it nice, like he was sorry. God help us.",
+   "clean": "a church's radio while the children hide in the crypt; your own radio call did not curse ('God help us...')",
+   "teaches": "WHERE THE CURSING STOPS: your radio call was clean, a prayer at the end; our try keeps this one clean on purpose and in capitals like yours",
+   "n": 11,
+   "id": "words-two-hw06-11-clean-the-church-radio-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "NEVER 'IT PAYS', AND THEY CURSE: a gambler says who pays what",
+   "mouth": "A ROAD STOP",
+   "tab": "MAP",
+   "who_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_casino_chip"
+      }
+     },
+     "who",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_casino_chip"
+      }
+     },
+     "who",
+     "from"
+    ]
+   },
+   "who_plain": "An old casino dealer on the road with a deck of cards",
+   "to": "you",
+   "when": "he offers you one hand of high card",
+   "where": "on the MAP, on the card that stops your crew on the road",
+   "side": "other",
+   "face": {
+    "look": "cast_shortcoat"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_casino_chip"
+      }
+     },
+     "says"
+    ]
+   },
+   "choices_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_casino_chip"
+      }
+     },
+     "opts"
+    ],
+    "field": "t"
+   },
+   "expect": "One hand, high card",
+   "try": "One hand, high card. You win, I give you twenty batteries. You lose, I take ten. The house always won, and look at this shit now, the house is dead. Deal?",
+   "teaches": "WHO PAYS, SAID RIGHT: the dealer says exactly who gives what to whom ('I give you twenty'); our try drops 'mijo' and adds the curse",
+   "n": 12,
+   "id": "words-two-hw06-12-who-pays-the-dealer-11-22",
+   "made": "11/22"
+  }
+ ]
+}

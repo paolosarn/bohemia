@@ -1,0 +1,287 @@
+{
+ "draft": true,
+ "tool": "tools/bohemia_words_two_homework.js",
+ "sheet": 6,
+ "note": "every line below was read out of the named game file by this tool; none was typed",
+ "cards": [
+  {
+   "n": 1,
+   "id": "words-two-hw06-01-never-it-pays-the-dam-11-22",
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "who": "Ingeniero Robles",
+   "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+   "locator": [
+    "board_people",
+    "rows",
+    {
+     "find": {
+      "id": "jk-patrol-dam"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "Two pump posts on the dam road went quiet this week, and quiet out there means somebody is listening. Walk to both and back, and it pays {pay} batteries at most, part of it for every crew you stop on the way.",
+   "filled_with": {
+    "pay": "119"
+   },
+   "line": "Two pump posts on the dam road went quiet this week, and quiet out there means somebody is listening. Walk to both and back, and it pays 119 batteries at most, part of it for every crew you stop on the way.",
+   "try": "Two of my pump posts on the dam road went quiet this week. Quiet out there means some motherfucker is sitting on them, listening. Walk out to both and come back breathing, and I'll pay you 119 batteries out of the turbine money myself.",
+   "picture_pt": [
+    390,
+    586
+   ]
+  },
+  {
+   "n": 2,
+   "id": "words-two-hw06-02-clean-the-sergeant-11-22",
+   "mouth": "A ROAD STOP",
+   "who": "BLUES SERGEANT",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_blue_patrol"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "Raiders hit a farm west of here. We're short a gun. Ride with us one hour, the Blues pay what's fair, and we don't forget who stood with us.",
+   "line": "Raiders hit a farm west of here. We're short a gun. Ride with us one hour, the Blues pay what's fair, and we don't forget who stood with us.",
+   "try": "Raiders hit a farm west of here. The family's still in the house. We're one gun short. Ride with us one hour and I'll pay you out of my own pocket, and the Blues don't forget who stood with us.",
+   "picture_pt": [
+    390,
+    644
+   ]
+  },
+  {
+   "n": 3,
+   "id": "words-two-hw06-03-curse-grief-and-a-threat-11-22",
+   "mouth": "A ROAD STOP",
+   "who": "THE MAN WHO CHANGES THEM",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_radio_keeper"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "You took the batteries out of my radio. My wife recorded that report the morning before. It's the last of her voice. Put four back or I follow you forever.",
+   "line": "You took the batteries out of my radio. My wife recorded that report the morning before. It's the last of her voice. Put four back or I follow you forever.",
+   "try": "You took the batteries out of my fucking radio. My wife recorded that report the morning before she died. That's the last of her voice I've got. Put four back, or I swear to God I follow you till one of us is dead.",
+   "picture_pt": [
+    390,
+    606
+   ]
+  },
+  {
+   "n": 4,
+   "id": "words-two-hw06-04-curse-the-deserters-11-22",
+   "mouth": "A ROAD STOP",
+   "who": "TWO RED DESERTERS",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_deserters"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "We quit the Reds. They make us shoot water thieves, kids, everybody. We fight good. Take us, or don't, but don't tell the Reds you saw us.",
+   "line": "We quit the Reds. They make us shoot water thieves, kids, everybody. We fight good. Take us, or don't, but don't tell the Reds you saw us.",
+   "try": "We quit the Reds. They had us shooting water thieves, kids, fucking everybody. We can fight. Take us or don't, but if the Reds hear you saw us, we're dead men.",
+   "picture_pt": [
+    390,
+    688
+   ]
+  },
+  {
+   "n": 5,
+   "id": "words-two-hw06-05-curse-the-herds-why-11-22",
+   "mouth": "THE ENEMY'S LEADER",
+   "who": "THE HERD'S KEEPER",
+   "pulled_from": "records/target/bb/fight_reasons.json",
+   "locator": [
+    "rules",
+    {
+     "find": {
+      "id": "road.keepers"
+     }
+    },
+    "them",
+    1
+   ],
+   "in_the_file": "The animals are hungry, so you are the meal.",
+   "line": "The animals are hungry, so you are the meal.",
+   "try": "The herd's starving, and you dumb fucks walked right up to their dinner.",
+   "picture_pt": [
+    390,
+    460
+   ]
+  },
+  {
+   "n": 6,
+   "id": "words-two-hw06-06-curse-a-miss-11-22",
+   "mouth": "YOUR MAN, MID-FIGHT",
+   "who": "YOUR MAN, THE HOTHEAD",
+   "pulled_from": "records/target/bb/crew_voices.json",
+   "locator": [
+    "types",
+    "hothead",
+    "lines",
+    "miss",
+    "en",
+    1
+   ],
+   "in_the_file": "Hit the man, not the air!",
+   "line": "Hit the man, not the air!",
+   "try": "Hit the fucking man, not the air!",
+   "picture_pt": [
+    390,
+    405
+   ]
+  },
+  {
+   "n": 7,
+   "id": "words-two-hw06-07-curse-the-believer-loots-11-22",
+   "mouth": "YOUR MAN, AFTER THE FIGHT",
+   "who": "YOUR MAN, THE BELIEVER",
+   "pulled_from": "records/target/bb/crew_voices.json",
+   "locator": [
+    "types",
+    "believer",
+    "lines",
+    "win",
+    "en",
+    5
+   ],
+   "in_the_file": "We pray for them later. Loot first.",
+   "line": "We pray for them later. Loot first.",
+   "try": "We pray for them later. Grab their shit first.",
+   "picture_pt": [
+    390,
+    454
+   ]
+  },
+  {
+   "n": 8,
+   "id": "words-two-hw06-08-curse-the-raided-elder-11-22",
+   "mouth": "THE ELDER OF A RAIDED TOWN",
+   "who": "THE ELDER",
+   "pulled_from": "records/target/settlement_traits.json",
+   "locator": [
+    "traits",
+    {
+     "find": {
+      "id": "raided"
+     }
+    },
+    "says",
+    "any"
+   ],
+   "in_the_file": "A crew came through three nights back. Burned the Ortega house. Half of what we had walked out with them, mijo.",
+   "filled_with": {
+    "(shown through)": "BohemiaSpanglish.plain"
+   },
+   "line": "A crew came through three nights back. Burned the Ortega house. Half of what we had walked out with them.",
+   "try": "A crew came through three nights ago. They burned the Ortegas' house with the grandmother still inside. Half of what we had walked out the gate with those sons of bitches.",
+   "picture_pt": [
+    390,
+    562
+   ]
+  },
+  {
+   "n": 9,
+   "id": "words-two-hw06-09-curse-the-collector-11-22",
+   "mouth": "A MAN FOR HIRE",
+   "who": "A MAN FOR HIRE",
+   "pulled_from": "records/target/bb/rare_recruits.json",
+   "locator": [
+    "men",
+    3,
+    "line"
+   ],
+   "in_the_file": "I did collections. Nobody ever paid late twice.",
+   "line": "I did collections. Nobody ever paid late twice.",
+   "try": "I did collections for the casinos. Nobody paid me late twice, and the ones who tried still can't fucking walk right.",
+   "picture_pt": [
+    390,
+    496
+   ]
+  },
+  {
+   "n": 10,
+   "id": "words-two-hw06-10-curse-the-asker-11-22",
+   "mouth": "A BOSS'S ASKER",
+   "who": "LA GÜERA",
+   "pulled_from": "records/target/bb/boss_act_one.json",
+   "locator": [
+    "bosses",
+    {
+     "find": {
+      "n": "THE MACHINIST"
+     }
+    },
+    "lead",
+    "asker",
+    "says"
+   ],
+   "in_the_file": "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever pays, and he throws nails on every street round his shop so you crawl in. Ask at the bar, they all know him.",
+   "line": "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever pays, and he throws nails on every street round his shop so you crawl in. Ask at the bar, they all know him.",
+   "try": "You want guns? Everybody wants guns. The Machinist makes them and sells them to whoever has batteries, and he throws nails on every street around his shop so you crawl in on your fucking knees. Ask at the bar, every drunk in there knows him.",
+   "picture_pt": [
+    390,
+    586
+   ]
+  },
+  {
+   "n": 11,
+   "id": "words-two-hw06-11-clean-the-church-radio-11-22",
+   "mouth": "THE FEED, A TOWN FALLING",
+   "who": "@church_gate",
+   "pulled_from": "records/target/bb/radio_lines.json",
+   "locator": [
+    "towns",
+    "Church",
+    "lines",
+    6,
+    "say"
+   ],
+   "in_the_file": "he says nobody is coming. he said it kindly.",
+   "line": "he says nobody is coming. he said it kindly.",
+   "try": "He says nobody's coming. He said it nice, like he was sorry. God help us.",
+   "picture_pt": [
+    390,
+    353
+   ]
+  },
+  {
+   "n": 12,
+   "id": "words-two-hw06-12-who-pays-the-dealer-11-22",
+   "mouth": "A ROAD STOP",
+   "who": "AN OLD DEALER",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_casino_chip"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "One hand, high card. You win, I give you twenty. You lose, I take ten. The house always won, mijo. The house is dead now. Let's see.",
+   "line": "One hand, high card. You win, I give you twenty. You lose, I take ten. The house always won, mijo. The house is dead now. Let's see.",
+   "try": "One hand, high card. You win, I give you twenty batteries. You lose, I take ten. The house always won, and look at this shit now, the house is dead. Deal?",
+   "picture_pt": [
+    390,
+    605
+   ]
+  }
+ ]
+}

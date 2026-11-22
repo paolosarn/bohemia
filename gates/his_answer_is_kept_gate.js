@@ -45,7 +45,8 @@ async function walk(br, port, vp, cardId, otherId) {
   const R = {};
   await open();
   R.placeholder = await pg.getAttribute(box(cardId), 'placeholder');
-  R.otherPlaceholder = otherId ? await pg.getAttribute(box(otherId), 'placeholder') : null;
+  /* the other card is one the tab really draws (an art card with no mark is held back, rule 408(c)) */
+  R.otherPlaceholder = await pg.$eval('.row:not([data-id^="words-two-hw"]) textarea.note', t => t.getAttribute('placeholder')).catch(() => null);
   const line = 'yo we were told to watch for you, ' + vp.width + ' wide';
   await pg.fill(box(cardId), line);
   await pg.click('#fold'); await pg.waitForTimeout(250); await pg.click('#fold'); await pg.waitForTimeout(400);
@@ -68,7 +69,7 @@ async function walk(br, port, vp, cardId, otherId) {
   const reg = JSON.parse(fs.readFileSync(path.join(ROOT, REG), 'utf8'));
   const judged = new Set((reg.verdicts || []).map(v => v.id));
   const hw = reg.items.filter(i => i.homework && i.lane === 'words two' && !judged.has(i.id));
-  const card = (hw.find(i => i.homework.sheet === 3) || hw[hw.length - 1] || {}).id;
+  const card = (hw[0] || {}).id;   /* any homework card still waiting */
   const other = (reg.items.slice().reverse().find(i => !i.homework && i.kind !== 'tile' && !judged.has(i.id) && !/art|look/.test(i.kind || '')) || {}).id;
   if (!card) { ok('K0 a homework card is waiting in the tab', false, 'none'); return finish(); }
   const { chromium } = (function () { try { return require('/opt/node22/lib/node_modules/playwright'); } catch (e) { return require('playwright'); } })();

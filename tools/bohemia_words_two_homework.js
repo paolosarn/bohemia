@@ -117,7 +117,7 @@ function faceOf(card) {   /* -> { file (absolute), x, y, s } or null (a mouth wi
 /* ---------- 3. ONE PICTURE ---------- */
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const b64 = f => 'data:' + (/\.webp$/.test(f) ? 'image/webp' : /\.png$/.test(f) ? 'image/png' : 'font/woff2') + ';base64,' + fs.readFileSync(f).toString('base64');
-function html(card, line, face) {
+function html(card, line, face, tryLine) {
   const F = n => b64(path.join(ROOT, 'slices/fonts', n));
   const long = line.length > 150, mid = line.length > 70;
   const size = card.layout === 'bark' ? 30 : long ? 17 : mid ? 21 : 26;
@@ -137,10 +137,11 @@ function html(card, line, face) {
     + '.who{min-width:0}.who .n{font:19px BohemiaCasing,ui-monospace,monospace;letter-spacing:1.5px;line-height:1.15;color:#f2e4c6}'
     + '.who .r{font:12px BohemiaROM,ui-monospace,monospace;letter-spacing:1px;color:#b7a67f;margin-top:5px;line-height:1.3}'
     + '.say{font:' + size + 'px/1.32 BohemiaBody,ui-monospace,monospace;color:#fff6dc;white-space:pre-wrap;overflow-wrap:anywhere}'
-    + '.say.bark{letter-spacing:.5px}'
+    + '.say.bark{letter-spacing:.5px}.now{font:11px BohemiaCasing,ui-monospace,monospace;letter-spacing:2px;color:#b7a67f;margin-bottom:5px}'
     + '.post{background:#0f1113;border:1px solid #2c3136;padding:12px}.post .h{font:13px BohemiaROM,ui-monospace,monospace;color:#8fb6c9;letter-spacing:.5px;margin-bottom:7px}'
     + '.post .say{color:#eef1f2}'
     + '.opts{margin-top:12px;display:flex;flex-direction:column;gap:6px}.opts span{font:12px/1.35 BohemiaROM,ui-monospace,monospace;letter-spacing:1px;color:#d8ceb6;border:1px solid #6b5c41;padding:7px 9px}'
+    + '.try{margin-top:10px;background:#1d2a1f;border-left:3px solid #7fae8a;padding:11px 12px}.try .tt{font:11px BohemiaCasing,ui-monospace,monospace;letter-spacing:2px;color:#9fd0a8;margin-bottom:6px}.try .say{color:#f4fff0;font-size:' + (tryLine && tryLine.length > 150 ? 17 : tryLine && tryLine.length > 70 ? 20 : 24) + 'px}'
     + '.meta{margin:11px 2px 0;font:12px/1.45 BohemiaROM,ui-monospace,monospace;letter-spacing:.6px;color:#b7a67f}.meta b{font-weight:400;color:#e3b04b}'
     + '</style><div id="c">'
     + '<div class="tag"><span>' + esc(card.mouth) + '</span><b>' + esc(card.tab) + '</b></div>'
@@ -148,29 +149,30 @@ function html(card, line, face) {
       ? '<div class="post"><div class="h">' + esc(card.who) + '</div><div class="say">' + esc(line) + '</div></div>'
       : '<div class="board"><div class="head">' + (face ? '<div class="photo" style="' + faceCss + '"></div>' : '')
         + '<div class="who"><div class="n">' + esc(card.who) + '</div>' + (card.role ? '<div class="r">' + esc(card.role) + '</div>' : '') + '</div></div>'
-        + '<div class="say' + (card.layout === 'bark' ? ' bark' : '') + '">' + esc(line) + '</div>'
+        + (tryLine ? '<div class="now">NOW IN THE GAME</div>' : '') + '<div class="say' + (card.layout === 'bark' ? ' bark' : '') + '">' + esc(line) + '</div>'
         + (card.choices && card.choices.length ? '<div class="opts">' + card.choices.map(c => '<span>' + esc(c) + '</span>').join('') + '</div>' : '')
         + '</div>')
+    + (tryLine ? '<div class="try"><div class="tt">OUR TRY</div><div class="say">' + esc(tryLine) + '</div></div>' : '')
     + '<div class="meta"><b>TO</b> ' + esc(card.to) + '<br><b>WHEN</b> ' + esc(card.when) + (card.second ? '<br><b>THE TEST</b> scary, then ' + esc(String(card.second).toLowerCase()) : '') + (card.rule ? '<br><b>YOUR RULE</b> ' + esc(card.rule) : '') + '</div>'
     + '</div>';
 }
 
 /* ---------- 4. THE CARD IN THE REGISTRY ---------- */
 function oneSentence(s) { return String(s).replace(/[.!?]+(\s|$)/g, (m, sp) => ',' + sp).replace(/,\s*$/, '').trim(); }   /* a why is two sentences: nothing inside it may end one */
-function row(card, line, sha, px) {
+function row(card, line, sha, px, tryLine) {
   const flat = line.replace(/\s*\n\s*/g, ' / ');
   return {
     id: card.id, kind: 'line', lane: LANE, sha: sha, made: card.made, draft: true,
-    title: '“' + flat + '”',
+    title: tryLine ? ('NOW: “' + flat + '”  ·  OUR TRY: “' + tryLine.replace(/\s*\n\s*/g, ' / ') + '”') : '“' + flat + '”',
     said: card.said || "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
     /* SCARY FIRST (rule 455, Paolo 11/17: 'there's two words, but the first word is always scary'): a card of a later sheet names
        the second word it is there to test, so his answer shows how THAT pair sounds */
     /* 11/21 WORDS THREE (rules 466(f), 467): a card of sheet five on names the rule of HIS it tests, so he answers it fast */
-    why: 'HOW SHOULD THIS SOUND? ' + (card.second ? 'It is here to test SCARY, THEN ' + oneSentence(card.second) + ': ' : '') + (card.rule ? 'It tests your rule, ' + oneSentence(card.rule) + ': ' : '') + oneSentence(card.who_plain) + ' says it to ' + oneSentence(card.to) + ' when ' + oneSentence(card.when)
+    why: (tryLine ? 'IS OUR TRY RIGHT? ' : 'HOW SHOULD THIS SOUND? ') + (card.second ? 'It is here to test SCARY, THEN ' + oneSentence(card.second) + ': ' : '') + (card.rule ? 'It tests your rule, ' + oneSentence(card.rule) + ': ' : '') + oneSentence(card.who_plain) + ' says it to ' + oneSentence(card.to) + ' when ' + oneSentence(card.when)
        + ' (you see it ' + oneSentence(card.where) + '); type your way in the box, then tap a thumb to send it.',
     /* the picture is one thing already: it is its own first picture, and a tap opens it at one image pixel to one point (rule 89) */
     show: { how: 'image', src: 'vote/words_two_homework_' + SHEET + '/' + card.id + '.webp', first: 'vote/words_two_homework_' + SHEET + '/' + card.id + '.webp', firstAt: [0, 0, px[0], px[1]] },
-    homework: { sheet: +SHEET, n: card.n, mouth: card.mouth, second: card.second || undefined, rule: card.rule || undefined, teaches: card.teaches, pulled_from: card.pull.file, line: line }
+    homework: { sheet: +SHEET, n: card.n, mouth: card.mouth, second: card.second || undefined, rule: card.rule || undefined, try: tryLine || undefined, clean: card.clean || undefined, teaches: card.teaches, pulled_from: card.pull.file, line: line }
   };
 }
 
@@ -184,14 +186,18 @@ function row(card, line, sha, px) {
       if (who) c.who = (c.who_prefix || '') + who;
       const role = also(c, 'role_pull'); if (role) c.role = role;
       if (ch) c.choices = ch;
-      pulled.push({ card: c, raw, line: f.line, used: f.used, face: faceOf(c) });
+      /* 11/22 WORDS THREE (rule 467 amended: 'I haven't seen you type a single bad word'): a card shows OUR TRY in the voice beside the
+         line the game says now; its blanks are filled exactly as the line's are */
+      let tryLine = null;
+      if (c.try) { tryLine = c.try; Object.keys(f.used).forEach(k => { if (k[0] !== '(') tryLine = tryLine.split('{' + k + '}').join(f.used[k]); }); if (/\{[a-z_]+\}/.test(tryLine)) throw new Error('a blank is left in our try: ' + tryLine); }
+      pulled.push({ card: c, raw, line: f.line, try: tryLine, used: f.used, face: faceOf(c) });
     } catch (e) { bad.push(c.id + ': ' + e.message); }
   }
   if (bad.length) { console.error('NOT PULLED:\n  ' + bad.join('\n  ')); process.exit(1); }
   if (has('--check')) {
     const reg = JSON.parse(fs.readFileSync(REG_FILE, 'utf8')), by = {}; reg.items.forEach(i => { by[i.id] = i; });
     const judged = new Set((reg.verdicts || []).map(v => v.id));   /* a card he answered is history: the game may be rewritten under it one day */
-    const off = pulled.filter(p => !judged.has(p.card.id) && (!by[p.card.id] || by[p.card.id].homework.line !== p.line)).map(p => p.card.id);
+    const off = pulled.filter(p => !judged.has(p.card.id) && (!by[p.card.id] || by[p.card.id].homework.line !== p.line || (by[p.card.id].homework.try || null) !== (p.try || null))).map(p => p.card.id);
     console.log(off.length ? 'OFF THE DATA: ' + off.join(', ') : 'every card on sheet ' + SHEET + ' is the data\'s own line (' + pulled.length + ')');
     process.exit(off.length ? 1 : 0);
   }
@@ -200,7 +206,7 @@ function row(card, line, sha, px) {
   const sharp = (function () { try { return require('sharp'); } catch (e) { return null; } })();
   const br = await chromium.launch(), pg = await br.newPage({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   for (const p of pulled) {
-    await pg.setContent(html(p.card, p.line, p.face)); await pg.evaluate(() => document.fonts.ready); await pg.waitForTimeout(60);
+    await pg.setContent(html(p.card, p.line, p.face, p.try)); await pg.evaluate(() => document.fonts.ready); await pg.waitForTimeout(60);
     const el = await pg.$('#c'), png = path.join(OUT_DIR, p.card.id + '.png');
     await el.screenshot({ path: png });
     p.box = await el.boundingBox();
@@ -212,7 +218,7 @@ function row(card, line, sha, px) {
   pulled.forEach(p => { p.px = dims[p.card.id]; });
   fs.writeFileSync(path.join(OUT_DIR, 'pulled.json'), JSON.stringify({ draft: true, tool: 'tools/bohemia_words_two_homework.js', sheet: +SHEET,
     note: 'every line below was read out of the named game file by this tool; none was typed',
-    cards: pulled.map(p => ({ n: p.card.n, id: p.card.id, mouth: p.card.mouth, who: p.card.who, pulled_from: p.card.pull.file, locator: p.card.pull.json || p.card.pull.module || p.card.pull.re, in_the_file: p.raw, filled_with: Object.keys(p.used).length ? p.used : undefined, line: p.line, picture_pt: [Math.round(p.box.width), Math.round(p.box.height)] })) }, null, 1) + '\n');
+    cards: pulled.map(p => ({ n: p.card.n, id: p.card.id, mouth: p.card.mouth, who: p.card.who, pulled_from: p.card.pull.file, locator: p.card.pull.json || p.card.pull.module || p.card.pull.re, in_the_file: p.raw, filled_with: Object.keys(p.used).length ? p.used : undefined, line: p.line, try: p.try || undefined, picture_pt: [Math.round(p.box.width), Math.round(p.box.height)] })) }, null, 1) + '\n');
   pulled.forEach(p => console.log(String(p.card.n).padStart(2) + '  ' + p.card.id + '  ' + Math.round(p.box.height) + ' pt  ' + JSON.stringify(p.line.slice(0, 90))));
   if (has('--register')) {
     /* INSERT AS TEXT, NEVER RE-SERIALIZE (tools/bohemia_merge_the_vote_registry.js, 9/27: a whole-file dump re-encodes every
@@ -226,7 +232,7 @@ function row(card, line, sha, px) {
     pulled.slice().reverse().forEach(p => {   /* appended last card first: the tab draws the newest row on top, so card 1 leads */
       if (judged.has(p.card.id)) return;      /* a judged card is history: never rewritten */
       if (other.has(p.card.id)) throw new Error('the id ' + p.card.id + ' is another lane\'s row');
-      const b = block(row(p.card, p.line, sha, p.px)), head = '\n  {\n   "id": ' + JSON.stringify(p.card.id) + ',';
+      const b = block(row(p.card, p.line, sha, p.px, p.try)), head = '\n  {\n   "id": ' + JSON.stringify(p.card.id) + ',';
       const at = txt.indexOf(head);
       if (at >= 0) { const end = txt.indexOf('\n  }', at + 1); if (end < 0) throw new Error('no end for ' + p.card.id); txt = txt.slice(0, at + 1) + b + txt.slice(end + 4); fresh++; }
       else {

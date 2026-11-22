@@ -27,6 +27,11 @@
          IS (his YES on our line), or WHAT THE VOICE IS NOT (his NO, his words exactly, with THE LESSON); a NO is never shown as an
          example, and a line of his written with a note ('Bro, why are you scared to like curse...' then "Look there...") gives HIS
          as the quoted line and HE SAID WITH IT as the rest, both his to the letter
+     V12 (11/22, rule 467 amended: 'I haven't seen you type a single bad word'; rule 470(g)) OUR TRY CURSES: on every sheet with a
+         card still waiting, every waiting card carries OUR TRY; at least two tries in three carry a real curse in full (fuck, shit,
+         motherfucker, bitch, damn, hell...); a try with no curse says why it is clean ('clean', the ones who would not); no try is
+         bleeped; no try says 'it pays' or 'it doesn't pay' (a person says who pays and what, or nothing). Planted: a sheet whose
+         curses are taken out, a bleep, an 'it pays', each caught
      P   PLANTS: a copy with one swear taken out of his line, a copy with a rule's quote reworded, a copy with a bleep, his words
          moved under the counting, one of his other lines reworded (V9), and a WHAT IT TEACHES taken away (V10), each caught by its
          own leg
@@ -165,6 +170,45 @@ ok('V6 every homework sheet\'s waiting cards still show the game\'s own line (' 
     if (page.indexOf(want) < 0) bad.push(m.mouth + ': not on the page as counted'); else rows++;
   });
   ok('V8 the count a mouth on the page is the hand reading\'s own count (' + rows + ' mouths, ' + HR.read + ' lines read, ' + HR.scary_first + ' scary first)', rows === HR.mouths.length && bad.length === 0, bad.slice(0, 3).join('; '));
+}
+
+/* V12: our try curses */
+const CURSE = /\b(fuck\w*|motherfuck\w*|shit\w*|bitch\w*|damn\w*|hell|asshole\w*|bastard\w*|piss\w*|pussy)\b/i;
+const PAYS = /\bit (pays|doesn'?t pay|does not pay)\b/i;
+const BLEEPED = /\b[fs](?:\*+|-{2,})\w*|\b\w\*{2,}\w*/i;
+function tries(sheets, judged) {
+  const bad = []; let sheetsLive = 0, n = 0, cursing = 0;
+  sheets.forEach(([name, sh]) => {
+    const cards = sh.cards || [], waiting = cards.filter(c => !judged.has(c.id));
+    if (!waiting.length) return;            /* a sheet he has answered whole is history */
+    sheetsLive++;
+    waiting.forEach(c => {
+      if (!c.try) { bad.push(name + ' card ' + c.n + ': no try of ours'); return; }
+      if (BLEEPED.test(c.try)) bad.push(name + ' card ' + c.n + ': our try is bleeped');
+      if (PAYS.test(c.try)) bad.push(name + " card " + c.n + ": our try says 'it pays'");
+      if (!CURSE.test(c.try) && !(c.clean && String(c.clean).trim().split(/\s+/).length >= 3)) bad.push(name + ' card ' + c.n + ': clean with no why');
+    });
+    const withTry = cards.filter(c => c.try), cur = withTry.filter(c => CURSE.test(c.try)).length;
+    n += withTry.length; cursing += cur;
+    if (cur * 3 < withTry.length * 2) bad.push(name + ': ' + cur + ' of ' + withTry.length + ' tries curse, under two in three');
+  });
+  return { bad, sheetsLive, n, cursing };
+}
+{
+  const judged = new Set((reg.verdicts || []).map(v => v.id));
+  const SH = sheets.map(sn => ['sheet ' + sn, JSON.parse(read('records/target/words_two/homework_' + sn + '.json'))]);
+  const T = tries(SH, judged);
+  ok('V12 OUR TRY CURSES: every waiting card shows our try, two in three curse in full, the clean ones say why, nothing bleeped, never \'it pays\' (' + T.sheetsLive + ' sheet' + (T.sheetsLive === 1 ? '' : 's') + ' out, ' + T.cursing + ' of ' + T.n + ' tries curse)', T.bad.length === 0 && (T.sheetsLive === 0 || T.n > 0), T.bad.slice(0, 3).join(' | '));
+  /* the plants, on copies of the first sheet still out */
+  const live = SH.find(([nm, sh]) => (sh.cards || []).some(c => !judged.has(c.id) && c.try));
+  if (live) {
+    const cp = () => JSON.parse(JSON.stringify(live[1]));
+    const a = cp(); a.cards.forEach(c => { if (c.try) c.try = c.try.replace(new RegExp(CURSE.source, 'gi'), 'darn'); delete c.clean; });
+    const b = cp(); b.cards[0].try = (b.cards[0].try || '') + ' f*** off.';
+    const c2 = cp(); c2.cards[0].try = (c2.cards[0].try || '') + ' Walk it, and it pays forty.';
+    const ga = tries([['plant', a]], judged).bad.length > 0, gb = tries([['plant', b]], judged).bad.some(x => /bleeped/.test(x)), gc = tries([['plant', c2]], judged).bad.some(x => /it pays/.test(x));
+    ok('P  OUR TRY plants caught: the curses taken out, a bleep, an \'it pays\'', ga && gb && gc, [ga ? '' : 'the clean sheet passed', gb ? '' : 'the bleep passed', gc ? '' : "'it pays' passed"].filter(Boolean).join(', '));
+  }
 }
 
 /* P: the plants */

@@ -55,8 +55,8 @@ MARKS = 'records/words_two/the_voice_marks.json'
 REG = 'records/target/BOHEMIA_VOTE_REGISTRY.json'
 FREEZE_PIN = 'e638b1f1ca3790fdba2117f661b13308e9f29f5248289376927e126599a21adb'   # sha256 of the freeze's mouths, canonical
 BUTTONS = 'road: his own buttons'
-# the kinds of scary WORDS TWO read in the game; EERIE hangs on his answer to homework card 3.5 ('is eerie scary?'): if he says no,
-# it comes out of this list the same commit, and every eerie-only mark in an open mouth goes red
+# the kinds of scary WORDS TWO read in the game; EERIE was on probation until his answer to homework card 3.5 ('is eerie scary?'):
+# he said YES (11/22, records/BOHEMIA_PAOLO_VOTE_11_22_26.txt), so eerie stays a kind of scary
 SCARY_KINDS = ('desperate', 'a threat', 'eerie', 'cold')
 
 PLEA = re.compile(r"\b(please|help (me|us|my|our)|can you (guys )?help|need your help|we need you)\b", re.I)

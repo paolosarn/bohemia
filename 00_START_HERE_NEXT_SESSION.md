@@ -1,3 +1,11 @@
+WORDS THREE (words-three-01gkdyuvnl): 11/22 LATEST -- BUILD 11/22zf - NEVER 'IT PAYS', OUR TRY ON EVERY CARD, SHEETS SIX AND SEVEN, BUILT (this commit), NOT YET SEEN (rules 470(g)(h), 467 AMENDED, 465; ask rows 707, 708, 710, 629). Its block is handoffs/WORDS_TWO.md.
+All 68 of his homework answers are on THE VOICE: 31 lines of his kept exactly, 23 kept as they are, 14 what the voice is not, and PAGE THREE, NEVER 'IT PAYS'
+(a person says who pays and what, or nothing; 20 of the job board's 102 lines say it). FOR EVERY LANE THAT WRITES A LINE: read THE VOICE SO FAR (20 lines);
+most people curse, in full; nothing standing is rewritten (rule 465). Every homework card shows OUR TRY beside the game's line; sheets six and seven (24 cards,
+20 tries curse, gate leg V12 holds two in three). FOR THE COORDINATOR, 470(h): THE MAN WHO GOES HOME COMES BACK (road card 'the word from home': a man who leaves
+through it comes back after one to three days on the map's clock, not gone for good), owner WORLD 15; detail in the lane's block.
+[bb Battle Brothers' contracts say who is paying you and how much, in the client's own mouth]
+[analog horror: 'They're coming up the fucking ladder. I heard two shots. Oh shit. Oh shit.']
 COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22zd - THE NAMES COOK ASKED FOR, BUILT (rules 416, 451(a), 441; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 COOK SIX's notes to this lane, done: a template may name FLOOR AREAS (a rectangle of its own floor kind per layout, mirrored with it) and a wall letter its OWN WALLS.
 The school: the gym's 'court', the hallway's 'hall', the south bleachers turned (B, sc_bleachers_n). The courthouse: the courtroom aisle's 'carpet', the museum's

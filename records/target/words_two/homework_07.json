@@ -1,0 +1,524 @@
+{
+ "draft": true,
+ "sheet": 7,
+ "_about": "WORDS THREE, HIS HOMEWORK, SHEET SEVEN: OUR TRY ON EVERY CARD, WAITING BEHIND SHEET SIX (VAMILY rules 467 amended, 470(g), 465; ask rows 629, 666). He answered 41 cards in one sitting, so two sheets wait at once. The same law as sheet six: our try in the voice beside the line the game says now, at least two in three cursing in full, the clean ones saying why, never 'it pays'. Here: 10 of 12 curse; the memorial post and the woman of the soup line are clean on purpose. Our tries are on the cards only: nothing in the game is rewritten until he says he is done (rule 465).",
+ "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+ "cards": [
+  {
+   "rule": "MOST PEOPLE CURSE: a post about somebody missing",
+   "mouth": "THE FEED",
+   "tab": "THE PHONE",
+   "who": "@doloresy_eggs4",
+   "who_plain": "A grandmother in the valley whose brother never came back",
+   "to": "everybody on the feed",
+   "when": "her brother has been gone four days",
+   "where": "on the phone's FEED",
+   "layout": "feed",
+   "pull": {
+    "file": "records/target/bb/feed_kinds.json",
+    "json": [
+     "kinds",
+     {
+      "find": {
+       "id": "lost"
+      }
+     },
+     "words",
+     1,
+     "en"
+    ]
+   },
+   "expect": "has anyone seen my brother",
+   "try": "has anybody seen my brother Ernesto?? went to the depot to trade a radio 4 days ago and never came back. please. i'm losing my shit",
+   "teaches": "A POST ABOUT SOMEBODY MISSING: your insulin post was 'SOS'; our try is typed scared, with a curse",
+   "n": 1,
+   "id": "words-two-hw07-01-curse-a-lost-brother-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "WHERE THE CURSING STOPS: a memorial post",
+   "mouth": "THE FEED",
+   "tab": "THE PHONE",
+   "who": "@tran.eth.radio",
+   "who_plain": "A man in the valley posting that an old neighbour died",
+   "to": "everybody on the feed",
+   "when": "the old man who wound the church clock died in the night",
+   "where": "on the phone's FEED",
+   "layout": "feed",
+   "pull": {
+    "file": "records/target/bb/feed_kinds.json",
+    "json": [
+     "kinds",
+     {
+      "find": {
+       "id": "memorial"
+      }
+     },
+     "words",
+     1,
+     "en"
+    ]
+   },
+   "expect": "Tommy Reyes passed",
+   "try": "Tommy Reyes passed last night. 81. wound the church clock every sunday for twenty years. who's gonna wind it now",
+   "clean": "a memorial for an old man; grief that quiet does not curse",
+   "teaches": "GRIEF ON THE FEED: our try stays clean on purpose and plainer; is a memorial where the cursing stops",
+   "n": 2,
+   "id": "words-two-hw07-02-clean-a-memorial-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "MOST PEOPLE CURSE: a kid's first hit",
+   "mouth": "YOUR MAN, MID-FIGHT",
+   "tab": "THE FIGHT",
+   "who": "YOUR MAN, THE KID",
+   "role_pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "kid",
+     "about"
+    ]
+   },
+   "who_plain": "The seventeen-year-old in your crew",
+   "to": "everybody",
+   "when": "his shot lands",
+   "where": "in a FIGHT, over his head",
+   "side": "you",
+   "face": {
+    "look": "cast_shorts"
+   },
+   "pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "kid",
+     "lines",
+     "hit",
+     "en",
+     0
+    ]
+   },
+   "expect": "I got him!",
+   "try": "I fucking got him! Did you see that?!",
+   "teaches": "A KID'S HIT: his kill stayed clean ('Okay. Okay. That's real.', your YES); his hit, the happy one, curses in our try",
+   "n": 3,
+   "id": "words-two-hw07-03-curse-a-kids-hit-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "PLAIN BEATS CLEVER, AND THEY CURSE: running away",
+   "mouth": "YOUR MAN, AFTER RUNNING",
+   "tab": "THE FIGHT",
+   "who": "YOUR MAN, THE HOTHEAD",
+   "role_pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "hothead",
+     "about"
+    ]
+   },
+   "who_plain": "The hothead in your crew",
+   "to": "the crew",
+   "when": "you ran from a fight and got away",
+   "where": "on the screen after a FIGHT you ran from",
+   "side": "you",
+   "face": {
+    "look": "cast_barearms"
+   },
+   "pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "hothead",
+     "lines",
+     "ran",
+     "en",
+     0
+    ]
+   },
+   "expect": "We didn't run.",
+   "try": "We didn't run, we got the fuck out. There's a difference.",
+   "teaches": "A RETREAT: ours is a quip ('We relocated. Loudly.'); our try says it plain and curses",
+   "n": 4,
+   "id": "words-two-hw07-04-curse-the-retreat-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "MOST PEOPLE CURSE: waking up after everybody went down",
+   "mouth": "YOUR MAN, AFTER A WIPE",
+   "tab": "THE FIGHT",
+   "who": "YOUR MAN, THE BRUISER",
+   "role_pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "bruiser",
+     "about"
+    ]
+   },
+   "who_plain": "The biggest man in your crew",
+   "to": "the crew",
+   "when": "the whole crew went down and somebody dragged you all out",
+   "where": "on the screen after a FIGHT you lost to the last man",
+   "side": "you",
+   "face": {
+    "look": "cast_poncho"
+   },
+   "pull": {
+    "file": "records/target/bb/crew_voices.json",
+    "json": [
+     "types",
+     "bruiser",
+     "lines",
+     "wipe",
+     "en",
+     1
+    ]
+   },
+   "fill": {
+    "by": "RUIZ"
+   },
+   "expect": "{by}. I'm going",
+   "try": "Ruiz did this. I'm gonna find that motherfucker and every one of his boys.",
+   "teaches": "THE WORST LOSS: every man down, and the game puts in the name of who did it; our try names him and curses him",
+   "n": 5,
+   "id": "words-two-hw07-05-curse-after-a-wipe-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "MOST PEOPLE CURSE: an old soldier selling himself",
+   "mouth": "A MAN FOR HIRE",
+   "tab": "A TOWN",
+   "who": "A MAN FOR HIRE",
+   "role_pull": {
+    "file": "records/target/bb/rare_recruits.json",
+    "json": [
+     "men",
+     5,
+     "who"
+    ]
+   },
+   "who_plain": "An old Guard sergeant whose pension died with the dollar",
+   "to": "you",
+   "when": "you look at him in the hire line",
+   "where": "in a TOWN, on the card of a man for hire",
+   "side": "other",
+   "face": {
+    "look": "person_rare_5"
+   },
+   "pull": {
+    "file": "records/target/bb/rare_recruits.json",
+    "json": [
+     "men",
+     5,
+     "line"
+    ]
+   },
+   "expect": "Two tours, one pension.",
+   "try": "Two tours and a pension, and the fucking pension died first. Point me where you want me.",
+   "teaches": "A HIRE WHO WAS CHEATED: the pension died with the dollar; our try lets him be bitter",
+   "n": 6,
+   "id": "words-two-hw07-06-curse-the-old-sergeant-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "NEVER 'IT PAYS', AND WHO DOES NOT CURSE: the woman who feeds the hungry",
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "tab": "A TOWN",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jb-clear-motel"
+      }
+     },
+     "client",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jb-clear-motel"
+      }
+     },
+     "client",
+     "from"
+    ]
+   },
+   "who_plain": "The woman who runs the soup line",
+   "to": "you",
+   "when": "you ask what her job is and what you get for it",
+   "where": "in a camp or TOWN, at the board where people offer jobs",
+   "side": "other",
+   "face": {
+    "look": "cast_cape"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jb-clear-motel"
+      }
+     },
+     "says"
+    ]
+   },
+   "fill": {
+    "pay": {
+     "json": [
+      "board_people",
+      "rows",
+      {
+       "find": {
+        "id": "jb-clear-motel"
+       }
+      },
+      "pay"
+     ]
+    }
+   },
+   "expect": "The motel by the freeway",
+   "try": "That motel by the freeway was ours. Beds for the soup line. A crew took it, and now the hungry pay at the door. Clear them out and I'll give you {pay} batteries, everything the kitchen saved.",
+   "clean": "the woman who runs the soup line, asking for the hungry; she does not curse",
+   "teaches": "WHO PAYS, SAID BY THE ONE WHO PAYS: the kitchen's savings; and a woman of the soup line left clean on purpose",
+   "n": 7,
+   "id": "words-two-hw07-07-clean-the-soup-line-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "MOST PEOPLE CURSE: an old woman in pain",
+   "mouth": "A BOSS'S ASKER",
+   "tab": "MAP",
+   "who_pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE TOOTH"
+      }
+     },
+     "lead",
+     "asker",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE TOOTH"
+      }
+     },
+     "lead",
+     "asker",
+     "from"
+    ]
+   },
+   "who_plain": "An old woman with her jaw tied up in a scarf",
+   "to": "you",
+   "when": "she stops you to send you after the boss who owns the only dentist's kit",
+   "where": "on the MAP, on the card that starts a boss's trail",
+   "side": "other",
+   "face": {
+    "look": "faction_blues"
+   },
+   "pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE TOOTH"
+      }
+     },
+     "lead",
+     "asker",
+     "says"
+    ]
+   },
+   "expect": "Ay, mijo. My tooth.",
+   "try": "My tooth. Three weeks, and it's killing me. THE TOOTH has the only kit that works, and his men sit at the town gates taking batteries off everybody. Find that son of a bitch. His flyers are up by the clinics.",
+   "teaches": "AN OLD WOMAN WHO CURSES: your starred old woman did not; three weeks of a rotten tooth might; and our try drops 'Ay, mijo'",
+   "n": 8,
+   "id": "words-two-hw07-08-curse-the-toothache-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "MOST PEOPLE CURSE: the radio as they come up the ladder",
+   "mouth": "THE FEED, A TOWN FALLING",
+   "tab": "THE PHONE",
+   "who": "@town_gate",
+   "who_plain": "The guard at a town's gate, on the radio",
+   "to": "the others in the town",
+   "when": "the men who took the gate are climbing to the roof",
+   "where": "on the phone's FEED, while the town falls",
+   "layout": "feed",
+   "pull": {
+    "file": "records/target/bb/radio_lines.json",
+    "json": [
+     "towns",
+     "_plain",
+     "lines",
+     7,
+     "say"
+    ]
+   },
+   "expect": "they're coming up the ladder",
+   "try": "They're coming up the fucking ladder. I heard two shots. Oh shit. Oh shit.",
+   "teaches": "THE RADIO AT THE WORST SECOND: the church radio stays clean in our tries; this town's guard is past praying",
+   "n": 9,
+   "id": "words-two-hw07-09-curse-the-ladder-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "MOST PEOPLE CURSE: his man, why the animals come",
+   "mouth": "YOUR MAN, BEFORE A FIGHT WITH ANIMALS",
+   "tab": "THE FIGHT",
+   "who": "ONE OF YOUR MEN",
+   "role": "says why the animals are coming",
+   "who_plain": "One of your own men",
+   "to": "you",
+   "when": "animals come at the cart for the food on it",
+   "where": "on the card that opens a FIGHT",
+   "side": "you",
+   "face": {
+    "look": "cast_cape"
+   },
+   "pull": {
+    "file": "records/target/bb/fight_reasons.json",
+    "json": [
+     "rules",
+     {
+      "find": {
+       "id": "road.beasts.food"
+      }
+     },
+     "ours",
+     0
+    ]
+   },
+   "fill": {
+    "boss": ", boss"
+   },
+   "expect": "They smell the food",
+   "try": "They smell the food in our cart, boss, and those hungry fuckers want it.",
+   "teaches": "THE WHY LINE FROM HIS OWN MAN: your YES on 'they just come' was clean; this one curses in our try",
+   "n": 10,
+   "id": "words-two-hw07-10-curse-why-the-animals-come-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "A THING TOLD BECOMES A PERSON SAYING IT: after you dig a girl out",
+   "mouth": "A ROAD STOP: WHAT COMES BACK",
+   "tab": "MAP",
+   "who_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_stuck_child"
+      }
+     },
+     "who",
+     "name"
+    ]
+   },
+   "role": "the card answers after you pick 'Dig her out.'",
+   "who_plain": "Nobody: the card itself, after you dug the girl out of the drain",
+   "to": "you",
+   "when": "you dug her out before the rain came",
+   "where": "on the MAP, on the road card, after you pick",
+   "side": "other",
+   "face": {
+    "look": "cast_satchel"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_stuck_child"
+      }
+     },
+     "opts",
+     0,
+     "fx",
+     "say"
+    ]
+   },
+   "expect": "She runs home",
+   "try": "She ran home without even saying thanks. Don't worry, the whole damn town already knows it was you who dug her out.",
+   "teaches": "YOUR 'FUCKING COOKIE' LESSON: a told line after a choice becomes somebody talking; our try says it as a person and curses",
+   "n": 11,
+   "id": "words-two-hw07-11-curse-told-becomes-said-11-22",
+   "made": "11/22"
+  },
+  {
+   "rule": "SAY IT LIKE A PERSON, AND THEY CURSE: a doctor on what people did",
+   "mouth": "A SIDE QUEST ON THE ROAD",
+   "tab": "MAP",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "json": [
+     "quests",
+     "bq_last_good_doctor",
+     "people",
+     "medic",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "json": [
+     "quests",
+     "bq_last_good_doctor",
+     "people",
+     "medic",
+     "from"
+    ]
+   },
+   "who_plain": "A doctor outside her clinic tent, smoking",
+   "to": "you",
+   "when": "she tells you how the two families will settle it",
+   "where": "on the MAP, on a side quest's last card",
+   "side": "other",
+   "face": {
+    "look": "faction_volunteers"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "json": [
+     "quests",
+     "bq_last_good_doctor",
+     "nodes",
+     "open_end",
+     "says",
+     0
+    ]
+   },
+   "expect": "In front of both families",
+   "try": "In front of both families. They'll vote like it's fair, and every one of them goes home knowing exactly what the fuck they voted for.",
+   "teaches": "A DOCTOR WHO HAS SEEN TOO MUCH: your doc said 'pus bomb' and stayed clean; this one is bitter, smoking, and curses in our try",
+   "n": 12,
+   "id": "words-two-hw07-12-curse-the-doctor-on-the-vote-11-22",
+   "made": "11/22"
+  }
+ ]
+}

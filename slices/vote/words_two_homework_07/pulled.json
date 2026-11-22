@@ -1,0 +1,294 @@
+{
+ "draft": true,
+ "tool": "tools/bohemia_words_two_homework.js",
+ "sheet": 7,
+ "note": "every line below was read out of the named game file by this tool; none was typed",
+ "cards": [
+  {
+   "n": 1,
+   "id": "words-two-hw07-01-curse-a-lost-brother-11-22",
+   "mouth": "THE FEED",
+   "who": "@doloresy_eggs4",
+   "pulled_from": "records/target/bb/feed_kinds.json",
+   "locator": [
+    "kinds",
+    {
+     "find": {
+      "id": "lost"
+     }
+    },
+    "words",
+    1,
+    "en"
+   ],
+   "in_the_file": "has anyone seen my brother Ernesto. he went to the depot to trade a radio. that was four days ago.",
+   "line": "has anyone seen my brother Ernesto. he went to the depot to trade a radio. that was four days ago.",
+   "try": "has anybody seen my brother Ernesto?? went to the depot to trade a radio 4 days ago and never came back. please. i'm losing my shit",
+   "picture_pt": [
+    390,
+    431
+   ]
+  },
+  {
+   "n": 2,
+   "id": "words-two-hw07-02-clean-a-memorial-11-22",
+   "mouth": "THE FEED",
+   "who": "@tran.eth.radio",
+   "pulled_from": "records/target/bb/feed_kinds.json",
+   "locator": [
+    "kinds",
+    {
+     "find": {
+      "id": "memorial"
+     }
+    },
+    "words",
+    1,
+    "en"
+   ],
+   "in_the_file": "Tommy Reyes passed in the night. 81. he wound the church clock every sunday for twenty years. who winds it now.",
+   "line": "Tommy Reyes passed in the night. 81. he wound the church clock every sunday for twenty years. who winds it now.",
+   "try": "Tommy Reyes passed last night. 81. wound the church clock every sunday for twenty years. who's gonna wind it now",
+   "picture_pt": [
+    390,
+    448
+   ]
+  },
+  {
+   "n": 3,
+   "id": "words-two-hw07-03-curse-a-kids-hit-11-22",
+   "mouth": "YOUR MAN, MID-FIGHT",
+   "who": "YOUR MAN, THE KID",
+   "pulled_from": "records/target/bb/crew_voices.json",
+   "locator": [
+    "types",
+    "kid",
+    "lines",
+    "hit",
+    "en",
+    0
+   ],
+   "in_the_file": "I got him! Did you see that?",
+   "line": "I got him! Did you see that?",
+   "try": "I fucking got him! Did you see that?!",
+   "picture_pt": [
+    390,
+    402
+   ]
+  },
+  {
+   "n": 4,
+   "id": "words-two-hw07-04-curse-the-retreat-11-22",
+   "mouth": "YOUR MAN, AFTER RUNNING",
+   "who": "YOUR MAN, THE HOTHEAD",
+   "pulled_from": "records/target/bb/crew_voices.json",
+   "locator": [
+    "types",
+    "hothead",
+    "lines",
+    "ran",
+    "en",
+    0
+   ],
+   "in_the_file": "We didn't run. We relocated. Loudly.",
+   "line": "We didn't run. We relocated. Loudly.",
+   "try": "We didn't run, we got the fuck out. There's a difference.",
+   "picture_pt": [
+    390,
+    454
+   ]
+  },
+  {
+   "n": 5,
+   "id": "words-two-hw07-05-curse-after-a-wipe-11-22",
+   "mouth": "YOUR MAN, AFTER A WIPE",
+   "who": "YOUR MAN, THE BRUISER",
+   "pulled_from": "records/target/bb/crew_voices.json",
+   "locator": [
+    "types",
+    "bruiser",
+    "lines",
+    "wipe",
+    "en",
+    1
+   ],
+   "in_the_file": "{by}. I'm going to find {by}.",
+   "filled_with": {
+    "by": "RUIZ"
+   },
+   "line": "RUIZ. I'm going to find RUIZ.",
+   "try": "Ruiz did this. I'm gonna find that motherfucker and every one of his boys.",
+   "picture_pt": [
+    390,
+    452
+   ]
+  },
+  {
+   "n": 6,
+   "id": "words-two-hw07-06-curse-the-old-sergeant-11-22",
+   "mouth": "A MAN FOR HIRE",
+   "who": "A MAN FOR HIRE",
+   "pulled_from": "records/target/bb/rare_recruits.json",
+   "locator": [
+    "men",
+    5,
+    "line"
+   ],
+   "in_the_file": "Two tours, one pension. The pension died first. Where do you want me?",
+   "line": "Two tours, one pension. The pension died first. Where do you want me?",
+   "try": "Two tours and a pension, and the fucking pension died first. Point me where you want me.",
+   "picture_pt": [
+    390,
+    504
+   ]
+  },
+  {
+   "n": 7,
+   "id": "words-two-hw07-07-clean-the-soup-line-11-22",
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "who": "Madre Inés",
+   "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+   "locator": [
+    "board_people",
+    "rows",
+    {
+     "find": {
+      "id": "jb-clear-motel"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "The motel by the freeway was ours, beds for the soup line. A crew took it and charges at the door. Clear them out, and {pay} batteries.",
+   "filled_with": {
+    "pay": "80"
+   },
+   "line": "The motel by the freeway was ours, beds for the soup line. A crew took it and charges at the door. Clear them out, and 80 batteries.",
+   "try": "That motel by the freeway was ours. Beds for the soup line. A crew took it, and now the hungry pay at the door. Clear them out and I'll give you 80 batteries, everything the kitchen saved.",
+   "picture_pt": [
+    390,
+    562
+   ]
+  },
+  {
+   "n": 8,
+   "id": "words-two-hw07-08-curse-the-toothache-11-22",
+   "mouth": "A BOSS'S ASKER",
+   "who": "DOÑA REMEDIOS",
+   "pulled_from": "records/target/bb/boss_act_one.json",
+   "locator": [
+    "bosses",
+    {
+     "find": {
+      "n": "THE TOOTH"
+     }
+    },
+    "lead",
+    "asker",
+    "says"
+   ],
+   "in_the_file": "Ay, mijo. My tooth. Three weeks. THE TOOTH has the only kit that works and his men sit at the town gates taking batteries for him. He puts his flyers up by the clinics.",
+   "line": "Ay, mijo. My tooth. Three weeks. THE TOOTH has the only kit that works and his men sit at the town gates taking batteries for him. He puts his flyers up by the clinics.",
+   "try": "My tooth. Three weeks, and it's killing me. THE TOOTH has the only kit that works, and his men sit at the town gates taking batteries off everybody. Find that son of a bitch. His flyers are up by the clinics.",
+   "picture_pt": [
+    390,
+    541
+   ]
+  },
+  {
+   "n": 9,
+   "id": "words-two-hw07-09-curse-the-ladder-11-22",
+   "mouth": "THE FEED, A TOWN FALLING",
+   "who": "@town_gate",
+   "pulled_from": "records/target/bb/radio_lines.json",
+   "locator": [
+    "towns",
+    "_plain",
+    "lines",
+    7,
+    "say"
+   ],
+   "in_the_file": "they're coming up the ladder. i heard two shots.",
+   "line": "they're coming up the ladder. i heard two shots.",
+   "try": "They're coming up the fucking ladder. I heard two shots. Oh shit. Oh shit.",
+   "picture_pt": [
+    390,
+    353
+   ]
+  },
+  {
+   "n": 10,
+   "id": "words-two-hw07-10-curse-why-the-animals-come-11-22",
+   "mouth": "YOUR MAN, BEFORE A FIGHT WITH ANIMALS",
+   "who": "ONE OF YOUR MEN",
+   "pulled_from": "records/target/bb/fight_reasons.json",
+   "locator": [
+    "rules",
+    {
+     "find": {
+      "id": "road.beasts.food"
+     }
+    },
+    "ours",
+    0
+   ],
+   "in_the_file": "They smell the food in our cart{boss}, and they want it.",
+   "filled_with": {
+    "boss": ", boss"
+   },
+   "line": "They smell the food in our cart, boss, and they want it.",
+   "try": "They smell the food in our cart, boss, and those hungry fuckers want it.",
+   "picture_pt": [
+    390,
+    460
+   ]
+  },
+  {
+   "n": 11,
+   "id": "words-two-hw07-11-curse-told-becomes-said-11-22",
+   "mouth": "A ROAD STOP: WHAT COMES BACK",
+   "who": "A GIRL IN A STORM DRAIN",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_stuck_child"
+     }
+    },
+    "opts",
+    0,
+    "fx",
+    "say"
+   ],
+   "in_the_file": "She runs home without saying gracias. Later the whole town knows who did it.",
+   "line": "She runs home without saying gracias. Later the whole town knows who did it.",
+   "try": "She ran home without even saying thanks. Don't worry, the whole damn town already knows it was you who dug her out.",
+   "picture_pt": [
+    390,
+    510
+   ]
+  },
+  {
+   "n": 12,
+   "id": "words-two-hw07-12-curse-the-doctor-on-the-vote-11-22",
+   "mouth": "A SIDE QUEST ON THE ROAD",
+   "who": "DOCTORA IBARRA",
+   "pulled_from": "records/target/BOHEMIA_SIDE_QUESTS.json",
+   "locator": [
+    "quests",
+    "bq_last_good_doctor",
+    "nodes",
+    "open_end",
+    "says",
+    0
+   ],
+   "in_the_file": "In front of both families. They'll vote like it's a fair thing and go home knowing exactly what they voted for.",
+   "line": "In front of both families. They'll vote like it's a fair thing and go home knowing exactly what they voted for.",
+   "try": "In front of both families. They'll vote like it's fair, and every one of them goes home knowing exactly what the fuck they voted for.",
+   "picture_pt": [
+    390,
+    555
+   ]
+  }
+ ]
+}
