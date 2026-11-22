@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22c - A FLING'S BREATH IS SAID, BUILT (rules 461, 313, 333, 441, 465; ask rows 679, 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22d - THE TALL THINGS HIDE A MAN, BUILT, NOT YET SEEN (rules 461, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE TALL THINGS HIDE A MAN: inside the big buildings, racks twice a man's height, trailers, a jet's fuselage, set flats and 13 more kinds were walls you could see through.
+Now they block sight the way walls do; glass, cages, skeletons and low things still let you see. Data only (ten insides' tile entries). NEW GATE LEG I12 with a plant;
+THE BIG INSIDES 334/0. ON THE PAGE: the home center, both pages both ways, 4 fights, 15 of 15 taps, 0 errors. VOTE combat4-the-tall-things-hide-a-man-11-22.
+[bb Battle Brothers' forest and walls: out of sight until somebody walks round]
+[analog horror: a shape between the shelves that is gone when you get to the end of the aisle]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22c - A FLING'S BREATH IS SAID, BUILT (rules 461, 313, 333, 441, 465; ask rows 679, 651). Its block is handoffs/COMBAT_THREE.md.
 THE THREE REDS PLUMBER ROUTED HERE, ANSWERED: a bear's or sloth's fling took 10 of a man's breath with nothing said and past the cap (now said and capped, like every
 blow); the big insides gate ran past the suite's 10 minutes with twenty insides (now four at a time: 224 s, 314/0); SEE EVERY HIT's swing leg missed a shield's block
 sound (now 10/0). THE FORMATION IS KEPT green alone (23/0). ON THE PAGE: both pages both ways, 4 fights, 16 of 16 taps, 0 errors. No VOTE card (nothing new to see).

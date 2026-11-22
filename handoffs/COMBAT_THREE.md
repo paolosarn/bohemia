@@ -1,6 +1,17 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 313, 333, 441, 465; ask rows 679, 651): 11/22 LATEST -- [three reds answered] SHIPPED 7fc7ecef6, BUILD 11/22c - A FLING'S BREATH IS SAID, BUILT. No VOTE card.
+COMBAT FOUR (rules 461, 59, 416, 428, 441, 465; ask row 651): 11/22 LATEST -- [the tall things hide a man] SHIPPED 53f6b17ce, BUILD 11/22d - THE TALL THINGS HIDE A MAN, BUILT, NOT YET SEEN. VOTE combat4-the-tall-things-hide-a-man-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_TALL_THINGS_HIDE_A_MAN_11_22_26.md. The fight's sight stops only at the 'obstacles' row; 17 kinds of tall solid blocker in ten insides stood on flat ground
+and were seen through. Now row 'obstacles', terrain 'blocked', 'sight': 'blocked', the effect says so: hall.container, mall.lift, warehouse.trailer, datafort.crac,
+stadium.tent, powerhouse.unit, homecenter.rack, truckstop.cooler/shelving/cab/trailer, hangar.fuselage/tail, tvstation.greenscreen/flats/racks/monitors. Seen past on purpose:
+glass, mesh, bone, and the low things. Gate THE BIG INSIDES I12 (new) with a plant: 334/0 over twenty insides in 290 s; every changed inside's I8 still holds.
+ON THE PAGE: the home center (district:hardware), both pages both ways: 4 fights, 15 of 15 taps, 0 errors. FOR A NEW INSIDE: mark a tall blocker 'sight': 'blocked' on the
+'obstacles' row; I12 reads it.
+NEXT: more boards (the police station, the fire station's apparatus bay); the robot factory waits on WORLD's map (its record).
+[bb Battle Brothers' forest and walls: out of sight until somebody walks round]
+[analog horror: a shape between the shelves that is gone when you get to the end of the aisle]
+
+COMBAT FOUR (rules 461, 313, 333, 441, 465; ask rows 679, 651): 11/22 -- [three reds answered] SHIPPED 7fc7ecef6, BUILD 11/22c - A FLING'S BREATH IS SAID, BUILT. No VOTE card.
 Record: records/BOHEMIA_COMBAT_FOUR_THREE_REDS_ANSWERED_11_22_26.md. PLUMBER 8's row 679 named three new reds for 'COMBAT THREE' (this lane):
 (1) THE BIG INSIDES timed out at the suite's 600 s cap: this lane's twenty insides took 825 s in a row. Now each inside is a child process, four at once (I0 and G1 in the
 parent): 314/0 in 224 s. Every new inside adds about 10 s now, not 40. (2) SEE EVERY HIT S3: slices/BOHEMIA_FIGHT.html's fling (bear, ground sloth) put its target_fatigue
