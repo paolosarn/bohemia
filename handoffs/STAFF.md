@@ -1,5 +1,5 @@
 STAFF (staff-01gkdyus): the camp's people in the fight, a new lane opened by the coordinator for VAMILY rule 468, ask row 667; written only by
-this lane. 11/22 LATEST -- BUILD 11/22zi - THEY FIGHT LIKE STAFF (SHIPSHA), BUILT, NOT YET SEEN (rule 470(a), his order on his YES to the staff build:
+this lane. 11/22 LATEST -- BUILD 11/22zi - THEY FIGHT LIKE STAFF (475ab76d0), BUILT, NOT YET SEEN (rule 470(a), his order on his YES to the staff build:
 'They will stay behind. They will take defensive positions and they will attempt to not be flanked and circled'; rules 461 as amended, 441, 465;
 ask row 701). Record: records/BOHEMIA_STAFF_THEY_FIGHT_LIKE_STAFF_11_22_26.md. VOTE staff-they-fight-like-staff-11-22 (stand_in).
 WHAT: the camp's own AUTO (slices/BOHEMIA_FIGHT.html __THEY_FIGHT_LIKE_STAFF__: staffGround, staffTile, staffLineX, staffStep; the weights in
