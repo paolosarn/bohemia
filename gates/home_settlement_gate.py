@@ -4,7 +4,8 @@
 Reads what tools/bohemia_home_settlement_pipeline_11_3_26.py wrote to records/target/home_settlement/ (no Blender needed):
   S1 the manifest is the pipeline's own (its script, its look)
   S2 THE FIXED CAMERAS: exactly the pipeline's three, and every plate and piece was rendered for that set (a camera outside it fails)
-  S3 NO HAND STEP: every piece of the pipeline has every state from every camera, both shapes, on every lot of its row, each picture
+  S3 NO HAND STEP: every piece of the pipeline has every state from every camera, both shapes, on every lot of its row (and of the rows
+     behind it the manifest says it stands on, THE OVERFLOW, never a row in front), each picture
      on disk and listed; no picture in the folder that the pipeline did not list (a hand-made angle fails)
   S4 THE ROW'S HEIGHT: no piece taller than its row allows, none wider than a lot
   S5 TWELVE OF TWELVE, recomputed from the flat pictures: every camera, upright and sideways, every lot at its tallest still shows 60% of
@@ -35,7 +36,9 @@ def s3(M, files):
     for pid, D in H.PIECES.items():
         P = M['pieces'].get(pid)
         if not P: return False, 'missing piece ' + pid
-        lots = [L['n'] for L in H.LOTS if L['row'] == D['row']]
+        rows = P.get('rows') or [D['row']]   # HOME BASE 3 11/22 (466(a) step 4, THE OVERFLOW): its own row and the rows behind it, never one in front
+        if D['row'] not in rows or any(H.ROW_ORDER.index(r) < H.ROW_ORDER.index(D['row']) for r in rows): return False, '%s stands on a row in front of its own: %s' % (pid, rows)
+        lots = [L['n'] for L in H.LOTS if L['row'] in rows]
         for st in D['states']:
             for cn in H.CAMS:
                 for sh in H.SIZES:
@@ -77,6 +80,7 @@ r7, why7 = s7(M, nfiles); ok('S7 the lens\'s own world: every camera, both shape
 M2 = copy.deepcopy(M); M2['cams']['4'] = dict(name='CAM 4 A HAND ANGLE', az=40.0, el=20.0)
 ok('M  a fourth camera outside the set fails S2', not s2(M2))
 r, w = s3(M, files | {'house_plain_built_cam1_tall_lot9_hand.png'}); ok('M  a picture the pipeline did not make fails S3', not r)
+M4 = copy.deepcopy(M); M4['pieces']['lookout']['rows'] = ['middle', 'back']; r, w = s3(M4, files); ok('M  a back piece said to stand on the middle row (a row in front of its own) fails S3', not r)
 import tempfile, shutil
 import numpy as np
 from PIL import Image

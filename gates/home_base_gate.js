@@ -57,6 +57,9 @@
      D16 HIS PLACE THROUGH ITS CAMERAS (rule 451(c), row 625): his place opens on CAM 1 (REC, the camera, his place); a real tap on
          CAM 2 frames THE LOTS closer and the pot there still answers a tap; CAM 3 has the ones who live there in the shot; CAM 1 the
          whole yard again. PLANTED: the message says not planted, no camera.
+     F7  THE OVERFLOW (rule 466(a) step 4, HOME BASE 3 11/22): a piece whose row is full stands on a free lot behind it, its own picture.
+     D22 THE GRINDER (rule 469, HOME BASE 3 11/22): built from the desk, standing, seen; the dead of a won fight home; GRIND; sold and found.
+     G0-G9 (engine) THE GRINDER: the carry, the heat, one tap, the brain out, the bad cut, selling, the late shakes, the stores.
      D21 IT STARTS BARE (rule 445(b), HOME BASE 2 11/21): his place opens on its own ground with nothing built on it (home_base/bare_*,
          by day and by night, upright and sideways), its doors only his things and BUILD: none of the camp's eight (the post, the board,
          the stall, the bar, the bench, the barber, the clinic, the lot), no keeper, no crowd, no stranger walking, no town's situation.
@@ -523,6 +526,22 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       const r6 = await fr.evaluate(() => [...document.querySelectorAll('#sbody .act[data-build="roof"], #sbody .act[data-place="lookout"], #sbody .act[data-build="wall"]')].map(b => (b.dataset.build || b.dataset.place) + ':' + (b.disabled ? 'off' : 'on') + ':' + (b.dataset.rowfull || '') + ':' + ((b.querySelector('em') || {}).textContent || '')));
       ok('F6 the back row full (' + g6.back.join(', ') + '): the roof is offered greyed, THE BACK ROW IS FULL (the lookout greyed, one of each or the row); the wall (the front row, two of four taken) is not (HOME BASE 3 11/22: was the garden, but the D22 grinder now fills the middle row by this leg)', r6.some(x => /^roof:off:back:THE BACK ROW IS FULL/.test(x)) && r6.some(x => /^lookout:off:/.test(x)) && r6.some(x => /^wall:(on|off)::/.test(x)), JSON.stringify({ g6, r6 }));
       await close15();
+      /* F7 THE OVERFLOW (HOME BASE 3 11/22, rule 466(a) step 4): a piece whose row is full stands on a free lot of a row behind it, with its
+         own picture for that lot (the pipeline's --behind-only renders); planted: the pictures behind taken off, it is not drawn at all */
+      const post7 = async (cut) => fr.evaluate(async (cut) => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home));
+        window.__HOME_FEED_NO_BEHIND(!!cut);
+        h.things = []; h.places = ['forge', 'grinder', 'forge', 'grinder', 'forge', 'grinder', 'forge', 'grinder', 'forge'].map((id, i) => ({ id, name: id.toUpperCase(), piece: null, lot: 30 + i, done: true }));
+        window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); await new Promise(r => setTimeout(r, 800));
+        const f = window.__HOME_FEED || {}, sl = f.slots || {}, out = { mid: [5, 6, 7, 8].map(n => sl[n] ? sl[n].pid : null), back: [9, 10, 11, 12].map(n => sl[n] ? sl[n].pid : null), over: f.over || [], un: (f.unplaced || []).length };
+        window.__HOME_FEED_NO_BEHIND(false);
+        return out; }, cut);
+      const f7 = await post7(false), f7c = await post7(true);
+      const backOk = f7.back.filter(p => p === 'forge' || p === 'grinder').length;
+      ok('F7 THE OVERFLOW: nine more of his middle-row buildings, the middle row holds four (' + f7.mid.join(', ') + '), the rest stand on the back row with their own pictures (' + f7.back.join(', ') + '; over ' + f7.over.join(' ') + '), ' + f7.un + ' not drawn',
+        f7.mid.every(Boolean) && f7.over.length >= 1 && backOk === f7.over.length && f7.over.every(o => /@(9|10|11|12)$/.test(o)), JSON.stringify(f7));
+      ok('F7 planted: the pictures behind taken off the manifest, the overflow is not drawn (' + f7c.over.length + ' over, ' + f7c.un + ' left off): the leg above reads red on it', f7c.over.length === 0 && f7c.un >= f7.un + f7.over.length, JSON.stringify(f7c));
+      await fr.evaluate(async () => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); });   /* the real home again */
+      await P.waitForTimeout(800);
       await F.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); }); await P.waitForTimeout(2500); await gone15(); await close15();
       await F.evaluate(() => { const r = BohemiaHomeMap.rec(); r.places = []; localStorage.removeItem('bohemia.home.trained.v1'); DAY.day = (DAY.day | 0) - 2; const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); });
       await P.waitForTimeout(2500); await gone15(); await close15();   /* the gate's three come down so the legs after build where they always did */

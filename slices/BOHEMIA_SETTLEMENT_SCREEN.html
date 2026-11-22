@@ -2293,15 +2293,28 @@ function homeFeedPid(t){ var M = HF.M, pid = null;
   return pid && M.pieces[pid] ? pid : null; }
 function homeFeedRows(){ var R = { front: [], middle: [], back: [] }; (HF.M.lots || []).forEach(function(L){ (R[L.row] = R[L.row] || []).push(L.n); }); return R; }
 /* his things on the block's lots: each piece in its own row, by the order he put them up; a picture with no piece on any free lot */
-function homeFeedSlots(){ var M = HF.M; if(!M) return {}; var R = homeFeedRows(), used = {}, out = {}, un = [];
+/* __THE_OVERFLOW__ (HOME BASE 3, 11/22, rule 466(a) step 4): the rows a piece has pictures for, its own first (the manifest's rows: a
+   piece rendered --behind-only also stands on the rows behind its own, each higher and allowing taller) */
+var HF_NO_BEHIND = false;   /* for the gate's planted leg only: as if no picture behind its row had been made */
+window.__HOME_FEED_NO_BEHIND = function(v){ HF_NO_BEHIND = !!v; return HF_NO_BEHIND; };
+function homeFeedRowsOf(pid){ var D = HF.M && HF.M.pieces[pid]; if(!D) return []; return (!HF_NO_BEHIND && D.rows && D.rows.length) ? D.rows : [D.row]; }
+function homeFeedHasPic(pid, n){ var D = HF.M && HF.M.pieces[pid]; if(!D || !D.states) return false; var st = D.states.built || D.states[Object.keys(D.states)[0]]; return !!(st && st.pics && st.pics['1_tall_' + n]); }
+/* his things on the block's lots: each piece in its own row, by the order he put them up; one whose row is full on a free lot of a row
+   behind that has its picture (after every piece has had its own row, so the overflow never takes a back lot from a back piece); a
+   picture with no piece on any free lot */
+function homeFeedSlots(){ var M = HF.M; if(!M) return {}; var R = homeFeedRows(), used = {}, out = {}, un = [], over = [];
   var T = homeThingsHere().slice().sort(function(a, b){ return (a.lot | 0) - (b.lot | 0); });
   T.forEach(function(t){ t.pid = homeFeedPid(t); });
-  T.filter(function(t){ return t.pid; }).forEach(function(t){ var n = (R[M.pieces[t.pid].row] || []).filter(function(n){ return !used[n]; })[0]; if(n){ used[n] = 1; out[n] = t; } else un.push(t.key); });
+  T.filter(function(t){ return t.pid; }).forEach(function(t){ var n = (R[M.pieces[t.pid].row] || []).filter(function(n){ return !used[n]; })[0]; if(n){ used[n] = 1; out[n] = t; } else over.push(t); });
+  HF.over = [];
+  over.forEach(function(t){ var n = null; homeFeedRowsOf(t.pid).some(function(rw){ n = (R[rw] || []).filter(function(x){ return !used[x] && homeFeedHasPic(t.pid, x); })[0]; return !!n; });
+    if(n){ used[n] = 1; out[n] = t; HF.over.push(t.key + '@' + n); } else un.push(t.key); });
   T.filter(function(t){ return !t.pid; }).forEach(function(t){ if(!t.pic){ un.push(t.key); return; } var n = ['front', 'middle', 'back'].map(function(r){ return R[r].filter(function(n){ return !used[n]; })[0]; }).filter(Boolean)[0]; if(n){ used[n] = 1; out[n] = t; } else un.push(t.key); });
   HF.slots = out; HF.unplaced = un; return out; }
-/* a build or a building of his own needs a free lot in its row: the desk says so when the row is full */
-function homeFeedRowFull(pid){ var M = HF.M; if(!M || !pid || !M.pieces[pid]) return false; homeFeedSlots(); var row = M.pieces[pid].row;
-  return (homeFeedRows()[row] || []).every(function(n){ return !!HF.slots[n]; }); }
+/* a build or a building of his own needs a free lot: its row, or a row behind it has its picture for; the desk says the row is full
+   only when every one of those is (__THE_OVERFLOW__) */
+function homeFeedRowFull(pid){ var M = HF.M; if(!M || !pid || !M.pieces[pid]) return false; homeFeedSlots(); var R = homeFeedRows();
+  return homeFeedRowsOf(pid).every(function(rw, i){ return (R[rw] || []).every(function(n){ return !!HF.slots[n] || (i > 0 && !homeFeedHasPic(pid, n)); }); }); }
 function homeFeedFit(){ var sc = document.getElementById('scene'), W = sc.clientWidth || 1, H = sc.clientHeight || 1, sh = H >= W ? 'tall' : 'wide', cw = sh === 'tall' ? 180 : 320, ch = sh === 'tall' ? 320 : 180;
   var k = Math.min(W / cw, H / ch), w = cw * k, h = ch * k, x = Math.round((W - w) / 2), P = FIT.phone;
   if(sh === 'wide' && P && P.width){ var r = sc.getBoundingClientRect(), pc = P.left + P.width / 2 - r.left; x = pc > W / 2 ? 0 : Math.round(W - w); }   /* on its side the footage stands away from the phone, the black on the phone's side */
@@ -2359,7 +2372,7 @@ function homeFeedSync(){ var want = homeFeedWant(), sc = document.getElementById
     HF.el.addEventListener('click', function(e){ e.stopPropagation(); }); }
   if(!HF.on){ HF.on = true; HF.cam = 1; HF.cut = null; HF.lastCut = performance.now(); }
   homeFeedSize(); homeFeedSlots();
-  window.__HOME_FEED = { on: true, cam: HF.cam, sh: HF.fit.sh, k: HF.fit.k, slots: (function(){ var o = {}; for(var n in HF.slots) o[n] = { key: HF.slots[n].key, door: (VAR.bareShopOf && VAR.bareShopOf[HF.slots[n].key]) || HF.slots[n].key, pid: HF.slots[n].pid || null, kind: HF.slots[n].kind, id: HF.slots[n].id || null }; return o; })(), unplaced: HF.unplaced.slice() };
+  window.__HOME_FEED = { on: true, cam: HF.cam, sh: HF.fit.sh, k: HF.fit.k, slots: (function(){ var o = {}; for(var n in HF.slots) o[n] = { key: HF.slots[n].key, door: (VAR.bareShopOf && VAR.bareShopOf[HF.slots[n].key]) || HF.slots[n].key, pid: HF.slots[n].pid || null, kind: HF.slots[n].kind, id: HF.slots[n].id || null }; return o; })(), unplaced: HF.unplaced.slice(), over: (HF.over || []).slice() };
   if(!HF.raf) HF.raf = requestAnimationFrame(homeFeedLoop); }
 /* the frame's pixel under a finger, and what answers there: a person first, then the smallest lot box the camera sees */
 function homeFeedPx(cxp, cyp){ var r = HF.el.getBoundingClientRect(), f = HF.fit; return { x: (cxp - r.left - f.x) / f.k, y: (cyp - r.top - f.y) / f.k }; }
