@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22n - FIVE FIGHT REDS ANSWERED (rules 461, 441; ask rows 679, 684). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22p - THE JOBS OFFICE, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE JOBS OFFICE (WORLD's real place, 'where a company finds men who need work'): eight fights in ten there are fought inside: the claims hall (the windows' glass, the counter,
+rows of bolted waiting chairs, queue barriers, kiosks, the line's bedrolls) or the resource room (job boards that hide a man, terminals, printers, folding tables).
+AND THE BIG INSIDES GATE IS TWO SUITE ENTRIES (each half under the 600 s cap). GATE THE BIG INSIDES 524/0 in two halves (265 in 226 s, 259 in 223 s; thirty insides). ON THE PAGE: 4 fights in the jobs office on the demo and the alpha, upright and on its side, all ended, 15 of 15 tile taps, 0 page errors. VOTE combat4-the-jobs-office-11-22.
+[bb Battle Brothers' brush: the bolted waiting chairs, three to cross and low cover]
+[analog horror: the 'now serving' sign stuck on a number nobody holds]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22n - FIVE FIGHT REDS ANSWERED (rules 461, 441; ask rows 679, 684). Its block is handoffs/COMBAT_THREE.md.
 PLUMBER 8's fight reds (COMBAT idle since 11/6, so answered here): SEE EVERY HIT green alone; WEAPON SHAPES and THE FIGHT DRIVES THE MUSIC read sounds by the running count, a block
 counted; THE FIRST FIGHT TEACHES and THE LOSS IS UNDERSTOOD let the opening why line be said first; FATIGUE F6 reads rule 435(e)'s breath floor. All green alone. EVERY MAN HAS A
 JOB J3/J4 measured (not the insides, not BESTIARY; red already on 11/18) and routed to COMBAT TWO / TUNING. records/BOHEMIA_COMBAT_FOUR_SEVEN_FIGHT_REDS_11_22_26.md.

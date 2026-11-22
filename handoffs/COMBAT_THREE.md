@@ -1,6 +1,22 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 441, 465; ask rows 679, 684): 11/22 LATEST -- [the fight's reds] SHIPPED e2f469294, BUILD 11/22n - FIVE FIGHT REDS ANSWERED. No VOTE card (gates only).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the jobs office; the gate in two halves] SHIPPED bf6f3965f, BUILD 11/22p - THE JOBS OFFICE, BUILT, NOT YET SEEN. VOTE combat4-the-jobs-office-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_JOBS_OFFICE_11_22_26.md. More boards (rule 461): the jobs office ('jobsoffice', WORLD's real place, Nevada JobConnect on Maryland Parkway, 0.8): the_claims_hall (the windows' glass seen
+through, the counter, caseworkers' desks, file cabinets, queue barriers, joined waiting chairs rough 3 AP, bins, vending, planters, kiosks, the line's bedrolls) and
+the_resource_room (job boards that hide a man, terminals, printers, folding tables and chairs). 19 tile kinds, 17 pieces all stand-ins (I13 green); thirtieth in insides.json.
+THE BIG INSIDES GATE IN TWO HALVES: '--half 1' (with I0, G1) and '--half 2', every other inside each; two suite entries (THE BIG INSIDES, THE BIG INSIDES TWO); measured
+on twenty-nine: 242 s and 218 s (the whole 437 s), 265 + 242 legs = the whole's 507.
+GATE THE BIG INSIDES 524/0 in two halves (265 in 226 s, 259 in 223 s; thirty insides) (the jobs office 20/0, 17% bare after round one against 43%).
+ON THE PAGE: 4 fights in the jobs office on the demo and the alpha, upright and on its side, all ended, 15 of 15 tile taps, 0 page errors.
+*** FOR COOK (SIX): THE JOBS OFFICE'S NAMES (jobsoffice_art.json, THE GARAGE'S FORMAT): floor.floor (worn carpet tiles), floor.ring; jo_glass (a claims window on its counter), jo_counter,
+jo_desks, jo_files, jo_barriers (queue posts and belts), jo_chairs (a bank of joined waiting chairs), jo_bins, jo_vending, jo_planters, jo_kiosk (the ticket kiosk), jo_bedrolls,
+jo_boards (job boards on stands), jo_terminals (job-search terminals), jo_printers, jo_tables (folding tables), jo_wall_ew, jo_wall_ns; jobsoffice/jobsoffice_ceiling.webp. ***
+*** FOR PLUMBER: THE BIG INSIDES is two suite entries now (THE BIG INSIDES with '--half 1', THE BIG INSIDES TWO with '--half 2'); the quarantine's line names the first. ***
+NEXT: more boards (the radio station; the water treatment plant; the speedway's garage); the robot factory and the paved places wait on WORLD's map.
+[bb Battle Brothers' brush: the bolted waiting chairs, three to cross and low cover]
+[analog horror: the 'now serving' sign stuck on a number nobody holds]
+
+COMBAT FOUR (rules 461, 441, 465; ask rows 679, 684): 11/22 -- [the fight's reds] SHIPPED e2f469294, BUILD 11/22n - FIVE FIGHT REDS ANSWERED. No VOTE card (gates only).
 Record: records/BOHEMIA_COMBAT_FOUR_SEVEN_FIGHT_REDS_11_22_26.md. COMBAT's last block is 11/6, so PLUMBER 8's row-684 reds (filed to COMBAT) are answered here, each run alone first:
 SEE EVERY HIT green alone (the re-check ran before this round's fix). WEAPON SHAPES (the sweep's '1 sound') and THE FIGHT DRIVES THE MUSIC ('misses 33 of 36'): 'since' by
 FIGHT_UI.heardAll, a shield's block counted as a miss's sound. THE FIRST FIGHT TEACHES (3 legs) and THE LOSS IS UNDERSTOOD: the opening why line (FIGHT SCREEN 11/14) is up
