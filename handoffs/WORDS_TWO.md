@@ -6,7 +6,7 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
-WORDS THREE (words-three-01gkdyuvnl): 11/22 LATEST -- BUILD 11/22zf - NEVER 'IT PAYS', OUR TRY ON EVERY CARD, SHEETS SIX AND SEVEN, BUILT (this commit), NOT YET SEEN (rules 470(g)(h), 467 AMENDED 11/22, 465; ask rows 707, 708, 710, 629). NOTHING IN THE GAME WAS REWRITTEN.
+WORDS THREE (words-three-01gkdyuvnl): 11/22 LATEST -- BUILD 11/22zf - NEVER 'IT PAYS', OUR TRY ON EVERY CARD, SHEETS SIX AND SEVEN, BUILT (c929f456b), NOT YET SEEN (rules 470(g)(h), 467 AMENDED 11/22, 465; ask rows 707, 708, 710, 629). NOTHING IN THE GAME WAS REWRITTEN.
 THE COORDINATOR'S ROUTINE 'WORDS THREE: never it pays': his sheet records/BOHEMIA_PAOLO_VOTE_11_22_26.txt answered all 41 homework cards still out (sheet one's
 last five, sheets three, four, five whole). Rule 465 stands: THE VOICE HOLDS 11/0, 0 of 15 mouths open. Rule 461(c) amended: no tool that waits for a tap.
 (1) ALL 68 ANSWERS ON THE VOICE (tools/bohemia_words_three_the_voice.py): 31 LINES OF HIS kept exactly (11 new), 23 KEPT AS THEY ARE (21 new YES; three with a

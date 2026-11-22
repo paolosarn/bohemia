@@ -1,4 +1,4 @@
-WORDS THREE (words-three-01gkdyuvnl): 11/22 LATEST -- BUILD 11/22zf - NEVER 'IT PAYS', OUR TRY ON EVERY CARD, SHEETS SIX AND SEVEN, BUILT (this commit), NOT YET SEEN (rules 470(g)(h), 467 AMENDED, 465; ask rows 707, 708, 710, 629). Its block is handoffs/WORDS_TWO.md.
+WORDS THREE (words-three-01gkdyuvnl): 11/22 LATEST -- BUILD 11/22zf - NEVER 'IT PAYS', OUR TRY ON EVERY CARD, SHEETS SIX AND SEVEN, BUILT (c929f456b), NOT YET SEEN (rules 470(g)(h), 467 AMENDED, 465; ask rows 707, 708, 710, 629). Its block is handoffs/WORDS_TWO.md.
 All 68 of his homework answers are on THE VOICE: 31 lines of his kept exactly, 23 kept as they are, 14 what the voice is not, and PAGE THREE, NEVER 'IT PAYS'
 (a person says who pays and what, or nothing; 20 of the job board's 102 lines say it). FOR EVERY LANE THAT WRITES A LINE: read THE VOICE SO FAR (20 lines);
 most people curse, in full; nothing standing is rewritten (rule 465). Every homework card shows OUR TRY beside the game's line; sheets six and seven (24 cards,
