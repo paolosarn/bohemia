@@ -1,6 +1,24 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the bank] SHIPPED 30784c3f8, BUILD 11/22h - THE BANK, BUILT, NOT YET SEEN. VOTE combat4-the-bank-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [city hall] SHIPPED 18c57d96b, BUILD 11/22i - CITY HALL, BUILT, NOT YET SEEN. VOTE combat4-city-hall-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_CITY_HALL_11_22_26.md. More boards (rule 461): City Hall ('cityhall', the mayor arc's office beside the courthouse, 0.8): the_council_chamber (the dais, blocks and seen
+over; the clerks' tables, the podium, the cameras; the public's seats rough 3 AP low cover; planters) and the_permit_floor (cubicles, copiers, file cabinets, the service
+counters' glass seen through and their ends low cover, the lift core's walls, the information desk, benches, planters). One data file (17 tile kinds, 15 pieces all
+stand-ins), twenty-fifth in insides.json; no high ground; the ceiling the casino's 'coffer'.
+GATE THE BIG INSIDES 414/0 (twenty-five insides, 533 s with two page runs on the box) (City Hall 19/0, 19% bare after round one against 35%).
+ON THE PAGE: 4 fights at City Hall on the demo and the alpha, upright and on its side, all ended, 17 of 17 tile taps, 0 page errors (2 of 7 runs met a valley with no City Hall: the roads find).
+*** FOR COOK (SIX): CITY HALL'S NAMES (cityhall_art.json, THE GARAGE'S FORMAT): floor.floor (stone), floor.ring; ch_dais (the council's curved raised bench), ch_tables,
+ch_podium, ch_cameras (tripod cameras, the press riser), ch_seats (the public's seats in a row), ch_planters, ch_cubicles, ch_copiers, ch_files, ch_glass (a service counter
+and its glass), ch_counter (its end), ch_benches, ch_infodesk (a round stone desk), ch_wall_ew, ch_wall_ns; cityhall/cityhall_ceiling.webp; "have": true in cityhall.json.
+*** FOR WORLD (records/BOHEMIA_COMBAT_FOUR_THE_ROADS_PAVE_THE_ONE_CELL_PLACES_11_22_26.md; measured, nothing of the map edited): the arterial grid paves the seat of a
+one-cell place. Over 40 valleys of engine/bohemia_overmap.js alone: the jail gone in 28, City Hall in 12, the library in 7, a fire station seat in 70 of 120 (7 valleys
+with none), fuel depots 20 seats, the granary 2; seats in the desert too (City Hall 4, the jail 2). The page can lose more (the robot factory). Found proving City Hall:
+2 of 7 page runs met a valley with no City Hall. The insides are right; the map loses the door. ***
+NEXT: more boards (the animal shelter, built; the campus, built; the ballpark's concourse); the robot factory waits on WORLD's map (its record).
+[bb Battle Brothers' brush: the bolted seats, three to cross and low cover]
+[analog horror: the chamber's agenda screen still lit on item seven, the public comment nobody gave]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the bank] SHIPPED 30784c3f8, BUILD 11/22h - THE BANK, BUILT, NOT YET SEEN. VOTE combat4-the-bank-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_BANK_11_22_26.md. More boards (rule 461): the bank ('bank', WORLD's real place, Valley Bank Plaza downtown, 0.8): the_banking_hall (the teller line's glass,
 blocks and seen past; the counter's ends low cover; teller stations and cash safes behind it; marble columns, officers' desks, check-writing islands, waiting chairs, paper drifts
 rough 3 AP) and the_vault_floor (the vault's concrete walls with a door each side, its round door standing open, a blocker that hides a man; deposit box walls inside, hiding a

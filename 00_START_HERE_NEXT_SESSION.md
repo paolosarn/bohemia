@@ -1,4 +1,11 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22h - THE BANK, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22i - CITY HALL, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+CITY HALL: eight fights in ten at City Hall are fought inside: the council chamber (the dais nobody stands on, seen over; the clerks' tables, the podium, the cameras; the public's
+seats in rows, slow) or the permit floor (cubicles, the service counters' glass seen through, the information desk, benches, planters). One data file, stand-ins.
+GATE THE BIG INSIDES 414/0 (twenty-five insides, 533 s with two page runs on the box). ON THE PAGE: 4 fights at City Hall on the demo and the alpha, upright and on its side, all ended, 17 of 17 tile taps, 0 page errors (2 of 7 runs met a valley with no City Hall: the roads find). VOTE combat4-city-hall-11-22.
+FOR WORLD: the roads pave one-cell places (the jail gone in 28 of 40 valleys, City Hall 12, the library 7): records/BOHEMIA_COMBAT_FOUR_THE_ROADS_PAVE_THE_ONE_CELL_PLACES_11_22_26.md.
+[bb Battle Brothers' brush: the bolted seats, three to cross and low cover]
+[analog horror: the chamber's agenda screen still lit on item seven, the public comment nobody gave]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22h - THE BANK, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE BANK: eight fights in ten at the bank are fought inside: the banking hall (the teller line's glass seen through and never crossed, marble columns, the officers' desks,
 check-writing islands, paper drifts) or the vault floor (the vault's walls, its round door open, deposit box walls that hide a man, dumped boxes, the cash cage). One data file, stand-ins.
 GATE THE BIG INSIDES 398/0 (twenty-four insides, 341 s; the tall-things leg now reads every layout). ON THE PAGE: 4 fights inside on the demo and the alpha, upright and on its side, both rooms (the vault on another valley's bank), all ended, 15 of 15 tile taps, 0 page errors. VOTE combat4-the-bank-11-22.
