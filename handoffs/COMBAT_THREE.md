@@ -1,6 +1,20 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the fuel depot] SHIPPED c8752c507, BUILD 11/22x - THE FUEL DEPOT, BUILT, NOT YET SEEN. VOTE combat4-the-fuel-depot-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the battery farm] SHIPPED 806c7d90b, BUILD 11/22y - THE BATTERY FARM, BUILT, NOT YET SEEN. VOTE combat4-the-battery-farm-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_BATTERY_FARM_11_22_26.md. More boards (rule 461): the battery farm ('battery', 0.7; one cell, in 40 of 40 valleys): the_battery_hall (racks and cooling units the obstacles row, they
+hide a man; inverters, cabinets cover; modules, drums low; the sprinklers' water the swamp row, 4 AP and fight worse) and the_control_house (switchgear and transformers hide a man;
+desks, cabinets cover; modules, drums low; water). 14 tile kinds, 11 pieces all stand-ins (I13 green); thirty-seventh in insides.json; no high ground.
+GATE THE BIG INSIDES 649/0 in two halves (337 in 271 s, 312 in 295 s; thirty-seven insides)
+ON THE PAGE: 4 fights in the farm on the demo and the alpha, upright and on its side (the control house each time; the battery hall in the gate and on the card), all ended, 15 of 15 tile taps, 0 page errors.
+*** FOR COOK (SIX): THE BATTERY FARM'S NAMES (battery_art.json, THE GARAGE'S FORMAT): floor.floor (sealed concrete), floor.water (standing water, if a floor list is wanted for
+it), floor.ring; bt_racks (battery racks, cells to the ceiling), bt_cooling (a cooling unit), bt_inverter (an inverter skid), bt_cabinets, bt_modules (battery modules stacked),
+bt_drums (coolant drums), bt_switchgear (a switchgear lineup), bt_transformer, bt_desk, bt_wall_ew, bt_wall_ns; battery/battery_ceiling.webp. ***
+*** FOR PLUMBER: the insides gate's two halves are at about 300 s each with thirty-seven insides (cap 600); cut the list in three before a half nears 450 s. ***
+NEXT: more boards (the boneyard's fuselages; the fort; the substation); the robot factory and the paved places wait on WORLD's map.
+[bb Battle Brothers' wall in rows: a battery rack hides a man down every aisle; the sprinklers' water its swamp]
+[analog horror: a rack's status lights still blinking green in the dark, counting down a charge nobody draws]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the fuel depot] SHIPPED c8752c507, BUILD 11/22x - THE FUEL DEPOT, BUILT, NOT YET SEEN. VOTE combat4-the-fuel-depot-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_FUEL_DEPOT_11_22_26.md. More boards (rule 461): THE FUEL DEPOT, Paolo's fuel depots ('fueldepot', 0.6; 60 cells over 40 valleys; their names his pick, nothing here names them):
 the_pump_house (pumps and day tanks the obstacles row, they hide a man; manifolds, valve stands, meter skids, the desk cover; pipes rough 3 AP; drums low; fuel slicks the swamp
 row, 4 AP and fight worse) and the_loading_rack (tankers hide a man; loading arms cover; jerry cans, drums, berms low; slicks). 17 tile kinds, 14 pieces all stand-ins (I13

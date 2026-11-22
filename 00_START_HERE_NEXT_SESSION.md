@@ -1,4 +1,11 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22x - THE FUEL DEPOT, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22y - THE BATTERY FARM, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE BATTERY FARM (the map's 'solar without storage dies every night'; the dead's 'crews caught working'): about seven fights in ten there are fought inside: the battery hall (rows
+of racks and the cooling units hide a man; inverters, cabinets; modules, drums; the sprinklers' water, Battle Brothers' swamp) or the control house (switchgear and transformers hide
+a man; desks, cabinets; the water).
+GATE THE BIG INSIDES 649/0 in two halves (337 in 271 s, 312 in 295 s; thirty-seven insides). ON THE PAGE: 4 fights in the farm on the demo and the alpha, upright and on its side (the control house each time; the battery hall in the gate and on the card), all ended, 15 of 15 tile taps, 0 page errors. VOTE combat4-the-battery-farm-11-22.
+[bb Battle Brothers' wall in rows: a battery rack hides a man down every aisle; the sprinklers' water its swamp]
+[analog horror: a rack's status lights still blinking green in the dark, counting down a charge nobody draws]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22x - THE FUEL DEPOT, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE FUEL DEPOT (Paolo's 7/5 fuel depots, the two dead pipelines' terminals, 'the fuel fight'; their names still his pick): about three fights in five there are fought under a roof:
 the pump house (pumps and day tanks hide a man; manifolds, valve stands, meters, the desk; pipes, drums, fuel slicks: Battle Brothers' swamp) or the loading rack (tankers hide a
 man; loading arms; jerry cans, drums, berms; fuel slicks).
