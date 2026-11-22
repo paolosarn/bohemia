@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22j - THE ANIMAL SHELTER, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22k - THE CAMPUS, AND COVER YOU CAN SEE, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE CAMPUS: about one fight in three on the campus is fought inside: a lecture hall (rows of seats, slow, low cover) or the science labs (fume hoods that hide a man, lab benches).
+AND THE COVER YOU COULD NOT SEE: 52 stand-in pieces in 14 insides were drawn at 1 to 6% of a house tile (a cover tile read as bare floor); each now borrows a picture that paints
+at least 9% (gate I13 on gates/the_stand_ins_measured.json). GATE THE BIG INSIDES 473/0 (twenty-seven insides, 409 s alone; I13 new). ON THE PAGE: the campus 10 fights inside on the demo and the alpha, upright and on its side, both rooms, all ended, 28 of 28 tile taps, 0 page errors; the swapped rail shops 1 fight, 4 of 4. VOTES combat4-the-campus-11-22, combat4-the-cover-you-could-not-see-11-22.
+[bb Battle Brothers' brush: the lecture hall's bolted seats, three to cross and low cover]
+[analog horror: the lab's emergency shower still dripping into a drain nobody cleared]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22j - THE ANIMAL SHELTER, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE ANIMAL SHELTER: seven fights in ten at the shelter (WORLD's real place, Mojave Road) are fought inside: the kennels (rows of runs, block and chain link, seen through and never
 crossed; crates, drums, feed bags in the aisles) or the clinic and intake (cage banks and shelves that hide a man, exam tables, the intake glass, spilled kibble, the laundry).
 GATE THE BIG INSIDES 430/0 (twenty-six insides, 385 s). ON THE PAGE: 4 fights in the shelter on the demo and the alpha, upright and on its side, all ended, 15 of 15 tile taps, 0 page errors. VOTE combat4-the-animal-shelter-11-22.

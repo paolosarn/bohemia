@@ -1,6 +1,25 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the animal shelter] SHIPPED d70806ba5, BUILD 11/22j - THE ANIMAL SHELTER, BUILT, NOT YET SEEN. VOTE combat4-the-animal-shelter-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the campus; the cover you could not see] SHIPPED bf77f0ec1, BUILD 11/22k - THE CAMPUS, AND COVER YOU CAN SEE, BUILT, NOT YET SEEN. VOTES combat4-the-campus-11-22, combat4-the-cover-you-could-not-see-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_CAMPUS_11_22_26.md and records/BOHEMIA_COMBAT_FOUR_THE_COVER_YOU_COULD_NOT_SEE_11_22_26.md. More boards (rule 461): the campus ('campus', 0.35): the_lecture_hall (seats rough 3 AP
+low cover in five banks, the demonstration bench, lecterns, projector carts, left bags, the projection booth) and the_science_labs (two labs and a corridor: fume hoods and
+stockroom shelves that hide a man, lab benches, gas racks, carts; vending machines in the corridor). 14 tile kinds, 12 pieces all stand-ins; twenty-seventh in insides.json.
+THE COVER YOU COULD NOT SEE (a bug he can feel): a stand-in is drawn at its own size and a tile is a house; a shopping cart paints 1.1% of a tile, a cart corral 6.4%. 52 pieces in 14
+insides (rail shops, bank, City Hall, shelter, library, police, fire station, hangar, truck stop, justice, aquarium, natural history, TV station, campus) now borrow pictures that
+paint 10 to 44% (crates, the tunnel camps' tables, a junk pile, a booth, a counter, a tangle, a heap, a core); each keeps 'stand_in_was'. New: tools/bohemia_measure_the_stand_ins.py
+writes gates/the_stand_ins_measured.json (60 pictures); I13 A COVER TILE LOOKS LIKE COVER fails a stand-in under 9% or unmeasured (red on main's rail shops: 5 pieces).
+GATE THE BIG INSIDES 473/0 (twenty-seven insides, 409 s alone; I13 new) (the campus 20/0, 17% bare after round one against 36%; I13 green on all 27).
+ON THE PAGE: the campus 10 fights inside on the demo and the alpha, upright and on its side, both rooms, all ended, 28 of 28 tile taps, 0 page errors; the swapped rail shops 1 fight, 4 of 4.
+*** FOR COOK (SIX): THE CAMPUS'S NAMES (campus_art.json, THE GARAGE'S FORMAT): floor.floor, floor.ring; cp_seats (a row of fixed seats with tablet arms), cp_demobench, cp_lectern,
+cp_carts, cp_bags (left backpacks and coats), cp_hoods (a fume hood), cp_shelves (stockroom shelving), cp_benches (an island lab bench), cp_gas (a gas cylinder rack), cp_vending
+(a vending machine on its face), cp_wall_ew, cp_wall_ns; campus/campus_ceiling.webp. AND: a stand-in's 'stand_in_was' names what it was borrowed as before 11/22. A picture of yours
+is yours to size, but a house tile of tool chests wants a tile's worth of them: the stand-ins now paint 10 to 44% of a tile. ***
+*** FOR PLUMBER / STAFF: THE BIG INSIDES' CLOCK: 27 insides took 409 s alone on the box (838 s with a page run beside it). Each inside adds about 15 s at four at a time; the suite's cap is 600 s. ***
+NEXT: the arsenal (Paolo 7/5: 'the range that houses tanks + helicopters'), built and swapped; then the ballpark's concourse; the robot factory and the paved places wait on WORLD.
+[bb Battle Brothers' brush: the lecture hall's bolted seats, three to cross and low cover]
+[analog horror: the lab's emergency shower still dripping into a drain nobody cleared]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the animal shelter] SHIPPED d70806ba5, BUILD 11/22j - THE ANIMAL SHELTER, BUILT, NOT YET SEEN. VOTE combat4-the-animal-shelter-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_ANIMAL_SHELTER_11_22_26.md. More boards (rule 461): the animal shelter ('shelter', WORLD's real place, The Animal Foundation on Mojave Road, 0.7): the_kennels (rows of
 kennel runs, block and chain link, blocks and seen through; feed bag pallets, dog crates, drums in the aisles) and the_clinic_and_intake (stainless cage banks and supply
 shelves, the obstacles row: they hide a man; exam tables, supply carts; the intake counter's glass and its ends; lobby benches; kibble sacks and spilled kibble rough 3 AP;
