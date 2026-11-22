@@ -740,3 +740,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 716 | The footprints around the map are ugly and confusing: take them out | 476(a) | WORLD 15 | SENT 11/22 |
 | 717 | Dead animals' blood pools get huge when he zooms out: the dead scale with the map | 476(b) | WORLD 15 | SENT 11/22 |
 | 718 | In the shop it is not clear if a weapon is one-handed or two-handed, and there is too much useless information | 477 | UI FIVE | SENT 11/22 |
+| 719 | A bug he felt: his man keeps shooting on AUTO with zero ammo, with the pistol only in his pocket; how does ammo work | 478 | COMBAT FOUR (with ECONOMY THREE, FIGHT SCREEN 3) | SENT 11/22: measured, the fight spends no ammo at all; the rule: rounds per gun, zero cannot fire, only the gun in hand fires, refill from the stock after |
