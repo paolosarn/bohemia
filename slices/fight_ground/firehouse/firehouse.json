@@ -1,0 +1,495 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "firehouse",
+ "name": "THE FIRE STATION",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "A fire station is the apparatus bay (the engines and the ladder truck parked nose to the doors, turnout gear racked along the walls, hose drying, air bottles on their racks) and behind it the quarters: the bunk room, the kitchen and the day room.",
+  "A pumper engine is about ten metres long and three high; a ladder truck longer.",
+  "On house tiles an engine is three tiles nobody stands on and nobody sees through; the gear racks along the walls the same."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (firehouse_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "firestation"
+ ],
+ "share": 0.8,
+ "districts_why": "The fire station is its own map kind: eight fights in ten there are fought inside it, by the cell's own dice; the rest on its apron.",
+ "board": {
+  "templates": {
+   "firehouse": {
+    "name": "THE FIRE STATION",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_apparatus_bay": [
+      "####################",
+      "#GGGG.hh.GG.hh.GGGG#",
+      "#..t..o..t...o..t..#",
+      "#.EEE.c.EEE.c.EEE..#",
+      "#.EEE.b.EEE.b.EEE.c#",
+      "#..o..t..f...t..o..#",
+      "#.c.h..b.cc.b..h.c.#",
+      "#D..t.o..hh..o.t..D#",
+      "#.c.h..b.cc.b..h.c.#",
+      "#..o..t...f..t..o..#",
+      "#.EEE.b.EEE.b.EEE.c#",
+      "#.EEE.c.EEE.c.EEE..#",
+      "#..t..o..t...o..t..#",
+      "#GGGG.DD.GG.DD.GGGG#",
+      "####################"
+     ],
+     "the_quarters": [
+      "####################",
+      "#kkkk.KK....KK.kkkk#",
+      "#..t...t.ff.t...t..#",
+      "#.uu.uu.c..c.uu.uu.#",
+      "#..t..o..tt..o..t..#",
+      "#.uu.uu.c..c.uu.uu.#",
+      "#..o...t.ss.t...o..#",
+      "#D..c.o..ss..o.c..D#",
+      "#..o...t.ss.t...o..#",
+      "#.uu.uu.c..c.uu.uu.#",
+      "#..t..o..tt..o..t..#",
+      "#.uu.uu.c..c.uu.uu.#",
+      "#..t...t.f..t...t..#",
+      "#llll.ll.DD.ll.llll#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "E": {
+    "is": "floor",
+    "tile": "engine",
+    "piece": "fh_engine",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "G": {
+    "is": "floor",
+    "tile": "gearwall",
+    "piece": "fh_gearwall",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "h": {
+    "is": "floor",
+    "tile": "hose",
+    "piece": "fh_hose",
+    "at": [
+     0.5,
+     0.72
+    ]
+   },
+   "o": {
+    "is": "floor",
+    "tile": "bottles",
+    "piece": "fh_bottles",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "t": {
+    "is": "floor",
+    "tile": "toolbox",
+    "piece": "fh_toolbox",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "cones",
+    "piece": "fh_cones",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "bench",
+    "piece": "fh_bench",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "u": {
+    "is": "floor",
+    "tile": "bunks",
+    "piece": "fh_bunks",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "kitchen",
+    "piece": "fh_kitchen",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "K": {
+    "is": "floor",
+    "tile": "table",
+    "piece": "fh_table",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "s": {
+    "is": "floor",
+    "tile": "couches",
+    "piece": "fh_couches",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "l": {
+    "is": "floor",
+    "tile": "lockers",
+    "piece": "fh_lockers",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words); 'sight' says whether a blocker hides a man ('blocked', the obstacles row) or is seen past ('seen'). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The station's block wall: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The bay's sealed concrete, its drains: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The bay floor: open ground.",
+   "draft": true
+  },
+  "engine": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A fire engine on flat tires, three metres high: nobody stands there, and nobody sees through it; cover beside it. [bb] its wall.",
+   "say": ""
+  },
+  "gearwall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "Turnout gear racked along the wall, coats and helmets still hung: nobody stands there, and nobody sees through it. [bb] its wall.",
+   "say": ""
+  },
+  "hose": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "effect": "Hose laid out to dry and never rolled: no cover, and slow going (3 AP). [bb] its rough ground.",
+   "say": "Hose on the floor: slow going, no cover.",
+   "draft": true
+  },
+  "bottles": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Air bottles on their rack, empty: low cover.",
+   "say": "Air bottles: low cover.",
+   "draft": true
+  },
+  "toolbox": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A rescue tool cabinet, steel: cover.",
+   "say": "A tool cabinet: cover.",
+   "draft": true
+  },
+  "cones": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Cones and road flares stacked: low cover.",
+   "say": "Cones: low cover.",
+   "draft": true
+  },
+  "bench": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A workbench by the engines: cover.",
+   "say": "A workbench: cover.",
+   "draft": true
+  },
+  "bunks": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The bunk room's beds: low cover.",
+   "say": "A bunk: low cover.",
+   "draft": true
+  },
+  "kitchen": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "sight": "seen",
+   "effect": "The kitchen's counters and range along the wall: nobody stands there; waist high, seen over; cover beside them. [bb] its wall you see over.",
+   "say": ""
+  },
+  "table": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The long kitchen table on its side: cover.",
+   "say": "The kitchen table: cover.",
+   "draft": true
+  },
+  "couches": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The day room's couches: low cover.",
+   "say": "A couch: low cover.",
+   "draft": true
+  },
+  "lockers": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "The crew's lockers, a man's height: nobody stands there, and nobody sees through them. [bb] its wall.",
+   "say": ""
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a drum. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The bay doors, rolled up: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The bay doors: open ground.",
+   "say_lit": "The bay doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in firehouse_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "fh_bottles": {
+   "like": "sb_drums_S",
+   "kind": "LOW_COVER",
+   "name": "AIR BOTTLES"
+  },
+  "fh_toolbox": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "A TOOL CABINET"
+  },
+  "fh_cones": {
+   "like": "sb_barrier_S",
+   "kind": "LOW_COVER",
+   "name": "CONES"
+  },
+  "fh_bench": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "A WORKBENCH"
+  },
+  "fh_bunks": {
+   "like": "tunnel_camp_a",
+   "kind": "LOW_COVER",
+   "name": "BUNKS"
+  },
+  "fh_table": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "THE KITCHEN TABLE"
+  },
+  "fh_couches": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "COUCHES"
+  },
+  "fh_hose": {
+   "like": "sb_tyres_E",
+   "kind": "DRESS",
+   "name": "HOSE"
+  },
+  "fh_engine": {
+   "like": "sb_container_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A FIRE ENGINE"
+  },
+  "fh_gearwall": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "TURNOUT GEAR"
+  },
+  "fh_kitchen": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "THE KITCHEN"
+  },
+  "fh_lockers": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "LOCKERS"
+  },
+  "fh_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "fh_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "fh_wall_ew",
+  "ns": "fh_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: one floor; an engine's top is no place to stand on house tiles.",
+ "ceiling": {
+  "kind": "joist",
+  "alpha": 0.1,
+  "src": "firehouse/firehouse_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the bay's steel roof, its exhaust ducts and dead lights, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the warehouse's roof)."
+ }
+}
