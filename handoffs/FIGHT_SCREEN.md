@@ -5,7 +5,29 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
-FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/22 LATEST -- [why tape] SHIPPED 9322079a3, BUILD 11/22zg - THE WHY IS A TAPE, BUILT, NOT YET SEEN (rule 470(e), his NO on fight-screen-the-why-is-true-and-the-face-shows-11-17: 'Its looking like shit'; rules 449(a), 450(a), 441; ask row 705). VOTE fight-screen-the-why-is-a-tape-11-22 (stand_in; before and after).
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/22 LATEST -- [the receipt is gone] SHIPPED a814b39fc, BUILD 11/22zr - THE RECEIPT IS GONE, BUILT, NOT YET SEEN (VAMILY rule 475(a)(b), his screenshot records/paolo_shots/BOHEMIA_PAOLO_SHOT_THE_RECEIPT_STILL_THERE_11_22_26.jpg: 'there are still remnants of the old combat screen, like with the casino receipt shit... awkward and goofy as fuck'; rules 449, 450, 441; ask row 715). VOTE fight-screen-the-receipt-is-gone-11-22 (stand_in; before and after).
+Record: records/BOHEMIA_FIGHT_SCREEN_THE_RECEIPT_IS_GONE_11_22_26.md. WHERE IT WAS: RUN FIVE's till roll (rule 405(c), 11/6) on the one end screen
+(slices/BOHEMIA_SPOILS_SCREEN.html), rolled up behind the header so only its dashed last line showed: on every ending that reaches the end screen
+(won, lost, wiped out, pulled out, a job, a boss, the pit, a camp). The lineup's withdraw goes straight to the map (no end screen). The fight's own card
+#over is handed in the game (0 of 21 frames) and stood on receipt paper only on its own page.
+WHAT CHANGED: __THE_RECEIPT_IS_GONE__ in the end screen (the till's markup, css, density rules and code out; LEAVE goes home at once; the counts and
+the quote in the kit's 'well', the hint strip 'board_plain', light ink) and in the fight (#over on the board, overLook()). __THE_LINE_READS_RIGHT__
+(475(b)): foeAgrees() makes the job's foe name agree with the count on its head noun (the word before WHO/OF/FROM...): one IS, several ARE + plural
+('THE GROUND SLOTHS', 'THE WOLVES OF THE WASH'; 'THE MEN WHO OWE THE FAMILY' untouched; BISON/DEER/SHEEP same word). UI's dressSpoils (one marked
+line in slices/bohemia_ui_materials.js) recognises the end screen by #counts, not #tally: TAKING THE RECEIPT OUT SWITCHED OFF THE XP TUBES AND THE
+COUNTS' PROPS until that line moved (THE FIGHT'S BARS caught it). GRAVEYARD: three registry lines (written with (?:) and \x23: the registry splits on
+'|' and '#'), the post-mortem, the code as it stood (its file name carries GRAVEYARD so the checker reads it as a grave, not a resurrection).
+GATES: THE RECEIPT IS GONE 7/0 (RUN FIVE's gates/the_receipt_is_the_end_screen_gate.js re-aimed in place, registered at last; was an orphan); THE
+SPOILS E1 and FOURTEEN EYES F649 re-aimed; THE FIGHT'S BARS 6/0, SURVIVOR'S WORD 6/0, FOURTEEN EYES 17/0, DEMO BUILD 25/0. Red on main too, not
+mine: THE SPOILS 18/1 (the crew screen's #pick), THE AFTERMATH 17/3 (D2), GATE REGISTRY 47 orphans (48 before), GRAVEYARD 14 live hits (others').
+NEXT, in order:
+ (1) EYES' notes on 11/20e, 11/21g, 11/22zg, 11/22zr when they come (rule 441(b)); his votes on the tape and the receipt.
+ (2) Rule 478(a) 'the rounds on the card' (the man's ammo on his card): COMBAT FOUR owns the count first; take the card's half when it lands.
+ (3) The opening card's men as BODIES, only if he asks. (4) The turn order: NOT owed unless he asks (his note 9 of 11/2).
+[bb Battle Brothers' after-battle screen is two tabs, statistics and loot, and no paper; ours is one board]
+[analog horror: the tape stops on the last frame; nothing prints]
+
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/22 -- [why tape] SHIPPED 9322079a3, BUILD 11/22zg - THE WHY IS A TAPE, BUILT, NOT YET SEEN (rule 470(e), his NO on fight-screen-the-why-is-true-and-the-face-shows-11-17: 'Its looking like shit'; rules 449(a), 450(a), 441; ask row 705). VOTE fight-screen-the-why-is-a-tape-11-22 (stand_in; before and after).
 THIS CHAT IS FIGHT SCREEN THREE. Record: records/BOHEMIA_FIGHT_SCREEN_THE_WHY_IS_A_TAPE_11_22_26.md. HIS VOTES OF 11/22 on this lane: the 11/17 why card NO; every other card YES.
 WHAT HE SAW: the speaker of the why a smooth 3-D head blown up soft (a doll), his sentence plain type on the board (any game's dialog box); the helmet's
 eye band of 11/17 (gone since 11/18, a YES). NOW THE WHY IS A TAPE: the man who says why is a frame off a camcorder tape (64 px, the portrait engine's own

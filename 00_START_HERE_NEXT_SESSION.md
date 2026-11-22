@@ -621,13 +621,14 @@ Gate THE BATTERY IS REAL 43/0 (the table with eight planted faults; nine legs a 
 FOR UI FOUR, JOBS, HOME BASE, WORDS TWO, TUNING, DIRECTION: each has lines in the handoff. NOT DECIDED AND NOT BUILT ON: who holds the working sun (459(e)).
 [bb Battle Brothers counts one coin and lets the number run to tens of thousands; ours is the coin and the things a coin is]
 [analog horror: a man counting out twelve drill batteries on a hood, slowly, because a wrong count gets somebody killed]
-FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/22 LATEST -- BUILD 11/22zg - THE WHY IS A TAPE, BUILT (9322079a3), NOT YET SEEN (rule 470(e), his NO on the 11/17 why card; ask row 705). Its block is handoffs/FIGHT_SCREEN.md.
-THIS CHAT IS FIGHT SCREEN THREE. The man who says why (on the card that opens the fight and at the bell) is a frame off a camcorder tape: his face at
-the portrait engine's own 64 px blown up hard, flash-lit, tape lines on his rows, the tape's counter running while his picture holds; his sentence runs as
-closed captions on black boxes. The faces he said YES to keep their photographs. Gate THE WHY IS A TAPE 5/0 with a plant (new).
-VOTE fight-screen-the-why-is-a-tape-11-22 (STAND-IN). NEXT ON THIS LANE: EYES' notes and his vote.
-[bb Battle Brothers tells you in a line of text who is on you; ours shows you a frame of tape of the man who said why, and the tape is still running]
-[analog horror: a camcorder still of a stranger's face with the counter running in the corner, and the subtitles say he will kill you, calmly]
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/22 LATEST -- BUILD 11/22zr - THE RECEIPT IS GONE, BUILT (a814b39fc), NOT YET SEEN (rule 475(a)(b), his screenshot of the receipt still hanging off the end screen; ask row 715). Before it: BUILD 11/22zg THE WHY IS A TAPE (9322079a3, row 705). Its block is handoffs/FIGHT_SCREEN.md.
+THIS CHAT IS FIGHT SCREEN THREE. The old till roll is out of the one end screen (every ending: won, lost, wiped out, pulled out, a job, a boss, the
+pit, a camp), and no receipt paper anywhere on it (the counts and the quote in the board's pockets); the fight's own card on the board too. The win
+line agrees with the count ('THE GROUND SLOTH IS DOWN', 'THE GROUND SLOTHS ARE DOWN'). Graveyarded (three registry lines, a post-mortem). FOR UI:
+dressSpoils now finds the end screen by #counts (one marked line; #tally is gone). Gate THE RECEIPT IS GONE 7/0 (RUN FIVE's gate re-aimed, registered).
+VOTE fight-screen-the-receipt-is-gone-11-22 and fight-screen-the-why-is-a-tape-11-22 (STAND-IN). NEXT ON THIS LANE: EYES' notes and his votes; rule 478(a)'s card half after COMBAT FOUR.
+[bb Battle Brothers' after-battle screen is two tabs, statistics and loot, and no paper; ours is one board]
+[analog horror: the tape stops on the last frame; nothing prints]
 COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18p - THE TERMINAL IS AN AIRPORT, BUILT (4c0cf87e7), NOT YET SEEN (rule 453, round after round, this round's fifth build; rules 416, 451(a), 455; ask row 627).
 COMBAT THREE's airport terminal wears its own art under its own names (slices/fight_ground/terminal/terminal_art.json, the garage's format; no code):
 the terrazzo floor, 25 pictures under 27 names (the checkpoint a tile with its tubs, both screens, the desks, the queue, the newsstand, the luggage
