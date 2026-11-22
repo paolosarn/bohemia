@@ -1,4 +1,4 @@
-WORDS THREE (words-three-01gkdyuvnl): 11/22 LATEST -- BUILD 11/22zk - SHEET EIGHT, YOUR NO, OUR TRY, AND THE CONE HAT OFF THE CARDS, BUILT (this commit), NOT YET SEEN (rule 467 AMENDED, rules 470(f)(g), 465; ask rows 710, 629, 706). Its block is handoffs/WORDS_TWO.md.
+WORDS THREE (words-three-01gkdyuvnl): 11/22 LATEST -- BUILD 11/22zk - SHEET EIGHT, YOUR NO, OUR TRY, AND THE CONE HAT OFF THE CARDS, BUILT (108b6b0eb), NOT YET SEEN (rule 467 AMENDED, rules 470(f)(g), 465; ask rows 710, 629, 706). Its block is handoffs/WORDS_TWO.md.
 His 14 NOs from sheets one to five come back as sheet eight: the game's line beside our try made from each lesson, 12 of 14 cursing. Where he wrote a line or
 said YES, his answer is the line, so no try goes over it. Card 6.3 is off the straw cone face, and a gate leg keeps the cone off every waiting card. 38 cards
 out (sheets six, seven, eight behind MORE). FOR CHARACTER: the homework sheets now hold the cone too (V13 in THE VOICE IS HIS WORDS); a face you kill goes on

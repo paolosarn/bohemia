@@ -6,7 +6,7 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
-WORDS THREE (words-three-01gkdyuvnl): 11/22 LATEST -- BUILD 11/22zk - SHEET EIGHT, YOUR NO, OUR TRY, AND THE CONE HAT OFF THE CARDS, BUILT (this commit), NOT YET SEEN (rule 467 AMENDED 11/22, rules 470(f)(g), 466(f), 465; ask rows 710, 629, 706). NOTHING IN THE GAME WAS REWRITTEN.
+WORDS THREE (words-three-01gkdyuvnl): 11/22 LATEST -- BUILD 11/22zk - SHEET EIGHT, YOUR NO, OUR TRY, AND THE CONE HAT OFF THE CARDS, BUILT (108b6b0eb), NOT YET SEEN (rule 467 AMENDED 11/22, rules 470(f)(g), 466(f), 465; ask rows 710, 629, 706). NOTHING IN THE GAME WAS REWRITTEN.
 THE COORDINATOR'S ROUTINE 'WORDS THREE: they curse, for real this time' (fired before BUILD 11/22zf landed): (1) the try on every card, (2) two in three
 curse, (4) the gate, (5) never 'it pays' were already live in 11/22zf. (3) 'add our tries to sheets one to five': those 68 cards are answered whole and an
 item is asked once; where he wrote a line (31) or said YES (23) his answer IS the line (notes are rulings), so no try goes over it. HIS 14 NOs come back as
