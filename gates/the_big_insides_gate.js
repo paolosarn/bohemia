@@ -198,15 +198,19 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
        'blocked') is that row, and a man on one side of it does not see a man on the other; a blocking kind of glass, mesh or bone, or
        lower than a man's eye (sight 'seen', or no word: the row says it) is cover and seen past. One tile of every kind dealt, read
        across it both ways the board lets; planted: the first tall one read as flat ground is seen through */
-    { const S = deal(DIST[0], 3, { inside: id }), L = S.boardDef.laid, T = F._t, at = {}, inb = q => q.x >= 0 && q.y >= 0 && q.x < S.w && q.y < S.h;
-      for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) { const k = L.tiles[y][x], t = TK[k]; if (!t || at[k] || !(t.blocks || t.row === 'obstacles')) continue;
-        for (const [dx, dy] of [[1, 0], [0, 1]]) { const a = { x: x - dx, y: y - dy }, b = { x: x + dx, y: y + dy };
-          if (inb(a) && inb(b) && T.passable(a.x, a.y) && T.passable(b.x, b.y)) { at[k] = { x, y, a, b }; break; } } }
-      const bad = [], tall = [], seen = []; let plant = null;
-      Object.keys(at).forEach(k => { const q = at[k], want = TK[k].sight === 'blocked' || TK[k].row === 'obstacles', saw = T.sees(q.a, q.b);
-        (want ? tall : seen).push(k); if (saw === want || (TK[k].sight === 'blocked' && TK[k].row !== 'obstacles')) bad.push(k + (want ? ' is seen through' : ' hides a man'));
-        if (want && plant === null) { const keep = S.terrain[q.y][q.x]; S.terrain[q.y][q.x] = 'flat'; plant = T.sees(q.a, q.b); S.terrain[q.y][q.x] = keep; } });
-      check(!bad.length && plant !== false, 'I12 ' + N, 'THE TALL THINGS HIDE A MAN: ' + (tall.length ? 'hide a man: ' + tall.join(', ') : 'no tall kind between two open tiles') + '; seen past: ' + (seen.join(', ') || 'none')
+    /* every layout, not the first board dealt (COMBAT FOUR 11/22, measured on the bank: the first board was the banking hall, whose only
+       blocker is glass, so the vault's deposit box walls were never read): boards are dealt until each layout has been read */
+    { const bad = [], tall = [], seen = [], done = {}, lays = {}; let plant = null;
+      for (let i = 0; i < 24 && Object.keys(lays).length < Object.keys(LAYS).length; i++) {
+        const S = deal(DIST[0], 3 + i, { inside: id }), L = S.boardDef.laid, T = F._t, at = {}, inb = q => q.x >= 0 && q.y >= 0 && q.x < S.w && q.y < S.h;
+        const ln = S.boardDef.inside && S.boardDef.inside.layout; if (!ln || lays[ln]) continue; lays[ln] = 1;
+        for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) { const k = L.tiles[y][x], t = TK[k]; if (!t || at[k] || done[k] || !(t.blocks || t.row === 'obstacles')) continue;
+          for (const [dx, dy] of [[1, 0], [0, 1]]) { const a = { x: x - dx, y: y - dy }, b = { x: x + dx, y: y + dy };
+            if (inb(a) && inb(b) && T.passable(a.x, a.y) && T.passable(b.x, b.y)) { at[k] = { x, y, a, b }; break; } } }
+        Object.keys(at).forEach(k => { done[k] = 1; const q = at[k], want = TK[k].sight === 'blocked' || TK[k].row === 'obstacles', saw = T.sees(q.a, q.b);
+          (want ? tall : seen).push(k); if (saw === want || (TK[k].sight === 'blocked' && TK[k].row !== 'obstacles')) bad.push(k + (want ? ' is seen through' : ' hides a man'));
+          if (want && plant === null) { const keep = S.terrain[q.y][q.x]; S.terrain[q.y][q.x] = 'flat'; plant = T.sees(q.a, q.b); S.terrain[q.y][q.x] = keep; } }); }
+      check(!bad.length && plant !== false && Object.keys(lays).length === Object.keys(LAYS).length, 'I12 ' + N, 'THE TALL THINGS HIDE A MAN (' + Object.keys(lays).length + ' of ' + Object.keys(LAYS).length + ' layouts read): ' + (tall.length ? 'hide a man: ' + tall.join(', ') : 'no tall kind between two open tiles') + '; seen past: ' + (seen.join(', ') || 'none')
         + (bad.length ? '; WRONG: ' + bad.join(', ') : '') + (plant === null ? '' : '; planted: the first tall one read as flat ground is ' + (plant ? 'seen through (caught)' : 'STILL HIDING (not caught)'))); }
     /* I9 */
     { const c = deal(DIST[0], 1, { inside: id }).boardDef.ceiling, want = data.ceiling || {};

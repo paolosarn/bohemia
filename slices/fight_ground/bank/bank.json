@@ -1,0 +1,570 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "bank",
+ "name": "THE BANK",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "The Valley Bank Plaza, 300 South Fourth Street downtown, opened in December 1975 as the Valley Bank of Nevada's headquarters, 16 floors (WORLD's real place, records/target/bb/real_places.json: 'a tower of paper nobody wants over the strongest room in town').",
+  "A bank's public floor is the banking hall: the teller line behind bullet-resistant glass, the officers' desks on the platform, check-writing islands, the columns holding the floor above. The vault sits below or behind it: walls of reinforced concrete, a round steel door that weighs tons, the safe deposit boxes in steel walls, the cash cage and the counting room beside it.",
+  "On house tiles the teller line is a wall of glass you see through and nobody passes; the vault's walls are walls; the deposit box walls inside it hide a man."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (bank_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "bank"
+ ],
+ "share": 0.8,
+ "districts_why": "The bank is its own map kind: eight fights in ten there are fought inside it, by the cell's own dice; the rest on the downtown street outside.",
+ "board": {
+  "templates": {
+   "bank": {
+    "name": "THE BANK",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_banking_hall": [
+      "####################",
+      "#ss.mm.s.ff.s.mm.ss#",
+      "#..m..m..t...m..m..#",
+      "#kGGGGG.kGGk.GGGGGk#",
+      "#..c.i..c..c..i.c..#",
+      "#.d.p.i.d..d.i.p.d.#",
+      "#.d..c.x.ii.x.c..d.#",
+      "#D..p.i.d..d.i.p..D#",
+      "#.d..c..ii..ii.c.d.#",
+      "#.d.p.i.c..c.i.p.d.#",
+      "#..c.x..d..d..x.c..#",
+      "#.d.p.i.c.ii.c.i.p.#",
+      "#..c..d..f...d..c..#",
+      "#.c..c..c.DD.c..c..#",
+      "####################"
+     ],
+     "the_vault_floor": [
+      "####################",
+      "#CCC.TkT.kk.TkT.CCC#",
+      "#.k.b.b.T.fT.b.b.k.#",
+      "#.T.T.########.T.T.#",
+      "#..b.k#SSbbSS#k.b..#",
+      "#.k.T.#b.bb.b#.T.k.#",
+      "#.b.kV#SbTTbS#.k.b.#",
+      "#DkT.k.bbSSbb.k.TkD#",
+      "#.b.k.#SbTTbS#.k.b.#",
+      "#.k.T.#b.bb.b#.T.k.#",
+      "#..b.k#SSbbSS#k.b..#",
+      "#.T.T.########.T.T.#",
+      "#.k.b.bT.f.T.b.b.k.#",
+      "#CCC.TkT.DD.TkT.CCC#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "G": {
+    "is": "floor",
+    "tile": "glass",
+    "piece": "bk_glass",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "counter",
+    "piece": "bk_counter",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "m": {
+    "is": "floor",
+    "tile": "stations",
+    "piece": "bk_stations",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "s": {
+    "is": "floor",
+    "tile": "safes",
+    "piece": "bk_safes",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "t": {
+    "is": "floor",
+    "tile": "files",
+    "piece": "bk_files",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "p": {
+    "is": "floor",
+    "tile": "column",
+    "piece": "bk_column",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "d": {
+    "is": "floor",
+    "tile": "desks",
+    "piece": "bk_desks",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "i": {
+    "is": "floor",
+    "tile": "island",
+    "piece": "bk_island",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "chairs",
+    "piece": "bk_chairs",
+    "at": [
+     0.5,
+     0.72
+    ]
+   },
+   "x": {
+    "is": "floor",
+    "tile": "paper",
+    "piece": "bk_paper",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "V": {
+    "is": "floor",
+    "tile": "vaultdoor",
+    "piece": "bk_vaultdoor",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "S": {
+    "is": "floor",
+    "tile": "boxes",
+    "piece": "bk_boxes",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "dumped",
+    "piece": "bk_dumped",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "C": {
+    "is": "floor",
+    "tile": "cage",
+    "piece": "bk_cage",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "T": {
+    "is": "floor",
+    "tile": "tables",
+    "piece": "bk_tables",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words); 'sight' says whether a blocker hides a man ('blocked', the obstacles row) or is seen past ('seen'). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The bank's stone wall, and the vault's reinforced concrete: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The marble floor: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The marble floor: open ground.",
+   "draft": true
+  },
+  "glass": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "sight": "seen",
+   "effect": "The teller line's bullet-resistant glass on its counter: nobody passes; you see through it; cover beside it. [bb] its palisade you see through.",
+   "say": ""
+  },
+  "counter": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The counter's end where the glass stops, waist high: low cover. [bb] its palisade, waist high.",
+   "say": "The counter: low cover.",
+   "draft": true
+  },
+  "stations": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The tellers' stations behind the glass, their drawers pulled: low cover.",
+   "say": "Teller stations: low cover.",
+   "draft": true
+  },
+  "safes": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The tellers' cash safes on their wheels, steel, open and empty: cover.",
+   "say": "A cash safe: cover.",
+   "draft": true
+  },
+  "files": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Loan files in steel cabinets, tipped over: cover.",
+   "say": "Filing cabinets: cover.",
+   "draft": true
+  },
+  "column": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A marble column holding up the floor above: cover, a man stands behind it. [bb] its tree.",
+   "say": "A column: cover.",
+   "draft": true
+  },
+  "desks": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The officers' desks on the platform, heavy wood, pushed over: cover.",
+   "say": "A desk: cover.",
+   "draft": true
+  },
+  "island": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A check-writing island, marble on a stand: low cover.",
+   "say": "A check-writing island: low cover.",
+   "draft": true
+  },
+  "chairs": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The waiting chairs, knocked into a heap: low cover.",
+   "say": "Chairs: low cover.",
+   "draft": true
+  },
+  "paper": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Bank paper drifted against the furniture, the ledgers and the notes nobody wants: low cover, and slow going (3 AP). [bb] its brush.",
+   "say": "Paper drifts: slow going, low cover.",
+   "draft": true
+  },
+  "vaultdoor": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "The vault's round steel door, standing open on its hinge: tons of steel, nobody stands there, and nobody sees through it; cover beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "boxes": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A wall of safe deposit boxes, steel from floor to ceiling, most of them drilled: nobody stands there, and nobody sees through it. [bb] its wall.",
+   "say": ""
+  },
+  "dumped": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Deposit boxes pulled out and dumped, their papers and their trays across the floor: low cover, and slow going (3 AP). [bb] its brush.",
+   "say": "Dumped boxes: slow going, low cover.",
+   "draft": true
+  },
+  "cage": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "sight": "seen",
+   "effect": "The cash cage, steel mesh round the counting room's money: nobody passes; you see through it; cover beside it. [bb] its palisade you see through.",
+   "say": ""
+  },
+  "tables": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The counting room's steel tables, on their sides: cover.",
+   "say": "A counting table: cover.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a waste bin. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The bank's doors, or the stair down to the vault, open: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The doors: open ground.",
+   "say_lit": "The doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in bank_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "bk_glass": {
+   "like": "casino_glass",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "THE TELLER LINE'S GLASS"
+  },
+  "bk_counter": {
+   "like": "casino_bar",
+   "kind": "LOW_COVER",
+   "name": "THE COUNTER'S END"
+  },
+  "bk_stations": {
+   "like": "casino_bar",
+   "kind": "LOW_COVER",
+   "name": "TELLER STATIONS"
+  },
+  "bk_safes": {
+   "like": "sb_cart_S",
+   "kind": "COVER",
+   "name": "A CASH SAFE"
+  },
+  "bk_files": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "FILING CABINETS"
+  },
+  "bk_column": {
+   "like": "garage_column",
+   "kind": "COVER",
+   "name": "A MARBLE COLUMN"
+  },
+  "bk_desks": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "AN OFFICER'S DESK"
+  },
+  "bk_island": {
+   "like": "sb_barrier_S",
+   "kind": "LOW_COVER",
+   "name": "A CHECK-WRITING ISLAND"
+  },
+  "bk_chairs": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "WAITING CHAIRS"
+  },
+  "bk_paper": {
+   "like": "sb_heap_S",
+   "kind": "LOW_COVER",
+   "name": "PAPER DRIFTS"
+  },
+  "bk_vaultdoor": {
+   "like": "casino_door",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "THE VAULT DOOR"
+  },
+  "bk_boxes": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "SAFE DEPOSIT BOXES"
+  },
+  "bk_dumped": {
+   "like": "sb_rubble_S",
+   "kind": "LOW_COVER",
+   "name": "DUMPED DEPOSIT BOXES"
+  },
+  "bk_cage": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "THE CASH CAGE"
+  },
+  "bk_tables": {
+   "like": "sb_corral_S",
+   "kind": "COVER",
+   "name": "COUNTING TABLES"
+  },
+  "bk_wall_ew": {
+   "like": "casino_wall_ew",
+   "kind": "WALL"
+  },
+  "bk_wall_ns": {
+   "like": "casino_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "bk_wall_ew",
+  "ns": "bk_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: the officers' platform is a step up, not a storey.",
+ "ceiling": {
+  "kind": "coffer",
+  "alpha": 0.1,
+  "src": "bank/bank_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the banking hall's coffered ceiling and its dead chandeliers, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the casino's coffers)."
+ }
+}
