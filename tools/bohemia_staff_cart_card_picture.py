@@ -64,16 +64,12 @@ def main(js, out, forge_js=None):
     # THE CAMP by the fire (sideways: the whole camp) and THE FORGE's rows
     panels.append(crop_frac(up['png_camp'], 0.0, 0.12, 1.0, 0.57))   # upright, the camp by its fire (on its side the camp had ended itself before the picture)
     if up.get('png_forge'): panels.append(crop_frac(up['png_forge'], 0.0, 0.23, 1.0, 0.66))
-    top = [fit(panels[0], 900, 800), fit(panels[1], 900, 800)]
-    bot = [fit(p, 600, 800, nearest=True) for p in panels[2:5]]
-    if len(panels) > 5: bot = [fit(panels[2], 450, 800), fit(panels[3], 450, 800), fit(panels[4], 450, 800), fit(panels[5], 450, 800)]
-    pad = 12
-    W = max(sum(p.size[0] for p in top) + pad * (len(top) + 1), sum(p.size[0] for p in bot) + pad * (len(bot) + 1))
-    canvas = Image.new('RGB', (W, 800 * 2 + pad * 3), BG)
-    x = pad
-    for p in top: canvas.paste(p, (x, pad)); x += p.size[0] + pad
-    x = pad
-    for p in bot: canvas.paste(p, (x, 800 + pad * 2)); x += p.size[0] + pad
+    # TALL, two panels a row (the VOTE tab drags the top card's picture with one finger: it must be taller than the phone's glass)
+    cw, ch, pad = 600, 900, 12
+    cells = [fit(p, cw, ch) for p in panels]
+    rows_n = (len(cells) + 1) // 2
+    canvas = Image.new('RGB', (cw * 2 + pad * 3, ch * rows_n + pad * (rows_n + 1)), BG)
+    for i, p in enumerate(cells): canvas.paste(p, (pad + (i % 2) * (cw + pad), pad + (i // 2) * (ch + pad)))
     canvas.save(out, 'WEBP', quality=82, method=6)
     print('wrote', out, canvas.size, os.path.getsize(out) // 1024, 'KB')
 

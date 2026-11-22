@@ -1,3 +1,37 @@
+STAFF 2 (staff2-01gkdyus, took over from STAFF at a full context): rule 471, THE STAFF PUSH A CART, ask row 709. Written only by this lane.
+*** 11/22 LATEST -- BUILD 11/22zzc - THE STAFF PUSH A CART (402b6942), BUILT, NOT YET SEEN (rule 471; rules 461 as amended, 441, 465, 477;
+ask row 709). Record: records/BOHEMIA_STAFF_THE_STAFF_PUSH_A_CART_11_22_26.md. VOTE staff2-the-staff-push-a-cart-11-22 (stand_in). ***
+WHAT: every camp person pushes a cart in his off hand, never removed (no shield, no bag, no swap for staff); one-handed weapons only (a pistol
+or a one-handed blow; a two-hander, shield, bow or long gun refused for the box cutter); by trade the blacksmith's hammer (pickaxe row), the
+cab driver's and the skip tracer's snub revolver, the rest the box cutter. THE CART: shopping cart 8/3 (melee/ranged), steel utility cart 11/5,
+wagon 14/7, counted only against a blow or shot from the three tiles it faces; +1 AP a tile; fatigue -6/-8/-10; holds 20/35/60 of his trade's
+stock (cook food, surgeon and alchemist meds, blacksmith and scavenger tape, quartermaster and bounty hunter rounds); when he falls it goes
+over and that stock leaves bohemia.supplies.v1; the cart stays with his job if the field was held, else it is lost. It faces the way he walks,
+and the nearest foe when he stops (cartTurn in moveTo, at the bell, at startFight). Upgrades at his place's FORGE (homeCartRows: 150 batteries
++ 20 tape, then 300 + 40).
+SEEN: drawn through the 3-D rig (tools/bohemia_staff_the_cart.py: COOK's shopping cart imported, a utility cart, a wagon; six loads; eight
+facings; back/front/tip layers; slices/fight_rig/staff_cart_<kind>.webp + staff_carts.json) on every fight board (cartLayer in blitManNow),
+on the map (mapCampDraw: the camp in a file behind his company), in the camp (campCart by each follower).
+DATA: records/target/bb/retinue.json staff.cart and staff.arms (a modder's; baked into engine/bohemia_camp.js by tools/bohemia_retinue_bake.js).
+HOOKS IN COMBAT FOUR'S FIGHT (slices/BOHEMIA_FIGHT.html, marked __THE_STAFF_PUSH_A_CART__): staffUnit (arms, cart), staffArms/staffCart/
+cartFront/cartDef/cartTurn, stepCost, gearFat, chanceWith (both df lines), moveTo (cartTurn), setup (cartTurn at the bell), startFight,
+FIGHT exports (cartFront, cartDef, staffArms, cartTurn), cartMeta/cartCell/cartLayer (draw), weaponCard (the cart's lines).
+OTHER FILES: engine/bohemia_camp.js (cartOf, cartNext, upgradeCart, armsOf, cartLoad, cartLevel, spill in lose); slices/BOHEMIA_ALPHA_0_9.html
+(lose gets held: won; the bar re-read; the stamp); slices/BOHEMIA_SETTLEMENT_SCREEN.html (homeCartRows); slices/bohemia_camp_look.js (campCart);
+slices/BOHEMIA_CITY_WORLD.html (MAP_CAMP, mapCampDraw); gates/the_staff_push_a_cart_gate.js (THE STAFF PUSH A CART, in the suite);
+tools/bohemia_staff_cart_on_the_phone.js (the phone proof); tools/bohemia_staff_cart_card_picture.py (the card).
+GATES: THE STAFF PUSH A CART 12/0 (--plant: C2, C3, C4 red; C12 120 fights: 78.3% won with or without carts, the camp dead 17.2% against
+19.4%); THE STAFF FIGHT TOO 37/0. PHONE (tools/bohemia_staff_cart_on_the_phone.js; --forge-only for the forge tap alone): the demo and the
+alpha, upright and sideways, all green; the forge sheet on its side takes two columns (it ran off the alpha's glass).
+FOUND, COMBAT FOUR's (the note above, still true): upright the camp at the west edge is half off the glass; on its side it all fits.
+NOT DONE, NEXT, IN ORDER: (1) EYES' walk (441(b)); (2) his left fist on the handle: a body key per look (the melee tool's person pipeline) so
+the hand closes on it, the cart laid at the hand today; (3) the crew screen shows the camp and lets him hand a camp person a different
+one-handed weapon (BohemiaCamp.armsOf and the fight's staffArms already refuse a two-hander; UI FIVE's 477 card says who may carry it);
+(4) a column between his back row and his camp on narrow boards, where the carts crowd the line (COMBAT FOUR's deploy, TUNING's call);
+(5) TUNING's table takes the cart's drafts; (6) the older list below: the crew screen's line-up draws the camp, a feed post when one dies.
+[bb Battle Brothers: a shield in the off hand guards every blow; ours guards only the side it faces, and it carries the cook's pot.]
+[analog horror: when the cook falls her cart goes over, the rice runs out on the road, and one wheel keeps turning.]
+
 STAFF (staff-01gkdyus): the camp's people in the fight, a new lane opened by the coordinator for VAMILY rule 468, ask row 667; written only by
 this lane. *** CONTEXT NEAR FULL after BUILD 11/22zi (rule 461(f)): a fresh STAFF opens on this file and takes NEXT: rule 471, THE STAFF PUSH A
 CART (ask row 709: the cart in the shield's hand, never removed; one-handed weapons only; the cart seen on the rig, upgraded, a thin shield, the
