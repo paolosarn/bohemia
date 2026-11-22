@@ -148,6 +148,10 @@ async function phone() {
     const at = id => p.evaluate(i => { const v = FIGHT.byId(i); return { x: sx((v.x + .5) * FIGHT_UI.tw), y: sy((v.y + .5) * FIGHT_UI.th) }; }, id);
     const tile = (x, y) => p.evaluate(([x, y]) => ({ x: sx((x + .5) * FIGHT_UI.tw), y: sy((y + .5) * FIGHT_UI.th) }), [x, y]);
     const heard = () => p.evaluate(() => (FIGHT_UI.heard || []).slice());
+    /* what was heard since a count: the page keeps its last 40, so 'since' is read by its running count (heardAll), never by the list's
+       length, which stops growing at 40 (COMBAT FOUR 11/22: P2 read 1 of the swing's 2 once the list was full, PLUMBER 8's row 679) */
+    const heardN = () => p.evaluate(() => FIGHT_UI.heardAll || 0);
+    const since = (n0) => p.evaluate((n) => { const L = FIGHT_UI.heard || [], k = Math.min(L.length, (FIGHT_UI.heardAll || 0) - n); return k > 0 ? L.slice(-k) : []; }, n0);
     const hurts = () => p.evaluate(() => [...document.querySelectorAll('#hurts .hurt')].filter(e => e.offsetParent || e.getClientRects().length).map(e => ({ id: e.dataset.id, t: e.textContent, maybe: e.classList.contains('maybe') })));
     const settle = async () => { for (let i = 0; i < 60; i++) { if (await p.evaluate(() => !FIGHT_UI.anim.length)) break; await p.waitForTimeout(100); } await p.waitForTimeout(1200); };
     const sq = sel => p.evaluate(s => { const b = document.querySelector(s); if (!b) return null; const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; }, sel);
@@ -166,12 +170,13 @@ async function phone() {
       '*** P1 THE ROUND SWING, ARMED, BEFORE ANY AIM: THE TILES ITS AIMS REACH LIT (SEVEN, THE THREE IN FRONT OF EACH, rule 333), A HURT TAG OVER EACH OF THE THREE IT COULD CATCH, NONE OVER HIS OWN MAN *** (rule 312)',
       (armed.lit ? armed.lit.tiles.length + ' tiles lit, ' + armed.lit.struck.length + ' struck' : 'nothing lit') + '; tags ' + JSON.stringify(h1.map(h => h.t)));
     let q = await at(a.them[0]); await p.touchscreen.tap(q.x, q.y); await p.waitForTimeout(400);
-    const h2 = await hurts(), k0 = (await heard()).length;
+    const h2 = await hurts(), k0 = await heardN();
     await shot('round_swing_aimed');
     q = await at(a.them[0]); await p.touchscreen.tap(q.x, q.y); await settle();
-    const swung = (await heard()).slice(k0).filter(e => /^(hit|vital|melee_hit|hurt|miss)$/.test(e)).length;
+    /* a blow a shield stops is heard as its block (wBlockSound): the two the swing catches are a hit, a miss or a block each */
+    const heardSwing = await since(k0), swung = heardSwing.filter(e => /^(hit|vital|melee_hit|hurt|miss|block)$/.test(e)).length;
     leg(h2.length === 2 && h2.every(h => tagOk(h.t) && h.id !== a.them[2]) && swung === 2,
-      '*** P2 AIMED EAST, THEN SWUNG: TWO TAGS (THE THREE IN FRONT: HIM AND THE MAN NORTH-EAST, HIS OWN MAN PASSED OVER, THE MAN BEHIND NONE), THE SWING CATCHES THE TWO *** (rule 333)', 'tags ' + JSON.stringify(h2.map(h => h.t)) + '; ' + swung + ' sounds after the swing');
+      '*** P2 AIMED EAST, THEN SWUNG: TWO TAGS (THE THREE IN FRONT: HIM AND THE MAN NORTH-EAST, HIS OWN MAN PASSED OVER, THE MAN BEHIND NONE), THE SWING CATCHES THE TWO *** (rule 333)', 'tags ' + JSON.stringify(h2.map(h => h.t)) + '; ' + swung + ' sounds after the swing (heard: ' + heardSwing.join(' ') + ')');
     /* P3 a plain blow */
     const b = await stage('knife', [[1, 0], [3, 0]]);
     await p.waitForTimeout(300);

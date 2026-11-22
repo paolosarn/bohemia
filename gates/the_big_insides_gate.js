@@ -52,9 +52,27 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
     if (!T.passable(a, b) || T.squeezes(x, y, a, b)) continue; seen.add(k); q.push([a, b]); } }
   return false; };
 (async () => {
-  const t0 = Date.now();
-  check(IDS.length >= 1 && IDS.every(id => ctx.DB.insides[id]), 'I0', 'THE LIST: ' + IDS.length + ' inside' + (IDS.length === 1 ? '' : 's') + ' laid from data (' + IDS.join(', ') + '), each with its data file');
-  for (const id of IDS.filter(i => !ONLY || i === ONLY)) {
+  const t0 = Date.now(), CHILD = !!process.env.BIG_INSIDES_CHILD;
+  if (!CHILD) check(IDS.length >= 1 && IDS.every(id => ctx.DB.insides[id]), 'I0', 'THE LIST: ' + IDS.length + ' inside' + (IDS.length === 1 ? '' : 's') + ' laid from data (' + IDS.join(', ') + '), each with its data file');
+  /* THE GATE ANSWERS INSIDE THE SUITE'S CAP (COMBAT FOUR 11/22, PLUMBER 8's find, ask row 679: twenty insides one after another took
+     825 s against BOHEMIA_GATE_CAP's 600, and the suite killed the gate). With no inside named, each inside runs as a child of this gate
+     (its own process, the same legs, nothing shared), as many at once as the box has cores (four at most); this process runs the legs
+     that are no inside's own (I0, G1), prints every child's lines in the list's order and adds their counts. A child that does not
+     answer is a FAIL with its name. node gates/the_big_insides_gate.js <id> runs one inside here, as before. */
+  const PAR = !ONLY && !CHILD && IDS.length > 1;
+  if (PAR) {
+    const { spawn } = require('child_process'), N = Math.max(1, Math.min(require('os').cpus().length, 4, IDS.length)), out = {};
+    let next = 0, running = 0;
+    await new Promise(done => { const go = () => { if (next >= IDS.length && !running) return done();
+      while (running < N && next < IDS.length) { const id = IDS[next++]; running++; let buf = '';
+        const c = spawn(process.execPath, [__filename, id], { env: Object.assign({}, process.env, { BIG_INSIDES_CHILD: '1' }) });
+        c.stdout.on('data', d => { buf += d; }); c.stderr.on('data', d => { buf += d; });
+        c.on('close', code => { out[id] = { buf: buf, code: code }; running--; go(); }); } }; go(); });
+    IDS.forEach(id => { const r = out[id], m = r.buf.match(/THE BIG INSIDES: (\d+) passed, (\d+) failed/);
+      process.stdout.write(r.buf.split('\n').filter(l => l.trim() && !/^THE BIG INSIDES:/.test(l)).join('\n') + '\n');
+      if (m) { pass += +m[1]; fail += +m[2]; } else check(false, 'I* ' + id.toUpperCase(), 'its child did not answer (exit ' + r.code + '): ' + r.buf.slice(-200)); });
+  }
+  for (const id of PAR ? [] : IDS.filter(i => !ONLY || i === ONLY)) {
     const D = ctx.DB.insides[id], data = D.data, DIST = data.districts, TK = data.tiles, LEG = data.board.legend, LAYS = data.board.templates[Object.keys(data.board.templates)[0]].layouts, N = id.toUpperCase();
     const deal = (d, i, extra) => { ctx.setSeed(1700 + i); F.setup(Object.assign({ district: d, cell: cellOf(i), night: false, auto: true, formation: null, deploy: false }, extra || {})); return F.S; };
     const hasHigh = Object.keys(LEG).some(c => LEG[c].is === 'high');
@@ -181,7 +199,7 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
   }
   /* G1 (ask row 646, found by COOK FIVE 11/17): the ground draws its pictures on the canvas it is given, so the still camera's sheet holds the
      board's pieces (close in on a phone an inside's furniture was gone). Read on the page's own source; how it looks is measured on the page */
-  { const src = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8'), i = src.indexOf('function groundOn(cx) {'), j = src.indexOf('\nfunction openOf() {', i), body = i >= 0 && j > i ? src.slice(i, j) : '';
+  if (!CHILD) { const src = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8'), i = src.indexOf('function groundOn(cx) {'), j = src.indexOf('\nfunction openOf() {', i), body = i >= 0 && j > i ? src.slice(i, j) : '';
     const strip = body.replace(/\/\*[\s\S]*?\*\//g, ''), bad = (strip.match(/\bcxDraw\(/g) || []).length, good = (strip.match(/sheetDraw\(cx, \[/g) || []).length;
     check(!!body && bad === 0 && good >= 3, 'G1', 'THE SHEET HOLDS ITS PIECES (ask row 646): groundOn draws its pictures on the canvas it is given (' + good + ' sheetDraw(cx, ...) calls, ' + bad + ' on the fight\'s own glass)');
     const planted = strip.replace('sheetDraw(cx, [im, x, y, w, h]);', 'cxDraw(im, x, y, w, h);'); check((planted.match(/\bcxDraw\(/g) || []).length === 1, 'G1p', 'planted: one picture call turned back to the glass is caught'); }
