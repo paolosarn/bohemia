@@ -1,5 +1,16 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/22, THE LAST 16 ANSWERED ALONE (rule 461; main 1d292b08c, one gate at a time, 6,874 s).
+  5 GREEN, struck from the list and their rows: THE PHONE (678), THE BIG INSIDES (679; COMBAT FOUR split it in two entries since, the
+  second half THE BIG INSIDES TWO is not on the list), THE CAMP LETS GO WHEN HE LEAVES (681), THE PLACES WEAR THEIR OWN PIECE (690),
+  SCAVENGE IS THE RHYTHM (693). 11 RED ALONE TOO, retagged with the alone run's own failure: 8 TIMED OUT AT 600 s WITH THE BOX TO ITSELF
+  (THE INK, THE DOGS and THE MIDWIFE CHANGES THE MAP 687, THE BESTIARY FLOOR 682, SEARCH THE LOT ANSWERS 694, THE FOURTEEN EYES FOUND
+  693, THE STAFF FIGHT TOO 696: too slow to be a ship gate, whatever they would say), and 3 that fail a leg (THE CAMP IS THE FIGHT'S
+  BOARD Cn5 and THE CAMP IS SET UP ON THE BOARD 23/4, MOTION 3's 681; THE TERATORN T2, WORLD THIRTEEN's 674; THE STREETS JOIN 12/1,
+  COMBAT TWO's 689). THE RED DEBT 406 NAMED, 312 LEFT. Every red on the table is now answered alone or in the pack; none waits.
+  A TRAP I WALKED INTO AND OUT OF: the done file that skips every other gate holds 1,172 placeholder answers ('not in this pass',
+  ok true, i -1); a strike script that reads it must drop those first, or it strikes the whole list. NEXT: row 677 (mine), freezes first.
+
 PLUMBER 8 (chat 18) 11/22, BUILD 11/22o THE BOARD COMES BACK IN ONE READ (rule 441(c), row 677's NO FREEZE OVER HALF A SECOND, row 613).
   THE RE-CHECK ENDED (main 754d7dd2): 20 struck green, 47 confirmed red alone, 17 never re-checked (the confirm pass's 10,000 s), two
   new reds filed (THE MIDWIFE CHANGES THE MAP on BOSSES' row 687, THE STAFF FIGHT TOO row 696). THE RED DEBT 411 NAMED, 312 LEFT.
