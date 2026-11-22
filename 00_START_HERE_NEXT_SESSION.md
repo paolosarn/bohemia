@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22g - THE RAIL YARD'S SHOPS, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22h - THE BANK, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE BANK: eight fights in ten at the bank are fought inside: the banking hall (the teller line's glass seen through and never crossed, marble columns, the officers' desks,
+check-writing islands, paper drifts) or the vault floor (the vault's walls, its round door open, deposit box walls that hide a man, dumped boxes, the cash cage). One data file, stand-ins.
+GATE THE BIG INSIDES 398/0 (twenty-four insides, 341 s; the tall-things leg now reads every layout). ON THE PAGE: 4 fights inside on the demo and the alpha, upright and on its side, both rooms (the vault on another valley's bank), all ended, 15 of 15 tile taps, 0 page errors. VOTE combat4-the-bank-11-22.
+[bb Battle Brothers' palisade you see through: the teller glass, a wall for the feet and not for the eyes]
+[analog horror: the vault's time lock still ticking toward an opening hour nobody comes for]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22g - THE RAIL YARD'S SHOPS, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE RAIL YARD'S SHOPS: about one fight in three at the rail yard is fought inside: the engine shop (locomotives over their pits that hide a man, work platforms seen past,
 wheel sets and parts) or the freight house (boxcars at the dock, crates, parcel cages); the tracks across the floor are slow and bare. One data file, every picture a stand-in.
 GATE THE BIG INSIDES 382/0 (twenty-three insides, 381 s). ON THE PAGE: 12 fights inside on the demo and the alpha, upright and on its side, both layouts every way, all ended, 47 of 47 tile taps, 0 page errors. VOTE combat4-the-rail-yards-shops-11-22.

@@ -1,6 +1,23 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the rail yard's shops] SHIPPED b60bce22e, BUILD 11/22g - THE RAIL YARD'S SHOPS, BUILT, NOT YET SEEN. VOTE combat4-the-rail-yards-shops-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the bank] SHIPPED 30784c3f8, BUILD 11/22h - THE BANK, BUILT, NOT YET SEEN. VOTE combat4-the-bank-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_BANK_11_22_26.md. More boards (rule 461): the bank ('bank', WORLD's real place, Valley Bank Plaza downtown, 0.8): the_banking_hall (the teller line's glass,
+blocks and seen past; the counter's ends low cover; teller stations and cash safes behind it; marble columns, officers' desks, check-writing islands, waiting chairs, paper drifts
+rough 3 AP) and the_vault_floor (the vault's concrete walls with a door each side, its round door standing open, a blocker that hides a man; deposit box walls inside, hiding a
+man; dumped boxes rough 3 AP; viewing and counting tables; the cash cage, mesh, seen past). One data file (19 tile kinds, 17 pieces all stand-ins), twenty-fourth in insides.json;
+no high ground; the ceiling the casino's 'coffer'.
+THE GATE'S HOLE CLOSED: I12 (the tall things hide a man) read only the first board dealt (the bank's hall: glass only, the vault never read); it now reads every layout.
+GATE THE BIG INSIDES 398/0 (twenty-four insides, 341 s; the tall-things leg now reads every layout) (the bank 19/0, 16% bare after round one against 37%; my first cut's vault floor 43%).
+ON THE PAGE: 4 fights inside on the demo and the alpha, upright and on its side, both rooms (the vault on another valley's bank), all ended, 15 of 15 tile taps, 0 page errors.
+*** FOR COOK (SIX): THE BANK'S NAMES (bank_art.json, THE GARAGE'S FORMAT): floor.floor (marble), floor.ring; bk_glass (the teller line's counter and glass), bk_counter (its
+end), bk_stations (teller stations), bk_safes (a teller's cash safe), bk_files, bk_column (a marble column), bk_desks (an officer's desk), bk_island (a check-writing island),
+bk_chairs, bk_paper (paper drifts), bk_vaultdoor (the round vault door standing open), bk_boxes (a wall of deposit boxes), bk_dumped (dumped boxes), bk_cage (the cash cage),
+bk_tables (counting tables), bk_wall_ew, bk_wall_ns; bank/bank_ceiling.webp (the coffered ceiling, dead chandeliers); "have": true in bank.json's ceiling.
+NEXT: more boards (city hall's chamber; the campus's lecture hall; the ballpark's concourse); the robot factory waits on WORLD's map (its record).
+[bb Battle Brothers' palisade you see through: the teller glass, a wall for the feet and not for the eyes]
+[analog horror: the vault's time lock still ticking toward an opening hour nobody comes for]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the rail yard's shops] SHIPPED b60bce22e, BUILD 11/22g - THE RAIL YARD'S SHOPS, BUILT, NOT YET SEEN. VOTE combat4-the-rail-yards-shops-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_RAIL_YARDS_SHOPS_11_22_26.md. More boards (rule 461): the rail yard's shops ('railyard', 0.35: a yard is mostly track): the_engine_shop (four
 locomotives over their pits, the obstacles row: they hide a man; two work platforms at cab height, seen past; track across the floor where the engines stand, rough 3 AP and
 open; wheel sets, engine parts, tool chests, drums, parts racks on the end walls) and the_freight_house (boxcars at the dock, hiding a man; crates, freight carts, parcel
