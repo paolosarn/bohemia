@@ -1,6 +1,21 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the campus; the cover you could not see] SHIPPED bf77f0ec1, BUILD 11/22k - THE CAMPUS, AND COVER YOU CAN SEE, BUILT, NOT YET SEEN. VOTES combat4-the-campus-11-22, combat4-the-cover-you-could-not-see-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the arsenal] SHIPPED 8ed57324d, BUILD 11/22l - THE ARSENAL, BUILT, NOT YET SEEN. VOTE combat4-the-arsenal-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_ARSENAL_11_22_26.md. More boards (rule 461): THE ARSENAL ('arsenal', Paolo 7/5 'the range that houses tanks + helicopters', 0.8): the_firing_range (the backstop and
+the gun racks hide a man; target stands, barricades, sandbags low cover in the lanes; the firing line's booths, the counter, ammo crates cover) and the_vehicle_hall (six tanks,
+two helicopters, four Humvees, the obstacles row: they hide a man; sandbags, crates, drums between). 16 tile kinds, 14 pieces all stand-ins painting at least 9% of a tile
+(I13); twenty-eighth in insides.json; no high ground. Who holds it (the Remnants, the cartel) is FACTIONS' and WORLD's: nothing of it built here.
+GATE THE BIG INSIDES 490/0 (twenty-eight insides, 384 s alone) (the arsenal 20/0, 14% bare after round one against 30%; my first cut's vehicle hall 29%).
+ON THE PAGE: 4 fights in the arsenal on the demo and the alpha, upright and on its side, both rooms, all ended, 15 of 15 tile taps, 0 page errors.
+*** FOR COOK (SIX): THE ARSENAL'S NAMES (arsenal_art.json, THE GARAGE'S FORMAT): floor.floor (range floor, brass), floor.ring; ar_backstop (steel over a sand berm), ar_targets
+(target stands), ar_booths (a shooting booth), ar_counter (the range counter, smashed cases), ar_racks (gun racks), ar_ammo (ammo crates), ar_sandbags, ar_barricade (a drill
+barricade), ar_tank (a tank on display: a run of three tiles), ar_helicopter (a fuselage: four tiles), ar_humvee (two tiles), ar_drums, ar_wall_ew, ar_wall_ns;
+arsenal/arsenal_ceiling.webp (the range's baffles, the hall's trusses). ***
+NEXT: more boards (the ballpark's concourse; the jobs office's claims hall); the robot factory and the paved places wait on WORLD's map.
+[bb Battle Brothers' boulders: a tank on its blocks, nobody stands there and nobody sees past it]
+[analog horror: a range timer still counting down a string of fire nobody is shooting]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the campus; the cover you could not see] SHIPPED bf77f0ec1, BUILD 11/22k - THE CAMPUS, AND COVER YOU CAN SEE, BUILT, NOT YET SEEN. VOTES combat4-the-campus-11-22, combat4-the-cover-you-could-not-see-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_CAMPUS_11_22_26.md and records/BOHEMIA_COMBAT_FOUR_THE_COVER_YOU_COULD_NOT_SEE_11_22_26.md. More boards (rule 461): the campus ('campus', 0.35): the_lecture_hall (seats rough 3 AP
 low cover in five banks, the demonstration bench, lecterns, projector carts, left bags, the projection booth) and the_science_labs (two labs and a corridor: fume hoods and
 stockroom shelves that hide a man, lab benches, gas racks, carts; vending machines in the corridor). 14 tile kinds, 12 pieces all stand-ins; twenty-seventh in insides.json.

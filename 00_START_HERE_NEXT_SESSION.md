@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22k - THE CAMPUS, AND COVER YOU CAN SEE, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22l - THE ARSENAL, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE ARSENAL (Paolo 7/5: 'the range that houses tanks + helicopters'): eight fights in ten there are fought inside: the firing range (the backstop, target stands, barricades,
+the booths of the firing line, the counter and the racks) or the vehicle hall (six tanks, two helicopters, four Humvees: they hide a man; sandbags and crates between).
+GATE THE BIG INSIDES 490/0 (twenty-eight insides, 384 s alone). ON THE PAGE: 4 fights in the arsenal on the demo and the alpha, upright and on its side, both rooms, all ended, 15 of 15 tile taps, 0 page errors. VOTE combat4-the-arsenal-11-22.
+[bb Battle Brothers' boulders: a tank on its blocks, nobody stands there and nobody sees past it]
+[analog horror: a range timer still counting down a string of fire nobody is shooting]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22k - THE CAMPUS, AND COVER YOU CAN SEE, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE CAMPUS: about one fight in three on the campus is fought inside: a lecture hall (rows of seats, slow, low cover) or the science labs (fume hoods that hide a man, lab benches).
 AND THE COVER YOU COULD NOT SEE: 52 stand-in pieces in 14 insides were drawn at 1 to 6% of a house tile (a cover tile read as bare floor); each now borrows a picture that paints
 at least 9% (gate I13 on gates/the_stand_ins_measured.json). GATE THE BIG INSIDES 473/0 (twenty-seven insides, 409 s alone; I13 new). ON THE PAGE: the campus 10 fights inside on the demo and the alpha, upright and on its side, both rooms, all ended, 28 of 28 tile taps, 0 page errors; the swapped rail shops 1 fight, 4 of 4. VOTES combat4-the-campus-11-22, combat4-the-cover-you-could-not-see-11-22.
