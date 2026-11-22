@@ -1,0 +1,533 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "granary",
+ "name": "THE GRANARY",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "Paolo 7/6/26 (engine/bohemia_overmap.js, THE GRANARY): 'the oldest building in the world, a dead grocery distribution center recommissioned. Harvest storage, seed stock, and the cold rooms double as the MEDICINE VAULT.' One cell by the rail; one of the legendary gear places (engine/bohemia_boardkinds.js, the plant family: 'guarded by up to sixty men').",
+  "The dead's own line for the kind (engine/bohemia_dead.js): 'guarded the grain to the end'.",
+  "A grocery distribution center is a hall of pallet racking in long rows with aisles between, dock doors along its side, forklifts, and its cold rooms: walk-in freezers and coolers behind insulated walls a foot thick, the refrigeration plant beside them. Grain keeps in sacks on pallets and in bins; seed in crates; medicine that must stay cold in the cold rooms while their power lasts.",
+  "On house tiles a run of racking, a bin, the vault's shelves and the refrigeration plant each hide a man; the cold rooms' melt water standing on the floor is Battle Brothers' swamp."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (granary_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "granary"
+ ],
+ "share": 0.8,
+ "districts_why": "The granary is its building: eight fights in ten at its cell are fought inside, in the grain hall or the cold rooms, by the cell's own dice; the rest at its docks outside.",
+ "board": {
+  "templates": {
+   "granary": {
+    "name": "THE GRANARY",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_grain_hall": [
+      "####################",
+      "#B.b.s.F.f..F.s.b.B#",
+      "#RRR.bRRRbeRRR.bRRR#",
+      "#.b.s.e.g..g.e.s.b.#",
+      "#RRR.eRRRsbRRR.eRRR#",
+      "#..g.b..seC.s..b.g.#",
+      "#RRR.bRRRbeRRR.bRRR#",
+      "#D.e.g.F.gf..F.g.eD#",
+      "#RRR.bRRRbeRRR.bRRR#",
+      "#..g.b..seC.s..b.g.#",
+      "#RRR.eRRRsbRRR.eRRR#",
+      "#.b.s.e.g..g.e.s.b.#",
+      "#RRR.bRRRbeRRR.bRRR#",
+      "#B.b.s.F.DD.F.s.b.B#",
+      "####################"
+     ],
+     "the_cold_rooms": [
+      "####################",
+      "#VV.k.VV.f..VV.k.VV#",
+      "#..w.k..W..W..k.w..#",
+      "#VV.k.VVW..WVV.k.VV#",
+      "#WWW.WWWW.e.WWW.WWW#",
+      "#.e.kU.c.b.c.kU..e.#",
+      "#.kg.U.wce.ecw.U.gk#",
+      "#D.e.kC.k.f.k.Ck.eD#",
+      "#.kg.U.wce.ecw.U.gk#",
+      "#.e.kU.c.b.c.kU..e.#",
+      "#WWW.WWWW.e.WWW.WWW#",
+      "#VV.k.VVW..WVV.k.VV#",
+      "#..w.k..W..W..k.w..#",
+      "#VV.k.VV.DD.VV.k.VV#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "R": {
+    "is": "floor",
+    "tile": "racking",
+    "piece": "gr_racking",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "sacks",
+    "piece": "gr_sacks",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "B": {
+    "is": "floor",
+    "tile": "bin",
+    "piece": "gr_bin",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "e": {
+    "is": "floor",
+    "tile": "seed",
+    "piece": "gr_seed",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "F": {
+    "is": "floor",
+    "tile": "forklift",
+    "piece": "gr_forklift",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "s": {
+    "is": "floor",
+    "tile": "spill",
+    "piece": "gr_spill",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "g": {
+    "is": "floor",
+    "tile": "sandbags",
+    "piece": "gr_sandbags",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "C": {
+    "is": "floor",
+    "tile": "camp",
+    "piece": "gr_camp",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "V": {
+    "is": "floor",
+    "tile": "vault",
+    "piece": "gr_vault",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "W": {
+    "is": "floor",
+    "tile": "coldwall",
+    "piece": "gr_coldwall",
+    "at": [
+     0.5,
+     0.88
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "carts",
+    "piece": "gr_carts",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "U": {
+    "is": "floor",
+    "tile": "plant",
+    "piece": "gr_plant",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "counter",
+    "piece": "gr_counter",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "w": {
+    "is": "floor",
+    "tile": "melt"
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words); 'sight' says whether a blocker hides a man ('blocked', the obstacles row) or is seen past ('seen'). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The distribution center's tilt-up wall: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The hall's sealed concrete, swept: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The floor: open ground.",
+   "draft": true
+  },
+  "racking": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A run of pallet racking four levels high, loaded with the harvest: nobody stands there, and nobody sees through it; cover beside it. [bb] its wall.",
+   "say": ""
+  },
+  "sacks": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Grain in sacks, stacked on a pallet higher than a man: cover.",
+   "say": "Grain sacks: cover.",
+   "draft": true
+  },
+  "bin": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A steel grain bin bolted to the floor: nobody stands there, and nobody sees through it. [bb] its boulder.",
+   "say": ""
+  },
+  "seed": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The seed stock in its crates, the next year's planting: cover.",
+   "say": "Seed crates: cover.",
+   "draft": true
+  },
+  "forklift": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A forklift parked with its forks down: cover.",
+   "say": "A forklift: cover.",
+   "draft": true
+  },
+  "spill": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A sack split open, grain deep across the floor, a man wades it: slow going (3 AP), low cover. [bb] its brush.",
+   "say": "Spilled grain: slow going, low cover.",
+   "draft": true
+  },
+  "sandbags": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The guards' sandbags across an aisle: low cover. [bb] its palisade waist high.",
+   "say": "Sandbags: low cover.",
+   "draft": true
+  },
+  "camp": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The guards' camp in the aisle, cots and a stove and a rifle rack: they guarded the grain to the end: cover.",
+   "say": "The guards' camp: cover.",
+   "draft": true
+  },
+  "vault": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "The medicine vault's shelves in the cold room, what is left of the valley's medicine: nobody stands there, and nobody sees through it. [bb] its wall.",
+   "say": ""
+  },
+  "coldwall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A cold room's insulated wall, a foot of foam in steel skin: nobody stands there, and nobody sees through it. [bb] its wall.",
+   "say": ""
+  },
+  "carts": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Steel carts of boxed medicine and coolers: low cover.",
+   "say": "Carts: low cover.",
+   "draft": true
+  },
+  "plant": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "The refrigeration plant, compressors on a skid, still running when the batteries hold: nobody stands there, and nobody sees through it; cover beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "counter": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The dispensing counter where the vault hands out what it hands out: cover.",
+   "say": "The counter: cover.",
+   "draft": true
+  },
+  "melt": {
+   "row": "swamp",
+   "terrain": "water",
+   "ap": 4,
+   "open": true,
+   "effect": "The cold rooms dying, their frost melted into the floor and standing: slow going (4 AP), and a man standing in it fights worse. [bb] its swamp.",
+   "say": "Standing water: slow going, and you fight worse in it.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a drum. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The dock doors, rolled up onto the yard: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The doors: open ground.",
+   "say_lit": "The doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in granary_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "gr_racking": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "PALLET RACKING"
+  },
+  "gr_sacks": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "GRAIN SACKS"
+  },
+  "gr_bin": {
+   "like": "sb_container_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A GRAIN BIN"
+  },
+  "gr_seed": {
+   "like": "garage_booth",
+   "kind": "COVER",
+   "name": "SEED CRATES"
+  },
+  "gr_forklift": {
+   "like": "sb_dozer_S",
+   "kind": "COVER",
+   "name": "A FORKLIFT"
+  },
+  "gr_spill": {
+   "like": "sb_heap_E",
+   "kind": "LOW_COVER",
+   "name": "SPILLED GRAIN"
+  },
+  "gr_sandbags": {
+   "like": "sb_heap_S",
+   "kind": "LOW_COVER",
+   "name": "SANDBAGS"
+  },
+  "gr_camp": {
+   "like": "tunnel_camp_b",
+   "kind": "COVER",
+   "name": "THE GUARDS' CAMP"
+  },
+  "gr_vault": {
+   "like": "garage_core",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "THE MEDICINE VAULT"
+  },
+  "gr_coldwall": {
+   "like": "tunnel_wall_ew",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A COLD ROOM'S WALL"
+  },
+  "gr_carts": {
+   "like": "sb_rubble_S",
+   "kind": "LOW_COVER",
+   "name": "MEDICINE CARTS"
+  },
+  "gr_plant": {
+   "like": "sb_container_E",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "THE REFRIGERATION PLANT"
+  },
+  "gr_counter": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "THE DISPENSING COUNTER"
+  },
+  "gr_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "gr_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "gr_wall_ew",
+  "ns": "gr_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: the racking's top shelf is a climb nobody makes under fire on house tiles.",
+ "ceiling": {
+  "kind": "joist",
+  "alpha": 0.1,
+  "src": "granary/granary_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the distribution center's roof joists and the cold rooms' panel ceilings, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the warehouse's roof)."
+ }
+}
