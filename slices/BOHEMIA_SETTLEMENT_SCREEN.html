@@ -2306,13 +2306,14 @@ function homeFeedRows(){ var R = { front: [], middle: [], back: [] }; (HF.M.lots
    piece rendered --behind-only also stands on the rows behind its own, each higher and allowing taller) */
 var HF_NO_BEHIND = false;   /* for the gate's planted leg only: as if no picture behind its row had been made */
 window.__HOME_FEED_NO_BEHIND = function(v){ HF_NO_BEHIND = !!v; return HF_NO_BEHIND; };
+window.__HOME_FEED_DRAWN = function(){ return HF.drawn ? JSON.parse(JSON.stringify(HF.drawn)) : null; };   /* __ONCE_AND_IN_THE_GROUND__: read only, for the gate */
 function homeFeedRowsOf(pid){ var D = HF.M && HF.M.pieces[pid]; if(!D) return []; return (!HF_NO_BEHIND && D.rows && D.rows.length) ? D.rows : [D.row]; }
 function homeFeedHasPic(pid, n){ var D = HF.M && HF.M.pieces[pid]; if(!D || !D.states) return false; var st = D.states.built || D.states[Object.keys(D.states)[0]]; return !!(st && st.pics && st.pics['1_tall_' + n]); }
 /* his things on the block's lots: each piece in its own row, by the order he put them up; one whose row is full on a free lot of a row
    behind that has its picture (after every piece has had its own row, so the overflow never takes a back lot from a back piece); a
    picture with no piece on any free lot */
 function homeFeedSlots(){ var M = HF.M; if(!M) return {}; var R = homeFeedRows(), used = {}, out = {}, un = [], over = [];
-  var T = homeThingsHere().slice().sort(function(a, b){ return (a.lot | 0) - (b.lot | 0); });
+  var seen = {}, T = homeThingsHere().slice().sort(function(a, b){ return (a.lot | 0) - (b.lot | 0); }).filter(function(t){ if(seen[t.key]) return false; seen[t.key] = 1; return true; });   /* __ONCE_AND_IN_THE_GROUND__ (rule 479(b)): one thing is drawn once, however often it is handed */
   T.forEach(function(t){ t.pid = homeFeedPid(t); });
   T.filter(function(t){ return t.pid; }).forEach(function(t){ var n = (R[M.pieces[t.pid].row] || []).filter(function(n){ return !used[n]; })[0]; if(n){ used[n] = 1; out[n] = t; } else over.push(t); });
   HF.over = [];
@@ -2345,13 +2346,18 @@ function homeFeedDraw(now){
   if(!hfReady(plate)){ c.fillStyle = '#0c0b0a'; c.fillRect(0, 0, HF.el.width, HF.el.height); return; }
   g.filter = 'none'; g.globalAlpha = 1; g.drawImage(plate, 0, 0);
   var T = M.tap_px[cn + '_' + sh] || {}, P = homeFeedPeople();
-  (M.order[cn] || []).forEach(function(n){ var t = HF.slots[n]; if(!t) return;
+  var DRAWN = { pieces: {}, people: {}, feet: [] }; HF.drawn = DRAWN;   /* __ONCE_AND_IN_THE_GROUND__ (HOME BASE 3, rule 479): what this frame drew, counted */
+  (M.order[cn] || []).forEach(function(n){ var t = HF.slots[n]; if(!t) return; DRAWN.pieces[t.key] = (DRAWN.pieces[t.key] | 0) + 1;
     if(t.pid){ var D = M.pieces[t.pid], st = t.done === false ? 'built' : (D.states.working ? 'working' : 'built'), E = D.states[st] && D.states[st].pics[cn + '_' + sh + '_' + n]; if(!E) return;
       var im = hfImg(HF_BASE + 'pieces/' + E.pictures[fr % E.pictures.length]); if(!hfReady(im)) return;
       g.globalAlpha = t.done === false ? .45 : 1; g.drawImage(im, E.xy[0], E.xy[1]); g.globalAlpha = 1; }   /* going up tonight: faint, as on the town screen */
     else if(t.pic && T[n]){ var pim = hfImg(t.pic); if(!hfReady(pim)) return; var b = T[n], hh = Math.max(8, (b[3] - b[1]) * .7), ww = hh * pim.naturalWidth / pim.naturalHeight;
       g.filter = HF_GRADE; g.drawImage(pim, Math.round((b[0] + b[2]) / 2 - ww / 2), Math.round(b[3] - hh), Math.round(ww), Math.round(hh)); g.filter = 'none'; } });
   var B = window.BohemiaRigBodies; if(B && B.standing) P.slice().sort(function(a, b){ return a.y - b.y; }).forEach(function(q){ var s = B.standing(q.p.look, 'S'); if(!s || !s.im) return;
+    /* __ONCE_AND_IN_THE_GROUND__ (rule 479(a)): a person stands ON the lot: his own shadow on its ground, in the footage's light (the
+       sodium heads above and behind the lots throw it short and forward), never a figure pasted over the picture */
+    g.save(); g.fillStyle = 'rgba(0,0,0,.5)'; g.beginPath(); g.ellipse(Math.round(q.x), Math.round(q.y + q.h * .02), Math.max(2, q.h * .2), Math.max(1, q.h * .06), 0, 0, 7); g.fill(); g.restore();
+    DRAWN.people[q.p.name] = (DRAWN.people[q.p.name] | 0) + 1; DRAWN.feet.push({ name: q.p.name, x: Math.round(q.x), y: Math.round(q.y), shadow: true });
     var k = q.h / (B.FIG_H || 108); g.filter = HF_GRADE; g.drawImage(s.im, Math.round(q.x - s.mid * k), Math.round(q.y - s.foot * k), Math.round(s.im.naturalWidth * k), Math.round(s.im.naturalHeight * k)); g.filter = 'none'; });
   if(M.near){ var nr = hfImg(HF_BASE + 'near/cam' + cn + '_' + sh + '_' + fr + '.png'); if(hfReady(nr)) g.drawImage(nr, 0, 0); }
   g.font = '8px monospace'; g.textBaseline = 'top'; var tx = function(x, y, s){ g.fillStyle = '#0a0a0a'; g.fillText(s, x + 1, y + 1); g.fillStyle = '#e2e6de'; g.fillText(s, x, y); };

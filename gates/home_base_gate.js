@@ -57,6 +57,7 @@
      D16 HIS PLACE THROUGH ITS CAMERAS (rule 451(c), row 625): his place opens on CAM 1 (REC, the camera, his place); a real tap on
          CAM 2 frames THE LOTS closer and the pot there still answers a tap; CAM 3 has the ones who live there in the shot; CAM 1 the
          whole yard again. PLANTED: the message says not planted, no camera.
+     F8  ONCE AND IN THE GROUND (rule 479, HOME BASE 3 11/22): every camera, each thing and each person drawn once, each on his shadow.
      F7  THE OVERFLOW (rule 466(a) step 4, HOME BASE 3 11/22): a piece whose row is full stands on a free lot behind it, its own picture.
      D22 THE GRINDER (rule 469, HOME BASE 3 11/22): built from the desk, standing, seen; the dead of a won fight home; GRIND; sold and found.
      G0-G9 (engine) THE GRINDER: the carry, the heat, one tap, the brain out, the bad cut, selling, the late shakes, the stores.
@@ -517,7 +518,7 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       ok('F5 a real tap on empty lot ' + (e20 && e20.n) + ' of the footage (' + (e20 && e20.at && e20.at.w) + ' px wide) opens BUILD, the desk, and its click presses nothing under the thumb', !!e20 && e20.at.w >= 44 && t20.open === 'build' && t20.desk, JSON.stringify({ e20, t20 }));
       /* F6 THE BLOCK HOLDS FOUR IN A ROW (rule 354(i)): with the back row full the desk offers the roof and the lookout greyed, and says so */
       await close15();
-      const f6 = await fr.evaluate(async () => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); h.places = (h.places || []).concat([{ id: 'lookout', name: 'LOOKOUT', piece: 'x', lot: 4, done: true }, { id: 'lookout', name: 'LOOKOUT', piece: 'x', lot: 5, done: true }, { id: 'lookout', name: 'LOOKOUT', piece: 'x', lot: 6, done: true }]);
+      const f6 = await fr.evaluate(async () => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); h.places = (h.places || []).concat([{ id: 'lookout', name: 'LOOKOUT', piece: 'x', lot: 24, done: true }, { id: 'lookout', name: 'LOOKOUT', piece: 'x', lot: 25, done: true }, { id: 'lookout', name: 'LOOKOUT', piece: 'x', lot: 26, done: true }]);   /* HOME BASE 3 11/22: lot numbers nothing holds (rule 479: one key is one thing, drawn once) */
         window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); await new Promise(r => setTimeout(r, 600)); BohemiaSettlement.state.open = null; return true; });
       await fr.evaluate(() => { const c = document.getElementById('close'); if (c && BohemiaSettlement.state.open) c.click(); });
       await fr.evaluate(() => { try { window.__HOME_FEED_AGE(0); } catch (e) {} });
@@ -541,6 +542,15 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
         f7.mid.every(Boolean) && f7.over.length >= 1 && backOk === f7.over.length && f7.over.every(o => /@(9|10|11|12)$/.test(o)), JSON.stringify(f7));
       ok('F7 planted: the pictures behind taken off the manifest, the overflow is not drawn (' + f7c.over.length + ' over, ' + f7c.un + ' left off): the leg above reads red on it', f7c.over.length === 0 && f7c.un >= f7.un + f7.over.length, JSON.stringify(f7c));
       await fr.evaluate(async () => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); });   /* the real home again */
+      await P.waitForTimeout(800);
+      /* F8 ONCE AND IN THE GROUND (HOME BASE 3 11/22, rule 479(b)(c)): in every camera each thing of his is drawn once and each person once,
+         each person standing on his own shadow; the same thing handed twice is drawn once (planted: the count on what was sent reads two) */
+      const cams8 = []; for (let c = 0; c < 3; c++) { await P.waitForTimeout(700); cams8.push(await fr.evaluate(() => { const f = window.__HOME_FEED || {}, d = window.__HOME_FEED_DRAWN ? window.__HOME_FEED_DRAWN() : null; return { cam: f.cam, slots: Object.keys(f.slots || {}).length, d }; })); await fr.evaluate(() => { try { window.__HOME_FEED_AGE(99999); } catch (e) {} }); }
+      const once8 = c => !!c.d && Object.keys(c.d.pieces).length === c.slots && Object.values(c.d.pieces).every(n => n === 1) && Object.values(c.d.people).every(n => n === 1) && c.d.feet.every(q => q.shadow);
+      ok('F8 ONCE AND IN THE GROUND: in CAM ' + cams8.map(c => c.cam).join(', ') + ' each thing of his drawn once (' + cams8.map(c => c.d ? Object.keys(c.d.pieces).length : '?').join('/') + ') and each person once on his own shadow (' + cams8.map(c => c.d ? Object.keys(c.d.people).length : '?').join('/') + ')', cams8.length === 3 && new Set(cams8.map(c => c.cam)).size === 3 && cams8.every(once8), JSON.stringify(cams8));
+      const dup8 = await fr.evaluate(async () => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); const p = (h.places || [])[0]; if (p) h.places.push(JSON.parse(JSON.stringify(p))); const sent = (h.places || []).length, sentKeys = (h.places || []).map(x => 'h' + x.lot); window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); await new Promise(r => setTimeout(r, 900)); const f = window.__HOME_FEED || {}; return { sent, sentKeys, slots: Object.keys(f.slots || {}).length, keys: Object.values(f.slots || {}).map(x => x.key) }; });
+      ok('F8 the same building handed twice is drawn once (' + dup8.keys.join(',') + '; ' + dup8.sent + ' sent); planted: counted on what was sent, the same check reads red', new Set(dup8.keys).size === dup8.keys.length && dup8.sent > new Set(dup8.sentKeys).size, JSON.stringify(dup8));
+      await fr.evaluate(async () => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); });
       await P.waitForTimeout(800);
       await F.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); }); await P.waitForTimeout(2500); await gone15(); await close15();
       await F.evaluate(() => { const r = BohemiaHomeMap.rec(); r.places = []; localStorage.removeItem('bohemia.home.trained.v1'); DAY.day = (DAY.day | 0) - 2; const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); });
