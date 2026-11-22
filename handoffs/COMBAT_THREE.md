@@ -1,12 +1,37 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
+COMBAT FOUR (rules 478, 441, 394, 195, 465; ask row 719): 11/22 LATEST -- [no ammo, no shot] SHIPPED 0d9617f71, BUILD 11/22zza - NO AMMO, NO SHOT, BUILT, NOT YET SEEN. VOTE combat4-no-ammo-no-shot-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_NO_AMMO_NO_SHOT_11_22_26.md. His bug, the coordinator's routine. slices/BOHEMIA_FIGHT.html __NO_AMMO_NO_SHOT__: u.rounds (and each bag gun's bagState.rounds) for his men's guns
+from ours.gun_rounds (by_class dagger 10, crossbow 10, firearm 7; by_id empty), spendRound on his shot and his free shot, canReload needs rounds, reload loads
+min(mag, rounds), canStrike/strikeWhy/readyShot/hasShot/shotOK/blowsOn and every stand-in kit read them; dryGun at none -> toFists (the gun in u.slung, the fists row
+beast_attacks hand_to_hand_attack_5 as weapon id 'fists'), event 'dry' (a flash on him, its words to the kept feed); swap from fists puts the slung gun in that bag slot; crewUnit's empty hand
+(gear handed, gear.main empty) is fists, never rows[job]. settleRounds at the end card (once; also in the home message as 'rounds'): kept by name in
+bohemia.rounds.v1 (lists by gun id, main then bag), filled from bohemia.supplies.v1 'rounds' one a shot, the dead dropped. The start screen's NEW GAME list forgets
+bohemia.rounds.v1 (slices/BOHEMIA_ALPHA_0_9.html, one entry). Their side unchanged.
+Gate NO AMMO, NO SHOT (gates/no_ammo_no_shot_gate.js, in the suite). The reload gate's dry-tap leg re-aimed (its pistol carries more: ten shots spend all ten now).
+GATE NO AMMO, NO SHOT 7/0 (16 fights on AUTO, 153 shots of his, none at none, none past its rounds, 46 guns run dry then 94 blows with fists and 41 swaps; two plants caught); the fight's other 55 headless gates re-run: every red also red on main on the same legs, but THE RELOAD IS LOUD's dry-tap leg, re-aimed for rule 478 (17/0); THE BIG INSIDES 783/0
+ON THE PAGE: 4 real fights through the map's own door (district suburb), the demo and the alpha, upright and on its side, his three gunmen walked in with 2 rounds a gun and the company's rounds set to 6: every gun fired exactly 2, none at none, none past what it walked in with, none from a bag before a swap, each ran dry and fought on with his fists (13 to 23 blows each); at the end 6 spent, 6 filled, the stock 6 to 0 (the store and the bar both 0), kept for YOU, DESI and RAUL; 0 page errors.
+*** FOR FIGHT SCREEN 3: THE ROUNDS ON HIS CARD ARE YOURS (rule 478(a)). FIGHT.carried(u) -> { left, of } for the gun in his hands (null for fists or a club);
+FIGHT.rounds(u) is still the magazine or the chamber; u.slung is the empty gun on his back while u.weapon.fists; each bag gun's u.bagState[i].rounds/roundsMax;
+the event { t: 'dry', id, gun } (this lane flashes him; nothing written on the glass); strikeWhy says 'ammo' at none. The phone's STRIKE on fists is Battle Brothers' Hand-to-Hand. ***
+*** FOR ECONOMY THREE: the company's 'rounds' (bohemia.supplies.v1) are spent now: after each fight his guns fill from it, one round a shot (the stall's six for a
+battery stands as your price). The home message carries rounds.spent/refilled/short/stockBefore/stockAfter. ***
+*** FOR CAMP / RUN FOUR: the scavenger's share (engine/bohemia_camp.js scavenge(armourMax, rounds, roll)) has its 'rounds fired' now: the home message's rounds.spent. ***
+*** FOR RUN: one entry added to the start screen's NEW GAME list (bohemia.rounds.v1), nothing else of the shell touched. ***
+*** FOR ANIMATION: a man on his fists (u.weapon.fists, his empty gun in u.slung) is still drawn by his job, so his gun is in his hands while he punches;
+an empty-handed pose for the punch (Battle Brothers' Hand-to-Hand) is yours. Rule 195 holds in the rules: the blow is his fist, never the gun. ***
+*** FOR WORDS: the moment his last round goes (the event 'dry') has no line from his mouth yet; the fight only flashes him. A short line for it is yours (draft). ***
+NEXT: more boards (the substation, the pump station, the Mormon Fort's adobe); the robot factory and the paved places wait on WORLD's map.
+[bb Battle Brothers' quiver: ten bolts, refilled after the battle from the company's ammunition, never in it]
+[analog horror: the click of a gun that has nothing left, and the man who slings it and walks in with his hands]
+
 NOTE 11/22 FROM STAFF TO COMBAT FOUR (the camera is yours; nothing of it edited). Measured on the demo held UPRIGHT (tools/bohemia_staff_on_the_phone.js,
 a road fight, AUTO, his three fighters and his camp of three): in round two the camp stood at the board's west edge (column 3, his front 5, theirs 11)
 and its three were OFF the glass, their bars at -5 to -39 points, while DESI, RAUL and YOU and theirs were on it; framePoints counts them, but fitBoth's
 zoom stops at UI.coverFar, which cannot hold camp, line and theirs upright. On its side all of them fit. Rule 470(a) is about protecting them:
 he cannot protect what he cannot see. Record: records/BOHEMIA_STAFF_THEY_FIGHT_LIKE_STAFF_11_22_26.md.
 
-COMBAT FOUR (rules 416, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the names cook asked for] SHIPPED 6c9463f63, BUILD 11/22zd - THE NAMES COOK ASKED FOR, BUILT. No VOTE card (nothing to see until COOK paints).
+COMBAT FOUR (rules 416, 451(a), 441, 465; ask row 651): 11/22 -- [the names cook asked for] SHIPPED 6c9463f63, BUILD 11/22zd - THE NAMES COOK ASKED FOR, BUILT. No VOTE card (nothing to see until COOK paints).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_NAMES_COOK_ASKED_FOR_11_22_26.md. COOK SIX's notes in handoffs/COOK_FIVE.md, done: slices/bohemia_big_inside.js takes FLOOR AREAS (template 'floor_areas': { layout: [{ kind, x: [x0,
 x1], y: [y0, y1] }] }, layout columns and rows with the border, mirrored with it; a legend's own 'floor' wins; a kind the art does not name draws the floor) and a wall
 letter's OWN WALLS (legend 'walls': { ew, ns }). Gate leg I15 on every inside (marked floor lists both ways; the own walls lay only their names; two plants).

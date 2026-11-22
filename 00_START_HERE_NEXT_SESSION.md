@@ -1,3 +1,12 @@
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22zza - NO AMMO, NO SHOT, BUILT, NOT YET SEEN (rules 478, 441, 394, 195; ask row 719). Its block is handoffs/COMBAT_THREE.md.
+NO AMMO, NO SHOT (his bug): every gun of his carries its rounds (ours.gun_rounds: a pistol or rifle 10, a quiver's; a shotgun 7, the large powder bag's), each shot
+spends one, a reload loads only what he carries; AT NONE IT NEVER FIRES, by hand or on AUTO: the gun is slung, a flash on him, his fists (Battle Brothers'
+Hand-to-Hand) or AUTO's swap to his bag (4 AP). AN EMPTY HAND IS HIS FISTS (the fight had been handing such a man his place's gun: the pocket pistol he saw).
+When the fight ends each gun's rounds are kept by his name (bohemia.rounds.v1) and filled from the company's rounds (bohemia.supplies.v1 'rounds') as far as
+the stock goes; their side keeps endless quivers.
+GATE NO AMMO, NO SHOT 7/0 (16 fights on AUTO, 153 shots of his, none at none, none past its rounds, 46 guns run dry then 94 blows with fists and 41 swaps; two plants caught); the fight's other 55 headless gates re-run: every red also red on main on the same legs, but THE RELOAD IS LOUD's dry-tap leg, re-aimed for rule 478 (17/0); THE BIG INSIDES 783/0. ON THE PAGE: 4 real fights through the map's own door (district suburb), the demo and the alpha, upright and on its side, his three gunmen walked in with 2 rounds a gun and the company's rounds set to 6: every gun fired exactly 2, none at none, none past what it walked in with, none from a bag before a swap, each ran dry and fought on with his fists (13 to 23 blows each); at the end 6 spent, 6 filled, the stock 6 to 0 (the store and the bar both 0), kept for YOU, DESI and RAUL; 0 page errors. VOTE combat4-no-ammo-no-shot-11-22.
+[bb Battle Brothers' quiver: ten bolts, refilled after the battle from the company's ammunition, never in it]
+[analog horror: the click of a gun that has nothing left, and the man who slings it and walks in with his hands]
 JOBS TWO (jobs-two-01gkdyuu): 11/22 LATEST -- BUILD 11/22zu - EVERY FOE AGREES, BUILT, NOT YET SEEN (rule 475(b) for every foe a job names; ask row 715). Its block is handoffs/JOBS.md.
 The end of a fight's result line agrees over all 41 names a job can hand it: THE CREW AT THE PUMP STATION IS DOWN (never CREWS), THE THIEVES AFTER THE REGULATOR
 ARE DOWN, THE WATER PEOPLE ARE DOWN, THE SHRUB-OXEN ARE DOWN; on the phone both ways. Gate EVERY FOE AGREES 4/0 (new). NEXT: row 698.
@@ -46,7 +55,7 @@ most people curse, in full; nothing standing is rewritten (rule 465). Every home
 through it comes back after one to three days on the map's clock, not gone for good), owner WORLD 15; detail in the lane's block.
 [bb Battle Brothers' contracts say who is paying you and how much, in the client's own mouth]
 [analog horror: 'They're coming up the fucking ladder. I heard two shots. Oh shit. Oh shit.']
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22zd - THE NAMES COOK ASKED FOR, BUILT (rules 416, 451(a), 441; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22zd - THE NAMES COOK ASKED FOR, BUILT (rules 416, 451(a), 441; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 COOK SIX's notes to this lane, done: a template may name FLOOR AREAS (a rectangle of its own floor kind per layout, mirrored with it) and a wall letter its OWN WALLS.
 The school: the gym's 'court', the hallway's 'hall', the south bleachers turned (B, sc_bleachers_n). The courthouse: the courtroom aisle's 'carpet', the museum's
 north exhibit run THE BULLET-MARKED BRICK WALL (V, ct_brick_ew/ns). Nothing looks different until COOK paints them, so no VOTE card. Gate leg I15 holds both.
