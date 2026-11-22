@@ -56,11 +56,29 @@ The page was busy from the tap to 23 s, all of it on the one thread every frame 
 
 (the A/B below: the same build, the old ways switched on by their switches, alternating runs)
 
-ABTABLE
+The demo upright, CPU 4x, the GPU canvas, a 100 ms round trip and 12.8 Mbit/s (a phone on mobile data), the same build both ways: the
+old ways switched on by their switches, two alternating runs each (each run a cold camp and a warm one).
+
+| | the old ways | now |
+|---|---:|---:|
+| cold: the camp's picture in | 24.3 s, 16.6 s | 7.3 s, 9.6 s |
+| cold: tasks over 50 ms, all of them | 13.0 s, 7.7 s | 3.3 s, 3.3 s |
+| cold: the longest task | 2,016 ms, 2,109 ms | 1,085 ms, 1,060 ms |
+| warm: the camp's picture in | 21.6 s, 13.1 s | 6.3 s, 6.8 s |
+| warm: tasks over 50 ms, all of them | 15.0 s, 9.9 s | 2.6 s, 2.4 s |
+| warm: the longest task | 2,816 ms, 2,416 ms | 671 ms, 805 ms |
+| the camp's hours gone before he saw it | 35, 25, 22, 18 | 0 |
+| the same board by day and by night | yes | yes |
+
+With no network delay (the box's own server), now: cold 7.1 s, 3.4 s of tasks, the longest 650 ms; warm 6.4 s, 3.3 s, 667 ms.
+The 30 seconds he felt is the old ways on a phone's network; the 10-second freeze is their 8 to 15 s of tasks. The hours gone are
+why the camp 'instantly' sent him back: the crew healed while it loaded.
+
 
 ## WHAT IS LEFT, NAMED
 
-- The fight page itself (1.15 MB) loading in the hidden frame: about 3 s of the cold camp at 4x.
+- The fight page itself (1.15 MB) loading in the hidden frame: about 3 s of the cold camp at 4x; on a phone's network its first
+  load is one task of about a second (the page's script read and run), the longest task left.
 - The ground's bake of the board (2.2 s at 4x in pieces, the longest about 650 ms): the fight's own bake (COMBAT's, CAMP THREE's
   __THE_BAKE_DOES_NOT_FREEZE__ already splits it into steps).
 - UI FOUR's pop-up watcher (row 700) and the phone's tick, through the whole load.
