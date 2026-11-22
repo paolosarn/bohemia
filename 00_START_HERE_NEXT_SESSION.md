@@ -1,4 +1,11 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22v - A MAN IS DRAWN ONCE (rules 441, 461, 465; ask row 699). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22w - THE GRANARY, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE GRANARY (Paolo's 7/6 place: the old grocery warehouse, harvest, seed, the cold rooms the MEDICINE VAULT): about eight fights in ten there are fought inside: the grain hall
+(long rows of racking that hide a man; grain sacks, seed crates, forklifts, the guards' camp; spilled grain, sandbags) or the cold rooms (their walls, the vault's shelves and the
+refrigeration plant hide a man; counters, carts; the melt water, Battle Brothers' swamp).
+GATE THE BIG INSIDES 613/0 in two halves (319 in 285 s, 294 in 269 s; thirty-five insides). ON THE PAGE: 4 fights in the granary on the demo and the alpha, upright and on its side (the grain hall each time; the cold rooms in the gate and on the card), all ended, 24 of 24 tile taps, 0 page errors. VOTE combat4-the-granary-11-22.
+[bb Battle Brothers' wall in rows: the racking hides a man down every aisle; the melt water is its swamp]
+[analog horror: a cold room's compressor ticking over in the dark, and frost on a shelf of insulin nobody came back for]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22v - A MAN IS DRAWN ONCE (rules 441, 461, 465; ask row 699). Its block is handoffs/COMBAT_THREE.md.
 PLUMBER 8's row 699 (THE FIGHT ON AUTO DRAWS EVERY MAN EVERY FRAME): a man is taken down before he is drawn; unchanged since the last frame, his kept picture is laid in ONE draw
 (97% of man-draws on AUTO); the same pixels (78 of 80 men to the pixel by day, the rest a turned weapon's edge; at night within 1 level). The held sheets decode off the page's
 thread (32 sheets, 1.2 to 2.2 s of every 6 s at a fight's start, gone). At 4x: the men 79 -> 47 ms a frame. THE CENSUS (its own walk, --cpu, the demo upright, the CPU slowed 4x; the old way against the new): the fight on AUTO at 1x 5.8 -> 11.3 frames a second, freezes over half a second 8 -> 0; at 4x 5.0 -> 7.5 frames a second (the row's 6 reached), freezes 55 -> 22, the worst 4.5 s -> 2.8 s. New gate A MAN IS DRAWN ONCE 10/0. records/BOHEMIA_COMBAT_FOUR_A_MAN_IS_DRAWN_ONCE_11_22_26.md.

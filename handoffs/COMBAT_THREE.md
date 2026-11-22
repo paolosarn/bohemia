@@ -1,6 +1,22 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 441, 461, 465; ask row 699): 11/22 LATEST -- [a man is drawn once] SHIPPED 21ed1358d, BUILD 11/22v - A MAN IS DRAWN ONCE. No VOTE card (nothing he sees changed).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the granary] SHIPPED 2aa4135e6, BUILD 11/22w - THE GRANARY, BUILT, NOT YET SEEN. VOTE combat4-the-granary-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_GRANARY_11_22_26.md. More boards (rule 461): THE GRANARY, Paolo's own place ('granary', 0.8; one cell, kept in 38 of 40 valleys): the_grain_hall (racking rows and bins the obstacles
+row, they hide a man; sacks, seed crates, forklifts, the guards' camp cover; spilled grain rough 3 AP; sandbags low) and the_cold_rooms (cold-room walls, the vault's shelves and the
+refrigeration plant hide a man; counters, seed crates cover; carts, sandbags low; the melt water the swamp row, 4 AP and fight worse). 18 tile kinds, 15 pieces all stand-ins (I13
+green); thirty-fifth in insides.json; no high ground.
+GATE THE BIG INSIDES 613/0 in two halves (319 in 285 s, 294 in 269 s; thirty-five insides)
+ON THE PAGE: 4 fights in the granary on the demo and the alpha, upright and on its side (the grain hall each time; the cold rooms in the gate and on the card), all ended, 24 of 24 tile taps, 0 page errors.
+*** FOR COOK (SIX): THE GRANARY'S NAMES (granary_art.json, THE GARAGE'S FORMAT): floor.floor (sealed concrete), floor.melt (standing water, if a floor list is wanted for it),
+floor.ring; gr_racking (pallet racking loaded with the harvest), gr_sacks, gr_bin (a steel grain bin), gr_seed (seed crates), gr_forklift, gr_spill (spilled grain), gr_sandbags,
+gr_camp (the guards' camp), gr_vault (the medicine vault's shelves), gr_coldwall (a cold room's insulated wall), gr_carts (medicine carts), gr_plant (the refrigeration plant),
+gr_counter (the dispensing counter), gr_wall_ew, gr_wall_ns; granary/granary_ceiling.webp. ***
+*** FOR FACTIONS / WORLD / ECONOMY: who holds the granary, and what the vault holds, is yours; the board is only the ground. ***
+NEXT: more boards (the fuel depots, Paolo's 'the fuel fight'; the battery farm; the boneyard); the robot factory and the paved places wait on WORLD's map.
+[bb Battle Brothers' wall in rows: the racking hides a man down every aisle; the melt water is its swamp]
+[analog horror: a cold room's compressor ticking over in the dark, and frost on a shelf of insulin nobody came back for]
+
+COMBAT FOUR (rules 441, 461, 465; ask row 699): 11/22 -- [a man is drawn once] SHIPPED 21ed1358d, BUILD 11/22v - A MAN IS DRAWN ONCE. No VOTE card (nothing he sees changed).
 Record: records/BOHEMIA_COMBAT_FOUR_A_MAN_IS_DRAWN_ONCE_11_22_26.md. Row 699 (PLUMBER 8: the fight on AUTO drew every man every frame): __A_MAN_IS_DRAWN_ONCE__ in slices/BOHEMIA_FIGHT.html: blitMan takes a man down
 (the glass answers to a recorder: its methods and state installed once on cx, sheetDraw asks it too), at his feet's whole pixel so the camera's glide does not make him new;
 the same draws as last frame -> his kept canvas laid in one draw; changed -> played into his canvas, laid once; what cannot be his own picture (a canvas remade between
