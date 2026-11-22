@@ -736,3 +736,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 712 | Make camp: he sees his people build the camp; no freeze, no pop-in; the 30-second load and the 10-second freeze cut | 472(d)(e) | CAMP FOUR, PLUMBER 8 | SENT 11/22 |
 | 713 | No waypoint arrows for side quests on the map (he had 14); the place is highlighted when it is on screen | 473 | JOBS 2, WORLD 15 | SENT 11/22 |
 | 714 | A bug he felt: after buying in a shop (weapons, armor) the slots keep the bought item's icon on the next item | 474 | UI FIVE | SENT 11/22 |
+| 715 | The old casino receipt is still hanging around at the end of a fight (his screenshot), and 'THE GROUND SLOTH ARE DOWN' reads wrong | 475 | FIGHT SCREEN 3 | SENT 11/22 |
