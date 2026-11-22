@@ -1,6 +1,6 @@
 # CAMP FOUR: THE CAMP WAITS FOR YOU, AND YOU SEE IT BUILT (11/22/26)
 
-VAMILY rule 472, ask rows 711 and 712. BUILD 11/22zz - THE CAMP WAITS FOR YOU. BUILT, NOT YET SEEN (rule 179).
+VAMILY rule 472, ask rows 711 and 712. BUILD 11/22zzd - THE CAMP WAITS FOR YOU. BUILT, NOT YET SEEN (rule 179).
 
 ## His words (11/22)
 
@@ -105,7 +105,9 @@ board composed (0.95 s), YOU placed on it. Both for PLUMBER 8 (rule 472(e)) with
   shows it as a freeze: he watches his fire catch on the map.
 - **A night fight baked before this build** has no day kept: a camp made off it keeps its night until he leaves (a fight baked from
   this build keeps its day, UI.boardDay).
-- The STAFF's carts (rule 471) are not shipped; the camp's set-up sets down the camp's own shopping cart (CAMP TWO's carrier).
+- The STAFF's carts (rule 471) shipped the same round (STAFF 2, BUILD 11/22zzc: each camp follower stands by the fire with his cart). The
+  camp's set-up still sets down only the camp's own shopping cart (CAMP TWO's carrier); the followers' carts rolled in as part of the
+  set-up is the CAMP lane's next round.
 
 ## Gates
 
@@ -127,7 +129,7 @@ RED ON MAIN BEFORE THIS (measured on main's own files, 14cfe9f3, the same box): 
 threat read at all, every edge dark; CAMP TWO's leg) and its K4a and K4c (the hours healed the men before the leg read them; with this
 build no hour runs before the camp stands, and both are green). Named, not mine to fix this round: K7 goes to the CAMP lane's next round.
 
-## Landed on main ON TOP OF PLUMBER 8 (BUILD 11/22zz)
+## Landed on main ON TOP OF PLUMBER 8 (BUILD 11/22zzd)
 
 Main moved while this was proven: PLUMBER 8's THE CAMP LOADS IN ONE GO (11/22zv, 11/22zx; rule 472(e)) touched the same camp files.
 How the two were joined:
@@ -147,7 +149,7 @@ How the two were joined:
 RESULTS on the merged build, each gate ALONE on this box (a first pass with everything at once and the suite beside it, load 21 on 4
 cores, read red on timing legs only, every one green alone): THE CAMP WAITS FOR HIM 18/0 (the demo upright and on its side); THE HEAL
 BUTTON 16/0; CAMP HOLDS UNTIL HE ENDS IT 14/0; HEALING STOPS ITSELF AT FULL 8/0; A TOWN IS SAFE 12/0; THE DEMO BUILD green; THE CAMP LOADS
-IN ONE GO 5/1 (the demo upright, CPU 4x, HEAL on the map: the camp's picture in 9.1 s, the longest task 868 ms, 3.1 s held in tasks over 50 ms; the old ways 19.5 s; its one red is L1's 9 s, and main's own files read 10.2 s on this same box, red the same: this box, not the build); THE CAMP IS PITCHED ON THE BOARD 9/5, the same five as main's own files (quarantined, LOAD); THE CAMP IS THE FIGHT'S
+IN ONE GO 5/1 (the demo upright, CPU 4x, HEAL on the map: the camp's picture in 9.1 s, the longest task 868 ms, 3.1 s held in tasks over 50 ms; the old ways 19.5 s; its one red is L1's 9 s, and main's own files read 10.2 s on this same box, red the same: this box, not the build); ON THE FINAL TREE (main's newest with STAFF 2's carts, rebased): THE CAMP LOADS IN ONE GO 6/0 (8.5 s, the longest task 939 ms, 2.6 s held; the old ways 15.9 s) and THE CAMP WAITS FOR HIM 18/0; HANDOFF 10/0, PAGES PUBLISH 30/0, DEMO BUILD 25/0, ATTEMPT 15/0, LANGUAGE 107/0, THE RED DEBT ONLY SHRINKS 4/0; VOTE TAB 61/5, none of its reds this card's (other lanes' cards and the alpha's landing; quarantined); THE CAMP IS PITCHED ON THE BOARD 9/5, the same five as main's own files (quarantined, LOAD); THE CAMP IS THE FIGHT'S
 BOARD 31/5, every red one main's own files have (Cn3 on its side 'not measured', Cn5 quarantined as ask row 681); RUN TWO's THE CAMP
 GATE (not in the suite) 5/3, main's own files 3/5 on the same box.
 

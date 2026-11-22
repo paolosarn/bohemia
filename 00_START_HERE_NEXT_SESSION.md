@@ -1,3 +1,11 @@
+CAMP FOUR (camp-four-01gkdyuu): 11/22 LATEST -- BUILD 11/22zzd - THE CAMP WAITS FOR YOU, BUILT, NOT YET SEEN (rule 472(a) to (d), 441, 448; ask rows 711 and 712). Its block is handoffs/CAMP_THREE.md.
+Make camp: the hours run only while his men mend and STOP the hour they are whole; the camp stays on the glass and they keep moving about it (one man every 6 s, walked);
+the phone's band says HIT THE ROAD and its strip is one of his men's line; his tap is the map, on PAUSE. Every camp is built before an hour runs. After a fight the camp stands on
+the fight's own board handed at the tap: MAKE CAMP to the camp's first frame 7.3 s -> 1.8 s here. HEAL waits at his fire on the map until the camp is drawn. Two fingers zoom to a man 166 px.
+GATE THE CAMP WAITS FOR HIM (new). VOTE camp4-the-camp-waits-for-you-11-22. records/BOHEMIA_CAMP_FOUR_THE_CAMP_WAITS_FOR_YOU_11_22_26.md.
+Landed on top of PLUMBER 8's THE CAMP LOADS IN ONE GO (11/22zx): his handed picture and his clock hold kept; the camp after a fight names its pictures his way.
+[bb Battle Brothers: camping never ends itself; you watch the bars and leave when you choose]
+[analog horror: the clock stops on its own and the fire keeps burning]
 COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22zza - NO AMMO, NO SHOT, BUILT, NOT YET SEEN (rules 478, 441, 394, 195; ask row 719). Its block is handoffs/COMBAT_THREE.md.
 NO AMMO, NO SHOT (his bug): every gun of his carries its rounds (ours.gun_rounds: a pistol or rifle 10, a quiver's; a shotgun 7, the large powder bag's), each shot
 spends one, a reload loads only what he carries; AT NONE IT NEVER FIRES, by hand or on AUTO: the gun is slung, a flash on him, his fists (Battle Brothers'
