@@ -731,3 +731,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 707 | (vote 11/22) The voice never says 'it pays'; more cursing; his lines kept | 470(g) | WORDS THREE | SENT 11/22 |
 | 708 | (vote 11/22) A comeback has a limit in days | 470(h) | WORDS THREE names it, its owner builds | SENT 11/22 |
 | 709 | The staff push a shopping cart in the shield's place, never removed, upgradable (other carts, a wagon), one-handed weapons only (pistol or one-handed melee), and the cart shows in the fight | 471 | STAFF (with CHARACTER, COOK SIX for the art) | SENT 11/22 |
+| 710 | Everybody curses (most people): more curse words on the cards; 'I haven't seen you type a single bad word, are you scared?' | 467 AMENDED | WORDS THREE | SENT 11/22: measured 68 cards, 0 curses (the cards showed only the frozen game lines); now every card shows our try beside it, two in three of our tries curse, a gate holds it |
