@@ -1,0 +1,531 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "shelter",
+ "name": "THE ANIMAL SHELTER",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "WORLD's real place (records/target/bb/real_places.json, 'the_animal_shelter'): The Animal Foundation, 655 North Mojave Road east of downtown, Nevada's largest animal shelter, tens of thousands of animals a year; 'the valley's feral dogs came from somewhere; the kennels opened the week the staff stopped coming'.",
+  "A shelter's kennel building is rows of runs, each a concrete floor with a block wall to waist height and chain link above it and a gate, aisles between the rows with drains and hoses; beside it the clinic (stainless cage banks, exam tables, a surgery), the intake counter and the lobby, the food store and the laundry.",
+  "On house tiles a row of runs is a fence nobody crosses and a man is seen through; a bank of steel cages stacked to the ceiling hides a man."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (shelter_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "shelter"
+ ],
+ "share": 0.7,
+ "districts_why": "The shelter is its own map kind, a low building on a big lot with its yards: seven fights in ten there are fought inside it, by the cell's own dice; the rest in its yards and lot.",
+ "board": {
+  "templates": {
+   "shelter": {
+    "name": "THE ANIMAL SHELTER",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_kennels": [
+      "####################",
+      "#KKKK.KKKK.KKKK.KKK#",
+      "#.w..c..wcfbc..w..c#",
+      "#.KKKK.cwKK.c.KKKK.#",
+      "#..c.cw.wb.cw.bc...#",
+      "#.KK.bcKKKK.bcKK.w.#",
+      "#..w.c.bc..cb.c.w..#",
+      "#D.b..wcb..bcwc.b.D#",
+      "#..w.c.bc..cb.c.w..#",
+      "#.KK.bcKKKK.bcKK.w.#",
+      "#..c.cw.wb.cw.bc...#",
+      "#.KKKK.cwKK.c.KKKK.#",
+      "#.w..c..wcfbc..w..c#",
+      "#KKK.KKKK.DD.KKK.KK#",
+      "####################"
+     ],
+     "the_clinic_and_intake": [
+      "####################",
+      "#BBB.BBB.##.BBB.BBB#",
+      "#.e..x..e##.x..e..x#",
+      "#.EE.x.EE..EE.x.EE.#",
+      "#..x..e..f...e..x..#",
+      "#kGGGk.p.ss.p.kGGGk#",
+      "#.n..n..b..b..n..n.#",
+      "#D.n.b.n.ss.n.b.n.D#",
+      "#.n..n..b..b..n..n.#",
+      "#.p..n.p.f..p.n..p.#",
+      "#.W.W..ss..ss..W.W.#",
+      "#..b..p.n..n.p..b..#",
+      "#.ww.n.ww..ww.n.ww.#",
+      "#WWW.n..n.DD.n..WWW#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "K": {
+    "is": "floor",
+    "tile": "runs",
+    "piece": "as_runs",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "w": {
+    "is": "floor",
+    "tile": "pallets",
+    "piece": "as_pallets",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "crates",
+    "piece": "as_crates",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "drums",
+    "piece": "as_drums",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "B": {
+    "is": "floor",
+    "tile": "cagebank",
+    "piece": "as_cagebank",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "e": {
+    "is": "floor",
+    "tile": "exam",
+    "piece": "as_exam",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "x": {
+    "is": "floor",
+    "tile": "carts",
+    "piece": "as_carts",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "E": {
+    "is": "floor",
+    "tile": "shelves",
+    "piece": "as_shelves",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "G": {
+    "is": "floor",
+    "tile": "glass",
+    "piece": "as_glass",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "counter",
+    "piece": "as_counter",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "p": {
+    "is": "floor",
+    "tile": "sacks",
+    "piece": "as_sacks",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "s": {
+    "is": "floor",
+    "tile": "spilled",
+    "piece": "as_spilled",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "n": {
+    "is": "floor",
+    "tile": "crates",
+    "piece": "as_crates",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "W": {
+    "is": "floor",
+    "tile": "washers",
+    "piece": "as_washers",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words); 'sight' says whether a blocker hides a man ('blocked', the obstacles row) or is seen past ('seen'). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The shelter's block wall: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The sealed concrete floor, sloped to its drains: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The floor: open ground.",
+   "draft": true
+  },
+  "runs": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "sight": "seen",
+   "effect": "A row of kennel runs, block wall to the waist and chain link above, their gates hanging open: nobody crosses it; you see through it; cover beside it. [bb] its palisade you see through.",
+   "say": ""
+  },
+  "pallets": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A pallet of feed bags, shrink-wrapped, torn at the bottom: cover.",
+   "say": "Feed bags: cover.",
+   "draft": true
+  },
+  "crates": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Wire dog crates, folded and stacked: low cover.",
+   "say": "Dog crates: low cover.",
+   "draft": true
+  },
+  "drums": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Steel drums of feed and of trash: low cover.",
+   "say": "Drums: low cover.",
+   "draft": true
+  },
+  "cagebank": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A bank of stainless steel cages stacked to the ceiling: nobody stands there, and nobody sees through it; cover beside it. [bb] its wall.",
+   "say": ""
+  },
+  "exam": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A steel exam table on its pedestal: cover.",
+   "say": "An exam table: cover.",
+   "draft": true
+  },
+  "carts": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A supply cart, its drawers pulled: low cover.",
+   "say": "A cart: low cover.",
+   "draft": true
+  },
+  "shelves": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "Steel shelving of supplies to the ceiling: nobody stands there, and nobody sees through it. [bb] its wall.",
+   "say": ""
+  },
+  "glass": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "sight": "seen",
+   "effect": "The intake counter's glass: nobody passes; you see through it; cover beside it. [bb] its palisade you see through.",
+   "say": ""
+  },
+  "counter": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The counter's end where the glass stops, waist high: low cover. [bb] its palisade, waist high.",
+   "say": "The counter: low cover.",
+   "draft": true
+  },
+  "sacks": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Kibble sacks stacked to the chest: cover.",
+   "say": "Kibble sacks: cover.",
+   "draft": true
+  },
+  "spilled": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Torn sacks and the kibble across the floor, underfoot: low cover, and slow going (3 AP). [bb] its brush.",
+   "say": "Spilled sacks: slow going, low cover.",
+   "draft": true
+  },
+  "washers": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The laundry's big washers and dryers, steel boxes: cover.",
+   "say": "A washer: cover.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a drum. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The shelter's doors, or the yard's gate, open: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The doors: open ground.",
+   "say_lit": "The doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in shelter_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "as_runs": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "KENNEL RUNS"
+  },
+  "as_pallets": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "FEED BAGS"
+  },
+  "as_crates": {
+   "like": "sb_corral_S",
+   "kind": "LOW_COVER",
+   "name": "DOG CRATES"
+  },
+  "as_drums": {
+   "like": "sb_drums_S",
+   "kind": "LOW_COVER",
+   "name": "DRUMS"
+  },
+  "as_cagebank": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A BANK OF STEEL CAGES"
+  },
+  "as_exam": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "AN EXAM TABLE"
+  },
+  "as_carts": {
+   "like": "sb_cart_S",
+   "kind": "LOW_COVER",
+   "name": "A SUPPLY CART"
+  },
+  "as_shelves": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "SUPPLY SHELVES"
+  },
+  "as_glass": {
+   "like": "casino_glass",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "THE INTAKE COUNTER'S GLASS"
+  },
+  "as_counter": {
+   "like": "casino_bar",
+   "kind": "LOW_COVER",
+   "name": "THE COUNTER'S END"
+  },
+  "as_sacks": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "KIBBLE SACKS"
+  },
+  "as_spilled": {
+   "like": "sb_heap_S",
+   "kind": "LOW_COVER",
+   "name": "SPILLED SACKS"
+  },
+  "as_washers": {
+   "like": "sb_container_S",
+   "kind": "COVER",
+   "name": "WASHERS"
+  },
+  "as_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "as_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "as_wall_ew",
+  "ns": "as_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: a one-storey building of block and steel.",
+ "ceiling": {
+  "kind": "joist",
+  "alpha": 0.1,
+  "src": "shelter/shelter_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the kennels' steel roof deck, its fans and its dead strip lights, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the warehouse's roof)."
+ }
+}
