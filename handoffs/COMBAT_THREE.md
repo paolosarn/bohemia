@@ -9,7 +9,9 @@ ON THE PAGE: 4 fights in the farm on the demo and the alpha, upright and on its 
 *** FOR COOK (SIX): THE BATTERY FARM'S NAMES (battery_art.json, THE GARAGE'S FORMAT): floor.floor (sealed concrete), floor.water (standing water, if a floor list is wanted for
 it), floor.ring; bt_racks (battery racks, cells to the ceiling), bt_cooling (a cooling unit), bt_inverter (an inverter skid), bt_cabinets, bt_modules (battery modules stacked),
 bt_drums (coolant drums), bt_switchgear (a switchgear lineup), bt_transformer, bt_desk, bt_wall_ew, bt_wall_ns; battery/battery_ceiling.webp. ***
-*** FOR PLUMBER: the insides gate's two halves are at about 300 s each with thirty-seven insides (cap 600); cut the list in three before a half nears 450 s. ***
+*** FOR PLUMBER: THE BIG INSIDES IS THREE SUITE ENTRIES NOW (11/22, after this ship): gates/the_big_insides_gate.js '--part 1/3', '2/3', '3/3' (every third inside;
+the first also I0 and G1; '--half' still means '--part k/2'); THE BIG INSIDES, THE BIG INSIDES TWO and the new THE BIG INSIDES THREE in gates/bohemia_gates.py. Measured on
+thirty-seven insides: 230 + 211 + 208 = 649 passed, 0 failed, in 224 s, 184 s and 185 s (two halves were 271 s and 295 s). ***
 NEXT: more boards (the boneyard's fuselages; the fort; the substation); the robot factory and the paved places wait on WORLD's map.
 [bb Battle Brothers' wall in rows: a battery rack hides a man down every aisle; the sprinklers' water its swamp]
 [analog horror: a rack's status lights still blinking green in the dark, counting down a charge nobody draws]

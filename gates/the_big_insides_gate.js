@@ -23,7 +23,8 @@
      I9  ITS CEILING: the board carries its data's ceiling, about 10% and never past the fight's most
      planted: a wall across the floor (I2), one high tile read as floor (I3), a tile kind with no row and a wrong AP (I7), the open
      floor not open (I8)
-   Run: node gates/the_big_insides_gate.js      (every inside, four at once; '--half 1' / '--half 2': the suite's two entries) */
+   Run: node gates/the_big_insides_gate.js      (every inside, four at once; '--part 1/3', '--part 2/3', '--part 3/3': the suite's three
+   entries; '--half 1' / '--half 2' is '--part 1/2' / '--part 2/2') */
 'use strict';
 const fs = require('fs'), path = require('path'), vm = require('vm');
 const ROOT = path.join(__dirname, '..'), HL = require(path.join(ROOT, 'tools/bohemia_fight_headless.js'));
@@ -41,7 +42,9 @@ const kitOf = (data, sizes, pre) => { const kit = {}; Object.keys(data.kit).forE
   const cd = J(FG + 'casino/casino_floor.json'), cz = J(FG + 'casino/sizes.json') || {}; ctx.DB.casino = { data: cd, sizes: cz, kit: kitOf(cd, cz, /^casino_/) };
   const td = J(FG + 'tunnels/tunnels.json'), tz = J(FG + 'tunnels/sizes.json') || {}; ctx.DB.tunnels = { data: td, sizes: tz, kit: kitOf(td, tz, /^tunnel_/) }; }
 const F = ctx.FIGHT, BI = ctx.BohemiaBigInside, IDS = ((J(FG + 'insides.json') || {}).insides || []), ONLY = (process.argv[2] && !/^--/.test(process.argv[2])) ? process.argv[2] : null,
-  HALF = process.argv.indexOf('--half') > 0 ? +process.argv[process.argv.indexOf('--half') + 1] : 0;   /* --half 1 | 2: the suite's two entries */
+  HALF = process.argv.indexOf('--half') > 0 ? +process.argv[process.argv.indexOf('--half') + 1] : 0,   /* --half 1 | 2: --part 1/2 | 2/2 */
+  PARTA = process.argv.indexOf('--part') > 0 ? String(process.argv[process.argv.indexOf('--part') + 1] || '').split('/').map(Number) : null,
+  PART = PARTA && PARTA[1] > 0 ? PARTA[0] : HALF, PARTS = PARTA && PARTA[1] > 0 ? PARTA[1] : HALF ? 2 : 0;   /* --part k/n: every n-th inside from the k-th (the suite's three entries) */
 ctx.DB.insides = {};
 IDS.forEach(id => { const d = J(FG + id + '/' + id + '.json'), art = J(FG + id + '/' + id + '_art.json'); if (d) ctx.DB.insides[id] = { data: d, art: art, kit: BI.kit(d, art, { garage: ctx.DB.garage, tunnels: ctx.DB.tunnels, casino: ctx.DB.casino, dress: ctx.DB.streetDress.kit }) }; });
 const cellOf = i => ({ gx: (i * 31 + 7) % 90, gy: (i * 17 + 3) % 90 });
@@ -54,7 +57,7 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
   return false; };
 (async () => {
   const t0 = Date.now(), CHILD = !!process.env.BIG_INSIDES_CHILD;
-  if (!CHILD && HALF !== 2) check(IDS.length >= 1 && IDS.every(id => ctx.DB.insides[id]), 'I0', 'THE LIST: ' + IDS.length + ' inside' + (IDS.length === 1 ? '' : 's') + ' laid from data (' + IDS.join(', ') + '), each with its data file');
+  if (!CHILD && PART <= 1) check(IDS.length >= 1 && IDS.every(id => ctx.DB.insides[id]), 'I0', 'THE LIST: ' + IDS.length + ' inside' + (IDS.length === 1 ? '' : 's') + ' laid from data (' + IDS.join(', ') + '), each with its data file');
   /* THE GATE ANSWERS INSIDE THE SUITE'S CAP (COMBAT FOUR 11/22, PLUMBER 8's find, ask row 679: twenty insides one after another took
      825 s against BOHEMIA_GATE_CAP's 600, and the suite killed the gate). With no inside named, each inside runs as a child of this gate
      (its own process, the same legs, nothing shared), as many at once as the box has cores (four at most); this process runs the legs
@@ -62,8 +65,10 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
      answer is a FAIL with its name. node gates/the_big_insides_gate.js <id> runs one inside here, as before. */
   /* TWO HALVES (COMBAT FOUR 11/22, measured: twenty-nine insides took 437 s alone against the suite's 600 s cap, about 15 s more for
      every inside): the suite runs '--half 1' and '--half 2' as two entries, each every other inside of the list (the same legs, nothing
-     dropped); the first half also runs I0 and G1, the legs that are no inside's own. With no half named, every inside, as before */
-  const MINE = HALF ? IDS.filter((id, i) => i % 2 === HALF - 1) : IDS;
+     dropped); the first half also runs I0 and G1, the legs that are no inside's own. With no half named, every inside, as before.
+     THREE PARTS (COMBAT FOUR 11/22, measured: thirty-seven insides ran 271 s and 295 s a half, about 8 s more a half for every inside):
+     '--part k/n' takes every n-th inside from the k-th; the suite runs three parts, the first with I0 and G1 */
+  const MINE = PARTS ? IDS.filter((id, i) => i % PARTS === PART - 1) : IDS;
   const PAR = !ONLY && !CHILD && MINE.length > 1;
   if (PAR) {
     const { spawn } = require('child_process'), N = Math.max(1, Math.min(require('os').cpus().length, 4, MINE.length)), out = {};
@@ -240,7 +245,7 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
   }
   /* G1 (ask row 646, found by COOK FIVE 11/17): the ground draws its pictures on the canvas it is given, so the still camera's sheet holds the
      board's pieces (close in on a phone an inside's furniture was gone). Read on the page's own source; how it looks is measured on the page */
-  if (!CHILD && HALF !== 2) { const src = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8'), i = src.indexOf('function groundOn(cx) {'), j = src.indexOf('\nfunction openOf() {', i), body = i >= 0 && j > i ? src.slice(i, j) : '';
+  if (!CHILD && PART <= 1) { const src = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8'), i = src.indexOf('function groundOn(cx) {'), j = src.indexOf('\nfunction openOf() {', i), body = i >= 0 && j > i ? src.slice(i, j) : '';
     const strip = body.replace(/\/\*[\s\S]*?\*\//g, ''), bad = (strip.match(/\bcxDraw\(/g) || []).length, good = (strip.match(/sheetDraw\(cx, \[/g) || []).length;
     check(!!body && bad === 0 && good >= 3, 'G1', 'THE SHEET HOLDS ITS PIECES (ask row 646): groundOn draws its pictures on the canvas it is given (' + good + ' sheetDraw(cx, ...) calls, ' + bad + ' on the fight\'s own glass)');
     const planted = strip.replace('sheetDraw(cx, [im, x, y, w, h]);', 'cxDraw(im, x, y, w, h);'); check((planted.match(/\bcxDraw\(/g) || []).length === 1, 'G1p', 'planted: one picture call turned back to the glass is caught'); }

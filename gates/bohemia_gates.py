@@ -9724,7 +9724,7 @@ GATES = [
      "and says that line, dry, in the flood and on the silt (T7); the main channel is open floor and AUTO gets off it after the first round (T8). "
      "Planted: the fill across every culvert, a flood that never drops, the grates live at night, a tile kind with no row, a wrong AP, the channel "
      "not open floor. About 40 s", True),
-    ('THE BIG INSIDES', ['node', 'gates/the_big_insides_gate.js', '--half', '1'],
+    ('THE BIG INSIDES', ['node', 'gates/the_big_insides_gate.js', '--part', '1/3'],
      "COMBAT THREE gate, 11/17, VAMILY rules 416, 453, 59, 428, 451(a) (ask row 468's list from the fourth on: THE CONVENTION HALL first; PAOLO "
      "11/6: 'what are some large ass interiors that we could fight... I still want this to be a block and turf war'). Every inside listed in "
      "fight_ground/insides.json, laid from its data file by slices/bohemia_big_inside.js: a fight at its districts may go inside by the cell's "
@@ -9738,10 +9738,14 @@ GATES = [
      "the ground draws its pictures on the canvas it is given, so the still camera's sheet holds the board's pieces. About fifty seconds an inside, "
      "four insides at once (COMBAT FOUR 11/22, PLUMBER 8's row 679: twenty in a row took 825 s against the 600 s cap; each inside now a child process, "
      "the counts added): about 4 min for twenty. TWO HALVES (COMBAT FOUR 11/22: twenty-nine took 437 s alone against the cap): this entry runs every other "
-     "inside of the list ('--half 1') with I0 and G1; THE BIG INSIDES TWO runs the rest", True),
-    ('THE BIG INSIDES TWO', ['node', 'gates/the_big_insides_gate.js', '--half', '2'],
-     "COMBAT FOUR gate, 11/22: the second half of THE BIG INSIDES (every other inside of slices/fight_ground/insides.json, from the second), the "
-     "same legs I1 to I13 on each (see THE BIG INSIDES); the two entries keep each run inside the suite's 600 s cap", True),
+     "inside of the list ('--part 1/3', every third from the first) with I0 and G1; THE BIG INSIDES TWO and THREE run the rest", True),
+    ('THE BIG INSIDES TWO', ['node', 'gates/the_big_insides_gate.js', '--part', '2/3'],
+     "COMBAT FOUR gate, 11/22: the second part of THE BIG INSIDES (every third inside of slices/fight_ground/insides.json, from the second), the "
+     "same legs I1 to I13 on each (see THE BIG INSIDES); the three entries keep each run inside the suite's 600 s cap (thirty-seven insides "
+     "ran 271 s and 295 s a half in two)", True),
+    ('THE BIG INSIDES THREE', ['node', 'gates/the_big_insides_gate.js', '--part', '3/3'],
+     "COMBAT FOUR gate, 11/22: the third part of THE BIG INSIDES (every third inside of slices/fight_ground/insides.json, from the third), the "
+     "same legs I1 to I13 on each (see THE BIG INSIDES)", True),
     ('A MAN IS DRAWN ONCE', ['node', 'gates/a_man_is_drawn_once_gate.js'],
      "COMBAT FOUR gate, 11/22, ask row 699 (PLUMBER 8's profile: 'THE FIGHT ON AUTO DRAWS EVERY MAN EVERY FRAME'), rule 441(a)(c): the "
      "fight page alone on his phone upright, the census's CPU canvas: M1 on AUTO most man-draws are his kept picture laid in one draw; "
