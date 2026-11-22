@@ -29,8 +29,8 @@ PLUMBER 8 (chat 18) 11/22, BUILD 11/22t THE PEOPLE COME IN BEHIND THE TOWN (row 
   FILED: row 697 RUN TWO (the end screen's LEAVE under a scroll, rule 402), row 698 JOBS (the deal and the reads), row 699 COMBAT (the
   men drawn every frame), row 700 UI FOUR (the pop-up watcher on every frame of a fight, 4%).
   AFTER THE SHIP, alone on 4f6aac2ec: FIRST PLAY IS LIGHT 7/0 (16.9 MB) and THE BOARDS ALWAYS HAVE WORK 24/0 struck (401 NAMED, 312 LEFT);
-  THE SITE SERVES 5/0; THE SONGS GO IN 85/1 in 326 s (SOUNDS' line: a recording's beat 50 ms off). NO FREEZE was still walking: strike it if green
-  (strike3.py). THE SITE SERVES' L4/L5 reds in the run before were my own pull mid-run (two boards landed); --quick on the ship is 5/0.
+  THE SITE SERVES 5/0; THE SONGS GO IN 85/1 in 326 s (SOUNDS' line: a recording's beat 50 ms off). NO FREEZE 9/0 (554 s) struck too: the walk's GPU waits 53, the
+  way into a town 483 ms worst, the fight on AUTO 9 and 11 freezes as KNOWN OVER (row 699). Row 677 left: EVERY CHANGE AT SIXTY (C2 JOBS 698). THE SITE SERVES' L4/L5 reds in the run before were my own pull mid-run (two boards landed); --quick on the ship is 5/0.
 
 PLUMBER 8 (chat 18) 11/22, THE LAST 16 ANSWERED ALONE (rule 461; main 1d292b08c, one gate at a time, 6,874 s).
   5 GREEN, struck from the list and their rows: THE PHONE (678), THE BIG INSIDES (679; COMBAT FOUR split it in two entries since, the
