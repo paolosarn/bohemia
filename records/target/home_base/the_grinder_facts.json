@@ -1,0 +1,178 @@
+{
+ "shots": [
+  [
+   "phone_portrait",
+   1,
+   "records/target/home_base/the_grinder_phone_portrait_1.webp"
+  ],
+  [
+   "phone_portrait",
+   2,
+   "records/target/home_base/the_grinder_phone_portrait_2.webp"
+  ],
+  [
+   "phone_portrait",
+   3,
+   "records/target/home_base/the_grinder_phone_portrait_3.webp"
+  ],
+  [
+   "phone_landscape",
+   1,
+   "records/target/home_base/the_grinder_phone_landscape_1.webp"
+  ],
+  [
+   "phone_landscape",
+   2,
+   "records/target/home_base/the_grinder_phone_landscape_2.webp"
+  ],
+  [
+   "phone_landscape",
+   3,
+   "records/target/home_base/the_grinder_phone_landscape_3.webp"
+  ]
+ ],
+ "facts": {
+  "phone_portrait": {
+   "set": {
+    "at": [
+     30,
+     69
+    ],
+    "planted": true,
+    "g": {
+     "ok": true,
+     "place": {
+      "id": "grinder",
+      "lot": 0,
+      "day": 2
+     }
+    },
+    "f": {
+     "ok": true,
+     "place": {
+      "id": "forge",
+      "lot": 1,
+      "day": 2
+     }
+    },
+    "won": {
+     "took": 1,
+     "left": 4,
+     "beastKg": 0,
+     "room": 1
+    },
+    "now": {
+     "stands": true,
+     "dead": 1,
+     "beastKg": 0,
+     "food": 26,
+     "carryKg": 63
+    },
+    "crew": 3
+   },
+   "slot": {
+    "n": 5,
+    "key": "h0",
+    "at": {
+     "x": 59.58333333333333,
+     "y": 345.5833333333333,
+     "w": 89,
+     "h": 63
+    },
+    "cam": 1
+   },
+   "sheet": {
+    "btn": "GRIND1 BODY → 26 FOOD",
+    "off": false,
+    "say": "Head comes off first. Every fucking time."
+   },
+   "food0": 12,
+   "food1": 38,
+   "after": {
+    "btn": "NOBODY TO GRIND",
+    "say": "Ground. +26 food in the stores.",
+    "grind": {
+     "ok": true,
+     "food": 26,
+     "dead": 1,
+     "beastKg": 0
+    }
+   },
+   "view": {
+    "width": 390,
+    "height": 844
+   }
+  },
+  "phone_landscape": {
+   "set": {
+    "at": [
+     69,
+     39
+    ],
+    "planted": true,
+    "g": {
+     "ok": true,
+     "place": {
+      "id": "grinder",
+      "lot": 0,
+      "day": 2
+     }
+    },
+    "f": {
+     "ok": true,
+     "place": {
+      "id": "forge",
+      "lot": 1,
+      "day": 2
+     }
+    },
+    "won": {
+     "took": 1,
+     "left": 4,
+     "beastKg": 0,
+     "room": 1
+    },
+    "now": {
+     "stands": true,
+     "dead": 1,
+     "beastKg": 0,
+     "food": 26,
+     "carryKg": 63
+    },
+    "crew": 3
+   },
+   "slot": {
+    "n": 5,
+    "key": "h0",
+    "at": {
+     "x": 155,
+     "y": 131.75,
+     "w": 79,
+     "h": 57
+    },
+    "cam": 1
+   },
+   "sheet": {
+    "btn": "GRIND1 BODY → 26 FOOD",
+    "off": false,
+    "say": "Head comes off first. Every fucking time."
+   },
+   "food0": 12,
+   "food1": 38,
+   "after": {
+    "btn": "NOBODY TO GRIND",
+    "say": "Ground. +26 food in the stores.",
+    "grind": {
+     "ok": true,
+     "food": 26,
+     "dead": 1,
+     "beastKg": 0
+    }
+   },
+   "view": {
+    "width": 844,
+    "height": 390
+   }
+  }
+ }
+}

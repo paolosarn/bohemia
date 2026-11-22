@@ -170,6 +170,48 @@ ok('E11 planted: a lost or cancelled job pinned as a deed is caught (only done a
   ok('E12 a gate he held is pinned, marked held; a job beside it is not (' + dd.map(x => x.name + (x.held ? '*' : '')).join(', ') + ')', g12.ok && j12.ok && dd.length === 2 && dd[0].held === true && dd[1].held === false, JSON.stringify(dd));
   const z12 = H.make(); H.plant(z12, { x: 4, y: 4, name: 'Gate' }, 2); const x12 = Object.assign({}, { id: 'raid:2:3', kind: 'deed', name: 'Held the gate', from: 'Colorful', day: 3 }); H.give(z12, x12, []);
   ok('E12 planted: the held mark left off, the gate reads as a job (the leg above would be red)', !((z12.deeds || [])[0] || {}).held); }
+/* G THE GRINDER (HOME BASE 3, 11/22, VAMILY rule 469: his 'C' and 'Ppl dont eat the brain tho'; engine/bohemia_grinder.js) */
+{ const G = require(path.join(ROOT, 'engine/bohemia_grinder.js')); G.setData(DATA); const GD = DATA.grinder, val = k => (GD[k] && GD[k].value != null ? GD[k].value : GD[k]);
+  const seq = a => { let i = 0; return () => a[Math.min(i++, a.length - 1)]; };
+  ok('G0 the grinder is one of his own buildings (GRIND, ' + JSON.stringify(DATA.places.grinder.cost) + '), every number in the file with its source', DATA.places.grinder && DATA.places.grinder.can === 'GRIND'
+    && ['carry_a_man', 'body_kg', 'meat_share', 'cure_keep', 'keep_h', 'bad_cut_pct', 'bought_bad_pct', 'takes_pct', 'incubation_years', 'dies_years', 'found_out_pct', 'found_out_act', 'shakes_town_act'].every(k => GD[k] && GD[k].value != null && (GD[k].source || GD[k].unit)));
+  const c3 = Math.floor(G.carryKg(3) / val('body_kg')), c6 = Math.floor(G.carryKg(6) / val('body_kg')), c12 = Math.floor(G.carryKg(12) / val('body_kg'));
+  const s1 = G.make(), b1 = G.bring(s1, { humans: 5, crew: 3, min: 0, day: 1, act: 1 });
+  ok('G1 THE CARRY: a company carries ' + c3 + ', ' + c6 + ', ' + c12 + ' bodies at 3, 6, 12 men (a litter over a long walk); five dead and three men: ' + b1.took + ' home, ' + b1.left + ' left', c3 === 1 && c6 === 2 && c12 === 4 && b1.took === 1 && b1.left === 4, JSON.stringify(b1));
+  const at23 = G.pileNow(s1, 23 * 60).dead, at24 = G.pileNow(G.load(JSON.parse(JSON.stringify(s1))), 24 * 60).dead;
+  ok('G2 THE HEAT: the dead keep ' + val('keep_h') + ' hours on the road (at 23 h ' + at23 + ' good, at 24 h ' + at24 + ': thrown out, said nowhere)', at23 === 1 && at24 === 0);
+  const per = Math.floor(val('body_kg') * val('meat_share') * val('cure_keep') / val('kg_a_night'));
+  const s2 = G.make(); G.bring(s2, { humans: 2, crew: 6, min: 0, day: 1, act: 1 }); const g2 = G.grind(s2, { food: 10, min: 60, rand: () => 0.99 }), g2b = G.grind(s2, { food: 10, min: 61 });
+  ok('G3 ONE TAP: two bodies grind into ' + g2.food + ' food (' + per + ' a body: ' + val('body_kg') + ' kg x ' + val('meat_share') + ' boneless x ' + val('cure_keep') + ' cured / ' + val('kg_a_night') + ' kg a night); the pile is empty after (' + g2b.why + ')',
+    g2.ok && g2.food === Math.floor(2 * val('body_kg') * val('meat_share') * val('cure_keep') / val('kg_a_night')) && g2.dead === 2 && !g2b.ok && g2b.why === 'NOBODY' && s2.stores.man === g2.food, JSON.stringify({ g2, st: s2.stores }));
+  ok('G4 NOBODY EATS THE BRAIN: the head comes off first in the data (' + val('head_out') + ') and in a mouth at the grinder ("' + DATA.places.words.grinder + '")', val('head_out') === true && /head/i.test(DATA.places.words.grinder));
+  const s3 = G.make(); G.bring(s3, { humans: 1, crew: 6, min: 0 }); const bad3 = G.grind(s3, { food: 0, min: 1, rand: () => 0.0 });
+  const s4 = G.make(); G.bring(s4, { humans: 0, beastKg: 40, crew: 6, min: 0 }); const bad4 = G.grind(s4, { food: 0, min: 1, rand: () => 0.0 });
+  const s5 = G.make(); G.bring(s5, { humans: 1, crew: 6, min: 0 }); const bad5 = G.grind(s5, { food: 0, min: 1, rand: () => (val('bad_cut_pct') + 0.01) / 100 });
+  ok('G5 THE BAD CUT is rare and has a cause: under ' + val('bad_cut_pct') + ' in 100 a batch with people in it takes it (' + bad3.bad + '), at ' + val('bad_cut_pct') + '.01 it does not (' + bad5.bad + '), a batch of a kill\'s meat alone never (' + bad4.bad + ', ' + bad4.food + ' food from 40 kg)', bad3.bad && !bad5.bad && !bad4.bad && bad4.food === Math.floor(40 * val('cure_keep') / val('kg_a_night')));
+  const sale = (st, o) => G.sale(st, Object.assign({ units: 10, food: st.stores.sausage, place: 'GATE TOWN', day: 2, act: 1 }, o));
+  const s6 = G.make(); G.bring(s6, { humans: 2, crew: 6, min: 0 }); G.grind(s6, { food: 0, min: 1, rand: () => 0.99 }); const f6 = sale(s6, { rand: () => 0.0 });
+  const s7 = G.make(); G.bring(s7, { humans: 2, crew: 6, min: 0 }); G.grind(s7, { food: 0, min: 1, rand: () => 0.99 }); const f7 = sale(s7, { rand: () => 0.0, hungry: true });
+  const s8 = G.make(); G.bring(s8, { humans: 0, beastKg: 60, crew: 6, min: 0 }); G.grind(s8, { food: 0, min: 1 }); const f8 = sale(s8, { rand: () => 0.0 });
+  ok('G6 SELLING IT: a calm town that finds out it was people moves his name there by ' + f6.act + ' (' + f6.man + ' of 10 were people); a hungry town never asks (' + f7.found + '); a kill\'s sausage tells nobody anything (' + f8.found + ')',
+    f6.found && f6.act === 'minor_offensive_action' && f6.man === 10 && !f7.found && f7.man === 10 && !f8.found && f8.man === 0, JSON.stringify({ f6, f7, f8 }));
+  const s9 = G.make(); G.bring(s9, { humans: 2, crew: 6, min: 0, day: 3, act: 1 }); G.grind(s9, { food: 0, min: 1, rand: () => 0.0 });
+  const mk = G.night(s9, { ate: 3, food: s9.stores.sausage, men: ['DESI', 'OKAFOR', 'RAY'], day: 3, act: 1, rand: seq([0, 0, 0.5, 0.5, 0, 0, 0.5, 0.5, 0, 0, 0.5, 0.5]) });
+  const sameAct = G.showing(s9, { act: 1, day: 40 }), nextAct = G.showing(s9, { act: 2, day: 5, yearsBetween: (a, b) => Math.abs(b - a) * 35 });
+  ok('G7 THE SHAKES show late: a bad batch eaten marks ' + mk.map(m => m.name + ' (' + m.years + ' y)').join(', ') + '; in its own act a month on nothing shows (' + sameAct.length + '); 35 years on, the next act, it does (' + nextAct.map(m => m.name).join(', ') + ')',
+    mk.length === 3 && mk.every(m => m.years >= 4.5 && m.years <= 50) && sameAct.length === 0 && nextAct.length === 3, JSON.stringify({ mk, nextAct }));
+  const s10 = G.make(); G.bring(s10, { humans: 2, crew: 6, min: 0 }); G.grind(s10, { food: 0, min: 1, rand: () => 0.99 });
+  const mk10 = G.night(s10, { ate: 3, food: s10.stores.sausage, men: ['DESI', 'OKAFOR', 'RAY'], day: 3, act: 1, rand: () => 0 });
+  ok('G7 clean meat from his own grinder is safe: the same night out of a clean batch marks nobody (' + mk10.length + ')', mk10.length === 0);
+  const s11 = G.make(); G.bring(s11, { humans: 2, crew: 6, min: 0 }); G.grind(s11, { food: 0, min: 1, rand: () => 0.0 }); sale(s11, { units: 20, rand: seq([0, 0, 0, 0.5, 0.5, 0.99]) });
+  const tw1 = G.townsShaking(s11, { act: 2, day: 1, yearsBetween: (a, b) => Math.abs(b - a) * 35 }), tw2 = G.townsShaking(s11, { act: 2, day: 2, yearsBetween: (a, b) => Math.abs(b - a) * 35 });
+  ok('G8 a town he sold a bad batch to finds out when its own people shake, an act on: ' + tw1.map(t => t.place + ' ' + t.act).join(', ') + ', once (then ' + tw2.length + ')', tw1.length === 1 && tw1[0].act === 'offensive_action' && tw2.length === 0, JSON.stringify(s11.sold));
+  const s12 = G.make(); G.reconcile(s12, 100); s12.stores.sausage = 50; s12.stores.man = 50; G.reconcile(s12, 50);
+  ok('G9 the stores: when the food count halves (the night, a sale, anything) his sausage in it halves too (' + s12.stores.sausage + ' of 50)', s12.stores.sausage === 25 && s12.stores.man === 25);
+  const s13 = G.make(); G.bring(s13, { humans: 2, crew: 6, min: 0 }); G.grind(s13, { food: 0, min: 1, rand: () => 0.99 }); s13.stores.bad = s13.stores.sausage;   /* PLANTED: a clean batch written bad by hand */
+  ok('G9 planted: a clean batch written bad by hand marks a man that night (the G7 safety leg would read red on it)', G.night(s13, { ate: 1, food: s13.stores.sausage, men: ['DESI'], day: 3, act: 1, rand: () => 0 }).length === 1);
+  const nosell = G.make(); G.bring(nosell, { humans: 1, crew: 6, min: 0 }); const gx = G.grind(nosell, { food: 0, min: 24 * 60 + 5 });
+  ok('G9 planted: the dead brought home two days ago grind into nothing (' + (gx.why || gx.food) + '): the heat leg would read red on a pile that never turns', !gx.ok && gx.why === 'NOBODY'); }
 if (process.argv.includes('--engine')) done();
 
 /* ---------------- ON THE DEMO ---------------- */
@@ -333,6 +375,18 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       const ro15 = await fr.evaluate(l => { const b = __HOME_BARE_AT(); return { shut: window.__HOME_SHUT, real: !!document.getElementById('stallstrip'), doors: b.doors, keepers: b.keepers, crowd: b.crowd, hdoor: (window.__HOME_DOORS || []).indexOf('h' + l) >= 0, lot: l }; }, sl15);
       const shop15 = r => r.real && !r.shut && r.doors.indexOf('stall') >= 0 && !r.hdoor && r.keepers.indexOf('stall') >= 0;
       ok('D15 a vendor stall standing on lot ' + ((sl15 | 0) + 1) + ': the vendor stall IS the stall\'s door (one door, not two), somebody come to work it, ' + ro15.crowd + ' come to buy; a real tap on it trades (its own sheet)', o15 && shop15(ro15), JSON.stringify(ro15));
+      /* D22 SELLING IT (HOME BASE 3, rule 469(c)): food with his people's sausage in it, sold at this stall by the stall's own SELL NOW (a
+         real right click on SELL, the double tap's path); the odds of finding out set to every time for the leg: the town's bar moves by the ladder's act and
+         the stall's strip says so; a hungry town would not ask (engine leg G6) */
+      await F.evaluate(() => { BohemiaGrinder.data().found_out_pct.value = 100; const w = wagonGet() || {}; w.food = Math.max(w.food | 0, 40); wagonPut(w);
+        const st = BohemiaHomeMap.grinderState(); st.stores.seen = w.food; st.stores.sausage = w.food; st.stores.man = w.food; });
+      await fr.evaluate(() => { window.__GRINDER_FOUND = null; window.__GRINDER_SOLD = undefined; });
+      const sb22 = await fr.evaluate(() => { const b = document.querySelector('#sbody .stline[data-key="food"] .sb[data-side="sell"]'); if (!b) return null; b.scrollIntoView({ block: 'center' }); const r = b.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2, b.className]; });
+      if (sb22) await fr.click('#sbody .stline[data-key="food"] .sb[data-side="sell"]', { button: 'right', timeout: 6000 }).catch(() => {});   /* the stall's own SELL NOW (its right click, the double tap's same path: stallTap(key, side, true)), as a real click; two taps on a phone are one answer under the swallow */
+      let fo22 = null; for (let i = 0; i < 16 && !(fo22 && fo22.found); i++) { await P.waitForTimeout(250); fo22 = await fr.evaluate(() => ({ found: window.__GRINDER_FOUND, sold: window.__GRINDER_SOLD === undefined ? 'no sale' : window.__GRINDER_SOLD, strip: (document.getElementById('stallstrip') || {}).textContent || '' })); }
+      await F.evaluate(() => { BohemiaGrinder.data().found_out_pct.value = 15; });
+      ok('D22 SELLING IT: a real SELL NOW sells food with his people\'s sausage in it (' + (fo22 && fo22.sold && fo22.sold.n) + ' units); they find out: this town\'s bar ' + (fo22 && fo22.found && fo22.found.before) + ' -> ' + (fo22 && fo22.found && fo22.found.after) + ' (' + (fo22 && fo22.found && fo22.found.act) + '), the strip: "' + String(fo22 && fo22.strip || '').slice(-34) + '"',
+        !!sb22 && !!fo22 && !!fo22.found && fo22.found.act === 'minor_offensive_action' && fo22.found.before - fo22.found.after === 10 && /people/.test(fo22.strip || ''), JSON.stringify({ sb22, fo22 }));
       await close15();
       await fr.evaluate(() => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); h.opens = null; window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); }); await P.waitForTimeout(800);
       const m15 = await fr.evaluate(l => { const b = __HOME_BARE_AT(); return { shut: null, real: true, doors: b.doors, keepers: b.keepers, hdoor: (window.__HOME_DOORS || []).indexOf('h' + l) >= 0 }; }, sl15);
@@ -421,6 +475,34 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       const can17 = await fr.evaluate(() => window.__HOME_CAN || []);
       ok('D17 the desk says his place can TRAIN, CRAFT and WATCH (' + can17.join(', ') + ')', ['TRAIN', 'CRAFT', 'WATCH'].every(c => can17.indexOf(c) >= 0), JSON.stringify(can17));
       await close15();
+      /* D22 THE GRINDER (HOME BASE 3, 11/22, rule 469: his 'C' and 'Ppl dont eat the brain tho'): a real tap on the desk puts it up; the next day
+         it stands, a door, its own piece in the footage on its row; a fight he wins brings its people home, as many as his men carry (the map's
+         own hook, the fight's own outcome); a real tap on it, then GRIND: the food goes up by what the dead make; NOBODY TO GRIND after; a fight
+         lost brings nobody (planted). At a stall, a sale of it where they find out moves that town's bar by the ladder's act and the strip says so. */
+      await F.evaluate(() => { const w = wagonGet() || {}; w.tape = 30; wagonPut(w); window.__HOME_PLACE_BUILT = null; });
+      await tap15('build', () => { if (/^h\d+$/.test(BohemiaSettlement.state.open || '')) { const m = document.querySelector('#sbody .act[data-home="more"]'); if (m) m.click(); } return !!document.querySelector('#sbody .act[data-place="grinder"]'); });
+      const gr22 = await fr.evaluate(() => { const b = document.querySelector('#sbody .act[data-place="grinder"]'); return b ? b.textContent : null; });
+      await tapQ17('#sbody .act[data-place="grinder"]', () => !!window.parent.__HOME_PLACE_BUILT && window.parent.__HOME_PLACE_BUILT.id === 'grinder');
+      const y22 = await F.evaluate(() => ({ built: window.__HOME_PLACE_BUILT, tape: (wagonGet() || {}).tape }));
+      ok('D22 THE GRINDER: the desk offers it ("' + gr22 + '"); a real tap puts it up for a battery and 3 tape (30 -> ' + y22.tape + ')', !!y22.built && y22.built.id === 'grinder' && y22.tape === 27 && /GRINDER/.test(gr22 || ''), JSON.stringify({ y22, gr22 }));
+      await F.evaluate(() => { DAY.day = (DAY.day | 0) + 1; const bs = ctBases(), n = BohemiaBetween.mine(); loopOpenTown({ name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }); });
+      await P.waitForTimeout(2500); await gone15(); await close15();
+      const gk22 = await fr.evaluate(() => { const p = ((window.__HOME_DESK.home || {}).places || []).filter(p => p.id === 'grinder')[0]; return p && p.done ? 'h' + p.lot : null; });
+      const gs22 = await (async () => { for (let i = 0; i < 12; i++) { const f = await feed(); const n = Object.keys(f.slots).filter(n => f.slots[n].kind === 'place' && f.slots[n].id === 'grinder')[0]; if (n) return [+n, f.slots[n].pid, !!MAN.pieces[f.slots[n].pid] && MAN.pieces[f.slots[n].pid].row === rowOfLot[n]]; await P.waitForTimeout(250); } return null; })();
+      ok('D22 the next day it stands, a door (' + gk22 + '), and the footage shows its own piece (' + (gs22 && gs22[1]) + ') on lot ' + (gs22 && gs22[0]) + ' of its row', !!gk22 && await fr.evaluate(k => (window.__HOME_DOORS || []).indexOf(k) >= 0, gk22) && !!gs22 && gs22[1] === 'grinder' && gs22[2], JSON.stringify(gs22));
+      const fh22 = await F.evaluate(() => { const lost = BohemiaHomeMap.grinderFight({ outcome: { victory: false, bodies: [{ beast: false }] } });
+        const won = BohemiaHomeMap.grinderFight({ outcome: { victory: true, bodies: [{ beast: false }, { beast: false }, { beast: false }, { beast: false }, { beast: false }, { beast: true, kind: 'coyote' }] } });
+        return { lost: lost, won: won, now: BohemiaHomeMap.grinder(), crew: crewCount() }; });
+      ok('D22 a fight he wins brings its people home, as many as his ' + fh22.crew + ' men carry (' + (fh22.won && fh22.won.took) + ' of 5; the coyote is the kill\'s); planted: a fight lost brings nobody (' + fh22.lost + ')', !!fh22.won && fh22.won.took >= 1 && fh22.won.took + fh22.won.left === 5 && fh22.lost === null && fh22.now.dead === fh22.won.took, JSON.stringify(fh22));
+      await tap15(gk22, () => !!document.querySelector('#sbody .act[data-grind]'));
+      const gb22 = await fr.evaluate(() => { const b = document.querySelector('#sbody .act[data-grind]'); return b ? { t: b.textContent, off: b.disabled, say: (document.querySelector('#sbody .say p') || {}).textContent || '' } : null; }) || {};
+      const w22 = await F.evaluate(() => (wagonGet() || {}).food | 0);
+      await tapQ17('#sbody .act[data-grind]', () => !!window.__HOME_GRIND);
+      const w22b = await F.evaluate(() => ({ food: (wagonGet() || {}).food | 0, now: BohemiaHomeMap.grinder(), ground: window.__HOME_GROUND || {} }));
+      const ga22 = await fr.evaluate(() => { const b = document.querySelector('#sbody .act[data-grind]'); return { t: b ? b.textContent : null, off: b ? b.disabled : null, say: (document.querySelector('#sbody .say p') || {}).textContent || '' }; });
+      ok('D22 at the grinder one line ("' + gb22.say + '") and one button ("' + gb22.t + '"); a real tap grinds: food ' + w22 + ' -> ' + w22b.food + ', then "' + ga22.t + '", "' + ga22.say + '"',
+        /head/i.test(gb22.say || '') && !gb22.off && /GRIND/.test(gb22.t || '') && w22b.ground.food > 0 && w22b.food - w22 === w22b.ground.food && w22b.now.dead === 0 && ga22.off && /NOBODY/.test(ga22.t || '') && /\+\d+ food/.test(ga22.say), JSON.stringify({ gb22, w22, w22b, ga22 }));
+      await close15();
       /* F4 HIS MEN AT HIS BUILDINGS, ON THE FOOTAGE (rule 458(c)): each once in his place, standing on his building's lot */
       await close15();
       const m19 = await fr.evaluate(() => { const W = window.__HOME_WORKERS || [], here = BohemiaSettlement.crewHere().map(p => p.name), F = window.__HOME_FEED_PEOPLE(); return { W, twice: W.filter(w => here.filter(n => n === w.name).length !== 1).map(w => w.name), on: F.filter(p => p.works).map(p => p.name + '@' + p.works) }; });
@@ -438,8 +520,8 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       await fr.evaluate(() => { try { window.__HOME_FEED_AGE(0); } catch (e) {} });
       const g6 = await fr.evaluate(async () => { const f = window.__HOME_FEED, n = [1, 2, 3, 4, 5, 6, 7, 8].filter(x => !f.slots[x])[0], at = n ? window.__HOME_FEED_AT(n) : null; return { n, at, back: [9, 10, 11, 12].map(x => f.slots[x] ? (f.slots[x].pid || f.slots[x].kind) : null) }; });
       if (g6.at) { await P.touchscreen.tap(fb.x + g6.at.x, fb.y + g6.at.y); await P.waitForTimeout(1300); }
-      const r6 = await fr.evaluate(() => [...document.querySelectorAll('#sbody .act[data-build="roof"], #sbody .act[data-place="lookout"], #sbody .act[data-build="garden"]')].map(b => (b.dataset.build || b.dataset.place) + ':' + (b.disabled ? 'off' : 'on') + ':' + (b.dataset.rowfull || '') + ':' + ((b.querySelector('em') || {}).textContent || '')));
-      ok('F6 the back row full (' + g6.back.join(', ') + '): the roof is offered greyed, THE BACK ROW IS FULL (the lookout greyed, one of each or the row); the garden (the middle row) is not', r6.some(x => /^roof:off:back:THE BACK ROW IS FULL/.test(x)) && r6.some(x => /^lookout:off:/.test(x)) && r6.some(x => /^garden:(on|off)::/.test(x)), JSON.stringify({ g6, r6 }));
+      const r6 = await fr.evaluate(() => [...document.querySelectorAll('#sbody .act[data-build="roof"], #sbody .act[data-place="lookout"], #sbody .act[data-build="wall"]')].map(b => (b.dataset.build || b.dataset.place) + ':' + (b.disabled ? 'off' : 'on') + ':' + (b.dataset.rowfull || '') + ':' + ((b.querySelector('em') || {}).textContent || '')));
+      ok('F6 the back row full (' + g6.back.join(', ') + '): the roof is offered greyed, THE BACK ROW IS FULL (the lookout greyed, one of each or the row); the wall (the front row, two of four taken) is not (HOME BASE 3 11/22: was the garden, but the D22 grinder now fills the middle row by this leg)', r6.some(x => /^roof:off:back:THE BACK ROW IS FULL/.test(x)) && r6.some(x => /^lookout:off:/.test(x)) && r6.some(x => /^wall:(on|off)::/.test(x)), JSON.stringify({ g6, r6 }));
       await close15();
       await F.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); }); await P.waitForTimeout(2500); await gone15(); await close15();
       await F.evaluate(() => { const r = BohemiaHomeMap.rec(); r.places = []; localStorage.removeItem('bohemia.home.trained.v1'); DAY.day = (DAY.day | 0) - 2; const bs = ctBases(), n = BohemiaBetween.mine(), t = { name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }; loopOpenTown(t); });

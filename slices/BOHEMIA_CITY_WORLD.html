@@ -95188,6 +95188,7 @@ window.BOHEMIA_SKIN = (function(){
 <script defer src="../engine/bohemia_idles.js"></script>
 <script defer src="../engine/bohemia_wear.js"></script>  <script defer src="../engine/bohemia_march_acts.js"></script>  <!-- __THEY_MEND_ON_THE_MARCH__ (ANIMATION, ask line 314) -->  <!-- __THE_ARMOUR_HE_WEARS_SHOWS__ (CHARACTER, rule 272): his helmet and body armour on him on the map -->  <!-- __EVERYBODY_IDLES__ (ANIMATION, rule 130(a)): a person standing on the map breathes and idles -->
 <script src="../engine/bohemia_home.js"></script>  <!-- __HOME_BASE__ HOME BASE (rule 437(b), ask lines 356, 522): your settlement, planted where you choose -->
+<script src="../engine/bohemia_grinder.js"></script>  <!-- __THE_GRINDER__ HOME BASE 3 (rule 469): the dead come home and go in the grinder at his place -->
 <script>
 /* ==== __HOME_BASE__ (HOME BASE 11/8/26, VAMILY rule 437(b), ask lines 356 and 522; rules 347, 343, 412, 429(h), 434) ====
    PAOLO 11/3: 'you plant your part of the city kind of wherever you want... maybe it'll be a smart system... you gotta be in charge
@@ -95574,7 +95575,100 @@ function homeTrain(name){ var r = homeRec(); if (!r || !BohemiaHome.placesOf(r, 
   try { localStorage.setItem(HOME_TRAINED_KEY, JSON.stringify(st)); } catch (_e) {} return st[name]; }
 /* THE CORK BOARD went to the graveyard 11/21 (rule 466(b)): graveyard/home_base_the_cork_board_11_17_26/ */
 /* ==== /__HIS_OWN_BUILDINGS__ ==== */
-window.BohemiaHomeMap = { placeBuild: homePlaceBuild, press: homePress, watch: homeWatch, train: homeTrain, trainedAll: homeTrainedAll, give: homeGive, bossGifts: homeBossGifts, state: homeState, plant: homePlant, rawSeat: homeRawSeat, plantAt: homePlantAt, payGoods: homePayGoods, morning: homeMorning, workers: homeWorkers, choose: homeChoose, rename: homeRename, go: homeGo, probe: homeProbe, offer: homeOffer, billNight: homeBillNight, rec: homeRec, label: homeLabel };
+/* ==== __THE_GRINDER__ (HOME BASE 3, 11/22, VAMILY rule 469: his 'C' and 'Ppl dont eat the brain tho'; rules 456, 460, 466(c)) ====
+   His fourth building of his own (records/target/bb/home_base.json places.grinder, put up from the BUILD desk like the forge). With it
+   standing: (1) a fight he wins brings its dead home, the people, as many as his company carries (engine/bohemia_grinder.js bring);
+   (2) a kill he takes on the map gives the company what it eats before it turns, as it always did (WORLD 12's, untouched), and the
+   rest of its meat comes home too (read from BohemiaCarcass' own state and its taken list, never its file); (3) at the grinder one
+   tap, GRIND: the dead still good go in, the head first out, and the sausage is in the top bar's FOOD. UNDERNEATH, NEVER SAID: the
+   heat (a day on the road and they have turned), the bad cut now and then, the stall's careless can, the night that marks a man who
+   ate from a bad batch, the shakes that show acts later (a man who lives at his place: his story says it), a town that finds out it
+   was people (the town screen moves its bar), a town he sold a bad batch to that shakes years on (JOBS' settle queue, the worse act).
+   Words: none here; the town screen's sheet says the fewest (home_base.json places.words). ==== */
+var GRIND = { key: 'bohemia.grinder.v1', st: null, seed: null, last: null, kill: { kg: {}, done: {}, primed: false } };
+function grindReady(){ try { return !!(window.BohemiaGrinder && HOME.data && HOME.data.grinder && (BohemiaGrinder.data() || BohemiaGrinder.setData(HOME.data))); } catch (_e) { return false; } }
+function grindSt(){
+  var sd = homeSeed(); if (GRIND.st && GRIND.seed === sd) return GRIND.st;
+  var o = null; try { o = JSON.parse(localStorage.getItem(GRIND.key) || 'null'); } catch (_e) {}
+  if (o && o.seed !== sd) o = null;   /* a different valley, a new game: nothing of the old one's dead */
+  GRIND.st = BohemiaGrinder.load(o); GRIND.st.seed = sd; GRIND.seed = sd; return GRIND.st; }
+function grindSave(){ try { if (GRIND.st) localStorage.setItem(GRIND.key, JSON.stringify(GRIND.st)); } catch (_e) {} }
+function grindStands(){ var r = homeRec(); return !!(r && r.planted && BohemiaHome.placesOf(r, homeDay()).some(function(p){ return p.id === 'grinder' && p.done; })); }
+function grindMin(){ try { return (T.day | 0) * 1440 + (T.min | 0); } catch (_e) { return homeDay() * 1440; } }
+function grindFood(){ var w = wagonGet(); return w ? (w.food | 0) : 0; }
+function grindKgNight(){ try { var C = window.BohemiaCarcass && BohemiaCarcass.data && BohemiaCarcass.data(), v = C && C.meat && C.meat.kg_a_night; v = v && typeof v === 'object' ? +v.value : +v; return v > 0 ? v : 0.5; } catch (_e) { return 0.5; } }
+function grindMen(){ var out = []; try { (crewMen() || []).forEach(function(m, i){ if (i > 0 && m && m.name && m.name !== 'YOU') out.push(String(m.name)); }); } catch (_e) {} return out; }   /* never him: the main character never dies (the third votes) */
+function grindBring(o){ var st = grindSt(), r = BohemiaGrinder.bring(st, Object.assign({ crew: crewCount(), min: grindMin(), day: homeDay(), act: homeAct() }, o)); grindSave();
+  GRIND.last = Object.assign({ at: grindMin() }, o, r); window.__GRIND_LAST = GRIND.last; return r; }
+/* (1) a fight won: the people who fell come home, as many as the company carries */
+function grindFightHome(d){
+  if (!grindReady() || !grindStands()) return null;
+  var o = (d && d.outcome) || {};
+  if (o.withdrew || o.arena || o.retreated || !(o.victory || o.result === 'win')) return null;   /* he ran, he lost, or the pit */
+  var men = 0;
+  if (Array.isArray(o.bodies)) o.bodies.forEach(function(b){ if (b && !b.beast) men++; });
+  else if ((o.dead | 0) > 0) { var f = null, beasts = false; try { f = window.__HANDED && window.__HANDED.party && window.__HANDED.party.faction; } catch (_e) {}
+    try { var CD = window.BohemiaCarcass && BohemiaCarcass.data(); beasts = !!(CD && CD.by_faction && f && CD.by_faction[f]); } catch (_e) {}
+    if (!beasts) men = o.dead | 0; }
+  if (!men) return null;
+  return grindBring({ humans: men, from: 'fight' });
+}
+window.addEventListener('message', function(ev){ var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_CITY_COMBAT_END') return;
+  try { if (HOME.data) grindFightHome(d); else setTimeout(function(){ try { grindFightHome(d); } catch (_e) {} }, 1500); } catch (e) { window.__GRIND_ERR = String(e && e.message || e); } });
+/* (2) a kill taken: what the company could not eat comes home (the kill's meat less its nights, read off the kill before it went) */
+function grindKills(){
+  var C = window.BohemiaCarcass, K = GRIND.kill; if (!C || !C.state || !C.last || !C.foodOf) return 0;
+  var n = 0, L = (C.last() || {}).taken || [];
+  L.forEach(function(t){ var k = t.id + ':' + t.at; if (K.done[k]) return; K.done[k] = 1;
+    if (!K.primed || !grindReady() || !grindStands()) return;
+    var rest = Math.max(0, (K.kg[t.id] || 0) - (t.food | 0) * grindKgNight());
+    if (rest > 0) { grindBring({ humans: 0, beastKg: rest, from: 'kill' }); n++; } });
+  K.primed = true; K.kg = {};
+  try { (C.state().list || []).forEach(function(c){ (c.goods || []).forEach(function(g){ if (g.what === 'meat') K.kg[c.id] = g.kg || 0; }); }); } catch (_e) {}
+  return n;
+}
+setInterval(function(){ try { grindKills(); } catch (_e) {} }, 700);
+/* (3) ONE TAP at the grinder */
+function homeGrind(){
+  if (!grindReady()) return { ok: false, why: 'NOT_READY' }; if (!grindStands()) return { ok: false, why: 'NO_GRINDER' };
+  var st = grindSt(), w = wagonGet() || { food: 0 }, res = BohemiaGrinder.grind(st, { food: w.food | 0, min: grindMin(), kgNight: grindKgNight() });
+  grindSave(); if (!res.ok) return res;
+  w.food = (w.food | 0) + res.food; wagonPut(w);
+  try { billPublish(); } catch (_e) {} try { updHud(); } catch (_e) {} try { if (typeof window.__barPaintRead === 'function') window.__barPaintRead(); } catch (_e) {}
+  try { saveNow('the grinder'); } catch (_e) {}
+  window.__HOME_GROUND = { food: res.food, dead: res.dead, beastKg: res.beastKg, n: ((window.__HOME_GROUND || {}).n | 0) + 1 };   /* read only; the bad cut is never on it */
+  return { ok: true, food: res.food, dead: res.dead, beastKg: res.beastKg };
+}
+function homeGrinderNow(){ if (!grindReady()) return null; var st = grindSt(), P = BohemiaGrinder.pileNow(st, grindMin(), grindKgNight()); grindSave();
+  return { stands: grindStands(), dead: P.dead, beastKg: P.beastKg, food: P.food, carryKg: BohemiaGrinder.carryKg(crewCount()) }; }
+/* the night: they eat; a man whose share came out of a bad batch may carry it (never said) */
+(function(){ var cb = crewBillNight; crewBillNight = function(){ var f0 = grindFood(), out = cb.apply(this, arguments);
+  try { if (grindReady()) { var st = grindSt(); if (st.stores.sausage > 0 || st.stores.bad > 0) { var ate = (out && out.ate && out.ate.food) | 0;
+    var mk = BohemiaGrinder.night(st, { ate: ate, food: f0, men: grindMen(), day: homeDay(), act: homeAct() }); grindSave();
+    if (mk.length) window.__GRIND_MARKS = (window.__GRIND_MARKS || []).concat(mk.map(function(m){ return m.name; })); } } } catch (_e) {}
+  return out; }; })();
+/* a town's stall: a can bought now and then came from somebody who does not care; a sale of his sausage may tell them it was people */
+window.addEventListener('message', function(e){ var d = e.data || {};
+  try {
+    if (d.type === 'BOHEMIA_SETTLEMENT' && d.act === 'buy' && d.good === 'food' && !d.back && grindReady()) { var st = grindSt(), n = d.n | 0;
+      BohemiaGrinder.bought(st, { units: n, food: Math.max(0, grindFood() - n) }); grindSave(); }
+    if (d.type === 'BOHEMIA_GRINDER_SOLD' && grindReady()) { var s2 = grindSt(), u = d.n | 0;
+      var res = BohemiaGrinder.sale(s2, { units: u, food: grindFood() + u, place: d.place, hungry: !!d.hungry, day: homeDay(), act: homeAct() }); grindSave();
+      window.__GRIND_SALE = { man: res.man, found: res.found, place: d.place, hungry: !!d.hungry };
+      if (res.found) { try { LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_GRINDER_FOUND', place: d.place, act: res.act, say: ((HOME.data.places || {}).words || {}).found || null }, '*'); } catch (_e) {} } }
+  } catch (_e) {} });
+/* it shows late: a man who lives at his place shakes in his story; a town he sold a bad batch to finds out when its own people shake */
+function grindShows(){
+  if (!grindReady()) return 0; var st = grindSt(); if (!st.marks.length && !st.sold.length) return 0;
+  var o = { act: homeAct(), day: homeDay(), yearsBetween: (window.BohemiaActs && BohemiaActs.yearsBetween) ? BohemiaActs.yearsBetween : null }, r = homeRec(), n = 0;
+  BohemiaGrinder.showing(st, o).forEach(function(m){ if (st.shown[m.name]) return; st.shown[m.name] = { day: homeDay(), act: homeAct() }; n++;
+    if (r && r.planted && (r.residents || []).some(function(p){ return p.name === m.name; })) BohemiaHome.note(r, { kind: 'shakes', who: m.name, day: homeDay(), act: homeAct() }); });
+  BohemiaGrinder.townsShaking(st, o).forEach(function(t){ n++; try { if (window.BohemiaJobKinds && BohemiaJobKinds.settleJob) BohemiaJobKinds.settleJob({ from: t.place, id: 'grinder:' + t.place + ':' + homeAct() }, t.act); } catch (_e) {} });
+  if (n) { grindSave(); homeSave(); } return n;
+}
+setInterval(function(){ try { grindShows(); } catch (_e) {} }, 3000);
+/* ==== /__THE_GRINDER__ ==== */
+window.BohemiaHomeMap = { placeBuild: homePlaceBuild, press: homePress, watch: homeWatch, train: homeTrain, trainedAll: homeTrainedAll, give: homeGive, bossGifts: homeBossGifts, state: homeState, plant: homePlant, rawSeat: homeRawSeat, plantAt: homePlantAt, payGoods: homePayGoods, morning: homeMorning, workers: homeWorkers, choose: homeChoose, rename: homeRename, go: homeGo, probe: homeProbe, offer: homeOffer, billNight: homeBillNight, rec: homeRec, label: homeLabel, grind: homeGrind, grinder: homeGrinderNow, grinderState: function(){ return grindReady() ? grindSt() : null; }, grinderShows: grindShows, grinderFight: grindFightHome };   /* __THE_GRINDER__ (HOME BASE 3): grind, grinder (what the pile makes now), grinderState for gates */
 /* ==== /__HOME_BASE__ ==== */
 </script>
 </body></html>

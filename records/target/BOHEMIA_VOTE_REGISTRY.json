@@ -23847,7 +23847,31 @@
   {"id": "ui5-each-slot-its-own-picture-11-22", "kind": "ui", "lane": "ui five", "sha": "370e2a6db", "made": "11/22", "draft": true, "title": "A BOUGHT PIECE NO LONGER LEAVES ITS PICTURE BEHIND: EVERY SHOP SLOT WEARS ITS OWN PIECE", "said": "if I buy the most expensive item and there's something else I wanna buy that's the second most expensive item, it will still have the icon of that first item", "why": "After you buy something the shop's pictures no longer slide onto the wrong pieces, because every slot now draws the piece it really holds. You see it in the CITY at any armourer or smith, and on the demo; before is on top, now below.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/ui5_each_slot_its_own_picture_11_22/before_and_now.webp",
     "first": "../records/target/vote_first/ui5-each-slot-its-own-picture-11-22.webp",
     "firstAt": [0, 0, 1146, 560]
-   }, "before_after": {"before": "one buy and every drawn picture after the bought place slid a slot; the empty place kept a ghost picture", "after": "every slot wears its own piece's picture after every buy and sell", "scale": "the demo on a 390 x 844 phone, Caravans' armourer"}, "record": "records/BOHEMIA_UI_FIVE_EACH_SLOT_ITS_OWN_PICTURE_11_22_26.md"}
+   }, "before_after": {"before": "one buy and every drawn picture after the bought place slid a slot; the empty place kept a ghost picture", "after": "every slot wears its own piece's picture after every buy and sell", "scale": "the demo on a 390 x 844 phone, Caravans' armourer"}, "record": "records/BOHEMIA_UI_FIVE_EACH_SLOT_ITS_OWN_PICTURE_11_22_26.md"},
+    {
+     "id": "home-base-the-grinder-11-22",
+     "kind": "ui",
+     "lane": "home base",
+     "sha": "69309c4a9",
+     "made": "11/22",
+     "draft": true,
+     "title": "THE GRINDER AT YOUR PLACE: THE DEAD COME HOME, ONE TAP MAKES FOOD",
+     "said": "C ... Ppl dont eat the brain tho",
+     "why": "Your place can have a grinder now: build it like the forge (1 battery, 3 tape). When you win a fight, the people who died come home with you, as many as your men can carry (3 men carry 1). Tap the grinder, then GRIND: the head comes off first, the rest goes in, and the food in the top bar goes up (one body is 26 food, about four nights for six men). Towns buy it as food. You see it at your place on the demo: plant it from day 2, build the grinder, win a fight, open your place.",
+     "show": {
+      "how": "image",
+      "src": "../records/target/home_base/vote_the_grinder.webp",
+      "first": "../records/target/vote_first/home-base-the-grinder-11-22.webp",
+      "firstAt": [390, 0, 390, 844]
+     },
+     "before_after": {
+      "before": "his place had no grinder; the people his company killed stayed where they fell",
+      "after": "the grinder stands on a lot of his place's middle row in the security footage (a block smokehouse, a butcher's table and a hand grinder, a rail of links); one tap grinds the dead he brought home into food",
+      "scale": "the demo on his phone: the top row upright (390 x 844), below it sideways (844 x 390) before and after the tap"
+     },
+     "stage": "stand_in",
+     "record": "records/BOHEMIA_HOME_BASE_THE_GRINDER_11_22_26.md"
+    }
  ],
  "verdicts": [
   {

@@ -7192,6 +7192,487 @@
     }
    },
    "cams": "0fd01b2b1654"
+  },
+  "grinder": {
+   "row": "middle",
+   "src": "his:grinder",
+   "states": {
+    "built": {
+     "size_m": [
+      5.2,
+      3.48,
+      3.29
+     ],
+     "pics": {
+      "1_tall_5": {
+       "pictures": [
+        "grinder_built_cam1_tall_lot5_0.png"
+       ],
+       "xy": [
+        16,
+        148
+       ]
+      },
+      "1_tall_6": {
+       "pictures": [
+        "grinder_built_cam1_tall_lot6_0.png"
+       ],
+       "xy": [
+        52,
+        144
+       ]
+      },
+      "1_tall_7": {
+       "pictures": [
+        "grinder_built_cam1_tall_lot7_0.png"
+       ],
+       "xy": [
+        68,
+        144
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "grinder_built_cam1_tall_lot8_0.png"
+       ],
+       "xy": [
+        68,
+        148
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "grinder_built_cam1_wide_lot5_0.png"
+       ],
+       "xy": [
+        76,
+        64
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "grinder_built_cam1_wide_lot6_0.png"
+       ],
+       "xy": [
+        120,
+        60
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "grinder_built_cam1_wide_lot7_0.png"
+       ],
+       "xy": [
+        132,
+        60
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "grinder_built_cam1_wide_lot8_0.png"
+       ],
+       "xy": [
+        132,
+        64
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "grinder_built_cam2_tall_lot5_0.png"
+       ],
+       "xy": [
+        16,
+        148
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "grinder_built_cam2_tall_lot6_0.png"
+       ],
+       "xy": [
+        52,
+        148
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "grinder_built_cam2_tall_lot7_0.png"
+       ],
+       "xy": [
+        76,
+        144
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "grinder_built_cam2_tall_lot8_0.png"
+       ],
+       "xy": [
+        76,
+        148
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "grinder_built_cam2_wide_lot5_0.png"
+       ],
+       "xy": [
+        72,
+        64
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "grinder_built_cam2_wide_lot6_0.png"
+       ],
+       "xy": [
+        116,
+        60
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "grinder_built_cam2_wide_lot7_0.png"
+       ],
+       "xy": [
+        144,
+        60
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "grinder_built_cam2_wide_lot8_0.png"
+       ],
+       "xy": [
+        144,
+        60
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "grinder_built_cam3_tall_lot5_0.png"
+       ],
+       "xy": [
+        16,
+        144
+       ]
+      },
+      "3_tall_6": {
+       "pictures": [
+        "grinder_built_cam3_tall_lot6_0.png"
+       ],
+       "xy": [
+        56,
+        144
+       ]
+      },
+      "3_tall_7": {
+       "pictures": [
+        "grinder_built_cam3_tall_lot7_0.png"
+       ],
+       "xy": [
+        60,
+        148
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "grinder_built_cam3_tall_lot8_0.png"
+       ],
+       "xy": [
+        60,
+        148
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "grinder_built_cam3_wide_lot5_0.png"
+       ],
+       "xy": [
+        80,
+        60
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "grinder_built_cam3_wide_lot6_0.png"
+       ],
+       "xy": [
+        120,
+        60
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "grinder_built_cam3_wide_lot7_0.png"
+       ],
+       "xy": [
+        128,
+        60
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "grinder_built_cam3_wide_lot8_0.png"
+       ],
+       "xy": [
+        128,
+        64
+       ]
+      }
+     }
+    },
+    "working": {
+     "size_m": [
+      5.2,
+      3.48,
+      3.61
+     ],
+     "pics": {
+      "1_tall_5": {
+       "pictures": [
+        "grinder_working_cam1_tall_lot5_0.png",
+        "grinder_working_cam1_tall_lot5_1.png"
+       ],
+       "xy": [
+        16,
+        144
+       ]
+      },
+      "1_tall_6": {
+       "pictures": [
+        "grinder_working_cam1_tall_lot6_0.png",
+        "grinder_working_cam1_tall_lot6_1.png"
+       ],
+       "xy": [
+        52,
+        144
+       ]
+      },
+      "1_tall_7": {
+       "pictures": [
+        "grinder_working_cam1_tall_lot7_0.png",
+        "grinder_working_cam1_tall_lot7_1.png"
+       ],
+       "xy": [
+        68,
+        144
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "grinder_working_cam1_tall_lot8_0.png",
+        "grinder_working_cam1_tall_lot8_1.png"
+       ],
+       "xy": [
+        68,
+        144
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "grinder_working_cam1_wide_lot5_0.png",
+        "grinder_working_cam1_wide_lot5_1.png"
+       ],
+       "xy": [
+        32,
+        60
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "grinder_working_cam1_wide_lot6_0.png",
+        "grinder_working_cam1_wide_lot6_1.png"
+       ],
+       "xy": [
+        120,
+        60
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "grinder_working_cam1_wide_lot7_0.png",
+        "grinder_working_cam1_wide_lot7_1.png"
+       ],
+       "xy": [
+        132,
+        60
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "grinder_working_cam1_wide_lot8_0.png",
+        "grinder_working_cam1_wide_lot8_1.png"
+       ],
+       "xy": [
+        132,
+        64
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "grinder_working_cam2_tall_lot5_0.png",
+        "grinder_working_cam2_tall_lot5_1.png"
+       ],
+       "xy": [
+        16,
+        148
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "grinder_working_cam2_tall_lot6_0.png",
+        "grinder_working_cam2_tall_lot6_1.png"
+       ],
+       "xy": [
+        52,
+        144
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "grinder_working_cam2_tall_lot7_0.png",
+        "grinder_working_cam2_tall_lot7_1.png"
+       ],
+       "xy": [
+        76,
+        144
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "grinder_working_cam2_tall_lot8_0.png",
+        "grinder_working_cam2_tall_lot8_1.png"
+       ],
+       "xy": [
+        76,
+        144
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "grinder_working_cam2_wide_lot5_0.png",
+        "grinder_working_cam2_wide_lot5_1.png"
+       ],
+       "xy": [
+        72,
+        64
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "grinder_working_cam2_wide_lot6_0.png",
+        "grinder_working_cam2_wide_lot6_1.png"
+       ],
+       "xy": [
+        116,
+        60
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "grinder_working_cam2_wide_lot7_0.png",
+        "grinder_working_cam2_wide_lot7_1.png"
+       ],
+       "xy": [
+        144,
+        60
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "grinder_working_cam2_wide_lot8_0.png",
+        "grinder_working_cam2_wide_lot8_1.png"
+       ],
+       "xy": [
+        144,
+        60
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "grinder_working_cam3_tall_lot5_0.png",
+        "grinder_working_cam3_tall_lot5_1.png"
+       ],
+       "xy": [
+        16,
+        144
+       ]
+      },
+      "3_tall_6": {
+       "pictures": [
+        "grinder_working_cam3_tall_lot6_0.png",
+        "grinder_working_cam3_tall_lot6_1.png"
+       ],
+       "xy": [
+        56,
+        144
+       ]
+      },
+      "3_tall_7": {
+       "pictures": [
+        "grinder_working_cam3_tall_lot7_0.png",
+        "grinder_working_cam3_tall_lot7_1.png"
+       ],
+       "xy": [
+        60,
+        144
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "grinder_working_cam3_tall_lot8_0.png",
+        "grinder_working_cam3_tall_lot8_1.png"
+       ],
+       "xy": [
+        60,
+        148
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "grinder_working_cam3_wide_lot5_0.png",
+        "grinder_working_cam3_wide_lot5_1.png"
+       ],
+       "xy": [
+        80,
+        60
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "grinder_working_cam3_wide_lot6_0.png",
+        "grinder_working_cam3_wide_lot6_1.png"
+       ],
+       "xy": [
+        120,
+        60
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "grinder_working_cam3_wide_lot7_0.png",
+        "grinder_working_cam3_wide_lot7_1.png"
+       ],
+       "xy": [
+        128,
+        60
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "grinder_working_cam3_wide_lot8_0.png",
+        "grinder_working_cam3_wide_lot8_1.png"
+       ],
+       "xy": [
+        128,
+        64
+       ]
+      }
+     }
+    }
+   },
+   "cams": "0fd01b2b1654"
   }
  },
  "default": {

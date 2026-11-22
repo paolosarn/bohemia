@@ -169,4 +169,60 @@ def make(bpy, P, IC, V, K, pl, HAND, rnd, beat=0):
         P.box(bpy, 'deck_lamp', MX['lamp_on'] if lit else MX['lamp_off'], (0.18, 0.12, 0.12), (x + 1.2, yf + 1.5, 5.4))
         if lit: pl.lamps.append((x + 1.2, yf + 1.5, 5.4))
 
-    return dict(wall=wall, stall=stall, yard=yard, shed=shed, pump=pump, forge=forge, lookout=lookout)
+    # ---- THE GRINDER (HOME BASE 3, 11/22, VAMILY rule 469, rules 456, 460): a backyard butchery and its smokehouse, realism first --
+    # a block smokehouse (1.5 m square, 2.3 m) with a plank door and a stovepipe; a butcher's table (a steel top on 4x4 legs) with a
+    # hand-crank grinder clamped at its end (the hopper, the barrel, the crank); a rail on two posts where the links hang to smoke; a
+    # 40-pound bag of pool salt (rule 460: salt decides it); a lidded drum (what comes off first goes in it, never the grinder). Built:
+    # the hooks empty, the stove cold. Working: a shape under a tarp on the table, the links on the rail, smoke out of the pipe. Under
+    # the middle row's 3.8 m. No gore: what is under the tarp is never shown (rule 455: scary first, never a laugh).
+    MX.update(sausage=hm('sausage_link', (96, 44, 34)), salt=hm('salt_bag', (214, 212, 204)), salt_print=hm('salt_print', V.faded('#2f5f9a', 0.5)),
+              tarp_g=hm('tarp_grey', (112, 112, 104)), steel_top=hm('steel_top', (150, 152, 150), 0.0, 0.35))
+
+    def grinder(x, yf, st):
+        if st == 'bare': return stakes(x, yf)
+        on = st == 'working'
+        sx0, sx1, sy0, sy1 = x + 0.9, x + 2.4, yf + 2.6, yf + 4.1      # the smokehouse, back right
+        Bx('smokehouse', MX['block'], sx0, sx1, sy0, sy1, 0, 2.3)
+        P.box(bpy, 'smoke_roof', MX['tin_rust'], (1.9, 1.9, 0.04), ((sx0 + sx1) / 2, (sy0 + sy1) / 2, 2.4), rot=(math.radians(-7), 0, 0))
+        Bx('smoke_door', MX['ply'], sx0 + 0.35, sx1 - 0.35, sy0 - 0.02, sy0, 0.05, 1.9)
+        Bx('smoke_latch', MX['steel'], sx1 - 0.5, sx1 - 0.42, sy0 - 0.05, sy0 - 0.02, 0.95, 1.05)
+        P.cyl(bpy, 'stovepipe', MX['galv'], 0.08, 0.9, (sx1 - 0.35, sy1 - 0.35, 2.8), verts=10)
+        P.cyl(bpy, 'pipe_cap', MX['steel'], 0.13, 0.04, (sx1 - 0.35, sy1 - 0.35, 3.27), verts=10)
+        tx0, tx1, ty0, ty1 = x - 2.6, x - 0.2, yf + 1.4, yf + 2.3      # the butcher's table, front left
+        for (a, b) in ((tx0 + 0.1, ty0 + 0.1), (tx1 - 0.1, ty0 + 0.1), (tx0 + 0.1, ty1 - 0.1), (tx1 - 0.1, ty1 - 0.1)):
+            Bx('table_leg', MX['wood'], a - 0.05, a + 0.05, b - 0.05, b + 0.05, 0, 0.86)
+        Bx('table_top', MX['steel_top'], tx0, tx1, ty0, ty1, 0.86, 0.9)
+        Bx('table_shelf', MX['wood'], tx0 + 0.1, tx1 - 0.1, ty0 + 0.1, ty1 - 0.1, 0.22, 0.26)
+        gx_, gy_ = tx1 - 0.05, (ty0 + ty1) / 2                         # the hand grinder at the table's end
+        Bx('clamp', MX['black'], gx_ - 0.08, gx_ + 0.08, gy_ - 0.08, gy_ + 0.08, 0.72, 0.9)
+        P.cyl(bpy, 'grinder_barrel', MX['black'], 0.09, 0.34, (gx_ + 0.12, gy_, 1.04), rot=(0, math.radians(90), 0), verts=12)
+        P.cyl(bpy, 'grinder_hopper', MX['black'], 0.13, 0.16, (gx_ + 0.06, gy_, 1.24), verts=12)
+        P.cyl(bpy, 'grinder_plate', MX['steel'], 0.1, 0.03, (gx_ + 0.3, gy_, 1.04), rot=(0, math.radians(90), 0), verts=12)
+        ca = math.radians(40 if (on and beat) else -30)
+        P.rod(bpy, 'crank', MX['steel'], (gx_ - 0.06, gy_ - 0.1, 1.04), (gx_ - 0.06, gy_ - 0.1 - 0.24 * math.cos(ca), 1.04 + 0.24 * math.sin(ca)), 0.014, 6)
+        P.cyl(bpy, 'crank_knob', MX['wood'], 0.03, 0.1, (gx_ - 0.06, gy_ - 0.1 - 0.24 * math.cos(ca), 1.04 + 0.24 * math.sin(ca)), verts=8)
+        P.cyl(bpy, 'catch_pan', MX['galv'], 0.16, 0.08, (gx_ + 0.46, gy_, 0.82), verts=14)
+        Bx('pan_stand', MX['block'], gx_ + 0.3, gx_ + 0.62, gy_ - 0.16, gy_ + 0.16, 0, 0.78)
+        rx0, rx1, ry = x - 2.4, x + 0.6, yf + 3.6                      # the rail the links smoke and hang on
+        for px in (rx0, rx1): Bx('rail_post', MX['wood'], px - 0.06, px + 0.06, ry - 0.06, ry + 0.06, 0, 2.1)
+        P.rod(bpy, 'rail', MX['steel'], (rx0, ry, 2.0), (rx1, ry, 2.0), 0.025, 6)
+        for k in range(9):
+            hx = rx0 + 0.25 + k * 0.32
+            P.rod(bpy, 'hook', MX['steel'], (hx, ry, 2.0), (hx, ry, 1.86), 0.008, 4)
+            if on:
+                for j in range(3):                                     # a chain of links, each a little darker as it smokes
+                    P.cyl(bpy, 'link', MX['sausage'], 0.032, 0.2, (hx, ry, 1.74 - j * 0.22), verts=8)
+        P.box(bpy, 'salt_bag', MX['salt'], (0.42, 0.28, 0.6), (x - 0.15, yf + 1.0, 0.3), rot=(0, 0, math.radians(12)))
+        P.box(bpy, 'salt_stripe', MX['salt_print'], (0.43, 0.29, 0.1), (x - 0.15, yf + 1.0, 0.42), rot=(0, 0, math.radians(12)))
+        P.cyl(bpy, 'drum', MX['tin_rust'], 0.29, 0.88, (x + 0.5, yf + 1.6, 0.44), verts=14)
+        P.cyl(bpy, 'drum_lid', MX['steel'], 0.3, 0.03, (x + 0.5, yf + 1.6, 0.9), verts=14)
+        P.cyl(bpy, 'bucket', MX['galv'], 0.14, 0.3, (x - 2.3, yf + 1.1, 0.15), verts=12)
+        if on:
+            P.box(bpy, 'tarp_shape', MX['tarp_g'], (1.75, 0.55, 0.22), ((tx0 + tx1) / 2 - 0.25, (ty0 + ty1) / 2, 1.01))
+            P.box(bpy, 'tarp_shape_end', MX['tarp_g'], (0.32, 0.42, 0.12), (tx0 + 0.32, (ty0 + ty1) / 2, 1.18))
+            Bx('fire_mouth', MX['coal_on'], sx0 + 0.55, sx1 - 0.55, sy1 - 0.02, sy1 + 0.0, 0.1, 0.3)
+            pl.fires.append((sx1 - 0.35, sy1 - 0.2, 0.3))
+            for k in range(3):
+                P.chunk(bpy, 'smoke', MX['smoke'], (0.15 + k * 0.04,) * 3, (sx1 - 0.35 + k * 0.1, sy1 - 0.35, 3.34 + k * 0.06), (0, 0, k), rnd)   # under the middle row's 3.8 m (measured: 3.86 at first)
+
+    return dict(wall=wall, stall=stall, yard=yard, shed=shed, pump=pump, forge=forge, lookout=lookout, grinder=grinder)

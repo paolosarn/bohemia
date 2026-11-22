@@ -107,6 +107,8 @@ PIECES = {
     'pump': dict(row='middle', src='his:pump', states=['built', 'working']),
     'forge': dict(row='middle', src='his:forge', states=['built', 'working']),
     'lookout': dict(row='back', src='his:lookout', states=['built', 'working']),
+    # HOME BASE 3 11/22 (rule 469): the grinder, its smokehouse and its rail of links (the same tool, the middle row's height)
+    'grinder': dict(row='middle', src='his:grinder', states=['built', 'working']),
 }
 # the look test's block (a default layout, data, not a picture): lot -> (piece, state)
 DEFAULT = {1: ('main', 'working'), 2: ('purifier', 'working'), 5: ('garden_bed', 'working'), 6: ('water_tank', 'built'),
@@ -273,14 +275,22 @@ def plate(kind='block', look='act1'):
     json.dump(dict(kind=kind, cams=cams_hash()), open(os.path.join(RAW, 'plate_%s.json' % kind), 'w'))
 
 
-def piece(pid, look='act1'):
+ROW_ORDER = ['front', 'middle', 'back']
+def rows_for(pid, behind=False, only=False):
+    """HOME BASE 3 11/22 (rule 466(a) step 4, THE OVERFLOW): a piece stands on its own row, and with behind=True also on every row
+    behind it (each row stands higher and allows taller, so a front or middle piece fits there; never a row in front of its own)"""
+    r = PIECES[pid]['row']; rs = ROW_ORDER[ROW_ORDER.index(r):] if behind else [r]
+    return [x for x in rs if x != r] if only else rs   # only: the rows behind alone, merged by post_add into the pictures it has
+
+
+def piece(pid, look='act1', behind=False, only=False):
     """ONE MODEL, every state, from every fixed camera on every lot of its row (the lens has perspective now, so a lot is a place the
     piece is seen from, made by the machine): the block stands round it holding out (it hides the piece where it should) and its ground
     catches the piece's shadow under the same sodium light"""
     import bohemia_cook_the_icons_through_the_rig_10_20_26 as IC
     import bohemia_bosses_what_they_hand_you_11_3_26 as HAND
     import bohemia_home_pieces_11_3_26 as PCS
-    D = PIECES[pid]; out = {}; row_lots = [L for L in LOTS if L['row'] == D['row']]
+    D = PIECES[pid]; out = {}; rws = rows_for(pid, behind or only, only); row_lots = [L for L in LOTS if L['row'] in rws]
     for st in D['states']:
         for bt in ((0, 1) if st == 'working' else (0,)):
             bpy, mathutils, sc, NF, RIG = _scene(); F = NF.F; rnd = random.Random(73); P, BLD, V, K = _kit(bpy, rnd)
@@ -309,7 +319,7 @@ def piece(pid, look='act1'):
                         sc.render.filepath = os.path.join(RAW, 'piece_%s_%s_%d_cam%d_%s_lot%d.png' % (pid, st, bt, cn, sh, L['n'])); bpy.ops.render.render(write_still=True)
             out[st] = dict(size_m=size)
             print('  piece', pid, st, bt, 'size', size, flush=True)
-    json.dump(dict(id=pid, row=D['row'], src=D['src'], states=out, lots=[L['n'] for L in row_lots], cams=cams_hash()), open(os.path.join(RAW, 'piece_%s.json' % pid), 'w'))
+    json.dump(dict(id=pid, row=D['row'], rows=rws, src=D['src'], states=out, lots=[L['n'] for L in row_lots], cams=cams_hash()), open(os.path.join(RAW, 'piece_%s.json' % pid), 'w'))
 
 
 def empty(look='act1'):
@@ -616,9 +626,12 @@ def post_add(pids, look='act1'):
     from PIL import Image
     mp = os.path.join(OUT, 'manifest.json'); man = json.load(open(mp))
     for pid in pids:
-        pj = json.load(open(os.path.join(RAW, 'piece_%s.json' % pid))); ent = dict(row=PIECES[pid]['row'], src=pj['src'], states={}, cams=pj['cams'])
+        pj = json.load(open(os.path.join(RAW, 'piece_%s.json' % pid))); ent = dict(row=PIECES[pid]['row'], rows=pj.get('rows', [PIECES[pid]['row']]), src=pj['src'], states={}, cams=pj['cams'])
+        old = man['pieces'].get(pid) if PIECES[pid]['row'] not in ent['rows'] else None   # HOME BASE 3 11/22: a --behind-only render adds lots to what it had
+        if old:
+            ent['rows'] = [r for r in ROW_ORDER if r in set(old.get('rows', [old['row']]) + ent['rows'])]
         for st, S in pj['states'].items():
-            ent['states'][st] = dict(size_m=S['size_m'], pics={})
+            ent['states'][st] = dict(size_m=S['size_m'], pics=dict(old['states'][st]['pics']) if old and st in old.get('states', {}) else {})
             for cn in CAMS:
                 for sh in SIZES:
                     E0 = np.asarray(Image.open(os.path.join(RAW, 'empty_cam%d_%s.png' % (cn, sh))).convert('RGBA'))[..., 3] / 255.0
@@ -745,7 +758,7 @@ if __name__ == '__main__':
             for pid in PIECES:
                 r = subprocess.run([VENV, os.path.abspath(__file__), 'piece', pid], cwd=R, capture_output=True, text=True)
                 print('\n'.join(l for l in (r.stdout + r.stderr).splitlines() if l.startswith('  ') or 'Error' in l or 'Traceback' in l)[-1500:], flush=True)
-        else: piece(a[1]); sys.stdout.flush(); os._exit(0)
+        else: piece(a[1], behind='--behind' in a, only='--behind-only' in a); sys.stdout.flush(); os._exit(0)   # HOME BASE 3 11/22: --behind, the rows behind too
     elif a[0] == 'gate': gate(); sys.stdout.flush(); os._exit(0)
     elif a[0] == 'empty': empty(); sys.stdout.flush(); os._exit(0)
     elif a[0] == 'near': near(); sys.stdout.flush(); os._exit(0)

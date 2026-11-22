@@ -171,7 +171,8 @@
       "named": "{Who} named this place {WHAT}. Nobody calls it anything else now.",
       "moved_in": "{name} moved in on day {day}. Ask {name} why, not me.",
       "short": "Night {day} the batteries ran out. We sat in the dark and nobody left.",
-      "given": "{WHAT} came to us from {name} on day {day}. It stands out back."
+      "given": "{WHAT} came to us from {name} on day {day}. It stands out back.",
+      "shakes": "{name} got the shakes. Everybody knows which batch."
     }
   },
   "builds": {
@@ -342,7 +343,111 @@
       "none": "Nobody within {n} blocks.",
       "train": "+35% XP, 3 FIGHTS",
       "trained": "TRAINED, {n} FIGHTS LEFT",
-      "press": "PRESS ROUNDS"
+      "press": "PRESS ROUNDS",
+      "grinder": "Head comes off first. Every fucking time.",
+      "grind": "GRIND",
+      "ground": "Ground. +{n} food in the stores.",
+      "nobody": "NOBODY TO GRIND",
+      "found": "They know it was people."
+    },
+    "grinder": {
+      "name": "GRINDER",
+      "piece": null,
+      "cost": {
+        "tape": 3
+      },
+      "can": "GRIND",
+      "line": "nothing goes to waste",
+      "_about": "HOME BASE 3 11/22 (VAMILY rule 469, rule 456(b)): one at his place, beside the forge; the dead his company brings home go in, the head first out; one tap, the sausage is in the top bar's FOOD. Its picture is the 11/3 pipeline's own piece (records/target/home_settlement/ pieces grinder_*, tools/bohemia_home_base_his_pieces_11_21_26.py grinder). Every rule under it is the grinder block below."
+    }
+  },
+  "grinder": {
+    "_about": "THE GRINDER (HOME BASE 3, 11/22; VAMILY rule 469, his 'C' and 'Ppl dont eat the brain tho'; rules 456, 460, 455, 466(c)). Read by engine/bohemia_grinder.js through the map (slices/BOHEMIA_CITY_WORLD.html __THE_GRINDER__) and the town screen (slices/BOHEMIA_SETTLEMENT_SCREEN.html __THE_GRINDER__). One tap on screen; everything else here runs underneath and is never explained (466(c)). Every number a default HOME BASE set, realism first, TUNING's to move (rule 38g); 'ours' marks a number no record gives, a draft.",
+    "draft": true,
+    "carry_a_man": {
+      "value": 0.34,
+      "unit": "bodies a man of the company carries home from a won fight (the room is kilos: men x this x body_kg)",
+      "source": "a litter over a long walk wants four bearers taking turns, two at a time (US Army FM 4-25.11 First Aid, litter carries); an improvised drag on a tarp takes three. A starting crew of three brings one body; six bring two; twelve bring four. The rest are left where they fell."
+    },
+    "body_kg": {
+      "value": 62,
+      "unit": "kilos, a lean adult in a hungry valley",
+      "source": "the US adult mean is about 80 kg (CDC NHANES 2015-2018); a long famine takes a quarter of it (the Minnesota Starvation Experiment, Keys et al. 1950: 25% lost in 24 weeks); 80 x 0.775 = 62"
+    },
+    "meat_share": {
+      "value": 0.27,
+      "unit": "of a body's weight that is boneless meat a hand strips for the grinder, after the head, the spine, the guts, the skin and the bones",
+      "source": "a hunter's boneless yield is about 27% of a deer's live weight (field dressed about 75% of live, boneless 35 to 40% of that: Penn State Extension, 'Venison: from field to table'); the ceiling is all an adult man's skeletal muscle, 24 of 66 kg (Cole 2017, Scientific Reports 7:44707)"
+    },
+    "cure_keep": {
+      "value": 0.8,
+      "unit": "of the meat's weight that comes out as cured, smoked sausage (salt in, water out)",
+      "source": "a smoked sausage loses about 10 to 20% in the smokehouse, a dry cure 30 to 40% (USDA FSIS, 'Sausages and Food Safety'); rule 460: salt decides it, the pool stores' 40-pound bags"
+    },
+    "kg_a_night": {
+      "value": 0.5,
+      "unit": "kilos of sausage that are one man's night of food",
+      "source": "READ by the map from records/target/bb/carcass.json meat.kg_a_night when it is in (one number for meat in this game); this is the fallback"
+    },
+    "worked": "one body: 62 x 0.27 x 0.8 = 13.4 kg = 26 nights of food; a crew of six (two bodies) brings home about four days' food for six, about 52 batteries at the counter's 2, against a routine contract's 30 (records/target/BOHEMIA_BOARD_SHELF.json)",
+    "keep_h": {
+      "value": 24,
+      "unit": "game hours the dead keep on the road before they turn (thrown out at the grinder, said nowhere)",
+      "source": "above 32 C perishable food is unsafe after one hour (USDA FSIS danger zone); a gutted carcass in the desert night's cold and the day's shade lasts about a day, the hot-weather hunter's rule: on ice the same day (rule 460: raw meat here turns within an hour or two in the sun)"
+    },
+    "head_out": {
+      "value": true,
+      "about": "the head and the brain come off first and go in the lidded drum, never the grinder; everybody knows (Paolo 11/21: 'Ppl dont eat the brain tho'). The grinder's line says it, nothing else does."
+    },
+    "bad_cut_pct": {
+      "value": 3,
+      "unit": "percent of the batches with people in them that take a bad cut (the spine split, the cord or a piece of the brain in the grinder)",
+      "source": "ours, draft: a careful hand rarely gets it wrong. The real record: spinal cord got into mechanically separated beef often enough in the BSE years that it was banned from food (UK 1995, EU 2000, US FSIS 2004 for cattle over 30 months)"
+    },
+    "bought_bad_pct": {
+      "value": 1,
+      "unit": "percent of the food bought at any stall in one tap that came from somebody who does not care (people, with the brain in)",
+      "source": "ours, draft: the 'batch bought from someone who does not care' (rule 469(b)); rare, and never said"
+    },
+    "takes_pct": {
+      "value": 10,
+      "unit": "percent that a man's night eaten out of a bad batch gives him the shakes",
+      "source": "ours, draft. The real record: kuru struck the Fore who ate the brain and the cord at the mortuary feasts (mostly women and children); muscle meat carries little to none (Alpers 2008, Phil. Trans. R. Soc. B 363:3707; Collinge et al. 2006, Lancet 367:2068)"
+    },
+    "incubation_years": {
+      "value": {
+        "mean": 12,
+        "min": 4.5,
+        "max": 50
+      },
+      "unit": "years from the bad night to the first tremor (drawn per man, a long right tail)",
+      "source": "kuru's incubation runs 4.5 years to over 50, the mean about 12 (Collinge et al. 2006, Lancet 367:2068; Alpers 2008). The acts are 35 years apart (engine/bohemia_acts.js, draft), so in this game it shows in a later act: the family meets what the father ground."
+    },
+    "dies_years": {
+      "value": 1,
+      "unit": "years from the first tremor to death",
+      "source": "kuru kills in about twelve months, in three stages: walking, sitting, lying (Alpers 2008)"
+    },
+    "days_a_year": {
+      "value": 365,
+      "unit": "game days in a year, for a mark that shows inside its own act"
+    },
+    "found_out_pct": {
+      "value": 15,
+      "unit": "percent that a town finds out, on one sale of food with people in it, that it was people",
+      "source": "ours, draft. Legal nowhere and done everywhere (rule 469(c)): in the siege of Leningrad meat patties of people sold in the markets and the NKVD arrested about two thousand for it in 1941-42 (Bidlack and Lomagin, The Leningrad Blockade, 2012); buyers bought and did not ask, and a seller caught was finished there"
+    },
+    "found_out_act": {
+      "value": "minor_offensive_action",
+      "source": "records/target/bb/relations.json acts: the Battle Brothers Relations ladder's 'Minor Offensive Action -10' (bb_all/1670_Relations.txt), no new number invented"
+    },
+    "hungry_never_asks": {
+      "value": true,
+      "about": "a town whose stall is short of food (its need card is on) never finds out: a starving market does not ask what is in the meat (the famine record above)"
+    },
+    "shakes_town_act": {
+      "value": "offensive_action",
+      "source": "records/target/bb/relations.json acts: 'Offensive Action -20'. A town he sold a bad batch to finds out when its own people shake, years on (the same incubation), once"
     }
   }
 }
