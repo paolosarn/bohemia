@@ -1,0 +1,443 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "library",
+ "name": "THE LIBRARY",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "A city's main library is open stacks (rows of steel shelving taller than a man), reading rooms of long tables, study carrels, the card catalogue's cabinets, the circulation desk by the doors.",
+  "Without heat or power, paper is fuel: a library is where a winter's fires come from.",
+  "On house tiles a row of stacks is a tile you cannot stand on; the gaps between rows are the fight."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (library_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "library"
+ ],
+ "share": 1.0,
+ "districts_why": "The library is its own map kind and its cell is the library: every fight there is fought inside it (measured first at eight in ten: the alpha's one library cell rolled the street on every run, so on the alpha he would never have met it; the home center's call).",
+ "board": {
+  "templates": {
+   "library": {
+    "name": "THE LIBRARY",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_stacks": [
+      "####################",
+      "#..r..c.b.k.bc..r..#",
+      "#.SSSnSSSnnSSSnSSS.#",
+      "#..b..h.ht.h.h..b..#",
+      "#.SSSnSSSnnSSSnSSS.#",
+      "#..h..b.bcc.bb..h..#",
+      "#.SSSnSSSnnSSSnSSS.#",
+      "#D..t.hbf.hf.h.t..D#",
+      "#.SSSnSSSnnSSSnSSS.#",
+      "#..h..b.bcc.bb..h..#",
+      "#.SSSnSSSnnSSSnSSS.#",
+      "#..b..h.ht.h.h..b..#",
+      "#.SSSnSSSnnSSSnSSS.#",
+      "#..r..cb.DD.bc..r..#",
+      "####################"
+     ],
+     "the_reading_room": [
+      "####################",
+      "#CCC.CCCrrCCC.CCC..#",
+      "#..t.tthh.hh.tt.t..#",
+      "#.c...b...t.b.f..c.#",
+      "#..TTT.TTTb.TTT.TTT#",
+      "#.c..h...bc.h...c..#",
+      "#..TTT.TTTb.TTT.TTT#",
+      "#D...h.QQQQQ.h....D#",
+      "#..TTT.TTTb.TTT.TTT#",
+      "#.c..h...bc.h...c..#",
+      "#..TTT.TTTb.TTT.TTT#",
+      "#.c...f..t...b...c.#",
+      "#..t.tthh.hh.tt.t..#",
+      "#CCC.CCC.DD.CCC.CCC#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "S": {
+    "is": "floor",
+    "tile": "stacks",
+    "piece": "lb_stacks",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "n": {
+    "is": "floor",
+    "tile": "endshelf",
+    "piece": "lb_endshelf",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "h": {
+    "is": "floor",
+    "tile": "heap",
+    "piece": "lb_heap",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "bookcart",
+    "piece": "lb_bookcart",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "t": {
+    "is": "floor",
+    "tile": "table",
+    "piece": "lb_table",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "T": {
+    "is": "floor",
+    "tile": "table",
+    "piece": "lb_table",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "carrel",
+    "piece": "lb_carrel",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "C": {
+    "is": "floor",
+    "tile": "catalogue",
+    "piece": "lb_catalogue",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "Q": {
+    "is": "floor",
+    "tile": "desk",
+    "piece": "lb_desk",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "desk",
+    "piece": "lb_desk",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "r": {
+    "is": "floor",
+    "tile": "readers",
+    "piece": "lb_readers",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The library's wall: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The library's carpet, worn to the backing in the aisles: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The floor: open ground.",
+   "draft": true
+  },
+  "stacks": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "A row of steel stacks, taller than a man, half its books burned for heat: no way through, no sight through. [bb] its palisade.",
+   "say": ""
+  },
+  "endshelf": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The low shelf at a row's end: low cover, and the way round the row.",
+   "say": "An end shelf: low cover.",
+   "draft": true
+  },
+  "heap": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Books pulled down in a heap, kept for the fires: low cover, and slow going (3 AP). [bb] its brush.",
+   "say": "A heap of books: low cover, slow going.",
+   "draft": true
+  },
+  "bookcart": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A book cart: low cover.",
+   "say": "A book cart: low cover.",
+   "draft": true
+  },
+  "table": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A long reading table on its side: cover.",
+   "say": "A reading table: cover.",
+   "draft": true
+  },
+  "carrel": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A study carrel, its walls high: cover.",
+   "say": "A study carrel: cover.",
+   "draft": true
+  },
+  "catalogue": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "effect": "The card catalogue's cabinets, drawers pulled for kindling: nobody stands there; cover beside them. [bb] its wall.",
+   "say": ""
+  },
+  "desk": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The circulation desk: cover.",
+   "say": "The circulation desk: cover.",
+   "draft": true
+  },
+  "readers": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Microfilm readers on their stands, dead: low cover.",
+   "say": "A microfilm reader: low cover.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire of books somebody keeps in a steel bin. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire of books: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The library's doors, open: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The doors: open ground.",
+   "say_lit": "The doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in library_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "lb_table": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "A READING TABLE"
+  },
+  "lb_endshelf": {
+   "like": "sb_corral_S",
+   "kind": "LOW_COVER",
+   "name": "AN END SHELF"
+  },
+  "lb_heap": {
+   "like": "sb_heap_S",
+   "kind": "LOW_COVER",
+   "name": "A HEAP OF BOOKS"
+  },
+  "lb_bookcart": {
+   "like": "sb_cart_S",
+   "kind": "LOW_COVER",
+   "name": "A BOOK CART"
+  },
+  "lb_carrel": {
+   "like": "garage_booth",
+   "kind": "COVER",
+   "name": "A STUDY CARREL"
+  },
+  "lb_desk": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "THE CIRCULATION DESK"
+  },
+  "lb_readers": {
+   "like": "sb_drums_S",
+   "kind": "LOW_COVER",
+   "name": "MICROFILM READERS"
+  },
+  "lb_stacks": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "THE STACKS"
+  },
+  "lb_catalogue": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "THE CARD CATALOGUE"
+  },
+  "lb_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "lb_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "lb_wall_ew",
+  "ns": "lb_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: one floor; the stacks are not climbed on house tiles.",
+ "ceiling": {
+  "kind": "grid",
+  "alpha": 0.1,
+  "src": "library/library_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the library's dropped ceiling, soot-stained over the fires, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the hospital's grid)."
+ }
+}
