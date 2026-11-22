@@ -1,6 +1,22 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the TV station] SHIPPED c63442b9a, BUILD 11/22a - THE TV STATION, BUILT, NOT YET SEEN. VOTE combat4-the-tv-station-11-21 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the library] SHIPPED 07fb7d244, BUILD 11/22b - THE LIBRARY, BUILT, NOT YET SEEN. VOTE combat4-the-library-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_LIBRARY_11_22_26.md. More boards (rule 461): the library ('library', 1.0: the alpha's one cell rolled the street 6 runs of 6 at 0.8): the_stacks (six rows of steel stacks each side of a centre
+aisle: the FIRST piece in an inside whose row is 'obstacles', so it blocks sight as walls do, where every other blocker so far gives cover but is seen through; end shelves,
+heaps of books kept for the fires (rough 3 AP, low cover), book carts, reading tables, carrels, microfilm readers) and the_reading_room (long tables on their sides in rows,
+the card catalogue's cabinets along both walls, carrels, the circulation desk). One data file (13 tile kinds, 11 pieces all stand-ins), twentieth in insides.json; no high
+ground; the ceiling the hospital's 'grid'. GATE THE BIG INSIDES 314/0 (twenty insides) (the library 18/0, 13% bare after round one against 25%; my first cut 38%).
+ON THE PAGE: 4 fights, both pages both ways, both layouts, all ended, 19 of 19 taps, 0 errors.
+*** FOR COOK (SIX): THE LIBRARY'S NAMES (library_art.json, THE GARAGE'S FORMAT): floor.floor (worn carpet, the aisles to the backing), floor.ring; lb_stacks (a row of
+steel stacks, half empty), lb_endshelf, lb_heap (books pulled down in a heap), lb_bookcart, lb_table (a reading table on its side), lb_carrel (a study carrel), lb_catalogue
+(the card catalogue, drawers pulled), lb_desk (the circulation desk), lb_readers (microfilm readers), lb_wall_ew, lb_wall_ns; library/library_ceiling.webp (dropped ceiling,
+soot over the fires); "have": true in library.json's ceiling.
+NEXT: THE TALL THINGS BLOCK SIGHT across the insides already built (the home center's racks, the truck stop's shelving and trailers, the hangar's fuselage: today seen
+through, which a four-metre rack is not), with a gate leg; then more boards (the police station, the fire station).
+[bb Battle Brothers' forest: the stacks hide a man from sight, and the aisles are the fight]
+[analog horror: a library's returns slot still clunking shut in the wind, a book nobody returned in the bin]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the TV station] SHIPPED c63442b9a, BUILD 11/22a - THE TV STATION, BUILT, NOT YET SEEN. VOTE combat4-the-tv-station-11-21 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_TV_STATION_11_21_26.md. More boards (rule 461): the TV station ('tvstation', 0.8): the_studio (the news set: its backdrop a wall, the news
 desk cover; studio cameras, light stands and teleprompters low cover; cables underfoot rough 3 AP, no cover; set flats and equipment racks blockers; the green screen along
 the back) and the_newsroom (a wall of dead monitors at each end, the control consoles, desks in pods, kicked-over chairs rough 3 AP and low cover). One data file (17 tile
