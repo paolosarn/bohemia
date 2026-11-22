@@ -73,14 +73,19 @@
     var pick = function (list, x, y, salt) { return list[Math.floor(hz(x, y, salt, seed) * list.length)]; };
     var is = function (x, y) { var q = leg(ch(x, y)); return q ? q.is : 'wall'; };
     var isWall = function (x, y) { return is(x, y) === 'wall'; }, isHigh = function (x, y) { return is(x, y) === 'high'; };
-    var floorOf = function (q) { var k = (q && q.floor) || (q && q.is === 'high' ? 'high' : 'floor'); return FL[k] || FL.floor || []; };
+    /* A FLOOR AREA (COMBAT FOUR 11/22, COOK SIX's ask: one floor kind served a whole inside, so the gym had no court and the courtroom no
+       carpet in its aisle): a layout may name rectangles of its own floor kind, 'floor_areas': { layout: [{ kind, x: [x0, x1], y: [y0, y1] }] },
+       in the layout's own columns and rows (the border counted), mirrored with it. A legend entry's own 'floor' wins (water stays water) */
+    var FA = (T.floor_areas || {})[lname] || [];
+    var areaOf = function (x, y) { var lx = fc ? W - 1 - x : x; for (var i = 0; i < FA.length; i++) { var a = FA[i]; if (lx >= a.x[0] && lx <= a.x[1] && y >= a.y[0] && y <= a.y[1]) return a.kind; } return null; };
+    var floorOf = function (q, x, y) { var k = (q && q.floor) || (q && q.is === 'high' ? 'high' : (x != null && areaOf(x, y)) || 'floor'); return FL[k] || FL.floor || []; };
     var ground = new Array(AW * AH), terrain = [], roofs = [], tiles = [], cover = [], lights = [], n = { pieces: 0, ramps: 0, high: 0, stand_in: 0, missing: [] };
     var ring = FL.ring || FL.floor || [];
     for (var ay = 0; ay < AH; ay++) for (var ax = 0; ax < AW; ax++) ground[ay * AW + ax] = ring.length ? pick(ring, ax, ay, 3) : null;
     for (var y = 0; y < H; y++) { var tr = [], rr = [], nr = []; for (var x = 0; x < W; x++) {
       var q = leg(ch(x, y)) || { is: 'wall' }, name = q.tile || q.is, row = TK[name] || {};
       var t = row.terrain || (q.is === 'wall' ? 'blocked' : (q.is === 'high' || q.is === 'ramp') ? 'height' : 'flat');
-      var fl = floorOf(q); if (fl.length) ground[(y + R) * AW + x + R] = pick(fl, x, y, 5);
+      var fl = floorOf(q, x, y); if (fl.length) ground[(y + R) * AW + x + R] = pick(fl, x, y, 5);
       tr.push(t); rr.push(q.is === 'high'); nr.push(name); if (q.is === 'high') n.high++;
     } terrain.push(tr); roofs.push(rr); tiles.push(nr); }
     var put = function (p, x, y, fx, fy, tag, lift) {
@@ -99,7 +104,8 @@
       var q2 = leg(ch(x2, y2)); if (!q2) continue;
       var hi = q2.is === 'high';
       if (q2.is === 'wall') {
-        var w = q2.wall === 'air' ? WA : WL, open = function (u, v) { return u >= 0 && v >= 0 && u < W && v < H && !isWall(u, v); };
+        var w = q2.walls || (q2.wall === 'air' ? WA : WL), open = function (u, v) {   /* a legend entry may name its own wall pictures (COMBAT FOUR 11/22, COOK SIX's ask: the Mob Museum's bullet-marked brick, one run of its own) */
+         return u >= 0 && v >= 0 && u < W && v < H && !isWall(u, v); };
         if (w.ew && open(x2, y2 - 1)) put(w.ew, x2, y2, 0.5, 0.1, 'wall');
         if (w.ew && open(x2, y2 + 1)) put(w.ew, x2, y2, 0.5, 1.0, 'wall');
         if (w.ns && open(x2 - 1, y2)) put(w.ns, x2, y2, 0.03, 1.0, 'wall');

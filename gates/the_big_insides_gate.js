@@ -278,6 +278,32 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
         if (ok(0)) bad.push(d + ' (the plant not caught)');
         rows.push(d + ' ' + Math.round(got * 100) + '% of ' + n + ' cells on ' + open.length + ' places (meant ' + meant + ', share ' + share + '; its dice come no nearer than ' + Math.round(best * 100) / 100 + (wrong ? ', ' + wrong + ' deals the copied roll got wrong' : '') + ')'); });
       check(!bad.length, 'I14 ' + N, "THE MAP'S DICE KEEP ITS WORD (40 valleys of the map's own generator): " + rows.join('; ') + (bad.length ? '; WRONG: ' + bad.join(', ') : '; planted: its share read as 0 is caught')); }
+    /* I15 A FLOOR AREA LAYS ITS OWN KIND, AND A WALL ITS OWN PICTURE (COMBAT FOUR 11/22, COOK SIX's asks: one floor kind served a whole
+       inside, so the gym had no court and the courtroom no carpet; one exhibit picture served every exhibit wall, so the bullet-marked brick
+       would have stood on all eleven). Each layout with floor areas is dealt both ways with marked floor lists: every tile inside an area
+       (mirrored with the layout) lays its area's kind unless its legend names its own floor or it is high ground, and no tile outside does.
+       Each legend entry that names its own walls lays only those pictures on its tiles. Planted: an area read one column over is caught;
+       the brick's own names taken off and the default pictures come back (caught). An inside with neither passes on none */
+    { const T15 = data.board.templates[Object.keys(data.board.templates)[0]], FA = T15.floor_areas || {}, own = Object.keys(LEG).filter(c => LEG[c].walls), rows15 = [], bad15 = [];
+      const mark = Object.assign({ floor: ['MARK_floor#0,0'], ring: ['MARK_ring#0,0'], high: ['MARK_high#0,0'] }, ...Object.values(FA).flat().map(a => ({ [a.kind]: ['MARK_' + a.kind + '#0,0'] })));
+      Object.keys(LEG).forEach(c => { if (LEG[c].floor) mark[LEG[c].floor] = ['MARK_' + LEG[c].floor + '#0,0']; });
+      const lay15 = (layout, fc, dat) => BI.deal(4242, { data: dat || data, art: { floor: mark }, kit: D.kit }, ctx.DB.ground, 20, 15, { night: false, layout: layout, flip: [false, fc] });
+      const miss = (layout, fc, shift) => { const B = lay15(layout, fc), L = B && B.laid; if (!L) return -1; const rows = T15.layouts[layout], areas = FA[layout] || []; let m = 0;
+        for (let y = 0; y < 15; y++) for (let x = 0; x < 20; x++) { const lx = fc ? 19 - x : x, q = LEG[rows[y].charAt(lx)] || { is: 'wall' };
+          const hit = areas.filter(a => lx + shift >= a.x[0] && lx + shift <= a.x[1] && y >= a.y[0] && y <= a.y[1])[0];
+          const want = q.floor ? 'MARK_' + q.floor + '#0,0' : q.is === 'high' ? 'MARK_high#0,0' : hit ? 'MARK_' + hit.kind + '#0,0' : 'MARK_floor#0,0';
+          if (L.ground[(y + L.ring) * L.AW + x + L.ring] !== want) m++; }
+        return m; };
+      Object.keys(FA).forEach(layout => { const m0 = miss(layout, false, 0), m1 = miss(layout, true, 0), p = miss(layout, false, 1) + miss(layout, true, 1);
+        if (m0 || m1 || p <= 0) bad15.push(layout + ' (' + m0 + ', ' + m1 + ' tiles wrong; the plant ' + (p > 0 ? 'caught' : 'NOT caught') + ')');
+        rows15.push(layout + ': ' + FA[layout].map(a => a.kind + ' columns ' + a.x.join('-') + ', rows ' + a.y.join('-')).join('; ') + ', both ways, every tile its kind'); });
+      own.forEach(c => { const W15 = LEG[c].walls, names = [W15.ew, W15.ns].filter(Boolean), layout = Object.keys(T15.layouts).filter(n => T15.layouts[n].some(r => r.indexOf(c) >= 0))[0];
+        const at = (B, fc) => B.cover.filter(e => e.what === 'wall' && T15.layouts[layout][e.ty] && T15.layouts[layout][e.ty].charAt(fc ? 19 - e.tx : e.tx) === c);
+        const B0 = lay15(layout, false), got = at(B0, false), wrong = got.filter(e => names.indexOf(e.piece) < 0);
+        const dat2 = JSON.parse(JSON.stringify(data)); delete dat2.board.legend[c].walls; const back = at(lay15(layout, false, dat2), false).filter(e => names.indexOf(e.piece) < 0).length;
+        if (!got.length || wrong.length || !back) bad15.push(c + ' (' + got.length + ' pictures, ' + wrong.length + ' not its own; the plant ' + (back ? 'caught' : 'NOT caught') + ')');
+        rows15.push("'" + c + "' lays its own " + names.join(' and ') + ' (' + got.length + ' pictures)'); });
+      check(!bad15.length, 'I15 ' + N, 'A FLOOR AREA LAYS ITS OWN KIND, AND A WALL ITS OWN PICTURE: ' + (rows15.length ? rows15.join('; ') + (bad15.length ? '; WRONG: ' + bad15.join(', ') : '; planted: an area one column over, and the own walls taken off, are caught') : 'none in this inside (none owed)')); }
     /* I9 */
     { const c = deal(DIST[0], 1, { inside: id }).boardDef.ceiling, want = data.ceiling || {};
       check(!!c && c.kind === want.kind && c.alpha >= 0.05 && c.alpha <= 0.14 && c.name === want.src && (want.have ? fs.existsSync(path.join(ROOT, FG, want.src)) : c.src === null), 'I9 ' + N, 'ITS CEILING: ' + (c ? c.kind + ' at ' + c.alpha + ', the picture ' + want.src + (want.have ? ' (in)' : ' (owed by COOK FIVE: the fight draws the kind itself)') : 'NONE')); }

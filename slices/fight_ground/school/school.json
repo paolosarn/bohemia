@@ -24,6 +24,34 @@
      "cols": true,
      "rows": false
     },
+    "floor_areas": {
+     "the_gym": [
+      {
+       "kind": "court",
+       "x": [
+        1,
+        18
+       ],
+       "y": [
+        2,
+        12
+       ]
+      }
+     ],
+     "the_classrooms": [
+      {
+       "kind": "hall",
+       "x": [
+        1,
+        18
+       ],
+       "y": [
+        6,
+        8
+       ]
+      }
+     ]
+    },
     "layouts": {
      "the_gym": [
       "####################",
@@ -39,7 +67,7 @@
       "#..................#",
       "#.cc.cc.t..t.cc.cc.#",
       "#....D.......D.....#",
-      "#bbbbbbbb..bbbbbbbb#",
+      "#BBBBBBBB..BBBBBBBB#",
       "####################"
      ],
      "the_classrooms": [
@@ -59,7 +87,8 @@
       "#..z...W..z...W..z.#",
       "####################"
      ]
-    }
+    },
+    "floor_areas_why": "COMBAT FOUR 11/22, COOK SIX's ask: one floor kind served both layouts, so the gym had no court and the hallway no hall tile. The gym's floor between its bleachers is 'court', the classrooms' hallway between the locker rows is 'hall'; each draws the school's floor until COOK's art names that kind."
    }
   },
   "legend": {
@@ -87,6 +116,15 @@
     "is": "floor",
     "tile": "bleachers",
     "piece": "sc_bleachers",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "B": {
+    "is": "floor",
+    "tile": "bleachers",
+    "piece": "sc_bleachers_n",
     "at": [
      0.5,
      0.85
@@ -319,6 +357,12 @@
    "kind": "LOW_COVER",
    "name": "BLEACHERS"
   },
+  "sc_bleachers_n": {
+   "like": "sc_bleachers",
+   "kind": "LOW_COVER",
+   "name": "BLEACHERS",
+   "why": "COMBAT FOUR 11/22, COOK SIX's ask: the gym's SOUTH bleachers, which must step up to the south and face the court. One picture served both rows, so the south row faced away. Until COOK's own picture for this name is in, it is drawn as the north bleachers (sc_bleachers: this inside's own finished piece)."
+  },
   "sc_cots_a": {
    "like": "tunnel_camp_a",
    "kind": "LOW_COVER",
@@ -388,6 +432,50 @@
  },
  "floor": {
   "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "court": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "hall": [
    "mall/mall_floor_0.webp#0,0",
    "mall/mall_floor_0.webp#1,0",
    "mall/mall_floor_0.webp#2,0",

@@ -16,7 +16,9 @@
  ],
  "share": 0.71,
  "districts_why": "The courthouse is its own map kind, one building of stone: eight fights in ten there are fought inside it, by the cell's own dice; the rest on its steps and the street.",
- "share_meant": {"mobmuseum": 0.8},
+ "share_meant": {
+  "mobmuseum": 0.8
+ },
  "share_dice": "THE MAP'S DICE (COMBAT FOUR 11/22): a place's inside is rolled from its cell (the same cell the same answer), so a place on a few cells goes inside on a step, never a slope: 'share' is the threshold its real cells need for 'share_meant' to come true over a whole run of valleys, measured on the map's own cells (gates/the_big_insides_gate.js I14). mobmuseum: meant 0.8, went inside in 100% of its cells over 40 valleys (9 places, 40 cells, after what the parking garage takes first); at 0.71, 82%, the nearest its dice allow.",
  "board": {
   "templates": {
@@ -25,6 +27,21 @@
     "flip": {
      "cols": true,
      "rows": false
+    },
+    "floor_areas": {
+     "the_courtroom": [
+      {
+       "kind": "carpet",
+       "x": [
+        9,
+        10
+       ],
+       "y": [
+        6,
+        13
+       ]
+      }
+     ]
     },
     "layouts": {
      "the_courtroom": [
@@ -46,7 +63,7 @@
      ],
      "the_museum_floor": [
       "####################",
-      "#.e..e..WWW..e..e..#",
+      "#.e..e..VVV..e..e..#",
       "#....s..e.k...s....#",
       "#.e..s..e.s.s..e...#",
       "#.....k..k...s.....#",
@@ -61,7 +78,8 @@
       "#....D..s.s..D.....#",
       "####################"
      ]
-    }
+    },
+    "floor_areas_why": "COMBAT FOUR 11/22, COOK SIX's ask: one floor kind served both rooms, so the courtroom's aisle had no carpet. The aisle between the pews, the bar to the doors, is 'carpet'; it draws the courthouse's floor until COOK's art names that kind."
    }
   },
   "legend": {
@@ -72,6 +90,15 @@
     "is": "wall",
     "wall": "air",
     "tile": "exhibit_wall"
+   },
+   "V": {
+    "is": "wall",
+    "wall": "air",
+    "tile": "exhibit_wall",
+    "walls": {
+     "ew": "ct_brick_ew",
+     "ns": "ct_brick_ns"
+    }
    },
    ".": {
     "is": "floor"
@@ -388,10 +415,22 @@
    "kind": "WALL",
    "name": "AN EXHIBIT WALL"
   },
+  "ct_brick_ew": {
+   "like": "ct_exhibit_ew",
+   "kind": "WALL",
+   "name": "THE BULLET-MARKED BRICK WALL",
+   "why": "COMBAT FOUR 11/22, COOK SIX's ask: the museum's bullet-marked brick wall stands on ONE run of the exhibit walls (the north one, 'V'), not on all eleven. Until COOK's own picture for this name is in, it is drawn as the exhibit wall (ct_exhibit_ew: this inside's own finished piece)."
+  },
   "ct_exhibit_ns": {
    "like": "casino_wall_ns",
    "kind": "WALL",
    "name": "AN EXHIBIT WALL"
+  },
+  "ct_brick_ns": {
+   "like": "ct_exhibit_ns",
+   "kind": "WALL",
+   "name": "THE BULLET-MARKED BRICK WALL",
+   "why": "COMBAT FOUR 11/22, COOK SIX's ask: the museum's bullet-marked brick wall stands on ONE run of the exhibit walls (the north one, 'V'), not on all eleven. Until COOK's own picture for this name is in, it is drawn as the exhibit wall (ct_exhibit_ns: this inside's own finished piece)."
   }
  },
  "walls": {
@@ -404,6 +443,28 @@
  },
  "floor": {
   "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "carpet": [
    "mall/mall_floor_0.webp#0,0",
    "mall/mall_floor_0.webp#1,0",
    "mall/mall_floor_0.webp#2,0",
