@@ -73,3 +73,22 @@ on the right. Made by tools/bohemia_ui_five_one_hand_or_two_card.js and .py.
 is a button on the card]
 [analog horror: a pawn ticket with one line stamped in a box at the top, BOTH HANDS or ONE HAND, the clerk's carbon underneath if you
 ask for it]
+
+## FOLLOW-UP, BUILD 11/22zzb: THE STRIP WHOLE ON A PHONE ON ITS SIDE
+
+MEASURED (the demo and the alpha on their side, the smith, a two-hander tapped; the same on main before 11/22zw, the files at 14ef314da
+served for the picture): the strip is a column 171 px wide and its two buttons 80 px each: they read 'B | 113' and 'to the...'; the
+line on what goes to the stash ('It takes both hands: his sedan car door goes to the stash.') needs three lines and the man box held two.
+NOW (slices/BOHEMIA_SETTLEMENT_SCREEN.html __THE_NARROW_STRIP_S_BUTTONS__, inside the strip's 300 px container query, so upright and the
+computer are untouched): each button's words stand over its price, two lines at most, centred ('Buy it and / wear it', 'to the /
+stash'); that line one size smaller; the man box one line taller for every piece, so nothing moves from one piece to the next. The sheet
+still ends 36 px above the glass's bottom and scrolls by the same 1 px rounding it did before.
+GATE ONE HAND OR TWO H2 now also reads the narrow strip's two buttons and that line whole: without this build red on the demo on its
+side ('Buy it and wear it', 'to the stash', the line cut), with it 25/0 on all four.
+LEFT, AND WHY: upright the buy button still reads 'Buy it and ...' (its words need 140 px of 101; older than 11/22zw). Letting them take
+two lines upright made WHAT YOU BUY GOES ON THE MAN's B2 and K1 buy nothing, two runs of two, though a finger at the button's centre lands
+on it in a probe; not shipped until that is understood.
+A CHECK MADE TO WAIT AS HE DOES: WHAT YOU BUY GOES ON THE MAN K2 pressed the phone's CREW 300 ms after the shop's close, while the sheet
+still folded away over the map; it missed 3 runs of 3 once the strip grew a line. It now waits for the sheet to be gone: K2 green. Its
+C1 and C2 are the red list's (RUN TWO, 11/10), red on main the same.
+THE SHOP TAPS 9/0, THE ITEM CARD AND THE ITEM BOX 42/0.

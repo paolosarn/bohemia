@@ -3,7 +3,20 @@
 # On VAMILY: pull main, re-read CLAUDE.md and the VAMILY front page (rules 453, 448, 452, 442(b), 441, 454(a), 402 as amended 11/7:
 # SMALLER, NEVER PAGES), then continue from the newest block below. FIGHT SCREEN 2 owns everything on the glass over the fight.
 
-UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/22 LATEST -- BUILD 11/22zw - ONE HAND OR TWO, BUILT, NOT YET SEEN
+UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/22 LATEST -- BUILD 11/22zzb - THE STRIP WHOLE ON ITS SIDE, BUILT, NOT
+YET SEEN (the follow-up to 11/22zw, rule 477; record records/BOHEMIA_UI_FIVE_ONE_HAND_OR_TWO_AND_LESS_11_22_26.md, its last section).
+- On a phone on its side the shop strip's buttons read 'B | 113' and 'to the...' and the both-hands line was cut: now the words stand
+  over the price, two lines, and the line has room (inside the strip's 300 px container query; upright and the computer untouched).
+- Gate ONE HAND OR TWO H2 reads them (red without, 25/0 with). WHAT YOU BUY GOES ON THE MAN K2 now waits for the sheet to fold away
+  before pressing CREW (it missed 3 of 3 once the strip grew).
+- LEFT: upright the buy button reads 'Buy it and ...'; two lines there made WHAT YOU BUY's B2 and K1 buy nothing (2 of 2), cause not
+  found, not shipped.
+NEXT for this lane, in order: (1) what EYES finds in 11/22zw and this; (2) the upright 'Buy it and ...' with B2's mystery; (3) the crew
+screen's weight line as a picture with RUN TWO; (4) row 669 if JOBS asks.
+[bb Battle Brothers' buttons say their whole verb or show only the icon]
+[analog horror: a till's keys worn so the words are half gone, the price still sharp]
+
+UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/22 -- BUILD 11/22zw - ONE HAND OR TWO, BUILT, NOT YET SEEN
 (rule 477, ask row 718; the coordinator's routine 'UI FIVE: one hand or two, and less'). Record
 records/BOHEMIA_UI_FIVE_ONE_HAND_OR_TWO_AND_LESS_11_22_26.md. VOTE ui5-one-hand-or-two-11-22 (STAND-IN, before and now).
 - THE CARD (slices/bohemia_ui_weapon_card.js __ONE_HAND_OR_TWO__): one tap shows the SHORT card: a band first, ONE-HANDED or

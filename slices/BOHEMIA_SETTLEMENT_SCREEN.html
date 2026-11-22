@@ -220,7 +220,8 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 .ss-facts .ss-title .twoh{margin:0 0 0 auto;font-size:18px;letter-spacing:3px;line-height:1}   /* rule 194(b): big, on the card */
 .ss-facts .ss-title:has(>.twoh){flex-wrap:wrap;row-gap:2px}.ss-facts .ss-title>.twoh{order:-1;margin:0;flex:none}.ss-facts .ss-title:has(>.twoh)>b{flex:0 0 auto;max-width:100%}   /* __ONE_HAND_OR_TWO__ (UI FIVE 11/22, rule 477(a)): one hand or two FIRST, before the name; where the strip is narrow the name takes the next line, never squeezed out */
 .ss-facts .inums{flex-wrap:nowrap;overflow:hidden}
-#shopstrip{container-type:inline-size}@container (max-width:300px){#shopstrip:not(.stallstrip) .ss-facts{height:62px}}   /* __ONE_HAND_OR_TWO__ (UI FIVE 11/22, rule 477(a)): where the strip is a narrow column (a phone on its side) the name sits under ONE-HANDED or TWO-HANDED, so the box holds that second line for every piece, and nothing moves from one piece to the next */
+#shopstrip{container-type:inline-size}@container (max-width:300px){#shopstrip:not(.stallstrip) .ss-facts{height:62px}
+html body #sheet #shopstrip .ss-acts>.act{flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:2px 4px}html body #sheet #shopstrip .ss-acts>.act>span{flex:none;white-space:normal;text-align:center;font-size:9px;letter-spacing:0;line-height:1.1;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}html body #sheet #shopstrip .ss-acts>.act>em{border-left:0;padding-left:0}html body #sheet #shopstrip .ss-acts>.act#buywear>span{font-size:9px;line-height:1.1}html body #sheet #shopstrip .onman.ss-man .lns .stop{font-size:10px;line-height:1.25;letter-spacing:0}html body #sheet.ns-d1 #shopstrip .onman.ss-man{height:calc(var(--ns-man-h,100px) + 14px)!important}}   /* __THE_NARROW_STRIP_S_BUTTONS__ (UI FIVE 11/22): on a phone on its side the two buttons are 80 px wide and read 'B | 113' and 'to the...': the words go over the price, two lines at most, centred */   /* __ONE_HAND_OR_TWO__ (UI FIVE 11/22, rule 477(a)): where the strip is a narrow column (a phone on its side) the name sits under ONE-HANDED or TWO-HANDED, so the box holds that second line for every piece, and nothing moves from one piece to the next */
 .ss-said{font-size:12px;color:#9fc38f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ss-hint{font-size:12px;color:var(--dim);padding-top:10px}
 .onman.ss-man{height:100px;box-sizing:border-box;margin:0;padding:4px 6px;overflow:hidden;display:flex;flex-direction:column;gap:2px}
@@ -230,7 +231,7 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 .onman.ss-man .lns .ln .bst-bar,.onman.ss-man .lns .ln .bst-track,.onman.ss-man .lns .ln .bst-st,.onman.ss-man .lns .ln .bst-tag,.onman.ss-man .lns .ln .bst-n{display:none!important}
 .onman.ss-man .lns .ln .k{min-width:0!important;font-size:10px}
 .onman.ss-man .lns .stop{font-size:11px;padding:0}
-.onman.ss-man.ss-wpn .lns .ln{display:none!important}.onman.ss-man.ss-wpn:has(.lns .stop) .onwho{display:none}   /* __ONE_HAND_OR_TWO__ (rule 477(b)): a weapon's five 'on him' differences are the background, the face says the damage */
+.onman.ss-man.ss-wpn .lns .ln{display:none!important}.onman.ss-man.ss-wpn:has(.lns .stop) .onwho{display:none}.onman.ss-man.ss-wpn:has(.lns .stop) .lns{max-height:50px}.onman.ss-man.ss-wpn .lns .stop{line-height:1.2}
 .onman.ss-man .fstrip{order:-1;padding:0 0 4px;flex:none}
 .onman.ss-man .fstrip button{position:relative;width:46px}
 .onman.ss-man .fstrip canvas{width:28px;height:28px}

@@ -28,10 +28,11 @@ out (sheets six, seven, eight behind MORE). FOR CHARACTER: the homework sheets n
 its list.
 [bb Battle Brothers' raiders say what they want and what it costs you, in one breath]
 [analog horror: 'That's you. Ten minutes ago. Somebody up there's been watching you all fucking day.']
-UI FIVE (ui-five-01gkdyuu): 11/22 LATEST -- BUILD 11/22zw - ONE HAND OR TWO, BUILT, NOT YET SEEN (rule 477, ask row 718). Its block is handoffs/UI_FOUR.md.
+UI FIVE (ui-five-01gkdyuu): 11/22 LATEST -- BUILD 11/22zzb - THE STRIP WHOLE ON ITS SIDE, and before it 11/22zw - ONE HAND OR TWO, BUILT, NOT YET SEEN (rule 477, ask row 718). Its block is handoffs/UI_FOUR.md.
 A weapon tapped anywhere (every shop, the crew screen, the loot) says ONE-HANDED or TWO-HANDED first, in a band; the card says only name, price, hits, reach and whether staff may
 carry it (16 words where it said 53), everything else behind its MORE button; the strip two numbers. The card's title is the piece again (474's tag had made it 'SHOTGUN').
 Gate ONE HAND OR TWO (new) 24/0, demo and alpha both ways, its plant red. VOTE ui5-one-hand-or-two-11-22. Before it: 11/22zj EACH SLOT ITS OWN PICTURE (rule 474).
+11/22zzb: on a phone on its side the shop strip's buttons said 'B | 113' and 'to the...' and the both-hands line was cut; now whole (upright 'Buy it and ...' still open).
 [bb Battle Brothers: the slot says what it is at a glance, the long numbers live in the tooltip]
 [analog horror: a pawn ticket with BOTH HANDS or ONE HAND stamped in a box at the top]
 STAFF (staff-01gkdyus): 11/22 LATEST -- CONTEXT NEAR FULL, a fresh STAFF takes rule 471 (the cart) from handoffs/STAFF.md. BUILD 11/22zi - THEY FIGHT LIKE STAFF, BUILT, NOT YET SEEN (rule 470(a), his order on his YES; rules 461, 441, 465; ask row 701). Its block is handoffs/STAFF.md.

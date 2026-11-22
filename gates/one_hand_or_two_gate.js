@@ -14,7 +14,8 @@
         rule (the row's hands column; a bow, crossbow or firearm with none takes both); then its name and price, how hard it hits, how
         far it reaches, whether STAFF may carry it (two-handed: CANNOT, rule 471(b)); 24 words at most; the card whole on the glass
      H2 THE STRIP under the shelf: ONE-HANDED or TWO-HANDED before the name (left of it, or above it where the strip is narrow), the
-        name whole in its box, and only two numbers, how hard it hits and how far it reaches
+        name whole in its box, and only two numbers, how hard it hits and how far it reaches; its two buttons' words and the line on
+        what goes to the stash whole (on its side they read 'B | 113' and 'to the...' before 11/22zx)
      H3 EVERYTHING ELSE ONE TAP DEEPER: the card's MORE shows the long card (the hand still first, every blow); the piece is not
         bought (the purse, the bag and the shelf the same) and stays lit
      H4 THE CREW SCREEN (the phone's CREW, his main hand tapped): the line under him says his weapon's hands right after its name,
@@ -55,6 +56,11 @@ const STRIP = () => {
   const R = e => { if (!e) return null; const r = e.getBoundingClientRect(); return { l: r.left, t: r.top, r: r.right, b: r.bottom, w: r.width, h: r.height }; };
   const a = R(th), b = R(nm), f = R(fx);
   return { hand: th ? th.textContent.trim() : null, name: nm ? nm.textContent.trim() : null, cells: [...st.querySelectorAll('.inums .bic, .inums .ch')].filter((e, i, L) => L.indexOf(e) === i).map(e => e.dataset.cell || e.dataset.stat || 'chip'),
+    cut: (() => { const out = [];   /* the buttons' words and the both-hands line whole (UI FIVE 11/22: on its side they read 'B | 113', 'to the...') */
+      if (st.getBoundingClientRect().width <= 300) st.querySelectorAll('.ss-acts > .act > span').forEach(e => {   /* the narrow strip (a phone on its side); upright 'Buy it and ...' is older and still open */ if (e.offsetWidth && (e.scrollWidth > e.clientWidth + 1 || e.scrollHeight > e.clientHeight + 1)) out.push('button "' + e.textContent + '"'); });
+      const om = st.querySelector('.onman.ss-man'), sp = st.querySelector('.onman.ss-man .lns .stop');
+      if (om && sp && sp.offsetHeight) { const o = om.getBoundingClientRect(), q = sp.getBoundingClientRect(), L = sp.parentElement.getBoundingClientRect(); if (q.bottom > Math.min(o.bottom, L.bottom) + 0.5) out.push('the line "' + sp.textContent.slice(0, 30) + '" cut'); }
+      return out; })(),
     before: !!(a && b) && (a.r <= b.l + 0.5 || a.b <= b.t + 0.5), nameWhole: !!(b && f) && b.w > 8 && b.l >= f.l - 0.5 && b.r <= f.r + 0.5 && b.t >= f.t - 0.5 && b.b <= f.b + 0.5 && nm.scrollWidth <= nm.clientWidth + 1 };
 };
 const still = async (P, h) => { let q = await h.boundingBox(), same = 0; for (let i = 0; i < 40 && same < 5; i++) { await P.waitForTimeout(60); const r = await h.boundingBox(); same = r && q && Math.abs(r.x - q.x) < 0.5 && Math.abs(r.y - q.y) < 0.5 ? same + 1 : 0; q = r; } return q; };
@@ -101,13 +107,14 @@ async function shop(tag, sf, P, plant) {
       else if (!s.before) bad2.push(w.id + ' the hand word after the name');
       if (s && !s.nameWhole) bad2.push(w.id + ' the strip\'s name cut');
       if (s && s.cells.join(',') !== 'damage,reach') bad2.push(w.id + ' strip numbers ' + s.cells.join(','));
+      if (s && s.cut.length) bad2.push(w.id + ' ' + s.cut.join(', '));
     }
   }
   const ns = seen.filter(x => x.c).map(x => x.c.n), two = seen.filter(x => x.want === 'TWO-HANDED').length;
   const say = list.length + ' weapons (' + two + ' two-handed), ' + (ns.length ? Math.min(...ns) + ' to ' + Math.max(...ns) + ' words' : 'no card') + ', e.g. "' + ((seen.find(x => x.c) || {}).c || {}).text + '"';
   if (plant) { ok(tag + ' PLANTED (the old card put back): H1 goes red (' + say + ')', bad1.length > 0, bad1.slice(0, 3).join('; ')); return { ns, plant: true }; }
   ok('H1 ' + tag + ' THE SHOP, every weapon on the smith\'s shelf, one tap: ONE-HANDED or TWO-HANDED first, then its name and price, hits, reach, staff, ' + MAXWORDS + ' words at most, whole on the glass (' + say + ')', list.length >= 3 && two >= 1 && two < list.length && !bad1.length, bad1.slice(0, 4).join('; '));
-  ok('H2 ' + tag + ' THE STRIP: the hand word before the name, the name whole, two numbers (hits, reach)', list.length >= 3 && !bad2.length, bad2.slice(0, 4).join('; ') || (seen[0] && JSON.stringify(seen[0].s)));
+  ok('H2 ' + tag + ' THE STRIP: the hand word before the name, the name whole, two numbers (hits, reach), the buttons\' words and the both-hands line whole', list.length >= 3 && !bad2.length, bad2.slice(0, 4).join('; ') || (seen[0] && JSON.stringify(seen[0].s)));
   /* H3 the dearest weapon's MORE */
   const w0 = list[0];
   await sf.evaluate(() => { const c = document.getElementById('bwcard'); if (c) c.style.display = 'none'; });

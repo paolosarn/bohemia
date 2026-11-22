@@ -162,6 +162,9 @@ const idOf = x => x ? (x.id || x) : null;
       ok('K1 the computer: a click on BUY, ' + k.man + ' wears ' + it.id + ' ("' + (wr && wr.said) + '")', !!wr && wr.man === k.man && !!on && Object.values(on.gear).some(g => idOf(g) === it.id));
       /* K2: the crew screen on the computer, where its own boot can open on the default twelve before the door's post lands */
       await sf.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await d.page.waitForTimeout(300);
+      /* UI FIVE 11/22: the sheet folds away first (its morph runs past 300 ms; a press on CREW while it still stood over the map missed,
+         K2 red 3 runs of 3 once the strip grew a line; with the sheet gone, green), as a person waits to see the map */
+      await sf.waitForFunction(() => { const sh = document.getElementById('sheet'); return !BohemiaSettlement.state.open && (!sh || !sh.classList.contains('on')) && !(window.BohemiaMotion && BohemiaMotion.busy && BohemiaMotion.busy()); }, null, { timeout: 5000 }).catch(() => {}); await d.page.waitForTimeout(400);
       if (!(await openCrew(d.page, d.fr, { mouse: true }))) await T.tapSel('#crew');
       let rf = null; for (let n = 0; n < 60 && !rf; n++) { await d.page.waitForTimeout(300); rf = d.page.frames().find(x => /ROSTER_SCREEN/.test(x.url())); }
       let k2 = null; if (rf) { await rf.waitForFunction(() => window.BohemiaRosterScreen && BohemiaRosterScreen.state.ready && BohemiaRosterScreen.state.fromOrigin, null, { timeout: 30000 }).catch(() => {}); await d.page.waitForTimeout(800);
