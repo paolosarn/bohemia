@@ -1,0 +1,438 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "battery",
+ "name": "THE BATTERY FARM",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "The map seats the battery farm beside the solar field ('Battery farm (H): solar without storage dies every night', engine/bohemia_overmap.js): one cell, in 40 of 40 valleys.",
+  "The dead's own line for the kind (engine/bohemia_dead.js): 'crews caught working'.",
+  "A grid battery farm is its battery hall (racks of cells in long rows, the inverters that turn their direct current into the grid's, the cooling units that keep them from burning) and its control house (the switchgear in lineups, the operators' desks, the transformer bay); a battery fire is fought with water, and the sprinklers' water stands on the floor after.",
+  "On house tiles a run of racks, a cooling unit, a switchgear lineup and a transformer each hide a man; the sprinklers' water is Battle Brothers' swamp."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (battery_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "battery"
+ ],
+ "share": 0.7,
+ "districts_why": "The farm is its two buildings and the yard of containers between them: seven fights in ten at its cell are fought inside, in the battery hall or the control house, by the cell's own dice; the rest in the yard.",
+ "board": {
+  "templates": {
+   "battery": {
+    "name": "THE BATTERY FARM",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_battery_hall": [
+      "####################",
+      "#HH.c.RRRRf.RRRR.c.#",
+      "#..k.i.dk..k..i.k..#",
+      "#.RRRR.ckRRk.RRRR.c#",
+      "#.k..i.k.c.d.k.i..k#",
+      "#.RRRR.d.RR.cRRRR.d#",
+      "#..c.k.id.w.k.i.k..#",
+      "#D.k.d.cikf.c.d.k.D#",
+      "#..c.k.id.w.k.i.k..#",
+      "#.RRRR.d.RR.cRRRR.d#",
+      "#.k..idk.c.d.k.i..k#",
+      "#.RRRRkc.RRk.RRRR.c#",
+      "#..k.i.dk..k..i.k..#",
+      "#HH.c.RRR.DD.RRR.c.#",
+      "####################"
+     ],
+     "the_control_house": [
+      "####################",
+      "#SSSS.k.f.dk.SSSS.k#",
+      "#..c..d.e.kekd..c..#",
+      "#.k.SSSdk.c.kdSSS.k#",
+      "#..d..e.w.d.wke..d.#",
+      "#XX.k.c..k.kdkc.k.X#",
+      "#XX.d.SSS.e.SSS.d.X#",
+      "#D..e.c.k.f.k.c.e.D#",
+      "#XX.dkSSS.e.SSSkd.X#",
+      "#XX.k.c..k.kdkc.k.X#",
+      "#..d..ekw.d.wke..d.#",
+      "#.k.SSS.k.c.kdSSS.k#",
+      "#..c..d.e.kekd..c..#",
+      "#SSSS.k.DD.dk.SSSS.#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "R": {
+    "is": "floor",
+    "tile": "racks",
+    "piece": "bt_racks",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "H": {
+    "is": "floor",
+    "tile": "cooling",
+    "piece": "bt_cooling",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "i": {
+    "is": "floor",
+    "tile": "inverter",
+    "piece": "bt_inverter",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "cabinets",
+    "piece": "bt_cabinets",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "modules",
+    "piece": "bt_modules",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "d": {
+    "is": "floor",
+    "tile": "drums",
+    "piece": "bt_drums",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "S": {
+    "is": "floor",
+    "tile": "switchgear",
+    "piece": "bt_switchgear",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "X": {
+    "is": "floor",
+    "tile": "transformer",
+    "piece": "bt_transformer",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "e": {
+    "is": "floor",
+    "tile": "desk",
+    "piece": "bt_desk",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "w": {
+    "is": "floor",
+    "tile": "water"
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words); 'sight' says whether a blocker hides a man ('blocked', the obstacles row) or is seen past ('seen'). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The hall's concrete wall: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The hall's sealed concrete: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The floor: open ground.",
+   "draft": true
+  },
+  "racks": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A run of battery racks, cells to the ceiling, some still holding the night's charge: nobody stands there, and nobody sees through it; cover beside it. [bb] its wall.",
+   "say": ""
+  },
+  "cooling": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A cooling unit as big as a truck, its fans still: nobody stands there, and nobody sees through it. [bb] its boulder.",
+   "say": ""
+  },
+  "inverter": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "An inverter skid, steel cabinets humming when the cells are full: cover.",
+   "say": "An inverter: cover.",
+   "draft": true
+  },
+  "cabinets": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Control cabinets, their doors hanging, the breakers inside thrown: cover.",
+   "say": "Cabinets: cover.",
+   "draft": true
+  },
+  "modules": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Battery modules pulled out of the racks and stacked, the crews' last job: low cover.",
+   "say": "Stacked battery modules: low cover.",
+   "draft": true
+  },
+  "drums": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Drums of coolant, most of them empty: low cover.",
+   "say": "Coolant drums: low cover.",
+   "draft": true
+  },
+  "switchgear": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A switchgear lineup, steel sections taller than a man: nobody stands there, and nobody sees through it; cover beside it. [bb] its wall.",
+   "say": ""
+  },
+  "transformer": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A transformer in its bay, its fins warm when the farm runs: nobody stands there, and nobody sees through it. [bb] its boulder.",
+   "say": ""
+  },
+  "desk": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "An operators' desk, its screens dark: cover.",
+   "say": "A desk: cover.",
+   "draft": true
+  },
+  "water": {
+   "row": "swamp",
+   "terrain": "water",
+   "ap": 4,
+   "open": true,
+   "effect": "The sprinklers' water from the last battery fire, standing: slow going (4 AP), and a man standing in it fights worse. [bb] its swamp.",
+   "say": "Standing water: slow going, and you fight worse in it.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a drum. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The hall's doors, open onto the yard of containers: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The doors: open ground.",
+   "say_lit": "The doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in battery_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "bt_racks": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "BATTERY RACKS"
+  },
+  "bt_cooling": {
+   "like": "sb_container_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A COOLING UNIT"
+  },
+  "bt_inverter": {
+   "like": "garage_booth",
+   "kind": "COVER",
+   "name": "AN INVERTER"
+  },
+  "bt_cabinets": {
+   "like": "garage_core",
+   "kind": "COVER",
+   "name": "CONTROL CABINETS"
+  },
+  "bt_modules": {
+   "like": "sb_bales_S",
+   "kind": "LOW_COVER",
+   "name": "STACKED BATTERY MODULES"
+  },
+  "bt_drums": {
+   "like": "sb_rubble_S",
+   "kind": "LOW_COVER",
+   "name": "COOLANT DRUMS"
+  },
+  "bt_switchgear": {
+   "like": "tunnel_wall_ew",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A SWITCHGEAR LINEUP"
+  },
+  "bt_transformer": {
+   "like": "sb_dozer_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A TRANSFORMER"
+  },
+  "bt_desk": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "AN OPERATORS' DESK"
+  },
+  "bt_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "bt_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "bt_wall_ew",
+  "ns": "bt_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: the racks' tops are a climb nobody makes under fire on house tiles; the panels are outside.",
+ "ceiling": {
+  "kind": "joist",
+  "alpha": 0.1,
+  "src": "battery/battery_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the hall's cable trays and the control house's ceiling, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the warehouse's roof)."
+ }
+}
