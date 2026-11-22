@@ -19,9 +19,11 @@
  ],
  "share": 0.6,
  "share_by_district": {
-  "powerplant": 0.35
+  "powerplant": 0.73
  },
  "districts_why": "The dam is the one map kind with a powerhouse under it: six in ten of its fights go inside the generator hall, by the cell's own dice; the rest are fought on the crest and the shore outside. The gas plant's turbine hall is the same room: about a third of its fights inside, the rest in its yard.",
+ "share_meant": {"powerplant": 0.35, "dam": 0.6},
+ "share_dice": "THE MAP'S DICE (COMBAT FOUR 11/22): a place's inside is rolled from its cell (the same cell the same answer), so a place on a few cells goes inside on a step, never a slope: 'share' is the threshold its real cells need for 'share_meant' to come true over a whole run of valleys, measured on the map's own cells (gates/the_big_insides_gate.js I14). powerplant: meant 0.35, went inside in 0% of its cells over 40 valleys (3 places, 40 cells, after what the parking garage takes first); at 0.73, 42%, the nearest its dice allow.",
  "board": {
   "templates": {
    "powerhouse": {

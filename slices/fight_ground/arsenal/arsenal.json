@@ -13,8 +13,10 @@
  "districts": [
   "arsenal"
  ],
- "share": 0.8,
+ "share": 0.74,
  "districts_why": "The arsenal is its own map kind, one cell: eight fights in ten there are fought inside it, by the cell's own dice; the rest in its yard.",
+ "share_meant": {"arsenal": 0.8},
+ "share_dice": "THE MAP'S DICE (COMBAT FOUR 11/22): a place's inside is rolled from its cell (the same cell the same answer), so a place on a few cells goes inside on a step, never a slope: 'share' is the threshold its real cells need for 'share_meant' to come true over a whole run of valleys, measured on the map's own cells (gates/the_big_insides_gate.js I14). arsenal: meant 0.8, went inside in 100% of its cells over 40 valleys (5 places, 40 cells, after what the parking garage takes first); at 0.74, 72%, the nearest its dice allow.",
  "board": {
   "templates": {
    "arsenal": {

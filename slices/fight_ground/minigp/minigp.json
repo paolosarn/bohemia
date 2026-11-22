@@ -13,8 +13,10 @@
  "districts": [
   "minigp"
  ],
- "share": 0.5,
+ "share": 0.33,
  "districts_why": "The park is its track and its coaster outside and its two buildings: half the fights at its cell are fought inside, in the arcade or the kart garage, by the cell's own dice; the rest on the track.",
+ "share_meant": {"minigp": 0.5},
+ "share_dice": "THE MAP'S DICE (COMBAT FOUR 11/22): a place's inside is rolled from its cell (the same cell the same answer), so a place on a few cells goes inside on a step, never a slope: 'share' is the threshold its real cells need for 'share_meant' to come true over a whole run of valleys, measured on the map's own cells (gates/the_big_insides_gate.js I14). minigp: meant 0.5, went inside in 100% of its cells over 40 valleys (2 places, 39 cells, after what the parking garage takes first); at 0.33, 44%, the nearest its dice allow.",
  "board": {
   "templates": {
    "minigp": {

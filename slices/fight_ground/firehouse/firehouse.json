@@ -13,8 +13,10 @@
  "districts": [
   "firestation"
  ],
- "share": 0.8,
+ "share": 0.76,
  "districts_why": "The fire station is its own map kind: eight fights in ten there are fought inside it, by the cell's own dice; the rest on its apron.",
+ "share_meant": {"firestation": 0.8},
+ "share_dice": "THE MAP'S DICE (COMBAT FOUR 11/22): a place's inside is rolled from its cell (the same cell the same answer), so a place on a few cells goes inside on a step, never a slope: 'share' is the threshold its real cells need for 'share_meant' to come true over a whole run of valleys, measured on the map's own cells (gates/the_big_insides_gate.js I14). firestation: meant 0.8, went inside in 96% of its cells over 40 valleys (10 places, 49 cells, after what the parking garage takes first); at 0.76, 86%, the nearest its dice allow.",
  "board": {
   "templates": {
    "firehouse": {

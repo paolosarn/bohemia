@@ -14,8 +14,10 @@
  "districts": [
   "radio"
  ],
- "share": 0.8,
+ "share": 0.61,
  "districts_why": "The station is its building: eight fights in ten at its cell are fought inside, in the studios or the transmitter hall, by the cell's own dice; the rest at the tower's foot outside.",
+ "share_meant": {"radio": 0.8},
+ "share_dice": "THE MAP'S DICE (COMBAT FOUR 11/22): a place's inside is rolled from its cell (the same cell the same answer), so a place on a few cells goes inside on a step, never a slope: 'share' is the threshold its real cells need for 'share_meant' to come true over a whole run of valleys, measured on the map's own cells (gates/the_big_insides_gate.js I14). radio: meant 0.8, went inside in 100% of its cells over 40 valleys (5 places, 38 cells, after what the parking garage takes first); at 0.61, 84%, the nearest its dice allow.",
  "board": {
   "templates": {
    "radio": {

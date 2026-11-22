@@ -13,8 +13,10 @@
  "districts": [
   "truckstop"
  ],
- "share": 0.7,
+ "share": 0.76,
  "districts_why": "The truck stop is its own map kind on the freeway: seven fights in ten there are fought inside, in its store or its service bay, by the cell's own dice; the rest on its fuel plaza and the lot.",
+ "share_meant": {"truckstop": 0.7},
+ "share_dice": "THE MAP'S DICE (COMBAT FOUR 11/22): a place's inside is rolled from its cell (the same cell the same answer), so a place on a few cells goes inside on a step, never a slope: 'share' is the threshold its real cells need for 'share_meant' to come true over a whole run of valleys, measured on the map's own cells (gates/the_big_insides_gate.js I14). truckstop: meant 0.7, went inside in 35% of its cells over 40 valleys (4 places, 40 cells, after what the parking garage takes first); at 0.76, 65%, the nearest its dice allow.",
  "board": {
   "templates": {
    "truckstop": {

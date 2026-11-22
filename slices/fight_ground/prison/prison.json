@@ -15,8 +15,10 @@
   "prison",
   "jail"
  ],
- "share": 0.6,
+ "share": 0.38,
  "districts_why": "The prison and the jail are the two map kinds with cell blocks: six fights in ten there are fought inside a unit, by the cell's own dice; the rest in the yard or the street.",
+ "share_meant": {"prison": 0.6, "jail": 0.6},
+ "share_dice": "THE MAP'S DICE (COMBAT FOUR 11/22): a place's inside is rolled from its cell (the same cell the same answer), so a place on a few cells goes inside on a step, never a slope: 'share' is the threshold its real cells need for 'share_meant' to come true over a whole run of valleys, measured on the map's own cells (gates/the_big_insides_gate.js I14). prison: meant 0.6, went inside in 85% of its cells over 40 valleys (24 places, 159 cells, after what the parking garage takes first); at 0.38, 64%, the nearest its dice allow; jail: meant 0.6, went inside in 90% of its cells over 40 valleys (10 places, 20 cells, after what the parking garage takes first); at 0.38, 60%, the nearest its dice allow.",
  "board": {
   "templates": {
    "prison": {

@@ -13,8 +13,10 @@
  "districts": [
   "convention"
  ],
- "share": 0.7,
+ "share": 0.647,
  "districts_why": "The convention centre is the one map kind with halls. The parking garage takes its own share there first (garage.json); of the rest, this share is fought in a hall, by the cell's own dice; the rest on the street outside.",
+ "share_meant": {"convention": 0.7},
+ "share_dice": "THE MAP'S DICE (COMBAT FOUR 11/22): a place's inside is rolled from its cell (the same cell the same answer), so a place on a few cells goes inside on a step, never a slope: 'share' is the threshold its real cells need for 'share_meant' to come true over a whole run of valleys, measured on the map's own cells (gates/the_big_insides_gate.js I14). convention: meant 0.7, went inside in 89% of its cells over 40 valleys (8 places, 150 cells, after what the parking garage takes first); at 0.647, 74%, the nearest its dice allow.",
  "board": {
   "templates": {
    "hall": {

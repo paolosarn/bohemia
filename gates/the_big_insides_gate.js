@@ -21,6 +21,8 @@
      I8  BOTH SIDES USE ROOFS AND COVER (rule 428(c)(d)): after the first round fewer men stand on the bare open floor than with the
          rule off, more on cover; if it has high ground, part of the band starts up on it and men are on it after the first round
      I9  ITS CEILING: the board carries its data's ceiling, about 10% and never past the fight's most
+     I14 THE MAP'S DICE KEEP ITS WORD: on the map's own cells over 40 valleys, a place seated on few cells goes inside as often as its
+         data means (share_meant), or as near as its own rolls allow (the legs I10 to I13 are written where they run)
      planted: a wall across the floor (I2), one high tile read as floor (I3), a tile kind with no row and a wrong AP (I7), the open
      floor not open (I8)
    Run: node gates/the_big_insides_gate.js      (every inside, four at once; '--part 1/3', '--part 2/3', '--part 3/3': the suite's three
@@ -48,6 +50,13 @@ const F = ctx.FIGHT, BI = ctx.BohemiaBigInside, IDS = ((J(FG + 'insides.json') |
 ctx.DB.insides = {};
 IDS.forEach(id => { const d = J(FG + id + '/' + id + '.json'), art = J(FG + id + '/' + id + '_art.json'); if (d) ctx.DB.insides[id] = { data: d, art: art, kit: BI.kit(d, art, { garage: ctx.DB.garage, tunnels: ctx.DB.tunnels, casino: ctx.DB.casino, dress: ctx.DB.streetDress.kit }) }; });
 const cellOf = i => ({ gx: (i * 31 + 7) % 90, gy: (i * 17 + 3) % 90 });
+/* I14's valleys: the map's own generator, 40 seeds, built once (the parent writes them for its children; about 3 s) */
+const seedOf = t => { let h = 2166136261; for (let i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; };   /* the fight's own (BOHEMIA_FIGHT.html seedOf) */
+let CELLS40 = null;
+const mapCells = () => { if (CELLS40) return CELLS40; const f = process.env.BIG_INSIDES_CELLS; if (f && fs.existsSync(f)) return (CELLS40 = JSON.parse(fs.readFileSync(f, 'utf8')));
+  const O = require(path.join(ROOT, 'engine/bohemia_overmap.js')), out = {};
+  for (let s = 1; s <= 40; s++) { const m = O.buildOvermap(s * 7919), v = {}; m.tiles.forEach((t, i) => { (v[t.district] = v[t.district] || []).push([i % m.n, Math.floor(i / m.n)]); }); out[s] = v; }
+  return (CELLS40 = out); };
 const litCount = S => { let n = 0; for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) if (S.lit[y][x]) n++; return n; };
 const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q = [[u.x, u.y]];
   const foe = new Set(S.units.filter(t => t.side !== u.side && F.onField(t)).map(t => t.x + ',' + t.y));
@@ -71,6 +80,8 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
   const MINE = PARTS ? IDS.filter((id, i) => i % PARTS === PART - 1) : IDS;
   const PAR = !ONLY && !CHILD && MINE.length > 1;
   if (PAR) {
+    const cf = path.join(require('os').tmpdir(), 'big_insides_cells40_' + process.pid + '.json'); fs.writeFileSync(cf, JSON.stringify(mapCells())); process.env.BIG_INSIDES_CELLS = cf;
+    process.on('exit', () => { try { fs.unlinkSync(cf); } catch (e) {} });
     const { spawn } = require('child_process'), N = Math.max(1, Math.min(require('os').cpus().length, 4, MINE.length)), out = {};
     let next = 0, running = 0;
     await new Promise(done => { const go = () => { if (next >= MINE.length && !running) return done();
@@ -94,7 +105,9 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
       for (let i = 0; i < 4; i++) { if (deal('suburb', i, { inside: id }).boardDef.interior === id) yes++; if (deal(DIST[0], i, { inside: false }).boardDef.interior !== id) no++;
         if (deal(DIST[0], i, { template: { id: 'strip', board: 'place_strip', tx: 6, ty: 6, flip: false, cell: [30, 30] } }).boardDef.interior === id) onPlace++; }
       const share = in1 / n1;
-      check(in1 > 0 && share <= (data.share == null ? 1 : data.share) + 0.12 && none === 0 && yes === 4 && no === 4 && same === 1 && onPlace === 0, 'I1 ' + N,
+      const want1 = DIST.reduce((a, d) => a + ((data.share_by_district || {})[d] != null ? data.share_by_district[d] : (data.share == null ? 1 : data.share)), 0) / DIST.length;   /* each district its own share (I14 sets the gas plant's apart) */
+      const slack1 = Math.max(0.12, 3 * Math.sqrt(want1 * (1 - want1) / n1));   /* a sanity bound on the gate's own cells: a flat 0.12 on 40 to 80 cells is under two sigma, so three sigma (I14 holds the promise on the map's real cells) */
+      check(in1 > 0 && share <= want1 + slack1 && none === 0 && yes === 4 && no === 4 && same === 1 && onPlace === 0, 'I1 ' + N,
         'A FIGHT THERE MAY GO INSIDE: ' + in1 + ' of ' + n1 + ' fights at its districts (' + DIST.map(d => d + ' ' + per[d] + ' of 40').join(', ') + '; the data\'s share ' + data.share + ' of what the garage leaves); the same cell the same answer: ' + (same ? 'yes' : 'NO') + '; at districts it has none of ' + none + '; asked in ' + yes + '/4, asked out ' + no + '/4; on a place\'s own cell ' + onPlace); }
     /* I2 to I6 over 24 boards */
     let joined = 0, lines = 0, walkAll = 0, n = 0, onlyRamps = 0, levelOk = 0, dayLit = 0, nightLess = 0, ended = 0, rounds = 0, idle = 0, men = 0, standIn = 0, laid = 0;
@@ -239,6 +252,32 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
       const R13 = judge(null), plantP = R13.pieces[0], P13 = plantP ? judge({ [plantP]: 'sb_cart_S' }) : null, caught = P13 ? P13.bad.length > R13.bad.length : null;
       check(!R13.bad.length && caught !== false, 'I13 ' + N, 'A COVER TILE LOOKS LIKE COVER: ' + R13.pieces.length + ' stand-in pieces, ' + (R13.bad.length ? R13.bad.length + ' paint under 9% of a tile: ' + R13.bad.slice(0, 5).join('; ') : 'every one paints at least 9% of a tile')
         + (plantP ? '; planted: ' + plantP + ' drawn as a shopping cart is ' + (caught ? 'caught' : 'NOT CAUGHT') : '; no stand-in (its own pictures)')); }
+    /* I14 THE MAP'S DICE KEEP ITS WORD (COMBAT FOUR 11/22, found on the Neon Boneyard: twelve page runs, twelve fights outside at a share
+       of 0.4). A place's inside is rolled from its cell (seedOf(x,y:ground) against the share: the same cell the same answer), so a place
+       the map seats on a few cells goes inside on a STEP, never a slope: the boneyard's five real cells went inside in 10 valleys of 40,
+       the gas plant's three in none, the Mini Grand Prix's two in all. Over the map's own generator (engine/bohemia_overmap.js, 40
+       valleys) every district of the inside seated on 40 places or fewer is dealt at each real cell, through the fight's own setup; the
+       cells the parking garage, the casino floor, the tunnels or a graveyard take first are not its to have. Holds: the share of its
+       cells that go inside is within 0.15 of 'share_meant' (else of its share), or as near as its dice allow (the best band of its own
+       rolls, plus 0.05); never none where something is meant; and the gate's copy of the roll agrees with every deal (the fight's dice
+       read, not guessed). Planted: its share read as 0 (none inside) is caught. A district on more than 40 places is a slope: skipped */
+    { const M = data.share_meant || {}, by = data.share_by_district || {}, CL = mapCells(), rows = [], bad = [];
+      DIST.forEach(d => { const pos = {}; Object.keys(CL).forEach(s => (CL[s][d] || []).forEach(([x, y]) => { const k = x + ',' + y; pos[k] = (pos[k] || 0) + 1; }));
+        const keys = Object.keys(pos); if (!keys.length) { rows.push(d + ': not on the map'); return; } if (keys.length > 40) { rows.push(d + ': ' + keys.length + ' places, a slope (skipped)'); return; }
+        const share = by[d] != null ? by[d] : (data.share == null ? 1 : data.share), meant = M[d] != null ? M[d] : share, ids = IDS.filter(j => ctx.DB.insides[j] && ctx.DB.insides[j].data.districts.indexOf(d) >= 0), i = ids.indexOf(id);
+        const open = []; let wrong = 0;
+        keys.forEach(k => { const [x, y] = k.split(',').map(Number); ctx.setSeed(1700); F.setup({ district: d, cell: { gx: x, gy: y }, night: false, auto: true, formation: null, deploy: false });
+          const took = F.S.boardDef.interior || null; if (['garage', 'casino', 'tunnels', 'graveyard'].indexOf(took) >= 0) return;
+          const roll = (((seedOf(x + ',' + y + ':' + (F.S.ground && F.S.ground.ground)) >>> 0) ^ 0x7f4a7c15 ^ Math.imul(i, 0x9e3779b9)) >>> 0) % 1000 / 1000;
+          if ((roll < share) !== (took === id)) wrong++; open.push([roll, pos[k], took === id]); });
+        const n = open.reduce((a, p) => a + p[1], 0); if (!n) { rows.push(d + ': every cell taken first'); return; }
+        const got = open.filter(p => p[2]).reduce((a, p) => a + p[1], 0) / n, rolls = [...new Set(open.map(p => p[0]))].sort((a, b) => a - b);
+        const bandErr = [0].concat(rolls.map(r => open.filter(p => p[0] <= r).reduce((a, p) => a + p[1], 0) / n)).map(r => Math.abs(r - meant)), best = Math.min.apply(null, bandErr);
+        const ok = r => Math.abs(r - meant) <= Math.max(0.15, best + 0.05) + 1e-9 && !(meant > 0 && r === 0);
+        if (!ok(got) || wrong) bad.push(d);
+        if (ok(0)) bad.push(d + ' (the plant not caught)');
+        rows.push(d + ' ' + Math.round(got * 100) + '% of ' + n + ' cells on ' + open.length + ' places (meant ' + meant + ', share ' + share + '; its dice come no nearer than ' + Math.round(best * 100) / 100 + (wrong ? ', ' + wrong + ' deals the copied roll got wrong' : '') + ')'); });
+      check(!bad.length, 'I14 ' + N, "THE MAP'S DICE KEEP ITS WORD (40 valleys of the map's own generator): " + rows.join('; ') + (bad.length ? '; WRONG: ' + bad.join(', ') : '; planted: its share read as 0 is caught')); }
     /* I9 */
     { const c = deal(DIST[0], 1, { inside: id }).boardDef.ceiling, want = data.ceiling || {};
       check(!!c && c.kind === want.kind && c.alpha >= 0.05 && c.alpha <= 0.14 && c.name === want.src && (want.have ? fs.existsSync(path.join(ROOT, FG, want.src)) : c.src === null), 'I9 ' + N, 'ITS CEILING: ' + (c ? c.kind + ' at ' + c.alpha + ', the picture ' + want.src + (want.have ? ' (in)' : ' (owed by COOK FIVE: the fight draws the kind itself)') : 'NONE')); }
