@@ -119,6 +119,14 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 .slots.bar .rail{position:relative;height:8px;margin-top:4px;background:#16110c;border:1px solid var(--line);display:grid;grid-template-columns:repeat(9,1fr)}
 .slots.bar .rail i{border-right:1px solid #2a2119}
 .slots.bar .rail b{position:absolute;top:-4px;width:4px;height:14px;margin-left:-2px;background:var(--gold);box-shadow:0 1px 0 #000}
+/* JOBS 2 11/22 __THE_BOARD_UNDER_HALF__ (ask row 669, rule 402: a small job's sheet under half the glass; measured on the demo held sideways,
+   Caravans' board 820 x 195 on 844 x 330, 57%): on a short sideways glass the town's standing, its rail (shorter) and MORE WORK HERE share
+   one row instead of three; the board measured again: under half */
+@media (orientation:landscape) and (max-height:500px){
+  .slots.bar{display:inline-flex;align-items:center;gap:8px;max-width:none;margin-top:4px;vertical-align:middle}
+  .slots.bar .rail{flex:0 0 140px;margin-top:0}
+  .slots.waits{display:inline-block;margin:4px 0 0 18px;vertical-align:middle}
+}
 #close{position:absolute;right:8px;top:6px;min-width:44px;min-height:44px;background:none;border:0;color:var(--dim);font:inherit;font-size:20px}
 /* the shelf and the bag: square slots, Battle Brothers' stash grid */
 .gridh{margin:10px 0 4px;font-size:11px;letter-spacing:1px;color:var(--dim)}

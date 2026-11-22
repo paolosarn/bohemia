@@ -1,6 +1,18 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/22 LATEST -- THE JOBS' PART: TWO FALSE REDS ANSWERED (no build: nothing on his screen
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/22 LATEST -- BUILD 11/22zs - THE BOARD UNDER HALF, BUILT, NOT YET SEEN (rules 402, 441;
+ask row 669). No VOTE card (a layout fix, nothing new to judge).
+- MEASURED on the demo held sideways (844 x 330): Caravans' board, two jobs, 820 x 195 = 57% of the glass; the rows: the Elder 40, WHAT
+  THEY THINK OF YOU and its rail 27, MORE WORK HERE 15, the cards 71, the held line 15.
+- slices/BOHEMIA_SETTLEMENT_SCREEN.html __THE_BOARD_UNDER_HALF__ (CSS only, short sideways glass): the standing, its rail (140 px) and
+  MORE WORK HERE share one row. SCROLLING IS ILLEGAL --only phone_landscape 12/0: N3 the board 50%. THE TOWN'S BOOK files 10/0.
+- SAID FOR UI FIVE (row 669): a three-job board sideways wraps its cards to two rows: 67% with or without these rows.
+NEXT: row 698 (the board deals a job to a different town depending on when its danger read comes in: the deal must depend on the valley
+and the day only; BOHEMIA_BOARD_SHELF pick with places and the danger floor's fits). Then EYES' rows naming a job; his NOs on JOBS' cards.
+[bb Battle Brothers' contract list is one fixed panel; it never scrolls and never covers the town]
+[analog horror: the board takes the bottom half of the town; the other half is still market day]
+
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/22 -- THE JOBS' PART: TWO FALSE REDS ANSWERED (no build: nothing on his screen
 changed; the checker only). Both were red on main's own job file the same way.
 - N2 ('the job says the place, which way and how far') asked 'about N blocks'; since WORLD's F21 and rule 224 the take line says how far
   in words ('PRIMM, south-west, far out', slices/bohemia_job_kinds.js blocksWord). Re-aimed to the words; its readout shows the PRIMM

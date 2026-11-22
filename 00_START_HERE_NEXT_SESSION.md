@@ -1,4 +1,7 @@
-JOBS TWO (jobs-two-01gkdyuu): 11/22 LATEST -- THE JOBS' PART: two false reds answered (N2 the take line's distance is words since rule 224; D7 the checker pressed
+JOBS TWO (jobs-two-01gkdyuu): 11/22 LATEST -- BUILD 11/22zs - THE BOARD UNDER HALF, BUILT, NOT YET SEEN (rules 402, 441; ask row 669). Its block is handoffs/JOBS.md.
+Sideways, the town board's standing line, its rail and MORE WORK HERE share one row: the two-job board 57% of the glass -> 50% (SCROLLING IS ILLEGAL sideways 12/0).
+A three-job board's two rows of cards are UI FIVE's (said on row 669). NEXT: row 698.
+JOBS TWO (jobs-two-01gkdyuu): 11/22 -- THE JOBS' PART: two false reds answered (N2 the take line's distance is words since rule 224; D7 the checker pressed
 LEAVE while the end screen was still sliding in and hit the phone under it: a hand waits now). No build, nothing on screen changed. Its block is handoffs/JOBS.md.
 JOBS TWO (jobs-two-01gkdyuu): 11/22 -- BUILD 11/22zo - NO WAYPOINTS, BUILT, NOT YET SEEN (rules 473, 441, 448; ask row 713, JOBS 2's half). Its block is handoffs/JOBS.md.
 NO WAYPOINTS (his 'I don't want direction arrows... I have like 14 white points on my map'): a job's or side quest's place off the glass puts nothing at
