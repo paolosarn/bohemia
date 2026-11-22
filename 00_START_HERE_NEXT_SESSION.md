@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22e - THE POLICE STATION, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22f - THE FIRE STATION, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE FIRE STATION: a fight at the fire station (eight in ten) is fought in its apparatus bay (six engines on flat tires that hide a man, turnout gear on the walls, hose on
+the floor, air bottles, tool cabinets) or its quarters (bunks, the kitchen, the day room's couches, the crew's lockers). One data file, every picture a stand-in.
+GATE THE BIG INSIDES 366/0 (twenty-two insides). ON THE PAGE: 4 fights in the apparatus bay, both pages both ways, all ended, 22 of 22 taps, 0 errors (the quarters on the fight page alone and in the gate). VOTE combat4-the-fire-station-11-22.
+[bb Battle Brothers' walls: an engine is a wall on wheels]
+[analog horror: the station's alert tones still sounding on the hour for a call nobody answers]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22e - THE POLICE STATION, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE POLICE STATION: a fight at a police station (eight in ten) is fought in its squad room (desks, tipped files, spilled case boxes, holding cells you see into through
 the bars, the lobby's bullet glass) or its sally port (patrol cars on flat tires, barriers, property cages). One data file, every picture a stand-in (names for COOK in the handoff).
 GATE THE BIG INSIDES 350/0 (twenty-one insides). ON THE PAGE: 8 fights in the squad room, both pages both ways, all ended, 40 of 40 taps, 0 errors (the sally port on the fight page alone and in the gate). VOTE combat4-the-police-station-11-22.

@@ -1,6 +1,21 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the police station] SHIPPED d48d744dd, BUILD 11/22e - THE POLICE STATION, BUILT, NOT YET SEEN. VOTE combat4-the-police-station-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the fire station] SHIPPED 271e245ff, BUILD 11/22f - THE FIRE STATION, BUILT, NOT YET SEEN. VOTE combat4-the-fire-station-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_FIRE_STATION_11_22_26.md. More boards (rule 461): the fire station ('firestation', 0.8): the_apparatus_bay (six engines in two rows, each three
+tiles on the obstacles row: they hide a man; turnout gear racked on both end walls, hiding too; hose on the floor rough 3 AP no cover; air bottles, tool cabinets,
+workbenches, cones; the bay doors) and the_quarters (bunks in rows, the kitchen counters along the top seen over, the long table on its side, the day room's couches, the
+crew's lockers along the bottom). One data file (16 tile kinds, 14 pieces all stand-ins), twenty-second in insides.json; no high ground; the ceiling the warehouse's 'joist'.
+GATE THE BIG INSIDES 366/0 (twenty-two insides) (the fire station 19/0, 24% bare after round one against 49%, at the first cut).
+ON THE PAGE: 4 fights in the apparatus bay, both pages both ways, all ended, 22 of 22 taps, 0 errors (the quarters on the fight page alone and in the gate).
+*** FOR COOK (SIX): THE FIRE STATION'S NAMES (firehouse_art.json, THE GARAGE'S FORMAT): floor.floor (the bay's sealed concrete and drains; the quarters' tile), floor.ring;
+fh_engine (a pumper on flat tires, three tiles), fh_gearwall (turnout gear racked, coats and helmets), fh_hose (hose laid out), fh_bottles (air bottles on a rack), fh_toolbox
+(a rescue tool cabinet), fh_cones, fh_bench (a workbench), fh_bunks, fh_kitchen (counters and a range), fh_table (the kitchen table on its side), fh_couches, fh_lockers,
+fh_wall_ew, fh_wall_ns; firehouse/firehouse_ceiling.webp; "have": true in firehouse.json's ceiling.
+NEXT: more boards (the rail yard's shops, the city hall's chamber once the map has it); the robot factory waits on WORLD's map (its record).
+[bb Battle Brothers' walls: an engine is a wall on wheels]
+[analog horror: the station's alert tones still sounding on the hour for a call nobody answers]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the police station] SHIPPED d48d744dd, BUILD 11/22e - THE POLICE STATION, BUILT, NOT YET SEEN. VOTE combat4-the-police-station-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_POLICE_STATION_11_22_26.md. More boards (rule 461): the police station ('policestation', 0.8; two cells): the_squad_room (holding cells along the
 top, their bars a blocker you see through, steel bunks; desks pushed together, tipped filing cabinets, spilled case boxes rough 3 AP; the front counter and the lobby's
 bullet glass, seen through; officers' lockers that hide a man; the evidence cage) and the_sally_port (patrol cars on flat tires, low enough to see over; property cages
