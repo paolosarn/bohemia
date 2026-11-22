@@ -9620,10 +9620,11 @@ GATES = [
      "Solo: it counts drawn frames. About 8 min", True),
     ('THE CAMP LOADS IN ONE GO', ['node', 'gates/the_camp_loads_in_one_go_gate.js'],
      "PLUMBER 8 gate, 11/22, VAMILY rule 472(e) (Paolo 11/22: 'we made camp, it loads, it takes 30 seconds... it freezes for like 10 "
-     "seconds'), rule 441. MAKE CAMP from the map on the demo upright, CPU 4x, the GPU canvas, a cold camp: the camp's picture in under 11 s "
-     "from the tap (18.5 s before; 7.1 after), the longest task under 1,000 ms and all over 50 ms under 6 s (2.4 s and 10 s before), no "
+     "seconds'), rule 441. MAKE CAMP from the map on the demo upright, CPU 4x, the GPU canvas, a stranger's game on one valley (PTBTDN), a "
+     "cold camp: the camp's picture on the screen under 9 s from the tap (5.5 s; the old ways 12.8 s), the longest task under 1,000 ms and "
+     "all over 50 ms under 4 s (581 ms and 2.3 s; the old ways 883 ms, 5.3 s, and 18 camp hours gone before it showed), no "
      "hour of the camp before its picture is in, the other light handed the first light's board, the picture handed as drawn (never written "
-     "and read back); a plant sets the five old ways and must turn it red. records/BOHEMIA_PLUMBER_THE_CAMP_LOADS_IN_ONE_GO_11_22_26.md. "
+     "and read back); a plant sets the six old ways and must turn it red. records/BOHEMIA_PLUMBER_THE_CAMP_LOADS_IN_ONE_GO_11_22_26.md. "
      "About 5 min", True),
     ('THE CAMP LETS GO WHEN HE LEAVES', ['node', 'gates/the_camp_lets_go_when_he_leaves_gate.js'],
      "MOTION 3 gate, 11/10, rule 441, ask row 560 (PLUMBER 8's NO FREEZE OVER HALF A SECOND: 'leaving camp freezes 1.4 s on his phone "

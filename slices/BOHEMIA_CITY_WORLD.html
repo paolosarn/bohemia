@@ -49840,6 +49840,21 @@ function mapWarmUnderThePlace(){
   later(600);
 }
 /* ==== /__FIRST_PLAY_IS_LIGHT__ ==== */
+/* ==== __A_SHEET_LANDING_DRAWS_ONCE__ (PLUMBER 8, 11/22/26, rule 472(e) and 441). MEASURED (MAKE CAMP on the checkers' bench, the whole
+   valley lit, CPU 4x, a CPU profile): ten seconds of the camp's load were the map drawn again and again behind the camp's screen,
+   one whole draw (about a second there) for every people sheet that came in (each sheet's onload called render()). NOW a sheet that
+   lands while a place is open on the map (a town, a camp: its screen covers or is coming up over the map) draws nothing; the map's
+   next draw (the place's close draws it) has it. Otherwise the sheets that land in one frame are drawn in one draw.
+   window.__SHEET_RENDER_EACH = the way it was. ==== */
+var MAP_SHEET_DRAW = { q: false, held: 0, drew: 0 };
+function mapSheetLanded(){
+  if (window.__SHEET_RENDER_EACH) { try { render(); } catch (_e) {} return; }
+  try { if (LOOP && LOOP.open && LOOP.frame && LOOP.frame.style.display === 'block') { MAP_SHEET_DRAW.held++; return; } } catch (_e) {}
+  if (MAP_SHEET_DRAW.q) return; MAP_SHEET_DRAW.q = true;
+  var go = function(){ if (!MAP_SHEET_DRAW.q) return; MAP_SHEET_DRAW.q = false; MAP_SHEET_DRAW.drew++; try { render(); } catch (_e) {} };
+  try { requestAnimationFrame(go); } catch (_e) {} setTimeout(go, 120);   /* a frame that never paints (a hidden tab) still draws */
+}
+/* ==== end __A_SHEET_LANDING_DRAWS_ONCE__ ==== */
 function rigSheetLoad(S, name){
   if (S.state) return;
   if (/^rig_mix\//.test(name) && mapHeldForFirstPlay()) return;   /* __FIRST_PLAY_IS_LIGHT__: asked again on the first draw after it */
@@ -49847,7 +49862,7 @@ function rigSheetLoad(S, name){
   try {
     fetch(name + '.json').then(function(r){ return r.json(); }).then(function(m){
       var im = new Image();
-      im.onload = function(){ S.meta = m; S.img = im; S.state = 2; try { render(); } catch (_e) {} };
+      im.onload = function(){ S.meta = m; S.img = im; S.state = 2; mapSheetLanded(); };   /* PLUMBER 8 __A_SHEET_LANDING_DRAWS_ONCE__ */
       im.onerror = function(){ S.state = 3; };
       im.src = name + '.png';
     }).catch(function(){ S.state = 3; });
