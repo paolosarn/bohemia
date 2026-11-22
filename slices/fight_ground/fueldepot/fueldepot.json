@@ -1,0 +1,511 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "fueldepot",
+ "name": "THE FUEL DEPOT",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "Paolo 7/5/26 (engine/bohemia_overmap.js, E. THE FUEL DEPOTS, 'name pending his pick'): 'the city's two straws for gasoline. CalNev terminal (real: 550mi from LA, 2 pipes, 128k bbl/day, 90% of the fuel, ends at Nellis) by the rail north; UNEV terminal (real: 400mi from Salt Lake, 60k bbl/day, ends AT APEX) beside the landfill corridor. Both pipes dead at crash, both terminals were the most fought-over stockpiles of the hell years.' Two cells a valley.",
+  "The dead's own line for the kind (engine/bohemia_dead.js): 'the fuel fight'.",
+  "A pipeline terminal is its tank farm, its pump house (the mainline pumps on their skids, the manifolds of valves that send each product to its tank, the meter skids, the control desk) and its truck loading rack: tankers in bays under a canopy, the loading arms on their risers, the drum line, the berms round it all.",
+  "On house tiles a pump, a day tank and a tanker each hide a man; a fuel slick standing on the concrete is Battle Brothers' swamp (slow, and a man in it fights worse)."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (fueldepot_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "fueldepot"
+ ],
+ "share": 0.6,
+ "districts_why": "A terminal is its tank farm outside and its two buildings: three fights in five at a depot's cell are fought under a roof, in the pump house or at the loading rack, by the cell's own dice; the rest among the tanks.",
+ "board": {
+  "templates": {
+   "fueldepot": {
+    "name": "THE FUEL DEPOT",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_pump_house": [
+      "####################",
+      "#TT.v.m.PPf.PP.m.TT#",
+      "#..d.p..M..M..p.d..#",
+      "#.v.PP.vMm.mMv.PP.v#",
+      "#.m.PP.dM..wMd.PP.m#",
+      "#..p..v.c.p.c.v..p.#",
+      "#.d.MMMM.dd.MMMM.d.#",
+      "#D.v.w.c.f.c.w.v..D#",
+      "#.d.MMMM.dd.MMMM.d.#",
+      "#..p..v.c.p.c.v..p.#",
+      "#.m.PP.dM..wMd.PP.m#",
+      "#.v.PP.vMm.mMv.PP.v#",
+      "#..d.p..M..M..p.d..#",
+      "#TT.v.m.P.DD.P.m.TT#",
+      "####################"
+     ],
+     "the_loading_rack": [
+      "####################",
+      "#gg.a.KKKdf.KKK.a.g#",
+      "#..j..ddja.a..d..j.#",
+      "#.a.KKKdwdj.w.KKK.a#",
+      "#..d..a.j.d.j.a..d.#",
+      "#KKK.d.a.w.a..d.KKK#",
+      "#..a..j.d...d.j..a.#",
+      "#D.d.g.a.j.j.a.g.dD#",
+      "#..a..jgd...d.j..a.#",
+      "#KKK.d.a.w.a..d.KKK#",
+      "#..d..a.j.d.j.a..d.#",
+      "#.a.KKKdwdj.w.KKK.a#",
+      "#..j..ddja.a..d..j.#",
+      "#g.a.KKKjDD.KKK.a.g#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "P": {
+    "is": "floor",
+    "tile": "pump",
+    "piece": "fd_pump",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "T": {
+    "is": "floor",
+    "tile": "daytank",
+    "piece": "fd_daytank",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "M": {
+    "is": "floor",
+    "tile": "manifold",
+    "piece": "fd_manifold",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "v": {
+    "is": "floor",
+    "tile": "valves",
+    "piece": "fd_valves",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "m": {
+    "is": "floor",
+    "tile": "meters",
+    "piece": "fd_meters",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "desk",
+    "piece": "fd_desk",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "p": {
+    "is": "floor",
+    "tile": "pipes",
+    "piece": "fd_pipes",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "d": {
+    "is": "floor",
+    "tile": "drums",
+    "piece": "fd_drums",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "K": {
+    "is": "floor",
+    "tile": "tanker",
+    "piece": "fd_tanker",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "a": {
+    "is": "floor",
+    "tile": "arm",
+    "piece": "fd_arm",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "j": {
+    "is": "floor",
+    "tile": "cans",
+    "piece": "fd_cans",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "g": {
+    "is": "floor",
+    "tile": "berm",
+    "piece": "fd_berm",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "w": {
+    "is": "floor",
+    "tile": "slick"
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words); 'sight' says whether a blocker hides a man ('blocked', the obstacles row) or is seen past ('seen'). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The terminal's block wall: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The terminal's stained concrete: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The floor: open ground.",
+   "draft": true
+  },
+  "pump": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A mainline pump on its skid, the motor taller than a man, the pipe from the coast dead behind it: nobody stands there, and nobody sees through it; cover beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "daytank": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A day tank in the pump house's corner: nobody stands there, and nobody sees through it. [bb] its wall.",
+   "say": ""
+  },
+  "manifold": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The manifold, a row of valves as wide as a man that sent each product to its tank: cover.",
+   "say": "The manifold: cover.",
+   "draft": true
+  },
+  "valves": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A valve stand, its wheels chained: cover.",
+   "say": "A valve stand: cover.",
+   "draft": true
+  },
+  "meters": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A meter skid that counted every barrel, its glass broken: cover.",
+   "say": "A meter skid: cover.",
+   "draft": true
+  },
+  "desk": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The control desk, its screens dark: cover.",
+   "say": "The control desk: cover.",
+   "draft": true
+  },
+  "pipes": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Pipe runs across the floor, a man steps over them: low cover, and slow going (3 AP). [bb] its brush.",
+   "say": "Pipes underfoot: slow going, low cover.",
+   "draft": true
+  },
+  "drums": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Fuel drums, most of them dry: low cover.",
+   "say": "Fuel drums: low cover.",
+   "draft": true
+  },
+  "tanker": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A tanker truck in its bay, its tank as long as a house: nobody stands there, and nobody sees through it; cover beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "arm": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A loading arm on its riser over the island: cover.",
+   "say": "A loading arm: cover.",
+   "draft": true
+  },
+  "cans": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Jerry cans in rows, filled for whoever holds the rack: low cover.",
+   "say": "Jerry cans: low cover.",
+   "draft": true
+  },
+  "berm": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A sandbagged berm across the bay: low cover. [bb] its palisade waist high.",
+   "say": "A berm: low cover.",
+   "draft": true
+  },
+  "slick": {
+   "row": "swamp",
+   "terrain": "water",
+   "ap": 4,
+   "open": true,
+   "effect": "A slick of fuel and water standing on the concrete: slow going (4 AP), and a man standing in it fights worse. [bb] its swamp.",
+   "say": "A fuel slick: slow going, and you fight worse in it.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a drum, far too near the fuel. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The terminal's doors and the rack's open bays: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The doors: open ground.",
+   "say_lit": "The doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in fueldepot_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "fd_pump": {
+   "like": "sb_dozer_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A MAINLINE PUMP"
+  },
+  "fd_daytank": {
+   "like": "sb_container_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A DAY TANK"
+  },
+  "fd_manifold": {
+   "like": "tunnel_camp_a",
+   "kind": "COVER",
+   "name": "THE MANIFOLD"
+  },
+  "fd_valves": {
+   "like": "garage_booth",
+   "kind": "COVER",
+   "name": "A VALVE STAND"
+  },
+  "fd_meters": {
+   "like": "garage_core",
+   "kind": "COVER",
+   "name": "A METER SKID"
+  },
+  "fd_desk": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "THE CONTROL DESK"
+  },
+  "fd_pipes": {
+   "like": "tunnel_jam",
+   "kind": "LOW_COVER",
+   "name": "PIPES UNDERFOOT"
+  },
+  "fd_drums": {
+   "like": "sb_rubble_S",
+   "kind": "LOW_COVER",
+   "name": "FUEL DRUMS"
+  },
+  "fd_tanker": {
+   "like": "sb_container_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A TANKER TRUCK"
+  },
+  "fd_arm": {
+   "like": "tunnel_rack",
+   "kind": "COVER",
+   "name": "A LOADING ARM"
+  },
+  "fd_cans": {
+   "like": "sb_heap_E",
+   "kind": "LOW_COVER",
+   "name": "JERRY CANS"
+  },
+  "fd_berm": {
+   "like": "sb_heap_S",
+   "kind": "LOW_COVER",
+   "name": "A BERM"
+  },
+  "fd_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "fd_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "fd_wall_ew",
+  "ns": "fd_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: the loading rack's gantry is a catwalk nobody holds under fire on house tiles; the tanks are outside.",
+ "ceiling": {
+  "kind": "joist",
+  "alpha": 0.1,
+  "src": "fueldepot/fueldepot_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the pump house's trusses and the loading rack's canopy, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the warehouse's roof)."
+ }
+}
