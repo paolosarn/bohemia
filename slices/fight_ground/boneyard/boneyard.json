@@ -1,0 +1,547 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "boneyard",
+ "name": "THE NEON BONEYARD",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "The map seats the Neon Boneyard in the Las Vegas Blvd North cluster, beside Cashman Field and the Mormon Fort, as the real ones stand (engine/bohemia_overmap.js): one cell. The real Neon Museum has kept the city's dead signs since 1996, more than 250 of them from the Strip and downtown, most out in its open yard, the boneyard; its visitor center is the old La Concha Motel's lobby, moved there whole; its North Gallery shows dead signs in the dark with the old light thrown back onto them.",
+  "A sign shop is where a sign is made and mended: the glass benders' benches with their burners, racks of new tube glass, the transformers that light the tubes, sign faces laid flat on sawhorses for paint, cans of bulbs, a scissor lift to reach the top; the giant letters of a casino's name stand on the floor taller than a man.",
+  "On house tiles a giant letter, a sign stood on end and the racks of sign faces each hide a man; a sign face on sawhorses and a rack of tube glass are a low run nobody walks over, a man seen across; broken tube glass is rough ground (3 AP); the monsoon's water through the roof is Battle Brothers' swamp."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (boneyard_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "boneyard"
+ ],
+ "share": 0.5,
+ "districts_why": "The boneyard is its open yard of signs and its two buildings: half the fights at its cell are fought inside, in the sign shop or the dark gallery, by the cell's own dice (the same cell the same answer, so a valley either fights its boneyard inside or in the yard: the cell lands on five places over 40 valleys, and at 0.5 three of them roll inside, 31 valleys of 40; at 0.4 it was 10 of 40)",
+ "board": {
+  "templates": {
+   "boneyard": {
+    "name": "THE NEON BONEYARD",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_sign_shop": [
+      "####################",
+      "#RR.rb.bfbbfb.br.RR#",
+      "#..x..c.x..x.c..x..#",
+      "#.LLL.cSSSSSSc.LLL.#",
+      "#.b.x.cxbxabxc.x.b.#",
+      "#g.a.LL.cxkc.LL.a.g#",
+      "#.c.bLLaxllxaLLb.c.#",
+      "#D.xa.ckbcfcbkc.axD#",
+      "#.c.bLLaxllxaLLb.c.#",
+      "#g.a.LL.cxkc.LL.a.g#",
+      "#.b.x.cxbxabxc.x.b.#",
+      "#.LLL.cSSSSSSc.LLL.#",
+      "#..x..c.x..x.c..x..#",
+      "#RR.a.bk.DD.kb.a.RR#",
+      "####################"
+     ],
+     "the_dark_gallery": [
+      "####################",
+      "#GG.c.x.pfcp.x.c.GG#",
+      "#..a..B.c.x.c.B..a.#",
+      "#.G.G.Gcx.GGxc.G.G.#",
+      "#c.x.a.cBp..pBc.a.x#",
+      "#.G.G.Gcx.GGxc.G.G.#",
+      "#w.B.cxaLLLLaxc.B.w#",
+      "#D.xa.c.pfp.c.a.x.D#",
+      "#w.B.cxaLLLLaxc.B.w#",
+      "#.G.G.Gcx.GGxc.G.G.#",
+      "#c.x.a.cBp..pBc.a.x#",
+      "#.G.G.Gcx.GGxc.G.G.#",
+      "#..a..B.c.x.c.B..a.#",
+      "#GG.gc.x.DD.x.cg.GG#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "L": {
+    "is": "floor",
+    "tile": "letters",
+    "piece": "nb_letters",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "G": {
+    "is": "floor",
+    "tile": "signs",
+    "piece": "nb_signs",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "R": {
+    "is": "floor",
+    "tile": "faces",
+    "piece": "nb_faces",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "S": {
+    "is": "floor",
+    "tile": "sawhorses",
+    "piece": "nb_sawhorses",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "r": {
+    "is": "floor",
+    "tile": "tubes",
+    "piece": "nb_tubes",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "bench",
+    "piece": "nb_bench",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "cans",
+    "piece": "nb_cans",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "x": {
+    "is": "floor",
+    "tile": "transformers",
+    "piece": "nb_transformers",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "a": {
+    "is": "floor",
+    "tile": "arrow",
+    "piece": "nb_arrow",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "B": {
+    "is": "floor",
+    "tile": "bulbs",
+    "piece": "nb_bulbs",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "l": {
+    "is": "floor",
+    "tile": "lift",
+    "piece": "nb_lift",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "crates",
+    "piece": "nb_crates",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "p": {
+    "is": "floor",
+    "tile": "projector",
+    "piece": "nb_projector",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "g": {
+    "is": "floor",
+    "tile": "glass"
+   },
+   "w": {
+    "is": "floor",
+    "tile": "water"
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words); 'sight' says whether a blocker hides a man ('blocked', the obstacles row) or is seen past ('seen'). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The museum's block wall: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "Concrete, paint spilled on it in every color a sign ever was: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The floor: open ground.",
+   "draft": true
+  },
+  "letters": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A giant letter from a dead casino's name, taller than a man, its bulbs gone, the name spelled across the floor with letters missing: nobody stands there, and nobody sees through it; cover beside it. [bb] its wall.",
+   "say": ""
+  },
+  "signs": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A dead sign stood on end in the dark, rows of them like headstones: nobody stands there, and nobody sees through it; cover beside it. [bb] its wall.",
+   "say": ""
+  },
+  "faces": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "Racks of sign faces stood on end, floor to ceiling: nobody stands there, and nobody sees through it. [bb] its wall.",
+   "say": ""
+  },
+  "sawhorses": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "sight": "seen",
+   "effect": "A sign face laid flat on sawhorses for paint it never got, as long as a bus and waist high: nobody walks over it; a man is seen across it; cover beside it. [bb] its palisade you see through.",
+   "say": ""
+  },
+  "tubes": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "sight": "seen",
+   "effect": "A rack of new tube glass nobody will bend now: nobody walks through it; a man is seen through it. [bb] its palisade you see through.",
+   "say": ""
+  },
+  "bench": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A glass bender's bench, its burners cold, a half bent tube still in the clamp: cover.",
+   "say": "A bender's bench: cover.",
+   "draft": true
+  },
+  "cans": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A sign can, the metal box a sign's letters ride on, set down on its side: cover.",
+   "say": "A sign can: cover.",
+   "draft": true
+  },
+  "transformers": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Sign transformers stacked in a pile, the boxes that once lit the tubes: low cover.",
+   "say": "Transformers: low cover.",
+   "draft": true
+  },
+  "arrow": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A sign's arrow lying on the floor, still pointing at a door that is not there: low cover.",
+   "say": "A fallen arrow: low cover.",
+   "draft": true
+  },
+  "bulbs": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A marquee's bulb rail on the floor, its sockets empty: low cover.",
+   "say": "A bulb rail: low cover.",
+   "draft": true
+  },
+  "lift": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A scissor lift folded down, its battery long dead: cover.",
+   "say": "A scissor lift: cover.",
+   "draft": true
+  },
+  "crates": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Crates of bulbs, every one still wrapped: cover.",
+   "say": "Crates of bulbs: cover.",
+   "draft": true
+  },
+  "projector": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A projector on its stand. When somebody runs the generator it still plays the old show onto the dead signs, the same loop, color on letters nobody has lit in years: cover.",
+   "say": "A projector: cover.",
+   "draft": true
+  },
+  "glass": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "open": true,
+   "effect": "Broken tube glass ground into the floor, it crunches under a boot: rough going (3 AP), nothing to hide behind.",
+   "say": "Broken glass: rough going.",
+   "draft": true
+  },
+  "water": {
+   "row": "swamp",
+   "terrain": "water",
+   "ap": 4,
+   "open": true,
+   "effect": "The monsoon came through the roof and stayed on the floor between the signs: slow going (4 AP), and a man standing in it fights worse. [bb] its swamp.",
+   "say": "Standing water: slow going, and you fight worse in it.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a drum, burning old sign frames. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The doors, open onto the yard of signs: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The doors: open ground.",
+   "say_lit": "The doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in boneyard_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "nb_letters": {
+   "like": "sb_sign_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A GIANT LETTER"
+  },
+  "nb_signs": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A DEAD SIGN ON END"
+  },
+  "nb_faces": {
+   "like": "sb_container_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "RACKS OF SIGN FACES"
+  },
+  "nb_sawhorses": {
+   "like": "casino_seats",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A SIGN FACE ON SAWHORSES"
+  },
+  "nb_tubes": {
+   "like": "tunnel_rack",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A RACK OF TUBE GLASS"
+  },
+  "nb_bench": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "A BENDER'S BENCH"
+  },
+  "nb_cans": {
+   "like": "garage_booth",
+   "kind": "COVER",
+   "name": "A SIGN CAN"
+  },
+  "nb_transformers": {
+   "like": "sb_heap_E",
+   "kind": "LOW_COVER",
+   "name": "TRANSFORMERS"
+  },
+  "nb_arrow": {
+   "like": "sb_wreck_S",
+   "kind": "LOW_COVER",
+   "name": "A FALLEN ARROW"
+  },
+  "nb_bulbs": {
+   "like": "sb_heap_S",
+   "kind": "LOW_COVER",
+   "name": "A BULB RAIL"
+  },
+  "nb_lift": {
+   "like": "sb_dozer_S",
+   "kind": "COVER",
+   "name": "A SCISSOR LIFT"
+  },
+  "nb_crates": {
+   "like": "tunnel_camp_b",
+   "kind": "COVER",
+   "name": "CRATES OF BULBS"
+  },
+  "nb_projector": {
+   "like": "garage_core",
+   "kind": "COVER",
+   "name": "A PROJECTOR"
+  },
+  "nb_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "nb_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "nb_wall_ew",
+  "ns": "nb_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: the scissor lifts are folded and dead; nothing in the shop or the gallery is a climb under fire on house tiles.",
+ "ceiling": {
+  "kind": "joist",
+  "alpha": 0.1,
+  "src": "boneyard/boneyard_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the shop's trusses and the gallery's black ceiling with its dead tubes, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the warehouse's roof)."
+ }
+}
