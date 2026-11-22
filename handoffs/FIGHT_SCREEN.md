@@ -5,7 +5,26 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
-FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/22 LATEST -- [the receipt is gone] SHIPPED a814b39fc, BUILD 11/22zr - THE RECEIPT IS GONE, BUILT, NOT YET SEEN (VAMILY rule 475(a)(b), his screenshot records/paolo_shots/BOHEMIA_PAOLO_SHOT_THE_RECEIPT_STILL_THERE_11_22_26.jpg: 'there are still remnants of the old combat screen, like with the casino receipt shit... awkward and goofy as fuck'; rules 449, 450, 441; ask row 715). VOTE fight-screen-the-receipt-is-gone-11-22 (stand_in; before and after).
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/22 LATEST -- [the rounds on the card] SHIPPED 56e1eb31a, BUILD 11/22zv - THE ROUNDS ON THE CARD, BUILT, NOT YET SEEN (VAMILY rule 478(a), this lane's half: 'every gun carries its own rounds, shown on the man's card'; ask row 719, FIGHT SCREEN 3's part; rules 449(b), 450(a), 441). VOTE fight-screen-the-rounds-on-the-card-11-22 (stand_in; before and now).
+Record: records/BOHEMIA_FIGHT_SCREEN_THE_ROUNDS_ON_THE_CARD_11_22_26.md. MEASURED: FIGHT.rounds (the count per gun in his hands) showed over the man on
+the board, on the aim line and on his sheet; never on the phone's card, the only card on the glass while AUTO plays.
+WHERE: slices/BOHEMIA_FIGHT.html __THE_ROUNDS_ON_THE_CARD__ (hud() writes #ap data-rounds 'left/of' and data-dry for the man on the card);
+slices/bohemia_phone.js __THE_ROUNDS_ON_THE_CARD__ (P.man reads it; manPaint draws span.rd at the AP row's end, before its em: cartridges on end,
+8 at most, brass .on, .last hot, a spent case dark, .rd.dry red pulsing on #bohphone[data-beat]; theirs after the plate; no gun, hidden; css after
+the plate marks). THE COUNT IS COMBAT FOUR'S (rule 478(a)(b)(c): spend, zero cannot fire, only the gun in hand, refill): the card reads FIGHT.rounds
+and follows whatever COMBAT FOUR makes it.
+GATES: THE MAN'S CARD ON THE PHONE 13/0 (P9 new + ROUNDS_PLANT); THE PHONE 268/0; DEMO BUILD 25/0. FOUND: the card tool's 60 s wait for his turn ran
+out with two browsers at once (a MARKSMAN's turn): it now puts his man on the card through UI.pend and logs T.hisAt.
+JOBS 2 (11/22zu) extended the end screen's agreement table after 11/22zr (a crew is one, the water people are many): theirs now, marked JOBS 2.
+NEXT, in order:
+ (1) EYES' notes on 11/20e, 11/21g, 11/22zg, 11/22zr, 11/22zv when they come (rule 441(b)); his votes on the tape, the receipt, the rounds.
+ (2) When COMBAT FOUR lands 478(b) (a gun in the pocket fires nothing until swapped in), check the card follows the gun in his hands (it reads
+     FIGHT.rounds of u.weapon, so it should); a swap's cost on the card is COMBAT's AP.
+ (3) The opening card's men as BODIES, only if he asks. (4) The turn order: NOT owed unless he asks (his note 9 of 11/2).
+[bb Battle Brothers puts a ranged man's ammo on his own bar, a count beside his action points; ours stands the rounds on end beside his AP]
+[analog horror: an empty gun is a row of red cases breathing on the beat, and nothing says it out loud]
+
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/22 -- [the receipt is gone] SHIPPED a814b39fc, BUILD 11/22zr - THE RECEIPT IS GONE, BUILT, NOT YET SEEN (VAMILY rule 475(a)(b), his screenshot records/paolo_shots/BOHEMIA_PAOLO_SHOT_THE_RECEIPT_STILL_THERE_11_22_26.jpg: 'there are still remnants of the old combat screen, like with the casino receipt shit... awkward and goofy as fuck'; rules 449, 450, 441; ask row 715). VOTE fight-screen-the-receipt-is-gone-11-22 (stand_in; before and after).
 Record: records/BOHEMIA_FIGHT_SCREEN_THE_RECEIPT_IS_GONE_11_22_26.md. WHERE IT WAS: RUN FIVE's till roll (rule 405(c), 11/6) on the one end screen
 (slices/BOHEMIA_SPOILS_SCREEN.html), rolled up behind the header so only its dashed last line showed: on every ending that reaches the end screen
 (won, lost, wiped out, pulled out, a job, a boss, the pit, a camp). The lineup's withdraw goes straight to the map (no end screen). The fight's own card

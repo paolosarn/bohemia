@@ -624,14 +624,13 @@ Gate THE BATTERY IS REAL 43/0 (the table with eight planted faults; nine legs a 
 FOR UI FOUR, JOBS, HOME BASE, WORDS TWO, TUNING, DIRECTION: each has lines in the handoff. NOT DECIDED AND NOT BUILT ON: who holds the working sun (459(e)).
 [bb Battle Brothers counts one coin and lets the number run to tens of thousands; ours is the coin and the things a coin is]
 [analog horror: a man counting out twelve drill batteries on a hood, slowly, because a wrong count gets somebody killed]
-FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/22 LATEST -- BUILD 11/22zr - THE RECEIPT IS GONE, BUILT (a814b39fc), NOT YET SEEN (rule 475(a)(b), his screenshot of the receipt still hanging off the end screen; ask row 715). Before it: BUILD 11/22zg THE WHY IS A TAPE (9322079a3, row 705). Its block is handoffs/FIGHT_SCREEN.md.
-THIS CHAT IS FIGHT SCREEN THREE. The old till roll is out of the one end screen (every ending: won, lost, wiped out, pulled out, a job, a boss, the
-pit, a camp), and no receipt paper anywhere on it (the counts and the quote in the board's pockets); the fight's own card on the board too. The win
-line agrees with the count ('THE GROUND SLOTH IS DOWN', 'THE GROUND SLOTHS ARE DOWN'). Graveyarded (three registry lines, a post-mortem). FOR UI:
-dressSpoils now finds the end screen by #counts (one marked line; #tally is gone). Gate THE RECEIPT IS GONE 7/0 (RUN FIVE's gate re-aimed, registered).
-VOTE fight-screen-the-receipt-is-gone-11-22 and fight-screen-the-why-is-a-tape-11-22 (STAND-IN). NEXT ON THIS LANE: EYES' notes and his votes; rule 478(a)'s card half after COMBAT FOUR.
-[bb Battle Brothers' after-battle screen is two tabs, statistics and loot, and no paper; ours is one board]
-[analog horror: the tape stops on the last frame; nothing prints]
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/22 LATEST -- BUILD 11/22zv - THE ROUNDS ON THE CARD, BUILT (56e1eb31a), NOT YET SEEN (rule 478(a), this lane's half; ask row 719). Before it: 11/22zr THE RECEIPT IS GONE (a814b39fc, row 715), 11/22zg THE WHY IS A TAPE (9322079a3, row 705). Its block is handoffs/FIGHT_SCREEN.md.
+THIS CHAT IS FIGHT SCREEN THREE. The phone's card shows the rounds in the gun in his hands: a cartridge per round at the end of his AP row, brass
+loaded, dark spent, red and pulsing on the beat when empty; theirs too. The count is COMBAT FOUR's (FIGHT.rounds); the card follows it. Before
+that: the old receipt out of every fight's end, and the win line agrees with the count. Gates: THE MAN'S CARD ON THE PHONE 13/0, THE RECEIPT IS GONE 7/0.
+VOTE fight-screen-the-rounds-on-the-card-11-22, fight-screen-the-receipt-is-gone-11-22, fight-screen-the-why-is-a-tape-11-22 (STAND-IN). NEXT: EYES' notes and his votes.
+[bb Battle Brothers puts a ranged man's ammo on his own bar; ours stands the rounds on end beside his AP]
+[analog horror: an empty gun is a row of red cases breathing on the beat, and nothing says it out loud]
 COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18p - THE TERMINAL IS AN AIRPORT, BUILT (4c0cf87e7), NOT YET SEEN (rule 453, round after round, this round's fifth build; rules 416, 451(a), 455; ask row 627).
 COMBAT THREE's airport terminal wears its own art under its own names (slices/fight_ground/terminal/terminal_art.json, the garage's format; no code):
 the terrazzo floor, 25 pictures under 27 names (the checkpoint a tile with its tubs, both screens, the desks, the queue, the newsstand, the luggage
