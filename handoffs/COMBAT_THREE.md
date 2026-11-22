@@ -1,6 +1,18 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the speedway] SHIPPED 6d62b318d, BUILD 11/22u - THE SPEEDWAY, BUILT, NOT YET SEEN. VOTE combat4-the-speedway-11-22 (stand_in).
+COMBAT FOUR (rules 441, 461, 465; ask row 699): 11/22 LATEST -- [a man is drawn once] SHIPPED 21ed1358d, BUILD 11/22v - A MAN IS DRAWN ONCE. No VOTE card (nothing he sees changed).
+Record: records/BOHEMIA_COMBAT_FOUR_A_MAN_IS_DRAWN_ONCE_11_22_26.md. Row 699 (PLUMBER 8: the fight on AUTO drew every man every frame): __A_MAN_IS_DRAWN_ONCE__ in slices/BOHEMIA_FIGHT.html: blitMan takes a man down
+(the glass answers to a recorder: its methods and state installed once on cx, sheetDraw asks it too), at his feet's whole pixel so the camera's glide does not make him new;
+the same draws as last frame -> his kept canvas laid in one draw; changed -> played into his canvas, laid once; what cannot be his own picture (a canvas remade between
+frames: copied at the draw; a blend, a shadow, a filter, words, a read, a clear, an open save, a huge box) played straight. Ghosts and machines as before. The old way:
+window.__MAN_DRAWN_EVERY_FRAME. __THE_HELD_SHEETS_DECODE_OFF_THE_PAGE__: holdImg's bitmap from the file (fetch -> blob -> createImageBitmap), the <img> the fallback.
+GATE A MAN IS DRAWN ONCE (new, solo, 103 s): 10/0. THE CENSUS (its own walk, --cpu, the demo upright, the CPU slowed 4x; the old way against the new): the fight on AUTO at 1x 5.8 -> 11.3 frames a second, freezes over half a second 8 -> 0; at 4x 5.0 -> 7.5 frames a second (the row's 6 reached), freezes 55 -> 22, the worst 4.5 s -> 2.8 s.
+*** FOR PLUMBER: the freeze gate's KNOWN_OVER for 'the fight on AUTO' names row 699; re-measure it on this build (the census line above) and shrink it as F1 allows. What is
+left in the frame at 4x on the CPU canvas is the fog's pattern fill (drawFog, about a fifth of draw) and the AI's turn, not the men. ***
+*** FOR UI FOUR: the profile's other find (the pop-up watcher on every style change) is untouched here. ***
+NEXT: the granary (Paolo's 7/6 place, drafted and measured joined); more boards after it.
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the speedway] SHIPPED 6d62b318d, BUILD 11/22u - THE SPEEDWAY, BUILT, NOT YET SEEN. VOTE combat4-the-speedway-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_SPEEDWAY_11_22_26.md. More boards (rule 461): the speedway ('speedway', 0.3; 402 cells over 40 valleys): the_garage_row (bay walls and haulers the obstacles row, they hide a man;
 race cars on stands and tool chests cover; tyres, fuel jugs low) and the_inspection_shed (cars on lifts and on the scales cover; template racks and parts shelves hide a man;
 the backed-up drain the swamp row, 4 AP and fight worse). 14 tile kinds, 11 pieces all stand-ins (I13 green); thirty-fourth in insides.json; no high ground.
