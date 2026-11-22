@@ -67,6 +67,9 @@ leg(['aim', 'cover', 'reload'].every(k => lines[k]) && !bad.length, '*** THE WOR
     const t = performance.now() - FIGHT_UI.t0, said = teach('aim'); return { t: Math.round(t), open: Math.round(FIGHT_UI.openUntil - FIGHT_UI.t0), said, shown: document.getElementById('vet').style.display !== 'none' }; });
   leg(quiet.t < quiet.open && !quiet.said && !quiet.shown, '*** THE OPEN IS QUIET: nobody speaks in the first second, nor while the board holds still ***', 'asked at ' + quiet.t + ' ms of the ' + quiet.open + ' ms open: ' + (quiet.said ? 'SPOKE' : 'quiet'));
   await p.waitForFunction(() => FIGHT.S.round && performance.now() > FIGHT_UI.openUntil, null, { timeout: 40000 });
+  /* the fight's one sentence first (FIGHT SCREEN 11/14, __THE_WHY_LINE__): a lesson is never said over the why line, so the first aim
+     comes once it is said and gone, as on his phone (COMBAT FOUR 11/22, PLUMBER 8's row 684: the aim at 4.7 s met the why line still up) */
+  await p.waitForFunction(() => FIGHT_UI.whyDone && !FIGHT_UI.why, null, { timeout: 40000 });
   await stand(p, 3);
   await tapThem(p);
   await p.waitForTimeout(1600);
@@ -94,6 +97,7 @@ leg(['aim', 'cover', 'reload'].every(k => lines[k]) && !bad.length, '*** THE WOR
   /* a new fight on the same phone */
   await p.evaluate(() => { document.getElementById('vet').style.display = 'none'; FIGHT_UI.vet = null; FIGHT_UI.taughtMem = null; document.getElementById('over').style.display = 'none'; return start(); });
   await p.waitForFunction(() => FIGHT_UI.board && FIGHT.S.round && performance.now() > FIGHT_UI.openUntil, null, { timeout: 40000 });
+  await p.waitForFunction(() => FIGHT_UI.whyDone && !FIGHT_UI.why, null, { timeout: 40000 });
   await stand(p, 3); await tapThem(p);
   const f1 = await vet(p);
   await stand(p, 3, 'u.ammo = 0;'); await tapThem(p);

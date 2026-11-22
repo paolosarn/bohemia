@@ -72,9 +72,11 @@ const TALLY = `(function(){
       '*** THE FIGHT TELLS THE MUSIC ***: COMBAT_STARTED with the board, a killshot for every man of theirs down, a PLAYER_HIT for every blow on his, the turn as it passes, never COMBAT_END',
       'first ' + first + '; killshots ' + kills + ' for ' + T.theirFalls + ' of theirs down; PLAYER_HIT ' + hits + ' for ' + T.mineHit + ' blows on his; ' + turns.length + ' turns told, ' + twice + ' twice in a row; COMBAT_END never: ' + neverEnd);
     const heardHits = HEARD_HIT.reduce((a, k) => a + (T.sfx[k] || 0), 0), heardFalls = (T.sfx.kill || 0) + (T.sfx.went_down || 0);
-    leg(heardHits === T.hits && (T.sfx.miss || 0) === T.misses && heardFalls === T.falls && T.falls > 0,
+    /* a miss a shield stopped is heard as its block (wBlockSound, 11/18): COMBAT FOUR 11/22, PLUMBER 8's row 684 (36 misses: 33 'miss', 3 'block') */
+    const heardMiss = (T.sfx.miss || 0) + (T.sfx.block || 0);
+    leg(heardHits === T.hits && heardMiss === T.misses && heardFalls === T.falls && T.falls > 0,
       '*** EVERY HIT, KILL AND FALL IS HEARD ***: a hit sound for every blow that lands, a miss for every miss, a fall sound for every man down',
-      'hits ' + heardHits + ' heard of ' + T.hits + ', misses ' + (T.sfx.miss || 0) + ' of ' + T.misses + ', falls ' + heardFalls + ' of ' + T.falls + ' ' + JSON.stringify(T.sfx));
+      'hits ' + heardHits + ' heard of ' + T.hits + ', misses ' + heardMiss + ' of ' + T.misses + ' (' + (T.sfx.block || 0) + ' of them a shield\'s block)' + ', falls ' + heardFalls + ' of ' + T.falls + ' ' + JSON.stringify(T.sfx));
     /* a skipped turn: one of theirs hits one of his, one of his drops one of theirs, with no motion */
     const sk = await p.evaluate(() => {
       const mine = FIGHT.S.units.filter(u => u.side === 'you')[0], theirs = FIGHT.S.units.filter(u => u.side === 'them')[0];

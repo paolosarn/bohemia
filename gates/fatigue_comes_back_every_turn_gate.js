@@ -176,8 +176,12 @@ const LIGHT = { body: null, head: null, bag: [] };
       const p = d.page;
       await p.waitForFunction(() => typeof FIGHT_UI !== 'undefined' && FIGHT_UI.board && FIGHT.S.deploy && performance.now() > FIGHT_UI.openUntil, null, { timeout: 60000 });
       const r = await p.evaluate(() => { const me = FIGHT.S.units.find(v => v.side === 'you'), light = document.getElementById('apn').textContent;
-        me.fatigue = 3; hud(); return { light: light, heavy: document.getElementById('apn').textContent, too: FIGHT.tooHeavy(me) }; });
-      leg(r.too && /TOO HEAVY TO SWING/.test(r.heavy) && !/TOO HEAVY/.test(r.light), '*** F6 A KIT THAT LEAVES NO SWING SAYS SO ON HIS CARD, AT THE LINEUP *** (rule 283(c))', '"' + r.light + '" -> "' + r.heavy + '"');
+        me.fatigue = 3; hud(); return { light: light, heavy: document.getElementById('apn').textContent, too: FIGHT.tooHeavy(me), floored: FIGHT.kitFloored(me), held: FIGHT.fatMax(me) }; });
+      /* AMENDED 11/22 (COMBAT FOUR, PLUMBER 8's row 684): rule 435(e), __THE_WINDED_MAN_ACTS__ (newer than 283(c)), put a breath floor under a
+         heavy kit, so the kit that left no swing is now held at that floor and his card says so ('HEAVY KIT: BREATH HELD AT n'); 'TOO HEAVY
+         TO SWING' is left for a kit even the floor cannot hold. Either way the card says it, and the light kit says neither */
+      const said = (r.too && /TOO HEAVY TO SWING/.test(r.heavy)) || (!r.too && r.floored && new RegExp('HEAVY KIT: BREATH HELD AT ' + r.held).test(r.heavy));
+      leg(said && (r.too || r.floored) && !/HEAVY/.test(r.light), '*** F6 A KIT THAT LEAVES NO SWING SAYS SO ON HIS CARD, AT THE LINEUP *** (rules 283(c), 435(e))', '"' + r.light + '" -> "' + r.heavy + '"' + (r.floored ? ' (held by the breath floor at ' + r.held + ')' : r.too ? ' (too heavy)' : ' (NEITHER)'));
     } catch (e) { leg(false, 'F6 ran', String(e.message).slice(0, 200)); }
     finally { if (d) await d.close().catch(() => {}); }
   }

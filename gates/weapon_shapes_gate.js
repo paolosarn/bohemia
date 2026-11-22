@@ -167,7 +167,11 @@ const atks = () => S.events.filter(e => e.t === 'attack');
     await p.evaluate(() => { window.FIGHT_DB_ROW = id => DB.weapons.rows.filter(r => r.id === id)[0]; });
     /* his own tile's middle: a man of theirs standing behind covers the tile above with his body (the tile wins, rule 104a) */
     const at = id => p.evaluate(i => { const v = FIGHT.byId(i); return { x: sx((v.x + .5) * FIGHT_UI.tw), y: sy((v.y + .5) * FIGHT_UI.th) }; }, id);
-    const heard = () => p.evaluate(() => (FIGHT_UI.heard || []).slice());
+    /* what was heard since a count (COMBAT FOUR 11/22, SEE EVERY HIT's answer, the same red here, PLUMBER 8's row 684): the page keeps its
+       last 40, so 'since' is read by its running count (FIGHT_UI.heardAll), never by the list's length; and a blow a shield stopped is
+       heard as its block (wBlockSound, 11/18), a sound like any other */
+    const heardN = () => p.evaluate(() => FIGHT_UI.heardAll || 0);
+    const since = (n0) => p.evaluate((n) => { const L = FIGHT_UI.heard || [], k = Math.min(L.length, (FIGHT_UI.heardAll || 0) - n); return k > 0 ? L.slice(-k) : []; }, n0);
     const settle = async () => { for (let i = 0; i < 60; i++) { if (await p.evaluate(() => !FIGHT_UI.anim.length)) break; await p.waitForTimeout(100); } await p.waitForTimeout(1500); };
 
     /* 7: the shotgun */
@@ -175,9 +179,9 @@ const atks = () => S.events.filter(e => e.t === 'attack');
     await p.waitForTimeout(300);
     let q = await at(g.them[0]); await p.touchscreen.tap(q.x, q.y); await p.waitForTimeout(400);
     const lit = await p.evaluate(() => ({ lit: FIGHT_UI.shapeLit, say: document.getElementById('say').innerText, want: FIGHT.shapeTiles(FIGHT.current(), FIGHT_UI.pend.target, FIGHT.blowSkill(FIGHT.current(), FIGHT_UI.pend.target)) }));
-    const h0 = (await heard()).length;
+    const h0 = await heardN();
     q = await at(g.them[0]); await p.touchscreen.tap(q.x, q.y); await settle();
-    const h1 = await heard(), shot = h1.slice(h0).filter(e => /^(hit|vital|melee_hit|hurt|miss)$/.test(e)).length;
+    const h1 = await since(h0), shot = h1.filter(e => /^(hit|vital|melee_hit|hurt|miss|block)$/.test(e)).length;
     leg(!!lit.lit && lit.lit.skill === 'Fire Handgonne' && lit.lit.tiles.length === lit.want.length && lit.lit.struck.length === 3 && /strikes 3 of theirs/.test(lit.say) && shot === 3,
       '*** LIT BEFORE THE SWING ***: the shotgun\'s cone lit on the tiles with the three it strikes, the line says so, and the shot is heard on every man it caught',
       lit.lit ? lit.lit.tiles.length + ' tiles lit, ' + lit.lit.struck.length + ' struck; "' + lit.say.split('\n')[1] + '"; ' + shot + ' hit or miss sounds after the shot' : 'nothing lit');
@@ -190,9 +194,9 @@ const atks = () => S.events.filter(e => e.t === 'attack');
     await p.waitForTimeout(300);
     q = await at(m.them[0]); await p.touchscreen.tap(q.x, q.y); await p.waitForTimeout(400);
     const armed = await p.evaluate(() => ({ lit: FIGHT_UI.shapeLit, big: document.getElementById('bend').childNodes[0].textContent.trim(), say: document.getElementById('say').innerText }));
-    const k0 = (await heard()).length;
+    const k0 = await heardN();
     q = await at(m.them[0]); await p.touchscreen.tap(q.x, q.y); await settle();
-    const k1 = await heard(), swung = k1.slice(k0).filter(e => /^(hit|vital|melee_hit|hurt|miss)$/.test(e)).length;
+    const k1 = await since(k0), swung = k1.filter(e => /^(hit|vital|melee_hit|hurt|miss|block)$/.test(e)).length;
     leg(!!sq && sq.w >= 44 && !!armed.lit && armed.lit.skill === 'Shatter' && armed.lit.struck.length === 3 && /SHATTER/.test(armed.big) && swung === 3,
       '*** THE SWEEP SQUARE ***: the sledge\'s SHATTER square with its AP, armed, the arc lit with the three it strikes, the big button says SHATTER, the swing heard on all three',
       sq ? 'square ' + Math.round(sq.w) + ' pt, ' + sq.ap + ' AP; lit ' + (armed.lit ? armed.lit.tiles.length + ' tiles, ' + armed.lit.struck.length + ' struck' : 'nothing') + '; big button "' + armed.big + '"; ' + swung + ' sounds after the swing' : 'no SHATTER square');

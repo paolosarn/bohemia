@@ -54,6 +54,9 @@ const OPEN = '__THE_WIPE_RIDES_HOME__';
     out.talk = await p.evaluate(async () => {
       try { localStorage.removeItem('bohemia.fight.taught'); } catch (_e) {} FIGHT_UI.taughtMem = null; FIGHT_UI.vet = null;
       FIGHT_UI.t0 = performance.now() - 5000; FIGHT_UI.openUntil = 0;
+      /* the fight's one sentence first (FIGHT SCREEN 11/14, __THE_WHY_LINE__: a lesson waits while the why line is up): it is said and
+         gone before this leg's line is asked for (COMBAT FOUR 11/22, PLUMBER 8's row 684: 'up none', the lesson never came up) */
+      FIGHT_UI.whyDone = true; whyHide();
       const ok = teach('cover'), v = FIGHT.byId(FIGHT_UI.vet && FIGHT_UI.vet.who);
       const up = document.getElementById('vet').style.display;
       if (v) { v.down = true; }
