@@ -51,6 +51,10 @@ leg(seen.every(x => !x) && pEmpty && pR.left === 0 && pR.of === pmag && rEmpty &
   'pistol ' + seen.map(x => x ? 'E' : '.').join('') + ' then ' + (pEmpty ? 'EMPTY' : 'loaded') + ', rifle ' + (rEmpty ? 'EMPTY' : 'loaded') + ', shotgun ' + (sEmpty ? 'EMPTY' : 'loaded') + ', reloaded ' + F.rounds(pistol).left + '/' + pmag);
 if (bottles) { for (let i = 0; i < 9; i++) fire(bottles, 2); }
 leg(!F.emptyGun(pipe) && (!bottles || !F.emptyGun(bottles)), '  a pipe and the bottles are never empty: there is nothing to reload', bottles ? 'bottles left ' + F.rounds(bottles).left : 'no bottles');
+/* RE-AIMED 11/22 (COMBAT FOUR, rule 478 NO AMMO, NO SHOT): a pistol carries its rounds now, a quiver's ten, and these ten shots would
+   spend them all and sling it (his fists come up: gates/no_ammo_no_shot_gate.js holds that). The dry tap is the magazine run out
+   with rounds still carried, so he carries more for this leg */
+if (pistol.rounds != null) pistol.rounds = 4 * pmag;
 for (let i = 0; i < pmag; i++) fire(pistol, 2);
 pistol.x = t.x - 3; const dry3 = F.dryAt(pistol, t); pistol.x = t.x - 1; const dry1 = F.dryAt(pistol, t), club1 = F.canStrike(pistol, t);
 pistol.ammo = pmag; pistol.x = t.x - 3; const loaded3 = F.dryAt(pistol, t);

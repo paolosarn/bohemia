@@ -9784,6 +9784,13 @@ GATES = [
     ('THE BIG INSIDES THREE', ['node', 'gates/the_big_insides_gate.js', '--part', '3/3'],
      "COMBAT FOUR gate, 11/22: the third part of THE BIG INSIDES (every third inside of slices/fight_ground/insides.json, from the third), the "
      "same legs I1 to I15 on each (see THE BIG INSIDES)", True),
+    ('NO AMMO, NO SHOT', ['node', 'gates/no_ammo_no_shot_gate.js'],
+     "COMBAT FOUR gate, 11/22, VAMILY rule 478 (Paolo 11/22: 'did you not make sure that when the ammo says zero you can't even shoot "
+     "anymore?'): the live fight headless with a store of its own: N1 whole fights on AUTO with his gunmen walking in low, no shot from a "
+     "gun of his with no round left, none past what it walked in with, his last round slings it and his fists or a swap follow; N2 an "
+     "empty hand is his fists (never his place's gun) and a gun in his bag fires only after a swap; N3 a reload never loads more than he "
+     "carries; N4 when the fight ends each gun's rounds are kept by his name and filled from the company's rounds as far as the stock "
+     "goes, an empty stock leaves them, the dead keep nothing; N5 their guns carry no count (Battle Brothers' endless quivers); two plants", True),
     ('A MAN IS DRAWN ONCE', ['node', 'gates/a_man_is_drawn_once_gate.js'],
      "COMBAT FOUR gate, 11/22, ask row 699 (PLUMBER 8's profile: 'THE FIGHT ON AUTO DRAWS EVERY MAN EVERY FRAME'), rule 441(a)(c): the "
      "fight page alone on his phone upright, the census's CPU canvas: M1 on AUTO most man-draws are his kept picture laid in one draw; "

@@ -171,6 +171,19 @@ const HOOKS = `(function(){
           try { g.drawImage(ns, 0, 0, 2, 2, 0, 0, 2, 2); out.shellRaw = 'drew'; } catch (e) { out.shellRaw = 'THREW: ' + String(e.message).slice(0, 44); }
           try { sheetDraw(g, [ns, 0, 0, 2, 2, 0, 0, 2, 2]); out.shellFight = 'drew'; } catch (e) { out.shellFight = 'THREW: ' + String(e.message).slice(0, 44); } } catch (e) { out.shell = String(e).slice(0, 60); }
         return out; }); log('   the armour\'s night piece on this glass:', JSON.stringify(R.wearProbe)); } catch (e) { log('   probe failed', String(e).slice(0, 100)); } }
+    /* NO AMMO, NO SHOT ON THE PAGE (COMBAT FOUR 11/22, rule 478): C3_ROUNDS=n walks his gunmen in with n rounds a gun (the bag's too),
+       C3_STOCK=k sets the company's rounds; the fight's own log is read after: no shot from a gun of his after its last round, none past
+       what it walked in with, none from a gun in his bag before a swap; and what the end kept and filled */
+    if (wanted && process.env.C3_ROUNDS) { try {
+      R.r478 = await f.evaluate(([n, k]) => { const S = FIGHT.S, out = { start: {}, bag: {}, n0: S.log.length, men: [] };
+        try { const sup = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null') || {}; sup.rounds = k; localStorage.setItem('bohemia.supplies.v1', JSON.stringify(sup)); out.stockSet = k; } catch (e) { out.stockErr = String(e); }
+        S.units.filter(u => u.side === 'you').forEach(u => { const st = out.start[u.id] = {};
+          if (u.rounds != null) { u.rounds = Math.min(u.rounds, n); if (u.weapon.mag) u.ammo = Math.min(u.ammo, u.rounds); if (!u.weapon.mag && !u.rounds) u.loaded = false; st[u.weapon.id] = u.rounds; }
+          out.bag[u.id] = []; (u.bag || []).forEach((b, i) => { const bs = u.bagState && u.bagState[i]; if (b && bs && bs.rounds != null) { bs.rounds = Math.min(bs.rounds, n); if (b.mag) bs.ammo = Math.min(bs.ammo, bs.rounds); st[b.id] = (st[b.id] || 0) + bs.rounds; out.bag[u.id].push(b.id); } });
+          out.men.push({ id: u.id, name: u.name, hand: u.weapon.fists ? 'fists' : u.weapon.id, rounds: u.rounds, bag: (u.bag || []).map(b => b && b.id) }); });
+        window.__R478 = out; return out; }, [+process.env.C3_ROUNDS, +(process.env.C3_STOCK || 0)]);
+      log('   rule 478: his men walk in low:', R.r478.men.map(m => m.name + ' ' + m.hand + (m.rounds != null ? ' ' + m.rounds : '') + (m.bag.length ? ' bag ' + m.bag.join('/') : '')).join('; '), '| the company\'s rounds set to', R.r478.stockSet);
+    } catch (e) { log('   rule 478 set failed', String(e).slice(0, 160)); } }
     const tag0 = tag; await shot(tag + '_start');
     /* TURNS HE CLOSES HIMSELF (ask row 555): AUTO on for C3_BYHAND_AFTER rounds (guns get fired), then off; for C3_BYHAND of his turns a
        finger presses RELOAD when the gun is empty and then the phone's big button while it reads END TURN; what the fight's log holds
@@ -260,8 +273,29 @@ const HOOKS = `(function(){
         return { over: S.over, round: S.round, water: S.flood ? !!S.flood.on : false, men: men }; }); } catch (e) { break; }
       if (!r1 && s.round >= 2) r1 = { n: s.men.length, open: s.men.filter(m => m.open).length, cover: s.men.filter(m => m.cover).length };
       if (s.water && !floodShot) { floodShot = true; await wait(700); await shot(tag + '_flood'); }
+      if (R.r478 && !R.r478.dryShot) { try { const dn = await f.evaluate(() => FIGHT.S.log.slice(window.__R478.n0).filter(e => e.t === 'dry').length); if (dn > 0) { R.r478.dryShot = true; await wait(450); await shot(tag + '_dry'); } } catch (e) {} }   /* rule 478: the moment a gun of his runs dry */
       if (s.over) { over = true; break; } }
     await wait(1500); await shot(tag + '_end');
+    if (R.r478) { try {
+      await until(async () => f.evaluate(() => FIGHT.S.roundsDone !== undefined), 15000);
+      R.r478.after = await f.evaluate(() => { const S = FIGHT.S, W = window.__R478, men = {}, bad = { atZero: [], over: [], pocket: [] };
+        S.units.filter(u => u.side === 'you').forEach(u => { men[u.id] = { name: u.name, shots: {}, dryArms: [], swapped: false }; });
+        S.log.slice(W.n0).forEach(e => { const m = men[e.id]; if (!m) return;
+          if (e.t === 'dry') m.dryArms.push(e.gun);
+          if (e.t === 'swap') m.swapped = true;
+          if (e.t === 'attack' && e.arm === 'fists') m.fists = (m.fists || 0) + 1;
+          if (e.t === 'attack' && e.shot && !e.astray && !e.sweep) {   /* a blast's other men are its sweep: one shot */
+            m.shots[e.arm] = (m.shots[e.arm] || 0) + 1;
+            const had = W.start[e.id] && W.start[e.id][e.arm]; if (had != null && m.shots[e.arm] > had) bad.over.push(m.name + ' ' + e.arm + ' ' + m.shots[e.arm] + ' of ' + had);
+            const nm = (DB.weapons.rows.filter(r => r.id === e.arm)[0] || {}).name; if (m.dryArms.indexOf(nm) >= 0 && !m.swapped) bad.atZero.push(m.name + ' ' + e.arm);
+            if ((W.bag[e.id] || []).indexOf(e.arm) >= 0 && !(W.start[e.id] && W.men.filter(x => x.id === e.id)[0].hand === e.arm) && !m.swapped) bad.pocket.push(m.name + ' ' + e.arm); } });
+        let store = null, sup = null; try { store = JSON.parse(localStorage.getItem('bohemia.rounds.v1') || 'null'); sup = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); } catch (e) {}
+        return { men: Object.values(men), bad: bad, done: S.roundsDone, store: store, stockNow: sup ? sup.rounds : null }; });
+      const A = R.r478.after, D = A.done;
+      log('   rule 478 after:', A.men.map(m => m.name + ' ' + JSON.stringify(m.shots) + (m.dryArms.length ? ' DRY ' + m.dryArms.join('/') : '') + (m.fists ? ' fists ' + m.fists : '') + (m.swapped ? ' swapped' : '')).join('; '));
+      log('   rule 478 verdict: shots at none', A.bad.atZero.length, '| past what it walked in with', A.bad.over.length, '| from his bag before a swap', A.bad.pocket.length,
+        '| the end: spent', D ? D.spent : '-', 'filled', D ? D.refilled : '-', 'stock', D ? D.stockBefore + ' -> ' + D.stockAfter : '-', '(the store says', A.stockNow + ')', '| kept for', A.store ? Object.keys(A.store.men || {}).join(', ') : 'nobody');
+    } catch (e) { log('   rule 478 read failed', String(e).slice(0, 200)); } }
     const E = await f.evaluate(() => { const S = FIGHT.S, L = window.__C3; return { round: S.round, result: S.result || null, calls: L.calls, idles: L.idles, notes: L.notes, log: S.log.filter(e => e.t === 'idle' || /^flood/.test(e.t)).map(e => ({ t: e.t, id: e.id, why: e.why || null })),
       units: S.units.map(u => ({ id: u.id, name: u.name, side: u.side, dead: !!u.dead, down: !!u.down, fled: !!u.fled })), misses: UI.cellMisses || 0 }; });
     const per = {}; E.units.filter(u => u.side === 'you').forEach(u => { per[u.id] = { name: u.name, turns: 0, acted: 0, quiet: 0, quietSaid: 0 }; });

@@ -1082,6 +1082,96 @@ const FIGHT = (function () {
   function jobOfWeapon(w) { const b = w.of || w; return ((DB.wlines.rows[b.class] || {}).job) || b.class; }
   function isShield(r) { return !!r && DB.armor.shields.indexOf(r) >= 0; }
   function swapCostOf(u, i) { return isShield(u.bag && u.bag[i]) ? R('ap.swap_item') : swapCost(u); }   /* Quick Hands: 'except for shields' */
+  /* ==== __NO_AMMO_NO_SHOT__ (COMBAT FOUR 11/22, VAMILY rule 478, Paolo 11/22: 'sometimes in auto combat one of my guys has a pistol in his
+     pocket inventory and he's still shooting even though there's no ammo... did you not make sure that when the ammo says zero you
+     can't even shoot anymore?'). MEASURED BEFORE: a man of his walked into every fight with every gun full; a pistol reloaded a whole
+     magazine from nowhere as often as he liked; a rifle or a shotgun counted no rounds at all; and a man whose hand the crew screen left
+     EMPTY was handed his place's gun (crewUnit), so a pistol riding in his pocket was never the gun that fired. NOW, Battle Brothers'
+     way (a ranged weapon fires from what it carries, its quiver refilled after the battle from the company's ammunition): every gun of
+     his carries its rounds (ours.gun_rounds: a pistol or a rifle 10, a quiver's; a shotgun 7, the large powder bag's), the magazine and
+     the chamber loaded from them; each shot spends one; AT NONE IT CANNOT FIRE OR RELOAD, by hand or on AUTO: the gun goes on its sling
+     and his fists come up (Battle Brothers' Hand-to-Hand Attack, beast_attacks.json), and from his fists AUTO weighs the swap to what
+     rides in his bag like any swap (rule 394), at Battle Brothers' 4 AP. An empty hand is his fists, never his place's gun. What each
+     gun has left is kept by his name (localStorage bohemia.rounds.v1); when the fight ends his guns fill again from the company's rounds
+     (bohemia.supplies.v1 'rounds', the stall's six for a battery, the spoils' and the origin's), one round a shot, as far as the stock
+     goes; an empty stock leaves them as they were. Their side keeps Battle Brothers' endless quivers. ==== */
+  const ROUNDS_KEY = 'bohemia.rounds.v1';
+  function gunRows() { try { return R('ours.gun_rounds'); } catch (e) { return null; } }
+  function roundsFull(w) { const G = gunRows(); if (!G || !w || w.fists || !isGun(w)) return null; const b = w.of || w;
+    return G.by_id && G.by_id[b.id] != null ? G.by_id[b.id] : (G.by_class && G.by_class[b.class] != null ? G.by_class[b.class] : null); }
+  function roundsStore() { try { const v = JSON.parse(localStorage.getItem(ROUNDS_KEY) || 'null'); return v && v.men ? v : { v: 1, men: {} }; } catch (e) { return null; } }
+  /* the rounds a gun of his comes in with: what his name kept for that gun (in the order main, then the bag), else a full load */
+  function roundsIn(u, w) { const full = roundsFull(w); if (full == null) return null; const id = (w.of || w).id, k = u.roundsKept && u.roundsKept[id];
+    if (Array.isArray(k) && k.length) { u.roundsKept[id] = k.slice(1); return Math.max(0, Math.min(full, k[0] | 0)); } return full; }
+  function fistsRow() { const G = gunRows(), id = G && G.fists, row = id && DB.beastAttacks && (DB.beastAttacks.rows || []).filter(function (r) { return r.id === id; })[0];
+    return row ? Object.assign({}, row, { id: 'fists', name: 'Fists', fists: true, value: 0 }) : null; }
+  /* the gun goes on its sling and his fists come up (free: he lets it hang); his job stays (his perks, his card) */
+  function toFists(u, gun, why) {
+    const F = fistsRow(); if (!F) return false;
+    if (gun) { u.slung = gun; u.slungState = { ammo: u.ammo, ammoMax: u.ammoMax, loaded: u.loaded, rounds: u.rounds, roundsMax: u.roundsMax }; }
+    u.weapon = F; u.ammo = null; u.ammoMax = null; u.loaded = true; u.rounds = null; u.roundsMax = null;
+    if (why) emit({ t: 'dry', id: u.id, gun: gun ? gun.name : null });
+    return true;
+  }
+  /* a gun of his with no round left anywhere: never fired again this fight */
+  function dryGun(u) { return !!u && !!u.weapon && !u.weapon.fists && u.rounds != null && u.rounds <= 0; }
+  /* his men's guns at the bell: the rounds their names kept, the bag's too; an empty hand is his fists; a gun that came in empty is slung */
+  function armRounds(u, c) {
+    if (!u || u.side !== 'you' || !gunRows()) return u;
+    const st = roundsStore(), kept = st && st.men && u.name ? st.men[u.name] : null;
+    u.roundsKept = {}; if (kept) Object.keys(kept).forEach(function (k) { u.roundsKept[k] = Array.isArray(kept[k]) ? kept[k].slice() : [kept[k]]; });
+    u.shotsSpent = 0;
+    if (c && c.gear && !c.gear.main) toFists(u, null, false);   /* the crew screen left his hand empty: his fists, never his place's gun */
+    else setRounds(u);
+    (u.bag || []).forEach(function (b, i) {
+      const full = roundsFull(b); if (full == null) return;
+      const am = b.ammo ? String(b.ammo).match(/\d+/) : null, r = roundsIn(u, b);
+      u.bagState[i] = { ammo: b.mag ? Math.min(b.mag, r) : (am ? Number(am[0]) : null), ammoMax: b.mag || (am ? Number(am[0]) : null), loaded: r > 0, rounds: r, roundsMax: full };
+    });
+    if (dryGun(u)) toFists(u, u.weapon, false);
+    return u;
+  }
+  function setRounds(u) {
+    const w = u.weapon, full = roundsFull(w); if (full == null) { u.rounds = null; u.roundsMax = null; return; }
+    u.rounds = roundsIn(u, w); u.roundsMax = full;
+    if (w.mag) u.ammo = Math.min(u.ammo == null ? w.mag : u.ammo, u.rounds);
+    else if (reloadSkill(w)) u.loaded = u.loaded && u.rounds > 0;
+  }
+  /* a shot spends one of what he carries; at none the gun is slung (after the shot is resolved: afterAction) */
+  function spendRound(a) { if (a.rounds != null && isRanged(a.weapon)) { a.rounds = Math.max(0, a.rounds - 1); a.shotsSpent = (a.shotsSpent | 0) + 1; } }
+  /* what he carries for the gun in his hands, for his card (FIGHT SCREEN 3): left of a full load */
+  function carried(a) { return a && a.rounds != null ? { left: Math.max(0, a.rounds), of: a.roundsMax } : null; }
+  /* WHEN THE FIGHT ENDS (rule 478(c)): what each gun of his has left is kept by his name, then filled from the company's rounds, one a
+     shot, his men in their order, as far as the stock goes. Once a fight; nothing at all without a store (a harness) */
+  function settleRounds() {
+    if (S.roundsDone !== undefined) return S.roundsDone;
+    S.roundsDone = null;
+    const G = gunRows(), st = G && roundsStore(); if (!st) return null;
+    let sup = null; try { sup = JSON.parse(localStorage.getItem(G.stock.key) || 'null'); } catch (e) { sup = null; }
+    let stock = sup && typeof sup[G.stock.count] === 'number' ? Math.max(0, sup[G.stock.count] | 0) : 0;
+    const out = { spent: 0, refilled: 0, short: 0, stockBefore: stock, stockAfter: stock, men: [] };
+    S.units.filter(function (v) { return v.side === 'you' && !v.staff && v.name; }).forEach(function (v) {
+      out.spent += v.shotsSpent | 0;
+      if (v.dead) { delete st.men[v.name]; return; }
+      const guns = [], put = function (w, left) { const full = roundsFull(w); if (full != null) guns.push({ id: (w.of || w).id, name: w.name, left: Math.max(0, Math.min(full, left == null ? full : left | 0)), full: full }); };
+      if (v.weapon && !v.weapon.fists) put(v.weapon, v.rounds);
+      if (v.slung) put(v.slung, v.slungState ? v.slungState.rounds : 0);
+      (v.bag || []).forEach(function (b, i) { if (b) put(b, v.bagState && v.bagState[i] ? v.bagState[i].rounds : null); });
+      const rec = {};
+      guns.forEach(function (g) {
+        const need = g.full - g.left, take = Math.min(need, stock * G.stock.per_shot | 0) / G.stock.per_shot | 0;
+        stock -= take * G.stock.per_shot; g.filled = take; g.left += take; out.refilled += take; out.short += need - take;
+        (rec[g.id] = rec[g.id] || []).push(g.left);
+      });
+      st.men[v.name] = rec;
+      out.men.push({ name: v.name, guns: guns.map(function (g) { return { id: g.id, name: g.name, left: g.left, full: g.full, filled: g.filled }; }) });
+    });
+    out.stockAfter = stock;
+    try { localStorage.setItem(ROUNDS_KEY, JSON.stringify(st)); } catch (e) {}
+    if (sup && out.refilled > 0) { sup[G.stock.count] = stock; try { localStorage.setItem(G.stock.key, JSON.stringify(sup)); } catch (e) {} }
+    S.roundsDone = out; return out;
+  }
+  /* ==== /__NO_AMMO_NO_SHOT__ ==== */
   function canSwap(u, i) { const b = u.bag && u.bag[i]; return !S.over && !S.deploy && current() === u && !!b && !u.netted && !(isShield(b) && bothHands(u.weapon)) && u.ap >= swapCostOf(u, i); }
   function swap(u, i) {
     if (!canSwap(u, i)) return false;
@@ -1092,10 +1182,12 @@ const FIGHT = (function () {
     }
     const c = swapCost(u), qh = PK(u, 'quick_hands');
     u.ap -= c; if (qh && !u.swappedFree) u.swappedFree = true;
-    const out = u.weapon, outState = { ammo: u.ammo, ammoMax: u.ammoMax, loaded: u.loaded }, inn = u.bag[i], st = (u.bagState && u.bagState[i]) || null;
-    u.weapon = inn; u.bag[i] = out; u.bagState = u.bagState || []; u.bagState[i] = outState;
-    if (st) { u.ammo = st.ammo; u.ammoMax = st.ammoMax; u.loaded = st.loaded; }
-    else { const am = inn.ammo ? String(inn.ammo).match(/\d+/) : null; u.ammo = inn.mag || (am ? Number(am[0]) : null); u.ammoMax = u.ammo; u.loaded = true; }
+    const out = u.weapon, outState = { ammo: u.ammo, ammoMax: u.ammoMax, loaded: u.loaded, rounds: u.rounds, roundsMax: u.roundsMax }, inn = u.bag[i], st = (u.bagState && u.bagState[i]) || null;
+    u.weapon = inn; u.bagState = u.bagState || [];
+    if (out && out.fists) { u.bag[i] = u.slung || null; u.bagState[i] = u.slung ? u.slungState : null; u.slung = null; u.slungState = null; }   /* rule 478: from his fists, the slung gun goes in the bag */
+    else { u.bag[i] = out; u.bagState[i] = outState; }
+    if (st) { u.ammo = st.ammo; u.ammoMax = st.ammoMax; u.loaded = st.loaded; u.rounds = st.rounds !== undefined ? st.rounds : null; u.roundsMax = st.roundsMax !== undefined ? st.roundsMax : null; }
+    else { const am = inn.ammo ? String(inn.ammo).match(/\d+/) : null; u.ammo = inn.mag || (am ? Number(am[0]) : null); u.ammoMax = u.ammo; u.loaded = true; u.rounds = null; u.roundsMax = null; if (u.side === 'you') setRounds(u); }
     u.job = jobOfWeapon(u.weapon);
     /* a two-hander wants both hands: the car door goes on his back until a one-hander comes out */
     let slung = null;
@@ -1169,11 +1261,11 @@ const FIGHT = (function () {
     /* ONE MAN, ONE LOOK (RUN TWO [eyes: one man, one look], 10/19, rule 120(d)): a man the company hands with his look
        (engine/bohemia_roster.js company()) fights in it, so a death or a new order never moves him into another body;
        else the place in this list, as before */
-    return dressSpark(c, condApply(c, makeUnit({ injuries: carried, traits: Array.isArray(c.traits) ? c.traits.slice() : [], look: c.look || lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, sex: (c.sex === 'f' || c.sex === 'm') ? c.sex : null /* __THE_SCREEN_READS_THE_PERSON__ (FIXES 2, ask row 619): who she is, when her row says; never a guess */, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
+    return armRounds(dressSpark(c, condApply(c, makeUnit({ injuries: carried, traits: Array.isArray(c.traits) ? c.traits.slice() : [], look: c.look || lk[i % lk.length], id: 'c' + i, side: 'you', name: c.name, sex: (c.sex === 'f' || c.sex === 'm') ? c.sex : null /* __THE_SCREEN_READS_THE_PERSON__ (FIXES 2, ask row 619): who she is, when her row says; never a guess */, main: !!c.main, kind: c.background, job: job, level: lv, perks: perks,
       hp: roll('hp'), fatigue: roll('fatigue'), resolve: roll('resolve') + ((c.arenaRank && c.arenaRank.resolve) | 0), arenaSurvive: (c.arenaRank && c.arenaRank.struck_down_survive) || 0 /* __THE_ARENA__: his pit rank, the shell's from records/target/bb/arena.json (bb_all/0132, 0134) */, initiative: roll('initiative'),
       mskill: roll('melee_skill'), rskill: roll('ranged_skill'), mdef: roll('melee_defense'), rdef: roll('ranged_defense'),
       apTurn: R('ap.per_turn'), weapon: w, shield: sh, bodyRow: body, headRow: head, bag: bagFor(c, job), bagKit: !bagHanded(c), bagState: [],
-      armH: head ? head.durability : 0, armB: body ? body.durability : 0, xp: xp.base + xp.per_level * (lv - 1), arche: 'crew' })));
+      armH: head ? head.durability : 0, armB: body ? body.durability : 0, xp: xp.base + xp.per_level * (lv - 1), arche: 'crew' }))), c);   /* rule 478: his rounds */
   }
   /* __DAMAGE_STAYS__ (CAMP [the heal button, damage that stays], rule 226, Paolo 10/26: 'right now you can just do fights back to
      back to back and you always respawn... healing is important, the damage you sustained in battle'). A man the company hands
@@ -3801,6 +3893,7 @@ const FIGHT = (function () {
     if (a.fat + skillFat(a, s) > fatMax(a)) return false;
     if (reloadSkill(a.weapon) && !a.weapon.mag && !a.loaded) return false;
     if (a.weapon.ammo && a.ammo !== null && a.ammo <= 0) return false;   /* no round, no shot: a gun is never a club (rule 195) */
+    if (a.rounds != null && a.rounds <= 0 && isRanged(a.weapon)) return false;   /* rule 478: none left anywhere, no shot */
     return inRange(a, t);
   }
   /* WHY A STRIKE IS REFUSED, the real reason (EYES [eyes: the reason is AP], 10/24: a pistol man three tiles off with 3 AP was told
@@ -3817,6 +3910,7 @@ const FIGHT = (function () {
     if (a.fat + skillFat(a, s) > fatMax(a)) return { why: 'fat' };
     if (reloadSkill(a.weapon) && !a.weapon.mag && !a.loaded) return { why: 'reload' };
     if (a.weapon.ammo && a.ammo !== null && a.ammo <= 0) return { why: 'ammo' };
+    if (a.rounds != null && a.rounds <= 0 && isRanged(a.weapon)) return { why: 'ammo' };   /* rule 478 */
     return null;
   }
   function strike(a, t, forced) {
@@ -3825,6 +3919,7 @@ const FIGHT = (function () {
     a.ap -= skillAP(a.weapon, s, a); a.fat += skillFat(a, s);
     if (reloadSkill(a.weapon) && !a.weapon.mag) a.loaded = false;
     if (a.weapon.ammo && a.ammo !== null) a.ammo--;
+    spendRound(a);   /* rule 478: one of what he carries */
     if (isRanged(a.weapon)) a.threw = true;   /* THE KIDS: after the throw, the step back */
     S.aimed = S.aimed || {}; S.aimed[a.side + t.id] = (S.aimed[a.side + t.id] || 0) + 1;
     const also = shapeFoes(a, t, s).filter(function (o) { return o !== t; });   /* a blow with a shape (the shotgun's blast) */
@@ -4441,12 +4536,12 @@ const FIGHT = (function () {
   /* a magazine reloads only when it is empty (rule 117(b): one clear next thing) */
   function canReload(a) {
     const s = reloadSkill(a.weapon);
-    return !!s && (a.weapon.mag ? a.ammo <= 0 : !a.loaded) && a.ap >= skillAP(a.weapon, s, a) && a.fat + skillFat(a, s) <= fatMax(a);
+    return !!s && (a.weapon.mag ? a.ammo <= 0 : !a.loaded) && (a.rounds == null || a.rounds > 0) && a.ap >= skillAP(a.weapon, s, a) && a.fat + skillFat(a, s) <= fatMax(a);   /* rule 478: nothing to load, no reload */
   }
   function reload(a) {
     if (S.over || current() !== a || !canReload(a)) return false;
     const s = reloadSkill(a.weapon); a.ap -= skillAP(a.weapon, s, a); a.fat += skillFat(a, s); a.loaded = true;
-    if (a.weapon.mag) a.ammo = a.weapon.mag;
+    if (a.weapon.mag) a.ammo = a.rounds != null ? Math.min(a.weapon.mag, a.rounds) : a.weapon.mag;   /* rule 478: never more than he carries */
     emit({ t: 'reload', id: a.id }); afterAction(a); return true;
   }
   /* THE EMPTY GUN (rule 124, Paolo 10/20: 'if I need to reload it needs to be very apparent on the screen... super clear'):
@@ -4665,6 +4760,7 @@ const FIGHT = (function () {
      END THE FIGHT wins it (endFight, Battle Brothers': the runners get away, the fallen are his). A runner runs for the edge on
      his own turns (flee), can be caught and killed, and can rally (Battle Brothers' stop-fleeing check, beginTurn). */
   function afterAction(u) {
+    if (dryGun(u)) toFists(u, u.weapon, true);   /* rule 478: the last round is gone, the gun goes on its sling, his fists come up */
     const you = alive('you').filter(function (v) { return !v.staff; }), them = alive('them');   /* __THE_STAFF_FIGHT_TOO__ (C8): staff alone never hold the board */
     if (!them.length || !you.length) {
       S.over = true; S.allFlee = false;
@@ -4718,7 +4814,7 @@ const FIGHT = (function () {
      into the reach of a man of the other side with a shot ready, who sees him and has not spent his free shot this round, takes
      one shot from the best placed of them, once a turn; the round is spent, the shot's own odds (TUNING may give it a number) */
   function runs(u) { return u.morale === 'Fleeing' || (!!S.retreat && u.side === 'you'); }
-  function readyShot(g) { const w = g.weapon; return isRanged(w) && !(w.ammo && g.ammo !== null && g.ammo <= 0) && !(reloadSkill(w) && !w.mag && !g.loaded); }
+  function readyShot(g) { const w = g.weapon; return isRanged(w) && !(w.ammo && g.ammo !== null && g.ammo <= 0) && !(reloadSkill(w) && !w.mag && !g.loaded) && !(g.rounds != null && g.rounds <= 0); }
   function freeShot(u) {
     if (u.shotAt === S.round || !onField(u)) return null;
     if (S.retreat && S.fromLine && S.round <= lineHold()) return null;   /* __ROOM_TO_RUN__ (rule 253 'no matter what'): theirs hold while a run from the lineup lasts, their guns too (measured: 9 free shots in 300 lineup runs) */
@@ -4731,8 +4827,10 @@ const FIGHT = (function () {
     u.shotAt = S.round; g.freeShotAt = S.round;
     if (reloadSkill(g.weapon) && !g.weapon.mag) g.loaded = false;
     if (g.weapon.ammo && g.ammo !== null) g.ammo--;
+    spendRound(g);   /* rule 478 */
     const r = resolveAttack(g, u, strikeSkill(g.weapon));
     apply(g, u, r, { free: true });
+    if (dryGun(g)) toFists(g, g.weapon, true);   /* rule 478: his last round */
     return r;
   }
 
@@ -4793,6 +4891,7 @@ const FIGHT = (function () {
     let n = cost > 0 ? Math.floor(ap / cost) : 0;
     if (fat > 0) n = Math.min(n, Math.floor((fatMax(a) - a.fat) / fat));
     if (w.ammo && a.ammo !== null) n = Math.min(n, a.ammo);
+    if (a.rounds != null && isRanged(w)) n = Math.min(n, a.rounds);   /* rule 478 */
     if (reloadSkill(w) && !w.mag) n = Math.min(n, a.loaded ? 1 : 0);
     return { n: Math.max(0, n), p: hitChance(a, t).chance / 100, w: w, shot: isRanged(w) };
   }
@@ -5176,7 +5275,7 @@ const FIGHT = (function () {
     return foes(u).some(function (f) { return Math.max(Math.abs(f.x - x), Math.abs(f.y - y)) <= rangeMax(w.range) + Math.max(0, reachLevel(x, y) - reachLevel(f.x, f.y)) * per + 1; });
   }
   /* he has a shot left to fire this fight: a ranged weapon with rounds or throws left (an empty one-shot gun loads again) */
-  function hasShot(u) { const w = u.weapon; return isRanged(w) && !(w.ammo && u.ammo !== null && u.ammo <= 0); }
+  function hasShot(u) { const w = u.weapon; return isRanged(w) && !(w.ammo && u.ammo !== null && u.ammo <= 0) && !(u.rounds != null && u.rounds <= 0); }
   /* AUTO HOLDS THE ROOF (the coordinator 11/4, rule 385 and its amendment, ask lines 416 and 417; Paolo: 'why am I watching my people
      climb on top of a roof and then climb off to get a shot... just stick on the roof... I'm losing battles because the auto keeps
      wanting my men to get off the roof'; 'they have enemies in range of a shot and they're still getting off the roof... why can't they
@@ -5490,11 +5589,11 @@ const FIGHT = (function () {
   }
   /* u stands on x,y with ap and (when given) w in his hands while f runs; everything put back */
   function standIn(u, x, y, ap, f, kit) {
-    const keep = { x: u.x, y: u.y, ap: u.ap, fat: u.fat, w: u.weapon, ammo: u.ammo, ammoMax: u.ammoMax, loaded: u.loaded, walked: u.walked };
+    const keep = { x: u.x, y: u.y, ap: u.ap, fat: u.fat, w: u.weapon, ammo: u.ammo, ammoMax: u.ammoMax, loaded: u.loaded, walked: u.walked, rounds: u.rounds };
     u.walked = ap >= u.apTurn ? 0 : (u.walked || 0) + Math.max(0, u.ap - ap);   /* rule 377: a full turn walks fresh; the rest of this one spent walking there */
     u.x = x; u.y = y; u.ap = ap;
-    if (kit) { u.weapon = kit.w; u.ammo = kit.ammo; u.ammoMax = kit.ammoMax; u.loaded = kit.loaded; if (kit.fat !== undefined) u.fat = kit.fat; }
-    try { return f(); } finally { u.x = keep.x; u.y = keep.y; u.ap = keep.ap; u.fat = keep.fat; u.weapon = keep.w; u.ammo = keep.ammo; u.ammoMax = keep.ammoMax; u.loaded = keep.loaded; u.walked = keep.walked; }
+    if (kit) { u.weapon = kit.w; u.ammo = kit.ammo; u.ammoMax = kit.ammoMax; u.loaded = kit.loaded; if (kit.fat !== undefined) u.fat = kit.fat; if (kit.rounds !== undefined) u.rounds = kit.rounds; }
+    try { return f(); } finally { u.x = keep.x; u.y = keep.y; u.ap = keep.ap; u.fat = keep.fat; u.weapon = keep.w; u.ammo = keep.ammo; u.ammoMax = keep.ammoMax; u.loaded = keep.loaded; u.walked = keep.walked; u.rounds = keep.rounds; }
   }
   /* the man of ours on AUTO with nothing to hit this turn: would a walk to x,y be a long chase (rule 332: chase_tiles or more this
      turn, ending where chase_reach or more of their clubs can swing at him next turn) */
@@ -5617,8 +5716,9 @@ const FIGHT = (function () {
        him) is weighed by that next turn too */
     const KW = {};
     const kitOf = function (b, i) {
-      const st = i === null ? { ammo: u.ammo, ammoMax: u.ammoMax } : u.bagState && u.bagState[i], am = b.ammo ? String(b.ammo).match(/\d+/) : null;
-      return { w: b, ammo: st ? st.ammo : b.mag || (am ? Number(am[0]) : null), ammoMax: st ? st.ammoMax : b.mag || (am ? Number(am[0]) : null), loaded: true };
+      const st = i === null ? { ammo: u.ammo, ammoMax: u.ammoMax, rounds: u.rounds } : u.bagState && u.bagState[i], am = b.ammo ? String(b.ammo).match(/\d+/) : null;
+      return { w: b, ammo: st ? st.ammo : b.mag || (am ? Number(am[0]) : null), ammoMax: st ? st.ammoMax : b.mag || (am ? Number(am[0]) : null), loaded: st && st.loaded === false ? false : true,
+        rounds: st && st.rounds !== undefined ? st.rounds : (u.side === 'you' ? roundsFull(b) : null) };   /* rule 478: a bag gun with none left is worth nothing */
     };
     /* ==== __AUTO_KNOWS_ITS_MAN__ (COMBAT 8, rule 394, Paolo 11/4: 'how good is auto at switching weapons... my Lone Wolf melee guy
        to pull out his pistol... if I give a guy a really good gun and a really good melee weapon, will he start pulling out the melee
@@ -5642,7 +5742,7 @@ const FIGHT = (function () {
     const swapNext = function () { return qhK ? qhK.swap_ap_cost : R('ap.swap_item'); };
     const loadedOf = function (x) { if (x === u.weapon) return u.loaded; const i = u.bag ? u.bag.indexOf(x) : -1, st = i >= 0 && u.bagState && u.bagState[i]; return st ? st.loaded !== false : true; };
     const kitFor = function (x, loaded, fat) {
-      if (x === u.weapon) return { w: x, ammo: u.ammo, ammoMax: u.ammoMax, loaded: loaded, fat: fat };
+      if (x === u.weapon) return { w: x, ammo: u.ammo, ammoMax: u.ammoMax, loaded: loaded, fat: fat, rounds: u.rounds };
       return Object.assign(kitOf(x, u.bag ? u.bag.indexOf(x) : null), { loaded: loaded, fat: fat });
     };
     /* a man of theirs who will be beside E when his next turn opens: a club of theirs, standing and free, his walk within his AP */
@@ -5720,7 +5820,7 @@ const FIGHT = (function () {
     });
     /* 4. a reload: then the shot when the AP is left, else reload_next_turn of next turn's shot from here */
     if (isRanged(u.weapon) && canReload(u)) {
-      const rs = reloadSkill(u.weapon), kit = { w: u.weapon, ammo: u.weapon.mag || u.ammo, ammoMax: u.ammoMax, loaded: true, fat: u.fat + skillFat(u, rs) };
+      const rs = reloadSkill(u.weapon), kit = { w: u.weapon, ammo: u.weapon.mag ? (u.rounds != null ? Math.min(u.weapon.mag, u.rounds) : u.weapon.mag) : u.ammo, ammoMax: u.ammoMax, loaded: true, fat: u.fat + skillFat(u, rs), rounds: u.rounds };
       let now = standIn(u, u.x, u.y, u.ap - skillAP(u.weapon, rs, u), function () { return blowsHere(u, B, dw); }, kit), share = 1;
       if (!now.length) { now = standIn(u, u.x, u.y, u.apTurn, function () { return blowsHere(u, B, dw); }, kit); share = B.reload_next_turn; now.forEach(function (o) { o.gone = {}; o.pk = 0; }); }
       now.forEach(function (o) { o.kind = 'reload'; o.loadedAfter = share < 1; o.deal *= share; o.fat += skillFat(u, rs); add(o, here, 1, 0, function () { return reload(u); }); });
@@ -5772,7 +5872,8 @@ const FIGHT = (function () {
       const up = u.upRound, dis = u.disarmed; u.upRound = null; u.disarmed = false;   /* next turn: a new round, his weapon back */
       /* COMBAT 7: from a tile he walks or climbs to, next turn counts no man of theirs who runs (he will be gone from there) */
       try { NB[key] = standIn(u, E.x, E.y, u.apTurn, function () { return blowsHere(u, B, dw, E.x !== here.x || E.y !== here.y).reduce(function (m, o) { return Math.max(m, o.deal); }, 0); },
-        { w: w, ammo: w === u.weapon ? u.ammo : w.mag || null, ammoMax: w === u.weapon ? u.ammoMax : w.mag || null, loaded: can, fat: Math.max(0, fat) }); }
+        { w: w, ammo: w === u.weapon ? u.ammo : w.mag || null, ammoMax: w === u.weapon ? u.ammoMax : w.mag || null, loaded: can, fat: Math.max(0, fat),
+          rounds: w === u.weapon ? u.rounds : (function () { const bi = u.bag ? u.bag.indexOf(w) : -1, bs = bi >= 0 && u.bagState && u.bagState[bi]; return bs && bs.rounds !== undefined ? bs.rounds : (u.side === 'you' ? roundsFull(w) : null); })() }); }
       finally { u.upRound = up; u.disarmed = dis; }
       return NB[key];
     };
@@ -5969,7 +6070,7 @@ const FIGHT = (function () {
        swings (s1a: 7.1 free swings a fight): the gun shoots the man beside him once it is loaded and he has his breath (rule 195:
        never the butt; the swap to his bag is his button, rule 180(g)) */
     const sk0 = strikeSkill(w);
-    const shotOK = u.fat + skillFat(u, sk0) <= fatMax(u) && !(w.ammo && u.ammo !== null && u.ammo <= 0) && !(reloadSkill(w) && !w.mag && !u.loaded && !canReload(u));
+    const shotOK = u.fat + skillFat(u, sk0) <= fatMax(u) && !(w.ammo && u.ammo !== null && u.ammo <= 0) && !(u.rounds != null && u.rounds <= 0) && !(reloadSkill(w) && !w.mag && !u.loaded && !canReload(u));
     const able = ranged ? shotOK : u.fat + skillFat(u, sk0) <= fatMax(u);
     if (u.side === 'you') {
       const ring = zocOn(u, u.x, u.y).length, near = ring || foes(u).some(function (f3) { return dist(f3, u) <= R('ours.auto_brain').near_tiles; });
@@ -6175,7 +6276,7 @@ const FIGHT = (function () {
     racial: racial, canScream: canScream, scream: scream, screamTarget: screamTarget,
     canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine, canShove: canShove, shove: shove, shoveTarget: shoveTarget, pushTile: pushTile, canNet: canNet, throwNet: throwNet, netTarget: netTarget, kiteGround: kiteGround, netCut: netCut,
     shapeOf: shapeOf, frontSwing: frontSwing, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
-    emptyGun: emptyGun, rounds: rounds, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
+    emptyGun: emptyGun, rounds: rounds, carried: carried, dryGun: dryGun, settleRounds: settleRounds, roundsFull: roundsFull, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
     wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, retreatFromLine: retreatFromLine, withdraw: withdraw, endFight: endFight, allFleeing: allFleeing, band: band, bandCard: bandCard, rangeBandOf: rangeBandOf, bandAt: bandAt, shotLineOf: shotLineOf, reachUp: reachUp, wantsClose: wantsClose, worthChase: worthChase, runs: runs, freeShot: freeShot, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
     swap: swap, canSwap: canSwap, swapCost: swapCost, swapCostOf: swapCostOf, isShield: isShield, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
     level: level, isRoof: isRoof, storeysAt: storeysAt, reachLevel: reachLevel, rangeUp: rangeUp, openStreet: openStreet, tileKeyAt: tileKeyAt, streetCost: streetCost, goodGround: goodGround, groundSteps: groundSteps, oddsOf: oddsOf, digsIn: digsIn, sidePower: sidePower, dangerOn: dangerOn, canSpark: canSpark, spark: spark, sparkPreview: sparkPreview, vestLive: vestLive, fireAt: fireAt, smokeAt: smokeAt, nothingLeft: nothingLeft, sparkDeath: sparkDeath, climbedNow: climbedNow, climbsOn: climbsOn, climbsUp: climbsUp, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
@@ -8497,6 +8598,7 @@ function startAnimHeard(a) {
     /* THE MAG SEATS (rule 124; the approved 'mag_home': 'the beat where you cannot shoot, and the player has to HEAR it') */
     if (e.t === 'reload' && u) { if (a.firstSent === undefined) sfx('mag_home', { gun: u.job, side: u.side }); pop(u, '', '#f0d296', false, u.name + ' reloads.'); u._reloadAt = performance.now();   /* __WHAT_A_MAN_HOLDS__: he reloads on his body (ANIMATION) */
       if (crewControlled(u)) { const r = FIGHT.rounds(u); say('Loaded' + (r && r.of > 1 ? ': ' + r.left + ' rounds.' : '.')); } }
+    if (e.t === 'dry' && u) pop(u, 'NO ROUNDS', '#d0a070', false, u.name + ' is out of rounds: the gun goes on its sling.');   /* rule 478, draft: a flash on him; the words go to the fight's kept feed (rule 67), never on the glass */
     if (e.t === 'rally') pop(u, 'rallies', '#a8d08a');
     if (e.t === 'pinned' && u) pop(u, 'PINNED', '#e8c39c', false, u.name + ' is down under it. He has to fight his way up.');   /* FIVE MORE BEASTS, draft:true */
     if (e.t === 'staggered' && u) pop(u, 'KNOCKED DOWN', '#e8a07c', false, u.name + ' is knocked flat and loses his next turn.');
@@ -12173,6 +12275,7 @@ function showOver(result) {
      voice is the only road left (no faked voices), and no recording host is reachable
      from the build box yet. GRAVEYARD IS FINAL for the engine-spoken recap:
      gates/narrator_gate.js now proves this screen never calls speak(). */
+  try { FIGHT.settleRounds(); } catch (_e) {}   /* __NO_AMMO_NO_SHOT__ (rule 478(c)): his guns' rounds kept and filled, with or without a shell */
   try { if (window.parent !== window) window.parent.postMessage(homeMessage(result), '*'); } catch (_e) {}
   /* THE WIPE GOES HOME AS AN EVENT (rule 143(e)): the frozen fight's end message, wipe:true, for RUN's nearest town and the side
      quest; the shell's COMBAT block holds it on the recap (it rides NF.over into cityFightHome's outcome) */
@@ -12213,7 +12316,7 @@ function spoilsOf() {
     /* WHAT EACH HAND HOLDS WHEN IT ENDS (COMBAT, rule 164 item 15, RUN TWO's note 10/25): a swap in the fight is kept, so the crew
        screen can put back main, off and the bag as they ended (item ids; the car door on his back counts as the off hand) */
     looks: S.units.filter(function (v) { return v.side === 'you' && !v.staff; }).map(function (v) { return { name: v.name, look: v.look || null, sex: v.sex || null,   /* ask row 619: the end screen reads the person, the fight hands her over */
-      held: { main: v.weapon ? v.weapon.id : null, off: (v.shield || v.shieldBack) ? (v.shield || v.shieldBack).id : null, bag: v.bagKit ? null : (v.bag || []).map(function (w) { return w ? w.id : null; }) } }; }),   /* the kit's stand-ins were never his: no bag */
+      held: { main: v.slung ? v.slung.id : v.weapon && !v.weapon.fists ? v.weapon.id : null, off: (v.shield || v.shieldBack) ? (v.shield || v.shieldBack).id : null, bag: v.bagKit ? null : (v.bag || []).map(function (w) { return w ? w.id : null; }) } }; }),   /* the kit's stand-ins were never his: no bag */
     recap: recapOf() };
 }
 /* THE END SCREEN IS ONE SCREEN (rule 164 item 28, Paolo 10/24: 'it goes away way too quickly, I can't read it'): the recap
@@ -12241,7 +12344,8 @@ function homeMessage(result) {
       /* __DAMAGE_STAYS__ (CAMP, rule 226): what he ends with, against his whole numbers, and the pieces he wore, for the next fight */
       look: v.look || null, hp: Math.max(0, Math.round(v.hp || 0)), hpMax: v.hpMax, armH: Math.max(0, Math.round(v.armH || 0)), armHMax: v.armHMax || 0,
       armB: Math.max(0, Math.round(v.armB || 0)), armBMax: v.armBMax || 0, head: v.headRow ? v.headRow.id : null, body: v.bodyRow ? v.bodyRow.id : null }; }),
-    spoils: result === 'withdrew' ? null : (function () { try { return spoilsOf(); } catch (_e) { return null; } })() };   /* __THE_SPOILS__; rule 253: nothing taken from a lineup left */
+    spoils: result === 'withdrew' ? null : (function () { try { return spoilsOf(); } catch (_e) { return null; } })(),   /* __THE_SPOILS__; rule 253: nothing taken from a lineup left */
+    rounds: (function () { try { return FIGHT.settleRounds(); } catch (_e) { return null; } })() };   /* __NO_AMMO_NO_SHOT__ (rule 478(c)): what his guns spent, what the company's rounds filled back, what is left */
 }
 /* ---------------- input: tap, drag, pinch ---------------- */
 const touches = {}; let gest = null;
