@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22r - THE STORAGE YARD, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22s - THE RADIO STATION, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE RADIO STATION (Paolo's 'voice of the valley'): about eight fights in ten there are fought inside: the studios (glass seen through, never crossed; record shelves and racks
+that hide a man; consoles, desks, crates; a cot by the microphone) or the transmitter hall (transmitters and generators that hide a man; burst cooling water, Battle Brothers' swamp).
+GATE THE BIG INSIDES 577/0 in two halves (301 in 256 s, 276 in 252 s; thirty-three insides). ON THE PAGE: 4 fights in the station on the demo and the alpha, upright and on its side (the studios once, the transmitter hall three times), all ended, 24 of 24 tile taps, 0 page errors. VOTE combat4-the-radio-station-11-22.
+[bb Battle Brothers' swamp again: the transmitter's cooling loop burst, four to cross and you fight worse in it]
+[analog horror: a cot by a dead microphone, and the on-air light still lit off a car battery]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22r - THE STORAGE YARD, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE STORAGE YARD (the map's self-storage, about forty cells a valley): about two fights in five there are fought inside: the unit halls (shut units that hide a man, open units and
 units somebody lived in for cover; boxes, furniture, carts, a unit tipped out) or the RV canopy (RVs, boats and moving trucks that hide a man; stored cars, an RV's camp).
 GATE THE BIG INSIDES 559/0 in two halves (283 in 273 s, 276 in 242 s; thirty-two insides). ON THE PAGE: 13 fights in the yard on the demo and the alpha, upright and on its side (both layouts), all ended, 45 of 46 tile taps (the one: a fire tapped as the fight said its adrenaline line), 0 page errors. VOTE combat4-the-storage-yard-11-22.

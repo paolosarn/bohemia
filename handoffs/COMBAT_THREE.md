@@ -1,6 +1,22 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the storage yard] SHIPPED 348f0124d, BUILD 11/22r - THE STORAGE YARD, BUILT, NOT YET SEEN. VOTE combat4-the-storage-yard-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the radio station] SHIPPED 4a9f34258, BUILD 11/22s - THE RADIO STATION, BUILT, NOT YET SEEN. VOTE combat4-the-radio-station-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_RADIO_STATION_11_22_26.md. More boards (rule 461): THE RADIO STATION, Paolo's own place ('radio', 0.8; one cell, kept in 40 of 40 valleys): the_studios (glass seen through and
+never crossed; racks and record shelves the obstacles row, they hide a man; consoles, desks, crates cover; couches low; cables rough 3 AP; a cot by the microphone) and
+the_transmitter_hall (transmitters and generators hide a man; benches, crates, desks cover; drums low; cables rough; the cooling loop's water the swamp row, 4 AP and fight worse).
+18 tile kinds, 15 pieces all stand-ins (I13 green); thirty-third in insides.json; no high ground.
+GATE THE BIG INSIDES 577/0 in two halves (301 in 256 s, 276 in 252 s; thirty-three insides)
+ON THE PAGE: 4 fights in the station on the demo and the alpha, upright and on its side (the studios once, the transmitter hall three times), all ended, 24 of 24 tile taps, 0 page errors.
+*** FOR COOK (SIX): THE RADIO STATION'S NAMES (radio_art.json, THE GARAGE'S FORMAT): floor.floor (worn carpet; the hall's concrete), floor.leak (standing water, if a floor
+list is wanted for it), floor.ring; rd_rack (an equipment rack), rd_console (the on-air console), rd_cot (a cot by the microphone), rd_glass (the studio's double glass),
+rd_cables, rd_couch, rd_desks, rd_shelves (the record library), rd_crates, rd_transmitter (transmitter cabinets), rd_generator, rd_drums, rd_bench (the engineers' bench),
+rd_wall_ew, rd_wall_ns; radio/radio_ceiling.webp. ***
+*** FOR FACTIONS / WORDS / SOUNDS: who holds the microphone, and what the air says, is yours; the board is only the ground. ***
+NEXT: more boards (the speedway's garage row and inspection shed: drafted, measured joined); the robot factory and the paved places wait on WORLD's map.
+[bb Battle Brothers' swamp again: the transmitter's cooling loop burst, four to cross and you fight worse in it]
+[analog horror: a cot by a dead microphone, and the on-air light still lit off a car battery]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the storage yard] SHIPPED 348f0124d, BUILD 11/22r - THE STORAGE YARD, BUILT, NOT YET SEEN. VOTE combat4-the-storage-yard-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_STORAGE_YARD_11_22_26.md. More boards (rule 461): the self-storage yard ('storage', 0.4; 40.2 cells a valley, the most common place given an inside): the_unit_halls (shut units
 the obstacles row, they hide a man; open units and lived-in units cover; boxes, furniture cover; carts low; a unit tipped out rough 3 AP low; the freight lift) and the_rv_canopy
 (RVs, boats, moving trucks hide a man; stored cars, an RV's camp cover; cans, tyres, carts low). 19 tile kinds, 17 pieces all stand-ins (I13 green); thirty-second in insides.json.
