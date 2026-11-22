@@ -31,12 +31,14 @@ function nodeChecks() {
   if (!/root\.advance\(ST\.CLIMB_MINS\)/.test(code)) why.push('not the map\'s own clock');
   if (!/root\.fogReveal\(/.test(code)) why.push('not the map\'s own fog');
   if (/fillText|strokeText|innerHTML|textContent/.test(code)) why.push('writes words');
-  if (!(city.indexOf('src="bohemia_the_strat.js"') > city.indexOf('src="bohemia_tracks_read.js"') && city.indexOf('src="bohemia_tracks_read.js"') > 0)) why.push('not loaded after the tracks');
+  if (!(city.indexOf('src="bohemia_the_strat.js"') > city.indexOf('src="bohemia_road_more.js"') && city.indexOf('src="bohemia_road_more.js"') > 0)) why.push('not loaded after the road');
+  /* RULE 476(a) (Paolo 11/22: 'the footprints around the city are ugly as fuck'): no track drawing on any map, the file and its include gone */
+  if (city.indexOf('bohemia_tracks_read.js') >= 0 || require('fs').existsSync(path.join(ROOT, 'slices', 'bohemia_tracks_read.js'))) why.push('the footprints are back');
   /* RULE 464 (Paolo 11/20: 'did u add some dogshit billboards wtf is that'): no board on any map, the file and its include gone */
   const fsx = require('fs'), slicesDir = path.join(ROOT, 'slices');
   const inc = fsx.readdirSync(slicesDir).filter(f => /\.html$/.test(f)).filter(f => /bohemia_billboards\.js/.test(fsx.readFileSync(path.join(slicesDir, f), 'utf8')));
   if (fsx.existsSync(path.join(slicesDir, 'bohemia_billboards.js')) || inc.length) why.push('a billboard is back (' + (inc.join(', ') || 'the file') + ')');
-  ok('T1 the seam: wraps the arrival, the map\'s own clock and fog, no word; no billboard file or include anywhere (rule 464)', !why.length, why.join(', ') || 'all');
+  ok('T1 the seam: wraps the arrival, the map\'s own clock and fog, no word; no billboard (rule 464) and no footprints (rule 476(a)) anywhere', !why.length, why.join(', ') || 'all');
 }
 
 async function page(alpha, profile) {

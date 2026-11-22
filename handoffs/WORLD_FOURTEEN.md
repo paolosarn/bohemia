@@ -1,5 +1,15 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN and from 11/21 by WORLD FIFTEEN, its successor; newest block on top)
 
+WORLD FIFTEEN, ROUND TWO, BUILD THREE (11/22; rule 476(a), ask row 716). BUILD 11/22zn - THE FOOTPRINTS COME OFF.
+- Paolo 11/22: 'the footprints around the city are ugly as fuck and I'm just so confused by them, they are not helping me'. WORLD 14's
+  THE TRACKS HE CAN READ (11/17y, the only footprints a phone drew) is out: the file, its include, its gate (two suite entries), its VOTE
+  card: graveyard/the_tracks_he_can_read_11_17_26/, post-mortem graveyard/POSTMORTEM_THE_TRACKS_HE_CAN_READ_11_22_26.txt. The Strat gate's
+  T1 now checks it loads after the road and refuses the footprints back. On the page (demo both ways, alpha): no module, no script, no error.
+- STANDS, NAMED FOR THE COORDINATOR: UI's desktop F key trails (off by default, never on a phone); RUN's '... CAME THROUGH HERE' line (words).
+- NEXT: rule 476(b), row 717: a kill's body and its blood shrink with the map (they blot it when he zooms out).
+[bb Battle Brothers' tracks are a hover on a quiet map; ours were noise on a loud one.]
+[analog horror: the ground keeps what walked over it; you do not need to see it to know.]
+
 WORLD FIFTEEN, ROUND TWO, BUILD TWO (11/22; rule 470(c), ask row 703; rule 473, row 713; rule 441; no words). BUILD 11/22zl - A REAL FOG OF WAR.
 BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_15_A_REAL_FOG_OF_WAR_11_22_26.md. VOTE world15-a-real-fog-of-war-11-22 (ui, STAND-IN).
 - MEASURED: on a stranger's game the unseen ground was WORLD TWO's faint city (bohemia_his_map.js fogDraw: the real map greyed under

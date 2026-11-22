@@ -1,0 +1,26 @@
+POSTMORTEM: THE TRACKS HE CAN READ (WORLD 14, built 11/17y; killed 11/22 by WORLD 15; VAMILY rule 476(a), ask row 716)
+
+WHAT DIED (now in graveyard/the_tracks_he_can_read_11_17_26/): slices/bohemia_tracks_read.js (the living map's prints drawn round him
+on the map as footprints, two marks a step in the faction's colour, fading by the hour, pointing the way they went), its include in
+slices/BOHEMIA_CITY_WORLD.html, gates/the_tracks_he_can_read_gate.js and its two suite entries, and the VOTE card
+world14-the-tracks-he-can-read-11-17 with its pictures.
+
+WHY: Paolo 11/22: 'the footprints around the city are ugly as fuck and I'm just so confused by them, they are not helping me'. (He had
+voted the card YES on 11/21 with no note; newest wins.)
+
+HOW IT GOT IN: the coordinator's round of 11/17 asked for 'parties that roam and leave tracks he can read'. Rule 151(f) had already put
+the prints behind a desktop key ('I don't know why I'm seeing their lines on the ground... that was never a thing in Battle Brothers');
+this file put them back on every phone as footprints. Battle Brothers draws footprints, but on its map they are faint, few and read by a
+hover; ours were many marks on a busy city, read by nothing, so they were clutter he had to decode.
+
+WHAT STAYS: the living map still keeps its prints as data (the parties' movement, LIFE+CITY's). UI's desktop F key still shows its
+trails if pressed (off by default, never on a phone): named here for the coordinator, not touched. RUN's line at the foot of the glass
+('... CAME THROUGH HERE JUST NOW') is words, not a drawing, and stands (rule 454(a)).
+
+NOT TO COME BACK UNDER A NEW NAME: no footprints, trails, scuffs or marks of who walked where drawn on the map; what the tracks told
+him is said another way only if he asks (rule 476(a)). gates/the_strat_lookout_gate.js T1 refuses the file or its include.
+
+## ANALOG HORROR
+The ground keeps what walked over it. You do not need to see it to know.
+
+[bb Battle Brothers' tracks are a hover on a quiet map; ours were noise on a loud one.]

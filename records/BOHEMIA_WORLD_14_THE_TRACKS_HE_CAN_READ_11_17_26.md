@@ -1,5 +1,8 @@
 # THE TRACKS HE CAN READ (WORLD 14, 11/17)
 
+*** KILLED BY HIM 11/22 (rule 476(a), ask row 716: 'the footprints around the city are ugly as fuck and I'm just so confused by them').
+Graveyarded with a post-mortem: graveyard/POSTMORTEM_THE_TRACKS_HE_CAN_READ_11_22_26.txt. This page is history. ***
+
 The coordinator's round under rule 453 ("do a full sweep, let's have some fun, lotta tokens this week"), item (3): parties that roam
 and leave tracks he can read. Rule 441: on the real page, alpha and demo, a phone both ways. Rule 454(a): no standing line rewritten,
 no new road prose; this build adds NO words at all.
