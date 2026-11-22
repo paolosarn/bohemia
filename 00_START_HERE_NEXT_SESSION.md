@@ -1,4 +1,11 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22zb - THE MAP'S DICE, BUILT, NOT YET SEEN (rules 461, 416, 441; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22zc - THE SWAP MEET, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE SWAP MEET (the map's Broadacres, up north; the dead's 'the last market, and the crush at it'): six fights in ten under its sheds: the covered rows (stalls
+cover; racks of clothes and the vendors' vans hide a man; the change booth; a stall of old sets, one still on, snow on its screen) or the food court (food stands
+hide a man; picnic tables cover). Its dice keep its word as written: 68% of its cells over 40 valleys (I14).
+GATE THE BIG INSIDES 743/0 over forty insides (the first part with the swap meet 262 in 218 s; the second and third unchanged since BUILD 11/22zb, 242 and 239); the swap meet 22/0 alone in 56 s, 2% bare after round one against 11% with rule 428's leg off; I14 68% of its cells inside over 40 valleys (meant 0.6). ON THE PAGE: 4 fights inside the swap meet (THE COVERED ROWS), the demo and the alpha, upright and on its side, first try each way, all ended on AUTO, 21 of 21 tile taps, 0 page errors; THE FOOD COURT on the fight page opened alone and in the gate. VOTE combat4-the-swap-meet-11-22.
+[bb Battle Brothers' brush: goods trampled flat in the crush, rough going and low cover]
+[analog horror: a stall of old televisions, one still on, snow on its screen, and a tape deck under it blinking 12:00]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22zb - THE MAP'S DICE, BUILT, NOT YET SEEN (rules 461, 416, 441; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE MAP'S DICE: a place's inside is rolled from its cell, and the big places sit on a few spots, so the odds came out lumpy: the gas plant's turbine hall was never
 fought inside (0 of 40 valleys), the truck stop 35% (meant 70%), the aquarium 40% (meant 80%), the Mini Grand Prix 100% (meant half). Fourteen insides' shares are set
 from their real cells now (share_meant beside each; the gas plant 42%, the truck stop 65%, the aquarium 92%) and a gate leg holds every inside to its word (I14).

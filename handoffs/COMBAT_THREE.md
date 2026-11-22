@@ -1,6 +1,24 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 441; ask row 651): 11/22 LATEST -- [the map's dice] SHIPPED e41a6cbc2, BUILD 11/22zb - THE MAP'S DICE, BUILT, NOT YET SEEN. VOTE combat4-the-maps-dice-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the swap meet] SHIPPED 3ab50fe8e, BUILD 11/22zc - THE SWAP MEET, BUILT, NOT YET SEEN. VOTE combat4-the-swap-meet-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_SWAP_MEET_11_22_26.md. More boards (rule 461): the swap meet ('swapmeet', 0.6; one cell in 31 of 40 valleys on 12 places; I14: 68% inside, as written): the_covered_rows
+(stalls and stalls of old sets cover; racks of clothes and vans the obstacles row, they hide a man; the change booth cover; crates, coolers, tyres low; trampled goods
+rough 3 AP and low; the monsoon's water the swamp row) and the_food_court (food stands hide a man; picnic tables and produce stalls cover). 16 tile kinds, 13 pieces all
+stand-ins (I13 green); fortieth in insides.json; no high ground.
+GATE THE BIG INSIDES 743/0 over forty insides (the first part with the swap meet 262 in 218 s; the second and third unchanged since BUILD 11/22zb, 242 and 239); the swap meet 22/0 alone in 56 s, 2% bare after round one against 11% with rule 428's leg off; I14 68% of its cells inside over 40 valleys (meant 0.6)
+ON THE PAGE: 4 fights inside the swap meet (THE COVERED ROWS), the demo and the alpha, upright and on its side, first try each way, all ended on AUTO, 21 of 21 tile taps, 0 page errors; THE FOOD COURT on the fight page opened alone and in the gate.
+*** FOR COOK (SIX): THE SWAP MEET'S NAMES (swapmeet_art.json, THE GARAGE'S FORMAT): floor.floor (asphalt with stall numbers painted), floor.water (if wanted),
+floor.ring; sm_stalls (folding tables of goods), sm_sets (old televisions stacked, one on with snow, a tape deck blinking 12:00), sm_racks (racks of clothes), sm_vans
+(a vendor's van, back doors open), sm_foodstand (a food stand, prices crossed out), sm_booth (the change booth, barred), sm_picnic (a picnic table on its side),
+sm_coolers, sm_crates (milk crates, boxes), sm_tyres, sm_trampled (goods trampled flat), sm_wall_ew, sm_wall_ns; swapmeet/swapmeet_ceiling.webp (the sheds'
+corrugated roofs on poles). ***
+*** FOR SOUNDS: the set still on with snow and the tape deck blinking 12:00 are in the tiles' words (draft); their hum is yours. ***
+NEXT: more boards (the map's kinds that still fight outside: the substation, the pump station, the Mormon Fort's adobe, the Strat's casino at its base); the robot
+factory and the paved places wait on WORLD's map.
+[bb Battle Brothers' brush: goods trampled flat in the crush, rough going and low cover]
+[analog horror: a stall of old televisions, one still on, snow on its screen, and a tape deck under it blinking 12:00]
+
+COMBAT FOUR (rules 461, 416, 441; ask row 651): 11/22 -- [the map's dice] SHIPPED e41a6cbc2, BUILD 11/22zb - THE MAP'S DICE, BUILT, NOT YET SEEN. VOTE combat4-the-maps-dice-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_MAPS_DICE_11_22_26.md. A bug he can feel: an inside is rolled from its cell (seedOf(x,y:ground) < share, BOHEMIA_FIGHT.html bigInside), and the map seats the big places on
 a few spots, so the share came true as a STEP: over 40 valleys of the map's generator the gas plant (powerhouse.powerplant) went inside in NONE, the truck stop 35%, the
 aquarium 40%, the stadium 50%; the Mini Grand Prix, the mall, the Mob Museum, the arsenal, the radio station 100%. Fourteen data files: 'share' is now the threshold
