@@ -739,3 +739,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 715 | The old casino receipt is still hanging around at the end of a fight (his screenshot), and 'THE GROUND SLOTH ARE DOWN' reads wrong | 475 | FIGHT SCREEN 3 | SENT 11/22 |
 | 716 | The footprints around the map are ugly and confusing: take them out | 476(a) | WORLD 15 | SENT 11/22 |
 | 717 | Dead animals' blood pools get huge when he zooms out: the dead scale with the map | 476(b) | WORLD 15 | SENT 11/22 |
+| 718 | In the shop it is not clear if a weapon is one-handed or two-handed, and there is too much useless information | 477 | UI FIVE | SENT 11/22 |
