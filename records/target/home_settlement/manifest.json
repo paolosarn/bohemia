@@ -2613,6 +2613,11 @@
   },
   "main": {
    "row": "front",
+   "rows": [
+    "front",
+    "middle",
+    "back"
+   ],
    "src": "pieces:main",
    "states": {
     "built": {
@@ -2836,6 +2841,438 @@
        "xy": [
         128,
         120
+       ]
+      },
+      "1_tall_5": {
+       "pictures": [
+        "main_built_cam1_tall_lot5_0.png"
+       ],
+       "xy": [
+        20,
+        156
+       ]
+      },
+      "1_tall_6": {
+       "pictures": [
+        "main_built_cam1_tall_lot6_0.png"
+       ],
+       "xy": [
+        56,
+        156
+       ]
+      },
+      "1_tall_7": {
+       "pictures": [
+        "main_built_cam1_tall_lot7_0.png"
+       ],
+       "xy": [
+        68,
+        156
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "main_built_cam1_tall_lot8_0.png"
+       ],
+       "xy": [
+        68,
+        156
+       ]
+      },
+      "1_tall_9": {
+       "pictures": [
+        "main_built_cam1_tall_lot9_0.png"
+       ],
+       "xy": [
+        36,
+        140
+       ]
+      },
+      "1_tall_10": {
+       "pictures": [
+        "main_built_cam1_tall_lot10_0.png"
+       ],
+       "xy": [
+        64,
+        140
+       ]
+      },
+      "1_tall_11": {
+       "pictures": [
+        "main_built_cam1_tall_lot11_0.png"
+       ],
+       "xy": [
+        68,
+        140
+       ]
+      },
+      "1_tall_12": {
+       "pictures": [
+        "main_built_cam1_tall_lot12_0.png"
+       ],
+       "xy": [
+        68,
+        140
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "main_built_cam1_wide_lot5_0.png"
+       ],
+       "xy": [
+        80,
+        76
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "main_built_cam1_wide_lot6_0.png"
+       ],
+       "xy": [
+        124,
+        72
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "main_built_cam1_wide_lot7_0.png"
+       ],
+       "xy": [
+        132,
+        72
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "main_built_cam1_wide_lot8_0.png"
+       ],
+       "xy": [
+        132,
+        76
+       ]
+      },
+      "1_wide_9": {
+       "pictures": [
+        "main_built_cam1_wide_lot9_0.png"
+       ],
+       "xy": [
+        100,
+        56
+       ]
+      },
+      "1_wide_10": {
+       "pictures": [
+        "main_built_cam1_wide_lot10_0.png"
+       ],
+       "xy": [
+        132,
+        52
+       ]
+      },
+      "1_wide_11": {
+       "pictures": [
+        "main_built_cam1_wide_lot11_0.png"
+       ],
+       "xy": [
+        132,
+        52
+       ]
+      },
+      "1_wide_12": {
+       "pictures": [
+        "main_built_cam1_wide_lot12_0.png"
+       ],
+       "xy": [
+        132,
+        56
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "main_built_cam2_tall_lot5_0.png"
+       ],
+       "xy": [
+        20,
+        160
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "main_built_cam2_tall_lot6_0.png"
+       ],
+       "xy": [
+        56,
+        156
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "main_built_cam2_tall_lot7_0.png"
+       ],
+       "xy": [
+        76,
+        156
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "main_built_cam2_tall_lot8_0.png"
+       ],
+       "xy": [
+        76,
+        156
+       ]
+      },
+      "2_tall_9": {
+       "pictures": [
+        "main_built_cam2_tall_lot9_0.png"
+       ],
+       "xy": [
+        32,
+        140
+       ]
+      },
+      "2_tall_10": {
+       "pictures": [
+        "main_built_cam2_tall_lot10_0.png"
+       ],
+       "xy": [
+        64,
+        140
+       ]
+      },
+      "2_tall_11": {
+       "pictures": [
+        "main_built_cam2_tall_lot11_0.png"
+       ],
+       "xy": [
+        76,
+        140
+       ]
+      },
+      "2_tall_12": {
+       "pictures": [
+        "main_built_cam2_tall_lot12_0.png"
+       ],
+       "xy": [
+        76,
+        140
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "main_built_cam2_wide_lot5_0.png"
+       ],
+       "xy": [
+        80,
+        76
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "main_built_cam2_wide_lot6_0.png"
+       ],
+       "xy": [
+        120,
+        76
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "main_built_cam2_wide_lot7_0.png"
+       ],
+       "xy": [
+        144,
+        72
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "main_built_cam2_wide_lot8_0.png"
+       ],
+       "xy": [
+        144,
+        72
+       ]
+      },
+      "2_wide_9": {
+       "pictures": [
+        "main_built_cam2_wide_lot9_0.png"
+       ],
+       "xy": [
+        92,
+        56
+       ]
+      },
+      "2_wide_10": {
+       "pictures": [
+        "main_built_cam2_wide_lot10_0.png"
+       ],
+       "xy": [
+        128,
+        56
+       ]
+      },
+      "2_wide_11": {
+       "pictures": [
+        "main_built_cam2_wide_lot11_0.png"
+       ],
+       "xy": [
+        144,
+        52
+       ]
+      },
+      "2_wide_12": {
+       "pictures": [
+        "main_built_cam2_wide_lot12_0.png"
+       ],
+       "xy": [
+        144,
+        52
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "main_built_cam3_tall_lot5_0.png"
+       ],
+       "xy": [
+        20,
+        156
+       ]
+      },
+      "3_tall_6": {
+       "pictures": [
+        "main_built_cam3_tall_lot6_0.png"
+       ],
+       "xy": [
+        60,
+        156
+       ]
+      },
+      "3_tall_7": {
+       "pictures": [
+        "main_built_cam3_tall_lot7_0.png"
+       ],
+       "xy": [
+        60,
+        156
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "main_built_cam3_tall_lot8_0.png"
+       ],
+       "xy": [
+        60,
+        160
+       ]
+      },
+      "3_tall_9": {
+       "pictures": [
+        "main_built_cam3_tall_lot9_0.png"
+       ],
+       "xy": [
+        40,
+        136
+       ]
+      },
+      "3_tall_10": {
+       "pictures": [
+        "main_built_cam3_tall_lot10_0.png"
+       ],
+       "xy": [
+        60,
+        140
+       ]
+      },
+      "3_tall_11": {
+       "pictures": [
+        "main_built_cam3_tall_lot11_0.png"
+       ],
+       "xy": [
+        60,
+        136
+       ]
+      },
+      "3_tall_12": {
+       "pictures": [
+        "main_built_cam3_tall_lot12_0.png"
+       ],
+       "xy": [
+        60,
+        140
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "main_built_cam3_wide_lot5_0.png"
+       ],
+       "xy": [
+        84,
+        72
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "main_built_cam3_wide_lot6_0.png"
+       ],
+       "xy": [
+        128,
+        72
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "main_built_cam3_wide_lot7_0.png"
+       ],
+       "xy": [
+        128,
+        76
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "main_built_cam3_wide_lot8_0.png"
+       ],
+       "xy": [
+        128,
+        76
+       ]
+      },
+      "3_wide_9": {
+       "pictures": [
+        "main_built_cam3_wide_lot9_0.png"
+       ],
+       "xy": [
+        104,
+        52
+       ]
+      },
+      "3_wide_10": {
+       "pictures": [
+        "main_built_cam3_wide_lot10_0.png"
+       ],
+       "xy": [
+        128,
+        48
+       ]
+      },
+      "3_wide_11": {
+       "pictures": [
+        "main_built_cam3_wide_lot11_0.png"
+       ],
+       "xy": [
+        128,
+        52
+       ]
+      },
+      "3_wide_12": {
+       "pictures": [
+        "main_built_cam3_wide_lot12_0.png"
+       ],
+       "xy": [
+        128,
+        52
        ]
       }
      }
@@ -3086,6 +3523,486 @@
         128,
         120
        ]
+      },
+      "1_tall_5": {
+       "pictures": [
+        "main_working_cam1_tall_lot5_0.png",
+        "main_working_cam1_tall_lot5_1.png"
+       ],
+       "xy": [
+        20,
+        156
+       ]
+      },
+      "1_tall_6": {
+       "pictures": [
+        "main_working_cam1_tall_lot6_0.png",
+        "main_working_cam1_tall_lot6_1.png"
+       ],
+       "xy": [
+        56,
+        156
+       ]
+      },
+      "1_tall_7": {
+       "pictures": [
+        "main_working_cam1_tall_lot7_0.png",
+        "main_working_cam1_tall_lot7_1.png"
+       ],
+       "xy": [
+        68,
+        156
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "main_working_cam1_tall_lot8_0.png",
+        "main_working_cam1_tall_lot8_1.png"
+       ],
+       "xy": [
+        68,
+        156
+       ]
+      },
+      "1_tall_9": {
+       "pictures": [
+        "main_working_cam1_tall_lot9_0.png",
+        "main_working_cam1_tall_lot9_1.png"
+       ],
+       "xy": [
+        36,
+        140
+       ]
+      },
+      "1_tall_10": {
+       "pictures": [
+        "main_working_cam1_tall_lot10_0.png",
+        "main_working_cam1_tall_lot10_1.png"
+       ],
+       "xy": [
+        64,
+        140
+       ]
+      },
+      "1_tall_11": {
+       "pictures": [
+        "main_working_cam1_tall_lot11_0.png",
+        "main_working_cam1_tall_lot11_1.png"
+       ],
+       "xy": [
+        68,
+        140
+       ]
+      },
+      "1_tall_12": {
+       "pictures": [
+        "main_working_cam1_tall_lot12_0.png",
+        "main_working_cam1_tall_lot12_1.png"
+       ],
+       "xy": [
+        68,
+        140
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "main_working_cam1_wide_lot5_0.png",
+        "main_working_cam1_wide_lot5_1.png"
+       ],
+       "xy": [
+        80,
+        76
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "main_working_cam1_wide_lot6_0.png",
+        "main_working_cam1_wide_lot6_1.png"
+       ],
+       "xy": [
+        124,
+        72
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "main_working_cam1_wide_lot7_0.png",
+        "main_working_cam1_wide_lot7_1.png"
+       ],
+       "xy": [
+        132,
+        72
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "main_working_cam1_wide_lot8_0.png",
+        "main_working_cam1_wide_lot8_1.png"
+       ],
+       "xy": [
+        132,
+        76
+       ]
+      },
+      "1_wide_9": {
+       "pictures": [
+        "main_working_cam1_wide_lot9_0.png",
+        "main_working_cam1_wide_lot9_1.png"
+       ],
+       "xy": [
+        100,
+        56
+       ]
+      },
+      "1_wide_10": {
+       "pictures": [
+        "main_working_cam1_wide_lot10_0.png",
+        "main_working_cam1_wide_lot10_1.png"
+       ],
+       "xy": [
+        132,
+        56
+       ]
+      },
+      "1_wide_11": {
+       "pictures": [
+        "main_working_cam1_wide_lot11_0.png",
+        "main_working_cam1_wide_lot11_1.png"
+       ],
+       "xy": [
+        132,
+        56
+       ]
+      },
+      "1_wide_12": {
+       "pictures": [
+        "main_working_cam1_wide_lot12_0.png",
+        "main_working_cam1_wide_lot12_1.png"
+       ],
+       "xy": [
+        132,
+        56
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "main_working_cam2_tall_lot5_0.png",
+        "main_working_cam2_tall_lot5_1.png"
+       ],
+       "xy": [
+        20,
+        160
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "main_working_cam2_tall_lot6_0.png",
+        "main_working_cam2_tall_lot6_1.png"
+       ],
+       "xy": [
+        56,
+        156
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "main_working_cam2_tall_lot7_0.png",
+        "main_working_cam2_tall_lot7_1.png"
+       ],
+       "xy": [
+        76,
+        156
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "main_working_cam2_tall_lot8_0.png",
+        "main_working_cam2_tall_lot8_1.png"
+       ],
+       "xy": [
+        76,
+        156
+       ]
+      },
+      "2_tall_9": {
+       "pictures": [
+        "main_working_cam2_tall_lot9_0.png",
+        "main_working_cam2_tall_lot9_1.png"
+       ],
+       "xy": [
+        32,
+        140
+       ]
+      },
+      "2_tall_10": {
+       "pictures": [
+        "main_working_cam2_tall_lot10_0.png",
+        "main_working_cam2_tall_lot10_1.png"
+       ],
+       "xy": [
+        64,
+        140
+       ]
+      },
+      "2_tall_11": {
+       "pictures": [
+        "main_working_cam2_tall_lot11_0.png",
+        "main_working_cam2_tall_lot11_1.png"
+       ],
+       "xy": [
+        76,
+        140
+       ]
+      },
+      "2_tall_12": {
+       "pictures": [
+        "main_working_cam2_tall_lot12_0.png",
+        "main_working_cam2_tall_lot12_1.png"
+       ],
+       "xy": [
+        76,
+        140
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "main_working_cam2_wide_lot5_0.png",
+        "main_working_cam2_wide_lot5_1.png"
+       ],
+       "xy": [
+        80,
+        76
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "main_working_cam2_wide_lot6_0.png",
+        "main_working_cam2_wide_lot6_1.png"
+       ],
+       "xy": [
+        120,
+        76
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "main_working_cam2_wide_lot7_0.png",
+        "main_working_cam2_wide_lot7_1.png"
+       ],
+       "xy": [
+        144,
+        72
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "main_working_cam2_wide_lot8_0.png",
+        "main_working_cam2_wide_lot8_1.png"
+       ],
+       "xy": [
+        144,
+        72
+       ]
+      },
+      "2_wide_9": {
+       "pictures": [
+        "main_working_cam2_wide_lot9_0.png",
+        "main_working_cam2_wide_lot9_1.png"
+       ],
+       "xy": [
+        92,
+        56
+       ]
+      },
+      "2_wide_10": {
+       "pictures": [
+        "main_working_cam2_wide_lot10_0.png",
+        "main_working_cam2_wide_lot10_1.png"
+       ],
+       "xy": [
+        128,
+        56
+       ]
+      },
+      "2_wide_11": {
+       "pictures": [
+        "main_working_cam2_wide_lot11_0.png",
+        "main_working_cam2_wide_lot11_1.png"
+       ],
+       "xy": [
+        144,
+        52
+       ]
+      },
+      "2_wide_12": {
+       "pictures": [
+        "main_working_cam2_wide_lot12_0.png",
+        "main_working_cam2_wide_lot12_1.png"
+       ],
+       "xy": [
+        144,
+        52
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "main_working_cam3_tall_lot5_0.png",
+        "main_working_cam3_tall_lot5_1.png"
+       ],
+       "xy": [
+        20,
+        156
+       ]
+      },
+      "3_tall_6": {
+       "pictures": [
+        "main_working_cam3_tall_lot6_0.png",
+        "main_working_cam3_tall_lot6_1.png"
+       ],
+       "xy": [
+        60,
+        156
+       ]
+      },
+      "3_tall_7": {
+       "pictures": [
+        "main_working_cam3_tall_lot7_0.png",
+        "main_working_cam3_tall_lot7_1.png"
+       ],
+       "xy": [
+        60,
+        156
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "main_working_cam3_tall_lot8_0.png",
+        "main_working_cam3_tall_lot8_1.png"
+       ],
+       "xy": [
+        60,
+        160
+       ]
+      },
+      "3_tall_9": {
+       "pictures": [
+        "main_working_cam3_tall_lot9_0.png",
+        "main_working_cam3_tall_lot9_1.png"
+       ],
+       "xy": [
+        40,
+        136
+       ]
+      },
+      "3_tall_10": {
+       "pictures": [
+        "main_working_cam3_tall_lot10_0.png",
+        "main_working_cam3_tall_lot10_1.png"
+       ],
+       "xy": [
+        60,
+        136
+       ]
+      },
+      "3_tall_11": {
+       "pictures": [
+        "main_working_cam3_tall_lot11_0.png",
+        "main_working_cam3_tall_lot11_1.png"
+       ],
+       "xy": [
+        60,
+        140
+       ]
+      },
+      "3_tall_12": {
+       "pictures": [
+        "main_working_cam3_tall_lot12_0.png",
+        "main_working_cam3_tall_lot12_1.png"
+       ],
+       "xy": [
+        60,
+        140
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "main_working_cam3_wide_lot5_0.png",
+        "main_working_cam3_wide_lot5_1.png"
+       ],
+       "xy": [
+        84,
+        72
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "main_working_cam3_wide_lot6_0.png",
+        "main_working_cam3_wide_lot6_1.png"
+       ],
+       "xy": [
+        128,
+        72
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "main_working_cam3_wide_lot7_0.png",
+        "main_working_cam3_wide_lot7_1.png"
+       ],
+       "xy": [
+        128,
+        72
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "main_working_cam3_wide_lot8_0.png",
+        "main_working_cam3_wide_lot8_1.png"
+       ],
+       "xy": [
+        128,
+        76
+       ]
+      },
+      "3_wide_9": {
+       "pictures": [
+        "main_working_cam3_wide_lot9_0.png",
+        "main_working_cam3_wide_lot9_1.png"
+       ],
+       "xy": [
+        104,
+        48
+       ]
+      },
+      "3_wide_10": {
+       "pictures": [
+        "main_working_cam3_wide_lot10_0.png",
+        "main_working_cam3_wide_lot10_1.png"
+       ],
+       "xy": [
+        128,
+        48
+       ]
+      },
+      "3_wide_11": {
+       "pictures": [
+        "main_working_cam3_wide_lot11_0.png",
+        "main_working_cam3_wide_lot11_1.png"
+       ],
+       "xy": [
+        128,
+        52
+       ]
+      },
+      "3_wide_12": {
+       "pictures": [
+        "main_working_cam3_wide_lot12_0.png",
+        "main_working_cam3_wide_lot12_1.png"
+       ],
+       "xy": [
+        128,
+        52
+       ]
       }
      }
     }
@@ -3094,6 +4011,11 @@
   },
   "purifier": {
    "row": "front",
+   "rows": [
+    "front",
+    "middle",
+    "back"
+   ],
    "src": "pieces:purifier",
    "states": {
     "built": {
@@ -3317,6 +4239,438 @@
        "xy": [
         128,
         112
+       ]
+      },
+      "1_tall_5": {
+       "pictures": [
+        "purifier_built_cam1_tall_lot5_0.png"
+       ],
+       "xy": [
+        16,
+        152
+       ]
+      },
+      "1_tall_6": {
+       "pictures": [
+        "purifier_built_cam1_tall_lot6_0.png"
+       ],
+       "xy": [
+        52,
+        152
+       ]
+      },
+      "1_tall_7": {
+       "pictures": [
+        "purifier_built_cam1_tall_lot7_0.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "purifier_built_cam1_tall_lot8_0.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_tall_9": {
+       "pictures": [
+        "purifier_built_cam1_tall_lot9_0.png"
+       ],
+       "xy": [
+        32,
+        136
+       ]
+      },
+      "1_tall_10": {
+       "pictures": [
+        "purifier_built_cam1_tall_lot10_0.png"
+       ],
+       "xy": [
+        60,
+        136
+       ]
+      },
+      "1_tall_11": {
+       "pictures": [
+        "purifier_built_cam1_tall_lot11_0.png"
+       ],
+       "xy": [
+        68,
+        136
+       ]
+      },
+      "1_tall_12": {
+       "pictures": [
+        "purifier_built_cam1_tall_lot12_0.png"
+       ],
+       "xy": [
+        68,
+        136
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "purifier_built_cam1_wide_lot5_0.png"
+       ],
+       "xy": [
+        76,
+        68
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "purifier_built_cam1_wide_lot6_0.png"
+       ],
+       "xy": [
+        120,
+        68
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "purifier_built_cam1_wide_lot7_0.png"
+       ],
+       "xy": [
+        132,
+        68
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "purifier_built_cam1_wide_lot8_0.png"
+       ],
+       "xy": [
+        132,
+        68
+       ]
+      },
+      "1_wide_9": {
+       "pictures": [
+        "purifier_built_cam1_wide_lot9_0.png"
+       ],
+       "xy": [
+        96,
+        52
+       ]
+      },
+      "1_wide_10": {
+       "pictures": [
+        "purifier_built_cam1_wide_lot10_0.png"
+       ],
+       "xy": [
+        128,
+        52
+       ]
+      },
+      "1_wide_11": {
+       "pictures": [
+        "purifier_built_cam1_wide_lot11_0.png"
+       ],
+       "xy": [
+        132,
+        48
+       ]
+      },
+      "1_wide_12": {
+       "pictures": [
+        "purifier_built_cam1_wide_lot12_0.png"
+       ],
+       "xy": [
+        132,
+        52
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "purifier_built_cam2_tall_lot5_0.png"
+       ],
+       "xy": [
+        16,
+        156
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "purifier_built_cam2_tall_lot6_0.png"
+       ],
+       "xy": [
+        52,
+        152
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "purifier_built_cam2_tall_lot7_0.png"
+       ],
+       "xy": [
+        76,
+        152
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "purifier_built_cam2_tall_lot8_0.png"
+       ],
+       "xy": [
+        76,
+        152
+       ]
+      },
+      "2_tall_9": {
+       "pictures": [
+        "purifier_built_cam2_tall_lot9_0.png"
+       ],
+       "xy": [
+        28,
+        136
+       ]
+      },
+      "2_tall_10": {
+       "pictures": [
+        "purifier_built_cam2_tall_lot10_0.png"
+       ],
+       "xy": [
+        60,
+        136
+       ]
+      },
+      "2_tall_11": {
+       "pictures": [
+        "purifier_built_cam2_tall_lot11_0.png"
+       ],
+       "xy": [
+        76,
+        136
+       ]
+      },
+      "2_tall_12": {
+       "pictures": [
+        "purifier_built_cam2_tall_lot12_0.png"
+       ],
+       "xy": [
+        76,
+        136
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "purifier_built_cam2_wide_lot5_0.png"
+       ],
+       "xy": [
+        72,
+        72
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "purifier_built_cam2_wide_lot6_0.png"
+       ],
+       "xy": [
+        116,
+        68
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "purifier_built_cam2_wide_lot7_0.png"
+       ],
+       "xy": [
+        144,
+        68
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "purifier_built_cam2_wide_lot8_0.png"
+       ],
+       "xy": [
+        144,
+        68
+       ]
+      },
+      "2_wide_9": {
+       "pictures": [
+        "purifier_built_cam2_wide_lot9_0.png"
+       ],
+       "xy": [
+        88,
+        52
+       ]
+      },
+      "2_wide_10": {
+       "pictures": [
+        "purifier_built_cam2_wide_lot10_0.png"
+       ],
+       "xy": [
+        124,
+        52
+       ]
+      },
+      "2_wide_11": {
+       "pictures": [
+        "purifier_built_cam2_wide_lot11_0.png"
+       ],
+       "xy": [
+        144,
+        48
+       ]
+      },
+      "2_wide_12": {
+       "pictures": [
+        "purifier_built_cam2_wide_lot12_0.png"
+       ],
+       "xy": [
+        144,
+        52
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "purifier_built_cam3_tall_lot5_0.png"
+       ],
+       "xy": [
+        16,
+        152
+       ]
+      },
+      "3_tall_6": {
+       "pictures": [
+        "purifier_built_cam3_tall_lot6_0.png"
+       ],
+       "xy": [
+        56,
+        152
+       ]
+      },
+      "3_tall_7": {
+       "pictures": [
+        "purifier_built_cam3_tall_lot7_0.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "purifier_built_cam3_tall_lot8_0.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_tall_9": {
+       "pictures": [
+        "purifier_built_cam3_tall_lot9_0.png"
+       ],
+       "xy": [
+        36,
+        132
+       ]
+      },
+      "3_tall_10": {
+       "pictures": [
+        "purifier_built_cam3_tall_lot10_0.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_tall_11": {
+       "pictures": [
+        "purifier_built_cam3_tall_lot11_0.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_tall_12": {
+       "pictures": [
+        "purifier_built_cam3_tall_lot12_0.png"
+       ],
+       "xy": [
+        60,
+        136
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "purifier_built_cam3_wide_lot5_0.png"
+       ],
+       "xy": [
+        80,
+        68
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "purifier_built_cam3_wide_lot6_0.png"
+       ],
+       "xy": [
+        120,
+        68
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "purifier_built_cam3_wide_lot7_0.png"
+       ],
+       "xy": [
+        128,
+        68
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "purifier_built_cam3_wide_lot8_0.png"
+       ],
+       "xy": [
+        128,
+        72
+       ]
+      },
+      "3_wide_9": {
+       "pictures": [
+        "purifier_built_cam3_wide_lot9_0.png"
+       ],
+       "xy": [
+        100,
+        48
+       ]
+      },
+      "3_wide_10": {
+       "pictures": [
+        "purifier_built_cam3_wide_lot10_0.png"
+       ],
+       "xy": [
+        128,
+        44
+       ]
+      },
+      "3_wide_11": {
+       "pictures": [
+        "purifier_built_cam3_wide_lot11_0.png"
+       ],
+       "xy": [
+        128,
+        48
+       ]
+      },
+      "3_wide_12": {
+       "pictures": [
+        "purifier_built_cam3_wide_lot12_0.png"
+       ],
+       "xy": [
+        128,
+        48
        ]
       }
      }
@@ -3566,6 +4920,486 @@
        "xy": [
         128,
         112
+       ]
+      },
+      "1_tall_5": {
+       "pictures": [
+        "purifier_working_cam1_tall_lot5_0.png",
+        "purifier_working_cam1_tall_lot5_1.png"
+       ],
+       "xy": [
+        16,
+        152
+       ]
+      },
+      "1_tall_6": {
+       "pictures": [
+        "purifier_working_cam1_tall_lot6_0.png",
+        "purifier_working_cam1_tall_lot6_1.png"
+       ],
+       "xy": [
+        52,
+        152
+       ]
+      },
+      "1_tall_7": {
+       "pictures": [
+        "purifier_working_cam1_tall_lot7_0.png",
+        "purifier_working_cam1_tall_lot7_1.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "purifier_working_cam1_tall_lot8_0.png",
+        "purifier_working_cam1_tall_lot8_1.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_tall_9": {
+       "pictures": [
+        "purifier_working_cam1_tall_lot9_0.png",
+        "purifier_working_cam1_tall_lot9_1.png"
+       ],
+       "xy": [
+        32,
+        136
+       ]
+      },
+      "1_tall_10": {
+       "pictures": [
+        "purifier_working_cam1_tall_lot10_0.png",
+        "purifier_working_cam1_tall_lot10_1.png"
+       ],
+       "xy": [
+        60,
+        136
+       ]
+      },
+      "1_tall_11": {
+       "pictures": [
+        "purifier_working_cam1_tall_lot11_0.png",
+        "purifier_working_cam1_tall_lot11_1.png"
+       ],
+       "xy": [
+        68,
+        136
+       ]
+      },
+      "1_tall_12": {
+       "pictures": [
+        "purifier_working_cam1_tall_lot12_0.png",
+        "purifier_working_cam1_tall_lot12_1.png"
+       ],
+       "xy": [
+        68,
+        136
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "purifier_working_cam1_wide_lot5_0.png",
+        "purifier_working_cam1_wide_lot5_1.png"
+       ],
+       "xy": [
+        76,
+        68
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "purifier_working_cam1_wide_lot6_0.png",
+        "purifier_working_cam1_wide_lot6_1.png"
+       ],
+       "xy": [
+        120,
+        68
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "purifier_working_cam1_wide_lot7_0.png",
+        "purifier_working_cam1_wide_lot7_1.png"
+       ],
+       "xy": [
+        132,
+        68
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "purifier_working_cam1_wide_lot8_0.png",
+        "purifier_working_cam1_wide_lot8_1.png"
+       ],
+       "xy": [
+        132,
+        68
+       ]
+      },
+      "1_wide_9": {
+       "pictures": [
+        "purifier_working_cam1_wide_lot9_0.png",
+        "purifier_working_cam1_wide_lot9_1.png"
+       ],
+       "xy": [
+        96,
+        52
+       ]
+      },
+      "1_wide_10": {
+       "pictures": [
+        "purifier_working_cam1_wide_lot10_0.png",
+        "purifier_working_cam1_wide_lot10_1.png"
+       ],
+       "xy": [
+        128,
+        52
+       ]
+      },
+      "1_wide_11": {
+       "pictures": [
+        "purifier_working_cam1_wide_lot11_0.png",
+        "purifier_working_cam1_wide_lot11_1.png"
+       ],
+       "xy": [
+        132,
+        48
+       ]
+      },
+      "1_wide_12": {
+       "pictures": [
+        "purifier_working_cam1_wide_lot12_0.png",
+        "purifier_working_cam1_wide_lot12_1.png"
+       ],
+       "xy": [
+        132,
+        52
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "purifier_working_cam2_tall_lot5_0.png",
+        "purifier_working_cam2_tall_lot5_1.png"
+       ],
+       "xy": [
+        16,
+        156
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "purifier_working_cam2_tall_lot6_0.png",
+        "purifier_working_cam2_tall_lot6_1.png"
+       ],
+       "xy": [
+        52,
+        152
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "purifier_working_cam2_tall_lot7_0.png",
+        "purifier_working_cam2_tall_lot7_1.png"
+       ],
+       "xy": [
+        76,
+        152
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "purifier_working_cam2_tall_lot8_0.png",
+        "purifier_working_cam2_tall_lot8_1.png"
+       ],
+       "xy": [
+        76,
+        152
+       ]
+      },
+      "2_tall_9": {
+       "pictures": [
+        "purifier_working_cam2_tall_lot9_0.png",
+        "purifier_working_cam2_tall_lot9_1.png"
+       ],
+       "xy": [
+        28,
+        136
+       ]
+      },
+      "2_tall_10": {
+       "pictures": [
+        "purifier_working_cam2_tall_lot10_0.png",
+        "purifier_working_cam2_tall_lot10_1.png"
+       ],
+       "xy": [
+        60,
+        136
+       ]
+      },
+      "2_tall_11": {
+       "pictures": [
+        "purifier_working_cam2_tall_lot11_0.png",
+        "purifier_working_cam2_tall_lot11_1.png"
+       ],
+       "xy": [
+        76,
+        136
+       ]
+      },
+      "2_tall_12": {
+       "pictures": [
+        "purifier_working_cam2_tall_lot12_0.png",
+        "purifier_working_cam2_tall_lot12_1.png"
+       ],
+       "xy": [
+        76,
+        136
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "purifier_working_cam2_wide_lot5_0.png",
+        "purifier_working_cam2_wide_lot5_1.png"
+       ],
+       "xy": [
+        72,
+        72
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "purifier_working_cam2_wide_lot6_0.png",
+        "purifier_working_cam2_wide_lot6_1.png"
+       ],
+       "xy": [
+        116,
+        68
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "purifier_working_cam2_wide_lot7_0.png",
+        "purifier_working_cam2_wide_lot7_1.png"
+       ],
+       "xy": [
+        144,
+        68
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "purifier_working_cam2_wide_lot8_0.png",
+        "purifier_working_cam2_wide_lot8_1.png"
+       ],
+       "xy": [
+        144,
+        68
+       ]
+      },
+      "2_wide_9": {
+       "pictures": [
+        "purifier_working_cam2_wide_lot9_0.png",
+        "purifier_working_cam2_wide_lot9_1.png"
+       ],
+       "xy": [
+        88,
+        52
+       ]
+      },
+      "2_wide_10": {
+       "pictures": [
+        "purifier_working_cam2_wide_lot10_0.png",
+        "purifier_working_cam2_wide_lot10_1.png"
+       ],
+       "xy": [
+        124,
+        52
+       ]
+      },
+      "2_wide_11": {
+       "pictures": [
+        "purifier_working_cam2_wide_lot11_0.png",
+        "purifier_working_cam2_wide_lot11_1.png"
+       ],
+       "xy": [
+        144,
+        48
+       ]
+      },
+      "2_wide_12": {
+       "pictures": [
+        "purifier_working_cam2_wide_lot12_0.png",
+        "purifier_working_cam2_wide_lot12_1.png"
+       ],
+       "xy": [
+        144,
+        52
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "purifier_working_cam3_tall_lot5_0.png",
+        "purifier_working_cam3_tall_lot5_1.png"
+       ],
+       "xy": [
+        16,
+        152
+       ]
+      },
+      "3_tall_6": {
+       "pictures": [
+        "purifier_working_cam3_tall_lot6_0.png",
+        "purifier_working_cam3_tall_lot6_1.png"
+       ],
+       "xy": [
+        56,
+        152
+       ]
+      },
+      "3_tall_7": {
+       "pictures": [
+        "purifier_working_cam3_tall_lot7_0.png",
+        "purifier_working_cam3_tall_lot7_1.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "purifier_working_cam3_tall_lot8_0.png",
+        "purifier_working_cam3_tall_lot8_1.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_tall_9": {
+       "pictures": [
+        "purifier_working_cam3_tall_lot9_0.png",
+        "purifier_working_cam3_tall_lot9_1.png"
+       ],
+       "xy": [
+        36,
+        132
+       ]
+      },
+      "3_tall_10": {
+       "pictures": [
+        "purifier_working_cam3_tall_lot10_0.png",
+        "purifier_working_cam3_tall_lot10_1.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_tall_11": {
+       "pictures": [
+        "purifier_working_cam3_tall_lot11_0.png",
+        "purifier_working_cam3_tall_lot11_1.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_tall_12": {
+       "pictures": [
+        "purifier_working_cam3_tall_lot12_0.png",
+        "purifier_working_cam3_tall_lot12_1.png"
+       ],
+       "xy": [
+        60,
+        136
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "purifier_working_cam3_wide_lot5_0.png",
+        "purifier_working_cam3_wide_lot5_1.png"
+       ],
+       "xy": [
+        80,
+        68
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "purifier_working_cam3_wide_lot6_0.png",
+        "purifier_working_cam3_wide_lot6_1.png"
+       ],
+       "xy": [
+        120,
+        68
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "purifier_working_cam3_wide_lot7_0.png",
+        "purifier_working_cam3_wide_lot7_1.png"
+       ],
+       "xy": [
+        128,
+        68
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "purifier_working_cam3_wide_lot8_0.png",
+        "purifier_working_cam3_wide_lot8_1.png"
+       ],
+       "xy": [
+        128,
+        72
+       ]
+      },
+      "3_wide_9": {
+       "pictures": [
+        "purifier_working_cam3_wide_lot9_0.png",
+        "purifier_working_cam3_wide_lot9_1.png"
+       ],
+       "xy": [
+        100,
+        48
+       ]
+      },
+      "3_wide_10": {
+       "pictures": [
+        "purifier_working_cam3_wide_lot10_0.png",
+        "purifier_working_cam3_wide_lot10_1.png"
+       ],
+       "xy": [
+        128,
+        44
+       ]
+      },
+      "3_wide_11": {
+       "pictures": [
+        "purifier_working_cam3_wide_lot11_0.png",
+        "purifier_working_cam3_wide_lot11_1.png"
+       ],
+       "xy": [
+        128,
+        48
+       ]
+      },
+      "3_wide_12": {
+       "pictures": [
+        "purifier_working_cam3_wide_lot12_0.png",
+        "purifier_working_cam3_wide_lot12_1.png"
+       ],
+       "xy": [
+        128,
+        48
        ]
       }
      }
@@ -5457,6 +7291,11 @@
   },
   "stall": {
    "row": "front",
+   "rows": [
+    "front",
+    "middle",
+    "back"
+   ],
    "src": "his:stall",
    "states": {
     "built": {
@@ -5680,6 +7519,438 @@
        "xy": [
         128,
         108
+       ]
+      },
+      "1_tall_5": {
+       "pictures": [
+        "stall_built_cam1_tall_lot5_0.png"
+       ],
+       "xy": [
+        16,
+        152
+       ]
+      },
+      "1_tall_6": {
+       "pictures": [
+        "stall_built_cam1_tall_lot6_0.png"
+       ],
+       "xy": [
+        56,
+        152
+       ]
+      },
+      "1_tall_7": {
+       "pictures": [
+        "stall_built_cam1_tall_lot7_0.png"
+       ],
+       "xy": [
+        16,
+        148
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "stall_built_cam1_tall_lot8_0.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_tall_9": {
+       "pictures": [
+        "stall_built_cam1_tall_lot9_0.png"
+       ],
+       "xy": [
+        32,
+        136
+       ]
+      },
+      "1_tall_10": {
+       "pictures": [
+        "stall_built_cam1_tall_lot10_0.png"
+       ],
+       "xy": [
+        64,
+        136
+       ]
+      },
+      "1_tall_11": {
+       "pictures": [
+        "stall_built_cam1_tall_lot11_0.png"
+       ],
+       "xy": [
+        16,
+        136
+       ]
+      },
+      "1_tall_12": {
+       "pictures": [
+        "stall_built_cam1_tall_lot12_0.png"
+       ],
+       "xy": [
+        68,
+        136
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "stall_built_cam1_wide_lot5_0.png"
+       ],
+       "xy": [
+        80,
+        68
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "stall_built_cam1_wide_lot6_0.png"
+       ],
+       "xy": [
+        120,
+        68
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "stall_built_cam1_wide_lot7_0.png"
+       ],
+       "xy": [
+        80,
+        64
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "stall_built_cam1_wide_lot8_0.png"
+       ],
+       "xy": [
+        132,
+        68
+       ]
+      },
+      "1_wide_9": {
+       "pictures": [
+        "stall_built_cam1_wide_lot9_0.png"
+       ],
+       "xy": [
+        96,
+        52
+       ]
+      },
+      "1_wide_10": {
+       "pictures": [
+        "stall_built_cam1_wide_lot10_0.png"
+       ],
+       "xy": [
+        132,
+        48
+       ]
+      },
+      "1_wide_11": {
+       "pictures": [
+        "stall_built_cam1_wide_lot11_0.png"
+       ],
+       "xy": [
+        80,
+        48
+       ]
+      },
+      "1_wide_12": {
+       "pictures": [
+        "stall_built_cam1_wide_lot12_0.png"
+       ],
+       "xy": [
+        132,
+        52
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "stall_built_cam2_tall_lot5_0.png"
+       ],
+       "xy": [
+        16,
+        152
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "stall_built_cam2_tall_lot6_0.png"
+       ],
+       "xy": [
+        56,
+        152
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "stall_built_cam2_tall_lot7_0.png"
+       ],
+       "xy": [
+        16,
+        148
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "stall_built_cam2_tall_lot8_0.png"
+       ],
+       "xy": [
+        76,
+        148
+       ]
+      },
+      "2_tall_9": {
+       "pictures": [
+        "stall_built_cam2_tall_lot9_0.png"
+       ],
+       "xy": [
+        32,
+        136
+       ]
+      },
+      "2_tall_10": {
+       "pictures": [
+        "stall_built_cam2_tall_lot10_0.png"
+       ],
+       "xy": [
+        60,
+        136
+       ]
+      },
+      "2_tall_11": {
+       "pictures": [
+        "stall_built_cam2_tall_lot11_0.png"
+       ],
+       "xy": [
+        16,
+        136
+       ]
+      },
+      "2_tall_12": {
+       "pictures": [
+        "stall_built_cam2_tall_lot12_0.png"
+       ],
+       "xy": [
+        76,
+        136
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "stall_built_cam2_wide_lot5_0.png"
+       ],
+       "xy": [
+        76,
+        68
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "stall_built_cam2_wide_lot6_0.png"
+       ],
+       "xy": [
+        120,
+        68
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "stall_built_cam2_wide_lot7_0.png"
+       ],
+       "xy": [
+        76,
+        64
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "stall_built_cam2_wide_lot8_0.png"
+       ],
+       "xy": [
+        144,
+        64
+       ]
+      },
+      "2_wide_9": {
+       "pictures": [
+        "stall_built_cam2_wide_lot9_0.png"
+       ],
+       "xy": [
+        92,
+        52
+       ]
+      },
+      "2_wide_10": {
+       "pictures": [
+        "stall_built_cam2_wide_lot10_0.png"
+       ],
+       "xy": [
+        124,
+        48
+       ]
+      },
+      "2_wide_11": {
+       "pictures": [
+        "stall_built_cam2_wide_lot11_0.png"
+       ],
+       "xy": [
+        76,
+        48
+       ]
+      },
+      "2_wide_12": {
+       "pictures": [
+        "stall_built_cam2_wide_lot12_0.png"
+       ],
+       "xy": [
+        144,
+        48
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "stall_built_cam3_tall_lot5_0.png"
+       ],
+       "xy": [
+        20,
+        148
+       ]
+      },
+      "3_tall_6": {
+       "pictures": [
+        "stall_built_cam3_tall_lot6_0.png"
+       ],
+       "xy": [
+        56,
+        148
+       ]
+      },
+      "3_tall_7": {
+       "pictures": [
+        "stall_built_cam3_tall_lot7_0.png"
+       ],
+       "xy": [
+        20,
+        148
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "stall_built_cam3_tall_lot8_0.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_tall_9": {
+       "pictures": [
+        "stall_built_cam3_tall_lot9_0.png"
+       ],
+       "xy": [
+        36,
+        132
+       ]
+      },
+      "3_tall_10": {
+       "pictures": [
+        "stall_built_cam3_tall_lot10_0.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_tall_11": {
+       "pictures": [
+        "stall_built_cam3_tall_lot11_0.png"
+       ],
+       "xy": [
+        20,
+        132
+       ]
+      },
+      "3_tall_12": {
+       "pictures": [
+        "stall_built_cam3_tall_lot12_0.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "stall_built_cam3_wide_lot5_0.png"
+       ],
+       "xy": [
+        80,
+        64
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "stall_built_cam3_wide_lot6_0.png"
+       ],
+       "xy": [
+        124,
+        64
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "stall_built_cam3_wide_lot7_0.png"
+       ],
+       "xy": [
+        84,
+        60
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "stall_built_cam3_wide_lot8_0.png"
+       ],
+       "xy": [
+        128,
+        68
+       ]
+      },
+      "3_wide_9": {
+       "pictures": [
+        "stall_built_cam3_wide_lot9_0.png"
+       ],
+       "xy": [
+        104,
+        44
+       ]
+      },
+      "3_wide_10": {
+       "pictures": [
+        "stall_built_cam3_wide_lot10_0.png"
+       ],
+       "xy": [
+        128,
+        44
+       ]
+      },
+      "3_wide_11": {
+       "pictures": [
+        "stall_built_cam3_wide_lot11_0.png"
+       ],
+       "xy": [
+        84,
+        44
+       ]
+      },
+      "3_wide_12": {
+       "pictures": [
+        "stall_built_cam3_wide_lot12_0.png"
+       ],
+       "xy": [
+        128,
+        48
        ]
       }
      }
@@ -5930,6 +8201,486 @@
         128,
         108
        ]
+      },
+      "1_tall_5": {
+       "pictures": [
+        "stall_working_cam1_tall_lot5_0.png",
+        "stall_working_cam1_tall_lot5_1.png"
+       ],
+       "xy": [
+        16,
+        152
+       ]
+      },
+      "1_tall_6": {
+       "pictures": [
+        "stall_working_cam1_tall_lot6_0.png",
+        "stall_working_cam1_tall_lot6_1.png"
+       ],
+       "xy": [
+        56,
+        152
+       ]
+      },
+      "1_tall_7": {
+       "pictures": [
+        "stall_working_cam1_tall_lot7_0.png",
+        "stall_working_cam1_tall_lot7_1.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "stall_working_cam1_tall_lot8_0.png",
+        "stall_working_cam1_tall_lot8_1.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_tall_9": {
+       "pictures": [
+        "stall_working_cam1_tall_lot9_0.png",
+        "stall_working_cam1_tall_lot9_1.png"
+       ],
+       "xy": [
+        32,
+        136
+       ]
+      },
+      "1_tall_10": {
+       "pictures": [
+        "stall_working_cam1_tall_lot10_0.png",
+        "stall_working_cam1_tall_lot10_1.png"
+       ],
+       "xy": [
+        64,
+        136
+       ]
+      },
+      "1_tall_11": {
+       "pictures": [
+        "stall_working_cam1_tall_lot11_0.png",
+        "stall_working_cam1_tall_lot11_1.png"
+       ],
+       "xy": [
+        68,
+        136
+       ]
+      },
+      "1_tall_12": {
+       "pictures": [
+        "stall_working_cam1_tall_lot12_0.png",
+        "stall_working_cam1_tall_lot12_1.png"
+       ],
+       "xy": [
+        68,
+        136
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "stall_working_cam1_wide_lot5_0.png",
+        "stall_working_cam1_wide_lot5_1.png"
+       ],
+       "xy": [
+        80,
+        68
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "stall_working_cam1_wide_lot6_0.png",
+        "stall_working_cam1_wide_lot6_1.png"
+       ],
+       "xy": [
+        120,
+        68
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "stall_working_cam1_wide_lot7_0.png",
+        "stall_working_cam1_wide_lot7_1.png"
+       ],
+       "xy": [
+        132,
+        68
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "stall_working_cam1_wide_lot8_0.png",
+        "stall_working_cam1_wide_lot8_1.png"
+       ],
+       "xy": [
+        132,
+        68
+       ]
+      },
+      "1_wide_9": {
+       "pictures": [
+        "stall_working_cam1_wide_lot9_0.png",
+        "stall_working_cam1_wide_lot9_1.png"
+       ],
+       "xy": [
+        32,
+        52
+       ]
+      },
+      "1_wide_10": {
+       "pictures": [
+        "stall_working_cam1_wide_lot10_0.png",
+        "stall_working_cam1_wide_lot10_1.png"
+       ],
+       "xy": [
+        132,
+        48
+       ]
+      },
+      "1_wide_11": {
+       "pictures": [
+        "stall_working_cam1_wide_lot11_0.png",
+        "stall_working_cam1_wide_lot11_1.png"
+       ],
+       "xy": [
+        132,
+        48
+       ]
+      },
+      "1_wide_12": {
+       "pictures": [
+        "stall_working_cam1_wide_lot12_0.png",
+        "stall_working_cam1_wide_lot12_1.png"
+       ],
+       "xy": [
+        132,
+        52
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "stall_working_cam2_tall_lot5_0.png",
+        "stall_working_cam2_tall_lot5_1.png"
+       ],
+       "xy": [
+        16,
+        152
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "stall_working_cam2_tall_lot6_0.png",
+        "stall_working_cam2_tall_lot6_1.png"
+       ],
+       "xy": [
+        56,
+        152
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "stall_working_cam2_tall_lot7_0.png",
+        "stall_working_cam2_tall_lot7_1.png"
+       ],
+       "xy": [
+        76,
+        152
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "stall_working_cam2_tall_lot8_0.png",
+        "stall_working_cam2_tall_lot8_1.png"
+       ],
+       "xy": [
+        76,
+        148
+       ]
+      },
+      "2_tall_9": {
+       "pictures": [
+        "stall_working_cam2_tall_lot9_0.png",
+        "stall_working_cam2_tall_lot9_1.png"
+       ],
+       "xy": [
+        32,
+        136
+       ]
+      },
+      "2_tall_10": {
+       "pictures": [
+        "stall_working_cam2_tall_lot10_0.png",
+        "stall_working_cam2_tall_lot10_1.png"
+       ],
+       "xy": [
+        60,
+        136
+       ]
+      },
+      "2_tall_11": {
+       "pictures": [
+        "stall_working_cam2_tall_lot11_0.png",
+        "stall_working_cam2_tall_lot11_1.png"
+       ],
+       "xy": [
+        76,
+        136
+       ]
+      },
+      "2_tall_12": {
+       "pictures": [
+        "stall_working_cam2_tall_lot12_0.png",
+        "stall_working_cam2_tall_lot12_1.png"
+       ],
+       "xy": [
+        76,
+        136
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "stall_working_cam2_wide_lot5_0.png",
+        "stall_working_cam2_wide_lot5_1.png"
+       ],
+       "xy": [
+        76,
+        68
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "stall_working_cam2_wide_lot6_0.png",
+        "stall_working_cam2_wide_lot6_1.png"
+       ],
+       "xy": [
+        120,
+        68
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "stall_working_cam2_wide_lot7_0.png",
+        "stall_working_cam2_wide_lot7_1.png"
+       ],
+       "xy": [
+        144,
+        64
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "stall_working_cam2_wide_lot8_0.png",
+        "stall_working_cam2_wide_lot8_1.png"
+       ],
+       "xy": [
+        144,
+        64
+       ]
+      },
+      "2_wide_9": {
+       "pictures": [
+        "stall_working_cam2_wide_lot9_0.png",
+        "stall_working_cam2_wide_lot9_1.png"
+       ],
+       "xy": [
+        92,
+        52
+       ]
+      },
+      "2_wide_10": {
+       "pictures": [
+        "stall_working_cam2_wide_lot10_0.png",
+        "stall_working_cam2_wide_lot10_1.png"
+       ],
+       "xy": [
+        124,
+        48
+       ]
+      },
+      "2_wide_11": {
+       "pictures": [
+        "stall_working_cam2_wide_lot11_0.png",
+        "stall_working_cam2_wide_lot11_1.png"
+       ],
+       "xy": [
+        144,
+        48
+       ]
+      },
+      "2_wide_12": {
+       "pictures": [
+        "stall_working_cam2_wide_lot12_0.png",
+        "stall_working_cam2_wide_lot12_1.png"
+       ],
+       "xy": [
+        144,
+        48
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "stall_working_cam3_tall_lot5_0.png",
+        "stall_working_cam3_tall_lot5_1.png"
+       ],
+       "xy": [
+        20,
+        148
+       ]
+      },
+      "3_tall_6": {
+       "pictures": [
+        "stall_working_cam3_tall_lot6_0.png",
+        "stall_working_cam3_tall_lot6_1.png"
+       ],
+       "xy": [
+        56,
+        148
+       ]
+      },
+      "3_tall_7": {
+       "pictures": [
+        "stall_working_cam3_tall_lot7_0.png",
+        "stall_working_cam3_tall_lot7_1.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "stall_working_cam3_tall_lot8_0.png",
+        "stall_working_cam3_tall_lot8_1.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_tall_9": {
+       "pictures": [
+        "stall_working_cam3_tall_lot9_0.png",
+        "stall_working_cam3_tall_lot9_1.png"
+       ],
+       "xy": [
+        36,
+        132
+       ]
+      },
+      "3_tall_10": {
+       "pictures": [
+        "stall_working_cam3_tall_lot10_0.png",
+        "stall_working_cam3_tall_lot10_1.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_tall_11": {
+       "pictures": [
+        "stall_working_cam3_tall_lot11_0.png",
+        "stall_working_cam3_tall_lot11_1.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_tall_12": {
+       "pictures": [
+        "stall_working_cam3_tall_lot12_0.png",
+        "stall_working_cam3_tall_lot12_1.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "stall_working_cam3_wide_lot5_0.png",
+        "stall_working_cam3_wide_lot5_1.png"
+       ],
+       "xy": [
+        84,
+        64
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "stall_working_cam3_wide_lot6_0.png",
+        "stall_working_cam3_wide_lot6_1.png"
+       ],
+       "xy": [
+        124,
+        64
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "stall_working_cam3_wide_lot7_0.png",
+        "stall_working_cam3_wide_lot7_1.png"
+       ],
+       "xy": [
+        128,
+        68
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "stall_working_cam3_wide_lot8_0.png",
+        "stall_working_cam3_wide_lot8_1.png"
+       ],
+       "xy": [
+        128,
+        68
+       ]
+      },
+      "3_wide_9": {
+       "pictures": [
+        "stall_working_cam3_wide_lot9_0.png",
+        "stall_working_cam3_wide_lot9_1.png"
+       ],
+       "xy": [
+        104,
+        44
+       ]
+      },
+      "3_wide_10": {
+       "pictures": [
+        "stall_working_cam3_wide_lot10_0.png",
+        "stall_working_cam3_wide_lot10_1.png"
+       ],
+       "xy": [
+        128,
+        44
+       ]
+      },
+      "3_wide_11": {
+       "pictures": [
+        "stall_working_cam3_wide_lot11_0.png",
+        "stall_working_cam3_wide_lot11_1.png"
+       ],
+       "xy": [
+        128,
+        44
+       ]
+      },
+      "3_wide_12": {
+       "pictures": [
+        "stall_working_cam3_wide_lot12_0.png",
+        "stall_working_cam3_wide_lot12_1.png"
+       ],
+       "xy": [
+        128,
+        48
+       ]
       }
      }
     }
@@ -5938,6 +8689,11 @@
   },
   "wall": {
    "row": "front",
+   "rows": [
+    "front",
+    "middle",
+    "back"
+   ],
    "src": "his:wall",
    "states": {
     "built": {
@@ -6161,6 +8917,438 @@
        "xy": [
         128,
         104
+       ]
+      },
+      "1_tall_5": {
+       "pictures": [
+        "wall_built_cam1_tall_lot5_0.png"
+       ],
+       "xy": [
+        8,
+        148
+       ]
+      },
+      "1_tall_6": {
+       "pictures": [
+        "wall_built_cam1_tall_lot6_0.png"
+       ],
+       "xy": [
+        44,
+        148
+       ]
+      },
+      "1_tall_7": {
+       "pictures": [
+        "wall_built_cam1_tall_lot7_0.png"
+       ],
+       "xy": [
+        16,
+        148
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "wall_built_cam1_tall_lot8_0.png"
+       ],
+       "xy": [
+        68,
+        148
+       ]
+      },
+      "1_tall_9": {
+       "pictures": [
+        "wall_built_cam1_tall_lot9_0.png"
+       ],
+       "xy": [
+        28,
+        136
+       ]
+      },
+      "1_tall_10": {
+       "pictures": [
+        "wall_built_cam1_tall_lot10_0.png"
+       ],
+       "xy": [
+        56,
+        136
+       ]
+      },
+      "1_tall_11": {
+       "pictures": [
+        "wall_built_cam1_tall_lot11_0.png"
+       ],
+       "xy": [
+        16,
+        136
+       ]
+      },
+      "1_tall_12": {
+       "pictures": [
+        "wall_built_cam1_tall_lot12_0.png"
+       ],
+       "xy": [
+        68,
+        136
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "wall_built_cam1_wide_lot5_0.png"
+       ],
+       "xy": [
+        68,
+        68
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "wall_built_cam1_wide_lot6_0.png"
+       ],
+       "xy": [
+        112,
+        64
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "wall_built_cam1_wide_lot7_0.png"
+       ],
+       "xy": [
+        80,
+        64
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "wall_built_cam1_wide_lot8_0.png"
+       ],
+       "xy": [
+        132,
+        64
+       ]
+      },
+      "1_wide_9": {
+       "pictures": [
+        "wall_built_cam1_wide_lot9_0.png"
+       ],
+       "xy": [
+        88,
+        52
+       ]
+      },
+      "1_wide_10": {
+       "pictures": [
+        "wall_built_cam1_wide_lot10_0.png"
+       ],
+       "xy": [
+        124,
+        48
+       ]
+      },
+      "1_wide_11": {
+       "pictures": [
+        "wall_built_cam1_wide_lot11_0.png"
+       ],
+       "xy": [
+        80,
+        48
+       ]
+      },
+      "1_wide_12": {
+       "pictures": [
+        "wall_built_cam1_wide_lot12_0.png"
+       ],
+       "xy": [
+        132,
+        48
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "wall_built_cam2_tall_lot5_0.png"
+       ],
+       "xy": [
+        8,
+        152
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "wall_built_cam2_tall_lot6_0.png"
+       ],
+       "xy": [
+        48,
+        152
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "wall_built_cam2_tall_lot7_0.png"
+       ],
+       "xy": [
+        16,
+        148
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "wall_built_cam2_tall_lot8_0.png"
+       ],
+       "xy": [
+        76,
+        148
+       ]
+      },
+      "2_tall_9": {
+       "pictures": [
+        "wall_built_cam2_tall_lot9_0.png"
+       ],
+       "xy": [
+        24,
+        136
+       ]
+      },
+      "2_tall_10": {
+       "pictures": [
+        "wall_built_cam2_tall_lot10_0.png"
+       ],
+       "xy": [
+        56,
+        136
+       ]
+      },
+      "2_tall_11": {
+       "pictures": [
+        "wall_built_cam2_tall_lot11_0.png"
+       ],
+       "xy": [
+        16,
+        136
+       ]
+      },
+      "2_tall_12": {
+       "pictures": [
+        "wall_built_cam2_tall_lot12_0.png"
+       ],
+       "xy": [
+        76,
+        136
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "wall_built_cam2_wide_lot5_0.png"
+       ],
+       "xy": [
+        68,
+        68
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "wall_built_cam2_wide_lot6_0.png"
+       ],
+       "xy": [
+        108,
+        68
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "wall_built_cam2_wide_lot7_0.png"
+       ],
+       "xy": [
+        76,
+        64
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "wall_built_cam2_wide_lot8_0.png"
+       ],
+       "xy": [
+        144,
+        64
+       ]
+      },
+      "2_wide_9": {
+       "pictures": [
+        "wall_built_cam2_wide_lot9_0.png"
+       ],
+       "xy": [
+        84,
+        52
+       ]
+      },
+      "2_wide_10": {
+       "pictures": [
+        "wall_built_cam2_wide_lot10_0.png"
+       ],
+       "xy": [
+        120,
+        48
+       ]
+      },
+      "2_wide_11": {
+       "pictures": [
+        "wall_built_cam2_wide_lot11_0.png"
+       ],
+       "xy": [
+        76,
+        48
+       ]
+      },
+      "2_wide_12": {
+       "pictures": [
+        "wall_built_cam2_wide_lot12_0.png"
+       ],
+       "xy": [
+        144,
+        48
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "wall_built_cam3_tall_lot5_0.png"
+       ],
+       "xy": [
+        12,
+        148
+       ]
+      },
+      "3_tall_6": {
+       "pictures": [
+        "wall_built_cam3_tall_lot6_0.png"
+       ],
+       "xy": [
+        48,
+        148
+       ]
+      },
+      "3_tall_7": {
+       "pictures": [
+        "wall_built_cam3_tall_lot7_0.png"
+       ],
+       "xy": [
+        20,
+        148
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "wall_built_cam3_tall_lot8_0.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_tall_9": {
+       "pictures": [
+        "wall_built_cam3_tall_lot9_0.png"
+       ],
+       "xy": [
+        32,
+        132
+       ]
+      },
+      "3_tall_10": {
+       "pictures": [
+        "wall_built_cam3_tall_lot10_0.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_tall_11": {
+       "pictures": [
+        "wall_built_cam3_tall_lot11_0.png"
+       ],
+       "xy": [
+        20,
+        132
+       ]
+      },
+      "3_tall_12": {
+       "pictures": [
+        "wall_built_cam3_tall_lot12_0.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "wall_built_cam3_wide_lot5_0.png"
+       ],
+       "xy": [
+        72,
+        64
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "wall_built_cam3_wide_lot6_0.png"
+       ],
+       "xy": [
+        112,
+        64
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "wall_built_cam3_wide_lot7_0.png"
+       ],
+       "xy": [
+        84,
+        60
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "wall_built_cam3_wide_lot8_0.png"
+       ],
+       "xy": [
+        128,
+        68
+       ]
+      },
+      "3_wide_9": {
+       "pictures": [
+        "wall_built_cam3_wide_lot9_0.png"
+       ],
+       "xy": [
+        96,
+        44
+       ]
+      },
+      "3_wide_10": {
+       "pictures": [
+        "wall_built_cam3_wide_lot10_0.png"
+       ],
+       "xy": [
+        128,
+        44
+       ]
+      },
+      "3_wide_11": {
+       "pictures": [
+        "wall_built_cam3_wide_lot11_0.png"
+       ],
+       "xy": [
+        84,
+        44
+       ]
+      },
+      "3_wide_12": {
+       "pictures": [
+        "wall_built_cam3_wide_lot12_0.png"
+       ],
+       "xy": [
+        128,
+        48
        ]
       }
      }
@@ -6411,6 +9599,486 @@
         128,
         104
        ]
+      },
+      "1_tall_5": {
+       "pictures": [
+        "wall_working_cam1_tall_lot5_0.png",
+        "wall_working_cam1_tall_lot5_1.png"
+       ],
+       "xy": [
+        8,
+        148
+       ]
+      },
+      "1_tall_6": {
+       "pictures": [
+        "wall_working_cam1_tall_lot6_0.png",
+        "wall_working_cam1_tall_lot6_1.png"
+       ],
+       "xy": [
+        44,
+        148
+       ]
+      },
+      "1_tall_7": {
+       "pictures": [
+        "wall_working_cam1_tall_lot7_0.png",
+        "wall_working_cam1_tall_lot7_1.png"
+       ],
+       "xy": [
+        68,
+        148
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "wall_working_cam1_tall_lot8_0.png",
+        "wall_working_cam1_tall_lot8_1.png"
+       ],
+       "xy": [
+        68,
+        148
+       ]
+      },
+      "1_tall_9": {
+       "pictures": [
+        "wall_working_cam1_tall_lot9_0.png",
+        "wall_working_cam1_tall_lot9_1.png"
+       ],
+       "xy": [
+        28,
+        136
+       ]
+      },
+      "1_tall_10": {
+       "pictures": [
+        "wall_working_cam1_tall_lot10_0.png",
+        "wall_working_cam1_tall_lot10_1.png"
+       ],
+       "xy": [
+        56,
+        136
+       ]
+      },
+      "1_tall_11": {
+       "pictures": [
+        "wall_working_cam1_tall_lot11_0.png",
+        "wall_working_cam1_tall_lot11_1.png"
+       ],
+       "xy": [
+        68,
+        136
+       ]
+      },
+      "1_tall_12": {
+       "pictures": [
+        "wall_working_cam1_tall_lot12_0.png",
+        "wall_working_cam1_tall_lot12_1.png"
+       ],
+       "xy": [
+        68,
+        136
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "wall_working_cam1_wide_lot5_0.png",
+        "wall_working_cam1_wide_lot5_1.png"
+       ],
+       "xy": [
+        68,
+        68
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "wall_working_cam1_wide_lot6_0.png",
+        "wall_working_cam1_wide_lot6_1.png"
+       ],
+       "xy": [
+        112,
+        64
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "wall_working_cam1_wide_lot7_0.png",
+        "wall_working_cam1_wide_lot7_1.png"
+       ],
+       "xy": [
+        132,
+        64
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "wall_working_cam1_wide_lot8_0.png",
+        "wall_working_cam1_wide_lot8_1.png"
+       ],
+       "xy": [
+        132,
+        64
+       ]
+      },
+      "1_wide_9": {
+       "pictures": [
+        "wall_working_cam1_wide_lot9_0.png",
+        "wall_working_cam1_wide_lot9_1.png"
+       ],
+       "xy": [
+        88,
+        52
+       ]
+      },
+      "1_wide_10": {
+       "pictures": [
+        "wall_working_cam1_wide_lot10_0.png",
+        "wall_working_cam1_wide_lot10_1.png"
+       ],
+       "xy": [
+        124,
+        48
+       ]
+      },
+      "1_wide_11": {
+       "pictures": [
+        "wall_working_cam1_wide_lot11_0.png",
+        "wall_working_cam1_wide_lot11_1.png"
+       ],
+       "xy": [
+        132,
+        48
+       ]
+      },
+      "1_wide_12": {
+       "pictures": [
+        "wall_working_cam1_wide_lot12_0.png",
+        "wall_working_cam1_wide_lot12_1.png"
+       ],
+       "xy": [
+        132,
+        48
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "wall_working_cam2_tall_lot5_0.png",
+        "wall_working_cam2_tall_lot5_1.png"
+       ],
+       "xy": [
+        8,
+        152
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "wall_working_cam2_tall_lot6_0.png",
+        "wall_working_cam2_tall_lot6_1.png"
+       ],
+       "xy": [
+        48,
+        152
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "wall_working_cam2_tall_lot7_0.png",
+        "wall_working_cam2_tall_lot7_1.png"
+       ],
+       "xy": [
+        76,
+        148
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "wall_working_cam2_tall_lot8_0.png",
+        "wall_working_cam2_tall_lot8_1.png"
+       ],
+       "xy": [
+        76,
+        148
+       ]
+      },
+      "2_tall_9": {
+       "pictures": [
+        "wall_working_cam2_tall_lot9_0.png",
+        "wall_working_cam2_tall_lot9_1.png"
+       ],
+       "xy": [
+        24,
+        136
+       ]
+      },
+      "2_tall_10": {
+       "pictures": [
+        "wall_working_cam2_tall_lot10_0.png",
+        "wall_working_cam2_tall_lot10_1.png"
+       ],
+       "xy": [
+        56,
+        136
+       ]
+      },
+      "2_tall_11": {
+       "pictures": [
+        "wall_working_cam2_tall_lot11_0.png",
+        "wall_working_cam2_tall_lot11_1.png"
+       ],
+       "xy": [
+        76,
+        136
+       ]
+      },
+      "2_tall_12": {
+       "pictures": [
+        "wall_working_cam2_tall_lot12_0.png",
+        "wall_working_cam2_tall_lot12_1.png"
+       ],
+       "xy": [
+        76,
+        136
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "wall_working_cam2_wide_lot5_0.png",
+        "wall_working_cam2_wide_lot5_1.png"
+       ],
+       "xy": [
+        68,
+        68
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "wall_working_cam2_wide_lot6_0.png",
+        "wall_working_cam2_wide_lot6_1.png"
+       ],
+       "xy": [
+        108,
+        68
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "wall_working_cam2_wide_lot7_0.png",
+        "wall_working_cam2_wide_lot7_1.png"
+       ],
+       "xy": [
+        144,
+        64
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "wall_working_cam2_wide_lot8_0.png",
+        "wall_working_cam2_wide_lot8_1.png"
+       ],
+       "xy": [
+        144,
+        64
+       ]
+      },
+      "2_wide_9": {
+       "pictures": [
+        "wall_working_cam2_wide_lot9_0.png",
+        "wall_working_cam2_wide_lot9_1.png"
+       ],
+       "xy": [
+        84,
+        52
+       ]
+      },
+      "2_wide_10": {
+       "pictures": [
+        "wall_working_cam2_wide_lot10_0.png",
+        "wall_working_cam2_wide_lot10_1.png"
+       ],
+       "xy": [
+        120,
+        48
+       ]
+      },
+      "2_wide_11": {
+       "pictures": [
+        "wall_working_cam2_wide_lot11_0.png",
+        "wall_working_cam2_wide_lot11_1.png"
+       ],
+       "xy": [
+        144,
+        48
+       ]
+      },
+      "2_wide_12": {
+       "pictures": [
+        "wall_working_cam2_wide_lot12_0.png",
+        "wall_working_cam2_wide_lot12_1.png"
+       ],
+       "xy": [
+        144,
+        48
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "wall_working_cam3_tall_lot5_0.png",
+        "wall_working_cam3_tall_lot5_1.png"
+       ],
+       "xy": [
+        12,
+        148
+       ]
+      },
+      "3_tall_6": {
+       "pictures": [
+        "wall_working_cam3_tall_lot6_0.png",
+        "wall_working_cam3_tall_lot6_1.png"
+       ],
+       "xy": [
+        48,
+        148
+       ]
+      },
+      "3_tall_7": {
+       "pictures": [
+        "wall_working_cam3_tall_lot7_0.png",
+        "wall_working_cam3_tall_lot7_1.png"
+       ],
+       "xy": [
+        60,
+        148
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "wall_working_cam3_tall_lot8_0.png",
+        "wall_working_cam3_tall_lot8_1.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_tall_9": {
+       "pictures": [
+        "wall_working_cam3_tall_lot9_0.png",
+        "wall_working_cam3_tall_lot9_1.png"
+       ],
+       "xy": [
+        32,
+        132
+       ]
+      },
+      "3_tall_10": {
+       "pictures": [
+        "wall_working_cam3_tall_lot10_0.png",
+        "wall_working_cam3_tall_lot10_1.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_tall_11": {
+       "pictures": [
+        "wall_working_cam3_tall_lot11_0.png",
+        "wall_working_cam3_tall_lot11_1.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_tall_12": {
+       "pictures": [
+        "wall_working_cam3_tall_lot12_0.png",
+        "wall_working_cam3_tall_lot12_1.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "wall_working_cam3_wide_lot5_0.png",
+        "wall_working_cam3_wide_lot5_1.png"
+       ],
+       "xy": [
+        72,
+        64
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "wall_working_cam3_wide_lot6_0.png",
+        "wall_working_cam3_wide_lot6_1.png"
+       ],
+       "xy": [
+        112,
+        64
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "wall_working_cam3_wide_lot7_0.png",
+        "wall_working_cam3_wide_lot7_1.png"
+       ],
+       "xy": [
+        128,
+        64
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "wall_working_cam3_wide_lot8_0.png",
+        "wall_working_cam3_wide_lot8_1.png"
+       ],
+       "xy": [
+        128,
+        68
+       ]
+      },
+      "3_wide_9": {
+       "pictures": [
+        "wall_working_cam3_wide_lot9_0.png",
+        "wall_working_cam3_wide_lot9_1.png"
+       ],
+       "xy": [
+        96,
+        44
+       ]
+      },
+      "3_wide_10": {
+       "pictures": [
+        "wall_working_cam3_wide_lot10_0.png",
+        "wall_working_cam3_wide_lot10_1.png"
+       ],
+       "xy": [
+        128,
+        44
+       ]
+      },
+      "3_wide_11": {
+       "pictures": [
+        "wall_working_cam3_wide_lot11_0.png",
+        "wall_working_cam3_wide_lot11_1.png"
+       ],
+       "xy": [
+        128,
+        44
+       ]
+      },
+      "3_wide_12": {
+       "pictures": [
+        "wall_working_cam3_wide_lot12_0.png",
+        "wall_working_cam3_wide_lot12_1.png"
+       ],
+       "xy": [
+        128,
+        48
+       ]
       }
      }
     }
@@ -6419,6 +10087,11 @@
   },
   "yard": {
    "row": "front",
+   "rows": [
+    "front",
+    "middle",
+    "back"
+   ],
    "src": "his:yard",
    "states": {
     "built": {
@@ -6642,6 +10315,438 @@
        "xy": [
         128,
         112
+       ]
+      },
+      "1_tall_5": {
+       "pictures": [
+        "yard_built_cam1_tall_lot5_0.png"
+       ],
+       "xy": [
+        8,
+        152
+       ]
+      },
+      "1_tall_6": {
+       "pictures": [
+        "yard_built_cam1_tall_lot6_0.png"
+       ],
+       "xy": [
+        48,
+        152
+       ]
+      },
+      "1_tall_7": {
+       "pictures": [
+        "yard_built_cam1_tall_lot7_0.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "yard_built_cam1_tall_lot8_0.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_tall_9": {
+       "pictures": [
+        "yard_built_cam1_tall_lot9_0.png"
+       ],
+       "xy": [
+        28,
+        136
+       ]
+      },
+      "1_tall_10": {
+       "pictures": [
+        "yard_built_cam1_tall_lot10_0.png"
+       ],
+       "xy": [
+        60,
+        136
+       ]
+      },
+      "1_tall_11": {
+       "pictures": [
+        "yard_built_cam1_tall_lot11_0.png"
+       ],
+       "xy": [
+        68,
+        136
+       ]
+      },
+      "1_tall_12": {
+       "pictures": [
+        "yard_built_cam1_tall_lot12_0.png"
+       ],
+       "xy": [
+        68,
+        136
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "yard_built_cam1_wide_lot5_0.png"
+       ],
+       "xy": [
+        72,
+        68
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "yard_built_cam1_wide_lot6_0.png"
+       ],
+       "xy": [
+        112,
+        68
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "yard_built_cam1_wide_lot7_0.png"
+       ],
+       "xy": [
+        132,
+        68
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "yard_built_cam1_wide_lot8_0.png"
+       ],
+       "xy": [
+        132,
+        68
+       ]
+      },
+      "1_wide_9": {
+       "pictures": [
+        "yard_built_cam1_wide_lot9_0.png"
+       ],
+       "xy": [
+        92,
+        52
+       ]
+      },
+      "1_wide_10": {
+       "pictures": [
+        "yard_built_cam1_wide_lot10_0.png"
+       ],
+       "xy": [
+        124,
+        48
+       ]
+      },
+      "1_wide_11": {
+       "pictures": [
+        "yard_built_cam1_wide_lot11_0.png"
+       ],
+       "xy": [
+        132,
+        48
+       ]
+      },
+      "1_wide_12": {
+       "pictures": [
+        "yard_built_cam1_wide_lot12_0.png"
+       ],
+       "xy": [
+        132,
+        52
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "yard_built_cam2_tall_lot5_0.png"
+       ],
+       "xy": [
+        8,
+        152
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "yard_built_cam2_tall_lot6_0.png"
+       ],
+       "xy": [
+        48,
+        152
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "yard_built_cam2_tall_lot7_0.png"
+       ],
+       "xy": [
+        76,
+        152
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "yard_built_cam2_tall_lot8_0.png"
+       ],
+       "xy": [
+        76,
+        152
+       ]
+      },
+      "2_tall_9": {
+       "pictures": [
+        "yard_built_cam2_tall_lot9_0.png"
+       ],
+       "xy": [
+        24,
+        136
+       ]
+      },
+      "2_tall_10": {
+       "pictures": [
+        "yard_built_cam2_tall_lot10_0.png"
+       ],
+       "xy": [
+        56,
+        136
+       ]
+      },
+      "2_tall_11": {
+       "pictures": [
+        "yard_built_cam2_tall_lot11_0.png"
+       ],
+       "xy": [
+        76,
+        136
+       ]
+      },
+      "2_tall_12": {
+       "pictures": [
+        "yard_built_cam2_tall_lot12_0.png"
+       ],
+       "xy": [
+        76,
+        136
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "yard_built_cam2_wide_lot5_0.png"
+       ],
+       "xy": [
+        68,
+        72
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "yard_built_cam2_wide_lot6_0.png"
+       ],
+       "xy": [
+        112,
+        68
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "yard_built_cam2_wide_lot7_0.png"
+       ],
+       "xy": [
+        144,
+        68
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "yard_built_cam2_wide_lot8_0.png"
+       ],
+       "xy": [
+        144,
+        68
+       ]
+      },
+      "2_wide_9": {
+       "pictures": [
+        "yard_built_cam2_wide_lot9_0.png"
+       ],
+       "xy": [
+        84,
+        52
+       ]
+      },
+      "2_wide_10": {
+       "pictures": [
+        "yard_built_cam2_wide_lot10_0.png"
+       ],
+       "xy": [
+        120,
+        48
+       ]
+      },
+      "2_wide_11": {
+       "pictures": [
+        "yard_built_cam2_wide_lot11_0.png"
+       ],
+       "xy": [
+        144,
+        48
+       ]
+      },
+      "2_wide_12": {
+       "pictures": [
+        "yard_built_cam2_wide_lot12_0.png"
+       ],
+       "xy": [
+        144,
+        52
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "yard_built_cam3_tall_lot5_0.png"
+       ],
+       "xy": [
+        12,
+        152
+       ]
+      },
+      "3_tall_6": {
+       "pictures": [
+        "yard_built_cam3_tall_lot6_0.png"
+       ],
+       "xy": [
+        48,
+        152
+       ]
+      },
+      "3_tall_7": {
+       "pictures": [
+        "yard_built_cam3_tall_lot7_0.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "yard_built_cam3_tall_lot8_0.png"
+       ],
+       "xy": [
+        60,
+        156
+       ]
+      },
+      "3_tall_9": {
+       "pictures": [
+        "yard_built_cam3_tall_lot9_0.png"
+       ],
+       "xy": [
+        32,
+        132
+       ]
+      },
+      "3_tall_10": {
+       "pictures": [
+        "yard_built_cam3_tall_lot10_0.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_tall_11": {
+       "pictures": [
+        "yard_built_cam3_tall_lot11_0.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_tall_12": {
+       "pictures": [
+        "yard_built_cam3_tall_lot12_0.png"
+       ],
+       "xy": [
+        60,
+        136
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "yard_built_cam3_wide_lot5_0.png"
+       ],
+       "xy": [
+        76,
+        68
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "yard_built_cam3_wide_lot6_0.png"
+       ],
+       "xy": [
+        116,
+        68
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "yard_built_cam3_wide_lot7_0.png"
+       ],
+       "xy": [
+        128,
+        68
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "yard_built_cam3_wide_lot8_0.png"
+       ],
+       "xy": [
+        128,
+        72
+       ]
+      },
+      "3_wide_9": {
+       "pictures": [
+        "yard_built_cam3_wide_lot9_0.png"
+       ],
+       "xy": [
+        96,
+        44
+       ]
+      },
+      "3_wide_10": {
+       "pictures": [
+        "yard_built_cam3_wide_lot10_0.png"
+       ],
+       "xy": [
+        128,
+        44
+       ]
+      },
+      "3_wide_11": {
+       "pictures": [
+        "yard_built_cam3_wide_lot11_0.png"
+       ],
+       "xy": [
+        128,
+        48
+       ]
+      },
+      "3_wide_12": {
+       "pictures": [
+        "yard_built_cam3_wide_lot12_0.png"
+       ],
+       "xy": [
+        128,
+        52
        ]
       }
      }
@@ -6891,6 +10996,486 @@
        "xy": [
         128,
         112
+       ]
+      },
+      "1_tall_5": {
+       "pictures": [
+        "yard_working_cam1_tall_lot5_0.png",
+        "yard_working_cam1_tall_lot5_1.png"
+       ],
+       "xy": [
+        8,
+        152
+       ]
+      },
+      "1_tall_6": {
+       "pictures": [
+        "yard_working_cam1_tall_lot6_0.png",
+        "yard_working_cam1_tall_lot6_1.png"
+       ],
+       "xy": [
+        48,
+        152
+       ]
+      },
+      "1_tall_7": {
+       "pictures": [
+        "yard_working_cam1_tall_lot7_0.png",
+        "yard_working_cam1_tall_lot7_1.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_tall_8": {
+       "pictures": [
+        "yard_working_cam1_tall_lot8_0.png",
+        "yard_working_cam1_tall_lot8_1.png"
+       ],
+       "xy": [
+        68,
+        152
+       ]
+      },
+      "1_tall_9": {
+       "pictures": [
+        "yard_working_cam1_tall_lot9_0.png",
+        "yard_working_cam1_tall_lot9_1.png"
+       ],
+       "xy": [
+        28,
+        136
+       ]
+      },
+      "1_tall_10": {
+       "pictures": [
+        "yard_working_cam1_tall_lot10_0.png",
+        "yard_working_cam1_tall_lot10_1.png"
+       ],
+       "xy": [
+        60,
+        136
+       ]
+      },
+      "1_tall_11": {
+       "pictures": [
+        "yard_working_cam1_tall_lot11_0.png",
+        "yard_working_cam1_tall_lot11_1.png"
+       ],
+       "xy": [
+        68,
+        136
+       ]
+      },
+      "1_tall_12": {
+       "pictures": [
+        "yard_working_cam1_tall_lot12_0.png",
+        "yard_working_cam1_tall_lot12_1.png"
+       ],
+       "xy": [
+        68,
+        136
+       ]
+      },
+      "1_wide_5": {
+       "pictures": [
+        "yard_working_cam1_wide_lot5_0.png",
+        "yard_working_cam1_wide_lot5_1.png"
+       ],
+       "xy": [
+        72,
+        68
+       ]
+      },
+      "1_wide_6": {
+       "pictures": [
+        "yard_working_cam1_wide_lot6_0.png",
+        "yard_working_cam1_wide_lot6_1.png"
+       ],
+       "xy": [
+        112,
+        68
+       ]
+      },
+      "1_wide_7": {
+       "pictures": [
+        "yard_working_cam1_wide_lot7_0.png",
+        "yard_working_cam1_wide_lot7_1.png"
+       ],
+       "xy": [
+        132,
+        68
+       ]
+      },
+      "1_wide_8": {
+       "pictures": [
+        "yard_working_cam1_wide_lot8_0.png",
+        "yard_working_cam1_wide_lot8_1.png"
+       ],
+       "xy": [
+        132,
+        68
+       ]
+      },
+      "1_wide_9": {
+       "pictures": [
+        "yard_working_cam1_wide_lot9_0.png",
+        "yard_working_cam1_wide_lot9_1.png"
+       ],
+       "xy": [
+        92,
+        52
+       ]
+      },
+      "1_wide_10": {
+       "pictures": [
+        "yard_working_cam1_wide_lot10_0.png",
+        "yard_working_cam1_wide_lot10_1.png"
+       ],
+       "xy": [
+        124,
+        48
+       ]
+      },
+      "1_wide_11": {
+       "pictures": [
+        "yard_working_cam1_wide_lot11_0.png",
+        "yard_working_cam1_wide_lot11_1.png"
+       ],
+       "xy": [
+        132,
+        48
+       ]
+      },
+      "1_wide_12": {
+       "pictures": [
+        "yard_working_cam1_wide_lot12_0.png",
+        "yard_working_cam1_wide_lot12_1.png"
+       ],
+       "xy": [
+        132,
+        52
+       ]
+      },
+      "2_tall_5": {
+       "pictures": [
+        "yard_working_cam2_tall_lot5_0.png",
+        "yard_working_cam2_tall_lot5_1.png"
+       ],
+       "xy": [
+        8,
+        152
+       ]
+      },
+      "2_tall_6": {
+       "pictures": [
+        "yard_working_cam2_tall_lot6_0.png",
+        "yard_working_cam2_tall_lot6_1.png"
+       ],
+       "xy": [
+        48,
+        152
+       ]
+      },
+      "2_tall_7": {
+       "pictures": [
+        "yard_working_cam2_tall_lot7_0.png",
+        "yard_working_cam2_tall_lot7_1.png"
+       ],
+       "xy": [
+        76,
+        152
+       ]
+      },
+      "2_tall_8": {
+       "pictures": [
+        "yard_working_cam2_tall_lot8_0.png",
+        "yard_working_cam2_tall_lot8_1.png"
+       ],
+       "xy": [
+        76,
+        152
+       ]
+      },
+      "2_tall_9": {
+       "pictures": [
+        "yard_working_cam2_tall_lot9_0.png",
+        "yard_working_cam2_tall_lot9_1.png"
+       ],
+       "xy": [
+        24,
+        136
+       ]
+      },
+      "2_tall_10": {
+       "pictures": [
+        "yard_working_cam2_tall_lot10_0.png",
+        "yard_working_cam2_tall_lot10_1.png"
+       ],
+       "xy": [
+        56,
+        136
+       ]
+      },
+      "2_tall_11": {
+       "pictures": [
+        "yard_working_cam2_tall_lot11_0.png",
+        "yard_working_cam2_tall_lot11_1.png"
+       ],
+       "xy": [
+        76,
+        136
+       ]
+      },
+      "2_tall_12": {
+       "pictures": [
+        "yard_working_cam2_tall_lot12_0.png",
+        "yard_working_cam2_tall_lot12_1.png"
+       ],
+       "xy": [
+        76,
+        136
+       ]
+      },
+      "2_wide_5": {
+       "pictures": [
+        "yard_working_cam2_wide_lot5_0.png",
+        "yard_working_cam2_wide_lot5_1.png"
+       ],
+       "xy": [
+        68,
+        72
+       ]
+      },
+      "2_wide_6": {
+       "pictures": [
+        "yard_working_cam2_wide_lot6_0.png",
+        "yard_working_cam2_wide_lot6_1.png"
+       ],
+       "xy": [
+        112,
+        68
+       ]
+      },
+      "2_wide_7": {
+       "pictures": [
+        "yard_working_cam2_wide_lot7_0.png",
+        "yard_working_cam2_wide_lot7_1.png"
+       ],
+       "xy": [
+        144,
+        68
+       ]
+      },
+      "2_wide_8": {
+       "pictures": [
+        "yard_working_cam2_wide_lot8_0.png",
+        "yard_working_cam2_wide_lot8_1.png"
+       ],
+       "xy": [
+        144,
+        68
+       ]
+      },
+      "2_wide_9": {
+       "pictures": [
+        "yard_working_cam2_wide_lot9_0.png",
+        "yard_working_cam2_wide_lot9_1.png"
+       ],
+       "xy": [
+        84,
+        52
+       ]
+      },
+      "2_wide_10": {
+       "pictures": [
+        "yard_working_cam2_wide_lot10_0.png",
+        "yard_working_cam2_wide_lot10_1.png"
+       ],
+       "xy": [
+        120,
+        48
+       ]
+      },
+      "2_wide_11": {
+       "pictures": [
+        "yard_working_cam2_wide_lot11_0.png",
+        "yard_working_cam2_wide_lot11_1.png"
+       ],
+       "xy": [
+        144,
+        48
+       ]
+      },
+      "2_wide_12": {
+       "pictures": [
+        "yard_working_cam2_wide_lot12_0.png",
+        "yard_working_cam2_wide_lot12_1.png"
+       ],
+       "xy": [
+        144,
+        52
+       ]
+      },
+      "3_tall_5": {
+       "pictures": [
+        "yard_working_cam3_tall_lot5_0.png",
+        "yard_working_cam3_tall_lot5_1.png"
+       ],
+       "xy": [
+        12,
+        152
+       ]
+      },
+      "3_tall_6": {
+       "pictures": [
+        "yard_working_cam3_tall_lot6_0.png",
+        "yard_working_cam3_tall_lot6_1.png"
+       ],
+       "xy": [
+        48,
+        152
+       ]
+      },
+      "3_tall_7": {
+       "pictures": [
+        "yard_working_cam3_tall_lot7_0.png",
+        "yard_working_cam3_tall_lot7_1.png"
+       ],
+       "xy": [
+        60,
+        152
+       ]
+      },
+      "3_tall_8": {
+       "pictures": [
+        "yard_working_cam3_tall_lot8_0.png",
+        "yard_working_cam3_tall_lot8_1.png"
+       ],
+       "xy": [
+        60,
+        156
+       ]
+      },
+      "3_tall_9": {
+       "pictures": [
+        "yard_working_cam3_tall_lot9_0.png",
+        "yard_working_cam3_tall_lot9_1.png"
+       ],
+       "xy": [
+        32,
+        132
+       ]
+      },
+      "3_tall_10": {
+       "pictures": [
+        "yard_working_cam3_tall_lot10_0.png",
+        "yard_working_cam3_tall_lot10_1.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_tall_11": {
+       "pictures": [
+        "yard_working_cam3_tall_lot11_0.png",
+        "yard_working_cam3_tall_lot11_1.png"
+       ],
+       "xy": [
+        60,
+        132
+       ]
+      },
+      "3_tall_12": {
+       "pictures": [
+        "yard_working_cam3_tall_lot12_0.png",
+        "yard_working_cam3_tall_lot12_1.png"
+       ],
+       "xy": [
+        60,
+        136
+       ]
+      },
+      "3_wide_5": {
+       "pictures": [
+        "yard_working_cam3_wide_lot5_0.png",
+        "yard_working_cam3_wide_lot5_1.png"
+       ],
+       "xy": [
+        76,
+        68
+       ]
+      },
+      "3_wide_6": {
+       "pictures": [
+        "yard_working_cam3_wide_lot6_0.png",
+        "yard_working_cam3_wide_lot6_1.png"
+       ],
+       "xy": [
+        116,
+        68
+       ]
+      },
+      "3_wide_7": {
+       "pictures": [
+        "yard_working_cam3_wide_lot7_0.png",
+        "yard_working_cam3_wide_lot7_1.png"
+       ],
+       "xy": [
+        128,
+        68
+       ]
+      },
+      "3_wide_8": {
+       "pictures": [
+        "yard_working_cam3_wide_lot8_0.png",
+        "yard_working_cam3_wide_lot8_1.png"
+       ],
+       "xy": [
+        128,
+        72
+       ]
+      },
+      "3_wide_9": {
+       "pictures": [
+        "yard_working_cam3_wide_lot9_0.png",
+        "yard_working_cam3_wide_lot9_1.png"
+       ],
+       "xy": [
+        96,
+        44
+       ]
+      },
+      "3_wide_10": {
+       "pictures": [
+        "yard_working_cam3_wide_lot10_0.png",
+        "yard_working_cam3_wide_lot10_1.png"
+       ],
+       "xy": [
+        128,
+        44
+       ]
+      },
+      "3_wide_11": {
+       "pictures": [
+        "yard_working_cam3_wide_lot11_0.png",
+        "yard_working_cam3_wide_lot11_1.png"
+       ],
+       "xy": [
+        128,
+        48
+       ]
+      },
+      "3_wide_12": {
+       "pictures": [
+        "yard_working_cam3_wide_lot12_0.png",
+        "yard_working_cam3_wide_lot12_1.png"
+       ],
+       "xy": [
+        128,
+        52
        ]
       }
      }
