@@ -734,3 +734,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 710 | Everybody curses (most people): more curse words on the cards; 'I haven't seen you type a single bad word, are you scared?' | 467 AMENDED | WORDS THREE | SENT 11/22: measured 68 cards, 0 curses (the cards showed only the frozen game lines); now every card shows our try beside it, two in three of our tries curse, a gate holds it |
 | 711 | Make camp: no auto; time runs until everyone is healed, then stops; the crew keeps idling; he can zoom in; a phone line and his tap take him back to the map | 472(a)(b)(c) | CAMP FOUR (fresh) | SENT 11/22 |
 | 712 | Make camp: he sees his people build the camp; no freeze, no pop-in; the 30-second load and the 10-second freeze cut | 472(d)(e) | CAMP FOUR, PLUMBER 8 | SENT 11/22 |
+| 713 | No waypoint arrows for side quests on the map (he had 14); the place is highlighted when it is on screen | 473 | JOBS 2, WORLD 15 | SENT 11/22 |
