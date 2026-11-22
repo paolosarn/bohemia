@@ -1,6 +1,18 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the library] SHIPPED 07fb7d244, BUILD 11/22b - THE LIBRARY, BUILT, NOT YET SEEN. VOTE combat4-the-library-11-22 (stand_in).
+COMBAT FOUR (rules 461, 313, 333, 441, 465; ask rows 679, 651): 11/22 LATEST -- [three reds answered] SHIPPED 7fc7ecef6, BUILD 11/22c - A FLING'S BREATH IS SAID, BUILT. No VOTE card.
+Record: records/BOHEMIA_COMBAT_FOUR_THREE_REDS_ANSWERED_11_22_26.md. PLUMBER 8's row 679 named three new reds for 'COMBAT THREE' (this lane):
+(1) THE BIG INSIDES timed out at the suite's 600 s cap: this lane's twenty insides took 825 s in a row. Now each inside is a child process, four at once (I0 and G1 in the
+parent): 314/0 in 224 s. Every new inside adds about 10 s now, not 40. (2) SEE EVERY HIT S3: slices/BOHEMIA_FIGHT.html's fling (bear, ground sloth) put its target_fatigue
+straight on the man: unsaid, past ours.fatigue_from_them_between_turns. Now tire(t, n, 'flung', u). Unsaid 9 -> 0. (3) SEE EVERY HIT P2: the swing WAS heard on both
+('swing_air block miss'): the leg's list lacked 'block' (wBlockSound since 11/18) and read 'since' by the 40-long list's length; the page keeps FIGHT_UI.heardAll now and
+the leg reads by it. 10/0. THE FORMATION IS KEPT: 23/0 alone (off the row by PLUMBER's rule).
+ON THE PAGE: the changed fight page, demo and alpha, upright and on its side: 4 fights, all ended, 16 of 16 taps, 0 errors.
+NEXT: THE TALL THINGS HIDE A MAN (racks, trailers, the fuselage, set flats: seen through today; scratchpad script ready, a gate leg I12 to write); more boards.
+[bb Battle Brothers' unhold: 'target gets 10 Fatigue', and the game tells you so]
+[analog horror: the breath counter ticking down on a man's card with no sound at all]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the library] SHIPPED 07fb7d244, BUILD 11/22b - THE LIBRARY, BUILT, NOT YET SEEN. VOTE combat4-the-library-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_LIBRARY_11_22_26.md. More boards (rule 461): the library ('library', 1.0: the alpha's one cell rolled the street 6 runs of 6 at 0.8): the_stacks (six rows of steel stacks each side of a centre
 aisle: the FIRST piece in an inside whose row is 'obstacles', so it blocks sight as walls do, where every other blocker so far gives cover but is seen through; end shelves,
 heaps of books kept for the fires (rough 3 AP, low cover), book carts, reading tables, carrels, microfilm readers) and the_reading_room (long tables on their sides in rows,

@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22b - THE LIBRARY, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22c - A FLING'S BREATH IS SAID, BUILT (rules 461, 313, 333, 441, 465; ask rows 679, 651). Its block is handoffs/COMBAT_THREE.md.
+THE THREE REDS PLUMBER ROUTED HERE, ANSWERED: a bear's or sloth's fling took 10 of a man's breath with nothing said and past the cap (now said and capped, like every
+blow); the big insides gate ran past the suite's 10 minutes with twenty insides (now four at a time: 224 s, 314/0); SEE EVERY HIT's swing leg missed a shield's block
+sound (now 10/0). THE FORMATION IS KEPT green alone (23/0). ON THE PAGE: both pages both ways, 4 fights, 16 of 16 taps, 0 errors. No VOTE card (nothing new to see).
+[bb Battle Brothers' unhold: 'target gets 10 Fatigue', and the game tells you so]
+[analog horror: the breath counter ticking down on a man's card with no sound at all]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22b - THE LIBRARY, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE LIBRARY: every fight at the library is fought down the aisles of its stacks (steel shelving you cannot see through, books burned for heat, heaps kept
 for the fires) or across its reading room (long tables on their sides, the card catalogue). One data file, every picture a stand-in (the names for COOK in the handoff).
 GATE THE BIG INSIDES 314/0 (twenty insides). ON THE PAGE: 4 fights, both pages both ways, both layouts, all ended, 19 of 19 taps, 0 errors. VOTE combat4-the-library-11-22.
