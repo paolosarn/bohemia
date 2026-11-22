@@ -27,6 +27,7 @@ for (const d of ['', 'shots']) fs.mkdirSync(path.join(OUT, d), { recursive: true
 const { offTheTown } = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const { execSync } = require('child_process');
 const log = (...a) => console.log(new Date().toISOString().slice(11, 19), a.join(' '));
+const TAPE_PLANT = !!process.env.TAPE_PLANT;   /* __THE_WHY_IS_A_TAPE__'s plant: the card's photo 128 px and smooth, the bell's whyTape a no-op */
 const OLD = {}; if (process.env.BEFORE) for (const f of ['slices/BOHEMIA_FIGHT.html', 'slices/bohemia_fight_why.js', 'slices/bohemia_fight_opener.js', 'records/target/bb/fight_reasons.json']) OLD[f] = execSync('git show ' + (process.env.BEFORE_REF || 'HEAD') + ':' + f, { cwd: ROOT, maxBuffer: 1 << 28 });
 (async () => {
   const browser = await chromium.launch({ args: ['--autoplay-policy=no-user-gesture-required'] });
@@ -35,6 +36,9 @@ const OLD = {}; if (process.env.BEFORE) for (const f of ['slices/BOHEMIA_FIGHT.h
   await ctx.route('**/*', async (route) => { const u = route.request().url(); if (!u.startsWith(BASE)) return route.abort();
     const rel = decodeURIComponent(u.slice(BASE.length).split('?')[0].split('#')[0]), f = path.join(ROOT, rel);
     if (OLD[rel]) return route.fulfill({ status: 200, body: OLD[rel], headers: { 'Content-Type': MIME[path.extname(rel)] } });
+    if (TAPE_PLANT && (rel === 'slices/bohemia_fight_opener.js' || rel === 'slices/BOHEMIA_FIGHT.html')) { let t = fs.readFileSync(f, 'utf8'), t0 = t;
+      if (/opener/.test(rel)) t = t.replace(/var TAPE_PX = 64;/, 'var TAPE_PX = 128;').replace('<div class="mco-photo dark tape">', '<div class="mco-photo dark">'); else t = t.replace('function whyTape(cv) {', 'function whyTape(cv) { return;');
+      if (t === t0) throw new Error('the tape plant did not take: ' + rel); return route.fulfill({ status: 200, body: t, headers: { 'Content-Type': MIME[path.extname(rel)] } }); }
     if (process.env.BEFORE && /bohemia_fight_face\.js$/.test(rel)) return route.fulfill({ status: 200, body: '/* before */', headers: { 'Content-Type': 'text/javascript' } });
     if (!PUBLISHED.some(p => rel.startsWith(p)) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) return route.fulfill({ status: 404, body: '' });
     return route.fulfill({ status: 200, body: fs.readFileSync(f), headers: { 'Content-Type': MIME[path.extname(f).toLowerCase()] || 'application/octet-stream', 'Cache-Control': 'max-age=600' } }); });
@@ -69,6 +73,12 @@ const OLD = {}; if (process.env.BEFORE) for (const f of ['slices/BOHEMIA_FIGHT.h
   const hasCard = await until(async () => city().evaluate(() => !!document.querySelector('#meetcard button[data-meet="go"]')), 8000);
   if (hasCard) { await until(async () => city().evaluate(() => { const L = window.BohemiaFightOpener && BohemiaFightOpener.last; return !!(L && L.read && (L.typed || L.read.none)); }), 8000, 60); await wait(1300); await shot('1_card');
     T.card = await city().evaluate(() => { const L = window.BohemiaFightOpener && BohemiaFightOpener.last, R = (L && L.read) || {}, mc = document.querySelector('#meetcard .mc'); return { line: R.line || null, shown: (mc.querySelector('.mco-say span') || {}).textContent || null, by: R.speaker && R.speaker.name, rule: R.rule, how: R.how, who: R.who, ground: (mc.querySelector('.mcg') || {}).textContent, meetGround: window.__MEET_GROUND || null, old: (mc.textContent || '').slice(0, 160) }; });
+    /* __THE_WHY_IS_A_TAPE__ (FIGHT SCREEN THREE 11/22): the card's speaker as a tape still, and the caption */
+    const tapeCard = () => city().evaluate(() => { const ph = document.querySelector('#meetcard .mco-photo'); if (!ph) return null; const cv = ph.querySelector('canvas'), ln = ph.querySelector('canvas.tape-lines'), osd = ph.querySelector('.osd'), sp = document.querySelector('#meetcard .mco-say span'), b = document.querySelector('#meetcard .mco-say b');
+      const r = cv.getBoundingClientRect(), d = cv.getContext('2d').getImageData(0, 0, cv.width, cv.height).data; let lit = 0; for (let i = 0; i < d.length; i += 4) lit += (d[i] + d[i + 1] + d[i + 2]) / 3;
+      return { tape: ph.classList.contains('tape'), dark: ph.classList.contains('dark'), w: cv.width, css: Math.round(r.width), render: getComputedStyle(cv).imageRendering, lines: !!ln && ln.height === cv.height * 2, osd: osd ? osd.textContent : null, osdShown: osd ? getComputedStyle(osd).display !== 'none' : false,
+        lit: Math.round(lit / (d.length / 4)), caption: sp ? { bg: getComputedStyle(sp).backgroundColor, display: getComputedStyle(sp).display, text: sp.textContent } : null, mark: b ? getComputedStyle(b, '::before').content : null }; }).catch(e => ({ err: String(e) }));
+    T.tapeCard = await tapeCard(); await wait(1300); const t2 = await tapeCard(); T.tapeCard.osd2 = t2 && t2.osd;
     await tapSel(city(), '#meetcard button[data-meet="go"]'); }
   log('CARD', hasCard, JSON.stringify(T.met), JSON.stringify(T.card || null).slice(0, 500));
   await until(async () => { const f = fightF(); return f && await f.evaluate(() => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units.length > 0 && !!UI.board && !!UI.t0); }, 60000);
@@ -77,6 +87,11 @@ const OLD = {}; if (process.env.BEFORE) for (const f of ['slices/BOHEMIA_FIGHT.h
   await until(async () => f.evaluate(() => !UI.why || document.getElementById('whyline').textContent.length === UI.why.line.length), 9000, 80); await shot('2_bell');
   T.bell = await f.evaluate(() => { const S = FIGHT.S, W = UI.whySaid || {}; return { said: W, board: { casino: !!S.casino, garage: !!S.garage, tunnels: !!S.tunnels, inside: !!S.inside, ceiling: !!(S.boardDef && S.boardDef.ceiling), district: S.ground && S.ground.district } }; });
   log('BELL', JSON.stringify(T.bell).slice(0, 700));
+  T.tape = await f.evaluate(() => { const c = document.getElementById('whyface'); if (!c) return null; const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let a = 0, lit = 0; for (let i = 0; i < d.length; i += 4) { a += d[i + 3]; lit += d[i] + d[i + 1] + d[i + 2]; }
+    const r = c.getBoundingClientRect(), w = c.parentNode, ln = w && w.querySelector && w.querySelector('canvas.tape-lines'), wl = document.getElementById('whyline');
+    return { w: c.width, h: c.height, css: [Math.round(r.width), Math.round(r.height)], alpha: Math.round(a / (d.length / 4)), lit: Math.round(lit / (d.length / 4)), wrapped: !!(w && w.classList.contains('tape')), shown: getComputedStyle(document.getElementById('why')).display,
+      render: getComputedStyle(c).imageRendering, linesClear: ln ? getComputedStyle(ln).backgroundColor : null, transform: getComputedStyle(c).transform, caption: { bg: getComputedStyle(wl).backgroundColor, display: getComputedStyle(wl).display }, mark: getComputedStyle(document.getElementById('whyname'), '::before').content }; }).catch(e => ({ err: String(e) }));
+  log('TAPE', JSON.stringify(T.tape));
   /* FIGHT: one of his is up; his card on the phone, then his sheet */
   await wait(4500); await tapSel(page.mainFrame(), '#bohphone .fgo');
   await until(async () => page.evaluate(() => { const hd = document.querySelector('#bohphone .fight .fh'); return !!hd && !hd.classList.contains('them') && hd.querySelectorAll('.fap .pp i').length > 0; }), 25000, 250).catch(() => null); await wait(800); await shot('3_his_card');
@@ -104,6 +119,7 @@ const OLD = {}; if (process.env.BEFORE) for (const f of ['slices/BOHEMIA_FIGHT.h
     T.glass = await f.evaluate(() => ({ G: window.__GLASS, seen: UI.shotSeen || {}, cap: UI.glass ? { n: UI.glass.n, held: UI.glass.held } : null, hand: UI.hand, auto: !!UI.auto, over: !!FIGHT.S.over })).catch(e => ({ err: String(e) }));
     if (T.glass.G) { T.glass.most = most(T.glass.G.starts); T.glass.mostWhite = most(T.glass.G.white); }
     log('GLASS', JSON.stringify({ want: want, hand: T.glass.hand, auto: T.glass.auto, over: T.glass.over, shots: T.glass.seen && T.glass.seen.fired, held: T.glass.seen && T.glass.seen.held, begun: T.glass.G && T.glass.G.starts.length, whites: T.glass.G && T.glass.G.white.length, mostInASecond: T.glass.most, mostWhite: T.glass.mostWhite, frames: T.glass.G && T.glass.G.frames, longestFrame: T.glass.G && Math.round(T.glass.G.maxGap), err: T.glass.err || (T.glass.G && T.glass.G.err) })); }
+  log('TAPE CARD', JSON.stringify(T.tapeCard || null));
   T.errs = errs; fs.writeFileSync(path.join(OUT, 'why_true.json'), JSON.stringify(T, null, 1));
   log('DONE', WHICH, WAY, CASE, 'page errors', errs.length, errs.slice(0, 2).join(' | '));
   await page.close(); await ctx.close(); await browser.close(); process.exit(0);

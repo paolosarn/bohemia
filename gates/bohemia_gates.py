@@ -9823,6 +9823,13 @@ GATES = [
      "rule 224); the edge gold or red, a drawn face in a paper frame (P4); three bars the width of the card, his AP as pips (P5); every man of "
      "theirs put on the card: his level and marks are the fight's own read, each mark drawn and named, his sheet says the same (P6); the same "
      "edge on all three cards (P7). Planted: the two-line fit taken out. About four minutes", True),
+    ('THE WHY IS A TAPE', ['node', 'gates/the_why_is_a_tape_gate.js'],
+     "FIGHT SCREEN THREE gate, 11/22, VAMILY rule 470(e) (his NO on the 11/17 card of the why line and the faces: 'Its looking like shit'; rules "
+     "449(a), 450(a); the analog horror bible R1, R3, R5, R6, R8). The man who says why is a frame off a camcorder tape and his sentence runs as "
+     "closed captions, on the demo's page upright and on its side: the card's photo drawn at 64 px and blown up hard, lit, the tape's lines on his "
+     "own rows, the counter running while the picture holds (T1); the sentence on a black caption box line by line, the name with '>>' (T2); the "
+     "same still at the bell, 40 px, opaque and lit, the lines clear, no bob, the same caption (T3). Planted: the photo 128 px and smooth, the "
+     "bell's tape a no-op (T1, T3 red). About 3 min", True),
     ('THE CARD THAT OPENS A FIGHT', ['node', 'gates/the_card_that_opens_a_fight_gate.js'],
      "FIGHT SCREEN TWO gate, 11/14, VAMILY rule 450(a) (ask row 621; PAOLO 11/14, twice: 'The card bro, the combat card is UGLY AS SHIT, TRY "
      "TO MAKE SOME AWESOME BIG BRAIN FINAL SHIT'). The card where he chooses ENGAGE or FALL BACK shows their leader's face, the one WHY "

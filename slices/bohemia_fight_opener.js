@@ -163,6 +163,14 @@
     g.closePath(); g.fill(); g.fillStyle = '#17120d';
     [9.5, 14.5].forEach(function (x) { g.beginPath(); g.arc(x * u, 13 * u, 1.2 * u, 0, Math.PI * 2); g.fill(); });
   }
+  /* __THE_WHY_IS_A_TAPE__ (FIGHT SCREEN THREE 11/22; rule 470(e): his NO on the 11/17 card, 'Its looking like shit'; rules 449(a), 450(a),
+     the analog horror law of 9/20 and its bible, records/BOHEMIA_ANALOG_HORROR_BIBLE_9_20_26.md). The man who says WHY is a frame off a
+     camcorder tape, not a smooth doll blown up soft: his face is drawn at TAPE_PX and blown up hard (no smoothing, the pixels read), lit
+     like a flash at night (contrast up, colour down, the light falling to black at the frame's edge), tape lines across it, the tape's
+     counter in the corner still running while his picture holds (the one wrong thing, R1; nothing else moves, R3). The lines and the
+     static stay INSIDE the still: it is a screen in the world (R8), never a layer on the glass. His sentence runs as closed captions:
+     light ROM on a black box, line by line, too calm (R5). The rows of faces, the phone's card and the sheet keep their photographs. */
+  var TAPE_PX = 64;   /* the portrait engine's own small size: its 64 px faces drawn pixel for pixel (40 lost his eyes and mouth, measured 11/22) */
   /* one small photograph: side 'them' | 'you'; a face not sure is not yet developed */
   function photo(cv, u, side) {
     var S = cv.width, g = cv.getContext('2d'), base = function () { g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, S, S); g.fillStyle = side === 'you' ? '#2b2620' : '#2c1714'; g.fillRect(0, 0, S, S); };
@@ -198,6 +206,14 @@
       '.mco .mco-head{grid-area:head;display:flex;gap:11px;align-items:flex-start;min-width:0}',
       '.mco .mco-photo{position:relative;flex:0 0 auto;width:76px;height:76px;margin:3px 5px 5px 5px;background:#0d0b09;transform:rotate(-1.4deg);box-shadow:0 0 0 1px #0d0a07,0 0 0 3px #d8ceb6,0 0 0 4px #0d0a07,3px 4px 0 rgba(0,0,0,.55)}',
       '.mco .mco-photo canvas{display:block;width:100%;height:100%}',
+      /* __THE_WHY_IS_A_TAPE__: the still, its light, its lines, its counter; the caption */
+      '.mco .mco-photo.tape canvas{image-rendering:pixelated;image-rendering:crisp-edges;filter:brightness(1.2) contrast(1.22) saturate(.62) sepia(.12)}',
+      '.mco .mco-photo canvas.tape-lines{position:absolute;inset:0;z-index:1;filter:none;pointer-events:none}',
+      '.mco .mco-photo .tape-fx{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 80% 82% at 50% 42%,rgba(0,0,0,0) 56%,rgba(0,0,0,.5) 100%)}',
+      '.mco .mco-photo .osd{position:absolute;left:4px;top:4px;z-index:2;font:400 11px/1 ' + R + ';font-style:normal;letter-spacing:.4px;color:#f2ead8;text-shadow:1px 1px 0 #000,-1px 0 0 #000;pointer-events:none;white-space:nowrap}',
+      '.mco .mco-photo.dark .osd{display:none}',
+      '.mco .mco-say span{display:inline;background:#060504;color:#f2ead8;-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:1px 6px 2px;line-height:1.72}',
+      '.mco .mco-say b::before{content:">> "}',
       '.mco .mco-photo::after{content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:' + RIM.them + ';box-shadow:inset 0 1px 0 rgba(0,0,0,.35)}',
       '.mco.ours .mco-photo::after{background:' + RIM.you + '}',
       '.mco .mco-photo.dark canvas{filter:brightness(.16) contrast(1.3)}',
@@ -264,7 +280,10 @@
     el.classList.add('mco');
     /* WHO and WHY: the photograph, the crew, the sentence */
     var head = document.createElement('div'); head.className = 'mco-head';
-    head.innerHTML = '<div class="mco-photo dark"><canvas width="128" height="128" aria-hidden="true"></canvas></div><div class="mco-who"></div>';
+    head.innerHTML = '<div class="mco-photo dark tape"><canvas width="' + TAPE_PX + '" height="' + TAPE_PX + '" aria-hidden="true"></canvas><canvas class="tape-lines" width="' + TAPE_PX + '" height="' + (TAPE_PX * 2) + '" aria-hidden="true"></canvas><span class="tape-fx" aria-hidden="true"></span><i class="osd" aria-hidden="true">\u25B6 0:00</i></div><div class="mco-who"></div>';
+    /* __THE_WHY_IS_A_TAPE__: the tape's counter runs while his picture holds (the one wrong thing, bible R1 and R3) */
+    (function (c) { var g = c.getContext('2d'); g.fillStyle = 'rgba(0,0,0,.22)'; for (var y = 1; y < c.height; y += 2) g.fillRect(0, y, c.width, 1); })(head.querySelector('canvas.tape-lines'));   /* the tape's lines on the face's own rows (blown up with it, never across a pixel) */
+    (function (osd, t0) { var tick = setInterval(function () { if (!el.isConnected) { clearInterval(tick); return; } var n = Math.floor((Date.now() - t0) / 1000); osd.textContent = '\u25B6 ' + Math.floor(n / 60) + ':' + ('0' + n % 60).slice(-2); }, 250); })(head.querySelector('.osd'), Date.now());
     var who = head.lastChild; who.appendChild(mch); who.appendChild(mcs); if (mcboss) who.appendChild(mcboss); if (mcwhy) who.appendChild(mcwhy);
     var say = document.createElement('div'); say.className = 'mco-say'; say.setAttribute('data-draft', 'true'); say.innerHTML = '<b></b><span></span>'; who.appendChild(say);
     /* HOW MANY: two rows of faces, theirs over his */
@@ -312,7 +331,7 @@
             try { ok = root.BohemiaFightFace.draw(g, img, [st.i * st.size, 0, st.size, st.size], cv.width, null, sp.look, function () { gearedBig(function () {}); }); } catch (e) { ok = false; }
             if (ok) { ph.classList.remove('dark'); state.face = 'geared'; } then(ok); }); };
         var draw0 = function () { try {
-          if (sp.sure && F && F.has(sp.look)) { ph.classList.remove('dark'); state.face = 'portrait'; if (!(line && F.talk(cv, sp.look, line))) F.draw(cv.getContext('2d'), sp.look, 128, strip); }
+          if (sp.sure && F && F.has(sp.look)) { ph.classList.remove('dark'); state.face = 'portrait'; if (!(line && F.talk(cv, sp.look, line))) F.draw(cv.getContext('2d'), sp.look, cv.width, strip); }
           else { strip(); if (sp.sure) ph.classList.remove('dark'); state.face = sp.sure ? 'strip' : 'dark'; } } catch (e) { strip(); } };
         var draw = function () { gearedBig(function (ok) { if (!ok) draw0(); }); };
         if (F && F.ready) F.ready(draw); else draw();

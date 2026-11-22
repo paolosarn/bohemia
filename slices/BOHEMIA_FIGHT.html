@@ -221,6 +221,17 @@ html[data-materials] #bend.hit::before{background-image:var(--mark-hit)}
 #why.them::before,#call.hot::before{background:#ff5a40}
 #why canvas,#call canvas,#vet canvas{margin:4px 3px 4px 4px;box-shadow:0 0 0 1px #0d0a07,0 0 0 3px #d8ceb6,0 0 0 4px #0d0a07,3px 4px 0 rgba(0,0,0,.55);transform:rotate(-1.2deg)}
 #why span,#call span,#vet span{color:#f2e4c6;text-shadow:0 1px 0 #000}
+/* __THE_WHY_IS_A_TAPE__ (FIGHT SCREEN THREE 11/22, rule 470(e)): the frame holds the still (the paper frame moves from the canvas to it); the
+   picture is blown up hard and lit like a flash at night; the tape's light and lines stay inside the frame (bible R8); the sentence is a
+   closed caption, light ROM on a black box, line by line */
+#why .tape{position:relative;flex:0 0 auto;display:block;width:52px;height:52px;margin:4px 3px 4px 4px;background:#0d0b09;box-shadow:0 0 0 1px #0d0a07,0 0 0 3px #d8ceb6,0 0 0 4px #0d0a07,3px 4px 0 rgba(0,0,0,.55);transform:rotate(-1.2deg)}
+#why.said .tape{width:40px;height:40px}
+#why .tape canvas{display:block;width:100%!important;height:100%!important;margin:0!important;box-shadow:none!important;transform:none!important;image-rendering:pixelated;image-rendering:crisp-edges;filter:brightness(1.2) contrast(1.22) saturate(.62) sepia(.12)}
+#why .tape canvas.tape-lines{position:absolute;inset:0;filter:none;pointer-events:none;background:transparent!important}   /* the old face's own ground (#why canvas) would cover the still */
+#why .tape .tape-fx{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 82% at 50% 42%,rgba(0,0,0,0) 56%,rgba(0,0,0,.5) 100%)}
+#why #whyline{display:inline;background:#060504;color:#f2ead8;-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:1px 6px 2px;line-height:1.7;min-height:0}
+#why #whyname::before{content:">> "}
+@media (prefers-reduced-motion:reduce){#why .tape{transform:none}}
 /* THE TURN ENDS ITSELF (COMBAT [the turn ends itself], rule 125): Battle Brothers' numbers on his bar (the AP and the wind
    left, as numbers beside the pips), and when he can afford nothing, OUT OF ACTION POINTS over his bars for a beat and a
    half, the same VCR warning as the empty gun, before the turn passes by itself */
@@ -8142,11 +8153,24 @@ function whyOpen(now) {
   const said = !!(kept && kept.line && kept.face);   /* he has read it on the card: once more, small */
   UI.why = { who: v.id, line: P.line, t: now, side: P.side, said: said };
   UI.whySaid = { why: why, how: P.how, who: P.who, cls: P.cls, rule: P.rule, reason: P.reason, side: P.side, by: v.name, byId: v.id, byLook: v.look, line: P.line, at: now - UI.t0, round: S.round, deploy: !!S.deploy, card: kept, i: P.i, needs: P.needs || null, truth: (function () { const f = whyFacts(them); return { outside: !!f.outside, job_clears: !!f.job_clears, job_hunts: !!f.job_hunts, plays: f.plays === undefined ? null : f.plays }; })(), draft: true };
-  const cv = document.getElementById('whyface'); drawPortrait(cv.getContext('2d'), v, cv.width, true);
+  /* __THE_WHY_IS_A_TAPE__ (FIGHT SCREEN THREE 11/22, rule 470(e)): the man who says why is a frame off a camcorder tape, as on the card that
+     opened the fight (slices/bohemia_fight_opener.js, the same words): drawn small and blown up hard, the tape's light and lines inside his
+     frame (#why .tape), held still (no bob: bible R3, R6); his sentence runs as closed captions */
+  const cv = document.getElementById('whyface'); whyTape(cv); drawPortrait(cv.getContext('2d'), v, cv.width, true);
   document.getElementById('whyname').textContent = v.name; document.getElementById('whyline').textContent = '';
   mouthLook(); const el = document.getElementById('why'); el.classList.toggle('them', P.side === 'them'); el.classList.toggle('said', said); el.style.top = (TOPH + 6) + 'px'; el.style.display = 'flex';
   feed(v.name + ': ' + P.line, P.side === 'them' ? '#ff8a6a' : undefined);
   try { window.top.postMessage({ type: 'BOHEMIA_VOICE', speaker: 'face:' + v.look, text: P.line }, '*'); } catch (_e) {}
+}
+/* __THE_WHY_IS_A_TAPE__: his frame is a tape still: the face drawn at WHY_TAPE_PX in a frame that carries the tape's light and lines */
+const WHY_TAPE_PX = 40;
+function whyTape(cv) {
+  if (cv.width !== WHY_TAPE_PX) { cv.width = cv.height = WHY_TAPE_PX; }
+  if (cv.parentNode && cv.parentNode.classList && cv.parentNode.classList.contains('tape')) return;
+  const w = document.createElement('span'); w.className = 'tape'; cv.parentNode.insertBefore(w, cv); w.appendChild(cv);
+  const ln = document.createElement('canvas'); ln.className = 'tape-lines'; ln.width = WHY_TAPE_PX; ln.height = WHY_TAPE_PX * 2; ln.setAttribute('aria-hidden', 'true');
+  const lg = ln.getContext('2d'); lg.fillStyle = 'rgba(0,0,0,.22)'; for (let y = 1; y < ln.height; y += 2) lg.fillRect(0, y, ln.width, 1); w.appendChild(ln);   /* the tape's lines on the face's own rows */
+  const fx = document.createElement('span'); fx.className = 'tape-fx'; fx.setAttribute('aria-hidden', 'true'); w.appendChild(fx);
 }
 function whyHide() { if (!UI.why) return; document.getElementById('why').style.display = 'none'; UI.why = null; }
 function tickWhy(now) {
@@ -8157,7 +8181,7 @@ function tickWhy(now) {
   const beat = songBeat(), slot = Math.max(0, Math.floor((now - Y.t) / (beat / 6))), n = Math.min(Y.line.length, slot * TYPE_PER_BEAT / 6);
   const ln = document.getElementById('whyline'); if (ln.textContent.length !== n) ln.textContent = Y.line.slice(0, n);
   const typing = n < Y.line.length;
-  document.getElementById('whyface').style.transform = typing && slot % 2 ? 'translateY(-2px) rotate(-1.2deg)' : '';   /* his mouth works on the slots */
+  /* __THE_WHY_IS_A_TAPE__: the still holds (bible R3, R6); his mouth no longer bobs the picture */
   if (!typing && !Y.done) Y.done = now;
   if ((Y.done && now - Y.done > beat * (Y.said ? WHY_SAID_BEATS : WHY_HOLD_BEATS)) || FIGHT.S.over) whyHide();
 }
