@@ -6,6 +6,23 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
+WORDS THREE (words-three-01gkdyuvnl): 11/22 LATEST -- BUILD 11/22zk - SHEET EIGHT, YOUR NO, OUR TRY, AND THE CONE HAT OFF THE CARDS, BUILT (this commit), NOT YET SEEN (rule 467 AMENDED 11/22, rules 470(f)(g), 466(f), 465; ask rows 710, 629, 706). NOTHING IN THE GAME WAS REWRITTEN.
+THE COORDINATOR'S ROUTINE 'WORDS THREE: they curse, for real this time' (fired before BUILD 11/22zf landed): (1) the try on every card, (2) two in three
+curse, (4) the gate, (5) never 'it pays' were already live in 11/22zf. (3) 'add our tries to sheets one to five': those 68 cards are answered whole and an
+item is asked once; where he wrote a line (31) or said YES (23) his answer IS the line (notes are rulings), so no try goes over it. HIS 14 NOs come back as
+SHEET EIGHT (words-two-hw08-01 to -14, records/target/words_two/homework_08.json): the game's line he said no to beside OUR TRY made from his lesson, each card
+naming its rule and the card he answered ('your_no_on'); 12 of 14 curse in full; Doña Refugio dying and the timeshare man clean on purpose, each saying why;
+the sloth job says the camp pays, the stew says the grandmother pays, the man she forgave says thank you with no pay talk; each try keeps its card's job.
+THE CONE HAT OFF THE CARDS (470(f)): card 6.3 shipped on cast_widebrim (the straw cone he asked about); now cast_pack, picture redrawn; sheet eight's two cone
+faces are cast_bedroll. GATE THE VOICE IS HIS WORDS 16/0: new leg V13 NO DEAD HAT ON A CARD (no waiting card wears cast_widebrim or faction_caravans; planted,
+caught; CHARACTER's cone gate does not read the sheets). V12: 3 sheets out, 32 of 38 tries curse. HIS ANSWER IS KEPT 15/0. Sheet checks 06/07/08 green.
+THE QUEUE on a fresh phone: 5 cards up front (other lanes'), then behind MORE sheet six 6 to 17, seven 18 to 29, eight 30 to 43 of 43 (yellow, only this
+lane's). On the real tab upright and sideways: 14 of 14 sheet-eight pictures open, 12 of 12 sheet six, 0 errors. THE VOICE page ties all 38 cards out.
+Record: records/BOHEMIA_WORDS_THREE_SHEET_EIGHT_YOUR_NO_OUR_TRY_11_22_26.md.
+NEXT: his answers on sheets six, seven, eight, folded the same way; nothing into the game until he says he is done.
+[bb Battle Brothers' raiders say what they want and what it costs you, in one breath; ours said 'Your place has what we need']
+[analog horror: 'That's you. Ten minutes ago. Somebody up there's been watching you all fucking day.' (card 8.11)]
+
 WORDS THREE (words-three-01gkdyuvnl): 11/22 LATEST -- BUILD 11/22zf - NEVER 'IT PAYS', OUR TRY ON EVERY CARD, SHEETS SIX AND SEVEN, BUILT (c929f456b), NOT YET SEEN (rules 470(g)(h), 467 AMENDED 11/22, 465; ask rows 707, 708, 710, 629). NOTHING IN THE GAME WAS REWRITTEN.
 THE COORDINATOR'S ROUTINE 'WORDS THREE: never it pays': his sheet records/BOHEMIA_PAOLO_VOTE_11_22_26.txt answered all 41 homework cards still out (sheet one's
 last five, sheets three, four, five whole). Rule 465 stands: THE VOICE HOLDS 11/0, 0 of 15 mouths open. Rule 461(c) amended: no tool that waits for a tap.

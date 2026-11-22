@@ -169,7 +169,7 @@
    "where": "on the MAP, on the card that stops your crew on the road",
    "side": "them",
    "face": {
-    "look": "cast_widebrim"
+    "look": "cast_pack"
    },
    "pull": {
     "file": "records/target/BOHEMIA_ROAD_EVENTS.json",

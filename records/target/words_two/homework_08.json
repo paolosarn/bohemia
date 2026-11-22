@@ -1,0 +1,770 @@
+{
+ "draft": true,
+ "sheet": 8,
+ "_about": "WORDS THREE, HIS HOMEWORK, SHEET EIGHT: YOUR NO, OUR TRY (VAMILY rules 467 amended 11/22, 470(g), 466(f), 465; ask rows 629, 710). Rule 467 amended asked for our try on sheets one to five too. He answered all 68 of those cards and an item is asked once, so a try cannot reach him on them; where he wrote his own line or said YES, his answer IS the line (notes are rulings) and a try over it would overrule him. His 14 NOs are the cards where he said no and gave no line: here each comes back as a NEW question, the game's line he said no to beside OUR TRY made from the lesson of his NO (each card's 'your_no_on' names the card he answered). 12 of 14 tries curse in full; the dying woman and the timeshare man are clean on purpose, each card saying why. Never 'it pays': where a try pays, it says who pays and what. Our tries are on the cards only: nothing in the game is rewritten until he says he is done (rule 465).",
+ "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+ "cards": [
+  {
+   "mouth": "THE ENEMY'S LEADER, AT YOUR PLACE",
+   "tab": "THE FIGHT",
+   "who": "THE RAIDERS' MAN",
+   "role": "leads the crew that came for your place",
+   "who_plain": "The leader of a crew raiding your own place",
+   "to": "you",
+   "when": "they come over your wall and the fight opens",
+   "where": "on the card that opens a FIGHT at your place",
+   "side": "them",
+   "face": {
+    "look": "tier_thug"
+   },
+   "pull": {
+    "file": "records/target/bb/fight_reasons.json",
+    "json": [
+     "rules",
+     {
+      "find": {
+       "id": "raid.men"
+      }
+     },
+     "them",
+     0
+    ]
+   },
+   "expect": "Your place has what we need",
+   "teaches": "RAIDERS CURSE: an armed crew at your wall swears, and says what it wants",
+   "n": 1,
+   "id": "words-two-hw08-01-raiders-curse-11-22",
+   "made": "11/22",
+   "rule": "RAIDERS CURSE (your NO on card 5.2: \"They not cursing bro\")",
+   "try": "Open the fucking gate. We want your water and your food, and we're taking it either way. How many of yours bleed for it is up to you.",
+   "your_no_on": "words-two-hw05-02-curse-the-raiders-11-21"
+  },
+  {
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "tab": "A TOWN",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-biggame-sloth"
+      }
+     },
+     "client",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-biggame-sloth"
+      }
+     },
+     "client",
+     "from"
+    ]
+   },
+   "who_plain": "A professor who dug the fossil beds before the crash",
+   "to": "you",
+   "when": "you ask what his job is and what it pays",
+   "where": "in a camp or TOWN, at the board where people offer jobs",
+   "side": "other",
+   "face": {
+    "look": "cast_satchel"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-biggame-sloth"
+      }
+     },
+     "says"
+    ]
+   },
+   "fill": {
+    "pay": {
+     "json": [
+      "board_people",
+      "rows",
+      {
+       "find": {
+        "id": "jk-biggame-sloth"
+       }
+      },
+      "pay"
+     ]
+    }
+   },
+   "expect": "The lab grew one ground sloth",
+   "teaches": "WHO PAYS: the job giver says the camp pays, and out of what, instead of \"it pays\"",
+   "n": 2,
+   "id": "words-two-hw08-02-who-pays-the-sloth-11-22",
+   "made": "11/22",
+   "rule": "NEVER \"IT PAYS\": SAY WHO PAYS (your NO on card 5.12)",
+   "try": "The lab grew a ground sloth, big as a truck, and it's been flattening tents out by Tule Springs with people still in them. Put that fucking thing down and the camp pays you {pay} batteries, out of what everybody chipped in.",
+   "your_no_on": "words-two-hw05-12-dark-the-professor-11-21"
+  },
+  {
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "tab": "A TOWN",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-find-out-stew"
+      }
+     },
+     "client",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-find-out-stew"
+      }
+     },
+     "client",
+     "from"
+    ]
+   },
+   "who_plain": "A grandmother at the job board",
+   "to": "you",
+   "when": "you ask what her job is and what it pays",
+   "where": "in a camp or TOWN, at the board where people offer jobs",
+   "side": "other",
+   "face": {
+    "look": "cast_poncho"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-find-out-stew"
+      }
+     },
+     "says"
+    ]
+   },
+   "fill": {
+    "pay": {
+     "json": [
+      "board_people",
+      "rows",
+      {
+       "find": {
+        "id": "jk-find-out-stew"
+       }
+      },
+      "pay"
+     ]
+    }
+   },
+   "expect": "My grandson eats at the stew cart",
+   "teaches": "WHO PAYS: a grandmother pays out of her own pocket, and says so",
+   "n": 3,
+   "id": "words-two-hw08-03-who-pays-the-stew-11-22",
+   "made": "11/22",
+   "rule": "NEVER \"IT PAYS\": SAY WHO PAYS (your NO on card 3.12)",
+   "try": "My grandson eats at that stew cart every night and comes home happy. Nobody's that happy on stew. Find out what the hell is in it, and I'll give you {pay} batteries of my own.",
+   "your_no_on": "words-two-hw03-12-whats-in-the-stew-11-20"
+  },
+  {
+   "mouth": "A SIDE QUEST ON THE ROAD",
+   "tab": "MAP",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "json": [
+     "quests",
+     "bq_say_it_back",
+     "people",
+     "wrongdoer",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "json": [
+     "quests",
+     "bq_say_it_back",
+     "people",
+     "wrongdoer",
+     "from"
+    ]
+   },
+   "who_plain": "A one-eyed man who did a dying woman wrong, at the end of her story",
+   "to": "you",
+   "when": "you carried a dying woman's words to him and asked nothing for it",
+   "where": "on the MAP, on the side quest's last card",
+   "side": "other",
+   "face": {
+    "look": "cast_bedroll"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "json": [
+     "quests",
+     "bq_say_it_back",
+     "nodes",
+     "true_end",
+     "says",
+     1
+    ]
+   },
+   "expect": "Nobody will ever know",
+   "teaches": "NO PAY TALK AT ALL: the man she forgave says thank you like a man, and nothing about pay",
+   "n": 4,
+   "id": "words-two-hw08-04-never-it-doesnt-pay-11-22",
+   "made": "11/22",
+   "rule": "NEVER \"IT DOESN'T PAY\" (your NO on card 3.11)",
+   "try": "She forgave me? After what I did to her boy? Nobody's ever gonna know you carried that shit all the way out here. I'll know. Thank you.",
+   "your_no_on": "words-two-hw03-11-thanks-for-nothing-11-20"
+  },
+  {
+   "mouth": "AFTER A BOSS FALLS",
+   "tab": "MAP",
+   "who_pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE TAP"
+      }
+     },
+     "after",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE TAP"
+      }
+     },
+     "after",
+     "from"
+    ]
+   },
+   "who_plain": "A man at the pump house",
+   "to": "you",
+   "when": "you come back after you killed the boss who owned the water",
+   "where": "on the MAP, on the card after a boss falls",
+   "side": "other",
+   "face": {
+    "look": "faction_colorful"
+   },
+   "pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE TAP"
+      }
+     },
+     "after",
+     "valley"
+    ]
+   },
+   "expect": "The water is running",
+   "teaches": "JOY IS NOT AN INVOICE: a happy line with no count and no payer",
+   "n": 5,
+   "id": "words-two-hw08-05-no-count-in-joy-11-22",
+   "made": "11/22",
+   "rule": "NO BATTERY COUNT IN A FEELING (your NO on card 2.2)",
+   "try": "The water's running! Holy shit, the water's running! My whole street is drinking!",
+   "your_no_on": "words-two-hw02-02-happy-the-water-runs-11-17"
+  },
+  {
+   "mouth": "A ROAD STOP",
+   "tab": "MAP",
+   "who_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_toll_kids"
+      }
+     },
+     "who",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_toll_kids"
+      }
+     },
+     "who",
+     "from"
+    ]
+   },
+   "who_plain": "A girl running a toll with a shopping cart",
+   "to": "your crew",
+   "when": "her crew blocks the road and she names the price",
+   "where": "on the MAP, on the card that stops your crew on the road",
+   "side": "them",
+   "face": {
+    "look": "faction_colorful"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_toll_kids"
+      }
+     },
+     "says"
+    ]
+   },
+   "choices_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_toll_kids"
+      }
+     },
+     "opts"
+    ],
+    "field": "t"
+   },
+   "expect": "This road is ours",
+   "teaches": "FUNNY WITHOUT A DESIGNER: the toll and the insult, plain",
+   "n": 6,
+   "id": "words-two-hw08-06-no-fashion-names-11-22",
+   "made": "11/22",
+   "rule": "NO FASHION NAMES AS A JOKE (your NO on card 2.1)",
+   "try": "This road's ours today, my loves. Five batteries a head. Or ten for the whole lot of you, because you look like shit and I feel sorry for you.",
+   "your_no_on": "words-two-hw02-01-funny-the-toll-girl-11-17"
+  },
+  {
+   "mouth": "THE FEED, A CREW'S PAGE",
+   "tab": "THE PHONE",
+   "who_pull": {
+    "file": "records/target/bb/feed_kinds.json",
+    "json": [
+     "accounts",
+     {
+      "find": {
+       "id": "pg_watch"
+      }
+     },
+     "handle"
+    ]
+   },
+   "who_prefix": "@",
+   "who_plain": "The block watch's page",
+   "to": "everybody on the feed",
+   "when": "they call their street to a meeting",
+   "where": "on the phone's FEED",
+   "layout": "feed",
+   "pull": {
+    "file": "records/target/bb/feed_kinds.json",
+    "json": [
+     "kinds",
+     {
+      "find": {
+       "id": "page_militia_notice"
+      }
+     },
+     "words",
+     1,
+     "en"
+    ]
+   },
+   "expect": "Watch meeting",
+   "teaches": "SAY WHAT THE MEETING IS FOR: a post that says who, where, when and why",
+   "n": 7,
+   "id": "words-two-hw08-07-say-what-the-meeting-is-11-22",
+   "made": "11/22",
+   "rule": "NO MADE-UP COMMITTEE ENGLISH (your NO on card 2.5)",
+   "try": "Somebody's been coming over the back walls at night and stealing water. Every man on this street, at the circle, sundown. Bring a light. We take turns staying up till we catch the motherfucker.",
+   "your_no_on": "words-two-hw02-05-leader-the-block-watch-11-17"
+  },
+  {
+   "mouth": "A SIDE QUEST ON THE ROAD",
+   "tab": "MAP",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "json": [
+     "quests",
+     "bq_a03_the_faction_that_died",
+     "people",
+     "elder",
+     "name"
+    ]
+   },
+   "role": "with forty people outside a raided town's gate; a week ago they were three hundred",
+   "who_plain": "An old woman leading the forty people left of a town",
+   "to": "you",
+   "when": "you tell her they can come and stand on your block",
+   "where": "on the MAP, on a side quest's card",
+   "side": "other",
+   "face": {
+    "look": "faction_homeless"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "json": [
+     "quests",
+     "bq_a03_the_faction_that_died",
+     "nodes",
+     "take",
+     "says",
+     0
+    ]
+   },
+   "expect": "Then we come",
+   "teaches": "SAY IT LIKE A PERSON: the old woman asks the real question before the choice to say it out loud",
+   "n": 8,
+   "id": "words-two-hw08-08-say-it-like-a-person-11-22",
+   "made": "11/22",
+   "rule": "SAY IT LIKE A PERSON (your NO on card 2.6)",
+   "try": "Then we're coming, all forty of us. But sooner or later you've gotta say it out loud: is this ground ours too, or are we just your damn guests? We can't be guests forever.",
+   "your_no_on": "words-two-hw02-06-political-forty-people-11-17"
+  },
+  {
+   "mouth": "A SIDE QUEST ON THE ROAD",
+   "tab": "MAP",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "json": [
+     "quests",
+     "bq_say_it_back",
+     "people",
+     "dying",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "json": [
+     "quests",
+     "bq_say_it_back",
+     "people",
+     "dying",
+     "from"
+    ]
+   },
+   "who_plain": "An old woman dying in a chair at the side of the road",
+   "to": "you",
+   "when": "you stop beside her and she asks one last thing of you",
+   "where": "on the MAP, on a side quest's first card",
+   "side": "other",
+   "face": {
+    "look": "faction_church"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "json": [
+     "quests",
+     "bq_say_it_back",
+     "nodes",
+     "bedside",
+     "says"
+    ]
+   },
+   "expect": "Come close",
+   "teaches": "A DYING WOMAN TALKS LIKE ONE: short breaths, the ask, her own words kept, no clerk",
+   "n": 9,
+   "id": "words-two-hw08-09-no-one-speaks-like-this-11-22",
+   "made": "11/22",
+   "rule": "NO ONE SPEAKS LIKE THIS (your NO on card 4.10)",
+   "try": "Come closer, I can't talk loud. A man killed my son, years ago. I hated him so long it made me sick. Find him. Tell him I forgive him. My words, not yours. I want him to hear it before I die.",
+   "clean": "a dying woman forgiving the man who killed her son; she is past cursing, the way his radio call to the tower stayed clean",
+   "your_no_on": "words-two-hw04-10-a-dying-woman-11-20"
+  },
+  {
+   "mouth": "THE KID YOU SAID NO TO",
+   "tab": "MAP",
+   "who_pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE TAP"
+      }
+     },
+     "lead",
+     "asker",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE TAP"
+      }
+     },
+     "lead",
+     "asker",
+     "from"
+    ]
+   },
+   "who_plain": "A kid whose street's water was shut off",
+   "to": "you",
+   "when": "he asked you to go after the boss who shut the water off, and you said 'Not my problem.'",
+   "where": "on the MAP, on the card that starts a boss's trail",
+   "side": "other",
+   "face": {
+    "look": "faction_colorful"
+   },
+   "pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE TAP"
+      }
+     },
+     "lead",
+     "asker",
+     "no_says"
+    ]
+   },
+   "expect": "Okay. His tag",
+   "teaches": "A KID TOLD NO SAYS WHAT IT COSTS HIM: no hint dressed as a goodbye",
+   "n": 10,
+   "id": "words-two-hw08-10-if-he-has-to-ask-11-22",
+   "made": "11/22",
+   "rule": "IF YOU HAVE TO ASK WHAT IT MEANS, IT IS WRONG (your NO on card 4.7)",
+   "try": "Okay. Thanks for nothing. My grandma's gonna keep drinking out of the fucking wash.",
+   "your_no_on": "words-two-hw04-07-the-kid-you-said-no-to-11-20"
+  },
+  {
+   "mouth": "A ROAD STOP",
+   "tab": "MAP",
+   "who_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_mirror_man"
+      }
+     },
+     "who",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_mirror_man"
+      }
+     },
+     "who",
+     "from"
+    ]
+   },
+   "who_plain": "A smiling man in the road holding a TV that shows your crew from above",
+   "to": "your crew",
+   "when": "he stops you on the road",
+   "where": "on the MAP, on the card that stops your crew on the road",
+   "side": "them",
+   "face": {
+    "look": "faction_anarchists"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_mirror_man"
+      }
+     },
+     "says"
+    ]
+   },
+   "choices_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_mirror_man"
+      }
+     },
+     "opts"
+    ],
+    "field": "t"
+   },
+   "expect": "(he holds a TV",
+   "teaches": "CREEPY THAT MAKES SENSE: somebody is filming you, and he offers you the tape (the card's own choice: look at the screen)",
+   "n": 11,
+   "id": "words-two-hw08-11-creepy-makes-sense-11-22",
+   "made": "11/22",
+   "rule": "CREEPY STILL HAS TO MAKE SENSE (your NO on card 4.9)",
+   "try": "(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) That's you. Ten minutes ago. Somebody up there's been watching you all fucking day. Wanna see what else is on the tape?",
+   "your_no_on": "words-two-hw04-09-the-smiling-man-11-20"
+  },
+  {
+   "mouth": "YOUR SECOND, TEACHING",
+   "tab": "MAP",
+   "who": "YOUR SECOND",
+   "role": "the man who walks beside you",
+   "who_plain": "Your second, the man who walks beside you",
+   "to": "you",
+   "when": "a job shows on your phone and you have not taken one yet",
+   "where": "on the MAP, on the small face plate",
+   "side": "you",
+   "face": {
+    "look": "cast_bedroll"
+   },
+   "pull": {
+    "file": "records/target/words/the_second_speaks.json",
+    "json": [
+     "lines",
+     "phone_job",
+     "line"
+    ]
+   },
+   "expect": "Oye. Posts on the phone",
+   "teaches": "THE GAME DOES NOT TEACH THROUGH A MOUTH: your second just tells you, like a man",
+   "n": 12,
+   "id": "words-two-hw08-12-no-manual-in-a-mouth-11-22",
+   "made": "11/22",
+   "rule": "A MAN, NOT A MANUAL (your NO on card 4.6)",
+   "try": "Boss, your phone's been buzzing all damn day. People out there need shit done.",
+   "your_no_on": "words-two-hw04-06-your-second-teaches-11-20"
+  },
+  {
+   "mouth": "BEHIND THE BAR",
+   "tab": "A TOWN",
+   "who": "BEHIND THE BAR",
+   "role": "tells you what was heard, after a round",
+   "who_plain": "The one behind the bar",
+   "to": "your crew",
+   "when": "you buy a round and ask what is going on",
+   "where": "in a TOWN, at the bar",
+   "side": "other",
+   "face": {
+    "look": "person_town_6"
+   },
+   "pull": {
+    "file": "records/target/settlement_rumours.json",
+    "json": [
+     "rumours",
+     {
+      "find": {
+       "id": "tagged_dog"
+      }
+     },
+     "says"
+    ]
+   },
+   "teaches": "A RUMOUR WITH STAKES: the one telling it lost something, and saw it",
+   "n": 13,
+   "id": "words-two-hw08-13-a-rumour-with-stakes-11-22",
+   "made": "11/22",
+   "through": "BohemiaSpanglish.plain",
+   "rule": "A TALL TALE IS DEAD (your NO on card 1.17)",
+   "try": "Don't go out by the tower at night. Something big as a calf took my cousin's dogs, all three of them, and it had a lab tag in its ear. I saw the fucking tag myself.",
+   "your_no_on": "words-two-hw01-17-the-bar-tells-a-rumour-11-17"
+  },
+  {
+   "mouth": "A ROAD STOP",
+   "tab": "MAP",
+   "who_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_timeshare_man"
+      }
+     },
+     "who",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_timeshare_man"
+      }
+     },
+     "who",
+     "from"
+    ]
+   },
+   "who_plain": "A timeshare salesman outside a dead resort",
+   "to": "your crew",
+   "when": "you walk past and he tries to sell you a vacation",
+   "where": "on the MAP, on the card that stops your crew on the road",
+   "side": "other",
+   "face": {
+    "look": "cast_shortcoat"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_timeshare_man"
+      }
+     },
+     "says"
+    ]
+   },
+   "choices_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_timeshare_man"
+      }
+     },
+     "opts"
+    ],
+    "field": "t"
+   },
+   "teaches": "THE JOKE FITS WHAT HE SEES: no chickens on a roof that is not there",
+   "n": 14,
+   "id": "words-two-hw08-14-the-line-agrees-with-the-world-11-22",
+   "made": "11/22",
+   "rule": "THE LINE AGREES WITH THE WORLD (your NO on card 1.13)",
+   "try": "Folks! Ninety minutes of your time and breakfast is on us. Real eggs, from real chickens, out back. Vacation ownership is still the smartest money in Nevada. Ask me about week thirty-two.",
+   "clean": "a timeshare man never curses in front of a customer; the clean pitch at the end of the world is the joke",
+   "your_no_on": "words-two-hw01-13-a-timeshare-man-pitches-you-11-17"
+  }
+ ]
+}

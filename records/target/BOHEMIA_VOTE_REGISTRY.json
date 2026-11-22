@@ -20917,6 +20917,456 @@
    }, "before_after": {"before": "main 64ab8c777: the Strat stood on the map and arriving there did nothing", "after": "a trip to the tower climbs it: 90 minutes, the fog opens 30 blocks by day (on the demo 5 to 9 towns, 0 to 11 real places found), at night only the lit towns within 40", "scale": "his phone upright (390 x 844 at 3), the alpha's RUN tab map, before the climb (left) and after (right), one stop out"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_14_THE_STRAT_LOOKOUT_11_20_26.md"},
   {"id": "character-the-head-takers-11-20", "kind": "outfit", "lane": "character", "made": "11/20", "sha": "1bde82723", "draft": true, "title": "THE HEAD TAKERS IN THEIR OWN CLOTHES: MEN WHO HUNT MEN, IN THE HUNTER'S BLAZE", "said": "full sweep, whole enchilada, dont forget nothing / the clothes look good: leather and layering", "why": "The head takers fought in the Volunteers' one-piece look and two hall men's clothes; now three head takers in work coats with plate strapped over them, two smokers in ponchos and dust masks with a satchel of pots, and two darters in field coats with a bolt quiver, every one with a hunter's blaze scarf in the head takers' own yellow-green. You see it in every fight against the head takers, and on this card.", "options": ["A, yes, the head takers look like this", "B, close, change something (say which one and what)", "C, no, not like this"], "show": {"how": "image", "src": "../records/target/character/the_head_takers/CHARACTER_THE_HEAD_TAKERS.webp", "first": "../records/target/character/the_head_takers/CHARACTER_THE_HEAD_TAKERS_FIRST.webp", "firstAt": [0, 0, 884, 528]}, "twin": {"src": "records/target/cook3/rig/thug/rig_S.png", "diffs": ["BOUNTY HUNTERS' OWN LOOK (Battle Brothers' bounty hunters: a hunter's coat and plate): a rust work coat, a chore coat, an oxblood drifter's coat, a soot or a scrap chest plate strapped over, a shell bandolier.", "ONE MARK FOR ALL SEVEN: a blaze scarf in the head takers' own banner ink (yellow-green), what a hunter wears so his own side does not shoot him; it reads at the throat from every facing.", "THE SMOKE AND THE SLEEP: the smokers in an oxblood or a dust poncho, a dust mask and a satchel of pots; the darters in a charcoal car coat or a barn coat with a bolt quiver on the back."]}, "stage": "made_from", "golden": "character-the-nine-enemies-their-own-clothes-11-7", "recipe": "the nine enemies' frozen recipe (layers that read apart, leather where it fits, no blue, no trench added), the three new types in tools/bohemia_character_the_nine_enemies.py (TYPES['Head Taker'], ['Smoker'], ['Darter'], the BLAZE SCARF, roll-more, make, pack)"},
   {
+   "id": "words-two-hw08-14-the-line-agrees-with-the-world-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “Folks! Ninety minutes of your time and breakfast is on us. Real eggs: we keep chickens on the roof now. Vacation ownership is still the smartest money in Nevada. Ask me about week thirty-two.”  ·  OUR TRY: “Folks! Ninety minutes of your time and breakfast is on us. Real eggs, from real chickens, out back. Vacation ownership is still the smartest money in Nevada. Ask me about week thirty-two.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, THE LINE AGREES WITH THE WORLD (your NO on card 1.13): A timeshare salesman outside a dead resort says it to your crew when you walk past and he tries to sell you a vacation (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_08/words-two-hw08-14-the-line-agrees-with-the-world-11-22.webp",
+    "first": "vote/words_two_homework_08/words-two-hw08-14-the-line-agrees-with-the-world-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1402
+    ]
+   },
+   "homework": {
+    "sheet": 8,
+    "n": 14,
+    "mouth": "A ROAD STOP",
+    "rule": "THE LINE AGREES WITH THE WORLD (your NO on card 1.13)",
+    "try": "Folks! Ninety minutes of your time and breakfast is on us. Real eggs, from real chickens, out back. Vacation ownership is still the smartest money in Nevada. Ask me about week thirty-two.",
+    "clean": "a timeshare man never curses in front of a customer; the clean pitch at the end of the world is the joke",
+    "teaches": "THE JOKE FITS WHAT HE SEES: no chickens on a roof that is not there",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "Folks! Ninety minutes of your time and breakfast is on us. Real eggs: we keep chickens on the roof now. Vacation ownership is still the smartest money in Nevada. Ask me about week thirty-two."
+   }
+  },
+  {
+   "id": "words-two-hw08-13-a-rumour-with-stakes-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “A trucker swore he saw a dog with a tag in its ear, big as a calf, out by the tower. From the lab.”  ·  OUR TRY: “Don't go out by the tower at night. Something big as a calf took my cousin's dogs, all three of them, and it had a lab tag in its ear. I saw the fucking tag myself.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, A TALL TALE IS DEAD (your NO on card 1.17): The one behind the bar says it to your crew when you buy a round and ask what is going on (you see it in a TOWN, at the bar); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_08/words-two-hw08-13-a-rumour-with-stakes-11-22.webp",
+    "first": "vote/words_two_homework_08/words-two-hw08-13-a-rumour-with-stakes-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     990
+    ]
+   },
+   "homework": {
+    "sheet": 8,
+    "n": 13,
+    "mouth": "BEHIND THE BAR",
+    "rule": "A TALL TALE IS DEAD (your NO on card 1.17)",
+    "try": "Don't go out by the tower at night. Something big as a calf took my cousin's dogs, all three of them, and it had a lab tag in its ear. I saw the fucking tag myself.",
+    "teaches": "A RUMOUR WITH STAKES: the one telling it lost something, and saw it",
+    "pulled_from": "records/target/settlement_rumours.json",
+    "line": "A trucker swore he saw a dog with a tag in its ear, big as a calf, out by the tower. From the lab."
+   }
+  },
+  {
+   "id": "words-two-hw08-12-no-manual-in-a-mouth-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “Oye. Posts on the phone are work. Touch one, it lights up.”  ·  OUR TRY: “Boss, your phone's been buzzing all damn day. People out there need shit done.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, A MAN, NOT A MANUAL (your NO on card 4.6): Your second, the man who walks beside you says it to you when a job shows on your phone and you have not taken one yet (you see it on the MAP, on the small face plate); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_08/words-two-hw08-12-no-manual-in-a-mouth-11-22.webp",
+    "first": "vote/words_two_homework_08/words-two-hw08-12-no-manual-in-a-mouth-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     974
+    ]
+   },
+   "homework": {
+    "sheet": 8,
+    "n": 12,
+    "mouth": "YOUR SECOND, TEACHING",
+    "rule": "A MAN, NOT A MANUAL (your NO on card 4.6)",
+    "try": "Boss, your phone's been buzzing all damn day. People out there need shit done.",
+    "teaches": "THE GAME DOES NOT TEACH THROUGH A MOUTH: your second just tells you, like a man",
+    "pulled_from": "records/target/words/the_second_speaks.json",
+    "line": "Oye. Posts on the phone are work. Touch one, it lights up."
+   }
+  },
+  {
+   "id": "words-two-hw08-11-creepy-makes-sense-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) Everything is recorded. Do you want to see what happens next?”  ·  OUR TRY: “(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) That's you. Ten minutes ago. Somebody up there's been watching you all fucking day. Wanna see what else is on the tape?”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, CREEPY STILL HAS TO MAKE SENSE (your NO on card 4.9): A smiling man in the road holding a TV that shows your crew from above says it to your crew when he stops you on the road (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_08/words-two-hw08-11-creepy-makes-sense-11-22.webp",
+    "first": "vote/words_two_homework_08/words-two-hw08-11-creepy-makes-sense-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1302
+    ]
+   },
+   "homework": {
+    "sheet": 8,
+    "n": 11,
+    "mouth": "A ROAD STOP",
+    "rule": "CREEPY STILL HAS TO MAKE SENSE (your NO on card 4.9)",
+    "try": "(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) That's you. Ten minutes ago. Somebody up there's been watching you all fucking day. Wanna see what else is on the tape?",
+    "teaches": "CREEPY THAT MAKES SENSE: somebody is filming you, and he offers you the tape (the card's own choice: look at the screen)",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) Everything is recorded. Do you want to see what happens next?"
+   }
+  },
+  {
+   "id": "words-two-hw08-10-if-he-has-to-ask-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “Okay. His tag is still on the pipe.”  ·  OUR TRY: “Okay. Thanks for nothing. My grandma's gonna keep drinking out of the fucking wash.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, IF YOU HAVE TO ASK WHAT IT MEANS, IT IS WRONG (your NO on card 4.7): A kid whose street's water was shut off says it to you when he asked you to go after the boss who shut the water off, and you said 'Not my problem.' (you see it on the MAP, on the card that starts a boss's trail); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_08/words-two-hw08-10-if-he-has-to-ask-11-22.webp",
+    "first": "vote/words_two_homework_08/words-two-hw08-10-if-he-has-to-ask-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1010
+    ]
+   },
+   "homework": {
+    "sheet": 8,
+    "n": 10,
+    "mouth": "THE KID YOU SAID NO TO",
+    "rule": "IF YOU HAVE TO ASK WHAT IT MEANS, IT IS WRONG (your NO on card 4.7)",
+    "try": "Okay. Thanks for nothing. My grandma's gonna keep drinking out of the fucking wash.",
+    "teaches": "A KID TOLD NO SAYS WHAT IT COSTS HIM: no hint dressed as a goodbye",
+    "pulled_from": "records/target/bb/boss_act_one.json",
+    "line": "Okay. His tag is still on the pipe."
+   }
+  },
+  {
+   "id": "words-two-hw08-09-no-one-speaks-like-this-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “Come close, I don't have the breath to say it twice. There's one thing left and I can't walk it there myself. / There's a man. He took my son from me, years back, in the ugly way. I've carried it so long my hands ache from it. / I want to put it down before I go. I want you to find him and tell him, in my words, that I forgive him. Say it back to me first so I know you have it.”  ·  OUR TRY: “Come closer, I can't talk loud. A man killed my son, years ago. I hated him so long it made me sick. Find him. Tell him I forgive him. My words, not yours. I want him to hear it before I die.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NO ONE SPEAKS LIKE THIS (your NO on card 4.10): An old woman dying in a chair at the side of the road says it to you when you stop beside her and she asks one last thing of you (you see it on the MAP, on a side quest's first card); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_08/words-two-hw08-09-no-one-speaks-like-this-11-22.webp",
+    "first": "vote/words_two_homework_08/words-two-hw08-09-no-one-speaks-like-this-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1352
+    ]
+   },
+   "homework": {
+    "sheet": 8,
+    "n": 9,
+    "mouth": "A SIDE QUEST ON THE ROAD",
+    "rule": "NO ONE SPEAKS LIKE THIS (your NO on card 4.10)",
+    "try": "Come closer, I can't talk loud. A man killed my son, years ago. I hated him so long it made me sick. Find him. Tell him I forgive him. My words, not yours. I want him to hear it before I die.",
+    "clean": "a dying woman forgiving the man who killed her son; she is past cursing, the way his radio call to the tower stayed clean",
+    "teaches": "A DYING WOMAN TALKS LIKE ONE: short breaths, the ask, her own words kept, no clerk",
+    "pulled_from": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "line": "Come close, I don't have the breath to say it twice. There's one thing left and I can't walk it there myself.\nThere's a man. He took my son from me, years back, in the ugly way. I've carried it so long my hands ache from it.\nI want to put it down before I go. I want you to find him and tell him, in my words, that I forgive him. Say it back to me first so I know you have it."
+   }
+  },
+  {
+   "id": "words-two-hw08-08-say-it-like-a-person-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “Then we come. And somebody is going to have to say whose ground it is, because we will not be guests forever.”  ·  OUR TRY: “Then we're coming, all forty of us. But sooner or later you've gotta say it out loud: is this ground ours too, or are we just your damn guests? We can't be guests forever.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, SAY IT LIKE A PERSON (your NO on card 2.6): An old woman leading the forty people left of a town says it to you when you tell her they can come and stand on your block (you see it on the MAP, on a side quest's card); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_08/words-two-hw08-08-say-it-like-a-person-11-22.webp",
+    "first": "vote/words_two_homework_08/words-two-hw08-08-say-it-like-a-person-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1126
+    ]
+   },
+   "homework": {
+    "sheet": 8,
+    "n": 8,
+    "mouth": "A SIDE QUEST ON THE ROAD",
+    "rule": "SAY IT LIKE A PERSON (your NO on card 2.6)",
+    "try": "Then we're coming, all forty of us. But sooner or later you've gotta say it out loud: is this ground ours too, or are we just your damn guests? We can't be guests forever.",
+    "teaches": "SAY IT LIKE A PERSON: the old woman asks the real question before the choice to say it out loud",
+    "pulled_from": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "line": "Then we come. And somebody is going to have to say whose ground it is, because we will not be guests forever."
+   }
+  },
+  {
+   "id": "words-two-hw08-07-say-what-the-meeting-is-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “Watch meeting at the circle at the end of the street. Bring a flashlight and your name.”  ·  OUR TRY: “Somebody's been coming over the back walls at night and stealing water. Every man on this street, at the circle, sundown. Bring a light. We take turns staying up till we catch the motherfucker.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NO MADE-UP COMMITTEE ENGLISH (your NO on card 2.5): The block watch's page says it to everybody on the feed when they call their street to a meeting (you see it on the phone's FEED); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_08/words-two-hw08-07-say-what-the-meeting-is-11-22.webp",
+    "first": "vote/words_two_homework_08/words-two-hw08-07-say-what-the-meeting-is-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     820
+    ]
+   },
+   "homework": {
+    "sheet": 8,
+    "n": 7,
+    "mouth": "THE FEED, A CREW'S PAGE",
+    "rule": "NO MADE-UP COMMITTEE ENGLISH (your NO on card 2.5)",
+    "try": "Somebody's been coming over the back walls at night and stealing water. Every man on this street, at the circle, sundown. Bring a light. We take turns staying up till we catch the motherfucker.",
+    "teaches": "SAY WHAT THE MEETING IS FOR: a post that says who, where, when and why",
+    "pulled_from": "records/target/bb/feed_kinds.json",
+    "line": "Watch meeting at the circle at the end of the street. Bring a flashlight and your name."
+   }
+  },
+  {
+   "id": "words-two-hw08-06-no-fashion-names-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “This road is ours today, my loves. Five batteries a head, or ten for all of you because you dress so ugly I feel sorry. Rick Owens would cry.”  ·  OUR TRY: “This road's ours today, my loves. Five batteries a head. Or ten for the whole lot of you, because you look like shit and I feel sorry for you.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NO FASHION NAMES AS A JOKE (your NO on card 2.1): A girl running a toll with a shopping cart says it to your crew when her crew blocks the road and she names the price (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_08/words-two-hw08-06-no-fashion-names-11-22.webp",
+    "first": "vote/words_two_homework_08/words-two-hw08-06-no-fashion-names-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1408
+    ]
+   },
+   "homework": {
+    "sheet": 8,
+    "n": 6,
+    "mouth": "A ROAD STOP",
+    "rule": "NO FASHION NAMES AS A JOKE (your NO on card 2.1)",
+    "try": "This road's ours today, my loves. Five batteries a head. Or ten for the whole lot of you, because you look like shit and I feel sorry for you.",
+    "teaches": "FUNNY WITHOUT A DESIGNER: the toll and the insult, plain",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "This road is ours today, my loves. Five batteries a head, or ten for all of you because you dress so ugly I feel sorry. Rick Owens would cry."
+   }
+  },
+  {
+   "id": "words-two-hw08-05-no-count-in-joy-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “The water is running! My whole street drinks again, and nobody pays him for it.”  ·  OUR TRY: “The water's running! Holy shit, the water's running! My whole street is drinking!”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NO BATTERY COUNT IN A FEELING (your NO on card 2.2): A man at the pump house says it to you when you come back after you killed the boss who owned the water (you see it on the MAP, on the card after a boss falls); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_08/words-two-hw08-05-no-count-in-joy-11-22.webp",
+    "first": "vote/words_two_homework_08/words-two-hw08-05-no-count-in-joy-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1004
+    ]
+   },
+   "homework": {
+    "sheet": 8,
+    "n": 5,
+    "mouth": "AFTER A BOSS FALLS",
+    "rule": "NO BATTERY COUNT IN A FEELING (your NO on card 2.2)",
+    "try": "The water's running! Holy shit, the water's running! My whole street is drinking!",
+    "teaches": "JOY IS NOT AN INVOICE: a happy line with no count and no payer",
+    "pulled_from": "records/target/bb/boss_act_one.json",
+    "line": "The water is running! My whole street drinks again, and nobody pays him for it."
+   }
+  },
+  {
+   "id": "words-two-hw08-04-never-it-doesnt-pay-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “Nobody will ever know you did this. It doesn't pay. Thank you for doing it anyway.”  ·  OUR TRY: “She forgave me? After what I did to her boy? Nobody's ever gonna know you carried that shit all the way out here. I'll know. Thank you.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NEVER \"IT DOESN'T PAY\" (your NO on card 3.11): A one-eyed man who did a dying woman wrong, at the end of her story says it to you when you carried a dying woman's words to him and asked nothing for it (you see it on the MAP, on the side quest's last card); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_08/words-two-hw08-04-never-it-doesnt-pay-11-22.webp",
+    "first": "vote/words_two_homework_08/words-two-hw08-04-never-it-doesnt-pay-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1056
+    ]
+   },
+   "homework": {
+    "sheet": 8,
+    "n": 4,
+    "mouth": "A SIDE QUEST ON THE ROAD",
+    "rule": "NEVER \"IT DOESN'T PAY\" (your NO on card 3.11)",
+    "try": "She forgave me? After what I did to her boy? Nobody's ever gonna know you carried that shit all the way out here. I'll know. Thank you.",
+    "teaches": "NO PAY TALK AT ALL: the man she forgave says thank you like a man, and nothing about pay",
+    "pulled_from": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "line": "Nobody will ever know you did this. It doesn't pay. Thank you for doing it anyway."
+   }
+  },
+  {
+   "id": "words-two-hw08-03-who-pays-the-stew-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “My grandson eats at the stew cart every night and comes home happy. Find out what is in that stew for me, and it pays 10 batteries.”  ·  OUR TRY: “My grandson eats at that stew cart every night and comes home happy. Nobody's that happy on stew. Find out what the hell is in it, and I'll give you 10 batteries of my own.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NEVER \"IT PAYS\": SAY WHO PAYS (your NO on card 3.12): A grandmother at the job board says it to you when you ask what her job is and what it pays (you see it in a camp or TOWN, at the board where people offer jobs); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_08/words-two-hw08-03-who-pays-the-stew-11-22.webp",
+    "first": "vote/words_two_homework_08/words-two-hw08-03-who-pays-the-stew-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1046
+    ]
+   },
+   "homework": {
+    "sheet": 8,
+    "n": 3,
+    "mouth": "A JOB GIVER AT THE BOARD",
+    "rule": "NEVER \"IT PAYS\": SAY WHO PAYS (your NO on card 3.12)",
+    "try": "My grandson eats at that stew cart every night and comes home happy. Nobody's that happy on stew. Find out what the hell is in it, and I'll give you 10 batteries of my own.",
+    "teaches": "WHO PAYS: a grandmother pays out of her own pocket, and says so",
+    "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+    "line": "My grandson eats at the stew cart every night and comes home happy. Find out what is in that stew for me, and it pays 10 batteries."
+   }
+  },
+  {
+   "id": "words-two-hw08-02-who-pays-the-sloth-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “The lab grew one ground sloth and it walked home to Tule Springs, where its bones were found, and now it flattens tents. Put it down and it pays 95 batteries.”  ·  OUR TRY: “The lab grew a ground sloth, big as a truck, and it's been flattening tents out by Tule Springs with people still in them. Put that fucking thing down and the camp pays you 95 batteries, out of what everybody chipped in.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NEVER \"IT PAYS\": SAY WHO PAYS (your NO on card 5.12): A professor who dug the fossil beds before the crash says it to you when you ask what his job is and what it pays (you see it in a camp or TOWN, at the board where people offer jobs); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_08/words-two-hw08-02-who-pays-the-sloth-11-22.webp",
+    "first": "vote/words_two_homework_08/words-two-hw08-02-who-pays-the-sloth-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1048
+    ]
+   },
+   "homework": {
+    "sheet": 8,
+    "n": 2,
+    "mouth": "A JOB GIVER AT THE BOARD",
+    "rule": "NEVER \"IT PAYS\": SAY WHO PAYS (your NO on card 5.12)",
+    "try": "The lab grew a ground sloth, big as a truck, and it's been flattening tents out by Tule Springs with people still in them. Put that fucking thing down and the camp pays you 95 batteries, out of what everybody chipped in.",
+    "teaches": "WHO PAYS: the job giver says the camp pays, and out of what, instead of \"it pays\"",
+    "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+    "line": "The lab grew one ground sloth and it walked home to Tule Springs, where its bones were found, and now it flattens tents. Put it down and it pays 95 batteries."
+   }
+  },
+  {
+   "id": "words-two-hw08-01-raiders-curse-11-22",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/22",
+   "draft": true,
+   "title": "NOW: “Your place has what we need, so we came to take it.”  ·  OUR TRY: “Open the fucking gate. We want your water and your food, and we're taking it either way. How many of yours bleed for it is up to you.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, RAIDERS CURSE (your NO on card 5.2: \"They not cursing bro\"): The leader of a crew raiding your own place says it to you when they come over your wall and the fight opens (you see it on the card that opens a FIGHT at your place); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_08/words-two-hw08-01-raiders-curse-11-22.webp",
+    "first": "vote/words_two_homework_08/words-two-hw08-01-raiders-curse-11-22.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1028
+    ]
+   },
+   "homework": {
+    "sheet": 8,
+    "n": 1,
+    "mouth": "THE ENEMY'S LEADER, AT YOUR PLACE",
+    "rule": "RAIDERS CURSE (your NO on card 5.2: \"They not cursing bro\")",
+    "try": "Open the fucking gate. We want your water and your food, and we're taking it either way. How many of yours bleed for it is up to you.",
+    "teaches": "RAIDERS CURSE: an armed crew at your wall swears, and says what it wants",
+    "pulled_from": "records/target/bb/fight_reasons.json",
+    "line": "Your place has what we need, so we came to take it."
+   }
+  },
+  {
    "id": "words-two-hw07-12-curse-the-doctor-on-the-vote-11-22",
    "kind": "line",
    "lane": "words two",

@@ -1,0 +1,339 @@
+{
+ "draft": true,
+ "tool": "tools/bohemia_words_two_homework.js",
+ "sheet": 8,
+ "note": "every line below was read out of the named game file by this tool; none was typed",
+ "cards": [
+  {
+   "n": 1,
+   "id": "words-two-hw08-01-raiders-curse-11-22",
+   "mouth": "THE ENEMY'S LEADER, AT YOUR PLACE",
+   "who": "THE RAIDERS' MAN",
+   "pulled_from": "records/target/bb/fight_reasons.json",
+   "locator": [
+    "rules",
+    {
+     "find": {
+      "id": "raid.men"
+     }
+    },
+    "them",
+    0
+   ],
+   "in_the_file": "Your place has what we need, so we came to take it.",
+   "line": "Your place has what we need, so we came to take it.",
+   "try": "Open the fucking gate. We want your water and your food, and we're taking it either way. How many of yours bleed for it is up to you.",
+   "picture_pt": [
+    390,
+    513
+   ]
+  },
+  {
+   "n": 2,
+   "id": "words-two-hw08-02-who-pays-the-sloth-11-22",
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "who": "Professor Dade",
+   "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+   "locator": [
+    "board_people",
+    "rows",
+    {
+     "find": {
+      "id": "jk-biggame-sloth"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "The lab grew one ground sloth and it walked home to Tule Springs, where its bones were found, and now it flattens tents. Put it down and it pays {pay} batteries.",
+   "filled_with": {
+    "pay": "95"
+   },
+   "line": "The lab grew one ground sloth and it walked home to Tule Springs, where its bones were found, and now it flattens tents. Put it down and it pays 95 batteries.",
+   "try": "The lab grew a ground sloth, big as a truck, and it's been flattening tents out by Tule Springs with people still in them. Put that fucking thing down and the camp pays you 95 batteries, out of what everybody chipped in.",
+   "picture_pt": [
+    390,
+    524
+   ]
+  },
+  {
+   "n": 3,
+   "id": "words-two-hw08-03-who-pays-the-stew-11-22",
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "who": "Doña Chelo",
+   "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+   "locator": [
+    "board_people",
+    "rows",
+    {
+     "find": {
+      "id": "jk-find-out-stew"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "My grandson eats at the stew cart every night and comes home happy. Find out what is in that stew for me, and it pays {pay} batteries.",
+   "filled_with": {
+    "pay": "10"
+   },
+   "line": "My grandson eats at the stew cart every night and comes home happy. Find out what is in that stew for me, and it pays 10 batteries.",
+   "try": "My grandson eats at that stew cart every night and comes home happy. Nobody's that happy on stew. Find out what the hell is in it, and I'll give you 10 batteries of my own.",
+   "picture_pt": [
+    390,
+    522
+   ]
+  },
+  {
+   "n": 4,
+   "id": "words-two-hw08-04-never-it-doesnt-pay-11-22",
+   "mouth": "A SIDE QUEST ON THE ROAD",
+   "who": "EL TUERTO",
+   "pulled_from": "records/target/BOHEMIA_SIDE_QUESTS.json",
+   "locator": [
+    "quests",
+    "bq_say_it_back",
+    "nodes",
+    "true_end",
+    "says",
+    1
+   ],
+   "in_the_file": "Nobody will ever know you did this. It doesn't pay. Thank you for doing it anyway.",
+   "line": "Nobody will ever know you did this. It doesn't pay. Thank you for doing it anyway.",
+   "try": "She forgave me? After what I did to her boy? Nobody's ever gonna know you carried that shit all the way out here. I'll know. Thank you.",
+   "picture_pt": [
+    390,
+    528
+   ]
+  },
+  {
+   "n": 5,
+   "id": "words-two-hw08-05-no-count-in-joy-11-22",
+   "mouth": "AFTER A BOSS FALLS",
+   "who": "EL CHINO",
+   "pulled_from": "records/target/bb/boss_act_one.json",
+   "locator": [
+    "bosses",
+    {
+     "find": {
+      "n": "THE TAP"
+     }
+    },
+    "after",
+    "valley"
+   ],
+   "in_the_file": "The water is running! My whole street drinks again, and nobody pays him for it.",
+   "line": "The water is running! My whole street drinks again, and nobody pays him for it.",
+   "try": "The water's running! Holy shit, the water's running! My whole street is drinking!",
+   "picture_pt": [
+    390,
+    501
+   ]
+  },
+  {
+   "n": 6,
+   "id": "words-two-hw08-06-no-fashion-names-11-22",
+   "mouth": "A ROAD STOP",
+   "who": "LA TOLLKEEPER",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_toll_kids"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "This road is ours today, my loves. Five batteries a head, or ten for all of you because you dress so ugly I feel sorry. Rick Owens would cry.",
+   "line": "This road is ours today, my loves. Five batteries a head, or ten for all of you because you dress so ugly I feel sorry. Rick Owens would cry.",
+   "try": "This road's ours today, my loves. Five batteries a head. Or ten for the whole lot of you, because you look like shit and I feel sorry for you.",
+   "picture_pt": [
+    390,
+    704
+   ]
+  },
+  {
+   "n": 7,
+   "id": "words-two-hw08-07-say-what-the-meeting-is-11-22",
+   "mouth": "THE FEED, A CREW'S PAGE",
+   "who": "@blockwatch_702",
+   "pulled_from": "records/target/bb/feed_kinds.json",
+   "locator": [
+    "kinds",
+    {
+     "find": {
+      "id": "page_militia_notice"
+     }
+    },
+    "words",
+    1,
+    "en"
+   ],
+   "in_the_file": "Watch meeting at the circle at the end of the street. Bring a flashlight and your name.",
+   "line": "Watch meeting at the circle at the end of the street. Bring a flashlight and your name.",
+   "try": "Somebody's been coming over the back walls at night and stealing water. Every man on this street, at the circle, sundown. Bring a light. We take turns staying up till we catch the motherfucker.",
+   "picture_pt": [
+    390,
+    410
+   ]
+  },
+  {
+   "n": 8,
+   "id": "words-two-hw08-08-say-it-like-a-person-11-22",
+   "mouth": "A SIDE QUEST ON THE ROAD",
+   "who": "DOÑA FAUSTA",
+   "pulled_from": "records/target/BOHEMIA_SIDE_QUESTS.json",
+   "locator": [
+    "quests",
+    "bq_a03_the_faction_that_died",
+    "nodes",
+    "take",
+    "says",
+    0
+   ],
+   "in_the_file": "Then we come. And somebody is going to have to say whose ground it is, because we will not be guests forever.",
+   "line": "Then we come. And somebody is going to have to say whose ground it is, because we will not be guests forever.",
+   "try": "Then we're coming, all forty of us. But sooner or later you've gotta say it out loud: is this ground ours too, or are we just your damn guests? We can't be guests forever.",
+   "picture_pt": [
+    390,
+    562
+   ]
+  },
+  {
+   "n": 9,
+   "id": "words-two-hw08-09-no-one-speaks-like-this-11-22",
+   "mouth": "A SIDE QUEST ON THE ROAD",
+   "who": "DOÑA REFUGIO",
+   "pulled_from": "records/target/BOHEMIA_SIDE_QUESTS.json",
+   "locator": [
+    "quests",
+    "bq_say_it_back",
+    "nodes",
+    "bedside",
+    "says"
+   ],
+   "in_the_file": "Come close, I don't have the breath to say it twice. There's one thing left and I can't walk it there myself.\nThere's a man. He took my son from me, years back, in the ugly way. I've carried it so long my hands ache from it.\nI want to put it down before I go. I want you to find him and tell him, in my words, that I forgive him. Say it back to me first so I know you have it.",
+   "line": "Come close, I don't have the breath to say it twice. There's one thing left and I can't walk it there myself.\nThere's a man. He took my son from me, years back, in the ugly way. I've carried it so long my hands ache from it.\nI want to put it down before I go. I want you to find him and tell him, in my words, that I forgive him. Say it back to me first so I know you have it.",
+   "try": "Come closer, I can't talk loud. A man killed my son, years ago. I hated him so long it made me sick. Find him. Tell him I forgive him. My words, not yours. I want him to hear it before I die.",
+   "picture_pt": [
+    390,
+    676
+   ]
+  },
+  {
+   "n": 10,
+   "id": "words-two-hw08-10-if-he-has-to-ask-11-22",
+   "mouth": "THE KID YOU SAID NO TO",
+   "who": "EL CHINO",
+   "pulled_from": "records/target/bb/boss_act_one.json",
+   "locator": [
+    "bosses",
+    {
+     "find": {
+      "n": "THE TAP"
+     }
+    },
+    "lead",
+    "asker",
+    "no_says"
+   ],
+   "in_the_file": "Okay. His tag is still on the pipe.",
+   "line": "Okay. His tag is still on the pipe.",
+   "try": "Okay. Thanks for nothing. My grandma's gonna keep drinking out of the fucking wash.",
+   "picture_pt": [
+    390,
+    504
+   ]
+  },
+  {
+   "n": 11,
+   "id": "words-two-hw08-11-creepy-makes-sense-11-22",
+   "mouth": "A ROAD STOP",
+   "who": "THE SMILING MAN",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_mirror_man"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) Everything is recorded. Do you want to see what happens next?",
+   "line": "(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) Everything is recorded. Do you want to see what happens next?",
+   "try": "(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) That's you. Ten minutes ago. Somebody up there's been watching you all fucking day. Wanna see what else is on the tape?",
+   "picture_pt": [
+    390,
+    651
+   ]
+  },
+  {
+   "n": 12,
+   "id": "words-two-hw08-12-no-manual-in-a-mouth-11-22",
+   "mouth": "YOUR SECOND, TEACHING",
+   "who": "YOUR SECOND",
+   "pulled_from": "records/target/words/the_second_speaks.json",
+   "locator": [
+    "lines",
+    "phone_job",
+    "line"
+   ],
+   "in_the_file": "Oye. Posts on the phone are work. Touch one, it lights up.",
+   "line": "Oye. Posts on the phone are work. Touch one, it lights up.",
+   "try": "Boss, your phone's been buzzing all damn day. People out there need shit done.",
+   "picture_pt": [
+    390,
+    487
+   ]
+  },
+  {
+   "n": 13,
+   "id": "words-two-hw08-13-a-rumour-with-stakes-11-22",
+   "mouth": "BEHIND THE BAR",
+   "who": "BEHIND THE BAR",
+   "pulled_from": "records/target/settlement_rumours.json",
+   "locator": [
+    "rumours",
+    {
+     "find": {
+      "id": "tagged_dog"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "A trucker swore he saw a dog with a tag in its ear, big as a calf, out by the tower. From the lab, pues.",
+   "filled_with": {
+    "(shown through)": "BohemiaSpanglish.plain"
+   },
+   "line": "A trucker swore he saw a dog with a tag in its ear, big as a calf, out by the tower. From the lab.",
+   "try": "Don't go out by the tower at night. Something big as a calf took my cousin's dogs, all three of them, and it had a lab tag in its ear. I saw the fucking tag myself.",
+   "picture_pt": [
+    390,
+    494
+   ]
+  },
+  {
+   "n": 14,
+   "id": "words-two-hw08-14-the-line-agrees-with-the-world-11-22",
+   "mouth": "A ROAD STOP",
+   "who": "A MAN IN A POLO SHIRT",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_timeshare_man"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "Folks! Ninety minutes of your time and breakfast is on us. Real eggs: we keep chickens on the roof now. Vacation ownership is still the smartest money in Nevada. Ask me about week thirty-two.",
+   "line": "Folks! Ninety minutes of your time and breakfast is on us. Real eggs: we keep chickens on the roof now. Vacation ownership is still the smartest money in Nevada. Ask me about week thirty-two.",
+   "try": "Folks! Ninety minutes of your time and breakfast is on us. Real eggs, from real chickens, out back. Vacation ownership is still the smartest money in Nevada. Ask me about week thirty-two.",
+   "picture_pt": [
+    390,
+    700
+   ]
+  }
+ ]
+}

@@ -27,6 +27,7 @@
          IS (his YES on our line), or WHAT THE VOICE IS NOT (his NO, his words exactly, with THE LESSON); a NO is never shown as an
          example, and a line of his written with a note ('Bro, why are you scared to like curse...' then "Look there...") gives HIS
          as the quoted line and HE SAID WITH IT as the rest, both his to the letter
+     V13 (11/22, rule 470(f)) NO DEAD HAT ON A CARD: no waiting card wears the cone hat's faces (planted, caught).
      V12 (11/22, rule 467 amended: 'I haven't seen you type a single bad word'; rule 470(g)) OUR TRY CURSES: on every sheet with a
          card still waiting, every waiting card carries OUR TRY; at least two tries in three carry a real curse in full (fuck, shit,
          motherfucker, bitch, damn, hell...); a try with no curse says why it is clean ('clean', the ones who would not); no try is
@@ -209,6 +210,14 @@ function tries(sheets, judged) {
     const ga = tries([['plant', a]], judged).bad.length > 0, gb = tries([['plant', b]], judged).bad.some(x => /bleeped/.test(x)), gc = tries([['plant', c2]], judged).bad.some(x => /it pays/.test(x));
     ok('P  OUR TRY plants caught: the curses taken out, a bleep, an \'it pays\'', ga && gb && gc, [ga ? '' : 'the clean sheet passed', gb ? '' : 'the bleep passed', gc ? '' : "'it pays' passed"].filter(Boolean).join(', '));
   }
+  /* V13 (11/22, rule 470(f), his note on card 4.6: 'why are people wearing chinese rice farmer hats btw wtf???'): no card still
+     waiting wears a dead hat on its face. The cone is dead (CHARACTER, records/BOHEMIA_CLOTHING_GRAVEYARD.txt, gates/
+     the_cone_hat_is_dead_gate.py); its wearers in the face bank are these looks. Card 6.3 shipped on one and was moved off it. */
+  const DEAD_LOOKS = ['cast_widebrim', 'faction_caravans'];
+  const hats = sh => (sh.cards || []).filter(c => !judged.has(c.id) && c.face && DEAD_LOOKS.includes(c.face.look)).map(c => 'card ' + (sh.sheet || '?') + '.' + c.n + ' wears ' + c.face.look);
+  const onHat = [].concat(...SH.map(([, sh]) => hats(sh)));
+  ok('V13 NO DEAD HAT ON A CARD: no waiting card wears the cone (' + DEAD_LOOKS.join(', ') + ')', onHat.length === 0, onHat.slice(0, 3).join(' | '));
+  if (live) { const h = JSON.parse(JSON.stringify(live[1])); const w = h.cards.find(c => !judged.has(c.id)); w.face = { look: 'cast_widebrim' }; const caught = hats(h).length > 0; ok('P  V13 plant caught: the cone put back on a waiting card', caught, caught ? '' : 'the cone passed'); }
 }
 
 /* P: the plants */
