@@ -6322,10 +6322,12 @@ function packedLoad(s) {
    its shape (its atlas and table; its base and lift), so a sheet from another page of the game is drawn as well. The wrapper on the
    prototype stays for every other context of the page (the night's cells, the machine's chip, the camp's) */
 var SHEET_D0 = null;   /* the browser's own drawImage, taken before the wrapper went on */
+var MANC = { on: false };   /* __A_MAN_IS_DRAWN_ONCE__ (COMBAT FOUR 11/22, ask row 699): the recorder below blitMan; declared here so sheetDraw may ask it */
 function sheetIsNight(img) { return !!img && typeof img === 'object' && (img instanceof NightSheet || (img.night === true && !!img.base && img.lift !== undefined && !img.atlas && !img.getContext)); }
 function sheetIsPacked(img) { return !!img && typeof img === 'object' && (img instanceof PackedSheet || (!!img.atlas && !!img.t && img.cols > 0 && img.cw > 0)); }
 function sheetNative(ctx) { if (SHEET_D0) return SHEET_D0; const d = Object.getPrototypeOf(ctx).drawImage; return d && d.__sheets ? d.__d0 : d; }
 function sheetDraw(ctx, a) {
+  if (MANC.on && ctx === cx) return MANC.op('drawImage', a);   /* __A_MAN_IS_DRAWN_ONCE__: while a man is taken down, his draws are kept, not drawn */
   const img = a[0], d0 = sheetNative(ctx);
   if (sheetIsNight(img)) return nightDraw(ctx, d0, img, a);   /* __AUTO_AT_4X_NEVER_CRASHES__: the night cell by cell */
   if (!sheetIsPacked(img)) return d0.apply(ctx, a);
@@ -9655,7 +9657,9 @@ function draw(now) {
   /* a man the rules have already felled stands, and takes the blow, until his fall plays */
   const live = S.units.filter(function (v) { return ((FIGHT.onField(v) && FIGHT.shown(v)) || ((v.dead || v.down) && v._fallAt === undefined && v._seen) || stillRunning(v, now)) && !(UI.drag && UI.drag.u === v); })   /* __YOU_SEE_THEM_RUN__: he runs to the edge and off it */
     .sort(function (a, b) { return dy(a) - dy(b); });
+  const mt0 = performance.now();
   live.forEach(function (v) { drawMan(v, tw, th); });
+  mancTune(performance.now() - mt0, live.length);   /* __A_MAN_IS_DRAWN_ONCE__: the glass times the men both ways and keeps the cheaper */
   if (UI.drag && FIGHT.onField(UI.drag.u)) drawMan(UI.drag.u, tw, th);
   drawDrops(now);   /* rule 145(b): the burst in the air, over the men */
   drawDust(now);   /* THE PUNCH: a shot that misses kicks dust off the ground past him */
@@ -10053,9 +10057,20 @@ function holdLook(L) {
 function holdImg(file, dir) {
   dir = dir || 'rig_hold/';
   let e = HOLD.ims[dir + file];
-  if (!e) { const k = dir + file; e = HOLD.ims[k] = { b: null, at: 0 }; load(k).then(function (i) { if (!i || HOLD.ims[k] !== e) return;
-    if (typeof createImageBitmap !== 'function') { e.b = i; return; }
-    createImageBitmap(i).then(function (b) { b.src = i.src; if (HOLD.ims[k] !== e) { try { b.close(); } catch (_e) {} return; } e.b = b; }, function () { e.b = i; }); }); }
+  /* __THE_HELD_SHEETS_DECODE_OFF_THE_PAGE__ (COMBAT FOUR 11/22, ask row 699): MEASURED on AUTO at 4x (the CPU slowed 4x, the CPU
+     canvas): 32 of these sheets came in the first 8 s of a 20-man fight, 34.5 million pixels, and createImageBitmap of the decoded <img>
+     copied every one on the page's own thread (1.2 to 2.2 s of 6 s of the profile, more than the men's drawing). A sheet taken from
+     its file is decoded off the page's thread (the camp's page's own way, its record above: 549 ms against 22 ms); the <img> way stays
+     the fallback. */
+  if (!e) { const k = dir + file; e = HOLD.ims[k] = { b: null, at: 0 };
+    const kept = function (b) { if (HOLD.ims[k] !== e) { try { b.close(); } catch (_e) {} return; } e.b = b; };
+    const viaImg = function () { load(k).then(function (i) { if (!i || HOLD.ims[k] !== e) return;
+      if (typeof createImageBitmap !== 'function') { e.b = i; return; }
+      createImageBitmap(i).then(function (b) { b.src = i.src; kept(b); }, function () { e.b = i; }); }); };
+    if (typeof createImageBitmap === 'function' && typeof fetch === 'function' && !window.__HELD_SHEETS_ON_THE_PAGE)
+      fetch(k).then(function (r) { return r.ok ? r.blob() : null; }).then(function (bl) { return bl ? createImageBitmap(bl) : null; })
+        .then(function (b) { if (!b) throw new Error('no bitmap'); b.src = new URL(k, location.href).href; kept(b); }).catch(viaImg);
+    else viaImg(); }
   e.at = performance.now();   /* __AUTO_AT_4X_NEVER_CRASHES__: drawn now (the clock, never the frame's: a draw outside the frames counts) */
   return e.b;
 }
@@ -10418,7 +10433,220 @@ function ownGunGrid(v, L, p, ox, oy, s) {
 }
 /* ==== end __THE_SIX_GUNS__ ==== */
 /* one man on the glass: his sheet's cell at a whole number of device pixels, his feet on the ground point */
+/* __A_MAN_IS_DRAWN_ONCE__ (COMBAT FOUR 11/22, ask row 699, FOUND BY PLUMBER 8 with a CPU profile of a road fight on AUTO at 4x:
+   'THE FIGHT ON AUTO DRAWS EVERY MAN EVERY FRAME... a man who has not moved or changed pose since the last frame is drawn again';
+   records/BOHEMIA_PLUMBER_THE_FIGHT_ON_AUTO_PROFILED_11_22_26.md: of 8 s, drawImage 3.8 s, sheetDraw from blitMan 2.0 s, holdDraw
+   1.3 s, meleeDraw 1.2 s, the canvas's save and restore 0.75 s).
+   A man is many pictures a frame: his body's cell, his armour's pieces, his gun, what he holds, what he carries, each its own draw
+   with its own state. blitMan is now TAKEN DOWN first, not drawn: every draw and every state he sets on the fight's glass is kept in
+   order (the glass's own methods answer to a recorder while he is taken down; sheetDraw asks it too), with the box on the glass it
+   covers. If what he would draw is what he drew last frame, to the number, his own little canvas already holds it and the glass gets
+   ONE draw of it; if anything changed (a key of his idle, a step, a blow's flash, the night's light on him) the kept draws are played
+   into his canvas and that is drawn once. What cannot be kept as his own picture is played straight onto the glass as before, the
+   same draws in the same order: a draw from a canvas that is remade between frames (the hit's red tint, the ghost's tape), a blend
+   other than laying over (a 'source-atop' on the glass would reach the ground), a shadow, a filter, words, a read of the glass, a
+   clear, a save left open, or a box bigger than a man could be. The ghost and the machine are drawn as before.
+   The old way: window.__MAN_DRAWN_EVERY_FRAME = true. Counted for the gate in window.__MANCACHE_STATS (kept, made, plain, why). */
+const MANC_PROPS = ['globalAlpha', 'globalCompositeOperation', 'fillStyle', 'strokeStyle', 'lineWidth', 'lineCap', 'lineJoin', 'miterLimit',
+  'lineDashOffset', 'shadowBlur', 'shadowColor', 'shadowOffsetX', 'shadowOffsetY', 'font', 'textAlign', 'textBaseline', 'direction', 'filter',
+  'imageSmoothingEnabled', 'imageSmoothingQuality'];
+const MANC_KEEP = ['save', 'restore', 'setTransform', 'resetTransform', 'transform', 'translate', 'scale', 'rotate', 'beginPath', 'closePath',
+  'moveTo', 'lineTo', 'rect', 'roundRect', 'arc', 'arcTo', 'ellipse', 'bezierCurveTo', 'quadraticCurveTo', 'drawImage', 'fillRect',
+  'strokeRect', 'clearRect', 'fill', 'stroke', 'clip', 'fillText', 'strokeText', 'putImageData', 'setLineDash'];
+const MANC_ASK = ['measureText', 'createLinearGradient', 'createRadialGradient', 'createConicGradient', 'createPattern', 'createImageData',
+  'isPointInPath', 'isPointInStroke', 'getImageData', 'getTransform', 'getLineDash', 'getContextAttributes'];
+const MANC_BIG = 640 * 640;   /* a man's box on the glass at the most (device pixels); bigger is drawn straight */
+const MANC_SET = -1, MANC_PI = {}, MANC_OI = {};
+MANC_PROPS.forEach(function (k, i) { MANC_PI[k] = i; }); MANC_KEEP.forEach(function (k, i) { MANC_OI[k] = i; });
+/* what a draw takes from the glass's state as it finds it (a prop not yet set by him is his first frame's glass's: compared too) */
+const MANC_USES = { image: [0, 1, 18, 19, 17, 9, 10, 11, 12], fill: [0, 1, 2, 17, 9, 10, 11, 12], stroke: [0, 1, 3, 4, 5, 6, 7, 8, 17, 9, 10, 11, 12] };
+/* the recorder keeps NO strings and makes nothing a draw: every draw and every set is pushed flat into one buffer (its code, its count,
+   its arguments) and held against the same man's last frame's buffer number by number (measured 11/22: a text signature a man a frame
+   made enough garbage that the collector's pauses landed in the AI's turns, AUTO AT 4X's think 150 -> 231 ms) */
+Object.assign(MANC, { desc: {}, fn: {}, buf: [], st: null, pool: [], depth: 0, init: [], used: 0, ok: true, why: '',
+  box: [0, 0, 0, 0], path: [0, 0, 0, 0], stats: { kept: 0, made: 0, plain: 0, why: {} } });
+window.__MANCACHE_STATS = MANC.stats;
+function mancState() { const q = MANC.pool.pop(); if (q) return q; return { p: new Array(MANC_PROPS.length), t: 0, m: [1, 0, 0, 1, 0, 0], dash: null }; }
+function mancCopy(a, b) { for (let i = 0; i < a.p.length; i++) b.p[i] = a.p[i]; b.t = a.t; for (let i = 0; i < 6; i++) b.m[i] = a.m[i]; b.dash = a.dash; return b; }
+function mancNo(why) { if (MANC.ok) { MANC.ok = false; MANC.why = why; } }
+function mancMul(m, n0, n1, n2, n3, n4, n5) { const a = m[0], b = m[1], c = m[2], d = m[3], e = m[4], f = m[5];
+  m[0] = a * n0 + c * n1; m[1] = b * n0 + d * n1; m[2] = a * n2 + c * n3; m[3] = b * n2 + d * n3; m[4] = a * n4 + c * n5 + e; m[5] = b * n4 + d * n5 + f; }
+function mancPt(B, x, y, pad) { const m = MANC.st.m, X = m[0] * x + m[2] * y + m[4], Y = m[1] * x + m[3] * y + m[5]; pad = pad || 0;
+  if (!(isFinite(X) && isFinite(Y))) { mancNo('nan'); return; }
+  if (X - pad < B[0]) B[0] = X - pad; if (Y - pad < B[1]) B[1] = Y - pad; if (X + pad > B[2]) B[2] = X + pad; if (Y + pad > B[3]) B[3] = Y + pad; }
+function mancRect(B, x, y, w, h, pad) { mancPt(B, x, y, pad); mancPt(B, x + w, y, pad); mancPt(B, x, y + h, pad); mancPt(B, x + w, y + h, pad); }
+function mancPainting(uses) {   /* a draw: only a picture of his own, laid over; what of the glass's state it took as it found it is noted */
+  const S = MANC.st, p = S.p;
+  for (let i = 0; i < uses.length; i++) if (!(S.t & (1 << uses[i]))) MANC.used |= 1 << uses[i];
+  if (p[1] !== 'source-over') mancNo('a blend');
+  if (p[17] && p[17] !== 'none') mancNo('a filter');
+  if ((p[9] > 0 || p[11] || p[12]) && !/rgba\([^)]*,\s*0\)$|transparent/.test(String(p[10]))) mancNo('a shadow');
+}
+MANC.set = function (k, v) {
+  const i = MANC_PI[k]; MANC.st.p[i] = v; MANC.st.t |= 1 << i; MANC.buf.push(MANC_SET, i, v);
+};
+MANC.op = function (k, a) {
+  const B = MANC.box, buf = MANC.buf, n = a.length, oi = MANC_OI[k];
+  const at = buf.length; buf.push(oi, n); for (let i = 0; i < n; i++) buf.push(a[i]);
+  const S = MANC.st, P = MANC.path;
+  switch (k) {
+    case 'save': { MANC.stack.push(mancCopy(S, mancState())); break; }
+    case 'restore': if (MANC.stack.length) { const q = MANC.stack.pop(); mancCopy(q, S); MANC.pool.push(q); } break;
+    case 'setTransform': { const m = S.m; if (n >= 6) { for (let i = 0; i < 6; i++) m[i] = +a[i]; } else if (a[0]) { const M = a[0]; m[0] = +M.a; m[1] = +M.b; m[2] = +M.c; m[3] = +M.d; m[4] = +(M.e || 0); m[5] = +(M.f || 0); } else { m[0] = 1; m[1] = 0; m[2] = 0; m[3] = 1; m[4] = 0; m[5] = 0; } break; }
+    case 'resetTransform': { const m = S.m; m[0] = 1; m[1] = 0; m[2] = 0; m[3] = 1; m[4] = 0; m[5] = 0; break; }
+    case 'transform': mancMul(S.m, +a[0], +a[1], +a[2], +a[3], +a[4], +a[5]); break;
+    case 'translate': mancMul(S.m, 1, 0, 0, 1, +a[0], +a[1]); break;
+    case 'scale': mancMul(S.m, +a[0], 0, 0, +a[1], 0, 0); break;
+    case 'rotate': { const c = Math.cos(a[0]), s_ = Math.sin(a[0]); mancMul(S.m, c, s_, -s_, c, 0, 0); break; }
+    case 'beginPath': P[0] = Infinity; P[1] = Infinity; P[2] = -Infinity; P[3] = -Infinity; break;
+    case 'closePath': break;
+    case 'moveTo': case 'lineTo': mancPt(P, a[0], a[1]); break;
+    case 'bezierCurveTo': mancPt(P, a[0], a[1]); mancPt(P, a[2], a[3]); mancPt(P, a[4], a[5]); break;
+    case 'quadraticCurveTo': mancPt(P, a[0], a[1]); mancPt(P, a[2], a[3]); break;
+    case 'rect': case 'roundRect': mancRect(P, a[0], a[1], a[2], a[3]); break;
+    case 'arc': mancRect(P, a[0] - a[2], a[1] - a[2], a[2] * 2, a[2] * 2); break;
+    case 'ellipse': { const r = Math.max(Math.abs(a[2]), Math.abs(a[3])); mancRect(P, a[0] - r, a[1] - r, r * 2, r * 2); break; }
+    case 'arcTo': mancRect(P, Math.min(a[0], a[2]) - a[4], Math.min(a[1], a[3]) - a[4], Math.abs(a[2] - a[0]) + a[4] * 2, Math.abs(a[3] - a[1]) + a[4] * 2); break;
+    case 'fill': mancPainting(MANC_USES.fill); if (P[2] >= P[0]) { B[0] = Math.min(B[0], P[0]); B[1] = Math.min(B[1], P[1]); B[2] = Math.max(B[2], P[2]); B[3] = Math.max(B[3], P[3]); } break;
+    case 'stroke': { mancPainting(MANC_USES.stroke); const lw = (+S.p[4] || 1) * Math.max(Math.hypot(S.m[0], S.m[1]), Math.hypot(S.m[2], S.m[3])) / 2 + 2;
+      if (P[2] >= P[0]) { B[0] = Math.min(B[0], P[0] - lw); B[1] = Math.min(B[1], P[1] - lw); B[2] = Math.max(B[2], P[2] + lw); B[3] = Math.max(B[3], P[3] + lw); } break; }
+    case 'clip': break;
+    case 'fillRect': mancPainting(MANC_USES.fill); mancRect(B, a[0], a[1], a[2], a[3]); break;
+    case 'strokeRect': mancPainting(MANC_USES.stroke); mancRect(B, a[0], a[1], a[2], a[3], (+S.p[4] || 1) + 2); break;
+    case 'drawImage': {
+      mancPainting(MANC_USES.image);
+      const src = a[0];
+      if (!src || (typeof src !== 'object')) { mancNo('nothing'); break; }
+      const still = sheetIsPacked(src) || sheetIsNight(src) || (typeof HTMLImageElement !== 'undefined' && src instanceof HTMLImageElement) || (typeof ImageBitmap !== 'undefined' && src instanceof ImageBitmap) || src.__still === true;
+      if (!still) {   /* a canvas remade between frames (the hit's red, made in one scratch canvas for every layer): kept as it is NOW, so the
+                       draws played later show what this draw showed; such a man is drawn straight, never kept */
+        mancNo('a canvas remade between frames');
+        if (typeof src.width === 'number' && src.width > 0 && src.height > 0 && typeof src.getContext === 'function') {
+          const cp = document.createElement('canvas'); cp.width = src.width; cp.height = src.height; const cg = cp.getContext('2d'); sheetNative(cg).call(cg, src, 0, 0);
+          buf[at + 2] = cp; }
+      }
+      if (n >= 9) mancRect(B, a[5], a[6], a[7], a[8]); else if (n >= 5) mancRect(B, a[1], a[2], a[3], a[4]); else mancRect(B, a[1], a[2], src.width || 0, src.height || 0);
+      break; }
+    case 'clearRect': mancNo('a clear'); break;
+    case 'fillText': case 'strokeText': mancNo('words'); break;
+    case 'putImageData': mancNo('pixels put'); break;
+    case 'setLineDash': S.dash = a[0] ? Array.prototype.slice.call(a[0]) : []; break;
+  }
+};
+MANC.ask = function (k, f, a) {   /* a question of the glass while he is taken down: answered from what he has set so far */
+  const S = MANC.st;
+  if (k === 'getTransform') return new DOMMatrix(S.m);
+  if (k === 'getLineDash') return (S.dash || []).slice();
+  if (k === 'getImageData' || k === 'isPointInPath' || k === 'isPointInStroke') mancNo('a read of the glass');
+  if (k === 'measureText') { const d = MANC.desc.font, keep = d.get.call(cx); d.set.call(cx, S.p[MANC_PI.font]); try { return f.apply(cx, a); } finally { d.set.call(cx, keep); } }
+  return f.apply(cx, a);
+};
+/* the glass answers to the recorder while a man is taken down, and to the browser every other moment (installed once: the glass keeps
+   its shape); every other moment the glass's own method is looked up at the call, so a page or a gate that wraps the browser's method
+   later still sees every draw of the fight's glass */
+(function mancInstall() {
+  const P = CanvasRenderingContext2D.prototype;
+  MANC_PROPS.forEach(function (k, i) {
+    const d = Object.getOwnPropertyDescriptor(P, k); if (!d || !d.get || !d.set) return; MANC.desc[k] = d;
+    Object.defineProperty(cx, k, { configurable: true, enumerable: true,
+      get: function () { return MANC.on && this === cx ? MANC.st.p[i] : d.get.call(this); },
+      set: function (v) { if (MANC.on && this === cx) MANC.set(k, v); else d.set.call(this, v); } });
+  });
+  MANC_KEEP.forEach(function (k) { const f = P[k]; if (typeof f !== 'function') return; MANC.fn[k] = f;
+    cx[k] = function () { return MANC.on && this === cx ? MANC.op(k, arguments) : P[k].apply(this, arguments); }; });
+  MANC_ASK.forEach(function (k) { const f = P[k]; if (typeof f !== 'function') return; MANC.fn[k] = f;
+    cx[k] = function () { return MANC.on && this === cx ? MANC.ask(k, P[k], arguments) : P[k].apply(this, arguments); }; });
+})();
+/* play a kept buffer onto a glass g, the box's corner (bx, by) at g's own 0,0 */
+function mancPlay(g, buf, bx, by) {
+  for (let i = 0; i < buf.length;) {
+    const code = buf[i];
+    if (code === MANC_SET) { g[MANC_PROPS[buf[i + 1]]] = buf[i + 2]; i += 3; continue; }
+    const n = buf[i + 1], k = MANC_KEEP[code], a = buf.slice(i + 2, i + 2 + n); i += 2 + n;
+    if (k === 'drawImage') { sheetDraw(g, a); continue; }
+    if (k === 'setTransform') { if (n >= 6) g.setTransform(a[0], a[1], a[2], a[3], a[4] - bx, a[5] - by); else { const M = a[0] || { a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 }; g.setTransform(M.a, M.b, M.c, M.d, (M.e || 0) - bx, (M.f || 0) - by); } continue; }
+    if (k === 'resetTransform') { g.setTransform(1, 0, 0, 1, -bx, -by); continue; }
+    g[k].apply(g, a);
+  }
+}
+function mancSame(a, b) { if (!a || a.length !== b.length) return false; for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return false; return true; }
+/* THE GLASS PICKS THE CHEAPER WAY (measured 11/22 on this box: the CPU canvas slowed 4x, the men kept 72 -> 43 ms a frame; at full speed
+   the two ways the same, 37 and 38 frames a second; on a 46-man night fight at full speed the keeping's own bookkeeping cost a frame, the
+   middle frame 16.7 -> 33 ms): a phone draws on its GPU, where a draw is cheap and the bookkeeping is not. So the glass times the men's
+   drawing (draw()'s loop over the standing) both ways on the device it runs on: 6 frames straight, 8 kept (the first 2 of them
+   filling his canvases, not timed), and keeps the cheaper for the next 240 frames, then asks again. window.__MAN_DRAWN_EVERY_FRAME the
+   old way always; window.__MAN_KEPT_ALWAYS keeps always (the gate's legs on the keeping itself). */
+const MANC_TRY = 6, MANC_WARM = 2, MANC_HOLD = 240;
+Object.assign(MANC, { mode: 'try-straight', n: 0, tS: 0, nS: 0, tK: 0, nK: 0, picked: [] });
+function mancKeeping() { if (window.__MAN_DRAWN_EVERY_FRAME) return false; if (window.__MAN_KEPT_ALWAYS) return true; return MANC.mode === 'keep' || MANC.mode === 'try-keep'; }
+function mancTune(ms, men) {
+  if (!men || window.__MAN_KEPT_ALWAYS || window.__MAN_DRAWN_EVERY_FRAME) return;
+  const M = MANC; M.n++;
+  if (M.mode === 'try-straight') { M.tS += ms; M.nS += men; if (M.n >= MANC_TRY) { M.mode = 'try-keep'; M.n = 0; } return; }
+  if (M.mode === 'try-keep') { if (M.n > MANC_WARM) { M.tK += ms; M.nK += men; } if (M.n >= MANC_TRY + MANC_WARM) {
+      const s = M.tS / Math.max(1, M.nS), k = M.tK / Math.max(1, M.nK); M.mode = k < s ? 'keep' : 'straight'; M.n = 0;
+      M.picked.push({ straight: +s.toFixed(3), kept: +k.toFixed(3), mode: M.mode }); if (M.picked.length > 20) M.picked.shift();
+      M.stats.mode = M.mode; M.stats.picked = M.picked; M.tS = M.nS = M.tK = M.nK = 0; } return; }
+  if (M.n >= MANC_HOLD) { M.mode = 'try-straight'; M.n = 0; }
+}
 function blitMan(v, X, feet, now, alpha) {
+  if (!mancKeeping() || v.ghost || v.machine || MANC.on) { if (v._mc) v._mc = null; return blitManNow(v, X, feet, now, alpha); }
+  const D = MANC.desc, F = MANC.fn, init = MANC.init, np = MANC_PROPS.length;
+  for (let i = 0; i < np; i++) { const d = D[MANC_PROPS[i]]; init[i] = d ? d.get.call(cx) : undefined; }
+  const T0 = F.getTransform.call(cx), m0 = [T0.a, T0.b, T0.c, T0.d, T0.e, T0.f];
+  const S = MANC.st = mancState(); for (let i = 0; i < np; i++) S.p[i] = init[i]; S.t = 0; for (let i = 0; i < 6; i++) S.m[i] = m0[i]; S.dash = null;
+  MANC.stack = []; MANC.buf.length = 0; MANC.used = 0; MANC.ok = true; MANC.why = '';
+  const B = MANC.box; B[0] = Infinity; B[1] = Infinity; B[2] = -Infinity; B[3] = -Infinity;
+  /* taken down with his feet at the glass's corner (the same man to the pixel: ox and oy are whole pixels off his feet), so the camera
+     gliding on AUTO does not make him new; laid back at his own spot (ax, ay) */
+  const ax = Math.round(X * DPR), ay = Math.round(feet * DPR);
+  MANC.on = true;
+  try { blitManNow(v, X - ax / DPR, feet - ay / DPR, now, alpha); }
+  finally { MANC.on = false; }
+  const buf = MANC.buf, fin = MANC.st, st = MANC.stats;
+  while (MANC.stack.length) MANC.pool.push(MANC.stack.pop()), mancNo('a save left open');
+  MANC.pool.push(fin);
+  if (!buf.length) return;
+  const bx = Math.floor(B[0]) - 2, by = Math.floor(B[1]) - 2, bw = Math.ceil(B[2]) + 2 - bx, bh = Math.ceil(B[3]) + 2 - by;
+  if (MANC.ok && !(bw > 0 && bh > 0)) mancNo('nothing drawn');
+  if (MANC.ok && bw * bh > MANC_BIG) mancNo('a box bigger than a man');
+  const after = function () {   /* what he left set on the glass stays set, as it would have */
+    for (let i = 0; i < np; i++) { const d = D[MANC_PROPS[i]]; if (d && fin.p[i] !== init[i]) d.set.call(cx, fin.p[i]); }
+    if (fin.m[0] !== m0[0] || fin.m[1] !== m0[1] || fin.m[2] !== m0[2] || fin.m[3] !== m0[3] || fin.m[4] !== m0[4] || fin.m[5] !== m0[5])
+      F.setTransform.call(cx, fin.m[0], fin.m[1], fin.m[2], fin.m[3], fin.m[4] + ax, fin.m[5] + ay);
+  };
+  if (!MANC.ok) {   /* straight onto the glass, the same draws in the same order, at his own spot */
+    st.plain++; st.why[MANC.why] = (st.why[MANC.why] || 0) + 1; v._mc = null;
+    F.save.call(cx); F.setTransform.call(cx, m0[0], m0[1], m0[2], m0[3], m0[4] + ax, m0[5] + ay);
+    mancPlay(cx, buf, -ax, -ay);
+    F.restore.call(cx); after(); return;
+  }
+  /* the same as last frame: the same box, the same glass's state taken as found, the same transform, the same draws to the number */
+  let c = v._mc, same = !!c && c.bx === bx && c.by === by && c.used === MANC.used && mancSame(c.buf, buf);
+  if (same) { for (let i = 0; i < np && same; i++) if ((MANC.used & (1 << i)) && c.init[i] !== init[i]) same = false; }
+  if (same) { for (let i = 0; i < 6 && same; i++) if (c.m0[i] !== m0[i]) same = false; }
+  if (window.__MANC_DEBUG && c && !same) { const W = window.__MANC_DIFF || (window.__MANC_DIFF = {}); const why = c.bx !== bx || c.by !== by ? 'box' : c.used !== MANC.used ? 'used' : !mancSame(c.buf, buf) ? 'draws' : 'state'; W[why] = (W[why] || 0) + 1; }
+  if (same) st.kept++;
+  else {
+    if (!c) c = v._mc = { c: document.createElement('canvas'), buf: null, init: null, m0: null };
+    if (c.c.width < bw || c.c.height < bh) { c.c.width = Math.max(c.c.width, bw); c.c.height = Math.max(c.c.height, bh); }
+    const g = c.g || (c.g = c.c.getContext('2d'));
+    g.setTransform(1, 0, 0, 1, 0, 0); g.globalAlpha = 1; g.globalCompositeOperation = 'source-over'; g.clearRect(0, 0, c.c.width, c.c.height);
+    g.save();
+    for (let i = 0; i < np; i++) if (D[MANC_PROPS[i]] && init[i] !== undefined) g[MANC_PROPS[i]] = init[i];
+    g.setTransform(m0[0], m0[1], m0[2], m0[3], m0[4] - bx, m0[5] - by);
+    mancPlay(g, buf, bx, by);
+    g.restore();
+    c.buf = buf.slice(); c.init = init.slice(); c.m0 = m0; c.used = MANC.used; c.bx = bx; c.by = by; c.w = bw; c.h = bh; st.made++;
+  }
+  /* his picture laid on the glass in one draw, the glass's state as it was */
+  F.save.call(cx); F.setTransform.call(cx, 1, 0, 0, 1, 0, 0);
+  D.globalAlpha.set.call(cx, 1); D.globalCompositeOperation.set.call(cx, 'source-over'); D.imageSmoothingEnabled.set.call(cx, false);
+  if (D.filter) D.filter.set.call(cx, 'none'); D.shadowBlur.set.call(cx, 0); D.shadowOffsetX.set.call(cx, 0); D.shadowOffsetY.set.call(cx, 0);
+  sheetNative(cx).call(cx, c.c, 0, 0, c.w, c.h, c.bx + ax + (window.__MANC_PLANT_OFF | 0), c.by + ay, c.w, c.h);   /* __MANC_PLANT_OFF: the gate's plant, his kept picture laid a pixel off */
+  F.restore.call(cx); after();
+}
+function blitManNow(v, X, feet, now, alpha) {
   const img = sheetOf(v); if (!img) return;
   const L = lookOf(v), s = rigScale() * bodyK(v), gs = gunSheet(v, L);   /* BESTIARY 11/17: a beast as tall as it stood */
   let p = poseOf(v, stopNow(v, now));   /* THE PUNCH: both men hold the impact key for the freeze */

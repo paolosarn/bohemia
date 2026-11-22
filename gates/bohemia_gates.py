@@ -9742,6 +9742,13 @@ GATES = [
     ('THE BIG INSIDES TWO', ['node', 'gates/the_big_insides_gate.js', '--half', '2'],
      "COMBAT FOUR gate, 11/22: the second half of THE BIG INSIDES (every other inside of slices/fight_ground/insides.json, from the second), the "
      "same legs I1 to I13 on each (see THE BIG INSIDES); the two entries keep each run inside the suite's 600 s cap", True),
+    ('A MAN IS DRAWN ONCE', ['node', 'gates/a_man_is_drawn_once_gate.js'],
+     "COMBAT FOUR gate, 11/22, ask row 699 (PLUMBER 8's profile: 'THE FIGHT ON AUTO DRAWS EVERY MAN EVERY FRAME'), rule 441(a)(c): the "
+     "fight page alone on his phone upright, the census's CPU canvas: M1 on AUTO most man-draws are his kept picture laid in one draw; "
+     "M2 every man the old way, made and kept is the same picture by day (three in four to the pixel, the rest within 2 of 255 or a "
+     "turned weapon's edge), M2n at night; M3 a man flashing red from a blow is drawn straight and right; M4 the held, melee and "
+     "carried sheets decode off the page's thread; M5 the CPU slowed 4x, AUTO at 4x, the men's drawing a frame at most 0.8 of the old "
+     "way; planted: the old way on, a kept picture a pixel off, the held sheets the old way", True),
     ('AN INSIDE SHOWS ITS CEILING', ['node', 'gates/an_inside_shows_its_ceiling_gate.js'],
      "COMBAT THREE gate, 11/14, VAMILY rule 451(a) (ask row 623; PAOLO's vote on the parking garage: 'a 10% opacity for real... I still need to "
      "see the parking garage ceiling'). Each inside's data file names its ceiling: an alpha from 0.05 to 0.12, a kind the fight draws, COOK "
