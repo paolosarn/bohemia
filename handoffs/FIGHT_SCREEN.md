@@ -5,6 +5,28 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/22 LATEST -- [why tape] SHIPPED 9322079a3, BUILD 11/22zg - THE WHY IS A TAPE, BUILT, NOT YET SEEN (rule 470(e), his NO on fight-screen-the-why-is-true-and-the-face-shows-11-17: 'Its looking like shit'; rules 449(a), 450(a), 441; ask row 705). VOTE fight-screen-the-why-is-a-tape-11-22 (stand_in; before and after).
+THIS CHAT IS FIGHT SCREEN THREE. Record: records/BOHEMIA_FIGHT_SCREEN_THE_WHY_IS_A_TAPE_11_22_26.md. HIS VOTES OF 11/22 on this lane: the 11/17 why card NO; every other card YES.
+WHAT HE SAW: the speaker of the why a smooth 3-D head blown up soft (a doll), his sentence plain type on the board (any game's dialog box); the helmet's
+eye band of 11/17 (gone since 11/18, a YES). NOW THE WHY IS A TAPE: the man who says why is a frame off a camcorder tape (64 px, the portrait engine's own
+small size, blown up hard; flash-lit; the light falling to black at the edge; the tape's lines on his own rows; the tape's counter running while his
+picture holds: the one wrong thing, R1, the only thing that moves, R3) and his sentence runs as closed captions (black boxes line by line, '>>' on
+his name). The same at the bell (40 px, no bob). THE ROWS OF FACES, THE PHONE'S CARD AND THE SHEET KEEP THEIR PHOTOGRAPHS (all YES): do not tape them
+unless he asks.
+WHERE: slices/bohemia_fight_opener.js __THE_WHY_IS_A_TAPE__ (TAPE_PX 64, the photo's lines canvas, tape-fx light, .osd counter, the caption css on
+.mco-say span and b::before); slices/BOHEMIA_FIGHT.html __THE_WHY_IS_A_TAPE__ (WHY_TAPE_PX 40, whyTape() wraps #whyface in span.tape with its lines
+canvas; css #why .tape, #whyline inline on black, #whyname::before '>> '). The static markup '<div id="why"><canvas id="whyface"' is unchanged (W gate).
+GATE THE WHY IS A TAPE 5/0 (new, registered; tools/bohemia_fight_screen_the_why_is_true.js reads T.tapeCard and T.tape; TAPE_PLANT=1 the plant).
+THE WHY LINE 20/0, THE CARD THAT OPENS A FIGHT 8/0, THE FACE SHOWS UNDER THE HELMET 10/0, NOTHING POPS VOICES CLEAR 38/0, DEMO BUILD 25/0, PAGES PUBLISH 30/0.
+LESSON: a NO on a card whose content was half fixed since: look at what still stands on main and what the other cards he said YES to show,
+and remake only what is left (here the why's face and words), never the YES'd pieces around it.
+NEXT, in order:
+ (1) EYES' notes on 11/20e, 11/21g, 11/22zg when they come (rule 441(b)); his vote on the tape.
+ (2) THE END SCREEN (rule 449(b)) is RUN's and 'at final' (rule 404): routed, not this lane's to restyle.
+ (3) The opening card's men as BODIES, only if he asks. (4) The turn order: NOT owed unless he asks (his note 9 of 11/2).
+[bb Battle Brothers tells you in a line of text who is on you; ours shows you a frame of tape of the man who said why, and the tape is still running]
+[analog horror: a camcorder still of a stranger's face with the counter running in the corner, and the subtitles say he will kill you, calmly]
+
 FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/21 LATEST -- [last hit] SHIPPED 282e065a, BUILD 11/21g - THE LAST HIT ON THE CARD, BUILT, NOT YET SEEN (rules 450(a), 449(b), 441, 461 as amended 11/21; ask row 616). VOTE fight-screen-the-last-hit-on-the-card-11-21 (stand_in; before and after).
 THIS CHAT IS FIGHT SCREEN THREE. Record: records/BOHEMIA_FIGHT_SCREEN_THE_LAST_HIT_ON_THE_CARD_11_21_26.md. HIS VOTES OF 11/21: ONE MOUTH AT A TIME YES, THE CAP ON THE GLASS YES.
 WHAT: the phone's card shows what the blows took off the man on it since his last turn ended (at the bell for everyone), on his health and armour bars in

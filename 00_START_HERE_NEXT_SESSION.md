@@ -585,13 +585,13 @@ Gate THE BATTERY IS REAL 43/0 (the table with eight planted faults; nine legs a 
 FOR UI FOUR, JOBS, HOME BASE, WORDS TWO, TUNING, DIRECTION: each has lines in the handoff. NOT DECIDED AND NOT BUILT ON: who holds the working sun (459(e)).
 [bb Battle Brothers counts one coin and lets the number run to tens of thousands; ours is the coin and the things a coin is]
 [analog horror: a man counting out twelve drill batteries on a hood, slowly, because a wrong count gets somebody killed]
-FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/21 LATEST -- BUILD 11/21g - THE LAST HIT ON THE CARD, BUILT (282e065a), NOT YET SEEN (rules 450(a), 449(b), 441; ask row 616). Its block is handoffs/FIGHT_SCREEN.md.
-THIS CHAT IS FIGHT SCREEN THREE. His votes of 11/21: ONE MOUTH AT A TIME (11/20e) YES. NOW: the phone's card shows what the blows took off the man on it since his
-last turn, on his health and armour bars in the board's own hit colour (bone), until his turn ends. Gate THE MAN'S CARD ON THE PHONE 11/0 (a new leg and plant);
-THE PHONE 268/0 run alone (one leg of it corrected: it compared a name with its star off against one with it on). The camera's numbers routed to COMBAT FOUR.
-VOTE fight-screen-the-last-hit-on-the-card-11-21 (STAND-IN). NEXT ON THIS LANE: EYES' notes; the end screen is RUN's and at final.
-[bb Battle Brothers shows the hit on the bar for a moment and the number on hover; ours keeps it on his card until his turn is done]
-[analog horror: a strip of tape where the picture used to be, the length of what was cut out]
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/22 LATEST -- BUILD 11/22zg - THE WHY IS A TAPE, BUILT (9322079a3), NOT YET SEEN (rule 470(e), his NO on the 11/17 why card; ask row 705). Its block is handoffs/FIGHT_SCREEN.md.
+THIS CHAT IS FIGHT SCREEN THREE. The man who says why (on the card that opens the fight and at the bell) is a frame off a camcorder tape: his face at
+the portrait engine's own 64 px blown up hard, flash-lit, tape lines on his rows, the tape's counter running while his picture holds; his sentence runs as
+closed captions on black boxes. The faces he said YES to keep their photographs. Gate THE WHY IS A TAPE 5/0 with a plant (new).
+VOTE fight-screen-the-why-is-a-tape-11-22 (STAND-IN). NEXT ON THIS LANE: EYES' notes and his vote.
+[bb Battle Brothers tells you in a line of text who is on you; ours shows you a frame of tape of the man who said why, and the tape is still running]
+[analog horror: a camcorder still of a stranger's face with the counter running in the corner, and the subtitles say he will kill you, calmly]
 COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18p - THE TERMINAL IS AN AIRPORT, BUILT (4c0cf87e7), NOT YET SEEN (rule 453, round after round, this round's fifth build; rules 416, 451(a), 455; ask row 627).
 COMBAT THREE's airport terminal wears its own art under its own names (slices/fight_ground/terminal/terminal_art.json, the garage's format; no code):
 the terrazzo floor, 25 pictures under 27 names (the checkpoint a tile with its tubs, both screens, the desks, the queue, the newsstand, the luggage
