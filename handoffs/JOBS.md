@@ -1,5 +1,35 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe, the fresh JOBS the coordinator opened for rule 470(b); JOBS' 11/21 session is closed): 11/22 LATEST --
+BUILD 11/22zh - YOUR FOLLOWERS, BUILT, NOT YET SEEN (rules 470(b), 466(c), 441, 465; ask row 702). Content be0a41a08. VOTE jobs2-your-followers-11-22 (STAND-IN).
+Record: records/BOHEMIA_JOBS_TWO_CLOUT_IS_FOLLOWERS_11_22_26.md.
+- HIS WORDS (on jobs-do-less-show-the-clout, YES): 'Put followers this was an idea at the very beginning where it's kind of like your reputation'.
+  The 7/21 law (laws/BOHEMIA_ADDENDUM_CLOUT_RECKLESS_BEATS_QUIET_7_21_26.md) left 'one number or two' pending: one. The count is
+  BohemiaRenown (engine/bohemia_renown.js); its word is FOLLOWERS (records/target/bb/renown.json word, and the engine's first frame).
+- THE BAR (slices/bohemia_ui_materials.js, __CLOUT_ON_THE_BAR__ + __CLOUT_IS_FOLLOWERS__): FOLLOWERS over the number, a second's flicker
+  when it moves (up pale amber, down dried red), no '+N'. The upright glass is full: the chip is sized by width (gap 7 under 480, 4 and
+  label 7 px under 380, 3 and label 6.5 / number 13 under 360), measured inside the glass at 390, 375, 360, 320 with 4,000 followers.
+  The chip keeps its class 'clout' (the walks read '#bmtb .clout').
+- THE FEED (slices/bohemia_phone.js P.company and the FEED page): the company's profile reads the count ('260 FOLLOWERS', its own line
+  under '3 MEN'; the line beside it ran under the name's TYPE mark). It asked BohemiaRenown.get(), which never existed: the profile
+  never showed the count. It repaints when the count moves with no post.
+- The board's 'MORE WORK HERE AT 250 FOLLOWERS', the card's 'Your name: about +N FOLLOWERS.', the camp's line read the word; the game's
+  last 'CLOUT' fallbacks say FOLLOWERS. No number moved.
+GATE CLOUT IS FOLLOWERS (new, in the suite): F1 files (planted: the old chip and profile caught), F2 the four phones (0, 245, 260 after a
+fight won against three with the flicker, 245 after five days, 145 after a dropped job; bar and feed alike), F3: 4/0. THE TOWN'S BOOK C1,
+E1 and its tool's E row, A NAME FADES N3, THE NEW KINDS' card leg read the new word. THE BAR FITS HIS GLASS 22/0.
+A FLAKE SEEN, NOT MINE: A NAME FADES N3's demo-upright NEW GAME tap once landed while the title's camcorder intro was still up (no
+buttons yet): all five records stayed. Re-run alone: all five gone. If it reds again it is the title's timing (RUN's), not the fade.
+NOT DONE, SAID: the phone's home face carries no count (one post wide; the bar and the feed page do); a job's +100 is flat by skulls
+(TUNING's); Battle Brothers' Retreat -15 is not ours (TUNING's to weigh). His 466(c): the jobs do less.
+NEXT: rule 473 NO WAYPOINT ARROWS ON THE MAP (owner JOBS 2): slices/bohemia_job_kinds.js markPlace() draws, off the glass, a name and an
+amber wedge at the glass's edge for every held job's next place, the phone's pick (markPhone) and every road event's place
+(BohemiaRoadEvents.places()): measure the edge pointers (he saw 14), take them off (a held job too: 473(a) says 'no side quest or
+job'), keep the ring and the name where the place stands on the glass (473(b)), and the phone's job list's tap still moves the map
+there (473(c)); WORLD 15 checks the map's other edge names. Then bugs he can feel (EYES' rows naming a job, his NOs on JOBS' cards).
+[bb Battle Brothers keeps one Renown number for the company, and it decays when you sit still]
+[analog horror: the number in the corner ticks up after the shooting stops, and you never see who is watching]
+
 JOBS CONTEXT NEAR FULL (11/21, rule 461(f)): session_01GKDyuv5CeFx6bTxT23Pv5Q closes after BUILD 11/21z; open a fresh JOBS on this file.
 Its next job is the block below's NEXT ([a job that changes after the yes]). Its tools: the CLOUT walk (tools/bohemia_jobs_the_clout_a_job_pays_on_the_phone.js,
 --night), the card-against-fight walk (tools/bohemia_jobs_the_card_reads_the_night_on_the_phone.js, --hour M), whose rows carry each

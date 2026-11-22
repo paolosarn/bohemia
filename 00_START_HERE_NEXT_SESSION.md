@@ -1,3 +1,10 @@
+JOBS TWO (jobs-two-01gkdyuu): 11/22 LATEST -- BUILD 11/22zh - YOUR FOLLOWERS, BUILT, NOT YET SEEN (rules 470(b), 466(c), 441; ask row 702). Its block is handoffs/JOBS.md.
+YOUR FOLLOWERS (his 'Put followers... kind of like your reputation'): the company's one count (Battle Brothers' Renown) is said as FOLLOWERS: the map's bar
+(FOLLOWERS over the number, a second's flicker when it moves, sized to fit an upright glass down to 320) and the FEED page's company profile ('260 FOLLOWERS';
+it asked a .get() that never existed and never showed). No number moved. On the phone, demo and alpha both ways: 0, 245, 260 after a fight won, 245 after
+five days, 145 after a dropped job, bar and feed alike. Gate CLOUT IS FOLLOWERS 4/0 (new). VOTE jobs2-your-followers-11-22 (STAND-IN), sha be0a41a08.
+Record records/BOHEMIA_JOBS_TWO_CLOUT_IS_FOLLOWERS_11_22_26.md. NEXT: rule 473, no waypoint arrows on the map.
+[bb Battle Brothers keeps one Renown number for the company, and it decays when you sit still]
 WORDS THREE (words-three-01gkdyuvnl): 11/22 LATEST -- BUILD 11/22zf - NEVER 'IT PAYS', OUR TRY ON EVERY CARD, SHEETS SIX AND SEVEN, BUILT (c929f456b), NOT YET SEEN (rules 470(g)(h), 467 AMENDED, 465; ask rows 707, 708, 710, 629). Its block is handoffs/WORDS_TWO.md.
 All 68 of his homework answers are on THE VOICE: 31 lines of his kept exactly, 23 kept as they are, 14 what the voice is not, and PAGE THREE, NEVER 'IT PAYS'
 (a person says who pays and what, or nothing; 20 of the job board's 102 lines say it). FOR EVERY LANE THAT WRITES A LINE: read THE VOICE SO FAR (20 lines);
