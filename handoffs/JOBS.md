@@ -1,6 +1,26 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe, the fresh JOBS the coordinator opened for rule 470(b); JOBS' 11/21 session is closed): 11/22 LATEST --
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/22 LATEST -- BUILD 11/22zo - NO WAYPOINTS, BUILT, NOT YET SEEN (rules 473, 441, 448; ask
+row 713, JOBS 2's half; WORLD 15's half shipped in 11/22zl). Content 24c6d1980. VOTE jobs2-no-waypoints-11-22 (STAND-IN). Record: records/BOHEMIA_JOBS_TWO_NO_WAYPOINTS_11_22_26.md.
+- MEASURED: slices/bohemia_job_kinds.js markPlace() drew, for every held job's next place, the phone's lit town and every side quest's
+  place (BohemiaRoadEvents.places()) OFF THE GLASS, its name at the glass's edge with an amber wedge pointing (and a touch there). With 14
+  side places and two jobs on the demo upright: 4 at the edge at the near stop (FIND · PLACE 11 to 14), more the farther they are.
+- NOW (__NO_WAYPOINTS__): off the glass nothing is drawn; markPlace still answers {on: false} for the code that reads it. On the glass
+  the ring and the name stand where the place is; the phone's job line (which-way mark, 238(d)) walks there (rule 448). The wedge layer
+  (wedgesDraw), EDGE_BOXES and MAP_DREW.jobEdges are gone; post-mortem graveyard/POSTMORTEM_JOBS_THE_EDGE_NAMES_11_22_26.txt.
+- ON THE PHONE (tools/bohemia_jobs_no_waypoints_on_the_phone.js; the road's quest record planted with 14 places, the one shortcut):
+  0 at the edge on all four; the camera over a place that was off the glass: ringed; the first job's line pressed: the company sets out.
+GATE NO WAYPOINTS (new, in the suite): W1 files (bites on main's old file), W1p planted, W2 the four phones, W3. RE-AIMED: THE JOBS'
+PART N3 and N5 (nothing at the edge; the phone's line sets out for PRIMM), THE PLACE IN THE DARK D5b and D6 (20/0).
+RED ON MAIN, NOT THIS BUILD'S (run on main's own job file the same way): THE JOBS' PART N2 (the said line read after the take is
+another job's: 'Contract from Church: Sweep the sand...') and D7 (a crew job done moves no bar: no settled act for qd-s10). WORLD's gate;
+the jobs' own, so mine to look at next.
+NEXT: THE JOBS' PART N2 and D7 (above; bugs he could feel if D7 is real: a crew job done that never warms its town). Then EYES' rows
+naming a job; his NOs on JOBS' cards.
+[bb Battle Brothers marks a contract's place where it stands on the world map and never points at the edge]
+[analog horror: fourteen places you meant to go, and the map stopped reminding you]
+
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe, the fresh JOBS the coordinator opened for rule 470(b); JOBS' 11/21 session is closed): 11/22 --
 BUILD 11/22zh - YOUR FOLLOWERS, BUILT, NOT YET SEEN (rules 470(b), 466(c), 441, 465; ask row 702). Content be0a41a08. VOTE jobs2-your-followers-11-22 (STAND-IN).
 Record: records/BOHEMIA_JOBS_TWO_CLOUT_IS_FOLLOWERS_11_22_26.md.
 - HIS WORDS (on jobs-do-less-show-the-clout, YES): 'Put followers this was an idea at the very beginning where it's kind of like your reputation'.

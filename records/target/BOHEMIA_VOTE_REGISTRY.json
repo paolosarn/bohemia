@@ -23867,7 +23867,8 @@
      },
      "stage": "stand_in",
      "record": "records/BOHEMIA_HOME_BASE_THE_GRINDER_11_22_26.md"
-    }
+    },
+  {"id": "jobs2-no-waypoints-11-22", "kind": "ui", "lane": "jobs 2", "sha": "24c6d1980", "made": "11/22", "draft": true, "title": "NO WAYPOINT ARROWS: SIDE QUESTS AND JOBS NO LONGER LINE THE EDGE OF THE MAP", "said": "'I don't want direction arrows if my map is zoomed in... just have the part highlighted when you're close... I have like 14 white points on my map' (rule 473)", "why": "Places off the screen no longer put a name and an arrow on the edge of the map; when a place is on screen it has its ring and its name where it stands, and your job's line on the phone still walks you there. You see it on the MAP: the edge is clean, left before and right now.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_TWO_NO_WAYPOINTS.jpg"}, "before_after": {"before": "with 14 side places and two jobs, 4 names with arrows stacked down the right edge of the map (FIND · PLACE 11 to 14), more the farther they were", "after": "0 at the edge on the demo and the alpha, upright and sideways; a place on screen ringed and named where it stands; the job's line on the phone sets you off", "scale": "the game on a phone upright (390 x 844 at 3), the demo, the map's near stop"}, "record": "records/BOHEMIA_JOBS_TWO_NO_WAYPOINTS_11_22_26.md", "build": "BUILD 11/22zo - NO WAYPOINTS"}
  ],
  "verdicts": [
   {

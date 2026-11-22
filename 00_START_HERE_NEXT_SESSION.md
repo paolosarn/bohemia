@@ -1,3 +1,9 @@
+JOBS TWO (jobs-two-01gkdyuu): 11/22 LATEST -- BUILD 11/22zo - NO WAYPOINTS, BUILT, NOT YET SEEN (rules 473, 441, 448; ask row 713, JOBS 2's half). Its block is handoffs/JOBS.md.
+NO WAYPOINTS (his 'I don't want direction arrows... I have like 14 white points on my map'): a job's or side quest's place off the glass puts nothing at
+the glass's edge (no name, no amber point, no touch); on the glass it is ringed and named where it stands; the phone's job line walks there. 14 side places
+and two jobs on the demo upright: 4 at the edge before, 0 now; 0 on the demo and the alpha both ways. Gate NO WAYPOINTS 4/0 (new). VOTE jobs2-no-waypoints-11-22
+(STAND-IN, before and now), sha 24c6d1980. Record records/BOHEMIA_JOBS_TWO_NO_WAYPOINTS_11_22_26.md. RED ON MAIN, NOT THIS BUILD'S: THE JOBS' PART N2, D7 (next).
+[bb Battle Brothers marks a contract's place where it stands on the world map and never points at the edge]
 WORDS THREE (words-three-01gkdyuvnl): 11/22 LATEST -- BUILD 11/22zk - SHEET EIGHT, YOUR NO, OUR TRY, AND THE CONE HAT OFF THE CARDS, BUILT (108b6b0eb), NOT YET SEEN (rule 467 AMENDED, rules 470(f)(g), 465; ask rows 710, 629, 706). Its block is handoffs/WORDS_TWO.md.
 His 14 NOs from sheets one to five come back as sheet eight: the game's line beside our try made from each lesson, 12 of 14 cursing. Where he wrote a line or
 said YES, his answer is the line, so no try goes over it. Card 6.3 is off the straw cone face, and a gate leg keeps the cone off every waiting card. 38 cards
@@ -16,7 +22,7 @@ reach (out of their reach, a fighter between him and each of theirs, behind the 
 or behind him, the blade only when cornered. 160 fights, the same seeds: caught from behind 1.4% -> 0.4% of his turns, blows on the camp 3.17 -> 2.15 a fight, the camp dead 28% -> 18%,
 his win unchanged. Gate THE STAFF FIGHT TOO leg S12 (against a fighter's brain). On the phone, the demo and the alpha both ways: 99 camp turns, none beside, circled or flanked.
 FOUND for COMBAT FOUR: upright, the camp at the west edge is off the glass mid-fight (a NOTE in handoffs/COMBAT_THREE.md). NEXT: rule 471, the cart. VOTE staff-they-fight-like-staff-11-22.
-JOBS TWO (jobs-two-01gkdyuu): 11/22 LATEST -- BUILD 11/22zh - YOUR FOLLOWERS, BUILT, NOT YET SEEN (rules 470(b), 466(c), 441; ask row 702). Its block is handoffs/JOBS.md.
+JOBS TWO (jobs-two-01gkdyuu): 11/22 -- BUILD 11/22zh - YOUR FOLLOWERS, BUILT, NOT YET SEEN (rules 470(b), 466(c), 441; ask row 702). Its block is handoffs/JOBS.md.
 YOUR FOLLOWERS (his 'Put followers... kind of like your reputation'): the company's one count (Battle Brothers' Renown) is said as FOLLOWERS: the map's bar
 (FOLLOWERS over the number, a second's flicker when it moves, sized to fit an upright glass down to 320) and the FEED page's company profile ('260 FOLLOWERS';
 it asked a .get() that never existed and never showed). No number moved. On the phone, demo and alpha both ways: 0, 245, 260 after a fight won, 245 after
