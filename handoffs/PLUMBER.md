@@ -1,5 +1,33 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/22, BUILD 11/22zx THE CAMP LOADS IN ONE GO (VAMILY rule 472(e), the coordinator's 'PLUMBER 8: the camp freeze'; rule 441).
+  MEASURED FIRST (the demo upright, CPU 4x, the GPU canvas, MAKE CAMP from the map with the phone's HEAL; a CPU profile in half seconds):
+  the camp's screen up 1.7 s, its picture in 18.5 s cold and 17.3 s warm, 10 to 11 s of tasks over 50 ms, the longest 2.4 s. Where: the
+  two board pictures written as WebP files in ONE task (2.3 s) and read back; the camp's hours running from the tap (nightfall's
+  reckoning 2.2 s, every job's danger planned again for the new day 1.8 to 4.8 s); every man's sheet read back off the GPU for his dusk
+  (0.8 s); the board dealt twice; the fight page's data asked one file after another (13 round trips in a row on a phone); the compass
+  reading every crew twice a second. CUT, each with its switch (records/BOHEMIA_PLUMBER_THE_CAMP_LOADS_IN_ONE_GO_11_22_26.md):
+  __THE_CAMP_PICTURE_IS_HANDED_NOT_WRITTEN__, __THE_CLOCK_WAITS_FOR_THE_CAMP_TO_LOAD__ (and the compass waits), __THE_DUSK_IS_WORKED_OUT_ON_THE_CPU__,
+  __THE_OTHER_LIGHT_IS_THE_SAME_BOARD__, __THE_DATA_COMES_IN_ONE_ROUND_TRIP__ (the fight's own loadAll: every fight's start too).
+  AFTER (the A/B, the same build, the old ways switched on, a phone's 100 ms round trip): cold 24.3 and 16.6 s -> 7.3 and 9.6 s, tasks
+  13.0 and 7.7 s -> 3.3 s, the longest 2.0 s -> 1.1 s; warm 21.6 and 13.1 s -> 6.3 and 6.8 s; the camp's hours gone before it showed 35, 25,
+  22, 18 -> 0. Sideways: cold 11.5 -> 10.3 s, warm 13.0 -> 5.9 s, held 5.8/7.6 -> 3.1/2.1 s. ON THE CHECKERS' BENCH (the whole valley
+  lit) the load read 26 s: ten seconds of it the map drawn behind the camp, once a people sheet that landed: __A_SHEET_LANDING_DRAWS_ONCE__
+  (no draw while a place is open, else one a frame). THE ALPHA: my probe never made camp on the alpha (the screen not up), not measured;
+  the camp's code is the same files.
+  GATE: THE CAMP LOADS IN ONE GO (new, in the suite; a stranger's game on PTBTDN, the camp on THE DECK): 6/0 twice, now 5.5 and 6.5 s,
+  the longest task 581 and 689 ms, 2.3 and 2.8 s held; its plant (the six old ways) 12.8 and 10.1 s with 13 to 18 hours gone. The three
+  camp gates already on the red list (THE CAMP IS THE FIGHT'S BOARD, SET UP ON THE BOARD, PITCHED ON THE BOARD) run on the tree before
+  this work (5238999bb) and on it: the same before and after (27/9, 24/3, 9/5), the same legs failing (which board or which way the
+  phone is held moves from run to run): nothing of the camp after a fight changed. The suite's own run of each stays on its row.
+  *** FOR CAMP FOUR (rule 472 (a) to (d) are yours; I stayed inside the load): (1) a camp made on the map now takes NO HOUR until its
+  screen's picture is in (campStillLoading in campHour, beside MOTION 3's set-up hold; at most 30 s): your 'time goes by until everyone
+  is healed' starts from the camp drawn, not from the tap; switch window.__CAMP_CLOCK_DURING_LOAD. (2) The camp's ground pictures are
+  handed to the town screen as the canvases they are drawn on (src 'camp-board:...', complete/naturalWidth set on the canvas), not WebP
+  files: a picture you add to the camp's screen can be a canvas the same way; switch __CAMP_PLATE_ENCODE. (3) The night and the day are
+  the same board (the second light handed the first's, no second deal). (4) The compass is not worked out while the camp loads. Your
+  build transition (472(d)) has about 6 s on a slowed phone to play over now, the hidden fight page's load and the ground's bake. ***
+
 PLUMBER 8 (chat 18) 11/22, BUILD 11/22t THE PEOPLE COME IN BEHIND THE TOWN (row 677, rule 441, rule 418(a); COOK FIVE's and BESTIARY's room).
   MY ROW 677, ALONE, FIXED OR RE-AIMED:
   THE WHOLE LOOP PLAYS, ITS PUBLISHED TWIN, THE HEAP STAYS FLAT (struck): the loop's step 6 tapped the road card inside its first beat
