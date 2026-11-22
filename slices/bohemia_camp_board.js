@@ -158,6 +158,14 @@
     /* __THE_CAMP_IS_THE_FIGHTS_BOARD__: COMBAT TWO's seam (__THE_BOARD_HANDED_WHOLE__): the board the fight ended on, stood again tile for
        tile with no deal at all, when the shell kept it (the same fight, by its fingerprint) */
     if (fv) { try { var T0 = root.top, CF = T0 && T0.__CAMP_FROM_FIGHT; if (CF && CF.sig === ask.sig && CF.boardDef) { opts.boardDef = JSON.parse(JSON.stringify(CF.boardDef)); B.handed = true; } else B.handed = false; } catch (e) { B.handed = false; } }
+    /* ==== CAMP FOUR __THE_CAMP_COMES_UP_AT_ONCE__ (rule 472(d)(e)): MAKE CAMP after a fight, the fight's own baked board handed at
+       the tap (its campQuick, kept by the shell's campFromFightKeep with this fight's fingerprint): the camp stands on it at once, no
+       hidden page, no second deal, no second bake. Anything missing or spent (a reload of the camp: the hand-over is let go once
+       used) falls back to the hidden page, as before. window.__CAMP_NO_QUICK = the way it was. ==== */
+    if (fv && !(root.__CAMP_NO_QUICK || (root.top && root.top.__CAMP_NO_QUICK))) {
+      var QF = null; try { var CQ = root.top && root.top.__CAMP_FROM_FIGHT; QF = CQ && CQ.sig === ask.sig && CQ.quick && CQ.quick.sig === ask.sig && !CQ.quick.spent ? CQ.quick : null; } catch (e) { QF = null; }
+      if (QF && quickLand(QF, key, ask)) return B.state;
+    }
     var wide = fits.filter(function (f) { return !f.tall; })[0] || fits[0];
     opts.campBoard = { pick: pick, tw: fv ? fvTw(fv) : Math.round(Math.max(200, Math.min(515, tmin))), dead: ask.dead || [],
       manPx: fv ? Math.round(fv.v.man / fv.gw * 1e4) / 1e4 : wide ? Math.round(PERSON / wide.T * 1e4) / 1e4 : 0 };   /* the dead at the fight's own man size */
@@ -182,17 +190,100 @@
     return B.state;
   }
   function ask0(key) { return B.key === key && B.ask ? B.ask.dead : null; }
+  /* CAMP FOUR __THE_CAMP_COMES_UP_AT_ONCE__: the camp laid on the fight's own board, handed whole at the tap */
+  function quickLand(Q, key, ask) {
+    var live = function (L) { return !!(L && L.board && L.board.width > 1); };
+    var nowL = Q.night ? Q.nightL : Q.day; if (!live(nowL) || !Q.grid || !Q.roof) return false;
+    B.quick = Q; B.quickT0 = Date.now();
+    var grid = JSON.parse(JSON.stringify(Q.grid)), p = pick(grid);
+    if (!p) { B.quick = null; return false; }
+    var R = { win: { x: 0, y: 0, w: Q.w, h: Q.h }, tw: Q.tw, th: Q.th, dealt: Q.dealt, grid: grid, sameBoth: true, t: { quick: Q.ms, pick: Date.now() - B.quickT0 }, bodies: Q.bodies | 0,
+      pitch: p, day: live(Q.day) ? Q.day.board : null, night: live(Q.nightL) ? Q.nightL.board : null };   /* a day fight hands no night: it is graded here */
+    B.fromFight = true; B.wantSig = ask.sig || null; B.handed = true; B.quickLanded = (B.quickLanded | 0) + 1;
+    B.opts = { kind: null, district: ask.district || null, cell: null, night: !!Q.night, deal: ask.__deal != null ? ask.__deal : null, quick: true };
+    warmDrop();   /* nobody needs the warmed page now */
+    fvLandedQuick(key, R);
+    return true;
+  }
+  /* the night over the same picture: the fight's own ground night (nightPass with dayOf: its moon multiplied in, the day's hues laid
+     back NIGHT_HUE of the way), with the fight's own numbers handed at the tap */
+  function gradeNight(c1, Q) {
+    var c = document.createElement('canvas'); c.width = c1.width; c.height = c1.height; var g = c.getContext('2d');
+    g.drawImage(c1, 0, 0);
+    g.globalCompositeOperation = 'multiply'; g.fillStyle = Q.tint || 'rgb(172,182,211)'; g.fillRect(0, 0, c.width, c.height);
+    g.globalCompositeOperation = 'color'; g.globalAlpha = Q.hue != null ? Q.hue : 0.45; g.drawImage(c1, 0, 0);
+    g.globalCompositeOperation = 'source-over'; g.globalAlpha = 1;
+    return c;
+  }
+  /* CAMP FOUR __THE_CAMP_COMES_UP_AT_ONCE__: the camp's picture composed from the fight's own board in one short step, on the glass as a
+     canvas (no file written, none read back: measured, writing the picture as a file took 1.2 s before the first frame), the other
+     light a breath later */
+  function fvLandedQuick(key, R) {
+    var F = B.fv, Q = B.quick, t0 = Date.now();
+    B.out = { day: null, night: null, win: R.win, tw: R.tw, th: R.th, dealt: R.dealt, grid: R.grid, sameBoth: R.sameBoth, t: R.t || null, bodies: R.bodies | 0, fv: true, quick: true,
+      dead: (ask0(key) || []).map(function (d) { return { x: d.x, y: d.y, st: d.st || 0, side: d.side }; }) };
+    B.pitch = { x: R.pitch.x, y: R.pitch.y, w: R.pitch.w, h: R.pitch.h, n: R.pitch.n, score: R.pitch.score, rough: R.pitch.rough, short: R.pitch.short, dead: R.pitch.dead | 0 };
+    AR = R.th / R.tw || AR;
+    F.rho = Math.min(F.rhoT, Math.max(1, R.tw / F.gw));
+    B.state = 'composing';
+    var tl = B.tl = [['landed', Date.now() - B.t0]], mark = function (k) { tl.push([k, Date.now() - B.t0]); };
+    var A1 = Q.night ? 'night' : 'day', A2 = Q.night ? 'day' : 'night';
+    var ring = function (a) { var L2 = a === 'night' ? Q.nightL : Q.day, k2 = (L2 && L2.rk) || Q.ringK;
+      if (L2 && L2.glass && L2.glass.width) return { glass: L2.glass, gw: L2.gsz.w, gh: L2.gsz.h };
+      return L2 && L2.ring && L2.ring.width ? { c: L2.ring, bt: Q.ringK.bt, R: Q.ringK.R, kx: k2.kx, ky: k2.ky } : null; };
+    var put = function (dayC, nightC, both) {
+      var c0 = dayC || nightC, u1 = 'camp:' + (both ? 'day+' : A1), u2 = 'camp:' + (both ? 'night+' : A1), P = { key: both ? 'F|W+' : 'F|W', ready: true, cv: asPic(dayC || nightC, u1), ncv: asPic(nightC || dayC, u2), url: u1, nurl: u2,   /* PLUMBER 8's asPic: the canvas answers as a loaded picture */
+        px: [F.PW, F.PH], T: F.T, tall: false, lift: 0, w: c0.width, h: c0.height, ms: Date.now() - t0, fv: true, quick: true };
+      B.plates['F|W'] = P; B.plates['F|T'] = Object.assign({}, P, { key: both ? 'F|T+' : 'F|T', tall: true });
+    };
+    setTimeout(function () {
+      if (B.key !== key) return;
+      var c1 = null; try { c1 = fvCompose(R[A1], ring(A1)); } catch (e) { fail('the fight\'s board: ' + (e && e.message || e)); return; }
+      mark('composed ' + A1);
+      put(A1 === 'day' ? c1 : null, A1 === 'night' ? c1 : null, false);
+      B.state = 'in'; B.ms = Date.now() - B.t0; B.firstLight = A1; B.made++; tell(); mark('told');
+      setTimeout(function () {   /* the other light, a breath later: the night graded over the same picture, or a night fight's day */
+        if (B.key !== key) return;
+        var c2 = null; try { c2 = A2 === 'night' ? gradeNight(c1, Q) : (R.day ? fvCompose(R.day, ring('day')) : null); } catch (e) { c2 = null; }
+        mark('composed ' + A2 + (c2 ? '' : ' (none: the night stays)'));
+        if (c2) put(A1 === 'day' ? c1 : c2, A1 === 'day' ? c2 : c1, true); else B.oneLight = A1;
+        F.ringed = !!ring(A1); F.composeMs = Date.now() - t0; B.bothAt = Date.now() - B.t0;
+        quickSpent(); tell();
+      }, 60);
+    }, 0);
+  }
+  function quickSpent() { var Q = B.quick; if (!Q || Q.spent) return; Q.spent = true;
+    [Q.day, Q.nightL].forEach(function (L) { if (L) { [L.board, L.ring, L.glass].forEach(function (c) { if (c) { c.width = 0; c.height = 0; } }); } }); }
   function copy(c) { if (!c || !c.width) return null; var d = document.createElement('canvas'); d.width = c.width; d.height = c.height; d.getContext('2d').drawImage(c, 0, 0); return d; }
   function landed(f, key, d) {
     if (B.key !== key) return;
+    if (d && d.first) { landedFirst(f, key, d); return; }   /* CAMP FOUR: the light he camps in, before the other */
     var cw = f.contentWindow, R = null; try { R = cw.__CAMP_BOARD; } catch (e) { R = null; }
     if (!d.ok || !R || R.err || !R.day || !R.night) { fail((R && R.err) || d.err || 'no board'); return; }
     if (B.fv) { fvLanded(f, key, cw, R); return; }   /* __THE_CAMP_IS_THE_FIGHTS_BOARD__ */
+    var wasIn = B.state === 'in' && B.firstOnly;   /* CAMP FOUR: the camp already stands on the first light: the other comes in under it */
+    if (wasIn && B.out) { [B.out.day, B.out.night].forEach(function (c) { if (c) { c.width = 0; c.height = 0; } }); }
     B.out = { day: copy(R.day), night: copy(R.night), win: R.win, tw: R.tw, th: R.th, dealt: R.dealt, grid: R.grid, sameBoth: R.sameBoth, t: R.t || null, bodies: R.bodies | 0, dead: (ask0(key) || []).map(function (d) { return { x: d.x, y: d.y, st: d.st || 0, side: d.side }; }) };
     B.pitch = { x: R.pitch.x, y: R.pitch.y, w: R.pitch.w, h: R.pitch.h, n: R.pitch.n, score: R.pitch.score, rough: R.pitch.rough, short: R.pitch.short, dead: R.pitch.dead | 0 };
     AR = R.th / R.tw || AR;
     unframe(cw);
+    if (wasIn) { B.firstOnly = false; B.both = true; B.plates = {}; B.making = {}; B.bothAt = Date.now() - B.t0; tell(); return; }   /* the pictures made again with both lights, keyed '+' (the look lays the new night in where it stands) */
     B.state = 'in'; B.ms = Date.now() - B.t0; B.made++;
+    tell();
+  }
+  /* CAMP FOUR __THE_CAMP_COMES_UP_AT_ONCE__ (rule 472(d)): HEAL on the map, the board's first light baked: the camp stands on it now (both
+     slots the same picture), and the other light is laid in when it comes (landed above). The fight's view (a camp off a fight with no
+     hand-over) waits for both, as before. window.__CAMP_BOTH_FIRST = the way it was. */
+  function landedFirst(f, key, d) {
+    if (B.fv || B.state === 'in') return;
+    var cw = f.contentWindow, R = null; try { R = cw.__CAMP_BOARD_FIRST; } catch (e) { R = null; }
+    if (!R || !R.c || !R.pitch) return;
+    var c1 = copy(R.c);   /* one copy for both slots: the same picture until the other light is in (CAMP FOUR, measured: a copy and a compose less on the phone's HEAL) */
+    B.out = { day: c1, night: c1, win: R.win, tw: R.tw, th: R.th, dealt: R.dealt, grid: R.grid, sameBoth: true, t: R.t || null, bodies: R.bodies | 0, firstLight: R.light, dead: (ask0(key) || []).map(function (q) { return { x: q.x, y: q.y, st: q.st || 0, side: q.side }; }) };
+    B.pitch = { x: R.pitch.x, y: R.pitch.y, w: R.pitch.w, h: R.pitch.h, n: R.pitch.n, score: R.pitch.score, rough: R.pitch.rough, short: R.pitch.short, dead: R.pitch.dead | 0 };
+    AR = R.th / R.tw || AR;
+    try { cw.__CAMP_BOARD_FIRST = null; } catch (e) {}
+    B.firstOnly = true; B.both = false; B.state = 'in'; B.ms = Date.now() - B.t0; B.firstAt = B.ms; B.made++;
     tell();
   }
   function unframe(cw) {
@@ -205,8 +296,9 @@
   function drop() {
     var cw = null; try { cw = B.frame && B.frame.contentWindow; } catch (e) {} unframe(cw);
     for (var k in B.plates) { var P = B.plates[k]; try { if (/^blob:/.test(P.url || '')) URL.revokeObjectURL(P.url); if (/^blob:/.test(P.nurl || '')) URL.revokeObjectURL(P.nurl); } catch (e) {} }
+    quickSpent();   /* CAMP FOUR: the fight's hand-over, if it was never used */
     if (B.out) { [B.out.day, B.out.night].forEach(function (c) { if (c) { c.width = 0; c.height = 0; } }); }
-    B.plates = {}; B.making = {}; B.out = null; B.pitch = null; B.state = 'none'; B.key = null;
+    B.plates = {}; B.making = {}; B.out = null; B.pitch = null; B.state = 'none'; B.key = null; B.quick = null; B.oneLight = null; B.firstOnly = false; B.both = false;
   }
 
   /* ---------------------------------------------------------------- the camp's ground, laid under one of CAMP TWO's layouts */
@@ -226,7 +318,7 @@
      the slowest of the three to write, measured) */
   function enc(c) { var u = ''; try { u = c.toDataURL('image/webp', 0.92); } catch (e) { u = ''; } if (!/^data:image\/webp/.test(u)) u = c.toDataURL('image/jpeg', 0.93); return u; }
   function asPic(c, u) { try { c.complete = true; c.naturalWidth = c.width; c.naturalHeight = c.height; c.src = u; c.decode = function () { return Promise.resolve(); }; } catch (e) {} return c; }   /* __THE_CAMP_PICTURE_IS_HANDED_NOT_WRITTEN__ */
-  function keyFor(f) { return (f.tall ? 'T' : 'W') + '|' + f.lift + '|' + Math.round(f.T); }
+  function keyFor(f) { return (f.tall ? 'T' : 'W') + '|' + f.lift + '|' + Math.round(f.T) + (B.both ? '+' : ''); }   /* CAMP FOUR: '+' once both lights are in */
   function plate(L) {
     if (B.state !== 'in' || !B.out || !L) return null;
     if (B.fv) { var PF = B.plates[L.tall ? 'F|T' : 'F|W']; return PF && PF.ready ? PF : null; }   /* __THE_CAMP_IS_THE_FIGHTS_BOARD__: one picture, both ways */
@@ -238,7 +330,7 @@
       var P2 = B.plates[k] = { key: k, ready: false, px: [f.PW, f.PH], T: f.T, tall: f.tall, lift: f.lift, fit: f };
       /* made at once, in the same beat (measured 11/6 on the phone on its side: an image file written in the background took 6.5 s
          to come back while the camp's clock ran, the glass dark all that time; written here, 0.2 s for both, the board on the glass 2.1 s after HEAL) */
-      var t0 = Date.now(), day = composeOne(B.out.day, f), night = composeOne(B.out.night, f);
+      var t0 = Date.now(), day = composeOne(B.out.day, f), night = B.out.night === B.out.day ? day : composeOne(B.out.night, f);   /* CAMP FOUR: the first light alone: one picture in both slots */
       P2.w = day.width; P2.h = day.height;
       /* __THE_CAMP_PICTURE_IS_HANDED_NOT_WRITTEN__ (PLUMBER 8, 11/22, rule 472(e): 'we made camp, it loads, it takes 30 seconds... it
          freezes for like 10 seconds'). MEASURED (the demo upright, CPU 4x, MAKE CAMP from the map, a CPU profile): writing these two
@@ -384,12 +476,15 @@
   function fvPick(grid, C) {
     var F = B.fv, v = F.v, ph = v.phone, m = [], sh = fvShown();
     /* which of the board's never-tiles are a building's roof (the fight's own isRoof): on the fight's scale one tile is one house */
+    var QK = B.quick;   /* CAMP FOUR __THE_CAMP_COMES_UP_AT_ONCE__: the fight's own read of its board, handed at the tap (no hidden page) */
+    if (QK) { F.roof = QK.roof; F.lv = QK.lv; F.rise = QK.rise; } else
     try { var cw0 = B.frame && B.frame.contentWindow, Fo = cw0 ? cw0.eval('typeof FIGHT!=="undefined"?FIGHT:null') : null, rz = cw0 && typeof cw0.riseAt === 'function' ? cw0.riseAt : null; F.roof = []; F.lv = []; F.rise = [];
       for (var yy = 0; yy < grid.h; yy++) { var rr = [], ll = [], zz = []; for (var xx = 0; xx < grid.w; xx++) { rr.push(Fo && Fo.isRoof && Fo.isRoof(xx, yy) ? 1 : 0); ll.push(Fo && Fo.level ? Fo.level(xx, yy) | 0 : 0); zz.push(rz ? +rz(xx, yy) || 0 : 0); } F.roof.push(rr); F.lv.push(ll); F.rise.push(zz); } } catch (e) { F.roof = null; F.lv = null; F.rise = null; }   /* the fight's own riseAt: a man on a roof stands that much higher */
     /* THE GROUND THEY FOUGHT ON: CAMP THREE's grid keeps a camp off every raised tile; a fight fought on a raised road (the freeway's
        deck) has only that under the glass, so on the fight's view a raised tile a man walks on that is no roof (a deck, a rise of
        ground) is ground too, at its own height (measured: on the freeway on its side the fire found no open ground on the glass) */
     F.okS = grid.ok.map(function (row, y) { return row.map(function (o, x) { if (o) return o;
+      if (QK) { var Wk = QK.walk; return Wk && Wk[y] && Wk[y][x] && !(F.roof && F.roof[y][x]) && F.lv && F.lv[y][x] > 0 ? Wk[y][x] : 0; }
       try { if (Fo && Fo._t && Fo._t.passable(x, y) && Fo.rowAt(x, y) !== 'obstacles' && !(F.roof && F.roof[y][x]) && F.lv && F.lv[y][x] > 0) return Fo.S.cover && Fo.S.cover[y] && Fo.S.cover[y][x] ? 1 : 2; } catch (e) {}
       return 0; }); });
     /* MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (rule 444(b), measured on the Strip on its side: the square fell on a step half a
@@ -435,7 +530,8 @@
     g.fillStyle = FV_GROUND; g.fillRect(0, 0, n, n);   /* past the map's ring: the fight's own dark (it never shows on a fight's glass) */
     var X = function (u) { return (v.sx0 + u * F.gw - F.ox0) * rho; }, Y = function (w) { return (v.sy0 + w * F.gh - F.oy0) * rho; };
     g.imageSmoothingEnabled = true; try { g.imageSmoothingQuality = 'high'; } catch (e) {}
-    if (ring && ring.c) { var r0 = -ring.R * ring.bt; g.drawImage(ring.c, X(r0), Y(r0), ring.c.width / ring.kx * F.gw * rho, ring.c.height / ring.ky * F.gh * rho); }
+    if (ring && ring.glass) g.drawImage(ring.glass, -F.ox0 * rho, -F.oy0 * rho, ring.gw * rho, ring.gh * rho);   /* CAMP FOUR: the fight's own glass ground round the board, where it showed it */
+    else if (ring && ring.c) { var r0 = -ring.R * ring.bt; g.drawImage(ring.c, X(r0), Y(r0), ring.c.width / ring.kx * F.gw * rho, ring.c.height / ring.ky * F.gh * rho); }
     g.drawImage(win, X(O.x), Y(O.y), O.w * F.gw * rho, O.h * F.gh * rho);
     return c;
   }
@@ -463,7 +559,8 @@
       var P = { key: both ? 'F|W+' : 'F|W', ready: true, url: A1 === 'day' ? u1 : u2, nurl: A1 === 'day' ? u2 : u1, px: [F.PW, F.PH], T: F.T, tall: false, lift: 0, w: n, h: n, ms: Date.now() - t0, fv: true };
       B.plates['F|W'] = P; B.plates['F|T'] = Object.assign({}, P, { key: both ? 'F|T+' : 'F|T', tall: true });   /* both lights: a new key, so the screen takes the night's own picture */
     };
-    step(function () { rings[A1] = fvRing(cw, A1 === 'night'); pics[A1] = fvCompose(R[A1], rings[A1]); if (rings[A1]) rings[A1].c.width = 0;
+    var tl = B.tl = [['landed', Date.now() - B.t0]], mark = function (k) { tl.push([k, Date.now() - B.t0]); };   /* CAMP FOUR: each step's time from the ask (the gate reads it) */
+    step(function () { rings[A1] = fvRing(cw, A1 === 'night'); pics[A1] = fvCompose(R[A1], rings[A1]); if (rings[A1]) rings[A1].c.width = 0; mark('composed ' + A1);
       var then = function (u1) {
         step(function () { rings[A2] = fvRing(cw, A2 === 'night'); pics[A2] = fvCompose(R[A2], rings[A2]); if (rings[A2]) rings[A2].c.width = 0;
           F.ringed = !!(rings.day && rings.night); F.composeMs = Date.now() - t0;
@@ -477,7 +574,7 @@
       if (!first) { then(null); return; }
       fvBlob(pics[A1], function (u1) {   /* the light he stands in, on the glass now; the other light's own picture stands in for it until written */
         if (B.key !== key) { try { URL.revokeObjectURL(u1); } catch (e) {} return; }
-        plate(u1, u1, false); B.state = 'in'; B.ms = Date.now() - B.t0; B.firstLight = A1; B.made++; tell();
+        mark('written ' + A1); plate(u1, u1, false); B.state = 'in'; B.ms = Date.now() - B.t0; B.firstLight = A1; B.made++; tell(); mark('told');
         then(u1);
       });
     });
@@ -609,7 +706,8 @@
         from: B.out.dealt.from, district: B.out.dealt.district, kind: B.out.dealt.kind, sig: B.out.dealt.sig, laid: !!B.out.dealt.laid, die: B.out.dealt.die } : null,
       win: B.out ? B.out.win : null, tw: B.out ? B.out.tw : null, sameBoth: B.out ? B.out.sameBoth : null, t: B.out ? B.out.t : null,
       fromFight: !!B.fromFight, wantSig: B.wantSig || null, bodies: B.out ? B.out.bodies : 0, dead: B.out && B.out.dead ? B.out.dead.length : 0,
-      plates: Object.keys(B.plates).map(function (k) { var P = B.plates[k]; return { key: k, ready: !!P.ready, T: P.T, w: P.w, h: P.h, ms: P.ms }; }), fv: fvState() };
+      plates: Object.keys(B.plates).map(function (k) { var P = B.plates[k]; return { key: k, ready: !!P.ready, T: P.T, w: P.w, h: P.h, ms: P.ms }; }), fv: fvState(),
+      tl: B.tl || null, quick: B.quick ? { landed: B.quickLanded | 0, spent: !!B.quick.spent, ms: B.quick.ms, bodies: B.quick.bodies, oneLight: B.oneLight || null } : null };   /* CAMP FOUR __THE_CAMP_COMES_UP_AT_ONCE__ */
   }
   root.BohemiaCampBoard = { want: want, state: state, plate: plate, variantOf: variantOf, handOver: handOver, drop: drop, bodies: bodies, walls: walls, onBoard: onBoard, settle: settle, houses: houses, fromFight: fromFight, fvOn: fvOn, fvState: fvState, fvWhere: fvWhere, warm: warm, warmDrop: warmDrop, warmOn: function () { return !!B.warm; }, fvGlass: function () { return B.fv ? fvGlass() : null; }, fit: function (L) { return B.kit && B.sq ? fit(L, B.kit, B.sq) : null; },
     onChange: function (fn) { if (typeof fn === 'function' && B.fns.indexOf(fn) < 0) B.fns.push(fn); }, _B: B };

@@ -83,6 +83,14 @@
       return r; });
     var min = (info && info.min) | 0, hour = Math.floor(min / 60), night = !!(info && info.night);
     var A = CL.acts(M, { hour: hour, night: night, seed: (block[0] + block[1]) % 5 });
+    /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ (rule 472(b), Paolo 11/22: 'I still want the characters to move around as they were, doing whatever,
+       just breathing and idling around'): everyone whole and the clock stopped, the hour no longer turns their jobs; so every DRIFT_MS one
+       man of his (never YOU: you walk to his taps) gets up from what he was doing and goes to the next thing, the cook to the gun, the
+       gun to the fire, a turn on watch; by night they sleep but the one on watch, as they were */
+    if (info && info.whole && !night && (K.drift | 0) > 0) {
+      var J = ['cook', 'clean', 'rest', 'watch'], fr = A.filter(function (e) { return !e.main && J.indexOf(e.act) >= 0; });
+      for (var dk = 0, dn = (K.drift | 0) % Math.max(1, fr.length * J.length * 3); dk < dn && fr.length; dk++) { var de = fr[dk % fr.length]; de.act = J[(J.indexOf(de.act) + 1 + (dk % 2)) % J.length]; }
+    }
     if (K.st && K.st.acts) {   /* a man who lay hurt and is healed gets up once (ANIMATION's 'rise') */
       var was = {}; K.st.acts.forEach(function (e) { was[e.name || e.look] = e.act; });
       var tn = root.performance ? performance.now() : Date.now();
@@ -240,7 +248,10 @@
        a hundred pixels in the middle of the set-up) */
     try { var P2 = boardPlate(), V2 = root.VAR;
       if (P2 && V2 && V2.board && /\+$/.test(P2.key) && V2.boardKey + '+' === P2.key && root.PIC) {
-        var vv = CB().variantOf(P2), im = vv.cv && vv.cv.night ? vv.cv.night : new Image(); if (!(vv.cv && vv.cv.night)) im.src = vv.dir + vv.night_src; root.PIC.night = im;   /* PLUMBER 8 __THE_CAMP_PICTURE_IS_HANDED_NOT_WRITTEN__ */ V2.night_src = vv.night_src; V2.boardKey = P2.key; K.nightIn = (K.nightIn | 0) + 1; return; } } catch (e) {}
+        var vv = CB().variantOf(P2), hc = !!(vv.cv && vv.cv.night), im = hc ? vv.cv.night : new Image(); if (!hc) im.src = vv.dir + vv.night_src;   /* PLUMBER 8 __THE_CAMP_PICTURE_IS_HANDED_NOT_WRITTEN__ */
+        if (hc) { V2.cv = vv.cv; if (vv.cv.day) root.PIC.day = vv.cv.day; }   /* CAMP FOUR: a camp made by night stood on the night alone: the day laid in too */
+        else if (vv.src !== V2.src) { var imd = new Image(); imd.src = vv.dir + vv.src; root.PIC.day = imd; V2.src = vv.src; }
+        root.PIC.night = im; V2.night_src = vv.night_src; V2.boardKey = P2.key; K.nightIn = (K.nightIn | 0) + 1; return; } } catch (e) {}
     try { if (K.info) { K.st = build(K.info); K.folkKey = null; } } catch (e) {}   /* rule 406(g): the bodies the board brought, for the men's jobs */
     try { var BS0 = root.BohemiaSettlement; if (K.st && K.st.fv && !K.leadSent && BS0 && BS0.leadAgain) BS0.leadAgain(); } catch (e) {}   /* __THE_CAMP_IS_THE_FIGHTS_BOARD__: he stands on the fight's view, where he fought, never where the dark wait put him */
     if (K.pitchDue && boardIn()) { K.pitchDue = false; pitchNow(); if (K.st && K.st.fv && K.pitch) { K.pitch.t0 = null; K.firstAt = null;
@@ -441,7 +452,13 @@
     var s = ctx.s, z = ctx.personH / ZK, view = ctx.view, cx = ctx.cx, now = ctx.now;
     if (K.pitch && K.pitch.on && K.pitch.t0 != null && !K.firstAt && K.st.fv) K.firstAt = Object.assign({}, K.drawnAt || {});   /* the men as the first frame drew them */
     if (K.pitch && K.pitch.on && K.pitch.t0 != null && K.st.fv && !K.pitch.rolled) { if (motionBusy() && now - K.pitch.t0 < FV_HOLD) K.pitch.t0 = now; else K.pitch.rolled = true; }   /* the walk-in waits for the camp's own grow to land */
-    if (K.pitch && K.pitch.on && K.pitch.t0 == null) { var V0 = settleView(); if (!(V0 && V0.board && /^F\|/.test(String(V0.boardKey || '')))) return; K.pitch.t0 = now; K.firstFv = now; }   /* nothing of the camp before its own ground is on the glass */
+    if (K.pitch && K.pitch.on && K.pitch.t0 == null) { var V0 = settleView(); if (!(V0 && V0.board && /^F\|/.test(String(V0.boardKey || '')))) return;
+      /* CAMP FOUR __THE_CAMP_COMES_UP_AT_ONCE__ (rule 472(d)): the camp's ground now comes in a second after MAKE CAMP, before YOU are always
+         placed on it: its first frame waits for him (MOTION's hold waits for him the same way), never past six beats */
+      if (K.st.fv && !root.__CAMP_FIRST_NO_LEAD) { var BSl = root.BohemiaSettlement, LDl = null, hidL = false; try { LDl = BSl && BSl.lead ? BSl.lead() : null; } catch (e) { LDl = null; }
+        try { folk(); hidL = !!K.hide; } catch (e) { hidL = false; }   /* hurt, YOU lie by the fire among them (folk), not as the walker: nothing to wait for */
+        if (!hidL && !(LDl && LDl.x != null)) { K.leadWaitT0 = K.leadWaitT0 || now; if (now - K.leadWaitT0 < 3000) return; } }
+      K.pitch.t0 = now; K.firstFv = now; }   /* nothing of the camp before its own ground is on the glass */
     if (K.pitch && K.pitch.on && now - K.pitch.t0 > K.pitch.plan.ms) { K.pitch.on = false; K.pitch.done = now; }
     if (K.st.fv && !K.leadSent && !(K.pitch && K.pitch.on)) { K.leadSent = true;   /* __THE_CAMP_IS_THE_FIGHTS_BOARD__: the pitch done, he walks from where he fought to his job */
       try { var js = leadSpot(), BS = root.BohemiaSettlement; if (js && !js.from && BS && BS.leadTo) BS.leadTo(js.x, js.y); } catch (e) {} }
@@ -456,6 +473,10 @@
       } });
     });
     /* his men: in the pitch they come out of the carrier to their places; after it, each at his act */
+    /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ (rule 472(b)): the clock stopped, the men keep moving about (build's drift, one man a step) */
+    var WH = K.info && K.info.whole;
+    if (WH && !(K.pitch && K.pitch.on)) { if (K.wholeT0 == null) K.wholeT0 = now; var drn = Math.floor((now - K.wholeT0) / DRIFT_MS); if (drn !== (K.drift | 0)) { K.drift = drn; try { K.st = build(K.info); K.folkKey = null; } catch (e) {} } }
+    else if (!WH && K.wholeT0 != null) { K.wholeT0 = null; K.drift = 0; }
     var F = folk(), B = ctx.B, I = ctx.I, k = ctx.k, H = ctx.personH * s;
     var car = K.st.layout.pieces.filter(function (p) { return p.kind === 'carrier'; })[0];
     F.forEach(function (m, j) {
@@ -465,6 +486,21 @@
         var u = Math.max(0, Math.min(1, (t - a0) / Math.max(1, a1 - a0))), o0 = m.from || [car.x + 40, car.y + 30];   /* __THE_CAMP_IS_THE_FIGHTS_BOARD__: from where he stood when it ended */
         if (u < 1) { walking = true; x = o0[0] + (x - o0[0]) * u; y = o0[1] + (y - o0[1]) * u; if (m.from && t < a0) { walking = false; m.holding = true; } else m.holding = false; } else m.holding = false; }
       else m.holding = false;
+      /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ (rule 472(b), (d): no pop-in): a man whose place changes (a new job, the hour turning, the drift)
+         WALKS there from where he stood, at a walking pace, facing the way he goes, never jumping */
+      if (!(K.pitch && K.pitch.on) && !root.__CAMP_NO_STROLL) {
+        /* only once the clock has stopped: while the hours race (two a second) the camp is the time-lapse it always was, each man at his
+           hour's place (a walk there would never end) */
+        var wk = m.name || m.look || ('s' + m.slot), WW = K.walk || (K.walk = {}), w0 = WW[wk], strollOn = !!(K.info && K.info.whole);
+        if (!w0) w0 = WW[wk] = { tx: x, ty: y, fx: x, fy: y, lx: x, ly: y, t0: 0, ms: 0 };
+        if (Math.abs(w0.tx - x) > 4 || Math.abs(w0.ty - y) > 4) { w0.fx = w0.lx; w0.fy = w0.ly; w0.tx = x; w0.ty = y; w0.t0 = now;
+          w0.ms = strollOn ? Math.min(4000, 300 + Math.hypot(x - w0.fx, y - w0.fy) * 9) : 0; if (strollOn) K.strolls = (K.strolls | 0) + 1; }
+        var wu = w0.ms ? (now - w0.t0) / w0.ms : 1;
+        if (wu < 1) { walking = true; var ex = wu < 0.5 ? 2 * wu * wu : 1 - 2 * (1 - wu) * (1 - wu);
+          var nx = w0.fx + (x - w0.fx) * ex, ny = w0.fy + (y - w0.fy) * ex, ta = Math.atan2(y - w0.fy, x - w0.fx) * 180 / Math.PI;
+          m.wf = TURNS[(((Math.round((90 - ta) / 45)) % 8) + 8) % 8]; x = nx; y = ny; } else m.wf = null;
+        w0.lx = x; w0.ly = y;
+      }
       m.drawX = x; m.drawY = y;
       var gm = glidePos('m:' + (m.name || m.look), ctx.view.ox + x * s, ctx.view.oy + y * s, now); x = (gm[0] - ctx.view.ox) / s; y = (gm[1] - ctx.view.oy) / s;   /* he slides with the turn, still doing what he does */
       list.push({ y: y + (m.act === 'lie' || m.act === 'sleep' ? 6 : 0), man: m.slot, draw: function () {
@@ -479,6 +515,7 @@
      healed), then does his job */
   var ANIM_ACT = { lie: 'lie', sleep: 'sleep', rest: 'mend', mend: 'repair', tend: 'tend', cook: 'cook', clean: 'clean', loot: 'loot', lean: 'flirt' };   /* __THE_CAMP_AFTER_A_FIGHT__: lean is the flirt's wall (the hand up on it) */   /* CAMP THREE: loot, ANIMATION's when his look has it (the aftermath's act) */
   var RISE_MS = 4000;   /* its one slot: 24 keys, two bars at 120 BPM */
+  var DRIFT_MS = 6000;   /* CAMP FOUR: twelve beats at 120 BPM between one man's next thing and the next man's */
   function animCell(m, now, face, I) {
     if (!I || !I.activity) return null;
     var key = m.name || m.look, seed = 'camp:' + key, r = K.rise && K.rise[key];
@@ -539,7 +576,7 @@
       }
       return;
     }
-    var face = Math.max(0, TURNS.indexOf(m.face)), q = null, act = walking || m.holding ? null : ACT_PIC[m.act];
+    var face = Math.max(0, TURNS.indexOf(walking && m.wf ? m.wf : m.face)), q = null, act = walking || m.holding ? null : ACT_PIC[m.act];   /* CAMP FOUR: walking, he faces the way he goes */
     if (act && I && I.activity) q = I.activity(m.look, 'camp:' + (m.name || m.look), now, face, { act: act, n: m.slot });
     if (!q && I && I.frame && I.has && I.has(m.look)) q = I.frame(m.look, 'camp:' + (m.name || m.look), now, face, { set: 'bare', idles: m.act === 'watch' ? ['look', 'smoke'] : null });
     cx.fillStyle = 'rgba(0,0,0,.3)'; cx.beginPath(); cx.ellipse(fx, fy, H * .17, H * .05, 0, 0, 7); cx.fill();
@@ -637,6 +674,7 @@
     if (!K.st || !CL) return null;
     var plan = CL.pitch({ men: K.st.men.length, level: K.st.cart, smart: smart() });
     K.pitch = { on: true, t0: (root.performance ? performance.now() : Date.now()), plan: plan, skipped: false };
+    K.leadWaitT0 = null; K.walk = {};   /* CAMP FOUR: a new camp, nobody mid-walk, YOU waited for again */
     return plan;
   }
   function tap() { if (K.pitch && K.pitch.on) { K.pitch.on = false; K.pitch.skipped = true; return true; } return false; }
@@ -821,7 +859,11 @@
       pieces: K.st ? K.st.layout.pieces.map(function (p) { return { key: p.key, kind: p.kind, sprite: p.sprite, x: p.x, y: p.y, follower: p.follower || null }; }) : [],
       acts: K.st ? K.st.acts.map(function (e) { return { name: e.main ? 'YOU' : e.name, look: e.look, act: e.act, lookout: !!e.lookout, blood: Math.round(e.blood * 1000) / 1000, armour: Math.round(e.armour * 1000) / 1000, by: e.by }; }) : [],
       hour: K.st ? K.st.hour : null, night: K.st ? K.st.night : null, tall: K.st ? !!K.st.tall : null, fire: K.st ? K.st.layout.fire : null, flips: K.flips | 0, drawnBy: K.drawnBy || {}, rose: Object.keys(K.rise || {}), gliding: !!K.glide, lastGlide: K.lastGlide || null, lastFlip: K.lastFlip || null, lift: K.st ? K.st.layout.lift | 0 : 0, pitch: K.pitch ? { on: K.pitch.on, ms: K.pitch.plan.ms, skipped: K.pitch.skipped, carrier: K.pitch.plan.carrier } : null,
-      bodies: K.bodiesNow || [], walls: K.wallsNow || [], drawnAt: K.drawnAt || {}, firstAt: K.firstAt || null, firstFv: K.firstFv || null, spots: K.st ? K.st.acts.map(function (e) { var sp = K.st.spots[e.i]; return sp ? { name: e.main ? 'YOU' : e.name, act: e.act, x: sp.x, y: sp.y, face: sp.face, wall: sp.wall || null } : null; }).filter(Boolean) : [], compass: K.compass, warned: K.warned || null, reads: K.reads, menRead: K.men, hideLead: K.hide, ghost: K.ghost ? K.ghost.marks.length : 0, peek: !!(K.peekBtn && K.peekBtn.style.display !== 'none') };
+      bodies: K.bodiesNow || [], walls: K.wallsNow || [], drawnAt: K.drawnAt || {}, firstAt: K.firstAt || null, firstFv: K.firstFv || null, spots: K.st ? K.st.acts.map(function (e) { var sp = K.st.spots[e.i]; return sp ? { name: e.main ? 'YOU' : e.name, act: e.act, x: sp.x, y: sp.y, face: sp.face, wall: sp.wall || null } : null; }).filter(Boolean) : [], compass: K.compass, warned: K.warned || null, reads: K.reads, menRead: K.men, hideLead: K.hide, ghost: K.ghost ? K.ghost.marks.length : 0, peek: !!(K.peekBtn && K.peekBtn.style.display !== 'none'),
+      /* CAMP FOUR __CAMP_WAITS_FOR_HIM__: the camp at rest, read by THE CAMP WAITS FOR HIM */
+      whole: !!(K.info && K.info.whole), drift: K.drift | 0, strolls: K.strolls | 0, lastDraw: K.lastDraw || null,
+      walking: Object.keys(K.walk || {}).filter(function (k) { var w = K.walk[k], n = root.performance ? performance.now() : Date.now(); return w.ms && n - w.t0 < w.ms; }),
+      drawnPos: (K.folk || []).map(function (m) { return { name: m.name || (m.main ? 'YOU' : m.look), x: m.drawX != null ? Math.round(m.drawX) : null, y: m.drawY != null ? Math.round(m.drawY) : null, act: m.act }; }) };
   }
   root.BohemiaCampLook = { fightScale: fightScale, fightView: function () { var C = CB(); return C && C.fvState ? C.fvState() : null; }, glass: function () { return K.st ? glassOf(K.st.layout) : null; }, ready: function () { return !!CL; }, variant: variant, board: function () { var C = CB(); return C ? C.state() : null; }, boardIn: boardIn, open: open, time: time, boxes: boxes, names: names, sheetKey: sheetKey, sleepers: sleepers, doing: doing,
     folk: folk, hideLead: hideLead, leadSpot: leadSpot, phone: phone, phoneOn: phoneOn, compose: compose, wantTall: wantTall, tier: tier, wantsFlip: wantsFlip, flip: flip, holdFrame: holdFrame, drawn: drawn, blocks: blocks, items: items, lit: lit, under: under, over: over, tap: tap, pitchNow: pitchNow, reads: reads, peek: peek, close: close, away: away, awayN: function () { return { n: K.awayN | 0, how: K.awayHow || null }; }, settingUp: settingUp, state: state, ZK: ZK };

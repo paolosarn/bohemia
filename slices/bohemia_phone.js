@@ -207,6 +207,7 @@
     try { o.regular = +TRAVEL_CLOCK.regular || 1; o.pick = +TRAVEL_CLOCK.pick || 1; o.holdMs = +TRAVEL_CLOCK.holdMs || 350; } catch (e) {}   /* __HOLD_PLAY_SLIDE_THE_SPEED__ */
     try { o.camp = !!(window.BohemiaMapCamp && BohemiaMapCamp.on()); } catch (e) {}
     try { o.campTown = (o.camp && typeof CAMP !== 'undefined' && CAMP.town) ? String(CAMP.town.name || '') : null; } catch (e) {}   /* CAMP [a town is safe]: a rest in a town */
+    try { o.campWhole = o.camp && window.BohemiaMapCamp && BohemiaMapCamp.whole ? BohemiaMapCamp.whole() : null; } catch (e) {}   /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ (rule 472(c)): everyone whole, the clock stopped */
     try { var sf = document.getElementById('settleFrame'); o.town = !!sf && sf.style.display === 'block' && !o.camp; } catch (e) {}
     try { o.meet = !!(MEET && MEET.up); } catch (e) {}
     try { o.sky = !!SKY; } catch (e) {}
@@ -299,6 +300,8 @@
   P.barPress = function (k) {
     try { var b = k === 'notes' ? document.getElementById('notebtn') : document.querySelector('#bmtb .t.' + k); if (!b) return false; b.click(); return true; } catch (e) { return false; }
   };
+  /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ (rule 472(c), rule 448: the phone is the door): his tap on the camp's line, back on the map */
+  P.road = function () { try { var C = window.BohemiaMapCamp; if (!C || !C.road) return false; window.__PHONE_ROAD = (window.__PHONE_ROAD | 0) + 1; return C.road(); } catch (e) { return false; } };
   /* THE TOWN'S LEAVE (rule 238(a)): the town's own button, pressed from the phone's band (the town's copy hidden under the phone) */
   P.leave = function () {
     try { var d = LOOP.frame && LOOP.frame.contentWindow && LOOP.frame.contentWindow.document, b = d && d.getElementById('leave'); if (!b) return false; b.click(); window.__PHONE_LEAVE = (window.__PHONE_LEAVE | 0) + 1; return true; } catch (e) { return false; }
@@ -651,6 +654,12 @@
       + '#bohphone .bpctx .lv{display:none;position:absolute;inset:0;width:100%;padding:0 6px;border:0;cursor:pointer;align-items:center;gap:6px;font:10px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.4px;color:#1f1710;' + kit('tin', 0.5) + '}'
       + '#bohphone .bpctx .lv img{width:22px;height:23.5px;pointer-events:none}'
       + '#bohphone .bpctx.town .lv{display:flex}#bohphone .bpctx.town .clk{display:none}'
+      /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ (rule 472(c)): everyone whole, the band is the road: the tin, the door's own picture, on the beat */
+      + '#bohphone .bpctx .rd{display:none;position:absolute;inset:0;width:100%;padding:0 6px;border:0;cursor:pointer;align-items:center;gap:6px;font:10px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.3px;color:#1f1710;' + kit('tin', 0.5) + '}'
+      + '#bohphone .bpctx .rd img{width:22px;height:23.5px;pointer-events:none}'
+      + '@keyframes bohRoadLit{0%{filter:brightness(1.45)}50%{filter:brightness(.85)}100%{filter:none}}'
+      + '#bohphone .bpctx.road .rd{display:flex;animation:bohRoadLit ' + BEAT + 'ms steps(2,end) 4}#bohphone .bpctx.road .clk,#bohphone .bpctx.road .lv,#bohphone .bpctx.road .vb,#bohphone .bpctx.road .pl{display:none}'
+      + '#bohphone .bpfd.road{box-shadow:inset 0 0 0 1px rgba(246,207,116,.55)}#bohphone .bpfd.road .fp b{color:#9fd08a}'
       /* __THE_BOSS_VERB_ON_THE_PHONE__ (BOSSES 11/2, rule 302): on the map, where a verb a boss gave him works, the band is that verb */
       + '#bohphone .bpctx .vb{display:none;position:absolute;inset:0;width:100%;padding:0 6px;border:0;cursor:pointer;align-items:center;gap:6px;font:9px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.1px;color:#1f1710;' + kit('tin', 0.5) + ';box-shadow:inset 0 0 0 1px #f2c56a}'
       + '#bohphone .bpctx .vb img{width:20px;height:20px;flex:none;pointer-events:none}'   /* BOSSES FIX 11/3 (rule 338): the thing he handed you (his pot, his wrench, his filter) */
@@ -1172,15 +1181,18 @@
     var jb = el('div', 'jobs'); jb.setAttribute('role', 'list'); jb.setAttribute('aria-label', 'the main quest and the jobs you are on');
     jb.innerHTML = '<div class="mq" role="listitem" aria-label="the main quest\'s place"></div>'; home.appendChild(jb);
     var fd = el('div', 'bpfd'); fd.setAttribute('role', 'button'); fd.setAttribute('tabindex', '0'); fd.setAttribute('aria-label', 'the city\'s feed: tap for all of it');
-    fd.addEventListener('click', function () { if (fd.dataset.quest) { questGo(fd.dataset.quest, 'strip', fd); return; }   /* rule 376: a post about his job goes there */
+    fd.addEventListener('click', function () { if (fd.dataset.road) { appPress('road'); return; }   /* CAMP FOUR __CAMP_WAITS_FOR_HIM__: his man's line is the way back */
+      if (fd.dataset.quest) { questGo(fd.dataset.quest, 'strip', fd); return; }   /* rule 376: a post about his job goes there */
       H.presses++; window.__PHONE_PRESSES = H.presses; pageOpen('feed'); }); home.appendChild(fd);
     var two = el('div', 'bptwo'); two.appendChild(appButton('play', 'big')); two.appendChild(appButton('heal', 'big')); home.appendChild(two);
     var ctx = el('div', 'bpctx');
     ctx.innerHTML = '<div class="clk" aria-hidden="true"><i class="g"></i></div>'   /* UI 7 (rule 368): the day and the hour are the phone's first line now (__THE_DAY_ON_THE_PHONE__), said once; the band keeps what the clock is doing */
       + '<button type="button" class="lv" aria-label="leave"><img alt="" src="' + IMG('app_leave') + '"><span>LEAVE</span></button>'   /* draft:true */
+      + '<button type="button" class="rd" aria-label="pack up camp and get back on the road" data-draft="true"><img alt="" src="' + IMG('app_leave') + '"><span>HIT THE ROAD</span></button>'   /* CAMP FOUR __CAMP_WAITS_FOR_HIM__: draft:true */
       + '<button type="button" class="vb" aria-label="use what a boss gave you"><img alt=""><span></span></button>'   /* __THE_BOSS_VERB_ON_THE_PHONE__ (BOSSES 11/2) */
       + '<button type="button" class="pl" aria-label="plant your own place here"><i></i><span>PLANT</span></button>';   /* __HOME_BASE__ (HOME BASE 11/8): draft:true */
     ctx.querySelector('.lv').addEventListener('click', function () { appPress('leave'); });
+    ctx.querySelector('.rd').addEventListener('click', function () { appPress('road'); });   /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ */
     ctx.querySelector('.pl').addEventListener('click', function () { appPress('home'); });   /* __HOME_BASE__ */
     /* __THE_BOSS_VERB_ON_THE_PHONE__ (BOSSES 11/2, rule 330: 'I can put the fire down, I can purify the water, I'm so confused by what that
        means'): a held finger on it says what it does, in one plain line from the boss's file (verb.tip); a tap still uses it. UI 4's
@@ -1222,6 +1234,7 @@
        hidden under the phone's rule (no button twice, 286(b)); a fight's own bar answers in a fight */
     if (a === 'notes' || a === 'settings') { if (H.page) pageClose(); var B = barOf(scr); if (!(B && B.barPress(a === 'notes' ? 'notes' : 'gear')) && a === 'settings') settingsOpen(); return; }
     if (a === 'leave') { if (L && scr === 'town') L.leave(); setTimeout(tick, 60); return; }
+    if (a === 'road') { if (L && L.road && scr === 'camp') { L.road(); H.homeSig = null; H.stripSig = null; } setTimeout(tick, 60); return; }   /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ (rule 472(c)) */
     if (a === 'verb') { var Bv = cw && cw.BohemiaBosses, v = H.verb; if (Bv && v && !v.off && scr === 'map') { Bv.use(v.id); H.homeSig = null; setTimeout(tick, 60); } return; }   /* __THE_BOSS_VERB_ON_THE_PHONE__ */
     if (a === 'heal' || a === 'camp') { if (L && (scr === 'map' || scr === 'camp' || scr === 'town')) { L.camp(); setTimeout(tick, 60); } return; }   /* CAMP [a town is safe] (rule 273(b)): HEAL in a town rests there */
     if (a === 'relations') { if (H.page === a) pageClose(); else pageOpen(a); return; }
@@ -1557,7 +1570,7 @@
     H.el.classList.toggle('tl', !!(L && L.timeline(false)));
     var cd = L ? L.condition() : null;
     var vh = null; try { vh = scr === 'map' && cw && cw.BohemiaBosses ? cw.BohemiaBosses.verbHere() : null; } catch (e) { vh = null; }   /* __THE_BOSS_VERB_ON_THE_PHONE__ */
-    var sig = [scr, running, mark, s && s.clock, s && s.day, s && s.place, s && s.camp, cd && [cd.hp, cd.hpMax, cd.arm, cd.armMax].join(), vh ? vh.id + vh.off : '', (function () { try { return cw && cw.BohemiaHomeMap ? (cw.BohemiaHomeMap.offer() ? 'p' : '') + (cw.BohemiaHomeMap.label() || '') : ''; } catch (e) { return ''; } })()].join('|');
+    var sig = [scr, running, mark, s && s.clock, s && s.day, s && s.place, s && s.camp, s && s.campWhole ? 'W' + s.campWhole.t : '', cd && [cd.hp, cd.hpMax, cd.arm, cd.armMax].join(), vh ? vh.id + vh.off : '', (function () { try { return cw && cw.BohemiaHomeMap ? (cw.BohemiaHomeMap.offer() ? 'p' : '') + (cw.BohemiaHomeMap.label() || '') : ''; } catch (e) { return ''; } })()].join('|');
     if (!force && sig === H.homeSig) return; H.homeSig = sig;
     H.verb = vh;
     var cxv = H.el.querySelector('.home .bpctx'), vb = cxv && cxv.querySelector('.vb');
@@ -1574,9 +1587,10 @@
     var fitK = stW.textContent + '|' + (stD ? stD.textContent : '') + '|' + H.el.className;
     if (stW.__fit !== fitK) { stW.__fit = fitK; stW.style.fontSize = ''; for (var fs = 7; stW.scrollWidth > stW.clientWidth + 0.5 && fs > 5.5;) { fs -= 0.5; stW.style.fontSize = fs + 'px'; } }
     var cx = H.el.querySelector('.home .bpctx'); if (cx) cx.classList.toggle('town', scr === 'town');   /* in a town the band is LEAVE */
+    if (cx) { var rdOn = scr === 'camp' && !!(s && s.campWhole); if (rdOn !== cx.classList.contains('road')) { cx.classList.toggle('road', rdOn); if (rdOn) { window.__PHONE_ROAD_SHOWN = (window.__PHONE_ROAD_SHOWN | 0) + 1; try { window.postMessage({ type: 'BOHEMIA_SFX', ev: 'phone_open' }, '*'); } catch (_e) {} } } }   /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ (rule 472(c)): everyone whole, the band is the road */
     var k = H.el.querySelector('.home .clk');
     if (k && s) {
-      var g = k.querySelector('.g'); g.textContent = scr === 'map' ? (running ? 'GOING' : 'STOPPED') : scr === 'camp' ? 'RESTING' : scr === 'town' ? 'IN TOWN' : ''; g.classList.toggle('go', running && scr === 'map'); }   /* draft:true */
+      var g = k.querySelector('.g'); g.textContent = scr === 'map' ? (running ? 'GOING' : 'STOPPED') : scr === 'camp' ? (s.campWhole ? 'WHOLE' : 'RESTING') : scr === 'town' ? 'IN TOWN' : ''; g.classList.toggle('go', running && scr === 'map'); }   /* draft:true; CAMP FOUR: WHOLE, the new state's word, when the clock has stopped (465: RESTING kept as it was) */
     [].forEach.call(H.el.querySelectorAll('.home .app'), function (b) {
       var a = b.dataset.app, off = false;
       if (a === 'play') {
@@ -1677,6 +1691,11 @@
     if (H.stripFitH !== fd.clientHeight && fd.querySelector('.fp')) fitStrip(fd);   /* shown again, the jobs grew, or the font came in */
     var cw = cityWin(), L = cw && cw.BohemiaPhone && cw.BohemiaPhone.P;
     var posts = stripHold((L ? L.posts() : []).concat((H.own || []).filter(function (o) { return Date.now() - o.t < 120000; })));
+    /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ (rule 472(c)): everyone whole, the clock stopped: the strip is one of his men saying so, and a tap on
+       it is the way back to the map (the band under it says HIT THE ROAD); nothing else steps in while the camp waits */
+    var cwh = null; try { var st0 = L && L.state ? L.state() : null; cwh = st0 && st0.camp && st0.campWhole ? st0.campWhole : null; } catch (e) { cwh = null; }
+    if (cwh) { posts = [{ who: (cwh.who ? String(cwh.who).toUpperCase() : 'YOUR CAMP'), txt: cwh.line, kind: 'mine', priority: true, road: true }]; fd.dataset.road = '1'; fd.classList.add('road'); fd.setAttribute('aria-label', 'your camp: ' + cwh.line + ' Tap to get back on the road'); }
+    else if (fd.dataset.road) { delete fd.dataset.road; fd.classList.remove('road'); fd.setAttribute('aria-label', 'the city\'s feed: tap for all of it'); H.stripHeld = 0; }
     var last = posts.length ? posts[posts.length - 1] : null, newest = last ? last.who + '|' + last.txt : '';
     if (newest !== H.stripNewest && H.stripHeld && Date.now() < H.stripHeld && !(last && last.priority && !H.stripHeldPri)) {
       window.__PHONE_HELD = (window.__PHONE_HELD | 0) + 1; return; }   /* 371(b): the important one keeps the strip its read time */

@@ -34,7 +34,7 @@ const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const { throughTheTitle } = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
 const { leaveTown } = require(path.join(ROOT, 'tools/bohemia_leave_the_town.js'));
 let pass = 0, fail = 0;
-const BOARD_SRC = /^(data:image\/(webp|jpeg)|blob:|camp-board:)/;   /* PLUMBER 8 11/22: camp-board: the picture handed over as drawn (__THE_CAMP_PICTURE_IS_HANDED_NOT_WRITTEN__) */   /* the board's picture, made by slices/bohemia_camp_board.js; the wait is a one-pixel gif. MOTION 3 11/10
+const BOARD_SRC = /^(data:image\/(webp|jpeg)|blob:|camp-board:|camp:)/;   /* PLUMBER 8 11/22: camp-board: the picture handed over as drawn (__THE_CAMP_PICTURE_IS_HANDED_NOT_WRITTEN__) */   /* CAMP FOUR 11/22 (rule 472(d)): camp: the camp after a fight made in memory from the fight's own board (fvLandedQuick) */   /* the board's picture, made by slices/bohemia_camp_board.js; the wait is a one-pixel gif. MOTION 3 11/10
    (__THE_CAMP_IS_THE_FIGHTS_BOARD__): a camp made off a fight hands its picture as a blob, written off the main thread (toBlob) */
 const ok = (n, c, x) => { c ? pass++ : fail++; console.log((c ? '  ok   ' : '  FAIL ') + n + (x !== undefined ? '  [' + String(x).slice(0, 900) + ']' : '')); };
 

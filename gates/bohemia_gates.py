@@ -7995,7 +7995,7 @@ GATES = [
     ('CAMP HOLDS UNTIL HE ENDS IT', ['node', 'gates/camp_holds_until_he_ends_it_gate.js'],
      'CAMP gate, 10/26, row [camp holds until he ends it] rule 267(a)(d) (Paolo 10/26: "when I click the camp button it wants to stop having me in camp mode, I hate that, unless an enemy pulls up on me"). On the cut, phone and computer: a camp made straight after a fight (its contact flag still up) stands 12 hours; a crew held two blocks off for 12 hours is a warning one of his men says once, never the end; every camp panel opened and closed, the camp stands; only his tap (the phone\'s HEAL, BREAK CAMP), a travel or a crew reaching it ends it. records/BOHEMIA_CAMP_CAMP_HOLDS_UNTIL_HE_ENDS_IT_10_26_26.md', True),
     ('HEALING STOPS ITSELF AT FULL', ['node', 'gates/healing_stops_itself_at_full_gate.js'],
-     'CAMP gate, 10/26, row [healing stops itself at full] rule 278(a)(d) (Paolo 10/26: "it will stop, pause the game, as soon as my whole team is at 99 health and 99 armour"). On the cut, phone and computer: a hurt company\'s camp breaks itself at exactly the hour the table\'s rates bring the last man to 99 percent of both, back on the map on PAUSE, one of his men says they are ready; a camp made whole holds; HEAL ends it sooner. records/BOHEMIA_CAMP_HEALING_STOPS_ITSELF_AT_FULL_10_26_26.md', True),
+     'CAMP gate, 10/26, row [healing stops itself at full] rule 278(a)(d) (Paolo 10/26: "it will stop, pause the game, as soon as my whole team is at 99 health and 99 armour"). On the cut, phone and computer: a hurt company\'s camp stops its clock at exactly the hour the table\'s rates bring the last man to 99 percent of both and stays on the glass on PAUSE, one of his men says they are ready (RE-AIMED 11/22 by rule 472: it no longer sends him back); a camp made whole runs no hour; HEAL ends it sooner. records/BOHEMIA_CAMP_HEALING_STOPS_ITSELF_AT_FULL_10_26_26.md', True),
     ('THE FIGHT SAVES AT ITS START', ['node', 'gates/the_fight_saves_at_its_start_gate.js'],
      'FINISHER gate, 11/2, rule 233, ask lines 155 and 165 (Paolo 10/26: "The fight saves only at its start, like Battle Brothers: a reload or crash puts me at the start of the same fight; nothing is saved until I\'m back on the map"; "the loot screen counts as the fight"). On the demo, his phone, the tab killed with chrome://crash: a crash mid-fight reopens the same fight at round 1 (the same band, men, ground; every key as at the bell); a crash on the spoils, the same; home, the record gone and a crash is the map.', False),
     ('A TOWN IS SAFE', ['node', 'gates/a_town_is_safe_gate.js'],
@@ -9598,6 +9598,16 @@ GATES = [
      "0.5+); every man of his drawn in the camp's first frame where he stood when it ended; by day the fire on a board tile on the glass, "
      "a man at the dead, a man leaning on a house of the fight (a roof tile, the wall at his right hand), nobody in a house; 30+ fps at "
      "rest; P1 the camp that was voted NO (window.__CAMP_NO_FIGHT_VIEW) turns the camera check RED. Solo: it measures frames. About 12 min", True),
+    ('THE CAMP WAITS FOR HIM', ['node', 'gates/the_camp_waits_for_him_gate.js'],
+     "CAMP FOUR gate, 11/22, VAMILY rule 472 and 441, 448 (Paolo 11/22: 'if I make camp, I don't want it to auto and I want time to go by "
+     "until everyone's healed, but then when everyone is healed I want time to stop, but I still want the characters to move around... "
+     "I didn't get to see anyone build the camp... I have to definitely click something to resume... What if I want to zoom in on my "
+     "character, see them chilling?'). On the demo upright and on its side: HEAL off a town with his men hurt: the clock the same until the "
+     "camp's set-up has played, the hours run while they mend and STOP the hour they are whole, the camp staying on the glass; his men "
+     "keep moving about it; the phone's band says HIT THE ROAD and its strip is one of his men's line; a thumb on it takes him to the map "
+     "on PAUSE; a camp made whole runs no hour; two fingers zoom in until a man stands 150 px; after a won fight the camp stands on the "
+     "fight's own board handed at the tap, its first frame within 4.5 s, no frame held over 750 ms; planted: the old break and the old "
+     "second bake go red. records/BOHEMIA_CAMP_FOUR_THE_CAMP_WAITS_FOR_YOU_11_22_26.md", True),
     ('THE CAMP IS SET UP ON THE BOARD', ['node', 'gates/the_camp_is_set_up_on_the_board_gate.js'],
      "MOTION 3 gate, 11/10, rule 444(a)(b) and 441, ask lines 568 and 569 (Paolo: 'you watch them set up the camp on the combat map "
      "itself, not pull out into the big map and then try to zoom back in, and then once the camp is set up, then time fast forwards... "

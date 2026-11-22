@@ -213,9 +213,12 @@ async function run(profile) {
       else
       hb = await sf.evaluate(() => { const b = document.getElementById('healbtn'); if (!b) return null; const r = b.getBoundingClientRect(); const e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
         return { shown: getComputedStyle(b).display !== 'none', blood: +b.dataset.blood, armour: +b.dataset.armour, top: !!e && (e === b || b.contains(e)), at: [r.x + r.width / 2, r.y + r.height / 2], w: Math.round(r.width), h: Math.round(r.height) }; });
+      /* RE-AIMED 11/22 (CAMP FOUR, rule 472(d): every camp is set up before an hour runs, HEAL on the map as after a fight): the hours are
+         read from the end of the camp's set-up, never from the press */
+      for (let k = 0; k < 120; k++) { const stg = await d.fr.evaluate(() => { try { return !!BohemiaMapCamp.state().setting && BohemiaMapCamp.on(); } catch (e) { return false; } }).catch(() => false); if (!stg) break; await d.page.waitForTimeout(250); }
       await d.page.waitForTimeout(4600);
       after = await d.fr.evaluate(() => { const C = BohemiaCondition.get(), w = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'), c = BohemiaCondition.company(LOOP.start && LOOP.start.company);
-        return { healed: C.healed, mended: C.mended, spent: C.spent, hours: C.hours, campHours: C.campHours, debt: C.debt, tape: w ? w.tape | 0 : 0, blood: c.blood, armour: c.armour, on: BohemiaMapCamp.on(), why: CAMP.why, camp: CAMP.hours }; });
+        return { healed: C.healed, mended: C.mended, spent: C.spent, hours: C.hours, campHours: C.campHours, debt: C.debt, tape: w ? w.tape | 0 : 0, blood: c.blood, armour: c.armour, on: BohemiaMapCamp.on(), why: CAMP.why, camp: CAMP.hours, whole: !!CAMP.whole }; });
       if ((after.on || after.why === 'healed') && hb && hb.w > 0) break;   /* rule 278: stopped itself at full is the camp working */
       why.push('camp broke after ' + after.camp + ' hours: ' + after.why);
       /* RE-AIMED 11/11 (FIXES 2, ask row 565; reached on the computer only once the LEAVE press was a thumb's): a camp that healed
@@ -237,10 +240,10 @@ async function run(profile) {
     const hpCap = Math.min(before.lostHp, V('hp_per_hour_camp') * ch * before.men), armCap = Math.min(before.lostArm, V('armour_per_hour') * V('camp_repair_mult') * ch * Math.max(1, before.items));
     const tapeWant = (after.mended - before.mended) / V('durability_per_tape');
     ok(P + 'H5 MAKE CAMP (a press on HEAL): the camp opens with the same button over it, the clock runs an hour a beat and the bar fills at the table\'s rates, the tape spent',
-      (after.on || after.why === 'healed') && !!hb && hb.shown && hb.top && (ch >= 6 || after.why === 'healed') && dHeal > 0 && dHeal <= hpCap + 0.01 && (before.lostHp - dHeal < 0.01 || dHeal >= V('hp_per_hour_camp') * (ch - 1)) && dMend <= armCap + 0.01
+      (after.on || after.why === 'healed') && !!hb && hb.shown && hb.top && (ch >= 6 || after.why === 'healed' || after.whole) && dHeal > 0 && dHeal <= hpCap + 0.01 && (before.lostHp - dHeal < 0.01 || dHeal >= V('hp_per_hour_camp') * (ch - 1)) && dMend <= armCap + 0.01
         && (before.lostArm < 0.5 || dMend > 0) && Math.abs(dTape - (tapeWant + before.debt - after.debt)) < 0.01 && after.blood > before.blood - 1e-9 && hb.blood >= before.blood,
       ch + ' camp hours' + (after.why === 'healed' ? ' (then it stopped itself, every man at 99 percent, rule 278)' : '') + '; +' + dHeal.toFixed(1) + ' hp (cap ' + hpCap.toFixed(1) + ', missing ' + before.lostHp.toFixed(1) + '); +' + dMend.toFixed(1) + ' armour (cap ' + armCap.toFixed(1) + ', missing ' + before.lostArm.toFixed(1) + '); tape ' + before.tape + ' -> ' + after.tape
-        + '; bar blood ' + before.blood.toFixed(3) + ' -> ' + after.blood.toFixed(3) + ', armour ' + before.armour.toFixed(3) + ' -> ' + after.armour.toFixed(3) + '; camp button ' + JSON.stringify(hb && { w: hb.w, h: hb.h, top: hb.top }) + (why.length ? '; earlier tries: ' + why.join('; ') : ''));
+        + '; tape want ' + tapeWant.toFixed(2) + ', debt ' + (+before.debt).toFixed(2) + ' -> ' + (+after.debt).toFixed(2) + '; bar blood ' + before.blood.toFixed(3) + ' -> ' + after.blood.toFixed(3) + ', armour ' + before.armour.toFixed(3) + ' -> ' + after.armour.toFixed(3) + '; camp button ' + JSON.stringify(hb && { w: hb.w, h: hb.h, top: hb.top }) + (why.length ? '; earlier tries: ' + why.join('; ') : ''));
     if (process.env.BOHEMIA_SHOT_DIR) await d.page.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'heal_' + profile + '_camp.png') });
 
     /* ---- H6 break camp ---- */

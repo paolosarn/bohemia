@@ -6694,7 +6694,8 @@ function bakeBoard() {
         const N = nightTint2(g, c, B.lights || []);
         if (N) return Promise.resolve(campBreath('the night')).then(function () { return nightLampsSteps(g, N, k, pxm, pym); }).then(function () { return campBreath('the bulbs'); })
           .then(function () { UI.groundLum = null; return oddsFirst() || null; });
-      } else if (FIGHT.S.night) nightPools(g, c, B.lights || [], k, pxm, pym);
+      } else if (FIGHT.S.night) { try { if (!campBoardWanted() && !window.__CAMP_NO_QUICK) { const dd = document.createElement('canvas'); dd.width = c.width; dd.height = c.height; dd.getContext('2d').drawImage(c, 0, 0); UI.boardDay = dd; } } catch (_e) {}   /* CAMP FOUR __THE_CAMP_COMES_UP_AT_ONCE__ (rule 472(d)): the night fight's board by day, kept for a camp made off it (campQuick) */
+        nightPools(g, c, B.lights || [], k, pxm, pym); }
       UI.groundLum = FIGHT.S.night && !campBoardWanted() ? groundLums(c) : null;   /* __THE_BAKE_DOES_NOT_FREEZE__: the camp's page draws no live man, so it never reads the whole board back (moonFor's only use) */
       /* the new board is handed over once the AUTO colour is read (rule 164 item 12; capped at ODDS_WAIT_MS): the fight is never
          shown, nor answers a tap, before its colour */
@@ -13306,6 +13307,10 @@ function campBoardBake() {
     const sheets = Promise.all((Array.isArray(A.dead) ? A.dead : []).map(function (d) { return campSheet(d.file).catch(function () { return null; }); }));
     return sheets.then(function () { return campWindowBake(pitch.win, twB); }).then(function (c) {
       out[o.night ? 'night' : 'day'] = c; out.bodies = CAMPB.bodies | 0; out.th = UI.th; t.first = Math.round(performance.now());
+      /* CAMP FOUR __THE_CAMP_COMES_UP_AT_ONCE__ (rule 472(d)): the light he camps in, said the moment it is baked (the camp stands on it while
+         the other light is baked; measured on HEAL: 1.6 s of the 4.3 s before the camp's first frame was the other light) */
+      if (!window.__CAMP_BOTH_FIRST) { window.__CAMP_BOARD_FIRST = { pitch: pitch, dealt: dealt, grid: grid, tw: twB, win: pitch.win, tile_px: out.tile_px, tile_metres: out.tile_metres, t: t, bodies: out.bodies, th: UI.th, light: o.night ? 'night' : 'day', c: c };
+        say({ ok: true, first: true, light: o.night ? 'night' : 'day' }); }
       return campBreath('the dead and the cut');   /* __THE_BAKE_DOES_NOT_FREEZE__: the first light done, a breath */
     }).then(function () {
       deal(!o.night, handOf1); out.sameBoth = campBoardSig() === dealt.sig; out.handed = !!handOf1;
@@ -13338,6 +13343,66 @@ function campFromFight() {
   return { opts: o, sig: campBoardSig(), night: !!S.night, w: S.w, h: S.h, dead: dead, board: S.boardDef.name || null };
 }
 window.campFromFight = campFromFight;
+/* ==== __THE_CAMP_COMES_UP_AT_ONCE__ (CAMP FOUR, VAMILY rule 472(d)(e); Paolo 11/22: 'we made camp, it loads, it takes 30 seconds, I don't
+   know why it freezes when it loads, I don't get to see any sort of transition, it's just like the combat map, it freezes for like 10
+   seconds and then everything's populated in, I didn't get to see anyone build the camp'). MEASURED BEFORE (main 14cfe9f3, the demo, a
+   suburb fight won, MAKE CAMP, phone upright, this box at full speed): 7.3 s from the tap to the camp's first frame, the fight's last
+   frame held still on the glass all that time; 6.3 s of it a hidden copy of this page dealing the SAME board again and baking it
+   whole at the camp's size (its ground one step of 3.2 s, cut by breaths into stalls up to 600 ms: four times that on a phone).
+   THIS page had the board baked and on the glass the moment he tapped. NOW, asked by the shell at the tap (campFromFightKeep, before
+   this page goes): the board as this fight baked it (both lights: the day as it was, the night by this file's own nightPass on the
+   ground's own colours; a night fight's day kept at its bake, UI.boardDay), the dead laid where they fell by the camp's own
+   campBodies, the map round it (ringCanvas, both lights), and what the camp reads of the board (its grid, roofs, levels, rises,
+   the ground a man walks): every picture made in the shell's own document, so it outlives this page. The camp stands on it with
+   no second deal and no second bake (slices/bohemia_camp_board.js quickLand). window.__CAMP_NO_QUICK = the way it was. ==== */
+const CAMP_QUICK_RING_TW = 110;
+function campQuick(view) {
+  if (window.__CAMP_NO_QUICK) return null;
+  const S = FIGHT.S; if (!S || !S.boardDef || !UI.board || !UI.board.width) return null;
+  let home = document; try { if (window.top && window.top.document) home = window.top.document; } catch (_e) { home = document; }
+  const t0 = performance.now(), mk = function (w, h) { const c = home.createElement('canvas'); c.width = Math.max(1, Math.round(w)); c.height = Math.max(1, Math.round(h)); return c; };
+  const cp = function (src) { const c = mk(src.width, src.height); c.getContext('2d').drawImage(src, 0, 0); return c; };
+  const night = !!S.night, now = cp(UI.board), tq = [['copy', Math.round(performance.now() - t0)]], tm = function (k) { tq.push([k, Math.round(performance.now() - t0)]); };
+  /* the other light: by day the camp grades its own night over the same picture with this file's numbers (tint, hue below: the
+     ground's nightPass); by night the day kept at the bake (a board baked before this landed has none: the camp keeps the night) */
+  let other = null;
+  if (night && UI.boardDay && UI.boardDay.width) other = cp(UI.boardDay);
+  tm('other light');
+  /* the dead where they fell, on both, at the fight's own man size, as the camp's bake lays them */
+  const fd = campFromFight(), dead = fd ? fd.dead : [], manPx = manH() / Math.max(1e-6, UI.tw * UI.zoom);
+  let bodies = 0;
+  try { const keepO = window.FIGHT_OPTS, o2 = Object.assign({}, keepO || {}, { campBoard: { dead: dead, manPx: manPx } });
+    window.FIGHT_OPTS = o2; const nk = S.night;
+    try { bodies = campBodies(now); if (other) { S.night = !night; campBodies(other); } } finally { S.night = nk; window.FIGHT_OPTS = keepO; } } catch (_e) { bodies = -1; }
+  /* the map round the board, both lights (the fight's own ring, as the camp's fvRing reads it) */
+  /* the ring: as the fight last drew it when it is cached (the light it is in); else drawn again at CAMP_QUICK_RING_TW a tile, the
+     camp's own picture being coarser than that (measured on its side, the fight close in, no ring cached: 356 ms at the fight's size) */
+  const ring = function (n) { if (n === !!S.night && UI.ringC && UI.ringC.width) { try { const c0 = ringCanvas(); if (c0 && c0.width) return { c: cp(c0), kx: UI.tw * RING_K, ky: UI.th * RING_K }; } catch (_e) {} }
+    /* no ring cached (the fight ended close in): the glass's own ground sheet, as this fight last drew it (the ring and the board, no man
+       on it: drawGround's UI.gsheet), stands round the board on the camp's picture; measured on its side: the ring drawn again was 265 ms */
+    if (n === !!S.night && UI.gsheet && UI.gsheet.width && !window.__CAMP_QUICK_RING_DRAWN) return { glass: cp(UI.gsheet), gw: W, gh: H };
+    const keep = { n: S.night, c: UI.ringC, k: UI.ringCKey, tw: UI.tw, th: UI.th }, tw2 = Math.min(UI.tw, CAMP_QUICK_RING_TW);
+    try { S.night = n; UI.th = tw2 * keep.th / keep.tw; UI.tw = tw2; UI.ringC = null; UI.ringCKey = null; const c = ringCanvas(); return c && c.width ? { c: cp(c), kx: UI.tw * RING_K, ky: UI.th * RING_K } : null; }
+    catch (_e) { return null; } finally { S.night = keep.n; UI.tw = keep.tw; UI.th = keep.th; UI.ringC = keep.c; UI.ringCKey = keep.k; } };
+  tm('the dead'); const rNow = ring(night); tm('ring'); const rOther = other ? ring(!night) : null; tm('other ring');
+  /* what the camp reads of the board: the grid, which never-tiles are a roof, each tile's level and rise, the ground a man walks */
+  const grid = campBoardGrid(), roof = [], lv = [], rise = [], walk = [];
+  for (let y = 0; y < S.h; y++) { const r1 = [], r2 = [], r3 = [], r4 = []; for (let x = 0; x < S.w; x++) {
+    let rf = 0, l = 0, z = 0, w = 0; try { rf = FIGHT.isRoof(x, y) ? 1 : 0; l = FIGHT.level(x, y) | 0; z = +riseAt(x, y) || 0;
+      w = FIGHT._t.passable(x, y) && FIGHT.rowAt(x, y) !== 'obstacles' ? (S.cover[y] && S.cover[y][x] ? 1 : 2) : 0; } catch (_e) {}
+    r1.push(rf); r2.push(l); r3.push(z); r4.push(w); } roof.push(r1); lv.push(r2); rise.push(r3); walk.push(r4); }
+  const D = S.boardDef, light = function (c, r) { return { board: c, ring: r ? r.c || null : null, rk: r && r.c ? { kx: r.kx, ky: r.ky } : null, glass: r && r.glass ? r.glass : null, gsz: r && r.glass ? { w: r.gw, h: r.gh } : null }; };
+  const out = { sig: campBoardSig(), night: night, tw: UI.tw, th: UI.th, w: S.w, h: S.h, bodies: bodies, manPx: manPx, tint: nightTint(0, NIGHT_GROUND), hue: NIGHT_HUE,
+    ringK: { bt: DB.ground.block_tiles, R: SURROUND_BLOCKS, kx: UI.tw * RING_K, ky: UI.th * RING_K },
+    grid: grid, roof: roof, lv: lv, rise: rise, walk: walk,
+    dealt: { name: D.name, sig: campBoardSig(), laid: !!D.laid, kinds: (D.kinds || []).slice(), w: S.w, h: S.h, cols: S.cols.slice(), ground: S.ground ? S.ground.ground : null, from: S.ground ? S.ground.from : null, cover: (D.cover || []).length },
+    day: night ? (other ? light(other, rOther) : null) : light(now, rNow), nightL: night ? light(now, rNow) : null };
+  out.ms = Math.round(performance.now() - t0); tm('read'); out.steps = tq;
+  window.__CAMP_QUICK = { steps: tq, ms: out.ms, night: night, bodies: bodies, other: !!other, px: now.width * now.height };
+  return out;
+}
+window.campQuick = campQuick;
+/* ==== end __THE_CAMP_COMES_UP_AT_ONCE__ ==== */
 /* __THE_BOARD_HANDED_WHOLE__ (COMBAT TWO 11/10, MOTION 3's seam): the board this fight stands on, whole, and where the camera was;
    hand it on as FIGHT_OPTS.boardDef and the next page stands this very board, never a second deal of it */
 window.fightBoardNow = function () { const b = FIGHT.boardNow(); if (b) b.camera = { z: UI.zoom, x: UI.cx, y: UI.cy, tw: UI.tw, th: UI.th }; return b; };

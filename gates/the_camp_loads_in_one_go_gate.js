@@ -31,7 +31,7 @@ const path = require('path');
 const ROOT = path.dirname(__dirname);
 const D = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const SECS_MAX = 9, TASK_MAX = 1000, HELD_MAX = 4000;   /* the ratchet: may only come down (measured on PTBTDN: now 5.5 s, 581 ms, 2.3 s; the old ways 12.8 s, 883 ms, 5.3 s) */
-const OLD = 'window.__CAMP_PLATE_ENCODE = true; window.__CAMP_CLOCK_DURING_LOAD = true; window.__DUSK_ON_THE_GPU = true; window.__CAMP_DEAL_TWICE = true; window.__FIGHT_LOAD_SERIAL = true; window.__SHEET_RENDER_EACH = true;';
+const OLD = 'window.__CAMP_PLATE_ENCODE = true; window.__CAMP_CLOCK_DURING_LOAD = true; window.__DUSK_ON_THE_GPU = true; window.__CAMP_DEAL_TWICE = true; window.__FIGHT_LOAD_SERIAL = true; window.__SHEET_RENDER_EACH = true; window.__CAMP_SETUP_FIGHT_ONLY = true; window.__CAMP_BREAKS_WHEN_WHOLE = true;';   /* CAMP FOUR 11/22 (rule 472(a)(d)): MOTION 3's set-up hold now holds every camp's clock, HEAL's too, and a camp of whole men (this valley's company is whole) runs no hour at all; the old ways need both back, or the plant reads no hour gone */
 let pass = 0, fail = 0;
 const ok = (n, c, x) => { c ? pass++ : fail++; console.log((c ? '  ok   ' : '  FAIL ') + n + (x != null ? '  [' + x + ']' : '')); };
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));

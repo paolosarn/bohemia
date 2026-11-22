@@ -3945,6 +3945,7 @@ function campSheet(k){
 function campTime(d){
   var c = S.campInfo || (S.campInfo = {});
   c.day = d.day; c.min = d.min; if(d.bill) c.bill = d.bill; if(d.condition) c.condition = d.condition; healShow();   /* __THE_HEAL_BUTTON__: the bar fills as he watches */
+  c.whole = d.whole || null;   /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ (rule 472(a)(b)): everyone whole, the clock stopped; his men keep living (slices/bohemia_camp_look.js) */
   if(window.BohemiaCampLook && VAR && !VAR.camp2 && S.camp && BohemiaCampLook.ready()) try{ BohemiaCampLook.open(Object.assign({block:S.place.block || null}, c)); pickVariant(); }catch(e){}   /* __CAMP_TWO__: his camp the moment its pieces are in */
   if(window.BohemiaCampLook && VAR && VAR.camp2) try{ BohemiaCampLook.time(Object.assign({block:S.place.block || null}, c, {night:!!d.night})); campBoxes(); }catch(e){}   /* __CAMP_TWO__: what each man does, hour by hour */
   if(typeof d.batteries === 'number'){ var df = d.batteries - bats(); if(df > 0) P.credit(S.purse, 'electricity', df, 'camp:sync', null, 0); if(df < 0) P.debit(S.purse, 'electricity', -df, 'camp:sync', null, 0); }
@@ -4351,7 +4352,24 @@ function where(k){
    town; let go before and it springs back. ==== */
 var PINCH = {pts:{}, on:null, out:1};
 var ZOOM_MAX = {camp:1.5, town:2, fortress:2.5, home:2};
-function zoomMax(){ var T = TOWNS && S.place && TOWNS[S.place.name]; var c = T && T.wide; return (c && c.zoom_max) || ZOOM_MAX[S.place.tier] || 2; }
+function zoomMax(){
+  /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ (rule 472(b), Paolo 11/22: 'What if I want to zoom in on my character, see them chilling?'): MEASURED,
+     a camp made off a fight opens at the fight's zoom (a man about 56 px on an upright phone) and the camp's pinch stopped at 1.5 (84 px).
+     The camp's pinch now goes as close as the fight's own closest stop (a man CAMP_ZOOM_MAN px: the fight's near stop, 104, times its
+     1.6), never past four times. window.__CAMP_ZOOM_OLD = the way it was. */
+  if(S.camp && !window.__CAMP_ZOOM_OLD){ var mh = personH() * (FIT.fit || view.s || 1); return Math.max(ZOOM_MAX.camp, Math.min(4, CAMP_ZOOM_MAN / Math.max(1, mh))); }
+  var T = TOWNS && S.place && TOWNS[S.place.name]; var c = T && T.wide; return (c && c.zoom_max) || ZOOM_MAX[S.place.tier] || 2; }
+var CAMP_ZOOM_MAN = 166;
+/* CAMP FOUR: on a computer the wheel is the pinch in the camp: in toward the pointer, out to the fit (never out of the camp: BREAK CAMP is his) */
+(function(){ var cvW = document.getElementById('cv'); if(!cvW) return;
+  cvW.addEventListener('wheel', function(e){
+    if(!S.camp || PINCH.on) return; e.preventDefault();
+    var r = cvW.getBoundingClientRect(), px = (e.clientX - r.left - view.ox)/view.s, py = (e.clientY - r.top - view.oy)/view.s;
+    var z = Math.max(1, Math.min(zoomMax(), FIT.zoom * Math.exp(-(e.deltaY || 0) * 0.0015)));
+    if(z <= 1.001){ FIT.zoom = 1; view.s = FIT.fit; panY(FIT.frame ? FIT.frame.cy : picH()/2); pan(FIT.frame ? FIT.frame.cx : picW()/2); }
+    else { FIT.zoom = z; view.s = FIT.fit * z; var O = FIT.area || {x0:0, x1:view.W, y0:0, y1:view.H}; pan(px + ((O.x0 + O.x1)/2 - (e.clientX - r.left))/view.s); panY(py + ((O.y0 + O.y1)/2 - (e.clientY - r.top))/view.s); }
+    window.__CAMP_WHEEL = {zoom:FIT.zoom, max:zoomMax(), n:(window.__CAMP_WHEEL ? window.__CAMP_WHEEL.n : 0) + 1};
+  }, {passive:false}); })();
 function pinchN(){ return Object.keys(PINCH.pts).length; }
 function pinchTwo(){ var k = Object.keys(PINCH.pts), a = PINCH.pts[k[0]], b = PINCH.pts[k[1]]; return {d:Math.max(1, Math.hypot(a.x - b.x, a.y - b.y)), x:(a.x + b.x)/2, y:(a.y + b.y)/2}; }
 function pinchOut(k, ease){

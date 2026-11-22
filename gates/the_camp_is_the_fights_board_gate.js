@@ -103,7 +103,8 @@ function masks(c, cr, W, H, phone) {
         /* Cn4: each man of his drawn in the camp's first frame where he stood when it ended */
         const kept = cr && cr.fv ? cr.fv.men : [], s = cr && cr.view ? cr.view.s : 1, offs = [];
         kept.forEach(m => { let at = null;
-          if (m.main) { if (cr.lead && cr.lead.x != null) at = [cr.top[0] + cr.view.ox + cr.lead.x * s, cr.top[1] + cr.view.oy + cr.lead.y * s]; }
+          if (m.main) { if (cr.lead && cr.lead.x != null) at = [cr.top[0] + cr.view.ox + cr.lead.x * s, cr.top[1] + cr.view.oy + cr.lead.y * s];
+            else { const A0 = cr.firstAt || cr.drawnAt || {}, k0 = Object.keys(A0).find(q => /^m:you$/i.test(q)); if (k0) at = [cr.top[0] + A0[k0][0], cr.top[1] + A0[k0][1]]; } }   /* RE-AIMED 11/22 BY CAMP FOUR: hurt, YOU lie among his men (the camp draws him, not the walker): his own record in the first frame */
           else { const A = cr.firstAt || cr.drawnAt || {}, k = Object.keys(A).find(q => q.toUpperCase() === 'M:' + m.name); if (k) at = [cr.top[0] + A[k][0], cr.top[1] + A[k][1]]; }
           const want = [cr.top[0] + cr.view.ox + m.x * s, cr.top[1] + cr.view.oy + m.y * s];
           offs.push({ name: m.name, main: m.main, off: at ? Math.round(Math.hypot(at[0] - want[0], at[1] - want[1])) : null }); });
@@ -126,8 +127,12 @@ function masks(c, cr, W, H, phone) {
         const fire = R && R.fire && okAt(R.fire.x, R.fire.y) > 0 && onGlass(R.fire.x, R.fire.y);
         const inHouse = spots.filter(q => q.act !== 'lean' && !okAt(q.x, q.y));
         const kinds = new Set(acts.map(a => a.act)).size;
+        /* RE-AIMED 11/22 BY CAMP FOUR: the camp sends only a man with an easy job to the dead or a wall (slices/bohemia_camp_look.js build:
+           blood at HURT or over, cooking, cleaning or resting; never more than half): a crew the fight left down (one lying, one tending him,
+           one at his armour) has nobody free, and a camp that keeps its hurt by the fire is the camp working */
+        const free = acts.filter(a => a.name !== 'YOU' && ['lie', 'tend', 'mend', 'sleep'].indexOf(a.act) < 0 && (a.blood == null || a.blood >= 0.87)).length;   /* CL.HURT */
         ok('Cn5 ' + tag + ': AT REST ON IT by day: the fire on a board tile on the glass, a man at the dead' + (deadSeen ? '' : ' (NO BODY ON THIS GLASS: the fight\'s last camera showed none; said, not gone through)') + ', a man leaning on a house of the fight' + (houseNear ? '' : ' (NO HOUSE OF THE FIGHT within two tiles of the camp on this glass: said, not leaned)') + ', nobody in a house, three acts',
-          !!R && !R.night && fire && (loot.length >= 1 || !deadSeen) && (lean.length >= 1 || !houseNear) && !inHouse.length && kinds >= (deadSeen && houseNear ? 3 : 2),
+          !!R && !R.night && fire && (loot.length >= 1 || !deadSeen || free < 1) && (lean.length >= 1 || !houseNear || free < 2) && !inHouse.length && kinds >= Math.min(deadSeen && houseNear ? 3 : 2, 1 + free),
           JSON.stringify({ hour: R && R.hour, fire: !!fire, loot: loot.map(q => q.name), lean: lean.map(q => q.name), wallsByHouses: houseNear, inHouse: inHouse.map(q => q.name + ':' + q.act), fireAt: R && R.fire ? [Math.round(R.fire.x), Math.round(R.fire.y), okAt(R.fire.x, R.fire.y)] : null, glass: gl ? [gl.x0, gl.x1, gl.y0, gl.y1].map(v => v == null ? null : Math.round(v)) : null, bodies: (R && R.bodies || []).length, acts: acts.map(a => a.name + ' ' + a.act).join(', '), drawnBy: R && R.drawnBy, anims: R && R.anims }));
         /* T1 once: the phone turned on its side mid-camp (rule 441: both ways), and back */
         if (bi === 0 && way.profile === 'phone_portrait' && !QUICK_NO_TURN) {

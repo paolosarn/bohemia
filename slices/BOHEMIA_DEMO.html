@@ -498,7 +498,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"cb9ad16c6191f5cd",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"86d4a6300cd84a28",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1602,7 +1602,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/22zzc - THE STAFF PUSH A CART</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/22zzd - THE CAMP WAITS FOR YOU</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12715,7 +12715,8 @@ function spoilsOpen(){
   if(SPOILS.frame || !SPOILS.d) return false;
   /* MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (rule 444(a)): on a won fight's loot screen the camp's hidden page is opened a beat
      after the screen (its 3.7 s load spent while he loots, never after MAKE CAMP: slices/bohemia_camp_board.js warm); LEAVE lets it go */
-  try{ if(NF.over && NF.over.victory && !window.__CAMP_WARM_OFF) setTimeout(function(){ try{ var cw = document.getElementById('cityFrame').contentWindow, L = cw && cw.LOOP && cw.LOOP.frame && cw.LOOP.frame.contentWindow; if(SPOILS.frame && L && L.BohemiaCampBoard && L.BohemiaCampBoard.warm) L.BohemiaCampBoard.warm(); }catch(_e){} }, 1200); }catch(_e){}
+  var __quick = false; try{ __quick = !window.__CAMP_NO_QUICK && !!(NF.frame && NF.frame.contentWindow && typeof NF.frame.contentWindow.campQuick === 'function'); }catch(_e){}   /* CAMP FOUR __THE_CAMP_COMES_UP_AT_ONCE__: the fight hands its own board at the tap, so no page is loaded behind the loot screen */
+  try{ if(NF.over && NF.over.victory && !window.__CAMP_WARM_OFF && !__quick) setTimeout(function(){ try{ var cw = document.getElementById('cityFrame').contentWindow, L = cw && cw.LOOP && cw.LOOP.frame && cw.LOOP.frame.contentWindow; if(SPOILS.frame && L && L.BohemiaCampBoard && L.BohemiaCampBoard.warm) L.BohemiaCampBoard.warm(); }catch(_e){} }, 1200); }catch(_e){}
   if(NF.spoilsAt){ clearTimeout(NF.spoilsAt); NF.spoilsAt = null; }
   var wrap = document.createElement('div'); wrap.id = 'spoilsdoor';
   wrap.style.cssText = 'position:fixed;inset:0;z-index:8000;background:#120e0a';
@@ -12822,6 +12823,10 @@ function campFromFightKeep(){
          never deals it again; kept here only (a reload of the camp deals it again from its options and die, as before) */
       try{ var bn = typeof cw.fightBoardNow === 'function' ? cw.fightBoardNow() : null; if(bn && bn.boardDef) window.__CAMP_FROM_FIGHT.boardDef = JSON.parse(JSON.stringify(bn.boardDef)); }catch(_e){}
       try{ localStorage.setItem('bohemia.camp.fightview.v1', JSON.stringify({ sig: r.sig, view: view, men: men, t: Date.now() })); }catch(_e){}
+      /* CAMP FOUR __THE_CAMP_COMES_UP_AT_ONCE__ (rule 472(d)(e)): the board as the fight baked it, both lights, its dead, its ring and what
+         the camp reads of it, made in this document before the fight's page goes, so the camp stands on it at once (no second deal, no
+         second bake: slices/bohemia_camp_board.js quickLand; the fight's campQuick) */
+      try{ var Q = typeof cw.campQuick === 'function' ? cw.campQuick(view) : null; if(Q && Q.sig === r.sig) window.__CAMP_FROM_FIGHT.quick = Q; }catch(_e){ window.__CAMP_FROM_FIGHT.quickErr = String(_e && _e.message || _e).slice(0, 120); }
     } }catch(_e){}
   return r;
 }

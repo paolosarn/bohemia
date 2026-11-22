@@ -60,6 +60,10 @@ const done = () => { console.log('=== THE CAMP GATE: ' + pass + ' passed, ' + fa
     ok('C1 the HEAL app (the camp, rule 226) stands on the phone on the map, a thumb wide, nothing over it', !!c1 && c1.shown && c1.w >= 44 && c1.h >= 44 && c1.mark && /heal/i.test(c1.label) && c1.top, JSON.stringify(c1));   /* 232(b): the cross in its ring, no word on it */
     /* ---- C2 ---- */
     const before = await fr.evaluate(() => ({ min: T.day * 1440 + T.min, bats: loopBats(), men: mapCrewLooks().length }));
+    /* RE-AIMED 11/22 BY CAMP FOUR (VAMILY rule 472(a)(d)): every camp is set up before an hour runs, and its clock STOPS when his men are
+       whole (the demo's company starts whole). C3 measures the hours and the bill while the clock runs, so the stop is held off on this
+       page (campDone, as MOTION 3's gates hold it) and C3 counts from the end of the camp's set-up. The stop is THE CAMP WAITS FOR HIM's. */
+    await fr.evaluate(() => { if (!window.__GATE_HELD && typeof campDone === 'function') { window.__GATE_HELD = campDone; campDone = function () { return false; }; } });
     await tapEl(p.mainFrame(), HEAL);
     let sf = null;
     for (let k = 0; k < 40 && !sf; k++) { await p.waitForTimeout(300);
@@ -78,6 +82,7 @@ const done = () => { console.log('=== THE CAMP GATE: ' + pass + ' passed, ' + fa
     if (process.env.BOHEMIA_SHOT_DIR) await p.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'camp.png') });
     /* ---- C3 ---- */
     const n0 = await fr.evaluate(() => (window.__BILL_NIGHTS | 0));
+    for (let k = 0; k < 160; k++) { const stg = await fr.evaluate(() => { try { return BohemiaMapCamp.on() && !!BohemiaMapCamp.state().setting; } catch (e) { return false; } }).catch(() => false); if (!stg) break; await p.waitForTimeout(250); }   /* rule 472(d): from the set-up's end */
     await p.waitForTimeout(6000);
     const c3 = await fr.evaluate((b) => ({ hours: Math.round((T.day * 1440 + T.min - b.min) / 60), nights: (window.__BILL_NIGHTS | 0), bats: loopBats(), last: window.__BILL && window.__BILL.last }), before);
     let c3b = c3; for (let k = 0; k < 30 && c3b.nights === n0; k++) { await p.waitForTimeout(500); c3b = await fr.evaluate((b) => ({ hours: Math.round((T.day * 1440 + T.min - b.min) / 60), nights: (window.__BILL_NIGHTS | 0), bats: loopBats(), last: window.__BILL && window.__BILL.last }), before); }

@@ -3,14 +3,20 @@
    armour'.
    On the cut he plays, phone and computer, his company hurt in the company's own condition (engine/bohemia_condition.js, what a fight
    leaves), tape enough to mend it, camp made with the HEAL button's own call:
-     F1 THE CAMP STOPS ITSELF at the very hour the last man reaches 99 percent of his hit points and of his armour (the hour the table's
+     F1 (RE-AIMED 11/22 below: the clock stops, the camp stays) THE CAMP STOPS ITSELF at the very hour the last man reaches 99 percent of his hit points and of his armour (the hour the table's
         camp rates say, never an hour sooner, never later): back on the map, the camp's frame closed, the game on PAUSE, one of his men
         says they are ready
-     F2 A REST HE ASKED FOR HOLDS: camp made with everybody already whole stands six hours (it is his to end, rule 267(a))
+     F2 A REST HE ASKED FOR HOLDS: camp made with everybody already whole stands six hours (it is his to end, rule 267(a)) (RE-AIMED 11/22 below: it stands and runs no hour)
      F3 HEAL STILL ENDS IT SOONER: hurt again and camped, his HEAL ends it before they are whole
      F4 nothing threw
    (278(b) the struck down on the next board is STRUCK DOWN, HE STILL FIGHTS S3; 278(c) the bars in a town is THE BARS OVER THEIR HEADS
    B3.)
+   *** RE-AIMED 11/22 (CAMP FOUR, VAMILY rule 472(a)(c), Paolo 11/22: 'I want time to go by until everyone's healed, but then when
+   everyone is healed I want time to stop... just have them stick idling, and then I have to definitely click something to resume...
+   right now once they're fully healed up it just instantly takes me back to the world map'): rule 472 AMENDS 278(a)'s 'back on the map'
+   and 267(a)'s rest that runs on. F1 now: at the very hour the last man reaches 99 percent THE CLOCK STOPS and the camp STAYS (its frame
+   on the glass, the game on PAUSE, one of his men's line on the phone, gates/the_camp_waits_for_him_gate.js W2 to W5); F2: a camp made with
+   everybody whole runs no hour and stays. F3 and F4 unchanged. ***
    node gates/healing_stops_itself_at_full_gate.js [--profile phone_portrait|computer]   (no flag: both) */
 'use strict';
 const path = require('path');
@@ -45,18 +51,20 @@ async function run(profile) {
     const f1a = await d.fr.evaluate(HURT, 0.5);
     const made1 = await d.fr.evaluate(() => { window.__CAMP_HEALED = null; window.__F1 = []; const made = BohemiaMapCamp.make();
       window.__F1T = setInterval(() => { try { const c = BohemiaMapCamp.condition(); __F1.push({ h: BohemiaMapCamp.state().hours, on: BohemiaMapCamp.on(), lo: c ? c.lowest : null }); } catch (e) {} }, 60); return made; });
-    let f1 = null; for (let k = 0; k < 40; k++) { await d.page.waitForTimeout(500); f1 = await d.fr.evaluate(() => ({ on: BohemiaMapCamp.on(), healed: window.__CAMP_HEALED, why: (window.__CAMP || {}).why, frame: LOOP.frame ? LOOP.frame.style.display : null, speed: TRAVEL_SPEED, lowest: BohemiaMapCamp.condition().lowest })); if (!f1.on) break; }
+    let f1 = null; for (let k = 0; k < 40; k++) { await d.page.waitForTimeout(500); f1 = await d.fr.evaluate(() => ({ on: BohemiaMapCamp.on(), whole: !!(BohemiaMapCamp.whole && BohemiaMapCamp.whole()), healed: window.__CAMP_HEALED, why: (window.__CAMP || {}).why, frame: LOOP.frame ? LOOP.frame.style.display : null, speed: TRAVEL_SPEED, lowest: BohemiaMapCamp.condition().lowest, hours: BohemiaMapCamp.state().hours, clock: T.day * 1440 + T.min })); if (!f1.on || f1.whole) break; }
+    if (f1 && f1.whole) { await d.page.waitForTimeout(3000); const f1b = await d.fr.evaluate(() => ({ on: BohemiaMapCamp.on(), hours: BohemiaMapCamp.state().hours, clock: T.day * 1440 + T.min })); f1.stayed = f1b.on && f1b.hours === f1.hours && f1b.clock === f1.clock; }   /* rule 472: three seconds on, the same hour */
     const trace = await d.fr.evaluate(() => { clearInterval(__F1T); return __F1; });
     const before = trace.filter(t => t.on && t.h < f1a.want).every(t => t.lo < 0.99);   /* never an hour sooner */
     if (process.env.BOHEMIA_SHOT_DIR) await d.page.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'healed_' + profile + '.png') });
-    ok(P + 'F1 *** THE CAMP STOPS ITSELF *** the hour the last man reaches 99% of both (hour ' + f1a.want + ' at ' + f1a.rates.hp + ' hit points and ' + f1a.rates.armour + ' armour an hour): back on the map, on PAUSE, one of his men says they are ready',
-      made1 && !!f1 && !f1.on && f1.why === 'healed' && !!f1.healed && f1.healed.hours === f1a.want && f1.healed.lowest >= 0.99 && before && f1.frame === 'none' && f1.speed === 0 && /\w/.test(f1.healed.line || ''),
-      JSON.stringify({ men: f1a.names.length, want: f1a.want, got: f1 && f1.healed && f1.healed.hours, why: f1 && f1.why, lowest: f1 && f1.healed && f1.healed.lowest, frame: f1 && f1.frame, speed: f1 && f1.speed, said: f1 && f1.healed && (f1.healed.by + ': ' + f1.healed.line), soonerNever: before }));
+    ok(P + 'F1 *** THE CLOCK STOPS ITSELF, THE CAMP STAYS *** (rule 472) the hour the last man reaches 99% of both (hour ' + f1a.want + ' at ' + f1a.rates.hp + ' hit points and ' + f1a.rates.armour + ' armour an hour): the clock stops there and the camp stays on the glass, on PAUSE, one of his men says they are ready',
+      made1 && !!f1 && f1.on && f1.whole && !!f1.healed && f1.healed.hours === f1a.want && f1.healed.lowest >= 0.99 && before && f1.frame === 'block' && f1.speed === 0 && f1.stayed && /\w/.test(f1.healed.line || ''),
+      JSON.stringify({ men: f1a.names.length, want: f1a.want, got: f1 && f1.healed && f1.healed.hours, on: f1 && f1.on, stayed: f1 && f1.stayed, lowest: f1 && f1.healed && f1.healed.lowest, frame: f1 && f1.frame, speed: f1 && f1.speed, said: f1 && f1.healed && (f1.healed.by + ': ' + f1.healed.line), soonerNever: before }));
+    await d.fr.evaluate(() => BohemiaMapCamp.break()); await d.page.waitForTimeout(400);
     /* ---- F2 ---- */
     await d.fr.evaluate(REST); await d.page.waitForTimeout(500);
     const f2 = await d.fr.evaluate(async () => { const made = BohemiaMapCamp.make(); const c = BohemiaMapCamp.condition(); await new Promise(r => setTimeout(r, 500 * 6 + 900));
       return { made, whole: c.lowest, on: BohemiaMapCamp.on(), hours: BohemiaMapCamp.state().hours }; });
-    ok(P + 'F2 A REST HE ASKED FOR HOLDS: camped with everybody whole, the camp stands six hours', f2.made && f2.whole >= 0.99 && f2.on && f2.hours >= 6, JSON.stringify(f2));
+    ok(P + 'F2 A CAMP MADE WHOLE WAITS (rule 472): camped with everybody whole, the camp stands and not one hour runs', f2.made && f2.whole >= 0.99 && f2.on && f2.hours === 0, JSON.stringify(f2));
     await d.fr.evaluate(() => BohemiaMapCamp.break()); await d.page.waitForTimeout(400);
     /* ---- F3 ---- */
     await d.fr.evaluate(REST); await d.page.waitForTimeout(400);

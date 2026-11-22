@@ -47149,7 +47149,7 @@ function campMake(){
   var inTown = campInTown(), edge = null;   /* CAMP __A_TOWN_IS_SAFE__: in a town's screen, or on its edge */
   if (!inTown) { if (!campOnMap()) return false; edge = townSafeAt(city.x, city.y); }
   try{ travelStop(); }catch(_e){} try{ travelInterrupt('camp'); }catch(_e){}
-  CAMP.on = true; CAMP.hours = 0; CAMP.why = null; CAMP.at = [city.x | 0, city.y | 0]; CAMP.warned = null;
+  CAMP.on = true; CAMP.hours = 0; CAMP.why = null; CAMP.at = [city.x | 0, city.y | 0]; CAMP.warned = null; CAMP.whole = null; window.__CAMP_WHOLE = null;   /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ */
   CAMP.deal = campDie(CAMP.at); CAMP.pitch = null; CAMP.brokeAt = null;   /* CAMP THREE __THE_CAMP_ON_THE_BOARD__: the block's own die, the square pitched when the board is in */
   CAMP.fight = null;   /* rule 406(f): a camp made from the end screen stands on the fight's own board, its dead where they fell */
   try{ var FF = CAMP.fromFight; CAMP.fromFight = null; if (FF && !inTown && !edge && Date.now() - FF.t < 60000 && FF.r && FF.r.opts) { CAMP.fight = FF.r; if (FF.r.opts.deal != null) CAMP.deal = FF.r.opts.deal >>> 0; } }catch(_e){}
@@ -47173,6 +47173,7 @@ function campMake(){
 function campBreak(why, say){
   if (!CAMP.on) return;
   CAMP.on = false; clearInterval(CAMP.timer); CAMP.timer = null; CAMP.why = why || null; CAMP.brokeAt = Date.now();   /* CAMP THREE: a crew that broke it fights him on its board */
+  CAMP.whole = null;   /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ */
   var wasTown = CAMP.town ? CAMP.town.name : null; CAMP.town = null;   /* __A_TOWN_IS_SAFE__: a rest in a town leaves him in the town */
   try { if (typeof meetCampBroke === 'function') meetCampBroke(why || 'left'); } catch (_e) {}   /* RUN __MAKE_CAMP_NEARBY__: camped before a still enemy, he walks back into them and the card asks */
   var __btw = !!(LOOP.open && LOOP.open.camp && LOOP.frame && LOOP.frame.style.display === 'block');   /* __THE_MOMENTS_BETWEEN__ */
@@ -47221,11 +47222,17 @@ function campWarn(lim){
    valley's parties); the set-up done or tapped through, the hours run as before. Never longer than CAMP_SETUP_MAX from the camp's
    first hour; only a camp made off a fight (CAMP.fight: MAKE CAMP on the loot screen); HEAL on the map and a rest in a town as before. window.__CAMP_CLOCK_DURING_SETUP = the way it was. MOTION's marked block. ==== */
 var CAMP_SETUP_MAX = 15000;
+/* CAMP FOUR __CAMP_WAITS_FOR_HIM__ (rule 472(d), Paolo 11/22: 'I didn't get to see anyone build the camp'): MEASURED on the demo, HEAL on
+   the map, phone upright: the hours ran from the first beat while the board baked (9 hours before the pitch played, 16 before the camp
+   stood), so a small wound was mended and the camp gone before he saw it. EVERY camp now holds its clock until it stands (HEAL on the
+   map as after a fight; a town's rest has no set-up), and the guard is a minute: a slow phone bakes longer than 15 s.
+   window.__CAMP_SETUP_FIGHT_ONLY = the way it was. */
+var CAMP_SETUP_MAX_ALL = 60000;
 function campSettingUp(){
   try{
-    if (window.__CAMP_CLOCK_DURING_SETUP || CAMP.town || CAMP.hours > 0 || !CAMP.fight) return false;   /* the camp made off a fight (rule 444(a)); HEAL on the map rests at once as it did */
+    if (window.__CAMP_CLOCK_DURING_SETUP || CAMP.town || CAMP.hours > 0 || (!CAMP.fight && window.__CAMP_SETUP_FIGHT_ONLY)) return false;   /* rule 444(a), and from 472(d) every camp but a town's rest */
     var made = window.__CAMP ? window.__CAMP.made | 0 : 0; if (CAMP.setupFor !== made) { CAMP.setupFor = made; CAMP.setupT0 = Date.now(); CAMP.setupHeld = 0; }
-    if (Date.now() - CAMP.setupT0 > CAMP_SETUP_MAX) return false;
+    if (Date.now() - CAMP.setupT0 > (window.__CAMP_SETUP_FIGHT_ONLY ? CAMP_SETUP_MAX : CAMP_SETUP_MAX_ALL)) return false;
     var L = null; try{ L = LOOP.frame && LOOP.ready && LOOP.frame.contentWindow && LOOP.frame.contentWindow.BohemiaCampLook; }catch(_e){ L = null; }
     var on = !L || typeof L.settingUp !== 'function' ? true : !!L.settingUp();
     if (on) { CAMP.setupHeld = (CAMP.setupHeld | 0) + 1; window.__CAMP_SETUP = { made: made, held: CAMP.setupHeld, t0: CAMP.setupT0, min: T.day * 1440 + T.min }; }
@@ -47283,6 +47290,7 @@ function campHour(){
      hour: no time, no food, no walking world, until he answers; the camp stands as it stood. (The phone's HEAL is in his corner,
      over the card, so a camp can be made while a card waits; and the card may not come up over a standing camp: the road's busy().) */
   if (campHeldByACard()) { window.__CAMP_HELD_BY_CARD = (window.__CAMP_HELD_BY_CARD | 0) + 1; return; }
+  if (CAMP.whole || campDone()) { campWholeTick(); return; }   /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ (rule 472(a)): everyone whole, the clock stopped; the camp stands until his tap */
   campStale();
   var lim = 2 + (window.BohemiaCamp ? BohemiaCamp.plus('warn') : 0), warn = null;
   try{ warn = campWarn(lim); }catch(_e){}
@@ -47304,10 +47312,46 @@ function campHour(){
    one of his men says they are ready, from his mouth with his face (the phone's ten, BohemiaMaterials.ten). A camp made with everybody
    already whole is a rest he asked for, and it holds until he ends it (rule 267(a)). HEAL still ends it sooner. ==== */
 var CAMP_DONE_LINES = ['Everybody\'s patched up. Ready when you are.', 'We\'re whole. Say the word and we move.', 'Last of the tape\'s on. Nobody\'s bleeding. Let\'s go.'];   /* draft:true */
+/* ==== __CAMP_WAITS_FOR_HIM__ (CAMP FOUR, VAMILY rule 472(a)(c), ask row 472's; Paolo 11/22: 'if I make camp, I don't want it to auto and
+   I want time to go by until everyone's healed, but then when everyone is healed I want time to stop, but I still want the characters to
+   move around as they were... and then maybe something on the screen or the phone, like fully healed, resume back to world map, not that
+   exact word, something more friendly with the world building... once they're fully healed, armor and health, just have them stick
+   idling, and then I have to definitely click something to resume... right now once they're fully healed up it just instantly takes me
+   back to the world map'). AMENDS rule 278(a)'s break and 267(a)'s rest. MEASURED BEFORE (main 14cfe9f3, the demo, phone upright, HEAL
+   off the start town with his one man at half): the camp broke itself 'healed' 1.6 s after HEAL, at hour 3, before its board had baked:
+   he never saw it; and a camp made whole ran the hours on and on (139 hours in 67 s after a won fight). NOW the hours run only while a
+   man of his is under 99 percent of his hit points or his armour (the table's camp_done_at); the hour the last is whole, THE CLOCK
+   STOPS: no hour, no bill, no walking world; the camp stays on the glass and his men keep living in it (the camp's own screen, rule
+   472(b)); a camp made with everybody whole stops the moment it stands. The phone says it in one of his men's mouths (the line below,
+   draft:true) and its tap is the way out (BohemiaMapCamp.road: back on the map, on PAUSE). Nothing else sends him back: HEAL, BREAK
+   CAMP, T, a pinch out, a crew that reaches him, as before. A town's rest stops the same way and stays in the town.
+   window.__CAMP_BREAKS_WHEN_WHOLE = the way it was (the planted fail of THE CAMP WAITS FOR HIM). ==== */
+var CAMP_ROAD_LINES = ['Everybody\'s patched up. The road\'s fuckin\' waiting.', 'Shit, we\'re whole again. Let\'s get back out there.', 'Tape\'s on, nobody\'s bleeding. Road\'s waiting on us, jefe.'];   /* draft:true (rule 467: they curse where a real person would) */
+var CAMP_REST_LINES = ['Nobody\'s hurt, so what the hell are we sitting for? Road\'s waiting.', 'Fire\'s going and we\'re all in one piece. Say when.'];   /* draft:true: camped with nobody hurt */
+function campWholeNow(c){
+  if (CAMP.whole) return true;
+  var who = campSpeaker(), rest = !CAMP.mending, L = rest ? CAMP_REST_LINES : CAMP_ROAD_LINES, line = L[(T.day + CAMP.hours) % L.length];
+  CAMP.whole = { t: Date.now(), day: T.day, min: T.min, hours: CAMP.hours, line: line, who: who, rest: rest, town: CAMP.town ? CAMP.town.name : null, lowest: c ? c.lowest : 1 };
+  window.__CAMP_HEALED = { day: T.day, min: T.min, hours: CAMP.hours, lowest: c ? c.lowest : 1, line: line, by: who.name || who.look, speed: TRAVEL_SPEED, stays: true, rest: rest };
+  window.__CAMP_WHOLE = { t: CAMP.whole.t, day: T.day, min: T.min, hours: CAMP.hours, line: line, by: who.name || who.look, rest: rest, ticks: 0, made: window.__CAMP ? window.__CAMP.made : 0 };
+  try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_CAMP_TIME', day: T.day, min: T.min, night: isNight(), batteries: loopBats(), bill: campBill(), hours: CAMP.hours, condition: c || campCondition(), warn: null, town: CAMP.town ? CAMP.town.name : null, whole: { line: line, who: who.name || '', rest: rest } }, '*'); }catch(_e){}
+  try{ saveNow('camp:whole'); }catch(_e){}
+  return true;
+}
+function campWholeTick(){ if (window.__CAMP_WHOLE) window.__CAMP_WHOLE.ticks = (window.__CAMP_WHOLE.ticks | 0) + 1; window.__CAMP_STOPPED_AT = T.day * 1440 + T.min; }
+/* his tap on the phone's line: the camp put away, back on the map, the clock on PAUSE until his GO */
+function campRoad(){
+  if (!CAMP.on) return false;
+  var w = CAMP.whole; window.__CAMP_ROAD = { t: Date.now(), whole: !!w, hours: CAMP.hours, waited: w ? Date.now() - w.t : null, town: CAMP.town ? CAMP.town.name : null };
+  campBreak(w ? 'road' : 'left');
+  try{ travelInterrupt('healed'); }catch(_e){}
+  return true;
+}
 function campDone(){
   if (!CAMP.on) return false;
   var c = campCondition(); if (!c) return false;
   if (!c.done) { CAMP.mending = true; return false; }
+  if (!window.__CAMP_BREAKS_WHEN_WHOLE) { if (campSettingUp()) return false; return campWholeNow(c); }   /* __CAMP_WAITS_FOR_HIM__: the clock stops, the camp stays */
   if (!CAMP.mending) return false;
   var line = CAMP_DONE_LINES[(T.day + CAMP.hours) % CAMP_DONE_LINES.length], who = campSpeaker();
   campBreak('healed');
@@ -47407,7 +47451,10 @@ window.BohemiaMapCamp = { make: campMake, break: function(){ campBreak('left'); 
   fromFight: function(r){ CAMP.fromFight = r ? { r: r, t: Date.now() } : null;   /* CAMP THREE rule 406(f): the shell's campFromFightKeep */
     try{ if (CAMP.fromFight && CAMP.on && !CAMP.town) campBreak('contact'); }catch(_e){}   /* a camp left standing through a fight (one started with no card) is over: the new one stands on the fight's board */
     return !!CAMP.fromFight; },
-  pitched: function(p, st){ if (CAMP.on && p) { CAMP.pitch = p; window.__CAMP_PITCH = { x: p.x, y: p.y, n: p.n, pieces: (p.pieces || []).length, board: p.board || null, sig: p.sig || null, state: st ? st.state : null, ms: st ? st.ms : null }; } return !!CAMP.pitch; }, on: function(){ return CAMP.on; }, condition: function(){ return campCondition(); }, toggle: function(){ if (CAMP.on) { campBreak('left'); return false; } return campMake(); }, state: function(){ return { on: CAMP.on, hours: CAMP.hours, why: CAMP.why, at: CAMP.at, sight: { street: SIGHT.street, open: SIGHT.open }, followers: Object.keys(CT_FOLLOWERS) }; } };
+  pitched: function(p, st){ if (CAMP.on && p) { CAMP.pitch = p; window.__CAMP_PITCH = { x: p.x, y: p.y, n: p.n, pieces: (p.pieces || []).length, board: p.board || null, sig: p.sig || null, state: st ? st.state : null, ms: st ? st.ms : null }; } return !!CAMP.pitch; }, on: function(){ return CAMP.on; }, condition: function(){ return campCondition(); }, toggle: function(){ if (CAMP.on) { campBreak('left'); return false; } return campMake(); }, state: function(){ return { on: CAMP.on, hours: CAMP.hours, why: CAMP.why, at: CAMP.at, sight: { street: SIGHT.street, open: SIGHT.open }, followers: Object.keys(CT_FOLLOWERS), whole: !!CAMP.whole, setting: CAMP.on ? campSettingUp() : false }; },
+  /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ (rule 472(c)): everyone whole and the clock stopped: who says it and what (the phone's line); his tap */
+  whole: function(){ var w = CAMP.on && CAMP.whole; return w ? { line: w.line, who: (w.who && w.who.name) || '', look: (w.who && w.who.look) || null, rest: !!w.rest, town: w.town, t: w.t } : null; },
+  road: function(){ return campRoad(); } };
 /* ==== /__THE_CAMP__ ==== */
 /* ==== __THE_MOMENTS_BETWEEN__ (WORLD round 2, ask line 273, Paolo 11/2: 'The transition of the camp to when time passes by and an
    enemy wants to attack you, it's just like sloppy quick bullshit... I want things to look less choppy... less AI slop'). MEASURED
@@ -47505,7 +47552,7 @@ function btwDraw(m, P){
   var c = BETWEEN.cv, W = window.innerWidth || 390, H = window.innerHeight || 844, x = c.getContext('2d');
   if (c.width !== W || c.height !== H) { c.width = W; c.height = H; }
   x.clearRect(0, 0, W, H);
-  var cx = P.cx, cy = P.cy, R = Math.max(2, P.r), rgb = P.rgb.join(','), now = m.el || 0;
+  var cx = P.cx, cy = P.cy, R = Math.max(2, P.r), rgb = P.rgb.join(','), now = m.anim != null ? m.anim : (m.el || 0);   /* CAMP FOUR: the fire keeps burning while the moment waits */
   if (P.veil > .002) {
     var g = x.createRadialGradient(cx, cy, R * .3, cx, cy, R * 1.7);
     g.addColorStop(0, 'rgba(' + rgb + ',' + (P.veil * .22).toFixed(3) + ')');
@@ -47563,7 +47610,13 @@ function btwTick(){
   var m = BETWEEN.m; if (!m) return;
   /* THE CLOCK IS THE FRAMES (measured: the camp's hour and the card's build stall the page up to half a second; a clock off the
      wall jumped the ease past half its way in one shown frame). A stall now holds the picture still and it goes on from there. */
-  var now = performance.now(); if (m.last != null) m.el += Math.min(now - m.last, 100); m.last = now;
+  var now = performance.now(), dtq = m.last != null ? Math.min(now - m.last, 100) : 0; m.el += dtq; m.last = now; m.anim = (m.anim || 0) + dtq;
+  /* CAMP FOUR __THE_CAMP_COMES_UP_AT_ONCE__ (rule 472(d): 'I don't get to see any sort of transition... it freezes... then everything's
+     populated in'): MEASURED on the demo, HEAL on the map: the camp's screen came up dark over its last two beats and stayed dark until its
+     board baked (2 to 5 s here, four times that on a phone). NOW the moment waits at his fire on the map (the light down round him, the
+     fire caught at his marker, its embers going up, the camcorder's clock) until the camp's ground is drawn under it, then the camp
+     comes up over the last two beats; never more than CAMP_IN_WAIT. window.__CAMP_IN_NO_WAIT = the way it was. */
+  if (m.kind === 'campIn' && m.el / m.dur > .33 && !window.__CAMP_IN_NO_WAIT && now - m.t0 < CAMP_IN_WAIT && !btwCampReady()) { m.el = .33 * m.dur; m.waited = (m.waited | 0) + 1; window.__CAMP_IN_WAITED = { frames: m.waited, ms: Math.round(now - m.t0) }; }
   var t = m.el / m.dur;
   if (t >= 1) { btwFinish(); return; }
   var P = btwParams(m, t); btwApply(m, P); btwDraw(m, P);
@@ -47603,6 +47656,8 @@ function btwTap(ev){
     if (ev.type === 'click') BETWEEN.eat = 0;
   }
 }
+var CAMP_IN_WAIT = 30000;
+function btwCampReady(){ try { var f = btwFrame(), L = f && f.contentWindow && f.contentWindow.BohemiaCampLook; if (!L || !CAMP.on) return true; var B0 = f.contentWindow.BohemiaCampBoard, st = B0 && B0.state ? B0.state().state : 'in'; if (st === 'failed') return true; return !!(L.drawn && L.drawn()); } catch (_e) { return true; } }
 function btwCampIn(){
   var f = btwFrame(); if (!f || f.style.display !== 'block') return;
   var me = btwAt(city.x, city.y);
@@ -69029,6 +69084,10 @@ function screenFilter(mode){
 function mapUnderAPlace(){
   try{
     if(window.__MAP_DRAW_UNDER) return false;
+    /* CAMP FOUR __THE_CAMP_COMES_UP_AT_ONCE__ (rule 472(e)): MAKE CAMP after a fight, the fight's last frame held over the whole glass
+       while the camp is made under it (MOTION 3's hold): the map under it is never seen, so it is not drawn (MEASURED, a CPU profile of
+       the demo from the tap to the camp's first frame: the map's fog and tiles 0.9 s of the main thread under that picture) */
+    try{ var PM = window.parent && window.parent !== window ? window.parent.BohemiaMotion : null; if(PM && PM.campHold && PM.campHold.on && PM.campHold.on() && !window.__CAMP_MAP_UNDER_HOLD){ window.__MAP_UNDER_THE_HOLD = (window.__MAP_UNDER_THE_HOLD|0) + 1; return true; } }catch(_e){}
     var f = (typeof LOOP!=='undefined') && LOOP.frame; if(!f || f.style.display !== 'block') return false;
     var cs = getComputedStyle(f); if((parseFloat(cs.opacity)||0) < 0.99 || cs.visibility === 'hidden') return false;
     var r = f.getBoundingClientRect(), W = innerWidth, H = innerHeight, bar = document.getElementById('menubar') || document.getElementById('bmtb');
@@ -69929,7 +69988,7 @@ function meetCampNearby(msg){
 }
 /* he broke camp himself: the block back into them, and the card asks (CAMP's campBreak calls this) */
 function meetCampBroke(why){
-  var L = MEET_CAMP.last; if (!L || why !== 'left') return false;
+  var L = MEET_CAMP.last; if (!L || (why !== 'left' && why !== 'road')) return false;   /* CAMP FOUR: his tap on HIT THE ROAD (rule 472(c)) is his leaving too */
   MEET_CAMP.last = null;
   if (Math.max(Math.abs(city.x - L.at[0]), Math.abs(city.y - L.at[1])) > 0) return false;   /* he has moved on from the camp's block */
   var held = true; var mc = /^contract:([^:]+)/.exec(L.why); if (mc) { held = false; try { LOOP.held.forEach(function (j) { if (String(j.id) === mc[1]) held = true; }); } catch (_e) {} }

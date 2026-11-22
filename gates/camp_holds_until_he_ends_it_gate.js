@@ -46,12 +46,18 @@ async function run(profile) {
     const box = await fr.evaluate((s) => { const b = document.querySelector(s).getBoundingClientRect(); return { l: b.left, t: b.top }; }, sel);
     const pos = xy ? { x: xy.x - box.l, y: xy.y - box.t } : undefined;
     if (profile === 'phone_portrait') await loc.tap(pos ? { position: pos } : {}); else await loc.click(pos ? { position: pos } : {}); return true; };
+  /* RE-AIMED 11/22 (CAMP FOUR, VAMILY rule 472(a)(d)): every camp is set up before an hour runs, and its clock STOPS when his men are whole
+     (the demo's company starts whole). These legs measure what ends a camp while its clock runs, so the stop is held off on this page
+     (campDone, as MOTION 3's gates hold it) and each leg counts from the end of the camp's set-up. The stop itself is THE CAMP WAITS FOR HIM's. */
+  const setupDone = async () => { for (let k = 0; k < 160; k++) { const st = await d.fr.evaluate(() => { try { return BohemiaMapCamp.on() && !!BohemiaMapCamp.state().setting; } catch (e) { return false; } }).catch(() => false); if (!st) return; await d.page.waitForTimeout(250); } };
   try {
     await d.page.waitForTimeout(2500);
+    await d.fr.evaluate(() => { if (!window.__GATE_HELD && typeof campDone === 'function') { window.__GATE_HELD = campDone; campDone = function () { return false; }; } });
     /* ---- H1 straight after a fight ---- */
     await d.fr.evaluate(REST); await d.page.waitForTimeout(600);
     await d.fr.evaluate(require('../tools/bohemia_drive_the_demo.js').offTheTown).catch(() => null);   /* PLUMBER 8 11/10: off the town's ground first (the demo starts him in a town; there campMake is the town's own rest, rule 273(b)(d), never the street camp these legs read) */
     const h1a = await d.fr.evaluate(() => { CITY_CONTACT_POSTED = true; const made = BohemiaMapCamp.make(); return { made, min: T.day * 1440 + T.min }; });
+    await setupDone();
     await d.page.waitForTimeout(500 * HOURS + 1500);
     const h1 = await d.fr.evaluate(() => Object.assign(BohemiaMapCamp.state(), { flag: CITY_CONTACT_POSTED, min: T.day * 1440 + T.min, last: window.__CAMP || null }));
     ok(P + 'H1 *** STRAIGHT AFTER A FIGHT *** (the won fight\'s contact flag up, no enemy behind it): the camp stands ' + HOURS + ' camped hours, its clock runs, the flag is down so the valley walks',
@@ -128,6 +134,7 @@ async function run(profile) {
     const h6a = await d.fr.evaluate(() => { window.__H6C = window.__HUNT_CAUGHT | 0; const made = BohemiaMapCamp.make(); let at = null;
       for (const [dx, dy] of [[2, 0], [-2, 0], [0, 2], [0, -2], [1, 0], [0, 1], [-1, 0], [0, -1]]) if (cityWalkable(city.x + dx, city.y + dy)) { at = [city.x + dx, city.y + dy]; break; }
       HUNT = { id: 'hunt:gate2', ev: null, name: 'The Gate Crew', arch: 'human', count: 3, at: at || [city.x + 2, city.y], steps: 0, made: performance.now() }; return { made }; });
+    await setupDone();
     let h6 = null; for (let k = 0; k < 24; k++) { await d.page.waitForTimeout(500); h6 = await d.fr.evaluate(() => ({ on: BohemiaMapCamp.on(), why: (window.__CAMP || {}).why, meet: !!MEET.up, frame: LOOP.frame ? LOOP.frame.style.display : null, fighting: !!LOOP.fighting, caught: (window.__HUNT_CAUGHT | 0) - (window.__H6C | 0) })); if (!h6.on) break; }
     ok(P + 'H6 AN ENEMY REACHING IT ENDS IT: the crew walks in, the camp breaks on the meet card, up on the map', h6a.made && h6 && !h6.on && h6.why === 'contact' && (h6.meet || h6.fighting || h6.caught > 0) && h6.frame === 'none', JSON.stringify(h6));
     await d.fr.evaluate(REST);

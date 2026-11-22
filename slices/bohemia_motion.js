@@ -1629,6 +1629,7 @@
       var L = f.contentWindow.BohemiaCampLook, st = L && L.state ? L.state() : null; if (!st || !st.open) return false;
       if (st.firstFv) {   /* and YOU on it: his own walker placed (the held frame never lifts on a camp without him), three beats at most */
         var BS = f.contentWindow.BohemiaSettlement, ld = BS && BS.lead ? BS.lead() : null; if (ld && ld.x != null) return true;
+        try { if (L.hideLead && L.hideLead()) return true; } catch (e) {}   /* CAMP FOUR (rule 472(d)): hurt, he lies by the fire among his men (the camp draws him), never the walker: nothing to wait six beats for */
         CAMPHOLD.noLead = CAMPHOLD.noLead || performance.now(); return performance.now() - CAMPHOLD.noLead > beatNow() * 6; }
       var fv = L.fightView ? L.fightView() : null; return !(fv && fv.on) && Object.keys(st.drawnAt || {}).length > 0; } catch (e) { return false; }
   }
