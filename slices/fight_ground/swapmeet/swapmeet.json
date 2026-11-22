@@ -1,0 +1,486 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "swapmeet",
+ "name": "THE SWAP MEET",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "The map seats a SWAP MEET up north, Broadacres (engine/bohemia_overmap.js, 'SWAP MEET (Broadacres, north)'): one cell, in 31 of 40 valleys. The real Broadacres Marketplace has run in North Las Vegas since 1977: an open-air market of some forty acres, hundreds of vendors on the weekend, a food court, the vendors' stalls in long rows under covered sheds.",
+  "The dead's own line for the kind (engine/bohemia_dead.js): 'the last market, and the crush at it'.",
+  "A swap meet's covered row is stalls back to back (folding tables loaded with goods), racks of clothes, tarps, crates and coolers, tyre stacks, the vendors' vans and box trucks parked behind; its food court is food stands round the edge and picnic tables in the middle. On house tiles a rack of clothes, a van and a food stand each hide a man; goods trampled in the crush are rough ground (3 AP); the monsoon's water standing in the asphalt's dips is Battle Brothers' swamp."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (swapmeet_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "swapmeet"
+ ],
+ "share": 0.6,
+ "districts_why": "The swap meet is its covered rows and its open lots: six fights in ten at its cell are fought under the sheds, in the covered rows or the food court, by the cell's own dice; the rest out on the lot. A one-cell place goes inside on a step (I14): the share is set from its real cells.",
+ "board": {
+  "templates": {
+   "swapmeet": {
+    "name": "THE SWAP MEET",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_covered_rows": [
+      "####################",
+      "#VV.c.R.TTfTT.Rc.VV#",
+      "#...e..c.kcc..e....#",
+      "#.TTEE.TTTT.EETT.R.#",
+      "#.c.R..c.r..c.r.e..#",
+      "#.TTTT.TETT.TTTT.c.#",
+      "#w..e.ck.B.krc.e..w#",
+      "#D.c.R.TTfTT.R.c..D#",
+      "#w..e.crk.Bk.cce..w#",
+      "#.TTTT.TTET.TTTT.c.#",
+      "#.c.R..c.r..c.r.e..#",
+      "#.TTEE.TTTT.EETT.R.#",
+      "#...e..c.kcc..e....#",
+      "#VV.c.RkcDDckR.c.VV#",
+      "####################"
+     ],
+     "the_food_court": [
+      "####################",
+      "#FF.p.F.pkf.pF.p.FF#",
+      "#..k...p.cp..p...k.#",
+      "#.pp.ppkcTTckpp.pp.#",
+      "#w...k.cp..pc.k...w#",
+      "#.pp.pp.cTTc.pp.pp.#",
+      "#..e.F.ck.r..F.e...#",
+      "#D.k.p.ckpfpkc.p.kD#",
+      "#..e.F.cr.k..F.e...#",
+      "#.pp.pp.cTTc.pp.pp.#",
+      "#w...k.cp..pc.k...w#",
+      "#.pp.ppkcTTckpp.pp.#",
+      "#..k...p.cp..p...k.#",
+      "#FF.p.FkcDDckF.p.FF#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "T": {
+    "is": "floor",
+    "tile": "stalls",
+    "piece": "sm_stalls",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "E": {
+    "is": "floor",
+    "tile": "sets",
+    "piece": "sm_sets",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "R": {
+    "is": "floor",
+    "tile": "racks",
+    "piece": "sm_racks",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "V": {
+    "is": "floor",
+    "tile": "vans",
+    "piece": "sm_vans",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "F": {
+    "is": "floor",
+    "tile": "foodstand",
+    "piece": "sm_foodstand",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "B": {
+    "is": "floor",
+    "tile": "booth",
+    "piece": "sm_booth",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "p": {
+    "is": "floor",
+    "tile": "picnic",
+    "piece": "sm_picnic",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "coolers",
+    "piece": "sm_coolers",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "crates",
+    "piece": "sm_crates",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "e": {
+    "is": "floor",
+    "tile": "tyres",
+    "piece": "sm_tyres",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "r": {
+    "is": "floor",
+    "tile": "trampled",
+    "piece": "sm_trampled",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "w": {
+    "is": "floor",
+    "tile": "water"
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "gates",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words); 'sight' says whether a blocker hides a man ('blocked', the obstacles row) or is seen past ('seen'). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The market's fence, chain link backed with tarp and plywood: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "Asphalt under the sheds, the stall numbers still painted on it: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The asphalt: open ground.",
+   "draft": true
+  },
+  "stalls": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A vendor's stall, folding tables loaded with whatever was left to sell: cover.",
+   "say": "A stall: cover.",
+   "draft": true
+  },
+  "sets": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "An electronics stall, old televisions stacked three high; one is still on, snow on its screen, and a tape deck under it blinks 12:00: cover.",
+   "say": "A stall of old sets: cover.",
+   "draft": true
+  },
+  "racks": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "Racks of clothes packed so tight nobody gets through them: nobody stands there, and nobody sees through it; cover beside it. [bb] its wall.",
+   "say": ""
+  },
+  "vans": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A vendor's van parked behind the stalls, its back doors open on nothing: nobody stands there, and nobody sees through it. [bb] its boulders.",
+   "say": ""
+  },
+  "foodstand": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A food stand, its menu board still up and every price crossed out: nobody stands there, and nobody sees through it. [bb] its wall.",
+   "say": ""
+  },
+  "booth": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The change booth, where batteries changed hands, its window barred: cover.",
+   "say": "The change booth: cover.",
+   "draft": true
+  },
+  "picnic": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A picnic table tipped on its side: cover.",
+   "say": "A picnic table: cover.",
+   "draft": true
+  },
+  "coolers": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A vendor's coolers, stacked: low cover.",
+   "say": "Coolers: low cover.",
+   "draft": true
+  },
+  "crates": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Milk crates and boxes of goods: low cover.",
+   "say": "Crates: low cover.",
+   "draft": true
+  },
+  "tyres": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A tyre seller's stacks: low cover. [bb] its palisade waist high.",
+   "say": "Tyre stacks: low cover.",
+   "draft": true
+  },
+  "trampled": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Goods trampled flat in the crush, a tarp, shoes, a broken table: rough going (3 AP), low cover. [bb] its brush.",
+   "say": "Trampled goods: rough going, low cover.",
+   "draft": true
+  },
+  "water": {
+   "row": "swamp",
+   "terrain": "water",
+   "ap": 4,
+   "open": true,
+   "effect": "The monsoon's water standing in a dip of the asphalt: slow going (4 AP), and a man standing in it fights worse. [bb] its swamp.",
+   "say": "Standing water: slow going, and you fight worse in it.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire in a cut-down drum where a vendor cooked. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "gates": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The gate to the lot, open: open ground, and by day the light falls in under the shed: a man here is seen.",
+   "say": "The gate: open ground.",
+   "say_lit": "The gate: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in swapmeet_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "sm_stalls": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "A STALL"
+  },
+  "sm_sets": {
+   "like": "casino_screens",
+   "kind": "COVER",
+   "name": "A STALL OF OLD SETS"
+  },
+  "sm_racks": {
+   "like": "tunnel_rack",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "RACKS OF CLOTHES"
+  },
+  "sm_vans": {
+   "like": "sb_container_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A VENDOR'S VAN"
+  },
+  "sm_foodstand": {
+   "like": "casino_cage",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A FOOD STAND"
+  },
+  "sm_booth": {
+   "like": "garage_booth",
+   "kind": "COVER",
+   "name": "THE CHANGE BOOTH"
+  },
+  "sm_picnic": {
+   "like": "tunnel_camp_a",
+   "kind": "COVER",
+   "name": "A PICNIC TABLE"
+  },
+  "sm_coolers": {
+   "like": "sb_bales_S",
+   "kind": "LOW_COVER",
+   "name": "COOLERS"
+  },
+  "sm_crates": {
+   "like": "sb_heap_E",
+   "kind": "LOW_COVER",
+   "name": "CRATES"
+  },
+  "sm_tyres": {
+   "like": "sb_heap_S",
+   "kind": "LOW_COVER",
+   "name": "TYRE STACKS"
+  },
+  "sm_trampled": {
+   "like": "sb_rubble_S",
+   "kind": "LOW_COVER",
+   "name": "TRAMPLED GOODS"
+  },
+  "sm_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "sm_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "sm_wall_ew",
+  "ns": "sm_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: the sheds' roofs are thin tin on poles; nothing under them is a climb under fire on house tiles.",
+ "ceiling": {
+  "kind": "joist",
+  "alpha": 0.1,
+  "src": "swapmeet/swapmeet_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the sheds' corrugated roofs on their steel poles, light through the holes, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the warehouse's roof)."
+ }
+}
