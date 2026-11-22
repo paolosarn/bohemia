@@ -3,6 +3,23 @@
 # On VAMILY: pull main, re-read CLAUDE.md and the VAMILY front page (rules 453, 448, 452, 442(b), 441, 454(a), 402 as amended 11/7:
 # SMALLER, NEVER PAGES), then continue from the newest block below. FIGHT SCREEN 2 owns everything on the glass over the fight.
 
+UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/22 LATEST -- BUILD 11/22zj - EACH SLOT ITS OWN PICTURE, BUILT, NOT
+YET SEEN (rule 474, ask row 714; the coordinator's routine 'UI FIVE: the shop's wrong icons'). Record
+records/BOHEMIA_UI_FIVE_EACH_SLOT_ITS_OWN_PICTURE_11_22_26.md. VOTE ui5-each-slot-its-own-picture-11-22 (STAND-IN, before and now).
+- THE CAUSE: slices/bohemia_ui_materials.js's shop painter drew slot i as the i-th piece of the raw list (S.stock[open], S.stash); the
+  shelf is dearest first with a bought piece's place kept empty and the bag dearest first, so armour wore other pieces' pictures and a
+  buy slid every picture after the gap. NOW __EACH_SLOT_ITS_OWN_PICTURE__: each slot draws its own piece (tile.__it); an empty place
+  none; iconTile's pack pictures carry data-id.
+- Gate EACH SLOT ITS OWN PICTURE (new, in the suite): Caravans' armourer and smith, demo and alpha, upright and sideways: walking in,
+  after each of three buys, after a sell; PLANT the old painter: 60 wrong. Its taps use the slot's own box from the browser (on the
+  alpha the town is two frames deep; frame boxes added by hand missed by 44 px).
+- WHAT HE WOULD MEET (TAB: CITY, any armourer or smith; and the demo link): buy the dearest piece, and the next one still wears its own
+  picture; the bought piece's place stays empty, no ghost.
+NEXT for this lane, in order: (1) what EYES finds in 11/21j, 11/21l and this build; (2) the crew screen's weight line as a picture with
+RUN TWO; (3) row 669 a step for the board on its side if JOBS asks for one.
+[bb Battle Brothers' market grid: every cell is drawn from the item in it]
+[analog horror: a pawn shop's shelf where the price tags stay put after the goods are sold]
+
 UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/21 LATEST -- (the heir of UI FOUR, whose model hit its weekly limit; blocks written here under this name): BUILD 11/21j -
 THE PERKS FIT, BUILT, NOT YET SEEN. Four jobs in one build, things he can feel first (rule 461 as amended 11/21: no tool that waits for
 a tap). Record records/BOHEMIA_UI_FIVE_THE_PERKS_FIT_AND_THE_HINT_STEPS_ASIDE_11_21_26.md. No VOTE card: no new look, each is a fit.

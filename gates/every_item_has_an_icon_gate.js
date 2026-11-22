@@ -79,10 +79,13 @@ const done = () => { console.log('\nEVERY ITEM HAS AN ICON: ' + pass + ' ok, ' +
     return { bad, seen: Object.keys(seen).length };
   }, { W, A });
   ok('THE ICONS\' NAMES AGREE WITH THE MARKET\'S FOR EVERY ITEM IT STOCKS (36 places, every size)', agree.bad.length === 0 && agree.seen >= 40, agree.bad.length ? agree.bad.slice(0, 3).join(' | ') : agree.seen + ' different items stocked, all agree');
-  /* RUN TWO's shop is two grids (THEIR SHELF, YOUR BAG; 5ba404c): shelf slot i is stock[k][i], bag slot i is stash[i] */
+  /* RUN TWO's shop is two grids (THEIR SHELF, YOUR BAG; 5ba404c). RE-AIMED 11/22 by UI FIVE (rule 474, ask row 714): this read took
+     shelf slot i as stock[k][i] and bag slot i as stash[i], the same wrong mapping as the painter it checked (false since the shelf
+     stands dearest first with a bought piece's place kept empty, rule 452), so it agreed with the bug: every slot is read against
+     the piece it holds (the tile carries it), the way the game draws it now */
   const slotRead = (k) => p.evaluate(k => {
     const st = BohemiaSettlement.state, H = c => { const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let h = 0; for (let i = 0; i < d.length; i += 24) h = (h * 31 + d[i] + d[i + 1] * 7 + d[i + 2] * 13) >>> 0; return h; };
-    const read = (grid, list) => !grid ? [] : Array.from(grid.children).map((b, i) => { const it = list[i]; if (!it) return null; const c = b.querySelector('canvas.bm-icon');
+    const read = (grid, list) => !grid ? [] : Array.from(grid.children).map((b, i) => { const it = b.__it || null; if (!it) return null; const c = b.querySelector('canvas.bm-icon');
       /* RUN TWO 10/18: since [the market in the pack's art] (10/11, UI's own additive line in bohemia_ui_materials.js) a weapon
          wears HIS PACK'S tile (img.pk, by Battle Brothers class) instead of the drawn icon; which tile each class gets is held by
          gates/market_pack_art_gate.js, so here a pack tile counts as the icon when it is drawn at 28+ px */
@@ -107,14 +110,17 @@ const done = () => { console.log('\nEVERY ITEM HAS AN ICON: ' + pass + ' ok, ' +
   ok('EVERY ITEM ON THE SMITH\'S AND THE ARMOURER\'S SHELF WEARS ITS ICON', lines.length >= 6 && lines.every(l => l.icon && l.w >= 28), lines.map(l => l.k + ':' + (l.icon ? l.obj + '@' + Math.round(l.w) : 'NONE')).join(' '));
   ok('  of the object its name says, and the same item always draws the same picture', lines.every(l => l.says && l.same), lines.filter(l => !(l.says && l.same)).map(l => l.t).join(' | '));
   /* buy the first thing on the armourer's shelf: it lands in the bag wearing the same icon */
-  const first = await p.evaluate(() => { const b = document.querySelector('#shelfgrid .slot.full'); const r = b.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2, id: BohemiaSettlement.state.stock.armourer[0].id }; });
+  /* RE-AIMED 11/22 by UI FIVE: the last full slot's OWN piece (the cheapest) (not stock[0]: the shelf is dearest first), and since WHAT YOU BUY GOES ON
+     THE MAN (rule 210) the strip's 'Buy it' puts a piece he can wear on a man: the shop's own 'to the stash' (#buystash) is the buy that
+     lands in the bag */
+  const first = await p.evaluate(() => { const all = document.querySelectorAll('#shelfgrid .slot.full'), b = all[all.length - 1]; b.scrollIntoView({ block: 'center' }); const r = b.getBoundingClientRect();   /* the cheapest (the shelf is dearest first): the 900 this leg hands over buys it */ return { x: r.x + r.width / 2, y: r.y + r.height / 2, id: b.__it && b.__it.id }; });
   await p.mouse.click(first.x, first.y); await p.waitForTimeout(400);
-  const buy = await p.evaluate(() => { const a = Array.from(document.querySelectorAll('#sbody .act')).find(x => /Buy it/.test(x.textContent)); if (!a || a.disabled) return null; const r = a.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+  const buy = await p.evaluate(() => { const a = document.getElementById('buystash'); if (!a || a.disabled) return null; const r = a.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
   if (buy) { await p.mouse.click(buy.x, buy.y); await p.waitForTimeout(500); }
   await p.evaluate(() => { try { BohemiaSettlement.state.open && document.getElementById('close').click(); } catch (e) {} }); await p.waitForTimeout(300);
   const xa = await p.evaluate(() => BohemiaSettlement.where('armourer')); await p.mouse.click(xa.x, xa.y); await p.waitForTimeout(700);
   const bag = (await slotRead('armourer')).bag;
-  ok('WHAT YOU BUY LANDS IN THE BAG WEARING THE SAME ICON', !!buy && bag.length >= 1 && bag.some(b => b.id === first.id && b.icon && b.same), JSON.stringify(bag.map(b => b.id + ':' + b.obj + ':' + b.same)));
+  ok('WHAT YOU BUY LANDS IN THE BAG WEARING THE SAME ICON', !!buy && bag.length >= 1 && bag.some(b => b.id === first.id && b.icon && b.same), JSON.stringify({ first: first.id, buy: !!buy, bag: bag.map(b => b.id + ':' + b.obj + ':' + b.same) }));
   ok('no page error', !(d.errs && d.errs.length), (d.errs || []).slice(0, 2).join(' | '));
   await d.close();
   done();

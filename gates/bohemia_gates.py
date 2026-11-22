@@ -9467,6 +9467,13 @@ GATES = [
      "upright and sideways, N1 the title and all fifteen origins, N2 the start at rest, N3 every building's sheet, N4 the settings card "
      "(every row on the glass at once), N5 the crew screen, N6 a full company and stash, N7 the fight's page, N8 the fullest hall, N9 every "
      "UI size: nothing scrolls, every press on the glass, the floors. Over 10 min", True),
+    ('EACH SLOT ITS OWN PICTURE', ['node', 'gates/each_slot_its_own_picture_gate.js'],
+     "UI FIVE gate, 11/22, rule 474 (Paolo 11/22: 'if I buy the most expensive item and there's something else I wanna buy that's the "
+     "second most expensive item, it will still have the icon of that first item'), ask row 714: on the demo and the alpha, a phone "
+     "upright and sideways, Caravans' armourer and smith through the map's door: S1 as he walks in every slot of the shelf and the bag "
+     "wears its own piece's picture and name, an empty place none; S2 he buys the dearest and then each next with a double tap, every "
+     "slot the same after every buy; S3 he sells one back, the same; S4 nothing threw; PLANTED (the demo upright): the painter by place "
+     "put back, the leg sees the wrong pictures. About 4 min a walk", True),
     ('THE PERKS FIT', ['node', 'gates/the_perks_fit_gate.js'],
      "UI FIVE gate, 11/21, ask row 655 (FOUND BY EYES 11/20: 'the said line lies over the first perk card, and the nine perk cards run to "
      "y 888 on an 844 glass, so the page scrolls'; rules 444, 441, 402 as amended 11/7 SMALLER NEVER PAGES, 252(c)): on the demo, a "

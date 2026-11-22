@@ -1,3 +1,8 @@
+UI FIVE (ui-five-01gkdyuu): 11/22 LATEST -- BUILD 11/22zj - EACH SLOT ITS OWN PICTURE, BUILT, NOT YET SEEN (rule 474, ask row 714). Its block is handoffs/UI_FOUR.md.
+After a buy in any shop the pictures no longer slide onto the wrong pieces: every slot draws the piece it holds (the materials' painter drew slot i as the i-th piece of the raw list, wrong since
+the shelf went dearest first). Gate EACH SLOT ITS OWN PICTURE (new): demo and alpha, both ways, three buys and a sell, a plant (60 wrong). VOTE ui5-each-slot-its-own-picture-11-22.
+[bb Battle Brothers' market grid: every cell is drawn from the item in it]
+[analog horror: a pawn shop's shelf where the price tags stay put after the goods are sold]
 STAFF (staff-01gkdyus): 11/22 LATEST -- CONTEXT NEAR FULL, a fresh STAFF takes rule 471 (the cart) from handoffs/STAFF.md. BUILD 11/22zi - THEY FIGHT LIKE STAFF, BUILT, NOT YET SEEN (rule 470(a), his order on his YES; rules 461, 441, 465; ask row 701). Its block is handoffs/STAFF.md.
 THEY FIGHT LIKE STAFF: the camp's own AUTO (slices/BOHEMIA_FIGHT.html __THEY_FIGHT_LIKE_STAFF__, ai.json staff_ground): every turn a camp person takes the most defended tile he can
 reach (out of their reach, a fighter between him and each of theirs, behind the line, a wall or corner at his back, cover, high ground, huddled), moves when one of theirs is beside

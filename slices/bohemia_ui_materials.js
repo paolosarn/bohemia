@@ -663,20 +663,29 @@
         if (a.querySelector('.bm-icon')) return;
         var ic = itemIcon(it, 40); ic.style.flex = '0 0 40px'; ic.style.marginRight = '8px'; ic.dataset.id = it.id; a.insertBefore(ic, a.firstChild);
       });
-      /* RUN TWO's shop grids (THEIR SHELF, YOUR BAG, 5ba404c): slot i is shelf item i and bag item i, in order;
-         the drawn icon takes the place of the placeholder mark */
-      var dress = function (grid, list) {
-        if (!grid || !list) return;
-        Array.prototype.forEach.call(grid.children, function (b, i) {
-          var it = list[i]; if (!it) return;
-          if (b.querySelector('img.pk')) return;   /* RUN TWO [the market in the pack's art] 10/11: his pack's own tile wins over the drawn icon */
-          var old = b.querySelector('.bm-icon'); if (old && old.dataset.id === it.id) return; if (old) old.remove();
+      /* RUN TWO's shop grids (THEIR SHELF, YOUR BAG, 5ba404c): the drawn icon takes the place of the placeholder mark.
+         __EACH_SLOT_ITS_OWN_PICTURE__ (UI FIVE 11/22, VAMILY rule 474, Paolo 11/22: 'if I buy that one item then the UI of the slots gets
+         fucked up. The icon will be the icon for something else... if I buy the most expensive item and there's something else I wanna
+         buy that's the second most expensive item, it will still have the icon of that first item'). THE CAUSE: this painter took slot i
+         as the i-th piece of the shop's raw list (S.stock[open], S.stash), true on 10/11 and false since the shelf stands dearest first
+         (rule 452, __DEAREST_FIRST__) with a bought piece's place kept empty for the visit (shelfView), and the bag dearest first by what
+         it fetches: so a shelf of armour wore other pieces' pictures from the start, and after a buy the raw list was one shorter while
+         the shelf kept its gap, so every picture after it slid one place and the empty place wore the next piece's. NOW every slot is
+         drawn from its OWN piece (the tile carries it: shopTile's __it), never by its place in a list: a buy, a sell, a re-sort or a
+         restock rebuilds the tiles and each paints its own; an empty place paints nothing; a drawn icon of another piece is taken off */
+      var dress = function (grid) {
+        if (!grid) return;
+        Array.prototype.forEach.call(grid.children, function (b) {
+          var it = b.__it || null, old = b.querySelector('.bm-icon');
+          if (!it || !it.id) { if (old) old.remove(); return; }   /* an empty place (a piece bought this visit): no picture */
+          if (b.querySelector('img.pk')) { if (old) old.remove(); return; }   /* RUN TWO [the market in the pack's art] 10/11: his pack's own tile wins over the drawn icon */
+          if (old && old.dataset.id === it.id) return; if (old) old.remove();
           var g = b.querySelector('i'); if (g) g.style.display = 'none';
           var ic = itemIcon(it, 30); ic.dataset.id = it.id; b.insertBefore(ic, b.firstChild);   /* 30 so the short name and the price still fit the slot */
         });
       };
-      dress(document.getElementById('shelfgrid'), st.open && st.stock[st.open]);
-      dress(document.getElementById('baggrid'), st.stash);
+      dress(document.getElementById('shelfgrid'));
+      dress(document.getElementById('baggrid'));
     };
     try { new MutationObserver(paint).observe(body, { childList: true, subtree: true }); } catch (e) {}
     paint();

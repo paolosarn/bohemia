@@ -683,7 +683,7 @@ function iconTile(it, onTap, sub, money){
   var b = document.createElement('button'); b.className = 'slot' + (it ? ' full' : '');
   if(it){
     var pk = it.kind === 'weapon' && !it.own ? weaponPack(it) : it.kind === 'weapon' ? ownIcon(it.id) : it.trade && it.icon ? tradeIcon(it) : null;   /* __TRADE_GOODS_CARRIED__: a good wears its pack tile */   /* __THE_ARMORY__: a piece of the valley's own wears its own drawn icon, never its family's pack tile */
-    if(pk) b.appendChild(pk); else { var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; b.appendChild(g); }
+    if(pk){ if(it.id) pk.dataset.id = it.id; b.appendChild(pk); } else { var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; b.appendChild(g); }   /* __EACH_SLOT_ITS_OWN_PICTURE__ (UI FIVE 11/22, rule 474): the picture names the piece it was made for */
     /* EYES [eyes: three pistols] (rule 150): a tile says the name its card says ('good pistol', 'beat-up pistol'), two lines at most */
     var n = document.createElement('span'); n.className = 'nm2'; n.textContent = it.name.replace(/^(a|an) /,''); b.appendChild(n);
     if(sub != null){ var c = document.createElement('em'); c.textContent = sub; if(money) c.className = 'money'; b.appendChild(c); }
