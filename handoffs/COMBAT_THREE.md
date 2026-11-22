@@ -1,6 +1,21 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [city hall] SHIPPED 18c57d96b, BUILD 11/22i - CITY HALL, BUILT, NOT YET SEEN. VOTE combat4-city-hall-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the animal shelter] SHIPPED d70806ba5, BUILD 11/22j - THE ANIMAL SHELTER, BUILT, NOT YET SEEN. VOTE combat4-the-animal-shelter-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_ANIMAL_SHELTER_11_22_26.md. More boards (rule 461): the animal shelter ('shelter', WORLD's real place, The Animal Foundation on Mojave Road, 0.7): the_kennels (rows of
+kennel runs, block and chain link, blocks and seen through; feed bag pallets, dog crates, drums in the aisles) and the_clinic_and_intake (stainless cage banks and supply
+shelves, the obstacles row: they hide a man; exam tables, supply carts; the intake counter's glass and its ends; lobby benches; kibble sacks and spilled kibble rough 3 AP;
+washers). One data file (17 tile kinds, 15 pieces all stand-ins), twenty-sixth in insides.json; no high ground; the ceiling the warehouse's 'joist'. The runs are empty.
+GATE THE BIG INSIDES 430/0 (twenty-six insides, 385 s) (the shelter 19/0, 13% bare after round one against 26%; my first cut's kennels 30%).
+ON THE PAGE: 4 fights in the shelter on the demo and the alpha, upright and on its side, all ended, 15 of 15 tile taps, 0 page errors.
+*** FOR COOK (SIX): THE ANIMAL SHELTER'S NAMES (shelter_art.json, THE GARAGE'S FORMAT): floor.floor (sealed concrete sloped to drains), floor.ring; as_runs (a row of kennel
+runs, block to the waist and chain link, gates open), as_pallets (feed bags on a pallet), as_crates (wire dog crates), as_drums, as_cagebank (a stainless cage bank to the
+ceiling), as_exam (a steel exam table), as_carts, as_shelves, as_glass (the intake counter's glass), as_counter, as_sacks (kibble sacks), as_spilled (torn sacks, kibble),
+as_washers, as_wall_ew, as_wall_ns; shelter/shelter_ceiling.webp (the steel roof deck, fans, dead strip lights); "have": true in shelter.json's ceiling.
+NEXT: more boards (the campus, built: the lecture hall and the science labs; the ballpark's concourse); the robot factory and the paved places wait on WORLD's map.
+[bb Battle Brothers' palisade you see through: a row of kennel runs, chain link over block]
+[analog horror: every run's gate hanging open, and the water bowls still full of dust]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [city hall] SHIPPED 18c57d96b, BUILD 11/22i - CITY HALL, BUILT, NOT YET SEEN. VOTE combat4-city-hall-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_CITY_HALL_11_22_26.md. More boards (rule 461): City Hall ('cityhall', the mayor arc's office beside the courthouse, 0.8): the_council_chamber (the dais, blocks and seen
 over; the clerks' tables, the podium, the cameras; the public's seats rough 3 AP low cover; planters) and the_permit_floor (cubicles, copiers, file cabinets, the service
 counters' glass seen through and their ends low cover, the lift core's walls, the information desk, benches, planters). One data file (17 tile kinds, 15 pieces all

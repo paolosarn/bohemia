@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22i - CITY HALL, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22j - THE ANIMAL SHELTER, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE ANIMAL SHELTER: seven fights in ten at the shelter (WORLD's real place, Mojave Road) are fought inside: the kennels (rows of runs, block and chain link, seen through and never
+crossed; crates, drums, feed bags in the aisles) or the clinic and intake (cage banks and shelves that hide a man, exam tables, the intake glass, spilled kibble, the laundry).
+GATE THE BIG INSIDES 430/0 (twenty-six insides, 385 s). ON THE PAGE: 4 fights in the shelter on the demo and the alpha, upright and on its side, all ended, 15 of 15 tile taps, 0 page errors. VOTE combat4-the-animal-shelter-11-22.
+[bb Battle Brothers' palisade you see through: a row of kennel runs, chain link over block]
+[analog horror: every run's gate hanging open, and the water bowls still full of dust]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22i - CITY HALL, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 CITY HALL: eight fights in ten at City Hall are fought inside: the council chamber (the dais nobody stands on, seen over; the clerks' tables, the podium, the cameras; the public's
 seats in rows, slow) or the permit floor (cubicles, the service counters' glass seen through, the information desk, benches, planters). One data file, stand-ins.
 GATE THE BIG INSIDES 414/0 (twenty-five insides, 533 s with two page runs on the box). ON THE PAGE: 4 fights at City Hall on the demo and the alpha, upright and on its side, all ended, 17 of 17 tile taps, 0 page errors (2 of 7 runs met a valley with no City Hall: the roads find). VOTE combat4-city-hall-11-22.
