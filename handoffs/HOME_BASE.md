@@ -3,6 +3,13 @@ HOME BASE 3 (session_01GKDyutkCNC5cSDNauAG37o): 11/22 LATEST -- BUILD 11/22zm - 
 (step 4, BUILD 11/22zt, a21c89ea6: a piece whose row is full stands on a lot behind it, its own picture). Record records/BOHEMIA_HOME_BASE_THE_GRINDER_11_22_26.md. VOTE
 card home-base-the-grinder-11-22.
 
+## RULE 479 (BUILD 11/22zz, 82b285056): ONCE AND IN THE GROUND
+- Built: his men in the footage stand on their own shadows; one key is one thing (homeFeedSlots dedupes); gate F8 (every camera, each
+  thing and person once; window.__HOME_FEED_DRAWN). Record records/BOHEMIA_HOME_BASE_ONCE_AND_IN_THE_GROUND_11_22_26.md.
+- OPEN: THE TWENTY COOKS were not reproduced (the map at eight zooms on two grounds, the camp, his three cameras). Row 721 asks for the
+  screen; the moment it comes, find it there. Not yet built for (a): the pieces in the footage already cast their own rendered shadows
+  (the 11/3 pipeline's shadow catcher); a lane comparing them to COOK SIX's valley buildings may still find the edge too clean.
+
 ## THE NEXT JOB: 466(a) IS DONE (BUILD 11/22zy, fe3a7fa6c: the front five drawn on the rows behind too)
 1. Nothing of HOME BASE's is open on the asks list but what he has not answered: the record's DECIDED HERE (his own dead ground or not;
    the -10 a town that finds out; the shakes never him), one line each if he speaks. SOUNDS holds row 720 (the cameras' hum).

@@ -1367,7 +1367,12 @@ Earlier: 11/9c, 11/9f, 11/9j, fourteen places that talk. Still open: the bus yar
 handoffs/WORLD_FOURTEEN.md.
 [bb Battle Brothers' company events steal from the stash and call a man home; ours are the plasma van, the swollen cans and the rent crew.]
 [analog horror: the dead bank machine still runs on its own battery, says her balance is zero every morning, and asks if she would like a receipt.]
-HOME BASE 3: 11/22 LATEST -- BUILD 11/22zt - THE OVERFLOW (a21c89ea6), BUILT, NOT YET SEEN (rule 466(a) step 4, ask row 663): at his
+HOME BASE 3: 11/22 LATEST -- BUILD 11/22zz - ONCE AND IN THE GROUND (82b285056), BUILT, NOT YET SEEN (rule 479, ask row 721): his men at
+his buildings stand on their own shadows in the footage; a building handed twice is drawn once; gate F8 counts every camera (138/0, 135/0).
+THE TWENTY COOKS NOT REPRODUCED in five views (map, camp, his cameras): row 721 asks for the screen.
+[bb Battle Brothers draws a camp building once and its follower once; so do we now, and we count it.]
+[analog horror: each man at his building has a shadow now, and it is the only thing in the footage that does not flicker.]
+HOME BASE 3: 11/22 EARLIER -- BUILD 11/22zt - THE OVERFLOW (a21c89ea6), BUILT, NOT YET SEEN (rule 466(a) step 4, ask row 663): at his
 place a building whose row is full now stands on a free lot of the row behind it, its own picture there, instead of not being drawn; the
 desk greys a build only when there is no room for it anywhere it can stand. Seven middle-row buildings drawn for the back row; the front
 five for the middle and back too (BUILD 11/22zy, fe3a7fa6c; upright 136/0, sideways 133/0): 466(a) is done. Gate YOUR PLACE, PLANTED F7: upright 136/0, sideways 133/0. No VOTE card: nothing new to see until a row is full.
