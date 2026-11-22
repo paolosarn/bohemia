@@ -381,9 +381,10 @@
  "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in police_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
  "kit": {
   "pd_desks": {
-   "like": "sb_corral_S",
+   "like": "tunnel_camp_b",
    "kind": "COVER",
-   "name": "THE DESKS"
+   "name": "THE DESKS",
+   "stand_in_was": "sb_corral_S"
   },
   "pd_bunk": {
    "like": "casino_seats",
@@ -411,14 +412,16 @@
    "name": "LOBBY CHAIRS"
   },
   "pd_cones": {
-   "like": "sb_barrier_S",
+   "like": "casino_seats",
    "kind": "LOW_COVER",
-   "name": "CONES AND STANDS"
+   "name": "CONES AND STANDS",
+   "stand_in_was": "sb_barrier_S"
   },
   "pd_barrier": {
-   "like": "sb_sandbags_S",
+   "like": "sb_heap_S",
    "kind": "COVER",
-   "name": "A BARRIER"
+   "name": "A BARRIER",
+   "stand_in_was": "sb_sandbags_S"
   },
   "pd_cells": {
    "like": "casino_cage",

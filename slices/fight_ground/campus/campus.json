@@ -1,0 +1,463 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "campus",
+ "name": "THE CAMPUS",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "The map's campus is the university east of the Strip (engine/bohemia_overmap.js: 'big campus: housing, halls, Thomas & Mack'), four cells by three.",
+  "A university lecture hall seats hundreds in fixed rows with fold-down tablet arms, the rows stepped up toward the back, aisles between the banks; at the front the demonstration bench and the lectern under the screens, at the back the projection booth.",
+  "A teaching lab is island benches with sinks and gas taps, fume hoods along the walls (glass sashes in steel cabinets taller than a man), gas cylinders chained in racks, a corridor of lockers and vending machines between the labs; on house tiles a fume hood hides a man and a bench is cover."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (campus_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "campus"
+ ],
+ "share": 0.35,
+ "districts_why": "The campus is twelve cells of quads, lots, housing and halls: about one fight in three there is fought inside a lecture hall or the science labs, by the cell's own dice; the rest outside among its buildings.",
+ "board": {
+  "templates": {
+   "campus": {
+    "name": "THE CAMPUS",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_lecture_hall": [
+      "####################",
+      "#c..l.BBB..BBB.l..c#",
+      "#.c..B..c.f.c..B.c.#",
+      "#.sssss.ssss.sssss.#",
+      "#.c..b..c..c..b..c.#",
+      "#.sssss.ssss.sssss.#",
+      "#D.b..c.b..b.c..b.D#",
+      "#.sssss.ssss.sssss.#",
+      "#.c..b..c..c..b..c.#",
+      "#.sssss.ssss.sssss.#",
+      "#..b..c.b.f.b.c..b.#",
+      "#.sssss.ssss.sssss.#",
+      "#.c..b..c.##.c..b.c#",
+      "#..D.b..c.##.c.b.D.#",
+      "####################"
+     ],
+     "the_science_labs": [
+      "####################",
+      "#HHH.HHH.SS.HHH.HHH#",
+      "#.g.LL.x.f.x.LL.g..#",
+      "#..x.LL..LL..LL.x..#",
+      "#.g.x..g.x..g..x.g.#",
+      "####.#####.####.####",
+      "#.b.v..x.b..x.v..b.#",
+      "#D..x.b..v..v..b.xD#",
+      "#.b.v..x.b..x.v..b.#",
+      "####.####.#####.####",
+      "#.g.x..g.x..g..x.g.#",
+      "#..x.LL..LL..LL.x..#",
+      "#.g.LL.x.f.x.LL.g..#",
+      "#HHH.HHH.DD.HHH.HHH#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "s": {
+    "is": "floor",
+    "tile": "seats",
+    "piece": "cp_seats",
+    "at": [
+     0.5,
+     0.72
+    ]
+   },
+   "B": {
+    "is": "floor",
+    "tile": "demobench",
+    "piece": "cp_demobench",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "l": {
+    "is": "floor",
+    "tile": "lectern",
+    "piece": "cp_lectern",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "carts",
+    "piece": "cp_carts",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "bags",
+    "piece": "cp_bags",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "H": {
+    "is": "floor",
+    "tile": "hoods",
+    "piece": "cp_hoods",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "S": {
+    "is": "floor",
+    "tile": "shelves",
+    "piece": "cp_shelves",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "L": {
+    "is": "floor",
+    "tile": "benches",
+    "piece": "cp_benches",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "g": {
+    "is": "floor",
+    "tile": "gas",
+    "piece": "cp_gas",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "x": {
+    "is": "floor",
+    "tile": "carts",
+    "piece": "cp_carts",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "v": {
+    "is": "floor",
+    "tile": "vending",
+    "piece": "cp_vending",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words); 'sight' says whether a blocker hides a man ('blocked', the obstacles row) or is seen past ('seen'). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The building's wall, and the projection booth's: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The hall's floor, an aisle or a corridor: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The floor: open ground.",
+   "draft": true
+  },
+  "seats": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A row of fixed seats with their tablet arms, a step up from the row in front: low cover, and slow going over them (3 AP). [bb] its brush.",
+   "say": "A row of seats: slow going, low cover.",
+   "draft": true
+  },
+  "demobench": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The demonstration bench at the front, a long counter of stone and steel: cover.",
+   "say": "The demonstration bench: cover.",
+   "draft": true
+  },
+  "lectern": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The lectern: low cover.",
+   "say": "The lectern: low cover.",
+   "draft": true
+  },
+  "carts": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A cart (the projector's, the lab's), tipped: low cover.",
+   "say": "A cart: low cover.",
+   "draft": true
+  },
+  "bags": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Backpacks and coats left in a heap the day the classes stopped: low cover.",
+   "say": "Left bags: low cover.",
+   "draft": true
+  },
+  "hoods": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A fume hood, a steel cabinet taller than a man with its glass sash down: nobody stands there, and nobody sees through it; cover beside it. [bb] its wall.",
+   "say": ""
+  },
+  "shelves": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "The stockroom's shelving, to the ceiling: nobody stands there, and nobody sees through it. [bb] its wall.",
+   "say": ""
+  },
+  "benches": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "An island lab bench, black stone on steel cupboards, its sink and its gas taps dry: cover.",
+   "say": "A lab bench: cover.",
+   "draft": true
+  },
+  "gas": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Gas cylinders chained in their rack, empty: low cover.",
+   "say": "Gas cylinders: low cover.",
+   "draft": true
+  },
+  "vending": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A vending machine pulled over on its face, long since emptied: cover.",
+   "say": "A vending machine: cover.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a waste bin. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The doors, open: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The doors: open ground.",
+   "say_lit": "The doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in campus_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "cp_carts": {
+   "like": "sb_bales_S",
+   "kind": "LOW_COVER",
+   "name": "A CART",
+   "stand_in_was": "sb_cart_S"
+  },
+  "cp_seats": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "A ROW OF SEATS"
+  },
+  "cp_demobench": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "THE DEMONSTRATION BENCH"
+  },
+  "cp_lectern": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "THE LECTERN",
+   "stand_in_was": "sb_barrier_S"
+  },
+  "cp_bags": {
+   "like": "sb_heap_S",
+   "kind": "LOW_COVER",
+   "name": "LEFT BAGS"
+  },
+  "cp_hoods": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A FUME HOOD"
+  },
+  "cp_shelves": {
+   "like": "garage_core",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "STOCKROOM SHELVES"
+  },
+  "cp_benches": {
+   "like": "tunnel_camp_b",
+   "kind": "COVER",
+   "name": "A LAB BENCH",
+   "stand_in_was": "sb_corral_S"
+  },
+  "cp_gas": {
+   "like": "garage_booth",
+   "kind": "LOW_COVER",
+   "name": "GAS CYLINDERS",
+   "stand_in_was": "sb_propane_S"
+  },
+  "cp_vending": {
+   "like": "garage_booth",
+   "kind": "COVER",
+   "name": "A VENDING MACHINE"
+  },
+  "cp_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "cp_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "cp_wall_ew",
+  "ns": "cp_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: the lecture hall's rows step up a seat at a time (slow going), never a storey.",
+ "ceiling": {
+  "kind": "joist",
+  "alpha": 0.1,
+  "src": "campus/campus_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the hall's acoustic tiles, the dead projectors on their mounts, the labs' ducts, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the warehouse's roof)."
+ }
+}

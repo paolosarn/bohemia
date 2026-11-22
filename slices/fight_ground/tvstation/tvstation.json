@@ -389,9 +389,10 @@
    "name": "A TELEPROMPTER"
   },
   "tv_cables": {
-   "like": "sb_tyres_E",
+   "like": "tunnel_jam",
    "kind": "DRESS",
-   "name": "CABLES"
+   "name": "CABLES",
+   "stand_in_was": "sb_tyres_E"
   },
   "tv_console": {
    "like": "casino_bar",
@@ -399,9 +400,10 @@
    "name": "THE CONTROL CONSOLE"
   },
   "tv_desks": {
-   "like": "sb_corral_S",
+   "like": "tunnel_camp_b",
    "kind": "COVER",
-   "name": "NEWSROOM DESKS"
+   "name": "NEWSROOM DESKS",
+   "stand_in_was": "sb_corral_S"
   },
   "tv_chairs": {
    "like": "sb_heap_S",

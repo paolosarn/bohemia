@@ -406,9 +406,10 @@
    "name": "AN ENGINE"
   },
   "hg_wing": {
-   "like": "sb_tyres_E",
+   "like": "tunnel_jam",
    "kind": "LOW_COVER",
-   "name": "UNDER THE WING"
+   "name": "UNDER THE WING",
+   "stand_in_was": "sb_tyres_E"
   },
   "hg_tug": {
    "like": "sb_dozer_S",
@@ -416,34 +417,40 @@
    "name": "A TOW TRACTOR"
   },
   "hg_gpu": {
-   "like": "sb_propane_S",
+   "like": "garage_booth",
    "kind": "COVER",
-   "name": "A POWER CART"
+   "name": "A POWER CART",
+   "stand_in_was": "sb_propane_S"
   },
   "hg_stairs": {
-   "like": "sb_barrier_S",
+   "like": "casino_seats",
    "kind": "LOW_COVER",
-   "name": "BOARDING STAIRS"
+   "name": "BOARDING STAIRS",
+   "stand_in_was": "sb_barrier_S"
   },
   "hg_carts": {
-   "like": "sb_cart_S",
+   "like": "sb_bales_S",
    "kind": "LOW_COVER",
-   "name": "PARTS CARTS"
+   "name": "PARTS CARTS",
+   "stand_in_was": "sb_cart_S"
   },
   "hg_dollies": {
-   "like": "sb_cart_E",
+   "like": "sb_bales_S",
    "kind": "LOW_COVER",
-   "name": "CARGO DOLLIES"
+   "name": "CARGO DOLLIES",
+   "stand_in_was": "sb_cart_E"
   },
   "hg_toolbox": {
-   "like": "sb_drums_S",
+   "like": "sb_rubble_S",
    "kind": "LOW_COVER",
-   "name": "A TOOL BOX"
+   "name": "A TOOL BOX",
+   "stand_in_was": "sb_drums_S"
   },
   "hg_enginestand": {
-   "like": "sb_tyres_S",
+   "like": "tunnel_jam",
    "kind": "COVER",
-   "name": "A SPARE ENGINE"
+   "name": "A SPARE ENGINE",
+   "stand_in_was": "sb_tyres_S"
   },
   "hg_crib": {
    "like": "casino_cage",

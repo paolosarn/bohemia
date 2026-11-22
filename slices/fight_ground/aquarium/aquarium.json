@@ -282,9 +282,10 @@
    "name": "VIEWING BENCHES"
   },
   "aq_tunnel": {
-   "like": "garage_rail_ew",
+   "like": "casino_glass",
    "kind": "LOW_COVER",
-   "name": "THE GLASS TUNNEL"
+   "name": "THE GLASS TUNNEL",
+   "stand_in_was": "garage_rail_ew"
   },
   "aq_kiosk": {
    "like": "garage_booth",
@@ -297,9 +298,10 @@
    "name": "FAKE ROCKWORK"
   },
   "aq_panel": {
-   "like": "sb_barrier_S",
+   "like": "casino_seats",
    "kind": "COVER",
-   "name": "A FALLEN PANEL"
+   "name": "A FALLEN PANEL",
+   "stand_in_was": "sb_barrier_S"
   },
   "aq_tank": {
    "like": "casino_glass",

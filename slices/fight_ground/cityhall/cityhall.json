@@ -373,19 +373,22 @@
    "name": "THE DAIS"
   },
   "ch_tables": {
-   "like": "sb_corral_S",
+   "like": "tunnel_camp_b",
    "kind": "COVER",
-   "name": "STAFF TABLES"
+   "name": "STAFF TABLES",
+   "stand_in_was": "sb_corral_S"
   },
   "ch_podium": {
-   "like": "sb_barrier_S",
+   "like": "casino_seats",
    "kind": "LOW_COVER",
-   "name": "THE PODIUM"
+   "name": "THE PODIUM",
+   "stand_in_was": "sb_barrier_S"
   },
   "ch_cameras": {
-   "like": "sb_cart_S",
+   "like": "sb_bales_S",
    "kind": "LOW_COVER",
-   "name": "THE CAMERAS"
+   "name": "THE CAMERAS",
+   "stand_in_was": "sb_cart_S"
   },
   "ch_seats": {
    "like": "casino_seats",
@@ -403,9 +406,10 @@
    "name": "CUBICLES"
   },
   "ch_copiers": {
-   "like": "sb_drums_S",
+   "like": "sb_rubble_S",
    "kind": "LOW_COVER",
-   "name": "A COPIER"
+   "name": "A COPIER",
+   "stand_in_was": "sb_drums_S"
   },
   "ch_files": {
    "like": "sb_bales_S",

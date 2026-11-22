@@ -425,9 +425,10 @@
    "name": "GALLERY BENCHES"
   },
   "jc_bar": {
-   "like": "sb_barrier_S",
+   "like": "casino_seats",
    "kind": "LOW_COVER",
-   "name": "THE BAR'S RAIL"
+   "name": "THE BAR'S RAIL",
+   "stand_in_was": "sb_barrier_S"
   },
   "jc_counsel": {
    "like": "casino_bar",
@@ -451,9 +452,10 @@
    "name": "THE WITNESS STAND"
   },
   "jc_benches": {
-   "like": "sb_corral_S",
+   "like": "tunnel_camp_b",
    "kind": "LOW_COVER",
-   "name": "WAITING BENCHES"
+   "name": "WAITING BENCHES",
+   "stand_in_was": "sb_corral_S"
   },
   "jc_planter": {
    "like": "sb_bales_S",
@@ -471,14 +473,16 @@
    "name": "PILED CHAIRS AND TABLES"
   },
   "jc_arch": {
-   "like": "sb_barrier_S",
+   "like": "casino_seats",
    "kind": "DRESS",
-   "name": "A DEAD METAL DETECTOR"
+   "name": "A DEAD METAL DETECTOR",
+   "stand_in_was": "sb_barrier_S"
   },
   "jc_stanchions": {
-   "like": "sb_barrier_S",
+   "like": "casino_seats",
    "kind": "DRESS",
-   "name": "QUEUE POSTS"
+   "name": "QUEUE POSTS",
+   "stand_in_was": "sb_barrier_S"
   },
   "jc_podium": {
    "like": "garage_booth",

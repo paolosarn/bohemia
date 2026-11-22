@@ -336,19 +336,22 @@
  "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in railshop_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
  "kit": {
   "rs_wheels": {
-   "like": "sb_tyres_S",
+   "like": "tunnel_jam",
    "kind": "COVER",
-   "name": "WHEEL SETS"
+   "name": "WHEEL SETS",
+   "stand_in_was": "sb_tyres_S"
   },
   "rs_toolchest": {
-   "like": "sb_cart_S",
+   "like": "sb_bales_S",
    "kind": "LOW_COVER",
-   "name": "A TOOL CHEST"
+   "name": "A TOOL CHEST",
+   "stand_in_was": "sb_cart_S"
   },
   "rs_drums": {
-   "like": "sb_drums_S",
+   "like": "sb_rubble_S",
    "kind": "LOW_COVER",
-   "name": "OIL DRUMS"
+   "name": "OIL DRUMS",
+   "stand_in_was": "sb_drums_S"
   },
   "rs_parts": {
    "like": "sb_bales_S",
@@ -361,9 +364,10 @@
    "name": "CRATES"
   },
   "rs_cart": {
-   "like": "sb_cart_E",
+   "like": "sb_bales_S",
    "kind": "LOW_COVER",
-   "name": "A FREIGHT CART"
+   "name": "A FREIGHT CART",
+   "stand_in_was": "sb_cart_E"
   },
   "rs_loco": {
    "like": "sb_container_S",
@@ -372,10 +376,11 @@
    "name": "A LOCOMOTIVE"
   },
   "rs_platform": {
-   "like": "garage_rail_ew",
+   "like": "casino_cage",
    "kind": "COVER",
    "blocks_move": true,
-   "name": "A WORK PLATFORM"
+   "name": "A WORK PLATFORM",
+   "stand_in_was": "garage_rail_ew"
   },
   "rs_boxcar": {
    "like": "sb_container_S",

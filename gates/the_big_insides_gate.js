@@ -212,6 +212,20 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
           if (want && plant === null) { const keep = S.terrain[q.y][q.x]; S.terrain[q.y][q.x] = 'flat'; plant = T.sees(q.a, q.b); S.terrain[q.y][q.x] = keep; } }); }
       check(!bad.length && plant !== false && Object.keys(lays).length === Object.keys(LAYS).length, 'I12 ' + N, 'THE TALL THINGS HIDE A MAN (' + Object.keys(lays).length + ' of ' + Object.keys(LAYS).length + ' layouts read): ' + (tall.length ? 'hide a man: ' + tall.join(', ') : 'no tall kind between two open tiles') + '; seen past: ' + (seen.join(', ') || 'none')
         + (bad.length ? '; WRONG: ' + bad.join(', ') : '') + (plant === null ? '' : '; planted: the first tall one read as flat ground is ' + (plant ? 'seen through (caught)' : 'STILL HIDING (not caught)'))); }
+    /* I13 A COVER TILE LOOKS LIKE COVER (COMBAT FOUR 11/22, measured on the campus's labs: a lab bench drawn as a cart corral, a tool
+       chest as one shopping cart, paints 1 to 6% of a house tile, so a tile the table calls cover, or one nobody may stand on, read as
+       bare floor; a cluster of five carts is still five dots). Every piece of the legend that is drawn as a stand-in borrows a picture
+       that paints at least 9% of a tile, by gates/the_stand_ins_measured.json (tools/bohemia_measure_the_stand_ins.py, the pictures'
+       own pixels); a borrowed picture the table has not measured is a fail (measure it); a wall's picture is a wall. COOK's own
+       picture is his to size. Planted: the first stand-in's picture read as a shopping cart is caught */
+    { const SH = ((J('gates/the_stand_ins_measured.json') || {}).share) || {};
+      const borrowed = p => { const k = data.kit[p] || {}, seen = {}; let l = k.like; while (l && data.kit[l] && data.kit[l].like && !seen[l]) { seen[l] = 1; l = data.kit[l].like; } return l || null; };
+      const judge = over => { const bad = [], seenP = {}, pieces = []; Object.keys(LEG).forEach(c => { const q = LEG[c]; if (!q.piece || q.is === 'wall') return; [].concat(q.piece).forEach(p => {
+          if (seenP[p]) return; seenP[p] = 1; const d = D.kit[p]; if (!d || !d.stand_in) return; const l = (over && over[p]) || borrowed(p); if (!l || /wall/.test(l)) return;
+          pieces.push(p); const sh = SH[l]; if (sh == null) bad.push(p + ' as ' + l + ' (not measured)'); else if (sh < 0.09) bad.push(p + ' as ' + l + ' ' + Math.round(sh * 1000) / 10 + '%'); }); }); return { bad, pieces }; };
+      const R13 = judge(null), plantP = R13.pieces[0], P13 = plantP ? judge({ [plantP]: 'sb_cart_S' }) : null, caught = P13 ? P13.bad.length > R13.bad.length : null;
+      check(!R13.bad.length && caught !== false, 'I13 ' + N, 'A COVER TILE LOOKS LIKE COVER: ' + R13.pieces.length + ' stand-in pieces, ' + (R13.bad.length ? R13.bad.length + ' paint under 9% of a tile: ' + R13.bad.slice(0, 5).join('; ') : 'every one paints at least 9% of a tile')
+        + (plantP ? '; planted: ' + plantP + ' drawn as a shopping cart is ' + (caught ? 'caught' : 'NOT CAUGHT') : '; no stand-in (its own pictures)')); }
     /* I9 */
     { const c = deal(DIST[0], 1, { inside: id }).boardDef.ceiling, want = data.ceiling || {};
       check(!!c && c.kind === want.kind && c.alpha >= 0.05 && c.alpha <= 0.14 && c.name === want.src && (want.have ? fs.existsSync(path.join(ROOT, FG, want.src)) : c.src === null), 'I9 ' + N, 'ITS CEILING: ' + (c ? c.kind + ' at ' + c.alpha + ', the picture ' + want.src + (want.have ? ' (in)' : ' (owed by COOK FIVE: the fight draws the kind itself)') : 'NONE')); }

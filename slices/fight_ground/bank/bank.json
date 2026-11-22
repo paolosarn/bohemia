@@ -417,9 +417,10 @@
    "name": "TELLER STATIONS"
   },
   "bk_safes": {
-   "like": "sb_cart_S",
+   "like": "sb_bales_S",
    "kind": "COVER",
-   "name": "A CASH SAFE"
+   "name": "A CASH SAFE",
+   "stand_in_was": "sb_cart_S"
   },
   "bk_files": {
    "like": "sb_bales_S",
@@ -427,9 +428,10 @@
    "name": "FILING CABINETS"
   },
   "bk_column": {
-   "like": "garage_column",
+   "like": "garage_core",
    "kind": "COVER",
-   "name": "A MARBLE COLUMN"
+   "name": "A MARBLE COLUMN",
+   "stand_in_was": "garage_column"
   },
   "bk_desks": {
    "like": "casino_bar",
@@ -437,9 +439,10 @@
    "name": "AN OFFICER'S DESK"
   },
   "bk_island": {
-   "like": "sb_barrier_S",
+   "like": "casino_seats",
    "kind": "LOW_COVER",
-   "name": "A CHECK-WRITING ISLAND"
+   "name": "A CHECK-WRITING ISLAND",
+   "stand_in_was": "sb_barrier_S"
   },
   "bk_chairs": {
    "like": "casino_seats",
@@ -475,9 +478,10 @@
    "name": "THE CASH CAGE"
   },
   "bk_tables": {
-   "like": "sb_corral_S",
+   "like": "tunnel_camp_b",
    "kind": "COVER",
-   "name": "COUNTING TABLES"
+   "name": "COUNTING TABLES",
+   "stand_in_was": "sb_corral_S"
   },
   "bk_wall_ew": {
    "like": "casino_wall_ew",

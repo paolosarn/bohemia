@@ -303,9 +303,10 @@
    "name": "SCATTERED BONES"
   },
   "nm_ropes": {
-   "like": "sb_barrier_S",
+   "like": "casino_seats",
    "kind": "DRESS",
-   "name": "ROPE POSTS"
+   "name": "ROPE POSTS",
+   "stand_in_was": "sb_barrier_S"
   },
   "nm_diorama": {
    "like": "casino_glass",
@@ -326,10 +327,11 @@
    "name": "A MAMMOTH"
   },
   "nm_sloth": {
-   "like": "garage_column",
+   "like": "garage_core",
    "kind": "COVER",
    "blocks_move": true,
-   "name": "A GROUND SLOTH"
+   "name": "A GROUND SLOTH",
+   "stand_in_was": "garage_column"
   },
   "nm_wall_ew": {
    "like": "garage_wall_ew",

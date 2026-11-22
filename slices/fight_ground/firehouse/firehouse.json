@@ -341,9 +341,10 @@
  "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in firehouse_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
  "kit": {
   "fh_bottles": {
-   "like": "sb_drums_S",
+   "like": "sb_rubble_S",
    "kind": "LOW_COVER",
-   "name": "AIR BOTTLES"
+   "name": "AIR BOTTLES",
+   "stand_in_was": "sb_drums_S"
   },
   "fh_toolbox": {
    "like": "sb_bales_S",
@@ -351,9 +352,10 @@
    "name": "A TOOL CABINET"
   },
   "fh_cones": {
-   "like": "sb_barrier_S",
+   "like": "casino_seats",
    "kind": "LOW_COVER",
-   "name": "CONES"
+   "name": "CONES",
+   "stand_in_was": "sb_barrier_S"
   },
   "fh_bench": {
    "like": "casino_bar",
@@ -376,9 +378,10 @@
    "name": "COUCHES"
   },
   "fh_hose": {
-   "like": "sb_tyres_E",
+   "like": "tunnel_jam",
    "kind": "DRESS",
-   "name": "HOSE"
+   "name": "HOSE",
+   "stand_in_was": "sb_tyres_E"
   },
   "fh_engine": {
    "like": "sb_container_S",

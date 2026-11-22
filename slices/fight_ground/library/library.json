@@ -311,9 +311,10 @@
    "name": "A READING TABLE"
   },
   "lb_endshelf": {
-   "like": "sb_corral_S",
+   "like": "tunnel_camp_b",
    "kind": "LOW_COVER",
-   "name": "AN END SHELF"
+   "name": "AN END SHELF",
+   "stand_in_was": "sb_corral_S"
   },
   "lb_heap": {
    "like": "sb_heap_S",
@@ -321,9 +322,10 @@
    "name": "A HEAP OF BOOKS"
   },
   "lb_bookcart": {
-   "like": "sb_cart_S",
+   "like": "sb_bales_S",
    "kind": "LOW_COVER",
-   "name": "A BOOK CART"
+   "name": "A BOOK CART",
+   "stand_in_was": "sb_cart_S"
   },
   "lb_carrel": {
    "like": "garage_booth",
@@ -336,9 +338,10 @@
    "name": "THE CIRCULATION DESK"
   },
   "lb_readers": {
-   "like": "sb_drums_S",
+   "like": "sb_rubble_S",
    "kind": "LOW_COVER",
-   "name": "MICROFILM READERS"
+   "name": "MICROFILM READERS",
+   "stand_in_was": "sb_drums_S"
   },
   "lb_stacks": {
    "like": "casino_screens",

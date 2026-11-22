@@ -468,9 +468,10 @@
    "name": "SHELVING"
   },
   "ts_endcap": {
-   "like": "sb_corral_S",
+   "like": "tunnel_camp_b",
    "kind": "LOW_COVER",
-   "name": "AN END CAP"
+   "name": "AN END CAP",
+   "stand_in_was": "sb_corral_S"
   },
   "ts_stock": {
    "like": "sb_bales_S",
@@ -478,9 +479,10 @@
    "name": "PULLED-DOWN CASES"
   },
   "ts_jerky": {
-   "like": "sb_barrier_S",
+   "like": "casino_seats",
    "kind": "LOW_COVER",
-   "name": "A JERKY STAND"
+   "name": "A JERKY STAND",
+   "stand_in_was": "sb_barrier_S"
   },
   "ts_pallets": {
    "like": "sb_heap_S",
@@ -532,24 +534,28 @@
    "name": "A LIFT, RAISED"
   },
   "ts_toolchest": {
-   "like": "sb_cart_S",
+   "like": "sb_bales_S",
    "kind": "LOW_COVER",
-   "name": "A TOOL CHEST"
+   "name": "A TOOL CHEST",
+   "stand_in_was": "sb_cart_S"
   },
   "ts_drums": {
-   "like": "sb_drums_S",
+   "like": "sb_rubble_S",
    "kind": "LOW_COVER",
-   "name": "OIL DRUMS"
+   "name": "OIL DRUMS",
+   "stand_in_was": "sb_drums_S"
   },
   "ts_compressor": {
-   "like": "sb_propane_S",
+   "like": "garage_booth",
    "kind": "LOW_COVER",
-   "name": "THE COMPRESSOR"
+   "name": "THE COMPRESSOR",
+   "stand_in_was": "sb_propane_S"
   },
   "ts_tires": {
-   "like": "sb_tyres_S",
+   "like": "tunnel_jam",
    "kind": "COVER",
-   "name": "STACKED TIRES"
+   "name": "STACKED TIRES",
+   "stand_in_was": "sb_tyres_S"
   },
   "ts_wall_ew": {
    "like": "garage_wall_ew",

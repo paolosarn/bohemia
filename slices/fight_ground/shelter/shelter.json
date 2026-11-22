@@ -383,14 +383,16 @@
    "name": "FEED BAGS"
   },
   "as_crates": {
-   "like": "sb_corral_S",
+   "like": "tunnel_camp_b",
    "kind": "LOW_COVER",
-   "name": "DOG CRATES"
+   "name": "DOG CRATES",
+   "stand_in_was": "sb_corral_S"
   },
   "as_drums": {
-   "like": "sb_drums_S",
+   "like": "sb_rubble_S",
    "kind": "LOW_COVER",
-   "name": "DRUMS"
+   "name": "DRUMS",
+   "stand_in_was": "sb_drums_S"
   },
   "as_cagebank": {
    "like": "casino_screens",
@@ -404,9 +406,10 @@
    "name": "AN EXAM TABLE"
   },
   "as_carts": {
-   "like": "sb_cart_S",
+   "like": "sb_bales_S",
    "kind": "LOW_COVER",
-   "name": "A SUPPLY CART"
+   "name": "A SUPPLY CART",
+   "stand_in_was": "sb_cart_S"
   },
   "as_shelves": {
    "like": "casino_screens",
