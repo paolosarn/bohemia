@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22l - THE ARSENAL, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22m - THE BALLPARK, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE BALLPARK: two fights in five at the ballpark are fought under the stands: the concourse (concession stands, the team store, tables, beer carts, the restrooms, the tunnels to
+the seats lit by day) or the clubhouse (lockers that hide a man, batting cages seen through, pitching machines, the weight room, the trainers' tubs).
+GATE THE BIG INSIDES 507/0 (twenty-nine insides, 437 s alone). ON THE PAGE: 11 fights under the stands on the demo and the alpha, upright and on its side, both rooms, all ended, 53 of 54 tile taps (one miss the tool's camera race; the rerun 13 of 13), 0 page errors. VOTE combat4-the-ballpark-11-22.
+[bb Battle Brothers' palisade you see through: a batting cage's netting]
+[analog horror: the scoreboard's clock frozen in the seventh inning, a stretch nobody stood for]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22l - THE ARSENAL, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE ARSENAL (Paolo 7/5: 'the range that houses tanks + helicopters'): eight fights in ten there are fought inside: the firing range (the backstop, target stands, barricades,
 the booths of the firing line, the counter and the racks) or the vehicle hall (six tanks, two helicopters, four Humvees: they hide a man; sandbags and crates between).
 GATE THE BIG INSIDES 490/0 (twenty-eight insides, 384 s alone). ON THE PAGE: 4 fights in the arsenal on the demo and the alpha, upright and on its side, both rooms, all ended, 15 of 15 tile taps, 0 page errors. VOTE combat4-the-arsenal-11-22.

@@ -1,6 +1,21 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the arsenal] SHIPPED 8ed57324d, BUILD 11/22l - THE ARSENAL, BUILT, NOT YET SEEN. VOTE combat4-the-arsenal-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the ballpark] SHIPPED c17f7f4cf, BUILD 11/22m - THE BALLPARK, BUILT, NOT YET SEEN. VOTE combat4-the-ballpark-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_BALLPARK_11_22_26.md. More boards (rule 461): the ballpark ('ballpark', the Las Vegas Ballpark in Summerlin, 0.4): the_concourse (concession stands, the team store, tables,
+bins, condiment stations, beer carts, the restrooms' block walls that hide a man, the tunnels to the seats lit by day) and the_clubhouse (lockers that hide a man, batting
+cages seen through, pitching machines, trunks, weights, benches, the trainers' tables and tubs, laundry carts). 21 tile kinds, 18 pieces all stand-ins (I13 green);
+twenty-ninth in insides.json; no high ground. THE GATE'S PLANT FIXED: I5p now plants a piece its dealt board lays (it read nothing three times: aquarium, campus, ballpark).
+GATE THE BIG INSIDES 507/0 (twenty-nine insides, 437 s alone) (the ballpark 20/0, 14% bare after round one against 38%).
+ON THE PAGE: 11 fights under the stands on the demo and the alpha, upright and on its side, both rooms, all ended, 53 of 54 tile taps (one miss the tool's camera race; the rerun 13 of 13), 0 page errors.
+*** FOR COOK (SIX): THE BALLPARK'S NAMES (ballpark_art.json, THE GARAGE'S FORMAT): floor.floor (concourse concrete; clubhouse rubber), floor.ring; bp_stand (a concession
+stand's counter), bp_store, bp_restrooms, bp_tables (tables and umbrellas), bp_bins, bp_beercart, bp_condiments, bp_lockers, bp_trunks (equipment trunks), bp_laundry,
+bp_cages (a batting cage, netting), bp_pitching (a pitching machine), bp_weights, bp_benches, bp_tubs (trainers' steel tubs), bp_trainers (a trainers' table),
+bp_wall_ew, bp_wall_ns; ballpark/ballpark_ceiling.webp (the underside of the stands). ***
+NEXT: more boards (the jobs office's claims hall; the radio station; the water treatment plant); the robot factory and the paved places wait on WORLD's map.
+[bb Battle Brothers' palisade you see through: a batting cage's netting]
+[analog horror: the scoreboard's clock frozen in the seventh inning, a stretch nobody stood for]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the arsenal] SHIPPED 8ed57324d, BUILD 11/22l - THE ARSENAL, BUILT, NOT YET SEEN. VOTE combat4-the-arsenal-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_ARSENAL_11_22_26.md. More boards (rule 461): THE ARSENAL ('arsenal', Paolo 7/5 'the range that houses tanks + helicopters', 0.8): the_firing_range (the backstop and
 the gun racks hide a man; target stands, barricades, sandbags low cover in the lanes; the firing line's booths, the counter, ammo crates cover) and the_vehicle_hall (six tanks,
 two helicopters, four Humvees, the obstacles row: they hide a man; sandbags, crates, drums between). 16 tile kinds, 14 pieces all stand-ins painting at least 9% of a tile
