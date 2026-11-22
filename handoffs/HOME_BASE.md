@@ -6,6 +6,8 @@ card home-base-the-grinder-11-22.
 ## RULE 479 (BUILD 11/22zz, 82b285056): ONCE AND IN THE GROUND
 - Built: his men in the footage stand on their own shadows; one key is one thing (homeFeedSlots dedupes); gate F8 (every camera, each
   thing and person once; window.__HOME_FEED_DRAWN). Record records/BOHEMIA_HOME_BASE_ONCE_AND_IN_THE_GROUND_11_22_26.md.
+- OWED: rule 479's VOTE card with a before and after (a man at his building in the footage without and with his shadow), not made
+  this round (HOME BASE 3's context ran out); tools/bohemia_home_base_the_grinder_card_11_22_26.js drives to the footage.
 - OPEN: THE TWENTY COOKS were not reproduced (the map at eight zooms on two grounds, the camp, his three cameras). Row 721 asks for the
   screen; the moment it comes, find it there. Not yet built for (a): the pieces in the footage already cast their own rendered shadows
   (the 11/3 pipeline's shadow catcher); a lane comparing them to COOK SIX's valley buildings may still find the edge too clean.
