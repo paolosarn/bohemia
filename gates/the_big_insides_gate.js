@@ -133,7 +133,10 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
       Object.keys(FL).forEach(k => (FL[k] || []).forEach(g => { const f = String(g).split('#')[0]; if (!fs.existsSync(path.join(ROOT, FG, f))) missing.push('the floor ' + f); }));
       if (!(FL.floor || []).length) missing.push('the floor list');
       Object.keys(data.lights).forEach(k => { const s = data.lights[k].src; if (s && !fs.existsSync(path.join(ROOT, FG, s))) missing.push('light ' + k + ' ' + s); });
-      { const k0 = Object.keys(D.kit).filter(p => !D.kit[p].blocks_move && D.kit[p].kind !== 'WALL' && D.kit[p].kind !== 'HEIGHT' && D.kit[p].kind !== 'RAIL' && D.kit[p].kind !== 'DRESS' && PIECES[p])[0];
+      /* the plant's piece is one the planted board itself lays (COMBAT FOUR 11/22: three times the kit's first piece was one the board
+         dealt does not have, the aquarium's, the campus's seats, the ballpark's tables, and the plant read nothing) */
+      { const on0 = {}; ((deal(DIST[0], 3, { inside: id }).boardDef.laid || {}).cover || []).forEach(c => { on0[c.piece] = 1; });
+        const k0 = Object.keys(D.kit).filter(p => !D.kit[p].blocks_move && D.kit[p].kind !== 'WALL' && D.kit[p].kind !== 'HEIGHT' && D.kit[p].kind !== 'RAIL' && D.kit[p].kind !== 'DRESS' && PIECES[p] && on0[p])[0];
         if (k0) { D.kit[k0].blocks_move = true; const Sp = deal(DIST[0], 3, { inside: id }), Tp = Sp.boardDef.laid.tiles; let caught = 0; for (let y = 0; y < Sp.h; y++) for (let x = 0; x < Sp.w; x++) { const t = TK[Tp[y][x]] || {}; if (!t.blocks && t.row !== 'obstacles' && Sp.solid[y][x]) caught++; } delete D.kit[k0].blocks_move;
           check(caught > 0, 'I5p ' + N, 'planted: ' + k0 + ' made to block, ' + caught + ' tiles the table calls walkable read as walls (caught)'); } }
       check(!missing.length && !bad5.length, 'I5 ' + N, 'THE PIECES ARE REAL: ' + Object.keys(PIECES).length + ' kinds of piece (' + Object.keys(PIECES).map(p => p.replace(new RegExp('^' + id + '_'), '') + ' ' + PIECES[p]).join(', ') + '), every one with its picture on disk and its size; ' + standIn + ' of ' + laid + ' pieces laid are STAND-INS (another kit\'s finished piece until this inside\'s own art is in)' + missing.concat(bad5).slice(0, 4).map(s => '; ' + s).join('')); }

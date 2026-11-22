@@ -1,0 +1,610 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "ballpark",
+ "name": "THE BALLPARK",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "The map's ballpark is the Las Vegas Ballpark in Summerlin, the Aviators' park (engine/bohemia_overmap.js), opened in 2019.",
+  "A ballpark's concourse runs behind the seats: concession stands, the team store, tables, condiment stations and beer carts, the restrooms, and the tunnels (vomitories) out into the seating bowl, where the daylight comes in.",
+  "Under the stands is the home clubhouse: the lockers, the batting cages (netting on frames, a pitching machine in each), the weight room, the trainers' room with its tables and steel tubs, the laundry."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (ballpark_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "ballpark"
+ ],
+ "share": 0.4,
+ "districts_why": "The ballpark is the field, the bowl and its lots: about two fights in five there are fought under the stands, on the concourse or in the clubhouse, by the cell's own dice; the rest outside.",
+ "board": {
+  "templates": {
+   "ballpark": {
+    "name": "THE BALLPARK",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_concourse": [
+      "####################",
+      "#RR.SSS.##.SSS.RR.D#",
+      "#..t..b..c..b..t...#",
+      "#.CCC.u.t..t.u.CCC.#",
+      "#..b..t..b...t..b..#",
+      "#.t.u..CCC.CCC..u.t#",
+      "#..b.t..b...b.t..b.#",
+      "#V.t..u.t.f.t.u..tV#",
+      "#..b.t..b...b.t..b.#",
+      "#.t.u..CCC.CCC..u.t#",
+      "#..b..t..b...t..b..#",
+      "#.CCC.u.t..t.u.CCC.#",
+      "#..t..b..c..b..t...#",
+      "#RR.SSS.DD.SSS.RR..#",
+      "####################"
+     ],
+     "the_clubhouse": [
+      "####################",
+      "#LLLL.LLLL.LLLL.LLL#",
+      "#..e..w..f..w..e...#",
+      "#.NNNN.p.NN.p.NNNN.#",
+      "#.m..m..e..e..m..m.#",
+      "#.NNNN.w.ee.w.NNNN.#",
+      "#..e..p..w..p..e...#",
+      "#D.w.k..k..k..k.w.D#",
+      "#..e..p..w..p..e...#",
+      "#.WW.wW.k..k.Ww.WW.#",
+      "#.T..T..w..w..T..T.#",
+      "#.WW.wW.k.fk.Ww.WW.#",
+      "#..e..p..w..p..e...#",
+      "#LLL.LLLL.DD.LLLL.L#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "C": {
+    "is": "floor",
+    "tile": "stand",
+    "piece": "bp_stand",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "S": {
+    "is": "floor",
+    "tile": "store",
+    "piece": "bp_store",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "R": {
+    "is": "floor",
+    "tile": "restrooms",
+    "piece": "bp_restrooms",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "t": {
+    "is": "floor",
+    "tile": "tables",
+    "piece": "bp_tables",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "bins",
+    "piece": "bp_bins",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "beercart",
+    "piece": "bp_beercart",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "u": {
+    "is": "floor",
+    "tile": "condiments",
+    "piece": "bp_condiments",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "V": {
+    "is": "floor",
+    "tile": "tunnel",
+    "light": "doors",
+    "light_at": 0.5
+   },
+   "L": {
+    "is": "floor",
+    "tile": "lockers",
+    "piece": "bp_lockers",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "e": {
+    "is": "floor",
+    "tile": "trunks",
+    "piece": "bp_trunks",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "w": {
+    "is": "floor",
+    "tile": "laundry",
+    "piece": "bp_laundry",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "N": {
+    "is": "floor",
+    "tile": "cages",
+    "piece": "bp_cages",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "p": {
+    "is": "floor",
+    "tile": "pitching",
+    "piece": "bp_pitching",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "m": {
+    "is": "floor",
+    "tile": "weights",
+    "piece": "bp_weights",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "benches",
+    "piece": "bp_benches",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "W": {
+    "is": "floor",
+    "tile": "tubs",
+    "piece": "bp_tubs",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "T": {
+    "is": "floor",
+    "tile": "trainers",
+    "piece": "bp_trainers",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words); 'sight' says whether a blocker hides a man ('blocked', the obstacles row) or is seen past ('seen'). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The stands' concrete above you and the clubhouse's block walls: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The concourse's concrete, sticky underfoot, or the clubhouse's rubber floor: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The floor: open ground.",
+   "draft": true
+  },
+  "stand": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A concession stand's counter, its grills and its fryers cold: cover.",
+   "say": "A concession stand: cover.",
+   "draft": true
+  },
+  "store": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The team store's racks and its counter, stripped: cover.",
+   "say": "The team store: cover.",
+   "draft": true
+  },
+  "restrooms": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "The restrooms' block walls: nobody stands there, and nobody sees through them. [bb] its wall.",
+   "say": ""
+  },
+  "tables": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Tables and their umbrellas, knocked over: low cover.",
+   "say": "Tables: low cover.",
+   "draft": true
+  },
+  "bins": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Trash and recycling bins, overflowing long ago: low cover.",
+   "say": "Bins: low cover.",
+   "draft": true
+  },
+  "beercart": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A beer cart, its taps dry: cover.",
+   "say": "A beer cart: cover.",
+   "draft": true
+  },
+  "condiments": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A condiment station, waist high: low cover.",
+   "say": "A condiment station: low cover.",
+   "draft": true
+  },
+  "tunnel": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "A tunnel out to the seats, the bowl beyond it: open ground, and by day the light comes down it: a man here is seen.",
+   "say": "The tunnel to the seats: open ground.",
+   "say_lit": "The tunnel to the seats: open ground, and the day is on you.",
+   "draft": true
+  },
+  "lockers": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A wall of wooden lockers, the names still over them: nobody stands there, and nobody sees through it. [bb] its wall.",
+   "say": ""
+  },
+  "trunks": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Equipment trunks, bats and helmets still in them: cover.",
+   "say": "Equipment trunks: cover.",
+   "draft": true
+  },
+  "laundry": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Laundry carts of uniforms nobody washed: low cover.",
+   "say": "Laundry carts: low cover.",
+   "draft": true
+  },
+  "cages": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "sight": "seen",
+   "effect": "A batting cage, netting on its frame: nobody passes through it; you see through it; cover beside it. [bb] its palisade you see through.",
+   "say": ""
+  },
+  "pitching": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A pitching machine on its legs: low cover.",
+   "say": "A pitching machine: low cover.",
+   "draft": true
+  },
+  "weights": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The weight room's racks and plates: cover.",
+   "say": "Weight racks: cover.",
+   "draft": true
+  },
+  "benches": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Clubhouse benches, bolted down: low cover.",
+   "say": "A bench: low cover.",
+   "draft": true
+  },
+  "tubs": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The trainers' steel tubs, dry: cover.",
+   "say": "A steel tub: cover.",
+   "draft": true
+  },
+  "trainers": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A trainers' table, padded, on steel legs: cover.",
+   "say": "A trainers' table: cover.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a trash bin. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The gates, or the clubhouse's doors to the tunnel, open: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The doors: open ground.",
+   "say_lit": "The doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in ballpark_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "bp_tables": {
+   "like": "tunnel_camp_b",
+   "kind": "LOW_COVER",
+   "name": "TABLES AND UMBRELLAS"
+  },
+  "bp_stand": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "A CONCESSION STAND"
+  },
+  "bp_store": {
+   "like": "tunnel_camp_a",
+   "kind": "COVER",
+   "name": "THE TEAM STORE"
+  },
+  "bp_restrooms": {
+   "like": "garage_core",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "THE RESTROOMS"
+  },
+  "bp_bins": {
+   "like": "sb_rubble_S",
+   "kind": "LOW_COVER",
+   "name": "BINS"
+  },
+  "bp_beercart": {
+   "like": "garage_booth",
+   "kind": "COVER",
+   "name": "A BEER CART"
+  },
+  "bp_condiments": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "A CONDIMENT STATION"
+  },
+  "bp_lockers": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "LOCKERS"
+  },
+  "bp_trunks": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "EQUIPMENT TRUNKS"
+  },
+  "bp_laundry": {
+   "like": "sb_heap_S",
+   "kind": "LOW_COVER",
+   "name": "LAUNDRY CARTS"
+  },
+  "bp_cages": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A BATTING CAGE"
+  },
+  "bp_pitching": {
+   "like": "garage_booth",
+   "kind": "LOW_COVER",
+   "name": "A PITCHING MACHINE"
+  },
+  "bp_weights": {
+   "like": "tunnel_camp_a",
+   "kind": "COVER",
+   "name": "WEIGHT RACKS"
+  },
+  "bp_benches": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "BENCHES"
+  },
+  "bp_tubs": {
+   "like": "sb_container_S",
+   "kind": "COVER",
+   "name": "STEEL TUBS"
+  },
+  "bp_trainers": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "TRAINERS' TABLES"
+  },
+  "bp_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "bp_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "bp_wall_ew",
+  "ns": "bp_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: the seats are out in the bowl beyond the tunnels; under the stands is one floor.",
+ "ceiling": {
+  "kind": "joist",
+  "alpha": 0.1,
+  "src": "ballpark/ballpark_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the underside of the stands, its raked concrete and its dead menu boards, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the warehouse's roof)."
+ }
+}
