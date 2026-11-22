@@ -687,8 +687,13 @@ var THEY = { brigands: ['THE RAIDERS', 'THE RAIDER'], machines: ['THE MACHINES',
    that fell IS DOWN under its own name; several fell and the name reads as one (THE GROUND SLOTH) and it becomes many (THE GROUND SLOTHS
    ARE DOWN); a name that is already many (the dire wolves) stays many. A word the same for one and many (bison, deer, sheep) says ARE
    only when several fell. The result line is the game's, not a person's: rule 465 does not freeze it. */
-var SAME_MANY = /^(BISON|DEER|SHEEP|MOOSE|ELK|CATTLE|FISH|SWINE|AIRCRAFT|PEOPLE|POLICE|FOLK)$/;
-function manyLooking(last){ return /^(MEN|WOMEN|CHILDREN|PEOPLE|FOLK|KIDS|POLICE|CATTLE)$/.test(last) || (/S$/.test(last) && !/(SS|US|IS)$/.test(last)); }
+var SAME_MANY = /^(BISON|DEER|SHEEP|MOOSE|ELK|FISH|SWINE|AIRCRAFT)$/;
+/* JOBS 2 11/22 (rule 475(b), every foe a job names, measured over the job file's names one fell and several fell): a group's own word is
+   one thing however many fell (THE CREW AT THE PUMP STATION IS DOWN, never THE CREWS); PEOPLE, POLICE, FOLK, CATTLE are many even for one
+   (THE WATER PEOPLE ARE DOWN); OXEN, GEESE, MICE and a hyphen's last part are read (THE SHRUB-OXEN ARE DOWN, never OXENS); 'after' and 'to'
+   end the name's head word (THE THIEVES AFTER THE REGULATOR ARE DOWN, never THE REGULATORS) */
+var ONE_GROUP = /^(CREW|GANG|BAND|PACK|HERD|MOB|FAMILY|WATCH|TROOP|SWARM|FLOCK|PRIDE|POSSE|CLAN|OUTFIT|COMPANY|CARAVAN)$/;
+function manyLooking(last){ last = String(last).split('-').pop(); return /^([A-Z]*MEN|CHILDREN|PEOPLE|FOLK|KIDS|POLICE|CATTLE|OXEN|GEESE|MICE)$/.test(last) && !/^(OMEN|SPECIMEN|AMEN)$/.test(last) || (/S$/.test(last) && !/(SS|US|IS)$/.test(last)); }
 function manyOf(last){
   if(SAME_MANY.test(last)) return last;
   if(/MAN$/.test(last)) return last.replace(/MAN$/, 'MEN');
@@ -699,13 +704,14 @@ function manyOf(last){
   return last + 'S';
 }
 /* the word the name is about: the last word before 'who', 'of', 'from'... ('THE MEN WHO OWE THE FAMILY' is about the MEN; 'THE GROUND SLOTH' the SLOTH) */
-var BEFORE_WORDS = /^(WHO|THAT|WHICH|OF|FROM|IN|AT|ON|WITH|BY|AROUND|UNDER|BEHIND|NEAR|OUTSIDE|INSIDE|AT|FOR)$/;
+var BEFORE_WORDS = /^(WHO|THAT|WHICH|OF|FROM|IN|AT|ON|WITH|BY|AROUND|UNDER|BEHIND|NEAR|OUTSIDE|INSIDE|AT|FOR|AFTER|TO|OVER|ACROSS|ALONG|BEYOND|AGAINST|UP)$/;   /* JOBS 2 11/22: AFTER, TO and the rest of the road's words */
 function foeAgrees(F, one){
   F = String(F).replace(/\s+/g, ' ').trim();
   if(/^(A|AN|ONE) /.test(F)) return { name: F, are: false };
   var w = F.split(' '), h = w.length - 1;
   for(var k = 1; k < w.length; k++){ if(BEFORE_WORDS.test(w[k])){ h = k - 1; break; } }
   var head = w[h];
+  if(ONE_GROUP.test(head)) return { name: F, are: false };   /* JOBS 2 11/22: a group is one thing */
   if(SAME_MANY.test(head)) return { name: F, are: !one };
   if(manyLooking(head)) return { name: F, are: true };
   if(one) return { name: F, are: false };

@@ -2431,6 +2431,10 @@ GATES = [
      'below Neutral a town charges more and pays less (the Game Guide), and its bar changes what it offers (no three-skull work below '
      'Neutral, one job at Hostile, one more from Friendly); a settled job kept until the town\'s bands load; on the phone, the demo and '
      'the alpha both ways (records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md).', True),
+    ('EVERY FOE AGREES', ['node', 'gates/every_foe_agrees_gate.js'],
+     'JOBS 2 11/22, rules 475(b), 441: the end of a fight\'s result line agrees with how many fell for every name a job hands it (his '
+     'screenshot: THE GROUND SLOTH ARE DOWN): a group is one (THE CREW AT THE PUMP STATION IS DOWN), the words after AFTER never change, '
+     'PEOPLE and OXEN are many; the end screen on a phone both ways (records/BOHEMIA_JOBS_TWO_EVERY_FOE_AGREES_11_22_26.md).', True),
     ('NO WAYPOINTS', ['node', 'gates/no_waypoints_gate.js'],
      'JOBS TWO 11/22, rules 473, 441: Paolo, \'I don\'t want direction arrows... just have the part highlighted when you\'re close... '
      'I have like 14 white points on my map\': a job or side quest off the glass puts nothing at the glass\'s edge (no name, no point); on '

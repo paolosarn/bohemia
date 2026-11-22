@@ -1,4 +1,7 @@
-JOBS TWO (jobs-two-01gkdyuu): 11/22 LATEST -- BUILD 11/22zs - THE BOARD UNDER HALF, BUILT, NOT YET SEEN (rules 402, 441; ask row 669). Its block is handoffs/JOBS.md.
+JOBS TWO (jobs-two-01gkdyuu): 11/22 LATEST -- BUILD 11/22zu - EVERY FOE AGREES, BUILT, NOT YET SEEN (rule 475(b) for every foe a job names; ask row 715). Its block is handoffs/JOBS.md.
+The end of a fight's result line agrees over all 41 names a job can hand it: THE CREW AT THE PUMP STATION IS DOWN (never CREWS), THE THIEVES AFTER THE REGULATOR
+ARE DOWN, THE WATER PEOPLE ARE DOWN, THE SHRUB-OXEN ARE DOWN; on the phone both ways. Gate EVERY FOE AGREES 4/0 (new). NEXT: row 698.
+JOBS TWO (jobs-two-01gkdyuu): 11/22 -- BUILD 11/22zs - THE BOARD UNDER HALF, BUILT, NOT YET SEEN (rules 402, 441; ask row 669). Its block is handoffs/JOBS.md.
 Sideways, the town board's standing line, its rail and MORE WORK HERE share one row: the two-job board 57% of the glass -> 50% (SCROLLING IS ILLEGAL sideways 12/0).
 A three-job board's two rows of cards are UI FIVE's (said on row 669). NEXT: row 698.
 JOBS TWO (jobs-two-01gkdyuu): 11/22 -- THE JOBS' PART: two false reds answered (N2 the take line's distance is words since rule 224; D7 the checker pressed

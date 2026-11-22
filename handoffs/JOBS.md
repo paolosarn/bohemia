@@ -1,6 +1,19 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/22 LATEST -- BUILD 11/22zs - THE BOARD UNDER HALF, BUILT, NOT YET SEEN (rules 402, 441;
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/22 LATEST -- BUILD 11/22zu - EVERY FOE AGREES, BUILT, NOT YET SEEN (rule 475(b), the
+coordinator's routine 'the ground sloth are down'; rule 441; ask row 715's (b) for every foe a job names). No VOTE card (a result line's
+grammar; FIGHT SCREEN 3's card fight-screen-the-receipt-is-gone-11-22 carries the end screen). Record records/BOHEMIA_JOBS_TWO_EVERY_FOE_AGREES_11_22_26.md.
+- FIGHT SCREEN 3's 11/22zr fixed the sloth (__THE_LINE_READS_RIGHT__ in slices/BOHEMIA_SPOILS_SCREEN.html). Run over the job file's 41 foe
+  names, one fell and several fell, four kinds still read wrong: THE CREWS AT THE PUMP STATION, THE THIEVES AFTER THE REGULATORS (and IS
+  for one), THE WATER PEOPLE IS, THE SHRUB-OXENS. Four table changes in that function (ONE_GROUP, AFTER/TO in BEFORE_WORDS, PEOPLE out of
+  SAME_MANY, a hyphen's last part and OXEN), marked JOBS 2; FIGHT SCREEN 3's file, said here for them.
+GATE EVERY FOE AGREES (new, in the suite) 4/0 (F1 the names, F1p main's table planted, F2 the end screen on a phone both ways, F3).
+THE RECEIPT IS GONE 7/0, THE SPOILS 18/1 (the red main has).
+NEXT: row 698 (the board deals a job to a different town depending on when its danger read comes in). Then EYES' rows naming a job.
+[bb Battle Brothers' end of battle names who you beat in plain words]
+[analog horror: the crew at the pump station is down; the radio there keeps calling them by name]
+
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/22 -- BUILD 11/22zs - THE BOARD UNDER HALF, BUILT, NOT YET SEEN (rules 402, 441;
 ask row 669). No VOTE card (a layout fix, nothing new to judge).
 - MEASURED on the demo held sideways (844 x 330): Caravans' board, two jobs, 820 x 195 = 57% of the glass; the rows: the Elder 40, WHAT
   THEY THINK OF YOU and its rail 27, MORE WORK HERE 15, the cards 71, the held line 15.
