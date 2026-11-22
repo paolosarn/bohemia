@@ -1,0 +1,486 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "railshop",
+ "name": "THE RAIL YARD'S SHOPS",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "A rail yard's locomotive shop is a long shed with tracks running through it, engines over inspection pits, work platforms at cab height along them, the parts and wheel sets stacked on the floor; its freight house is a long dock of boxcars and crates.",
+  "A road locomotive is about 22 metres long and nearly five high; a boxcar about 15 metres.",
+  "On house tiles a locomotive is a run of tiles nobody stands on and nobody sees through; the rails across the floor are ground a man steps over, slowly."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (railshop_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "railyard"
+ ],
+ "share": 0.35,
+ "districts_why": "The rail yard is mostly track under the sky: about one fight in three there is fought inside its engine shop or its freight house, by the cell's own dice; the rest among the cars and the rails outside.",
+ "board": {
+  "templates": {
+   "railshop": {
+    "name": "THE RAIL YARD'S SHOPS",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_engine_shop": [
+      "####################",
+      "#kk.w..p..f..p..w.k#",
+      "#..t..pt..b..tp..t.#",
+      "#=LLLLLwp.pwLLLLL=.#",
+      "#..b.t..w..w..t.b..#",
+      "#.w=t.PPPPPPPP.t=w.#",
+      "#.t..w..b..b..w..t.#",
+      "#D..p.w..ww..w.p..D#",
+      "#.t..w..b..b..w..t.#",
+      "#.w=t.PPPPPPPP.t=w.#",
+      "#..b.t..w..w..t.b..#",
+      "#.=LLLLLwp.pwLLLLL=#",
+      "#..t..pt..b..tp..t.#",
+      "#kk.w..p.DD.p..w.kk#",
+      "####################"
+     ],
+     "the_freight_house": [
+      "####################",
+      "#ccc.ccc.xx.ccc.ccc#",
+      "#..x..b..x..b..x...#",
+      "#.CC.xx.CC.xx.CC.x.#",
+      "#..b..xb.f..x..b...#",
+      "#==XXXX.xCCx.XXXX==#",
+      "#..x..bx.x..b..x...#",
+      "#D...x.bb..b..x...D#",
+      "#..x..bx.x..b..x...#",
+      "#==XXXX.xCCx.XXXX==#",
+      "#..b..xb..f.x..b...#",
+      "#.CC.xx.CC.xx.CC.x.#",
+      "#..x..bx.x..b..x...#",
+      "#ccc.ccc.DD.ccc.ccc#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "=": {
+    "is": "floor",
+    "tile": "rails"
+   },
+   "L": {
+    "is": "floor",
+    "tile": "loco",
+    "piece": "rs_loco",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "P": {
+    "is": "floor",
+    "tile": "platform",
+    "piece": "rs_platform",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "X": {
+    "is": "floor",
+    "tile": "boxcar",
+    "piece": "rs_boxcar",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "w": {
+    "is": "floor",
+    "tile": "wheels",
+    "piece": "rs_wheels",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "t": {
+    "is": "floor",
+    "tile": "toolchest",
+    "piece": "rs_toolchest",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "drums",
+    "piece": "rs_drums",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "p": {
+    "is": "floor",
+    "tile": "parts",
+    "piece": "rs_parts",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "racks",
+    "piece": "rs_racks",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "x": {
+    "is": "floor",
+    "tile": "crates",
+    "piece": "rs_crates",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "C": {
+    "is": "floor",
+    "tile": "cart",
+    "piece": "rs_cart",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "cages",
+    "piece": "rs_cages",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words); 'sight' says whether a blocker hides a man ('blocked', the obstacles row) or is seen past ('seen'). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The shop's brick wall: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The shop's oil-black floor: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The shop floor: open ground.",
+   "draft": true
+  },
+  "rails": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "open": true,
+   "effect": "A track across the floor, its rails and ties: no cover, and slow going over them (3 AP). [bb] its rough ground.",
+   "say": "Rails: slow going, no cover.",
+   "draft": true
+  },
+  "loco": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A locomotive over its pit, nearly five metres high: nobody stands there, and nobody sees through it; cover beside it. [bb] its wall.",
+   "say": ""
+  },
+  "platform": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "sight": "seen",
+   "effect": "A work platform at cab height on its legs, open underneath: nobody stands on it on house tiles; seen past; cover beside it. [bb] its palisade you see through.",
+   "say": ""
+  },
+  "boxcar": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A boxcar at the dock, its door rolled back: nobody stands there, and nobody sees through it; cover beside it. [bb] its wall.",
+   "say": ""
+  },
+  "wheels": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Wheel sets on their axles, stacked: cover.",
+   "say": "Wheel sets: cover.",
+   "draft": true
+  },
+  "toolchest": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A rolling tool chest: low cover.",
+   "say": "A tool chest: low cover.",
+   "draft": true
+  },
+  "drums": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Oil drums: low cover.",
+   "say": "Oil drums: low cover.",
+   "draft": true
+  },
+  "parts": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A traction motor and parts on a skid: cover.",
+   "say": "Engine parts: cover.",
+   "draft": true
+  },
+  "racks": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "Parts racks against the wall, floor to beam: nobody stands there, and nobody sees through them. [bb] its wall.",
+   "say": ""
+  },
+  "crates": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Freight crates left on the dock: cover.",
+   "say": "Crates: cover.",
+   "draft": true
+  },
+  "cart": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A baggage cart, its tongue down: low cover.",
+   "say": "A freight cart: low cover.",
+   "draft": true
+  },
+  "cages": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "sight": "seen",
+   "effect": "The freight house's cages for small parcels, mesh: nobody passes; you see through it; cover beside it. [bb] its palisade you see through.",
+   "say": ""
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a drum. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The shop's big doors where the track comes in, open: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The doors: open ground.",
+   "say_lit": "The doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in railshop_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "rs_wheels": {
+   "like": "sb_tyres_S",
+   "kind": "COVER",
+   "name": "WHEEL SETS"
+  },
+  "rs_toolchest": {
+   "like": "sb_cart_S",
+   "kind": "LOW_COVER",
+   "name": "A TOOL CHEST"
+  },
+  "rs_drums": {
+   "like": "sb_drums_S",
+   "kind": "LOW_COVER",
+   "name": "OIL DRUMS"
+  },
+  "rs_parts": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "ENGINE PARTS"
+  },
+  "rs_crates": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "CRATES"
+  },
+  "rs_cart": {
+   "like": "sb_cart_E",
+   "kind": "LOW_COVER",
+   "name": "A FREIGHT CART"
+  },
+  "rs_loco": {
+   "like": "sb_container_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A LOCOMOTIVE"
+  },
+  "rs_platform": {
+   "like": "garage_rail_ew",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A WORK PLATFORM"
+  },
+  "rs_boxcar": {
+   "like": "sb_container_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A BOXCAR"
+  },
+  "rs_racks": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "PARTS RACKS"
+  },
+  "rs_cages": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "PARCEL CAGES"
+  },
+  "rs_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "rs_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "rs_wall_ew",
+  "ns": "rs_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: the work platforms stand at cab height, but on house tiles they are a thing to go round, not a storey.",
+ "ceiling": {
+  "kind": "joist",
+  "alpha": 0.1,
+  "src": "railshop/railshop_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the shop's roof trusses, its smoke jacks and the overhead crane's rail, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the warehouse's roof)."
+ }
+}
