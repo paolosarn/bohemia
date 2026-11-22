@@ -1346,7 +1346,17 @@ Earlier: 11/9c, 11/9f, 11/9j, fourteen places that talk. Still open: the bus yar
 handoffs/WORLD_FOURTEEN.md.
 [bb Battle Brothers' company events steal from the stash and call a man home; ours are the plasma van, the swollen cans and the rent crew.]
 [analog horror: the dead bank machine still runs on its own battery, says her balance is zero every morning, and asks if she would like a receipt.]
-HOME BASE 2: 11/21 LATEST -- BUILD 11/21zc - HIS CAMERAS AS PROMISED, BUILT, NOT YET SEEN (rule 466(a), ask row 663). His place IS the 11/3
+HOME BASE 3: 11/22 LATEST -- BUILD 11/22zm - THE GRINDER (8d48346ba), BUILT, NOT YET SEEN (rule 469, ask row 638; rule 466(a) steps 2 and 3, ask
+row 663). His place has a fourth building of his own, the GRINDER (1 battery, 3 tape, the middle row; in the security footage a block
+smokehouse, a butcher's table with a hand grinder, a rail of links). A fight he wins brings its people home, as many as his men carry (3
+carry 1); a kill's leftover meat comes too. Tap it, one line ('Head comes off first. Every fucking time.'), one button: GRIND, 26 food a
+body into the top bar. Towns buy it as food. Underneath, never said: the dead keep a day, the head always out, a bad cut 3 in 100 batches,
+a careless can 1 in 100, the shakes show acts later, a town that finds out -10, a hungry town never asks. The skewed board's code is in
+the graveyard; the cameras' hum asked of SOUNDS (row 720). Gate YOUR PLACE, PLANTED engine 47/0, demo both ways (see the handoff). VOTE
+card home-base-the-grinder-11-22. Record records/BOHEMIA_HOME_BASE_THE_GRINDER_11_22_26.md; the block: handoffs/HOME_BASE.md.
+[bb Battle Brothers' company eats provisions that spoil by the day and never asks where meat comes from; ours keeps a day on the road and asks nothing either.]
+[analog horror: on CAM 2 there is a shape under a grey tarp on the butcher's table. The camera never shows what is under it.]
+HOME BASE 2: 11/21 EARLIER -- BUILD 11/21zc - HIS CAMERAS AS PROMISED, BUILT, NOT YET SEEN (rule 466(a), ask row 663). His place IS the 11/3
 footage he was first shown: three cameras low across the street (street light, power pole, billboard), a bent wide lens, PS1 size,
 night; everything he built as its own piece on a lot of its row (low in front, tall at the back), his people on their lots; the cameras
 cut on their own every 20 s; a tap on a lot opens it, an empty lot opens BUILD, a full row is greyed on the desk. The skewed board is

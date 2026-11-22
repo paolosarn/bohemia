@@ -1,9 +1,52 @@
+HOME BASE 3 (session_01GKDyutkCNC5cSDNauAG37o): 11/22 LATEST -- BUILD 11/22zm - THE GRINDER (8d48346ba) (rule 469, ask row 638) and the cameras' steps
+2 to 4 (rule 466(a), ask row 663): the skewed board's code in the graveyard, the cameras' hum ASKED of SOUNDS (ask row 720), and THE OVERFLOW
+IN FLIGHT (step 4, below). Record records/BOHEMIA_HOME_BASE_THE_GRINDER_11_22_26.md. VOTE
+card home-base-the-grinder-11-22.
+
+## THE NEXT JOB: 466(a) STEP 4, THE OVERFLOW (IN FLIGHT when this was written)
+1. The renders: `nice -n 19 /tmp/v/bin/python tools/bohemia_home_settlement_pipeline_11_3_26.py piece <id> --behind-only` for the middle
+   pieces (grinder, forge, shed, pump, garden_bed, water_tank, solar_panel) onto the back lots, then the front five (wall, stall, yard,
+   main, purifier) onto the middle and back; then `python3 tools/bohemia_home_settlement_pipeline_11_3_26.py post_add <ids>` (merges into
+   the entries it had, rows: [...]). About 6 minutes a piece for 4 lots alone on 4 cores. Needs the raw empty plate (`... empty`, 30 s)
+   and the venv (python3.11 -m venv /tmp/v && /tmp/v/bin/pip install bpy==4.2.0 numpy pillow scipy).
+2. The screen: homeFeedSlots takes every piece's own row first, then the leftovers onto a free lot of a row behind that has their picture
+   (HF.over, __HOME_FEED.over); homeFeedRowFull reads every row the piece has pictures for. Gate leg F7 (nine middle buildings: four in the
+   middle, the rest on the back with their own pictures; planted: the pictures behind taken off, nothing drawn).
+3. If he answers the defaults in the record's DECIDED HERE (his own dead ground or not; the -10; never him): one line each.
+
+## THE GRINDER, WHERE IT LIVES (for any lane)
+- engine/bohemia_grinder.js (BohemiaGrinder, pure): bring (the carry, the heat), pileNow, grind (one tap, the bad cut), reconcile (his
+  sausage inside the one FOOD count, scaled down as the count goes down), sale (people sold, found out, a hungry town never asks), bought
+  (the careless can), night (a bad night marks a man, never him), showing (a mark shows when its years pass: in a later act), townsShaking.
+- records/target/bb/home_base.json: places.grinder (the build), places.words (grinder, grind, ground, nobody, found), story.lines.shakes,
+  grinder{} (every number with its source; TUNING's to move).
+- slices/BOHEMIA_CITY_WORLD.html __THE_GRINDER__ (after __HIS_OWN_BUILDINGS__): the fight's end (grindFightHome, BOHEMIA_CITY_COMBAT_END),
+  a kill taken (read off BohemiaCarcass' state and taken list every 0.7 s; WORLD 12's file untouched), homeGrind, the night (crewBillNight
+  wrapped), the stall's messages (BOHEMIA_SETTLEMENT buy, BOHEMIA_GRINDER_SOLD), grindShows every 3 s. Storage bohemia.grinder.v1 (by seed).
+  BohemiaHomeMap.grind / grinder / grinderState / grinderShows / grinderFight.
+- slices/BOHEMIA_SETTLEMENT_SCREEN.html: homePlaceSheet's grinder branch (one line, one button), HOME_WORK.grinder (a man at it),
+  HF_PIECE.place.grinder, __THE_GRINDER__ (after __HIS_CAMERAS_AS_PROMISED__: stallDo wrapped for food sold; BOHEMIA_GRINDER_FOUND moves
+  this town's bar by relMove and the strip says the word). The stall's functions live inside the screen's closure: a gate sells by real
+  taps on '#sbody .stline[data-key="food"] .sb[data-side="sell"]' (two quick taps), never by calling stallTap.
+- The piece: tools/bohemia_home_base_his_pieces_11_21_26.py grinder (built and working; under the middle row's 3.8 m: 3.61).
+- FOR COMBAT / CHARACTER: a man with the shakes is BohemiaHomeMap.grinderState().shown[name] (marks in .marks with the act and the years);
+  a tremor on his dial or his walk is theirs to add, never built here.
+
+## THE CAMERAS NOW (rule 466(a))
+- His place IS the 11/3 footage (__HIS_CAMERAS_AS_PROMISED__). The skewed board's code is OUT (graveyard/home_base_the_skewed_board_11_17_26/
+  screen_the_skewed_board.js.txt); what stayed of __HIS_PLACE_SEEN_AS_HE_WILL_SEE_IT__: the door under the finger (the hitAt wrap), his men
+  at his buildings on the footage (homeWorkers, HOME_WORK, the crewTown filter). Gate F1 holds the board dead.
+- THE OVERFLOW: in flight (THE NEXT JOB above). The pipeline's --behind-only and post_add's merge are on main with this build.
+- THE HUM: ASKED (ask row 720): crashbox/feed_b.mp3, loop, 0.25, while window.__HOME_FEED.on in his place's town screen (the 11/3 page
+  BOHEMIA_YOUR_SETTLEMENT.html's own hum(), after a tap).
+
+---- HOME BASE 2, as it stood (kept: its systems map is still true) ----
 HOME BASE 2 (home-base-01gkdyuv5w1u): 11/21 LATEST -- BUILD 11/21zc - HIS CAMERAS AS PROMISED (rule 466(a), ask row 663), after 11/21u THE
 CORK BOARD IS DEAD (466(b), live run 4716) and 11/21s IT STARTS BARE (445(b), live run 4710). Records
 records/BOHEMIA_HOME_BASE_HIS_CAMERAS_AS_PROMISED_11_21_26.md, ..._THE_CORK_BOARD_IS_DEAD_..., ..._IT_STARTS_BARE_... A FRESH HOME BASE
 SHOULD TAKE THE NEXT JOB (context near full, rule 461(f)).
 
-## THE NEXT JOB: THE CLEANUP OF THE SKEWED BOARD, THEN A CAMERA SOUND
+## HOME BASE 2'S NEXT JOB (DONE 11/22 by HOME BASE 3: 1 the cleanup, 2 the sound asked, 3 the overflow; see the block above)
 1. The skewed board is OFF for good (homeCamOn() false wherever VAR.bare) but its code is inert in slices/BOHEMIA_SETTLEMENT_SCREEN.html:
    __HIS_PLACE_SEEN_AS_HE_WILL_SEE_IT__ (HLENS, homeLens*, the lens's hitAt/where/inPad wrappers, homeDrawEmpty/homeDrawLots chalk and
    plate), __HIS_PLACE_THROUGH_ITS_CAMERAS__ (HCAM). Take it out into graveyard/ (post-mortem written: POSTMORTEM_HOME_BASE_THE_SKEWED_
@@ -30,6 +73,7 @@ __HOME_FEED_SWALLOWED. BohemiaSettlement.where(k) answers where the footage show
   you built'. The fight itself EXISTS (LIFE + CITY's raidDefend) on his block's own ground (COMBAT THREE's zone board via
   FIGHT_OPTS.ground), nothing he built on it (gated: A RAID ON YOUR BASE D). If he lifts rule 86, the seam is COMBAT THREE's
   bohemia_big_inside.js: HOME BASE hands his place's lots as an inside's data file, COMBAT THREE lays it.
+- Row 638, THE GRINDER: ANSWERED (469) and BUILT by HOME BASE 3 (BUILD 11/22zm).
 - Rule 465: none of his VOTE-tab homework goes into any line; rule 454(a): no standing line rewritten.
 
 ## WHAT THIS LANE HAS BUILT (each record in records/, each gate leg in gates/home_base_gate.js, YOUR PLACE, PLANTED)
