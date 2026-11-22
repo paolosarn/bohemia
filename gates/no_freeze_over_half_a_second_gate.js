@@ -45,7 +45,7 @@ const ok = (n, c, x) => { c ? pass++ : fail++; console.log((c ? '  ok   ' : '  F
    the full suite every time: the worst of the three, plus 30%; a solo run reads lower), with headroom; a number here may only come DOWN. n = freezes over half a second in the step,
    worst = the worst one (ms). A step not named is held to the default. */
 const RATCHET = {
-  pngsAtFightStart: 14, gpuReadsInWalk: 140, inkReads: 160, total: 360, def: { n: 3, worst: 1500 },
+  pngsAtFightStart: 14, gpuReadsInWalk: 80, inkReads: 160,   /* gpuReadsInWalk 140 -> 80 (PLUMBER 8, 11/22, __THE_ROWS_COME_BACK_IN_ONE_READ__: the walk 151 -> about 63) */ total: 360, def: { n: 3, worst: 1500 },
   steps: {
     'SEARCH THE LOT': { n: 24, worst: 2900 },
     'a boss fight starts': { n: 29, worst: 13700 },
@@ -104,7 +104,7 @@ const pngs = (o, s) => s ? s.pngs : null;
      !!fs0 && fs0.pngs <= RATCHET.pngsAtFightStart && !!o.kept && o.kept.made != null && o.kept.made <= 12 && o.kept.hits >= 4,
      (fs0 ? fs0.pngs + ' PNGs and ' + fs0.gpuReads + ' GPU read-backs at the fight\'s start' : 'no fight') + '; the materials made ' + (o.kept ? o.kept.made : '?') + ', taken kept ' + (o.kept ? o.kept.hits : '?') + '; the fight\'s marks kept ' + (o.kept ? o.kept.marks : '?'));
   const gpuR = (o.walk || []).concat(o.reload || []).reduce((q, x) => q + (x.gpuReads || 0), 0);
-  ok('K4 NOTHING WAITS ON THE GPU: over the whole walk at most ' + RATCHET.gpuReadsInWalk + ' reads or PNGs from a canvas not made for reading (on his phone each is a wait for the GPU; 578 on main before this round, the lot\'s board 1,200 of its own)',
+  ok('K4 NOTHING WAITS ON THE GPU: over the whole walk at most ' + RATCHET.gpuReadsInWalk + ' reads or PNGs from a canvas not made for reading (on his phone each is a wait for the GPU; 578 on main 11/10, the lot\'s board 1,200 of its own; 151 on 11/22, 90 of them the board\'s rows at a fight\'s start, now one read)',
      gpuR <= RATCHET.gpuReadsInWalk, gpuR + ' in all; by step: ' + (o.walk || []).concat(o.reload || []).filter(x => x.gpuReads).map(x => x.step.slice(0, 24) + ' ' + x.gpuReads).join(', '));
   ok('K3 A SIZE KEEPS ITS INK LINE: the map\'s ink line read at most ' + RATCHET.inkReads + ' times over the walk', o.inkReads != null && o.inkReads <= RATCHET.inkReads, o.inkReads + ' reads');
   /* F1 */

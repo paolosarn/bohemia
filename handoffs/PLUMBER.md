@@ -1,5 +1,20 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/22, BUILD 11/22o THE BOARD COMES BACK IN ONE READ (rule 441(c), row 677's NO FREEZE OVER HALF A SECOND, row 613).
+  THE RE-CHECK ENDED (main 754d7dd2): 20 struck green, 47 confirmed red alone, 17 never re-checked (the confirm pass's 10,000 s), two
+  new reds filed (THE MIDWIFE CHANGES THE MAP on BOSSES' row 687, THE STAFF FIGHT TOO row 696). THE RED DEBT 411 NAMED, 312 LEFT.
+  MY FREEZE CHECK, ALONE ON A QUIET BOX: every freeze under its ratchet (the fight's end 1,233 ms in the pack was the box). Its P1 planted
+  nothing: the city frame starts as about:blank and loads into the SAME window, so an arm that tests location.pathname sees 'blank'
+  (ANY GATE THAT PLANTS INTO #cityFrame BY PATH HAS THIS HOLE; the top page's own timer wraps it now, once: the city's own wrappers
+  re-wrap an opener they have not marked, and a plant that re-wrapped theirs grew 83 s a town). K4 was real: the census now records the
+  page, size and two calling frames of every read off a canvas not made for reading; 90 of the walk's 151 were the fight's own night
+  light, two board rows a tile row (30 a fight, 60 a boss). Now every needed row is copied GPU to GPU onto one strip and read ONCE
+  (K5: the same 300 values as point by point). The walk 151 -> 64, the ratchet 140 -> 80. MEASURED on fresh night fights, the demo,
+  CPU 4x, GPU canvas, alternating: the strip 2.4 to 2.9 s, the rows 1.2 to 4.4 s: this box's software GPU drawing the whole board when it
+  is first read; read 0.4 s later the same (1.7 to 2.0 s). On a phone's GPU that raster is far quicker; the reads are what it waits on.
+  F1 still red on the fight on AUTO (12 and 19 freezes against 6, 1.6 fps; the run before 6.9 fps, the walk's fight varies, my code
+  runs only at the bake). NEXT: the 17 never re-checked, one at a time; THE WHOLE LOOP PLAYS and its published twin alone.
+
 PLUMBER 8 (chat 18) 11/22, rule 461 (the coordinator's 'PLUMBER 8: unstuck, carry on'). THE FULL SUITE IS ANSWERED: all 1,181 gates on
   the table by a real run (the first 982 on main 5883b97c, the last 199 on 2bb6386d after the restart; a dry run's fake answer is never
   counted): 747 green, 434 red (4 more red in the pack were green alone). THE LEDGER: 43 debt lines lifted (green for real), 105 NEW

@@ -6709,14 +6709,30 @@ function moonFor(img, x, y) {
    its board here), and where a GPU draws the board each read is a round trip to it. The four points lie on two rows a tile row, so
    each row is read once, whole, and the same pixels come out of it (tools/bohemia_freeze_census.js counted 1,201 reads at the lot's
    open). window.__GROUND_LUMS_PER_POINT = true is the old way. */
+/* __THE_ROWS_COME_BACK_IN_ONE_READ__ (PLUMBER 8, 11/22/26; rule 441(c), NO FREEZE OVER HALF A SECOND K4): a row a read was still two
+   read-backs a tile row, 30 at a fight's start and 60 at a boss's (a 30-row board): 90 of the walk's 151 waits on the GPU, measured by
+   the census's new per-step breakdown. Every row the tiles need is copied first, GPU to GPU, onto one strip as tall as the rows
+   (a fresh canvas, so source-over on nothing is the source, the same pixels), and the strip is read back ONCE.
+   window.__GROUND_LUMS_PER_ROW = true is the 11/10 way (a read a row); window.__GROUND_LUMS_PER_POINT = true the way before it. */
 function groundLums(c) {
   const S = FIGHT.S, g = c.getContext('2d'), out = new Float32Array(S.w * S.h);
   const lin = function (v) { v /= 255; return v <= .04045 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); };
-  const ROWS = new Map(), one = !!window.__GROUND_LUMS_PER_POINT;
-  const at = function (px, py) { if (one) return g.getImageData(px, py, 1, 1).data; let r = ROWS.get(py); if (!r) { r = g.getImageData(0, py, c.width, 1).data; ROWS.set(py, r); } return r.subarray(px * 4, px * 4 + 4); };
+  const ROWS = new Map(), one = !!window.__GROUND_LUMS_PER_POINT, perRow = !!window.__GROUND_LUMS_PER_ROW;
+  const PTS = [[.08, .2], [.92, .2], [.08, .6], [.92, .6]];
+  const rowOf = function (y, o) { return Math.min(c.height - 1, Math.floor((y + o[1]) * UI.th)); };
+  if (!one && !perRow) {
+    const want = []; for (let y = 0; y < S.h; y++) PTS.forEach(function (o) { const r = rowOf(y, o); if (!ROWS.has(r)) { ROWS.set(r, want.length); want.push(r); } });
+    const strip = document.createElement('canvas'); strip.width = c.width; strip.height = Math.max(1, want.length);
+    const sg = strip.getContext('2d'); sg.imageSmoothingEnabled = false;
+    want.forEach(function (r, k) { sg.drawImage(c, 0, r, c.width, 1, 0, k, c.width, 1); });
+    const all = sg.getImageData(0, 0, strip.width, strip.height).data, W = c.width * 4;
+    want.forEach(function (r, k) { ROWS.set(r, all.subarray(k * W, k * W + W)); });
+    strip.width = 0;
+  }
+  const at = function (px, py) { if (one) return g.getImageData(px, py, 1, 1).data; let r = ROWS.get(py); if (!r || typeof r === 'number') { r = g.getImageData(0, py, c.width, 1).data; ROWS.set(py, r); } return r.subarray(px * 4, px * 4 + 4); };
   for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) {
-    const v = [[.08, .2], [.92, .2], [.08, .6], [.92, .6]].map(function (o) {
-      const d = at(Math.min(c.width - 1, Math.floor((x + o[0]) * UI.tw)), Math.min(c.height - 1, Math.floor((y + o[1]) * UI.th)));
+    const v = PTS.map(function (o) {
+      const d = at(Math.min(c.width - 1, Math.floor((x + o[0]) * UI.tw)), rowOf(y, o));
       return .2126 * lin(d[0]) + .7152 * lin(d[1]) + .0722 * lin(d[2]); }).sort(function (p, q) { return p - q; });
     out[y * S.w + x] = (v[1] + v[2]) / 2;
   }
