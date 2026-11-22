@@ -28,8 +28,9 @@ PLUMBER 8 (chat 18) 11/22, BUILD 11/22t THE PEOPLE COME IN BEHIND THE TOWN (row 
   two AUTO steps are held at their measured count and worst plus 30%, routed to COMBAT (row 699), so F1 judges the rest of the walk again.
   FILED: row 697 RUN TWO (the end screen's LEAVE under a scroll, rule 402), row 698 JOBS (the deal and the reads), row 699 COMBAT (the
   men drawn every frame), row 700 UI FOUR (the pop-up watcher on every frame of a fight, 4%).
-  STILL RUNNING AT THE SHIP (scratchpad final_batch.txt): FIRST PLAY IS LIGHT in full, THE BOARDS ALWAYS HAVE WORK, NO FREEZE: strike each green
-  one from the list (strike3.py) the next round; THE SITE SERVES 's L4/L5 reds were my own pull mid-run (two boards landed), re-running --quick.
+  AFTER THE SHIP, alone on 4f6aac2ec: FIRST PLAY IS LIGHT 7/0 (16.9 MB) and THE BOARDS ALWAYS HAVE WORK 24/0 struck (401 NAMED, 312 LEFT);
+  THE SITE SERVES 5/0; THE SONGS GO IN 85/1 in 326 s (SOUNDS' line: a recording's beat 50 ms off). NO FREEZE was still walking: strike it if green
+  (strike3.py). THE SITE SERVES' L4/L5 reds in the run before were my own pull mid-run (two boards landed); --quick on the ship is 5/0.
 
 PLUMBER 8 (chat 18) 11/22, THE LAST 16 ANSWERED ALONE (rule 461; main 1d292b08c, one gate at a time, 6,874 s).
   5 GREEN, struck from the list and their rows: THE PHONE (678), THE BIG INSIDES (679; COMBAT FOUR split it in two entries since, the
