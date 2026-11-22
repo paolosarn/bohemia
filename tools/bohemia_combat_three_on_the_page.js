@@ -278,7 +278,8 @@ const HOOKS = `(function(){
     fs.writeFileSync(path.join(OUT, 'page.json'), JSON.stringify({ which: WHICH, way: WAY, want: WANT, viewport: VP, errs, results }, null, 1));
     /* out: the spoils' LEAVE, the map again */
     await until(async () => !!frame(/SPOILS_SCREEN/) || !fightF(), 20000); await wait(1500);   /* the end screen comes late after a wipe-out: never open the next fight under it */
-    for (let i = 0; i < 14; i++) { const sp = frame(/SPOILS_SCREEN/); if (!sp) break; await tapText(sp, 'button', '^LEAVE$'); await wait(3000); }
+    for (let i = 0; i < 14; i++) { const sp = frame(/SPOILS_SCREEN/); if (!sp) break; try { await tapText(sp, 'button', '^LEAVE$'); } catch (e) { if (!/detached/i.test(String(e))) throw e; }   /* the spoils screen closed itself between finding it and the tap (COMBAT FOUR 11/22: 'Frame was detached' after a fight that had ended clean) */
+      await wait(3000); }
     await until(async () => !fightF() && !frame(/SPOILS_SCREEN/) && await city().evaluate(() => !LOOP.fighting), 40000);
     try { if (await city().evaluate(() => !!LOOP.open)) { await anyFrameTap('button.lv', 'LEAVE'); await wait(1500); } } catch (e) {}
     await wait(1200);
