@@ -1363,7 +1363,13 @@ Earlier: 11/9c, 11/9f, 11/9j, fourteen places that talk. Still open: the bus yar
 handoffs/WORLD_FOURTEEN.md.
 [bb Battle Brothers' company events steal from the stash and call a man home; ours are the plasma van, the swollen cans and the rent crew.]
 [analog horror: the dead bank machine still runs on its own battery, says her balance is zero every morning, and asks if she would like a receipt.]
-HOME BASE 3: 11/22 LATEST -- BUILD 11/22zm - THE GRINDER (8d48346ba), BUILT, NOT YET SEEN (rule 469, ask row 638; rule 466(a) steps 2 and 3, ask
+HOME BASE 3: 11/22 LATEST -- BUILD 11/22zt - THE OVERFLOW (a21c89ea6), BUILT, NOT YET SEEN (rule 466(a) step 4, ask row 663): at his
+place a building whose row is full now stands on a free lot of the row behind it, its own picture there, instead of not being drawn; the
+desk greys a build only when there is no room for it anywhere it can stand. Seven middle-row buildings drawn for the back row; the front
+five next (handoffs/HOME_BASE.md). Gate YOUR PLACE, PLANTED F7: upright 136/0, sideways 133/0. No VOTE card: nothing new to see until a row is full.
+[bb Battle Brothers' camp upgrades take fixed slots; ours stand where the block has room, the back row higher.]
+[analog horror: when the middle row fills, the new one goes up on the back terrace, smaller in every camera.]
+HOME BASE 3: 11/22 EARLIER -- BUILD 11/22zm - THE GRINDER (8d48346ba), BUILT, NOT YET SEEN (rule 469, ask row 638; rule 466(a) steps 2 and 3, ask
 row 663). His place has a fourth building of his own, the GRINDER (1 battery, 3 tape, the middle row; in the security footage a block
 smokehouse, a butcher's table with a hand grinder, a rail of links). A fight he wins brings its people home, as many as his men carry (3
 carry 1); a kill's leftover meat comes too. Tap it, one line ('Head comes off first. Every fucking time.'), one button: GRIND, 26 food a

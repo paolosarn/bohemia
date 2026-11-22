@@ -1,18 +1,14 @@
 HOME BASE 3 (session_01GKDyutkCNC5cSDNauAG37o): 11/22 LATEST -- BUILD 11/22zm - THE GRINDER (8d48346ba) (rule 469, ask row 638) and the cameras' steps
 2 to 4 (rule 466(a), ask row 663): the skewed board's code in the graveyard, the cameras' hum ASKED of SOUNDS (ask row 720), and THE OVERFLOW
-IN FLIGHT (step 4, below). Record records/BOHEMIA_HOME_BASE_THE_GRINDER_11_22_26.md. VOTE
+(step 4, BUILD 11/22zt, a21c89ea6: a piece whose row is full stands on a lot behind it, its own picture). Record records/BOHEMIA_HOME_BASE_THE_GRINDER_11_22_26.md. VOTE
 card home-base-the-grinder-11-22.
 
-## THE NEXT JOB: 466(a) STEP 4, THE OVERFLOW (IN FLIGHT when this was written)
-1. The renders: `nice -n 19 /tmp/v/bin/python tools/bohemia_home_settlement_pipeline_11_3_26.py piece <id> --behind-only` for the middle
-   pieces (grinder, forge, shed, pump, garden_bed, water_tank, solar_panel) onto the back lots, then the front five (wall, stall, yard,
-   main, purifier) onto the middle and back; then `python3 tools/bohemia_home_settlement_pipeline_11_3_26.py post_add <ids>` (merges into
-   the entries it had, rows: [...]). About 6 minutes a piece for 4 lots alone on 4 cores. Needs the raw empty plate (`... empty`, 30 s)
-   and the venv (python3.11 -m venv /tmp/v && /tmp/v/bin/pip install bpy==4.2.0 numpy pillow scipy).
-2. The screen: homeFeedSlots takes every piece's own row first, then the leftovers onto a free lot of a row behind that has their picture
-   (HF.over, __HOME_FEED.over); homeFeedRowFull reads every row the piece has pictures for. Gate leg F7 (nine middle buildings: four in the
-   middle, the rest on the back with their own pictures; planted: the pictures behind taken off, nothing drawn).
-3. If he answers the defaults in the record's DECIDED HERE (his own dead ground or not; the -10; never him): one line each.
+## THE NEXT JOB: THE FRONT ROW BEHIND (the last of 466(a))
+1. Render the five front pieces onto the middle and back lots: `nice -n 19 /tmp/v/bin/python tools/bohemia_home_settlement_pipeline_11_3_26.py
+   piece <wall|stall|yard|main|purifier> --behind-only` (8 lots each, about 11 minutes a piece alone on 4 cores), then `python3
+   tools/bohemia_home_settlement_pipeline_11_3_26.py post_add <ids>`. Needs the raw empty plate first (`... empty`, 30 s) and the venv
+   (python3.11 -m venv /tmp/v && /tmp/v/bin/pip install bpy==4.2.0 numpy pillow scipy). The screen places them already.
+2. If he answers the record's DECIDED HERE (his own dead ground or not; the -10; never him): one line each.
 
 ## THE GRINDER, WHERE IT LIVES (for any lane)
 - engine/bohemia_grinder.js (BohemiaGrinder, pure): bring (the carry, the heat), pileNow, grind (one tap, the bad cut), reconcile (his
@@ -36,7 +32,9 @@ card home-base-the-grinder-11-22.
 - His place IS the 11/3 footage (__HIS_CAMERAS_AS_PROMISED__). The skewed board's code is OUT (graveyard/home_base_the_skewed_board_11_17_26/
   screen_the_skewed_board.js.txt); what stayed of __HIS_PLACE_SEEN_AS_HE_WILL_SEE_IT__: the door under the finger (the hitAt wrap), his men
   at his buildings on the footage (homeWorkers, HOME_WORK, the crewTown filter). Gate F1 holds the board dead.
-- THE OVERFLOW: in flight (THE NEXT JOB above). The pipeline's --behind-only and post_add's merge are on main with this build.
+- THE OVERFLOW (__THE_OVERFLOW__ in the screen, BUILD 11/22zt): homeFeedRowsOf(pid) is the manifest's rows for a piece (its own first);
+  every piece takes its own row first, then the leftovers a free lot of a row behind that has their picture (HF.over, __HOME_FEED.over);
+  the desk's row-full reads every row the piece has pictures for. Rendered behind: the seven middle pieces on the back lots.
 - THE HUM: ASKED (ask row 720): crashbox/feed_b.mp3, loop, 0.25, while window.__HOME_FEED.on in his place's town screen (the 11/3 page
   BOHEMIA_YOUR_SETTLEMENT.html's own hum(), after a tap).
 

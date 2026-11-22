@@ -55,9 +55,13 @@ Rule 460 holds: the smokehouse and the salt are in the picture; sausage in the s
 - **STEP 3, THE CAMERAS' SOUND**: the 11/3 page he said YES to played crashbox/feed_b.mp3 (the starred night feed's hum, loop, volume 0.25,
   after a tap). SOUNDS owns the mix, so it is ASKED, not wired: ask row 720 names the file, the volume, and where the feed says it is on
   (window.__HOME_FEED.on in his place's town screen).
-- **STEP 4, THE OVERFLOW**: IN FLIGHT as its own build after this one (a piece whose row is full stands on a free lot of a row behind it,
-  with its own picture for that lot: the pipeline's new `piece <id> --behind-only`, merged into the manifest by post_add; the screen's
-  placement and the desk's row-full and the gate leg F7 are written and wait for the renders). This build carries the pipeline's option.
+- **STEP 4, THE OVERFLOW** (BUILD 11/22zt, a21c89ea6): a piece whose row is full now stands on a free lot of a row behind it, with
+  its own picture for that lot (the pipeline's `piece <id> --behind-only`, merged by post_add; each row behind stands higher and allows taller,
+  never a row in front). Every piece takes its own row first, the leftovers after, so the overflow never takes a back lot from a back piece.
+  The desk greys a build only when its row and every row behind that has its picture are full. RENDERED: the seven middle pieces (grinder,
+  forge, shed, pump, garden bed, water tank, solar panel) on the four back lots. NOT YET: the front five (wall, stall, yard, main,
+  purifier) behind; until then the front row says FULL when full (handoff). Gate F7: nine more middle buildings, four in the middle, the
+  rest on the back with their own pictures; planted: the pictures behind taken off, none drawn. Upright 136/0, sideways 133/0.
 
 ## SEEN ON THE GLASS (the demo, real taps, BUILD 11/22zm)
 Upright (390 x 844) and sideways (844 x 390): a new game, day 2, planted, the grinder and the forge put up, the next day a fight won with
