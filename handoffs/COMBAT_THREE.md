@@ -1,6 +1,17 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the ballpark] SHIPPED c17f7f4cf, BUILD 11/22m - THE BALLPARK, BUILT, NOT YET SEEN. VOTE combat4-the-ballpark-11-22 (stand_in).
+COMBAT FOUR (rules 461, 441, 465; ask rows 679, 684): 11/22 LATEST -- [the fight's reds] SHIPPED e2f469294, BUILD 11/22n - FIVE FIGHT REDS ANSWERED. No VOTE card (gates only).
+Record: records/BOHEMIA_COMBAT_FOUR_SEVEN_FIGHT_REDS_11_22_26.md. COMBAT's last block is 11/6, so PLUMBER 8's row-684 reds (filed to COMBAT) are answered here, each run alone first:
+SEE EVERY HIT green alone (the re-check ran before this round's fix). WEAPON SHAPES (the sweep's '1 sound') and THE FIGHT DRIVES THE MUSIC ('misses 33 of 36'): 'since' by
+FIGHT_UI.heardAll, a shield's block counted as a miss's sound. THE FIRST FIGHT TEACHES (3 legs) and THE LOSS IS UNDERSTOOD: the opening why line (FIGHT SCREEN 11/14) is up
+for about ten seconds and teach() waits for it; the gates now let it be said first. FATIGUE F6: rule 435(e)'s breath floor ('HEAVY KIT: BREATH HELD AT 20') read.
+*** FOR COMBAT TWO / TUNING: EVERY MAN HAS A JOB J3 (30 of 2839 parked, 1.06%, cap 1%) and J4 (AUTO 153 of 300, floor 158): not the insides (outdoors the same), not
+BESTIARY (the 11/18 fight read worse: 32 of 2738, 148 of 300); older than this clone's history. Floor not lowered. Bisect from 11/2 on a full clone. ***
+*** FOR FIGHT SCREEN: an aim while the why line is up teaches nothing at that aim (the lesson comes on the next aim); if it should wait its turn, that is teachSoon's. ***
+NEXT: more boards (the jobs office, built and measured 17% bare; the radio station; the water treatment plant); the big insides gate is 437 s for 29 (cap 600): split it
+in two suite entries before it nears the cap.
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the ballpark] SHIPPED c17f7f4cf, BUILD 11/22m - THE BALLPARK, BUILT, NOT YET SEEN. VOTE combat4-the-ballpark-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_BALLPARK_11_22_26.md. More boards (rule 461): the ballpark ('ballpark', the Las Vegas Ballpark in Summerlin, 0.4): the_concourse (concession stands, the team store, tables,
 bins, condiment stations, beer carts, the restrooms' block walls that hide a man, the tunnels to the seats lit by day) and the_clubhouse (lockers that hide a man, batting
 cages seen through, pitching machines, trunks, weights, benches, the trainers' tables and tubs, laundry carts). 21 tile kinds, 18 pieces all stand-ins (I13 green);

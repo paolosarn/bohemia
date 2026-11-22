@@ -1,4 +1,8 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22m - THE BALLPARK, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22n - FIVE FIGHT REDS ANSWERED (rules 461, 441; ask rows 679, 684). Its block is handoffs/COMBAT_THREE.md.
+PLUMBER 8's fight reds (COMBAT idle since 11/6, so answered here): SEE EVERY HIT green alone; WEAPON SHAPES and THE FIGHT DRIVES THE MUSIC read sounds by the running count, a block
+counted; THE FIRST FIGHT TEACHES and THE LOSS IS UNDERSTOOD let the opening why line be said first; FATIGUE F6 reads rule 435(e)'s breath floor. All green alone. EVERY MAN HAS A
+JOB J3/J4 measured (not the insides, not BESTIARY; red already on 11/18) and routed to COMBAT TWO / TUNING. records/BOHEMIA_COMBAT_FOUR_SEVEN_FIGHT_REDS_11_22_26.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22m - THE BALLPARK, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE BALLPARK: two fights in five at the ballpark are fought under the stands: the concourse (concession stands, the team store, tables, beer carts, the restrooms, the tunnels to
 the seats lit by day) or the clubhouse (lockers that hide a man, batting cages seen through, pitching machines, the weight room, the trainers' tubs).
 GATE THE BIG INSIDES 507/0 (twenty-nine insides, 437 s alone). ON THE PAGE: 11 fights under the stands on the demo and the alpha, upright and on its side, both rooms, all ended, 53 of 54 tile taps (one miss the tool's camera race; the rerun 13 of 13), 0 page errors. VOTE combat4-the-ballpark-11-22.
