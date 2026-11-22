@@ -1,5 +1,20 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN and from 11/21 by WORLD FIFTEEN, its successor; newest block on top)
 
+WORLD FIFTEEN, ROUND TWO, BUILD FIVE (11/22; the coordinator's routines on 473(d) and 476: both read, both already shipped; one answer
+changed). BUILD 11/22zq - NO BOSS AT THE EDGE.
+- 473(d) WHAT I KEPT AND WHY: NOTHING at the edge. 11/22zl kept one found boss pointer (the boss he is on) on my own reasoning; the routine's
+  test is 'keep one only if a ruling stands behind it', and none does: rule 243(b)(3) marks a found boss ON HIS MAP where he stands
+  (__NO_BOSS_AT_THE_EDGE__ in bohemia_his_map.js; edge() has no caller). On the page: three found off the glass, 0 at the edge, one on the
+  glass drawn. Edge names left on the map after this: none of this lane's (JOBS 2 took the side work's off, 11/22zo).
+- WORLD TWO's gates/his_map_gate.js re-aimed to the newer rules: B2 reads 'marked where he stands'; F1 to F4 and C1 measure the faint city
+  with the real fog's cover lifted (the after-the-Surveyor view); F6 reads the dead channel. HIS MAP 41/1, phone and computer; the one red
+  is B6 on the computer ('the next boss's sign turns up near where he fell: no sign', the ladder's own placing, green on the phone this
+  run): FOR WORLD TWO / BOSSES, not touched here.
+- 476 (a) and (b): shipped as 11/22zn and 11/22zp (no footprints; the dead small at every zoom, five zooms both ways, demo and alpha).
+  The camp's and the arena's own ground marks were never touched.
+[bb Battle Brothers puts a found place on the map, not an arrow on the screen's rim.]
+[analog horror: you know where he is; nothing on the screen points you there.]
+
 WORLD FIFTEEN, ROUND TWO, BUILD FOUR (11/22; rule 476(b), ask row 717; part of 470(d)). BUILD 11/22zp - THE DEAD SHRINK WITH THE MAP.
 BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_15_THE_DEAD_SHRINK_WITH_THE_MAP_11_22_26.md. VOTE world15-the-dead-shrink-with-the-map-11-22 (tile, STAND-IN).
 - MEASURED: WORLD 12's kill on the map (bohemia_carcass.js heap) was drawn at the people's size (MAP_PEOPLE_K never under 0.55): a pool

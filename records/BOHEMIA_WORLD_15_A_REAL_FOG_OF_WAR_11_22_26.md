@@ -28,9 +28,11 @@ haven't discovered, cause right now you can see everything, it's just dark kind 
 
 ## RULE 473: THE MAP'S OTHER EDGE NAMES (WORLD 15's part)
 Measured: the side work's edge names are JOBS 2's (bohemia_job_kinds.js). The other edge name on the map is a FOUND BOSS off the glass
-(WORLD TWO's edge(): his skull and name at the glass's edge, one for every boss found and not killed). KEPT: ONE, the boss he is on (the
-first found on HIS ladder), because it is the story's one thread and one mark is not clutter. TAKEN OUT: every other found boss at the
-edge; each stays marked where it stands (its skull on its place), found by looking, the way side work is now (rule 473(b)).
+(WORLD TWO's edge(): his skull and name at the glass's edge, one for every boss found and not killed). 11/22zl kept one (the boss he is
+on); the coordinator's word then was to keep one ONLY IF A RULING STANDS BEHIND IT, and none does: rule 243(b)(3) marks a found boss on
+his map WHERE HE STANDS, never a pointer at the edge. So 11/22zq takes the last one off: NOTHING waits at the edge; every found boss is
+his skull on his place, found by looking or by pulling out. WORLD TWO's gate: B2 now reads 'marked where he stands', and F1 to F4 and C1
+measure the faint city with the cover lifted (what he sees after the Surveyor falls); F6 reads the dead channel.
 
 ## PROVED (gates/a_real_fog_of_war_gate.js, A REAL FOG OF WAR (demo) and (alpha), a phone both ways)
 F1 NOTHING UNDER IT: the unseen ground is the very same pixels by day and by night under the cover, at the far stop and up close

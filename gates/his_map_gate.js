@@ -163,6 +163,9 @@ async function run(prof) {
       satHis: mean(colourful.map(q => sat(q.his))), satOpen: mean(colourful.map(q => sat(q.open))), satCorr: corr(colourful.map(q => sat(q.his)), colourful.map(q => sat(q.open))), nColour: colourful.length,
       painted: s.length ? s.filter(q => Math.max(Math.abs(q.his[0] - q.open[0]), Math.abs(q.his[1] - q.open[1]), Math.abs(q.his[2] - q.open[2])) <= 10).length / s.length : 0 };
   };
+  /* WORLD 15 11/22 (rule 470(c), newer than 243(b)(1)): the faint city is now what he sees AFTER THE SURVEYOR FALLS; until then the
+     real fog's dead channel covers it (gates/a_real_fog_of_war_gate.js). F1 to F4 and C1 measure the faint city with that cover lifted. */
+  await fr.evaluate(() => { if (window.BohemiaRealFog) BohemiaRealFog.on = false; });
   const fd = await faintAt(1); await shot('2_default_stop');
   const fw = whole ? await faintAt(whole) : null; await shot('3_whole_valley');
   /* at the default stop a block is 18 px and the shape is the city's (6 steps at least); with the whole valley on the glass a block
@@ -189,6 +192,7 @@ async function run(prof) {
     const z = BohemiaHisMap.size(); return { on: mid(a), off: mid(b), mb: z ? z.bytes / 1048576 : 99, w: z && z.w, h: z && z.h }; });
   ok('C1 ' + prof + ': the faint city costs at most 6 ms a frame over RUN\'s dark (RUN\'s own line for a map feature, THE MAP STANDS TALLER C1), its canvases at most 2 MB', cost.on - cost.off <= 6 && cost.mb <= 2,
      cost.on.toFixed(1) + ' ms against ' + cost.off.toFixed(1) + ' ms; ' + cost.mb.toFixed(2) + ' MB (' + cost.w + ' x ' + cost.h + ')');
+  await fr.evaluate(() => { if (window.BohemiaRealFog) BohemiaRealFog.on = true; });   /* the cover back: the stranger's game as it is */
 
   /* ---------- (3) B2: walk to the sign ---------- */
   await go([s0.boss.sign.x, s0.boss.sign.y]); await settle();
@@ -215,12 +219,15 @@ async function run(prof) {
   });
   await shot('4b_close_end_unseen');
   await fr.evaluate(() => { setZoomAt(1); panX = 0; panY = 0; try { camHold(); } catch (e) {} render(); });
-  ok('F6 ' + prof + ': after a trip the new ground is painted; at the closest stop, ground he has not seen is the grey tape', tripPainted >= 0.9 && !!close && close.onGlass && close.lum >= 15 && close.lum <= 150 && close.sat <= 0.06,
+  /* WORLD 15 11/22 (rule 470(c), newer than 243(b)(1)): until THE SURVEYOR falls the unseen ground is the real fog's dead channel (dark,
+     nothing under it); after his fall, the grey tape as before */
+  const realFog = await fr.evaluate(() => !!(window.BohemiaRealFog && BohemiaRealFog.on && !BohemiaRealFog.lifted()));
+  ok('F6 ' + prof + ': after a trip the new ground is painted; at the closest stop, ground he has not seen is ' + (realFog ? 'the dead channel (rule 470(c))' : 'the grey tape'), tripPainted >= 0.9 && !!close && close.onGlass && (realFog ? close.lum <= 60 : (close.lum >= 15 && close.lum <= 150 && close.sat <= 0.06)),
      Math.round(tripPainted * 100) + '% of ' + trip.seen.length + ' newly seen patches painted; the closest stop (block ' + (close ? close.tw.toFixed(0) + ' px' : '?') + ') on unseen ground: light ' + (close ? close.lum.toFixed(0) + ', saturation ' + close.sat.toFixed(2) : 'no ground found'));
   const s1 = await st(), bn = s0.boss.sign.n, f = s1.boss.found[bn];
   const row = await fr.evaluate((n) => BohemiaHisMap.data().bosses.filter(b => b.n === n)[0], bn);
   const fogCleared = f ? await fr.evaluate((f) => fogSeen(f.x, f.y), f) : false;
-  const drawnB = f && s1.drew && (s1.drew.boss || []).some(b => b.n === bn) || (s1.drew && s1.drew.edge > 0);
+  const drawnB = f && s1.drew && ((s1.drew.boss || []).some(b => b.n === bn) || (s1.drew.offFound | 0) > 0);   /* WORLD 15 11/22 (rule 473(d)): marked where he stands; off the glass nothing waits at the edge */
   ok('B2 ' + prof + ': walking to the sign marks the boss on the map', !!f && fogCleared && drawnB && (row.district.indexOf(f.dk) >= 0 || f.fallback),
      f ? bn + ' at ' + f.x + ',' + f.y + ' (' + f.dk + (f.fallback ? ', the fall-back' : '') + '), the static cleared ' + fogCleared + ', drawn ' + JSON.stringify(s1.drew.boss || s1.drew.edge) : 'not found');
 

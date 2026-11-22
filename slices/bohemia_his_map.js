@@ -419,9 +419,10 @@
         S.places.forEach(function (P) { if (painted(P.n)) { LAST.drew.places = (LAST.drew.places | 0) + 1; LAST.drew.placesPainted = (LAST.drew.placesPainted | 0) + 1; return; } var p = ground(P.x, P.y, ox, oy); if (!onGlass(p)) return; blit(gx, 'door', p.sx + 6 * scale() / 2, p.sy - 2); plate(gx, P.name, p.sx, p.sy + 1, PAL.y); LAST.drew.places = (LAST.drew.places | 0) + 1; });
         var s = S.boss.sign;
         if (s && !hidden(s.x, s.y)) { var ps = ground(s.x, s.y, ox, oy); if (onGlass(ps)) { blit(gx, s.kind, ps.sx, ps.sy - 2, (beat % 2) ? 1 : 0.7); LAST.drew.sign = { x: Math.round(ps.sx), y: Math.round(ps.sy) }; } }
-        /* __ONE_BOSS_AT_THE_EDGE__ (WORLD 15, 11/22, rule 473: 'I don't want waypoints... I have like 14 white points on my map'): of the
-           bosses he has found and not killed, only the one he is on (the first on HIS ladder) waits at the glass's edge when he is off it;
-           the others are marked where they stand (their skull on their place, found by looking, the way side work now is) */
+        /* __NO_BOSS_AT_THE_EDGE__ (WORLD 15, 11/22, rule 473(d): 'I don't want waypoints... I have like 14 white points on my map'; keep
+           an edge name only if a ruling stands behind it): no ruling does. Rule 243(b)(3) marks a found boss ON HIS MAP where he stands
+           (his skull on his place, the static cleared round it), never a pointer at the glass's edge; so a found boss off the glass waits
+           where he is, found by looking or by pulling out, the way side work is now (473(b)). edge() below has no caller since. */
         var offB = [];
         for (var n in S.boss.found) {
           var f = S.boss.found[n], down = !!S.boss.fallen[n], pb = ground(f.x, f.y, ox, oy);
@@ -432,7 +433,7 @@
             LAST.drew.boss = LAST.drew.boss || []; LAST.drew.boss.push({ n: n, x: Math.round(pb.sx), y: Math.round(pb.sy), down: down, quiet: quiet });
           } else if (!down) offB.push({ p: pb, n: n, i: (row(n) || {}).i != null ? row(n).i : 99 });
         }
-        if (offB.length) { offB.sort(function (a, b) { return a.i - b.i; }); edge(gx, offB[0].p, offB[0].n); LAST.drew.edgeKept = offB[0].n; LAST.drew.edgeLeft = offB.length - 1; }
+        if (offB.length) LAST.drew.offFound = offB.length;   /* found, not killed, off the glass: marked where he stands, nothing at the edge */
       }
       /* his pins and the crosses: every zoom, one size, the game's own ink */
       S.crosses.forEach(function (c) {
