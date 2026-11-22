@@ -13,7 +13,7 @@
          party now sized for twelve (Battle Brothers' contract math: 12 strongest, 10 + 2 a level); a roaming party a little
          bigger (the wiki: 'slightly'); the fight he walks into has that many of them
      N   EVERY PLACE A JOB NAMES IS ON THE MAP, NAMED AND MARKED: the carts go to PRIMM, the real place, and the map says
-         PRIMM where it is; off the glass, its name at the glass's edge on the way to it; the client's town named and marked
+         PRIMM where it is; off the glass, nothing at the glass's edge (rule 473, 11/22), the phone's line walks there; the client's town named and marked
      D   DROP A JOB, BATTLE BROTHERS' WAY: the job goes, the client's standing pays for it, the phone says so plainly
 
    On his computer's screen (he played on his PC), JOBS_PART_PROFILE=phone_portrait for the phone.
@@ -217,22 +217,20 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
       ok('N2 the job says the place, which way and how far ("' + said.slice(0, 200) + '")', /PRIMM, (south|north|east|west|south-east|south-west|north-east|north-west), about \d+ blocks/.test(said));
       await fr.evaluate(() => render());
       let m = await fr.evaluate(() => (window.__JOB_MARKS || []).filter(x => x.id === 'qd-ar05')[0] || null);
-      ok('N3 PRIMM is off the glass, and its name waits at the glass\'s edge, pointing (' + (m ? '"' + m.label + '" at ' + m.ex + ',' + m.ey + ', on the glass: ' + m.on : 'no mark') + ')',
-        !!m && !m.on && m.label === 'ESCORT TO PRIMM' && m.ex >= 0 && m.ey >= 0);
+      /* RE-AIMED 11/22 by JOBS TWO to rule 473 (Paolo 11/22: 'I don't want direction arrows... just have the part highlighted when you're
+         close'): off the glass NOTHING waits at the glass's edge; the phone's line is the way there (N5) */
+      ok('N3 PRIMM is off the glass, and nothing waits at the glass\'s edge for it, no name and no point (rule 473) (' + (m ? '"' + m.label + '", on the glass: ' + m.on + (m.box ? ', AN EDGE NAME at ' + m.box.join(',') : '') : 'no mark') + ')',
+        !!m && !m.on && m.label === 'ESCORT TO PRIMM' && !m.box && m.ex == null);
       const named = await fr.evaluate((from) => ({ says: BohemiaJobKinds.names(from), plate: (window.__GROUNDLABELS || []).some(b => b.t === String(from).toUpperCase()) }), j.from);
       ok('N4 the client\'s town, ' + j.from + ', is named on the map while the job is held (' + JSON.stringify(named) + ')', named.says === 'named' && named.plate);
       await shot('N_edge_primm');
-      /* a finger on the name at the edge walks toward PRIMM */
-      if (m && m.box) {
-        if ((await shell()).fight) await forceWin();
-        const cv = await fr.evaluate(() => { const r = document.getElementById('cv').getBoundingClientRect(); return { x: r.left, y: r.top }; });
-        const fb = await cityBox();
-        await d.page.mouse.click(fb.x + cv.x + m.box[0] + m.box[2] / 2, fb.y + cv.y + m.box[1] + 5);
-        await d.page.waitForTimeout(400);
-      }
+      /* RE-AIMED 11/22 (rule 473(c), rule 448: the phone is the door): a finger on the job's line on the phone sets out for PRIMM */
+      if ((await shell()).fight) await forceWin();
+      const pl = await d.page.evaluate(() => { const e = document.querySelector('#bohphone .home .jobs .jc[data-job="qd-ar05"]'); if (!e) return null; const r = e.getBoundingClientRect(); return { x: r.x + r.width / 3, y: r.y + r.height / 2 }; }).catch(() => null);
+      if (pl) { await d.page.mouse.click(pl.x, pl.y); await d.page.waitForTimeout(1200); }
       const go = await fr.evaluate(() => TRAVEL && TRAVEL.to ? TRAVEL.to.slice() : null);
       j = await job('qd-ar05');
-      ok('N5 a touch on that name sets out for PRIMM (' + JSON.stringify(go) + ', the gate at ' + (j ? j.target.x + ',' + j.target.y : '?') + ')', !!go && !!j && Math.max(Math.abs(go[0] - j.target.x), Math.abs(go[1] - j.target.y)) <= 1);
+      ok('N5 a touch on the job\'s line on the phone sets out for PRIMM (' + (pl ? 'the line pressed' : 'NO LINE ON THE PHONE') + '; ' + JSON.stringify(go) + ', the gate at ' + (j ? j.target.x + ',' + j.target.y : '?') + ')', !!pl && !!go && !!j && Math.max(Math.abs(go[0] - j.target.x), Math.abs(go[1] - j.target.y)) <= 1);
       /* the road to PRIMM, with whoever comes for the carts on it (a fight the gate ends as cleared, said) */
       let fights = 0, arrived = false;
       for (let k = 0; k < 12 && !arrived; k++) {

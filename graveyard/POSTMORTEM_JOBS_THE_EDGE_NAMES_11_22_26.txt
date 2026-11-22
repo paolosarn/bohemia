@@ -1,0 +1,27 @@
+POSTMORTEM -- THE EDGE NAMES AND THEIR POINTS (the waypoint arrows on the map)
+Killed 11/22/26 by Paolo, VAMILY rule 473 (NO WAYPOINT ARROWS ON THE MAP). Removed by JOBS TWO, BUILD 11/22zi.
+
+WHAT IT WAS
+slices/bohemia_job_kinds.js markPlace(): when a held job's next place, the phone's lit town (markPhone) or a side quest's place
+(BohemiaRoadEvents.places()) was off the glass, its name ('ESCORT TO PRIMM', 'JOB AT REMNANTS', 'FIND · <PLACE>') was drawn at the
+glass's edge on the line from the middle of the glass toward it, with a small amber wedge pointing (wedgesDraw, drawn over the fog),
+and both took a touch that walked there. Rule 164 item 3 (10/24, 'show me where the job is') asked for the place to be named; WORLD
+[eyes: the place in the dark] moved the names out from under the phone; this file kept them since.
+
+WHY IT DIED, HIS WORDS (11/22)
+'with the side quest on the map... I don't want direction arrows if my map is zoomed in... if a bunch of side quests are populating and
+I'm not completing them, then my whole map gets cluttered with waypoint arrows towards these little side quests... just have the part
+highlighted when you're close, like when you see it normally on the map, but I don't want waypoints... I have like 14 white points on my
+map for these offshoot side location missions.'
+
+THE LESSON
+A pointer per thing scales with the things. One job's arrow was help; fourteen side places' arrows were a frame of clutter round the
+whole glass, every one of them stacked on the same edge. Battle Brothers marks a contract's place where it stands and never points at
+the edge; you find it by looking, and the contract's own screen says where. Ours: the place is ringed where it stands when it is on the
+glass, and the phone's job line says which way and walks there (rule 448).
+
+WHAT STAYS
+The ring and the name on the glass (markPlace's on-the-glass half); the phone's line and its which-way mark; a tap on the ring walks there.
+
+A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME: no name, point, chevron or count at the glass's edge for a place off the glass, for a
+job or a side quest, in any colour. Held by gates/no_waypoints_gate.js (W1 the files, W2 the phone).

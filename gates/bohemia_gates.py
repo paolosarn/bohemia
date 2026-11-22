@@ -2431,6 +2431,11 @@ GATES = [
      'below Neutral a town charges more and pays less (the Game Guide), and its bar changes what it offers (no three-skull work below '
      'Neutral, one job at Hostile, one more from Friendly); a settled job kept until the town\'s bands load; on the phone, the demo and '
      'the alpha both ways (records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md).', True),
+    ('NO WAYPOINTS', ['node', 'gates/no_waypoints_gate.js'],
+     'JOBS TWO 11/22, rules 473, 441: Paolo, \'I don\'t want direction arrows... just have the part highlighted when you\'re close... '
+     'I have like 14 white points on my map\': a job or side quest off the glass puts nothing at the glass\'s edge (no name, no point); on '
+     'the glass it is ringed where it stands; the phone\'s job line walks there; on the phone, the demo and the alpha both ways, 14 side '
+     'places and two jobs (records/BOHEMIA_JOBS_TWO_NO_WAYPOINTS_11_22_26.md).', True),
     ('CLOUT IS FOLLOWERS', ['node', 'gates/clout_is_followers_gate.js'],
      'JOBS 2 11/22, rules 470(b), 466(c), 441: Paolo on jobs-do-less-show-the-clout, \'Put followers... kind of like your reputation\': '
      'the company\'s one count (Battle Brothers\' Renown) is said as FOLLOWERS on the map\'s bar and on the FEED\'s profile, the numbers '

@@ -18,8 +18,8 @@
          (the carts to PRIMM, the dam, the pass, the lodge, the fossil beds) is one of the phone's two; that place is out of the
          dark too, the land beside it dark, and named on the map at a stop where it is on the glass
      D5  a touch on that card: the phone says 'TOUCH <TOWN> ON THE MAP', the town wears the lit ring; at the closest stop, off
-         the glass, its name waits at the glass's edge ('JOB AT <TOWN>') and where it goes ('TO PRIMM'), neither under the phone
-     D6  a touch on the edge name walks him to that town
+         the glass, nothing waits at the glass's edge (rule 473, 11/22: the edge names are dead)
+     D6  a touch on the job's line on the phone walks him there (rule 448: the phone is the door)
      D7  nothing threw
    node gates/the_place_in_the_dark_gate.js [phone|computer]   (both by default)
    ========================================================================== */
@@ -164,7 +164,8 @@ async function play(profile) {
            it'): the touch on the card also sets the party off and WORLD 8's camera eases in (gates/tap_a_quest_on_the_phone_gate.js
            measures that); here the journey is stopped where it got to, so the marks are read on a camera that holds still and D6's
            touch lands on the name where it is drawn */
-        for (let i = 0; i < 40; i++) { const qg = await page.evaluate(() => window.__PHONE_QUEST_GO || null); if (qg && (qg.by || qg.why)) break; await page.waitForTimeout(100); }   /* out of a town the call waits for the map's fit */
+        let qgo = null; for (let i = 0; i < 40; i++) { const qg = await page.evaluate(() => window.__PHONE_QUEST_GO || null); qgo = qg; if (qg && (qg.by || qg.why)) break; await page.waitForTimeout(100); }   /* out of a town the call waits for the map's fit */
+        const walked = await fr.evaluate(() => ({ to: TRAVEL && TRAVEL.to ? TRAVEL.to.slice() : null, at: [city.x, city.y] }));   /* where the touch on the phone set him off to (rule 473(c): the phone is the door) */
         await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
         await page.waitForTimeout(600);
         const lit = await fr.evaluate((id) => { MAP_DREW = {}; MAP_TOWN_HIT = []; render(); const cv = document.getElementById('cv').getBoundingClientRect(), pr = BOH_PHONE_RECT();
@@ -176,28 +177,18 @@ async function play(profile) {
         const mk = lit.marks[0] || null;
         ok(P + ' D5a the job he took is on the phone, a touch makes it PLAY\'s job, and where it sends him is marked on the map',
           took && lit.held && !!card && sel && !!mk, 'took ' + took + ', card "' + (card ? card.text : '-') + '"' + (sel ? ' picked' : ' NOT PICKED') + ', mark ' + (mk ? mk.label : 'none'));
-        ok(P + ' D5b on the glass, or its name waits at the glass\'s edge, never under the phone',
-          !!mk && lit.marks.every(m => m.on || (m.box && !under(m.box))),
+        /* RE-AIMED 11/22 BY JOBS TWO to rule 473 (Paolo 11/22: 'I don't want direction arrows... just have the part highlighted when
+           you're close'): on the glass it is ringed where it stands; off the glass NOTHING waits at the glass's edge */
+        ok(P + ' D5b on the glass it is marked where it stands; off the glass nothing waits at the glass\'s edge (rule 473)',
+          !!mk && lit.marks.every(m => m.on || !m.box),
           lit.marks.map(m => m.label + (m.on ? ' (on the glass)' : ' at ' + (m.box || []).join(',') + (under(m.box) ? ' UNDER THE PHONE' : ''))).join(' | ') + ' ; phone ' + [P0.x, P0.y, P0.w, P0.h].map(Math.round).join(','));
-        /* ---------------- D6: a touch on the edge name walks there ---------------- */
-        if (mk && !mk.on && mk.box) {
-          await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
-          const tx = lit.cv.x + mk.box[0] + mk.box[2] / 2, ty = lit.cv.y + mk.box[1] + 5;
-          const clear = await waitFor(async () => { const fb = await frameBox(); if (!fb) return false;
-            const outer = await page.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); return !!e && e.id === 'cityFrame'; }, [fb.x + tx, fb.y + ty]);
-            return outer && await fr.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); return !!e && e.id === 'cv'; }, [tx, ty]); }, 20000);
-          if (!clear) console.log('  (the edge name stayed covered for 20 s; touched anyway)');
-          await tapAt(tx, ty);
-          await page.waitForTimeout(600);
-          /* a town's any side is its door (RUN, rule 186(a)): the walk ends on a block touching its painted ground; any other place, on it */
-          const tr = await fr.evaluate((m) => { const to = TRAVEL && TRAVEL.to ? TRAVEL.to : null, p = BohemiaJobKinds.realPlace(m.name), t = p ? { name: p.name || m.name, x: p.x | 0, y: p.y | 0, tier: p.tier } : null;
-            let touches = false; try { touches = !!(t && to && typeof townTouches === 'function' && townTouches(t, townFoot(t), to[0], to[1])); } catch (e) {}
-            return { to, touches, door: townDoor(m.x, m.y), at: [city.x, city.y] }; }, mk);
-          const near = (a, b) => !!(a && b) && Math.max(Math.abs(a[0] - b[0]), Math.abs(a[1] - b[1])) <= 1;
-          ok(P + ' D6 a touch on the edge name walks him there', !!tr.to && (near(tr.to, [mk.x, mk.y]) || near(tr.to, tr.door) || tr.touches),
-            'travel to ' + JSON.stringify(tr.to) + ', the place ' + JSON.stringify([mk.x, mk.y]) + ', its door ' + JSON.stringify(tr.door) + (tr.touches ? ', touching it' : ''));
-          await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
-        } else ok(P + ' D6 a touch on the edge name walks him there (the place was on the glass at the near stop: its mark is the touch)', !!mk, mk ? 'on the glass' : 'no mark');
+        /* ---------------- D6 (RE-AIMED 11/22, rule 473(c), rule 448): the touch on the job's line on the phone walked him there ---------------- */
+        { const tr = await fr.evaluate((m) => { const p = BohemiaJobKinds.realPlace(m.name), t = p ? { name: p.name || m.name, x: p.x | 0, y: p.y | 0, tier: p.tier } : null;
+            return { door: townDoor(m.x, m.y), t }; }, mk || { name: '', x: 0, y: 0 });
+          const to = (qgo && qgo.to) || walked.to, near = (a, b) => !!(a && b) && Math.max(Math.abs(a[0] - b[0]), Math.abs(a[1] - b[1])) <= 2;
+          let touches = false; if (tr.t && to) touches = await fr.evaluate(([t, x, y]) => { try { return !!townTouches(t, townFoot(t), x, y); } catch (e) { return false; } }, [tr.t, to[0], to[1]]);
+          ok(P + ' D6 the touch on the job\'s line on the phone walks him there (the phone is the door; nothing at the glass\'s edge to touch)', !!mk && !!to && (near(to, [mk.x, mk.y]) || near(to, tr.door) || touches || !!(qgo && qgo.ok && qgo.going)),
+            'the phone\'s go ' + JSON.stringify(qgo && { ok: qgo.ok, by: qgo.by, to: qgo.to, why: qgo.why }) + ', travel ' + JSON.stringify(walked.to) + ', the place ' + JSON.stringify(mk && [mk.x, mk.y]) + ', its door ' + JSON.stringify(tr.door)); }
         await fr.evaluate((id) => { try { BohemiaJobKinds.drop(id); } catch (e) {} }, real.id);
       } else {
         await zoomTo('near');
@@ -214,12 +205,12 @@ async function play(profile) {
         const from = lit.marks.filter(m => /^JOB AT /.test(m.label))[0], toM = lit.marks.filter(m => /^TO /.test(m.label))[0];
         ok(P + ' D5a the phone says the town to touch, and that town is the lit one', !!lit.go && lit.route === real.place && new RegExp(String(real.place), 'i').test(lit.go) && lit.ring === 'next',
           'phone: "' + lit.go + '", lit ' + lit.route + ', ring ' + lit.ring);
-        ok(P + ' D5b off the glass, both names wait at its edge, neither under the phone',
-          !!from && !!toM && lit.marks.filter(m => /^(JOB AT|TO) /.test(m.label)).every(m => m.on || (m.box && !under(m.box))),
+        ok(P + ' D5b off the glass, nothing waits at its edge (rule 473, 11/22)',
+          !!from && !!toM && lit.marks.filter(m => /^(JOB AT|TO) /.test(m.label)).every(m => m.on || !m.box),
           lit.marks.map(m => m.label + (m.on ? ' (on the glass)' : ' at ' + (m.box || []).join(',') + (under(m.box) ? ' UNDER THE PHONE' : ''))).join(' | ') + ' ; phone ' + [P0.x, P0.y, P0.w, P0.h].map(Math.round).join(','));
 
         /* ---------------- D6: a touch on the edge name walks to that town ---------------- */
-        const target = from && !from.on ? from : null;
+        const target = from && !from.on && from.box ? from : null;   /* rule 473: an edge name is never drawn, so this old phone's leg reads the place on the glass */
         if (target) {
           await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
           /* a crew line's speech box (the outer page's, a few seconds) can stand over the bottom edge: a hand waits for it to go */

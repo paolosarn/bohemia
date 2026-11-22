@@ -363,8 +363,7 @@
      town named only when he stood beside it. NOW every row says the place its words name (BOHEMIA_JOB_KINDS.json 'place'): a
      REAL one, one of the region's real places or a valley town, is where the job goes; a made one ('the pump station') is a
      block the dice pick and carries the words' own name. The map names every place a held job names (the client's town, where
-     it goes), rings the NEXT one on its ground, and when that one is off the glass its name waits at the glass's edge, on the
-     line from the middle of the glass to it, pointing; a tap on it walks there. */
+     it goes), rings the NEXT one on its ground; a tap on it walks there. Off the glass nothing waits at the edge (rule 473). */
   function realPlace(nm) {
     if (!nm) return null; var N = String(nm).toUpperCase();
     try { var bs = ctBases() || {}; for (var k in bs) if (bs[k] && String(k).toUpperCase() === N) return { name: k, x: bs[k].x | 0, y: bs[k].y | 0, town: true }; } catch (e) {}
@@ -431,8 +430,8 @@
      NOW every place a job names (who gives it, and the real place its words send him to), from the phone through the job he
      holds, is opened in the fog the way SHOW THE TOWNS opens a town (rule 155(c)'s own small circle, kept with the game: once the
      phone told him where it is, he knows where it is), and named at every zoom; the town the lit card says to touch wears the
-     ring; when it is off the glass, its name waits at the glass's edge pointing ('JOB AT REMNANTS', and 'TO PRIMM' for where it
-     goes), and a tap there walks to it. The land between stays dark. ---------- */
+     ring; off the glass nothing waits at the glass's edge (rule 473, __NO_WAYPOINTS__: the phone's line says which way and walks
+     there). The land between stays dark. ---------- */
   function phonePlaces() {
     var out = [], have = {};
     var add = function (nm, role, id, lit) {
@@ -472,7 +471,7 @@
     if (lit.length) root.__JOB_LIT_THE_DARK = (root.__JOB_LIT_THE_DARK || []).concat(lit.map(function (n) { return { name: n, day: day() }; })).slice(-30);
     return lit.length;
   }
-  /* the lit card's places, at the glass's edge when they are off it (on the glass the map rings and names them itself) */
+  /* the lit card's places: on the glass the map rings and names them itself; off it nothing (rule 473, __NO_WAYPOINTS__) */
   function markPhone(ox, oy, bt) {
     var marks = [];
     phonePlaces().forEach(function (p) {
@@ -1793,7 +1792,7 @@
     return true;
   }
   function draw(ox, oy) {
-    HITS = []; EDGE_BOXES = []; MINE = [];
+    HITS = []; MINE = [];
     try { if (lightTheDark()) setTimeout(function () { try { render(); } catch (e) {} }, 0); } catch (e) {}   /* [eyes: the place in the dark] */
     var H = held(), bt = mapArtBeat(), kp = MAP_PEOPLE_K;
     H.forEach(function (j) { if (j.stage === 'wait') settleWait(j); });
@@ -1811,20 +1810,9 @@
     window.__JOB_MARKS = marks;
   }
   /* THE NEXT PLACE, MARKED: on the glass a ring on its ground that breathes on the beat, and a made place's name on the ground
-     under it (a town and a real place name themselves: the map's hooks light their own plates); off the glass, its name at the
-     glass's edge on the line from the middle of the glass, a point toward it, the act first ('ESCORT TO PRIMM'). A tap on
-     either walks there. No flag and no road line (rule 164 item 10). */
-  var EDGE = { l: 14, r: 14, t: 66, b: 124 }, EDGE_BOXES = [], WEDGES = [];
-  function wedgesDraw() {
-    if (!WEDGES.length) return;
-    g.save(); g.setTransform(1, 0, 0, 1, 0, 0); try { if (typeof CV_DPR === 'number' && CV_DPR > 0) g.setTransform(CV_DPR, 0, 0, CV_DPR, 0, 0); } catch (e) {}
-    g.globalAlpha = 1; g.fillStyle = 'rgba(12,10,8,0.82)'; g.strokeStyle = '#f0b44c'; g.lineWidth = 1.5;
-    WEDGES.forEach(function (w) { var ex = w[0], ey = w[1], ux = w[2], uy = w[3];
-      g.beginPath(); g.moveTo(ex + ux * 6, ey + uy * 6); g.lineTo(ex - ux * 5 - uy * 6, ey - uy * 5 + ux * 6); g.lineTo(ex - ux * 5 + uy * 6, ey - uy * 5 - ux * 6); g.closePath(); g.fill(); g.stroke(); });
-    g.restore();
-  }
-  /* the map's frame, then the wedges over it (over the fog; the region's places hook the same way) */
-  try { if (typeof renderCity === 'function') { var _rcJ = renderCity; renderCity = function () { WEDGES = []; var out = _rcJ.apply(this, arguments); try { if (typeof MODE === 'undefined' || MODE === 'city') wedgesDraw(); } catch (e) {} return out; }; } } catch (e) {}
+     under it (a town and a real place name themselves: the map's hooks light their own plates); a tap on it walks there. Off the
+     glass, nothing (rule 473, __NO_WAYPOINTS__: the edge names and their points are dead). No flag and no road line (rule 164 item 10). */
+  var EDGE = { l: 14, r: 14, t: 66, b: 124 };   /* the glass less the bars and the pad: a place inside it is on the glass (rule 473: nothing is drawn outside it) */
   function markNext(j, ox, oy, bt) {
     return markPlace(nextOf(j), ox, oy, bt, function (box, cell) { hit(j, box, cell); }, j.id, false);
   }
@@ -1845,40 +1833,14 @@
       try { MAP_DREW.jobRings = (MAP_DREW.jobRings | 0) + 1; } catch (e) {}
       return { id: id, name: n.name, act: n.act, label: label, on: true, x: n.x, y: n.y, sx: Math.round(p.sx), sy: Math.round(fy) };
     }
-    /* off the glass: where the line from the middle of the glass to it leaves the glass (inside the bars and the pad) */
-    var cx = CVW / 2, cy = (EDGE.t + CVH - EDGE.b) / 2, dx = p.sx - cx, dy = fy - cy;
-    var tx = dx > 0 ? (CVW - EDGE.r - cx) / dx : dx < 0 ? (EDGE.l - cx) / dx : Infinity, ty = dy > 0 ? (CVH - EDGE.b - cy) / dy : dy < 0 ? (EDGE.t - cy) / dy : Infinity;
-    var t = Math.min(tx, ty);
-    /* the phone on the glass is part of the edge (WORLD [eyes: the place in the dark]: a name under the phone is no name): the
-       line stops where it meets the phone */
-    try { var fe = document.getElementById('cityfeed'), cv = document.getElementById('cv'), fr = fe && fe.classList.contains('on') ? fe.getBoundingClientRect() : null;
-      try { var bp = window.BOH_PHONE_RECT && BOH_PHONE_RECT(); if (bp && bp.on) fr = bp; } catch (e) {}   /* __ONE_PHONE__ (UI TWO 10/26, rule 213): the one phone in his corner, in this frame's pixels */
-      if (fr && cv) { var vr = cv.getBoundingClientRect(), pad = 6;
-        var L0 = fr.left - vr.left - pad, R0 = fr.right - vr.left + pad, T0 = fr.top - vr.top - pad, B0 = fr.bottom - vr.top + pad;
-        if (fr.width > 0 && fr.height > 0) { var t0 = -Infinity, t1 = Infinity;
-          [[dx, cx, L0, R0], [dy, cy, T0, B0]].forEach(function (a) { if (a[0] === 0) { if (a[1] < a[2] || a[1] > a[3]) t1 = -Infinity; return; }
-            var u = (a[2] - a[1]) / a[0], v = (a[3] - a[1]) / a[0]; t0 = Math.max(t0, Math.min(u, v)); t1 = Math.min(t1, Math.max(u, v)); });
-          if (t0 <= t1 && t0 > 0 && t0 < t) t = t0; } } } catch (e) {}
-    var ex = cx + dx * t, ey = cy + dy * t, L = Math.sqrt(dx * dx + dy * dy) || 1, ux = dx / L, uy = dy / L;
-    g.font = '700 9px ' + FACE('casing');
-    var tw = g.measureText(label).width + 6, bx = Math.max(EDGE.l, Math.min(CVW - EDGE.r - tw, ex - ux * 14 - tw / 2)), by = Math.max(EDGE.t, Math.min(CVH - EDGE.b - 11, ey - uy * 14 - 5));
-    /* two names the same way never sit on each other: the later one steps along the edge a line at a time */
-    var sideways = Math.abs(ex - EDGE.l) < 2 || Math.abs(ex - (CVW - EDGE.r)) < 2;
-    for (var k = 0; k < 6 && EDGE_BOXES.some(function (b) { return bx < b[0] + b[2] && bx + tw > b[0] && by < b[1] + 13 && by + 13 > b[1]; }); k++) {
-      if (sideways) by = Math.max(EDGE.t, Math.min(CVH - EDGE.b - 11, by + (by > (EDGE.t + CVH - EDGE.b) / 2 ? -14 : 14)));
-      else bx = Math.max(EDGE.l, Math.min(CVW - EDGE.r - tw, bx + (bx > CVW / 2 ? -tw - 4 : tw + 4)));
-    }
-    if (sideways) bx = ex > CVW / 2 ? Math.min(bx, ex - 10 - tw) : Math.max(bx, ex + 10);   /* the name beside its point, never on it */
-    EDGE_BOXES.push([bx, by, tw]);
-    /* the point: a small amber wedge at the edge, aimed at the place; drawn after the fog (WORLD [eyes: the place in the dark]:
-       under the dark it was a smudge), with the names */
-    WEDGES.push([ex, ey, ux, uy]);
-    /* __THE_TAP_IS_WHERE_THE_PLATE_IS__: the name's box goes with the name when the map steps it; the point keeps its own */
-    var eb = { x: bx, y: by, w: tw, h: 11 }, wb = { x: ex - 8, y: ey - 8, w: 16, h: 16 };
-    MAP_PLATES.push(mine({ t: label, lx: bx, ly: by, w: tw - 6, col: '#f0b44c', sx: bx + tw / 2, cy: by + 14, r: 0, box: eb }));
-    onHit(eb, cell); onHit(wb, cell);
-    try { MAP_DREW.jobEdges = (MAP_DREW.jobEdges | 0) + 1; } catch (e) {}
-    return { id: id, name: n.name, act: n.act, label: label, on: false, x: n.x, y: n.y, ex: Math.round(ex), ey: Math.round(ey), box: [Math.round(bx), Math.round(by), Math.round(tw), 11] };
+    /* JOBS TWO 11/22 __NO_WAYPOINTS__ (rule 473, Paolo: 'I don't want direction arrows if my map is zoomed in... my whole map gets
+       cluttered with waypoint arrows towards these little side quests... just have the part highlighted when you're close... I have
+       like 14 white points on my map'): OFF THE GLASS NOTHING IS DRAWN: no name at the glass's edge, no point toward it, no touch there.
+       The edge stays clean. On the glass the place is ringed where it stands (above), the way Battle Brothers marks a contract's place;
+       the phone's job line says which way and its tap walks there (rule 448). The edge names and their wedges are in the graveyard
+       (graveyard/POSTMORTEM_JOBS_THE_EDGE_NAMES_11_22_26.txt). */
+    try { MAP_DREW.jobOff = (MAP_DREW.jobOff | 0) + 1; } catch (e) {}
+    return { id: id, name: n.name, act: n.act, label: label, on: false, x: n.x, y: n.y };
   }
   function hit(job, box, cell, pack) { HITS.push(liveHit({ job: job.id, cell: cell, pack: pack == null ? null : pack }, box)); }
   function cargoDraw(job, ox, oy, kp) {
