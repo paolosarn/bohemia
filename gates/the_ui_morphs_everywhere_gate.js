@@ -46,7 +46,12 @@ function pieceMoves(row, key) {
   const p = row && row.pieces && row.pieces[key];
   if (!p) return { good: false, why: 'never on the glass' };
   if (p.moved < 0.1) return { good: true, why: 'moved ' + pct(p.moved) + ' of the glass (a small piece: its morph row decides)', p };
-  const good = p.big <= STEP && p.mid >= MID;
+  /* the frames it must be seen between: MID for a piece that crosses a quarter of the glass or more, two for a smaller one (UI FIVE
+     11/22, rule 477: the weapon card got shorter, 31% of the glass to 21%; measured frame by frame on the demo upright, its poses
+     are the same as before, the slot, then 0.90, 0.97 and 0.996 of its size, an overshoot, home; at this box's 13 to 20 frames a
+     second only the 0.90 and 0.97 poses fall between the ends, two frames, where the taller card's took three or more) */
+  const need = Math.abs(p.to - p.from) >= 0.25 ? MID : 2;
+  const good = p.big <= STEP && p.mid >= need;
   return { good, why: pct(p.from) + ' > ' + pct(p.to) + ' of the glass, biggest step in one drawn frame ' + pct(p.big) + ', ' + p.mid + ' frames between', p };
 }
 function morphRow(row, id, dir) { return (row && row.morphs || []).find(r => r.id === id && r.how === 'real' && (!dir || r.dir === dir)) || null; }

@@ -245,7 +245,11 @@
     return s;
   }
   /* the shop's strip: the cells in RUN TWO's .inums box (its contract kept), one row, the least important clipped first */
-  function strip(item, o) { css(); var L = cells(item, o); if (!L.length) return null; return L.map(function (c) { return cell(c, { form: 'strip' }); }); }
+  function strip(item, o) { css(); var L = cells(item, o); if (!L.length) return null;
+    /* __ONE_HAND_OR_TWO__ (UI FIVE 11/22, rule 477(b)): a weapon's strip says what he chooses by, how hard it hits and how far it
+       reaches; the rest (armour, the blow's pips and breath, weight, rounds, to hit, the head) is the weapon card's, one tap deeper */
+    if (item.kind === 'weapon' && !(o && o.all)) L = L.filter(function (c) { return c.k === 'damage' || c.k === 'reach'; });
+    return L.map(function (c) { return cell(c, { form: 'strip' }); }); }
   /* the big card: every cell on two columns, the bars long, damage across both */
   function card(item, o) {
     css(); var L = cells(item, o); if (!L.length) return null;

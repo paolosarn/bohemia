@@ -211,30 +211,35 @@ async function shop(b, prof, plant, legs) {
     const q2 = await REST(), upPick = await p.evaluate(id => { const t = document.querySelector('#shelfgrid .slot[data-id="' + id + '"]'); return !!t && t.classList.contains('up'); }, pick.id);
     legs.R2 = ok(prof.name + ' R2 RULE 433 ONE TAP: the piece tapped shows how it compares with each of his men (' + q2.faces.map(f => f.man + ' ' + f.dv).join(', ') + '), and only its own upgrade mark (' + q2.marks.join(',') + ')',
       q2.faces.length === q2.crew && q2.crew > 0 && q2.faces.every(f => f.dv) && q2.marks.length === (upPick ? 1 : 0) && (!upPick || q2.marks[0] === pick.id), JSON.stringify(q2));
-    const S = await p.evaluate(rd => { const read = new Function('return (' + rd + ')')(); const inums = document.querySelector('#shopstrip .inums'), st = document.getElementById('shopstrip').getBoundingClientRect();
+    const readS = () => p.evaluate(rd => { const read = new Function('return (' + rd + ')')(); const inums = document.querySelector('#shopstrip .inums'), st = document.getElementById('shopstrip').getBoundingClientRect();
       return { strip: !!(inums && inums.classList.contains('bic-strip')), cells: read('#shopstrip .inums .bic'), box: inums ? (() => { const r = inums.getBoundingClientRect(); return { l: r.left, r: r.right, t: r.top, b: r.bottom }; })() : null, W: innerWidth, H: innerHeight,
         card: (() => { const c = document.getElementById('bwcard'); return c && c.style.display !== 'none' ? { id: c.dataset.weapon, dressed: c.dataset.dressed, cells: read('#bwcard .bic-card .bic'), two: !!c.querySelector('.bwc-t i.bic-two'),
           blows: [...c.querySelectorAll('.bwc-r')].map(r => ({ word: r.querySelector('b').firstChild.textContent.trim(), n: r.querySelector('.bwc-n').textContent, pips: (() => { const x = r.querySelector('i.bic-pips'); return x ? (getComputedStyle(x).backgroundImage.match(/pip\.png/g) || []).length : 0; })(), breath: (() => { const x = r.querySelector('.bic-breath'); if (!x) return null; const k = x.cloneNode(true); k.querySelectorAll('.bic-sr').forEach(y => y.remove()); return k.textContent.trim(); })(), tiles: (() => { const x = r.querySelector('i.bic-tiles'); return x ? (getComputedStyle(x).backgroundImage.match(/url\(/g) || []).length : 0; })() })) } : null; })() }; }, READ.toString());
+    /* __ONE_HAND_OR_TWO__ (UI FIVE 11/22, rule 477): one tap shows the short card and a strip of two numbers; the long card, every
+       blow and every bar, is one tap deeper (the card's own MORE), Battle Brothers' tooltip */
+    const S = await readS(), short = await p.evaluate(() => { const c = document.getElementById('bwcard'); return c && c.style.display !== 'none' ? { view: c.dataset.view, first: c.firstElementChild ? c.firstElementChild.className + ' ' + c.firstElementChild.textContent : '' } : null; });
+    await tap('#bwcard .bwc-more'); await p.waitForTimeout(700);
+    const S2 = await readS();
     /* W1 pictures, no words on the glass */
     const w1 = [];
     if (!S.strip) w1.push('the strip is not the card\'s');
     S.cells.forEach(c => { if (!(c.icon && c.icon.ok && /stat_icons\//.test(c.icon.src)) && !c.pips && !c.tiles && !c.rounds) w1.push(c.k + ' has no picture');
       if (/[A-Za-z]{2}/.test(c.shown)) w1.push(c.k + ' shows words: ' + c.shown); if (!c.sr) w1.push(c.k + ' its words on the glass'); if (!c.title) w1.push(c.k + ' no word on a held finger'); });
-    legs.W1 = ok(prof.name + ' W1 THE SHOP\'S STRIP: every cell a picture, no word on the glass (' + S.cells.map(c => c.k + (c.shown ? ' ' + c.shown : '')).join(' | ') + ')', S.cells.length >= 5 && !w1.length, w1.slice(0, 4).join('; '));
-    const wb = cellsBad(S.cells, 'weapon', pick.id);
-    legs.W2 = ok(prof.name + ' W2 every bar\'s fill its number over its most possible within a pixel, every arrow and amount the row\'s (' + pick.id + ')', !wb.length, wb.slice(0, 4).join('; '));
+    legs.W1 = ok(prof.name + ' W1 THE SHOP\'S STRIP: every cell a picture, no word on the glass, and a weapon\'s strip only how hard it hits and how far it reaches (rule 477(b); the first tap\'s card ' + JSON.stringify(short) + ') (' + S.cells.map(c => c.k + (c.shown ? ' ' + c.shown : '')).join(' | ') + ')', S.cells.map(c => c.k).join(',') === 'damage,reach' && !w1.length && !!short && short.view === 'short' && /^bwc-hand/.test(short.first), w1.slice(0, 4).join('; '));
+    const wb = cellsBad(S.cells, 'weapon', pick.id).filter(x => !/^(vs_armour|through_armour|ap|breath|weight|rounds|to_hit|head) missing$/.test(x)).concat(S2.card ? cellsBad(S2.card.cells, 'weapon', pick.id).map(x => 'the card: ' + x) : ['no long card behind its MORE']);
+    legs.W2 = ok(prof.name + ' W2 every bar\'s fill its number over its most possible within a pixel, every arrow and amount the row\'s, the strip\'s two and the long card\'s all (' + pick.id + ')', !wb.length, wb.slice(0, 4).join('; '));
     const arm = await p.evaluate(id => { const a = BohemiaRoster.armOf({ kind: 'weapon', id }); return a && { lo: a.lo, hi: Math.min(a.hi, 7), rounds: a.rounds }; }, pick.id);
-    const reach = S.cells.find(c => c.k === 'reach'), apc = S.cells.find(c => c.k === 'ap'), w3 = [];
+    const reach = S.cells.find(c => c.k === 'reach'), apc = S2.card && S2.card.cells.find(c => c.k === 'ap'), w3 = [];   /* the pips and the rounds are the long card's, behind its MORE (rule 477(b)) */
     if (!reach || reach.tiles !== arm.hi + 1 || reach.tlit !== arm.hi - arm.lo + 1 || !reach.you) w3.push('reach ' + JSON.stringify(reach && { t: reach.tiles, lit: reach.tlit, you: reach.you }) + ' want ' + JSON.stringify(arm));
-    if (!apc || apc.pips !== want('weapon', pick.id).ap) w3.push('pips ' + (apc && apc.pips));
-    if (arm.rounds) { const rc = S.cells.find(c => c.k === 'rounds'); if (!rc || rc.rounds !== Math.min(6, arm.rounds)) w3.push('rounds ' + (rc && rc.rounds) + ' want ' + arm.rounds); }
+    if (!apc || apc.lit !== want('weapon', pick.id).ap) w3.push('pips ' + (apc && apc.lit));
+    if (arm.rounds) { const rc = S2.card && S2.card.cells.find(c => c.k === 'rounds'); if (!rc || rc.rounds !== Math.min(6, arm.rounds)) w3.push('rounds ' + (rc && rc.rounds) + ' want ' + arm.rounds); }
     legs.W3 = ok(prof.name + ' W3 the pips the blow\'s AP, the slabs his own and every tile he reaches, the reach lit, the rounds', !w3.length, w3.join('; '));
-    const first = ['damage', 'vs_armour', 'through_armour', 'reach', 'ap', 'breath'].map(k => S.cells.find(c => c.k === k)).filter(Boolean);
+    const first = ['damage', 'reach'].map(k => S.cells.find(c => c.k === k)).filter(Boolean);   /* rule 477(b): the strip's two */
     const out = first.filter(c => c.x < S.box.l - 0.5 || c.right > S.box.r + 0.5 || c.y < S.box.t - 0.5 || c.bottom > S.box.b + 0.5 || c.right > S.W);
     const rowY = new Set(first.map(c => Math.round(c.y + c.h / 2)));
-    legs.W4 = ok(prof.name + ' W4 the six first cells whole on the glass in one row (' + first.length + ' of 6, ' + rowY.size + ' row)', first.length === 6 && !out.length && rowY.size === 1, out.map(c => c.k).join(', '));
+    legs.W4 = ok(prof.name + ' W4 the strip\'s two cells whole on the glass in one row (' + first.length + ' of 2, ' + rowY.size + ' row)', first.length === 2 && !out.length && rowY.size === 1, out.map(c => c.k).join(', '));
     /* C the weapon's card, the same tap */
-    const C = S.card, cb = [];
+    const C = S2.card, cb = [];   /* the long card: its MORE (rule 477(b)) */
     if (!C || C.id !== pick.id || C.dressed !== 'bic') cb.push('no dressed card (' + JSON.stringify(C && { id: C.id, d: C.dressed }) + ')');
     else {
       const cw = want('weapon', pick.id), d = C.cells.find(c => c.k === 'damage'), ap = C.cells.find(c => c.k === 'ap');
@@ -247,7 +252,7 @@ async function shop(b, prof, plant, legs) {
         if (/TILE/.test(bw.n) && !bw.tiles) cb.push(bw.word + ' no slabs'); });
       if (hands(by[pick.id]) === 2 && !C.two) cb.push('a two-hander without its picture');
     }
-    legs.C1 = ok(prof.name + ' C1 THE WEAPON\'S CARD: the big card, the damage bar within a pixel, nine pips with the AP lit, every blow\'s pips, breath and slabs, the words kept' + (C ? ' (' + C.blows.map(x => x.word).join(', ') + ')' : ''), !cb.length, cb.slice(0, 4).join('; '));
+    legs.C1 = ok(prof.name + ' C1 THE WEAPON\'S CARD (its MORE): the big card, the damage bar within a pixel, nine pips with the AP lit, every blow\'s pips, breath and slabs, the words kept' + (C ? ' (' + C.blows.map(x => x.word).join(', ') + ')' : ''), !cb.length, cb.slice(0, 4).join('; '));
     /* W5 nothing moves */
     await p.evaluate(() => { const c = document.getElementById('bwcard'); if (c) c.style.display = 'none'; });
     const r0 = await boxRects(), s0 = await stripRect();

@@ -11,7 +11,7 @@
    LEGS:
      T1 *** NO NAME IS SHARED ACROSS HANDS *** (every row of weapons.json, read through the shop's own naming and the crew
         screen's): a two-hander in a class that holds both is a 'two-hand' one; UI's icon mirror names every row as the shop does
-     T2 a two-hander's card at the smith says TWO HANDS in big letters before he buys it (a real tap); a one-hander's does not
+     T2 a two-hander's card at the smith says TWO-HANDED in big letters before he buys it (a real tap); a one-hander's ONE-HANDED (rule 477(a))
      T3 *** THE SPEAR AND THE CAR DOOR ON ONE MAN *** (the demo, the phone): a one-handed spear and a car door from the stash,
         put on with real taps, are both in his hands on the crew screen and in the next fight
      T4 the words blame the weapon: a two-hander and a shield meet and the line says the weapon takes both hands
@@ -65,13 +65,14 @@ const srv = http.createServer((rq, rs) => { const f = path.join(ROOT, decodeURIC
       const xy = await p.evaluate((k) => BohemiaSettlement.where(k), k); if (!xy) continue;
       await p.evaluate(() => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }); await p.waitForTimeout(200);
       await p.mouse.click(xy.x, xy.y); await p.waitForTimeout(500);
-      const tiles = await p.evaluate(() => [...document.querySelectorAll('#shelfgrid > *')].map((t, i) => ({ i, label: t.getAttribute('aria-label') || t.textContent })));
+      const tiles = await p.evaluate(() => [...document.querySelectorAll('#shelfgrid > *')].map((t, i) => ({ i, label: t.getAttribute('aria-label') || t.textContent, hands: t.__it && t.__it.kind === 'weapon' ? t.__it.hands : null })));
       for (const t of tiles) {
-        const isTwo = /two-hand/i.test(t.label);
+        if (t.hands == null) continue;   /* RE-AIMED 11/22 BY UI FIVE: the piece's own hands, never its name ('good fire axe' is a two-handed axe; a word in a name is not the rule) */
+        const isTwo = t.hands === 2;
         if (!isTwo && t2 && t2.one !== undefined) continue;
         const r = await p.evaluate((i) => { const e = document.querySelectorAll('#shelfgrid > *')[i]; if (!e) return null; e.scrollIntoView({ block: 'center' }); const q = e.getBoundingClientRect(); return { x: q.x + q.width / 2, y: q.y + q.height / 2 }; }, t.i);
         if (!r) continue; await p.mouse.click(r.x, r.y); await p.waitForTimeout(300);
-        const card = await p.evaluate(() => { const th = document.querySelector('#sbody .twoh'); const said = (document.querySelector('#sbody .say, #sbody p, #sbody .line') || {}).textContent || document.getElementById('sbody').innerText; return { two: !!(th && th.offsetHeight > 0 && /TWO HANDS/.test(th.textContent)), big: th ? parseFloat(getComputedStyle(th).fontSize) : 0, said: said.slice(0, 160) }; });
+        const card = await p.evaluate(() => { const th = document.querySelector('#sbody .twoh'); const said = (document.querySelector('#sbody .say, #sbody p, #sbody .line') || {}).textContent || document.getElementById('sbody').innerText; return { two: !!(th && th.offsetHeight > 0 && /TWO-HANDED/.test(th.textContent)), oneWord: !!(th && th.offsetHeight > 0 && /ONE-HANDED/.test(th.textContent)), big: th ? parseFloat(getComputedStyle(th).fontSize) : 0, said: said.slice(0, 160) }; });
         t2 = t2 || {}; if (isTwo && !t2.twoCard) t2.twoCard = Object.assign({ label: t.label }, card); if (!isTwo && t2.one === undefined) t2.one = Object.assign({ label: t.label }, card);
         await p.evaluate((k) => { const c = document.getElementById('close'); if (BohemiaSettlement.state.open && c) c.click(); }, k); await p.waitForTimeout(150); await p.mouse.click(xy.x, xy.y); await p.waitForTimeout(400);
         if (t2.twoCard && t2.one) break;
@@ -80,8 +81,10 @@ const srv = http.createServer((rq, rs) => { const f = path.join(ROOT, decodeURIC
     }
     if (t2 && t2.twoCard && t2.one) break;
   }
-  ok('T2 a two-hander\'s card at the smith says TWO HANDS in big letters before he buys (a real tap); a one-hander\'s does not',
-    !!t2 && !!t2.twoCard && t2.twoCard.two && t2.twoCard.big >= 18 && (/both hands/i.test(t2.twoCard.said) || t2.twoCard.two) && !!t2.one && !t2.one.two, JSON.stringify(t2));
+  /* RE-AIMED 11/22 BY UI FIVE (rule 477(a), Paolo 11/22: 'It's still not clear to me when I'm buying a weapon from the shop if it's
+     two-handed or one-handed'): EVERY weapon says it now, a two-hander TWO-HANDED and a one-hander ONE-HANDED, in the same big letters */
+  ok('T2 a two-hander\'s card at the smith says TWO-HANDED in big letters before he buys (a real tap); a one-hander\'s says ONE-HANDED, never TWO',
+    !!t2 && !!t2.twoCard && t2.twoCard.two && t2.twoCard.big >= 18 && !!t2.one && !t2.one.two && t2.one.oneWord && t2.one.big >= 18, JSON.stringify(t2));
   /* ---- T5 the words ---- */
   const guns = W.filter(r => (OURS.gun_classes.value || []).indexOf(r['class']) >= 0);
   const lines = await p.evaluate((ids) => ids.map(id => { const it = BohemiaRoster.itemOf('weapon', id), a = BohemiaRoster.armOf(it), l = BohemiaRoster.armLine(it, true), s = BohemiaRoster.armLine(it, false); return { id, lo: a && a.lo, club: a && a.club, long: l && l.reach, short: s && s.reach }; }), guns.map(r => r.id));

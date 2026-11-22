@@ -218,7 +218,9 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 .ss-facts .ss-title b{color:var(--ink);font-size:13px;letter-spacing:.5px;overflow:hidden;text-overflow:ellipsis}
 .ss-facts .ss-title em{font-style:normal;color:var(--gold);margin-left:auto}
 .ss-facts .ss-title .twoh{margin:0 0 0 auto;font-size:18px;letter-spacing:3px;line-height:1}   /* rule 194(b): big, on the card */
+.ss-facts .ss-title:has(>.twoh){flex-wrap:wrap;row-gap:2px}.ss-facts .ss-title>.twoh{order:-1;margin:0;flex:none}.ss-facts .ss-title:has(>.twoh)>b{flex:0 0 auto;max-width:100%}   /* __ONE_HAND_OR_TWO__ (UI FIVE 11/22, rule 477(a)): one hand or two FIRST, before the name; where the strip is narrow the name takes the next line, never squeezed out */
 .ss-facts .inums{flex-wrap:nowrap;overflow:hidden}
+#shopstrip{container-type:inline-size}@container (max-width:300px){#shopstrip:not(.stallstrip) .ss-facts{height:62px}}   /* __ONE_HAND_OR_TWO__ (UI FIVE 11/22, rule 477(a)): where the strip is a narrow column (a phone on its side) the name sits under ONE-HANDED or TWO-HANDED, so the box holds that second line for every piece, and nothing moves from one piece to the next */
 .ss-said{font-size:12px;color:#9fc38f;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ss-hint{font-size:12px;color:var(--dim);padding-top:10px}
 .onman.ss-man{height:100px;box-sizing:border-box;margin:0;padding:4px 6px;overflow:hidden;display:flex;flex-direction:column;gap:2px}
@@ -228,6 +230,7 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 .onman.ss-man .lns .ln .bst-bar,.onman.ss-man .lns .ln .bst-track,.onman.ss-man .lns .ln .bst-st,.onman.ss-man .lns .ln .bst-tag,.onman.ss-man .lns .ln .bst-n{display:none!important}
 .onman.ss-man .lns .ln .k{min-width:0!important;font-size:10px}
 .onman.ss-man .lns .stop{font-size:11px;padding:0}
+.onman.ss-man.ss-wpn .lns .ln{display:none!important}.onman.ss-man.ss-wpn:has(.lns .stop) .onwho{display:none}   /* __ONE_HAND_OR_TWO__ (rule 477(b)): a weapon's five 'on him' differences are the background, the face says the damage */
 .onman.ss-man .fstrip{order:-1;padding:0 0 4px;flex:none}
 .onman.ss-man .fstrip button{position:relative;width:46px}
 .onman.ss-man .fstrip canvas{width:28px;height:28px}
@@ -689,7 +692,7 @@ function iconTile(it, onTap, sub, money){
   var b = document.createElement('button'); b.className = 'slot' + (it ? ' full' : '');
   if(it){
     var pk = it.kind === 'weapon' && !it.own ? weaponPack(it) : it.kind === 'weapon' ? ownIcon(it.id) : it.trade && it.icon ? tradeIcon(it) : null;   /* __TRADE_GOODS_CARRIED__: a good wears its pack tile */   /* __THE_ARMORY__: a piece of the valley's own wears its own drawn icon, never its family's pack tile */
-    if(pk){ if(it.id) pk.dataset.id = it.id; b.appendChild(pk); } else { var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; b.appendChild(g); }   /* __EACH_SLOT_ITS_OWN_PICTURE__ (UI FIVE 11/22, rule 474): the picture names the piece it was made for */
+    if(pk){ if(it.id) pk.dataset.of = it.id; b.appendChild(pk); } else { var g = document.createElement('i'); g.textContent = GLYPH[it.kind] || '◆'; b.appendChild(g); }   /* __EACH_SLOT_ITS_OWN_PICTURE__ (UI FIVE 11/22, rule 474): the picture names the piece it was made for (data-of: a data-id here made the weapon card stop at the picture and lose the piece's name, rule 477) */
     /* EYES [eyes: three pistols] (rule 150): a tile says the name its card says ('good pistol', 'beat-up pistol'), two lines at most */
     var n = document.createElement('span'); n.className = 'nm2'; n.textContent = it.name.replace(/^(a|an) /,''); b.appendChild(n);
     if(sub != null){ var c = document.createElement('em'); c.textContent = sub; if(money) c.className = 'money'; b.appendChild(c); }
@@ -817,14 +820,14 @@ function shopStripFill(k, el){
   else {
     var t = document.createElement('div'); t.className = 'ss-title';
     var nm = document.createElement('b'), nw = it.name.replace(/^(a|an) /, ''); nm.textContent = nw.charAt(0).toUpperCase() + nw.slice(1); t.appendChild(nm);
-    if(it.kind === 'weapon' && it.hands === 2){ var th = document.createElement('span'); th.className = 'twoh'; th.textContent = 'TWO HANDS'; t.appendChild(th); }   /* __A_TWO_HANDER_WEARS_ITS_OWN_NAME__ (rule 194(b)) */
+    if(it.kind === 'weapon'){ var th = document.createElement('span'); th.className = 'twoh' + (it.hands === 2 ? '' : ' oneh'); th.textContent = it.hands === 2 ? 'TWO-HANDED' : 'ONE-HANDED'; t.appendChild(th); }   /* __ONE_HAND_OR_TWO__ (UI FIVE 11/22, rule 477(a)): every weapon says it, plainly, beside its name (draft:true) */   /* __A_TWO_HANDER_WEARS_ITS_OWN_NAME__ (rule 194(b)) */
     f.appendChild(t);
     var al = it.kind === 'weapon' && window.BohemiaRoster && HIRE.roster ? BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', it.id), true) : null;
     f.appendChild(itemNums(it, al));   /* __THE_SHOP_SAYS_WHAT_IT_DOES__ (rule 202(a)): its own numbers, UI's icons */
   }
   /* his men: each face with what this piece does to him; the man it suits marked; a tap on a face puts it on him (rule 250(c)) */
   var om = it && it.kind && !it.trade ? onMan(it, function(){ shopStripFill(k); }) : null;   /* __TRADE_GOODS_CARRIED__: nobody wears a good */
-  if(om){ om.classList.add('ss-man'); var lns = document.createElement('div'); lns.className = 'lns'; [].slice.call(om.children).forEach(function(c){ if(c.classList && (c.classList.contains('ln') || c.classList.contains('stop'))) lns.appendChild(c); }); om.appendChild(lns); st.appendChild(om); }   /* what changes on him, in one row */
+  if(om){ om.classList.add('ss-man'); if(it.kind === 'weapon') om.classList.add('ss-wpn');   /* __ONE_HAND_OR_TWO__ (UI FIVE 11/22, rule 477(b)): a weapon's 'on him' lines stay in the background (the face's own arrow says the damage); only what stops him or what goes to the stash shows */ var lns = document.createElement('div'); lns.className = 'lns'; [].slice.call(om.children).forEach(function(c){ if(c.classList && (c.classList.contains('ln') || c.classList.contains('stop'))) lns.appendChild(c); }); om.appendChild(lns); st.appendChild(om); }   /* what changes on him, in one row */
   else { var ph = document.createElement('div'); ph.className = 'onman ss-man ss-empty'; st.appendChild(ph);   /* nothing lit: his men stand in the strip already, waiting to be shown a piece */
     var crew0 = shopCrew(), fs0 = document.createElement('div'); fs0.className = 'fstrip';
     crew0.forEach(function(c){ var b = document.createElement('button'); b.type = 'button'; b.disabled = true; b.dataset.man = c.name; var cv0 = document.createElement('canvas'); cv0.width = cv0.height = 64; if(!(c.look && crewFace(cv0, c.look))) dimHead(cv0.getContext('2d')); b.appendChild(cv0);
@@ -923,6 +926,12 @@ function itemNums(it, al){
   if(!r){ d.textContent = it.nums; return d; }
   if(it.kind === 'weapon'){
     d.appendChild(chip(null, 'DAMAGE', r.damage_min + '-' + r.damage_max));
+    /* __ONE_HAND_OR_TWO__ (UI FIVE 11/22, rule 477(b), Paolo 11/22: 'when I'm buying a weapon there is so much useless information'):
+       the strip says what he chooses by, how hard it hits and how far it reaches; armour, to-hit, head, breath and weight are the
+       weapon card's, one tap deeper (the card's MORE), Battle Brothers' tooltip */
+    if(!itemNums.ALL){
+      if(al) d.appendChild(chip(null, al.reach, '')); else if(r.range_max) d.appendChild(chip(null, 'REACH ' + r.range_max + (r.range_max === 1 ? ' TILE' : ' TILES'), ''));
+      return d; }
     if(r.armor_damage_pct != null) d.appendChild(chip(null, 'VS ARMOUR', r.armor_damage_pct + '%'));
     if(r.armor_ignore_pct) d.appendChild(chip(null, 'THROUGH ARMOUR', r.armor_ignore_pct + '%'));
     var sk = (r.skills || []).filter(function(x){ return !/^Reload/.test(x.name); })[0];

@@ -113,7 +113,7 @@
   function html(id, name) {
     var r = D.by[id]; if (!r) return '';
     var L = blows(id), cls = (D.lines[r['class']] || {}), hit = skillsOf(r).rides || r;   /* FIXES 11/9 (row 529): the damage the fight rolls */
-    var h = '<div class="bwc-t">' + esc(String(name || cls.name || r.name).toUpperCase()) + '</div>'
+    var h = handBand(r) + '<div class="bwc-t">' + esc(String(name || cls.name || r.name).toUpperCase()) + '</div>'
       + '<div class="bwc-b">' + esc(cls.line || '') + (hit.damage_min != null ? ' <i>Damage ' + hit.damage_min + '-' + hit.damage_max + '.</i>' : '') + '</div>'
       + '<div class="bwc-h">WHAT IT CAN DO</div>';   /* draft:true */
     L.forEach(function (b) {
@@ -124,6 +124,34 @@
     if (!special(L)) h += '<div class="bwc-none">NO SPECIAL ABILITY: just its blow.</div>';   /* draft:true */
     return h;
   }
+  /* ==== __ONE_HAND_OR_TWO__ (UI FIVE 11/22, VAMILY rule 477; Paolo 11/22: 'It's still not clear to me when I'm buying a weapon from the
+     shop if it's two-handed or one-handed or not... when I'm buying a weapon there is so much useless information, for real').
+     MEASURED (the demo, Caravans' smith, a two-hander tapped): the card's title was the weapon's family ('BLADE'), no word of its hands
+     on it, and it said about 70 words (bars for armour and through-armour, action pips, breath, weight, to-hit, head, four moves with
+     their lines). NOW THE FIRST TAP SHOWS THE SHORT CARD, only what he chooses by: its name and price, ONE-HANDED or TWO-HANDED first,
+     above the name, in a band he cannot miss, then its name and price, how hard it hits, how far it reaches, and whether STAFF may
+     carry it (rule 471(b): staff take one-handed only). THE FULL CARD (every number, every move, the band still first) is one tap
+     deeper: the card's own MORE (a second tap on the piece is already the shop's buy and the crew screen's wear), Battle Brothers'
+     tooltip. Everywhere a weapon is tapped: the shops and the crew screen. Words draft:true. ==== */
+  function twoHanded(r) { return !!r && (r.hands ? (r.hands | 0) === 2 : /^(bow|crossbow|firearm)$/.test(r['class'])); }   /* the crew screen's own rule (engine/bohemia_roster.js handsOfRow, the town's the same): the hands column first, a bow, crossbow or firearm with none is two-handed, so a pistol (hands 1) is ONE-HANDED */
+  /* __ONE_HAND_OR_TWO__ (UI FIVE 11/22, rule 477(a)): the first thing on the card, both views, a band he cannot miss */
+  function handBand(r) { var two = twoHanded(r); return '<div class="bwc-hand' + (two ? ' two' : ' one') + '">' + (two ? 'TWO-HANDED' : 'ONE-HANDED') + '</div>'; }
+  function shortHtml(id, name, price) {
+    var r = D.by[id]; if (!r) return '';
+    var cls = (D.lines[r['class']] || {}), hit = skillsOf(r).rides || r, two = twoHanded(r);
+    var main = (blows(id) || []).filter(function (b) { return b.main; })[0], reach = main && main.reach != null ? main.reach : (r.range_max || 1);
+    /* the reach in the crew screen's own words ('1 TO 2 TILES', the strip's REACH line), so the two never say it two ways */
+    var al = null; try { var C = window.BohemiaRoster; if (C && C.armLine && C.itemOf) al = C.armLine(C.itemOf('weapon', id), true); } catch (e) {}
+    var m2 = String(reach).match(/^(\d+)\s*-\s*(\d+)$/), rw = al && al.reach ? String(al.reach).replace(/^REACH\s+/i, '').toUpperCase()
+      : m2 ? (m2[1] === m2[2] ? m2[1] + (m2[1] === '1' ? ' TILE' : ' TILES') : m2[1] + ' TO ' + m2[2] + ' TILES')
+      : typeof reach === 'number' ? reach + (reach === 1 ? ' TILE' : ' TILES') : String(reach).toUpperCase() + ' TILES';
+    return handBand(r)
+      + '<div class="bwc-t">' + esc(String(name || cls.name || r.name).toUpperCase()) + (price ? '<span class="bwc-p">' + esc(price) + '</span>' : '') + '</div>'
+      + (hit.damage_min != null ? '<div class="bwc-k"><b>HITS</b><span>' + hit.damage_min + '-' + hit.damage_max + '</span></div>' : '')
+      + '<div class="bwc-k"><b>REACHES</b><span>' + esc(rw) + '</span></div>'
+      + '<div class="bwc-k bwc-staff"><b>STAFF</b><span>' + (two ? 'CANNOT CARRY IT' : 'CAN CARRY IT') + '</span></div>'
+      + '<button type="button" class="bwc-more" aria-label="every number of it">MORE &#9656;</button>';   /* draft:true; a second tap on the piece is the shop's buy and the crew screen's wear, so the long card has its own door */
+  }
   var CSS = '#bwcard{position:fixed;z-index:2147482000;left:8px;width:min(360px,calc(100vw - 16px));box-sizing:border-box;padding:10px 12px 10px;'
     + 'background:#e9e0c9;color:#1f1710;border-radius:2px;box-shadow:0 2px 0 #000,0 10px 24px rgba(0,0,0,.6);font:12px/1.3 "BohemiaROM",ui-monospace,monospace;pointer-events:none}'
     + '#bwcard .bwc-t{font:bold 14px/1.1 "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.2px;color:#6b2d0c}'
@@ -132,19 +160,26 @@
     + '#bwcard .bwc-r{display:grid;grid-template-columns:auto 1fr;column-gap:8px;padding:4px 0;border-bottom:1px dotted rgba(42,34,26,.35)}'
     + '#bwcard .bwc-r b{font:bold 13px/1.1 "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1px}#bwcard .bwc-r b em{font-style:normal;font-size:9px;color:#7a3d10;margin-left:4px}'
     + '#bwcard .bwc-n{text-align:right;font-size:11px;color:#3e1608}#bwcard .bwc-s{grid-column:1/-1;font-size:11px;color:#3a2f22}'
-    + '#bwcard .bwc-none{margin-top:6px;font:bold 11px/1.2 "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1px;color:#6b5f4f}';
+    + '#bwcard .bwc-none{margin-top:6px;font:bold 11px/1.2 "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1px;color:#6b5f4f}'
+    + '#bwcard .bwc-t .bwc-p{float:right;color:#1f1710;font-size:13px}'
+    + '#bwcard .bwc-hand{margin:0 0 7px;padding:5px 8px;font:bold 17px/1 "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:2.4px;text-align:center;border:2px solid #1f1710}'
+    + '#bwcard .bwc-hand.two{background:#1f1710;color:#f4cf7c}#bwcard .bwc-hand.one{background:transparent;color:#1f1710}'
+    + '#bwcard .bwc-k{display:flex;justify-content:space-between;align-items:baseline;padding:3px 0;border-bottom:1px dotted rgba(42,34,26,.35);font-size:13px}'
+    + '#bwcard .bwc-k b{font:bold 12px/1.1 "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.2px;color:#6b5f4f}#bwcard .bwc-k span{font-weight:bold}'
+    + '#bwcard .bwc-more{display:block;pointer-events:auto;margin:8px 0 0 auto;min-height:34px;padding:0 16px;border:2px solid #1f1710;border-radius:2px;background:rgba(31,23,16,.06);color:#1f1710;font:bold 13px/1 "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.6px;cursor:pointer;touch-action:manipulation}'
+    + '#bwcard .bwc-more:active{background:rgba(31,23,16,.18)}';
   var CUR = { id: null, el: null, at: 0 };
   function hide() { if (CUR.el) CUR.el.style.display = 'none'; CUR.id = null; }
-  function show(id, x, y, name) {
+  function show(id, x, y, name, full, price) {
     if (!D.by[id]) return false;
     if (!document.getElementById('bwc-style')) { var st = document.createElement('style'); st.id = 'bwc-style'; st.textContent = CSS; (document.head || document.documentElement).appendChild(st); }
     var c = document.getElementById('bwcard'); if (!c) { c = document.createElement('div'); c.id = 'bwcard'; c.setAttribute('role', 'note'); document.body.appendChild(c); }
-    c.innerHTML = html(id, name); c.dataset.weapon = id; c.style.display = 'block';
-    try { if (window.BohemiaItemCard) BohemiaItemCard.dressWeaponCard(c, id); } catch (e) {}   /* UI THREE [the weapon card] (rule 251(b)): its numbers as pictures with bars, slices/bohemia_ui_three_items.js */
+    c.innerHTML = full ? html(id, name) : shortHtml(id, name, price); c.dataset.weapon = id; c.dataset.view = full ? 'full' : 'short'; c.style.display = 'block';   /* __ONE_HAND_OR_TWO__ */
+    if (full) try { if (window.BohemiaItemCard) BohemiaItemCard.dressWeaponCard(c, id); } catch (e) {}   /* UI THREE [the weapon card] (rule 251(b)): its numbers as pictures with bars, slices/bohemia_ui_three_items.js */
     var W = innerWidth, H = innerHeight, w = c.offsetWidth, h = c.offsetHeight;
     var left = Math.max(8, Math.min(W - w - 8, x - w / 2)), top = y > H / 2 ? Math.max(8, y - h - 40) : Math.min(H - h - 8, y + 40);
     c.style.left = Math.round(left) + 'px'; c.style.top = Math.round(top) + 'px';
-    CUR.id = id; CUR.el = c; CUR.at = Date.now();
+    CUR.id = id; CUR.el = c; CUR.at = Date.now(); CUR.full = !!full; CUR.x = x; CUR.y = y; CUR.name = name; CUR.price = price;
     (window.__BWC_LOG = window.__BWC_LOG || []).push({ id: id, blows: blows(id).map(function (b) { return b.word; }) });
     return true;
   }
@@ -157,15 +192,24 @@
     }
     return null;
   }
-  function nameOf(el) { var n = el.querySelector && el.querySelector('.nm2'); return (n && n.textContent) || (el.getAttribute && el.getAttribute('aria-label')) || null; }
+  function nameOf(el) { var h = (el.closest && el.closest('.slot, .gslot, button, [role=button]')) || el;   /* __ONE_HAND_OR_TWO__: a tap on the picture names the piece in the slot round it */
+    var n = h.querySelector && h.querySelector('.nm2'); return (n && n.textContent) || (h.getAttribute && h.getAttribute('aria-label')) || null; }
+  function priceOf(el) { var m = el.closest && el.closest('#shelfgrid') && el.querySelector('em.money, em'); return m ? (m.textContent || '').trim() : ''; }
+  /* __ONE_HAND_OR_TWO__ (rule 477(b)): the card's MORE is the door to the long card; the page under it never hears that touch (the
+     window hears it first), so the shop does not buy, the crew screen does not wear, and nothing is put away */
+  function onMore(e) { var t = e.target; return !!(t && t.closest && t.closest('#bwcard .bwc-more')); }
+  window.addEventListener('pointerdown', function (e) { if (onMore(e)) e.stopImmediatePropagation(); }, true);
+  window.addEventListener('pointerup', function (e) { if (onMore(e)) e.stopImmediatePropagation(); }, true);
+  window.addEventListener('click', function (e) { if (!onMore(e)) return; e.stopImmediatePropagation(); e.preventDefault();
+    if (CUR.id) show(CUR.id, CUR.x, CUR.y, CUR.name, true, CUR.price); }, true);
   document.addEventListener('pointerdown', function (e) { if (CUR.id && Date.now() - CUR.at > 120) hide(); }, true);
   document.addEventListener('click', function (e) {
     if (!D.rows) return;
     var hit = weaponAt(e.target); if (!hit) return;
     var r = hit.el.getBoundingClientRect();
-    show(hit.id, r.left + r.width / 2, e.clientY || (r.top + r.height / 2), nameOf(hit.el));
+    show(hit.id, r.left + r.width / 2, e.clientY || (r.top + r.height / 2), nameOf(hit.el), false, priceOf(hit.el));
   }, true);
   load();
-  window.BohemiaWeaponCard = { ready: function () { return load(); }, blows: blows, html: html, show: show, hide: hide, plain: plain, PHRASES: PHRASES,
+  window.BohemiaWeaponCard = { ready: function () { return load(); }, blows: blows, html: html, shortHtml: shortHtml, twoHanded: function (id) { return twoHanded(D.by[id]); }, show: show, hide: hide, plain: plain, PHRASES: PHRASES,
     rows: function () { return D.rows ? D.rows.map(function (r) { return r.id; }) : []; }, shown: function () { return CUR.id; } };
 })();

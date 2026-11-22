@@ -3,7 +3,30 @@
 # On VAMILY: pull main, re-read CLAUDE.md and the VAMILY front page (rules 453, 448, 452, 442(b), 441, 454(a), 402 as amended 11/7:
 # SMALLER, NEVER PAGES), then continue from the newest block below. FIGHT SCREEN 2 owns everything on the glass over the fight.
 
-UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/22 LATEST -- BUILD 11/22zj - EACH SLOT ITS OWN PICTURE, BUILT, NOT
+UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/22 LATEST -- BUILD 11/22zw - ONE HAND OR TWO, BUILT, NOT YET SEEN
+(rule 477, ask row 718; the coordinator's routine 'UI FIVE: one hand or two, and less'). Record
+records/BOHEMIA_UI_FIVE_ONE_HAND_OR_TWO_AND_LESS_11_22_26.md. VOTE ui5-one-hand-or-two-11-22 (STAND-IN, before and now).
+- THE CARD (slices/bohemia_ui_weapon_card.js __ONE_HAND_OR_TWO__): one tap shows the SHORT card: a band first, ONE-HANDED or
+  TWO-HANDED, then name and price, HITS, REACHES, STAFF CAN/CANNOT CARRY IT (rule 471(b)); 16 words where it said 53 on average.
+  Everything else is behind the card's MORE button (a second tap on the piece is the shop's buy and the crew screen's wear; MORE is
+  swallowed at the window so neither happens). The card's hand rule is the crew screen's handsOfRow (151 rows, 0 disagree).
+- THE STRIP: the hand word first, then the name (a narrow strip, on its side, puts the name on the next line and holds that line for
+  every piece: a container query); two numbers, hits and reach (bohemia_ui_three_items.js strip filters a weapon's cells); a weapon's
+  five 'on him' differences are the background, the both-hands line shows whole.
+- THE CREW SCREEN: numsText says the hands right after the name. THE LOOT: a band before the name (BOHEMIA_SPOILS_SCREEN facts).
+- FOUND ON THE WAY: rule 474's data-id on the pack picture made the weapon card read the family name ('SHOTGUN'): now data-of.
+- Gate ONE HAND OR TWO (new, in the suite) 24/0, demo and alpha both ways, its plant red. Re-aimed: THE ITEM CARD AND THE ITEM BOX,
+  A WEAPON TELLS YOU WHAT IT CAN DO, A TWO-HANDER WEARS ITS OWN NAME (it guessed hands from the name), THE UI MORPHS EVERYWHERE (a
+  piece under a quarter of the glass needs two frames between), EACH SLOT ITS OWN PICTURE (waits for the slot to hold still).
+- WHAT HE WOULD MEET (TAB: CITY, any smith; the crew screen; the loot after a fight; and the demo link): tap a weapon, the first line
+  says ONE-HANDED or TWO-HANDED, five short lines, a MORE button for the rest.
+- LEFT: on the phone on its side the strip's two buttons read 'B | 113' and 'to the...' (cut; on main before this build too).
+NEXT for this lane, in order: (1) what EYES finds in this build; (2) the strip's cut buttons on its side; (3) the crew screen's weight
+line as a picture with RUN TWO; (4) row 669 if JOBS asks.
+[bb Battle Brothers: the slot says what it is at a glance, the long numbers live in the tooltip]
+[analog horror: a pawn ticket with BOTH HANDS or ONE HAND stamped in a box at the top, the clerk's carbon underneath if you ask]
+
+UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/22 -- BUILD 11/22zj - EACH SLOT ITS OWN PICTURE, BUILT, NOT
 YET SEEN (rule 474, ask row 714; the coordinator's routine 'UI FIVE: the shop's wrong icons'). Record
 records/BOHEMIA_UI_FIVE_EACH_SLOT_ITS_OWN_PICTURE_11_22_26.md. VOTE ui5-each-slot-its-own-picture-11-22 (STAND-IN, before and now).
 - THE CAUSE: slices/bohemia_ui_materials.js's shop painter drew slot i as the i-th piece of the raw list (S.stock[open], S.stash); the

@@ -39,7 +39,7 @@ const READ = () => {
       if (!it) { if (img || bm) out.bad.push(where + ' an empty place wears ' + (img ? img.getAttribute('src') : 'the drawn ' + bm.dataset.id)); return; }
       out.full++;
       /* the shop's own picture names the piece it was made for (iconTile: the pack tile or its own model; else the drawn icon) */
-      if (img) { if (img.dataset.id !== it.id) out.bad.push(where + ' ' + it.id + ' wears the picture made for ' + (img.dataset.id || '?') + ' (' + img.getAttribute('src') + ')'); if (bm) out.bad.push(where + ' ' + it.id + ' also wears the drawn ' + bm.dataset.id); }
+      if (img) { if (img.dataset.of !== it.id) out.bad.push(where + ' ' + it.id + ' wears the picture made for ' + (img.dataset.of || '?') + ' (' + img.getAttribute('src') + ')'); if (bm) out.bad.push(where + ' ' + it.id + ' also wears the drawn ' + bm.dataset.id); }
       else if (!bm || bm.dataset.id !== it.id) out.bad.push(where + ' ' + it.id + ' wears ' + (bm ? 'the drawn ' + bm.dataset.id : 'nothing'));
       const nm = b.querySelector('span.nm2'); if (nm && nm.textContent !== it.name.replace(/^(a|an) /, '')) out.bad.push(where + ' ' + it.id + ' is named "' + nm.textContent + '"');
     }); });
@@ -67,7 +67,11 @@ async function openShop(sf, P, k) {
 async function twice(sf, P, sel) {
   const h = await sf.$(sel); if (!h) return false;
   await sf.evaluate(s => { const e = document.querySelector(s); if (e) e.scrollIntoView({ block: 'center' }); }, sel); await P.waitForTimeout(150);
-  const q = await h.boundingBox(); if (!q) return false;
+  /* the slot holding still first (the sheet grows out of its building and the strip settles after a buy; a finger on a moving slot
+     can land beside it, the first buy's flake on a slow box, 11/22) */
+  let q = await h.boundingBox(), same = 0;
+  for (let i = 0; i < 40 && same < 5; i++) { await P.waitForTimeout(60); const r = await h.boundingBox(); same = r && q && Math.abs(r.x - q.x) < 0.5 && Math.abs(r.y - q.y) < 0.5 && Math.abs(r.width - q.width) < 0.5 ? same + 1 : 0; q = r; }
+  if (!q) return false;
   const x = q.x + q.width / 2, y = q.y + q.height / 2;
   await P.touchscreen.tap(x, y); await P.waitForTimeout(120); await P.touchscreen.tap(x, y); await P.waitForTimeout(1300);
   return true;

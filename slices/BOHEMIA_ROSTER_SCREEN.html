@@ -807,7 +807,8 @@ function itemPic(it, px){
 function liveNums(it){ try{ if(it && it.kind === 'weapon' && C.itemOf){ var l = C.itemOf('weapon', it.id); if(l && l.nums) return l.nums; } }catch(e){} return String((it && it.nums) || ''); }
 function numsText(it){ var al = it.kind === 'weapon' && armLine(it, true), t = liveNums(it).replace(/\s+2 hands/i, '');
   if(al){ t = t.replace(/\s+reach \d+/, '') + '. ' + al.reach + (al.rounds ? '. ' + al.rounds : ''); }
-  return t + (C.twoHanded(it) ? '. TWO HANDS' : ''); }
+  /* __ONE_HAND_OR_TWO__ (UI FIVE 11/22, rule 477(a)): every weapon says one hand or two FIRST, right after its name, never last */
+  return (it.kind === 'weapon' ? (C.twoHanded(it) ? 'TWO-HANDED. ' : 'ONE-HANDED. ') : '') + t; }
 function fits(it, slot){ if(!it || it.trade) return false;   /* __TRADE_GOODS_CARRIED__: a good goes on nobody */ if(BAG_GEAR.indexOf(slot) >= 0) return it.kind === 'weapon' || it.kind === 'shield'; return C.slotFor(it) === slot; }
 /* AN ITEM'S ONE NUMBER, and whether it beats what he wears there: a weapon its damage (the middle of its roll), armour, a head
    and a shield what it holds. Read from the item's own words (nums), the same the market prints. */

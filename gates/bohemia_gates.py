@@ -9476,6 +9476,16 @@ GATES = [
      "upright and sideways, N1 the title and all fifteen origins, N2 the start at rest, N3 every building's sheet, N4 the settings card "
      "(every row on the glass at once), N5 the crew screen, N6 a full company and stash, N7 the fight's page, N8 the fullest hall, N9 every "
      "UI size: nothing scrolls, every press on the glass, the floors. Over 10 min", True),
+    ('ONE HAND OR TWO', ['node', 'gates/one_hand_or_two_gate.js'],
+     "UI FIVE gate, 11/22, rule 477 (Paolo 11/22: 'It's still not clear to me when I'm buying a weapon from the shop if it's two-handed "
+     "or one-handed or not... when I'm buying a weapon there is so much useless information, for real'), ask row 718: on the demo and "
+     "the alpha, a phone upright and sideways, the way he gets there: H1 every weapon on Caravans' smith's shelf, one tap: the card's "
+     "first line ONE-HANDED or TWO-HANDED (the crew screen's rule), then its name and price, hits, reach, whether staff may carry it "
+     "(rule 471(b)), 24 words at most, whole on the glass; H2 the strip: the hand word before the name, the name whole, two numbers; "
+     "H3 the card's MORE: the long card, the hand still first, every blow, nothing bought, the piece still lit; H4 the crew screen "
+     "through the phone's CREW: his main hand's line says its hands right after its name, the same short card, MORE the long one, he "
+     "still holds it; H5 a road fight won, the loot: every weapon tapped says its hands before its name; H6 nothing threw; PLANTED (the "
+     "demo upright): the old long card on the first tap, H1 red, and the words before and after counted. About 4 min a walk", True),
     ('EACH SLOT ITS OWN PICTURE', ['node', 'gates/each_slot_its_own_picture_gate.js'],
      "UI FIVE gate, 11/22, rule 474 (Paolo 11/22: 'if I buy the most expensive item and there's something else I wanna buy that's the "
      "second most expensive item, it will still have the icon of that first item'), ask row 714: on the demo and the alpha, a phone "

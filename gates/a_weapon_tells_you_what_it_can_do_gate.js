@@ -52,6 +52,10 @@ function fightBlows(r) {
 }
 const wordOf = s => /^Reload/.test(s.name) ? 'RELOAD' : s.shoots ? 'SHOOT' : s.name.toUpperCase();
 
+/* __ONE_HAND_OR_TWO__ (rule 477): the short card up, ONE-HANDED or TWO-HANDED its first line (the crew screen's rule), a MORE on it */
+const SHORT = () => { const c = document.getElementById('bwcard'); return c && c.style.display !== 'none' ? { id: c.dataset.weapon, view: c.dataset.view, first: c.firstElementChild ? c.firstElementChild.textContent.trim() : '', more: !!c.querySelector('.bwc-more') } : null; };
+const handsOfRow = r => r.hands ? r.hands | 0 : (/^(bow|crossbow|firearm)$/.test(r['class']) ? 2 : 1);
+const shortOk = (s, id) => !!s && !!id && s.id === id && s.view === 'short' && s.more && s.first === (handsOfRow(BY[id]) === 2 ? 'TWO-HANDED' : 'ONE-HANDED');
 async function wholeTable(page, plant) {
   return page.evaluate(([rows, plant]) => {
     if (plant) { const h0 = BohemiaWeaponCard.html; BohemiaWeaponCard.html = function (id, n) { const d = document.createElement('div'); d.innerHTML = h0(id, n); const r = d.querySelectorAll('.bwc-r'); if (r.length) r[r.length - 1].remove(); return d.innerHTML; }; }
@@ -93,6 +97,10 @@ async function wholeTable(page, plant) {
         if (pk === 'computer') await page.mouse.click(r.x + r.width / 2, r.y + r.height / 2); else await page.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2); await page.waitForTimeout(500); return true; };
       const bagW = await fr.evaluate(() => { const S = BohemiaRosterScreen.state, i = S.bag.findIndex(x => x && x.kind === 'weapon'); return i >= 0 ? { i, id: S.bag[i].id } : null; });
       const t1 = bagW && await tapIn('#bag [data-bag="' + bagW.i + '"]');
+      /* __ONE_HAND_OR_TWO__ (UI FIVE 11/22, rule 477): one tap is the short card, ONE-HANDED or TWO-HANDED first; every blow is one
+         tap deeper, the card's own MORE, which neither wears the piece nor puts the comparison away */
+      const s1 = await fr.evaluate(SHORT);
+      await tapIn('#bwcard .bwc-more');
       const c1 = await fr.evaluate(() => { const c = document.getElementById('bwcard'); return c && c.style.display !== 'none' ? { id: c.dataset.weapon, blows: [...c.querySelectorAll('.bwc-r b')].map(b => b.firstChild.textContent.trim()) } : null; });
       const cmp = await fr.evaluate(() => BohemiaRosterScreen.state.cmp);
       const t2 = await tapIn('#card [data-slot="main"]');
@@ -100,8 +108,8 @@ async function wholeTable(page, plant) {
       const mainId = await fr.evaluate(() => { const S = BohemiaRosterScreen.state, m = S.crew[S.sel || 0]; return m && m.gear && m.gear.main ? m.gear.main.id : null; });
       await tapIn('#title'); const c3 = await fr.evaluate(() => { const c = document.getElementById('bwcard'); return c ? c.style.display : 'none'; });
       const want = bagW ? fightBlows(BY[bagW.id]).map(wordOf) : [];
-      ok('W3 ' + pk + ' *** THE CREW SCREEN *** one tap on ' + (bagW && bagW.id) + ' in the stash: its card (' + (c1 && c1.blows.join(', ')) + '), the comparison still up (' + cmp + '); his main hand (' + mainId + '): its card (' + c2 + '); a tap elsewhere puts it away (' + c3 + ')',
-        !!t1 && !!c1 && c1.id === bagW.id && want.every(w => c1.blows.indexOf(w) >= 0) && cmp === bagW.i && !!t2 && !!mainId && c2 === mainId && c3 === 'none');
+      ok('W3 ' + pk + ' *** THE CREW SCREEN *** one tap on ' + (bagW && bagW.id) + ' in the stash: its short card (' + JSON.stringify(s1) + '), its MORE: every blow (' + (c1 && c1.blows.join(', ')) + '), the comparison still up (' + cmp + '); his main hand (' + mainId + '): its card (' + c2 + '); a tap elsewhere puts it away (' + c3 + ')',
+        !!t1 && shortOk(s1, bagW && bagW.id) && !!c1 && c1.id === bagW.id && want.every(w => c1.blows.indexOf(w) >= 0) && cmp === bagW.i && !!t2 && !!mainId && c2 === mainId && c3 === 'none');
       await ctx.close();
     }
   } catch (e) { ok('the crew screen and the table', false, String(e.stack).slice(0, 300)); }
@@ -126,12 +134,14 @@ async function wholeTable(page, plant) {
       const h = await sf.$('#shelfgrid [data-item^="weapon:"]'), id = h ? (await h.getAttribute('data-item')).slice(7) : null;
       const r = h ? await h.boundingBox() : null;
       if (r) { await P.touchscreen.tap(r.x + r.width / 2, r.y + r.height / 2); await P.waitForTimeout(700); }
+      const sh4 = await sf.evaluate(SHORT), mh = await sf.$('#bwcard .bwc-more'), mr = mh ? await mh.boundingBox() : null;   /* rule 477: the short card, then its MORE */
+      if (mr) { await P.touchscreen.tap(mr.x + mr.width / 2, mr.y + mr.height / 2); await P.waitForTimeout(700); }
       const s4 = await sf.evaluate(() => { const c = document.getElementById('bwcard'); return { card: c && c.style.display !== 'none' ? c.dataset.weapon : null, blows: c ? [...c.querySelectorAll('.bwc-r b')].map(b => b.firstChild.textContent.trim()) : [],
         strip: (document.querySelector('#shopstrip .ss-title b') || {}).textContent || '', sel: document.querySelectorAll('#sheet .slot.sel').length }; });
       const want = id ? fightBlows(BY[id]).map(wordOf) : [];
       const onGlass = await NS.frameShown(sf);
-      ok('W4 *** THE SHOP *** the smith (' + opened + ', the town on the glass ' + onGlass + '), one tap on ' + id + ': its card (' + s4.blows.join(', ') + '), the strip still names it ("' + s4.strip + '"), one piece lit (' + s4.sel + ')',
-        onGlass && opened === 'smith' && !!id && s4.card === id && want.every(w => s4.blows.indexOf(w) >= 0) && s4.strip.length > 2 && s4.sel === 1);
+      ok('W4 *** THE SHOP *** the smith (' + opened + ', the town on the glass ' + onGlass + '), one tap on ' + id + ': its short card (' + JSON.stringify(sh4) + '), its MORE: every blow (' + s4.blows.join(', ') + '), the strip still names it ("' + s4.strip + '"), one piece lit (' + s4.sel + ')',
+        onGlass && opened === 'smith' && !!id && shortOk(sh4, id) && s4.card === id && want.every(w => s4.blows.indexOf(w) >= 0) && s4.strip.length > 2 && s4.sel === 1);
       ok('Z nothing threw on the demo', !d.errs.length, d.errs.slice(0, 2).join(' | ') || 'none');
     } catch (e) { ok('W4 the shop on the demo', false, String(e.stack).slice(0, 300)); }
     if (d) await d.close();

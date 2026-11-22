@@ -151,6 +151,7 @@ html body #counts .count[data-count=tape]::before{background-image:url(supply_ic
 #said .pk,#said canvas{flex:0 0 auto;height:34px;width:auto;max-width:44px;object-fit:contain;image-rendering:pixelated}
 #said .fx{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
 #said .fx b{font:13px/1.1 var(--casing);letter-spacing:1px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#said .fx b i.hand{font-style:normal;font-weight:bold;margin-right:7px;padding:1px 5px;border:1px solid #f4cf7c;color:#f4cf7c;letter-spacing:1.4px}#said .fx b i.hand.two{background:#f4cf7c;color:#16110c}   /* __ONE_HAND_OR_TWO__ (rule 477(a)) */
 #said .fx span{font-size:10px;letter-spacing:.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #said .cbar{display:inline-block;width:46px;height:6px;margin-right:4px;vertical-align:middle;background:#0d0a07;border:1px solid #4a3b2c;border-radius:2px;overflow:hidden}
 #said .cbar i{display:block;height:100%;background:#7f9a62}
@@ -477,6 +478,12 @@ function act(it){
   var g = S.ground.indexOf(it), k = S.stash.indexOf(it);
   if(g >= 0) takeOne(g); else if(k >= 0) putBack(k);
 }
+/* __ONE_HAND_OR_TWO__ (UI FIVE 11/22, rule 477(a)): the crew screen's own rule (engine/bohemia_roster.js handsOfRow): the weapon's
+   row's hands column first; a bow, a crossbow or a firearm with none takes both hands, so a pistol (hands 1) is one-handed */
+function handsWord(it){ if(!it || it.kind !== 'weapon') return null;
+  var rows = (C && C.data && C.data.weapons && C.data.weapons.rows) || [], r = null; for(var i = 0; i < rows.length; i++) if(rows[i].id === it.id){ r = rows[i]; break; }
+  var x = r || {hands:it.hands, 'class':it.cls}, h = x.hands ? x.hands | 0 : (/^(bow|crossbow|firearm)$/.test(x['class'] || '') ? 2 : 1);
+  return h === 2 ? 'TWO-HANDED' : 'ONE-HANDED'; }
 function batImg(){ var im = document.createElement('img'); im.className = 'bat'; im.alt = 'batteries'; im.src = 'supply_icons/batteries.png'; return im; }
 /* the strip, for one piece: its picture, its name, what is left of it as a fill, what a town pays for it (a battery and the
    count, rule 224), where it is and what two taps do */
@@ -484,7 +491,8 @@ function facts(it, where){
   var el = document.getElementById('said'); el.textContent = ''; el.className = 'facts';
   el.appendChild(pic(it, 34));
   var fx = document.createElement('div'); fx.className = 'fx';
-  var nm = document.createElement('b'); nm.textContent = it.name.replace(/^(a|an) /, '').toUpperCase(); fx.appendChild(nm);
+  var nm = document.createElement('b'), hw = handsWord(it); if(hw){ var hd = document.createElement('i'); hd.className = 'hand' + (hw === 'TWO-HANDED' ? ' two' : ''); hd.textContent = hw; nm.appendChild(hd); }   /* __ONE_HAND_OR_TWO__ (UI FIVE 11/22, rule 477(a)): a weapon says one hand or two first, before its name */
+  nm.appendChild(document.createTextNode(it.name.replace(/^(a|an) /, '').toUpperCase())); fx.appendChild(nm);
   var ln = document.createElement('span');
   if(it.condMax > 0){ var cb = document.createElement('span'); cb.className = 'cbar'; cb.title = condPct(it) + '%'; var ci = document.createElement('i'); ci.style.width = condPct(it) + '%'; cb.appendChild(ci); ln.appendChild(cb); }
   var how = FINE ? 'DOUBLE CLICK' : 'TAP TWICE';
