@@ -467,7 +467,10 @@
       else m.holding = false;
       m.drawX = x; m.drawY = y;
       var gm = glidePos('m:' + (m.name || m.look), ctx.view.ox + x * s, ctx.view.oy + y * s, now); x = (gm[0] - ctx.view.ox) / s; y = (gm[1] - ctx.view.oy) / s;   /* he slides with the turn, still doing what he does */
-      list.push({ y: y + (m.act === 'lie' || m.act === 'sleep' ? 6 : 0), man: m.slot, draw: function () { drawMan(cx, ctx, m, x, y, walking, now, s, k, H, B, I, z); } });
+      list.push({ y: y + (m.act === 'lie' || m.act === 'sleep' ? 6 : 0), man: m.slot, draw: function () {
+        if (m.campFollower) campCart(cx, ctx, m, x, y, s, H, 'back', now);   /* __THE_STAFF_PUSH_A_CART__: his cart by him */
+        drawMan(cx, ctx, m, x, y, walking, now, s, k, H, B, I, z);
+        if (m.campFollower) campCart(cx, ctx, m, x, y, s, H, 'front', now); } });
     });
   }
   /* ANIMATION's camp acts (records/BOHEMIA_ANIMATION_THE_CAMPS_ACTS_10_26_26.md, its call BohemiaIdles.activity): what the camp's
@@ -483,6 +486,27 @@
     var a = ANIM_ACT[m.act]; if (!a) return null;
     return I.activity(m.look, seed, now, face, { act: a, n: m.slot, wall: m.act === 'lean' });
   }
+  /* ==== __THE_STAFF_PUSH_A_CART__ (STAFF 2, VAMILY rule 471(c): the cart 'drawn in their hands... in the camp'): every follower by the fire
+     stands with the cart his job pushes (engine/bohemia_camp.js cartOf: its kind and what is in it), the fight's own pictures of it
+     (slices/fight_rig/staff_cart_<kind>.webp, its index staff_carts.json: the cart in a man's frame, the fight sheet's 98 px a man), laid at
+     his feet at his height (personH / 98), facing the way he faces; its back under him, its front over him, dusk at night. ==== */
+  var CARTS = { j: null, state: 0, im: {} };
+  function campCartMeta() {
+    if (!CARTS.state) { CARTS.state = 1; try { fetch('fight_rig/staff_carts.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { CARTS.j = j; CARTS.state = j && j.kinds ? 2 : 3; }, function () { CARTS.state = 3; }); } catch (e) { CARTS.state = 3; } }
+    return CARTS.state === 2 ? CARTS.j : null;
+  }
+  function campCartIm(file) { var im = CARTS.im[file]; if (!im) { im = CARTS.im[file] = new Image(); im.src = 'fight_rig/' + file; } return im.complete && im.naturalWidth ? im : null; }
+  function campCart(cx, ctx, m, x, y, s, H, which, now) {
+    var CC = up('BohemiaCamp'), c = CC && CC.cartOf ? CC.cartOf(m.follower) : null, J = campCartMeta(); if (!c || !J) return;
+    var KD = J.kinds[c.id] || J.kinds.shopping_cart, set = KD && (KD.cells[c.load] || KD.cells.gear), q = set && set[m.face] && set[m.face][which]; if (!q) return;
+    var im = campCartIm(KD.file); if (!im) return;
+    var src = K.st && K.st.night && ctx.duskOf ? ctx.duskOf({ im: im }) : im, z0 = H / 98, fx = ctx.view.ox + x * s, fy = ctx.view.oy + y * s;
+    cx.save(); cx.imageSmoothingEnabled = false;
+    cx.drawImage(src, q[0], q[1], q[2], q[3], Math.round(fx + (q[4] - J.foot[0]) * z0), Math.round(fy + (q[5] - J.foot[1]) * z0), Math.round(q[2] * z0), Math.round(q[3] * z0));
+    cx.restore();
+    (root.__CAMP_CARTS || (root.__CAMP_CARTS = {}))[m.follower] = { kind: c.id, load: c.load, face: m.face, which: which, at: now };
+  }
+  /* ==== /__THE_STAFF_PUSH_A_CART__ ==== */
   function drawMan(cx, ctx, m, x, y, walking, now, s, k, H, B, I, z) {
     var fx = ctx.view.ox + x * s, fy = ctx.view.oy + y * s, night = K.st.night;
     var who = m.name || m.look, face0 = Math.max(0, TURNS.indexOf(m.face));

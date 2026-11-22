@@ -1,0 +1,108 @@
+[
+ {
+  "shape": "phone_portrait",
+  "surface": "demo",
+  "hired": [
+   "cook",
+   "surgeon",
+   "blacksmith",
+   "scout"
+  ],
+  "png_forge": "records/target/staff_cart/demo_upright_the_forge_welds_a_cart.png",
+  "forge": {
+   "pre": {
+    "rows": [
+     "cook:shopping_cart:on:GRACIELA: A STEEL UTILITY CART150 BATTERIES · 20 TAPE",
+     "surgeon:utility_cart:off:ALAN: A WAGON300 BATTERIES · 40 TAPE",
+     "blacksmith:wagon:off:WALT: A WAGONTHE BEST CART",
+     "scout:shopping_cart:on:DANNY: A STEEL UTILITY CART150 BATTERIES · 20 TAPE"
+    ],
+    "bats": 290,
+    "tape": 40,
+    "lv": 0
+   },
+   "post": {
+    "tapped": {
+     "id": "scout",
+     "cart": "utility_cart",
+     "price": 150,
+     "tape": 20
+    },
+    "rows": [
+     "cook:shopping_cart:off:GRACIELA: A STEEL UTILITY CART150 BATTERIES · 20 TAPE",
+     "surgeon:utility_cart:off:ALAN: A WAGON300 BATTERIES · 40 TAPE",
+     "blacksmith:wagon:off:WALT: A WAGONTHE BEST CART",
+     "scout:utility_cart:off:DANNY: A WAGON300 BATTERIES · 40 TAPE"
+    ],
+    "bats": 140,
+    "tape": 20,
+    "lv": 1
+   },
+   "tapAt": {
+    "x": 10,
+    "y": 450,
+    "width": 370,
+    "height": 44
+   }
+  },
+  "errAt": "Error: FORGE_ONLY |     at walk (/home/user/bohemia/tools/bohemia_staff_cart_on_the_phone.js:71:27) |     at async /home/user/bohemia/tools/bohemia_staff_cart_on_the_phone.js:167:54",
+  "errs": [],
+  "P": {
+   "U1": true,
+   "P3": true
+  }
+ },
+ {
+  "shape": "phone_landscape",
+  "surface": "demo",
+  "hired": [
+   "cook",
+   "surgeon",
+   "blacksmith",
+   "scout"
+  ],
+  "png_forge": "records/target/staff_cart/demo_sideways_the_forge_welds_a_cart.png",
+  "forge": {
+   "pre": {
+    "rows": [
+     "cook:shopping_cart:on:GRACIELA: A STEEL UTILITY CART150 BATTERIES · 20 TAPE",
+     "surgeon:utility_cart:off:ALAN: A WAGON300 BATTERIES · 40 TAPE",
+     "blacksmith:wagon:off:WALT: A WAGONTHE BEST CART",
+     "scout:shopping_cart:on:DANNY: A STEEL UTILITY CART150 BATTERIES · 20 TAPE"
+    ],
+    "bats": 290,
+    "tape": 40,
+    "lv": 0
+   },
+   "post": {
+    "tapped": {
+     "id": "scout",
+     "cart": "utility_cart",
+     "price": 150,
+     "tape": 20
+    },
+    "rows": [
+     "cook:shopping_cart:off:GRACIELA: A STEEL UTILITY CART150 BATTERIES · 20 TAPE",
+     "surgeon:utility_cart:off:ALAN: A WAGON300 BATTERIES · 40 TAPE",
+     "blacksmith:wagon:off:WALT: A WAGONTHE BEST CART",
+     "scout:utility_cart:off:DANNY: A WAGON300 BATTERIES · 40 TAPE"
+    ],
+    "bats": 140,
+    "tape": 20,
+    "lv": 1
+   },
+   "tapAt": {
+    "x": 22,
+    "y": 303.90625,
+    "width": 164.5,
+    "height": 58.09375
+   }
+  },
+  "errAt": "Error: FORGE_ONLY |     at walk (/home/user/bohemia/tools/bohemia_staff_cart_on_the_phone.js:71:27) |     at async /home/user/bohemia/tools/bohemia_staff_cart_on_the_phone.js:167:54",
+  "errs": [],
+  "P": {
+   "U1": true,
+   "P3": true
+  }
+ }
+]

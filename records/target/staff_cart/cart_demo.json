@@ -1,0 +1,848 @@
+[
+ {
+  "shape": "phone_portrait",
+  "surface": "demo",
+  "hired": [
+   "cook",
+   "surgeon",
+   "blacksmith",
+   "scout"
+  ],
+  "forgeWhy": "no town screen",
+  "map": {
+   "camp": 4,
+   "at": [
+    [
+     281,
+     202,
+     "SW",
+     "shopping_cart"
+    ],
+    [
+     266,
+     218,
+     "SW",
+     "wagon"
+    ],
+    [
+     238,
+     223,
+     "SW",
+     "utility_cart"
+    ],
+    [
+     223,
+     240,
+     "SW",
+     "shopping_cart"
+    ]
+   ],
+   "err": null,
+   "you": {
+    "how": "rig3d",
+    "x": 195,
+    "y": 249,
+    "w": 56,
+    "h": 72.5,
+    "moving": false,
+    "face": "SW"
+   }
+  },
+  "png_map": "records/target/staff_cart/demo_upright_the_camp_on_the_map.png",
+  "bell": {
+   "units": [
+    {
+     "id": "c0",
+     "side": "you",
+     "staff": false,
+     "staffId": null,
+     "name": "YOU",
+     "cart": null,
+     "load": null,
+     "n": 0,
+     "weapon": "dagger",
+     "two": false,
+     "shield": true,
+     "onField": true,
+     "drawn": null,
+     "drawnWhich": null
+    },
+    {
+     "id": "c1",
+     "side": "you",
+     "staff": false,
+     "staffId": null,
+     "name": "DESI",
+     "cart": null,
+     "load": null,
+     "n": 0,
+     "weapon": "dagger",
+     "two": false,
+     "shield": true,
+     "onField": true,
+     "drawn": null,
+     "drawnWhich": null
+    },
+    {
+     "id": "c2",
+     "side": "you",
+     "staff": false,
+     "staffId": null,
+     "name": "RAUL",
+     "cart": null,
+     "load": null,
+     "n": 0,
+     "weapon": "light_crossbow",
+     "two": true,
+     "shield": false,
+     "onField": true,
+     "drawn": null,
+     "drawnWhich": null
+    },
+    {
+     "id": "s0",
+     "side": "you",
+     "staff": true,
+     "staffId": "cook",
+     "name": "Graciela Ochoa",
+     "cart": "shopping_cart",
+     "load": "food",
+     "n": 20,
+     "weapon": "box_cutter",
+     "two": false,
+     "shield": false,
+     "face": 2,
+     "onField": true,
+     "drawn": 13,
+     "drawnWhich": "front"
+    },
+    {
+     "id": "s1",
+     "side": "you",
+     "staff": true,
+     "staffId": "surgeon",
+     "name": "Alan Cho",
+     "cart": "utility_cart",
+     "load": "meds",
+     "n": 30,
+     "weapon": "box_cutter",
+     "two": false,
+     "shield": false,
+     "face": 2,
+     "onField": true,
+     "drawn": 14,
+     "drawnWhich": "front"
+    },
+    {
+     "id": "s2",
+     "side": "you",
+     "staff": true,
+     "staffId": "blacksmith",
+     "name": "Walt Hensley",
+     "cart": "wagon",
+     "load": "tape",
+     "n": 40,
+     "weapon": "pickaxe",
+     "two": false,
+     "shield": false,
+     "face": 2,
+     "onField": true,
+     "drawn": 13,
+     "drawnWhich": "front"
+    },
+    {
+     "id": "s3",
+     "side": "you",
+     "staff": true,
+     "staffId": "scout",
+     "name": "Danny Nguyen",
+     "cart": "shopping_cart",
+     "load": "gear",
+     "n": 0,
+     "weapon": "snub_revolver",
+     "two": false,
+     "shield": false,
+     "face": 2,
+     "onField": true,
+     "drawn": 14,
+     "drawnWhich": "front"
+    },
+    {
+     "id": "e0",
+     "side": "them",
+     "staff": false,
+     "staffId": null,
+     "name": "THUG",
+     "cart": null,
+     "load": null,
+     "n": 0,
+     "weapon": "hatchet",
+     "two": false,
+     "shield": true,
+     "onField": true,
+     "drawn": null,
+     "drawnWhich": null
+    },
+    {
+     "id": "e1",
+     "side": "them",
+     "staff": false,
+     "staffId": null,
+     "name": "THUG",
+     "cart": null,
+     "load": null,
+     "n": 0,
+     "weapon": "tomahawk",
+     "two": false,
+     "shield": false,
+     "onField": true,
+     "drawn": null,
+     "drawnWhich": null
+    },
+    {
+     "id": "e2",
+     "side": "them",
+     "staff": false,
+     "staffId": null,
+     "name": "THUG",
+     "cart": null,
+     "load": null,
+     "n": 0,
+     "weapon": "hatchet",
+     "two": false,
+     "shield": true,
+     "onField": true,
+     "drawn": null,
+     "drawnWhich": null
+    }
+   ],
+   "seen": {
+    "back": 108,
+    "front": 108
+   }
+  },
+  "onGlass": [
+   {
+    "staff": false,
+    "name": "YOU",
+    "bar": {
+     "x": 54,
+     "y": 281
+    },
+    "px": 54,
+    "py": 281
+   },
+   {
+    "staff": false,
+    "name": "DESI",
+    "bar": {
+     "x": 74,
+     "y": 309
+    },
+    "px": 74,
+    "py": 309
+   },
+   {
+    "staff": false,
+    "name": "RAUL",
+    "bar": {
+     "x": 54,
+     "y": 337
+    },
+    "px": 54,
+    "py": 337
+   },
+   {
+    "staff": true,
+    "name": "Graciela Ochoa",
+    "bar": {
+     "x": 34,
+     "y": 309
+    },
+    "px": 34,
+    "py": 309
+   },
+   {
+    "staff": true,
+    "name": "Alan Cho",
+    "bar": {
+     "x": 15,
+     "y": 281
+    },
+    "px": 15,
+    "py": 281
+   },
+   {
+    "staff": true,
+    "name": "Walt Hensley",
+    "bar": {
+     "x": 15,
+     "y": 337
+    },
+    "px": 15,
+    "py": 337
+   },
+   {
+    "staff": true,
+    "name": "Danny Nguyen",
+    "bar": {
+     "x": 34,
+     "y": 253
+    },
+    "px": 34,
+    "py": 253
+   }
+  ],
+  "view": [
+   390,
+   844
+  ],
+  "png_bell": "records/target/staff_cart/demo_upright_the_carts_at_the_bell.png",
+  "close": {
+   "z": 0.6413389702616986
+  },
+  "png_close": "records/target/staff_cart/demo_upright_the_carts_close.png",
+  "scroll": {
+   "top": 0,
+   "fight": 0
+  },
+  "frames": {
+   "fps": 45.8,
+   "worstMs": 333,
+   "p95Ms": 50
+  },
+  "tip": {
+   "which": "tip",
+   "ago": 86,
+   "face": "E"
+  },
+  "tipAt": {
+   "x": -1.1770015698586747,
+   "y": 431.6457142857143,
+   "tile": 24.11428571428571
+  },
+  "png_tip": "records/target/staff_cart/demo_upright_the_cooks_cart_goes_over.png",
+  "felled": {
+   "id": "s0",
+   "name": "Graciela Ochoa",
+   "round": 2,
+   "n": 20,
+   "load": "food"
+  },
+  "auto": {
+   "over": true,
+   "result": "won",
+   "rounds": 7,
+   "staff": [
+    {
+     "id": "cook",
+     "dead": true
+    },
+    {
+     "id": "surgeon",
+     "dead": false
+    },
+    {
+     "id": "blacksmith",
+     "dead": false
+    },
+    {
+     "id": "scout",
+     "dead": false
+    }
+   ]
+  },
+  "after": {
+   "lost": [
+    {
+     "id": "cook",
+     "name": "Graciela Ochoa",
+     "why": "dead",
+     "spilt": {
+      "kind": "food",
+      "n": 20,
+      "cart": "shopping_cart",
+      "kept": true
+     }
+    }
+   ],
+   "camp": [
+    "surgeon",
+    "blacksmith",
+    "scout"
+   ],
+   "supplies": {
+    "origin": "newcrew",
+    "econ": "full",
+    "food": 1,
+    "tape": 41,
+    "rounds": 80,
+    "meds": 30,
+    "wage": 0,
+    "founding": 3,
+    "at": 1795386201760
+   },
+   "cookCart": 0
+  },
+  "campMade": true,
+  "fire": [
+   {
+    "id": "scout",
+    "kind": "shopping_cart",
+    "load": "gear",
+    "face": "SE",
+    "ago": 69
+   },
+   {
+    "id": "surgeon",
+    "kind": "utility_cart",
+    "load": "meds",
+    "face": "NW",
+    "ago": 69
+   },
+   {
+    "id": "blacksmith",
+    "kind": "wagon",
+    "load": "tape",
+    "face": "N",
+    "ago": 69
+   }
+  ],
+  "png_camp": "records/target/staff_cart/demo_upright_the_carts_by_the_fire.png",
+  "errs": [],
+  "P": {
+   "M1": true,
+   "F1": true,
+   "F2": true,
+   "F3": true,
+   "U1": false,
+   "C1": true,
+   "P1": true,
+   "P2": true,
+   "P3": true
+  }
+ },
+ {
+  "shape": "phone_landscape",
+  "surface": "demo",
+  "hired": [
+   "cook",
+   "surgeon",
+   "blacksmith",
+   "scout"
+  ],
+  "forgeWhy": "no town screen",
+  "map": {
+   "camp": 4,
+   "at": [
+    [
+     447,
+     119,
+     "SW",
+     "shopping_cart"
+    ],
+    [
+     432,
+     135,
+     "SW",
+     "wagon"
+    ],
+    [
+     404,
+     140,
+     "SW",
+     "utility_cart"
+    ],
+    [
+     389,
+     157,
+     "SW",
+     "shopping_cart"
+    ]
+   ],
+   "err": null,
+   "you": {
+    "how": "rig3d",
+    "x": 361,
+    "y": 166,
+    "w": 56,
+    "h": 72.5,
+    "moving": false,
+    "face": "SW"
+   }
+  },
+  "png_map": "records/target/staff_cart/demo_sideways_the_camp_on_the_map.png",
+  "bell": {
+   "units": [
+    {
+     "id": "c0",
+     "side": "you",
+     "staff": false,
+     "staffId": null,
+     "name": "YOU",
+     "cart": null,
+     "load": null,
+     "n": 0,
+     "weapon": "dagger",
+     "two": false,
+     "shield": true,
+     "onField": true,
+     "drawn": null,
+     "drawnWhich": null
+    },
+    {
+     "id": "c1",
+     "side": "you",
+     "staff": false,
+     "staffId": null,
+     "name": "DESI",
+     "cart": null,
+     "load": null,
+     "n": 0,
+     "weapon": "dagger",
+     "two": false,
+     "shield": true,
+     "onField": true,
+     "drawn": null,
+     "drawnWhich": null
+    },
+    {
+     "id": "c2",
+     "side": "you",
+     "staff": false,
+     "staffId": null,
+     "name": "RAUL",
+     "cart": null,
+     "load": null,
+     "n": 0,
+     "weapon": "light_crossbow",
+     "two": true,
+     "shield": false,
+     "onField": true,
+     "drawn": null,
+     "drawnWhich": null
+    },
+    {
+     "id": "s0",
+     "side": "you",
+     "staff": true,
+     "staffId": "cook",
+     "name": "Graciela Ochoa",
+     "cart": "shopping_cart",
+     "load": "food",
+     "n": 20,
+     "weapon": "box_cutter",
+     "two": false,
+     "shield": false,
+     "face": 2,
+     "onField": true,
+     "drawn": 18,
+     "drawnWhich": "front"
+    },
+    {
+     "id": "s1",
+     "side": "you",
+     "staff": true,
+     "staffId": "surgeon",
+     "name": "Alan Cho",
+     "cart": "utility_cart",
+     "load": "meds",
+     "n": 30,
+     "weapon": "box_cutter",
+     "two": false,
+     "shield": false,
+     "face": 2,
+     "onField": true,
+     "drawn": 18,
+     "drawnWhich": "front"
+    },
+    {
+     "id": "s2",
+     "side": "you",
+     "staff": true,
+     "staffId": "blacksmith",
+     "name": "Walt Hensley",
+     "cart": "wagon",
+     "load": "tape",
+     "n": 40,
+     "weapon": "pickaxe",
+     "two": false,
+     "shield": false,
+     "face": 2,
+     "onField": true,
+     "drawn": 17,
+     "drawnWhich": "front"
+    },
+    {
+     "id": "s3",
+     "side": "you",
+     "staff": true,
+     "staffId": "scout",
+     "name": "Danny Nguyen",
+     "cart": "shopping_cart",
+     "load": "gear",
+     "n": 0,
+     "weapon": "snub_revolver",
+     "two": false,
+     "shield": false,
+     "face": 2,
+     "onField": true,
+     "drawn": 19,
+     "drawnWhich": "front"
+    },
+    {
+     "id": "e0",
+     "side": "them",
+     "staff": false,
+     "staffId": null,
+     "name": "THUG",
+     "cart": null,
+     "load": null,
+     "n": 0,
+     "weapon": "hatchet",
+     "two": false,
+     "shield": true,
+     "onField": true,
+     "drawn": null,
+     "drawnWhich": null
+    },
+    {
+     "id": "e1",
+     "side": "them",
+     "staff": false,
+     "staffId": null,
+     "name": "THUG",
+     "cart": null,
+     "load": null,
+     "n": 0,
+     "weapon": "bike_lock_chain",
+     "two": false,
+     "shield": true,
+     "onField": true,
+     "drawn": null,
+     "drawnWhich": null
+    },
+    {
+     "id": "e2",
+     "side": "them",
+     "staff": false,
+     "staffId": null,
+     "name": "THUG",
+     "cart": null,
+     "load": null,
+     "n": 0,
+     "weapon": "pitchfork",
+     "two": true,
+     "shield": false,
+     "onField": true,
+     "drawn": null,
+     "drawnWhich": null
+    }
+   ],
+   "seen": {
+    "back": 112,
+    "front": 112
+   }
+  },
+  "onGlass": [
+   {
+    "staff": false,
+    "name": "YOU",
+    "bar": {
+     "x": 102,
+     "y": 114
+    },
+    "px": 102,
+    "py": 114
+   },
+   {
+    "staff": false,
+    "name": "DESI",
+    "bar": {
+     "x": 138,
+     "y": 166
+    },
+    "px": 138,
+    "py": 166
+   },
+   {
+    "staff": false,
+    "name": "RAUL",
+    "bar": {
+     "x": 102,
+     "y": 217
+    },
+    "px": 102,
+    "py": 217
+   },
+   {
+    "staff": true,
+    "name": "Graciela Ochoa",
+    "bar": {
+     "x": 65,
+     "y": 166
+    },
+    "px": 65,
+    "py": 166
+   },
+   {
+    "staff": true,
+    "name": "Alan Cho",
+    "bar": {
+     "x": 29,
+     "y": 114
+    },
+    "px": 29,
+    "py": 114
+   },
+   {
+    "staff": true,
+    "name": "Walt Hensley",
+    "bar": {
+     "x": 29,
+     "y": 217
+    },
+    "px": 29,
+    "py": 217
+   },
+   {
+    "staff": true,
+    "name": "Danny Nguyen",
+    "bar": {
+     "x": 65,
+     "y": 62
+    },
+    "px": 65,
+    "py": 62
+   }
+  ],
+  "view": [
+   844,
+   390
+  ],
+  "png_bell": "records/target/staff_cart/demo_sideways_the_carts_at_the_bell.png",
+  "close": {
+   "z": 1.1872523911834783
+  },
+  "png_close": "records/target/staff_cart/demo_sideways_the_carts_close.png",
+  "scroll": {
+   "top": 0,
+   "fight": 0
+  },
+  "frames": {
+   "fps": 44.4,
+   "worstMs": 283,
+   "p95Ms": 50
+  },
+  "tip": {
+   "which": "tip",
+   "ago": 174,
+   "face": "E"
+  },
+  "tipAt": {
+   "x": 392.7450101718525,
+   "y": 212.83671254765716,
+   "tile": 89.18356273828579
+  },
+  "png_tip": "records/target/staff_cart/demo_sideways_the_cooks_cart_goes_over.png",
+  "felled": {
+   "id": "s0",
+   "name": "Graciela Ochoa",
+   "round": 2,
+   "n": 20,
+   "load": "food"
+  },
+  "auto": {
+   "over": true,
+   "result": "won",
+   "rounds": 6,
+   "staff": [
+    {
+     "id": "cook",
+     "dead": true
+    },
+    {
+     "id": "surgeon",
+     "dead": false
+    },
+    {
+     "id": "blacksmith",
+     "dead": false
+    },
+    {
+     "id": "scout",
+     "dead": false
+    }
+   ]
+  },
+  "after": {
+   "lost": [
+    {
+     "id": "cook",
+     "name": "Graciela Ochoa",
+     "why": "dead",
+     "spilt": {
+      "kind": "food",
+      "n": 20,
+      "cart": "shopping_cart",
+      "kept": true
+     }
+    }
+   ],
+   "camp": [
+    "surgeon",
+    "blacksmith",
+    "scout"
+   ],
+   "supplies": {
+    "origin": "newcrew",
+    "econ": "full",
+    "food": 1,
+    "tape": 41,
+    "rounds": 80,
+    "meds": 30,
+    "wage": 0,
+    "founding": 3,
+    "at": 1795386369800
+   },
+   "cookCart": 0
+  },
+  "campMade": true,
+  "fire": [
+   {
+    "id": "scout",
+    "kind": "shopping_cart",
+    "load": "gear",
+    "face": "E",
+    "ago": 14
+   },
+   {
+    "id": "blacksmith",
+    "kind": "wagon",
+    "load": "tape",
+    "face": "E",
+    "ago": 14
+   },
+   {
+    "id": "surgeon",
+    "kind": "utility_cart",
+    "load": "meds",
+    "face": "NW",
+    "ago": 14
+   }
+  ],
+  "png_camp": "records/target/staff_cart/demo_sideways_the_carts_by_the_fire.png",
+  "errs": [],
+  "P": {
+   "M1": true,
+   "F1": true,
+   "F2": true,
+   "F3": true,
+   "U1": false,
+   "C1": true,
+   "P1": true,
+   "P2": true,
+   "P3": true
+  }
+ }
+]

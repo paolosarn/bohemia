@@ -498,7 +498,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"6118de4a3187693e",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"cb9ad16c6191f5cd",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1602,7 +1602,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/22zzb - THE STRIP WHOLE ON ITS SIDE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/22zzc - THE STAFF PUSH A CART</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12869,7 +12869,8 @@ function nfOverIn(d, src){
      the company's taken; each leaves the camp for good (his help with him), his face on the dead list, his kind back in the town deal */
   try{ var BCl = nfCamp(); window.__NF_STAFF_LOST = [];
     if(BCl && BCl.lose && d && Array.isArray(d.staff)) d.staff.forEach(function(r){ if(!r || !r.id || !(r.dead || r.taken)) return;
-      var gone = BCl.lose(r.id, r.dead ? 'dead' : 'taken', { day: NF.day | 0, board: outcome.board || null }); if(gone) window.__NF_STAFF_LOST.push({ id: r.id, name: gone.name, why: gone.why }); }); }catch(_e){}
+      var gone = BCl.lose(r.id, r.dead ? 'dead' : 'taken', { day: NF.day | 0, board: outcome.board || null, held: !!won });   /* __THE_STAFF_PUSH_A_CART__: his cart is kept only when the field was held */ if(gone) window.__NF_STAFF_LOST.push({ id: r.id, name: gone.name, why: gone.why, spilt: gone.spilt || null }); });
+      if(window.__NF_STAFF_LOST.some(function(x){ return x.spilt && x.spilt.n > 0; })){ var wS = document.getElementById('cityFrame'); wS = wS && wS.contentWindow; if(wS && typeof wS.__barPaintRead === 'function') wS.__barPaintRead(); } }catch(_e){}   /* __THE_STAFF_PUSH_A_CART__: the bar reads what the carts spilled */
   /* ARMORY 2 (rule 320): THE LIVE WIRE burns a cell a lash; the fight counts them (cellsBurned) and they leave the purse here, once,
      never more than it holds */
   try{ var cfW = document.getElementById('cityFrame'), wW = cfW && cfW.contentWindow, nW = d ? (d.cellsBurned | 0) : 0;

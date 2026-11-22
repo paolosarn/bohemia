@@ -92,7 +92,7 @@
   var LOADED = { asked: false, read: false }, PER_PLACE = 3;
   /* __THE_STAFF_FIGHT_TOO__ (STAFF, VAMILY rule 468): the camp's people in a fight, the file's staff block (records/target/bb/retinue.json
      staff; the copy below is that block, `node tools/bohemia_retinue_bake.js` writes it, gates/the_staff_fight_too_gate.js holds them equal) */
-  var STAFF = /* __STAFF_RULES__ */ {"stats":{"hp":[40,50],"resolve":[25,40],"melee_skill":[47,57],"ranged_skill":[32,42],"melee_defense":[0,5],"ranged_defense":[0,5],"initiative":[95,105],"fatigue":[90,100]},"level":1,"xp":false,"traits":["clumsy","craven","fainthearted","fragile","hesitant"],"weapon":"box_cutter","armour":false,"starts":"Wavering","top":"Steady","struck_down":"dead","shakes_fighters":true,"shakes_staff":true,"in_the_pit":false,"rehire_price":"the same","words":{"take":"Stands in your fights. One of your {cap}.","full":"No room: your company is {n} of {cap}.","camp":"CAMP"}} /* /__STAFF_RULES__ */;
+  var STAFF = /* __STAFF_RULES__ */ {"stats":{"hp":[40,50],"resolve":[25,40],"melee_skill":[47,57],"ranged_skill":[32,42],"melee_defense":[0,5],"ranged_defense":[0,5],"initiative":[95,105],"fatigue":[90,100]},"level":1,"xp":false,"traits":["clumsy","craven","fainthearted","fragile","hesitant"],"weapon":"box_cutter","arms":{"one_handed_only":true,"by_trade":{"blacksmith":"pickaxe","scout":"snub_revolver","bounty_hunter":"snub_revolver"},"else":"box_cutter"},"cart":{"kinds":[{"id":"shopping_cart","word":"A SHOPPING CART","melee_defense":8,"ranged_defense":3,"fatigue":-6,"ap_per_tile":1,"holds":20,"price":0,"tape":0},{"id":"utility_cart","word":"A STEEL UTILITY CART","melee_defense":11,"ranged_defense":5,"fatigue":-8,"ap_per_tile":1,"holds":35,"price":150,"tape":20},{"id":"wagon","word":"A WAGON","melee_defense":14,"ranged_defense":7,"fatigue":-10,"ap_per_tile":1,"holds":60,"price":300,"tape":40}],"front_arc":1,"built_at":"forge","stock":{"cook":"food","surgeon":"meds","alchemist":"meds","blacksmith":"tape","scavenger":"tape","quartermaster":"rounds","bounty_hunter":"rounds"},"kept_when_he_falls":"won"},"armour":false,"starts":"Wavering","top":"Steady","struck_down":"dead","shakes_fighters":true,"shakes_staff":true,"in_the_pit":false,"rehire_price":"the same","words":{"take":"Stands in your fights. One of your {cap}.","full":"No room: your company is {n} of {cap}.","camp":"CAMP"}} /* /__STAFF_RULES__ */;
   function readFile(j) {
     var v = j && j.followers && (j.followers.value || j.followers); if (!Array.isArray(v) || !v.length) return false;
     if (j.met_per_place && typeof j.met_per_place.value === 'number') PER_PLACE = Math.max(0, j.met_per_place.value | 0);
@@ -243,16 +243,16 @@
     return s.retinue.filter(function (id) { return !!row0(id); }).map(function (id) {
       var p = person(id), k = staffRoll(state(), id);
       return { id: id, staff: true, name: p.name, look: p.look, sex: p.sex || null, role: WORD[id] || String(id).toUpperCase(), person: p.n,
-        stats: Object.assign({}, k.stats), trait: k.trait, traits: k.trait ? [k.trait] : [], weapon: R0.weapon || 'box_cutter', starts: R0.starts || 'Wavering',
-        top: R0.top || 'Steady', level: R0.level || 1, shakes: !!R0.shakes_fighters };
+        stats: Object.assign({}, k.stats), trait: k.trait, traits: k.trait ? [k.trait] : [], weapon: armsOf(id), starts: R0.starts || 'Wavering',
+        top: R0.top || 'Steady', level: R0.level || 1, shakes: !!R0.shakes_fighters, cart: cartOf(id) };   /* __THE_STAFF_PUSH_A_CART__: his trade's one-hander, his cart */
     });
   }
   function lose(id, why, at) {
     var s = state(); if (s.retinue.indexOf(id) < 0) return null;
-    var p = person(id); s = state();
+    var p = person(id), spilt = spill(id, why, at); s = state();   /* __THE_STAFF_PUSH_A_CART__: his cart goes over first (what it held is gone) */
     s.retinue = s.retinue.filter(function (x) { return x !== id; });
     s.dead = s.dead || []; s.lost = s.lost || {};
-    var d = { id: id, name: p ? p.name : id, look: p ? p.look : null, why: String(why || 'dead'), at: at || null, n: p ? p.n : 0 };
+    var d = { id: id, name: p ? p.name : id, look: p ? p.look : null, why: String(why || 'dead'), at: at || null, n: p ? p.n : 0, spilt: spilt };
     s.dead.push(d); s.lost[id] = (s.lost[id] | 0) + 1;
     if (s.staffRoll) delete s.staffRoll[id];
     if (s.met) delete s.met[id];
@@ -260,7 +260,59 @@
   }
   function dead() { return (state().dead || []).slice(); }
   /* ==== /__THE_STAFF_FIGHT_TOO__ ==== */
+  /* ==== __THE_STAFF_PUSH_A_CART__ (STAFF 2, VAMILY rule 471, Paolo 11/22: 'they're forced to forever carry instead of a shield... it's like
+     it's a shopping cart... maybe it could never be removed, maybe it could be upgraded... these characters can only use one-handed weapons,
+     so either a pistol or like a one-handed melee... that shopping cart does reflect in the combat, like you'll see it'). The file's staff
+     block (records/target/bb/retinue.json staff.cart and staff.arms, a modder's; numbers draft, TUNING's):
+       BohemiaCamp.cartOf(id)       the cart his job pushes: its kind's row (word, the two defences from the front, fatigue, AP a tile, what it
+                                    holds), its level, and what is in it now (stock kind and count, and the load the picture shows)
+       BohemiaCamp.cartNext(id)     the next better cart and its price (batteries and tape), or null at the wagon
+       BohemiaCamp.upgradeCart(id)  his job's cart one step up (the screen takes the price), its new cart
+       BohemiaCamp.armsOf(id)       his one weapon by his trade: one-handed (a pistol or a one-handed blow), never two hands, never a shield
+       BohemiaCamp.cartLoad(id)     what his cart holds of the company's count: { kind, n } (the camp's order: the first of a kind fills first)
+     The cart is his job's, kept by the camp's book under his job's id (a new person in the job pushes the same cart); when he falls (lose) it
+     goes over: what it held leaves the company's count (bohemia.supplies.v1), and the cart is kept only when his side held the field. ==== */
+  function cartRules() { return (STAFF && STAFF.cart && Array.isArray(STAFF.cart.kinds) && STAFF.cart.kinds.length) ? STAFF.cart : null; }
+  function cartLevel(id) { var C = cartRules(); if (!C) return 0; var v = ((state().carts || {})[id]) | 0; return Math.max(0, Math.min(C.kinds.length - 1, v)); }
+  function supplies() { try { var w = JSON.parse(root.localStorage.getItem('bohemia.supplies.v1') || 'null'); return w && typeof w === 'object' ? w : {}; } catch (e) { return {}; } }
+  function stockKind(id) { var C = cartRules(); return C && C.stock && C.stock[id] ? String(C.stock[id]) : null; }
+  function cartLoad(id, sup) {
+    var C = cartRules(), k = stockKind(id); if (!C || !k) return { kind: null, n: 0 };
+    var w = sup || supplies(), left = Math.max(0, (k === 'food' && typeof w.water === 'number' ? Math.ceil(((w.food | 0) + (w.water | 0)) / 2) : (w[k] | 0)));
+    var ret = state().retinue, n = 0;
+    for (var i = 0; i < ret.length; i++) { if (stockKind(ret[i]) !== k) continue;
+      var take = Math.min(left, (C.kinds[cartLevel(ret[i])] || {}).holds | 0); if (ret[i] === id) { n = take; break; } left -= take; }
+    return { kind: k, n: n };
+  }
+  function cartOf(id) {
+    var C = cartRules(); if (!C) return null;
+    var lv = cartLevel(id), K = C.kinds[lv], ld = cartLoad(id);
+    return { id: K.id, word: K.word, level: lv, top: C.kinds.length - 1, melee_defense: +K.melee_defense || 0, ranged_defense: +K.ranged_defense || 0,
+      fatigue: +K.fatigue || 0, ap_per_tile: +K.ap_per_tile || 0, holds: +K.holds || 0, front_arc: C.front_arc == null ? 1 : +C.front_arc,
+      stock: ld.kind, n: ld.n, load: ld.kind ? (ld.n > 0 ? ld.kind : 'empty') : 'gear', draft: true };
+  }
+  function cartNext(id) { var C = cartRules(); if (!C) return null; var K = C.kinds[cartLevel(id) + 1]; return K ? { id: K.id, word: K.word, price: +K.price || 0, tape: +K.tape || 0, level: cartLevel(id) + 1 } : null; }
+  function upgradeCart(id) { var s = state(); if (s.retinue.indexOf(id) < 0 || !cartNext(id)) return null; s.carts = s.carts || {}; s.carts[id] = cartLevel(id) + 1; save(s); return cartOf(id); }
+  function armsOf(id) {
+    var A = (STAFF && STAFF.arms) || null, w = A && A.by_trade && A.by_trade[id] ? A.by_trade[id] : (A && A.else) || STAFF.weapon || 'box_cutter';
+    return String(w);
+  }
+  /* his cart goes over (he died, or was taken with the field): what it held leaves the company's count; the cart stays with his job only if
+     his side held the field (at.held, the fight's won), else it is gone with the field and the next one in his job starts on the first cart */
+  function spill(id, why, at) {
+    var C = cartRules(); if (!C) return null;
+    var w = supplies(), ld = cartLoad(id, w), kept = !!(at && at.held) && String(why || 'dead') !== 'taken', lv = cartLevel(id), out = { kind: ld.kind, n: 0, cart: (C.kinds[lv] || {}).id || null, kept: kept };
+    if (ld.kind && ld.n > 0) {
+      if (ld.kind === 'food' && typeof w.water === 'number') { w.food = Math.ceil(((w.food | 0) + (w.water | 0)) / 2); delete w.water; }
+      w[ld.kind] = Math.max(0, (w[ld.kind] | 0) - ld.n); out.n = ld.n;
+      try { root.localStorage.setItem('bohemia.supplies.v1', JSON.stringify(w)); } catch (e) {}
+    }
+    if (!kept && lv > 0) { var s = state(); s.carts = s.carts || {}; delete s.carts[id]; save(s); }
+    return out;
+  }
+  /* ==== /__THE_STAFF_PUSH_A_CART__ ==== */
   root.BohemiaCamp = { READY: READY, xpDrill: xpDrill,
+    /* __THE_STAFF_PUSH_A_CART__ */ cartOf: cartOf, cartNext: cartNext, upgradeCart: upgradeCart, armsOf: armsOf, cartLoad: cartLoad, cartLevel: cartLevel,
     /* __THE_STAFF_FIGHT_TOO__ */ staffRules: staffRules, person: person, staff: staff, lose: lose, dead: dead, deadLooks: deadLooks, KEY: KEY, BASE_SLOTS: BASE_SLOTS, CART: CART, LIVE: LIVE, WORD: WORD, state: state, stashSlots: stashSlots, cart: cart, buyCart: buyCart,
     retinue: retinue, has: has, hired: hired, offer: offer, hire: hire, letGo: letGo, mult: mult, plus: plus, look: look, MORE: MORE, NUMS: NUMS, moreOf: moreOf, scavenge: scavenge,
     /* __THE_RETINUE_DATA__ (RETINUE 11/7) */ row: row, rows: rows, price: price, inTown: inTown, meet: meet, looks: looks, LOADED: LOADED,

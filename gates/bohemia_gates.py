@@ -10060,6 +10060,14 @@ GATES = [
      "LEAVE: M1 the first town stands on the map (both shapes), M2 LEAVE is the map with the phone and no walk pad (both shapes), M3 a save from the walk "
      "comes back on the map, M4 the closest zoom stops, M5 nothing threw, B1 the bench (the city opened on its own) still boots on the walk, and a PLANT "
      "(the shell's frame not counted as the game): the walk again. About 2 min", True),
+    ('THE STAFF PUSH A CART', ['node', 'gates/the_staff_push_a_cart_gate.js'],
+     "STAFF 2 gate, 11/22, VAMILY rule 471, ask row 709 (Paolo 11/22: \"they're forced to forever carry instead of a shield... it's like it's a "
+     "shopping cart... these characters can only use one-handed weapons, so either a pistol or like a one-handed melee... that shopping cart does "
+     "reflect in the combat, like you'll see it\"): C1 the data (three carts, blade over bullet, each stronger, each slowing, the engine copy the "
+     "file's), C2 only the camp pushes one, C3 one hand (a two-hander and a bow refused), C4 from the front only, on the live chance, C5 it slows him, "
+     "C6 it faces the nearest of theirs at every stop, C7 its weight, C8 the stock and the spill, C9 the upgrade, C10 the pictures, C11 the hooks "
+     "(fight, camp, map, forge), C12 the fight still plays (printed). PLANT: carts guard every side, a two-hander kept, a fighter with a cart: C2-C4 "
+     "red. About 4 min", True),
     ('THE STAFF FIGHT TOO', ['node', 'gates/the_staff_fight_too_gate.js'],
      "STAFF gate, 11/21, VAMILY rule 468, ask row 667 (Paolo 11/21: \"it's just a little too easy... maybe they are forced to being in combat, "
      "they're roaming around with you, and the game becomes more about protecting your staff... if your staff permanently dies you gotta get new "

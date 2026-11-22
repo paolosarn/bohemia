@@ -26,6 +26,18 @@
       "xp": false,
       "traits": ["clumsy", "craven", "fainthearted", "fragile", "hesitant"],
       "weapon": "box_cutter",
+      "arms": { "one_handed_only": true, "by_trade": { "blacksmith": "pickaxe", "scout": "snub_revolver", "bounty_hunter": "snub_revolver" }, "else": "box_cutter" },
+      "cart": {
+        "kinds": [
+          { "id": "shopping_cart", "word": "A SHOPPING CART", "melee_defense": 8, "ranged_defense": 3, "fatigue": -6, "ap_per_tile": 1, "holds": 20, "price": 0, "tape": 0 },
+          { "id": "utility_cart", "word": "A STEEL UTILITY CART", "melee_defense": 11, "ranged_defense": 5, "fatigue": -8, "ap_per_tile": 1, "holds": 35, "price": 150, "tape": 20 },
+          { "id": "wagon", "word": "A WAGON", "melee_defense": 14, "ranged_defense": 7, "fatigue": -10, "ap_per_tile": 1, "holds": 60, "price": 300, "tape": 40 }
+        ],
+        "front_arc": 1,
+        "built_at": "forge",
+        "stock": { "cook": "food", "surgeon": "meds", "alchemist": "meds", "blacksmith": "tape", "scavenger": "tape", "quartermaster": "rounds", "bounty_hunter": "rounds" },
+        "kept_when_he_falls": "won"
+      },
       "armour": false,
       "starts": "Wavering",
       "top": "Steady",
@@ -47,7 +59,9 @@
       "shakes_fighters": "his fall or his flight shakes the line like any man of his (Battle Brothers' ally-dies check, his level one's small worth, nearer more) and the other staff. The research's default was the Indebted's rule ('No morale check triggered for non-indebted allies upon dying'): Battle Brothers' debtors are the company's fodder, ours are the camp, the cook and the doctor, the people the soldiers live with (Naseby's dead were 'soldiers' wives'). MEASURED (STAFF 11/21, the live fight headless, 100 fights a row, 8 of his against 9 with 3 staff): with no shake the camp made the fight EASIER (73% won against 65% with no camp: their blows spent on the camp); with the shake 69% and his line wavers when the cook dies, so keeping her alive is part of the fight",
       "in_the_pit": "an arena fight takes only the men he picked; the staff wait outside (C1)",
       "rehire_price": "the kind goes back in the town deal; a NEW person of the valley at the same one-time price (C7, D9)",
-      "words": "draft:true, for WORDS (rule 454(a): the fewest words a build needs)"
+      "words": "draft:true, for WORDS (rule 454(a): the fewest words a build needs)",
+      "arms": "VAMILY rule 471(b) (Paolo 11/22: 'these characters can only use one-handed weapons, so either a pistol or like a one-handed melee'): a staff member carries ONE one-handed weapon, a pistol or a one-handed blow, never a two-hander, never a shield, never a long gun or a bow (the fight refuses any other and hands him the else row). By his trade, realism first: the blacksmith his hammer (pickaxe is Battle Brothers' one-hand hammer, our framing hammer), the cab driver and the skip tracer the snub revolver a cab driver keeps under the seat and a bounty man on his belt; everybody else the box cutter of the 11/21 build. Draft, TUNING",
+      "cart": "VAMILY rule 471(a)(d)(e) (Paolo 11/22: 'they're forced to forever carry instead of a shield... it's like it's a shopping cart... maybe it could never be removed, maybe it could be upgraded... that shopping cart does reflect in the combat, like you'll see it'); the coordinator's defaults, realism first. THE CART IS HIS OFF HAND, ALWAYS: it is never taken off, sold or swapped for a shield (the fight gives a staff member no shield and no swap). IT WORKS LIKE A WEAK SHIELD FROM THE FRONT: Battle Brothers' lightest shields are 10 melee and 5 ranged (the buckler) to 15 and 15 (the wooden shield) (records/target/bb/armor.json shields); a wire cart is thinner than a buckler against a blade and far thinner against a round (a bullet goes through wire mesh and sheet steel), so 8 and 3; the steel utility cart's two trays 11 and 5; the wagon's bed and slat sides 14 and 7. Each counts only against a blow or a shot from the side it faces: its own facing and one step either side (front_arc 1, the three tiles that way), and it faces the nearest of theirs when he stops (he swings it round), the way he walked while he walks. IT SLOWS HIM: one more AP every tile he pushes it (a flat tile 2 AP, so 3; Battle Brothers' 9 AP turn walks 3 tiles, not 4), and its weight off his fatigue like a shield's (Battle Brothers' shields -4 to -22). IT CARRIES HIS TRADE'S STOCK: the cook's food, the surgeon's and the alchemist's meds, the blacksmith's and the scavenger's tape, the quartermaster's and the bounty hunter's rounds, up to what the cart holds (each trade takes its kind from the company's count in the order the camp came); WHEN HE FALLS THE CART GOES OVER AND WHAT IT HELD IS GONE from the company's count; the cart itself is righted and kept for the next one in his job if his side held the field (won), and taken with the field if it lost or left. IT UPGRADES at his place's forge (built_at), each step bought with batteries and welded from tape: a steel utility cart 150 and 20 tape, a wagon 300 and 40 tape. Draft, TUNING"
     }
   },
   "followers": {

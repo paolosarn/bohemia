@@ -50594,6 +50594,60 @@ function mapPartyShadow(gx, gy){
     return true;
   } catch (_e) { return false; }
 }   /* 13 back and 8 out hid one of the two wholly behind his body on every frame (filmed 10/11) */
+/* ==== __THE_STAFF_PUSH_A_CART__ (STAFF 2, VAMILY rule 471(c): the cart 'drawn in their hands on the map'). His camp's people (engine/bohemia_camp.js
+   staff(): his followers as the fight takes them, each his own body off the people mix, rigMixLook) walk behind his company in a file,
+   each pushing the cart his job pushes, the fight's own pictures of it (slices/fight_rig/staff_cart_<kind>.webp, staff_carts.json: the cart in
+   a man's frame, 98 px a man), laid at his feet at his height on the map, facing the way the company goes; they stand when he stops. At most
+   MAP_CAMP.most are drawn (the rest of the file is implied); drawn in depth with the city like his two. ==== */
+var MAP_CAMP = { on: true, most: 4, j: null, state: 0, im: {}, drew: 0 };
+window.MAP_CAMP = MAP_CAMP;
+function mapCampCarts(){
+  if (!MAP_CAMP.state) { MAP_CAMP.state = 1; try { fetch('fight_rig/staff_carts.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ MAP_CAMP.j = j; MAP_CAMP.state = j && j.kinds ? 2 : 3; }, function(){ MAP_CAMP.state = 3; }); } catch (_e) { MAP_CAMP.state = 3; } }
+  return MAP_CAMP.state === 2 ? MAP_CAMP.j : null;
+}
+function mapCampIm(file){ var im = MAP_CAMP.im[file]; if (!im) { im = MAP_CAMP.im[file] = new Image(); im.decoding = 'async'; im.src = 'fight_rig/' + file; } return im.complete && im.naturalWidth ? im : null; }
+function mapCampCart(c, f, sx, footY, man, which){
+  var J = mapCampCarts(); if (!J || !c) return false;
+  var KD = J.kinds[c.id] || J.kinds.shopping_cart, set = KD && (KD.cells[c.load] || KD.cells.gear), q = set && set[f] && set[f][which]; if (!q) return false;
+  var im = mapCampIm(KD.file); if (!im) return false;
+  var z = man / 98, x0 = mapSnap(sx + (q[4] - J.foot[0]) * z), y0 = mapSnap(footY + (q[5] - J.foot[1]) * z), w = q[2] * z, h = q[3] * z;
+  mapDepthBlit(function(){ g.imageSmoothingEnabled = false; g.drawImage(im, q[0], q[1], q[2], q[3], x0, y0, w, h); }, x0, y0, w, h);
+  return true;
+}
+function mapCampDraw(gx, gy, lift, moving, G){
+  if (!MAP_CAMP.on || !window.BohemiaCamp || !BohemiaCamp.staff) return;
+  var now = performance.now(), st = MAP_CAMP.st;
+  if (!MAP_CAMP.at || now - MAP_CAMP.at > 600) { MAP_CAMP.at = now; try { st = MAP_CAMP.st = BohemiaCamp.staff(); } catch (_e) { st = MAP_CAMP.st = null; } }   /* the camp's book a few times a second, never every frame */
+  if (!st || !st.length) return;
+  MAP_DREW = MAP_DREW || {};
+  MAP_CREW_DRAWING = !!MAP_CREW_K.on;
+  try {
+    var f = mapFaceNow(), v = MAP_VEC_OF[f] || [1, 1];
+    var dx = (v[0] - v[1]) * TW / 2, dy = (v[0] + v[1]) * TH / 2, dl = Math.hypot(dx, dy) || 1; dx /= dl; dy /= dl;
+    var K = MAP_CREW_DRAWING ? MAP_CREW_K.space : Math.max(0.75, MAP_PEOPLE_K), beat = mapArtBeat();
+    var stp = (typeof STREET !== 'undefined' && STREET.drawing) ? STREET.st : strideOf({ u: G.u, n: CITY_GLIDE.n });
+    var list = [];
+    st.slice(0, MAP_CAMP.most).forEach(function(p, i){
+      var set = rigMixLook(p.look); if (!set) return;
+      var back = (20 + 17 * i) * K, side = (i % 2 ? 1 : -1) * 5 * K;
+      list.push({ p: p, set: set, x: gx - dx * back - dy * side, y: gy - dy * back + dx * side * 0.5, i: i });
+    });
+    list.sort(function(a, b){ return a.y - b.y; });
+    g.translate(0, lift);
+    MAP_CAMP.drew = 0;
+    list.forEach(function(o){
+      var man = 56 * (MAP_CREW_DRAWING ? MAP_CREW_K.body : MAP_PERSON_K * MAP_PEOPLE_K) * 100 / 112;   /* his body's height on the glass: the 112 box drawn at 56, 100 of it him */
+      mapCampCart(o.p.cart, f, o.x, o.y, man, 'back');
+      MAP_SHADOW_DONE = false; mapPersonDraw(o.set, f, beat + o.i + 3, o.x, o.y, moving && stp != null ? stp + 0.33 * (o.i + 1) : null, o.p.look);
+      if (mapCampCart(o.p.cart, f, o.x, o.y, man, 'front') || o.p.cart) MAP_CAMP.drew++;
+      (MAP_DREW.campAt = MAP_DREW.campAt || []).push([Math.round(o.x), Math.round(o.y), f, o.p.cart ? o.p.cart.id : null]);
+    });
+    g.translate(0, -lift);
+    MAP_DREW.camp = MAP_CAMP.drew;
+  } catch (_e) { MAP_DREW.campErr = String(_e && _e.message || _e); }
+  MAP_CREW_DRAWING = false;
+}
+/* ==== /__THE_STAFF_PUSH_A_CART__ ==== */
 function mapCompanyDraw(gx, gy, lift, moving, G, pass){
   MAP_CREW_DRAWING = !!MAP_CREW_K.on && !MAP_PARTY_AS_ONE.on;   /* __THE_MARKER_IS_YOUR_CREW__: his size, his spacing (the as-one candidate keeps its own) */
   try {
@@ -54496,6 +54550,7 @@ function renderCity(){
        each other, drawn first so he stands in front. They stand and breathe when he stops. */
     /* __THE_PARTIES_WALK__: two of his company at his shoulders (mapCompanyDraw); nearer than him when he faces away */
     const __companyNear=mapCompanyNear();
+    if(!__companyNear) mapCampDraw(__gx,__gy,__lift,__moving,__G);   /* __THE_STAFF_PUSH_A_CART__: his camp trails him, each with a cart (up the glass: behind him) */
     mapCompanyPass(__gx,__gy,__lift,__moving,__G,__companyNear,0);
     mapYouBanner(__gx,__gy,__moving);   /* THE BANNER FIRST, so his body stands in front of its pole */
     let __bw=0, __bh=0;
@@ -54512,6 +54567,7 @@ function renderCity(){
       __bw=__s.width; __bh=__s.height;
     }
     mapCompanyPass(__gx,__gy,__lift,__moving,__G,__companyNear,1);   /* facing away, his company is between him and you */
+    if(__companyNear) mapCampDraw(__gx,__gy,__lift,__moving,__G);   /* __THE_STAFF_PUSH_A_CART__: facing away, his camp is nearer you than he is */
     try{ var __top = __body ? mapSnap(__gy-__bh*0.93) + mapInkTop(__body)*__bh : __gy-(__bh?__bh*0.93:40);
       mapHeadBarsQueue({ main: true }, __gx, __top-3); mapHeadBarsDraw(); }catch(_e){}   /* CAMP __THE_BARS_OVER_THEIR_HEADS__: over everybody of his, last; just over the top of his hair, not the top of his picture's box */
     MAP_DEPTH.ref=null;

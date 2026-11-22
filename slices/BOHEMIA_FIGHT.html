@@ -873,6 +873,7 @@ const FIGHT = (function () {
     if (pf) c = Math.max(pf.movement_ap_min_per_tile, c - pf.movement_ap_reduction);
     if (level(ax, ay) !== level(bx, by)) c += (pf ? pf.height_change_extra_ap : R('ap.move_cost.height_change_extra')) * Math.abs(level(ax, ay) - level(bx, by));
     u.injuries.forEach(function (j) { if (j.effects && j.effects.extra_ap_per_tile_moved) c += j.effects.extra_ap_per_tile_moved; });
+    if (u.cart) c += u.cart.ap_per_tile;   /* __THE_STAFF_PUSH_A_CART__: pushing it costs him a tile */
     return c;
   }
   /* a diagonal step may not squeeze between two of anything that fills a tile: two houses, two men, a man and a house.
@@ -1002,7 +1003,7 @@ const FIGHT = (function () {
   }
   function gearFat(u) {
     let f = 0, worn = 0;
-    [u.weapon, u.shield].forEach(function (g) { if (g && typeof g.fatigue === 'number') f += g.fatigue; });
+    [u.weapon, u.shield, u.cart].forEach(function (g) { if (g && typeof g.fatigue === 'number') f += g.fatigue; });   /* __THE_STAFF_PUSH_A_CART__: the cart weighs like a shield */
     [u.bodyRow, u.headRow].forEach(function (g) { if (g && typeof g.fatigue === 'number') worn += g.fatigue; });
     const b = PK(u, 'brawny');                          /* the armour and helmet weigh less on him */
     return f + (b ? worn * (1 - b.armor_fatigue_initiative_penalty_reduction_pct / 100) : worn);
@@ -2567,6 +2568,7 @@ const FIGHT = (function () {
        cover nearest the rail over their own side; the rest hold the low bay as any line. His line starts where it always does: the ramps are his way up */
     if (st === 'gallery') galleryStart(bandUnits);
     raidFromBehind(bandUnits, staffUnits, opts);   /* __THE_STAFF_FIGHT_TOO__ (C5 step two): the raid on the baggage */
+    staffUnits.forEach(function (u) { cartTurn(u); });   /* __THE_STAFF_PUSH_A_CART__: each cart faces the nearest of theirs at the bell */
     S.meet = null;   /* rule 435: the meet map is the start's only */
     /* Battle Brothers' formation screen, hosted by the fight until RUN TWO's roster exists: before turn one he may move
        any man inside his two columns; FIGHT starts it; AUTO (or a loop that asks for none) skips it and holds the kept line */
@@ -2774,15 +2776,51 @@ const FIGHT = (function () {
      dead when struck down, his fall shakes no fighter), standing behind the back row (C2), moving by themselves (ai.json archetypes.staff),
      the raiders' and the beasts' favourite target (ai.json camp_pull), guarded by AUTO (ai.json guards_the_camp). ==== */
   function staffUnit(p, i) {
-    const st = p.stats, w0 = weaponRow(p.weapon || 'box_cutter') || weaponRow('box_cutter'), w = pistolShot(w0) || isRanged(w0) ? weaponRow('box_cutter') : w0, xp = R('parsed.brother_xp');   /* never a gun: the camp's blade is a work blade */
+    const st = p.stats, w0 = weaponRow(p.weapon || 'box_cutter') || weaponRow('box_cutter'), w = staffArms(w0) ? w0 : weaponRow('box_cutter'), xp = R('parsed.brother_xp');   /* __THE_STAFF_PUSH_A_CART__ (rule 471(b)): one hand only, a pistol or a one-handed blow */
     const job = ((DB.wlines.rows[w.class] || {}).job) || w.class;
     const lk = p.look && DB.rig && DB.rig.looks && DB.rig.looks[p.look] ? p.look : (p.look || null);
     return makeUnit({ id: 's' + i, side: 'you', staff: true, staffId: p.id, role: p.role || null, person: p.person | 0, name: String(p.name || p.role || 'CAMP'), look: lk,
       sex: (p.sex === 'f' || p.sex === 'm') ? p.sex : null, main: false, kind: 'staff', job: job, level: 1, perks: [], traits: Array.isArray(p.traits) ? p.traits.slice() : [], injuries: [],
       hp: st.hp, fatigue: st.fatigue, resolve: st.resolve, initiative: st.initiative, mskill: st.melee_skill, rskill: st.ranged_skill, mdef: st.melee_defense, rdef: st.ranged_defense,
       apTurn: R('ap.per_turn'), weapon: w, shield: null, bodyRow: null, headRow: null, bag: [], bagKit: true, bagState: [], armH: 0, armB: 0, xp: xp.base, arche: 'staff',
-      morale: STATES().indexOf(p.starts) >= 0 ? p.starts : 'Wavering', staffTop: STATES().indexOf(p.top) >= 0 ? p.top : 'Steady', shakes: !!p.shakes });
+      morale: STATES().indexOf(p.starts) >= 0 ? p.starts : 'Wavering', staffTop: STATES().indexOf(p.top) >= 0 ? p.top : 'Steady', shakes: !!p.shakes,
+      cart: staffCart(p.cart), cartFace: 2 });   /* __THE_STAFF_PUSH_A_CART__: his cart in his off hand, facing their side (east) at the bell */
   }
+  /* ==== __THE_STAFF_PUSH_A_CART__ (STAFF 2, VAMILY rule 471, Paolo 11/22: 'they're forced to forever carry instead of a shield... it's like
+     it's a shopping cart... it can be a one-handed slot... these characters can only use one-handed weapons, so either a pistol or like a
+     one-handed melee... that shopping cart does reflect in the combat, like you'll see it'). The camp's book hands each staff member his cart
+     (engine/bohemia_camp.js cartOf: records/target/bb/retinue.json staff.cart, a modder's, TUNING's numbers):
+       - it is his off hand, always: he has no shield, no bag, no swap; the cart is never taken off;
+       - his one weapon is one-handed: a pistol or a one-handed blow; a two-hander, a shield, a long gun or a bow is refused (the box cutter);
+       - IT GUARDS FROM THE FRONT: its melee and ranged defence count against a blow or a shot from the side it faces (its facing and one
+         step either side: the three tiles that way), a weak shield, thinner against a round than a blade;
+       - IT FACES the way he pushed it while he walks, and the nearest of theirs when he stops (he swings it round); at the bell, their side;
+       - IT SLOWS HIM: ap_per_tile more AP every tile, and its weight off his fatigue like a shield's;
+       - IT HOLDS HIS TRADE'S STOCK (its load, drawn in it); when he falls it goes over (drawn on its side, what it held spilled). ==== */
+  function staffArms(w) { return !!w && w.hands === 1 && !isShield(w) && (!isRanged(w) || !!pistolShot(w)); }
+  function staffCart(c) {
+    if (!c || typeof c !== 'object' || !c.id) return null;
+    return { id: String(c.id), word: String(c.word || ''), level: c.level | 0, melee_defense: +c.melee_defense || 0, ranged_defense: +c.ranged_defense || 0,
+      fatigue: +c.fatigue || 0, ap_per_tile: Math.max(0, +c.ap_per_tile || 0), holds: c.holds | 0, front_arc: c.front_arc == null ? 1 : c.front_arc | 0,
+      stock: c.stock || null, n: c.n | 0, load: String(c.load || 'gear') };
+  }
+  function dir8Of(ddx, ddy) { return (Math.round(Math.atan2(ddx, ddy) / (Math.PI / 4)) % 8 + 8) % 8; }   /* the fight's eight, S first (the UI's dirOf) */
+  /* a blow or a shot from a meets his cart: a within its arc of its facing */
+  function cartFront(t, a) {
+    if (!t || !t.cart || !a || (a.x === t.x && a.y === t.y)) return false;
+    const d = dir8Of(a.x - t.x, a.y - t.y), f = t.cartFace == null ? 2 : t.cartFace, k = Math.abs(d - f) % 8;
+    return Math.min(k, 8 - k) <= t.cart.front_arc;
+  }
+  function cartDef(t, k, a) { return cartFront(t, a) ? (t.cart[k] || 0) : 0; }
+  /* he stops: the cart faces the nearest of theirs on the field, else the way he last stepped */
+  function cartTurn(u, fx, fy) {
+    if (!u || !u.cart) return;
+    const th = S.units.filter(function (f) { return f.side !== u.side && onField(f) && !f.decoy; })
+      .sort(function (p, q) { return Math.abs(p.x - u.x) + Math.abs(p.y - u.y) - Math.abs(q.x - u.x) - Math.abs(q.y - u.y); })[0];   /* the UI's own nearest, so the cart and his body agree */
+    if (th) u.cartFace = dir8Of(th.x - u.x, th.y - u.y);
+    else if (fx !== undefined && (fx !== u.x || fy !== u.y)) u.cartFace = dir8Of(u.x - fx, u.y - fy);
+  }
+  /* ==== end __THE_STAFF_PUSH_A_CART__ ==== */
   /* behind his back row (C2): the third column (his back column's own 'more' placement, filled from the middle out), then the column behind
      it; never his front column, never beside a man of theirs at the bell; a board with no tile there stands him on the open tile nearest it */
   function deployStaff(units, col, back, camp) {
@@ -2982,7 +3020,7 @@ const FIGHT = (function () {
     saveFormation();
     return true;
   }
-  function startFight() { if (!S.deploy) return false; saveFormation(); S.deploy = false; emit({ t: 'fight' }); return true; }
+  function startFight() { if (!S.deploy) return false; saveFormation(); S.deploy = false; S.units.forEach(function (u) { if (u.cart) cartTurn(u); }); emit({ t: 'fight' }); return true; }   /* __THE_STAFF_PUSH_A_CART__: his line set, the carts face theirs */
   /* THE ENEMY'S LINE IS VISIBLE WHILE HE SETS HIS (rule 110b; Battle Brothers shows the enemy's deployment): before FIGHT every
      man of theirs on the field is drawn; from the first turn only the men his side can see */
   function shown(t) { return t.side === 'you' || !!S.deploy || sideSees('you', t); }
@@ -3331,6 +3369,7 @@ const FIGHT = (function () {
     const mate = S.units.filter(function (o) { return o !== u && onField(o) && o.x === u.x && o.y === u.y; })[0];
     if (mate) { const to = unitAt(back.x, back.y) ? openNear(u.x, u.y, mate) : back;
       if (to) { emit({ t: 'step', id: mate.id, fx: mate.x, fy: mate.y, x: to.x, y: to.y }); mate.x = to.x; mate.y = to.y; emit({ t: 'swap', id: u.id, to: mate.id }); } }
+    if (u.cart) cartTurn(u, back.x, back.y);   /* __THE_STAFF_PUSH_A_CART__ */
     afterAction(u); return true;
   }
 
@@ -3469,7 +3508,7 @@ const FIGHT = (function () {
     if (!isRanged(w)) {
       let sk = a.mskill * moraleMult(a, 'melee_skill') * injMult(a, 'melee_skill_pct') * loneMult(a) * overMult(a);
       if (inWater(a)) sk *= R('hit_chance.terrain_swamp').melee_skill;
-      let df = t.mdef * netCut(t) + shieldDef(t, 'melee_defense') + defenceBonus(t, 'melee_defense_bonus') + coverDef(t, 'melee_defense') + ghostDef(a, t, 'per_tile_melee_defense');
+      let df = t.mdef * netCut(t) + shieldDef(t, 'melee_defense') + cartDef(t, 'melee_defense', a) + defenceBonus(t, 'melee_defense_bonus') + coverDef(t, 'melee_defense') + ghostDef(a, t, 'per_tile_melee_defense');
       if (t.reachStacks) df += t.reachStacks * perkRow('reach_advantage').numbers.melee_defense_per_stack;
       const around = foes(t).filter(function (f) { return dist(f, t) === 1 && !f.stunned && !isRanged(f.weapon) && f.morale !== 'Fleeing'; }).length;
       const bs = PK(a, 'backstabber'), ud = PK(t, 'underdog');
@@ -3486,7 +3525,7 @@ const FIGHT = (function () {
       const nightM = darkAt(t.x, t.y) ? R('hit_chance.night.multiplier') : 1, nightD = darkAt(a.x, a.y) ? R('hit_chance.night.multiplier') : 1;
       if (S.night) parts.push(nightM === 1 ? 'lit' : 'dark');
       const sk = a.rskill * moraleMult(a, 'ranged_skill') * injMult(a, 'ranged_skill_pct') * nightM * loneMult(a) * overMult(a);
-      let df = t.rdef * netCut(t) + shieldDef(t, 'ranged_defense') + defenceBonus(t, 'ranged_defense_bonus') + coverDef(t, 'ranged_defense') + ghostDef(a, t, 'per_tile_ranged_defense');
+      let df = t.rdef * netCut(t) + shieldDef(t, 'ranged_defense') + cartDef(t, 'ranged_defense', a) + defenceBonus(t, 'ranged_defense_bonus') + coverDef(t, 'ranged_defense') + ghostDef(a, t, 'per_tile_ranged_defense');
       const an = PK(t, 'anticipation');
       if (an) df += Math.max(an.ranged_defense_bonus_min, (an.ranged_defense_per_tile_flat + t.rdef * an.ranged_defense_per_tile_pct_of_base / 100) * dist(a, t));
       df = softCap(df) * moraleMult(t, 'ranged_defense') * injMult(t, 'ranged_defense_pct') * nightD * loneMult(t);
@@ -6282,7 +6321,7 @@ const FIGHT = (function () {
     level: level, isRoof: isRoof, storeysAt: storeysAt, reachLevel: reachLevel, rangeUp: rangeUp, openStreet: openStreet, tileKeyAt: tileKeyAt, streetCost: streetCost, goodGround: goodGround, groundSteps: groundSteps, oddsOf: oddsOf, digsIn: digsIn, sidePower: sidePower, dangerOn: dangerOn, canSpark: canSpark, spark: spark, sparkPreview: sparkPreview, vestLive: vestLive, fireAt: fireAt, smokeAt: smokeAt, nothingLeft: nothingLeft, sparkDeath: sparkDeath, climbedNow: climbedNow, climbsOn: climbsOn, climbsUp: climbsUp, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, kitFloored: kitFloored, breathFloor: breathFloor, rawFatMax: rawFatMax, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, isWhip: isWhip, reachOf: reachOf, rangeMax: rangeMax, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
-    deployMove: deployMove, startFight: startFight, inZone: inZone, /* __THE_STAFF_FIGHT_TOO__ */ staffZone: staffZone, campPull: campPull, guardsCamp: guardsCamp, staffOut: staffOut, staffTile: function (u) { const G = staffGround(u), mine = friends(u).filter(function (g) { return !g.staff && g.morale !== 'Fleeing'; }); return G ? staffTile(u, u.x, u.y, G, mine, foes(u).filter(function (f) { return f.morale !== 'Fleeing' && !f.decoy; }), staffLineX(mine)) : null; },
+    deployMove: deployMove, startFight: startFight, inZone: inZone, /* __THE_STAFF_PUSH_A_CART__ */ cartFront: cartFront, cartDef: cartDef, staffArms: staffArms, cartTurn: cartTurn, /* __THE_STAFF_FIGHT_TOO__ */ staffZone: staffZone, campPull: campPull, guardsCamp: guardsCamp, staffOut: staffOut, staffTile: function (u) { const G = staffGround(u), mine = friends(u).filter(function (g) { return !g.staff && g.morale !== 'Fleeing'; }); return G ? staffTile(u, u.x, u.y, G, mine, foes(u).filter(function (f) { return f.morale !== 'Fleeing' && !f.decoy; }), staffLineX(mine)) : null; },
     setPull: function (n) { FIGHT_OPTS_PULL = n === null || n === undefined ? null : +n; }, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
     _t: { neverIdle: neverIdle, reach: reach, nearFoe: nearFoe, actedNow: actedNow, expected: expected, nerve: check /* __EACH_ORIGIN_ITS_OWN__: the morale check, for the origins' gate */, keepsRoof: keepsRoof, holdsRoof: holdsRoof, roofSeen: roofSeen, tightFight: tightFight, bestTurn: bestTurn, inRange: inRange, wornWeight: wornWeight, weightClass: weightClass, walkCap: walkCap, walkLeft: walkLeft, dangerOn: dangerOn, threatReach: threatReach, longChase: longChase, endSpend: endSpend, sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,
@@ -10404,6 +10443,41 @@ function shieldProp(v) {
   const M = meleeMeta(), sh = v.shield; if (!M || !sh || !M.shield_by_row) return null;
   return M.shield_by_row[(sh.of || sh).id] || null;
 }
+/* ==== __THE_STAFF_PUSH_A_CART__, ON THE BOARD (STAFF 2, VAMILY rule 471(c): 'that shopping cart does reflect in the combat, like you'll see
+   it'). Every staff member's cart is drawn with him, the 3-D rig's own pictures (tools/bohemia_staff_the_cart.py: COOK's shopping cart, a
+   steel utility cart, a wagon, each with what his trade carries in it, rendered in the man's own frame, the fight sheet's camera, sun,
+   palette and stretch; slices/fight_rig/staff_cart_<kind>.webp and staff_carts.json): at his left hand, its handle before him, its front
+   the way he pushes it while he walks and the way the rules face it when he stops (u.cartFace: the side it guards); its BACK layer (the
+   cart and its shadow) under his body, its FRONT layer (what stands nearer the glass than his middle) over it; a beat's rattle on the
+   walk; once he falls, on its side with what it held spilled (TIP), under him. Never on a fighter: only a man the rules gave a cart. ==== */
+const CARTS = { meta: null, state: 0 };
+function cartMeta() {
+  if (!CARTS.state) { CARTS.state = 1;
+    try { fetch('fight_rig/staff_carts.json', FRESH).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (m) { CARTS.meta = m; CARTS.state = m && m.kinds ? 2 : 3; }, function () { CARTS.state = 3; }); } catch (e) { CARTS.state = 3; } }
+  return CARTS.state === 2 ? CARTS.meta : null;
+}
+/* the cell of his cart for this frame: [sheet entry, cell, which] or null */
+function cartCell(v, which, now) {
+  if (!v.cart || !v.staff) return null;
+  const M = cartMeta(), K = M && (M.kinds[v.cart.id] || M.kinds.shopping_cart); if (!K) return null;
+  const down = v._fallAt !== undefined;
+  if (down && which !== 'back') return null;
+  const w = walkOf(v), face = w ? walkAt(w, now).face : (v.cartFace == null ? (v._face == null ? 2 : v._face) : v.cartFace);
+  if (down && v._cartFell == null) v._cartFell = face;
+  const set = K.cells[v.cart.load] || K.cells.gear, c = set && set[DIR8[down ? v._cartFell : face]], q = c && c[down ? 'tip' : which];
+  return q ? [K, q, down ? 'tip' : which, !!w && !down] : null;
+}
+function cartLayer(v, which, ox, oy, s, now) {
+  const cc = cartCell(v, which, now); if (!cc) return;
+  const im = holdImg(cc[0].file, 'fight_rig/'); if (!im) return;
+  const q = cc[1], x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
+  const w = cc[3] ? walkOf(v) : null, rattle = w ? (Math.floor(Math.max(0, now - w.at) / (beatMs() / 6)) % 2) : 0;   /* the wire rattles a pixel on every other key of his walk */
+  cxDraw(dark ? nightSheet(im, moonOf(x, y)) : im, q[0], q[1], q[2], q[3], ox + q[4] * s, oy + (q[5] - rattle) * s, q[2] * s, q[3] * s);
+  UI.clipSeen = UI.clipSeen || {}; UI.clipSeen['cart:' + cc[2]] = (UI.clipSeen['cart:' + cc[2]] || 0) + 1;
+  (UI.cartDrawn || (UI.cartDrawn = {}))[v.id] = { at: now, which: cc[2], kind: v.cart.id, load: v.cart.load, face: DIR8[v._fallAt !== undefined ? v._cartFell : (w ? walkAt(w, now).face : v.cartFace)] };
+}
+/* ==== end __THE_STAFF_PUSH_A_CART__, ON THE BOARD ==== */
 /* which clip and key of his for the pose the fight gave him: the shield's, the two-hander's, or the one-hander's */
 function meleeClip(v, p, L, e, how, prop, kind, now) {
   const at = function (c) { return Math.max(0, (L.clips || DB.rig.clips)[c].indexOf(p.col)); }, cover = holdCovered(v), M = MELEE.meta;
@@ -10856,6 +10930,7 @@ function blitManNow(v, X, feet, now, alpha) {
   cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.imageSmoothingEnabled = false; cx.globalAlpha = alpha;
   if (v.ghost) { ghostBlit(v, img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, now, alpha); cx.restore(); return; }
   if (v.machine) { chipBlit(v, img, p, L, gs, ox, oy, s, now, alpha); cx.restore(); return; }
+  cartLayer(v, 'back', ox, oy, s, now);   /* __THE_STAFF_PUSH_A_CART__: his cart and its shadow under him (on its side once he fell) */
   const held = crawlDraw(v, p, L, gs, ox, oy, s, now) || holdDraw(v, p, L, gs, ox, oy, s, now);   /* __THE_CRAWL__ (ANIMATION): struck down, he drags himself away; __WHAT_A_MAN_HOLDS__: a pistol in one hand, a man in cover down behind it (ANIMATION) */
   const idled = held || idleDraw(v, p, L, gs, ox, oy, s, now);   /* __EVERYBODY_IDLES__: standing, he breathes and idles (ANIMATION) */
   if (!idled) cxDraw(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s);
@@ -10874,6 +10949,7 @@ function blitManNow(v, X, feet, now, alpha) {
   if (!idled) { const gk = gs && DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
     punchTint(v, now, img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, gc !== undefined && gc !== null && gs && !own_ ? [gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h] : null); }   /* THE PUNCH */
   laidDraw(v, 'over', p, L, gs, ox, oy, s, now);   /* __WHAT_HE_CARRIES_IS_DRAWN__: the shield, the two-hander, the bow his own keys could not hold */
+  cartLayer(v, 'front', ox, oy, s, now);   /* __THE_STAFF_PUSH_A_CART__: what of his cart stands nearer the glass than he does */
   cx.restore();
   /* THE TEAR ON THE MAN YOU CONTROL (rule 121(f), amending 120(c): his YES on ANIMATION's B, in the fight only, never on the
      map): the picture cannot hold him; ANIMATION's module laid over his blit on the fight's own beat, in its own frame (the
@@ -12117,6 +12193,9 @@ function weaponCard(v) {
     h += '<div class="wt" style="color:#7a3d10;font-weight:700;margin-top:6px">' + esc(S2.name || 'SHIELD') + '</div><div class="wl" style="font-weight:700">' + esc(S2.line || '') + '</div>'
       + r('Defence', markHTML('melee_defense', v.shield.melee_defense || 0) + markHTML('ranged_defense', v.shield.ranged_defense || 0)); }   /* rule 224: the two defences' icons, green up arrows and how much */
   else if (v.shieldBack) h += r('Car door', 'on ' + doorWords(v).his + ' back: the ' + armName(v, w) + ' takes both hands');   /* rule 191(b), draft:true */
+  if (v.cart) h += '<div class="wt" style="color:#7a3d10;font-weight:700;margin-top:6px">' + esc(v.cart.word || 'THE CART') + '</div>'   /* __THE_STAFF_PUSH_A_CART__ (rule 471), draft:true */
+    + r('From the front', markHTML('melee_defense', v.cart.melee_defense) + markHTML('ranged_defense', v.cart.ranged_defense))
+    + (v.cart.stock ? r('In it', v.cart.n + ' ' + esc(String(v.cart.stock).toUpperCase())) : '');
   d.innerHTML = h;
   /* VOTE FIXES 11/2 (Paolo: 'Only in the crew menu not any other menu'): his kills are no longer on the hold card; the crew screen keeps the line */
   d.dataset.card = w.id; d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'block'; UI.drawer = false; UI.wcard = v.id;
