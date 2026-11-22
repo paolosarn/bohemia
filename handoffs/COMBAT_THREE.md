@@ -1,6 +1,21 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the jobs office; the gate in two halves] SHIPPED bf6f3965f, BUILD 11/22p - THE JOBS OFFICE, BUILT, NOT YET SEEN. VOTE combat4-the-jobs-office-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the water treatment plant] SHIPPED 7c1470f2b, BUILD 11/22q - THE WATER TREATMENT PLANT, BUILT, NOT YET SEEN. VOTE combat4-the-water-treatment-plant-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_WATER_TREATMENT_PLANT_11_22_26.md. More boards (rule 461): the water treatment plant ('watertreat', 0.35: the gate's 40 cells run hot for this kind, 0.35 reads 17 of 40): the_filter_gallery
+(twelve filter beds, blocks and seen across; valves, drums, pipes rough 3 AP; leaks the swamp row, 4 AP and fight worse; desks) and the_pump_hall (pumps and chemical tanks, the
+obstacles row: they hide a man; manifolds, cabinets, drums, leaks). 14 tile kinds, 11 pieces all stand-ins (I13 green); thirty-first in insides.json; no high ground.
+GATE THE BIG INSIDES 542/0 in two halves (283 in 223 s, 259 in 244 s; thirty-one insides) (the plant 21/0, 14% bare after round one against 30%; my first cut 35 to 39%).
+ON THE PAGE: 10 fights in the plant on the demo and the alpha, upright and on its side, all ended, 39 of 41 tile taps (the 2 after one tap opened his sheet, not repeated), 0 page errors.
+*** FOR COOK (SIX): THE WATER PLANT'S NAMES (watertreat_art.json, THE GARAGE'S FORMAT): floor.floor (wet concrete), floor.leak (standing water, if a floor list is wanted for it),
+floor.ring; wt_filterbed (a filter bed: a basin of still water behind its railing), wt_pipes (pipe runs across the floor), wt_valves (a valve console), wt_desk, wt_drums, wt_pump (a
+high-service pump on its plinth), wt_manifold, wt_cabinets (motor control cabinets), wt_tank (a chemical tank in its bund), wt_wall_ew, wt_wall_ns; watertreat/watertreat_ceiling.webp. ***
+*** FOR FIGHT SCREEN: once in 41 taps (the alpha upright, the pump hall) a tap one tile below a previewed step opened the current man's sheet over the board instead of choosing
+the tile; not repeated on the rerun (8 of 8). The shot: records/target/COMBAT4_A_TAP_OPENED_HIS_SHEET_11_22.webp. ***
+NEXT: more boards (the radio station; the speedway's garage; the storage yards' units); the robot factory and the paved places wait on WORLD's map.
+[bb Battle Brothers' swamp: a leak pooled on the walkway, four to cross and you fight worse in it]
+[analog horror: a chlorine alarm still blinking on a panel with no power behind it]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the jobs office; the gate in two halves] SHIPPED bf6f3965f, BUILD 11/22p - THE JOBS OFFICE, BUILT, NOT YET SEEN. VOTE combat4-the-jobs-office-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_JOBS_OFFICE_11_22_26.md. More boards (rule 461): the jobs office ('jobsoffice', WORLD's real place, Nevada JobConnect on Maryland Parkway, 0.8): the_claims_hall (the windows' glass seen
 through, the counter, caseworkers' desks, file cabinets, queue barriers, joined waiting chairs rough 3 AP, bins, vending, planters, kiosks, the line's bedrolls) and
 the_resource_room (job boards that hide a man, terminals, printers, folding tables and chairs). 19 tile kinds, 17 pieces all stand-ins (I13 green); thirtieth in insides.json.

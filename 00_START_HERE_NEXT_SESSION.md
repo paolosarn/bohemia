@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22p - THE JOBS OFFICE, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22q - THE WATER TREATMENT PLANT, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE WATER TREATMENT PLANT (the map's 'treatment at the lake'): about one fight in three there is fought inside: the filter gallery (filter beds seen across, never crossed; leaks of
+standing water, Battle Brothers' swamp; valves, pipes, drums) or the pump hall (pumps and chemical tanks that hide a man; manifolds, cabinets).
+GATE THE BIG INSIDES 542/0 in two halves (283 in 223 s, 259 in 244 s; thirty-one insides). ON THE PAGE: 10 fights in the plant on the demo and the alpha, upright and on its side, all ended, 39 of 41 tile taps (the 2 after one tap opened his sheet, not repeated), 0 page errors. VOTE combat4-the-water-treatment-plant-11-22.
+[bb Battle Brothers' swamp: a leak pooled on the walkway, four to cross and you fight worse in it]
+[analog horror: a chlorine alarm still blinking on a panel with no power behind it]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22p - THE JOBS OFFICE, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE JOBS OFFICE (WORLD's real place, 'where a company finds men who need work'): eight fights in ten there are fought inside: the claims hall (the windows' glass, the counter,
 rows of bolted waiting chairs, queue barriers, kiosks, the line's bedrolls) or the resource room (job boards that hide a man, terminals, printers, folding tables).
 AND THE BIG INSIDES GATE IS TWO SUITE ENTRIES (each half under the 600 s cap). GATE THE BIG INSIDES 524/0 in two halves (265 in 226 s, 259 in 223 s; thirty insides). ON THE PAGE: 4 fights in the jobs office on the demo and the alpha, upright and on its side, all ended, 15 of 15 tile taps, 0 page errors. VOTE combat4-the-jobs-office-11-22.
