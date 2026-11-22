@@ -1,5 +1,23 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN and from 11/21 by WORLD FIFTEEN, its successor; newest block on top)
 
+WORLD FIFTEEN, ROUND TWO, BUILD TWO (11/22; rule 470(c), ask row 703; rule 473, row 713; rule 441; no words). BUILD 11/22zl - A REAL FOG OF WAR.
+BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_15_A_REAL_FOG_OF_WAR_11_22_26.md. VOTE world15-a-real-fog-of-war-11-22 (ui, STAND-IN).
+- MEASURED: on a stranger's game the unseen ground was WORLD TWO's faint city (bohemia_his_map.js fogDraw: the real map greyed under
+  static) and the road shields, the mountains' names, a checkpoint, the camps' smoke and a party drew over the fog. 'Everything, just dark.'
+- NOW slices/bohemia_the_real_fog.js (wraps render; loaded after the Strat): until THE SURVEYOR falls (WORLD TWO's state.boss.fallen,
+  any key with SURVEYOR), after the whole frame, an opaque dead channel over every block RUN's fog marks unseen and past the region's
+  square (RUN's 246-of-255 dark lifted to full by one 'lighter' pass at 0.04; the soft rim kept); WORLD TWO's faint pass skipped under it
+  (H.fogDraw wrapped). After his fall: the faint map exactly as before. The bench and FOG.all untouched.
+- COST: built a margin wider than the glass at a quarter of its pixels, carried to each frame's camera (shift and scale), rebuilt when
+  new ground comes in (F.dirty, nobody else reads it) and once crisp when the camera holds 120 ms. 0.1 ms a frame walking and pinching.
+- RULE 473 (row 713, WORLD 15's part): WORLD TWO's edge(): of the bosses found and not killed, only the first on his ladder waits at the
+  glass's edge (__ONE_BOSS_AT_THE_EDGE__ in bohemia_his_map.js); proven: three found off the glass, one at the edge (THE POT), two left.
+- GATE: A REAL FOG OF WAR (demo) and (alpha), new in the suite. FOR WORLD 13: the painter is untouched. FOR BOSSES: the surveyor's hole
+  still forgets his side under the static (now under the dead channel); his fall lifts the whole cover.
+- NEXT: what he asks; the dead on the map only on his word, drawn for the map's camera.
+[bb Battle Brothers hides the world past what the company has seen, and its maps are bought or found; ours is bought from the Surveyor or taken from him.]
+[analog horror: past the edge of what you have walked the map is a dead channel; nothing is there until somebody draws it.]
+
 WORLD FIFTEEN, ROUND TWO (11/22; the coordinator's routine: his votes of 11/22, rule 470(c) and (d)). BUILD 11/22ze - THE DEAD COME OFF THE MAP.
 - 470(d), his word on world15-the-dead-on-the-map-11-21: 'Wtf that looked like shit are you serious'. TAKEN OUT (redraw or remove was mine):
   the pictures were COOK DEAD's FIGHT renders (another camera, 45 down facing north) shrunk to the map, 7 to 27 px a body: specks, smudges,

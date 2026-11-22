@@ -419,6 +419,10 @@
         S.places.forEach(function (P) { if (painted(P.n)) { LAST.drew.places = (LAST.drew.places | 0) + 1; LAST.drew.placesPainted = (LAST.drew.placesPainted | 0) + 1; return; } var p = ground(P.x, P.y, ox, oy); if (!onGlass(p)) return; blit(gx, 'door', p.sx + 6 * scale() / 2, p.sy - 2); plate(gx, P.name, p.sx, p.sy + 1, PAL.y); LAST.drew.places = (LAST.drew.places | 0) + 1; });
         var s = S.boss.sign;
         if (s && !hidden(s.x, s.y)) { var ps = ground(s.x, s.y, ox, oy); if (onGlass(ps)) { blit(gx, s.kind, ps.sx, ps.sy - 2, (beat % 2) ? 1 : 0.7); LAST.drew.sign = { x: Math.round(ps.sx), y: Math.round(ps.sy) }; } }
+        /* __ONE_BOSS_AT_THE_EDGE__ (WORLD 15, 11/22, rule 473: 'I don't want waypoints... I have like 14 white points on my map'): of the
+           bosses he has found and not killed, only the one he is on (the first on HIS ladder) waits at the glass's edge when he is off it;
+           the others are marked where they stand (their skull on their place, found by looking, the way side work now is) */
+        var offB = [];
         for (var n in S.boss.found) {
           var f = S.boss.found[n], down = !!S.boss.fallen[n], pb = ground(f.x, f.y, ox, oy);
           if (onGlass(pb, 0)) {
@@ -426,8 +430,9 @@
             if (!quiet) { blit(gx, down ? 'dead' : 'skull', placed ? pb.sx - 14 * scale() / 2 : pb.sx, pb.sy - 2, down ? 0.9 : ((beat % 2) ? 1 : 0.8));
               if (!placed) plate(gx, n, pb.sx, pb.sy, down ? PAL.g : '#ff6a55'); }   /* a fallen boss whose place stands there gives his plate to the place */
             LAST.drew.boss = LAST.drew.boss || []; LAST.drew.boss.push({ n: n, x: Math.round(pb.sx), y: Math.round(pb.sy), down: down, quiet: quiet });
-          } else if (!down) edge(gx, pb, n);
+          } else if (!down) offB.push({ p: pb, n: n, i: (row(n) || {}).i != null ? row(n).i : 99 });
         }
+        if (offB.length) { offB.sort(function (a, b) { return a.i - b.i; }); edge(gx, offB[0].p, offB[0].n); LAST.drew.edgeKept = offB[0].n; LAST.drew.edgeLeft = offB.length - 1; }
       }
       /* his pins and the crosses: every zoom, one size, the game's own ink */
       S.crosses.forEach(function (c) {
