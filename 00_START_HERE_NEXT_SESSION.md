@@ -1370,7 +1370,7 @@ handoffs/WORLD_FOURTEEN.md.
 HOME BASE 3: 11/22 LATEST -- BUILD 11/22zt - THE OVERFLOW (a21c89ea6), BUILT, NOT YET SEEN (rule 466(a) step 4, ask row 663): at his
 place a building whose row is full now stands on a free lot of the row behind it, its own picture there, instead of not being drawn; the
 desk greys a build only when there is no room for it anywhere it can stand. Seven middle-row buildings drawn for the back row; the front
-five next (handoffs/HOME_BASE.md). Gate YOUR PLACE, PLANTED F7: upright 136/0, sideways 133/0. No VOTE card: nothing new to see until a row is full.
+five for the middle and back too (BUILD 11/22zy, fe3a7fa6c; upright 136/0, sideways 133/0): 466(a) is done. Gate YOUR PLACE, PLANTED F7: upright 136/0, sideways 133/0. No VOTE card: nothing new to see until a row is full.
 [bb Battle Brothers' camp upgrades take fixed slots; ours stand where the block has room, the back row higher.]
 [analog horror: when the middle row fills, the new one goes up on the back terrace, smaller in every camera.]
 HOME BASE 3: 11/22 EARLIER -- BUILD 11/22zm - THE GRINDER (8d48346ba), BUILT, NOT YET SEEN (rule 469, ask row 638; rule 466(a) steps 2 and 3, ask

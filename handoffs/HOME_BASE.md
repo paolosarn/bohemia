@@ -3,12 +3,10 @@ HOME BASE 3 (session_01GKDyutkCNC5cSDNauAG37o): 11/22 LATEST -- BUILD 11/22zm - 
 (step 4, BUILD 11/22zt, a21c89ea6: a piece whose row is full stands on a lot behind it, its own picture). Record records/BOHEMIA_HOME_BASE_THE_GRINDER_11_22_26.md. VOTE
 card home-base-the-grinder-11-22.
 
-## THE NEXT JOB: THE FRONT ROW BEHIND (the last of 466(a))
-1. Render the five front pieces onto the middle and back lots: `nice -n 19 /tmp/v/bin/python tools/bohemia_home_settlement_pipeline_11_3_26.py
-   piece <wall|stall|yard|main|purifier> --behind-only` (8 lots each, about 11 minutes a piece alone on 4 cores), then `python3
-   tools/bohemia_home_settlement_pipeline_11_3_26.py post_add <ids>`. Needs the raw empty plate first (`... empty`, 30 s) and the venv
-   (python3.11 -m venv /tmp/v && /tmp/v/bin/pip install bpy==4.2.0 numpy pillow scipy). The screen places them already.
-2. If he answers the record's DECIDED HERE (his own dead ground or not; the -10; never him): one line each.
+## THE NEXT JOB: 466(a) IS DONE (BUILD 11/22zy, fe3a7fa6c: the front five drawn on the rows behind too)
+1. Nothing of HOME BASE's is open on the asks list but what he has not answered: the record's DECIDED HERE (his own dead ground or not;
+   the -10 a town that finds out; the shakes never him), one line each if he speaks. SOUNDS holds row 720 (the cameras' hum).
+2. A new piece for his place: add it to the pipeline (PIECES, its row), render `piece <id>` and `piece <id> --behind-only`, post_add both.
 
 ## THE GRINDER, WHERE IT LIVES (for any lane)
 - engine/bohemia_grinder.js (BohemiaGrinder, pure): bring (the carry, the heat), pileNow, grind (one tap, the bad cut), reconcile (his
@@ -34,7 +32,8 @@ card home-base-the-grinder-11-22.
   at his buildings on the footage (homeWorkers, HOME_WORK, the crewTown filter). Gate F1 holds the board dead.
 - THE OVERFLOW (__THE_OVERFLOW__ in the screen, BUILD 11/22zt): homeFeedRowsOf(pid) is the manifest's rows for a piece (its own first);
   every piece takes its own row first, then the leftovers a free lot of a row behind that has their picture (HF.over, __HOME_FEED.over);
-  the desk's row-full reads every row the piece has pictures for. Rendered behind: the seven middle pieces on the back lots.
+  the desk's row-full reads every row the piece has pictures for. Rendered behind: the seven middle pieces on the back lots, the front five
+  on the middle and back (BUILD 11/22zy).
 - THE HUM: ASKED (ask row 720): crashbox/feed_b.mp3, loop, 0.25, while window.__HOME_FEED.on in his place's town screen (the 11/3 page
   BOHEMIA_YOUR_SETTLEMENT.html's own hum(), after a tap).
 

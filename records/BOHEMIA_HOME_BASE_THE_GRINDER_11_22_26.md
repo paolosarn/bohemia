@@ -59,9 +59,9 @@ Rule 460 holds: the smokehouse and the salt are in the picture; sausage in the s
   its own picture for that lot (the pipeline's `piece <id> --behind-only`, merged by post_add; each row behind stands higher and allows taller,
   never a row in front). Every piece takes its own row first, the leftovers after, so the overflow never takes a back lot from a back piece.
   The desk greys a build only when its row and every row behind that has its picture are full. RENDERED: the seven middle pieces (grinder,
-  forge, shed, pump, garden bed, water tank, solar panel) on the four back lots. NOT YET: the front five (wall, stall, yard, main,
-  purifier) behind; until then the front row says FULL when full (handoff). Gate F7: nine more middle buildings, four in the middle, the
-  rest on the back with their own pictures; planted: the pictures behind taken off, none drawn. Upright 136/0, sideways 133/0.
+  forge, shed, pump, garden bed, water tank, solar panel) on the four back lots; and (BUILD 11/22zy, fe3a7fa6c) the front five (wall,
+  stall, yard, main, purifier) on the middle and back lots: every piece he can build or be given now has a picture on every row it fits. Gate F7: nine more middle buildings, four in the middle, the
+  rest on the back with their own pictures; planted: the pictures behind taken off, none drawn. Upright 136/0, sideways 133/0; with the front five, upright 136/0, sideways 133/0.
 
 ## SEEN ON THE GLASS (the demo, real taps, BUILD 11/22zm)
 Upright (390 x 844) and sideways (844 x 390): a new game, day 2, planted, the grinder and the forge put up, the next day a fight won with
