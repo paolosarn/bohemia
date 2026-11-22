@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22q - THE WATER TREATMENT PLANT, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22r - THE STORAGE YARD, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE STORAGE YARD (the map's self-storage, about forty cells a valley): about two fights in five there are fought inside: the unit halls (shut units that hide a man, open units and
+units somebody lived in for cover; boxes, furniture, carts, a unit tipped out) or the RV canopy (RVs, boats and moving trucks that hide a man; stored cars, an RV's camp).
+GATE THE BIG INSIDES 559/0 in two halves (283 in 273 s, 276 in 242 s; thirty-two insides). ON THE PAGE: 13 fights in the yard on the demo and the alpha, upright and on its side (both layouts), all ended, 45 of 46 tile taps (the one: a fire tapped as the fight said its adrenaline line), 0 page errors. VOTE combat4-the-storage-yard-11-22.
+[bb Battle Brothers' wall and boulder: a run of shut units hides a man like its wall, an RV like its boulder; a tipped-out unit is its brush]
+[analog horror: a padlocked unit nobody opened since the rent stopped, and the smell under its door]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22q - THE WATER TREATMENT PLANT, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE WATER TREATMENT PLANT (the map's 'treatment at the lake'): about one fight in three there is fought inside: the filter gallery (filter beds seen across, never crossed; leaks of
 standing water, Battle Brothers' swamp; valves, pipes, drums) or the pump hall (pumps and chemical tanks that hide a man; manifolds, cabinets).
 GATE THE BIG INSIDES 542/0 in two halves (283 in 223 s, 259 in 244 s; thirty-one insides). ON THE PAGE: 10 fights in the plant on the demo and the alpha, upright and on its side, all ended, 39 of 41 tile taps (the 2 after one tap opened his sheet, not repeated), 0 page errors. VOTE combat4-the-water-treatment-plant-11-22.

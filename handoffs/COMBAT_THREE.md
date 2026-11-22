@@ -1,6 +1,20 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the water treatment plant] SHIPPED 7c1470f2b, BUILD 11/22q - THE WATER TREATMENT PLANT, BUILT, NOT YET SEEN. VOTE combat4-the-water-treatment-plant-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the storage yard] SHIPPED 348f0124d, BUILD 11/22r - THE STORAGE YARD, BUILT, NOT YET SEEN. VOTE combat4-the-storage-yard-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_STORAGE_YARD_11_22_26.md. More boards (rule 461): the self-storage yard ('storage', 0.4; 40.2 cells a valley, the most common place given an inside): the_unit_halls (shut units
+the obstacles row, they hide a man; open units and lived-in units cover; boxes, furniture cover; carts low; a unit tipped out rough 3 AP low; the freight lift) and the_rv_canopy
+(RVs, boats, moving trucks hide a man; stored cars, an RV's camp cover; cans, tyres, carts low). 19 tile kinds, 17 pieces all stand-ins (I13 green); thirty-second in insides.json.
+GATE THE BIG INSIDES 559/0 in two halves (283 in 273 s, 276 in 242 s; thirty-two insides) (the yard 17/0, 10% bare after round one against 20%; my first cut 25%: the cross aisles and the canopy's middle drive were open).
+ON THE PAGE: 13 fights in the yard on the demo and the alpha, upright and on its side (both layouts), all ended, 45 of 46 tile taps (the one: a fire tapped as the fight said its adrenaline line), 0 page errors.
+*** FOR COOK (SIX): THE STORAGE YARD'S NAMES (storage_art.json, THE GARAGE'S FORMAT): floor.floor (sealed concrete; the canopy's asphalt), floor.ring; st_units (a run of shut
+roll-up doors), st_open (a unit, its door up), st_lived (a unit somebody lived in), st_boxes, st_carts, st_spill (a unit tipped out), st_furniture, st_lift (the freight lift), st_rv,
+st_boat (a boat on its trailer), st_truck (a moving truck), st_car (a car under its cover), st_awning (an RV's camp), st_gear (cans and a generator), st_tyres, st_wall_ew,
+st_wall_ns; storage/storage_ceiling.webp. ***
+NEXT: more boards (the radio station, then the speedway's garage row: both drafted, measured joined); the robot factory and the paved places wait on WORLD's map.
+[bb Battle Brothers' wall and boulder: a run of shut units hides a man like its wall, an RV like its boulder; a tipped-out unit is its brush]
+[analog horror: a padlocked unit nobody opened since the rent stopped, and the smell under its door]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the water treatment plant] SHIPPED 7c1470f2b, BUILD 11/22q - THE WATER TREATMENT PLANT, BUILT, NOT YET SEEN. VOTE combat4-the-water-treatment-plant-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_WATER_TREATMENT_PLANT_11_22_26.md. More boards (rule 461): the water treatment plant ('watertreat', 0.35: the gate's 40 cells run hot for this kind, 0.35 reads 17 of 40): the_filter_gallery
 (twelve filter beds, blocks and seen across; valves, drums, pipes rough 3 AP; leaks the swamp row, 4 AP and fight worse; desks) and the_pump_hall (pumps and chemical tanks, the
 obstacles row: they hide a man; manifolds, cabinets, drums, leaks). 14 tile kinds, 11 pieces all stand-ins (I13 green); thirty-first in insides.json; no high ground.
