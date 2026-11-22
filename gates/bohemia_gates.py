@@ -9849,6 +9849,13 @@ GATES = [
      "own rows, the counter running while the picture holds (T1); the sentence on a black caption box line by line, the name with '>>' (T2); the "
      "same still at the bell, 40 px, opaque and lit, the lines clear, no bob, the same caption (T3). Planted: the photo 128 px and smooth, the "
      "bell's tape a no-op (T1, T3 red). About 3 min", True),
+    ('THE RECEIPT IS GONE', ['node', 'gates/the_receipt_is_the_end_screen_gate.js'],
+     "FIGHT SCREEN THREE gate, 11/22, VAMILY rule 475(a) (PAOLO 11/22 with a screenshot: 'there are still remnants of the old combat screen, "
+     "like with the casino receipt shit... hanging around being awkward and goofy as fuck'); RUN FIVE's THE RECEIPT IS THE END SCREEN (11/6, "
+     "rule 405(c)) re-aimed in place, never in the suite before. The end screen carries no till and no receipt paper, a won fight upright and "
+     "on its side (R1), LEAVE heard once at once (R2), a lost fight (R3); the demo's road fight won through the map's door: the fight's card "
+     "seen on 0 frames and the end screen with no receipt (D1); the fight's own card handed in the game and on the board on its own page (D2). "
+     "Planted: a strip of receipt paper laid back (the measure sees it). About 1 min", True),
     ('THE CARD THAT OPENS A FIGHT', ['node', 'gates/the_card_that_opens_a_fight_gate.js'],
      "FIGHT SCREEN TWO gate, 11/14, VAMILY rule 450(a) (ask row 621; PAOLO 11/14, twice: 'The card bro, the combat card is UGLY AS SHIT, TRY "
      "TO MAKE SOME AWESOME BIG BRAIN FINAL SHIT'). The card where he chooses ENGAGE or FALL BACK shows their leader's face, the one WHY "

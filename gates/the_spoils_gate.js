@@ -157,16 +157,18 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
        they were (the pack when every one is a beast), RAN only when some ran; every other head of the fight's stands as it is */
     const named = h => fh.head !== 'THE ROAD CREW RAN' ? h === fh.head
       : /^THE [A-Z]+ (IS DOWN|ARE DOWN|RAN|BROKE AND RAN)$/.test(h) && (/RAN$/.test(h) === fh.ran > 0) && (/^THE (PACK|BEAST) /.test(h) === fh.beasts);
-    /* RE-AIMED 11/6 (RUN FIVE, rule 405(c), __THE_RECEIPT__): the fight's numbers are printed on the end screen's receipt, a line a
-       quarter beat; read once it has printed, YOUR kills off your line on it (data-kills), the rounds off its tally (#tally) */
-    for (let i = 0; i < 40 && !(await SF().evaluate(() => !!window.__TILL && !window.__TILL.q.length && !!document.getElementById('tally')).catch(() => false)); i++) await p.waitForTimeout(150);
-    const e1 = await SF().evaluate(() => ({ word: document.getElementById('word').textContent, kind: document.getElementById('word').dataset.kind, who: document.getElementById('word').dataset.who || '', line: ((document.querySelector('#word q') || {}).textContent || ''), head: document.getElementById('head').textContent, tally: document.getElementById('tally').textContent,
-      you: (function () { const r = document.querySelector('#till .tl[data-man="YOU"]') || document.querySelector('#till .tl[data-man]'); return r ? r.dataset.kills + (r.dataset.kills === '1' ? ' KILL' : ' KILLS') : ''; })(), loot: getComputedStyle(document.getElementById('loot')).display }));
+    /* RE-AIMED 11/22 (FIGHT SCREEN THREE, VAMILY rule 475(a), PAOLO 11/22: 'remnants of the old combat screen, like with the casino receipt
+       shit... hanging around being awkward and goofy as fuck'): the till roll that printed the rounds and YOUR kills (RUN FIVE's 11/6 re-aim)
+       is gone and in the graveyard; a man's kills are the crew screen's (his vote 11/2: 'Only in the crew menu not any other menu'). The
+       one screen carries the man who says how it went, the fight's own head and the loot, and NO RECEIPT */
+    for (let i = 0; i < 40 && !(await SF().evaluate(() => !!document.getElementById('word') && !!document.getElementById('word').dataset.kind).catch(() => false)); i++) await p.waitForTimeout(150);
+    const e1 = await SF().evaluate(() => ({ word: document.getElementById('word').textContent, kind: document.getElementById('word').dataset.kind, who: document.getElementById('word').dataset.who || '', line: ((document.querySelector('#word q') || {}).textContent || ''), head: document.getElementById('head').textContent, receipt: !!document.querySelector('#till, #tillclip, #tillpaper, #tally'),
+      loot: getComputedStyle(document.getElementById('loot')).display }));
     /* RE-AIMED 11/2 (WORDS, rule 315, Paolo 11/2: 'to replace the you won'): a man of his still standing says how it went, his face,
        his name, his line, where YOU WON stood; never YOU */
-    ok('E1 *** ONE END SCREEN *** WON: one of his men says how it went, the fight\'s own head, its rounds, and what YOU did in it, all on the one screen that waits',
-      e1.kind === 'won' && !!e1.who && e1.who !== 'YOU' && e1.line.length > 3 && named(e1.head) && fh.head.length > 0 && new RegExp('^' + fh.rounds + ' ROUND').test(e1.tally) && new RegExp('^' + fh.kills + ' KILL').test(e1.you) && e1.loot !== 'none',
-      e1.who + ': "' + e1.line + '" / ' + e1.head + ' / ' + e1.tally + ' / YOU: ' + e1.you);
+    ok('E1 *** ONE END SCREEN *** WON: one of his men says how it went, the fight\'s own head and the loot, all on the one screen that waits, and no receipt on it (rule 475)',
+      e1.kind === 'won' && !!e1.who && e1.who !== 'YOU' && e1.line.length > 3 && named(e1.head) && fh.head.length > 0 && !e1.receipt && e1.loot !== 'none',
+      e1.who + ': "' + e1.line + '" / ' + e1.head + ' / receipt ' + e1.receipt);
     const s0 = await SF().evaluate(() => { const S = BohemiaSpoilsScreen.state; return { men: S.men.map(m => ({ name: m.name, main: m.main, gained: m.gained, up: m.up, to: m.to })), ground: S.ground.map(i => ({ id: i.id, kind: i.kind, from: i.from })), counts: S.counts, from: S.found.from,
       rows: document.querySelectorAll('#crew .man').length, perk: document.querySelectorAll('#crew button.perk').length, heads: document.querySelectorAll('#crew .man canvas').length }; });
     /* ---- D3 your crew ---- */

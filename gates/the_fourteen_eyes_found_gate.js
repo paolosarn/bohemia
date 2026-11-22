@@ -1380,7 +1380,10 @@ async function f649(shape, plant) {
       const x = SF(); if (x && await x.evaluate(() => !!window.BohemiaSpoilsScreen && !!BohemiaSpoilsScreen.state && !!BohemiaSpoilsScreen.state.fight).catch(() => false)) sf = x; }
     if (!sf) { ok('F649 ' + name + ': the fight ended on the end screen', false, await f.evaluate(() => JSON.stringify({ over: FIGHT.S.over, round: FIGHT.S.round, you: FIGHT.S.units.filter(u => u.side === 'you').map(u => u.name + ' ' + u.hp) })).catch(e => String(e).slice(0, 120))); return; }
     await p.waitForTimeout(5000);   /* the roll prints a line a quarter beat; the screen steps down to fit */
-    if (plant) { await sf.evaluate(() => { const st = document.createElement('style'); st.textContent = 'html.sp-d1 #till:not(.open) .paper{max-height:calc(20vh - 6px) !important}'; document.head.appendChild(st); }); await p.waitForTimeout(600); }
+    /* RE-AIMED 11/22 (FIGHT SCREEN THREE, VAMILY rule 475(a): the till roll is gone from the end screen and in the graveyard). The plant lays a
+       strip of receipt paper over the fight's lines, the way the roll once hung there: the leg must see the words under it */
+    if (plant) { await sf.evaluate(() => { const ln = document.getElementById('lines'), r = ln ? ln.getBoundingClientRect() : { top: 100, height: 40 }; const t = document.createElement('div'); t.id = 'till'; const pp = document.createElement('div'); pp.className = 'paper';
+      pp.style.cssText = 'position:fixed;left:0;right:0;top:' + Math.max(0, Math.round(r.top) - 4) + 'px;height:' + Math.max(40, Math.round(r.height) + 8) + 'px;background:#e4dac2;z-index:9'; t.appendChild(pp); document.body.appendChild(t); }); await p.waitForTimeout(400); }
     const m = await sf.evaluate(() => {
       const paper = document.querySelector('#till .paper'), t = paper && paper.getBoundingClientRect(), ln = document.getElementById('lines'), fld = document.getElementById('field').getBoundingClientRect();
       const under = [], lines = [];
@@ -1388,12 +1391,12 @@ async function f649(shape, plant) {
         Array.from(r.getClientRects()).forEach(c => { if (t && c.width > 0 && c.right > t.left + 1 && c.left < t.right - 1 && c.bottom > t.top + 1 && c.top < t.bottom - 1) under.push(Math.round(Math.min(c.right, t.right) - Math.max(c.left, t.left)) + ' px of a line at y ' + Math.round(c.top)); }); });
       const F = BohemiaSpoilsScreen.state.fight;
       return { wipe: !!F.wipe, step: (document.documentElement.className.match(/sp-d\d/) || ['sp-d0'])[0], lines: lines, under: under, paper: t ? [Math.round(t.left), Math.round(t.top), Math.round(t.right), Math.round(t.bottom)] : null,
-        field: [Math.round(fld.top), Math.round(fld.bottom)], open: document.getElementById('till').classList.contains('open'), rolls: document.querySelectorAll('#till .tl').length, glass: innerWidth + 'x' + innerHeight };
+        field: [Math.round(fld.top), Math.round(fld.bottom)], open: !!document.getElementById('till') && document.getElementById('till').classList.contains('open'), rolls: document.querySelectorAll('#till .tl').length, glass: innerWidth + 'x' + innerHeight };
     });
     if (SHOTS) await p.screenshot({ path: path.join(SHOTS, 'F649_' + shape + (plant ? '_planted' : '') + '.png') }).catch(() => {});
     const said = 'a real wipe (' + m.lines.length + ' lines: "' + (m.lines[m.lines.length - 1] || '').slice(0, 60) + '"), the screen at ' + m.step + ' on ' + m.glass + ', the rolled receipt ' + JSON.stringify(m.paper) + ' (' + m.rolls + ' lines printed), the window ' + JSON.stringify(m.field);
     if (plant) { ok('F649 ' + name + ' PLANTED (the roll at the full window\'s height on the first step down): the leg sees the words under it (' + m.under.join('; ') + ')', m.wipe && m.under.length >= 1, said); return; }
-    ok('F649 ' + name + ': ' + said + ': no word of the fight\'s lines under the receipt', m.wipe && m.lines.length >= 1 && !!m.paper && m.rolls >= 3 && !m.open && m.under.length === 0 && errs.length === 0, m.under.join('; ') + (errs[0] ? ' | ' + errs[0] : ''));
+    ok('F649 ' + name + ': ' + said + ': no receipt on the end screen at all (rule 475: the till roll is gone), so no word of the fight\'s lines is under one', m.wipe && m.lines.length >= 1 && !m.paper && m.rolls === 0 && m.under.length === 0 && errs.length === 0, m.under.join('; ') + (errs[0] ? ' | ' + errs[0] : ''));
   } catch (e) { ok('F649 ' + name + ' ran to the end', false, String(e && e.stack || e).slice(0, 300)); }
   finally { await d.close().catch(() => {}); }
 }

@@ -95,6 +95,12 @@ const READ_GLASS = () => {
   const f = fightF(); if (!f) { log('NO FIGHT'); W.errs = errs; fs.writeFileSync(path.join(OUT, 'walk.json'), JSON.stringify(W, null, 1)); process.exit(1); }
   const t0 = Date.now();
   for (const [ms, n] of [[300, '01_first_0_3s'], [1000, '02_first_1s'], [2000, '03_first_2s'], [3500, '04_first_3_5s'], [5000, '05_first_5s']]) { const d = ms - (Date.now() - t0); if (d > 0) await wait(d); await still(n); }
+  /* END=withdraw: RETREAT from the lineup (rule 253: one press), nobody moved */
+  if (process.env.END === 'withdraw') { await tapSel(page.mainFrame(), '#bohphone button[data-c="flee"]'); await wait(300); await still('06w_withdraw_pressed'); await wait(1200); await still('06w_withdraw_1_5s');
+    await wait(2500); await still('06w_withdraw_4s'); W.overCard = await f.evaluate(() => { const o = document.getElementById('over'); const st = getComputedStyle(o); return { display: st.display, visibility: st.visibility, head: (document.getElementById('oh') || {}).textContent }; }).catch(() => null);
+    log('OVER CARD', JSON.stringify(W.overCard)); await wait(3000); await still('06w_withdraw_7s'); W.errs = errs; fs.writeFileSync(path.join(OUT, 'walk.json'), JSON.stringify(W, null, 1)); log('DONE', WHICH, WAY, 'withdraw', 'page errors', errs.length); await browser.close(); process.exit(0); }
+  /* END=lose: his men a breath from the end (1 health, no armour), then the fight plays out on AUTO */
+  if (process.env.END === 'lose') await f.evaluate(() => { FIGHT.S.units.filter(v => v.side === 'you').forEach(v => { v.hp = 1; v.armB = 0; v.armH = 0; }); hud(); });
   /* FIGHT with a finger */
   await tapSel(page.mainFrame(), '#bohphone .fgo'); await wait(400); await still('06_after_fight_pressed');
   const his = await until(async () => f.evaluate(() => { const u = FIGHT.current(); return !!u && u.side === 'you' && !UI.anim.length && !FIGHT.S.deploy; }), 30000, 200);
@@ -114,7 +120,8 @@ const READ_GLASS = () => {
     await still('09r_retreat_pressed'); }
   if (!(await f.evaluate(() => !!UI.auto).catch(() => true))) { await phoneB('auto'); await wait(500); }
   for (let i = 0; i < 4; i++) { const h = await f.evaluate(() => UI.hand).catch(() => 2); if (h === 2) break; await phoneB('speed'); await wait(400); }
-  let k = 10; const tA = Date.now(); while (Date.now() - tA < 150000) { const o = await f.evaluate(() => !!FIGHT.S.over).catch(() => true); if (o) break; await wait(2500); await still(String(k++).padStart(2, '0') + '_auto'); if (k > 60) break; }
+  const lose = () => process.env.END === 'lose' ? f.evaluate(() => { if (!FIGHT.S.over) FIGHT.S.units.forEach(u => { if (u.side === 'you' && u.hp > 1) u.hp = 1; else if (u.side === 'them' && u.hp > 0 && !u.dead) u.hp = 9999; }); }).catch(() => null) : null;
+  let k = 10; const tA = Date.now(); while (Date.now() - tA < 150000) { const o = await f.evaluate(() => !!FIGHT.S.over).catch(() => true); if (o) break; for (let q = 0; q < 5; q++) { await lose(); await wait(500); } await still(String(k++).padStart(2, '0') + '_auto'); if (k > 60) break; }
   await wait(300); await still('80_over_0_3s'); await wait(1200); await still('81_over_1_5s'); await wait(2500); await still('82_over_4s');
   await until(() => !!frame(/SPOILS_SCREEN/), 12000, 300); await wait(1500); await still('83_end_screen');
   W.overCard = await f.evaluate(() => { const o = document.getElementById('over'); if (!o) return null; const st = getComputedStyle(o); return { display: st.display, visibility: st.visibility, handed: o.classList.contains('handed'), head: (document.getElementById('oh') || {}).textContent, text: (o.innerText || '').replace(/\s+/g, ' ').slice(0, 300) }; }).catch(() => null);

@@ -1,24 +1,25 @@
 /* ==========================================================================
-   THE RECEIPT IS THE END SCREEN  (RUN FIVE, 11/6/26, VAMILY rule 405(a)(c), ask line 448; rule 411 opened the round)
+   THE RECEIPT IS GONE  (FIGHT SCREEN THREE, 11/22/26, VAMILY rule 475(a); RE-AIMED IN PLACE from RUN FIVE's THE RECEIPT IS THE END
+   SCREEN of 11/6, rule 405(a)(c), which this rule overrides by date)
 
-   PAOLO 11/4: "we still have that receipt gambling shit, and I actually like the idea of that, the gambling receipt at the end of
-   the fight populates, but it's only there for one second before the victory screen appears... why don't we combine this, maybe
-   make the receipt look like it's hanging off the edge of the screen a little bit, incorporate it in a fun way".
-   MEASURED BEFORE (11/6): a won or lost fight showed TWO screens: the fight's own recap card (receipt paper, WHO KILLS BLOOD TAKEN
-   XP filling in) for about a second while the game's end screen loaded, then the end screen over it, carrying the same numbers
-   again on each man's card and in the bar.
+   PAOLO 11/22, with a screenshot (records/paolo_shots/BOHEMIA_PAOLO_SHOT_THE_RECEIPT_STILL_THERE_11_22_26.jpg): "there are still remnants of
+   the old combat screen, like with the casino receipt shit... it's still like hanging around being awkward and goofy as fuck".
+   THE LAW NOW: the end screen (slices/BOHEMIA_SPOILS_SCREEN.html) is the one end screen and carries no receipt and no receipt paper, in
+   every way a fight ends; the till roll is in the graveyard (gates/bohemia_graveyard.txt); a man's kills are the crew screen's (his vote
+   11/2: 'Only in the crew menu not any other menu'). The fight's own end card is never seen in the game, and on its own page it stands on
+   the house's dark board, not paper.
 
    LEGS
-     R1 the end screen on its own (its sample, a phone): the receipt hangs off the glass's right edge from under the bar; it prints
-        a line at a time; once printed it carries the fight's head, its rounds (#tally) and one line a man with his kills, blood
-        drawn, blood taken and XP, the fight's own numbers; the crew cards and the bar carry no second copy
-     R2 the loot counted onto it: LOOT ALL prints a line for every piece taken and the pay; a piece put back prints VOID
-     R3 a tap unrolls it, a second rolls it back
-     R4 LEAVE: the TOTAL prints, the roll is torn off, and the game hears 'leave' once, after the tear
-     R5 a lost fight: the receipt prints, NOTHING TAKEN, no loot on it
-     D1 *** ONE MOMENT, ONE SCREEN *** the demo, a road fight won through the map's own door: from the fight's end until the end
-        screen stands, the fight's own card is never seen (sampled every frame), and the end screen carries the receipt
-     D2 the bench keeps its card: the fight on its own (no game round it) still shows its recap card (source and page)
+     R1 the end screen on its own (its sample, a won fight), a phone upright and on its side: no till (#till, #tillclip, #tillpaper, #tally
+        absent) and no receipt paper (no element shown in the kit's receipt or in the till's paper colours); the head, the crew and the
+        loot stand
+     R2 LOOT ALL, then LEAVE: the game hears 'leave' once, at once (nothing is torn off first)
+     R3 a lost fight: no till, no receipt paper
+     D1 *** ONE MOMENT, ONE SCREEN *** the demo, a road fight won through the map's own door: the fight's own card seen on 0 frames, and
+        the end screen opens with no receipt and no receipt paper on it
+     D2 the fight's own card is handed to the game's end screen (won or lost inside the game) and on its own page stands on the board
+        (#over .box on #2a2016, overLook() lays the kit's board), never receipt paper
+     planted: a strip of receipt paper laid back on the end screen: R1's measure sees it
      Z  nothing threw
    node gates/the_receipt_is_the_end_screen_gate.js
    ========================================================================== */
@@ -29,7 +30,15 @@ const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const { throughTheTitle } = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
 let pass = 0, fail = 0;
 const ok = (n, c, x) => { c ? pass++ : fail++; console.log((c ? '  ok   ' : '  FAIL ') + n + (x !== undefined ? '  [' + x + ']' : '')); };
-const done = () => { console.log('=== THE RECEIPT IS THE END SCREEN: ' + pass + ' passed, ' + fail + ' failed ==='); process.exit(fail ? 1 : 0); };
+const done = () => { console.log('=== THE RECEIPT IS GONE: ' + pass + ' passed, ' + fail + ' failed ==='); process.exit(fail ? 1 : 0); };
+/* the measure: no till, and no element on the glass dressed as receipt paper (the kit's receipt piece, or the till's own paper colours) */
+const PAPER = () => { const tones = ['rgb(228, 218, 194)', 'rgb(221, 212, 189)', 'rgb(226, 218, 198)', 'rgb(230, 220, 196)'];
+  const vis = e => { const r = e.getBoundingClientRect(), cs = getComputedStyle(e); return r.width > 2 && r.height > 2 && cs.display !== 'none' && cs.visibility !== 'hidden' && +cs.opacity > 0.05 && r.bottom > 0 && r.top < innerHeight && r.right > 0 && r.left < innerWidth; };
+  const paper = [...document.querySelectorAll('body *')].filter(vis).filter(e => { const cs = getComputedStyle(e); return /ui_kit\/receipt\//.test(cs.backgroundImage) || tones.indexOf(cs.backgroundColor) >= 0; })
+    .map(e => (e.id ? '#' + e.id : e.tagName.toLowerCase() + (e.className && typeof e.className === 'string' ? '.' + e.className.trim().split(/\s+/).join('.') : '')));
+  return { till: ['till', 'tillclip', 'tillpaper', 'tally'].filter(id => !!document.getElementById(id)), paper: paper.slice(0, 8), papers: paper.length,
+    head: (document.getElementById('word') || {}).textContent || '', crew: document.querySelectorAll('#crew .man').length, loot: !!document.getElementById('loot') && getComputedStyle(document.getElementById('loot')).display !== 'none' };
+};
 const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.json': 'application/json', '.webp': 'image/webp', '.woff2': 'font/woff2' };
 
 (async () => {
@@ -47,62 +56,40 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
   const sp = await ctx.newPage(); sp.on('pageerror', e => errs.push('spoils: ' + e.message));
   await sp.goto(base + '/slices/BOHEMIA_SPOILS_SCREEN.html');
   await sp.waitForFunction(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened, null, { timeout: 30000 });
-  /* ---- R1 ---- */
-  const early = await sp.evaluate(() => { localStorage.setItem('bohemia.bag.v1', '[]'); BohemiaSpoilsScreen.open({ fight: BohemiaSpoilsScreen.SAMPLE, seed: 7 }); return 0; });
-  await sp.waitForTimeout(110);
-  const n110 = await sp.evaluate(() => document.querySelectorAll('#tillpaper .tl').length);
-  await sp.waitForTimeout(2200);
-  const r1 = await sp.evaluate(() => {
-    const t = document.getElementById('till'), r = t.getBoundingClientRect(), bar = document.getElementById('bar').getBoundingClientRect(), SM = BohemiaSpoilsScreen.SAMPLE.spoils.recap;
-    const rows = [...document.querySelectorAll('#tillpaper .tl[data-man]')].map(e => ({ man: e.dataset.man, kills: +e.dataset.kills, dealt: +e.dataset.dealt, taken: +e.dataset.taken, text: e.textContent }));
-    const S = BohemiaSpoilsScreen.state, want = SM.men.map(m => { const mm = S.men.find(x => x.name === m.name) || {}; return { man: mm.main ? 'YOU' : m.name, kills: m.kills, dealt: m.dealt, taken: m.taken, xp: mm.gained | 0 }; });
-    const same = want.every(w => rows.some(q => q.man === w.man && q.kills === w.kills && q.dealt === w.dealt && q.taken === w.taken && new RegExp('\\b' + w.xp + '$').test(q.text.trim())));
-    return { right: Math.round(r.right), W: document.documentElement.clientWidth, sx: document.documentElement.scrollWidth, top: Math.round(r.top), barBottom: Math.round(bar.bottom), lines: document.querySelectorAll('#tillpaper .tl').length,
-      head: [...document.querySelectorAll('#tillpaper .tl.big')].map(e => e.textContent).join(' | '), tally: (document.getElementById('tally') || {}).textContent || '',
-      inTill: !!(document.getElementById('tally') && document.getElementById('till').contains(document.getElementById('tally'))),
-      same, rows: rows.length, men: want.length, nums: document.querySelectorAll('#crew .nums').length, barTally: !!document.querySelector('#bar #tally') };
-  });
-  ok('R1 the receipt hangs off the glass\'s right edge from under the bar, and prints a line at a time (' + n110 + ' lines at 110 ms, ' + r1.lines + ' printed)',
-    r1.right > r1.W + 4 && r1.sx <= r1.W && r1.top <= r1.barBottom && n110 >= 1 && n110 < r1.lines && r1.lines >= 8, 'right ' + r1.right + ' of ' + r1.W + ' (page ' + r1.sx + ' wide, no sideways scroll), top ' + r1.top + ' bar ' + r1.barBottom);
-  ok('    it carries the fight\'s head, its rounds and one line a man with the fight\'s own kills, blood, taken and XP; no second copy on the cards or the bar',
-    /RAN|DOWN/.test(r1.head) && /^6 ROUNDS/.test(r1.tally) && r1.inTill && r1.same && r1.rows === r1.men && r1.nums === 0 && !r1.barTally, r1.head + ' / ' + r1.tally.replace(/\n/g, ' / ') + ' / ' + r1.rows + ' men, cards ' + r1.nums);
+  /* ---- R1, both shapes ---- */
+  const r1 = {};
+  for (const shape of [['upright', 390, 844], ['on its side', 844, 390]]) {
+    await sp.setViewportSize({ width: shape[1], height: shape[2] });
+    await sp.evaluate(() => { localStorage.setItem('bohemia.bag.v1', '[]'); BohemiaSpoilsScreen.open({ fight: BohemiaSpoilsScreen.SAMPLE, seed: 7 }); });
+    await sp.waitForTimeout(2400);
+    r1[shape[0]] = await sp.evaluate('(' + PAPER.toString() + ')()');
+    await sp.screenshot({ path: path.join(require('os').tmpdir(), 'receipt_gone_' + shape[1] + '.png') }).catch(() => {});
+  }
+  const clean = (m) => !!m && m.till.length === 0 && m.papers === 0 && m.head.length > 0 && m.crew > 0 && m.loot;
+  ok('R1 the end screen on its own, a won fight: no till and no receipt paper, the head, the crew and the loot stand',
+    clean(r1['upright']) && clean(r1['on its side']), JSON.stringify(r1));
   /* ---- R2 ---- */
-  await sp.evaluate(() => document.getElementById('lootall').click()); await sp.waitForTimeout(2000);   /* the press itself is THE SPOILS gate's (its D4, a real tap) */
-  const r2a = await sp.evaluate(() => ({ items: document.querySelectorAll('#tillpaper .tl[data-item]:not(.void)').length, took: BohemiaSpoilsScreen.state.stash.filter(i => i.fresh).length,
-    pay: [...document.querySelectorAll('#tillpaper .tl')].some(e => /BATTER/.test(e.textContent)) }));
-  await sp.evaluate(() => BohemiaSpoilsScreen.putBack(0)); await sp.waitForTimeout(600);
-  const r2b = await sp.evaluate(() => document.querySelectorAll('#tillpaper .tl.void').length);
-  ok('R2 the loot counted onto it: LOOT ALL prints a line a piece and the pay; a piece put back prints VOID', r2a.items === r2a.took && r2a.took > 0 && r2a.pay && r2b === 1, JSON.stringify(r2a) + ', void ' + r2b);
+  await sp.setViewportSize({ width: 390, height: 844 });
+  await sp.evaluate(() => { localStorage.setItem('bohemia.bag.v1', '[]'); BohemiaSpoilsScreen.open({ fight: BohemiaSpoilsScreen.SAMPLE, seed: 7 }); }); await sp.waitForTimeout(1500);
+  await sp.evaluate(() => document.getElementById('lootall').click()); await sp.waitForTimeout(1200);   /* the press itself is THE SPOILS gate's (its D4, a real tap) */
+  const r2 = await sp.evaluate(async () => { const S = BohemiaSpoilsScreen.state, n0 = S.log.filter(m => m.act === 'leave').length, took = S.stash.filter(i => i.fresh).length; BohemiaSpoilsScreen.leave(); BohemiaSpoilsScreen.leave();
+    const atOnce = S.log.filter(m => m.act === 'leave').length - n0; await new Promise(r => setTimeout(r, 600)); return { atOnce, after: S.log.filter(m => m.act === 'leave').length - n0, took: took }; });   /* took is read before LEAVE: leaving clears the fresh marks */
+  ok('R2 LOOT ALL, then LEAVE: the game hears leave once, at once (nothing torn off first)', r2.atOnce === 1 && r2.after === 1 && r2.took > 0, JSON.stringify(r2));
   /* ---- R3 ---- */
-  await sp.evaluate(() => window.scrollTo(0, 0));
-  const h0 = await sp.evaluate(() => document.querySelector('#till .paper').getBoundingClientRect().height);
-  await sp.evaluate(() => document.getElementById('till').click()); await sp.waitForTimeout(400);
-  const h1 = await sp.evaluate(() => document.querySelector('#till .paper').getBoundingClientRect().height);
-  await sp.evaluate(() => document.getElementById('till').click()); await sp.waitForTimeout(400);
-  const h2 = await sp.evaluate(() => document.querySelector('#till .paper').getBoundingClientRect().height);
-  ok('R3 a tap unrolls it, a second rolls it back', h1 > h0 + 60 && Math.abs(h2 - h0) < 4, Math.round(h0) + ' -> ' + Math.round(h1) + ' -> ' + Math.round(h2));
-  /* ---- R4 ---- */
-  const r4 = await sp.evaluate(async () => {
-    const S = BohemiaSpoilsScreen.state, n0 = S.log.filter(m => m.act === 'leave').length, t0 = performance.now();
-    BohemiaSpoilsScreen.leave(); BohemiaSpoilsScreen.leave();
-    const torn = document.getElementById('till').classList.contains('torn'), atOnce = S.log.filter(m => m.act === 'leave').length - n0;
-    const total = [...document.querySelectorAll('#tillpaper .tl')].some(e => /^TOTAL\s+\d+$/.test(e.textContent.trim()));
-    await new Promise(r => setTimeout(r, 600));
-    const after = S.log.filter(m => m.act === 'leave').length - n0;
-    return { torn, atOnce, after, total };
-  });
-  ok('R4 LEAVE: the TOTAL prints, the roll is torn off, and the game hears leave once, after the tear', r4.torn && r4.total && r4.atOnce === 0 && r4.after === 1, JSON.stringify(r4));
-  /* ---- R5 ---- */
   await sp.evaluate(() => { const f = JSON.parse(JSON.stringify(BohemiaSpoilsScreen.SAMPLE)); f.result = 'lost'; f.spoils.recap.head = 'YOUR CREW IS DOWN'; BohemiaSpoilsScreen.open({ fight: f, seed: 7 }); });
   await sp.waitForTimeout(2200);
-  const r5 = await sp.evaluate(() => ({ none: [...document.querySelectorAll('#tillpaper .tl')].some(e => e.textContent === 'NOTHING TAKEN'), items: document.querySelectorAll('#tillpaper .tl[data-item]').length,
-    torn: document.getElementById('till').classList.contains('torn'), men: document.querySelectorAll('#tillpaper .tl[data-man]').length }));
-  ok('R5 a lost fight: a fresh receipt prints, NOTHING TAKEN, no loot on it', r5.none && r5.items === 0 && !r5.torn && r5.men > 0, JSON.stringify(r5));
+  const r3 = await sp.evaluate('(' + PAPER.toString() + ')()');
+  ok('R3 a lost fight: no till and no receipt paper', r3.till.length === 0 && r3.papers === 0 && r3.crew > 0, JSON.stringify(r3));
+  /* ---- planted: a strip of receipt paper laid back ---- */
+  await sp.evaluate(() => { const t = document.createElement('div'); t.style.cssText = 'position:fixed;right:0;top:120px;width:160px;height:46px;background:#e4dac2;z-index:9'; document.body.appendChild(t); });
+  const pl = await sp.evaluate('(' + PAPER.toString() + ')()');
+  ok('planted: a strip of receipt paper laid back on the end screen: the measure sees it', pl.papers >= 1, JSON.stringify(pl));
   await ctx.close();
-  /* ---- D2 the bench keeps its card ---- */
+  /* ---- D2 the fight's own card ---- */
   const fsrc = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8');
   const handedRule = /#over\.handed\{visibility:hidden;pointer-events:none\}/.test(fsrc) && /window\.parent !== window && !!window\.parent\.SPOILS && \(result === 'won' \|\| result === 'lost'\)/.test(fsrc);
-  ok('D2 the card is handed only to the game\'s end screen (a won or lost fight inside the game); the bench and a pull-back keep it', handedRule);
+  const boardCard = /#over \.box\{color:#f2e4c6!important;background:#2a2016!important/.test(fsrc) && /function overLook\(\)/.test(fsrc) && /overLook\(\);\s+\/\* __THE_RECEIPT_IS_GONE__ \*\/\n\s+o\.classList\.toggle\('handed', handed\);/.test(fsrc);
+  ok('D2 the fight\'s own card is handed to the game\'s end screen in the game, and on its own page stands on the board, never receipt paper', handedRule && boardCard, 'handed ' + handedRule + ', board ' + boardCard);
 
   /* ---- D1 the demo ---- */
   let d;
@@ -132,11 +119,11 @@ const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/pn
       let st = null;
       for (let i = 0; i < 60; i++) { await p.waitForTimeout(150);
         const sf = p.frames().find(x => /SPOILS_SCREEN/.test(x.url()));
-        st = sf ? await sf.evaluate(() => ({ open: !!(window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened), lines: document.querySelectorAll('#tillpaper .tl').length, men: document.querySelectorAll('#tillpaper .tl[data-man]').length })).catch(() => null) : null;
-        if (st && st.open && st.lines >= 6) break; }
+        st = sf ? await sf.evaluate('(' + PAPER.toString() + ')()').then(m => sf.evaluate(() => !!(window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened)).then(o => Object.assign(m, { open: o }))).catch(() => null) : null;
+        if (st && st.open && st.crew > 0) { await p.waitForTimeout(1200); st = await sf.evaluate('(' + PAPER.toString() + ')()').catch(() => st); st.open = true; break; } }
       const seen = await f.evaluate(() => ({ seen: (window.__CARD_SEEN || []).length, looks: window.__CARD_LOOKS | 0, display: document.getElementById('over').style.display, handed: document.getElementById('over').classList.contains('handed') })).catch(() => ({ seen: -1 }));
-      ok('D1 *** ONE MOMENT, ONE SCREEN *** a road fight won on the demo: the fight\'s card seen on 0 of ' + seen.looks + ' frames, and the end screen carries the receipt (' + (st ? st.lines : 0) + ' lines, ' + (st ? st.men : 0) + ' men)',
-        seen.seen === 0 && seen.looks > 5 && seen.handed && !!st && st.open && st.lines >= 6 && st.men > 0, JSON.stringify(seen));
+      ok('D1 *** ONE MOMENT, ONE SCREEN *** a road fight won on the demo: the fight\'s card seen on 0 of ' + seen.looks + ' frames, and the end screen opens with no receipt and no receipt paper (' + (st ? st.till.length + ' till nodes, ' + st.papers + ' paper' : 'not open') + ')',
+        seen.seen === 0 && seen.looks > 5 && seen.handed && !!st && st.open && st.till.length === 0 && st.papers === 0, JSON.stringify(seen) + ' ' + JSON.stringify(st));
     }
   } catch (e) { ok('D1 ran [' + String(e.stack || e.message).slice(0, 300) + ']', false); }
   ok('Z nothing threw', errs.length === 0 && d.errs.length === 0, errs.concat(d.errs).slice(0, 3).join(' | '));

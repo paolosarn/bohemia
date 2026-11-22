@@ -1,0 +1,24 @@
+POSTMORTEM: THE RECEIPT ON THE END SCREEN (RUN FIVE, built 11/6 under rule 405(c); killed 11/22 by FIGHT SCREEN THREE; VAMILY rule 475(a), ask row 715)
+
+WHAT DIED (the code as it stood: graveyard/the_receipt_on_the_end_screen_11_6_26/THE_RECEIPT_AS_IT_STOOD_GRAVEYARD.txt): the till roll on the one end screen
+(slices/BOHEMIA_SPOILS_SCREEN.html: #tillclip, #till, #tillpaper, #tally; tillStart, tillLine, tillSync, tillTear; the curl, the print
+animation, the tear on LEAVE), its density rules, and the receipt paper the screen's counts, quote and hint strip were dressed in.
+The fight's own end card (slices/BOHEMIA_FIGHT.html #over, never seen in the game since __ONE_END_SCREEN__) left receipt paper for the
+house's dark board.
+
+WHY: Paolo 11/22, with a screenshot (records/paolo_shots/BOHEMIA_PAOLO_SHOT_THE_RECEIPT_STILL_THERE_11_22_26.jpg): 'there are still remnants
+of the old combat screen, like with the casino receipt shit... it's still like hanging around being awkward and goofy as fuck'.
+
+HOW IT GOT IN: on 11/4 he liked the gambling receipt and asked to 'make the receipt look like it's hanging off the edge of the screen a
+little bit, incorporate it in a fun way' (rule 405(c)). RUN FIVE hung it off the glass's right edge from under the bar. Since then the end
+screen gained its own header (the man who says how it went, the result line) and the rolled receipt showed only its last line, a dashed
+rule, from behind that header: a curl of blank paper at the top right that said nothing and read as a leftover. The screen around it moved
+to the house's board (rules 449, 450); the receipt stayed paper.
+
+WHAT STAYS: everything the receipt carried that he asked for: who said how it went, what they were (the result line, now agreeing in
+number: 'THE GROUND SLOTH IS DOWN', 'THE GROUND SLOTHS ARE DOWN'), each man's XP and level, what they left and the loot. A man's kills are
+the crew screen's (his vote 11/2: 'Only in the crew menu not any other menu'). The phone's job cards, the tooltips and the loading log keep
+UI's receipt material: they are not the end of a fight.
+
+NOT TO COME BACK UNDER A NEW NAME: no till, slip, ticket or printed roll on the end of a fight (gates/bohemia_graveyard.txt carries its
+markup and its code; gate THE RECEIPT IS GONE measures every element on the end screen for receipt paper, upright and on its side).

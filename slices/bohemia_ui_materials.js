@@ -3070,7 +3070,7 @@
   /* THE END SCREEN (RUN TWO's one end screen, 717be9e0; item 4 'the loot screen not slop'): its XP bars were the browser's
      gradient strips (rule 114's loudest tell); they are the same sunk track and lit tube as the fight's gauges, what he had in
      bronze and what he just earned in gold. What they left wears his pack's own props beside its count (the batteries and the
-     rounds of the bar, the scrap a crate of what they carried), the receipt it is printed on kept. */
+     rounds of the bar, the scrap a crate of what they carried). (The receipt it was printed on is gone, rule 475(a).) */
   var SPOILS_CSS = ''
     + 'html body .xpbar{height:12px;border:0;border-radius:0;background:#16110c var(--bm-bar-well) 0 0/64px 100% repeat-x;box-shadow:0 0 0 1px #0c0805}'
     + 'html body .xpbar i{top:2px;bottom:2px;background:#8a6c44 var(--bm-tube-xp-was) 0 0/64px 100% repeat-x!important;image-rendering:pixelated}'
@@ -3080,7 +3080,7 @@
     + 'html body .count[data-count=batteries]::before{background-image:url(supply_icons/batteries.png)} html body .count[data-count=rounds]::before{background-image:url(supply_icons/rounds.png)}'
     + 'html body .count[data-count=scrap]::before{background-image:url(supply_icons/scrap.png)}';
   function dressSpoils() {
-    if (!document.getElementById('lootall') || !document.getElementById('tally')) return false;
+    if (!document.getElementById('lootall') || !document.getElementById('counts')) return false;   /* FIGHT SCREEN THREE 11/22 (rule 475(a)): the end screen is known by its counts; it was known by the receipt's #tally, and the receipt is gone */
     var R = document.documentElement.style;
     R.setProperty('--bm-bar-well', 'url(' + barWell() + ')');
     R.setProperty('--bm-tube-xp-was', 'url(' + barTube([138, 108, 68]) + ')'); R.setProperty('--bm-tube-xp-now', 'url(' + barTube([226, 180, 90]) + ')');

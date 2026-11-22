@@ -347,6 +347,14 @@ body.wiped #cv{filter:grayscale(1) contrast(1.25) brightness(.55)}
 #over td:first-child,#over th:first-child{text-align:left;font-weight:700}
 #over .lv{color:#7a3d10;font-weight:700}
 #over .inj{color:#8a2a18;font-size:9px;font-weight:700}
+/* __THE_RECEIPT_IS_GONE__ (FIGHT SCREEN THREE 11/22; VAMILY rule 475(a): 'remnants of the old combat screen, like with the casino receipt
+   shit... hanging around being awkward and goofy as fuck'). In the game this card is never seen (__ONE_END_SCREEN__ hands every end to the
+   one end screen); on the fight's own page it stands, and it is no longer receipt paper: the house's dark board, light ink, no dashed
+   till lines, one look with every other card of the fight (the kit's board is laid on by overLook() under html[data-kit]) */
+#over .box{color:#f2e4c6!important;background:#2a2016!important;border-left:3px solid var(--gold);filter:drop-shadow(3px 2px 0 rgba(10,6,3,.6));transform:none!important}
+#over h2{color:#e2b45a;border-bottom:1px solid rgba(242,228,198,.18)!important}
+#over td,#over th{border-bottom:1px solid rgba(242,228,198,.1)!important}
+#over .lv{color:#e2b45a}#over .inj{color:#ff8a6a}
 #over button{margin-top:12px;width:100%;min-height:46px;color:#efe3cc;border:0;font:inherit;font-weight:700;
   background:var(--mat-glass,#151210) center/cover;box-shadow:0 2px 4px rgba(0,0,0,.5)}
 /* THE BAR ON EVERY SCREEN (rules 62 and 72; slices/bohemia_screen_class.js): the phone held upright keeps the two rows
@@ -11858,6 +11866,13 @@ function drawer(v) {
   d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'grid';
 }
 /* the board and the well are the kit's rendered pieces (light and form, never a flat fill); laid once */
+/* __THE_RECEIPT_IS_GONE__: the fight's own end card on the kit's board, never its receipt (UI's KIT_RULES dress '#over .box' as a receipt) */
+function overLook() {
+  if (document.getElementById('over-look')) return;
+  const M = window.BohemiaMaterials, st = document.createElement('style'); st.id = 'over-look';
+  try { if (M && M.kit) st.textContent = 'html[data-kit] body #over .box{' + M.kit('board', 1) + 'color:#f2e4c6!important;padding:18px 16px 16px!important}'; } catch (_e) {}
+  (document.head || document.documentElement).appendChild(st);
+}
 /* __ONE_BOARD_FOR_EVERY_MOUTH__: the mouths' board is the kit's own board piece (UI's), the sheet's and the opening card's, a size down */
 function mouthLook() {
   if (document.getElementById('mouth-look')) return;
@@ -12119,6 +12134,7 @@ function showOver(result) {
      there for one second before the victory screen appears... why don't we combine this'): when the game's end screen takes this
      fight (the shell's SPOILS, a won or a lost fight), the card is handed to it, never shown first; the bench and a pull-back keep it */
   const handed = (function () { try { return window.parent !== window && !!window.parent.SPOILS && (result === 'won' || result === 'lost'); } catch (_e) { return false; } })();
+  overLook();   /* __THE_RECEIPT_IS_GONE__ */
   o.classList.toggle('handed', handed);
   say('');   /* __THE_STRIP_KEEPS_ITS_TURN__ (FIGHT SCREEN THREE 11/20): the fight is over; no line of it stands under the end screen ('They are breaking...' stood there on the alpha) */
   o.style.display = 'flex';
