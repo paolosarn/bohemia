@@ -895,6 +895,13 @@
     + '#bmtb .ticks i b{position:absolute;left:0;bottom:0;display:block;width:4px;background:#2f6b2a}'
     + '#bmtb .ticks i.hurt b{background:#9a5a12} #bmtb .ticks i.bad b{background:#8a1a0c}'
     + '#bmtb .s.clout{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:0;white-space:nowrap;line-height:1} #bmtb .s.clout i{font-style:normal;font-size:9px;letter-spacing:.5px;opacity:.8;display:block} #bmtb .s.clout b{display:block}'   /* JOBS 11/21 __CLOUT_ON_THE_BAR__ */
+    /* JOBS 2 11/22 __CLOUT_IS_FOLLOWERS__ (rule 470(b)): the word is FOLLOWERS, nine letters where CLOUT had five, so its label sits a
+       hair tighter; the number flickers like a tape counter for a second when it moves (a fight won, a job done, a day gone), no '+N' */
+    + '#bmtb .s.clout.fol i{font-size:7.5px;letter-spacing:0} @media (max-width:480px){#bmtb .g:has(.s.clout.fol){gap:7px}}'
+    + '@media (max-width:379px){#bmtb .g:has(.s.clout.fol){gap:4px;padding-left:5px} #bmtb .s.clout.fol i{font-size:7px}} @media (max-width:359px){#bmtb .g:has(.s.clout.fol){gap:3px} #bmtb .s.clout.fol i{font-size:6.5px} #bmtb .s.clout.fol b{font-size:13px}}'   /* measured upright: 390 wide, the chip 9 px inside the glass with 3-figure food and the batteries counting down (at gap 10 and 8 px it ran 10 px off); at 375, 360 and 320 (UI's small icons under 360) with a 4-figure purse and 4,000 followers, each inside */
+    + '#bmtb .s.clout.up b,#bmtb .s.clout.down b{animation:bmFolFlick 1.1s steps(1,end) 1}'
+    + '#bmtb .s.clout.up b{color:#f3e2a8} #bmtb .s.clout.down b{color:#c98a6a}'
+    + '@keyframes bmFolFlick{0%{opacity:1}12%{opacity:.2}24%{opacity:1}36%{opacity:.35}48%{opacity:1}60%{opacity:.6}72%{opacity:1}}'
     /* what you have and where, on one pane of glass darkened in its own pixels */
     + '#bmtb .g{display:flex;align-items:center;gap:10px;box-sizing:border-box;min-height:32px;padding:0 8px;background:#16130f var(--bm-glass-dk) center/cover;'
     +   'box-shadow:inset 0 1px 0 rgba(255,236,200,.18),0 1px 0 #000;border:1px solid #0d0a07;border-radius:0;flex:1 1 auto;min-width:0}'
@@ -971,6 +978,7 @@
   }
   /* ONE HUD (rule 190): the bar's three parts, made once, from the MAP's facts, as the HTML every screen lays in its own bar.
      over: what a screen over the map knows better than the map (the town's own name and the purse it is spending) */
+  var FOL = { n: null, dir: '', at: 0 };   /* JOBS 2 __CLOUT_IS_FOLLOWERS__: the last count the bar drew, and when it last moved */
   function hudParts(over) {
     var f = tbFacts(); over = over || {};
     if (over.place) f.place = hudEsc(over.place);
@@ -1020,7 +1028,12 @@
     /* JOBS 11/21 __CLOUT_ON_THE_BAR__ (rule 466(c), Paolo on every-fight-won-counts: 'Where tf do you see your clout????'): the company's
        name, one number, on the bar he reads (Battle Brothers keeps renown with the company on the world map's top); the game's own count
        (BohemiaRenown, engine/bohemia_renown.js) and its own word, at the end of the stores (the crew tag is off the glass) */
-    try { var RN = window.BohemiaRenown; if (RN && RN.score) g += '<span class="s clout" data-f="clout"><i>' + hudEsc(RN.WORD || 'CLOUT') + '</i><b>' + RN.score() + '</b></span>'; } catch (_e) {}
+    /* JOBS 2 11/22 __CLOUT_IS_FOLLOWERS__ (rule 470(b), Paolo: 'Put followers... kind of like your reputation'): the same chip, the same one
+       count, now said as FOLLOWERS (BohemiaRenown.WORD); for a second after it moves it carries up or down (the flicker above) */
+    try { var RN = window.BohemiaRenown; if (RN && RN.score) { var fn = RN.score(), fw = RN.WORD || 'FOLLOWERS', now = Date.now();
+      if (FOL.n != null && fn !== FOL.n) { FOL.dir = fn > FOL.n ? ' up' : ' down'; FOL.at = now; } FOL.n = fn;
+      var fmv = FOL.dir && now - FOL.at < 1200 ? FOL.dir : '';
+      g += '<span class="s clout' + (fw.length > 6 ? ' fol' : '') + fmv + '" data-f="clout"><i>' + hudEsc(fw) + '</i><b>' + fn + '</b></span>'; } } catch (_e) {}
     g += (f.place ? '<span class="where" data-f="place">' + f.place + '</span>' : '');
     /* ONE HUD: where you are, said once where it has room. The glass carries the six now (RUN TWO's wagon, rule 200), and on a
        phone held upright six counts fill the pane to its edge, so there the place stands in the presses' row between the crew

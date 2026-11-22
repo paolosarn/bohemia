@@ -14,6 +14,8 @@
 // taken and played to the pay; the batteries paid are the card's and the build is his (standing, or waiting for his place).
 // --build E: THE BIG WORK WAITS FOR A NAME: a company at 200 CLOUT; a fortress's board with no two-skull work and its label; one job
 // played to the pay (+100 CLOUT); the same board again with the two-skull work open.
+// --build F (JOBS 2 11/22, rule 470(b)): CLOUT IS FOLLOWERS: the bar and the FEED's profile (opened with a finger) read the one count as
+// FOLLOWERS, on the glass, through a fight won (+15, the bar flickers up), five days' fade (-15) and a dropped job (-100).
 // node tools/bohemia_jobs_the_towns_book_on_the_phone.js --build A [--alpha] [--shapes phone_portrait,phone_landscape] [--out dir] [--tag t]
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -337,8 +339,8 @@ async function walk(shape) {
         row.cloutAfterJob = await fr.evaluate(() => BohemiaRenown.score());
         const after = await openTown(tn, K.day2, 'E_after', true);   /* the board turns (refresh_days): a posted job stays posted for its window */ row.after = { ids: after.ids, skulls: after.skulls, label: await label() }; row.png = after.png;
         await fr.evaluate(() => { try { loopClose(); } catch (e) {} }); await page.waitForTimeout(500);
-        row.ok = !!(row.before.clout === 200 && !row.before.skulls.some(k => k >= 2) && /AT 250 CLOUT/.test(row.before.label || '') && row.paid && row.cloutAfterJob === 300 &&
-          row.after.skulls.some(k => k === 2) && row.after.ids.some(id => K.opens.indexOf(id) >= 0) && !/AT 250 CLOUT/.test(row.after.label || '') && row.before.ids.length > 0 && row.after.ids.length > 0);
+        row.ok = !!(row.before.clout === 200 && !row.before.skulls.some(k => k >= 2) && /AT 250 FOLLOWERS/.test(row.before.label || '') && row.paid && row.cloutAfterJob === 300 &&
+          row.after.skulls.some(k => k === 2) && row.after.ids.some(id => K.opens.indexOf(id) >= 0) && !/AT 250 FOLLOWERS/.test(row.after.label || '') && row.before.ids.length > 0 && row.after.ids.length > 0);
       } catch (e) { row.err = String(e && e.message || e).slice(0, 200); }
       out.push(row);
       console.log('  ' + TAG + ' ' + shape + ' E THE BIG WORK WAITS FOR A NAME: ' + (row.err ? 'ERR ' + row.err : row.town + ' day ' + row.day + ' then ' + row.day2 + ' (at 200 that window would post ' + JSON.stringify(row.without) + '): at ' + row.before.clout + ' CLOUT ' + JSON.stringify(row.before.ids) + ' skulls ' + JSON.stringify(row.before.skulls) + ' [' + row.before.label + ']; the singer paid ' + (row.paid && row.paid.paid) + ', CLOUT ' + row.cloutAfterJob + '; again ' + JSON.stringify(row.after.ids) + ' skulls ' + JSON.stringify(row.after.skulls) + ' [' + row.after.label + ']' + (row.ok ? ' OK' : ' NOT OK')));
@@ -388,6 +390,47 @@ async function walk(shape) {
       } catch (e) { row.err = String(e && e.message || e).slice(0, 200); }
       out.push(row);
       console.log('  ' + TAG + ' ' + shape + " H THE TOWN'S BAR ON ITS BOARD: " + (row.err ? 'ERR ' + row.err : row.town + ' ' + row.bars.map(b => b.set + ' [' + (b.line ? b.line.text : 'NO LINE') + (b.line && !b.line.onGlass ? ' OFF THE GLASS' : '') + '] arrival ' + b.arrive + ', ' + b.ids.length + ' people, skulls ' + JSON.stringify(b.skulls)).join(' | ')) + '; ' + row.town2 + ' (one window, only the bar moved: ' + JSON.stringify(row.redeal) + ') ' + row.friend.map(f => f.set + ' [' + (f.line ? f.line.text : 'NO LINE') + '] ' + f.ids.length + ' people').join(' | ') + ' -> ' + (row.ok ? 'ok' : 'NOT OK'));
+    }
+    if (BUILDS.indexOf('F') >= 0) {
+      const row = { build: 'F', seen: [] };
+      try {
+        /* JOBS 2 11/22 __CLOUT_IS_FOLLOWERS__ (rule 470(b)): the company's name in the valley is its FOLLOWERS, one count, where he looks: the
+           map's bar (read off the glass: what a finger at it would hit is it) and the FEED's own page, opened with a finger on the phone's
+           feed (the company's profile, the way a social app says it). Then the game's own moves of the count: a fight won against three
+           (BohemiaRenown.fightWon, the call the map's fight-end hook makes, keyed once), five days on the map's clock and a step (the
+           name fades, 3 a day), and a dropped job (cancel_contract, keyed by the job). Each time the bar and the profile read the count. */
+        await fr.evaluate(() => { LOOP.held = []; LOOP.fighting = null; try { loopClose(); } catch (e) {} });
+        const bar = async () => { await page.waitForTimeout(900); return fr.evaluate(() => { const e = document.querySelector('#bmtb .s.clout'); if (!e) return null; const r = e.getBoundingClientRect(), i = e.querySelector('i'), b = e.querySelector('b');
+          const h = r.width > 0 ? document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2) : null, g = e.closest('.g'), gr = g ? g.getBoundingClientRect() : null;
+          return { word: i ? i.textContent : null, n: b ? +b.textContent : null, seen: !!h && (h === e || e.contains(h)), inGlass: !!gr && r.left >= gr.left - 0.5 && r.right <= gr.right + 0.5 && r.right <= innerWidth, cls: e.className }; }); };
+        const prof = () => page.evaluate(() => { const c = document.querySelector('#bohphone .page.on .co') || document.querySelector('#bohphone .page .co'), f = c && c.querySelector('.fol'); if (!c || !f) return null;
+          const cr = c.getBoundingClientRect(), fr2 = f.getBoundingClientRect(), b = f.querySelector('b'), br = b.getBoundingClientRect(), h = document.elementFromPoint(br.x + br.width / 2, br.y + br.height / 2);
+          const nm = c.querySelector('.nm u'), ur = nm ? nm.getBoundingClientRect() : null, over = !!ur && !(ur.right <= fr2.left || ur.left >= fr2.right || ur.bottom <= fr2.top || ur.top >= fr2.bottom);
+          return { text: f.textContent, n: +b.textContent, inside: fr2.left >= cr.left - 0.5 && fr2.right <= cr.right + 0.5 && fr2.bottom <= cr.bottom + 0.5, seen: !!h && (h === b || f.contains(h)), over }; });
+        const score = () => fr.evaluate(() => BohemiaRenown.score());
+        const openFeed = async () => { for (let k = 0; k < 3; k++) { const bb = await page.evaluate(() => { const e = document.querySelector('#bohphone .bpfd'); if (!e) return null; const r = e.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; });
+            if (bb) await page.touchscreen.tap(bb[0], bb[1]); if (await waitFor(async () => !!(await prof()), 4000)) return true; } return false; };
+        const look = async (at) => { const o = { at, score: await score(), bar: await bar(), prof: await prof() }; row.seen.push(o); return o; };
+        await fr.evaluate(() => { localStorage.setItem('bohemia.renown.v1', JSON.stringify({ score: 0, keys: [], log: [] })); localStorage.removeItem('bohemia.clout.fade.v1'); BohemiaJobKinds.step(); });
+        row.feedOpened = await openFeed();
+        await look('a new company');
+        await fr.evaluate(() => { BohemiaRenown.add(245, 'the one shortcut: a company that has done some work', null); });
+        await look('245');
+        const t0 = await score(); await fr.evaluate(() => BohemiaRenown.fightWon(3, 'jobs2-followers-' + Date.now()));
+        let flick = null; for (let k = 0; k < 25 && !flick; k++) { await page.waitForTimeout(100); flick = await fr.evaluate(() => { const e = document.querySelector('#bmtb .s.clout'); return e && /\bup\b/.test(e.className) ? e.className : null; }); }
+        row.flickUp = flick; row.fightGain = (await score()) - t0;
+        if (shape === 'phone_portrait' || shape === 'phone_landscape') { row.png = path.relative(ROOT, path.join(OUTD, TAG + '_' + (shape === 'phone_portrait' ? 'upright' : 'sideways') + '_F_followers.png')); }
+        await look('a fight won against three');
+        if (row.png) await page.screenshot({ path: path.join(ROOT, row.png) });
+        const f0 = await fr.evaluate(() => { BohemiaJobKinds.step(); return BohemiaRenown.score(); }); await fr.evaluate(() => { for (let k = 0; k < 5; k++) advance(24 * 60); BohemiaJobKinds.step(); }); row.fade = f0 - (await score());
+        await look('five days on the clock, a step');
+        const d0 = await score(); await fr.evaluate(() => BohemiaRenown.fromAct('cancel_contract', 'jobs2-followers-drop-' + Date.now())); row.drop = d0 - (await score());
+        await look('a job dropped');
+        row.ok = !!(row.feedOpened && row.seen.every(o => o.bar && o.bar.word === 'FOLLOWERS' && o.bar.n === o.score && o.bar.seen && o.bar.inGlass && o.prof && o.prof.n === o.score && /^\d+ FOLLOWERS$/.test(o.prof.text) && o.prof.inside && o.prof.seen && !o.prof.over) &&
+          row.seen[0].score === 0 && row.seen[1].score === 245 && row.fightGain === 15 && !!row.flickUp && row.fade === 15 && row.drop === 100);
+      } catch (e) { row.err = String(e && e.message || e).slice(0, 200); }
+      out.push(row);
+      console.log('  ' + TAG + ' ' + shape + ' F CLOUT IS FOLLOWERS: ' + (row.err ? 'ERR ' + row.err : row.seen.map(o => o.at + ': ' + o.score + ' [bar ' + (o.bar ? o.bar.word + ' ' + o.bar.n + (o.bar.seen ? '' : ' COVERED') + (o.bar.inGlass ? '' : ' OFF THE GLASS') : 'NONE') + ' | feed ' + (o.prof ? o.prof.text + (o.prof.inside ? '' : ' OUT OF ITS CARD') + (o.prof.seen ? '' : ' COVERED') + (o.prof.over ? ' UNDER TYPE' : '') : 'NONE') + ']').join('; ') + '; fight +' + row.fightGain + (row.flickUp ? ' (flickered up)' : ' (no flicker)') + ', fade -' + row.fade + ', drop -' + row.drop + (row.ok ? ' OK' : ' NOT OK')));
     }
   } catch (e) { out.push({ err: String(e && e.message || e).slice(0, 300) }); console.log('  ' + TAG + ' ' + shape + ' ERR ' + String(e && e.message || e).slice(0, 300)); }
   await d.close().catch(() => {});

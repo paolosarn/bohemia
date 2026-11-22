@@ -98,7 +98,7 @@ function boards(src, band) {
   const c1 = [A.cancel_contract && A.cancel_contract.value === -10 && A.fail_civilian_contract && A.fail_civilian_contract.value === -20 && /bb_all\/1670/.test(A.cancel_contract.source || ''),
     G.cancel_contract === -100 && G.fail_civilian_contract === -75,
     !/function costWords\(/.test(SS) && !/trip quit/.test(SS) && !/'DROP IT '/.test(SS),
-    /__CLOUT_ON_THE_BAR__/.test(UIM) && /g \+= '<span class="s clout" data-f="clout"><i>' \+ hudEsc\(RN\.WORD \|\| 'CLOUT'\) \+ '<\/i><b>' \+ RN\.score\(\) \+ '<\/b><\/span>'/.test(UIM)];
+    /__CLOUT_ON_THE_BAR__/.test(UIM) && /g \+= '<span class="s clout' \+ \(fw\.length > 6 \? ' fol' : ''\) \+ fmv \+ '" data-f="clout"><i>' \+ hudEsc\(fw\) \+ '<\/i><b>' \+ fn \+ '<\/b><\/span>'/.test(UIM) && /fn = RN\.score\(\), fw = RN\.WORD \|\| 'FOLLOWERS'/.test(UIM)];   /* JOBS 2 11/22: the chip says FOLLOWERS */
   ok('C1 the files: dropping a job still costs its town 10 and 100 CLOUT, failing it 20 and 75 (the wiki\'s), in the background; the card no longer explains it; CLOUT stands on the map\'s bar, one number', c1.every(Boolean), c1.map(x => x ? 1 : 0).join('')); }
 /* ---------- BUILD E (11/18), THE BIG WORK WAITS FOR A NAME ---------- */
 { const JC = J('records/target/bb/job_clout.json'), N = (JC.needs || {}).value || {};
@@ -106,7 +106,7 @@ function boards(src, band) {
     /require completing an ambition to reach Professional Renown \(1050\) to unlock/.test(JC.needs.quote || '') && /bb_all\/0724/.test(JC.needs.source || '') && /more difficult Contracts people will entrust you/.test(JC.needs.quote2 || ''),
     rowOf('job_clout.needs') === '250 / 1050',
     /function needOf\(o, tier\)/.test(SH) && /if \(CL != null\) ordinary = ordinary\.filter\(function \(o\) \{ var nd = needOf\(o, tier\); if \(CL >= nd\) return true; waiting\.push\(o\)/.test(SH) && /cloutLevel\(clout\(\)\)/.test(SH) && /if \(waiting\.length\) \{/.test(SH) && /function waits\(name, tier, day\)/.test(SH) && /waits: waits,/.test(SH) && /job_clout\.json/.test(SH),
-    /BohemiaBoardShelf\.waits\(S\.place\.name, S\.place\.tier, buildDay\(\)\)/.test(SS) && /'MORE WORK HERE AT ' \+ WN\.need \+ ' CLOUT \\u00b7 YOU HAVE '/.test(SS)];
+    /BohemiaBoardShelf\.waits\(S\.place\.name, S\.place\.tier, buildDay\(\)\)/.test(SS) && /'MORE WORK HERE AT ' \+ WN\.need \+ ' ' \+ \(\(window\.BohemiaRenown && BohemiaRenown\.WORD\) \|\| 'FOLLOWERS'\) \+ ' \\u00b7 YOU HAVE '/.test(SS)];   /* JOBS 2 11/22: the count's own word */
   ok('E1 the files: a fortress\'s three-skull work waits for 1050 CLOUT (the wiki\'s Professional, quoted), its two-skull work and any town\'s or camp\'s three-skull work for 250; TUNING\'s row; the shelf\'s gate, its never-empty, the board\'s label', e1.every(Boolean), e1.map(x => x ? 1 : 0).join('')); }
 { /* the shelf itself, on the valley's own tiers, at CLOUT 0, 250 and 1050 over ten windows; planted: the needs gone */
   const TIER = { Caravans: 'fortress', Cartel: 'fortress', Mob: 'fortress', Network: 'fortress', Remnants: 'fortress', Anarchists: 'town', Blues: 'town', Church: 'town', Reds: 'town', Colorful: 'camp', Homeless: 'camp', Trades: 'camp', Volunteers: 'camp' };

@@ -330,7 +330,9 @@
     try { o.men = (JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]') || []).length + (JSON.parse(localStorage.getItem('bohemia.hired.v1') || '[]') || []).length; } catch (e) {}
     try { if (window.BohemiaHireLock && BohemiaHireLock.company) { var one = BohemiaHireLock.company(); if (one.length) o.men = one.length; } } catch (e) {}   /* ONE COMPANY (rule 327): the one list, never a man let go, never one counted twice */
     try { var t = document.querySelector('#bmtb [data-f=crew] b'); if (t) { var m = String(t.textContent).match(/(\d+)/); if (m) o.men = +m[1]; } } catch (e) {}
-    try { if (window.BohemiaRenown && BohemiaRenown.get) o.clout = BohemiaRenown.get(); } catch (e) {}
+    /* JOBS 2 11/22 __CLOUT_IS_FOLLOWERS__ (rule 470(b)): the company's followers, the one count (BohemiaRenown.score(); this asked a .get()
+       that never existed, so the FEED's own page never showed the company's name in the valley) */
+    try { if (window.BohemiaRenown && BohemiaRenown.score) { o.clout = BohemiaRenown.score(); o.word = BohemiaRenown.WORD || 'FOLLOWERS'; } } catch (e) {}
     return o;
   };
   /* the wallpaper: the map's own picture under the crew, twice up, or the town's or the camp's own picture */
@@ -774,6 +776,8 @@
       + '#bohphone .co .nm{cursor:text;word-break:break-word}'
       + '#bohphone .co .nm u{float:right;text-decoration:none;font-size:6.5px;letter-spacing:.3px;color:#6b4a1c;margin-left:3px}'
       + '#bohphone .co .sub{display:block;font-size:7px;color:#3c2e1e}'
+      + '#bohphone .co .sub em{display:block;font-style:normal} #bohphone .co .sub .fol{display:block;margin-top:2px;white-space:nowrap;letter-spacing:.3px}'
+      + '#bohphone .co .sub .fol b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:11px;letter-spacing:.5px;color:#1f1710}'   /* JOBS 2 __CLOUT_IS_FOLLOWERS__ */
       + '#bohphone .po{padding:3px 0 4px;border-top:1px solid rgba(240,226,196,.12)}'
       + '#bohphone .po .w{display:block;color:#f6cf74;font-size:7px}'
       + '#bohphone .po.mine .w{color:#9fd08a}'
@@ -1237,6 +1241,7 @@
     if (H.page === 'feed') {
       var heldIds = ''; try { heldIds = ((cw && cw.LOOP && cw.LOOP.held) || []).map(function (j) { return j && j.id; }).join(','); } catch (e) {}
       var posts = (L ? L.posts() : []).concat((H.own || []).filter(function (o) { return Date.now() - o.t < 120000; }).reverse()), sig = posts.length + '|' + (posts.length ? posts[posts.length - 1].txt : '') + '|' + nameGet() + '|' + (H.feedKind || '') + '|' + heldIds + '|' + (H.going ? H.going.id : '');
+      try { sig += '|' + (cw && cw.BohemiaRenown ? cw.BohemiaRenown.score() : ''); } catch (e) {}   /* JOBS 2 __CLOUT_IS_FOLLOWERS__: the profile's followers move with no new post too (a day's fade) */
       if (!fresh && sig === H.feedSig) return; H.feedSig = sig;
       if (pb.querySelector('input')) return;   /* never under his thumbs while he types the name */
       var co = L ? L.company() : { men: 0 };
@@ -1244,7 +1249,8 @@
       var KD = [['mine', 'app_crew', 'yours'], ['world', 'app_relations', 'the world\'s'], ['life', 'app_feed', 'the valley\'s talk']];
       var h = '<div class="kf" role="group" aria-label="which posts">' + KD.map(function (k) { return '<button type="button" data-kind="' + k[0] + '" aria-label="' + k[2] + '" aria-pressed="' + (H.feedKind === k[0]) + '"' + (H.feedKind === k[0] ? ' class="on"' : '') + '><img alt="" src="' + IMG(k[1]) + '"></button>'; }).join('') + '</div>'
         + '<div class="co"><span class="nm" role="textbox" tabindex="0" aria-label="your company\'s name: tap to type">' + esc(nameGet()) + '<u>TYPE</u></span>'
-        + '<span class="sub">' + (co.men ? co.men + (co.men === 1 ? ' MAN' : ' MEN') : 'YOUR COMPANY') + (co.clout != null ? ' &middot; CLOUT ' + esc(co.clout) : '') + '</span></div>';
+        + '<span class="sub"><em>' + (co.men ? co.men + (co.men === 1 ? ' MAN' : ' MEN') : 'YOUR COMPANY') + '</em>'
+        + (co.clout != null ? '<span class="fol" data-n="' + esc(co.clout) + '"><b>' + esc(co.clout) + '</b> ' + esc(co.word || 'FOLLOWERS') + '</span>' : '') + '</span></div>';   /* JOBS 2 __CLOUT_IS_FOLLOWERS__: his company's followers on its own page, the way a profile says them */
       for (var i = posts.length - 1; i >= 0; i--) { var p = posts[i], qd = questOf(p, cw);   /* rule 376: a post about a job he holds is a button */
         h += '<div class="po' + (p.kind === 'mine' ? ' mine' : '') + (p.re ? ' re' : '') + (qd ? ' qp' + (H.going && H.going.id === qd ? ' going' : '') : '') + '"'
           + (qd ? ' role="button" tabindex="0" data-quest="' + esc(qd) + '" aria-label="' + esc(p.txt) + ': tap to go there"' : '') + '><span class="w">' + esc(p.who) + (p.re ? ' <i>replying</i>' : '') + '</span><span class="t">' + esc(p.txt) + '</span></div>'; }

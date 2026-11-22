@@ -15,13 +15,16 @@
      BohemiaRenown.slots()             how many retinue slots the score opens (0 to 5)
      BohemiaRenown.nextSlot()          { at, n } the score the next slot opens at, or null when all five are open
      BohemiaRenown.payMult()           what a job's pay is multiplied by at this score (x1 at 0 to x4.5 at 4,000)
-     BohemiaRenown.WORD                'CLOUT'
+     BohemiaRenown.WORD                'FOLLOWERS'
+   JOBS 2 11/22 __CLOUT_IS_FOLLOWERS__ (rule 470(b), Paolo on jobs-do-less-show-the-clout: 'Put followers, this was an idea at the
+   very beginning where it's kind of like your reputation'): the one count is shown as the company's FOLLOWERS (his 7/21 word,
+   laws/BOHEMIA_ADDENDUM_CLOUT_RECKLESS_BEATS_QUIET_7_21_26.md, which left 'one number or two' pending: one). Nothing in the math moved.
    Kept in localStorage bohemia.renown.v1 (a new game clears it, the start screen's forget list). */
 (function (root) {
   'use strict';
   var KEY = 'bohemia.renown.v1';
   var D = {
-    word: 'CLOUT',
+    word: 'FOLLOWERS',   /* JOBS 2 11/22 __CLOUT_IS_FOLLOWERS__ */
     slots: [[250, 1], [750, 2], [1400, 3], [2250, 4], [3350, 5]],
     bands: [[0, 'NOBODY'], [250, 'SEEN AROUND'], [500, 'GOOD FOR IT'], [750, 'GETS IT DONE'], [1050, 'PROFESSIONALS'], [1400, 'PEOPLE ASK FOR YOU'],
       [1800, 'A NAME IN THE VALLEY'], [2250, 'THE CREW EVERYBODY KNOWS'], [2750, 'THEY TELL STORIES'], [3350, 'STREET LEGEND'], [4000, 'THE LEGEND'],

@@ -248,7 +248,7 @@
         else if (f && f.dark && f.band) w += ', a fight with ' + who(f) + ' in the dark';   /* JOBS 11/20 __THE_CARD_READS_THE_NIGHT__: rolled at night, so it can name them */
         else if (f && (L.dark || (L.wait && i > 0 && job.legs[0].dark))) w += ', a fight with about ' + (f.band ? f.band.length : f.n) + ' of whoever comes in the dark';   /* JOBS 11/14: after nightfall the day has turned, and who comes is the night's (measured: the card said 2 men, a bull came) */
         else if (f) w += ', a fight with ' + who(f) + odds(f.p);
-        if (L.clout && cloutOf(L.clout)) { places += cloutOf(L.clout); w += ' (+' + cloutOf(L.clout) + ' ' + ((root.BohemiaRenown && BohemiaRenown.WORD) || 'CLOUT') + ')'; }
+        if (L.clout && cloutOf(L.clout)) { places += cloutOf(L.clout); w += ' (+' + cloutOf(L.clout) + ' ' + ((root.BohemiaRenown && BohemiaRenown.WORD) || 'FOLLOWERS') + ')'; }
         if (f && L.talk) { choose++; men += f.band ? f.band.length : f.n; } else if (f) count(f);
         stops.push(w); });
     } else {
@@ -259,7 +259,7 @@
         stops.push(wd + ': ' + who(f) + odds(f.p)); count(f); });
       if (BACK[job.plays]) stops.push('back to ' + job.from + ' to be paid');
     }
-    var cl = cloutOf('civilian_contract_done') + Math.round(men * cloutOf('fight_won_per_enemy')) + places, CW = (root.BohemiaRenown && BohemiaRenown.WORD) || 'CLOUT';
+    var cl = cloutOf('civilian_contract_done') + Math.round(men * cloutOf('fight_won_per_enemy')) + places, CW = (root.BohemiaRenown && BohemiaRenown.WORD) || 'FOLLOWERS';   /* JOBS 2 __CLOUT_IS_FOLLOWERS__ */
     var words = 'What it asks: ' + stops.map(function (x, i) { return (i ? 'then ' : '') + x; }).join('; ') + '. ' +
       (sure ? sure + (sure === 1 ? ' fight' : ' fights') : 'No sure fight') + (choose ? ', ' + choose + ' if it comes to that' : '') + (maybe ? ', ' + maybe + ' maybe' : '') + '. Your name: about +' + cl + ' ' + CW + '.';
     return { words: words, stops: stops, sure: sure, maybe: maybe, choose: choose, clout: cl, plays: job.plays };   /* draft:true */

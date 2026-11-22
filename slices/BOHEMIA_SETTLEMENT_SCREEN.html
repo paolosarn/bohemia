@@ -3934,7 +3934,7 @@ function retinueHere(){
 }
 function retinueSlotWords(){
   var R = window.BohemiaRenown, C = window.BohemiaCamp, sl = R ? R.slots() : 0, mine = C ? C.retinue().length : 0, nx = R ? R.nextSlot() : null;
-  return mine + ' OF ' + sl + (sl === 1 ? ' PLACE' : ' PLACES') + (nx ? '   THE NEXT AT ' + nx.at + ' ' + (R.WORD || 'CLOUT') : '');
+  return mine + ' OF ' + sl + (sl === 1 ? ' PLACE' : ' PLACES') + (nx ? '   THE NEXT AT ' + nx.at + ' ' + (R.WORD || 'FOLLOWERS') : '');
 }
 function retinueHer(f){ var P = f && f.look && window.BohemiaRigBodies && BohemiaRigBodies.person ? BohemiaRigBodies.person(f.look) : null; return !!(P && P.sex === 'f'); }
 /* his whole body, standing three quarters to you: the same person as the face (ONE ID, ONE WHOLE PERSON), never a crop of it */
@@ -4080,7 +4080,7 @@ function campSheet(k){
     var sc = R ? R.score() : 0, sl = R ? R.slots() : 0, nx = R ? R.nextSlot() : null, mine = C ? C.retinue() : [], band = R ? R.band() : {word:'NOBODY'};
     campSay(body, sl ? (mine.length < sl ? 'There\'s room for one more to travel with us. Pick who.' : 'Every place by the fire is taken. Let one go to take another.')
                     : 'Nobody follows a crew nobody\'s heard of. Get our name out there first.');   /* draft:true */
-    campLine(acts, (R ? R.WORD : 'CLOUT') + ' ' + sc + '   ' + band.word + '   ' + mine.length + ' OF ' + sl + (sl === 1 ? ' PLACE' : ' PLACES') + (nx ? '   THE NEXT AT ' + nx.at : ''));
+    campLine(acts, (R ? R.WORD : 'FOLLOWERS') + ' ' + sc + '   ' + band.word + '   ' + mine.length + ' OF ' + sl + (sl === 1 ? ' PLACE' : ' PLACES') + (nx ? '   THE NEXT AT ' + nx.at : ''));
     /* __THE_RETINUE__ (RETINUE 11/7): all eighteen, each his face and his own button, the ones with you first, the shut last; the
        one picked (the follower whose piece was tapped, else the last picked, else the first with you) has his line under them */
     var OF = C ? C.offer() : [], OS = OF.filter(function(f){ return f.hired; }).concat(OF.filter(function(f){ return !f.hired; }));
@@ -5534,7 +5534,7 @@ function openB(k, line){
         var rl = document.createElement('div'); rl.className = 'rail'; rl.innerHTML = '<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><b></b>'; rl.querySelector('b').style.left = Math.max(0, Math.min(100, TB.score)) + '%'; bl.appendChild(rl);
         body.appendChild(bl); } }catch(e){}   /* draft */
     try{ var WN = window.BohemiaBoardShelf && BohemiaBoardShelf.waits ? BohemiaBoardShelf.waits(S.place.name, S.place.tier, buildDay()) : null;   /* JOBS 11/18 __THE_BIG_WORK_WAITS_FOR_A_NAME__: the CLOUT that opens more of this board's work, said in numbers */
-      if(WN && WN.need){ var wn = document.createElement('div'); wn.className = 'slots waits'; wn.textContent = 'MORE WORK HERE AT ' + WN.need + ' CLOUT \u00b7 YOU HAVE ' + (WN.have | 0); body.appendChild(wn); } }catch(e){}   /* draft */
+      if(WN && WN.need){ var wn = document.createElement('div'); wn.className = 'slots waits'; wn.textContent = 'MORE WORK HERE AT ' + WN.need + ' ' + ((window.BohemiaRenown && BohemiaRenown.WORD) || 'FOLLOWERS') + ' \u00b7 YOU HAVE ' + (WN.have | 0); body.appendChild(wn); } }catch(e){}   /* draft; JOBS 2 11/22 __CLOUT_IS_FOLLOWERS__: the count's own word (rule 470(b)) */
     try{ if(window.BohemiaBoardShelf && BohemiaBoardShelf.seen && bh.length) BohemiaBoardShelf.seen(S.place.name, bh.map(function(o){ return o.id; }), buildDay()); }catch(e){}   /* __A_READ_BOARD_STAYS_READ__ (JOBS 11/14, row 610): what he reads here is the board until its time is up */
     var sl = document.createElement('div'); sl.className = 'slots';
     sl.textContent = 'Held: '+S.held.length+' of '+SLOTS+' contracts. They show on your map.';   /* EYES [eyes: the phone line] (rule 150): the phone shows the city's two best-paying jobs (rule 148); a held job is the map's plate */

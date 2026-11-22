@@ -3,7 +3,7 @@
   "row": "[the camp and the retinue] (rule 151(d)) and [money teaches] (rule 151(b))",
   "draft": true,
   "owner": "TUNING (rule 36: every felt number in one table; these are RUN TWO's first numbers, each with where it came from)",
-  "word": { "value": "CLOUT", "why": "Battle Brothers' Renown, in our own word (the repo's word for being known on the street, engine/bohemia_loop.js CLOUTMOD); draft:true" },
+  "word": { "value": "FOLLOWERS", "why": "Battle Brothers' Renown, in our own word. Was CLOUT (the repo's word for being known on the street, engine/bohemia_loop.js CLOUTMOD); FOLLOWERS from Paolo 11/22 (VAMILY rule 470(b), his vote on jobs-do-less-show-the-clout: 'Put followers, this was an idea at the very beginning where it's kind of like your reputation'): the same one count, shown as the company's followers on the feed; his 7/21 word (laws/BOHEMIA_ADDENDUM_CLOUT_RECKLESS_BEATS_QUIET_7_21_26.md), whose 'one number or two' is answered: one. JOBS 2." },
   "slots": {
     "value": [[250, 1], [750, 2], [1400, 3], [2250, 4], [3350, 5]],
     "source": "the Battle Brothers wiki's Retinue page, 'Unlocking Follower Slots' (reference/library/grok/wiki/CORE_WIKITEXT.md, PAGE Retinue); Grok's retinue page agrees (reference/library/grok/GROK_RETINUE_FOLLOWER_RULES_2026_10_24.md)"

@@ -2431,6 +2431,11 @@ GATES = [
      'below Neutral a town charges more and pays less (the Game Guide), and its bar changes what it offers (no three-skull work below '
      'Neutral, one job at Hostile, one more from Friendly); a settled job kept until the town\'s bands load; on the phone, the demo and '
      'the alpha both ways (records/BOHEMIA_JOBS_THE_TOWNS_BOOK_11_17_26.md).', True),
+    ('CLOUT IS FOLLOWERS', ['node', 'gates/clout_is_followers_gate.js'],
+     'JOBS 2 11/22, rules 470(b), 466(c), 441: Paolo on jobs-do-less-show-the-clout, \'Put followers... kind of like your reputation\': '
+     'the company\'s one count (Battle Brothers\' Renown) is said as FOLLOWERS on the map\'s bar and on the FEED\'s profile, the numbers '
+     'in the background; on the phone, the demo and the alpha both ways, a fight won, five days\' fade and a dropped job move both '
+     '(records/BOHEMIA_JOBS_TWO_CLOUT_IS_FOLLOWERS_11_22_26.md).', True),
     ('THE CARD READS THE NIGHT', ['node', 'gates/the_card_reads_the_night_gate.js'],
      'JOBS 11/20, rules 461, 441: a job\'s card reads a fight in the dark at night and each fight after the ones before it, as the '
      'fight is rolled when it comes (the block watch goes home at night, the water people come out), and names who comes; on the '

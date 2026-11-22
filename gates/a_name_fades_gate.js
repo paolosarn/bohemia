@@ -69,7 +69,7 @@ try {
   const runs = [walk([], 'gate_demo'), walk(['--alpha'], 'gate_alpha')], rows = [], errs = [];
   runs.forEach(r => r.walks.forEach(w => { rows.push(w); (w.errs || []).forEach(e => errs.push(e)); }));
   const bad = rows.filter(w => w.err || !w.fade || w.fade.c0 !== 260 || w.fade.c1before !== 260 || w.fade.day1 - w.fade.day0 !== 5 || w.fade.c1 !== 245 || w.fade.c1again !== 245 ||
-    !/MORE WORK HERE AT 250 CLOUT/.test(w.fade.label || '') || !w.forget ||
+    !/MORE WORK HERE AT 250 FOLLOWERS/.test(w.fade.label || '')   /* JOBS 2 11/22: the count's word is FOLLOWERS (rule 470(b)) */ || !w.forget ||
     (w.alpha ? !w.forget.workshop : (!w.forget.saved || !FORGET.every(k => w.forget.before[k] && !w.forget.after[k]))));   /* the workshop has no title: NEW GAME is the demo's */
   ok('N3 on his phone, the demo and the alpha, upright and sideways: 260 CLOUT, five days on the map\'s clock and a step: 245, and Caravans\' board says MORE WORK HERE AT 250 CLOUT; the old company\'s four records over a save, NEW GAME tapped twice on the demo: all four gone (the alpha, the workshop, has no title: it opens on VOTE)',
     rows.length === 4 && !bad.length,
