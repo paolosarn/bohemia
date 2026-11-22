@@ -1,0 +1,547 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "police",
+ "name": "THE POLICE STATION",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "An area command station is a public lobby behind a counter of bullet-resistant glass, the squad room of desks behind it, holding cells along a corridor, the evidence and property cages, and the sally port: the secured garage where the patrol cars pull in and prisoners are walked out.",
+  "A holding cell is block and bars, about the size of a parking space; a sally port is a garage with a door at each end.",
+  "On house tiles a row of holding cells is a wall you see through the bars of; a patrol car is cover beside it, low enough to see over."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (police_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "policestation"
+ ],
+ "share": 0.8,
+ "districts_why": "The police station is its own map kind: eight fights in ten there are fought inside it, by the cell's own dice; the rest in its lot.",
+ "board": {
+  "templates": {
+   "police": {
+    "name": "THE POLICE STATION",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_squad_room": [
+      "####################",
+      "#HHH#HHH#..#HHH#HHH#",
+      "#h.h#h.h#.l#h.h#h.h#",
+      "#.d.d.db#..#bd.d.d.#",
+      "#..b..tb.ef.bt..b..#",
+      "#.d.dd.d.KK.d.dd.d.#",
+      "#..t..dt.KK.td..t..#",
+      "#D.b.d.be..eb.d.b.D#",
+      "#..t..dt.GG.td..t..#",
+      "#.d.dd.d.GG.d.dd.d.#",
+      "#..b..t.b..b.t..b..#",
+      "#.d.d.d.fbbf.d.d.d.#",
+      "#EEE.lll.bD.blll.EE#",
+      "#EEE.b..e....e.b.EE#",
+      "####################"
+     ],
+     "the_sally_port": [
+      "####################",
+      "#XXXX.XXX..XXX.XXXX#",
+      "#..b...cb..bc...b..#",
+      "#.PP..PP.oo.PP..PP.#",
+      "#.PP..PP.cc.PP..PP.#",
+      "#..o..bc.f..cb..o..#",
+      "#.c..o.oc..co.o..c.#",
+      "#D..b..bo..ob..b..D#",
+      "#.c..o.oc..co.o..c.#",
+      "#..o..bc..f.cb..o..#",
+      "#.PP..PP.cc.PP..PP.#",
+      "#.PP..PP.oo.PP..PP.#",
+      "#..b...cb..bc...b..#",
+      "#XXXX.XXX.DD.XXXXXX#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "H": {
+    "is": "floor",
+    "tile": "cells",
+    "piece": "pd_cells",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "h": {
+    "is": "floor",
+    "tile": "bunk",
+    "piece": "pd_bunk",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "d": {
+    "is": "floor",
+    "tile": "desks",
+    "piece": "pd_desks",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "t": {
+    "is": "floor",
+    "tile": "files",
+    "piece": "pd_files",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "boxes",
+    "piece": "pd_boxes",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "K": {
+    "is": "floor",
+    "tile": "counter",
+    "piece": "pd_counter",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "G": {
+    "is": "floor",
+    "tile": "glass",
+    "piece": "pd_glass",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "e": {
+    "is": "floor",
+    "tile": "chairs",
+    "piece": "pd_chairs",
+    "at": [
+     0.5,
+     0.72
+    ]
+   },
+   "l": {
+    "is": "floor",
+    "tile": "lockers",
+    "piece": "pd_lockers",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "E": {
+    "is": "floor",
+    "tile": "evidence",
+    "piece": "pd_evidence",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "X": {
+    "is": "floor",
+    "tile": "cages",
+    "piece": "pd_cages",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "P": {
+    "is": "floor",
+    "tile": "car",
+    "piece": "pd_car",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "cones",
+    "piece": "pd_cones",
+    "at": [
+     0.5,
+     0.7
+    ]
+   },
+   "o": {
+    "is": "floor",
+    "tile": "barrier",
+    "piece": "pd_barrier",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words); 'sight' says whether a blocker hides a man ('blocked', the obstacles row) or is seen past ('seen'). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The station's block wall: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The station's floor: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The floor: open ground.",
+   "draft": true
+  },
+  "cells": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "sight": "seen",
+   "effect": "A holding cell's front of bars: nobody passes; you see through the bars; cover beside it. [bb] its palisade you see through.",
+   "say": ""
+  },
+  "bunk": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A cell's steel bunk, bolted down: low cover.",
+   "say": "A steel bunk: low cover.",
+   "draft": true
+  },
+  "desks": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Squad room desks pushed together: cover.",
+   "say": "The desks: cover.",
+   "draft": true
+  },
+  "files": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Filing cabinets tipped over: cover.",
+   "say": "Filing cabinets: cover.",
+   "draft": true
+  },
+  "boxes": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Case boxes spilled across the floor, the files fanned out: low cover, and slow going (3 AP). [bb] its brush.",
+   "say": "Spilled case boxes: low cover, slow going.",
+   "draft": true
+  },
+  "counter": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The front counter, built to stop a bullet: cover.",
+   "say": "The front counter: cover.",
+   "draft": true
+  },
+  "glass": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "sight": "seen",
+   "effect": "The lobby's bullet-resistant glass, starred and holding: nobody passes; you see through it; cover beside it. [bb] its wall you see over.",
+   "say": ""
+  },
+  "chairs": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Lobby chairs bolted in a row: low cover.",
+   "say": "Lobby chairs: low cover.",
+   "draft": true
+  },
+  "lockers": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A bank of officers' lockers, a man's height: nobody stands there, and nobody sees through it. [bb] its wall.",
+   "say": ""
+  },
+  "evidence": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "sight": "seen",
+   "effect": "The evidence cage, its mesh cut and its shelves bare: nobody passes; you see through the mesh; cover beside it. [bb] its palisade you see through.",
+   "say": ""
+  },
+  "cages": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "sight": "seen",
+   "effect": "The property cages along the sally port's wall, mesh: nobody passes; you see through it; cover beside it. [bb] its palisade you see through.",
+   "say": ""
+  },
+  "car": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": null,
+   "blocks": true,
+   "sight": "seen",
+   "effect": "A patrol car on flat tires, its light bar dead: nobody stands there; low enough to see over; cover beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "cones": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Traffic cones and stands heaped: low cover.",
+   "say": "Cones and stands: low cover.",
+   "draft": true
+  },
+  "barrier": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A water-filled barrier, emptied and dragged in: cover.",
+   "say": "A barrier: cover.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a drum. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The station's doors, the sally port's roll-up, open: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The doors: open ground.",
+   "say_lit": "The doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in police_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "pd_desks": {
+   "like": "sb_corral_S",
+   "kind": "COVER",
+   "name": "THE DESKS"
+  },
+  "pd_bunk": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "A STEEL BUNK"
+  },
+  "pd_files": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "FILING CABINETS"
+  },
+  "pd_boxes": {
+   "like": "sb_heap_S",
+   "kind": "LOW_COVER",
+   "name": "SPILLED CASE BOXES"
+  },
+  "pd_counter": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "THE FRONT COUNTER"
+  },
+  "pd_chairs": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "LOBBY CHAIRS"
+  },
+  "pd_cones": {
+   "like": "sb_barrier_S",
+   "kind": "LOW_COVER",
+   "name": "CONES AND STANDS"
+  },
+  "pd_barrier": {
+   "like": "sb_sandbags_S",
+   "kind": "COVER",
+   "name": "A BARRIER"
+  },
+  "pd_cells": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "HOLDING CELLS"
+  },
+  "pd_glass": {
+   "like": "casino_glass",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "THE LOBBY GLASS"
+  },
+  "pd_lockers": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "LOCKERS"
+  },
+  "pd_evidence": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "THE EVIDENCE CAGE"
+  },
+  "pd_cages": {
+   "like": "casino_cage",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "PROPERTY CAGES"
+  },
+  "pd_car": {
+   "like": "sb_patrol_S",
+   "kind": "COVER",
+   "blocks_move": true,
+   "name": "A PATROL CAR"
+  },
+  "pd_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "pd_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "pd_wall_ew",
+  "ns": "pd_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: one floor; the cars' roofs are not a place to stand on house tiles.",
+ "ceiling": {
+  "kind": "grid",
+  "alpha": 0.1,
+  "src": "police/police_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the squad room's dropped ceiling and the sally port's roof deck, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the hospital's grid)."
+ }
+}
