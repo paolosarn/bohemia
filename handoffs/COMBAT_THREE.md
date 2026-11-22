@@ -1,6 +1,23 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the battery farm] SHIPPED 806c7d90b, BUILD 11/22y - THE BATTERY FARM, BUILT, NOT YET SEEN. VOTE combat4-the-battery-farm-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the mini grand prix] SHIPPED 65713a189, BUILD 11/22z - THE MINI GRAND PRIX, BUILT, NOT YET SEEN. VOTE combat4-the-mini-grand-prix-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_MINI_GRAND_PRIX_11_22_26.md. More boards (rule 461): the Mini Grand Prix ('minigp', 0.5; one cell, in 40 of 40 valleys): the_arcade (cabinet rows and the prize wall the obstacles row,
+they hide a man; skee-ball lanes block and are seen across; air hockey, party tables, token machines, kiosks cover; stools low; the monsoon's water the swamp row) and
+the_kart_garage (karts, tyre walls, fuel cans low; benches cover; parts shelves hide a man; an oil slick the swamp row). 19 tile kinds, 15 pieces all stand-ins (I13 green);
+thirty-eighth in insides.json; no high ground.
+GATE THE BIG INSIDES 667/0 in three parts (230 in 202 s, 229 in 210 s, 208 in 177 s; thirty-eight insides)
+ON THE PAGE: 4 fights in the park on the demo and the alpha, upright and on its side (the arcade twice, the kart garage twice), all ended, 17 of 17 tile taps, 0 page errors.
+*** FOR COOK (SIX): THE MINI GRAND PRIX'S NAMES (minigp_art.json, THE GARAGE'S FORMAT): floor.floor (the arcade's space carpet; the garage's concrete), floor.water,
+floor.oil (if floor lists are wanted for them), floor.ring; mg_cabinets (arcade cabinets back to back, a few still lit), mg_prizes (the prize wall), mg_skeeball (skee-ball
+lanes), mg_hockey (an air hockey table on its side), mg_tables (party tables), mg_tokens (a token changer), mg_stools, mg_kiosk, mg_shelves (parts shelves), mg_karts
+(go-karts in a row), mg_bench, mg_tyres (a tyre wall), mg_cans (fuel cans), mg_wall_ew, mg_wall_ns; minigp/minigp_ceiling.webp. ***
+*** FOR SOUNDS: an arcade's attract loops are in the tiles' words (draft); the sound of one still running in the dark is yours. ***
+NEXT: more boards (the Neon Boneyard's sign shop; the map's 'boneyard' is the Neon Museum's yard of dead casino signs, not fuselages); the robot factory and the
+paved places wait on WORLD's map.
+[bb Battle Brothers' palisade you see through: the skee-ball lanes, a low run nobody crosses and everybody shoots over]
+[analog horror: a row of dead cabinets and one still playing its attract loop, the same eight seconds, to nobody]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the battery farm] SHIPPED 806c7d90b, BUILD 11/22y - THE BATTERY FARM, BUILT, NOT YET SEEN. VOTE combat4-the-battery-farm-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_BATTERY_FARM_11_22_26.md. More boards (rule 461): the battery farm ('battery', 0.7; one cell, in 40 of 40 valleys): the_battery_hall (racks and cooling units the obstacles row, they
 hide a man; inverters, cabinets cover; modules, drums low; the sprinklers' water the swamp row, 4 AP and fight worse) and the_control_house (switchgear and transformers hide a man;
 desks, cabinets cover; modules, drums low; water). 14 tile kinds, 11 pieces all stand-ins (I13 green); thirty-seventh in insides.json; no high ground.

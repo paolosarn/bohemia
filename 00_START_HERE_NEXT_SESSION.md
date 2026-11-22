@@ -1,4 +1,11 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22y - THE BATTERY FARM, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22z - THE MINI GRAND PRIX, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE MINI GRAND PRIX (the map's, by the freeway): half the fights there are fought inside: the arcade (rows of cabinets and the prize wall hide a man, a few cabinets still running
+their attract loop; skee-ball lanes seen across, never crossed; air hockey, party tables, token machines, kiosks; the monsoon's water, Battle Brothers' swamp) or the kart garage
+(karts, tyre walls, fuel cans low; benches; parts shelves hide a man; an oil slick).
+GATE THE BIG INSIDES 667/0 in three parts (230 in 202 s, 229 in 210 s, 208 in 177 s; thirty-eight insides). ON THE PAGE: 4 fights in the park on the demo and the alpha, upright and on its side (the arcade twice, the kart garage twice), all ended, 17 of 17 tile taps, 0 page errors. VOTE combat4-the-mini-grand-prix-11-22.
+[bb Battle Brothers' palisade you see through: the skee-ball lanes, a low run nobody crosses and everybody shoots over]
+[analog horror: a row of dead cabinets and one still playing its attract loop, the same eight seconds, to nobody]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22y - THE BATTERY FARM, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE BATTERY FARM (the map's 'solar without storage dies every night'; the dead's 'crews caught working'): about seven fights in ten there are fought inside: the battery hall (rows
 of racks and the cooling units hide a man; inverters, cabinets; modules, drums; the sprinklers' water, Battle Brothers' swamp) or the control house (switchgear and transformers hide
 a man; desks, cabinets; the water).
