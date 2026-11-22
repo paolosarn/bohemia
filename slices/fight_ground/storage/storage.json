@@ -1,0 +1,568 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "storage",
+ "name": "THE STORAGE YARD",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "The map lays self-storage along the streets ('self-storage sprawl', engine/bohemia_overmap.js) and gives it a share of every works zone (LAND_USE industry: industrial 0.5, warehouse 0.35, storage 0.15).",
+  "The dead's own line for the kind (engine/bohemia_dead.js): 'people lived in the units. some never opened again'.",
+  "A self-storage yard is a climate-controlled building of units off long halls (roll-up doors, a freight lift, hand carts by the doors), drive-up rows outside, and, in Las Vegas, RV and boat parking under steel canopies. People living in storage units and in stored RVs is a real thing when rent runs out.",
+  "On house tiles a run of shut units is a wall that hides a man; a unit with its door up is a small room a man fights from; an RV, a boat on its trailer and a moving truck each hide a man."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (storage_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "storage"
+ ],
+ "share": 0.4,
+ "districts_why": "The yard is its buildings, its drive-up rows and its canopy: about two fights in five there are fought inside the unit halls or under the canopy, by the cell's own dice; the rest in the drive-up rows, on the works yard.",
+ "board": {
+  "templates": {
+   "storage": {
+    "name": "THE STORAGE YARD",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_unit_halls": [
+      "####################",
+      "#E.b.sc..f.bc..b.h.#",
+      "#UoUUcLUUo.oUULbUUo#",
+      "#UUoU.UUoUbUoUU.UoU#",
+      "#.cb.s.hb..bc.s.bc.#",
+      "#UUoLcUoUU.UUoUcLoU#",
+      "#UoUU.UUoUsUoUU.UUo#",
+      "#D.cb.h.sc.cs.hbc.D#",
+      "#UoUU.UUoUsUoUU.UUo#",
+      "#UUoLcUoUU.UUoUcLoU#",
+      "#.cb.s.hb.fbc.s.bc.#",
+      "#UUoU.UUoUbUoUU.UoU#",
+      "#UoUUcLUUo.oUULbUUo#",
+      "#E.b.sc..DD.bc..b.h#",
+      "####################"
+     ],
+     "the_rv_canopy": [
+      "####################",
+      "#RRk.BBlcfglBB.kRR.#",
+      "#.g.cr.kc.gc.krc.g.#",
+      "#.RR.lBB.kk.BBl.RR.#",
+      "#.RRg.BBgTT.BB.gRR.#",
+      "#.gr.kc..g.cg.kc.rg#",
+      "#.kRRglBB.cBBlgRRk.#",
+      "#D.cg.rk.f.s.rkg.cD#",
+      "#.kRRglBB.cBBlgRRk.#",
+      "#.gr.kc..g.cg.kc.rg#",
+      "#.RRg.BBgTT.BB.gRR.#",
+      "#.RR.lBB.kk.BBl.RR.#",
+      "#.g.cr.kc.gc.krc.g.#",
+      "#RRk.BBl.DD.lBB.kRR#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "U": {
+    "is": "floor",
+    "tile": "units",
+    "piece": "st_units",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "o": {
+    "is": "floor",
+    "tile": "openunit",
+    "piece": "st_open",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "L": {
+    "is": "floor",
+    "tile": "livedin",
+    "piece": "st_lived",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "b": {
+    "is": "floor",
+    "tile": "boxes",
+    "piece": "st_boxes",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "carts",
+    "piece": "st_carts",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "s": {
+    "is": "floor",
+    "tile": "spill",
+    "piece": "st_spill",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "h": {
+    "is": "floor",
+    "tile": "furniture",
+    "piece": "st_furniture",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "E": {
+    "is": "floor",
+    "tile": "lift",
+    "piece": "st_lift",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "R": {
+    "is": "floor",
+    "tile": "rv",
+    "piece": "st_rv",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "B": {
+    "is": "floor",
+    "tile": "boat",
+    "piece": "st_boat",
+    "at": [
+     0.5,
+     0.88
+    ]
+   },
+   "T": {
+    "is": "floor",
+    "tile": "truck",
+    "piece": "st_truck",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "car",
+    "piece": "st_car",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "l": {
+    "is": "floor",
+    "tile": "awning",
+    "piece": "st_awning",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "g": {
+    "is": "floor",
+    "tile": "gear",
+    "piece": "st_gear",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "r": {
+    "is": "floor",
+    "tile": "tyres",
+    "piece": "st_tyres",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words); 'sight' says whether a blocker hides a man ('blocked', the obstacles row) or is seen past ('seen'). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The yard's block wall: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The hall's sealed concrete, the canopy's asphalt: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The floor: open ground.",
+   "draft": true
+  },
+  "units": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A run of units, the roll-up doors down and padlocked: nobody stands there, and nobody sees through it; cover beside it. People lived in the units; some never opened again. [bb] its wall.",
+   "say": ""
+  },
+  "openunit": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A unit with its door rolled up, a steel box a man stands in to shoot out of: cover. [bb] its palisade.",
+   "say": "An open unit: cover.",
+   "draft": true
+  },
+  "livedin": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A unit somebody lived in when the rent stopped: a mattress, a camp stove, a life in boxes to the ceiling: cover.",
+   "say": "A unit somebody lived in: cover.",
+   "draft": true
+  },
+  "boxes": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Moving boxes stacked higher than a man, dragged out of a unit: cover.",
+   "say": "Stacked boxes: cover.",
+   "draft": true
+  },
+  "carts": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "The yard's hand carts and flatbeds, left by the doors: low cover.",
+   "say": "Hand carts: low cover.",
+   "draft": true
+  },
+  "spill": {
+   "row": "rough",
+   "terrain": "rough",
+   "ap": 3,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A unit's insides tipped across the floor, picked through: slow going (3 AP), low cover. [bb] its brush.",
+   "say": "Somebody's stuff underfoot: slow going, low cover.",
+   "draft": true
+  },
+  "furniture": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Somebody's couch and dresser, pulled out into the hall: cover.",
+   "say": "Furniture: cover.",
+   "draft": true
+  },
+  "lift": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "The freight lift's shaft, its gate chained: nobody stands there, and nobody sees through it. [bb] its wall.",
+   "say": ""
+  },
+  "rv": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "An RV in its stall under the canopy, its tyres flat: nobody stands there, and nobody sees through it; cover beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "boat": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A boat on its trailer, a lake away from any water: nobody stands there, and nobody sees through it; cover beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "truck": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A rental moving truck, its box full of somebody's last move: nobody stands there, and nobody sees through it. [bb] its boulder.",
+   "say": ""
+  },
+  "car": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A car under its cover, kept for a better time: cover.",
+   "say": "A stored car: cover.",
+   "draft": true
+  },
+  "awning": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "An RV's awning rolled out, a cooler, chairs, a tarp hung for a wall: somebody lives in this one: cover.",
+   "say": "Somebody's camp by an RV: cover.",
+   "draft": true
+  },
+  "gear": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Jerry cans and a generator chained to the stall: low cover.",
+   "say": "Cans and a generator: low cover.",
+   "draft": true
+  },
+  "tyres": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Trailer tyres stacked in the aisle: low cover.",
+   "say": "Stacked tyres: low cover.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a drum. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The hall's doors and the canopy's gate, open onto the drive-up rows: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The doors: open ground.",
+   "say_lit": "The doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in storage_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "st_units": {
+   "like": "sb_container_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "SHUT UNITS"
+  },
+  "st_open": {
+   "like": "garage_booth",
+   "kind": "COVER",
+   "name": "AN OPEN UNIT"
+  },
+  "st_lived": {
+   "like": "tunnel_camp_b",
+   "kind": "COVER",
+   "name": "A LIVED-IN UNIT"
+  },
+  "st_boxes": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "STACKED BOXES"
+  },
+  "st_carts": {
+   "like": "sb_rubble_S",
+   "kind": "LOW_COVER",
+   "name": "HAND CARTS"
+  },
+  "st_spill": {
+   "like": "sb_heap_E",
+   "kind": "LOW_COVER",
+   "name": "A UNIT TIPPED OUT"
+  },
+  "st_furniture": {
+   "like": "casino_seats",
+   "kind": "COVER",
+   "name": "FURNITURE"
+  },
+  "st_lift": {
+   "like": "garage_core",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "THE FREIGHT LIFT"
+  },
+  "st_rv": {
+   "like": "sb_container_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "AN RV"
+  },
+  "st_boat": {
+   "like": "sb_rolled_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A BOAT ON ITS TRAILER"
+  },
+  "st_truck": {
+   "like": "sb_dozer_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A MOVING TRUCK"
+  },
+  "st_car": {
+   "like": "sb_wreck_S",
+   "kind": "COVER",
+   "name": "A STORED CAR"
+  },
+  "st_awning": {
+   "like": "tunnel_camp_a",
+   "kind": "COVER",
+   "name": "AN RV'S CAMP"
+  },
+  "st_gear": {
+   "like": "tunnel_jam",
+   "kind": "LOW_COVER",
+   "name": "CANS AND A GENERATOR"
+  },
+  "st_tyres": {
+   "like": "sb_heap_S",
+   "kind": "LOW_COVER",
+   "name": "STACKED TYRES"
+  },
+  "st_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "st_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "st_wall_ew",
+  "ns": "st_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: an RV's roof is a ladder nobody climbs under fire on house tiles; the hall is one floor here, the lift is chained.",
+ "ceiling": {
+  "kind": "joist",
+  "alpha": 0.1,
+  "src": "storage/storage_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the hall's ceiling grid and the canopy's steel and panels, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the warehouse's roof)."
+ }
+}
