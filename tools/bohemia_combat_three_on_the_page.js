@@ -220,7 +220,7 @@ const HOOKS = `(function(){
         const fb = await box(f);
         for (const t of tiles) {
           /* where the tile is on the glass NOW (a tap may slide the camera): read, then tap at once */
-          await until(async () => f.evaluate(() => !UI.anim.length && !!FIGHT.current() && FIGHT.current().side === 'you'), 4000);   /* COMBAT FOUR 11/20: a move still drawing makes every tile read null; wait it out */
+          await until(async () => f.evaluate(() => !UI.anim.length && !UI.glide && !!FIGHT.current() && FIGHT.current().side === 'you'), 4000);   /* COMBAT FOUR 11/20: a move still drawing makes every tile read null; wait it out. 11/22: and the camera still gliding to the man moves the tile under the finger (the arsenal, the alpha on its side: the first tap one tile off) */
           const at = await f.evaluate(([x, y]) => { if (UI.anim.length || !FIGHT.current() || FIGHT.current().side !== 'you') return null; const X = sx((x + .5 + stagger(y)) * UI.tw), Y = sy((y + .6) * UI.th);
             if (X < 20 || Y < 60 || X > innerWidth - 20 || Y > innerHeight - 20) return null; const el = document.elementFromPoint(X, Y); if (!el || el.id !== 'cv') return null;
             const p = tileAt(X, Y); return p.x === x && p.y === y ? { X: X, Y: Y, word: FIGHT.level(x, y) ? heightSay(x, y) : FIGHT.groundSay(x, y), before: (FIGHT.tileKeyAt(x, y) || {}).say_before || '' } : null; }, [t.x, t.y]);

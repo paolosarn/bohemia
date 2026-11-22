@@ -1,0 +1,498 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "arsenal",
+ "name": "THE ARSENAL",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "THE ARSENAL (Paolo 7/5/26, engine/bohemia_overmap.js): 'the range that houses tanks + helicopters, one block off the strip on the rail side (real: behind Circus Circus). The Remnants saw it as super important; contested with the cartel.'",
+  "A shooting range is a firing line of booths, lanes downrange to the backstop (a sand berm or a steel bullet trap), target stands on their frames and drill barricades in the lanes; behind the line the counter with its glass cases and the racks. Its display hall holds the vehicles.",
+  "A main battle tank is about 10 metres long with its gun and 2.4 high; a Huey's fuselage about 12.7 metres; a Humvee about 4.6 long and 1.8 high: on house tiles each is a run of tiles nobody stands on and nobody sees through."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (arsenal_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "arsenal"
+ ],
+ "share": 0.8,
+ "districts_why": "The arsenal is its own map kind, one cell: eight fights in ten there are fought inside it, by the cell's own dice; the rest in its yard.",
+ "board": {
+  "templates": {
+   "arsenal": {
+    "name": "THE ARSENAL",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_firing_range": [
+      "####################",
+      "#KT..T..s.T..B.g..r#",
+      "#K..s..T..w..B..a.r#",
+      "#KT..w..s..T.B.g.a.#",
+      "#K.s..T..w..s...a..#",
+      "#KT..s..T..w.B.s.g.#",
+      "#K..w..s..T..B..a.r#",
+      "#KT..w..s..w.f.a.sD#",
+      "#K..w..s..T..B..a.r#",
+      "#KT..s..T..w.B.s.g.#",
+      "#K.s..T..w..s...a..#",
+      "#KT..w..s..T.B.g.a.#",
+      "#K..s..T..w..B..a.r#",
+      "#KT..T..s.T..B.g.DD#",
+      "####################"
+     ],
+     "the_vehicle_hall": [
+      "####################",
+      "#rr.a..s.css.cs.a.r#",
+      "#..MMM..sacs..MMM..#",
+      "#.a...sccf.ccs...a.#",
+      "#.s.hh.cHHHHc.hh.s.#",
+      "#..c..s.a..a.ss.c..#",
+      "#.a.s..c.ss.c..s.a.#",
+      "#D..MMMs.cc.sMMM..D#",
+      "#.a.ss.c.ss.c.ss.a.#",
+      "#..c.ss.a..a.ss.c..#",
+      "#.s.hh.cHHHHc.hh.s.#",
+      "#.a...s.caccfs...a.#",
+      "#..MMM..sacs..MMM..#",
+      "#rr.a..s.DD.s.a.rr.#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "K": {
+    "is": "floor",
+    "tile": "backstop",
+    "piece": "ar_backstop",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "T": {
+    "is": "floor",
+    "tile": "targets",
+    "piece": "ar_targets",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "B": {
+    "is": "floor",
+    "tile": "booths",
+    "piece": "ar_booths",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "g": {
+    "is": "floor",
+    "tile": "counter",
+    "piece": "ar_counter",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "r": {
+    "is": "floor",
+    "tile": "racks",
+    "piece": "ar_racks",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "a": {
+    "is": "floor",
+    "tile": "ammo",
+    "piece": "ar_ammo",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "s": {
+    "is": "floor",
+    "tile": "sandbags",
+    "piece": "ar_sandbags",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "w": {
+    "is": "floor",
+    "tile": "barricade",
+    "piece": "ar_barricade",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "M": {
+    "is": "floor",
+    "tile": "tank",
+    "piece": "ar_tank",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "H": {
+    "is": "floor",
+    "tile": "helicopter",
+    "piece": "ar_helicopter",
+    "at": [
+     0.5,
+     0.95
+    ]
+   },
+   "h": {
+    "is": "floor",
+    "tile": "humvee",
+    "piece": "ar_humvee",
+    "at": [
+     0.5,
+     0.92
+    ]
+   },
+   "c": {
+    "is": "floor",
+    "tile": "drums",
+    "piece": "ar_drums",
+    "at": [
+     0.5,
+     0.78
+    ]
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words); 'sight' says whether a blocker hides a man ('blocked', the obstacles row) or is seen past ('seen'). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The arsenal's block wall: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The range's floor, brass underfoot, or the hall's concrete: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The floor: open ground.",
+   "draft": true
+  },
+  "backstop": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "The backstop at the end of the lanes, steel plate over a bank of sand: nobody stands there, and nobody sees through it. [bb] its wall.",
+   "say": ""
+  },
+  "targets": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Target stands on their frames, the paper shot to rags: low cover.",
+   "say": "Target stands: low cover.",
+   "draft": true
+  },
+  "booths": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A shooting booth on the firing line, its baffled partitions and its shelf: cover. [bb] its palisade.",
+   "say": "A shooting booth: cover.",
+   "draft": true
+  },
+  "counter": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "The range's counter, its glass cases smashed and empty: cover.",
+   "say": "The counter: cover.",
+   "draft": true
+  },
+  "racks": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "Steel gun racks to the ceiling, stripped bare: nobody stands there, and nobody sees through them. [bb] its wall.",
+   "say": ""
+  },
+  "ammo": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "Ammunition crates, steel cans in wooden cases, empty: cover.",
+   "say": "Ammo crates: cover.",
+   "draft": true
+  },
+  "sandbags": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A sandbag wall, waist high: low cover. [bb] its palisade, waist high.",
+   "say": "Sandbags: low cover.",
+   "draft": true
+  },
+  "barricade": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "A drill barricade in the lane, plywood on a frame: low cover.",
+   "say": "A barricade: low cover.",
+   "draft": true
+  },
+  "tank": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A tank on display, its tracks on blocks: nobody stands there, and nobody sees through it; cover beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "helicopter": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A helicopter's fuselage on display, its rotor tied down: nobody stands there, and nobody sees through it; cover beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "humvee": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A Humvee on display, its tyres flat: nobody stands there, and nobody sees through it; cover beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "drums": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Oil drums and fuel cans: low cover.",
+   "say": "Drums: low cover.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a drum. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The arsenal's doors, or the hall's roll-up door, open: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The doors: open ground.",
+   "say_lit": "The doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in arsenal_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "ar_backstop": {
+   "like": "garage_core",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "THE BACKSTOP"
+  },
+  "ar_targets": {
+   "like": "sb_sign_S",
+   "kind": "LOW_COVER",
+   "name": "TARGET STANDS"
+  },
+  "ar_booths": {
+   "like": "garage_booth",
+   "kind": "COVER",
+   "name": "A SHOOTING BOOTH"
+  },
+  "ar_counter": {
+   "like": "casino_bar",
+   "kind": "COVER",
+   "name": "THE COUNTER"
+  },
+  "ar_racks": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "GUN RACKS"
+  },
+  "ar_ammo": {
+   "like": "sb_bales_S",
+   "kind": "COVER",
+   "name": "AMMO CRATES"
+  },
+  "ar_sandbags": {
+   "like": "sb_heap_S",
+   "kind": "LOW_COVER",
+   "name": "SANDBAGS",
+   "stand_in_was": "sb_sandbags_S"
+  },
+  "ar_barricade": {
+   "like": "casino_seats",
+   "kind": "LOW_COVER",
+   "name": "A DRILL BARRICADE",
+   "stand_in_was": "sb_barrier_S"
+  },
+  "ar_tank": {
+   "like": "sb_dozer_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A TANK"
+  },
+  "ar_helicopter": {
+   "like": "sb_container_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A HELICOPTER"
+  },
+  "ar_humvee": {
+   "like": "sb_wreck_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A HUMVEE"
+  },
+  "ar_drums": {
+   "like": "sb_rubble_S",
+   "kind": "LOW_COVER",
+   "name": "DRUMS",
+   "stand_in_was": "sb_drums_S"
+  },
+  "ar_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "ar_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "ar_wall_ew",
+  "ns": "ar_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: a tank's deck is a climb nobody gets onto under fire on house tiles; the vehicles are blockers.",
+ "ceiling": {
+  "kind": "joist",
+  "alpha": 0.1,
+  "src": "arsenal/arsenal_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the range's overhead baffles and the hall's trusses, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the warehouse's roof)."
+ }
+}

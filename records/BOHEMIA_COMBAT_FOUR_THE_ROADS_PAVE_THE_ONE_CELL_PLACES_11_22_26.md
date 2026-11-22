@@ -15,6 +15,9 @@ Valleys with NONE of the place left on the map, of 40:
 - the fire stations: 7 of 40 with none; of 120 seats (three a valley) 70 lost: arterial 69, desert 1 (1.3 left a valley)
 - the fuel depots: 3 of 40 with none; 20 seats lost to an arterial
 - the granary: 2 of 40; arterial 2
+- ADDED LATER THE SAME ROUND (the same 40 valleys, measured choosing the next boards): the swap meet 9 of 40 (0.8 a valley), the drive-in
+  1 of 40; the ballpark, the jobs office, the chapels, the radio station, the water treatment plant, the speedway, the storage yards
+  kept theirs in 40 of 40
 Every other one-cell place measured kept its cell in all 40: the bank, the police stations, the courthouse, the Mob Museum, the natural
 history museum, the TV station, the aquarium, the animal shelter, the jobs office, the hardware store, the power plant, the truck
 stop, the chapel, the radio station, the robot factory, the warehouse, the rail yard, the data fort, the arsenal.
