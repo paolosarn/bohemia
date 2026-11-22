@@ -34,7 +34,7 @@ const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const { throughTheTitle } = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
 const { leaveTown } = require(path.join(ROOT, 'tools/bohemia_leave_the_town.js'));
 let pass = 0, fail = 0;
-const BOARD_SRC = /^(data:image\/(webp|jpeg)|blob:)/;   /* the board's picture, made by slices/bohemia_camp_board.js; the wait is a one-pixel gif. MOTION 3 11/10
+const BOARD_SRC = /^(data:image\/(webp|jpeg)|blob:|camp-board:)/;   /* PLUMBER 8 11/22: camp-board: the picture handed over as drawn (__THE_CAMP_PICTURE_IS_HANDED_NOT_WRITTEN__) */   /* the board's picture, made by slices/bohemia_camp_board.js; the wait is a one-pixel gif. MOTION 3 11/10
    (__THE_CAMP_IS_THE_FIGHTS_BOARD__): a camp made off a fight hands its picture as a blob, written off the main thread (toBlob) */
 const ok = (n, c, x) => { c ? pass++ : fail++; console.log((c ? '  ok   ' : '  FAIL ') + n + (x !== undefined ? '  [' + String(x).slice(0, 900) + ']' : '')); };
 
@@ -130,7 +130,7 @@ async function run(profile) {
     const gone = await p.evaluate(async () => { const out = {}; for (const f of ['plate.webp', 'plate_night.webp', 'plate_tall.webp', 'plate_tall_night.webp']) { try { out[f] = (await fetch('camp_two/' + f, { cache: 'no-store' })).status; } catch (e) { out[f] = 'x'; } } return out; });
     /* the crew screen at camp: it opens over the camp and takes the camp screen's own picture (the camp made again on the same block) */
     await fr.evaluate((q) => { try { if (LOOP.open) loopClose(); } catch (e) {} city.x = q.x + 0.5; city.y = q.y + 0.5; TOWN_EXIT = null; return BohemiaMapCamp.make(); }, last.b);
-    for (let k = 0; k < 120; k++) { await p.waitForTimeout(250); if (await lsf.evaluate(() => { try { return BohemiaCampLook.boardIn() && /^data:image\/(webp|jpeg)/.test(BohemiaSettlement.camp2().src || ''); } catch (e) { return false; } })) break; }
+    for (let k = 0; k < 120; k++) { await p.waitForTimeout(250); if (await lsf.evaluate(() => { try { return BohemiaCampLook.boardIn() && /^(data:image\/(webp|jpeg)|blob:|camp-board:)/.test(BohemiaSettlement.camp2().src || ''); } catch (e) { return false; } })) break; }
     await p.waitForTimeout(1500);
     await lsf.evaluate(() => { try { BohemiaCrewDoor.open({}); } catch (e) {} });
     let crew = null; for (let k = 0; k < 40 && !crew; k++) { await p.waitForTimeout(250);

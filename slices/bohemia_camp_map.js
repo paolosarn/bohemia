@@ -92,7 +92,10 @@
   function beat() {
     if (!camped()) { if (K.peek) peek(false); return; }
     var f = frame(); if (!f || !f.contentWindow) return;
-    K.men = men(); K.threats = threats();
+    /* PLUMBER 8 (rule 472(e), measured: the compass's reads took 50 to 170 ms of every second of the camp's load, on a screen that shows
+       no compass until its picture is in): while the camp's screen still loads, the last compass stands (the map's campLoadingNow) */
+    var loading = false; try { loading = !root.__CAMP_CLOCK_DURING_LOAD && typeof root.campLoadingNow === 'function' && G('CAMP') && !G('CAMP').town && !(G('CAMP').hours > 0) && root.campLoadingNow().on; } catch (e) { loading = false; }
+    K.men = men(); K.threats = loading ? (K.threats || []) : threats();
     var compass = CL ? CL.compass(K.threats) : null;
     try { f.contentWindow.postMessage({ type: 'BOHEMIA_CAMP_LOOK', men: K.men, threats: K.threats, compass: compass }, '*'); } catch (e) {}
     K.lastPost = Date.now();

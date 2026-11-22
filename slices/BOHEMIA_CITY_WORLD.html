@@ -47233,6 +47233,35 @@ function campSettingUp(){
   }catch(_e){ return false; }
 }
 /* ==== end __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ ==== */
+/* ==== __THE_CLOCK_WAITS_FOR_THE_CAMP_TO_LOAD__ (PLUMBER 8, 11/22/26, rule 472(e); Paolo 11/22: 'we made camp, it loads, it takes 30
+   seconds, I don't know why it freezes when it loads... it freezes for like 10 seconds and then everything's populated in'). MEASURED
+   (the demo upright, CPU 4x, MAKE CAMP from the map with the phone's HEAL, a CPU profile): the camp's hours started at the tap while its
+   board was still being baked (the screen's picture in 17 to 18 s later), so the load shared the page with what the hours set going:
+   nightfall's reckoning (2.2 s in one go) and every job's danger planned again for the new day (1.8 to 4.8 s). MOTION 3's set-up hold
+   (above) holds the clock only for a camp made off a fight. NOW a camp made on the map takes no hour until its screen's picture is in
+   (its board baked and drawn), never longer than CAMP_LOAD_MAX from the tap; a rest in a town as before. Only the load: what the hours
+   do once they run is CAMP's. window.__CAMP_CLOCK_DURING_LOAD = the way it was. ==== */
+var CAMP_LOAD_MAX = 30000;
+/* the camp's screen still loading (no counting: the camp map's beat asks it too, and leaves the compass until the camp is up) */
+function campLoadingNow(){
+  var w = null; try{ w = LOOP.frame && LOOP.ready && LOOP.frame.contentWindow; }catch(_e){ w = null; }
+  var st = null; try{ st = w && w.BohemiaCampBoard && w.BohemiaCampBoard.state ? w.BohemiaCampBoard._B.state : null; }catch(_e){ st = null; }
+  /* its picture on the screen: drawn, and the board's own (the screen shows a one-pixel wait picture until the board is in) */
+  var pic = false; try{ var BS = w && w.BohemiaSettlement; pic = !!(BS && BS.picIn && BS.picIn()); if (pic && BS.camp2) { var c2 = BS.camp2(); pic = !c2 || !c2.src || !/^data:image\/gif/.test(String(c2.src)); } }catch(_e){ pic = false; }
+  return { on: !w || st === 'none' || st === 'baking' || st === 'composing' || (st === 'in' && !pic) || (st == null && !pic), st: st, pic: pic };
+}
+function campStillLoading(){
+  try{
+    if (window.__CAMP_CLOCK_DURING_LOAD || CAMP.town || CAMP.hours > 0) return false;
+    var made = window.__CAMP ? window.__CAMP.made | 0 : 0; if (CAMP.loadFor !== made) { CAMP.loadFor = made; CAMP.loadT0 = Date.now(); CAMP.loadHeld = 0; }
+    if (Date.now() - CAMP.loadT0 > CAMP_LOAD_MAX) return false;
+    var L = campLoadingNow(), on = L.on, st = L.st, pic = L.pic;
+    if (on) { CAMP.loadHeld = (CAMP.loadHeld | 0) + 1; window.__CAMP_LOAD = { made: made, held: CAMP.loadHeld, t0: CAMP.loadT0, st: st, pic: pic }; }
+    else if (window.__CAMP_LOAD && window.__CAMP_LOAD.made === made && window.__CAMP_LOAD.inAt == null) window.__CAMP_LOAD.inAt = Date.now() - CAMP.loadT0;
+    return on;
+  }catch(_e){ return false; }
+}
+/* ==== end __THE_CLOCK_WAITS_FOR_THE_CAMP_TO_LOAD__ ==== */
 function campHeldByACard(){ try { return !!(window.BohemiaRoadEvents && BohemiaRoadEvents.up && BohemiaRoadEvents.up()); } catch (_e) { return false; } }
 function campHour(){
   if (!CAMP.on) return;
@@ -47248,6 +47277,7 @@ function campHour(){
     window.__CAMP_SHOWN_AGAIN = (window.__CAMP_SHOWN_AGAIN | 0) + 1; return;
   }
   if (campSettingUp()) return;   /* MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (rule 444(a)): the clock stopped while his men set it up */
+  if (campStillLoading()) return;   /* PLUMBER 8 __THE_CLOCK_WAITS_FOR_THE_CAMP_TO_LOAD__ (rule 472(e)) */
   /* __A_QUESTION_STOPS_THE_CLOCK__ (FIXES 2 11/14, ask row 606, FOUND BY EYES 11/11: under Dona Mercedes' card the camp ran DAY 2
      11:47 to DAY 6 23:00 and the food 21 to 7 while the question waited). A road card that waits for his answer holds the camp's
      hour: no time, no food, no walking world, until he answers; the camp stands as it stood. (The phone's HEAL is in his corner,

@@ -84,7 +84,7 @@ async function run(profile) {
     if (!sf) { ok(P + 'K1 a press on HEAL opens his camp', false, 'no camp screen'); return; }
     /* CAMP THREE 11/6 (rule 406): the camp's ground is the fight board of his block, baked by the fight's own page; the camp is drawn
        (and the pitch plays) once it is in */
-    for (let k = 0; k < 80; k++) { const ok2 = await sf.evaluate(() => { try { return BohemiaCampLook.boardIn() && /^data:image\/(webp|jpeg)/.test(BohemiaSettlement.camp2().src || ''); } catch (e) { return false; } }); if (ok2) break; await p.waitForTimeout(250); }
+    for (let k = 0; k < 80; k++) { const ok2 = await sf.evaluate(() => { try { return BohemiaCampLook.boardIn() && /^(data:image\/(webp|jpeg)|blob:|camp-board:)/.test(BohemiaSettlement.camp2().src || ''); } catch (e) { return false; } }); if (ok2) break; await p.waitForTimeout(250); }
     for (let k = 0; k < 12; k++) { const st = await look(sf); if (st.reads > 0) break; await p.waitForTimeout(250); }   /* the map's first read of each man */
     const k4a = await look(sf);
     const k2a = k4a.pitch;
@@ -92,7 +92,7 @@ async function run(profile) {
     const k1 = await sf.evaluate(() => { const S = BohemiaSettlement, st = BohemiaCampLook.state();
       const c2 = S.camp2(); return { src: c2.src, camp2: c2.camp2, tall: st.tall, order: S.order(), kinds: st.pieces.map(q => q.kind), carrier: st.carrier, keepers: S.folk().filter(q => !q.campMan).length, busy: S.busy().length, men: st.men }; });
     ok(P + 'K1 *** A PRESS ON HEAL OPENS HIS CAMP *** his own ground, nothing of a town, the fire, his tents, the shopping cart, the supplies, the seats, each a door',
-      /^data:image\/(webp|jpeg)/.test(k1.src || '') && k1.camp2 && (k1.tall === (profile === 'phone_portrait'))   /* CAMP THREE 11/6: the board, never the retired sand (rule 406(b)) */ && k1.keepers === 0 && k1.busy === 0 && ['fire', 'tent', 'carrier', 'supplies', 'seats'].every(k => k1.kinds.indexOf(k) >= 0)
+      /^(data:image\/(webp|jpeg)|blob:|camp-board:)/.test(k1.src || '') && k1.camp2 && (k1.tall === (profile === 'phone_portrait'))   /* CAMP THREE 11/6: the board, never the retired sand (rule 406(b)) */ && k1.keepers === 0 && k1.busy === 0 && ['fire', 'tent', 'carrier', 'supplies', 'seats'].every(k => k1.kinds.indexOf(k) >= 0)
         && k1.carrier === 'shopping_cart' && ['fire', 'tent', 'cart', 'retinue'].every(k => k1.order.indexOf(k) >= 0),
       JSON.stringify(k1));
     /* a real tap anywhere on the camp skips the pitch */

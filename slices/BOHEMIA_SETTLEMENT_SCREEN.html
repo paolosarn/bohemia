@@ -2617,6 +2617,7 @@ function pickVariant(onlyPic){   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: onlyPic, 
     var bb2 = lookBox(); view.cx = (bb2[0] + bb2[2])/2 + 260; }
   ['day','night'].forEach(function(w){
     if(VAR.pic){ PIC[w] = townIm(VAR.pic.dir + (w==='day' ? VAR.pic.src : VAR.pic.night)); return; }   /* __THE_TOWNS_WIRED_TALL_AND_WIDE__: one picture a file, kept while he is in the town */
+    if(VAR.cv && VAR.cv[w]){ PIC[w] = VAR.cv[w]; return; }   /* PLUMBER 8 __THE_CAMP_PICTURE_IS_HANDED_NOT_WRITTEN__ (rule 472(e)): the camp's board, the drawn picture itself, never written to a file and read back */
     var im = new Image(); im.onload = function(){ layout(); }; im.src = (VAR.dir || GROUND_DIR[GROUND.tiers[S.place.tier] ? S.place.tier : 'town'] || 'settlement_ground/') + (w==='day' ? VAR.src : (VAR.night_src || VAR.src)); PIC[w] = im;   /* __CAMP_TWO__: VAR.dir, his camp's own folder */
   });
   if(!onlyPic) shelf(); layout();
@@ -3356,12 +3357,18 @@ function drawBenches(s){
    per draw took the screen from 42 frames a second to 5 at night, measured 10/19) */
 function duskOf(r){
   if(r.dusk) return r.dusk;
-  var c = document.createElement('canvas'); c.width = r.im.naturalWidth; c.height = r.im.naturalHeight;
-  var x = c.getContext('2d'); x.drawImage(r.im, 0, 0);
-  try{ var d = x.getImageData(0, 0, c.width, c.height), a = d.data;
+  /* PLUMBER 8 __THE_DUSK_IS_WORKED_OUT_ON_THE_CPU__ (rule 472(e), measured: making camp at night read every man's sheet back off a canvas
+     that lives on the phone's GPU, 770 ms of one second of the camp's load): the same sums on a canvas kept on the CPU, then the dusk
+     picture copied once onto an ordinary canvas to draw from. The same pixels. window.__DUSK_ON_THE_GPU = the way it was. */
+  var W = r.im.naturalWidth, H = r.im.naturalHeight, cpu = !window.__DUSK_ON_THE_GPU;
+  var t = document.createElement('canvas'); t.width = W; t.height = H;
+  var x = t.getContext('2d', cpu ? { willReadFrequently: true } : undefined); x.drawImage(r.im, 0, 0);
+  try{ var d = x.getImageData(0, 0, W, H), a = d.data;
     for(var i = 0; i < a.length; i += 4){ var l = (a[i]*.3 + a[i+1]*.59 + a[i+2]*.11);
       a[i] = (l + (a[i]-l)*.8)*.62; a[i+1] = (l + (a[i+1]-l)*.8)*.62; a[i+2] = (l + (a[i+2]-l)*.8)*.62; }
     x.putImageData(d, 0, 0); }catch(e){}
+  if(!cpu) return (r.dusk = t);
+  var c = document.createElement('canvas'); c.width = W; c.height = H; c.getContext('2d').drawImage(t, 0, 0); t.width = 0;
   return (r.dusk = c);
 }
 /* ==== __EVERYBODY_IDLES__ (ANIMATION [everybody idles], rule 130(a), Paolo 10/23: 'everyone's standing still... it's looking

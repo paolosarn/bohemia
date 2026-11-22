@@ -240,7 +240,7 @@
        a hundred pixels in the middle of the set-up) */
     try { var P2 = boardPlate(), V2 = root.VAR;
       if (P2 && V2 && V2.board && /\+$/.test(P2.key) && V2.boardKey + '+' === P2.key && root.PIC) {
-        var vv = CB().variantOf(P2), im = new Image(); im.src = vv.dir + vv.night_src; root.PIC.night = im; V2.night_src = vv.night_src; V2.boardKey = P2.key; K.nightIn = (K.nightIn | 0) + 1; return; } } catch (e) {}
+        var vv = CB().variantOf(P2), im = vv.cv && vv.cv.night ? vv.cv.night : new Image(); if (!(vv.cv && vv.cv.night)) im.src = vv.dir + vv.night_src; root.PIC.night = im;   /* PLUMBER 8 __THE_CAMP_PICTURE_IS_HANDED_NOT_WRITTEN__ */ V2.night_src = vv.night_src; V2.boardKey = P2.key; K.nightIn = (K.nightIn | 0) + 1; return; } } catch (e) {}
     try { if (K.info) { K.st = build(K.info); K.folkKey = null; } } catch (e) {}   /* rule 406(g): the bodies the board brought, for the men's jobs */
     try { var BS0 = root.BohemiaSettlement; if (K.st && K.st.fv && !K.leadSent && BS0 && BS0.leadAgain) BS0.leadAgain(); } catch (e) {}   /* __THE_CAMP_IS_THE_FIGHTS_BOARD__: he stands on the fight's view, where he fought, never where the dark wait put him */
     if (K.pitchDue && boardIn()) { K.pitchDue = false; pitchNow(); if (K.st && K.st.fv && K.pitch) { K.pitch.t0 = null; K.firstAt = null;
@@ -414,10 +414,14 @@
   var DUSK = typeof WeakMap !== 'undefined' ? new WeakMap() : null;
   function dusk(im) {
     if (!DUSK) return im; var d = DUSK.get(im); if (d) return d;
-    var c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; var x = c.getContext('2d'); x.drawImage(im, 0, 0);
-    try { var D = x.getImageData(0, 0, c.width, c.height), a = D.data;
+    /* PLUMBER 8 __THE_DUSK_IS_WORKED_OUT_ON_THE_CPU__ (rule 472(e)): the sums on a canvas kept on the CPU (no read back off the GPU), then
+       copied once onto an ordinary canvas to draw from; the same pixels. window.__DUSK_ON_THE_GPU = the way it was */
+    var cpu = !root.__DUSK_ON_THE_GPU, t = document.createElement('canvas'); t.width = im.naturalWidth; t.height = im.naturalHeight;
+    var x = t.getContext('2d', cpu ? { willReadFrequently: true } : undefined); x.drawImage(im, 0, 0);
+    try { var D = x.getImageData(0, 0, t.width, t.height), a = D.data;
       for (var i = 0; i < a.length; i += 4) { var l = a[i] * .3 + a[i + 1] * .59 + a[i + 2] * .11; a[i] = (l + (a[i] - l) * .8) * .62; a[i + 1] = (l + (a[i + 1] - l) * .8) * .62; a[i + 2] = (l + (a[i + 2] - l) * .8) * .66; }
       x.putImageData(D, 0, 0); } catch (e) {}
+    var c = t; if (cpu) { c = document.createElement('canvas'); c.width = t.width; c.height = t.height; c.getContext('2d').drawImage(t, 0, 0); t.width = 0; }
     DUSK.set(im, c); return c;
   }
   function fireKey(now) { return Math.floor(now / (500 / 3)) % 6; }   /* three keys a beat, 120 BPM */

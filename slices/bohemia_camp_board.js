@@ -225,6 +225,7 @@
   /* the picture as a file the settlement screen's ground loader can read: WebP where the browser writes it, else JPEG (never PNG:
      the slowest of the three to write, measured) */
   function enc(c) { var u = ''; try { u = c.toDataURL('image/webp', 0.92); } catch (e) { u = ''; } if (!/^data:image\/webp/.test(u)) u = c.toDataURL('image/jpeg', 0.93); return u; }
+  function asPic(c, u) { try { c.complete = true; c.naturalWidth = c.width; c.naturalHeight = c.height; c.src = u; c.decode = function () { return Promise.resolve(); }; } catch (e) {} return c; }   /* __THE_CAMP_PICTURE_IS_HANDED_NOT_WRITTEN__ */
   function keyFor(f) { return (f.tall ? 'T' : 'W') + '|' + f.lift + '|' + Math.round(f.T); }
   function plate(L) {
     if (B.state !== 'in' || !B.out || !L) return null;
@@ -239,7 +240,13 @@
          to come back while the camp's clock ran, the glass dark all that time; written here, 0.2 s for both, the board on the glass 2.1 s after HEAL) */
       var t0 = Date.now(), day = composeOne(B.out.day, f), night = composeOne(B.out.night, f);
       P2.w = day.width; P2.h = day.height;
-      P2.url = enc(day); P2.nurl = enc(night); day.width = 0; night.width = 0;
+      /* __THE_CAMP_PICTURE_IS_HANDED_NOT_WRITTEN__ (PLUMBER 8, 11/22, rule 472(e): 'we made camp, it loads, it takes 30 seconds... it
+         freezes for like 10 seconds'). MEASURED (the demo upright, CPU 4x, MAKE CAMP from the map, a CPU profile): writing these two
+         pictures as WebP files (toDataURL) was ONE 2.3 s task, the longest freeze of the camp's load, and the screen then read each
+         file back into a picture. The pictures are handed over as they are drawn: the screen draws the canvas itself (it answers
+         complete, naturalWidth and src as a loaded picture does). window.__CAMP_PLATE_ENCODE = the way it was. */
+      if (root.__CAMP_PLATE_ENCODE || (root.top && root.top.__CAMP_PLATE_ENCODE)) { P2.url = enc(day); P2.nurl = enc(night); day.width = 0; night.width = 0; }
+      else { P2.url = 'camp-board:' + k + ':day'; P2.nurl = 'camp-board:' + k + ':night'; P2.cv = asPic(day, P2.url); P2.ncv = asPic(night, P2.nurl); }
       P2.ms = Date.now() - t0; P2.ready = true; delete B.making[k];
       setTimeout(tell, 0);
       return P2;
@@ -252,7 +259,8 @@
   function split(u) { var i = u.indexOf(':'); return [u.slice(0, i + 1), u.slice(i + 1)]; }
   function variantOf(P) {
     var a = split(P.url), b = split(P.nurl);
-    return { src: a[1], night_src: b[1], dir: a[0], px: P.px.slice(), hotspots: {}, lights: 1, camp2: true, tall: !!P.tall, board: true, boardKey: P.key, lift: P.lift };
+    return { src: a[1], night_src: b[1], dir: a[0], px: P.px.slice(), hotspots: {}, lights: 1, camp2: true, tall: !!P.tall, board: true, boardKey: P.key, lift: P.lift,
+      cv: P.cv ? { day: P.cv, night: P.ncv || P.cv } : null };   /* __THE_CAMP_PICTURE_IS_HANDED_NOT_WRITTEN__: the pictures themselves */
   }
   /* the camp the fight at camp stands on its tiles (rule 406(c)): each piece's foot in board tiles, and its size against a tile */
   function handOver(L) {

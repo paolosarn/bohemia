@@ -482,7 +482,28 @@ const DB = { read: {} };
    their first gunman did the same, so by hand froze too. Every file now asks the server whether it changed (a 304 when it did not:
    one round trip, never a rule from another deploy). records/BOHEMIA_COMBAT_THE_FIGHT_IS_BROKEN_LIVE_10_26_26.md */
 const FRESH = { cache: 'no-cache' };
+/* PLUMBER 8 __THE_DATA_COMES_IN_ONE_ROUND_TRIP__ (rule 472(e) and 441; Paolo 11/22: 'we made camp, it loads, it takes 30 seconds... it's
+   just like the combat map, it freezes for like 10 seconds'). loadAll below asks for its files ONE AFTER ANOTHER: the 22 of DATA_FILES
+   together, then 13 more each only when the one before it has come back (the arena's pit, the stands, the street kit, its dressing, the
+   freeway, the storeys, the joins, the casino, the tunnels, the garage, the insides' list, the why line, the shot), then the insides'
+   own files; every one asked with no-cache, so each is a round trip to the site even when the phone holds it. On this box the server
+   answers at once and it never showed; on a phone each round trip is tens to hundreds of ms, and a fight's start and the camp's bake
+   (this page, hidden) paid one for each in a row. NOW every file named in loadAll is asked for at once when it starts (and each
+   inside's two files the moment their list is in), and loadAll's own chain, unchanged, is handed the answer already on its way: the
+   same files, the same order of use, one round trip instead of a dozen. A page with no window (the headless fight) is as before.
+   window.__FIGHT_LOAD_SERIAL = the way it was. */
+function loadAllFetch() {
+  const real = typeof window !== 'undefined' && typeof window.fetch === 'function' ? window.fetch.bind(window) : (typeof fetch === 'function' ? fetch : null);
+  if (!real || typeof window === 'undefined' || window.__FIGHT_LOAD_SERIAL || (window.parent && window.parent.__FIGHT_LOAD_SERIAL)) return real;
+  const PRE = new Map(), pre = function (u) { if (!PRE.has(u)) { const q = real(u, FRESH); q.catch(function () {}); PRE.set(u, q); } return PRE.get(u); };
+  try { (loadAll.toString().match(/'[A-Za-z0-9_.\/-]+\.json'/g) || []).forEach(function (q) { if (q.indexOf('/') > 1) pre(q.slice(1, -1)); });   /* a path, never the tail of a name built in code ('_art.json') */ } catch (_e) {}
+  try { const ix = PRE.get('fight_ground/insides.json'); if (ix) ix.then(function (r) { return r && r.ok ? r.clone().json() : null; }).then(function (j) {
+    ((j && j.insides) || []).forEach(function (id) { pre('fight_ground/' + id + '/' + id + '.json'); pre('fight_ground/' + id + '/' + id + '_art.json'); }); }).catch(function () {}); } catch (_e) {}
+  window.__FIGHT_PREFETCHED = PRE.size;
+  return function (u, o) { const q = PRE.get(u); if (q) { PRE.delete(u); return q; } return real(u, o); };
+}
 function loadAll() {
+  const fetch = loadAllFetch();   /* PLUMBER 8 __THE_DATA_COMES_IN_ONE_ROUND_TRIP__: every file below asked at once, the chain handed each answer */
   return Promise.all(DATA_FILES.map(function (u) { return fetch(u, FRESH).then(function (r) { return r.json(); }); }))
     .then(function (a) {
       DB.rules = a[0]; DB.ours = a[1]; DB.ai = a[2]; DB.enemies = a[3]; DB.weapons = a[4];
@@ -13078,7 +13099,12 @@ function campBoardBake() {
   const o = window.FIGHT_OPTS || {}, A = o.campBoard || {}, art = DB.ground.tile_px[0];
   const tw = Math.max(160, Math.min(art, (A.tw | 0) || art));
   const die = (o.deal !== undefined ? o.deal : 1) >>> 0;   /* the die a fight there is dealt from (the shell's d.__deal), kept with the camp */
-  const deal = function (night) { SEED = die; FIGHT.setup(Object.assign({}, o, { night: night, odds: false, deploy: false })); };
+  const deal = function (night, hand) { SEED = die; FIGHT.setup(Object.assign({}, o, { night: night, odds: false, deploy: false }, hand ? { boardDef: hand } : {})); };
+  /* PLUMBER 8 __THE_OTHER_LIGHT_IS_THE_SAME_BOARD__ (rule 472(e), measured: MAKE CAMP on the map, the demo upright, CPU 4x: the board was
+     dealt twice, once a light, each deal 300 to 450 ms in one task (dealBoard, the street's plan): the other light is handed the board the
+     first dealt (COMBAT TWO's __THE_BOARD_HANDED_WHOLE__, FIGHT.boardNow), stood again tile for tile with no deal, so the camp stands on
+     the same board by day and by night. window.__CAMP_DEAL_TWICE = the way it was. */
+  const handOf = function () { try { return window.__CAMP_DEAL_TWICE || (window.parent && window.parent.__CAMP_DEAL_TWICE) ? null : ((FIGHT.boardNow() || {}).boardDef || null); } catch (_e) { return null; } };
   const say = function (m) { try { if (window.parent && window.parent !== window) window.parent.postMessage(Object.assign({ type: 'BOHEMIA_CAMP_BOARD' }, m), '*'); } catch (_e) {} };
   const t = { loaded: Math.round(performance.now()) };   /* the page's own clock: loaded (its data in), dealt, day, night */
   CAMPB.steps = []; CAMPB.stepT = performance.now();   /* __THE_BAKE_DOES_NOT_FREEZE__: each step's time from here (t.steps) */
@@ -13087,7 +13113,7 @@ function campBoardBake() {
     const S = FIGHT.S, D = S.boardDef;
     const dealt = { blocks: JSON.stringify(D.blocks), sig: campBoardSig(), laid: !!D.laid, name: D.name, kinds: (D.kinds || []).slice(), w: S.w, h: S.h, cols: S.cols.slice(), ground: S.ground ? S.ground.ground : null,
       from: S.ground ? S.ground.from : null, cover: (D.cover || []).length, district: o.district || null, kind: o.kind || null, cell: o.cell || null, die: die };
-    const grid = campBoardGrid();
+    const grid = campBoardGrid(), handOf1 = handOf();
     const pitch = typeof A.pick === 'function' ? A.pick(grid, dealt) : null;
     if (!pitch || !pitch.win) { window.__CAMP_BOARD = { err: 'no square', dealt: dealt }; say({ ok: false, err: 'no square' }); return Promise.resolve(null); }
     /* the whole board is baked, so its size is held under CAMP_BAKE_PX (a phone's canvas; the fight's own bake is 160 a tile) */
@@ -13099,7 +13125,7 @@ function campBoardBake() {
       out[o.night ? 'night' : 'day'] = c; out.bodies = CAMPB.bodies | 0; out.th = UI.th; t.first = Math.round(performance.now());
       return campBreath('the dead and the cut');   /* __THE_BAKE_DOES_NOT_FREEZE__: the first light done, a breath */
     }).then(function () {
-      deal(!o.night); out.sameBoth = campBoardSig() === dealt.sig;
+      deal(!o.night, handOf1); out.sameBoth = campBoardSig() === dealt.sig; out.handed = !!handOf1;
       return campBreath('the other light dealt');   /* the other light dealt, a breath, then its bake */
     }).then(function () {
       return campWindowBake(pitch.win, twB);

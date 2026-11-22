@@ -9618,6 +9618,13 @@ GATES = [
      "BLOCKED heard, the cover's mark, the glass kicks; a staged shot lights the street round him two frames and the glass answers; the "
      "frames' middle within 15% of the weight off; P1 and P2 the weight off (window.__FIGHT_WEIGHT_OFF) turn the block and the shot RED. "
      "Solo: it counts drawn frames. About 8 min", True),
+    ('THE CAMP LOADS IN ONE GO', ['node', 'gates/the_camp_loads_in_one_go_gate.js'],
+     "PLUMBER 8 gate, 11/22, VAMILY rule 472(e) (Paolo 11/22: 'we made camp, it loads, it takes 30 seconds... it freezes for like 10 "
+     "seconds'), rule 441. MAKE CAMP from the map on the demo upright, CPU 4x, the GPU canvas, a cold camp: the camp's picture in under 11 s "
+     "from the tap (18.5 s before; 7.1 after), the longest task under 1,000 ms and all over 50 ms under 6 s (2.4 s and 10 s before), no "
+     "hour of the camp before its picture is in, the other light handed the first light's board, the picture handed as drawn (never written "
+     "and read back); a plant sets the five old ways and must turn it red. records/BOHEMIA_PLUMBER_THE_CAMP_LOADS_IN_ONE_GO_11_22_26.md. "
+     "About 5 min", True),
     ('THE CAMP LETS GO WHEN HE LEAVES', ['node', 'gates/the_camp_lets_go_when_he_leaves_gate.js'],
      "MOTION 3 gate, 11/10, rule 441, ask row 560 (PLUMBER 8's NO FREEZE OVER HALF A SECOND: 'leaving camp freezes 1.4 s on his phone "
      "with the CPU slowed 4x'). MEASURED before (a CPU profile of the leave, the demo upright, the CPU slowed 4x): the camp's board page "
