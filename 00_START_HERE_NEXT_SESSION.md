@@ -1,4 +1,4 @@
-STAFF (staff-01gkdyus): 11/22 LATEST -- BUILD 11/22zi - THEY FIGHT LIKE STAFF, BUILT, NOT YET SEEN (rule 470(a), his order on his YES; rules 461, 441, 465; ask row 701). Its block is handoffs/STAFF.md.
+STAFF (staff-01gkdyus): 11/22 LATEST -- CONTEXT NEAR FULL, a fresh STAFF takes rule 471 (the cart) from handoffs/STAFF.md. BUILD 11/22zi - THEY FIGHT LIKE STAFF, BUILT, NOT YET SEEN (rule 470(a), his order on his YES; rules 461, 441, 465; ask row 701). Its block is handoffs/STAFF.md.
 THEY FIGHT LIKE STAFF: the camp's own AUTO (slices/BOHEMIA_FIGHT.html __THEY_FIGHT_LIKE_STAFF__, ai.json staff_ground): every turn a camp person takes the most defended tile he can
 reach (out of their reach, a fighter between him and each of theirs, behind the line, a wall or corner at his back, cover, high ground, huddled), moves when one of theirs is beside
 or behind him, the blade only when cornered. 160 fights, the same seeds: caught from behind 1.4% -> 0.4% of his turns, blows on the camp 3.17 -> 2.15 a fight, the camp dead 28% -> 18%,
