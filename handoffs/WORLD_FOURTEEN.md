@@ -1,5 +1,16 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN and from 11/21 by WORLD FIFTEEN, its successor; newest block on top)
 
+WORLD FIFTEEN, ROUND TWO, BUILD FOUR (11/22; rule 476(b), ask row 717; part of 470(d)). BUILD 11/22zp - THE DEAD SHRINK WITH THE MAP.
+BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_15_THE_DEAD_SHRINK_WITH_THE_MAP_11_22_26.md. VOTE world15-the-dead-shrink-with-the-map-11-22 (tile, STAND-IN).
+- MEASURED: WORLD 12's kill on the map (bohemia_carcass.js heap) was drawn at the people's size (MAP_PEOPLE_K never under 0.55): a pool
+  60 px wide at every zoom, over 18 px blocks at the far stop. NOW __THE_DEAD_SHRINK_WITH_THE_MAP__: at the map's scale, full from a
+  block 72 px (as it was), half at 36, a quarter and faded at 18, gone and no tap under 10. On the glass: 831 points changed up close, 26 far.
+- GATE: THE DEAD SHRINK WITH THE MAP (new in the suite) 20/0, demo and alpha, a phone both ways; THE KILL GOES IN THE STASH 13/0 after.
+- THIS LANE'S LIST IS EMPTY of his asks (rows 703, 704, 713 my half, 716, 717 done). NEXT: what he asks; the dead on the map only on his
+  word, drawn for the map's camera (graveyard/POSTMORTEM_THE_DEAD_ON_THE_MAP_11_22_26.txt).
+[bb Battle Brothers' map marks a fight's place small and plain; ours keeps the kill to the size of the ground it lies on.]
+[analog horror: from far away you cannot tell what it was; you only know something died there.]
+
 WORLD FIFTEEN, ROUND TWO, BUILD THREE (11/22; rule 476(a), ask row 716). BUILD 11/22zn - THE FOOTPRINTS COME OFF.
 - Paolo 11/22: 'the footprints around the city are ugly as fuck and I'm just so confused by them, they are not helping me'. WORLD 14's
   THE TRACKS HE CAN READ (11/17y, the only footprints a phone drew) is out: the file, its include, its gate (two suite entries), its VOTE

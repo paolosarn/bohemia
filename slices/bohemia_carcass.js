@@ -159,7 +159,7 @@
     g.fillStyle = 'rgba(92,18,12,0.7)'; g.beginPath(); g.ellipse(sx, fy, 30 * kp, 9 * kp, 0, 0, 7); g.fill();
     var drew = false;
     try { var B = root.BohemiaJobKinds && BohemiaJobKinds.beastPic ? BohemiaJobKinds.beastPic(c.faction) : null;
-      if (B && B.im && B.m) { var m = B.m, sc = 0.5 * MAP_PERSON_K * MAP_PEOPLE_K * (m.k || 1), w = m.w * sc, h = m.h * sc;   /* BESTIARY 11/17: as tall as it stood */
+      if (B && B.im && B.m) { var m = B.m, sc = 0.5 * MAP_PERSON_K * MAP_PEOPLE_K * (m.k || 1) * (kp / Math.max(0.01, k())), w = m.w * sc, h = m.h * sc;   /* BESTIARY 11/17: as tall as it stood; WORLD 15 11/22: at the map's scale (kp carries it) */
         g.save(); g.translate(Math.round(sx), Math.round(fy)); g.scale(1.1, 0.55); g.rotate(0.05);
         var sm = g.imageSmoothingEnabled; g.imageSmoothingEnabled = false; g.filter = 'brightness(0.6) saturate(0.7)';
         g.drawImage(B.im, 0, 2 * m.h, m.w, m.h, -m.foot[0] * sc, -m.foot[1] * sc, w, h);
@@ -208,15 +208,23 @@
     if (FLY.length) SKY.raf = requestAnimationFrame(skyDraw);
   }
   function skyGo() { if (!SKY.raf) SKY.raf = requestAnimationFrame(skyDraw); }
+  /* __THE_DEAD_SHRINK_WITH_THE_MAP__ (WORLD 15, 11/22, rule 476(b), ask row 717; Paolo 11/22: 'all the other animals I killed, as I zoom
+     out their blood pool is so big when I zoomed out, it's so ugly'). MEASURED: the kill and its pool were drawn at the PEOPLE's size
+     (MAP_PEOPLE_K, which never goes under 0.55: the person may not zoom), so at the far stop a pool 60 px wide lay over blocks 18 px wide.
+     The dead are not people standing: they are drawn at the MAP's scale, full from a block DEAD_FULL px (the close zooms, as before) and
+     smaller as he pulls out, never bigger; and far out they fade away (gone under a block DEAD_GONE px), never a blot. */
+  var DEAD_FULL = 72, DEAD_GONE = 10, DEAD_SEEN = 30;
+  function mapScale() { try { return { z: Math.max(0, Math.min(1, TW / DEAD_FULL)), a: Math.max(0, Math.min(1, (TW - DEAD_GONE) / (DEAD_SEEN - DEAD_GONE))) }; } catch (e) { return { z: 1, a: 1 }; } }
   function draw(ox, oy) {
-    HITS = []; var s = st(); if (!DATA) return; var kp = k();
-    var drew = { carcass: 0, words: 0 };
+    HITS = []; var s = st(); if (!DATA) return; var ms = mapScale(), kp = k() * ms.z;
+    var drew = { carcass: 0, words: 0, scale: Math.round(ms.z * 100) / 100, alpha: Math.round(ms.a * 100) / 100 };
     LAST.drew = drew;
+    if (ms.a <= 0) { root.__CARCASS_DREW = drew; try { MAP_DREW.carcass = 0; } catch (e) {} return; }   /* far out: gone, never a blot */
     s.list.forEach(function (c, i) {
       var p = iso(c.at[0], c.at[1], ox, oy); if (!onGlass(p, 200)) return; var fy = p.sy + TH / 2 + 2;
       c._p = here(p.sx, fy, kp);
       if (onGlass(p)) {
-        var bx = heap(c, p.sx, fy, kp); drew.carcass++;
+        var ga = g.globalAlpha; g.globalAlpha = ga * ms.a; var bx; try { bx = heap(c, p.sx, fy, kp); } finally { g.globalAlpha = ga; } drew.carcass++;
         /* the finger's box: the animal and its pool, never under a 48 x 44 point target */
         var w = Math.max(48, bx.w + 8), h = Math.max(44, bx.h + 18);
         HITS.push({ x: p.sx - w / 2, y: fy - h + 10, w: w, h: h, what: { kill: c.id } });

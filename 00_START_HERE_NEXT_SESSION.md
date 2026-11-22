@@ -1264,6 +1264,8 @@ both ways. Next beyond the floor: CHARACTER's clothes for the 13 stand-ins. VOTE
 Record records/BOHEMIA_BESTIARY_THE_SIREN_AND_THE_BATTERY_MAN_11_20_26.md.
 [bb Battle Brothers' Ancient Priest's Horror shakes every brother in its area; ours is a neighbour with an air-raid siren he found in a school.]
 [analog horror: the siren winds up from nothing, the same note the valley heard the night the dollar died.]
+WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/22 LATEST (build four) -- BUILD 11/22zp - THE DEAD SHRINK WITH THE MAP (rule 476(b), row 717):
+a kill and its blood are drawn at the map's scale: as before up close, smaller as he pulls out, faded and then gone far out. Gate 20/0.
 WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/22 LATEST (build three) -- BUILD 11/22zn - THE FOOTPRINTS COME OFF (rule 476(a), row 716):
 WORLD 14's footprints, the only ones a phone drew, out of every map, graveyarded with a post-mortem; the Strat gate refuses them back.
 WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/22 LATEST (build two) -- BUILD 11/22zl - A REAL FOG OF WAR, BUILT, NOT YET SEEN (rule 470(c), row 703;
