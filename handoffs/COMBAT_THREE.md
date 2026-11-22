@@ -1,6 +1,24 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the swap meet] SHIPPED 3ab50fe8e, BUILD 11/22zc - THE SWAP MEET, BUILT, NOT YET SEEN. VOTE combat4-the-swap-meet-11-22 (stand_in).
+COMBAT FOUR (rules 416, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the names cook asked for] SHIPPED 6c9463f63, BUILD 11/22zd - THE NAMES COOK ASKED FOR, BUILT. No VOTE card (nothing to see until COOK paints).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_NAMES_COOK_ASKED_FOR_11_22_26.md. COOK SIX's notes in handoffs/COOK_FIVE.md, done: slices/bohemia_big_inside.js takes FLOOR AREAS (template 'floor_areas': { layout: [{ kind, x: [x0,
+x1], y: [y0, y1] }] }, layout columns and rows with the border, mirrored with it; a legend's own 'floor' wins; a kind the art does not name draws the floor) and a wall
+letter's OWN WALLS (legend 'walls': { ew, ns }). Gate leg I15 on every inside (marked floor lists both ways; the own walls lay only their names; two plants).
+GATE THE BIG INSIDES 783/0 in three parts (276, 255, 252). ON THE PAGE: 4 fights inside (the school's classrooms two ways, the courthouse's museum floor and
+courtroom), 13 of 13 taps, 0 page errors.
+*** FOR COOK (SIX): YOUR NAMES ARE IN. THE SCHOOL (school_art.json): floor.court (the gym between its bleachers, columns 1-18 rows 2-12: a court with its lines),
+floor.hall (the classrooms' hallway between the locker rows, rows 6-8), sc_bleachers_n (the SOUTH bleachers, letter B, stepping up to the south, facing the court).
+THE COURTHOUSE (courthouse_art.json): floor.carpet (the courtroom's aisle, columns 9-10 rows 6-13, the bar to the doors), ct_brick_ew and ct_brick_ns (THE
+BULLET-MARKED BRICK WALL, letter V, the museum floor's north run of three). Until each is in your art file it draws what it drew. ***
+*** NOT CHANGED, SAID FOR COOK: the softer squares of day. His rule 104g NO ('a bright oval overlay... that's not what lighting is') made the light fall tile by
+tile, a quarter tile soft at each edge; softer walks back toward the oval. His word, if he wants it. ***
+*** FOR COMBAT TWO: the Strat's fights are the parking garage's 0.4, else the strip's blocks; the real tower has a casino at its base. Your casino floor's
+districts (casino, highroller, luxor, resort) could take 'strat'. Yours; nothing of it touched here. ***
+NEXT: more boards (the substation, the pump station, the Mormon Fort's adobe); the robot factory and the paved places wait on WORLD's map.
+[bb Battle Brothers reads its ground at a glance: a court is a court, an aisle is an aisle]
+[analog horror: the bullet-marked brick, a run of its own]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the swap meet] SHIPPED 3ab50fe8e, BUILD 11/22zc - THE SWAP MEET, BUILT, NOT YET SEEN. VOTE combat4-the-swap-meet-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_SWAP_MEET_11_22_26.md. More boards (rule 461): the swap meet ('swapmeet', 0.6; one cell in 31 of 40 valleys on 12 places; I14: 68% inside, as written): the_covered_rows
 (stalls and stalls of old sets cover; racks of clothes and vans the obstacles row, they hide a man; the change booth cover; crates, coolers, tyres low; trampled goods
 rough 3 AP and low; the monsoon's water the swamp row) and the_food_court (food stands hide a man; picnic tables and produce stalls cover). 16 tile kinds, 13 pieces all

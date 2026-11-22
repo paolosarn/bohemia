@@ -1,4 +1,13 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22zc - THE SWAP MEET, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22zd - THE NAMES COOK ASKED FOR, BUILT (rules 416, 451(a), 441; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COOK SIX's notes to this lane, done: a template may name FLOOR AREAS (a rectangle of its own floor kind per layout, mirrored with it) and a wall letter its OWN WALLS.
+The school: the gym's 'court', the hallway's 'hall', the south bleachers turned (B, sc_bleachers_n). The courthouse: the courtroom aisle's 'carpet', the museum's
+north exhibit run THE BULLET-MARKED BRICK WALL (V, ct_brick_ew/ns). Nothing looks different until COOK paints them, so no VOTE card. Gate leg I15 holds both.
+GATE THE BIG INSIDES 783/0 in three parts (276, 255, 252; forty insides; I15 green on all forty). ON THE PAGE: 4 fights inside (the school's classrooms two ways,
+the courthouse's museum floor and courtroom), 13 of 13 taps, 0 page errors. NOT CHANGED: the softer squares of day (his rule 104g NO on the oval holds the light
+tile by tile).
+[bb Battle Brothers reads its ground at a glance: a court is a court, an aisle is an aisle]
+[analog horror: the bullet-marked brick, a run of its own]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22zc - THE SWAP MEET, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE SWAP MEET (the map's Broadacres, up north; the dead's 'the last market, and the crush at it'): six fights in ten under its sheds: the covered rows (stalls
 cover; racks of clothes and the vendors' vans hide a man; the change booth; a stall of old sets, one still on, snow on its screen) or the food court (food stands
 hide a man; picnic tables cover). Its dice keep its word as written: 68% of its cells over 40 valleys (I14).
