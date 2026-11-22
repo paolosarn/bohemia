@@ -1,0 +1,438 @@
+{
+ "version": 1,
+ "lane": "COMBAT FOUR",
+ "id": "speedway",
+ "name": "THE SPEEDWAY",
+ "rule": "VAMILY rules 416 (the big interiors: the tile stays a house), 461 (more boards), 451(a) (its ceiling at 10%), 59 (every tile its cost and its effect), 428, 441.",
+ "facts": [
+  "The map lays the speedway beside the air base ('SPEEDWAY (EDC / LVMS)', engine/bohemia_overmap.js: four cells by three, the Las Vegas Motor Speedway and its festival ground).",
+  "The dead's own line for the kind (engine/bohemia_dead.js): 'the infield camp'.",
+  "A speedway's infield holds the garage row: team bays side by side, each a car on jack stands with its tool chests, tyre stacks and fuel jugs, block walls between the bays, the haulers parked in a line behind; and the inspection shed: cars up on lifts, the scales, the template racks, the parts shelves, a floor drain.",
+  "On house tiles a bay's dividing wall, a hauler, a rack and the parts shelves each hide a man; a car on its stands or up on a lift is cover; the shed's backed-up drain is standing water, Battle Brothers' swamp."
+ ],
+ "how_to_mod": "A layout is 15 strings of 20 characters; every character is in 'legend'; every tile kind a legend entry names has its row in 'tiles' (its cost and its effect). A piece names the finished piece it is drawn as ('like') until this folder has its own art file (speedway_art.json: floor lists and a kit, the garage's format). slices/bohemia_big_inside.js lays it; slices/fight_ground/insides.json lists the insides.",
+ "districts": [
+  "speedway"
+ ],
+ "share": 0.3,
+ "districts_why": "The speedway is mostly its track, its grandstands and its infield: about one fight in three there is fought under a roof, in the garage row or the inspection shed, by the cell's own dice; the rest out on the asphalt.",
+ "board": {
+  "templates": {
+   "speedway": {
+    "name": "THE SPEEDWAY",
+    "flip": {
+     "cols": true,
+     "rows": false
+    },
+    "layouts": {
+     "the_garage_row": [
+      "####################",
+      "#HHH.k.rjf.jr.k.HHH#",
+      "#..j.rCjk..kjCr.j..#",
+      "#YCkY.rjYCkYjr.YkCY#",
+      "#Y.rY.CrY.jYrC.Yr.Y#",
+      "#..k.rjk.r..r.kj.k.#",
+      "#YkCY.rjYCkYjr.YCkY#",
+      "#D.jr.k.jf.jk.rj..D#",
+      "#YkCY.rjYCkYjr.YCkY#",
+      "#..k.rjk.r..r.kj.k.#",
+      "#Y.rY.CrY.jYrC.Yr.Y#",
+      "#YCkY.rjYCkYjr.YkCY#",
+      "#..j.rCjk..kjCr.j..#",
+      "#HHH.k.rjDDjr.k.HHH#",
+      "####################"
+     ],
+     "the_inspection_shed": [
+      "####################",
+      "#SS.SS.kjf.jk.SS.SS#",
+      "#..r..Lk.jrkL..r...#",
+      "#.k.LLL.r.k.LLL.k.r#",
+      "#..j..L..C..Lk.j...#",
+      "#SS.rjk..ww..kjr.SS#",
+      "#..C.j.RR..RR.j.C..#",
+      "#D.k..r.k.f.k.r..kD#",
+      "#..C.j.RR..RR.j.C..#",
+      "#SS.rjk..ww..kjr.SS#",
+      "#..j..L..C..Lk.j...#",
+      "#.k.LLL.r.k.LLL.k.r#",
+      "#..r..Lk.jrkL..r...#",
+      "#SS.SS.kjDDjk.SS.SS#",
+      "####################"
+     ]
+    }
+   }
+  },
+  "legend": {
+   "#": {
+    "is": "wall"
+   },
+   ".": {
+    "is": "floor"
+   },
+   "H": {
+    "is": "floor",
+    "tile": "hauler",
+    "piece": "sw_hauler",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "Y": {
+    "is": "floor",
+    "tile": "divider",
+    "piece": "sw_divider",
+    "at": [
+     0.5,
+     0.88
+    ]
+   },
+   "C": {
+    "is": "floor",
+    "tile": "racecar",
+    "piece": "sw_racecar",
+    "at": [
+     0.5,
+     0.82
+    ]
+   },
+   "k": {
+    "is": "floor",
+    "tile": "toolchest",
+    "piece": "sw_toolchest",
+    "at": [
+     0.5,
+     0.8
+    ]
+   },
+   "r": {
+    "is": "floor",
+    "tile": "tyres",
+    "piece": "sw_tyres",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "j": {
+    "is": "floor",
+    "tile": "jugs",
+    "piece": "sw_jugs",
+    "at": [
+     0.5,
+     0.75
+    ]
+   },
+   "L": {
+    "is": "floor",
+    "tile": "lift",
+    "piece": "sw_lift",
+    "at": [
+     0.5,
+     0.85
+    ]
+   },
+   "S": {
+    "is": "floor",
+    "tile": "shelves",
+    "piece": "sw_shelves",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "R": {
+    "is": "floor",
+    "tile": "templates",
+    "piece": "sw_templates",
+    "at": [
+     0.5,
+     0.9
+    ]
+   },
+   "w": {
+    "is": "floor",
+    "tile": "drain"
+   },
+   "f": {
+    "is": "floor",
+    "tile": "fire",
+    "light": "fire"
+   },
+   "D": {
+    "is": "floor",
+    "tile": "doors",
+    "light": "doors",
+    "light_at": 0.5
+   }
+  }
+ },
+ "tiles_how": "Rule 59: every kind of tile says what it costs to step on and what it does. 'row' is the fight's own ground row (flat 2 AP, rough 3, height +1 a level, obstacles none); 'open' is open floor (on AUTO nobody stays on it); 'good' is ground AUTO goes to; 'say' is the one line he reads when he taps it (draft, the fewest words); 'sight' says whether a blocker hides a man ('blocked', the obstacles row) or is seen past ('seen'). [bb] each kind is a Battle Brothers ground: flat, rough, an obstacle, and cover as its trees and walls give it.",
+ "tiles": {
+  "wall": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "effect": "The garage's block wall: no way through, no sight through.",
+   "say": ""
+  },
+  "floor": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The infield's sealed concrete, rubber marks on it: open ground, nothing to hide behind; on AUTO nobody stays on it.",
+   "say": "The floor: open ground.",
+   "draft": true
+  },
+  "hauler": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "A team's hauler, a semi trailer with its ramp down and its bays emptied: nobody stands there, and nobody sees through it; cover beside it. [bb] its boulder.",
+   "say": ""
+  },
+  "divider": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "The block wall between two bays: nobody stands there, and nobody sees through it; cover beside it. [bb] its wall.",
+   "say": ""
+  },
+  "racecar": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A race car up on its jack stands, its wheels off: cover.",
+   "say": "A race car on stands: cover.",
+   "draft": true
+  },
+  "toolchest": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A team's tool chest, steel drawers as tall as a man's chest: cover.",
+   "say": "A tool chest: cover.",
+   "draft": true
+  },
+  "tyres": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Racing tyres stacked by the bay: low cover.",
+   "say": "Stacked tyres: low cover.",
+   "draft": true
+  },
+  "jugs": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "LOW_COVER",
+   "good": true,
+   "effect": "Fuel jugs and oil drums, most of them empty: low cover.",
+   "say": "Fuel jugs: low cover.",
+   "draft": true
+  },
+  "lift": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "cover": "COVER",
+   "good": true,
+   "effect": "A car up on a lift, its posts and its body over a man's head: cover.",
+   "say": "A car on a lift: cover.",
+   "draft": true
+  },
+  "shelves": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "The parts shelves, floor to ceiling: nobody stands there, and nobody sees through it. [bb] its wall.",
+   "say": ""
+  },
+  "templates": {
+   "row": "obstacles",
+   "terrain": "blocked",
+   "ap": null,
+   "sight": "blocked",
+   "effect": "The inspection templates hung on their racks: nobody stands there, and nobody sees through it. [bb] its wall.",
+   "say": ""
+  },
+  "drain": {
+   "row": "swamp",
+   "terrain": "water",
+   "ap": 4,
+   "open": true,
+   "effect": "The shed's floor drain backed up, oily water standing on the floor: slow going (4 AP), and a man standing in it fights worse. [bb] its swamp.",
+   "say": "Standing water: slow going, and you fight worse in it.",
+   "draft": true
+  },
+  "fire": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "effect": "A fire somebody keeps in a drum. It burns day and night: a man in its light is seen.",
+   "say": "",
+   "say_lit": "A fire: you stand in its light, and they see you.",
+   "draft": true
+  },
+  "doors": {
+   "row": "flat",
+   "terrain": "flat",
+   "ap": 2,
+   "open": true,
+   "effect": "The garage's doors, rolled up onto the infield: open ground, and by day the light falls in: a man here is seen.",
+   "say": "The doors: open ground.",
+   "say_lit": "The doors: open ground, and the day is on you.",
+   "draft": true
+  }
+ },
+ "kit_how": "Every piece is drawn AS a finished piece of another kit ('like') until COOK's own picture for it is in speedway_art.json under the same name: then that picture is used and nothing here changes. 'kind' is what it does in the fight (COVER, LOW_COVER, WALL); 'blocks_move' means nobody stands on its tile.",
+ "kit": {
+  "sw_hauler": {
+   "like": "sb_container_S",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A HAULER"
+  },
+  "sw_divider": {
+   "like": "tunnel_wall_ew",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "A BAY WALL"
+  },
+  "sw_racecar": {
+   "like": "sb_wreck_S",
+   "kind": "COVER",
+   "name": "A RACE CAR ON STANDS"
+  },
+  "sw_toolchest": {
+   "like": "garage_booth",
+   "kind": "COVER",
+   "name": "A TOOL CHEST"
+  },
+  "sw_tyres": {
+   "like": "sb_heap_S",
+   "kind": "LOW_COVER",
+   "name": "STACKED TYRES"
+  },
+  "sw_jugs": {
+   "like": "sb_rubble_S",
+   "kind": "LOW_COVER",
+   "name": "FUEL JUGS"
+  },
+  "sw_lift": {
+   "like": "sb_rolled_S",
+   "kind": "COVER",
+   "name": "A CAR ON A LIFT"
+  },
+  "sw_shelves": {
+   "like": "casino_screens",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "PARTS SHELVES"
+  },
+  "sw_templates": {
+   "like": "garage_core",
+   "kind": "WALL",
+   "blocks_move": true,
+   "name": "TEMPLATE RACKS"
+  },
+  "sw_wall_ew": {
+   "like": "garage_wall_ew",
+   "kind": "WALL"
+  },
+  "sw_wall_ns": {
+   "like": "garage_wall_ns",
+   "kind": "WALL"
+  }
+ },
+ "walls": {
+  "ew": "sw_wall_ew",
+  "ns": "sw_wall_ns"
+ },
+ "floor": {
+  "floor": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "mall/mall_floor_0.webp#0,0",
+   "mall/mall_floor_0.webp#1,0",
+   "mall/mall_floor_0.webp#2,0",
+   "mall/mall_floor_0.webp#3,0",
+   "mall/mall_floor_0.webp#4,0",
+   "mall/mall_floor_0.webp#0,1",
+   "mall/mall_floor_0.webp#1,1",
+   "mall/mall_floor_0.webp#2,1",
+   "mall/mall_floor_0.webp#3,1",
+   "mall/mall_floor_0.webp#4,1",
+   "mall/mall_floor_0.webp#0,2",
+   "mall/mall_floor_0.webp#1,2",
+   "mall/mall_floor_0.webp#2,2",
+   "mall/mall_floor_0.webp#3,2",
+   "mall/mall_floor_0.webp#4,2",
+   "mall/mall_floor_0.webp#0,3",
+   "mall/mall_floor_0.webp#1,3",
+   "mall/mall_floor_0.webp#2,3",
+   "mall/mall_floor_0.webp#3,3",
+   "mall/mall_floor_0.webp#4,3"
+  ]
+ },
+ "lights": {
+  "doors": {
+   "src": null,
+   "radius_m": 15,
+   "day": true
+  },
+  "fire": {
+   "src": "light_oil_drum.webp",
+   "radius_m": 6,
+   "day": false
+  }
+ },
+ "open_sides": [],
+ "say": {},
+ "start": null,
+ "gallery": null,
+ "start_why": "NO HIGH GROUND: a hauler's roof is a ladder nobody climbs under fire on house tiles; the grandstands are outside.",
+ "ceiling": {
+  "kind": "joist",
+  "alpha": 0.1,
+  "src": "speedway/speedway_ceiling.webp",
+  "have": false,
+  "tile": [
+   5,
+   5
+  ],
+  "bay": 5,
+  "how": "VAMILY rule 451(a): the garage row's steel roof and the shed's trusses, over the board at this alpha. 'src' is the picture COOK makes; 'have' true the day it is in the folder. Until then the fight draws 'kind' itself, a stand-in (the warehouse's roof)."
+ }
+}
