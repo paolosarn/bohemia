@@ -1,5 +1,8 @@
 # THE DEAD ON THE MAP (WORLD 15, 11/21; VAMILY rule 360 and its amendment the same round; ask rows 384 and 394; rule 441; rule 454(a): no words)
 
+*** TAKEN OUT 11/22 (rule 470(d), his word on the card: 'Wtf that looked like shit are you serious'). Graveyarded with a post-mortem:
+graveyard/POSTMORTEM_THE_DEAD_ON_THE_MAP_11_22_26.txt. This page is history. ***
+
 ## HIS WORDS
 Paolo 11/3: 'we don't see enough corpses even throughout the world or in the combat map... make things as realistic as possible...
 billions of people have died'. The same round: 'keep the bodies lore friendly... if it's a busy civilized settlement or part of the

@@ -1,5 +1,16 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN and from 11/21 by WORLD FIFTEEN, its successor; newest block on top)
 
+WORLD FIFTEEN, ROUND TWO (11/22; the coordinator's routine: his votes of 11/22, rule 470(c) and (d)). BUILD 11/22ze - THE DEAD COME OFF THE MAP.
+- 470(d), his word on world15-the-dead-on-the-map-11-21: 'Wtf that looked like shit are you serious'. TAKEN OUT (redraw or remove was mine):
+  the pictures were COOK DEAD's FIGHT renders (another camera, 45 down facing north) shrunk to the map, 7 to 27 px a body: specks, smudges,
+  and the pit read as a box; they could not look right as built. The module, slices/map_dead/, the tool, the gate (two suite entries),
+  the two page lines and the VOTE card: graveyard/the_dead_on_the_map_11_21_26/, post-mortem graveyard/POSTMORTEM_THE_DEAD_ON_THE_MAP_11_22_26.txt.
+  COOK DEAD's models stay the fight boards' (row 384's other half). Back on the map only on his word, drawn FOR the map's camera.
+- NEXT, THIS ROUND: 470(c) A REAL FOG OF WAR (row 703): what he has not been to is hidden, nothing under it; THE SURVEYOR's fall lets the
+  undiscovered map show faint (WORLD TWO's faint city, slices/bohemia_his_map.js fogDraw, is what shows it now and is what he hates).
+[bb Battle Brothers' world map never drew a body; its dead are on the battlefield.]
+[analog horror: the map goes back to roads, roofs and smoke; the dead are where you walk, not where you look from above.]
+
 WORLD FIFTEEN, ROUND ONE, BUILD THREE (11/21; rule 461: keep going; rule 454(a): no words; rule 441). BUILD 11/21i - THE DEAD ON THE MAP.
 BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_15_THE_DEAD_ON_THE_MAP_11_21_26.md. VOTE world15-the-dead-on-the-map-11-21 (tile, STAND-IN).
 - BUGS FIRST: this lane's gates on main ed219cd2, all green: THE STRAT LOOKOUT 26/0 both pages, THE SCRAP MILL 11/0, THE TRACKS HE CAN

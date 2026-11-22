@@ -1,0 +1,26 @@
+POSTMORTEM: THE DEAD ON THE MAP (WORLD 15, built 11/21i, taken out 11/22; VAMILY rule 470(d), ask row 704)
+
+WHAT DIED (now in graveyard/the_dead_on_the_map_11_21_26/): slices/bohemia_the_dead_on_the_map.js (COOK DEAD's thirteen dead laid on
+the map up close, 711 on a valley), slices/map_dead/ (its rules and its pictures), the tool that made the pictures, gates/the_dead_on_
+the_map_gate.js and its two suite entries, its two lines in slices/BOHEMIA_CITY_WORLD.html, and the VOTE card
+world15-the-dead-on-the-map-11-21 with its pictures.
+
+WHY: Paolo 11/22 on the card: 'Wtf that looked like shit are you serious'. The coordinator's order (rule 470(d)): redraw them so
+they look right at the map's scale, or take them out if they cannot.
+
+WHY THEY COULD NOT, AS BUILT: the pictures were the FIGHT's renders (COOK DEAD 11/3: the fight board's camera, 45 degrees down, facing
+north, 42.9 px a metre) shrunk to the map (16 px a metre) and toned; the map's own models are shot from the MAP's camera (corner-on,
+30 degrees down, slices/map_houses/). Two cameras on one glass, and at the map's scale a body is 7 to 27 px: a speck, a grey smudge,
+and the long pit read as a box. Shrinking art made for another camera is not drawing for the map.
+
+KEPT: COOK DEAD's models and renders (records/target/dead/, reference/models/bohemia/dead/) are untouched; they are the fight boards'
+(COMBAT MAPS 3's half of row 384 stays open there). Rule 360 (the dead everywhere) and its amendment (none where people live) stand.
+
+NOT TO COME BACK UNDER A NEW NAME: no fight-board picture shrunk onto the map, of the dead or of anything else. If the dead return to
+the map it is on his word, as pieces drawn FOR the map: its camera (tools/bohemia_world_8_map_houses.py shoots the models corner-on,
+30 down, under the land's one sun), its scale beside the house models and his men, judged on a phone before a card is made.
+
+## ANALOG HORROR
+The map goes back to what a survivor's map is: roads, roofs and smoke. The dead are where you walk, not where you look from above.
+
+[bb Battle Brothers' world map never drew a body; its dead are on the battlefield.]

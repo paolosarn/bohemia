@@ -1225,6 +1225,9 @@ both ways. Next beyond the floor: CHARACTER's clothes for the 13 stand-ins. VOTE
 Record records/BOHEMIA_BESTIARY_THE_SIREN_AND_THE_BATTERY_MAN_11_20_26.md.
 [bb Battle Brothers' Ancient Priest's Horror shakes every brother in its area; ours is a neighbour with an air-raid siren he found in a school.]
 [analog horror: the siren winds up from nothing, the same note the valley heard the night the dollar died.]
+WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/22 LATEST -- BUILD 11/22ze - THE DEAD COME OFF THE MAP (rule 470(d), his 'Wtf that looked like
+shit are you serious'): the fight's renders shrunk to the map could not look right; out of every map, graveyarded with a post-mortem.
+Next this round: 470(c) a real fog of war, the surveyor opens it faint.
 WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/21 LATEST (build three) -- BUILD 11/21i - THE DEAD ON THE MAP, BUILT, NOT YET SEEN (rule 360,
 ask row 384's map half; rule 441; no words). Zoom the map in close and COOK DEAD's dead lie on the ground nobody holds: 711 on the demo's
 valley across 18 kinds of ground, the pit at the landfill and the stadiums, graves only near towns and places, never in the fog or on a
