@@ -730,3 +730,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 706 | (vote 11/22) No rice-farmer hats on anyone | 470(f) | CHARACTER | SENT 11/22 |
 | 707 | (vote 11/22) The voice never says 'it pays'; more cursing; his lines kept | 470(g) | WORDS THREE | SENT 11/22 |
 | 708 | (vote 11/22) A comeback has a limit in days | 470(h) | WORDS THREE names it, its owner builds | SENT 11/22 |
+| 709 | The staff push a shopping cart in the shield's place, never removed, upgradable (other carts, a wagon), one-handed weapons only (pistol or one-handed melee), and the cart shows in the fight | 471 | STAFF (with CHARACTER, COOK SIX for the art) | SENT 11/22 |
