@@ -1,6 +1,21 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the granary] SHIPPED 2aa4135e6, BUILD 11/22w - THE GRANARY, BUILT, NOT YET SEEN. VOTE combat4-the-granary-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the fuel depot] SHIPPED c8752c507, BUILD 11/22x - THE FUEL DEPOT, BUILT, NOT YET SEEN. VOTE combat4-the-fuel-depot-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_FUEL_DEPOT_11_22_26.md. More boards (rule 461): THE FUEL DEPOT, Paolo's fuel depots ('fueldepot', 0.6; 60 cells over 40 valleys; their names his pick, nothing here names them):
+the_pump_house (pumps and day tanks the obstacles row, they hide a man; manifolds, valve stands, meter skids, the desk cover; pipes rough 3 AP; drums low; fuel slicks the swamp
+row, 4 AP and fight worse) and the_loading_rack (tankers hide a man; loading arms cover; jerry cans, drums, berms low; slicks). 17 tile kinds, 14 pieces all stand-ins (I13
+green); thirty-sixth in insides.json; no high ground.
+GATE THE BIG INSIDES 631/0 in two halves (319 in 287 s, 312 in 296 s; thirty-six insides)
+ON THE PAGE: 8 fights at the depots on the demo and the alpha, upright and on its side (the pump house and the loading rack on every way), all ended, 32 of 32 tile taps, 0 page errors.
+*** FOR COOK (SIX): THE FUEL DEPOT'S NAMES (fueldepot_art.json, THE GARAGE'S FORMAT): floor.floor (stained concrete), floor.slick (fuel standing, if a floor list is wanted for
+it), floor.ring; fd_pump (a mainline pump on its skid), fd_daytank, fd_manifold, fd_valves (a valve stand), fd_meters (a meter skid), fd_desk (the control desk), fd_pipes, fd_drums,
+fd_tanker (a tanker truck), fd_arm (a loading arm on its riser), fd_cans (jerry cans), fd_berm (a sandbagged berm), fd_wall_ew, fd_wall_ns; fueldepot/fueldepot_ceiling.webp. ***
+NEXT: more boards (the battery farm; the boneyard's fuselages; the fort); the robot factory and the paved places wait on WORLD's map. The insides gate's halves are near
+300 s each with thirty-six insides: cut in three before a half nears 450 s.
+[bb Battle Brothers' swamp on concrete: a slick of fuel and water, four to cross and you fight worse in it]
+[analog horror: a meter skid still clicking over, counting barrels nobody pumps]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the granary] SHIPPED 2aa4135e6, BUILD 11/22w - THE GRANARY, BUILT, NOT YET SEEN. VOTE combat4-the-granary-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_GRANARY_11_22_26.md. More boards (rule 461): THE GRANARY, Paolo's own place ('granary', 0.8; one cell, kept in 38 of 40 valleys): the_grain_hall (racking rows and bins the obstacles
 row, they hide a man; sacks, seed crates, forklifts, the guards' camp cover; spilled grain rough 3 AP; sandbags low) and the_cold_rooms (cold-room walls, the vault's shelves and the
 refrigeration plant hide a man; counters, seed crates cover; carts, sandbags low; the melt water the swamp row, 4 AP and fight worse). 18 tile kinds, 15 pieces all stand-ins (I13

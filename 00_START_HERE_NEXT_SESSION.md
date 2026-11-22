@@ -1,4 +1,11 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22w - THE GRANARY, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22x - THE FUEL DEPOT, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE FUEL DEPOT (Paolo's 7/5 fuel depots, the two dead pipelines' terminals, 'the fuel fight'; their names still his pick): about three fights in five there are fought under a roof:
+the pump house (pumps and day tanks hide a man; manifolds, valve stands, meters, the desk; pipes, drums, fuel slicks: Battle Brothers' swamp) or the loading rack (tankers hide a
+man; loading arms; jerry cans, drums, berms; fuel slicks).
+GATE THE BIG INSIDES 631/0 in two halves (319 in 287 s, 312 in 296 s; thirty-six insides). ON THE PAGE: 8 fights at the depots on the demo and the alpha, upright and on its side (the pump house and the loading rack on every way), all ended, 32 of 32 tile taps, 0 page errors. VOTE combat4-the-fuel-depot-11-22.
+[bb Battle Brothers' swamp on concrete: a slick of fuel and water, four to cross and you fight worse in it]
+[analog horror: a meter skid still clicking over, counting barrels nobody pumps]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22w - THE GRANARY, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE GRANARY (Paolo's 7/6 place: the old grocery warehouse, harvest, seed, the cold rooms the MEDICINE VAULT): about eight fights in ten there are fought inside: the grain hall
 (long rows of racking that hide a man; grain sacks, seed crates, forklifts, the guards' camp; spilled grain, sandbags) or the cold rooms (their walls, the vault's shelves and the
 refrigeration plant hide a man; counters, carts; the melt water, Battle Brothers' swamp).
