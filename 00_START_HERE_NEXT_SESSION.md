@@ -1,4 +1,6 @@
-JOBS TWO (jobs-two-01gkdyuu): 11/22 LATEST -- BUILD 11/22zo - NO WAYPOINTS, BUILT, NOT YET SEEN (rules 473, 441, 448; ask row 713, JOBS 2's half). Its block is handoffs/JOBS.md.
+JOBS TWO (jobs-two-01gkdyuu): 11/22 LATEST -- THE JOBS' PART: two false reds answered (N2 the take line's distance is words since rule 224; D7 the checker pressed
+LEAVE while the end screen was still sliding in and hit the phone under it: a hand waits now). No build, nothing on screen changed. Its block is handoffs/JOBS.md.
+JOBS TWO (jobs-two-01gkdyuu): 11/22 -- BUILD 11/22zo - NO WAYPOINTS, BUILT, NOT YET SEEN (rules 473, 441, 448; ask row 713, JOBS 2's half). Its block is handoffs/JOBS.md.
 NO WAYPOINTS (his 'I don't want direction arrows... I have like 14 white points on my map'): a job's or side quest's place off the glass puts nothing at
 the glass's edge (no name, no amber point, no touch); on the glass it is ringed and named where it stands; the phone's job line walks there. 14 side places
 and two jobs on the demo upright: 4 at the edge before, 0 now; 0 on the demo and the alpha both ways. Gate NO WAYPOINTS 4/0 (new). VOTE jobs2-no-waypoints-11-22

@@ -68,6 +68,10 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
     const h = await d.page.$('#spoilsdoor iframe'); if (!h) return false;
     const sf = await h.contentFrame(), box = await h.boundingBox();
     const b = sf && box ? await sf.waitForFunction(() => { const e = document.getElementById('leave'); if (!e) return null; const r = e.getBoundingClientRect(); return r.width > 0 ? [r.x + r.width / 2, r.y + r.height / 2] : null; }, null, { timeout: 10000 }).then(x => x.jsonValue()).catch(() => null) : null;
+    /* JOBS TWO 11/22 (D7 red since the end screen slides in): the button exists before the screen has landed, and a click then lands on
+       what is under the sliding screen (measured: the phone's home face, z 60, at LEAVE's point); a hand waits until the end screen is
+       what is under the finger */
+    if (b && box) await waitFor(() => d.page.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y), sd = document.getElementById('spoilsdoor'); return !!e && !!sd && sd.contains(e); }, [box.x + b[0], box.y + b[1]]), 5000);
     if (b && box) await d.page.mouse.click(box.x + b[0], box.y + b[1]); else await d.page.evaluate(() => { try { spoilsLeave(); } catch (e) {} });
     return up;
   };
@@ -76,7 +80,13 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
     const ff = await fightFrame(); if (!ff.f) return null;
     await ff.f.evaluate(() => { FIGHT.S.units.forEach(u => { if (u.side === 'them') u.dead = true; }); FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); });
     await spoilsLeave();
-    await waitFor(async () => !(await shell()).fight, 20000);
+    if (!(await waitFor(async () => !(await shell()).fight, 20000))) {   /* JOBS TWO 11/22: when LEAVE did not take him back, say what stood there */
+      const h = await d.page.$('#spoilsdoor iframe'), sf = h ? await h.contentFrame() : null;
+      const what = sf ? await sf.evaluate(() => [...document.querySelectorAll('button, [role=button]')].filter(e => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; }).map(e => (e.id ? '#' + e.id + ' ' : '') + String(e.textContent || '').trim().slice(0, 24)).slice(0, 12)).catch(() => null) : null;
+      const top = await d.page.evaluate(() => { const e = document.elementFromPoint(innerWidth - 90, innerHeight - 38); return e ? e.tagName + '#' + (e.id || '') + '.' + String(e.className || '').slice(0, 30) : null; });
+      console.log('  (forceWin: still in the fight 20 s after LEAVE; on the end screen: ' + JSON.stringify(what) + '; at LEAVE\'s corner: ' + top + ')');
+      try { await d.page.screenshot({ path: path.join(require('os').tmpdir(), 'jobs_part_forcewin_stuck.png') }); } catch (e) {}
+    }
     await d.page.waitForTimeout(1500); await unpause();
     return 'won (ended by the gate)';
   };
@@ -214,7 +224,10 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
       ok('N1 "' + title + '" taken at ' + here + ': the carts go to ' + (j && j.dest ? j.dest.name + ' at ' + j.dest.x + ',' + j.dest.y : 'nowhere') + ' (the real PRIMM is at ' + (real ? real.x + ',' + real.y : '?') + '), not to a town the dice picked',
         !!j && !!j.dest && j.dest.name === 'PRIMM' && !!real && j.dest.x === real.x && j.dest.y === real.y && j.plays === 'haul-caravan');
       const said = await fr.evaluate(() => (LOOP.said || []).slice(-3).join(' | '));
-      ok('N2 the job says the place, which way and how far ("' + said.slice(0, 200) + '")', /PRIMM, (south|north|east|west|south-east|south-west|north-east|north-west), about \d+ blocks/.test(said));
+      /* RE-AIMED 11/22 by JOBS TWO: how far is said in words since WORLD's F21 and rule 224 (no lone numbers: 'close by', 'a short walk',
+         'a long walk', 'far out', slices/bohemia_job_kinds.js blocksWord); the old leg still asked 'about N blocks' and read the line cut at 200 */
+      const sayN2 = (said.match(/[^|]*PRIMM[^|]*/) || [said])[0].trim();
+      ok('N2 the job says the place, which way and how far ("' + sayN2.slice(0, 220) + '")', /PRIMM, (south|north|east|west|south-east|south-west|north-east|north-west), (about \d+ blocks|close by|a short walk|a long walk|far out)/.test(said));
       await fr.evaluate(() => render());
       let m = await fr.evaluate(() => (window.__JOB_MARKS || []).filter(x => x.id === 'qd-ar05')[0] || null);
       /* RE-AIMED 11/22 by JOBS TWO to rule 473 (Paolo 11/22: 'I don't want direction arrows... just have the part highlighted when you're
@@ -311,8 +324,11 @@ const done = () => { console.log('THE JOBS\' PART: ' + pass + ' passed, ' + fail
         }
       }
       ok('D6 not in the middle of its own fight (' + JSON.stringify(inFight) + ')', !!inFight && inFight.ok === false && inFight.why === 'fighting');
+      await waitFor(() => fr.evaluate(() => (window.__JOB_SETTLED_ACTS || []).some(a => a.id === 'qd-s10') || !LOOP.held.some(h => h.id === 'qd-s10')), 8000);
       const done = await fr.evaluate(() => (window.__JOB_SETTLED_ACTS || []).filter(a => a.id === 'qd-s10').map(a => a.act + ' ' + a.delta));
-      ok('D7 and a job done moves the bar the other way (Battle Brothers\' civilian contract done +10): ' + JSON.stringify(done), done.some(a => /civilian_contract_done 10/.test(a)));
+      /* JOBS TWO 11/22: when it is red, say why (the job still held, the map's last lines, who it thought it was fighting) */
+      const why7 = done.length ? '' : JSON.stringify(await fr.evaluate(() => ({ held: LOOP.held.some(h => h.id === 'qd-s10'), fighting: LOOP.fighting, said: (LOOP.said || []).slice(-2), handed: window.__JP_HANDED || null })));
+      ok('D7 and a job done moves the bar the other way (Battle Brothers\' civilian contract done +10): ' + JSON.stringify(done) + (why7 ? ' ' + why7.slice(0, 400) : ''), done.some(a => /civilian_contract_done 10/.test(a)));
       /* the button is UI's (UI [the PC playtest: the UI's part] (5)): said, not judged here */
       const btn = await fr.evaluate(() => [...document.querySelectorAll('button,[role=button]')].filter(e => /\bdrop\b/i.test(e.textContent || '') || e.dataset.drop != null).length);
       console.log('  info D8 UI\'s DROP on the phone and the job card: ' + (btn ? btn + ' drawn' : 'not drawn yet (UI\'s row (5))'));

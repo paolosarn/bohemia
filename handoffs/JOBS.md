@@ -1,6 +1,25 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/22 LATEST -- BUILD 11/22zo - NO WAYPOINTS, BUILT, NOT YET SEEN (rules 473, 441, 448; ask
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/22 LATEST -- THE JOBS' PART: TWO FALSE REDS ANSWERED (no build: nothing on his screen
+changed; the checker only). Both were red on main's own job file the same way.
+- N2 ('the job says the place, which way and how far') asked 'about N blocks'; since WORLD's F21 and rule 224 the take line says how far
+  in words ('PRIMM, south-west, far out', slices/bohemia_job_kinds.js blocksWord). Re-aimed to the words; its readout shows the PRIMM
+  line, not the first 200 characters of three.
+- D7 ('a job done moves the bar the other way'): the job won was never handed back: the checker pressed the end screen's LEAVE the
+  instant the button existed, while the end screen was still sliding in, and the click landed on the phone's home face under it
+  (elementsFromPoint at LEAVE: the phone, z 60; a moment later the end screen, z 8000). A hand waits until the end screen is under
+  its finger now. Measured in a probe by calling the end screen's own leave: the crew job won settles civilian_contract_done +10.
+  NOT A GAME BUG: a person cannot press it that fast, and the phone under a sliding screen is the screen's own entrance.
+- THE CHECKER NOW SAYS WHY when a forced win does not get him back (the end screen's buttons, what stands at LEAVE's corner, a picture).
+RESULTS: 'names' 9/0 and 'drop' 7/0 alone; the whole run 30/1 then 28/3 under load: R3 (hired 8 of 9: the red list's own LOAD line,
+'R3 counts a hire only within 500 ms of the tap'), N6 (PRIMM came on the glass too late for the watch, once), and once a forced win
+in the road fights stayed on the end screen 20 s after LEAVE with LEAVE's corner the end screen's own frame (its readout printed;
+WORLD's gate, said for WORLD and PLUMBER 8).
+NEXT: EYES' rows naming a job; his NOs on JOBS' cards; the road fights' forced-win readout if it repeats.
+[bb Battle Brothers' end screen waits for you; ours slides in, and a hand waits for it]
+[analog horror: you pressed leave and the screen was still coming; under it, the phone, lit, waiting]
+
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/22 -- BUILD 11/22zo - NO WAYPOINTS, BUILT, NOT YET SEEN (rules 473, 441, 448; ask
 row 713, JOBS 2's half; WORLD 15's half shipped in 11/22zl). Content 24c6d1980. VOTE jobs2-no-waypoints-11-22 (STAND-IN). Record: records/BOHEMIA_JOBS_TWO_NO_WAYPOINTS_11_22_26.md.
 - MEASURED: slices/bohemia_job_kinds.js markPlace() drew, for every held job's next place, the phone's lit town and every side quest's
   place (BohemiaRoadEvents.places()) OFF THE GLASS, its name at the glass's edge with an amber wedge pointing (and a touch there). With 14
