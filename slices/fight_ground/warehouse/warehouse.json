@@ -317,12 +317,13 @@
    "say": ""
   },
   "trailer": {
-   "row": "flat",
-   "terrain": "flat",
+   "row": "obstacles",
+   "terrain": "blocked",
    "ap": null,
    "blocks": true,
-   "effect": "A trailer still backed to its dock: nobody stands on its tile; cover for the tiles beside it.",
-   "say": ""
+   "effect": "A trailer still backed to its dock: nobody stands on its tile, and nobody sees through it; cover for the tiles beside it.",
+   "say": "",
+   "sight": "blocked"
   },
   "conveyor": {
    "row": "rough",

@@ -226,12 +226,13 @@
    "draft": true
   },
   "greenscreen": {
-   "row": "flat",
-   "terrain": "flat",
+   "row": "obstacles",
+   "terrain": "blocked",
    "ap": null,
    "blocks": true,
-   "effect": "The green screen wall, its cyclorama curve: nobody stands there; cover beside it. [bb] its wall.",
-   "say": ""
+   "effect": "The green screen wall, its cyclorama curve: nobody stands there, and nobody sees through it; cover beside it. [bb] its wall.",
+   "say": "",
+   "sight": "blocked"
   },
   "backdrop": {
    "row": "obstacles",
@@ -281,12 +282,13 @@
    "draft": true
   },
   "flats": {
-   "row": "flat",
-   "terrain": "flat",
+   "row": "obstacles",
+   "terrain": "blocked",
    "ap": null,
    "blocks": true,
-   "effect": "Set flats leaning in a stack: nobody stands there; cover beside them. [bb] its palisade.",
-   "say": ""
+   "effect": "Set flats leaning in a stack, taller than a man: nobody stands there, and nobody sees through them; cover beside them. [bb] its palisade.",
+   "say": "",
+   "sight": "blocked"
   },
   "cables": {
    "row": "rough",
@@ -297,20 +299,22 @@
    "draft": true
   },
   "racks": {
-   "row": "flat",
-   "terrain": "flat",
+   "row": "obstacles",
+   "terrain": "blocked",
    "ap": null,
    "blocks": true,
-   "effect": "Equipment racks, dark: nobody stands there; cover beside them. [bb] its wall.",
-   "say": ""
+   "effect": "Equipment racks, dark, a man's height: nobody stands there, and nobody sees through them; cover beside them. [bb] its wall.",
+   "say": "",
+   "sight": "blocked"
   },
   "monitors": {
-   "row": "flat",
-   "terrain": "flat",
+   "row": "obstacles",
+   "terrain": "blocked",
    "ap": null,
    "blocks": true,
-   "effect": "A wall of monitors in master control, every screen dead: nobody stands there; cover beside it. [bb] its wall.",
-   "say": ""
+   "effect": "A wall of monitors in master control, every screen dead: nobody stands there, and nobody sees through it; cover beside it. [bb] its wall.",
+   "say": "",
+   "sight": "blocked"
   },
   "console": {
    "row": "flat",

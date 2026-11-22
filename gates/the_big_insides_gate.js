@@ -193,6 +193,21 @@ const walks = (S, u) => { const T = F._t, seen = new Set([u.x + ',' + u.y]), q =
         msg = 'a man of his on ' + L.tiles[at[1]][at[0]] + ' at ' + at.join(',') + ' (the fight reads ' + F.rowAt(at[0], at[1]) + '): struck at ' + wet + '% in the water, ' + dry + '% on the same tile dry; planted: the water read as rough ground, ' + rough + '% (no effect: caught)'; }
       check(ok, 'I11 ' + N, 'STANDING WATER IS SWAMP: ' + msg);
     }
+    /* I12 THE TALL THINGS HIDE A MAN (COMBAT FOUR 11/22, rule 59: every tile its effect): the fight's sight stops only at a tile of the
+       'obstacles' row. A blocking kind taller than a man and solid (a rack, a trailer, a fuselage, set flats: its data says sight
+       'blocked') is that row, and a man on one side of it does not see a man on the other; a blocking kind of glass, mesh or bone, or
+       lower than a man's eye (sight 'seen', or no word: the row says it) is cover and seen past. One tile of every kind dealt, read
+       across it both ways the board lets; planted: the first tall one read as flat ground is seen through */
+    { const S = deal(DIST[0], 3, { inside: id }), L = S.boardDef.laid, T = F._t, at = {}, inb = q => q.x >= 0 && q.y >= 0 && q.x < S.w && q.y < S.h;
+      for (let y = 0; y < S.h; y++) for (let x = 0; x < S.w; x++) { const k = L.tiles[y][x], t = TK[k]; if (!t || at[k] || !(t.blocks || t.row === 'obstacles')) continue;
+        for (const [dx, dy] of [[1, 0], [0, 1]]) { const a = { x: x - dx, y: y - dy }, b = { x: x + dx, y: y + dy };
+          if (inb(a) && inb(b) && T.passable(a.x, a.y) && T.passable(b.x, b.y)) { at[k] = { x, y, a, b }; break; } } }
+      const bad = [], tall = [], seen = []; let plant = null;
+      Object.keys(at).forEach(k => { const q = at[k], want = TK[k].sight === 'blocked' || TK[k].row === 'obstacles', saw = T.sees(q.a, q.b);
+        (want ? tall : seen).push(k); if (saw === want || (TK[k].sight === 'blocked' && TK[k].row !== 'obstacles')) bad.push(k + (want ? ' is seen through' : ' hides a man'));
+        if (want && plant === null) { const keep = S.terrain[q.y][q.x]; S.terrain[q.y][q.x] = 'flat'; plant = T.sees(q.a, q.b); S.terrain[q.y][q.x] = keep; } });
+      check(!bad.length && plant !== false, 'I12 ' + N, 'THE TALL THINGS HIDE A MAN: ' + (tall.length ? 'hide a man: ' + tall.join(', ') : 'no tall kind between two open tiles') + '; seen past: ' + (seen.join(', ') || 'none')
+        + (bad.length ? '; WRONG: ' + bad.join(', ') : '') + (plant === null ? '' : '; planted: the first tall one read as flat ground is ' + (plant ? 'seen through (caught)' : 'STILL HIDING (not caught)'))); }
     /* I9 */
     { const c = deal(DIST[0], 1, { inside: id }).boardDef.ceiling, want = data.ceiling || {};
       check(!!c && c.kind === want.kind && c.alpha >= 0.05 && c.alpha <= 0.14 && c.name === want.src && (want.have ? fs.existsSync(path.join(ROOT, FG, want.src)) : c.src === null), 'I9 ' + N, 'ITS CEILING: ' + (c ? c.kind + ' at ' + c.alpha + ', the picture ' + want.src + (want.have ? ' (in)' : ' (owed by COOK FIVE: the fight draws the kind itself)') : 'NONE')); }

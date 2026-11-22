@@ -241,12 +241,13 @@
    "draft": true
   },
   "rack": {
-   "row": "flat",
-   "terrain": "flat",
+   "row": "obstacles",
+   "terrain": "blocked",
    "ap": null,
    "blocks": true,
-   "effect": "Steel racking twice a man's height, what nobody could carry still on it: nobody stands on its tile; cover for the tiles beside it. [bb] its forest: a row of them is a wall with gaps.",
-   "say": ""
+   "effect": "Steel racking twice a man's height, what nobody could carry still on it: nobody stands on its tile, and nobody sees through it; cover for the tiles beside it. [bb] its forest: a row of them is a wall with gaps.",
+   "say": "",
+   "sight": "blocked"
   },
   "lumber": {
    "row": "flat",

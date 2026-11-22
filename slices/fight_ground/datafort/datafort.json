@@ -262,12 +262,13 @@
    "draft": true
   },
   "crac": {
-   "row": "flat",
-   "terrain": "flat",
+   "row": "obstacles",
+   "terrain": "blocked",
    "ap": null,
    "blocks": true,
-   "effect": "A cooling unit the size of a truck, still blowing: nobody stands on its tile; cover for the tiles beside it.",
-   "say": ""
+   "effect": "A cooling unit the size of a truck, still blowing: nobody stands on its tile, and nobody sees through it; cover for the tiles beside it.",
+   "say": "",
+   "sight": "blocked"
   },
   "batteries": {
    "row": "flat",

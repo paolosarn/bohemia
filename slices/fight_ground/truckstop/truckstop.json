@@ -262,20 +262,22 @@
    "draft": true
   },
   "cooler": {
-   "row": "flat",
-   "terrain": "flat",
+   "row": "obstacles",
+   "terrain": "blocked",
    "ap": null,
    "blocks": true,
-   "effect": "The walk-in coolers' glass doors along the back wall, dark and empty: nobody stands there; cover for the tiles beside it. [bb] its wall.",
-   "say": ""
+   "effect": "The walk-in coolers along the back wall, dark and empty: nobody stands there, and nobody sees through them; cover for the tiles beside them. [bb] its wall.",
+   "say": "",
+   "sight": "blocked"
   },
   "shelving": {
-   "row": "flat",
-   "terrain": "flat",
+   "row": "obstacles",
+   "terrain": "blocked",
    "ap": null,
    "blocks": true,
-   "effect": "A run of shelving, stripped: nobody stands on it; it blocks a shot along the aisle. [bb] its palisade.",
-   "say": ""
+   "effect": "A run of shelving, stripped, taller than a man: nobody stands on it, and nobody sees through it; cover beside it. [bb] its palisade.",
+   "say": "",
+   "sight": "blocked"
   },
   "endcap": {
    "row": "flat",
@@ -366,20 +368,22 @@
    "draft": true
   },
   "cab": {
-   "row": "flat",
-   "terrain": "flat",
+   "row": "obstacles",
+   "terrain": "blocked",
    "ap": null,
    "blocks": true,
-   "effect": "A tractor's cab on the bay floor, its hood up: nobody stands on it; cover for the tiles beside it. [bb] its boulder.",
-   "say": ""
+   "effect": "A tractor's cab on the bay floor, its hood up: nobody stands on it, and nobody sees through it; cover for the tiles beside it. [bb] its boulder.",
+   "say": "",
+   "sight": "blocked"
   },
   "trailer": {
-   "row": "flat",
-   "terrain": "flat",
+   "row": "obstacles",
+   "terrain": "blocked",
    "ap": null,
    "blocks": true,
-   "effect": "Its trailer, end to end with the cab: nobody stands on it; it blocks a shot. [bb] its wall.",
-   "say": ""
+   "effect": "Its trailer, end to end with the cab: nobody stands on it, and nobody sees through it; cover beside it. [bb] its wall.",
+   "say": "",
+   "sight": "blocked"
   },
   "lift": {
    "row": "flat",

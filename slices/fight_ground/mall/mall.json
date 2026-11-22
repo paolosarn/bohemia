@@ -457,12 +457,13 @@
    "say": ""
   },
   "lift": {
-   "row": "flat",
-   "terrain": "flat",
+   "row": "obstacles",
+   "terrain": "blocked",
    "ap": null,
    "blocks": true,
-   "effect": "The lift's shaft, its doors shut for good: nobody stands on its tile.",
-   "say": ""
+   "effect": "The lift's shaft, its doors shut for good: nobody stands on its tile, and nobody sees through it.",
+   "say": "",
+   "sight": "blocked"
   },
   "fire": {
    "row": "flat",

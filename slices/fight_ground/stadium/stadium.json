@@ -239,12 +239,13 @@
    "draft": true
   },
   "tent": {
-   "row": "flat",
-   "terrain": "flat",
+   "row": "obstacles",
+   "terrain": "blocked",
    "ap": null,
    "blocks": true,
-   "effect": "A relief tent, or what the last show left standing: nobody stands on its tile; cover for the tiles beside it.",
-   "say": ""
+   "effect": "A relief tent, or what the last show left standing: nobody stands on its tile, and nobody sees through its canvas; cover for the tiles beside it.",
+   "say": "",
+   "sight": "blocked"
   },
   "wreck": {
    "row": "flat",

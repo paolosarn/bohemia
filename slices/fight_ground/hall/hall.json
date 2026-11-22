@@ -365,12 +365,13 @@
    "draft": true
   },
   "container": {
-   "row": "flat",
-   "terrain": "flat",
+   "row": "obstacles",
+   "terrain": "blocked",
    "ap": null,
    "blocks": true,
-   "effect": "A shipping container off the docks: nobody stands on its tile; cover for the tiles beside it.",
-   "say": ""
+   "effect": "A shipping container off the docks: nobody stands on its tile, and nobody sees through it; cover for the tiles beside it.",
+   "say": "",
+   "sight": "blocked"
   },
   "chairs": {
    "row": "rough",

@@ -257,12 +257,13 @@
    "draft": true
   },
   "unit": {
-   "row": "flat",
-   "terrain": "flat",
+   "row": "obstacles",
+   "terrain": "blocked",
    "ap": null,
    "blocks": true,
-   "effect": "A generator in its housing, steel two storeys round: nobody stands on its tile; cover for the tiles beside it. [bb] a boulder on its map.",
-   "say": ""
+   "effect": "A generator in its housing, steel two storeys round: nobody stands on its tile, and nobody sees through it; cover for the tiles beside it.",
+   "say": "",
+   "sight": "blocked"
   },
   "rotor": {
    "row": "flat",
