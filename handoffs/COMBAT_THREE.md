@@ -1,6 +1,22 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 LATEST -- [the natural history museum] SHIPPED 4acd6dffc, BUILD 11/21zh - THE NATURAL HISTORY MUSEUM, BUILT, NOT YET SEEN. VOTE combat4-the-natural-history-museum-11-21 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the TV station] SHIPPED c63442b9a, BUILD 11/22a - THE TV STATION, BUILT, NOT YET SEEN. VOTE combat4-the-tv-station-11-21 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_TV_STATION_11_21_26.md. More boards (rule 461): the TV station ('tvstation', 0.8): the_studio (the news set: its backdrop a wall, the news
+desk cover; studio cameras, light stands and teleprompters low cover; cables underfoot rough 3 AP, no cover; set flats and equipment racks blockers; the green screen along
+the back) and the_newsroom (a wall of dead monitors at each end, the control consoles, desks in pods, kicked-over chairs rough 3 AP and low cover). One data file (17 tile
+kinds, 15 pieces all stand-ins), nineteenth in insides.json; no high ground; the ceiling the hospital's 'grid' (the lighting grid's stand-in). GATE THE BIG INSIDES 299/0 (nineteen insides)
+(the TV station 18/0, 6% bare after round one against 25%: a studio is packed with gear; my first cut 32%).
+ON THE PAGE: 4 fights in the studio, both pages both ways, all ended, 18 of 18 taps, 0 errors (the newsroom on the fight page alone and in the gate).
+*** FOR COOK (SIX): THE TV STATION'S NAMES (tvstation_art.json, THE GARAGE'S FORMAT): floor.floor (the studio's painted floor, old tape marks; the newsroom's carpet tiles),
+floor.ring; tv_backdrop (the news set's skyline backdrop), tv_newsdesk, tv_camera (a studio camera on its pedestal), tv_lightstand (a light on its stand, barn doors open),
+tv_prompter (a teleprompter cart, its last script frozen), tv_cables, tv_flats (set flats leaning), tv_racks (equipment racks), tv_greenscreen (the green screen's curve),
+tv_monitors (the monitor wall, dead), tv_console (the control console), tv_desks (newsroom desk pods), tv_chairs (office chairs kicked over), tv_wall_ew, tv_wall_ns;
+tvstation/tvstation_ceiling.webp (the lighting grid, fixtures dead); "have": true in tvstation.json's ceiling.
+NEXT: more boards (the library's stacks, the police station, the fire station's apparatus bay); more ground from Battle Brothers' table.
+[bb Battle Brothers' brush everywhere: a studio is all gear to crouch behind]
+[analog horror: the station's last broadcast still looping on one monitor: a test card and a tone]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/21 -- [the natural history museum] SHIPPED 4acd6dffc, BUILD 11/21zh - THE NATURAL HISTORY MUSEUM, BUILT, NOT YET SEEN. VOTE combat4-the-natural-history-museum-11-21 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_NATURAL_HISTORY_MUSEUM_11_21_26.md. More boards (rule 461): the natural history museum ('natmuseum', 0.8, by Cashman Field): the_ice_age_hall
 (Columbian mammoths and ground sloths on their plinths: blockers you see through, the tank rule; display cases, benches, kiosks, a skeleton pulled down: rough 3 AP and low
 cover; rope posts: rough, no cover; dioramas along both walls) and the_dioramas (the walls lined with dioramas, walk-round showcases in the middle, a ground sloth between

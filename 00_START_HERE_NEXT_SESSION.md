@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/21 LATEST -- BUILD 11/21zh - THE NATURAL HISTORY MUSEUM, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22a - THE TV STATION, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE TV STATION: a fight at the TV station (eight in ten) is fought in its studio (the news set, studio cameras, light stands, teleprompters, cables underfoot, the green
+screen) or its newsroom (desks in pods, the control console, a wall of dead monitors). One data file, every picture a stand-in (the names for COOK in the handoff).
+GATE THE BIG INSIDES 299/0 (nineteen insides). ON THE PAGE: 4 fights in the studio, both pages both ways, all ended, 18 of 18 taps, 0 errors (the newsroom on the fight page alone and in the gate). VOTE combat4-the-tv-station-11-21.
+[bb Battle Brothers' brush everywhere: a studio is all gear to crouch behind]
+[analog horror: the station's last broadcast still looping on one monitor: a test card and a tone]
+COMBAT FOUR (combat-four-01gkdyuv): 11/21 -- BUILD 11/21zh - THE NATURAL HISTORY MUSEUM, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE NATURAL HISTORY MUSEUM: a fight at the museum by Cashman Field (eight in ten) is fought in its Ice Age hall (the valley's Columbian mammoths and ground sloths on
 their plinths: you cannot cross them but you see through them) or its hall of dioramas and showcases. One data file, every picture a stand-in (the names for COOK in the
 handoff). ALSO: the robot factory is built and HELD: the map paves its one cell with a road (for WORLD, in its record). GATE THE BIG INSIDES 284/0 (eighteen insides). ON THE PAGE: 4 fights, both pages both ways, all ended, 11 of 11 taps, 0 errors (every valley rolled the dioramas; the Ice Age hall on the fight page alone and in the gate).
