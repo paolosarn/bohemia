@@ -134,9 +134,13 @@ const pngs = (o, s) => s ? s.pngs : null;
     ok('K5 THE NIGHT\'S LIGHT UNDER EVERY TILE, a row read once, is the light read a point at a time, value for value', !!gl && gl.n > 20 && gl.diff === 0,
        gl ? gl.n + ' tiles of a ' + gl.w + ' x ' + gl.h + ' board, ' + gl.diff + ' differ; ' + gl.rows + ' ms by rows against ' + gl.points + ' ms point by point' : 'no fight came up');
   } finally { await d.close(); }
-  /* P1 the planted session */
+  /* P1 the planted session. THE STALL IS PLANTED FROM THE TOP PAGE (PLUMBER 8, 11/22, measured): the city frame now starts as about:blank
+     and loads the city into the SAME window, so the old plant (armed in every page, 'if this is CITY_WORLD') ran once on the blank page,
+     saw 'blank', and never wrapped loopOpenTown: P1 was red for the wrong reason (map > town 517 and 583 ms, nothing planted). The top
+     page's own timer now reaches into #cityFrame and wraps it there, ONCE (a flag on the city's window): the city's own wrappers (motion's
+     installCity) re-wrap an opener they have not marked, and a plant that re-wrapped theirs grew a chain of 900 ms stalls, 83 s a town. */
   if (!quick) {
-    const PLANT = 'window.__BM_KEEP_OFF = true; window.__INK_ONE_SIZE = true; window.__GROUND_LUMS_PER_POINT = true; if (/CITY_WORLD/.test(location.pathname)) setInterval(function () { var o = window.loopOpenTown; if (typeof o === "function" && !o.__planted) { var w = function () { var t = performance.now(); while (performance.now() - t < 900) {} return o.apply(this, arguments); }; w.__planted = true; window.loopOpenTown = w; } }, 150);';
+    const PLANT = 'window.__BM_KEEP_OFF = true; window.__INK_ONE_SIZE = true; window.__GROUND_LUMS_PER_POINT = true; if (window.top === window) setInterval(function () { try { var f = document.getElementById("cityFrame"), cw = f && f.contentWindow; if (!cw || !/CITY_WORLD/.test(cw.location.pathname)) return; if (cw.__STALL_PLANTED || cw.document.readyState !== "complete") return; var o = cw.loopOpenTown; if (typeof o === "function") { var w = function () { var t = cw.performance.now(); while (cw.performance.now() - t < 900) {} return o.apply(this, arguments); }; cw.__STALL_PLANTED = true; cw.loopOpenTown = w; } } catch (e) {} }, 150);';
     const q = await C.walk({ quiet: true, cpu: true, arm: PLANT, stopAfter: 'a fight starts', noReload: true });
     const qs = fightStart(q), qt = (q.walk || []).find(s => s.step === 'map > town');
     const k1red = !!qs && qs.pngs > RATCHET.pngsAtFightStart;

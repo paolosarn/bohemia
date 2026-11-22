@@ -34,7 +34,8 @@ const CLOCK = "(function(){ if (window.top !== window || window.__FZ) return; va
    the CPU (willReadFrequently): where a GPU draws a canvas, either one waits for the GPU to finish all it was given */
 const READS = "(function(){ try { var T = window.top, C = HTMLCanvasElement.prototype, X = CanvasRenderingContext2D.prototype, td = C.toDataURL, gi = X.getImageData;"
   + " var put = function (kind, cv, g) { try { var F = T.__FZ; if (!F) return; if (!F.reads) F.reads = []; var a = g && g.getContextAttributes ? g.getContextAttributes() : null;"
-  + " F.reads.push([T.performance.now(), kind, a && a.willReadFrequently ? 1 : 0, (cv.width * cv.height) | 0, String(location.pathname).split('/').pop()]); } catch (e) {} };"
+  + " var who = ''; if (!(a && a.willReadFrequently)) { try { who = String(new Error().stack || '').split('\\n').slice(3, 5).map(function (l) { return l.trim().replace(/^at /, '').replace(/\\(?(https?|file):[^ )]*\\//, '(').slice(0, 90); }).join(' < '); } catch (e) {} }"
+  + " F.reads.push([T.performance.now(), kind, a && a.willReadFrequently ? 1 : 0, (cv.width * cv.height) | 0, String(location.pathname).split('/').pop(), who]); } catch (e) {} };"
   + " C.toDataURL = function () { var g = null; try { g = this.getContext('2d'); } catch (e) {} put('png', this, g); return td.apply(this, arguments); };"
   + " X.getImageData = function () { put('read', this.canvas, this); return gi.apply(this, arguments); }; } catch (e) {} })();";
 
@@ -58,7 +59,8 @@ function census(fz, endAt) {
     const ds = gaps.map(g => g[1]).sort((p, q) => p - q);
     out.push({ step: bounds[i][1], ms: Math.round(b - a), frames: Math.max(0, ts.length - 1), fps: span ? +(1000 * (ts.length - 1) / span).toFixed(1) : 0,
       p50: ds.length ? +ds[Math.floor(ds.length / 2)].toFixed(1) : null, worst: ds.length ? Math.round(ds[ds.length - 1]) : null,
-      over33: ds.filter(x => x > 34).length, reads: rd.length, pngs: rd.filter(r => r[1] === 'png').length, gpuReads: gpuReads.length, gpuPx: gpuReads.reduce((q, r) => q + r[3], 0), freezes });
+      over33: ds.filter(x => x > 34).length, reads: rd.length, pngs: rd.filter(r => r[1] === 'png').length, gpuReads: gpuReads.length, gpuPx: gpuReads.reduce((q, r) => q + r[3], 0),
+      gpuBy: gpuReads.reduce((m, r) => { const k = r[4] + ' ' + r[1] + ' ' + r[3] + 'px ' + (r[5] || ''); m[k] = (m[k] || 0) + 1; return m; }, {}), freezes });
   }
   return out;
 }
