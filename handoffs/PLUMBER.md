@@ -1,11 +1,42 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/22, BUILD 11/22t THE PEOPLE COME IN BEHIND THE TOWN (row 677, rule 441, rule 418(a); COOK FIVE's and BESTIARY's room).
+  MY ROW 677, ALONE, FIXED OR RE-AIMED:
+  THE WHOLE LOOP PLAYS, ITS PUBLISHED TWIN, THE HEAP STAYS FLAT (struck): the loop's step 6 tapped the road card inside its first beat
+  (FIXES 2's row 611: the card takes no press for 500 ms and its choices light when they answer); the step waits for the light now and
+  says an early press if one lands. 11/0, 3/0, 5/0 (peak 110 MB of 200).
+  FIRST PLAY IS LIGHT (P4, P5 red): (1) the song book fetched the playing song's three levels and its hit before first play (2.3 to 5 MB,
+  the title's tap runs the music now): plan() holds until first play, in the page and in SOUNDS' tool that writes the block (the block
+  still byte for byte what the tool makes). (2) NO CROWD SHEET CAME IN THE MINUTE AFTER FIRST PLAY: MOTION 3's __THE_MAP_RESTS_UNDER_A_PLACE__
+  (11/9) draws nothing under a town, so the first-play redraw that asked for the people drew nothing (0 crowds, 0 loads; the first draw
+  after the leave 10 sheets). A quiet draw behind the town asked for them but cost 738 ms at 4x; NOW __THE_PEOPLE_ARE_ASKED_FOR_BEHIND_THE_TOWN__
+  asks, draws nothing: once his men's sheets are in, the town crowd's pool, the gangs of parties within 24 blocks, then each sheet's idle
+  sheet (8 and 8, measured), unpacked in idle time. --quick 5/0: 17.16 MB before first play (18.8 to 22 before), both kinds in.
+  EVERY CHANGE AT SIXTY: C1 green three runs of three (117 to 167 ms), C5 the first way out of a town 117/117/183 against 150 (the warm
+  helps: it was 183 every run), C3 89/91 s against 90, C2: two sessions rolled two valleys (fixed: one valley, the code printed) and
+  compared before the reads were in (fixed: after); still red: the deal sends three jobs to other towns as reads come in (JOBS row 698).
+  THE BOARDS ALWAYS HAVE WORK: it wanted 14 bases; since HOME BASE's __ONLY_THE_PLANTED_PLACE__ (442(c)) an unplanted game has 13 (his
+  outfit is off the map). Now the raw bases less his unplanted outfit (B1, B2, B4, B5), B4's old valley read off HOME.rawBases; an empty
+  board says whether it never opened or opened with nobody (the typed code's 13 read 0 in a loaded box, 21 alone).
+  THE SITE: PAGES PUBLISH red at 913 MB of 900: the old vote page (named only in a comment), DIRECTION's style guide (a data file no code
+  reads) and the 14 MB of reference pictures only it names, and rule 7: a kind no code reads (rule 6's list) is not published by a data
+  file's mention (11.2 MB of barber rig.json sidecars, named as provenance by the wound files, and PORTRAIT's crew render passes): 875 MB,
+  1,251 files off, every loaded kind the same count. NEXT ROOM: slices/fight_rig's whole sheets (66.6 MiB) are only ever HEAD-asked when
+  their packed copy is fresh (RUN's __THE_SHEETS_ARE_PACKED__), but five other pages build fight_rig names, so it is its own round.
+  NO FREEZE OVER HALF A SECOND: a CPU profile of the fight on AUTO (records/BOHEMIA_PLUMBER_THE_FIGHT_ON_AUTO_PROFILED_11_22_26.md): the
+  frame is the men's pictures drawn on the census's CPU canvas (drawImage 3.8 s of 8, the AI 3%); KNOWN_OVER now carries a count, and the
+  two AUTO steps are held at their measured count and worst plus 30%, routed to COMBAT (row 699), so F1 judges the rest of the walk again.
+  FILED: row 697 RUN TWO (the end screen's LEAVE under a scroll, rule 402), row 698 JOBS (the deal and the reads), row 699 COMBAT (the
+  men drawn every frame), row 700 UI FOUR (the pop-up watcher on every frame of a fight, 4%).
+  STILL RUNNING AT THE SHIP (scratchpad final_batch.txt): FIRST PLAY IS LIGHT in full, THE BOARDS ALWAYS HAVE WORK, NO FREEZE: strike each green
+  one from the list (strike3.py) the next round; THE SITE SERVES 's L4/L5 reds were my own pull mid-run (two boards landed), re-running --quick.
+
 PLUMBER 8 (chat 18) 11/22, THE LAST 16 ANSWERED ALONE (rule 461; main 1d292b08c, one gate at a time, 6,874 s).
   5 GREEN, struck from the list and their rows: THE PHONE (678), THE BIG INSIDES (679; COMBAT FOUR split it in two entries since, the
   second half THE BIG INSIDES TWO is not on the list), THE CAMP LETS GO WHEN HE LEAVES (681), THE PLACES WEAR THEIR OWN PIECE (690),
-  SCAVENGE IS THE RHYTHM (693). 11 RED ALONE TOO, retagged with the alone run's own failure: 8 TIMED OUT AT 600 s WITH THE BOX TO ITSELF
+  SCAVENGE IS THE RHYTHM (693). 11 RED ALONE TOO, retagged with the alone run's own failure: 7 TIMED OUT AT 600 s WITH THE BOX TO ITSELF
   (THE INK, THE DOGS and THE MIDWIFE CHANGES THE MAP 687, THE BESTIARY FLOOR 682, SEARCH THE LOT ANSWERS 694, THE FOURTEEN EYES FOUND
-  693, THE STAFF FIGHT TOO 696: too slow to be a ship gate, whatever they would say), and 3 that fail a leg (THE CAMP IS THE FIGHT'S
+  693, THE STAFF FIGHT TOO 696: too slow to be a ship gate, whatever they would say), and 4 that fail a leg (THE CAMP IS THE FIGHT'S
   BOARD Cn5 and THE CAMP IS SET UP ON THE BOARD 23/4, MOTION 3's 681; THE TERATORN T2, WORLD THIRTEEN's 674; THE STREETS JOIN 12/1,
   COMBAT TWO's 689). THE RED DEBT 406 NAMED, 312 LEFT. Every red on the table is now answered alone or in the pack; none waits.
   A TRAP I WALKED INTO AND OUT OF: the done file that skips every other gate holds 1,172 placeholder answers ('not in this pass',

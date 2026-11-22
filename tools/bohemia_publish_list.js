@@ -61,7 +61,15 @@ const NEVER_WHOLE = new Set(['slices', 'engine', 'records', 'records/target']);
    panel it SHOWS (__THE_RUN_SLICE_IS_NOT_DOWNLOADED__), and no line sets runFrame.src. Measured on the demo, after
    the door and after the RUN tab: runFrame src null, 0 loads. The serve-only gate (the_site_serves_what_the_game_
    loads_gate.js L2) presses every tab on a server that answers only this list, so the day a tab loads it, that is red. */
-const NOT_LOADED = new Set(['slices/BOHEMIA_RUN_CURRENT.html']);
+/* (PLUMBER 8, 11/22/26, PAGES PUBLISH red again: 913 MB of its 900 MB cap, COOK FIVE and BESTIARY with art waiting for room)
+   slices/BOHEMIA_VOTE_CURRENT.html (6.5 MB): named only in a comment, the alpha's (and so the demo's) note that the VOTE tab no longer
+   points at it (__THE_ONE_VOTE_TAB__, 9/14: 'untouched on disk and stays as an archive'); the tab loads BOHEMIA_VOTE_TAB.html.
+   records/target/BOHEMIA_STYLE_GUIDE.json (and so the 14 MB of reference pictures only it names: COOK2_ONE_REAL_STREET.webp, the
+   direction_style_guide boards, the master rig's two DIRECTION sheets): DIRECTION's bible, a data file no published page or script
+   reads (no published code names STYLE_GUIDE or style_guide, measured on the list); it is published only because the crew's rig and
+   portrait notes name it as where their numbers came from. The serve-only gate's L2 presses every tab on a server that answers only
+   this list, so the day a page loads one of them, that is red. */
+const NOT_LOADED = new Set(['slices/BOHEMIA_RUN_CURRENT.html', 'slices/BOHEMIA_VOTE_CURRENT.html', 'records/target/BOHEMIA_STYLE_GUIDE.json']);
 /* rule 6 (PLUMBER 8, 11/14/26, the coordinator's rule 447 round: 'get the published set well under the cap, aim under 800'):
    INSIDE A FOLDER TAKEN WHOLE (rule 3), A KIND OF FILE NO CODE BUILDS A NAME FOR IS NOT PUBLISHED. Each kind is listed here with
    every loader that builds names in its folder, and a TELL: the text that would appear in a published code file the day one starts
@@ -171,6 +179,12 @@ function compute() {
       for (const b of bases) {
         const p = path.posix.normalize(path.posix.join(b, bare));
         if (p.startsWith('..')) continue;
+        /* rule 7 (PLUMBER 8, 11/22/26, PAGES PUBLISH at 913 MB of 900): A KIND NO CODE READS (rule 6's list, each with its tell, which the
+           publish gate reads every published code file for) IS NOT PUBLISHED BY A DATA FILE'S MENTION. Measured: 11.2 MB of the barber's
+           rig.json sidecars shipped because each look's wound file names its portrait.json ('portrait': where its numbers came from)
+           and that names rig.json ('body_rig'); the wound file's one reader (engine/bohemia_wound_faces.js) reads its rows and its .png,
+           never that key. A name in CODE still publishes one (rule 2). */
+        if (FILE.has(p) && !CODE.test(f) && deadKind(p)) continue;
         if (FILE.has(p)) add(p, f, isWeak);
         else if (!/\.[A-Za-z0-9]{1,5}$/.test(p)) {
           /* rule 2b: a bare name the code adds its own extension to (rigSheetLoad(RIG_CAST, 'BOHEMIA_RIG_CAST') fetches

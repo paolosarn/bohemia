@@ -107,8 +107,15 @@ const cityOf = (dd) => dd.page.frames().find(f => /BOHEMIA_CITY_WORLD/.test(f.ur
       const e = (R.data().events.events || []).find(x => x && x.id && (x.opts || []).length && !/^quest:/.test(x.id)); return e ? e.id : null; }), 20000);
     if (!id) return { ok: false, why: 'the road events never loaded' };
     const fired = await fr.evaluate((id) => BohemiaRoadEvents.fire(id), id);
-    const btn = await waitFor(() => fr.evaluate(() => { const b = [...document.querySelectorAll('#roadcard button[data-road]')].find(x => !x.disabled); if (!b) return null; const r = b.getBoundingClientRect(); return r.width > 4 ? { x: r.x + r.width / 2, y: r.y + r.height / 2, t: b.textContent.trim().slice(0, 40) } : null; }), 8000);
-    if (!fired || !btn) return { ok: false, why: 'event ' + id + (fired ? ' fired, but no choice on the glass' : ' did not fire') };
+    /* A PLAYER PRESSES A LIT CHOICE (PLUMBER 8, 11/22, measured): since __A_CARD_TAKES_NO_PRESS_IN_ITS_FIRST_BEAT__ (FIXES 2 11/14, ask
+       row 611) the card's choices come up dim and answer no press for its first beat (500 ms), and light when they will answer. This
+       step found the button the instant it was laid and tapped it inside that beat, so the card counted an early press
+       (__ROADCARD_EARLY) and stood: THE WHOLE LOOP PLAYS, its published twin and THE HEAP STAYS FLAT all red on a card working as
+       it should. The step now waits for the choices to light (their box at full opacity), the way a thumb waits for them. */
+    const btn = await waitFor(() => fr.evaluate(() => { const box = document.querySelector('#roadcard .rcb'); if (!box || +getComputedStyle(box).opacity < 0.99) return null;
+      const b = [...document.querySelectorAll('#roadcard button[data-road]')].find(x => !x.disabled); if (!b) return null; const r = b.getBoundingClientRect(); return r.width > 4 ? { x: r.x + r.width / 2, y: r.y + r.height / 2, t: b.textContent.trim().slice(0, 40) } : null; }), 8000);
+    if (!fired || !btn) return { ok: false, why: 'event ' + id + (fired ? ' fired, but no lit choice on the glass' : ' did not fire') };
+    const early0 = await fr.evaluate(() => window.__ROADCARD_EARLY | 0);
     const fb = await (await fr.frameElement()).boundingBox();
     await tapAt(d, fb.x + btn.x, fb.y + btn.y);
     /* a choice tells him what came of it on a second card with GO ON (bohemia_road_events.js chose()); that is pressed too */
@@ -120,7 +127,8 @@ const cityOf = (dd) => dd.page.frames().find(f => /BOHEMIA_CITY_WORLD/.test(f.ur
     /* a choice can open its own fight ('fighting'); the loop's fight is the next step's, so one opened here is won and left first */
     const fought = await fr.evaluate(() => !!(window.BohemiaRoadEvents && BohemiaRoadEvents.fighting()));
     if (fought) { await waitFor(() => d.page.$('#fightFrame'), 30000); await winAndLeave(d); }
-    return { ok: !!gone, why: 'event ' + id + ', chose "' + btn.t + '"' + (goOn ? ', then ' + goOn.t : '') + '; the card ' + (gone ? 'closed' : 'STILL UP') + (fought ? ' (the choice was a fight: won and left)' : '') };
+    const early = (await fr.evaluate(() => window.__ROADCARD_EARLY | 0).catch(() => early0)) - early0;
+    return { ok: !!gone, why: 'event ' + id + ', chose "' + btn.t + '"' + (goOn ? ', then ' + goOn.t : '') + '; the card ' + (gone ? 'closed' : 'STILL UP') + (early ? ' (THE TAP CAME IN THE CARD\'S FIRST BEAT: ' + early + ' early press)' : '') + (fought ? ' (the choice was a fight: won and left)' : '') };
   });
   await step(7, 'A FIGHT: a crew meets him, the card\'s ENGAGE (a real tap) opens the fight with its board and both sides', async () => {
     await fr.evaluate(() => { try { travelStop(); } catch (e) {} });

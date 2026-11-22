@@ -152,6 +152,7 @@ function summarize({ d, before, after, all, firstPlayMs, where, heaps, o }) {
     afterFirstPlay: { lingerMs: o.linger || 0, mb: MB(sum(after)), files: files(after) },
     twice, biggest: big(before, o.top || 15), biggestAfter: big(after, 8), folders: folders(before),
     afterList: after.filter(r => (r.wire || 0) > 0).map(r => r.url), off: !!o.off,
+    afterFiles: after.filter(r => (r.wire || 0) > 0).map(r => ({ url: r.url, kb: +((r.wire || 0) / 1024).toFixed(1), endMs: r.endMs })),   /* when each came, for a gate that asks how late (PLUMBER 8, 11/22) */
     doorMs: o._doorMs || null, stamps: o._stamps || null,
     heaps: heaps.map(h => ({ at: h.at, usedMb: h.used ? MB(h.used) : null, totalMb: h.total ? MB(h.total) : null })),
     heapPeakMb: MB(peak), errors: (d.errs || []).slice(0, 5),

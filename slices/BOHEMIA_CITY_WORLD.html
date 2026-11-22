@@ -49773,8 +49773,42 @@ function mapHeldForFirstPlay(){
 /* a town's screen covers this map (the town he starts in, while the held sheets stream in behind it) */
 function mapUnderATown(){ try { return !!(LOOP && LOOP.open && LOOP.frame && LOOP.frame.style.display === 'block'); } catch (_e) { return false; } }
 window.addEventListener('message', function(ev){
-  try { if (ev && ev.data && ev.data.type === 'BOHEMIA_FIRST_PLAY') { try { MAP_GROUND.key = ''; } catch (_e) {} render(); } } catch (_e) {}
+  try { if (ev && ev.data && ev.data.type === 'BOHEMIA_FIRST_PLAY') { try { MAP_GROUND.key = ''; } catch (_e) {} render(); mapWarmUnderThePlace(); } } catch (_e) {}
 });
+/* __THE_PEOPLE_ARE_ASKED_FOR_BEHIND_THE_TOWN__ (PLUMBER 8, 11/22, rule 418(a), FIRST PLAY IS LIGHT P5). MEASURED (the demo upright, CPU
+   4x, served like Pages): no gang sheet and no map idle sheet came in the minute after first play; they were asked for the moment he
+   left the town, so the map's people came in after the leave. Since __THE_MAP_RESTS_UNDER_A_PLACE__ (MOTION 3, 11/9) the map draws
+   nothing while a town covers the glass, so the one redraw above, the one that asked for the people, drew nothing (a render under the
+   town: 0 crowds, 0 sheet loads; the first after the leave: 2 crowds, 10 sheets). One draw made behind the town for it asked for them
+   but cost 738 ms at 4x (a whole map paint nobody sees), a freeze over half a second (rule 441). NOW nothing is drawn: once his own
+   men's sheets are in (the crowd waits for them, rigWaiting), the map ASKS for what it will draw when he leaves: the town crowd's
+   sheets (its pool), the gangs of the parties within 24 blocks, then each of those sheets' idle sheet; each is unpacked in idle time
+   by its own loader (__A_SHEET_IS_UNPACKED_BEFORE_IT_IS_DRAWN__). window.__NO_WARM_UNDER = the way before. */
+function mapWarmUnderThePlace(){
+  if (window.__NO_WARM_UNDER || mapWarmUnderThePlace.done) return;
+  var tries = 0, asked = null, W = window.__WARM_UNDER = { tries: 0, gangs: [], idles: [] };
+  var later = function(ms){ setTimeout(function(){ try { if (typeof requestIdleCallback === 'function') { requestIdleCallback(go, { timeout: 2500 }); return; } } catch (_e) {} go(); }, ms); };
+  var go = function(){
+    try {
+      if (mapWarmUnderThePlace.done || ++tries > 80) return; W.tries = tries;
+      if (typeof rigWaiting === 'function' && rigWaiting()) return later(750);   /* his men's sheets first: asked for by rigAllReady */
+      if (!asked) {   /* the crowd's pool and the near parties' gangs: rigMixFor asks for every sheet of a pool (peek: nobody is seated) */
+        asked = { town: 1 };
+        try { (partiesAll() || []).forEach(function(q){ var f = q && q.at && q.from && q.from.faction; if (f && Math.max(Math.abs((q.at.x | 0) - city.x), Math.abs((q.at.y | 0) - city.y)) <= 24) asked[String(f).toLowerCase()] = 1; }); } catch (_e) {}
+        for (var k in asked) { try { rigMixFor(k, 'warm:' + k, 0, true); } catch (_e) {} }
+        W.gangs = Object.keys(asked);
+        return later(750);
+      }
+      /* each sheet that is in: its people's idle sheet (the map draws a standing man from it) */
+      var B = window.BohemiaIdles, M = B && B.ready && B.ready() ? B.mapPeople() : null, waiting = 0;
+      for (var n in RIG_MIX.sheets) { var S = RIG_MIX.sheets[n]; if (S.state === 1 || !S.state) { waiting++; continue; } if (S.state !== 2 || !S.meta || !M) continue;
+        (S.meta.gangs || []).forEach(function(l){ var L = M.looks && M.looks[l], f = L && (L.file || M.file); if (f && W.idles.indexOf(f) < 0) { W.idles.push(f); try { B.image(f); } catch (_e) {} } }); }
+      if (waiting || !M) return later(750);
+      mapWarmUnderThePlace.done = true;
+    } catch (_e) {}
+  };
+  later(600);
+}
 /* ==== /__FIRST_PLAY_IS_LIGHT__ ==== */
 function rigSheetLoad(S, name){
   if (S.state) return;

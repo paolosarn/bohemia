@@ -86,9 +86,15 @@ const RATCHET = {
    its ratchet, until its owner fixes it and deletes the line; it is printed every run */
 const KNOWN_OVER = {
   'camp > map': { worst: 1900, why: 'MOTION 3, ask row 560: leaving camp froze 1.4 s on the slowed phone after 11/10g THE CAMP IS THE FIGHT\'S BOARD (every walk before it under 0.8 s)' },
-  'the reload': { worst: 8800, why: 'PLUMBER, ask row 561: the boot and the reload, 3 to 7 s tasks in the 6.5 MB map page (6.7 s on the walk after main moved to 11/10g)' }
+  'the reload': { worst: 8800, why: 'PLUMBER, ask row 561: the boot and the reload, 3 to 7 s tasks in the 6.5 MB map page (6.7 s on the walk after main moved to 11/10g)' },
+  /* n: a known step may also carry its measured COUNT (PLUMBER 8, 11/22): the fight on AUTO is a frame of the men's pictures drawn on
+     this box's software canvas, every frame over half a second on a heavy board (records/BOHEMIA_PLUMBER_THE_FIGHT_ON_AUTO_PROFILED_11_22_26.md:
+     drawImage 3.8 s of 8, the AI 3%); measured 11/22 on THE DECK and one other board: 12 freezes, worst 833 ms at 1x; 19, worst 1,417 ms
+     at 4x (another board's walk 6.9 fps). Held at those plus 30%, routed to COMBAT, so F1 judges the rest of the walk again. */
+  'the fight on AUTO at 1x': { n: 16, worst: 1100, why: 'COMBAT, ask row 699: the men drawn every frame on a heavy board, the CPU canvas (records/BOHEMIA_PLUMBER_THE_FIGHT_ON_AUTO_PROFILED_11_22_26.md)' },
+  'the fight on AUTO at 4x': { n: 25, worst: 1850, why: 'COMBAT, ask row 699: the same at 4x, 1.6 frames a second on THE DECK' }
 };
-const held = (step) => { const k = Object.keys(RATCHET.steps).filter(k => step.indexOf(k) === 0).sort((a, b) => b.length - a.length)[0]; const h = k ? RATCHET.steps[k] : RATCHET.def; const ko = Object.keys(KNOWN_OVER).find(k => step.indexOf(k) === 0); return { n: Math.max(6, h.n), worst: ko ? Math.max(h.worst, KNOWN_OVER[ko].worst) : h.worst, known: ko ? KNOWN_OVER[ko].why : null }; };
+const held = (step) => { const k = Object.keys(RATCHET.steps).filter(k => step.indexOf(k) === 0).sort((a, b) => b.length - a.length)[0]; const h = k ? RATCHET.steps[k] : RATCHET.def; const ko = Object.keys(KNOWN_OVER).find(k => step.indexOf(k) === 0); return { n: Math.max(6, h.n, ko && KNOWN_OVER[ko].n ? KNOWN_OVER[ko].n : 0), worst: ko ? Math.max(h.worst, KNOWN_OVER[ko].worst) : h.worst, known: ko ? KNOWN_OVER[ko].why : null }; };
 const fightStart = (o) => (o.walk || []).find(s => /^a fight starts/.test(s.step));
 const pngs = (o, s) => s ? s.pngs : null;
 

@@ -1588,7 +1588,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/22s - THE RADIO STATION</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/22t - THE PEOPLE COME IN BEHIND THE TOWN</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -23597,6 +23597,10 @@ drawLogoBig();requestAnimationFrame(loop);
  /* WHAT IS HELD: the playing song's levels for where he is (on the map level 1 decoded and the fight's two levels as bytes,
     so a fight decodes without a fetch), the hit, the next song's level 1 (its bytes only in a fight) */
  function plan(){
+  /* __FIRST_PLAY_IS_LIGHT__ (PLUMBER 8, 11/22, rule 418(a), measured: since the title's own tap runs the music, this book fetched the
+     playing song's three levels and its hit (2.3 MB, repo_man's, 26 s in) before the town he starts in was up, FIRST PLAY IS LIGHT P4).
+     Until first play nothing is fetched: his song plays live from his engine, as it does until a recording is decoded. */
+  if(window.bohemiaFirstPlayHeld && bohemiaFirstPlayHeld()) return;
   var keep={}, n=entry();
   if(n){ var s=setOf(n), k=keep[n]={}; if(s.b.hit) k.hit=1;
    if(coming()){ k.level_2=1; k.level_3=1; if(!s.buf.level_2) k.level_1=1; }

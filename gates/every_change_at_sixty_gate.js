@@ -31,8 +31,13 @@ const ok = (n, c, x) => { c ? pass++ : fail++; console.log((c ? '  ok   ' : '  F
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
 async function session(old) {
+  /* ONE VALLEY FOR BOTH WAYS (PLUMBER 8, 11/22, measured): a run that rolls a campaign code (A NEW VALLEY EVERY GAME, 11/2) gave
+     each session its own valley, and C2 compared two valleys' boards (27 asks one way, 21 the other). The bench these sessions open
+     (fog off) is the old valley either way (C2 prints the code: '/bench' both), and a fixed code is staged too, the way the new-game
+     screen stages a typed one (BOHEMIA_SIXTY_SEED overrides it), so a session that does roll gets the same valley as the other. */
+  const SEED = process.env.BOHEMIA_SIXTY_SEED || 'PTBTDN';
   const d = await D.open({ profile: 'phone_portrait', fog: false, gpu: process.env.BOHEMIA_GPU === '1',
-    arm: old ? 'window.__JOB_DANGER_SYNC = true; window.__IDLES_NO_WARM = true;' : undefined });   /* the old way in every frame from its first line; BOHEMIA_GPU=1: the canvas on a GPU process (SwiftShader), for the record */
+    arm: "try { localStorage.setItem('bohemia.world.next.v1', '" + SEED + "'); } catch (e) {} " + (old ? 'window.__JOB_DANGER_SYNC = true; window.__IDLES_NO_WARM = true;' : '') });   /* the old way in every frame from its first line; BOHEMIA_GPU=1: the canvas on a GPU process (SwiftShader), for the record */
   const errs = []; d.page.on('pageerror', e => errs.push(String(e).slice(0, 160)));
   const M = (fn, a) => d.page.evaluate(fn, a);
   const out = { old, errs, changes: {} };
@@ -57,6 +62,7 @@ async function session(old) {
     out.ck = [ck0, await d.fr.evaluate(() => BohemiaJobDanger.crewKey())];
     out.plans = await d.fr.evaluate(() => BohemiaJobDanger.state().plans);
     out.asks = await d.fr.evaluate(() => BohemiaPhoneBoard.asks().map(a => a.place + '|' + a.id).sort());
+    out.code = await d.fr.evaluate(() => (typeof WORLD_SEED !== 'undefined' ? WORLD_SEED : '') + '/' + (typeof WORLD_SEED_FROM !== 'undefined' ? WORLD_SEED_FROM : '')).catch(() => '?');
     let e1 = await NOW(); await crewDone(); await sleep(1600); out.changes['crew DONE'] = await frames(e1, e1 + 1200);
     /* the reads come back: every job on the phone's glass */
     const t0 = Date.now(); let shown = null;
@@ -65,6 +71,11 @@ async function session(old) {
         return B.shown.map(s => { const o = all.filter(x => x.id === s.id)[0], R = o ? BohemiaJobDanger.peek(o, s.place) : null; return { id: s.id, place: s.place, state: R ? R.state : 'none' }; }); });
       if (shown && shown.every(s => s.state === 'read')) break; await sleep(1000); }
     out.shown = shown; out.readMs = Date.now() - t0;
+    /* C2 reads the board once its reads are in (PLUMBER 8, 11/22, measured on one valley: 21 asks each way and three places' jobs
+       different, read the moment the last plan was made: the new way's board had dealt jobs still 'reading', which the danger floor
+       lets through, and it re-deals as their reads come back, the old way's had read them all at once). The same rules on the same
+       reads must post the same board; the moment before the reads are in is C3's, not C2's. */
+    await sleep(1500); out.asksRead = await d.fr.evaluate(() => BohemiaPhoneBoard.asks().map(a => a.place + '|' + a.id).sort()).catch(() => null);
     /* the town's grow and its leave */
     const town = await d.fr.evaluate(() => { const bs = ctBases(); let best = null, bd = 1e9; for (const n in bs) { const dd = Math.abs(bs[n].x - city.x) + Math.abs(bs[n].y - city.y); if (dd < bd && dd > 0) { bd = dd; best = n; } } return best; });
     e1 = await NOW(); await d.fr.evaluate(n => { const bs = ctBases(); loopOpenTown({ name: n, x: bs[n].x | 0, y: bs[n].y | 0, tier: mapTierOf(n) }); }, town); await sleep(2500);
@@ -90,8 +101,8 @@ async function session(old) {
   const c5 = (R) => !!(R.changes['town leave'] && R.changes['town leave'].max < 150);
   ok('C5 THE FIRST WAY OUT OF A TOWN NEVER FREEZES THE MAP: the crowd\'s idle sheets are unpacked in the idle time before they are drawn, and the longest frame of the leave is under 150 ms', !A.threw && c5(A) && !!(A.warmed && A.warmed.n > 0),
     'longest frame ' + (A.changes['town leave'] && A.changes['town leave'].max) + ' ms, ' + (A.warmed ? A.warmed.n + ' sheets unpacked in idle time, the longest ' + A.warmed.max + ' ms' : 'none unpacked') + ' (the old way: ' + (B.changes['town leave'] && B.changes['town leave'].max) + ' ms)');
-  const same = A.asks && B.asks && A.asks.length > 0 && A.asks.join(';') === B.asks.join(';');
-  ok('C2 the board posts the same jobs either way (every ask on the phone after the turn, place and job)', same, (A.asks || []).length + ' asks now, ' + (B.asks || []).length + ' the old way' + (same ? '' : ': ' + (A.asks || []).filter(x => (B.asks || []).indexOf(x) < 0).slice(0, 3).join(', ')));
+  const aA = A.asksRead || A.asks, aB = B.asksRead || B.asks, same = aA && aB && aA.length > 0 && aA.join(';') === aB.join(';');
+  ok('C2 the board posts the same jobs either way (every ask on the phone after the turn, place and job; one valley, ' + A.code + ' and ' + B.code + ')', same && A.code === B.code, (aA || []).length + ' asks now, ' + (aB || []).length + ' the old way, once the reads are in' + (same ? '' : ': ' + (aA || []).filter(x => (aB || []).indexOf(x) < 0).slice(0, 3).join(', ') + ' only now; ' + (aB || []).filter(x => (aA || []).indexOf(x) < 0).slice(0, 3).join(', ') + ' only the old way'));
   ok('C3 the reads still come back: every job on the phone\'s glass is read within 90 s', !!(A.shown && A.shown.length && A.shown.every(s => s.state === 'read')), A.shown ? A.shown.map(s => s.id + '@' + s.place + ' ' + s.state).join(', ') + ' in ' + Math.round(A.readMs / 1000) + ' s' : 'nothing shown');
   ok('C4 the changes, measured (reported against the sixty budget)', Object.keys(A.changes).length >= 4, Object.keys(A.changes).map(k => k + ' ' + (A.changes[k] ? A.changes[k].fps : '-')).join(', '));
   ok('P1 THE PLANTED FAIL: the old way (every job planned in one piece, a sheet unpacked as it is drawn) turns C1 and C5 red', !B.threw && !c1(B) && !c5(B), 'the old way: C1 ' + (c1(B) ? 'green' : 'red') + ' (' + (B.turn && B.turn.max) + ' ms), C5 ' + (c5(B) ? 'green' : 'red') + ' (' + (B.changes['town leave'] && B.changes['town leave'].max) + ' ms)');

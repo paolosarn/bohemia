@@ -221,6 +221,10 @@ BLOCK = r'''<!-- __THE_SONGS_GO_IN__ (SOUNDS 10/25, rule 207) -->
  /* WHAT IS HELD: the playing song's levels for where he is (on the map level 1 decoded and the fight's two levels as bytes,
     so a fight decodes without a fetch), the hit, the next song's level 1 (its bytes only in a fight) */
  function plan(){
+  /* __FIRST_PLAY_IS_LIGHT__ (PLUMBER 8, 11/22, rule 418(a), measured: since the title's own tap runs the music, this book fetched the
+     playing song's three levels and its hit (2.3 MB, repo_man's, 26 s in) before the town he starts in was up, FIRST PLAY IS LIGHT P4).
+     Until first play nothing is fetched: his song plays live from his engine, as it does until a recording is decoded. */
+  if(window.bohemiaFirstPlayHeld && bohemiaFirstPlayHeld()) return;
   var keep={}, n=entry();
   if(n){ var s=setOf(n), k=keep[n]={}; if(s.b.hit) k.hit=1;
    if(coming()){ k.level_2=1; k.level_3=1; if(!s.buf.level_2) k.level_1=1; }

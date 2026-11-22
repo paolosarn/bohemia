@@ -143,6 +143,15 @@ function deal(SH, day, traitsOf, held, doneIds) {
 
 /* ---------------- THE GAME ON HIS PHONE ---------------- */
 const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
+/* THE BASES THE MAP SHOULD HAVE (PLUMBER 8, 11/22, measured): this gate wanted 14, and since __ONLY_THE_PLANTED_PLACE__ (HOME BASE
+   11/10, rule 442(c), his YES on YOUR PLACE, PLANTED: 'the only place that will be mine on the map is where we decide the custom
+   settlement is') a game where he has not planted has 13: his outfit's seat (BohemiaBetween.mine(), 'Custom') is out of ctBases()
+   until he plants, and then it is the block he planted. So the count is the raw bases (HOME.rawBases, the map's own before the
+   wrapper) less his outfit while it is unplanted; B1, B2, B4 and B5 all read it. The old valley is the baked 14 in the raw list. */
+const BASES_WANT = () => { const raw = Object.keys(((window.HOME && HOME.rawBases) ? HOME.rawBases() : ctBases()) || {}); let mine = null, planted = false;
+  try { mine = homeMine(); planted = homePlanted(); } catch (e) {}
+  const names = raw.filter(n => planted || n !== mine);
+  return { names, why: (raw.length - names.length) ? 'his outfit (' + mine + ') is not on the map until he plants, rule 442(c)' : (planted ? 'his planted place among them' : 'all of them') }; };
 const errsOf = (d) => (d.errs || []).filter(e => !/favicon|net::ERR|404/.test(String(e)));
 
 async function settleFrame(P, name) {
@@ -175,6 +184,10 @@ async function everyBoard(d, label) {
       return false;
     };
     const opened = await openBoard();
+    /* WHY A BOARD IS EMPTY, SAID (PLUMBER 8, 11/22): the typed code's thirteen boards read '0 people' in a loaded suite and 21 alone;
+       a row now says which it was: the board never opened (and what the town screen had open, and where its BOARD door was), or it
+       opened and the shelf dealt nobody */
+    const st = opened ? null : await sf.evaluate(() => { try { const w = BohemiaSettlement.where && BohemiaSettlement.where('board'); return { open: BohemiaSettlement.state.open || null, door: w ? Math.round(w.x) + ',' + Math.round(w.y) : null, acts: !!document.querySelector('#sbody .acts'), shelf: !!(window.BohemiaBoardShelf && BohemiaBoardShelf.ready()) }; } catch (e) { return { threw: String(e).slice(0, 60) }; } }).catch(e => ({ gone: String(e).slice(0, 60) }));
     const people = await sf.evaluate(() => [...document.querySelectorAll('#sbody .act.client')].map(b => b.textContent.replace(/\s+/g, ' ').trim().slice(0, 60)));
     const held = await sf.evaluate(() => ({ rows: [...document.querySelectorAll('#sbody .act.held')].map(b => b.dataset.held), ids: BohemiaSettlement.state.held.slice() }));
     const spoke = [];
@@ -188,14 +201,16 @@ async function everyBoard(d, label) {
       await P.waitForTimeout(200);
       if (!(await sf.evaluate(() => BohemiaSettlement.state.open === 'board' && !!document.querySelector('#sbody .act.client')))) await openBoard();
     }
-    rows.push({ name, opened, people, spoke, held });
+    rows.push({ name, opened, people, spoke, held, st });
   }
   await fr.evaluate(() => { try { loopClose(); } catch (e) {} });
-  const empty = rows.filter(r => r.err || !r.opened || !r.people.length).map(r => r.name + (r.err ? ' (' + r.err + ')' : ''));
+  const empty = rows.filter(r => r.err || !r.opened || !r.people.length).map(r => r.name + (r.err ? ' (' + r.err + ')' : !r.opened ? ' (THE BOARD NEVER OPENED: ' + JSON.stringify(r.st) + ')' : ' (opened, nobody on it)'));
   const mute = rows.filter(r => !(r.spoke || []).length || (r.spoke || []).some(s => !s || !s.says || !s.yes)).map(r => r.name + ': ' + JSON.stringify((r.spoke || []).filter(s => !s || !s.says || !s.yes)[0] || 'nobody spoke'));
   const total = rows.reduce((a, r) => a + (r.people ? r.people.length : 0), 0);
-  ok(label + ': every one of the ' + rows.length + ' home bases, its board opened by a tap through the map\'s door, offers work (' + total + ' people: ' + rows.map(r => r.name + ' ' + (r.people ? r.people.length : 0)).join(', ') + ')',
-    rows.length >= 14 && empty.length === 0, empty.join(', '));
+  const want = await fr.evaluate(BASES_WANT);
+  const missing = want.names.filter(n => names.indexOf(n) < 0);
+  ok(label + ': every one of the ' + rows.length + ' home bases (' + want.names.length + ' on the map: ' + want.why + '), its board opened by a tap through the map\'s door, offers work (' + total + ' people: ' + rows.map(r => r.name + ' ' + (r.people ? r.people.length : 0)).join(', ') + ')',
+    rows.length >= 13 && rows.length === want.names.length && !missing.length && empty.length === 0, (missing.length ? 'NOT REACHED: ' + missing.join(', ') + '; ' : '') + empty.join(', '));
   ok(label + ': every person tapped says his job, with Take it or the swap', mute.length === 0 && total > 0, mute.slice(0, 2).join(' | '));
   return rows;
 }
@@ -244,9 +259,11 @@ async function oldSave() {
   const d = await drive.open({ profile: 'phone_portrait', fog: true, arm });
   try {
     await ready(d.fr);
-    const o = await d.fr.evaluate(() => ({ from: WORLD_SEED_FROM, code: WORLD_SEED, classic: typeof CT_BASES_BAKED !== 'undefined' && JSON.stringify(ctBases()) === JSON.stringify(CT_BASES_BAKED), day: loopDay(), held: LOOP.held.map(h => h.id + '@' + h.from), done: (LOOP.doneIds || []).slice() }));
+    /* the old valley is the baked bases as the map holds them (HOME.rawBases), before his unplanted outfit is taken off them (442(c)) */
+    const o = await d.fr.evaluate(() => ({ from: WORLD_SEED_FROM, code: WORLD_SEED, classic: typeof CT_BASES_BAKED !== 'undefined' && JSON.stringify((window.HOME && HOME.rawBases) ? HOME.rawBases() : ctBases()) === JSON.stringify(CT_BASES_BAKED), day: loopDay(), held: LOOP.held.map(h => h.id + '@' + h.from), done: (LOOP.doneIds || []).slice() }));
     ok('B4 AN OLD SAVE (made on 11/3zd) opens on the old valley, day ' + o.day + ', with its job and its finished job (' + o.from + ', ' + o.held.join(',') + ')',
-      o.from === 'old_save' && !o.code && o.classic && o.held.some(h => h.indexOf(held0 + '@') === 0) && o.done.indexOf(done0) >= 0);
+      o.from === 'old_save' && !o.code && o.classic && o.held.some(h => h.indexOf(held0 + '@') === 0) && o.done.indexOf(done0) >= 0,
+      'from ' + o.from + ', code ' + (o.code || 'none') + ', the baked bases ' + (o.classic ? 'yes' : 'NO') + ', held ' + o.held.join(',') + ', done ' + (o.done.indexOf(done0) >= 0 ? done0 : 'NOT ' + done0));
     const rows = await everyBoard(d, 'B4 AN OLD SAVE');
     const heldTop = rows.filter(r => r.held && r.held.rows.indexOf(held0) >= 0).length;
     const offered = await d.fr.evaluate((ids) => { const SH = BohemiaBoardShelf, day = loopDay() || 1, places = SH.mapPlaces(day); return places.filter(p => (SH.pick({ name: p.name, tier: p.tier }, day, { traits: p.traits, held: LOOP.held.map(h => h.id), done: LOOP.doneIds || [], places }) || []).some(x => ids.indexOf(x.id) >= 0)).map(p => p.name); }, [held0, done0]);
@@ -259,8 +276,9 @@ async function oldSave() {
     const r5 = await d.fr.evaluate(() => { const SH = BohemiaBoardShelf, D = BohemiaJobDanger, day = loopDay() || 1; const places = SH.mapPlaces(day).map(p => Object.assign({}, p, { traits: ['raided'] }));
       const kept = []; SH.shelf().offers.filter(o => o.when === 'raided').forEach(o => places.forEach(p => { if (D.fits(o, p.name, day, [], 1) === false) kept.push(o.id + '@' + p.name); }));
       return { floor: D.rampFloor(day), kept: kept.length, of: 4 * places.length, boards: places.map(p => [p.name, (SH.pick({ name: p.name, tier: p.tier }, day, { traits: ['raided'], held: LOOP.held.map(h => h.id), done: LOOP.doneIds || [], places }) || []).length]) }; });
-    ok('B5 THE MEASURED CASE: every place raided, the danger reads in (' + r5.kept + ' of ' + r5.of + ' raid jobs kept back by the floor ' + r5.floor + '): every board offers work (' + r5.boards.map(b => b[0] + ' ' + b[1]).join(', ') + ')',
-      reads && reads.engine && r5.boards.length >= 14 && r5.boards.every(b => b[1] >= 1));
+    const w5 = await d.fr.evaluate(BASES_WANT);
+    ok('B5 THE MEASURED CASE: every place raided, the danger reads in (' + r5.kept + ' of ' + r5.of + ' raid jobs kept back by the floor ' + r5.floor + '): every board offers work (' + r5.boards.map(b => b[0] + ' ' + b[1]).join(', ') + '; ' + w5.names.length + ' on the map: ' + w5.why + ')',
+      reads && reads.engine && r5.boards.length >= 13 && r5.boards.length === w5.names.length && r5.boards.every(b => b[1] >= 1));
     ok('B4 AN OLD SAVE: nothing threw', errsOf(d).length === 0, errsOf(d).slice(0, 2).join(' | '));
   } catch (e) { ok('B4/B5 measured', false, e && e.message); }
   finally { await d.close().catch(() => {}); }
