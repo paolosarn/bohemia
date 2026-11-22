@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22s - THE RADIO STATION, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22u - THE SPEEDWAY, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE SPEEDWAY (the map's Las Vegas Motor Speedway by the air base): about one fight in three there is fought under a roof: the garage row (bay walls and haulers that hide a
+man; race cars on stands and tool chests for cover; tyres, fuel jugs) or the inspection shed (cars on lifts, template racks and parts shelves; a backed-up drain, Battle Brothers' swamp).
+GATE THE BIG INSIDES 595/0 in two halves (301 in 321 s, 294 in 283 s; thirty-four insides). ON THE PAGE: 10 fights in the speedway on the demo and the alpha, upright and on its side (the inspection shed eight times, the garage row twice), all ended, 49 of 49 tile taps, 0 page errors. VOTE combat4-the-speedway-11-22.
+[bb Battle Brothers' wall in a row: every bay walled from the next, so a man two bays over is hidden till you round the wall]
+[analog horror: a hauler's ramp down in the dark, a team's last race still on the whiteboard inside it]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22s - THE RADIO STATION, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE RADIO STATION (Paolo's 'voice of the valley'): about eight fights in ten there are fought inside: the studios (glass seen through, never crossed; record shelves and racks
 that hide a man; consoles, desks, crates; a cot by the microphone) or the transmitter hall (transmitters and generators that hide a man; burst cooling water, Battle Brothers' swamp).
 GATE THE BIG INSIDES 577/0 in two halves (301 in 256 s, 276 in 252 s; thirty-three insides). ON THE PAGE: 4 fights in the station on the demo and the alpha, upright and on its side (the studios once, the transmitter hall three times), all ended, 24 of 24 tile taps, 0 page errors. VOTE combat4-the-radio-station-11-22.

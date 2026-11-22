@@ -1,6 +1,21 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the radio station] SHIPPED 4a9f34258, BUILD 11/22s - THE RADIO STATION, BUILT, NOT YET SEEN. VOTE combat4-the-radio-station-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the speedway] SHIPPED 6d62b318d, BUILD 11/22u - THE SPEEDWAY, BUILT, NOT YET SEEN. VOTE combat4-the-speedway-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_SPEEDWAY_11_22_26.md. More boards (rule 461): the speedway ('speedway', 0.3; 402 cells over 40 valleys): the_garage_row (bay walls and haulers the obstacles row, they hide a man;
+race cars on stands and tool chests cover; tyres, fuel jugs low) and the_inspection_shed (cars on lifts and on the scales cover; template racks and parts shelves hide a man;
+the backed-up drain the swamp row, 4 AP and fight worse). 14 tile kinds, 11 pieces all stand-ins (I13 green); thirty-fourth in insides.json; no high ground.
+GATE THE BIG INSIDES 595/0 in two halves (301 in 321 s, 294 in 283 s; thirty-four insides)
+ON THE PAGE: 10 fights in the speedway on the demo and the alpha, upright and on its side (the inspection shed eight times, the garage row twice), all ended, 49 of 49 tile taps, 0 page errors.
+*** FOR COOK (SIX): THE SPEEDWAY'S NAMES (speedway_art.json, THE GARAGE'S FORMAT): floor.floor (sealed concrete, rubber marks), floor.drain (standing water, if a floor list
+is wanted for it), floor.ring; sw_hauler (a team's hauler, ramp down), sw_divider (the block wall between two bays), sw_racecar (a race car on jack stands), sw_toolchest,
+sw_tyres, sw_jugs (fuel jugs), sw_lift (a car up on a lift), sw_shelves (parts shelves), sw_templates (the template racks), sw_wall_ew, sw_wall_ns;
+speedway/speedway_ceiling.webp. ***
+NEXT: row 699 (PLUMBER 8 filed it for COMBAT: THE FIGHT ON AUTO DRAWS EVERY MAN EVERY FRAME, 1.6 frames a second at 4x on THE DECK): taking it now, a
+fight he can feel; then the granary (Paolo's 7/6 place, drafted and measured joined). The robot factory and the paved places wait on WORLD's map.
+[bb Battle Brothers' wall in a row: every bay walled from the next, so a man two bays over is hidden till you round the wall]
+[analog horror: a hauler's ramp down in the dark, a team's last race still on the whiteboard inside it]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the radio station] SHIPPED 4a9f34258, BUILD 11/22s - THE RADIO STATION, BUILT, NOT YET SEEN. VOTE combat4-the-radio-station-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_RADIO_STATION_11_22_26.md. More boards (rule 461): THE RADIO STATION, Paolo's own place ('radio', 0.8; one cell, kept in 40 of 40 valleys): the_studios (glass seen through and
 never crossed; racks and record shelves the obstacles row, they hide a man; consoles, desks, crates cover; couches low; cables rough 3 AP; a cot by the microphone) and
 the_transmitter_hall (transmitters and generators hide a man; benches, crates, desks cover; drums low; cables rough; the cooling loop's water the swamp row, 4 AP and fight worse).
