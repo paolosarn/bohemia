@@ -11574,6 +11574,12 @@ function hud() {
   if (pi.dataset.key !== pk) { pi.dataset.key = pk; pi.textContent = ''; show.perks.forEach(function (id) { pi.appendChild(perkArt(id, 16)); }); }
   const ap = document.getElementById('ap'); ap.textContent = '';
   for (let i = 0; i < show.apTurn; i++) { const q = document.createElement('i'); if (i < show.ap) q.className = 'on'; ap.appendChild(q); }
+  /* __THE_ROUNDS_ON_THE_CARD__ (FIGHT SCREEN THREE 11/22; VAMILY rule 478(a): 'every gun carries its own rounds, shown on the man's card';
+     Battle Brothers shows a ranged man's ammo on his own bar): the gun in his hands, the rounds left of what it holds (FIGHT.rounds, the count
+     the board's mark over him and the aim line already read), and dry at none; the phone's card draws them. The count is COMBAT FOUR's */
+  const rdc = FIGHT.onField(show) ? FIGHT.rounds(show) : null;
+  ap.dataset.rounds = rdc && rdc.of > 0 ? Math.max(0, rdc.left) + '/' + rdc.of : '';
+  ap.dataset.dry = rdc && rdc.of > 0 && rdc.left <= 0 ? '1' : '';
   /* Battle Brothers' numbers (rule 125(b)): the AP and the wind left, where he already looks for them */
   /* ICONS, NOT NUMBERS (rule 224, newest; it amends 125(b)): the AP he spends said once (the pips are its picture); the wind left
      is the fatigue bar's own number, so it is no longer said twice */

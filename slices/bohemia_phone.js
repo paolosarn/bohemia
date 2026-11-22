@@ -439,6 +439,8 @@
     return { name: nm ? String(nm.textContent || '').replace(/\s*\*$/, '') : '', main: !!nm && /\*$/.test(String(nm.textContent || '')), face: g('face'),
       hp: bar('bhp'), arm: bar('barm'), fat: bar('bfat'), ap: ap ? ap.querySelectorAll('i.on').length : 0, apTurn: ap ? ap.children.length : 0,
       cls: cl && cl.style.display !== 'none' ? String(cl.textContent || '').trim() : '', round: r ? String(r.textContent || '').trim() : '',
+      /* __THE_ROUNDS_ON_THE_CARD__ (FIGHT SCREEN THREE 11/22, rule 478(a), a marked line): the rounds in the gun in his hands [left, of], and dry */
+      rounds: ap && ap.dataset.rounds ? ap.dataset.rounds.split('/').map(Number) : null, dry: !!(ap && ap.dataset.dry),
       /* __THE_MANS_CARD_ON_THE_PHONE__ (FIGHT SCREEN TWO 11/17, a marked line by the coordinator's word): the plate as marks: [level, outclasses, dodges, armour] and the words they stand for */
       full: nm && nm.dataset.full ? String(nm.dataset.full) : '',
       plate: cl && cl.style.display !== 'none' && cl.dataset.plate ? cl.dataset.plate.split(',').map(Number) : null, says: cl && cl.dataset.says ? String(cl.dataset.says).split('|') : [] };
@@ -952,6 +954,14 @@
       + '#bohphone .fap .pl .mk.oc{background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 8 8%27%3E%3Cpath d=%27M1 2.5 4 .5 7 2.5M1 5 4 3 7 5M1 7.5 4 5.5 7 7.5%27 fill=%27none%27 stroke=%27%23ff5a40%27 stroke-width=%271.2%27/%3E%3C/svg%3E\")}'
       + '#bohphone .fap .pl .mk.dodge{background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 8 8%27%3E%3Cpath d=%27M.5 4h7M2.6 1.6.5 4l2.1 2.4M5.4 1.6 7.5 4 5.4 6.4%27 fill=%27none%27 stroke=%27%23f2e4c6%27 stroke-width=%271.1%27/%3E%3C/svg%3E\")}'
       + '#bohphone .fap .pl .mk.armour{background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 8 8%27%3E%3Cpath d=%27M1 1h6v3.4c0 2.1-3 3.1-3 3.1s-3-1-3-3.1z%27 fill=%27%239fb0c4%27 stroke=%27%230d0a07%27 stroke-width=%27.6%27/%3E%3C/svg%3E\")}'
+      /* __THE_ROUNDS_ON_THE_CARD__ (FIGHT SCREEN THREE 11/22, rule 478(a)): cartridges on end at the AP row's end: brass with a bright tip, a spent case dark, the last hot, none red on the beat */
+      + '#bohphone .fap .rd{flex:0 0 auto;display:flex;align-items:flex-end;gap:1px;height:5px;margin-left:2px;padding-left:3px;box-shadow:inset 1px 0 0 rgba(255,236,200,.16)}'
+      + '#bohphone .fap.cls .rd{height:6px;margin-left:auto}'
+      + '#bohphone .fap .rd i{flex:0 0 2px;width:2px;height:5px;background:#2a221a;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.7)}'
+      + '#bohphone .fap .rd i.on{background:linear-gradient(#fff0c0 0 1px,#d9a85a 1px 100%);box-shadow:inset -.5px 0 0 rgba(90,60,20,.7)}'
+      + '#bohphone .fap .rd i.last{background:linear-gradient(#fff6d8 0 1px,#ffc04a 1px 100%)}'
+      + '#bohphone .fap .rd.dry i{background:#4a140e;box-shadow:inset 0 0 0 .5px #a8301f}'
+      + '#bohphone[data-beat="3"] .fap .rd.dry i,#bohphone[data-beat="2"] .fap .rd.dry i{background:#e0402e;box-shadow:none}'
       /* ==== /__THE_MANS_CARD_ON_THE_PHONE__ ==== */
       /* COMBAT TIME: stop-motion holds on the beat (steps, never a smooth slide): the glass flashes, the crosshair strikes in
          three holds and beats twice, the word under it */
@@ -1786,7 +1796,7 @@
   function manPaint(force) {
     var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F || !F.man) return;
     var M = F.man(), bars = [M.hp, M.arm, M.fat].map(function (b) { return b ? [b.w, b.c, b.n, b.l].join(',') : ''; });   /* b.l: __THE_LAST_HIT_ON_THE_CARD__ */
-    var key = [M.name, M.main, bars.join(';'), M.ap, M.apTurn, M.cls, M.round, M.full, (M.plate || []).join(',')].join('|');
+    var key = [M.name, M.main, bars.join(';'), M.ap, M.apTurn, M.cls, M.round, M.full, (M.plate || []).join(','), (M.rounds || []).join('/') + (M.dry ? 'x' : '')].join('|');   /* the rounds: __THE_ROUNDS_ON_THE_CARD__ */
     if (!force && key === H.manKey) return; H.manKey = key;
     H.el.querySelector('.stat .wh').textContent = M.round || '';
     var hd = H.el.querySelector('.fh');
@@ -1823,7 +1833,21 @@
       [['oc', P4[1], says[0]], ['dodge', P4[2], says[1]], ['armour', P4[3], says[2]]].forEach(function (m) { if (!m[1]) return;
         var k = document.createElement('i'); k.className = 'mk ' + m[0]; k.setAttribute('role', 'img'); if (m[2]) k.setAttribute('aria-label', String(m[2]).toLowerCase()); pl.appendChild(k); });
     }
-    window.__PHONE_CARD_SAYS = { name: M.name, theirs: !!M.cls, plate: M.plate || null, long: nb.classList.contains('long') };
+    /* __THE_ROUNDS_ON_THE_CARD__ (FIGHT SCREEN THREE 11/22/26; VAMILY rule 478(a): 'every gun carries its own rounds, shown on the man's card'; a marked
+       block, the card is this lane's by rule 449(b)): the gun in his hands, at the end of his AP row (after a man of theirs' plate), as cartridges stood on
+       end: brass for a round in the gun, a dark empty case for one spent, the last one hot; at none every case goes red and pulses on the fight's beat
+       (the board's own dry mark). A magazine past eight shows eight, lit in its share. The words, for a reader, in the label */
+    var rd = fa.querySelector('.rd'); if (!rd) { rd = document.createElement('span'); rd.className = 'rd'; rd.setAttribute('role', 'img'); fa.insertBefore(rd, fa.querySelector('em')); }
+    rd.textContent = '';
+    var R0 = M.rounds && M.rounds[1] > 0 ? M.rounds : null;
+    rd.style.display = R0 ? '' : 'none'; rd.classList.toggle('dry', !!(R0 && M.dry));
+    if (R0) {
+      var nR = Math.min(R0[1], 8), lit = R0[1] > 8 ? Math.ceil(R0[0] / R0[1] * 8) : R0[0];
+      for (var j = 0; j < nR; j++) { var c0 = document.createElement('i'); if (!M.dry && j < lit) c0.className = R0[0] === 1 && R0[1] > 1 ? 'on last' : 'on'; rd.appendChild(c0); }
+      rd.setAttribute('aria-label', M.dry ? 'no rounds left: his gun is empty' : R0[0] + ' of ' + R0[1] + (R0[1] === 1 ? ' round' : ' rounds'));   /* draft:true */
+      rd.dataset.n = R0[0] + '/' + R0[1];
+    } else { rd.removeAttribute('aria-label'); rd.dataset.n = ''; }
+    window.__PHONE_CARD_SAYS = { name: M.name, theirs: !!M.cls, plate: M.plate || null, long: nb.classList.contains('long'), rounds: R0 ? R0.slice() : null, dry: !!(R0 && M.dry) };
     window.__PHONE_MAN = M.name;
   }
 

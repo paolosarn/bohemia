@@ -24,9 +24,14 @@
          of his armour taken since his mark (the bell, or his last turn's end): his card's health and armour bars carry what is left and,
          right of it in the board's punch colour (bone), what was taken, within a point and a half of the share; fatigue carries none;
          put back, the piece is what the fight itself says was taken (a real blow before the test counts)
+     P9  THE ROUNDS ON THE CARD (FIGHT SCREEN THREE 11/22; VAMILY rule 478(a): 'every gun carries its own rounds, shown on the man's card'): a
+         gunman of his on the card: at the end of his AP row a cartridge for every round his gun holds (eight at most), brass for each one in
+         it, inside the card, the fight's own count (FIGHT.rounds); one spent, one fewer lit; none left, every case red and pulsing on the
+         fight's beat, read as 'empty'; a man with no gun in his hands shows none; a gunman of theirs shows his after his plate
      planted: the two-line fit taken out (P2 red: the long name is cut)
      planted: the last hit's drawing taken out (P8 red)
-   Run: node gates/the_mans_card_on_the_phone_gate.js      (about four minutes: three boots of the demo) */
+     planted: the rounds' drawing taken out (P9 red)
+   Run: node gates/the_mans_card_on_the_phone_gate.js      (about five minutes: four boots of the demo) */
 'use strict';
 const fs = require('fs'), path = require('path'), os = require('os'), { spawn } = require('child_process');
 const ROOT = path.join(__dirname, '..');
@@ -63,10 +68,21 @@ const run = (way, env) => new Promise((res) => { const out = fs.mkdtempSync(path
   const lhOk = (T) => { const L = T.lastHit; return !!L && L.want.mark && L.hp && L.arm && Math.abs(L.hp.lost - L.want.hp) <= 1.5 && Math.abs(L.hp.at - L.hp.left) <= 1.5 && (L.want.arm < 1 || Math.abs(L.arm.lost - L.want.arm) <= 1.5)
     && /rgb\(242, 234, 216\)/.test(L.hp.colour || '') && (!L.fat || !L.fat.lost) && Math.abs(L.after - (L.wantAfter < 0.4 ? 0 : L.wantAfter)) <= 1.5; };
   check(lhOk(U) && lhOk(S), 'P8', 'the last hit on the card: ' + W.map(w => { const L = w[1].lastHit; return w[0] + (L ? ' health ' + L.hp.lost + ' of ' + L.want.hp + ' at ' + L.hp.at + ' (what is left ' + L.hp.left + '), armour ' + L.arm.lost + ' of ' + L.want.arm + ', ' + L.hp.colour + ', put back: ' + L.after + ' of ' + L.wantAfter : ' none'); }).join('; '));
+  const BRASS = /linear-gradient\(rgb\(255, 240, 192\)/, DRY = 'rgb(74, 20, 14)', HOT = 'rgb(224, 64, 46)';
+  const rdOk = (T) => { const R = T.rounds; if (!R || !R.gun) return false; const g = R.gun, n = Math.min(g.of, 8), lit = g.of > 8 ? Math.ceil(g.left / g.of * 8) : g.left;
+    const full = R.full && R.full.shown && R.full.cases === n && R.full.lit === lit && R.full.n === g.left + '/' + g.of && R.full.inCard && R.full.colours.some(c => BRASS.test(c));
+    const spent = R.spent && R.spent.shown && R.spent.n === R.spentWant.left + '/' + R.spentWant.of && (g.of > 8 || R.spent.lit === R.spentWant.left) && R.spent.inCard;
+    const dry = R.dry && R.dry.shown && R.dry.dry && R.dry.lit === 0 && /empty/.test(R.dry.says || '') && R.dry.inCard && (R.dryBeat || []).indexOf(HOT) >= 0 && (R.dryBeat || []).indexOf(DRY) >= 0;
+    const none = !R.noGun || (R.noGun.card && !R.noGun.card.shown), theirs = !R.theirs || (R.theirs.card && R.theirs.card.shown && R.theirs.card.n === R.theirs.left + '/' + R.theirs.of && R.theirs.card.inCard);
+    return !!(full && spent && dry && none && theirs); };
+  const rdSay = (T) => { const R = T.rounds || {}; if (!R.gun) return 'no gunman of his'; return R.gun.name + ' (' + R.gun.weapon + ') ' + (R.full ? R.full.lit + ' of ' + R.full.cases + ' lit, ' + R.full.says : 'none drawn') + '; spent: ' + (R.spent ? R.spent.says : '-') + '; dry: ' + (R.dry ? R.dry.says + ', the beat ' + [...new Set(R.dryBeat || [])].join(' / ') : '-') + '; no gun (' + (R.noGun ? R.noGun.weapon : '-') + '): ' + (R.noGun && R.noGun.card ? (R.noGun.card.shown ? 'SHOWN' : 'none') : '-') + '; theirs ' + (R.theirs ? R.theirs.name + ' ' + (R.theirs.card ? R.theirs.card.says : 'not drawn') : '-'); };
+  check(rdOk(U) && rdOk(S), 'P9', 'the rounds on the card: ' + W.map(w => w[0] + ' ' + rdSay(w[1])).join(' | '));
   check(!(U.errs || []).length && !(S.errs || []).length, 'errors', (U.errs || []).length + (S.errs || []).length + ' page errors');
   const P = await run('upright', { PLANT: '1' });
   check(!!P && !!P.cards && !!P.cards.long && (P.cards.long.nameCut || P.cards.long.cutText.length > 0), 'planted', 'the two-line fit taken out: the long name is ' + (P && P.cards && P.cards.long ? (P.cards.long.nameCut || P.cards.long.cutText.length ? 'cut (P2 is red on it)' : 'NOT cut') : 'not read'));
   const PL = await run('upright', { LASTHIT_PLANT: '1' });
   check(!!PL && !!PL.lastHit && !lhOk(PL), 'planted', 'the last hit\'s drawing taken out: P8 reads ' + (PL && PL.lastHit ? 'health ' + PL.lastHit.hp.lost + ' of ' + PL.lastHit.want.hp : 'nothing') + ' (red)');
+  const PR = await run('upright', { ROUNDS_PLANT: '1' });
+  check(!!PR && !!PR.rounds && !rdOk(PR), 'planted', 'the rounds\' drawing taken out: P9 reads ' + (PR && PR.rounds && PR.rounds.full ? (PR.rounds.full.shown ? PR.rounds.full.lit + ' lit' : 'no cartridges') : 'nothing') + ' (red)');
   console.log('\nTHE MAN\'S CARD ON THE PHONE: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0);
 })();

@@ -34,6 +34,8 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
     const rel = decodeURIComponent(u.slice(BASE.length).split('?')[0].split('#')[0]), f = path.join(ROOT, rel);
     if (OLD[rel]) return route.fulfill({ status: 200, body: OLD[rel], headers: { 'Content-Type': MIME[path.extname(rel)] } });
     if (process.env.LASTHIT_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("lo.style.display = lw > 0.4 ? '' : 'none';", "lo.style.display = 'none';"); if (cut === src) throw new Error('the last-hit plant did not take'); return route.fulfill({ status: 200, body: cut, headers: { 'Content-Type': 'text/javascript' } }); }
+    if (process.env.ROUNDS_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("rd.style.display = R0 ? '' : 'none';", "rd.style.display = 'none';");
+      if (cut === src) { log('ROUNDS_PLANT DID NOT TAKE'); process.exit(1); } return route.fulfill({ status: 200, contentType: 'application/javascript', body: cut }); }   /* __THE_ROUNDS_ON_THE_CARD__'s plant */
     if (process.env.PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("nb.classList.add('long'); if (nb.scrollHeight > 15)", "if (nb.scrollHeight > 15)"); if (cut === src) throw new Error('the plant did not take'); return route.fulfill({ status: 200, body: cut, headers: { 'Content-Type': 'text/javascript' } }); }
     if (!PUBLISHED.some(p => rel.startsWith(p)) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) return route.fulfill({ status: 404, body: '' });
     return route.fulfill({ status: 200, body: fs.readFileSync(f), headers: { 'Content-Type': MIME[path.extname(f).toLowerCase()] || 'application/octet-stream', 'Cache-Control': 'max-age=600' } }); });
@@ -115,6 +117,13 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
   /* FIGHT: the line is set, one of his is up */
   await tapSel(page.mainFrame(), '#bohphone .fgo'); 
   await until(async () => { const c = await READ(); return c && !c.none && !c.them && c.pips > 0; }, 60000, 250); await wait(700);
+  /* a turn of theirs that outlasts the wait (two browsers at once, measured 11/22: a MARKSMAN's turn still up at 60 s): his man is put on the
+     card the way a finger on him does (UI.pend.target, the same door the plates use), so the card read is HIS card, as the legs need */
+  if (await READ().then(c => !c || c.none || c.them || !(c.pips > 0))) { T.hisPut = await f.evaluate(() => { const v = FIGHT.S.units.filter(u => u.side === 'you' && FIGHT.onField(u)).sort((a, b) => (b.main ? 1 : 0) - (a.main ? 1 : 0))[0]; if (!v) return null; UI.pend = { target: v }; hud(); return v.name; });
+    await until(async () => { const c = await READ(); return c && !c.none && !c.them && c.pips > 0; }, 5000, 120); await wait(500); }
+  /* where the fight stood when the card was read (a wait that ran out says why) */
+  T.hisAt = await f.evaluate(() => { const u = FIGHT.current(); return { deploy: !!FIGHT.S.deploy, round: FIGHT.S.round, cur: u ? u.name + ' (' + u.side + ')' : null, pend: UI.pend && UI.pend.target ? UI.pend.target.name : null, over: !!FIGHT.S.over, anim: UI.anim.length, card: document.getElementById('cnm').textContent, apData: document.getElementById('ap').dataset.rounds }; }).catch(e => String(e));
+  log('HIS AT', JSON.stringify(T.hisAt));
   T.cards.his = await READ(); await shot('5_phone_his');
   log('HIS', JSON.stringify(T.cards.his));
   /* __THE_LAST_HIT_ON_THE_CARD__ (FIGHT SCREEN THREE 11/20): a quarter of his health and a third of his armour taken since the bell (his mark);
@@ -135,6 +144,41 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
     T.lastHit.after = await page.evaluate(() => { const u = document.querySelector('#bohphone .fh .fb.hp s u.lost'), s = u && u.parentNode; return u && getComputedStyle(u).display !== 'none' ? Math.round(1000 * u.getBoundingClientRect().width / s.getBoundingClientRect().width) / 10 : 0; });
     T.lastHit.wantAfter = await f.evaluate(() => { const e = document.getElementById('bhp'); return Math.round((parseFloat(e && e.dataset.lost) || 0) * 10) / 10; });   /* whoever is on the card now: the fight's own share (the turn may have moved on) */
     log('LAST HIT', JSON.stringify(T.lastHit)); }
+  /* __THE_ROUNDS_ON_THE_CARD__ (FIGHT SCREEN THREE 11/22, rule 478(a)): a gunman of his on the card: the phone's cartridges against the fight's own
+     count (FIGHT.rounds), one round spent, then none (dry), then put back; a man with no gun shows none; a gunman of theirs shows his. ROUNDS_PLANT=1
+     takes the drawing out */
+  const RDREAD = () => page.evaluate(() => { const rd = document.querySelector('#bohphone .fh .fap .rd'), hd = document.querySelector('#bohphone .fh');
+    if (!rd || getComputedStyle(rd).display === 'none') return { shown: false };
+    const cs = [...rd.querySelectorAll('i')], r = rd.getBoundingClientRect(), hb = hd.getBoundingClientRect(), col = e => getComputedStyle(e).backgroundImage !== 'none' ? getComputedStyle(e).backgroundImage.slice(0, 40) : getComputedStyle(e).backgroundColor;
+    return { shown: true, cases: cs.length, lit: cs.filter(e => e.classList.contains('on')).length, last: cs.filter(e => e.classList.contains('last')).length, dry: rd.classList.contains('dry'), says: rd.getAttribute('aria-label'), n: rd.dataset.n,
+      box: [Math.round(r.left * 10) / 10, Math.round(r.top * 10) / 10, Math.round(r.width * 10) / 10, Math.round(r.height * 10) / 10], inCard: r.left >= hb.left - 0.6 && r.right <= hb.right + 0.6 && r.top >= hb.top - 0.6 && r.bottom <= hb.bottom + 0.6,
+      colours: [...new Set(cs.map(col))] }; });
+  const gun = await f.evaluate(() => { const g = FIGHT.S.units.filter(v => v.side === 'you' && FIGHT.onField(v) && FIGHT.rounds(v) && FIGHT.rounds(v).of > 0)[0];
+    if (!g) return null; UI.pend = { target: g }; hud(); const r = FIGHT.rounds(g); return { id: g.id, name: g.name, weapon: g.weapon && g.weapon.name, mag: !!g.weapon.mag, ammo: g.ammo, loaded: g.loaded, left: r.left, of: r.of }; });
+  if (gun) {
+    T.rounds = { gun: gun };
+    await until(async () => { const c = await RDREAD(); return c.shown && c.n === gun.left + '/' + gun.of; }, 4000, 80);
+    T.rounds.full = await RDREAD(); await shot('7_phone_rounds');
+    /* one round spent */
+    const one = await f.evaluate((g) => { const u = FIGHT.byId(g.id); if (u.weapon.mag || (u.weapon.ammo && u.ammo !== null)) u.ammo = Math.max(1, u.ammo - 1); hud(); const r = FIGHT.rounds(u); return { left: r.left, of: r.of }; }, gun);
+    await until(async () => { const c = await RDREAD(); return c.shown && c.n === one.left + '/' + one.of; }, 3000, 80);
+    T.rounds.spent = await RDREAD(); T.rounds.spentWant = one;
+    /* none left: dry */
+    await f.evaluate((g) => { const u = FIGHT.byId(g.id); if (u.weapon.mag || (u.weapon.ammo && u.ammo !== null)) u.ammo = 0; else u.loaded = false; hud(); }, gun);
+    await until(async () => { const c = await RDREAD(); return c.shown && c.dry; }, 3000, 80);
+    await wait(260); T.rounds.dry = await RDREAD(); await shot('7b_phone_rounds_dry');
+    /* the beat: the dry cases pulse (read twice across a beat) */
+    T.rounds.dryBeat = []; for (let k = 0; k < 8; k++) { T.rounds.dryBeat.push(await page.evaluate(() => { const i = document.querySelector('#bohphone .fh .fap .rd.dry i'); return i ? getComputedStyle(i).backgroundColor : null; })); await wait(70); }
+    await f.evaluate((g) => { const u = FIGHT.byId(g.id); u.ammo = g.ammo; u.loaded = g.loaded; hud(); }, gun);
+  } else T.rounds = { gun: null };
+  /* a man with no gun in his hands: no cartridges */
+  T.rounds.noGun = await f.evaluate(() => { const m = FIGHT.S.units.filter(v => FIGHT.onField(v) && !FIGHT.rounds(v))[0]; if (!m) return null; UI.pend = { target: m }; hud(); return { name: m.name, weapon: m.weapon && m.weapon.name }; });
+  if (T.rounds.noGun) { await wait(400); T.rounds.noGun.card = await RDREAD(); }
+  /* a gunman of theirs: his rounds after his plate */
+  T.rounds.theirs = await f.evaluate(() => { const m = FIGHT.S.units.filter(v => v.side === 'them' && FIGHT.onField(v) && FIGHT.rounds(v) && FIGHT.rounds(v).of > 0)[0]; if (!m) return null; UI.pend = { target: m }; hud(); const r = FIGHT.rounds(m); return { name: m.name, left: r.left, of: r.of }; });
+  if (T.rounds.theirs) { await until(async () => { const c = await RDREAD(); return c.shown && c.n === T.rounds.theirs.left + '/' + T.rounds.theirs.of; }, 3000, 80); T.rounds.theirs.card = await RDREAD(); await shot('7c_phone_rounds_theirs'); }
+  await f.evaluate(() => { UI.pend = null; hud(); }).catch(() => null);
+  log('ROUNDS', JSON.stringify(T.rounds));
   T.errs = errs; fs.writeFileSync(path.join(OUT, 'phone_card.json'), JSON.stringify(T, null, 1));
   log('DONE', WHICH, WAY, BEFORE ? 'BEFORE' : '', 'page errors', errs.length, errs.slice(0, 2).join(' | '));
   await page.close(); await ctx.close(); await browser.close(); process.exit(0);
