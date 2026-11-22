@@ -17,10 +17,12 @@
         the old ways 12.8 s on this valley with no network delay, 16.6 to 24.3 s with a phone's)
      L2 NOTHING HOLDS THE PAGE LONG: the longest task of the load under TASK_MAX ms and all of them over 50 ms under HELD_MAX ms
         (measured 581 ms and 2.3 s; the old ways 883 ms and 5.3 s; rule 441's half second is the goal: named in the record)
-     L3 NO HOUR RUNS BEFORE THE CAMP IS UP: the camp's hours are 0 the moment its picture is in
+     L3 NO HOUR RUNS BEFORE THE CAMP IS UP: the camp's hours at most 1 the moment its picture is seen in (the first hour may tick
+        between the picture and this look; the old ways: 12 to 35)
      L4 THE OTHER LIGHT IS THE SAME BOARD: the night (or the day) is handed the board the first light dealt, the same board both lights
      L5 THE PICTURE IS HANDED: the camp's screen draws the board's own canvas (camp-board:), never a file written and read back
-     P1 PLANTED: the six old ways at once turn L3 red (the hours gone before the camp shows) and L1 or L2 (slow or held)
+     P1 PLANTED: the six old ways at once turn L3 and L5 red (the hours gone before the camp shows, the picture written) and hold
+        the page longer than now
    The game a stranger plays (fog: true), one valley named (PTBTDN: the camp on THE DECK), never the checkers' bench.
    node gates/the_camp_loads_in_one_go_gate.js
    ============================================================================ */
@@ -81,10 +83,13 @@ async function camp(old) {
   console.log('  now:          ' + say(A)); console.log('  the old ways: ' + say(B) + '\n');
   ok('L1 THE CAMP\'S PICTURE IS IN QUICKLY: under ' + SECS_MAX + ' s from the tap', !A.err && A.ms != null && A.ms < SECS_MAX * 1000, say(A));
   ok('L2 NOTHING HOLDS THE PAGE LONG: the longest task under ' + TASK_MAX + ' ms, all over 50 ms under ' + HELD_MAX + ' ms', !A.err && !!A.frames && A.frames.longMax < TASK_MAX && A.frames.longSum < HELD_MAX, A.frames ? A.frames.longMax + ' ms, ' + A.frames.longSum + ' ms' : 'not measured');
-  ok('L3 NO HOUR RUNS BEFORE THE CAMP IS UP: the camp\'s hours the moment its picture is in', !A.err && A.hours === 0, 'hours ' + A.hours);
+  ok('L3 NO HOUR RUNS BEFORE THE CAMP IS UP: the camp\'s hours the moment its picture is in at most 1 (the clock starts the moment it is in, an hour a half second, and this look comes up to a quarter second after it)', !A.err && A.hours != null && A.hours <= 1, 'hours ' + A.hours);
   ok('L4 THE OTHER LIGHT IS THE SAME BOARD: handed the first light\'s board, the same board both lights', !A.err && A.same === true && !!(A.bake && A.bake.t && A.bake.t.steps && A.bake.t.steps.some(s => s[0] === 'the other light dealt' && s[1] < 200)), JSON.stringify(A.bake && A.bake.t && (A.bake.t.steps || []).filter(s => s[0] === 'the other light dealt')) + ', same both ' + A.same);
   ok('L5 THE PICTURE IS HANDED: the screen draws the board\'s own canvas', !A.err && /^camp-board:/.test(A.src || ''), A.src);
-  ok('P1 PLANTED: the six old ways at once turn L3 red (the hours gone) and L1 or L2 (slow or held)', !B.err && B.ms != null && B.hours > 0 && (B.ms >= SECS_MAX * 1000 || B.frames.longMax >= TASK_MAX || B.frames.longSum >= HELD_MAX), say(B) + ', hours gone ' + B.hours);
+  /* the plant's proof is what comes back every time (measured, four runs on this valley with no network delay: the old ways' picture
+     in 8.4 to 12.8 s, so L1 alone is not a sure red here; with a phone's 100 ms round trip 16.6 to 24.3 s): the hours gone (L3), the
+     picture written and read back (L5), and more of the page held than now */
+  ok('P1 PLANTED: the six old ways at once turn L3 and L5 red (the hours gone, the picture written) and hold the page longer than now', !B.err && B.ms != null && B.hours > 1 && !/^camp-board:/.test(B.src || '') && !!B.frames && !!A.frames && B.frames.longSum > A.frames.longSum, say(B) + ', hours gone ' + B.hours + ', its picture ' + String(B.src || '').slice(0, 22));
   console.log('\nTHE CAMP LOADS IN ONE GO: ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);
 })().catch(e => { console.error(e); console.log('THE CAMP LOADS IN ONE GO: ' + pass + ' passed, ' + (fail + 1) + ' failed (threw)'); process.exit(1); });
