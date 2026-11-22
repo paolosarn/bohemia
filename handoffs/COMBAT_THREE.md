@@ -1,6 +1,22 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 59, 416, 428, 441, 465; ask row 651): 11/22 LATEST -- [the tall things hide a man] SHIPPED 53f6b17ce, BUILD 11/22d - THE TALL THINGS HIDE A MAN, BUILT, NOT YET SEEN. VOTE combat4-the-tall-things-hide-a-man-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the police station] SHIPPED d48d744dd, BUILD 11/22e - THE POLICE STATION, BUILT, NOT YET SEEN. VOTE combat4-the-police-station-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_POLICE_STATION_11_22_26.md. More boards (rule 461): the police station ('policestation', 0.8; two cells): the_squad_room (holding cells along the
+top, their bars a blocker you see through, steel bunks; desks pushed together, tipped filing cabinets, spilled case boxes rough 3 AP; the front counter and the lobby's
+bullet glass, seen through; officers' lockers that hide a man; the evidence cage) and the_sally_port (patrol cars on flat tires, low enough to see over; property cages
+along the walls; barriers, cones). One data file (18 tile kinds, 16 pieces all stand-ins), twenty-first in insides.json; no high ground; the ceiling the hospital's 'grid'.
+GATE THE BIG INSIDES 350/0 (twenty-one insides) (the police station 19/0 with I12: the lockers hide, the bars and glass are seen past; 14% bare after round one against 26%; my first cut 40%).
+ON THE PAGE: 8 fights in the squad room, both pages both ways, all ended, 40 of 40 taps, 0 errors (the sally port on the fight page alone and in the gate).
+*** FOR COOK (SIX): THE POLICE STATION'S NAMES (police_art.json, THE GARAGE'S FORMAT): floor.floor (the squad room's tile; the sally port's oil-stained concrete), floor.ring;
+pd_cells (a holding cell's front of bars), pd_bunk (a cell's steel bunk), pd_desks, pd_files (filing cabinets tipped), pd_boxes (case boxes spilled), pd_counter (the front
+counter), pd_glass (the lobby's bullet glass, starred), pd_chairs (bolted lobby chairs), pd_lockers (officers' lockers), pd_evidence (the evidence cage, mesh cut), pd_cages
+(property cages), pd_car (a patrol car on flat tires, light bar dead), pd_cones, pd_barrier (a water-filled barrier, empty), pd_wall_ew, pd_wall_ns;
+police/police_ceiling.webp; "have": true in police.json's ceiling.
+NEXT: more boards (the fire station's apparatus bay); the robot factory waits on WORLD's map (its record).
+[bb Battle Brothers' palisade you see through: the cells' bars, the cages' mesh]
+[analog horror: the dispatch radio on the front desk still scanning, landing on the same dead channel]
+
+COMBAT FOUR (rules 461, 59, 416, 428, 441, 465; ask row 651): 11/22 -- [the tall things hide a man] SHIPPED 53f6b17ce, BUILD 11/22d - THE TALL THINGS HIDE A MAN, BUILT, NOT YET SEEN. VOTE combat4-the-tall-things-hide-a-man-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_TALL_THINGS_HIDE_A_MAN_11_22_26.md. The fight's sight stops only at the 'obstacles' row; 17 kinds of tall solid blocker in ten insides stood on flat ground
 and were seen through. Now row 'obstacles', terrain 'blocked', 'sight': 'blocked', the effect says so: hall.container, mall.lift, warehouse.trailer, datafort.crac,
 stadium.tent, powerhouse.unit, homecenter.rack, truckstop.cooler/shelving/cab/trailer, hangar.fuselage/tail, tvstation.greenscreen/flats/racks/monitors. Seen past on purpose:

@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22d - THE TALL THINGS HIDE A MAN, BUILT, NOT YET SEEN (rules 461, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22e - THE POLICE STATION, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE POLICE STATION: a fight at a police station (eight in ten) is fought in its squad room (desks, tipped files, spilled case boxes, holding cells you see into through
+the bars, the lobby's bullet glass) or its sally port (patrol cars on flat tires, barriers, property cages). One data file, every picture a stand-in (names for COOK in the handoff).
+GATE THE BIG INSIDES 350/0 (twenty-one insides). ON THE PAGE: 8 fights in the squad room, both pages both ways, all ended, 40 of 40 taps, 0 errors (the sally port on the fight page alone and in the gate). VOTE combat4-the-police-station-11-22.
+[bb Battle Brothers' palisade you see through: the cells' bars, the cages' mesh]
+[analog horror: the dispatch radio on the front desk still scanning, landing on the same dead channel]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22d - THE TALL THINGS HIDE A MAN, BUILT, NOT YET SEEN (rules 461, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE TALL THINGS HIDE A MAN: inside the big buildings, racks twice a man's height, trailers, a jet's fuselage, set flats and 13 more kinds were walls you could see through.
 Now they block sight the way walls do; glass, cages, skeletons and low things still let you see. Data only (ten insides' tile entries). NEW GATE LEG I12 with a plant;
 THE BIG INSIDES 334/0. ON THE PAGE: the home center, both pages both ways, 4 fights, 15 of 15 taps, 0 errors. VOTE combat4-the-tall-things-hide-a-man-11-22.
