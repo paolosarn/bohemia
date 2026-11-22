@@ -1,3 +1,9 @@
+STAFF (staff-01gkdyus): 11/22 LATEST -- BUILD 11/22zi - THEY FIGHT LIKE STAFF, BUILT, NOT YET SEEN (rule 470(a), his order on his YES; rules 461, 441, 465; ask row 701). Its block is handoffs/STAFF.md.
+THEY FIGHT LIKE STAFF: the camp's own AUTO (slices/BOHEMIA_FIGHT.html __THEY_FIGHT_LIKE_STAFF__, ai.json staff_ground): every turn a camp person takes the most defended tile he can
+reach (out of their reach, a fighter between him and each of theirs, behind the line, a wall or corner at his back, cover, high ground, huddled), moves when one of theirs is beside
+or behind him, the blade only when cornered. 160 fights, the same seeds: caught from behind 1.4% -> 0.4% of his turns, blows on the camp 3.17 -> 2.15 a fight, the camp dead 28% -> 18%,
+his win unchanged. Gate THE STAFF FIGHT TOO leg S12 (against a fighter's brain). On the phone, the demo and the alpha both ways: 99 camp turns, none beside, circled or flanked.
+FOUND for COMBAT FOUR: upright, the camp at the west edge is off the glass mid-fight (a NOTE in handoffs/COMBAT_THREE.md). NEXT: rule 471, the cart. VOTE staff-they-fight-like-staff-11-22.
 JOBS TWO (jobs-two-01gkdyuu): 11/22 LATEST -- BUILD 11/22zh - YOUR FOLLOWERS, BUILT, NOT YET SEEN (rules 470(b), 466(c), 441; ask row 702). Its block is handoffs/JOBS.md.
 YOUR FOLLOWERS (his 'Put followers... kind of like your reputation'): the company's one count (Battle Brothers' Renown) is said as FOLLOWERS: the map's bar
 (FOLLOWERS over the number, a second's flicker when it moves, sized to fit an upright glass down to 320) and the FEED page's company profile ('260 FOLLOWERS';

@@ -2721,38 +2721,77 @@ const FIGHT = (function () {
       && !friends(v).some(function (f) { return f !== u && !f.staff && dist(f, v) === 1; }); });
     return near.length ? G.beside : 0;
   }
-  /* HIS TURN (C9, ai.json archetypes.staff): never by his hand. With a man of theirs next to him and not Breaking, the knife; else one step
-     to the open tile nearest his nearest fighter, farther from theirs, where fewer of theirs can reach him; then he ends his turn */
+  /* ==== __THEY_FIGHT_LIKE_STAFF__ (STAFF, VAMILY rule 470(a), Paolo 11/22 on his YES: 'Make sure their auto combat shit is different. They're
+     weak as fuck compared to the front line. They will stay behind. They will take defensive positions and they will attempt to not be
+     flanked and circled.'). HIS TURN (ai.json archetypes.staff, its ground in ai.json staff_ground): never by his hand, and never a fighter's
+     brain. Every turn he weighs every tile his walk reaches and takes the most defended one, if it beats where he stands by the file's margin:
+       - where fewer of theirs can reach him by their next turn (dangerAt), and none of theirs stands beside him or on his side of him (behind);
+       - a fighter of his between him and every one of theirs (a man of his nearer that one of theirs, on the way from him to the tile);
+       - behind his line (west of the middle of his standing fighters; his line faces east, rule 67);
+       - few open sides: a wall, a building, a piece of cover or one of his own at his back and flanks, a corner best (Battle Brothers' surround:
+         every man of theirs past the first around him is +5% to hit him, so a man who cannot be circled is a man who is not);
+       - the board's cover beside him (ours.cover_defence) and high ground;
+       - huddled with the camp and beside a fighter (Battle Brothers' +3 a man beside him on a nerve check);
+     never ending a step in their reach. The blade only when cornered: a man of theirs beside him and no tile his walk reaches out of every
+     one of theirs' reach (or he has already stepped). Fleeing, he runs as any man (flee). ==== */
+  function staffGround(u) { const G = DB.ai.staff_ground && DB.ai.staff_ground.value; if (G) DB.read['ai.staff_ground'] = DB.ai.staff_ground.source; return G; }
+  /* the parts of a tile's worth to a camp follower, lower is safer (the gate and the bench read them) */
+  function staffTile(u, x, y, G, mine, theirs, lineX) {
+    const at = { x: x, y: y }, d = function (a, b) { return Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y)); };
+    let unscreened = 0, beside = 0, behind = 0;
+    theirs.forEach(function (f) {
+      const df = d(f, at);
+      if (df === 1) beside++;
+      else if (f.x < x && df <= G.behind_tiles) behind++;   /* his line faces east: one of theirs west of him and near is round his back */
+      if (!mine.some(function (g) { const fg = d(f, g); return fg < df && fg + d(g, at) <= df + 1; })) unscreened++;
+    });
+    let open = 0;
+    for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) { if (!dx && !dy) continue; const nx = x + dx, ny = y + dy;
+      if (!inBoard(nx, ny) || !passable(nx, ny)) continue;
+      const o = unitAt(nx, ny); if (o && o !== u && o.side === u.side) continue;   /* one of his own closes that side */
+      open++; }
+    const cover = Math.min(R('ours.cover_defence').max_pieces, (S.coverCount && S.coverCount[y] && S.coverCount[y][x]) || 0), up = level(x, y) > 0 ? 1 : 0;
+    const camp = S.units.filter(function (v) { return v !== u && v.staff && onField(v) && d(v, at) === 1; }).length;
+    const guard = mine.filter(function (g) { return d(g, at) === 1; }).length;
+    const ahead = lineX === null ? 0 : Math.max(0, x - (lineX - G.behind_line_by));
+    const danger = dangerAt(u, x, y);
+    return { danger: danger, unscreened: unscreened, beside: beside, behind: behind, open: open, cover: cover, up: up, camp: camp, guard: guard, ahead: ahead,
+      score: danger * G.danger + unscreened * G.unscreened + beside * G.foe_beside + behind * G.foe_behind + open * G.open_side
+        - cover * G.cover_piece - up * G.high_ground + ahead * G.ahead_of_line - Math.min(camp, G.huddle_cap) * G.camp_beside - Math.min(guard, 1) * G.fighter_beside };
+  }
+  function staffLineX(mine) {
+    if (!mine.length) return null;
+    const xs = mine.map(function (g) { return g.x; }).sort(function (a, b) { return a - b; });
+    return xs[Math.floor((xs.length - 1) / 2)];   /* the middle of his standing fighters, west to east */
+  }
   function staffStep(u) {
+    const G = staffGround(u);
     const adj = foes(u).filter(function (f) { return dist(f, u) === 1 && canStrike(u, f) && sideSees(u.side, f); });
-    /* CORNERED (ai.json staff knife_when_cornered): a camp follower is no soldier; he gets out of their reach when a tile his walk reaches
-       is out of every man of theirs' reach, and only with nowhere to go (or once he has stepped) does he use the knife */
-    const out = adj.length && u.staffMovedAt !== u.turnLog ? (function () { const f = reach(u); return Object.keys(f.best).some(function (k) { k = Number(k);
-      const x = k % S.w, y = Math.floor(k / S.w); return (x !== u.x || y !== u.y) && !zocOn(u, x, y).length; }); })() : false;
+    /* CORNERED (archetypes.staff knife_when_cornered): he gets out of their reach when a tile his walk reaches is out of every man of theirs'
+       reach, and only with nowhere to go (or once he has stepped) does he use the blade */
+    const f0 = (adj.length || G) && u.staffMovedAt !== u.turnLog ? reach(u) : null;
+    const out = adj.length && f0 ? Object.keys(f0.best).some(function (k) { k = Number(k);
+      const x = k % S.w, y = Math.floor(k / S.w); return (x !== u.x || y !== u.y) && !zocOn(u, x, y).length; }) : false;
     if (adj.length && u.morale !== 'Breaking' && !out) {
       const t = adj.slice().sort(function (a, b) { return (a.hp + a.armB) - (b.hp + b.armB); })[0];
       if (strike(u, t)) return true;
     }
-    if (u.staffMovedAt !== u.turnLog) {
+    if (u.staffMovedAt !== u.turnLog && G && f0) {
       u.staffMovedAt = u.turnLog;
-      /* he holds the camp while nobody of theirs can reach him by their next turn; threatened, he goes where the fewest of theirs can
-         reach him, beside one of his fighters if he can (Battle Brothers' +3 a man beside him on a nerve check), farther from them */
-      const mine = friends(u).filter(function (f) { return !f.staff && f.morale !== 'Fleeing'; }), theirs = foes(u);
-      if (theirs.length && dangerAt(u, u.x, u.y) > 0) {
-        const score = function (x, y) {
-          const near = mine.reduce(function (m, f) { return Math.min(m, Math.max(Math.abs(f.x - x), Math.abs(f.y - y))); }, Infinity);
-          const foe = theirs.reduce(function (m, f) { return Math.min(m, Math.max(Math.abs(f.x - x), Math.abs(f.y - y))); }, Infinity);
-          return dangerAt(u, x, y) * 10 + (near <= 1 ? 0 : Math.min(near, 6)) - Math.min(foe, 6);
-        };
-        const f = reach(u); let best = null, bs = score(u.x, u.y) - 0.5;   /* he stays unless a step is clearly better */
-        Object.keys(f.best).forEach(function (k) { k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
-          if (zocOn(u, x, y).length) return;   /* never ends his step in their reach */
-          const sc = score(x, y); if (sc < bs) { bs = sc; best = { x: x, y: y }; } });
-        if (best && (best.x !== u.x || best.y !== u.y) && moveTo(u, best.x, best.y)) return true;
+      const mine = friends(u).filter(function (g) { return !g.staff && g.morale !== 'Fleeing'; }), theirs = foes(u).filter(function (f) { return f.morale !== 'Fleeing' && !f.decoy; });
+      if (theirs.length) {
+        const lineX = staffLineX(mine), here = staffTile(u, u.x, u.y, G, mine, theirs, lineX);
+        let best = null, bs = here.score - G.move_margin;   /* he stays unless a tile is clearly safer */
+        Object.keys(f0.best).forEach(function (k) { k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
+          if ((x === u.x && y === u.y) || zocOn(u, x, y).length) return;   /* never ends his step in their reach */
+          const t = staffTile(u, x, y, G, mine, theirs, lineX); if (t.score < bs) { bs = t.score; best = { x: x, y: y, t: t }; } });
+        u.staffHere = here;
+        if (best && moveTo(u, best.x, best.y)) { u.staffWent = best.t; return true; }
       }
     }
     u.btWhy = 'camp'; endTurn(u); return false;
   }
+  /* ==== end __THEY_FIGHT_LIKE_STAFF__ ==== */
   /* THE RAID FROM BEHIND (C5 step two, ai.json raid; Agincourt's peasants on the baggage): against raiders, with his camp on the board,
      one fight in raid.one_in, up to raid.men of theirs (never the leader, a boss, a champion, a beast or a machine) start at his back
      edge, at least raid.turns_away turns' run from the nearest of his staff; never on the game's first days; no tile that far, no raid */
@@ -6113,7 +6152,7 @@ const FIGHT = (function () {
     level: level, isRoof: isRoof, storeysAt: storeysAt, reachLevel: reachLevel, rangeUp: rangeUp, openStreet: openStreet, tileKeyAt: tileKeyAt, streetCost: streetCost, goodGround: goodGround, groundSteps: groundSteps, oddsOf: oddsOf, digsIn: digsIn, sidePower: sidePower, dangerOn: dangerOn, canSpark: canSpark, spark: spark, sparkPreview: sparkPreview, vestLive: vestLive, fireAt: fireAt, smokeAt: smokeAt, nothingLeft: nothingLeft, sparkDeath: sparkDeath, climbedNow: climbedNow, climbsOn: climbsOn, climbsUp: climbsUp, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
     canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, kitFloored: kitFloored, breathFloor: breathFloor, rawFatMax: rawFatMax, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, isWhip: isWhip, reachOf: reachOf, rangeMax: rangeMax, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
-    deployMove: deployMove, startFight: startFight, inZone: inZone, /* __THE_STAFF_FIGHT_TOO__ */ staffZone: staffZone, campPull: campPull, guardsCamp: guardsCamp, staffOut: staffOut,
+    deployMove: deployMove, startFight: startFight, inZone: inZone, /* __THE_STAFF_FIGHT_TOO__ */ staffZone: staffZone, campPull: campPull, guardsCamp: guardsCamp, staffOut: staffOut, staffTile: function (u) { const G = staffGround(u), mine = friends(u).filter(function (g) { return !g.staff && g.morale !== 'Fleeing'; }); return G ? staffTile(u, u.x, u.y, G, mine, foes(u).filter(function (f) { return f.morale !== 'Fleeing' && !f.decoy; }), staffLineX(mine)) : null; },
     setPull: function (n) { FIGHT_OPTS_PULL = n === null || n === undefined ? null : +n; }, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
     saveFormation: saveFormation, readFormation: readFormation, forgetFormation: forgetFormation, formationNow: formationNow, FORMATION_KEY: FORMATION_KEY,
     _t: { neverIdle: neverIdle, reach: reach, nearFoe: nearFoe, actedNow: actedNow, expected: expected, nerve: check /* __EACH_ORIGIN_ITS_OWN__: the morale check, for the origins' gate */, keepsRoof: keepsRoof, holdsRoof: holdsRoof, roofSeen: roofSeen, tightFight: tightFight, bestTurn: bestTurn, inRange: inRange, wornWeight: wornWeight, weightClass: weightClass, walkCap: walkCap, walkLeft: walkLeft, dangerOn: dangerOn, threatReach: threatReach, longChase: longChase, endSpend: endSpend, sparkDanger: sparkDanger, fearsSpark: fearsSpark, sparkHurt: sparkHurt, burnTick: burnTick, byWall: byWall, unitAt: unitAt, hook: hook, hookTarget: hookTarget, hasHook: hasHook, attackAfter: attackAfter, vantage: vantage, chaseRun: chaseRun, worthChase: worthChase, blowWorth: blowWorth, nameFocus: nameFocus, focusOf: focusOf, killOdds: killOdds, deathWorth: deathWorth, threatOf: threatOf, blowsOn: blowsOn, joinFrom: joinFrom, bothHands: bothHands, beginTurn: beginTurn, turnOver: turnOver, moraleCheck: check, rangeMin: rangeMin, rangeLo: rangeLo, pistolShot: pistolShot, dealKit: dealKit, rollShift: rollShift, fall: fall, deathChance: deathChance, cropToParty: cropToParty, ledBy: ledBy, softness: softness, partyFor: partyFor, tierPhase: tierPhase, bandOf: bandOf, bandFor: bandFor, zoneCols: zoneCols, rowsOf: rowsOf, litAt: litAt, darkAt: darkAt, sees: sees, sightBlock: sightBlock, vision: vision, passable: passable, bestTarget: bestTarget, lineOf: lineOf, huntField: huntField, climb: climb, level: level, arche: arche, PK: PK, stepCost: stepCost, curIni: curIni, gearFat: gearFat, skillAP: skillAP, skillFat: skillFat, apply: apply,

@@ -1,5 +1,20 @@
 STAFF (staff-01gkdyus): the camp's people in the fight, a new lane opened by the coordinator for VAMILY rule 468, ask row 667; written only by
-this lane. 11/21 LATEST -- BUILD 11/21zb - THE STAFF FIGHT TOO (06742cf79), BUILT, NOT YET SEEN (rules 468, 461 as amended 11/21, 441, 454(a), 465, 467; ask row 667).
+this lane. 11/22 LATEST -- BUILD 11/22zi - THEY FIGHT LIKE STAFF (SHIPSHA), BUILT, NOT YET SEEN (rule 470(a), his order on his YES to the staff build:
+'They will stay behind. They will take defensive positions and they will attempt to not be flanked and circled'; rules 461 as amended, 441, 465;
+ask row 701). Record: records/BOHEMIA_STAFF_THEY_FIGHT_LIKE_STAFF_11_22_26.md. VOTE staff-they-fight-like-staff-11-22 (stand_in).
+WHAT: the camp's own AUTO (slices/BOHEMIA_FIGHT.html __THEY_FIGHT_LIKE_STAFF__: staffGround, staffTile, staffLineX, staffStep; the weights in
+records/target/bb/ai.json staff_ground, a modder's row): every turn a camp person weighs every tile his walk reaches (their reach next turn x10,
+each of theirs with no fighter between x4, one of theirs beside x14 or round his back x5, each open side x1.5, cover -2.5, a roof -3, east of the
+middle of his line x3, huddled with the camp -1.5, a fighter beside -2) and walks to the best if it beats where he stands by 1; never ends in their
+reach; the blade only when cornered. FIGHT.staffTile(u) reads a man's parts for a gate.
+MEASURED (160 fights, the same seeds, the 11/21zb page against this one): caught from behind 1.4% -> 0.4% of his turns, circled at the start of a
+turn 0.4% -> 0.2%, blows on the camp 3.17 -> 2.15 a fight, the camp dead 28.3% -> 18.1% a fight, his win 77.5% -> 76.9%, his men down 3.01 -> 3.02.
+A fighter's brain on the camp (the gate's control): beside 64%, circled 17%, 6.9 blows a fight.
+ON THE PHONE: the demo and the alpha both ways, AUTO to the end: 99 camp turns, 0 beside, 0 circled, 0 round the back, 99 behind the line.
+FOUND, COMBAT FOUR's: upright the camp at the west edge is off the glass mid-fight (UI.coverFar); a NOTE at the top of handoffs/COMBAT_THREE.md.
+GATE: THE STAFF FIGHT TOO 37/0 (S12: his camp 1.0% beside, 0.3% circled, 0.5% round his back, 94.4% behind the line, 1.5 blows a fight; a fighter's brain 60.9%, 14.9%, 11.0%, 10.6%, 7.1), --plant red. NEXT: rule 471 THE STAFF PUSH A CART (row 709; with CHARACTER and COOK SIX for the cart's art).
+
+11/21 -- BUILD 11/21zb - THE STAFF FIGHT TOO (06742cf79), BUILT, NOT YET SEEN (rules 468, 461 as amended 11/21, 441, 454(a), 465, 467; ask row 667).
 Record: records/BOHEMIA_STAFF_THE_STAFF_FIGHT_TOO_11_21_26.md. VOTE staff-the-staff-fight-too-11-21 (stand_in). The research: records/BOHEMIA_RESEARCH_THE_STAFF_FIGHT_TOO_11_21_26.md.
 This lane schedules nothing and calls nothing that waits for a person (461(c) amended). No line rewritten (465): the words added are
 the fewest, draft (the hall's 'Stands in your fights. One of your 12.' and 'No room: your company is N of 20.', the crew title's 'N CAMP').

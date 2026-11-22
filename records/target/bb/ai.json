@@ -321,7 +321,7 @@
    },
    "source": "records/BOHEMIA_RESEARCH_THE_STAFF_FIGHT_TOO_11_21_26.md C9 (VAMILY rule 468); bb_all/1073 Indebted (Background)",
    "quote": "Is permanently dead if struck down and will not survive with a permanent injury.",
-   "why": "a camp follower moves by himself, never by his hand: he holds the camp while nobody of theirs can reach him by their next turn; threatened, he steps where the fewest of theirs can reach him, beside one of his fighters if he can (+3 a man beside him on a nerve check), farther from them, never ending in their reach; the blade only when he is cornered (no tile out of their reach) or has stepped; fleeing, he runs as any man. One beat a turn"
+   "why": "a camp follower never fights like the line (rule 470(a)): he moves himself, never by his hand, to the most defended tile his walk reaches (staff_ground: out of their reach, a fighter between him and every one of theirs, behind the line, a wall or a corner at his back, cover, high ground, huddled with the camp), away from any of theirs beside or behind him, never ending in their reach; the blade only when cornered; fleeing, he runs as any man. One beat a turn"
   }
  },
  "hunt": {
@@ -426,6 +426,27 @@
   },
   "source": "records/BOHEMIA_RESEARCH_THE_STAFF_FIGHT_TOO_11_21_26.md C9 (VAMILY rule 468)",
   "why": "AUTO guards the camp: a blow on a man of theirs who stands next to one of his staff is worth next_to_staff more to AUTO's pick; and a turn that ends beside one of his staff while a man of theirs is within threat_tiles of him, with no other fighter beside him yet, is worth beside more (AUTO's own units: a blow's expected harm, about 10 to 20). MEASURED (STAFF 11/21): x1.3/8 and x2/20 lost the same camp in the same 40 fights: the guard fires (165 blows, 119 turns in 8 fights) but the man who hits the cook is already AUTO's best blow; the camp is kept by where it stands and how it moves (archetypes.staff), so the numbers stay at the research's x1.3 with a turn beside worth 15. Draft, TUNING",
+  "draft": true
+ },
+ "staff_ground": {
+  "value": {
+   "danger": 10,
+   "unscreened": 4,
+   "foe_beside": 14,
+   "foe_behind": 5,
+   "behind_tiles": 3,
+   "open_side": 1.5,
+   "cover_piece": 2.5,
+   "high_ground": 3,
+   "ahead_of_line": 3,
+   "behind_line_by": 1,
+   "camp_beside": 1.5,
+   "huddle_cap": 2,
+   "fighter_beside": 2,
+   "move_margin": 1
+  },
+  "source": "VAMILY rule 470(a), Paolo 11/22: 'They're weak as fuck compared to the front line. They will stay behind. They will take defensive positions and they will attempt to not be flanked and circled.'; bb_all/0424 Combat Mechanics and bb_all/1316 Morale (the surround: +5% to hit for every attacker past the first; +3 resolve a man beside him)",
+  "why": "how a camp follower weighs a tile (lower is safer; STAFF 11/22, slices/BOHEMIA_FIGHT.html __THEY_FIGHT_LIKE_STAFF__): danger a man of theirs who can reach it by their next turn; unscreened one of theirs with no fighter of his between him and the tile; foe_beside one of theirs on the tile's eight; foe_behind one of theirs west of him (his line faces east) within behind_tiles; open_side an open side of the eight (a wall, a building, cover or one of his own closes it: a corner is the best ground, nobody circles him there); cover_piece the board's cover beside the tile (ours.cover_defence); high_ground a roof; ahead_of_line a tile east of the middle of his standing fighters less behind_line_by; camp_beside another of the camp beside him (up to huddle_cap: they huddle); fighter_beside a fighter of his beside him; move_margin what a tile must beat where he stands by before he walks. Draft, TUNING",
   "draft": true
  }
 }

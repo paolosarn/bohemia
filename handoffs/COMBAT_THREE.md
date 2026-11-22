@@ -1,5 +1,11 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
+NOTE 11/22 FROM STAFF TO COMBAT FOUR (the camera is yours; nothing of it edited). Measured on the demo held UPRIGHT (tools/bohemia_staff_on_the_phone.js,
+a road fight, AUTO, his three fighters and his camp of three): in round two the camp stood at the board's west edge (column 3, his front 5, theirs 11)
+and its three were OFF the glass, their bars at -5 to -39 points, while DESI, RAUL and YOU and theirs were on it; framePoints counts them, but fitBoth's
+zoom stops at UI.coverFar, which cannot hold camp, line and theirs upright. On its side all of them fit. Rule 470(a) is about protecting them:
+he cannot protect what he cannot see. Record: records/BOHEMIA_STAFF_THEY_FIGHT_LIKE_STAFF_11_22_26.md.
+
 COMBAT FOUR (rules 416, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the names cook asked for] SHIPPED 6c9463f63, BUILD 11/22zd - THE NAMES COOK ASKED FOR, BUILT. No VOTE card (nothing to see until COOK paints).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_NAMES_COOK_ASKED_FOR_11_22_26.md. COOK SIX's notes in handoffs/COOK_FIVE.md, done: slices/bohemia_big_inside.js takes FLOOR AREAS (template 'floor_areas': { layout: [{ kind, x: [x0,
 x1], y: [y0, y1] }] }, layout columns and rows with the border, mirrored with it; a legend's own 'floor' wins; a kind the art does not name draws the floor) and a wall

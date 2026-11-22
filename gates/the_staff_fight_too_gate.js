@@ -19,6 +19,8 @@
      S10 IT GOT HARDER: a full company (12 fighters) against the same company with 5 staff (7 fighters): the win rate drops, staff die, the fight
          stays short (rounds); printed with the numbers
      S11 THE DOOR: the alpha's fight door hands opts.staff beside the company (never in it), none in the pit; the hand-back carries staff, never in crew
+     S12 THEY FIGHT LIKE STAFF (rule 470(a)): their own brain against a fighter's on the same seeds: fewer turns ended beside one of theirs, circled
+         or with one round their back, most turns behind the line, fewer blows on the camp; the ground read from ai.json staff_ground
    PLANTED FAILS: --plant patches the fight in memory: staff counted outside the cap (17 on the board) and staff rolling the 20% death: S1 and S4
    must go red, exit 1.
      node gates/the_staff_fight_too_gate.js           the gate
@@ -218,6 +220,38 @@ const mineOf = S => S.units.filter(u => u.side === 'you');
   ok('S10a a full company with its camp wins less than without it (' + N + ' fights each)', five.win < none.win, (100 * none.win).toFixed(1) + '% -> ' + (100 * five.win).toFixed(1) + '%');
   ok('S10b his camp dies when it is not kept', five.staffDead > 0, (100 * five.staffDead).toFixed(1) + '% a fight');
   ok('S10c the fight stays short (rounds within one and a half times)', five.rounds <= none.rounds * 1.5, none.rounds.toFixed(1) + ' -> ' + five.rounds.toFixed(1));
+}
+
+/* S12 THEY FIGHT LIKE STAFF (rule 470(a), Paolo 11/22: 'They will stay behind. They will take defensive positions and they will attempt to not
+   be flanked and circled.'): the same camp on the same seeds, once with its own brain (ai.json staff_ground) and once with a fighter's (the
+   control: the staff's turn handed to the line's AUTO). At the end of every turn a camp person takes: one of theirs beside him, two or more
+   (circled), one of theirs round his back (west of him, within three); behind the middle of his line; and their blows on the camp a fight */
+{
+  const staff = freshCamp(['cook', 'scout', 'surgeon']);
+  const ctl = engine({ patch: rules => (patch ? patch(rules) : rules).replace('if (u.staff) return staffStep(u);', 'if (false) return staffStep(u);') });
+  const d = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
+  const run = (C) => { const FF = C.FIGHT; let n = 0, beside = 0, circled = 0, behind = 0, line = 0, blows = 0, read = false;
+    for (let i = 0; i < (QUICK ? 30 : 60); i++) {
+      C.setSeed(12000 + i);
+      FF.setup({ auto: true, formation: null, company: men(8, 3), cap: 12, staff, party: { count: 8, faction: ['brigands', 'water', 'house', 'beasts'][i % 4], days: 8 } });
+      let g = 0; while (!FF.S.over && g < 20000) { const u = FF.current(); if (!u) break; FF.aiStep(u); g++;
+        if (u.staff && FF.current() !== u && FF.onField(u) && u.morale !== 'Fleeing') {
+          const S = FF.S, th = S.units.filter(v => v.side === 'them' && FF.onField(v) && v.morale !== 'Fleeing'), mine = S.units.filter(v => v.side === 'you' && !v.staff && FF.onField(v) && v.morale !== 'Fleeing');
+          if (!th.length) continue; n++;
+          const b = th.filter(t => d(t, u) === 1).length; if (b) beside++; if (b > 1) circled++; if (th.some(t => t.x < u.x && d(t, u) <= 3)) behind++;
+          const xs = mine.map(m => m.x).sort((p, q) => p - q); if (xs.length && u.x < xs[Math.floor((xs.length - 1) / 2)]) line++; } }
+      const by = {}; FF.S.units.forEach(v => { by[v.id] = v; }); FF.S.log.forEach(e => { if (e.t === 'attack' && by[e.to] && by[e.to].staff && by[e.id] && by[e.id].side === 'them') blows++; });
+      read = read || !!C.DB.read['ai.staff_ground'];
+    }
+    return { n, beside: 100 * beside / n, circled: 100 * circled / n, behind: 100 * behind / n, line: 100 * line / n, blows: blows / (QUICK ? 30 : 60), read }; };
+  const mine2 = run(ctx), asF = run(ctl), f1 = x => x.toFixed(1);
+  console.log('       his camp\'s own way: ' + mine2.n + ' turns, beside one of theirs ' + f1(mine2.beside) + '%, circled ' + f1(mine2.circled) + '%, one round his back ' + f1(mine2.behind) + '%, behind the line ' + f1(mine2.line) + '%, ' + f1(mine2.blows) + ' blows on the camp a fight');
+  console.log('       a fighter\'s way (the control): ' + asF.n + ' turns, beside ' + f1(asF.beside) + '%, circled ' + f1(asF.circled) + '%, round his back ' + f1(asF.behind) + '%, behind the line ' + f1(asF.line) + '%, ' + f1(asF.blows) + ' blows');
+  ok('S12a they end fewer turns beside one of theirs and circled than a fighter would', mine2.beside < asF.beside && mine2.circled <= asF.circled, f1(mine2.beside) + '% / ' + f1(mine2.circled) + '% against ' + f1(asF.beside) + '% / ' + f1(asF.circled) + '%');
+  ok('S12b they end fewer turns with one of theirs round their back', mine2.behind < asF.behind, f1(mine2.behind) + '% against ' + f1(asF.behind) + '%');
+  ok('S12c they stay behind the line (most of their turns west of the middle of his fighters)', mine2.line >= 75 && mine2.line > asF.line, f1(mine2.line) + '% against ' + f1(asF.line) + '%');
+  ok('S12d the camp takes fewer blows a fight', mine2.blows < asF.blows, f1(mine2.blows) + ' against ' + f1(asF.blows));
+  ok('S12e their ground is the file\'s (ai.json staff_ground read)', mine2.read);
 }
 
 /* S11 THE DOOR */

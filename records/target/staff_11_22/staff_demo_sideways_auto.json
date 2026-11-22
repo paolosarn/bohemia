@@ -1,0 +1,317 @@
+[
+ {
+  "shape": "phone_landscape",
+  "surface": "demo",
+  "camp": [
+   "cook",
+   "scout",
+   "surgeon"
+  ],
+  "bell": {
+   "cols": [
+    5,
+    11
+   ],
+   "w": 20,
+   "h": 15,
+   "cap": 12,
+   "fighters": 3,
+   "reserve": 0,
+   "raid": null,
+   "staff": [
+    {
+     "id": "cook",
+     "name": "Graciela Ochoa",
+     "look": "person_woman_0",
+     "x": 3,
+     "y": 7,
+     "morale": "Wavering",
+     "hp": 40,
+     "trait": "fainthearted",
+     "behind": true,
+     "front": false,
+     "beside": false,
+     "sheet": true,
+     "face": true
+    },
+    {
+     "id": "scout",
+     "name": "Danny Nguyen",
+     "look": "person_town_42",
+     "x": 3,
+     "y": 6,
+     "morale": "Wavering",
+     "hp": 46,
+     "trait": "craven",
+     "behind": true,
+     "front": false,
+     "beside": false,
+     "sheet": true,
+     "face": true
+    },
+    {
+     "id": "surgeon",
+     "name": "Alan Cho",
+     "look": "person_town_44",
+     "x": 3,
+     "y": 8,
+     "morale": "Wavering",
+     "hp": 49,
+     "trait": "hesitant",
+     "behind": true,
+     "front": false,
+     "beside": false,
+     "sheet": true,
+     "face": true
+    }
+   ]
+  },
+  "scroll": {
+   "top": 0,
+   "fight": 0
+  },
+  "frames": {
+   "fps": 50.1,
+   "worstMs": 200,
+   "p95Ms": 33
+  },
+  "tents": [
+   true,
+   true,
+   true
+  ],
+  "onGlass": [
+   {
+    "staff": false,
+    "name": "YOU",
+    "bar": {
+     "x": 102,
+     "y": 88
+    },
+    "px": 102,
+    "py": 88
+   },
+   {
+    "staff": false,
+    "name": "DESI",
+    "bar": {
+     "x": 138,
+     "y": 140
+    },
+    "px": 138,
+    "py": 140
+   },
+   {
+    "staff": false,
+    "name": "RAUL",
+    "bar": {
+     "x": 102,
+     "y": 191
+    },
+    "px": 102,
+    "py": 191
+   },
+   {
+    "staff": true,
+    "name": "Graciela Ochoa",
+    "bar": {
+     "x": 65,
+     "y": 140
+    },
+    "px": 65,
+    "py": 140
+   },
+   {
+    "staff": true,
+    "name": "Danny Nguyen",
+    "bar": {
+     "x": 29,
+     "y": 88
+    },
+    "px": 29,
+    "py": 88
+   },
+   {
+    "staff": true,
+    "name": "Alan Cho",
+    "bar": {
+     "x": 29,
+     "y": 191
+    },
+    "px": 29,
+    "py": 191
+   }
+  ],
+  "view": [
+   844,
+   390
+  ],
+  "png_bell": "../../../tmp/claude-0/-home-user-bohemia/e497bd47-9b08-52b1-8363-18bcb73c7b75/scratchpad/p470c/demo_sideways_the_camp_at_the_bell.png",
+  "autoCam": {
+   "round": 2,
+   "id": "s1",
+   "name": "Danny Nguyen"
+  },
+  "autoGlass": [
+   {
+    "staff": false,
+    "side": "you",
+    "name": "YOU",
+    "bar": {
+     "x": 195,
+     "y": 172
+    },
+    "px": 195,
+    "py": 172
+   },
+   {
+    "staff": false,
+    "side": "you",
+    "name": "DESI",
+    "bar": {
+     "x": 320,
+     "y": 66
+    },
+    "px": 320,
+    "py": 66
+   },
+   {
+    "staff": false,
+    "side": "you",
+    "name": "RAUL",
+    "bar": {
+     "x": 245,
+     "y": 172
+    },
+    "px": 245,
+    "py": 172
+   },
+   {
+    "staff": true,
+    "side": "you",
+    "name": "Graciela Ochoa",
+    "bar": {
+     "x": 69,
+     "y": 208
+    },
+    "px": 69,
+    "py": 208
+   },
+   {
+    "staff": true,
+    "side": "you",
+    "name": "Danny Nguyen",
+    "bar": {
+     "x": 19,
+     "y": 208
+    },
+    "px": 19,
+    "py": 208
+   },
+   {
+    "staff": true,
+    "side": "you",
+    "name": "Alan Cho",
+    "bar": {
+     "x": 44,
+     "y": 243
+    },
+    "px": 44,
+    "py": 243
+   },
+   {
+    "staff": false,
+    "side": "them",
+    "name": "THUG",
+    "bar": {
+     "x": 672,
+     "y": 208
+    },
+    "px": 672,
+    "py": 208
+   },
+   {
+    "staff": false,
+    "side": "them",
+    "name": "THUG",
+    "bar": {
+     "x": 347,
+     "y": 101
+    },
+    "px": 347,
+    "py": 101
+   },
+   {
+    "staff": false,
+    "side": "them",
+    "name": "THUG",
+    "bar": {
+     "x": 446,
+     "y": 243
+    },
+    "px": 446,
+    "py": 243
+   }
+  ],
+  "png_auto": "../../../tmp/claude-0/-home-user-bohemia/e497bd47-9b08-52b1-8363-18bcb73c7b75/scratchpad/p470c/demo_sideways_the_camp_on_its_turn.png",
+  "auto": {
+   "over": true,
+   "result": "won",
+   "rounds": 5,
+   "turns": {
+    "n": 15,
+    "beside": 0,
+    "circled": 0,
+    "behind": 0,
+    "behindLine": 15
+   },
+   "staff": [
+    {
+     "id": "cook",
+     "dead": false,
+     "fled": false,
+     "hp": 40
+    },
+    {
+     "id": "scout",
+     "dead": false,
+     "fled": false,
+     "hp": 46
+    },
+    {
+     "id": "surgeon",
+     "dead": false,
+     "fled": false,
+     "hp": 49
+    }
+   ]
+  },
+  "after": {
+   "lost": [],
+   "handed": [
+    "cook",
+    "scout",
+    "surgeon"
+   ],
+   "camp": [
+    "cook",
+    "scout",
+    "surgeon"
+   ],
+   "hasCook": true,
+   "dead": []
+  },
+  "png_after": "../../../tmp/claude-0/-home-user-bohemia/e497bd47-9b08-52b1-8363-18bcb73c7b75/scratchpad/p470c/demo_sideways_after.png",
+  "errs": [],
+  "P": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "P8": true,
+   "P7": true
+  }
+ }
+]

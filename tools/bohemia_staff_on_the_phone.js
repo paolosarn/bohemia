@@ -7,7 +7,10 @@
 //   P3 the cap: his fighters plus his camp no more than the origin's 12
 //   P4 no page scroll sideways (the top page and the fight's own)
 //   P5 the fight's first ten seconds, frames a second (PLUMBER's bar: 60, the frame clock of this box's software canvas said with it)
-//   P6 the cook struck down in the fight dies, and after the fight the camp's own book has her gone: has('cook') false, her face on the dead list
+//   P6 after the fight the camp's own book matches the board: every camp person who died there is gone (his face on the dead list), every one
+//      who lived is kept (a lost fight's living are taken)
+//   P8 THEY FIGHT LIKE STAFF (rule 470(a)): AUTO plays the fight to its end on the glass; every turn a camp person ends is read: one of theirs
+//      beside him, two or more (circled), one of theirs round his back, behind his line
 //   P7 nothing threw
 // Writes <out>/staff_<tag>.json and the pictures.
 // node tools/bohemia_staff_on_the_phone.js [--alpha] [--shapes phone_portrait,phone_landscape] [--out dir]
@@ -56,9 +59,29 @@ async function walk(shape) {
       if (fb) row.onGlass.forEach(g => { if (g.bar) { g.px = fb.x + g.bar.x * fb.width / iw[0]; g.py = fb.y + g.bar.y * fb.height / iw[1]; } });
       row.view = await page.evaluate(() => [innerWidth, innerHeight]); }
     row.png_bell = path.relative(ROOT, path.join(OUTD, TAG + '_' + short + '_the_camp_at_the_bell.png')); await page.screenshot({ path: path.join(ROOT, row.png_bell) });
-    /* P6: the cook struck down on the board, the fight won the way the jobs' tools end one (their men down), the spoils left by a finger */
-    row.fall = await c.evaluate(() => { const u = FIGHT.S.units.filter(v => v.staff && v.staffId === 'cook')[0]; if (!u) return null; FIGHT._t.fall(u, null); return { dead: !!u.dead, down: !!u.down }; });
-    await c.evaluate(() => { FIGHT.S.units.forEach(u => { if (u.side === 'them') u.dead = true; }); FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); });
+    /* P8 THEY FIGHT LIKE STAFF (rule 470(a)): AUTO plays the fight to its end on the glass (the page's own AUTO, its own beat); at the end
+       of every turn a camp person takes, what stands round him: one of theirs beside him, two or more (circled), one of theirs round his back */
+    if (!CONTROL) await c.evaluate(() => { const F = FIGHT, aim = F.aiStep, d = (a, b) => Math.max(Math.abs(a.x - b.x), Math.abs(a.y - b.y));
+      window.__STAFF_TURNS = { n: 0, beside: 0, circled: 0, behind: 0, behindLine: 0 };
+      F.aiStep = function (u) { if (u && u.staff && F.S.round >= 2 && !window.__STAFF_CAM) window.__STAFF_CAM = { round: F.S.round, id: u.id, name: u.name };   /* the camera goes to the man who acts: one of the camp, for the picture */
+        const r = aim.apply(this, arguments);
+        try { if (u && u.staff && F.current() !== u && F.onField(u) && u.morale !== 'Fleeing') { const S = F.S, T = window.__STAFF_TURNS;
+          const th = S.units.filter(v => v.side === 'them' && F.onField(v) && v.morale !== 'Fleeing'), mine = S.units.filter(v => v.side === 'you' && !v.staff && F.onField(v) && v.morale !== 'Fleeing');
+          if (th.length) { T.n++; const b = th.filter(t => d(t, u) === 1).length; if (b) T.beside++; if (b > 1) T.circled++; if (th.some(t => t.x < u.x && d(t, u) <= 3)) T.behind++;
+            const xs = mine.map(m => m.x).sort((p, q) => p - q); if (xs.length && u.x < xs[Math.floor((xs.length - 1) / 2)]) T.behindLine++; } } } catch (e) {}
+        return r; };
+      FIGHT_UI.auto = true; });
+    if (!CONTROL) { const t1 = Date.now(); while (Date.now() - t1 < 240000 && !(await c.evaluate(() => FIGHT.S.over).catch(() => true))) { await page.waitForTimeout(1000);
+        /* the picture in the middle of it: the first turn of one of his camp from round two, the camera on him, the camp where its own brain put it */
+        if (!row.png_auto && await c.evaluate(() => !!window.__STAFF_CAM && !FIGHT.S.over).catch(() => false)) { await page.waitForTimeout(700);
+          row.autoCam = await c.evaluate(() => window.__STAFF_CAM);
+          const fh = await page.$('#fightFrame'), fb = fh ? await fh.boundingBox() : null, iw = await c.evaluate(() => [innerWidth, innerHeight]);
+          row.autoGlass = await c.evaluate(() => FIGHT.S.units.filter(u => FIGHT.onField(u)).map(u => ({ staff: !!u.staff, side: u.side, name: u.name, bar: u._bar ? { x: u._bar.x, y: u._bar.y } : null })));
+          if (fb) row.autoGlass.forEach(g => { if (g.bar) { g.px = fb.x + g.bar.x * fb.width / iw[0]; g.py = fb.y + g.bar.y * fb.height / iw[1]; } });
+          row.png_auto = path.relative(ROOT, path.join(OUTD, TAG + '_' + short + '_the_camp_on_its_turn.png')); await page.screenshot({ path: path.join(ROOT, row.png_auto) }); } }
+      row.auto = await c.evaluate(() => ({ over: FIGHT.S.over, result: FIGHT.S.result, rounds: FIGHT.S.round, turns: window.__STAFF_TURNS,
+        staff: FIGHT.S.units.filter(u => u.staff).map(u => ({ id: u.staffId, dead: !!u.dead, fled: !!u.fled, hp: u.hp })) })); }
+    else await c.evaluate(() => { FIGHT.S.units.forEach(u => { if (u.side === 'them') u.dead = true; }); FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); });
     let sf = null; const t0 = Date.now();
     while (Date.now() - t0 < 25000 && !sf) { const h = await page.$('#spoilsdoor iframe'); const f = h && await h.contentFrame(); if (f && await f.evaluate(() => !!document.getElementById('leave')).catch(() => false)) sf = f; else await page.waitForTimeout(400); }
     if (sf) { await page.waitForTimeout(900); const h = await page.$('#spoilsdoor iframe'), hb = await h.boundingBox();
@@ -73,10 +96,11 @@ async function walk(shape) {
   const B = row.bell || { staff: [] }, st = B.staff;
   row.P = CONTROL ? { P5: !!row.frames && row.frames.fps > 0, P7: !row.err && !errs.length } : { P1: st.length === CAMP.length && st.every(s => s.behind && !s.front && !s.beside), P2: st.length > 0 && st.every(s => s.sheet && s.face) && !!row.tents && row.tents.every(Boolean),
     P3: B.fighters + st.length <= (B.cap || 12), P4: !!row.scroll && row.scroll.top <= 0 && row.scroll.fight <= 0, P5: !!row.frames && row.frames.fps > 0,
-    P6: !!(row.fall && row.fall.dead && row.after && row.after.hasCook === false && (row.after.dead || []).some(x => x.id === 'cook')), P7: !row.err && !errs.length };
+    P6: !!(row.after && row.auto && row.auto.over && row.auto.staff.every(m => (m.dead ? !(row.after.camp || []).includes(m.id) && (row.after.dead || []).some(x => x.id === m.id) : row.auto.result !== 'won' || (row.after.camp || []).includes(m.id)))),
+    P8: !!(row.auto && row.auto.over && row.auto.turns && row.auto.turns.n > 0), P7: !row.err && !errs.length };
   console.log('  ' + TAG + ' ' + shape + ': ' + (row.err ? 'ERR ' + row.err + ' ' : '') + 'fighters ' + B.fighters + ' + camp ' + st.length + ' of ' + B.cap + ' | ' +
     st.map(s => s.name + ' @' + s.x + ',' + s.y + (s.sheet ? '' : ' NO SHEET') + (s.face ? '' : ' NO FACE')).join('; ') + ' | cols ' + JSON.stringify(B.cols) +
-    ' | fps ' + (row.frames && row.frames.fps) + ' worst ' + (row.frames && row.frames.worstMs) + ' ms | after: ' + JSON.stringify(row.after && { camp: row.after.camp, hasCook: row.after.hasCook, lost: row.after.lost }) +
+    ' | fps ' + (row.frames && row.frames.fps) + ' worst ' + (row.frames && row.frames.worstMs) + ' ms | AUTO: ' + JSON.stringify(row.auto && { result: row.auto.result, rounds: row.auto.rounds, turns: row.auto.turns, dead: row.auto.staff.filter(m => m.dead).map(m => m.id) }) + ' | after: ' + JSON.stringify(row.after && { camp: row.after.camp, lost: row.after.lost }) +
     ' | ' + Object.keys(row.P).map(k => k + (row.P[k] ? ' ok' : ' RED')).join(' ') + (errs.length ? ' | errors ' + errs.join(' / ') : ''));
   await d.close().catch(() => {});
   return row;

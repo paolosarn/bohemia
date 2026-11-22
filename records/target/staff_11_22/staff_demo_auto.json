@@ -1,0 +1,418 @@
+[
+ {
+  "shape": "phone_portrait",
+  "surface": "demo",
+  "camp": [
+   "cook",
+   "scout",
+   "surgeon"
+  ],
+  "bell": {
+   "cols": [
+    5,
+    11
+   ],
+   "w": 20,
+   "h": 15,
+   "cap": 12,
+   "fighters": 3,
+   "reserve": 0,
+   "raid": null,
+   "staff": [
+    {
+     "id": "cook",
+     "name": "Graciela Ochoa",
+     "look": "person_woman_0",
+     "x": 3,
+     "y": 7,
+     "morale": "Wavering",
+     "hp": 40,
+     "trait": "fainthearted",
+     "behind": true,
+     "front": false,
+     "beside": false,
+     "sheet": true,
+     "face": true
+    },
+    {
+     "id": "scout",
+     "name": "Danny Nguyen",
+     "look": "person_town_42",
+     "x": 3,
+     "y": 6,
+     "morale": "Wavering",
+     "hp": 46,
+     "trait": "craven",
+     "behind": true,
+     "front": false,
+     "beside": false,
+     "sheet": true,
+     "face": true
+    },
+    {
+     "id": "surgeon",
+     "name": "Alan Cho",
+     "look": "person_town_44",
+     "x": 3,
+     "y": 8,
+     "morale": "Wavering",
+     "hp": 49,
+     "trait": "hesitant",
+     "behind": true,
+     "front": false,
+     "beside": false,
+     "sheet": true,
+     "face": true
+    }
+   ]
+  },
+  "scroll": {
+   "top": 0,
+   "fight": 0
+  },
+  "frames": {
+   "fps": 37.2,
+   "worstMs": 800,
+   "p95Ms": 67
+  },
+  "tents": [
+   true,
+   true,
+   true
+  ],
+  "onGlass": [
+   {
+    "staff": false,
+    "name": "YOU",
+    "bar": {
+     "x": 54,
+     "y": 281
+    },
+    "px": 54,
+    "py": 281
+   },
+   {
+    "staff": false,
+    "name": "DESI",
+    "bar": {
+     "x": 74,
+     "y": 309
+    },
+    "px": 74,
+    "py": 309
+   },
+   {
+    "staff": false,
+    "name": "RAUL",
+    "bar": {
+     "x": 54,
+     "y": 337
+    },
+    "px": 54,
+    "py": 337
+   },
+   {
+    "staff": true,
+    "name": "Graciela Ochoa",
+    "bar": {
+     "x": 34,
+     "y": 309
+    },
+    "px": 34,
+    "py": 309
+   },
+   {
+    "staff": true,
+    "name": "Danny Nguyen",
+    "bar": {
+     "x": 15,
+     "y": 281
+    },
+    "px": 15,
+    "py": 281
+   },
+   {
+    "staff": true,
+    "name": "Alan Cho",
+    "bar": {
+     "x": 15,
+     "y": 337
+    },
+    "px": 15,
+    "py": 337
+   }
+  ],
+  "view": [
+   390,
+   844
+  ],
+  "png_bell": "records/target/staff_11_21/demo_upright_the_camp_at_the_bell.png",
+  "auto": {
+   "over": true,
+   "result": "won",
+   "rounds": 5,
+   "turns": {
+    "n": 15,
+    "beside": 0,
+    "circled": 0,
+    "behind": 0,
+    "behindLine": 15
+   },
+   "staff": [
+    {
+     "id": "cook",
+     "dead": false,
+     "fled": false,
+     "hp": 40
+    },
+    {
+     "id": "scout",
+     "dead": false,
+     "fled": false,
+     "hp": 46
+    },
+    {
+     "id": "surgeon",
+     "dead": false,
+     "fled": false,
+     "hp": 49
+    }
+   ]
+  },
+  "after": {
+   "lost": [],
+   "handed": [
+    "cook",
+    "scout",
+    "surgeon"
+   ],
+   "camp": [
+    "cook",
+    "scout",
+    "surgeon"
+   ],
+   "hasCook": true,
+   "dead": []
+  },
+  "png_after": "records/target/staff_11_21/demo_upright_after.png",
+  "errs": [],
+  "P": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "P8": true,
+   "P7": true
+  }
+ },
+ {
+  "shape": "phone_landscape",
+  "surface": "demo",
+  "camp": [
+   "cook",
+   "scout",
+   "surgeon"
+  ],
+  "bell": {
+   "cols": [
+    5,
+    11
+   ],
+   "w": 20,
+   "h": 15,
+   "cap": 12,
+   "fighters": 3,
+   "reserve": 0,
+   "raid": null,
+   "staff": [
+    {
+     "id": "cook",
+     "name": "Graciela Ochoa",
+     "look": "person_woman_0",
+     "x": 3,
+     "y": 7,
+     "morale": "Wavering",
+     "hp": 40,
+     "trait": "fainthearted",
+     "behind": true,
+     "front": false,
+     "beside": false,
+     "sheet": true,
+     "face": true
+    },
+    {
+     "id": "scout",
+     "name": "Danny Nguyen",
+     "look": "person_town_42",
+     "x": 3,
+     "y": 6,
+     "morale": "Wavering",
+     "hp": 46,
+     "trait": "craven",
+     "behind": true,
+     "front": false,
+     "beside": false,
+     "sheet": true,
+     "face": true
+    },
+    {
+     "id": "surgeon",
+     "name": "Alan Cho",
+     "look": "person_town_44",
+     "x": 3,
+     "y": 8,
+     "morale": "Wavering",
+     "hp": 49,
+     "trait": "hesitant",
+     "behind": true,
+     "front": false,
+     "beside": false,
+     "sheet": true,
+     "face": true
+    }
+   ]
+  },
+  "scroll": {
+   "top": 0,
+   "fight": 0
+  },
+  "frames": {
+   "fps": 45.4,
+   "worstMs": 433,
+   "p95Ms": 50
+  },
+  "tents": [
+   true,
+   true,
+   true
+  ],
+  "onGlass": [
+   {
+    "staff": false,
+    "name": "YOU",
+    "bar": {
+     "x": 102,
+     "y": 88
+    },
+    "px": 102,
+    "py": 88
+   },
+   {
+    "staff": false,
+    "name": "DESI",
+    "bar": {
+     "x": 138,
+     "y": 140
+    },
+    "px": 138,
+    "py": 140
+   },
+   {
+    "staff": false,
+    "name": "RAUL",
+    "bar": {
+     "x": 102,
+     "y": 191
+    },
+    "px": 102,
+    "py": 191
+   },
+   {
+    "staff": true,
+    "name": "Graciela Ochoa",
+    "bar": {
+     "x": 65,
+     "y": 140
+    },
+    "px": 65,
+    "py": 140
+   },
+   {
+    "staff": true,
+    "name": "Danny Nguyen",
+    "bar": {
+     "x": 29,
+     "y": 88
+    },
+    "px": 29,
+    "py": 88
+   },
+   {
+    "staff": true,
+    "name": "Alan Cho",
+    "bar": {
+     "x": 29,
+     "y": 191
+    },
+    "px": 29,
+    "py": 191
+   }
+  ],
+  "view": [
+   844,
+   390
+  ],
+  "png_bell": "records/target/staff_11_21/demo_sideways_the_camp_at_the_bell.png",
+  "auto": {
+   "over": true,
+   "result": "won",
+   "rounds": 6,
+   "turns": {
+    "n": 18,
+    "beside": 0,
+    "circled": 0,
+    "behind": 0,
+    "behindLine": 18
+   },
+   "staff": [
+    {
+     "id": "cook",
+     "dead": false,
+     "fled": false,
+     "hp": 40
+    },
+    {
+     "id": "scout",
+     "dead": false,
+     "fled": false,
+     "hp": 46
+    },
+    {
+     "id": "surgeon",
+     "dead": false,
+     "fled": false,
+     "hp": 49
+    }
+   ]
+  },
+  "after": {
+   "lost": [],
+   "handed": [
+    "cook",
+    "scout",
+    "surgeon"
+   ],
+   "camp": [
+    "cook",
+    "scout",
+    "surgeon"
+   ],
+   "hasCook": true,
+   "dead": []
+  },
+  "png_after": "records/target/staff_11_21/demo_sideways_after.png",
+  "errs": [],
+  "P": {
+   "P1": true,
+   "P2": true,
+   "P3": true,
+   "P4": true,
+   "P5": true,
+   "P6": true,
+   "P8": true,
+   "P7": true
+  }
+ }
+]
