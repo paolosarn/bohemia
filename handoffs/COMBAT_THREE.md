@@ -1,6 +1,25 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the neon boneyard] SHIPPED ddc1eaf9c, BUILD 11/22za - THE NEON BONEYARD, BUILT, NOT YET SEEN. VOTE combat4-the-neon-boneyard-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 441; ask row 651): 11/22 LATEST -- [the map's dice] SHIPPED e41a6cbc2, BUILD 11/22zb - THE MAP'S DICE, BUILT, NOT YET SEEN. VOTE combat4-the-maps-dice-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_MAPS_DICE_11_22_26.md. A bug he can feel: an inside is rolled from its cell (seedOf(x,y:ground) < share, BOHEMIA_FIGHT.html bigInside), and the map seats the big places on
+a few spots, so the share came true as a STEP: over 40 valleys of the map's generator the gas plant (powerhouse.powerplant) went inside in NONE, the truck stop 35%, the
+aquarium 40%, the stadium 50%; the Mini Grand Prix, the mall, the Mob Museum, the arsenal, the radio station 100%. Fourteen data files: 'share' is now the threshold
+their real rolls need, 'share_meant' the word, 'share_dice' the measurement. Terminal, shelter, police, City Hall and the mall stay as near as their dice allow.
+GATE LEG I14 THE MAP'S DICE KEEP ITS WORD (every inside; districts on 40 places or fewer; the gate's copy of the roll checked against every deal, 0 wrong); I1's upper
+bound is three sigma now (the flat 0.12 was under two on 40 to 80 cells) and reads each district's own share.
+GATE THE BIG INSIDES 724/0 in three parts (243, 242, 239; thirty-nine insides; I14 green on all 39, 0 deals the copied roll got wrong; side by side 550 to 573 s, the same as before the leg)
+ON THE PAGE: 6 fights inside, all ended on AUTO, 31 of 31 tile taps, 0 page errors: the gas plant's turbine hall all four ways (the demo and the alpha, upright and on its side; never reached before), the aquarium (the demo upright), the truck stop (the alpha on its side).
+*** FOR WORLD: the city's hand-over (msg.ground) carries the cell, not the valley. Hand the valley's own seed (msg.ground.valley) and the fight will mix it into the
+inside's roll (the same place the same answer inside one game, every share true over many); then each share goes back to its share_meant and I14 says so. Yours; nothing
+of it touched here. ***
+*** FOR PLUMBER: the three BIG INSIDES entries take 550 to 573 s side by side (about 200 s alone) against the 600 s cap; I14 added about a second an inside. ***
+*** FOR ANY LANE ADDING AN INSIDE: read its rolls at its real cells before choosing a share (I14 will tell you). ***
+NEXT: more boards (the map's kinds that still fight outside: the substation, the pump station, the Mormon Fort's adobe); the robot factory and the paved places wait on
+WORLD's map.
+[bb Battle Brothers' places are fought where they stand: a place's board is the same place every time, and how often you meet it is the map's, not luck's]
+[analog horror: the gas plant's turbine hall nobody had ever stood in, until now]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the neon boneyard] SHIPPED ddc1eaf9c, BUILD 11/22za - THE NEON BONEYARD, BUILT, NOT YET SEEN. VOTE combat4-the-neon-boneyard-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_NEON_BONEYARD_11_22_26.md. More boards (rule 461): the Neon Boneyard ('boneyard', 0.5; one cell, in 40 of 40 valleys, inside in 31 of them by the cell's dice): the_sign_shop (giant letters and racks of sign faces the obstacles
 row, they hide a man; sign faces on sawhorses and tube racks block and are seen across; benders' benches, sign cans, scissor lifts, crates of bulbs cover; transformers and a
 fallen arrow low; broken tube glass rough 3 AP, open) and the_dark_gallery (dead signs on end and giant letters hide a man; projectors and sign cans cover; bulb rails,

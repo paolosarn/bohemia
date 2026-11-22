@@ -1,4 +1,11 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22za - THE NEON BONEYARD, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22zb - THE MAP'S DICE, BUILT, NOT YET SEEN (rules 461, 416, 441; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE MAP'S DICE: a place's inside is rolled from its cell, and the big places sit on a few spots, so the odds came out lumpy: the gas plant's turbine hall was never
+fought inside (0 of 40 valleys), the truck stop 35% (meant 70%), the aquarium 40% (meant 80%), the Mini Grand Prix 100% (meant half). Fourteen insides' shares are set
+from their real cells now (share_meant beside each; the gas plant 42%, the truck stop 65%, the aquarium 92%) and a gate leg holds every inside to its word (I14).
+GATE THE BIG INSIDES 724/0 in three parts (243, 242, 239; thirty-nine insides; I14 green on all 39, 0 deals the copied roll got wrong; side by side 550 to 573 s, the same as before the leg). ON THE PAGE: 6 fights inside, all ended on AUTO, 31 of 31 tile taps, 0 page errors: the gas plant's turbine hall all four ways (the demo and the alpha, upright and on its side; never reached before), the aquarium (the demo upright), the truck stop (the alpha on its side). VOTE combat4-the-maps-dice-11-22.
+[bb Battle Brothers' places are fought where they stand: a place's board is the same place every time, and how often you meet it is the map's, not luck's]
+[analog horror: the gas plant's turbine hall nobody had ever stood in, until now]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22za - THE NEON BONEYARD, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE NEON BONEYARD (the map's, on Las Vegas Blvd North by Cashman Field and the Mormon Fort): half the fights there are fought inside (31 valleys of 40, by the cell's dice): the sign shop (a casino's
 name in giant letters and the racks of sign faces hide a man; sign faces on sawhorses and tube racks seen across, never crossed; benches, sign cans, lifts, crates cover;
 broken tube glass rough) or the dark gallery (dead signs on end in rows like headstones; projectors that still play the old show; the monsoon's water, the swamp).
