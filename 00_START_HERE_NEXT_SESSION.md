@@ -1,4 +1,10 @@
-COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22f - THE FIRE STATION, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 LATEST -- BUILD 11/22g - THE RAIL YARD'S SHOPS, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
+THE RAIL YARD'S SHOPS: about one fight in three at the rail yard is fought inside: the engine shop (locomotives over their pits that hide a man, work platforms seen past,
+wheel sets and parts) or the freight house (boxcars at the dock, crates, parcel cages); the tracks across the floor are slow and bare. One data file, every picture a stand-in.
+GATE THE BIG INSIDES 382/0 (twenty-three insides, 381 s). ON THE PAGE: 12 fights inside on the demo and the alpha, upright and on its side, both layouts every way, all ended, 47 of 47 tile taps, 0 page errors. VOTE combat4-the-rail-yards-shops-11-22.
+[bb Battle Brothers' rough ground: the rails, three to cross and nothing to hide behind]
+[analog horror: a shop's crossing bell ringing for a train that is not coming]
+COMBAT FOUR (combat-four-01gkdyuv): 11/22 -- BUILD 11/22f - THE FIRE STATION, BUILT, NOT YET SEEN (rules 461, 416, 59, 441, 465; ask row 651). Its block is handoffs/COMBAT_THREE.md.
 THE FIRE STATION: a fight at the fire station (eight in ten) is fought in its apparatus bay (six engines on flat tires that hide a man, turnout gear on the walls, hose on
 the floor, air bottles, tool cabinets) or its quarters (bunks, the kitchen, the day room's couches, the crew's lockers). One data file, every picture a stand-in.
 GATE THE BIG INSIDES 366/0 (twenty-two insides). ON THE PAGE: 4 fights in the apparatus bay, both pages both ways, all ended, 22 of 22 taps, 0 errors (the quarters on the fight page alone and in the gate). VOTE combat4-the-fire-station-11-22.

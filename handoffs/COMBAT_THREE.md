@@ -1,6 +1,24 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the fire station] SHIPPED 271e245ff, BUILD 11/22f - THE FIRE STATION, BUILT, NOT YET SEEN. VOTE combat4-the-fire-station-11-22 (stand_in).
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 LATEST -- [the rail yard's shops] SHIPPED b60bce22e, BUILD 11/22g - THE RAIL YARD'S SHOPS, BUILT, NOT YET SEEN. VOTE combat4-the-rail-yards-shops-11-22 (stand_in).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_RAIL_YARDS_SHOPS_11_22_26.md. More boards (rule 461): the rail yard's shops ('railyard', 0.35: a yard is mostly track): the_engine_shop (four
+locomotives over their pits, the obstacles row: they hide a man; two work platforms at cab height, seen past; track across the floor where the engines stand, rough 3 AP and
+open; wheel sets, engine parts, tool chests, drums, parts racks on the end walls) and the_freight_house (boxcars at the dock, hiding a man; crates, freight carts, parcel
+cages along the walls). One data file (16 tile kinds, 13 pieces all stand-ins), twenty-third in insides.json; no high ground; the ceiling the warehouse's 'joist'.
+GATE THE BIG INSIDES 382/0 (twenty-three insides, 381 s) (the shops 19/0, 23% bare after round one against 43%; my first cut 46%: four tracks crossed the whole engine shop; now track only under the engines).
+ON THE PAGE: 12 fights inside on the demo and the alpha, upright and on its side, both layouts every way, all ended, 47 of 47 tile taps, 0 page errors.
+*** FOR COOK (SIX): THE RAIL YARD'S SHOPS' NAMES (railshop_art.json, THE GARAGE'S FORMAT): floor.floor (the shop's oil-black floor), floor.rails (track and ties in the floor,
+if a floor list is wanted for it), floor.ring; rs_loco (a road locomotive over its pit), rs_platform (a work platform at cab height), rs_boxcar (a boxcar, door rolled back),
+rs_wheels (wheel sets stacked), rs_toolchest, rs_drums, rs_parts (a traction motor on a skid), rs_racks (parts racks to the beam), rs_crates, rs_cart (a freight cart), rs_cages
+(parcel cages), rs_wall_ew, rs_wall_ns; railshop/railshop_ceiling.webp (trusses, smoke jacks, the crane rail); "have": true in railshop.json's ceiling.
+*** FOR UI (the VOTE tab gate, measured 11/22): 'one finger drags it' is red whenever the top card's sheet is SHORTER than the phone (844 pt): the page
+centres a sheet that fits and it does not move (right), but the leg's room() lets it slide to y=0 and wants -9 for an 826 sheet, -22 for an 800 one. Not the card:
+red on the fire station's card the ship before. The fix is the leg's room(): a sheet that fits the view has no room (size <= view -> 0). ***
+NEXT: more boards (the campus's lecture hall; the ballpark's concourse); the robot factory waits on WORLD's map (its record).
+[bb Battle Brothers' rough ground: the rails, three to cross and nothing to hide behind]
+[analog horror: a shop's crossing bell ringing for a train that is not coming]
+
+COMBAT FOUR (rules 461, 416, 59, 428, 451(a), 441, 465; ask row 651): 11/22 -- [the fire station] SHIPPED 271e245ff, BUILD 11/22f - THE FIRE STATION, BUILT, NOT YET SEEN. VOTE combat4-the-fire-station-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_FIRE_STATION_11_22_26.md. More boards (rule 461): the fire station ('firestation', 0.8): the_apparatus_bay (six engines in two rows, each three
 tiles on the obstacles row: they hide a man; turnout gear racked on both end walls, hiding too; hose on the floor rough 3 AP no cover; air bottles, tool cabinets,
 workbenches, cones; the bay doors) and the_quarters (bunks in rows, the kitchen counters along the top seen over, the long table on its side, the day room's couches, the
