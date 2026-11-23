@@ -69728,6 +69728,7 @@ function meetShow(msg, skin){
     try { document.removeEventListener('keydown', up.key, true); } catch (_e) {}
     try { btwCardGone(el, go); } catch (_e) { try { el.remove(); } catch (_e2) {} }   /* __THE_MOMENTS_BETWEEN__: ENGAGE closes the dark, the rest open it; the card goes in a beat */
     window.__MEET_LAST = { go: !!go, why: msg.why || null, n: n, stars: stars, ground: gr.kind, at: performance.now() };
+    if (!go || go === 'camp') { try { if (window.parent && window.parent !== window && window.parent.nfWarmDrop) window.parent.nfWarmDrop(go ? 'camp' : 'fell back'); } catch (_e) {} }   /* __THE_FIGHT_IS_READ_WHILE_HE_READS_THE_CARD__: no fight, the hidden fight page goes */
     if (go === 'camp') { meetCampNearby(msg); return; }   /* __MAKE_CAMP_NEARBY__ */
     if (go) { msg.__met = true; try { window.__MEET_HUNT_KEPT = msg.__hunt || null; } catch (_e) {} delete msg.__hunt; try { cityHandOver(msg, skin); } catch (_e) {} }   /* the hunters' object does not cross to the shell; __A_RETREAT_GETS_HIM_AWAY__: the map keeps it for the fight's length, so a crew he retreats from can hold its field */
     else meetFallBack(msg);
@@ -69758,6 +69759,11 @@ function meetShow(msg, skin){
   ['pointerdown', 'touchstart', 'touchmove', 'wheel'].forEach(function (t) { el.addEventListener(t, function (ev) { ev.stopPropagation(); }, { passive: true }); });
   el.addEventListener('touchend', function (ev) { ev.stopPropagation(); if (ev.cancelable) ev.preventDefault(); }, { passive: false });   /* __THE_FIGHT_OPENS_THE_FIGHT__: no click is born from a tap on the card */
   MEET.up = { msg: msg, el: el, key: key, at: performance.now() };
+  /* __THE_FIGHT_IS_READ_WHILE_HE_READS_THE_CARD__ (PLUMBER 8, 11/22; the shell's nfWarm, BOHEMIA_ALPHA_0_9.html): the fight's page is opened
+     hidden a beat after the card is up, read and its files loaded while he reads, so ENGAGE finds it waiting (the 2.2 to 5.0 s of a fight's
+     start it took). A beat late: a card answered inside it (the checkers' tap) makes no hidden page at all, the old way exactly (one made and
+     let go a quarter second later left the next fight its half-built page to clear) */
+  try { var __mwBeat = 60000 / ((window.BPM | 0) || 120); setTimeout(function () { try { if (MEET.up && MEET.up.el === el && window.parent && window.parent !== window && window.parent.nfWarm) window.parent.nfWarm('meet'); } catch (_e2) {} }, __mwBeat); } catch (_e) {}
   try { btwCome(el, at); } catch (_e) { el.style.opacity = ''; }   /* __THE_MOMENTS_BETWEEN__: they come; the card is up for the logic now and for the eye on the last beat */
   window.__MEET_UP = { why: msg.why || null, still: meetStill(msg), n: n, what: __mw.what, beasts: __mw.beasts, stars: stars, ground: gr.kind, district: gr.district, men: men.length, night: night, roster: __rw };
   try { window.MEET_DONE = done; } catch (_e) {}

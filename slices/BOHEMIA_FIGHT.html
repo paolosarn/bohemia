@@ -6660,10 +6660,11 @@ function bakeBoard() {
      order; the board waits for its ground, the men get MEN_GRACE ms more, and on a fast line they are all in by then; a sheet
      still coming draws its man the frame it lands; a gun lands in his hands the same way */
   let people = null;
+  const FT = window.__FIGHT_T || (window.__FIGHT_T = {}); FT.asked = performance.now(); FT.pics = all.length; FT.men = men.length;   /* the start's own clock, read by a probe or a gate */
   return Promise.all(all.map(one))
-    .then(function () { people = Promise.all(men.map(one)); people.then(function () { guns.forEach(one); });
+    .then(function () { FT.ground = performance.now(); people = Promise.all(men.map(one)); people.then(function () { FT.people = performance.now(); guns.forEach(one); });
       return Promise.race([people, new Promise(function (r) { setTimeout(r, MEN_GRACE); })]); })
-    .then(function () {
+    .then(function () { FT.drawn = performance.now();
       /* the cut board (rule 79) draws the dealt blocks shifted by its window; the glass shows only the window */
       const ox = B.crop ? B.crop.ox : 0, oy = B.crop ? B.crop.oy : 0;
       if (LAID) laidPaint(g, LAID, -LAID.ring * UI.tw, -LAID.ring * UI.th, UI.tw, UI.th, LAID.ring, LAID.ring - 1, LAID.ring + LAID.W, LAID.ring + LAID.H + 1, null);
@@ -6700,7 +6701,7 @@ function bakeBoard() {
       /* the new board is handed over once the AUTO colour is read (rule 164 item 12; capped at ODDS_WAIT_MS): the fight is never
          shown, nor answers a tap, before its colour */
       return oddsFirst() || null;
-    }).then(function () { UI.board = c; fitStops(); });
+    }).then(function () { UI.board = c; fitStops(); FT.board = performance.now(); });
 }
 /* THE NIGHT IS A COLOUR, NOT A DARKNESS (rule 73, Paolo 10/4: 'I love the nighttime aesthetic... even at its darkest
    it's really hard to see... full brightness and outside, I should still be able to play'; the school page
@@ -13170,6 +13171,8 @@ function frameErr(e, now) { if (!UI.lastErr || now - UI.lastErr > 2000) { UI.las
 const MET_KEY = 'bohemia.fight.met.v1';
 function start() {
   const o = window.FIGHT_OPTS || {};
+  window.__FIGHT_T = { start: performance.now() };   /* the start's own clock (bakeBoard adds its steps) */
+  UI.startedWith = o;   /* __A_FIGHT_STARTS_ONCE__ (PLUMBER 8, 11/22): the orders this start read, so the shell starts it again only when they were not its own */
   if (o.seed !== undefined) SEED = o.seed >>> 0;
   /* FINISHER 11/2 (rule 233, the game's __THE_FIGHT_SAVES_AT_ITS_START__): o.deal deals the ground and the lineup from a kept die, so a
      fight the page died in opens again on the same board; the dice after the deal roll fresh (a reload is a new try, never a replay) */
@@ -13495,7 +13498,18 @@ window.addEventListener('resize', resize);
 try { BohemiaMaterials.apply(); } catch (_e) {}
 actMarks();
 try { BohemiaScreen.watch(function () { resize(); }); } catch (_e) {}
-loadAll().then(function () { resize(); return campBoardWanted() ? campBoardBake() : start(); }).then(function () { if (!campBoardWanted()) requestAnimationFrame(frame); })   /* __THE_CAMP_ON_THE_BOARD__ (CAMP THREE, rule 406): the camp's board is baked, never fought */
+/* __THE_FIGHT_IS_READ_WHILE_HE_READS_THE_CARD__ (PLUMBER 8, 11/22/26, rule 472(e) and rule 441; Paolo 11/22: 'it's just like the combat map,
+   it freezes for like 10 seconds and then everything's populated in'). MEASURED (the demo upright, CPU 4x, a phone's 100 ms round trip): from
+   ENGAGE the map's camera comes down for 2 s, then this page is made, read and run (2.2 to 5.0 s), its files read (5.5 s), the board dealt and
+   its ground pictures asked (7.9 s), the board up at 8 to 12 s. NOW the shell opens this page hidden the moment the meet card is up
+   (BOHEMIA_ALPHA_0_9.html nfWarm, FIGHT_OPTS.warm): it is read and its files loaded while he reads the card, and it WAITS here, dealing nothing,
+   drawing nothing, saying nothing, until the shell hands it the fight (FIGHT_OPTS) and calls fightGo(). A page that was never warmed, or one
+   handed its fight before its files were in, starts as before. */
+let WARM_GO = null;
+function warmWanted() { const o = window.FIGHT_OPTS; return !!(o && o.warm); }
+function warmHold() { window.__FIGHT_WARM_WAITING = performance.now(); return new Promise(function (ok) { WARM_GO = ok; }); }
+window.fightGo = function () { const g = WARM_GO; if (!g) return false; WARM_GO = null; window.__FIGHT_WARM_GONE = performance.now(); g(); return true; };
+loadAll().then(function () { resize(); return campBoardWanted() ? campBoardBake() : warmWanted() ? warmHold().then(function () { resize(); return start(); }) : start(); }).then(function () { if (!campBoardWanted()) requestAnimationFrame(frame); })   /* __THE_CAMP_ON_THE_BOARD__ (CAMP THREE, rule 406): the camp's board is baked, never fought */
   .catch(function (e) { document.getElementById('load').textContent = 'THE GROUND DID NOT LOAD: ' + e.message; });
 window.FIGHT_UI = UI;
 </script>

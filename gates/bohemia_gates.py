@@ -9636,6 +9636,14 @@ GATES = [
      "hour of the camp before its picture is in, the other light handed the first light's board, the picture handed as drawn (never written "
      "and read back); a plant sets the six old ways and must turn it red. records/BOHEMIA_PLUMBER_THE_CAMP_LOADS_IN_ONE_GO_11_22_26.md. "
      "About 5 min", True),
+    ('THE FIGHT IS READ WHILE HE READS THE CARD', ['node', 'gates/the_fight_is_read_while_he_reads_the_card_gate.js'],
+     "PLUMBER 8 gate, 11/22, VAMILY rule 472(e) (Paolo 11/22: 'it's just like the combat map, it freezes for like 10 seconds and then "
+     "everything's populated in'), rule 441. The demo upright, CPU 4x, the GPU canvas, the real map's fog, every answer to the card by a "
+     "finger: the meet card up opens the fight's page hidden in the fight's own place, told warm; it reads its files and waits (no board, "
+     "no fight started, nothing said to the shell); FALL BACK lets it go; a card read 5 s and ENGAGE: the fight's frame IS the page that "
+     "waited, the fight's own options, the board up, one fight started; ENGAGE the moment the card is up (the page still loading) still "
+     "makes the right fight once; a plant (window.__NO_FIGHT_WARM, the old way) must find no hidden page. "
+     "records/BOHEMIA_PLUMBER_THE_FIGHT_IS_READ_WHILE_HE_READS_THE_CARD_11_22_26.md. About 5 min", True),
     ('THE CAMP LETS GO WHEN HE LEAVES', ['node', 'gates/the_camp_lets_go_when_he_leaves_gate.js'],
      "MOTION 3 gate, 11/10, rule 441, ask row 560 (PLUMBER 8's NO FREEZE OVER HALF A SECOND: 'leaving camp freezes 1.4 s on his phone "
      "with the CPU slowed 4x'). MEASURED before (a CPU profile of the leave, the demo upright, the CPU slowed 4x): the camp's board page "

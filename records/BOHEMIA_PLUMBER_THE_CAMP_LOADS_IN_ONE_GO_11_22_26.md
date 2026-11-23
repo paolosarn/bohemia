@@ -75,6 +75,10 @@ The 30 seconds he felt is the old ways on a phone's network; the 10-second freez
 why the camp 'instantly' sent him back: the crew healed while it loaded.
 
 
+MEASURED AFTER, THE SAME ROUND (records/BOHEMIA_PLUMBER_THE_FIGHT_IS_READ_WHILE_HE_READS_THE_CARD_11_22_26.md): the one-round-trip cut
+does not move a FIGHT's start the way it moved the camp's: by a fight the 50 files are already in the phone's cache (the A/B inside the
+run-to-run noise). The camp's hidden page asked them fresh, which is where it paid.
+
 ## WHAT IS LEFT, NAMED
 
 - The fight page itself (1.15 MB) loading in the hidden frame: about 3 s of the cold camp at 4x; on a phone's network its first

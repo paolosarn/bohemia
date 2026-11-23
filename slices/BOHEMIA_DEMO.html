@@ -498,7 +498,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"86d4a6300cd84a28",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"5ffa55553ffcafbc",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1602,7 +1602,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/22zzd - THE CAMP WAITS FOR YOU</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/22zze - THE FIGHT WAITS BEHIND THE CARD</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12604,6 +12604,10 @@ function nfOpts(d){
 function nfCamp(){ try{ var cf = document.getElementById('cityFrame'), C = cf && cf.contentWindow && cf.contentWindow.BohemiaCamp; if(C) return C; }catch(_e){} return window.BohemiaCamp || null; }
 function nfOpen(d){
   var pc = document.getElementById('p-combat'); if (!pc) return false;
+  /* __THE_FIGHT_IS_READ_WHILE_HE_READS_THE_CARD__: a hidden page still reading its files when he says ENGAGE would read them while the
+     camera comes down (measured: one 434 ms frame of the way in at 4x, the checkers' ENGAGE the moment the card is up): it goes, and the
+     fight's page is made at the camera's stop as before. Only a page already waiting is the fight's. */
+  try{ if(NFW.fr){ var _wc = NFW.fr.contentWindow; if(!(_wc && _wc.__FIGHT_WARM_WAITING)) nfWarmDrop('engaged before it was read'); } }catch(_e){ try{ nfWarmDrop('engaged before it was read'); }catch(_e2){} }
   fightVeil(true);
   CITYFIGHT = true; CITYFIGHT_AT = (d && d.at) || null;
   /* __THE_FIGHT_SAVES_AT_ITS_START__ (FINISHER 11/2, rule 233): the game as it stands at the bell, kept until the map is back;
@@ -12639,34 +12643,99 @@ function nfOpen(d){
   setTimeout(go, 250);
   return true;
 }
+/* ==== __THE_FIGHT_IS_READ_WHILE_HE_READS_THE_CARD__ (PLUMBER 8, 11/22/26, rule 472(e) and rule 441; Paolo 11/22 of the camp: 'it's just
+   like the combat map, it freezes for like 10 seconds and then everything's populated in'). MEASURED (the demo upright, CPU 4x, the GPU
+   canvas, a phone's 100 ms round trip; records/BOHEMIA_PLUMBER_THE_FIGHT_IS_READ_WHILE_HE_READS_THE_CARD_11_22_26.md): from ENGAGE the
+   map's camera comes down (2 s), then the fight's page was made, read and run (2.2 to 5.0 s), its files read (5.5 s), its board dealt
+   and its ground asked (7.9 s), the board up 8 to 12 s after the tap. Battle Brothers reads the battle while its card is up. NOW the
+   moment the meet card is up (the map's meetShow calls nfWarm), the fight's page is opened hidden in the fight's own place, told
+   FIGHT_OPTS.warm: it is read and its files loaded while he reads the card, then it waits (slices/BOHEMIA_FIGHT.html fightGo), dealing
+   and drawing nothing. The fight it is built for takes it (nfBuild below: the same frame, the fight's own options, then go). FALL BACK,
+   MAKE CAMP NEARBY, or 90 s with no fight lets it go. window.__NO_FIGHT_WARM: the way it was (every fight's page made at the fight). */
+var NFW = { fr: null, at: 0, made: 0, used: 0, dropped: 0, loaded: 0 };
+window.NFW = NFW;
+function nfWarm(why){
+  if (window.__NO_FIGHT_WARM || NFW.fr || document.getElementById('fightFrame')) return false;
+  var pc = document.getElementById('p-combat'); if (!pc) return false;
+  var fr = document.createElement('iframe');
+  fr.id = 'fightWarm'; fr.title = 'The fight'; fr.tabIndex = -1; fr.setAttribute('aria-hidden', 'true');
+  fr.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;background:#0d0b09;visibility:hidden;pointer-events:none';
+  pc.appendChild(fr);
+  var set = function(){ try{ var cw = fr.contentWindow; if (cw && cw.location && /BOHEMIA_FIGHT/.test(cw.location.href) && !cw.FIGHT_OPTS) cw.FIGHT_OPTS = { warm: true }; }catch(_e){} };
+  var iv = setInterval(set, 4);
+  fr.addEventListener('load', function(){ clearInterval(iv); if (NFW.fr !== fr) return; set(); NFW.loaded = performance.now(); });   /* taken by a fight first: its options stand */
+  fr.src = 'BOHEMIA_FIGHT.html';
+  NFW.fr = fr; NFW.iv = iv; NFW.at = performance.now(); NFW.loaded = 0; NFW.why = why || null; NFW.made++;
+  clearTimeout(NFW.t); NFW.t = setTimeout(function(){ nfWarmDrop('unused'); }, 90000);
+  return true;
+}
+function nfWarmDrop(why){
+  var fr = NFW.fr; if (!fr) return false;
+  NFW.fr = null; clearTimeout(NFW.t); clearInterval(NFW.iv); NFW.dropped++; NFW.droppedWhy = why || null;
+  try{ fr.src = 'about:blank'; }catch(_e){} try{ fr.remove(); }catch(_e){}   /* its page and everything it read go with it */
+  return true;
+}
+/* the warm page, taken for the fight being built (null: none, or it was not the fight's page) */
+function nfWarmTake(){
+  var fr = NFW.fr; if (!fr) return null;
+  NFW.fr = null; clearTimeout(NFW.t); clearInterval(NFW.iv);
+  if (!fr.isConnected) return null;
+  NFW.used++; NFW.takenAt = performance.now(); NFW.ready = !!NFW.loaded;
+  fr.id = 'fightFrame'; fr.removeAttribute('aria-hidden'); fr.tabIndex = 0; fr.style.visibility = ''; fr.style.pointerEvents = '';
+  return fr;
+}
+window.nfWarm = nfWarm; window.nfWarmDrop = nfWarmDrop;
+/* ==== /__THE_FIGHT_IS_READ_WHILE_HE_READS_THE_CARD__ ==== */
 function nfBuild(d){
   var pc = document.getElementById('p-combat'); if (!pc) return false;
   var fr = document.getElementById('fightFrame');
   if (fr) fr.remove();
+  var warm = nfWarmTake();   /* __THE_FIGHT_IS_READ_WHILE_HE_READS_THE_CARD__ */
+  if (warm) fr = warm;
+  else {
   fr = document.createElement('iframe');
   fr.id = 'fightFrame'; fr.title = 'The fight';
   fr.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0;background:#0d0b09';
   pc.appendChild(fr);
+  }
   NF.frame = fr;
   /* the options go on the fight's own window before it reads them: it reads FIGHT_OPTS once its
-     data has loaded, so they are set the moment its window exists, and checked again at load */
-  var opts = NF.opts, set = function(){ try{ var cw = fr.contentWindow; if (cw && cw.location && /BOHEMIA_FIGHT/.test(cw.location.href) && !cw.FIGHT_OPTS) cw.FIGHT_OPTS = opts; }catch(_e){} };
+     data has loaded, so they are set the moment its window exists, and checked again at load
+     (a warm page's own FIGHT_OPTS.warm is replaced by the fight's) */
+  var opts = NF.opts, set = function(){ try{ var cw = fr.contentWindow; if (cw && cw.location && /BOHEMIA_FIGHT/.test(cw.location.href) && (!cw.FIGHT_OPTS || cw.FIGHT_OPTS.warm)) cw.FIGHT_OPTS = opts; }catch(_e){} };
   var iv = setInterval(set, 4);
-  fr.addEventListener('load', function(){
+  var loaded = function(){
     set(); clearInterval(iv);
     try{ var cw = fr.contentWindow;
       /* if its data beat the options, start it again with them before he has touched it */
       var t = setInterval(function(){ try{
         var F = nfFight(cw); if (!F || !F.S || !F.S.board) { if (performance.now() - NF.opened > 30000) clearInterval(t); return; } clearInterval(t);
-        if (F.S.boardDef && (F.S.boardDef.kinds || []).indexOf(opts.kind) < 0 && typeof cw.start === 'function') { cw.FIGHT_OPTS = opts; cw.start(); NF.restarted = (NF.restarted || 0) + 1; }
+        /* __A_FIGHT_STARTS_ONCE__ (PLUMBER 8, 11/22, rule 441): the page says which orders its start read (FIGHT_UI.startedWith); it is started
+           again only when they were not these. The old test (the dealt board's kinds missing the district's kind) can fire on a page that
+           started with exactly these orders, since a place's, a zone's or the street's board carries kinds of its own, and then the fight
+           is dealt, its pictures asked and its board baked twice; SEEN ONCE in this round's gate runs (a random valley, one fight counted
+           twice, the cause not caught), not on seven valleys asked on purpose. The new test cannot fire on a page that read its own orders.
+           window.__NF_RESTART_BY_KIND: the old test. */
+        var _sw = cw.FIGHT_UI ? cw.FIGHT_UI.startedWith : undefined;
+        var _missed = (_sw === undefined || window.__NF_RESTART_BY_KIND) ? (F.S.boardDef && (F.S.boardDef.kinds || []).indexOf(opts.kind) < 0) : _sw !== opts;
+        if (_missed && typeof cw.start === 'function') { cw.FIGHT_OPTS = opts; cw.start(); NF.restarted = (NF.restarted || 0) + 1; }
         var again = cw.document.getElementById('oagain'); if (again) again.style.display = 'none';
         var card = cw.document.getElementById('over'); if (card) card.addEventListener('click', function(){ nfHome(); });
       }catch(_e){ clearInterval(t); } }, 50);
     }catch(_e){}
-  });
-  fr.src = 'BOHEMIA_FIGHT.html';
+  };
+  if (!warm) { fr.addEventListener('load', loaded); fr.src = 'BOHEMIA_FIGHT.html'; }
   showTabPanel('combat');
   document.body.classList.add('nf-on');
+  /* __THE_FIGHT_IS_READ_WHILE_HE_READS_THE_CARD__: the warm page, once the fight's place is on the glass: the fight's options, then go. A page
+     still reading its files takes them now and starts the fight itself when they are in (fightGo answers false, nothing waits yet); a page
+     that somehow started without them is started again by the kind check above, as any fight page is */
+  if (warm) {
+    var wl = false; try { wl = fr.contentDocument.readyState === 'complete' && /BOHEMIA_FIGHT/.test(fr.contentWindow.location.href); } catch (_e) {}
+    var wgo = function(){ try { var wcw = fr.contentWindow; NF.warmGo = !!(wcw.fightGo && wcw.fightGo()); } catch (_e) {} };
+    if (wl) { loaded(); wgo(); }
+    else fr.addEventListener('load', function(){ loaded(); wgo(); });
+  }
   /* __ONE_SONG__ (RUN 10/4, [one song], rule 64): AND THE FIGHT GETS ITS OWN SONG. SOUNDS' FIGHTMUS.enter()
      above stands the street down; with nothing more, MEASURED, the street's own song simply carried on as
      the fight's. The old fight's frame used to report a pick; the rebuilt one never does, so the pick goes

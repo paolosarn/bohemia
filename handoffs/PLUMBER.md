@@ -1,5 +1,34 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/22, BUILD 11/22zze THE FIGHT WAITS BEHIND THE CARD (rule 472(e) 'it's just like the combat map', rule 441, ask row 613).
+  MEASURED (a probe that meets a road crew the way he does: the MEET card, read, a finger on ENGAGE; the demo upright, CPU 4x, the GPU
+  canvas, the real map's fog, a phone's 100 ms round trip; the fight page's own clock window.__FIGHT_T, a network waterfall): from ENGAGE
+  the camera comes down (2 s), the fight's page was made at its stop, read and run, and started 7.0 to 8.6 s after the tap; then its
+  board dealt, 8 to 90 pictures asked (5 to 6 MB on a suburb board: SIX ~600 KB BLOCK PICTURES for a few tiles each), the ground, the
+  men, the bake. The one-round-trip cut of 11/22zx does NOT move a fight's start (its files are cached by then); only the camp's.
+  CUT: __THE_FIGHT_IS_READ_WHILE_HE_READS_THE_CARD__: a beat after the meet card is up the shell opens the fight's page hidden in #p-combat
+  (nfWarm, FIGHT_OPTS.warm); it reads its files and WAITS (BOHEMIA_FIGHT.html fightGo); nfBuild takes it for the fight (same frame, the
+  fight's options, go). FALL BACK / MAKE CAMP NEARBY / 90 s drop it; ENGAGE before it is waiting drops it too (nfOpen: a page reading
+  during the dive cost MOTION's way in a 434 ms frame at 4x) and the fight is made at the stop as before. A card answered inside the beat
+  (the checkers' 250 ms tap) makes none at all: the old way exactly (one made and dropped at once pushed the freeze census 3% over its
+  ratchet twice; main's own run 9/0; after the beat 9/0). Switch __NO_FIGHT_WARM.
+  AND __A_FIGHT_STARTS_ONCE__: the shell's 'start it again' test (the board's kinds missing the district's kind) can fire on a page that
+  read its own orders (dealt and baked twice); seen once (a random valley, cause not caught), not on seven valleys asked on purpose. The
+  page now says which orders it started with (FIGHT_UI.startedWith) and the shell restarts only when they were not the fight's. Switch
+  __NF_RESTART_BY_KIND.
+  AFTER, THE CLEAN A/B (the valley PTBTDN and the die pinned, the same board, mobile data, the card read 4 s): the fight up 12.0 / 11.0 s
+  -> 8.8 / 9.1 s after ENGAGE; its start 8.2 / 7.2 -> 3.6 / 2.9 s; tasks over 50 ms 4.3 / 4.1 -> 3.4 / 3.2 s; the card's 4 s carries 0.5 s
+  more work, its longest task 293 ms. Fifteen runs on mixed boards: 19.2 -> 17.0 s on the mean (the board's pictures are the wall there).
+  records/BOHEMIA_PLUMBER_THE_FIGHT_IS_READ_WHILE_HE_READS_THE_CARD_11_22_26.md.
+  GATES: THE FIGHT IS READ WHILE HE READS THE CARD (new, in the suite) 17/0 (W1 to W6 and its plant); THE ZOOM DOWN INTO THE BOARD 32/0 (main
+  32/0); NO FREEZE OVER HALF A SECOND 9/0 (main 9/0); THE WHOLE LOOP PLAYS 11/0; EVERY FIGHT HANDS HIM BACK 10/0; ONE FIGHT 4/0; THE CARD
+  THAT OPENS A FIGHT 8/0; MEET BEFORE YOU FIGHT 8/7 the same seven legs on main; ONE SONG ONLY 15/2 (the settings card's sliders, O10, not
+  the fight); DEMO CURRENT 16/0, DEMO BUILD 25/0, PAGES PUBLISH 30/0, ENGINE SYNC, RED DEBT 4/0.
+  NEXT (mine): THE DEAL AT THE CARD: pick the die and dress the hand-over at the card (cityHandOver's world/district/template/ground) so
+  the hidden page deals the board and asks its pictures while he reads. COMBAT: a board's ground packed like the men's sheets (six whole
+  ~600 KB block pictures a board for a few tiles each). FOR MOTION: the fight's page is now usually waiting when your dive's build()
+  runs; start() still runs at the stop under your held frame, nothing else of the dive changed.
+
 PLUMBER 8 (chat 18) 11/22, BUILD 11/22zx THE CAMP LOADS IN ONE GO (VAMILY rule 472(e), the coordinator's 'PLUMBER 8: the camp freeze'; rule 441).
   MEASURED FIRST (the demo upright, CPU 4x, the GPU canvas, MAKE CAMP from the map with the phone's HEAL; a CPU profile in half seconds):
   the camp's screen up 1.7 s, its picture in 18.5 s cold and 17.3 s warm, 10 to 11 s of tasks over 50 ms, the longest 2.4 s. Where: the
