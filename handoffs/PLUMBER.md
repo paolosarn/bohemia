@@ -26,7 +26,9 @@ PLUMBER 8 (chat 18) 11/22, BUILD 11/22zze THE FIGHT WAITS BEHIND THE CARD (rule 
   the fight); DEMO CURRENT 16/0, DEMO BUILD 25/0, PAGES PUBLISH 30/0, ENGINE SYNC, RED DEBT 4/0.
   NEXT (mine): THE DEAL AT THE CARD: pick the die and dress the hand-over at the card (cityHandOver's world/district/template/ground) so
   the hidden page deals the board and asks its pictures while he reads. COMBAT: a board's ground packed like the men's sheets (six whole
-  ~600 KB block pictures a board for a few tiles each). FOR MOTION: the fight's page is now usually waiting when your dive's build()
+  ~600 KB block pictures a board for a few tiles each). *** ROW 722, FOR COMBAT FOUR: THE WHOLE LOOP PLAYS is red on main since
+  11/22zza, step 8 (a won fight's LEAVE does not bring him home); bisected: 0d9617f71 passes, de40825aa fails, and that cut's one change
+  to the demo is the new game's wipe clearing 'bohemia.rounds.v1'. *** FOR MOTION: the fight's page is now usually waiting when your dive's build()
   runs; start() still runs at the stop under your held frame, nothing else of the dive changed.
 
 PLUMBER 8 (chat 18) 11/22, BUILD 11/22zx THE CAMP LOADS IN ONE GO (VAMILY rule 472(e), the coordinator's 'PLUMBER 8: the camp freeze'; rule 441).
