@@ -1,6 +1,23 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/22 LATEST -- BUILD 11/22zu - EVERY FOE AGREES, BUILT, NOT YET SEEN (rule 475(b), the
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/26 LATEST -- RULE 480 ON THE JOBS AS BUILT (the coordinator's routine 'JOBS 2: rule 480';
+ask row 723). No build. Record: records/BOHEMIA_JOBS_TWO_RULE_480_THE_JOBS_AS_BUILT_11_26_26.md.
+- (b) CHECKED: followers everywhere (no CLOUT on a jobs screen), no waypoints, every foe agrees, the board under half sideways, jobs fit
+  and fights match their cards (their gates stand, not re-walked). EIGHT client lines in BOHEMIA_JOB_KINDS.json board_people still say
+  'and it pays {pay} batteries' (470(g)): rule 465 holds them until he says his homework is done; routed to WORDS THREE. No job has a
+  comeback (470(h) is WORLD 15's road card).
+- (c) MEASURED (tools/bohemia_jobs_frames_on_a_slow_phone.js, new; --profile): on 390 x 844 at 4x with the GPU drawing, every job step is
+  red: the town 4 to 7 fps (the board, the card, Take it inherit it), the map with a job 18 to 28, the trip to a fight 3. The jobs' own
+  scripts take tens of ms a step. Biggest first: the town picture's per-frame fill (BOHEMIA_SETTLEMENT_SCREEN.html draw, up to 1 s a
+  3-second step), engine/bohemia_idles.js warmOne's unpacking (up to 851 ms), bohemia_ui_nothing_pops.js checkVisibility (up to 254 ms),
+  the map's ground and fog blits. A/B on one boot: the jobs' marks cost nothing measurable. ROUTED: PLUMBER 8 first (the walk's owner),
+  RUN TWO and COOK FOUR, UI, RUN and WORLD 15.
+NEXT: row 698 (the board deals a job to a different town depending on when its danger read comes in). When 465 lifts, nothing (WORDS
+THREE rewrites the eight). The town board's own frames after RUN TWO's fix: re-run the tool.
+[bb Battle Brothers' contract screen is a still panel over a still town]
+[analog horror: the town holds still at five frames a second, like a tape the deck is struggling to read]
+
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/22 -- BUILD 11/22zu - EVERY FOE AGREES, BUILT, NOT YET SEEN (rule 475(b), the
 coordinator's routine 'the ground sloth are down'; rule 441; ask row 715's (b) for every foe a job names). No VOTE card (a result line's
 grammar; FIGHT SCREEN 3's card fight-screen-the-receipt-is-gone-11-22 carries the end screen). Record records/BOHEMIA_JOBS_TWO_EVERY_FOE_AGREES_11_22_26.md.
 - FIGHT SCREEN 3's 11/22zr fixed the sloth (__THE_LINE_READS_RIGHT__ in slices/BOHEMIA_SPOILS_SCREEN.html). Run over the job file's 41 foe

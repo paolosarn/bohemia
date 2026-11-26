@@ -1,3 +1,6 @@
+JOBS TWO (jobs-two-01gkdyuu): 11/26 LATEST -- RULE 480 ON THE JOBS (no build; ask row 723). The jobs as built checked; 8 client lines still say 'it pays' (frozen by 465, WORDS THREE's).
+On the slowed phone every job step is red (the town 4 to 7 fps, the map with a job 18 to 28) and the jobs' own code is tens of ms: the town picture's per-frame fill, the idle
+sheets' warm-up, nothing_pops' checkVisibility and the map's blits hold the frames; routed to PLUMBER 8 first. Tool tools/bohemia_jobs_frames_on_a_slow_phone.js. Its block is handoffs/JOBS.md.
 CAMP FOUR (camp-four-01gkdyuu): 11/22 LATEST -- BUILD 11/22zzd - THE CAMP WAITS FOR YOU, BUILT, NOT YET SEEN (rule 472(a) to (d), 441, 448; ask rows 711 and 712). Its block is handoffs/CAMP_THREE.md.
 Make camp: the hours run only while his men mend and STOP the hour they are whole; the camp stays on the glass and they keep moving about it (one man every 6 s, walked);
 the phone's band says HIT THE ROAD and its strip is one of his men's line; his tap is the map, on PAUSE. Every camp is built before an hour runs. After a fight the camp stands on
@@ -15,7 +18,7 @@ the stock goes; their side keeps endless quivers.
 GATE NO AMMO, NO SHOT 7/0 (16 fights on AUTO, 153 shots of his, none at none, none past its rounds, 46 guns run dry then 94 blows with fists and 41 swaps; two plants caught); the fight's other 55 headless gates re-run: every red also red on main on the same legs, but THE RELOAD IS LOUD's dry-tap leg, re-aimed for rule 478 (17/0); THE BIG INSIDES 783/0. ON THE PAGE: 4 real fights through the map's own door (district suburb), the demo and the alpha, upright and on its side, his three gunmen walked in with 2 rounds a gun and the company's rounds set to 6: every gun fired exactly 2, none at none, none past what it walked in with, none from a bag before a swap, each ran dry and fought on with his fists (13 to 23 blows each); at the end 6 spent, 6 filled, the stock 6 to 0 (the store and the bar both 0), kept for YOU, DESI and RAUL; 0 page errors. VOTE combat4-no-ammo-no-shot-11-22.
 [bb Battle Brothers' quiver: ten bolts, refilled after the battle from the company's ammunition, never in it]
 [analog horror: the click of a gun that has nothing left, and the man who slings it and walks in with his hands]
-JOBS TWO (jobs-two-01gkdyuu): 11/22 LATEST -- BUILD 11/22zu - EVERY FOE AGREES, BUILT, NOT YET SEEN (rule 475(b) for every foe a job names; ask row 715). Its block is handoffs/JOBS.md.
+JOBS TWO (jobs-two-01gkdyuu): 11/22 -- BUILD 11/22zu - EVERY FOE AGREES, BUILT, NOT YET SEEN (rule 475(b) for every foe a job names; ask row 715). Its block is handoffs/JOBS.md.
 The end of a fight's result line agrees over all 41 names a job can hand it: THE CREW AT THE PUMP STATION IS DOWN (never CREWS), THE THIEVES AFTER THE REGULATOR
 ARE DOWN, THE WATER PEOPLE ARE DOWN, THE SHRUB-OXEN ARE DOWN; on the phone both ways. Gate EVERY FOE AGREES 4/0 (new). NEXT: row 698.
 JOBS TWO (jobs-two-01gkdyuu): 11/22 -- BUILD 11/22zs - THE BOARD UNDER HALF, BUILT, NOT YET SEEN (rules 402, 441; ask row 669). Its block is handoffs/JOBS.md.
