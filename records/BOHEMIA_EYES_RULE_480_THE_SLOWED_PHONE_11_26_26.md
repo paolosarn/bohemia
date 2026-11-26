@@ -85,3 +85,13 @@ CLOUT) on the bar: 0, then 15 after the fight. 0 page errors.
 
 Sideways: the board, a job, the stall, a pinch, camp and his place. A fight met by the road (the job was far off). The VOTE tab's
 frames. The shortcuts: the fights by hand-over, his place by the plant call.
+
+## BUILDS THAT LANDED DURING THE ROUND
+
+- 11/26b THE VOTE TAB NEVER CHOPPY (WORDS THREE, 372b04009): SEEN on the alpha upright at 4x, a thumb's flicks on the glass. MORE
+  tapped: 59.5 frames a second, 0 frames past 50 ms, the worst 33 ms. His homework sheets scrolled (10 flicks): 53 a second, 4 frames
+  past 50 ms, the worst 83 ms, no long task. The tab's open (a tap on VOTE from RUN): 15.9 a second with a 700 ms frame, and the first
+  8 flicks 49 a second with frames of 300 and 283 ms: those come from THE GAME RUNNING HIDDEN BEHIND THE TAB (the first town's tasks
+  of about 300 to 420 ms, in the map's and the town's frames, row 731), not from the tab; they stopped by the time MORE was tapped.
+- 11/26a A MEND NEVER COSTS MORE THAN NEW (ECONOMY THREE, cb2204674): 3 of 204 pieces by 1 to 2 batteries; not reached on a fresh
+  game (no piece broken that far); not walked.
