@@ -91,6 +91,16 @@ def plan_df_floor(ID, seed=101):
                 ya, yb = int(max(0, (min(y0, y1) - 0.2) * PYM)), int(min(H, (max(y0, y1) + 0.2) * PYM)); xa, xb = int(max(0, (min(x0, x1) - 0.2) * PPM)), int(min(W, (max(x0, x1) + 0.2) * PPM))
                 X, Y = xm[ya:yb, xa:xb], ty[ya:yb, xa:xb]; dx, dy = x1 - x0, y1 - y0; t = np.clip(((X - x0) * dx + (Y - y0) * dy) / max(dx * dx + dy * dy, 1e-6), 0, 1)
                 dd = np.hypot(X - (x0 + t * dx), Y - (y0 + t * dy)); dark[ya:yb, xa:xb] = np.maximum(dark[ya:yb, xa:xb], np.clip(1 - dd / 0.035, 0, 1) * rng.uniform(0.25, 0.5))
+    # (11/26, COOK SIX, his 'Wip' on cook5-the-three-that-waited-11-18, rule 480(b); on his phone the raised floor went near white under
+    # the fort's lights and drowned the rows) A DEAD HALL IS DARK: the floor's tiles a step down under years of dust, darker in drifts the
+    # cooling's air left along the rows, a tile's edge the same as every edge (any tile meets any tile)
+    rng2 = np.random.RandomState(seed + 7); w = TG.win(lx, ly, 0.5, 1.5)
+    n1 = TG.mixn(FW.vnoise((H, W), 2.0 * PPM, rng2), TG.pnoise(rng2, 2.0), w)
+    # (the plan's darkening alone moved the floor too little on his phone: the raised floor is laid on the garage deck's darker calibrated
+    #  ground now, its lift-out tiles' joints every 0.6 m drawn here as the old ground's were: a tile's edge is a joint; every row alike)
+    gid[:] = ID['gar_deck']
+    jt = (np.abs(((lx + 0.3) % 0.6) - 0.3) > 0.292) | (np.abs(((ly + 0.3) % 0.6) - 0.3) > 0.292)
+    dark = dark + 0.06 + np.clip((0.5 - n1) / 0.3, 0, 1) * 0.1 + jt * 0.16
     return gid, np.clip(dark, 0, 1), np.clip(pale, 0, 1)
 
 
@@ -378,6 +388,14 @@ NAME = dict(gallery="THE CONTROL ROOM'S GALLERY", stair_e='ITS STAIR, EAST', sta
             gate="A CAGE'S GATE, CUT OPEN", crates='CABINETS STILL CRATED', crates_b='CABINETS STILL CRATED', floor_up='THE FLOOR, PULLED UP', servers_block='A BLOCK OF SERVERS')
 
 
+def recut_floor():
+    """(11/26, COOK SIX) the floor alone, into the folder as it stands (the pieces' render is not kept between sessions)"""
+    p = os.path.join(SHIP, 'datafort_art.json'); art = json.load(open(p))
+    im = Image.open(os.path.join(REND, 'df_floor.png')).convert('RGB'); fn = os.path.join(SHIP, 'datafort_floor_0.webp'); im.save(fn, 'WEBP', quality=TG.QS, method=6)
+    art.setdefault('bytes', {})['floor'] = os.path.getsize(fn); json.dump(art, open(p, 'w'), indent=1)
+    print('floor', os.path.getsize(fn), 'folder', sum(os.path.getsize(os.path.join(SHIP, f)) for f in os.listdir(SHIP) if f.endswith('.webp')))
+
+
 def cut(block=False):
     os.makedirs(SHIP, exist_ok=True); bytes_ = {}
     im = Image.open(os.path.join(REND, 'df_floor.png')).convert('RGB'); fn = os.path.join(SHIP, 'datafort_floor_0.webp'); im.save(fn, 'WEBP', quality=TG.QS, method=6); bytes_['floor'] = os.path.getsize(fn)
@@ -515,6 +533,7 @@ if __name__ == '__main__':
             print('  rendered', n, fn, flush=True)
     elif a and a[0] == 'cal': TG.scene_cal(True); TG.calibrate()
     elif a and a[0] == 'cut': cut('--block' in a)
+    elif a and a[0] == 'recut_floor': recut_floor()
     elif a and a[0] == 'sheet': sheet(a[1], a[2])
     elif a and a[0] == 'plan':
         ID = TG.ids(); gid, dark, pale = plan_df_floor(ID); pal = np.random.RandomState(5).randint(40, 220, (64, 3)).astype(np.uint8)

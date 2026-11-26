@@ -80,14 +80,17 @@ def plan_mall_floor(ID, seed=83):
     gid = np.full((H, W), ID['mall_terrazzo'], np.uint8)
     dust = TG.mixn(FW.vnoise((H, W), 2.5 * PPM, rng), TG.pnoise(rng, 2.5), w)
     pale = (0.07 + np.clip((dust - 0.5) / 0.3, -0.5, 1) * 0.05).astype(np.float32); dark = np.zeros((H, W), np.float32)
-    # a dark diamond inlaid at every tile's middle, a small one at every strip crossing inside the tile
-    d0 = np.abs(lx - 6.0) + np.abs(ly - 6.0)
-    gid[(d0 < 1.5)] = ID['mall_inlay']; gid[(d0 < 0.9)] = ID['mall_terrazzo']
-    for (cx, cy) in ((3.0, 3.0), (9.0, 3.0), (3.0, 9.0), (9.0, 9.0)): gid[(np.abs(lx - cx) + np.abs(ly - cy)) < 0.42] = ID['mall_inlay']
+    # the inlaid diamond, on a few tiles only (11/26, COOK SIX, his 'Wip' on cook5-the-three-that-waited-11-18, rule 480(b): one on every
+    # tile and four small ones round it read as wallpaper over the whole board on his phone, the powerhouse's sunbursts again; a mall's
+    # terrazzo sets its inlays where the walks cross, not in every square)
+    d0 = np.abs(lx - 6.0) + np.abs(ly - 6.0); few = np.isin(row * 5 + col, (1, 8, 17))
+    gid[(d0 < 1.5) & few] = ID['mall_inlay']; gid[(d0 < 0.9) & few] = ID['mall_terrazzo']
     # where the roof leaks: a mark with a tide line, inside a tile
     leak = FW.vnoise((H, W), 1.8 * PPM, rng) * TG.win(lx, ly, 0.8, 1.2); tl = TG.top(leak, 0.035)
     edge = np.clip(1 - np.abs(leak - tl) / 0.012, 0, 1) * (leak > tl - 0.012)
     dark = np.maximum(dark, np.clip((leak - tl) / 0.05 + 0.25, 0, 1) * (leak > tl) * 0.2); pale = np.maximum(pale, edge * 0.2)
+    dark = dark + 0.16 + np.clip((0.5 - dust) / 0.3, 0, 1) * 0.08          # (11/26) a dead mall is dark: the polish a step down under its dust
+    pale = pale * 0.6
     rr = np.random.RandomState(seed + 1)
     for r in range(4):
         for c in range(5):
@@ -151,10 +154,9 @@ FRONT_H, DOOR_H = 3.0, 3.0
 
 def bridge(P, ox, oy, rng):
     P.box('conc', ox - 6, ox + 6, oy, oy + 12, 0.0, LEVEL_H - 0.02); P.box('terr', ox - 6, ox + 6, oy, oy + 12, LEVEL_H - 0.02, LEVEL_H)
-    for i in range(3):                                         # its diamonds, every 4 m (the same on every tile's edge, so deck tiles meet)
-        for j in range(3):
-            cx, cy = ox - 4 + i * 4.0, oy + 2 + j * 4.0
-            P.poly('terr_d', [(cx - 0.8, cy), (cx, cy - 0.8), (cx + 0.8, cy), (cx, cy + 0.8)], LEVEL_H, LEVEL_H + 0.005)
+    # (11/26, COOK SIX, his 'Wip', rule 480(b): its nine diamonds a tile, every 4 m, read on his phone as a band of wallpaper across the
+    #  board; the deck is the terrazzo and its brass strips now, a dark drift of dust along its rail side)
+    P.box('terr_d', ox - 6, ox + 6, oy + 9.6, oy + 12, LEVEL_H, LEVEL_H + 0.003)
     for k in range(4): P.box('brass', ox - 6 + k * 4.0 - 0.02, ox - 6 + k * 4.0 + 0.02, oy, oy + 12, LEVEL_H, LEVEL_H + 0.004)
     P.box('paint_w', ox - 6, ox + 6, oy - 0.006, oy, LEVEL_H - 0.5, LEVEL_H - 0.02); P.box('brass', ox - 6, ox + 6, oy - 0.008, oy - 0.006, LEVEL_H - 0.14, LEVEL_H - 0.08)   # the fascia, its brass line
     P.box('under', ox - 6, ox + 6, oy - 0.006, oy, 0.0, LEVEL_H - 0.5)                                 # the dark under it
@@ -404,7 +406,7 @@ def mall_parts(P, rng):
 
 
 def mall_mats(bpy, NF, F, M, which):
-    if which not in ('mall_pieces', 'tun_pieces'): return       # ('tun_pieces' is what the ceiling's scene asks its materials by)
+    if which not in ('mall_pieces', 'tun_pieces', 'mall_bridge_only'): return       # ('tun_pieces' is what the ceiling's scene asks its materials by)
     M.update(terr=NF.material(bpy, 'in_stall_terrazzo', 'clay_bone', 3, 0.85), terr_d=NF.material(bpy, 'in_stall_inlay', 'clay_rust', 2, 0.8),
              brass=NF.material(bpy, 'in_brass', 'clay_mustard', 2, 0.9), shutter=NF.material(bpy, 'in_stall_shutter', 'tape_grey', 2, 0.85),
              under=NF.material(bpy, 'in_stall_under', 'tape_grey', 0, 0.7), rail_glass=NF.material(bpy, 'in_rail_glass', 'clay_teal', 3, 0.8),
@@ -416,6 +418,7 @@ def mall_mats(bpy, NF, F, M, which):
 
 
 TG.PARTS['mall_pieces'] = mall_parts
+TG.PARTS['mall_bridge_only'] = lambda P, rng: bridge(P, *MALL_AT['bridge'], rng)   # (11/26) the bridge alone, for its second pass
 TG.MAT_HOOKS.append(mall_mats)
 
 
@@ -475,6 +478,25 @@ NAME = dict(bridge='THE BRIDGE', escalator_e='A DEAD ESCALATOR, EAST', escalator
             counter="A STORE'S COUNTER", kiosk='A KIOSK', stock='STOCK ON PALLETS', camp_a='SOMEBODY LIVES HERE', camp_b='SOMEBODY LIVES HERE', tables="THE FOOD COURT'S TABLES", rubble='THE CEILING, COME DOWN',
             planter='A PLANTER', column='A COLUMN')
 ALSO = dict(boxes='stock', bedding_a='camp_a', bedding_b='camp_b', seats='tables')       # COMBAT THREE's drawn-only names: the same pictures
+
+
+def recut_bridge():
+    """(11/26, COOK SIX) the bridge alone, laid on its own canvas as it stands (the same size and foot)"""
+    p = os.path.join(SHIP, 'mall_art.json'); art = json.load(open(p)); old = art['kit']['mall_bridge']
+    im = Image.open(os.path.join(REND, 'mall_bridge_only.png')).convert('RGBA'); x, y = MALL_AT['bridge']; hh = LEVEL_H * PPM / PYM
+    v = TG.cut_piece(im, (x, y), (x - 6.0, x + 6.0 + 0.01, y - 0.05, y + 12.0 + hh + 0.3), 'mall_bridge', 'mall', 0.0)
+    fn = os.path.join(SHIP, 'mall_bridge.webp'); q = Image.open(fn).convert('RGBA'); o = Image.new('RGBA', (old['w'], old['h_px']), (0, 0, 0, 0))
+    dx = int(round(old['foot'][0] - v['foot'][0])); dy = int(round(old['foot'][1] - v['foot'][1]))
+    o.alpha_composite(q.crop((max(0, -dx), max(0, -dy), q.width, q.height)), (max(0, dx), max(0, dy))); o.save(fn, 'WEBP', quality=86, method=6)
+    print('mall_bridge', o.size, 'shift', (dx, dy), os.path.getsize(fn))
+
+
+def recut_floor():
+    """(11/26, COOK SIX) the floor alone, into the folder as it stands (the pieces' render is not kept between sessions)"""
+    p = os.path.join(SHIP, 'mall_art.json'); art = json.load(open(p))
+    im = Image.open(os.path.join(REND, 'mall_floor.png')).convert('RGB'); fn = os.path.join(SHIP, 'mall_floor_0.webp'); im.save(fn, 'WEBP', quality=TG.QS, method=6)
+    art.setdefault('bytes', {})['floor'] = os.path.getsize(fn); json.dump(art, open(p, 'w'), indent=1)
+    print('floor', os.path.getsize(fn), 'folder', sum(os.path.getsize(os.path.join(SHIP, f)) for f in os.listdir(SHIP) if f.endswith('.webp')))
 
 
 def cut():
@@ -596,10 +618,12 @@ if __name__ == '__main__':
     if a and a[0] == 'render':
         quick = '--quick' in a
         for n in [x for x in a[1:] if not x.startswith('--')]:
-            fn = TG.scene_ground(n, quick) if n in ('mall_floor', 'mall_store') else TG.scene_pieces(n, quick) if n == 'mall_pieces' else TG.scene_ceiling('mall', quick)
+            fn = TG.scene_ground(n, quick) if n in ('mall_floor', 'mall_store') else TG.scene_pieces(n, quick) if n in ('mall_pieces', 'mall_bridge_only') else TG.scene_ceiling('mall', quick)
             print('  rendered', n, fn, flush=True)
     elif a and a[0] == 'cal': TG.scene_cal(True); TG.calibrate()
     elif a and a[0] == 'cut': cut()
+    elif a and a[0] == 'recut_floor': recut_floor()
+    elif a and a[0] == 'recut_bridge': recut_bridge()
     elif a and a[0] == 'sheet': sheet(a[1], a[2])
     elif a and a[0] == 'plan':
         ID = TG.ids(); gid, dark, pale = plan_mall_floor(ID); pal = np.random.RandomState(5).randint(40, 220, (64, 3)).astype(np.uint8)

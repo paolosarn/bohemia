@@ -24308,7 +24308,93 @@
    },
    "record": "records/BOHEMIA_COOK_SIX_THE_NAMES_PAINTED_11_26_26.md"
   },
-  {"id": "fight-screen-reload-or-out-never-choppy-11-26", "kind": "ui", "lane": "fight screen", "sha": "79ddcbd34", "made": "11/26", "draft": true, "title": "HIS CARD SAYS RELOAD OR OUT, AND IT COSTS THE FRAMES A LOT LESS", "said": "Lets turn up full sweep. But improve on what we already have. And make sure fps is never choppy for nothing lets go", "why": "Left is before, right is now, the card on your phone in a fight. Now an empty gun that still has rounds in his pocket shows gold outlines (reload), a man fully out shows red bullets pulsing (it showed nothing before), a thin line under the bullets shows how much he carries, and his last AP square is no longer cut off. Behind it, the card and his sheet now do a third as much work per update on a slow phone, so they never cost a frame. You see it on the card in your phone every turn of a fight.", "show": {"how": "image", "src": "../records/target/FIGHT_SCREEN_RELOAD_OR_OUT_AND_NEVER_CHOPPY_11_26.webp", "first": "../records/target/vote_first/fight-screen-reload-or-out-never-choppy-11-26.webp", "firstAt": [0, 0, 1020, 330]}, "before_after": {"before": "main 56e1eb31a (11/22zv): the magazine only; an empty magazine red as if out, a man out (fists up) nothing, the 9th AP pip cut; on a phone slowed 4x the card's refresh 14.0 ms a call, the phone card's repaint about 9 to 10 ms", "after": "in the gun brass, RELOAD hollow amber, OUT red on the beat, what he carries a brass line, 9 of 9 AP pips whole; the card's refresh 5.0 to 5.8 ms, the phone card's repaint 2.0 ms, an unchanged refresh writes nothing", "scale": "the demo on a phone upright (390 x 844) at 2, the card cut out at about 2 times; the costs measured with the CPU slowed four times"}, "stage": "stand_in", "record": "records/BOHEMIA_FIGHT_SCREEN_RELOAD_OR_OUT_AND_NEVER_CHOPPY_11_26_26.md", "build": "BUILD 11/26d - RELOAD OR OUT, NEVER CHOPPY"}
+  {"id": "fight-screen-reload-or-out-never-choppy-11-26", "kind": "ui", "lane": "fight screen", "sha": "79ddcbd34", "made": "11/26", "draft": true, "title": "HIS CARD SAYS RELOAD OR OUT, AND IT COSTS THE FRAMES A LOT LESS", "said": "Lets turn up full sweep. But improve on what we already have. And make sure fps is never choppy for nothing lets go", "why": "Left is before, right is now, the card on your phone in a fight. Now an empty gun that still has rounds in his pocket shows gold outlines (reload), a man fully out shows red bullets pulsing (it showed nothing before), a thin line under the bullets shows how much he carries, and his last AP square is no longer cut off. Behind it, the card and his sheet now do a third as much work per update on a slow phone, so they never cost a frame. You see it on the card in your phone every turn of a fight.", "show": {"how": "image", "src": "../records/target/FIGHT_SCREEN_RELOAD_OR_OUT_AND_NEVER_CHOPPY_11_26.webp", "first": "../records/target/vote_first/fight-screen-reload-or-out-never-choppy-11-26.webp", "firstAt": [0, 0, 1020, 330]}, "before_after": {"before": "main 56e1eb31a (11/22zv): the magazine only; an empty magazine red as if out, a man out (fists up) nothing, the 9th AP pip cut; on a phone slowed 4x the card's refresh 14.0 ms a call, the phone card's repaint about 9 to 10 ms", "after": "in the gun brass, RELOAD hollow amber, OUT red on the beat, what he carries a brass line, 9 of 9 AP pips whole; the card's refresh 5.0 to 5.8 ms, the phone card's repaint 2.0 ms, an unchanged refresh writes nothing", "scale": "the demo on a phone upright (390 x 844) at 2, the card cut out at about 2 times; the costs measured with the CPU slowed four times"}, "stage": "stand_in", "record": "records/BOHEMIA_FIGHT_SCREEN_RELOAD_OR_OUT_AND_NEVER_CHOPPY_11_26_26.md", "build": "BUILD 11/26d - RELOAD OR OUT, NEVER CHOPPY"},
+  {
+   "kind": "tile",
+   "lane": "cook 6",
+   "sha": "SHIPSHA",
+   "made": "11/26",
+   "draft": true,
+   "said": "Wip",
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "record": "records/BOHEMIA_COOK_SIX_THE_WIPS_AGAIN_11_26_26.md",
+   "options": [
+    "A, yes, better",
+    "B, close, change something (say what)",
+    "C, no, still not it"
+   ],
+   "id": "cook6-the-terminal-again-11-26",
+   "title": "THE AIRPORT TERMINAL AGAIN, AFTER YOUR 'WIP': A DARKER, LIVED-IN FLOOR",
+   "why": "You said the airport terminal was a work in progress. On your phone its floor was the palest thing in the fight, an empty light grey. Now it is a dark, grimy floor where people lived for months: clean rectangles where their mattresses lay with a line of dirt round each (they took the mattresses when they went), paths worn toward the doors, spills dried dark. The checkpoint, the carousels and the gate seats stand out against it. You meet it when a fight starts at the airport, in the RUN tab.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK6_THE_TERMINAL_AGAIN_11_26.webp",
+    "first": "../records/target/vote_first/cook6-the-terminal-again-11-26.webp",
+    "firstAt": [
+     590,
+     96,
+     580,
+     743
+    ]
+   },
+   "before_after": {
+    "before": "cook5-the-terminal-11-18 as he voted it ('Wip'): a pale empty vinyl, 167 on its own scale",
+    "after": "the vinyl on the darker grey ground, 136: grime, the mattresses' ghosts, worn paths, dried spills",
+    "scale": "the fight on his phone upright as it opens, the first and now; two rows of its floor's tiles"
+   },
+   "twin": {
+    "src": "fight_ground/terminal/tm_booth.webp",
+    "diffs": [
+     "THE SAME KIT, A SECOND PASS: his 'Wip' carried on (rule 466(e)).",
+     "THE FLOOR TELLS WHO LIVED THERE: the clean shape of every mattress taken away.",
+     "DARKER UNDER THE PIECES, so the checkpoint and the seats read."
+    ]
+   }
+  },
+  {
+   "kind": "tile",
+   "lane": "cook 6",
+   "sha": "SHIPSHA",
+   "made": "11/26",
+   "draft": true,
+   "said": "Wip",
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "record": "records/BOHEMIA_COOK_SIX_THE_WIPS_AGAIN_11_26_26.md",
+   "options": [
+    "A, yes, better",
+    "B, close, change something (say what)",
+    "C, no, still not it"
+   ],
+   "id": "cook6-the-fort-and-the-mall-again-11-26",
+   "title": "THE MALL AND THE DATA FORT AGAIN, AFTER YOUR 'WIP': NO MORE DIAMOND WALLPAPER, A DARKER FORT",
+   "why": "You said the data fort and the mall were a work in progress. On your phone the mall's floor had a red diamond on almost every square (and nine more on every tile of the upper walkway), so the whole fight read as wallpaper; now the diamond is on three tiles in twenty-five and the walkway's deck is plain, the floor a step darker. The data fort's raised floor went almost white under its lights and drowned the server rows; now it is a darker grey with its tiles' joints. You meet them when a fight starts at the mall or the data fort, in the RUN tab.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK6_THE_FORT_AND_THE_MALL_AGAIN_11_26.webp",
+    "first": "../records/target/vote_first/cook6-the-fort-and-the-mall-again-11-26.webp",
+    "firstAt": [
+     590,
+     96,
+     580,
+     743
+    ]
+   },
+   "before_after": {
+    "before": "cook5-the-three-that-waited-11-18 as he voted it ('Wip'): a diamond on every tile and on the walkway every 4 m; the fort's floor 188, near white under the lights",
+    "after": "three diamonds in twenty-five tiles, a plain walkway deck; the fort's floor 129",
+    "scale": "each fight on his phone upright as it opens, the first and now; two rows of each floor's tiles"
+   },
+   "twin": {
+    "src": "fight_ground/mall/mall_fountain.webp",
+    "diffs": [
+     "THE SAME KITS, A SECOND PASS: his 'Wip' carried on (rule 466(e)).",
+     "THE PATTERN IS RARE, as a mall's inlays are: where walks cross, not in every square.",
+     "THE FORT'S FLOOR NO LONGER THE BRIGHTEST THING ON ITS BOARD."
+    ]
+   }
+  }
  ],
  "verdicts": [
   {

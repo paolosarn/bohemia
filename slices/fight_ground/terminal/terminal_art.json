@@ -423,7 +423,7 @@
   "the outer wall": "tm_wall_ew / tm_wall_ns: white panels with the wayfinding band, cut at 1.6 m, a tile long"
  },
  "bytes": {
-  "floor": 216238,
+  "floor": 99882,
   "ceiling": 20398
  },
  "ceiling": {

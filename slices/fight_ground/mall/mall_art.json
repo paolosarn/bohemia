@@ -477,7 +477,7 @@
   "the mannequins and the fountain (11/18)": "mall_mannequins is the store tile 'display': a plinth 10 m wide and 2.2 m deep with what still stands on it, the rail and one figure on the floor south of it; foot its south edge middle (the floor things' way). mall_fountain is a round basin 8.8 m across, 3 m up at its finial, foot its south rim middle: laid at (0.5, 0.92) it sits inside its tile."
  },
  "bytes": {
-  "floor": 284398,
+  "floor": 269766,
   "store": 38012,
   "ceiling": 23672
  },

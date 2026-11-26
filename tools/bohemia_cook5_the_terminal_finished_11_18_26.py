@@ -87,6 +87,32 @@ def plan_tm_floor(ID, seed=131):
                     ya, yb = int(max(0, (min(ya_, y1) - 0.2) * PYM)), int(min(H, (max(ya_, y1) + 0.2) * PYM)); xa, xb = int(max(0, (min(xa_, x1) - 0.2) * PPM)), int(min(W, (max(xa_, x1) + 0.2) * PPM))
                     X, Y = xm[ya:yb, xa:xb], ty[ya:yb, xa:xb]; dx, dy = x1 - xa_, y1 - ya_; t = np.clip(((X - xa_) * dx + (Y - ya_) * dy) / max(dx * dx + dy * dy, 1e-6), 0, 1)
                     dd = np.hypot(X - (xa_ + t * dx), Y - (ya_ + t * dy)); dark[ya:yb, xa:xb] = np.maximum(dark[ya:yb, xa:xb], np.clip(1 - dd / 0.03, 0, 1) * rng.uniform(0.16, 0.34))
+    # (11/26, COOK SIX, his 'Wip' on cook5-the-terminal-11-18, rule 480(b); looked at on his phone: the floor read pale and empty, the
+    # lightest thing on the board.) A DEAD TERMINAL IS DARK AND LIVED IN: the vinyl a step down under the grime everywhere, darker in
+    # drifts; where the people who never got a flight out slept, the floor is cleaner in the shape of a mattress with a line of grime round
+    # it (they took the mattresses when they went); the paths they walked to the doors worn paler; spills dried dark. All inside a tile's
+    # middle (a tile's edge is the vinyl and its joint only: any tile meets any tile)
+    rng2 = np.random.RandomState(seed + 7); w = TG.win(lx, ly, 0.5, 1.5)
+    n1 = TG.mixn(FW.vnoise((H, W), 2.2 * PPM, rng2), TG.pnoise(rng2, 2.0), w)
+    floor = row < 4
+    # (the plan's darkening alone moved the floor too little on his phone: the vinyl is laid on the darker grey ground now, the tunnels'
+    #  calibrated tun_floor, its joints every 2 m drawn here as the vinyl's were: a tile's edge is a joint; every row alike for the ring)
+    gid[:] = ID['tun_floor']
+    jt = (np.abs(((lx + 1.0) % 2.0) - 1.0) > 0.992) | (np.abs(((ly + 1.0) % 2.0) - 1.0) > 0.992)
+    dark = dark + 0.08 + np.clip((0.5 - n1) / 0.3, 0, 1) * 0.1 + jt * 0.14
+    for r in range(4):
+        for c in range(5):
+            sy0, sy1, sx0, sx1 = int(r * TM * PYM), int((r + 1) * TM * PYM), int(c * TM * PPM), int((c + 1) * TM * PPM)
+            X, Y = lx[sy0:sy1, sx0:sx1], ly[sy0:sy1, sx0:sx1]; D, Pl = dark[sy0:sy1, sx0:sx1], pale[sy0:sy1, sx0:sx1]
+            for _ in range(int(rng2.randint(1, 4))):                     # a mattress's ghost, and the grime round it
+                cx, cy = rng2.uniform(2.6, 9.4), rng2.uniform(2.6, 9.4); hw, hh = (0.45, 1.0) if rng2.rand() < 0.5 else (1.0, 0.45)
+                ex = np.maximum(np.abs(X - cx) - hw, 0); ey = np.maximum(np.abs(Y - cy) - hh, 0); d0 = np.hypot(ex, ey)
+                inside = (np.abs(X - cx) < hw) & (np.abs(Y - cy) < hh)
+                D[inside] -= 0.13; D[:] = np.where(~inside & (d0 < 0.12), D + 0.12 * (1 - d0 / 0.12), D)
+            ang = rng2.uniform(0, math.pi); cx, cy = rng2.uniform(4, 8), rng2.uniform(4, 8)   # a path worn paler toward the doors
+            d0 = np.abs((X - cx) * math.sin(ang) - (Y - cy) * math.cos(ang)); Pl[:] = np.maximum(Pl, np.clip(1 - d0 / 1.4, 0, 1) * TG.win(X, Y, 1.0, 2.4) * 0.16)
+            if rng2.rand() < 0.5:                                        # a spill, dried dark
+                cx, cy = rng2.uniform(3, 9), rng2.uniform(3, 9); d0 = np.hypot(X - cx, Y - cy); D[:] = np.maximum(D, np.clip(1.2 - d0 / rng2.uniform(0.5, 1.0), 0, 1) * 0.5)
     return gid, np.clip(dark, 0, 1), np.clip(pale, 0, 1)
 
 
@@ -427,6 +453,14 @@ NAME = dict(walkway='THE UPPER WALKWAY', stair_e='ITS STAIR, EAST', stair_w='ITS
 ALSO = dict(bedding_a='camp_a', bedding_b='camp_b')            # the drawn-only second of a camp tile is the other camp's picture
 
 
+def recut_floor():
+    """(11/26, COOK SIX) the floor alone, into the folder as it stands (the pieces' render is not kept between sessions)"""
+    p = os.path.join(SHIP, 'terminal_art.json'); art = json.load(open(p))
+    im = Image.open(os.path.join(REND, 'tm_floor.png')).convert('RGB'); fn = os.path.join(SHIP, 'terminal_floor_0.webp'); im.save(fn, 'WEBP', quality=TG.QS, method=6)
+    art.setdefault('bytes', {})['floor'] = os.path.getsize(fn); json.dump(art, open(p, 'w'), indent=1)
+    print('floor', os.path.getsize(fn), 'folder', sum(os.path.getsize(os.path.join(SHIP, f)) for f in os.listdir(SHIP) if f.endswith('.webp')))
+
+
 def cut():
     os.makedirs(SHIP, exist_ok=True); bytes_ = {}
     im = Image.open(os.path.join(REND, 'tm_floor.png')).convert('RGB'); fn = os.path.join(SHIP, 'terminal_floor_0.webp'); im.save(fn, 'WEBP', quality=TG.QS, method=6); bytes_['floor'] = os.path.getsize(fn)
@@ -553,5 +587,6 @@ if __name__ == '__main__':
             print('  rendered', n, fn, flush=True)
     elif a and a[0] == 'cal': TG.scene_cal(True); TG.calibrate()
     elif a and a[0] == 'cut': cut()
+    elif a and a[0] == 'recut_floor': recut_floor()
     elif a and a[0] == 'sheet': sheet(a[1], a[2])
     else: print(__doc__)

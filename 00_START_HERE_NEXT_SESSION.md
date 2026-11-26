@@ -1,3 +1,18 @@
+COOK FIVE (cook-six-01gkdyut): 11/26 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/26h - THE TERMINAL, THE FORT AND THE MALL AGAIN, BUILT (SHIPSHA), NOT YET SEEN (rule 480(b); rule 466(e); rules 441; ask row 723).
+HIS TWO 'WIP's ON COOK FIVE's CARDS (cook5-the-terminal-11-18, cook5-the-three-that-waited-11-18), looked at on his phone as the others were: THE TERMINAL's floor the palest thing
+on the board; THE DATA FORT's raised floor near white under its lights; THE MALL's diamond on every tile and nine a tile on the walkway's deck, wallpaper. NOW: the terminal's vinyl on
+the darker calibrated tun_floor (167 to 136), its joints drawn, grime, the mattresses' ghosts, worn paths, spills; the fort's floor on gar_deck (188 to 129), its 0.6 m joints drawn;
+the mall's diamond on 3 tiles of 25, no small ones, the floor darker, the walkway's deck plain (mall_bridge re-made alone: 'render mall_bridge_only' then 'recut_bridge', on its own
+canvas). New floor-only re-cuts: 'recut_floor' in the terminal's, the fort's and the mall's tools. The plan's darkening alone moved the floors 3 to 6 steps, which his phone
+did not show (measured, then laid on darker grounds); THE GATE's A3 caught a lighter row 4 at the ring's joins (every row alike now).
+PROOF on the page both ways: the terminal 195 pieces, the fort 307, the mall 234; 0 stand-ins, 0 page errors. Gate THE INSIDES WEAR FINISHED ART 112/0.
+VOTE cook6-the-terminal-again-11-26, cook6-the-fort-and-the-mall-again-11-26. Record: records/BOHEMIA_COOK_SIX_THE_WIPS_AGAIN_11_26_26.md. Its block is handoffs/COOK_FIVE.md (COOK SIX writes there).
+*** NOTE: COMBAT FOUR's newer insides that borrow the mall's floor as their stand-in (granary, boneyard, rail shops, fuel depot, ballpark, city hall, swap meet) borrow the quieter one.
+*** NEXT ON THIS LANE, IN THIS ORDER (480(b)): THE 27 INSIDES COMBAT FOUR ADDED SINCE 11/21 WITH EVERY PIECE A STAND-IN (names in handoffs/COMBAT_THREE.md, 'FOR COOK (SIX)'),
+the ones he meets most first: the swap meet, the truck stop, the police station, the bank, the library, the fire station, the neon boneyard, then the rest. The school tool is the pattern.
+[bb Battle Brothers reads its ground at a glance: a floor is quiet so the men are loud]
+[analog horror: the clean rectangle where a mattress lay for months, and nobody on it]
+
 WORDS THREE (words-three-01gkdyuvnl): 11/26 LATEST -- BUILD 11/26g - HIS 11/25 VOTES ON OUR TRIES: IT MAKES SENSE, AND SHEET NINE, BUILT (ec4ab31b5), NOT YET SEEN (rules 481(c), 482, 465; ask rows 734, 629). Its block is handoffs/WORDS_TWO.md.
 He said YES to 34 of our 38 tries (28 of the 32 that curse, all 6 clean): cursing in full and saying who pays are right. Every miss was a line that made no plain
 sense, so THE VOICE SO FAR gains: EVERY LINE MAKES PLAIN SENSE, WORD BY WORD. FOR EVERY LANE THAT WRITES A LINE: no play on words, no irony that needs the story,
