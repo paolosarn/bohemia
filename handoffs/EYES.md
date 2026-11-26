@@ -1,6 +1,10 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/26 still (the routine 'EYES: walk 11/26f to j') -- 11/26f, h, i, j walked on the slowed phone; 730 FIXED (the card at once),
+732 holds; STILL RED 724 (5.7 s upright, 4.9 s sideways), 725 (LEAVE ~1.2 s), 726, 727, 728's clock, 729's door (better), 731's town,
+738. Record: records/BOHEMIA_EYES_RULE_480_THE_SLOWED_PHONE_11_26_26.md (the 11/26f-j table). NEXT: each fix as it lands.
+
 EYES, 11/26 later (rule 482; the routine 'EYES: rule 482') -- ROWS 724 TO 732 RE-WALKED ON THE SLOWED PHONE BOTH WAYS: FIXED 732's
 sideways gap (11/26d: 1.9 to 14.2 fps), 730's spike, 729's CAM 2, 731's map standing upright (59 fps); STILL RED 724 (GO to the town
 4.5 s sideways), 725, 726, 727, the town (731), his place's door (729), camp's clock now over SCAVENGE (728). 11/26e: money whole after

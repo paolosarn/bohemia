@@ -120,3 +120,29 @@ frames. The shortcuts: the fights by hand-over, his place by the plant call.
   fights, the shelves, the valley's code) and no CONTINUE (e04); BEGIN then skipped the barber and brought back the game he was
   playing (e05). The page says a new start while the button continues; he cannot tell whether his game is kept, and the choices
   on it do nothing. The demo's title says NEW GAME and CONTINUE.
+
+## THE ROUTINE 'EYES: walk 11/26f to j' (main c373aa657, the same slowed phone, upright and sideways; sideways re-taken alone)
+
+| row | now | word |
+|---|---|---|
+| 724 the door into the game | upright BEGIN to the barber one frame 5,683 ms (one task 5,646); sideways GO to the first town 4,850 ms (task 4,837) | STILL RED |
+| 725 LEAVE from a fight | 11/26f: LEAVE now reads faint (opacity 0.4) when it first shows, 2.0 s after the fight ends, and a tap on it then does nothing; lit, a tap went home in 1.1 s, but froze one frame 1,183 ms (task 954) upright; sideways 1,000 (task 725) | STILL RED (the freeze) |
+| 726 the stall's double tap | three quick double taps at 4x: none bought (21, 21, 21) | STILL RED |
+| 727 road cards with no no | the same five in the data | STILL RED |
+| 728 camp | standing 10.8 fps, worst 283, tasks 64 ms: holds; its big clock still lies over SCAVENGE · 8H (e09) | STILL RED IN PART (the clock) |
+| 729 his place | the door in 700 ms (task 551) (was 1,267); CAM 2 167, CAM 3 217 | BETTER, STILL RED (the door) |
+| 730 a tap on a job | 11/26j: the card on the glass 336 ms after the tap at 4x | FIXED |
+| 731 the map and the town | the map standing upright 59.2 fps (holds); sideways 29.5 with one 1,149 ms task; the town standing 4.5 fps upright (tasks 551), 7.8 sideways (710); LEAVE from the town 1,500 ms upright (task 1,444), 950 sideways | STILL RED (the town and its LEAVE) |
+| 732 the fight sideways | AUTO sideways 11.9 fps, upright 12.7: holds | FIXED, HOLDS |
+| 738 after a reload | the front still says 'Start clean' with no CONTINUE | STILL RED |
+
+- 11/26f LEAVE WAITS FOR THE SCREEN (FIXES 3): SEEN: faint, then lit; the summary seen before home (e07). A tap on the faint LEAVE is
+  dropped, not kept for when it lights; he taps once more.
+- 11/26g HOMEWORK SHEET NINE (WORDS THREE): its cards sit behind MORE as before; not read card by card this round.
+- 11/26h THE TERMINAL, THE FORT AND THE MALL AGAIN (COOK SIX): THE AIRPORT TERMINAL dealt sideways on AUTO: rows of seats with
+  luggage piles on a darker floor, its roof drawn (span), to the end in 61 s, staleTurns 0 (e08). The fort's cell dealt its street
+  board and the mall's cell THE PARKING GARAGE (their share); not seen.
+- 11/26i THE HALL SAYS THE CART (STAFF 2): SEEN IN PART: the hall's three camp people (Earl Pruitt, lookout; Danny Nguyen, scout; Dot
+  Kowalski, scavenger) each carry 'Pushes a shopping cart. One hand only.' on their row; a tap in the full hall shows his own words
+  only (the line rides on a held finger there, by design); the hold not walked.
+- 11/26j THE CARD AT ONCE (JOBS 2): SEEN: 336 ms tap to card at 4x (row 730 FIXED).
