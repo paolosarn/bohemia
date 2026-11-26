@@ -1,3 +1,8 @@
+CHARACTER TWO (character-two-01gkdyuv): 11/26 LATEST -- BUILD 11/26zk - THE ROBES COME OFF THE ROAD GANGS, BUILT, NOT YET SEEN (rules 482(a)(c)(d), 480(b)).
+Ten enemy pools dealt the six old one-colour gang robes (16 entries, often the band's first man); out, each pool keeps its gang's layered men.
+The cone is off everywhere (BUILD 11/26m, THE CONE HAT IS DEAD 4/0). Its block is handoffs/CHARACTER.md; VOTE character2-the-robes-come-off-11-26;
+records/BOHEMIA_CHARACTER_TWO_THE_ROBES_COME_OFF_THE_ROAD_GANGS_11_26_26.md.
+
 UI FIVE (ui-five-01gkdyuu): 11/26 LATEST -- BUILD 11/26zg - THE ALPHA SAYS CONTINUE, BUILT, NOT YET SEEN (ask row 738). Its block is handoffs/UI_FOUR.md.
 After a reload over a saved game the alpha showed the new game's door ('Start clean', every crew) and its BEGIN continued the game: now over a save it shows the start screen's
 title (CONTINUE, NEW GAME asked once), with no save its door is as before, and its door writes no save before BEGIN. Gate THE ALPHA SAYS CONTINUE (new) 10/0 both ways, plant red.

@@ -1,5 +1,17 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+CHARACTER TWO (character-two-01gkdyuv, 11/26, the routine 'rule 482 next'): 11/26 (am) LATEST -- *** SHIPPED BUILD 11/26zk: THE ROBES COME OFF THE ROAD GANGS. ***
+TAB: VOTE (character2-the-robes-come-off-11-26); every fight against the road gangs, the marauders, the skirmishers, the orcs' crews.
+Record: records/BOHEMIA_CHARACTER_TWO_THE_ROBES_COME_OFF_THE_ROAD_GANGS_11_26_26.md.
+WHAT: the cone is off everywhere (THE CONE HAT IS DEAD 4/0 on main). Then the people he meets first: ten enemy pools still dealt
+the six old one-piece gang robes of 10/18 (16 entries; a robe was often man 0 of the band); out of the pools, each pool keeps its
+gang's layered men (3 to 7; the necromancer 2, person_trades_2 stays the battery man's stand-in, BESTIARY's F10). ours.json's
+band pools only, nothing else touched. The robes' sheets stay for the gang speakers' faces and fallbacks.
+NEXT (unchanged order): (1) BESTIARY's five stand-ins in their own clothes; (2) the bosses' crews; (3) the thirteen faction_*
+looks in layers (the speakers' bodies); (4) nine hall men at three layers. NEVER send_later.
+[bb Battle Brothers' brigands never wear a uniform; neither do ours now.]
+[analog horror: a road gang that looks like it got dressed in the dark from whatever the last house had.]
+
 CHARACTER TWO (character-two-01gkdyuv, 11/26, the coordinator's VAMILY: rule 470(f) then rule 480(b)(c)): 11/26 (al) LATEST -- *** SHIPPED BUILD 11/26m - THE CONE COMES OFF: THE CONE COMES OFF EVERY WEARER, AND A PEOPLE SHEET NO LONGER COSTS A FRAME. ***
 TAB: VOTE (character2-the-cone-comes-off-11-26, the Caravans' speakers and Old Tavo before and after); every Caravans speaker's face (MANNY, MARISOL, Mama Ruth, Teo), Old Tavo and NUMBER 212 at the real place, a fight with either; the CHARACTER tab's wardrobe (DUST RANCHER HAT).
 Record: records/BOHEMIA_CHARACTER_TWO_THE_CONE_COMES_OFF_11_26_26.md.
