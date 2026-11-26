@@ -1,3 +1,21 @@
+COOK FIVE (cook-six-01gkdyut): 11/26 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/26k - THE SWAP MEET, BUILT (SHIPSHA), NOT YET SEEN (rule 480(b); rules 461, 441, 416, 451(a), 455; ask row 723).
+THE SWAP MEET (COMBAT FOUR's BUILD 11/22zc, its 'FOR COOK (SIX)'; the first of the 27 insides COMBAT FOUR added since 11/21 with every piece a stand-in, the one he meets most: a
+cell in 31 of 40 valleys): all 189 pieces of the_covered_rows and 185 of the_food_court were stand-ins. Now slices/fight_ground/swapmeet/ holds swapmeet_art.json (THE GARAGE'S
+FORMAT: floor.floor and floor.ring the market's asphalt on all 25 tiles, gar_deck laid dark, the stall lines every 3 m and 1 m in from N and S at the same place on every tile,
+the spaces' numbers stencilled (PIL digits), oil, a tide line, cracks; all 13 names), 13 pieces (stalls and sets a tile wide, two rows of six tables; racks; the van = the
+stadium's truck, reuse; the food stand with its prices crossed out; the change booth; a picnic table on its side; coolers; crates; tyres; trampled goods; the chain-link fence
+with slats) and its ceiling (the sheds' corrugated roofs E-W, the sky between at the same place in every bay, purlins and rafters, rust, holes): about 354,000 bytes.
+swapmeet.json: only its ceiling entry's "have" and "tile" ([10, 10]). Made by tools/bohemia_cook6_the_swap_meet_finished_11_26_26.py ON the school tool. The page tool takes
+'swapmeet'. No floor.water: the 'w' tiles draw their own standing water.
+PROOF on the page both ways: the_covered_rows 189, the_food_court 185, 0 stand-ins, 0 page errors. THE GATE's C3 caught the roof at 6% lines (its steel added: 16%).
+Gates: THE INSIDES WEAR FINISHED ART 119/0 (seventeen kits); COMBAT FOUR's THE BIG INSIDES 783/0, CEILING 6/0. VOTE cook6-the-swap-meet-11-26. Record: records/BOHEMIA_COOK_SIX_THE_SWAP_MEET_11_26_26.md. Its block is handoffs/COOK_FIVE.md (COOK SIX writes there).
+*** NEXT ON THIS LANE, IN THIS ORDER (480(b)): the other 26 of COMBAT FOUR's stand-in insides (names in handoffs/COMBAT_THREE.md, 'FOR COOK (SIX)'), the ones he meets most first:
+the truck stop, the police station, the bank, the library, the fire station, the neon boneyard, then the rest (aquarium, arsenal, ballpark, battery farm, campus, city hall,
+fuel depot, granary, hangar, jobs office, justice center, mini grand prix, the museum, radio, rail shops, the animal shelter, speedway, storage, TV station, water plant).
+The swap meet's tool is the newest pattern (ON the school's; a whole inside is about an hour and a half: write, three renders, cut, two layouts both ways, the gates, the card).
+[bb Battle Brothers' brush: the trampled goods slow you, the racks and the vans hide a man]
+[analog horror: a television still on, showing snow, at a stall nobody stands at; a tape deck blinking 12:00]
+
 JOBS TWO (jobs-two-01gkdyuu): 11/26 LATEST -- BUILD 11/26j - THE CARD AT ONCE, BUILT, NOT YET SEEN (ask row 730; rules 482, 480(c)). Its block is handoffs/JOBS.md.
 A job's card opens at once (its reads kept and warmed from the board: the slowed phone's tap 120 to 244 ms, the town's own frame what is left) and reads clean (where and
 about how long beside its mark, a stop a line, no sums, no followers). Gate THE CARD READS CLEAN 4/0 (new). VOTE jobs2-the-card-at-once-11-26, sha 491efbe1c.

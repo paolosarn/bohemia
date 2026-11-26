@@ -1,0 +1,145 @@
+{
+ "stalls": {
+  "w": 516,
+  "h": 139,
+  "foot": [
+   258.2,
+   118
+  ],
+  "piece": "stalls",
+  "src": "swapmeet/sm_stalls.webp",
+  "facing": "S"
+ },
+ "sets": {
+  "w": 515,
+  "h": 183,
+  "foot": [
+   257.8,
+   162
+  ],
+  "piece": "sets",
+  "src": "swapmeet/sm_sets.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 515,
+  "h": 140,
+  "foot": [
+   257.5,
+   131
+  ],
+  "piece": "wall_ew",
+  "src": "swapmeet/sm_wall_ew.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 52,
+  "h": 486,
+  "foot": [
+   26.7,
+   485
+  ],
+  "piece": "wall_ns",
+  "src": "swapmeet/sm_wall_ns.webp",
+  "facing": "S"
+ },
+ "vans": {
+  "w": 464,
+  "h": 267,
+  "foot": [
+   275.2,
+   255
+  ],
+  "piece": "vans",
+  "src": "swapmeet/sm_vans.webp",
+  "facing": "S"
+ },
+ "foodstand": {
+  "w": 236,
+  "h": 240,
+  "foot": [
+   111.9,
+   225
+  ],
+  "piece": "foodstand",
+  "src": "swapmeet/sm_foodstand.webp",
+  "facing": "S"
+ },
+ "racks": {
+  "w": 236,
+  "h": 169,
+  "foot": [
+   116.0,
+   166
+  ],
+  "piece": "racks",
+  "src": "swapmeet/sm_racks.webp",
+  "facing": "S"
+ },
+ "booth": {
+  "w": 103,
+  "h": 179,
+  "foot": [
+   52.2,
+   176
+  ],
+  "piece": "booth",
+  "src": "swapmeet/sm_booth.webp",
+  "facing": "S"
+ },
+ "picnic": {
+  "w": 137,
+  "h": 122,
+  "foot": [
+   77.3,
+   98
+  ],
+  "piece": "picnic",
+  "src": "swapmeet/sm_picnic.webp",
+  "facing": "S"
+ },
+ "coolers": {
+  "w": 125,
+  "h": 89,
+  "foot": [
+   56.7,
+   86
+  ],
+  "piece": "coolers",
+  "src": "swapmeet/sm_coolers.webp",
+  "facing": "S"
+ },
+ "crates": {
+  "w": 103,
+  "h": 99,
+  "foot": [
+   43.1,
+   87
+  ],
+  "piece": "crates",
+  "src": "swapmeet/sm_crates.webp",
+  "facing": "S"
+ },
+ "tyres": {
+  "w": 125,
+  "h": 99,
+  "foot": [
+   69.5,
+   84
+  ],
+  "piece": "tyres",
+  "src": "swapmeet/sm_tyres.webp",
+  "facing": "S"
+ },
+ "trampled": {
+  "w": 180,
+  "h": 88,
+  "foot": [
+   90.8,
+   70
+  ],
+  "piece": "trampled",
+  "src": "swapmeet/sm_trampled.webp",
+  "facing": "S"
+ }
+}
