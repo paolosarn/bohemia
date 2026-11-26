@@ -24606,7 +24606,8 @@
    "stage": "stand_in",
    "record": "records/BOHEMIA_HOME_BASE_THE_CAMERAS_ON_PATROL_11_26_26.md",
    "build": "BUILD 11/26zf - THE CAMERAS ON PATROL"
-  }
+  },
+  {"id": "jobs2-the-pay-is-a-moment-11-26", "kind": "ui", "lane": "jobs 2", "sha": "72c7a27bc", "made": "11/26", "draft": true, "title": "A JOB FROM START TO END: THE CLIENT, THE FIND, AND NOW THE PAY IS A MOMENT TOO", "said": "rule 482, the coordinator: 'the job kinds he meets first play out well start to end (the client's face and words, the road, the arrival, the pay)'", "why": "When a job pays you, PAID and the amount now flicker in over your crew with two rings, like a find does, and every job kind is checked from the town's board to the pay. You see it in the RUN tab, on the map when a client pays you.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_TWO_START_TO_END.jpg"}, "before_after": {"before": "the pay was the bar's number going up and the client's line in the speaker box, with nothing over your crew; the moment's plate floated about 50 px over his head", "after": "PAID · 57 comes in like a tape that catches, two rings a beat apart, quiet under the pay sting; the plate sits just over his head", "scale": "the game on a phone upright (390 x 844 at 3), the demo: a client's card at Caravans, then the map at the middle zoom"}, "record": "records/BOHEMIA_JOBS_TWO_A_JOB_START_TO_END_11_26_26.md", "build": "BUILD 11/26zh - THE PAY IS A MOMENT"}
  ],
  "verdicts": [
   {

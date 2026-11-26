@@ -1,6 +1,21 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/26 LATEST -- BUILD 11/26t - A JOB HAS ONE DOOR, SHIPPED (ask row 698, FOUND BY
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/26 LATEST -- BUILD 11/26zh - THE PAY IS A MOMENT, BUILT, NOT YET SEEN (rules 480,
+482: the job kinds he meets first, start to end; 441). Content 72c7a27bc. VOTE jobs2-the-pay-is-a-moment-11-26 (STAND-IN: the
+client's card, FOUND IT, PAID · 57, the dropout). Record records/BOHEMIA_JOBS_TWO_A_JOB_START_TO_END_11_26_26.md.
+- EVERY JOB KIND 37/0 (was 30 to 33): the won job fights never settled in the checker because the end screen stayed up. Its hand
+  (and THE JOBS' PART's, 31/0) now waits for the screen to be open (FIXES 3's __LEAVE_WAITS_FOR_THE_SCREEN__ ignores an early tap),
+  taps again, then presses LEAVE inside the screen and counts it (5 times in EVERY JOB KIND, once in THE JOBS' PART): ask row 747,
+  FIGHT SCREEN 3 (does a real finger miss LEAVE right after a fight?).
+- __THE_PAY_IS_A_MOMENT__ (bohemia_job_kinds.js paid()): flash('PAID · n', quiet): the plate, the dropout and two rings, no tack (the
+  pay sting plays). flash() reads his drawn height (MAP_DREW.you.h, 42 px at every zoom) so the plate sits over his head.
+- THE MOMENT IS SEEN AND HEARD 4/0 with the pay leg (said, drawn, no tack).
+NEXT: row 747's answer when FIGHT SCREEN 3 gives it (drop the inside press if a finger always lands); NO WAYPOINTS W2's alpha-upright
+15 marks in the two-shape run; the alpha's five-job board (UI 9's); THE BOARD'S QUESTS ARE PEOPLE's phone-list red (RUN TWO's).
+[bb Battle Brothers ends a contract at the employer's table: the pay counted out, the renown said; the road home is quiet]
+[analog horror: the tape catches the moment twice, a tack goes in for the find, and for the pay only the till]
+
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/26 -- BUILD 11/26t - A JOB HAS ONE DOOR, SHIPPED (ask row 698, FOUND BY
 PLUMBER 8; rules 482, 425, 255, 335, 441). Content b157a9b6c. No VOTE card (the deal's order; nothing new to see: the same boards
 whatever order the reads land). Record records/BOHEMIA_JOBS_TWO_A_JOB_HAS_ONE_DOOR_11_26_26.md.
 - slices/bohemia_board_shelf.js __A_JOB_HAS_ONE_DOOR__: draft() from the valley and the day only (never a read; the rare roll is
