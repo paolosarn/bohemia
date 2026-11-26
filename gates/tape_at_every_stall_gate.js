@@ -69,7 +69,10 @@ const shelfOf = (place, tier) => SP.tapeShelf(FILE, { place, tier, stockMult: 1 
     const opened = await T.openStall();
     const r1 = await T.read();
     ok('*** S1 DAY ' + day1 + ' *** ' + r1.place + '\'s stall: ' + r1.rows.map(x => '"' + x.text + '"').join(', ') + '; ' + r1.t.shelf + ' rolls on the shelf (ECONOMY: ' + shelfOf(r1.place, r1.tier) + ' for a ' + r1.tier + ')',
-      opened && r1.rows.length === 2 && r1.rows.every(x => x.icon && !x.off) && r1.rows[0].n === 1 && r1.rows[1].n === 20 && r1.t.roll === SP.buyShown(FILE, 'tape', { tier: r1.tier }) && r1.t.shelf >= 20 && r1.t.full >= 20 && /\d+ rolls on the shelf/.test(r1.left));
+      /* RE-AIMED FIXES 3 11/26 (UI THREE's __DEAREST_FIRST__, VAMILY rule 452, Paolo 11/14: every shop shows its dearest first): the stack
+         of 20 now stands above the single roll (measured 11/26: rows n 20 then 1, red only on the order); a roll and a stack, each read by
+         its count, wherever it stands */
+      opened && r1.rows.length === 2 && r1.rows.every(x => x.icon && !x.off) && r1.rows.some(x => x.n === 1) && r1.rows.some(x => x.n === 20) && r1.t.roll === SP.buyShown(FILE, 'tape', { tier: r1.tier }) && r1.t.shelf >= 20 && r1.t.full >= 20 && /\d+ rolls on the shelf/.test(r1.left));
     /* S2 a roll */
     await T.tap2('#sbody [data-good=tape][data-n="1"] .sb[data-side=buy]'); await T.openStall();
     const r2 = await T.read();

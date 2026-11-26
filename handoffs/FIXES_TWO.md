@@ -1,7 +1,13 @@
 # FIXES TWO -- the handoff block (written only by FIXES TWO, newest first; the heir of FIXES, whose blocks stay in handoffs/FIXES.md)
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 # FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
-FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/26 (d) LATEST -- [rule 480] BUILD 11/26f - LEAVE WAITS FOR THE SCREEN, BUILT, NOT YET
+FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/26 (e) LATEST -- [RUN's old reds] no build (gates and the debt only): four of RUN TWO's
+reds on row 675 are green alone on main and struck (THE RED DEBT 398 to 394 NAMED, 310 LEFT): THE SAVE COMES BACK THE SAME 22/0, A
+TWO-HANDER WEARS ITS OWN NAME 8/0, THE MAP ANSWERS AFTER BEGIN 12/0, TAPE AT EVERY STALL 8/0 (S1 re-aimed to rule 452, dearest first).
+11/26f (the block below) is LIVE (pages SUCCESS on 2f15c5dcc). Record: the same record, section 5.
+NEXT (if woken): rows 736 and 737 when their lanes answer; the rest of row 675 when the jobs and the places are free; new rows.
+
+FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/26 (d) -- [rule 480] BUILD 11/26f - LEAVE WAITS FOR THE SCREEN, BUILT, NOT YET
 SEEN: rule 480's round (improve what is in the game first; never choppy). Rows 697 and 722 DONE, row 693 DONE (the cap), two new rows
 filed (736 the meet card's ground at the insides, COMBAT FOUR's seam; 737 the job board past its sheet, JOBS 2). 11/21z (the block
 below) is live. Record: records/BOHEMIA_FIXES_THREE_RULE_480_THE_SWEEP_11_26_26.md. No VOTE card (a timing; no new look).

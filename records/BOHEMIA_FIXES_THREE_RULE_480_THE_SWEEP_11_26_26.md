@@ -116,3 +116,16 @@ crew screen's #pick inside the end screen's crew door), unchanged by this build.
 - THE RECEIPT IS GONE 7/0; SCRAP IS TAPE 11/0; THE PHONE 268/0; MAKE CAMP FROM THE FIGHT 11/0; OPTIMIZE LOOT 22/0; THE SURVIVOR'S
   WORD 6/0; THE SPOILS 18/1 (main's red, above).
 - THE RED DEBT ONLY SHRINKS 4/0 (398 named, 310 left: unchanged; the line re-worded from a timeout to two FILED rows).
+
+## 5. RUN'S OLD REDS (ask row 675's RUN TWO part; rule 482: no lane stops at done)
+
+After BUILD 11/26f went live (its pages run SUCCESS), RUN TWO's reds on the debt list, each alone on main 82827da45:
+- THE SAVE COMES BACK THE SAME 22/0: GREEN (S2 mid-travel: the save 06:32, the glass 06:37, back 06:37 at the same block; 0 min behind).
+- A TWO-HANDER WEARS ITS OWN NAME 8/0: GREEN.
+- THE MAP ANSWERS AFTER BEGIN 12/0: GREEN.
+- TAPE AT EVERY STALL 7/1, then 8/0: STALE, RE-AIMED. S1 read the single roll first and the stack second; since UI THREE's
+  __DEAREST_FIRST__ (VAMILY rule 452, Paolo 11/14: every shop shows its dearest first) the stack of 20 stands above the roll (measured:
+  rows n 20 then 1, the price, the shelf of 50 and its words all as the law asks). Each row is now read by its count.
+All four struck from gates/BOHEMIA_QUARANTINE.txt: THE RED DEBT 398 to 394 NAMED, 310 LEFT (they were FILED on row 675), the ratchet and
+the front page written with the same numbers (THE RED DEBT ONLY SHRINKS 4/0). Still red, in systems held this round: THE BOARD'S
+QUESTS ARE PEOPLE (the jobs) and SETTLEMENT SCREEN (the places).
