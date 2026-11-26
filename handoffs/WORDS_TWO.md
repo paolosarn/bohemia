@@ -6,7 +6,7 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
-WORDS THREE (words-three-01gkdyuvnl): 11/26 LATEST -- BUILD 11/26g - HIS 11/25 VOTES ON OUR TRIES: IT MAKES SENSE, AND SHEET NINE, BUILT (this commit), NOT YET SEEN (rules 481(c), 482, 467 AMENDED, 465; ask rows 734, 629). NOTHING IN THE GAME WAS REWRITTEN.
+WORDS THREE (words-three-01gkdyuvnl): 11/26 LATEST -- BUILD 11/26g - HIS 11/25 VOTES ON OUR TRIES: IT MAKES SENSE, AND SHEET NINE, BUILT (ec4ab31b5), NOT YET SEEN (rules 481(c), 482, 467 AMENDED, 465; ask rows 734, 629). NOTHING IN THE GAME WAS REWRITTEN.
 THE COORDINATOR'S ROUTINE 'WORDS THREE: his 11/25 votes': records/BOHEMIA_PAOLO_VOTE_11_25_26.txt answered all 38 cards of sheets six to eight (he saw the 11/26
 tries). YES 34 (28 of the 32 that curse, all 6 clean), NO 4: hw06-10 ('the second half of the shit didn't really make sense'), hw06-12, hw07-12, hw08-11 (no words);
 hw06-05 a YES with a note ('Like you are the dinner, bro'). Every miss cursed and every miss made no plain sense. Rule 465 stands: THE VOICE HOLDS 11/0.

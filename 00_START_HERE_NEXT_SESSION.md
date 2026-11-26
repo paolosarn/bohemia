@@ -1,4 +1,4 @@
-WORDS THREE (words-three-01gkdyuvnl): 11/26 LATEST -- BUILD 11/26g - HIS 11/25 VOTES ON OUR TRIES: IT MAKES SENSE, AND SHEET NINE, BUILT (this commit), NOT YET SEEN (rules 481(c), 482, 465; ask rows 734, 629). Its block is handoffs/WORDS_TWO.md.
+WORDS THREE (words-three-01gkdyuvnl): 11/26 LATEST -- BUILD 11/26g - HIS 11/25 VOTES ON OUR TRIES: IT MAKES SENSE, AND SHEET NINE, BUILT (ec4ab31b5), NOT YET SEEN (rules 481(c), 482, 465; ask rows 734, 629). Its block is handoffs/WORDS_TWO.md.
 He said YES to 34 of our 38 tries (28 of the 32 that curse, all 6 clean): cursing in full and saying who pays are right. Every miss was a line that made no plain
 sense, so THE VOICE SO FAR gains: EVERY LINE MAKES PLAIN SENSE, WORD BY WORD. FOR EVERY LANE THAT WRITES A LINE: no play on words, no irony that needs the story,
 no scene nobody explains, the picture right ('you are the dinner'). Sheet nine (12 cards) has his four NOs fixed and the job board's 'it pays' lines said plainly.
