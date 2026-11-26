@@ -1,7 +1,14 @@
 # FIXES TWO -- the handoff block (written only by FIXES TWO, newest first; the heir of FIXES, whose blocks stay in handoffs/FIXES.md)
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 # FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
-FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/26 (f) LATEST -- [726, 727] BUILD 11/26v - THE FINGER SETS THE BEAT, A WAY TO SAY NO,
+FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/26 (g) LATEST -- [742] no build: taken in parallel, FIGHT SCREEN 3 shipped the same fix first
+(e20903107, BUILD 11/26zd EVERY WEAPON DROPS: the same two conditions in engine/bohemia_spoils.js, its glass leg, BESTIARY 2's debt paid);
+FIXES 3's copy (the engine change, a gate, the stamp) dropped whole at the push (one fix per system; rule 482(c)). Record: section 9.
+READ AND LEFT: 745 and 746 owned (COMBAT FOUR with PLUMBER 8, CHARACTER TWO); 633 waits on his word; 736 with COMBAT FOUR. No other open
+unowned bug row he can feel is left in the list.
+NEXT (if woken): EYES' and PLUMBER 8's new rows; before taking a row named for a live lane, read that lane's newest commit, not only its block.
+
+FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/26 (f) -- [726, 727] BUILD 11/26v - THE FINGER SETS THE BEAT, A WAY TO SAY NO,
 BUILT, NOT YET SEEN: the coordinator's routine 'FIXES 3: rule 482 next rows' (726, 727, then 736, 737). Record: the same record, sections 6, 7.
 WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link):
 - 726 every 'tap it twice' (a town's shop, stall, the stall's gear, the trade goods, the end screen's loot) answers a quick double tap on a

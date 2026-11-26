@@ -189,3 +189,15 @@ its only red; its debt line re-worded to row 736 alone (NAMED and LEFT unchanged
 736 THE MEET CARD'S GROUND: left with COMBAT FOUR. The honest card needs the fight to say what it deals at a spot without dealing it; the
 deal (dealBoard: the 40 insides, the garage, the tunnels by the cell's dice) lives inside the fight's page with nothing exposed, and a
 second copy of it on the map is what went stale in the first place.
+
+## 9. ROW 742, TAKEN IN PARALLEL AND DROPPED (the coordinator's routine 'FIXES 3: rule 482 next': '742 ... if FIGHT SCREEN 3 has not taken it')
+
+When the routine fired, FIGHT SCREEN 3's newest block (11/26p) predated row 742 and did not name it, so FIXES 3 took it: the same cause read
+(a bundle's durability null read as wrecked; a sling's missing count read as spent) and the same two conditions written in
+engine/bohemia_spoils.js, measured (400 rolls each: a bundle with uses left 360, a sling 359, an emptied bundle 0), a glass gate with its
+plant (4/0) and BESTIARY 2's E3 debt emptied (7/0). At the push, FIGHT SCREEN 3 had shipped the same fix minutes before (e20903107, BUILD
+11/26zd EVERY WEAPON DROPS: __EVERY_WEAPON_DROPS__, the same two conditions, THE LOOT READS L3 on the page, the debt paid). FIXES 3's copy
+was dropped whole (the engine change, the gate, the stamp): one fix per system, and a second gate holding the same thing is a leftover
+(rule 482(c)). Nothing of FIXES 3's for 742 is on main but this note.
+READ AND LEFT: 745 (COMBAT FOUR with PLUMBER 8) and 746 (CHARACTER TWO) are owned; 633 waits on his word (who DESI is, a woman or
+Desiderio); 736 with COMBAT FOUR. No other open bug row he can feel was left unowned in the list.
