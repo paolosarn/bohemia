@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (ask row 743; rules 480(b), 441, 465): 11/26 LATEST -- [every beast its own word] SHIPPED SHIPSHA, BUILD 11/26zb - EVERY BEAST ITS OWN WORD. No VOTE card.
+COMBAT FOUR (ask row 743; rules 480(b), 441, 465): 11/26 LATEST -- [every beast its own word] SHIPPED 725b01f24, BUILD 11/26zb - EVERY BEAST ITS OWN WORD. No VOTE card.
 Record: records/BOHEMIA_COMBAT_FOUR_EVERY_BEAST_ITS_OWN_WORD_11_26_26.md. FIGHT.wlineOf(w) (slices/BOHEMIA_FIGHT.html __EVERY_BEAST_ITS_OWN_WORD__): the class row of weapon_lines.json, and for 'natural' the first
 natural.by_attack entry whose 'match' is in the attack's id or name: its name and hands; 'line: true' keeps the class line (bites only). weaponCard, the man's
 sheet and objName read it. Gate EVERY BEAST ITS OWN WORD (in the suite) 6/0. On the page: BESTIARY 2's gates/the_bestiary_every_type_fight.js KINDS=... MOVES=0.
