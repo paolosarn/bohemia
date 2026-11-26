@@ -1,0 +1,246 @@
+{
+ "phone_portrait": {
+  "set": {
+   "at": [
+    17,
+    38
+   ],
+   "places": [
+    "grinder@5",
+    "forge@6",
+    "yard@7",
+    "lookout@8"
+   ],
+   "lots": [
+    "0,0",
+    "1,0",
+    "2,0",
+    "3,0",
+    "4,0"
+   ],
+   "res": [
+    "THE ORTIZ FAMILY"
+   ]
+  },
+  "tours": [
+   {
+    "cam": 1,
+    "tour": {
+     "n": 2,
+     "why": "work",
+     "who": "DESI",
+     "z": 1.58
+    },
+    "feet": [
+     {
+      "name": "RAUL",
+      "x": 164,
+      "y": 173,
+      "shadow": true,
+      "moves": true
+     },
+     {
+      "name": "THE ORTIZ FAMILY",
+      "x": 9,
+      "y": 218,
+      "shadow": true,
+      "moves": true
+     },
+     {
+      "name": "DESI",
+      "x": 73,
+      "y": 226,
+      "shadow": true,
+      "moves": true
+     }
+    ]
+   },
+   {
+    "cam": 2,
+    "tour": {
+     "n": 1,
+     "why": "home",
+     "who": "THE ORTIZ FAMILY",
+     "z": 2.14
+    },
+    "feet": [
+     {
+      "name": "RAUL",
+      "x": 161,
+      "y": 171,
+      "shadow": true,
+      "moves": true
+     },
+     {
+      "name": "THE ORTIZ FAMILY",
+      "x": 10,
+      "y": 221,
+      "shadow": true,
+      "moves": true
+     },
+     {
+      "name": "DESI",
+      "x": 81,
+      "y": 224,
+      "shadow": true,
+      "moves": true
+     }
+    ]
+   },
+   {
+    "cam": 3,
+    "tour": {
+     "n": 11,
+     "why": "stand",
+     "who": null,
+     "z": 1.58
+    },
+    "feet": [
+     {
+      "name": "RAUL",
+      "x": 169,
+      "y": 177,
+      "shadow": true,
+      "moves": true
+     },
+     {
+      "name": "THE ORTIZ FAMILY",
+      "x": 9,
+      "y": 219,
+      "shadow": true,
+      "moves": true
+     },
+     {
+      "name": "DESI",
+      "x": 72,
+      "y": 231,
+      "shadow": true,
+      "moves": true
+     }
+    ]
+   }
+  ]
+ },
+ "phone_landscape": {
+  "set": {
+   "at": [
+    55,
+    4
+   ],
+   "places": [
+    "grinder@5",
+    "forge@6",
+    "yard@7",
+    "lookout@8"
+   ],
+   "lots": [
+    "0,0",
+    "1,0",
+    "2,0",
+    "3,0",
+    "4,0"
+   ],
+   "res": [
+    "THE ORTIZ FAMILY"
+   ]
+  },
+  "tours": [
+   {
+    "cam": 1,
+    "tour": {
+     "n": 2,
+     "why": "work",
+     "who": "DESI",
+     "z": 1.58
+    },
+    "feet": [
+     {
+      "name": "RAUL",
+      "x": 243,
+      "y": 92,
+      "shadow": true,
+      "moves": true
+     },
+     {
+      "name": "THE ORTIZ FAMILY",
+      "x": 51,
+      "y": 143,
+      "shadow": true,
+      "moves": true
+     },
+     {
+      "name": "DESI",
+      "x": 141,
+      "y": 150,
+      "shadow": true,
+      "moves": true
+     }
+    ]
+   },
+   {
+    "cam": 2,
+    "tour": {
+     "n": 1,
+     "why": "home",
+     "who": "THE ORTIZ FAMILY",
+     "z": 2.14
+    },
+    "feet": [
+     {
+      "name": "RAUL",
+      "x": 237,
+      "y": 89,
+      "shadow": true,
+      "moves": true
+     },
+     {
+      "name": "THE ORTIZ FAMILY",
+      "x": 52,
+      "y": 147,
+      "shadow": true,
+      "moves": true
+     },
+     {
+      "name": "DESI",
+      "x": 147,
+      "y": 149,
+      "shadow": true,
+      "moves": true
+     }
+    ]
+   },
+   {
+    "cam": 3,
+    "tour": {
+     "n": 11,
+     "why": "stand",
+     "who": null,
+     "z": 2.14
+    },
+    "feet": [
+     {
+      "name": "RAUL",
+      "x": 250,
+      "y": 97,
+      "shadow": true,
+      "moves": true
+     },
+     {
+      "name": "THE ORTIZ FAMILY",
+      "x": 54,
+      "y": 144,
+      "shadow": true,
+      "moves": true
+     },
+     {
+      "name": "DESI",
+      "x": 142,
+      "y": 156,
+      "shadow": true,
+      "moves": true
+     }
+    ]
+   }
+  ]
+ }
+}

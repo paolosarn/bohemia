@@ -95633,8 +95633,23 @@ function homeTakeIn(){
 }
 function homeStanding(){ var n = 0; try { var bk = LOT_BOOK[homeMine()]; if (bk) for (var k in bk.lots) if (bk.lots[k].done) n++; } catch (_e) {}
   try { var r = HOME.rec; if (r) n += BohemiaHome.placesOf(r, homeDay()).filter(function(p){ return p.done; }).length; } catch (_e) {} return n; }   /* his own buildings stand on lots too */
+/* __ONE_LOT_ONE_THING__ (HOME BASE 4 11/26, rule 479(b): one thing is drawn once, and a repeat is a bug). MEASURED: the town screen's
+   build desk took the first lot free in the lot book and never looked at the lots his own buildings and the bosses' prizes stand on, so
+   the grinder put up first (lot 0) and a wall after it (lot 0) shared a lot: one key, and since 11/22 the footage draws a key once, so
+   the grinder was gone from all three cameras and its door with it. The desk now skips them (the screen's buildFreeLot); a save that
+   already has two things on one lot gets the later of his own buildings, or a prize, moved to the first free lot, once, kept. */
+function homeUnclash(r){ if (!r || !r.planted || !window.BohemiaHome) return 0;
+  var taken = homeTakenLots(), used = {}, n = 0, P = BohemiaHome.plan(), L = (P && P.lots && P.lots.length) || 12, open = L;
+  try { open = BohemiaHome.lotsOpen(r, homeStanding()); } catch (_e) {}
+  for (var k in taken) used[k] = 1;
+  var free = function(back){ var i; if (back) { for (i = L - 1; i >= 0; i--) if (!used[i]) return i; return null; } for (i = 0; i < open; i++) if (!used[i]) return i; for (i = 0; i < L; i++) if (!used[i]) return i; return null; };
+  (r.places || []).forEach(function(p){ if (!p) return; if (!used[p.lot]) { used[p.lot] = 1; return; } var to = free(false); if (to == null) return; used[to] = 1; p.lot = to; n++; });
+  (r.things || []).forEach(function(y){ if (!y || (y.kind !== 'prize' && y.kind !== 'trophy') || y.lot == null || y.lot < 0) return; if (!used[y.lot]) { used[y.lot] = 1; return; } var to = free(true); y.lot = to == null ? -1 : to; if (to != null) used[to] = 1; n++; });
+  if (n) { homeSave(); window.__HOME_UNCLASHED = (window.__HOME_UNCLASHED | 0) + n; }
+  return n; }
 function homeState(){
   var r = homeRec(), D = HOME.data; if (!r || !D) return null;
+  try { homeUnclash(r); } catch (_e) {}
   var here = null, better = null, x = 0, y = 0; try { x = city.x | 0; y = city.y | 0; } catch (_e) {}
   if (!r.planted) { var hk = x + ',' + y;   /* measured once per block he stands on, not per frame */
     if (!HOME.here || HOME.here.k !== hk) { var ch = homeChoose(x, y), hg = ch ? ch.g : null;   /* row 549: the block he stands on or the one beside it */

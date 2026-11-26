@@ -1,3 +1,10 @@
+HOME BASE 4 (home-base-01gkdyuux): 11/26 LATEST -- BUILD 11/26zf - THE CAMERAS ON PATROL, BUILT, NOT YET SEEN (rule 482 on his place; rule 479(b); ask rows 735, 721). Its block is handoffs/HOME_BASE.md.
+His three cameras showed one shot; now each holds the whole block, then pushes in slowly on what is going on (his man at work 'MOTION', the dead at the grinder, the family, his
+buildings), a different thing each camera and round; his people move, face their building, IR-pale with a dark edge. FOUND AND FIXED: the build desk put a wall on the grinder's lot,
+so his four buildings were gone from the cameras (5 of 9 drawn); the desk skips them now and a clashing save is moved apart. Gates YOUR PLACE, PLANTED F10, F11. VOTE
+home-base-the-cameras-on-patrol-11-26. records/BOHEMIA_HOME_BASE_THE_CAMERAS_ON_PATROL_11_26_26.md
+[bb Battle Brothers' town is a still backdrop; ours is his place, watched, his people moving in it]
+[analog horror: the camera finds a man at the forge at three in the morning, holds on him, and lets go]
 COMBAT FOUR (combat-four-01gkdyuv): 11/26 LATEST -- BUILD 11/26zb - EVERY BEAST ITS OWN WORD, BUILT (ask row 743; rules 480(b), 441, 465). Its block is handoffs/COMBAT_THREE.md.
 A held finger on a beast said TEETH and 'it bites' for every racial attack. Now the word follows the attack (weapon_lines.json natural.by_attack): a gore HORNS,
 a headbutt HEAD, a sweep BULK, an uproot CLAWS, the ghost's TOUCH, his fists FISTS; bites keep TEETH and their line; the others no line until WORDS THREE writes one.

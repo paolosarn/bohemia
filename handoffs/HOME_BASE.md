@@ -1,3 +1,18 @@
+HOME BASE 4 (session_01GKDyuuxd1n5GC5qbBwv9B6): 11/26 LATEST -- BUILD 11/26zf - THE CAMERAS ON PATROL, BUILT, NOT YET SEEN (the routine
+'HOME BASE 4: rule 482 next'; rules 482, 480(b), 479(a)(b), 441; ask rows 735, 721). Record records/BOHEMIA_HOME_BASE_THE_CAMERAS_ON_PATROL_11_26_26.md.
+VOTE card home-base-the-cameras-on-patrol-11-26.
+- THE PATROL (__THE_CAMERAS_ON_PATROL__ in the screen): homeTourTarget (from homeStationTarget when no station): 3.5 s wide, then a slow
+  push (tau 900 ms) to HTOUR.pick, out 3.2 s before the cut; homeTourPick's order: his men at work, the pile, the residents, his own
+  buildings then the tallest. The view follows the open area (FIT.open). Taps map through HF.tapV (the view at pointerdown).
+  homeTourStop (from __HOME_FEED_AT / __HOME_FEED_PEOPLE, so the walk-up and every gate get the whole block) holds it off 15 s.
+  Read hooks: __HOME_FEED_TOUR; for gates and cards: __HOME_FEED_TOUR_AT(ms) (the round's clock).
+- HIS PEOPLE: homeFeedPaint draws each person with BohemiaIdles.activity (HOME_WORK act) or .frame, else the still; hfLit makes the
+  IR-pale picture and its dark edge once per size; a worker faces NW/NE up his lot (homeFeedPeople).
+- ONE LOT, ONE THING: the screen's homeLotsHeld/buildFreeLot; the map's homeUnclash (from homeState). __HOME_FREE_LOT read hook.
+- GATES: YOUR PLACE, PLANTED F10, F11 (F8 starts the round fresh); ONCE, EVERYWHERE re-run.
+- NEXT (rule 482): the door's first paint (warm cam 1 while the map travels to his place); BUILD's desk and a prize's own door laid
+  both ways like the stations; if he wants it, a closer render (the 11/3 pipeline; Blender is not on this box, pip install bpy).
+
 HOME BASE 4 (session_01GKDyuuxd1n5GC5qbBwv9B6): 11/26 LATEST -- BUILD 11/26q - THE GRINDER, ON PURPOSE, BUILT, NOT YET SEEN (rule 481(b),
 ask row 733; rule 480(c), ask row 729; rule 479(c), ask row 721). Record records/BOHEMIA_HOME_BASE_THE_GRINDER_ON_PURPOSE_11_26_26.md.
 VOTE card home-base-the-grinder-on-purpose-11-26 (redoOf home-base-the-grinder-11-22; before and now, both ways).

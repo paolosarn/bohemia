@@ -61,6 +61,10 @@
     F9  THE STATION (rule 481(b), HOME BASE 4 11/26): a tap on the grinder zooms the camera onto its lot and lays the sheet for the way
         the phone is held (sideways a column beside the footage, upright under it), never over the footage; one bundle per body
         waiting; the camera back out when it shuts; the footage painted six times a second standing still. PLANTED: each red.
+    F10 THE CAMERAS ON PATROL (rule 482, HOME BASE 4 11/26): eight seconds into a camera's round it has pushed in on what is going on,
+        his people on the footage move. PLANTED: the patrol stood down, red.
+    F11 ONE LOT, ONE THING (rule 479(b), HOME BASE 4 11/26): the desk never builds on a lot his building or a prize holds; a clash in a
+        save is moved apart.
      F7  THE OVERFLOW (rule 466(a) step 4, HOME BASE 3 11/22): a piece whose row is full stands on a free lot behind it, its own picture.
      D22 THE GRINDER (rule 469, HOME BASE 3 11/22): built from the desk, standing, seen; the dead of a won fight home; GRIND; sold and found.
      G0-G9 (engine) THE GRINDER: the carry, the heat, one tap, the brain out, the bad cut, selling, the late shakes, the stores.
@@ -551,6 +555,29 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       const i9 = await idle9(false), i9p = await idle9(true);
       ok('F9 standing still, the footage painted ' + i9.paints + ' times in 2 s (its own 6 a second; the page ran ' + i9.rafIn500 * 4 + ' frames a second)', i9.paints >= 6 && i9.paints <= 16, JSON.stringify(i9));
       ok('F9 planted: painted every frame as it was, ' + i9p.paints + ' times in 2 s, the leg above reads red', !(i9p.paints >= 6 && i9p.paints <= 16), JSON.stringify(i9p));
+      /* F10 THE CAMERAS ON PATROL (HOME BASE 4 11/26, rule 482: 'the cameras' shots worth watching'): eight seconds into a camera's round it
+         has pushed in (1.5x to 2.3x) on what is going on (his man at work first), bracketed and named, standing in the glass the phone
+         leaves; each person on the footage moves (an idle or his work). PLANTED: the patrol stood down (a reader asked where a lot is),
+         the same check reads red. */
+      const tour10 = async () => { await fr.evaluate(() => window.__HOME_FEED_TOUR_AT(8000)); await P.waitForTimeout(3600);
+        return fr.evaluate(() => { const t = window.__HOME_FEED_TOUR(), v = window.__HOME_FEED_VIEW(), d = window.__HOME_FEED_DRAWN() || {}; return { t, z: v ? +v.z.toFixed(2) : 0, feet: (d.feet || []).map(f => f.name + ':' + (f.moves ? 'moves' : 'still')) }; }); };
+      const t10 = await tour10();
+      const good10 = (x) => !!x.t && x.z >= 1.45 && x.z <= 2.35 && ['work', 'pile', 'home', 'stand'].indexOf(x.t.why) >= 0;
+      ok('F10 THE CAMERAS ON PATROL: eight seconds into the round the camera has pushed in ' + t10.z + 'x on ' + (t10.t ? t10.t.why + ' at lot ' + t10.t.n + (t10.t.who ? ' (' + t10.t.who + ')' : '') : 'nothing') + '; his people on the footage: ' + t10.feet.join(', '),
+        good10(t10) && t10.feet.length >= 1 && t10.feet.some(f => /moves$/.test(f)), JSON.stringify(t10));
+      await fr.evaluate(() => window.__HOME_FEED_AT(5)); await P.waitForTimeout(400);
+      const t10p = await fr.evaluate(() => { const t = window.__HOME_FEED_TOUR(), v = window.__HOME_FEED_VIEW(); return { t, z: v ? +v.z.toFixed(2) : 0, feet: [] }; });
+      ok('F10 planted: the patrol stood down (a reader asked where lot 5 is), the leg above reads red (zoom ' + t10p.z + ')', !good10(t10p), JSON.stringify(t10p));
+      await fr.evaluate(() => window.__HOME_FEED_TOUR_AT(0));   /* the camera's round from its start again */
+      /* F11 ONE LOT, ONE THING (HOME BASE 4 11/26, rule 479(b)): the build desk never offers a lot his own building or a boss's prize stands
+         on (measured: the grinder on lot 0, then a wall on lot 0, one key, the grinder gone from his cameras), and a save that already
+         has two things on one lot has his building moved to a free lot. PLANTED: a place written onto a built lot is moved (else red). */
+      const f11 = await fr.evaluate(() => { const H = window.__HOME_DESK.home || {}, held = {}; (H.places || []).forEach(p => held[p.lot] = 1); (H.things || []).forEach(t => { if ((t.kind === 'prize' || t.kind === 'trophy') && t.lot >= 0) held[t.lot] = 1; });
+        const free = window.__HOME_FREE_LOT(); return { free, held: Object.keys(held).map(Number), onHeld: free != null && !!held[free] }; });
+      const f11b = await F.evaluate(() => { const r = BohemiaHomeMap.rec(), bk = lotBookFor(BohemiaBetween.mine()); const built = Object.keys(bk.lots).map(k => parseInt(k, 10)); if (!built.length || !(r.places || []).length) return { skip: true, built };
+        const p = r.places[0], was = p.lot; p.lot = built[0]; BohemiaHomeMap.state(); const now = p.lot; const lots = (r.places || []).map(q => q.lot); return { was, put: built[0], now, built, apart: built.indexOf(now) < 0 && new Set(lots).size === lots.length }; });
+      ok('F11 ONE LOT, ONE THING: the desk would build on lot ' + f11.free + ', not on a lot his own buildings or a prize hold (' + f11.held.join(',') + '); a place written onto built lot ' + f11b.put + ' is moved to lot ' + f11b.now,
+        !f11.onHeld && !f11b.skip && f11b.apart, JSON.stringify({ f11, f11b }));
       /* F4 HIS MEN AT HIS BUILDINGS, ON THE FOOTAGE (rule 458(c)): each once in his place, standing on his building's lot */
       await close15();
       const m19 = await fr.evaluate(() => { const W = window.__HOME_WORKERS || [], here = BohemiaSettlement.crewHere().map(p => p.name), F = window.__HOME_FEED_PEOPLE(); return { W, twice: W.filter(w => here.filter(n => n === w.name).length !== 1).map(w => w.name), on: F.filter(p => p.works).map(p => p.name + '@' + p.works) }; });
@@ -589,6 +616,7 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       await P.waitForTimeout(800);
       /* F8 ONCE AND IN THE GROUND (HOME BASE 3 11/22, rule 479(b)(c)): in every camera each thing of his is drawn once and each person once,
          each person standing on his own shadow; the same thing handed twice is drawn once (planted: the count on what was sent reads two) */
+      await fr.evaluate(() => { try { window.__HOME_FEED_TOUR_AT(0); } catch (e) {} });   /* HOME BASE 4 11/26: a fresh round, so no cut of the camera's own lands inside the three reads (F10 moves its clock) */
       const cams8 = []; for (let c = 0; c < 3; c++) { await P.waitForTimeout(700); cams8.push(await fr.evaluate(() => { const f = window.__HOME_FEED || {}, d = window.__HOME_FEED_DRAWN ? window.__HOME_FEED_DRAWN() : null; return { cam: f.cam, slots: Object.keys(f.slots || {}).length, d }; })); await fr.evaluate(() => { try { window.__HOME_FEED_AGE(99999); } catch (e) {} }); }
       const once8 = c => !!c.d && Object.keys(c.d.pieces).length === c.slots && Object.values(c.d.pieces).every(n => n === 1) && Object.values(c.d.people).every(n => n === 1) && c.d.feet.every(q => q.shadow);
       ok('F8 ONCE AND IN THE GROUND: in CAM ' + cams8.map(c => c.cam).join(', ') + ' each thing of his drawn once (' + cams8.map(c => c.d ? Object.keys(c.d.pieces).length : '?').join('/') + ') and each person once on his own shadow (' + cams8.map(c => c.d ? Object.keys(c.d.people).length : '?').join('/') + ')', cams8.length === 3 && new Set(cams8.map(c => c.cam)).size === 3 && cams8.every(once8), JSON.stringify(cams8));
