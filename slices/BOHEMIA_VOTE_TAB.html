@@ -165,6 +165,13 @@
  #full img.soft{ image-rendering:auto }
  /* HIS YESES IN THE DEMO (RUN TWO): under the comment box, one line per YES since 10/16, never above the fold */
  #yeses{ margin:0 12px 44px; padding:12px; background:var(--card); border:2px solid var(--rule); border-radius:5px }
+ /* NEVER CHOPPY (rule 480(c), WORDS THREE 11/26, measured on a phone at 390 x 844 with the CPU slowed four times): the list
+    above runs 600-odd lines and 36,000 px, far under the fold, and laying it out cost one frame of 170 to 230 ms as the tab
+    opened. The browser now lays out only what is near the glass; drawYes() sets the space it stands in from its own count, so
+    the page is the same height before it is reached. The same for a card: one is laid out when it comes near. */
+ #yeses{ content-visibility:auto; contain-intrinsic-size:auto 2000px }
+ #yeses .yl{ content-visibility:auto; contain-intrinsic-size:auto 59px }   /* line by line, or the whole list lands in one frame as it nears */
+ .row{ content-visibility:auto; contain-intrinsic-size:auto 420px }
  #yeses[hidden]{ display:none }
  #yeses h2{ margin:0 0 4px; font-size:13px; letter-spacing:1.5px; color:var(--dim); font-weight:700 }
  #yeses .sum{ margin:0 0 8px; font-size:15px; font-weight:700 }
@@ -655,7 +662,7 @@
     if(foldOpen) later.forEach(function(it){ more.appendChild(row(it)); });
     tally();
   }
-  document.getElementById('fold').addEventListener('click', function(){ foldOpen = !foldOpen; draw(); });
+  document.getElementById('fold').addEventListener('click', function(){ foldOpen = !foldOpen; draw(); if(foldOpen && typeof revealMore === 'function') revealMore(); });
 
   /* ---------- EXPORT ----------
      .txt, never .json (the verdict workflow). The block is written so it can be dropped
@@ -801,6 +808,7 @@
         if(!r.inDemo){ w.textContent = '  · ' + r.lane + ' has it'; n.appendChild(w); }   /* the build is said once, on top */
         l.appendChild(n); box.appendChild(l);
       });
+      box.style.containIntrinsicSize = 'auto ' + Math.round(80 + rows.length * 59.5) + 'px';   /* one line is ~59.5 px on a phone */
       box.hidden = false;
       window.__yesReady = true;
     });
@@ -811,16 +819,75 @@
     .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
     .then(function(t){ TRI = (t && t.tags && typeof t.tags === 'object') ? t : null; })
     .catch(function(){ TRI = null; });
-  fetch(REG, { cache: 'no-store' })
-    .then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+  /* NEVER CHOPPY (rule 480(c), WORDS THREE 11/26): r.json() turned the whole registry (1.9 MB) from bytes into text in ONE
+     task as the last byte landed (32 + 22 ms of a 89 ms task at the CPU slowed four times, the tab's first hitch). Read as it
+     comes, each piece decoded in its own small task; only the parse is one step (18 ms). Same data, same errors; a browser
+     with no stream reader takes the old way. */
+  function readJSON(r){
+    if(!r.body || !r.body.getReader || typeof TextDecoder === 'undefined') return r.json();
+    var rd = r.body.getReader(), dec = new TextDecoder('utf-8'), parts = [];
+    function pump(){ return rd.read().then(function(c){
+      if(c.done){ parts.push(dec.decode()); return JSON.parse(parts.join('')); }
+      parts.push(dec.decode(c.value, { stream: true })); return pump();
+    }); }
+    return pump();
+  }
+  /* MEASURED: a fast line hands the file over in one 1.5 MB piece, so the stream alone does not split it. The bytes are read and
+     turned into text off the screen's thread (a worker made from this page, nothing new on disk); the screen's thread only parses,
+     then waits one frame before it draws, so the parse and the first layout are never the same frame. Any failure: the old way. */
+  var FRAMES = typeof requestAnimationFrame === 'function';   /* a page that draws frames (the gates' stand-in page does not) */
+  function nextFrame(v){ return FRAMES ? new Promise(function(r){ requestAnimationFrame(function(){ setTimeout(function(){ r(v); }, 0); }); }) : v; }
+  function loadReg(){
+    function plain(){ return fetch(REG, { cache: 'no-store' }).then(function(r){ if(!r.ok) throw new Error('HTTP ' + r.status); return readJSON(r); }); }
+    var w = null, url = null;
+    try{
+      if(typeof Worker !== 'function' || typeof location === 'undefined') throw 0;
+      url = new URL(REG, location.href).href;
+      w = new Worker(URL.createObjectURL(new Blob(["onmessage=function(e){fetch(e.data,{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.text();}).then(function(t){postMessage({ok:true,text:t});},function(x){postMessage({ok:false,err:String((x&&x.message)||x)});});};"], { type: 'text/javascript' })));
+    }catch(e){ w = null; }
+    if(!w) return plain();
+    return new Promise(function(res, rej){
+      w.onmessage = function(e){ w.terminate(); if(!e.data || !e.data.ok){ rej(new Error((e.data && e.data.err) || 'the list did not load')); return; }
+        /* taking the text over (10 to 19 ms) and parsing it (18 ms) were one 58 ms task: a frame between them */
+        Promise.resolve(nextFrame(e.data.text)).then(function(t){ res(JSON.parse(t)); }).catch(rej); };
+      w.onerror = function(ev){ if(ev && ev.preventDefault) ev.preventDefault(); w.terminate(); plain().then(res, rej); };
+      w.postMessage(url);
+    }).then(nextFrame);
+  }
+  /* the first draw in two frames: the cards are made with the list out of the page (no layout), and put on the glass one frame
+     later, so making them and laying out the first screen are never one frame (21 + 46 ms measured, one 67 to 83 ms frame) */
+  function firstDraw(done){
+    var L = document.getElementById('list'), F = document.getElementById('fold'), H = document.getElementById('held');
+    var split = FRAMES && L && L.style && F && H;
+    if(split) L.style.display = 'none';
+    draw();
+    if(!split){ done(); return; }
+    var fh = F.hidden, hh = H.hidden; F.hidden = true; H.hidden = true;
+    var rest = []; for(var i = 1; i < L.children.length; i++) rest.push(L.children[i]);
+    rest.forEach(function(r){ r.style.display = 'none'; });   /* the first card alone, then the rest: one card's layout a frame */
+    /* nextFrame, not a bare requestAnimationFrame: a frame callback set from the draw's own task runs in the frame that task
+       ends, and put the first card's layout in the draw's frame (measured 28 + 34 ms) */
+    nextFrame().then(function(){ L.style.display = ''; return nextFrame(); })
+      .then(function(){ rest.forEach(function(r){ r.style.display = ''; }); F.hidden = fh; H.hidden = hh; done(); });
+  }
+  /* MORE the same way: what opens behind the fold comes onto the glass a card a frame after the tap's own frame */
+  function revealMore(){
+    var M = document.getElementById('more'); if(!FRAMES || !M || !M.children || !M.children.length || !M.children[0].style) return;
+    var all = []; for(var i = 0; i < M.children.length; i++) all.push(M.children[i]);
+    all.forEach(function(r){ r.style.display = 'none'; });
+    nextFrame().then(function(){ all[0].style.display = ''; return nextFrame(); })
+      .then(function(){ all.slice(1).forEach(function(r){ r.style.display = ''; }); });
+  }
+  loadReg()
     .then(function(d){ return triage.then(function(){ return d; }); })
     .then(function(d){
       items = (d && d.items) || [];
       byId = {}; items.forEach(function(it){ if(it && it.id) byId[it.id] = it; });   /* a redo's art, a MADE FROM's golden */
       ((d && d.verdicts) || []).forEach(function(v){ if(v && v.id) theirs[v.id] = v; });
-      draw();
-      window.__voteReady = true;
-      lastReg = d; drawYes(d);
+      firstDraw(function(){
+        window.__voteReady = true;
+        lastReg = d; drawYes(d);
+      });
     })
     .catch(function(e){ fail(String(e.message || e)); window.__voteReady = true; });
 })();

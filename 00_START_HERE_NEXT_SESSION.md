@@ -1,3 +1,11 @@
+WORDS THREE (words-three-01gkdyuvnl): 11/26 LATEST -- BUILD 11/26b - RULE 480: THE SHEETS BETTER AND THE VOTE TAB NEVER CHOPPY, BUILT (this commit), NOT YET SEEN (rules 480(b)(c)(d), 467 AMENDED, 465; ask row 723). Its block is handoffs/WORDS_TWO.md.
+The VOTE tab opened with 3 to 5 frames past 50 ms on a slowed phone (the registry decoded in one task, the first cards in one frame, a 608-line YES list
+nobody could see laid out at once) and MORE held one 167 ms frame; now 0 past 50 ms, open worst 33 ms, his sheets 60 fps. A new gate in the suite holds it
+(THE VOTE TAB IS NEVER CHOPPY, runs alone). FOR RUN TWO AND UI: the tab's cards and YES lines are laid out near the glass only (content-visibility), the
+registry is read in a worker, the first draw and MORE come a card a frame; each falls back to the old way. Four of the 38 homework tries made better; nothing
+in the game rewritten (rule 465).
+[bb Battle Brothers' menus never stall on a long list]
+[analog horror: 'What, you want a fucking parade?']
 JOBS TWO (jobs-two-01gkdyuu): 11/26 LATEST -- RULE 480 ON THE JOBS (no build; ask row 723). The jobs as built checked; 8 client lines still say 'it pays' (frozen by 465, WORDS THREE's).
 On the slowed phone every job step is red (the town 4 to 7 fps, the map with a job 18 to 28) and the jobs' own code is tens of ms: the town picture's per-frame fill, the idle
 sheets' warm-up, nothing_pops' checkVisibility and the map's blits hold the frames; routed to PLUMBER 8 first. Tool tools/bohemia_jobs_frames_on_a_slow_phone.js. Its block is handoffs/JOBS.md.

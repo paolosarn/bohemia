@@ -72,8 +72,8 @@
     }
    },
    "expect": "Two pump posts",
-   "try": "Two of my pump posts on the dam road went quiet this week. Quiet out there means some motherfucker is sitting on them, listening. Walk out to both and come back breathing, and I'll pay you {pay} batteries out of the turbine money myself.",
-   "teaches": "YOUR 'IT PAYS' NO, FIXED ON THE BIGGEST MOUTH: 20 of the 102 job lines say 'it pays'; ours says who pays (him, out of the turbine money) and what",
+   "try": "Two of my pump posts on the dam road went quiet this week. Quiet out there means some motherfucker is sitting on them, listening. Walk out to both and come back breathing. I pay out of the turbine money, up to {pay} batteries, and more of it the more of those crews you put down on the way.",
+   "teaches": "YOUR 'IT PAYS' NO, FIXED ON THE BIGGEST MOUTH: 20 of the 102 job lines say 'it pays'; ours says who pays (him, out of the turbine money) and what, and keeps the job's own deal (up to the most, more for every crew you stop)",
    "n": 1,
    "id": "words-two-hw06-01-never-it-pays-the-dam-11-22",
    "made": "11/22"
@@ -496,7 +496,7 @@
     ]
    },
    "expect": "You want guns?",
-   "try": "You want guns? Everybody wants guns. The Machinist makes them and sells them to whoever has batteries, and he throws nails on every street around his shop so you crawl in on your fucking knees. Ask at the bar, every drunk in there knows him.",
+   "try": "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever has batteries, and he throws nails on every street around his shop so you crawl in on your fucking knees. Ask at the bar, every drunk in there knows him.",
    "teaches": "THE ASKER, THE FURTHEST MOUTH: your trucker card was a YES as it stood; this asker is angry and curses; which is right for the 60 asker lines",
    "n": 10,
    "id": "words-two-hw06-10-curse-the-asker-11-22",

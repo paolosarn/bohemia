@@ -9932,6 +9932,14 @@ GATES = [
      "a thumb sends his words exactly and clears the kept copy (K4); UNDO brings the card back with his words (K5); every other card's "
      "box is as it was (K6); no page error (K7). Planted: the tab with the keeping taken out, served in its place, goes red. A browser, "
      "about ten seconds", False),
+    ('THE VOTE TAB IS NEVER CHOPPY', ['node', 'gates/the_vote_tab_never_choppy_gate.js'],
+     "WORDS THREE gate, 11/26, VAMILY rule 480(c)(d) (ask row 723; PAOLO 11/26: 'make sure fps is never choppy for nothing'). The real "
+     "VOTE tab on a phone 390 x 844 with the CPU slowed four times, walked like a thumb. MEASURED BEFORE: the open had 3 to 5 frames past "
+     "50 ms (the 1.9 MB registry turned to text in one task, the first cards built and laid out in one frame, the 608-line YES list laid "
+     "out in one 170 to 230 ms frame) and the tap on MORE one of 167 to 183 ms. No frame past 50 ms and 55 fps or better at the open "
+     "(N1), scrolling down to MORE (N2), the tap on MORE (N3) and scrolling every homework card behind it (N4); the fixes in the page "
+     "(N5); no page error (N6). A part that hitches is walked again; red only when both walks hitch. Planted: the tab with the fixes "
+     "taken out, caught at the open. Runs alone (it measures time). A browser, under a minute", False),
     ('THE VOICE HOLDS', ['python3', 'gates/the_voice_holds_gate.py'],
      "WORDS THREE gate, 11/20, VAMILY rules 454(a)(d), 455, 461 (ask rows 628, 637, 643; PAOLO 11/17: 'don't do anything to fix it yet'). "
      "The gate that will hold the game to THE VOICE the day he says go, BUILT AND ASLEEP: it rewrites nothing and opens nothing. A mouth "

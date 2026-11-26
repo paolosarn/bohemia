@@ -25,10 +25,10 @@
     "pay": "119"
    },
    "line": "Two pump posts on the dam road went quiet this week, and quiet out there means somebody is listening. Walk to both and back, and it pays 119 batteries at most, part of it for every crew you stop on the way.",
-   "try": "Two of my pump posts on the dam road went quiet this week. Quiet out there means some motherfucker is sitting on them, listening. Walk out to both and come back breathing, and I'll pay you 119 batteries out of the turbine money myself.",
+   "try": "Two of my pump posts on the dam road went quiet this week. Quiet out there means some motherfucker is sitting on them, listening. Walk out to both and come back breathing. I pay out of the turbine money, up to 119 batteries, and more of it the more of those crews you put down on the way.",
    "picture_pt": [
     390,
-    586
+    608
    ]
   },
   {
@@ -233,7 +233,7 @@
    ],
    "in_the_file": "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever pays, and he throws nails on every street round his shop so you crawl in. Ask at the bar, they all know him.",
    "line": "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever pays, and he throws nails on every street round his shop so you crawl in. Ask at the bar, they all know him.",
-   "try": "You want guns? Everybody wants guns. The Machinist makes them and sells them to whoever has batteries, and he throws nails on every street around his shop so you crawl in on your fucking knees. Ask at the bar, every drunk in there knows him.",
+   "try": "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever has batteries, and he throws nails on every street around his shop so you crawl in on your fucking knees. Ask at the bar, every drunk in there knows him.",
    "picture_pt": [
     390,
     586

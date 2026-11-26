@@ -6,6 +6,27 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
+WORDS THREE (words-three-01gkdyuvnl): 11/26 LATEST -- BUILD 11/26b - RULE 480: THE SHEETS BETTER AND THE VOTE TAB NEVER CHOPPY, BUILT (this commit), NOT YET SEEN (rules 480(b)(c)(d), 467 AMENDED, 465; ask row 723). NOTHING IN THE GAME WAS REWRITTEN.
+THE COORDINATOR'S ROUTINE 'WORDS THREE: rule 480': improve sheets six to eight (38 cards, none answered yet), the VOTE tab opens and scrolls them with no hitch,
+nothing new. Rule 465 stands: THE VOICE HOLDS 11/0, 0 of 15 mouths open.
+(1) THE VOTE TAB, MEASURED (390 x 844, CPU 4x, a thumb's walk): his sheets already scrolled at 60 fps; THE OPEN had 3 to 5 frames past 50 ms (the 1.9 MB
+registry decoded in one 89 ms task; the first cards built and laid out in one frame; the 608-line YES list laid out in one 170 to 230 ms frame) and MORE one of
+167 to 183 ms. FIXED in slices/BOHEMIA_VOTE_TAB.html (RUN TWO's and UI's page; nothing removed; every new step falls back to the old way, the gates' stand-in
+page included): content-visibility on a card and on each YES line (the YES box's space set from its count); the registry read and decoded in a worker made
+from the page, parsed a frame later, drawn a frame after that (readJSON, loadReg, nextFrame); the first cards built off the page and put on the glass a card a
+frame (firstDraw); MORE the same (revealMore). AFTER, four walks: 0 frames past 50 ms, open worst 33 ms, sheets 60 fps. NEW GATE THE VOTE TAB IS NEVER CHOPPY
+(gates/the_vote_tab_never_choppy_gate.js, in the suite, runs alone; __BOHEMIA_SOLO__): N1 open, N2 down to MORE, N3 the tap on MORE, N4 every homework card
+behind MORE, each no frame past 50.5 ms and 55 fps or better (a hitching part walked again, red only if both hitch); N5 the fixes in the page; N6 no error;
+plant (fixes out) caught at the open. 7/0 twice. THE VOTE TAB GATE 61/5, HIS YESES 15/0, THE CARD I NAME 24/2: all the same as clean main.
+(2) THE SHEETS: all 38 tries read against THE VOICE again; four fixed: 6.1 keeps the job's own deal (up to 119, more per crew stopped, out of the turbine
+money); 6.10 THE MACHINIST in capitals like every boss; 7.11 a neighbour's sneer, his 3.3 'fucking cookie' lesson ('What, you want a fucking parade?'),
+not a warm 'Don't worry' from nobody; 8.8 no 'whose ground' or 'guests forever' speech English ('tell everybody, out loud, that this block is ours too').
+32 of 38 curse; the queue unchanged (6 to 43 of 43 behind MORE); 38 of 38 pictures open both ways; THE VOICE IS HIS WORDS 16/0; HIS ANSWER IS KEPT 15/0.
+Record: records/BOHEMIA_WORDS_THREE_RULE_480_THE_SHEETS_BETTER_AND_THE_VOTE_TAB_NEVER_CHOPPY_11_26_26.md.
+NEXT: his answers on sheets six, seven and eight, folded the same way; nothing into the game until he says he is done.
+[bb Battle Brothers' menus never stall on a long list; ours stalled on 608 lines nobody could see]
+[analog horror: 'What, you want a fucking parade?' (card 7.11)]
+
 WORDS THREE (words-three-01gkdyuvnl): 11/22 LATEST -- BUILD 11/22zk - SHEET EIGHT, YOUR NO, OUR TRY, AND THE CONE HAT OFF THE CARDS, BUILT (108b6b0eb), NOT YET SEEN (rule 467 AMENDED 11/22, rules 470(f)(g), 466(f), 465; ask rows 710, 629, 706). NOTHING IN THE GAME WAS REWRITTEN.
 THE COORDINATOR'S ROUTINE 'WORDS THREE: they curse, for real this time' (fired before BUILD 11/22zf landed): (1) the try on every card, (2) two in three
 curse, (4) the gate, (5) never 'it pays' were already live in 11/22zf. (3) 'add our tries to sheets one to five': those 68 cards are answered whole and an
