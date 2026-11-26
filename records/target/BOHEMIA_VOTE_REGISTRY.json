@@ -24466,7 +24466,45 @@
    },
    "record": "records/BOHEMIA_ECONOMY_THREE_THE_PRICE_AT_A_GLANCE_11_26_26.md",
    "build": "BUILD 11/26n - THE PRICE AT A GLANCE"
-  }
+  },
+    {
+     "id": "character2-the-cone-comes-off-11-26",
+     "kind": "outfit",
+     "lane": "character",
+     "made": "11/26",
+     "sha": "b5658565d",
+     "draft": true,
+     "title": "THE CONE COMES OFF: THE CARAVANS AND OLD TAVO IN A DUST RANCHER HAT",
+     "said": "why are people wearing chinese rice farmer hats btw wtf???",
+     "why": "The straw cone came off everyone who wore it: the Caravans' speakers (MANNY, MARISOL, Mama Ruth, Teo) and Old Tavo, who is also NUMBER 212 you can hire in the line. They wear a felt cattleman's hat in the Caravans' dust with a leather band, the sides rolled up, on their faces, in towns, in the fight and when they stand around. You see it when a Caravans person talks to you and on this card.",
+     "options": [
+      "A, yes, the Caravans wear this",
+      "B, close, change something (say which one and what)",
+      "C, no, not like this"
+     ],
+     "show": {
+      "how": "image",
+      "src": "../records/target/character/the_cone_comes_off/CHARACTER_THE_CONE_COMES_OFF.webp",
+      "first": "../records/target/character/the_cone_comes_off/CHARACTER_THE_CONE_COMES_OFF_FIRST.webp",
+      "firstAt": [
+       0,
+       0,
+       380,
+       640
+      ]
+     },
+     "twin": {
+      "src": "records/target/portrait/crew/faction_caravans/rest_128.png",
+      "diffs": [
+       "THE HAT: the straw cone is gone; a felt cattleman's hat in the Caravans' own dust felt, a crease and two pinches in the crown, a leather band, the brim flat at the front so the face shows and rolled up at the sides.",
+       "WHO: every Caravans speaker's face and body, Old Tavo and NUMBER 212, on every sheet: the face and its moods, the town, the fight, the idles, the held guns, the melee.",
+       "THE EIGHT CARAVANS HALL MEN NEVER WORE IT: they draw no hat; only their label said so, and it is fixed."
+      ]
+     },
+     "stage": "made_from",
+     "golden": "character-the-hired-guns-11-18",
+     "recipe": "the gambler's hat he voted YES on with the hired guns, widened into a cattleman's crown and brim (tools/bohemia_character_dust_rancher_hat.py), on the gang look, the portrait gear and HATS 1; BUILD 11/26m - THE CONE COMES OFF"
+    }
  ],
  "verdicts": [
   {
