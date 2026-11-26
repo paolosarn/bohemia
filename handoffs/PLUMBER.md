@@ -1,5 +1,22 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/26, BUILD 11/26zr THE ALPHA WAKES A BLOCK AT A TIME (ask row 724, the routine's (2); rules 480, 441).
+  MEASURED (the alpha upright, CPU 4x, GPU canvas; the Long Tasks API and a CPU profile for 30 s from the tap on BEGIN, each long task
+  given its functions; probe in the scratchpad, begin_prof.js): two of RUN's slow-phone cuts were the demo's alone. (1) The map's
+  morning street (showWake -> offerRing -> ringFarLive -> castAddresses -> pplPeople -> realizeCell) built in ONE task, 2.9 to 5.5 s.
+  (2) The old 2-D crowd baked a whole person a task (bakeCast, buildFrame, skin, gen*), 0.9 to 1.9 s each, again and again.
+  CUT (1): __THE_ALPHA_WAKES_A_BLOCK_AT_A_TIME__ (BOHEMIA_CITY_WORLD.html bootWake): inside the alpha, wakeWarm first (a block a task
+  on idle time); the demo's path untouched. Switch __WAKE_ALL_AT_ONCE. The first 30 s after BEGIN: the longest freeze 4.6 -> 1.2 s,
+  time in long tasks 23.7 -> 15.3 s. Cost: the morning offer about 53 s after BEGIN at 4x (he is at the barber).
+  TRIED AND PULLED (2): CAST_SPLIT on in the alpha (RUN's split, dead code since rule 174) took the door to 11.4 to 15.2 s, longest
+  1.7 to 2.6 s, BUT THE MAP ANSWERS AFTER BEGIN 12/0 -> 9/3 twice (M1 his first map tap never taken, M3, M11); 12/0 with it out.
+  NEXT on 724: find what in the split holds his first tap (CROWD_HOLD, the breath queue's busy flag, PWALK) and ship the split.
+  A shorter warm idle wait (400 ms) also broke M1 in the demo; left at 1.5 s.
+  GATE: THE ALPHA WAKES A BLOCK AT A TIME (gates/the_alpha_wakes_a_block_at_a_time_gate.js, solo, in the suite) 1/0, plant 1/0.
+  records/BOHEMIA_PLUMBER_THE_ALPHA_WAKES_A_BLOCK_AT_A_TIME_11_26_26.md. THE MAP ANSWERS AFTER BEGIN 12/0.
+  NEXT (mine, biggest first): the split bake above; camp's HEAL taking 7.5 s (CAMP FOUR handed it to me and COMBAT FOUR); row 725
+  (the boss spoils > map, one 7.9 s task in the shell); GO to the first town sideways (5.7 s, EYES).
+
 PLUMBER 8 (chat 18) 11/26, BUILD 11/26zq THE WAY HOME LETS ITS PICTURES GO (rule 484(a) the crash first, ask rows 744, 748; filed 751).
   MEASURED (every canvas alive after the third fight grouped by the function that made it, then a heap snapshot's retaining paths): the
   dive still held one fight's worth on the map between fights, five ways: DIVE.keptPics (the map's photographs at each zoom stop, kept

@@ -92843,7 +92843,13 @@ document.getElementById('sleepbtn').addEventListener('click',function(){
 var RESTORE_ANSWERED=false;
 function bootWake(){
   if(window.__BOOTED_WAKE)return; window.__BOOTED_WAKE=true;
-  if(!DAY_RESTORED){ if(CT_IS_DEMO) wakeWarm(showWake); else showWake(); } else updQline();
+  /* __THE_ALPHA_WAKES_A_BLOCK_AT_A_TIME__ (PLUMBER 8, 11/26, ask row 724, rule 480): RUN's block-a-task wake below was the demo's
+     alone, so the alpha, the game's own link, built the morning's street in one task under his first tap after BEGIN: 2.9 to 4.1 s
+     frozen on a phone slowed 4x. Inside the alpha the wake now warms its blocks on idle time first, as the demo's does; the same ring,
+     a block at a time. The demo is untouched; a page opened on its own (no shell, a checker's) wakes as it always did.
+     __WAKE_ALL_AT_ONCE: the old way */
+  var inAlpha = false; try { inAlpha = window.parent && window.parent !== window && !window.parent.__BOHEMIA_DEMO_BUILD && !window.parent.__WAKE_ALL_AT_ONCE; } catch(_e){}
+  if(!DAY_RESTORED){ if(CT_IS_DEMO || (inAlpha && !window.__WAKE_ALL_AT_ONCE)) wakeWarm(showWake); else showWake(); } else updQline();
 }
 /* __THE_RING_WAITS_FOR_ITS_STREET__ (RUN 10/11, [ten seconds to play]). The morning's offer says how far the job's
    people are (offerRing -> castAddresses), and finding them builds the street's people block by block: on the

@@ -9528,6 +9528,12 @@ GATES = [
      "PLUMBER 8 gate, 11/26, rule 484(a)'s other half: the same twenty fights in a row with the phone held sideways (844 x 390), the same "
      "lines (no crash, no reload, an iPhone's canvas budget at every fight, the canvases, the dive's pictures, the documents and the heap "
      "flat from the second fight to the last). Solo. About 9 min (its own cap, _CAP_FOR)", True),
+    ('THE ALPHA WAKES A BLOCK AT A TIME', ['node', 'gates/the_alpha_wakes_a_block_at_a_time_gate.js'],
+     "PLUMBER 8 gate, 11/26, ask row 724 (EYES: 'the door into the game freezes on a slowed phone', BEGIN to the barber one task 7.5 s), "
+     "rules 480, 441. The alpha upright at CPU 4x, BEGIN pressed: S1 the map warmed its morning's street a block at a time on idle time "
+     "(RUN's wake, the demo's alone until now: __THE_ALPHA_WAKES_A_BLOCK_AT_A_TIME__; the street in one task was 2.9 to 5.5 s); P1 the old "
+     "way (__WAKE_ALL_AT_ONCE) turns it red; the freezes in the 30 s after BEGIN printed (now the longest 1.2 s, the old way 4.6 s). "
+     "records/BOHEMIA_PLUMBER_THE_ALPHA_WAKES_A_BLOCK_AT_A_TIME_11_26_26.md. Solo. About 4 min", True),
     ('NEVER CHOPPY (THE FRAME WALK)', ['node', 'gates/never_choppy_the_frame_walk_gate.js'],
      "PLUMBER 8 gate, 11/26, VAMILY rule 480(c)(d) (Paolo 11/26: 'make sure fps is never choppy for nothing'). One walk through every "
      "screen and every move between them on a slowed phone (390 x 844, CPU 4x, the canvas on a GPU process): the freeze census's walk of "
