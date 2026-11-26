@@ -209,7 +209,7 @@
     say((r.how === 'meet' ? 'You met ' + r.n + '. ' : r.n + ' is down. ') + done.slice(0, 2).map(function (k) { return what[k]; }).join(' '));   /* draft:true; BOSSES 11/21: a boss you meet (THE MIDWIFE) is met, never 'down' */
     try { root.dispatchEvent(new CustomEvent('bohemia:boss-fell', { detail: { n: n, at: [f.x, f.y], did: done } })); } catch (e) {}
     try { if (typeof saveNow === 'function') saveNow('boss:' + n); } catch (e) {}
-    try { if (typeof render === 'function') render(); } catch (e) {}
+    try { if (typeof render === 'function') { if (root.ONE_RENDER && ONE_RENDER.soon) ONE_RENDER.soon(render); else render(); } } catch (e) {}   /* BOSSES 11/26, rule 480(c): the redraw on the next frame, merged with it (the fall runs in a timer after the fight; a draw forced here was a second whole map in that frame) */
     return done;
   }
   /* a wall comes down: the nearest short run (one to three blocks) between two streets near him, never a town's ground, never water
@@ -297,9 +297,12 @@
     var h2 = here(); if (!h2) return;
     try { if (!FOG.ready) return; } catch (e) { return; }
     /* the sign is placed off the frame (a few walks of the map's own route), never in the first second (the second votes) */
-    if (!S.boss.sign && nextRow() && !S.boss.found[nextRow().n] && !moving() && !PLACING) {
+    /* BOSSES 11/26, rule 480(c): never while a boss's beat plays or his card is up (measured on the slowed phone: the placing is one
+       frame of 0.8 to 1.1 s, and 1.5 s after a fall it landed inside the camera's move) */
+    var bossBusy = false; try { bossBusy = !!(root.BohemiaBosses && BohemiaBosses.busy && BohemiaBosses.busy()); } catch (e) {}
+    if (!S.boss.sign && nextRow() && !S.boss.found[nextRow().n] && !moving() && !PLACING && !bossBusy) {
       PLACING = true;
-      setTimeout(function () { PLACING = false; try { if (!S.boss.sign && !moving() && placeSign()) render(); } catch (e) {} }, 1500);
+      setTimeout(function () { PLACING = false; try { if (root.BohemiaBosses && BohemiaBosses.busy && BohemiaBosses.busy()) return; } catch (e) {} try { if (!S.boss.sign && !moving() && placeSign()) { if (root.ONE_RENDER && ONE_RENDER.soon) ONE_RENDER.soon(render); else render(); } } catch (e) {} }, 1500);   /* BOSSES 11/26, rule 480(c): the redraw on the next frame, merged with it (measured: the draw forced here was 63 to 81 ms a placing, 235 to 282 ms on the slowed phone, on top of the frame's own) */
     }
     var s = S.boss.sign;
     if (s && cheb(h2[0], h2[1], s.x, s.y) <= 1) readSign();

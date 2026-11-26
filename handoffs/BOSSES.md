@@ -1,5 +1,23 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/26/26: RULE 480, THE WHOLE LADDER WALKED FOR REAL: ALL 19 FOUND BY THEIR SIGNS, FOUGHT TO LEAVE, CHANGING THE MAP, ON THE GLASS; FOUR HITCHES OF THIS LANE'S FIXED (the routine 'BOSSES: rule 480'; ask row 723), BUILD 11/26o
+Record: records/BOHEMIA_BOSSES_RULE_480_THE_WHOLE_LADDER_11_26_26.md. Gate: EVERY BOSS HOLDS ITS FRAMES (gates/every_boss_holds_its_frames_gate.js,
+registered, one phone, about 3 min). The walk: tools/bohemia_bosses_the_whole_ladder_11_26_26.js (one new game, every live boss in the ladder's
+order, no shortcut, the CPU slowed 4x in each fight; about 50 min; LADDER_ONLY, LADDER_REST, LADDER_THROTTLE).
+- CHECKED, ALL NINETEEN: THE POT to THE MIDWIFE, each found by his sign, each fight on AUTO to LEAVE by real taps (THE MIDWIFE met), each
+  change on the map, each place on the glass through his beat's hold. 0 page errors.
+- FIXED (this lane's): the beat skipped its hold on a slow frame (THE BARBER): every phase now drawn at least once; the next sign's placing
+  drew the whole map in its timer inside the beat (0.8 to 1.3 s slowed): its redraw goes through ONE_RENDER.soon and it waits for the beat and
+  the after card (BohemiaBosses.busy()); every fall drew the whole map inside itself (455 ms slowed, 446 of them this lane's listener): both
+  redraws on the next frame, 74 ms (WORLD TWO's slices/bohemia_his_map.js, the redraw and the placing's wait only); THE INK's card said
+  'null': twelve rows got their line for nothing to count (card_none), no line rewritten. This lane's share of the 19 beats: 20.7 s to 1.2 s.
+- FOR PLUMBER 8, biggest first (named by the scripts that took the time, slowed 4x): bohemia_phone_board.js paint, one frame of 15.1 s in
+  THE DOGS' beat and 11.2 s in THE INK's fight (UI; it reads every job's danger for the changed crew, PLUMBER 4's 11/5 finding); the fight's
+  first board paint, one frame of 3.2 to 5.5 s 12 to 22 s after ENGAGE in every fight (COMBAT); bohemia_motion.js 1.7 s (ANIMATION); the
+  map's whole redraw each frame of a beat, 1.2 to 5 fps slowed. The boss leg of row 725 (LEAVE freezes) is the fall's redraw, cut here.
+- FOR TUNING (not changed): the crew the game starts with, never resting, won THE POT on AUTO and lost the next 17 back to back.
+- ACT TWO (THE SOIL, the 20th) waits until the coordinator reads this round green (the routine: 'act two only once all of that is green').
+
 ## BOSSES, 11/21/26: THIS LANE'S CONTEXT IS NEAR FULL: OPEN A FRESH BOSSES LANE ON THIS FILE FOR THE 20TH (rule 461(f)). THE MIDWIFE (the 19th) IS LIVE, MET AND NEVER FOUGHT, AND ACT ONE CLOSES THROUGH HER (the routine 'BOSSES: the Midwife is yours', rules 441, 461, 454(a), 465; ask lines 167, 522, 571), BUILD 11/21e
 Record: records/BOHEMIA_BOSSES_THE_MIDWIFE_11_21_26.md. Gate: "THE MIDWIFE" (THE MIDWIFE CHANGES THE MAP, registered; 24/0 the demo
 upright and 24/0 the alpha on its side, on the merged tree, with B3). VOTE bosses-the-midwife-11-21. NINETEEN BOSSES ARE LIVE: ACT ONE'S LADDER IS WHOLE.

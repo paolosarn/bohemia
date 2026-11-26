@@ -230,7 +230,7 @@
      "who": "@la_vecina",
      "txt": "Nobody on the pipe with a crossbow any more. The pipe from the pump house to {town} has {taps} on it now, bring jugs."
     },
-    "card": "HIS PIPE WATCHERS CAME DOWN. HIS PIPE TO {TOWN} IS {TAPS}: TURN THE WATER ON AT EACH, +{pay} BATTERIES.",
+    "card": "HIS PIPE WATCHERS CAME DOWN. HIS PIPE TO {TOWN} IS {TAPS}: TURN THE WATER ON AT EACH, +{pay} BATTERIES.", "card_none": "HIS PIPE WATCHERS CAME DOWN.",
     "note": "draft:true. The length, the bolt and every word are first attempts; TUNING owns 7 blocks and 6 blood."
    }
   },
@@ -349,7 +349,7 @@
      "who": "@doc_reyes",
      "txt": "The plant's robots fell down on {where} all at once, mija, right where they stood. The kids are already pulling wire out of them."
     },
-    "card": "HIS ROBOTS DROPPED WHERE THEY STOOD: {WRECKS} ON THE MAP. STRIP EACH ONE FOR +{tape} TAPE.",
+    "card": "HIS ROBOTS DROPPED WHERE THEY STOOD: {WRECKS} ON THE MAP. STRIP EACH ONE FOR +{tape} TAPE.", "card_none": "HIS ROBOTS DROPPED WHERE THEY STOOD.",
     "note": "draft:true. The count, the band, the tape and every word are first attempts; TUNING owns 3 machines, two robots a fight and 4 tape."
    }
   },
@@ -456,7 +456,7 @@
      "who": "@abuela_paz",
      "txt": "His stokers walked off and left the drums burning on {where}. Everybody is warming up, mijo, and nobody charged us."
     },
-    "card": "HIS {DRUMS} BURN FOR YOU NOW: AT NIGHT, {light} BLOCKS ROUND EACH, YOU SEE LIKE IN THE DAY.",
+    "card": "HIS {DRUMS} BURN FOR YOU NOW: AT NIGHT, {light} BLOCKS ROUND EACH, YOU SEE LIKE IN THE DAY.", "card_none": "HIS DRUMS BURN FOR YOU NOW.",
     "note": "draft:true. The radius, the sight, the drums and every word are first attempts; TUNING owns 5 blocks of dark, 1 block of sight and 4 drums."
    }
   },
@@ -571,7 +571,7 @@
      "who": "@manny_trucks",
      "txt": "The street signs are back up on {where}, and his lines go out to all {n} towns. Real lines, no charge."
     },
-    "card": "HIS SIDE IS BACK ON THE MAP FOR GOOD, AND HIS LINES RUN OUT TO ALL {TOWNS}.",
+    "card": "HIS SIDE IS BACK ON THE MAP FOR GOOD, AND HIS LINES RUN OUT TO ALL {TOWNS}.", "card_none": "HIS SIDE IS BACK ON THE MAP FOR GOOD.",
     "note": "draft:true. The radius, the posts and every word are first attempts; TUNING owns 5 blocks of his side and 4 posts."
    }
   },
@@ -710,7 +710,7 @@
      "who": "@nena_scraps",
      "txt": "The hoist came down on {where} and the people he kept up top came down with it. They need somewhere to live."
     },
-    "card": "THE PEOPLE HE KEPT UP TOP CAME DOWN: {KEPT} AT THE FOOT OF HIS TOWERS. WALK UP AND THEY COME TO YOUR PLACE.",
+    "card": "THE PEOPLE HE KEPT UP TOP CAME DOWN: {KEPT} AT THE FOOT OF HIS TOWERS. WALK UP AND THEY COME TO YOUR PLACE.", "card_none": "THE PEOPLE HE KEPT UP TOP CAME DOWN.",
     "note": "draft:true. The sight, the leash, the band, the names and every word are first attempts; TUNING owns 6 blocks of sight, 8 of leash, two riggers a fight and a day before the next party."
    }
   },
@@ -1473,7 +1473,7 @@
     "every_mins": 60,
     "pic": "razorline",
     "rise": "-{hp}",
-    "card": "HIS LINE IS GONE"
+    "card": "HIS LINE IS GONE", "card_none": "HIS LINE IS GONE"
    }
   },
   {
@@ -1540,7 +1540,7 @@
     "max": 10,
     "pic": "inktag",
     "rise": "HIS INK",
-    "card": "{towns} OPEN AGAIN",
+    "card": "{towns} OPEN AGAIN", "card_none": "HIS INK IS GONE",
     "towns": 2,
     "shut": "SHUT"
    }
@@ -1613,7 +1613,7 @@
     "pic": "pack",
     "rise": "-{hp}",
     "told": "HIS DOGS",
-    "card": "HIS PACKS ARE GONE"
+    "card": "HIS PACKS ARE GONE", "card_none": "HIS PACKS ARE GONE"
    }
   },
   {
@@ -1684,7 +1684,7 @@
     "after_mult": 2,
     "pic": "wardtape",
     "told": "NO HEALING",
-    "card": "HIS CLINIC IS OPEN"
+    "card": "HIS CLINIC IS OPEN", "card_none": "HIS CLINIC IS OPEN"
    }
   },
   {
@@ -1768,7 +1768,7 @@
     "told": "HIS WATER",
     "rise": "-{n} FOOD",
     "rise_after": "+{n} FOOD",
-    "card": "{marks} TANKS OPEN"
+    "card": "{marks} TANKS OPEN", "card_none": "HIS TANKS ARE OPEN"
    }
   },
   {
@@ -1839,7 +1839,7 @@
     "pic": "anvil",
     "told": "NO MENDING",
     "rise_after": "+{n} ARMOUR",
-    "card": "{marks} ANVILS ARE YOURS"
+    "card": "{marks} ANVILS ARE YOURS", "card_none": "HIS ANVILS ARE YOURS"
    }
   },
   {
@@ -1905,7 +1905,7 @@
     "radius": 6,
     "marks": 3,
     "pic": "cradles",
-    "card": "{marks} BIRTHS TO BRING THROUGH"
+    "card": "{marks} BIRTHS TO BRING THROUGH", "card_none": "BIRTHS TO BRING THROUGH"
    }
   }
  ]

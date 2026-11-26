@@ -8778,6 +8778,14 @@ GATES = [
      "closes on the first birth only if somebody speaks for you (A1), and then it is kept and DYNASTY is told (A2); she is on CAM 3 "
      "(H1); the reload holds (R1). Planted: DELIVER before her, a meeting that asked for a fight, a delivery that brought nothing, a close "
      "nobody was told of, somebody who does not live there, a phone that forgot the save, a prize the seam never got. about 40 min a way", True),
+    ('EVERY BOSS HOLDS ITS FRAMES', ['node', 'gates/every_boss_holds_its_frames_gate.js'],
+     "BOSSES gate, 11/26, rule 480(b)(c) (Paolo 11/26: 'improve on what we already have. And make sure fps is never choppy for nothing'), "
+     "what THE WHOLE LADDER, WALKED FOR REAL (tools/bohemia_bosses_the_whole_ladder_11_26_26.js: one new game, all 19 bosses, each sign, each "
+     "fight on AUTO to LEAVE, each change, the CPU slowed 4x) found and fixed stays fixed: every boss's change has its card's line and one for "
+     "nothing to count (D1; THE INK's card said 'null'); his beat draws every phase with a 1.8 s frame planted in its glide (B1; THE BARBER "
+     "went glide > wipe on the slowed phone) and holds his place on the glass (B2); the next sign waits while his beat plays and his card is "
+     "up (G1), then turns up, its timer under 40 ms (G2; it drew the whole map in its timer, 235 to 282 ms slowed). Planted: THE INK without "
+     "his line, a beat that skipped its hold, a place off the glass, a sign in the beat, a 70 ms placing. one phone, about 3 min", True),
     ('YOUR SETTLEMENT, ALL TWELVE', ['python3', 'gates/home_settlement_gate.py'],
      "HOME gate, 11/3, ask lines 371 and 373 (rule 354 (g) to (o), Paolo 11/3: 'each camera angle has to show all 12 lots... 12 out of "
      "12 lots even if things are three dimensional' and 'this has to be modular... we can't be cooking up 30 angles of a building type'): "

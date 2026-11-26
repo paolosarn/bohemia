@@ -2785,6 +2785,8 @@
   var HUSH = 0, HUSH_MS = 60000;   /* after the thing lands, a minute with nobody stopping you: he sees the map changed and tries the power (the next asker waits) */
   var BEAT_MS = { glide: 900, hold: 700, wipe: 1000, show: 1300 };
   function beatT() { var M = BEAT_MS; return M.glide + M.hold + M.wipe + M.show; }
+  var BEAT_PH = ['glide', 'hold', 'wipe', 'show'];
+  function beatAt(ph) { var M = BEAT_MS; return ph === 'hold' ? M.glide : ph === 'wipe' ? M.glide + M.hold : ph === 'show' ? M.glide + M.hold + M.wipe : 0; }
   function camGo(x, y, ms) {   /* the map's camera to block (x, y), never farther out than he is (the map fit's own maths, __THE_MAP_FITS_YOUR_JOBS__) */
     try {
       if (MODE !== 'city') return null;
@@ -2833,7 +2835,13 @@
     if (RAF) return;
     RAF = requestAnimationFrame(function step(now) {
       RAF = 0;
-      if (BEAT) { if (BEAT.cam && !BEAT.camDone) BEAT.camDone = BEAT.cam.step(now); var ph = beatPhase(now - BEAT.t0); if (ph !== BEAT.phase) { BEAT.phase = ph; LAST.beat.phases.push(ph); } }
+      if (BEAT) { if (BEAT.cam && !BEAT.camDone) BEAT.camDone = BEAT.cam.step(now); var ph = beatPhase(now - BEAT.t0);
+        /* rule 480(c), BOSSES 11/26 (measured on the slowed phone, THE BARBER: one frame was longer than the whole hold, and the beat went
+           glide > wipe with his place never held on the glass): a phase is drawn at least once. A frame that would skip one steps to the
+           next phase only, and the beat's clock is set to that phase's start, so a slow phone sees every phase, a little later */
+        var i0 = BEAT_PH.indexOf(BEAT.phase), i1 = BEAT_PH.indexOf(ph);
+        if (i1 > i0 + 1) { i1 = i0 + 1; ph = BEAT_PH[i1]; BEAT.t0 = now - beatAt(ph); BEAT.caught = (BEAT.caught | 0) + 1; LAST.beat.caught = BEAT.caught; }
+        if (ph !== BEAT.phase) { BEAT.phase = ph; LAST.beat.phases.push(ph); } }
       try { render(); } catch (e) {}
       if (BEAT && now - BEAT.t0 >= beatT()) beatEnd();
       if (UB && now - UB.t0 >= UB_MS) { UB = null; LAST.useBeat.done = Date.now(); }
@@ -3002,7 +3010,9 @@
     REACH.forEach(function (k) { if (r[k]) reachFell(r, h, k); });   /* (24) (25) (26) */
     if (r.cradles) cradlesFell(r, h);   /* (27) */
     var L = lead(r.n); L.afterDue = true; save();
-    try { if (typeof render === 'function') render(); } catch (e) {}
+    /* rule 480(c), BOSSES 11/26 (measured: of a fall's 455 ms on the slowed phone, 446 were this redraw, forced inside the fall): the
+       redraw on the next frame, merged with it (the beat's own frames draw the map from then on) */
+    try { if (typeof render === 'function') { if (root.ONE_RENDER && ONE_RENDER.soon) ONE_RENDER.soon(render); else render(); } } catch (e) {}
   });
   root.addEventListener('message', function (ev) {   /* (10) a machine's fight came home (the one door's end, the way WORLD TWO's boss fight hears it) */
     var d = ev && ev.data; if (!d || d.type !== 'BOHEMIA_CITY_COMBAT_END') return;
@@ -3070,6 +3080,9 @@
     anvils: function (n) { sync(); return S && S.anvils ? (n ? (S.anvils[n] || null) : S.anvils) : null; }, reachTick: function () { sync(); return reachTick(); }, reachHolds: function () { sync(); return reachHolds(); },
     wrapElapse: function () { wrapElapse(); return !!(root.BohemiaCondition && root.BohemiaCondition.__bossReach); },   /* (24) (25) (26) */
     cradles: function (n) { sync(); return S && S.cradles ? (n ? (S.cradles[n] || null) : S.cradles) : null; }, actOne: function () { sync(); return S ? (S.actOne || null) : null; },
+    /* rule 480(c), BOSSES 11/26: true while a boss's beat plays or his card is up, so the map's heavy work (the next sign's placing,
+       WORLD TWO's) waits for the moment to finish instead of stalling a frame in the middle of the camera's move */
+    busy: function () { if (BEAT) return true; try { var c = root.__BOSS_CARD; return !!(c && c.kind === 'after' && document.getElementById('roadcard') && Date.now() - c.at < 120000); } catch (e) { return false; } },   /* the fall's moment only: his beat and the card after it (a rumour's or an asker's card never holds a sign back) */
     vouched: function () { VOUCH_AT = 0; return vouched(); }, actOneCheck: function () { sync(); return actOneCheck('asked'); },   /* (27) */
     track: function () { sync(); return S ? (S.track || null) : null; },
     rawStep: function (x, y) { try { return RAW_STEP ? RAW_STEP(x, y) : cityStepMins(x, y); } catch (e) { return null; } },
