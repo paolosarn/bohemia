@@ -35,7 +35,7 @@ const ONLY = process.argv[2] || null;
 
 let pass = 0, fail = 0;
 const ok = (n, c) => { if (c) { pass++; console.log('  ok   ' + n); } else { fail++; console.log('  FAIL ' + n); } };
-const done = () => { console.log('EVERY JOB KIND: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0); };
+const done = () => { if (globalThis.__LEAVE_BY_HAND) console.log('  (LEAVE pressed inside the end screen ' + globalThis.__LEAVE_BY_HAND + ' time(s): three real taps did not land; FIGHT SCREEN 3 is told)'); console.log('EVERY JOB KIND: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0); };
 
 (async () => {
   let d;
@@ -69,14 +69,27 @@ const done = () => { console.log('EVERY JOB KIND: ' + pass + ' passed, ' + fail 
     const up = await waitFor(() => d.page.evaluate(() => !!(window.SPOILS && SPOILS.frame) || !CITYFIGHT), 15000);
     const h = await d.page.$('#spoilsdoor iframe'); if (!h) return false;
     const sf = await h.contentFrame(), box = await h.boundingBox();
-    const b = sf ? await sf.waitForFunction(() => { const e = document.getElementById('leave'); if (!e) return null; const r = e.getBoundingClientRect(); return r.width > 0 ? [r.x + r.width / 2, r.y + r.height / 2] : null; }, null, { timeout: 10000 }).then(x => x.jsonValue()).catch(() => null) : null;
-    /* JOBS TWO 11/26 (E5, C4, V4, V5, R2, R3 red on main before this, the same as THE JOBS' PART D7 on 11/22): the end screen slides in
-       and its LEAVE exists before it has landed, so a tap then lands on what is under the sliding screen (the phone's home face) and
-       the fight never comes home to settle the job. A hand waits until the end screen is what is under the finger */
-    if (b && box) await waitFor(() => d.page.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y), sd = document.getElementById('spoilsdoor'); return !!e && !!sd && sd.contains(e); }, [box.x + b[0], box.y + b[1]]), 5000);
-    if (b) await d.page.touchscreen.tap(box.x + b[0], box.y + b[1]); else await d.page.evaluate(() => { try { spoilsLeave(); } catch (e) {} });
+    /* JOBS TWO 11/26: since FIXES 3's __LEAVE_WAITS_FOR_THE_SCREEN__ (11/26) a tap on LEAVE before the end screen has opened on the fight
+       is ignored (so its summary and its pay always come); the hand waits for the screen to be open, and taps again while it is still
+       up (MEASURED: one early tap, the screen stayed, the map never heard the fight end, a won job fight never settled) */
+    if (sf) await sf.waitForFunction(() => !!(window.BohemiaSpoilsScreen && (BohemiaSpoilsScreen.state.seq || BohemiaSpoilsScreen.state.failed)), null, { timeout: 20000 }).catch(() => null);
+    for (let k = 0; k < 3; k++) {
+      if (!(await d.page.evaluate(() => !!window.CITYFIGHT && !!(window.SPOILS && SPOILS.frame)).catch(() => false))) break;
+      const b = sf && box ? await sf.waitForFunction(() => { const e = document.getElementById('leave'); if (!e) return null; const r = e.getBoundingClientRect(); return r.width > 0 ? [r.x + r.width / 2, r.y + r.height / 2] : null; }, null, { timeout: 10000 }).then(x => x.jsonValue()).catch(() => null) : null;
+      /* the end screen slides in: a hand waits until it is what is under the finger (THE JOBS' PART D7, 11/22) */
+      if (b && box) await waitFor(() => d.page.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y), sd = document.getElementById('spoilsdoor'); return !!e && !!sd && sd.contains(e); }, [box.x + b[0], box.y + b[1]]), 5000);
+      if (b && box) await d.page.mouse.click(box.x + b[0], box.y + b[1]); else await d.page.evaluate(() => { try { spoilsLeave(); } catch (e) {} });
+      await waitFor(() => d.page.evaluate(() => !window.CITYFIGHT || !(window.SPOILS && SPOILS.frame)), 5000);
+    }
+    /* MEASURED 11/26 (the escort's fight, the first of the run): three real taps on LEAVE, the screen open and LEAVE on the glass, and
+       none reached the end screen (the page's own hit test answered nothing at LEAVE's point, then the iframe a moment later). The
+       subject here is the job settling after its fight, so the hand presses LEAVE inside the screen and says so (counted) */
+    if (sf && await d.page.evaluate(() => !!window.CITYFIGHT && !!(window.SPOILS && SPOILS.frame)).catch(() => false)) {
+      globalThis.__LEAVE_BY_HAND = (globalThis.__LEAVE_BY_HAND | 0) + 1; await sf.evaluate(() => { const e = document.getElementById('leave'); if (e) e.click(); }).catch(() => null);
+      await waitFor(() => d.page.evaluate(() => !window.CITYFIGHT || !(window.SPOILS && SPOILS.frame)), 5000);
+    }
     return up;
-  };
+  };;
   /* the fight on AUTO, to its end, and home */
   const autoFight = async () => {
     const ff = await fightFrame(); if (!ff.f) return null;

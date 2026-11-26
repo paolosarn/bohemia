@@ -377,6 +377,10 @@
     finish(job);
     job.result = { paid: n, at: day() };
     window.__JOB_PAID = (window.__JOB_PAID || []).concat([{ id: job.id, kind: job.plays, paid: n, of: job.pay }]).slice(-20);
+    /* JOBS 2 11/26 __THE_PAY_IS_A_MOMENT__ (rule 482: 'the pay' of a job he meets first, start to end). MEASURED: the end of a job was
+       the bar's number going up, the pay sting and the client's line in the speaker box; over his crew on the map, nothing. NOW the pay
+       is the same moment as a find: 'PAID · 57' comes in like a tape that catches, two rings a beat apart; quiet, the sting is its sound */
+    if (n > 0) { try { flash('PAID \u00b7 ' + n, true); } catch (e) {} }
     try { window.dispatchEvent(new CustomEvent('bohemia-job-paid', { detail: { job: job, paid: n, of: job.pay } })); } catch (e) {}   /* the client says it now, with this number (UI's voice) */
     sayLine(line || ('Paid ' + n + ' battery: ' + job.title + '.'));
     save('contract:paid');
@@ -1818,14 +1822,17 @@
   /* the steps, in order: [ms, the plate on, which ring (-1 none), how far out]; a slow phone shows every one, one a frame, late */
   var FLASH_SEQ = [[0, 1, 0, 0], [70, 0, 0, 0.5], [140, 1, 0, 1], [210, 1, -1, 0], [500, 1, 1, 0], [570, 1, 1, 0.5], [640, 1, 1, 1], [710, 1, -1, 0], [3300, 0, -1, 0], [3400, 1, -1, 0]];
   var FLASH = null, FLASH_O = [0, 0], FLASH_STEPS = [70, 140, 210, 500, 570, 640, 710, 3300, 3400, 3600];
-  function flash(t) { var now = Date.now(); FLASH = { t: String(t).toUpperCase(), t0: now, until: now + 3500, k: 0 }; root.__JOB_FLASH = FLASH.t;
+  function flash(t, quiet) { var now = Date.now(); FLASH = { t: String(t).toUpperCase(), t0: now, until: now + 3500, k: 0 }; root.__JOB_FLASH = FLASH.t;
+    /* over his head, not over a man of 72 px: the map draws his crew 42 px tall at every zoom (the person never zooms, 9/21), so the
+       plate floated 50 px over him; the last frame's own record of him gives the height (MAP_DREW.you, written after this layer) */
+    try { var Y = MAP_DREW && MAP_DREW.you; if (Y && Y.h > 0) FLASH.h = Y.h; } catch (e) {}
     try { render(); } catch (e) {}
     FLASH_STEPS.forEach(function (ms) { setTimeout(function () { try { render(); } catch (e) {} }, ms); });
-    tackHeard(); }
+    if (!quiet) tackHeard(); }
   function flashDraw() {
     if (!FLASH) return; if (Date.now() >= FLASH.until) { FLASH = null; return; }
     /* where he stands, from his own cell (the map writes MAP_DREW.you later in the frame than this layer draws) */
-    try { var q = iso(city.x, city.y, FLASH_O[0], FLASH_O[1]), fy = q.sy + TH / 2 + 2, hh = 72 * Math.max(0.6, MAP_PEOPLE_K || 1), age = Date.now() - FLASH.t0;
+    try { var q = iso(city.x, city.y, FLASH_O[0], FLASH_O[1]), fy = q.sy + TH / 2 + 2, hh = FLASH.h ? FLASH.h + 4 : 72 * Math.max(0.6, MAP_PEOPLE_K || 1), age = Date.now() - FLASH.t0;
       var cur = 0; for (var si = 0; si < FLASH_SEQ.length; si++) if (FLASH_SEQ[si][0] <= age) cur = si;
       var st = FLASH_SEQ[FLASH.k <= cur ? FLASH.k++ : cur];   /* the oldest step not yet shown first: late, never skipped */
       if (st[2] >= 0) { var u = st[3];   /* a ring a beat: out from his feet and gone in three steps */

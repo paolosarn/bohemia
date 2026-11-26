@@ -10,6 +10,7 @@
      M1  the file: the moment is drawn in steps on a timer (never a frame loop), a ring at 0 and at 500 ms (a beat at 120 BPM), at
          most ten more draws of the map in its 3.5 s; the tack goes through the game's own effects bus (__sfxOut), and its
          recording is in the published folder
+     M1  ... and the pay (__THE_PAY_IS_A_MOMENT__, 11/26 later): paid() says 'PAID · N' on the map, quiet (the pay sting is its sound)
      M1p PLANTED: the old moment (one frame, no steps, no sound) fails M1
      M2  the demo and the alpha, a phone upright and sideways, a new crew on the map: the moment said, sampled through its life:
          the plate drawn, the dropout seen, both rings drawn, the tack heard (the map's draws in that time reported: on a map
@@ -40,6 +41,9 @@ function readFile(src) {
   if (!/__JOB_FLASH_DROP/.test(body)) bad.push('no dropout');
   if (!/tackHeard\(\)/.test(body.slice(0, body.indexOf('function flashDraw')))) bad.push('flash() makes no sound');
   if (!/__sfxOut/.test(body) || !/gn\.connect\(o\.bus\)/.test(body)) bad.push('the sound is not on the effects bus');
+  if (!/if \(!quiet\) tackHeard\(\)/.test(body)) bad.push('a quiet moment still makes the tack');
+  const pd = src.slice(src.indexOf('function paid('), src.indexOf('function lost('));
+  if (!/flash\('PAID \\u00b7 ' \+ n, true\)/.test(pd)) bad.push('the pay is not a moment (paid() says nothing on the map)');
   const url = (body.match(/url: '([^']+)'/) || [])[1];
   if (!url || !fs.existsSync(path.join(ROOT, 'slices', url))) bad.push('the recording is missing: ' + url);
   return bad;
@@ -72,18 +76,20 @@ if (process.env.MOMENT_FILES) done();
         const d0 = window.__JOB_FLASH_DRAWN | 0, p0 = window.__JOB_FLASH_DROP | 0, h0 = window.__JOB_MOMENT_HEARD | 0; window.__JOB_FLASH_RING_AT = [];
         BohemiaJobKinds.flash('found it');
         await new Promise(res => setTimeout(res, 3900));
+        out.said = window.__JOB_FLASH || null;   /* the find's words, before the pay says its own */
+        const hq = window.__JOB_MOMENT_HEARD | 0, dq = window.__JOB_FLASH_DRAWN | 0; BohemiaJobKinds.flash('PAID \u00b7 57', true);   /* the pay: seen, quiet (the pay sting is its sound) */
+        await new Promise(res => setTimeout(res, 1200)); out.paySaid = window.__JOB_FLASH; out.payDrawn = (window.__JOB_FLASH_DRAWN | 0) - dq; out.payHeard = (window.__JOB_MOMENT_HEARD | 0) - hq;
         window.render = R0;
         out.drawn = (window.__JOB_FLASH_DRAWN | 0) - d0; out.drop = (window.__JOB_FLASH_DROP | 0) - p0; out.rings = [...new Set(window.__JOB_FLASH_RING_AT || [])].length; out.heard = (window.__JOB_MOMENT_HEARD | 0) - h0; out.renders = n;
-        out.said = window.__JOB_FLASH || null;
         return out;
       });
       r.tag = tag; rows.push(r);
     } catch (e) { errs.push(tag + ': ' + String(e && e.message || e).slice(0, 200)); }
     if (d) await d.close();
   }
-  const bad = rows.filter(r => !(r.said === 'FOUND IT' && r.drawn >= 2 && r.drop >= 1 && r.rings === 2 && r.heard >= 1));
-  ok('M2 the demo and the alpha, upright and sideways: the moment said, its plate drawn, its dropout seen, both rings drawn (0 and 500 ms), the tack heard (the map\'s draws in those 3.9 s, its own and the moment\'s, reported)',
-    rows.length === 4 && !bad.length, rows.map(r => r.tag + ': drawn ' + r.drawn + ', dropout ' + r.drop + ', rings ' + r.rings + ' of 2, heard ' + r.heard + ', map draws ' + r.renders).join(' | '));
+  const bad = rows.filter(r => !(r.said === 'FOUND IT' && r.drawn >= 2 && r.drop >= 1 && r.rings === 2 && r.heard >= 1 && r.paySaid === 'PAID \u00b7 57' && r.payDrawn >= 1 && r.payHeard === 0));
+  ok('M2 the demo and the alpha, upright and sideways: the moment said, its plate drawn, its dropout seen, both rings drawn (0 and 500 ms), the tack heard (the map\'s draws in those 3.9 s, its own and the moment\'s, reported); the pay a moment too, quiet',
+    rows.length === 4 && !bad.length, rows.map(r => r.tag + ': drawn ' + r.drawn + ', dropout ' + r.drop + ', rings ' + r.rings + ' of 2, heard ' + r.heard + ', map draws ' + r.renders + '; the pay: ' + r.paySaid + ' drawn ' + r.payDrawn + ', tacks ' + r.payHeard).join(' | '));
   ok('M3 nothing threw', !errs.length, errs.slice(0, 2).join(' | '));
   done();
 })();
