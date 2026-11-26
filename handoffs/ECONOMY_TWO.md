@@ -27,8 +27,9 @@ ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/26 LATEST -- BUILD 11/26e -
   ratio). Seen on the way, EYES' find (rows 724-732): at 4x the stall's double tap does not buy.
 - ALSO READ, NOTHING MOVED (record s4c): the pit's purses (35 to 75 a fight, a tournament 300) sit between a one-skull and a
   three-skull job a fight; food is 2 a man's night at the stall and on the bill, 1 a good at the walked market.
-- NEXT: the open rows on the table's owner list (every where-row's owner lane told of its band), then 480(b) on the road's events
-  next to a job (a road toll next to a night's rent). NEVER a tool that waits for a tap (461(c) amended).
+- THE ROAD READ TOO (s4c): a stop takes 6, gives 10 at the median; the rodeo man's whip at 60 is under the shops' 98.
+- NEXT: the open rows on the table's owner list (every where-row's owner lane told of its band), then the side quests' ends and
+  the bosses' tills next to a job (the two road-band rows not yet read against a job). NEVER a tool that waits for a tap (461(c) amended).
 
 ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/26 -- BUILD 11/26a - A MEND NEVER COSTS MORE THAN NEW, BUILT, NOT YET SEEN
 (rule 480(b): every price makes sense next to the others; rule 459(e) decided). What was checked first (480(b)): the table on main,

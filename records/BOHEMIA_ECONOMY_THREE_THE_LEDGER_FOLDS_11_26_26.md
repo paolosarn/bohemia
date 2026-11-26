@@ -70,6 +70,10 @@ Brothers' own ratio (a hire about 20 to 40 days of wage). It reads right next to
   a town that has one. It reads right.
 - FOOD: a man's night of food and water is 2 at the stall (a can and a bottle) and 2 on the night's bill; the walked city's
   market sells every good at 1 (a bag of rice, rule 9/4). The same number everywhere he meets it.
+- THE ROAD (records/target/BOHEMIA_ROAD_EVENTS.json, 81 stops, 128 amounts): a stop takes 6 and gives 10 at the median, a road
+  fight won pays 24 to 34 (a job's fight), next to 3 to 8 of rent a night. The largest, the rodeo man's bullwhip at 60, is under
+  the shops' 98 for it (weapons.json value 980 at ten to one), and his other price, four nights of food, is the famine trade
+  (food is worth most to a hungry man: sieges and crashes traded heirlooms for bread). It reads right; nothing moved.
 
 ## 5. NO MONEY SCREEN COSTS A FRAME (480(c), measured)
 
