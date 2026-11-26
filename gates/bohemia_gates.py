@@ -9830,6 +9830,13 @@ GATES = [
      "upright and sideways, every valley place at a block 72 px) G1 drawn once, G2 on its block, G3 in the ground (the old way pasted it: the test bites), G4 a tap "
      "on its picture is the place, G5 0.1 ms a frame and a pinch cuts nothing, G6 360 signs on blocks he can walk to, G7 nothing threw. About 5 min", True),
     ('THE PLACES SIT IN THE GROUND (alpha)', ['node', 'gates/the_places_sit_in_the_ground_gate.js', 'alpha'], "WORLD 15 gate: the same, the alpha upright and sideways. About 5 min", True),
+    ('THE MAN WHO GOES HOME COMES BACK (demo)', ['node', 'gates/the_man_who_goes_home_comes_back_gate.js', 'demo'],
+     "WORLD 15 gate, 11/26 (rule 470(h), ask row 708; Paolo, hw03-04: 'make sure there's a limit, like is it gonna come back in a day or two days, three days'). "
+     "slices/bohemia_road_more.js: a road row's fx.leaves may carry back {days, says}; the road card 'the word from home' does on both ways he leaves. "
+     "STATIC D1 the card, D2 the module. ON THE PAGE (the demo upright and sideways): M1 he goes (out of the company, the count one less, kept aside), "
+     "M2 not yet a day short, M3 back on his day (the company, the count, his let-go undone, his line on the feed), M4 a hired man back with his stats, "
+     "M5 no wait stays gone, M6 a new game forgets, M7 nothing threw. About 2 min", True),
+    ('THE MAN WHO GOES HOME COMES BACK (alpha)', ['node', 'gates/the_man_who_goes_home_comes_back_gate.js', 'alpha'], "WORLD 15 gate: the same, the alpha upright and sideways. About 2 min", True),
     ('THE DEAD SHRINK WITH THE MAP', ['node', 'gates/the_dead_shrink_with_the_map_gate.js'],
      "WORLD 15 gate, 11/22 (rule 476(b), Paolo 11/22: 'as I zoom out their blood pool is so big when I zoomed out, it's so ugly'; ask row 717; rule 441). slices/bohemia_carcass.js draws a kill and its pool at the map's scale, full from a block 72 px, smaller as he pulls out, faded, gone under 10. On the real page, demo and alpha, upright and sideways: never bigger, the glass it changes far a quarter or less of close, far out it fades and no tap answers, up close as it was. About 6 min", True),
     ('THE PLACES GET THEIR USE', ['node', 'gates/the_places_get_their_use_gate.js'],

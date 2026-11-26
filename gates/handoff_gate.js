@@ -100,7 +100,8 @@ ok('there is exactly ONE handoff at the root (' + rootFiles.join(', ') + ')', ro
    so widening the name class cannot make this match prose. */
 ok('it is not empty and still leads with a lane head (first line: "'
   + text.split('\n')[0].slice(0, 48) + '...")',
-  /^[A-Z][A-Z +\/&-]*\([a-z0-9-]+\):/.test(text.split('\n')[0] || ''));
+  /^[A-Z][A-Z0-9 +\/&-]*\([a-z0-9-]+\):/.test(text.split('\n')[0] || ''));   /* WORLD 15 11/26: a lane's name may carry its number
+  (HOME BASE 4, WORLD 15, PLUMBER 8: the 11/26zf head read red on main); the slug in parentheses stays the discriminator, as above */
 
 /* ---- 5. THE WHOLE FLEET IS STILL IN IT ----------------------------------
    Lane heads look like `SOUND (sound-xk7pjp): 8/27 (b) LATEST -- ...`. The slug

@@ -1,5 +1,18 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN and from 11/21 by WORLD FIFTEEN, its successor; newest block on top)
 
+WORLD FIFTEEN, ROUND THREE, BUILD TWO (11/26; rule 470(h), ask row 708; rule 482). BUILD 11/26zi - THE MAN WHO GOES HOME COMES BACK.
+BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_15_THE_MAN_WHO_GOES_HOME_COMES_BACK_11_26_26.md. No VOTE card (a line on the feed;
+this round's picture card is the places').
+- A man who leaves through 'the word from home' ('Go.', or his bedroll gone in the night) is away 1 to 3 days on the map's clock, then back
+  where he was (his hired row with his stats, his crew screen row), his line on the phone's feed (new words, draft; the card's own unchanged).
+  bohemia_road_more.js __THE_MAN_WHO_GOES_HOME_COMES_BACK__: fx.leaves.back {days, says}, any road row may use it; no wait is gone for good.
+- GATE: THE MAN WHO GOES HOME COMES BACK (new, demo and alpha) 28/0 + 2/0; TWELVE MORE ON THE ROAD 14/0; A WAY TO SAY NO 5/0.
+- 11/26ze (THE PLACES SIT IN THE GROUND) deployed: pages run 4849 success.
+- NEXT (482): this lane's pieces already in the game, the one he meets most first: the road cards' other answers that send a man off, the
+  map's places' names at the far stop only if he asks, the sealed desert pockets (ten one-block walkable cells on every valley) for WORLD 13.
+[bb Battle Brothers lets a brother go home for a while and come back; ours comes back on the map's own clock.]
+[analog horror: three days later he walks back in from the west with dust on him and does not say much about what he saw.]
+
 WORLD FIFTEEN, ROUND THREE (11/26; VAMILY rules 480(b)(c), 482, 479's lesson, 464, 476(a); 461(c) amended: no tool that waits for a tap,
 every gate in the foreground). BUILD 11/26ze - THE PLACES SIT IN THE GROUND. BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_WORLD_15_THE_PLACES_SIT_IN_THE_GROUND_11_26_26.md. VOTE world15-the-places-sit-in-the-ground-11-26 (tile, STAND-IN).

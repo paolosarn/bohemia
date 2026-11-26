@@ -17,6 +17,7 @@
      fx.wound    {name, hp}                 the man loses that many hitpoints, kept by the company's own condition record
                                             (engine/bohemia_condition.js: the HEAL bar's numbers; the clock and the camp mend it)
      fx.leaves   {name}                     the man leaves the company, the one way a man goes (BohemiaHireLock.dismiss)
+     fx.leaves   {name, back: {days, says}}   (WORLD 15 11/26) he leaves, and comes back after lo to hi days with his line
      fx.open     {id}                       the place's fog lifts (its block and the blocks round it) and it is named on the map
    11/11 (the coordinator's round, batch two): events that touch HIS PLACE, THE BOSSES and HIS JOBS
      needs.home  {planted: true} or {}      his place (HOME BASE): {home} (its name; YOUR CAMP before he plants), {home_blocks}
@@ -163,8 +164,54 @@
     RM.wounded.push({ name: String(name), hp: now - was, of: max, day: day() });
     return now - was;
   }
-  function leaves(name) {
+  /* ==== __THE_MAN_WHO_GOES_HOME_COMES_BACK__ (WORLD 15, 11/26; VAMILY rule 470(h), ask row 708; rule 482. Paolo, hw03-04: 'make sure
+     there's a limit, like is it gonna come back in a day or two days, three days'; WORDS THREE named it on 'the word from home').
+     MEASURED: a man who left through a road card ('Go.', or his bedroll gone in the night) was let go for good, the one way a man
+     goes (BohemiaHireLock.dismiss): out of the hired list, the crew screen's company and its line, never to come back. NOW a row's
+     fx.leaves may carry back: {days: [lo, hi], says: '...'}: his record is kept aside (bohemia.roadmore.away.v1: his hired row and
+     his crew screen row as they were), he is let go exactly as before (gone from every screen and the count), and on the map's
+     day he is due (lo to hi days on, the number TUNING's, in the row) the let-go is undone, his rows go back where they were and
+     the phone's feed has his line (the row's own words, draft). A new game forgets who was away. ==== */
+  var AWAY = 'bohemia.roadmore.away.v1';
+  function canon(n) { try { if (root.BohemiaHireLock && root.BohemiaHireLock.key) return root.BohemiaHireLock.key(n); } catch (e) {} return String(n || '').trim().toUpperCase(); }
+  function putJ(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  function keepAside(me, back) {
+    var k = canon(me.name), lo = 1, hi = 3;
+    if (back && Array.isArray(back.days)) { lo = Math.max(1, back.days[0] | 0); hi = Math.max(lo, back.days[1] | 0 || lo); }
+    var n = lo + Math.floor(Math.random() * (hi - lo + 1)), h = null, co = null;
+    (json('bohemia.hired.v1', []) || []).forEach(function (x) { if (!h && x && x.name && canon(x.name) === k) h = x; });
+    var cl = json('bohemia.company.v1', null); if (Array.isArray(cl)) cl.forEach(function (x, i) { if (!co && i > 0 && x && x.name && canon(x.name) === k) co = x; });
+    var row = { name: me.name, look: me.look || null, hired: !!me.hired, from: day(), back: day() + n, h: h, co: co, says: (back && back.says) || null };
+    var a = json(AWAY, []) || []; a = a.filter(function (x) { return x && canon(x.name) !== k; }); a.push(row); putJ(AWAY, a);
+    RM.away = a; return row;
+  }
+  function comeBack() {
+    var a = json(AWAY, []) || []; if (!a.length) return 0;
+    var d = day(); if (!d) return 0;
+    var stay = [], home = [];
+    a.forEach(function (r) { if (!r || !r.name) return; if (d < r.from) return; /* the clock went back: a new game, he is forgotten */ (d >= r.back ? home : stay).push(r); });
+    if (!home.length) { if (stay.length !== a.length) putJ(AWAY, stay); return 0; }
+    home.forEach(function (r) {
+      var k = canon(r.name), w = json('bohemia.walked.v1', []) || [];
+      if (Array.isArray(w)) putJ('bohemia.walked.v1', w.filter(function (x) { return !(x && x.dismissed && x.why === 'road' && canon(x.name) === k); }));
+      if (r.h) { var h = json('bohemia.hired.v1', []) || []; if (!h.some(function (x) { return x && x.name && canon(x.name) === k; })) { h.push(r.h); putJ('bohemia.hired.v1', h); } }
+      if (r.co) { var co = json('bohemia.company.v1', null); if (Array.isArray(co) && co.length && !co.some(function (x) { return x && x.name && canon(x.name) === k; })) { co.push(r.co); putJ('bohemia.company.v1', co); } }
+      var txt = r.says ? String(r.says).replace(/\{man\}/g, r.name) : null;
+      try { if (txt && root.BOHEMIA_FEED) root.BOHEMIA_FEED.push({ who: r.name, txt: txt, kind: 'company', draft: true }); } catch (e) {}
+      RM.back.push({ name: r.name, day: d, away: d - r.from });
+    });
+    putJ(AWAY, stay); RM.away = stay;
+    try { root.dispatchEvent(new CustomEvent('bohemia:company', { detail: { what: 'back', name: home[0].name } })); } catch (e) {}
+    try { if (typeof updHud === 'function') updHud(); } catch (e) {}
+    return home.length;
+  }
+  RM.back = []; RM.away = json(AWAY, []) || []; RM.comeBack = comeBack;
+  try { setInterval(comeBack, 3000); } catch (e) {}
+  try { if (typeof fogNewGame === 'function') { var _fngA = fogNewGame; fogNewGame = function () { putJ(AWAY, []); RM.away = []; return _fngA.apply(this, arguments); }; } } catch (e) {}
+  /* ==== /__THE_MAN_WHO_GOES_HOME_COMES_BACK__ ==== */
+  function leaves(name, back) {
     var me = men().filter(function (x) { return x.name === name; })[0]; if (!me) return false;
+    if (back) { try { keepAside(me, back); } catch (e) { RM.err = String(e && e.message || e); } }
     try {
       if (root.BohemiaHireLock && root.BohemiaHireLock.dismiss) root.BohemiaHireLock.dismiss({ name: me.name, look: me.look || null, hired: !!me.hired, day: day() }, 'road');
       else { var w = json('bohemia.walked.v1', []) || []; w.push({ name: me.name, look: me.look || null, day: day(), dismissed: true, why: 'road' }); localStorage.setItem('bohemia.walked.v1', JSON.stringify(w)); }
@@ -201,7 +248,7 @@
   RM.apply = function (fx, ctx, out) {
     out = out || { got: [] }; out.got = out.got || [];
     if (fx.wound && fx.wound.name) { var h = wound(fx.wound.name, fx.wound.hp | 0); if (h > 0) out.got.push(String(fx.wound.name).toUpperCase() + ' -' + h + ' HP'); }
-    if (fx.leaves && fx.leaves.name) { if (leaves(fx.leaves.name)) out.got.push(String(fx.leaves.name).toUpperCase() + ' LEFT'); }
+    if (fx.leaves && fx.leaves.name) { if (leaves(fx.leaves.name, fx.leaves.back || null)) out.got.push(String(fx.leaves.name).toUpperCase() + (fx.leaves.back ? ' AWAY' : ' LEFT')); }   /* __THE_MAN_WHO_GOES_HOME_COMES_BACK__: away, not gone */
     if (fx.open && fx.open.id) { var p = open(fx.open.id); if (p) out.got.push(String(p.name).toUpperCase() + ' ON THE MAP'); }
     if (fx.home && fx.home.kind) { var g = gift(fx.home, ctx); if (g) out.got.push(String(g.name).toUpperCase() + (g.waiting ? ' WAITS FOR YOUR PLACE' : ' AT YOUR PLACE')); }
     if (fx.boss && fx.boss.find) { var b = find(); if (b) out.got.push(String(b.n).toUpperCase() + ' ON THE MAP'); }
