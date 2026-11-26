@@ -1,8 +1,30 @@
 # FIXES TWO -- the handoff block (written only by FIXES TWO, newest first; the heir of FIXES, whose blocks stay in handoffs/FIXES.md)
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 # FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
+FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/26 (d) LATEST -- [rule 480] BUILD 11/26f - LEAVE WAITS FOR THE SCREEN, BUILT, NOT YET
+SEEN: rule 480's round (improve what is in the game first; never choppy). Rows 697 and 722 DONE, row 693 DONE (the cap), two new rows
+filed (736 the meet card's ground at the insides, COMBAT FOUR's seam; 737 the job board past its sheet, JOBS 2). 11/21z (the block
+below) is live. Record: records/BOHEMIA_FIXES_THREE_RULE_480_THE_SWEEP_11_26_26.md. No VOTE card (a timing; no new look).
+WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): after a fight, the end screen's LEAVE and MAKE CAMP stand faint until
+the screen has opened on the fight, then light; a tap before that does nothing (it used to go home at once: the summary unseen and the
+batteries, rounds and tape off the bodies never paid; measured on a phone slowed 4x on a slow network, a cold first fight, the window
+was about 3 s: the tap at 1.9 s went home, the screen would have opened at 5.0 s). If the screen's tables never load, LEAVE still goes
+home. slices/BOHEMIA_SPOILS_SCREEN.html __LEAVE_WAITS_FOR_THE_SCREEN__.
+CHECKERS: THE WHOLE LOOP PLAYS presses LEAVE with tools/bohemia_leave_the_end_screen.js (722 was its tap landing during the grow-in,
+not the rounds; 697's scroll the same tap) 11/0 twice; THE FOURTEEN EYES FOUND split in eight (ONE keeps the name and its debt line, now
+FILED on the two new rows; TWO to EIGHT green), its stale legs re-aimed: F538 MAKE CAMP to CAMP FOUR's quick landing, F606 to rule 472's
+set-up and stop, F553 to HOME BASE's row 549 (the block beside the street); THE PHONE waits for the end screen to open before its LEAVE.
+PROVEN (rule 441): LEAVE WAITS FOR THE SCREEN 5/0 (new: held tables, a real tap does nothing; in, it goes home once with the counts
+paid first; refused, it still goes home; PLANTED the wait out, the early tap goes home); THE WHOLE LOOP PLAYS 11/0 three runs; THE FOURTEEN EYES FOUND's eight parts 66/3 (the two FILED reds only), 23/0, 44/0, 14/0, 15/0, 7/0,
+6/0, 3/0 (126 to 238 s each alone; the whole run was 1,507 s); THE RECEIPT IS GONE 7/0; SCRAP IS TAPE 11/0; THE PHONE 268/0; MAKE CAMP
+FROM THE FIGHT 11/0; OPTIMIZE LOOT 22/0; THE SURVIVOR'S WORD 6/0; THE SPOILS 18/1 (main's red since 11/14, the crew screen's #pick);
+THE RED DEBT ONLY SHRINKS 4/0 (398 / 310, unchanged).
+NOT MINE, HANDED ON: F531 / row 736 (the fight answers what it deals at a spot: COMBAT FOUR, held); F533 / row 737 (JOBS 2, held);
+rows 671, 672 (UI FIVE), 661 (WORLD 13), 698 (JOBS) read and left to their lanes.
+NEXT (if woken): row 675's RUN reds (THE SAVE COMES BACK THE SAME S2 first: a reload mid-travel); EYES' and PLUMBER 8's new rows.
 
-FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/21 (c) LATEST -- [one voice] BUILD 11/21z - ONE VOICE AT A TIME, BUILT, NOT YET SEEN:
+
+FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/21 (c) -- [one voice] BUILD 11/21z - ONE VOICE AT A TIME, BUILT, NOT YET SEEN:
 ask row 670 (EYES 11/21 e05: Tia Carmen's card, DESI's hint plate over its NOT MY PROBLEM. and the map's voice at the foot, three at once)
 FIXED. 11/21q (the block below) is live (its pages run SUCCESS). Record: the same record, section 7. No VOTE card (a timing; no new look).
 WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): on the map, when a card asks (the road's, a boss asker's like Tia

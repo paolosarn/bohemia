@@ -171,6 +171,9 @@ html body #counts .count[data-count=tape]::before{background-image:url(supply_ic
 #camp{min-width:150px;min-height:54px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:var(--plate);color:var(--paper);border:0;border-radius:6px;font:16px/1 var(--casing);letter-spacing:3px}
 #camp small{font:10px/1 var(--rom);letter-spacing:.5px;opacity:.8}
 #camp[hidden]{display:none}
+/* __LEAVE_WAITS_FOR_THE_SCREEN__ (FIXES 3 11/26, rule 480(b), ask rows 697 and 722): until the screen has opened on the fight (its tables in,
+   the fight's message read) LEAVE and MAKE CAMP read as not ready, and a tap on them does nothing; the moment it opens they light */
+html:not(.sp-live) #leave,html:not(.sp-live) #camp{opacity:.4;cursor:default}
 .lost #loot{display:none}
 .man .xp,.man .nums,.man .lv{color:#c4b190}
 /* a phone: LOOT ALL rides the bottom bar beside LEAVE, one tap without a scroll however long the crew is (mobile first, rule 164 item 16) */
@@ -661,6 +664,13 @@ function titled(s){ return String(s || '').toLowerCase().replace(/\b[a-z]/g, fun
    BohemiaMapCamp.make, the slices/BOHEMIA_ALPHA_0_9.html __THE_SPOILS__ block hands it over) */
 function makeCamp(){ return leave(true); }
 function leave(camp){
+  /* __LEAVE_WAITS_FOR_THE_SCREEN__ (FIXES 3 11/26, rule 480(b), ask rows 697 and 722). MEASURED: a tap on LEAVE in the moment between the
+     page drawing its buttons and the screen opening on the fight (its tables still loading; the shell posts the fight on the frame's load)
+     went home at once: the summary he asked to stand (rule 164 item 28) never showed, and the batteries, rounds and tape off the bodies
+     were never paid, because they are only found when the screen opens. Now LEAVE waits for the screen; if its tables cannot load at all,
+     LEAVE still takes him home (nothing found, nothing lost). */
+  if(!S.seq && !S.failed) return;
+  if(!S.seq){ if(S.leaving === 'failed') return; S.leaving = 'failed'; post('leave', {left:0, stash:S.stash.length, camp:camp === true, failed:true}); return; }
   if(S.leaving === S.seq) return;   /* one leave a screen (a second tap during the tear does nothing) */
   try{ if(window.BohemiaAftermath) BohemiaAftermath.stop(); }catch(e){}   /* lets go of the fight's board and sheets before the frame is taken down */
   takeCounts();   /* the counts take no room: they always ride home */
@@ -866,6 +876,7 @@ function open(o){
   if(!S.ready){ S.pending = o; return; }
   var f = o.fight || {};
   S.fight = f; S.seq = o.seq || Date.now();
+  try{ document.documentElement.classList.add('sp-live'); }catch(_e){}   /* __LEAVE_WAITS_FOR_THE_SCREEN__: open, LEAVE lights */
   S.stash = (readJ(BAGKEY, []) || []).slice(0, S.cap);
   S.looks = {}; S.sexes = {}; ((f.spoils && f.spoils.looks) || []).forEach(function(l){ if(l && l.name){ S.looks[l.name] = l.look; if(l.sex) S.sexes[l.name] = l.sex; } });
   S.men = climbs(Array.isArray(f.crew) ? f.crew : []);
@@ -927,7 +938,8 @@ Promise.all([C.load('../records/target/bb/'), fetch('../records/target/bb/loot.j
       smp.spoils.recap.lines = smp.retreat ? ['2 got out, 1 did not. No pay.', 'Left behind: MARCO (down).'] : smp.wipe ? ['YOUR WHOLE CREW IS DOWN.', 'They took the road. You wake in the nearest town.'] : []; }
     open({ fight:smp, seed:7 }); }
   else post('ready', {});
-}).catch(function(e){ say('The spoils could not load: ' + e.message, true); post('ready', {failed:String(e && e.message)}); });
+}).catch(function(e){ S.failed = true; try{ document.documentElement.classList.add('sp-live'); }catch(_e){}   /* __LEAVE_WAITS_FOR_THE_SCREEN__: LEAVE still goes home */
+  say('The spoils could not load: ' + e.message, true); post('ready', {failed:String(e && e.message)}); });
 })();
 </script>
 </body>

@@ -579,7 +579,7 @@ async function side(profile) {
       ok('  the moment the fight is won the phone strikes back to its apps, in the same rectangle', EN.home && !EN.fight && (await p.evaluate(() => window.__PHONE_COMBAT_OUT | 0)) > o0 && same(EN.R, M.R), EN.screen + ' home ' + EN.home);
       const sh = await p.$('#spoilsdoor iframe'), spf = sh && await sh.contentFrame();
       if (spf) {
-        await spf.waitForFunction(() => { const e = document.getElementById('leave'); return !!e && e.getBoundingClientRect().width > 0; }, null, { timeout: 15000 }).catch(() => {});
+        await spf.waitForFunction(() => { const e = document.getElementById('leave'); return !!e && e.getBoundingClientRect().width > 0 && !!(window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened); }, null, { timeout: 15000 }).catch(() => {});   /* FIXES 3 11/26 __LEAVE_WAITS_FOR_THE_SCREEN__: LEAVE answers once the screen has opened */
         U = await under([spf]); ok('  no press of the spoils lies under the phone', !U.length, U.join(' | ') || 'none');
         await tapIn(spf, '#leave');
       }

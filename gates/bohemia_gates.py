@@ -9910,6 +9910,13 @@ GATES = [
      "on its side (R1), LEAVE heard once at once (R2), a lost fight (R3); the demo's road fight won through the map's door: the fight's card "
      "seen on 0 frames and the end screen with no receipt (D1); the fight's own card handed in the game and on the board on its own page (D2). "
      "Planted: a strip of receipt paper laid back (the measure sees it). About 1 min", True),
+    ('LEAVE WAITS FOR THE SCREEN', ['node', 'gates/leave_waits_for_the_screen_gate.js'],
+     "FIXES 3 gate, 11/26, VAMILY rule 480(b) (improve what is already in the game), rule 441 on the glass; ask rows 697 and 722. MEASURED: "
+     "a tap on the end screen's LEAVE before the screen had opened on the fight (its tables still in flight) went home at once, the summary "
+     "never seen (rule 164 item 28) and the pockets' batteries, rounds and tape never paid. A phone upright, the page framed the shell's way, "
+     "real taps: L1 the tables held, LEAVE reads not ready and a tap sends nothing home; L2 the tables in, LEAVE lights, a tap goes home once "
+     "with the counts paid first; L3 the loot table refused, LEAVE still goes home; P1 PLANTED the wait taken out (the early tap goes home, "
+     "seen). About 40 s", True),
     ('THE CARD THAT OPENS A FIGHT', ['node', 'gates/the_card_that_opens_a_fight_gate.js'],
      "FIGHT SCREEN TWO gate, 11/14, VAMILY rule 450(a) (ask row 621; PAOLO 11/14, twice: 'The card bro, the combat card is UGLY AS SHIT, TRY "
      "TO MAKE SOME AWESOME BIG BRAIN FINAL SHIT'). The card where he chooses ENGAGE or FALL BACK shows their leader's face, the one WHY "
@@ -10065,7 +10072,7 @@ GATES = [
      "(bases, seats, the painter's key), the map names it his, PLANT gone, the save; D6 the night bills it, a let-go man lives there, planted: the hook taken out is caught; "
      "D7 THE POT's prize stands there and pays back; D8 his place's BUILD opens the desk (the plan, A NIGHT, LIVING HERE, NAME IT, 44 px presses on the glass), the name "
      "typed there is the map's. About 9 min", True),
-    ('THE FOURTEEN EYES FOUND', ['node', 'gates/the_fourteen_eyes_found_gate.js'],
+    ('THE FOURTEEN EYES FOUND', ['node', 'gates/the_fourteen_eyes_found_gate.js', '--only', 'F530,F529,F537,F525,F532,F533,F536,F535,F531,F527'],
      "FIXES gate, 11/9, ask rows 525 to 538 (FOUND BY EYES 11/8, EYES' phone playthrough 1c7c9b10f), one leg per fix, each with a PLANTED fail, phone upright "
      "AND sideways: F525 the end screen (EYES' fight and a heavier one): every man's hurt, every count, every piece and the leave buttons on the glass, nothing "
      "scrolls; F528 the barber on its side: the SKIN row and every row's sixth choice on the glass, 44 px; F529 the pistol's card says SHOOT and its damage is the "
@@ -10077,7 +10084,23 @@ GATES = [
      "camp's and the scavenge game's board page decodes its ground off the main thread, the scavenge game under 1 s of pause on the demo (MAKE CAMP OWED). "
      "FIXES 3 11/21: F653 (row 653) the smith's line whole and his sheet inside its box with his men's gear broken (one and three upright, "
      "three on its side, a PLANT); F654 (row 654) DESI's plate off the glass within half a second of the settings card (both shapes, a PLANT). "
-     "About 15 min (--only F525,F528,..., --shape phone_portrait|phone_landscape|none)", True),
+     "About 2.5 min alone: THE FOURTEEN EYES FOUND is this checker's first part (F530 F529 F537 F525 F532 F533 F536 F535 F531 F527); "
+     "SPLIT 11/26 by FIXES 3 (ask row 693: the whole run took 1,507 s, past the 600 s cap), its other legs in TWO to EIGHT; the whole run "
+     "with no --only still runs every leg (--shape phone_portrait|phone_landscape|none)", True),
+    ('THE FOURTEEN EYES FOUND TWO', ['node', 'gates/the_fourteen_eyes_found_gate.js', '--only', 'F538,F534,F528'],
+     "FIXES gate, part TWO of THE FOURTEEN EYES FOUND (split 11/26, ask row 693, each part under half the cap alone): F538 the camp's board page off the main thread and MAKE CAMP on the demo (re-aimed 11/26 to CAMP FOUR's quick landing: the whole glass under half a second), F534 the new game on its side, F528 the barber on its side. About 3.5 min", True),
+    ('THE FOURTEEN EYES FOUND THREE', ['node', 'gates/the_fourteen_eyes_found_gate.js', '--only', 'F558,F554,F550,F551,F552,F553'],
+     "FIXES gate, part THREE of THE FOURTEEN EYES FOUND (split 11/26, ask row 693, each part under half the cap alone): F558, F554, F550, F551 to F553 (rows 550 to 558; F553 re-aimed 11/26 to HOME BASE's row 549: the card says the reason of the block it grades). About 3.5 min", True),
+    ('THE FOURTEEN EYES FOUND FOUR', ['node', 'gates/the_fourteen_eyes_found_gate.js', '--only', 'F609,F608,F606,F611'],
+     "FIXES gate, part FOUR of THE FOURTEEN EYES FOUND (split 11/26, ask row 693, each part under half the cap alone): F609, F608 the scavenge spots float no word, F606 a card holds the camp's clock (re-aimed 11/26 to rule 472: the stop held off, counted from the set-up), F611 the instant thumb answers nothing. About 3.5 min", True),
+    ('THE FOURTEEN EYES FOUND FIVE', ['node', 'gates/the_fourteen_eyes_found_gate.js', '--only', 'F619,F618,F605,F612,F612h'],
+     "FIXES gate, part FIVE of THE FOURTEEN EYES FOUND (split 11/26, ask row 693, each part under half the cap alone): F619 the screen reads the person, F618 the last line names who fell, F605, F612, F612h. About 2.5 min", True),
+    ('THE FOURTEEN EYES FOUND SIX', ['node', 'gates/the_fourteen_eyes_found_gate.js', '--only', 'F653,F670'],
+     "FIXES gate, part SIX of THE FOURTEEN EYES FOUND (split 11/26, ask row 693, each part under half the cap alone): F653 the smith's line whole with his men's gear broken, F670 one voice at a time. About 4 min", True),
+    ('THE FOURTEEN EYES FOUND SEVEN', ['node', 'gates/the_fourteen_eyes_found_gate.js', '--only', 'F654,F649'],
+     "FIXES gate, part SEVEN of THE FOURTEEN EYES FOUND (split 11/26, ask row 693, each part under half the cap alone): F654 DESI's plate off the settings card, F649 a wipe's lines on the end screen. About 4 min", True),
+    ('THE FOURTEEN EYES FOUND EIGHT', ['node', 'gates/the_fourteen_eyes_found_gate.js', '--only', 'F581'],
+     "FIXES gate, part EIGHT of THE FOURTEEN EYES FOUND (split 11/26, ask row 693, each part under half the cap alone): F581 the falls heard on AUTO on the alpha (the driver's own pages). About 3.5 min", True),
     ('THE WALK BACK ASKS', ['node', 'gates/the_walk_back_asks_gate.js'],
      "FIXES 2 gate, 11/17, ask row 592 (rule 413, Paolo 11/6: 'I should be fully able to get away'; RUN SIX's law under it: 'only his own walk aimed at them "
      "brings them back, and that asks'). MEASURED before: a job off the board, its crew's card, FALL BACK, six blocks off, a tap on the job's own place: he "

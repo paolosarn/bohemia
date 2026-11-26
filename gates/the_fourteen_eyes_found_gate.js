@@ -67,7 +67,8 @@
      F552 NO BLANK NAME TAG ON THE MAP (demo, both shapes): after a camp the man who says it is one of his by name (the start's men
           named on the map), the map's speaker box wears it; a line with a face and no name is never said.
           PLANT: the old speaker (the start's men unnamed on the map).
-     F553 THE ROAD IS WHY (demo, both shapes): YOUR PLACE on an arterial says the road is the reason, never 'Nothing stands here'.
+     F553 THE ROAD IS WHY (demo, both shapes): YOUR PLACE on an arterial says the reason of the ground it grades (the road, or since
+          HOME BASE's row 549 the block beside the street, named), never 'Nothing stands here' (RE-AIMED FIXES 3 11/26).
           PLANT: the old reason ('ground') for a road.
      F554 THE HALL ON ITS SIDE WHOLE (the town's page, both shapes, UI 9's dense rows planted): the keeper's words, every name and
           trade, every retinue man's effect whole; every row and its press on the glass; each retinue man opened in turn, all of him
@@ -85,7 +86,8 @@ const { chromium } = require('/opt/node22/lib/node_modules/playwright');
 const ROOT = path.dirname(__dirname);
 const { throughTheTitle } = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
 let pass = 0, fail = 0;
-const ok = (m, g, x) => { g ? pass++ : fail++; console.log((g ? '  ok   ' : '  FAIL ') + m + (x !== undefined ? '  [' + String(x).slice(0, 600) + ']' : '')); return g; };
+const T00 = Date.now(), TIMES = !!process.env.FIXES_TIMES;   /* FIXES 3 11/26: the seconds since start on each line, to cut the suite's parts (row 693) */
+const ok = (m, g, x) => { g ? pass++ : fail++; console.log((TIMES ? '[' + Math.round((Date.now() - T00) / 1000) + 's] ' : '') + (g ? '  ok   ' : '  FAIL ') + m + (x !== undefined ? '  [' + String(x).slice(0, 600) + ']' : '')); return g; };
 const arg = n => { const i = process.argv.indexOf(n); return i > 0 ? process.argv[i + 1] : null; };
 const ONLY = (arg('--only') || '').split(',').filter(Boolean), SHAPE = arg('--shape');
 const want = k => !ONLY.length || ONLY.indexOf(k) >= 0;
@@ -597,7 +599,8 @@ async function f538(shape) {
     await p.waitForTimeout(5000);
     if (prof) { try { const r = await prof.send('Profiler.stop'); fs.writeFileSync(path.join(process.env.FIXES_PROFILE, 'camp_' + shape + '.cpuprofile'), JSON.stringify(r.profile)); } catch (e) {} }
     camp = Object.assign({ home: st }, await read());
-    for (const x of p.frames()) { const t = await x.evaluate(() => { try { const s = window.BohemiaCampBoard && BohemiaCampBoard.state(); return s && s.t && s.t.steps ? s.t.steps : null; } catch (e) { return null; } }).catch(() => null); if (t) { camp.steps = t; break; } }   /* the camp's bake, step by step */
+    for (const x of p.frames()) { const t = await x.evaluate(() => { try { const s = window.BohemiaCampBoard && BohemiaCampBoard.state(); return s ? { steps: s.t && s.t.steps ? s.t.steps : null, quick: s.quick || null } : null; } catch (e) { return null; } }).catch(() => null);
+      if (t && (t.steps || t.quick)) { camp.steps = t.steps; camp.quick = t.quick; break; } }   /* the camp's bake, step by step; or the fight's own board handed whole (CAMP FOUR's quick landing) */
     try { await fr.evaluate(() => { try { if (BohemiaMapCamp.on()) BohemiaMapCamp.break(); } catch (e) {} }); } catch (e) {}
   }
   /* MAKE CAMP (FIXES 11/10, rule 441: 'no step that freezes over half a second'). COUNTED: the camp's own board, baked in its hidden page
@@ -605,8 +608,15 @@ async function f538(shape) {
      first step is not one task (it waits on the files), so it is the rest that count. MEASURED, NOT COUNTED: the whole glass's longest
      frame, which is mostly the map's one full paint as the camera climbs back after any fight (bohemia_motion.js's 'live' render of
      renderCity: 300 to 720 ms on this box, the map's and PLUMBER 8's, rule 441(c)) */
+  /* RE-AIMED FIXES 3 11/26 (rule 480(c), never choppy): since CAMP FOUR's __THE_CAMP_COMES_UP_AT_ONCE__ (11/22zzd) the camp no longer
+     bakes a board after the press: the fight hands its own board whole and the camp lands on it (bohemia_camp_board.js quickLand), so
+     there are no bake steps to time (measured 11/26: 1 step, 'none'; the whole glass 191 / 171 ms). When the camp came up that way the
+     count is the whole glass: its longest frame and its longest task under half a second. A camp that baked counts its steps, as before. */
   const steps = camp && Array.isArray(camp.steps) ? camp.steps.slice(1) : [], worstStep = steps.reduce((a, x) => x[1] > a[1] ? x : a, ['none', 0]);
-  ok('F538 ' + shape + ': MAKE CAMP after a won fight (a town visited first): the camp\'s board baked in ' + (steps.length + 1) + ' steps, the longest after its files came '
+  const quick = !!(camp && camp.quick && camp.quick.landed > 0);
+  if (quick) ok('F538 ' + shape + ': MAKE CAMP after a won fight (a town visited first): the camp stood on the fight\'s own board at once (landed ' + camp.quick.landed + ', ' + camp.quick.ms + ' ms to make it in the fight); the whole glass\'s longest frame '
+    + camp.frame + ' ms and longest task ' + camp.task + ' ms, under half a second', camp.home && camp.frame >= 0 && camp.frame < 500 && camp.task < 500, JSON.stringify({ quick: camp.quick, frame: camp.frame, task: camp.task, gap: camp.gap }));
+  else ok('F538 ' + shape + ': MAKE CAMP after a won fight (a town visited first): the camp\'s board baked in ' + (steps.length + 1) + ' steps, the longest after its files came '
     + worstStep[1] + ' ms (' + worstStep[0] + '), under half a second', !!camp && camp.home && steps.length >= 5 && worstStep[1] < 500, JSON.stringify(camp && camp.steps));
   console.log('  INFO F538 ' + shape + ': MAKE CAMP, the whole glass (measured, not counted): the longest frame ' + (camp ? camp.frame : '?') + ' ms, the longest task '
     + (camp ? camp.task : '?') + ' ms, the timer\'s gap ' + (camp ? camp.gap : '?') + ' ms; the worst frame\'s scripts ' + JSON.stringify(camp && camp.worst && camp.worst.scripts));
@@ -830,14 +840,22 @@ async function f55x(shape) {
       return null; });
     const read = async () => { await p.evaluate(() => window.BohemiaPhone && BohemiaPhone.open('home')); await p.waitForTimeout(1200); return p.evaluate(() => { const e = document.querySelector('#bohphone .hb'); return e ? e.innerText.replace(/\s+/g, ' ') : ''; }); };
     const t = await read(); await shot(p, 'f553_' + shape);
-    ok('F553 ' + shape + ': YOUR PLACE on a road (' + (at && at[2] && at[2].district) + ' at ' + (at && at[0]) + ',' + (at && at[1]) + ') says the road is why, never that nothing stands here ("' + t.slice(0, 140) + '")',
-      !!at && at[2] && at[2].why === 'on_road' && /NOT HERE/.test(t) && /This is the road/.test(t) && !/Nothing stands here/.test(t), JSON.stringify(at && at[2]));
-    /* PLANT: the old reason for every never-on ground */
-    await fr.evaluate(() => { const g0 = BohemiaHome.grade; window.__G553 = g0; BohemiaHome.grade = function () { const g = g0.apply(this, arguments); if (g && g.why === 'on_road') g.why = 'ground'; return g; }; try { HOME.here = null; } catch (e) {} });   /* the map grades a block once: asked again */
+    /* RE-AIMED FIXES 3 11/26 (HOME BASE's row 549, 'he plants the block beside the street he stands on', homeChoose): on a road the card
+       grades the block he stands on OR THE ONE BESIDE IT and names that block (THE BLOCK NORTH-WEST); measured 11/26 on an arterial, the
+       card read the prison beside it, 'Somebody else's walls', its own true reason. THE LAW KEPT: the card's reason is the reason of the
+       ground it grades (the road's when it grades the road), never 'Nothing stands here' for ground that is not open ground. */
+    const HERE = () => fr.evaluate(() => { try { const h = HOME.here && HOME.here.here; return h && h.g ? { why: h.g.why, ok: !!h.g.ok, district: h.g.district, side: h.side || null } : null; } catch (e) { return null; } });
+    const SAID = { ground: /Nothing stands here/, on_road: /This is the road/, on_water: /This is the water/, on_wash: /A dry wash/, on_rock: /Bare rock/, walled: /Somebody else's walls/, dump: /The dump/, town: /Somebody already lives here/, boss: /This is somebody's place/, water: /No water in reach/, road: /No road comes in/, nothing: /Nothing to stand on/ };
+    const sayTrue = (h, s) => !!h && (h.ok ? !/NOT HERE/.test(s) : (/NOT HERE/.test(s) && !!SAID[h.why] && SAID[h.why].test(s) && (h.why === 'ground' || !/Nothing stands here/.test(s))));
+    const hr = await HERE();
+    ok('F553 ' + shape + ': YOUR PLACE on a road (' + (at && at[2] && at[2].district) + ' at ' + (at && at[0]) + ',' + (at && at[1]) + ', the cell\'s own reason ' + (at && at[2] && at[2].why) + '): the card grades ' + (hr && hr.side ? 'THE BLOCK ' + hr.side + ' (' + hr.district + ')' : 'the road itself') + ' and says its own reason (' + (hr && hr.why) + '), never that nothing stands here ("' + t.slice(0, 140) + '")',
+      !!at && at[2] && at[2].why === 'on_road' && sayTrue(hr, t) && (hr.side || /This is the road/.test(t)), JSON.stringify({ cell: at && at[2], card: hr }));
+    /* PLANT: the old reason ('ground') for every block the card grades: the leg sees the card's words go false */
+    await fr.evaluate(() => { const g0 = BohemiaHome.grade; window.__G553 = g0; BohemiaHome.grade = function () { const g = g0.apply(this, arguments); if (g && !g.ok) g.why = 'ground'; return g; }; try { HOME.here = null; } catch (e) {} });   /* the map grades a block once: asked again */
     await p.evaluate(() => { try { BohemiaPhone.open('home'); } catch (e) {} }); await fr.evaluate(() => { city.x += 0; try { render(); } catch (e) {} });
     await p.evaluate(() => window.BohemiaPhone && BohemiaPhone.open('relations')); await p.waitForTimeout(500);
     const tp = await read();
-    ok('F553 ' + shape + ' PLANTED (the old reason, \'ground\', for a road): the leg sees \'Nothing stands here\'', /Nothing stands here/.test(tp), tp.slice(0, 140));
+    ok('F553 ' + shape + ' PLANTED (the old reason, \'ground\', for every closed block): the leg sees \'Nothing stands here\' where the truth is ' + (hr && hr.why), /Nothing stands here/.test(tp) && !!hr && !hr.ok && hr.why !== 'ground' && !sayTrue(hr, tp), tp.slice(0, 140));
     await fr.evaluate(() => { if (window.__G553) BohemiaHome.grade = window.__G553; try { HOME.here = null; } catch (e) {} });
     await p.evaluate(() => { try { const c = document.querySelector('#bohphone .hb'); const x = document.querySelector('#bohphone .bpclose, #bohphone [data-a="back"]'); if (x) x.click(); } catch (e) {} });
   }
@@ -935,16 +953,18 @@ async function f608(shape, plant) {
   await ctx.close();
 }
 /* ---------------- F606, F611 (FIXES 2 11/14, FOUND BY EYES 11/11): one game on the demo, both shapes ----------------
-   F606 A QUESTION STOPS THE CLOCK: off the town, a real thumb on the phone's HEAL makes camp and its hours run; a card that waits
-        for his answer comes up (the road's own card): while it waits the camp's hours, the day's minutes and the food stand still;
-        he answers and the hours run again.  PLANT: the hold taken out of the map's page (the hours run under the card).
+   F606 NOTHING RUNS UNDER A QUESTION (RE-AIMED FIXES 3 11/26 to WORLD 14's __THE_CARD_WAITS_FOR_THE_CAMP__ and CAMP FOUR's rule
+        472): off the town, a real thumb on the phone's HEAL makes camp and its hours run; a road card asked for under it is held off
+        the glass while his rest runs; he breaks camp and the card comes up; he answers and it goes.  PLANT: the road's camp wait
+        taken out (the card stands over the running camp).
    F611 A CARD TAKES NO PRESS IN ITS FIRST BEAT: a thumb that lands on a choice as the card opens answers nothing and the card
         stays; the same thumb a beat later answers.  PLANT: the beat set to nothing (the early thumb answers). */
 async function f60x(shape, plant) {
   const ctx = await browser.newContext(Object.assign({}, SHAPES[shape], { serviceWorkers: 'block' }));
   const p = await ctx.newPage(); p.__errs = []; p.on('pageerror', e => p.__errs.push(String(e && e.stack || e).slice(0, 300)));
-  if (plant) { await p.route(/BOHEMIA_CITY_WORLD\.html/, async route => { const r = await route.fetch(); const b = (await r.text()).replace('if (campHeldByACard()) {', 'if (false) {'); await route.fulfill({ response: r, body: b }); });
-    await p.route(/bohemia_road_events\.js/, async route => { const r = await route.fetch(); const b = (await r.text()).replace('GUARD_MS = 500', 'GUARD_MS = 0'); await route.fulfill({ response: r, body: b }); }); }
+  if (plant) {   /* F611's plant: the first beat to nothing; F606's (re-aimed 11/26): the road's camp wait taken out, so a card opens and stands over a running camp */
+    await p.route(/bohemia_road_events\.js/, async route => { const r = await route.fetch(); const b = (await r.text()).replace('GUARD_MS = 500', 'GUARD_MS = 0')
+      .replace('if (campOn()) { HELD = o;', 'if (false) { HELD = o;').replace('if (on && UP && UP.el && UP.el.style.display', 'if (false && UP && UP.el && UP.el.style.display'); await route.fulfill({ response: r, body: b }); }); }
   const P = plant ? ' PLANTED' : '';
   await p.goto(BASE + '/slices/BOHEMIA_DEMO.html', { waitUntil: 'load', timeout: 180000 });
   for (let i = 0; i < 480; i++) { if (await p.evaluate(() => !!window.__LOAD_READY && !!document.getElementById('title')).catch(() => false)) break; await p.waitForTimeout(250); }
@@ -991,14 +1011,28 @@ async function f60x(shape, plant) {
   }
   if (want('F606')) {
     const hb = await p.evaluate(() => { const b = document.querySelector('#bohphone .app[data-app=heal]'); if (!b) return null; const r = b.getBoundingClientRect(); return r.width > 0 ? [r.x + r.width / 2, r.y + r.height / 2] : null; });
+    /* RE-AIMED FIXES 3 11/26 (CAMP FOUR's rule 472(a)(d), 11/22zzd): every camp is set up before an hour runs, and its clock STOPS when his
+       men are whole (the demo's company starts whole: measured 11/26, the hours 0 to 0 with no card at all). This leg measures what holds
+       a camp's clock that runs, so the stop is held off on this page the way CAMP FOUR's own gates hold it (campDone), and the hours are
+       counted from the end of the set-up. The stop itself is THE CAMP WAITS FOR HIM's. */
+    await fr.evaluate(() => { if (!window.__GATE_HELD && typeof campDone === 'function') { window.__GATE_HELD = campDone; campDone = function () { return false; }; } }).catch(() => {});
     if (hb) await p.touchscreen.tap(hb[0], hb[1]);
+    for (let k = 0; k < 160; k++) { const stg = await fr.evaluate(() => { try { return BohemiaMapCamp.on() && !!BohemiaMapCamp.state().setting; } catch (e) { return false; } }).catch(() => false); if (!stg) break; await p.waitForTimeout(250); }
     for (let i = 0; i < 60; i++) { const s = await read().catch(() => null); if (s && s.on && s.hours >= 2) break; await p.waitForTimeout(250); }
-    const a = await read(); await openCard(); await p.waitForTimeout(300);
-    const b0 = await read(); await p.waitForTimeout(3000); const b1 = await read();
-    await tapChoice(); await p.waitForTimeout(2600); const c = await read();
-    if (!plant) ok('F606 ' + shape + ': a real thumb on HEAL made camp and its hours ran (' + a.hours + '); under a card that waits, 3 s: the hours ' + b0.hours + ' to ' + b1.hours + ', the clock ' + b0.clock + ' to ' + b1.clock + ', the food ' + b0.food + ' to ' + b1.food + ' (held ' + b1.held + ' ticks); he answers and the hours run again (' + c.hours + ')',
-      !!hb && a.on && a.hours >= 2 && b0.card && b1.card && b1.hours === b0.hours && b1.clock === b0.clock && b1.food === b0.food && b1.held >= 3 && !c.card && c.hours > b1.hours, JSON.stringify({ a, b0, b1, c }));
-    else ok('F606 ' + shape + ' PLANTED (the hold taken out of the map\'s page): the hours run under the card and the leg sees it (' + b0.hours + ' to ' + b1.hours + ')', a.on && b1.hours > b0.hours, JSON.stringify({ a, b0, b1 }));
+    /* RE-AIMED FIXES 3 11/26 (row 606's newer fix, WORLD 14's __THE_CARD_WAITS_FOR_THE_CAMP__, slices/bohemia_road_events.js, 11/14): a road
+       card never stands over a running camp: one asked for while he camps is HELD off the glass and comes up when he breaks camp. Measured
+       11/26: the card asked under the camp never came up (card false, the hours 2 to 8 to 14), so the old count (the hours frozen under a
+       card on the glass) had nothing to count. THE LAW KEPT (row 606: the camp ran four days under a question): nothing of his runs out
+       under a question that waits. Counted: the card held, not on the glass, while his camp's rest runs; he breaks camp and the card comes
+       up; he answers and it goes, answered once. PLANT: the road's camp wait taken out (the card opens and stands over the running camp). */
+    const a = await read(); const h0 = await fr.evaluate(() => window.__ROADCARD_HELD | 0); await openCard(); await p.waitForTimeout(300);
+    const b0 = await read(); await p.waitForTimeout(3000); const b1 = await read(); const h1 = await fr.evaluate(() => window.__ROADCARD_HELD | 0);
+    await fr.evaluate(() => { try { BohemiaMapCamp.break(); } catch (e) {} });
+    let c0 = null; for (let i = 0; i < 16; i++) { await p.waitForTimeout(250); c0 = await read(); if (c0.card) break; }
+    await p.waitForTimeout(700); await tapChoice(); await p.waitForTimeout(900); const c = await read(); const said = await fr.evaluate(() => window.__F6 | 0);
+    if (!plant) ok('F606 ' + shape + ': a real thumb on HEAL made camp and its hours ran (' + a.hours + '); a card asked for under it is held off the glass (held ' + (h1 - h0) + ', up ' + b0.card + ' then ' + b1.card + ') while his rest runs (the hours ' + b0.hours + ' to ' + b1.hours + '); he breaks camp and the card comes up (' + c0.card + '); he answers and it goes (' + said + ' answer)',
+      !!hb && a.on && a.hours >= 2 && h1 - h0 === 1 && !b0.card && !b1.card && b1.hours > b0.hours && !c0.on && c0.card && !c.card && said === 1, JSON.stringify({ a, b0, b1, c0, c, held: h1 - h0, said }));
+    else ok('F606 ' + shape + ' PLANTED (the road\'s camp wait taken out): the card stands over the running camp and the leg sees it (up ' + b0.card + ', ' + b1.card + ')', a.on && (b0.card || b1.card), JSON.stringify({ a, b0, b1 }));
   }
   if (!plant) ok('F60x ' + shape + ': nothing threw', p.__errs.length === 0, p.__errs.slice(0, 2).join(' | '));
   await ctx.close();

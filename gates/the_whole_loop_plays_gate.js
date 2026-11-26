@@ -55,7 +55,12 @@ const tapAt = async (dd, x, y) => { if (profile === 'computer') await dd.page.mo
 const SCROLLED = [];   /* a button a finger only reaches after a scroll (rule 402 says none should be): named in the result */
 async function tapIn(dd, frame, sel) {
   const h = await frame.$(sel); if (!h) return 'not there';
-  const was = await h.boundingBox();
+  /* FIXES 3 11/26 (ask row 697): the end screen grows in out of the phone for about a second (MEASURED: at 0.5 s its frame was
+     139,50 251 x 453, at 1 s the glass's 390 x 844, LEAVE at 786 to 836 and the page never scrolling), so a box read while it moves
+     reported LEAVE 'REACHED ONLY AFTER A SCROLL' on a screen that never scrolls. The box is read once it holds still. */
+  let was = await h.boundingBox();
+  for (let i = 0; i < 15; i++) { await sleep(200); const n = await h.boundingBox();
+    if (was && n && Math.abs(n.x - was.x) < 0.5 && Math.abs(n.y - was.y) < 0.5 && Math.abs(n.width - was.width) < 0.5) break; was = n; }
   await h.evaluate(e => e.scrollIntoView({ block: 'center' })).catch(() => {}); await sleep(200);
   const b = await h.boundingBox(); if (!b || b.width < 2) return 'not on the glass';
   if (was && Math.abs(was.y - b.y) > 2) SCROLLED.push(sel);
@@ -186,7 +191,16 @@ async function winAndLeave(dd) {
   const sp = await waitFor(() => dd.page.evaluate(() => !!(window.SPOILS && SPOILS.frame && document.getElementById('spoilsdoor'))), 30000);
   if (!sp) return { ok: false, why: 'NO END SCREEN after the win' };
   const sh = await dd.page.$('#spoilsdoor iframe'), sf = sh && await sh.contentFrame();
-  let tw = null; const t = sf ? await waitFor(async () => { tw = await tapIn(dd, sf, '#leave'); return tw === true || null; }, 15000) : null;
+  /* FIXES 3 11/26 (ask rows 722, 697): LEAVE pressed the way a thumb presses it (tools/bohemia_leave_the_end_screen.js: the screen opened,
+     LEAVE on the glass, the top thing at its own middle, still). MEASURED: the end screen grows in out of the phone for about a second
+     and its LEAVE answers nothing until the screen is opened (leave() returns while its seq is unset), so a press read off a box mid-grow
+     either missed LEAVE or came before it answered, and the loop waited out its 40 s 'NOT BACK ON THE MAP' (row 722, intermittent: 11/0
+     then 7/1 on the same main). Only when LEAVE is truly under the glass does the loop scroll to it, and it says so (rule 402) */
+  const { leaveTheEndScreen } = require(path.join(ROOT, 'tools/bohemia_leave_the_end_screen.js'));
+  let tw = null, t = null;
+  const lv = sf ? await leaveTheEndScreen(dd.page, { mouse: profile === 'computer', ms: 15000 }) : null;
+  if (lv && lv.pressed) { t = true; tw = 'pressed on the glass after ' + lv.waited + ' ms'; }
+  else if (sf) { tw = lv && lv.why; t = await waitFor(async () => { tw = await tapIn(dd, sf, '#leave'); return tw === true || null; }, 15000); }
   const home = await waitFor(() => dd.page.evaluate(() => !document.getElementById('spoilsdoor') && !document.getElementById('fightFrame') && !document.body.classList.contains('nf-on')), 40000);
   const c = cityOf(dd);
   const map = home && c ? await waitFor(() => c.evaluate(() => MODE === 'city' && !(window.MEET && MEET.up)), 15000) : null;
