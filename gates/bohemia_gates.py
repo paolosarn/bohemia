@@ -9689,6 +9689,14 @@ GATES = [
      "on PAUSE; a camp made whole runs no hour; two fingers zoom in until a man stands 150 px; after a won fight the camp stands on the "
      "fight's own board handed at the tap, its first frame within 4.5 s, no frame held over 750 ms; planted: the old break and the old "
      "second bake go red. records/BOHEMIA_CAMP_FOUR_THE_CAMP_WAITS_FOR_YOU_11_22_26.md", True),
+    ('THE CAMP READS AT A GLANCE', ['node', 'gates/the_camp_reads_at_a_glance_gate.js'],
+     "CAMP FOUR gate, 11/26, VAMILY rules 482 and 480(b) on rule 472(b), rule 441 (the coordinator 11/26: 'the crew idling and healing "
+     "reads at a glance, the time passing feels like time, zooming in on a man in camp looks good'). On the demo upright and on its side, "
+     "HEAL at 16:00 with his men hurt: G1 the fight's bars over every man while they mend, a man's blood rising; G2 full at the stop and gone "
+     "five seconds on; G3 the tape in the corner counts the hours, STOP and EVERYONE WHOLE at the stop, then gone; G4 the shadows swing with "
+     "the hour; G5 the dusk laid over the day part of the way from five to seven; G6 the screen's own slots hold the day and the night; G7 two "
+     "fingers in at the middle end on one of his men, the ground softened; P1 the bars and tape off go red. "
+     "records/BOHEMIA_CAMP_FOUR_THE_CAMP_READS_AT_A_GLANCE_11_26_26.md", True),
     ('HIT THE ROAD, EVERY TIME', ['node', 'gates/hit_the_road_every_time_gate.js'],
      "CAMP FOUR gate, 11/26, VAMILY rule 480(b)(c) on rule 472(c), rules 441 and 448 (Paolo 11/22: 'I have to definitely click something to "
      "resume getting back on the world map'; the coordinator 11/26: 'HIT THE ROAD works every time'). On the demo upright and on its side, "
