@@ -1,4 +1,4 @@
-COOK FIVE (cook-six-01gkdyut): 11/26 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/26k - THE SWAP MEET, BUILT (SHIPSHA), NOT YET SEEN (rule 480(b); rules 461, 441, 416, 451(a), 455; ask row 723).
+COOK FIVE (cook-six-01gkdyut): 11/26 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/26k - THE SWAP MEET, BUILT (80ce35a5f), NOT YET SEEN (rule 480(b); rules 461, 441, 416, 451(a), 455; ask row 723).
 THE SWAP MEET (COMBAT FOUR's BUILD 11/22zc, its 'FOR COOK (SIX)'; the first of the 27 insides COMBAT FOUR added since 11/21 with every piece a stand-in, the one he meets most: a
 cell in 31 of 40 valleys): all 189 pieces of the_covered_rows and 185 of the_food_court were stand-ins. Now slices/fight_ground/swapmeet/ holds swapmeet_art.json (THE GARAGE'S
 FORMAT: floor.floor and floor.ring the market's asphalt on all 25 tiles, gar_deck laid dark, the stall lines every 3 m and 1 m in from N and S at the same place on every tile,
