@@ -1,6 +1,23 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/26 LATEST -- RULE 480 ON THE JOBS AS BUILT (the coordinator's routine 'JOBS 2: rule 480';
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/26 LATEST -- BUILD 11/26j - THE CARD AT ONCE, BUILT, NOT YET SEEN (ask row 730; rules 482,
+480(c), 466(c), 441). Content 491efbe1c. VOTE jobs2-the-card-at-once-11-26 (STAND-IN, before and now). Record records/BOHEMIA_JOBS_TWO_THE_CARD_READS_CLEAN_11_26_26.md.
+- THE CARD IS INSTANT (slices/bohemia_job_kinds.js asksCard/tripCard/warm, __THE_CARD_IS_INSTANT__): kept per job and town (ten minutes of
+  the clock, his block, his jobs, crewKey, his name); bohemia_board_shelf.js seen() warms a read board's people in idle time; the
+  settlement's rows and card read the kept ones. At 4x the tap's longest task 120 to 244 ms (535), Take it 158 to 207 (372). EYES had
+  already re-walked 730 after the town's own fix (card 333, Take it 367 at 4x, 'no higher than the town standing'); this takes the
+  card's own 311 ms out of what is left.
+- THE CARD READS CLEAN (__THE_CARD_READS_CLEAN__): the trip line is tripLine(T) ('THE DRY CAMP · about 2 hours 20 minutes' beside the
+  mark); asks() hands 'lines' (a stop a line, no '(+N FOLLOWERS)'), the card draws them as a list; 'words' unchanged for the tools.
+GATE THE CARD READS CLEAN (new, in the suite) 4/0. THE TRIP BEFORE THE YES 9/0. THE NEW KINDS and THE NIGHT, THE TURN AND THE BID read
+the card's stops (asksLines in the new kinds walk).
+NEXT: the arrival at a job (rule 482: 'looks and sounds better'): what he sees and hears when he reaches a job's place (sayLine, the
+flash, the ring); row 698. Leftovers to clean in the jobs code: the settlement's four drafted fallback OFFERS (typed pay, shown only
+until the shelf loads), MAP_DREW.jobOff (nothing reads it).
+[bb Battle Brothers' contract screen lists its objectives, one a line, and says the pay; never the renown]
+[analog horror: three lines on a scrap of card, and the third one has a one-in-ten next to it, written smaller]
+
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/26 -- RULE 480 ON THE JOBS AS BUILT (the coordinator's routine 'JOBS 2: rule 480';
 ask row 723). No build. Record: records/BOHEMIA_JOBS_TWO_RULE_480_THE_JOBS_AS_BUILT_11_26_26.md.
 - (b) CHECKED: followers everywhere (no CLOUT on a jobs screen), no waypoints, every foe agrees, the board under half sideways, jobs fit
   and fights match their cards (their gates stand, not re-walked). EIGHT client lines in BOHEMIA_JOB_KINDS.json board_people still say

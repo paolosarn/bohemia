@@ -1,3 +1,6 @@
+JOBS TWO (jobs-two-01gkdyuu): 11/26 LATEST -- BUILD 11/26j - THE CARD AT ONCE, BUILT, NOT YET SEEN (ask row 730; rules 482, 480(c)). Its block is handoffs/JOBS.md.
+A job's card opens at once (its reads kept and warmed from the board: the slowed phone's tap 120 to 244 ms, the town's own frame what is left) and reads clean (where and
+about how long beside its mark, a stop a line, no sums, no followers). Gate THE CARD READS CLEAN 4/0 (new). VOTE jobs2-the-card-at-once-11-26, sha 491efbe1c.
 COOK FIVE (cook-six-01gkdyut): 11/26 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/26h - THE TERMINAL, THE FORT AND THE MALL AGAIN, BUILT (0798ae711), NOT YET SEEN (rule 480(b); rule 466(e); rules 441; ask row 723).
 HIS TWO 'WIP's ON COOK FIVE's CARDS (cook5-the-terminal-11-18, cook5-the-three-that-waited-11-18), looked at on his phone as the others were: THE TERMINAL's floor the palest thing
 on the board; THE DATA FORT's raised floor near white under its lights; THE MALL's diamond on every tile and nine a tile on the walkway's deck, wallpaper. NOW: the terminal's vinyl on
@@ -53,7 +56,7 @@ registry is read in a worker, the first draw and MORE come a card a frame; each 
 in the game rewritten (rule 465).
 [bb Battle Brothers' menus never stall on a long list]
 [analog horror: 'What, you want a fucking parade?']
-JOBS TWO (jobs-two-01gkdyuu): 11/26 LATEST -- RULE 480 ON THE JOBS (no build; ask row 723). The jobs as built checked; 8 client lines still say 'it pays' (frozen by 465, WORDS THREE's).
+JOBS TWO (jobs-two-01gkdyuu): 11/26 -- RULE 480 ON THE JOBS (no build; ask row 723). The jobs as built checked; 8 client lines still say 'it pays' (frozen by 465, WORDS THREE's).
 On the slowed phone every job step is red (the town 4 to 7 fps, the map with a job 18 to 28) and the jobs' own code is tens of ms: the town picture's per-frame fill, the idle
 sheets' warm-up, nothing_pops' checkVisibility and the map's blits hold the frames; routed to PLUMBER 8 first. Tool tools/bohemia_jobs_frames_on_a_slow_phone.js. Its block is handoffs/JOBS.md.
 CAMP FOUR (camp-four-01gkdyuu): 11/22 LATEST -- BUILD 11/22zzd - THE CAMP WAITS FOR YOU, BUILT, NOT YET SEEN (rule 472(a) to (d), 441, 448; ask rows 711 and 712). Its block is handoffs/CAMP_THREE.md.
