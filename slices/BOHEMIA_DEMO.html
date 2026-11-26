@@ -498,7 +498,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"24a5dd7f4c0b186e",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"2cdfa3fc9737dcd8",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1602,7 +1602,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/26zf - THE CAMERAS ON PATROL</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/26zg - THE ALPHA SAYS CONTINUE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13327,7 +13327,9 @@ function combatMsgIn(d){
        save, the door after NEW GAME, and the workshop (no title) are written as before. */
     if(window.__SAVE_AT_OPEN === undefined){ try{ var __s0 = CITYSAVE.load(); window.__SAVE_AT_OPEN = !!(__s0 && __s0.data); }catch(_e){ window.__SAVE_AT_OPEN = true; } }
     var __tt = window.BOH_TITLE;
-    if(!window.__SAVE_AT_OPEN && !window.__PLAY_BEGAN && window.__BOHEMIA_DEMO_BUILD && __tt && !__tt.skipped && !__tt.newgames && !__tt.continues){ window.__SAVE_HELD = d.bohemiaCityState; return true; }
+    /* __THE_ALPHA_SAYS_CONTINUE__ (UI FIVE 11/26, ask row 738): the workshop now offers CONTINUE over a save, so it holds the same way:
+       a workshop that held no save when it opened writes none before BEGIN (else a reload would offer CONTINUE on a game nobody began) */
+    if(!window.__SAVE_AT_OPEN && !window.__PLAY_BEGAN && __tt && (window.__BOHEMIA_DEMO_BUILD ? (!__tt.skipped && !__tt.newgames && !__tt.continues) : __tt.skipped === 'workshop')){ window.__SAVE_HELD = d.bohemiaCityState; return true; }
     window.__SAVE_HELD = null;
     CITYSAVE.save(d.bohemiaCityState);
     /* AND THE MUSIC HEARS A PAYDAY (8/20). This snapshot already carries the
@@ -14536,8 +14538,14 @@ window.__DOOR_WIRED = 1;   /* __ONE_SCREEN_HOLDS_ALL_THE_LOADING__ */
     try{ $('front').classList.add('titled'); }catch(_e){}   /* the demo's cold door shows its own again (the cutter's rule) */
     /* THE DEMO'S DOOR. The workshop (the alpha) opens on VOTE after its loading screen (rule 18 / the vote tab law),
        so the title is the demo's alone; the cutter's flag is set before the page finishes loading */
-    if (!window.__BOHEMIA_DEMO_BUILD) { T.skipped = 'workshop'; return; }
-    var skip = null; try{ skip = sessionStorage.getItem(SKIP); sessionStorage.removeItem(SKIP); }catch(_e){}
+    /* __THE_ALPHA_SAYS_CONTINUE__ (UI FIVE 11/26, VAMILY rules 482 and 441, ask row 738, FOUND BY EYES 11/26: 'after a reload the
+       alpha's front says Three of you and nothing owed. Start clean. 290 BATTERIES, every new game's choice and no CONTINUE; BEGIN then
+       skipped the barber and brought back the game he was playing; the page says a new start, the button continues, the choices do
+       nothing'). Over a SAVED game the workshop shows this title too: CONTINUE (its day and clock) through the door's own BEGIN, and
+       NEW GAME (asked once, 'this ends day N') to start clean, as the demo does; the door's picks are then only ever under a NEW GAME
+       that means it. With no save the workshop keeps its door as it was (the picks and BEGIN, then VOTE). */
+    var skip = null; try{ skip = sessionStorage.getItem(SKIP); sessionStorage.removeItem(SKIP); }catch(_e){}   /* read and cleared first, so a NEW GAME's mark never outlives its own reload */
+    if (!window.__BOHEMIA_DEMO_BUILD && !saved()) { T.skipped = 'workshop'; return; }
     if (skip === 'new') { T.skipped = true; return; }
     show();
   }

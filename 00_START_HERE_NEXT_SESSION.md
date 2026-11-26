@@ -1,3 +1,7 @@
+UI FIVE (ui-five-01gkdyuu): 11/26 LATEST -- BUILD 11/26zg - THE ALPHA SAYS CONTINUE, BUILT, NOT YET SEEN (ask row 738). Its block is handoffs/UI_FOUR.md.
+After a reload over a saved game the alpha showed the new game's door ('Start clean', every crew) and its BEGIN continued the game: now over a save it shows the start screen's
+title (CONTINUE, NEW GAME asked once), with no save its door is as before, and its door writes no save before BEGIN. Gate THE ALPHA SAYS CONTINUE (new) 10/0 both ways, plant red.
+[bb Battle Brothers' main menu: CONTINUE and NEW CAMPAIGN, never a new company's sheet over a running campaign]
 HOME BASE 4 (home-base-01gkdyuux): 11/26 LATEST -- BUILD 11/26zf - THE CAMERAS ON PATROL, BUILT, NOT YET SEEN (rule 482 on his place; rule 479(b); ask rows 735, 721). Its block is handoffs/HOME_BASE.md.
 His three cameras showed one shot; now each holds the whole block, then pushes in slowly on what is going on (his man at work 'MOTION', the dead at the grinder, the family, his
 buildings), a different thing each camera and round; his people move, face their building, IR-pale with a dark edge. FOUND AND FIXED: the build desk put a wall on the grinder's lot,

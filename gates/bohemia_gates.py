@@ -9534,6 +9534,12 @@ GATES = [
      "upright and sideways, N1 the title and all fifteen origins, N2 the start at rest, N3 every building's sheet, N4 the settings card "
      "(every row on the glass at once), N5 the crew screen, N6 a full company and stash, N7 the fight's page, N8 the fullest hall, N9 every "
      "UI size: nothing scrolls, every press on the glass, the floors. Over 10 min", True),
+    ('THE ALPHA SAYS CONTINUE', ['node', 'gates/the_alpha_says_continue_gate.js'],
+     "UI FIVE gate, 11/26, ask row 738 (FOUND BY EYES 11/26: 'after a reload the alpha's front says Start clean with every new game's "
+     "choice and no CONTINUE; BEGIN then brought back the game he was playing'), rules 482, 441: the alpha upright and sideways: A1 a "
+     "fresh phone, on the door before BEGIN no save and no title; A2 BEGIN writes the save, a reload shows the title (NEW GAME, "
+     "CONTINUE), a tap where a crew sits under it changes nothing; A3 CONTINUE brings the game back; A4 NEW GAME asked once then the picks, "
+     "no title, no save; A5 nothing threw; PLANTED (upright): the workshop's title taken away, A2 red. About 2 min a walk", True),
     ('THE UI HOLDS ITS FRAMES', ['node', 'gates/the_ui_holds_its_frames_gate.js'],
      "UI FIVE gate, 11/26, rule 480(c) (Paolo 11/26: 'make sure fps is never choppy for nothing'), ask row 723: on the demo and the alpha, "
      "a phone upright and sideways, Caravans through the map's door: F1 the shop standing open, the town under it draws 10 pictures a "

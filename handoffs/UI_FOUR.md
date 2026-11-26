@@ -3,7 +3,20 @@
 # On VAMILY: pull main, re-read CLAUDE.md and the VAMILY front page (rules 453, 448, 452, 442(b), 441, 454(a), 402 as amended 11/7:
 # SMALLER, NEVER PAGES), then continue from the newest block below. FIGHT SCREEN 2 owns everything on the glass over the fight.
 
-UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/26 LATEST -- BUILD 11/26za - THE UI HOLDS ITS FRAMES, BUILT, NOT YET
+UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/26 LATEST -- BUILD 11/26zg - THE ALPHA SAYS CONTINUE, BUILT, NOT YET
+SEEN (ask row 738, rules 482, 441; the coordinator's routine 'UI FIVE: unstuck'). Record
+records/BOHEMIA_UI_FIVE_THE_ALPHA_SAYS_CONTINUE_11_26_26.md. VOTE ui5-the-alpha-says-continue-11-26 (STAND-IN, before and now).
+- After a reload over a saved game the alpha showed the new game's door (every crew, 'Start clean') and its BEGIN continued the save.
+  slices/BOHEMIA_ALPHA_0_9.html __THE_ALPHA_SAYS_CONTINUE__: over a save the workshop shows the start screen's title too (CONTINUE,
+  NEW GAME asked once); with no save its door is as before; its door writes no save before BEGIN (FIXES 2's hold, now the workshop's
+  too), so a reload never offers CONTINUE on a game nobody began.
+- Gate THE ALPHA SAYS CONTINUE (new, in the suite): A1-A5 both ways, plant red.
+NEXT for this lane, in order: (1) what EYES finds on the slowed phone in 11/26za and this; (2) the settings card's opening hitch on the
+slowed phone; (3) the upright 'Buy it and ...'; (4) the crew screen's weight line as a picture with RUN TWO.
+[bb Battle Brothers' main menu: CONTINUE and NEW CAMPAIGN, never a new company's sheet over a running campaign]
+[analog horror: the tape label says BLANK, and pressing PLAY picks up mid-sentence]
+
+UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/26 -- BUILD 11/26za - THE UI HOLDS ITS FRAMES, BUILT, NOT YET
 SEEN (rule 480(b)(c), ask row 723; the coordinator's routine 'UI FIVE: rule 480'). Record
 records/BOHEMIA_UI_FIVE_THE_UI_HOLDS_ITS_FRAMES_11_26_26.md. VOTE ui5-the-ui-holds-its-frames-11-26 (STAND-IN, a before-and-now chart).
 - MEASURED on the slowed phone (390 x 844, CPU 4x, the GPU drawing canvases): every UI change ran 6 to 11 frames a second; the biggest
