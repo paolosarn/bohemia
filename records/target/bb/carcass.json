@@ -13,6 +13,8 @@
   "hide": {
     "good": "hides",
     "rolls_a_kill": 1,
+    "kg_a_roll": { "value": 250, "about": "BESTIARY 2 11/26 (rule 482: 'its drops make sense'): a kill gives a roll of hides for every 250 kg of animal in it, one at least and 'most' at most; a coyote pack, a lion or a hog sounder is one roll, one horse or a few wild asses two, a bull, a camel or a bison three. Before, every kill was one roll, a mountain lion's and a 700 kg bull's alike. draft; ECONOMY and TUNING move it", "source": "a hide's leather grows with the animal: a cowhide is about 4 to 5 square metres, a coyote's pelt about a fifth of one (leather trade sizes); the rolls stay few so a hunt never outpays a job (the money book stays small, rule 480(b))" },
+    "most": { "value": 3, "about": "the most rolls one kill gives, whatever its size (a mammoth is three, not thirty)" },
     "about": "the kill's hide is ECONOMY's own trade good HIDES (records/target/bb/stall_prices.json trade, Battle Brothers' Furs, base worth 300 -> 30), one roll a kill, made by ECONOMY's tradeItem: every stall buys it at the town's price, the map marks where it sells best (rule 425(b))"
   },
   "keep_h": {

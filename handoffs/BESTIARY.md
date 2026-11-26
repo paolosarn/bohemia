@@ -1,5 +1,22 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
+BESTIARY 2 (bestiary-two-01gkdyut, routine 'BESTIARY 2: rule 482 next'; rules 482, 480(b), 461(c) amended, 441, 465): 11/26 LATEST -- BUILD 11/26zn THE HOG SQUEALS, THE HIDE FOLLOWS THE ANIMAL, BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_BESTIARY_TWO_THE_HOG_SQUEALS_11_26_26.md. VOTE bestiary2-the-hog-squeals-11-26 (a page: the death takes before and now, the hides a kill gives).
+- The beasts he meets first, measured on the act-one road: the coyotes, the bull, the hogs, the camels, the horses, the teratorns, the lion.
+- THE DEATH VOICE: the hog died as a dog, now the big beast (the pig's squeal); the cheetah, jaguar and sabre-tooth died as dogs, now cats
+  (engine/bohemia_death_sounds.js animalOf, inlined in the alpha byte for byte, the demo cut).
+- THE HIDE: one roll a kill became one roll per 250 kg of animal, one to three (carcass.json hide.kg_a_roll, hide.most; bohemia_carcass.js
+  goodsOf). A bull won and tapped on the demo: 3 rolls. ECONOMY and TUNING move the numbers.
+- ROW 743: COMBAT FOUR shipped the card's word by attack page (11/26zb) while this round ran; this lane's per-animal card table was
+  dropped before shipping (one card, one owner). The per-animal words are in the record for COMBAT FOUR / WORDS THREE (the hog TUSKS, the
+  camel HOOVES, the bison HORNS...). ECONOMY THREE fixed THE BATTERY IS REAL after this lane's act weights (a list it read as money).
+- ASKED: 749 SOUNDS (a beast's blow lands as a pipe; the bank's CC0 pig, cow, cat and dog; DEATH SOUNDS' ON THE BEAT red on main).
+- NEXT: how the first beasts move (the coyote's pack circling, the bull's line) and their bodies after the fight (the kill on the map reads
+  as the animal, the aftermath), then the rest of the beasts the same. (EVERY TYPE's drop debt is paid: FIGHT SCREEN 3's 11/26zd EVERY
+  WEAPON DROPS struck it in the gate; the five drop, 17 pieces in 10 fights each, re-checked.)
+[bb Battle Brothers' beasts drop trophies by what they are; ours drop leather by the weight of the animal]
+[analog horror: in the dark the thing you killed squeals like a pig, because it was one]
+
 BESTIARY 2 (bestiary-two-01gkdyut, the round BESTIARY wrote; rules 480(b)(c)(d), 482, 461(c) amended, 441, 454(a), 465): 11/26 LATEST -- BUILD 11/26z THE BEAST THAT BEAT YOU, BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_TWO_EVERY_TYPE_THROUGH_A_FIGHT_11_26_26.md. VOTE bestiary2-the-beast-that-beat-you-11-26.
 - EVERY TYPE THROUGH A FIGHT (480(b)): all 80 kinds the bands deal (BESTIARY's 25, and 55 this lane's check had never fielded: FACTIONS' and BEASTS 2's 28 rows and the wiki's 27) on the live

@@ -59,7 +59,10 @@
     var kg = 0; Object.keys(by || {}).forEach(function (id) { kg += (kindRow(id).kg || 60) * Math.max(1, by[id] | 0); });
     /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS, rule 427(c)): the hunters take an extra hide half the time (Battle Brothers' Beast Slayers: '50% chance to
        get additional beast trophies'; records/target/bb/origins.json personal.rule.does.trophy_extra_pct) */
-    var hides = Math.max(1, V('hide.rolls_a_kill', 1) | 0), xp = owTrophy(); if (xp > 0 && Math.random() * 100 < xp) hides++;
+    /* BESTIARY 2 11/26 (rule 482, 'its drops make sense'): the rolls follow the animal (carcass.json hide.kg_a_roll, at least one, hide.most
+       at most): a lion is one roll, a 700 kg bull three; with no kg_a_roll in the file, one roll a kill as before */
+    var kgR = V('hide.kg_a_roll', 0), most = Math.max(1, V('hide.most', 1) | 0);
+    var hides = kgR > 0 ? Math.max(1, Math.min(most, Math.round(kg / kgR))) : Math.max(1, V('hide.rolls_a_kill', 1) | 0), xp = owTrophy(); if (xp > 0 && Math.random() * 100 < xp) hides++;
     return [{ what: 'meat', kg: Math.round(kg * V('meat_share', 0.45)) }, { what: 'hide', good: V('hide.good', 'hides'), n: hides }];
   }
   var STALLP = null, PIC = {};
