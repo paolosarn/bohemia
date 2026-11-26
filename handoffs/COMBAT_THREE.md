@@ -1,6 +1,16 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rule 480(c)(d), 482(c); ask row 732): 11/26 LATEST -- [the loading screen breathes] SHIPPED 5f9ad3ec9, BUILD 11/26w - THE LOADING SCREEN BREATHES. No VOTE card.
+COMBAT FOUR (ask row 743; rules 480(b), 441, 465): 11/26 LATEST -- [every beast its own word] SHIPPED SHIPSHA, BUILD 11/26zb - EVERY BEAST ITS OWN WORD. No VOTE card.
+Record: records/BOHEMIA_COMBAT_FOUR_EVERY_BEAST_ITS_OWN_WORD_11_26_26.md. FIGHT.wlineOf(w) (slices/BOHEMIA_FIGHT.html __EVERY_BEAST_ITS_OWN_WORD__): the class row of weapon_lines.json, and for 'natural' the first
+natural.by_attack entry whose 'match' is in the attack's id or name: its name and hands; 'line: true' keeps the class line (bites only). weaponCard, the man's
+sheet and objName read it. Gate EVERY BEAST ITS OWN WORD (in the suite) 6/0. On the page: BESTIARY 2's gates/the_bestiary_every_type_fight.js KINDS=... MOVES=0.
+*** FOR WORDS THREE: the non-biting attacks (HORNS, HEAD, BULK, CLAWS, TOUCH, FISTS, SPIKES, TAIL, THROW, BLAST) show no line; one each is yours when 465 lets go
+(the table entry's 'line'). ***
+NEXT (this routine): row 725 (LEAVE from a fight, about a second at 4x), row 736 (FIGHT.dealsAt, the seam above), camp's HEAL at 7.5 s with PLUMBER 8.
+[bb Battle Brothers names a beast's attack by what it is]
+[analog horror: the label on the tape finally matches what is on it]
+
+COMBAT FOUR (rule 480(c)(d), 482(c); ask row 732): 11/26 -- [the loading screen breathes] SHIPPED 5f9ad3ec9, BUILD 11/26w - THE LOADING SCREEN BREATHES. No VOTE card.
 Record: records/BOHEMIA_COMBAT_FOUR_THE_LOADING_SCREEN_BREATHES_11_26_26.md. THE WALK: tools/bohemia_combat_four_every_board_frames_11_26_26.js <outdir> [ids] (COOK SIX's walk widened: every inside from its data, four streets,
 AUTO really fights now: the bell rung with AUTO on; UI.thinks read; C4_BEFORE=1 the before, C4_AUTO_MS the AUTO cap). 44 boards at 4x before: LOAD one frame 2.1-4.8 s
 (median 3.9), OPEN 267-883 ms, PAN at night 3.6-4.4 fps, AUTO 9.5-37 fps (median 13.3, worst 183-550 ms), thinks max 81-264 ms. slices/BOHEMIA_FIGHT.html:

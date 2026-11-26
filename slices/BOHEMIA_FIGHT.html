@@ -1086,6 +1086,18 @@ const FIGHT = (function () {
   /* the swap: the library's 4 AP; Quick Hands makes the first one a turn free */
   function swapCost(u) { const qh = PK(u, 'quick_hands'); return qh && !u.swappedFree ? qh.swap_ap_cost : R('ap.swap_item'); }
   function jobOfWeapon(w) { const b = w.of || w; return ((DB.wlines.rows[b.class] || {}).job) || b.class; }
+  /* __EVERY_BEAST_ITS_OWN_WORD__ (COMBAT FOUR 11/26, ask row 743, FOUND BY BESTIARY 2): a racial attack's card word follows what it is
+     (weapon_lines.json natural.by_attack: a bite TEETH, a gore HORNS, a headbutt HEAD, a sweep BULK, an uproot CLAWS, the ghost's TOUCH,
+     his fists FISTS); the class's line only where the attack bites (rule 465: no line rewritten, the others wait on WORDS THREE). Any other
+     class: its own row, as before */
+  function wlineOf(w) {
+    const b = w && (w.of || w), L = (b && DB.wlines && DB.wlines.rows[b.class]) || {};
+    if (!b || !Array.isArray(L.by_attack)) return L;
+    const key = String((b.id || '') + ' ' + (b.name || '')).toLowerCase(), ws = key.split(' ');
+    const m = L.by_attack.filter(function (e) { try { const re = new RegExp(e.match, 'i'); return ws.some(function (k) { return re.test(k); }) || re.test(key); } catch (_e) { return false; } })[0];
+    if (!m) return Object.assign({}, L, { name: String(b.name || L.name || '').toUpperCase(), line: null, hands: 'none' });
+    return Object.assign({}, L, { name: m.name, line: m.line === true ? L.line : (typeof m.line === 'string' ? m.line : null), hands: m.hands || 'none' });
+  }
   function isShield(r) { return !!r && DB.armor.shields.indexOf(r) >= 0; }
   function swapCostOf(u, i) { return isShield(u.bag && u.bag[i]) ? R('ap.swap_item') : swapCost(u); }   /* Quick Hands: 'except for shields' */
   /* ==== __NO_AMMO_NO_SHOT__ (COMBAT FOUR 11/22, VAMILY rule 478, Paolo 11/22: 'sometimes in auto combat one of my guys has a pistol in his
@@ -6327,7 +6339,7 @@ const FIGHT = (function () {
     racial: racial, canScream: canScream, scream: scream, screamTarget: screamTarget,
     canRaise: canRaise, raise: raise, raiseTarget: raiseTarget, isMachine: isMachine, canShove: canShove, shove: shove, shoveTarget: shoveTarget, pushTile: pushTile, canNet: canNet, throwNet: throwNet, netTarget: netTarget, kiteGround: kiteGround, netCut: netCut,
     shapeOf: shapeOf, frontSwing: frontSwing, shapeTiles: shapeTiles, shapeFoes: shapeFoes, sweepSkill: sweepSkill, sweepSkills: sweepSkills, blowSkill: blowSkill, canSweep: canSweep, sweep: sweep, sweepPick: sweepPick,
-    emptyGun: emptyGun, rounds: rounds, carried: carried, dryGun: dryGun, settleRounds: settleRounds, roundsFull: roundsFull, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
+    wlineOf: wlineOf, emptyGun: emptyGun, rounds: rounds, carried: carried, dryGun: dryGun, settleRounds: settleRounds, roundsFull: roundsFull, dryAt: dryAt, canAct: canAct, spentWhy: spentWhy,
     wait: wait, endTurn: endTurn, aiStep: aiStep, retreat: retreat, retreatFromLine: retreatFromLine, withdraw: withdraw, endFight: endFight, allFleeing: allFleeing, band: band, bandCard: bandCard, rangeBandOf: rangeBandOf, bandAt: bandAt, shotLineOf: shotLineOf, reachUp: reachUp, wantsClose: wantsClose, worthChase: worthChase, runs: runs, freeShot: freeShot, onEdge: onEdge, sideSees: sideSees, strikeWhy: strikeWhy, strikeCost: strikeCost, onField: onField, alive: alive,
     swap: swap, canSwap: canSwap, swapCost: swapCost, swapCostOf: swapCostOf, isShield: isShield, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
     level: level, isRoof: isRoof, storeysAt: storeysAt, reachLevel: reachLevel, rangeUp: rangeUp, openStreet: openStreet, tileKeyAt: tileKeyAt, streetCost: streetCost, goodGround: goodGround, groundSteps: groundSteps, oddsOf: oddsOf, digsIn: digsIn, sidePower: sidePower, dangerOn: dangerOn, canSpark: canSpark, spark: spark, sparkPreview: sparkPreview, vestLive: vestLive, fireAt: fireAt, smokeAt: smokeAt, nothingLeft: nothingLeft, sparkDeath: sparkDeath, climbedNow: climbedNow, climbsOn: climbsOn, climbsUp: climbsUp, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
@@ -7665,7 +7677,7 @@ function mixedClass(c) {
 function twoHandWord(own) { return FIGHT._t.bothHands(own) && mixedClass(own.class) ? 'two-hand ' : ''; }
 /* FIXES 11/9 (ask row 537, rule 424(c), EYES 11/8: a 'solid two-hand machete' on the one-hand machete's picture). A weapon is called by the OBJECT THE FIGHT DRAWS (slices/rig_melee/rig_melee.json by_class and two_by_class, WEAPONS 11/7): a two-handed sword is the claymore, a two-handed cleaver the ditch blade, a two-handed chain the tow chain, a two-handed mace or hammer the sledge, a two-handed spear the pole hook, a one-handed axe the hatchet, a one-handed hammer or pick the framing hammer. 'two-hand' is left only where no second object exists. The gate THE FOURTEEN EYES FOUND F537 holds every copy of this table to the fight's. */
 const OBJ1 = { axe: 'hatchet', hammer: 'framing hammer' }, OBJ2 = { sword: 'claymore', cleaver: 'ditch blade', flail: 'tow chain', mace: 'sledge', hammer: 'sledge', axe: 'fire axe', spear: 'pole hook', polearm: 'pole hook' };
-function objName(own) { const L = DB.wlines.rows[own.class] || {}, two = FIGHT._t.bothHands(own); return (two ? OBJ2[own.class] : OBJ1[own.class]) || (twoHandWord(own) + (L.name || own.class).toLowerCase()); }
+function objName(own) { const L = FIGHT.wlineOf(own), two = FIGHT._t.bothHands(own); return (two ? OBJ2[own.class] : OBJ1[own.class]) || (twoHandWord(own) + (L.name || own.class).toLowerCase()); }
 function armName(v, arm) {
   const own = (arm.of || arm);
   return objName(own);
@@ -12092,7 +12104,7 @@ function sheetPlate(v) {
 function drawer(v) {
   const d = document.getElementById('drawer'), fm = FIGHT.fatMax(v), yours = v.side === 'you';
   const r = function (a, b) { return '<div class="r"><span>' + a + '</span><span>' + b + '</span></div>'; };
-  const w = v.weapon, own = w ? (w.of || w) : null, L = own ? (DB.wlines.rows[own.class] || {}) : {}, tell = sheetTell(v), many = v.perks.length > 4;
+  const w = v.weapon, own = w ? (w.of || w) : null, L = own ? FIGHT.wlineOf(w) : {}, tell = sheetTell(v), many = v.perks.length > 4;
   let wname = ''; try { wname = own ? objName(own).toUpperCase() : ''; } catch (_e) { wname = w ? String(w.name || '').toUpperCase() : ''; }
   d.className = 'sheet ' + (yours ? 'yours' : 'theirs') + (innerWidth > innerHeight ? ' wide' : '');
   d.innerHTML = '<div class="sh-head"><canvas class="sh-face" width="144" height="144"></canvas><div class="sh-who"><b class="sh-name">' + sheetEsc(v.name) + '</b>'
@@ -12230,7 +12242,7 @@ function fightBars(v) {
    its one plain line, and its numbers from weapons.json. A tap anywhere puts it away. */
 const HOLD_MS = 450;
 function weaponCard(v) {
-  const w = v.weapon, own = w.of || w, d = document.getElementById('drawer'), L = (DB.wlines.rows[own.class] || {}), sk = FIGHT.strikeSkill(w), rl = FIGHT.reloadSkill(w);
+  const w = v.weapon, own = w.of || w, d = document.getElementById('drawer'), L = FIGHT.wlineOf(w), sk = FIGHT.strikeSkill(w), rl = FIGHT.reloadSkill(w);
   const r = function (a, b) { return '<div class="r"><span>' + a + '</span><span>' + b + '</span></div>'; };
   const esc = function (t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
   let h = '<div class="wt" style="color:#7a3d10;font-weight:700">' + esc(objName(own).toUpperCase()) + ' · ' + esc(v.name) + '</div>'
@@ -12244,7 +12256,7 @@ function weaponCard(v) {
   if (w.armor_damage_pct !== null) h += r('Against armour', cbar(w.armor_damage_pct, most('armor_damage_pct'), w.armor_damage_pct + '%', 'pct'));
   if (w.armor_ignore_pct) h += r('Straight through armour', cbar(w.armor_ignore_pct, most('armor_ignore_pct'), w.armor_ignore_pct + '%', 'pct'));
   const gun = FIGHT.isGun(w) && FIGHT.isRanged(w), lo = gun ? FIGHT._t.rangeLo(w) : 1;
-  h += r('Reach', gun ? tilePips(lo, w.range_max) : !FIGHT.isRanged(w) ? tilePips(1, FIGHT.reachOf(w)) : tilePips(1, w.range_max || 1))   /* rule 170(b): a blow reaches the next tile */ + r('Hands', FIGHT._t.bothHands(own) ? 'TWO HANDS' : w.hands === 0 ? 'none, it bites' : 'one');   /* rule 194(b): TWO HANDS, said big */
+  h += r('Reach', gun ? tilePips(lo, w.range_max) : !FIGHT.isRanged(w) ? tilePips(1, FIGHT.reachOf(w)) : tilePips(1, w.range_max || 1))   /* rule 170(b): a blow reaches the next tile */ + r('Hands', FIGHT._t.bothHands(own) ? 'TWO HANDS' : w.hands === 0 ? (L.hands || 'none, it bites') : 'one');   /* rule 194(b): TWO HANDS, said big */
   if (sk) h += r(esc(sk.name), sk.ap + ' AP, ' + (sk.fatigue || 0) + ' fatigue');
   if (w.mag) h += r('Rounds', pips(w.mag, w.mag) + ' then ' + esc(rl.name) + ' ' + rl.ap + ' AP');
   else if (rl) h += r(esc(rl.name), rl.ap + ' AP');

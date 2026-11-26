@@ -9878,6 +9878,11 @@ GATES = [
     ('THE BIG INSIDES THREE', ['node', 'gates/the_big_insides_gate.js', '--part', '3/3'],
      "COMBAT FOUR gate, 11/22: the third part of THE BIG INSIDES (every third inside of slices/fight_ground/insides.json, from the third), the "
      "same legs I1 to I15 on each (see THE BIG INSIDES)", True),
+    ('EVERY BEAST ITS OWN WORD', ['node', 'gates/every_beast_its_own_word_gate.js'],
+     "COMBAT FOUR gate, 11/26, ask row 743 (FOUND BY BESTIARY 2: every beast's held-finger card said TEETH and 'it bites'): every racial "
+     "attack in beast_attacks.json read through FIGHT.wlineOf (weapon_lines.json natural.by_attack): W1 a bite reads TEETH with its line; "
+     "W2 nothing else bites (HORNS, HEAD, BULK, CLAWS, TOUCH, FISTS...); W3 every beast and the ghost has a word for every attack; W4 his "
+     "fists read FISTS; W5 another class as before; plant: the table off, caught. A few seconds", True),
     ('NO AMMO, NO SHOT', ['node', 'gates/no_ammo_no_shot_gate.js'],
      "COMBAT FOUR gate, 11/22, VAMILY rule 478 (Paolo 11/22: 'did you not make sure that when the ammo says zero you can't even shoot "
      "anymore?'): the live fight headless with a store of its own: N1 whole fights on AUTO with his gunmen walking in low, no shot from a "

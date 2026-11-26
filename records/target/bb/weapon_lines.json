@@ -135,7 +135,22 @@
    "base": "Racial skill",
    "line": "No gear to take off it. It bites, and it bites again.",
    "by": "COMBAT [the fight holds the grid] 10/18, a draft for WORDS (rule 75e): a beast's weapon is its racial skill (records/target/bb/beast_attacks.json)",
-   "draft": true
+   "draft": true,
+   "by_attack_how": "COMBAT FOUR 11/26 (ask row 743, FOUND BY BESTIARY 2: every beast's card said TEETH and 'it bites'): a racial attack's card word follows what the attack is. The first entry whose 'match' (a pattern, no case) is found in the attack's id or name gives its card word ('name') and its Hands; 'line' true keeps the class's line above, any other attack shows no line until WORDS THREE writes one (rule 465: no line rewritten). A modder adds a row for a new beast's attack.",
+   "by_attack": [
+    { "match": "bite|gorge", "name": "TEETH", "hands": "none, it bites", "line": true },
+    { "match": "gore", "name": "HORNS", "hands": "none" },
+    { "match": "headbutt", "name": "HEAD", "hands": "none" },
+    { "match": "spike", "name": "SPIKES", "hands": "none" },
+    { "match": "tail_slam|tail slam", "name": "TAIL", "hands": "none" },
+    { "match": "sweep", "name": "BULK", "hands": "none" },
+    { "match": "uproot|claws", "name": "CLAWS", "hands": "none" },
+    { "match": "touch", "name": "TOUCH", "hands": "none" },
+    { "match": "^fists$|hand_to_hand|hand-to-hand|clout|flurry", "name": "FISTS", "hands": "empty" },
+    { "match": "hurl|throw", "name": "THROW", "hands": "none" },
+    { "match": "explode|mortar|lightning", "name": "BLAST", "hands": "none" }
+   ],
+   "by_attack_draft": true
   }
  }
 }

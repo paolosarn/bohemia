@@ -1,3 +1,9 @@
+COMBAT FOUR (combat-four-01gkdyuv): 11/26 LATEST -- BUILD 11/26zb - EVERY BEAST ITS OWN WORD, BUILT (ask row 743; rules 480(b), 441, 465). Its block is handoffs/COMBAT_THREE.md.
+A held finger on a beast said TEETH and 'it bites' for every racial attack. Now the word follows the attack (weapon_lines.json natural.by_attack): a gore HORNS,
+a headbutt HEAD, a sweep BULK, an uproot CLAWS, the ghost's TOUCH, his fists FISTS; bites keep TEETH and their line; the others no line until WORDS THREE writes one.
+Gate EVERY BEAST ITS OWN WORD 6/0; on the page (BESTIARY 2's check) 8 beasts both ways on the demo, 3 on the alpha.
+[bb Battle Brothers names a beast's attack by what it is]
+[analog horror: the label on the tape finally matches what is on it]
 COMBAT FOUR (combat-four-01gkdyuv): 11/26 LATEST -- BUILD 11/26w - THE LOADING SCREEN BREATHES, BUILT (rule 480(c)(d), ask row 732). Its block is handoffs/COMBAT_THREE.md.
 Every board walked at 4x (44: the forty insides and four streets; tools/bohemia_combat_four_every_board_frames_11_26_26.js): the fight's loading screen froze one frame
 of 2.1 to 4.8 s on every board. Profiled: the men's sheets made bitmaps on the main thread (3.1 s) and the ground decoded at its first draw. Now both decode off it:
