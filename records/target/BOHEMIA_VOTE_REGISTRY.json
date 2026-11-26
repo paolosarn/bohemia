@@ -24570,7 +24570,8 @@
    },
    "record": "records/BOHEMIA_ECONOMY_THREE_A_SUPPLY_LANDS_ON_THE_BAR_11_26_26.md",
    "build": "BUILD 11/26zc - A SUPPLY LANDS ON THE BAR"
-  }
+  },
+  {"id": "fight-screen-every-weapon-drops-11-26", "kind": "ui", "lane": "fight screen", "sha": "e20903107", "made": "11/26", "draft": true, "title": "WHAT THEY THREW AT YOU NOW LIES ON THE GROUND AFTER THE FIGHT", "said": "More cooking up cleaning up improving things we're already doing type shit", "why": "Top is before, bottom is now, the end screen's 'what they left'. The kids' bolas, the keepers' throwing axes and the water people's slings never dropped after a fight (they read as broken or used up). Now they lie on the ground like any weapon, the way Battle Brothers drops them; in our world they read as bottles. You see it on the end screen after a fight with those gangs.", "show": {"how": "image", "src": "../records/target/FIGHT_SCREEN_EVERY_WEAPON_DROPS_11_26.webp", "first": "../records/target/vote_first/fight-screen-every-weapon-drops-11-26.webp", "firstAt": [0, 0, 920, 618]}, "before_after": {"before": "main 0ebbe568c: three dead carrying a bundle of spiked bolas, throwing axes and a nomad sling left none of them, in 39 seeds", "after": "all three on the ground on seed 3, beside the vest, the hat and the door, every tile whole", "scale": "the end screen on its side (844 x 390) at 2, the loot cut out"}, "stage": "stand_in", "record": "records/BOHEMIA_FIGHT_SCREEN_EVERY_WEAPON_DROPS_11_26_26.md", "build": "BUILD 11/26zd - EVERY WEAPON DROPS"}
  ],
  "verdicts": [
   {

@@ -5,7 +5,22 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
-FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/26 LATEST -- [nothing to press, the loot reads] SHIPPED 93a0381f0, BUILD 11/26p - NOTHING TO PRESS, THE LOOT READS, BUILT, NOT YET SEEN (VAMILY rule 482, ask row 735; rules 480(b), 449, 441). VOTE fight-screen-nothing-to-press-and-the-loot-reads-11-26 (stand_in; before and now). His votes of 11/25: YES to the rounds, the why and the receipt.
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/26 LATEST -- [every weapon drops] SHIPPED e20903107, BUILD 11/26zd - EVERY WEAPON DROPS, BUILT, NOT YET SEEN (ask row 742, FOUND BY BESTIARY TWO; rules 482, 480(b), 441). VOTE fight-screen-every-weapon-drops-11-26 (stand_in; before and now).
+Record: records/BOHEMIA_FIGHT_SCREEN_EVERY_WEAPON_DROPS_11_26_26.md. engine/bohemia_spoils.js __EVERY_WEAPON_DROPS__: spent only when the weapon carries a
+count (w.ammoMax != null) and it is at none; a piece with no wear found on its roll alone (rollOnly), never wrecked. The kids' bolas, the keepers'
+throwing axes, the water people's sling drop again. BESTIARY TWO's EVERY TYPE THROUGH A FIGHT E3: 53 of 53 kinds, NO_DROP_DEBT emptied (paid, noted
+in its file). THE LOOT READS 6/0 (L3 EVERY WEAPON DROPS; the loot tool's THROWN=1 lays the three on the screen's own SAMPLE dead and finds the first
+seed that drops all three; DROP_PLANT the old rule). FOR CHARACTER / ARMORY: the sling reads BOTTLES (engine/bohemia_roster.js CLASSNAME
+throwing -> bottles; Battle Brothers files slings under throwing): a sling of its own name is the roster's word.
+NEXT, in order:
+ (1) EYES' notes and his votes on 11/26d, 11/26p, 11/26zd (rule 441(b)).
+ (2) A hit on HIS man lands on his card too (the order's 'hits and misses that land harder'; THE PUNCH on the board is COMBAT's): the card's face
+     takes the blow on the beat (a frame of tape slip on his photo when his blood drops), drawn only on the change (P10 holds).
+ (3) The end screen upright has a tall empty middle; the loot tiles could stand bigger there (RUN's layout: say it, do not move it alone).
+[bb Battle Brothers drops a throwing weapon with uses left and a sling like any weapon; ours now does]
+[analog horror: what they threw at you lies on the ground after, still half full]
+
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/26 -- [nothing to press, the loot reads] SHIPPED 93a0381f0, BUILD 11/26p - NOTHING TO PRESS, THE LOOT READS, BUILT, NOT YET SEEN (VAMILY rule 482, ask row 735; rules 480(b), 449, 441). VOTE fight-screen-nothing-to-press-and-the-loot-reads-11-26 (stand_in; before and now). His votes of 11/25: YES to the rounds, the why and the receipt.
 Record: records/BOHEMIA_FIGHT_SCREEN_NOTHING_TO_PRESS_AND_THE_LOOT_READS_11_26_26.md. FOUND walking the demo on its side, FIXED:
 - __NOTHING_TO_PRESS_ON_THEIR_TURN__: hud() writes #skills data-whose (the lineup's man or the man up); the phone's fightPaint (marked block) draws a
   row of THEIRS as four empty dark wells: no big STRIKE with their weapon, no 'No skills on this man yet' note. The lineup keeps his man's STRIKE.
