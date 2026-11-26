@@ -24506,7 +24506,38 @@
      "recipe": "the gambler's hat he voted YES on with the hired guns, widened into a cattleman's crown and brim (tools/bohemia_character_dust_rancher_hat.py), on the gang look, the portrait gear and HATS 1; BUILD 11/26m - THE CONE COMES OFF"
     },
   {"id": "bosses-every-boss-holds-its-frames-11-26", "kind": "tile", "lane": "bosses", "sha": "47ab35730", "made": "11/26", "draft": true, "title": "ALL 19 BOSSES IN ONE GAME, FOR REAL: EACH SIGN FOUND, EACH FIGHT TO LEAVE, EACH CHANGE ON THE MAP, ON A SLOWED PHONE", "said": "Lets turn up full sweep. But improve on what we already have. And make sure fps is never choppy for nothing lets go (rule 480)", "why": "These are the nineteen cards one new game got, boss after boss in the ladder's order, on a phone slowed four times: each one found by his sign, each fight played on AUTO to LEAVE, THE MIDWIFE met, each change on the map, and the camera's hold on his place drawn even when a frame runs long. You see it on the MAP each time a boss falls.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/bosses_the_whole_ladder_11_26/VOTE.webp"}, "before_after": {"before": "main 772ea2f3f: no game had ever walked the whole ladder for real; a slow frame could skip a boss's hold; each fall drew the whole map inside itself; THE INK's card could say nothing", "after": "all 19 walked in one game (S 19, F 19, M 19, E 19, 0 page errors); this lane's share of the 19 beats 20.7 s to 1.2 s slowed; every phase drawn; every card says what changed", "scale": "the MAP on a 390 x 844 phone, the CPU slowed 4x in each fight"}, "record": "records/BOHEMIA_BOSSES_RULE_480_THE_WHOLE_LADDER_11_26_26.md"},
-  {"id": "fight-screen-nothing-to-press-and-the-loot-reads-11-26", "kind": "ui", "lane": "fight screen", "sha": "93a0381f0", "made": "11/26", "draft": true, "title": "ON THEIR TURN YOUR PHONE GOES DARK, YOUR SPENT TURN PULSES RED, AND THE LOOT NAMES READ", "said": "More cooking up cleaning up improving things we're already doing type shit", "why": "Three fixes you can see, before and after in the picture. On their turn your phone showed THEIR man's strike button and a 'No skills' note about him; now it shows dark empty slots, nothing to press. When your man runs out of AP, his empty AP squares now pulse red on the card until the turn passes (the old sign sat below the screen where you never saw it). And on the end screen sideways, the loot names were cut off or crossed by the wear bar; now every name reads whole. You see it in every fight, and on the end screen.", "show": {"how": "image", "src": "../records/target/FIGHT_SCREEN_NOTHING_TO_PRESS_AND_THE_LOOT_READS_11_26.webp", "first": "../records/target/vote_first/fight-screen-nothing-to-press-and-the-loot-reads-11-26.webp", "firstAt": [0, 0, 840, 640]}, "before_after": {"before": "main 79ddcbd34: on their turn the phone drew their man's STRIKE and the 'No skills on this man yet' note; OUT OF ACTION POINTS laid below the glass under the phone, never seen; the end screen's loot names squeezed out or sliced on its side and the worn bar across them in every shape", "after": "their turn: four empty dark wells; his spent turn: the empty AP pips red on the beat; the loot: every name whole, the bar under it, no picture squashed", "scale": "the demo on a phone upright (390 x 844) at 2, the phone cut out; the end screen on its side (844 x 390) at 2, the loot row cut out at 2 times"}, "stage": "stand_in", "record": "records/BOHEMIA_FIGHT_SCREEN_NOTHING_TO_PRESS_AND_THE_LOOT_READS_11_26_26.md", "build": "BUILD 11/26p - NOTHING TO PRESS, THE LOOT READS"}
+  {"id": "fight-screen-nothing-to-press-and-the-loot-reads-11-26", "kind": "ui", "lane": "fight screen", "sha": "93a0381f0", "made": "11/26", "draft": true, "title": "ON THEIR TURN YOUR PHONE GOES DARK, YOUR SPENT TURN PULSES RED, AND THE LOOT NAMES READ", "said": "More cooking up cleaning up improving things we're already doing type shit", "why": "Three fixes you can see, before and after in the picture. On their turn your phone showed THEIR man's strike button and a 'No skills' note about him; now it shows dark empty slots, nothing to press. When your man runs out of AP, his empty AP squares now pulse red on the card until the turn passes (the old sign sat below the screen where you never saw it). And on the end screen sideways, the loot names were cut off or crossed by the wear bar; now every name reads whole. You see it in every fight, and on the end screen.", "show": {"how": "image", "src": "../records/target/FIGHT_SCREEN_NOTHING_TO_PRESS_AND_THE_LOOT_READS_11_26.webp", "first": "../records/target/vote_first/fight-screen-nothing-to-press-and-the-loot-reads-11-26.webp", "firstAt": [0, 0, 840, 640]}, "before_after": {"before": "main 79ddcbd34: on their turn the phone drew their man's STRIKE and the 'No skills on this man yet' note; OUT OF ACTION POINTS laid below the glass under the phone, never seen; the end screen's loot names squeezed out or sliced on its side and the worn bar across them in every shape", "after": "their turn: four empty dark wells; his spent turn: the empty AP pips red on the beat; the loot: every name whole, the bar under it, no picture squashed", "scale": "the demo on a phone upright (390 x 844) at 2, the phone cut out; the end screen on its side (844 x 390) at 2, the loot row cut out at 2 times"}, "stage": "stand_in", "record": "records/BOHEMIA_FIGHT_SCREEN_NOTHING_TO_PRESS_AND_THE_LOOT_READS_11_26_26.md", "build": "BUILD 11/26p - NOTHING TO PRESS, THE LOOT READS"},
+  {
+   "id": "home-base-the-grinder-on-purpose-11-26",
+   "kind": "ui",
+   "lane": "home base",
+   "sha": "413b87064",
+   "made": "11/26",
+   "draft": true,
+   "title": "THE GRINDER, ON PURPOSE: UPRIGHT AND SIDEWAYS, THE CAMERA ZOOMS ONTO IT",
+   "said": "Bro, this has to be made for horizontal and vertical phone wielding... It looks like dog shit... sideways like you didn't even try",
+   "redoOf": "home-base-the-grinder-11-22",
+   "why": "Your NO on the grinder's screen. Now a tap on anything at your place points the security camera at it: it zooms in on that lot (up to 3 times), brackets it and names it. Sideways, the panel stands in the column where the phone was, the whole height, your line at the top and GRIND under your thumb at the bottom; the footage fills everything left of it and nothing covers it. Upright, the panel sits under the footage and the zoom fills what is above. The bodies waiting lie wrapped on the grinder's lot, one bundle each; ground, they are gone. Close it and the camera glides back out. Your place also runs smooth now on a slow phone (the camera cuts went from about 5 to about 30 frames a second). On the demo: plant your place from day 2, build the grinder, win a fight, open your place, tap the grinder.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/home_base/vote_the_grinder_on_purpose.webp",
+    "first": "../records/target/vote_first/home-base-the-grinder-on-purpose-11-26.webp",
+    "firstAt": [
+     856,
+     916,
+     844,
+     390
+    ]
+   },
+   "before_after": {
+    "before": "sideways the footage stood in the left 553 px with a black 291 px column, and the grinder's sheet lay over the bottom 40 percent of the footage where the grinder stands; upright the grinder was a 46 px smudge mid-frame",
+    "after": "the camera zooms onto the tapped lot (2.3 to 3 times); sideways the sheet is a column the glass tall where the phone stood, GRIND at its bottom; upright the sheet is under the footage; the waiting dead lie on the lot, one bundle each",
+    "scale": "the demo on his phone: the top row upright (390 x 844), below it sideways (844 x 390); BEFORE is the 11/22 screen he said NO to"
+   },
+   "stage": "stand_in",
+   "record": "records/BOHEMIA_HOME_BASE_THE_GRINDER_ON_PURPOSE_11_26_26.md",
+   "build": "BUILD 11/26q - THE GRINDER, ON PURPOSE"
+  }
  ],
  "verdicts": [
   {
