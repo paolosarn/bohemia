@@ -178,3 +178,14 @@ RE-RUN AFTER THE RE-AIM: THE ROAD KNOWS HIS PLACE green (every leg, K4's five pl
 its own length, before this change too; for its owner). THE PLACES GET THEIR USE 0 red. TWELVE MORE ON THE ROAD: its E1 reads the new
 answers fine ('every choice real or the one way out', 12 rows, E5's five plants caught); its P1 (THE DIRECTOR: a step past the first
 minute fires a card, 'fired false') is red the same with this round's data set aside (an A/B on this box), not this change.
+
+## 8. ROWS 737 AND 736, READ AGAIN (the routine's next rows)
+
+737 THE JOB BOARD PAST ITS SHEET: measured green on main f1bbec3c3 both ways. The same crowded board as F533 builds it (five jobs, the
+longest names, a PAID THERE badge each) fits on the fitter's first step (ns-d1): upright the sheet 539 px of 539 (the people's line 68,
+the bar 27, the five cards 82, 64, 82, 82, 64), every job, client and pay whole; F533's plant still seen. JOBS 2's 11/26 builds of the
+board (THE CARD AT ONCE, A JOB HAS ONE DOOR) fixed it on the way; nothing more built here. THE FOURTEEN EYES FOUND's first part 68/1, F531
+its only red; its debt line re-worded to row 736 alone (NAMED and LEFT unchanged).
+736 THE MEET CARD'S GROUND: left with COMBAT FOUR. The honest card needs the fight to say what it deals at a spot without dealing it; the
+deal (dealBoard: the 40 insides, the garage, the tunnels by the cell's dice) lives inside the fight's page with nothing exposed, and a
+second copy of it on the map is what went stale in the first place.

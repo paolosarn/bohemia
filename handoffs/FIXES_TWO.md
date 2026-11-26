@@ -18,8 +18,8 @@ OPTIMIZE LOOT 22/0, LOOT KEPT 9/0, EACH SLOT ITS OWN PICTURE 29/0, ONE HAND OR T
 AND SELLS 12/2, TRADE FIT, WHAT YOU BUY GOES ON THE MAN, THE SHOP SAYS WHAT IT DOES 9/1, THE SMITH MENDS 6/2, TWELVE MORE ON THE ROAD's P1;
 TRADE GOODS CARRIED L7 a flake (the map's marks read once, 800 ms after the crew screen closes).
 736 LEFT WITH COMBAT FOUR (the fight must answer what it deals at a spot; its deal is inside the fight's page, nothing exposed).
-NEXT (if woken): 737, the crowded job board 20 px past its sheet (FIXES' own row-533 rules in slices/bohemia_ui_no_scroll.js: measure what
-takes the room at ns-d3, then a deeper step); then EYES' and PLUMBER 8's new rows.
+737 DONE (measured green on main f1bbec3c3 both ways, fits at ns-d1: JOBS 2's 11/26 builds fixed it; record section 8).
+NEXT (if woken): EYES' and PLUMBER 8's new rows; 736 the round COMBAT FOUR answers what the fight deals at a spot.
 
 FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/26 (e) -- [RUN's old reds] no build (gates and the debt only): four of RUN TWO's
 reds on row 675 are green alone on main and struck (THE RED DEBT 398 to 394 NAMED, 310 LEFT): THE SAVE COMES BACK THE SAME 22/0, A
