@@ -13,6 +13,11 @@ NEXT (mine, rule 480(c)): (1) THE BRAIN'S LONG THINKS: split the plan across fra
 9ed5dc483c62d3c4, is the check; the page's odds already snapshot a fight and play it on a second engine: the same brain on a snapshot, off the glass, is the clean
 way); (2) the ring around the board drawn behind the loading screen in pieces, not in the board's first frame; (3) the night's PAN at 4 fps (the drawing).
 *** FOR PLUMBER 8 / EYES: the walk above is the fight's own page alone (no shell); on this box the GPU is software, so every draw is the CPU's. ***
+NEXT (4) ASK ROW 736 (FIXES 3 left it with this lane): the meet card names the wrong ground at 32 of 85 districts because only the fight knows a cell's
+dice for the insides, the garage and the tunnels. THE SEAM TO BUILD: FIGHT.dealsAt(opts) on the warmed page behind the card, answering dealBoard's own order
+(graveyard, tunnels, garage, casino, the forty insides, freeway, street) from the same SEED (seedOf(cx+','+cy+':'+ground), setup's cx, cy and ground) and the
+same rolls, WITHOUT dealing: split each family's roll from its deal (floodTunnels, parkingGarage, casinoFloor, bigInside each check then deal) so one function
+answers both; S untouched. Its one honest gap: a deal that is not joined falls through to the next family (rare; say it). FIXES reads it the round it lands.
 [bb Battle Brothers' battle loads behind a still screen]
 [analog horror: the tape that froze on the title card now rolls through it]
 
