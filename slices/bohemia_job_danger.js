@@ -652,6 +652,6 @@
   }
   root.BohemiaJobDanger = { probe: probe, played: function () { return PLAYED; }, engine: engine, ready: function () { return !!MAIN; }, roll: roll, rollInto: rollInto, kindWord: kindWord, read: read, peek: peek, stars: stars, readParty: readParty, fightsFor: fightsFor,
     bleed: bleed, bloodOf: bloodOf, crewKey: crewKey, doorOpts: doorOpts, state: state, cfg: function () { return CFG; },
-    fresh: fresh, fits: fits, fitVer: function () { return MAIN ? FITV + ':' + crewKey() + ':' + dayNow() : 'none'; }, rampFloor: rampFloor, rampReds: rampReds };
+    fresh: fresh, fits: fits, rare: rareUp, fitVer: function () { return MAIN ? FITV + ':' + crewKey() + ':' + dayNow() : 'none'; }, rampFloor: rampFloor, rampReds: rampReds };
   try { if (document.readyState === 'complete') setTimeout(engine, 1200); else root.addEventListener('load', function () { setTimeout(engine, 1200); }); } catch (e) {}
 })(typeof window !== 'undefined' ? window : this);

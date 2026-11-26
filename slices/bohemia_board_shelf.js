@@ -99,36 +99,71 @@
      with the cache: Anarchists 2 people at Neutral and at Friendly; without it, 2 and 3). The towns' own record and what is still on its
      way to it, read raw (no parse): a posted job stays posted (__A_POSTED_JOB_STAYS_POSTED__) and a read board stays read */
   function barsSig() { try { var L = root.localStorage; return (L.getItem('bohemia.relations.v1') || '') + '#' + (L.getItem('bohemia.job.settled.v1') || ''); } catch (e) { return ''; } }
-  function dealt(day, opt) {
+  /* JOBS 2 11/26 __A_JOB_HAS_ONE_DOOR__ (ask row 698, FOUND BY PLUMBER 8, EVERY CHANGE AT SIXTY C2: 'the board deals a job to a
+     different town depending on when its danger read comes in'; one valley, one day, the same jobs: qd-s04 at Caravans one way, at the
+     Mob the other). MEASURED: the deal asked the day's floor (BohemiaJobDanger.fits) as it drafted, and the floor says null while a job
+     is reading and false once its read is under the floor: a job the floor kept from one place went on to the next place in the draft,
+     and what a place posted while its jobs were still reading stayed posted (MEMO), so the door a job stood at followed the order the
+     phone read them in. NOW TWO STEPS. THE DRAFT, from the valley and the day only (the places, their tiers, traits and bars, his name,
+     what he holds and has done, the window, the rare roll; never a read): in rounds every place drafts its board's count, then its
+     next few, a job in one place's list and no other's; MEMO keeps the lists, so nothing a phone read while reading is remembered.
+     THE POSTING, on every ask, from the reads as they stand: each place posts from its own list what the floor lets through; a place
+     the floor left short then takes, the floor asked, work no place posts (rule 255: the place posts its next); a place with nothing
+     posts the least dangerous of what was kept back (rule 335). The same reads post the same boards whatever order they came in
+     (gates/a_job_has_one_door_gate.js). A board he has read stays what he read (__A_READ_BOARD_STAYS_READ__). */
+  var DRAFT = { key: null }, RESERVE = 4;
+  function draft(day, opt) {
     var win = Math.floor((day || 0) / (SHELF.refresh_days || 3)), C = SHELF.counts || {};
-    var FW = fitter(), key = win + '|' + (FW ? FW.fitVer() + '|' + (day | 0) : '') + '|' + (opt.held || []).join(',') + '|' + (opt.done || []).join(',') + '|' + (opt.crew || '') + '|' + cloutLevel(clout()) + '|' + barsSig() + '|' + opt.places.map(function (p) { return p.name + ':' + p.tier + ':' + (p.traits || []).join('+'); }).join(';');
-    if (DEAL.key === key) return DEAL.map;
+    var key = win + '|' + (day | 0) + '|' + (opt.held || []).join(',') + '|' + (opt.done || []).join(',') + '|' + (opt.crew || '') + '|' + cloutLevel(clout()) + '|' + barsSig() + '|' + opt.places.map(function (p) { return p.name + ':' + p.tier + ':' + (p.traits || []).join('+'); }).join(';');
+    if (DRAFT.key === key) return DRAFT;
     var order = opt.places.slice().sort(function (a, b) { return seedOf(a.name + ':order:' + win) - seedOf(b.name + ':order:' + win) || (a.name < b.name ? -1 : 1); });
-    var taken = {}, map = {}, want = {};
-    order.forEach(function (p) { map[p.name] = []; var tr = p.traits || []; want[p.name] = tr.indexOf('raided') >= 0 ? (C.raided || 1) : sized(Math.min(C[p.tier || 'camp'] || 1, C.max || 4), trust(p.name, day), C); });   /* __THE_TOWN_REMEMBERS__ */
-    var MEMO = postedGet(), camp = campaign(), byId = {}, held = opt.held || [], done = opt.done || [], frozen = {};   /* __A_POSTED_JOB_STAYS_POSTED__ */
+    var taken = {}, own = {}, want = {}, frozen = {}, dup = {};
+    order.forEach(function (p) { own[p.name] = []; var tr = p.traits || []; want[p.name] = tr.indexOf('raided') >= 0 ? (C.raided || 1) : sized(Math.min(C[p.tier || 'camp'] || 1, C.max || 4), trust(p.name, day), C); });   /* __THE_TOWN_REMEMBERS__ */
+    var MEMO = postedGet(), camp = campaign(), byId = {}, held = opt.held || [], done = opt.done || [];   /* __A_POSTED_JOB_STAYS_POSTED__ */
     SHELF.offers.forEach(function (o) { byId[o.id] = o; });
     var READ = readGet(), wasRead = function (n) { var r = READ[n]; return !!(r && r.win === win && r.camp === camp); };
+    var gone = function (o) { return held.indexOf(o.id) >= 0 || done.indexOf(o.id) >= 0 || (o.rival && (held.indexOf(o.rival) >= 0 || done.indexOf(o.rival) >= 0)); };
     var readFirst = order.slice().sort(function (a, b) { return (wasRead(b.name) ? 1 : 0) - (wasRead(a.name) ? 1 : 0); });   /* a board he read keeps its people before any other place's memory claims one */
     readFirst.forEach(function (p) { var m = wasRead(p.name) ? { win: win, camp: camp, ids: READ[p.name].ids, seen: true } : MEMO[p.name]; if (!m || m.win !== win || m.camp !== camp) return;
-      if (m.seen) {   /* __A_READ_BOARD_STAYS_READ__ (JOBS 11/14, rule 447(b), row 610 again: 'a board he has read stays what he read until its
-         time is up'): once his eyes were on it, the board is what he read until its window ends: no floor, no news, no new face; only a
-         job he took or finished leaves it */
-        (m.ids || []).forEach(function (id) { var o = byId[id]; if (!o || taken[id] || held.indexOf(id) >= 0 || done.indexOf(id) >= 0 || (o.rival && (held.indexOf(o.rival) >= 0 || done.indexOf(o.rival) >= 0))) return;
-          taken[id] = p.name; map[p.name].push(said(o, p.crew || opt.crew)); });
-        if (map[p.name].length) { want[p.name] = map[p.name].length; frozen[p.name] = 1; return; } }
-      if ((p.traits || []).indexOf('raided') >= 0) return;
-      (m.ids || []).forEach(function (id) { var o = byId[id]; if (!o || taken[id] || held.indexOf(id) >= 0 || done.indexOf(id) >= 0 || map[p.name].length >= want[p.name] || o.when || (o.rival && (held.indexOf(o.rival) >= 0 || done.indexOf(o.rival) >= 0))) return;
+      if (m.seen) {   /* __A_READ_BOARD_STAYS_READ__: the board is what he read until its window ends; only a job he took or finished leaves it */
+        (m.ids || []).forEach(function (id) { var o = byId[id]; if (!o || taken[id] || gone(o)) return; taken[id] = p.name; own[p.name].push(said(o, p.crew || opt.crew)); });
+        if (own[p.name].length) { frozen[p.name] = 1; return; } }
+      if ((p.traits || []).indexOf('raided') >= 0) return;   /* a place raided since deals again (the raid is news) */
+      (m.ids || []).forEach(function (id) { var o = byId[id]; if (!o || taken[id] || gone(o) || own[p.name].length >= want[p.name] + RESERVE || o.when) return;
         if (o.towns && o.towns.indexOf(p.name) < 0) return;
-        if (FW && FW.fits(o, p.name, day, map[p.name], want[p.name]) === false) return;   /* rule 255 stands: what the day's floor now keeps back comes off */
-        taken[id] = p.name; map[p.name].push(said(o, p.crew || opt.crew)); }); });
-    for (var round = 0; round < (C.max || 4); round++) order.forEach(function (p) {
-      if (frozen[p.name] || map[p.name].length > round || map[p.name].length >= want[p.name]) return;
-      var got = pickOwn(p, day, { traits: p.traits || [], held: opt.held, done: opt.done, crew: p.crew || opt.crew }, taken, map[p.name].length + 1, map[p.name]);
-      got.forEach(function (o) { taken[o.id] = p.name; }); map[p.name] = got;
-    });
-    order.forEach(function (p) { if (!map[p.name].length) map[p.name] = pickOwn(p, day, { traits: p.traits || [], held: opt.held, done: opt.done, crew: p.crew || opt.crew }, {}, 1, [], true); });   /* the last pass: never empty (rule 335) */
-    order.forEach(function (p) { MEMO[p.name] = { win: win, camp: camp, ids: map[p.name].map(function (o) { return o.id; }) }; }); postedPut(MEMO);   /* __A_POSTED_JOB_STAYS_POSTED__ */
+        taken[id] = p.name; own[p.name].push(said(o, p.crew || opt.crew)); }); });
+    var po = function (p, extra) { return { traits: p.traits || [], held: opt.held, done: opt.done, crew: p.crew || opt.crew, draft: true, reserve: !!extra }; };
+    for (var round = 0; round < (C.max || 4); round++) order.forEach(function (p) {   /* the boards' counts first: every place its first before any its second */
+      if (frozen[p.name] || own[p.name].length > round || own[p.name].length >= want[p.name]) return;
+      var got = pickOwn(p, day, po(p), taken, own[p.name].length + 1, own[p.name]);
+      got.forEach(function (o) { taken[o.id] = p.name; }); own[p.name] = got; });
+    for (var r2 = 0; r2 < RESERVE; r2++) order.forEach(function (p) {   /* then each place's next, what it posts when the floor keeps one back */
+      if (frozen[p.name] || own[p.name].length >= want[p.name] + RESERVE || own[p.name].length > want[p.name] + r2) return;
+      var got = pickOwn(p, day, po(p, true), taken, own[p.name].length + 1, own[p.name]);
+      got.forEach(function (o) { taken[o.id] = p.name; }); own[p.name] = got; });
+    order.forEach(function (p) { if (!own[p.name].length) { own[p.name] = pickOwn(p, day, po(p), {}, 1, [], true); dup[p.name] = 1; } });   /* the last pass: never empty (rule 335) */
+    order.forEach(function (p) { MEMO[p.name] = { win: win, camp: camp, ids: own[p.name].map(function (o) { return o.id; }) }; }); postedPut(MEMO);   /* __A_POSTED_JOB_STAYS_POSTED__: what a place drafted */
+    DRAFT = { key: key, own: own, want: want, frozen: frozen, dup: dup, order: order };
+    return DRAFT;
+  }
+  function dealt(day, opt) {
+    var D = draft(day, opt), FW = fitter(), key = D.key + '|' + (FW ? FW.fitVer() : '');
+    if (DEAL.key === key) return DEAL.map;
+    var map = {}, posted = {}, C = SHELF.counts || {};
+    var mark = function (name) { (map[name] || []).forEach(function (o) { posted[o.id] = name; }); };
+    /* 1. every place posts from its own list what the floor lets through, in the draft's order */
+    D.order.forEach(function (p) { var list = D.own[p.name] || [], w = D.want[p.name] || 1;
+      if (D.frozen[p.name] || !FW) { map[p.name] = D.frozen[p.name] ? list.slice() : list.slice(0, w); mark(p.name); return; }
+      var out = []; list.forEach(function (o) { if (out.length >= w || posted[o.id]) return; if (FW.fits(o, p.name, day, out, w) === false) return; out.push(o); });
+      map[p.name] = out; mark(p.name); });
+    /* 2. a place the floor left short takes, the floor asked, work no place posts (rule 255: a job under the floor is not posted, the
+       place posts its next); whatever the order the reads came in, the same reads post the same boards */
+    if (FW) for (var round = 0; round < (C.max || 4); round++) D.order.forEach(function (p) {
+      var w = D.want[p.name] || 1; if (D.frozen[p.name] || D.dup[p.name] || map[p.name].length > round || map[p.name].length >= w) return;
+      var got = pickOwn(p, day, { traits: p.traits || [], held: opt.held, done: opt.done, crew: p.crew || opt.crew }, posted, map[p.name].length + 1, map[p.name]);
+      map[p.name] = got; mark(p.name); });
+    /* 3. the last pass: never empty (rule 335), the least dangerous of what the floor kept back */
+    D.order.forEach(function (p) { if (!map[p.name].length) { map[p.name] = pickOwn(p, day, { traits: p.traits || [], held: opt.held, done: opt.done, crew: p.crew || opt.crew }, {}, 1, [], true); mark(p.name); } });
     DEAL = { key: key, map: map };
     return map;
   }
@@ -142,7 +177,7 @@
       JKw.warm((ids || []).map(function (id) { return byId[id]; }).filter(Boolean), name); } } catch (e) {}
     var win = Math.floor((day || 0) / (SHELF.refresh_days || 3)), M = readGet(), m = M[name], camp = campaign();
     if (m && m.win === win && m.camp === camp) return;   /* the first look is what he read */
-    M[name] = { win: win, camp: camp, ids: (ids || []).slice() }; readPut(M); DEAL.key = null;
+    M[name] = { win: win, camp: camp, ids: (ids || []).slice() }; readPut(M); DEAL.key = null; DRAFT.key = null;
   }
   /* JOBS 11/21: PUSH THE PAY is dead (rule 466(c), graveyard/jobs_push_the_pay_11_17_26): no one walks out of a board */
   function pick(place, day, opt) {
@@ -166,15 +201,17 @@
     var FW = fitter(), size = Math.min(C[tier] || 1, C.max || 4);   /* WORLD __THE_BOARD_GROWS_WITH_THE_DAYS__ */
     function free(o) { return !seen[o.id] && !taken[o.id] && held.indexOf(o.id) < 0 && done.indexOf(o.id) < 0 && !(o.rival && (held.indexOf(o.rival) >= 0 || done.indexOf(o.rival) >= 0)); }   /* JOBS 11/14: a job two towns bid on is gone from both once he takes either */
     function take(pool, n) {
-      if (upto != null) n = Math.min(n, upto);
+      if (upto != null) n = opt.reserve ? upto : Math.min(n, upto);
       shuffled(pool, R).forEach(function (o) { if (out.length >= n || !free(o)) return;
-        if (FW && FW.fits(o, place.name, day, out, size) === false) { kept.push(o); return; }   /* under the day's floor: kept back, not lost (rule 335) */
+        if (opt.draft) { if (FW && FW.rare && FW.rare(o, place.name, day) === false) { kept.push(o); return; } }   /* __A_JOB_HAS_ONE_DOOR__: the draft asks no read, only the valley's own roll */
+        else if (FW && FW.fits(o, place.name, day, out, size) === false) { kept.push(o); return; }   /* under the day's floor: kept back, not lost (rule 335) */
         seen[o.id] = 1; out.push(said(o, opt.crew)); });
     }
     var TR = trust(String(place.name), day), ordinary = all.filter(function (o) { return !o.when && (o.tiers || []).indexOf(tier) >= 0 && (!o.towns || o.towns.indexOf(String(place.name)) >= 0) && trusted(o, TR); }),   /* __THE_TOWN_REMEMBERS__: the work it trusts him with */
       CL = clout(), waiting = [], waitNeed = 0;
     if (CL != null) ordinary = ordinary.filter(function (o) { var nd = needOf(o, tier); if (CL >= nd) return true; waiting.push(o); waitNeed = waitNeed ? Math.min(waitNeed, nd) : nd; return false; });   /* __THE_BIG_WORK_WAITS_FOR_A_NAME__ */
     WAITS[String(place.name)] = waiting.length ? { need: waitNeed, have: CL } : null;
+    if (opt.reserve) { take(ordinary, upto != null ? upto : out.length + 1); return out; }   /* __A_JOB_HAS_ONE_DOOR__: the place's next, past its board's count */
     var own = ordinary.filter(function (o) { return !!o.towns; });   /* JOBS 11/11 (rule 425): a job that fits its town is posted there only, and the town's own person asks first, one of them */
     if (traits.indexOf('raided') >= 0) {   /* the raid leaves one job, and it is the crew that hit it */
       var raid = all.filter(function (o) { return o.when === 'raided'; });
@@ -200,7 +237,7 @@
       if (out.length || !last) return out;   /* mid-deal a place with nothing takes a job another place shows first (the last pass) */
       if (kept.length) {
         var best = null, bc = -1;
-        kept.forEach(function (o) { var Q = null; try { Q = FW && FW.peek ? FW.peek(o, place.name) : null; } catch (e) { Q = null; }
+        kept.forEach(function (o) { var Q = null; try { Q = !opt.draft && FW && FW.peek ? FW.peek(o, place.name) : null; } catch (e) { Q = null; }   /* the draft reads nothing: its first */
           var c = Q && Q.state === 'read' ? +Q.clean : 0; if (c > bc) { bc = c; best = o; } });
         if (best) { out.push(said(best, opt.crew)); return out; }
       }
