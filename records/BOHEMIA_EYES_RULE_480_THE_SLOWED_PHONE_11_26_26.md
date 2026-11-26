@@ -95,3 +95,28 @@ frames. The shortcuts: the fights by hand-over, his place by the plant call.
   of about 300 to 420 ms, in the map's and the town's frames, row 731), not from the tab; they stopped by the time MORE was tapped.
 - 11/26a A MEND NEVER COSTS MORE THAN NEW (ECONOMY THREE, cb2204674): 3 of 204 pieces by 1 to 2 batteries; not reached on a fresh
   game (no piece broken that far); not walked.
+
+## RULE 482'S ROUND: ROWS 724 TO 732 AGAIN, AND THE NEW BUILDS (main aab904f7f, the same slowed phone, the same walk)
+
+| row | upright now (was) | sideways now (was) | word |
+|---|---|---|---|
+| 724 the door into the game | BEGIN to the barber 2,850 ms (task 2,277) (5,083); GO to the town 767 (850) | BEGIN 1,817 (2,567); GO to the town 4,517 ms (task 3,951) (4,283) | STILL RED |
+| 725 LEAVE from a fight | 917 / 900 / 867 ms (task 678) (1,050) | 1,167 (task 910) (1,367) | STILL RED |
+| 726 the stall's double tap | three double taps: one bought, one did nothing (the 450 ms window by handling time, unchanged in stallTap) | -- | STILL RED |
+| 727 road cards with no no | the same five in the data, unchanged | -- | STILL RED |
+| 728 camp | the red cross 483 ms (600); camp standing 12.2 fps, worst 133, no long task (2.7 fps, 733) | -- | FRAMES BETTER; its big clock now lies over SCAVENGE · 8H (e06): STILL RED IN PART |
+| 729 his place | the door in 1,267 / 850 ms (task 674) (1,317); CAM 2 worst 150 ms, no long task (1,033) | -- | CAM 2 FIXED; THE DOOR STILL RED |
+| 730 a tap on a job | the card 333 ms, Take it 367 (683, 800): no spike above the town's own | -- | THE SPIKE GONE (what is left is 731) |
+| 731 the map and the town | the map standing 59.4 fps, 0 hitches (3.4); the town standing 4.6 fps with tasks of 560 ms (8.5, 345); LEAVE from the town 767 (617) | the map standing 14.6 fps with one 1,300 ms frame (task 1,238); the town 6.8 fps, 600; LEAVE 1,150 | THE MAP STANDING UPRIGHT FIXED; THE TOWN AND SIDEWAYS STILL RED |
+| 732 the fight sideways | AUTO 12.7 fps, worst 733 (11.1) | AUTO 14.2 fps, worst 500 (1.9, 1,333) | THE SIDEWAYS GAP FIXED (both ways alike now); the first frames still 650 to 783 ms |
+
+- 11/26d RELOAD OR OUT, NEVER CHOPPY (FIGHT SCREEN 3): the AUTO fight sideways went from 1.9 to 14.2 frames a second on this box and
+  upright 11.1 to 12.7 (its own measure: the card's refresh 14 ms to 5, the phone card's repaint 9 ms to 2). The card's three rounds
+  states and the ninth AP pip are too small to judge by eye at the fight's size; not judged.
+- 11/26e THE MONEY BOOK STAYS SMALL (ECONOMY THREE): sideways, a reload and BEGIN brought the game back with its money whole (291
+  batteries, 15 followers, 60 rounds, as before the reload) (e05).
+- FOUND 733: AFTER A RELOAD THE ALPHA SHOWS A NEW CREW'S PAGE, BUT BEGIN CONTINUES HIS GAME (UI FIVE). The alpha's front after a
+  reload: 'Three of you and nothing owed. Start clean. 290 BATTERIES', every new game's choice (the crew's name, who you were, the
+  fights, the shelves, the valley's code) and no CONTINUE (e04); BEGIN then skipped the barber and brought back the game he was
+  playing (e05). The page says a new start while the button continues; he cannot tell whether his game is kept, and the choices
+  on it do nothing. The demo's title says NEW GAME and CONTINUE.
