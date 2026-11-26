@@ -146,3 +146,35 @@ frames. The shortcuts: the fights by hand-over, his place by the plant call.
   Kowalski, scavenger) each carry 'Pushes a shopping cart. One hand only.' on their row; a tap in the full hall shows his own words
   only (the line rides on a held finger there, by design); the hold not walked.
 - 11/26j THE CARD AT ONCE (JOBS 2): SEEN: 336 ms tap to card at 4x (row 730 FIXED).
+
+## THE ROUTINE 'EYES: walk the new builds' (builds 11/26m to 11/26z, main 0ebbe568c; the same slowed phone, upright and sideways alone)
+
+A CORRECTION FIRST: my stall readings after 11/26v (the walk 11/26f to j's '726 STILL RED') sent taps with no time of their own, so a
+busy page stamped them late; that was my tool. With each touch carrying its finger's time (CDP timestamp, 150 ms apart), the game is
+right (below).
+
+| row | now | word |
+|---|---|---|
+| 724 the door into the game | upright BEGIN to the barber one frame 7,583 ms (one task 7,502); sideways GO to the first town 5,716 ms (task 5,722) | STILL RED (no better) |
+| 725 LEAVE from a fight | upright 1,000 ms (task 745), sideways 733 (task 461); a tap on the faint LEAVE now waits and goes home when the screen opens (9.3 s later at 4x) | STILL RED (the freeze) |
+| 726 the stall's double tap | 11/26v: three double taps, each touch with its finger's time: 3 of 3 bought (22 to 25); one tap alone buys nothing | FIXED |
+| 727 road cards with no no | 11/26v: all five now end 'Walk on.' (data) | FIXED (not met on the road this round) |
+| 728 camp | not re-walked cleanly (my second fight's end screen was still up under the red cross) | NOT WALKED |
+| 729 his place | not cleanly measured (the same) | NOT WALKED |
+| 730 a tap on a job | the card 550 ms frame (task 233) | HOLDS |
+| 731 the map and the town | the map standing upright 57.8 fps (holds), sideways 41.5 with one 817 ms frame (better, was 29.5); the town standing 3.7 fps upright (tasks 637), 3.1 sideways (758); LEAVE from a town 717 / 1,100 | STILL RED (the town) |
+| 732 the fight sideways | AUTO upright 9.2 fps, sideways 8.5: alike | HOLDS |
+| 738 after a reload | still 'Start clean', no CONTINUE | STILL RED |
+| 740 the board's danger plans | ON THE GLASS: a tap on the board froze one frame 1,917 ms (one task 1,775) upright | SEEN, RED |
+
+- 11/26p NOTHING TO PRESS (FIGHT SCREEN 3): SEEN IN PART: on their first turn by hand the card showed their THUG with nothing to press
+  (no STRIKE, no note) (e11). FOUND 747 below.
+- 11/26v, 11/26u (the map standing upright holds; sideways better), 11/26j: as the table. 11/26m (the cones off), 11/26n (the price at
+  a glance), 11/26o (the bosses' frames), 11/26q (the grinder), 11/26r (the moment heard), 11/26s (the turn count home), 11/26t (a job's
+  one door), 11/26w (the loading screen breathes), 11/26y (PLUMBER's frame walk), 11/26z (the beast that beat you): not walked by eye
+  this round; rows 733, 736, 737, 741 to 746 not walked.
+
+FOUND 747 (FIGHT SCREEN 3). ON AUTO, ON THEIR TURN, THE PHONE STILL HOLDS HIS MAN'S BUTTONS, AND ONE OF THEIR FACES WAS EMPTY. With
+AUTO on, while 'Their move.' stood on the board (the fight's own current man theirs), the phone's card was RAUL's with RELOAD and STRIKE
+lit and 'No skills on this man yet. A level brings a perk.' (e10). On their first turn by hand the card named their THUG with his
+portrait box empty, a dark square (e11; one sample).

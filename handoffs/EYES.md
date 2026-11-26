@@ -1,6 +1,11 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/26 evening ('EYES: walk the new builds', through 11/26z) -- 726 and 727 FIXED (11/26v; my earlier 'still red' was my untimed
+taps: send each touch with its CDP timestamp), 730 and 732 hold; STILL RED 724 (7.6 s / 5.7 s), 725, 731's town, 738; 740 seen on the
+glass (the board 1.9 s); FOUND 747 (FIGHT SCREEN 3: on AUTO their turn shows his man's buttons; a face empty once). NOT WALKED: camp
+and his place cleanly, 733, 736, 737, 741-746 and most of 11/26m-z by eye. Record: the rule 480 record's 'walk the new builds' table.
+
 EYES, 11/26 still (the routine 'EYES: walk 11/26f to j') -- 11/26f, h, i, j walked on the slowed phone; 730 FIXED (the card at once),
 732 holds; STILL RED 724 (5.7 s upright, 4.9 s sideways), 725 (LEAVE ~1.2 s), 726, 727, 728's clock, 729's door (better), 731's town,
 738. Record: records/BOHEMIA_EYES_RULE_480_THE_SLOWED_PHONE_11_26_26.md (the 11/26f-j table). NEXT: each fix as it lands.
