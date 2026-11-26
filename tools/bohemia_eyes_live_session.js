@@ -50,6 +50,12 @@ const log = (...a) => fs.appendFileSync(LOG, new Date().toISOString().slice(11, 
   /* EYES 11/11: EYES_AS_PHONE=1 shows what his phone shows: the road's events, the boss askers and the places' own cards switch off for a
      scripted browser (navigator.webdriver), and a phone never is one; the three flags turn them on in every frame from the first second */
   if (process.env.EYES_AS_PHONE) await ctx.addInitScript({ content: 'window.__ROADEV_ON = true; window.__BOSSES_TALK = true; window.__PLACE_VISITS_ON = true;' });
+  /* EYES 11/26 (rule 480(c)(d), NEVER CHOPPY): every frame's time in the top page, so a step can read a screen's frames a second and
+     its hitches (a frame past 50 ms) the way the rule counts them; the iframes share the top page's thread, so a stall anywhere shows here */
+  await ctx.addInitScript({ content: `(function(){ try { if (window !== window.top) return;
+    var R = window.__EYES_FR = { t: [], d: [] }, last = 0;
+    function f(t){ if (last && !document.hidden) { R.t.push(Math.round(performance.timeOrigin + t)); R.d.push(+(t - last).toFixed(1)); if (R.t.length > 60000) { R.t.splice(0, 30000); R.d.splice(0, 30000); } } last = t; requestAnimationFrame(f); }
+    requestAnimationFrame(f); } catch (e) {} })();` });
   await ctx.addInitScript({ content: `(function(){ try {
     var G = window.__EYES_GAPS = [], L = window.__EYES_LONG = [], last = 0;
     function f(t){ if (last && t - last > 250 && !document.hidden) G.push({ at: Math.round(performance.timeOrigin + t), ms: Math.round(t - last) }); last = t; if (G.length > 400) G.splice(0, 200); requestAnimationFrame(f); }
@@ -79,6 +85,9 @@ const log = (...a) => fs.appendFileSync(LOG, new Date().toISOString().slice(11, 
   watch(page);
   const cdpOf = async (p) => ctx.newCDPSession(p);
   let cdp = await cdpOf(page);
+  /* EYES 11/26 (rule 480(d)): EYES_CPU=4 slows the phone's CPU four times, as the rule's frame walk does */
+  const slow = async (c) => { if (process.env.EYES_CPU) { try { await c.send('Emulation.setCPUThrottlingRate', { rate: +process.env.EYES_CPU }); log('cpu slowed', process.env.EYES_CPU + 'x'); } catch (e) { log('cpu slow failed', String(e).slice(0, 80)); } } };
+  await slow(cdp);
   await page.goto(BASE + (process.env.EYES_PAGE || 'slices/BOHEMIA_DEMO.html'), { waitUntil: 'load', timeout: 300000 });
   log('opened', PROFILE, page.url());
 
@@ -137,7 +146,7 @@ const log = (...a) => fs.appendFileSync(LOG, new Date().toISOString().slice(11, 
     },
     /* the same phone, the tab killed and opened again (rule 141) */
     reopen: async () => { try { await page.goto('chrome://crash', { timeout: 3000 }); } catch (e) {} await page.close().catch(() => {});
-      page = await ctx.newPage(); watch(page); cdp = await cdpOf(page);
+      page = await ctx.newPage(); watch(page); cdp = await cdpOf(page); await slow(cdp);
       await page.goto(BASE + (process.env.EYES_PAGE || 'slices/BOHEMIA_DEMO.html'), { waitUntil: 'load', timeout: 300000 }); return page.url(); },
     keep: {},
   };

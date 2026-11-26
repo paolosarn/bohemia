@@ -1,6 +1,16 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/26 (rule 480 TURN IT UP, NEVER CHOPPY; the routine 'EYES: rule 480') -- THE ALPHA PLAYED ON A PHONE SLOWED 4x, UPRIGHT AND
+SIDEWAYS: every screen's frames a second, worst frame and longest task in records/BOHEMIA_EYES_RULE_480_THE_SLOWED_PHONE_11_26_26.md.
+FOUND 724 to 732: the door into the game freezes (5.1 s; 4.3 s sideways, PLUMBER 8), LEAVE from a fight freezes ~1 s (PLUMBER 8),
+the stall buys one time in three on a slow phone (UI FIVE), five road cards with no way to say no (WORLD 15), camp the slowest screen
+and its clock on STANDING (CAMP FOUR), his place's door and CAM 2 freeze ~1 s (HOME BASE 3), a tap on a job 683-800 ms (JOBS 2), the
+map and town never sit still (WORLD 13, WORLD 15), the fight sideways at a sixth of upright (COMBAT FOUR).
+HOW: EYES_CPU=4 on tools/bohemia_eyes_live_session.js slows the CPU; the page keeps every frame's time (__EYES_FR) and long tasks
+(__EYES_LONG). This box draws with a software GPU: frames a second compare screens; the frozen frames with long tasks are his phone's.
+NEXT: walk each lane's rule-480 fix on the slowed phone as it lands; sideways the board, the stall, camp and his place.
+
 EYES, 11/21 latest (rule 461 keeps going, 461(c) as amended: no send_later) -- WALKED THIS ROUND, every build from 11/20za to 11/21p:
 11/20za and 11/21a (battery drawer gone, 656 SEEN), 11/21b (659 SEEN both ways), 11/21c/m/o/a insides (651), 11/21f (668 both ways),
 11/21g (616 in part), 11/21h (286 in part: card and a night fight), 11/21i (384 in part), 11/21j (655 SEEN, 662 fixed), 11/21k
