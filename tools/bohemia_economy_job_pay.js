@@ -76,6 +76,12 @@ function purse(quiet) {
   const start = 290, between = 4, hirePrice = 20, wage = 1, enemiesPerFight = 3;
   let x = 7; const rnd = () => (x = (x * 1103515245 + 12345) % 2147483648) / 2147483648;
   const order = []; for (let k = 0; k < 6; k++) { const s = rows.slice(); for (let i = s.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [s[i], s[j]] = [s[j], s[i]]; } order.push(...s); }
+  /* ECONOMY THREE 11/26 (rule 480(b), ask row 685): a job that came onto the board after this round (JOBS' thirty board people,
+     'before' 0 in the table) was never paid nothing; under the old rule it would have paid the board's a skull
+     (floor_per_skull, 30). Counting it as 0 made the old purse poor and the new one look doubled (day 50 x2.04; like for like
+     x1.24 on the old rows). The probe compares the two rules on the same jobs. */
+  const oldRule = r => r.before > 0 ? r.before : r.skulls * PAY.floor_per_skull.value;
+  rows.forEach(r => { r.was = oldRule(r); });
   function run(key) {
     let bats = start, clout = 0, t = 0, i = 0, men = 3, hired = 0; const day = {}, inc = {};
     for (let d = 1; d <= 50; d++) {
@@ -90,7 +96,7 @@ function purse(quiet) {
     }
     return { day, inc };
   }
-  const B = run('before'), A = run('pay'), out = [];
+  const B = run('was'), A = run('pay'), out = [];
   [1, 5, 10, 15, 20, 25, 30, 40, 50].forEach(d => out.push({ day: d, before: B.day[d].bats, after: A.day[d].bats, jobs: A.day[d].jobs, men: A.day[d].men, clout: A.day[d].clout,
     ratio: Math.round(A.day[d].bats / Math.max(1, B.day[d].bats) * 100) / 100 }));
   const perHour = k => rows.reduce((s, r) => s + r[k], 0) / rows.reduce((s, r) => s + r.hours + between, 0);
@@ -98,9 +104,9 @@ function purse(quiet) {
     console.log('the purse, days 1 to 50 (start 290, the same jobs in the same order, every job won, neutral standing)');
     console.log('day  before   after  ratio  jobs men clout');
     out.forEach(o => console.log(String(o.day).padStart(3) + String(o.before).padStart(8) + String(o.after).padStart(8) + String(o.ratio).padStart(7) + String(o.jobs).padStart(6) + String(o.men).padStart(4) + String(o.clout).padStart(6)));
-    console.log('a map hour of the job loop pays, before clout: was ' + perHour('before').toFixed(2) + ', now ' + perHour('pay').toFixed(2) + ' (x' + (perHour('pay') / perHour('before')).toFixed(2) + ')');
+    console.log('a map hour of the job loop pays, before clout: was ' + perHour('was').toFixed(2) + ', now ' + perHour('pay').toFixed(2) + ' (x' + (perHour('pay') / perHour('was')).toFixed(2) + ')');
   }
-  return { rows: out, perHourBefore: perHour('before'), perHourAfter: perHour('pay') };
+  return { rows: out, perHourBefore: perHour('was'), perHourAfter: perHour('pay') };
 }
 
 if (require.main === module) {

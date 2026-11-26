@@ -1,0 +1,293 @@
+{
+ "draft": true,
+ "tool": "tools/bohemia_economy_three_money_frames.js",
+ "tag": "demo_phone_portrait_x4",
+ "alpha": false,
+ "shape": "phone_portrait",
+ "throttle": 4,
+ "steps": [
+  {
+   "step": "the map, the bar still",
+   "note": null,
+   "frames": 126,
+   "ms": 4817,
+   "fps": 26.2,
+   "worst": 800,
+   "p50": 16.7,
+   "over50": 8,
+   "over33": 18,
+   "profile": {
+    "busy_ms": 4556,
+    "money_ms": 19.9,
+    "top": [
+     "BOHEMIA_CITY_WORLD.html billPublish 9.8ms",
+     "bohemia_job_pay.js scoreOf 3.3ms",
+     "BOHEMIA_CITY_WORLD.html paint 2.5ms",
+     "BOHEMIA_CITY_WORLD.html loopJobPay 2.2ms",
+     "BOHEMIA_CITY_WORLD.html readings 0.8ms",
+     "BOHEMIA_CITY_WORLD.html paintRead 0.7ms"
+    ]
+   },
+   "money_ms_a_second": 4.1
+  },
+  {
+   "step": "the town opens",
+   "note": "Caravans",
+   "frames": 41,
+   "ms": 7016,
+   "fps": 5.8,
+   "worst": 933.3,
+   "p50": 133.3,
+   "over50": 29,
+   "over33": 31,
+   "profile": {
+    "busy_ms": 6967,
+    "money_ms": 26,
+    "top": [
+     "BOHEMIA_CITY_WORLD.html billPublish 7.8ms",
+     "BOHEMIA_CITY_WORLD.html paintRead 5.8ms",
+     "BOHEMIA_CITY_WORLD.html paint 4.7ms",
+     "bohemia_job_pay.js scoreOf 2.3ms",
+     "bohemia_wages.js (anon) 1.7ms",
+     "BOHEMIA_CITY_WORLD.html loopSettleBats 1.1ms"
+    ]
+   },
+   "money_ms_a_second": 3.7
+  },
+  {
+   "step": "the town, still (the floor)",
+   "note": null,
+   "frames": 27,
+   "ms": 3983,
+   "fps": 6.8,
+   "worst": 1033.3,
+   "p50": 100,
+   "over50": 27,
+   "over33": 27,
+   "profile": {
+    "busy_ms": 4182,
+    "money_ms": 16.2,
+    "top": [
+     "BOHEMIA_CITY_WORLD.html billPublish 11.2ms",
+     "BOHEMIA_CITY_WORLD.html sixPlate 3.8ms",
+     "BOHEMIA_CITY_WORLD.html paint 0.9ms",
+     "BOHEMIA_CITY_WORLD.html loopJobPay 0.2ms"
+    ]
+   },
+   "money_ms_a_second": 4.1
+  },
+  {
+   "step": "the stall opens (a finger)",
+   "note": "open",
+   "frames": 27,
+   "ms": 4317,
+   "fps": 6.3,
+   "worst": 1133.2,
+   "p50": 100.1,
+   "over50": 27,
+   "over33": 27,
+   "profile": {
+    "busy_ms": 4407,
+    "money_ms": 33.9,
+    "top": [
+     "BOHEMIA_CITY_WORLD.html billPublish 7.8ms",
+     "BOHEMIA_SETTLEMENT_SCREEN.html stallBox 6.0ms",
+     "BOHEMIA_SETTLEMENT_SCREEN.html stallLine 5.0ms",
+     "BOHEMIA_CITY_WORLD.html readings 3.2ms",
+     "BOHEMIA_SETTLEMENT_SCREEN.html stallMark 2.0ms",
+     "BOHEMIA_SETTLEMENT_SCREEN.html stallPrice 1.7ms"
+    ]
+   },
+   "money_ms_a_second": 7.9
+  },
+  {
+   "step": "the stall, still",
+   "note": null,
+   "frames": 27,
+   "ms": 4117,
+   "fps": 6.6,
+   "worst": 1099.9,
+   "p50": 116.6,
+   "over50": 27,
+   "over33": 27,
+   "profile": {
+    "busy_ms": 4198,
+    "money_ms": 4.2,
+    "top": [
+     "bohemia_job_pay.js scoreOf 1.2ms",
+     "BOHEMIA_CITY_WORLD.html billPublish 1.1ms",
+     "BOHEMIA_CITY_WORLD.html paintRead 0.8ms",
+     "bohemia_job_pay.js at 0.6ms",
+     "BOHEMIA_CITY_WORLD.html paint 0.4ms"
+    ]
+   },
+   "money_ms_a_second": 1
+  },
+  {
+   "step": "a buy at the stall (two fingers)",
+   "note": "purse 290 -> 290",
+   "frames": 46,
+   "ms": 6017,
+   "fps": 7.6,
+   "worst": 983.2,
+   "p50": 100,
+   "over50": 46,
+   "over33": 46,
+   "profile": {
+    "busy_ms": 6215,
+    "money_ms": 29.1,
+    "top": [
+     "BOHEMIA_CITY_WORLD.html billPublish 12.0ms",
+     "BOHEMIA_CITY_WORLD.html paintRead 6.5ms",
+     "BOHEMIA_SETTLEMENT_SCREEN.html stallStripFill 2.3ms",
+     "BOHEMIA_CITY_WORLD.html paint 2.2ms",
+     "BOHEMIA_CITY_WORLD.html loopJobPay 1.9ms",
+     "BOHEMIA_SETTLEMENT_SCREEN.html stallCtx 1.0ms"
+    ]
+   },
+   "money_ms_a_second": 4.8
+  },
+  {
+   "step": "the smith opens (a finger)",
+   "note": "open",
+   "frames": 19,
+   "ms": 4100,
+   "fps": 4.6,
+   "worst": 1150,
+   "p50": 150,
+   "over50": 19,
+   "over33": 19,
+   "profile": {
+    "busy_ms": 4163,
+    "money_ms": 28.7,
+    "top": [
+     "BOHEMIA_SETTLEMENT_SCREEN.html shopUpFor 8.4ms",
+     "BOHEMIA_SETTLEMENT_SCREEN.html shopStripFill 5.5ms",
+     "BOHEMIA_CITY_WORLD.html billPublish 5.0ms",
+     "BOHEMIA_SETTLEMENT_SCREEN.html shopTile 4.3ms",
+     "BOHEMIA_CITY_WORLD.html paintRead 1.9ms",
+     "BOHEMIA_SETTLEMENT_SCREEN.html mendList 1.1ms"
+    ]
+   },
+   "money_ms_a_second": 7
+  },
+  {
+   "step": "the smith, still",
+   "note": null,
+   "frames": 24,
+   "ms": 4083,
+   "fps": 5.9,
+   "worst": 1116.7,
+   "p50": 116.6,
+   "over50": 24,
+   "over33": 24,
+   "profile": {
+    "busy_ms": 4108,
+    "money_ms": 4.9,
+    "top": [
+     "BOHEMIA_CITY_WORLD.html billPublish 2.8ms",
+     "BOHEMIA_CITY_WORLD.html paint 1.1ms",
+     "bohemia_job_pay.js scoreOf 0.6ms",
+     "BOHEMIA_CITY_WORLD.html paintRead 0.3ms"
+    ]
+   },
+   "money_ms_a_second": 1.2
+  },
+  {
+   "step": "the hall opens (a finger)",
+   "note": "did not open",
+   "frames": 377,
+   "ms": 38482,
+   "fps": 9.8,
+   "worst": 1166.6,
+   "p50": 100,
+   "over50": 371,
+   "over33": 377,
+   "profile": {
+    "busy_ms": 38168,
+    "money_ms": 155.4,
+    "top": [
+     "BOHEMIA_SETTLEMENT_SCREEN.html shopStripFill 64.8ms",
+     "BOHEMIA_CITY_WORLD.html billPublish 48.7ms",
+     "BOHEMIA_CITY_WORLD.html paint 20.4ms",
+     "bohemia_job_pay.js scoreOf 5.7ms",
+     "BOHEMIA_CITY_WORLD.html readings 5.0ms",
+     "BOHEMIA_CITY_WORLD.html paintRead 4.4ms"
+    ]
+   },
+   "money_ms_a_second": 4
+  },
+  {
+   "step": "the hall, still",
+   "note": null,
+   "frames": 32,
+   "ms": 4283,
+   "fps": 7.5,
+   "worst": 1266.6,
+   "p50": 99.9,
+   "over50": 32,
+   "over33": 32,
+   "profile": {
+    "busy_ms": 4378,
+    "money_ms": 16.8,
+    "top": [
+     "BOHEMIA_CITY_WORLD.html billPublish 7.7ms",
+     "bohemia_shop_wear.js apply 3.4ms",
+     "bohemia_job_pay.js scoreOf 2.6ms",
+     "BOHEMIA_CITY_WORLD.html paint 1.9ms",
+     "BOHEMIA_CITY_WORLD.html readings 1.0ms",
+     "BOHEMIA_CITY_WORLD.html loopJobPay 0.3ms"
+    ]
+   },
+   "money_ms_a_second": 3.9
+  },
+  {
+   "step": "back to the map (the bar counts down)",
+   "note": null,
+   "frames": 63,
+   "ms": 5700,
+   "fps": 11.1,
+   "worst": 1216.7,
+   "p50": 16.8,
+   "over50": 15,
+   "over33": 20,
+   "profile": {
+    "busy_ms": 5742,
+    "money_ms": 14.3,
+    "top": [
+     "BOHEMIA_CITY_WORLD.html billPublish 6.2ms",
+     "BOHEMIA_CITY_WORLD.html loopJobPay 3.0ms",
+     "BOHEMIA_CITY_WORLD.html paint 2.8ms",
+     "BOHEMIA_DEMO.html bats 1.1ms",
+     "BOHEMIA_DEMO.html paint 1.0ms",
+     "BOHEMIA_CITY_WORLD.html loopBats 0.2ms"
+    ]
+   },
+   "money_ms_a_second": 2.5
+  },
+  {
+   "step": "the map, the bar still again",
+   "note": null,
+   "frames": 216,
+   "ms": 5033,
+   "fps": 42.9,
+   "worst": 1016.6,
+   "p50": 16.7,
+   "over50": 4,
+   "over33": 5,
+   "profile": {
+    "busy_ms": 4270,
+    "money_ms": 12.9,
+    "top": [
+     "BOHEMIA_CITY_WORLD.html billPublish 7.6ms",
+     "BOHEMIA_CITY_WORLD.html paintRead 2.5ms",
+     "BOHEMIA_CITY_WORLD.html readings 1.6ms",
+     "BOHEMIA_CITY_WORLD.html loopBats 0.9ms",
+     "BOHEMIA_DEMO.html paint 0.4ms"
+    ]
+   },
+   "money_ms_a_second": 2.6
+  }
+ ],
+ "errs": []
+}

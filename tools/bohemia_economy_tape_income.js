@@ -30,7 +30,12 @@ function load() {
   const bank = J('banks/BOHEMIA_TUNING_THE_CAMP_CLOCK_10_26_26.json').groups, origins = J('records/target/bb/origins.json').origins;
   const tape = id => ((origins.find(o => o.id === id) || {}).supplies || {}).tape.thin;
   const g = k => bank[k].march;
-  const shelfPays = JSON.stringify(J('records/target/BOHEMIA_BOARD_SHELF.json')).match(/"pay":\s*(\d+)/g).map(x => +x.split(':')[1]);
+  /* ECONOMY THREE 11/26 (rule 480(b), ask row 685): a won fight pays the board's least KILLING job, a fight's worth (its pay over
+     its fights). Since rule 323 amended (Paolo 11/2: 'quests that don't have any combat, you shouldn't be getting as much') the
+     board's least job is a walk with no fight (10, the quiet floor), and reading the least of every row charged a fight's tape
+     against a walk's pay: 60 to 74 percent where the game is 20 to 25. A walk breaks no tape, so it is not a fight's pay. */
+  const shelf = J('records/target/BOHEMIA_BOARD_SHELF.json').offers, pays = J('records/target/bb/job_pay.json').pays;
+  const shelfPays = shelf.map(o => pays[o.id]).filter(p => p && p.violent && p.fights >= 1).map(p => Math.round(p.pay / p.fights));
   const crew = id => ((origins.find(o => o.id === id) || {}).men || []).length;
   return {
     jobPay: Math.min.apply(null, shelfPays), perManNight: J('records/target/bb/nightly_bill.json').per_man_per_night.value,

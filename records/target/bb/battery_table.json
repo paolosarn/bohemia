@@ -790,8 +790,8 @@
   },
   {
    "file": "slices/BOHEMIA_CITY_WORLD.html",
-   "find": "'electricity',\\s*(\\d+),\\s*'rent on '",
-   "what": "RENT: one AA for a billed block of a faction's ground crossed that day",
+   "find": "var RENT_A_BLOCK=(\\d+);",
+   "what": "RENT: one AA for a billed block of a faction's ground crossed that day (one hand-over a faction a night, ECONOMY THREE 11/26)",
    "is": 1
   },
   {

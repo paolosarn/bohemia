@@ -16,7 +16,7 @@ for f in (E + 'bohemia_purse.js', CW):
     copy(f, r"COMPLETE: \{ electricity: (\d+)", 'a day\'s work pays one AA (the walked city\'s WORK, hidden in the demo)', is_=1)
     copy(f, r"out\[id\] = \{ currency: 'electricity', amount: (\d+)", 'every good at the walked city\'s market costs one AA (hidden in the demo)', is_=1)
 copy(CW, r"var COST_AMOUNT = (\d+)", 'a builder plot costs one AA (the builder, hidden in the demo)', is_=1)
-copy(CW, r"'electricity',\s*(\d+),\s*'rent on '", 'RENT: one AA for a billed block of a faction\'s ground crossed that day', is_=1)
+copy(CW, r"var RENT_A_BLOCK=(\d+);", 'RENT: one AA for a billed block of a faction\'s ground crossed that day (one hand-over a faction a night, ECONOMY THREE 11/26)', is_=1)
 copy(H, r"'electricity', (\d+), 'build:'", 'his own place (yard, forge, lookout) costs one AA and its tape', is_=1)
 copy(H, r"'electricity',(\d+),'yard:swap'", 'swapping a veteran\'s mastery at a fortress yard costs one AA', is_=1)
 copy(H, r"'electricity', (\d+), 'scavenge:battery'", 'a battery found scavenging is one AA', is_=1, n=2)

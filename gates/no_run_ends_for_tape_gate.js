@@ -68,6 +68,13 @@ function legsN(over, say) {
   return r;
 }
 const R = legsN(null, ok);
+/* ECONOMY THREE 11/26 (ask row 685): the bench read the board's least job, and since 323 amended that is a walk with no fight
+   (the quiet floor, 10), so a fight's tape was charged against a walk's pay (60 to 74 percent, red for a week). A won fight is
+   paid from a job that has a fight in it. */
+const JP = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/job_pay.json'), 'utf8'));
+const shelfIds = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/BOHEMIA_BOARD_SHELF.json'), 'utf8')).offers.map(o => o.id);
+const killing = shelfIds.map(id => JP.pays[id]).filter(p => p && p.violent && p.fights >= 1).map(p => Math.round(p.pay / p.fights));
+ok('N0 a won fight is paid from the board\'s least KILLING job a fight (' + R.jobPay + '), never a walk\'s quiet floor (' + JP.violence.value.quiet_floor_per_skull + ')', killing.length > 0 && R.jobPay === Math.min.apply(null, killing) && R.jobPay > JP.violence.value.quiet_floor_per_skull);
 const VAM = fs.readFileSync(path.join(ROOT, 'VAMILY.md'), 'utf8'), tun = VAM.split(/\n## /).find(s => /^TUNING  \(21\./.test(s)) || '';
 ok('N2 every company that cannot keep its armour up on routine pay is named on TUNING\'s board (' + (R.tuning.join(', ') || 'none') + ')', R.tuning.length === 0 || /NOTE 10\/26 FROM ECONOMY  \[the tape bill\]/.test(tun));
 ['watch', 'wolf'].forEach(k => { const s = R.shapes[k]; console.log('  ' + s.name + ': ' + ['camp', 'town', 'fortress'].map(h => h + ' ' + s.homes[h].bill_a_day + ' of ' + s.homes[h].pay_a_day + ' (' + Math.round(100 * s.homes[h].share) + '%), left ' + s.homes[h].net_a_day).join('; ')); });

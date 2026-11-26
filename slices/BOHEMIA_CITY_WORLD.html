@@ -17720,6 +17720,64 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     return purse.entries.filter(function (e) { return !currency || e.currency === currency; });
   }
 
+  /* ---------------------------------------------------------------------------
+     THE FOLD (ECONOMY THREE 11/26, rule 480(c): 'no money screen costs a frame').
+     MEASURED on the demo (a new crew, the map crossed at the party's pace): the
+     ledger grew 40 to 67 lines a map day, about 128 bytes a line, and it rides in
+     the autosave the map writes after every change. Nothing ever left it, so a
+     long game walks it toward the phone's whole save space (about five million
+     characters for every key together) and makes every save, every buy, slower.
+     THE FOLD KEEPS THE TRUTH THE BALANCE IS: every line older than KEEP days goes
+     into ONE line per currency, act, kind and sign, in the order positives then
+     negatives, so every balance, every act's balance (rule 31) and every kind's
+     flow is what it was to the battery, the history never goes negative (the old
+     lines ended at what they ended at, never under zero), and the sequence is
+     whole again. The last KEEP days stay line for line: the day's double-pay
+     checks and the night's tally read today and last night, nothing older. The
+     NEWEST old line of each of the four verbs stays whole too, because the hunger
+     count walks back to the last day they ate and stops there. A line a reader
+     tells apart by its reason (the pockets' opening stock) is pinned by the
+     caller (opts.pin), never lumped. A lump says what it is, so no money is
+     anonymous: 'brought forward: N older lines to day D'.
+     --------------------------------------------------------------------------- */
+  var FOLD_KEEP = 30;
+  function fold(purse, today, opts) {
+    opts = opts || {};
+    if (!purse || !purse.entries) return { applied: false, reason: 'NO_PURSE' };
+    var keep = opts.keep == null ? FOLD_KEEP : Math.max(1, opts.keep | 0);
+    var cut = (today == null ? (purse.day | 0) : (today | 0)) - keep;
+    var pin = opts.pin || [], es = purse.entries, i, e;
+    if (cut < 1) return { applied: false, reason: 'NOTHING_OLD', kept: es.length };
+    /* the old lines are the unbroken run at the start: a line posted late with an old day stays where it is, so the
+       run folded is a prefix of the real history and ended where that history was, never under zero */
+    var end = 0; while (end < es.length && (es[end].day | 0) < cut) end++;
+    var newestVerb = {};
+    for (i = 0; i < end; i++) { e = es[i]; if (Object.prototype.hasOwnProperty.call(VERBS, e.reason)) newestVerb[e.reason] = i; }
+    var lumps = {}, order = [], pinnedUp = [], pinnedDown = [], tail = es.slice(end), n = 0;
+    for (i = 0; i < end; i++) {
+      e = es[i];
+      if (pin.indexOf(e.reason) >= 0 || newestVerb[e.reason] === i) { (e.amount > 0 ? pinnedUp : pinnedDown).push(e); continue; }
+      var k = e.currency + '|' + clampAct(e.act || ACT_MIN) + '|' + e.kind + '|' + (e.amount > 0 ? '+' : '-');
+      if (!lumps[k]) { lumps[k] = { currency: e.currency, sum: 0, kind: e.kind, act: clampAct(e.act || ACT_MIN), n: 0 }; order.push(k); }
+      lumps[k].sum += e.amount; lumps[k].n++; n++;
+    }
+    if (!n) return { applied: false, reason: 'NOTHING_TO_FOLD', kept: es.length };
+    var up = [], down = [];
+    for (i = 0; i < order.length; i++) {
+      var L = lumps[order[i]];
+      if (!L.sum) continue;
+      var line = { currency: L.currency, amount: L.sum, kind: L.kind,
+                   reason: 'brought forward: ' + L.n + ' older ' + (L.n === 1 ? 'line' : 'lines') + ' to day ' + (cut - 1),
+                   ref: 'fold', day: cut - 1, act: L.act, seq: 0 };
+      (L.sum > 0 ? up : down).push(line);
+    }
+    var out = pinnedUp.concat(up, down, pinnedDown, tail);
+    for (i = 0; i < out.length; i++) out[i].seq = i;
+    var was = es.length;
+    purse.entries = out;
+    return { applied: true, folded: n, into: up.length + down.length, was: was, now: out.length, to_day: cut - 1 };
+  }
+
   /* Save/restore is the entries. Nothing else is state, because nothing else is truth. */
   function save(purse) {
     return { id: purse.id, day: purse.day, act: clampAct(purse.act || ACT_MIN),
@@ -17756,7 +17814,8 @@ if(typeof module!=='undefined')module.exports=BOH_POWERGRID;
     convert: convert,
     payQuest: payQuest, payForWork: payForWork, spend: spend, produce: produce,
     VERBS: VERBS, upkeep: upkeep,
-    flow: flow, audit: audit, history: history, save: save, load: load
+    flow: flow, audit: audit, history: history, save: save, load: load,
+    fold: fold, FOLD_KEEP: FOLD_KEEP
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.BohemiaPurse = API;
@@ -73234,6 +73293,10 @@ function onNightfall(){
      ground's owner, because rent on where you stand is collected before a
      handshake is. */
   try{ loanNight(); }catch(_e){}
+  /* ECONOMY THREE 11/26 __THE_LEDGER_FOLDS__ (rule 480(c)): the night's money is posted; every line older than the purse's
+     FOLD_KEEP days becomes one brought-forward line per currency, act and kind (engine/bohemia_purse.js fold), so the autosave
+     stays small however long he plays. Every balance is the same to the battery. */
+  try{ window.__PURSE_FOLD = BohemiaPurse.fold(purseGet(), DAY.day); }catch(_e){}
   try{ VALLEY_TONIGHT=mktAdvanceDay()&&valleyRunsOut(); }catch(_e){ VALLEY_TONIGHT=null; }
   /* __THE_TRADING_HUB__ -- a day passes in the valley
      too: stock produced, eaten, shortfall logged. Water at four days does not cost
@@ -75116,6 +75179,8 @@ function rentBillable(seats){
   }catch(_e){ billable=TURF_USED; OFF_LINE=null; OFF_SAVED=null; }
   return billable;
 }
+/* ECONOMY THREE 11/26: what a billed block of a faction's ground costs (records/target/bb/battery_table.json, EVERYTHING COSTS ONE) */
+var RENT_A_BLOCK=1;
 function blockRent(){
   RENT_TONIGHT=[]; RENT_DOUSED=[]; OFF_LINE=null; OFF_SAVED=null;
   var p=purseGet(); if(!p) return 0;
@@ -75126,19 +75191,21 @@ function blockRent(){
   if(!bill||!bill.rows.length) return 0;
   for(var i=0;i<bill.rows.length;i++){
     var r=bill.rows[i], paid=0, short=0;
-    for(var n=0;n<r.billed;n++){
-      var res=null;
-      /* __EVERY_POCKET__ -- AND THE LANDLORD REALLY HAS IT NOW. This was a bare
-         transferOut, which took the battery off the player and delivered it to
-         nobody: the ledger said "moved to another holder" and no other holder
-         existed. hand() is the same movement with both ends, so the faction that
-         darkens your block for a missed night is a faction that has been getting
-         richer off you every night you paid. Refusals are unchanged -- hand()
-         moves nothing unless the payer's own purse allows the outgoing leg. */
-      try{ res=BohemiaPockets.hand('player', r.faction, 'electricity', 1,
+    /* ECONOMY THREE 11/26 __THE_RENT_IS_ONE_LINE__ (rule 480(c)): MEASURED, the rent was handed over one battery at a time, a
+       ledger line for every battery (164 of 170 lines in four map days were rent), and the ledger rides in the autosave. Now
+       one hand-over a faction a night for what he can pay of it: the same batteries paid, the same short, the same lights out. */
+    var res=null, have=0, give=0;
+    try{ have=Math.max(0, BohemiaPurse.balance(p, 'electricity')|0); }catch(_e){ have=0; }   /* p is the player's purse, the one the pockets adopted */
+    give=Math.min(r.billed, Math.floor(have / RENT_A_BLOCK));
+    if(give>0){
+      /* __EVERY_POCKET__ -- AND THE LANDLORD REALLY HAS IT NOW. hand() is the movement with both ends, so the faction that
+         darkens your block for a missed night is a faction that has been getting richer off you every night you paid.
+         Refusals are unchanged -- hand() moves nothing unless the payer's own purse allows the outgoing leg. */
+      try{ res=BohemiaPockets.hand('player', r.faction, 'electricity', give * RENT_A_BLOCK,
              'rent on '+r.faction+' ground', r.faction, DAY.day); }catch(_e){}
-      if(res&&res.applied) paid++; else short++;
+      if(res&&res.applied) paid=give;
     }
+    short=r.billed-paid;
     RENT_TONIGHT.push({faction:r.faction, tier:r.tier, used:r.used,
                        billed:r.billed, paid:paid, short:short});
     /* AND WHAT YOU COULD NOT PAY, THEY PUT OUT. One circuit per unpaid block, on
@@ -76522,7 +76589,13 @@ function applyRestore(st){
      toy, not a loop. The quest's own state (stage, bonds, faction, objectives)
      rides with it, so resuming puts you back mid-job, not back at the wake. */
   /* __THE_DAY_PAYS__ -- a day's pay that dies with the tab is not pay. */
-  if(st.purse){ try{ PURSEV=BohemiaPurse.load(st.purse); }catch(_e){} }
+  if(st.purse){ try{ PURSEV=BohemiaPurse.load(st.purse); }catch(_e){}
+    /* ECONOMY THREE 11/26 __THE_LOADED_PURSE_IS_THE_PLAYERS__ (rule 480(b)): MEASURED on the demo (a spend, the tab killed,
+       CONTINUE): the pockets book still held the purse the boot made, 0 batteries, while the bar read the loaded 283, so after
+       every reload each night's rent was refused (nothing paid, and the landlord put the lights out for it), and every other
+       hand('player', ...) drew on nothing. ADOPT, NEVER CREATE: the loaded purse is the player's. And an old save comes in
+       folded (__THE_LEDGER_FOLDS__). */
+    try{ if(PURSEV){ BohemiaPockets.adopt(PURSEV); window.__PURSE_FOLD = BohemiaPurse.fold(PURSEV, st.day || 1); } }catch(_e){} }
   if(st.century){ try{ CENTURY=BohemiaCentury.load(st.century); }catch(_e){} }
   /* __BUILT_ON_THE_MAP__ */
   if(st.lots){ try{ for(var __ln in st.lots){ var __ls = BohemiaLotBuild.load(JSON.stringify(st.lots[__ln])); if(__ls) LOT_BOOK[__ln] = __ls; } }catch(_e){} }
@@ -94676,7 +94749,9 @@ window.BOHEMIA_BAR = (function(){
     try{ paintRead(); }catch(_e){}
     var W=document.getElementById('barmoney'); if(!W) return;
     var m=money();
-    if(!m){ W.textContent=''; return; }
+    /* ECONOMY THREE 11/26 (rule 480(c)): the money is written only when it changed; it was rewritten every second, a new
+       piece of the bar for the page to lay out again with nothing moved */
+    if(!m){ if(W.__was!==''){ W.textContent=''; W.__was=''; } return; }
     var order=['resources','electricity','clout'],
         mark={resources:'R',electricity:'E',clout:'C'};
     var out='';
@@ -94684,7 +94759,7 @@ window.BOHEMIA_BAR = (function(){
       var k=order[i]; if(typeof m[k]!=='number') continue;
       out += (out?' ':'')+mark[k]+'<span>'+m[k]+'</span>';
     }
-    W.innerHTML=out;
+    if(W.__was!==out){ W.innerHTML=out; W.__was=out; }
   }
 
   function boot(){

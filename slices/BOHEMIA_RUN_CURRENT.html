@@ -24393,6 +24393,64 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
     return purse.entries.filter(function (e) { return !currency || e.currency === currency; });
   }
 
+  /* ---------------------------------------------------------------------------
+     THE FOLD (ECONOMY THREE 11/26, rule 480(c): 'no money screen costs a frame').
+     MEASURED on the demo (a new crew, the map crossed at the party's pace): the
+     ledger grew 40 to 67 lines a map day, about 128 bytes a line, and it rides in
+     the autosave the map writes after every change. Nothing ever left it, so a
+     long game walks it toward the phone's whole save space (about five million
+     characters for every key together) and makes every save, every buy, slower.
+     THE FOLD KEEPS THE TRUTH THE BALANCE IS: every line older than KEEP days goes
+     into ONE line per currency, act, kind and sign, in the order positives then
+     negatives, so every balance, every act's balance (rule 31) and every kind's
+     flow is what it was to the battery, the history never goes negative (the old
+     lines ended at what they ended at, never under zero), and the sequence is
+     whole again. The last KEEP days stay line for line: the day's double-pay
+     checks and the night's tally read today and last night, nothing older. The
+     NEWEST old line of each of the four verbs stays whole too, because the hunger
+     count walks back to the last day they ate and stops there. A line a reader
+     tells apart by its reason (the pockets' opening stock) is pinned by the
+     caller (opts.pin), never lumped. A lump says what it is, so no money is
+     anonymous: 'brought forward: N older lines to day D'.
+     --------------------------------------------------------------------------- */
+  var FOLD_KEEP = 30;
+  function fold(purse, today, opts) {
+    opts = opts || {};
+    if (!purse || !purse.entries) return { applied: false, reason: 'NO_PURSE' };
+    var keep = opts.keep == null ? FOLD_KEEP : Math.max(1, opts.keep | 0);
+    var cut = (today == null ? (purse.day | 0) : (today | 0)) - keep;
+    var pin = opts.pin || [], es = purse.entries, i, e;
+    if (cut < 1) return { applied: false, reason: 'NOTHING_OLD', kept: es.length };
+    /* the old lines are the unbroken run at the start: a line posted late with an old day stays where it is, so the
+       run folded is a prefix of the real history and ended where that history was, never under zero */
+    var end = 0; while (end < es.length && (es[end].day | 0) < cut) end++;
+    var newestVerb = {};
+    for (i = 0; i < end; i++) { e = es[i]; if (Object.prototype.hasOwnProperty.call(VERBS, e.reason)) newestVerb[e.reason] = i; }
+    var lumps = {}, order = [], pinnedUp = [], pinnedDown = [], tail = es.slice(end), n = 0;
+    for (i = 0; i < end; i++) {
+      e = es[i];
+      if (pin.indexOf(e.reason) >= 0 || newestVerb[e.reason] === i) { (e.amount > 0 ? pinnedUp : pinnedDown).push(e); continue; }
+      var k = e.currency + '|' + clampAct(e.act || ACT_MIN) + '|' + e.kind + '|' + (e.amount > 0 ? '+' : '-');
+      if (!lumps[k]) { lumps[k] = { currency: e.currency, sum: 0, kind: e.kind, act: clampAct(e.act || ACT_MIN), n: 0 }; order.push(k); }
+      lumps[k].sum += e.amount; lumps[k].n++; n++;
+    }
+    if (!n) return { applied: false, reason: 'NOTHING_TO_FOLD', kept: es.length };
+    var up = [], down = [];
+    for (i = 0; i < order.length; i++) {
+      var L = lumps[order[i]];
+      if (!L.sum) continue;
+      var line = { currency: L.currency, amount: L.sum, kind: L.kind,
+                   reason: 'brought forward: ' + L.n + ' older ' + (L.n === 1 ? 'line' : 'lines') + ' to day ' + (cut - 1),
+                   ref: 'fold', day: cut - 1, act: L.act, seq: 0 };
+      (L.sum > 0 ? up : down).push(line);
+    }
+    var out = pinnedUp.concat(up, down, pinnedDown, tail);
+    for (i = 0; i < out.length; i++) out[i].seq = i;
+    var was = es.length;
+    purse.entries = out;
+    return { applied: true, folded: n, into: up.length + down.length, was: was, now: out.length, to_day: cut - 1 };
+  }
+
   /* Save/restore is the entries. Nothing else is state, because nothing else is truth. */
   function save(purse) {
     return { id: purse.id, day: purse.day, act: clampAct(purse.act || ACT_MIN),
@@ -24429,7 +24487,8 @@ if (typeof module !== 'undefined') module.exports = BOH_RESOLVE;
     convert: convert,
     payQuest: payQuest, payForWork: payForWork, spend: spend, produce: produce,
     VERBS: VERBS, upkeep: upkeep,
-    flow: flow, audit: audit, history: history, save: save, load: load
+    flow: flow, audit: audit, history: history, save: save, load: load,
+    fold: fold, FOLD_KEEP: FOLD_KEEP
   };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.BohemiaPurse = API;

@@ -3,7 +3,32 @@
 # the VAMILY front page (rules 459, 441, 454(a)), then continue from the newest block below.
 # ECONOMY THREE (rule 462, 11/20) carries this file on: same job, same table; its blocks are named ECONOMY THREE.
 
-ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/26 LATEST -- BUILD 11/26a - A MEND NEVER COSTS MORE THAN NEW, BUILT, NOT YET SEEN
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/26 LATEST -- BUILD 11/26e - THE MONEY BOOK STAYS SMALL, BUILT, NOT YET SEEN
+(rule 480(b)(c), ask row 685). Record: records/BOHEMIA_ECONOMY_THREE_THE_LEDGER_FOLDS_11_26_26.md. Gate: THE LEDGER STAYS SMALL
+(gates/the_ledger_stays_small_gate.js; the suite runs data, 10/0; the page legs demo|alpha x upright|sideways 3/0 each, all four green).
+- THIS LANE'S TWO REDS WERE THE CHECKS, NOT THE GAME (no number he sees moved): NO RUN ENDS FOR TAPE paid a fight from the
+  board's least job, which since 323 amended is a walk with no fight (10); it now pays the least KILLING job a fight (30): a new
+  crew spends 20 to 25% on tape, as Day 85 measured (20/0, new leg N0). A JOB PAYS FOR THE TIME AND THE RISK gave 30 later jobs
+  'before 0'; under the old rule they paid 30 a skull: day 50 x1.31 (23/0). Row 685 marked.
+- THE MONEY BOOK NEVER LET A LINE GO: measured 40 to 67 lines a map day (164 of 170 were rent handed over one battery at a time),
+  and it rides in every autosave. engine/bohemia_purse.js fold: lines older than 30 map days become one brought-forward line per
+  currency, act, kind and sign; every balance, act and flow the same to the battery; the last 30 days line for line; the hunger
+  count kept. The map folds at nightfall and as a save loads; rent is one hand-over a faction (RENT_A_BLOCK, the table's copy).
+  2,000 rolled days: 58 KB against 4 MB. Live after it: the purse grew 2 KB in two map days.
+- AFTER A RELOAD THE RENT WAS PAID FROM NOBODY (found, fixed): the pockets kept the boot's empty purse after CONTINUE, so every
+  night's rent was refused and the lights put out. The loaded purse is adopted now (proved on all four surfaces: one line, the
+  bar down by the rent, the Mob up by the same).
+- 480(c) MEASURED (tools/bohemia_economy_three_money_frames.js, 4x slowed, GPU canvas): the money's own code is 1 to 8 ms a second on every money step (the map, the town, the stall, a buy, the smith, back to the map), under 1% of the page's busy time: no money screen costs a frame; the town's 5 to 7 fps at 4x is the town picture (JOBS TWO routed it). The bar's money is written only
+  when it changed (it was rewritten every second).
+- FOR TUNING (measured, not moved: the 9/12 block rent is ruled): rent is about 3 to 8 AA a night on a normal job trip (a tenth to
+  a quarter of a one-skull job), 34 to 60 for a crew that crosses the whole valley all day.
+- FOR PLUMBER / UI (not money): the phone's feed is the biggest saved key (50 KB by map day 3), capped at 80 posts, so it levels off.
+- READ, NOTHING MOVED: a hire next to his wage (16 to 32 AA to hire a plain man, 1 a night; about one job's pay, Battle Brothers'
+  ratio). Seen on the way, EYES' find (rows 724-732): at 4x the stall's double tap does not buy.
+- NEXT: 480(b) on the rest of the money as built (the arena's purses next to a job, the market's rice next to the stall's), then
+  the open rows on the table's owner list. NEVER a tool that waits for a tap (461(c) amended).
+
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/26 -- BUILD 11/26a - A MEND NEVER COSTS MORE THAN NEW, BUILT, NOT YET SEEN
 (rule 480(b): every price makes sense next to the others; rule 459(e) decided). What was checked first (480(b)): the table on main,
 the road's prices against their words, the smith's mend against new.
 - THE TABLE WAS RED ON MAIN: rule 471's staff carts (a shopping cart 0, a steel utility cart 150, a wagon 300, retinue.json
