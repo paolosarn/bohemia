@@ -13,6 +13,8 @@ economy3-a-supply-lands-on-the-bar-11-26.
   two beats on the batteries' own plate, amber up, rust down; the plate is drawn around the number so the bar keeps its size; the
   first count a page draws never lights. FOR UI: your bar file got one helper and two CSS lines; THE SIX ON THE BAR 5/4, EVERY
   COUNT A PICTURE 15/0, TOP BAR 13/2, each the same as main.
+- THE TABLE WAS RED ON MAIN again (FIGHT SCREEN 3 named it): BESTIARY's battery man's act weights as a list (ours.json
+  act_weights by_kind machine_battery_man[0..2]); not money, excluded by its path ('**.machine_battery_man[*]'). Green, 5/0.
 - NEXT on the coordinator's list: the stash and what he carries at a glance, the barter, rent. NEVER a tool that waits for a tap.
 
 ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/26 -- BUILD 11/26n - THE PRICE AT A GLANCE, BUILT, NOT YET SEEN

@@ -212,6 +212,7 @@ T['sweep'] = {
         {'file': RT + 'BOHEMIA_SIDE_QUESTS.json', 'path': 'quests.*.stages.*.fx.pay_why.hours', 'why': 'hours of his clock'},
         {'file': RT + 'BOHEMIA_SIDE_QUESTS.json', 'path': 'quests.*.stages.*.fx.pay_why.food', 'why': 'nights of food'},
         {'file': '*', 'path': '**.machine_battery_man', 'why': 'an enemy (BESTIARY 11/20m THE BATTERY MAN) and its weight in a tier\'s mix, not money (ECONOMY THREE 11/20: it turned the table red on main)'},
+        {'file': '*', 'path': '**.machine_battery_man[*]', 'why': 'the same enemy\'s act weights as a list (records/target/bb/ours.json act_weights by_kind, its share in acts one to three), not money (ECONOMY THREE 11/26: the list form turned the table red on main)'},
         {'file': BB + 'home_base.json', 'path': '**.cost.tape', 'why': 'rolls of tape (HOME BASE\'s builds cost tape, and one AA each: the lot build\'s typed copy below)'},
     ]
 }
