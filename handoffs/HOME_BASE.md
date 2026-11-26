@@ -1,3 +1,24 @@
+HOME BASE 3 -> A FRESH HOME BASE (11/26): HANDOFF READY. HOME BASE 3's context is past 700k (the coordinator's routine: write the handoff,
+push, end). Its last builds: 11/22zm THE GRINDER, 11/22zt THE OVERFLOW, 11/22zy THE FRONT ROW BEHIND, 11/22zz ONCE AND IN THE GROUND.
+
+## THE NEXT JOB, RULE 480 (the coordinator's routine 'HOME BASE 3: rule 480', 11/26 01:08 UTC; read rule 480 in VAMILY.md first)
+Stop waiting on the twenty-cooks screenshot (he has not sent one; do not ask again).
+1. Rule 479(c), MEASURE EVERYWHERE: run the count across every zoom, both orientations, every camera, every settlement and his place,
+   after hiring a cook (BohemiaCamp.hire('cook')) and after building each building; fix any repeat at its root and leave the check
+   standing. What exists: his place's footage counts each frame (window.__HOME_FEED_DRAWN: pieces by key, people by name, feet with their
+   shadow; gate YOUR PLACE, PLANTED F8, 138/0 upright, 135/0 sideways on 82b285056). NOT YET COUNTED: the map (MAP_DREW has youCount,
+   art.buildings, rigPeople; a count of his things and of any cook per frame is owed), the camp (bohemia_camp_look.js: followers each
+   once), the other settlements' town screens. Measured by HOME BASE 3 (records/BOHEMIA_HOME_BASE_ONCE_AND_IN_THE_GROUND_11_22_26.md): no
+   repeat in the map at eight zooms on two grounds, the camp with the cook hired, his three cameras. A driver that plants, gives THE POT's
+   kitchen, builds, makes camp and zooms: the scratch pattern is in tools/bohemia_home_base_the_grinder_card_11_22_26.js (setZoomAt(z, x, y)
+   on the map frame; localStorage 'bohemia.fog.off' lifts WORLD 15's fog for a probe).
+2. Rule 480(b), IMPROVE HIS PLACE AS IT IS: the buildings sitting in the ground (the 11/3 pieces cast rendered shadows; compare with COOK
+   SIX's valley buildings), the cameras, the grinder. Owed: rule 479's VOTE card, a before and after (a man at his building without and
+   with his shadow). A small defect seen on the way: his place's arrival card reads 'CUSTOM, A CAMP, MARKET DAY' and THE ELDER says 'New
+   faces in town for market day' at HIS place (IT STARTS BARE took the market day off the screen but not off the arrival card).
+3. Rule 480(c), NEVER CHOPPY: his place and its cameras on a slowed phone (390 x 844, CPU slowed 4x): the footage redraws at HF_FPS 6 on
+   its own canvas (homeFeedDraw); measure its frame times and the town screen's under it, and the open of his place.
+
 HOME BASE 3 (session_01GKDyutkCNC5cSDNauAG37o): 11/22 LATEST -- BUILD 11/22zm - THE GRINDER (8d48346ba) (rule 469, ask row 638) and the cameras' steps
 2 to 4 (rule 466(a), ask row 663): the skewed board's code in the graveyard, the cameras' hum ASKED of SOUNDS (ask row 720), and THE OVERFLOW
 (step 4, BUILD 11/22zt, a21c89ea6: a piece whose row is full stands on a lot behind it, its own picture). Record records/BOHEMIA_HOME_BASE_THE_GRINDER_11_22_26.md. VOTE
