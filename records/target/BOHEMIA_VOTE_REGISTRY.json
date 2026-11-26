@@ -24611,7 +24611,44 @@
   {"id": "world13-the-crowd-is-seated-once-11-26", "kind": "tile", "lane": "world 13", "sha": "168844c54", "made": "11/26", "draft": true, "title": "THE ZOOMED-OUT MAP HAS LESS TO DO EACH FRAME: THE CROWD IS SEATED ONCE, AND THE ARMOUR'S FIRST LOOK NO LONGER FREEZES A FRAME", "said": "(11/26, rule 482) more cooking up, cleaning up, improving things we're already doing", "why": "Zoomed all the way out, every person in a town's crowd used to work out again, every single frame, which look they could wear: about 21,000 little lookups a frame. Now that is worked out once a frame. And the first time the map met a new sheet of people for the armour, it froze one frame for a tenth of a second while it read the whole sheet; a helper in the background does that now, and the armour shows up a moment later. The map's own work per frame went from 5.7 to 4.3 thousandths of a second at full speed (a slow phone does four times that). Nothing looks different; it just has less to do. On this test machine the frame rate is still held back by its fake graphics, so the bars show the game's own work. You see it in the RUN tab, zoomed all the way out.", "show": {"how": "image", "src": "../records/target/WORLD13_THE_CROWD_IS_SEATED_ONCE_11_26.webp",
     "first": "../records/target/vote_first/world13-the-crowd-is-seated-once-11-26.webp",
     "firstAt": [0, 90, 390, 390]
-   }, "before_after": {"before": "main 11/26zh: the map's own work 5.7 ms the middle frame at the whole valley, the crowd 1.17 ms of it, a 112 ms frame the first time a sheet is met", "after": "4.3 ms the middle frame, the crowd 0.27 ms, no frame waits on a sheet (made off the page, the same answers)", "scale": "the demo on the phone upright, full speed, the whole valley on the glass"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_THIRTEEN_THE_CROWD_IS_SEATED_ONCE_11_26_26.md", "build": "BUILD 11/26zj - THE CROWD IS SEATED ONCE"}
+   }, "before_after": {"before": "main 11/26zh: the map's own work 5.7 ms the middle frame at the whole valley, the crowd 1.17 ms of it, a 112 ms frame the first time a sheet is met", "after": "4.3 ms the middle frame, the crowd 0.27 ms, no frame waits on a sheet (made off the page, the same answers)", "scale": "the demo on the phone upright, full speed, the whole valley on the glass"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_THIRTEEN_THE_CROWD_IS_SEATED_ONCE_11_26_26.md", "build": "BUILD 11/26zj - THE CROWD IS SEATED ONCE"},
+    {
+     "id": "character2-the-robes-come-off-11-26",
+     "kind": "outfit",
+     "lane": "character",
+     "made": "11/26",
+     "sha": "b0e23a29e",
+     "draft": true,
+     "title": "THE ROBES COME OFF THE ROAD GANGS",
+     "said": "More cooking up cleaning up improving things we're already doing type shit",
+     "why": "Six gangs still sent a man in an old one-colour robe into your fights (often the first man of the band). Those robes are out of every enemy group; the same gangs' layered men fight in their place: a jacket over a shirt, a scarf, their own trousers and boots. You see it in every fight with the road gangs, the marauders, the skirmishers and the orcs' crews, and on this card.",
+     "options": [
+      "A, yes, the gangs fight like this",
+      "B, close, change something (say which one and what)",
+      "C, no, not like this"
+     ],
+     "show": {
+      "how": "image",
+      "src": "../records/target/character/the_robes_come_off/CHARACTER_THE_ROBES_COME_OFF.webp",
+      "first": "../records/target/character/the_robes_come_off/CHARACTER_THE_ROBES_COME_OFF_FIRST.webp",
+      "firstAt": [
+       0,
+       0,
+       380,
+       500
+      ]
+     },
+     "twin": {
+      "src": "slices/fight_rig/faction_remnants.webp",
+      "diffs": [
+       "BEFORE: the gang's one-piece robe of 10/18, one colour collar to shin.",
+       "AFTER: the gang's own layered men, already in the same groups, take the slot; nothing new drawn."
+      ]
+     },
+     "stage": "made_from",
+     "golden": "character-the-nine-enemies-their-own-clothes-11-7",
+     "recipe": "ours.json people_looks.band: the six faction_* robes out of ten enemy pools (16 entries); BUILD 11/26zk"
+    }
  ],
  "verdicts": [
   {
