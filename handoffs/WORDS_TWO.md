@@ -6,7 +6,7 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
-WORDS THREE (words-three-01gkdyuvnl): 11/26 LATEST -- BUILD 11/26b - RULE 480: THE SHEETS BETTER AND THE VOTE TAB NEVER CHOPPY, BUILT (this commit), NOT YET SEEN (rules 480(b)(c)(d), 467 AMENDED, 465; ask row 723). NOTHING IN THE GAME WAS REWRITTEN.
+WORDS THREE (words-three-01gkdyuvnl): 11/26 LATEST -- BUILD 11/26b - RULE 480: THE SHEETS BETTER AND THE VOTE TAB NEVER CHOPPY, BUILT (372b04009), NOT YET SEEN (rules 480(b)(c)(d), 467 AMENDED, 465; ask row 723). NOTHING IN THE GAME WAS REWRITTEN.
 THE COORDINATOR'S ROUTINE 'WORDS THREE: rule 480': improve sheets six to eight (38 cards, none answered yet), the VOTE tab opens and scrolls them with no hitch,
 nothing new. Rule 465 stands: THE VOICE HOLDS 11/0, 0 of 15 mouths open.
 (1) THE VOTE TAB, MEASURED (390 x 844, CPU 4x, a thumb's walk): his sheets already scrolled at 60 fps; THE OPEN had 3 to 5 frames past 50 ms (the 1.9 MB

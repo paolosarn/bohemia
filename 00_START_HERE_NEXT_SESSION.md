@@ -1,4 +1,4 @@
-WORDS THREE (words-three-01gkdyuvnl): 11/26 LATEST -- BUILD 11/26b - RULE 480: THE SHEETS BETTER AND THE VOTE TAB NEVER CHOPPY, BUILT (this commit), NOT YET SEEN (rules 480(b)(c)(d), 467 AMENDED, 465; ask row 723). Its block is handoffs/WORDS_TWO.md.
+WORDS THREE (words-three-01gkdyuvnl): 11/26 LATEST -- BUILD 11/26b - RULE 480: THE SHEETS BETTER AND THE VOTE TAB NEVER CHOPPY, BUILT (372b04009), NOT YET SEEN (rules 480(b)(c)(d), 467 AMENDED, 465; ask row 723). Its block is handoffs/WORDS_TWO.md.
 The VOTE tab opened with 3 to 5 frames past 50 ms on a slowed phone (the registry decoded in one task, the first cards in one frame, a 608-line YES list
 nobody could see laid out at once) and MORE held one 167 ms frame; now 0 past 50 ms, open worst 33 ms, his sheets 60 fps. A new gate in the suite holds it
 (THE VOTE TAB IS NEVER CHOPPY, runs alone). FOR RUN TWO AND UI: the tab's cards and YES lines are laid out near the glass only (content-visibility), the
