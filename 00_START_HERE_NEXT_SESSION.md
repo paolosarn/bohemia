@@ -1,3 +1,9 @@
+COMBAT FOUR (combat-four-01gkdyuv): 11/26 LATEST -- BUILD 11/26w - THE LOADING SCREEN BREATHES, BUILT (rule 480(c)(d), ask row 732). Its block is handoffs/COMBAT_THREE.md.
+Every board walked at 4x (44: the forty insides and four streets; tools/bohemia_combat_four_every_board_frames_11_26_26.js): the fight's loading screen froze one frame
+of 2.1 to 4.8 s on every board. Profiled: the men's sheets made bitmaps on the main thread (3.1 s) and the ground decoded at its first draw. Now both decode off it:
+eight boards' worst load frame 2.7-4.2 s -> 1.0-2.0 s, the loading screen 4-11 -> 24-37 fps; the board's first frame ~250 ms longer; AUTO as it was. Still red, named.
+[bb Battle Brothers' battle loads behind a still screen]
+[analog horror: the tape that froze on the title card now rolls through it]
 COMBAT FOUR (combat-four-01gkdyuv): 11/26 LATEST -- BUILD 11/26s - THE TURN COUNT GOES HOME, BUILT (rules 480(b)(c), 482, 478, 441, 465; ask rows 722, 719). Its block is handoffs/COMBAT_THREE.md.
 ROW 722: the LEAVE that did nothing was the loop's tap read mid grow-in (3 of 16 loops, on the build PLUMBER named and after alike), FIXES 3's 11/26f fixed it first.
 FOUND ON THE WAY, THIS LANE'S: the fight's turn count never went home since 11/22zza (the ammo report rode under the same name 'rounds' and overwrote it:

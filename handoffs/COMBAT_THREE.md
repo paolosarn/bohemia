@@ -1,6 +1,22 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 480(b)(c), 482, 478, 441, 465; ask rows 722, 719): 11/26 LATEST -- [the turn count goes home] SHIPPED daa83eb5d, BUILD 11/26s - THE TURN COUNT GOES HOME. No VOTE card (nothing on the glass changes).
+COMBAT FOUR (rule 480(c)(d), 482(c); ask row 732): 11/26 LATEST -- [the loading screen breathes] SHIPPED SHIPSHA, BUILD 11/26w - THE LOADING SCREEN BREATHES. No VOTE card.
+Record: records/BOHEMIA_COMBAT_FOUR_THE_LOADING_SCREEN_BREATHES_11_26_26.md. THE WALK: tools/bohemia_combat_four_every_board_frames_11_26_26.js <outdir> [ids] (COOK SIX's walk widened: every inside from its data, four streets,
+AUTO really fights now: the bell rung with AUTO on; UI.thinks read; C4_BEFORE=1 the before, C4_AUTO_MS the AUTO cap). 44 boards at 4x before: LOAD one frame 2.1-4.8 s
+(median 3.9), OPEN 267-883 ms, PAN at night 3.6-4.4 fps, AUTO 9.5-37 fps (median 13.3, worst 183-550 ms), thinks max 81-264 ms. slices/BOHEMIA_FIGHT.html:
+__A_SHEET_DECODES_OFF_THE_GLASS__ (whole(): a fight_rig sheet via offThread; packedLoad: the atlas fetched and createImageBitmap(blob)) and
+__THE_GROUND_DECODES_OFF_THE_GLASS__ (whole(): fight_ground/ via offThread, as the camp's page already did); before switches __SHEET_ON_GLASS, __GROUND_ON_GLASS.
+AFTER (eight boards): LOAD worst 1.0-2.0 s (was 2.7-4.2), 24-37 fps (was 4-11); OPEN 450-1,000 ms (was 367-667: the ring's first draw of the bitmaps); AUTO unchanged.
+Gates: THE WHOLE LOOP PLAYS 11/0, NO AMMO, NO SHOT 12/0, THE SHEETS ARE PACKED 4/0, SOURCED NUMBERS 8/2 (the same two legs red on main). On the page: alpha sideways,
+demo upright, alpha upright, demo sideways, 5 fights to the end screen's LEAVE, 0 page errors.
+NEXT (mine, rule 480(c)): (1) THE BRAIN'S LONG THINKS: split the plan across frames with not one decision changed (headless fingerprint of 40 seeded fights,
+9ed5dc483c62d3c4, is the check; the page's odds already snapshot a fight and play it on a second engine: the same brain on a snapshot, off the glass, is the clean
+way); (2) the ring around the board drawn behind the loading screen in pieces, not in the board's first frame; (3) the night's PAN at 4 fps (the drawing).
+*** FOR PLUMBER 8 / EYES: the walk above is the fight's own page alone (no shell); on this box the GPU is software, so every draw is the CPU's. ***
+[bb Battle Brothers' battle loads behind a still screen]
+[analog horror: the tape that froze on the title card now rolls through it]
+
+COMBAT FOUR (rules 480(b)(c), 482, 478, 441, 465; ask rows 722, 719): 11/26 -- [the turn count goes home] SHIPPED daa83eb5d, BUILD 11/26s - THE TURN COUNT GOES HOME. No VOTE card (nothing on the glass changes).
 Record: records/BOHEMIA_COMBAT_FOUR_THE_TURN_COUNT_GOES_HOME_11_26_26.md. ROW 722: not the wipe; the loop's tap read LEAVE mid grow-in (3 of 16 loops, before and after alike); FIXES 3's 11/26f LEAVE WAITS FOR THE SCREEN
 fixed it first, this lane's hide-until-drawn was dropped on the rebase. FOUND ON THE WAY: homeMessage carried 'rounds' twice (S.round, then 11/22zza's ammo report),
 the second won: outcome.turns 0 and the end screen's seed without the turn count for every fight since. NOW the report is 'ammo' (same fields). canSwap refuses a

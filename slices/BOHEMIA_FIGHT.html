@@ -6533,12 +6533,16 @@ function packedLoad(s) {
         if (!bytes || bytes !== e.bytes) return null;
         return fetch('fight_rig/packed/' + stem + '.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (m) {
           if (!m || m.bytes !== e.bytes) return null;
-          return load('fight_rig/packed/' + m.atlas).then(function (i) {
+          /* the atlas answers to the sheet's own address: a reader that asks which sheet a man is drawn from gets the same answer */
+          const keep = function (a) { PACKED.used++; const u = new URL(s, location.href).href; try { a.src = u; } catch (_e) {} return new PackedSheet(m, a, u); };
+          const viaImg = function () { return load('fight_rig/packed/' + m.atlas).then(function (i) {
             if (!i) return null;
-            /* the atlas answers to the sheet's own address: a reader that asks which sheet a man is drawn from gets the same answer */
-            const keep = function (a) { PACKED.used++; const u = new URL(s, location.href).href; try { a.src = u; } catch (_e) {} return new PackedSheet(m, a, u); };
             return typeof createImageBitmap === 'function' ? createImageBitmap(i).then(keep, function () { return keep(i); }) : keep(i);
-          });
+          }); };
+          /* __A_SHEET_DECODES_OFF_THE_GLASS__ (COMBAT FOUR 11/26): the atlas made a bitmap straight from its file, off the main thread */
+          if (window.__SHEET_ON_GLASS || typeof createImageBitmap !== 'function' || typeof fetch !== 'function') return viaImg();
+          return fetch('fight_rig/packed/' + m.atlas).then(function (r) { return r.ok ? r.blob() : null; }).then(function (b) { return b ? createImageBitmap(b) : null; })
+            .then(function (bm) { return bm ? keep(bm) : viaImg(); }, viaImg);
         });
       });
   }).catch(function () { return null; });
@@ -6658,8 +6662,20 @@ function bakeBoard() {
   const offThread = function (s) { return fetch(s).then(function (r) { return r.ok ? r.blob() : null; })
     .then(function (b) { return b ? createImageBitmap(b) : null; })
     .then(function (bm) { if (!bm) throw new Error('no bitmap'); bm.src = new URL(s, location.href).href; UI.imgs[s] = bm; return bm; }); };
+  /* __THE_GROUND_DECODES_OFF_THE_GLASS__ (COMBAT FOUR 11/26, VAMILY rule 480(c): 'no frame that stalls while something loads'; PLUMBER 8's
+     note for this lane, 'six whole ~600 KB block pictures a board'). MEASURED (tools/bohemia_combat_four_every_board_frames_11_26_26.js, the
+     fight's own page, 390 x 844, the CPU slowed 4x, all 44 boards): the loading screen froze ONE frame of 3.7 to 5.1 s on every board,
+     the bake's first draw of each ground picture decoding it again on the main thread (FIXES' finding on the camp's page, 11/9: 549 ms
+     of a 1,042 ms task). NOW the fight's own ground and inside pictures (fight_ground/) come the camp's way too: fetched, decoded into an
+     ImageBitmap off the main thread, the first draw a plain copy; __fightLetGo already closes every bitmap when the fight goes.
+     window.__GROUND_ON_GLASS is the before (a gate's mutation, never set by the game) */
   const whole = function (s) {
-    if (s.indexOf('fight_rig/') !== 0 && typeof campBoardWanted === 'function' && campBoardWanted() && typeof createImageBitmap === 'function' && typeof fetch === 'function')
+    if (s.indexOf('fight_rig/') !== 0 && (s.indexOf('fight_ground/') === 0 && !window.__GROUND_ON_GLASS || typeof campBoardWanted === 'function' && campBoardWanted()) && typeof createImageBitmap === 'function' && typeof fetch === 'function')
+      return offThread(s).catch(function () { return load(s).then(function (i) { UI.imgs[s] = i; return i; }); });
+    /* __A_SHEET_DECODES_OFF_THE_GLASS__ (COMBAT FOUR 11/26, rule 480(c)): a rig sheet is made a bitmap straight from its file (decoded off the
+       main thread), never from an <img> already decoded on it (a CPU profile of the fight's load at 4x: createImageBitmap from the <img>
+       3.1 s of the main thread). window.__SHEET_ON_GLASS is the before (a gate's mutation, never set by the game) */
+    if (s.indexOf('fight_rig/') === 0 && !window.__SHEET_ON_GLASS && typeof createImageBitmap === 'function' && typeof fetch === 'function')
       return offThread(s).catch(function () { return load(s).then(function (i) { UI.imgs[s] = i; return i; }); });
     return load(s).then(function (i) {
     if (!i || s.indexOf('fight_rig/') !== 0 || typeof createImageBitmap !== 'function') { UI.imgs[s] = i; return i; }
