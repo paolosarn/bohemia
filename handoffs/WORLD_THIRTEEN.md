@@ -1,6 +1,15 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN; newest block on top)
 
-WORLD THIRTEEN (11/26, round ten, rule 480): BUILD 11/26u - THE MAP NEVER WAITS ON THE GLASS, BUILT, NOT YET SEEN (rule 480(b)(c)(d);
+WORLD THIRTEEN (11/26, round eleven, rule 482): BUILD 11/26zj - THE CROWD IS SEATED ONCE, BUILT, NOT YET SEEN. Record:
+records/BOHEMIA_WORLD_THIRTEEN_THE_CROWD_IS_SEATED_ONCE_11_26_26.md. VOTE world13-the-crowd-is-seated-once-11-26 (stand_in).
+- rigMixFor once a frame a group (RIG_MIX_ONCE_A_FRAME); engine/bohemia_wear.js __A_SHEET_IS_MASKED_OFF_THE_PAGE__ (a worker makes
+  the sheet masks; CHARACTER's file, a marked block); the borders' names once a frame; the hubs kept 20 s. The map's middle frame at
+  full speed 5.7 to 4.3 ms; the 112 ms first-sheet frame gone. Gates: the map never waits 7/0 (W7 new), a sheet is read once 4/0
+  (its M1, M2 wait for the mask now).
+- NEXT, MINE: the ground's full repaint every 4 s while moving (mapGroundBegin, about 10 ms, one of 65 ms at full speed; R.drawRoads
+  into it); then the map's look (rule 482).
+
+WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/26 LATEST -- (the START head until 11/26zj) round ten, rule 480: BUILD 11/26u - THE MAP NEVER WAITS ON THE GLASS, BUILT, NOT YET SEEN (rule 480(b)(c)(d);
 rows 661 (the page half fixed at its source), 723, 731 (the map half)). Record: records/BOHEMIA_WORLD_THIRTEEN_THE_MAP_NEVER_WAITS_ON_THE_GLASS_11_26_26.md.
 VOTE world13-the-map-never-waits-on-the-glass-11-26 (stand_in).
 - slices/BOHEMIA_CITY_WORLD.html: __A_SPRITE_IS_MADE_IN_MEMORY__ (MAP_SPRITE_MEM, mapSpriteCtx: rigCanvas, half2, epx2, outline1 in

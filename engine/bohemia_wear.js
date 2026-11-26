@@ -128,6 +128,7 @@
     if (!u || !W || !H || W * H > 16777216) return null;
     var k = String(u).replace(/^https?:\/\/[^/]+/, '') + '|' + W + 'x' + H, m = MASKS.by[k];
     if (m) { MASKS.used++; return m; }
+    if (!root.BohemiaWear.maskAtOnce && !MASK_OLD[k]) { var __mo = maskOffPage(img, k, W, H); if (__mo !== null) return __mo; }   /* __A_SHEET_IS_MASKED_OFF_THE_PAGE__ */
     var now = typeof performance !== 'undefined' ? performance.now() : Date.now();
     if (now - MASKS.lastAt < 16) return 'wait';   /* one new sheet a frame: the rest wait a frame and he wears it where he just was */
     MASKS.lastAt = now;
@@ -144,6 +145,48 @@
     MASKS.ms += (typeof performance !== 'undefined' ? performance.now() : Date.now()) - t0;
     while (MASKS.order.length > MASK_MAX) delete MASKS.by[MASKS.order.shift()];
     return m;
+  }
+  /* __A_SHEET_IS_MASKED_OFF_THE_PAGE__ (WORLD THIRTEEN 11/26, a marked block in CHARACTER's file, as PLUMBER 7's above; rule 480(c),
+     the map's draw loop). MEASURED (the demo, a phone, the whole valley sliding, full speed): the first time the map met a sheet its
+     whole mask was made in one frame: the 2048-wide picture unpacked on the page's thread to be read and 6 million pixels read: a
+     112 ms frame at full speed, about 450 ms on a phone slowed 4x, once for every sheet (24 kept). Unpacking it off the thread and
+     reading it a strip a frame was tried and taken back: where the GPU draws, the unpacked picture sat on the GPU and every strip's
+     read waited for the whole GPU queue (a 5.3 s task at 4x). NOW a worker fetches the sheet's file, unpacks it and reads its mask on
+     its own thread and hands back the bits; until they land the anchor waits as it always did ('wait': he wears it where he just
+     was). The same file, the same bits, the same answer. A worker that cannot (no worker, a page from disk) leaves that sheet to the
+     old way. root.BohemiaWear.maskAtOnce = true is the old way for every sheet. */
+  var JOBS = {}, MASK_WORKER = null, MASK_OLD = {};
+  function maskWorker() {
+    if (MASK_WORKER !== null) return MASK_WORKER;
+    MASK_WORKER = false;
+    try {
+      if (typeof Worker !== 'function' || typeof OffscreenCanvas !== 'function' || typeof Blob !== 'function' || typeof URL === 'undefined') return false;
+      var src = 'onmessage=function(e){var q=e.data;fetch(q.url).then(function(r){if(!r.ok)throw new Error("http "+r.status);return r.blob();})'
+        + '.then(function(b){return createImageBitmap(b);}).then(function(bm){var W=q.W,H=q.H;if(bm.width!==W||bm.height!==H)throw new Error("size");'
+        + 'var S=512,oc=new OffscreenCanvas(W,Math.min(S,H)),g=oc.getContext("2d",{willReadFrequently:true}),bits=new Uint32Array(Math.ceil(W*H/32));'
+        + 'for(var y0=0;y0<H;y0+=S){var hh=Math.min(S,H-y0);g.clearRect(0,0,W,S);g.drawImage(bm,0,y0,W,hh,0,0,W,hh);var d=g.getImageData(0,0,W,hh).data,base=y0*W;'
+        + 'for(var i=0,n=W*hh,p=3;i<n;i++,p+=4)if(d[p]>=128){var x=base+i;bits[x>>>5]|=(1<<(x&31));}}try{bm.close();}catch(_){}'
+        + 'postMessage({k:q.k,bits:bits},[bits.buffer]);}).catch(function(err){postMessage({k:q.k,err:String(err&&err.message||err)});});};';
+      var w = new Worker(URL.createObjectURL(new Blob([src], { type: 'text/javascript' })));
+      w.onmessage = function (e) {
+        var q = e.data || {}, j = JOBS[q.k]; delete JOBS[q.k]; if (!j) return;
+        if (q.err || !q.bits) { MASK_OLD[q.k] = q.err || 'no bits'; return; }
+        MASKS.by[q.k] = { w: j.W, h: j.H, bits: q.bits }; MASKS.order.push(q.k); MASKS.made++; MASKS.offPage = (MASKS.offPage | 0) + 1;
+        MASKS.ms += (typeof performance !== 'undefined' ? performance.now() : Date.now()) - j.t0;
+        while (MASKS.order.length > MASK_MAX) delete MASKS.by[MASKS.order.shift()];
+      };
+      w.onerror = function () { for (var k in JOBS) MASK_OLD[k] = 'worker error'; JOBS = {}; MASK_WORKER = false; };
+      MASK_WORKER = w;
+    } catch (e) { MASK_WORKER = false; }
+    return MASK_WORKER;
+  }
+  function maskOffPage(img, k, W, H) {
+    if (JOBS[k]) return 'wait';
+    var w = maskWorker(), u = img.currentSrc || img.src;
+    if (!w || !/^https?:/i.test(String(u))) { MASK_OLD[k] = 'no worker'; return null; }
+    JOBS[k] = { W: W, H: H, t0: typeof performance !== 'undefined' ? performance.now() : Date.now() };
+    try { w.postMessage({ k: k, url: String(u), W: W, H: H }); } catch (e) { delete JOBS[k]; MASK_OLD[k] = 'post'; return null; }
+    return 'wait';
   }
   function cellAlpha(m, x, y, w, h) {   /* the cell as find() reads a cell: its alpha at every fourth byte */
     var d = new Uint8Array(w * h * 4), W = m.w, b = m.bits;

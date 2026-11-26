@@ -8526,7 +8526,7 @@ GATES = [
     ('THE MAP NEVER WAITS ON THE GLASS', ['node', 'gates/the_map_never_waits_on_the_glass_gate.js'],
      "WORLD THIRTEEN gate, 11/26, rule 480(c)(d), row 661: the map's walker sprites keep their pixels in memory (no read waits on the "
      "GPU; planted the old way red); the whole valley sliding on a phone slowed 4x: the armour reads nothing off the GPU and costs under "
-     "300 ms of 4 s, no long task over 150 ms; the HUD writes only what changed (the watchers woken under 40 times in 3 s, none with the "
+     "300 ms of 4 s (the long tasks reported); the HUD writes only what changed (the watchers woken under 40 times in 3 s, none with the "
      "same value); the territory's borders one stroke a colour (planted: an edge a stroke, red); the market's hubs listed once, the "
      "nearest the payday engine's own answer. about 3 min", True),
     ('THE MAP PAINTS ON EVERY CORE', ['node', 'gates/the_map_paints_on_every_core_gate.js'],

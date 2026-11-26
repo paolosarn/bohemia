@@ -1380,11 +1380,10 @@ VOTE jobs-jobs-that-fit-the-crew-11-10 (STAND-IN), sha da588c127. Record records
 The whole block: handoffs/JOBS.md.
 [bb a Battle Brothers contract is one budget spent on each enemy's own cost; ours now spends it the same way and still shows the crew's own odds in red]
 [analog horror: the board in the Network's camp still lists the hyenas as three red stars; the muralist only asks for three of them now]
-WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/26 LATEST -- BUILD 11/26u - THE MAP NEVER WAITS ON THE GLASS, BUILT, NOT YET SEEN (rule
-480(b)(c)(d); rows 661, 723, 731): on a phone slowed 4x the whole valley sliding went from about 2 frames a second to about 12 (its
-worst frame 1.6 s to 0.35 s): the walkers' sprites keep their pixels in memory (no read waits on the GPU), the HUD writes only what
-changed, the territory's borders are one stroke a colour (19,134 canvas calls in one frame before), the market's hubs listed once.
-Before: 11/20c THE PLACES ARE LAID OUT ON THE MAP, 11/18s THE LAKE HAS ITS RING.
+WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/26 LATEST -- BUILD 11/26zj - THE CROWD IS SEATED ONCE, BUILT, NOT YET SEEN (rules 482,
+480(c)): the zoomed-out map's own work a frame 5.7 to 4.3 ms at full speed (the crowd's seats worked out once a frame, not once a man);
+the armour's first look at a sheet (a 112 ms frame) made off the page by a worker, the same answers.
+Before: 11/26u THE MAP NEVER WAITS ON THE GLASS, 11/20c THE PLACES ARE LAID OUT ON THE MAP.
 The whole block: handoffs/WORLD_THIRTEEN.md.
 
 FIXES TWO (fixes-two-01gkdyuv): 11/11 LATEST -- BUILD 11/11l - HIS LETTERS STAY HIS, BUILT, NOT YET SEEN (the red debt rows, round one:

@@ -43,14 +43,14 @@ const SHEETS = ['/slices/rig_idles/map_town.webp', '/slices/rig_mix/town.png', '
         for (let n = 0; n < 250; n++) {
           const w = 64 + Math.floor(rnd() * 64), h = 80 + Math.floor(rnd() * 60), x = Math.floor(rnd() * (a.naturalWidth - w)), y = Math.floor(rnd() * (a.naturalHeight - h));
           W.cellReads = true; const r1 = W.anchor(a, x, y, w, h, 25);
-          W.cellReads = false; let r2 = W.anchor(b2, x, y, w, h, 25); if (r2 === undefined) { await wait(); r2 = W.anchor(b2, x, y, w, h, 25); }
+          W.cellReads = false; let r2 = W.anchor(b2, x, y, w, h, 25); for (let t = 0; t < 150 && r2 === undefined; t++) { await wait(); r2 = W.anchor(b2, x, y, w, h, 25); }   /* WORLD THIRTEEN 11/26: the mask is made off the page (__A_SHEET_IS_MASKED_OFF_THE_PAGE__) and lands a few frames later: wait for it, up to 3 s */
           if (JSON.stringify(r1) === JSON.stringify(r2)) same++; else diff++; if (r2) found++;
         }
         m1.push({ u: u.split('/').slice(-2).join('/'), same, diff, found });
       }
       /* M2: forty frames of one fresh sheet */
       await wait(); const made0 = M.made, c = await load(sheets[3]); let got = 0;
-      for (let n = 0; n < 40; n++) { let r = W.anchor(c, 112 * (n % 30), 161 * (n % 8), 112, 161, 25); if (r === undefined) { await wait(); r = W.anchor(c, 112 * (n % 30), 161 * (n % 8), 112, 161, 25); } if (r !== undefined) got++; }
+      for (let n = 0; n < 40; n++) { let r = W.anchor(c, 112 * (n % 30), 161 * (n % 8), 112, 161, 25); for (let t = 0; t < 150 && r === undefined; t++) { await wait(); r = W.anchor(c, 112 * (n % 30), 161 * (n % 8), 112, 161, 25); } if (r !== undefined) got++; }
       const m2 = { masks: M.made - made0, answered: got };
       /* M3: a canvas */
       await wait(); const cv = document.createElement('canvas'); cv.width = 120; cv.height = 160; const g = cv.getContext('2d'); g.fillStyle = '#000'; g.fillRect(40, 10, 40, 140);

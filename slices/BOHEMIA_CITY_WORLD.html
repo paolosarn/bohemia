@@ -50155,24 +50155,36 @@ function rigMixFor(group, key, i, peek){
   if (window.__RIG_CAST_OFF || !group || !rigMixIndex()) return null;
   group = String(group).toLowerCase();
   var names = RIG_MIX.index.pools[group]; if (!names || !names.length) return null;
-  if (!RIG_MIX.now || RIG_MIX.now.d !== MAP_DREW) { RIG_MIX.last = RIG_MIX.now ? RIG_MIX.now.used : {}; RIG_MIX.now = { d: MAP_DREW, used: {} }; }
-  var L = [], at = {};
+  if (!RIG_MIX.now || RIG_MIX.now.d !== MAP_DREW) { RIG_MIX.last = RIG_MIX.now ? RIG_MIX.now.used : {}; RIG_MIX.now = { d: MAP_DREW, used: {}, pools: {} }; }
+  /* __THE_CROWD_IS_SEATED_ONCE_A_FRAME__ (WORLD THIRTEEN 11/26, rule 482, the map's draw loop): who can be seated (each sheet's looks
+     less his company's, and for a town the gangs' men once every sheet is in) was worked out again for every man in the crowd, every
+     frame: every sheet, every look, his company searched for each (1.2 ms of a 5.7 ms frame at the whole valley, full speed). It is
+     the same for the whole frame (MAP_DREW is new each frame), so it is worked out once a frame for each group; the seat each man takes
+     is chosen as before. RIG_MIX_ONCE_A_FRAME = false is the old way. */
+  var __pc = (RIG_MIX_ONCE_A_FRAME && RIG_MIX.now.pools) ? RIG_MIX.now.pools[group] : null, L, at, __M = null;
+  if (__pc) { L = __pc.L; at = __pc.at; __M = __pc.M; }
+  else {
+  L = []; at = {};
   names.forEach(function(n){
     var S = RIG_MIX.sheets[n] || (RIG_MIX.sheets[n] = { state: 0, meta: null, img: null, sets: {}, drew: 0 });
     rigSheetLoad(S, 'rig_mix/' + n);
     if (S.state === 2) S.meta.gangs.forEach(function(l){ if (!mixMine(l)) { L.push(l); at[l] = S; } });   /* your eleven are in your company, not in a crowd (RUN TWO 10/24) */
   });
+  }
   if (!L.length) return null;
   if (peek) return rigSheetSet(at[L[0]], L[0]);   /* 'is anybody in yet': a question, not a person on the screen */
   var used = RIG_MIX.now.used, seat = RIG_MIX.seats[key];
   /* a crowd that has used up the places' people borrows from a gang whose sheet is already in for its parties: a man in
      a crowd may wear his gang's colours, and no sheet is fetched for a crowd alone */
-  var M = L;
+  var M = __M || L;
+  if (!__M) {
   /* and only once the places' own sheets are all in (RUN 10/25): a crowd seated while one town sheet of four was in borrowed
      gang men and kept them (a seat is sticky), and the gangs' own parties then ran out of men and drew one twice */
   var allIn = names.every(function(n){ var S = RIG_MIX.sheets[n]; return S && S.state >= 2; });
   if (group === 'town' && allIn) Object.keys(RIG_MIX.sheets).forEach(function(n){ var S = RIG_MIX.sheets[n];
     if (S.state === 2 && names.indexOf(n) < 0) S.meta.gangs.forEach(function(l){ if (!at[l] && !mixMine(l)) { at[l] = S; M = M === L ? L.slice() : M; M.push(l); } }); });
+    if (RIG_MIX_ONCE_A_FRAME && RIG_MIX.now.pools) RIG_MIX.now.pools[group] = { L: L, at: at, M: M };
+  }
   if (!seat || used[seat] || !at[seat]) {
     seat = null;
     var k0 = ((i % L.length) + L.length) % L.length;
@@ -50188,6 +50200,7 @@ function rigMixFor(group, key, i, peek){
   if (set) at[seat].drew++;
   return set;
 }
+var RIG_MIX_ONCE_A_FRAME = true;   /* __THE_CROWD_IS_SEATED_ONCE_A_FRAME__ */
 function mixMine(l){ var c = RIG_MIX.index && RIG_MIX.index.company; return !!(c && c.indexOf(l) >= 0); }
 function rigMixNum(p, idx){
   var k = p && p.id != null ? String(p.id) : 'i' + idx, h = 0;
@@ -54076,7 +54089,7 @@ function renderCity(){
          width set again each time. NOW each holder's edges (his own, or theirs) go into ONE path and are stroked once: the same edges,
          the same ink, alpha and width; where two of one holder's edges meet, their corner is painted once instead of twice (no brighter
          dot at the joint). MAP_TURF_ONE_STROKE = false is the old way (a checker's plant). */
-      var __grp = MAP_TURF_ONE_STROKE ? {} : null, __norm = {};
+      var __grp = MAP_TURF_ONE_STROKE ? {} : null, __norm = {}, __ownOf = {}, __tmN = __tm ? __tn(__tm) : '';
       for(var __ty = 0; __ty < __N; __ty++) for(var __tx = 0; __tx < __N; __tx++){
         var __me = __tg.own[__ty * __N + __tx];
         if(!__me) continue;
@@ -54086,7 +54099,7 @@ function renderCity(){
         var __q = iso(__tx, __ty, ox, oy);
         if(__q.sx < -60 || __q.sx > CVW + 60) continue;
         if(__q.sy < -60 || __q.sy > CVH + 60) continue;
-        var __own = !!(__tm && __tn(__me) === __tn(__tm));
+        var __own = __grp ? (__tm ? (__ownOf[__me] !== undefined ? __ownOf[__me] : (__ownOf[__me] = (__tn(__me) === __tmN))) : false) : !!(__tm && __tn(__me) === __tn(__tm));   /* __ONE_STROKE_A_COLOUR__: each holder's name read once a frame, not once an edge */
         if(__grp){ var __ik = __holderInk(__me, __own); if(!(__ik in __norm)){ g.strokeStyle = __ik; __norm[__ik] = g.strokeStyle; }
           __drew[__me] = __norm[__ik];
           var __gk = __ik + (__own ? '|m' : ''), __TG = __grp[__gk] || (__grp[__gk] = { ink: __ik, own: __own, p: new Path2D() });
@@ -76057,12 +76070,12 @@ var MKT_LEDGER=null, MKT_HUB=null, MKT_HUB_KEY=null, MKT_BOUGHT=null, MKT_LAST=n
    slowed four times, the map sliding): the phone's feed asks for the shelf every beat, and while the marker moves the key above
    changes every beat, so every beat listed the valley's hubs again from nothing (the towns' seats derived, the whole valley read
    for its swap meets): 7 in 100 of the page thread at every zoom, a hitch of about 35 ms twice a second. The list is now kept for
-   ten beats on the same valley and the nearest is found on it with nearestHub's own arithmetic, a new answer each time as before;
+   forty beats (20 s) on the same valley and the nearest is found on it with nearestHub's own arithmetic, a new answer each time as before;
    a cleared key (MKT_HUB_KEY = null, as the market gates do) lists them again at once. */
-var MKT_HUBS=null, MKT_HUBS_AT=-1e9, MKT_HUBS_OM=null, MKT_HUBS_SEED=null;
+var MKT_HUBS=null, MKT_HUBS_AT=-1e9, MKT_HUBS_OM=null, MKT_HUBS_SEED=null, MKT_HUBS_KEEP_MS=20000;   /* forty beats: a town's seat moves with its faction's tier, days apart */
 function mktHubsKept(){
   var now=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
-  return !!(MKT_HUBS && MKT_HUBS_OM===om && MKT_HUBS_SEED===seed && now-MKT_HUBS_AT<=5000);
+  return !!(MKT_HUBS && MKT_HUBS_OM===om && MKT_HUBS_SEED===seed && now-MKT_HUBS_AT<=MKT_HUBS_KEEP_MS);
 }
 function mktHub(){
   var key=seed+':'+city.x+','+city.y+':'+MODE;
