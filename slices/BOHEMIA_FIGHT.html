@@ -7979,7 +7979,7 @@ function aimLines(u, t) {
   if (bd && bd.hit < 0) out.push(wfill(bd.tiles > 1 ? BAND_SAYS.near : BAND_SAYS.close, { arm: armName(u, u.weapon), n: -bd.hit, tiles: bd.tiles }));
   if (bd && bd.dmg < 1) out.push(wfill(BAND_SAYS.spread, { arm: armName(u, u.weapon), tiles: bd.tiles, pct: Math.round(bd.dmg * 100) }));
   if (p.blows >= R('ours.weapon_says_weak').blows_at_least) {
-    const aw = armourWord(t), n = isFinite(p.blows) ? p.blows + ' hits to drop him.' : 'It will not drop him.';
+    const aw = armourWord(t), n = isFinite(p.blows) ? nWord(p.blows, 'hit', 'hits') + ' to drop him.' : 'It will not drop him.';   /* __EVERY_LINE_AGREES__ */
     out.push('Your ' + armName(u, p.arm) + (aw ? ' barely dents his ' + aw + '. ' : ' barely hurts him. ') + n);
     const best = FIGHT.alive('you').filter(function (f) { return f !== u; }).map(function (f) { return { f: f, p: FIGHT.preview(f, t) }; })
       .filter(function (q) { return q.p.blows < p.blows; }).sort(function (a, b) { return a.p.blows - b.p.blows; })[0];
@@ -7994,7 +7994,7 @@ function reachWords(u) {
   let card = null; try { card = FIGHT.isRanged(w) ? FIGHT.bandCard(u, w) : null; } catch (_e) {}
   const b = card && card.best;
   const best = b && (b[0] !== card.lo || b[1] !== card.hi) ? wfill(b[0] === b[1] ? BAND_SAYS.bestOne : BAND_SAYS.best, { a: b[0], b: b[1] }) : '';
-  const far = card && card.hi > card.top ? card.hi + ' tiles from up here' : w.range_max + ' tiles';   /* a roof's storeys reach further (rule 428(b)) */
+  const far = card && card.hi > card.top ? nWord(card.hi, 'tile', 'tiles') + ' from up here' : nWord(w.range_max, 'tile', 'tiles');   /* __EVERY_LINE_AGREES__ */   /* a roof's storeys reach further (rule 428(b)) */
   return gun ? ' Your ' + armName(u, w) + ': ' + lo + ' to ' + far + best + '.' : FIGHT.isRanged(w) ? ' Your ' + armName(u, w) + ': up to ' + far + best + '.' : ' Your ' + armName(u, w) + ' reaches the next tile.';
 }
 function aimSay(u, t) {
@@ -8627,7 +8627,7 @@ function startAnimHeard(a) {
     if (e.t === 'poisoned') pop(u, 'SLOWED', '#a8e07c', false, u.name + ' takes a needle: one step less, slower and half blind for 3 turns.');   /* THE NEEDLE (FACTIONS 11/3, draft:true) */
     /* THE WHIP'S MARKS (ARMORY 2, rule 320; words draft:true): the bleeding, the stun, the disarm, the cell, the cut, the crack */
     if (u) { const by = e.by ? FIGHT.byId(e.by) : null, bn = by ? by.name : 'their man';
-      if (e.t === 'bleeding') pop(u, 'BLEEDING', '#d04030', false, u.name + ' is bleeding: -' + (R('ours.whip').bleed.per_turn * e.stacks) + ' a turn for ' + R('ours.whip').bleed.turns + ' turns.');
+      if (e.t === 'bleeding') pop(u, 'BLEEDING', '#d04030', false, u.name + ' is bleeding: -' + (R('ours.whip').bleed.per_turn * e.stacks) + ' a turn for ' + nWord(R('ours.whip').bleed.turns, 'turn', 'turns') + '.');   /* __EVERY_LINE_AGREES__ */
       if (e.t === 'bled') pop(u, '-' + e.hp + ' blood', '#c03020', false, u.name + ' bleeds: -' + e.hp + ' health.');
       if (e.t === 'stunned') pop(u, 'STUNNED', '#9ec8ff', true, bn + "'s live wire drops " + u.name + '. He loses his next turn.');
       if (e.t === 'stunned_turn') pop(u, 'stunned', '#9ec8ff', false, u.name + ' is stunned and loses his turn.');
@@ -8638,7 +8638,7 @@ function startAnimHeard(a) {
 
     /* THE MAG SEATS (rule 124; the approved 'mag_home': 'the beat where you cannot shoot, and the player has to HEAR it') */
     if (e.t === 'reload' && u) { if (a.firstSent === undefined) sfx('mag_home', { gun: u.job, side: u.side }); pop(u, '', '#f0d296', false, u.name + ' reloads.'); u._reloadAt = performance.now();   /* __WHAT_A_MAN_HOLDS__: he reloads on his body (ANIMATION) */
-      if (crewControlled(u)) { const r = FIGHT.rounds(u); say('Loaded' + (r && r.of > 1 ? ': ' + r.left + ' rounds.' : '.')); } }
+      if (crewControlled(u)) { const r = FIGHT.rounds(u); say('Loaded' + (r && r.of > 1 ? ': ' + nWord(r.left, 'round', 'rounds') + '.' : '.')); } }   /* __EVERY_LINE_AGREES__: a reload loads only what he carries (rule 478), so one round is a line now */
     if (e.t === 'dry' && u) pop(u, 'NO ROUNDS', '#d0a070', false, u.name + ' is out of rounds: the gun goes on its sling.');   /* rule 478, draft: a flash on him; the words go to the fight's kept feed (rule 67), never on the glass */
     if (e.t === 'rally') pop(u, 'rallies', '#a8d08a');
     if (e.t === 'pinned' && u) pop(u, 'PINNED', '#e8c39c', false, u.name + ' is down under it. He has to fight his way up.');   /* FIVE MORE BEASTS, draft:true */
@@ -11736,7 +11736,10 @@ function windBack(n) {
 }
 function hud() {
   const S = FIGHT.S, u = FIGHT.current();
-  document.getElementById('round').textContent = 'R' + S.round + (S.night ? ' NIGHT' : '');
+  /* __NEVER_CHOPPY__ (FIGHT SCREEN THREE 11/26, rule 480(c)): the card's refresh writes only what changed (setting the same value still marks
+     the page dirty, and the measures after it then pay for a layout) */
+  const put = function (e, k, v) { if (e.dataset[k] !== v) e.dataset[k] = v; }, sty = function (e, k, v) { if (e.style[k] !== v) e.style[k] = v; }, prop = function (e, k, v) { if (e.style.getPropertyValue(k) !== v) e.style.setProperty(k, v); };
+  const rnd = document.getElementById('round'), rndT = 'R' + S.round + (S.night ? ' NIGHT' : ''); if (rnd.textContent !== rndT) rnd.textContent = rndT;
   /* the turn strip: faces in initiative order on the tape, the one acting larger (rule 67a) */
   const ord = document.getElementById('order'), line = S.order.slice(S.idx).map(FIGHT.byId).filter(FIGHT.onField).slice(0, 9);
   const okey = line.map(function (v) { return v.id + v.morale[0] + (FIGHT.shown(v) ? '' : '?'); }).join(',');
@@ -11747,10 +11750,10 @@ function hud() {
   const lineup = S.deploy ? (UI.dsel || S.units.filter(function (v) { return v.side === 'you' && FIGHT.onField(v); }).sort(function (a, b) { return (b.main ? 1 : 0) - (a.main ? 1 : 0); })[0] || null) : null;
   const show = (UI.pend && UI.pend.target) || lineup || u || S.units[0];
   const fkey = show.id + ':' + show.morale + ':' + FIGHT.onField(show);
-  if (UI.faceKey !== fkey) { UI.faceKey = fkey; drawPortrait(document.getElementById('face').getContext('2d'), show, document.getElementById('face').width); }
+  if (UI.faceKey !== fkey) { UI.faceKey = fkey; UI.faceN = (UI.faceN | 0) + 1; drawPortrait(document.getElementById('face').getContext('2d'), show, document.getElementById('face').width); }   /* faceN: every draw counted, so the phone copies the face again exactly when it was drawn again (__NEVER_CHOPPY__) */
   /* A NAME FITS THE FIGHT BAR (UI [eyes: the cut name], rule 150, EYES 10/24 item 25: 'OCTAVIO ELLI'): the whole name when
      it fits its plate, else the first name ('EL GUERO' keeps its EL), never a word cut in half */
-  const cnm = document.getElementById('cnm'), nmk = show.name + (show.main ? ' *' : ''), nmw = nmk + '|' + cnm.parentNode.clientWidth + '|' + document.fonts.status;
+  const cnm = document.getElementById('cnm'), nmk = show.name + (show.main ? ' *' : ''), nmw = nmk + '|' + W + 'x' + H + '|' + document.fonts.status;   /* __NEVER_CHOPPY__: the plate's width follows the glass; read only when the name or the glass changes */
   if (cnm.dataset.k !== nmw) {
     cnm.dataset.k = nmw; cnm.textContent = nmk; cnm.style.fontSize = cnm.style.letterSpacing = ''; cnm.dataset.full = show.name;   /* __THE_MANS_CARD_ON_THE_PHONE__: his whole name, for a card that can give it two lines */
     if (cnm.scrollWidth > cnm.clientWidth + 1) {
@@ -11761,26 +11764,35 @@ function hud() {
     }
   }
   const fm = FIGHT.fatMax(show), pct = function (a, b) { return Math.max(0, Math.min(100, 100 * a / Math.max(1, b))) + '%'; };
-  const hpBar = document.getElementById('bhp'); hpBar.style.width = pct(show.hp, show.hpMax); hpBar.style.background = show.side === 'you' ? '#8fae6a' : '#c4553f';
-  const ab = document.getElementById('barm'); ab.style.width = pct(show.armB + show.armH, show.armBMax + show.armHMax); ab.style.background = '#9aa6b0';
-  const fb = document.getElementById('bfat'); fb.style.width = pct(show.fat, fm); fb.style.background = '#6a8fb0';
+  const hpBar = document.getElementById('bhp'); sty(hpBar, 'width', pct(show.hp, show.hpMax)); sty(hpBar, 'background', show.side === 'you' ? 'rgb(143, 174, 106)' : 'rgb(196, 85, 63)');
+  const ab = document.getElementById('barm'); sty(ab, 'width', pct(show.armB + show.armH, show.armBMax + show.armHMax)); sty(ab, 'background', 'rgb(154, 166, 176)');
+  const fb = document.getElementById('bfat'); sty(fb, 'width', pct(show.fat, fm)); sty(fb, 'background', 'rgb(106, 143, 176)');
   /* the numbers on these bars are UI's (bohemia_ui_materials.js fightBars), repainted when a bar's style changes; two men with the
      same widths kept the last man's number (his bar said 0/74 on a man of 73, measured 10/26), so each bar carries its man's numbers */
-  hpBar.style.setProperty('--n', '"' + show.id + ' ' + show.hp + '/' + show.hpMax + '"'); ab.style.setProperty('--n', '"' + show.id + ' ' + (show.armB + show.armH) + '/' + (show.armBMax + show.armHMax) + '"');
-  fb.style.setProperty('--n', '"' + show.id + ' ' + Math.round(show.fat) + '/' + fm + '"');
+  prop(hpBar, '--n', '"' + show.id + ' ' + show.hp + '/' + show.hpMax + '"'); prop(ab, '--n', '"' + show.id + ' ' + (show.armB + show.armH) + '/' + (show.armBMax + show.armHMax) + '"');
+  prop(fb, '--n', '"' + show.id + ' ' + Math.round(show.fat) + '/' + fm + '"');
   /* __THE_LAST_HIT_ON_THE_CARD__: what the blows took off him since his last turn ended, as a share of the bar (the phone's card draws it) */
-  hpBar.dataset.lost = show._hpEnd != null ? (100 * Math.max(0, Math.min(show._hpEnd, show.hpMax) - Math.max(0, show.hp)) / Math.max(1, show.hpMax)).toFixed(1) : '0';
-  ab.dataset.lost = show._armEnd != null ? (100 * Math.max(0, show._armEnd - (show.armB + show.armH)) / Math.max(1, show.armBMax + show.armHMax)).toFixed(1) : '0';
+  put(hpBar, 'lost', show._hpEnd != null ? (100 * Math.max(0, Math.min(show._hpEnd, show.hpMax) - Math.max(0, show.hp)) / Math.max(1, show.hpMax)).toFixed(1) : '0');
+  put(ab, 'lost', show._armEnd != null ? (100 * Math.max(0, show._armEnd - (show.armB + show.armH)) / Math.max(1, show.armBMax + show.armHMax)).toFixed(1) : '0');
   const pi = document.getElementById('picons'), pk = show.id + ':' + show.perks.join(',');
   if (pi.dataset.key !== pk) { pi.dataset.key = pk; pi.textContent = ''; show.perks.forEach(function (id) { pi.appendChild(perkArt(id, 16)); }); }
-  const ap = document.getElementById('ap'); ap.textContent = '';
-  for (let i = 0; i < show.apTurn; i++) { const q = document.createElement('i'); if (i < show.ap) q.className = 'on'; ap.appendChild(q); }
+  /* __NEVER_CHOPPY__ (FIGHT SCREEN THREE 11/26, VAMILY rule 480(c)): the pips are laid again only when his AP changes, never on every
+     refresh (nine nodes torn down and made again every sixth frame dirtied the page, and the reads after it forced a layout each time) */
+  const ap = document.getElementById('ap'), apk = show.id + ':' + show.ap + '/' + show.apTurn;
+  if (ap.dataset.k !== apk || ap.children.length !== show.apTurn) { ap.dataset.k = apk; ap.textContent = '';
+    for (let i = 0; i < show.apTurn; i++) { const q = document.createElement('i'); if (i < show.ap) q.className = 'on'; ap.appendChild(q); } }
   /* __THE_ROUNDS_ON_THE_CARD__ (FIGHT SCREEN THREE 11/22; VAMILY rule 478(a): 'every gun carries its own rounds, shown on the man's card';
      Battle Brothers shows a ranged man's ammo on his own bar): the gun in his hands, the rounds left of what it holds (FIGHT.rounds, the count
      the board's mark over him and the aim line already read), and dry at none; the phone's card draws them. The count is COMBAT FOUR's */
-  const rdc = FIGHT.onField(show) ? FIGHT.rounds(show) : null;
-  ap.dataset.rounds = rdc && rdc.of > 0 ? Math.max(0, rdc.left) + '/' + rdc.of : '';
-  ap.dataset.dry = rdc && rdc.of > 0 && rdc.left <= 0 ? '1' : '';
+  /* 11/26 (rule 480(b), after COMBAT FOUR's __NO_AMMO_NO_SHOT__): what he CARRIES for that gun too (FIGHT.carried, a full load's share: the
+     magazine is filled from it), and OUT apart from EMPTY: a gun with none left anywhere is slung and his fists are up, so the card shows the
+     slung gun's cases out, never nothing; a magazine at none with rounds still carried is a reload, not out */
+  const outGun = show.weapon && show.weapon.fists && show.slung && show.slungState && show.slungState.rounds != null && show.slungState.rounds <= 0 ? show.slung : null;
+  const rdc = !FIGHT.onField(show) ? null : outGun ? { left: 0, of: outGun.mag || 1 } : FIGHT.rounds(show), cry = FIGHT.onField(show) && !outGun && FIGHT.carried ? FIGHT.carried(show) : null;
+  put(ap, 'rounds', rdc && rdc.of > 0 ? Math.max(0, rdc.left) + '/' + rdc.of : '');
+  put(ap, 'dry', rdc && rdc.of > 0 && rdc.left <= 0 ? '1' : '');
+  put(ap, 'carry', rdc && rdc.of > 0 && cry && cry.of > 0 ? Math.max(0, cry.left) + '/' + cry.of : '');
+  put(ap, 'out', outGun ? '1' : '');
   /* Battle Brothers' numbers (rule 125(b)): the AP and the wind left, where he already looks for them */
   /* ICONS, NOT NUMBERS (rule 224, newest; it amends 125(b)): the AP he spends said once (the pips are its picture); the wind left
      is the fatigue bar's own number, so it is no longer said twice */
@@ -11883,7 +11895,7 @@ function hud() {
   }
   if (window.innerWidth !== W || window.innerHeight !== H) resize();   /* a phone's viewport can settle a frame late: re-measure, never keep a stale stop */
   else if (hudEdges() && UI.board) fitStops();
-  const say = document.getElementById('say'); placeSay(say); say.style.display = say.textContent ? 'block' : 'none';
+  const say = document.getElementById('say'); placeSay(say); const sayD = say.textContent ? 'block' : 'none'; if (say.style.display !== sayD) say.style.display = sayD;
   const dep = FIGHT.S.deploy && !UI.auto, be = document.getElementById('bend'), act = !dep && mine ? nextAct(u) : null;
   const label = dep ? 'FIGHT' : act ? act.label : 'END TURN', tn = Array.from(be.childNodes).filter(function (n) { return n.nodeType === 3; })[0];
   if (tn && tn.textContent !== label) tn.textContent = label;
@@ -11979,18 +11991,22 @@ function actMarks() {
    has room for it (two lines of the receipt), else above the bar as before */
 const SAY_GAP = 10, SAY_ROOM = 180;
 function placeSay(say) {
+  /* __NEVER_CHOPPY__ (FIGHT SCREEN THREE 11/26, rule 480(c)): measured first, written only where it moved: it cleared and set its place on
+     every refresh, then measured the strip after the write (a layout forced each time, on its side) */
   const wide = (document.documentElement.dataset.screen || 'phone_portrait') !== 'phone_portrait';
-  say.classList.remove('instrip'); say.style.top = say.style.left = say.style.width = ''; say.style.bottom = (BOTH + 8) + 'px';
-  if (!wide) return;
-  const o = document.getElementById('order').getBoundingClientRect(), a = document.getElementById('bauto').getBoundingClientRect(), room = a.left - o.right - SAY_GAP * 2;
-  if (room < SAY_ROOM) return;
-  say.classList.add('instrip'); say.style.bottom = 'auto'; say.style.top = (o.top + o.height / 2) + 'px';
-  say.style.left = (o.right + SAY_GAP) + 'px'; say.style.width = room + 'px';
+  let want = { strip: false, top: '', left: '', width: '', bottom: (BOTH + 8) + 'px' };
+  if (wide) { const o = document.getElementById('order').getBoundingClientRect(), a = document.getElementById('bauto').getBoundingClientRect(), room = a.left - o.right - SAY_GAP * 2;
+    if (room >= SAY_ROOM) want = { strip: true, top: (o.top + o.height / 2) + 'px', left: (o.right + SAY_GAP) + 'px', width: room + 'px', bottom: 'auto' }; }
+  if (say.classList.contains('instrip') !== want.strip) say.classList.toggle('instrip', want.strip);
+  ['top', 'left', 'width', 'bottom'].forEach(function (k) { if (say.style[k] !== want[k]) say.style[k] = want[k]; });
 }
 /* ICONS, NOT NUMBERS ON THE CARDS (rule 224): a bar filled to what is left with the number on it once (cbar), rounds and tiles
    as pips (a dozen and more is said as a number) */
 function cbar(n, of, shown, cls) { const f = Math.max(0, Math.min(100, 100 * n / Math.max(1, of)));
   return '<i class="cbar' + (cls ? ' ' + cls : '') + '" data-n="' + n + '" data-of="' + of + '"><i style="width:' + f.toFixed(1) + '%"></i><b>' + (shown != null ? shown : n) + '</b></i>'; }
+/* __EVERY_LINE_AGREES__ (FIGHT SCREEN THREE 11/26, VAMILY rule 480(b): 'the grammar right on every line'): a count and its word agree, one
+   hit, two hits ('1 hits to drop him', 'Loaded: 1 rounds', '1 rounds, 0:42 of fighting' could all be said) */
+function nWord(n, one, many) { return n + ' ' + (Math.abs(Number(n)) === 1 ? one : many); }
 function pips(n, of, cls) { if (of > 12) return n + (of !== n ? ' / ' + of : '');
   let h = '<i class="pips' + (cls ? ' ' + cls : '') + '" data-n="' + n + '" data-of="' + of + '" title="' + n + ' of ' + of + '" aria-label="' + n + ' of ' + of + '">';
   for (let k = 0; k < of; k++) h += '<i' + (k < n ? '' : ' class="off"') + '></i>';
@@ -12110,8 +12126,13 @@ function sheetLayout(v) {
   sheetRead(v);
   /* the room it has: from where it really stands (in the game the phone's layout lifts it clear of the phone) to the top of the glass */
   const bot = parseFloat(getComputedStyle(d).bottom), avail = Math.max(160, innerHeight - (isFinite(bot) ? bot : BOTH + 10) - 8), steps = ['t1', 't2', 't3']; let step = 0;
+  /* __NEVER_CHOPPY__ (FIGHT SCREEN THREE 11/26, rule 480(c)): the sheet starts at the step that fitted this glass and this many skills last time
+     (a measure forced at every step it tried, up to four, as the sheet opened); it is still checked, and loosened when the room allows it */
+  const fk = innerWidth + 'x' + innerHeight + ':' + avail + ':' + v.perks.length + ':' + (v.side === 'you' ? 1 : 0), FIT = UI.sheetSteps = UI.sheetSteps || {};
   d.classList.remove('t1', 't2', 't3'); d.style.maxHeight = avail + 'px';
+  if (FIT[fk]) { for (; step < FIT[fk]; step++) d.classList.add(steps[step]); if (step > 0 && d.scrollHeight <= avail + 1) { d.classList.remove(steps[step - 1]); if (d.scrollHeight <= avail + 1) step--; else d.classList.add(steps[step - 1]); } }
   while (d.scrollHeight > avail + 1 && step < steps.length) d.classList.add(steps[step++]);
+  FIT[fk] = step;
   const b = d.getBoundingClientRect();
   UI.sheetFit = { id: v.id, step: step, avail: avail, need: d.scrollHeight, fits: d.scrollHeight <= avail + 1 && b.top >= -1 && b.bottom <= innerHeight + 1, box: [Math.round(b.left), Math.round(b.top), Math.round(b.width), Math.round(b.height)], wide: d.classList.contains('wide'), perks: v.perks.length };
 }
@@ -12329,7 +12350,7 @@ function showOver(result) {
     const left = mine.filter(function (v) { return !v.escaped; }).map(function (v) { return v.name + (v.dead ? ' (dead)' : v.down ? ' (down)' : ''); });
     if (left.length) html += '<p class="what">' + wfill(RETREAT_RECAP.left, { names: left.join(', ') }) + '</p>'; }
   if (back) html += '<p class="what">' + RETREAT_RECAP.back + '</p>';   /* rule 253: the lineup left, nothing else to count */
-  else html += '<p>' + S.round + ' rounds, ' + Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0') + ' of fighting. '
+  else html += '<p>' + nWord(S.round, 'round', 'rounds') + ', ' + Math.floor(secs / 60) + ':' + String(secs % 60).padStart(2, '0') + ' of fighting. '
     + theirs.filter(function (v) { return v.dead; }).length + ' of theirs down, ' + theirs.filter(function (v) { return v.fled; }).length + ' ran.</p>';
   html += '<table><tr><th>WHO</th><th>KILLS</th><th>BLOOD</th><th>TAKEN</th><th>XP</th><th></th></tr>';
   S.units.filter(function (v) { return v.side === 'you'; }).forEach(function (v) {

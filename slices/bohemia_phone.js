@@ -444,6 +444,8 @@
       cls: cl && cl.style.display !== 'none' ? String(cl.textContent || '').trim() : '', round: r ? String(r.textContent || '').trim() : '',
       /* __THE_ROUNDS_ON_THE_CARD__ (FIGHT SCREEN THREE 11/22, rule 478(a), a marked line): the rounds in the gun in his hands [left, of], and dry */
       rounds: ap && ap.dataset.rounds ? ap.dataset.rounds.split('/').map(Number) : null, dry: !!(ap && ap.dataset.dry),
+      carry: ap && ap.dataset.carry ? ap.dataset.carry.split('/').map(Number) : null, out: !!(ap && ap.dataset.out),   /* 11/26: what he carries, and out (gun slung) */
+      faceKey: (function () { try { return typeof UI !== 'undefined' && UI && UI.faceKey != null ? String(UI.faceKey) + '#' + (UI.faceN | 0) : null; } catch (e) { return null; } })(),   /* __NEVER_CHOPPY__: the fight's face changes only with this */
       /* __THE_MANS_CARD_ON_THE_PHONE__ (FIGHT SCREEN TWO 11/17, a marked line by the coordinator's word): the plate as marks: [level, outclasses, dodges, armour] and the words they stand for */
       full: nm && nm.dataset.full ? String(nm.dataset.full) : '',
       plate: cl && cl.style.display !== 'none' && cl.dataset.plate ? cl.dataset.plate.split(',').map(Number) : null, says: cl && cl.dataset.says ? String(cl.dataset.says).split('|') : [] };
@@ -964,7 +966,11 @@
       + '#bohphone .fap .pl .mk.dodge{background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 8 8%27%3E%3Cpath d=%27M.5 4h7M2.6 1.6.5 4l2.1 2.4M5.4 1.6 7.5 4 5.4 6.4%27 fill=%27none%27 stroke=%27%23f2e4c6%27 stroke-width=%271.1%27/%3E%3C/svg%3E\")}'
       + '#bohphone .fap .pl .mk.armour{background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 8 8%27%3E%3Cpath d=%27M1 1h6v3.4c0 2.1-3 3.1-3 3.1s-3-1-3-3.1z%27 fill=%27%239fb0c4%27 stroke=%27%230d0a07%27 stroke-width=%27.6%27/%3E%3C/svg%3E\")}'
       /* __THE_ROUNDS_ON_THE_CARD__ (FIGHT SCREEN THREE 11/22, rule 478(a)): cartridges on end at the AP row's end: brass with a bright tip, a spent case dark, the last hot, none red on the beat */
-      + '#bohphone .fap .rd{flex:0 0 auto;display:flex;align-items:flex-end;gap:1px;height:5px;margin-left:2px;padding-left:3px;box-shadow:inset 1px 0 0 rgba(255,236,200,.16)}'
+      + '#bohphone .fap .rd{flex:0 0 auto;position:relative;display:flex;align-items:flex-start;gap:1px;height:5px;margin-left:1px;padding-left:2px;box-shadow:inset 1px 0 0 rgba(255,236,200,.16)}'
+      + '#bohphone .fap.gun .pp i{flex-basis:4px}'   /* 11/26: the row fits: his AP pips 4 wide beside a gun (9 x 4 + 8 gaps = 44 of the 65 point column) */
+      + '#bohphone .fap .rd.cry i{height:4px}'
+      + '#bohphone .fap .rd u.cl{position:absolute;left:2px;bottom:0;height:1px;display:block;text-decoration:none;background:#c89a4e;box-shadow:0 0 0 .3px rgba(0,0,0,.6);pointer-events:none}'
+      + '#bohphone .fap .rd.reload i{background:transparent;box-shadow:inset 0 0 0 .6px #e0b062}'
       + '#bohphone .fap.cls .rd{height:6px;margin-left:auto}'
       + '#bohphone .fap .rd i{flex:0 0 2px;width:2px;height:5px;background:#2a221a;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.7)}'
       + '#bohphone .fap .rd i.on{background:linear-gradient(#fff0c0 0 1px,#d9a85a 1px 100%);box-shadow:inset -.5px 0 0 rgba(90,60,20,.7)}'
@@ -1810,19 +1816,24 @@
   /* THE PHONE RUNS THE FIGHT (UI 11/2, Paolo 10/27 note 4): the man on the fight's card and the turn strip, painted when they change
      (the round in the status line; his face, name, bars, numbers and AP; every face in the order, a tap its sheet) */
   function faceInto(c, src) {
+    c.__draws = (c.__draws | 0) + 1;   /* __NEVER_CHOPPY__: counted, so a gate can see the face is drawn again only when it changed */
     try { var g = c.getContext('2d'); g.clearRect(0, 0, c.width, c.height); if (src && src.width) { g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high'; g.drawImage(src, 0, 0, c.width, c.height); } } catch (e) {}
   }
   function manPaint(force) {
     var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F || !F.man) return;
     var M = F.man(), bars = [M.hp, M.arm, M.fat].map(function (b) { return b ? [b.w, b.c, b.n, b.l].join(',') : ''; });   /* b.l: __THE_LAST_HIT_ON_THE_CARD__ */
-    var key = [M.name, M.main, bars.join(';'), M.ap, M.apTurn, M.cls, M.round, M.full, (M.plate || []).join(','), (M.rounds || []).join('/') + (M.dry ? 'x' : '')].join('|');   /* the rounds: __THE_ROUNDS_ON_THE_CARD__ */
-    if (!force && key === H.manKey) return; H.manKey = key;
-    H.el.querySelector('.stat .wh').textContent = M.round || '';
-    var hd = H.el.querySelector('.fh');
-    hd.querySelector('b').textContent = (M.name || '') + (M.main ? ' *' : '');
-    faceInto(hd.querySelector('canvas'), M.face);
-    hd.querySelector('.fme').setAttribute('aria-label', ((M.name || 'his') + ' sheet').toLowerCase());   /* draft:true */
-    [['hp', M.hp], ['arm', M.arm], ['fat', M.fat]].forEach(function (p) {
+    var key = [M.name, M.main, bars.join(';'), M.ap, M.apTurn, M.cls, M.round, M.full, (M.plate || []).join(','), (M.rounds || []).join('/') + (M.dry ? 'x' : '') + (M.out ? 'o' : '') + (M.carry || []).join('/'), M.faceKey].join('|');   /* the rounds: __THE_ROUNDS_ON_THE_CARD__ */
+    if (!force && key === H.manKey) return; H.manKey = key; var tPaint = performance.now();   /* __NEVER_CHOPPY__: what a card's repaint costs, for the frame walk */
+    /* __NEVER_CHOPPY__ (FIGHT SCREEN THREE 11/26, VAMILY rule 480(c), measured on the slowed phone: a repaint cost 10 to 12 ms, nearly a whole frame,
+       because every change, one bar's, repainted ALL of it: the face drawn again from the fight's canvas, the name written and measured (a layout
+       forced), the AP pips, the plate and the rounds torn down and made again). Now each part is painted only when its own part changed (P.sub) */
+    var P = H.manSub = force || !H.manSub ? {} : H.manSub, was = function (k, v) { if (P[k] === v) return true; P[k] = v; return false; };
+    var hd = H.el.querySelector('.fh'), wh = H.el.querySelector('.stat .wh');
+    if (!was('wh', M.round || '')) wh.textContent = M.round || '';
+    if (!was('face', M.name + '|' + (M.faceKey != null ? M.faceKey : Math.random()))) faceInto(hd.querySelector('canvas'), M.face);   /* the fight draws his face again only when it changes (its faceKey) */
+    if (!was('aria', M.name)) hd.querySelector('.fme').setAttribute('aria-label', ((M.name || 'his') + ' sheet').toLowerCase());   /* draft:true */
+    [['hp', M.hp, bars[0]], ['arm', M.arm, bars[1]], ['fat', M.fat, bars[2]]].forEach(function (p) {
+      if (was('bar' + p[0], p[2])) return;
       var row = hd.querySelector('.fb.' + p[0]), b = p[1] || { w: 0, c: '', n: '' }, i = row.querySelector('i');
       i.style.width = Math.max(0, Math.min(100, b.w)) + '%'; i.style.backgroundColor = b.c || ''; row.querySelector('em').textContent = b.n || '';
       /* __THE_LAST_HIT_ON_THE_CARD__ (FIGHT SCREEN THREE 11/20/26; rule 450(a); the library's Rogue Fable IV page, rule 3: last turn's damage is drawn
@@ -1832,43 +1843,66 @@
         if (lo) { var w0 = Math.max(0, Math.min(100, b.w)), lw = Math.max(0, Math.min(100 - w0, b.l || 0)); lo.style.left = w0 + '%'; lo.style.width = lw + '%'; lo.style.display = lw > 0.4 ? '' : 'none'; } }
     });
     var fa = hd.querySelector('.fap'), pp = fa.querySelector('.pp');
-    fa.classList.toggle('cls', !!M.cls);
-    if (M.cls) fa.querySelector('em').textContent = M.cls;
-    else {
-      pp.textContent = ''; for (var k = 0; k < M.apTurn; k++) { var q = document.createElement('i'); if (k < M.ap) q.className = 'on'; pp.appendChild(q); }
-      fa.querySelector('em').textContent = M.apTurn ? M.ap + ' AP' : '';
+    if (!was('ap', [M.cls, M.ap, M.apTurn].join('|'))) {
+      fa.classList.toggle('cls', !!M.cls);
+      if (M.cls) fa.querySelector('em').textContent = M.cls;
+      else {
+        pp.textContent = ''; for (var k = 0; k < M.apTurn; k++) { var q = document.createElement('i'); if (k < M.ap) q.className = 'on'; pp.appendChild(q); }
+        fa.querySelector('em').textContent = M.apTurn ? M.ap + ' AP' : '';
+      }
     }
     /* __THE_MANS_CARD_ON_THE_PHONE__ (FIGHT SCREEN TWO 11/17, rule 450(a)): whose man (the edge), a name never cut (a long one takes two lines), a man of
        theirs' plate as marks: LV and his level, then the marks he wears, each named for a reader by the plate's own word. The words stay in the em for the gates. */
     hd.classList.toggle('them', !!M.cls);
-    var nb = hd.querySelector('b'), short = nb.textContent; nb.classList.remove('long');
-    if (M.full && M.full !== M.name) nb.textContent = M.full + (M.main ? ' *' : '');   /* his whole name when the card can hold it */
-    if (nb.scrollWidth > nb.clientWidth + 1) { nb.classList.add('long'); if (nb.scrollHeight > 15) { nb.classList.remove('long'); nb.textContent = short; if (nb.scrollWidth > nb.clientWidth + 1) nb.classList.add('long'); } }
+    var nb = hd.querySelector('b');
+    var nk = [M.name, M.main, M.full, M.cls ? 1 : 0, document.fonts ? document.fonts.status : ''].join('|');
+    if (!was('name', nk)) {   /* measured only when the name changes, and each name once (the fit kept by name: on AUTO the card's man changes every turn) */
+      var NF = H.nameFit = H.nameFit || {}, kept = NF[nk];
+      if (kept) { nb.textContent = kept.t; nb.classList.toggle('long', kept.long); }
+      else {
+        nb.textContent = (M.name || '') + (M.main ? ' *' : '');
+        var short = nb.textContent; nb.classList.remove('long');
+        if (M.full && M.full !== M.name) nb.textContent = M.full + (M.main ? ' *' : '');   /* his whole name when the card can hold it */
+        if (nb.scrollWidth > nb.clientWidth + 1) { nb.classList.add('long'); if (nb.scrollHeight > 15) { nb.classList.remove('long'); nb.textContent = short; if (nb.scrollWidth > nb.clientWidth + 1) nb.classList.add('long'); } }
+        NF[nk] = { t: nb.textContent, long: nb.classList.contains('long') };
+      }
+    }
     var pl = fa.querySelector('.pl'); if (!pl) { pl = document.createElement('span'); pl.className = 'pl'; fa.insertBefore(pl, fa.firstChild); }
-    pl.textContent = '';
-    if (M.cls) {
-      var P4 = M.plate || [(/LV\s*(\d+)/.exec(M.cls) || [0, ''])[1], 0, 0, 0], says = M.says || [];
-      var lv = document.createElement('i'); lv.className = 'lv'; lv.textContent = 'LV ' + P4[0]; pl.appendChild(lv);
-      [['oc', P4[1], says[0]], ['dodge', P4[2], says[1]], ['armour', P4[3], says[2]]].forEach(function (m) { if (!m[1]) return;
-        var k = document.createElement('i'); k.className = 'mk ' + m[0]; k.setAttribute('role', 'img'); if (m[2]) k.setAttribute('aria-label', String(m[2]).toLowerCase()); pl.appendChild(k); });
+    if (!was('plate', [M.cls, (M.plate || []).join(','), (M.says || []).join('|')].join('#'))) {
+      pl.textContent = '';
+      if (M.cls) {
+        var P4 = M.plate || [(/LV\s*(\d+)/.exec(M.cls) || [0, ''])[1], 0, 0, 0], says = M.says || [];
+        var lv = document.createElement('i'); lv.className = 'lv'; lv.textContent = 'LV ' + P4[0]; pl.appendChild(lv);
+        [['oc', P4[1], says[0]], ['dodge', P4[2], says[1]], ['armour', P4[3], says[2]]].forEach(function (m) { if (!m[1]) return;
+          var k = document.createElement('i'); k.className = 'mk ' + m[0]; k.setAttribute('role', 'img'); if (m[2]) k.setAttribute('aria-label', String(m[2]).toLowerCase()); pl.appendChild(k); });
+      }
     }
     /* __THE_ROUNDS_ON_THE_CARD__ (FIGHT SCREEN THREE 11/22/26; VAMILY rule 478(a): 'every gun carries its own rounds, shown on the man's card'; a marked
        block, the card is this lane's by rule 449(b)): the gun in his hands, at the end of his AP row (after a man of theirs' plate), as cartridges stood on
-       end: brass for a round in the gun, a dark empty case for one spent, the last one hot; at none every case goes red and pulses on the fight's beat
-       (the board's own dry mark). A magazine past eight shows eight, lit in its share. The words, for a reader, in the label */
+       end: brass for a round in the gun, a dark empty case for one spent, the last one hot. The words, for a reader, in the label */
+    /* 11/26 (rule 480(b), after COMBAT FOUR's __NO_AMMO_NO_SHOT__): THE ROW FITS: with a gun his AP pips stand 4 wide (the card's floor) and the
+       cases six at most, so the ninth AP pip is never clipped (it was, measured 72 points of row in a 65 point column); THREE STATES, not two: a
+       magazine at none with rounds still carried is a RELOAD (the cases hollow amber), a gun with none left anywhere is OUT (slung, his fists up:
+       every case red, pulsing on the beat); WHAT HE CARRIES (a full load's share, the magazine filled from it) is a brass line under the cases */
     var rd = fa.querySelector('.rd'); if (!rd) { rd = document.createElement('span'); rd.className = 'rd'; rd.setAttribute('role', 'img'); fa.insertBefore(rd, fa.querySelector('em')); }
-    rd.textContent = '';
-    var R0 = M.rounds && M.rounds[1] > 0 ? M.rounds : null;
-    rd.style.display = R0 ? '' : 'none'; rd.classList.toggle('dry', !!(R0 && M.dry));
-    if (R0) {
-      var nR = Math.min(R0[1], 8), lit = R0[1] > 8 ? Math.ceil(R0[0] / R0[1] * 8) : R0[0];
-      for (var j = 0; j < nR; j++) { var c0 = document.createElement('i'); if (!M.dry && j < lit) c0.className = R0[0] === 1 && R0[1] > 1 ? 'on last' : 'on'; rd.appendChild(c0); }
-      rd.setAttribute('aria-label', M.dry ? 'no rounds left: his gun is empty' : R0[0] + ' of ' + R0[1] + (R0[1] === 1 ? ' round' : ' rounds'));   /* draft:true */
-      rd.dataset.n = R0[0] + '/' + R0[1];
-    } else { rd.removeAttribute('aria-label'); rd.dataset.n = ''; }
-    window.__PHONE_CARD_SAYS = { name: M.name, theirs: !!M.cls, plate: M.plate || null, long: nb.classList.contains('long'), rounds: R0 ? R0.slice() : null, dry: !!(R0 && M.dry) };
+    var R0 = M.rounds && M.rounds[1] > 0 ? M.rounds : null, C0 = R0 && M.carry && M.carry[1] > 0 ? M.carry : null, out = !!(R0 && M.out), reload = !!(R0 && M.dry && !out);
+    if (!was('rounds', [M.cls ? 1 : 0, (R0 || []).join('/'), (C0 || []).join('/'), out, reload].join('|'))) {
+      rd.textContent = '';
+      rd.style.display = R0 ? '' : 'none'; rd.classList.toggle('dry', out); rd.classList.toggle('reload', reload); rd.classList.toggle('cry', !!C0);
+      fa.classList.toggle('gun', !!R0 && !M.cls);
+      if (R0) {
+        var nR = Math.min(R0[1], 6), lit = R0[1] > 6 ? Math.ceil(R0[0] / R0[1] * 6) : R0[0];
+        for (var j = 0; j < nR; j++) { var c0 = document.createElement('i'); if (!M.dry && j < lit) c0.className = R0[0] === 1 && R0[1] > 1 ? 'on last' : 'on'; rd.appendChild(c0); }
+        if (C0) { var ln = document.createElement('u'); ln.className = 'cl'; ln.style.width = 'calc((100% - 2px) * ' + (Math.max(0, Math.min(1, C0[0] / C0[1]))).toFixed(3) + ')'; rd.appendChild(ln); }
+        rd.setAttribute('aria-label', out ? 'out of rounds: his gun is slung' : reload ? 'empty: reload' + (C0 ? ', ' + C0[0] + ' carried' : '') : R0[0] + ' of ' + R0[1] + ' in the gun' + (C0 ? ', ' + C0[0] + ' of ' + C0[1] + ' carried' : ''));   /* draft:true */
+        rd.dataset.n = R0[0] + '/' + R0[1]; rd.dataset.c = C0 ? C0[0] + '/' + C0[1] : '';
+      } else { rd.removeAttribute('aria-label'); rd.dataset.n = ''; rd.dataset.c = ''; }
+    }
+    window.__PHONE_CARD_SAYS = { name: M.name, theirs: !!M.cls, plate: M.plate || null, long: nb.classList.contains('long'), rounds: R0 ? R0.slice() : null, dry: out, reload: reload, carry: C0 ? C0.slice() : null };
     window.__PHONE_MAN = M.name;
+    var T0 = window.__PHONE_MAN_T = window.__PHONE_MAN_T || { n: 0, ms: 0, max: 0 }, dT = performance.now() - tPaint; T0.n++; T0.ms += dT; if (dT > T0.max) T0.max = dT; if (T0.list) { T0.list.push([performance.timeOrigin + tPaint, dT]); if (T0.list.length > 4000) T0.list.shift(); }
   }
+
 
   /* THE BEAT IS SEEN (UI 11/2, Paolo 10/27 note 6: 'the beat with no sound... the fight runs on a 120 BPM beat. The beat has to be
      visible too, like a pulse on screen'). One beat, the fight's own (P.beat: COMBAT's SONG clock, the one its every act lands on),

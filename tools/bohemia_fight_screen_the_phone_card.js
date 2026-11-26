@@ -34,6 +34,8 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
     const rel = decodeURIComponent(u.slice(BASE.length).split('?')[0].split('#')[0]), f = path.join(ROOT, rel);
     if (OLD[rel]) return route.fulfill({ status: 200, body: OLD[rel], headers: { 'Content-Type': MIME[path.extname(rel)] } });
     if (process.env.LASTHIT_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("lo.style.display = lw > 0.4 ? '' : 'none';", "lo.style.display = 'none';"); if (cut === src) throw new Error('the last-hit plant did not take'); return route.fulfill({ status: 200, body: cut, headers: { 'Content-Type': 'text/javascript' } }); }
+    if (process.env.NOCHOP_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("var P = H.manSub = force || !H.manSub ? {} : H.manSub,", "var P = H.manSub = {},");
+      if (cut === src) { log('NOCHOP_PLANT DID NOT TAKE'); process.exit(1); } return route.fulfill({ status: 200, contentType: 'application/javascript', body: cut }); }   /* __NEVER_CHOPPY__'s plant: every part painted on every change */
     if (process.env.ROUNDS_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("rd.style.display = R0 ? '' : 'none';", "rd.style.display = 'none';");
       if (cut === src) { log('ROUNDS_PLANT DID NOT TAKE'); process.exit(1); } return route.fulfill({ status: 200, contentType: 'application/javascript', body: cut }); }   /* __THE_ROUNDS_ON_THE_CARD__'s plant */
     if (process.env.PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("nb.classList.add('long'); if (nb.scrollHeight > 15)", "if (nb.scrollHeight > 15)"); if (cut === src) throw new Error('the plant did not take'); return route.fulfill({ status: 200, body: cut, headers: { 'Content-Type': 'text/javascript' } }); }
@@ -150,26 +152,34 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
   const RDREAD = () => page.evaluate(() => { const rd = document.querySelector('#bohphone .fh .fap .rd'), hd = document.querySelector('#bohphone .fh');
     if (!rd || getComputedStyle(rd).display === 'none') return { shown: false };
     const cs = [...rd.querySelectorAll('i')], r = rd.getBoundingClientRect(), hb = hd.getBoundingClientRect(), col = e => getComputedStyle(e).backgroundImage !== 'none' ? getComputedStyle(e).backgroundImage.slice(0, 40) : getComputedStyle(e).backgroundColor;
-    return { shown: true, cases: cs.length, lit: cs.filter(e => e.classList.contains('on')).length, last: cs.filter(e => e.classList.contains('last')).length, dry: rd.classList.contains('dry'), says: rd.getAttribute('aria-label'), n: rd.dataset.n,
+    const pp = hd.querySelector('.fap .pp'), pr = pp ? pp.getBoundingClientRect() : null, pips = pp ? [...pp.querySelectorAll('i')] : [], ln = rd.querySelector('u.cl');
+    return { shown: true, cases: cs.length, lit: cs.filter(e => e.classList.contains('on')).length, last: cs.filter(e => e.classList.contains('last')).length, dry: rd.classList.contains('dry'), reload: rd.classList.contains('reload'), says: rd.getAttribute('aria-label'), n: rd.dataset.n, c: rd.dataset.c || '',
+      line: ln ? Math.round(1000 * parseFloat(getComputedStyle(ln).width) / Math.max(1, rd.clientWidth - 2)) / 10 : null,
+      apClipped: pr ? pips.filter(i => i.getBoundingClientRect().right > pr.right + 0.3).length : null, apPips: pips.length,
       box: [Math.round(r.left * 10) / 10, Math.round(r.top * 10) / 10, Math.round(r.width * 10) / 10, Math.round(r.height * 10) / 10], inCard: r.left >= hb.left - 0.6 && r.right <= hb.right + 0.6 && r.top >= hb.top - 0.6 && r.bottom <= hb.bottom + 0.6,
       colours: [...new Set(cs.map(col))] }; });
   const gun = await f.evaluate(() => { const g = FIGHT.S.units.filter(v => v.side === 'you' && FIGHT.onField(v) && FIGHT.rounds(v) && FIGHT.rounds(v).of > 0)[0];
-    if (!g) return null; UI.pend = { target: g }; hud(); const r = FIGHT.rounds(g); return { id: g.id, name: g.name, weapon: g.weapon && g.weapon.name, mag: !!g.weapon.mag, ammo: g.ammo, loaded: g.loaded, left: r.left, of: r.of }; });
+    if (!g) return null; UI.pend = { target: g }; hud(); const r = FIGHT.rounds(g), c = FIGHT.carried ? FIGHT.carried(g) : null; return { id: g.id, name: g.name, weapon: g.weapon && g.weapon.name, mag: !!g.weapon.mag, ammo: g.ammo, loaded: g.loaded, rounds: g.rounds, left: r.left, of: r.of, carry: c }; });
   if (gun) {
     T.rounds = { gun: gun };
     await until(async () => { const c = await RDREAD(); return c.shown && c.n === gun.left + '/' + gun.of; }, 4000, 80);
     T.rounds.full = await RDREAD(); await shot('7_phone_rounds');
     /* one round spent */
-    const one = await f.evaluate((g) => { const u = FIGHT.byId(g.id); if (u.weapon.mag || (u.weapon.ammo && u.ammo !== null)) u.ammo = Math.max(1, u.ammo - 1); hud(); const r = FIGHT.rounds(u); return { left: r.left, of: r.of }; }, gun);
+    const one = await f.evaluate((g) => { const u = FIGHT.byId(g.id); if (u.weapon.mag || (u.weapon.ammo && u.ammo !== null)) u.ammo = Math.max(1, u.ammo - 1); if (u.rounds != null) u.rounds = Math.max(1, u.rounds - 1); hud(); const r = FIGHT.rounds(u), c = FIGHT.carried ? FIGHT.carried(u) : null; return { left: r.left, of: r.of, carry: c }; }, gun);
     await until(async () => { const c = await RDREAD(); return c.shown && c.n === one.left + '/' + one.of; }, 3000, 80);
     T.rounds.spent = await RDREAD(); T.rounds.spentWant = one;
-    /* none left: dry */
-    await f.evaluate((g) => { const u = FIGHT.byId(g.id); if (u.weapon.mag || (u.weapon.ammo && u.ammo !== null)) u.ammo = 0; else u.loaded = false; hud(); }, gun);
+    /* the magazine at none, rounds still carried: a RELOAD, not out (11/26, after COMBAT FOUR's rule 478 build) */
+    await f.evaluate((g) => { const u = FIGHT.byId(g.id); if (u.weapon.mag || (u.weapon.ammo && u.ammo !== null)) u.ammo = 0; else u.loaded = false; if (u.rounds != null) u.rounds = Math.max(2, u.rounds); hud(); }, gun);
+    await until(async () => { const c = await RDREAD(); return c.shown && c.reload; }, 3000, 80);
+    await wait(260); T.rounds.reload = await RDREAD(); await shot('7a_phone_rounds_reload');
+    /* none left anywhere: OUT, the gun slung and his fists up, as COMBAT FOUR's toFists leaves him */
+    await f.evaluate((g) => { const u = FIGHT.byId(g.id); u.__gun = { w: u.weapon, ammo: u.ammo, ammoMax: u.ammoMax, loaded: u.loaded, rounds: u.rounds, roundsMax: u.roundsMax, slung: u.slung, slungState: u.slungState };
+      u.slung = u.weapon; u.slungState = { ammo: 0, ammoMax: u.ammoMax, loaded: false, rounds: 0, roundsMax: u.roundsMax }; const G = R('ours.gun_rounds'), fr = G && DB.beastAttacks && (DB.beastAttacks.rows || []).filter(r => r.id === G.fists)[0]; u.weapon = Object.assign({}, fr || {}, { id: 'fists', name: 'Fists', fists: true, value: 0 });   /* the fight's own fists row (fistsRow) */ u.ammo = null; u.ammoMax = null; u.rounds = null; u.roundsMax = null; hud(); }, gun);
     await until(async () => { const c = await RDREAD(); return c.shown && c.dry; }, 3000, 80);
     await wait(260); T.rounds.dry = await RDREAD(); await shot('7b_phone_rounds_dry');
     /* the beat: the dry cases pulse (read twice across a beat) */
     T.rounds.dryBeat = []; for (let k = 0; k < 8; k++) { T.rounds.dryBeat.push(await page.evaluate(() => { const i = document.querySelector('#bohphone .fh .fap .rd.dry i'); return i ? getComputedStyle(i).backgroundColor : null; })); await wait(70); }
-    await f.evaluate((g) => { const u = FIGHT.byId(g.id); u.ammo = g.ammo; u.loaded = g.loaded; hud(); }, gun);
+    await f.evaluate((g) => { const u = FIGHT.byId(g.id), k = u.__gun; if (k) { u.weapon = k.w; u.ammoMax = k.ammoMax; u.roundsMax = k.roundsMax; u.slung = k.slung; u.slungState = k.slungState; delete u.__gun; } u.ammo = g.ammo; u.loaded = g.loaded; u.rounds = g.rounds; hud(); }, gun);
   } else T.rounds = { gun: null };
   /* a man with no gun in his hands: no cartridges */
   T.rounds.noGun = await f.evaluate(() => { const m = FIGHT.S.units.filter(v => FIGHT.onField(v) && !FIGHT.rounds(v))[0]; if (!m) return null; UI.pend = { target: m }; hud(); return { name: m.name, weapon: m.weapon && m.weapon.name }; });
@@ -179,6 +189,32 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
   if (T.rounds.theirs) { await until(async () => { const c = await RDREAD(); return c.shown && c.n === T.rounds.theirs.left + '/' + T.rounds.theirs.of; }, 3000, 80); T.rounds.theirs.card = await RDREAD(); await shot('7c_phone_rounds_theirs'); }
   await f.evaluate(() => { UI.pend = null; hud(); }).catch(() => null);
   log('ROUNDS', JSON.stringify(T.rounds));
+  /* __NEVER_CHOPPY__ (FIGHT SCREEN THREE 11/26, rule 480(c)): no work done twice. His man on the card; the card's pieces marked; then a bar moves
+     (only the bar is painted again: the face is not drawn again, the AP pips, the plate and the rounds are the same nodes); then his AP moves (the
+     pips again, the face not); then the man changes (all of it again). In the fight's page: the card refreshed twice with nothing changed lays
+     its AP pips once and moves no style. NOCHOP_PLANT=1 paints everything on every change (the old way): the legs see it */
+  const PH = () => page.evaluate(() => { const hd = document.querySelector('#bohphone .fh'); if (!hd) return null; const cv = hd.querySelector('canvas'), pp = [...hd.querySelectorAll('.fap .pp i')], rd = [...hd.querySelectorAll('.fap .rd i')];
+    return { name: (hd.querySelector('b') || {}).textContent, draws: cv ? cv.__draws | 0 : -1, ppMarked: pp.length ? pp.every(i => i.__k === 1) : null, rdMarked: rd.length ? rd.every(i => i.__k === 1) : null, pips: pp.length,
+      bar: (function () { const i = hd.querySelector('.fb.hp i'); return i ? i.style.width : ''; })() }; });
+  const markPH = () => page.evaluate(() => { document.querySelectorAll('#bohphone .fh .fap .pp i, #bohphone .fh .fap .rd i').forEach(i => { i.__k = 1; }); });
+  const nc = await f.evaluate(() => { const g = FIGHT.S.units.filter(v => v.side === 'you' && FIGHT.onField(v)).sort((a, b) => (FIGHT.rounds(b) ? 1 : 0) - (FIGHT.rounds(a) ? 1 : 0))[0], o = FIGHT.S.units.filter(v => v.side === 'you' && FIGHT.onField(v) && v !== g)[0];
+    if (!g) return null; UI.pend = { target: g }; hud(); return { id: g.id, other: o ? o.id : null, hp: g.hp, ap: g.ap }; });
+  if (nc) {
+    T.noChop = { man: nc };
+    await wait(700); await markPH(); const s0 = await PH(); T.noChop.start = s0;
+    await f.evaluate((g) => { const u = FIGHT.byId(g.id); u.hp = Math.max(1, u.hp - 3); hud(); }, nc);
+    await until(async () => { const c = await PH(); return c && c.bar !== s0.bar; }, 3000, 60); await wait(300); T.noChop.bar = await PH();
+    await f.evaluate((g) => { const u = FIGHT.byId(g.id); u.ap = Math.max(0, u.ap - 1); hud(); }, nc);
+    await until(async () => { const c = await PH(); return c && c.ppMarked === false; }, 3000, 60); await wait(300); T.noChop.ap = await PH();
+    if (nc.other) { await f.evaluate((g) => { UI.pend = { target: FIGHT.byId(g.other) }; hud(); }, nc); await until(async () => { const c = await PH(); return c && c.draws > T.noChop.ap.draws; }, 3000, 60); await wait(300); T.noChop.man2 = await PH(); }
+    /* in the fight's page: the card refreshed twice, nothing changed */
+    T.noChop.fight = await f.evaluate((g) => { UI.pend = { target: FIGHT.byId(g.id) }; hud(); const ap = document.getElementById('ap'), say = document.getElementById('say'); [...ap.children].forEach(i => { i.__k = 1; });
+      const st0 = say.getAttribute('style'); let writes = 0; const mo = new MutationObserver(ms => { writes += ms.length; }); mo.observe(document.getElementById('bot'), { attributes: true, childList: true, subtree: true }); mo.observe(say, { attributes: true });
+      hud(); hud(); const rec = mo.takeRecords(); mo.disconnect(); writes += rec.length;
+      return { kept: ap.children.length > 0 && [...ap.children].every(i => i.__k === 1), sayStyle: say.getAttribute('style') === st0, writes: writes, writesWhat: rec.slice(0, 20).map(r => r.type + ':' + (r.target.id || r.target.className || r.target.tagName) + (r.attributeName ? '.' + r.attributeName : '')) }; }, nc);
+    await f.evaluate((g) => { const u = FIGHT.byId(g.id); u.hp = g.hp; u.ap = g.ap; UI.pend = null; hud(); }, nc);
+    log('NO CHOP', JSON.stringify(T.noChop));
+  }
   T.errs = errs; fs.writeFileSync(path.join(OUT, 'phone_card.json'), JSON.stringify(T, null, 1));
   log('DONE', WHICH, WAY, BEFORE ? 'BEFORE' : '', 'page errors', errs.length, errs.slice(0, 2).join(' | '));
   await page.close(); await ctx.close(); await browser.close(); process.exit(0);

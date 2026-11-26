@@ -25,13 +25,20 @@
          right of it in the board's punch colour (bone), what was taken, within a point and a half of the share; fatigue carries none;
          put back, the piece is what the fight itself says was taken (a real blow before the test counts)
      P9  THE ROUNDS ON THE CARD (FIGHT SCREEN THREE 11/22; VAMILY rule 478(a): 'every gun carries its own rounds, shown on the man's card'): a
-         gunman of his on the card: at the end of his AP row a cartridge for every round his gun holds (eight at most), brass for each one in
-         it, inside the card, the fight's own count (FIGHT.rounds); one spent, one fewer lit; none left, every case red and pulsing on the
-         fight's beat, read as 'empty'; a man with no gun in his hands shows none; a gunman of theirs shows his after his plate
+         gunman of his on the card: at the end of his AP row a cartridge for every round his gun holds (six at most), brass for each one in
+         it, inside the card, the fight's own count (FIGHT.rounds), and under them a brass line, what he carries (FIGHT.carried, COMBAT FOUR's
+         rule 478 count); no AP pip clipped (11/26); one spent, one fewer lit and the line shorter; the magazine at none with rounds carried,
+         a RELOAD (hollow amber, never red); none left anywhere (the gun slung, his fists up), OUT: every case red and pulsing on the fight's
+         beat; a man with no gun in his hands shows none; a gunman of theirs shows his after his plate
+     P10 NEVER CHOPPY (FIGHT SCREEN THREE 11/26; VAMILY rule 480(c)): no work done twice. A bar moves: only the bar is painted again (the face is
+         not drawn again; the AP pips and the rounds are the same nodes); his AP moves: the pips again, the face not; the man changes: his face is
+         drawn; the fight's card refreshed twice with nothing changed writes nothing at all (its AP pips the same nodes, the say line's place
+         untouched, no attribute, style or node written: a MutationObserver over the bar reads 0)
      planted: the two-line fit taken out (P2 red: the long name is cut)
      planted: the last hit's drawing taken out (P8 red)
      planted: the rounds' drawing taken out (P9 red)
-   Run: node gates/the_mans_card_on_the_phone_gate.js      (about five minutes: four boots of the demo) */
+     planted: the card painted whole on every change (NOCHOP_PLANT, the old way: P10 red)
+   Run: node gates/the_mans_card_on_the_phone_gate.js      (about six minutes: five boots of the demo) */
 'use strict';
 const fs = require('fs'), path = require('path'), os = require('os'), { spawn } = require('child_process');
 const ROOT = path.join(__dirname, '..');
@@ -69,14 +76,21 @@ const run = (way, env) => new Promise((res) => { const out = fs.mkdtempSync(path
     && /rgb\(242, 234, 216\)/.test(L.hp.colour || '') && (!L.fat || !L.fat.lost) && Math.abs(L.after - (L.wantAfter < 0.4 ? 0 : L.wantAfter)) <= 1.5; };
   check(lhOk(U) && lhOk(S), 'P8', 'the last hit on the card: ' + W.map(w => { const L = w[1].lastHit; return w[0] + (L ? ' health ' + L.hp.lost + ' of ' + L.want.hp + ' at ' + L.hp.at + ' (what is left ' + L.hp.left + '), armour ' + L.arm.lost + ' of ' + L.want.arm + ', ' + L.hp.colour + ', put back: ' + L.after + ' of ' + L.wantAfter : ' none'); }).join('; '));
   const BRASS = /linear-gradient\(rgb\(255, 240, 192\)/, DRY = 'rgb(74, 20, 14)', HOT = 'rgb(224, 64, 46)';
-  const rdOk = (T) => { const R = T.rounds; if (!R || !R.gun) return false; const g = R.gun, n = Math.min(g.of, 8), lit = g.of > 8 ? Math.ceil(g.left / g.of * 8) : g.left;
-    const full = R.full && R.full.shown && R.full.cases === n && R.full.lit === lit && R.full.n === g.left + '/' + g.of && R.full.inCard && R.full.colours.some(c => BRASS.test(c));
-    const spent = R.spent && R.spent.shown && R.spent.n === R.spentWant.left + '/' + R.spentWant.of && (g.of > 8 || R.spent.lit === R.spentWant.left) && R.spent.inCard;
-    const dry = R.dry && R.dry.shown && R.dry.dry && R.dry.lit === 0 && /empty/.test(R.dry.says || '') && R.dry.inCard && (R.dryBeat || []).indexOf(HOT) >= 0 && (R.dryBeat || []).indexOf(DRY) >= 0;
+  const rdOk = (T) => { const R = T.rounds; if (!R || !R.gun) return false; const g = R.gun, n = Math.min(g.of, 6), lit = g.of > 6 ? Math.ceil(g.left / g.of * 6) : g.left;
+    const cOk = (c, want) => !want ? !c.c : c.c === want.left + '/' + want.of && c.line != null && Math.abs(c.line - 100 * want.left / want.of) <= 4;
+    const full = R.full && R.full.shown && R.full.cases === n && R.full.lit === lit && R.full.n === g.left + '/' + g.of && R.full.inCard && R.full.colours.some(c => BRASS.test(c)) && R.full.apClipped === 0 && cOk(R.full, g.carry);
+    const spent = R.spent && R.spent.shown && R.spent.n === R.spentWant.left + '/' + R.spentWant.of && (g.of > 6 || R.spent.lit === R.spentWant.left) && R.spent.inCard && R.spent.apClipped === 0 && cOk(R.spent, R.spentWant.carry);
+    const reload = R.reload && R.reload.shown && R.reload.reload && !R.reload.dry && R.reload.lit === 0 && /reload/.test(R.reload.says || '') && R.reload.inCard;
+    const dry = R.dry && R.dry.shown && R.dry.dry && !R.dry.reload && R.dry.lit === 0 && /out of rounds/.test(R.dry.says || '') && R.dry.inCard && (R.dryBeat || []).indexOf(HOT) >= 0 && (R.dryBeat || []).indexOf(DRY) >= 0;
     const none = !R.noGun || (R.noGun.card && !R.noGun.card.shown), theirs = !R.theirs || (R.theirs.card && R.theirs.card.shown && R.theirs.card.n === R.theirs.left + '/' + R.theirs.of && R.theirs.card.inCard);
-    return !!(full && spent && dry && none && theirs); };
-  const rdSay = (T) => { const R = T.rounds || {}; if (!R.gun) return 'no gunman of his'; return R.gun.name + ' (' + R.gun.weapon + ') ' + (R.full ? R.full.lit + ' of ' + R.full.cases + ' lit, ' + R.full.says : 'none drawn') + '; spent: ' + (R.spent ? R.spent.says : '-') + '; dry: ' + (R.dry ? R.dry.says + ', the beat ' + [...new Set(R.dryBeat || [])].join(' / ') : '-') + '; no gun (' + (R.noGun ? R.noGun.weapon : '-') + '): ' + (R.noGun && R.noGun.card ? (R.noGun.card.shown ? 'SHOWN' : 'none') : '-') + '; theirs ' + (R.theirs ? R.theirs.name + ' ' + (R.theirs.card ? R.theirs.card.says : 'not drawn') : '-'); };
+    return !!(full && spent && reload && dry && none && theirs); };
+  const rdSay = (T) => { const R = T.rounds || {}; if (!R.gun) return 'no gunman of his'; return R.gun.name + ' (' + R.gun.weapon + ') ' + (R.full ? R.full.lit + ' of ' + R.full.cases + ' lit, ' + R.full.says + ', the carried line ' + R.full.line + '%, AP pips clipped ' + R.full.apClipped : 'none drawn') + '; spent: ' + (R.spent ? R.spent.says : '-') + '; reload: ' + (R.reload ? R.reload.says : '-') + '; out: ' + (R.dry ? R.dry.says + ', the beat ' + [...new Set(R.dryBeat || [])].join(' / ') : '-') + '; no gun (' + (R.noGun ? R.noGun.weapon : '-') + '): ' + (R.noGun && R.noGun.card ? (R.noGun.card.shown ? 'SHOWN' : 'none') : '-') + '; theirs ' + (R.theirs ? R.theirs.name + ' ' + (R.theirs.card ? R.theirs.card.says : 'not drawn') : '-'); };
   check(rdOk(U) && rdOk(S), 'P9', 'the rounds on the card: ' + W.map(w => w[0] + ' ' + rdSay(w[1])).join(' | '));
+  const ncOk = (T) => { const N = T.noChop; if (!N || !N.start || !N.bar || !N.ap || !N.fight) return false;
+    return N.bar.draws === N.start.draws && N.bar.ppMarked === true && N.bar.rdMarked !== false && N.ap.draws === N.start.draws && N.ap.ppMarked === false
+      && (!N.man2 || N.man2.draws > N.ap.draws) && N.fight.kept && N.fight.sayStyle && N.fight.writes === 0; };
+  const ncSay = (T) => { const N = T.noChop || {}; return N.start ? 'face drawn ' + N.start.draws + ' -> a bar moved ' + (N.bar || {}).draws + ' (pips kept ' + (N.bar || {}).ppMarked + ', rounds kept ' + (N.bar || {}).rdMarked + ') -> his AP moved ' + (N.ap || {}).draws + ' (pips kept ' + (N.ap || {}).ppMarked + ') -> another man ' + (N.man2 || {}).draws + '; the fight\'s card refreshed twice unchanged: ' + (N.fight || {}).writes + ' writes ' + JSON.stringify((N.fight || {}).writesWhat || []) : 'not read'; };
+  check(ncOk(U) && ncOk(S), 'P10', 'never choppy, no work done twice: ' + W.map(w => w[0] + ' ' + ncSay(w[1])).join(' | '));
   check(!(U.errs || []).length && !(S.errs || []).length, 'errors', (U.errs || []).length + (S.errs || []).length + ' page errors');
   const P = await run('upright', { PLANT: '1' });
   check(!!P && !!P.cards && !!P.cards.long && (P.cards.long.nameCut || P.cards.long.cutText.length > 0), 'planted', 'the two-line fit taken out: the long name is ' + (P && P.cards && P.cards.long ? (P.cards.long.nameCut || P.cards.long.cutText.length ? 'cut (P2 is red on it)' : 'NOT cut') : 'not read'));
@@ -84,5 +98,7 @@ const run = (way, env) => new Promise((res) => { const out = fs.mkdtempSync(path
   check(!!PL && !!PL.lastHit && !lhOk(PL), 'planted', 'the last hit\'s drawing taken out: P8 reads ' + (PL && PL.lastHit ? 'health ' + PL.lastHit.hp.lost + ' of ' + PL.lastHit.want.hp : 'nothing') + ' (red)');
   const PR = await run('upright', { ROUNDS_PLANT: '1' });
   check(!!PR && !!PR.rounds && !rdOk(PR), 'planted', 'the rounds\' drawing taken out: P9 reads ' + (PR && PR.rounds && PR.rounds.full ? (PR.rounds.full.shown ? PR.rounds.full.lit + ' lit' : 'no cartridges') : 'nothing') + ' (red)');
+  const PN = await run('upright', { NOCHOP_PLANT: '1' });
+  check(!!PN && !!PN.noChop && !ncOk(PN), 'planted', 'the card painted whole on every change: P10 reads ' + (PN ? ncSay(PN) : 'nothing') + ' (red)');
   console.log('\nTHE MAN\'S CARD ON THE PHONE: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0);
 })();
