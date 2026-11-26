@@ -37,7 +37,8 @@ const OUT = path.resolve(ROOT, process.argv[3] || ('records/target/bosses_the_wh
 const THR = +(process.env.LADDER_THROTTLE || 4);
 const ONLY = (process.env.LADDER_ONLY || '').split(',').map(s => s.trim()).filter(Boolean);
 const PATIENCE = +(process.env.LADDER_PATIENCE || 600);
-const REST = +(process.env.LADDER_REST || 0);   /* hours the crew rests after each boss (the map's own clock, advance()), the way a player would */
+const REST = +(process.env.LADDER_REST || 0);
+const SHOTS = process.env.LADDER_SHOTS === '1';   /* a picture at each step (the sign, his asker, his card, the fight's open, his fall, his beat) */   /* hours the crew rests after each boss (the map's own clock, advance()), the way a player would */
 fs.mkdirSync(OUT, { recursive: true });
 const LOG = path.join(OUT, 'ladder.jsonl');
 fs.writeFileSync(LOG, '');
@@ -125,6 +126,7 @@ const say = (s) => console.log(s);
     const th = await bossCard('thing', n, 8000); if (th) await pressCard(1); await clearCards(); s = await st(); if (!s.boss.found[n]) return false;
     await fr.evaluate((n) => { BohemiaHisMap.fell(n); }, n); const af = await bossCard('after', n, 30000); if (af) await pressCard(0); await page.waitForTimeout(2500); await clearCards(); s = await st(); return !!s.boss.fallen[n]; };
 
+  const snap = async (n, step) => { if (!SHOTS) return; try { await page.screenshot({ path: path.join(OUT, String(ORDER.indexOf(n) + 1).padStart(2, '0') + '_' + step + '.png'), scale: 'css' }); } catch (e) {} };
   const sum = [];
   for (const n of ORDER) {
     const row = ROWS.filter(r => r.n === n)[0];
@@ -134,10 +136,16 @@ const say = (s) => console.log(s);
     const t0 = Date.now();
     /* S: his sign */
     const w = await waitSign(n); let s = w.s; R.signAfter = w.waited; R.sign = s.boss.sign && s.boss.sign.n === n ? { kind: s.boss.sign.kind, at: [s.boss.sign.x, s.boss.sign.y] } : (s.boss.found[n] ? 'found already' : null);
+    await snap(n, 'a_sign');
+    /* the camera leads to his place the moment his sign is read (__THE_SIGN_LEADS_TO_HIM__): watched from a timer while the walk goes on */
+    let leadShot = false; const leadWatch = SHOTS ? setInterval(async () => { if (leadShot) return; try { const lc = await fr.evaluate((n) => { const c = window.__BOSS_LEAD_CAM; return c && c.n === n && !c.done ? c.phases.slice(-1)[0] : null; }, n);
+        if (lc === 'hold') { leadShot = true; await snap(n, 'b2_the_sign_leads_to_him'); } } catch (e) {} }, 250) : null;
     await clearCards(n);
     for (let k = 0; k < 3; k++) { s = await st(); if (!(s.boss.sign && s.boss.sign.n === n && !s.boss.found[n])) break; await go([s.boss.sign.x, s.boss.sign.y]); await settle(); await clearCards(n); }
     const ak = row.quiet ? null : await bossCard('asker', n, 20000);
-    if (ak) { await pressCard(0); const ay = await bossCard('asker_yes', n, 6000); if (ay) await pressCard(0); await page.waitForTimeout(600); }
+    if (ak) { await snap(n, 'b_asker'); await pressCard(0); const ay = await bossCard('asker_yes', n, 6000); if (ay) await pressCard(0); await page.waitForTimeout(600); }
+    if (leadWatch) clearInterval(leadWatch);
+    R.leadCam = await fr.evaluate((n) => { const c = window.__BOSS_LEAD_CAM; return c && c.n === n ? c.phases.join('>') : null; }, n).catch(() => null);
     const th = await bossCard('thing', n, 12000); if (th) await pressCard(1);
     await page.waitForTimeout(800); await clearCards(n);
     s = await st(); R.found = !!s.boss.found[n]; R.asker = row.quiet ? 'quiet (rule 454(a))' : !!ak; R.thing = !!th;
@@ -154,7 +162,7 @@ const say = (s) => console.log(s);
     R.card = meet;
     if (row.meet) { R.fight = metAlready ? 'met, never fought (no card asked for one)' : (meet ? 'A FIGHT CARD for a boss you meet' : 'not met'); lv = await NOW(); }
     else if (meet) {
-      await page.waitForTimeout(1200); a = await NOW(); await tapEl(await fr.$('#meetcard button[data-meet="go"]'));
+      await page.waitForTimeout(1200); await snap(n, 'c_his_card'); a = await NOW(); await tapEl(await fr.$('#meetcard button[data-meet="go"]'));
       let ff = null; for (let i = 0; i < 240 && !ff; i++) { await page.waitForTimeout(500); const h = await page.$('#fightFrame');
         if (h) { const x = await h.contentFrame(); if (x && await x.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0).catch(() => false)) ff = x; } }
       R.board = !!ff; let res = null;
@@ -162,13 +170,24 @@ const say = (s) => console.log(s);
         R.him = await ff.evaluate(() => { const u = FIGHT.S.units.filter(u => u.side === 'them' && u.boss)[0]; return u ? u.name : null; }).catch(() => null);
         R.us0 = await ff.evaluate(() => FIGHT.S.units.filter(u => u.side !== 'them').length).catch(() => null);
         R.them0 = await ff.evaluate(() => FIGHT.S.units.filter(u => u.side === 'them').length).catch(() => null);
+        await snap(n, 'd_fight_open');
+        for (let i = 0; i < 80; i++) { const en = await ff.evaluate(() => !!(window.__BOSS_ENTRANCE && window.__BOSS_ENTRANCE.entrance)).catch(() => false); if (en) { await page.waitForTimeout(800); await snap(n, 'e_his_entrance'); break; } await page.waitForTimeout(200); }
+        R.entrance = await ff.evaluate(() => JSON.parse(JSON.stringify(window.__BOSS_ENTRANCE || null))).catch(() => null);
+        R.layer = await ff.evaluate(() => { const L = document.getElementById('bossentrance'); return L ? { pe: getComputedStyle(L).pointerEvents, kids: L.children.length } : null; }).catch(() => null);
         const ft0 = Date.now(); await tapEl(await ff.$('#bauto'));
+        let shotHalf = false, shotDown = false;
         for (let i = 0; i < PATIENCE * 2 && !res; i++) { await page.waitForTimeout(500); res = await ff.evaluate(() => FIGHT.S.over ? FIGHT.S.result : null).catch(() => null);
+          if (SHOTS && (!shotHalf || !shotDown)) { const hb = await ff.evaluate(() => { const u = FIGHT.S.units.filter(u => u.boss)[0]; return u ? { f: u.hp / (u.hpMax || u.hp || 1), dead: !!u.dead } : null; }).catch(() => null);
+            if (hb && !shotHalf && hb.f <= 0.5) { shotHalf = true; await page.waitForTimeout(300); await snap(n, 'f_his_moment'); }
+            if (hb && !shotDown && hb.dead) { shotDown = true; await page.waitForTimeout(200); await snap(n, 'g_his_fall'); } }
           if (!res && i % 30 === 29) await ff.evaluate(() => { try { if (!UI.auto) document.getElementById('bauto').click(); } catch (e) {} }).catch(() => {}); }
         R.fightS = Math.round((Date.now() - ft0) / 1000); R.auto = res || 'not over in ' + PATIENCE + ' s';
         R.usLeft = await ff.evaluate(() => FIGHT.S.units.filter(u => u.side !== 'them' && !u.dead).length).catch(() => null);
         if (res !== 'won') { R.checker = 'the checker ended it as won (AUTO: ' + R.auto + ') so the walk goes on';
           await ff.evaluate(() => { FIGHT.S.units.forEach(u => { if (u.side === 'them') u.dead = true; }); FIGHT.S.over = true; FIGHT.S.result = 'won'; showOver('won'); }).catch(() => {}); }
+        await page.waitForTimeout(1200);   /* his fall on the glass (the checker's end too) before the spoils come */
+        R.shown = await ff.evaluate(() => (window.__BOSS_ENTRANCE && window.__BOSS_ENTRANCE.shown || []).map(x => x.k).join('>')).catch(() => null);
+        R.entranceEnd = await ff.evaluate(() => JSON.parse(JSON.stringify(window.__BOSS_ENTRANCE || null))).catch(() => null);
         for (let i = 0; i < 80; i++) { await page.waitForTimeout(500); if (await page.evaluate(() => !!(window.SPOILS && SPOILS.frame))) break; }
         await page.waitForTimeout(1500);
         let left = false; for (let k = 0; k < 6 && !left; k++) { const sf = page.frames().find(x => /SPOILS_SCREEN/.test(x.url())); if (sf) { await page.waitForTimeout(1200); left = await tapEl(await sf.$('#leave')); } else await page.waitForTimeout(800); }
@@ -187,6 +206,7 @@ const say = (s) => console.log(s);
     hold = await fr.evaluate((n) => (window.__LADDER_HOLD || {})[n] || null, n).catch(() => null);
     try { await page.screenshot({ path: path.join(OUT, String(ORDER.indexOf(n) + 1).padStart(2, '0') + '_' + n.replace(/\W+/g, '_') + '_card.png'), scale: 'css' }); } catch (e) {}
     const af = await bossCard('after', n, 60000); const b2 = await NOW();
+    if (hold && SHOTS) {} 
     beatM = await READ(lv || a, b2); beatM.over50 = await over50(lv || a, b2);
     await throttle(1);
     if (af) await pressCard(0);

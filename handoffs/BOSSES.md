@@ -1,5 +1,20 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/26/26: RULE 482, THE FIRST THREE FEEL LIKE BOSSES: THE SIGN LEADS TO HIM, HIS ENTRANCE, HIS NAME OVER HIM, HIS MOMENT, HIS FALL (the routine 'BOSSES: rule 482 next'; ask row 735), BUILD 11/26zm
+Record: records/BOHEMIA_BOSSES_THE_FIRST_THREE_FEEL_LIKE_BOSSES_11_26_26.md. Gate: THE BOSS ARRIVES (gates/the_boss_arrives_gate.js, registered;
+THE POT, THE TAP, THE FILTER played for real through the whole-ladder walk, about 6 min). VOTE bosses-the-boss-arrives-11-26 (before and now).
+- THE SIGN LEADS TO HIM (slices/bohemia_bosses.js __THE_SIGN_LEADS_TO_HIM__): the first read of his sign sends the map's camera to his place
+  (go 1 s, hold 1.5 s, back 0.8 s), then his card. Never under a town's screen or a fight (a town that opens mid-move cuts it; it plays again).
+- IN THE FIGHT (slices/bohemia_boss_entrance.js, loaded by BOHEMIA_FIGHT.html): his entrance once the fight is the frame on top (a tape's
+  lower third: REC, his name, his title; 'power_on'); his name over his head in red with his blood; at half his blood his own tip stamped
+  once with a tracking tear; his fall (dead, run off, or the fight won with him in it): the tape stops, his name struck through, DOWN
+  ('tape_pull'). Reads his row only (name, title, tip); pointer-events none; no fight number changed. Every fought boss gets it.
+- His tip and title travel into the fight (msg.boss.tip; S.boss.title, S.boss.tip in __THE_BOSS_IS_A_MAN__).
+- SEEN WHILE MAKING IT, NOT THIS LANE'S: a DESI tip card ('Tap anywhere on the map and we walk there...') stood over the fight's first
+  seconds on the demo upright, over the entrance's lower third (UI / FIGHT SCREEN).
+- NEXT FOR THIS LANE (rule 482(a), no act two yet): carry the same care to bosses 4 to 6 (THE BURN, THE SURVEYOR, THE CLIMB): look at each
+  one's sign, card and fight on the phone, and fix what reads weak; the walk takes LADDER_SHOTS=1 for the pictures.
+
 ## BOSSES, 11/26/26: RULE 480, THE WHOLE LADDER WALKED FOR REAL: ALL 19 FOUND BY THEIR SIGNS, FOUGHT TO LEAVE, CHANGING THE MAP, ON THE GLASS; FOUR HITCHES OF THIS LANE'S FIXED (the routine 'BOSSES: rule 480'; ask row 723), BUILD 11/26o
 Record: records/BOHEMIA_BOSSES_RULE_480_THE_WHOLE_LADDER_11_26_26.md. Gate: EVERY BOSS HOLDS ITS FRAMES (gates/every_boss_holds_its_frames_gate.js,
 registered, one phone, about 3 min). The walk: tools/bohemia_bosses_the_whole_ladder_11_26_26.js (one new game, every live boss in the ladder's

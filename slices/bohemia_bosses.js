@@ -154,6 +154,7 @@
   }
   function canTalk() {
     var RE = card(); if (!RE || bench()) return false;
+    if (LEADCAM) return false;   /* the camera is at his place (__THE_SIGN_LEADS_TO_HIM__) */
     try { if (RE.up && RE.up()) return false; } catch (e) {}
     try { if (MEET && MEET.up) return false; } catch (e) {}
     if (townTurn() || fightUp()) { LAST.waitedForTown = Date.now(); return false; }
@@ -216,6 +217,11 @@
   function thing(r) {
     var T = r.lead && r.lead.thing; if (!T) return false;
     var L = lead(r.n), m = mate(), h = hs(), f = h && h.boss.found[r.n];
+    /* __THE_SIGN_LEADS_TO_HIM__ (BOSSES 11/26, rule 482: 'the sign that leads to him'): the first time his sign is read, the camera goes
+       to his place and holds on it, then comes back to the crew, and only then is the card read out: GO TO HIS PLACE is a place he has
+       seen. Nothing is drawn at the glass's edge (rule 473(d)); the camera moves, the map is the map. */
+    if (LEADCAM) return true;
+    if (!L.ledCam && f) { if (leadCam(r, f)) { L.ledCam = day() + 1; save(); return true; } }
     L.read = day() + 1; L.thingDue = false; save();
     return talk('thing', r.n, { look: m.look, name: m.name, from: T.what ? 'one of yours, at ' + T.what : null, head: T.head, text: T.says || '', opts: [
       { t: 'GO TO HIS PLACE', tag: String((r.place && r.place.name) || r.n), fn: function () { closeCard(false); if (f) walkTo([f.x, f.y]); } },
@@ -326,7 +332,7 @@
     try { msg.party.word = partyWord(band.length); } catch (e) {}
     msg.roster = band.map(function (id) { return { arch: 'human' }; });
     msg.boss = { n: b.n, kind: b.boss.kind, name: b.boss.name || b.n, title: b.boss.title || null, hp_x: +b.boss.hp_x || 1, weapon: b.boss.weapon || null,
-      shield: b.boss.shield || null, look: b.boss.look || null, lesson: b.lesson || null, board: b.board || null, place: b.place && b.place.name, draft: true };
+      shield: b.boss.shield || null, look: b.boss.look || null, lesson: b.lesson || null, tip: b.tip || null, board: b.board || null, place: b.place && b.place.name, draft: true };
     root.__BOSS_DRESSED = { n: b.n, band: band.slice(), board: b.board, look: b.boss.look || null, at: Date.now() };
     return true;
   }
@@ -2781,7 +2787,34 @@
   var PROP = { cook: 'fire', open: 'main_after', purify: 'clean', burn: 'barrel', survey: 'stake', climb: 'rope', pick: 'cutlock', blow: 'rubble', weld: 'weldbench', press: 'pressplate', fix: 'pulled', look: 'spyglass', fade: 'fadepole', mark: 'inkmark', track: 'pawprints', treat: 'bandage', 'catch': 'raintarp', smelt: 'ingot', deliver: 'cradle' }, MARK_OFF = [0.34, 0.16];
 
   /* ---------- (5) THE MOMENT HE FALLS: the camera, the change over his men, then her line ---------- */
-  var BEAT = null, UB = null, OV = null, RAF = 0;
+  var BEAT = null, UB = null, OV = null, RAF = 0, LEADCAM = null;
+  var LEAD_MS = { go: 1000, hold: 1500, back: 800 }, LEAD_PH = ['go', 'hold', 'back'];
+  function leadAt(ph) { return ph === 'hold' ? LEAD_MS.go : ph === 'back' ? LEAD_MS.go + LEAD_MS.hold : 0; }
+  function leadCam(r, f) {
+    try { if (MODE !== 'city' || bench()) return false; } catch (e) { return false; }
+    try { if (townTurn() || fightUp()) return false; } catch (e) {}   /* never under a town's screen or a fight */
+    var at = placeAt(f), cam = camGo(at[0], at[1], LEAD_MS.go); if (!cam) return false;
+    LEADCAM = { n: r.n, r: r, x: at[0], y: at[1], t0: performance.now(), cam: cam, phase: 'go' };
+    LAST.leadCam = { n: r.n, at: at, started: Date.now(), phases: ['go'], done: null, draft: true }; root.__BOSS_LEAD_CAM = LAST.leadCam;
+    tick(); return true;
+  }
+  function leadStep(now) {
+    var C = LEADCAM; if (!C) return;
+    /* MEASURED 11/26 (THE POT, the demo upright): the crew walked into a camp while the camera was at his place, and the town's screen
+       covered the whole move. A town or a fight that opens mid-move cuts it; it plays again the next time his card is due on the map */
+    var cut = false; try { cut = townTurn() || fightUp() || MODE !== 'city'; } catch (e) {}
+    if (cut) { LEADCAM = null; LAST.leadCam.cut = Date.now(); root.__BOSS_LEAD_CAM = LAST.leadCam; var Lc = lead(C.n); Lc.ledCam = 0; Lc.thingDue = true; save(); camBack(); return; }
+    if (C.cam && !C.camDone) C.camDone = C.cam.step(now);
+    var t = now - C.t0, ph = t < LEAD_MS.go ? 'go' : t < LEAD_MS.go + LEAD_MS.hold ? 'hold' : 'back';
+    var i0 = LEAD_PH.indexOf(C.phase), i1 = LEAD_PH.indexOf(ph);
+    if (i1 > i0 + 1) { i1 = i0 + 1; ph = LEAD_PH[i1]; C.t0 = now - leadAt(ph); }   /* rule 480(c): every phase drawn at least once */
+    if (ph !== C.phase) { C.phase = ph; LAST.leadCam.phases.push(ph);
+      if (ph === 'back') { var h = null; try { h = [city.x, city.y]; } catch (e) {} C.cam = h ? camGo(h[0], h[1], LEAD_MS.back) : null; C.camDone = !C.cam; } }
+    if (C.phase === 'back' && now - C.t0 >= LEAD_MS.go + LEAD_MS.hold + LEAD_MS.back) {
+      LEADCAM = null; LAST.leadCam.done = Date.now(); root.__BOSS_LEAD_CAM = LAST.leadCam; camBack();
+      try { thing(C.r); } catch (e) { LAST.err = String(e && e.message || e); }   /* now his card is read out */
+    }
+  }
   var HUSH = 0, HUSH_MS = 60000;   /* after the thing lands, a minute with nobody stopping you: he sees the map changed and tries the power (the next asker waits) */
   var BEAT_MS = { glide: 900, hold: 700, wipe: 1000, show: 1300 };
   function beatT() { var M = BEAT_MS; return M.glide + M.hold + M.wipe + M.show; }
@@ -2835,6 +2868,7 @@
     if (RAF) return;
     RAF = requestAnimationFrame(function step(now) {
       RAF = 0;
+      if (LEADCAM) leadStep(now);
       if (BEAT) { if (BEAT.cam && !BEAT.camDone) BEAT.camDone = BEAT.cam.step(now); var ph = beatPhase(now - BEAT.t0);
         /* rule 480(c), BOSSES 11/26 (measured on the slowed phone, THE BARBER: one frame was longer than the whole hold, and the beat went
            glide > wipe with his place never held on the glass): a phase is drawn at least once. A frame that would skip one steps to the
@@ -2846,7 +2880,7 @@
       if (BEAT && now - BEAT.t0 >= beatT()) beatEnd();
       if (UB && now - UB.t0 >= UB_MS) { UB = null; LAST.useBeat.done = Date.now(); }
       if (RISES.length && RISES.every(function (q) { return now - q.t0 >= 1800; })) RISES = [];
-      if (BEAT || UB || RISES.length) RAF = requestAnimationFrame(step); else { ovOff(); try { render(); } catch (e) {} }
+      if (BEAT || UB || LEADCAM || RISES.length) RAF = requestAnimationFrame(step); else { ovOff(); try { render(); } catch (e) {} }
     });
   }
   function ov() {
@@ -3082,7 +3116,7 @@
     cradles: function (n) { sync(); return S && S.cradles ? (n ? (S.cradles[n] || null) : S.cradles) : null; }, actOne: function () { sync(); return S ? (S.actOne || null) : null; },
     /* rule 480(c), BOSSES 11/26: true while a boss's beat plays or his card is up, so the map's heavy work (the next sign's placing,
        WORLD TWO's) waits for the moment to finish instead of stalling a frame in the middle of the camera's move */
-    busy: function () { if (BEAT) return true; try { var c = root.__BOSS_CARD; return !!(c && c.kind === 'after' && document.getElementById('roadcard') && Date.now() - c.at < 120000); } catch (e) { return false; } },   /* the fall's moment only: his beat and the card after it (a rumour's or an asker's card never holds a sign back) */
+    busy: function () { if (BEAT || LEADCAM) return true; try { var c = root.__BOSS_CARD; return !!(c && c.kind === 'after' && document.getElementById('roadcard') && Date.now() - c.at < 120000); } catch (e) { return false; } },   /* the fall's moment only: his beat and the card after it (a rumour's or an asker's card never holds a sign back) */
     vouched: function () { VOUCH_AT = 0; return vouched(); }, actOneCheck: function () { sync(); return actOneCheck('asked'); },   /* (27) */
     track: function () { sync(); return S ? (S.track || null) : null; },
     rawStep: function (x, y) { try { return RAW_STEP ? RAW_STEP(x, y) : cityStepMins(x, y); } catch (e) { return null; } },

@@ -56,7 +56,9 @@ const PHASES = (ph) => Array.isArray(ph) && ['glide', 'hold', 'wipe', 'show'].ev
     /* THE POT: his sign, walked to, found */
     let s = null; for (let i = 0; i < 120; i++) { await page.waitForTimeout(500); s = await st(); if (s.sign && s.sign.n === 'THE POT') break; }
     for (let k = 0; k < 4 && s.sign && !s.found['THE POT']; k++) { await go([s.sign.x, s.sign.y]); for (let i = 0; i < 80; i++) { await page.waitForTimeout(500); const c = await card(); if (c) { await press(c.kind === 'thing' ? 1 : 0); await page.waitForTimeout(900); } s = await st(); if (s.found['THE POT']) break; } }
-    for (let k = 0; k < 4; k++) { const c = await card(); if (!c) break; await press(c.kind === 'thing' ? 1 : 0); await page.waitForTimeout(900); }
+    /* the camera leads to his place first (__THE_SIGN_LEADS_TO_HIM__, rule 482), then his card is read out: answered like a player */
+    for (let i = 0; i < 40; i++) { await page.waitForTimeout(400); const c = await card(); if (c) { await press(c.kind === 'thing' ? 1 : 0); await page.waitForTimeout(900); continue; }
+      const lc = await fr.evaluate(() => window.__BOSS_LEAD_CAM ? !!window.__BOSS_LEAD_CAM.done : true).catch(() => true); if (lc && i > 4) break; }
     s = await st(); const found = !!s.found['THE POT'];
     /* the placing timer, timed where it runs; one 1.8 s frame planted in his beat's glide */
     await fr.evaluate(() => { const ST = window.setTimeout; window.__PS_T = [];
