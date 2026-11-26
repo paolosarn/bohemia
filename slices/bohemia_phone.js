@@ -1906,7 +1906,7 @@
         rd.dataset.n = R0[0] + '/' + R0[1]; rd.dataset.c = C0 ? C0[0] + '/' + C0[1] : '';
       } else { rd.removeAttribute('aria-label'); rd.dataset.n = ''; rd.dataset.c = ''; }
     }
-    window.__PHONE_CARD_SAYS = { name: M.name, theirs: !!M.cls, plate: M.plate || null, long: nb.classList.contains('long'), rounds: R0 ? R0.slice() : null, dry: out, reload: reload, carry: C0 ? C0.slice() : null };
+    window.__PHONE_CARD_SAYS = { name: M.name, theirs: !!M.cls, plate: M.plate || null, long: nb.classList.contains('long'), rounds: R0 ? Array.prototype.slice.call(R0) : null, dry: out, reload: reload, carry: C0 ? Array.prototype.slice.call(C0) : null };   /* this page's own arrays (PLUMBER 8, 11/26): R0.slice() made its copy in the fight page's realm, so the card's record kept that page, its board's picture and all, alive after it closed */
     window.__PHONE_MAN = M.name;
     var T0 = window.__PHONE_MAN_T = window.__PHONE_MAN_T || { n: 0, ms: 0, max: 0 }, dT = performance.now() - tPaint; T0.n++; T0.ms += dT; if (dT > T0.max) T0.max = dT; if (T0.list) { T0.list.push([performance.timeOrigin + tPaint, dT]); if (T0.list.length > 4000) T0.list.shift(); }
   }

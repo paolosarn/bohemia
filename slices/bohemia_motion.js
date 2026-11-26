@@ -1330,11 +1330,25 @@
     (DIVE.anims || []).forEach(function (a) { try { if (seen.indexOf(a) >= 0) return; var t = a.effect && a.effect.target; if (!t || !t.isConnected || (root && root.contains(t))) { a.cancel(); n++; } } catch (e) {} });
     LETGO.ends++; LETGO.cancelled += n; return n;
   }
+  /* __THE_WAY_HOME_LETS_ITS_KEPT_PICTURES_GO__ (PLUMBER 8, 11/26, rule 484(a)): the map's photographs at each zoom stop, kept at twice a
+     point for the way back up (DIVE.keptPics), were dropped only when the NEXT fight's way down made new ones, so one fight's worth of
+     them (with the board's picture) sat alive on the map between fights, on top of what the map itself holds: an iPhone counts every
+     canvas pixel against one allowance per page. The way home is over when DIVE.keep goes; they go with it. W.__DIVE_KEEPS_KEPT: the old way */
+  function keptGo() {
+    if (W.__DIVE_KEEPS_KEPT) return;
+    (DIVE.keptPics || []).forEach(function (q) { try { if (q && q.c) { q.c.width = 0; q.c.height = 0; } } catch (e) {} });
+    DIVE.keptPics = [];
+  }
   function diveEnd(r) {
     (DIVE.timers || []).forEach(function (o) { try { clearTimeout(o.id); } catch (e) {} }); DIVE.timers = [];
     letGo(DIVE.el); DIVE.anims = [];   /* __THE_DIVE_LETS_ITS_PICTURES_GO__ */
     try { if (DIVE.raf) W.cancelAnimationFrame(DIVE.raf); } catch (e) {} DIVE.raf = 0;
     try { if (DIVE.el) DIVE.el.remove(); } catch (e) {} DIVE.el = null; DIVE.skip = false;
+    /* __THE_WAY_HOME_LETS_ITS_KEPT_PICTURES_GO__: the layer's own pieces the dive still named after it came off (its camera, its bands and
+       their grids, the map's last photograph) were each a removed subtree of pictures kept alive until the next fight; the way home
+       never reads them (it lays its own from DIVE.keep) */
+    if (!W.__DIVE_KEEPS_KEPT) { DIVE.cam = null; DIVE.bands = null; DIVE.mapPic = null; DIVE.push = null; }   /* DIVE.push: the camera's slow push, an animation
+       cancelled above but still named here, and an animation names its target: the camera and every picture under it */
     if (DIVE.hum === 'down') humTo(false, 0.5);
     DIVE.state = 'off'; nfcSet('off');
     try { if (W.__DIVE_MARKS && r) console.timeStamp('dive:' + r.kind + ':end'); } catch (e) {}
@@ -1710,7 +1724,7 @@
     if (!c || u0 == null || reduced() || !fg || !fits) {
       r.plain = true;
       var k = 0, wait = function () { if (++k < 3) { W.requestAnimationFrame(wait); return; } phase(r, 'fade'); nfcSet('off'); landed();
-        var ms = reduced() ? 167 : 300; play(pic.c, [{ opacity: 1 }, { opacity: 0 }], ms); later(function () { DIVE.keep = null; diveEnd(r); }, ms + 40); };
+        var ms = reduced() ? 167 : 300; play(pic.c, [{ opacity: 1 }, { opacity: 0 }], ms); later(function () { DIVE.keep = null; keptGo(); diveEnd(r); }, ms + 40); };
       W.requestAnimationFrame(wait); return;
     }
     var IP = K.path, bm = beatNow(), N = 36, Wg = W.innerWidth, Hg = W.innerHeight, glass = { x: 0, y: 0, w: Wg, h: Hg }, mg = K.mg, kEnd = K.kEnd || 1, mgT = { c: mg.c, M: mg.M, sm: mg.sm * kEnd, km: mg.km };
@@ -1776,7 +1790,7 @@
       if (DIVE.row !== r) return;
       if (!liveDone && performance.now() - r.t0 < tE + 4000) { later(end, 60); return; }
       var lo = kept[0] || Kp; if (lo) play(lo.c, [{ opacity: 1 }, { opacity: 0 }], 0.3 * bm, { fill: 'forwards' });
-      later(function () { DIVE.z0 = null; DIVE.keep = null; diveEnd(r); }, 0.3 * bm + 50);
+      later(function () { DIVE.z0 = null; DIVE.keep = null; keptGo(); diveEnd(r); }, 0.3 * bm + 50);
     };
     later(end, tE);
   }

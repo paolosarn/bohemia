@@ -67,6 +67,36 @@ STILL OPEN (the next lead): 186 to 194 MB of canvases alive on the map at rest i
 pictures (a camp, a bigger town, a sideways turn mid-dive) could tip it. The biggest holders are the map's photographs at each zoom stop
 and the board's picture; that cut is next.
 
+## THE PICTURES AT REST (the same round, BUILD 11/26zq)
+
+The open lead above, measured by maker (every canvas alive after the third fight, grouped by the function and page that made it) and
+then by a heap snapshot's retaining paths. The dive still held one fight's worth between fights, five ways:
+- DIVE.keptPics: the map's photographs at each zoom stop, kept at twice a point for the way back up, dropped only when the NEXT fight's
+  way down made new ones;
+- DIVE.push: the camera's slow push, an animation cancelled by letGo but still named, and an animation names its target: the camera
+  and every picture under it (the board's picture 1170 x 2532, the map's 1170 x 2343, the grid 780 x 1688);
+- DIVE.cam, DIVE.bands, DIVE.mapPic: the layer's own pieces, named after the layer came off.
+And the phone's ammo card (bohemia_phone.js, window.__PHONE_CARD_SAYS, a checker's look) copied the fight's rounds with R0.slice(),
+which makes the copy in the FIGHT page's realm, so the record kept that closed page's whole context alive.
+
+THE CUT: __THE_WAY_HOME_LETS_ITS_KEPT_PICTURES_GO__ (bohemia_motion.js keptGo where the way home ends, and the leftovers named null in
+diveEnd; switch window.__DIVE_KEEPS_KEPT); the card's copies made in its own page (Array.prototype.slice.call).
+
+| twenty fights from the map, CPU 4x | the most alive | after fight 2 | after fight 20 | the dive's pictures between fights |
+|---|---:|---:|---:|---:|
+| upright, 11/26zp | 229 MB | 172 MB | 194 MB | 10 |
+| upright, now | 147 MB | 119 MB | 140 MB | 0 |
+| sideways, 11/26zp | 191 MB | 178 MB | 186 MB | 10 |
+| sideways, now | 134 MB | 128 MB | 133 MB | 0 |
+
+About 50 MB less on the map at rest, 80 MB less at the worst moment: from three quarters of the 256 MB line to about half. The gate
+gains M6 (none of the dive's pictures alive between fights, at every fight), its plant P3 (__DIVE_KEEPS_KEPT, two fights: 9 and 10
+alive), and C3, a ratchet: at most 176 MB at every fight (the most seen + 20%), which may only come down.
+
+What is left on the map at rest (about 133 to 140 MB), biggest first, all the map's own (WORLD 13's draw): two 2400 x 2400 pictures
+(BOHEMIA_CITY_WORLD.html cv at about line 53200, 46 MB together), 13 tiles up to 1025 x 1025 (24 MB), the land view 1602 x 2775
+(18 MB), 7 tiles at 992 x 992 (12 MB), the ground 1170 x 2343 (11 MB). Filed as an ask row to WORLD 13.
+
 ## LEFT, NAMED
 
 - The pop-up watcher (slices/bohemia_ui_nothing_pops.js DOCS) holds the last closed page or two until it arms the next (bounded); its

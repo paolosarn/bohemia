@@ -16,6 +16,7 @@
      C1 no crash and no reload over the twenty fights
      C2 an iPhone's canvas budget: the canvases alive under 256 MB at every fight (Safari gives a page a fixed canvas allowance; past it a
         new canvas draws nothing and the ground shows through)
+     C3 THE RATCHET: at most 176 MB of canvases alive at every fight (147 upright, 134 sideways measured, + 20%; it may only come down)
      M1 the canvases alive grow at most 8 megapixels in all (the old way: about 23 a fight)
      M2 the dive's own pictures (picOf, turnIn, diveUp) alive no more after the last fight than after the second
      M3 the documents alive no more after the last than after the second (+1)
@@ -23,6 +24,9 @@
      M5 the dive let its animations go: it ended at least once a fight and cancelled what it played
      P1 PLANT the old way (window.__DIVE_KEEPS_ITS_ANIMATIONS), three fights: the canvases grow past M1's line for the same span (it bites)
      P2 PLANT the same three fights cross C2's iPhone line (measured: 200 -> 296 -> 386 MB; C2 bites)
+     M6 none of the dive's pictures alive on the map between fights (the way home lets its kept zoom pictures, its camera, its bands and
+        its slow push go: __THE_WAY_HOME_LETS_ITS_KEPT_PICTURES_GO__; before, one fight's worth sat there, 6 to 10 megapixels)
+     P3 PLANT window.__DIVE_KEEPS_KEPT, two fights: the dive's pictures alive between fights (M6 bites)
    The processes' own memory (the page's renderer, the GPU process) is printed, not judged: this box draws through a software GPU whose
    process keeps what it was given. --upright / --sideways: one side alone; --no-plant / --plant-only: the halves alone.
    BOHEMIA_MEM_FIGHTS=n: a shorter walk for a quick look. One side is about 9 minutes, the plant about 1.5.
@@ -39,6 +43,9 @@ const FIGHTS = +(process.env.BOHEMIA_MEM_FIGHTS || 20), M1_MPX = 8, M4_MB = 15;
 /* AN IPHONE'S CANVAS BUDGET: Safari caps the canvas memory one page may hold (384 MB on the phones that first hit it; past it a new
    canvas gets no pixels and draws nothing, the town's brown ground showing through). The line: 256 MB of canvases alive, at every fight */
 const IPHONE_CANVAS_MB = 256;
+/* THE RATCHET (11/26, after the way home let its pictures go): the most seen at any fight, 147 MB upright and 134 MB sideways, + 20%.
+   May only come down. */
+const MOST_CANVAS_MB = 176;
 /* every canvas any page makes, kept as a WeakRef by the top page (made in the top page's own context, so the registry never keeps a
    page alive itself) with the function that made it */
 const REG = "(function(){ var T = window.top; if (window === T) { T.__CVREG = { list: [] }; T.__cvAdd = function (e, w, p) { T.__CVREG.list.push({ r: new WeakRef(e), w: w, p: p }); }; } var ce = Document.prototype.createElement;"
@@ -108,9 +115,12 @@ async function loop(n, arm, label, side, throttle) {
     ok(tag + ': C1 NO CRASH, NO RELOAD: the page never died and never loaded again over the ' + FIGHTS + ' fights', R.crash() === 0 && good.every(r => r.loads === good[0].loads), 'crashes ' + R.crash() + ', page loads ' + R.loads());
     const worst = good.reduce((q, r) => Math.max(q, r.mp), 0);
     ok(tag + ': C2 AN IPHONE\'S CANVAS BUDGET: the canvases alive under ' + IPHONE_CANVAS_MB + ' MB at every fight', good.length > 0 && worst * 4 <= IPHONE_CANVAS_MB, 'the most ' + Math.round(worst * 4) + ' MB (' + worst + ' Mpx)');
+    ok(tag + ': C3 THE RATCHET: the canvases alive at most ' + MOST_CANVAS_MB + ' MB at every fight (147 upright, 134 sideways measured; it may only come down)', good.length > 0 && worst * 4 <= MOST_CANVAS_MB, 'the most ' + Math.round(worst * 4) + ' MB');
     if (walked) {
       ok(tag + ': M1 the canvases alive grow at most ' + M1_MPX + ' megapixels from the second fight to the last', rN.mp - r2.mp <= M1_MPX, r2.mp + ' -> ' + rN.mp + ' Mpx (' + r2.n + ' -> ' + rN.n + ' canvases)');
       ok(tag + ': M2 the dive\'s own pictures alive no more after the last fight than after the second', rN.dive <= r2.dive, r2.dive + ' -> ' + rN.dive);
+      /* __THE_WAY_HOME_LETS_ITS_KEPT_PICTURES_GO__: one fight's worth (5 to 8 pictures, 6 to 10 megapixels) used to sit on the map until the next */
+      ok(tag + ': M6 none of the dive\'s pictures alive on the map between fights, at any of the ' + FIGHTS, good.every(r => r.dive === 0), good.map(r => r.dive).join(' '));
       ok(tag + ': M3 the documents alive no more after the last than after the second (+1)', rN.docs <= r2.docs + 1, r2.docs + ' -> ' + rN.docs);
       ok(tag + ': M4 the JS heap grows at most ' + M4_MB + ' MB from the second fight to the last', rN.heap - r2.heap <= M4_MB, r2.heap + ' -> ' + rN.heap + ' MB');
       const lg = rN.letGo;
@@ -128,6 +138,10 @@ async function loop(n, arm, label, side, throttle) {
     const top = g.reduce((q, r) => Math.max(q, r.mp), 0);
     ok('P2 PLANT the old way: the canvases alive cross C2\'s iPhone line (' + IPHONE_CANVAS_MB + ' MB) inside three fights (C2 bites)', g.length === 3 && top * 4 > IPHONE_CANVAS_MB,
       g.map(r => Math.round(r.mp * 4) + ' MB').join(' -> '));
+    const K = await loop(2, 'window.__DIVE_KEEPS_KEPT = true;', 'the kept pictures kept');
+    const kg = K.filter(r => !r.err);
+    ok('P3 PLANT the way home keeps its pictures (__DIVE_KEEPS_KEPT): the dive\'s pictures alive between fights (M6 bites)', kg.length === 2 && kg[1].dive > 0,
+      kg.map(r => r.dive + ' pictures, ' + Math.round(r.mp * 4) + ' MB').join(' -> '));
   }
   console.log('\nTWENTY FIGHTS HOLD MEMORY FLAT: ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);

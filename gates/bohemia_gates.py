@@ -9520,8 +9520,10 @@ GATES = [
      "collection after each, every canvas any page makes counted alive by the function that made it: no crash and no reload; the canvases "
      "alive under an iPhone's 256 MB at every fight; from the second fight to the last the canvases grow at most 8 megapixels (the old way: "
      "about 23 a fight), the dive's own pictures no more, the documents no more (+1), the JS heap (the browser's own count) at most 15 MB; "
-     "the dive cancelled what it played; P1 the old way (__DIVE_KEEPS_ITS_ANIMATIONS), three fights, grows past the line. "
-     "records/BOHEMIA_PLUMBER_TEN_FIGHTS_HOLD_MEMORY_FLAT_11_26_26.md. Solo. About 10.5 min (its own cap, _CAP_FOR)", True),
+     "the dive cancelled what it played; P1 the old way (__DIVE_KEEPS_ITS_ANIMATIONS), three fights, grows past the line, P2 crosses the "
+     "iPhone's. EXTENDED 11/26zq: M6 none of the dive's pictures alive between fights (the way home lets its kept pictures go), its plant P3 "
+     "(__DIVE_KEEPS_KEPT); C3 a ratchet, at most 176 MB of canvases alive at every fight (147 measured), only down. "
+     "records/BOHEMIA_PLUMBER_TEN_FIGHTS_HOLD_MEMORY_FLAT_11_26_26.md. Solo. About 12 min (its own cap, _CAP_FOR)", True),
     ('TWENTY FIGHTS HOLD MEMORY FLAT (SIDEWAYS)', ['node', 'gates/twenty_fights_hold_memory_flat_gate.js', '--sideways', '--no-plant'],
      "PLUMBER 8 gate, 11/26, rule 484(a)'s other half: the same twenty fights in a row with the phone held sideways (844 x 390), the same "
      "lines (no crash, no reload, an iPhone's canvas budget at every fight, the canvases, the dive's pictures, the documents and the heap "

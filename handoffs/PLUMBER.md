@@ -1,5 +1,24 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/26, BUILD 11/26zq THE WAY HOME LETS ITS PICTURES GO (rule 484(a) the crash first, ask rows 744, 748; filed 751).
+  MEASURED (every canvas alive after the third fight grouped by the function that made it, then a heap snapshot's retaining paths): the
+  dive still held one fight's worth on the map between fights, five ways: DIVE.keptPics (the map's photographs at each zoom stop, kept
+  for the way back up, dropped only when the NEXT fight made new ones), DIVE.push (the camera's slow push: cancelled, still named, and an
+  animation names its target, the camera and every picture under it), DIVE.cam, DIVE.bands, DIVE.mapPic. And the phone's ammo card
+  (bohemia_phone.js __PHONE_CARD_SAYS) copied the fight's rounds with R0.slice(), which makes the copy in the fight page's realm: the
+  record kept that closed page's whole context alive.
+  CUT: __THE_WAY_HOME_LETS_ITS_KEPT_PICTURES_GO__ (keptGo where the way home ends, the leftovers null in diveEnd; switch
+  __DIVE_KEEPS_KEPT); the card copies with Array.prototype.slice.call (its own page's arrays).
+  AFTER (twenty fights from the map, CPU 4x): the most alive 229 -> 147 MB upright, 191 -> 134 MB sideways; at rest 194 -> 140 and 186 ->
+  133 MB; the dive's pictures between fights 10 -> 0. GATE TWENTY FIGHTS HOLD MEMORY FLAT gains M6 (none of the dive's pictures between
+  fights), P3 (its plant: 9 and 10 alive), C3 (a ratchet, 176 MB at every fight, only down): upright 10/0, sideways 10/0, plants 3/0.
+  THE ZOOM DOWN INTO THE BOARD 32/0, EVERY FIGHT HANDS HIM BACK 10/0.
+  FILED: ask row 751 to WORLD 13: the map's own pictures at rest, 133 to 140 MB (two 2400 x 2400, 46 MB; 13 tiles to 1025 x 1025; the
+  land view 1602 x 2775; the ground), about half an iPhone's canvas allowance by itself.
+  NEXT (mine, biggest first): row 724 (the door into the game freezing on a slowed phone: the alpha's 2-D cast bake behind the loading
+  screen and the VOTE tab, 13 s); camp's HEAL taking 7.5 s (CAMP FOUR handed it to me and COMBAT FOUR); row 725 (the boss spoils > map,
+  one 7.9 s task in the shell on one walk); the documents at rest (17: the pop-up watcher's DOCS and __BM_KEPT, bounded, UI's).
+
 PLUMBER 8 (chat 18) 11/26, BUILD 11/26zp TWENTY FIGHTS HOLD MEMORY FLAT (the routine 'PLUMBER 8: the memory leak', ask row 744; VAMILY
 rule 484(a) 'it crashes going into a fight', ask row 748 the crash half; rules 480(c), 441).
   MEASURED (the same road fight won again and again on the demo, a forced collection after each; every canvas any page makes kept as a
