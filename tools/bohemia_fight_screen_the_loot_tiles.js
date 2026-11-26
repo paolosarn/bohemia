@@ -11,11 +11,19 @@ const ROOT = path.join(__dirname, '..'), OUT = process.argv[2] || '/tmp/loot_til
 fs.mkdirSync(OUT, { recursive: true });
 const TYPE = { '.html': 'text/html', '.js': 'text/javascript', '.png': 'image/png', '.json': 'application/json', '.webp': 'image/webp', '.woff2': 'font/woff2', '.css': 'text/css' };
 const OLD = process.env.BEFORE ? execSync('git show HEAD:slices/BOHEMIA_SPOILS_SCREEN.html', { cwd: ROOT, maxBuffer: 1 << 26 }) : null;
+const OLD_ENGINE = process.env.BEFORE ? execSync('git show HEAD:engine/bohemia_spoils.js', { cwd: ROOT, maxBuffer: 1 << 26 }) : null;
+/* THROWN=1 (__EVERY_WEAPON_DROPS__, ask row 742): the screen's own SAMPLE fight with its dead carrying the five weapons that never dropped (the kids'
+   bolas, the keepers' throwing axes, the water people's sling), uses left; what lands on the ground is read */
+const THROWN = !!process.env.THROWN;
 const SHAPES = [['upright', 390, 844], ['sideways', 844, 390], ['small upright', 360, 740], ['small sideways', 667, 375], ['big sideways', 932, 430]];
 (async () => {
   const srv = http.createServer((rq, rs) => {
     const rel = decodeURIComponent(rq.url.split('?')[0]).replace(/^\/+/, ''), f = path.join(ROOT, rel);
     if (OLD && rel === 'slices/BOHEMIA_SPOILS_SCREEN.html') { rs.setHeader('content-type', 'text/html'); return rs.end(OLD); }
+    if (OLD_ENGINE && rel === 'engine/bohemia_spoils.js') { rs.setHeader('content-type', 'text/javascript'); return rs.end(OLD_ENGINE); }
+    if (process.env.DROP_PLANT && rel === 'engine/bohemia_spoils.js') {   /* the plant: __EVERY_WEAPON_DROPS__'s two conditions taken out (the old rule) */
+      const src = fs.readFileSync(f, 'utf8'), cut = src.replace('w.ammoMax != null && ', '').replace("w.durability == null ? rollOnly('weapon', D, rnd) : ", '');
+      if (cut === src) { console.log('DROP_PLANT DID NOT TAKE'); process.exit(1); } rs.setHeader('content-type', 'text/javascript'); return rs.end(cut); }
     if (process.env.LOOT_PLANT && rel === 'slices/BOHEMIA_SPOILS_SCREEN.html') {   /* the plant: __THE_LOOT_READS__'s rules taken out */
       const src = fs.readFileSync(f, 'utf8'), cut = src.replace(/\.slot > span:not\(\.cw\)\{[^}]*\}/, '').replace(/\.slot:has\(> \.cw\)\{[^}]*\}/, '').replace(/\.slot img\.pk,\.slot canvas\{[^}]*\}/, '').replace(/\.slot canvas\{width:auto!important[^}]*\}/, '');
       if (cut === src) { console.log('LOOT_PLANT DID NOT TAKE'); process.exit(1); } rs.setHeader('content-type', 'text/html'); return rs.end(cut); }
@@ -33,7 +41,14 @@ const SHAPES = [['upright', 390, 844], ['sideways', 844, 390], ['small upright',
   const T = { before: !!OLD, shapes: {} };
   for (const [name, w, h] of SHAPES) {
     await sp.setViewportSize({ width: w, height: h });
-    await sp.evaluate(() => { localStorage.setItem('bohemia.bag.v1', '[]'); BohemiaSpoilsScreen.open({ fight: BohemiaSpoilsScreen.SAMPLE, seed: 7 }); });
+    await sp.evaluate((THROWN) => { localStorage.setItem('bohemia.bag.v1', '[]'); const F = JSON.parse(JSON.stringify(BohemiaSpoilsScreen.SAMPLE));
+      if (THROWN) { const W = [{ id: 'bundle_of_spiked_bolas', cls: 'throwing', durability: null, gun: false, ammo: 4, ammoMax: 6 }, { id: 'bundle_of_throwing_axes', cls: 'throwing', durability: null, gun: false, ammo: 3, ammoMax: 5 }, { id: 'nomad_sling', cls: 'throwing', durability: 56, gun: false, ammo: null, ammoMax: null }];
+        (F.spoils.bodies || []).forEach((b, i) => { b.weapon = W[i % W.length]; b.dead = true; b.fled = false; });
+        /* the first seed whose rolls land all three (each is a 90% roll; one seed may miss one): the picture shows each kind can drop */
+        for (let seed = 1; seed < 40; seed++) { BohemiaSpoilsScreen.open({ fight: F, seed: seed }); const g = (BohemiaSpoilsScreen.state.ground || []).map(i => i.id);
+          if (W.every(w => g.indexOf(w.id) >= 0)) { window.__THROWN_SEED = seed; return; } }
+        return; }
+      BohemiaSpoilsScreen.open({ fight: F, seed: 7 }); }, THROWN);
     await sp.waitForTimeout(2200);
     T.shapes[name] = await sp.evaluate(() => [...document.querySelectorAll('.slot.full')].filter(s => s.getBoundingClientRect().width > 0 && getComputedStyle(s).display !== 'none').map(s => {
       const r = s.getBoundingClientRect(), cs = getComputedStyle(s), pb = parseFloat(cs.paddingBottom) || 0, pt = parseFloat(cs.paddingTop) || 0;
@@ -52,6 +67,7 @@ const SHAPES = [['upright', 390, 844], ['sideways', 844, 390], ['small upright',
     const L = T.shapes[name], bad = L.filter(t => !t.nameWhole || !t.picIn || t.barOver || t.picOverName || t.squashed);
     console.log(name.padEnd(15), w + 'x' + h, L.length + ' tiles,', bad.length + ' cut:', bad.slice(0, 6).map(t => t.where + ' "' + t.name + '" tile ' + t.tile.join('x') + ' pic ' + (t.pic || []).join('x') + ' cut ' + t.nameCutBy + (t.barOver ? ' BAR OVER THE NAME' : '') + (t.picOverName ? ' PICTURE OVER THE NAME' : '') + (t.squashed ? ' SQUASHED' : '')).join(' | '));
   }
+  if (THROWN) { T.ground = await sp.evaluate(() => (BohemiaSpoilsScreen.state.ground || []).map(i => i.id)); T.seed = await sp.evaluate(() => window.__THROWN_SEED || null); console.log('ON THE GROUND', JSON.stringify(T.ground), 'seed', T.seed); }
   T.errs = errs; fs.writeFileSync(path.join(OUT, 'loot_tiles.json'), JSON.stringify(T, null, 1));
   console.log('page errors', errs.length);
   await b.close(); srv.close(); process.exit(0);

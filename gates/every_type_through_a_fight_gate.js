@@ -23,7 +23,9 @@ const path = require('path'), { execFileSync } = require('child_process');
 const ROOT = path.dirname(__dirname), TOOL = path.join(ROOT, 'tools/bohemia_bestiary_every_type.js');
 const KINDS_AT_LEAST = 80;
 /* THE DEBT (ask row 742): kinds whose only weapon the spoils' rules never hand over; it only shrinks */
-const NO_DROP_DEBT = ['lower_goblin_skirmisher', 'goblin_skirmisher', 'goblin_skirmisher_champion', 'keeper_thrall', 'water_slinger'];
+/* PAID 11/26 by FIGHT SCREEN 3's __EVERY_WEAPON_DROPS__ (engine/bohemia_spoils.js found(): spent only on a weapon that carries a count; a bundle with
+   no wear found on its roll): the five kinds (the kids' three skirmishers, the keepers' thrall, the water people's slinger) drop again, 53 of 53 */
+const NO_DROP_DEBT = [];
 let pass = 0, fail = 0;
 const leg = (ok, what, why) => { if (ok) pass++; else fail++; console.log((ok ? '  PASS  ' : '  FAIL  ') + what + (ok || !why ? '' : '\n        ' + why)); };
 const run = (env) => { const o = execFileSync('node', [TOOL], { cwd: ROOT, env: Object.assign({}, process.env, env), maxBuffer: 1 << 26, timeout: 900000 }).toString(); return JSON.parse(o.split('RESULT ')[1]); };

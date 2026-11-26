@@ -8,7 +8,11 @@
          picture never over the name
      L2  no picture squashed: each keeps its own shape (a square icon square, the pack's tall pipe tall)
      errors  no page error
+     L3  EVERY WEAPON DROPS (FIGHT SCREEN THREE 11/26, ask row 742): the dead carrying the three weapons that never dropped (the kids' bundle of
+         spiked bolas, the keepers' throwing axes with uses left and no wear, the water people's sling with no count) leave each of them on
+         the ground on some seed of 39 (engine/bohemia_spoils.js __EVERY_WEAPON_DROPS__), and their tiles read (L1)
      planted: __THE_LOOT_READS__'s rules taken out (LOOT_PLANT): L1 red
+     planted: __EVERY_WEAPON_DROPS__'s conditions taken out (DROP_PLANT, the old rule): L3 red (none of the three ever drops)
    Run: node gates/the_loot_reads_gate.js      (under a minute)
    ========================================================================== */
 'use strict';
@@ -28,6 +32,11 @@ if (!T) { check(false, 'ran', 'the end screen did not open'); console.log('\nTHE
 check(l1(T), 'L1', 'every piece reads: ' + say(T));
 check(l2(T), 'L2', 'no picture squashed: ' + say(T));
 check(!(T.errs || []).length, 'errors', (T.errs || []).length + ' page errors');
+const TH = run({ THROWN: '1' }), THREE = ['bundle_of_spiked_bolas', 'bundle_of_throwing_axes', 'nomad_sling'];
+const l3 = (X) => !!X && !!X.seed && THREE.every(id => (X.ground || []).indexOf(id) >= 0);
+check(l3(TH) && l1(TH), 'L3', 'every weapon drops: on seed ' + (TH && TH.seed) + ' the ground holds ' + JSON.stringify(TH && TH.ground) + '; the tiles: ' + (TH ? say(TH).slice(0, 300) : 'not read'));
+const PD = run({ THROWN: '1', DROP_PLANT: '1' });
+check(!!PD && !l3(PD), 'planted', 'the old drop rule: in 39 seeds the ground holds ' + JSON.stringify(PD && PD.ground) + ' (L3 red)');
 const P = run({ LOOT_PLANT: '1' });
 check(!!P && !l1(P), 'planted', 'the loot\'s rules taken out: L1 reads ' + (P ? say(P).slice(0, 400) : 'nothing') + ' (red)');
 console.log('\nTHE LOOT READS: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0);

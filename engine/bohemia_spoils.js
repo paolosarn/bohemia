@@ -35,6 +35,13 @@
     }
     return { found: true, wrecked: false, cond: cond };
   }
+  /* __EVERY_WEAPON_DROPS__: a piece with no wear to read (a bundle of throwing weapons) is found on the part's roll alone, the same die and the
+     same second look as partFound, never wrecked */
+  function rollOnly(part, D, rnd) {
+    var r = D.drop[part]; if (!r) return { found: false, wrecked: false };
+    if (rnd() * 100 >= r.roll_pct && !(D.way && D.way.loot_second_look && rnd() * 100 < r.roll_pct)) return { found: false, wrecked: false };
+    return { found: true, wrecked: false, cond: null };
+  }
   /* the rolls of tape a wrecked piece leaves: ECONOMY's number when the loot file came with tape_income (D.tape_income), else the
      loot file's own count (an old data file's scrap row reads the same) */
   function tapePerWreck(D) {
@@ -75,8 +82,13 @@
       var w = b.weapon;
       if (w) {
         var thrown = (D.drop.thrown_classes || []).indexOf(w.cls) >= 0;
-        var spent = thrown && D.drop.weapon.thrown_needs_ammo && !(w.ammo > 0);   /* a thrown weapon spent is not there: nothing, not tape */
-        if (!spent) { var f = partFound('weapon', w.durability, w.durability, D, rnd);
+        /* __EVERY_WEAPON_DROPS__ (FIGHT SCREEN THREE 11/26, ask row 742, BESTIARY TWO's find: the kids' bolas, the keepers' throwing axes and the
+           water people's sling left nothing, 10 fights in 10): SPENT only when the weapon carries a count and it is at none (a sling carries no
+           count: 'spent' read it as gone); a bundle with uses left and no wear in weapons.json (durability null) is found on the weapon's roll,
+           never read as wrecked (partFound took a null wear as wrecked, tape). Battle Brothers drops a throwing weapon with uses left, and a sling
+           like any weapon */
+        var spent = thrown && D.drop.weapon.thrown_needs_ammo && w.ammoMax != null && !(w.ammo > 0);   /* a thrown weapon spent is not there: nothing, not tape */
+        if (!spent) { var f = w.durability == null ? rollOnly('weapon', D, rnd) : partFound('weapon', w.durability, w.durability, D, rnd);
           if (f.found) out.items.push({ kind: 'weapon', id: w.id, cond: w.durability, max: w.durability, from: b.name });
           else if (f.wrecked) out.counts.tape += wreck; }
         if (w.gun && w.ammo > 0) out.counts.rounds += w.ammo | 0;   /* counts.rounds: the rounds left in his gun */
