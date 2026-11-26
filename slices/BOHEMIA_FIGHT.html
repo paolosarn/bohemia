@@ -12294,12 +12294,12 @@ function perkName(id) { const r = DB.perkNames.rows.filter(function (x) { return
    they are all down (143(d)). Words are drafts for WORDS (draft:true). */
 const WIPE_SAYS = {   /* draft:true */
   head: 'YOUR WHOLE CREW IS DOWN', recap: 'WIPED OUT',
-  took: '{who} keep the field.',
+  took: '{who} {keep} the field.',   /* BESTIARY 2 11/26: {keep} and {have} agree with who ('A mammoth keeps', 'The road crew keep') */
   outclassed: '{name} outclassed you: LV {lv} against your best, LV {top}.',
   dodged: '{name} dodged {n} of your {m} shots.',
   armoured: '{name} wore {a} armour. Your best arm needed {b} hits.',
   count: '{dead} of yours dead, {down} down.',
-  next: 'Somebody drags you to the nearest town. {who} have your men and your gear.',
+  next: 'Somebody drags you to the nearest town. {who} {have} your men and your gear.',
   nextAlone: 'Somebody drags you to the nearest town. You wake up alone, your gear still on you.'
 };
 const REFUSE_SAYS = { ap: 'Not enough AP: {what} costs {need}, {name} has {have}.', fat: '{name} is too tired for it. WAIT, or END TURN.', walk: 'Leaves {left} AP: {what} costs {need}.',
@@ -12315,7 +12315,12 @@ const THEY_ARE = { flock: 'The flock', hired: 'The hired guns', takers: 'The hea
   coyotes: 'The coyotes', lions: 'A mountain lion', hogs: 'The hogs', camels: 'The camels', bulls: 'A bull',   /* FIVE MORE BEASTS; draft:true */
   teratorns: 'The teratorns',   /* WORLD 12 (rule 431(f)): the giant vultures, one more beast; draft:true */
   cheetahs: 'An American cheetah', goats: 'The goats', stilts: 'The stilt-legged horses', jaguars: 'A jaguar',
-  llamas: 'The llamas', longhorns: 'A long-horned bison', mammoths: 'A mammoth', shrub_oxen: 'The shrub-oxen' };   /* BESTIARY 11/9 (rule 440(f)): the lab seven; draft:true */
+  llamas: 'The llamas', longhorns: 'A long-horned bison', mammoths: 'A mammoth', shrub_oxen: 'The shrub-oxen',   /* BESTIARY 11/9 (rule 440(f)): the lab seven; draft:true */
+  /* BESTIARY 2 11/26 (rule 480(b), every enemy type through a fight): nine beast parties had no name here, so a fight lost to a ground
+     sloth said 'The road crew keep the field' (wipeInfo's fallback); every faction a band deals now has its words (gate EVERY TYPE
+     THROUGH A FIGHT E5); draft:true */
+  wolves: 'The dire wolves', hyenas: 'The cave hyenas', bears: 'A short-faced bear', sloths: 'A ground sloth', sabres: 'A sabre-tooth',
+  prides: 'The lions', bison: 'The bison', horses: 'The horses', dogs: 'The feral dogs' };
 function wfill(t, o) { return t.replace(/\{(\w+)\}/g, function (m, k) { return o[k] !== undefined ? o[k] : m; }); }
 function isWipe(result) {
   if (result !== 'lost') return false;
@@ -12329,12 +12334,12 @@ function theirFaction() { const o = window.FIGHT_OPTS || {}; return FIGHT.S.road
 /* what happened, in numbers he can read: the one man of theirs who did it, and how */
 function wipeInfo() {
   const S = FIGHT.S, mine = S.units.filter(function (v) { return v.side === 'you'; }), theirs = S.units.filter(function (v) { return v.side === 'them'; });
-  const f = theirFaction(), who = THEY_ARE[f] || THEY_ARE.brigands;
+  const f = theirFaction(), who = THEY_ARE[f] || THEY_ARE.brigands, one = /^(A|An) /.test(who), agree = { who: who, keep: one ? 'keeps' : 'keep', have: one ? 'has' : 'have' };   /* one beast keeps the field; a crew keep it */
   const top = mine.reduce(function (m, v) { return Math.max(m, lvOf(v)); }, 1);
   /* the standout: the one who outclassed you most, else the best dodger, else the one who took the most of your blows */
   const scored = theirs.map(function (t) { const c = classOf(t); return { t: t, c: c, oc: c.outclass ? 1 : 0, dg: t._tried ? (t._dodged || 0) / t._tried : 0 }; })
     .sort(function (a, b) { return b.oc - a.oc || (b.c.lv - a.c.lv) || (b.t._dodged || 0) - (a.t._dodged || 0); });
-  const st = scored[0] || null, lines = [wfill(WIPE_SAYS.took, { who: who })];
+  const st = scored[0] || null, lines = [wfill(WIPE_SAYS.took, agree)];
   if (st) {
     const t = st.t, c = st.c;
     if (c.lv - top >= R('ours.outclass').level_gap) lines.push(wfill(WIPE_SAYS.outclassed, { name: titleName(t.name), lv: c.lv, top: top }));
@@ -12348,7 +12353,7 @@ function wipeInfo() {
   /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS, rule 427(c); EYES [eyes: the god is too heavy] k09): a company of one man has no men to take and
      keeps his gear, so the line says only what is true (the Lone Wolf's door: 'Lose a fight and you wake up in the nearest town') */
   const alone = mine.length === 1 && !!mine[0].main;
-  return { by: f, byName: who, lines: lines, next: alone ? WIPE_SAYS.nextAlone : wfill(WIPE_SAYS.next, { who: who }),
+  return { by: f, byName: who, lines: lines, next: alone ? WIPE_SAYS.nextAlone : wfill(WIPE_SAYS.next, agree),
     standout: st ? { name: st.t.name, kind: st.t.kind, lv: st.c.lv, outclass: st.c.outclass, dodged: st.t._dodged || 0, tried: st.t._tried || 0, armour: st.c.armourPts } : null,
     dead: dead.map(function (v) { return v.name; }), down: down.map(function (v) { return v.name; }), fled: fled.map(function (v) { return v.name; }),
     district: o.district || null, cell: o.cell || null, kind: o.kind || null };

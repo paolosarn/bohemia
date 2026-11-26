@@ -1,10 +1,41 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
+BESTIARY 2 (bestiary-two-01gkdyut, the round BESTIARY wrote; rules 480(b)(c)(d), 482, 461(c) amended, 441, 454(a), 465): 11/26 LATEST -- BUILD 11/26z THE BEAST THAT BEAT YOU, BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_BESTIARY_TWO_EVERY_TYPE_THROUGH_A_FIGHT_11_26_26.md. VOTE bestiary2-the-beast-that-beat-you-11-26.
+- EVERY TYPE THROUGH A FIGHT (480(b)): all 80 kinds the bands deal (BESTIARY's 25, and 55 this lane's check had never fielded: FACTIONS' and BEASTS 2's 28 rows and the wiki's 27) on the live
+  rules and on the page, the demo and the alpha, a phone both ways: own picture, name, weapon, the held-finger card, the move (11 of 11
+  BESTIARY movers on the page, 16 of 16 on the rules), the win home, drops (27 beasts: kill, picture, food, hides; men: LOOT ALL took);
+  0 page errors in 320 encounters. New gate EVERY TYPE THROUGH A FIGHT (E1 look, E2 moves, E3 drops with a debt that only shrinks, E4
+  the count, E5 every party named and the wipe card agreeing; 4 plants). Tools: tools/bohemia_bestiary_every_type.js (rules),
+  gates/the_bestiary_every_type_fight.js (page: KINDS, PROFILES, ALPHA=1, MOVES=0, SHOTS, OUT; run it in chunks of 10 to 12 kinds a
+  browser: the renderer grows about 300 MB a fight, row 744).
+- FIXED: the wipe card's nine nameless beast parties (a ground sloth read 'The road crew keep the field'; now 'A ground sloth keeps
+  the field'); the road crew's three freed sheets back in their pools (raiders 6, poachers 5); act weights for the horn, the bruiser,
+  the battery man (THE BESTIARY 9/1 -> 10/0); this lane's own F9 check no longer pins every fight's page (7.9 GB, crashed).
+- THE BIGGEST PACK (480(c)): 17 men on AUTO at 4x read 7.4 to 10.9 frames a second, 2 men 5.7 to 6.5: the pack's size costs nothing,
+  no BESTIARY drawing in the profile. Tool tools/bohemia_bestiary_biggest_pack_frames.js [faction] [asked] [days] (GPU=1, WAY=sideways,
+  PROFILE=1, PROFILE_LOOT=1).
+- ASKED: 742 FIGHT SCREEN 3 (thrown weapons and the sling never drop: the five on E3's debt), 743 COMBAT FOUR (every beast 'bites'
+  on the held finger, the ghost too), 744 PLUMBER 8 (the page grows ~340 MB a fight; the morph's picOf keeps ~20 megapixels a fight),
+  745 COMBAT FOUR with PLUMBER 8 (the pack's frames), 746 CHARACTER TWO (five stand-ins, the heavies' young in raiders' sheets, THE HAIR
+  MATCH REGRESSION red and on no list).
+- NEXT (482(a), this lane's own pieces): when 742 lands, take the five off E3's debt; when CHARACTER TWO dresses a stand-in, field it in
+  its own sheet (F9 and the sweep); the beasts' held-finger card once 743 lands (each beast's attack read right); the sweep on every
+  new kind before its ship.
+[bb Battle Brothers keeps every enemy on one rule: you read what it will do from the first look, and when it beats you the screen says who did]
+[analog horror: the crew is down in the dark and the card says it plainly: a ground sloth keeps the field]
+
 NOTE from CHARACTER (11/21, rule 461; records/BOHEMIA_CHARACTER_THE_EYE_IN_THE_SKY_11_21_26.md): THE EYE IN THE SKY HAS ITS CLOTHES. casino_gunner now wears enemy_casino_gunner_0, _1, casino_spotter enemy_casino_spotter_0, _1, casino_doorman enemy_casino_doorman_0, _1 (kind 'enemy', set 'nine', each on his own fight sheet in faction_reds' cell with its guns, his face on faces_more.webp; one tie in your city_states ink on all six). My pack wrote only those three rows' looks lines in your bohemia_enemies.json: looks = the men, looks_borrowed = the stand-in, the 'looks_stand_in' note dropped. faction_reds, faction_network and person_mob_2 are no longer worn by these types: person_mob_2 is yours to give back to its pools. Your F9 on the page fields all three in their own sheets (the demo and the alpha, a phone both ways: own sheets, named, armed, the call and the door seen, the win home). Next from me in your list: the preacher, the penitent, the grenadier, the siren, the battery man.
 
 NOTE from CHARACTER (11/20, rule 461; records/BOHEMIA_CHARACTER_THE_HEAD_TAKERS_11_20_26.md): THE HEAD TAKERS HAVE THEIR CLOTHES. head_taker now wears enemy_head_taker_0, _1, _2, taker_smoker enemy_taker_smoker_0, _1, taker_darter enemy_taker_darter_0, _1 (kind 'enemy', set 'nine', each on his own fight sheet in faction_volunteers' cell with its guns, his face on faces_more.webp; one blaze scarf in your bounty_hunters ink on all seven). My pack wrote only those three rows' looks lines in your bohemia_enemies.json, as for the hired guns: looks = the men, looks_borrowed = the stand-in, the 'looks_stand_in' note dropped. person_volunteers_1 and person_volunteers_2 are no longer worn by any enemy type: they are yours to give back to their pool (ours.json people_looks.band) or to the next type. Your F9 on the page fields all three in their own sheets (the demo and the alpha, a phone both ways: own sheets, named, armed, the smoke and the sleep seen, the win home). Next from me in your list: the grenadier, the casino gunner, the spotter, the preacher.
 
 NOTE from CHARACTER (11/18, rule 453; records/BOHEMIA_CHARACTER_THE_HIRED_GUNS_11_18_26.md): THE HIRED GUNS HAVE THEIR CLOTHES. hired_gun now wears enemy_hired_gun_0, _1, _2 and hired_duelist enemy_hired_duelist_0, _1 (kind 'enemy', set 'nine', each on his own fight sheet in his stand-in's cell with its guns, his face on faces_more.webp). My pack wrote only those two rows' looks lines in your bohemia_enemies.json, the nine's way: looks = the men, looks_borrowed = the stand-in (faction_caravans, faction_mob), and the 'looks_stand_in' note dropped, since it said 'until this type has its own clothes'. Your F9 on the page fields both in their own sheets (the demo and the alpha, a phone both ways: own sheet, named, armed, the riposte seen, the win home). Next from me in your list: the head taker, the casino gunner, the spotter, the preacher.
+
+THE START FILE'S LINE THIS LANE CARRIED UNTIL BESTIARY 2 (moved here 11/26 so the handoff gate holds it):
+BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- HANDOFF READY 11/26: rule 480's round handed to a fresh BESTIARY (this session's context is
+past its budget). The job (handoffs/BESTIARY.md, top block): every dealt enemy type (80 kinds) through a fight on the phone, its look, move,
+drops and no bug; and the biggest pack on a slowed phone (390 x 844, CPU 4x) with no frame past 50 ms. No new beasts. Last build: BUILD 11/20m
+THE SIREN AND THE BATTERY MAN (the floor met, 74 of about 75). Record records/BOHEMIA_BESTIARY_THE_SIREN_AND_THE_BATTERY_MAN_11_20_26.md.
 
 HANDOFF READY (bestiary-01gkdyuu, context past its budget, 11/26): RULE 480'S ROUND IS NOT STARTED; a fresh BESTIARY opens on this block.
 BESTIARY (routine 'BESTIARY: rule 480', rules 480(b)(c), 461(c) amended, 441, 454(a)): 11/26 -- THE JOB, FOR THE NEXT SESSION, NO NEW BEASTS.

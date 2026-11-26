@@ -1403,10 +1403,11 @@ past the glass) and its receipt never scrolls the page sideways. Gate THE FOURTE
 fail). The whole block: handoffs/FIXES.md.
 [bb Battle Brothers' recruit list keeps every man one line and the one you pick in his own panel; our hall on its side the same.]
 [analog horror: a talking face with a blank name tag is the one wrong thing the bible saves for on purpose; this one was an accident.]
-BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- HANDOFF READY 11/26: rule 480's round handed to a fresh BESTIARY (this session's context is
-past its budget). The job (handoffs/BESTIARY.md, top block): every dealt enemy type (80 kinds) through a fight on the phone, its look, move,
-drops and no bug; and the biggest pack on a slowed phone (390 x 844, CPU 4x) with no frame past 50 ms. No new beasts. Last build: BUILD 11/20m
-THE SIREN AND THE BATTERY MAN (the floor met, 74 of about 75). Record records/BOHEMIA_BESTIARY_THE_SIREN_AND_THE_BATTERY_MAN_11_20_26.md.
+BESTIARY 2 (bestiary-two-01gkdyut): 11/26 LATEST -- BUILD 11/26z THE BEAST THAT BEAT YOU, BUILT, NOT YET SEEN (rules 480(b)(c), 482; ask rows 723, 742 to 746).
+All 80 enemy kinds the bands deal fought on the demo and the alpha, a phone both ways: own look, move, drops or kill, home, 0 page errors (new gate EVERY
+TYPE THROUGH A FIGHT). Fixed: the wipe card named nine beast parties 'the road crew' (now 'A ground sloth keeps the field'); three freed sheets back in the
+road crew; the horn, bruiser and battery man's act weights (THE BESTIARY green). The biggest pack (17 men) is no choppier than 2 at 4x. Asked: 742 the thrown
+weapons never drop (FIGHT SCREEN 3), 743 every beast 'bites' (COMBAT FOUR), 744 the page grows ~340 MB a fight (PLUMBER 8), 745, 746. Block: handoffs/BESTIARY.md.
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/20 LATEST (rule 464) -- BUILD 11/20y - NO BILLBOARDS, BUILT, NOT YET SEEN. The billboards are out
 of every map (file, include, gate, VOTE card), graveyarded with a post-mortem (graveyard/POSTMORTEM_THE_BILLBOARDS_11_20_26.txt: a
 list he asked to SEE is not a list to build). The Strat still climbs without them, proven on demo and alpha, a phone both ways. Nothing

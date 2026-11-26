@@ -2261,9 +2261,9 @@
    ],
    "name": "BRUISER",
    "act_weights": [
+    0.5,
     1,
-    1,
-    1
+    1.5
    ],
    "fielded": [
     "heavies"
@@ -2692,9 +2692,9 @@
    ],
    "name": "HORN",
    "act_weights": [
+    1.5,
     1,
-    1,
-    1
+    0.5
    ],
    "fielded": [
     "kids"
@@ -2909,8 +2909,8 @@
    "name": "BATTERY MAN",
    "act_weights": [
     1,
-    1,
-    1
+    1.5,
+    2
    ],
    "fielded": [
     "machines"

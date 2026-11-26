@@ -35,6 +35,10 @@ const CH = (NE.champions && NE.champions.kinds) || {};
   for (const ro of runsOn) {
     const profile = ro.profile;
     const d = await D.open({ profile, alpha: ro.alpha }); const fr = d.fr, p = d.page, errs = [];
+    /* BESTIARY 2 11/26: NO HANDLE IS KEPT. A Playwright element handle pins its node; one taken every 250 ms on #fightFrame pinned every
+       fight's page after the game let it go (the renderer at 7.9 GB after 18 fights, measured); the fight on the glass is found by
+       its address and its frameElement's id instead */
+    const fightFrameOf = async () => { for (const x of p.frames()) { if (x.isDetached() || !/BOHEMIA_FIGHT\.html/.test(x.url())) continue; if (await x.evaluate(() => !!(window.frameElement && window.frameElement.id === 'fightFrame')).catch(() => false)) return x; } return null; };
     p.on('pageerror', e => errs.push(String(e).slice(0, 200)));
     const runs = {};
     try {
@@ -59,7 +63,7 @@ const CH = (NE.champions && NE.champions.kinds) || {};
           await fr.evaluate(() => { try { if (LOOP.open) loopClose(); } catch (e) {} try { travelStop(); } catch (e) {} BohemiaCarcass.reset(); localStorage.setItem('bohemia.bag.v1', '[]'); window.__FIGHT_CAME_HOME = null; });
           await fr.evaluate((f) => { cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: f, faction: null, draft: true, roster: [{ arch: 'beast' }, { arch: 'beast' }],
             party: { count: 2, faction: f, days: 1, difficulty: 1 }, street: true, why: 'gate:bestiary', at: { gx: city.x, gy: city.y }, __met: true }); }, fac);
-          const f = await waitFor(async () => { const e = await p.$('#fightFrame'), c = e && await e.contentFrame(); return c && await c.evaluate(() => (typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.board && FIGHT.S.units && FIGHT.S.units.length) ? true : null) ? c : null; }, 60000);
+          const f = await waitFor(async () => { const c = await fightFrameOf(); return c && await c.evaluate(() => (typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.board && FIGHT.S.units && FIGHT.S.units.length) ? true : null) ? c : null; }, 60000);
           if (!f) { runs[fac] = out; continue; }
           out.fight = true;
           await waitFor(() => p.evaluate(() => !window.NFC || NFC.state === 'off'), 20000); await sleep(1200);
@@ -72,8 +76,8 @@ const CH = (NE.champions && NE.champions.kinds) || {};
           await f.evaluate(() => { FIGHT.S.units.forEach(u => { if (u.side !== 'them') return; u.hp = 0; u.dead = true; }); });
           await p.evaluate(() => { const fw = document.getElementById('fightFrame').contentWindow; nfOverIn({ type: 'BOHEMIA_FIGHT_OVER', result: 'won', rounds: 2 }, fw); });
           const gone = () => p.evaluate(() => !document.getElementById('spoilsdoor') && !document.getElementById('fightFrame') && !document.body.classList.contains('nf-on'));
-          await waitFor(async () => { if (await gone()) return true; const e = await p.$('#spoilsdoor iframe'), sf = e && await e.contentFrame(), lb = sf && await sf.$('#leave');
-            if (lb) { await lb.evaluate(x => x.scrollIntoView({ block: 'center' })).catch(() => {}); const bb = await lb.boundingBox(); if (bb && bb.width >= 2) await p.touchscreen.tap(bb.x + bb.width / 2, bb.y + bb.height / 2); await sleep(1200); }
+          await waitFor(async () => { if (await gone()) return true; const sf = p.frames().find(x => !x.isDetached() && /BOHEMIA_SPOILS_SCREEN/.test(x.url())), lb = sf && await sf.$('#leave');
+            if (lb) { await lb.evaluate(x => x.scrollIntoView({ block: 'center' })).catch(() => {}); const bb = await lb.boundingBox(); await lb.dispose().catch(() => {}); if (bb && bb.width >= 2) await p.touchscreen.tap(bb.x + bb.width / 2, bb.y + bb.height / 2); await sleep(1200); }
             return (await gone()) || null; }, 90000);
           out.home = !!(await waitFor(() => fr.evaluate(() => MODE === 'city' && window.__FIGHT_CAME_HOME && window.__FIGHT_CAME_HOME.won === true), 15000)); await sleep(1500);
           out.kill = await fr.evaluate(() => { const s = BohemiaCarcass.state(), c = s.list[s.list.length - 1]; if (!c) return null; let pic = null; try { const bp = BohemiaJobKinds.beastPic(c.faction); pic = bp && bp.look || (bp && bp.im ? 'yes' : null); } catch (e) {}
@@ -93,13 +97,13 @@ const CH = (NE.champions && NE.champions.kinds) || {};
         try { if (typeof DAY !== 'undefined') { if (window.__GATE_DAY0 === undefined) window.__GATE_DAY0 = DAY.day; DAY.day = o.days; } } catch (e) {}
         cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', label: o.f, faction: null, draft: true, roster: [{ arch: 'bandit' }, { arch: 'bandit' }],
           party: { count: o.n, faction: o.f, days: o.days, difficulty: 0 }, street: true, why: 'gate:bestiary men:' + o.tag, at: { gx: city.x, gy: city.y }, __met: true }); }, { f, n, days, tag });
-      const openFight = () => waitFor(async () => { const e = await p.$('#fightFrame'), c = e && await e.contentFrame(); return c && await c.evaluate(() => (typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.board && FIGHT.S.units && FIGHT.S.units.length) ? true : null) ? c : null; }, 60000);
+      const openFight = () => waitFor(async () => { const c = await fightFrameOf(); return c && await c.evaluate(() => (typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.board && FIGHT.S.units && FIGHT.S.units.length) ? true : null) ? c : null; }, 60000);
       const winHome = async (f) => {
         await f.evaluate(() => { FIGHT.S.units.forEach(u => { if (u.side !== 'them') return; u.hp = 0; u.dead = true; }); });
         await p.evaluate(() => { const fw = document.getElementById('fightFrame').contentWindow; nfOverIn({ type: 'BOHEMIA_FIGHT_OVER', result: 'won', rounds: 2 }, fw); });
         const gone = () => p.evaluate(() => !document.getElementById('spoilsdoor') && !document.getElementById('fightFrame') && !document.body.classList.contains('nf-on'));
-        await waitFor(async () => { if (await gone()) return true; const e = await p.$('#spoilsdoor iframe'), sf = e && await e.contentFrame(), lb = sf && await sf.$('#leave');
-          if (lb) { await lb.evaluate(x => x.scrollIntoView({ block: 'center' })).catch(() => {}); const bb = await lb.boundingBox(); if (bb && bb.width >= 2) await p.touchscreen.tap(bb.x + bb.width / 2, bb.y + bb.height / 2); await sleep(1200); }
+        await waitFor(async () => { if (await gone()) return true; const sf = p.frames().find(x => !x.isDetached() && /BOHEMIA_SPOILS_SCREEN/.test(x.url())), lb = sf && await sf.$('#leave');
+          if (lb) { await lb.evaluate(x => x.scrollIntoView({ block: 'center' })).catch(() => {}); const bb = await lb.boundingBox(); await lb.dispose().catch(() => {}); if (bb && bb.width >= 2) await p.touchscreen.tap(bb.x + bb.width / 2, bb.y + bb.height / 2); await sleep(1200); }
           return (await gone()) || null; }, 90000);
         return !!(await waitFor(() => fr.evaluate(() => MODE === 'city' && window.__FIGHT_CAME_HOME && window.__FIGHT_CAME_HOME.won === true), 15000));
       };
@@ -128,7 +132,7 @@ const CH = (NE.champions && NE.champions.kinds) || {};
             o.fielded = await lookOk(f, m.id); o.says = await f.evaluate(() => { try { return THEY_ARE[theirFaction()]; } catch (e) { return null; } });
             if (process.env.SHOTS && o.fielded) { await sleep(1500); await p.screenshot({ path: path.join(process.env.SHOTS, 'men_' + m.id + '_' + (ro.alpha ? 'alpha_' : '') + profile + '.jpg'), quality: 80 }); }
             if (o.fielded && m.moves.length) {   /* his one thing, on the real page: AUTO tapped, the fight played until he does it */
-              const tapIn = async (sel) => { const h = await p.$(sel), bb = h && await h.boundingBox(); if (bb && bb.width >= 2) { await p.touchscreen.tap(bb.x + bb.width / 2, bb.y + bb.height / 2); await sleep(500); return true; } return false; };
+              const tapIn = async (sel) => { const h = await p.$(sel), bb = h && await h.boundingBox(); if (h) await h.dispose().catch(() => {}); if (bb && bb.width >= 2) { await p.touchscreen.tap(bb.x + bb.width / 2, bb.y + bb.height / 2); await sleep(500); return true; } return false; };
               /* his own buttons on the phone (slices/bohemia_phone.js: the fight's FIGHT, AUTO and speed) */
               if (await f.evaluate(() => !!FIGHT.S.deploy)) { await tapIn('#bohphone .fight [data-c="go"]'); await waitFor(() => f.evaluate(() => !FIGHT.S.deploy), 15000); }   /* FIGHT: the line set */
               await tapIn('#bohphone .fight [data-c="auto"]'); o.auto = await f.evaluate(() => !!UI.auto);   /* AUTO */

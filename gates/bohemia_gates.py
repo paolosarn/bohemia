@@ -9746,6 +9746,15 @@ GATES = [
      "by outline at the fight's size and the map's fifth with its lab plate showing, no special systems, the bosses staged, a champion "
      "dealt, the roster file fresh; ON THE PAGE (rule 441(a)): on the demo, a phone upright and sideways, each new beast's party fielded on its own sheet, the win, its kill on the map, one tap for food and hides. PLANTED: one beast removed, a beast of unknown origin, a beast with no fossil, a new brain with a "
      "flies key, the stilt-legged horse drawn on the Ice Age horse's sheet: each turns its leg red. About 6 min (the page legs)", True),
+    ('EVERY TYPE THROUGH A FIGHT', ['node', 'gates/every_type_through_a_fight_gate.js', '--plant'],
+     "BESTIARY 2 gate, 11/26, rule 480(b) ('improve on what we already have'; the round: every enemy type through a fight, its look "
+     "reads, its moves work, its drops land, no bug): THE BESTIARY FLOOR checked only BESTIARY's own rows; this holds EVERY kind a band "
+     "deals (80: the wiki's brigands, beasts, ghost, machines, kids, heavies and dogs too) on the live rules: its own picture (a beast "
+     "never the dire wolf the drawing falls back to), named, armed; it acts, every fight ends, nothing throws, a brain's own move shows; "
+     "a man's weapon reaches the end screen and something of his can drop (the debt: the five whose thrown weapon or sling the loot "
+     "rules never hand over, ask row 742, only shrinks); every faction named in the fight's words, the wipe card agreeing with one beast. "
+     "PLANTED (--plant): the coyote drawn as the dire wolf, the bowman's sheets off the rig, the siren's brain without its siren, the "
+     "sloth's words gone: each turns red. About 5 min", True),
     ('THE TERATORN IS ONE MORE BEAST', ['python3', 'gates/the_teratorn_is_one_more_beast_gate.py', '--plant'],
      "WORLD 12 gate, 11/7, rule 431(e)(f), ask lines 516 and 517 (PAOLO 11/7: 'I thought they would be like an enemy type'; 'just another "
      "animal we can fight'): the teratorn's sheet in the fight's index like every beast (8 facings, 18 frames, 0.87 m standing); it reads "

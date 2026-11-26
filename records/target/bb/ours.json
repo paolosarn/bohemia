@@ -759,6 +759,7 @@
     "lower_brigand_raider": [
      "person_mob_0",
      "person_mob_1",
+     "person_mob_2",
      "person_cartel_0",
      "person_cartel_1",
      "person_cartel_2"
@@ -776,6 +777,7 @@
     "brigand_raider": [
      "person_mob_0",
      "person_mob_1",
+     "person_mob_2",
      "person_cartel_0",
      "person_cartel_1",
      "person_cartel_2"
@@ -813,6 +815,8 @@
     "brigand_poacher": [
      "tier_poacher",
      "person_volunteers_0",
+     "person_volunteers_1",
+     "person_volunteers_2",
      "person_caravans_0",
      "person_caravans_1"
     ],
@@ -1569,6 +1573,21 @@
      0.5,
      1,
      1.5
+    ],
+    "kids_horn": [
+     1.5,
+     1,
+     0.5
+    ],
+    "heavy_bruiser": [
+     0.5,
+     1,
+     1.5
+    ],
+    "machine_battery_man": [
+     1,
+     1.5,
+     2
     ]
    }
   },
