@@ -190,9 +190,9 @@ Gate ONE HAND OR TWO (new) 24/0, demo and alpha both ways, its plant red. VOTE u
 11/22zzb: on a phone on its side the shop strip's buttons said 'B | 113' and 'to the...' and the both-hands line was cut; now whole (upright 'Buy it and ...' still open).
 [bb Battle Brothers: the slot says what it is at a glance, the long numbers live in the tooltip]
 [analog horror: a pawn ticket with BOTH HANDS or ONE HAND stamped in a box at the top]
-STAFF 2 (handoffs/STAFF.md): 11/26 LATEST -- BUILD 11/26i - THE HALL SAYS THE CART, BUILT, NOT YET SEEN (rule 480(b)(c) on the staff): a camp
-person in a town's hall says the cart he will push (a rehire, the cart his job kept) and one hand only; five staff with carts on a slowed phone
-cost the frame 0.24 ms (the choppiness is the fight's own, PLUMBER 8's 480(d)). Before: 11/22zzc THE STAFF PUSH A CART (rule 471). Gate 13/0.
+STAFF 2 (handoffs/STAFF.md): 11/26 LATEST -- BUILD 11/26zl - THE CAMP RUNS SCARED, BUILT, NOT YET SEEN (rule 482 on the staff): the
+utility cart yellow and the wagon red (the upgrades read in a fight); a camp person getting away runs scared (quick feet, a lean); the end
+screen mourns a camp person lost (face, name, what the cart spilled, the hall that has another). Before: 11/26i THE HALL SAYS THE CART. Gate 16/0.
 STAFF (staff-01gkdyus): 11/22 (before) -- CONTEXT NEAR FULL, a fresh STAFF takes rule 471 (the cart) from handoffs/STAFF.md. BUILD 11/22zi - THEY FIGHT LIKE STAFF, BUILT, NOT YET SEEN (rule 470(a), his order on his YES; rules 461, 441, 465; ask row 701). Its block is handoffs/STAFF.md.
 THEY FIGHT LIKE STAFF: the camp's own AUTO (slices/BOHEMIA_FIGHT.html __THEY_FIGHT_LIKE_STAFF__, ai.json staff_ground): every turn a camp person takes the most defended tile he can
 reach (out of their reach, a fighter between him and each of theirs, behind the line, a wall or corner at his back, cover, high ground, huddled), moves when one of theirs is beside

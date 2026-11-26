@@ -14,6 +14,8 @@
   "rows": [
    {
     "id": "scavenger",
+    "mark": "SCAVENGER",
+    "name": "DOT KOWALSKI",
     "open": true,
     "soon": false,
     "cart": "Pushes a shopping cart. One hand only.",
@@ -26,6 +28,8 @@
    },
    {
     "id": "paymaster",
+    "mark": "PAYMASTER",
+    "name": "HECTOR SALAS",
     "open": true,
     "soon": false,
     "cart": "Pushes a shopping cart. One hand only.",
@@ -38,6 +42,8 @@
    },
    {
     "id": "cook",
+    "mark": "COOK  ·  YOUR LAST ONE FELL",
+    "name": "TOBIAS NGUYEN",
     "open": true,
     "soon": false,
     "cart": "Pushes a wagon. One hand only.",
@@ -49,10 +55,10 @@
     "tapped": true
    }
   ],
-  "png": "../../../tmp/claude-0/-home-user-bohemia/8f646576-324a-586e-b0e6-bf8e90e9ac2a/scratchpad/hire/demo_upright_the_hall_says_the_cart.png",
+  "png": "records/target/staff_cart/demo_upright_the_hall_says_the_cart.png",
   "held": {
    "id": "cook",
-   "tip": "GRACIELA OCHOA: The crew eats for less, and a hurt man gets a hitpoint more back every hour. Pushes a wagon. One hand only."
+   "tip": "TOBIAS NGUYEN: The crew eats for less, and a hurt man gets a hitpoint more back every hour. Pushes a wagon. One hand only."
   },
   "take": {
    "id": "cook",
@@ -75,6 +81,7 @@
    "H2": true,
    "H3": true,
    "H4": true,
+   "H6": true,
    "H5": true,
    "E": true
   }
@@ -83,6 +90,7 @@
   "shape": "phone_landscape",
   "surface": "demo",
   "purseAt": [
+   0,
    290
   ],
   "hall": true,
@@ -94,6 +102,8 @@
   "rows": [
    {
     "id": "scavenger",
+    "mark": "SCAVENGER",
+    "name": "DOT KOWALSKI",
     "open": true,
     "soon": false,
     "cart": "Pushes a shopping cart. One hand only.",
@@ -106,6 +116,8 @@
    },
    {
     "id": "paymaster",
+    "mark": "PAYMASTER",
+    "name": "HECTOR SALAS",
     "open": true,
     "soon": false,
     "cart": "Pushes a shopping cart. One hand only.",
@@ -118,6 +130,8 @@
    },
    {
     "id": "cook",
+    "mark": "COOK  ·  YOUR LAST ONE FELL",
+    "name": "TOBIAS NGUYEN",
     "open": true,
     "soon": false,
     "cart": "Pushes a wagon. One hand only.",
@@ -129,10 +143,10 @@
     "tapped": true
    }
   ],
-  "png": "../../../tmp/claude-0/-home-user-bohemia/8f646576-324a-586e-b0e6-bf8e90e9ac2a/scratchpad/hire/demo_sideways_the_hall_says_the_cart.png",
+  "png": "records/target/staff_cart/demo_sideways_the_hall_says_the_cart.png",
   "held": {
    "id": "cook",
-   "tip": "GRACIELA OCHOA: The crew eats for less, and a hurt man gets a hitpoint more back every hour. Pushes a wagon. One hand only."
+   "tip": "TOBIAS NGUYEN: The crew eats for less, and a hurt man gets a hitpoint more back every hour. Pushes a wagon. One hand only."
   },
   "take": {
    "id": "cook",
@@ -155,6 +169,7 @@
    "H2": true,
    "H3": true,
    "H4": true,
+   "H6": true,
    "H5": true,
    "E": true
   }

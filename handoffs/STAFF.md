@@ -1,4 +1,20 @@
 STAFF 2 (staff2-01gkdyus, took over from STAFF at a full context): rule 471, THE STAFF PUSH A CART, ask row 709. Written only by this lane.
+*** 11/26 LATEST -- RULE 482'S ROUND ON THE STAFF AS BUILT: BUILD 11/26zl - THE CAMP RUNS SCARED, BUILT, NOT YET SEEN (rules 482, 480(b);
+461 as amended, 441, 465). Record: records/BOHEMIA_STAFF_TWO_RULE_482_THE_STAFF_BETTER_11_26_26.md. VOTE staff2-the-camp-runs-scared-11-26. ***
+(a) THE CARTS READ APART: re-rendered (tools/bohemia_staff_the_cart.py, the scratch venv's bpy 4.2; render utility_cart wagon, pack, sheet):
+wire cart unchanged, the utility cart worn safety yellow (clay_mustard 2, was olive), the wagon a red wagon gone to rust (bed clay_rust 1,
+slats clay_rust 2, were olive and brown). (b) THE CAMP RUNS SCARED (BOHEMIA_FIGHT.html __THE_CAMP_RUNS_SCARED__: FEAR_RUN, scaredStep,
+fearLean; hooks in take, poseOf, blitManNow, cartLayer): a camp walk starting within 4 tiles of theirs and taking him farther is quick
+feet (12 keys a beat), 0.7 of a walk's time, a lean (shear 0.09 about his feet), the cart upright rattling 2 px; 25% of camp walks in 20
+AUTO fights. (c) LOSING ONE IS A LOSS (BOHEMIA_SPOILS_SCREEN.html __THE_CAMP_IS_MOURNED__ drawCampGone): the end screen gives each camp
+person who fell or was taken a row (face, name, trade, FELL. SHE IS DEAD., HER CART WENT OVER: 20 FOOD GONE., THE WAGON WAITS FOR THE NEXT
+ONE., A TOWN'S HALL HAS ANOTHER COOK.); the hall says COOK · YOUR LAST ONE FELL and offers someone new. The shell hands r.lost (alpha);
+lose() keeps word and sex (retinue.json followers now carry sex, re-baked).
+PROOF: gate THE STAFF PUSH A CART C14, C15 green; the phone walk (tools/bohemia_staff_cart_on_the_phone.js, R1 and M2, one of theirs set
+beside the surgeon for R1, said) green on the demo and the alpha both ways; the hall (tools/bohemia_staff_hire_reads.js H6) green x4.
+SEEN, NOT MINE: on the alpha's map the camp file drew 1 of 4 at the capture (rigMixLook not loaded yet for the others; the demo drew 3-4).
+NEXT, IN ORDER: (1) his fist on the handle (a body key per look); (2) the crew screen shows the camp; (3) a column between his back row
+and the camp on narrow boards (the carts crowd the line: the close picture); (4) a scared run's sound (a breath, the wire) with SOUNDS.
 *** 11/26 LATEST -- RULE 480'S ROUND ON THE STAFF AS BUILT: BUILD 11/26i - THE HALL SAYS THE CART, BUILT, NOT YET SEEN (rules 480(b)(c), 468,
 470(a), 471; 461 as amended, 441, 465). Record: records/BOHEMIA_STAFF_TWO_RULE_480_THE_STAFF_AS_BUILT_11_26_26.md. VOTE staff2-the-hall-says-the-cart-11-26 (ab8c5ead0). ***
 FIXED: a camp person in a town's hall never said his cart; now one draft line from retinue.json staff.words.cart ("Pushes {cart}. One hand only.")

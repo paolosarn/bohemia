@@ -25,6 +25,8 @@
      C11 THE HOOKS: the fight draws the back under his body and the front over it, the fallen's tip under him; the camp and the map draw it
      C13 THE HALL SAYS THE CART (STAFF 2 11/26, rule 480(b)): a town hall's camp person says the cart he will push (a rehire, his job's kept
          cart) and one hand only, on his opened row and in the fullest hall's held finger (the phone proof: tools/bohemia_staff_hire_reads.js)
+     C14 THE CAMP RUNS SCARED (STAFF 2 11/26, rule 482): a camp person's walk away from theirs: quick feet, a quicker walk, a lean
+     C15 THE CAMP IS MOURNED (STAFF 2 11/26, rule 482): the end screen's row for a camp person lost (the phone proof's M2 reads it)
      C12 THE FIGHT STILL PLAYS: AUTO fights with carts against the same fights with none: printed, the camp's deaths and his wins
    PLANTED FAILS: --plant patches the fight in memory: the cart guards from every side, a staff member keeps a two-hander, and a fighter is
    handed a cart: C2, C3 and C4 must go red, exit 1.
@@ -218,6 +220,45 @@ const nearest = (S, u) => S.units.filter(f => f.side !== u.side && F.onField(f) 
   const okT = /r\.dataset\.tip = \(b \? b\.textContent \+ ': ' : ''\) \+ d\.textContent\.trim\(\) \+ \(r\.dataset\.cartLine \? ' ' \+ r\.dataset\.cartLine : ''\)/.test(ss);
   const kept = (() => { freshCamp(['scout'], {}); try { const B = JSON.parse(store['bohemia.camp.v1'] || '{}'); B.carts = { cook: 2 }; store['bohemia.camp.v1'] = JSON.stringify(B); return CAMP.cartOf('cook').id; } catch (e) { return String(e).slice(0, 60); } })();   /* the cook not with him: his job's kept wagon */
   ok('C13 THE HALL SAYS THE CART: "' + w + '" on his opened row and in his held finger (a rehired cook whose wagon was kept reads ' + kept + ')', okW && okR && okT && kept === 'wagon', ['words ' + okW, 'row ' + okR, 'tip ' + okT, 'kept ' + kept].join(', '));
+}
+
+/* C14 THE CAMP RUNS SCARED (STAFF 2 11/26, rule 482): a camp person's walk away from theirs is a scared run on the glass: quick feet
+   (the walk's own keys at twice the rate, none skipped), a quicker walk, his body leant (a shear about his feet, small), his cart
+   upright and rattling; only the camp, only away from a man of theirs near him */
+{
+  const fh = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8');
+  const m = fh.match(/const FEAR_RUN = \{ near: (\d+), dur: ([\d.]+), keys: (\d+), lean: ([\d.]+) \};/), N = m ? { near: +m[1], dur: +m[2], keys: +m[3], lean: +m[4] } : null;
+  const okN = !!N && N.keys === 12 && N.dur > 0.5 && N.dur < 1 && N.lean > 0 && N.lean <= 0.15 && N.near >= 2 && N.near <= 6;
+  const okT = /fear: !!\(u && u\.staff && scaredStep\(u, e\)\)/.test(fh) && /return Math\.max\(Math\.abs\(best\.x - e\.x\), Math\.abs\(best\.y - e\.y\)\) > bd;/.test(fh);
+  const okP = /beatMs\(\) \/ \(w\.fear \? FEAR_RUN\.keys : 6\)\)\) % 6, L\), clip: 'walk', fear: !!w\.fear/.test(fh);
+  const b = fh.indexOf("const lean = fearLean(p);"), r = fh.indexOf("if (lean) cx.setTransform(1, 0, 0, 1, 0, 0);"), fr = fh.indexOf("cartLayer(v, 'front', ox, oy, s, now);"), bk = fh.indexOf("cartLayer(v, 'back', ox, oy, s, now);");
+  const okL = bk > 0 && b > bk && r > b && fr > r && /rattle = w \? \(w\.fear \? 2 : 1\)/.test(fh);
+  /* in real fights: the same AUTO fights as C12's, every camp person's walk read off the fight's own event stream by the board's rule
+     (the first step: within FEAR_RUN.near tiles of one of theirs, and farther from the nearest after it) */
+  const st = freshCamp(['cook', 'scout', 'surgeon'], { food: 30, meds: 10 }), NF = QUICK ? 20 : 60; let walks = 0, scared = 0;
+  for (let i = 0; i < NF; i++) { ctx.setSeed(1300 + i); F.setup({ auto: true, formation: null, company: men(6), cap: 12, staff: st, party: { count: 8, faction: ['brigands', 'beasts', 'water', 'house', 'wolves'][i % 5], days: 3 + i % 9 } });
+    let g = 0, lastId = null; while (!F.S.over && g < 20000) { const u = F.current(); if (!u) break; F.S.events = []; F.aiStep(u); g++;
+      F.S.events.forEach(function (e) { if (e.t !== 'step') { return; } const v = F.byId(e.id); if (!v || !v.staff) { lastId = null; return; }
+        if (lastId === e.id) return; lastId = e.id; walks++;
+        let bd = 1e9, best = null; F.S.units.forEach(function (o) { if (o.side === v.side || o.side === 'prop' || o.decoy || !F.onField(o)) return; const d = Math.max(Math.abs(o.x - e.fx), Math.abs(o.y - e.fy)); if (d < bd) { bd = d; best = o; } });
+        if (best && N && bd <= N.near && Math.max(Math.abs(best.x - e.x), Math.abs(best.y - e.y)) > bd) scared++; });
+      lastId = null; } }
+  ok('C14 THE CAMP RUNS SCARED, IN REAL FIGHTS: ' + NF + ' AUTO fights, ' + walks + ' camp walks, ' + scared + ' of them scared runs (' + (walks ? (100 * scared / walks).toFixed(0) : 0) + '%)', scared > 0, 'printed');
+  ok('C14 THE CAMP RUNS SCARED: ' + (N ? 'feet at ' + N.keys + ' keys a beat, a tile in ' + N.dur + ' of a walk, leant ' + N.lean + ' of his height, within ' + N.near + ' tiles of theirs' : 'no FEAR_RUN') + '; only the camp, only away; the cart straight',
+    okN && okT && okP && okL, ['numbers ' + okN, 'who ' + okT, 'feet ' + okP, 'lean ' + okL].join(', '));
+}
+
+/* C15 THE CAMP IS MOURNED (STAFF 2 11/26, rule 482): a camp person lost keeps his trade and sex in the camp book's dead list; the shell
+   hands the end screen what went (his trade, what his cart spilled, the cart his job keeps); the end screen gives him his row */
+{
+  freshCamp(['cook'], { food: 30 });
+  const g = CAMP.lose('cook', 'dead', { day: 3, held: true });
+  const ss = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SPOILS_SCREEN.html'), 'utf8'), al = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ALPHA_0_9.html'), 'utf8');
+  const okB = !!g && /COOK/.test(g.word || '') && !!g.spilt && g.spilt.kind === 'food' && g.spilt.n > 0;
+  const okS = /var campGone = drawCampGone\(el\);/.test(ss) && /function drawCampGone\(el\)/.test(ss) && /CART WENT OVER: /.test(ss) && /HALL HAS ANOTHER /.test(ss);
+  const okA = /r\.lost = \{ word: gone\.word \|\| null, sex: gone\.sex \|\| null, spilt: gone\.spilt \|\| null/.test(al);
+  ok('C15 THE CAMP IS MOURNED: the dead cook kept as ' + JSON.stringify(g && { word: g.word, spilt: g.spilt && g.spilt.n + ' ' + g.spilt.kind }) + '; the shell hands it on, the end screen gives her a row',
+    okB && okS && okA, ['book ' + okB, 'screen ' + okS, 'shell ' + okA].join(', '));
 }
 
 /* C12 THE FIGHT STILL PLAYS (printed): the same AUTO fights with the carts and with none */

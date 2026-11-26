@@ -7598,8 +7598,10 @@ function take() {
          the man was drawn for one frame on the tile he was walking to) */
       const u = FIGHT.byId(e.id), last = UI.anim[UI.anim.length - 1], end = last && last.path && last.path[last.path.length - 1];
       if (last && last.k === 'step' && last.e.id === e.id && !last.at && end.x === e.fx && end.y === e.fy) {
-        last.path.push({ x: e.x, y: e.y }); last.e.x = e.x; last.e.y = e.y; last.dur = beatMs() * TILE_BEATS * (last.path.length - 1);
-      } else UI.anim.push({ k: 'step', e: Object.assign({}, e), path: [{ x: e.fx, y: e.fy }, { x: e.x, y: e.y }], dur: beatMs() * TILE_BEATS });
+        last.path.push({ x: e.x, y: e.y }); last.e.x = e.x; last.e.y = e.y; last.dur = beatMs() * TILE_BEATS * (last.path.length - 1) * (last.fear ? FEAR_RUN.dur : 1);
+      } else UI.anim.push({ k: 'step', e: Object.assign({}, e), path: [{ x: e.fx, y: e.fy }, { x: e.x, y: e.y }], dur: beatMs() * TILE_BEATS,
+        fear: !!(u && u.staff && scaredStep(u, e)) });   /* __THE_CAMP_RUNS_SCARED__: a camp person getting away from theirs */
+      { const a0 = UI.anim[UI.anim.length - 1]; if (a0.fear && a0.path.length === 2 && !a0._fc) { a0._fc = 1; a0.dur = Math.max(beatMs() * 0.5, beatMs() * TILE_BEATS * FEAR_RUN.dur); UI.fearWalks = (UI.fearWalks | 0) + 1; } }   /* never under half a beat: a turn is seen (EVERY MAN ACTS ON AUTO M7) */
       if (u && !u._at && !walkOf(u)) u._at = { x: e.fx, y: e.fy };   /* he stands where his walk starts until it does */
     }
     else if (e.t === 'attack' && (e.sweep || e.astray) && swing && swing.e.id === e.id) { (swing.also = swing.also || []).push(e); swing.dur += beatMs() / 4; }
@@ -10159,9 +10161,9 @@ function poseOf(v, now) {
   }
   const w = walkOf(v);
   if (w) { const p = walkAt(w, now); turnTo(v, p.face, now); v._face = p.face;
-    return { col: clipCol('walk', Math.floor(Math.max(0, now - w.at) / (beatMs() / 6)) % 6, L), clip: 'walk' }; }
+    return { col: clipCol('walk', Math.floor(Math.max(0, now - w.at) / (beatMs() / (w.fear ? FEAR_RUN.keys : 6))) % 6, L), clip: 'walk', fear: !!w.fear, face: p.face }; }   /* __THE_CAMP_RUNS_SCARED__: his feet twice as quick */
   const o = v._outAt !== undefined ? outRun(v, now) : null;   /* __YOU_SEE_THEM_RUN__: his own walk off the board, on the beat */
-  if (o) { v._face = o.face; return { col: clipCol('walk', Math.floor(Math.max(0, now - v._outAt) / (beatMs() / 6)) % 6, L), clip: 'walk' }; }
+  if (o) { v._face = o.face; return { col: clipCol('walk', Math.floor(Math.max(0, now - v._outAt) / (beatMs() / (v.staff ? FEAR_RUN.keys : 6))) % 6, L), clip: 'walk', fear: !!v.staff, face: o.face }; }
   if (a && a.at && a.k === 'attack') {
     const k = Math.max(0, Math.min(.999, (now - a.at) / Math.max(1, a.dur)));
     if (a.e.id === v.id) {
@@ -10514,12 +10516,35 @@ function cartLayer(v, which, ox, oy, s, now) {
   const cc = cartCell(v, which, now); if (!cc) return;
   const im = holdImg(cc[0].file, 'fight_rig/'); if (!im) return;
   const q = cc[1], x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
-  const w = cc[3] ? walkOf(v) : null, rattle = w ? (Math.floor(Math.max(0, now - w.at) / (beatMs() / 6)) % 2) : 0;   /* the wire rattles a pixel on every other key of his walk */
+  const w = cc[3] ? walkOf(v) : null, rattle = w ? (w.fear ? 2 : 1) * (Math.floor(Math.max(0, now - w.at) / (beatMs() / (w.fear ? FEAR_RUN.keys : 6))) % 2) : 0;   /* the wire rattles a pixel on every other key of his walk (two, and twice as quick, when he runs scared) */
   cxDraw(dark ? nightSheet(im, moonOf(x, y)) : im, q[0], q[1], q[2], q[3], ox + q[4] * s, oy + (q[5] - rattle) * s, q[2] * s, q[3] * s);
   UI.clipSeen = UI.clipSeen || {}; UI.clipSeen['cart:' + cc[2]] = (UI.clipSeen['cart:' + cc[2]] || 0) + 1;
   (UI.cartDrawn || (UI.cartDrawn = {}))[v.id] = { at: now, which: cc[2], kind: v.cart.id, load: v.cart.load, face: DIR8[v._fallAt !== undefined ? v._cartFell : (w ? walkAt(w, now).face : v.cartFace)] };
 }
 /* ==== end __THE_STAFF_PUSH_A_CART__, ON THE BOARD ==== */
+/* ==== __THE_CAMP_RUNS_SCARED__ (STAFF 2 11/26, VAMILY rule 482 on the staff as built: 'a staff man running looks like fear'). MEASURED
+   BEFORE: a camp person getting away from theirs walked the board exactly as a fighter walks it (the walk's six keys a beat, a tile in
+   TILE_BEATS), so the cook backing off from a man with a blade looked like a man going for a stroll. NOW a camp person's walk that
+   starts within FEAR_RUN.near tiles of one of theirs and takes him farther from the nearest is a scared run, on the glass only (the
+   rules moved him already): his feet twice as quick (the walk's own six keys at twelve a beat, every key drawn, none skipped), the
+   tiles in FEAR_RUN.dur of a walk's time (never under half a beat, the floor a turn is seen at), his body leant into the run (a shear about his feet, FEAR_RUN.lean of his height to the
+   side he runs; north and south he runs upright), his cart rattling two pixels a key and staying on its wheels; his run off the
+   board when he gets out is scared the same way. ==== */
+const FEAR_RUN = { near: 4, dur: 0.7, keys: 12, lean: 0.09 };
+function scaredStep(u, e) {
+  const S = FIGHT.S; let best = null, bd = 1e9;
+  S.units.forEach(function (o) { if (o.side === u.side || o.side === 'prop' || o.decoy || !FIGHT.onField(o)) return; const d = Math.max(Math.abs(o.x - e.fx), Math.abs(o.y - e.fy)); if (d < bd) { bd = d; best = o; } });
+  if (!best || bd > FEAR_RUN.near) return false;
+  return Math.max(Math.abs(best.x - e.x), Math.abs(best.y - e.y)) > bd;
+}
+/* the shear of his lean: to the side of the glass he runs to (SE, E, NE right; NW, W, SW left), none running north or south */
+function fearLean(p) {
+  if (!p || !p.fear || p.face === undefined) return 0;
+  const f = ((p.face % 8) + 8) % 8, side = f >= 1 && f <= 3 ? 1 : f >= 5 && f <= 7 ? -1 : 0;
+  UI.fearSeen = (UI.fearSeen | 0) + (side ? 1 : 0);
+  return -side * FEAR_RUN.lean;
+}
+/* ==== end __THE_CAMP_RUNS_SCARED__ ==== */
 /* which clip and key of his for the pose the fight gave him: the shield's, the two-hander's, or the one-hander's */
 function meleeClip(v, p, L, e, how, prop, kind, now) {
   const at = function (c) { return Math.max(0, (L.clips || DB.rig.clips)[c].indexOf(p.col)); }, cover = holdCovered(v), M = MELEE.meta;
@@ -10966,13 +10991,14 @@ function blitManNow(v, X, feet, now, alpha) {
      walking under it (the poses tool's Carry and CarryWalk, the same keys as the walk) */
   if (gs && (p.clip === 'stand' || p.clip === 'walk') && DB.rig.clips.carry) {
     const c = p.clip === 'stand' ? 'carry' : 'carrywalk';
-    p = { col: clipCol(c, DB.rig.clips[p.clip].indexOf(p.col), null), clip: c }; UI.clipSeen[c] = (UI.clipSeen[c] || 0) + 1;
+    p = { col: clipCol(c, DB.rig.clips[p.clip].indexOf(p.col), null), clip: c, fear: p.fear, face: p.face }; UI.clipSeen[c] = (UI.clipSeen[c] || 0) + 1;   /* __THE_CAMP_RUNS_SCARED__: a scared man with a pistol still leans */
   }
   const ox = Math.round(X * DPR) - L.foot[0] * s, oy = Math.round(feet * DPR) - L.foot[1] * s;
   cx.save(); cx.setTransform(1, 0, 0, 1, 0, 0); cx.imageSmoothingEnabled = false; cx.globalAlpha = alpha;
   if (v.ghost) { ghostBlit(v, img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, now, alpha); cx.restore(); return; }
   if (v.machine) { chipBlit(v, img, p, L, gs, ox, oy, s, now, alpha); cx.restore(); return; }
   cartLayer(v, 'back', ox, oy, s, now);   /* __THE_STAFF_PUSH_A_CART__: his cart and its shadow under him (on its side once he fell) */
+  const lean = fearLean(p); if (lean) { const fy = oy + L.foot[1] * s; cx.transform(1, 0, lean, 1, -lean * fy, 0); }   /* __THE_CAMP_RUNS_SCARED__: he leans into it, his feet where they were */
   const held = crawlDraw(v, p, L, gs, ox, oy, s, now) || holdDraw(v, p, L, gs, ox, oy, s, now);   /* __THE_CRAWL__ (ANIMATION): struck down, he drags himself away; __WHAT_A_MAN_HOLDS__: a pistol in one hand, a man in cover down behind it (ANIMATION) */
   const idled = held || idleDraw(v, p, L, gs, ox, oy, s, now);   /* __EVERYBODY_IDLES__: standing, he breathes and idles (ANIMATION) */
   if (!idled) cxDraw(img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, L.w * s, L.h * s);
@@ -10991,6 +11017,7 @@ function blitManNow(v, X, feet, now, alpha) {
   if (!idled) { const gk = gs && DB.rig.guns.clips[p.clip], gc = gk && gk[Math.max(0, (L.clips || DB.rig.clips)[p.clip].indexOf(p.col))];
     punchTint(v, now, img, p.col * L.w, (v._face || 0) * L.h, L.w, L.h, ox, oy, s, gc !== undefined && gc !== null && gs && !own_ ? [gs.img, gc * L.w, (gs.row * 8 + (v._face || 0)) * L.h] : null); }   /* THE PUNCH */
   laidDraw(v, 'over', p, L, gs, ox, oy, s, now);   /* __WHAT_HE_CARRIES_IS_DRAWN__: the shield, the two-hander, the bow his own keys could not hold */
+  if (lean) cx.setTransform(1, 0, 0, 1, 0, 0);   /* __THE_CAMP_RUNS_SCARED__: the cart stands straight */
   cartLayer(v, 'front', ox, oy, s, now);   /* __THE_STAFF_PUSH_A_CART__: what of his cart stands nearer the glass than he does */
   cx.restore();
   /* THE TEAR ON THE MAN YOU CONTROL (rule 121(f), amending 120(c): his YES on ANIMATION's B, in the fight only, never on the

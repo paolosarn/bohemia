@@ -4083,7 +4083,9 @@ function retinueCard(f, o){
   var fc = face(null, 'retinue:' + f.id, f.look || null); fc.classList.add('rface'); row.appendChild(fc);
   var nm = document.createElement('div'); nm.className = 'rname';
   var b = document.createElement('b'); b.textContent = (f.name || f.word).toUpperCase(); nm.appendChild(b);
-  var w = document.createElement('span'); w.textContent = f.word.replace(/^THE /, '') + (f.hired ? '  \u00b7  WITH YOU' : f.met && !o.town ? '  \u00b7  MET IN ' + String(f.met).toUpperCase() : ''); nm.appendChild(w);
+  var lostHere = !f.hired && C && C.dead ? C.dead().filter(function(x){ return x.id === f.id; }) : [];   /* STAFF 2 (rule 482): his trade lost one with you */
+  var w = document.createElement('span'); w.textContent = f.word.replace(/^THE /, '') + (f.hired ? '  \u00b7  WITH YOU' : lostHere.length ? '  \u00b7  YOUR LAST ONE FELL' : f.met && !o.town ? '  \u00b7  MET IN ' + String(f.met).toUpperCase() : ''); nm.appendChild(w);   /* draft:true */
+  if(lostHere.length){ row.dataset.lost = lostHere[lostHere.length - 1].name || ''; }
   row.appendChild(nm);
   var d = document.createElement('p'); d.className = 'rdoes'; d.textContent = f.says; row.appendChild(d);   /* draft:true */
   var ck = !f.soon && C && C.cartOf ? C.cartOf(f.id) : null;   /* __THE_STAFF_PUSH_A_CART__ (rule 480(b)): his cart's line, on his opened row and in the fullest hall's held finger; draft:true */

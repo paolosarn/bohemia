@@ -110,6 +110,7 @@ button{font-family:var(--rom)}
 .state{margin-top:4px;font-size:11px}
 .state.hurt{color:var(--red)}
 .state.gone{color:var(--red);font:12px var(--casing);letter-spacing:1px}
+.man.camp .state.cartgone,.man.camp .state.hall{color:var(--ink2,#a8977c);font:11px var(--casing);letter-spacing:1px;margin-top:2px}   /* STAFF 2: the camp's lost, what went with him and where another waits */
 .perk{margin-top:8px;min-height:44px;padding:0 16px;background:var(--gold);color:#1a120a;border:0;border-radius:6px;font-size:12px;letter-spacing:1px}
 #counts{display:flex;flex-wrap:wrap;gap:8px;margin:0 14px 8px}
 html body #counts .count[data-count=tape]::before{background-image:url(supply_icons/tape.png)}   /* rule 276(a): the roll of tape off the bar, beside its count */
@@ -418,7 +419,8 @@ function drawCrew(){
     d.appendChild(w); el.appendChild(d);
     /* VOTE FIXES 11/2 (Paolo: 'Only in the crew menu not any other menu'): no hold card of his kills on the end screen */
   });
-  var fell = S.men.filter(function(m){ return m.dead; }).length, hurt = S.men.filter(function(m){ return m.down && !m.dead && !m.main; }).length;
+  var campGone = drawCampGone(el);   /* STAFF 2 (rule 482): the camp's people who fell or were taken, under his men */
+  var fell = S.men.filter(function(m){ return m.dead; }).length + campGone, hurt = S.men.filter(function(m){ return m.down && !m.dead && !m.main; }).length;
   /* a level is a level, never 'climbed' (EYES [eyes: the road crew ran]) */
   var lv = S.men.reduce(function(t, m){ return t + (m.up && !m.dead ? Math.max(1, (m.to | 0) - (m.from | 0)) : 0); }, 0);
   /* FINISHER 11/2 (ask line 221, EYES R6's hole: 'the same screen's header says NO NEW LEVEL over them'): the head counts what waits
@@ -427,6 +429,38 @@ function drawCrew(){
   var head = lv ? lv + (lv === 1 ? ' NEW LEVEL' : ' NEW LEVELS') + (wt > lv ? ', ' + wt + ' TO SPEND' : '') : (wt ? wt + (wt === 1 ? ' LEVEL TO SPEND' : ' LEVELS TO SPEND') : 'NO NEW LEVEL');
   document.getElementById('crewn').textContent = head + (hurt ? ', ' + hurt + ' HURT' : '') + (fell ? ', ' + fell + ' DEAD' : '');
 }
+/* ==== __THE_CAMP_IS_MOURNED__ (STAFF 2 11/26, VAMILY rule 482 on the staff as built: 'losing one feels like a loss (his face, his
+   name, the hall to rehire)'). MEASURED BEFORE: a cook struck down in a fight left the camp book (BohemiaCamp.lose, her cart over and
+   what it held gone from the count) and this screen never said so: it read the fight's crew, and the camp rides home in its own list
+   (fight.staff, __THE_STAFF_FIGHT_TOO__ C8), so she went without a line. NOW each one who fell or was taken has his row under the men:
+   his face, his name and his trade, how he went, what went over with his cart (or the cart his job keeps, when his side held), and
+   that a town's hall has another of his trade. The shell hands what the camp book kept (fight.staff[i].lost). Words draft:true. */
+function drawCampGone(el){
+  var gone = (S.fight && Array.isArray(S.fight.staff) ? S.fight.staff : []).filter(function(r){ return r && r.name && (r.dead || r.taken); });
+  gone.forEach(function(r){
+    var L = r.lost || {}, m = { name: r.name, look: r.look || null, sex: L.sex || null };
+    if(r.look) S.looks[r.name] = S.looks[r.name] || r.look;
+    var sx = sexOfMan(m), she = sx === 'f' ? 'SHE' : sx === 'm' ? 'HE' : '', her = sx === 'f' ? 'HER' : sx === 'm' ? 'HIS' : 'THE';
+    var trade = String(L.word || '').replace(/^THE /, '');
+    var d = document.createElement('div'); d.className = 'man dead camp'; d.dataset.man = r.name; d.dataset.camp = r.id || '';
+    var fw = document.createElement('div'); fw.className = 'face'; fw.appendChild(faceCanvas(r.name)); d.appendChild(fw);
+    var w = document.createElement('div'); w.className = 'w';
+    var nm = document.createElement('div'); nm.className = 'nm';
+    var a = document.createElement('span'); a.textContent = r.name; nm.appendChild(a);
+    if(trade){ var tw = document.createElement('span'); tw.className = 'lv'; tw.textContent = trade; nm.appendChild(tw); }
+    w.appendChild(nm);
+    var st = document.createElement('div'); st.className = 'state gone';
+    st.textContent = r.dead ? (she ? 'FELL. ' + she + ' IS DEAD.' : 'FELL. DEAD.') : 'LEFT ON THE FIELD. TAKEN.'; w.appendChild(st);   /* draft:true */
+    var sp = L.spilt, cls = [];
+    if(sp && sp.n > 0) cls.push(her + ' CART WENT OVER: ' + sp.n + ' ' + String(sp.kind || '').toUpperCase() + ' GONE.');
+    if(L.kept) cls.push(String(L.kept).replace(/^A /, 'THE ') + ' WAITS FOR THE NEXT ONE.');
+    cls.forEach(function(t){ var c = document.createElement('div'); c.className = 'state cartgone'; c.textContent = t; w.appendChild(c); });   /* draft:true */
+    var h = document.createElement('div'); h.className = 'state hall'; h.textContent = trade ? 'A TOWN\'S HALL HAS ANOTHER ' + trade + '.' : 'A TOWN\'S HALL HAS ANOTHER.'; w.appendChild(h);   /* draft:true */
+    d.appendChild(w); el.appendChild(d);
+  });
+  return gone.filter(function(r){ return r.dead; }).length;
+}
+/* ==== /__THE_CAMP_IS_MOURNED__ ==== */
 /* PICK A PERK: the one crew screen, over this one; it reads this fight (kept by the shell) and opens on the man with a point */
 function openCrew(name){
   if(!window.BohemiaCrewDoor) return;

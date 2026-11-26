@@ -12,8 +12,8 @@ shield off the donor's layer (__WHAT_HE_CARRIES_IS_DRAWN__):
                  handle, its casters), all four casters on (his staff's cart rolls; COOK's corral cart lost one), its tilt taken
                  off, the bag out of the basket. The odd thing: a strip of masking tape wound round the handle where it split.
   utility_cart   a steel utility cart: two lipped trays on four corner posts, the push handle at one end, five-inch rubber
-                 casters, olive paint worn to the steel. The odd thing: a bungee cord across the top tray, its hook hanging.
-  wagon          a garden wagon: a steel bed, slat sides, four pneumatic wheels, the steering tongue and its T-handle up to his
+                 casters, safety-yellow paint worn to the steel (olive until 11/26: it was lost against the men's kit). The odd thing: a bungee cord across the top tray, its hook hanging.
+  wagon          a garden wagon: a steel bed and slat sides in red paint gone to rust (olive and brown until 11/26), four pneumatic wheels, the steering tongue and its T-handle up to his
                  hand (the tongue pivots, so the handle sits in his fist at any height). The odd thing: one tyre patched in grey tape.
   loads: food (a stock pot with its lid, two rice sacks, a water jug), meds (a white tackle box, rolled bandages, a duffel),
          tape (stacked rolls of grey tape, a red toolbox, a car-door skin), rounds (two ammo cans, a cardboard case),
@@ -82,7 +82,9 @@ def build_cart(bpy, mathutils, kind):
         t = P.box(bpy, 'handle_tape_tail', tape, (0.012, 0.03, 0.08), (-0.52, -0.09, 0.95), rot=(math.radians(10), 0, 0)); t.parent = root
         frame = dict(handle_x=-0.52, handle_z=1.0, floor=(0.56, -0.40, 0.34, 0.2))
     elif kind == 'utility_cart':
-        paint, steel, rub, rust = m('paint', 'metal_painted', 1), m('steel', 'tape_grey', 2), m('caster', 'rubber', 1), m('rust', 'clay_rust', 1)
+        # STAFF 2 (rule 482, 'its upgrades read in a fight'): worn safety-yellow paint, the shop floor's own colour, so the first upgrade
+        # reads apart from the wire cart and from the olive of the men round it (it was metal_painted 1, olive, lost against their kit)
+        paint, steel, rub, rust = m('paint', 'clay_mustard', 2), m('steel', 'tape_grey', 2), m('caster', 'rubber', 1), m('rust', 'clay_rust', 1)
         L, W = 0.9, 0.48
         for z in (0.24, 0.80):   # two lipped trays
             P.box(bpy, 'tray_%d' % int(z * 100), paint, (L, W, 0.025), (0, 0, z), bevel=0.006)
@@ -104,7 +106,9 @@ def build_cart(bpy, mathutils, kind):
         P.rod(bpy, 'bungee_hang', cord, (0.25, W / 2 - 0.05, 0.86), (0.27, W / 2 + 0.01, 0.62), 0.008)
         frame = dict(handle_x=hx, handle_z=0.97, floor=(0.825, -0.42, 0.42, 0.2))
     else:   # the wagon
-        bed, wood, rub, steel, rust = m('bed', 'metal_painted', 2), m('slat', 'clay_mustard', 1), m('tyre', 'rubber', 0), m('axle', 'tape_grey', 1), m('rust', 'clay_rust', 1)
+        # STAFF 2 (rule 482): the red wagon gone to rust, its slat sides the faded red paint, the best cart reads as the one everybody knows
+        # (it was an olive bed and brown slats, the utility cart's and the men's colours)
+        bed, wood, rub, steel, rust = m('bed', 'clay_rust', 1), m('slat', 'clay_rust', 2), m('tyre', 'rubber', 0), m('axle', 'tape_grey', 1), m('rust', 'clay_rust', 0)
         L, W, Z = 1.05, 0.58, 0.42
         P.box(bpy, 'bed', bed, (L, W, 0.03), (0, 0, Z), bevel=0.01)
         for s in (-1, 1):

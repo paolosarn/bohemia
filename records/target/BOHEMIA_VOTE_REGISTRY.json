@@ -24648,7 +24648,8 @@
      "stage": "made_from",
      "golden": "character-the-nine-enemies-their-own-clothes-11-7",
      "recipe": "ours.json people_looks.band: the six faction_* robes out of ten enemy pools (16 entries); BUILD 11/26zk"
-    }
+    },
+  {"id": "staff2-the-camp-runs-scared-11-26", "kind": "ui", "lane": "staff 2", "sha": "pending", "made": "11/26", "draft": true, "title": "YOUR CAMP PEOPLE: THE CARTS IN THREE COLOURS, A SCARED RUN WHEN THEY GET AWAY, AND THE END SCREEN MOURNS ONE YOU LOST", "said": "More cooking up cleaning up improving things we're already doing type shit", "why": "The steel cart is now yellow and the wagon red, so you can tell the upgrades apart in a fight; a camp person getting away from an enemy runs with quick feet and leans into it; and when one dies the end screen shows their face, what their cart spilled, and that a town's hall has another. You see it in the RUN tab in any fight with camp people, on the screen after the fight, and in a town's hall.", "show": {"how": "image", "src": "../records/target/STAFF2_THE_CAMP_RUNS_SCARED_11_26.webp"}, "before_after": {"before": "BUILD 11/26zk: the utility cart olive and the wagon olive and brown, lost among the men; a camp person walked away like a fighter; a dead cook was never on the end screen", "after": "wire, yellow, red; a scared run (quick feet, a lean, the cart rattling) on a quarter of camp walks; the end screen's row for each one lost, and the hall's YOUR LAST ONE FELL", "scale": "his phone upright (390 x 844 at 3) and on its side, the demo and the alpha, a road fight off the town with the cook, the surgeon, the blacksmith and the cab driver"}, "stage": "stand_in", "record": "records/BOHEMIA_STAFF_TWO_RULE_482_THE_STAFF_BETTER_11_26_26.md", "build": "BUILD 11/26zl - THE CAMP RUNS SCARED"}
  ],
  "verdicts": [
   {

@@ -3,7 +3,6 @@
   "shape": "phone_portrait",
   "surface": "alpha",
   "purseAt": [
-   0,
    290
   ],
   "hall": true,
@@ -15,6 +14,8 @@
   "rows": [
    {
     "id": "scavenger",
+    "mark": "SCAVENGER",
+    "name": "DOT KOWALSKI",
     "open": true,
     "soon": false,
     "cart": "Pushes a shopping cart. One hand only.",
@@ -27,6 +28,8 @@
    },
    {
     "id": "paymaster",
+    "mark": "PAYMASTER",
+    "name": "HECTOR SALAS",
     "open": true,
     "soon": false,
     "cart": "Pushes a shopping cart. One hand only.",
@@ -39,6 +42,8 @@
    },
    {
     "id": "cook",
+    "mark": "COOK  ·  YOUR LAST ONE FELL",
+    "name": "TOBIAS NGUYEN",
     "open": true,
     "soon": false,
     "cart": "Pushes a wagon. One hand only.",
@@ -53,7 +58,7 @@
   "png": "records/target/staff_cart/alpha_upright_the_hall_says_the_cart.png",
   "held": {
    "id": "cook",
-   "tip": "GRACIELA OCHOA: The crew eats for less, and a hurt man gets a hitpoint more back every hour. Pushes a wagon. One hand only."
+   "tip": "TOBIAS NGUYEN: The crew eats for less, and a hurt man gets a hitpoint more back every hour. Pushes a wagon. One hand only."
   },
   "take": {
    "id": "cook",
@@ -76,6 +81,7 @@
    "H2": true,
    "H3": true,
    "H4": true,
+   "H6": true,
    "H5": true,
    "E": true
   }
@@ -84,7 +90,6 @@
   "shape": "phone_landscape",
   "surface": "alpha",
   "purseAt": [
-   0,
    290
   ],
   "hall": true,
@@ -96,6 +101,8 @@
   "rows": [
    {
     "id": "scavenger",
+    "mark": "SCAVENGER",
+    "name": "DOT KOWALSKI",
     "open": true,
     "soon": false,
     "cart": "Pushes a shopping cart. One hand only.",
@@ -108,6 +115,8 @@
    },
    {
     "id": "paymaster",
+    "mark": "PAYMASTER",
+    "name": "HECTOR SALAS",
     "open": true,
     "soon": false,
     "cart": "Pushes a shopping cart. One hand only.",
@@ -120,6 +129,8 @@
    },
    {
     "id": "cook",
+    "mark": "COOK  ·  YOUR LAST ONE FELL",
+    "name": "TOBIAS NGUYEN",
     "open": true,
     "soon": false,
     "cart": "Pushes a wagon. One hand only.",
@@ -134,7 +145,7 @@
   "png": "records/target/staff_cart/alpha_sideways_the_hall_says_the_cart.png",
   "held": {
    "id": "cook",
-   "tip": "GRACIELA OCHOA: The crew eats for less, and a hurt man gets a hitpoint more back every hour. Pushes a wagon. One hand only."
+   "tip": "TOBIAS NGUYEN: The crew eats for less, and a hurt man gets a hitpoint more back every hour. Pushes a wagon. One hand only."
   },
   "take": {
    "id": "cook",
@@ -157,6 +168,7 @@
    "H2": true,
    "H3": true,
    "H4": true,
+   "H6": true,
    "H5": true,
    "E": true
   }

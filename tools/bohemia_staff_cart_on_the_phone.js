@@ -104,6 +104,19 @@ async function walk(shape) {
     await page.waitForTimeout(8000);
     row.frames = await c.evaluate(() => { const S = window.__SF, ms = (S.t1 || performance.now()) - S.t0, g = S.gaps.slice(1).sort((a, b) => a - b);
       return { fps: +(1000 * S.n / ms).toFixed(1), worstMs: Math.round(g[g.length - 1] || 0), p95Ms: Math.round(g[Math.floor(g.length * 0.95)] || 0) }; });
+    /* R1 THE CAMP RUNS SCARED (STAFF 2 11/26, rule 482): every scared walk counted, and the first one's frame taken off the fight's own
+       canvas at the middle of its walk, round the man (the glass's pixels, nothing drawn for the proof) */
+    await c.evaluate(() => { window.__FEARSHOT = null; const cv = (typeof cx !== 'undefined' && cx && cx.canvas) || document.querySelector('canvas'); const tick = () => {
+        const a = FIGHT_UI.anim && FIGHT_UI.anim[0]; if (!window.__FEARSHOT && a && a.fear && a.at) { const k = (performance.now() - a.at) / a.dur; const v = FIGHT.byId(a.e.id);
+          if (k > 0.35 && k < 0.8 && v) { try { window.__FEARSHOT = { url: cv.toDataURL('image/png'), x: sx((dx(v) + .5) * FIGHT_UI.tw) * cv.width / innerWidth, y: sy((dy(v) + .5) * FIGHT_UI.th) * cv.height / innerHeight,
+            tile: FIGHT_UI.zoom * FIGHT_UI.th * cv.height / innerHeight, name: v.name, staffId: v.staffId, face: DIR8[v._face || 0], k: +k.toFixed(2) }; } catch (e) { window.__FEARSHOT = { err: String(e) }; } } }
+        if (!FIGHT.S.over) requestAnimationFrame(tick); }; requestAnimationFrame(tick); }).catch(() => null);
+    /* R1's setup (said, as the cook's fall is said): one of theirs set down beside the surgeon before AUTO, so his camp's own AUTO has a
+       man to get away from (in 20 AUTO fights a quarter of the camp's walks are scared runs, the gate's C14; this road fight may hold none) */
+    row.fearSet = await c.evaluate(() => { const S = FIGHT.S, v = S.units.find(u => u.staffId === 'surgeon' && FIGHT.onField(u)), a = S.units.filter(u => u.side === 'them' && FIGHT.onField(u) && !u.beast)[0] || S.units.filter(u => u.side === 'them' && FIGHT.onField(u))[0];
+      if (!v || !a) return null; const T = FIGHT._t, occ = (x, y) => S.units.some(u => FIGHT.onField(u) && u.x === x && u.y === y);
+      for (const [dx, dy] of [[1, 0], [1, 1], [1, -1], [0, 1], [0, -1], [-1, 0], [-1, 1], [-1, -1]]) { const x = v.x + dx, y = v.y + dy; if (T.passable(x, y) && !occ(x, y)) { a.x = x; a.y = y; return { by: v.name, at: [x, y], them: a.name }; } }
+      return null; }).catch(e => String(e));
     /* F3 IT GOES OVER: AUTO on; the cook falls in round two (the fight's own fall: struck down, so dead), and the fight plays on to its end */
     await c.evaluate(() => { FIGHT_UI.auto = true; });
     let felled = null; const t1 = Date.now();
@@ -118,10 +131,21 @@ async function walk(shape) {
           if (fb && at) row.tipAt = { x: fb.x + at[0] * fb.width / at[2], y: fb.y + at[1] * fb.height / at[3], tile: at[4] * fb.height / at[3] }; }
         row.png_tip = await shot('the_cooks_cart_goes_over'); await c.evaluate(() => { UI.pinched = false; fitNow(); FIGHT_UI.auto = true; }).catch(() => null); } }
     row.felled = felled;
+    row.fear = await c.evaluate(() => ({ walks: FIGHT_UI.fearWalks | 0, leaned: FIGHT_UI.fearSeen | 0, shot: window.__FEARSHOT ? Object.assign({}, window.__FEARSHOT, { url: undefined }) : null, url: window.__FEARSHOT && window.__FEARSHOT.url || null })).catch(() => null);
+    if (row.fear && row.fear.url) { const f = path.join(OUTD, TAG + '_' + short + '_the_cook_runs_scared.png'); fs.writeFileSync(f, Buffer.from(row.fear.url.split(',')[1], 'base64')); row.png_fear = path.relative(ROOT, f); }
+    if (row.fear) delete row.fear.url;
     row.auto = await c.evaluate(() => ({ over: FIGHT.S.over, result: FIGHT.S.result, rounds: FIGHT.S.round, staff: FIGHT.S.units.filter(u => u.staff).map(u => ({ id: u.staffId, dead: !!u.dead })) }));
     let sf = null; const t0 = Date.now();
     while (Date.now() - t0 < 25000 && !sf) { const h = await page.$('#spoilsdoor iframe'); const f = h && await h.contentFrame(); if (f && await f.evaluate(() => !!document.getElementById('leave')).catch(() => false)) sf = f; else await page.waitForTimeout(400); }
-    if (sf) { await page.waitForTimeout(900); const h = await page.$('#spoilsdoor iframe'), hb = await h.boundingBox();
+    if (sf) { await page.waitForTimeout(900);
+      /* M1 THE CAMP IS MOURNED (STAFF 2 11/26, rule 482): the end screen's rows for the camp's lost, read off the glass, and its picture */
+      row.mourn = await sf.evaluate(() => [].map.call(document.querySelectorAll('.man.camp'), r => { const b = r.getBoundingClientRect(); return { camp: r.dataset.camp, name: r.dataset.man,
+        lines: [].map.call(r.querySelectorAll('.nm span, .state'), x => x.textContent), face: !!r.querySelector('.face canvas'), w: Math.round(b.width), h: Math.round(b.height) }; })).catch(() => null);
+      row.mournHead = await sf.evaluate(() => { const e = document.getElementById('crewn'); return e ? e.textContent : null; }).catch(() => null);
+      await sf.evaluate(() => { const r = document.querySelector('.man.camp'); if (r) r.scrollIntoView({ block: 'center' }); }).catch(() => null); await page.waitForTimeout(500);
+      row.png_mourn = await shot('the_cook_is_mourned');
+      await sf.evaluate(() => { const e = document.getElementById('leave'); if (e) e.scrollIntoView({ block: 'center' }); }).catch(() => null); await page.waitForTimeout(300);
+      const h = await page.$('#spoilsdoor iframe'), hb = await h.boundingBox();
       const b = await sf.evaluate(() => { const e = document.getElementById('leave'); const r = e.getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2, innerWidth, innerHeight]; });
       await page.touchscreen.tap(hb.x + b[0] * hb.width / b[2], hb.y + b[1] * hb.height / b[3]); }
     await page.waitForTimeout(2500);
@@ -154,8 +178,13 @@ async function walk(shape) {
     U1: !!(row.forge && row.forge.pre && row.forge.post && row.forge.pre.lv === 0 && row.forge.post.lv === 1 && row.forge.pre.bats - row.forge.post.bats === 150 && row.forge.pre.tape - row.forge.post.tape === 20
       && row.forge.post.rows.some(r => /^scout:utility_cart:(on|off):.*WAGON/.test(r))),
     C1: !!(row.fire && row.after && Array.isArray(row.after.camp) && row.after.camp.length > 0 && row.after.camp.every(id => row.fire.some(x => x.id === id && x.ago < 3000))),
+    /* STAFF 2 11/26 (rule 482): R1 a camp person got away scared (counted, leant on the glass); M2 the end screen mourns the cook: her
+       face, her name and trade, how she went, what her cart spilled, the hall that has another */
+    R1: !!(row.fear && row.fear.walks > 0 && row.fear.leaned > 0),
+    M2: !!(row.mourn && row.mourn.some(m => m.camp === 'cook' && m.face && m.lines.some(t => /^FELL\./.test(t)) && m.lines.some(t => /CART WENT OVER: \d+ FOOD GONE\./.test(t)) && m.lines.some(t => /HALL HAS ANOTHER COOK\./.test(t)))),
     P1: !!row.scroll && row.scroll.top <= 0 && row.scroll.fight <= 0, P2: !!row.frames && row.frames.fps > 0, P3: !row.err && !errs.length };
   if (FORGE_ONLY) row.P = { U1: row.P.U1, P3: !row.err && !errs.length };
+  console.log('  set ' + JSON.stringify(row.fearSet) + ' | scared ' + JSON.stringify(row.fear) + ' | mourned ' + JSON.stringify(row.mourn) + ' head ' + JSON.stringify(row.mournHead));
   console.log('  ' + TAG + ' ' + shape + ': ' + (row.err ? 'ERR ' + row.err + ' ' : '') + 'map camp ' + (row.map && row.map.camp) + ' | ' + st.map(u => u.name.split(' ')[0] + ' ' + u.cart + '/' + u.load + ' ' + u.weapon + (u.drawn !== null ? ' drawn' : ' NOT DRAWN')).join('; ') +
     ' | fighters with a cart ' + fighters.filter(u => u.cart).length + ' | fps ' + (row.frames && row.frames.fps) + ' worst ' + (row.frames && row.frames.worstMs) + ' ms | felled ' + JSON.stringify(row.felled) + ' tip ' + JSON.stringify(row.tip) +
     ' | lost ' + JSON.stringify(lostCook && lostCook.spilt) + ' | forge ' + JSON.stringify(row.forge && row.forge.post && { lv: row.forge.post.lv, rows: row.forge.post.rows }) + ' | camp ' + (row.fireWhy || JSON.stringify((row.fire || []).map(x => x.id + ':' + x.kind))) + ' | ' + Object.keys(row.P).map(k => k + (row.P[k] ? ' ok' : ' RED')).join(' ') + (errs.length ? ' | errors ' + errs.join(' / ') : ''));

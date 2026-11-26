@@ -8,7 +8,43 @@
    "blacksmith",
    "scout"
   ],
-  "forgeWhy": "no town screen",
+  "png_forge": "records/target/staff_cart/demo_upright_the_forge_welds_a_cart.png",
+  "forge": {
+   "pre": {
+    "rows": [
+     "cook:shopping_cart:on:GRACIELA: A STEEL UTILITY CART150 BATTERIES \u00b7 20 TAPE",
+     "surgeon:utility_cart:off:ALAN: A WAGON300 BATTERIES \u00b7 40 TAPE",
+     "blacksmith:wagon:off:WALT: A WAGONTHE BEST CART",
+     "scout:shopping_cart:on:DANNY: A STEEL UTILITY CART150 BATTERIES \u00b7 20 TAPE"
+    ],
+    "bats": 290,
+    "tape": 40,
+    "lv": 0
+   },
+   "post": {
+    "tapped": {
+     "id": "scout",
+     "cart": "utility_cart",
+     "price": 150,
+     "tape": 20
+    },
+    "rows": [
+     "cook:shopping_cart:off:GRACIELA: A STEEL UTILITY CART150 BATTERIES \u00b7 20 TAPE",
+     "surgeon:utility_cart:off:ALAN: A WAGON300 BATTERIES \u00b7 40 TAPE",
+     "blacksmith:wagon:off:WALT: A WAGONTHE BEST CART",
+     "scout:utility_cart:off:DANNY: A WAGON300 BATTERIES \u00b7 40 TAPE"
+    ],
+    "bats": 140,
+    "tape": 20,
+    "lv": 1
+   },
+   "tapAt": {
+    "x": 10,
+    "y": 450,
+    "width": 370,
+    "height": 44
+   }
+  },
   "map": {
    "camp": 4,
    "at": [
@@ -16,7 +52,7 @@
      281,
      202,
      "SW",
-     "shopping_cart"
+     "utility_cart"
     ],
     [
      266,
@@ -113,7 +149,7 @@
      "shield": false,
      "face": 2,
      "onField": true,
-     "drawn": 13,
+     "drawn": 21,
      "drawnWhich": "front"
     },
     {
@@ -130,7 +166,7 @@
      "shield": false,
      "face": 2,
      "onField": true,
-     "drawn": 14,
+     "drawn": 21,
      "drawnWhich": "front"
     },
     {
@@ -141,13 +177,13 @@
      "name": "Walt Hensley",
      "cart": "wagon",
      "load": "tape",
-     "n": 40,
+     "n": 20,
      "weapon": "pickaxe",
      "two": false,
      "shield": false,
      "face": 2,
      "onField": true,
-     "drawn": 13,
+     "drawn": 21,
      "drawnWhich": "front"
     },
     {
@@ -156,7 +192,7 @@
      "staff": true,
      "staffId": "scout",
      "name": "Danny Nguyen",
-     "cart": "shopping_cart",
+     "cart": "utility_cart",
      "load": "gear",
      "n": 0,
      "weapon": "snub_revolver",
@@ -164,7 +200,7 @@
      "shield": false,
      "face": 2,
      "onField": true,
-     "drawn": 14,
+     "drawn": 22,
      "drawnWhich": "front"
     },
     {
@@ -176,9 +212,9 @@
      "cart": null,
      "load": null,
      "n": 0,
-     "weapon": "hatchet",
+     "weapon": "wooden_stick",
      "two": false,
-     "shield": true,
+     "shield": false,
      "onField": true,
      "drawn": null,
      "drawnWhich": null
@@ -192,8 +228,8 @@
      "cart": null,
      "load": null,
      "n": 0,
-     "weapon": "tomahawk",
-     "two": false,
+     "weapon": "pitchfork",
+     "two": true,
      "shield": false,
      "onField": true,
      "drawn": null,
@@ -208,17 +244,17 @@
      "cart": null,
      "load": null,
      "n": 0,
-     "weapon": "hatchet",
-     "two": false,
-     "shield": true,
+     "weapon": "woodcutter_s_axe",
+     "two": true,
+     "shield": false,
      "onField": true,
      "drawn": null,
      "drawnWhich": null
     }
    ],
    "seen": {
-    "back": 108,
-    "front": 108
+    "back": 69,
+    "front": 69
    }
   },
   "onGlass": [
@@ -307,17 +343,25 @@
    "fight": 0
   },
   "frames": {
-   "fps": 45.8,
-   "worstMs": 333,
+   "fps": 46,
+   "worstMs": 417,
    "p95Ms": 50
+  },
+  "fearSet": {
+   "by": "Alan Cho",
+   "at": [
+    4,
+    5
+   ],
+   "them": "THUG"
   },
   "tip": {
    "which": "tip",
-   "ago": 86,
-   "face": "E"
+   "ago": 28,
+   "face": "NE"
   },
   "tipAt": {
-   "x": -1.1770015698586747,
+   "x": 118.23508634222921,
    "y": 431.6457142857143,
    "tile": 24.11428571428571
   },
@@ -329,10 +373,24 @@
    "n": 20,
    "load": "food"
   },
+  "fear": {
+   "walks": 3,
+   "leaned": 51,
+   "shot": {
+    "x": 127.1225068489384,
+    "y": 1120.4762362720855,
+    "tile": 79.57817886492629,
+    "name": "Danny Nguyen",
+    "staffId": "scout",
+    "face": "SW",
+    "k": 0.36
+   }
+  },
+  "png_fear": "records/target/staff_cart/demo_upright_the_cook_runs_scared.png",
   "auto": {
    "over": true,
    "result": "won",
-   "rounds": 7,
+   "rounds": 6,
    "staff": [
     {
      "id": "cook",
@@ -340,7 +398,7 @@
     },
     {
      "id": "surgeon",
-     "dead": false
+     "dead": true
     },
     {
      "id": "blacksmith",
@@ -352,6 +410,39 @@
     }
    ]
   },
+  "mourn": [
+   {
+    "camp": "cook",
+    "name": "Graciela Ochoa",
+    "lines": [
+     "Graciela Ochoa",
+     "COOK",
+     "FELL. SHE IS DEAD.",
+     "HER CART WENT OVER: 20 FOOD GONE.",
+     "A TOWN'S HALL HAS ANOTHER COOK."
+    ],
+    "face": true,
+    "w": 362,
+    "h": 64
+   },
+   {
+    "camp": "surgeon",
+    "name": "Alan Cho",
+    "lines": [
+     "Alan Cho",
+     "SURGEON",
+     "FELL. HE IS DEAD.",
+     "HIS CART WENT OVER: 30 MEDS GONE.",
+     "THE STEEL UTILITY CART WAITS FOR THE NEXT ONE.",
+     "A TOWN'S HALL HAS ANOTHER SURGEON."
+    ],
+    "face": true,
+    "w": 362,
+    "h": 75
+   }
+  ],
+  "mournHead": "NO NEW LEVEL, 2 DEAD",
+  "png_mourn": "records/target/staff_cart/demo_upright_the_cook_is_mourned.png",
   "after": {
    "lost": [
     {
@@ -364,10 +455,20 @@
       "cart": "shopping_cart",
       "kept": true
      }
+    },
+    {
+     "id": "surgeon",
+     "name": "Alan Cho",
+     "why": "dead",
+     "spilt": {
+      "kind": "meds",
+      "n": 30,
+      "cart": "utility_cart",
+      "kept": true
+     }
     }
    ],
    "camp": [
-    "surgeon",
     "blacksmith",
     "scout"
    ],
@@ -375,12 +476,12 @@
     "origin": "newcrew",
     "econ": "full",
     "food": 1,
-    "tape": 41,
-    "rounds": 80,
-    "meds": 30,
+    "tape": 21,
+    "rounds": 61,
+    "meds": 0,
     "wage": 0,
     "founding": 3,
-    "at": 1795386201760
+    "at": 1795717500026
    },
    "cookCart": 0
   },
@@ -388,24 +489,17 @@
   "fire": [
    {
     "id": "scout",
-    "kind": "shopping_cart",
+    "kind": "utility_cart",
     "load": "gear",
     "face": "SE",
-    "ago": 69
-   },
-   {
-    "id": "surgeon",
-    "kind": "utility_cart",
-    "load": "meds",
-    "face": "NW",
-    "ago": 69
+    "ago": 54
    },
    {
     "id": "blacksmith",
     "kind": "wagon",
     "load": "tape",
     "face": "N",
-    "ago": 69
+    "ago": 54
    }
   ],
   "png_camp": "records/target/staff_cart/demo_upright_the_carts_by_the_fire.png",
@@ -415,8 +509,10 @@
    "F1": true,
    "F2": true,
    "F3": true,
-   "U1": false,
+   "U1": true,
    "C1": true,
+   "R1": true,
+   "M2": true,
    "P1": true,
    "P2": true,
    "P3": true
@@ -431,7 +527,43 @@
    "blacksmith",
    "scout"
   ],
-  "forgeWhy": "no town screen",
+  "png_forge": "records/target/staff_cart/demo_sideways_the_forge_welds_a_cart.png",
+  "forge": {
+   "pre": {
+    "rows": [
+     "cook:shopping_cart:on:GRACIELA: A STEEL UTILITY CART150 BATTERIES \u00b7 20 TAPE",
+     "surgeon:utility_cart:off:ALAN: A WAGON300 BATTERIES \u00b7 40 TAPE",
+     "blacksmith:wagon:off:WALT: A WAGONTHE BEST CART",
+     "scout:shopping_cart:on:DANNY: A STEEL UTILITY CART150 BATTERIES \u00b7 20 TAPE"
+    ],
+    "bats": 290,
+    "tape": 40,
+    "lv": 0
+   },
+   "post": {
+    "tapped": {
+     "id": "scout",
+     "cart": "utility_cart",
+     "price": 150,
+     "tape": 20
+    },
+    "rows": [
+     "cook:shopping_cart:off:GRACIELA: A STEEL UTILITY CART150 BATTERIES \u00b7 20 TAPE",
+     "surgeon:utility_cart:off:ALAN: A WAGON300 BATTERIES \u00b7 40 TAPE",
+     "blacksmith:wagon:off:WALT: A WAGONTHE BEST CART",
+     "scout:utility_cart:off:DANNY: A WAGON300 BATTERIES \u00b7 40 TAPE"
+    ],
+    "bats": 140,
+    "tape": 20,
+    "lv": 1
+   },
+   "tapAt": {
+    "x": 22,
+    "y": 303.90625,
+    "width": 164.5,
+    "height": 58.09375
+   }
+  },
   "map": {
    "camp": 4,
    "at": [
@@ -439,7 +571,7 @@
      447,
      119,
      "SW",
-     "shopping_cart"
+     "utility_cart"
     ],
     [
      432,
@@ -536,7 +668,7 @@
      "shield": false,
      "face": 2,
      "onField": true,
-     "drawn": 18,
+     "drawn": 23,
      "drawnWhich": "front"
     },
     {
@@ -553,7 +685,7 @@
      "shield": false,
      "face": 2,
      "onField": true,
-     "drawn": 18,
+     "drawn": 23,
      "drawnWhich": "front"
     },
     {
@@ -564,13 +696,13 @@
      "name": "Walt Hensley",
      "cart": "wagon",
      "load": "tape",
-     "n": 40,
+     "n": 20,
      "weapon": "pickaxe",
      "two": false,
      "shield": false,
      "face": 2,
      "onField": true,
-     "drawn": 17,
+     "drawn": 21,
      "drawnWhich": "front"
     },
     {
@@ -579,7 +711,7 @@
      "staff": true,
      "staffId": "scout",
      "name": "Danny Nguyen",
-     "cart": "shopping_cart",
+     "cart": "utility_cart",
      "load": "gear",
      "n": 0,
      "weapon": "snub_revolver",
@@ -587,43 +719,11 @@
      "shield": false,
      "face": 2,
      "onField": true,
-     "drawn": 19,
+     "drawn": 23,
      "drawnWhich": "front"
     },
     {
      "id": "e0",
-     "side": "them",
-     "staff": false,
-     "staffId": null,
-     "name": "THUG",
-     "cart": null,
-     "load": null,
-     "n": 0,
-     "weapon": "hatchet",
-     "two": false,
-     "shield": true,
-     "onField": true,
-     "drawn": null,
-     "drawnWhich": null
-    },
-    {
-     "id": "e1",
-     "side": "them",
-     "staff": false,
-     "staffId": null,
-     "name": "THUG",
-     "cart": null,
-     "load": null,
-     "n": 0,
-     "weapon": "bike_lock_chain",
-     "two": false,
-     "shield": true,
-     "onField": true,
-     "drawn": null,
-     "drawnWhich": null
-    },
-    {
-     "id": "e2",
      "side": "them",
      "staff": false,
      "staffId": null,
@@ -637,11 +737,43 @@
      "onField": true,
      "drawn": null,
      "drawnWhich": null
+    },
+    {
+     "id": "e1",
+     "side": "them",
+     "staff": false,
+     "staffId": null,
+     "name": "THUG",
+     "cart": null,
+     "load": null,
+     "n": 0,
+     "weapon": "shortsword",
+     "two": false,
+     "shield": false,
+     "onField": true,
+     "drawn": null,
+     "drawnWhich": null
+    },
+    {
+     "id": "e2",
+     "side": "them",
+     "staff": false,
+     "staffId": null,
+     "name": "THUG",
+     "cart": null,
+     "load": null,
+     "n": 0,
+     "weapon": "shortsword",
+     "two": false,
+     "shield": true,
+     "onField": true,
+     "drawn": null,
+     "drawnWhich": null
     }
    ],
    "seen": {
-    "back": 112,
-    "front": 112
+    "back": 133,
+    "front": 133
    }
   },
   "onGlass": [
@@ -730,19 +862,27 @@
    "fight": 0
   },
   "frames": {
-   "fps": 44.4,
-   "worstMs": 283,
+   "fps": 48,
+   "worstMs": 217,
    "p95Ms": 50
+  },
+  "fearSet": {
+   "by": "Alan Cho",
+   "at": [
+    4,
+    5
+   ],
+   "them": "THUG"
   },
   "tip": {
    "which": "tip",
-   "ago": 174,
-   "face": "E"
+   "ago": 41,
+   "face": "NE"
   },
   "tipAt": {
-   "x": 392.7450101718525,
-   "y": 212.83671254765716,
-   "tile": 89.18356273828579
+   "x": 246.36199206569296,
+   "y": 227.6666666666667,
+   "tile": 36.07424801560972
   },
   "png_tip": "records/target/staff_cart/demo_sideways_the_cooks_cart_goes_over.png",
   "felled": {
@@ -752,10 +892,24 @@
    "n": 20,
    "load": "food"
   },
+  "fear": {
+   "walks": 1,
+   "leaned": 23,
+   "shot": {
+    "x": 186.3711799163156,
+    "y": 937.4610610864412,
+    "tile": 128.91862475609,
+    "name": "Walt Hensley",
+    "staffId": "blacksmith",
+    "face": "SW",
+    "k": 0.35
+   }
+  },
+  "png_fear": "records/target/staff_cart/demo_sideways_the_cook_runs_scared.png",
   "auto": {
    "over": true,
    "result": "won",
-   "rounds": 6,
+   "rounds": 7,
    "staff": [
     {
      "id": "cook",
@@ -771,10 +925,42 @@
     },
     {
      "id": "scout",
-     "dead": false
+     "dead": true
     }
    ]
   },
+  "mourn": [
+   {
+    "camp": "cook",
+    "name": "Graciela Ochoa",
+    "lines": [
+     "Graciela Ochoa",
+     "COOK",
+     "FELL. SHE IS DEAD.",
+     "HER CART WENT OVER: 20 FOOD GONE.",
+     "A TOWN'S HALL HAS ANOTHER COOK."
+    ],
+    "face": true,
+    "w": 220,
+    "h": 80
+   },
+   {
+    "camp": "scout",
+    "name": "Danny Nguyen",
+    "lines": [
+     "Danny Nguyen",
+     "SCOUT",
+     "FELL. DEAD.",
+     "THE STEEL UTILITY CART WAITS FOR THE NEXT ONE.",
+     "A TOWN'S HALL HAS ANOTHER SCOUT."
+    ],
+    "face": true,
+    "w": 220,
+    "h": 80
+   }
+  ],
+  "mournHead": "NO NEW LEVEL, 2 DEAD",
+  "png_mourn": "records/target/staff_cart/demo_sideways_the_cook_is_mourned.png",
   "after": {
    "lost": [
     {
@@ -787,48 +973,51 @@
       "cart": "shopping_cart",
       "kept": true
      }
+    },
+    {
+     "id": "scout",
+     "name": "Danny Nguyen",
+     "why": "dead",
+     "spilt": {
+      "kind": null,
+      "n": 0,
+      "cart": "utility_cart",
+      "kept": true
+     }
     }
    ],
    "camp": [
     "surgeon",
-    "blacksmith",
-    "scout"
+    "blacksmith"
    ],
    "supplies": {
     "origin": "newcrew",
     "econ": "full",
     "food": 1,
-    "tape": 41,
-    "rounds": 80,
+    "tape": 21,
+    "rounds": 63,
     "meds": 30,
     "wage": 0,
     "founding": 3,
-    "at": 1795386369800
+    "at": 1795716992615
    },
    "cookCart": 0
   },
   "campMade": true,
   "fire": [
    {
-    "id": "scout",
-    "kind": "shopping_cart",
-    "load": "gear",
-    "face": "E",
-    "ago": 14
-   },
-   {
     "id": "blacksmith",
     "kind": "wagon",
     "load": "tape",
     "face": "E",
-    "ago": 14
+    "ago": 135
    },
    {
     "id": "surgeon",
     "kind": "utility_cart",
     "load": "meds",
     "face": "NW",
-    "ago": 14
+    "ago": 135
    }
   ],
   "png_camp": "records/target/staff_cart/demo_sideways_the_carts_by_the_fire.png",
@@ -838,8 +1027,10 @@
    "F1": true,
    "F2": true,
    "F3": true,
-   "U1": false,
+   "U1": true,
    "C1": true,
+   "R1": true,
+   "M2": true,
    "P1": true,
    "P2": true,
    "P3": true

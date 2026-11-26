@@ -17,7 +17,7 @@ fs.mkdirSync(OUTD, { recursive: true });
 
 async function walk(shape) {
   const arm = "try { var s = JSON.parse(localStorage.getItem('bohemia.start') || '{}'); s.origin = 'newcrew'; localStorage.setItem('bohemia.start', JSON.stringify(s)); localStorage.setItem('bohemia.world.next.v1', '" + CODE + "');" +
-    " var c = JSON.parse(localStorage.getItem('bohemia.camp.v1') || 'null') || { cart: 0, retinue: [] }; if (!c.__hireProof) { c.retinue = []; c.carts = " + JSON.stringify(KEPT) + "; c.__hireProof = 1; localStorage.setItem('bohemia.camp.v1', JSON.stringify(c));" +
+    " var c = JSON.parse(localStorage.getItem('bohemia.camp.v1') || 'null') || { cart: 0, retinue: [] }; if (!c.__hireProof) { c.retinue = []; c.carts = " + JSON.stringify(KEPT) + "; c.dead = [{ id: 'cook', name: 'Graciela Ochoa', look: 'person_woman_0', why: 'dead', n: 0 }]; c.lost = { cook: 1 }; c.__hireProof = 1; localStorage.setItem('bohemia.camp.v1', JSON.stringify(c));" +
     " localStorage.setItem('bohemia.renown.v1', JSON.stringify({ score: 800, keys: [], log: [] })); } } catch (e) {}";   // a name two can follow (the hall's own rule: no name, nobody follows)
   const d = await drive.open({ profile: shape, alpha: ALPHA, fog: false, keepCards: true, arm });
   const page = d.page, errs = [], row = { shape, surface: TAG };
@@ -51,7 +51,7 @@ async function walk(shape) {
       row.rows.push(await tf.evaluate((id) => { const r = document.querySelector('#sbody .retf[data-id="' + id + '"]'); if (!r) return { id, gone: true };
         const c = r.querySelector('.rcart'), k = r.querySelector('.rcost:not(.rcart)'), cb = c && c.getBoundingClientRect(), bt = r.querySelector('.act');
         const seen = !!(cb && cb.width > 0 && cb.height > 0), tip = r.dataset.tip || '';
-        return { id, open: r.classList.contains('open'), soon: !!(bt && /not yet/i.test(bt.textContent)), cart: seen ? c.textContent : (tip.match(/Pushes .*$/) || [null])[0], by: seen ? 'his opened row' : tip ? 'the held finger' : 'nothing',
+        return { id, mark: (r.querySelector('.rname span') || {}).textContent || '', name: (r.querySelector('.rname b') || {}).textContent || '', open: r.classList.contains('open'), soon: !!(bt && /not yet/i.test(bt.textContent)), cart: seen ? c.textContent : (tip.match(/Pushes .*$/) || [null])[0], by: seen ? 'his opened row' : tip ? 'the held finger' : 'nothing',
           cartId: r.dataset.cartId || null, take: k ? k.textContent : null, seen, kept: BohemiaCamp.cartOf(id).id }; }, id).then(x => Object.assign(x, { tapped: ok })));
     }
     row.png = path.relative(ROOT, path.join(OUTD, TAG + '_' + (shape === 'phone_portrait' ? 'upright' : 'sideways') + '_the_hall_says_the_cart.png'));
@@ -85,6 +85,7 @@ async function walk(shape) {
   const R = row.rows || [];
   row.pass = { H1: !!(row.hall && R.length), H2: R.filter(r => !r.soon).length > 0 && R.filter(r => !r.soon).every(r => r.by !== 'nothing' && /^Pushes a .+\. One hand only\.$/.test(r.cart || '') && r.cartId === r.kept),
     H3: R.filter(r => KEPT[r.id]).every(r => r.cartId !== 'shopping_cart'), H4: !!(row.take && row.take.after && row.take.after.hired && row.take.after.cart === (KEPT[row.take.id] === 2 ? 'wagon' : KEPT[row.take.id] === 1 ? 'utility_cart' : 'shopping_cart')),
+    H6: R.filter(r => r.id === 'cook').every(r => /YOUR LAST ONE FELL/.test(r.mark) && !/GRACIELA/.test(r.name)) && R.filter(r => r.id !== 'cook').every(r => !/YOUR LAST ONE FELL/.test(r.mark)),   /* STAFF 2 (rule 482): the trade that lost one says so, and it is someone new */
     H5: !!(row.held && /Pushes a .+\. One hand only\./.test(row.held.tip || '')), E: !errs.length };
   await d.close().catch(() => {});
   return row;
@@ -93,7 +94,7 @@ async function walk(shape) {
 (async () => {
   const out = [];
   for (const s of SHAPES) { const r = await walk(s); out.push(r);
-    console.log(TAG + ' ' + s + (r.err ? ' ERR ' + r.err : '') + ' | offered ' + JSON.stringify(r.offered) + '\n  ' + (r.rows || []).map(x => x.id + ': "' + x.cart + '" (' + (x.soon ? 'his work waits' : x.by) + ')').join('\n  ') +
+    console.log(TAG + ' ' + s + (r.err ? ' ERR ' + r.err : '') + ' | offered ' + JSON.stringify(r.offered) + '\n  ' + (r.rows || []).map(x => x.id + ' ' + x.name + ' [' + x.mark + ']: "' + x.cart + '" (' + (x.soon ? 'his work waits' : x.by) + ')').join('\n  ') +
       '\n  held on ' + JSON.stringify(r.held) + '\n  take ' + JSON.stringify(r.take) + '\n  ' + JSON.stringify(r.pass) + (r.errs.length ? '\n  errors ' + r.errs.join(' / ') : '')); }
   fs.writeFileSync(path.join(OUTD, 'hire_' + TAG + '.json'), JSON.stringify(out, null, 1));
   process.exit(out.every(r => Object.values(r.pass).every(Boolean)) ? 0 : 1);
