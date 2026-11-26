@@ -23878,7 +23878,50 @@
   {"id": "camp4-the-camp-waits-for-you-11-22", "kind": "ui", "lane": "camp 4", "sha": "fe5dc5cd3", "made": "11/22", "draft": true, "title": "MAKE CAMP: YOUR MEN BUILD IT IN FRONT OF YOU AT ONCE, TIME RUNS ONLY WHILE THEY HEAL, THEN IT STOPS AND THEY HANG OUT UNTIL YOU TAP HIT THE ROAD", "said": "if I make camp, I don't want it to auto and I want time to go by until everyone's healed, but then when everyone is healed I want time to stop, but I still want the characters to move around... I have to definitely click something to resume... What if I want to zoom in on my character, see them chilling?", "why": "Each row is the glass from the moment you tap MAKE CAMP after a fight: the camp now comes up on the fight's own street in under 2 seconds (it was over 7, frozen), your men set it up with the clock stopped, the hours run only while they heal, and when everyone is whole the clock stops, the camp stays, they keep moving about, and the phone has one of your men saying the road is waiting with a HIT THE ROAD button; two fingers zoom in on them. You see it when you tap MAKE CAMP after a won fight, or HEAL on the phone anywhere on the map.", "show": {"how": "image", "src": "../records/target/CAMP_FOUR_THE_CAMP_WAITS_FOR_YOU_11_22.webp",
     "first": "../records/target/vote_first/camp4-the-camp-waits-for-you-11-22.webp",
     "firstAt": [1552, 12, 296, 732]
-   }, "before_after": {"before": "main 14cfe9f3: 7.3 s of the fight's last frame frozen before the camp drew; HEAL ran 9 hours before the camp stood and sent you back to the map the hour they were healed; a camp of whole men ran its hours forever; the pinch stopped at a man 84 px tall", "after": "the camp's first frame 1.8 s after MAKE CAMP on the fight's own board; no hour before the camp stands; the clock stops when everyone is whole and the camp waits for your tap; a man 166 px at the closest pinch", "scale": "the demo on a phone upright (390 x 844) and on its side (844 x 390); each shot's time from the tap and the camp's clock under it"}, "stage": "stand_in", "record": "records/BOHEMIA_CAMP_FOUR_THE_CAMP_WAITS_FOR_YOU_11_22_26.md"}
+   }, "before_after": {"before": "main 14cfe9f3: 7.3 s of the fight's last frame frozen before the camp drew; HEAL ran 9 hours before the camp stood and sent you back to the map the hour they were healed; a camp of whole men ran its hours forever; the pinch stopped at a man 84 px tall", "after": "the camp's first frame 1.8 s after MAKE CAMP on the fight's own board; no hour before the camp stands; the clock stops when everyone is whole and the camp waits for your tap; a man 166 px at the closest pinch", "scale": "the demo on a phone upright (390 x 844) and on its side (844 x 390); each shot's time from the tap and the camp's clock under it"}, "stage": "stand_in", "record": "records/BOHEMIA_CAMP_FOUR_THE_CAMP_WAITS_FOR_YOU_11_22_26.md"},
+  {
+   "kind": "tile",
+   "lane": "cook 6",
+   "sha": "SHIPSHA",
+   "made": "11/26",
+   "draft": true,
+   "said": "Lets turn up full sweep. But improve on what we already have.",
+   "stage": "made_from",
+   "golden": "arena2-the-pit-is-a-pit-11-7",
+   "id": "cook6-the-names-painted-11-26",
+   "title": "THE BULLET-MARKED BRICK WALL, THE COURTROOM'S RED AISLE, THE GYM'S COURT AND ITS SOUTH BLEACHERS",
+   "why": "Finishing what was already in the game before adding anything (your 'improve on what we already have'). On the Mob Museum's floor the north wall is now the bullet-marked brick wall: real brick with the bullet holes in a band at chest height, a rope on brass posts in front, one post knocked down. In its courtroom the aisle from the bar to the doors is a worn red carpet. In the school's gym the floor has the lines of the games played on it, the south bleachers face the court instead of facing away, and the classrooms' hallway is vinyl squares. You meet them when a fight starts at the Mob Museum or a school, in the RUN tab.",
+   "options": [
+    "A, yes",
+    "B, close, change something (say what)",
+    "C, no, not like this"
+   ],
+   "show": {
+    "how": "image",
+    "src": "../records/target/COOK6_THE_NAMES_PAINTED_11_26.webp",
+    "first": "../records/target/vote_first/cook6-the-names-painted-11-26.webp",
+    "firstAt": [
+     590,
+     96,
+     580,
+     743
+    ]
+   },
+   "before_after": {
+    "before": "the museum's north run the faded exhibit wall; the aisle the plain terrazzo; the gym's south bleachers the north ones' picture facing away; the court and the hallway the plain maple",
+    "after": "the brick wall with its bullet marks; the red carpet; the south bleachers turned to the court; the court's lines; the hallway's vinyl",
+    "scale": "each spot close in on his phone upright, before and now; the new pictures at their own pixels"
+   },
+   "twin": {
+    "src": "fight_ground/courthouse/ct_exhibit_ew.webp",
+    "diffs": [
+     "THE SAME RUN, ITS OWN WALL: the exhibit wall stays on the other eight, the brick on the north three.",
+     "THE AISLE IS AN AISLE: one kind of floor where the fight lane marked it.",
+     "THE SOUTH ROW FACES THE COURT: the map's eye sees its back, as from the street."
+    ]
+   },
+   "record": "records/BOHEMIA_COOK_SIX_THE_NAMES_PAINTED_11_26_26.md"
+  }
  ],
  "verdicts": [
   {

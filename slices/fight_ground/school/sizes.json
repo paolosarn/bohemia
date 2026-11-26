@@ -10,6 +10,17 @@
   "src": "school/sc_bleachers.webp",
   "facing": "S"
  },
+ "bleachers_n": {
+  "w": 516,
+  "h": 274,
+  "foot": [
+   258.2,
+   263
+  ],
+  "piece": "bleachers_n",
+  "src": "school/sc_bleachers_n.webp",
+  "facing": "S"
+ },
  "lockers_ew": {
   "w": 515,
   "h": 114,

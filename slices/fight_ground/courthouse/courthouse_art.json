@@ -2,7 +2,7 @@
  "version": "cook6-courthouse-art-11-21",
  "lane": "cook 6 (COOK FIVE's list)",
  "stage": "finished",
- "for": "COMBAT FOUR's courthouse (slices/fight_ground/courthouse/courthouse.json, BUILD 11/21y): the names its handoff asked for, the garage's format. floor.floor is the 1933 terrazzo (all 25 tiles: its brass strips every 1.5 m so every tile's edge is a strip, the polish worn dull where people walked, a fan of broken glass, a scorched patch where papers were burned, a scrape where something was dragged; nothing within a metre of an edge but the strips); floor.ring the same. ONE FLOOR FOR BOTH ROOMS, as your file has one kind: no carpet runs, which would scatter over the museum floor; give the courtroom's aisle a 'carpet' kind and this lane paints it.",
+ "for": "COMBAT FOUR's courthouse (slices/fight_ground/courthouse/courthouse.json, BUILD 11/21y): the names its handoff asked for, the garage's format. floor.floor is the 1933 terrazzo (rows 0 to 3: its brass strips every 1.5 m so every tile's edge is a strip, the polish worn dull where people walked, a fan of broken glass, a scorched patch where papers were burned, a scrape where something was dragged; nothing within a metre of an edge but the strips); floor.ring the same. floor.carpet (row 4, your floor_areas' aisle, 11/26) a deep red laid edge to edge, worn to the backing down the middle north to south, darker where it stayed damp.",
  "floor": {
   "floor": [
    "courthouse/courthouse_floor_0.webp#0,0",
@@ -24,12 +24,7 @@
    "courthouse/courthouse_floor_0.webp#1,3",
    "courthouse/courthouse_floor_0.webp#2,3",
    "courthouse/courthouse_floor_0.webp#3,3",
-   "courthouse/courthouse_floor_0.webp#4,3",
-   "courthouse/courthouse_floor_0.webp#0,4",
-   "courthouse/courthouse_floor_0.webp#1,4",
-   "courthouse/courthouse_floor_0.webp#2,4",
-   "courthouse/courthouse_floor_0.webp#3,4",
-   "courthouse/courthouse_floor_0.webp#4,4"
+   "courthouse/courthouse_floor_0.webp#4,3"
   ],
   "ring": [
    "courthouse/courthouse_floor_0.webp#0,0",
@@ -51,7 +46,9 @@
    "courthouse/courthouse_floor_0.webp#1,3",
    "courthouse/courthouse_floor_0.webp#2,3",
    "courthouse/courthouse_floor_0.webp#3,3",
-   "courthouse/courthouse_floor_0.webp#4,3",
+   "courthouse/courthouse_floor_0.webp#4,3"
+  ],
+  "carpet": [
    "courthouse/courthouse_floor_0.webp#0,4",
    "courthouse/courthouse_floor_0.webp#1,4",
    "courthouse/courthouse_floor_0.webp#2,4",
@@ -144,6 +141,32 @@
    "name": "AN EXHIBIT WALL",
    "stage": "finished",
    "src": "courthouse/ct_exhibit_ns.webp",
+   "w": 52,
+   "h_px": 483,
+   "foot": [
+    26.7,
+    482
+   ]
+  },
+  "ct_brick_ew": {
+   "kind": "WALL",
+   "h": 2.6,
+   "name": "THE BULLET-MARKED BRICK WALL",
+   "stage": "finished",
+   "src": "courthouse/ct_brick_ew.webp",
+   "w": 516,
+   "h_px": 167,
+   "foot": [
+    258.2,
+    131
+   ]
+  },
+  "ct_brick_ns": {
+   "kind": "WALL",
+   "h": 2.6,
+   "name": "THE BULLET-MARKED BRICK WALL",
+   "stage": "finished",
+   "src": "courthouse/ct_brick_ns.webp",
    "w": 52,
    "h_px": 483,
    "foot": [
@@ -250,7 +273,7 @@
   "the walls": "ct_wall_ew / _ns: cut limestone to 2.4 m on a dark marble base, a tile long."
  },
  "bytes": {
-  "floor": 300890,
+  "floor": 253416,
   "ceiling": 48384
  },
  "ceiling": {

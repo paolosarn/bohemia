@@ -76,6 +76,28 @@
   "src": "courthouse/ct_exhibit_ns.webp",
   "facing": "S"
  },
+ "brick_ew": {
+  "w": 516,
+  "h": 167,
+  "foot": [
+   258.2,
+   131
+  ],
+  "piece": "brick_ew",
+  "src": "courthouse/ct_brick_ew.webp",
+  "facing": "S"
+ },
+ "brick_ns": {
+  "w": 52,
+  "h": 483,
+  "foot": [
+   26.7,
+   482
+  ],
+  "piece": "brick_ns",
+  "src": "courthouse/ct_brick_ns.webp",
+  "facing": "S"
+ },
  "counsel": {
   "w": 197,
   "h": 147,

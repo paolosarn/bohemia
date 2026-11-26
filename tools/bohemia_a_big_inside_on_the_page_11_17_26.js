@@ -31,10 +31,10 @@ const SPOTS = { the_split_hall: { cots: [2.5, 4], mezz: [3, 1.6], stair_w: [16.5
   the_ward: { beds: [3, 3.4], wet: [6, 3.4], fire: [3, 10.4] },
   the_dayroom: { cells: [5, 2.4], dayroom: [7, 4.4], picket: [11, 6.6], flood: [5, 4.4], tier: [9, 12.4] },
   the_two_units: { bars: [10, 5.4], cells: [2, 4.4], tier: [17, 6.4] },
-  the_gym: { bleachers: [5, 1.4], cots: [3, 3.4], tables: [8, 6.4], mats: [6, 5.4] },
+  the_gym: { bleachers: [5, 1.4], cots: [3, 3.4], tables: [8, 6.4], mats: [6, 5.4], south_bleachers: [5, 12.4], court: [9, 7] },
   the_classrooms: { room: [3, 2.4], hallway: [6, 6.6], barricade: [5, 4.4] },
-  the_courtroom: { pews: [5, 6.6], bench: [10.5, 2.2], jury: [4, 2.0], witness: [16, 2.0] },
-  the_museum_floor: { cases: [4, 2.6], walls: [8, 5.6], kiosk: [7, 7.6] } };
+  the_courtroom: { pews: [5, 6.6], bench: [10.5, 2.2], jury: [4, 2.0], witness: [16, 2.0], aisle: [9.5, 9.0] },
+  the_museum_floor: { cases: [4, 2.6], walls: [8, 5.6], kiosk: [7, 7.6], brick: [9, 1.4] } };
 const INSIDES = { hall: { district: 'convention', layout: 'the_split_hall' }, mall: { district: 'mall', layout: 'the_atrium' }, warehouse: { district: 'warehouse', layout: 'the_lanes' }, datafort: { district: 'datafort', layout: 'the_white_space' }, terminal: { district: 'terminal', layout: 'the_checkpoint' }, stadium: { district: 'stadium', layout: 'the_last_show' }, powerhouse: { district: 'dam', layout: 'the_generator_floor' }, sphere: { district: 'sphere', layout: 'the_horseshoe' }, homecenter: { district: 'hardware', layout: 'the_store_and_the_garden' }, hospital: { district: 'medical', layout: 'the_emergency_room' }, prison: { district: 'prison', layout: 'the_dayroom' }, school: { district: 'school', layout: 'the_gym' }, courthouse: { district: 'mobmuseum', layout: 'the_courtroom' } };
 (async () => {
   const out = process.argv[2], inside = process.argv[3] || 'hall', shapes = (process.argv[4] || 'upright,sideways').split(','), layout = process.argv[5] || INSIDES[inside].layout;

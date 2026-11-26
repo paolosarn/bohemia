@@ -1,5 +1,30 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
+COOK FIVE (cook-six-01gkdyut): 11/26 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/26c - THE NAMES PAINTED, BUILT (SHIPSHA), NOT YET SEEN (rule 480 (b) and (c); 461(c) as amended; rules 441, 451(a); ask row 723).
+480(b), THIS LANE'S OWN PIECES FIRST: COMBAT FOUR's BUILD 11/22zd answered my 11/21 asks, and each drew what it drew before until now. PAINTED: the school's floor.court (row 3:
+the maple sealed, a white line E-W through a tile's middle, a red one 2.2 m from its north edge, a white one N-S 3 m from its west edge, the same on every tile so they run on),
+floor.hall (row 4: vinyl squares of 30 cm, the path worn E-W), floor.floor and ring now rows 0-2; sc_bleachers_n (letter B: stepping up to the SOUTH, its back to the camera);
+the courthouse's floor.carpet (row 4: deep red, worn down its middle N-S), floor.floor and ring now rows 0-3; ct_brick_ew / _ns (letter V: THE BULLET-MARKED BRICK WALL, the
+pocks at chest height, a rope on brass posts, one down, the placard). Both tools re-render and cut as before (school, courthouse); the card's builder is tools/bohemia_cook6_the_
+names_painted_11_26_26.py. PROOF on the page both ways: the_gym 154, the_classrooms 221, the_courtroom 150, the_museum_floor 134, 0 stand-ins, 0 page errors.
+Gates: THE INSIDES WEAR FINISHED ART 112/0; COMBAT FOUR's THE BIG INSIDES 783/0, CEILING 6/0. VOTE cook6-the-names-painted-11-26. Record: records/BOHEMIA_COOK_SIX_THE_NAMES_PAINTED_11_26_26.md.
+480(c), MEASURED (tools/bohemia_cook6_the_insides_hold_their_frames_11_26_26.js <out> [insides] [--day]: the real fight page, 390 x 844, the CPU slowed four times, every
+frame through LOAD, OPEN, a close-in PAN across the board and AUTO, frames past 50 ms named): the stadium PANs at 4.9 frames a second, the school 5.4, a plain street board
+19.7. The ground drawn once in the page on the same phone: BY DAY the stadium's whole ground with its 185 pieces 1.7 to 5.8 ms; AT NIGHT 150 to 270 ms (nightPools 175 ms
+with no piece drawn, nightDraw about 100 ms more for the pieces far out), and the big insides open at night (asked for day, the stadium still opened at night) while the
+camera's moves draw the ground straight on the glass every frame. The floor drawn from copies at full, half and a quarter size: the same 177 to 250 ms. NOT THE PICTURES.
+*** FOR PLUMBER 8 AND COMBAT FOUR (480(d)): the insides' choppiness is the fight page's night path (nightTint2's whole-glass copies and nightDraw per piece) paid every frame
+the camera moves; the tool above measures it in four minutes; nothing of yours edited here.
+*** NEXT ON THIS LANE, IN THIS ORDER (480(b)): (1) his two other 'Wip's on COOK FIVE's cards: THE AIRPORT TERMINAL (on his phone its floor reads pale and empty: darker, its
+own floor) and THE DATA FORT AND THE MALL (cook5-the-three-that-waited-11-18); (2) THE 27 INSIDES COMBAT FOUR ADDED SINCE 11/21 WITH EVERY PIECE A STAND-IN (their names in
+handoffs/COMBAT_THREE.md, 'FOR COOK (SIX)'), the ones he meets most first: the swap meet, the truck stop, the police station, the bank, the library, the fire station, the
+neon boneyard, then the rest (aquarium, arsenal, ballpark, battery farm, campus, city hall, fuel depot, granary, hangar, jobs office, justice center, mini grand prix, the
+museum, radio, rail shops, the animal shelter, speedway, storage, TV station, water plant). The school tool is the pattern: one tool ON the last, the garage's format.
+*** RULE 479(a) (HOME BASE 3's, the art with COOK SIX): looked at his place's footage (the pieces from the 11/3 pipeline: PS1-size, rendered with their own shadows);
+nothing of this lane's art floats there; the twenty cooks are still not found (row 721 waits on his screenshot).
+[bb Battle Brothers reads its ground at a glance: a court is a court, an aisle is an aisle]
+[analog horror: a wall carried across the country for the men shot against it, roped off in a building nobody visits]
+
 COOK FIVE (cook-six-01gkdyut): 11/21 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/21zd - THE COURTHOUSE, BUILT (46b01a3d9), NOT YET SEEN (rule 461 and 461(c) as amended 11/21; rules 453, 441, 416, 451(a), 455; ask row 651).
 THE COURTHOUSE (COMBAT FOUR's BUILD 11/21y, its 'FOR COOK (SIX)'): all 150 pieces of the_courtroom and 134 of the_museum_floor were stand-ins. Now slices/fight_ground/
 courthouse/ holds courthouse_art.json (THE GARAGE'S FORMAT: floor.floor and floor.ring the 1933 terrazzo on all 25 tiles, the powerhouse's pw_terr ground a step darker,

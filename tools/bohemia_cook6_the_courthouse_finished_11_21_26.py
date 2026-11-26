@@ -70,13 +70,18 @@ tile_xy = HS.tile_xy
 def plan_ct_floor(ID, seed=223):
     xm, ty, lx, ly, col, row = TG.tgrid(); rng = np.random.RandomState(seed)
     gid = np.full((H, W), ID['pw_terr'], np.uint8)
+    CARPET = 4                                                            # (11/26, COMBAT FOUR's floor.carpet: the courtroom's aisle, row 4)
+    gid[row == CARPET] = ID['mall_carpet']
     w = TG.win(lx, ly, 0.5, 1.5)
     dust = TG.mixn(FW.vnoise((H, W), 2.0 * PPM, rng), TG.pnoise(rng, 2.0), w)
     # a closed building is dark: the polish under years of dust a step down from the dam's
     dark = 0.2 + np.clip((0.45 - dust) / 0.3, 0, 1) * 0.08; pale = np.clip((dust - 0.6) / 0.3, 0, 1) * 0.05
     # its brass strips every 1.5 m both ways (a tile's edge is always a strip, so any tile meets any tile)
     strip = (np.abs(((lx + 0.75) % 1.5) - 0.75) > 0.735) | (np.abs(((ly + 0.75) % 1.5) - 0.75) > 0.735)
-    dark = np.where(strip, dark + 0.2, dark)
+    dark = np.where(strip & (row != CARPET), dark + 0.2, dark)
+    # THE AISLE'S CARPET (row 4): a deep red laid edge to edge (the aisle is two tiles wide and eight long), its pile darker where it
+    # stayed damp, its nap worn to the backing down the middle where everybody walked to the bar, north to south
+    dark = np.where(row == CARPET, 0.22 + np.clip((0.5 - dust) / 0.3, 0, 1) * 0.12, dark)
     for r in ROWS:
         for c in range(5):
             sy, sx = tile_xy(r, c); X, Y = lx[sy, sx], ly[sy, sx]; D, Pl = dark[sy, sx], pale[sy, sx]
@@ -86,6 +91,8 @@ def plan_ct_floor(ID, seed=223):
                 d0 = np.abs((X - cx) * math.sin(ang) - (Y - cy) * math.cos(ang)); m = np.clip(1 - d0 / 1.3, 0, 1) * Wn * (0.6 + 0.4 * nn)
                 Pl[:] = np.maximum(Pl, m * 0.16)
             u = rng.rand()
+            if r == CARPET:                                              # the aisle: worn down its middle, north to south; no glass or scorch on it
+                Pl[:] = np.maximum(Pl, np.clip(1 - np.abs(X - 6.0) / 2.6, 0, 1) * 0.22 * (0.5 + 0.5 * nn)); u = 1.0
             if u < 0.25:                                                 # a fan of broken glass where a case went over: pale glints
                 cx, cy = rng.uniform(3.5, 8.5), rng.uniform(3.5, 8.5)
                 for _ in range(160):
@@ -120,7 +127,8 @@ TG.GARAGE_THINGS['ct_floor'] = ct_floor_things
 # ---- the pieces ------------------------------------------------------------------------------------------------------------
 CT_AT = dict(pews=(10.0, 46.0), bar=(26.0, 46.0), bench=(42.0, 46.0), wall_ns=(57.0, 45.0),
              wall_ew=(10.0, 37.0), exhibit_ew=(26.0, 37.0), counsel=(42.0, 37.0), exhibit_ns=(57.5, 22.0),
-             jury=(8.0, 20.0), witness=(17.0, 20.0), case=(24.5, 20.0), stand=(31.0, 20.0), kiosk=(36.5, 20.0), chairs=(43.0, 20.0))
+             jury=(8.0, 20.0), witness=(17.0, 20.0), case=(24.5, 20.0), stand=(31.0, 20.0), kiosk=(36.5, 20.0), chairs=(43.0, 20.0),
+             brick_ew=(10.0, 7.0), brick_ns=(57.5, 2.0))
 WALL_H, BAR_H, BENCH_H, EXH_H = 2.4, 0.98, 1.6, 2.6
 ROW_W = 1.0                                                     # a pew's row: a metre, back to back
 
@@ -333,10 +341,38 @@ def exhibit_ns(P, ox, oy, rng):
     P.box('ct_cab', ox - 0.15, ox + 0.15, oy, oy + 12, 0.0, EXH_H + 0.05); P.box('ct_panel', ox - 0.155, ox + 0.155, oy - 0.006, oy, 0.25, EXH_H - 0.15)
 
 
+def brick_ew(P, ox, oy, rng):
+    """(11/26, COMBAT FOUR's ct_brick_ew, letter V) THE BULLET-MARKED BRICK WALL: the museum's brick, a tile long, carried here and set up
+    on a steel base: common brick in courses with its mortar, the colour of the bricks not one, and across its middle at a man's chest the
+    pocks of the bullets, chipped pale round each; a rope on brass posts in front of it, one post down"""
+    P.box('ct_cab', ox - 6, ox + 6, oy - 0.05, oy + 0.4, 0.0, 0.18)                                            # its steel base
+    P.box('ct_brick', ox - 6, ox + 6, oy, oy + 0.35, 0.18, EXH_H); P.box('ct_brick_d', ox - 6, ox + 6, oy - 0.01, oy + 0.36, EXH_H, EXH_H + 0.04)
+    for k in range(int((EXH_H - 0.18) / 0.075)):                                                              # its courses
+        z = 0.18 + k * 0.075; P.box('conc', ox - 6, ox + 6, oy - 0.004, oy, z, z + 0.01)
+        if rng.rand() < 0.5:
+            for _ in range(6): x = ox + rng.uniform(-5.9, 5.6); P.box(('ct_brick_d', 'ct_brick_l')[rng.randint(2)], x, x + 0.21, oy - 0.006, oy - 0.004, z + 0.01, z + 0.075)
+    for _ in range(46):                                                                                        # the pocks, a band at a man's chest
+        x = ox + rng.normal(0, 1.6); z = rng.uniform(0.95, 1.65)
+        if abs(x - ox) > 5.6: continue
+        r_ = rng.uniform(0.03, 0.06); P.box('conc', x - r_ * 1.6, x + r_ * 1.6, oy - 0.009, oy - 0.006, z - r_ * 1.6, z + r_ * 1.6)
+        P.box('black', x - r_, x + r_, oy - 0.012, oy - 0.009, z - r_, z + r_)
+    for (x, up) in ((ox - 5.0, True), (ox - 1.7, True), (ox + 1.6, False), (ox + 4.9, True)):              # the rope on its brass posts
+        if up: P.drum('brass', x, oy - 0.9, 0.0, 0.95, 0.03, 8); P.drum('brass', x, oy - 0.9, 0.0, 0.04, 0.16, 10)
+        else: P.bar('brass', (x, oy - 0.9, 0.04), (x + 0.9, oy - 1.0, 0.04), 0.03); P.drum('brass', x, oy - 0.9, 0.0, 0.04, 0.16, 10)
+    P.bar('red', (ox - 5.0, oy - 0.9, 0.9), (ox - 1.7, oy - 0.9, 0.82), 0.025); P.bar('red', (ox - 1.7, oy - 0.9, 0.82), (ox + 1.6, oy - 0.95, 0.05), 0.025)
+    P.box('ct_cab', ox + 4.2, ox + 5.6, oy - 0.62, oy - 0.56, 0.0, 1.0); P.box('paper', ox + 4.3, ox + 5.5, oy - 0.63, oy - 0.62, 0.55, 0.95)   # its placard
+
+
+def brick_ns(P, ox, oy, rng):
+    P.box('ct_cab', ox - 0.25, ox + 0.25, oy, oy + 12, 0.0, 0.18); P.box('ct_brick', ox - 0.18, ox + 0.18, oy, oy + 12, 0.18, EXH_H)
+    P.box('ct_brick_d', ox - 0.19, ox + 0.19, oy, oy + 12, EXH_H, EXH_H + 0.04); P.box('ct_brick', ox - 0.186, ox + 0.186, oy - 0.006, oy, 0.18, EXH_H)
+
+
 def ct_parts(P, rng):
     A = CT_AT
     for k, f in (('pews', pews), ('bar', bar), ('bench', bench), ('wall_ns', wall_ns), ('wall_ew', wall_ew), ('exhibit_ew', exhibit_ew), ('counsel', counsel),
-                 ('exhibit_ns', exhibit_ns), ('jury', jury), ('witness', witness), ('case', case), ('stand', stand), ('kiosk', kiosk), ('chairs', chairs)):
+                 ('exhibit_ns', exhibit_ns), ('jury', jury), ('witness', witness), ('case', case), ('stand', stand), ('kiosk', kiosk), ('chairs', chairs),
+                 ('brick_ew', brick_ew), ('brick_ns', brick_ns)):
         f(P, *A[k], rng)
 
 
@@ -350,6 +386,8 @@ def ct_mats(bpy, NF, F, M, which):
              ct_panel=NF.material(bpy, 'in_exhibit_panel_faded', 'clay_teal', 1, 0.9), ct_title=NF.material(bpy, 'in_exhibit_title_faded', 'clay_mustard', 2, 0.9),
              ct_photo=NF.material(bpy, 'in_photo_sepia', 'tape_masking', 2, 0.9), ct_stone=NF.material(bpy, 'in_stone_limestone', 'clay_bone', 2, 0.92),
              ct_marble=NF.material(bpy, 'in_black_marble_base', 'tape_grey', 1, 0.5),
+             ct_brick=NF.material(bpy, 'in_brick_common', 'clay_rust', 2, 0.95), ct_brick_d=NF.material(bpy, 'in_black_brick_burnt', 'clay_rust', 1, 0.95),
+             ct_brick_l=NF.material(bpy, 'in_brick_pale', 'clay_rust', 3, 0.95),
              ct_plaster=NF.material(bpy, 'in_ceil_plaster', 'clay_bone', 3, 0.95), ct_plaster_d=NF.material(bpy, 'in_ceil_plaster_coffer', 'clay_bone', 1, 0.95))
 
 
@@ -394,12 +432,12 @@ TG.CEIL_DATA['courthouse'] = 'courthouse/courthouse.json'
 
 # ---- the cut ---------------------------------------------------------------------------------------------------------------------
 KIND = dict(pews='LOW_COVER', bar='LOW_COVER', counsel='COVER', chairs='LOW_COVER', bench='COVER', jury='LOW_COVER', witness='COVER', case='COVER',
-            stand='LOW_COVER', kiosk='LOW_COVER', wall_ew='WALL', wall_ns='WALL', exhibit_ew='WALL', exhibit_ns='WALL')
+            stand='LOW_COVER', kiosk='LOW_COVER', wall_ew='WALL', wall_ns='WALL', exhibit_ew='WALL', exhibit_ns='WALL', brick_ew='WALL', brick_ns='WALL')
 HM = dict(pews=1.0, bar=BAR_H, counsel=1.1, chairs=1.2, bench=BENCH_H, jury=1.05, witness=1.25, case=1.62, stand=0.92, kiosk=1.13, wall_ew=WALL_H, wall_ns=WALL_H,
-          exhibit_ew=EXH_H, exhibit_ns=EXH_H)
+          exhibit_ew=EXH_H, exhibit_ns=EXH_H, brick_ew=EXH_H, brick_ns=EXH_H)
 NAME = dict(pews='PEWS', bar="THE BAR'S RAIL", counsel='A COUNSEL TABLE', chairs='PILED CHAIRS', bench="THE JUDGE'S BENCH", jury='THE JURY BOX', witness='THE WITNESS STAND',
             case='AN EXHIBIT CASE', stand='AN EXHIBIT STAND', kiosk='A DEAD KIOSK', wall_ew="THE COURTHOUSE'S STONE", wall_ns="THE COURTHOUSE'S STONE",
-            exhibit_ew='AN EXHIBIT WALL', exhibit_ns='AN EXHIBIT WALL')
+            exhibit_ew='AN EXHIBIT WALL', exhibit_ns='AN EXHIBIT WALL', brick_ew='THE BULLET-MARKED BRICK WALL', brick_ns='THE BULLET-MARKED BRICK WALL')
 
 
 def cut():
@@ -414,6 +452,8 @@ def cut():
     x, y = A['wall_ns']; one('wall_ns', (x - 0.6, x + 0.6, y - 0.05, y + 12.1 + WALL_H * 1.45), 0.5)
     x, y = A['exhibit_ew']; one('exhibit_ew', (x - 6.0, x + 6.0 + 0.01, y - 0.8, y + 0.4 + EXH_H * 1.45), 1.0)
     x, y = A['exhibit_ns']; one('exhibit_ns', (x - 0.6, x + 0.6, y - 0.05, y + 12.1 + EXH_H * 1.45), 0.5)
+    x, y = A['brick_ew']; one('brick_ew', (x - 6.0, x + 6.0 + 0.01, y - 1.2, y + 0.45 + (EXH_H + 0.05) * 1.45), 1.0)
+    x, y = A['brick_ns']; one('brick_ns', (x - 0.6, x + 0.6, y - 0.05, y + 12.1 + EXH_H * 1.45), 0.5)
     x, y = A['counsel']; one('counsel', (x - 2.4, x + 2.2, y - 1.2, y + 1.9 + 1.2 * 1.45), 1.0)
     x, y = A['jury']; one('jury', (x - 3.1, x + 3.1, y - 0.3, y + 3.3 + 1.0 * 1.45), 1.0)
     x, y = A['witness']; one('witness', (x - 1.5, x + 1.3, y - 0.3, y + 1.9 + 1.65 * 1.45), 1.0)
@@ -431,8 +471,8 @@ def cut():
     ent = lambda k: dict(kind=KIND[k], h=HM[k], name=NAME[k], stage='finished', src=sz[k]['src'], w=sz[k]['w'], h_px=sz[k]['h'], foot=sz[k]['foot'])
     kit = {'ct_' + k: ent(k) for k in sz}
     art = {'version': 'cook6-courthouse-art-11-21', 'lane': 'cook 6 (COOK FIVE\'s list)', 'stage': 'finished',
-           'for': "COMBAT FOUR's courthouse (slices/fight_ground/courthouse/courthouse.json, BUILD 11/21y): the names its handoff asked for, the garage's format. floor.floor is the 1933 terrazzo (all 25 tiles: its brass strips every 1.5 m so every tile's edge is a strip, the polish worn dull where people walked, a fan of broken glass, a scorched patch where papers were burned, a scrape where something was dragged; nothing within a metre of an edge but the strips); floor.ring the same. ONE FLOOR FOR BOTH ROOMS, as your file has one kind: no carpet runs, which would scatter over the museum floor; give the courtroom's aisle a 'carpet' kind and this lane paints it.",
-           'floor': {'floor': cells(ROWS), 'ring': cells(ROWS)}, 'kit': kit,
+           'for': "COMBAT FOUR's courthouse (slices/fight_ground/courthouse/courthouse.json, BUILD 11/21y): the names its handoff asked for, the garage's format. floor.floor is the 1933 terrazzo (rows 0 to 3: its brass strips every 1.5 m so every tile's edge is a strip, the polish worn dull where people walked, a fan of broken glass, a scorched patch where papers were burned, a scrape where something was dragged; nothing within a metre of an edge but the strips); floor.ring the same. floor.carpet (row 4, your floor_areas' aisle, 11/26) a deep red laid edge to edge, worn to the backing down the middle north to south, darker where it stayed damp.",
+           'floor': {'floor': cells((0, 1, 2, 3)), 'ring': cells((0, 1, 2, 3)), 'carpet': cells((4,))}, 'kit': kit,
            'how_it_lays': {'the gallery': "ct_pews a tile wide, seven rows a metre apart facing north (the bench), two pews a row, the tile's south row at your 'at' [0.5, 0.72], the rows up to 1.6 m from its north edge; ct_bar the oak rail a tile long at its foot (your 'at' [0.5, 0.6]).",
                            'the well and the bench': "ct_bench a tile wide: its paneled front at the foot (your 'at' [0.5, 0.95]), the dais 9.3 m to the north; two B rows make the clerk's front and the bench's. ct_counsel a table on its side; ct_chairs a pile; ct_jury the box 5.6 m wide; ct_witness the box 2 m.",
                            'the museum floor': "ct_case a vitrine 2 m; ct_stand a reading stand and the audio guide; ct_kiosk a dead screen; ct_exhibit_ew / _ns a free-standing wall 2.6 m, a tile long (your 'W', an air wall).",

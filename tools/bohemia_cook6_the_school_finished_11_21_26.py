@@ -62,6 +62,8 @@ tile_xy = HS.tile_xy
 def plan_sc_floor(ID, seed=211):
     xm, ty, lx, ly, col, row = TG.tgrid(); rng = np.random.RandomState(seed)
     gid = np.full((H, W), ID['tun_silt'], np.uint8)
+    COURT, HALL = 3, 4                                                    # (11/26, COMBAT FOUR's floor.court and floor.hall: rows of their own)
+    gid[row == HALL] = ID['tm_floor']
     w = TG.win(lx, ly, 0.5, 1.5)
     dust = TG.mixn(FW.vnoise((H, W), 2.0 * PPM, rng), TG.pnoise(rng, 2.0), w)
     pale = np.clip((dust - 0.6) / 0.3, 0, 1) * 0.06; dark = 0.04 + np.clip((0.4 - dust) / 0.3, 0, 1) * 0.04
@@ -69,11 +71,19 @@ def plan_sc_floor(ID, seed=211):
     # edge, at 12 m, is always a board end: any tile meets any tile)
     strip = np.floor(ly / 0.06).astype(np.int32)
     seam = (np.abs(ly - (strip + 0.5) * 0.06) > 0.026)
-    dark = np.where(seam, dark + 0.12, dark)
+    dark = np.where(seam & (row != HALL), dark + 0.12, dark)
     tone = np.random.RandomState(seed + 1).rand(256)                       # each strip its own tone, a hair
-    dark = dark + (tone[strip % 256] - 0.5) * 0.05
+    dark = dark + (tone[strip % 256] - 0.5) * 0.05 * (row != HALL)
     off = np.random.RandomState(seed + 2).randint(0, 40, 256) * 0.3
-    ends = (np.abs(((lx + off[strip % 256]) % 1.8) - 0.0) < 0.012); dark = np.where(ends, dark + 0.18, dark)
+    ends = (np.abs(((lx + off[strip % 256]) % 1.8) - 0.0) < 0.012); dark = np.where(ends & (row != HALL), dark + 0.18, dark)
+    # THE HALLWAY'S TILE (row 4): vinyl squares of 30 cm in two tones, the checker (40 to a tile, so a tile's edge is a joint), the joints
+    sq = ((np.floor(lx / 0.3) + np.floor(ly / 0.3)) % 2 == 1); jt = (np.abs(((lx + 0.15) % 0.3) - 0.15) > 0.142) | (np.abs(((ly + 0.15) % 0.3) - 0.15) > 0.142)
+    dark = np.where(row == HALL, 0.06 + 0.16 * sq + 0.1 * jt + np.clip((0.4 - dust) / 0.3, 0, 1) * 0.06, dark)
+    # THE COURT (row 3): the same maple under its seal, and the lines of the games played on it, each at the same place on every court tile
+    # so a line runs on across the court (any tile meets any tile): a white line east to west through the middle, a red one north of it,
+    # a white one north to south (a gym's courts overlap; no circle or key, which would scatter as pieces)
+    for (ax, at, wd, g_) in (('y', 6.0, 0.05, 'st_line'), ('y', 2.2, 0.05, 'pw_rust'), ('x', 3.0, 0.05, 'st_line')):
+        m = (row == COURT) & (np.abs((ly if ax == 'y' else lx) - at) < wd / 2); gid[m] = ID[g_]
     for r in ROWS:
         for c in range(5):
             sy, sx = tile_xy(r, c); X, Y = lx[sy, sx], ly[sy, sx]; D, Pl = dark[sy, sx], pale[sy, sx]
@@ -89,7 +99,9 @@ def plan_sc_floor(ID, seed=211):
             for _ in range(rng.randint(2, 5)):                           # a cot's leg marks, in fours
                 cx, cy = rng.uniform(2, 9.5), rng.uniform(2, 9.5)
                 for (dx, dy) in ((0, 0), (0.7, 0), (0, 1.9), (0.7, 1.9)): D[np.hypot(X - cx - dx, Y - cy - dy) < 0.04] = 0.5
-            if rng.rand() < 0.3:                                         # a drawing in chalk: a hopscotch's boxes
+            if r == HALL:                                                # the hallway: its path worn down the middle, east to west
+                Pl[:] = np.maximum(Pl, np.clip(1 - np.abs(Y - 6.0) / 3.0, 0, 1) * 0.12 * (0.6 + 0.4 * nn))
+            if r < 3 and rng.rand() < 0.3:                               # a drawing in chalk: a hopscotch's boxes (on the plain maple only)
                 cx, cy = rng.uniform(3, 7), rng.uniform(3, 8)
                 for k in range(5):
                     y0 = cy + k * 0.5; m = ((np.abs(Y - y0) < 0.015) | (np.abs(Y - y0 - 0.5) < 0.015)) & (np.abs(X - cx) < 0.25) | ((np.abs(np.abs(X - cx) - 0.25) < 0.015) & (Y > y0) & (Y < y0 + 0.5))
@@ -109,7 +121,7 @@ TG.GARAGE_THINGS['sc_floor'] = sc_floor_things
 # ---- the pieces ------------------------------------------------------------------------------------------------------------
 SC_AT = dict(bleachers=(10.0, 46.0), lockers_ew=(26.0, 46.0), case=(42.0, 46.0), wall_ns=(57.0, 45.0),
              wall_ew=(10.0, 37.0), cots_a=(26.0, 33.0), cots_b=(38.0, 33.0), lockers_ns=(57.5, 22.0),
-             mats=(8.0, 20.0), tables=(19.0, 20.0), desks=(30.0, 19.0), teacher=(42.0, 20.0), barricade=(50.5, 20.0))
+             mats=(8.0, 20.0), tables=(19.0, 20.0), desks=(30.0, 19.0), teacher=(42.0, 20.0), barricade=(50.5, 20.0), bleachers_n=(10.0, 4.0))
 WALL_H, LOCK_H, BLEACH_H = 2.4, 1.9, 2.5
 
 
@@ -129,6 +141,28 @@ def bleachers(P, ox, oy, rng):
         y = oy + k * dep; z = 0.3 * (k + 1); P.box(m, x0, x0 + w_, y + 0.2, y + dep, z + 0.04, z + 0.1)
     P.box('black', ox + 3.6, ox + 4.1, oy + 3 * dep + 0.25, oy + 4 * dep, 1.24, 1.5)                          # a bag
     P.box('paint_k', ox - 5.0, ox - 4.2, oy + 2 * dep + 0.225, oy + 2 * dep + 0.234, 0.7, 0.8)                # names on a riser
+
+
+def bleachers_n(P, ox, oy, rng):
+    """(11/26, COMBAT FOUR's sc_bleachers_n, letter B) the SOUTH bleachers: the same eight rows on the same footprint, stepping up to the
+    SOUTH and facing north to the court, so the map's eye (south of everything) sees what is behind a bleacher: the tall back row, its
+    steel uprights and cross braces under every row, the rows' undersides; blankets left on the seats, a bag hung from the back rail"""
+    n = 8; dep = 0.45
+    for k in range(n):                                                   # row k counts up from the court (north) to the back (south)
+        y = oy + (n - 1 - k) * dep; z = 0.3 * (k + 1)
+        P.box('sc_frame', ox - 6, ox + 6, y, y + dep, z - 0.3, z - 0.26)                                        # the deck under it
+        P.box('sc_wood', ox - 6, ox + 6, y, y + dep * 0.45, z, z + 0.04)                                        # the seat board (south half)
+        P.box('sc_wood', ox - 6, ox + 6, y + dep * 0.5, y + dep, z - 0.26, z - 0.23)                            # the foot board (north half)
+        P.box('sc_frame', ox - 6, ox + 6, y + dep * 0.48, y + dep * 0.5, z - 0.26, z)                            # the riser
+    P.box('sc_frame', ox - 6, ox + 6, oy - 0.04, oy, 0.3 * n, 0.3 * n + 0.9)                                     # the back rail, toward the camera
+    for x in (ox - 6 + 0.05, ox - 4.5, ox - 1.5, ox + 1.5, ox + 4.5, ox + 6 - 0.05):
+        P.box('sc_frame', x - 0.04, x + 0.04, oy - 0.04, oy + 0.04, 0.0, 0.3 * n + 0.9)                          # its posts, to the floor
+    for x in (ox - 4.5, ox - 1.5, ox + 1.5, ox + 4.5):                  # under every row its steel (as the north bleachers'), and a brace
+        for k in range(1, n): y = oy + (n - 1 - k) * dep; P.box('sc_frame', x - 0.04, x + 0.04, y + 0.3, y + 0.38, 0.0, 0.3 * (k + 1) - 0.3)
+        P.bar('sc_frame', (x, oy + 0.05, 0.2), (x, oy + 3.0, 0.3 * n - 0.4), 0.03)
+    for (k, x0, w_, m) in ((3, ox - 3.2, 1.8, 'rug'), (6, ox + 0.8, 1.5, 'tan'), (1, ox - 0.4, 1.2, 'blue')):    # blankets left on the seats
+        y = oy + (n - 1 - k) * dep; z = 0.3 * (k + 1); P.box(m, x0, x0 + w_, y, y + dep * 0.45, z + 0.04, z + 0.1)
+    P.box('black', ox + 3.4, ox + 3.8, oy - 0.12, oy - 0.04, 0.3 * n + 0.2, 0.3 * n + 0.8)                     # a bag hung from the back rail
 
 
 def cot(P, x, y, blanket=None, bag=True, rng=None):
@@ -265,6 +299,7 @@ def sc_parts(P, rng):
     bleachers(P, *A['bleachers'], rng); lockers_ew(P, *A['lockers_ew'], rng); case(P, *A['case'], rng); wall_ns(P, *A['wall_ns'], rng)
     wall_ew(P, *A['wall_ew'], rng); cots_a(P, *A['cots_a'], rng); cots_b(P, *A['cots_b'], rng); lockers_ns(P, *A['lockers_ns'], rng)
     mats(P, *A['mats'], rng); tables(P, *A['tables'], rng); desks(P, *A['desks'], rng); teacher(P, *A['teacher'], rng); barricade(P, *A['barricade'], rng)
+    bleachers_n(P, *A['bleachers_n'], rng)
 
 
 def sc_mats_(bpy, NF, F, M, which):
@@ -315,11 +350,11 @@ TG.CEILINGS['school'] = (ceil_school, 'school/school_ceiling.webp', "a school's 
 TG.CEIL_DATA['school'] = 'school/school.json'
 
 # ---- the cut ---------------------------------------------------------------------------------------------------------------------
-KIND = dict(bleachers='LOW_COVER', lockers_ew='WALL', lockers_ns='WALL', case='COVER', wall_ew='WALL', wall_ns='WALL', cots_a='LOW_COVER', cots_b='LOW_COVER',
+KIND = dict(bleachers_n='LOW_COVER', bleachers='LOW_COVER', lockers_ew='WALL', lockers_ns='WALL', case='COVER', wall_ew='WALL', wall_ns='WALL', cots_a='LOW_COVER', cots_b='LOW_COVER',
             mats='LOW_COVER', tables='COVER', desks='LOW_COVER', teacher='COVER', barricade='COVER')
-HM = dict(bleachers=BLEACH_H, lockers_ew=LOCK_H, lockers_ns=LOCK_H, case=2.15, wall_ew=WALL_H, wall_ns=WALL_H, cots_a=0.55, cots_b=1.7, mats=0.9, tables=1.8,
+HM = dict(bleachers_n=BLEACH_H + 0.9, bleachers=BLEACH_H, lockers_ew=LOCK_H, lockers_ns=LOCK_H, case=2.15, wall_ew=WALL_H, wall_ns=WALL_H, cots_a=0.55, cots_b=1.7, mats=0.9, tables=1.8,
           desks=0.85, teacher=1.25, barricade=1.3)
-NAME = dict(bleachers='BLEACHERS', lockers_ew='LOCKERS', lockers_ns='LOCKERS', case='THE TROPHY CASE', wall_ew="THE SCHOOL'S WALL", wall_ns="THE SCHOOL'S WALL",
+NAME = dict(bleachers_n='BLEACHERS, THE SOUTH ROW', bleachers='BLEACHERS', lockers_ew='LOCKERS', lockers_ns='LOCKERS', case='THE TROPHY CASE', wall_ew="THE SCHOOL'S WALL", wall_ns="THE SCHOOL'S WALL",
             cots_a='SHELTER COTS', cots_b='SHELTER COTS', mats='GYM MATS', tables='FOLDED TABLES', desks='STUDENT DESKS', teacher="THE TEACHER'S DESK", barricade='PILED DESKS')
 
 
@@ -329,6 +364,7 @@ def cut():
     im = Image.open(os.path.join(REND, 'sc_pieces.png')).convert('RGBA'); A = SC_AT; sz = {}
     def one(key, box, shadow=0.7, foot=None): sz[key] = TG.cut_piece(im, foot or A[key], box, 'sc_' + key, 'school', shadow)
     x, y = A['bleachers']; one('bleachers', (x - 6.0, x + 6.0 + 0.01, y - 0.3, y + 3.7 + BLEACH_H * 1.45), 1.0)
+    x, y = A['bleachers_n']; one('bleachers_n', (x - 6.0, x + 6.0 + 0.01, y - 0.4, y + 3.7 + (BLEACH_H + 0.9) * 1.45), 1.0)
     x, y = A['lockers_ew']; one('lockers_ew', (x - 6.0, x + 6.0 + 0.01, y - 0.5, y + 0.5 + LOCK_H * 1.45), 1.0)
     x, y = A['lockers_ns']; one('lockers_ns', (x - 0.6, x + 0.6, y - 0.05, y + 12.1 + LOCK_H * 1.45), 0.5)
     x, y = A['case']; one('case', (x - 1.8, x + 1.8, y - 1.4, y + 1.1 + 2.2 * 1.45), 1.0)
@@ -351,9 +387,9 @@ def cut():
     ent = lambda k: dict(kind=KIND[k], h=HM[k], name=NAME[k], stage='finished', src=sz[k]['src'], w=sz[k]['w'], h_px=sz[k]['h'], foot=sz[k]['foot'])
     kit = {'sc_' + k: ent(k) for k in sz}
     art = {'version': 'cook6-school-art-11-21', 'lane': 'cook 6 (COOK FIVE\'s list)', 'stage': 'finished',
-           'for': "COMBAT FOUR's school (slices/fight_ground/school/school.json, BUILD 11/21m): the names its handoff asked for, the garage's format. floor.floor is the school's maple (all 25 tiles: the boards' strips east to west with their ends staggered on 0.3 m so every tile's edge is a board end, the finish worn grey where people walked, scuffs, a cot's leg marks, a hopscotch in chalk; nothing within 1.2 m of an edge but the boards); floor.ring the same. ONE FLOOR FOR BOTH LAYOUTS, as your file has one kind: no court lines, which would scatter over the classrooms; give the gym a 'court' kind and the hallway a 'hall' kind and this lane paints them.",
-           'floor': {'floor': cells(ROWS), 'ring': cells(ROWS)}, 'kit': kit,
-           'how_it_lays': {'the gym': "sc_bleachers a tile wide, eight rows stepping 0.45 m deep and 0.3 m up toward the north (your 'at' [0.5, 0.85]); sc_cots_a four cots, sc_cots_b two and a tarp; sc_mats the cart and two laid out; sc_tables two folded on their wheels and one open.",
+           'for': "COMBAT FOUR's school (slices/fight_ground/school/school.json, BUILD 11/21m): the names its handoff asked for, the garage's format. floor.floor is the school's maple (rows 0 to 2: the boards' strips east to west with their ends staggered on 0.3 m so every tile's edge is a board end, the finish worn grey where people walked, scuffs, a cot's leg marks, a hopscotch in chalk; nothing within 1.2 m of an edge but the boards); floor.ring the same. floor.court (row 3, your floor_areas' court, 11/26) the same maple sealed, with the lines of the games played on it at the same place on every tile so each runs on across the court (a white line east to west through a tile's middle, a red one 2.2 m from its north edge, a white one north to south 3 m from its west edge); floor.hall (row 4, your hallway) vinyl squares of 30 cm in two tones, its path worn down the middle east to west.",
+           'floor': {'floor': cells((0, 1, 2)), 'ring': cells((0, 1, 2)), 'court': cells((3,)), 'hall': cells((4,))}, 'kit': kit,
+           'how_it_lays': {'the gym': "sc_bleachers_n (your 'B', 11/26) the same footprint stepping up to the SOUTH, facing the court, its back to the camera; sc_bleachers a tile wide, eight rows stepping 0.45 m deep and 0.3 m up toward the north (your 'at' [0.5, 0.85]); sc_cots_a four cots, sc_cots_b two and a tarp; sc_mats the cart and two laid out; sc_tables two folded on their wheels and one open.",
                            'the classrooms': "sc_desks twelve in three rows facing south; sc_teacher the steel desk and its chair; sc_barricade desks piled on a table on its side.",
                            'the hallway': "sc_lockers_ew a tile of forty lockers, 1.9 m, on its base (your 'L', an air wall); sc_lockers_ns end on; sc_case the trophy case, foot its front's middle.",
                            'the walls': "sc_wall_ew / _ns: painted block to 2.4 m, the school's stripe, a bulletin board, the clock; a tile long."},

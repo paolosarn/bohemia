@@ -2,7 +2,7 @@
  "version": "cook6-school-art-11-21",
  "lane": "cook 6 (COOK FIVE's list)",
  "stage": "finished",
- "for": "COMBAT FOUR's school (slices/fight_ground/school/school.json, BUILD 11/21m): the names its handoff asked for, the garage's format. floor.floor is the school's maple (all 25 tiles: the boards' strips east to west with their ends staggered on 0.3 m so every tile's edge is a board end, the finish worn grey where people walked, scuffs, a cot's leg marks, a hopscotch in chalk; nothing within 1.2 m of an edge but the boards); floor.ring the same. ONE FLOOR FOR BOTH LAYOUTS, as your file has one kind: no court lines, which would scatter over the classrooms; give the gym a 'court' kind and the hallway a 'hall' kind and this lane paints them.",
+ "for": "COMBAT FOUR's school (slices/fight_ground/school/school.json, BUILD 11/21m): the names its handoff asked for, the garage's format. floor.floor is the school's maple (rows 0 to 2: the boards' strips east to west with their ends staggered on 0.3 m so every tile's edge is a board end, the finish worn grey where people walked, scuffs, a cot's leg marks, a hopscotch in chalk; nothing within 1.2 m of an edge but the boards); floor.ring the same. floor.court (row 3, your floor_areas' court, 11/26) the same maple sealed, with the lines of the games played on it at the same place on every tile so each runs on across the court (a white line east to west through a tile's middle, a red one 2.2 m from its north edge, a white one north to south 3 m from its west edge); floor.hall (row 4, your hallway) vinyl squares of 30 cm in two tones, its path worn down the middle east to west.",
  "floor": {
   "floor": [
    "school/school_floor_0.webp#0,0",
@@ -19,17 +19,7 @@
    "school/school_floor_0.webp#1,2",
    "school/school_floor_0.webp#2,2",
    "school/school_floor_0.webp#3,2",
-   "school/school_floor_0.webp#4,2",
-   "school/school_floor_0.webp#0,3",
-   "school/school_floor_0.webp#1,3",
-   "school/school_floor_0.webp#2,3",
-   "school/school_floor_0.webp#3,3",
-   "school/school_floor_0.webp#4,3",
-   "school/school_floor_0.webp#0,4",
-   "school/school_floor_0.webp#1,4",
-   "school/school_floor_0.webp#2,4",
-   "school/school_floor_0.webp#3,4",
-   "school/school_floor_0.webp#4,4"
+   "school/school_floor_0.webp#4,2"
   ],
   "ring": [
    "school/school_floor_0.webp#0,0",
@@ -46,12 +36,16 @@
    "school/school_floor_0.webp#1,2",
    "school/school_floor_0.webp#2,2",
    "school/school_floor_0.webp#3,2",
-   "school/school_floor_0.webp#4,2",
+   "school/school_floor_0.webp#4,2"
+  ],
+  "court": [
    "school/school_floor_0.webp#0,3",
    "school/school_floor_0.webp#1,3",
    "school/school_floor_0.webp#2,3",
    "school/school_floor_0.webp#3,3",
-   "school/school_floor_0.webp#4,3",
+   "school/school_floor_0.webp#4,3"
+  ],
+  "hall": [
    "school/school_floor_0.webp#0,4",
    "school/school_floor_0.webp#1,4",
    "school/school_floor_0.webp#2,4",
@@ -71,6 +65,19 @@
    "foot": [
     258.2,
     223
+   ]
+  },
+  "sc_bleachers_n": {
+   "kind": "LOW_COVER",
+   "h": 3.4,
+   "name": "BLEACHERS, THE SOUTH ROW",
+   "stage": "finished",
+   "src": "school/sc_bleachers_n.webp",
+   "w": 516,
+   "h_px": 274,
+   "foot": [
+    258.2,
+    263
    ]
   },
   "sc_lockers_ew": {
@@ -231,13 +238,13 @@
   }
  },
  "how_it_lays": {
-  "the gym": "sc_bleachers a tile wide, eight rows stepping 0.45 m deep and 0.3 m up toward the north (your 'at' [0.5, 0.85]); sc_cots_a four cots, sc_cots_b two and a tarp; sc_mats the cart and two laid out; sc_tables two folded on their wheels and one open.",
+  "the gym": "sc_bleachers_n (your 'B', 11/26) the same footprint stepping up to the SOUTH, facing the court, its back to the camera; sc_bleachers a tile wide, eight rows stepping 0.45 m deep and 0.3 m up toward the north (your 'at' [0.5, 0.85]); sc_cots_a four cots, sc_cots_b two and a tarp; sc_mats the cart and two laid out; sc_tables two folded on their wheels and one open.",
   "the classrooms": "sc_desks twelve in three rows facing south; sc_teacher the steel desk and its chair; sc_barricade desks piled on a table on its side.",
   "the hallway": "sc_lockers_ew a tile of forty lockers, 1.9 m, on its base (your 'L', an air wall); sc_lockers_ns end on; sc_case the trophy case, foot its front's middle.",
   "the walls": "sc_wall_ew / _ns: painted block to 2.4 m, the school's stripe, a bulletin board, the clock; a tile long."
  },
  "bytes": {
-  "floor": 318858,
+  "floor": 317082,
   "ceiling": 23828
  },
  "ceiling": {
