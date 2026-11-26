@@ -5,7 +5,27 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
-FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/26 LATEST -- [reload or out, never choppy] SHIPPED 79ddcbd34, BUILD 11/26d - RELOAD OR OUT, NEVER CHOPPY, BUILT, NOT YET SEEN (VAMILY rule 480(b)(c), ask row 723; rule 478(a)'s card after COMBAT FOUR's build; rules 449, 450, 441). VOTE fight-screen-reload-or-out-never-choppy-11-26 (stand_in; before and now).
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/26 LATEST -- [nothing to press, the loot reads] SHIPPED 93a0381f0, BUILD 11/26p - NOTHING TO PRESS, THE LOOT READS, BUILT, NOT YET SEEN (VAMILY rule 482, ask row 735; rules 480(b), 449, 441). VOTE fight-screen-nothing-to-press-and-the-loot-reads-11-26 (stand_in; before and now). His votes of 11/25: YES to the rounds, the why and the receipt.
+Record: records/BOHEMIA_FIGHT_SCREEN_NOTHING_TO_PRESS_AND_THE_LOOT_READS_11_26_26.md. FOUND walking the demo on its side, FIXED:
+- __NOTHING_TO_PRESS_ON_THEIR_TURN__: hud() writes #skills data-whose (the lineup's man or the man up); the phone's fightPaint (marked block) draws a
+  row of THEIRS as four empty dark wells: no big STRIKE with their weapon, no 'No skills on this man yet' note. The lineup keeps his man's STRIKE.
+- __HIS_TURN_IS_SPENT_ON_THE_CARD__: hud() writes #ap data-spent from UI.spent; the card's empty AP pips red on the beat (.fap.spent); the fight's
+  #outap hidden under the phone (html.boh-phone-on), it lay below the glass.
+- __THE_LOOT_READS__ (end screen CSS): the picture gives way to the name (max-height, width follows; UI's inline canvas size overridden in the
+  tile), a worn piece's .cw bar its own floor (.slot:has(> .cw)). Worn pieces' pictures are 19 points now (24 for others): the price of whole names.
+GATES: THE MAN'S CARD ON THE PHONE 18/0 (P11, P12; plant THEIRS_PLANT); THE LOOT READS 4/0 (new, registered; tools/bohemia_fight_screen_the_loot_tiles.js
+at five shapes; plant LOOT_PLANT). THE PHONE 268/0 and the end screen's readers green. RED ON MAIN TOO, checked on a clean main the same hour:
+THE SPOILS 18/1, SCROLLING IS ILLEGAL N3/N9 sideways (the town's sheets), FOURTEEN EYES F606 (camp) and F553's plant (random block), F531/F533 (rows 736/737).
+LESSON: the suite's gates run one at a time here: SCROLLING IS ILLEGAL holds a fixed port (8941), two copies at once collide.
+NEXT, in order:
+ (1) EYES' notes and his votes on 11/26d and 11/26p (rule 441(b)).
+ (2) A hit on HIS man lands on his card too (the order's 'a hit and a miss that land punchier'; THE PUNCH on the board is COMBAT's): the card's
+     face takes the blow on the beat (a frame of tape slip on his photo when his blood drops), drawn only on the change (P10 holds).
+ (3) The end screen upright has a tall empty middle; the loot tiles could stand bigger there (RUN's layout: say it, do not move it alone).
+[bb Battle Brothers' action bar is empty while the enemy moves, and a turn with no AP left is greyed where you look; ours goes red on the beat]
+[analog horror: on their turn the wells go dark and nothing answers your finger]
+
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/26 -- [reload or out, never choppy] SHIPPED 79ddcbd34, BUILD 11/26d - RELOAD OR OUT, NEVER CHOPPY, BUILT, NOT YET SEEN (VAMILY rule 480(b)(c), ask row 723; rule 478(a)'s card after COMBAT FOUR's build; rules 449, 450, 441). VOTE fight-screen-reload-or-out-never-choppy-11-26 (stand_in; before and now).
 Record: records/BOHEMIA_FIGHT_SCREEN_RELOAD_OR_OUT_AND_NEVER_CHOPPY_11_26_26.md. (b) CHECKED, this lane's pieces in the game: the card that opens a fight,
 the why at the bell, the man's card, his sheet, the say line, the fight's end card, the end screen (no receipt), the result line. FIXED: the rounds
 read RELOAD (hollow amber: magazine empty, rounds carried) or OUT (the slung gun's cases red on the beat: none anywhere, fists up; it showed nothing)
