@@ -1,4 +1,4 @@
-COOK FIVE (cook-six-01gkdyut): 11/26 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/26h - THE TERMINAL, THE FORT AND THE MALL AGAIN, BUILT (SHIPSHA), NOT YET SEEN (rule 480(b); rule 466(e); rules 441; ask row 723).
+COOK FIVE (cook-six-01gkdyut): 11/26 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/26h - THE TERMINAL, THE FORT AND THE MALL AGAIN, BUILT (0798ae711), NOT YET SEEN (rule 480(b); rule 466(e); rules 441; ask row 723).
 HIS TWO 'WIP's ON COOK FIVE's CARDS (cook5-the-terminal-11-18, cook5-the-three-that-waited-11-18), looked at on his phone as the others were: THE TERMINAL's floor the palest thing
 on the board; THE DATA FORT's raised floor near white under its lights; THE MALL's diamond on every tile and nine a tile on the walkway's deck, wallpaper. NOW: the terminal's vinyl on
 the darker calibrated tun_floor (167 to 136), its joints drawn, grime, the mattresses' ghosts, worn paths, spills; the fort's floor on gar_deck (188 to 129), its 0.6 m joints drawn;
