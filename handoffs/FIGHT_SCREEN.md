@@ -5,7 +5,31 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
-FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/22 LATEST -- [the rounds on the card] SHIPPED 56e1eb31a, BUILD 11/22zv - THE ROUNDS ON THE CARD, BUILT, NOT YET SEEN (VAMILY rule 478(a), this lane's half: 'every gun carries its own rounds, shown on the man's card'; ask row 719, FIGHT SCREEN 3's part; rules 449(b), 450(a), 441). VOTE fight-screen-the-rounds-on-the-card-11-22 (stand_in; before and now).
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/26 LATEST -- [reload or out, never choppy] SHIPPED 79ddcbd34, BUILD 11/26d - RELOAD OR OUT, NEVER CHOPPY, BUILT, NOT YET SEEN (VAMILY rule 480(b)(c), ask row 723; rule 478(a)'s card after COMBAT FOUR's build; rules 449, 450, 441). VOTE fight-screen-reload-or-out-never-choppy-11-26 (stand_in; before and now).
+Record: records/BOHEMIA_FIGHT_SCREEN_RELOAD_OR_OUT_AND_NEVER_CHOPPY_11_26_26.md. (b) CHECKED, this lane's pieces in the game: the card that opens a fight,
+the why at the bell, the man's card, his sheet, the say line, the fight's end card, the end screen (no receipt), the result line. FIXED: the rounds
+read RELOAD (hollow amber: magazine empty, rounds carried) or OUT (the slung gun's cases red on the beat: none anywhere, fists up; it showed nothing)
+and what he carries as a brass line (FIGHT.carried); the 9th AP pip no longer clipped (pips 4 wide beside a gun, cases six at most); nWord: every
+count line agrees (__EVERY_LINE_AGREES__). (c) __NEVER_CHOPPY__ at 4x: hud() 14.0 -> 5 ms a call (writes only what changed; an unchanged
+refresh writes nothing); the phone card's manPaint 9 to 10 -> 2 ms (each part on its own key; the face only when UI.faceN moves; each name's fit
+kept); the sheet's fit starts at the step that fitted (42-58 -> 27-36 ms on opening).
+THE INSTRUMENT (keep using it): tools/bohemia_fight_screen_the_walk.js FRAMES=1 [PROFILE=mark,..] [PROFILE_RAW=1] [TRACE=mark,..] [TRACE_RAW=1]
+[WRAP=fn,..]: the whole fight on the slowed phone, frames a second and every frame past 50 ms per moment, and per call what hud, drawer and
+manPaint (window.__PHONE_MAN_T) cost. Frame rates swing run to run (the board differs); the per-call costs are the steady number.
+ROUTED (not this lane's; numbers at 4x): COMBAT FOUR the board's draw (frame()/draw(): 100 to 370 ms a frame on his turn, 3.6 s of 4 s) and LEAVE
+(0.7-0.8 s tasks, row 725); UI FIVE bohemia_ui_nothing_pops.js check() every frame (about 5% of a frame); PLUMBER 8 the fight's page parsed while
+the opening card types and the freeze after ENGAGE (1.8-3.9 s); WORLD / PLUMBER 8 the city map drawing behind the end screen (34-42 ms a frame).
+GATES: THE MAN'S CARD ON THE PHONE 15/0 (P9 three states + carried line + no clip; P10 NEVER CHOPPY; plants ROUNDS_PLANT, NOCHOP_PLANT); THE
+PHONE 268/0; THE MAN'S SHEET 7/0; THE FIGHT'S BARS AND THE END SCREEN 6/0; THE RELOAD IS LOUD 17/0; NO AMMO NO SHOT 7/0; ICONS NOT NUMBERS 8/0.
+NEXT, in order:
+ (1) EYES' notes on 11/22zg, 11/22zr, 11/22zv, 11/26d (rule 441(b)); his votes on the tape, the receipt, the rounds, reload or out.
+ (2) When COMBAT FOUR cuts the board's draw, walk FRAMES=1 again and see what is left on the glass; the say line on its side still measures the
+     strip every refresh (placeSay reads two rects in wide mode: cheap now that nothing is written before it).
+ (3) The opening card's men as BODIES, only if he asks. (4) The turn order: NOT owed unless he asks (his note 9 of 11/2).
+[bb Battle Brothers' ranged man shows his ammo on his bar and goes to his fists when it is gone; ours stands the rounds on end, says reload in amber and out in red]
+[analog horror: the out gun's cases breathe red on the beat, and the card under it costs the frame nothing]
+
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/22 -- [the rounds on the card] SHIPPED 56e1eb31a, BUILD 11/22zv - THE ROUNDS ON THE CARD, BUILT, NOT YET SEEN (VAMILY rule 478(a), this lane's half: 'every gun carries its own rounds, shown on the man's card'; ask row 719, FIGHT SCREEN 3's part; rules 449(b), 450(a), 441). VOTE fight-screen-the-rounds-on-the-card-11-22 (stand_in; before and now).
 Record: records/BOHEMIA_FIGHT_SCREEN_THE_ROUNDS_ON_THE_CARD_11_22_26.md. MEASURED: FIGHT.rounds (the count per gun in his hands) showed over the man on
 the board, on the aim line and on his sheet; never on the phone's card, the only card on the glass while AUTO plays.
 WHERE: slices/BOHEMIA_FIGHT.html __THE_ROUNDS_ON_THE_CARD__ (hud() writes #ap data-rounds 'left/of' and data-dry for the man on the card);

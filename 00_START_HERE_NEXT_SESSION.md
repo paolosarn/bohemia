@@ -682,13 +682,14 @@ Gate THE BATTERY IS REAL 43/0 (the table with eight planted faults; nine legs a 
 FOR UI FOUR, JOBS, HOME BASE, WORDS TWO, TUNING, DIRECTION: each has lines in the handoff. NOT DECIDED AND NOT BUILT ON: who holds the working sun (459(e)).
 [bb Battle Brothers counts one coin and lets the number run to tens of thousands; ours is the coin and the things a coin is]
 [analog horror: a man counting out twelve drill batteries on a hood, slowly, because a wrong count gets somebody killed]
-FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/22 LATEST -- BUILD 11/22zv - THE ROUNDS ON THE CARD, BUILT (56e1eb31a), NOT YET SEEN (rule 478(a), this lane's half; ask row 719). Before it: 11/22zr THE RECEIPT IS GONE (a814b39fc, row 715), 11/22zg THE WHY IS A TAPE (9322079a3, row 705). Its block is handoffs/FIGHT_SCREEN.md.
-THIS CHAT IS FIGHT SCREEN THREE. The phone's card shows the rounds in the gun in his hands: a cartridge per round at the end of his AP row, brass
-loaded, dark spent, red and pulsing on the beat when empty; theirs too. The count is COMBAT FOUR's (FIGHT.rounds); the card follows it. Before
-that: the old receipt out of every fight's end, and the win line agrees with the count. Gates: THE MAN'S CARD ON THE PHONE 13/0, THE RECEIPT IS GONE 7/0.
-VOTE fight-screen-the-rounds-on-the-card-11-22, fight-screen-the-receipt-is-gone-11-22, fight-screen-the-why-is-a-tape-11-22 (STAND-IN). NEXT: EYES' notes and his votes.
-[bb Battle Brothers puts a ranged man's ammo on his own bar; ours stands the rounds on end beside his AP]
-[analog horror: an empty gun is a row of red cases breathing on the beat, and nothing says it out loud]
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/26 LATEST -- BUILD 11/26d - RELOAD OR OUT, NEVER CHOPPY, BUILT (79ddcbd34), NOT YET SEEN (rule 480(b)(c), ask row 723). Before it: 11/22zv THE ROUNDS ON THE CARD (56e1eb31a), 11/22zr THE RECEIPT IS GONE (a814b39fc), 11/22zg THE WHY IS A TAPE (9322079a3). Its block is handoffs/FIGHT_SCREEN.md.
+THIS CHAT IS FIGHT SCREEN THREE. The man's card reads RELOAD (amber) or OUT (red on the beat) after COMBAT FOUR's ammo rule, with what he carries as
+a line; his 9th AP pip whole; every count line agrees. On a phone slowed 4x the card's refresh went 14 -> 5 ms a call and the phone card's repaint
+9-10 -> 2 ms (an unchanged refresh writes nothing). What still drops frames in a fight is routed: COMBAT FOUR's board draw, UI FIVE's nothing-pops
+check, PLUMBER 8's load behind the card, the map drawing behind the end screen. Gate THE MAN'S CARD ON THE PHONE 15/0. The frame walk: tools/bohemia_fight_screen_the_walk.js FRAMES=1.
+VOTE fight-screen-reload-or-out-never-choppy-11-26 (STAND-IN), and the 11/22 cards. NEXT: EYES' notes and his votes.
+[bb Battle Brothers' ranged man shows his ammo on his bar and goes to his fists when it is gone; ours says reload in amber and out in red]
+[analog horror: the out gun's cases breathe red on the beat, and the card under it costs the frame nothing]
 COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18p - THE TERMINAL IS AN AIRPORT, BUILT (4c0cf87e7), NOT YET SEEN (rule 453, round after round, this round's fifth build; rules 416, 451(a), 455; ask row 627).
 COMBAT THREE's airport terminal wears its own art under its own names (slices/fight_ground/terminal/terminal_art.json, the garage's format; no code):
 the terrazzo floor, 25 pictures under 27 names (the checkpoint a tile with its tubs, both screens, the desks, the queue, the newsstand, the luggage
