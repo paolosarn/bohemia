@@ -1,6 +1,21 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/26 LATEST -- BUILD 11/26r - THE MOMENT HEARD, BUILT, NOT YET SEEN (rule 482: 'the arrival
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/26 LATEST -- BUILD 11/26t - A JOB HAS ONE DOOR, SHIPPED (ask row 698, FOUND BY
+PLUMBER 8; rules 482, 425, 255, 335, 441). Content b157a9b6c. No VOTE card (the deal's order; nothing new to see: the same boards
+whatever order the reads land). Record records/BOHEMIA_JOBS_TWO_A_JOB_HAS_ONE_DOOR_11_26_26.md.
+- slices/bohemia_board_shelf.js __A_JOB_HAS_ONE_DOOR__: draft() from the valley and the day only (never a read; the rare roll is
+  BohemiaJobDanger.rare, exported this build), each place its board's count then RESERVE (4) more, one list each, MEMO keeps the
+  lists; dealt() posts from the reads as they stand: own list through the floor, then pickOwn with every posted job taken (rule 255),
+  then the original last pass (rule 335, W5's mutation still bites).
+- EVERY CHANGE AT SIXTY 7/7, C2 GREEN (21 asks both ways). A JOB HAS ONE DOOR (new, in the suite) 4/0. THE BOARDS ALWAYS HAVE WORK
+  24/0. THE BOARD'S QUESTS ARE PEOPLE 16/1: its phone-list red is the same on main word for word (RUN TWO's board).
+NEXT: EVERY JOB KIND E5, C4, V5, R2, R3 (a won job fight not settled in the checker; E5's line now counts the job's ended fights):
+trace whether BOHEMIA_CITY_COMBAT_END reaches the map after the end screen's LEAVE. NO WAYPOINTS W2's alpha-upright 15 marks in the
+two-shape run (16 alone). The alpha's five-job board (UI 9's call). The moment's plate height at the middle zoom (WORLD's).
+[bb Battle Brothers posts a contract at one settlement; another town's board never shows it, whatever you knew when you looked]
+[analog horror: the same notice on the same nail, whichever night you walk past it]
+
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/26 -- BUILD 11/26r - THE MOMENT HEARD, BUILT, NOT YET SEEN (rule 482: 'the arrival
 at a job looks and sounds better, the leftover jobs code cleaned out, and row 737'; rules 402, 441, 480, the 120 BPM law). Content
 b168fded1. VOTE jobs2-the-moment-heard-11-26 (STAND-IN: the board before and now, the moment in four frames). Record
 records/BOHEMIA_JOBS_TWO_THE_BOARD_FITS_AND_THE_MOMENT_11_26_26.md.
