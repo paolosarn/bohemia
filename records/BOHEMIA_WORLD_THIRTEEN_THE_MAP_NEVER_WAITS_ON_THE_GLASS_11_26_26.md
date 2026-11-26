@@ -57,6 +57,9 @@ THE FIVE LEGS (tools/bohemia_world_thirteen_map_frames.js, the demo upright at 4
 THE STEADY MEASURE (tools: the far stop settled 12 s, then 4 s sliding at 4x; two runs on each build, the same box, one after the
 other): main (11/26p) 2.2 and 1.8 frames a second (9 and 13 frames, the worst 1.15 s and 5.4 s); THIS BUILD 9.7 and 13.9 (61 and 56
 frames, the worst 2.4 s and 0.9 s). The VOTE picture draws the second run of each as a tape: one box a frame.
+THE ALPHA ON ITS SIDE (844 x 390, rule 441, the same slide): THIS BUILD 15.1 and 12.4 frames a second (the worst 0.6 s and 0.9 s);
+main 2.7 on the first pass (the worst 1.1 s) and 14.4 on the second, once every sprite on the glass had been made and read: the old
+cost was paid once a sprite, so it bites hardest when the view changes (a zoom, a new crowd, his walk's frames at a new size).
 
 THE FIVE LEGS (tools/bohemia_world_thirteen_map_frames.js, the demo upright at 4x, one run each, said plainly: this box's software GPU
 freezes single frames for 6 to 17 s at random after a new picture lands, on both builds, so these legs are noisy here):
