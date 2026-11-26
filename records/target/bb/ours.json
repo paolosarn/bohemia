@@ -765,7 +765,6 @@
      "person_cartel_2"
     ],
     "default": [
-     "faction_remnants",
      "person_remnants_0",
      "person_remnants_1",
      "person_remnants_2",
@@ -783,7 +782,6 @@
      "person_cartel_2"
     ],
     "brigand_marauder": [
-     "faction_remnants",
      "person_remnants_0",
      "person_remnants_1",
      "person_remnants_2",
@@ -821,7 +819,6 @@
      "person_caravans_1"
     ],
     "necromancer": [
-     "faction_trades",
      "person_trades_0",
      "person_trades_1"
     ],
@@ -836,65 +833,52 @@
      "person_volunteers_0"
     ],
     "armored_wiederganger": [
-     "faction_blues",
      "person_blues_0",
      "person_blues_1",
      "person_blues_2",
-     "faction_remnants",
      "person_remnants_0"
     ],
     "robot": [
      "robot"
     ],
     "lower_goblin_skirmisher": [
-     "faction_colorful",
      "person_colorful_0",
      "person_colorful_1",
      "person_colorful_2",
-     "faction_anarchists",
      "person_anarchists_0",
      "person_anarchists_1",
      "person_anarchists_2"
     ],
     "goblin_skirmisher": [
-     "faction_colorful",
      "person_colorful_0",
      "person_colorful_1",
      "person_colorful_2",
-     "faction_anarchists",
      "person_anarchists_0",
      "person_anarchists_1",
      "person_anarchists_2"
     ],
     "goblin_wolfrider": [
-     "faction_anarchists",
      "person_anarchists_2",
      "person_anarchists_1",
-     "faction_colorful",
      "person_colorful_2"
     ],
     "lower_orc_warrior": [
-     "faction_remnants",
      "person_remnants_0",
      "person_remnants_1",
      "person_remnants_2",
-     "faction_blues",
      "person_blues_0",
      "person_blues_1"
     ],
     "orc_warrior": [
-     "faction_remnants",
      "person_remnants_0",
      "person_remnants_1",
      "person_remnants_2",
-     "faction_blues",
      "person_blues_0",
      "person_blues_1"
     ],
     "orc_young": [
      "person_mob_0",
      "person_mob_1",
-     "faction_cartel",
      "person_cartel_0",
      "person_cartel_1",
      "person_cartel_2"

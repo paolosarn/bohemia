@@ -1,3 +1,8 @@
+CHARACTER TWO (character-two-01gkdyuv): 11/26 LATEST -- BUILD 11/26ze - THE ROBES COME OFF THE ROAD GANGS, BUILT, NOT YET SEEN (rules 482(a)(c)(d), 480(b)).
+Ten enemy pools dealt the six old one-colour gang robes (16 entries, often the band's first man); out, each pool keeps its gang's layered men.
+The cone is off everywhere (BUILD 11/26m, THE CONE HAT IS DEAD 4/0). Its block is handoffs/CHARACTER.md; VOTE character2-the-robes-come-off-11-26;
+records/BOHEMIA_CHARACTER_TWO_THE_ROBES_COME_OFF_THE_ROAD_GANGS_11_26_26.md.
+
 COMBAT FOUR (combat-four-01gkdyuv): 11/26 LATEST -- BUILD 11/26zb - EVERY BEAST ITS OWN WORD, BUILT (ask row 743; rules 480(b), 441, 465). Its block is handoffs/COMBAT_THREE.md.
 A held finger on a beast said TEETH and 'it bites' for every racial attack. Now the word follows the attack (weapon_lines.json natural.by_attack): a gore HORNS,
 a headbutt HEAD, a sweep BULK, an uproot CLAWS, the ghost's TOUCH, his fists FISTS; bites keep TEETH and their line; the others no line until WORDS THREE writes one.
