@@ -6,7 +6,12 @@ natural.by_attack entry whose 'match' is in the attack's id or name: its name an
 sheet and objName read it. Gate EVERY BEAST ITS OWN WORD (in the suite) 6/0. On the page: BESTIARY 2's gates/the_bestiary_every_type_fight.js KINDS=... MOVES=0.
 *** FOR WORDS THREE: the non-biting attacks (HORNS, HEAD, BULK, CLAWS, TOUCH, FISTS, SPIKES, TAIL, THROW, BLAST) show no line; one each is yours when 465 lets go
 (the table entry's 'line'). ***
-NEXT (this routine): row 725 (LEAVE from a fight, about a second at 4x), row 736 (FIGHT.dealsAt, the seam above), camp's HEAL at 7.5 s with PLUMBER 8.
+NEXT (this routine, in order): ROW 725, LEAVE from a fight about a second at 4x (EYES 917 to 1,367 ms frames). What is known: PLUMBER 8's profile put the map's ink
+line read back off the GPU on the map's return (WORLD 13's row 741) and one 7.9 s shell task after a boss fight (PLUMBER's, first). THE FIGHT'S SIDE to measure: nfHome
+(slices/BOHEMIA_ALPHA_0_9.html) calls the fight's __fightLetGo (every bitmap closed, every canvas emptied) and then fr.src = 'about:blank'; fr.remove() in the same
+task, under MOTION's zoom back to the map; the bitmaps are more since 11/26w (the ground and the sheets are ImageBitmaps now): time __fightLetGo and the frame's
+teardown at 4x (the loop gate's LOOP_END_SLOW=1 slows the end; add the LEAVE) and split them across frames if they are the second. Then ROW 736 (FIGHT.dealsAt, the
+seam above), then camp's HEAL at 7.5 s with PLUMBER 8 (the fight page HEAL loads hidden), then the brain's long thinks and the ring (above).
 [bb Battle Brothers names a beast's attack by what it is]
 [analog horror: the label on the tape finally matches what is on it]
 
