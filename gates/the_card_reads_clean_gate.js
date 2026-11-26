@@ -86,10 +86,12 @@ async function board(shape, alpha, throttle) {
     } catch (e) { row.err = String(e && e.message || e).slice(0, 200); }
     rows.push(row);
   }
+  const why = (c) => [!c.trip ? 'no trip' : '', c.trip && !/·/.test(c.trip) ? 'trip has no place' : '', c.trip && !/minute|hour|day/.test(c.trip) ? 'trip has no time' : '', !c.lines.length ? 'no stops' : '', c.lines.some(l => l.length <= 3) ? 'an empty stop' : '',
+    /FOLLOWERS|CLOUT|Your name|What it asks/.test(c.text) ? 'says followers' : '', !c.take ? 'Take it off the glass' : '', !c.no ? 'Not now off the glass' : ''].filter(Boolean).join(', ');   /* JOBS 2 11/26: a red names its reason */
   const good = (c) => !!c.trip && /·/.test(c.trip) && /minute|hour|day/.test(c.trip) && c.lines.length >= 1 && c.lines.every(l => l.length > 3) && !/FOLLOWERS|CLOUT|Your name|What it asks/.test(c.text) && c.take && c.no;
   ok('C2 on his phone, the demo and the alpha, upright and sideways: every person on Caravans\' board: the trip says where and about how long, a stop a line, no followers, Take it and Not now on the glass, the card from the board\'s warm-up',
     rows.length === 4 && rows.every(r => !r.err && r.cards.length >= 1 && r.cards.every(good) && r.warmed >= 1 && r.cards.some(c => c.hit)),
-    rows.map(r => (r.alpha ? 'alpha ' : 'demo ') + (r.shape === 'phone_portrait' ? 'up' : 'side') + ': ' + (r.err ? 'ERR ' + r.err : r.cards.length + ' cards, warmed ' + r.warmed + ', ' + r.cards.map(c => (good(c) ? '' : 'BAD ') + c.lines.length + ' stops' + (c.hit ? '' : ' (read at the tap)')).join(', ') + ' | "' + (r.cards[0] && r.cards[0].trip) + '"')).join(' || '));
+    rows.map(r => (r.alpha ? 'alpha ' : 'demo ') + (r.shape === 'phone_portrait' ? 'up' : 'side') + ': ' + (r.err ? 'ERR ' + r.err : r.cards.length + ' cards, warmed ' + r.warmed + ', ' + r.cards.map(c => (good(c) ? '' : 'BAD (' + why(c) + ') ') + c.lines.length + ' stops' + (c.hit ? '' : ' (read at the tap)')).join(', ') + ' | "' + (r.cards[0] && r.cards[0].trip) + '"')).join(' || '));
   /* C3: the slowed phone */
   let slow = null;
   try {

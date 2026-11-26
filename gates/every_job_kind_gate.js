@@ -70,6 +70,10 @@ const done = () => { console.log('EVERY JOB KIND: ' + pass + ' passed, ' + fail 
     const h = await d.page.$('#spoilsdoor iframe'); if (!h) return false;
     const sf = await h.contentFrame(), box = await h.boundingBox();
     const b = sf ? await sf.waitForFunction(() => { const e = document.getElementById('leave'); if (!e) return null; const r = e.getBoundingClientRect(); return r.width > 0 ? [r.x + r.width / 2, r.y + r.height / 2] : null; }, null, { timeout: 10000 }).then(x => x.jsonValue()).catch(() => null) : null;
+    /* JOBS TWO 11/26 (E5, C4, V4, V5, R2, R3 red on main before this, the same as THE JOBS' PART D7 on 11/22): the end screen slides in
+       and its LEAVE exists before it has landed, so a tap then lands on what is under the sliding screen (the phone's home face) and
+       the fight never comes home to settle the job. A hand waits until the end screen is what is under the finger */
+    if (b && box) await waitFor(() => d.page.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y), sd = document.getElementById('spoilsdoor'); return !!e && !!sd && sd.contains(e); }, [box.x + b[0], box.y + b[1]]), 5000);
     if (b) await d.page.touchscreen.tap(box.x + b[0], box.y + b[1]); else await d.page.evaluate(() => { try { spoilsLeave(); } catch (e) {} });
     return up;
   };
@@ -169,7 +173,7 @@ const done = () => { console.log('EVERY JOB KIND: ' + pass + ' passed, ' + fail 
         const ends = await fr.evaluate(() => window.__JOB_ENDS || []);
         /* a LOST fight is the map's death rule (__DEATH_IS_A_RELOAD__, Paolo 7/26; RUN's): back to the save at the bell, so the
            job is as it was when the fight began; a won or walked-out fight is the kind's to settle (the crates that got through) */
-        ok('E5 the fight ends and the cargo keeps count (' + res + '; ' + (j2 ? j2.cargo.n + ' of ' + j2.cargo.of + ' left' : 'job gone') + (res === 'lost' ? ', the save at the bell' : '') + ')',
+        ok('E5 the fight ends and the cargo keeps count (' + res + '; ' + (j2 ? j2.cargo.n + ' of ' + j2.cargo.of + ' left' : 'job gone') + (res === 'lost' ? ', the save at the bell' : '') + '; the job\'s fights ended ' + ends.length + (j2 && j2.raid ? ', its raid still on the road' : '') + ')',
           !!res && ends.length >= 1 && (res === 'lost' ? (!!j2 && j2.cargo.n === j.cargo.n) : (j2 ? (j2.cargo.n >= 1 && j2.cargo.n <= j2.cargo.of && !j2.raid) : true)));
         if (j2) {
           for (let k = 0; k < 4; k++) {
@@ -364,8 +368,10 @@ const done = () => { console.log('EVERY JOB KIND: ' + pass + ' passed, ' + fail 
       let j = await job('jk-patrol-wash');
       ok('P1 PATROL taken at ' + here + ': "' + title + '" -> ' + (j ? j.posts.map(p => p.name || (p.x + ',' + p.y)).join(' and ') + ', ' + j.flat + ' flat + ' + j.perHead + ' a head up to ' + j.cap : 'no job'),
         !!j && j.plays === 'patrol' && j.posts.length === 2);
-      const dr = await drew();
-      ok('P2 the posts are on the map (' + dr.hits + ' marks)', dr.hits >= 1);
+      const dr = await drew(), pm = await fr.evaluate(() => (window.__JOB_MARKS || []).filter(m => m.id === 'jk-patrol-wash').map(m => m.on ? 'on the glass' : 'off the glass'));
+      /* RE-AIMED JOBS TWO 11/26: since NO WAYPOINTS (rule 473, 11/22zo) a post off the glass is marked where it stands and takes no touch
+         at the glass's edge, so the touches counted here (hits) were 0 for a post off the glass; the leg reads the jobs' own marks */
+      ok('P2 the posts are on the map (' + pm.length + ' marked: ' + pm.join(', ') + '; ' + dr.hits + ' touches on the glass)', pm.length >= 1);
       if (j) {
         const b0 = await bats();
         for (let k = 0; k < 10; k++) {

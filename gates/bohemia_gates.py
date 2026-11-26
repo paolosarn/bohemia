@@ -2435,6 +2435,10 @@ GATES = [
      'JOBS 2 11/26, ask row 730, rules 482, 480(c), 466(c), 441: a job\'s card opens at once (its reads kept and warmed from the board: '
      'the tap\'s longest task at 4x 608 ms -> under 300) and reads clean (the trip as PLACE and about how long, a stop a line, no followers); '
      'on the phone, the demo and the alpha both ways (records/BOHEMIA_JOBS_TWO_THE_CARD_READS_CLEAN_11_26_26.md).', True),
+    ('THE MOMENT IS SEEN AND HEARD', ['node', 'gates/the_moment_is_seen_and_heard_gate.js'],
+     'JOBS 2 11/26, rules 482, 480, 441, the 120 BPM law: the moment he reaches a job\'s thing (FOUND IT, GOT SIX CELLS) comes in like a '
+     'tape that catches, two rings go out from his feet a beat apart, and the board\'s own tack is heard on the effects bus; in steps on '
+     'a timer, never a frame loop; on the phone, the demo and the alpha both ways (records/BOHEMIA_JOBS_TWO_THE_BOARD_FITS_AND_THE_MOMENT_11_26_26.md).', True),
     ('EVERY FOE AGREES', ['node', 'gates/every_foe_agrees_gate.js'],
      'JOBS 2 11/22, rules 475(b), 441: the end of a fight\'s result line agrees with how many fell for every name a job hands it (his '
      'screenshot: THE GROUND SLOTH ARE DOWN): a group is one (THE CREW AT THE PUMP STATION IS DOWN), the words after AFTER never change, '

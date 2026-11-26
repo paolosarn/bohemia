@@ -129,6 +129,25 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
   .slots.bar .rail{flex:0 0 140px;margin-top:0}
   .slots.waits{display:inline-block;margin:4px 0 0 18px;vertical-align:middle}
 }
+/* JOBS 2 11/26 __THE_BOARD_FITS_FIVE__ (ask row 737, FOUND BY FIXES 3, THE FOURTEEN EYES F533: five jobs, the longest names, a PAID THERE
+   badge on each; upright the sheet held 567 px in 547, on its side 305 in 299, so the board scrolled, rule 402). MEASURED: upright every
+   card gave its pay (48 to 58 px wide) a row of its own under the client, 20 px a card; on its side the pay took 66 px off the client's
+   line, so a name like DONA CHELO's ran to two lines. NOW upright the pay stands at the right end of the client's last line when there is
+   room (on a row of its own only when there is not), and on its side the pay stands beside the job while the client's name has the card's
+   whole width. Only on the dense board (UI 9's #sheet.ns-d1); every word stays whole. */
+html body #sheet.ns-d1 #sbody .act.client{display:flow-root!important;position:relative;padding-left:54px!important}
+html body #sheet.ns-d1 #sbody .act.client>.face{position:absolute;left:10px;top:calc(50% - 18px)}
+html body #sheet.ns-d1 #sbody .act.client>.cl{display:contents}
+html body #sheet.ns-d1 #sbody .act.client>.cl>span{display:block;margin-bottom:2px}
+html body #sheet.ns-d1 #sbody .act.client>.cl>.cn{display:inline}
+html body #sheet.ns-d1 #sbody .act.client>em{float:right;margin:1px 0 0 8px!important;white-space:nowrap!important}
+@media (min-aspect-ratio:4/3) and (max-height:620px){
+  html body #sheet.ns-d1 #sbody .act.client{display:grid!important;padding:2px 8px!important;grid-template-areas:"face t em" "face cn cn"!important;align-items:start!important}
+  html body #sheet.ns-d1 #sbody .act.client>.face{position:static;grid-area:face;align-self:center}
+  html body #sheet.ns-d1 #sbody .act.client>.cl>span{grid-area:t;min-width:0;margin-bottom:0}
+  html body #sheet.ns-d1 #sbody .act.client>.cl>.cn{grid-area:cn;min-width:0}
+  html body #sheet.ns-d1 #sbody .act.client>em{grid-area:em;float:none;align-self:start;margin:1px 0 0 0!important}
+}
 #close{position:absolute;right:8px;top:6px;min-width:44px;min-height:44px;background:none;border:0;color:var(--dim);font:inherit;font-size:20px}
 /* __THE_STATION__ (HOME BASE 4, 11/26, rule 481(b)): a sheet of his place's, laid on purpose for the phone upright and on its side */
 #sheet.hstation .act[data-grind]{min-height:62px;font-size:18px;letter-spacing:4px;border-color:var(--gold);box-shadow:inset 0 0 0 1px rgba(244,207,124,.4),0 2px 0 #000}

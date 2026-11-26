@@ -1806,15 +1806,53 @@
      on the map without a mouth; they reach the phone's feed), so a pickup, a find, a post walked happened in silence. NOW the moment
      is shown the map's own way: a short plate over his crew for a few beats ('GOT SIX CELLS', 'POST 1 WALKED'), green like GET PAID,
      the label under it already changed */
-  var FLASH = null, FLASH_O = [0, 0];
-  function flash(t) { FLASH = { t: String(t).toUpperCase(), until: Date.now() + 3500 }; root.__JOB_FLASH = FLASH.t;
-    try { render(); } catch (e) {} setTimeout(function () { try { render(); } catch (e) {} }, 3600); }
+  /* JOBS 2 11/26 __THE_MOMENT_IS_SEEN_AND_HEARD__ (rule 482, the coordinator: 'the arrival at a job looks and sounds better').
+     MEASURED: the moment he reaches a job's thing ('FOUND IT', 'GOT SIX CELLS', 'POST 1 WALKED', 'TO PRIMM DONE') was the plate
+     alone, drawn in one frame and gone 3.5 s later, without a sound; the map draws only when something moves, so nothing about it
+     moved either. NOW, on the beat and in steps (ten timed draws in 3.5 s, the steps in order and none skipped on a slow phone, so the steps show on a map standing still, never a frame
+     loop, rule 480; a map already drawing every frame just draws them):
+     the plate comes in like a tape that catches (on, a dropout of 70 ms, on), two green rings go out from his feet a beat apart
+     (0 and 500 ms, the 120 BPM law), and it drops out once more before it goes; and the board's own tack is heard once (SOUNDS'
+     recording 'THE BOARD: A TACK GOES IN', slices/vote/settlement_heard/board_nail.mp3, the job's paper getting its mark) on the
+     game's effects bus, so the EFFECTS slider and MUTE hold for it. */
+  /* the steps, in order: [ms, the plate on, which ring (-1 none), how far out]; a slow phone shows every one, one a frame, late */
+  var FLASH_SEQ = [[0, 1, 0, 0], [70, 0, 0, 0.5], [140, 1, 0, 1], [210, 1, -1, 0], [500, 1, 1, 0], [570, 1, 1, 0.5], [640, 1, 1, 1], [710, 1, -1, 0], [3300, 0, -1, 0], [3400, 1, -1, 0]];
+  var FLASH = null, FLASH_O = [0, 0], FLASH_STEPS = [70, 140, 210, 500, 570, 640, 710, 3300, 3400, 3600];
+  function flash(t) { var now = Date.now(); FLASH = { t: String(t).toUpperCase(), t0: now, until: now + 3500, k: 0 }; root.__JOB_FLASH = FLASH.t;
+    try { render(); } catch (e) {}
+    FLASH_STEPS.forEach(function (ms) { setTimeout(function () { try { render(); } catch (e) {} }, ms); });
+    tackHeard(); }
   function flashDraw() {
     if (!FLASH) return; if (Date.now() >= FLASH.until) { FLASH = null; return; }
     /* where he stands, from his own cell (the map writes MAP_DREW.you later in the frame than this layer draws) */
-    try { var q = iso(city.x, city.y, FLASH_O[0], FLASH_O[1]), fy = q.sy + TH / 2 + 2, hh = 72 * Math.max(0.6, MAP_PEOPLE_K || 1);
+    try { var q = iso(city.x, city.y, FLASH_O[0], FLASH_O[1]), fy = q.sy + TH / 2 + 2, hh = 72 * Math.max(0.6, MAP_PEOPLE_K || 1), age = Date.now() - FLASH.t0;
+      var cur = 0; for (var si = 0; si < FLASH_SEQ.length; si++) if (FLASH_SEQ[si][0] <= age) cur = si;
+      var st = FLASH_SEQ[FLASH.k <= cur ? FLASH.k++ : cur];   /* the oldest step not yet shown first: late, never skipped */
+      if (st[2] >= 0) { var u = st[3];   /* a ring a beat: out from his feet and gone in three steps */
+        g.save(); g.globalAlpha = 0.85 * (1 - u * 0.7); g.strokeStyle = '#9fe08a'; g.lineWidth = 2; var r = 14 + 18 * u;
+        g.beginPath(); g.ellipse(q.sx, fy + 2, r, r * 0.38, 0, 0, 7); g.stroke(); g.restore(); root.__JOB_FLASH_RINGS = (root.__JOB_FLASH_RINGS | 0) + 1; root.__JOB_FLASH_RING_AT = (root.__JOB_FLASH_RING_AT || []).concat([st[2] ? 500 : 0]).slice(-40); }
+      if (!st[1]) { root.__JOB_FLASH_DROP = (root.__JOB_FLASH_DROP | 0) + 1; return; }   /* the tape lets go of the picture, then catches it */
       plate(FLASH.t, q.sx, fy - hh - 10, '#9fe08a', 12); if (MINE.length) MINE[MINE.length - 1].moment = true; MAP_DREW.flash = (MAP_DREW.flash | 0) + 1; root.__JOB_FLASH_DRAWN = (root.__JOB_FLASH_DRAWN | 0) + 1; } catch (e) {}
   }
+  var TACK = { buf: null, loading: false, last: 0, url: 'vote/settlement_heard/board_nail.mp3' };
+  function tackHeard() {
+    try {
+      var T = null; try { if (root.parent && root.parent !== root && root.parent.__sfxOut) T = root.parent; else if (root.top && root.top.__sfxOut) T = root.top; } catch (e) { T = null; }
+      var o = T ? T.__sfxOut() : null; if (!o || !o.AC || !o.bus) return;
+      var now = Date.now(); if (now - TACK.last < 600) return; TACK.last = now;   /* two moments on one step: one tack */
+      var AC = o.AC, play = function () { var s = AC.createBufferSource(), gn = AC.createGain(); s.buffer = TACK.buf; gn.gain.value = 0.7; s.connect(gn); gn.connect(o.bus); s.start();
+        s.onended = function () { try { s.disconnect(); gn.disconnect(); } catch (e) {} }; root.__JOB_MOMENT_HEARD = (root.__JOB_MOMENT_HEARD | 0) + 1; };
+      if (TACK.buf) return play();
+      if (TACK.loading || !root.fetch) return; TACK.loading = true;
+      (TACK.bytes ? Promise.resolve(TACK.bytes.slice(0)) : root.fetch(TACK.url).then(function (r) { return r.arrayBuffer(); }))
+        .then(function (ab) { return new Promise(function (res, rej) { AC.decodeAudioData(ab, res, rej); }); })
+        .then(function (b) { TACK.buf = b; TACK.loading = false; if (Date.now() - TACK.last < 3000) play(); }).catch(function () { TACK.loading = false; });
+    } catch (e) {}
+  }
+  /* the tack's bytes fetched in the page's idle time after the map is up (14 KB), so the first moment is never late (measured: the
+     alpha upright's first moment came 1.5 s before its fetch and decode, and was silent) */
+  try { setTimeout(function () { var go = function () { if (TACK.bytes || !root.fetch) return; root.fetch(TACK.url).then(function (r) { return r.ok ? r.arrayBuffer() : null; }).then(function (ab) { if (ab) TACK.bytes = ab; }).catch(function () {}); };
+    if (root.requestIdleCallback) root.requestIdleCallback(go, { timeout: 4000 }); else go(); }, 6000); } catch (e) {}
   /* the real place came onto the map: the job is made there now, from where the client is */
   function settleWait(job) {
     if (job.stage !== 'wait' || !job.waitReal) return false;
@@ -1877,7 +1915,6 @@
        The edge stays clean. On the glass the place is ringed where it stands (above), the way Battle Brothers marks a contract's place;
        the phone's job line says which way and its tap walks there (rule 448). The edge names and their wedges are in the graveyard
        (graveyard/POSTMORTEM_JOBS_THE_EDGE_NAMES_11_22_26.txt). */
-    try { MAP_DREW.jobOff = (MAP_DREW.jobOff | 0) + 1; } catch (e) {}
     return { id: id, name: n.name, act: n.act, label: label, on: false, x: n.x, y: n.y };
   }
   function hit(job, box, cell, pack) { HITS.push(liveHit({ job: job.id, cell: cell, pack: pack == null ? null : pack }, box)); }
