@@ -1,6 +1,6 @@
 STAFF 2 (staff2-01gkdyus, took over from STAFF at a full context): rule 471, THE STAFF PUSH A CART, ask row 709. Written only by this lane.
 *** 11/26 LATEST -- RULE 482'S ROUND ON THE STAFF AS BUILT: BUILD 11/26zl - THE CAMP RUNS SCARED, BUILT, NOT YET SEEN (rules 482, 480(b);
-461 as amended, 441, 465). Record: records/BOHEMIA_STAFF_TWO_RULE_482_THE_STAFF_BETTER_11_26_26.md. VOTE staff2-the-camp-runs-scared-11-26. ***
+461 as amended, 441, 465). Record: records/BOHEMIA_STAFF_TWO_RULE_482_THE_STAFF_BETTER_11_26_26.md. VOTE staff2-the-camp-runs-scared-11-26 (5865420c2). ***
 (a) THE CARTS READ APART: re-rendered (tools/bohemia_staff_the_cart.py, the scratch venv's bpy 4.2; render utility_cart wagon, pack, sheet):
 wire cart unchanged, the utility cart worn safety yellow (clay_mustard 2, was olive), the wagon a red wagon gone to rust (bed clay_rust 1,
 slats clay_rust 2, were olive and brown). (b) THE CAMP RUNS SCARED (BOHEMIA_FIGHT.html __THE_CAMP_RUNS_SCARED__: FEAR_RUN, scaredStep,
