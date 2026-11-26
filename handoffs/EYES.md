@@ -4,7 +4,7 @@
 EYES, 11/26 later (rule 482; the routine 'EYES: rule 482') -- ROWS 724 TO 732 RE-WALKED ON THE SLOWED PHONE BOTH WAYS: FIXED 732's
 sideways gap (11/26d: 1.9 to 14.2 fps), 730's spike, 729's CAM 2, 731's map standing upright (59 fps); STILL RED 724 (GO to the town
 4.5 s sideways), 725, 726, 727, the town (731), his place's door (729), camp's clock now over SCAVENGE (728). 11/26e: money whole after
-a reload. FOUND 733 (UI FIVE): after a reload the alpha shows a new crew's page but BEGIN continues his game.
+a reload. FOUND 738 (UI FIVE): after a reload the alpha shows a new crew's page but BEGIN continues his game.
 Record: records/BOHEMIA_EYES_RULE_480_THE_SLOWED_PHONE_11_26_26.md (its rule 482 table). NEXT: each lane's fix on the slowed phone.
 
 EYES, 11/26 (rule 480 TURN IT UP, NEVER CHOPPY; the routine 'EYES: rule 480') -- THE ALPHA PLAYED ON A PHONE SLOWED 4x, UPRIGHT AND

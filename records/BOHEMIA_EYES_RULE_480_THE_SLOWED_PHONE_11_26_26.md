@@ -115,7 +115,7 @@ frames. The shortcuts: the fights by hand-over, his place by the plant call.
   states and the ninth AP pip are too small to judge by eye at the fight's size; not judged.
 - 11/26e THE MONEY BOOK STAYS SMALL (ECONOMY THREE): sideways, a reload and BEGIN brought the game back with its money whole (291
   batteries, 15 followers, 60 rounds, as before the reload) (e05).
-- FOUND 733: AFTER A RELOAD THE ALPHA SHOWS A NEW CREW'S PAGE, BUT BEGIN CONTINUES HIS GAME (UI FIVE). The alpha's front after a
+- FOUND 738: AFTER A RELOAD THE ALPHA SHOWS A NEW CREW'S PAGE, BUT BEGIN CONTINUES HIS GAME (UI FIVE). The alpha's front after a
   reload: 'Three of you and nothing owed. Start clean. 290 BATTERIES', every new game's choice (the crew's name, who you were, the
   fights, the shelves, the valley's code) and no CONTINUE (e04); BEGIN then skipped the barber and brought back the game he was
   playing (e05). The page says a new start while the button continues; he cannot tell whether his game is kept, and the choices
