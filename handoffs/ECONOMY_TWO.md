@@ -25,8 +25,10 @@ ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/26 LATEST -- BUILD 11/26e -
 - FOR PLUMBER / UI (not money): the phone's feed is the biggest saved key (50 KB by map day 3), capped at 80 posts, so it levels off.
 - READ, NOTHING MOVED: a hire next to his wage (16 to 32 AA to hire a plain man, 1 a night; about one job's pay, Battle Brothers'
   ratio). Seen on the way, EYES' find (rows 724-732): at 4x the stall's double tap does not buy.
-- NEXT: 480(b) on the rest of the money as built (the arena's purses next to a job, the market's rice next to the stall's), then
-  the open rows on the table's owner list. NEVER a tool that waits for a tap (461(c) amended).
+- ALSO READ, NOTHING MOVED (record s4c): the pit's purses (35 to 75 a fight, a tournament 300) sit between a one-skull and a
+  three-skull job a fight; food is 2 a man's night at the stall and on the bill, 1 a good at the walked market.
+- NEXT: the open rows on the table's owner list (every where-row's owner lane told of its band), then 480(b) on the road's events
+  next to a job (a road toll next to a night's rent). NEVER a tool that waits for a tap (461(c) amended).
 
 ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/26 -- BUILD 11/26a - A MEND NEVER COSTS MORE THAN NEW, BUILT, NOT YET SEEN
 (rule 480(b): every price makes sense next to the others; rule 459(e) decided). What was checked first (480(b)): the table on main,

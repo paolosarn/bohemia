@@ -62,6 +62,15 @@ crowns to the battery: a plain man about 16 to 32 AA. His wage is his background
 a farmhand 1 AA a night, a hedge knight 4. So a hire is about one one-skull job's pay and 16 to 32 nights of his wage, Battle
 Brothers' own ratio (a hire about 20 to 40 days of wage). It reads right next to a job (30) and a man's food (2 a night).
 
+## 4c. THE PIT AND THE FOOD NEXT TO A JOB (480(b), read, nothing moved)
+
+- THE PIT (records/target/bb/arena.json): a night's purse 35 for a new fighter, rising with his wins to 75 at fifteen, 5 more a
+  head when they send extra; a tournament's three rounds 60, 90 and 150 (300 for the three). A one-skull killing job pays about
+  30 a fight with the walk in it, a two-skull 60, a three-skull 90: the pit sits between them a fight, and it is one a night in
+  a town that has one. It reads right.
+- FOOD: a man's night of food and water is 2 at the stall (a can and a bottle) and 2 on the night's bill; the walked city's
+  market sells every good at 1 (a bag of rice, rule 9/4). The same number everywhere he meets it.
+
 ## 5. NO MONEY SCREEN COSTS A FRAME (480(c), measured)
 
 tools/bohemia_economy_three_money_frames.js: the demo on a phone upright, the CPU slowed four times with the canvas on the GPU
