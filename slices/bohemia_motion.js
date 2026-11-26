@@ -166,7 +166,7 @@
   function grainURL() {
     if (GRAIN !== null) return GRAIN;
     try {
-      var c = D.createElement('canvas'); c.width = c.height = 96; var g = c.getContext('2d'), s = 1234567;
+      var c = D.createElement('canvas'); c.width = c.height = 96; var g = c.getContext('2d', window.__PICTURES_ON_THE_GPU ? undefined : { willReadFrequently: true }), s = 1234567;
       var rnd = function () { s = (s * 16807) % 2147483647; return s / 2147483647; };
       g.fillStyle = '#808080'; g.fillRect(0, 0, 96, 96);
       for (var i = 0; i < 2600; i++) { var v = rnd() < .5 ? 0 : 255; g.fillStyle = 'rgba(' + v + ',' + v + ',' + v + ',' + (rnd() * .5).toFixed(3) + ')'; g.fillRect(rnd() * 96 | 0, rnd() * 96 | 0, 1, 1 + (rnd() < .2 ? 1 : 0)); }

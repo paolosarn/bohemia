@@ -729,7 +729,7 @@
         put(7, 7, 'paper'); put(6, 7, 'paper'); put(7, 2, 'paper'); break;
     }
     var get = function (x, y) { return (x < 0 || y < 0 || x >= N || y >= N) ? null : G[y * N + x]; };
-    var S3 = 3, cv = document.createElement('canvas'); cv.width = cv.height = N * S3; var g = cv.getContext('2d');
+    var S3 = 3, cv = document.createElement('canvas'); cv.width = cv.height = N * S3; var g = cv.getContext('2d', window.__PICTURES_ON_THE_GPU ? undefined : { willReadFrequently: true });
     for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) {
       var m = G[y * N + x];
       if (!m) { if (get(x - 1, y) || get(x + 1, y) || get(x, y - 1) || get(x, y + 1)) { g.fillStyle = '#0c0805'; g.fillRect(x * S3, y * S3, S3, S3); } continue; }

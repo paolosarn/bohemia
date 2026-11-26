@@ -9496,6 +9496,15 @@ GATES = [
      "a frame while travelling (the beat's timers ask for the next frame); the men behind cut on the GPU, never read back a man; the "
      "ground slid by whole pixels; the zoom down at 4x from the far stop, its come-down and settle at least the ratchet, the last picture "
      "grown between paints. Solo: it measures time. About 12 min", True),
+    ('NEVER CHOPPY (THE FRAME WALK)', ['node', 'gates/never_choppy_the_frame_walk_gate.js'],
+     "PLUMBER 8 gate, 11/26, VAMILY rule 480(c)(d) (Paolo 11/26: 'make sure fps is never choppy for nothing'). One walk through every "
+     "screen and every move between them on a slowed phone (390 x 844, CPU 4x, the canvas on a GPU process): the freeze census's walk of "
+     "the demo with rule 480's own steps (the map panned by a finger, the jobs on a town's board, his place's camera pinched) and the "
+     "alpha's VOTE tab (its loading screen, the tab standing and dragged); every frame past 50 ms named with whether the page's own code "
+     "ran in it; every step inside rule 480 (55 fps on the mean, no frame past 50 ms) or KNOWN with its owner and ask row and inside a "
+     "ratchet that may only tighten; the walk's total; no once-made picture read off a GPU canvas; P1 a planted 120 ms stall and P2 the "
+     "old way (__PICTURES_ON_THE_GPU) turn it red. records/BOHEMIA_PLUMBER_THE_FRAME_WALK_11_26_26.md. Solo: it measures time. "
+     "About 40 min", True),
     ('NO FREEZE OVER HALF A SECOND', ['node', 'gates/no_freeze_over_half_a_second_gate.js'],
      "PLUMBER 8 gate, 11/10, rule 441(a)(c) ('no step that freezes over half a second... 60 frames on a cheap phone, the first load "
      "light'), rule 400: THE FREEZE CENSUS (tools/bohemia_freeze_census.js), the demo on his phone upright with the CPU slowed 4x and "

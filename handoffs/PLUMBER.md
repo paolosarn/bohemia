@@ -1,5 +1,34 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/26, BUILD 11/26y NEVER CHOPPY: THE FRAME WALK (VAMILY rule 480(c)(d), the routine 'PLUMBER 8: rule 480 frame walk'; rule 441).
+  BUILT 480(d): tools/bohemia_frame_walk.js, the freeze census's walk of the demo with rule 480's own steps (opts.more: the map panned by
+  a finger, the jobs on a town's board, his place's camera pinched in and out) and the alpha's VOTE tab (its loading screen to BEGIN, the
+  tab standing, dragged); every frame of the top page judged: a hitch past 50 ms, a choppy step under 55 a second, each hitch PAGE (its
+  tasks over 50 ms) or DRAWING; --profile adds each step's costliest functions. The census itself (tools/bohemia_freeze_census.js) now
+  carries per step: over50, over50page, worstPage, pageMs, its six worst hitches; NO FREEZE's walk is unchanged (the new steps opt-in).
+  GATE: NEVER CHOPPY (THE FRAME WALK) (gates/never_choppy_the_frame_walk_gate.js, solo, in the suite): W1 every screen walked; R1 every
+  step inside rule 480 or KNOWN with its owner and row and its page hitches inside its line (3x the largest seen + 10; their worst and
+  the frames a second printed, not judged: this box's software GPU and one task swing a step 2x to 10x between walks); R2 the walk's
+  page hitches in all at most 538 (430, 387, 403, 390 measured); R3 no once-made picture read off a GPU canvas; P1 every frame of the
+  save made 55 ms of work, P2 the old way, each turns it red. A walk stopped early waits three frames before counting.
+  THE FIRST READING (this box, CPU 4x, SwiftShader): 2 of 42 steps inside rule 480 (a save, the VOTE tab dragged); 1,178 to 1,234 frames
+  past 50 ms a walk, 387 to 430 with the page's own code in them. Profiled, the page's own costs: the counts' marks made as PNGs off a GPU
+  canvas (4.6 s, 2.7 s), one job's danger plan in one piece (9.3, 4.8, 4.4 s), the alpha's 2-D cast baked behind its loading screen and
+  the VOTE tab (10.5, 13.0 s), the map's ink line read back (6.0 s), the minigame's lightness read off the GPU (4.4 s), a kindOf with no
+  file (3.4 s; not placed).
+  CUT: __THE_PICTURES_MADE_ONCE_ON_THE_CPU__: every picture a page makes once and turns into a file is drawn on a CPU canvas
+  (willReadFrequently): the counts' marks and arrow (bohemia_ui_three_items.js), the crash box's tin, gold, rivet, tape
+  (bohemia_ui_crashbox.js), the grain (bohemia_motion.js), the supply icons (bohemia_ui_materials.js). Switch __PICTURES_ON_THE_GPU.
+  AFTER (two clean walks, the switch off and on): GPU-waiting picture reads 14 -> 0; the page's own hitches 430 -> 387; the time in each
+  step's six worst page hitches 161 s -> 123 s. EVERY COUNT A PICTURE 15/0; THE MAP'S BAR 5/2 the same with main's files (row 678).
+  ROWS: 740 (JOBS 2: one plan in one piece), 741 (WORLD 13: the map reads its own picture back: the ink line, the sprite outlines, the
+  late tiles' poll; and a 10.7 s task under a finger drag); notes on 724 and 725 (mine).
+  NEXT (mine, biggest first): row 725, the way home from the boss's spoils held ONE 7.9 s TASK IN THE SHELL on the fifth walk (after
+  main's 11/26p and 11/26f on the spoils; 1.2 to 3.5 s on the four before): profile it first; row 724, the alpha's 2-D cast bake behind
+  its loading screen and the VOTE tab (bakeCast, buildFrame, skin: 13 s of the page's time behind the tab): slice it into idle time or
+  let it go where the demo already did (rule 174); then kindOf (no file) placed. Row 722 (the stuck win) RE-CHECKED on 11/26y: THE
+  WHOLE LOOP PLAYS 11/0 (FIXES 3's LEAVE WAITS FOR THE SCREEN).
+
 PLUMBER 8 (chat 18) 11/22, BUILD 11/22zze THE FIGHT WAITS BEHIND THE CARD (rule 472(e) 'it's just like the combat map', rule 441, ask row 613).
   MEASURED (a probe that meets a road crew the way he does: the MEET card, read, a finger on ENGAGE; the demo upright, CPU 4x, the GPU
   canvas, the real map's fog, a phone's 100 ms round trip; the fight page's own clock window.__FIGHT_T, a network waterfall): from ENGAGE

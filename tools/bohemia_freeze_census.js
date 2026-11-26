@@ -40,6 +40,7 @@ const READS = "(function(){ try { var T = window.top, C = HTMLCanvasElement.prot
   + " X.getImageData = function () { put('read', this.canvas, this); return gi.apply(this, arguments); }; } catch (e) {} })();";
 
 const FREEZE = 500;
+const HITCH = 50;   /* rule 480(d): a frame past 50 ms is a hitch */
 
 /* every step's frames from the clock: frames a second, worst frame, the freezes over half a second and the long tasks in each */
 function census(fz, endAt) {
@@ -57,12 +58,32 @@ function census(fz, endAt) {
       tasks: fz.long.filter(l => l[0] < g[0] + g[1] && l[0] + l[1] > g[0]).map(l => ({ ms: Math.round(l[1]), frame: String(l[2]).split('/').pop() || 'top' })) }));
     const span = ts.length > 1 ? ts[ts.length - 1] - ts[0] : 0;
     const ds = gaps.map(g => g[1]).sort((p, q) => p - q);
+    /* RULE 480 (PLUMBER 8, 11/26, the frame walk): every frame past 50 ms, and what ran in it: the page's own tasks over 50 ms inside the gap
+       (the frame each ran in), or none (the drawing: the compositor, the GPU, the browser's own work) */
+    const hitches = gaps.filter(g => g[1] > HITCH).map(g => { const tk = fz.long.filter(l => l[0] < g[0] + g[1] && l[0] + l[1] > g[0]);
+      const inTasks = tk.reduce((q, l) => q + Math.max(0, Math.min(l[0] + l[1], g[0] + g[1]) - Math.max(l[0], g[0])), 0);
+      return { at: Math.round(g[0] - a), ms: Math.round(g[1]), page: inTasks >= g[1] * 0.5, tasks: tk.map(l => ({ ms: Math.round(l[1]), frame: String(l[2]).split('/').pop() || 'top' })) }; });
     out.push({ step: bounds[i][1], ms: Math.round(b - a), frames: Math.max(0, ts.length - 1), fps: span ? +(1000 * (ts.length - 1) / span).toFixed(1) : 0,
+      over50: hitches.length, over50page: hitches.filter(h => h.page).length, worstPage: hitches.filter(h => h.page).reduce((q, h) => Math.max(q, h.ms), 0),
+      pageMs: hitches.filter(h => h.page).reduce((q, h) => q + h.ms, 0), hitches: hitches.sort((p, q) => q.ms - p.ms).slice(0, 6),
       p50: ds.length ? +ds[Math.floor(ds.length / 2)].toFixed(1) : null, worst: ds.length ? Math.round(ds[ds.length - 1]) : null,
       over33: ds.filter(x => x > 34).length, reads: rd.length, pngs: rd.filter(r => r[1] === 'png').length, gpuReads: gpuReads.length, gpuPx: gpuReads.reduce((q, r) => q + r[3], 0),
       gpuBy: gpuReads.reduce((m, r) => { const k = r[4] + ' ' + r[1] + ' ' + r[3] + 'px ' + (r[5] || ''); m[k] = (m[k] || 0) + 1; return m; }, {}), freezes });
   }
   return out;
+}
+
+/* a step's CPU profile, cut to what costs: the page's own functions by their own time (the browser's raster, idle and the garbage
+   collector kept apart), and by everything they called */
+function profTop(pr) {
+  const byId = new Map(); pr.nodes.forEach(n => byId.set(n.id, n)); const parent = new Map(); pr.nodes.forEach(n => (n.children || []).forEach(c => parent.set(c, n.id)));
+  const key = n => (n.callFrame.functionName || '(anon)') + ' ' + n.callFrame.url.split('/').pop().split('?')[0] + ':' + (n.callFrame.lineNumber + 1);
+  const self = new Map(), total = new Map(); let all = 0, idle = 0, prog = 0, gc = 0;
+  for (let i = 0; i < pr.samples.length; i++) { const us = pr.timeDeltas[i + 1] || 0, id = pr.samples[i], n = byId.get(id), k = key(n); all += us;
+    if (/^\(idle\)/.test(k)) { idle += us; continue; } if (/^\(program\)/.test(k)) { prog += us; continue; } if (/^\(garbage collector\)/.test(k)) { gc += us; continue; }
+    self.set(k, (self.get(k) || 0) + us); const seen = new Set(); let cur = id; while (cur != null) { const kk = key(byId.get(cur)); if (!seen.has(kk)) { seen.add(kk); total.set(kk, (total.get(kk) || 0) + us); } cur = parent.get(cur); } }
+  const ms = us => Math.round(us / 1000), top = (m, n, f) => [...m].filter(([k]) => !f || f(k)).sort((a, b) => b[1] - a[1]).slice(0, n).map(([k, us]) => ms(us) + ' ' + k);
+  return { ms: ms(all), idle: ms(idle), program: ms(prog), gc: ms(gc), self: top(self, 8), total: top(total, 10, k => !/^\((root|anon)\) :0/.test(k) && /\.(html|js):/.test(k)) };
 }
 
 async function walk(opts) {
@@ -82,10 +103,12 @@ async function walk(opts) {
   /* one step: its mark, its press, its settle; a step that could not be pressed is said, never counted as smooth */
   const step = async (name, press, settle) => {
     if (only && !only.some(o => name.indexOf(o) >= 0)) { try { await press(); } catch (e) {} await sleep(settle || 2500); return true; }
+    if (opts.profile) { try { await d.cdp.send('Profiler.enable'); await d.cdp.send('Profiler.setSamplingInterval', { interval: 1000 }); await d.cdp.send('Profiler.start'); } catch (e) {} }
     await mark(name); curStep = name; let ok = true, why = '';
     try { const r = await press(); if (r === false) { ok = false; why = 'not pressed'; } } catch (e) { ok = false; why = String(e && e.message || e).slice(0, 120); }
     await sleep(settle || 2500);
-    steps.push({ name, ok, why }); if (!ok) log('  (step ' + name + ': ' + why + ')');
+    let prof = null; if (opts.profile) { try { const { profile } = await d.cdp.send('Profiler.stop'); prof = profTop(profile); } catch (e) {} }
+    steps.push({ name, ok, why, prof }); if (!ok) log('  (step ' + name + ': ' + why + ')');
     if (opts.stopAfter && name.indexOf(opts.stopAfter) === 0) { const e = new Error('stop'); e.stop = true; throw e; }
     return ok;
   };
@@ -124,6 +147,11 @@ async function walk(opts) {
     await step('the map travelling, slowest speed (' + speeds[0] + ')', async () => { if (!(await setOut())) return false; await fr.evaluate(n => travelSpeedSet(n), speeds[0]); await quiet(); }, 8000);
     await step('the map travelling, fastest speed (' + speeds[speeds.length - 1] + ')', async () => { if (!(await fr.evaluate(() => !!TRAVEL)) && !(await setOut())) return false; await fr.evaluate(n => travelSpeedSet(n), speeds[speeds.length - 1]); await quiet(); }, 8000);
     await fr.evaluate(() => { try { travelStop(); } catch (e) {} });
+    /* RULE 480 (opts.more): the map panned by a finger, the way he drags it (one finger, 30 moves, a quarter of the glass) */
+    if (opts.more) await step('the map panned (a finger drag)', async () => { const vp = p.viewportSize() || { width: 390, height: 844 }, cx = vp.width / 2, cy = vp.height * 0.45;
+      for (let k = 0; k < 2; k++) { const dx = k ? -1 : 1; await d.cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: cx, y: cy, id: 7 }] });
+        for (let i = 1; i <= 30; i++) { await d.cdp.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: cx + dx * i * 3, y: cy + dx * i * 2, id: 7 }] }); await sleep(17); }
+        await d.cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }); await sleep(900); } return true; }, 2000);
     await step('the pinch in, to the street', async () => { for (let i = 0; i < 3; i++) await d.pinchIn(); }, 2000);
     await step('the pinch out, to the far stop', async () => { for (let i = 0; i < 4; i++) await d.pinchOut(); }, 2000);
     await fr.evaluate(() => { try { if (typeof SKY !== 'undefined' && SKY && typeof skyExit === 'function') skyExit(); } catch (e) {} setZoomAt(1); try { camHold(); } catch (e) {} render(); });
@@ -146,6 +174,13 @@ async function walk(opts) {
     await step('shop > an item', async () => { if (!(await seen('#shelfgrid .slot'))) { if (shopK) await tapWhere(shopK); if (!(await seen('#shelfgrid .slot'))) return false; } return tapSel('#shelfgrid .slot'); }, 2000);
     await step('the sheet shut', () => tapSel('#close'), 2000);
     await shut(); await sleep(500);
+    /* RULE 480 (opts.more): the jobs, the town's board: its sheet up, a job's row read, the sheet shut */
+    if (opts.more) {
+      await step('town > the jobs (the board)', async () => { for (let k = 0; k < 4; k++) { await tapWhere('board'); if (await seen('#sheet button.act.client', null, 6000)) return true; } return false; }, 2000);
+      await step('the jobs: a job read', () => tapSel('#sheet button.act.client'), 2000);
+      await step('the jobs shut', () => tapSel('#close'), 1500);
+      await shut(); await sleep(500);
+    }
     const lot = sf ? await sf.evaluate(() => ['lot', 'scavenge'].find(k => !!BohemiaSettlement.where(k)) || null) : null;
     const SEARCH = 'Search the lot';
     await step('town > the lot', async () => { if (!lot) return false; for (let i = 0; i < 4; i++) { await tapWhere(lot); if (await seen('#sbody .act', SEARCH, 7000)) return true; } return false; }, 1500);
@@ -194,6 +229,11 @@ async function walk(opts) {
     if (homeAt) { await fr.evaluate(a => { city.x = a[0]; city.y = a[1]; try { render(); } catch (e) {} }, homeAt); await sleep(1500); }
     await step('a home base planted', () => homeAt ? fr.evaluate(() => { const res = BohemiaHomeMap.plant(); try { render(); } catch (e) {} return !!(res && res.ok); }) : false, 3000);
     await step('map > the home base', () => fr.evaluate(() => { const bs = ctBases(), n = BohemiaBetween.mine(); if (!n || !bs[n]) return false; city.x = bs[n].x; city.y = bs[n].y; loopOpenTown({ name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }); return true; }), 4500);
+    /* RULE 480 (opts.more): his place and its camera: the pinch in on his own screen and back out */
+    if (opts.more) {
+      await step('his place: the pinch in (its camera)', async () => { for (let i = 0; i < 2; i++) await d.pinchIn(); return true; }, 1500);
+      await step('his place: the pinch out', async () => { for (let i = 0; i < 2; i++) await d.pinchOut(); return true; }, 1500);
+    }
     await step('the home base > map', leave, 3500);
     await quiet(); await sleep(800);
     /* ---- the save, and the game reopened after the tab died ---- */
@@ -216,7 +256,10 @@ async function walk(opts) {
     } catch (e) { out.reloadErr = String(e && e.message || e).slice(0, 160); }
   } catch (e) {
     if (!e || !e.stop) throw e;
-    if (!out.walk) out.walk = census(await M(() => window.__FZ), await M(() => performance.now()));
+    /* a walk stopped early waits for three frames after its last step (and the long-task report), so a gap still open at the stop (a
+       stall that just ended) is closed and named: the page answers an evaluate the moment a stall ends, before it draws a frame */
+    if (!out.walk) { await M(() => new Promise(r => { let n = 0; const f = () => (++n >= 3 ? setTimeout(r, 300) : requestAnimationFrame(f)); requestAnimationFrame(f); })).catch(() => {});
+      out.walk = census(await M(() => window.__FZ), await M(() => performance.now())); }
   } finally {
     try { await d.close(); } catch (e) {}
   }
@@ -242,7 +285,7 @@ function report(o) {
   if (o.errs.length) L.push('  page errors: ' + o.errs.slice(0, 3).join(' | '));
   return L.join('\n');
 }
-module.exports = { walk, census, report, CLOCK, READS, FREEZE };
+module.exports = { walk, census, report, profTop, CLOCK, READS, FREEZE, HITCH };
 
 if (require.main === module) {
   const a = process.argv.slice(2), arg = (k) => { const i = a.indexOf(k); return i >= 0 ? a[i + 1] : null; };

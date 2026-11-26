@@ -152,7 +152,7 @@
   var ARROW = ['0001000', '0011100', '0111110', '1111111', '0011100', '0011100', '0011100'];
   function arrowURL(up) {   /* the stats' own arrow (engine/bohemia_stats.js), seven cells on seven, a pixel of bone round it */
     var B = window.BohemiaStats; if (B && B.css) { B.css(); return null; }
-    var c = document.createElement('canvas'); c.width = c.height = 27; var g = c.getContext('2d'), ink = up ? '#2e8b22' : '#b8261b';
+    var c = document.createElement('canvas'); c.width = c.height = 27; var g = c.getContext('2d', window.__PICTURES_ON_THE_GPU ? undefined : { willReadFrequently: true }), ink = up ? '#2e8b22' : '#b8261b';
     var cell = function (col) { g.fillStyle = col; ARROW.forEach(function (r, y) { for (var x = 0; x < 7; x++) if (r[x] === '1') g.fillRect(3 + x * 3, 3 + (up ? y : 6 - y) * 3, 3, 3); }); };
     g.save(); [[-2, 0], [2, 0], [0, -2], [0, 2]].forEach(function (d) { g.setTransform(1, 0, 0, 1, d[0], d[1]); cell('#efe6d0'); }); g.restore();
     g.setTransform(1, 0, 0, 1, 0, 0); cell(ink); return 'url(' + c.toDataURL('image/png') + ')';
@@ -472,7 +472,7 @@
   var UC_CLOCK = ['000111111000', '001000000100', '010000100010', '100000100001', '100000100001', '100000100001', '100000111001', '100000000001', '100000000001', '010000000010', '001000000100', '000111111000'];   /* the kit's own WAIT mark */
   var UC_URL = {};
   function ucMask(k, rows) {   /* a printed mark as a mask: it takes the ink of the line it stands in (bone on the board, brown on the paper) */
-    if (UC_URL[k]) return UC_URL[k]; var n = rows.length, c = document.createElement('canvas'); c.width = c.height = n * 3; var g = c.getContext('2d'); g.fillStyle = '#000';
+    if (UC_URL[k]) return UC_URL[k]; var n = rows.length, c = document.createElement('canvas'); c.width = c.height = n * 3; var g = c.getContext('2d', window.__PICTURES_ON_THE_GPU ? undefined : { willReadFrequently: true }); g.fillStyle = '#000';
     rows.forEach(function (r, y) { for (var x = 0; x < n; x++) if (r[x] === '1') g.fillRect(x * 3, y * 3, 3, 3); });
     return (UC_URL[k] = 'url(' + c.toDataURL('image/png') + ')');
   }

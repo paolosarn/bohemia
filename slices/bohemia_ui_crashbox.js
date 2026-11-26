@@ -76,7 +76,7 @@
 
   /* ---------------- THE MATERIALS: rusty tin, gold paint on tin, a rivet, plywood (baked, never a filter) ---------------- */
   function tin(w, h, gold, seed) {
-    var c = cv(w, h), g = c.getContext('2d'), r = rng(seed || 5);
+    var c = cv(w, h), g = c.getContext('2d', window.__PICTURES_ON_THE_GPU ? undefined : { willReadFrequently: true }), r = rng(seed || 5);
     g.fillStyle = gold ? '#c8ab63' : '#26281f'; g.fillRect(0, 0, w, h);   /* dark enough that his words read in the sun (rule 73) */
     var i, x, y;
     /* the sheet's own unevenness: soft blotches of a step lighter and a step darker, as hammered metal */
@@ -92,14 +92,14 @@
     return c;
   }
   function tapeTile(w, h, seed) {
-    var c = cv(w, h), g = c.getContext('2d'), r = rng(seed || 4);
+    var c = cv(w, h), g = c.getContext('2d', window.__PICTURES_ON_THE_GPU ? undefined : { willReadFrequently: true }), r = rng(seed || 4);
     g.fillStyle = '#dccfa6'; g.fillRect(0, 0, w, h);
     for (var i = 0; i < w * h / 5; i++) { g.fillStyle = r() < .5 ? '#d3c59a' : '#e3d7b0'; g.fillRect(r() * w | 0, r() * h | 0, 1 + (r() * 3 | 0), 1); }
     for (i = 0; i < w / 6; i++) { g.fillStyle = '#d0c295'; g.fillRect(r() * w | 0, r() * h | 0, 1, 1 + (r() * 4 | 0)); }
     return c;
   }
   function rivet() {
-    var c = cv(5, 5), g = c.getContext('2d');
+    var c = cv(5, 5), g = c.getContext('2d', window.__PICTURES_ON_THE_GPU ? undefined : { willReadFrequently: true });
     g.fillStyle = '#0e0a05'; g.fillRect(1, 0, 3, 5); g.fillRect(0, 1, 5, 3);
     g.fillStyle = '#7d7a6c'; g.fillRect(1, 1, 3, 3); g.fillStyle = '#b9b39c'; g.fillRect(1, 1, 2, 1); g.fillRect(1, 2, 1, 1);
     return c;
