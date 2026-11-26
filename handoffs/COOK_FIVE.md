@@ -1,6 +1,6 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
-COOK FIVE (cook-six-01gkdyut): 11/26 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/26c - THE NAMES PAINTED, BUILT (SHIPSHA), NOT YET SEEN (rule 480 (b) and (c); 461(c) as amended; rules 441, 451(a); ask row 723).
+COOK FIVE (cook-six-01gkdyut): 11/26 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/26c - THE NAMES PAINTED, BUILT (2282faef0), NOT YET SEEN (rule 480 (b) and (c); 461(c) as amended; rules 441, 451(a); ask row 723).
 480(b), THIS LANE'S OWN PIECES FIRST: COMBAT FOUR's BUILD 11/22zd answered my 11/21 asks, and each drew what it drew before until now. PAINTED: the school's floor.court (row 3:
 the maple sealed, a white line E-W through a tile's middle, a red one 2.2 m from its north edge, a white one N-S 3 m from its west edge, the same on every tile so they run on),
 floor.hall (row 4: vinyl squares of 30 cm, the path worn E-W), floor.floor and ring now rows 0-2; sc_bleachers_n (letter B: stepping up to the SOUTH, its back to the camera);
