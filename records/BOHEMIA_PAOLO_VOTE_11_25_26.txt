@@ -1,0 +1,1992 @@
+BOHEMIA VOTE -- 11/25
+One tab, one queue. Paolo 9/14.
+
+YES  THE SHIELDS SHOW, AND THE SLEDGE IS IN HIS HANDS
+     id    combat-8-the-shields-show-11-6
+     kind  animation   lane combat   on 11/5
+
+YES  TAP A QUEST ON YOUR PHONE AND YOUR PEOPLE GO
+     id    ui7-tap-a-quest-on-the-phone-11-3
+     kind  ui   lane ui 7   on 11/5
+
+YES  THE LAB YARD: MORE LOVE
+     id    combat-place-lab-11-3c
+     kind  redo   lane combat   on 11/5
+
+YES  THE STRIP: MORE LOVE
+     id    combat-place-strip-11-3c
+     kind  redo   lane combat   on 11/5
+
+YES  THE RARE MAN'S CARD SAYS WHY YOU WANT HIM
+     id    hires-the-rare-card-on-the-phone-11-3
+     kind  ui   lane hires   on 11/5
+
+YES  FOURTEEN RARE MEN, EACH HIS OWN LOOK
+     id    hires-the-fourteen-rare-men-11-3
+     kind  outfit   lane hires   on 11/5
+
+YES  YOUR CREW IN THE CAMP: NO BROWN PANELS, TAP A MAN AND THE CAMERA GLIDES TO HIM
+     id    ui7-the-crew-sees-the-camp-11-3
+     kind  ui   lane ui 7   on 11/5
+
+YES  THE SAME FIGHT, THREE LEVELS
+     id    tuning-the-same-fight-three-levels-11-3
+     kind  tile   lane tuning   on 11/5
+
+YES  THE FIGHT'S BOARD IS NOW THE MAP'S OWN STREET WHERE THE FIGHT HAPPENS
+     id    combat2-the-board-is-the-city-11-6
+     kind  tile   lane combat 2   on 11/5
+     said  I love this bro, and hopefully by marrying the two no matter what we do moving forward in this regard like maybe you'll realize how fucked up your huge map world generation was and how fucked up your combat map generation was like bro like you gotta have streets in the right places, bro like damn your most houses are gonna have a street connecting them like there's never really gonna be House unless it's a fucking a trailer park you know but if there's a house there's a street in front of that type shit bro so hopefully that gives you something think about even on the big map scale cause that isn't final either so we do have time to edit that but yeah, I love it
+
+YES  SCAVENGE: YOUR THREE AS ONE GAME ON THE DEAD SHOT DIAL (A DESIGN, NOTHING BUILT)
+     id    scavenge-the-design-for-his-yes-11-7
+     kind  animation   lane scavenge   on 11/6
+     said  I want it to be like a fun minigame
+
+YES  STAND-IN: THE PISTOL IN HIS HAND, HELD LEVEL, ITS CARD IN THE DIRT, STILL NOT THE BAR
+     id    cook-the-pistol-stand-in-11-6
+     kind  animation   lane cook   on 11/6
+     said  Too tiny
+
+YES  THE ZOOM DOWN INTO THE BOARD: NO LOADING SCREEN, THE MAP TURNS INTO THE FIGHT
+     id    motion-the-zoom-down-into-the-board-11-6
+     kind  animation   lane motion   on 11/6
+     said  Needs more better
+
+NO   THE CARCASS AND THE VULTURES: A KILL STAYS WHERE IT FELL, AND THE BIRDS COME
+     id    world-11-the-carcass-and-the-vultures-11-6
+     kind  animation   lane world   on 11/6
+     said  Maybe you're not really making it like simplified bro you're adding information you're making some bullshit for some car shit like I just wanna easy. Quick interaction shit I don't know. Maybe they do end up in our storage I don't know. Like I just give you examples like I said something about like a shopping cart to pick up the bodies, but like that was an example and you just really ran with him, bro I don't know if I was the answer
+
+YES  THE VOTE TAB SAYS WHAT EACH ART PIECE IS
+     id    run2-the-marks-11-6
+     kind  ui   lane run 2   on 11/6
+
+YES  YOU SEE THEM RUN: A RETREAT YOU WATCH, TILE TO TILE
+     id    combat-9-you-see-them-run-11-6
+     kind  animation   lane combat   on 11/6
+
+YES  THE FIGHT IN THE PIT: NO RETREAT, NOBODY LEAVES, NOTHING OFF THE DEAD, AND THE CROWD THAT CHEERS, GASPS AND BOOS
+     id    arena-the-fight-in-the-pit-11-3
+     kind  sound   lane arena   on 11/6
+     said  The arena map is so fucking ugly bro
+
+YES  NO MORE NEXT PAGE: EVERY SCREEN FITS BY BEING SMALLER
+     id    ui9-smaller-never-pages-11-7
+     kind  ui   lane ui   on 11/7
+
+YES  THE WAY INTO A FIGHT: ONE CAMERA COMES DOWN, THE TAPE TRACKS, THE BOARD LANDS
+     id    motion-2-the-way-into-a-fight-11-7
+     kind  animation   lane motion   on 11/7
+
+YES  THE FIGHT'S BOARDS GOT THEIR OLD DRESSING BACK, ON THE MAP'S OWN STREETS
+     id    combat2-the-boards-wear-their-dressing-11-7
+     kind  tile   lane combat 2   on 11/7
+     said  Wip
+
+YES  THE CRAWL: A MAN OF YOURS STRUCK DOWN DRAGS HIMSELF AWAY
+     id    animation-the-crawl-golden-11-7
+     kind  animation   lane animation   on 11/7
+
+YES  THROUGH THE CLOUDS: THE CAMERA COMES DOWN THROUGH THE VALLEY'S DUST ONTO THE STREET
+     id    motion-2-through-the-clouds-11-8
+     kind  animation   lane motion   on 11/8
+
+YES  THE CREW SCREEN SEES THE FIGHT: RIGHT AFTER A FIGHT, YOUR MEN GOING THROUGH THE DEAD
+     id    animation-the-crew-sees-the-fight-11-7
+     kind  animation   lane animation   on 11/8
+
+YES  THE MAP AT NIGHT: EMBERS ARE EMBERS, LAMPS LIGHT THE GROUND
+     id    plumber-7-the-map-s-lights-11-7
+     kind  tile   lane plumber   on 11/8
+
+YES  THE ENEMY KNOWS WHEN IT IS OUTMATCHED: IT TAKES THE HOUSES AND WAITS
+     id    combat2-the-enemy-digs-in-11-7
+     kind  animation   lane combat 2   on 11/8
+
+YES  THE OLD FIGHT LAYOUTS ARE BACK, WITH THE NEW HOUSES IN THEM, AND YOU CAN STAND ON EVERY HOUSE
+     id    combat2-the-old-layout-the-new-houses-11-7
+     kind  tile   lane combat 2   on 11/8
+
+YES  YOUR TURN HITS 7 DB HARDER, ON THE BEAT, ONE PACE, MUSIC THE WHOLE FIGHT
+     id    sounds2-the-fight-as-you-hear-it-11-7
+     kind  sound   lane sounds 2   on 11/8
+
+YES  THE TERATORN: THE GIANT VULTURE IS ONE MORE BEAST YOU FIGHT
+     id    world-12-the-teratorn-11-7
+     kind  animation   lane world   on 11/8
+
+YES  EVERY WEAPON HAS ITS RANGE BANDS, TAPED ON THE GROUND
+     id    weapons-every-weapon-has-its-range-bands-11-7
+     kind  ui   lane weapons   on 11/8
+
+YES  EVERY ORIGIN ITS OWN GEAR, ITS OWN SHOP, ITS OWN RULE; THE LONE WOLF IN GOLD
+     id    origins-each-origin-its-own-11-7
+     kind  outfit   lane origins   on 11/8
+
+YES  NINE ENEMY TYPES IN THEIR OWN CLOTHES: THE HOUSE, THE BLOCK WATCH, THE KEEPERS, THE WATER PEOPLE
+     id    character-the-nine-enemies-their-own-clothes-11-7
+     kind  outfit   lane character   on 11/8
+
+YES  THE KILL GOES IN THE STASH: ONE TAP, NO CART, NO VULTURES
+     id    world-12-the-kill-goes-in-the-stash-11-7
+     kind  redo   lane world   on 11/8
+
+YES  THE SHOP SHOWS NOTHING ABOUT YOUR MEN UNTIL YOU TAP A PIECE
+     id    ui3-nothing-shows-until-he-taps-11-7
+     kind  ui   lane ui three   on 11/8
+
+YES  THE PIT FIGHT NOW HAPPENS IN THE PIT: A DRAINED VEGAS POOL, ITS WALLS THE EDGES, THE CROWD ROUND IT
+     id    arena2-the-pit-is-a-pit-11-7
+     kind  tile   lane arena 2   on 11/8
+
+YES  THE RETINUE: EIGHTEEN PEOPLE OF THE DEAD CITY, MET IN A TOWN'S HALL, STANDING BY YOUR FIRE
+     id    retinue-the-eighteen-11-7
+     kind  ui   lane retinue   on 11/8
+
+YES  THE WEAPON CARD IS PICTURES WITH BARS, THE BOXES ARE FRAMED BY QUALITY
+     id    ui3-the-item-card-and-the-item-box-11-7
+     kind  ui   lane ui three   on 11/8
+
+YES  THE PISTOL, NO LONGER TOO TINY: A FOREARM LONG IN HIS HAND
+     id    weapons-the-pistol-a-forearm-long-11-7
+     kind  animation   lane weapons   on 11/8
+
+YES  A FIGHT ON THE FREEWAY IS FOUGHT ON THE FREEWAY: THE DECK, THE OVERPASS, THE UNDERPASS, THE INTERCHANGE
+     id    freeway-the-freeway-fight-11-7
+     kind  tile   lane freeway   on 11/8
+
+YES  EVERY HOUSE NOW HAS A STREET IN FRONT OF IT, ON THE MAP AND IN THE FIGHT
+     id    world13-a-street-at-every-house-11-7
+     kind  tile   lane world 13   on 11/8
+
+YES  TRADE GOODS: BUY IT WHERE IT IS MADE, CARRY IT, SELL IT WHERE IT PAYS
+     id    economy-trade-goods-carried-11-7
+     kind  ui   lane economy   on 11/8
+
+YES  THE KILL CAMS, REMADE: ONLY THE KILLS THAT MATTER, ON YOUR CREW'S TAPE
+     id    animation-the-kill-cams-remade-11-7
+     kind  animation   lane animation   on 11/8
+
+YES  EVERY WEAPON SHOWS: THE TWO-HANDERS THAT WERE EMPTY HANDS, AND SIX NEW ONE-HANDERS
+     id    weapons-every-weapon-shows-11-7
+     kind  animation   lane weapons   on 11/8
+
+YES  SCAVENGE IS IN: YOUR THREE ON THE DEAD SHOT DIAL, ON THE BLOCK'S OWN BOARD
+     id    scavenge-on-the-dial-built-11-7
+     kind  animation   lane scavenge   on 11/8
+
+YES  ON AUTO EVERY MAN OF YOURS MOVES OR SWINGS AGAIN
+     id    combat2-every-man-acts-on-auto-11-8
+     kind  animation   lane combat 2   on 11/8
+
+NO   EVERY DOOR IN A TOWN HAS A SIGN, SCAVENGE TOO
+     id    ui9-every-door-has-a-sign-11-8
+     kind  ui   lane ui   on 11/8
+     said  No, it has to be naturally part of the world or I don't want it the little floating labels I don't like it
+
+YES  ON AUTO NO MAN IS SKIPPED: THE GUNMAN STEPS UP, A QUIET TURN SAYS WHAT IT IS
+     id    combat2-no-man-is-skipped-on-the-page-11-9
+     kind  redo   lane combat 2   on 11/9
+
+YES  THE THIRTEEN THINGS EYES FOUND ON YOUR PHONE, FIXED: WORDS WHOLE, THE SHELF TRUE, THE CARD SAYS THE REAL GROUND, THE SCAVENGE GAME WITHOUT THE FREEZE
+     id    fixes-the-words-whole-the-shelf-true-11-9
+     kind  ui   lane fixes   on 11/9
+
+YES  KILL THE FILTER AND EVERY ONE OF HIS ROBOTS DROPS WHERE IT STANDS: WHILE HE STANDS THEY GUARD HIS TANKS AND FIGHT ANYBODY WHO WALKS UP
+     id    bosses-the-filters-machines-11-9
+     kind  tile   lane bosses   on 11/9
+
+NO   THE CAMP AFTER A FIGHT: ONE GOES THROUGH THE DEAD, ONE LEANS ON THE HOUSE, THE FIRE KEPT
+     id    motion-3-the-camp-after-a-fight-11-9
+     kind  animation   lane motion   on 11/9
+     said  This did not look like like it was on the combat map
+
+YES  FIVE NEW LAB-MADE BEASTS: THE AMERICAN CHEETAH, HARRINGTON'S GOAT, THE STILT-LEGGED HORSE, THE ICE AGE JAGUAR, THE LARGE-HEADED LLAMA
+     id    bestiary-five-lab-beasts-11-9
+     kind  animation   lane bestiary   on 11/9
+
+YES  A REAL RANCH IN RED ROCK AND A LAKE CAMP AT CALLVILLE BAY, EACH WITH SOMEBODY WHO TALKS
+     id    world14-the-ranch-and-the-lake-camp-11-9
+     kind  ui   lane world 14   on 11/9
+
+YES  KILL THE TAP AND HIS PIPE BECOMES A LINE OF TAPS: WHILE HE STANDS HIS WATCHERS SIT ON IT WITH CROSSBOWS AND EVERY BLOCK UNDER IT COSTS YOU BLOOD
+     id    bosses-the-taps-pipe-11-9
+     kind  tile   lane bosses   on 11/9
+
+YES  YOUR PLACE CHANGES BECAUSE OF YOU, AND THE PEOPLE WHO LIVE THERE REMEMBER IT
+     id    home-base-your-place-remembers-11-9
+     kind  ui   lane home base   on 11/9
+
+YES  ON AUTO NO MAN OF YOURS STANDS A WHOLE FIGHT ANY MORE: EVERY MAN STARTS WITH A WALK TO THEM
+     id    combat2-no-man-stands-a-whole-fight-11-9
+     kind  verdict   lane combat 2   on 11/9
+
+YES  THE GAS PLANT, THE SHARK TANK, THE DOG SHELTER, THE MUSEUMS AND CHANNEL 8 NOW TALK WHEN YOU WALK IN
+     id    world14-seven-more-places-talk-11-9
+     kind  ui   lane world 14   on 11/9
+
+YES  NOTHING JUST APPEARS: THE SHOP, A WEAPON'S CARD AND A JOB COME OUT OF WHAT YOU TAPPED
+     id    motion-3-nothing-just-appears-11-9
+     kind  animation   lane motion   on 11/9
+
+YES  SEARCH THE LOT ANSWERS EVERY TIME, AND THE FLOATING SIGNS ARE GONE
+     id    townfix-search-the-lot-answers-11-9
+     kind  ui   lane town fix   on 11/9
+
+YES  YOUR OWN PLACE: WALK WHERE YOU WANT IT, PRESS PLANT, IT IS YOURS FOR GOOD
+     id    home-base-your-place-planted-11-8
+     kind  ui   lane home base   on 11/9
+     said  The only place that will be mine on the map is where we decide the custom settlement shit is that's it bro for real
+
+YES  THE LAB, THE BANK, THE JOBS LINE AND THE HARDWARE STORES NOW TALK WHEN YOU WALK IN
+     id    world14-the-places-talk-11-8
+     kind  ui   lane world 14   on 11/9
+
+YES  KILL THE POT AND HIS STREETS OPEN: HIS LINE COOKS' CART BARRICADES COME DOWN, HIS TILL PAYS, THE STRIP POSTS IT, AND IT STAYS AFTER A RELOAD
+     id    bosses-the-first-boss-changes-the-map-11-8
+     kind  tile   lane bosses   on 11/9
+
+YES  THE FIRST FIGHT INSIDE: A STRIP CASINO'S FLOOR, ON HOUSE TILES, IN THE DARK
+     id    combat2-the-casino-floor-11-8
+     kind  tile   lane combat 2   on 11/9
+     said  Work in progress
+
+YES  EVERY BUILDING ON A FIGHT BOARD NOW TOUCHES A ROAD, AND THE ROADS ARE ONE NETWORK
+     id    combat2-every-building-on-the-road-11-8
+     kind  tile   lane combat 2   on 11/9
+     said  You really need to make sure intersections bro the sidewalk in the streets continue looking good like they're supposed to bro
+
+YES  A LINE IN A TOWN IS NEVER CUT SHORT WHILE THE SCREEN HAS ROOM
+     id    ui3-no-line-cut-11-14
+     kind  ui   lane ui three   on 11/14
+
+YES  THE GENERATED WORLD HOLDS: ONE ROAD NETWORK, EVERY BUILDING ON A ROAD, NOT EVERY PART A SUBURB, ON EVERY NEW VALLEY
+     id    world13-the-generated-world-holds-11-14
+     kind  tile   lane world 13   on 11/14
+     said  Amazing
+
+YES  SIX MEN AT THE HALL IN LAYERS AND LEATHER: THE THINNEST HIRES DRESSED
+     id    character-the-hires-dressed-11-11
+     kind  outfit   lane character   on 11/14
+
+YES  THE FIGHT BOARDS THAT WENT GREY HAVE THEIR COLOUR BACK (AND THE STRIP'S LAMPS READ AT NIGHT)
+     id    cook5-the-fight-keeps-its-colour-11-11
+     kind  tile   lane cook 5   on 11/14
+
+YES  THE MACHINIST NAILS HIS STREETS SO YOU CRAWL: KILL HIM AND THEY ARE HIS CARTS' ROAD, THE FASTEST WAY ROUND
+     id    bosses-the-machinists-nails-11-11
+     kind  tile   lane bosses   on 11/14
+
+YES  THE FIGHT STARTS WHERE YOU STOOD ON THE MAP: THE SAME GOLF COURSE, YOUR CREW AT THE TOP OF IT OR AT THE BOTTOM
+     id    combat3-the-crew-starts-on-its-cell-11-11
+     kind  tile   lane combat 3   on 11/14
+
+YES  WHEN YOU END A MAN'S TURN YOURSELF, HE SAYS WHAT HE DID: HOLDS, OR RELOADS
+     id    combat3-every-turn-reads-11-11
+     kind  ui   lane combat 3   on 11/14
+
+YES  A FIGHT CAN START IN A CASINO'S PARKING GARAGE: DEAD CARS FOR COVER, A HIGH BAY THEY HOLD, THE RAMP THE WALK UP
+     id    combat3-the-parking-garage-11-11
+     kind  tile   lane combat 3   on 11/14
+
+YES  TWELVE ROAD STOPS ABOUT YOUR OWN PLACE, THE BOSSES AND THE JOB YOU HOLD
+     id    world14-the-road-knows-his-place-11-11
+     kind  ui   lane world 14   on 11/14
+
+YES  FIFTEEN MORE JOBS OF FOUR NEW KINDS, AND THE BOARD SAYS WHAT EACH ONE ASKS
+     id    jobs-the-new-kinds-11-11
+     kind  ui   lane jobs   on 11/14
+
+YES  THE CHARGE BURIES CANS IN HIS STREETS: BY DAY YOU CAN SEE THE DUG DIRT, AT NIGHT YOU STEP ON ONE
+     id    bosses-the-charges-mines-11-11
+     kind  tile   lane bosses   on 11/14
+
+YES  THE PARKING GARAGE'S ART, MADE AHEAD OF ITS BOARD: STALLS, AISLES, RAISED BAYS, RAMPS, COLUMNS, THE WAY OUT
+     id    cook5-the-parking-garage-kit-11-11
+     kind  tile   lane cook 5   on 11/14
+     said  Bro, I'm not gonna lie bro just like let's just start off with a 10% opacity for real like I still need to see like the parking garage ceiling is an exterior that I am in interior of bro fuck you just make it but like the opacity is gonna be like really low I guess, bro like really low
+
+YES  THE BUS YARD AND THE GREENHOUSES, THE LAST TWO PLACES, EACH WITH SOMEBODY WHO TALKS
+     id    world14-the-bus-yard-and-the-greenhouses-11-11
+     kind  ui   lane world 14   on 11/14
+
+YES  AT NIGHT THE LOCKSMITH CHAINS THE GATES ACROSS HIS STREETS: KILL HIM AND THE CHAINS ARE CUT FOR GOOD
+     id    bosses-the-locksmiths-gates-11-11
+     kind  tile   lane bosses   on 11/14
+
+YES  THE FLOOD TUNNELS IN FINISHED ART: A REAL CULVERT FLOOR, THE WET CHANNEL, DARK EARTH, AND WHOLE CAMPS
+     id    cook5-the-flood-tunnels-finished-11-11
+     kind  tile   lane cook 5   on 11/14
+     said  Hell yeah maybe a rarer amount the horizontal tunnels combine with vertical tunnel not as often
+
+YES  AT YOUR PLACE, WHAT YOU BUILD OPENS A DOOR: NO STALL, NO TRADING; NO ROOF, NO HEALING
+     id    home-base-what-you-build-opens-a-door-11-11
+     kind  ui   lane home base   on 11/14
+     said  Bro if its my place i want the camera angels the security cam shit!!??
+
+YES  HIS LETTERS STAY HIS: THE CREW NAME HE TYPES IS NEVER EATEN, AND A FRESH PHONE KEEPS NO SAVE UNTIL NEW GAME
+     id    fixes-two-his-letters-stay-his-11-11
+     kind  ui   lane fixes   on 11/14
+
+YES  THE CUT: A FIGHT ON ONE OF THE 15 PLACES IS FOUGHT ON THAT PLACE'S OWN BOARD, AS THE MAP HAS IT
+     id    world13-the-cut-11-11
+     kind  tile   lane world 13   on 11/14
+
+YES  THREE MORE ENEMIES, EACH FIGHTING A WAY NO MAN DID: THE TWO-HANDER, THE OUTLAW, THE SPEARMEN
+     id    bestiary-the-next-ten-11-11
+     kind  animation   lane bestiary   on 11/14
+
+YES  EVERY BOX ON THE CREW SCREEN SHOWS A BAR, NOT A NUMBER
+     id    ui3-every-box-a-bar-11-11
+     kind  ui   lane ui three   on 11/14
+
+YES  A FIGHT AT THE WASH CAN GO UNDER THE CITY: THE FLOOD TUNNELS, IN THE DARK, AND THE FLASH FLOOD COMES
+     id    combat3-the-flood-tunnels-11-11
+     kind  tile   lane combat 3   on 11/14
+
+YES  THE PLACES ARE TEMPLATES: THE 15 HAND-MADE FIGHT PLACES STAND ON EVERY NEW VALLEY
+     id    world13-the-places-are-templates-11-11
+     kind  tile   lane world 13   on 11/14
+
+YES  THE PIECE THAT ANSWERS IT: EVERY KIND OF PLACE ON THE MAP NAMES THE FIGHT BOARD THAT STANDS FOR IT
+     id    world13-the-piece-that-answers-it-11-11
+     kind  tile   lane world 13   on 11/14
+
+YES  YOUR COMPANY IN LAYERS AND LEATHER: ALL ELEVEN OF YOUR MEN, AND NO MORE BLUE
+     id    character-the-company-dressed-11-10
+     kind  outfit   lane character   on 11/14
+
+YES  THE DECOY PERK HAS ITS PICTURE: A CARDBOARD MAN, SMILING, SHOT TWICE
+     id    cook5-the-decoy-has-its-picture-11-11
+     kind  ui   lane cook 5   on 11/14
+
+YES  KILL THE CLIMB AND THE PEOPLE HE KEPT UP TOP COME DOWN TO YOUR PLACE: WHILE HE STANDS HIS RIGGERS COME DOWN THE STREET FOR YOU
+     id    bosses-the-climbs-riggers-11-10
+     kind  tile   lane bosses   on 11/14
+
+YES  TWELVE NEW THINGS THAT STOP YOU ON THE ROAD, HALF OF THEM FROM YOUR OWN MEN
+     id    world14-twelve-more-on-the-road-11-10
+     kind  ui   lane world 14   on 11/14
+
+YES  KILL THE SURVEYOR AND THE MAP REMEMBERS: WHILE HE STANDS HIS SIDE OF THE MAP FORGETS ITSELF THE MOMENT YOU WALK OUT
+     id    bosses-the-surveyors-hole-11-10
+     kind  tile   lane bosses   on 11/14
+
+YES  EVERYTHING OF YOURS LIVES IN YOUR PLACE: THE BOSSES' PRIZES STAND THERE, A TAP SAYS WHO GAVE IT
+     id    home-base-everything-his-lives-there-11-10
+     kind  ui   lane home base   on 11/14
+
+YES  FIVE NEW ENEMY TYPES, EACH FIGHTING ITS OWN WAY, AND CHAMPIONS WITH NAMES
+     id    bestiary-five-new-men-11-10
+     kind  animation   lane bestiary   on 11/14
+
+YES  SCAVENGE IS A RHYTHM GAME NOW: PLAY A SHORT PIECE OF THE SONG AT EVERY SPOT, YOUR WHOLE CREW ON THE BEAT
+     id    scavenge-two-the-block-plays-the-song-11-10
+     kind  sound   lane scavenge 2   on 11/14
+
+YES  THE CASINO FLOOR, FINISHED: YOUR CARPET WORN BY FORTY YEARS OF FEET, AND A REAL STAGE
+     id    cook5-the-casino-floor-finished-11-10
+     kind  tile   lane cook 5   on 11/14
+
+YES  THE FREEWAY FIGHT IN FINISHED ART: THE DECK OVER THE CITY, THE OVERPASS, THE UNDERPASS, THE INTERCHANGE
+     id    cook5-the-freeway-finished-11-10
+     kind  tile   lane cook 5   on 11/14
+
+YES  KILL THE BURN AND HIS DRUMS LIGHT YOUR NIGHT: WHILE HE STANDS HIS SIDE OF THE MAP IS BLACK AT NIGHT AND YOU SEE ONE BLOCK
+     id    bosses-the-burns-dark-11-10
+     kind  tile   lane bosses   on 11/14
+
+YES  EVERY JOB ENDS WITH WHO THEY WERE, AND FIFTEEN NEW JOBS FROM FIFTEEN NEW PEOPLE
+     id    jobs-the-six-contracts-11-10
+     kind  ui   lane jobs   on 11/14
+
+YES  WHAT YOU BUILD AT YOUR PLACE PAYS: TAPE IN, FOOD OUT, YOUR PEOPLE WORKING IT
+     id    home-base-what-you-build-pays-11-10
+     kind  ui   lane home base   on 11/14
+
+YES  FIVE MORE THINGS EYES FOUND, FIXED, AND MAKE CAMP WITHOUT THE FREEZE: THE DOOR KEEPS YOUR THUMB, THE DEBT NAMES WHO YOU BEAT, EVERY SPEAKER HAS A NAME, THE ROAD SAYS IT IS A ROAD, THE HALL WHOLE ON ITS SIDE
+     id    fixes-the-door-keeps-your-thumb-11-10
+     kind  ui   lane fixes   on 11/14
+
+YES  A WINDED MAN ON AUTO NOW WALKS IN INSTEAD OF STANDING THE TURN, AND NO KIT LEAVES HIM WINDED ALL FIGHT
+     id    combat2-the-winded-man-acts-11-10
+     kind  animation   lane combat 2   on 11/14
+
+YES  THE CORNERS JOIN: WHERE A SIDE STREET MEETS A MILE STREET, THE SIDEWALKS TURN THE CORNER
+     id    world13-the-corners-join-11-10
+     kind  tile   lane world 13   on 11/14
+
+YES  WHERE TWO STREETS MEET ON A FIGHT BOARD, THE SIDEWALKS TURN THE CORNER
+     id    combat2-the-streets-join-11-10
+     kind  tile   lane combat 2   on 11/14
+
+YES  ONLY THE PLACE YOU PLANT IS YOURS: NO CAMP HANDED TO YOU, NO TOWN GIVEN BY A BOSS
+     id    home-base-only-the-planted-place-11-10
+     kind  ui   lane home base   on 11/14
+
+YES  JOBS THAT FIT THE CREW: A DIRE WOLF COUNTS AS TWO MEN, A HUNT FITS YOUR COMPANY
+     id    jobs-jobs-that-fit-the-crew-11-10
+     kind  ui   lane jobs   on 11/14
+
+YES  THE VALLEY HAS ITS ZONES: THE WORKS BY THE RAIL, TRAILER PARKS BY THE FREEWAYS, A ROAD AT EVERY BUILDING
+     id    world13-the-valley-has-its-zones-11-10
+     kind  tile   lane world 13   on 11/14
+
+YES  IN THE HALL EVERY STAT IS A BAR TO THE MOST POSSIBLE
+     id    ui3-every-stat-a-bar-in-the-hall-11-10
+     kind  ui   lane ui three   on 11/14
+
+YES  THE LAST TWO LAB BEASTS: THE LONG-HORNED BISON AND THE SHRUB-OX (17 OF 17)
+     id    bestiary-the-last-two-11-10
+     kind  animation   lane bestiary   on 11/14
+
+YES  LEAVING CAMP, THE MAP KEEPS DRAWING: THE CAMP'S GROUND STOPS COOKING BEHIND IT THE MOMENT YOU BREAK CAMP
+     id    motion-3-the-camp-lets-go-when-he-leaves-11-10
+     kind  ui   lane motion   on 11/14
+
+YES  A BLOW ON A SHIELD NOW LANDS ON THE SHIELD WITH A CLANG, A SHOT FLASHES THE STREET, AND EVERY HIT STILL SHOWS AT 4X
+     id    motion-3-the-fights-weight-11-10
+     kind  animation   lane motion   on 11/14
+
+YES  MAKE CAMP NOW STAYS ON THE FIGHT'S STREET: THE CLOCK STOPS, YOUR MEN SET UP THE CAMP BESIDE THE BODIES, THEN THE HOURS RUN
+     id    motion-3-the-camp-is-set-up-on-the-board-11-10
+     kind  redo   lane motion   on 11/14
+
+YES  THE CAMP AFTER A FIGHT IS THE FIGHT'S OWN BOARD: THE SAME STREET, THE SAME ZOOM, THE DEAD WHERE THEY FELL
+     id    motion-3-the-camp-is-the-fights-board-11-10
+     kind  redo   lane motion   on 11/14
+
+YES  THE COOLING CENTER AND THE DOME LOOK LIKE THEMSELVES ON THE MAP
+     id    cook5-the-cooling-center-and-the-dome-11-17
+     kind  tile   lane cook 5   on 11/16
+
+YES  THE COLUMBIAN MAMMOTH: THE EIGHTEENTH LAB BEAST, AND IT WALKS THROUGH YOUR LINE
+     id    bestiary-the-mammoth-11-17
+     kind  animation   lane bestiary   on 11/16
+     said  Make it not so big this shit bigger than the empire state building crazy guy
+
+YES  YOUR PLACE BUILDS ITS OWN: A TRAINING YARD, A FORGE, A LOOKOUT
+     id    home-base-his-own-buildings-11-17
+     kind  ui   lane home base   on 11/16
+     said  Bro, every time you show me my settlement, I wanna see the view that I'm gonna be seeing the settlement in. You know it's gonna be a different view. It's gonna be some intimate shit. It's gonna be like security cameras.
+
+YES  THE BUS YARD AND THE GREENHOUSES LOOK LIKE THEMSELVES ON THE MAP
+     id    cook5-the-bus-yard-and-the-greenhouses-11-17
+     kind  tile   lane cook 5   on 11/16
+
+YES  THE FULLEST HALL FITS THE GLASS: TEN MEN AND THREE FOLLOWERS, UPRIGHT AND SIDEWAYS, NOTHING CUT
+     id    ui4-the-fullest-hall-fits-11-17
+     kind  ui   lane ui four   on 11/16
+
+YES  ALL TWELVE FACTIONS FIGHT: THE FLOCK, THE HIRED GUNS, THE HEAD TAKERS, THE CASINO'S GUNNER (THREE IN STAND-IN CLOTHES)
+     id    bestiary-all-twelve-factions-11-17
+     kind  animation   lane bestiary   on 11/16
+
+YES  EVERY COUNT IS A PICTURE AND A NUMBER: THE BUILD SHEET AT YOUR PLACE, THE JOB BOARD, THE STALL
+     id    ui4-every-count-a-picture-11-17
+     kind  ui   lane ui four   on 11/16
+
+YES  THE FLOCK IN ITS OWN CLOTHES: THE TRAILER PARK'S CONGREGATION, HOODED AND ROBED
+     id    character-the-flock-11-17
+     kind  outfit   lane character   on 11/16
+
+YES  THE PLATE'S WAGON, THE TOOTH'S COLLECTOR AND THE LENS'S HAZE, IN FINISHED ART
+     id    cook5-the-newest-bosses-map-pieces-11-17
+     kind  tile   lane cook 5   on 11/16
+
+YES  THE TOWN REMEMBERS: A TOWN THAT LIKES YOU OFFERS MORE, ONE THAT DOES NOT CHARGES MORE
+     id    jobs-the-town-remembers-11-17
+     kind  ui   lane jobs   on 11/16
+
+YES  “Oye, jefe. Two days no food. I don't want batteries, just something to eat. My brother says ask the ones with guns, they got food.”
+     id    words-two-hw01-01-a-kid-begs-on-the-road-11-17
+     kind  line   lane words two   on 11/16
+     said  Hey bro, I haven't eaten in two fucking days. My brother hasn't eaten in three fucking days, man. Can you guys please help me and my brother out? I know how to shine and clean some of your equipment I see.
+
+YES  “The House holds this road, and you did not pay to use it.”
+     id    words-two-hw01-02-the-enemy-says-why-11-17
+     kind  line   lane words two   on 11/16
+     said  We were told to be on the lookout for a rag tag bunch of fuck faces who didn't want to pay their battery tax. After we clean your body well turn you to mystery meat.
+
+YES  “they don't know I have two jugs of water under the bed.”
+     id    words-two-hw01-03-a-joke-post-in-the-feed-11-17
+     kind  line   lane words two   on 11/16
+     said  IDGAF if ur momma dying i got two jugs of water hiding under this bed
+
+STAR “Seven of them, big as ponies, and they come when the water comes. We cannot pay what you are worth, only 199 batteries, and if you say no it is fine, everybody says no.”
+     id    words-two-hw01-04-an-old-woman-offers-a-job-11-17
+     kind  line   lane words two   on 11/16
+     said  My Dear, dark shadows keep stealing our water. Theyre going to kill us next. Please help us before they come back. You'll kill them for some batteries?
+
+YES  “Ka-ching.”
+     id    words-two-hw01-05-your-man-lands-a-shot-11-17
+     kind  line   lane words two   on 11/16
+     said  Ka ching you piece of shit
+
+YES  “Inspección. What's in the wagon, jefe? We take a tenth of everything, it's the law now. Our law. Or you can try to argue.”
+     id    words-two-hw01-06-a-cartel-checkpoint-shakes-you-down-11-17
+     kind  line   lane words two   on 11/16
+     said  Aye tough guy. Lets see everything right now or we cut your fucking head off. Or you can pay the  tax and get the fuck out my face.
+
+STAR “Bienvenido. Batteries talk here, so keep yours where we can hear them.”
+     id    words-two-hw01-07-the-elder-greets-you-11-17
+     kind  line   lane words two   on 11/16
+     said  We hope your're peaceful guys. Were trying to restart civilization round here okay? Dont go around putting these families out of their misery alright
+
+STAR “His boots are my size. He won't mind.”
+     id    words-two-hw01-08-your-man-after-you-win-11-17
+     kind  line   lane words two   on 11/16
+     said  These nice boots my size. I'm surprised this retard survived this long without a bounty on his toes.
+
+STAR “My crew ate each other over a water tank. I walked. I can walk with you.”
+     id    words-two-hw01-09-a-man-for-hire-sells-himself-11-17
+     kind  line   lane words two   on 11/16
+     said  My crew ate each other over a water tank. Ive run with real deal killers.
+
+STAR “tower. please answer.”
+     id    words-two-hw01-10-a-town-falls-on-the-feed-11-17
+     kind  line   lane words two   on 11/16
+     said  Tower? Can you hear us? God help us...
+
+STAR “Boss, the battery box is light. Six short. I counted twice. It was me. My sister in Henderson has a boy on an oxygen machine, and the machine eats batteries. I was going to tell you.”
+     id    words-two-hw01-11-your-own-man-confesses-11-17
+     kind  line   lane words two   on 11/16
+     said  Boss. I gotta be honest. My nephew is on an oxygen machine in henderson. I grabbed extra batteries.
+
+STAR “You have been asking about me all over the valley, and here I am.”
+     id    words-two-hw01-12-a-boss-meets-you-11-17
+     kind  line   lane words two   on 11/16
+     said  You got some beef? You better fucking shoot me before I stuff your fucking face in.
+
+YES  THREE MORE FIGHTS INSIDE: THE HOME CENTER'S RACKS AND GARDEN YARD, THE HOSPITAL'S EMERGENCY ROOM, AND A PRISON CELL BLOCK WITH THE OTHER CREW UP ON THE TIER
+     id    combat4-the-last-three-insides-11-20
+     kind  tile   lane combat 4   on 11/20
+
+YES  THE CARD READS THE NIGHT: A NIGHT JOB'S CARD SAYS WHO COMES IN THE DARK
+     id    jobs-the-card-reads-the-night-11-20
+     kind  ui   lane jobs   on 11/20
+
+YES  THE FIGHT INSIDE THE SPHERE LOOKS LIKE THE SPHERE NOW: THE DARK BOWL, THE STAGE, THE FALLEN SCREEN, AND THE DEAD SCREEN OVERHEAD
+     id    cook6-the-sphere-11-20
+     kind  tile   lane cook 6   on 11/20
+     said  Wip looks like shit
+
+YES  EVERY FIGHT WON COUNTS: EVERY WIN NOW RAISES YOUR CLOUT, NOT ONLY THE FIRST
+     id    jobs-every-fight-won-counts-11-20
+     kind  ui   lane jobs   on 11/20
+     said  Where tf do you see your clout????
+
+YES  THE TOWN'S BAR ON ITS BOARD: THE JOB BOARD SAYS WHAT THE TOWN THINKS OF YOU
+     id    jobs-the-towns-bar-on-its-board-11-20
+     kind  ui   lane jobs   on 11/20
+
+YES  THE STADIUM'S SOUTH STAND FACES THE FIELD NOW: YOU SEE THE BACKS OF ITS SEATS
+     id    cook6-the-south-stand-11-20
+     kind  tile   lane cook 6   on 11/20
+     said  Wip
+
+YES  THE FIGHT INSIDE THE DAM'S POWERHOUSE LOOKS LIKE THE DAM NOW: THE GENERATORS IN A ROW, THE TERRAZZO, THE BALCONY, THE CRANES OVERHEAD
+     id    cook6-the-powerhouse-11-20
+     kind  tile   lane cook 6   on 11/20
+     said  Wip
+
+YES  A NAME FADES: A COMPANY THAT STOPS WORKING IS FORGOTTEN
+     id    jobs-a-name-fades-11-20
+     kind  ui   lane jobs   on 11/20
+
+YES  AFTER A FIGHT, THE SAME BATTERIES: THE SPOILS COUNT LIKE EVERY OTHER SCREEN, AND A MAN'S NIGHT IS BACK ON THE PHONE
+     id    economy-three-after-the-fight-the-same-batteries-11-20
+     kind  ui   lane economy three   on 11/20
+
+YES  THE FOUR PLACES OUT PAST THE CITY HAVE THEIR OWN PIECE ON THE MAP: THE LAB WITH THE WOLVES, THE POWER PLANT WITH ITS RED LIGHTS, THE RANCH, THE LAKE CAMP
+     id    cook6-the-regions-four-11-20
+     kind  tile   lane cook 6   on 11/20
+
+YES  A HUNT FITS THE CREW: NO HUNT SENDS A NEW CREW AFTER BISON
+     id    jobs-a-hunt-fits-the-crew-11-20
+     kind  ui   lane jobs   on 11/20
+
+YES  THE SIREN AND THE BATTERY MAN: 74 ENEMY TYPES, THE FLOOR MET
+     id    bestiary-the-siren-and-the-battery-man-11-20
+     kind  animation   lane bestiary   on 11/20
+
+YES  A FIGHT CAN START INSIDE THE SPHERE: THE DEAD BOWL UNDER THE BIGGEST SCREEN IN THE WORLD, THE OTHER CREW UP IN THE TIERS AND YOU ON THE FLOOR UNDER THEM
+     id    combat4-the-sphere-11-20
+     kind  tile   lane combat 4   on 11/20
+     said  Wip
+
+YES  A FIGHT CAN START INSIDE THE DAM'S POWERHOUSE: A LINE OF GENERATORS DOWN THE HALL, THEIR BOARDS BESIDE THEM, THE VISITORS' BALCONY OVER THE FLOOR, AND NOBODY UP THERE YET
+     id    combat4-the-powerhouse-11-20
+     kind  tile   lane combat 4   on 11/20
+     said  Wip
+
+YES  THE TWO HOME CENTERS HAVE THEIR OWN PIECE ON THE MAP: THE EAST ONE STRIPPED, PAINT POURED ON THE LOT; THE WEST ONE SLOWER, ITS DOCK DOOR STILL OPEN
+     id    cook6-the-home-centers-11-20
+     kind  tile   lane cook 6   on 11/20
+
+YES  THE HEAD TAKERS IN THEIR OWN CLOTHES: MEN WHO HUNT MEN, IN THE HUNTER'S BLAZE
+     id    character-the-head-takers-11-20
+     kind  outfit   lane character   on 11/20
+
+YES  CLIMB THE STRAT: THE VALLEY OPENS UP
+     id    world14-the-strat-lookout-11-20
+     kind  ui   lane world 14   on 11/20
+
+YES  ONE PERSON TALKS AT A TIME, A TILE'S NOTE GOES WITH ITS TURN, AND YOUR OWN MAN ON YOUR CARD BEFORE THE FIGHT
+     id    fight-screen-one-mouth-at-a-time-11-20
+     kind  ui   lane fight screen   on 11/20
+
+YES  THE STADIUM LOOKS LIKE A STADIUM NOW: DEAD TURF WITH THE YARD LINES, THE STANDS THEY HOLD, THE RELIEF LEFT ON THE FIELD, AND THE ROOF OVER IT
+     id    cook6-the-stadium-11-20
+     kind  tile   lane cook 6   on 11/20
+     said  Wip
+
+YES  THE MAP SHOWS EACH PLACE THE WAY ITS FIGHT IS LAID OUT: THE AIRPORT'S HANGAR ROW AND ITS APRON, AT THE SAME SPOTS
+     id    world13-the-places-are-laid-out-11-20
+     kind  tile   lane world 13   on 11/20
+     said  Wip
+
+YES  THE PENITENT AND THE DOORMAN: TWO MORE ENEMIES, 72 OF ABOUT 75
+     id    bestiary-the-penitent-and-the-doorman-11-20
+     kind  animation   lane bestiary   on 11/20
+
+YES  YOUR PLACE SHOWS WHERE YOU BUILD, AND ITS CAMERAS SEE AT NIGHT
+     id    home-base-where-you-build-11-20
+     kind  ui   lane home base   on 11/20
+     said  Not the camera view and angles i was promised
+
+YES  THE SMITH HOLDS THE LAST FORGE: NOTHING IS MENDED NEAR HIM. KILL HIM AND HIS ANVILS ARE ANYBODY'S
+     id    bosses-the-smiths-anvils-11-18
+     kind  tile   lane bosses   on 11/20
+
+YES  THE CISTERN OWNS THE RAIN: HIS MEN TAKE YOUR WATER NEAR HIM. KILL HIM AND HIS TANKS ARE OPEN
+     id    bosses-the-cisterns-tanks-11-18
+     kind  tile   lane bosses   on 11/20
+
+YES  THE BATTERY IS REAL: ONE AA BUYS A BAG OF RICE, AND A BIG SUM IS PAID IN BIG BATTERIES
+     id    economy-two-the-battery-is-real-11-18
+     kind  ui   lane economy two   on 11/20
+     said  Nahhhhhh 4 ways to have currency fuck no. Idk if were gonna do this. People when they talk can refer to these things fs but its not part of our economy ui
+
+YES  THE LAKE LOOKS DRAINED, LIKE LAKE MEAD: A CRACKED MUD BED, THE WHITE BATHTUB RING, BOATS LEFT ON THE MUD
+     id    world13-the-lake-has-its-ring-11-18
+     kind  tile   lane world 13   on 11/20
+     said  Wip
+
+YES  THE AIRPORT TERMINAL LOOKS LIKE AN AIRPORT NOW: THE CHECKPOINT, THE CAROUSELS HEAPED WITH BAGS, THE PEOPLE WHO NEVER GOT A FLIGHT OUT
+     id    cook5-the-terminal-11-18
+     kind  tile   lane cook 5   on 11/20
+     said  Wip
+
+YES  ZOOMED ALL THE WAY OUT, THE CITY PICTURE COMES UP WITHOUT WAITING IN LINE
+     id    world13-the-painting-never-waits-in-line-11-18
+     kind  tile   lane world 13   on 11/20
+
+YES  THE SERVERS LOOK LIKE SERVERS NOW, AND THE MALL HAS ITS MANNEQUINS AND ITS DRY FOUNTAIN
+     id    cook5-the-three-that-waited-11-18
+     kind  tile   lane cook 5   on 11/20
+     said  Wip
+
+YES  THE HIRED GUNS IN THEIR OWN CLOTHES: A RIVAL COMPANY UNDER ONE SASH, AND ITS DUELISTS IN FELT HATS
+     id    character-the-hired-guns-11-18
+     kind  outfit   lane character   on 11/21
+
+YES  THE POWER STATION, THE ANIMAL SHELTER AND THE SCRAP YARD LOOK LIKE THEMSELVES ON THE MAP
+     id    cook5-the-east-sides-three-11-18
+     kind  tile   lane cook 5   on 11/21
+
+YES  THE WARD HOLDS THE LAST CLINIC: NOTHING HEALS NEAR HIM. KILL HIM AND THE SAME STREETS HEAL TWICE AS FAST, AND HIS NURSE LIVES AT YOUR PLACE
+     id    bosses-the-wards-reach-11-18
+     kind  tile   lane bosses   on 11/21
+
+YES  SMOKE, FIRE AND SLEEP: THREE MORE ENEMIES, AND EVERY ANIMAL THE RIGHT SIZE NEXT TO A MAN
+     id    bestiary-smoke-fire-and-sleep-11-18
+     kind  animation   lane bestiary   on 11/21
+
+YES  SHARK REEF, CHANNEL 8 AND THE UNEMPLOYMENT OFFICE LOOK LIKE THEMSELVES ON THE MAP
+     id    cook5-the-strips-three-11-18
+     kind  tile   lane cook 5   on 11/21
+
+YES  THE STALL FITS WITH THE PHONE ON ITS SIDE: THE LINE THAT TELLS YOU HOW TO BUY IS BACK ON THE SCREEN
+     id    ui4-the-stall-fits-on-its-side-11-18
+     kind  ui   lane ui four   on 11/21
+
+YES  THE DATA FORT HAS ITS OWN PICTURES NOW: THE WHITE FLOOR, THE BATTERIES, A DESK WITH ONE SCREEN STILL ON
+     id    cook5-the-data-fort-11-18
+     kind  tile   lane cook 5   on 11/21
+
+YES  A RAID YOU HOLD AT YOUR GATE IS PINNED ON YOUR CORK BOARD
+     id    home-base-held-the-gate-11-18
+     kind  ui   lane home base   on 11/21
+
+YES  THE BIG WORK WAITS FOR A NAME: A FORTRESS HANDS ITS BIGGEST JOBS ONLY TO A CREW WITH CLOUT
+     id    jobs-the-big-work-waits-for-a-name-11-18
+     kind  ui   lane jobs   on 11/21
+
+YES  THE HELMET SITS ON HIS BROW (NO MORE SLOT), AND THE WHITE FLASH NEVER STROBES
+     id    fight-screen-the-cap-is-on-the-glass-and-one-honest-head-11-18
+     kind  ui   lane fight screen   on 11/21
+
+YES  A FIGHT CAN START ON THE STADIUM'S FIELD: DEAD TURF IN THE OPEN, THE STANDS ON BOTH SIDES LOOKING DOWN ON IT, AND THE OTHER CREW ALREADY UP IN THEM
+     id    combat3-the-stadium-11-18
+     kind  tile   lane combat 3   on 11/21
+
+YES  A FIGHT CAN START INSIDE THE AIRPORT TERMINAL: THE CHECKPOINT IS A WALL WITH FOUR LANES, THE BAGGAGE HALL IS SIX CAROUSELS TO CLIMB OVER, THE DAY COMES THROUGH A WALL OF GLASS
+     id    combat3-the-terminal-11-18
+     kind  tile   lane combat 3   on 11/21
+
+NO   YOUR PLACE AS YOU WILL SEE IT: BUILDING, PICKING A LOT AND LOOKING, ALL THROUGH THE SECURITY CAMERAS
+     id    home-base-seen-through-the-cameras-11-17
+     kind  ui   lane home base   on 11/21
+     said  Bro, you are hallucinating bro. This is not the view that we're going to be having what's wrong with you bro. Go back to when you originally showed me what the shit would look like from the different camera angles, bro this is not it bro you're basically doing the same thing but like slightly skewing some of the dimensions and shit like what the fuck are you doing?
+
+YES  ZOOMED IN CLOSE, THE MAP SHOWS A WHOLE PICTURE ABOUT TWICE AS FAST
+     id    world13-the-map-paints-on-every-core-11-17
+     kind  tile   lane world 13   on 11/21
+
+YES  THE DOGS' PACKS HUNT HIS STREETS AT NIGHT AND BITE: KILL HIM AND THE RUNS ARE EMPTY, AND HIS DOG TRACKS FOR YOU
+     id    bosses-the-dogs-packs-11-17
+     kind  tile   lane bosses   on 11/21
+
+YES  THE WAREHOUSE LOOKS LIKE A WAREHOUSE NOW: RACKING, A DEAD FORKLIFT STILL HOLDING A PALLET, A TRAILER AT ITS DOCK
+     id    cook5-the-warehouse-11-17
+     kind  tile   lane cook 5   on 11/21
+
+YES  THREE MORE ENEMIES, THREE MOVES NOBODY HAD: THE DUELIST STRIKES BACK, THE PREACHER TURNS YOUR MAN, THE SPOTTER CALLS THE ROOF
+     id    bestiary-three-new-ways-11-17
+     kind  animation   lane bestiary   on 11/21
+
+YES  THE MALL LOOKS LIKE A DEAD MALL NOW: STORE FRONTS, MANNEQUINS IN A WINDOW, THE PAINTED SKY ON THE FLOOR
+     id    cook5-the-mall-11-17
+     kind  tile   lane cook 5   on 11/21
+
+YES  THE INK'S STAIN SPREADS A BLOCK A DAY AND SHUTS EVERY TOWN IT REACHES: KILL HIM AND THEY OPEN
+     id    bosses-the-inks-stain-11-17
+     kind  tile   lane bosses   on 11/21
+
+YES  THE SCRAP MILL: CHEAP COPPER WIRE AND TWICE THE TAPE
+     id    world14-the-scrap-mill-11-17
+     kind  ui   lane world 14   on 11/21
+
+YES  THE BANK, THE MOB MUSEUM AND THE DINOSAUR MUSEUM LOOK LIKE THEMSELVES ON THE MAP
+     id    cook5-downtowns-three-11-17
+     kind  tile   lane cook 5   on 11/21
+
+YES  A FIGHT ON THE MAP LOOKS LIKE THE PART OF TOWN IT STARTS IN: A DESERT ROAD IS FOUGHT IN THE DESERT
+     id    world13-every-zone-its-ground-11-17
+     kind  tile   lane world 13   on 11/21
+
+NO   WHAT YOU DID, PINNED AT YOUR PLACE: EVERY JOB DONE ON A CORK BOARD
+     id    home-base-his-impact-11-17
+     kind  ui   lane home base   on 11/21
+     said  This looks like shit get this AI slop out of my fucking face
+
+NO   “This road is ours today, my loves. Five batteries a head, or ten for all of you because you dress so ugly I feel sorry. Rick Owens would cry.”
+     id    words-two-hw02-01-funny-the-toll-girl-11-17
+     kind  line   lane words two   on 11/21
+     said  Bro, what the fuck is this? It's so fucking bad. What do you mean Rick Owens would cry. Do you think 30 years after the economic apocalypse are gonna be like referencing Rick Owens like that bro this shit wasn't even fucking funny literally so fucking bad
+
+NO   “The water is running! My whole street drinks again, and nobody pays him for it.”
+     id    words-two-hw02-02-happy-the-water-runs-11-17
+     kind  line   lane words two   on 11/21
+     said  This is so fucking bad bro. Like you keep referencing the payment and how many batteries I had like that shit so awkward and not real
+
+YES  “TEO didn't get up, carnal. He's gone.”
+     id    words-two-hw02-03-serious-a-man-is-dead-11-17
+     kind  line   lane words two   on 11/21
+     said  Decent
+
+YES  “There it is. You see what you get, no surprises. Win and you get paid. Lose and you feed them.”
+     id    words-two-hw02-04-confident-the-bookie-11-17
+     kind  line   lane words two   on 11/21
+     said  Bro, why are you scared to like curse like I'm so serious
+
+"Look there. Them the motherfuckers you're gonna fight you down?"
+
+NO   “Watch meeting at the circle at the end of the street. Bring a flashlight and your name.”
+     id    words-two-hw02-05-leader-the-block-watch-11-17
+     kind  line   lane words two   on 11/21
+     said  Bro, what fucking kind of AI slop is this bring a flashlight in your name no one talks like that
+
+What the fuck are they having a watch meeting about what does that even mean?
+
+NO   “Then we come. And somebody is going to have to say whose ground it is, because we will not be guests forever.”
+     id    words-two-hw02-06-political-forty-people-11-17
+     kind  line   lane words two   on 11/21
+     said  Bro, what does that mean? Say who's grounded is what the fuck type of English is this?
+
+YES  “Let me see them. Half the days, and half of what the wound takes off him, if you can pay. They walk out with you.”
+     id    words-two-hw02-07-kind-the-doc-11-17
+     kind  line   lane words two   on 11/21
+     said  Let me see them least I can do is stop the infection. You definitely don't want that pus bomb to explode
+
+YES  “Heart stopped once. Started again out of spite.”
+     id    words-two-hw02-08-proud-the-scar-11-17
+     kind  line   lane words two   on 11/21
+     said  My heart literally stopped beating for a minute. I don't know. I guess god had other plans for me.
+
+YES  “ISO insulin. any kind. it's for my sister. message me, please.”
+     id    words-two-hw02-09-begging-the-insulin-post-11-17
+     kind  line   lane words two   on 11/21
+     said  SOS, my sister needs insulin. Any kind she's gonna die.
+
+YES  “Darling. The world ended and you still dress like a parking lot. One coat, Balenciaga, real, from the Forum Shops. Twenty batteries and you live forever.”
+     id    words-two-hw02-10-selling-madame-bottega-11-17
+     kind  line   lane words two   on 11/21
+     said  Darling, the world ended, but you don't gotta dress like it. We got some real Balenciaga from some of the corpses in the forum shops
+
+YES  “CHUY showed me how to reload. Like, just now.”
+     id    words-two-hw02-11-sad-the-kid-after-11-17
+     kind  line   lane words two   on 11/21
+
+YES  “RICO drank the last of the water in the night, boss, my share too. I am going to break RICO's face unless you tell me why I should not.”
+     id    words-two-hw02-12-angry-the-last-water-11-17
+     kind  line   lane words two   on 11/21
+     said  I'm going to break rico's face unless you solve this shit right now
+
+NO   PAID INTO YOUR PLACE: TAKE PART OF ANY JOB'S PAY AS A BUILD FOR YOUR SETTLEMENT
+     id    jobs-paid-into-your-place-11-17
+     kind  ui   lane jobs   on 11/21
+     said  This mechanic is so fucking confusing. I don't know what the fuck this shit.
+
+NO   WHAT WALKING AWAY COSTS: EVERY JOB CARD SAYS WHAT DROPPING OR FAILING IT WILL COST YOU
+     id    jobs-what-walking-away-costs-11-17
+     kind  ui   lane jobs   on 11/21
+     said  Doing way too much doing way too much, bro you can have the data and the values in the background, but you don't need to explain that obviously dropping a job drop your relation with the settlement
+
+YES  FOOTPRINTS ON THE MAP: WHO WALKED HERE
+     id    world14-the-tracks-he-can-read-11-17
+     kind  ui   lane world 14   on 11/21
+
+NO   PUSH THE PAY: ASK FOR MORE ON ANY JOB, AND IT COSTS YOU WITH THE TOWN
+     id    jobs-push-the-pay-11-17
+     kind  ui   lane jobs   on 11/21
+     said  Doing way too much I don't like it
+
+YES  THE CONVENTION HALL LOOKS LIKE A SHELTER NOW: COTS, RELIEF PALLETS, A COLUMN OF MISSING FLYERS
+     id    cook5-the-convention-hall-11-17
+     kind  tile   lane cook 5   on 11/21
+
+YES  THE SCAVENGE GROWS OUT OF THE LOT YOU SEARCHED, AND A TOWN'S HELLO COMES OUT OF YOUR PHONE
+     id    ui4-the-scavenge-comes-out-of-the-lot-11-17
+     kind  ui   lane ui four   on 11/21
+
+YES  EACH PART OF TOWN LOOKS LIKE ITSELF: THE WORKS ARE SHEDS UP CLOSE, AND THE DESERT HAS ITS DIRT TRACKS
+     id    world13-each-zone-looks-like-itself-11-17
+     kind  tile   lane world 13   on 11/21
+
+YES  THE BARBER PAINTS A LINE ROUND HIS SHOP AND CUTS WHOEVER CROSSES IT: KILL HIM AND IT IS PAINTED OVER
+     id    bosses-the-barbers-line-11-17
+     kind  tile   lane bosses   on 11/21
+
+NO   “Folks! Ninety minutes of your time and breakfast is on us. Real eggs: we keep chickens on the roof now. Vacation ownership is still the smartest money in Nevada. Ask me about week thirty-two.”
+     id    words-two-hw01-13-a-timeshare-man-pitches-you-11-17
+     kind  line   lane words two   on 11/21
+     said  So the building has no roof, but you're saying this Chickens on the roof are you insane?
+
+YES  “I buy and I sell. Half what I charge, more for what this town is short of. No haggling.”
+     id    words-two-hw01-14-the-stall-keeper-talks-prices-11-17
+     kind  line   lane words two   on 11/21
+     said  Whatever you need we got it. You're lucky we deal in batteries
+
+YES  “DESI! Don't you dare.”
+     id    words-two-hw01-15-your-man-sees-a-friend-go-down-11-17
+     kind  line   lane words two   on 11/21
+     said  DESI! FUCK!
+
+YES  THE EYE IN THE SKY IN ITS OWN CLOTHES: THE CASINO'S MEN IN BLACK, ONE GOLD TIE EACH
+     id    character-the-eye-in-the-sky-11-21
+     kind  outfit   lane character   on 11/21
+
+YES  YOUR MAN'S CARD SHOWS WHAT THE LAST ROUND TOOK OFF HIM
+     id    fight-screen-the-last-hit-on-the-card-11-21
+     kind  ui   lane fight screen   on 11/21
+
+YES  THE MIDWIFE: EVERY BIRTH IN THE VALLEY GOES THROUGH HER. MEET HER, BRING A BIRTH THROUGH, AND ACT ONE CLOSES
+     id    bosses-the-midwife-11-21
+     kind  tile   lane bosses   on 11/21
+
+YES  THE FIGHT INSIDE THE HOME CENTER LOOKS LIKE A HARDWARE STORE NOW: ORANGE RACKING, THE LUMBER, THE CHECKOUTS, THE GARDEN YARD
+     id    cook6-the-home-center-11-21
+     kind  tile   lane cook 6   on 11/21
+
+YES  A FIGHT CAN START INSIDE THE NEON BONEYARD: AMONG A DEAD CASINO'S GIANT LETTERS IN THE SIGN SHOP, OR BETWEEN THE DEAD SIGNS IN THE DARK GALLERY
+     id    combat4-the-neon-boneyard-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE MINI GRAND PRIX: AMONG THE DEAD ARCADE'S CABINETS, OR BETWEEN THE GO-KARTS IN THE GARAGE
+     id    combat4-the-mini-grand-prix-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE BATTERY FARM: DOWN THE ROWS OF BATTERY RACKS, OR AMONG THE SWITCHGEAR AND THE TRANSFORMERS
+     id    combat4-the-battery-farm-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE A FUEL DEPOT: AMONG THE PIPELINE'S PUMPS, OR BETWEEN THE TANKERS AT THE LOADING RACK
+     id    combat4-the-fuel-depot-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE GRANARY: DOWN THE RACKING OF THE GRAIN HALL, OR AMONG THE COLD ROOMS OF THE MEDICINE VAULT
+     id    combat4-the-granary-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE SPEEDWAY: DOWN THE GARAGE ROW'S BAYS, OR IN THE INSPECTION SHED AMONG THE CARS ON LIFTS
+     id    combat4-the-speedway-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE RADIO STATION: AMONG THE STUDIOS AND THE RECORD SHELVES, OR AMONG THE TRANSMITTERS
+     id    combat4-the-radio-station-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE A STORAGE YARD: IN THE HALLS OF UNITS PEOPLE LIVED IN, OR AMONG THE RVS UNDER THE CANOPY
+     id    combat4-the-storage-yard-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE WATER TREATMENT PLANT: BETWEEN THE FILTER BEDS, OR AMONG THE PUMPS AND THE CHEMICAL TANKS
+     id    combat4-the-water-treatment-plant-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE JOBS OFFICE: AMONG THE WAITING CHAIRS BEFORE THE CLAIMS WINDOWS, OR AMONG THE JOB-SEARCH TERMINALS
+     id    combat4-the-jobs-office-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START UNDER THE BALLPARK'S STANDS: ON THE CONCOURSE AMONG THE CONCESSION STANDS, OR IN THE CLUBHOUSE AMONG THE BATTING CAGES
+     id    combat4-the-ballpark-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE ARSENAL: DOWN THE FIRING RANGE'S LANES, OR AMONG THE TANKS AND THE HELICOPTERS
+     id    combat4-the-arsenal-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  COVER YOU COULD NOT SEE: 52 PIECES IN 14 BUILDINGS WERE DRAWN AS TINY PROPS, NOW EVERY COVER TILE SHOWS
+     id    combat4-the-cover-you-could-not-see-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE CAMPUS: IN A LECTURE HALL'S ROWS OF SEATS, OR IN THE SCIENCE LABS
+     id    combat4-the-campus-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE ANIMAL SHELTER: AMONG THE EMPTY KENNEL RUNS, OR IN THE CLINIC BEHIND THE INTAKE COUNTER
+     id    combat4-the-animal-shelter-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE CITY HALL: IN THE COUNCIL CHAMBER AMONG THE PUBLIC'S SEATS, OR ON THE PERMIT FLOOR AMONG THE CUBICLES
+     id    combat4-city-hall-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE BANK: IN THE BANKING HALL BEHIND ITS COLUMNS, OR DOWN IN THE VAULT AMONG THE DEPOSIT BOXES
+     id    combat4-the-bank-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE RAIL YARD'S SHOPS: AMONG LOCOMOTIVES OVER THEIR PITS, OR ALONG THE FREIGHT HOUSE'S BOXCARS
+     id    combat4-the-rail-yards-shops-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE FIRE STATION: BETWEEN THE ENGINES IN THE APPARATUS BAY, OR THROUGH THE CREW'S QUARTERS
+     id    combat4-the-fire-station-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE POLICE STATION: THE SQUAD ROOM BEHIND THE LOBBY GLASS, OR THE SALLY PORT FULL OF DEAD PATROL CARS
+     id    combat4-the-police-station-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  INSIDE A BUILDING, A MAN BEHIND A RACK, A TRAILER OR A PLANE'S FUSELAGE IS OUT OF SIGHT NOW
+     id    combat4-the-tall-things-hide-a-man-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE LIBRARY: DOWN THE AISLES OF ITS STACKS, OR ACROSS THE READING ROOM'S LONG TABLES
+     id    combat4-the-library-11-22
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE TV STATION: ACROSS THE NEWS SET'S STUDIO, OR THE NEWSROOM UNDER ITS WALL OF DEAD MONITORS
+     id    combat4-the-tv-station-11-21
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE NATURAL HISTORY MUSEUM: AMONG THE VALLEY'S ICE AGE MAMMOTHS, OR IN THE HALL OF DIORAMAS
+     id    combat4-the-natural-history-museum-11-21
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE STRIP'S AQUARIUM: DARK HALLS BETWEEN GREEN TANKS, OR THE GLASS TUNNEL THROUGH THE SHARK TANK
+     id    combat4-the-aquarium-11-21
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE A HANGAR: ROUND A CARGO JET, OR BETWEEN TWO FIGHTERS AT THE AIR BASE
+     id    combat4-the-hangar-11-21
+     kind  tile   lane combat 4   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE TRUCK STOP: ITS STRIPPED STORE, OR THE SERVICE BAY WITH THE RIGS STILL IN IT
+     id    combat4-the-truck-stop-11-21
+     kind  tile   lane combat 4   on 11/22
+
+YES  THE FIGHT INSIDE THE MOB MUSEUM LOOKS LIKE A 1930s COURTROOM NOW: THE PEWS, THE BAR, THE JUDGE'S BENCH, THE MUSEUM'S CASES
+     id    cook6-the-courthouse-11-21
+     kind  tile   lane cook 6   on 11/22
+
+YES  YOUR PLACE ON THE SECURITY CAMERAS YOU WERE FIRST SHOWN
+     id    home-base-his-cameras-as-promised-11-21
+     kind  ui   lane home base   on 11/22
+
+YES  YOUR CAMP PEOPLE FIGHT TOO: THE COOK, THE SCOUT AND THE SURGEON STAND BEHIND YOUR LINE, WEAK AND SCARED, AND DEAD FOR GOOD IF THEY FALL
+     id    staff-the-staff-fight-too-11-21
+     kind  ui   lane staff   on 11/22
+     said  Make sure their auto combat shit is different. They're weak as fuck compared to the front line. They will stay behind. They will take defensive positions and they will attempt to not flanked and circled circles.
+
+YES  A FIGHT CAN START INSIDE THE JUSTICE CENTER: A FLOOR OF COURTROOMS OFF ONE CORRIDOR, OR THE SECURITY SCREENING AT THE FRONT DOORS
+     id    combat4-the-justice-center-11-21
+     kind  tile   lane combat 4   on 11/22
+
+YES  THE POWERHOUSE AGAIN, AFTER YOUR 'WIP': THE RED SUNBURSTS OFF THE FLOOR
+     id    cook6-the-powerhouse-again-11-21
+     kind  tile   lane cook 6   on 11/22
+
+YES  THE STADIUM AGAIN, AFTER YOUR 'WIP': NO MORE TARGET OVER THE FIGHT, THE STANDS ONE DARK BAND, A DARKER FIELD
+     id    cook6-the-stadium-again-11-21
+     kind  tile   lane cook 6   on 11/22
+
+YES  THE FIGHT IS THE ONE THE CARD SAID: FOUR JOBS THAT SWAPPED WHO SHOWS UP
+     id    jobs-the-fight-is-the-cards-11-21
+     kind  ui   lane jobs   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE MOB MUSEUM: THE OLD COURTROOM'S PEWS AND JUDGE'S BENCH, OR THE MUSEUM FLOOR'S EXHIBIT CASES
+     id    combat4-the-courthouse-11-21
+     kind  tile   lane combat 4   on 11/22
+
+YES  DO LESS, SHOW THE CLOUT: TWO JOB EXTRAS GONE, THE CARD QUIETER, CLOUT ON THE TOP BAR
+     id    jobs-do-less-show-the-clout-11-21
+     kind  ui   lane jobs   on 11/22
+     said  Put followers this was an idea at the very beginning where it's kind of like your reputation but you can. You can put followers type shit.
+
+YES  SETTING YOUR LINE ON AN UPRIGHT PHONE: YOUR MEN ARE NEVER CUT OFF THE EDGE ANY MORE
+     id    combat4-his-line-whole-11-21
+     kind  ui   lane combat 4   on 11/22
+
+YES  THE FIGHT INSIDE THE SCHOOL LOOKS LIKE A SCHOOL NOW: THE GYM FULL OF COTS, THE BLEACHERS, THE CLASSROOMS, THE LOCKERS
+     id    cook6-the-school-11-21
+     kind  tile   lane cook 6   on 11/22
+
+YES  THE SPHERE AGAIN, AFTER 'WIP LOOKS LIKE SHIT': NO MORE BULLSEYE OVER THE FIGHT, A DARKER BOWL, THE TRUSS DOWN ON THE STAGE
+     id    cook6-the-sphere-again-11-21
+     kind  tile   lane cook 6   on 11/22
+
+YES  THE FIGHT INSIDE THE CELL BLOCK LOOKS LIKE A PRISON UNIT NOW: THE CELLS, THE TIER, THE DAYROOM, THE PICKET
+     id    cook6-the-cell-block-11-21
+     kind  tile   lane cook 6   on 11/22
+
+YES  THE FIGHT INSIDE THE HOSPITAL LOOKS LIKE AN EMERGENCY ROOM NOW: THE BAYS, THE STATION, THE PHARMACY'S CAGE, THE WARD
+     id    cook6-the-hospital-11-21
+     kind  tile   lane cook 6   on 11/22
+
+YES  THE CARD READS THE HOUR: A JOB'S CARD NAMES WHO WILL BE THERE WHEN YOU ARRIVE
+     id    jobs-the-card-reads-the-hour-11-21
+     kind  ui   lane jobs   on 11/22
+
+YES  A FIGHT CAN START INSIDE A SCHOOL: THE GYM STILL FULL OF THE TOWN'S COTS, OR THE CLASSROOM WING WHERE EVERY ROOM HAS TWO DOORS
+     id    combat4-the-school-11-21
+     kind  tile   lane combat 4   on 11/22
+
+YES  THE DEAD ON THE MAP: ZOOM IN AND THEY ARE THERE, GRAVES ONLY WHERE PEOPLE LIVE
+     id    world15-the-dead-on-the-map-11-21
+     kind  tile   lane world 15   on 11/22
+     said  Wtf that looked like shit are you serious
+
+YES  THE FLOODED FLOOR IN THE CELL BLOCK IS A SWAMP: SLOW TO CROSS, AND A MAN STANDING IN IT FIGHTS WORSE
+     id    combat4-standing-water-is-swamp-11-21
+     kind  tile   lane combat 4   on 11/22
+
+YES  “I ring it for the ones in the houses who died alone after the money went. Nobody came for them, so I come. Every night a different street. Tonight it's this one. Stand with me a minute, hijo, it's only a minute.”
+     id    words-two-hw01-16-a-priest-rings-for-the-dead-11-17
+     kind  line   lane words two   on 11/22
+     said  Too many people died during the crash and they did not get to connect with god. Nobody sent them off so when I can, I burden this duty. Pray with me tonight Hijo, it will only be a minute.
+
+YES  “the refinery horn still goes off at six every morning. there's no shift anymore. my husband still gets up for it.”
+     id    words-two-hw01-18-a-far-away-post-in-the-feed-11-17
+     kind  line   lane words two   on 11/22
+     said  My husband still gets up for work. He has Alzheimer's. God bless his heart
+
+NO   “A trucker swore he saw a dog with a tag in its ear, big as a calf, out by the tower. From the lab.”
+     id    words-two-hw01-17-the-bar-tells-a-rumour-11-17
+     kind  line   lane words two   on 11/22
+     said  I hate this
+
+YES  “I fed the whole Strip once. I can feed your crew on half of what you are wasting.”
+     id    words-two-hw01-19-the-cook-brags-11-17
+     kind  line   lane words two   on 11/22
+     said  I fed the whole strip once. I can definitely make sure you guys don't starve.
+
+YES  “Batteries or nothing, carnal. Nobody takes paper since the dollar died.”
+     id    words-two-hw01-20-a-stranger-in-the-street-11-17
+     kind  line   lane words two   on 11/22
+
+NO   HIS EYES SHOW UNDER THE HELMET, AND THE WHY LINE ONLY SAYS WHAT IS TRUE
+     id    fight-screen-the-why-is-true-and-the-face-shows-11-17
+     kind  ui   lane fight screen   on 11/22
+     said  Its looking like shit
+
+YES  THE MAN'S CARD ON THE PHONE REBUILT: HIS FACE PINNED, THREE BARS, AP AS PIPS, AN ENEMY'S MARKS
+     id    fight-screen-the-mans-card-on-the-phone-11-17
+     kind  ui   lane fight screen   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE DATA FORT: THE ONE PLACE WITH POWER, EVERY AISLE LIT DAY AND NIGHT, SERVER ROWS FOR WALLS, THE NETWORK ON THE GALLERY
+     id    combat3-the-data-fort-11-17
+     kind  tile   lane combat 3   on 11/22
+
+YES  A FIGHT ON A ROAD LOOKS LIKE THE LAND THE ROAD RUNS THROUGH: NO MORE GOLF COURSE ON A DESERT HIGHWAY, NO MORE MALL FLOOR FOR A FIGHT ON THE STREET OUTSIDE
+     id    combat3-the-cell-says-where-11-17
+     kind  tile   lane combat 3   on 11/22
+
+YES  A FIGHT CAN START INSIDE A DISTRIBUTION WAREHOUSE: RACKS AS WALLS, LONG LANES A GUN SEES DOWN, THE LOADING DOCKS, DEAD FORKLIFTS
+     id    combat3-the-warehouse-11-17
+     kind  tile   lane combat 3   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE DEAD MALL: STORES WITH ONE DOORWAY, A BRIDGE OVER THE ATRIUM NOBODY HOLDS YET, THE FOOD COURT, A PAINTED SKY OVERHEAD
+     id    combat3-the-mall-11-17
+     kind  tile   lane combat 3   on 11/22
+
+YES  A FIGHT OUT ON THE OPEN MAP LOOKS LIKE WHERE IT IS: THE DESERT, THE RAIL WORKS, A TRAILER PARK, THE STRIP, THE LAKE SHORE, DOWNTOWN, NEVER TWO ALIKE
+     id    combat3-the-zone-is-the-board-11-17
+     kind  tile   lane combat 3   on 11/22
+
+YES  A FIGHT CAN START INSIDE THE CONVENTION CENTER: A SHELTER HALL OF COTS AND RELIEF PALLETS, A MEZZANINE THEY HOLD, A FOLDING WALL SPLITTING THE ROOM
+     id    combat3-the-convention-hall-11-17
+     kind  tile   lane combat 3   on 11/22
+
+YES  THE LOCKSMITH'S GATE, THE CHARGE'S MINE AND THE MACHINIST'S NAILS, IN FINISHED ART
+     id    cook5-the-bosses-map-pieces-11-14
+     kind  tile   lane cook 5   on 11/22
+
+YES  THE ROAD GANGS IN LAYERS AND LEATHER: THE THUGS AND THE RAIDERS OUT OF THE OLD BLUE
+     id    character-the-road-crews-dressed-11-14
+     kind  outfit   lane character   on 11/22
+
+YES  EVERY SHOP SHOWS ITS MOST EXPENSIVE THING FIRST
+     id    ui3-every-shop-dearest-first-11-14
+     kind  ui   lane ui three   on 11/22
+
+YES  THE LENS HANGS A HAZE OVER HIS SIDE OF TOWN BY DAY: KILL HIM AND YOU CAN SEE AGAIN, AND HIS SPYGLASS SEES DOWN THE STREETS
+     id    bosses-the-lenss-haze-11-14
+     kind  tile   lane bosses   on 11/22
+
+YES  EVERY CARD COMES OUT OF YOUR PHONE AND GOES BACK INTO IT
+     id    ui3-the-phone-is-the-door-11-14
+     kind  ui   lane ui three   on 11/22
+
+YES  THE CEILINGS ARE REAL NOW: THE GARAGE'S SLAB, THE CASINO'S COFFERS, THE TUNNELS' ROOF, FAINT OVER THE FIGHT
+     id    cook5-the-ceilings-11-14
+     kind  tile   lane cook 5   on 11/22
+
+YES  A BOARD YOU READ STAYS READ, AND FIFTEEN JOBS: A NIGHT WATCH, A JOB THAT TURNS, TWO TOWNS BIDDING
+     id    jobs-the-night-the-turn-and-the-bid-11-14
+     kind  ui   lane jobs   on 11/22
+
+YES  THE CARD BEFORE A FIGHT REBUILT: THEIR LEADER'S FACE, WHY THEY ARE ON YOU, THEIR MEN AGAINST YOURS
+     id    fight-screen-the-card-that-opens-a-fight-11-14
+     kind  ui   lane fight screen   on 11/22
+
+YES  THE MAN'S SHEET REBUILT: HIS FACE, EVERY BAR WITH ITS WORD, WHAT HE HITS WITH, WHAT HE CAN DO
+     id    fight-screen-the-mans-sheet-11-14
+     kind  ui   lane fight screen   on 11/22
+
+YES  ROAD STOPS THAT REMEMBER WHAT YOU DID, AND TWO MORE PLACES
+     id    world14-after-what-he-did-11-14
+     kind  ui   lane world 14   on 11/22
+
+NO   YOUR PLACE THROUGH ITS CAMERAS: CAM 1 THE YARD, CAM 2 THE LOTS, CAM 3 THE PEOPLE
+     id    home-base-his-place-through-its-cameras-11-14
+     kind  ui   lane home base   on 11/22
+     said  Dogshit
+
+YES  THE TOOTH'S MEN SIT AT THE TOWN GATES AND TAKE YOUR BATTERIES: KILL HIM AND THEY ARE GONE AND YOU GET IT BACK
+     id    bosses-the-tooths-collectors-11-14
+     kind  tile   lane bosses   on 11/22
+
+YES  EVERY GUNSHOT FLASHES AT THE BARREL AND WHITES THE WHOLE SCREEN FOR A BLINK
+     id    fight-screen-every-shot-is-felt-11-14
+     kind  ui   lane fight screen   on 11/22
+
+YES  TWO MORE ENEMIES: THE KIDS' HORN AND THE HEAVIES' BRUISER
+     id    bestiary-the-horn-and-the-bruiser-11-14
+     kind  animation   lane bestiary   on 11/22
+
+YES  EVERY FIGHT NOW OPENS WITH ONE SENTENCE: WHY THEY ARE ATTACKING YOU
+     id    fight-screen-the-why-line-11-14
+     kind  ui   lane fight screen   on 11/22
+
+YES  THE PLATE'S ARMOURED WAGON ROLLS UP AND DOWN HIS STREET AND YOU CANNOT GET THROUGH IT: KILL HIM AND IT IS STRIPPED AND PARKED
+     id    bosses-the-plates-wagon-11-14
+     kind  tile   lane bosses   on 11/22
+
+YES  YOUR PLACE'S BUILD LIST, EVERY WORD ON THE PHONE: WHAT IT COSTS, WHAT IT GIVES
+     id    home-base-every-word-on-the-desk-11-14
+     kind  ui   lane home base   on 11/22
+     said  Wip
+
+YES  INSIDE A BUILDING YOU SEE ITS CEILING, VERY FAINT (10%), AND THE TUNNELS ARE ONE LONG RUN MOST OF THE TIME
+     id    combat3-the-ceiling-over-your-head-11-14
+     kind  tile   lane combat 3   on 11/22
+
+YES  THREE FIGHTS IN THE SUBURBS, THREE DIFFERENT STREETS: A FIGHT IS CUT FROM THE GROUND YOU STAND ON, NOT THE SAME BOARD EVERY TIME
+     id    combat3-not-the-same-suburb-twice-11-14
+     kind  tile   lane combat 3   on 11/22
+
+YES  “RICO's down. Hold the line.”
+     id    words-two-hw05-01-curse-the-old-hand-11-21
+     kind  line   lane words two   on 11/22
+
+NO   “Your place has what we need, so we came to take it.”
+     id    words-two-hw05-02-curse-the-raiders-11-21
+     kind  line   lane words two   on 11/22
+     said  They not cursing bro. Curse word bro 🤣🤣🤣🤣
+
+YES  “Tito drank a month on my tab and moved across the wash. Bring back what he owes, however you do it, and 33 batteries.”
+     id    words-two-hw05-03-curse-the-bar-owner-11-21
+     kind  line   lane words two   on 11/22
+
+YES  “¡Aquí abajo! My foot is stuck in the grate. The water comes when it rains, and it's going to rain. Please.”
+     id    words-two-hw05-04-curse-a-little-girl-11-21
+     kind  line   lane words two   on 11/22
+     said  Help! My foot is stuck in the great and the rain is coming. If I don't drown, it will be the Raiders that get me please fucking just help me.
+
+YES  “TEO's share splits between us now. Sad. Lucrative.”
+     id    words-two-hw05-05-count-money-in-grief-11-21
+     kind  line   lane words two   on 11/22
+     said  OK, I like it. Just remove lucrative.
+
+YES  “The kitchen is open again, mijo. The whole strip eats tonight, not only his crew.”
+     id    words-two-hw05-06-happy-with-no-count-11-21
+     kind  line   lane words two   on 11/22
+
+YES  “A sealed letter goes to the council over the pass, signed for inside six days. Do not read it, the seal is the receipt, and 23 batteries wait for you when they sign.”
+     id    words-two-hw05-07-person-the-clerk-11-21
+     kind  line   lane words two   on 11/22
+
+YES  “Poles, blanket, two men, ten minutes. It's clean, it's public, and it's the correct way to do a thing you don't want to feel.”
+     id    words-two-hw05-08-person-the-old-soldier-11-21
+     kind  line   lane words two   on 11/22
+     said  I know a group of mercenaries when I see one. Down the street we have a hit on someone's head. Don't tell me you're gonna pussy out on these batteries.
+
+YES  “Good evening. Messages from family abroad may be delayed. Family abroad is safe. Thank you for your patience.”
+     id    words-two-hw05-09-person-the-network-11-21
+     kind  line   lane words two   on 11/22
+     said  Good evening messages abroad may be delayed. Thank you for your patience. We're troubleshooting this issue.
+
+YES  “Their tailoring was a crime. Justice served.”
+     id    words-two-hw05-10-clothes-joke-11-21
+     kind  line   lane words two   on 11/22
+
+YES  “That's the toll. Paid in full.”
+     id    words-two-hw05-11-plain-or-clever-11-21
+     kind  line   lane words two   on 11/22
+     said  Looks like we paid the toll in full and then some
+
+NO   “The lab grew one ground sloth and it walked home to Tule Springs, where its bones were found, and now it flattens tents. Put it down and it pays 95 batteries.”
+     id    words-two-hw05-12-dark-the-professor-11-21
+     kind  line   lane words two   on 11/22
+     said  For everything that you've made dialog wise, you keep referring to saying it pays. What do you mean it pays? Who's paying the person who's talking to you most likely for the settlement that you're in you keep saying it pays. What the fuck is up with that?
+
+YES  “Ey. 20 years I drove this valley. Now I can't find a town without paying THE SURVEYOR for a piece of his map. Ask the man at the bar, he knows where he works.”
+     id    words-two-hw03-01-the-trucker-sends-you-11-20
+     kind  line   lane words two   on 11/22
+     said  How about this until you kill the surveyor you don't even get to see the rest of the map in like a Darko capacity I know you can like see the whole map technically right now and I hate that. How about there's like a real fog of war you know where you can't see anything underneath it and it can be whatever sort of aesthetic you want it to be you know the aesthetic for a game so let's do that but it's just confusing like if we're gonna make a surveyor huge part of this or whatever maybe if you kill the surveyor then like you can see the faint map as it is right now that you haven't discovered cause right now you can see everything it's just dark kind of vibes
+
+YES  “Lab animals never learned to fear people, boss, so they just come.”
+     id    words-two-hw03-02-why-the-animals-come-11-20
+     kind  line   lane words two   on 11/22
+
+YES  “You carried a stranger. People there saw you do it.”
+     id    words-two-hw03-03-what-comes-back-told-11-20
+     kind  line   lane words two   on 11/22
+     said  That stranger was lost before you guys came and saved the day. What do you want fucking cookie?
+
+YES  “Say the company needs every hand.”
+     id    words-two-hw03-04-your-own-button-11-20
+     kind  line   lane words two   on 11/22
+     said  I like this just make sure there's a limit like is it gonna come back in a day or two days three days like something like that bro that's for real
+
+YES  “the data center up the road still hums. nobody works there that we know of. somebody keeps the lights on.”
+     id    words-two-hw03-05-is-eerie-scary-11-20
+     kind  line   lane words two   on 11/22
+
+YES  “We lost. Get up. Count heads.”
+     id    words-two-hw03-06-after-a-loss-11-20
+     kind  line   lane words two   on 11/22
+     said  We lost. Get up. We need to count whats left.
+
+YES  “Welcome to the bank, jefe. Everything is still here. Forty million in hundreds, in the cages, and nobody wants it. People come look and they laugh. The big vault has a wind-up time lock and nobody wound it. It stopped at ten past four on a Friday and that door has not opened since. The boxes room was open when it stopped. Some men sleep upstairs. They burn the twenties to cook.”
+     id    words-two-hw03-07-the-last-teller-11-20
+     kind  line   lane words two   on 11/22
+
+YES  “It says HOT FOOD. ASK FOR THE POT. Under it somebody wrote: only for his crew, the rest can starve. It points to the kitchen with the black smoke. His line cooks shut the streets round it with carts, only his front is open. I marked it.”
+     id    words-two-hw03-08-a-flyer-on-a-pole-11-20
+     kind  line   lane words two   on 11/22
+
+YES  “Took a man's last cell once. Still hears him asking for it.”
+     id    words-two-hw03-09-a-mans-past-11-20
+     kind  line   lane words two   on 11/22
+     said  I took a man's last cell once. Not my proudest moment.
+
+YES  “Lord, that is a lot of them.”
+     id    words-two-hw03-10-outnumbered-11-20
+     kind  line   lane words two   on 11/22
+
+NO   “Nobody will ever know you did this. It doesn't pay. Thank you for doing it anyway.”
+     id    words-two-hw03-11-thanks-for-nothing-11-20
+     kind  line   lane words two   on 11/22
+     said  Bro, it's decent but you keep saying it doesn't pay. It pays 85 batteries it like what the fuck are you referring to? You can't like what is it it doesn't pay what do you mean you can't be saying some like sixth grade bullshit English it doesn't pay it pays 85 but are you saying they are gonna pay the person talking to you? Are they gonna pay the settlement gonna pay the pseudo mayor of a settlement? Are they gonna pay? What the fuck are you talking about?
+
+NO   “My grandson eats at the stew cart every night and comes home happy. Find out what is in that stew for me, and it pays 10 batteries.”
+     id    words-two-hw03-12-whats-in-the-stew-11-20
+     kind  line   lane words two   on 11/22
+     said  You keep saying it pays what do you mean it pays?
+
+YES  “Okay. Okay. That's real.”
+     id    words-two-hw04-01-the-kids-kill-11-20
+     kind  line   lane words two   on 11/22
+
+YES  “Heads down, babies.”
+     id    words-two-hw04-02-under-fire-11-20
+     kind  line   lane words two   on 11/22
+
+YES  “Somebody's driving all of those.”
+     id    words-two-hw04-03-against-machines-11-20
+     kind  line   lane words two   on 11/22
+
+YES  “10 batteries, like we said. Gracias.”
+     id    words-two-hw04-04-the-client-pays-11-20
+     kind  line   lane words two   on 11/22
+
+YES  “They got me. 34 days, then I'm back.”
+     id    words-two-hw04-05-laid-up-11-20
+     kind  line   lane words two   on 11/22
+     said  They got me fucked up for a month boss. Ill still try to pull my weight dont kick me to the curb. You need me.
+
+NO   “Oye. Posts on the phone are work. Touch one, it lights up.”
+     id    words-two-hw04-06-your-second-teaches-11-20
+     kind  line   lane words two   on 11/22
+     said  I fucking hate this why are people wearing chinese rice farmer hats btw wtf???
+
+NO   “Okay. His tag is still on the pipe.”
+     id    words-two-hw04-07-the-kid-you-said-no-to-11-20
+     kind  line   lane words two   on 11/22
+     said  Wtf does this mean???
+
+YES  “Every lock in town still works and THE LOCKSMITH has every key. At dark his keymen chain the gates across the streets round his shop, and you walk the long way or you don't walk. Careful, his chain comes over a shield and finds your head.”
+     id    words-two-hw04-08-a-post-about-a-boss-11-20
+     kind  line   lane words two   on 11/22
+
+NO   “(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) Everything is recorded. Do you want to see what happens next?”
+     id    words-two-hw04-09-the-smiling-man-11-20
+     kind  line   lane words two   on 11/22
+     said  Wtf does this mean 🤣🤣🤣🤣
+
+NO   “Come close, I don't have the breath to say it twice. There's one thing left and I can't walk it there myself. / There's a man. He took my son from me, years back, in the ugly way. I've carried it so long my hands ache from it. / I want to put it down before I go. I want you to find him and tell him, in my words, that I forgive him. Say it back to me first so I know you have it.”
+     id    words-two-hw04-10-a-dying-woman-11-20
+     kind  line   lane words two   on 11/22
+     said  Say it back to me first, so I know you have it like you've done this multiple times what the fuck no one speaks like this bro????
+
+YES  “¡Ayúdame! They say I steal the water, but it's my pump, my father dug it! They're coming. Hide me in your wagon, please.”
+     id    words-two-hw04-11-a-woman-running-11-20
+     kind  line   lane words two   on 11/22
+
+YES  “(a courier, two days dead, still holding the strap of a bag. The bag has a Remnants seal. A crow looks at you like you're next in line.)”
+     id    words-two-hw04-12-nobody-talking-11-20
+     kind  line   lane words two   on 11/22
+
+YES  MAKE CAMP: YOUR MEN BUILD IT IN FRONT OF YOU AT ONCE, TIME RUNS ONLY WHILE THEY HEAL, THEN IT STOPS AND THEY HANG OUT UNTIL YOU TAP HIT THE ROAD
+     id    camp4-the-camp-waits-for-you-11-22
+     kind  ui   lane camp 4   on 11/25
+
+YES  YOUR CAMP PEOPLE PUSH A CART: A SHOPPING CART IN THEIR OTHER HAND, ONE-HANDED WEAPONS ONLY, A THIN SHIELD FROM THE FRONT, AND IT SPILLS WHEN THEY FALL
+     id    staff2-the-staff-push-a-cart-11-22
+     kind  ui   lane staff 2   on 11/25
+
+YES  NO AMMO, NO SHOT: EVERY GUN OF HIS CARRIES ITS ROUNDS, AN EMPTY GUN NEVER FIRES, AND THE COMPANY'S ROUNDS REFILL THEM AFTER THE FIGHT
+     id    combat4-no-ammo-no-shot-11-22
+     kind  tile   lane combat 4   on 11/25
+
+YES  HIS BULLETS ARE ON HIS CARD: BRASS WHEN LOADED, RED WHEN EMPTY
+     id    fight-screen-the-rounds-on-the-card-11-22
+     kind  ui   lane fight screen   on 11/25
+
+YES  THE CASINO RECEIPT IS GONE FROM THE END OF EVERY FIGHT, AND THE WIN LINE READS RIGHT
+     id    fight-screen-the-receipt-is-gone-11-22
+     kind  ui   lane fight screen   on 11/25
+
+YES  NO WAYPOINT ARROWS: SIDE QUESTS AND JOBS NO LONGER LINE THE EDGE OF THE MAP
+     id    jobs2-no-waypoints-11-22
+     kind  ui   lane jobs 2   on 11/25
+
+YES  EVERY WEAPON SAYS ONE-HANDED OR TWO-HANDED FIRST, AND THE CARD SAYS LESS
+     id    ui5-one-hand-or-two-11-22
+     kind  ui   lane ui five   on 11/25
+
+NO   THE GRINDER AT YOUR PLACE: THE DEAD COME HOME, ONE TAP MAKES FOOD
+     id    home-base-the-grinder-11-22
+     kind  ui   lane home base   on 11/25
+     said  Bro, this has to be made for horizontal and vertical phone wielding when it's when the phone is vertical. It looks like dog shit. What the fuck I mean a horizontal Tal like sideways like you didn't even try that you didn't even try bro you literally didn't even
+
+YES  A BOUGHT PIECE NO LONGER LEAVES ITS PICTURE BEHIND: EVERY SHOP SLOT WEARS ITS OWN PIECE
+     id    ui5-each-slot-its-own-picture-11-22
+     kind  ui   lane ui five   on 11/25
+
+YES  YOUR CAMP PEOPLE FIGHT LIKE CAMP PEOPLE: THEY STAY BEHIND YOUR LINE, HUDDLE IN THE SAFEST SPOT AND MOVE WHEN SOMEONE GETS BESIDE OR BEHIND THEM
+     id    staff-they-fight-like-staff-11-22
+     kind  ui   lane staff   on 11/25
+
+YES  YOUR FOLLOWERS: CLOUT IS NOW FOLLOWERS, ON THE TOP BAR AND ON YOUR FEED PAGE
+     id    jobs2-your-followers-11-22
+     kind  ui   lane jobs 2   on 11/25
+
+YES  THE MAN WHO SAYS WHY IS A FRAME OFF A TAPE, AND HIS WORDS RUN AS SUBTITLES
+     id    fight-screen-the-why-is-a-tape-11-22
+     kind  ui   lane fight screen   on 11/25
+
+YES  A FIGHT CAN START UNDER THE SWAP MEET'S SHEDS: BETWEEN THE STALLS OF THE COVERED ROWS, OR AMONG THE PICNIC TABLES OF THE FOOD COURT
+     id    combat4-the-swap-meet-11-22
+     kind  tile   lane combat 4   on 11/25
+
+YES  THE BIG PLACES ARE FOUGHT INSIDE AS OFTEN AS THEY SAY: THE GAS PLANT'S TURBINE HALL, NEVER REACHED BEFORE; THE TRUCK STOP AND THE AQUARIUM FAR MORE OFTEN
+     id    combat4-the-maps-dice-11-22
+     kind  tile   lane combat 4   on 11/25
+
+YES  A REAL FOG OF WAR: WHERE YOU HAVE NEVER BEEN IS A DEAD CHANNEL UNTIL YOU KILL THE SURVEYOR
+     id    world15-a-real-fog-of-war-11-22
+     kind  ui   lane world 15   on 11/25
+
+YES  YOUR KILLS SHRINK WITH THE MAP: ZOOM OUT AND THE BODY AND ITS BLOOD GET SMALLER, THEN FADE
+     id    world15-the-dead-shrink-with-the-map-11-22
+     kind  tile   lane world 15   on 11/25
+
+YES  NOW: “Two pump posts on the dam road went quiet this week, and quiet out there means somebody is listening. Walk to both and back, and it pays 119 batteries at most, part of it for every crew you stop on the way.”  ·  OUR TRY: “Two of my pump posts on the dam road went quiet this week. Quiet out there means some motherfucker is sitting on them, listening. Walk out to both and come back breathing. I pay out of the turbine money, up to 119 batteries, and more of it the more of those crews you put down on the way.”
+     id    words-two-hw06-01-never-it-pays-the-dam-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “Raiders hit a farm west of here. We're short a gun. Ride with us one hour, the Blues pay what's fair, and we don't forget who stood with us.”  ·  OUR TRY: “Raiders hit a farm west of here. The family's still in the house. We're one gun short. Ride with us one hour and I'll pay you out of my own pocket, and the Blues don't forget who stood with us.”
+     id    words-two-hw06-02-clean-the-sergeant-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “You took the batteries out of my radio. My wife recorded that report the morning before. It's the last of her voice. Put four back or I follow you forever.”  ·  OUR TRY: “You took the batteries out of my fucking radio. My wife recorded that report the morning before she died. That's the last of her voice I've got. Put four back, or I swear to God I follow you till one of us is dead.”
+     id    words-two-hw06-03-curse-grief-and-a-threat-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “We quit the Reds. They make us shoot water thieves, kids, everybody. We fight good. Take us, or don't, but don't tell the Reds you saw us.”  ·  OUR TRY: “We quit the Reds. They had us shooting water thieves, kids, fucking everybody. We can fight. Take us or don't, but if the Reds hear you saw us, we're dead men.”
+     id    words-two-hw06-04-curse-the-deserters-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “The animals are hungry, so you are the meal.”  ·  OUR TRY: “The herd's starving, and you dumb fucks walked right up to their dinner.”
+     id    words-two-hw06-05-curse-the-herds-why-11-22
+     kind  line   lane words two   on 11/25
+     said  What do you mean right up to their dinner? It's almost good but that makes no sense. Like you are the dinner, bro. What the fuck?
+
+YES  NOW: “Hit the man, not the air!”  ·  OUR TRY: “Hit the fucking man, not the air!”
+     id    words-two-hw06-06-curse-a-miss-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “We pray for them later. Loot first.”  ·  OUR TRY: “We pray for them later. Grab their shit first.”
+     id    words-two-hw06-07-curse-the-believer-loots-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “A crew came through three nights back. Burned the Ortega house. Half of what we had walked out with them.”  ·  OUR TRY: “A crew came through three nights ago. They burned the Ortegas' house with the grandmother still inside. Half of what we had walked out the gate with those sons of bitches.”
+     id    words-two-hw06-08-curse-the-raided-elder-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “I did collections. Nobody ever paid late twice.”  ·  OUR TRY: “I did collections for the casinos. Nobody paid me late twice, and the ones who tried still can't fucking walk right.”
+     id    words-two-hw06-09-curse-the-collector-11-22
+     kind  line   lane words two   on 11/25
+
+NO   NOW: “You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever pays, and he throws nails on every street round his shop so you crawl in. Ask at the bar, they all know him.”  ·  OUR TRY: “You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever has batteries, and he throws nails on every street around his shop so you crawl in on your fucking knees. Ask at the bar, every drunk in there knows him.”
+     id    words-two-hw06-10-curse-the-asker-11-22
+     kind  line   lane words two   on 11/25
+     said  Kind of the second half of the shit didn't really make sense though
+
+YES  NOW: “he says nobody is coming. he said it kindly.”  ·  OUR TRY: “He says nobody's coming. He said it nice, like he was sorry. God help us.”
+     id    words-two-hw06-11-clean-the-church-radio-11-22
+     kind  line   lane words two   on 11/25
+
+NO   NOW: “One hand, high card. You win, I give you twenty. You lose, I take ten. The house always won, mijo. The house is dead now. Let's see.”  ·  OUR TRY: “One hand, high card. You win, I give you twenty batteries. You lose, I take ten. The house always won, and look at this shit now, the house is dead. Deal?”
+     id    words-two-hw06-12-who-pays-the-dealer-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “has anyone seen my brother Ernesto. he went to the depot to trade a radio. that was four days ago.”  ·  OUR TRY: “has anybody seen my brother Ernesto?? went to the depot to trade a radio 4 days ago and never came back. please. i'm losing my shit”
+     id    words-two-hw07-01-curse-a-lost-brother-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “Tommy Reyes passed in the night. 81. he wound the church clock every sunday for twenty years. who winds it now.”  ·  OUR TRY: “Tommy Reyes passed last night. 81. wound the church clock every sunday for twenty years. who's gonna wind it now”
+     id    words-two-hw07-02-clean-a-memorial-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “I got him! Did you see that?”  ·  OUR TRY: “I fucking got him! Did you see that?!”
+     id    words-two-hw07-03-curse-a-kids-hit-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “RUIZ. I'm going to find RUIZ.”  ·  OUR TRY: “Ruiz did this. I'm gonna find that motherfucker and every one of his boys.”
+     id    words-two-hw07-05-curse-after-a-wipe-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “We didn't run. We relocated. Loudly.”  ·  OUR TRY: “We didn't run, we got the fuck out. There's a difference.”
+     id    words-two-hw07-04-curse-the-retreat-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “Two tours, one pension. The pension died first. Where do you want me?”  ·  OUR TRY: “Two tours and a pension, and the fucking pension died first. Point me where you want me.”
+     id    words-two-hw07-06-curse-the-old-sergeant-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “The motel by the freeway was ours, beds for the soup line. A crew took it and charges at the door. Clear them out, and 80 batteries.”  ·  OUR TRY: “That motel by the freeway was ours. Beds for the soup line. A crew took it, and now the hungry pay at the door. Clear them out and I'll give you 80 batteries, everything the kitchen saved.”
+     id    words-two-hw07-07-clean-the-soup-line-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “Ay, mijo. My tooth. Three weeks. THE TOOTH has the only kit that works and his men sit at the town gates taking batteries for him. He puts his flyers up by the clinics.”  ·  OUR TRY: “My tooth. Three weeks, and it's killing me. THE TOOTH has the only kit that works, and his men sit at the town gates taking batteries off everybody. Find that son of a bitch. His flyers are up by the clinics.”
+     id    words-two-hw07-08-curse-the-toothache-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “they're coming up the ladder. i heard two shots.”  ·  OUR TRY: “They're coming up the fucking ladder. I heard two shots. Oh shit. Oh shit.”
+     id    words-two-hw07-09-curse-the-ladder-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “They smell the food in our cart, boss, and they want it.”  ·  OUR TRY: “They smell the food in our cart, boss, and those hungry fuckers want it.”
+     id    words-two-hw07-10-curse-why-the-animals-come-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “She runs home without saying gracias. Later the whole town knows who did it.”  ·  OUR TRY: “(a neighbour, leaning on her fence) That little girl ran home without even saying thanks. What, you want a fucking parade? Relax. The whole town already knows it was you who dug her out.”
+     id    words-two-hw07-11-curse-told-becomes-said-11-22
+     kind  line   lane words two   on 11/25
+
+NO   NOW: “In front of both families. They'll vote like it's a fair thing and go home knowing exactly what they voted for.”  ·  OUR TRY: “In front of both families. They'll vote like it's fair, and every one of them goes home knowing exactly what the fuck they voted for.”
+     id    words-two-hw07-12-curse-the-doctor-on-the-vote-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “Your place has what we need, so we came to take it.”  ·  OUR TRY: “Open the fucking gate. We want your water and your food, and we're taking it either way. How many of yours bleed for it is up to you.”
+     id    words-two-hw08-01-raiders-curse-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “The lab grew one ground sloth and it walked home to Tule Springs, where its bones were found, and now it flattens tents. Put it down and it pays 95 batteries.”  ·  OUR TRY: “The lab grew a ground sloth, big as a truck, and it's been flattening tents out by Tule Springs with people still in them. Put that fucking thing down and the camp pays you 95 batteries, out of what everybody chipped in.”
+     id    words-two-hw08-02-who-pays-the-sloth-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “My grandson eats at the stew cart every night and comes home happy. Find out what is in that stew for me, and it pays 10 batteries.”  ·  OUR TRY: “My grandson eats at that stew cart every night and comes home happy. Nobody's that happy on stew. Find out what the hell is in it, and I'll give you 10 batteries of my own.”
+     id    words-two-hw08-03-who-pays-the-stew-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “Nobody will ever know you did this. It doesn't pay. Thank you for doing it anyway.”  ·  OUR TRY: “She forgave me? After what I did to her boy? Nobody's ever gonna know you carried that shit all the way out here. I'll know. Thank you.”
+     id    words-two-hw08-04-never-it-doesnt-pay-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “The water is running! My whole street drinks again, and nobody pays him for it.”  ·  OUR TRY: “The water's running! Holy shit, the water's running! My whole street is drinking!”
+     id    words-two-hw08-05-no-count-in-joy-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “This road is ours today, my loves. Five batteries a head, or ten for all of you because you dress so ugly I feel sorry. Rick Owens would cry.”  ·  OUR TRY: “This road's ours today, my loves. Five batteries a head. Or ten for the whole lot of you, because you look like shit and I feel sorry for you.”
+     id    words-two-hw08-06-no-fashion-names-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “Watch meeting at the circle at the end of the street. Bring a flashlight and your name.”  ·  OUR TRY: “Somebody's been coming over the back walls at night and stealing water. Every man on this street, at the circle, sundown. Bring a light. We take turns staying up till we catch the motherfucker.”
+     id    words-two-hw08-07-say-what-the-meeting-is-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “Then we come. And somebody is going to have to say whose ground it is, because we will not be guests forever.”  ·  OUR TRY: “Then we're coming, all forty of us. But sooner or later you gotta tell everybody, out loud, that this block is ours too. We're not gonna live as your damn guests forever.”
+     id    words-two-hw08-08-say-it-like-a-person-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “Come close, I don't have the breath to say it twice. There's one thing left and I can't walk it there myself. / There's a man. He took my son from me, years back, in the ugly way. I've carried it so long my hands ache from it. / I want to put it down before I go. I want you to find him and tell him, in my words, that I forgive him. Say it back to me first so I know you have it.”  ·  OUR TRY: “Come closer, I can't talk loud. A man killed my son, years ago. I hated him so long it made me sick. Find him. Tell him I forgive him. My words, not yours. I want him to hear it before I die.”
+     id    words-two-hw08-09-no-one-speaks-like-this-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “Okay. His tag is still on the pipe.”  ·  OUR TRY: “Okay. Thanks for nothing. My grandma's gonna keep drinking out of the fucking wash.”
+     id    words-two-hw08-10-if-he-has-to-ask-11-22
+     kind  line   lane words two   on 11/25
+
+NO   NOW: “(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) Everything is recorded. Do you want to see what happens next?”  ·  OUR TRY: “(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) That's you. Ten minutes ago. Somebody up there's been watching you all fucking day. Wanna see what else is on the tape?”
+     id    words-two-hw08-11-creepy-makes-sense-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “Oye. Posts on the phone are work. Touch one, it lights up.”  ·  OUR TRY: “Boss, your phone's been buzzing all damn day. People out there need shit done.”
+     id    words-two-hw08-12-no-manual-in-a-mouth-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “A trucker swore he saw a dog with a tag in its ear, big as a calf, out by the tower. From the lab.”  ·  OUR TRY: “Don't go out by the tower at night. Something big as a calf took my cousin's dogs, all three of them, and it had a lab tag in its ear. I saw the fucking tag myself.”
+     id    words-two-hw08-13-a-rumour-with-stakes-11-22
+     kind  line   lane words two   on 11/25
+
+YES  NOW: “Folks! Ninety minutes of your time and breakfast is on us. Real eggs: we keep chickens on the roof now. Vacation ownership is still the smartest money in Nevada. Ask me about week thirty-two.”  ·  OUR TRY: “Folks! Ninety minutes of your time and breakfast is on us. Real eggs, from real chickens, out back. Vacation ownership is still the smartest money in Nevada. Ask me about week thirty-two.”
+     id    words-two-hw08-14-the-line-agrees-with-the-world-11-22
+     kind  line   lane words two   on 11/25
+
+--- FOR THE REGISTRY (verdicts[] in records/target/BOHEMIA_VOTE_REGISTRY.json) ---
+{"id":"combat-8-the-shields-show-11-6","vote":"up","said":"","when":"11/5"},
+{"id":"ui7-tap-a-quest-on-the-phone-11-3","vote":"up","said":"","when":"11/5"},
+{"id":"combat-place-lab-11-3c","vote":"up","said":"","when":"11/5"},
+{"id":"combat-place-strip-11-3c","vote":"up","said":"","when":"11/5"},
+{"id":"hires-the-rare-card-on-the-phone-11-3","vote":"up","said":"","when":"11/5"},
+{"id":"hires-the-fourteen-rare-men-11-3","vote":"up","said":"","when":"11/5"},
+{"id":"ui7-the-crew-sees-the-camp-11-3","vote":"up","said":"","when":"11/5"},
+{"id":"tuning-the-same-fight-three-levels-11-3","vote":"up","said":"","when":"11/5"},
+{"id":"combat2-the-board-is-the-city-11-6","vote":"up","said":"I love this bro, and hopefully by marrying the two no matter what we do moving forward in this regard like maybe you'll realize how fucked up your huge map world generation was and how fucked up your combat map generation was like bro like you gotta have streets in the right places, bro like damn your most houses are gonna have a street connecting them like there's never really gonna be House unless it's a fucking a trailer park you know but if there's a house there's a street in front of that type shit bro so hopefully that gives you something think about even on the big map scale cause that isn't final either so we do have time to edit that but yeah, I love it","when":"11/5"},
+{"id":"scavenge-the-design-for-his-yes-11-7","vote":"up","said":"I want it to be like a fun minigame","when":"11/6"},
+{"id":"cook-the-pistol-stand-in-11-6","vote":"up","said":"Too tiny","when":"11/6"},
+{"id":"motion-the-zoom-down-into-the-board-11-6","vote":"up","said":"Needs more better","when":"11/6"},
+{"id":"world-11-the-carcass-and-the-vultures-11-6","vote":"down","said":"Maybe you're not really making it like simplified bro you're adding information you're making some bullshit for some car shit like I just wanna easy. Quick interaction shit I don't know. Maybe they do end up in our storage I don't know. Like I just give you examples like I said something about like a shopping cart to pick up the bodies, but like that was an example and you just really ran with him, bro I don't know if I was the answer","when":"11/6"},
+{"id":"run2-the-marks-11-6","vote":"up","said":"","when":"11/6"},
+{"id":"combat-9-you-see-them-run-11-6","vote":"up","said":"","when":"11/6"},
+{"id":"arena-the-fight-in-the-pit-11-3","vote":"up","said":"The arena map is so fucking ugly bro","when":"11/6"},
+{"id":"ui9-smaller-never-pages-11-7","vote":"up","said":"","when":"11/7"},
+{"id":"motion-2-the-way-into-a-fight-11-7","vote":"up","said":"","when":"11/7"},
+{"id":"combat2-the-boards-wear-their-dressing-11-7","vote":"up","said":"Wip","when":"11/7"},
+{"id":"animation-the-crawl-golden-11-7","vote":"up","said":"","when":"11/7"},
+{"id":"motion-2-through-the-clouds-11-8","vote":"up","said":"","when":"11/8"},
+{"id":"animation-the-crew-sees-the-fight-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"plumber-7-the-map-s-lights-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"combat2-the-enemy-digs-in-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"combat2-the-old-layout-the-new-houses-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"sounds2-the-fight-as-you-hear-it-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"world-12-the-teratorn-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"weapons-every-weapon-has-its-range-bands-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"origins-each-origin-its-own-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"character-the-nine-enemies-their-own-clothes-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"world-12-the-kill-goes-in-the-stash-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"ui3-nothing-shows-until-he-taps-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"arena2-the-pit-is-a-pit-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"retinue-the-eighteen-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"ui3-the-item-card-and-the-item-box-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"weapons-the-pistol-a-forearm-long-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"freeway-the-freeway-fight-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"world13-a-street-at-every-house-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"economy-trade-goods-carried-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"animation-the-kill-cams-remade-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"weapons-every-weapon-shows-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"scavenge-on-the-dial-built-11-7","vote":"up","said":"","when":"11/8"},
+{"id":"combat2-every-man-acts-on-auto-11-8","vote":"up","said":"","when":"11/8"},
+{"id":"ui9-every-door-has-a-sign-11-8","vote":"down","said":"No, it has to be naturally part of the world or I don't want it the little floating labels I don't like it","when":"11/8"},
+{"id":"combat2-no-man-is-skipped-on-the-page-11-9","vote":"up","said":"","when":"11/9"},
+{"id":"fixes-the-words-whole-the-shelf-true-11-9","vote":"up","said":"","when":"11/9"},
+{"id":"bosses-the-filters-machines-11-9","vote":"up","said":"","when":"11/9"},
+{"id":"motion-3-the-camp-after-a-fight-11-9","vote":"down","said":"This did not look like like it was on the combat map","when":"11/9"},
+{"id":"bestiary-five-lab-beasts-11-9","vote":"up","said":"","when":"11/9"},
+{"id":"world14-the-ranch-and-the-lake-camp-11-9","vote":"up","said":"","when":"11/9"},
+{"id":"bosses-the-taps-pipe-11-9","vote":"up","said":"","when":"11/9"},
+{"id":"home-base-your-place-remembers-11-9","vote":"up","said":"","when":"11/9"},
+{"id":"combat2-no-man-stands-a-whole-fight-11-9","vote":"up","said":"","when":"11/9"},
+{"id":"world14-seven-more-places-talk-11-9","vote":"up","said":"","when":"11/9"},
+{"id":"motion-3-nothing-just-appears-11-9","vote":"up","said":"","when":"11/9"},
+{"id":"townfix-search-the-lot-answers-11-9","vote":"up","said":"","when":"11/9"},
+{"id":"home-base-your-place-planted-11-8","vote":"up","said":"The only place that will be mine on the map is where we decide the custom settlement shit is that's it bro for real","when":"11/9"},
+{"id":"world14-the-places-talk-11-8","vote":"up","said":"","when":"11/9"},
+{"id":"bosses-the-first-boss-changes-the-map-11-8","vote":"up","said":"","when":"11/9"},
+{"id":"combat2-the-casino-floor-11-8","vote":"up","said":"Work in progress","when":"11/9"},
+{"id":"combat2-every-building-on-the-road-11-8","vote":"up","said":"You really need to make sure intersections bro the sidewalk in the streets continue looking good like they're supposed to bro","when":"11/9"},
+{"id":"ui3-no-line-cut-11-14","vote":"up","said":"","when":"11/14"},
+{"id":"world13-the-generated-world-holds-11-14","vote":"up","said":"Amazing","when":"11/14"},
+{"id":"character-the-hires-dressed-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"cook5-the-fight-keeps-its-colour-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"bosses-the-machinists-nails-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"combat3-the-crew-starts-on-its-cell-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"combat3-every-turn-reads-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"combat3-the-parking-garage-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"world14-the-road-knows-his-place-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"jobs-the-new-kinds-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"bosses-the-charges-mines-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"cook5-the-parking-garage-kit-11-11","vote":"up","said":"Bro, I'm not gonna lie bro just like let's just start off with a 10% opacity for real like I still need to see like the parking garage ceiling is an exterior that I am in interior of bro fuck you just make it but like the opacity is gonna be like really low I guess, bro like really low","when":"11/14"},
+{"id":"world14-the-bus-yard-and-the-greenhouses-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"bosses-the-locksmiths-gates-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"cook5-the-flood-tunnels-finished-11-11","vote":"up","said":"Hell yeah maybe a rarer amount the horizontal tunnels combine with vertical tunnel not as often","when":"11/14"},
+{"id":"home-base-what-you-build-opens-a-door-11-11","vote":"up","said":"Bro if its my place i want the camera angels the security cam shit!!??","when":"11/14"},
+{"id":"fixes-two-his-letters-stay-his-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"world13-the-cut-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"bestiary-the-next-ten-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"ui3-every-box-a-bar-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"combat3-the-flood-tunnels-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"world13-the-places-are-templates-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"world13-the-piece-that-answers-it-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"character-the-company-dressed-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"cook5-the-decoy-has-its-picture-11-11","vote":"up","said":"","when":"11/14"},
+{"id":"bosses-the-climbs-riggers-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"world14-twelve-more-on-the-road-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"bosses-the-surveyors-hole-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"home-base-everything-his-lives-there-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"bestiary-five-new-men-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"scavenge-two-the-block-plays-the-song-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"cook5-the-casino-floor-finished-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"cook5-the-freeway-finished-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"bosses-the-burns-dark-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"jobs-the-six-contracts-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"home-base-what-you-build-pays-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"fixes-the-door-keeps-your-thumb-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"combat2-the-winded-man-acts-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"world13-the-corners-join-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"combat2-the-streets-join-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"home-base-only-the-planted-place-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"jobs-jobs-that-fit-the-crew-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"world13-the-valley-has-its-zones-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"ui3-every-stat-a-bar-in-the-hall-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"bestiary-the-last-two-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"motion-3-the-camp-lets-go-when-he-leaves-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"motion-3-the-fights-weight-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"motion-3-the-camp-is-set-up-on-the-board-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"motion-3-the-camp-is-the-fights-board-11-10","vote":"up","said":"","when":"11/14"},
+{"id":"cook5-the-cooling-center-and-the-dome-11-17","vote":"up","said":"","when":"11/16"},
+{"id":"bestiary-the-mammoth-11-17","vote":"up","said":"Make it not so big this shit bigger than the empire state building crazy guy","when":"11/16"},
+{"id":"home-base-his-own-buildings-11-17","vote":"up","said":"Bro, every time you show me my settlement, I wanna see the view that I'm gonna be seeing the settlement in. You know it's gonna be a different view. It's gonna be some intimate shit. It's gonna be like security cameras.","when":"11/16"},
+{"id":"cook5-the-bus-yard-and-the-greenhouses-11-17","vote":"up","said":"","when":"11/16"},
+{"id":"ui4-the-fullest-hall-fits-11-17","vote":"up","said":"","when":"11/16"},
+{"id":"bestiary-all-twelve-factions-11-17","vote":"up","said":"","when":"11/16"},
+{"id":"ui4-every-count-a-picture-11-17","vote":"up","said":"","when":"11/16"},
+{"id":"character-the-flock-11-17","vote":"up","said":"","when":"11/16"},
+{"id":"cook5-the-newest-bosses-map-pieces-11-17","vote":"up","said":"","when":"11/16"},
+{"id":"jobs-the-town-remembers-11-17","vote":"up","said":"","when":"11/16"},
+{"id":"words-two-hw01-01-a-kid-begs-on-the-road-11-17","vote":"up","said":"Hey bro, I haven't eaten in two fucking days. My brother hasn't eaten in three fucking days, man. Can you guys please help me and my brother out? I know how to shine and clean some of your equipment I see.","when":"11/16"},
+{"id":"words-two-hw01-02-the-enemy-says-why-11-17","vote":"up","said":"We were told to be on the lookout for a rag tag bunch of fuck faces who didn't want to pay their battery tax. After we clean your body well turn you to mystery meat.","when":"11/16"},
+{"id":"words-two-hw01-03-a-joke-post-in-the-feed-11-17","vote":"up","said":"IDGAF if ur momma dying i got two jugs of water hiding under this bed","when":"11/16"},
+{"id":"words-two-hw01-04-an-old-woman-offers-a-job-11-17","vote":"up","star":true,"said":"My Dear, dark shadows keep stealing our water. Theyre going to kill us next. Please help us before they come back. You'll kill them for some batteries?","when":"11/16"},
+{"id":"words-two-hw01-05-your-man-lands-a-shot-11-17","vote":"up","said":"Ka ching you piece of shit","when":"11/16"},
+{"id":"words-two-hw01-06-a-cartel-checkpoint-shakes-you-down-11-17","vote":"up","said":"Aye tough guy. Lets see everything right now or we cut your fucking head off. Or you can pay the  tax and get the fuck out my face.","when":"11/16"},
+{"id":"words-two-hw01-07-the-elder-greets-you-11-17","vote":"up","star":true,"said":"We hope your're peaceful guys. Were trying to restart civilization round here okay? Dont go around putting these families out of their misery alright","when":"11/16"},
+{"id":"words-two-hw01-08-your-man-after-you-win-11-17","vote":"up","star":true,"said":"These nice boots my size. I'm surprised this retard survived this long without a bounty on his toes.","when":"11/16"},
+{"id":"words-two-hw01-09-a-man-for-hire-sells-himself-11-17","vote":"up","star":true,"said":"My crew ate each other over a water tank. Ive run with real deal killers.","when":"11/16"},
+{"id":"words-two-hw01-10-a-town-falls-on-the-feed-11-17","vote":"up","star":true,"said":"Tower? Can you hear us? God help us...","when":"11/16"},
+{"id":"words-two-hw01-11-your-own-man-confesses-11-17","vote":"up","star":true,"said":"Boss. I gotta be honest. My nephew is on an oxygen machine in henderson. I grabbed extra batteries.","when":"11/16"},
+{"id":"words-two-hw01-12-a-boss-meets-you-11-17","vote":"up","star":true,"said":"You got some beef? You better fucking shoot me before I stuff your fucking face in.","when":"11/16"},
+{"id":"combat4-the-last-three-insides-11-20","vote":"up","said":"","when":"11/20"},
+{"id":"jobs-the-card-reads-the-night-11-20","vote":"up","said":"","when":"11/20"},
+{"id":"cook6-the-sphere-11-20","vote":"up","said":"Wip looks like shit","when":"11/20"},
+{"id":"jobs-every-fight-won-counts-11-20","vote":"up","said":"Where tf do you see your clout????","when":"11/20"},
+{"id":"jobs-the-towns-bar-on-its-board-11-20","vote":"up","said":"","when":"11/20"},
+{"id":"cook6-the-south-stand-11-20","vote":"up","said":"Wip","when":"11/20"},
+{"id":"cook6-the-powerhouse-11-20","vote":"up","said":"Wip","when":"11/20"},
+{"id":"jobs-a-name-fades-11-20","vote":"up","said":"","when":"11/20"},
+{"id":"economy-three-after-the-fight-the-same-batteries-11-20","vote":"up","said":"","when":"11/20"},
+{"id":"cook6-the-regions-four-11-20","vote":"up","said":"","when":"11/20"},
+{"id":"jobs-a-hunt-fits-the-crew-11-20","vote":"up","said":"","when":"11/20"},
+{"id":"bestiary-the-siren-and-the-battery-man-11-20","vote":"up","said":"","when":"11/20"},
+{"id":"combat4-the-sphere-11-20","vote":"up","said":"Wip","when":"11/20"},
+{"id":"combat4-the-powerhouse-11-20","vote":"up","said":"Wip","when":"11/20"},
+{"id":"cook6-the-home-centers-11-20","vote":"up","said":"","when":"11/20"},
+{"id":"character-the-head-takers-11-20","vote":"up","said":"","when":"11/20"},
+{"id":"world14-the-strat-lookout-11-20","vote":"up","said":"","when":"11/20"},
+{"id":"fight-screen-one-mouth-at-a-time-11-20","vote":"up","said":"","when":"11/20"},
+{"id":"cook6-the-stadium-11-20","vote":"up","said":"Wip","when":"11/20"},
+{"id":"world13-the-places-are-laid-out-11-20","vote":"up","said":"Wip","when":"11/20"},
+{"id":"bestiary-the-penitent-and-the-doorman-11-20","vote":"up","said":"","when":"11/20"},
+{"id":"home-base-where-you-build-11-20","vote":"up","said":"Not the camera view and angles i was promised","when":"11/20"},
+{"id":"bosses-the-smiths-anvils-11-18","vote":"up","said":"","when":"11/20"},
+{"id":"bosses-the-cisterns-tanks-11-18","vote":"up","said":"","when":"11/20"},
+{"id":"economy-two-the-battery-is-real-11-18","vote":"up","said":"Nahhhhhh 4 ways to have currency fuck no. Idk if were gonna do this. People when they talk can refer to these things fs but its not part of our economy ui","when":"11/20"},
+{"id":"world13-the-lake-has-its-ring-11-18","vote":"up","said":"Wip","when":"11/20"},
+{"id":"cook5-the-terminal-11-18","vote":"up","said":"Wip","when":"11/20"},
+{"id":"world13-the-painting-never-waits-in-line-11-18","vote":"up","said":"","when":"11/20"},
+{"id":"cook5-the-three-that-waited-11-18","vote":"up","said":"Wip","when":"11/20"},
+{"id":"character-the-hired-guns-11-18","vote":"up","said":"","when":"11/21"},
+{"id":"cook5-the-east-sides-three-11-18","vote":"up","said":"","when":"11/21"},
+{"id":"bosses-the-wards-reach-11-18","vote":"up","said":"","when":"11/21"},
+{"id":"bestiary-smoke-fire-and-sleep-11-18","vote":"up","said":"","when":"11/21"},
+{"id":"cook5-the-strips-three-11-18","vote":"up","said":"","when":"11/21"},
+{"id":"ui4-the-stall-fits-on-its-side-11-18","vote":"up","said":"","when":"11/21"},
+{"id":"cook5-the-data-fort-11-18","vote":"up","said":"","when":"11/21"},
+{"id":"home-base-held-the-gate-11-18","vote":"up","said":"","when":"11/21"},
+{"id":"jobs-the-big-work-waits-for-a-name-11-18","vote":"up","said":"","when":"11/21"},
+{"id":"fight-screen-the-cap-is-on-the-glass-and-one-honest-head-11-18","vote":"up","said":"","when":"11/21"},
+{"id":"combat3-the-stadium-11-18","vote":"up","said":"","when":"11/21"},
+{"id":"combat3-the-terminal-11-18","vote":"up","said":"","when":"11/21"},
+{"id":"home-base-seen-through-the-cameras-11-17","vote":"down","said":"Bro, you are hallucinating bro. This is not the view that we're going to be having what's wrong with you bro. Go back to when you originally showed me what the shit would look like from the different camera angles, bro this is not it bro you're basically doing the same thing but like slightly skewing some of the dimensions and shit like what the fuck are you doing?","when":"11/21"},
+{"id":"world13-the-map-paints-on-every-core-11-17","vote":"up","said":"","when":"11/21"},
+{"id":"bosses-the-dogs-packs-11-17","vote":"up","said":"","when":"11/21"},
+{"id":"cook5-the-warehouse-11-17","vote":"up","said":"","when":"11/21"},
+{"id":"bestiary-three-new-ways-11-17","vote":"up","said":"","when":"11/21"},
+{"id":"cook5-the-mall-11-17","vote":"up","said":"","when":"11/21"},
+{"id":"bosses-the-inks-stain-11-17","vote":"up","said":"","when":"11/21"},
+{"id":"world14-the-scrap-mill-11-17","vote":"up","said":"","when":"11/21"},
+{"id":"cook5-downtowns-three-11-17","vote":"up","said":"","when":"11/21"},
+{"id":"world13-every-zone-its-ground-11-17","vote":"up","said":"","when":"11/21"},
+{"id":"home-base-his-impact-11-17","vote":"down","said":"This looks like shit get this AI slop out of my fucking face","when":"11/21"},
+{"id":"words-two-hw02-01-funny-the-toll-girl-11-17","vote":"down","said":"Bro, what the fuck is this? It's so fucking bad. What do you mean Rick Owens would cry. Do you think 30 years after the economic apocalypse are gonna be like referencing Rick Owens like that bro this shit wasn't even fucking funny literally so fucking bad","when":"11/21"},
+{"id":"words-two-hw02-02-happy-the-water-runs-11-17","vote":"down","said":"This is so fucking bad bro. Like you keep referencing the payment and how many batteries I had like that shit so awkward and not real","when":"11/21"},
+{"id":"words-two-hw02-03-serious-a-man-is-dead-11-17","vote":"up","said":"Decent","when":"11/21"},
+{"id":"words-two-hw02-04-confident-the-bookie-11-17","vote":"up","said":"Bro, why are you scared to like curse like I'm so serious\n\n\"Look there. Them the motherfuckers you're gonna fight you down?\"","when":"11/21"},
+{"id":"words-two-hw02-05-leader-the-block-watch-11-17","vote":"down","said":"Bro, what fucking kind of AI slop is this bring a flashlight in your name no one talks like that\n\nWhat the fuck are they having a watch meeting about what does that even mean?","when":"11/21"},
+{"id":"words-two-hw02-06-political-forty-people-11-17","vote":"down","said":"Bro, what does that mean? Say who's grounded is what the fuck type of English is this?","when":"11/21"},
+{"id":"words-two-hw02-07-kind-the-doc-11-17","vote":"up","said":"Let me see them least I can do is stop the infection. You definitely don't want that pus bomb to explode","when":"11/21"},
+{"id":"words-two-hw02-08-proud-the-scar-11-17","vote":"up","said":"My heart literally stopped beating for a minute. I don't know. I guess god had other plans for me.","when":"11/21"},
+{"id":"words-two-hw02-09-begging-the-insulin-post-11-17","vote":"up","said":"SOS, my sister needs insulin. Any kind she's gonna die.","when":"11/21"},
+{"id":"words-two-hw02-10-selling-madame-bottega-11-17","vote":"up","said":"Darling, the world ended, but you don't gotta dress like it. We got some real Balenciaga from some of the corpses in the forum shops","when":"11/21"},
+{"id":"words-two-hw02-11-sad-the-kid-after-11-17","vote":"up","said":"","when":"11/21"},
+{"id":"words-two-hw02-12-angry-the-last-water-11-17","vote":"up","said":"I'm going to break rico's face unless you solve this shit right now","when":"11/21"},
+{"id":"jobs-paid-into-your-place-11-17","vote":"down","said":"This mechanic is so fucking confusing. I don't know what the fuck this shit.","when":"11/21"},
+{"id":"jobs-what-walking-away-costs-11-17","vote":"down","said":"Doing way too much doing way too much, bro you can have the data and the values in the background, but you don't need to explain that obviously dropping a job drop your relation with the settlement","when":"11/21"},
+{"id":"world14-the-tracks-he-can-read-11-17","vote":"up","said":"","when":"11/21"},
+{"id":"jobs-push-the-pay-11-17","vote":"down","said":"Doing way too much I don't like it","when":"11/21"},
+{"id":"cook5-the-convention-hall-11-17","vote":"up","said":"","when":"11/21"},
+{"id":"ui4-the-scavenge-comes-out-of-the-lot-11-17","vote":"up","said":"","when":"11/21"},
+{"id":"world13-each-zone-looks-like-itself-11-17","vote":"up","said":"","when":"11/21"},
+{"id":"bosses-the-barbers-line-11-17","vote":"up","said":"","when":"11/21"},
+{"id":"words-two-hw01-13-a-timeshare-man-pitches-you-11-17","vote":"down","said":"So the building has no roof, but you're saying this Chickens on the roof are you insane?","when":"11/21"},
+{"id":"words-two-hw01-14-the-stall-keeper-talks-prices-11-17","vote":"up","said":"Whatever you need we got it. You're lucky we deal in batteries","when":"11/21"},
+{"id":"words-two-hw01-15-your-man-sees-a-friend-go-down-11-17","vote":"up","said":"DESI! FUCK!","when":"11/21"},
+{"id":"character-the-eye-in-the-sky-11-21","vote":"up","said":"","when":"11/21"},
+{"id":"fight-screen-the-last-hit-on-the-card-11-21","vote":"up","said":"","when":"11/21"},
+{"id":"bosses-the-midwife-11-21","vote":"up","said":"","when":"11/21"},
+{"id":"cook6-the-home-center-11-21","vote":"up","said":"","when":"11/21"},
+{"id":"combat4-the-neon-boneyard-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-mini-grand-prix-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-battery-farm-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-fuel-depot-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-granary-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-speedway-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-radio-station-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-storage-yard-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-water-treatment-plant-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-jobs-office-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-ballpark-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-arsenal-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-cover-you-could-not-see-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-campus-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-animal-shelter-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-city-hall-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-bank-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-rail-yards-shops-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-fire-station-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-police-station-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-tall-things-hide-a-man-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-library-11-22","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-tv-station-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-natural-history-museum-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-aquarium-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-hangar-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-truck-stop-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"cook6-the-courthouse-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"home-base-his-cameras-as-promised-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"staff-the-staff-fight-too-11-21","vote":"up","said":"Make sure their auto combat shit is different. They're weak as fuck compared to the front line. They will stay behind. They will take defensive positions and they will attempt to not flanked and circled circles.","when":"11/22"},
+{"id":"combat4-the-justice-center-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"cook6-the-powerhouse-again-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"cook6-the-stadium-again-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"jobs-the-fight-is-the-cards-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-courthouse-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"jobs-do-less-show-the-clout-11-21","vote":"up","said":"Put followers this was an idea at the very beginning where it's kind of like your reputation but you can. You can put followers type shit.","when":"11/22"},
+{"id":"combat4-his-line-whole-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"cook6-the-school-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"cook6-the-sphere-again-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"cook6-the-cell-block-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"cook6-the-hospital-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"jobs-the-card-reads-the-hour-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"combat4-the-school-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"world15-the-dead-on-the-map-11-21","vote":"up","said":"Wtf that looked like shit are you serious","when":"11/22"},
+{"id":"combat4-standing-water-is-swamp-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw01-16-a-priest-rings-for-the-dead-11-17","vote":"up","said":"Too many people died during the crash and they did not get to connect with god. Nobody sent them off so when I can, I burden this duty. Pray with me tonight Hijo, it will only be a minute.","when":"11/22"},
+{"id":"words-two-hw01-18-a-far-away-post-in-the-feed-11-17","vote":"up","said":"My husband still gets up for work. He has Alzheimer's. God bless his heart","when":"11/22"},
+{"id":"words-two-hw01-17-the-bar-tells-a-rumour-11-17","vote":"down","said":"I hate this","when":"11/22"},
+{"id":"words-two-hw01-19-the-cook-brags-11-17","vote":"up","said":"I fed the whole strip once. I can definitely make sure you guys don't starve.","when":"11/22"},
+{"id":"words-two-hw01-20-a-stranger-in-the-street-11-17","vote":"up","said":"","when":"11/22"},
+{"id":"fight-screen-the-why-is-true-and-the-face-shows-11-17","vote":"down","said":"Its looking like shit","when":"11/22"},
+{"id":"fight-screen-the-mans-card-on-the-phone-11-17","vote":"up","said":"","when":"11/22"},
+{"id":"combat3-the-data-fort-11-17","vote":"up","said":"","when":"11/22"},
+{"id":"combat3-the-cell-says-where-11-17","vote":"up","said":"","when":"11/22"},
+{"id":"combat3-the-warehouse-11-17","vote":"up","said":"","when":"11/22"},
+{"id":"combat3-the-mall-11-17","vote":"up","said":"","when":"11/22"},
+{"id":"combat3-the-zone-is-the-board-11-17","vote":"up","said":"","when":"11/22"},
+{"id":"combat3-the-convention-hall-11-17","vote":"up","said":"","when":"11/22"},
+{"id":"cook5-the-bosses-map-pieces-11-14","vote":"up","said":"","when":"11/22"},
+{"id":"character-the-road-crews-dressed-11-14","vote":"up","said":"","when":"11/22"},
+{"id":"ui3-every-shop-dearest-first-11-14","vote":"up","said":"","when":"11/22"},
+{"id":"bosses-the-lenss-haze-11-14","vote":"up","said":"","when":"11/22"},
+{"id":"ui3-the-phone-is-the-door-11-14","vote":"up","said":"","when":"11/22"},
+{"id":"cook5-the-ceilings-11-14","vote":"up","said":"","when":"11/22"},
+{"id":"jobs-the-night-the-turn-and-the-bid-11-14","vote":"up","said":"","when":"11/22"},
+{"id":"fight-screen-the-card-that-opens-a-fight-11-14","vote":"up","said":"","when":"11/22"},
+{"id":"fight-screen-the-mans-sheet-11-14","vote":"up","said":"","when":"11/22"},
+{"id":"world14-after-what-he-did-11-14","vote":"up","said":"","when":"11/22"},
+{"id":"home-base-his-place-through-its-cameras-11-14","vote":"down","said":"Dogshit","when":"11/22"},
+{"id":"bosses-the-tooths-collectors-11-14","vote":"up","said":"","when":"11/22"},
+{"id":"fight-screen-every-shot-is-felt-11-14","vote":"up","said":"","when":"11/22"},
+{"id":"bestiary-the-horn-and-the-bruiser-11-14","vote":"up","said":"","when":"11/22"},
+{"id":"fight-screen-the-why-line-11-14","vote":"up","said":"","when":"11/22"},
+{"id":"bosses-the-plates-wagon-11-14","vote":"up","said":"","when":"11/22"},
+{"id":"home-base-every-word-on-the-desk-11-14","vote":"up","said":"Wip","when":"11/22"},
+{"id":"combat3-the-ceiling-over-your-head-11-14","vote":"up","said":"","when":"11/22"},
+{"id":"combat3-not-the-same-suburb-twice-11-14","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw05-01-curse-the-old-hand-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw05-02-curse-the-raiders-11-21","vote":"down","said":"They not cursing bro. Curse word bro 🤣🤣🤣🤣","when":"11/22"},
+{"id":"words-two-hw05-03-curse-the-bar-owner-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw05-04-curse-a-little-girl-11-21","vote":"up","said":"Help! My foot is stuck in the great and the rain is coming. If I don't drown, it will be the Raiders that get me please fucking just help me.","when":"11/22"},
+{"id":"words-two-hw05-05-count-money-in-grief-11-21","vote":"up","said":"OK, I like it. Just remove lucrative.","when":"11/22"},
+{"id":"words-two-hw05-06-happy-with-no-count-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw05-07-person-the-clerk-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw05-08-person-the-old-soldier-11-21","vote":"up","said":"I know a group of mercenaries when I see one. Down the street we have a hit on someone's head. Don't tell me you're gonna pussy out on these batteries.","when":"11/22"},
+{"id":"words-two-hw05-09-person-the-network-11-21","vote":"up","said":"Good evening messages abroad may be delayed. Thank you for your patience. We're troubleshooting this issue.","when":"11/22"},
+{"id":"words-two-hw05-10-clothes-joke-11-21","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw05-11-plain-or-clever-11-21","vote":"up","said":"Looks like we paid the toll in full and then some","when":"11/22"},
+{"id":"words-two-hw05-12-dark-the-professor-11-21","vote":"down","said":"For everything that you've made dialog wise, you keep referring to saying it pays. What do you mean it pays? Who's paying the person who's talking to you most likely for the settlement that you're in you keep saying it pays. What the fuck is up with that?","when":"11/22"},
+{"id":"words-two-hw03-01-the-trucker-sends-you-11-20","vote":"up","said":"How about this until you kill the surveyor you don't even get to see the rest of the map in like a Darko capacity I know you can like see the whole map technically right now and I hate that. How about there's like a real fog of war you know where you can't see anything underneath it and it can be whatever sort of aesthetic you want it to be you know the aesthetic for a game so let's do that but it's just confusing like if we're gonna make a surveyor huge part of this or whatever maybe if you kill the surveyor then like you can see the faint map as it is right now that you haven't discovered cause right now you can see everything it's just dark kind of vibes","when":"11/22"},
+{"id":"words-two-hw03-02-why-the-animals-come-11-20","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw03-03-what-comes-back-told-11-20","vote":"up","said":"That stranger was lost before you guys came and saved the day. What do you want fucking cookie?","when":"11/22"},
+{"id":"words-two-hw03-04-your-own-button-11-20","vote":"up","said":"I like this just make sure there's a limit like is it gonna come back in a day or two days three days like something like that bro that's for real","when":"11/22"},
+{"id":"words-two-hw03-05-is-eerie-scary-11-20","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw03-06-after-a-loss-11-20","vote":"up","said":"We lost. Get up. We need to count whats left.","when":"11/22"},
+{"id":"words-two-hw03-07-the-last-teller-11-20","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw03-08-a-flyer-on-a-pole-11-20","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw03-09-a-mans-past-11-20","vote":"up","said":"I took a man's last cell once. Not my proudest moment.","when":"11/22"},
+{"id":"words-two-hw03-10-outnumbered-11-20","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw03-11-thanks-for-nothing-11-20","vote":"down","said":"Bro, it's decent but you keep saying it doesn't pay. It pays 85 batteries it like what the fuck are you referring to? You can't like what is it it doesn't pay what do you mean you can't be saying some like sixth grade bullshit English it doesn't pay it pays 85 but are you saying they are gonna pay the person talking to you? Are they gonna pay the settlement gonna pay the pseudo mayor of a settlement? Are they gonna pay? What the fuck are you talking about?","when":"11/22"},
+{"id":"words-two-hw03-12-whats-in-the-stew-11-20","vote":"down","said":"You keep saying it pays what do you mean it pays?","when":"11/22"},
+{"id":"words-two-hw04-01-the-kids-kill-11-20","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw04-02-under-fire-11-20","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw04-03-against-machines-11-20","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw04-04-the-client-pays-11-20","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw04-05-laid-up-11-20","vote":"up","said":"They got me fucked up for a month boss. Ill still try to pull my weight dont kick me to the curb. You need me.","when":"11/22"},
+{"id":"words-two-hw04-06-your-second-teaches-11-20","vote":"down","said":"I fucking hate this why are people wearing chinese rice farmer hats btw wtf???","when":"11/22"},
+{"id":"words-two-hw04-07-the-kid-you-said-no-to-11-20","vote":"down","said":"Wtf does this mean???","when":"11/22"},
+{"id":"words-two-hw04-08-a-post-about-a-boss-11-20","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw04-09-the-smiling-man-11-20","vote":"down","said":"Wtf does this mean 🤣🤣🤣🤣","when":"11/22"},
+{"id":"words-two-hw04-10-a-dying-woman-11-20","vote":"down","said":"Say it back to me first, so I know you have it like you've done this multiple times what the fuck no one speaks like this bro????","when":"11/22"},
+{"id":"words-two-hw04-11-a-woman-running-11-20","vote":"up","said":"","when":"11/22"},
+{"id":"words-two-hw04-12-nobody-talking-11-20","vote":"up","said":"","when":"11/22"},
+{"id":"camp4-the-camp-waits-for-you-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"staff2-the-staff-push-a-cart-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"combat4-no-ammo-no-shot-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"fight-screen-the-rounds-on-the-card-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"fight-screen-the-receipt-is-gone-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"jobs2-no-waypoints-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"ui5-one-hand-or-two-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"home-base-the-grinder-11-22","vote":"down","said":"Bro, this has to be made for horizontal and vertical phone wielding when it's when the phone is vertical. It looks like dog shit. What the fuck I mean a horizontal Tal like sideways like you didn't even try that you didn't even try bro you literally didn't even","when":"11/25"},
+{"id":"ui5-each-slot-its-own-picture-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"staff-they-fight-like-staff-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"jobs2-your-followers-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"fight-screen-the-why-is-a-tape-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"combat4-the-swap-meet-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"combat4-the-maps-dice-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"world15-a-real-fog-of-war-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"world15-the-dead-shrink-with-the-map-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw06-01-never-it-pays-the-dam-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw06-02-clean-the-sergeant-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw06-03-curse-grief-and-a-threat-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw06-04-curse-the-deserters-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw06-05-curse-the-herds-why-11-22","vote":"up","said":"What do you mean right up to their dinner? It's almost good but that makes no sense. Like you are the dinner, bro. What the fuck?","when":"11/25"},
+{"id":"words-two-hw06-06-curse-a-miss-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw06-07-curse-the-believer-loots-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw06-08-curse-the-raided-elder-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw06-09-curse-the-collector-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw06-10-curse-the-asker-11-22","vote":"down","said":"Kind of the second half of the shit didn't really make sense though","when":"11/25"},
+{"id":"words-two-hw06-11-clean-the-church-radio-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw06-12-who-pays-the-dealer-11-22","vote":"down","said":"","when":"11/25"},
+{"id":"words-two-hw07-01-curse-a-lost-brother-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw07-02-clean-a-memorial-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw07-03-curse-a-kids-hit-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw07-05-curse-after-a-wipe-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw07-04-curse-the-retreat-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw07-06-curse-the-old-sergeant-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw07-07-clean-the-soup-line-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw07-08-curse-the-toothache-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw07-09-curse-the-ladder-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw07-10-curse-why-the-animals-come-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw07-11-curse-told-becomes-said-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw07-12-curse-the-doctor-on-the-vote-11-22","vote":"down","said":"","when":"11/25"},
+{"id":"words-two-hw08-01-raiders-curse-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw08-02-who-pays-the-sloth-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw08-03-who-pays-the-stew-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw08-04-never-it-doesnt-pay-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw08-05-no-count-in-joy-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw08-06-no-fashion-names-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw08-07-say-what-the-meeting-is-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw08-08-say-it-like-a-person-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw08-09-no-one-speaks-like-this-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw08-10-if-he-has-to-ask-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw08-11-creepy-makes-sense-11-22","vote":"down","said":"","when":"11/25"},
+{"id":"words-two-hw08-12-no-manual-in-a-mouth-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw08-13-a-rumour-with-stakes-11-22","vote":"up","said":"","when":"11/25"},
+{"id":"words-two-hw08-14-the-line-agrees-with-the-world-11-22","vote":"up","said":"","when":"11/25"},
