@@ -213,6 +213,10 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 #sheet .act.stline .sb .sp img,#sheet .act.tgline .sb .sp img{width:14px;height:14px;image-rendering:pixelated}
 #sheet .act.stline .sb.sell .sp,#sheet .act.tgline .sb.sell .sp{color:#2f5a22}#sheet .act.stline .sb.back,#sheet .act.tgline .sb.back{border-style:dashed}
 #sheet .act.stline .sb.off,#sheet .act.tgline .sb.off{opacity:.45}
+#sheet .act.stline .sb.buy.poor,#sheet .act.tgline .sb.buy.poor{opacity:.85}#sheet .act.stline .sb.buy.poor .sp,#sheet .act.tgline .sb.buy.poor .sp{color:#a3301b}   /* __THE_PRICE_AT_A_GLANCE__: more than he holds, red and readable */
+#sheet .act.stline .sb small.hand{white-space:nowrap;letter-spacing:.4px}#sheet .act.stline .sb small .sbg{width:10px;height:10px;margin:0 1px 0 0;vertical-align:-1px;image-rendering:pixelated}   /* what he hands over, its own picture */
+#sheet .slot.dear>em.money{color:#ff6a4d!important}#sheet .ss-acts>.act.poor>em{color:#b0301a}   /* the shelf's and the strip's price over his purse */
+#sheet #shopstrip .ss-acts>.act>span{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.15}   /* a second line before a cut: 'Buy it and wear it' whole */
 #sheet .act.stline .sb.sel,#sheet .act.tgline .sb.sel{outline:2px solid #f4cf7c;outline-offset:-1px;box-shadow:0 0 0 2px rgba(244,207,124,.35),inset 0 0 8px rgba(244,207,124,.3)}
 #sheet .slot.yours{border-color:#9fc38f}
 #sheet .slot .ys{position:absolute;left:3px;top:2px;font-size:7px;letter-spacing:.4px;color:#9fc38f;text-shadow:0 1px 0 #000;line-height:1}
@@ -845,8 +849,9 @@ function shopStripFill(k, el){
       function(){ if(it) shopBuy(k, it, !!tw); }, !it || poor || (tw ? room < need : full));
     if(tw){ bw.id = 'buywear'; bw.dataset.man = tw.m.name; } else bw.id = 'buystash';
     a.appendChild(bw);
-    var bs = act(full ? 'Your stash is full' : 'to the stash', '', function(){ if(it) shopBuy(k, it, false); }, !it || !tw || full || poor);
+    var bs = act(full ? 'Your stash is full' : 'to the stash', it && tw ? moneyWord(it.price) : '', function(){ if(it) shopBuy(k, it, false); }, !it || !tw || full || poor);
     bs.className += ' tostash'; if(tw) bs.id = 'buystash'; else bs.dataset.dim = 1; a.appendChild(bs);
+    if(poor){ bw.classList.add('poor'); bs.classList.add('poor'); }   /* __THE_PRICE_AT_A_GLANCE__: both buys say the price, red when it is more than he holds */
   } else {
     var kept = !isJunk(it), back = sellBack(it);
     var sb = act('Sell it', '+' + moneyWord(back), function(){ shopSell(k, it); }); sb.id = 'sellit'; a.appendChild(sb);
@@ -875,6 +880,7 @@ function shopSheet(k, body, acts, line){
   shelfView(k).forEach(function(it){
     if(!it){ var gone = iconTile(null); gone.className += ' gone'; shelfG.appendChild(gone); return; }   /* bought this visit: its place stays */
     var tile = shopTile(k, it, 'shelf', it.price, true);
+    if(!it.yours && it.price > bats()) tile.classList.add('dear');   /* __THE_PRICE_AT_A_GLANCE__: more than he holds, in red (Battle Brothers' own way) */
     if(it.yours){ tile.classList.add('yours'); var ys = document.createElement('b'); ys.className = 'ys'; ys.textContent = 'YOURS, SOLD'; tile.appendChild(ys); }   /* rule 248(a) */
     var up = shopUpFor(it); if(up){ tile.classList.add('up'); tile.dataset.up = up.man.name; var gm = document.createElement('b'); gm.className = 'upm'; gm.textContent = '▲'; gm.setAttribute('aria-hidden', 'true'); tile.appendChild(gm); }   /* rule 282(a): better for one of his men */
     shelfG.appendChild(tile);
@@ -1506,10 +1512,20 @@ function stallSides(row){
 function stallWarns(row, s){ return row.good === 'food' && !!STALLP && window.BohemiaStallPrices && BohemiaStallPrices.warns(STALLP, 'food', s.have - s.sell.k, S.crewSize || 3); }
 function unitWord(good, k){ return good === 'food' ? (k === 1 ? 'a night of food and water' : k + ' nights of food and water') : good === 'meds' ? (k === 1 ? 'a dose of meds' : k + ' doses of meds') : good === 'rounds' ? (k * 6) + ' rounds' : (k === 1 ? 'a roll of tape' : k + ' rolls of tape'); }
 function haveWord(good, n){ return good === 'food' ? n + (n === 1 ? ' night' : ' nights') + ' of food' : good === 'meds' ? n + (n === 1 ? ' dose' : ' doses') : good === 'rounds' ? n + ' rounds' : n + (n === 1 ? ' roll' : ' rolls') + ' of tape'; }
+/* ==== __THE_PRICE_AT_A_GLANCE__ (ECONOMY THREE 11/26, rule 482: 'the price, what he has, what it buys, at a glance, upright and
+   sideways, no clutter'). MEASURED on the demo, a new crew at Caravans: the smith's shelf showed the 388 shotgun the same as the 44 knife
+   with 290 in the purse; the stall faded a buy he could not pay to a ghost; 'SELL 2' and 'SELL 12' read like prices beside '+1'; the
+   shop's 'Buy it and wear it' was cut to 'Buy it and w...' upright and 'to the stash' said no price; the trade good's line hung a dot
+   at the end of a line. NOW: a price over his purse is red wherever he buys (Battle Brothers' own way), the box still readable; what he
+   hands over to sell is the good's own picture and the count; both buys say the price; a label takes a second line before it is cut.
+   No row grows, nothing moves (the boxes and the strip keep their sizes). ==== */
+function moneyPoor(side, x){ return side === 'buy' && !x.back && x.p != null && bats() < x.p; }
+function moneyHand(cap, good, n){ cap.classList.add('hand'); cap.appendChild(document.createTextNode(' ')); var im = document.createElement('img'); im.className = 'sbg'; im.alt = ''; im.src = 'supply_icons/small/' + good + '.png'; cap.appendChild(im); cap.appendChild(document.createTextNode(String(n))); }
 function stallBox(row, side, x){
-  var b = document.createElement('button'); b.type = 'button'; b.className = 'sb ' + side + (x.back ? ' back' : '') + (x.off ? ' off' : ''); b.dataset.side = side;
+  var b = document.createElement('button'); b.type = 'button'; b.className = 'sb ' + side + (x.back ? ' back' : '') + (x.off ? ' off' : '') + (moneyPoor(side, x) ? ' poor' : ''); b.dataset.side = side;
   b.dataset.p = x.p == null ? '' : x.p; b.dataset.k = x.k; if(x.off) b.setAttribute('aria-disabled', 'true');
-  var cap = document.createElement('small'); cap.textContent = x.back ? 'BACK' : side === 'buy' ? 'BUY' : (!x.k ? 'NOT TAKEN' : 'SELL' + (x.k > 1 && row.units === 1 ? ' ' + (row.good === 'rounds' ? x.k * 6 : x.k) : '')); b.appendChild(cap);
+  var cap = document.createElement('small'); cap.textContent = x.back ? 'BACK' : side === 'buy' ? 'BUY' : (!x.k ? 'NOT TAKEN' : 'SELL'); b.appendChild(cap);
+  if(!x.back && side === 'sell' && x.k > 1 && row.units === 1) moneyHand(cap, row.good, row.good === 'rounds' ? x.k * 6 : x.k);   /* __THE_PRICE_AT_A_GLANCE__: what he hands over, in its own picture */
   var pr = document.createElement('span'); pr.className = 'sp';
   if(x.p != null && (side === 'buy' || x.k)){ var bi = document.createElement('img'); bi.src = 'supply_icons/batteries.png'; bi.alt = ''; pr.appendChild(bi); pr.appendChild(document.createTextNode((side === 'sell' ? '+' : '') + x.p)); }
   b.appendChild(pr);
@@ -1690,7 +1706,7 @@ function tradeSides(row){
 function tradeWord(g, n){ return n === 1 ? g.unit + ' of ' + String(g.name).toLowerCase() : n + ' ' + (g.units || 'sacks') + ' of ' + String(g.name).toLowerCase(); }   /* draft:true */
 function tradeIcon(g){ if(!g || !g.icon) return null; var im = document.createElement('img'); im.className = 'pk'; im.alt = ''; im.src = g.icon; return im; }
 function tradeBox(row, side, x){
-  var b = document.createElement('button'); b.type = 'button'; b.className = 'sb ' + side + (x.back ? ' back' : '') + (x.off ? ' off' : ''); b.dataset.side = side; b.dataset.p = x.p == null ? '' : x.p;
+  var b = document.createElement('button'); b.type = 'button'; b.className = 'sb ' + side + (x.back ? ' back' : '') + (x.off ? ' off' : '') + (moneyPoor(side, x) ? ' poor' : ''); b.dataset.side = side; b.dataset.p = x.p == null ? '' : x.p;
   if(x.off) b.setAttribute('aria-disabled', 'true');
   var nosale = side === 'buy' && !x.back && !row.made, cap = document.createElement('small');
   cap.textContent = x.back ? 'BACK' : side === 'sell' ? 'SELL' : nosale ? 'NOT MADE HERE' : tradeLeft(row.id) > 0 ? 'BUY' : 'ALL GONE'; b.appendChild(cap);
@@ -1707,7 +1723,8 @@ function tradeLine(row){
   ln.dataset.buy = s.buy.p == null ? '' : s.buy.p; ln.dataset.sell = s.sell.p; ln.dataset.have = s.have; ln.dataset.left = s.left;
   var ic = tradeIcon(row.g); if(ic) ln.appendChild(ic);
   var l = document.createElement('span'); l.className = 'stl'; var nm = tradeWord(row.g, 1); l.textContent = nm.charAt(0).toUpperCase() + nm.slice(1);
-  var hv = document.createElement('small'); hv.textContent = (row.made ? 'MADE HERE, ' + s.left + ' LEFT' : 'NOT MADE HERE') + ' · YOU HAVE ' + s.have; l.appendChild(hv);   /* draft:true */
+  var mh = document.createElement('small'); mh.textContent = row.made ? 'MADE HERE, ' + s.left + ' LEFT' : 'NOT MADE HERE'; l.appendChild(mh);   /* draft:true */
+  var hv = document.createElement('small'); hv.textContent = 'YOU HAVE ' + s.have; l.appendChild(hv);   /* __THE_PRICE_AT_A_GLANCE__: its own line, as every supply's (it hung a dot at the end of a line upright) */
   ln.appendChild(l); ln.appendChild(tradeBox(row, 'buy', s.buy)); ln.appendChild(tradeBox(row, 'sell', s.sell));
   return ln;
 }

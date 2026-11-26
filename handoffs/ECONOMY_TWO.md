@@ -3,7 +3,23 @@
 # the VAMILY front page (rules 459, 441, 454(a)), then continue from the newest block below.
 # ECONOMY THREE (rule 462, 11/20) carries this file on: same job, same table; its blocks are named ECONOMY THREE.
 
-ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/26 LATEST -- BUILD 11/26e - THE MONEY BOOK STAYS SMALL, BUILT, NOT YET SEEN
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/26 LATEST -- BUILD 11/26n - THE PRICE AT A GLANCE, BUILT, NOT YET SEEN
+(rule 482: 'the price, what he has, what it buys, at a glance, upright and sideways, no clutter'; clean out leftovers). Record:
+records/BOHEMIA_ECONOMY_THREE_THE_PRICE_AT_A_GLANCE_11_26_26.md. Gate THE PRICE AT A GLANCE (gates/the_price_at_a_glance_gate.js, in
+the suite on the demo upright; 7/0 on the demo and the alpha, upright and sideways). VOTE card economy3-the-price-at-a-glance-11-26.
+- MEASURED BEFORE (the demo, Caravans, 290 in the purse): the smith's 388 shotgun drawn like the 44 knife; 'Buy it and wear it' cut
+  to 'Buy it and w...' upright, 'to the stash' with no price; a stall BUY he could not pay faded to a ghost; 'SELL 2' read as a price;
+  the trade good's line hung a dot at a line's end.
+- NOW (slices/BOHEMIA_SETTLEMENT_SCREEN.html __THE_PRICE_AT_A_GLANCE__): a price over his purse is red on every buy (the shelf, both
+  buy buttons, the stall's and the trade goods' BUY; Battle Brothers' way), still readable; both buys say the price; a label takes a
+  second line before it is cut (RUN TWO's words whole, rule 210); SELL N shows the good's own picture; the trade line is two lines.
+  Nothing moves: no row grows, the dearest-first order, UI's sack and UI FOUR's sideways fit untouched.
+- CLEANED OUT: the map bar's old money door (money(), #barmoney, its paint every second) read a purse nothing ever set and drew
+  nothing since it was written; gone. TOP BAR's leg 6 says why (13/2, its two reds are main's own). FOR UI: your bar lost only that.
+- NEXT: the next money screen he meets for 482 (the hall's hire prices read against his purse the same way; the board's pay next
+  to what a fight costs him), then the table's owner rows. NEVER a tool that waits for a tap (461(c) amended).
+
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/26 -- BUILD 11/26e - THE MONEY BOOK STAYS SMALL, BUILT, NOT YET SEEN
 (rule 480(b)(c), ask row 685). Record: records/BOHEMIA_ECONOMY_THREE_THE_LEDGER_FOLDS_11_26_26.md. Gate: THE LEDGER STAYS SMALL
 (gates/the_ledger_stays_small_gate.js; the suite runs data, 10/0; the page legs demo|alpha x upright|sideways 3/0 each, all four green).
 - THIS LANE'S TWO REDS WERE THE CHECKS, NOT THE GAME (no number he sees moved): NO RUN ENDS FOR TAPE paid a fight from the

@@ -94494,17 +94494,9 @@ window.BOHEMIA_HALF = (function(){
 window.BOHEMIA_BAR = (function(){
   var built=false;
 
-  /* THE ONLY DOOR THE MONEY COMES THROUGH. Returns null while nothing on the walked
-     surface holds a purse, which is the truth today. When ECONOMY wires one, return
-     {resources:n, electricity:n, clout:n} here and the bar fills itself. */
-  function money(){
-    try{
-      var p = (typeof window!=='undefined') && (window.__PLAYER_PURSE || null);
-      if(!p || typeof PURSE==='undefined' || !PURSE.balances) return null;
-      var b = PURSE.balances(p);
-      return (b && typeof b.resources==='number') ? b : null;
-    }catch(_e){ return null; }
-  }
+  /* ECONOMY THREE 11/26 (rule 482(c), leftovers go): the old money door (money(), #barmoney, its paint every second) is gone. It
+     read window.__PLAYER_PURSE, which nothing ever set, so it drew nothing from the day it was written; the purse came in as the
+     six plate's battery (sixPlate, paintRead below), which is the bar's money now. */
 
   function css(){
     if(document.getElementById('menubarcss')) return;
@@ -94602,8 +94594,6 @@ window.BOHEMIA_BAR = (function(){
       /* the track name is the only unbounded text in the row, so it is the one that
          truncates -- with an ellipsis, so it reads as cut rather than as a short name */
       +'#musbtn{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}'
-      +'#barmoney{display:flex;align-items:center;gap:9px}'
-      +'#barmoney span{color:var(--acc)}'
       /* __THE_BAR_SAYS_THREE_THINGS__ (UI 9/29, [bb interface] round eight, rule 39a
          BUILD IT and 40f the hold lifted for the map). On the Battle Brothers map the top
          bar IS the feedback of travel: you tap, the party moves, the day ticks in the bar.
@@ -94665,7 +94655,6 @@ window.BOHEMIA_BAR = (function(){
     var L=document.createElement('div'); L.id='barleft';
     var M=document.createElement('div'); M.id='barmid';
     var R=document.createElement('div'); R.id='barright';
-    var W=document.createElement('div'); W.id='barmoney';
 
     /* LEFT: where you are. hmode says CITY MODE / STREET, hslot says the district and
        whether he is on foot, riding or inside -- both already written by the game. */
@@ -94673,7 +94662,6 @@ window.BOHEMIA_BAR = (function(){
         hclock=document.getElementById('hclock');
     if(hmode) L.appendChild(hmode);
     if(hslot) L.appendChild(hslot);
-    L.appendChild(W);
     var RD=document.createElement('div'); RD.id='barread'; RD.setAttribute('aria-live','off');
     L.appendChild(RD);
     /* CENTRE: the day and the clock, which is where all four of his references put it. */
@@ -94775,28 +94763,10 @@ window.BOHEMIA_BAR = (function(){
        so the two numbers on the glass can never disagree. */
     try{ var PC=document.getElementById('cityfeedclock'); if(PC && r.hour && PC.textContent!==r.hour) PC.textContent=r.hour; }catch(_e){}
   }
-  function paint(){
-    try{ paintRead(); }catch(_e){}
-    var W=document.getElementById('barmoney'); if(!W) return;
-    var m=money();
-    /* ECONOMY THREE 11/26 (rule 480(c)): the money is written only when it changed; it was rewritten every second, a new
-       piece of the bar for the page to lay out again with nothing moved */
-    if(!m){ if(W.__was!==''){ W.textContent=''; W.__was=''; } return; }
-    var order=['resources','electricity','clout'],
-        mark={resources:'R',electricity:'E',clout:'C'};
-    var out='';
-    for(var i=0;i<order.length;i++){
-      var k=order[i]; if(typeof m[k]!=='number') continue;
-      out += (out?' ':'')+mark[k]+'<span>'+m[k]+'</span>';
-    }
-    if(W.__was!==out){ W.innerHTML=out; W.__was=out; }
-  }
+  function paint(){ try{ paintRead(); }catch(_e){} }   /* the readings are the whole bar now (the money door is gone, above) */
 
   function boot(){
     if(build()){
-      /* the readouts are rewritten by the game on its own beat; the money is the only
-         thing the bar has to come back for, and it is cheap and rare. */
-      try{ setInterval(paint, 1000); }catch(_e){}
       /* the hour moves on the party's beat while it travels; half a second keeps the
          bar within one step of the phone's own clock without touching the map's tick */
       try{ window.__barPaintRead=paintRead; }catch(_e){}
@@ -94806,7 +94776,7 @@ window.BOHEMIA_BAR = (function(){
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot);
   else boot();
 
-  return { build:build, paint:paint, money:money,
+  return { build:build, paint:paint,
            on:function(){ return built && !!document.getElementById('menubar'); } };
 })();
 

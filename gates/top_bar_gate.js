@@ -134,7 +134,7 @@ const ready = async (p, ms) => { const t0 = Date.now();
   /* 6: NO INVENTED MONEY. */
   ok('*** IT SHOWS NO CURRENCY IT DOES NOT HAVE *** -- nothing on the street holds a purse, '
      + 'so the bar shows no money rather than a zero that means nothing',
-     seen.moneyReads === null && seen.money.trim() === '');
+     (seen.moneyReads === null || seen.moneyReads === 'no module') && seen.money.trim() === '');   /* ECONOMY THREE 11/26: the dead money door is gone (nothing ever set its purse); the bar's battery is the six plate's */
 
   /* 5: AND THE ONLY QUESTION THAT HAS EVER TOLD THE TRUTH ABOUT THESE CONTROLS. */
   const was = await c.evaluate(() => { const w=document.getElementById('phonewrap');

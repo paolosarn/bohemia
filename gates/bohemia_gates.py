@@ -8579,6 +8579,15 @@ GATES = [
      "at RENT_A_BLOCK, W4 every inline purse is the engine byte for byte. THE REAL PAGE (demo | alpha [phone_portrait | "
      "phone_landscape]): a fat old save planted, the tab killed, CONTINUE: it comes in folded, the bar reads the purse, the night's "
      "rent is paid from the bar's purse in one line. green at registration, 10/0 data, about 3 min a page walk", True),
+    ('THE PRICE AT A GLANCE', ['node', 'gates/the_price_at_a_glance_gate.js', 'demo', 'phone_portrait'],
+     "ECONOMY THREE 11/26, rule 482 ('make it read clearer and look better: the price, what he has, what it buys, at a glance, "
+     "upright and sideways, no clutter'). MEASURED before: the smith's shelf drew a price over his purse like any other, 'Buy it and "
+     "wear it' was cut, 'to the stash' had no price, a stall BUY he could not pay faded to a ghost, 'SELL 2' read as a price, a dot "
+     "hung at a line's end. THE REAL PAGE (demo | alpha [phone_portrait | phone_landscape]), real fingers at Caravans: G1 the shelf's "
+     "red is exactly the prices over his purse; G2 both buys priced and red, nothing cut; G3 the stall with a planted thin purse, every "
+     "BUY over it red and readable; G4 every SELL of more than one in the good's own picture, one line, inside its box; G5 the trade "
+     "row two lines, no dangling dot; G6 no page error; M the shelf's red planted away reads red. green at registration, 7/0 on all "
+     "four, about 3 min a walk", True),
     ('HIS MAP', ['node', 'gates/his_map_gate.js'],
      "WORLD TWO gate, 10/26, row [the best of both maps] (rule 243, Paolo 10/26: 'think about Valheim's map and how Battle "
      "Brothers' map is, let's do the best of both worlds... bosses where you're able to alter the map and what's going on in the "
