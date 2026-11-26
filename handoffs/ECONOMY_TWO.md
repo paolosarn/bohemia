@@ -3,7 +3,26 @@
 # the VAMILY front page (rules 459, 441, 454(a)), then continue from the newest block below.
 # ECONOMY THREE (rule 462, 11/20) carries this file on: same job, same table; its blocks are named ECONOMY THREE.
 
-ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/21 LATEST -- BUILD 11/21a - THE BATTERY DRAWER IS GONE FOR GOOD (after the coordinator's 11/20za switched it off), BUILT, NOT YET SEEN
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/26 LATEST -- BUILD 11/26a - A MEND NEVER COSTS MORE THAN NEW, BUILT, NOT YET SEEN
+(rule 480(b): every price makes sense next to the others; rule 459(e) decided). What was checked first (480(b)): the table on main,
+the road's prices against their words, the smith's mend against new.
+- THE TABLE WAS RED ON MAIN: rule 471's staff carts (a shopping cart 0, a steel utility cart 150, a wagon 300, retinue.json
+  staff.value.cart.kinds) were outside it. In now (band a_cart, 50 to 500, the first one free): 672 numbers in 17 files, 167 copies.
+- THE ROAD'S PRICES AGAINST THEIR WORDS: all seven of ECONOMY TWO's suspects read right in full (the 12 buys the cheaper knife,
+  'Give him eight' is the choice's own words, 'Pay half today' of forty is twenty, two jugs at three are six): no number moved.
+- A MEND NEVER COSTS MORE THAN NEW (engine/bohemia_stall_prices.js mendPrice takes ctx.worth; the town puts each piece's price-new
+  on it, p.worth): 3 of 204 pieces (a cultist hood, a headscarf, a leather headband) cost 1 to 2 AA more to mend than to buy.
+  THE SMITH MENDS M1 taught the cap (its sum now matches, 56); its M1 and M4 reds are the same on main without this build.
+- WHO HOLDS THE WORKING SUN, DECIDED (his to correct): records/BOHEMIA_ECONOMY_THREE_WHO_HOLDS_THE_SUN_11_26_26.md. Most roofs
+  are dead (grid-tied, they shut off with the grid); the working arrays are held by whoever holds a power place (the factions
+  now, one battery a day to the holder: built); the sun is free, the cells are not, so his panel is one AA a morning (built).
+- NEXT, THIS LANE'S OWN REDS (ask row 685, both [red alone too] on main): NO RUN ENDS FOR TAPE N1 (a new crew spends 60 to 73% of
+  its fight pay on tape, the bar is under a third: tape is already at the floor, 1 AA a roll, so it is the pay, the smith's hands
+  or the bench's wear that moves; find which went wrong since it was green) and A JOB PAYS FOR THE TIME AND THE RISK (the probe's
+  purse grows x1.73 by day 30, x2.04 by day 50). Both are 480(b): measure first, move one number, prove on the page.
+- NEVER a tool that waits for a tap (461(c) amended).
+
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/21 -- BUILD 11/21a - THE BATTERY DRAWER IS GONE FOR GOOD (after the coordinator's 11/20za switched it off), BUILT, NOT YET SEEN
 (rule 463, ask row 656; Paolo 11/20: 'I dont like how u made the new battery shit like 3 batteries thats so fucking ugly').
 Record: the same record, section 6. Post-mortem: graveyard/POSTMORTEM_THE_THREE_BATTERIES_11_20_26.txt.
 - THE DRAWING IS DEAD on every screen (the alpha and the demo, upright and on its side): no page loads it, every sum is its number

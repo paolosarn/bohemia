@@ -56,7 +56,7 @@ function taps(d, sf, mouse) {
 const breakGear = (sf) => sf.evaluate(() => { const C = BohemiaCondition, L = C.members(window.top.BOH_START.picks().company), rows = [];
   L.slice(0, 2).forEach((e, i) => rows.push({ name: e.main ? 'YOU' : e.man.name, main: e.main, hp: 40, hpMax: 50, armH: 20 + i * 10, armHMax: 120, armB: 30, armBMax: 95 + i * 10, head: 'nasal_helmet', body: 'basic_mail_shirt' }));
   C.afterFight(rows, { day: 1 }); return C.broken(window.top.BOH_START.picks().company).map(m => ({ key: m.key, pieces: m.pieces.map(p => p.missing) })); });
-const priceOf = (missing, tier, buyMult) => SP.mendPrice(FILE, missing, { tier, buyMult: buyMult || 1 });
+const priceOf = (missing, tier, buyMult, worth) => SP.mendPrice(FILE, missing, { tier, buyMult: buyMult || 1, worth: worth || 0 });   /* ECONOMY THREE 11/26 (rule 480(b)): a mend never costs more than the piece new here (the screen puts it on the piece) */
 
 (async () => {
   let d = await drive.open({ profile: 'phone_portrait', keepCards: true, beforeTap: async (pg) => { await throughTheTitle(pg); } });
@@ -68,7 +68,7 @@ const priceOf = (missing, tier, buyMult) => SP.mendPrice(FILE, missing, { tier, 
     const broke = await breakGear(sf);
     await T.openShop('smith');
     const r1 = await T.read(), tier = await sf.evaluate(() => BohemiaSettlement.state.place.tier), bm = await sf.evaluate(() => { try { return BohemiaSettlement.traitsNow ? 1 : 1; } catch (e) { return 1; } });
-    const want = r1.M ? r1.M.men.reduce((t, m) => t + m.pieces.reduce((u, p) => u + priceOf(p.missing, tier, r1.M.ctx.buyMult), 0), 0) : null;   /* the town's own card on the price (the screen's traitMult().buy), the file's arithmetic here */
+    const want = r1.M ? r1.M.men.reduce((t, m) => t + m.pieces.reduce((u, p) => u + priceOf(p.missing, tier, r1.M.ctx.buyMult, p.worth), 0), 0) : null;   /* the town's own card on the price (the screen's traitMult().buy), the file's arithmetic here */
     ok('*** M1 THE PRICE FIRST *** the smith shows MEND YOUR GEAR above the shelf: "' + (r1.all && r1.all.text) + '" (ECONOMY\'s price, the sum here ' + want + ' at the card\'s x' + (r1.M && r1.M.ctx.buyMult) + '), ' + r1.men.length + ' men: ' + r1.men.map(m => m.text).join(' | '),
       r1.first && !!r1.all && !r1.all.off && r1.men.length === broke.length && broke.length === 2 && r1.men.every(m => m.bars === 2) && r1.M.all === want && r1.all.text.indexOf(want + ' batter') >= 0, JSON.stringify(broke));
     /* M2 */

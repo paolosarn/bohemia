@@ -51,7 +51,7 @@ T['ladder'] = {
     ],
     'source': SRC + ' ("IN AA\'S (2.4 Wh each): a phone charge is about 6; a tool pack (50 Wh) about 20; a car\'s starter battery (600 Wh) about 250"); the weights of the three big ones are general knowledge, not from the lookups',
     'drawn': 'NEVER AS PICTURES (rule 463, Paolo 11/20: \'I dont like how u made the new battery shit like 3 batteries thats so fucking ugly\'): the drawing that split a sum into car batteries, tool packs and AA\'s (11/18t to 11/20) is in graveyard/THREE_BATTERIES_11_20_26/ with its post-mortem; a sum shows as its number with the old battery mark. These four are what a thing he can hold is worth, for words and research only (what a job pays against a phone charge or a car battery); no other split-into-kinds drawing of money (A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME)',
-    'never': 'an electric car\'s pack (about 31,000 AA\'s) is not a thing a crew carries: nothing is priced in it. Who holds the working solar is NOT DECIDED (rule 459(e)): nothing here is built on it.'
+    'never': 'an electric car\'s pack (about 31,000 AA\'s) is not a thing a crew carries: nothing is priced in it. WHO HOLDS THE WORKING SUN, DECIDED by ECONOMY THREE 11/26 (the coordinator\'s word: yours to decide from the research, pick, write it down, build it; his to correct): most roofs are dead (grid-tied systems with no battery shut off with the grid, the anti-islanding safety rule every grid-tied inverter follows), so working solar is the rare battery-backed or rewired array, held by whoever holds a power place on the map (the factions now: a live power place puts one battery a day in its holder\'s pocket); and THE SUN IS FREE, THE CELLS ARE NOT: a cell left flat too long never takes a charge again, so a panel only turns the few cells still worth charging, and his own worked panel puts by one AA a morning. Record: records/BOHEMIA_ECONOMY_THREE_WHO_HOLDS_THE_SUN_11_26_26.md'
 }
 T['bands'] = {
     'everyday': {'min': 1, 'max': 10, 'say': 'everyday things cost 1 to 10', 'zero_ok': True},
@@ -62,6 +62,7 @@ T['bands'] = {
     'job_part': {'min': 1, 'max': 60, 'say': 'the parts a job\'s pay is built from'},
     'purse': {'min': 20, 'max': 400, 'say': 'what a crew starts with: tool packs to a car battery and change'},
     'big': {'min': 100, 'max': 500, 'say': 'the big standing buys (a man who joins the camp) are a car battery or two'},
+    'a_cart': {'min': 50, 'max': 500, 'zero_ok': True, 'say': 'a cart the staff push (rule 471): the first is a shopping cart off a lot, free; then tool packs to a car battery and a bit, beside the camp\'s own cart steps (100 to 500)'},   # ECONOMY THREE 11/26
     'prize': {'min': 5, 'max': 250, 'say': 'a purse in the pit is tool packs, never over a car battery'},
     'gear_piece': {'min': 1, 'max': 300, 'say': 'a made thing with its own price is tens to a few hundred'},
     'one_job': {'min': 1, 'max': 2500, 'say': 'the most one job ever pays is ten car batteries: a crew can carry it'},
@@ -138,7 +139,7 @@ where(BB + 'stall_prices.json', ['buy_floor.value', 'trade.sold_floor.value'], '
 where(BB + 'stall_prices.json', ['trade.goods[*].worth'], 'a trade good\'s price where it is made (twelve goods)', 'trade_good')
 where(BB + 'loot.json', ['counts.batteries.pocket', 'counts.batteries.machine_cell'], 'what one beaten man had in his pocket (55 in 100) and the cell out of a machine', 'everyday')
 where(BB + 'home_base.json', ['bill.keep', 'bill.power_cost_by_mark.*'], 'his place\'s keep a night and what the dark costs it', 'everyday', owner='HOME BASE')
-where(BB + 'home_base.json', ['builds.solar.worked.batteries'], 'what one worked solar panel at his place puts by a morning (GAMIFIED, 9/5 s4; who holds the sun is not decided)', 'everyday', owner='HOME BASE')
+where(BB + 'home_base.json', ['builds.solar.worked.batteries'], 'what one worked solar panel at his place puts by a morning (GAMIFIED, 9/5 s4; the sun is free, the cells are not: ECONOMY THREE 11/26, records/BOHEMIA_ECONOMY_THREE_WHO_HOLDS_THE_SUN_11_26_26.md; was: who holds the sun is not decided)', 'everyday', owner='HOME BASE')
 where(BB + 'home_base.json', ['places.yard.per_level', 'places.yard.min'], 'his training yard: an AA a level of the man, never under two', 'everyday', owner='HOME BASE')
 # ---- the road, the quests, the places
 where(RT + 'BOHEMIA_ROAD_EVENTS.json', ['events[*].opts[*].**.bats'], 'what a stop on the road gives, takes or asks (81 stops)', 'the_road')
@@ -157,6 +158,7 @@ where(BB + 'boss_act_one.json', ['bosses[*].verb.pay_batteries', 'bosses[*].grou
 where(BB + 'boss_act_one.json', ['bosses[*].verb.item.price'], 'the two things a boss\'s verb makes (a pipe gun, a pressed plate)', 'gear_piece', owner='BOSSES')
 # ---- the big standing buys
 where(BB + 'retinue.json', ['followers.value[*].price'], 'the eighteen who join the camp, once each', 'big', owner='RETINUE')
+where(BB + 'retinue.json', ['staff.value.cart.kinds[*].price'], 'the cart the staff push into a fight, built at his forge (rule 471): a shopping cart free, a steel utility cart 150, a wagon 300 (their tape is the build\'s, not money)', 'a_cart', owner='RETINUE')   # ECONOMY THREE 11/26: brought in
 where(BB + 'retinue.json', ['followers.value[*].nums.champPayLo', 'followers.value[*].nums.champPayHi', 'followers.value[*].nums.placePayLo', 'followers.value[*].nums.placePayHi'], 'what two of them bring in: a champion\'s head, a place found', 'prize', owner='RETINUE')
 where(BB + 'arena.json', ['opponents.value[*].purse', 'tournament.value.purse[*]'], 'the pit: a night\'s purse and the tournament\'s three rounds', 'prize', owner='ARENA')
 where(BB + 'arena.json', ['purse_per_extra.value'], 'the pit: more a head when they send extra', 'everyday', owner='ARENA')

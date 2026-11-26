@@ -9,7 +9,7 @@ CPB, FLOOR = 'catalogs.crowns_per_battery', 'catalogs.floor'
 # ---- one AA: the things the game charges or pays one for (EVERYTHING COSTS ONE, 8/15, where nobody has tuned it since)
 for f in (E + 'bohemia_lotbuild.js', CW):
     copy(f, r"var COST = \{ currency: 'electricity', amount: (\d+) \}", 'a build on a lot costs one AA and a day (HOME BASE\'s; its tape is home_base.json)', is_=1)
-copy(CW, r"var AMOUNT = (\d+);", 'a power building puts by one AA a day (GAMIFIED 9/5; who holds the sun is not decided)', is_=1)
+copy(CW, r"var AMOUNT = (\d+);", 'a power building puts by one AA a day in its holder\'s pocket (GAMIFIED 9/5; who holds the working sun: whoever holds a power place, ECONOMY THREE 11/26)', is_=1)
 copy(E + 'bohemia_powerbuild.js', r"var AMOUNT = (\d+);", 'a power building puts by one AA a day', is_=1)
 copy(E + 'bohemia_barber.js', r"var COST = \{ currency: 'electricity', amount: (\d+) \}", 'the barber\'s chair costs one AA', is_=1)
 for f in (E + 'bohemia_purse.js', CW):

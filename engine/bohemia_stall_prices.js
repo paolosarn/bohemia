@@ -210,7 +210,12 @@
     ctx = ctx || {};
     var rolls = missing / num(m.durability_per_roll, 15);
     var tape = rolls * num(file.goods.tape.buy, 1) * sizeOf(file, ctx.tier) * (ctx.buyMult || 1);
-    return Math.max(num(m.min_a_piece, 1), Math.round(tape * (1 + num(m.hands, 1))));
+    var price = Math.max(num(m.min_a_piece, 1), Math.round(tape * (1 + num(m.hands, 1))));
+    /* ECONOMY THREE 11/26 (rule 480(b): a player never sees a number that feels wrong): a mend never costs more than the same
+       piece new at this stall (ctx.worth). Measured: 3 of 204 pieces (a cultist hood, a headscarf, a leather headband) cost 1 to 2
+       AA more to mend from broken than to buy */
+    if (ctx.worth > 0) price = Math.max(1, Math.min(price, Math.round(ctx.worth)));
+    return price;
   }
 
   var API = { mendPrice: mendPrice, buyEach: buyEach, buyShown: buyShown, sellEach: sellEach, sellEachAt: sellEachAt, pays: pays,
