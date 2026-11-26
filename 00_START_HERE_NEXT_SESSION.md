@@ -1,3 +1,10 @@
+CHARACTER TWO (character-two-01gkdyuv): 11/26 LATEST -- BUILD 11/26m - THE CONE COMES OFF, BUILT, NOT YET SEEN (rule 470(f), 480(b)(c), 482; ask row 706).
+The straw cone is off every wearer: the Caravans' speakers (MANNY, MARISOL, Mama Ruth, Teo) and Old Tavo / NUMBER 212 wear the DUST RANCHER HAT on every
+sheet (faces and moods, fight, guns, idles, holds, melee, gang stills); the 8 Caravans hall men never drew it (only a label, fixed with 48 more wrong head
+labels); the wardrobe's wide brim is DUST RANCHER HAT; GATE THE CONE HAT IS DEAD is NONE AT ALL. Rule 480(c): a people or idle sheet unpacks off the
+page's thread (__A_SHEET_DECODES_OFF_THE_FRAME__: 4 frames over 50 ms -> 0 on the engine at 4x, the town exit 316.7 -> 200 ms). Its block is
+handoffs/CHARACTER.md; records/BOHEMIA_CHARACTER_TWO_THE_CONE_COMES_OFF_11_26_26.md; VOTE character2-the-cone-comes-off-11-26.
+
 CAMP FOUR (camp-four-01gkdyuu): 11/26 LATEST -- BUILD 11/26l - THE CAMP COMES UP AT ONCE, BUILT, NOT YET SEEN (rule 480(b)(c) on 472(c)(e); ask rows 712, 728). Its block is handoffs/CAMP_THREE.md.
 On a slowed phone MAKE CAMP after a fight to the camp on the glass 7.26 -> 2.85 s and he watches the tents go up (was: a frozen picture, then the camp popped in whole);
 no frame over 100 ms while the camp stands (the phone's job board and the job plans no longer run under it); HEAL's picture 9.1-10.2 -> 7.5 s, its press 99 -> 7 ms; the

@@ -90,7 +90,7 @@ var FACTION_LOOKS = [
     why:'built for the road and the sun: load across the shoulders, brim against the sky',
     dials:{height:-0.30,belly:0.55,arms:0.30,shoulders:0.60,hips:0.15},
     worn:{hair:'DUSK SHAG',base:'DUST PLAID SHIRT',back:'OLIVE SHOULDER MANTLE',
-          head:'CHINESE RICE FARMER HAT',legs:'DUST TROUSERS',feet:'SANDWALKERS'} },
+          head:'DUST RANCHER HAT',legs:'DUST TROUSERS',feet:'SANDWALKERS'} },
   { faction:'Colorful', draft:true, age:'adult', shape:'small / long coat / knit cap / long hem',
     why:'smallest body carrying the most line: the one silhouette built to be seen on purpose',
     dials:{height:-0.60,belly:-0.30,arms:-0.30,shoulders:-0.40,hips:0.25},

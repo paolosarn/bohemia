@@ -52,7 +52,6 @@
    "wears": {
     "base": "WORK COVERALLS",
     "outer": "QUILTED VEST",
-    "head": "STORM KNIT CAP",
     "legs": "OLIVE WIDE TROUSER",
     "feet": "OLIVE STACK BOOT",
     "neck": "BONE SCARF",
@@ -74,7 +73,6 @@
    "sex": null,
    "wears": {
     "base": "OLIVE TANK",
-    "head": "STORM KNIT CAP",
     "legs": "OLIVE PANTS",
     "feet": "COAL MID BOOT",
     "waist": "CHARCOAL BELT",
@@ -97,7 +95,6 @@
    "sex": "m",
    "wears": {
     "base": "MOSS GREEN SHIRT",
-    "head": "STORM KNIT CAP",
     "feet": "COAL COLUMN",
     "gear": "SOOT CHEST PLATE",
     "mid": "RED PLAID FLANNEL"
@@ -118,7 +115,6 @@
    "sex": "m",
    "wears": {
     "base": "OLIVE DRAB TEE",
-    "head": "STORM KNIT CAP",
     "legs": "OLIVE PANTS",
     "feet": "GRASS SNEAKERS",
     "back": "RUCK PACK",
@@ -141,7 +137,6 @@
    "wears": {
     "base": "SAND HOODIE",
     "outer": "OLIVE CAR COAT",
-    "head": "STORM KNIT CAP",
     "legs": "GRASS DROP TROUSER",
     "feet": "GRASS BOOTS",
     "waist": "SCAV TOOL BELT",
@@ -164,7 +159,6 @@
    "wears": {
     "base": "FIELD SHORTALLS",
     "outer": "BONE VEST",
-    "head": "STORM KNIT CAP",
     "legs": "OLIVE WIDE TROUSER",
     "feet": "GRASS BOOTS",
     "waist": "SOOT TOOL BELT"
@@ -186,7 +180,6 @@
    "wears": {
     "base": "OLIVE HENLEY",
     "outer": "GRASS WRAP COAT",
-    "head": "STORM KNIT CAP",
     "legs": "OLIVE SHORTS",
     "feet": "SLOUCH BOOT"
    }
@@ -207,7 +200,6 @@
    "wears": {
     "base": "OLIVE HENLEY",
     "outer": "GRASS CAR COAT",
-    "head": "STORM KNIT CAP",
     "legs": "WIDE PLEAT TROUSER",
     "feet": "TALL MOTO BOOTS",
     "waist": "LEAD WAIST WRAP",

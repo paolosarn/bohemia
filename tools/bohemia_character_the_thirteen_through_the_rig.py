@@ -18,7 +18,7 @@ DIRECTION renders and COOK THREE's thug stands on) and every garment is GEOMETRY
     at the back, the open front of a duster, a torn hem on the Anarchists, an asymmetric hem on the Remnants), and its
     weights BLENDED from the hips to each thigh by the side of the body it hangs on, so the skirt parts round the stride
     and swings with the legs. That is the trenchcoat action his NO asked for, in geometry, from all eight facings.
-  * HATS ARE SOLIDS ON THE HEAD BONE (the rice farmer's cone, a work cap's visor) or lifted skin (knit caps, skull
+  * HATS ARE SOLIDS ON THE HEAD BONE (the dust rancher hat, a work cap's visor) or lifted skin (knit caps, skull
     caps); a bare head wears its haircut as lifted skin, a long cut adds a fall down the back.
   * THE COLOURS are the runway paint as it stands on the street today (records/cook3/thirteen_repainted.png, row
     AFTER, sampled per region), so the twin and the model wear the same cloth; the rig's source pass puts the wear in.
@@ -80,11 +80,11 @@ LOOKS = {
                  hair=dict(style='taper', colour=HAIR_DARK), shirt=dict(colour=BLACK, sleeve='none'),
                  trousers=dict(colour=(40, 38, 38), wide=0.012), shoes=dict(colour=(186, 182, 172), kind='sneaker')),
     'Caravans': dict(order=1, shape='broad / mantle / wide brim', dials=dict(height=-0.30, belly=0.55, shoulders=0.60, hips=0.15),
-                     worn=dict(hair='COIL CROWN', base='DUST PLAID SHIRT', outer='SAND COCOON COAT', back='OLIVE SHOULDER MANTLE', head='CHINESE RICE FARMER HAT', legs='DUST TROUSERS', feet='SANDWALKERS'),
+                     worn=dict(hair='COIL CROWN', base='DUST PLAID SHIRT', outer='SAND COCOON COAT', back='OLIVE SHOULDER MANTLE', head='DUST RANCHER HAT', legs='DUST TROUSERS', feet='SANDWALKERS'),
                      hair=dict(style='crop', colour=HAIR_DARK), shirt=dict(colour=(118, 100, 74), sleeve='long'),
                      coat=dict(colour=(102, 88, 70), hem=THIGH, flare=0.06, thick=0.024, front_open=0.0),
                      mantle=dict(colour=(88, 78, 58), low=0.86),
-                     hat=dict(kind='cone', colour=(126, 110, 80)),
+                     hat=dict(kind='rancher', colour=(128, 110, 80), band=(66, 48, 34)),   # 11/26 rule 470(f): the cone is dead (graveyard)
                      trousers=dict(colour=(84, 71, 62), wide=0.01), shoes=dict(colour=(90, 83, 75), kind='sandal')),
     'Colorful': dict(order=2, shape='small / long coat / knit cap / long hem', dials=dict(height=-0.60, belly=-0.30, shoulders=-0.40, hips=0.25),
                      worn=dict(hair='SHAG', base='TEAL STRIPED TEE', outer='GRASS CAR COAT', head='ROSE KNIT CAP', legs='GRASS DROP TROUSER', feet='GRASS BOOTS'),
@@ -628,17 +628,24 @@ def build(name, outdir):
                 mw = q.matrix_world.copy(); q.parent = arm; q.matrix_world = mw
                 vg = q.vertex_groups.new(name='Skeleton_neck_joint_2'); vg.add(list(range(len(q.data.vertices))), 1.0, 'REPLACE')
                 am = q.modifiers.new('Armature', 'ARMATURE'); am.object = arm; made.append(q)
-        if k == 'cone':   # the rice farmer's hat: a shallow cone, wider than the shoulders' half, its point over the crown
-            bpy.ops.mesh.primitive_cone_add(vertices=32, radius1=0.25, radius2=0.012, depth=0.13)
-            q = bpy.context.active_object; q.name = '%s_hat' % tag
-            q.location = (0, hcy, top - 0.03 + 0.065)
-            bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
-            so = q.modifiers.new('rim', 'SOLIDIFY'); so.thickness = 0.012; bpy.ops.object.modifier_apply(modifier='rim')
-            # the weave: rings pressed into the straw every 3.5 cm of radius
-            for v in q.data.vertices:
-                r = math.hypot(v.co.x, v.co.y - hcy)
-                if v.co.z > top - 0.03: v.co.z -= 0.004 * max(0.0, math.cos(2 * math.pi * r / 0.035)) ** 6
+        if k == 'rancher':   # THE DUST RANCHER HAT (CHARACTER 2, 11/26, rule 470(f)): the cattleman's felt in place of the dead
+            # straw hat, one shape for the look, the faces and the barber (tools/bohemia_character_dust_rancher_hat.py); the band
+            # low on the brow over the hair, the crown clearing the cut, the brim flat at the front so the face shows
+            import bmesh
+            import bohemia_character_dust_rancher_hat as RH
+            hd = (hback - hfront) / 2
+            Vr, Fr, Pr = RH.shape(0.0, hcy, top - 0.058, hw + hair_t + 0.010, hd + hair_t + 0.010, 0.104, 0.082, 0.044)
+            bm = bmesh.new(); vs = [bm.verts.new(p) for p in Vr]
+            for f_, p_ in zip(Fr, Pr): bm.faces.new([vs[i] for i in f_]).material_index = 1 if p_ == 'band' else 0
+            bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+            me = bpy.data.meshes.new('%s_hat' % tag); bm.to_mesh(me); bm.free()
+            q = bpy.data.objects.new('%s_hat' % tag, me); sc.collection.objects.link(q)
+            bpy.context.view_layer.objects.active = q
+            for o_ in sc.objects: o_.select_set(o_ is q)
+            so = q.modifiers.new('rim', 'SOLIDIFY'); so.thickness = 0.010; so.offset = -1; bpy.ops.object.modifier_apply(modifier='rim')
+            for f_ in q.data.polygons: f_.use_smooth = True
             q.data.materials.append(mat('hat', H['colour']))
+            q.data.materials.append(mat('hat_band', H.get('band', RH.BAND_LEATHER)))
             mw = q.matrix_world.copy(); q.parent = arm; q.matrix_world = mw
             vg = q.vertex_groups.new(name='Skeleton_neck_joint_2'); vg.add(list(range(len(q.data.vertices))), 1.0, 'REPLACE')
             am = q.modifiers.new('Armature', 'ARMATURE'); am.object = arm; made.append(q)

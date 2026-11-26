@@ -380,16 +380,16 @@
 "packedMB": 0.88
 },
 "cast_widebrim.webp": {
-"bytes": 212518,
-"decodedMB": 17.37,
-"fill": 0.193,
-"packedMB": 3.76
+"bytes": 226024,
+"decodedMB": 17.43,
+"fill": 0.202,
+"packedMB": 4.09
 },
 "cast_widebrim_guns.webp": {
-"bytes": 71782,
-"decodedMB": 31.27,
+"bytes": 70698,
+"decodedMB": 31.38,
 "fill": 0.022,
-"packedMB": 0.9
+"packedMB": 0.88
 },
 "enemy_casino_doorman_0.webp": {
 "bytes": 277678,
@@ -824,16 +824,16 @@
 "packedMB": 0.77
 },
 "faction_caravans.webp": {
-"bytes": 286714,
-"decodedMB": 18.62,
-"fill": 0.187,
-"packedMB": 4.02
+"bytes": 305198,
+"decodedMB": 18.68,
+"fill": 0.2,
+"packedMB": 4.25
 },
 "faction_caravans_guns.webp": {
-"bytes": 43942,
-"decodedMB": 33.51,
-"fill": 0.014,
-"packedMB": 0.63
+"bytes": 42230,
+"decodedMB": 33.62,
+"fill": 0.013,
+"packedMB": 0.62
 },
 "faction_cartel.webp": {
 "bytes": 227310,
@@ -1491,8 +1491,8 @@
 }
 },
 "totals": {
-"decodedMB": 4943.1,
-"packedMB": 1016.9,
+"decodedMB": 4943.4,
+"packedMB": 1017.5,
 "sheets": 248
 }
 }

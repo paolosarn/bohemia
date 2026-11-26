@@ -1192,10 +1192,10 @@
  ],
  "hats": [
   {
-   "name": "HAT CHINESE RICE FARMER HAT",
-   "shape": "cone",
+   "name": "HAT DUST RANCHER HAT",
+   "shape": "rancher",
    "in_random_mix": false,
-   "renders": "records/target/character/barber/hat_chinese_rice_farmer_hat",
+   "renders": "records/target/character/barber/hat_dust_rancher_hat",
    "card": "character-hats-one-the-21-hats-10-19",
    "his_vote": "up"
   },
@@ -3992,8 +3992,8 @@
   "gang_cut_weight": 3,
   "not_in_random_mix": [
    "HAT BONE HEAD WRAP",
-   "HAT CHINESE RICE FARMER HAT",
    "HAT DESERT SHEMAGH",
+   "HAT DUST RANCHER HAT",
    "HAT SOOT HEAD WRAP"
   ],
   "grey_with": [

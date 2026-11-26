@@ -52,7 +52,6 @@
    "wears": {
     "base": "STRIPED TEE",
     "back": "OLIVE SHOULDER MANTLE",
-    "head": "CHINESE RICE FARMER HAT",
     "legs": "GREY SWEATS",
     "feet": "STACKED SOLE BOOT",
     "waist": "WIDE WAIST WRAP",
@@ -75,7 +74,6 @@
    "wears": {
     "base": "RUST TANK",
     "back": "OLIVE SHOULDER MANTLE",
-    "head": "CHINESE RICE FARMER HAT",
     "legs": "BLACK CARGOS",
     "feet": "RUST BOOTS",
     "mid": "DUST PLAID SHIRT"
@@ -97,7 +95,6 @@
    "wears": {
     "base": "BRICK TEE",
     "back": "OLIVE SHOULDER MANTLE",
-    "head": "CHINESE RICE FARMER HAT",
     "legs": "STEEL BLUE JEANS",
     "feet": "BROWN BOOTS",
     "gear": "DUST BROWN BANDOLIER",
@@ -121,7 +118,6 @@
     "base": "SCAVENGER FLANNEL",
     "outer": "QUILTED VEST",
     "back": "OLIVE SHOULDER MANTLE",
-    "head": "CHINESE RICE FARMER HAT",
     "legs": "DUST BROWN TROUSERS",
     "feet": "BROWN BOOTS"
    }
@@ -142,7 +138,6 @@
    "wears": {
     "base": "BRICK HOODIE",
     "back": "OXBLOOD SATCHEL",
-    "head": "CHINESE RICE FARMER HAT",
     "legs": "SOOT CARGOS",
     "feet": "COAL MID BOOT",
     "mid": "KHAKI BUTTON-UP"
@@ -165,7 +160,6 @@
     "base": "BONE HENLEY",
     "outer": "LEATHER VEST",
     "back": "OLIVE SHOULDER MANTLE",
-    "head": "CHINESE RICE FARMER HAT",
     "legs": "CHARCOAL CROP TROUSER",
     "feet": "BONE STACK BOOT",
     "waist": "SOOT TOOL BELT"
@@ -188,7 +182,6 @@
     "base": "DUST PLAID SHIRT",
     "outer": "RUST VEST",
     "back": "OXBLOOD SATCHEL",
-    "head": "CHINESE RICE FARMER HAT",
     "legs": "GREY SWEATS",
     "feet": "RANCH BOOTS"
    }
@@ -209,7 +202,6 @@
    "wears": {
     "base": "BONE HENLEY",
     "back": "OLIVE SHOULDER MANTLE",
-    "head": "CHINESE RICE FARMER HAT",
     "legs": "CHARCOAL SHORTS",
     "feet": "COAL MID BOOT",
     "neck": "DRAPED COWL",

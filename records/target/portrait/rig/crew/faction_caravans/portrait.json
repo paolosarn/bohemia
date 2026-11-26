@@ -1,8 +1,8 @@
 {
  "head_px": 128,
- "head_m": 0.3818,
- "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.382 m",
- "ppm": 335.258,
+ "head_m": 0.3894,
+ "head_how": "measured from portrait_head, portrait_head_eyes, portrait_head_lids: 0.389 m",
+ "ppm": 328.673,
  "res": 218,
  "camera": {
   "tilt_deg": 80.0,
@@ -39,11 +39,11 @@
  },
  "crop_box_px": [
   0,
-  16,
-  211,
+  32,
+  212,
   218
  ],
  "model": "records/portrait/rig/crew/faction_caravans_head.glb",
  "body_rig": "rig.json",
- "colours": 19337
+ "colours": 20014
 }

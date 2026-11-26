@@ -527,6 +527,12 @@ def who(p):
         w = json.load(open(bj)).get('worn') or {}
         q['top'] = w.get('base', q['top']); q['coat'] = w.get('outer', q['coat'])
         q['wears'] = {k: v for k, v in w.items() if k not in ('hair', 'outfit') and v}
+        # HIS HEAD IS HIS OWN ROLL (CHARACTER 2, 11/26, rule 480(b)): a person's build drops his gang look's hat (the barber's
+        # PM.PEOPLE drop, tools/bohemia_character_the_barber_on_the_skull.py) and puts on the hat he rolled, so the gang's
+        # default was never on him: 48 hall men in 7 gangs were labelled with a hat they do not wear (the 8 Caravans with the
+        # dead straw cone, rule 470(f)); the label is the hat he wears, or none
+        q['wears'].pop('head', None)
+        if p.get('hat'): q['wears']['head'] = p['hat'][4:] if p['hat'].startswith('HAT ') else p['hat']
     return q
 
 

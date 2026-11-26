@@ -49,7 +49,7 @@
   "Surprised",
   "Blink"
  ],
- "gear": "cone hat",
+ "gear": "rancher hat",
  "hair": "taper",
  "stubble": false,
  "look": "cast_widebrim",
@@ -85,8 +85,8 @@
   "portrait_head_eyes": 1068,
   "portrait_head_lids": 1296,
   "portrait_neck": 48,
-  "portrait_hat": 960,
-  "portrait_hair": 49572
+  "portrait_hat": 2738,
+  "portrait_hair": 20488
  },
  "materials": {
   "crew_cast_widebrim_eyes": [
@@ -128,6 +128,11 @@
    0.0212,
    0.0194,
    0.0194
+  ],
+  "portrait_cast_widebrim_band": [
+   0.0545,
+   0.0296,
+   0.016
   ],
   "portrait_cast_widebrim_buzz": [
    0.0369,

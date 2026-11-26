@@ -3,16 +3,18 @@
 hats btw wtf???'). GRAVEYARD IS FINAL and A DEAD SHAPE DOES NOT COME BACK UNDER A NEW NAME: the conical straw hat (HATS 1's
 'CHINESE RICE FARMER HAT', shape 'cone') is in records/BOHEMIA_CLOTHING_GRAVEYARD.txt with its post-mortem.
 
-The hat is still drawn where it was baked before his word (the 8 Caravans hall men through the Caravans' gang default, the old
-faction_caravans look, the fight's cast_widebrim / Old Tavo, the Caravans' portrait face, the alpha's and the demo's wardrobe); the
-plan to take it off every one is records/BOHEMIA_CHARACTER_THE_CONE_HAT_IS_DEAD_11_22_26.md. Until then this gate holds the line
-the way THE RED DEBT does: what is left may only shrink.
+11/26 CHARACTER 2 TOOK IT OFF EVERY WEARER (records/BOHEMIA_CHARACTER_TWO_THE_CONE_COMES_OFF_11_26_26.md): the Caravans'
+one-piece look and its speakers' faces (MANNY, MARISOL, the Caravans' clients) and Old Tavo / NUMBER 212 (cast_widebrim) wear the
+DUST RANCHER HAT (tools/bohemia_character_dust_rancher_hat.py) on every sheet; the 8 Caravans hall men never drew it (a person's
+build drops his gang's hat) and their labels now say what they wear; the 2D wardrobe's wide brim is the DUST RANCHER HAT.
+So the line is NONE AT ALL, and the gate now reads engine/ too (the people index carried 8 labels it never saw).
 
-  C1 NO NEW WEARER: no file the game serves or that makes a person (slices/ data and pages, the hat, outfit, look and portrait
-     tables) carries the cone under any name (rice farmer, conical, coolie, cone hat) more often than it did on 11/22, and no new
-     file carries it.
-  C2 THE COUNT ONLY SHRINKS: when a file's count drops, lower its line in LEFT the same commit (a stale higher number lets one back).
-  C3 NOBODY ROLLS IT: the barber's random mix never offers it (the barber's book's NOT_RANDOM_HATS keeps the 'cone' shape out).
+  C1 NONE AT ALL: no file the game serves or that makes a person (slices/ data and pages, engine/, the hat, outfit, look and
+     portrait tables) carries the cone under any name (rice farmer, conical, coolie, cone hat)
+  C2 NO BUILDER MAKES IT: the gang looks have no hat kind 'cone', the portrait tool no 'cone hat' gear, HATS 1 no 'cone' shape
+  C3 NOBODY ROLLS IT: the barber's random mix never offers it (the barber's book's NOT_RANDOM_HATS keeps the 'cone' shape out)
+  C4 THE LABEL IS THE HAT HE WEARS: in the people index every person's head is the hat he rolled or none (a person's build
+     drops his gang's default hat, so a gang default in his label is a hat he does not wear: 48 such labels until 11/26)
 
     python3 gates/the_cone_hat_is_dead_gate.py
 """
@@ -20,13 +22,7 @@ import glob, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PAT = re.compile(r'rice farmer|conical|coolie|cone hat', re.I)
-# what is left on 11/22 (main f695f2b1a), file by file; every number only ever goes down
-LEFT = {
-    'slices/BOHEMIA_ALPHA_0_9.html': 5, 'slices/BOHEMIA_DEMO.html': 5, 'slices/BOHEMIA_LOOK_CURRENT.html': 1,
-    'slices/fight_people/fight_people.json': 2, 'slices/rig_mix/caravans.json': 8,
-    'tools/bohemia_character_hats_one.py': 3, 'tools/bohemia_faction_outfits.py': 1,
-    'tools/bohemia_character_the_thirteen_through_the_rig.py': 3, 'tools/bohemia_portrait_the_head_from_the_model.py': 6,
-}
+LEFT = {}   # 11/22: 35 mentions in 9 files; 11/26: none (CHARACTER 2)
 TABLES = ['tools/bohemia_character_hats_one.py', 'tools/bohemia_faction_outfits.py', 'tools/bohemia_character_the_thirteen_through_the_rig.py',
           'tools/bohemia_portrait_the_head_from_the_model.py', 'tools/bohemia_character_the_nine_enemies.py',
           'tools/bohemia_character_garments_gear.py', 'tools/bohemia_character_garments_outer.py']
@@ -40,7 +36,7 @@ def leg(cond, name, detail=''):
 
 
 files = sorted(set(glob.glob(os.path.join(ROOT, 'slices', '*.html')) + glob.glob(os.path.join(ROOT, 'slices', '*.json')) +
-                   glob.glob(os.path.join(ROOT, 'slices', '*', '*.json')) + glob.glob(os.path.join(ROOT, 'slices', '*.js')) +
+                   glob.glob(os.path.join(ROOT, 'slices', '*', '*.json')) + glob.glob(os.path.join(ROOT, 'slices', '*.js')) + glob.glob(os.path.join(ROOT, 'engine', '*.js')) + glob.glob(os.path.join(ROOT, 'engine', '*.json')) +
                    glob.glob(os.path.join(ROOT, 'records/target/bb', '*.json')) + glob.glob(os.path.join(ROOT, 'records/run2', '*.json')) +
                    glob.glob(os.path.join(ROOT, 'records/character', '*.json')) + [os.path.join(ROOT, t) for t in TABLES]))
 OLD_PAGES = ('slices/BOHEMIA_FACTION_DOSSIER_JUDGE_8_2_26.html', 'slices/BOHEMIA_LIFE_SLICE_7_19_26.html')   # judge pages of 8/2 and 7/19, history, no screen links them
@@ -51,15 +47,26 @@ for f in files:
     try: n = len(PAT.findall(open(f, errors='ignore').read()))
     except OSError: continue
     if n: found[rel] = n
-new = sorted(set(found) - set(LEFT))
-more = sorted(k for k in found if k in LEFT and found[k] > LEFT[k])
-leg(not new and not more, 'C1 NO NEW WEARER: the cone is in no new file and in no file more often than on 11/22',
-    '; '.join(['NEW %s (%d)' % (k, found[k]) for k in new] + ['MORE %s (%d > %d)' % (k, found[k], LEFT[k]) for k in more]))
-stale = sorted(k for k in LEFT if found.get(k, 0) < LEFT[k])
-leg(not stale, 'C2 THE COUNT ONLY SHRINKS: every LEFT line is the file\'s count today (lower it the commit it drops)',
-    '; '.join('%s now %d, LEFT says %d' % (k, found.get(k, 0), LEFT[k]) for k in stale))
+leg(not found, 'C1 NONE AT ALL: the cone is in no file the game serves or that makes a person',
+    '; '.join('%s (%d)' % kv for kv in sorted(found.items())))
+T = lambda f: open(os.path.join(ROOT, f)).read()
+th, pt, h1 = T('tools/bohemia_character_the_thirteen_through_the_rig.py'), T('tools/bohemia_portrait_the_head_from_the_model.py'), T('tools/bohemia_character_hats_one.py')
+bad = [n for n, ok in (('the gang looks\' hat kind cone', not re.search(r"kind\s*=\s*'cone'|k\s*==\s*'cone'", th)),
+                       ('the portrait gear cone hat', "'cone hat'" not in pt),
+                       ('HATS 1 shape cone', not re.search(r"'cone'\)|shape\s*==\s*'cone'", h1))) if not ok]
+leg(not bad, 'C2 NO BUILDER MAKES IT: no gang look, portrait gear or HATS 1 shape builds the cone', ', '.join(bad))
 src = open(os.path.join(ROOT, 'tools/bohemia_character_the_barbers_book.py')).read()
 leg(re.search(r"NOT_RANDOM_HATS\s*=.*'cone'", src) is not None, 'C3 NOBODY ROLLS IT: the barber\'s random mix keeps the cone shape out')
-print('\nLEFT: %d mentions in %d files (%s)' % (sum(found.values()), len(found), ', '.join('%s %d' % kv for kv in sorted(found.items()))))
+import json
+mix = open(os.path.join(ROOT, 'engine/bohemia_people_mix.js')).read()
+roll = {('person_' + p['id'].lower()): p for p in json.load(open(os.path.join(ROOT, 'records/run2/BOHEMIA_RUN2_THE_PEOPLE_ROLL.json')))}
+wrong = []
+for m in re.finditer(r'^\s*(\{"look":"person_.*\})\s*,?\s*$', mix, re.M):
+    q = json.loads(m.group(1)); p = roll.get(q['look'])
+    if p is None or not isinstance(q.get('wears'), dict): continue
+    want = (p['hat'][4:] if p['hat'].startswith('HAT ') else p['hat']) if p.get('hat') else None
+    if q['wears'].get('head') != want: wrong.append('%s says %s, wears %s' % (q['look'], q['wears'].get('head'), want))
+leg(not wrong, 'C4 THE LABEL IS THE HAT HE WEARS: every person in the people index is labelled with his own hat or none', '; '.join(wrong[:6]) + (' and %d more' % (len(wrong) - 6) if len(wrong) > 6 else ''))
+print('\nLEFT: %d mentions in %d files' % (sum(found.values()), len(found)))
 print('\n=== THE CONE HAT IS DEAD: %d passed, %d failed ===' % (ok_n, bad_n))
 sys.exit(1 if bad_n else 0)

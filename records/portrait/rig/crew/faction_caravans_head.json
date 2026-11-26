@@ -49,7 +49,7 @@
   "Surprised",
   "Blink"
  ],
- "gear": "cone hat",
+ "gear": "rancher hat",
  "hair": "coil",
  "stubble": false,
  "look": "faction_caravans",
@@ -88,8 +88,8 @@
   "portrait_head_eyes": 1068,
   "portrait_head_lids": 1296,
   "portrait_neck": 48,
-  "portrait_hat": 960,
-  "portrait_hair": 49572,
+  "portrait_hat": 2738,
+  "portrait_hair": 20488,
   "portrait_beard": 3776
  },
  "materials": {
@@ -114,9 +114,14 @@
    0.008
   ],
   "caravans_hat": [
-   0.2086,
+   0.2159,
    0.1559,
    0.0802
+  ],
+  "caravans_hat_band": [
+   0.0545,
+   0.0296,
+   0.016
   ],
   "caravans_mantle_print": [
    0.8,
@@ -152,6 +157,11 @@
    0.0887,
    0.063,
    0.0482
+  ],
+  "portrait_faction_caravans_band": [
+   0.0545,
+   0.0296,
+   0.016
   ],
   "portrait_faction_caravans_beard": [
    0.0144,

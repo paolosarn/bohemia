@@ -144,11 +144,11 @@
   },
   "cast_widebrim": {
    "file": "cast_widebrim.webp",
-   "w": 138,
-   "h": 165,
+   "w": 136,
+   "h": 168,
    "foot": [
-    67,
-    109
+    68,
+    113
    ],
    "height_m": 1.72,
    "kind": "crew",
@@ -300,11 +300,11 @@
   },
   "faction_caravans": {
    "file": "faction_caravans.webp",
-   "w": 147,
-   "h": 166,
+   "w": 144,
+   "h": 170,
    "foot": [
-    68,
-    109
+    69,
+    114
    ],
    "height_m": 1.72,
    "kind": "faction",

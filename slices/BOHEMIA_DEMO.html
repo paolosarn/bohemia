@@ -498,7 +498,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"fdfd09df0444f4bb",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"a64dedff5f19f72e",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1602,7 +1602,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/26l - THE CAMP COMES UP AT ONCE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/26m - THE CONE COMES OFF</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -5284,7 +5284,7 @@ var FACTION_LOOKS = [
   { faction:'Caravans', draft:true, age:'adult', shape:'broad / mantle / wide brim',
     why:'built for the road and the sun: load across the shoulders, brim against the sky',
     skin:'brown', dials:{height:-0.30,belly:0.55,arms:0.30,shoulders:0.60,hips:0.15},
-    worn:{hair:'COIL CROWN',base:'DUST PLAID SHIRT',outer:'SAND COCOON COAT',back:'OLIVE SHOULDER MANTLE',head:'CHINESE RICE FARMER HAT',legs:'DUST TROUSERS',feet:'SANDWALKERS'} },
+    worn:{hair:'COIL CROWN',base:'DUST PLAID SHIRT',outer:'SAND COCOON COAT',back:'OLIVE SHOULDER MANTLE',head:'DUST RANCHER HAT',legs:'DUST TROUSERS',feet:'SANDWALKERS'} },
   { faction:'Colorful', draft:true, age:'adult', shape:'small / long coat / knit cap / long hem',
     why:'smallest body carrying the most line: the one silhouette built to be seen on purpose -- AND THE ONLY FACTION THAT REFUSES A SINGLE FLAG. Everybody else in the valley picks one colour so you know at fifty yards who would defend them. These wear five, which is its own answer to the same question.',
     /* *** THIS LINE WAS BONE ON BONE ON BONE. (Paolo 8/26: "the colorful, like,
@@ -11463,7 +11463,7 @@ const CITY_CAST_LOOKS = [
           feet:'SLATE SNEAKERS'} },
   { id:'widebrim', why:'a hat you can identify from across the street',
     skin:'pale', dials:{height:-0.70,belly:0.55,arms:-0.15,shoulders:0.05,hips:0.30},
-    worn:{hair:'DEEP TAPER',base:'DUST PLAID SHIRT',head:'CHINESE RICE FARMER HAT',
+    worn:{hair:'DEEP TAPER',base:'DUST PLAID SHIRT',head:'DUST RANCHER HAT',
           legs:'DUST TROUSERS',feet:'SANDWALKERS',waist:'SCAV TOOL BELT'} },
   { id:'cape', why:'a hanging cape, the only trailing hem',
     skin:'olive', dials:{height:0.55,belly:-0.30,arms:0.15,shoulders:-0.10,hips:-0.20},
@@ -33317,7 +33317,7 @@ window.CLO=(function(){
        put() refuses every pixel below the hat line, and the hat line was TWELVE ROWS
        ABOVE THE TOP OF THE CANVAS, so genHat drew ZERO PIXELS on every facing.
        MEASURED ON THE REAL SURFACE: 17 canon garments -- every knit cap, watch cap,
-       field cap, work cap, slouch beanie, the rice farmer hat and both pairs of
+       field cap, work cap, slouch beanie, the wide-brim hat and both pairs of
        wraparound shades -- changed ZERO pixels of the frame when worn. Not thin, not
        wrong: ABSENT. He could equip them and nothing happened.
        AND THE HEADWEAR GATE WAS GREEN THROUGH ALL OF IT, because what it holds is "a
@@ -33378,6 +33378,7 @@ window.CLO=(function(){
       for(var y3=hTop-S;y3<wBot;y3++){ var s3=span(Math.max(y3,hTop)); if(!s3)continue;
         for(var x3=s3[0];x3<=s3[1];x3++) put(x3,y3, y3<hTop?r.lt : (x3<s3[0]+S||x3>s3[1]-S)?r.dk:r.mid); }
       var sW=span(wBot)||span(hTop);
+      if(opt.band){ for(var yb=Math.max(hTop,wBot-S);yb<wBot;yb++){ var sb=span(yb); if(sb)hrow(yb,sb[0],sb[1],r.dk); } }   /* the dust rancher's leather band (11/26) */
       hrow(wBot,sW[0]-2*S,sW[1]+2*S,r.dk); }                                               /* the wide flat ring reads from every angle */
     else if(kind==='wrap'){ var rBot=Math.max(hTop+S,band-S);
       for(var y4=hTop;y4<=rBot;y4++){ var s4=span(y4); if(!s4)continue;
@@ -35879,7 +35880,7 @@ window.CLO=(function(){
     /* ---- COOK BATCH 8 (7/18): HEADWEAR -- opens the missing ~20% of the 500-800
        wardrobe target. 4 structures (beanie / cap / wide-brim / wrap), facing-aware
        geometry on top of the skull, never the face. NOT faction-coded. ---- */
-    {n:'CHINESE RICE FARMER HAT',st:'canon',layer:'head',gen:function(g){return wear(genHat(g,{ramp:KHAKI,kind:'brim'}),KHAKI,10);}},   /* Paolo's rename ruling 7/18 (was DESERT WIDE-BRIM); geometry untouched -- approved as rendered */
+    {n:'DUST RANCHER HAT',st:'canon',layer:'head',gen:function(g){return wear(genHat(g,{ramp:KHAKI,kind:'brim',band:1}),KHAKI,10);}},   /* CHARACTER 2, 11/26, rule 470(f) (his homework card hw04-06): the straw-cone name is graveyarded; the same wide brim (was DESERT WIDE-BRIM, renamed 7/18) is the Caravans' felt cattleman hat, a leather band over the brim, the one shape the 3D look and faces wear */
     /* ---- COOK BATCH 9 (7/18): headwear REBUILT on the DURAG BORDERS (Paolo:
        "the durag I already have will be the borders of any hat or beanie").
        Hats now fill the canon hat line: ~4 rows deep in front, ~7 from behind. ---- */
@@ -35979,7 +35980,7 @@ window.CLO=(function(){
     {n:'STORM VEST',st:'canon',cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:STORMGRY,vest:true}),STORMGRY,14);}},
     {n:'OLIVE VEST',st:'canon',cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:OLIVEDRAB,vest:true}),OLIVEDRAB,14);}},
     {n:'RUST VEST',st:'canon',cw:true,layer:'outer',gen:function(g){return wear(genCoat(g,{ramp:RUSTIRON,vest:true}),RUSTIRON,14);}},
-    /* head (no wide-brim recolors: CHINESE RICE FARMER HAT is Paolo's named piece) */
+    /* head (no wide-brim recolors: the DUST RANCHER HAT is the Caravans' own piece) */
     {n:'BONE KNIT CAP',st:'canon',cw:true,layer:'head',gen:function(g){return wear(genHat(g,{ramp:BONECLO,kind:'beanie'}),BONECLO,10);}},
     {n:'OLIVE KNIT CAP',st:'canon',cw:true,layer:'head',gen:function(g){return wear(genHat(g,{ramp:OLIVEDRAB,kind:'beanie'}),OLIVEDRAB,10);}},
     {n:'BRICK WATCH CAP',st:'canon',cw:true,layer:'head',gen:function(g){return wear(genHat(g,{ramp:BRICK,kind:'beanie',fit:'skull'}),BRICK,10);}},

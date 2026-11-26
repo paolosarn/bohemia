@@ -52,7 +52,6 @@
    "wears": {
     "base": "RUST HENLEY",
     "back": "CHARCOAL ROAD CAPE",
-    "head": "CHARCOAL WATCH CAP",
     "legs": "DUST TROUSERS",
     "feet": "OXBLOOD BOOTS",
     "hands": "LEATHER GLOVES",
@@ -76,7 +75,6 @@
    "wears": {
     "base": "BONE HENLEY",
     "back": "SALVAGE SATCHEL",
-    "head": "CHARCOAL WATCH CAP",
     "legs": "LEATHER STACK PANT",
     "feet": "OXBLOOD BOOTS",
     "outer": "KHAKI JACKET",
@@ -100,7 +98,6 @@
    "wears": {
     "base": "WHITE TEE",
     "back": "CHARCOAL ROAD CAPE",
-    "head": "CHARCOAL WATCH CAP",
     "legs": "KHAKI CARGOS",
     "feet": "RANCH BOOTS",
     "hands": "LEATHER GLOVES",
@@ -123,7 +120,6 @@
    "wears": {
     "base": "WIDE SHOULDER TEE",
     "back": "STEEL ROAD CAPE",
-    "head": "CHARCOAL WATCH CAP",
     "feet": "COLUMN PANT-BOOT",
     "waist": "WIDE WAIST WRAP",
     "mid": "SAGE FLANNEL"
@@ -145,7 +141,6 @@
    "wears": {
     "base": "RED PLAID FLANNEL",
     "back": "STEEL ROAD CAPE",
-    "head": "CHARCOAL WATCH CAP",
     "feet": "COLUMN PANT-BOOT",
     "outer": "SAGE VEST"
    }
@@ -166,7 +161,6 @@
    "wears": {
     "base": "SAGE TEE",
     "back": "STEEL ROAD CAPE",
-    "head": "CHARCOAL WATCH CAP",
     "legs": "CHARCOAL SHORTS",
     "feet": "STACKED MID BOOT",
     "mid": "OXBLOOD PLAID FLANNEL"
@@ -188,7 +182,6 @@
    "wears": {
     "base": "SHOULDER LONGLINE",
     "back": "STEEL ROAD CAPE",
-    "head": "CHARCOAL WATCH CAP",
     "legs": "STEEL BLUE JEANS",
     "feet": "COAL MID BOOT",
     "outer": "BONE VEST",
@@ -211,7 +204,6 @@
    "wears": {
     "base": "SAGE FLANNEL",
     "back": "STEEL ROAD CAPE",
-    "head": "CHARCOAL WATCH CAP",
     "legs": "BONE DROP TROUSER",
     "feet": "BONE STACK BOOT",
     "outer": "STORM VEST"

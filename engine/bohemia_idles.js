@@ -114,7 +114,7 @@
      into a one-pixel canvas in the page's idle time, one sheet a turn, 100 ms apart (26 to 57 ms each), so a canvas that draws it after takes
      1 ms (the one-pixel canvas asks to be kept on the CPU, willReadFrequently: on a GPU canvas its read would wait on the GPU); until then the screen draws what it draws for a sheet not in yet (the man's still). A checker's old way:
      window.__IDLES_NO_WARM = true. */
-  var WARM = [], WARMING = false, WARMC = null, WARMST = { n: 0, ms: 0, max: 0 };
+  var WARM = [], WARMING = false, WARMC = null, WARMST = { n: 0, ms: 0, max: 0, off: 0 };   /* off: of n, unpacked off the thread (__A_SHEET_DECODES_OFF_THE_FRAME__), 0 ms of the page's */
   function warmSoon() {
     if (WARMING || !WARM.length) return; WARMING = true;
     var go = function () { WARMING = false; warmOne(); warmSoon(); };
@@ -133,12 +133,29 @@
     if (root.__IDLES_NO_WARM || typeof document === 'undefined' || !e.im.naturalWidth) { e.ok = true; return; }
     WARM.push(e); warmSoon();
   }
+  /* __A_SHEET_DECODES_OFF_THE_FRAME__ (CHARACTER 2, 11/26/26, rule 480(c) 'no character art costs frames'; a marked block in
+     ANIMATION's file beside PLUMBER 7's). MEASURED at 390 x 844 on a CPU slowed four times (rule 480(d)'s phone): the warm above
+     still unpacks each sheet ON the page's thread, one frame of 67 to 133 ms a sheet there (rig_idles/map_caravans.webp 133,
+     rig_hold/faction_caravans.webp 67), past the 50 ms rule 480(d) allows; img.decode() and createImageBitmap(img) do not move
+     it (116 to 133 ms). A bitmap made from the file's own bytes (fetch, blob, createImageBitmap) is unpacked OFF the thread: the
+     worst frame while it lands 16.8 ms, its first draw 1 to 4 ms (records/BOHEMIA_CHARACTER_TWO_THE_CONE_COMES_OFF_11_26_26.md).
+     So a sheet comes in that way when the browser can (the bitmap answers naturalWidth, complete and src like the picture it
+     replaces); the picture and its warm stay for a browser that cannot, and window.__SHEETS_NO_BITMAP = true turns it off. */
+  function offFrame(u, e) {
+    if (root.__SHEETS_NO_BITMAP || root.__IDLES_NO_WARM || typeof root.createImageBitmap !== 'function' || typeof root.fetch !== 'function') return false;   /* the planted old way (__IDLES_NO_WARM) is the old way */
+    var asPicture = function () { e.im = new Image(); e.im.onload = function () { loaded(e); }; e.im.src = u; };
+    try {
+      fetch(u).then(function (r) { if (!r.ok) throw new Error('' + r.status); return r.blob(); })
+        .then(function (b) { return root.createImageBitmap(b); })
+        .then(function (bm) { try { bm.naturalWidth = bm.width; bm.naturalHeight = bm.height; bm.complete = true; bm.src = bm.currentSrc = new URL(u, document.baseURI).href; } catch (x) {} e.im = bm; e.ok = true; WARMST.n++; WARMST.off++; }, asPicture);   /* its address too: BohemiaWear's once-a-sheet mask is keyed by it (__A_SHEET_IS_READ_ONCE__) */
+    } catch (x) { asPicture(); }
+    return true;
+  }
   function sheet(file) {
     var u = BASE + file, e = IM[u];
     if (!e) {
-      e = IM[u] = { im: new Image(), ok: false };
-      e.im.onload = function () { loaded(e); };
-      e.im.src = u;
+      e = IM[u] = { im: null, ok: false };
+      if (!offFrame(u, e)) { e.im = new Image(); e.im.onload = function () { loaded(e); }; e.im.src = u; }
     }
     return e.ok ? e.im : null;
   }
@@ -273,7 +290,7 @@
   }
   function tsheet(file) {
     var u = TBASE + file, e = IM[u];
-    if (!e) { e = IM[u] = { im: new Image(), ok: false }; e.im.onload = function () { loaded(e); }; e.im.src = u; }   /* __A_SHEET_IS_UNPACKED_BEFORE_IT_IS_DRAWN__ */
+    if (!e) { e = IM[u] = { im: null, ok: false }; if (!offFrame(u, e)) { e.im = new Image(); e.im.onload = function () { loaded(e); }; e.im.src = u; } }   /* __A_SHEET_IS_UNPACKED_BEFORE_IT_IS_DRAWN__, __A_SHEET_DECODES_OFF_THE_FRAME__ */
     return e.ok ? e.im : null;
   }
   function activity(look, seed, now, f, o) {
@@ -294,6 +311,6 @@
     /* __THE_TOWN_LETS_GO__ (RUN 10/24, rule 141(e)): a screen that is put away lets go of every sheet it drew from (the town's
        idles were 188 MB decoded across three places and none was ever let go); the next frame() fetches what it needs again */
     release: function () { IM = {}; },
-    warmed: function () { return { n: WARMST.n, ms: Math.round(WARMST.ms), max: Math.round(WARMST.max), waiting: WARM.length }; } };   /* __A_SHEET_IS_UNPACKED_BEFORE_IT_IS_DRAWN__ */
+    warmed: function () { return { n: WARMST.n, ms: Math.round(WARMST.ms), max: Math.round(WARMST.max), waiting: WARM.length, off: WARMST.off }; } };   /* __A_SHEET_IS_UNPACKED_BEFORE_IT_IS_DRAWN__ */
   if (typeof module !== 'undefined') module.exports = root.BohemiaIdles;
 })(typeof window !== 'undefined' ? window : this);

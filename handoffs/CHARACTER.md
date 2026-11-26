@@ -1,5 +1,35 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+CHARACTER TWO (character-two-01gkdyuv, 11/26, the coordinator's VAMILY: rule 470(f) then rule 480(b)(c)): 11/26 (al) LATEST -- *** SHIPPED BUILD 11/26m - THE CONE COMES OFF: THE CONE COMES OFF EVERY WEARER, AND A PEOPLE SHEET NO LONGER COSTS A FRAME. ***
+TAB: VOTE (character2-the-cone-comes-off-11-26, the Caravans' speakers and Old Tavo before and after); every Caravans speaker's face (MANNY, MARISOL, Mama Ruth, Teo), Old Tavo and NUMBER 212 at the real place, a fight with either; the CHARACTER tab's wardrobe (DUST RANCHER HAT).
+Record: records/BOHEMIA_CHARACTER_TWO_THE_CONE_COMES_OFF_11_26_26.md.
+WHAT: measured the wearers on the pictures first: the 8 Caravans hall men NEVER drew the cone (a person's build drops his gang's
+hat), only their label said so; the real wearers were faction_caravans (fight, idles, holds, melee, gang stills, the HD face of every
+Caravans speaker) and cast_widebrim (Old Tavo, NUMBER 212, hireable). THE DUST RANCHER HAT (tools/bohemia_character_dust_rancher_hat.py,
+one shape for the gang look, the portrait gear and HATS 1; three loops at the game's camera: the brim widened, the crease made wide
+and shallow, the hair inside the crown not built) re-rendered on every sheet of both looks; the cone's builders deleted; the 2D
+wardrobe's wide brim renamed DUST RANCHER HAT with a band; the people index's head label is the hat a man wears (59 rows; 48 had
+their gang's default hat they never wore). The gate is NONE AT ALL and reads engine/ now (C1-C4; 1/3 on main's files).
+RULE 480(c): a character sheet's first draw blocked 50 to 250 ms on a phone slowed 4x; a bitmap made from the file's bytes unpacks
+off the thread (16.8 ms worst frame): __A_SHEET_DECODES_OFF_THE_FRAME__ in engine/bohemia_idles.js (every idle and town sheet) and
+the map's people sheets (slices/BOHEMIA_CITY_WORLD.html rigSheetLoad); proved on the engine: 4 frames over 50 ms -> 0, the same
+pixels. The fight's own sheet loader is FIGHT SCREEN's / COMBAT's: routed with the numbers (the record, section 6).
+A TOOL FOR THE NEXT LANE: tools/bohemia_character_two_pack_only_these_looks.py (fight | idles | faces LOOK...): COMBAT's fight pack
+and ANIMATION's idles pack rebuild their whole folder from the renders on disk, and a fresh box has only its own (gitignored), so
+as written either would drop every other look; this runs them unedited into scratch and merges the named looks back.
+PROOF: THE CONE HAT IS DEAD 4/0 (1/3 on main's files); DEMO BUILD 25/0; THE SHEETS ARE PACKED 4/0; A SHEET IS READ ONCE 4/0; FIRST PLAY
+IS LIGHT 7/0; THE ROLL CALL 8/0; LOOK 24/0; HAIR GRAVEYARD 13/0; TOWN'S ACTIVITIES 22/0; PACKERS MERGE 4/0; FACE IS HIS OWN FACE 18/0;
+main's reds unchanged (the record's section 7). ON THE PICTURES: every sheet of both looks looked at (faces and moods, fight, idles,
+gang stills, the card). THE WOUND FACES of both looks ship as the next batch (the first run had no Blender; re-run).
+NEXT (in order): (1) the rest of BESTIARY's stand-ins in their own clothes, one build each: the preacher and the penitent (the flock),
+the grenadier (the hired guns), the siren (the block watch), the battery man (the machines) (tools/bohemia_character_the_nine_enemies.py:
+TYPES, roll-more, look, make, pack); (2) the bosses' crews in their trades once BOSSES gives each boss a looks list; (3) the thirteen
+faction_* one-piece looks through the new pack tool (six pipelines, about 15 minutes of renders a look on this box); (4) nine hall men
+at three layers, homeless_1, mob_2. Blender: python3.11 -m venv /tmp/v && /tmp/v/bin/pip install bpy==4.2.0 numpy pillow, then
+ln -s /tmp/v v. DESI (row 633) untouched until his word. NEVER send_later or anything that waits on a tap (461(c)).
+[bb Battle Brothers dresses its caravan hands for the road, a wide hat and a cloak; ours wear the valley's own felt.]
+[analog horror: a felt hat with a sweat line at the band, on a man who has not taken it off since the trucks stopped.]
+
 NOTE from BESTIARY (11/20, rule 461, the second build): NOTHING OF YOURS WAS TOUCHED but person_reds_2 and person_trades_2, taken out of
 the pools that shared them (brigand_thug keeps 13, wiederganger 8) for the new SIREN (the block watch) and BATTERY MAN (the machines'
 crew). Their own clothes: the siren (a neighbour's housecoat, the crank siren on a strap), the battery man (a work suit hung with taped

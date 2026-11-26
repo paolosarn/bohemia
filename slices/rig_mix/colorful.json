@@ -52,7 +52,6 @@
    "wears": {
     "base": "BONE TANK",
     "outer": "LEATHER VEST",
-    "head": "ROSE KNIT CAP",
     "legs": "GRASS DROP TROUSER",
     "feet": "OLIVE BOOTS",
     "back": "SALVAGE SATCHEL",
@@ -75,7 +74,6 @@
    "wears": {
     "base": "WHITE TEE",
     "outer": "TACTICAL VEST",
-    "head": "ROSE KNIT CAP",
     "legs": "CROPPED BLACK DENIM",
     "feet": "STEEL SNEAKERS",
     "waist": "SOOT TOOL BELT"
@@ -96,7 +94,6 @@
    "sex": null,
    "wears": {
     "base": "TEAL STRIPED TEE",
-    "head": "ROSE KNIT CAP",
     "legs": "WIDE PLEAT TROUSER",
     "feet": "GRASS SNEAKERS",
     "back": "RUCK PACK",
@@ -119,7 +116,6 @@
    "sex": null,
    "wears": {
     "base": "WORK COVERALLS",
-    "head": "ROSE KNIT CAP",
     "legs": "GRASS DROP TROUSER",
     "feet": "SLATE SNEAKERS"
    }
@@ -140,7 +136,6 @@
    "wears": {
     "base": "FIELD SHORTALLS",
     "outer": "GRASS WRAP COAT",
-    "head": "ROSE KNIT CAP",
     "legs": "GRASS DROP TROUSER",
     "feet": "STACKED MID BOOT",
     "waist": "WIDE WAIST WRAP",
@@ -164,7 +159,6 @@
    "wears": {
     "base": "PATINA WORK SHIRT",
     "outer": "BONE VEST",
-    "head": "ROSE KNIT CAP",
     "legs": "CHARCOAL SHORTS",
     "feet": "WRAPPED BOOTS",
     "hands": "LEATHER GLOVES"
@@ -185,7 +179,6 @@
    "sex": "m",
    "wears": {
     "base": "MOSS GREEN SHIRT",
-    "head": "ROSE KNIT CAP",
     "legs": "GREY SWEATS",
     "feet": "RANCH BOOTS",
     "neck": "DRAPED COWL",
@@ -208,7 +201,6 @@
    "sex": null,
    "wears": {
     "base": "OLIVE HENLEY",
-    "head": "ROSE KNIT CAP",
     "feet": "COAL COLUMN",
     "waist": "CHARCOAL BELT",
     "hands": "DUST GLOVES",

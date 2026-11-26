@@ -119,7 +119,7 @@ CREW = {
                       body=dict(shirt=dict(colour=(84, 88, 60), sleeve='long'), mantle=dict(colour=(73, 78, 54), low=0.88))),
     'CAST_SKIRT': dict(look='cast_skirt', skin=('skin_mid', 2), hair='long', hair_c=('tape_masking', 1), gear=None,
                        body=dict(shirt=dict(colour=(184, 176, 156), sleeve='short'))),
-    'CAST_WIDEBRIM': dict(look='cast_widebrim', skin=('skin_deep', 2), hair='taper', hair_c=('tape_grey', 2), gear='cone hat', gear_c=('tape_masking', 2),
+    'CAST_WIDEBRIM': dict(look='cast_widebrim', skin=('skin_deep', 2), hair='taper', hair_c=('tape_grey', 2), gear='rancher hat', gear_c=('tape_masking', 2),   # 11/26 rule 470(f): the dust rancher hat (the cone graveyarded)
                           body=dict(shirt=dict(colour=(118, 100, 74), sleeve='long'))),
     'CAST_CAPE': dict(look='cast_cape', skin=('skin_deep', 3), hair='shag', hair_c=('tape_grey', 2), gear=None,
                       body=dict(shirt=dict(colour=(184, 168, 134), sleeve='long'), cape=dict(colour=(66, 62, 58), hem='KNEE', top=1.12))),
@@ -162,9 +162,9 @@ for _k, _c in CREW.items():
 # own face of that gang (by eye, then the crew's rule: two steps lighter on a deep skin, the rig's sun takes about two);
 # and since these are the first heads with DIALS, no two share a skull: each gets a face shape that says who it is.
 FACTION = {
-    'Caravans':   dict(skin=('skin_deep', 2), hair='coil', hair_c=('tape_grey', 1), gear='cone hat', gear_c=('tape_masking', 1), beard='full', cone=1.38,
+    'Caravans':   dict(skin=('skin_deep', 2), hair='coil', hair_c=('tape_grey', 1), gear='rancher hat', gear_c=('tape_masking', 1), beard='full',
                        face={'face.cheekW': 34, 'face.jawW': 30, 'face.foreheadW': 26, 'face.len': 34, 'face.chinW': 14, 'nose.w': 4},
-                       worn='COIL CROWN under the CHINESE RICE FARMER HAT; a grey full beard: the trader who has walked every road'),
+                       worn='COIL CROWN under the DUST RANCHER HAT; a grey full beard: the trader who has walked every road'),
     'Colorful':   dict(skin=('skin_mid', 2), hair='shag', hair_c=('tape_masking', 0), gear='knit cap', gear_c=('blood', 1),
                        face={'face.len': 30, 'face.cheekW': 28, 'face.jawW': 23, 'face.chinW': 10, 'eyes.gap': 7, 'mouth.w': 8, 'face.craniumH': 11},
                        worn='SHAG under the ROSE KNIT CAP'),
@@ -213,7 +213,7 @@ for _k, _c in FACTION.items():
     PEOPLE['FACTION_' + _k.upper()] = dict(
         body='%s/%s.glb' % (FACTION_BODIES, _tag), drop=tuple('%s_%s' % (_tag, x) for x in ('hair', 'hair_fall', 'hat', 'hat_brim', 'visor')),
         cut_z=1.165, centre=(0.0, 0.004, 1.352), radii=(0.160, 0.165, 0.178),
-        gear=_c['gear'], hair=_c['hair'], stubble=False, beard=_c.get('beard'), scar=_c.get('scar'), face=_c['face'], cone=_c.get('cone', 1.5),
+        gear=_c['gear'], hair=_c['hair'], stubble=False, beard=_c.get('beard'), scar=_c.get('scar'), face=_c['face'],
         look='faction_' + _tag, crew=True, faction=_k, twin='slices/fight_people/faction_%s.webp' % _tag, twin_face=True,
         palette='steps of the style palette (skin %s %d, hair %s %d%s)' % (_c['skin'] + _c['hair_c'] + ((', gear %s %d' % _c['gear_c']) if _c.get('gear') else '',)),
         kit='%s; %s' % (_c['gear'] or 'bare head', CUT_NAME[_c['hair']]),
@@ -817,27 +817,25 @@ def build(who, out):
             vm.materials.append(cap.materials[0])
             vo = bpy.data.objects.new('portrait_visor', vm); sc.collection.objects.link(vo); vo.location = C
             objs.append(vo)
-    if P['gear'] == 'cone hat':
-        # the rice farmer's hat (CHARACTER's cone, sized to this head): a shallow straw cone wider than the shoulders' half,
-        # its point over the crown, the weave pressed in as rings every 35 mm, its rim well above the eyes (cycle 1: 1.9 x the
-        # head's width ran off the portrait's frame on both sides; 1.5 keeps the cone and the face in one square)
-        bm = bmesh.new()
-        top = RZ - 0.030 + 0.065
-        # (10/19, EYES' frame leg: the Caravans trader's head sits tilted on his body's still and the 1.5 rim ran 16 px off
-        # the render's left edge; a hat comes in sizes, his is 1.38)
-        bmesh.ops.create_cone(bm, cap_ends=True, segments=48, radius1=RX * P.get('cone', 1.5), radius2=0.012, depth=0.11,
-                              matrix=Matrix.Translation((0.0, 0.006, top)))
-        bmesh.ops.subdivide_edges(bm, edges=[e for e in bm.edges if abs(e.verts[0].co.z - e.verts[1].co.z) > 0.01], cuts=8)
-        for v in bm.verts:
-            r = math.hypot(v.co.x, v.co.y - 0.006)
-            if v.co.z > top - 0.06: v.co.z -= 0.004 * max(0.0, math.cos(2 * math.pi * r / 0.035)) ** 6
-        bm.normal_update()
+    if P['gear'] == 'rancher hat':
+        # THE DUST RANCHER HAT (CHARACTER 2, 11/26, rule 470(f): the straw cone is dead, graveyarded): the cattleman's felt from
+        # the one shape the look and the barber wear too (tools/bohemia_character_dust_rancher_hat.py), sized to this head: the
+        # band where the field hat's sits, the crown clearing the cut, the brim flat at the front and worn pushed back so the
+        # eyes keep the sun from the portrait's camera, the sides rolled; its brim no wider than the dead cone's (EYES' frame
+        # leg, 10/19: the Caravans trader's head sits tilted on his still and a wider hat ran off the render's edge)
+        import bohemia_character_dust_rancher_hat as RH
+        Vr, Fr, Pr = RH.shape(0.0, 0.006, 0.094, RX * 1.00, RY * 1.06, 0.112, RX * 0.40, 0.040, tilt=-0.14)   # loop 1: a brim of 0.33 read as a bowler from the game's camera
+        bm = bmesh.new(); vs = [bm.verts.new(Vector(p_)) for p_ in Vr]
+        for f_, p_ in zip(Fr, Pr): bm.faces.new([vs[i] for i in f_]).material_index = 1 if p_ == 'band' else 0
+        bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
         hat = bpy.data.meshes.new('portrait_hat'); bm.to_mesh(hat); bm.free()
+        for f in hat.polygons: f.use_smooth = True
         hat.materials.append(mat('portrait_%s_hat' % who.lower(), K['gear']))
+        hat.materials.append(mat('portrait_%s_band' % who.lower(), RH.BAND_LEATHER))
         ha = bpy.data.objects.new('portrait_hat', hat); sc.collection.objects.link(ha); ha.location = C
         bpy.context.view_layer.objects.active = ha
         for o in sc.objects: o.select_set(o is ha)
-        sd = ha.modifiers.new('rim', 'SOLIDIFY'); sd.thickness = 0.010; sd.offset = -1
+        sd = ha.modifiers.new('rim', 'SOLIDIFY'); sd.thickness = 0.009; sd.offset = -1
         bpy.ops.object.modifier_apply(modifier='rim')
         objs.append(ha)
     if P['hair'] in ('taper', 'long', 'shag', 'coil', 'fall', 'slick', 'fringe'):
@@ -849,6 +847,7 @@ def build(who, out):
         def keep(c):
             if not scalp(c.x, c.y, c.z): return False
             if capped and abs(c.x) < 0.060 and c.y < -0.090: return False   # no band of hair across the forehead under a brim
+            if P['gear'] == 'rancher hat' and c.z > 0.094 - 0.14 * (c.y - 0.006) + 0.012: return False   # inside the rancher's crown (loop 3: a coil crown poked through its middle as a black dot)
             return not (capped and c.z > cap_line(c.y) + 0.010)
         bmesh.ops.delete(bm, geom=[f for f in bm.faces if f.verts[0].index >= head_verts or not keep(f.calc_center_median())], context='FACES')
         bmesh.ops.delete(bm, geom=[v for v in bm.verts if not v.link_faces], context='VERTS')
@@ -1305,7 +1304,7 @@ def dials_spec(out):
                        for k, l, lo, hi, d in FACE_DIALS],
                 clamps=['cheeks >= forehead + 2', 'jaw <= cheeks - 1', 'chin <= jaw - 6', '5 <= mouth <= jaw - 8'],
                 parts=dict(cuts=sorted(CUT_NAME), extra_cuts=['buzz (the thug)', 'curls (the poacher)'],
-                           gear=['knit cap', 'watch cap', 'slouch beanie', 'work cap', 'skull cap', 'field hat', 'cone hat', None],
+                           gear=['knit cap', 'watch cap', 'slouch beanie', 'work cap', 'skull cap', 'field hat', 'rancher hat', None],
                            beard=[None, 'stubble', 'moustache', 'goatee', 'full'], scar=[None] + sorted(SCARS),
                            hair_colours=dict(HAIR_COLORS), skin='a step of skin_light, skin_mid or skin_deep (records/target/BOHEMIA_STYLE_PALETTE.json)'),
                 example=dict((c['name'], dict(face=c['face'], skin=c['skin'], hair=c['hair'], hair_colour=c['hair_colour'], gear=c['gear'], beard=c.get('beard'), scar=c.get('scar'))) for c in MAKER),

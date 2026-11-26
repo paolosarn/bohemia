@@ -52,7 +52,6 @@
    "wears": {
     "base": "SAND HOODIE",
     "outer": "LEATHER JACKET",
-    "head": "CHARCOAL WATCH CAP",
     "legs": "SOOT CARGOS",
     "feet": "LEATHER STACK BOOT",
     "neck": "OXBLOOD SCARF",
@@ -76,7 +75,6 @@
    "wears": {
     "base": "ARC SHOULDER TEE",
     "outer": "OXBLOOD PONCHO",
-    "head": "CHARCOAL WATCH CAP",
     "legs": "SOOT CARGOS",
     "feet": "RUST BOOTS",
     "hands": "LEATHER GLOVES",
@@ -99,10 +97,10 @@
    "wears": {
     "base": "BONE TANK",
     "outer": "LEATHER WRAP COAT",
-    "head": "CHARCOAL WATCH CAP",
     "feet": "COLUMN PANT-BOOT",
     "hands": "SOOT HAND WRAPS",
-    "waist": "HIP SASH"
+    "waist": "HIP SASH",
+    "head": "BRICK WATCH CAP"
    }
   },
   {
@@ -120,7 +118,6 @@
    "sex": null,
    "wears": {
     "base": "FADED BLACK LONGSLEEVE",
-    "head": "CHARCOAL WATCH CAP",
     "legs": "STEEL BLUE JEANS",
     "feet": "WRAPPED BOOTS",
     "back": "CHARCOAL SHOULDER MANTLE",
@@ -144,7 +141,6 @@
    "wears": {
     "base": "WIDE SHOULDER TEE",
     "outer": "COMMA COAT",
-    "head": "CHARCOAL WATCH CAP",
     "legs": "BLACK DENIM",
     "feet": "STEEL SNEAKERS",
     "waist": "SOOT TOOL BELT",
@@ -168,7 +164,6 @@
    "wears": {
     "base": "LAYERED JERSEY",
     "outer": "ASH ASYM COAT",
-    "head": "CHARCOAL WATCH CAP",
     "legs": "STORM GREY SWEATS",
     "feet": "LEATHER STACK BOOT",
     "waist": "CHARCOAL BELT",
@@ -192,7 +187,6 @@
    "wears": {
     "base": "ASH ARC SHIRT",
     "outer": "SOOT TRENCH",
-    "head": "CHARCOAL WATCH CAP",
     "legs": "CHARCOAL CROP TROUSER",
     "feet": "BONE STACK BOOT",
     "waist": "WIDE WAIST WRAP"
@@ -213,7 +207,6 @@
    "sex": "m",
    "wears": {
     "base": "WHITE TEE",
-    "head": "CHARCOAL WATCH CAP",
     "legs": "CROPPED BLACK DENIM",
     "feet": "MID SHAFT BOOT",
     "waist": "LEAD WAIST WRAP",

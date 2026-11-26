@@ -1,18 +1,18 @@
 {
  "engine": "CYCLES",
- "res": 238,
- "ortho_scale": 4.175438596491228,
+ "res": 240,
+ "ortho_scale": 4.2105263157894735,
  "real_dims_m": [
-  0.574,
-  0.961,
+  0.585,
+  0.983,
   1.72
  ],
- "scale_from_model": 1.0824,
+ "scale_from_model": 1.1074,
  "still_frame": 0.0,
  "still": "frame 0",
  "ground_screen": [
-  119.0,
-  168.01999999999998
+  120.0,
+  169.01999999999998
  ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
@@ -25,6 +25,7 @@
    "crew_cast_widebrim_skin",
    "crew_cast_widebrim_trouser",
    "crew_cast_widebrim_trousers",
+   "portrait_cast_widebrim_band",
    "portrait_cast_widebrim_buzz",
    "portrait_cast_widebrim_hat",
    "portrait_cast_widebrim_iris",
@@ -48,7 +49,7 @@
    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
-  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0824)",
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1074)",
   "dents": {
    "meshes": 11,
    "dent_m": 0.025,
@@ -75,14 +76,15 @@
   "crew_cast_widebrim_skin": "#ff19e2",
   "crew_cast_widebrim_trouser": "#19ffd8",
   "crew_cast_widebrim_trousers": "#ff9519",
-  "portrait_cast_widebrim_buzz": "#5219ff",
-  "portrait_cast_widebrim_hat": "#23ff19",
-  "portrait_cast_widebrim_iris": "#ff1966",
-  "portrait_cast_widebrim_lips": "#19a9ff",
-  "portrait_cast_widebrim_mouth": "#ecff19",
-  "portrait_cast_widebrim_pupil": "#ce19ff",
-  "portrait_cast_widebrim_sclera": "#19ff8b",
-  "portrait_cast_widebrim_skin": "#ff4819"
+  "portrait_cast_widebrim_band": "#5219ff",
+  "portrait_cast_widebrim_buzz": "#23ff19",
+  "portrait_cast_widebrim_hat": "#ff1966",
+  "portrait_cast_widebrim_iris": "#19a9ff",
+  "portrait_cast_widebrim_lips": "#ecff19",
+  "portrait_cast_widebrim_mouth": "#ce19ff",
+  "portrait_cast_widebrim_pupil": "#19ff8b",
+  "portrait_cast_widebrim_sclera": "#ff4819",
+  "portrait_cast_widebrim_skin": "#192dff"
  },
  "obj_table": {
   "Cesium_Man": "#99ff6c",
@@ -132,10 +134,10 @@
   "records/target/portrait/rig/crew/cast_widebrim/rig_NW.png"
  ],
  "crop_box_px": [
-  87,
-  62,
-  157,
-  185
+  88,
+  61,
+  158,
+  186
  ],
  "shadow_files": [
   "records/target/portrait/rig/crew/cast_widebrim/shadow_N.png",
@@ -149,13 +151,13 @@
  ],
  "ground_px": [
   32,
-  106
+  108
  ],
  "look_px": [
   32,
-  57
+  59
  ],
- "colours": 9001,
+ "colours": 9118,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -164,20 +166,20 @@
   "family": "prop",
   "out": 1,
   "rows": [
-   "OK   long side >= floor 96: 123",
-   "OUT  colours >= 2330: 1337",
-   "OK   top 8 carry <= 11%: 4.1",
-   "OK   value span >= 118: 158",
-   "OK   saturation <= 0.81: 0.258",
-   "OK   light: top minus bottom >= -2.5: 64.4",
-   "OK   edge between -35 and +7: -16.8",
-   "OK   grain <= 2.22 px a run: 1.66"
+   "OK   long side >= floor 96: 125",
+   "OUT  colours >= 2330: 1316",
+   "OK   top 8 carry <= 11%: 3.9",
+   "OK   value span >= 118: 148",
+   "OK   saturation <= 0.81: 0.266",
+   "OK   light: top minus bottom >= -2.5: 49.9",
+   "OK   edge between -35 and +7: -14.4",
+   "OK   grain <= 2.22 px a run: 1.57"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 5.0%",
+   "OK   stray pixels at 8 steps <= 14%: 5.3%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 264.5"
+   "OK   light from above (180 to 360 degrees, or flat): 264.4"
   ],
   "verdict": "1 of 8 out -> to DIRECTION",
   "file": "records/target/portrait/rig/crew/cast_widebrim/rig_S.png"
@@ -187,25 +189,25 @@
   "cls": "portrait",
   "out": 0,
   "rows": [
-   "OK   long side >= floor 96: 123",
-   "OK   colours >= 660 (field 5: the class floor, or 370 per 1,000 of 1783 px): 1337",
-   "OK   top 8 carry <= 11%: 4.1",
-   "OK   value span >= 118: 158",
-   "OK   saturation <= 0.81: 0.258",
-   "OK   light: top minus bottom >= -2.5: 64.4",
-   "OK   edge between -35 and +7: -16.8",
-   "OK   grain <= 2.22 px a run: 1.66"
+   "OK   long side >= floor 96: 125",
+   "OK   colours >= 651 (field 5: the class floor, or 370 per 1,000 of 1759 px): 1316",
+   "OK   top 8 carry <= 11%: 3.9",
+   "OK   value span >= 118: 148",
+   "OK   saturation <= 0.81: 0.266",
+   "OK   light: top minus bottom >= -2.5: 49.9",
+   "OK   edge between -35 and +7: -14.4",
+   "OK   grain <= 2.22 px a run: 1.57"
   ],
   "reread": [
    "colours by field 5"
   ],
   "verdict": "0 of 8 out under the style guide",
   "size_px": [
-   33,
-   114
+   34,
+   113
   ],
-  "opaque_px": 1783,
-  "colours": 1337
+  "opaque_px": 1759,
+  "colours": 1316
  },
  "rig_settings": {
   "engine": "CYCLES",

@@ -52,7 +52,6 @@
    "wears": {
     "base": "FADED BLACK LONGSLEEVE",
     "back": "GOLD SHOULDER MANTLE",
-    "head": "BONE KNIT CAP",
     "legs": "WIDE PLEAT TROUSER",
     "feet": "LEATHER STACK BOOT",
     "neck": "DRAPED COWL",
@@ -76,13 +75,13 @@
    "wears": {
     "base": "WHITE TEE",
     "back": "GOLD SHOULDER MANTLE",
-    "head": "BONE KNIT CAP",
     "legs": "CHARCOAL WRAP SKIRT",
     "feet": "DUST BROWN BOOTS",
     "waist": "LEATHER BELT",
     "neck": "TRAILING SCARF",
     "gear": "SCRAP PAULDRON",
-    "mid": "SAND HOODIE"
+    "mid": "SAND HOODIE",
+    "head": "STORM KNIT CAP"
    }
   },
   {
@@ -101,7 +100,6 @@
    "wears": {
     "base": "KHAKI BUTTON-UP",
     "back": "GOLD SHOULDER MANTLE",
-    "head": "BONE KNIT CAP",
     "legs": "BRICK CROP TROUSER",
     "feet": "RUST BOOTS",
     "outer": "LEATHER VEST",
@@ -126,7 +124,6 @@
    "wears": {
     "base": "RUST TANK",
     "back": "GOLD SHOULDER MANTLE",
-    "head": "BONE KNIT CAP",
     "legs": "WIDE PLEAT TROUSER",
     "feet": "STACKED SOLE BOOT",
     "gear": "SAND KNEEPADS"
@@ -148,7 +145,6 @@
    "wears": {
     "base": "BLACK TANK",
     "back": "GOLD SHOULDER MANTLE",
-    "head": "BONE KNIT CAP",
     "feet": "ASH COLUMN",
     "waist": "SCAV TOOL BELT",
     "mid": "VESTMENT GOLD SHIRT"
@@ -170,7 +166,6 @@
    "wears": {
     "base": "WHITE TEE",
     "back": "SALVAGE SATCHEL",
-    "head": "BONE KNIT CAP",
     "legs": "RUST CARGOS",
     "feet": "RUST BOOTS",
     "neck": "BONE SCARF",
@@ -193,7 +188,6 @@
    "wears": {
     "base": "BLACK TANK",
     "back": "GOLD SHOULDER MANTLE",
-    "head": "BONE KNIT CAP",
     "legs": "BONE WIDE TROUSER",
     "feet": "BRICK STACK BOOT",
     "gear": "RUST GORGET",
@@ -216,7 +210,6 @@
    "wears": {
     "base": "BLACK TANK",
     "back": "GOLD SHOULDER MANTLE",
-    "head": "BONE KNIT CAP",
     "feet": "COLUMN PANT-BOOT",
     "gear": "DUST BROWN BANDOLIER",
     "mid": "DUST PLAID SHIRT"

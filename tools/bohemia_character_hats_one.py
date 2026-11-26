@@ -8,14 +8,15 @@ fit:'skull', brim, wrap; genAcc's shemagh and helm) in their own ramps. Each sha
 head bone, and each hat wears its own ramp's mid as its cloth (the runway paint as the street wears it, the way the
 thirteen gang bodies are coloured); short hair painted on the scalp under it (the barber's black), so a hat sits on a
 man, not on a bald egg. Every piece follows the hair 1 rule: relief along the way the thing is made (knit ribs run
-down a cap, straw runs down a cone, seams meet at a button), never one size of bump on a grid.
+down a cap, felt takes its crease, seams meet at a button), never one size of bump on a grid.
 
     KNIT CAP (6)      a rounded dome (never a pyramid: his 7/19), a folded cuff, ribs down it
     WATCH CAP (3)     the same knit, worn high on the skull, a deeper cuff
     SLOUCH BEANIE (3) the knit with its extra length slumped at the back
     WORK CAP (2)      six panels meeting at a button, a curved brim
     FIELD CAP (2)     a flat-topped crown, a short straight brim
-    CONE HAT (1)      a wide straw cone on a headband
+    DUST RANCHER HAT (1) a felt cattleman's crown with its crease, a leather band, a brim rolled at the sides (11/26:
+                      the straw cone it replaced is graveyarded, rule 470(f); tools/bohemia_character_dust_rancher_hat.py)
     HEAD WRAP (2)     four bands of cloth wound round the head, a knot at the back
     SHEMAGH (1)       cloth over the head and the ears, wound round the neck, a tail
     SCRAP HELM (1)    a dome of scrap plates, dented, riveted
@@ -30,7 +31,7 @@ HATS_JSON = os.path.join(ROOT, 'records/target/character/BOHEMIA_HATS_ONE.json')
 
 # (name, shape, ramp mid, ramp dark) read off the alpha's wardrobe (genHat / genAcc kind and fit, the ramp's mid and dk)
 HATS = [
-    ('CHINESE RICE FARMER HAT', 'cone', (126, 110, 80)), ('CHARCOAL WATCH CAP', 'watch', (54, 52, 54)),
+    ('DUST RANCHER HAT', 'rancher', (128, 110, 80)), ('CHARCOAL WATCH CAP', 'watch', (54, 52, 54)),
     ('RUST WATCH CAP', 'watch', (114, 72, 48)), ('OLIVE FIELD CAP', 'field', (74, 80, 54)),
     ('STORM KNIT CAP', 'knit', (70, 72, 78)), ('SAND KNIT CAP', 'knit', (128, 110, 80)),
     ('SLATE WORK CAP', 'work', (72, 78, 86)), ('OXBLOOD SLOUCH BEANIE', 'slouch', (92, 48, 42)),
@@ -44,7 +45,7 @@ HATS = [
     ('SOOT HEAD WRAP', 'wrap', (54, 52, 54)),
 ]
 SHAPE_NAME = {'knit': 'KNIT CAP', 'watch': 'WATCH CAP', 'slouch': 'SLOUCH BEANIE', 'work': 'WORK CAP', 'field': 'FIELD CAP',
-              'cone': 'CONE HAT', 'wrap': 'HEAD WRAP', 'shemagh': 'SHEMAGH', 'helm': 'SCRAP HELM'}
+              'rancher': 'RANCHER HAT', 'wrap': 'HEAD WRAP', 'shemagh': 'SHEMAGH', 'helm': 'SCRAP HELM'}
 CUTS = {}
 for _n, _shape, _mid in HATS:
     _tag = 'hat_' + _n.lower().replace(' ', '_')
@@ -192,44 +193,25 @@ def build(cut, L):
             for v_ in bmb.verts: v_.co = v_.co * Vector((1, 1, 0.55)) + ctr
             made.append(piece(bmb, '%s_button' % tag))
 
-    elif shape == 'cone':
-        bm = bmesh.new(); NA, NR = 64, 14
-        apex = C + Vector((0, 0.010, 0.300)); base_z = 0.118; R0 = 0.255
-        rings = [[None] * NA for _ in range(NR + 1)]
-        for j in range(NR + 1):
-            s = j / NR
-            for i in range(NA):
-                a = 2 * math.pi * i / NA
-                straw = 0.0016 * (0.5 + 0.5 * math.cos(NA * 1.0 * a + 2.0 * hsh(i, 5))) * s                 # straw down the cone
-                r = R0 * s + straw
-                z = apex.z - C.z - (apex.z - C.z - base_z) * (s ** 0.92) - 0.006 * math.sin(math.pi * s)      # a little belly
-                if s > 0.94: z -= 0.010 * (s - 0.94) / 0.06                                                    # the rim turns down
-                rings[j][i] = bm.verts.new(Vector((C.x + math.sin(a) * r, apex.y - math.cos(a) * r, C.z + z)))
-        tip = rings[0][0]
-        for i in range(1, NA): bm.verts.remove(rings[0][i]); rings[0][i] = tip
-        for j in range(NR):
-            for i in range(NA):
-                a_, b_, c_, d_ = rings[j][i], rings[j][(i + 1) % NA], rings[j + 1][(i + 1) % NA], rings[j + 1][i]
-                vs = [a_, b_, c_, d_]
-                uniq = []
-                for v_ in vs:
-                    if v_ not in uniq: uniq.append(v_)
-                if len(uniq) >= 3: bm.faces.new(uniq)
-        made.append(piece(bm, '%s_cone' % tag, rim=0.006))
-        bmb = bmesh.new()   # the headband it sits on
-        z = base_z + 0.020; rr = (skull_r(0.0, z) or 0.13)
-        pts = []
-        for i in range(40):
-            a = 2 * math.pi * i / 40; r = (skull_r(a if a <= math.pi else a - 2 * math.pi, z) or rr) + 0.004
-            pts.append(C + Vector((math.sin(a) * r, -math.cos(a) * r, z)))
-        seg = 8; rings2 = []
-        for i, p in enumerate(pts):
-            t = (pts[(i + 1) % 40] - pts[i - 1]).normalized(); h = Vector((p.x - C.x, p.y - C.y, 0)).normalized()
-            rings2.append([bmb.verts.new(p + (h * math.cos(2 * math.pi * k / seg) + Vector((0, 0, 1)) * math.sin(2 * math.pi * k / seg)) * 0.006) for k in range(seg)])
-        for i in range(40):
-            for k in range(seg):
-                bmb.faces.new((rings2[i][k], rings2[i][(k + 1) % seg], rings2[(i + 1) % 40][(k + 1) % seg], rings2[(i + 1) % 40][k]))
-        made.append(piece(bmb, '%s_band' % tag))
+    elif shape == 'rancher':
+        # THE DUST RANCHER HAT (CHARACTER 2, 11/26, rule 470(f)): the one shape the gang's look and the speakers' faces wear
+        # (tools/bohemia_character_dust_rancher_hat.py), on this head: the band 5 cm over the head's centre (the gambler's),
+        # the crown 1.8 cm off the skull at the band, the brim 6 cm, flat at the front, rolled at the sides
+        import bohemia_character_dust_rancher_hat as RH
+        zb = 0.050
+        rx = (skull_r(math.pi / 2, zb + 0.004) or 0.085) + 0.018; ry = (skull_r(0.0, zb + 0.004) or 0.10) + 0.018
+        hit = bvh_head.ray_cast(C + Vector((0, 0, 0.5)), Vector((0, 0, -1)), 1.0)
+        top_ = ((hit[0] - C).z if hit[0] is not None else 0.14) + 0.030
+        Vr, Fr, Pr = RH.shape(C.x, C.y, C.z + zb, rx, ry, max(0.085, top_ - zb), 0.060, 0.020)
+        bm = bmesh.new(); vs = [bm.verts.new(Vector(p_)) for p_ in Vr]
+        for f_, p_ in zip(Fr, Pr): bm.faces.new([vs[i] for i in f_])
+        bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+        o = piece(bm, '%s_crown' % tag, rim=0.005)
+        band = mat('%s_band' % tag, RH.BAND_LEATHER, 0.8)
+        o.data.materials.append(band)
+        for f_, p_ in zip(o.data.polygons, Pr + ['band'] * max(0, len(o.data.polygons) - len(Pr))):
+            if p_ == 'band' and f_.index < len(Pr): f_.material_index = 1
+        made.append(o)
 
     elif shape == 'helm':
         rng = random.Random(77)

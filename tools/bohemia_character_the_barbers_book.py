@@ -61,7 +61,7 @@ for n in EYE.ORDER: CARD_OF[n] = 'character-eyewear-one-the-14-face-pieces-10-19
 SHORT = {'TEMPLE TAPER', 'DRY TAPER', 'DEEP TAPER', 'RAZOR SKULL', 'HOME CLIPPERS', 'HORSESHOE', 'GREASE BACK', 'SCORCH', 'SHORT ROPES'}
 BALDING = {'HORSESHOE', 'COMB OVER'}
 # the random mix leaves out what he called weird (10/19): the cone hat, the wraps, the shemagh; a player can still pick them
-NOT_RANDOM_HATS = {n for n in HATS.ORDER if HATS.CUTS[n]['shape'] in ('cone', 'wrap', 'shemagh')}
+NOT_RANDOM_HATS = {n for n in HATS.ORDER if HATS.CUTS[n]['shape'] in ('cone', 'rancher', 'wrap', 'shemagh')}   # the rancher is the Caravans' own mark (11/26)
 # hair colours: palette steps at the barber's dark step (the rig lifts them), with how often a crowd wears them
 HAIR_COLOURS = [(('cloth_black', 0), 34, 'black'), (('clay_mustard', 0), 26, 'brown'), (('clay_mustard', 1), 9, 'light brown'),
                 (('tape_grey', 1), 10, 'grey'), (('tape_masking', 1), 8, 'sand'), (('clay_rust', 1), 6, 'auburn'),

@@ -49994,10 +49994,15 @@ function rigSheetLoad(S, name){
   S.state = 1;
   try {
     fetch(name + '.json').then(function(r){ return r.json(); }).then(function(m){
-      var im = new Image();
-      im.onload = function(){ S.meta = m; S.img = im; S.state = 2; mapSheetLanded(); };   /* PLUMBER 8 __A_SHEET_LANDING_DRAWS_ONCE__ */
-      im.onerror = function(){ S.state = 3; };
-      im.src = name + '.png';
+      var land = function(im){ S.meta = m; S.img = im; S.state = 2; mapSheetLanded(); };   /* PLUMBER 8 __A_SHEET_LANDING_DRAWS_ONCE__ */
+      var asPicture = function(){ var im = new Image(); im.onload = function(){ land(im); }; im.onerror = function(){ S.state = 3; }; im.src = name + '.png'; };
+      /* __A_SHEET_DECODES_OFF_THE_FRAME__ (CHARACTER 2, 11/26/26, rule 480(c)): a people sheet (rig_mix, 476 x 8,256; the town's
+         490 x 12,288) was unpacked on the page's thread the first time the map drew from it, one frame of 67 to 100 ms on a CPU
+         slowed four times, past rule 480(d)'s 50; made into a bitmap from the file's bytes it unpacks off the thread (the worst
+         frame while it lands 16.8 ms) and draws the same pixels (records/BOHEMIA_CHARACTER_TWO_THE_CONE_COMES_OFF_11_26_26.md) */
+      if (window.__SHEETS_NO_BITMAP || typeof window.createImageBitmap !== 'function') { asPicture(); return; }
+      fetch(name + '.png').then(function(r){ if (!r.ok) throw new Error('' + r.status); return r.blob(); })
+        .then(function(b){ return createImageBitmap(b); }).then(function(bm){ try { bm.naturalWidth = bm.width; bm.naturalHeight = bm.height; bm.complete = true; bm.src = bm.currentSrc = new URL(name + '.png', document.baseURI).href; } catch (_x) {} land(bm); }, asPicture);   /* it answers like the picture (BohemiaWear's once-a-sheet mask is keyed by src) */
     }).catch(function(){ S.state = 3; });
   } catch (_e) { S.state = 3; }
 }

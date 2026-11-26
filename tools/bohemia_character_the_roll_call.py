@@ -52,7 +52,6 @@ EYE_ONE_CARD = 'character-eyewear-one-the-14-face-pieces-10-19'   # the 14 face 
 PORTRAIT_CARD = 'portrait-every-face-from-the-same-model-10-18'
 # names that are not plain: a brand, a place, a pattern word. The old name stays an alias forever (saves keep it).
 PLAIN = {
-    'CHINESE RICE FARMER HAT': 'CONE HAT',
     'shoes/balenciaga': 'RUNWAY SNEAKERS',
     'jacket/japanese-fuzz_hoodDown': 'FUZZ JACKET',
     'pants/leather-legwarmer': 'LEATHER LEGWARMER PANTS',

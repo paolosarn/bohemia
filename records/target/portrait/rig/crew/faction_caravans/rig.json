@@ -1,18 +1,18 @@
 {
  "engine": "CYCLES",
- "res": 240,
- "ortho_scale": 4.2105263157894735,
+ "res": 242,
+ "ortho_scale": 4.245614035087719,
  "real_dims_m": [
-  0.668,
-  0.958,
+  0.683,
+  0.979,
   1.72
  ],
- "scale_from_model": 1.0864,
+ "scale_from_model": 1.11,
  "still_frame": 0.0,
  "still": "frame 0",
  "ground_screen": [
-  120.0,
-  169.01999999999998
+  121.0,
+  170.01999999999998
  ],
  "z_stretch": 1.4142,
  "base_turn_deg": 180,
@@ -28,6 +28,7 @@
    "caravans_skin",
    "caravans_trouser",
    "caravans_trousers",
+   "portrait_faction_caravans_band",
    "portrait_faction_caravans_beard",
    "portrait_faction_caravans_buzz",
    "portrait_faction_caravans_hat",
@@ -52,7 +53,7 @@
    "value grain at 28 a metre, about two pixels at 57 ppm, its middle band stretched to the full step, its strength driven by the wear masks (0.60 in a patch, 0.24 on clean panel); even grain is a leopard print, measured cycle 4"
   ],
   "seed": 0,
-  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.0864)",
+  "masks_in": "metres, stuck to the surface (each mesh's own coordinates x its object scale x 1.1100)",
   "dents": {
    "meshes": 15,
    "dent_m": 0.025,
@@ -82,15 +83,16 @@
   "caravans_skin": "#5219ff",
   "caravans_trouser": "#23ff19",
   "caravans_trousers": "#ff1966",
-  "portrait_faction_caravans_beard": "#19a9ff",
-  "portrait_faction_caravans_buzz": "#ecff19",
-  "portrait_faction_caravans_hat": "#ce19ff",
-  "portrait_faction_caravans_iris": "#19ff8b",
-  "portrait_faction_caravans_lips": "#ff4819",
-  "portrait_faction_caravans_mouth": "#192dff",
-  "portrait_faction_caravans_pupil": "#70ff19",
-  "portrait_faction_caravans_sclera": "#ff19b3",
-  "portrait_faction_caravans_skin": "#19f6ff"
+  "portrait_faction_caravans_band": "#19a9ff",
+  "portrait_faction_caravans_beard": "#ecff19",
+  "portrait_faction_caravans_buzz": "#ce19ff",
+  "portrait_faction_caravans_hat": "#19ff8b",
+  "portrait_faction_caravans_iris": "#ff4819",
+  "portrait_faction_caravans_lips": "#192dff",
+  "portrait_faction_caravans_mouth": "#70ff19",
+  "portrait_faction_caravans_pupil": "#ff19b3",
+  "portrait_faction_caravans_sclera": "#19f6ff",
+  "portrait_faction_caravans_skin": "#ffc419"
  },
  "obj_table": {
   "Cesium_Man": "#99ff6c",
@@ -145,9 +147,9 @@
  ],
  "crop_box_px": [
   90,
-  64,
-  156,
-  186
+  62,
+  159,
+  187
  ],
  "shadow_files": [
   "records/target/portrait/rig/crew/faction_caravans/shadow_N.png",
@@ -160,14 +162,14 @@
   "records/target/portrait/rig/crew/faction_caravans/shadow_NW.png"
  ],
  "ground_px": [
-  30,
-  105
+  31,
+  108
  ],
  "look_px": [
-  30,
-  56
+  31,
+  59
  ],
- "colours": 11059,
+ "colours": 11311,
  "keys_per_beat": 3,
  "bpm": 120,
  "ruler": "records/BOHEMIA_THE_BODY_IN_METERS_10_13_26.md (98 px = 1.72 m)",
@@ -176,20 +178,20 @@
   "family": "prop",
   "out": 2,
   "rows": [
-   "OK   long side >= floor 96: 122",
-   "OUT  colours >= 2330: 1913",
-   "OK   top 8 carry <= 11%: 1.9",
-   "OUT  value span >= 118: 109",
-   "OK   saturation <= 0.81: 0.221",
-   "OK   light: top minus bottom >= -2.5: 13.6",
-   "OK   edge between -35 and +7: -16.7",
-   "OK   grain <= 2.22 px a run: 1.81"
+   "OK   long side >= floor 96: 125",
+   "OUT  colours >= 2330: 1996",
+   "OK   top 8 carry <= 11%: 1.7",
+   "OUT  value span >= 118: 105",
+   "OK   saturation <= 0.81: 0.226",
+   "OK   light: top minus bottom >= -2.5: 8.1",
+   "OK   edge between -35 and +7: -16.6",
+   "OK   grain <= 2.22 px a run: 1.73"
   ],
   "craft": [
-   "OK   stray pixels at 8 steps <= 14%: 3.3%",
+   "OK   stray pixels at 8 steps <= 14%: 3.7%",
    "OK   one pixel size (block 1): 1",
    "OK   no banding: 0.0",
-   "OK   light from above (180 to 360 degrees, or flat): 259.4"
+   "OK   light from above (180 to 360 degrees, or flat): 256.6"
   ],
   "verdict": "2 of 8 out -> to DIRECTION",
   "file": "records/target/portrait/rig/crew/faction_caravans/rig_S.png"
@@ -199,25 +201,25 @@
   "cls": "portrait",
   "out": 1,
   "rows": [
-   "OK   long side >= floor 96: 122",
-   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2357 px): 1913",
-   "OK   top 8 carry <= 11%: 1.9",
-   "OUT  value span >= 118: 109",
-   "OK   saturation <= 0.81: 0.221",
-   "OK   light: top minus bottom >= -2.5: 13.6",
-   "OK   edge between -35 and +7: -16.7",
-   "OK   grain <= 2.22 px a run: 1.81"
+   "OK   long side >= floor 96: 125",
+   "OK   colours >= 800 (field 5: the class floor, or 370 per 1,000 of 2409 px): 1996",
+   "OK   top 8 carry <= 11%: 1.7",
+   "OUT  value span >= 118: 105",
+   "OK   saturation <= 0.81: 0.226",
+   "OK   light: top minus bottom >= -2.5: 8.1",
+   "OK   edge between -35 and +7: -16.6",
+   "OK   grain <= 2.22 px a run: 1.73"
   ],
   "reread": [
    "colours by field 5"
   ],
   "verdict": "1 of 8 out under the style guide",
   "size_px": [
-   38,
+   40,
    113
   ],
-  "opaque_px": 2357,
-  "colours": 1913
+  "opaque_px": 2409,
+  "colours": 1996
  },
  "rig_settings": {
   "engine": "CYCLES",

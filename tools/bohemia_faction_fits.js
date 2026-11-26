@@ -69,7 +69,7 @@ const SHOULDER = [
 ];
 const HEAD = [
   ['none',   null],
-  ['brim',   'CHINESE RICE FARMER HAT'],
+  ['brim',   'DUST RANCHER HAT'],   /* 11/26 rule 470(f): the straw-cone name is graveyarded */
   ['knit',   'STORM KNIT CAP'],
   ['gas',    null],            /* face layer, filled below */
 ];

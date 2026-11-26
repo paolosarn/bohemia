@@ -6,7 +6,7 @@
   "base": "DUST PLAID SHIRT",
   "outer": "SAND COCOON COAT",
   "back": "OLIVE SHOULDER MANTLE",
-  "head": "CHINESE RICE FARMER HAT",
+  "head": "DUST RANCHER HAT",
   "legs": "DUST TROUSERS",
   "feet": "SANDWALKERS"
  },
@@ -19,9 +19,9 @@
  "model": "records/character/rig/caravans.glb",
  "from_body": "reference/models/khronos/CesiumMan.glb",
  "body_top_m": 1.5283,
- "model_top_m": 1.6283,
+ "model_top_m": 1.5672,
  "real_height_m": 1.6942,
- "real_height_for_rig": 1.8051,
+ "real_height_for_rig": 1.7372,
  "meshes": {
   "Cesium_Man": 3273,
   "caravans_trouser": 2568,
@@ -30,7 +30,7 @@
   "caravans_coat_skirt": 4704,
   "caravans_mantle": 17626,
   "caravans_hair": 17968,
-  "caravans_hat": 128,
+  "caravans_hat": 2738,
   "caravans_hand_L": 392,
   "caravans_hand_R": 392
  },
@@ -56,9 +56,14 @@
    0.008
   ],
   "caravans_hat": [
-   0.2086,
+   0.2159,
    0.1559,
    0.0802
+  ],
+  "caravans_hat_band": [
+   0.0545,
+   0.0296,
+   0.016
   ],
   "caravans_mantle": [
    0.0976,
