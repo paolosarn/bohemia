@@ -935,6 +935,10 @@
     /* a win counting up where the number lives (change 6): the figure lit amber on the beat while it climbs */
     + '#bmtb .s.bats.counting b{color:#120c06;padding:2px 5px;background:#e8bb62;box-shadow:inset 0 1px 0 #ffe2a0,inset 0 -2px 0 #8a5a1c,0 1px 0 #000}'
     + '#bmtb .s.bats.counting.down b{background:#d98a6e;box-shadow:inset 0 1px 0 #f6c2a8,inset 0 -2px 0 #6e2a12,0 1px 0 #000}'
+    /* __A_SUPPLY_LANDS_ON_THE_BAR__ (ECONOMY THREE 11/26): the same plate on any supply that moved, laid around the figure (its
+       padding given back by a margin) so the bar does not grow */
+    + '#bmtb .s.six.up:not(.bats) b,#bmtb .s.six.down:not(.bats) b{padding:2px 5px;margin:-2px -5px;color:#120c06;background:#e8bb62;box-shadow:inset 0 1px 0 #ffe2a0,inset 0 -2px 0 #8a5a1c,0 1px 0 #000}'
+    + '#bmtb .s.six.down:not(.bats) b{background:#d98a6e;box-shadow:inset 0 1px 0 #f6c2a8,inset 0 -2px 0 #6e2a12,0 1px 0 #000}'
     + '@media (max-width:359px){#bmtb .s.days i{display:none}}'
     /* a phone under 360 points keeps every fact and drops only the cap's '/12' */
     + '@media (max-width:359px){#bmtb .t.crew em{display:none} #bmtb .g{gap:7px}}'
@@ -988,6 +992,14 @@
   /* ONE HUD (rule 190): the bar's three parts, made once, from the MAP's facts, as the HTML every screen lays in its own bar.
      over: what a screen over the map knows better than the map (the town's own name and the purse it is spending) */
   var FOL = { n: null, dir: '', at: 0 };   /* JOBS 2 __CLOUT_IS_FOLLOWERS__: the last count the bar drew, and when it last moved */
+  /* ECONOMY THREE 11/26 __A_SUPPLY_LANDS_ON_THE_BAR__ (rule 482: 'a fight's spoils counted on the bar'). MEASURED on the demo, a road
+     fight won and LOOT ALL: the batteries climbed 290, 291, 292 lit amber on the beat (THE COUNT, below), but the tape went 40 to 41
+     with nothing to say it moved, and so did rounds, food and meds bought at a stall or eaten at nightfall. NOW a supply's figure
+     that moves lights for two beats, the batteries' own plate (amber up, rust down), drawn around the number so the bar keeps its
+     exact size (nothing on the glass moves). The first count a page draws never lights (no moment, just the start). */
+  var SUPMV = {};
+  function supMove(k, n) { var m = SUPMV[k] || (SUPMV[k] = { n: null, dir: '', at: 0 }), now = Date.now();
+    if (m.n != null && n !== m.n) { m.dir = n > m.n ? ' up' : ' down'; m.at = now; } m.n = n; return m.dir && now - m.at < 1000 ? m.dir : ''; }
   function hudParts(over) {
     var f = tbFacts(); over = over || {};
     if (over.place) f.place = hudEsc(over.place);
@@ -1031,7 +1043,7 @@
       }
       var n = f.supplies[k]; if (typeof n !== 'number') return;
       var per = (k === 'food' || k === 'water') ? Math.max(1, f.eat || f.perDay || 1) : 0, last = per ? Math.floor(n / per) : null, low = per ? last < 3 : n <= 0;
-      g += '<span class="s six" data-f="' + k + '"><img alt="' + k.toUpperCase() + '" src="' + packIcon(k) + '"><b' + (low ? ' class="low"' : '') + '>' + n + '</b>'
+      g += '<span class="s six' + supMove(k, n) + '" data-f="' + k + '"><img alt="' + k.toUpperCase() + '" src="' + packIcon(k) + '"><b' + (low ? ' class="low"' : '') + '>' + n + '</b>'
         + (per ? '<i class="hold">' + last + (last === 1 ? ' NIGHT' : ' NIGHTS') + '</i>' : '') + '</span>';   /* RUN TWO __THE_WAGON__: the wagon is eaten at nightfall, so its hold counts NIGHTS like the batteries' (his NO to the bar saying DAYS twice, THE DAYS ONCE) */
     });
     /* JOBS 11/21 __CLOUT_ON_THE_BAR__ (rule 466(c), Paolo on every-fight-won-counts: 'Where tf do you see your clout????'): the company's

@@ -8602,6 +8602,13 @@ GATES = [
      "BUY over it red and readable; G4 every SELL of more than one in the good's own picture, one line, inside its box; G5 the trade "
      "row two lines, no dangling dot; G6 no page error; M the shelf's red planted away reads red. green at registration, 7/0 on all "
      "four, about 3 min a walk", True),
+    ('A SUPPLY LANDS ON THE BAR', ['node', 'gates/a_supply_lands_on_the_bar_gate.js', 'demo', 'phone_portrait'],
+     "ECONOMY THREE 11/26, rule 482 ('a fight's spoils counted on the bar'). MEASURED before: LOOT ALL, the batteries climbed on "
+     "the beat lit amber but the tape went 40 to 41 with nothing to say it moved. NOW (slices/bohemia_ui_materials.js "
+     "__A_SUPPLY_LANDS_ON_THE_BAR__) a supply that moves lights two beats on the batteries' plate, the bar the same size. THE REAL "
+     "PAGE (demo | alpha [phone_portrait | phone_landscape]), a road fight won: B1 nothing lit before; B2 LOOT ALL, the tape up by "
+     "what the fight left, lit inside a second; B3 gone by three seconds; B4 the bar's row the same size; B5 the batteries still "
+     "climb to the purse; B6 no page error. green at registration, 6/0 on all four, about 2 min a walk", True),
     ('HIS MAP', ['node', 'gates/his_map_gate.js'],
      "WORLD TWO gate, 10/26, row [the best of both maps] (rule 243, Paolo 10/26: 'think about Valheim's map and how Battle "
      "Brothers' map is, let's do the best of both worlds... bosses where you're able to alter the map and what's going on in the "

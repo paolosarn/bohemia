@@ -3,7 +3,19 @@
 # the VAMILY front page (rules 459, 441, 454(a)), then continue from the newest block below.
 # ECONOMY THREE (rule 462, 11/20) carries this file on: same job, same table; its blocks are named ECONOMY THREE.
 
-ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/26 LATEST -- BUILD 11/26n - THE PRICE AT A GLANCE, BUILT, NOT YET SEEN
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/26 LATEST -- BUILD 11/26zc - A SUPPLY LANDS ON THE BAR, BUILT, NOT YET SEEN
+(rule 482, the coordinator's list: 'a fight's spoils counted on the bar'). Record: records/BOHEMIA_ECONOMY_THREE_A_SUPPLY_LANDS_ON_THE_BAR_11_26_26.md.
+Gate A SUPPLY LANDS ON THE BAR (in the suite on the demo upright; 6/0 on the demo and the alpha, upright and sideways). VOTE card
+economy3-a-supply-lands-on-the-bar-11-26.
+- MEASURED: after a won fight and LOOT ALL the batteries already climb on the beat lit amber (UI's THE COUNT); the tape went 40 to
+  41 with nothing to say it moved, and so did every other supply that moves (rounds, food, meds).
+- NOW (slices/bohemia_ui_materials.js __A_SUPPLY_LANDS_ON_THE_BAR__, beside JOBS 2's followers' flicker): a supply that moves lights
+  two beats on the batteries' own plate, amber up, rust down; the plate is drawn around the number so the bar keeps its size; the
+  first count a page draws never lights. FOR UI: your bar file got one helper and two CSS lines; THE SIX ON THE BAR 5/4, EVERY
+  COUNT A PICTURE 15/0, TOP BAR 13/2, each the same as main.
+- NEXT on the coordinator's list: the stash and what he carries at a glance, the barter, rent. NEVER a tool that waits for a tap.
+
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/26 -- BUILD 11/26n - THE PRICE AT A GLANCE, BUILT, NOT YET SEEN
 (rule 482: 'the price, what he has, what it buys, at a glance, upright and sideways, no clutter'; clean out leftovers). Record:
 records/BOHEMIA_ECONOMY_THREE_THE_PRICE_AT_A_GLANCE_11_26_26.md. Gate THE PRICE AT A GLANCE (gates/the_price_at_a_glance_gate.js, in
 the suite on the demo upright; 7/0 on the demo and the alpha, upright and sideways). VOTE card economy3-the-price-at-a-glance-11-26.
