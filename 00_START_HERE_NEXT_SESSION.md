@@ -1421,6 +1421,12 @@ All 80 enemy kinds the bands deal fought on the demo and the alpha, a phone both
 TYPE THROUGH A FIGHT). Fixed: the wipe card named nine beast parties 'the road crew' (now 'A ground sloth keeps the field'); three freed sheets back in the
 road crew; the horn, bruiser and battery man's act weights (THE BESTIARY green). The biggest pack (17 men) is no choppier than 2 at 4x. Asked: 742 the thrown
 weapons never drop (FIGHT SCREEN 3), 743 every beast 'bites' (COMBAT FOUR), 744 the page grows ~340 MB a fight (PLUMBER 8), 745, 746. Block: handoffs/BESTIARY.md.
+WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/26 LATEST -- BUILD 11/26ze - THE PLACES SIT IN THE GROUND, BUILT, NOT YET SEEN (rules 480(b)(c), 482,
+479's lesson, 464). WORLD TWO's map gate's last red fixed (the next boss's sign never lands in a sealed pocket; B6 green both ways). Every
+real place on the map now stands IN the city: the towers in front of it are in front of it, its lot is its own block at every zoom, its
+tap is its picture, two pictures' ground numbers fixed; kept cuts, 0.1 to 0.5 ms a frame. THE DEAD BILLBOARD out of the legends. Gate THE
+PLACES SIT IN THE GROUND 32/0 (new). VOTE world15-the-places-sit-in-the-ground-11-26. NEXT: row 708, the man who goes home comes back.
+(This lane's 11/22 lines were lost from this file in BESTIARY's d8b4b2c45; its builds 11/22zl, zn, zp, zq are in the lane's block.)
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/20 LATEST (rule 464) -- BUILD 11/20y - NO BILLBOARDS, BUILT, NOT YET SEEN. The billboards are out
 of every map (file, include, gate, VOTE card), graveyarded with a post-mortem (graveyard/POSTMORTEM_THE_BILLBOARDS_11_20_26.txt: a
 list he asked to SEE is not a list to build). The Strat still climbs without them, proven on demo and alpha, a phone both ways. Nothing

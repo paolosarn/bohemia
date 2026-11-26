@@ -1,5 +1,37 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN and from 11/21 by WORLD FIFTEEN, its successor; newest block on top)
 
+WORLD FIFTEEN, ROUND THREE (11/26; VAMILY rules 480(b)(c), 482, 479's lesson, 464, 476(a); 461(c) amended: no tool that waits for a tap,
+every gate in the foreground). BUILD 11/26ze - THE PLACES SIT IN THE GROUND. BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_WORLD_15_THE_PLACES_SIT_IN_THE_GROUND_11_26_26.md. VOTE world15-the-places-sit-in-the-ground-11-26 (tile, STAND-IN).
+- CHECKED (480(b)): WORLD TWO's map gate, every leg both ways; the 15 valley places and their 19 pictures at four zooms, piece on and off;
+  the generator's legends; the billboards' and footprints' files (gone, refused).
+- WORLD TWO's LAST RED, B6 (no next sign after a fall): the sign's seeded pick could land in a sealed walkable pocket (ten one-block desert
+  pockets on every valley, and a wall a boss brings down can make one); every route from it failed and the same pick came every tick.
+  NOW __THE_SIGN_ON_HIS_SIDE_OF_THE_WALL__ (bohemia_his_map.js streetNear): only a block he can walk to. Since BOSSES' 11/26o the sign
+  also waits for the fall's after card; the gate now taps it away like a player. HIS MAP computer 21/0, phone 20/1 (F2, below).
+- THE PLACES: (1) THE GREENHOUSES' and THE BANK's numbers were off their own pictures (12 and 14 px): measured from the pixels
+  (tools/bohemia_world15_the_places_sit_in_the_ground_11_26_26.py); (2) every place was pasted after the city, over the towers in front of it:
+  NOW drawn in depth through the map's own reading (mapDepthCovers), each cut KEPT and drawn with one drawImage (0.1 to 0.5 ms a frame; a
+  pinch scales the kept cut; made again once the zoom holds 150 ms; 3 ms of cutting a frame at most); (3) the lot spilled 1.3 blocks up close
+  and 2.5 at the map's stop: NOW its block at every zoom (wide 1.0, min_css_valley 0; the region's four keep theirs); (4) a tap on a place's
+  picture missed it: the tap box is the picture as drawn. THE DEAD BILLBOARD out of the legend pool (rule 464; seven legends stay).
+- GATES: THE PLACES SIT IN THE GROUND (new, in the suite, demo and alpha) 32/0 + 4/0 static; THE PLACES WEAR THEIR OWN PIECE 11/0 (G2
+  re-aimed to the lot its block, its page tool shoots the picture with the depth off); A DIFFERENT VALLEY EVERY GAME 57/3 (main 54/6).
+- READS, THE TRADE: at the map's own stop (a block 18 px) a place is the size of the buildings round it and no place names draw there
+  (RUN's and WORLD's old 20 px line, not touched). If he wants landmarks from the far stop, the answer is a name there, never a sticker.
+- FOR OTHERS (named, not touched): WORLD 13, the roaming parties are drawn BEFORE the places (a party in front of a place is under it);
+  the painter, A DIFFERENT VALLEY's V4 'the painting re-baked with the state' red on main (its key lost the state's); WORLD TWO / RUN, the
+  map gate's F2 reads 3.2 to 3.4 against its absolute 3 on most new valleys since about 11/22 (red before this round's places; not
+  loosened); HOME BASE 3, his place's CAM 3 is mounted on 'the dead billboard across the street' (his camera, not the map).
+- HIS VOTES 11/25 (rule 481(a)): A REAL FOG OF WAR and THE DEAD SHRINK WITH THE MAP are YES: they stand and get polished, never redone.
+- NEXT (482: no lane stops at done): row 708 (rule 470(h)), the man who goes home on 'the word from home' comes back after one to three
+  days on the map's clock (WORDS THREE named it, owner this lane: records/target/BOHEMIA_ROAD_EVENTS.json ev_the_word_from_home, the
+  'leaves' effect in slices/bohemia_road_more.js through BohemiaHireLock.dismiss; keep his record aside, give it back on the day, one
+  draft line). Then the next of this lane's pieces already in the game.
+[bb Battle Brothers' map draws a place at the size of the land it stands on, and the trees in front of it are in front of it.]
+[analog horror: from the street you cannot see the bank for the towers in front of it; you only know it is there because someone wrote its
+name over the roofs.]
+
 WORLD FIFTEEN, ROUND TWO, BUILD FIVE (11/22; the coordinator's routines on 473(d) and 476: both read, both already shipped; one answer
 changed). BUILD 11/22zq - NO BOSS AT THE EDGE.
 - 473(d) WHAT I KEPT AND WHY: NOTHING at the edge. 11/22zl kept one found boss pointer (the boss he is on) on my own reasoning; the routine's

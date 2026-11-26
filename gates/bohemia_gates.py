@@ -9816,6 +9816,14 @@ GATES = [
     ('A REAL FOG OF WAR (demo)', ['node', 'gates/a_real_fog_of_war_gate.js', 'demo'],
      "WORLD 15 gate, 11/22 (rule 470(c), Paolo 11/22: 'a real fog of war where you can't see anything underneath it... if you kill the surveyor then you can see the faint map'; ask row 703; rule 441; no words). slices/bohemia_the_real_fog.js: on a stranger's game every block he has never seen is an opaque dead channel laid after the whole frame until THE SURVEYOR falls, then the faint map. On the real page upright and sideways: nothing under it (day and night the same), where he has been stays, the surveyor lifts it, a real walk, a pinch, the bench, the mutation. About 6 min", True),
     ('A REAL FOG OF WAR (alpha)', ['node', 'gates/a_real_fog_of_war_gate.js', 'alpha'], "WORLD 15 gate: the same, the alpha upright and sideways. About 6 min", True),
+    ('THE PLACES SIT IN THE GROUND (demo)', ['node', 'gates/the_places_sit_in_the_ground_gate.js', 'demo'],
+     "WORLD 15 gate, 11/26 (rule 480(b) on the map's places as built: 'every place reads and sits in the ground, no billboards (464)'; rule 479's lesson; rule 480(c)). "
+     "slices/bohemia_place_pieces.js draws a valley place in depth with the painted city (what stands in front of its block is drawn over it), its lot its block at "
+     "every zoom, each cut kept and drawn with one drawImage; slices/bohemia_real_places.js takes the tap on the picture as drawn; place_pieces.json's numbers are each "
+     "picture's own ground plate; THE DEAD BILLBOARD out of the legends; WORLD TWO's next sign only on a block he can walk to. STATIC D1-D4; ON THE PAGE (the demo "
+     "upright and sideways, every valley place at a block 72 px) G1 drawn once, G2 on its block, G3 in the ground (the old way pasted it: the test bites), G4 a tap "
+     "on its picture is the place, G5 0.1 ms a frame and a pinch cuts nothing, G6 360 signs on blocks he can walk to, G7 nothing threw. About 5 min", True),
+    ('THE PLACES SIT IN THE GROUND (alpha)', ['node', 'gates/the_places_sit_in_the_ground_gate.js', 'alpha'], "WORLD 15 gate: the same, the alpha upright and sideways. About 5 min", True),
     ('THE DEAD SHRINK WITH THE MAP', ['node', 'gates/the_dead_shrink_with_the_map_gate.js'],
      "WORLD 15 gate, 11/22 (rule 476(b), Paolo 11/22: 'as I zoom out their blood pool is so big when I zoomed out, it's so ugly'; ask row 717; rule 441). slices/bohemia_carcass.js draws a kill and its pool at the map's scale, full from a block 72 px, smaller as he pulls out, faded, gone under 10. On the real page, demo and alpha, upright and sideways: never bigger, the glass it changes far a quarter or less of close, far out it fades and no tap answers, up close as it was. About 6 min", True),
     ('THE PLACES GET THEIR USE', ['node', 'gates/the_places_get_their_use_gate.js'],

@@ -33,7 +33,9 @@ const OUT = process.argv[2] || path.join(ROOT, 'records', 'target', 'cook5_place
        that far (its pan is held near him) */
     /* (11/17, the fifth build) a spot is good when the map is what is on the glass there (a town a block away opens its screen: leave it and try the
        next side) and the whole piece is inside the shot */
-    const state = async (on) => { await fr.evaluate((v) => { BohemiaPlacePieces.on = v; try { render(); } catch (e) {} }, on); await page.waitForTimeout(700);
+    /* WORLD 15 11/26 (rule 480(b)): the picture alone here, its depth with the city off (what stands in front of a place is
+       gates/the_places_sit_in_the_ground_gate.js's to measure) */
+    const state = async (on) => { await fr.evaluate((v) => { BohemiaPlacePieces.on = v; BohemiaPlacePieces.depth = false; try { render(); } catch (e) {} }, on); await page.waitForTimeout(700);
       return fr.evaluate((id) => ({ mode: (typeof MODE !== 'undefined' ? MODE : null), min: BohemiaPlacePieces.man && BohemiaPlacePieces.man.min_block_px, tw: TW, here: [city.x | 0, city.y | 0], drew: BohemiaPlacePieces.drew, rect: BohemiaPlacePieces.last[id] || null, err: BohemiaPlacePieces.err, cvw: CVW, cvh: CVH, cw: cv.getBoundingClientRect().width, cl: cv.getBoundingClientRect().left, ct: cv.getBoundingClientRect().top }), c.id); };
     const clip = { x: box.x, y: box.y + 60, width: box.width, height: Math.min(box.height - 60, box.width * 1.05) };
     const leave = async () => { for (let q = 0; q < 4 && await inTown(); q++) { await page.waitForTimeout(700); await tapEl(await page.$('#bohphone .bpctx.town .lv')); await page.waitForTimeout(1300); } return !(await inTown()); };

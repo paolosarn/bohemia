@@ -326,7 +326,11 @@ async function run(prof) {
      so the holds kind now proves the town did NOT become his; the wall and the reveal legs are as before, nothing loosened */
   const k5 = kinds.wall && kinds.wall.open && kinds.reveal && kinds.reveal.towns === kinds.reveal.of && kinds.holds && !kinds.holds.h && kinds.holds.now !== 'you';
   ok('B5 ' + prof + ': every kind of change works: a wall down the walk goes through, the map opened, and a boss\'s fall never makes a town his (rule 442(c); plus B4\'s lights and place)', !!k5, JSON.stringify(kinds));
-  /* B6: the next sign near where he fell */
+  /* B6: the next sign near where he fell. RE-AIMED 11/26 by WORLD 15 (BOSSES' BUILD 11/26o, rule 480(c): the next sign now waits while a
+     boss's fall plays and while his after card is up): a player taps the card away, so the gate does, with a real tap on its first
+     button once its first beat has passed (the card refuses a press in its first beat, row 611) */
+  for (let t = 0; t < 4; t++) { const up = await fr.evaluate(() => { const e = document.getElementById('roadcard'); return !!(e && e.offsetParent !== null && e.querySelector('.rcb button')); }).catch(() => false);
+    if (!up) break; await page.waitForTimeout(900); await tapIn('#roadcard .rcb button'); await page.waitForTimeout(600); }
   for (let i = 0; i < 16; i++) { await fr.evaluate(() => render()); await page.waitForTimeout(500); if ((await st()).boss.sign) break; }
   const s4 = await st();
   const nearFall = s4.boss.sign && down ? Math.max(Math.abs(s4.boss.sign.x - s3.at[0]), Math.abs(s4.boss.sign.y - s3.at[1])) : null;

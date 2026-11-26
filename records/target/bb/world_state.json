@@ -93,6 +93,7 @@
       "count": [1, 2],
       "apart": 20,
       "from_bases": 6,
+      "pool_note": "THE DEAD BILLBOARD came out of the pool 11/26 (WORLD 15, VAMILY rule 464: no billboards on the map, and a mast named for one read as one; rule 480(b)). Not to come back under a new name.",
       "pool": [
         { "name": "THE LAST ATM", "on": ["commercial", "strip", "downtown"] },
         { "name": "THE DRY FOUNTAIN", "on": ["resort", "casino", "strip"] },
@@ -100,8 +101,7 @@
         { "name": "THE GLASS GRAVEYARD", "on": ["solar", "reclaim"] },
         { "name": "THE BONE CHAPEL", "on": ["chapel", "cemetery", "school"] },
         { "name": "THE STOPPED CLOCK", "on": ["downtown", "courthouse", "cityhall", "library"] },
-        { "name": "THE CRATER", "on": ["desert", "airbase", "airport"] },
-        { "name": "THE DEAD BILLBOARD", "on": ["freeway_side", "arterial_side", "commercial"] }
+        { "name": "THE CRATER", "on": ["desert", "airbase", "airport"] }
       ]
     }
   },

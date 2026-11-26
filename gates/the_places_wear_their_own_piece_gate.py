@@ -20,7 +20,8 @@ met on a phone, and a draw that never runs on the map he plays.
   ON THE PAGE (tools/bohemia_the_place_pieces_on_the_page_11_17_26.js: a new game on the demo on a phone upright, the crew
   sent by the map's own travelTo to six blocks from each place; about four minutes; --static skips it):
   G1 the module and its pictures are loaded on the map he plays, and every place with a piece is seated on this valley
-  G2 with the switch off no piece is drawn; with it on each place's piece is drawn on the glass, 44 points across or more
+  G2 with the switch off no piece is drawn; with it on each place's piece is drawn on the glass, its lot its block across (WORLD 15
+     11/26, rule 480(b); it was 44 points or more, which drew the lot 2.5 blocks wide at the map's own stop)
   G3 it is SEEN: inside the piece's rectangle the shot with it on differs from the shot with it off (a third of it or more)
   THE REGION'S PLACES (COOK SIX 11/20; where 'region' in the list): the region draws them itself, through the module's seam (a wrap
   of the map's mapBaseDraw by name); tools/bohemia_cook6_the_region_pieces_on_the_page_11_20_26.js walks the crew out to each:
@@ -112,8 +113,17 @@ def main():
         if not res: ok('G1 the page ran', False, err or 'no result'); print('\nTHE PLACES WEAR THEIR OWN PIECE: %d passed, %d failed' % (passed, failed)); return 1
         L = res.get('loaded') or {}; got = res.get('places') or {}; PV = [k for k, e in P.items() if e.get('where') != 'region']
         ok('G1 ON THE PAGE: the module and its pictures are loaded on the demo, every valley place with a piece is seated on this valley', bool(L.get('module')) and sorted(L.get('pictures') or []) == sorted(P) and sorted(got) == sorted(PV), 'pictures %s, seated %s' % (len(L.get('pictures') or []), ', '.join(sorted(got))))
-        bad = [k for k, v in got.items() if v.get('off_drew') != 0 or not v.get('rect') or v.get('err') or not v.get('on_shot') or v['on_shot']['w'] < MIN_POINTS]
-        ok('G2 ON THE PAGE: off, none is drawn; on, each place\'s piece is on the glass, %d points across or more' % MIN_POINTS, not bad and bool(got), ', '.join('%s %s points at %s (a block is %s)' % (k, (v.get('on_shot') or {}).get('w'), v.get('at'), v.get('block_css')) for k, v in got.items()))
+        # RE-AIMED 11/26 by WORLD 15 (VAMILY rule 480(b), 'every place reads and sits in the ground'; rule 479(a) 'it reads as part of the
+        # map the way the valley's own buildings do'): a valley place's lot is ITS BLOCK at every zoom (place_pieces.json wide 1.0,
+        # min_css_valley 0): the 46-point floor drew its lot 2.5 blocks wide at the map's own stop, over the blocks round it. So G2 now
+        # asks for its picture at its block's size (the picture's width over its plate's, times the block, within 3 points); a region
+        # place keeps 44 points (R2). gates/the_places_sit_in_the_ground_gate.js measures the rest.
+        def lot_ok(k, v):
+            e = P.get(k) or {}; q = v.get('on_shot') or {}; b = v.get('block_css') or 0
+            want = e.get('w', 0) / float(e.get('plate') or 1) * b * float(man.get('wide') or 1)
+            return b > 0 and abs(q.get('w', 0) - want) <= 3
+        bad = [k for k, v in got.items() if v.get('off_drew') != 0 or not v.get('rect') or v.get('err') or not v.get('on_shot') or not lot_ok(k, v)]
+        ok('G2 ON THE PAGE: off, none is drawn; on, each place\'s piece is on the glass, its lot its block across (rule 480(b))', not bad and bool(got), ', '.join('%s %s points at %s (a block is %s)' % (k, (v.get('on_shot') or {}).get('w'), v.get('at'), v.get('block_css')) for k, v in got.items()))
         seen = {}
         for k, v in got.items():
             q = v.get('on_shot')

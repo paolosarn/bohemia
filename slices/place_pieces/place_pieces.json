@@ -1,7 +1,7 @@
 {
  "about": "THE PLACES WEAR THEIR OWN PIECE (COOK FIVE 11/17, VAMILY rules 453, 408, 409(c)). A real place (records/target/bb/real_places.json, by its id) drawn on its own block of the map by slices/bohemia_place_pieces.js, over the kit art of the kind it is like. bx/by = the block's ground centre in the picture, plate = the ground plate across in picture pixels (the game scales it to the block, times 'wide'), frames = the two beat frames. Made by tools/bohemia_cook5_the_places_wear_their_own_piece_11_17_26.py through the map's rig. A modder adds a place's id and its pictures here and it is drawn; a place with no entry wears its kind's kit art as before.",
  "lane": "cook 5",
- "wide": 1.3,
+ "wide": 1.0,
  "min_css": 46,
  "min_block_px": 10,
  "pictures": {
@@ -18,13 +18,14 @@
    "name": "THE BUS YARD",
    "like": "terminal",
    "through_the_rig": true,
-   "finished": "cook 5, 11/17"
+   "finished": "cook 5, 11/17",
+   "top": 72
   },
   "the_greenhouses": {
    "w": 177,
    "h": 177,
-   "bx": 82,
-   "by": 123,
+   "bx": 94,
+   "by": 130,
    "plate": 150,
    "frames": [
     "the_greenhouses_0.webp",
@@ -33,7 +34,9 @@
    "name": "THE GREENHOUSES",
    "like": "farm",
    "through_the_rig": true,
-   "finished": "cook 5, 11/17"
+   "finished": "cook 5, 11/17",
+   "sits": "measured from its pixels, WORLD 15 11/26",
+   "top": 72
   },
   "the_cooling_center": {
    "w": 166,
@@ -48,7 +51,8 @@
    "name": "THE COOLING CENTER",
    "like": "school",
    "through_the_rig": true,
-   "finished": "cook 5, 11/17"
+   "finished": "cook 5, 11/17",
+   "top": 72
   },
   "the_dome": {
    "w": 166,
@@ -63,14 +67,15 @@
    "name": "THE DOME",
    "like": "casino",
    "through_the_rig": true,
-   "finished": "cook 5, 11/17"
+   "finished": "cook 5, 11/17",
+   "top": 72
   },
   "the_bank": {
    "w": 166,
    "h": 195,
-   "bx": 81,
-   "by": 152,
-   "plate": 150,
+   "bx": 79,
+   "by": 148,
+   "plate": 136,
    "frames": [
     "the_bank_0.webp",
     "the_bank_1.webp"
@@ -78,7 +83,9 @@
    "name": "THE BANK",
    "like": "courthouse",
    "through_the_rig": true,
-   "finished": "cook 5, 11/17"
+   "finished": "cook 5, 11/17",
+   "sits": "measured from its pixels, WORLD 15 11/26",
+   "top": 72
   },
   "the_mob_museum": {
    "w": 166,
@@ -93,7 +100,8 @@
    "name": "THE MOB MUSEUM",
    "like": "courthouse",
    "through_the_rig": true,
-   "finished": "cook 5, 11/17"
+   "finished": "cook 5, 11/17",
+   "top": 72
   },
   "the_natural_history_museum": {
    "w": 166,
@@ -108,7 +116,8 @@
    "name": "NATURAL HISTORY MUSEUM",
    "like": "library",
    "through_the_rig": true,
-   "finished": "cook 5, 11/17"
+   "finished": "cook 5, 11/17",
+   "top": 72
   },
   "shark_reef": {
    "w": 166,
@@ -123,7 +132,8 @@
    "name": "SHARK REEF",
    "like": "resort",
    "through_the_rig": true,
-   "finished": "cook 5, 11/18"
+   "finished": "cook 5, 11/18",
+   "top": 72
   },
   "the_tv_station": {
    "w": 166,
@@ -138,7 +148,8 @@
    "name": "CHANNEL 8",
    "like": "radio",
    "through_the_rig": true,
-   "finished": "cook 5, 11/18"
+   "finished": "cook 5, 11/18",
+   "top": 72
   },
   "the_unemployment_office": {
    "w": 166,
@@ -153,7 +164,8 @@
    "name": "UNEMPLOYMENT OFFICE",
    "like": "library",
    "through_the_rig": true,
-   "finished": "cook 5, 11/18"
+   "finished": "cook 5, 11/18",
+   "top": 72
   },
   "clark_station": {
    "w": 166,
@@ -168,7 +180,8 @@
    "name": "CLARK STATION",
    "like": "battery",
    "through_the_rig": true,
-   "finished": "cook 5, 11/18"
+   "finished": "cook 5, 11/18",
+   "top": 68
   },
   "the_animal_shelter": {
    "w": 166,
@@ -183,7 +196,8 @@
    "name": "ANIMAL SHELTER",
    "like": "warehouse",
    "through_the_rig": true,
-   "finished": "cook 5, 11/18"
+   "finished": "cook 5, 11/18",
+   "top": 72
   },
   "the_scrap_mill": {
    "w": 166,
@@ -198,7 +212,8 @@
    "name": "THE SCRAP MILL",
    "like": "industrial",
    "through_the_rig": true,
-   "finished": "cook 5, 11/18"
+   "finished": "cook 5, 11/18",
+   "top": 72
   },
   "the_home_center_east": {
    "w": 166,
@@ -213,7 +228,8 @@
    "name": "HOME CENTER, EAST SIDE",
    "like": "commercial",
    "through_the_rig": true,
-   "finished": "cook 6, 11/20"
+   "finished": "cook 6, 11/20",
+   "top": 72
   },
   "the_home_center_west": {
    "w": 166,
@@ -228,7 +244,8 @@
    "name": "HOME CENTER, WEST SIDE",
    "like": "commercial",
    "through_the_rig": true,
-   "finished": "cook 6, 11/20"
+   "finished": "cook 6, 11/20",
+   "top": 72
   },
   "the_lab": {
    "w": 166,
@@ -244,7 +261,8 @@
    "like": "region:fortress",
    "through_the_rig": true,
    "finished": "cook 6, 11/20",
-   "where": "region"
+   "where": "region",
+   "top": 72
   },
   "lenzie_station": {
    "w": 166,
@@ -260,7 +278,8 @@
    "like": "region:fortress",
    "through_the_rig": true,
    "finished": "cook 6, 11/20",
-   "where": "region"
+   "where": "region",
+   "top": 72
   },
   "spring_mountain_ranch": {
    "w": 166,
@@ -276,7 +295,8 @@
    "like": "region:camp",
    "through_the_rig": true,
    "finished": "cook 6, 11/20",
-   "where": "region"
+   "where": "region",
+   "top": 72
   },
   "callville_bay": {
    "w": 166,
@@ -292,8 +312,11 @@
    "like": "region:camp",
    "through_the_rig": true,
    "finished": "cook 6, 11/20",
-   "where": "region"
+   "where": "region",
+   "top": 72
   }
  },
- "region": "A place with where 'region' is drawn by the region's own draw (slices/bohemia_region.js drawPlaces, through the map's mapBaseDraw by its name): its picture in place of the painted patch, the plate scaled to the patch's own blocks (a fortress 4, a camp 2) times 0.85, never under min_css (COOK SIX 11/20)"
+ "region": "A place with where 'region' is drawn by the region's own draw (slices/bohemia_region.js drawPlaces, through the map's mapBaseDraw by its name): its picture in place of the painted patch, the plate scaled to the patch's own blocks (a fortress 4, a camp 2) times 0.85, never under min_css (COOK SIX 11/20)",
+ "sits_in_the_ground": "WORLD 15 11/26 (VAMILY rule 480(b)): bx/by/plate are where the picture's own ground plate is, measured from its pixels (tools/bohemia_world15_the_places_sit_in_the_ground_11_26_26.py; two were off: THE GREENHOUSES and THE BANK); top is its first opaque row (the tap box is the picture as drawn). slices/bohemia_place_pieces.js draws each place in depth with the painted city, so what stands in front of it is drawn over it, never under it. AND ITS LOT IS ITS BLOCK (11/26): 'wide' 1.3 and 'min_css' 46 drew a valley place's lot 1.3 blocks wide up close and 2.5 blocks wide at the map's own stop (a block 18 points), over the blocks round it: the floating look (rule 479(a): 'it reads as part of the map the way the valley's own buildings do'). Now wide 1.0 and min_css_valley 0: the lot is the block at every zoom, its edges on the streets; it reads by its own roof, its name plate and its tap. min_css stays for the region's four past the rim (COOK SIX's), which stand alone in the desert.",
+ "min_css_valley": 0
 }

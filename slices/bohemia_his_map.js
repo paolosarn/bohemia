@@ -98,7 +98,21 @@
       if (!anyWalk && walk(a + 1, b) && walk(a - 1, b) && walk(a, b + 1) && walk(a, b - 1)) continue;   /* a crossing has no wall */
       c.push([a, b]);
     }
-    return c.length ? c[Math.floor(R() * c.length) % c.length] : null;
+    /* __THE_SIGN_ON_HIS_SIDE_OF_THE_WALL__ (WORLD 15, 11/26, rule 480(b)): a block he can walk to from where he stands. Measured: the
+       valley keeps walkable pockets sealed by walls (66,7; 29,34; 21,23 in three new games); a pick in one took every route with it
+       (the boss's place and the fallback both route from the sign), placeSign said no, and the same seeded pick came up every tick while
+       he stood: no sign after a fall (WORLD TWO's map gate, B6 on the computer). The first pick is the same as before when he can reach
+       it; a sealed one is passed over, at most 12 looked at. */
+    for (var t = 0; t < 12 && c.length; t++) {
+      var i = Math.floor(R() * c.length) % c.length, p = c[i];
+      if (reach(x, y, p[0], p[1])) return p;
+      c.splice(i, 1);
+    }
+    return null;
+  }
+  function reach(ax, ay, bx, by) {
+    if (ax === bx && ay === by) return true;
+    try { return typeof cityRoute !== 'function' || !!cityRoute(ax, ay, bx, by); } catch (e) { return true; }
   }
   function placeSign() {
     var r = nextRow(), h = here(); if (!r || !h || !N()) return false;

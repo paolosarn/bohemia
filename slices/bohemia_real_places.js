@@ -127,6 +127,13 @@
       RP.drawn++;
       var hit = { name: c.name, x: c.x, y: c.y, tier: c.tier, real: c.id, kind: c.kind, plate: null,
         bld: { x: q.sx - TW / 2, y: q.sy - TH, w: TW, h: TH * 1.5 } };
+      /* __THE_PLACES_SIT_IN_THE_GROUND__ (WORLD 15, 11/26, rule 480(b)): a place drawn as its own piece takes the tap on the picture
+         as drawn (its plate's corners across, its tallest part down to its plate's front corner; slices/bohemia_place_pieces.js
+         PP.last box). MEASURED: the box was one block, so a tap on THE BANK's tower or the edge of its 1.3-block plate fell on
+         the land behind it; the map's tap still asks the block under the finger to be within two of the place */
+      try { var PL = window.BohemiaPlacePieces && BohemiaPlacePieces.last && BohemiaPlacePieces.last[c.id], B0 = hit.bld, B1 = PL && PL.box;
+        if (B1 && B1.w > 0 && B1.h > 0) { var x0 = Math.min(B0.x, B1.x), y0 = Math.min(B0.y, B1.y);
+          hit.bld = { x: x0, y: y0, w: Math.max(B0.x + B0.w, B1.x + B1.w) - x0, h: Math.max(B0.y + B0.h, B1.y + B1.h) - y0 }; hit.piece = true; } } catch(_e){}
       try { MAP_TOWN_HIT.push(hit); } catch(_e){}
       var w = Math.ceil(g.measureText(c.name).width) + 8, ty = Math.round(q.sy - TH * 0.6), bx = Math.round(q.sx - w / 2), free = false;
       for (var tries = 0; tries < 3 && !free; tries++) {
