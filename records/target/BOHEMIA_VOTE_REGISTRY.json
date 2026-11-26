@@ -24504,7 +24504,8 @@
      "stage": "made_from",
      "golden": "character-the-hired-guns-11-18",
      "recipe": "the gambler's hat he voted YES on with the hired guns, widened into a cattleman's crown and brim (tools/bohemia_character_dust_rancher_hat.py), on the gang look, the portrait gear and HATS 1; BUILD 11/26m - THE CONE COMES OFF"
-    }
+    },
+  {"id": "bosses-every-boss-holds-its-frames-11-26", "kind": "tile", "lane": "bosses", "sha": "47ab35730", "made": "11/26", "draft": true, "title": "ALL 19 BOSSES IN ONE GAME, FOR REAL: EACH SIGN FOUND, EACH FIGHT TO LEAVE, EACH CHANGE ON THE MAP, ON A SLOWED PHONE", "said": "Lets turn up full sweep. But improve on what we already have. And make sure fps is never choppy for nothing lets go (rule 480)", "why": "These are the nineteen cards one new game got, boss after boss in the ladder's order, on a phone slowed four times: each one found by his sign, each fight played on AUTO to LEAVE, THE MIDWIFE met, each change on the map, and the camera's hold on his place drawn even when a frame runs long. You see it on the MAP each time a boss falls.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/bosses_the_whole_ladder_11_26/VOTE.webp"}, "before_after": {"before": "main 772ea2f3f: no game had ever walked the whole ladder for real; a slow frame could skip a boss's hold; each fall drew the whole map inside itself; THE INK's card could say nothing", "after": "all 19 walked in one game (S 19, F 19, M 19, E 19, 0 page errors); this lane's share of the 19 beats 20.7 s to 1.2 s slowed; every phase drawn; every card says what changed", "scale": "the MAP on a 390 x 844 phone, the CPU slowed 4x in each fight"}, "record": "records/BOHEMIA_BOSSES_RULE_480_THE_WHOLE_LADDER_11_26_26.md"}
  ],
  "verdicts": [
   {
