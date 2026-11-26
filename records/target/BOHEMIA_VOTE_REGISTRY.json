@@ -24572,7 +24572,37 @@
    "build": "BUILD 11/26zc - A SUPPLY LANDS ON THE BAR"
   },
   {"id": "fight-screen-every-weapon-drops-11-26", "kind": "ui", "lane": "fight screen", "sha": "e20903107", "made": "11/26", "draft": true, "title": "WHAT THEY THREW AT YOU NOW LIES ON THE GROUND AFTER THE FIGHT", "said": "More cooking up cleaning up improving things we're already doing type shit", "why": "Top is before, bottom is now, the end screen's 'what they left'. The kids' bolas, the keepers' throwing axes and the water people's slings never dropped after a fight (they read as broken or used up). Now they lie on the ground like any weapon, the way Battle Brothers drops them; in our world they read as bottles. You see it on the end screen after a fight with those gangs.", "show": {"how": "image", "src": "../records/target/FIGHT_SCREEN_EVERY_WEAPON_DROPS_11_26.webp", "first": "../records/target/vote_first/fight-screen-every-weapon-drops-11-26.webp", "firstAt": [0, 0, 920, 618]}, "before_after": {"before": "main 0ebbe568c: three dead carrying a bundle of spiked bolas, throwing axes and a nomad sling left none of them, in 39 seeds", "after": "all three on the ground on seed 3, beside the vest, the hat and the door, every tile whole", "scale": "the end screen on its side (844 x 390) at 2, the loot cut out"}, "stage": "stand_in", "record": "records/BOHEMIA_FIGHT_SCREEN_EVERY_WEAPON_DROPS_11_26_26.md", "build": "BUILD 11/26zd - EVERY WEAPON DROPS"},
-  {"id": "world15-the-places-sit-in-the-ground-11-26", "kind": "tile", "lane": "world 15", "sha": "ce96947c9", "made": "11/26", "draft": true, "title": "THE PLACES ON THE MAP SIT IN THE CITY NOW: THE TOWERS IN FRONT OF THEM STAND IN FRONT, AND EACH ONE IS ITS OWN BLOCK", "said": "they look like they're floating on top of the map rather than actually being integrated properly into the map", "why": "The bank, the dome, Shark Reef and the other real places were pasted on top of the map, over the towers in front of them and over the blocks around them. Now the towers in front stand in front, and each place is the size of its own block (top: before, bottom: now; the bottom strip is your phone one step in). On the map in the RUN tab.", "show": {"how": "image", "src": "../records/target/WORLD15_THE_PLACES_SIT_IN_THE_GROUND_11_26.webp", "first": "../records/target/vote_first/world15-the-places-sit-in-the-ground-11-26.webp", "firstAt": [12, 44, 612, 630]}, "before_after": {"before": "main: each place drawn after the whole city, over the towers in front of it, its lot 1.3 blocks wide up close and 2.5 blocks at the map's own stop", "after": "drawn in depth with the city (what stands in front of its block stands in front of it), its lot its own block at every zoom; a tap on its picture is the place", "scale": "his phone upright (390 x 844 at 3), the demo's map at a block 72 px and 29 px"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_15_THE_PLACES_SIT_IN_THE_GROUND_11_26_26.md"}
+  {"id": "world15-the-places-sit-in-the-ground-11-26", "kind": "tile", "lane": "world 15", "sha": "ce96947c9", "made": "11/26", "draft": true, "title": "THE PLACES ON THE MAP SIT IN THE CITY NOW: THE TOWERS IN FRONT OF THEM STAND IN FRONT, AND EACH ONE IS ITS OWN BLOCK", "said": "they look like they're floating on top of the map rather than actually being integrated properly into the map", "why": "The bank, the dome, Shark Reef and the other real places were pasted on top of the map, over the towers in front of them and over the blocks around them. Now the towers in front stand in front, and each place is the size of its own block (top: before, bottom: now; the bottom strip is your phone one step in). On the map in the RUN tab.", "show": {"how": "image", "src": "../records/target/WORLD15_THE_PLACES_SIT_IN_THE_GROUND_11_26.webp", "first": "../records/target/vote_first/world15-the-places-sit-in-the-ground-11-26.webp", "firstAt": [12, 44, 612, 630]}, "before_after": {"before": "main: each place drawn after the whole city, over the towers in front of it, its lot 1.3 blocks wide up close and 2.5 blocks at the map's own stop", "after": "drawn in depth with the city (what stands in front of its block stands in front of it), its lot its own block at every zoom; a tap on its picture is the place", "scale": "his phone upright (390 x 844 at 3), the demo's map at a block 72 px and 29 px"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_15_THE_PLACES_SIT_IN_THE_GROUND_11_26_26.md"},
+  {
+   "id": "home-base-the-cameras-on-patrol-11-26",
+   "kind": "ui",
+   "lane": "home base",
+   "sha": "fd32f55bd",
+   "made": "11/26",
+   "draft": true,
+   "title": "THE CAMERAS ON PATROL: YOUR PLACE WATCHED, YOUR PEOPLE AT WORK",
+   "said": "(the coordinator's routine, rule 482) make what is there look and feel better: his people at work reading clearly, the cameras' shots worth watching, upright and sideways",
+   "why": "Your place's three cameras all showed the same shot and your people were tiny still smudges. Now each camera shows the whole block, then slowly pushes in on what is going on, a different thing each camera: one of your men at work ('MOTION', his name and the building), the bodies waiting at the grinder, the family who lives there, your buildings; then it pulls back before it cuts. Your people move now (breathing, working), face the building they work at, and show up pale like people on night camera. Also fixed: if you built your own buildings and then a wall or a tank, the build could land on the same spot and your building vanished from the cameras; it can't now, and old saves get fixed. On the demo: plant your place, build a few things, open your place and watch a minute.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/home_base/vote_the_cameras_on_patrol.webp",
+    "first": "../records/target/vote_first/home-base-the-cameras-on-patrol-11-26.webp",
+    "firstAt": [
+     402,
+     30,
+     390,
+     844
+    ]
+   },
+   "before_after": {
+    "before": "the three cameras showed the same block from a few metres apart; his people still, ten pixels tall, the footage's own grey; with builds and his own buildings both, his own buildings could vanish from the cameras",
+    "after": "each camera pushes in on something different (his man at work, the family, his buildings); his people move, face their work, pale and edged; nine things on nine lots, each once",
+    "scale": "the demo on his phone: the top row upright (390 x 844), below it sideways (844 x 390)"
+   },
+   "stage": "stand_in",
+   "record": "records/BOHEMIA_HOME_BASE_THE_CAMERAS_ON_PATROL_11_26_26.md",
+   "build": "BUILD 11/26zf - THE CAMERAS ON PATROL"
+  }
  ],
  "verdicts": [
   {
