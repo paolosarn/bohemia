@@ -1285,43 +1285,10 @@ past the glass) and its receipt never scrolls the page sideways. Gate THE FOURTE
 fail). The whole block: handoffs/FIXES.md.
 [bb Battle Brothers' recruit list keeps every man one line and the one you pick in his own panel; our hall on its side the same.]
 [analog horror: a talking face with a blank name tag is the one wrong thing the bible saves for on purpose; this one was an accident.]
-BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- BUILD 11/20m THE SIREN AND THE BATTERY MAN, BUILT, NOT YET SEEN (routine 'BESTIARY: the whole
-enchilada', rules 461, 454(a), 441; after BUILD 11/20b THE PENITENT AND THE DOORMAN, the same turn). THE FLOOR MET: factions 12 of 12, types
-74 of about 75, beasts 18 lab-made each its size against a man, bosses 10, champions named (handoffs/BESTIARY.md). The block watch's SIREN
-(the Ancient Priest's Horror: a cross of your men, each a morale check at -15) and the machines' BATTERY MAN (the Lindwurm's Acid Blood: a
-melee blow on him eats the striker's armour three turns), each played on the real page on AUTO until he does it, demo and alpha, a phone
-both ways. Next beyond the floor: CHARACTER's clothes for the 13 stand-ins. VOTE bestiary-the-siren-and-the-battery-man-11-20.
-Record records/BOHEMIA_BESTIARY_THE_SIREN_AND_THE_BATTERY_MAN_11_20_26.md.
-[bb Battle Brothers' Ancient Priest's Horror shakes every brother in its area; ours is a neighbour with an air-raid siren he found in a school.]
-[analog horror: the siren winds up from nothing, the same note the valley heard the night the dollar died.]
-WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/22 LATEST (build five) -- BUILD 11/22zq - NO BOSS AT THE EDGE (rule 473(d)): no ruling stands behind
-a boss pointer at the screen's edge (243(b)(3) marks him where he stands), so none waits there now. WORLD TWO's map gate re-aimed, 41/1.
-WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/22 LATEST (build four) -- BUILD 11/22zp - THE DEAD SHRINK WITH THE MAP (rule 476(b), row 717):
-a kill and its blood are drawn at the map's scale: as before up close, smaller as he pulls out, faded and then gone far out. Gate 20/0.
-WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/22 LATEST (build three) -- BUILD 11/22zn - THE FOOTPRINTS COME OFF (rule 476(a), row 716):
-WORLD 14's footprints, the only ones a phone drew, out of every map, graveyarded with a post-mortem; the Strat gate refuses them back.
-WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/22 LATEST (build two) -- BUILD 11/22zl - A REAL FOG OF WAR, BUILT, NOT YET SEEN (rule 470(c), row 703;
-rule 473's edge names, row 713). Until THE SURVEYOR falls, where he has never been is a dead channel with nothing under it (no streets,
-names, smoke or parties); his fall shows the faint map as before. Only the boss he is on waits at the screen's edge. Gate A REAL FOG OF WAR
-on demo and alpha, a phone both ways; VOTE world15-a-real-fog-of-war-11-22.
-WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/22 LATEST -- BUILD 11/22ze - THE DEAD COME OFF THE MAP (rule 470(d), his 'Wtf that looked like
-shit are you serious'): the fight's renders shrunk to the map could not look right; out of every map, graveyarded with a post-mortem.
-Next this round: 470(c) a real fog of war, the surveyor opens it faint.
-WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/21 LATEST (build three) -- BUILD 11/21i - THE DEAD ON THE MAP, BUILT, NOT YET SEEN (rule 360,
-ask row 384's map half; rule 441; no words). Zoom the map in close and COOK DEAD's dead lie on the ground nobody holds: 711 on the demo's
-valley across 18 kinds of ground, the pit at the landfill and the stadiums, graves only near towns and places, never in the fog or on a
-tower's face. Gate THE DEAD ON THE MAP 18/0 on demo and alpha, a phone both ways. VOTE world15-the-dead-on-the-map-11-21.
-[bb Battle Brothers' map shows the burned farm and the ruined town; ours shows who they were, if you look close.]
-[analog horror: the pit at the landfill is long and straight; whoever dug it meant to keep going.]
-WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/21 LATEST (the mill) -- THE SCRAP MILL STAYS: he voted YES on its card 11/21, his word on that
-piece (rule 464); my take-it-out build was undone before any push. Proved on main ed219cd2: THE SCRAP MILL 11/0. For the coordinator: its
-name says 'scrap' (rule 276 was the loot word); he saw the name and said yes, so it stands.
-WORLD FIFTEEN (takes over WORLD 14's file, handoffs/WORLD_FOURTEEN.md): 11/21 LATEST -- BUILD 11/21b - THE STRAT FROM THE TOWN'S GATE, BUILT, NOT
-YET SEEN (ask row 659, found by EYES; rule 441). On about 1 game in 13 the Network's town stands on the tower; a tap on the tower walked to
-the town and never climbed (a real finger: 3 tries, 0 climbs). Now the finger on the tower climbs at the town's gate, then the town opens;
-a finger on the town's name is the town alone. Gate THE STRAT LOOKOUT T10 to T14, real clicks on a staged valley, demo and alpha.
-[bb the high ground widens the company's sight; when somebody holds the high ground you climb it through their gate.]
-[analog horror: the Network's men let you up their tower; at the top their own radio is still talking, to nobody.]
+BESTIARY (bestiary-01gkdyuu): 11/10 LATEST -- HANDOFF READY 11/26: rule 480's round handed to a fresh BESTIARY (this session's context is
+past its budget). The job (handoffs/BESTIARY.md, top block): every dealt enemy type (80 kinds) through a fight on the phone, its look, move,
+drops and no bug; and the biggest pack on a slowed phone (390 x 844, CPU 4x) with no frame past 50 ms. No new beasts. Last build: BUILD 11/20m
+THE SIREN AND THE BATTERY MAN (the floor met, 74 of about 75). Record records/BOHEMIA_BESTIARY_THE_SIREN_AND_THE_BATTERY_MAN_11_20_26.md.
 WORLD FOURTEEN (world-fourteen-01gkdyuu): 11/20 LATEST (rule 464) -- BUILD 11/20y - NO BILLBOARDS, BUILT, NOT YET SEEN. The billboards are out
 of every map (file, include, gate, VOTE card), graveyarded with a post-mortem (graveyard/POSTMORTEM_THE_BILLBOARDS_11_20_26.txt: a
 list he asked to SEE is not a list to build). The Strat still climbs without them, proven on demo and alpha, a phone both ways. Nothing
