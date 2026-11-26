@@ -204,6 +204,11 @@
     js.forEach(function (j) { HELD.appendChild(heldCard(j)); });
     HELD.style.display = js.length ? '' : 'none';
   }
+  function campOver() {   /* __THE_BOARD_WAITS_OUT_THE_CAMP__: a camp stands, or MAKE CAMP was pressed and its camp is not up yet */
+    var C = window.BohemiaMapCamp; if (C && C.on && C.on()) return true;
+    var h = 0; try { h = (window.top && window.top.__CAMP_HOLD_BOARD) || 0; } catch (e) { h = 0; }
+    return !!h && Date.now() - h < 15000;
+  }
   function paint() {
     var feed = document.getElementById('cityfeed'), list = document.getElementById('cityfeedlist');
     if (!feed || !list || !feed.classList.contains('on')) return;
@@ -214,6 +219,13 @@
        frozen. Nobody can see this board while the map's frame is off the glass, so it waits; the next tick after the map is back
        paints it (a second at most). A checker that asks for it by hand still gets it. */
     if (!paint.__forced) { try { var fe = window.frameElement; if (fe && !fe.getClientRects().length) return; } catch (e) {} }
+    /* CAMP FOUR __THE_BOARD_WAITS_OUT_THE_CAMP__ (rule 480(c), rule 472(e), 11/26): MEASURED (the demo upright, CPU 4x, a won fight, MAKE
+       CAMP; the long animation frames from the tap): the map came back under the camp's hand-over and this board's next tick dealt every
+       job's fights for the crew the fight had just changed, 941 ms in one piece, the biggest freeze of the camp's load; and while the camp
+       stood its hours turned the day, and every day the deals again. Nobody sees this board under the camp (the camp's glass covers the
+       map, and the phone shows the camp). So it waits while a camp stands or is being made off a fight (the shell's MAKE CAMP mark, 15 s
+       at most); the first tick after the camp is gone paints it. window.__BOARD_UNDER_CAMP = the way it was. */
+    if (!paint.__forced && !window.__BOARD_UNDER_CAMP) { try { if (campOver()) { window.__BOARD_CAMP_WAITED = (window.__BOARD_CAMP_WAITED | 0) + 1; return; } } catch (e) {} }
     paintHeld(list);
     if (!BOX || !BOX.parentNode) {
       BOX = document.createElement('div'); BOX.id = 'bmboard'; BOX.setAttribute('role', 'list'); BOX.setAttribute('aria-label', 'the two best paid jobs in the valley');

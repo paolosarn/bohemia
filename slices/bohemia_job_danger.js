@@ -284,6 +284,13 @@
     /* a change is playing: after it; a change takes 250 to 1,000 ms, so past 1.5 s of one (a piece held while a town is open) the
        plans go on at their own pace until it ends */
     if (motionBusy()) { if (!PLANST.waitFrom) PLANST.waitFrom = Date.now(); if (Date.now() - PLANST.waitFrom < 1500) { PLANST.waited++; return planSoon(120); } }
+    /* CAMP FOUR __NO_PLANS_UNDER_THE_CAMP__ (rule 480(c), rule 472(e), 11/26): MEASURED (the demo upright, CPU 4x, a won fight, MAKE CAMP,
+       the long animation frames): while the camp stood, a plan in each idle gap held the camp's frames 211 to 352 ms (one job's plan is one
+       piece: its routes and its fights' deal), and the camp's hours turned the day, which asks every job again for each new day. Nobody
+       reads a waiting plan under the camp's glass (what he looks at is still planned at once, a town's board in a town's rest included),
+       so the plans wait for the camp to end and are made once, for the day and the crew he leaves with. window.__PLANS_UNDER_CAMP = the
+       way it was. */
+    if (!root.__PLANS_UNDER_CAMP) { var CC = null; try { CC = root.BohemiaMapCamp; } catch (e) { CC = null; } if (CC && CC.on && CC.on()) { PLANST.campWaited = (PLANST.campWaited | 0) + 1; return planSoon(1000); } }
     else PLANST.waitFrom = 0;
     var t0 = performance.now(), ck = crewKey(), day = dayNow(), n = 0;
     while (PLANQ.length && (n === 0 || performance.now() - t0 < CFG.slice_ms)) {

@@ -1588,7 +1588,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/26k - THE SWAP MEET</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/26l - THE CAMP COMES UP AT ONCE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12841,14 +12841,26 @@ window.addEventListener('message', function(ev){
    his again CAMP's camp is made where the party stands, the fight's place (BohemiaMapCamp.make: camp-speed healing from its first
    hour). The map takes him back over a few beats (the clouds part), so this asks every quarter second for six seconds. */
 function spoilsCamp(){
-  var k = 0, t = setInterval(function(){ k++;
+  /* CAMP FOUR (rule 480(c), 11/26): asked the next moment and then every tenth of a second (it was every quarter, the first a quarter after the
+     tap: up to 250 ms of the held picture for nothing); still six seconds at most. window.__CAMP_ASK_SLOW = the way it was. */
+  var slow = !!window.__CAMP_ASK_SLOW, every = slow ? 250 : 100, most = slow ? 24 : 60, t = 0;
+  var k = 0, ask = function(){ k++;
     var cf = document.getElementById('cityFrame'), w = cf && cf.contentWindow, C = w && w.BohemiaMapCamp, done = false;
     /* the contact that started the fight is over: its flag would break the camp on its first hour as 'contact' (measured: hours 1,
        why 'contact', on the phone and the computer); a party that reaches the camp later still ends it, as rule 267(a) says */
     try{ if(!CITYFIGHT && C && !C.on() && typeof w.contactClear === 'function') w.contactClear(); }catch(_e){}
-    try{ done = !CITYFIGHT && !!C && (C.on() || C.make() === true); }catch(_e){}
-    if(done || k > 24){ clearInterval(t); SPOILS.camped = { ok: done, tries: k, at: Date.now() }; }
-  }, 250);
+    /* CAMP FOUR __THE_CAMP_IS_MADE_THROUGH_ITS_DOOR__ (rule 480(c), 472(e), 11/26): MEASURED (the demo, a won fight, MAKE CAMP; the camp's
+       screen's opacity read every 40 ms): the map's BohemiaMapCamp.make is its campMake as it was when the map loaded, before MOTION's
+       door (AD.camp) wrapped it, so the camp made here never met that door: the map's three-beat fade of the camp's screen played its
+       whole 1.5 s (6 s on a slowed phone) UNDER the fight's held picture, where nobody sees it, and the held picture waited for it. The
+       map's own campMake (the wrapped one) is the door: under the held picture it lands the fade at once. window.__CAMP_MAKE_UNWRAPPED =
+       the way it was. */
+    try{ done = !CITYFIGHT && !!C && (C.on() || ((!window.__CAMP_MAKE_UNWRAPPED && typeof w.campMake === 'function') ? w.campMake() : C.make()) === true); }catch(_e){}
+    if(done || k > most){ clearInterval(t); SPOILS.camped = { ok: done, tries: k, at: Date.now() }; return true; }
+    return false;
+  };
+  if(slow) t = setInterval(ask, every);
+  else setTimeout(function(){ if(!ask()) t = setInterval(ask, every); }, 0);   /* its own task: never on the end of the tap's */
 }
 window.spoilsCamp = spoilsCamp;
 /* __THE_CAMP_ON_THE_BOARD__ (CAMP THREE, rule 406(f), AMENDED 11/6, Paolo: 'once you finish a battle and you're in the victory screen and

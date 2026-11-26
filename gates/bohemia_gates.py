@@ -9619,6 +9619,14 @@ GATES = [
      "on PAUSE; a camp made whole runs no hour; two fingers zoom in until a man stands 150 px; after a won fight the camp stands on the "
      "fight's own board handed at the tap, its first frame within 4.5 s, no frame held over 750 ms; planted: the old break and the old "
      "second bake go red. records/BOHEMIA_CAMP_FOUR_THE_CAMP_WAITS_FOR_YOU_11_22_26.md", True),
+    ('HIT THE ROAD, EVERY TIME', ['node', 'gates/hit_the_road_every_time_gate.js'],
+     "CAMP FOUR gate, 11/26, VAMILY rule 480(b)(c) on rule 472(c), rules 441 and 448 (Paolo 11/22: 'I have to definitely click something to "
+     "resume getting back on the world map'; the coordinator 11/26: 'HIT THE ROAD works every time'). On the demo upright and on its side, "
+     "five camps in one sitting, each ended by ONE real finger: HEAL with nobody hurt, HEAL with his men hurt (the hours to whole), the tap "
+     "the moment the band shows, his man's line on the strip, MAKE CAMP on a won fight. Each: the camp gone for the road, its glass off, "
+     "the map on PAUSE, its clock still; the band and his line inside the glass and big enough to hit (the band 88 by 22, his line 40 "
+     "tall; 44 is UI's goal). Planted: the map's "
+     "road answering nothing goes red. records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_UP_AT_ONCE_11_26_26.md", True),
     ('THE CAMP IS SET UP ON THE BOARD', ['node', 'gates/the_camp_is_set_up_on_the_board_gate.js'],
      "MOTION 3 gate, 11/10, rule 444(a)(b) and 441, ask lines 568 and 569 (Paolo: 'you watch them set up the camp on the combat map "
      "itself, not pull out into the big map and then try to zoom back in, and then once the camp is set up, then time fast forwards... "

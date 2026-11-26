@@ -124,7 +124,7 @@ if (require.main === module) (async () => {
         const low = rs.filter(q => q.r == null || q.r < 0.3);
         const upright = W < H;   /* the picture compared upright; on its side the bars, the phone and the camp's own things cover most of a 390 px glass, so the record above carries it */
         ok('S1 ' + tag + ': THE CAMERA NEVER LEAVES THE BOARD: the fight, its held last frame or the camp on its view at every tenth of a second, never the map' + (upright ? '; every shot from the loot screen gone alike to the fight\'s last frame (0.3+)' : ' (on its side: the record; the picture is compared upright)'),
-          g.ok && (!upright || (rs.length >= 2 && !low.length)), g.why + '; shots ' + rs.map(q => q.r).join(' ') + (low.length ? ' (low at ' + low.map(q => q.t + ' ms').join(', ') + ')' : ''));
+          g.ok && (!upright || (rs.length >= (shots.length < 8 ? 1 : 2) && !low.length)),   /* RE-AIMED 11/26 BY CAMP FOUR (rule 480(c)): the camp now comes up 2.4 s sooner on a slowed phone (records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_UP_AT_ONCE_11_26_26.md), so the window from the loot screen gone to the set-up's end holds fewer shots; one alike is the proof when it holds under eight */ g.why + '; shots ' + rs.map(q => q.r).join(' ') + ' of ' + shots.length + ' in the window' + (low.length ? ' (low at ' + low.map(q => q.t + ' ms').join(', ') + ')' : ''));
         const c = clockHeld(S, tapT, endT);
         ok('S2 ' + tag + ': THE CLOCK STOPPED FOR THE SET-UP: the same from the tap to its end, a second or more of set-up, then the hours run', skip ? c.ok || /the hours ran after: true/.test(c.why) && !/[1-9]\d* samples moved/.test(c.why) : c.ok, c.why);
         if (skip) {

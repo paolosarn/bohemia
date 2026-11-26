@@ -1507,7 +1507,12 @@ const FIGHT = (function () {
     });
     S.lib = lib; return lib;
   }
-  function kindOf(name) { return name.split('.')[0]; }
+  /* CAMP FOUR __A_BLOCK_S_KIND_IS_READ_ONCE__ (rule 480(c), 11/26): MEASURED (the demo, a won fight, MAKE CAMP, a CPU profile at full
+     speed): the deal asks a block's kind inside its filters over the whole library, millions of times a deal, and this one split was
+     851 ms of the 2.2 s the phone's job board spent dealing its jobs' fights while the camp stood (about 0.3 s a job on a slowed phone,
+     each one a frozen frame of the camp). The kind of a name never changes: it is read once and kept. */
+  const KIND_OF = Object.create(null);
+  function kindOf(name) { const k = KIND_OF[name]; if (k !== undefined) return k; return (KIND_OF[name] = name.split('.')[0]); }
   /* A BLOCK MAY BE DEALT MIRRORED ([eyes: board seams]): 'shore.0|h' is shore.0 mirrored left to right, '|v' top to bottom; its
      terrain, cover and lamps are mirrored with it (a cover piece keeps its place inside its tile, a lamp's foot is a point) */
   function libOf(n) {

@@ -47645,6 +47645,17 @@ function btwDraw(m, P){
   }
   if (P.stamp && P.stampA > .01) {   /* the camcorder's clock, its colours a pixel apart */
     var sx = 16, sy = H - 96;
+    /* CAMP FOUR (rule 480(b), ask row 728, EYES 11/26 e03: 'on the alpha its big DAY 1 16:00 is drawn over the left column's STANDING
+       button'): the clock stands above whatever of the map's own controls is down that corner (SLEEP, STANDING, the packs' line and
+       button, SCAVENGE or WORK, MARKET, BUILD HERE, the day's card: the whole left stack; EYES' e06), never on them; HEAL's camp now holds
+       this moment while its board is baked, so the clock is up for seconds. */
+    if (m.stampY == null || m.stampH !== H) { m.stampH = H; m.stampY = sy;   /* read once a moment (a layout read a frame is a cost on a slow phone) */
+      try { var rs = []; ['qline', 'daycard', 'sleepbtn', 'rungbtn', 'packline', 'packbtn', 'mktbtn', 'workbtn', 'buildbtn'].forEach(function (id) { var e = document.getElementById(id); if (!e || !e.offsetWidth) return;
+          var r = e.getBoundingClientRect(); if (r.width && r.height && r.left < sx + 170) rs.push(r); });
+        var y = sy, k = 0, hit = function (yy) { for (var q = 0; q < rs.length; q++) if (rs[q].top < yy + 10 && rs[q].bottom > yy - 26) return rs[q]; return null; }, h;   /* the clock's text runs about 18 px over its line; a clear 6 px round it, never squeezed between two buttons */
+        while ((h = hit(y)) && k++ < 12) y = Math.round(h.top - 10);   /* up past each button it would lie on, until it lies on none */
+        m.stampY = Math.max(40, y); } catch (_e) {} }
+    sy = m.stampY;
     x.font = '16px BohemiaCasing, ui-monospace, monospace'; x.textBaseline = 'alphabetic';
     x.fillStyle = 'rgba(214,40,32,' + (.55 * P.stampA).toFixed(3) + ')'; x.fillText(P.stamp, sx + 2, sy);
     x.fillStyle = 'rgba(70,196,214,' + (.4 * P.stampA).toFixed(3) + ')'; x.fillText(P.stamp, sx - 1, sy);
@@ -47669,7 +47680,10 @@ function btwTick(){
   var m = BETWEEN.m; if (!m) return;
   /* THE CLOCK IS THE FRAMES (measured: the camp's hour and the card's build stall the page up to half a second; a clock off the
      wall jumped the ease past half its way in one shown frame). A stall now holds the picture still and it goes on from there. */
-  var now = performance.now(), dtq = m.last != null ? Math.min(now - m.last, 100) : 0; m.el += dtq; m.last = now; m.anim = (m.anim || 0) + dtq;
+  var now = performance.now(), dtq = m.last != null ? Math.min(now - m.last, 100) : 0; m.last = now; m.anim = (m.anim || 0) + dtq;
+  /* CAMP FOUR (rule 480(c), 11/26): a camp that kept him waiting at his fire comes up in one beat, not two (measured on a slowed phone:
+     the camp's board in, then 1.3 s more of fade before it stood). window.__CAMP_IN_SLOW_REST = the way it was. */
+  m.el += dtq * ((m.kind === 'campIn' && m.waited && !window.__CAMP_IN_SLOW_REST) ? 2 : 1);
   /* CAMP FOUR __THE_CAMP_COMES_UP_AT_ONCE__ (rule 472(d): 'I don't get to see any sort of transition... it freezes... then everything's
      populated in'): MEASURED on the demo, HEAL on the map: the camp's screen came up dark over its last two beats and stayed dark until its
      board baked (2 to 5 s here, four times that on a phone). NOW the moment waits at his fire on the map (the light down round him, the
@@ -47721,7 +47735,12 @@ function btwCampIn(){
   var f = btwFrame(); if (!f || f.style.display !== 'block') return;
   var me = btwAt(city.x, city.y);
   f.style.opacity = '0'; f.style.pointerEvents = 'none';
-  try { render(); } catch (_e) {}
+  /* CAMP FOUR (rule 480(c), ask row 728, EYES 11/26: 'the red cross itself 600 ms'): MEASURED (the demo, HEAL pressed, a CPU profile):
+     the press was 99 ms in one piece at full speed, 90 of it this one whole drawing of the map inside the tap (its camp marker put under
+     the moment's dark, where the moment draws its own fire at his block), about 400 ms on a slowed phone before the press answered. The
+     map is not drawn again here; the moment and then the camp's screen cover it, and it draws itself when he is back.
+     window.__CAMP_IN_RENDER_NOW = the way it was. */
+  if (window.__CAMP_IN_RENDER_NOW) { try { render(); } catch (_e) {} }
   btwStart('campIn', { cx: me.x, cy: me.y, min: T.day * 1440 + T.min });
 }
 function btwCampOut(why){
@@ -74883,7 +74902,13 @@ window.addEventListener('message',function(ev){
   /* V205 __ENTER_ZOOM__: AND IT COMES BACK IN WHEN IT ENDS. Both directions,
      his ruling's own words. The shell has already put the street back on
      screen, so this starts pulled back and eases in with the cloud clearing. */
-  try{ fightZoomIn(); }catch(_e){}
+  /* CAMP FOUR __NO_ZOOM_UNDER_THE_CAMP__ (rule 480(c), 472(e), 11/26): MAKE CAMP on the end screen holds the fight's last picture over the
+     glass while the camp is made under it (MOTION 3's hold, the shell's __CAMP_HOLD_BOARD), so this zoom back out is drawn where nobody
+     sees it. MEASURED (the demo, CPU 4x, a won fight, MAKE CAMP; the long animation frames): this listener was one 382 ms piece, most of
+     it the zoom's first full drawing of the map and its snapshot, the second freeze of the camp's load. Under the hold it is not drawn;
+     the map draws itself as it always does once the camp is gone. window.__ZOOM_UNDER_CAMP = the way it was. */
+  var __campHeldZ = false; try{ var __hz = window.top && window.top.__CAMP_HOLD_BOARD; __campHeldZ = !window.__ZOOM_UNDER_CAMP && !!__hz && Date.now() - __hz < 9000; }catch(_e){ __campHeldZ = false; }
+  if(!__campHeldZ){ try{ fightZoomIn(); }catch(_e){} } else { try{ window.__ZOOM_SKIPPED_UNDER_CAMP = (window.__ZOOM_SKIPPED_UNDER_CAMP | 0) + 1; }catch(_e){} }
   var o=d.outcome||{};
   var __kh = null; try{ __kh = window.__MEET_HUNT_KEPT || null; window.__MEET_HUNT_KEPT = null; }catch(_e){}   /* __A_RETREAT_GETS_HIM_AWAY__: the crew he met, kept while he fought */
   /* WON is the explicit flag the shell sends; anything else is not a win. A
