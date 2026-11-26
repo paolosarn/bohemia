@@ -1313,8 +1313,26 @@
     try { if (W.__DIVE_MARKS) console.timeStamp('dive:' + r.kind + ':' + name); } catch (e) {}   /* a gate's trace reads the phases off the same clock as the frames */
     var take = r.kind === 'down' ? !!TAKES[name] : (name === 'grid' || name === 'turn');
     try { diveLayer().style.pointerEvents = take ? 'auto' : 'none'; } catch (e) {} }
+  /* __THE_DIVE_LETS_ITS_PICTURES_GO__ (PLUMBER 8, 11/26/26, ask row 744, FOUND BY BESTIARY 2: 'the page grows every fight until a phone
+     would drop it', about 340 MB a fight). MEASURED (the same road fight again and again on the demo, a forced collection after each, every
+     canvas counted alive by the function that made it; a heap snapshot's retaining paths): the dive's pictures of EVERY fight stayed alive
+     (picOf 17 -> 31 -> 45 -> 59 canvases, about 16 megapixels a fight; turnIn and diveUp one more each), the GPU process about 156 MB a
+     fight, the JS heap flat. What held them: THE PAGE'S ANIMATION TIMELINE. Every animation the dive plays holds its last frame (fill
+     'both') and was never cancelled, only dropped from DIVE.anims; the document's timeline keeps such an animation, its effect keeps its
+     target (a band, the camera, the grid in the dive's layer) and the target keeps the whole removed layer with every picture in it. NOW
+     the dive's end cancels every animation inside its layer, and any of its own whose target is off the page, before the layer comes off;
+     an animation on something still on the glass is left as it is. window.__DIVE_KEEPS_ITS_ANIMATIONS: the way it was. */
+  var LETGO = { ends: 0, cancelled: 0 };
+  function letGo(root) {
+    if (W.__DIVE_KEEPS_ITS_ANIMATIONS) return 0;
+    var n = 0, seen = [];
+    try { if (root && root.isConnected && root.getAnimations) root.getAnimations({ subtree: true }).forEach(function (a) { try { seen.push(a); a.cancel(); n++; } catch (e) {} }); } catch (e) {}
+    (DIVE.anims || []).forEach(function (a) { try { if (seen.indexOf(a) >= 0) return; var t = a.effect && a.effect.target; if (!t || !t.isConnected || (root && root.contains(t))) { a.cancel(); n++; } } catch (e) {} });
+    LETGO.ends++; LETGO.cancelled += n; return n;
+  }
   function diveEnd(r) {
-    (DIVE.timers || []).forEach(function (o) { try { clearTimeout(o.id); } catch (e) {} }); DIVE.timers = []; DIVE.anims = [];
+    (DIVE.timers || []).forEach(function (o) { try { clearTimeout(o.id); } catch (e) {} }); DIVE.timers = [];
+    letGo(DIVE.el); DIVE.anims = [];   /* __THE_DIVE_LETS_ITS_PICTURES_GO__ */
     try { if (DIVE.raf) W.cancelAnimationFrame(DIVE.raf); } catch (e) {} DIVE.raf = 0;
     try { if (DIVE.el) DIVE.el.remove(); } catch (e) {} DIVE.el = null; DIVE.skip = false;
     if (DIVE.hum === 'down') humTo(false, 0.5);
@@ -2117,7 +2135,7 @@
     live: function () { return LIVE.map(function (m) { return { id: m.id, how: m.how, kind: m.kind, k: m.k, holds: m.holds ? m.holds.length : 0, waiting: m.waiting }; }); },
     log: LOG, taps: TAPS, adapters: AD,
     /* __THE_ZOOM_DOWN_INTO_THE_BOARD__: the shell's nfOpen hands its build to down(d, go); nfHome is wrapped (AD.home) */
-    dive: { down: diveDown, state: function () { return DIVE.state; }, log: DIVE.log, at: function () { return DIVE.at; }, clear: diveClear },
+    dive: { down: diveDown, state: function () { return DIVE.state; }, log: DIVE.log, at: function () { return DIVE.at; }, clear: diveClear, letGo: function () { return { ends: LETGO.ends, cancelled: LETGO.cancelled }; } },
     campHold: { on: function () { return CAMPHOLD.on; }, rows: CAMPHOLD.rows, held: campHeld },   /* __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ */
     budget: { piece: [PIECE_MIN, 2 * PIECE_MIN], mode: [MODE_MIN, MODE_MIN + PIECE_MIN], ceiling: CEILING, fade: 200, wait: WAIT_MAX, ready: READY_MAX },
     clock: function () { var g = beat(); return { src: g.src, beatMs: g.bm, holdMs: g.bm / 6 }; },

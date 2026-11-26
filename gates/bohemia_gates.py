@@ -9512,6 +9512,20 @@ GATES = [
      "a frame while travelling (the beat's timers ask for the next frame); the men behind cut on the GPU, never read back a man; the "
      "ground slid by whole pixels; the zoom down at 4x from the far stop, its come-down and settle at least the ratchet, the last picture "
      "grown between paints. Solo: it measures time. About 12 min", True),
+    ('TWENTY FIGHTS HOLD MEMORY FLAT (UPRIGHT)', ['node', 'gates/twenty_fights_hold_memory_flat_gate.js', '--upright'],
+     "PLUMBER 8 gate, 11/26, ask row 744 (BESTIARY 2: 'the page grows every fight until a phone would drop it', about 340 MB a fight; the "
+     "brown town on his iPhone after long play), VAMILY rule 484(a) (Paolo 11/26 'it crashes going into a fight': 'twenty fights in a row "
+     "entered from the map on the slowed phone, upright and sideways, memory flat, no crash, no reload'), rules 480(c), 441. The same road "
+     "fight entered from the map and won twenty times in a row on one page of the demo, upright, the CPU slowed 4x for the way in, a forced "
+     "collection after each, every canvas any page makes counted alive by the function that made it: no crash and no reload; the canvases "
+     "alive under an iPhone's 256 MB at every fight; from the second fight to the last the canvases grow at most 8 megapixels (the old way: "
+     "about 23 a fight), the dive's own pictures no more, the documents no more (+1), the JS heap (the browser's own count) at most 15 MB; "
+     "the dive cancelled what it played; P1 the old way (__DIVE_KEEPS_ITS_ANIMATIONS), three fights, grows past the line. "
+     "records/BOHEMIA_PLUMBER_TEN_FIGHTS_HOLD_MEMORY_FLAT_11_26_26.md. Solo. About 10.5 min (its own cap, _CAP_FOR)", True),
+    ('TWENTY FIGHTS HOLD MEMORY FLAT (SIDEWAYS)', ['node', 'gates/twenty_fights_hold_memory_flat_gate.js', '--sideways', '--no-plant'],
+     "PLUMBER 8 gate, 11/26, rule 484(a)'s other half: the same twenty fights in a row with the phone held sideways (844 x 390), the same "
+     "lines (no crash, no reload, an iPhone's canvas budget at every fight, the canvases, the dive's pictures, the documents and the heap "
+     "flat from the second fight to the last). Solo. About 9 min (its own cap, _CAP_FOR)", True),
     ('NEVER CHOPPY (THE FRAME WALK)', ['node', 'gates/never_choppy_the_frame_walk_gate.js'],
      "PLUMBER 8 gate, 11/26, VAMILY rule 480(c)(d) (Paolo 11/26: 'make sure fps is never choppy for nothing'). One walk through every "
      "screen and every move between them on a slowed phone (390 x 844, CPU 4x, the canvas on a GPU process): the freeze census's walk of "
@@ -10442,6 +10456,21 @@ def _drives_a_browser(path, depth):
     return hit
 
 
+# ONE GATE, ITS OWN CAP (PLUMBER 8, 11/26). VAMILY rule 484(a) asks for twenty fights in a row entered from the map on the slowed phone,
+# each way the phone is held. The phone's own way in at 4x is about 25 s a fight (the board's page built and the dive played on a slowed
+# CPU: the thing measured, not the measuring), so one side is about 540 s and the upright half with its plant about 640 s: inside the 600 s
+# cap with 10% to spare on one side and over it on the other. Cut to fit, it would no longer be the walk the rule names. So this one gate
+# file, and only it, gets 900 s; every other gate keeps GATE_CAP, and a hang here still dies at 900 s.
+_CAP_FOR = {'gates/twenty_fights_hold_memory_flat_gate.js': 900}
+
+
+def _cap(argv):
+    for a in argv:
+        if a in _CAP_FOR:
+            return max(GATE_CAP, _CAP_FOR[a])
+    return GATE_CAP
+
+
 def run(argv):
     """A TIMED-OUT GATE HAS TO ACTUALLY STOP, AND subprocess.run DOES NOT DO THAT.
 
@@ -10462,7 +10491,7 @@ def run(argv):
     except FileNotFoundError:
         return 127, 'gate file missing: ' + argv[-1]
     try:
-        out, err = p.communicate(timeout=GATE_CAP)
+        out, err = p.communicate(timeout=_cap(argv))
         return p.returncode, (out or '') + (err or '')
     except subprocess.TimeoutExpired:
         _kill_group(p)
@@ -10472,10 +10501,10 @@ def run(argv):
         except Exception:
             pass
         return 124, ((out or '') + (err or '')
-                     + '\ntimed out after %ds (BOHEMIA_GATE_CAP) and the whole '
+                     + '\ntimed out after %ds (BOHEMIA_GATE_CAP, or its own _CAP_FOR) and the whole '
                        'process GROUP was killed. A gate that cannot answer in '
                        'that long is broken as a ship gate whether it would pass '
-                       'or not -- every ship waits behind it.' % GATE_CAP)
+                       'or not -- every ship waits behind it.' % _cap(argv))
 
 
 def _kill_group(p):

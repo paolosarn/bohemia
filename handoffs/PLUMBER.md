@@ -1,5 +1,34 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/26, BUILD 11/26zp TWENTY FIGHTS HOLD MEMORY FLAT (the routine 'PLUMBER 8: the memory leak', ask row 744; VAMILY
+rule 484(a) 'it crashes going into a fight', ask row 748 the crash half; rules 480(c), 441).
+  MEASURED (the same road fight won again and again on the demo, a forced collection after each; every canvas any page makes kept as a
+  WeakRef by the top page with the function that made it, made in the top page's context; the browser's own heap and DOM counters over
+  CDP, never performance.memory, which is rounded and rarely updated; a heap snapshot's retaining paths, weak and WeakMap edges skipped):
+  the dive's pictures of every fight stayed alive, about 23 megapixels (about 90 MB) a fight. The path: DocumentTimeline -> Animation ->
+  KeyframeEffect -> the removed dive layer's band -> its cam -> the map's photographs at each zoom stop and the board's picture. Every
+  animation the dive plays holds its last frame (fill 'both') and was only dropped from DIVE.anims, never cancelled.
+  CUT: __THE_DIVE_LETS_ITS_PICTURES_GO__ (slices/bohemia_motion.js letGo in diveEnd): every animation inside the dive's layer, and any
+  of its own whose target is off the page, cancelled before the layer comes off; an animation on something still on the glass left as it
+  is. Switch window.__DIVE_KEEPS_ITS_ANIMATIONS. BohemiaMotion.dive.letGo() counts.
+  AFTER: the old way 200 -> 296 -> 386 MB of canvases alive over three fights (an iPhone gives a page about 384 MB; past it a new canvas
+  draws nothing: the brown town). Now twenty fights in a row from the map on the slowed phone each way: upright 156 -> 194 MB (the most
+  229 MB, one fight, gone the next), sideways 160 -> 186 MB, the heap 107 -> 109 and 106 -> 110 MB, the documents 17 -> 17, no crash, no
+  reload; the dive ended 40 times a side and cancelled 1,647 animations. On the rebased tree (main at 11/26zn) six fights: 171 -> 192 MB.
+  GATE: TWENTY FIGHTS HOLD MEMORY FLAT (gates/twenty_fights_hold_memory_flat_gate.js, solo; two suite entries, UPRIGHT with the plants
+  and SIDEWAYS): C1 no crash, no reload; C2 the canvases alive under 256 MB at every fight; M1 canvases +8 Mpx at most from fight 2 to
+  20; M2 the dive's pictures no more; M3 documents +1; M4 the heap +15 MB; M5 the dive let go; P1 the old way grows past M1, P2 crosses
+  C2. The way in is slowed 4x; the count's collections, the loot and the way home unslowed. A side is about 540 s, so this one gate
+  file has its own 900 s cap in the suite (_CAP_FOR in gates/bohemia_gates.py); every other gate keeps 600 s.
+  records/BOHEMIA_PLUMBER_TEN_FIGHTS_HOLD_MEMORY_FLAT_11_26_26.md.
+  LEFT (named in the record): the pop-up watcher's MutationObserver on a closed page never disconnected (UI, bounded); __BM_KEPT keeps
+  objects from the first page (bounded); the motion morphs' fill 'both' (not seen to grow).
+  NEXT (mine, biggest first): THE CANVASES AT REST: 186 to 194 MB alive on the map between fights is half an iPhone's allowance by
+  itself (the map's photographs at each zoom stop, 780 x 1562, the board's picture 1170 x 2532, the dive's ten): measure by maker and
+  cut, the likeliest second cause of the brown town; then row 724 (the door into the game freezing on a slowed phone: the alpha's 2-D
+  cast bake behind the loading screen and the VOTE tab, 13 s); then camp's HEAL taking 7.5 s (CAMP FOUR handed it to me and COMBAT
+  FOUR); then row 725 (the boss spoils > map, one 7.9 s task in the shell on one walk).
+
 PLUMBER 8 (chat 18) 11/26, BUILD 11/26y NEVER CHOPPY: THE FRAME WALK (VAMILY rule 480(c)(d), the routine 'PLUMBER 8: rule 480 frame walk'; rule 441).
   BUILT 480(d): tools/bohemia_frame_walk.js, the freeze census's walk of the demo with rule 480's own steps (opts.more: the map panned by
   a finger, the jobs on a town's board, his place's camera pinched in and out) and the alpha's VOTE tab (its loading screen to BEGIN, the
