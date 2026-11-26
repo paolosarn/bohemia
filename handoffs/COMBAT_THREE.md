@@ -1,6 +1,6 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rule 480(c)(d), 482(c); ask row 732): 11/26 LATEST -- [the loading screen breathes] SHIPPED SHIPSHA, BUILD 11/26w - THE LOADING SCREEN BREATHES. No VOTE card.
+COMBAT FOUR (rule 480(c)(d), 482(c); ask row 732): 11/26 LATEST -- [the loading screen breathes] SHIPPED 5f9ad3ec9, BUILD 11/26w - THE LOADING SCREEN BREATHES. No VOTE card.
 Record: records/BOHEMIA_COMBAT_FOUR_THE_LOADING_SCREEN_BREATHES_11_26_26.md. THE WALK: tools/bohemia_combat_four_every_board_frames_11_26_26.js <outdir> [ids] (COOK SIX's walk widened: every inside from its data, four streets,
 AUTO really fights now: the bell rung with AUTO on; UI.thinks read; C4_BEFORE=1 the before, C4_AUTO_MS the AUTO cap). 44 boards at 4x before: LOAD one frame 2.1-4.8 s
 (median 3.9), OPEN 267-883 ms, PAN at night 3.6-4.4 fps, AUTO 9.5-37 fps (median 13.3, worst 183-550 ms), thinks max 81-264 ms. slices/BOHEMIA_FIGHT.html:
