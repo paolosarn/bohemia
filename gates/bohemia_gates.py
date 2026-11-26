@@ -9939,6 +9939,11 @@ GATES = [
      "on its side (R1), LEAVE heard once at once (R2), a lost fight (R3); the demo's road fight won through the map's door: the fight's card "
      "seen on 0 frames and the end screen with no receipt (D1); the fight's own card handed in the game and on the board on its own page (D2). "
      "Planted: a strip of receipt paper laid back (the measure sees it). About 1 min", True),
+    ('THE LOOT READS', ['node', 'gates/the_loot_reads_gate.js'],
+     "FIGHT SCREEN THREE gate, 11/26, VAMILY rule 482 ('cleaning up, improving things we're already doing'): the end screen's loot tiles at five "
+     "phone shapes, upright and on its side: every piece's name whole (a 34 point picture in a 45 point tile squeezed it to nothing or sliced it "
+     "at the floor), its picture inside, a worn piece's bar never across its name, the picture never over it (L1); no picture squashed (L2). "
+     "Planted: the rules taken out, L1 red. Under a minute", True),
     ('LEAVE WAITS FOR THE SCREEN', ['node', 'gates/leave_waits_for_the_screen_gate.js'],
      "FIXES 3 gate, 11/26, VAMILY rule 480(b) (improve what is already in the game), rule 441 on the glass; ask rows 697 and 722. MEASURED: "
      "a tap on the end screen's LEAVE before the screen had opened on the fight (its tables still in flight) went home at once, the summary "

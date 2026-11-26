@@ -397,7 +397,7 @@
         cv: b.querySelector('canvas'), kind: b.id === 'bstrike' ? 'strike' : b.id === 'breload' ? 'reload' : b.id === 'bback' ? 'back' : b.classList.contains('bag') ? 'bag' : b.dataset.sweep ? 'sweep' : 'skill' };
     });
     var who = document.getElementById('cnm');
-    return { key: (sk.dataset.key || '') + '|' + list.map(function (a) { return a.on + '' + a.off; }).join(''), list: list,
+    return { key: (sk.dataset.key || '') + '|' + (sk.dataset.whose || '') + '|' + list.map(function (a) { return a.on + '' + a.off; }).join(''), list: list, whose: sk.dataset.whose || '',   /* whose: __NOTHING_TO_PRESS_ON_THEIR_TURN__ */
       name: who ? String(who.textContent || '').replace(/\s*\*$/, '') : '', face: document.getElementById('face') };
   };
   /* THE FIGHT'S COMMANDS (rule 238(a)): the big button (FIGHT at the line, then what the first tap picked: WALK, SHOOT, HIT,
@@ -445,6 +445,7 @@
       /* __THE_ROUNDS_ON_THE_CARD__ (FIGHT SCREEN THREE 11/22, rule 478(a), a marked line): the rounds in the gun in his hands [left, of], and dry */
       rounds: ap && ap.dataset.rounds ? ap.dataset.rounds.split('/').map(Number) : null, dry: !!(ap && ap.dataset.dry),
       carry: ap && ap.dataset.carry ? ap.dataset.carry.split('/').map(Number) : null, out: !!(ap && ap.dataset.out),   /* 11/26: what he carries, and out (gun slung) */
+      spent: !!(ap && ap.dataset.spent),   /* __HIS_TURN_IS_SPENT_ON_THE_CARD__ (FIGHT SCREEN THREE 11/26) */
       faceKey: (function () { try { return typeof UI !== 'undefined' && UI && UI.faceKey != null ? String(UI.faceKey) + '#' + (UI.faceN | 0) : null; } catch (e) { return null; } })(),   /* __NEVER_CHOPPY__: the fight's face changes only with this */
       /* __THE_MANS_CARD_ON_THE_PHONE__ (FIGHT SCREEN TWO 11/17, a marked line by the coordinator's word): the plate as marks: [level, outclasses, dodges, armour] and the words they stand for */
       full: nm && nm.dataset.full ? String(nm.dataset.full) : '',
@@ -977,6 +978,9 @@
       + '#bohphone .fap .rd i.last{background:linear-gradient(#fff6d8 0 1px,#ffc04a 1px 100%)}'
       + '#bohphone .fap .rd.dry i{background:#4a140e;box-shadow:inset 0 0 0 .5px #a8301f}'
       + '#bohphone[data-beat="3"] .fap .rd.dry i,#bohphone[data-beat="2"] .fap .rd.dry i{background:#e0402e;box-shadow:none}'
+      /* __HIS_TURN_IS_SPENT_ON_THE_CARD__ (FIGHT SCREEN THREE 11/26): his turn spent: the empty AP pips red, pulsing on the beat, until it passes */
+      + '#bohphone .fap.spent .pp i:not(.on){background:#4a140e;box-shadow:inset 0 0 0 .5px #a8301f}'
+      + '#bohphone[data-beat="3"] .fap.spent .pp i:not(.on),#bohphone[data-beat="2"] .fap.spent .pp i:not(.on){background:#e0402e;box-shadow:none}'
       /* ==== /__THE_MANS_CARD_ON_THE_PHONE__ ==== */
       /* COMBAT TIME: stop-motion holds on the beat (steps, never a smooth slide): the glass flashes, the crosshair strikes in
          three holds and beats twice, the word under it */
@@ -1786,7 +1790,11 @@
        a lot bigger'): the fight's two most-pressed buttons, RELOAD first then STRIKE, stand in their own row the width of the phone's
        glass, a thumb tall (50 points, the HIG's 44 and up; four of the old squares and more), each with its picture, its word and its AP; the rest stay four a row */
     var big = H.el.querySelector('.abig'); big.textContent = '';
-    var mains = A.list.filter(function (a) { return a.kind === 'reload'; }).concat(A.list.filter(function (a) { return a.kind === 'strike'; }));
+    /* __NOTHING_TO_PRESS_ON_THEIR_TURN__ (FIGHT SCREEN THREE 11/26, a marked block, rule 449: the fight's buttons are this lane's): a row built for
+       a man of THEIRS (their turn) is never his to press: no big STRIKE with their weapon on it, no 'No skills' note about their man, the
+       wells stand empty and dark until his man is up */
+    var theirs = A.whose === 'them'; H.el.querySelector('.fight').classList.toggle('theirs', theirs);
+    var mains = theirs ? [] : A.list.filter(function (a) { return a.kind === 'reload'; }).concat(A.list.filter(function (a) { return a.kind === 'strike'; }));
     mains.forEach(function (a) {
       var b = el('button', 'bg ' + a.kind + (a.on ? ' on' : '')); b.type = 'button'; b.disabled = a.off; b.title = a.title; b.setAttribute('aria-label', a.kind);
       var c = document.createElement('canvas'); c.width = 52; c.height = 52;
@@ -1799,7 +1807,7 @@
     big.classList.toggle('none', !mains.length);
     window.__PHONE_BIG = mains.map(function (a) { return a.kind; }).join(',');
     A.list.forEach(function (a, i) { a.i = i; });
-    A.list.filter(function (a) { return a.kind !== 'reload' && a.kind !== 'strike'; }).slice(0, 12).forEach(function (a) {
+    (theirs ? [] : A.list).filter(function (a) { return a.kind !== 'reload' && a.kind !== 'strike'; }).slice(0, 12).forEach(function (a) {
       var i = a.i;
       var b = el('button', 'sk' + (a.on ? ' on' : '')); b.type = 'button'; b.disabled = a.off; b.title = a.title; b.setAttribute('aria-label', a.title.toLowerCase());
       var c = document.createElement('canvas'); c.width = 52; c.height = 52;
@@ -1808,8 +1816,8 @@
       b.addEventListener('click', function () { F.press(i); setTimeout(function () { fightPaint(true); }, 80); });
       ab.appendChild(b);
     });
-    var rest = A.list.length - mains.length, empty = Math.max(0, (rest ? 0 : 4));
-    if (!rest) { var n = el('div', 'none'); n.textContent = 'No skills on this man yet. A level brings a perk.'; ab.appendChild(n); }   /* draft:true */
+    var rest = theirs ? 0 : A.list.length - mains.length, empty = Math.max(0, (rest ? 0 : 4));
+    if (!rest && !theirs) { var n = el('div', 'none'); n.textContent = 'No skills on this man yet. A level brings a perk.'; ab.appendChild(n); }   /* draft:true */
     for (var k = 0; k < empty; k++) { var w = el('button', 'sk'); w.type = 'button'; w.disabled = true; w.setAttribute('aria-label', 'empty'); ab.appendChild(w); }
   }
 
@@ -1822,7 +1830,7 @@
   function manPaint(force) {
     var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F || !F.man) return;
     var M = F.man(), bars = [M.hp, M.arm, M.fat].map(function (b) { return b ? [b.w, b.c, b.n, b.l].join(',') : ''; });   /* b.l: __THE_LAST_HIT_ON_THE_CARD__ */
-    var key = [M.name, M.main, bars.join(';'), M.ap, M.apTurn, M.cls, M.round, M.full, (M.plate || []).join(','), (M.rounds || []).join('/') + (M.dry ? 'x' : '') + (M.out ? 'o' : '') + (M.carry || []).join('/'), M.faceKey].join('|');   /* the rounds: __THE_ROUNDS_ON_THE_CARD__ */
+    var key = [M.name, M.main, bars.join(';'), M.ap, M.apTurn, M.cls, M.round, M.full, (M.plate || []).join(','), (M.rounds || []).join('/') + (M.dry ? 'x' : '') + (M.out ? 'o' : '') + (M.carry || []).join('/'), M.faceKey, M.spent ? 's' : ''].join('|');   /* the rounds: __THE_ROUNDS_ON_THE_CARD__ */
     if (!force && key === H.manKey) return; H.manKey = key; var tPaint = performance.now();   /* __NEVER_CHOPPY__: what a card's repaint costs, for the frame walk */
     /* __NEVER_CHOPPY__ (FIGHT SCREEN THREE 11/26, VAMILY rule 480(c), measured on the slowed phone: a repaint cost 10 to 12 ms, nearly a whole frame,
        because every change, one bar's, repainted ALL of it: the face drawn again from the fight's canvas, the name written and measured (a layout
@@ -1843,8 +1851,8 @@
         if (lo) { var w0 = Math.max(0, Math.min(100, b.w)), lw = Math.max(0, Math.min(100 - w0, b.l || 0)); lo.style.left = w0 + '%'; lo.style.width = lw + '%'; lo.style.display = lw > 0.4 ? '' : 'none'; } }
     });
     var fa = hd.querySelector('.fap'), pp = fa.querySelector('.pp');
-    if (!was('ap', [M.cls, M.ap, M.apTurn].join('|'))) {
-      fa.classList.toggle('cls', !!M.cls);
+    if (!was('ap', [M.cls, M.ap, M.apTurn, M.spent].join('|'))) {
+      fa.classList.toggle('cls', !!M.cls); fa.classList.toggle('spent', !M.cls && !!M.spent);   /* __HIS_TURN_IS_SPENT_ON_THE_CARD__: his spent AP red on the beat */
       if (M.cls) fa.querySelector('em').textContent = M.cls;
       else {
         pp.textContent = ''; for (var k = 0; k < M.apTurn; k++) { var q = document.createElement('i'); if (k < M.ap) q.className = 'on'; pp.appendChild(q); }

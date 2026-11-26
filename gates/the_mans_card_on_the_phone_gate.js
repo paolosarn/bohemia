@@ -34,11 +34,17 @@
          not drawn again; the AP pips and the rounds are the same nodes); his AP moves: the pips again, the face not; the man changes: his face is
          drawn; the fight's card refreshed twice with nothing changed writes nothing at all (its AP pips the same nodes, the say line's place
          untouched, no attribute, style or node written: a MutationObserver over the bar reads 0)
+     P11 NOTHING TO PRESS ON THEIR TURN (FIGHT SCREEN THREE 11/26, rule 482): on a real turn of theirs the phone shows no big STRIKE or RELOAD
+         (it showed their man's weapon as his STRIKE) and no 'No skills on this man yet' note (about their man): four empty wells
+     P12 HIS TURN SPENT ON THE CARD (FIGHT SCREEN THREE 11/26): his AP spent to none, the card's AP row is spent and its empty pips go red on the
+         fight's beat (dark red and hot red both read across a beat); the fight's own OUT OF ACTION POINTS badge, under the phone below the
+         glass, is hidden (display none)
      planted: the two-line fit taken out (P2 red: the long name is cut)
      planted: the last hit's drawing taken out (P8 red)
      planted: the rounds' drawing taken out (P9 red)
      planted: the card painted whole on every change (NOCHOP_PLANT, the old way: P10 red)
-   Run: node gates/the_mans_card_on_the_phone_gate.js      (about six minutes: five boots of the demo) */
+     planted: their turn's row drawn as his (THEIRS_PLANT: P11 red)
+   Run: node gates/the_mans_card_on_the_phone_gate.js      (about seven minutes: six boots of the demo) */
 'use strict';
 const fs = require('fs'), path = require('path'), os = require('os'), { spawn } = require('child_process');
 const ROOT = path.join(__dirname, '..');
@@ -90,6 +96,10 @@ const run = (way, env) => new Promise((res) => { const out = fs.mkdtempSync(path
     return N.bar.draws === N.start.draws && N.bar.ppMarked === true && N.bar.rdMarked !== false && N.ap.draws === N.start.draws && N.ap.ppMarked === false
       && (!N.man2 || N.man2.draws > N.ap.draws) && N.fight.kept && N.fight.sayStyle && N.fight.writes === 0; };
   const ncSay = (T) => { const N = T.noChop || {}; return N.start ? 'face drawn ' + N.start.draws + ' -> a bar moved ' + (N.bar || {}).draws + ' (pips kept ' + (N.bar || {}).ppMarked + ', rounds kept ' + (N.bar || {}).rdMarked + ') -> his AP moved ' + (N.ap || {}).draws + ' (pips kept ' + (N.ap || {}).ppMarked + ') -> another man ' + (N.man2 || {}).draws + '; the fight\'s card refreshed twice unchanged: ' + (N.fight || {}).writes + ' writes ' + JSON.stringify((N.fight || {}).writesWhat || []) : 'not read'; };
+  const thOk = (T) => { const W0 = T.turns && T.turns.theirs; return !!W0 && W0.theirs && W0.big === 0 && !W0.bigShown && !W0.note && W0.live === 0; };
+  const spOk = (T) => { const P0 = T.turns && T.turns.spent; return !!P0 && P0.spent && (P0.beat || []).indexOf('rgb(224, 64, 46)') >= 0 && (P0.beat || []).indexOf('rgb(74, 20, 14)') >= 0 && P0.badge === 'none'; };
+  check(thOk(U) && thOk(S), 'P11', 'nothing to press on their turn: ' + W.map(w => w[0] + ' ' + JSON.stringify((w[1].turns || {}).theirs || null)).join(' | '));
+  check(spOk(U) && spOk(S), 'P12', 'his turn spent on the card: ' + W.map(w => w[0] + ' ' + JSON.stringify((w[1].turns || {}).spent || null)).join(' | '));
   check(ncOk(U) && ncOk(S), 'P10', 'never choppy, no work done twice: ' + W.map(w => w[0] + ' ' + ncSay(w[1])).join(' | '));
   check(!(U.errs || []).length && !(S.errs || []).length, 'errors', (U.errs || []).length + (S.errs || []).length + ' page errors');
   const P = await run('upright', { PLANT: '1' });
@@ -98,6 +108,8 @@ const run = (way, env) => new Promise((res) => { const out = fs.mkdtempSync(path
   check(!!PL && !!PL.lastHit && !lhOk(PL), 'planted', 'the last hit\'s drawing taken out: P8 reads ' + (PL && PL.lastHit ? 'health ' + PL.lastHit.hp.lost + ' of ' + PL.lastHit.want.hp : 'nothing') + ' (red)');
   const PR = await run('upright', { ROUNDS_PLANT: '1' });
   check(!!PR && !!PR.rounds && !rdOk(PR), 'planted', 'the rounds\' drawing taken out: P9 reads ' + (PR && PR.rounds && PR.rounds.full ? (PR.rounds.full.shown ? PR.rounds.full.lit + ' lit' : 'no cartridges') : 'nothing') + ' (red)');
+  const PT = await run('upright', { THEIRS_PLANT: '1' });
+  check(!!PT && !!PT.turns && !thOk(PT), 'planted', 'their turn\'s row drawn as his: P11 reads ' + JSON.stringify(PT && PT.turns ? PT.turns.theirs : null) + ' (red)');
   const PN = await run('upright', { NOCHOP_PLANT: '1' });
   check(!!PN && !!PN.noChop && !ncOk(PN), 'planted', 'the card painted whole on every change: P10 reads ' + (PN ? ncSay(PN) : 'nothing') + ' (red)');
   console.log('\nTHE MAN\'S CARD ON THE PHONE: ' + pass + ' passed, ' + fail + ' failed'); process.exit(fail ? 1 : 0);

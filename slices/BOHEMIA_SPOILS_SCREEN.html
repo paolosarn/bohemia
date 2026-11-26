@@ -127,6 +127,13 @@ html body #counts .count[data-count=tape]::before{background-image:url(supply_ic
 .slot span{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 0 #000}
 .slot em{position:absolute;right:4px;top:3px;font-style:normal;font-size:8px;color:var(--gold);text-shadow:0 1px 0 #000}
 /* what is left of a worn piece is a fill along the box's foot, not a number (rule 224); the number is a long press or a hover away */
+/* __THE_LOOT_READS__ (FIGHT SCREEN THREE 11/26, VAMILY rule 482: the end screen on its side): the picture gives way to the name, never the
+   name to the picture. Measured on the demo on its side: a 34 point picture in a 45 point tile squeezed the name to nothing (the axe, the
+   flail) or sliced it at the tile's floor ('door' half gone) */
+.slot > span:not(.cw){flex:0 0 auto;line-height:10px}
+.slot:has(> .cw){padding-bottom:8px}   /* a worn piece's bar has its own floor under the name, never across it */
+.slot img.pk,.slot canvas{flex:none;max-height:calc(100% - 12px);width:auto;object-fit:contain}   /* its height gives, its width follows: never squashed */
+.slot canvas{width:auto!important;height:auto!important;max-width:80%}   /* UI's icon sets its size inline: here the tile sets it, both sides together */
 .slot .cw{position:absolute;left:5px;right:5px;bottom:3px;height:3px;background:rgba(0,0,0,.65);border-radius:1px;overflow:hidden;pointer-events:none}
 .slot .cw i{display:block;height:100%;background:#8fb27a}
 .slot .cw.mid i{background:#d8a64a}.slot .cw.low i{background:#c0553c}

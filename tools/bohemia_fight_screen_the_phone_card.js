@@ -34,6 +34,8 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
     const rel = decodeURIComponent(u.slice(BASE.length).split('?')[0].split('#')[0]), f = path.join(ROOT, rel);
     if (OLD[rel]) return route.fulfill({ status: 200, body: OLD[rel], headers: { 'Content-Type': MIME[path.extname(rel)] } });
     if (process.env.LASTHIT_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("lo.style.display = lw > 0.4 ? '' : 'none';", "lo.style.display = 'none';"); if (cut === src) throw new Error('the last-hit plant did not take'); return route.fulfill({ status: 200, body: cut, headers: { 'Content-Type': 'text/javascript' } }); }
+    if (process.env.THEIRS_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("var theirs = A.whose === 'them';", "var theirs = false;");
+      if (cut === src) { log('THEIRS_PLANT DID NOT TAKE'); process.exit(1); } return route.fulfill({ status: 200, contentType: 'application/javascript', body: cut }); }   /* __NOTHING_TO_PRESS_ON_THEIR_TURN__'s plant */
     if (process.env.NOCHOP_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("var P = H.manSub = force || !H.manSub ? {} : H.manSub,", "var P = H.manSub = {},");
       if (cut === src) { log('NOCHOP_PLANT DID NOT TAKE'); process.exit(1); } return route.fulfill({ status: 200, contentType: 'application/javascript', body: cut }); }   /* __NEVER_CHOPPY__'s plant: every part painted on every change */
     if (process.env.ROUNDS_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("rd.style.display = R0 ? '' : 'none';", "rd.style.display = 'none';");
@@ -215,6 +217,27 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
     await f.evaluate((g) => { const u = FIGHT.byId(g.id); u.hp = g.hp; u.ap = g.ap; UI.pend = null; hud(); }, nc);
     log('NO CHOP', JSON.stringify(T.noChop));
   }
+  /* __NOTHING_TO_PRESS_ON_THEIR_TURN__ and __HIS_TURN_IS_SPENT_ON_THE_CARD__ (FIGHT SCREEN THREE 11/26, rule 482): the fight plays on by itself; on a
+     real turn of theirs the phone's wells are read (no big STRIKE, no 'No skills' note, every well empty); on his next turn his AP is
+     spent to none the way a turn ends, and the card's AP row is read (spent, red on the beat), the fight's own badge hidden under the phone */
+  const WELLS = () => page.evaluate(() => { const fi = document.querySelector('#bohphone .fight'); if (!fi) return null; const big = fi.querySelector('.abig');
+    return { theirs: fi.classList.contains('theirs'), big: big ? [...big.querySelectorAll('.bg')].length : -1, bigShown: !!big && !big.classList.contains('none') && getComputedStyle(big).display !== 'none',
+      note: !!fi.querySelector('.ab .none'), live: [...fi.querySelectorAll('.ab .sk')].filter(b => b.getAttribute('aria-label') !== 'empty').length, wells: fi.querySelectorAll('.ab .sk').length, head: (document.querySelector('#bohphone .fh b') || {}).textContent }; });
+  T.turns = { theirs: null, spent: null };
+  for (let i = 0; i < 300 && (!T.turns.theirs || !T.turns.spent); i++) {
+    const st = await f.evaluate(() => { const u = FIGHT.current(); return { over: !!FIGHT.S.over, dep: !!FIGHT.S.deploy, side: u ? u.side : null, mine: u ? crewControlled(u) && !UI.anim.length : false, id: u ? u.id : null }; }).catch(() => ({ over: true }));
+    if (st.over) break;
+    if (!T.turns.theirs && st.side === 'them' && !st.dep) { await wait(400); const w = await WELLS(); const still = await f.evaluate(() => { const u = FIGHT.current(); return !!u && u.side === 'them'; }).catch(() => false); if (still && w) { T.turns.theirs = w; await shot('8_phone_their_turn'); } }
+    if (!T.turns.spent && st.mine) {
+      await f.evaluate(() => { const u = FIGHT.current(); u.ap = 0; hud(); });
+      let got = null; for (let k = 0; k < 20 && !got; k++) { await wait(100); got = await page.evaluate(() => { const fa = document.querySelector('#bohphone .fh .fap'); return fa && fa.classList.contains('spent') ? { spent: true, pips: fa.querySelectorAll('.pp i').length } : null; }); }
+      if (got) { const reds = []; for (let k = 0; k < 8; k++) { reds.push(await page.evaluate(() => { const i = document.querySelector('#bohphone .fh .fap.spent .pp i:not(.on)'); return i ? getComputedStyle(i).backgroundColor : null; })); await wait(70); }
+        got.beat = [...new Set(reds)]; got.badge = await f.evaluate(() => { const o = document.getElementById('outap'); return o ? getComputedStyle(o).display : 'none'; }); await shot('9_phone_his_turn_spent'); }
+      T.turns.spent = got || { spent: false };
+    }
+    await wait(200);
+  }
+  log('TURNS', JSON.stringify(T.turns));
   T.errs = errs; fs.writeFileSync(path.join(OUT, 'phone_card.json'), JSON.stringify(T, null, 1));
   log('DONE', WHICH, WAY, BEFORE ? 'BEFORE' : '', 'page errors', errs.length, errs.slice(0, 2).join(' | '));
   await page.close(); await ctx.close(); await browser.close(); process.exit(0);
