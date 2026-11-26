@@ -1,3 +1,10 @@
+CAMP FOUR (camp-four-01gkdyuu): 11/26 LATEST -- BUILD 11/26l - THE CAMP COMES UP AT ONCE, BUILT, NOT YET SEEN (rule 480(b)(c) on 472(c)(e); ask rows 712, 728). Its block is handoffs/CAMP_THREE.md.
+On a slowed phone MAKE CAMP after a fight to the camp on the glass 7.26 -> 2.85 s and he watches the tents go up (was: a frozen picture, then the camp popped in whole);
+no frame over 100 ms while the camp stands (the phone's job board and the job plans no longer run under it); HEAL's picture 9.1-10.2 -> 7.5 s, its press 99 -> 7 ms; the
+moment's clock stands above the map's left buttons (EYES e03, e06). New gate HIT THE ROAD, EVERY TIME 13/0 (ten camps, one tap each). VOTE camp4-the-camp-comes-up-at-once-11-26.
+records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_UP_AT_ONCE_11_26_26.md. FOR PLUMBER 8 / COMBAT: HEAL's hidden fight page load. FOR UI FIVE: the HIT THE ROAD band 26 pt tall.
+[bb Battle Brothers: making camp is instant; ours shows it built on the fight's own ground]
+[analog horror: the tape pauses on the street you won, and the fire is already burning when it plays again]
 COOK FIVE (cook-six-01gkdyut): 11/26 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/26k - THE SWAP MEET, BUILT (80ce35a5f), NOT YET SEEN (rule 480(b); rules 461, 441, 416, 451(a), 455; ask row 723).
 THE SWAP MEET (COMBAT FOUR's BUILD 11/22zc, its 'FOR COOK (SIX)'; the first of the 27 insides COMBAT FOUR added since 11/21 with every piece a stand-in, the one he meets most: a
 cell in 31 of 40 valleys): all 189 pieces of the_covered_rows and 185 of the_food_court were stand-ins. Now slices/fight_ground/swapmeet/ holds swapmeet_art.json (THE GARAGE'S

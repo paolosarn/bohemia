@@ -1,3 +1,37 @@
+CAMP FOUR (camp-four-01gkdyuu, the camp lane's fourth chat; written only by this lane): 11/26 LATEST -- BUILD 11/26l - THE CAMP COMES UP AT ONCE,
+BUILT, NOT YET SEEN (rule 480(b)(c) on 472(c)(e); ask rows 712 and 728). Record: records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_UP_AT_ONCE_11_26_26.md.
+VOTE camp4-the-camp-comes-up-at-once-11-26. This lane schedules nothing and calls nothing that waits for a person (461(c) amended). Nothing
+new added (480(b)): every change is a cut in what was there.
+
+WHAT IS LIVE (the demo and the alpha, upright and on its side), each with its switch back:
+- MAKE CAMP after a fight is made through the map's own (MOTION-wrapped) campMake (the shell's spoilsCamp; __CAMP_MAKE_UNWRAPPED): the
+  map's 3-beat fade of the camp's screen no longer plays under the fight's held picture. The shell asks for the camp the next moment and
+  every 100 ms (__CAMP_ASK_SLOW).
+- Under MOTION's camp hold the map's zoom back out of a fight is not drawn (CITY_WORLD's fight-ended listener; __ZOOM_UNDER_CAMP).
+- The phone's job board waits while a camp stands or is being made off a fight (bohemia_phone_board.js campOver; __BOARD_UNDER_CAMP),
+  and the job planner's waiting plans wait while a camp stands (bohemia_job_danger.js planSlice; __PLANS_UNDER_CAMP).
+- The fight's board dealer keeps a block's kind (BOHEMIA_FIGHT.html kindOf, KIND_OF): 851 -> 32 ms of the jobs' plans at full speed.
+- HEAL: the press no longer draws the whole map inside the tap (btwCampIn; __CAMP_IN_RENDER_NOW): 99 -> 7 ms; once it kept him waiting
+  at his fire the camp comes up in one beat (btwTick; __CAMP_IN_SLOW_REST); the moment's clock stands above the map's SLEEP, STANDING
+  and packs' buttons (btwDraw, read once a moment).
+MEASURED (a slowed phone, 4x, the demo upright, from the real tap): after a fight the camp's first frame 4.83 -> 2.38 s, on the glass
+7.26 -> 2.85 s; the 941 ms and 382 ms freezes gone; no frame over 100 ms from 4.6 s of the set-up on. HEAL: the picture 9.1-10.2 -> 7.5 s.
+GATES: HIT THE ROAD, EVERY TIME (new, in the suite); THE CAMP IS SET UP ON THE BOARD's S1 re-aimed (one shot alike when the window holds
+fewer than eight); THE CAMP LOADS IN ONE GO's plant (last round's).
+
+FOR PLUMBER 8 AND COMBAT (472(e)): HEAL's camp is baked in a hidden fight page; loading it is most of the 7.5 s on a slowed phone (its
+script 212 ms, its data 588 ms in one piece, then 352 and 258 ms frames). A warm page or a bake that loads less of the fight is yours.
+FOR UI FIVE (ask row 728): the HIT THE ROAD band is 102 by 26 points upright and 92 by 23 on its side, under the 44 a thumb wants; his
+man's line above it (46 and 41 tall) is the bigger way back. The phone's rows are yours.
+FOR JOBS / WORLD: a job's plan is one piece of 50 to 90 ms at full speed (its routes through cityWalkable's three wrappers, regionRoute);
+the camp no longer pays it, the map still does on a new day or a changed crew.
+NOT DONE, NEXT: (1) HEAL's hidden page (above); (2) the shell's hand-over after a fight 274 ms and the camp's first draw 214 ms on a slowed
+phone; (3) the followers' carts (471) rolled in during the set-up; (4) from CAMP THREE's list: men leaning on the buildings by the camp's
+tiles, the carcass haul as its own act, the wreck as it lay.
+[bb Battle Brothers: making camp is instant; the company sits on the map and the days run. Ours shows it built on the fight's own ground,
+and the wait is the time it takes to put a fire down.]
+[analog horror: the tape pauses on the street you won, and the fire is already burning when it plays again.]
+
 CAMP FOUR (camp-four-01gkdyuu, the camp lane's fourth chat, rule 472; written only by this lane): 11/22 LATEST -- BUILD 11/22zzd - THE CAMP WAITS
 FOR YOU, BUILT, NOT YET SEEN (rules 472(a) to (d), 441, 448, 465, 467; ask rows 711 and 712). Record: records/BOHEMIA_CAMP_FOUR_THE_CAMP_WAITS_FOR_YOU_11_22_26.md.
 VOTE camp4-the-camp-waits-for-you-11-22. This lane schedules nothing and calls nothing that waits for a person (461(c) amended). No game line

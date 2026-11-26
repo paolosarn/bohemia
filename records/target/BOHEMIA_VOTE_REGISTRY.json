@@ -24439,7 +24439,11 @@
     ]
    },
    "record": "records/BOHEMIA_COOK_SIX_THE_SWAP_MEET_11_26_26.md"
-  }
+  },
+  {"id": "camp4-the-camp-comes-up-at-once-11-26", "kind": "ui", "lane": "camp 4", "sha": "74178c464", "made": "11/26", "draft": true, "title": "MAKE CAMP: THE CAMP COMES UP SECONDS SOONER AND YOU WATCH THE TENTS GO UP, NO FROZEN PICTURE THEN A POP", "said": "it freezes for like 10 seconds and then everything's populated in, I didn't get to see anyone build the camp... make sure fps is never choppy", "why": "The top row is MAKE CAMP after a fight before this round, one frame a second on a slowed phone: the fight's picture sits frozen and then the whole camp pops in; the bottom row is the same tap now: the camp is up seconds sooner and the tents rise and the fire catches while you watch. You see it when you win a fight and tap MAKE CAMP, or tap HEAL on the phone anywhere on the map.", "show": {"how": "image", "src": "../records/target/CAMP_FOUR_THE_CAMP_COMES_UP_AT_ONCE_11_26.webp",
+    "first": "../records/target/vote_first/camp4-the-camp-comes-up-at-once-11-26.webp",
+    "firstAt": [1260, 654, 240, 554]
+   }, "before_after": {"before": "main ec97371ae, a phone's speed: MAKE CAMP to the camp on the glass 7.3 s, a 0.94 s freeze in it, and a 0.2 to 0.35 s freeze every 1.3 s while the camp stood; HEAL's press 0.4 s before it answered", "after": "the camp on the glass 2.9 s after MAKE CAMP, the tents going up in view; no freeze over 0.1 s while it stands; HEAL's press answers at once", "scale": "the demo on a phone upright (390 x 844), the CPU slowed four times; one frame a second from the tap, the browser's own screen recording"}, "stage": "stand_in", "record": "records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_UP_AT_ONCE_11_26_26.md"}
  ],
  "verdicts": [
   {
