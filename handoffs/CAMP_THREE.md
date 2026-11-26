@@ -1,3 +1,37 @@
+CAMP FOUR (camp-four-01gkdyuu, the camp lane's fourth chat; written only by this lane): 11/26 LATEST -- BUILD 11/26zo - THE CAMP READS AT A GLANCE,
+BUILT, NOT YET SEEN (rule 482 on 472(b); 480(b)(c); ask rows 711 and 728). Record: records/BOHEMIA_CAMP_FOUR_THE_CAMP_READS_AT_A_GLANCE_11_26_26.md.
+VOTE camp4-the-camp-reads-at-a-glance-11-26. This lane schedules nothing and calls nothing that waits for a person (461(c) amended). Nothing
+new added (480(b), 482(d)): every piece dresses what the camp already does.
+
+WHAT IS LIVE (the demo and the alpha, upright and on its side), each with its switch back:
+- THEIR BARS AT A GLANCE (bohemia_camp_look.js; __CAMP_NO_BARS): the fight's two bars over each of his men (YOU too) while they mend,
+  the hour's gain eased in and shining; two men side by side, one's bars above; full at the stop, three seconds, then gone. Never the staff.
+- THE TAPE RUNS (bohemia_camp_look.js; __CAMP_NO_TAPE): the corner of the camp's glass: the arrows on the beat, the clock, '+N HOURS';
+  at the stop a square, STOP and EVERYONE WHOLE, three seconds, gone. Drawn once an hour.
+- THE HOURS ON THE GROUND (bohemia_camp_look.js; __CAMP_FLAT_SHADOWS): each man's shadow swings with the sun by day, away from the fire
+  by night, eased.
+- THE DUSK COMES OVER (SETTLEMENT campNightMix; __CAMP_HARD_NIGHT): 17:00 to 19:00 (and 05:00 to 07:00) the night's picture over the
+  day's, blended once a twentieth into one picture.
+- THE NIGHT LAID IN: the camp screen hands its picture slots as window.__SETTLE_PIC; the look's '+' swap (MOTION 3, 11/10) read
+  window.PIC, which the screen's scope never set, so it had never run.
+- THE PINCH FINDS A MAN (SETTLEMENT pinchStart/pinchMove; __CAMP_PINCH_PLAIN): the held point slides to the nearest man within 140 px.
+- THE DIGITAL ZOOM (SETTLEMENT draw; __CAMP_ZOOM_BLOCKY): past twice its pixels the camp's ground drawn softened; men sharp over it.
+- ROW 728: the town rest's long exposure (the frame walk's 'map > camp') at half size (SETTLEMENT restTrails; __TRAIL_FULL).
+MEASURED (4x, the demo, this box's software GPU): the look on and off, standing 4.4 and 5.1 fps (the box's spread), the same long tasks;
+mending through dusk 3.3 and 5.3 (2.3 before the dusk was baked). The page's own code did not grow.
+GATES: THE CAMP READS AT A GLANCE (new, in the suite, 15/0 upright and on its side).
+
+FOR UI FIVE (ask row 728): the way back to the map from a camp spends 246 ms of 4.2 s at 4x in bohemia_ui_nothing_pops.js check
+(checkVisibility over the page). The HIT THE ROAD band is still 102 by 26 points upright (from last round).
+FOR EYES: row 728's e09 was walked on 11/26j, before 11/26l moved the camp's clock above the whole left stack; walk it again.
+FOR PLUMBER 8 AND COMBAT (472(e), from last round): HEAL's camp is baked in a hidden fight page; loading it is most of HEAL's 7.5 s at 4x.
+NOT DONE, NEXT: (1) HEAL's hidden page (above); (2) the followers' carts (471) rolled in during the set-up; (3) from CAMP THREE's list: men
+leaning on the buildings by the camp's tiles, the carcass haul as its own act, the wreck as it lay; (4) a wounded man's bar could name his
+injury (the long ones, 30 to 40 days) once the fight hands injuries to the camp.
+[bb Battle Brothers: the company's bars are the first thing you read on any screen with men on it; ours carries the fight's own bars to
+the fire, and lets them go once there is nothing left to mend.]
+[analog horror: the tape fast-forwards through the hours, the shadows wheel round the men, and it stops on its own when they are whole.]
+
 CAMP FOUR (camp-four-01gkdyuu, the camp lane's fourth chat; written only by this lane): 11/26 LATEST -- BUILD 11/26l - THE CAMP COMES UP AT ONCE,
 BUILT, NOT YET SEEN (rule 480(b)(c) on 472(c)(e); ask rows 712 and 728). Record: records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_UP_AT_ONCE_11_26_26.md.
 VOTE camp4-the-camp-comes-up-at-once-11-26. This lane schedules nothing and calls nothing that waits for a person (461(c) amended). Nothing

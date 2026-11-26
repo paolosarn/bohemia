@@ -49,6 +49,13 @@ labels); the wardrobe's wide brim is DUST RANCHER HAT; GATE THE CONE HAT IS DEAD
 page's thread (__A_SHEET_DECODES_OFF_THE_FRAME__: 4 frames over 50 ms -> 0 on the engine at 4x, the town exit 316.7 -> 200 ms). Its block is
 handoffs/CHARACTER.md; records/BOHEMIA_CHARACTER_TWO_THE_CONE_COMES_OFF_11_26_26.md; VOTE character2-the-cone-comes-off-11-26.
 
+CAMP FOUR (camp-four-01gkdyuu): 11/26 LATEST -- BUILD 11/26zo - THE CAMP READS AT A GLANCE, BUILT, NOT YET SEEN (rule 482 on 472(b); ask rows 711, 728). Its block is handoffs/CAMP_THREE.md.
+In camp the fight's own two bars stand over each of his men while they mend, full at the stop, then gone; the tape's fast-forward in the corner counts the hours and reads
+STOP, EVERYONE WHOLE; the shadows swing with the hour; from five to seven the night comes over the day (and the night's picture now lays in: its swap had never run); two fingers
+in near a man end on him, the ground softened like a camcorder zoom. Row 728: the town rest's long exposure at half size. New gate THE CAMP READS AT A GLANCE 15/0.
+VOTE camp4-the-camp-reads-at-a-glance-11-26. records/BOHEMIA_CAMP_FOUR_THE_CAMP_READS_AT_A_GLANCE_11_26_26.md. FOR UI FIVE: camp > map spends 246 ms at 4x in nothing_pops check.
+[bb Battle Brothers: the company's bars are the first thing you read; ours carries them to the fire and lets them go]
+[analog horror: the tape fast-forwards through the hours and stops on its own when they are whole]
 CAMP FOUR (camp-four-01gkdyuu): 11/26 LATEST -- BUILD 11/26l - THE CAMP COMES UP AT ONCE, BUILT, NOT YET SEEN (rule 480(b)(c) on 472(c)(e); ask rows 712, 728). Its block is handoffs/CAMP_THREE.md.
 On a slowed phone MAKE CAMP after a fight to the camp on the glass 7.26 -> 2.85 s and he watches the tents go up (was: a frozen picture, then the camp popped in whole);
 no frame over 100 ms while the camp stands (the phone's job board and the job plans no longer run under it); HEAL's picture 9.1-10.2 -> 7.5 s, its press 99 -> 7 ms; the
