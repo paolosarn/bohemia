@@ -134,7 +134,7 @@ function walk(args, tag) {
 const nums = s => (String(s || '').match(/(?:a fight with|come to a fight with|: )(\d+) /g) || []).map(x => +x.match(/(\d+) $/)[1]);
 function judge(W, label) {
   const rows = [].concat(...W.walks.map(w => (w.rows || []).map(r => Object.assign({ shape: w.shape }, r)))), errs = [].concat(...W.walks.map(w => w.errs || []));
-  const bad = rows.filter(r => r.err || !r.done || !/^What it asks: /.test(r.asks || '') || !/\+\d+ FOLLOWERS\./.test(r.asks || '') || !(r.clout >= 100) ||
+  const bad = rows.filter(r => r.err || !r.done || !(r.asksLines && r.asksLines.length >= 1 && r.asksLines.every(l => l.length > 3)) || /FOLLOWERS|CLOUT/.test(r.asks || '')   /* JOBS 2 11/26 (rule 482, 466(c)): the card says each stop on its own line and no number of followers */ || !(r.clout >= 100) ||
     r.fights.some(f => !f.head || /^THE RAIDERS ARE DOWN$/.test(f.head)) || (r.kind !== 'find-person' && !r.fights.length));
   ok(label, rows.length === 10 && !bad.length, rows.map(r => (r.shape === 'phone_portrait' ? 'up ' : 'side ') + r.kind + ' ' + r.id + ': ' + (r.err ? 'ERR ' + r.err : (r.done ? 'paid ' + r.paid.paid : 'NOT PAID') + ' +' + r.clout + ' CLOUT, ' + r.fights.length + ' fights')).join(' | '));
   return { rows, errs };

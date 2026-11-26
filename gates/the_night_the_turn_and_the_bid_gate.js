@@ -115,7 +115,7 @@ function walk(args, tag) {
 }
 function judge(W, label) {
   const rows = [].concat(...W.walks.map(w => (w.rows || []).map(r => Object.assign({ shape: w.shape }, r)))), errs = [].concat(...W.walks.map(w => w.errs || []));
-  const bad = rows.filter(r => r.err || !r.done || !/^What it asks: /.test(r.asks || '') || r.fights.some(f => !f.head || /^THE RAIDERS ARE DOWN$/.test(f.head)) ||
+  const bad = rows.filter(r => r.err || !r.done || !(r.asksLines && r.asksLines.length >= 1)   /* JOBS 2 11/26 __THE_CARD_READS_CLEAN__: a stop a line */ || r.fights.some(f => !f.head || /^THE RAIDERS ARE DOWN$/.test(f.head)) ||
     (r.kind === 'night-watch' && (r.fights.length !== 2 || !(r.homeNew > 0))) || (r.kind === 'bid' && !(r.rival && r.rival.gone)) || (r.kind === 'turn' && !r.talks.length) || (r.kind === 'haul-caravan' && !r.fights.length));
   const boards = W.walks.map(w => w.board || {}), bb = boards.filter(b => !b.same);
   ok(label, rows.length === 8 && !bad.length && !bb.length, rows.map(r => (r.shape === 'phone_portrait' ? 'up ' : 'side ') + r.kind + ' ' + r.id + ': ' + (r.err ? 'ERR ' + r.err : (r.done ? 'paid ' + r.paid.paid : 'NOT PAID') + ', ' + r.fights.length + ' fights' + (r.rival ? ', rival ' + (r.rival.gone ? 'gone' : 'POSTED') : '') + (r.homeNew > 0 ? ', to his place' : ''))).join(' | ') +

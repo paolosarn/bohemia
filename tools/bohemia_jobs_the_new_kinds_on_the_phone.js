@@ -115,6 +115,7 @@ async function walk(shape) {
         await sf.evaluate(() => { const e = document.querySelector('#sheet .say .trip.asks'); if (e) e.scrollIntoView({ block: 'center', behavior: 'instant' }); });
         await page.waitForTimeout(700);
         row.asks = await sf.evaluate(() => document.querySelector('#sheet .say .trip.asks').textContent);
+        row.asksLines = await sf.evaluate(() => [...document.querySelectorAll('#sheet .say .trip.asks .st')].map(e => e.textContent));   /* JOBS 2 11/26 __THE_CARD_READS_CLEAN__: a stop a line */
         row.card = await shot(K.kind + '_card');
         await sf.evaluate(() => { const b = [...document.querySelectorAll('#sheet button')].filter(x => /^Take it/.test((x.textContent || '').trim()) && !x.disabled)[0]; if (b) b.setAttribute('data-yes', '1'); });
         if (!(await finger('#sheet button[data-yes="1"]'))) throw new Error('no Take it on the card');

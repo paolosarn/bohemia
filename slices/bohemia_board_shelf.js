@@ -135,7 +135,12 @@
   /* __A_READ_BOARD_STAYS_READ__: the town's screen says when his eyes are on a board (BohemiaSettlement's boardHere); the ids are what
      he read, kept for the window */
   function seen(name, ids, day) {
-    if (!SHELF || !name) return; var win = Math.floor((day || 0) / (SHELF.refresh_days || 3)), M = readGet(), m = M[name], camp = campaign();
+    if (!SHELF || !name) return;
+    /* JOBS 2 11/26 __THE_CARD_IS_INSTANT__ (ask row 730): the board he reads warms its people's cards (what each asks and the trip) in the
+       page's idle time, so a tap on a person opens the card at once (BohemiaJobKinds.warm, the map's) */
+    try { var JKw = (root.parent && root.parent !== root && root.parent.BohemiaJobKinds) || root.BohemiaJobKinds; if (JKw && JKw.warm) { var byId = {}; (SHELF.offers || []).forEach(function (o) { byId[o.id] = o; });
+      JKw.warm((ids || []).map(function (id) { return byId[id]; }).filter(Boolean), name); } } catch (e) {}
+    var win = Math.floor((day || 0) / (SHELF.refresh_days || 3)), M = readGet(), m = M[name], camp = campaign();
     if (m && m.win === win && m.camp === camp) return;   /* the first look is what he read */
     M[name] = { win: win, camp: camp, ids: (ids || []).slice() }; readPut(M); DEAL.key = null;
   }

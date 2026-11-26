@@ -14,7 +14,7 @@ const OUT = path.join(ROOT, arg('--out', 'records/target/JOBS_THE_NEW_KINDS.jpg'
 const rows = ((W.walks.filter(w => w.shape === 'phone_portrait')[0] || W.walks[0]).rows || []).filter(r => !r.err);
 const esc = t => String(t || '').replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
 const body = rows.map(r => '<div class="k">' + esc(r.word) + ' <span>' + esc(r.town) + (r.paid ? ', PAID ' + r.paid.paid + ' BATTERIES, +' + r.clout + ' CLOUT' : '') + '</span></div>' +
-  '<div class="a">' + esc(String(r.asks || '').replace(/^What it asks: /, '')) + '</div>' +
+  '<div class="a">' + ((r.asksLines && r.asksLines.length) ? r.asksLines.map(esc).join('<br>') : esc(String(r.asks || '').replace(/^What it asks: /, ''))) + '</div>' +
   (r.fights.length ? '<div class="f">' + r.fights.map(f => esc(f.head)).join('<br>') + '</div>' : '<div class="f">NO FIGHT: FOUND, WALKED HOME</div>')).join('');
 const html = '<!doctype html><meta charset="utf-8"><style>body{margin:0;background:#16130f;color:#e8dcc4;font:15px ui-monospace,Menlo,monospace;width:1240px;display:flex}' +
   '.l{width:430px;padding:20px}.l img{width:390px;border:2px solid #3a2f22}.r{flex:1;padding:24px 26px}h1{font-size:24px;margin:0 0 6px;color:#f0e2c2;letter-spacing:1px}' +

@@ -87,6 +87,8 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 .say p{margin:4px 0 0}
 .say .trip{margin:7px 0 0;color:var(--gold);font-size:11px;letter-spacing:.6px;line-height:1.4}   /* WORLD [a job says how far] */
 .say .trip.asks{color:var(--ink,#e8dcc4);opacity:.92;letter-spacing:.3px}
+.say .trip.asks .st{position:relative;padding-left:13px;margin-top:2px}   /* JOBS 2 __THE_CARD_READS_CLEAN__: a stop a line, a small mark before each */
+.say .trip.asks .st::before{content:'';position:absolute;left:2px;top:.62em;width:5px;height:5px;background:var(--gold);opacity:.75}
 .acts{display:flex;flex-direction:column;gap:6px;margin-top:12px}
 /* __HOME_BASE__ (HOME BASE 11/8, rule 437(b)): his own place's desk in BUILD: two columns so the sheet stays under half the glass (402) */
 .acts.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px;margin-top:4px}.acts.two .act{min-width:0;min-height:44px;padding:2px 7px;font-size:12px;flex-direction:column;align-items:flex-start;justify-content:center;gap:0}
@@ -5172,7 +5174,7 @@ function clientAct(o, full){
   var stN = Math.max(1, Math.min(3, o.skulls || 1)); try{ if(window.parent && window.parent.loopJobStars) stN = window.parent.loopJobStars(o); }catch(e){}
   var b = act(o.title, moneyWord(payShown(o.pay)), function(){ offerSpeak(o); }, full);
   /* WORLD [a job says how far]: how long, beside the pay, on the board's list too */
-  try{ var JK = window.parent && window.parent.BohemiaJobKinds, TR = (JK && JK.trip) ? JK.trip(o, S.place.name) : null, J = TR && TR.job, em0 = b.querySelector('em');
+  try{ var JK = window.parent && window.parent.BohemiaJobKinds, TR = (JK && JK.trip) ? (JK.tripCard ? JK.tripCard(o, S.place.name) : JK.trip(o, S.place.name)) : null, J = TR && TR.job, em0 = b.querySelector('em');   /* JOBS 2 __THE_CARD_IS_INSTANT__: the row and its card share one read */
     if(J && em0 && J.plays !== 'hold-defend'){ var tw = J.exact ? (J.total != null ? J.total : J.mins) : (J.totalHi != null ? J.totalHi : J.minsHi), h = tw / 60,   /* rule 222: there and back when he comes back to be paid */ sh = h < 1 ? 'UNDER 1 H' : h < 22 ? Math.round(h) + ' H' : (Math.round(h / 24 * 2) / 2) + (h < 36 ? ' DAY' : ' DAYS');
       /* WORLD 4 [a job's time is the truth] (rule 307): the job file's one rounding, the same words as the offer and the phone ('1 H 40', '1 DAY 7 H'); a range says its low and high */
       if(JK.shortTime){ sh = J.exact ? JK.shortTime(tw) : JK.shortTime(J.totalLo != null ? J.totalLo : J.minsLo) + ' TO ' + JK.shortTime(tw); }
@@ -5259,10 +5261,14 @@ function offerSpeak(o){
   var pp = document.createElement('p'); pp.textContent = o.says.replace(/\{pay\}/g, payShown(o.pay)); sy.appendChild(pp);
   /* WORLD [a job says how far] (rule 186(c), Paolo 10/25: 'every time a job is presented it should show how long it's going to take
      to get there'): the trip before the yes, the map's own road and clock on the job the yes would make (BohemiaJobKinds.trip) */
-  try{ var JK = window.parent && window.parent.BohemiaJobKinds, TR = (JK && JK.trip) ? JK.trip(o, S.place.name) : null;
-    if(TR && TR.words){ var tp = document.createElement('div'); tp.className = 'trip'; tp.textContent = TR.words; if(JK.payMarkHTML) tp.insertAdjacentHTML('afterbegin', JK.payMarkHTML(o)); sy.appendChild(tp); S.trip = TR; } }catch(e){}   /* WORLD 4: the mark first (rule 308) */
-  try{ var JA = window.parent && window.parent.BohemiaJobKinds, AK = (JA && JA.asks) ? JA.asks(o, S.place.name) : null;   /* __A_JOB_SAYS_WHAT_IT_ASKS__ (JOBS 11/11, rule 425): every stop and every fight, who and how many (the reader's own roll), the CLOUT, before the yes */
-    if(AK && AK.words){ var ak = document.createElement('div'); ak.className = 'trip asks'; ak.textContent = AK.words; sy.appendChild(ak); S.asks = AK; } }catch(e){}
+  try{ var JK = window.parent && window.parent.BohemiaJobKinds, TR = (JK && JK.trip) ? (JK.tripCard ? JK.tripCard(o, S.place.name) : JK.trip(o, S.place.name)) : null;   /* JOBS 2 __THE_CARD_IS_INSTANT__ */
+    if(TR && TR.words){ var tp = document.createElement('div'); tp.className = 'trip'; tp.textContent = JK.tripLine ? JK.tripLine(TR) : TR.words;   /* JOBS 2 __THE_CARD_READS_CLEAN__: where and about how long, beside its mark */ if(JK.payMarkHTML) tp.insertAdjacentHTML('afterbegin', JK.payMarkHTML(o)); sy.appendChild(tp); S.trip = TR; } }catch(e){}   /* WORLD 4: the mark first (rule 308) */
+  try{ var JA = window.parent && window.parent.BohemiaJobKinds, AK = (JA && JA.asks) ? (JA.asksCard ? JA.asksCard(o, S.place.name) : JA.asks(o, S.place.name)) : null;   /* JOBS 2 __THE_CARD_IS_INSTANT__ */   /* __A_JOB_SAYS_WHAT_IT_ASKS__ (JOBS 11/11, rule 425): every stop and every fight, who and how many (the reader's own roll), the CLOUT, before the yes */
+    if(AK && AK.words){ var ak = document.createElement('div'); ak.className = 'trip asks';
+      /* JOBS 2 11/26 __THE_CARD_READS_CLEAN__ (rule 482): each stop on its own line, a fight's who and how many with it; no sum, no number of followers */
+      if(AK.lines && AK.lines.length){ AK.lines.forEach(function(l){ var st = document.createElement('div'); st.className = 'st'; st.textContent = l; ak.appendChild(st); }); }
+      else ak.textContent = AK.words;
+      sy.appendChild(ak); S.asks = AK; } }catch(e){}
   try{ var VW = window.BohemiaJobPay ? BohemiaJobPay.violenceWord(o.id) : ''; if(VW){ var vw = document.createElement('div'); vw.className = 'trip blood'; vw.textContent = VW; sy.appendChild(vw); } }catch(e){}   /* ECONOMY 2 (rule 323 amended, ask line 321): killing work or walking pay, said */
   try{ var ST = standHere(); if(ST.word){ var sw = document.createElement('div'); sw.className = 'trip stand'; sw.textContent = ST.word; sy.appendChild(sw); } }catch(e){}   /* ECONOMY 2: the standing, said on the offer */
   w.appendChild(sy); body.appendChild(w);

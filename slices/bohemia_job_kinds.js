@@ -262,7 +262,45 @@
     var cl = cloutOf('civilian_contract_done') + Math.round(men * cloutOf('fight_won_per_enemy')) + places, CW = (root.BohemiaRenown && BohemiaRenown.WORD) || 'FOLLOWERS';   /* JOBS 2 __CLOUT_IS_FOLLOWERS__ */
     var words = 'What it asks: ' + stops.map(function (x, i) { return (i ? 'then ' : '') + x; }).join('; ') + '. ' +
       (sure ? sure + (sure === 1 ? ' fight' : ' fights') : 'No sure fight') + (choose ? ', ' + choose + ' if it comes to that' : '') + (maybe ? ', ' + maybe + ' maybe' : '') + '. Your name: about +' + cl + ' ' + CW + '.';
-    return { words: words, stops: stops, sure: sure, maybe: maybe, choose: choose, clout: cl, plays: job.plays };   /* draft:true */
+    /* JOBS 2 11/26 __THE_CARD_READS_CLEAN__ (rule 482, the coordinator: 'the job cards read cleaner... less clutter'; 466(c) and 470(b): the
+       numbers stay in the background): the card draws each stop on its own line, without the followers a place pays and without the sum
+       of fights it already lists; 'words' stays whole for the tools and the gates that read it */
+    var lines = stops.map(function (x) { var t = String(x).replace(/ \(\+\d+ [A-Z]+\)/g, ''); return t.charAt(0).toUpperCase() + t.slice(1); });
+    return { words: words, stops: stops, lines: lines, sure: sure, maybe: maybe, choose: choose, clout: cl, plays: job.plays };   /* draft:true */
+  }
+  /* ==== JOBS 2 11/26 __THE_CARD_IS_INSTANT__ (ask row 730, FOUND BY EYES on a phone slowed 4x: a job's row to its card 683 ms, a task of
+     608 ms; rule 480(c)). MEASURED (a CPU profile of the tap, the demo at 4x): the card plans the whole job and rolls every fight it names
+     to write what it asks (asks 311 ms: fightsFor 289, the plan 76) and plans it again for the trip. NOW the card's two reads are kept per
+     job and town for ten minutes of the map's clock, his block, the jobs he holds, his crew and his name (any of them moves: read again),
+     and a board read warms them for its people in the page's idle time, one a turn, so the tap finds them made. ==== */
+  var CARDM = { key: null, asks: {}, trip: {} }, WARMQ = [], WARMING = false;
+  function cardKey() {
+    var k = ''; try { k = ((nowMin() / 10) | 0) + '|' + city.x + ',' + city.y + '|' + (LOOP.held || []).map(function (j) { return j && j.id; }).join(',') + '|' +
+      (root.BohemiaJobDanger && BohemiaJobDanger.crewKey ? BohemiaJobDanger.crewKey() : '') + '|' + (root.BohemiaRenown ? BohemiaRenown.score() : 0) + '|' + day(); } catch (e) { k = null; }
+    if (k == null || k !== CARDM.key) CARDM = { key: k, asks: {}, trip: {} };
+    return k;
+  }
+  function asksCard(c, place) { if (!c || !c.id) return asks(c, place); cardKey(); var id = c.id + '@' + place; if (!CARDM.asks.hasOwnProperty(id)) CARDM.asks[id] = asks(c, place); else root.__CARD_HITS = (root.__CARD_HITS | 0) + 1; return CARDM.asks[id]; }
+  function tripCard(c, place) { if (!c || !c.id) return trip(c, place); cardKey(); var id = c.id + '@' + place; if (!CARDM.trip.hasOwnProperty(id)) CARDM.trip[id] = trip(c, place); return CARDM.trip[id]; }
+  function warm(offers, place) {
+    if (!DATA || !place) return; cardKey();
+    (offers || []).forEach(function (o) { if (o && o.id && !CARDM.asks.hasOwnProperty(o.id + '@' + place)) WARMQ.push([o, place]); });
+    warmNext();
+  }
+  function warmNext() {
+    if (WARMING || !WARMQ.length) return; WARMING = true;
+    var go = function () { WARMING = false; var e = WARMQ.shift(); if (e) { try { asksCard(e[0], e[1]); tripCard(e[0], e[1]); root.__CARD_WARMED = (root.__CARD_WARMED | 0) + 1; } catch (x) {} } warmNext(); };
+    setTimeout(function () { try { if (typeof root.requestIdleCallback === 'function') { root.requestIdleCallback(go, { timeout: 900 }); return; } } catch (x) {} go(); }, 80);
+  }
+  /* the trip as the card says it: where, and about how long (the mark beside it says paid there or come back) */
+  function tripLine(T) {
+    if (!T || !T.job) return T && T.words || null; var J = T.job, w = [];
+    if (T.toTown) w.push(String(T.place).toUpperCase() + ' first, ' + timeWords(T.toTown.mins));
+    if (J.home) w.push('home to ' + String(J.name || T.place).toUpperCase() + ', ' + timeWords(J.total));
+    else if (J.plays === 'hold-defend') w.push('at the gate' + (J.total >= 10 ? ', ' + timeWords(J.total) + ' to it' : '') + ', ' + (J.waves || 1) + (J.waves === 1 ? ' wave' : ' waves'));
+    else { var nm = J.name ? String(J.name).toUpperCase() : (J.plays === 'hunt-kind' ? 'where they roam' : (J.plays === 'patrol' ? 'round the posts' : 'the place'));
+      w.push(nm + ' \u00b7 ' + (J.exact ? timeWords(J.total != null ? J.total : J.mins) : timeWords(J.totalLo != null ? J.totalLo : J.minsLo) + ' to ' + String(timeWords(J.totalHi != null ? J.totalHi : J.minsHi)).replace(/^about /, ''))); }
+    return w.join('; then ');
   }
   /* the company's contract multiplier for a job of these skulls (the count partyMath deals over the skulls' base): what a hunt's kills scale by */
   function contractMult(sk) {
@@ -2259,7 +2297,7 @@
   root.BohemiaJobKinds = { load: load, set: set, ready: function () { return !!DATA; }, data: function () { return DATA; }, fightsOf: fightsOf,
     kindOf: kindOf, word: word, built: built, owns: owns, make: make, arrived: arrived, step: step, fightEnd: fightEnd,
     here: here, pace: pace, status: status, tap: tap, draw: draw, plural: plural, flash: flash, hits: function () { return HITS.slice(); }, plates: function () { return MINE.slice(); },
-    roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, trip: trip, asks: asks, plan: plan, comesBack: comesBack, payMarkHTML: payMarkHTML, payMark: markOf, walkRoute: walkRoute, walkGo: walkGo, walkOf: walkOf, timeWords: timeWords, shortTime: shortTime, rosterWhy: rosterWhy, rosterSays: rosterSays, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
+    roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, trip: trip, asks: asks, asksCard: asksCard, tripCard: tripCard, tripLine: tripLine, warm: warm, plan: plan, comesBack: comesBack, payMarkHTML: payMarkHTML, payMark: markOf, walkRoute: walkRoute, walkGo: walkGo, walkOf: walkOf, timeWords: timeWords, shortTime: shortTime, rosterWhy: rosterWhy, rosterSays: rosterSays, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
     drop: drop, dropCost: dropCost, standing: standing, settledTake: settledTake, settledPeek: settledQ, settleJob: settle, landTap: landTap,
     letGo: PACK_LETS_GO, beastPic: function (look) { return { im: beastImg(look), m: beastMeta(look) }; } };   /* WORLD 11: the pack's hold for the gate; a beast's own sheet for the kill on the map (slices/bohemia_carcass.js, WORLD 12) */
   load();
