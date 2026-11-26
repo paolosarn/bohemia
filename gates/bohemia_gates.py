@@ -9958,6 +9958,18 @@ GATES = [
      "phone shapes, upright and on its side: every piece's name whole (a 34 point picture in a 45 point tile squeezed it to nothing or sliced it "
      "at the floor), its picture inside, a worn piece's bar never across its name, the picture never over it (L1); no picture squashed (L2). "
      "Planted: the rules taken out, L1 red. Under a minute", True),
+    ('A WAY TO SAY NO', ['node', 'gates/a_way_to_say_no_gate.js'],
+     "FIXES 3 gate, 11/26, ask row 727 (FOUND BY EYES 11/26: five road offers where every answer cost); the second votes (nothing is "
+     "forced), VAMILY rules 32a, 482, 441. D1 every road card lets him say no (an answer that pays nothing, or a fight or a gamble in place "
+     "of paying), the five carry the road's own 'Walk on.'; P1 PLANTED without it the reader names exactly the five; G1 the demo upright, "
+     "the solar cart and the family at the door: three answers, 'Walk on.' whole on the glass, a real tap: the card gone within a second, "
+     "nothing after it, nothing spent; P2 PLANTED the five without it served to the demo (two answers, no way to say no, seen). About 2 min", True),
+    ('THE FINGER SETS THE BEAT', ['node', 'gates/the_finger_sets_the_beat_gate.js'],
+     "FIXES 3 gate, 11/26, ask row 726 (FOUND BY EYES 11/26 on a phone slowed 4x: the stall's 'tap it twice to buy' timed by when the page "
+     "handled the taps, so one double tap in three bought); VAMILY rules 480(c), 482, 441. Every 'tap it twice' in the town and the end "
+     "screen's loot timed by the finger (the click's own timeStamp). A slowed phone made on purpose (every click handled 500 ms late, "
+     "touches stamped 150 ms apart): B1 three double taps buy three rolls at the stall; B2 one tap or two 700 ms apart buy nothing; L1 "
+     "three double taps on the end screen take three pieces; P1 PLANTED the old clock (at most one each, seen). About 2 min", True),
     ('LEAVE WAITS FOR THE SCREEN', ['node', 'gates/leave_waits_for_the_screen_gate.js'],
      "FIXES 3 gate, 11/26, VAMILY rule 480(b) (improve what is already in the game), rule 441 on the glass; ask rows 697 and 722. MEASURED: "
      "a tap on the end screen's LEAVE before the screen had opened on the fight (its tables still in flight) went home at once, the summary "

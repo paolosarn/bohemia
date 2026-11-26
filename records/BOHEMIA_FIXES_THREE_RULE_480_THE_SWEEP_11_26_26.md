@@ -129,3 +129,52 @@ After BUILD 11/26f went live (its pages run SUCCESS), RUN TWO's reds on the debt
 All four struck from gates/BOHEMIA_QUARANTINE.txt: THE RED DEBT 398 to 394 NAMED, 310 LEFT (they were FILED on row 675), the ratchet and
 the front page written with the same numbers (THE RED DEBT ONLY SHRINKS 4/0). Still red, in systems held this round: THE BOARD'S
 QUESTS ARE PEOPLE (the jobs) and SETTLEMENT SCREEN (the places).
+
+## 6. THE FINGER SETS THE BEAT (ask row 726, FOUND BY EYES 11/26 on a phone slowed 4x; the coordinator's routine 'FIXES 3: rule 482 next rows')
+
+EYES MEASURED: the stall's 'Tap it twice to buy' timed the two taps by when the page HANDLED them (stallTap's performance.now(), a 450 ms
+beat); at 4x three quick double taps 150 ms apart were handled 510, 440 and 473 ms apart: one bought, two did nothing.
+THE SAME CLOCK, FIVE PLACES: the town's shop (shopPick), the stall (stallTap), the stall's gear (stallGearTap), the trade goods
+(tradeTap) and the end screen's loot ('tap it twice to take it'). All five now read fingerAt(e): the click's own timeStamp (the browser's
+input clock, the same clock as performance.now(), stamped when the finger lifted), for a real tap; a click made by code keeps
+performance.now(), so nothing that clicks in code changes (slices/BOHEMIA_SETTLEMENT_SCREEN.html and slices/BOHEMIA_SPOILS_SCREEN.html,
+__THE_FINGER_SETS_THE_BEAT__).
+WHY THE CLICK'S OWN STAMP, NOT THE LAST POINTERDOWN: measured with four touches stamped 150 ms apart on a page that stalls 300 ms a touch:
+the pointerdowns kept their stamps (172, 322, 472, 622) while handled 300 ms apart, and all four clicks came in one bunch at the end,
+each still carrying its own finger's time (212, 362, 512, 662). One 'last finger down' slot would hand the fourth finger's time to the
+first click; each click's own stamp pairs right.
+GATE THE FINGER SETS THE BEAT (new, in the suite) 5/0: the slowed phone made on purpose (every click handled 500 ms late, touches stamped
+150 ms apart by the phone's clock): B1 three double taps on the tape roll buy three rolls; B2 one tap buys nothing, two taps 700 ms apart
+buy nothing; L1 three double taps on the end screen take three pieces; P1 PLANTED the old clock: 0 bought, 0 taken (the bug, exactly).
+REGRESSIONS (each alone on this tree): THE SHOP TAPS 9/0, TAPE AT EVERY STALL 8/0, ONE TAP TO SEE, ONE TAP TO DO 16/0, OPTIMIZE LOOT 22/0,
+LOOT KEPT 9/0, EACH SLOT ITS OWN PICTURE 29/0, ONE HAND OR TWO 25/0. Red the same on clean main (an A/B with this round's changes set
+aside): THE STALL BUYS AND SELLS 12/2 (P1 clear of the phone), TRADE FIT 8 failed, WHAT YOU BUY GOES ON THE MAN (10/2 on main, 11/1 here),
+THE SHOP SAYS WHAT IT DOES 9/1, THE SMITH MENDS 6/2. TRADE GOODS CARRIED L7 (the phone) is a flake on its debt line since 11/10: it reads
+the map's town marks once, 800 ms after the crew screen closes; it failed four runs and passed one on this tree, passed on main, and a
+look at the moment it fails shows no road card met or chosen and the marks there a beat later (the map's repaint, not a tap).
+
+## 7. A WAY TO SAY NO (ask row 727, FOUND BY EYES 11/26; the second votes: nothing is forced; rule 32a)
+
+EYES MEASURED: on the road the man with a shopping cart ('FOR YOUR PLACE') offered only 'Pay him ten batteries' or 'Trade him four nights
+of food'; in the road's data every answer cost something on five offers: the solar cart, the family at the door, the leaderless, the freed
+cooks, the good price. Read across all 81 cards: twelve have no answer that pays nothing, and seven of those are fair dilemmas (pay or
+fight: the drone's owners, the radio keeper, the rival crew, the brother; a gamble: the swollen cans, the underpass, the word from home;
+the last canteen's 'Let them settle it' pays nothing). EYES' five are the only offers with no way out.
+THE FIX, DATA ONLY: the five carry the road's own standing words 'Walk on.' (on 11 cards already; rule 454(a): no new line), an answer that
+changes nothing (records/target/BOHEMIA_ROAD_EVENTS.json, each with its 'why'). The road's page already lets such an answer go at once
+(__A_QUIET_EVENT_IS_A_POST__: its '...' is no post and the march goes on), so nothing in the page changed (a close added for it was
+measured redundant and taken back out, rule 482(c)).
+GATE A WAY TO SAY NO (new, in the suite) 5/0: D1 every one of 81 cards lets him say no (a free answer, or a fight or a gamble in place of
+paying); P1 PLANTED the five without it, the reader names exactly the five; G1 the demo upright, the solar cart and the family at the door
+on the glass: three answers, 'Walk on.' whole, a real tap: the card gone within a second, nothing after it, 0 batteries and 0 food spent;
+P2 PLANTED the five without it served to the demo: two answers on the glass, no way to say no, seen.
+WORLD 14'S OWN CHECKER RE-AIMED (THE ROAD KNOWS HIS PLACE, gates/the_road_knows_his_place_gate.js): K1 held 'the 11/11 twelve every choice
+costs something, the 11/14 twelve every choice does something', WORLD 14's design for its rows (Battle Brothers: a real cost or gain),
+not a ruling of his; his second votes (9/23, LOCKED: nothing is forced) and row 727 stand over it. K1 now lets a card carry ONE answer that
+changes nothing at all (its fx empty) and still reds a free gift (its plant P1, kept and caught) and a card of two nothings. Its P3 read
+'the same gift again' off the last gift ever given, so the solar cart's 'Walk on.' (tapped after its second choice gave the panel again)
+read as a gift: it now reads that flag only when the tap itself gave one.
+RE-RUN AFTER THE RE-AIM: THE ROAD KNOWS HIS PLACE green (every leg, K4's five plants caught), 842 s alone on this box (past the 600 s cap:
+its own length, before this change too; for its owner). THE PLACES GET THEIR USE 0 red. TWELVE MORE ON THE ROAD: its E1 reads the new
+answers fine ('every choice real or the one way out', 12 rows, E5's five plants caught); its P1 (THE DIRECTOR: a step past the first
+minute fires a card, 'fired false') is red the same with this round's data set aside (an A/B on this box), not this change.

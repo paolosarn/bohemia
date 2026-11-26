@@ -1,7 +1,27 @@
 # FIXES TWO -- the handoff block (written only by FIXES TWO, newest first; the heir of FIXES, whose blocks stay in handoffs/FIXES.md)
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 # FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
-FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/26 (e) LATEST -- [RUN's old reds] no build (gates and the debt only): four of RUN TWO's
+FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/26 (f) LATEST -- [726, 727] BUILD 11/26v - THE FINGER SETS THE BEAT, A WAY TO SAY NO,
+BUILT, NOT YET SEEN: the coordinator's routine 'FIXES 3: rule 482 next rows' (726, 727, then 736, 737). Record: the same record, sections 6, 7.
+WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link):
+- 726 every 'tap it twice' (a town's shop, stall, the stall's gear, the trade goods, the end screen's loot) answers a quick double tap on a
+  slow phone: each tap is timed by its own finger (the click's timeStamp), not by when the page got to it. slices/BOHEMIA_SETTLEMENT_SCREEN.html
+  and slices/BOHEMIA_SPOILS_SCREEN.html fingerAt, __THE_FINGER_SETS_THE_BEAT__.
+- 727 the five road offers that only cost (the solar cart, the family at the door, the leaderless, the freed cooks, the good price) have a
+  third answer, 'Walk on.' (the road's own standing words, on 11 cards already), that costs nothing and closes the card. Data only
+  (records/target/BOHEMIA_ROAD_EVENTS.json); the road's page already lets an empty answer go at once.
+PROVEN (rule 441): THE FINGER SETS THE BEAT 5/0 (new; a slowed phone made on purpose: 3 of 3 bought, 3 of 3 taken; PLANTED the old clock 0
+and 0); A WAY TO SAY NO 5/0 (new; all 81 cards read, a real tap on the glass, both plants); THE ROAD KNOWS HIS PLACE green after its K1 and
+P3 were re-aimed (WORLD 14's 'every choice costs' was its design, his 'nothing is forced' stands over it; 842 s alone, past the cap, its own
+length); LEAVE WAITS 5/0, THE LOOT READS 4/0 on the rebased tree; THE SHOP TAPS 9/0, TAPE AT EVERY STALL 8/0, ONE TAP TO SEE 16/0,
+OPTIMIZE LOOT 22/0, LOOT KEPT 9/0, EACH SLOT ITS OWN PICTURE 29/0, ONE HAND OR TWO 25/0. Red the same on clean main (A/B): THE STALL BUYS
+AND SELLS 12/2, TRADE FIT, WHAT YOU BUY GOES ON THE MAN, THE SHOP SAYS WHAT IT DOES 9/1, THE SMITH MENDS 6/2, TWELVE MORE ON THE ROAD's P1;
+TRADE GOODS CARRIED L7 a flake (the map's marks read once, 800 ms after the crew screen closes).
+736 LEFT WITH COMBAT FOUR (the fight must answer what it deals at a spot; its deal is inside the fight's page, nothing exposed).
+NEXT (if woken): 737, the crowded job board 20 px past its sheet (FIXES' own row-533 rules in slices/bohemia_ui_no_scroll.js: measure what
+takes the room at ns-d3, then a deeper step); then EYES' and PLUMBER 8's new rows.
+
+FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/26 (e) -- [RUN's old reds] no build (gates and the debt only): four of RUN TWO's
 reds on row 675 are green alone on main and struck (THE RED DEBT 398 to 394 NAMED, 310 LEFT): THE SAVE COMES BACK THE SAME 22/0, A
 TWO-HANDER WEARS ITS OWN NAME 8/0, THE MAP ANSWERS AFTER BEGIN 12/0, TAPE AT EVERY STALL 8/0 (S1 re-aimed to rule 452, dearest first).
 11/26f (the block below) is LIVE (pages SUCCESS on 2f15c5dcc). Record: the same record, section 5.

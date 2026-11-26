@@ -756,6 +756,19 @@ function iconTile(it, onTap, sub, money){
    shelf; ONE TAP lights a piece's box and fills the strip in place, nothing else moves; TWO TAPS (a double click, a right click on a
    computer) buy it onto the man the strip names, or sell his own piece; a piece better for one of his men than what he has in that
    slot wears a green mark, and its tap names the man it helps most first. The buy and the sell are the shop's own, unchanged. ==== */
+/* ==== __THE_FINGER_SETS_THE_BEAT__ (FIXES 3 11/26, ask row 726, FOUND BY EYES 11/26 on a phone slowed 4x; rules 480(c), 482, 441): every
+   'tap it twice' here (the shop, the stall, the stall's gear, the trade goods) was timed by when the page HANDLED each tap
+   (performance.now()), so on a slow phone two taps 150 ms apart were handled 440 to 510 ms apart and one double tap in three bought
+   nothing. A tap is now timed by the finger: the click's own timeStamp (the browser's input clock, the same clock as performance.now(),
+   stamped when the finger lifted, however late the page handles it), for a real tap. A click made by code (a checker's element.click())
+   keeps the old clock, so nothing that clicks in code changes. ==== */
+function fingerAt(e){   /* a real tap's own time: the browser stamps each click with the moment its finger lifted (measured 11/26: four
+     taps stamped 150 ms apart on a page that stalled 300 ms a touch were handled 300 ms apart and their clicks came in one bunch, each
+     still carrying its own finger's time); a click made by code, or a time off the page's clock, keeps performance.now() */
+  var now = performance.now();
+  return e && e.isTrusted && e.timeStamp > 0 && e.timeStamp <= now + 1 && now - e.timeStamp < 5000 ? e.timeStamp : now;
+}
+window.__FINGER_AT = fingerAt;   /* a checker's look */
 var SHOPTAP = {it:null, t:0};
 function shopSelIt(k){ var sl = S.shopSel; return sl && sl.k === k ? sl : null; }
 /* ==== __DEAREST_FIRST__ (UI THREE 11/14, VAMILY rule 452, ask row 626; Paolo 11/14: 'I want all shops to display their items
@@ -797,8 +810,8 @@ function shelfView(k){
 function shopUpFor(it){ var crew = shopCrew(); if(!crew.length || !window.BohemiaRoster || it.yours) return null;   /* his own, sold here: it goes back to the bag, never marked */ var best = null, bv = 0;
   crew.forEach(function(m){ var w = null; try{ w = shopWearOn(m, it); }catch(e){} if(!w || w.stops || (w.was && w.was === it.id)) return; var v = headline(w, it.kind); if(v > bv + 1e-6){ bv = v; best = m; } });
   return best ? {man:best, by:bv} : null; }
-function shopPick(k, it, from){
-  var now = performance.now(), twice = SHOPTAP.it === it && now - SHOPTAP.t < 450;
+function shopPick(k, it, from, e){
+  var now = fingerAt(e), twice = SHOPTAP.it === it && now - SHOPTAP.t < 450;
   SHOPTAP.it = it; SHOPTAP.t = now;
   if(!(S.shopSel && S.shopSel.it === it)){ S.shopSel = {k:k, it:it, from:from}; S.shopSaid = null; if(from === 'shelf'){ var up = shopUpFor(it); if(up) S.shopMan = up.man.name; } }
   if(twice){ SHOPTAP.it = null; shopDo(k); return; }
@@ -897,7 +910,7 @@ function shopStripFill(k, el){
   }
 }
 function shopTile(k, it, from, sub, money){
-  var tile = iconTile(it, function(){ shopPick(k, it, from); }, sub, money);
+  var tile = iconTile(it, function(e){ shopPick(k, it, from, e); }, sub, money);
   if(it){ tile.__it = it; tile.dataset.id = it.id;
     tile.addEventListener('contextmenu', function(e){ e.preventDefault(); S.shopSel = {k:k, it:it, from:from}; if(from === 'shelf'){ var up = shopUpFor(it); if(up) S.shopMan = up.man.name; } shopDo(k); });   /* a right click on a computer is the double tap (Battle Brothers') */
     if(S.shopSel && S.shopSel.it === it) tile.classList.add('sel'); }
@@ -1566,7 +1579,7 @@ function stallBox(row, side, x){
   if(x.p != null && (side === 'buy' || x.k)){ var bi = document.createElement('img'); bi.src = 'supply_icons/batteries.png'; bi.alt = ''; pr.appendChild(bi); pr.appendChild(document.createTextNode((side === 'sell' ? '+' : '') + x.p)); }
   b.appendChild(pr);
   b.setAttribute('aria-label', (side === 'buy' ? (x.back ? 'Buy back ' : 'Buy ') : (x.back ? 'Sell back ' : 'Sell ')) + unitWord(row.good, x.k) + (x.p != null ? ', ' + moneyWord(x.p) : ''));
-  b.addEventListener('click', function(){ stallTap(row.key, side, false); });
+  b.addEventListener('click', function(e){ stallTap(row.key, side, false, e); });
   b.addEventListener('contextmenu', function(e){ e.preventDefault(); stallTap(row.key, side, true); });   /* Battle Brothers' right click */
   return b;
 }
@@ -1580,9 +1593,9 @@ function stallLine(row){
   ln.appendChild(l); ln.appendChild(stallBox(row, 'buy', s.buy)); ln.appendChild(stallBox(row, 'sell', s.sell));
   return ln;
 }
-function stallTap(key, side, now1){
+function stallTap(key, side, now1, e){
   var row = stallRowOf(key); if(!row) return;
-  var id = key + ':' + side, now = performance.now(), twice = now1 || (STALLTAP.key === id && now - STALLTAP.t < 450);
+  var id = key + ':' + side, now = fingerAt(e), twice = now1 || (STALLTAP.key === id && now - STALLTAP.t < 450);
   STALLTAP.key = id; STALLTAP.t = now;
   if(!(S.stallSel && S.stallSel.id === id)){ S.stallSel = {id:id, key:key, side:side, at:now}; S.stallSaid = null; }
   if(twice){ STALLTAP.key = null;
@@ -1680,14 +1693,14 @@ function stallGearLines(){
     var cap = document.createElement('small'); cap.textContent = 'SELL'; b.appendChild(cap);
     var pr = document.createElement('span'); pr.className = 'sp'; var bi = document.createElement('img'); bi.src = 'supply_icons/batteries.png'; bi.alt = ''; pr.appendChild(bi); pr.appendChild(document.createTextNode('+' + p)); b.appendChild(pr);
     b.setAttribute('aria-label', 'Sell the ' + nm + ', ' + moneyWord(p));
-    b.addEventListener('click', function(){ stallGearTap(x.i, it, false); });
+    b.addEventListener('click', function(e){ stallGearTap(x.i, it, false, e); });
     b.addEventListener('contextmenu', function(e){ e.preventDefault(); stallGearTap(x.i, it, true); });
     ln.appendChild(b); w.appendChild(ln);
   });
   return w;
 }
-function stallGearTap(i, it, now1){
-  var now = performance.now(), twice = now1 || (STALLGEAR.i === i && now - STALLGEAR.t < 450);
+function stallGearTap(i, it, now1, e){
+  var now = fingerAt(e), twice = now1 || (STALLGEAR.i === i && now - STALLGEAR.t < 450);
   STALLGEAR.i = i; STALLGEAR.t = now; S.stallSel = null;
   if(twice && S.stash[i] === it){ STALLGEAR.i = -1; STALLGEAR.sel = -1;
     var p = stallGearPays(it); P.credit(S.purse, 'electricity', p, 'stall:sell:' + it.id, S.place.name, S.day);
@@ -1750,7 +1763,7 @@ function tradeBox(row, side, x){
   if(x.p != null && !nosale){ var bi = document.createElement('img'); bi.src = 'supply_icons/batteries.png'; bi.alt = ''; pr.appendChild(bi); pr.appendChild(document.createTextNode((side === 'sell' ? '+' : '') + x.p)); }
   b.appendChild(pr);
   b.setAttribute('aria-label', (side === 'buy' ? (x.back ? 'Buy back ' : 'Buy ') : (x.back ? 'Sell back ' : 'Sell ')) + tradeWord(row.g, 1) + (x.p != null && !nosale ? ', ' + moneyWord(x.p) : ''));
-  b.addEventListener('click', function(){ tradeTap(row.key, side, false); });
+  b.addEventListener('click', function(e){ tradeTap(row.key, side, false, e); });
   b.addEventListener('contextmenu', function(e){ e.preventDefault(); tradeTap(row.key, side, true); });   /* Battle Brothers' right click */
   return b;
 }
@@ -1770,9 +1783,9 @@ function tradeLines(){
   dearVisit('trade', R, function(r){ return r.key; }, function(r){ var x = tradeSides(r); return x.buy && x.buy.p != null ? x.buy.p : x.sell && x.sell.p; }, function(){ return 0; }).forEach(function(r){ w.appendChild(tradeLine(r)); });   /* __DEAREST_FIRST__, kept for the visit */
   return w;
 }
-function tradeTap(key, side, now1){
+function tradeTap(key, side, now1, e){
   var row = tradeRowOf(key); if(!row) return;
-  var id = key + ':' + side, now = performance.now(), twice = now1 || (TRADETAP.key === id && now - TRADETAP.t < 450);
+  var id = key + ':' + side, now = fingerAt(e), twice = now1 || (TRADETAP.key === id && now - TRADETAP.t < 450);
   TRADETAP.key = id; TRADETAP.t = now; STALLGEAR.sel = -1;
   if(!(S.stallSel && S.stallSel.id === id)){ S.stallSel = {id:id, key:key, side:side, at:now}; S.stallSaid = null; }
   if(twice){ TRADETAP.key = null; return tradeDo(row, side); }

@@ -66,7 +66,11 @@ function rowsBad(list) {
       else if (!/^(home|home_blocks|boss|boss_place|boss_blocks|job|job_from|job_pay|deed_town|man|man_look|man_bg|town)$/.test(k)) why.push(p + ' nobody fills'); });
     opts.forEach((o, i) => {
       const fx = o.fx || {};
-      if (NEXT12.indexOf(e.id) >= 0 ? !costs(fx) : !realFx(fx)) why.push('choice ' + (i + 1) + (NEXT12.indexOf(e.id) >= 0 ? ' costs nothing' : ' does nothing'));
+      /* RE-AIMED FIXES 3 11/26 (ask row 727, FOUND BY EYES 11/26; Paolo's second votes 9/23, NOTHING IS FORCED; rule 32a): a card may carry
+         ONE way to say no, an answer that changes nothing at all (its fx empty: the road's own 'Walk on.'); every other answer still costs
+         something (the 11/11 twelve) or does something (the 11/14 twelve). A free gift (P1's plant) is not a way to say no and stays red */
+      const sayNo = !Object.keys(fx).length;
+      if (!sayNo && (NEXT12.indexOf(e.id) >= 0 ? !costs(fx) : !realFx(fx))) why.push('choice ' + (i + 1) + (NEXT12.indexOf(e.id) >= 0 ? ' costs nothing' : ' does nothing'));
       const walk = (x) => { if (!x) return;
         if (x.fight) { if (!FOES.has(x.fight.foe)) why.push('foe ' + x.fight.foe); walk(x.fight.win); walk(x.fight.lose); }
         if (x.chance) { walk(x.chance.yes); walk(x.chance.no); }
@@ -77,6 +81,7 @@ function rowsBad(list) {
       };
       walk(fx);
     });
+    if (opts.filter(o => !Object.keys(o.fx || {}).length).length > 1) why.push('more than one answer that changes nothing');   /* one way to say no, never a card of nothings */
     if (e.draft !== true) why.push('not draft');
     if (why.length) bad.push(e.id + ': ' + why.join(', '));
   });
@@ -233,7 +238,7 @@ async function page(alpha, profile, full) {
               const hs0 = HM.state(), sg = S.boss.sign, ev = BohemiaRoadEvents.data().events.events.find(q => q.id === id), dt = ev && ev.needs && ev.needs.deed ? (RM.ctx(ev.needs) || {}).deed_town : null, d0 = loopDay();
               const b4 = { bats: loopBats(), food: (wagonGet() || {}).food | 0, men: RM.men().map(m => m.name), mins: loopDay() * 1440 + (DAY.min | 0), fights: window.__ROADEV_FIGHTS | 0,
                 lost: JSON.stringify((C.get() || {}).men || {}), things: (hs0.things || []).length + (hs0.waiting || []).length + (hs0.residents || []).length, moods: window.__MOODS.length,
-                found: Object.keys(S.boss.found || {}).length, hid: sg && sg.boss ? fogHides(sg.boss.x, sg.boss.y) : null };
+                found: Object.keys(S.boss.found || {}).length, hid: sg && sg.boss ? fogHides(sg.boss.x, sg.boss.y) : null, giftsN: (RM.gifts || []).length };
               const R0 = Math.random; Math.random = () => r; let tapped = false;
               try { RE.fire(id); await new Promise(z => setTimeout(z, 620)); /* FIXES 2 11/14 (ask row 611): a card takes no press in its first beat (500 ms); this press was at 300 */ const b = document.querySelectorAll('#roadcard button')[oi];
                 if (b && !b.disabled) { b.dispatchEvent(new PointerEvent('pointerup', { bubbles: true })); tapped = true; } } finally { Math.random = R0; }
@@ -246,7 +251,7 @@ async function page(alpha, profile, full) {
                 joined: RM.men().map(m => m.name).filter(n => b4.men.indexOf(n) < 0), fought, won,
                 wounds: Object.keys(L1).filter(k => (+L1[k].lostHp || 0) > (+((L0[k] || {}).lostHp) || 0)),
                 gifts: (hs1.things || []).length + (hs1.waiting || []).length + (hs1.residents || []).length - b4.things,
-                found: Object.keys(S.boss.found || {}).length - b4.found, out: sg && sg.boss ? !fogHides(sg.boss.x, sg.boss.y) : null, again: !!((RM.gifts || []).slice(-1)[0] || {}).again,
+                found: Object.keys(S.boss.found || {}).length - b4.found, out: sg && sg.boss ? !fogHides(sg.boss.x, sg.boss.y) : null, again: (RM.gifts || []).length > b4.giftsN && !!((RM.gifts || []).slice(-1)[0] || {}).again,   /* RE-AIMED FIXES 3 11/26: 'the same gift again' read only when THIS tap gave one (the last gift's flag stood over the next card's 'Walk on.', row 727) */
                 moods: window.__MOODS.slice(b4.moods), dt, crossed: loopDay() !== d0 };
               try { RE.close(false); } catch (e) {} try { loopClose(); } catch (e) {}
               return res;

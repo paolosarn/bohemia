@@ -330,6 +330,16 @@ var C = window.BohemiaRoster, SP = window.BohemiaSpoils, BAGKEY = 'bohemia.bag.v
 var S = { ready:false, L:null, cap:36, fight:null, nums:{}, rc:null, won:true, ground:[], stash:[], counts:null, countsTaken:false, men:[], looks:{}, seq:0, standalone:(window.parent === window), log:[],
   sel:null, tap:{it:null, at:0}, undo:null, out:[], at:{} };   /* RUN FOUR: the piece he picked, his last tap, OPTIMIZE's UNDO, what it left, the town's prices */
 var FINE = !!(window.matchMedia && matchMedia('(pointer:fine)').matches);   /* a mouse: a double click or a right click; a finger: two taps */
+/* __THE_FINGER_SETS_THE_BEAT__ (FIXES 3 11/26, ask row 726's kind, rules 480(c), 482, 441): 'tap it twice to take it' was timed by when
+   the page handled each tap, so on a slow phone a quick double tap was handled past the beat and took nothing. A tap is timed by when
+   the finger landed (the click's own timeStamp, stamped when the finger lifted), for a real tap; a click made by code keeps the old
+   clock (the same helper as the town's, slices/BOHEMIA_SETTLEMENT_SCREEN.html) */
+function fingerAt(e){   /* a real tap's own time: the browser stamps each click with the moment its finger lifted (measured 11/26: four
+     taps stamped 150 ms apart on a page that stalled 300 ms a touch were handled 300 ms apart and their clicks came in one bunch, each
+     still carrying its own finger's time); a click made by code, or a time off the page's clock, keeps performance.now() */
+  var now = performance.now();
+  return e && e.isTrusted && e.timeStamp > 0 && e.timeStamp <= now + 1 && now - e.timeStamp < 5000 ? e.timeStamp : now;
+}
 function post(act, o){ var m = {type:'BOHEMIA_SPOILS', act:act}; for(var k in (o||{})) m[k] = o[k]; S.log.push(m);
   if(!S.standalone) try{ window.parent.postMessage(m, '*'); }catch(e){} }
 function sfx(ev){ S.log.push({type:'BOHEMIA_SFX', ev:ev}); if(!S.standalone) try{ window.parent.postMessage({type:'BOHEMIA_SFX', ev:ev}, '*'); }catch(e){} }
@@ -469,7 +479,7 @@ function slotFor(it, where, i){
   /* ONE TAP SELECTS, TWO TAPS DO IT (rule 249; RUN FOUR [one tap selects, two taps take]): a tap lights the box and puts its
      facts in the strip, nothing else moves (rule 250); a second tap on it inside a beat, a double click, or a right click on a
      computer takes it, or puts it back */
-  b.addEventListener('click', function(){ var t = performance.now(), again = S.tap.it === it && t - S.tap.at < 450;
+  b.addEventListener('click', function(e){ var t = fingerAt(e), again = S.tap.it === it && t - S.tap.at < 450;   /* __THE_FINGER_SETS_THE_BEAT__ */
     S.tap = {it:again ? null : it, at:t};
     if(again) act(it); else pick(it); });
   b.addEventListener('contextmenu', function(e){ e.preventDefault(); S.tap = {it:null, at:0}; act(it); });
