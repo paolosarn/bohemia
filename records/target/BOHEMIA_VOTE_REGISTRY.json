@@ -24547,7 +24547,30 @@
     "first": "../records/target/vote_first/world13-the-map-never-waits-on-the-glass-11-26.webp",
     "firstAt": [195, 580, 390, 390]
    }, "before_after": {"before": "main 11/26p: the whole valley sliding at 2.2 and 1.8 frames a second (frames up to 5.4 s); every walker read back off the GPU, the borders 5,092 strokes a frame, the buttons rewritten 20 times a second", "after": "9.7 and 13.9 frames a second (the worst frame 0.9 s in the steadier run); nothing read off the GPU, the borders 92 strokes a frame, the page woken 3 times in 3 s", "scale": "the demo on the phone upright, the CPU slowed 4x, the whole valley on the glass"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_THIRTEEN_THE_MAP_NEVER_WAITS_ON_THE_GLASS_11_26_26.md", "build": "BUILD 11/26u - THE MAP NEVER WAITS ON THE GLASS"},
-  {"id": "bestiary2-the-beast-that-beat-you-11-26", "kind": "ui", "lane": "bestiary", "sha": "dbf87aeb9", "made": "11/26", "draft": true, "title": "THE BEAST THAT BEAT YOU HAS ITS NAME, AND ALL 80 ENEMY TYPES FOUGHT ON THE PHONE", "said": "Lets turn up full sweep. But improve on what we already have. And make sure fps is never choppy for nothing lets go", "why": "When an animal wiped your whole crew, the card said the road crew beat you; now it names the animal (a ground sloth, a bear, the lions and six more), before and now in the picture. All 80 enemy types also fought on the phone this round, each in its own look with its own move and its loot, and you see this card when a fight is lost, the COMBAT screen.", "show": {"how": "image", "src": "../records/target/BESTIARY_TWO_THE_BEAST_THAT_BEAT_YOU_11_26.jpg", "first": "../records/target/vote_first/bestiary2-the-beast-that-beat-you-11-26.webp", "firstAt": [0, 0, 780, 462]}, "before_after": {"before": "main 4aacbb4ce: a crew wiped by a ground sloth read 'The road crew keep the field ... The road crew have your men and your gear'; nine beast parties had no words", "after": "'A ground sloth keeps the field ... A ground sloth has your men and your gear'; every one of the 37 parties a band deals has its words", "scale": "the demo on a phone upright (390 x 844) at 3, the wipe card cut out, shown at two thirds"}, "stage": "stand_in", "record": "records/BOHEMIA_BESTIARY_TWO_EVERY_TYPE_THROUGH_A_FIGHT_11_26_26.md", "build": "BUILD 11/26z - THE BEAST THAT BEAT YOU"}
+  {"id": "bestiary2-the-beast-that-beat-you-11-26", "kind": "ui", "lane": "bestiary", "sha": "dbf87aeb9", "made": "11/26", "draft": true, "title": "THE BEAST THAT BEAT YOU HAS ITS NAME, AND ALL 80 ENEMY TYPES FOUGHT ON THE PHONE", "said": "Lets turn up full sweep. But improve on what we already have. And make sure fps is never choppy for nothing lets go", "why": "When an animal wiped your whole crew, the card said the road crew beat you; now it names the animal (a ground sloth, a bear, the lions and six more), before and now in the picture. All 80 enemy types also fought on the phone this round, each in its own look with its own move and its loot, and you see this card when a fight is lost, the COMBAT screen.", "show": {"how": "image", "src": "../records/target/BESTIARY_TWO_THE_BEAST_THAT_BEAT_YOU_11_26.jpg", "first": "../records/target/vote_first/bestiary2-the-beast-that-beat-you-11-26.webp", "firstAt": [0, 0, 780, 462]}, "before_after": {"before": "main 4aacbb4ce: a crew wiped by a ground sloth read 'The road crew keep the field ... The road crew have your men and your gear'; nine beast parties had no words", "after": "'A ground sloth keeps the field ... A ground sloth has your men and your gear'; every one of the 37 parties a band deals has its words", "scale": "the demo on a phone upright (390 x 844) at 3, the wipe card cut out, shown at two thirds"}, "stage": "stand_in", "record": "records/BOHEMIA_BESTIARY_TWO_EVERY_TYPE_THROUGH_A_FIGHT_11_26_26.md", "build": "BUILD 11/26z - THE BEAST THAT BEAT YOU"},
+  {
+   "id": "economy3-a-supply-lands-on-the-bar-11-26",
+   "kind": "ui",
+   "lane": "economy 3",
+   "sha": "efbe554cb",
+   "made": "11/26",
+   "draft": true,
+   "title": "WHAT A FIGHT LEAVES LANDS ON THE BAR: THE TAPE LIGHTS UP LIKE THE BATTERIES COUNTING",
+   "said": "rule 482 and the coordinator's list: 'a fight's spoils counted on the bar'",
+   "why": "After a fight, when you take what they left, the tape (and any supply that moves, bought or eaten) now lights up on the bar for a beat, the same amber plate the batteries use when they count, so you see it land. You see it after any won fight: tap LOOT ALL and watch the top bar, left before and right now.",
+   "stage": "stand_in",
+   "show": {
+    "how": "image",
+    "src": "../records/target/ECONOMY_THREE_A_SUPPLY_LANDS_ON_THE_BAR.jpg"
+   },
+   "before_after": {
+    "before": "LOOT ALL: the batteries climbed lit amber, the tape went 40 to 41 with nothing to say it moved",
+    "after": "the tape's 41 lights on the same amber plate for two beats, then settles; the bar the same size",
+    "scale": "the game on a phone upright (390 x 844 at 3), the demo, a road fight won, the moment after LOOT ALL"
+   },
+   "record": "records/BOHEMIA_ECONOMY_THREE_A_SUPPLY_LANDS_ON_THE_BAR_11_26_26.md",
+   "build": "BUILD 11/26zc - A SUPPLY LANDS ON THE BAR"
+  }
  ],
  "verdicts": [
   {
