@@ -1,3 +1,10 @@
+WORDS THREE (words-three-01gkdyuvnl): 11/26 LATEST -- BUILD 11/26g - HIS 11/25 VOTES ON OUR TRIES: IT MAKES SENSE, AND SHEET NINE, BUILT (this commit), NOT YET SEEN (rules 481(c), 482, 465; ask rows 734, 629). Its block is handoffs/WORDS_TWO.md.
+He said YES to 34 of our 38 tries (28 of the 32 that curse, all 6 clean): cursing in full and saying who pays are right. Every miss was a line that made no plain
+sense, so THE VOICE SO FAR gains: EVERY LINE MAKES PLAIN SENSE, WORD BY WORD. FOR EVERY LANE THAT WRITES A LINE: no play on words, no irony that needs the story,
+no scene nobody explains, the picture right ('you are the dinner'). Sheet nine (12 cards) has his four NOs fixed and the job board's 'it pays' lines said plainly.
+Nothing in the game rewritten (rule 465).
+[bb Battle Brothers' contracts are one plain paragraph]
+[analog horror: 'I got a camera up on that billboard. I've been watching you since the overpass.']
 COOK FIVE (cook-six-01gkdyut): 11/26 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/26c - THE NAMES PAINTED, BUILT (2282faef0), NOT YET SEEN (rule 480 (b) and (c); 461(c) as amended; rules 441, 451(a); ask row 723).
 480(b), THIS LANE'S OWN PIECES FIRST: COMBAT FOUR's BUILD 11/22zd answered my 11/21 asks, and each drew what it drew before until now. PAINTED: the school's floor.court (row 3:
 the maple sealed, a white line E-W through a tile's middle, a red one 2.2 m from its north edge, a white one N-S 3 m from its west edge, the same on every tile so they run on),

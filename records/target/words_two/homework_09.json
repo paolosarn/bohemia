@@ -1,0 +1,851 @@
+{
+ "draft": true,
+ "sheet": 9,
+ "_about": "WORDS THREE, HIS HOMEWORK, SHEET NINE: IT MAKES SENSE (VAMILY rules 481(c), 467 amended 11/22, 470(g), 465; ask rows 734, 629). His 11/25 sheet: YES on 34 of the 38 tries on sheets six to eight, NO on four, and one YES with a fix. 28 of the 32 tries that curse got a YES, and all 6 clean ones: the cursing and the who-pays are right. Every miss, and his one note, was a line that did not make sense: the nails (6.10, 'the second half of the shit didn't really make sense'), 'the house is dead' (6.12), the vote (7.12), the tape (8.11), 'walked right up to their dinner' (6.5, 'you are the dinner, bro'). Cards 1 to 4 are his four NOs fixed, each a new question; card 6.5 is fixed by his note and not asked again (notes are rulings). Cards 5 to 12 carry the lesson to the job board, the biggest mouth, where 17 lines still say 'it pays': every try says who pays and out of what, and makes plain sense to somebody who never saw the game. 10 of 12 curse; the priest and the nun are clean on purpose, each saying why. Our tries are on the cards only: nothing in the game is rewritten until he says he is done (rule 465).",
+ "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+ "cards": [
+  {
+   "mouth": "A BOSS'S ASKER",
+   "tab": "MAP",
+   "who_pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE MACHINIST"
+      }
+     },
+     "lead",
+     "asker",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE MACHINIST"
+      }
+     },
+     "lead",
+     "asker",
+     "from"
+    ]
+   },
+   "who_plain": "A mechanic with burned arms",
+   "to": "you",
+   "when": "she stops you to send you after the boss who makes the guns",
+   "where": "on the MAP, on the card that starts a boss's trail",
+   "side": "other",
+   "face": {
+    "look": "faction_anarchists"
+   },
+   "pull": {
+    "file": "records/target/bb/boss_act_one.json",
+    "json": [
+     "bosses",
+     {
+      "find": {
+       "n": "THE MACHINIST"
+      }
+     },
+     "lead",
+     "asker",
+     "says"
+    ]
+   },
+   "expect": "You want guns?",
+   "teaches": "THE FIRST HALF KEPT, THE SECOND SAID PLAIN: what the nails do (you go slow), not a picture of crawling on your knees",
+   "n": 1,
+   "id": "words-two-hw09-01-every-half-makes-sense-the-machinist-11-26",
+   "made": "11/26",
+   "rule": "IT MAKES SENSE, BOTH HALVES (your NO on card 6.10: \"the second half of the shit didn't really make sense\")",
+   "try": "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever has batteries. He throws nails all over the streets around his shop, so anybody going in has to go slow as shit. Ask at the bar, they all know where he's at.",
+   "your_no_on": "words-two-hw06-10-curse-the-asker-11-22"
+  },
+  {
+   "mouth": "A ROAD STOP",
+   "tab": "MAP",
+   "who_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_casino_chip"
+      }
+     },
+     "who",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_casino_chip"
+      }
+     },
+     "who",
+     "from"
+    ]
+   },
+   "who_plain": "An old casino dealer on the road with a deck of cards",
+   "to": "you",
+   "when": "he offers you one hand of high card",
+   "where": "on the MAP, on the card that stops your crew on the road",
+   "side": "other",
+   "face": {
+    "look": "cast_shortcoat"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_casino_chip"
+      }
+     },
+     "says"
+    ]
+   },
+   "choices_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_casino_chip"
+      }
+     },
+     "opts"
+    ],
+    "field": "t"
+   },
+   "expect": "One hand, high card",
+   "teaches": "NO PLAY ON WORDS: \"the house is dead\" is gone; who he is and the deal, plain",
+   "n": 2,
+   "id": "words-two-hw09-02-plain-not-clever-the-dealer-11-26",
+   "made": "11/26",
+   "rule": "PLAIN, NOT CLEVER (your NO on card 6.12)",
+   "try": "One hand, high card. You win, I give you twenty batteries. You lose, you give me ten. I dealt cards for thirty years, so don't even fucking try to cheat me.",
+   "your_no_on": "words-two-hw06-12-who-pays-the-dealer-11-22"
+  },
+  {
+   "mouth": "A SIDE QUEST ON THE ROAD",
+   "tab": "MAP",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "json": [
+     "quests",
+     "bq_last_good_doctor",
+     "people",
+     "medic",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "json": [
+     "quests",
+     "bq_last_good_doctor",
+     "people",
+     "medic",
+     "from"
+    ]
+   },
+   "who_plain": "A doctor outside her clinic tent, smoking",
+   "to": "you",
+   "when": "she tells you how the two families will settle it",
+   "where": "on the MAP, on a side quest's last card",
+   "side": "other",
+   "face": {
+    "look": "faction_volunteers"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "json": [
+     "quests",
+     "bq_last_good_doctor",
+     "nodes",
+     "open_end",
+     "says",
+     0
+    ]
+   },
+   "expect": "In front of both families",
+   "teaches": "NO IRONY THAT NEEDS THE STORY: the vote is said for what it is (they pick who dies)",
+   "n": 3,
+   "id": "words-two-hw09-03-say-what-the-vote-is-the-doctor-11-26",
+   "made": "11/26",
+   "rule": "SAY WHAT IT MEANS (your NO on card 7.12)",
+   "try": "Fine. We do it in front of both families. They'll vote like it's fair, and then every one of them goes home knowing they picked who dies. That's the cruelest fucking room I'll ever stand in.",
+   "your_no_on": "words-two-hw07-12-curse-the-doctor-on-the-vote-11-22"
+  },
+  {
+   "mouth": "A ROAD STOP",
+   "tab": "MAP",
+   "who_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_mirror_man"
+      }
+     },
+     "who",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_mirror_man"
+      }
+     },
+     "who",
+     "from"
+    ]
+   },
+   "who_plain": "A smiling man in the road holding a TV that shows your crew from above",
+   "to": "your crew",
+   "when": "he stops you on the road",
+   "where": "on the MAP, on the card that stops your crew on the road",
+   "side": "them",
+   "face": {
+    "look": "cast_bedroll"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_mirror_man"
+      }
+     },
+     "says"
+    ]
+   },
+   "choices_pull": {
+    "json": [
+     "events",
+     {
+      "find": {
+       "id": "ev_the_mirror_man"
+      }
+     },
+     "opts"
+    ],
+    "field": "t"
+   },
+   "expect": "(he holds a TV",
+   "teaches": "THE SCENE EXPLAINED BY THE MAN IN IT: who filmed you (his camera on the billboard) and why he shows you (he wants you to look)",
+   "n": 4,
+   "id": "words-two-hw09-04-the-scene-makes-sense-the-camera-11-26",
+   "made": "11/26",
+   "rule": "CREEPY STILL HAS TO MAKE SENSE (your NO on card 8.11, and on 4.9 before it)",
+   "try": "(he holds a TV with no back. On it, your own crew, walking this road, filmed from above, ten minutes ago. He smiles.) I got a camera up on that billboard. I've been watching you since the overpass. Look at the screen. There's something on there you're gonna fucking want.",
+   "your_no_on": "words-two-hw08-11-creepy-makes-sense-11-22"
+  },
+  {
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "tab": "A TOWN",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-ambush-cut"
+      }
+     },
+     "client",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-ambush-cut"
+      }
+     },
+     "client",
+     "from"
+    ]
+   },
+   "who_plain": "A man who buys whatever the trucks carry",
+   "to": "you",
+   "when": "you ask what his job is and what you get for it",
+   "where": "in a camp or TOWN, at the board where people offer jobs",
+   "side": "other",
+   "face": {
+    "look": "cast_cape"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-ambush-cut"
+      }
+     },
+     "says"
+    ]
+   },
+   "fill": {
+    "pay": {
+     "json": [
+      "board_people",
+      "rows",
+      {
+       "find": {
+        "id": "jk-ambush-cut"
+       }
+      },
+      "pay"
+     ]
+    }
+   },
+   "expect": "A convoy comes",
+   "teaches": "WHO PAYS: the buyer pays out of the cargo you stop for him",
+   "n": 5,
+   "id": "words-two-hw09-05-who-pays-the-convoy-11-26",
+   "made": "11/26",
+   "rule": "NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words",
+   "try": "A convoy's coming down the dry road tonight with batteries that should've been ours. Wait for it at the cut and stop the fucking thing. I'll pay you {pay} batteries out of what's on the trucks."
+  },
+  {
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "tab": "A TOWN",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-bounty-chuy"
+      }
+     },
+     "client",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-bounty-chuy"
+      }
+     },
+     "client",
+     "from"
+    ]
+   },
+   "who_plain": "The man who keeps the peace in the camp, badly",
+   "to": "you",
+   "when": "you ask what his job is and what you get for it",
+   "where": "in a camp or TOWN, at the board where people offer jobs",
+   "side": "other",
+   "face": {
+    "look": "person_town_14"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-bounty-chuy"
+      }
+     },
+     "says"
+    ]
+   },
+   "fill": {
+    "pay": {
+     "json": [
+      "board_people",
+      "rows",
+      {
+       "find": {
+        "id": "jk-bounty-chuy"
+       }
+      },
+      "pay"
+     ]
+    }
+   },
+   "expect": "Chuy Lento took",
+   "teaches": "WHO PAYS: the one who keeps the peace pays out of the camp's money, and says why he wants the ring",
+   "n": 6,
+   "id": "words-two-hw09-06-who-pays-the-ring-11-26",
+   "made": "11/26",
+   "rule": "NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words",
+   "try": "Chuy Lento stole two of our girls' carts, and the bastard only comes out after dark. Bring me the red ring off his finger and I'll pay you {pay} batteries out of the camp's money."
+  },
+  {
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "tab": "A TOWN",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-scout-wells"
+      }
+     },
+     "client",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-scout-wells"
+      }
+     },
+     "client",
+     "from"
+    ]
+   },
+   "who_plain": "The woman who waters the whole block",
+   "to": "you",
+   "when": "you ask what her job is and what you get for it",
+   "where": "in a camp or TOWN, at the board where people offer jobs",
+   "side": "other",
+   "face": {
+    "look": "cast_apron"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-scout-wells"
+      }
+     },
+     "says"
+    ]
+   },
+   "fill": {
+    "pay": {
+     "json": [
+      "board_people",
+      "rows",
+      {
+       "find": {
+        "id": "jk-scout-wells"
+       }
+      },
+      "pay"
+     ]
+    }
+   },
+   "expect": "Three wells out",
+   "teaches": "WHO PAYS: a small job, a small pay, and she says it is all she has",
+   "n": 7,
+   "id": "words-two-hw09-07-who-pays-the-wells-11-26",
+   "made": "11/26",
+   "rule": "NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words",
+   "try": "There's three wells out there, and I don't know which ones still give water or who the hell is sitting on them. Go look at all three and come tell me. I'll give you {pay} batteries. It's all I've got."
+  },
+  {
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "tab": "A TOWN",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-burn-tires"
+      }
+     },
+     "client",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-burn-tires"
+      }
+     },
+     "client",
+     "from"
+    ]
+   },
+   "who_plain": "A man who teaches kids in an old bus",
+   "to": "you",
+   "when": "you ask what his job is and what you get for it",
+   "where": "in a camp or TOWN, at the board where people offer jobs",
+   "side": "other",
+   "face": {
+    "look": "cast_satchel"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-burn-tires"
+      }
+     },
+     "says"
+    ]
+   },
+   "fill": {
+    "pay": {
+     "json": [
+      "board_people",
+      "rows",
+      {
+       "find": {
+        "id": "jk-burn-tires"
+       }
+      },
+      "pay"
+     ]
+    }
+   },
+   "expect": "The tire yard",
+   "teaches": "WHO PAYS: the teacher pays with what the parents gave, and the stake is his kids",
+   "n": 8,
+   "id": "words-two-hw09-08-who-pays-the-tire-yard-11-26",
+   "made": "11/26",
+   "rule": "NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words",
+   "try": "The tire yard sells to anybody with batteries, and the ones buying are shooting at my kids. Burn that shit to the ground. I'll give you {pay} batteries, everything the parents put in the jar."
+  },
+  {
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "tab": "A TOWN",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-biggame-lion"
+      }
+     },
+     "client",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-biggame-lion"
+      }
+     },
+     "client",
+     "from"
+    ]
+   },
+   "who_plain": "The man who used to own the golf course",
+   "to": "you",
+   "when": "you ask what his job is and what you get for it",
+   "where": "in a camp or TOWN, at the board where people offer jobs",
+   "side": "other",
+   "face": {
+    "look": "person_town_29"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-biggame-lion"
+      }
+     },
+     "says"
+    ]
+   },
+   "fill": {
+    "pay": {
+     "json": [
+      "board_people",
+      "rows",
+      {
+       "find": {
+        "id": "jk-biggame-lion"
+       }
+      },
+      "pay"
+     ]
+    }
+   },
+   "expect": "The lab lion",
+   "teaches": "WHO PAYS: the old rich man pays himself; \"One beast, very big\" said like a person",
+   "n": 9,
+   "id": "words-two-hw09-09-who-pays-the-lion-11-26",
+   "made": "11/26",
+   "rule": "NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words",
+   "try": "That lab lion sleeps on my old eighteenth hole and eats my goats. One cat, big as a horse. Kill the damn thing and I'll pay you {pay} batteries myself."
+  },
+  {
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "tab": "A TOWN",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-free-pen"
+      }
+     },
+     "client",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-free-pen"
+      }
+     },
+     "client",
+     "from"
+    ]
+   },
+   "who_plain": "The priest who counts the missing",
+   "to": "you",
+   "when": "you ask what his job is and what you get for it",
+   "where": "in a camp or TOWN, at the board where people offer jobs",
+   "side": "other",
+   "face": {
+    "look": "faction_church"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-free-pen"
+      }
+     },
+     "says"
+    ]
+   },
+   "fill": {
+    "pay": {
+     "json": [
+      "board_people",
+      "rows",
+      {
+       "find": {
+        "id": "jk-free-pen"
+       }
+      },
+      "pay"
+     ]
+    }
+   },
+   "expect": "They keep our",
+   "teaches": "WHO PAYS: the church pays out of its box; a priest asking for the missing",
+   "n": 10,
+   "id": "words-two-hw09-10-who-pays-the-dog-pen-11-26",
+   "made": "11/26",
+   "rule": "NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words",
+   "try": "They keep our people in a dog pen and sell them to the mines. Open that pen and bring even one of them home. The church will give you {pay} batteries, everything in the box.",
+   "clean": "a priest asking you to bring the missing home; he stays clean, the way a priest at a grave would"
+  },
+  {
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "tab": "A TOWN",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-signal-voice"
+      }
+     },
+     "client",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-signal-voice"
+      }
+     },
+     "client",
+     "from"
+    ]
+   },
+   "who_plain": "A man who fixes radios for food",
+   "to": "you",
+   "when": "you ask what his job is and what you get for it",
+   "where": "in a camp or TOWN, at the board where people offer jobs",
+   "side": "other",
+   "face": {
+    "look": "cast_pack"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-signal-voice"
+      }
+     },
+     "says"
+    ]
+   },
+   "fill": {
+    "pay": {
+     "json": [
+      "board_people",
+      "rows",
+      {
+       "find": {
+        "id": "jk-signal-voice"
+       }
+      },
+      "pay"
+     ]
+    }
+   },
+   "expect": "Every night at",
+   "teaches": "CREEPY THAT MAKES SENSE: a voice on every radio, a man who fixes radios and cannot find it, who pays and why",
+   "n": 11,
+   "id": "words-two-hw09-11-who-pays-the-voice-11-26",
+   "made": "11/26",
+   "rule": "NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words",
+   "try": "Every night at three, a woman's voice comes on every radio in the camp, reading prices. I can't find who's sending it. Find whatever the fuck is making it and I'll give you {pay} batteries. Half the camp can't sleep."
+  },
+  {
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "tab": "A TOWN",
+   "who_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-follow-courier"
+      }
+     },
+     "client",
+     "name"
+    ]
+   },
+   "role_pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-follow-courier"
+      }
+     },
+     "client",
+     "from"
+    ]
+   },
+   "who_plain": "The nun who runs the clinic and counts the overdoses",
+   "to": "you",
+   "when": "you ask what her job is and what you get for it",
+   "where": "in a camp or TOWN, at the board where people offer jobs",
+   "side": "other",
+   "face": {
+    "look": "person_town_36"
+   },
+   "pull": {
+    "file": "records/target/BOHEMIA_JOB_KINDS.json",
+    "json": [
+     "board_people",
+     "rows",
+     {
+      "find": {
+       "id": "jk-follow-courier"
+      }
+     },
+     "says"
+    ]
+   },
+   "fill": {
+    "pay": {
+     "json": [
+      "board_people",
+      "rows",
+      {
+       "find": {
+        "id": "jk-follow-courier"
+       }
+      },
+      "pay"
+     ]
+    }
+   },
+   "expect": "Every Thursday a",
+   "teaches": "WHO PAYS: the clinic pays; a nun says what it costs her people",
+   "n": 12,
+   "id": "words-two-hw09-12-who-pays-the-courier-11-26",
+   "made": "11/26",
+   "rule": "NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words",
+   "try": "Every Thursday a man walks the drugs down Boulder Highway, and by Friday my clinic is full. Follow him and tell me who he answers to. The clinic will give you {pay} batteries.",
+   "clean": "a nun who runs the clinic, counting the overdoses; she says what it costs and stays clean"
+  }
+ ]
+}

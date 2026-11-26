@@ -1,8 +1,8 @@
 # BOHEMIA -- THE VOICE (Paolo 11/17/26. Page one is LOCKED: VAMILY rule 455.)
 # HOW EVERY MOUTH AND EVERY POST IN THE GAME TALKS: his rules in his own words, his own lines as the examples, and beside each of
 # his lines what it teaches, in plain words. He called page one 'the bedrock, super important to even implementing my soul in this'.
-# BUILT FROM EVERYTHING HE HAS GIVEN SO FAR: rule 455 (scary first; row 637), rule 467 (THEY CURSE), his 68 homework answers
-# (31 lines of his own, 23 kept as they were, 14 NO; rules 458(a), 466(f); row 643), the complaint that started it
+# BUILT FROM EVERYTHING HE HAS GIVEN SO FAR: rule 455 (scary first; row 637), rule 467 (THEY CURSE), his 106 homework answers
+# (31 lines of his own, 23 kept as they were, 34 of our tries he said YES to, 18 NO; rules 458(a), 466(f), 467; rows 643, 734), the complaint that started it
 # (row 628), and 21 other things he has said about how people talk, each checked word for word against where he said it.
 # It gains a rule only when he gives one. HE IS NOT DONE (rule 465): more sheets of his are coming; nothing goes into the game until he says so.
 # FOUR PARTS, IN THIS ORDER: (1) HIS WORDS; (2) WHAT CAN BE MEASURED; (3) WHAT IS STILL UNKNOWN; (4) THE GAME TODAY. Only his words
@@ -420,6 +420,186 @@ and will not be until he says.
    HE SAID: (a YES, nothing written)
    WHAT IT TEACHES: A clothes joke with no brand name ('Their tailoring was a crime. Justice served.') stands.
 
+### OUR TRIES HE SAID YES TO (sheets six to eight, 11/25: each card showed the game's line and OUR TRY beside it, rule 467 amended)
+
+34 of our 38 tries got his YES: 28 of the 32 that curse, and all 6 clean ones. Every
+NO and his one note were lines that did not make plain sense (THE VOICE SO FAR, line 6). Each try below is the line a rewrite would
+start from, the day he says he is done (rule 465).
+
+- A JOB GIVER AT THE BOARD (card 6.1)
+   THE LINE (the game today): "Two pump posts on the dam road went quiet this week, and quiet out there means somebody is listening. Walk to both and back, and it pays 119 batteries at most, part of it for every crew you stop on the way."
+   OUR TRY, HE SAID YES: "Two of my pump posts on the dam road went quiet this week. Quiet out there means some motherfucker is sitting on them, listening. Walk out to both and come back breathing. I pay out of the turbine money, up to 119 batteries, and more of it the more of those crews you put down on the way."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: WHO PAYS, SAID BY THE ONE PAYING: 'I pay out of the turbine money, up to 119 batteries' takes the place of 'it pays', the job's own deal kept, and he curses ('some motherfucker is sitting on them').
+- A ROAD STOP (card 6.2)
+   THE LINE (the game today): "Raiders hit a farm west of here. We're short a gun. Ride with us one hour, the Blues pay what's fair, and we don't forget who stood with us."
+   OUR TRY, HE SAID YES: "Raiders hit a farm west of here. The family's still in the house. We're one gun short. Ride with us one hour and I'll pay you out of my own pocket, and the Blues don't forget who stood with us."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: A CLEAN TRY ON PURPOSE IS RIGHT: a sergeant asking strangers for help with his men listening does not curse, and pays 'out of my own pocket'.
+- A ROAD STOP (card 6.3)
+   THE LINE (the game today): "You took the batteries out of my radio. My wife recorded that report the morning before. It's the last of her voice. Put four back or I follow you forever."
+   OUR TRY, HE SAID YES: "You took the batteries out of my fucking radio. My wife recorded that report the morning before she died. That's the last of her voice I've got. Put four back, or I swear to God I follow you till one of us is dead."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: Grief and a threat in one breath, cursing: 'my fucking radio', 'I swear to God I follow you till one of us is dead.'
+- A ROAD STOP (card 6.4)
+   THE LINE (the game today): "We quit the Reds. They make us shoot water thieves, kids, everybody. We fight good. Take us, or don't, but don't tell the Reds you saw us."
+   OUR TRY, HE SAID YES: "We quit the Reds. They had us shooting water thieves, kids, fucking everybody. We can fight. Take us or don't, but if the Reds hear you saw us, we're dead men."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: Shame said plain and cursed ('shooting water thieves, kids, fucking everybody') and the stake said out loud ('we're dead men').
+- THE ENEMY'S LEADER (card 6.5)
+   THE LINE (the game today): "The animals are hungry, so you are the meal."
+   OUR TRY, HE SAID YES: "The herd's starving, and you dumb fucks walked right up to their dinner."
+   HE SAID: "What do you mean right up to their dinner? It's almost good but that makes no sense. Like you are the dinner, bro. What the fuck?"
+   OUR FIX, FROM HIS NOTE: "The herd's starving, and you dumb fucks are dinner."
+   WHAT IT TEACHES: THE PICTURE IN THE WORDS MUST BE RIGHT: the herd is starving and you are the dinner, not people who walked up to it. His YES stands with his fix built in.
+- YOUR MAN, MID-FIGHT (card 6.6)
+   THE LINE (the game today): "Hit the man, not the air!"
+   OUR TRY, HE SAID YES: "Hit the fucking man, not the air!"
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: One curse word in a bark is enough: 'Hit the fucking man, not the air!'
+- YOUR MAN, AFTER THE FIGHT (card 6.7)
+   THE LINE (the game today): "We pray for them later. Loot first."
+   OUR TRY, HE SAID YES: "We pray for them later. Grab their shit first."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: Plain beats the game's word: 'Grab their shit first' over 'Loot first'; the praying man curses too.
+- THE ELDER OF A RAIDED TOWN (card 6.8)
+   THE LINE (the game today): "A crew came through three nights back. Burned the Ortega house. Half of what we had walked out with them."
+   OUR TRY, HE SAID YES: "A crew came through three nights ago. They burned the Ortegas' house with the grandmother still inside. Half of what we had walked out the gate with those sons of bitches."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: A raid said as what was lost ('with the grandmother still inside') and who did it ('those sons of bitches').
+- A MAN FOR HIRE (card 6.9)
+   THE LINE (the game today): "I did collections. Nobody ever paid late twice."
+   OUR TRY, HE SAID YES: "I did collections for the casinos. Nobody paid me late twice, and the ones who tried still can't fucking walk right."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: A hired man sells himself with what he did, cursing ('still can't fucking walk right').
+- THE FEED, A TOWN FALLING (card 6.11)
+   THE LINE (the game today): "he says nobody is coming. he said it kindly."
+   OUR TRY, HE SAID YES: "He says nobody's coming. He said it nice, like he was sorry. God help us."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: Clean on purpose at the edge of death ('God help us.'), the way his own radio call stayed clean.
+- THE FEED (card 7.1)
+   THE LINE (the game today): "has anyone seen my brother Ernesto. he went to the depot to trade a radio. that was four days ago."
+   OUR TRY, HE SAID YES: "has anybody seen my brother Ernesto?? went to the depot to trade a radio 4 days ago and never came back. please. i'm losing my shit"
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: A frightened post in the person's own typing (lowercase, '??', 'i'm losing my shit') works.
+- THE FEED (card 7.2)
+   THE LINE (the game today): "Tommy Reyes passed in the night. 81. he wound the church clock every sunday for twenty years. who winds it now."
+   OUR TRY, HE SAID YES: "Tommy Reyes passed last night. 81. wound the church clock every sunday for twenty years. who's gonna wind it now"
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: A quiet memorial post stays clean and short ('who's gonna wind it now').
+- YOUR MAN, MID-FIGHT (card 7.3)
+   THE LINE (the game today): "I got him! Did you see that?"
+   OUR TRY, HE SAID YES: "I fucking got him! Did you see that?!"
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: One word added to joy is enough: 'I fucking got him!'
+- YOUR MAN, AFTER RUNNING (card 7.4)
+   THE LINE (the game today): "We didn't run. We relocated. Loudly."
+   OUR TRY, HE SAID YES: "We didn't run, we got the fuck out. There's a difference."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: Plain beats the quip: 'we got the fuck out' over 'We relocated. Loudly.'
+- YOUR MAN, AFTER A WIPE (card 7.5)
+   THE LINE (the game today): "RUIZ. I'm going to find RUIZ."
+   OUR TRY, HE SAID YES: "Ruiz did this. I'm gonna find that motherfucker and every one of his boys."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: After a wipe, the name and the revenge, cursing: 'I'm gonna find that motherfucker and every one of his boys.'
+- A MAN FOR HIRE (card 7.6)
+   THE LINE (the game today): "Two tours, one pension. The pension died first. Where do you want me?"
+   OUR TRY, HE SAID YES: "Two tours and a pension, and the fucking pension died first. Point me where you want me."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: A hire line in one bitter breath: 'the fucking pension died first.'
+- A JOB GIVER AT THE BOARD (card 7.7)
+   THE LINE (the game today): "The motel by the freeway was ours, beds for the soup line. A crew took it and charges at the door. Clear them out, and 80 batteries."
+   OUR TRY, HE SAID YES: "That motel by the freeway was ours. Beds for the soup line. A crew took it, and now the hungry pay at the door. Clear them out and I'll give you 80 batteries, everything the kitchen saved."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: A job giver says what she gives and out of what ('80 batteries, everything the kitchen saved'); clean on purpose.
+- A BOSS'S ASKER (card 7.8)
+   THE LINE (the game today): "Ay, mijo. My tooth. Three weeks. THE TOOTH has the only kit that works and his men sit at the town gates taking batteries for him. He puts his flyers up by the clinics."
+   OUR TRY, HE SAID YES: "My tooth. Three weeks, and it's killing me. THE TOOTH has the only kit that works, and his men sit at the town gates taking batteries off everybody. Find that son of a bitch. His flyers are up by the clinics."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: An asker in pain curses the boss ('that son of a bitch') and keeps the trail (his flyers by the clinics); 'mijo' gone.
+- THE FEED, A TOWN FALLING (card 7.9)
+   THE LINE (the game today): "they're coming up the ladder. i heard two shots."
+   OUR TRY, HE SAID YES: "They're coming up the fucking ladder. I heard two shots. Oh shit. Oh shit."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: The last radio call before the end may curse: 'Oh shit. Oh shit.'
+- YOUR MAN, BEFORE A FIGHT WITH ANIMALS (card 7.10)
+   THE LINE (the game today): "They smell the food in our cart, boss, and they want it."
+   OUR TRY, HE SAID YES: "They smell the food in our cart, boss, and those hungry fuckers want it."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: His man on why animals come, plain and cursing ('those hungry fuckers want it').
+- A ROAD STOP: WHAT COMES BACK (card 7.11)
+   THE LINE (the game today): "She runs home without saying gracias. Later the whole town knows who did it."
+   OUR TRY, HE SAID YES: "(a neighbour, leaning on her fence) That little girl ran home without even saying thanks. What, you want a fucking parade? Relax. The whole town already knows it was you who dug her out."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: His 3.3 lesson held: a told line gets a mouth that sneers ('What, you want a fucking parade?'), and the town still knows.
+- THE ENEMY'S LEADER, AT YOUR PLACE (card 8.1)
+   THE LINE (the game today): "Your place has what we need, so we came to take it."
+   OUR TRY, HE SAID YES: "Open the fucking gate. We want your water and your food, and we're taking it either way. How many of yours bleed for it is up to you."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: RAIDERS CURSE, and say what they want and what it costs you ('How many of yours bleed for it is up to you.').
+- A JOB GIVER AT THE BOARD (card 8.2)
+   THE LINE (the game today): "The lab grew one ground sloth and it walked home to Tule Springs, where its bones were found, and now it flattens tents. Put it down and it pays 95 batteries."
+   OUR TRY, HE SAID YES: "The lab grew a ground sloth, big as a truck, and it's been flattening tents out by Tule Springs with people still in them. Put that fucking thing down and the camp pays you 95 batteries, out of what everybody chipped in."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: WHO PAYS: 'the camp pays you 95 batteries, out of what everybody chipped in.'
+- A JOB GIVER AT THE BOARD (card 8.3)
+   THE LINE (the game today): "My grandson eats at the stew cart every night and comes home happy. Find out what is in that stew for me, and it pays 10 batteries."
+   OUR TRY, HE SAID YES: "My grandson eats at that stew cart every night and comes home happy. Nobody's that happy on stew. Find out what the hell is in it, and I'll give you 10 batteries of my own."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: WHO PAYS: a grandmother pays 'of my own', and 'Nobody's that happy on stew' says why she asks.
+- A SIDE QUEST ON THE ROAD (card 8.4)
+   THE LINE (the game today): "Nobody will ever know you did this. It doesn't pay. Thank you for doing it anyway."
+   OUR TRY, HE SAID YES: "She forgave me? After what I did to her boy? Nobody's ever gonna know you carried that shit all the way out here. I'll know. Thank you."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: No pay talk at all: the man she forgave says thank you like a man.
+- AFTER A BOSS FALLS (card 8.5)
+   THE LINE (the game today): "The water is running! My whole street drinks again, and nobody pays him for it."
+   OUR TRY, HE SAID YES: "The water's running! Holy shit, the water's running! My whole street is drinking!"
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: Joy with no count in it: 'Holy shit, the water's running!'
+- A ROAD STOP (card 8.6)
+   THE LINE (the game today): "This road is ours today, my loves. Five batteries a head, or ten for all of you because you dress so ugly I feel sorry. Rick Owens would cry."
+   OUR TRY, HE SAID YES: "This road's ours today, my loves. Five batteries a head. Or ten for the whole lot of you, because you look like shit and I feel sorry for you."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: Funny with no designer: 'you look like shit and I feel sorry for you.'
+- THE FEED, A CREW'S PAGE (card 8.7)
+   THE LINE (the game today): "Watch meeting at the circle at the end of the street. Bring a flashlight and your name."
+   OUR TRY, HE SAID YES: "Somebody's been coming over the back walls at night and stealing water. Every man on this street, at the circle, sundown. Bring a light. We take turns staying up till we catch the motherfucker."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: A post says what the meeting is for: who, where, when, and 'till we catch the motherfucker'.
+- A SIDE QUEST ON THE ROAD (card 8.8)
+   THE LINE (the game today): "Then we come. And somebody is going to have to say whose ground it is, because we will not be guests forever."
+   OUR TRY, HE SAID YES: "Then we're coming, all forty of us. But sooner or later you gotta tell everybody, out loud, that this block is ours too. We're not gonna live as your damn guests forever."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: Said like a person: 'tell everybody, out loud, that this block is ours too.'
+- A SIDE QUEST ON THE ROAD (card 8.9)
+   THE LINE (the game today): "Come close, I don't have the breath to say it twice. There's one thing left and I can't walk it there myself.
+There's a man. He took my son from me, years back, in the ugly way. I've carried it so long my hands ache from it.
+I want to put it down before I go. I want you to find him and tell him, in my words, that I forgive him. Say it back to me first so I know you have it."
+   OUR TRY, HE SAID YES: "Come closer, I can't talk loud. A man killed my son, years ago. I hated him so long it made me sick. Find him. Tell him I forgive him. My words, not yours. I want him to hear it before I die."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: A dying woman talks like one, clean on purpose, her own words kept ('My words, not yours.').
+- THE KID YOU SAID NO TO (card 8.10)
+   THE LINE (the game today): "Okay. His tag is still on the pipe."
+   OUR TRY, HE SAID YES: "Okay. Thanks for nothing. My grandma's gonna keep drinking out of the fucking wash."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: A kid told no says what it costs him: 'My grandma's gonna keep drinking out of the fucking wash.'
+- YOUR SECOND, TEACHING (card 8.12)
+   THE LINE (the game today): "Oye. Posts on the phone are work. Touch one, it lights up."
+   OUR TRY, HE SAID YES: "Boss, your phone's been buzzing all damn day. People out there need shit done."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: Your second tells you, he does not teach you: 'your phone's been buzzing all damn day.'
+- BEHIND THE BAR (card 8.13)
+   THE LINE (the game today): "A trucker swore he saw a dog with a tag in its ear, big as a calf, out by the tower. From the lab."
+   OUR TRY, HE SAID YES: "Don't go out by the tower at night. Something big as a calf took my cousin's dogs, all three of them, and it had a lab tag in its ear. I saw the fucking tag myself."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: A rumour with stakes: the teller lost something and saw it ('I saw the fucking tag myself').
+- A ROAD STOP (card 8.14)
+   THE LINE (the game today): "Folks! Ninety minutes of your time and breakfast is on us. Real eggs: we keep chickens on the roof now. Vacation ownership is still the smartest money in Nevada. Ask me about week thirty-two."
+   OUR TRY, HE SAID YES: "Folks! Ninety minutes of your time and breakfast is on us. Real eggs, from real chickens, out back. Vacation ownership is still the smartest money in Nevada. Ask me about week thirty-two."
+   HE SAID: (a YES, nothing written)
+   WHAT IT TEACHES: The joke fits what he can see (chickens out back, not on a roof that is not there); the salesman stays clean.
+
 ### WHAT THE VOICE IS NOT (his NO, rule 466(f); his words exactly, and the plain lesson)
 
 1. A ROAD STOP (card 1.13)
@@ -493,6 +673,34 @@ I want to put it down before I go. I want you to find him and tell him, in my wo
    THE LINE (the game today): "The lab grew one ground sloth and it walked home to Tule Springs, where its bones were found, and now it flattens tents. Put it down and it pays 95 batteries."
    HIS NO: "For everything that you've made dialog wise, you keep referring to saying it pays. What do you mean it pays? Who's paying the person who's talking to you most likely for the settlement that you're in you keep saying it pays. What the fuck is up with that?"
    THE LESSON: NEVER 'IT PAYS'. 'Who's paying the person who's talking to you?' A job giver says who pays (most likely the settlement) and what, or nothing.
+
+15. A BOSS'S ASKER (card 6.10)
+   THE LINE (the game today): "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever pays, and he throws nails on every street round his shop so you crawl in. Ask at the bar, they all know him."
+   OUR TRY, HE SAID NO: "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever has batteries, and he throws nails on every street around his shop so you crawl in on your fucking knees. Ask at the bar, every drunk in there knows him."
+   HIS NO: "Kind of the second half of the shit didn't really make sense though"
+   THE LESSON: EVERY HALF OF A LINE MAKES SENSE. The first half stood (everybody wants guns, THE MACHINIST sells them); the second ('he throws nails on every street around his shop so you crawl in on your fucking knees') mixed what the nails do with a picture of crawling, and read as nonsense. Say what the nails do (you go slow), plainly.
+   OUR FIX, A NEW CARD (card 9.1): "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever has batteries. He throws nails all over the streets around his shop, so anybody going in has to go slow as shit. Ask at the bar, they all know where he's at."
+
+16. A ROAD STOP (card 6.12)
+   THE LINE (the game today): "One hand, high card. You win, I give you twenty. You lose, I take ten. The house always won, mijo. The house is dead now. Let's see."
+   OUR TRY, HE SAID NO: "One hand, high card. You win, I give you twenty batteries. You lose, I take ten. The house always won, and look at this shit now, the house is dead. Deal?"
+   HIS NO: "" (a NO, nothing written)
+   THE LESSON: CLEVER IS NOT CLEAR. He wrote nothing. (Our reading: 'The house always won, and look at this shit now, the house is dead' is a play on words, the casino as 'the house'; a line he has to work out is wrong.)
+   OUR FIX, A NEW CARD (card 9.2): "One hand, high card. You win, I give you twenty batteries. You lose, you give me ten. I dealt cards for thirty years, so don't even fucking try to cheat me."
+
+17. A SIDE QUEST ON THE ROAD (card 7.12)
+   THE LINE (the game today): "In front of both families. They'll vote like it's a fair thing and go home knowing exactly what they voted for."
+   OUR TRY, HE SAID NO: "In front of both families. They'll vote like it's fair, and every one of them goes home knowing exactly what the fuck they voted for."
+   HIS NO: "" (a NO, nothing written)
+   THE LESSON: A LINE THAT NEEDS THE WHOLE STORY IS WRONG ON ITS OWN. He wrote nothing. (Our reading: 'every one of them goes home knowing exactly what the fuck they voted for' is irony about a vote the card never explains: one medicine, two patients, the families pick who dies. Say that.)
+   OUR FIX, A NEW CARD (card 9.3): "Fine. We do it in front of both families. They'll vote like it's fair, and then every one of them goes home knowing they picked who dies. That's the cruelest fucking room I'll ever stand in."
+
+18. A ROAD STOP (card 8.11)
+   THE LINE (the game today): "(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) Everything is recorded. Do you want to see what happens next?"
+   OUR TRY, HE SAID NO: "(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) That's you. Ten minutes ago. Somebody up there's been watching you all fucking day. Wanna see what else is on the tape?"
+   HIS NO: "" (a NO, nothing written)
+   THE LESSON: THE SCENE HAS TO MAKE SENSE BEFORE THE WORDS CAN. He wrote nothing, and he said no to the game's line here too (4.9). (Our reading: a TV with no back showing your crew from above, and a man offering 'the tape', still does not say who filmed you or why he shows you.)
+   OUR FIX, A NEW CARD (card 9.4): "(he holds a TV with no back. On it, your own crew, walking this road, filmed from above, ten minutes ago. He smiles.) I got a camera up on that billboard. I've been watching you since the overpass. Look at the screen. There's something on there you're gonna fucking want."
 
 ### EVERYTHING ELSE HE HAS SAID ABOUT HOW PEOPLE TALK, EACH BESIDE WHAT IT TEACHES (21 lines)
 
@@ -601,24 +809,25 @@ so: use those for WHAT he wants, never for how he sounds. What each TEACHES is O
 
 1. HELL FIRST. The first thing anybody feels from a line is that this person is in hell. [HIS: rule 1]
 2. TWO WORDS, SCARY FIRST: scary funny, scary happy, scary serious, scary confident, scary trying to be a leader, scary political. Never funny alone. [HIS: rules 2 and 3]
-3. MOST PEOPLE CURSE. Fuck, shit, motherfucker, bitch, in full, never bleeped, where a real person in that spot would: a man going down, a boss, a checkpoint, raiders, a hurt man, a child about to drown. Not every line: a radio call for help, a priest, an old man asking for peace, a doc at a wound, a praying man outnumbered did not. [HIS: rule 467 and its 11/22 amendment, and his own lines]
-4. NEVER "IT PAYS". A person says who pays and what ("I'll pay you forty"), or says nothing of pay. "It doesn't pay" is a lie when it does. [HIS: rule 470(g); his NOs on 3.11, 3.12, 5.12]
+3. MOST PEOPLE CURSE. Fuck, shit, motherfucker, bitch, in full, never bleeped, where a real person in that spot would: a man going down, a boss, a checkpoint, raiders, a hurt man, a child about to drown. Not every line: a radio call for help, a priest, an old man asking for peace, a doc at a wound, a praying man outnumbered did not. [HIS: rule 467 and its 11/22 amendment, his own lines, and his YES on 28 of our 32 tries that curse (11/25)]
+4. NEVER "IT PAYS". A person says who pays and what ("I'll pay you forty"), or says nothing of pay. "It doesn't pay" is a lie when it does. [HIS: rule 470(g); his NOs on 3.11, 3.12, 5.12; his YES on our who-pays tries 6.1, 7.7, 8.2, 8.3]
 5. IF HE WOULD ASK "WHAT DOES THIS MEAN", IT IS WRONG. Creepy still has to make sense; a hint dressed as a goodbye, a riddle, a dying woman giving orders like a clerk are all dead. [HIS: his NOs on 4.7, 4.9, 4.10]
-6. NOBODY HELPS FOR FREE, AND EVERYBODY SAYS SO. A line that asks for help names the deal: work, or batteries. [HIS: rule 4; his kid and his old woman]
-7. A BODY IS AT STAKE, SAID OUT LOUD: days without food, a head cut off, a nephew on oxygen, a sister who is gonna die, a pus bomb, your body as meat. [OUR READING of his lines]
-8. THE DANGER STAYS DARK, THE NEED IS PLAIN. Do not explain the beast or who gave the order. [OUR READING: his old woman, his enemy]
-9. NO BATTERY COUNT IN A FEELING. A number is for what hurts (two days, then three), never for the pay in a happy line, never an exact count in a confession. The money on the screen is one number; a person may say "a car battery". [HIS: his NO on card 2.2, rule 466(d); his confession]
-10. SAY IT LIKE A PERSON, NOT A NOTICE. If he would ask "what does that mean", it is wrong: no committee English, no speech English, no meeting about a flashlight. [HIS: his NOs on cards 2.5 and 2.6]
-11. NO FASHION NAMES AS A JOKE thirty years after the end. A brand stays only as a real thing somebody looted and sells. [HIS: his NO on card 2.1, his line on card 2.10]
-12. THE LINE AGREES WITH THE WORLD. A joke that does not fit what he sees is dead. [HIS: his NO on card 1.13]
-13. PLAIN BEATS CLEVER. "Don't you dare" became "FUCK!"; "out of spite" became "I guess god had other plans for me"; "I walked" became "real deal killers"; "Still hears him asking for it" became "Not my proudest moment."; no fancy words ("lucrative"). [HIS: his lines and his YES on 5.5]
-14. A THING SAID ABOUT A PERSON BECOMES THE PERSON SAYING IT. A man's past on his card in his own words; a told line after a choice said by somebody, to you. [HIS: his lines on 3.9 and 3.3]
-15. LENGTH FOLLOWS THE PERSON. A scared kid pours it out; a scared old woman is short of breath; a man going down says two words. Less is better. [OUR READING; HIS: "overkill with the amount of texts"]
-16. END ON THE ASK, THE OFFER OR THE THREAT. No clever last line. [OUR READING; HIS: "Boring asf"]
-17. PEOPLE CALL EACH OTHER WHAT THEY ARE TO THEM: bro, man, My Dear, tough guy, Darling, fuck faces. His men call him "Boss." Never a crew's name in a mouth. [HIS: his lines]
-18. A POST IS TYPED LIKE A PHONE AND SAYS THE STAKES: short forms, cold, "SOS", gone as soon as it is read. [HIS: his posts; "sounding like a human tweeting"]
-19. NO NEW SPANISH. He took it out of every line he rewrote that had it (the kid, the checkpoint, the Elder). About 15 in 100 lines at ship, some people not everybody, and never you. [HIS: his lines, 11/3 and 9/21]
-20. EVERY WORD FROM A PERSON WITH A FACE, AND NOBODY SAYS LAS VEGAS. [HIS: 9/20 and 11/3]
+6. EVERY LINE MAKES PLAIN SENSE, WORD BY WORD, TO SOMEBODY WHO NEVER SAW THE GAME. No play on words ("the house is dead"), no irony that needs the story ("knowing exactly what they voted for"), no half that mixes what a thing does with a picture of it (nails, "crawl in on your knees"), no scene nobody explains (the tape), and the picture must be right: you ARE the dinner. Cursing never saved a line that made no sense. [HIS: his note on 6.5 and his NOs on 6.10, 6.12, 7.12, 8.11 (11/25), the only misses in 38 tries]
+7. NOBODY HELPS FOR FREE, AND EVERYBODY SAYS SO. A line that asks for help names the deal: work, or batteries. [HIS: rule 4; his kid and his old woman]
+8. A BODY IS AT STAKE, SAID OUT LOUD: days without food, a head cut off, a nephew on oxygen, a sister who is gonna die, a pus bomb, your body as meat. [OUR READING of his lines]
+9. THE DANGER STAYS DARK, THE NEED IS PLAIN. Do not explain the beast or who gave the order. [OUR READING: his old woman, his enemy]
+10. NO BATTERY COUNT IN A FEELING. A number is for what hurts (two days, then three), never for the pay in a happy line, never an exact count in a confession. The money on the screen is one number; a person may say "a car battery". [HIS: his NO on card 2.2, rule 466(d); his confession]
+11. SAY IT LIKE A PERSON, NOT A NOTICE. If he would ask "what does that mean", it is wrong: no committee English, no speech English, no meeting about a flashlight. [HIS: his NOs on cards 2.5 and 2.6]
+12. NO FASHION NAMES AS A JOKE thirty years after the end. A brand stays only as a real thing somebody looted and sells. [HIS: his NO on card 2.1, his line on card 2.10]
+13. THE LINE AGREES WITH THE WORLD. A joke that does not fit what he sees is dead. [HIS: his NO on card 1.13]
+14. PLAIN BEATS CLEVER. "Don't you dare" became "FUCK!"; "out of spite" became "I guess god had other plans for me"; "I walked" became "real deal killers"; "Still hears him asking for it" became "Not my proudest moment."; no fancy words ("lucrative"). [HIS: his lines and his YES on 5.5]
+15. A THING SAID ABOUT A PERSON BECOMES THE PERSON SAYING IT. A man's past on his card in his own words; a told line after a choice said by somebody, to you. [HIS: his lines on 3.9 and 3.3]
+16. LENGTH FOLLOWS THE PERSON. A scared kid pours it out; a scared old woman is short of breath; a man going down says two words. Less is better. [OUR READING; HIS: "overkill with the amount of texts"]
+17. END ON THE ASK, THE OFFER OR THE THREAT. No clever last line. [OUR READING; HIS: "Boring asf"]
+18. PEOPLE CALL EACH OTHER WHAT THEY ARE TO THEM: bro, man, My Dear, tough guy, Darling, fuck faces. His men call him "Boss." Never a crew's name in a mouth. [HIS: his lines]
+19. A POST IS TYPED LIKE A PHONE AND SAYS THE STAKES: short forms, cold, "SOS", gone as soon as it is read. [HIS: his posts; "sounding like a human tweeting"]
+20. NO NEW SPANISH. He took it out of every line he rewrote that had it (the kid, the checkpoint, the Elder). About 15 in 100 lines at ship, some people not everybody, and never you. [HIS: his lines, 11/3 and 9/21]
+21. EVERY WORD FROM A PERSON WITH A FACE, AND NOBODY SAYS LAS VEGAS. [HIS: 9/20 and 11/3]
 
 ## PART TWO: WHAT CAN BE MEASURED IN HIS LINES
 
@@ -666,16 +875,12 @@ mark to our 1, and 1 Spanish words to our 5; his run 582 words to our 527.
 
 ## PART THREE: WHAT IS STILL UNKNOWN
 
-EACH WAITS ON HIS ANSWER, and the card that asks it is in the VOTE tab. 38 cards are out (12 of sheet 6, 12 of sheet 7, 14 of sheet 8); he has answered 68,
+EACH WAITS ON HIS ANSWER, and the card that asks it is in the VOTE tab. 12 cards are out (12 of sheet 9); he has answered 106,
 every card of the sheets before. Each card of sheet six on shows OUR TRY beside the line the game says now (rule 467 amended).
 HE IS NOT DONE (rule 465): he is still typing his lines into the cards; nothing he writes there goes into the game, and no line is
 rewritten from it, until he says he is done. Each sheet he uploads is folded onto part one here, line by line, the same way as his four.
-- SETTLED BY HIS ANSWERS, SO NOBODY ASKS AGAIN. Eerie is scary (his YES on 3.5). His men call him "Boss." (1.11). A button may stay a thing you do, with a wait on what it brings back (3.4, rule 470(h)). A road card may describe a scene with nobody talking (4.12). A clerk and an office may talk like a clerk and an office (5.7, 5.9). A greedy man may talk money over the dead (5.5, without "lucrative"). The amount at the moment of paying is fine (4.4); a count in a feeling is not (2.2).
-- NEVER "IT PAYS", ON THE BIGGEST MOUTHS. 20 of the 102 job lines say "it pays" (23 lines in every counted mouth). Our try says who pays and what: the turbine man paying out of the turbine money (card 6.1); a dealer saying exactly who gives what to whom (card 6.12).
-- MOST PEOPLE CURSE: OUR TRIES. Every card now shows our try beside the game's line (rule 467 amended), and 10 of the 12 on sheet six curse in full: a widower over his dead wife's voice (card 6.3), deserters ashamed of what they did (card 6.4), the enemy's why for the animals (card 6.5, after his "They not cursing bro"), one word added to a miss (card 6.6), a believer looting after a win (card 6.7), an Elder three nights after a raid (card 6.8), a collector selling himself (card 6.9), the asker who sends you after the Machinist (card 6.10).
-- WHERE THE CURSING STOPS: OUR TRIES LEFT CLEAN. A sergeant asking strangers for help with his men listening (card 6.2); a church's radio while the children hide, the way his own radio call stayed clean (card 6.11). Each card says why it is clean.
-- SHEET SEVEN, WAITING BEHIND SHEET SIX (our try on every card, 10 of 12 cursing). A post about a brother gone four days (card 7.1); a memorial for the man who wound the church clock, clean on purpose (card 7.2); a kid's first hit (card 7.3); a retreat said plain instead of a quip (card 7.4); waking up after everybody went down (card 7.5); an old sergeant whose pension died (card 7.6); the woman of the soup line, who says what she gives and stays clean (card 7.7); an old woman with a rotten tooth (card 7.8); the radio as they come up the ladder (card 7.9); his man on why the animals want the cart (card 7.10); a told line after you dig a girl out, turned into a neighbour's sneer the way his 'fucking cookie' did on 3.3 (card 7.11); a doctor, bitter, on how two families will vote (card 7.12).
-- SHEET EIGHT, YOUR NO, OUR TRY (waiting behind sheet seven; 12 of 14 cursing). His 14 NOs from sheets one to five come back as new questions, the game's line he said no to beside our try made from his lesson: the raiders at your wall, cursing (card 8.1); the sloth job, the camp paying out of what everybody chipped in (card 8.2); the stew, a grandmother paying from her own pocket (card 8.3); the man she forgave, with no pay talk at all (card 8.4); the water running, no count in the joy (card 8.5); the toll and the insult with no designer (card 8.6); a post that says what the meeting is for (card 8.7); the old woman asking you to tell everybody, out loud, that the block is theirs too (card 8.8); the dying woman talking like one, clean on purpose (card 8.9); the kid told no saying what it costs him (card 8.10); the smiling man's tape, creepy and making sense (card 8.11); your second telling you, not teaching you (card 8.12); a rumour where the teller lost something (card 8.13); the timeshare man with no roof for his chickens, clean on purpose (card 8.14). Where he wrote a line or said YES, his answer is the line, so no try goes over it.
+- SETTLED BY HIS ANSWERS, SO NOBODY ASKS AGAIN. Eerie is scary (his YES on 3.5). His men call him "Boss." (1.11). A button may stay a thing you do, with a wait on what it brings back (3.4, rule 470(h)). A road card may describe a scene with nobody talking (4.12). A clerk and an office may talk like a clerk and an office (5.7, 5.9). A greedy man may talk money over the dead (5.5, without "lucrative"). The amount at the moment of paying is fine (4.4); a count in a feeling is not (2.2). MOST PEOPLE CURSE, IN FULL: his YES on 28 of our 32 tries that curse and on all 6 we left clean on purpose (sheets six to eight, 11/25). WHO PAYS, SAID BY THE ONE PAYING, works (his YES on 6.1, 7.7, 8.2, 8.3).
+- SHEET NINE, IT MAKES SENSE (12 cards, 10 cursing; the only homework out). His four NOs on our tries come back fixed, each a new question: THE MACHINIST's nails said for what they do (card 9.1); the dealer plain, no play on words (card 9.2); the doctor saying the families pick who dies (card 9.3); the man with a camera on the billboard saying who filmed you and why he shows you (card 9.4). Then the job board, where 17 of the 63 people still say "it pays", each try saying who pays and out of what: the convoy, out of the cargo (card 9.5); the ring, out of the camp's money (card 9.6); the wells, all she has (card 9.7); the tire yard, what the parents put in the jar (card 9.8); the lion, the old rich man himself (card 9.9); the dog pen, the church's box, clean on purpose (card 9.10); the voice on every radio at three (card 9.11); the courier, the clinic, clean on purpose (card 9.12).
 - ONE SENTENCE OR TWO FOR THE WHY. He asked for "just one sentence" on 11/14; his own enemy and boss lines run two. Not asked; the cards will show it.
 - THE APOSTROPHES. His typed lines drop apostrophes and capitals ('well', 'Theyre', 'your're', 'Were', 'Dont', 'Ive', 'Ill', 'whats', 'henderson', 'rico's'), keep a misspelling ('great' for grate) and one double space ('the  tax'). Kept as typed; whether the game prints speech that way is not asked.
 

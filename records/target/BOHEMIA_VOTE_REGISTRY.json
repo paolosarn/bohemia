@@ -20915,6 +20915,392 @@
    }, "before_after": {"before": "main 64ab8c777: the Strat stood on the map and arriving there did nothing", "after": "a trip to the tower climbs it: 90 minutes, the fog opens 30 blocks by day (on the demo 5 to 9 towns, 0 to 11 real places found), at night only the lit towns within 40", "scale": "his phone upright (390 x 844 at 3), the alpha's RUN tab map, before the climb (left) and after (right), one stop out"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_14_THE_STRAT_LOOKOUT_11_20_26.md"},
   {"id": "character-the-head-takers-11-20", "kind": "outfit", "lane": "character", "made": "11/20", "sha": "1bde82723", "draft": true, "title": "THE HEAD TAKERS IN THEIR OWN CLOTHES: MEN WHO HUNT MEN, IN THE HUNTER'S BLAZE", "said": "full sweep, whole enchilada, dont forget nothing / the clothes look good: leather and layering", "why": "The head takers fought in the Volunteers' one-piece look and two hall men's clothes; now three head takers in work coats with plate strapped over them, two smokers in ponchos and dust masks with a satchel of pots, and two darters in field coats with a bolt quiver, every one with a hunter's blaze scarf in the head takers' own yellow-green. You see it in every fight against the head takers, and on this card.", "options": ["A, yes, the head takers look like this", "B, close, change something (say which one and what)", "C, no, not like this"], "show": {"how": "image", "src": "../records/target/character/the_head_takers/CHARACTER_THE_HEAD_TAKERS.webp", "first": "../records/target/character/the_head_takers/CHARACTER_THE_HEAD_TAKERS_FIRST.webp", "firstAt": [0, 0, 884, 528]}, "twin": {"src": "records/target/cook3/rig/thug/rig_S.png", "diffs": ["BOUNTY HUNTERS' OWN LOOK (Battle Brothers' bounty hunters: a hunter's coat and plate): a rust work coat, a chore coat, an oxblood drifter's coat, a soot or a scrap chest plate strapped over, a shell bandolier.", "ONE MARK FOR ALL SEVEN: a blaze scarf in the head takers' own banner ink (yellow-green), what a hunter wears so his own side does not shoot him; it reads at the throat from every facing.", "THE SMOKE AND THE SLEEP: the smokers in an oxblood or a dust poncho, a dust mask and a satchel of pots; the darters in a charcoal car coat or a barn coat with a bolt quiver on the back."]}, "stage": "made_from", "golden": "character-the-nine-enemies-their-own-clothes-11-7", "recipe": "the nine enemies' frozen recipe (layers that read apart, leather where it fits, no blue, no trench added), the three new types in tools/bohemia_character_the_nine_enemies.py (TYPES['Head Taker'], ['Smoker'], ['Darter'], the BLAZE SCARF, roll-more, make, pack)"},
   {
+   "id": "words-two-hw09-12-who-pays-the-courier-11-26",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/26",
+   "draft": true,
+   "title": "NOW: “Every Thursday a man walks the drug down Boulder Highway and the clinic fills up. Follow him and tell me who he answers to, and it pays 78 batteries.”  ·  OUR TRY: “Every Thursday a man walks the drugs down Boulder Highway, and by Friday my clinic is full. Follow him and tell me who he answers to. The clinic will give you 78 batteries.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words: The nun who runs the clinic and counts the overdoses says it to you when you ask what her job is and what you get for it (you see it in a camp or TOWN, at the board where people offer jobs); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_09/words-two-hw09-12-who-pays-the-courier-11-26.webp",
+    "first": "vote/words_two_homework_09/words-two-hw09-12-who-pays-the-courier-11-26.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1136
+    ]
+   },
+   "homework": {
+    "sheet": 9,
+    "n": 12,
+    "mouth": "A JOB GIVER AT THE BOARD",
+    "rule": "NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words",
+    "try": "Every Thursday a man walks the drugs down Boulder Highway, and by Friday my clinic is full. Follow him and tell me who he answers to. The clinic will give you 78 batteries.",
+    "clean": "a nun who runs the clinic, counting the overdoses; she says what it costs and stays clean",
+    "teaches": "WHO PAYS: the clinic pays; a nun says what it costs her people",
+    "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+    "line": "Every Thursday a man walks the drug down Boulder Highway and the clinic fills up. Follow him and tell me who he answers to, and it pays 78 batteries."
+   }
+  },
+  {
+   "id": "words-two-hw09-11-who-pays-the-voice-11-26",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/26",
+   "draft": true,
+   "title": "NOW: “Every night at three a woman's voice comes on every radio in the camp, reading prices. Find what is making it, and it pays 22 batteries.”  ·  OUR TRY: “Every night at three, a woman's voice comes on every radio in the camp, reading prices. I can't find who's sending it. Find whatever the fuck is making it and I'll give you 22 batteries. Half the camp can't sleep.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words: A man who fixes radios for food says it to you when you ask what his job is and what you get for it (you see it in a camp or TOWN, at the board where people offer jobs); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_09/words-two-hw09-11-who-pays-the-voice-11-26.webp",
+    "first": "vote/words_two_homework_09/words-two-hw09-11-who-pays-the-voice-11-26.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1126
+    ]
+   },
+   "homework": {
+    "sheet": 9,
+    "n": 11,
+    "mouth": "A JOB GIVER AT THE BOARD",
+    "rule": "NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words",
+    "try": "Every night at three, a woman's voice comes on every radio in the camp, reading prices. I can't find who's sending it. Find whatever the fuck is making it and I'll give you 22 batteries. Half the camp can't sleep.",
+    "teaches": "CREEPY THAT MAKES SENSE: a voice on every radio, a man who fixes radios and cannot find it, who pays and why",
+    "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+    "line": "Every night at three a woman's voice comes on every radio in the camp, reading prices. Find what is making it, and it pays 22 batteries."
+   }
+  },
+  {
+   "id": "words-two-hw09-10-who-pays-the-dog-pen-11-26",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/26",
+   "draft": true,
+   "title": "NOW: “They keep our people in a dog pen and sell them to the mines. Open that pen and bring one of them home to me, and it pays 65 batteries.”  ·  OUR TRY: “They keep our people in a dog pen and sell them to the mines. Open that pen and bring even one of them home. The church will give you 65 batteries, everything in the box.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words: The priest who counts the missing says it to you when you ask what his job is and what you get for it (you see it in a camp or TOWN, at the board where people offer jobs); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_09/words-two-hw09-10-who-pays-the-dog-pen-11-26.webp",
+    "first": "vote/words_two_homework_09/words-two-hw09-10-who-pays-the-dog-pen-11-26.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1080
+    ]
+   },
+   "homework": {
+    "sheet": 9,
+    "n": 10,
+    "mouth": "A JOB GIVER AT THE BOARD",
+    "rule": "NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words",
+    "try": "They keep our people in a dog pen and sell them to the mines. Open that pen and bring even one of them home. The church will give you 65 batteries, everything in the box.",
+    "clean": "a priest asking you to bring the missing home; he stays clean, the way a priest at a grave would",
+    "teaches": "WHO PAYS: the church pays out of its box; a priest asking for the missing",
+    "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+    "line": "They keep our people in a dog pen and sell them to the mines. Open that pen and bring one of them home to me, and it pays 65 batteries."
+   }
+  },
+  {
+   "id": "words-two-hw09-09-who-pays-the-lion-11-26",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/26",
+   "draft": true,
+   "title": "NOW: “The lab lion sleeps on my old eighteenth hole and eats my goats. One beast, very big. Kill it and it pays 90 batteries.”  ·  OUR TRY: “That lab lion sleeps on my old eighteenth hole and eats my goats. One cat, big as a horse. Kill the damn thing and I'll pay you 90 batteries myself.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words: The man who used to own the golf course says it to you when you ask what his job is and what you get for it (you see it in a camp or TOWN, at the board where people offer jobs); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_09/words-two-hw09-09-who-pays-the-lion-11-26.webp",
+    "first": "vote/words_two_homework_09/words-two-hw09-09-who-pays-the-lion-11-26.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1164
+    ]
+   },
+   "homework": {
+    "sheet": 9,
+    "n": 9,
+    "mouth": "A JOB GIVER AT THE BOARD",
+    "rule": "NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words",
+    "try": "That lab lion sleeps on my old eighteenth hole and eats my goats. One cat, big as a horse. Kill the damn thing and I'll pay you 90 batteries myself.",
+    "teaches": "WHO PAYS: the old rich man pays himself; \"One beast, very big\" said like a person",
+    "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+    "line": "The lab lion sleeps on my old eighteenth hole and eats my goats. One beast, very big. Kill it and it pays 90 batteries."
+   }
+  },
+  {
+   "id": "words-two-hw09-08-who-pays-the-tire-yard-11-26",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/26",
+   "draft": true,
+   "title": "NOW: “The tire yard sells to whoever pays, and whoever pays is shooting at us. Burn it to the ground and it pays 60 batteries.”  ·  OUR TRY: “The tire yard sells to anybody with batteries, and the ones buying are shooting at my kids. Burn that shit to the ground. I'll give you 60 batteries, everything the parents put in the jar.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words: A man who teaches kids in an old bus says it to you when you ask what his job is and what you get for it (you see it in a camp or TOWN, at the board where people offer jobs); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_09/words-two-hw09-08-who-pays-the-tire-yard-11-26.webp",
+    "first": "vote/words_two_homework_09/words-two-hw09-08-who-pays-the-tire-yard-11-26.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1126
+    ]
+   },
+   "homework": {
+    "sheet": 9,
+    "n": 8,
+    "mouth": "A JOB GIVER AT THE BOARD",
+    "rule": "NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words",
+    "try": "The tire yard sells to anybody with batteries, and the ones buying are shooting at my kids. Burn that shit to the ground. I'll give you 60 batteries, everything the parents put in the jar.",
+    "teaches": "WHO PAYS: the teacher pays with what the parents gave, and the stake is his kids",
+    "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+    "line": "The tire yard sells to whoever pays, and whoever pays is shooting at us. Burn it to the ground and it pays 60 batteries."
+   }
+  },
+  {
+   "id": "words-two-hw09-07-who-pays-the-wells-11-26",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/26",
+   "draft": true,
+   "title": "NOW: “Three wells out there, and I don't know which still give water or who is sitting on them. Go look at all three and tell me, and it pays 10 batteries.”  ·  OUR TRY: “There's three wells out there, and I don't know which ones still give water or who the hell is sitting on them. Go look at all three and come tell me. I'll give you 10 batteries. It's all I've got.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words: The woman who waters the whole block says it to you when you ask what her job is and what you get for it (you see it in a camp or TOWN, at the board where people offer jobs); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_09/words-two-hw09-07-who-pays-the-wells-11-26.webp",
+    "first": "vote/words_two_homework_09/words-two-hw09-07-who-pays-the-wells-11-26.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1180
+    ]
+   },
+   "homework": {
+    "sheet": 9,
+    "n": 7,
+    "mouth": "A JOB GIVER AT THE BOARD",
+    "rule": "NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words",
+    "try": "There's three wells out there, and I don't know which ones still give water or who the hell is sitting on them. Go look at all three and come tell me. I'll give you 10 batteries. It's all I've got.",
+    "teaches": "WHO PAYS: a small job, a small pay, and she says it is all she has",
+    "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+    "line": "Three wells out there, and I don't know which still give water or who is sitting on them. Go look at all three and tell me, and it pays 10 batteries."
+   }
+  },
+  {
+   "id": "words-two-hw09-06-who-pays-the-ring-11-26",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/26",
+   "draft": true,
+   "title": "NOW: “Chuy Lento took two of our girls' carts and only comes out after dark. Bring me his red ring and it pays 78 batteries.”  ·  OUR TRY: “Chuy Lento stole two of our girls' carts, and the bastard only comes out after dark. Bring me the red ring off his finger and I'll pay you 78 batteries out of the camp's money.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words: The man who keeps the peace in the camp, badly says it to you when you ask what his job is and what you get for it (you see it in a camp or TOWN, at the board where people offer jobs); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_09/words-two-hw09-06-who-pays-the-ring-11-26.webp",
+    "first": "vote/words_two_homework_09/words-two-hw09-06-who-pays-the-ring-11-26.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1126
+    ]
+   },
+   "homework": {
+    "sheet": 9,
+    "n": 6,
+    "mouth": "A JOB GIVER AT THE BOARD",
+    "rule": "NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words",
+    "try": "Chuy Lento stole two of our girls' carts, and the bastard only comes out after dark. Bring me the red ring off his finger and I'll pay you 78 batteries out of the camp's money.",
+    "teaches": "WHO PAYS: the one who keeps the peace pays out of the camp's money, and says why he wants the ring",
+    "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+    "line": "Chuy Lento took two of our girls' carts and only comes out after dark. Bring me his red ring and it pays 78 batteries."
+   }
+  },
+  {
+   "id": "words-two-hw09-05-who-pays-the-convoy-11-26",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/26",
+   "draft": true,
+   "title": "NOW: “A convoy comes down the dry road tonight with batteries that should be ours. Wait for it at the cut and stop it, and it pays 76 batteries.”  ·  OUR TRY: “A convoy's coming down the dry road tonight with batteries that should've been ours. Wait for it at the cut and stop the fucking thing. I'll pay you 76 batteries out of what's on the trucks.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words: A man who buys whatever the trucks carry says it to you when you ask what his job is and what you get for it (you see it in a camp or TOWN, at the board where people offer jobs); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_09/words-two-hw09-05-who-pays-the-convoy-11-26.webp",
+    "first": "vote/words_two_homework_09/words-two-hw09-05-who-pays-the-convoy-11-26.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1126
+    ]
+   },
+   "homework": {
+    "sheet": 9,
+    "n": 5,
+    "mouth": "A JOB GIVER AT THE BOARD",
+    "rule": "NEVER \"IT PAYS\", AND IT MAKES SENSE: who pays, out of what, in plain words",
+    "try": "A convoy's coming down the dry road tonight with batteries that should've been ours. Wait for it at the cut and stop the fucking thing. I'll pay you 76 batteries out of what's on the trucks.",
+    "teaches": "WHO PAYS: the buyer pays out of the cargo you stop for him",
+    "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+    "line": "A convoy comes down the dry road tonight with batteries that should be ours. Wait for it at the cut and stop it, and it pays 76 batteries."
+   }
+  },
+  {
+   "id": "words-two-hw09-04-the-scene-makes-sense-the-camera-11-26",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/26",
+   "draft": true,
+   "title": "NOW: “(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) Everything is recorded. Do you want to see what happens next?”  ·  OUR TRY: “(he holds a TV with no back. On it, your own crew, walking this road, filmed from above, ten minutes ago. He smiles.) I got a camera up on that billboard. I've been watching you since the overpass. Look at the screen. There's something on there you're gonna fucking want.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, CREEPY STILL HAS TO MAKE SENSE (your NO on card 8.11, and on 4.9 before it): A smiling man in the road holding a TV that shows your crew from above says it to your crew when he stops you on the road (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_09/words-two-hw09-04-the-scene-makes-sense-the-camera-11-26.webp",
+    "first": "vote/words_two_homework_09/words-two-hw09-04-the-scene-makes-sense-the-camera-11-26.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1348
+    ]
+   },
+   "homework": {
+    "sheet": 9,
+    "n": 4,
+    "mouth": "A ROAD STOP",
+    "rule": "CREEPY STILL HAS TO MAKE SENSE (your NO on card 8.11, and on 4.9 before it)",
+    "try": "(he holds a TV with no back. On it, your own crew, walking this road, filmed from above, ten minutes ago. He smiles.) I got a camera up on that billboard. I've been watching you since the overpass. Look at the screen. There's something on there you're gonna fucking want.",
+    "teaches": "THE SCENE EXPLAINED BY THE MAN IN IT: who filmed you (his camera on the billboard) and why he shows you (he wants you to look)",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) Everything is recorded. Do you want to see what happens next?"
+   }
+  },
+  {
+   "id": "words-two-hw09-03-say-what-the-vote-is-the-doctor-11-26",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/26",
+   "draft": true,
+   "title": "NOW: “In front of both families. They'll vote like it's a fair thing and go home knowing exactly what they voted for.”  ·  OUR TRY: “Fine. We do it in front of both families. They'll vote like it's fair, and then every one of them goes home knowing they picked who dies. That's the cruelest fucking room I'll ever stand in.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, SAY WHAT IT MEANS (your NO on card 7.12): A doctor outside her clinic tent, smoking says it to you when she tells you how the two families will settle it (you see it on the MAP, on a side quest's last card); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_09/words-two-hw09-03-say-what-the-vote-is-the-doctor-11-26.webp",
+    "first": "vote/words_two_homework_09/words-two-hw09-03-say-what-the-vote-is-the-doctor-11-26.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1126
+    ]
+   },
+   "homework": {
+    "sheet": 9,
+    "n": 3,
+    "mouth": "A SIDE QUEST ON THE ROAD",
+    "rule": "SAY WHAT IT MEANS (your NO on card 7.12)",
+    "try": "Fine. We do it in front of both families. They'll vote like it's fair, and then every one of them goes home knowing they picked who dies. That's the cruelest fucking room I'll ever stand in.",
+    "teaches": "NO IRONY THAT NEEDS THE STORY: the vote is said for what it is (they pick who dies)",
+    "pulled_from": "records/target/BOHEMIA_SIDE_QUESTS.json",
+    "line": "In front of both families. They'll vote like it's a fair thing and go home knowing exactly what they voted for."
+   }
+  },
+  {
+   "id": "words-two-hw09-02-plain-not-clever-the-dealer-11-26",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/26",
+   "draft": true,
+   "title": "NOW: “One hand, high card. You win, I give you twenty. You lose, I take ten. The house always won, mijo. The house is dead now. Let's see.”  ·  OUR TRY: “One hand, high card. You win, I give you twenty batteries. You lose, you give me ten. I dealt cards for thirty years, so don't even fucking try to cheat me.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, PLAIN, NOT CLEVER (your NO on card 6.12): An old casino dealer on the road with a deck of cards says it to you when he offers you one hand of high card (you see it on the MAP, on the card that stops your crew on the road); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_09/words-two-hw09-02-plain-not-clever-the-dealer-11-26.webp",
+    "first": "vote/words_two_homework_09/words-two-hw09-02-plain-not-clever-the-dealer-11-26.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1210
+    ]
+   },
+   "homework": {
+    "sheet": 9,
+    "n": 2,
+    "mouth": "A ROAD STOP",
+    "rule": "PLAIN, NOT CLEVER (your NO on card 6.12)",
+    "try": "One hand, high card. You win, I give you twenty batteries. You lose, you give me ten. I dealt cards for thirty years, so don't even fucking try to cheat me.",
+    "teaches": "NO PLAY ON WORDS: \"the house is dead\" is gone; who he is and the deal, plain",
+    "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+    "line": "One hand, high card. You win, I give you twenty. You lose, I take ten. The house always won, mijo. The house is dead now. Let's see."
+   }
+  },
+  {
+   "id": "words-two-hw09-01-every-half-makes-sense-the-machinist-11-26",
+   "kind": "line",
+   "lane": "words two",
+   "sha": "PENDINGSHA",
+   "made": "11/26",
+   "draft": true,
+   "title": "NOW: “You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever pays, and he throws nails on every street round his shop so you crawl in. Ask at the bar, they all know him.”  ·  OUR TRY: “You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever has batteries. He throws nails all over the streets around his shop, so anybody going in has to go slow as shit. Ask at the bar, they all know where he's at.”",
+   "said": "you show me one sentence or one dialog caption that you made and then I'll tell you how I want that shit to sound",
+   "why": "IS OUR TRY RIGHT? It tests your rule, IT MAKES SENSE, BOTH HALVES (your NO on card 6.10: \"the second half of the shit didn't really make sense\"): A mechanic with burned arms says it to you when she stops you to send you after the boss who makes the guns (you see it on the MAP, on the card that starts a boss's trail); type your way in the box, then tap a thumb to send it.",
+   "show": {
+    "how": "image",
+    "src": "vote/words_two_homework_09/words-two-hw09-01-every-half-makes-sense-the-machinist-11-26.webp",
+    "first": "vote/words_two_homework_09/words-two-hw09-01-every-half-makes-sense-the-machinist-11-26.webp",
+    "firstAt": [
+     0,
+     0,
+     780,
+     1208
+    ]
+   },
+   "homework": {
+    "sheet": 9,
+    "n": 1,
+    "mouth": "A BOSS'S ASKER",
+    "rule": "IT MAKES SENSE, BOTH HALVES (your NO on card 6.10: \"the second half of the shit didn't really make sense\")",
+    "try": "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever has batteries. He throws nails all over the streets around his shop, so anybody going in has to go slow as shit. Ask at the bar, they all know where he's at.",
+    "teaches": "THE FIRST HALF KEPT, THE SECOND SAID PLAIN: what the nails do (you go slow), not a picture of crawling on your knees",
+    "pulled_from": "records/target/bb/boss_act_one.json",
+    "line": "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever pays, and he throws nails on every street round his shop so you crawl in. Ask at the bar, they all know him."
+   }
+  },
+  {
    "id": "words-two-hw08-14-the-line-agrees-with-the-world-11-22",
    "kind": "line",
    "lane": "words two",

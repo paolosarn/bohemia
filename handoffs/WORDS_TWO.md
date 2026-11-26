@@ -6,6 +6,25 @@
 # NEVER DONE BY THIS LANE UNTIL HIS WORD: rewriting a standing line in the game. Rule 454(a): nothing is rewritten yet.
 # NOT THIS LANE: the older WORDS and WORDS 2 chats (handoffs/WORDS.md). This file is this lane's only handoff.
 
+WORDS THREE (words-three-01gkdyuvnl): 11/26 LATEST -- BUILD 11/26g - HIS 11/25 VOTES ON OUR TRIES: IT MAKES SENSE, AND SHEET NINE, BUILT (this commit), NOT YET SEEN (rules 481(c), 482, 467 AMENDED, 465; ask rows 734, 629). NOTHING IN THE GAME WAS REWRITTEN.
+THE COORDINATOR'S ROUTINE 'WORDS THREE: his 11/25 votes': records/BOHEMIA_PAOLO_VOTE_11_25_26.txt answered all 38 cards of sheets six to eight (he saw the 11/26
+tries). YES 34 (28 of the 32 that curse, all 6 clean), NO 4: hw06-10 ('the second half of the shit didn't really make sense'), hw06-12, hw07-12, hw08-11 (no words);
+hw06-05 a YES with a note ('Like you are the dinner, bro'). Every miss cursed and every miss made no plain sense. Rule 465 stands: THE VOICE HOLDS 11/0.
+(1) THE VOICE (tools/bohemia_words_three_the_voice.py): 106 answers. The tool now reads a card's try ('tried'): a YES on our try goes to a NEW SECTION, OUR TRIES HE
+SAID YES TO (the game's line, OUR TRY, HE SAID YES word for word, his words, WHAT IT TEACHES; 34 KEPT_TEACH entries); hw06-05 is in KEPT_AS_IS with OUR FIX, FROM
+HIS NOTE ("The herd's starving, and you dumb fucks are dinner.", from homework_06.json 'fixed'; not asked again, notes are rulings). A NO on our try shows OUR TRY,
+HE SAID NO, 'a NO, nothing written' when blank, its LESSON (4 new) and OUR FIX, A NEW CARD (from 'fixed_on'). THE VOICE SO FAR line 6: EVERY LINE MAKES PLAIN SENSE,
+WORD BY WORD, TO SOMEBODY WHO NEVER SAW THE GAME. Part three: sheets six to eight off (answered), MOST PEOPLE CURSE moved into SETTLED with his numbers, SHEET NINE on.
+(2) SHEET NINE (words-two-hw09-01 to -12, homework_09.json): 9.1 to 9.4 his four NOs fixed (the nails said for what they do; the dealer plain; the families pick who
+dies; the camera on the billboard), 9.5 to 9.12 the job board's 'it pays' lines (17 of 63 people still say it), each try saying who pays and out of what. 10 of 12
+curse; the priest (9.10) and the nun (9.12) clean on purpose. Yellow; on a fresh phone places 3 to 14 of 14 behind MORE. 12 of 12 pictures both ways, 0 errors.
+GATE THE VOICE IS HIS WORDS 17/0: V11 widened for our tries he answered (the game's line, the try word for word, his words) and a new plant (a YES try softened on
+the page) caught. HIS ANSWER IS KEPT 15/0; THE VOTE TAB IS NEVER CHOPPY 7/0; sheet checks 06 to 09 green.
+Record: records/BOHEMIA_WORDS_THREE_HIS_11_25_VOTES_IT_MAKES_SENSE_AND_SHEET_NINE_11_26_26.md.
+NEXT: his answers on sheet nine, folded the same way (a YES on our try needs its KEPT_TEACH, a NO its LESSON; the tool stops until each is written).
+[bb Battle Brothers' contracts are one plain paragraph: who you are, what they want, what they pay; nobody makes you work out a pun]
+[analog horror: 'I got a camera up on that billboard. I've been watching you since the overpass.' (card 9.4)]
+
 WORDS THREE (words-three-01gkdyuvnl): 11/26 LATEST -- BUILD 11/26b - RULE 480: THE SHEETS BETTER AND THE VOTE TAB NEVER CHOPPY, BUILT (372b04009), NOT YET SEEN (rules 480(b)(c)(d), 467 AMENDED, 465; ask row 723). NOTHING IN THE GAME WAS REWRITTEN.
 THE COORDINATOR'S ROUTINE 'WORDS THREE: rule 480': improve sheets six to eight (38 cards, none answered yet), the VOTE tab opens and scrolls them with no hitch,
 nothing new. Rule 465 stands: THE VOICE HOLDS 11/0, 0 of 15 mouths open.

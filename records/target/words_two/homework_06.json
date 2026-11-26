@@ -290,7 +290,9 @@
    "teaches": "THE WHY LINE CURSES: 163 why lines, none curse; your raiders card said so; this is our try on the next one",
    "n": 5,
    "id": "words-two-hw06-05-curse-the-herds-why-11-22",
-   "made": "11/22"
+   "made": "11/22",
+   "fixed": "The herd's starving, and you dumb fucks are dinner.",
+   "fixed_by": "his note on his YES (11/25): 'Like you are the dinner, bro.' Built as he said it, not asked again (notes are rulings)"
   },
   {
    "rule": "THEY CURSE: a miss in the middle of a fight",
@@ -500,7 +502,8 @@
    "teaches": "THE ASKER, THE FURTHEST MOUTH: your trucker card was a YES as it stood; this asker is angry and curses; which is right for the 60 asker lines",
    "n": 10,
    "id": "words-two-hw06-10-curse-the-asker-11-22",
-   "made": "11/22"
+   "made": "11/22",
+   "fixed_on": "words-two-hw09-01-every-half-makes-sense-the-machinist-11-26"
   },
   {
    "rule": "THEY CURSE, AND WHO DOES NOT: a church under attack, on the radio",
@@ -595,7 +598,8 @@
    "teaches": "WHO PAYS, SAID RIGHT: the dealer says exactly who gives what to whom ('I give you twenty'); our try drops 'mijo' and adds the curse",
    "n": 12,
    "id": "words-two-hw06-12-who-pays-the-dealer-11-22",
-   "made": "11/22"
+   "made": "11/22",
+   "fixed_on": "words-two-hw09-02-plain-not-clever-the-dealer-11-26"
   }
  ]
 }

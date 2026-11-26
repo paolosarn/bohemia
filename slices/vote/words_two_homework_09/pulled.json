@@ -1,0 +1,317 @@
+{
+ "draft": true,
+ "tool": "tools/bohemia_words_two_homework.js",
+ "sheet": 9,
+ "note": "every line below was read out of the named game file by this tool; none was typed",
+ "cards": [
+  {
+   "n": 1,
+   "id": "words-two-hw09-01-every-half-makes-sense-the-machinist-11-26",
+   "mouth": "A BOSS'S ASKER",
+   "who": "LA GÜERA",
+   "pulled_from": "records/target/bb/boss_act_one.json",
+   "locator": [
+    "bosses",
+    {
+     "find": {
+      "n": "THE MACHINIST"
+     }
+    },
+    "lead",
+    "asker",
+    "says"
+   ],
+   "in_the_file": "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever pays, and he throws nails on every street round his shop so you crawl in. Ask at the bar, they all know him.",
+   "line": "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever pays, and he throws nails on every street round his shop so you crawl in. Ask at the bar, they all know him.",
+   "try": "You want guns? Everybody wants guns. THE MACHINIST makes them and sells them to whoever has batteries. He throws nails all over the streets around his shop, so anybody going in has to go slow as shit. Ask at the bar, they all know where he's at.",
+   "picture_pt": [
+    390,
+    603
+   ]
+  },
+  {
+   "n": 2,
+   "id": "words-two-hw09-02-plain-not-clever-the-dealer-11-26",
+   "mouth": "A ROAD STOP",
+   "who": "AN OLD DEALER",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_casino_chip"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "One hand, high card. You win, I give you twenty. You lose, I take ten. The house always won, mijo. The house is dead now. Let's see.",
+   "line": "One hand, high card. You win, I give you twenty. You lose, I take ten. The house always won, mijo. The house is dead now. Let's see.",
+   "try": "One hand, high card. You win, I give you twenty batteries. You lose, you give me ten. I dealt cards for thirty years, so don't even fucking try to cheat me.",
+   "picture_pt": [
+    390,
+    605
+   ]
+  },
+  {
+   "n": 3,
+   "id": "words-two-hw09-03-say-what-the-vote-is-the-doctor-11-26",
+   "mouth": "A SIDE QUEST ON THE ROAD",
+   "who": "DOCTORA IBARRA",
+   "pulled_from": "records/target/BOHEMIA_SIDE_QUESTS.json",
+   "locator": [
+    "quests",
+    "bq_last_good_doctor",
+    "nodes",
+    "open_end",
+    "says",
+    0
+   ],
+   "in_the_file": "In front of both families. They'll vote like it's a fair thing and go home knowing exactly what they voted for.",
+   "line": "In front of both families. They'll vote like it's a fair thing and go home knowing exactly what they voted for.",
+   "try": "Fine. We do it in front of both families. They'll vote like it's fair, and then every one of them goes home knowing they picked who dies. That's the cruelest fucking room I'll ever stand in.",
+   "picture_pt": [
+    390,
+    562
+   ]
+  },
+  {
+   "n": 4,
+   "id": "words-two-hw09-04-the-scene-makes-sense-the-camera-11-26",
+   "mouth": "A ROAD STOP",
+   "who": "THE SMILING MAN",
+   "pulled_from": "records/target/BOHEMIA_ROAD_EVENTS.json",
+   "locator": [
+    "events",
+    {
+     "find": {
+      "id": "ev_the_mirror_man"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) Everything is recorded. Do you want to see what happens next?",
+   "line": "(he holds a TV with no back. On it, your own crew, walking this road, from above, ten minutes ago. He smiles.) Everything is recorded. Do you want to see what happens next?",
+   "try": "(he holds a TV with no back. On it, your own crew, walking this road, filmed from above, ten minutes ago. He smiles.) I got a camera up on that billboard. I've been watching you since the overpass. Look at the screen. There's something on there you're gonna fucking want.",
+   "picture_pt": [
+    390,
+    673
+   ]
+  },
+  {
+   "n": 5,
+   "id": "words-two-hw09-05-who-pays-the-convoy-11-26",
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "who": "Ramiro Salas",
+   "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+   "locator": [
+    "board_people",
+    "rows",
+    {
+     "find": {
+      "id": "jk-ambush-cut"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "A convoy comes down the dry road tonight with batteries that should be ours. Wait for it at the cut and stop it, and it pays {pay} batteries.",
+   "filled_with": {
+    "pay": "76"
+   },
+   "line": "A convoy comes down the dry road tonight with batteries that should be ours. Wait for it at the cut and stop it, and it pays 76 batteries.",
+   "try": "A convoy's coming down the dry road tonight with batteries that should've been ours. Wait for it at the cut and stop the fucking thing. I'll pay you 76 batteries out of what's on the trucks.",
+   "picture_pt": [
+    390,
+    562
+   ]
+  },
+  {
+   "n": 6,
+   "id": "words-two-hw09-06-who-pays-the-ring-11-26",
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "who": "Comandante Rivas",
+   "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+   "locator": [
+    "board_people",
+    "rows",
+    {
+     "find": {
+      "id": "jk-bounty-chuy"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "Chuy Lento took two of our girls' carts and only comes out after dark. Bring me his red ring and it pays {pay} batteries.",
+   "filled_with": {
+    "pay": "78"
+   },
+   "line": "Chuy Lento took two of our girls' carts and only comes out after dark. Bring me his red ring and it pays 78 batteries.",
+   "try": "Chuy Lento stole two of our girls' carts, and the bastard only comes out after dark. Bring me the red ring off his finger and I'll pay you 78 batteries out of the camp's money.",
+   "picture_pt": [
+    390,
+    562
+   ]
+  },
+  {
+   "n": 7,
+   "id": "words-two-hw09-07-who-pays-the-wells-11-26",
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "who": "Tía Nena",
+   "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+   "locator": [
+    "board_people",
+    "rows",
+    {
+     "find": {
+      "id": "jk-scout-wells"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "Three wells out there, and I don't know which still give water or who is sitting on them. Go look at all three and tell me, and it pays {pay} batteries.",
+   "filled_with": {
+    "pay": "10"
+   },
+   "line": "Three wells out there, and I don't know which still give water or who is sitting on them. Go look at all three and tell me, and it pays 10 batteries.",
+   "try": "There's three wells out there, and I don't know which ones still give water or who the hell is sitting on them. Go look at all three and come tell me. I'll give you 10 batteries. It's all I've got.",
+   "picture_pt": [
+    390,
+    590
+   ]
+  },
+  {
+   "n": 8,
+   "id": "words-two-hw09-08-who-pays-the-tire-yard-11-26",
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "who": "El Profe",
+   "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+   "locator": [
+    "board_people",
+    "rows",
+    {
+     "find": {
+      "id": "jk-burn-tires"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "The tire yard sells to whoever pays, and whoever pays is shooting at us. Burn it to the ground and it pays {pay} batteries.",
+   "filled_with": {
+    "pay": "60"
+   },
+   "line": "The tire yard sells to whoever pays, and whoever pays is shooting at us. Burn it to the ground and it pays 60 batteries.",
+   "try": "The tire yard sells to anybody with batteries, and the ones buying are shooting at my kids. Burn that shit to the ground. I'll give you 60 batteries, everything the parents put in the jar.",
+   "picture_pt": [
+    390,
+    562
+   ]
+  },
+  {
+   "n": 9,
+   "id": "words-two-hw09-09-who-pays-the-lion-11-26",
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "who": "Señor Whitlock",
+   "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+   "locator": [
+    "board_people",
+    "rows",
+    {
+     "find": {
+      "id": "jk-biggame-lion"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "The lab lion sleeps on my old eighteenth hole and eats my goats. One beast, very big. Kill it and it pays {pay} batteries.",
+   "filled_with": {
+    "pay": "90"
+   },
+   "line": "The lab lion sleeps on my old eighteenth hole and eats my goats. One beast, very big. Kill it and it pays 90 batteries.",
+   "try": "That lab lion sleeps on my old eighteenth hole and eats my goats. One cat, big as a horse. Kill the damn thing and I'll pay you 90 batteries myself.",
+   "picture_pt": [
+    390,
+    582
+   ]
+  },
+  {
+   "n": 10,
+   "id": "words-two-hw09-10-who-pays-the-dog-pen-11-26",
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "who": "Padre Tomás",
+   "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+   "locator": [
+    "board_people",
+    "rows",
+    {
+     "find": {
+      "id": "jk-free-pen"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "They keep our people in a dog pen and sell them to the mines. Open that pen and bring one of them home to me, and it pays {pay} batteries.",
+   "filled_with": {
+    "pay": "65"
+   },
+   "line": "They keep our people in a dog pen and sell them to the mines. Open that pen and bring one of them home to me, and it pays 65 batteries.",
+   "try": "They keep our people in a dog pen and sell them to the mines. Open that pen and bring even one of them home. The church will give you 65 batteries, everything in the box.",
+   "picture_pt": [
+    390,
+    540
+   ]
+  },
+  {
+   "n": 11,
+   "id": "words-two-hw09-11-who-pays-the-voice-11-26",
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "who": "Nacho Radio",
+   "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+   "locator": [
+    "board_people",
+    "rows",
+    {
+     "find": {
+      "id": "jk-signal-voice"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "Every night at three a woman's voice comes on every radio in the camp, reading prices. Find what is making it, and it pays {pay} batteries.",
+   "filled_with": {
+    "pay": "22"
+   },
+   "line": "Every night at three a woman's voice comes on every radio in the camp, reading prices. Find what is making it, and it pays 22 batteries.",
+   "try": "Every night at three, a woman's voice comes on every radio in the camp, reading prices. I can't find who's sending it. Find whatever the fuck is making it and I'll give you 22 batteries. Half the camp can't sleep.",
+   "picture_pt": [
+    390,
+    562
+   ]
+  },
+  {
+   "n": 12,
+   "id": "words-two-hw09-12-who-pays-the-courier-11-26",
+   "mouth": "A JOB GIVER AT THE BOARD",
+   "who": "Sor Inés",
+   "pulled_from": "records/target/BOHEMIA_JOB_KINDS.json",
+   "locator": [
+    "board_people",
+    "rows",
+    {
+     "find": {
+      "id": "jk-follow-courier"
+     }
+    },
+    "says"
+   ],
+   "in_the_file": "Every Thursday a man walks the drug down Boulder Highway and the clinic fills up. Follow him and tell me who he answers to, and it pays {pay} batteries.",
+   "filled_with": {
+    "pay": "78"
+   },
+   "line": "Every Thursday a man walks the drug down Boulder Highway and the clinic fills up. Follow him and tell me who he answers to, and it pays 78 batteries.",
+   "try": "Every Thursday a man walks the drugs down Boulder Highway, and by Friday my clinic is full. Follow him and tell me who he answers to. The clinic will give you 78 batteries.",
+   "picture_pt": [
+    390,
+    567
+   ]
+  }
+ ]
+}
