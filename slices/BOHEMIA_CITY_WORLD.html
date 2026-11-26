@@ -49902,12 +49902,19 @@ var RIG_FRAME_ID = 0, RIG_LRU = new Map(), RIG_LRU_MAX = 48;
 function RigFrame(img, sx, sy, sw, sh, ox, oy, W, H){ this.__sheet = img; this.sx = sx; this.sy = sy; this.sw = sw; this.sh = sh; this.ox = ox; this.oy = oy; this.width = W; this.height = H; this.__id = ++RIG_FRAME_ID; }
 RigFrame.prototype.getContext = function(t){ return rigCanvas(this).getContext(t); };
 function rigFrame(img, sx, sy, sw, sh, ox, oy, W, H){ return new RigFrame(img, sx, sy, sw, sh, ox, oy, W, H); }
+/* __A_SPRITE_IS_MADE_IN_MEMORY__ (WORLD THIRTEEN 11/26, rule 480(c); see outline1): the map's sprites keep their pixels in memory
+   ('read often'), so every read of them (the outline, the ink line, the armour's head) is a copy, never a wait for the GPU.
+   MAP_SPRITE_MEM.on = false is the old way (a checker's plant: the sprites on the GPU again) */
+var MAP_SPRITE_MEM = { on: true };
+var MAP_TURF_ONE_STROKE = true, MAP_TURF_STROKES = { n: 0, frames: 0 };   /* __ONE_STROKE_A_COLOUR__ (the territory's borders, in renderCity) */
+function mapSpriteCtx(c){ return MAP_SPRITE_MEM.on ? c.getContext('2d', { willReadFrequently: true }) : c.getContext('2d'); }
+try { window.MAP_SPRITE_MEM = MAP_SPRITE_MEM; } catch (_e) {}
 function rigCanvas(fr){
   if (!fr || !(fr instanceof RigFrame)) return fr;
   var c = RIG_LRU.get(fr.__id);
   if (c) { RIG_LRU.delete(fr.__id); RIG_LRU.set(fr.__id, c); return c; }
   c = document.createElement('canvas'); c.width = fr.width; c.height = fr.height;
-  var x = c.getContext('2d'); x.imageSmoothingEnabled = false;
+  var x = mapSpriteCtx(c); x.imageSmoothingEnabled = false;   /* __A_SPRITE_IS_MADE_IN_MEMORY__: its pixels are read (the outline), never off the GPU */
   x.drawImage(fr.__sheet, fr.sx, fr.sy, fr.sw, fr.sh, fr.ox, fr.oy, fr.sw, fr.sh);
   RIG_LRU.set(fr.__id, c);
   while (RIG_LRU.size > RIG_LRU_MAX) RIG_LRU.delete(RIG_LRU.keys().next().value);
@@ -50318,7 +50325,14 @@ function mapInkTop(im){
      canvas on a GPU process, 8.8 s of a fight's 34 s start (12.7 s of read-backs in all; tools/bohemia_freeze_census.js). Now every
      size keeps its own line (a second, as before; ten where a read waits on the GPU: a walk's frames of one size share their head to a
      pixel at 24 across). window.__INK_ONE_SIZE = true is the old way. */
-  var SZ = mapInkTop.sizes || (mapInkTop.sizes = new Map()), skey = im.width + 'x' + im.height, keepMs = (typeof MAP_DEPTH !== 'undefined' && MAP_DEPTH.readSlow) ? 10000 : 1000;
+  /* __THE_INK_LINE_IS_READ_ONCE__ (WORLD THIRTEEN 11/26, rule 480(c), row 661; the coordinator: 'the zoom-out freeze you filed is yours
+     to fix at its source'). MEASURED (tools/bohemia_world_thirteen_far_freeze_probe.js, the demo, the GPU canvas on): at the far stop
+     right after a new valley single frames froze 7 to 16 s, 73.7 in 100 of the page thread one getImageData here: the size's line
+     lapsed every 10 s, so the read came back again and again, and one that fell while the GPU held a new valley's pictures waited for
+     all of them. A size's line in one look never changes (his walk's frames share their head to a pixel at 24 across), so where a
+     read waits on the GPU it is read ONCE for each size and look and kept; a new look (his hat, his armour) is a new key. */
+  var SZ = mapInkTop.sizes || (mapInkTop.sizes = new Map()), __look = ''; try { __look = typeof mapMainLook === 'function' ? String(mapMainLook() || '') : ''; } catch (_e) {}
+  var skey = im.width + 'x' + im.height + '|' + __look, keepMs = (typeof MAP_DEPTH !== 'undefined' && MAP_DEPTH.readSlow) ? Infinity : 1000;
   var L0 = window.__INK_ONE_SIZE ? mapInkTop.last : SZ.get(skey); if(L0 && now - L0.at < (window.__INK_ONE_SIZE ? 1000 : keepMs) && L0.w === im.width && L0.h === im.height){ MAP_INK.set(im, { top: L0.top, at: L0.at }); return L0.top; }
   /* and where a read-back waits on the GPU (MAP_DEPTH.readSlow), the read is made off the thread and lands a moment later */
   if(typeof MAP_DEPTH !== 'undefined' && MAP_DEPTH.readSlow && typeof createImageBitmap === 'function'){
@@ -50327,7 +50341,7 @@ function mapInkTop(im){
         try { MAP_INK_CV = MAP_INK_CV || document.createElement('canvas'); if(MAP_INK_CV.width !== __w || MAP_INK_CV.height !== __h){ MAP_INK_CV.width = __w; MAP_INK_CV.height = __h; }
           var x2 = MAP_INK_CV.getContext('2d', { willReadFrequently: true }); x2.clearRect(0, 0, __w, __h); x2.drawImage(bm, 0, 0); var d2 = x2.getImageData(0, 0, __w, __h).data;
           for(var y2 = 0; y2 < __h; y2++){ var hit2 = false; for(var i2 = 0; i2 < __w; i2++) if(d2[(y2 * __w + i2) * 4 + 3] > 40){ hit2 = true; break; } if(hit2){ t2 = y2 / __h; break; } } } catch(_e){ t2 = 0; }
-        try { bm.close(); } catch(_e){} var n2 = performance.now(); MAP_INK.set(im, { top: t2, at: n2 }); mapInkTop.last = { w: im.width, h: im.height, top: t2, at: n2 }; if(SZ.size > 64) SZ.clear(); SZ.set(__k, mapInkTop.last); mapInkTop.busy = false; mapInkTop.reads = (mapInkTop.reads | 0) + 1; },
+        try { bm.close(); } catch(_e){} var n2 = performance.now(); MAP_INK.set(im, { top: t2, at: n2 }); mapInkTop.last = { w: im.width, h: im.height, top: t2, at: n2 }; if(SZ.size > 512) SZ.clear(); SZ.set(__k, mapInkTop.last); mapInkTop.busy = false; mapInkTop.reads = (mapInkTop.reads | 0) + 1; },
         function(){ mapInkTop.busy = false; }); } catch(_e){ mapInkTop.busy = false; } }
     return L0 ? L0.top : (mapInkTop.last ? mapInkTop.last.top : 0);
   }
@@ -53170,7 +53184,7 @@ function vbCityLand(r){
   if (r && r.key && VBT.flying[r.key]) vbTileLand({ key: r.key, flightOnly: true });   /* __THE_MAP_PAINTS_ON_EVERY_CORE__: the painter's slot back */
   VBC.busy = false; if (VBC.askAt) VBC.landMs = Math.round(performance.now() - VBC.askAt);
   if (!r || r.seed !== om.seed) return;
-  function cv(a){ var c = document.createElement('canvas'); c.width = r.P; c.height = r.P; c.getContext('2d').putImageData(new ImageData(a, r.P, r.P), 0, 0); return c; }
+  function cv(a){ var c = document.createElement('canvas'); c.width = r.P; c.height = r.P; (window.__VBC_MEM ? c.getContext('2d', { willReadFrequently: true }) : c.getContext('2d')).putImageData(new ImageData(a, r.P, r.P), 0, 0); return c; }
   VBC.day = cv(r.day); VBC.night = null; VBC.lights = r.lights ? cv(r.lights) : null; VBC.dep = r.dep || null; VBC.blk = r.blk || null; VBC.S = r.S; VBC.PAD = r.PAD;   /* __YOU_WALK_BEHIND_IT__ */   /* __ONE_MAP_AT_EVERY_ZOOM__: the night picture was a 2,400-square canvas (22 MB) nothing draws: the night pass lights the day picture */ VBC.key = r.key; VBC.seed = r.seed; VBC.ms = r.ms; VBC.P = r.P; VBC.stand = r.stand;
   try { if (typeof MODE !== 'undefined' && MODE === 'city') { MAP_GROUND.key = ''; vbDrawSoon(); } } catch (_e) {}   /* __ONE_DRAW_FOR_WHAT_LANDS__ */
 }
@@ -54055,6 +54069,14 @@ function renderCity(){
       }
       g.save();
       g.lineWidth = Math.max(1, Math.min(TW * 0.10, 3));
+      /* __ONE_STROKE_A_COLOUR__ (WORLD THIRTEEN 11/26, rule 480(c), row 661: the zoom-out freeze at its source). MEASURED (the demo, a
+         phone, the GPU canvas on; a Chrome trace of a new valley at the far stop): one frame waited 12 to 14 s on the GPU, and the GPU's
+         batch held 128,893 single-line draws; counted on the page, 108,000 strokes in 8 s from the two lines below, 19,134 canvas calls
+         in one frame: every border edge of every block on the glass was its own path and its own stroke, with its colour, alpha and
+         width set again each time. NOW each holder's edges (his own, or theirs) go into ONE path and are stroked once: the same edges,
+         the same ink, alpha and width; where two of one holder's edges meet, their corner is painted once instead of twice (no brighter
+         dot at the joint). MAP_TURF_ONE_STROKE = false is the old way (a checker's plant). */
+      var __grp = MAP_TURF_ONE_STROKE ? {} : null, __norm = {};
       for(var __ty = 0; __ty < __N; __ty++) for(var __tx = 0; __tx < __N; __tx++){
         var __me = __tg.own[__ty * __N + __tx];
         if(!__me) continue;
@@ -54065,6 +54087,12 @@ function renderCity(){
         if(__q.sx < -60 || __q.sx > CVW + 60) continue;
         if(__q.sy < -60 || __q.sy > CVH + 60) continue;
         var __own = !!(__tm && __tn(__me) === __tn(__tm));
+        if(__grp){ var __ik = __holderInk(__me, __own); if(!(__ik in __norm)){ g.strokeStyle = __ik; __norm[__ik] = g.strokeStyle; }
+          __drew[__me] = __norm[__ik];
+          var __gk = __ik + (__own ? '|m' : ''), __TG = __grp[__gk] || (__grp[__gk] = { ink: __ik, own: __own, p: new Path2D() });
+          if(__e){ __TG.p.moveTo(__q.sx + TW/2, __q.sy + TH/2); __TG.p.lineTo(__q.sx, __q.sy + TH); }
+          if(__s){ __TG.p.moveTo(__q.sx, __q.sy + TH); __TG.p.lineTo(__q.sx - TW/2, __q.sy + TH/2); }
+          continue; }
         g.strokeStyle = __holderInk(__me, __own);
         /* AND THE RENDER SAYS WHAT IT ACTUALLY DID, the same way this renderer
            already publishes its label boxes. A source grep for the function name
@@ -54099,6 +54127,11 @@ function renderCity(){
         if(__s){ g.beginPath(); g.moveTo(__q.sx, __q.sy + TH);
                  g.lineTo(__q.sx - TW/2, __q.sy + TH/2); g.stroke(); }
       }
+      if(__grp) for(var __gk2 in __grp){ var __G2 = __grp[__gk2];   /* __ONE_STROKE_A_COLOUR__: each holder's edges, stroked once */
+        g.strokeStyle = __G2.ink; g.globalAlpha = __G2.own ? 0.55 : 0.26;
+        g.lineWidth = __G2.own ? Math.max(1, Math.min(TW * 0.07, 2)) : Math.max(1, Math.min(TW * 0.05, 1.5));
+        g.stroke(__G2.p); MAP_TURF_STROKES.n++; }
+      MAP_TURF_STROKES.frames++;
       g.restore();
       g.globalAlpha = 1;
       try { window.__TURF_INK = __drew; } catch(_e2){}
@@ -55921,6 +55954,13 @@ function blStack(){
      one place that decides, so the fix is one name in it -- and the card sits one step
      above MARKET, which is where its own stylesheet always said it belonged. */
   /* __NO_TABS__ -- fitbtn and modechip are off this list because they are off the screen. */
+  /* __THE_HUD_WRITES_ONLY_WHAT_CHANGED__ (WORLD THIRTEEN 11/26, rule 480(c)): appendChild of a node already in its place is NOT a
+     no-op, it takes the node out and puts it back (two changes to the page each, every watcher woken): 14 a pass, 23 a second on
+     the map. The column is put in order only when it is out of order; the order it ends in is the same. */
+  { const __w=['sleepbtn','bikebtn','mktbtn','workbtn','buildbtn','rungbtn','note'].map(function(id){ return document.getElementById(id); }).filter(Boolean),
+      __k=s.children, __n=__k.length, __m=__w.length; let __same=__n>=__m;
+    for(let i=0;i<__m&&__same;i++) if(__k[__n-__m+i]!==__w[i]) __same=false;
+    if(__same) return s; }
   ['sleepbtn','bikebtn','mktbtn','workbtn','buildbtn','rungbtn','note'].forEach(function(id){
     const el=document.getElementById(id);
     if(!el) return;
@@ -55959,6 +55999,10 @@ function tlStack(){
     const bar=document.getElementById('topbar');
     const w=(bar&&bar.offsetParent)||document.querySelector('.wrap')||document.body;
     s=document.createElement('div'); s.id='tlstack'; w.appendChild(s); }
+  { const __w=['topbar','qline'].map(function(id){ return document.getElementById(id); }).filter(Boolean),   /* __THE_HUD_WRITES_ONLY_WHAT_CHANGED__ */
+      __k=s.children, __n=__k.length, __m=__w.length; let __same=__n>=__m;
+    for(let i=0;i<__m&&__same;i++) if(__k[__n-__m+i]!==__w[i]) __same=false;
+    if(__same) return s; }
   ['topbar','qline'].forEach(function(id){
     const el=document.getElementById(id);
     if(!el) return;
@@ -76009,11 +76053,33 @@ function prodLine(){                                                /* draft:tru
 var MKT_LEDGER=null, MKT_HUB=null, MKT_HUB_KEY=null, MKT_BOUGHT=null, MKT_LAST=null;
 
 /* WHERE. nearestHub takes a raw overmap, which is exactly what this page has. */
+/* __THE_HUBS_ARE_LISTED_ONCE__ (WORLD THIRTEEN 11/26, rule 480(c): the map's frames on a slowed phone). MEASURED (the demo, the CPU
+   slowed four times, the map sliding): the phone's feed asks for the shelf every beat, and while the marker moves the key above
+   changes every beat, so every beat listed the valley's hubs again from nothing (the towns' seats derived, the whole valley read
+   for its swap meets): 7 in 100 of the page thread at every zoom, a hitch of about 35 ms twice a second. The list is now kept for
+   ten beats on the same valley and the nearest is found on it with nearestHub's own arithmetic, a new answer each time as before;
+   a cleared key (MKT_HUB_KEY = null, as the market gates do) lists them again at once. */
+var MKT_HUBS=null, MKT_HUBS_AT=-1e9, MKT_HUBS_OM=null, MKT_HUBS_SEED=null;
+function mktHubsKept(){
+  var now=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now();
+  return !!(MKT_HUBS && MKT_HUBS_OM===om && MKT_HUBS_SEED===seed && now-MKT_HUBS_AT<=5000);
+}
 function mktHub(){
   var key=seed+':'+city.x+','+city.y+':'+MODE;
   if(MKT_HUB_KEY===key) return MKT_HUB;
   var cx=(MODE==='human')?((hx/FN)|0):city.x, cy=(MODE==='human')?((hy/FN)|0):city.y;
-  var h=null; try{ h=BohemiaPayday.nearestHub(om, cx, cy); }catch(_e){ h=null; }
+  var h=null;
+  try{
+    if(MKT_HUB_KEY===null || !mktHubsKept()){
+      /* a fresh answer: the payday engine's own, read out of the overmap (MAP LAW), and the list kept for the next ten beats */
+      h=BohemiaPayday.nearestHub(om, cx, cy);
+      MKT_HUBS=BohemiaPayday.hubs(om)||[]; MKT_HUBS_AT=(typeof performance!=='undefined'&&performance.now)?performance.now():Date.now(); MKT_HUBS_OM=om; MKT_HUBS_SEED=seed;
+    } else {
+      var hs=MKT_HUBS, bd=Infinity, bi=-1;
+      for(var i=0;i<hs.length;i++){ var dx=hs[i].x-cx, dy=hs[i].y-cy, d=dx*dx+dy*dy; if(d<bd){ bd=d; bi=i; } }
+      if(bi>=0){ h=Object.assign({}, hs[bi]); h.dist=Math.sqrt(bd); }
+    }
+  }catch(_e){ h=null; }
   MKT_HUB=h; MKT_HUB_KEY=key; return h;
 }
 /* A MARKET IS A PLACE. He has to be standing in the cell, in either mode -- the city
@@ -77078,9 +77144,9 @@ function dirOf(dx,dy){
   if(dx>0)return 'E'; if(dx<0)return 'W'; if(dy<0)return 'N'; return 'S';
 }
 function half2(src){
-  const w=src.width,h=src.height, S=src.getContext('2d').getImageData(0,0,w,h).data;
+  const w=src.width,h=src.height, S=src.getContext('2d',{willReadFrequently:true}).getImageData(0,0,w,h).data;
   const out=document.createElement('canvas'); out.width=w>>1; out.height=h>>1;
-  const ox=out.getContext('2d'), O=ox.createImageData(w>>1,h>>1), D=O.data;
+  const ox=mapSpriteCtx(out), O=ox.createImageData(w>>1,h>>1), D=O.data;   /* __A_SPRITE_IS_MADE_IN_MEMORY__ */
   for(let y=0;y<(h>>1);y++)for(let x=0;x<(w>>1);x++){
     const si=((y*2)*w+(x*2))*4, di=(y*(w>>1)+x)*4;
     D[di]=S[si];D[di+1]=S[si+1];D[di+2]=S[si+2];D[di+3]=S[si+3];
@@ -77099,12 +77165,21 @@ function half2(src){
    Mirrors the alpha's own pass (applyCharOutline): computed from a SNAPSHOT so the
    border cannot grow on itself, orthogonal 4-neighbour so corners stay sharp, and
    it only ever writes cells that were EMPTY -- painted art is untouchable. */
+/* __A_SPRITE_IS_MADE_IN_MEMORY__ (WORLD THIRTEEN 11/26, rule 480(c): the map's frames on a slowed phone). MEASURED (the demo, the
+   CPU slowed four times, the GPU canvas on, the far stop sliding): 1.6 frames a second, 73.9 in 100 of the page thread in getImageData,
+   46 in 100 of it here: the outline drew the walker into a NEW canvas (one the GPU holds) and read it straight back, a wait for the
+   whole GPU queue for every man on the glass whose size or frame was new. The steps before the glass (the rig's frame, the doubling,
+   the halving, this outline) now keep their pixels in memory ('read often'), so nothing is read off the GPU. The finished sprite
+   too: CHARACTER's armour (engine/bohemia_wear.js) finds his head on it, a read of the canvas drawn, 1.3 s of a 5 s slide at the far
+   stop while it sat on the GPU (5 reads); in memory the same read is a copy. It is uploaded to the glass once and drawn from there. */
 function outline1(src){
   const w=src.width,h=src.height;
+  let im=null;
+  try { const sx=src.getContext&&src.getContext('2d',{willReadFrequently:true}); if(sx) im=sx.getImageData(0,0,w,h); } catch(_e){ im=null; }
+  if(!im){ const sc=document.createElement('canvas'); sc.width=w; sc.height=h; const sg=sc.getContext('2d',{willReadFrequently:true}); sg.imageSmoothingEnabled=false; sg.drawImage(src,0,0); im=sg.getImageData(0,0,w,h); }
   const out=document.createElement('canvas'); out.width=w; out.height=h;
-  const g2=out.getContext('2d'); g2.imageSmoothingEnabled=false;
-  g2.drawImage(src,0,0);
-  const im=g2.getImageData(0,0,w,h), D=im.data;
+  const g2=mapSpriteCtx(out); g2.imageSmoothingEnabled=false;
+  const D=im.data;
   const solid=new Uint8Array(w*h);
   for(let i=0;i<w*h;i++) if(D[i*4+3]>8) solid[i]=1;      /* SNAPSHOT first */
   for(let y=0;y<h;y++)for(let x=0;x<w;x++){
@@ -77142,9 +77217,9 @@ function spriteAt(spr,C){
 var SPRITE_AT_LRU = new Map();   /* PLUMBER 7: spriteAt's outlines of rig frames, by frame (see above) */
 function epx2(src){
   const w=src.width,h=src.height;
-  const S=src.getContext('2d').getImageData(0,0,w,h).data;
+  const S=src.getContext('2d',{willReadFrequently:true}).getImageData(0,0,w,h).data;
   const out=document.createElement('canvas'); out.width=w*2; out.height=h*2;
-  const ox=out.getContext('2d'), O=ox.createImageData(w*2,h*2), D=O.data;
+  const ox=mapSpriteCtx(out), O=ox.createImageData(w*2,h*2), D=O.data;   /* __A_SPRITE_IS_MADE_IN_MEMORY__ */
   const at=(x,y)=>{ x=x<0?0:(x>=w?w-1:x); y=y<0?0:(y>=h?h-1:y); return (y*w+x)*4; };
   const eq=(i,j)=>S[i]===S[j]&&S[i+1]===S[j+1]&&S[i+2]===S[j+2]&&S[i+3]===S[j+3];
   for(let y=0;y<h;y++)for(let x=0;x<w;x++){
@@ -91889,8 +91964,13 @@ function actPaint(){
   var l=document.getElementById('modeLbl'); if(!l) return;
   var f=actFront();
   window.__ACT_VERB = f ? f.kind : null;
-  if(f){ l.textContent=f.label; b.classList.add('canact'); b.classList.remove('idle'); }
-  else { l.textContent=''; b.classList.remove('canact'); b.classList.add('idle'); }
+  /* __THE_HUD_WRITES_ONLY_WHAT_CHANGED__ (WORLD THIRTEEN 11/26, rule 480(c)): a class set again that it already has is a change
+     to the page all the same (every watcher wakes, and UI's pop-up watcher measures every pop-up on the page): this ran 22 times a
+     second with nothing different. Written now only when it differs. */
+  var lt=f?f.label:'', ca=!!f;
+  if(l.textContent!==lt) l.textContent=lt;
+  if(b.classList.contains('canact')!==ca) b.classList.toggle('canact', ca);
+  if(b.classList.contains('idle')===ca) b.classList.toggle('idle', !ca);
 }
 
 /* __THE_ACTION_BUTTON_DOES_ACTIONS__: and pressing it does that thing. One press, one meaning,
@@ -93206,7 +93286,7 @@ window.BOHEMIA_FEED = (function(){
     if(CLOCK){
       try{ var full = (typeof clockStr==='function') ? clockStr() : '';
         var bits = String(full).split('·');
-        CLOCK.textContent = (bits.length>1 ? bits[bits.length-1] : full).trim(); }catch(_e){}
+        var __ct = (bits.length>1 ? bits[bits.length-1] : full).trim(); if (CLOCK.textContent !== __ct) CLOCK.textContent = __ct; }catch(_e){}   /* __THE_HUD_WRITES_ONLY_WHAT_CHANGED__ */
     }
     /* __THE_FEED_STREAM__ (LIFE + CITY lane, 9/5, board row [feed posts]). THE
        SURFACE READS ONE STREAM NOW. The law routes the surface here and the STREAM to
@@ -94342,15 +94422,14 @@ window.BOHEMIA_HALF = (function(){
     var list=seen(); if(!list.length) return false;
     var i;
     for(i=0;i<list.length;i++){
-      list[i].e.classList.add('uihalf');
+      if(!list[i].e.classList.contains('uihalf')) list[i].e.classList.add('uihalf');   /* __THE_HUD_WRITES_ONLY_WHAT_CHANGED__ */
       /* AND THE CLASS GOES WITH IT. Gating only the pad's SIZE left the .press class on,
          so the pseudo-element still existed with zero insets -- and because #topbar>*
          and #blstack>* force position:static !important, a pseudo of a static chip
          positions against a distant ancestor instead of the chip, which is how SAVEBTN
          ended up lying across PHONE. A pad on an element that cannot be positioned is
          not a small pad, it is a sheet over the whole container. */
-      if(list[i].press && PADS) list[i].e.classList.add('press');
-      else list[i].e.classList.remove('press');
+      var __pr=!!(list[i].press && PADS); if(list[i].e.classList.contains('press')!==__pr) list[i].e.classList.toggle('press', __pr);
     }
     spread(list);
     /* THE EIGHT KEYS USED TO BE MOVED BY HAND HERE. They are one svg ring now and it

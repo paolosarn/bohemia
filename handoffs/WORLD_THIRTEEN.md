@@ -1,5 +1,24 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN; newest block on top)
 
+WORLD THIRTEEN (11/26, round ten, rule 480): BUILD 11/26u - THE MAP NEVER WAITS ON THE GLASS, BUILT, NOT YET SEEN (rule 480(b)(c)(d);
+rows 661 (the page half fixed at its source), 723, 731 (the map half)). Record: records/BOHEMIA_WORLD_THIRTEEN_THE_MAP_NEVER_WAITS_ON_THE_GLASS_11_26_26.md.
+VOTE world13-the-map-never-waits-on-the-glass-11-26 (stand_in).
+- slices/BOHEMIA_CITY_WORLD.html: __A_SPRITE_IS_MADE_IN_MEMORY__ (MAP_SPRITE_MEM, mapSpriteCtx: rigCanvas, half2, epx2, outline1 in
+  memory), __THE_INK_LINE_IS_READ_ONCE__ (mapInkTop), __THE_HUD_WRITES_ONLY_WHAT_CHANGED__ (actPaint, the halving's apply, blStack,
+  tlStack, the phone's clock), __THE_HUBS_ARE_LISTED_ONCE__ (mktHubsNow), __ONE_STROKE_A_COLOUR__ (the territory's borders,
+  MAP_TURF_ONE_STROKE). window.__VBC_MEM (the whole painting in memory) is an experiment's switch, off: it did not end the reroll freeze.
+- Gate gates/the_map_never_waits_on_the_glass_gate.js 6/0 (W1 sprites, W2 the valley at 4x, W3 the HUD, W6 the borders, W4 the hubs,
+  W5), in the suite. Tool tools/bohemia_world_thirteen_map_frames.js (stand, drag, pinch, far, travel at 4x).
+- WHAT IS LEFT ON THIS BOX: right after a REROLL single frames of 6 to 15 s with the page's thread idle; a Chrome trace puts them in
+  the software GPU finishing one batch (CommandBuffer::Flush 9 to 14 s with 2 s of traced drawing in it). Not reproducible as page work
+  any more; PLUMBER 8's frame walk on a real-GPU runner decides it.
+- NOT MINE, MEASURED ON THE WAY: UI's pop-up watcher (checkVisibility on every pop-up for each page change, 4 to 7 in 100 of the page
+  thread while the map moves); the phone's job board (bohemia_phone_board.js asks: tasks up to 53 ms at 4x, JOBS 2); ANIMATION's idle
+  warm-up (a sheet unpacked in idle time, by design); CHARACTER's sheet masks (a whole 490 x 12288 sheet read once a session).
+- MY LIST, what is left: the 60 board tiles under a map street (COMBAT THREE's half); the own places' rows (only on his word); the
+  close tile's margin; the painter's depth maximum sent with the tile (mapDepthLiftOf scans each landed tile once, 3 in 100 in a pinch);
+  the tile crop and the light scan moved into the painter (vbTileLand, 5 in 100 in a pinch).
+
 WORLD THIRTEEN (11/21, round nine, rule 461 amended): A MEASURE AND A FIND, no game file changed. Record:
 records/BOHEMIA_WORLD_THIRTEEN_THE_MAP_ON_SIX_VALLEYS_11_21_26.md; the numbers records/target/world13_map_speed_six_valleys_11_21.json.
 - Six valleys at every stop, full speed: every stop finished, 0 page errors (the close stops' whole picture 0.3 to 20 s).
@@ -11,7 +30,7 @@ records/BOHEMIA_WORLD_THIRTEEN_THE_MAP_ON_SIX_VALLEYS_11_21_26.md; the numbers r
 - MY LIST, what is left: the 60 board tiles under a map street (COMBAT THREE's half, named in 11/20c); the own places' rows (only if
   he wants them); the close tile's margin (12 x 12 blocks painted for 8 x 8 shown). WORLD 14's files are WORLD 15's: untouched.
 
-WORLD THIRTEEN (11/20, round eight, build one, rule 461): BUILD 11/20c - THE PLACES ARE LAID OUT ON THE MAP, BUILT, NOT YET SEEN (rules
+WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/20 LATEST -- (the START head until 11/26u) round eight, build one, rule 461: BUILD 11/20c - THE PLACES ARE LAID OUT ON THE MAP, BUILT, NOT YET SEEN (rules
 429(c), 461; ask 504). Record: records/BOHEMIA_WORLD_THIRTEEN_THE_PLACES_ARE_LAID_OUT_11_20_26.md. VOTE world13-the-places-are-laid-out-11-20.
 - place_templates.json 'terrain' (from the fight's boards: tools/bohemia_world_thirteen_place_layouts.py) and 'lay' (built, natural,
   own + lay_why); the templates sync carries both (KEEP lay, terrain); the map page's vbLayValley() and the painter

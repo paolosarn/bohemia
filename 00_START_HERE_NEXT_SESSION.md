@@ -1349,10 +1349,11 @@ VOTE jobs-jobs-that-fit-the-crew-11-10 (STAND-IN), sha da588c127. Record records
 The whole block: handoffs/JOBS.md.
 [bb a Battle Brothers contract is one budget spent on each enemy's own cost; ours now spends it the same way and still shows the crew's own odds in red]
 [analog horror: the board in the Network's camp still lists the hyenas as three red stars; the muralist only asks for three of them now]
-WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/20 LATEST -- BUILD 11/20c - THE PLACES ARE LAID OUT ON THE MAP, BUILT, NOT YET SEEN (rules
-429(c), 461; ask 504): each place's fight board is laid onto its map cells (boxes, mounds, water, rubble at the fight's own tiles; 296
-cells of 11 places, the map and the fight agreeing at every one; the suburbs, trailer park, Strip and downtown keep the map's own).
-Before: 11/18s THE LAKE HAS ITS RING, 11/18o THE PAINTING NEVER WAITS IN LINE.
+WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/26 LATEST -- BUILD 11/26u - THE MAP NEVER WAITS ON THE GLASS, BUILT, NOT YET SEEN (rule
+480(b)(c)(d); rows 661, 723, 731): on a phone slowed 4x the whole valley sliding went from about 2 frames a second to about 12 (its
+worst frame 1.6 s to 0.35 s): the walkers' sprites keep their pixels in memory (no read waits on the GPU), the HUD writes only what
+changed, the territory's borders are one stroke a colour (19,134 canvas calls in one frame before), the market's hubs listed once.
+Before: 11/20c THE PLACES ARE LAID OUT ON THE MAP, 11/18s THE LAKE HAS ITS RING.
 The whole block: handoffs/WORLD_THIRTEEN.md.
 
 FIXES TWO (fixes-two-01gkdyuv): 11/11 LATEST -- BUILD 11/11l - HIS LETTERS STAY HIS, BUILT, NOT YET SEEN (the red debt rows, round one:
