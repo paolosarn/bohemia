@@ -1,6 +1,6 @@
 STAFF 2 (staff2-01gkdyus, took over from STAFF at a full context): rule 471, THE STAFF PUSH A CART, ask row 709. Written only by this lane.
 *** 11/26 LATEST -- RULE 480'S ROUND ON THE STAFF AS BUILT: BUILD 11/26i - THE HALL SAYS THE CART, BUILT, NOT YET SEEN (rules 480(b)(c), 468,
-470(a), 471; 461 as amended, 441, 465). Record: records/BOHEMIA_STAFF_TWO_RULE_480_THE_STAFF_AS_BUILT_11_26_26.md. VOTE staff2-the-hall-says-the-cart-11-26. ***
+470(a), 471; 461 as amended, 441, 465). Record: records/BOHEMIA_STAFF_TWO_RULE_480_THE_STAFF_AS_BUILT_11_26_26.md. VOTE staff2-the-hall-says-the-cart-11-26 (ab8c5ead0). ***
 FIXED: a camp person in a town's hall never said his cart; now one draft line from retinue.json staff.words.cart ("Pushes {cart}. One hand only.")
 read off BohemiaCamp.cartOf (a rehire reads the cart his job kept: "Pushes a wagon."), on his opened row (retinueCard, row.dataset.cartLine) and
 at the end of UI FOUR's held-finger tip where the fullest hall shuts the row (one clause added there, his words untouched). Gate leg C13 (13/0).
