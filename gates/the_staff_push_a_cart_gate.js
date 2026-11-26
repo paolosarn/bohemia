@@ -23,6 +23,8 @@
      C10 THE PICTURES: slices/fight_rig/staff_carts.json names a sheet for every kind, every load in it, every facing, a back and a tip (a
          front where any of the cart stands before him), every cell inside its sheet, and the sheets are on disk
      C11 THE HOOKS: the fight draws the back under his body and the front over it, the fallen's tip under him; the camp and the map draw it
+     C13 THE HALL SAYS THE CART (STAFF 2 11/26, rule 480(b)): a town hall's camp person says the cart he will push (a rehire, his job's kept
+         cart) and one hand only, on his opened row and in the fullest hall's held finger (the phone proof: tools/bohemia_staff_hire_reads.js)
      C12 THE FIGHT STILL PLAYS: AUTO fights with carts against the same fights with none: printed, the camp's deaths and his wins
    PLANTED FAILS: --plant patches the fight in memory: the cart guards from every side, a staff member keeps a two-hander, and a fighter is
    handed a cart: C2, C3 and C4 must go red, exit 1.
@@ -204,6 +206,18 @@ const nearest = (S, u) => S.units.filter(f => f.side !== u.side && F.onField(f) 
   const ok4 = /homeCartRows\(acts, k, t, guard\)/.test(ss) && /C\.upgradeCart\(id\)/.test(ss) && /supplyAdd\('tape', -n2\.tape\)/.test(ss);
   ok('C11 THE HOOKS: the fight lays the back under his body and the front over it (the tip when he fell), the camp and the map draw it, the forge welds it up',
     ok1 && ok2 && ok3 && ok4, ['fight ' + ok1, 'camp ' + ok2, 'map ' + ok3, 'forge ' + ok4].join(', '));
+}
+
+/* C13 THE HALL SAYS THE CART (STAFF 2, rule 480(b)): a camp person offered in a town's hall says the cart he will push (a rehire, the cart his
+   job kept) and one hand only, on his opened row and, where the fullest hall shuts it, in his held finger's words; the line is the data's */
+{
+  const R = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/retinue.json'), 'utf8')), w = R.staff && R.staff.value && R.staff.value.words && R.staff.value.words.cart;
+  const ss = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.html'), 'utf8');
+  const okW = typeof w === 'string' && /\{cart\}/.test(w) && w.split(/\s+/).length <= 8;
+  const okR = /var ck = !f\.soon && C && C\.cartOf \? C\.cartOf\(f\.id\) : null;/.test(ss) && /row\.dataset\.cartLine = \(staffWords\('cart'/.test(ss) && /cp\.className = 'rcost rcart'/.test(ss);
+  const okT = /r\.dataset\.tip = \(b \? b\.textContent \+ ': ' : ''\) \+ d\.textContent\.trim\(\) \+ \(r\.dataset\.cartLine \? ' ' \+ r\.dataset\.cartLine : ''\)/.test(ss);
+  const kept = (() => { freshCamp(['scout'], {}); try { const B = JSON.parse(store['bohemia.camp.v1'] || '{}'); B.carts = { cook: 2 }; store['bohemia.camp.v1'] = JSON.stringify(B); return CAMP.cartOf('cook').id; } catch (e) { return String(e).slice(0, 60); } })();   /* the cook not with him: his job's kept wagon */
+  ok('C13 THE HALL SAYS THE CART: "' + w + '" on his opened row and in his held finger (a rehired cook whose wagon was kept reads ' + kept + ')', okW && okR && okT && kept === 'wagon', ['words ' + okW, 'row ' + okR, 'tip ' + okT, 'kept ' + kept].join(', '));
 }
 
 /* C12 THE FIGHT STILL PLAYS (printed): the same AUTO fights with the carts and with none */

@@ -1233,7 +1233,7 @@ function shopArrows(box){
     if (!sh.querySelector('#sbody .acts > .hire')) return false;   /* a hall or a stall only: the sheets UI 9's last step can leave past the glass */
     if (!sh.classList.contains(TIGHT)) { sh.classList.add(TIGHT); LOG.tight = (LOG.tight | 0) + 1; }
     [].forEach.call(sh.querySelectorAll('#sbody .acts > .retf'), function(r){ if (r.dataset.tip) return; var d = r.querySelector('.rdoes'), b = r.querySelector('.rname b');
-      if (d && d.textContent.trim()) r.dataset.tip = (b ? b.textContent + ': ' : '') + d.textContent.trim(); });   /* his own words, whole, on a held finger */
+      if (d && d.textContent.trim()) r.dataset.tip = (b ? b.textContent + ': ' : '') + d.textContent.trim() + (r.dataset.cartLine ? ' ' + r.dataset.cartLine : ''); });   /* his own words, whole, on a held finger (and the cart he pushes, STAFF 2 rule 480(b): his opened row is shut here) */
     return true;
   }
   /* ==== /__THE_FULLEST_HALL_FITS__ ==== */
@@ -3847,6 +3847,8 @@ function retinueCard(f, o){
   var w = document.createElement('span'); w.textContent = f.word.replace(/^THE /, '') + (f.hired ? '  \u00b7  WITH YOU' : f.met && !o.town ? '  \u00b7  MET IN ' + String(f.met).toUpperCase() : ''); nm.appendChild(w);
   row.appendChild(nm);
   var d = document.createElement('p'); d.className = 'rdoes'; d.textContent = f.says; row.appendChild(d);   /* draft:true */
+  var ck = !f.soon && C && C.cartOf ? C.cartOf(f.id) : null;   /* __THE_STAFF_PUSH_A_CART__ (rule 480(b)): his cart's line, on his opened row and in the fullest hall's held finger; draft:true */
+  if(ck){ row.dataset.cartId = ck.id; row.dataset.cartLine = (staffWords('cart', companyNow()) || 'Pushes {cart}. One hand only.').replace('{cart}', String(ck.word).toLowerCase()); }
   var more = document.createElement('div'); more.className = 'rmore';
   var opened = false, open = function(){
     if(!opened){ opened = true;
@@ -3855,6 +3857,7 @@ function retinueCard(f, o){
       if(f.was){ var wp = document.createElement('p'); wp.className = 'rwas'; wp.textContent = f.was; tx.appendChild(wp); }   /* draft:true */
       if(f.line){ var q = document.createElement('p'); q.className = 'rsays'; q.textContent = '\u201C' + f.line + '\u201D'; tx.appendChild(q); }   /* draft:true */
       if(!f.soon){ var cost = document.createElement('p'); cost.className = 'rcost'; cost.textContent = staffWords('take', companyNow()); tx.appendChild(cost); }   /* __THE_STAFF_FIGHT_TOO__ (C10): what he costs in the fight; draft:true */
+      if(row.dataset.cartLine){ var cp = document.createElement('p'); cp.className = 'rcost rcart'; cp.dataset.cart = row.dataset.cartId; cp.textContent = row.dataset.cartLine; tx.appendChild(cp); }   /* __THE_STAFF_PUSH_A_CART__ (rule 480(b)): the cart he pushes, read at the hire (a rehire reads the cart his job kept); draft:true */
       more.appendChild(tx); }
     var on = !row.classList.contains('open'); row.classList.toggle('open', on);
     if(on) retinueSay(fc, f, f.hired ? f.hireSays : f.line);
@@ -5939,6 +5942,7 @@ function open(o){
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
   BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
 window.BohemiaSettlement = {restock:function(){ restock(); },
+  _hall:function(){ openB('hall'); return S.open === 'hall'; },   /* __THE_STAFF_PUSH_A_CART__ (rule 480(b)): the town hall's sheet as a tap on the hall opens it, for the phone proof */
   _forge:function(){ S.home = S.home || {placeRows:{}, places:[]}; S.home.placeRows = S.home.placeRows || {}; homePlaceSheet('hforge', {id:'forge', name:'FORGE', done:true, key:'hforge'}); return true; },   /* __THE_STAFF_PUSH_A_CART__: the forge's sheet opened as his built forge opens it, for the phone proof's real tap */
   _bats:function(){ return bats(); },   /* FIXES (rule 364): the shelf rolled again (the town's ground arriving, a camp turning), for the gate */
   tradeSell:function(id){ return tradeSellHere(id); },   trade:function(){ return tradeRows().map(function(r){ var x = tradeSides(r); return {key:r.key, id:r.id, made:r.made, buy:x.buy, sell:x.sell, have:x.have, left:x.left, ctx:tradeCtx()}; }); }, tradeFile:function(){ return STALLP; },   /* __TRADE_GOODS_CARRIED__, for the gate */   stall:function(){ return stallRows().map(function(r){ var x = stallSides(r); return {key:r.key, good:r.good, units:r.units, per:r.per, buy:x.buy, sell:x.sell, have:x.have, word:x.pr.word, needLeft:x.pr.needLeft, warns:!!stallWarns(r, x)}; }); }, soldTo:function(){ return soldToHere(); }, visit:function(){ return S.visit; },   /* __SELL_AT_THE_STALL__, __WHAT_YOU_SELL_SITS_ON_THEIR_SHELF__ */

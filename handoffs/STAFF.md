@@ -1,4 +1,18 @@
 STAFF 2 (staff2-01gkdyus, took over from STAFF at a full context): rule 471, THE STAFF PUSH A CART, ask row 709. Written only by this lane.
+*** 11/26 LATEST -- RULE 480'S ROUND ON THE STAFF AS BUILT: BUILD 11/26i - THE HALL SAYS THE CART, BUILT, NOT YET SEEN (rules 480(b)(c), 468,
+470(a), 471; 461 as amended, 441, 465). Record: records/BOHEMIA_STAFF_TWO_RULE_480_THE_STAFF_AS_BUILT_11_26_26.md. VOTE staff2-the-hall-says-the-cart-11-26. ***
+FIXED: a camp person in a town's hall never said his cart; now one draft line from retinue.json staff.words.cart ("Pushes {cart}. One hand only.")
+read off BohemiaCamp.cartOf (a rehire reads the cart his job kept: "Pushes a wagon."), on his opened row (retinueCard, row.dataset.cartLine) and
+at the end of UI FOUR's held-finger tip where the fullest hall shuts the row (one clause added there, his words untouched). Gate leg C13 (13/0).
+PROOF: tools/bohemia_staff_hire_reads.js (demo and alpha, both ways: every offered camp person reads his cart, a held finger on the kept cook
+shows the line on the glass, TAKE ON tapped rehires her with the wagon; H1-H5 green x4). FRAMES (tools/bohemia_staff_frames_slowed.js, 390x844,
+CPU 4x): five staff with carts 19.3 fps over the fight (13.9-15.0 on a loaded box), no carts 15.8, no camp 10.7: the camp is not the choppiness;
+the carts cost 0.24 ms a frame (18,172 layers timed), a staff AI step median 5-8 ms against a fighter's 14-18. The long frames are the fight's
+own (PLUMBER 8's 480(d)).
+SEEN, NOT MINE: a fresh new crew's start town (the church town) read 0 batteries in its bar 3 times in ~12 opens, every TAKE ON shut, never on
+demand (RUN's door or ECONOMY's; the proof logs purseAt now); upright the camp at the west edge is half off the glass (COMBAT FOUR's camera).
+NEXT, IN ORDER: the list below, unchanged ((1) EYES' walk; (2) his fist on the handle; (3) the crew screen's camp and one-hand weapons; (4) a
+column between his back row and his camp on narrow boards; ...).
 *** 11/22 LATEST -- BUILD 11/22zzc - THE STAFF PUSH A CART (402b6942), BUILT, NOT YET SEEN (rule 471; rules 461 as amended, 441, 465, 477;
 ask row 709). Record: records/BOHEMIA_STAFF_THE_STAFF_PUSH_A_CART_11_22_26.md. VOTE staff2-the-staff-push-a-cart-11-22 (stand_in). ***
 WHAT: every camp person pushes a cart in his off hand, never removed (no shield, no bag, no swap for staff); one-handed weapons only (a pistol

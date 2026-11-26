@@ -1,0 +1,110 @@
+{
+ "tag": "demo_camp5_x4",
+ "throttle": 4,
+ "camp": [
+  "cook",
+  "surgeon",
+  "blacksmith",
+  "scout",
+  "quartermaster"
+ ],
+ "cartClock": "wrapped",
+ "start": {
+  "frames": 38,
+  "fps": 15.8,
+  "median": 16.7,
+  "p95": 283.4,
+  "worst": 750,
+  "hitches": 9,
+  "over33": 9
+ },
+ "fight": {
+  "frames": 822,
+  "fps": 19.3,
+  "median": 33.4,
+  "p95": 133.2,
+  "worst": 850,
+  "hitches": 216,
+  "over33": 441
+ },
+ "whole": {
+  "frames": 860,
+  "fps": 19.1,
+  "median": 33.4,
+  "p95": 133.3,
+  "worst": 850,
+  "hitches": 225,
+  "over33": 450
+ },
+ "fightInfo": {
+  "over": false,
+  "rounds": 3,
+  "staff": 5,
+  "cartsDrawn": 5,
+  "men": 11
+ },
+ "ai": {
+  "staff": {
+   "n": 17,
+   "median": 4.9,
+   "worst": 14,
+   "over50": 0,
+   "total": 98
+  },
+  "fighter": {
+   "n": 18,
+   "median": 15.5,
+   "worst": 71,
+   "over50": 2,
+   "total": 398
+  },
+  "them": {
+   "n": 13,
+   "median": 11.5,
+   "worst": 33,
+   "over50": 0,
+   "total": 200
+  }
+ },
+ "carts": {
+  "layers": 18172,
+  "ms": 203.2,
+  "perFrame": 0.24,
+  "worst": 14.2
+ },
+ "worstAt": [
+  [
+   850,
+   3246
+  ],
+  [
+   750,
+   1796
+  ],
+  [
+   617,
+   3862
+  ],
+  [
+   433,
+   5095
+  ],
+  [
+   383,
+   5479
+  ],
+  [
+   300,
+   4162
+  ],
+  [
+   283,
+   1046
+  ],
+  [
+   283,
+   31044
+  ]
+ ],
+ "errs": []
+}

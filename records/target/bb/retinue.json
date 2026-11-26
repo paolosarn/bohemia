@@ -46,7 +46,7 @@
       "shakes_staff": true,
       "in_the_pit": false,
       "rehire_price": "the same",
-      "words": { "take": "Stands in your fights. One of your {cap}.", "full": "No room: your company is {n} of {cap}.", "camp": "CAMP" }
+      "words": { "take": "Stands in your fights. One of your {cap}.", "full": "No room: your company is {n} of {cap}.", "camp": "CAMP", "cart": "Pushes {cart}. One hand only." }
     },
     "draft": true,
     "source": "VAMILY rule 468 (Paolo 11/21: 'they are forced to being in combat... the game becomes more about protecting your staff... they're not gonna have the best traits... they try to run away way quicker'); records/BOHEMIA_RESEARCH_THE_STAFF_FIGHT_TOO_11_21_26.md section C3, C4, C7: Battle Brothers' Indebted row at level one (bb_all/1073 Indebted (Background): hitpoints 40-50, resolve 25-40, initiative 95-105, 'Is permanently dead if struck down', no brave traits; bb_all/0368 the Daytaler's base for the rest)",

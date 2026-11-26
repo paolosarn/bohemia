@@ -1,0 +1,74 @@
+{
+ "tag": "demo_control_x4",
+ "throttle": 4,
+ "camp": [],
+ "start": {
+  "frames": 15,
+  "fps": 5.3,
+  "median": 50,
+  "p95": 1000,
+  "worst": 1000,
+  "hitches": 7,
+  "over33": 9
+ },
+ "fight": {
+  "frames": 467,
+  "fps": 11.1,
+  "median": 66.7,
+  "p95": 216.7,
+  "worst": 417,
+  "hitches": 275,
+  "over33": 390
+ },
+ "whole": {
+  "frames": 482,
+  "fps": 10.7,
+  "median": 66.6,
+  "p95": 216.7,
+  "worst": 1000,
+  "hitches": 282,
+  "over33": 399
+ },
+ "fightInfo": {
+  "over": true,
+  "rounds": 5,
+  "staff": 0,
+  "cartsDrawn": 0,
+  "men": 6
+ },
+ "worstAt": [
+  [
+   1000,
+   2258
+  ],
+  [
+   633,
+   1091
+  ],
+  [
+   567,
+   2824
+  ],
+  [
+   417,
+   28740
+  ],
+  [
+   400,
+   33756
+  ],
+  [
+   317,
+   4074
+  ],
+  [
+   317,
+   34623
+  ],
+  [
+   300,
+   4374
+  ]
+ ],
+ "errs": []
+}

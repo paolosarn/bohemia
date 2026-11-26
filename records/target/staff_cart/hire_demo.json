@@ -1,0 +1,162 @@
+[
+ {
+  "shape": "phone_portrait",
+  "surface": "demo",
+  "purseAt": [
+   290
+  ],
+  "hall": true,
+  "offered": [
+   "scavenger",
+   "paymaster",
+   "cook"
+  ],
+  "rows": [
+   {
+    "id": "scavenger",
+    "open": true,
+    "soon": false,
+    "cart": "Pushes a shopping cart. One hand only.",
+    "by": "the held finger",
+    "cartId": "shopping_cart",
+    "take": "Stands in your fights. One of your 12.",
+    "seen": false,
+    "kept": "shopping_cart",
+    "tapped": true
+   },
+   {
+    "id": "paymaster",
+    "open": true,
+    "soon": false,
+    "cart": "Pushes a shopping cart. One hand only.",
+    "by": "the held finger",
+    "cartId": "shopping_cart",
+    "take": "Stands in your fights. One of your 12.",
+    "seen": false,
+    "kept": "shopping_cart",
+    "tapped": true
+   },
+   {
+    "id": "cook",
+    "open": true,
+    "soon": false,
+    "cart": "Pushes a wagon. One hand only.",
+    "by": "the held finger",
+    "cartId": "wagon",
+    "take": "Stands in your fights. One of your 12.",
+    "seen": false,
+    "kept": "wagon",
+    "tapped": true
+   }
+  ],
+  "png": "../../../tmp/claude-0/-home-user-bohemia/8f646576-324a-586e-b0e6-bf8e90e9ac2a/scratchpad/hire/demo_upright_the_hall_says_the_cart.png",
+  "held": {
+   "id": "cook",
+   "tip": "GRACIELA OCHOA: The crew eats for less, and a hurt man gets a hitpoint more back every hour. Pushes a wagon. One hand only."
+  },
+  "take": {
+   "id": "cook",
+   "purse": 290,
+   "shut": [
+    "scavenger:290",
+    "paymaster:350:shut",
+    "cook:200"
+   ],
+   "tapped": true,
+   "after": {
+    "hired": true,
+    "cart": "wagon",
+    "weapon": "box_cutter"
+   }
+  },
+  "errs": [],
+  "pass": {
+   "H1": true,
+   "H2": true,
+   "H3": true,
+   "H4": true,
+   "H5": true,
+   "E": true
+  }
+ },
+ {
+  "shape": "phone_landscape",
+  "surface": "demo",
+  "purseAt": [
+   290
+  ],
+  "hall": true,
+  "offered": [
+   "scavenger",
+   "paymaster",
+   "cook"
+  ],
+  "rows": [
+   {
+    "id": "scavenger",
+    "open": true,
+    "soon": false,
+    "cart": "Pushes a shopping cart. One hand only.",
+    "by": "the held finger",
+    "cartId": "shopping_cart",
+    "take": "Stands in your fights. One of your 12.",
+    "seen": false,
+    "kept": "shopping_cart",
+    "tapped": true
+   },
+   {
+    "id": "paymaster",
+    "open": true,
+    "soon": false,
+    "cart": "Pushes a shopping cart. One hand only.",
+    "by": "the held finger",
+    "cartId": "shopping_cart",
+    "take": "Stands in your fights. One of your 12.",
+    "seen": false,
+    "kept": "shopping_cart",
+    "tapped": true
+   },
+   {
+    "id": "cook",
+    "open": true,
+    "soon": false,
+    "cart": "Pushes a wagon. One hand only.",
+    "by": "the held finger",
+    "cartId": "wagon",
+    "take": "Stands in your fights. One of your 12.",
+    "seen": false,
+    "kept": "wagon",
+    "tapped": true
+   }
+  ],
+  "png": "../../../tmp/claude-0/-home-user-bohemia/8f646576-324a-586e-b0e6-bf8e90e9ac2a/scratchpad/hire/demo_sideways_the_hall_says_the_cart.png",
+  "held": {
+   "id": "cook",
+   "tip": "GRACIELA OCHOA: The crew eats for less, and a hurt man gets a hitpoint more back every hour. Pushes a wagon. One hand only."
+  },
+  "take": {
+   "id": "cook",
+   "purse": 290,
+   "shut": [
+    "scavenger:290",
+    "paymaster:350:shut",
+    "cook:200"
+   ],
+   "tapped": true,
+   "after": {
+    "hired": true,
+    "cart": "wagon",
+    "weapon": "box_cutter"
+   }
+  },
+  "errs": [],
+  "pass": {
+   "H1": true,
+   "H2": true,
+   "H3": true,
+   "H4": true,
+   "H5": true,
+   "E": true
+  }
+ }
+]

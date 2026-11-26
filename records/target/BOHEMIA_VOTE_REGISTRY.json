@@ -24394,7 +24394,8 @@
      "THE FORT'S FLOOR NO LONGER THE BRIGHTEST THING ON ITS BOARD."
     ]
    }
-  }
+  },
+  {"id": "staff2-the-hall-says-the-cart-11-26", "kind": "ui", "lane": "staff 2", "sha": "2f0412cd8", "made": "11/26", "draft": true, "title": "THE TOWN HALL SAYS WHICH CART A CAMP PERSON PUSHES, AND A REHIRE GETS THE CART HIS JOB KEPT", "said": "Lets turn up full sweep. But improve on what we already have. And make sure fps is never choppy for nothing lets go", "why": "When you hire a cook or a doctor in a town's hall, their line now says the cart they will push and that they carry one hand only, and a rehire says the cart they kept, like the wagon here. You see it in the town hall: open a camp person, or hold your finger on them when the hall is full.", "show": {"how": "image", "src": "../records/target/STAFF2_THE_HALL_SAYS_THE_CART_11_26.webp"}, "before_after": {"before": "BUILD 11/26h: the hall said what a camp person does and 'Stands in your fights', never the cart or one hand only", "after": "'Pushes a shopping cart. One hand only.' on the opened row and in the held finger; a rehired cook whose wagon was kept reads 'Pushes a wagon.' and is handed the wagon", "scale": "his phone upright (390 x 844 at 3) and on its side, the demo and the alpha, the hall of the town he starts beside; five staff with carts on a phone slowed 4x cost the frame 0.24 ms"}, "stage": "stand_in", "record": "records/BOHEMIA_STAFF_TWO_RULE_480_THE_STAFF_AS_BUILT_11_26_26.md", "build": "BUILD 11/26i - THE HALL SAYS THE CART"}
  ],
  "verdicts": [
   {
