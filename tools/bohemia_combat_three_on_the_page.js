@@ -315,6 +315,10 @@ const HOOKS = `(function(){
     for (let i = 0; i < 14; i++) { const sp = frame(/SPOILS_SCREEN/); if (!sp) break; try { await tapText(sp, 'button', '^LEAVE$'); } catch (e) { if (!/detached/i.test(String(e))) throw e; }   /* the spoils screen closed itself between finding it and the tap (COMBAT FOUR 11/22: 'Frame was detached' after a fight that had ended clean) */
       await wait(3000); }
     await until(async () => !fightF() && !frame(/SPOILS_SCREEN/) && await city().evaluate(() => !LOOP.fighting), 40000);
+    /* THE TURN COUNT GOES HOME (COMBAT FOUR 11/26, BUILD 11/26s): the map's outcome carries the fight's turn count, the end screen was handed the
+       fight on its 'ready' or its 'load' (SPOILS.sent), and the ammo report rides as 'ammo' */
+    try { const home = await page.evaluate(() => ({ turns: window.NF && NF.over ? NF.over.turns : null, sent: window.SPOILS && SPOILS.sent || null }));
+      R.home = home; log('   home: the turn count', home.turns, '(the fight ended on round', E.round + ')', '| the end screen handed the fight on', home.sent ? home.sent.by + ' at ' + home.sent.at + ' ms' : 'nothing recorded'); } catch (e) {}
     try { if (await city().evaluate(() => !!LOOP.open)) { await anyFrameTap('button.lv', 'LEAVE'); await wait(1500); } } catch (e) {}
     await wait(1200);
   }

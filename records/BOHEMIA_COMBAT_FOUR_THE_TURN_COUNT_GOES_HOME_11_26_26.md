@@ -48,6 +48,12 @@ refill from company stock after a fight, the card shows the rounds. (3) Rule 480
   slows the whole run.
 - LEAVE WAITS FOR THE SCREEN (FIXES 3's) 5/0. THE RELOAD IS LOUD 17/0 alone (15/2 only while two browsers ran beside it, as on 11/22).
 
+## ON THE PAGE (rule 441; tools/bohemia_combat_three_on_the_page.js now reads home after LEAVE: the map's turn count and SPOILS.sent)
+THE WHOLE LOOP PLAYS on the demo upright (11/0, the turn count home 1, won on turn 1); through the map's own door (district suburb), AUTO to
+the end, the end screen's LEAVE: the alpha upright 2 fights (turns home 4 and 5, the fights ended on rounds 4 and 5), the demo sideways 2
+(5 and 4 of 5 and 4), the alpha sideways 2 (4 and 6 of 4 and 6); the end screen handed the fight on 'load' at 154 to 352 ms unslowed (the
+pictures are in first on this box; 'ready' leads only on a slow phone); 0 page errors.
+
 ## RULE 480(c), THE FIGHT ON A SLOWED PHONE: WHAT WAS MEASURED, NOT YET CUT
 - THE BRAIN'S LONG MOVES: headless, the fight's AUTO brain over 20 fights on five grounds: a move thinks 2 to 3 ms at the middle, but
   about one move in fifteen takes 12.5 to 91 ms (50 to 360 ms on a phone 4x slower: a frozen frame each). They are his gunmen's first
