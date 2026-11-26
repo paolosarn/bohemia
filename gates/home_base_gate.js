@@ -58,6 +58,9 @@
          CAM 2 frames THE LOTS closer and the pot there still answers a tap; CAM 3 has the ones who live there in the shot; CAM 1 the
          whole yard again. PLANTED: the message says not planted, no camera.
      F8  ONCE AND IN THE GROUND (rule 479, HOME BASE 3 11/22): every camera, each thing and each person drawn once, each on his shadow.
+    F9  THE STATION (rule 481(b), HOME BASE 4 11/26): a tap on the grinder zooms the camera onto its lot and lays the sheet for the way
+        the phone is held (sideways a column beside the footage, upright under it), never over the footage; one bundle per body
+        waiting; the camera back out when it shuts; the footage painted six times a second standing still. PLANTED: each red.
      F7  THE OVERFLOW (rule 466(a) step 4, HOME BASE 3 11/22): a piece whose row is full stands on a free lot behind it, its own picture.
      D22 THE GRINDER (rule 469, HOME BASE 3 11/22): built from the desk, standing, seen; the dead of a won fight home; GRIND; sold and found.
      G0-G9 (engine) THE GRINDER: the carry, the heat, one tap, the brain out, the bad cut, selling, the late shakes, the stores.
@@ -500,6 +503,35 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       ok('D22 a fight he wins brings its people home, as many as his ' + fh22.crew + ' men carry (' + (fh22.won && fh22.won.took) + ' of 5; the coyote is the kill\'s); planted: a fight lost brings nobody (' + fh22.lost + ')', !!fh22.won && fh22.won.took >= 1 && fh22.won.took + fh22.won.left === 5 && fh22.lost === null && fh22.now.dead === fh22.won.took, JSON.stringify(fh22));
       await tap15(gk22, () => !!document.querySelector('#sbody .act[data-grind]'));
       const gb22 = await fr.evaluate(() => { const b = document.querySelector('#sbody .act[data-grind]'); return b ? { t: b.textContent, off: b.disabled, say: (document.querySelector('#sbody .say p') || {}).textContent || '' } : null; }) || {};
+      /* F9 THE STATION (HOME BASE 4 11/26, rule 481(b), his NO on home-base-the-grinder-11-22: 'this has to be made for horizontal and
+         vertical phone wielding... sideways like you didn't even try'): a tap on his grinder points the camera at it (zoomed, the lot on the
+         glass) and lays the sheet for the way the phone is held: sideways a column beside the footage the whole glass tall, its buttons in
+         its lower half; upright under the footage, under 55 percent of the glass; the footage and the sheet never overlap; every press
+         44 px and on the glass. The bodies waiting lie on its lot, one bundle each. PLANTED: the station off (the sheet as it was), red. */
+      await P.waitForTimeout(700);
+      const still9 = () => fr.evaluate(async () => { let last = '', same = 0; for (let i = 0; i < 40 && same < 3; i++) { const r = document.getElementById('sheet').getBoundingClientRect(), v = window.__HOME_FEED_VIEW() || {}; const k = [r.left, r.top, r.width, r.height].map(Math.round).join(',') + (v.moving ? 'm' : '');
+        same = k === last && !v.moving ? same + 1 : 0; last = k; await new Promise(r => setTimeout(r, 80)); } return same; });   /* measured once the sheet has stopped sliding and the camera has stopped moving */
+      const geo9 = async () => { await still9(); return geo9a(); };
+      const geo9a = () => fr.evaluate(() => { const sc = document.getElementById('scene').getBoundingClientRect(), sh = document.getElementById('sheet').getBoundingClientRect(), st = window.__HOME_STATION, v = window.__HOME_FEED_VIEW(), d = window.__HOME_FEED_DRAWN();
+        const rr = (e) => { if (!e) return null; const r = e.getBoundingClientRect(); return [Math.round(r.left - sc.left), Math.round(r.top - sc.top), Math.round(r.right - sc.left), Math.round(r.bottom - sc.top)]; };
+        const S = [sh.left - sc.left, sh.top - sc.top, sh.right - sc.left, sh.bottom - sc.top].map(Math.round), R = v ? [v.X, v.Y, v.X + v.W, v.Y + v.H].map(Math.round) : null;
+        const ov = R ? Math.max(0, Math.min(R[2], S[2]) - Math.max(R[0], S[0])) * Math.max(0, Math.min(R[3], S[3]) - Math.max(R[1], S[1])) : -1;
+        const fe = document.getElementById('hfeed').getBoundingClientRect(), at = st ? window.__HOME_FEED_AT(st.lot) : null, lot = at ? [Math.round(at.x - fe.left), Math.round(at.y - fe.top)] : null;
+        return { side: sc.width > sc.height, W: Math.round(sc.width), H: Math.round(sc.height), st, z: v ? +v.z.toFixed(2) : 0, S, R, ov, lot, grind: rr(document.querySelector('#sbody .act[data-grind]')), more: rr(document.querySelector('#sbody .act[data-home="more"]')), pile: d ? d.pile : -1, v }; });
+      const good9 = (g) => { if (!g.st || !g.R || !g.grind || !g.more) return false; const on = (b) => b[0] >= 0 && b[1] >= 0 && b[2] <= g.W + 1 && b[3] <= g.H + 1 && b[3] - b[1] >= 44;
+        const lotIn = !!g.lot && g.lot[0] >= g.R[0] && g.lot[0] <= g.R[2] && g.lot[1] >= g.R[1] && g.lot[1] <= g.R[3];
+        const lay = g.side ? (g.S[0] >= g.R[2] - 1 || g.S[2] <= g.R[0] + 1) && g.S[3] - g.S[1] >= g.H * .95 && g.grind[1] >= g.S[1] + (g.S[3] - g.S[1]) * .4 && g.st.side
+                           : g.S[1] >= g.R[3] - 1 && g.S[3] - g.S[1] <= g.H * .55 && !g.st.side;
+        return g.ov <= g.W && g.z >= 1.5 && lotIn && lay && on(g.grind) && on(g.more); };
+      const g9 = await geo9(), dead9 = await F.evaluate(() => BohemiaHomeMap.grinder().dead | 0);
+      ok('F9 THE STATION (' + (g9.side ? 'sideways' : 'upright') + '): the camera zoomed ' + g9.z + 'x onto the grinder\'s lot ' + (g9.st && g9.st.lot) + ', the footage ' + JSON.stringify(g9.R) + ' and the sheet ' + JSON.stringify(g9.S) + ' overlap ' + g9.ov + ' px, ' + (g9.side ? 'the sheet a column the glass tall, GRIND in its lower half' : 'the sheet under the footage, under 55 percent of the glass') + ', GRIND and BUILD MORE 44 px and on the glass',
+        good9(g9), JSON.stringify(g9));
+      ok('F9 the bodies waiting lie on the grinder\'s lot, one bundle each (' + g9.pile + ' drawn, ' + dead9 + ' waiting)', g9.pile === Math.min(6, dead9) && dead9 >= 1, JSON.stringify({ pile: g9.pile, dead9 }));
+      await close15(); await fr.evaluate(() => window.__HOME_FEED_NO_STATION(true));
+      await tap15(gk22, () => !!document.querySelector('#sbody .act[data-grind]')); await P.waitForTimeout(700);
+      const g9p = await geo9(); await close15(); await fr.evaluate(() => window.__HOME_FEED_NO_STATION(false));
+      ok('F9 planted: the station off (the sheet as it stood before, the camera not moved), the leg above reads red (' + (g9p.st ? 'on' : 'off') + ', zoom ' + g9p.z + ')', !good9(g9p), JSON.stringify(g9p));
+      await tap15(gk22, () => !!document.querySelector('#sbody .act[data-grind]')); await P.waitForTimeout(700);
       const w22 = await F.evaluate(() => (wagonGet() || {}).food | 0);
       await tapQ17('#sbody .act[data-grind]', () => !!window.__HOME_GRIND);
       const w22b = await F.evaluate(() => ({ food: (wagonGet() || {}).food | 0, now: BohemiaHomeMap.grinder(), ground: window.__HOME_GROUND || {} }));
@@ -507,6 +539,18 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       ok('D22 at the grinder one line ("' + gb22.say + '") and one button ("' + gb22.t + '"); a real tap grinds: food ' + w22 + ' -> ' + w22b.food + ', then "' + ga22.t + '", "' + ga22.say + '"',
         /head/i.test(gb22.say || '') && !gb22.off && /GRIND/.test(gb22.t || '') && w22b.ground.food > 0 && w22b.food - w22 === w22b.ground.food && w22b.now.dead === 0 && ga22.off && /NOBODY/.test(ga22.t || '') && /\+\d+ food/.test(ga22.say), JSON.stringify({ gb22, w22, w22b, ga22 }));
       await close15();
+      /* F9 the camera glides back out when the sheet shuts, the pile ground away; and the footage, a six-frame-a-second picture, is painted
+         six times a second while nothing moves (rule 480(c); it was painted every frame). PLANTED: painted every frame, red. */
+      await P.waitForTimeout(900);
+      const z9 = await fr.evaluate(() => ({ v: window.__HOME_FEED_VIEW(), st: window.__HOME_STATION, pile: (window.__HOME_FEED_DRAWN() || {}).pile }));
+      ok('F9 the sheet shut, the camera is back on the whole block (zoom ' + (z9.v && z9.v.z.toFixed(2)) + ') and the ground pile is gone (' + z9.pile + ' bundles)', !!z9.v && Math.abs(z9.v.z - 1) < .02 && !z9.v.on && !z9.st && z9.pile === 0, JSON.stringify(z9));
+      const idle9 = async (always) => fr.evaluate(async (always) => { window.__HOME_FEED_ALWAYS(always); window.__HOME_FEED_AGE(-60000); await new Promise(r => setTimeout(r, 300));
+        const a = window.__HOME_FEED_VIEW(); await new Promise(r => setTimeout(r, 2000)); const b = window.__HOME_FEED_VIEW(); window.__HOME_FEED_ALWAYS(false);
+        let fr = 0; await new Promise(r => { const t0 = performance.now(); const f = () => { fr++; if (performance.now() - t0 < 500) requestAnimationFrame(f); else r(); }; requestAnimationFrame(f); });
+        window.__HOME_FEED_AGE(60000); return { paints: b.paints - a.paints, shows: b.shows - a.shows, rafIn500: fr }; }, always);   /* the cut's clock put back as it was */
+      const i9 = await idle9(false), i9p = await idle9(true);
+      ok('F9 standing still, the footage painted ' + i9.paints + ' times in 2 s (its own 6 a second; the page ran ' + i9.rafIn500 * 4 + ' frames a second)', i9.paints >= 6 && i9.paints <= 16, JSON.stringify(i9));
+      ok('F9 planted: painted every frame as it was, ' + i9p.paints + ' times in 2 s, the leg above reads red', !(i9p.paints >= 6 && i9p.paints <= 16), JSON.stringify(i9p));
       /* F4 HIS MEN AT HIS BUILDINGS, ON THE FOOTAGE (rule 458(c)): each once in his place, standing on his building's lot */
       await close15();
       const m19 = await fr.evaluate(() => { const W = window.__HOME_WORKERS || [], here = BohemiaSettlement.crewHere().map(p => p.name), F = window.__HOME_FEED_PEOPLE(); return { W, twice: W.filter(w => here.filter(n => n === w.name).length !== 1).map(w => w.name), on: F.filter(p => p.works).map(p => p.name + '@' + p.works) }; });

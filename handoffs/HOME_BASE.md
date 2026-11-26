@@ -1,23 +1,42 @@
-HOME BASE 3 -> A FRESH HOME BASE (11/26): HANDOFF READY. HOME BASE 3's context is past 700k (the coordinator's routine: write the handoff,
-push, end). Its last builds: 11/22zm THE GRINDER, 11/22zt THE OVERFLOW, 11/22zy THE FRONT ROW BEHIND, 11/22zz ONCE AND IN THE GROUND.
+HOME BASE 4 (session_01GKDyuuxd1n5GC5qbBwv9B6): 11/26 LATEST -- BUILD 11/26q - THE GRINDER, ON PURPOSE, BUILT, NOT YET SEEN (rule 481(b),
+ask row 733; rule 480(c), ask row 729; rule 479(c), ask row 721). Record records/BOHEMIA_HOME_BASE_THE_GRINDER_ON_PURPOSE_11_26_26.md.
+VOTE card home-base-the-grinder-on-purpose-11-26 (redoOf home-base-the-grinder-11-22; before and now, both ways).
 
-## THE NEXT JOB, RULE 480 (the coordinator's routine 'HOME BASE 3: rule 480', 11/26 01:08 UTC; read rule 480 in VAMILY.md first)
-Stop waiting on the twenty-cooks screenshot (he has not sent one; do not ask again).
-1. Rule 479(c), MEASURE EVERYWHERE: run the count across every zoom, both orientations, every camera, every settlement and his place,
-   after hiring a cook (BohemiaCamp.hire('cook')) and after building each building; fix any repeat at its root and leave the check
-   standing. What exists: his place's footage counts each frame (window.__HOME_FEED_DRAWN: pieces by key, people by name, feet with their
-   shadow; gate YOUR PLACE, PLANTED F8, 138/0 upright, 135/0 sideways on 82b285056). NOT YET COUNTED: the map (MAP_DREW has youCount,
-   art.buildings, rigPeople; a count of his things and of any cook per frame is owed), the camp (bohemia_camp_look.js: followers each
-   once), the other settlements' town screens. Measured by HOME BASE 3 (records/BOHEMIA_HOME_BASE_ONCE_AND_IN_THE_GROUND_11_22_26.md): no
-   repeat in the map at eight zooms on two grounds, the camp with the cook hired, his three cameras. A driver that plants, gives THE POT's
-   kitchen, builds, makes camp and zooms: the scratch pattern is in tools/bohemia_home_base_the_grinder_card_11_22_26.js (setZoomAt(z, x, y)
-   on the map frame; localStorage 'bohemia.fog.off' lifts WORLD 15's fog for a probe).
-2. Rule 480(b), IMPROVE HIS PLACE AS IT IS: the buildings sitting in the ground (the 11/3 pieces cast rendered shadows; compare with COOK
-   SIX's valley buildings), the cameras, the grinder. Owed: rule 479's VOTE card, a before and after (a man at his building without and
-   with his shadow). A small defect seen on the way: his place's arrival card reads 'CUSTOM, A CAMP, MARKET DAY' and THE ELDER says 'New
-   faces in town for market day' at HIS place (IT STARTS BARE took the market day off the screen but not off the arrival card).
-3. Rule 480(c), NEVER CHOPPY: his place and its cameras on a slowed phone (390 x 844, CPU slowed 4x): the footage redraws at HF_FPS 6 on
-   its own canvas (homeFeedDraw); measure its frame times and the town screen's under it, and the open of his place.
+## WHAT THIS ROUND BUILT (HOME BASE 3's 'NEXT JOB, RULE 480' list is DONE, all three)
+1. THE STATION (481(b), his NO 'sideways like you didn't even try'): slices/BOHEMIA_SETTLEMENT_SCREEN.html __THE_STATION__ (after the
+   feed's code). A sheet of his place's (S.open h<n>) is a station: homeStationLay (wrapped onto placeChrome and hide) lays the sheet
+   for the glass: SIDEWAYS (#sheet.hstation.hside, .hsl when the phone sits left) a column the glass tall in the phone's column,
+   36 percent wide (280 to 380 px), the buttons at its bottom (margin-top:auto over UI's ns-d1 block, by specificity); UPRIGHT the
+   sheet at the bottom, at most 52 percent. HST.R is what the sheet leaves; homeStationTarget frames the lot (its tap box, the
+   picture's height, its sides held to the lot and a third; framed once per camera, way and lot) at most 3x the plain picture;
+   homeStationView glides there (exp, 75 ms) and back. The camera's text (homeFeedOsd) is drawn on its own canvas at the footage's
+   pixel: ZOOM n.nX, the brackets, the thing's name. Taps and __HOME_FEED_AT go through the view (homeFeedV). The waiting dead lie
+   on the grinder's lot (homeFeedPile, one tarp bundle per body, six at most; HF.pile read when the grinder's sheet opens and every
+   2.5 s). Read hooks: window.__HOME_STATION, __HOME_FEED_VIEW (z, paints, shows), __HOME_FEED_WARM; for the gate only:
+   __HOME_FEED_NO_STATION, __HOME_FEED_ALWAYS.
+2. THE SPECKS: every piece picture had a speck under it (a black puddle in the street) and a cut down to it; the pipeline's
+   _no_specks (tools/bohemia_home_settlement_pipeline_11_3_26.py, in post and post_add) cleans and cuts; `specks` cleaned the 2,232
+   made. A new piece: render, post_add, and it comes out clean. The dark puddles left in the street are the fan palm's shadow (11/3).
+3. NEVER CHOPPY at his place (480(c)): the footage paints six times a second (homeFeedPaint when its frame turns or HF.dirty; the
+   glass laid by homeFeedShow then or while the camera moves); the graded people cached (hfGraded); the town RESTS under the footage
+   (loop: __THE_TOWN_RESTS_UNDER_HIS_CAMERAS__, folkList and busyHeard four times a second); the other cameras decoded while idle
+   (homeFeedWarm). Measured with tools/bohemia_home_base_his_place_on_a_slow_phone_11_26_26.js (CPU 4x): see the record's table.
+   NOT HIS PLACE'S, ROUTED (ask row 729): the job planner and the phone's board app (JOBS 2), the idles' warm-up (PLUMBER 8),
+   nothing_pops (UI FIVE).
+4. ONCE, EVERYWHERE (479(c)): gates/once_everywhere_gate.js (registered): the map at eight zooms walking and camped, the fourteen
+   settlements and his place, the camp, both ways; no repeat found. Read and routed to BOSSES: THE POT's COOK verb leaves its fire
+   on the block every use, painted for good (slices/bohemia_bosses.js S.marks).
+GATES: YOUR PLACE, PLANTED 238/0 (F9 new, both ways); HOME SETTLEMENT 15/0 (S8 new); ONCE, EVERYWHERE 6/0 each way; the demo cut
+exact. Full suite unmeasured by this lane (rule 13).
+
+## THE NEXT JOB (rule 482: improve what is there)
+1. The door into his place still paints his place's pictures at the door (a task about 220 to 460 ms at 4x): warm cam 1's plates
+   and his pieces while the map's travel to his place is under way (the town frame is reused; homeFeedWarm can run before
+   homeFeedSync turns the feed on).
+2. The other sheets at his place that are not stations: BUILD (the desk) and a prize's own door (THE POT's kitchen opens its own
+   shop): laid both ways on purpose the same way (the desk's two columns sideways, the plan short).
+3. If he says the zoomed footage is too blocky: the pieces are PS1 size by his yes (11/3); a closer camera would need the 11/3
+   pipeline (Blender is not on this box; pip install bpy is the way).
 
 HOME BASE 3 (session_01GKDyutkCNC5cSDNauAG37o): 11/22 LATEST -- BUILD 11/22zm - THE GRINDER (8d48346ba) (rule 469, ask row 638) and the cameras' steps
 2 to 4 (rule 466(a), ask row 663): the skewed board's code in the graveyard, the cameras' hum ASKED of SOUNDS (ask row 720), and THE OVERFLOW

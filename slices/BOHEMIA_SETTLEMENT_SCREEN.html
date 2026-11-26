@@ -130,6 +130,23 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
   .slots.waits{display:inline-block;margin:4px 0 0 18px;vertical-align:middle}
 }
 #close{position:absolute;right:8px;top:6px;min-width:44px;min-height:44px;background:none;border:0;color:var(--dim);font:inherit;font-size:20px}
+/* __THE_STATION__ (HOME BASE 4, 11/26, rule 481(b)): a sheet of his place's, laid on purpose for the phone upright and on its side */
+#sheet.hstation .act[data-grind]{min-height:62px;font-size:18px;letter-spacing:4px;border-color:var(--gold);box-shadow:inset 0 0 0 1px rgba(244,207,124,.4),0 2px 0 #000}
+#sheet.hstation .act[data-grind] em{font-size:14px;letter-spacing:1px}
+#sheet.hstation .act[data-grind][disabled]{min-height:48px;font-size:13px;letter-spacing:2px;box-shadow:none;border-color:var(--line)}
+#sheet.hstation .act[data-home]{min-height:42px;padding-top:4px;padding-bottom:4px;font-size:12px}
+#sheet.hstation .act[data-home] em{font-size:10px}
+#sheet.hside{top:0;border-top:0;border-left:2px solid var(--gold);padding:8px 10px 10px 12px;display:flex;flex-direction:column;box-shadow:-8px 0 16px rgba(0,0,0,.6)}
+#sheet.hside.hsl{border-left:0;border-right:2px solid var(--gold);box-shadow:8px 0 16px rgba(0,0,0,.6)}
+html body #sheet.hside.hstation.on #sbody,html body #sheet.hside.hstation.on #sbody:has(> .who){display:flex!important;flex-direction:column;flex:1 0 auto;padding-right:0!important}   /* over the density layer's block (UI, ns-d1) */
+html body #sheet.hside.hstation .acts{margin-top:auto!important;padding-top:10px;align-self:stretch!important}
+html body #sheet.hside.hstation .acts.two{grid-template-columns:repeat(2,minmax(0,1fr))!important}   /* the yard's men and the carts, two across in the column */
+#sheet.hside .who{gap:8px;padding-right:40px}
+#sheet.hside .face{width:56px;height:56px;flex:0 0 56px}
+html body #sheet.hside.hstation .act[data-grind]{flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:84px;padding:8px 10px}
+html body #sheet.hside.hstation .act[data-grind]>span{flex:none;text-align:center;font-size:22px;letter-spacing:8px;margin-right:-8px}
+html body #sheet.hside.hstation .act[data-grind][disabled]>span{font-size:13px;letter-spacing:2px;margin-right:0}
+html body #sheet.hside.hstation .act[data-grind]>em{white-space:normal;text-align:center;border-left:0!important;padding:5px 10px 0!important;border-top:1px dashed rgba(42,34,26,.4)}
 /* the shelf and the bag: square slots, Battle Brothers' stash grid */
 .gridh{margin:10px 0 4px;font-size:11px;letter-spacing:1px;color:var(--dim)}
 .campf{margin:8px 0;padding:8px 8px 2px;border:1px solid var(--line);background:rgba(255,235,200,.03)}.campf b{display:block;font-size:12px;letter-spacing:1px;color:var(--gold)}.campf p{margin:4px 0 6px;font-size:11px;line-height:1.4;color:var(--ink)}.gridh.warn{color:#e2a35a}   /* __THE_CAMP__ */
@@ -2200,7 +2217,7 @@ function homePlaceSheet(k, t){
   var body = document.getElementById('sbody'); body.textContent = ''; var W = homeWords(), HM = homeHM(), acts = document.createElement('div'); acts.className = 'acts';
   var t0 = performance.now(), guard = function(fn){ return function(){ if(performance.now() - t0 < 450) return; fn(); }; };
   if(!t.done){ body.appendChild(speak('build', 'It goes up tonight. Tomorrow it stands.')); }
-  else if(t.id === 'yard'){ body.appendChild(speak('build', W.yard || '')); if(innerWidth > innerHeight) acts.className = 'acts two';   /* __HIS_PLACE_SEEN_AS_HE_WILL_SEE_IT__: on its side his men in two columns, so the camera keeps glass to show the yard */
+  else if(t.id === 'yard'){ body.appendChild(speak('build', W.yard || '')); if(innerWidth > innerHeight || HF.on) acts.className = 'acts two';   /* __THE_STATION__: upright too, under the zoomed yard */   /* __HIS_PLACE_SEEN_AS_HE_WILL_SEE_IT__: on its side his men in two columns, so the camera keeps glass to show the yard */
     var tr = (S.home && S.home.trained) || {};
     shopCrew().forEach(function(m){ var on = tr[m.name] && tr[m.name].left > 0, lv = homeClimb(m.name), cost = window.parent.BohemiaHome ? window.parent.BohemiaHome.trainCost(lv) : 2;
       var b = act(String(m.name).toUpperCase(), on ? homeFill(W.trained, {n: tr[m.name].left}) : moneyWord(cost) + '  ' + (W.train || ''), guard(function(){
@@ -2215,7 +2232,7 @@ function homePlaceSheet(k, t){
     pb.dataset.press = '1'; acts.appendChild(pb);
     homeCartRows(acts, k, t, guard); }   /* __THE_STAFF_PUSH_A_CART__ (STAFF 2, rule 471(d)): the camp's carts welded up here */
   else if(t.id === 'grinder'){   /* __THE_GRINDER__ (HOME BASE 3, rule 469): one line in a mouth, one button; nothing else is explained (466(c)) */
-    var G = HM && HM.grinder ? HM.grinder() : null, gd = S.homeGround; S.homeGround = null;
+    var G = HM && HM.grinder ? HM.grinder() : null, gd = S.homeGround; S.homeGround = null; HF.pile = G; HF.pileAt = performance.now(); HF.dirty = true;   /* __THE_STATION__: the pile on the footage is what the sheet says */
     body.appendChild(speak('build', gd ? homeFill(W.ground, {n: gd}) : (W.grinder || '')));
     var none = !G || !(G.food > 0);
     var gb = act(none ? (W.nobody || 'NOBODY TO GRIND') : (W.grind || 'GRIND'), none ? '' : homeGrindWords(G), guard(function(){ var r = HM && HM.grind ? HM.grind() : null; if(!r || !r.ok) return;
@@ -2380,44 +2397,133 @@ function homeFeedPeople(){ var F = (VAR && VAR.folk) || [], M = HF.M, sh = HF.fi
     if(!n || !T[n]) return; var b = T[n], hpx = Math.max(9, (b[2] - b[0]) * .22);
     out.push({ p: p, x: (side < 0 ? b[0] + (b[2] - b[0]) * .25 : b[2] - (b[2] - b[0]) * .22), y: b[3] - 1, h: hpx }); });
   HF.ppl = out; return out; }
-function homeFeedDraw(now){
-  var M = HF.M, f = HF.fit, cn = HF.cam, sh = f.sh, fr = Math.floor((now - HF.t0) / (1000 / HF_FPS)) % 3, plate = hfImg(HF_BASE + 'plates/block_cam' + cn + '_' + sh + '_' + fr + '.png');
+/* __THE_STATION__ (HOME BASE 4, 11/26, VAMILY rule 481(b), his NO on the grinder's screen: 'this has to be made for horizontal and
+   vertical phone wielding... It looks like dog shit... sideways like you didn't even try'; rule 480(c) never choppy; rule 479). MEASURED
+   on the demo before (records/BOHEMIA_HOME_BASE_THE_GRINDER_ON_PURPOSE_11_26_26.md): sideways the footage stood in the left 553 px with a
+   black 291 px column where the phone had been, and the grinder's sheet, the whole glass wide, lay over the bottom 40 percent of the
+   footage, right where the grinder stands; upright the grinder was a dark smudge 46 px wide in the middle of the frame and the sheet
+   covered the street below it. NOW a tap on anything of his is a station: the security camera ZOOMS onto that lot (a digital zoom of its
+   own footage, at most three times, the lot and what stands on it framed by the tracking brackets with its name), and the sheet is laid
+   for the way the phone is held: SIDEWAYS a column in the black where the phone was (the phone steps aside while a sheet is open), the
+   footage zoomed in everything left of it, the buttons at the bottom of the column under the thumb; UPRIGHT the sheet under the
+   footage, the footage zoomed into what is left above it. Closing the sheet glides the camera back out. The bodies waiting for the
+   grinder lie on its lot, wrapped, as many as there are (rule 479(b): one each, counted). THE FOOTAGE IS A SIX-FRAME-A-SECOND PICTURE:
+   it is painted when its frame turns or something on it changed, and laid on the glass then or while the camera moves (it was painted
+   whole, every person through a colour filter, sixty times a second, for a picture that changes six times). ==== */
+var HST = { on: false, k: null, R: null, V: null, moving: false, was: false, box: null, n: null, last: 0 };
+var HFG = typeof WeakMap === 'function' ? new WeakMap() : null;   /* a person in the footage's grade, made once per size (the canvas filter is the dear part) */
+function hfGraded(im, k){ var w = Math.max(1, Math.round((im.naturalWidth || im.width) * k)), h = Math.max(1, Math.round((im.naturalHeight || im.height) * k)), key = w + 'x' + h;
+  var m = HFG && HFG.get(im); if(m && m[key]) return m[key];
+  var c = document.createElement('canvas'); c.width = w; c.height = h; var x = c.getContext('2d'); x.imageSmoothingEnabled = false; x.filter = HF_GRADE; x.drawImage(im, 0, 0, w, h);
+  if(HFG){ if(!m){ m = {}; HFG.set(im, m); } m[key] = c; } return c; }
+/* the bodies waiting at the grinder, on its lot: tarp bundles tied twice, three on the ground, two on them, one on top; one each */
+function homeFeedPile(g, b, DRAWN){ var G = HF.pile; if(!G || !(G.dead > 0)) return;
+  var n = Math.min(6, G.dead | 0), bw = b[2] - b[0], w = Math.max(8, Math.round(bw * .3)), h = Math.max(3, Math.round(w * .3)), x0 = b[0] + Math.round(bw * .02), y0 = b[3] - 2;
+  var at = [[0, 0], [1, 0], [2, 0], [.5, 1], [1.5, 1], [1, 2]];
+  for(var i = 0; i < n; i++){ var x = Math.round(x0 + at[i][0] * w * .72), y = Math.round(y0 - h - at[i][1] * h * .8);
+    if(!at[i][1]){ g.fillStyle = 'rgba(0,0,0,.55)'; g.fillRect(x - 1, y + h - 1, w + 3, 2); }   /* its shadow on the lot */
+    g.fillStyle = '#3d4b41'; g.fillRect(x + 1, y, w - 2, h); g.fillRect(x, y + 1, w, h - 2);   /* the tarp, a long bundle with round ends */
+    g.fillStyle = '#6c8070'; g.fillRect(x + 2, y, w - 4, 1);   /* the sodium on its back */
+    g.fillStyle = '#1e2621'; g.fillRect(x + 1, y + h - 1, w - 2, 1);   /* its belly in its own shade */
+    g.fillStyle = '#2a342e'; g.fillRect(x + Math.round(w * .34), y + 1, 1, h - 1); g.fillRect(x + Math.round(w * .66), y + 1, 1, h - 1);   /* the rope, cinched twice */
+    DRAWN.pile++; } }
+function homeFeedPaint(now, fr){
+  var M = HF.M, f = HF.fit, cn = HF.cam, sh = f.sh, plate = hfImg(HF_BASE + 'plates/block_cam' + cn + '_' + sh + '_' + fr + '.png');
   if(!HF.src){ HF.src = document.createElement('canvas'); HF.sx = HF.src.getContext('2d'); }
   if(HF.src.width !== f.cw || HF.src.height !== f.ch){ HF.src.width = f.cw; HF.src.height = f.ch; }
-  var g = HF.sx, c = HF.el.getContext('2d'); g.imageSmoothingEnabled = false;
-  if(!hfReady(plate)){ c.fillStyle = '#0c0b0a'; c.fillRect(0, 0, HF.el.width, HF.el.height); return; }
-  g.filter = 'none'; g.globalAlpha = 1; g.drawImage(plate, 0, 0);
-  var T = M.tap_px[cn + '_' + sh] || {}, P = homeFeedPeople();
-  var DRAWN = { pieces: {}, people: {}, feet: [] }; HF.drawn = DRAWN;   /* __ONCE_AND_IN_THE_GROUND__ (HOME BASE 3, rule 479): what this frame drew, counted */
+  var g = HF.sx; g.imageSmoothingEnabled = false;
+  if(!hfReady(plate)) return false;
+  HF.paints = (HF.paints | 0) + 1; g.filter = 'none'; g.globalAlpha = 1; g.drawImage(plate, 0, 0);
+  var T = M.tap_px[cn + '_' + sh] || {}, P = homeFeedPeople(), late = false;
+  var DRAWN = { pieces: {}, people: {}, feet: [], pile: 0, cam: cn, sh: sh }; HF.drawn = DRAWN; HF.picRect = {};   /* __ONCE_AND_IN_THE_GROUND__ (HOME BASE 3, rule 479): what this frame drew, counted */
   (M.order[cn] || []).forEach(function(n){ var t = HF.slots[n]; if(!t) return; DRAWN.pieces[t.key] = (DRAWN.pieces[t.key] | 0) + 1;
     if(t.pid){ var D = M.pieces[t.pid], st = t.done === false ? 'built' : (D.states.working ? 'working' : 'built'), E = D.states[st] && D.states[st].pics[cn + '_' + sh + '_' + n]; if(!E) return;
-      var im = hfImg(HF_BASE + 'pieces/' + E.pictures[fr % E.pictures.length]); if(!hfReady(im)) return;
-      g.globalAlpha = t.done === false ? .45 : 1; g.drawImage(im, E.xy[0], E.xy[1]); g.globalAlpha = 1; }   /* going up tonight: faint, as on the town screen */
-    else if(t.pic && T[n]){ var pim = hfImg(t.pic); if(!hfReady(pim)) return; var b = T[n], hh = Math.max(8, (b[3] - b[1]) * .7), ww = hh * pim.naturalWidth / pim.naturalHeight;
-      g.filter = HF_GRADE; g.drawImage(pim, Math.round((b[0] + b[2]) / 2 - ww / 2), Math.round(b[3] - hh), Math.round(ww), Math.round(hh)); g.filter = 'none'; } });
-  var B = window.BohemiaRigBodies; if(B && B.standing) P.slice().sort(function(a, b){ return a.y - b.y; }).forEach(function(q){ var s = B.standing(q.p.look, 'S'); if(!s || !s.im) return;
+      var im = hfImg(HF_BASE + 'pieces/' + E.pictures[fr % E.pictures.length]); if(!hfReady(im)){ late = true; return; }
+      g.globalAlpha = t.done === false ? .45 : 1; g.drawImage(im, E.xy[0], E.xy[1]); g.globalAlpha = 1;   /* going up tonight: faint, as on the town screen */
+      HF.picRect[n] = [E.xy[0], E.xy[1], E.xy[0] + im.naturalWidth, E.xy[1] + im.naturalHeight]; }
+    else if(t.pic && T[n]){ var pim = hfImg(t.pic); if(!hfReady(pim)){ late = true; return; } var b = T[n], hh = Math.max(8, (b[3] - b[1]) * .7), ww = hh * pim.naturalWidth / pim.naturalHeight;
+      var gi = hfGraded(pim, hh / pim.naturalHeight), px = Math.round((b[0] + b[2]) / 2 - gi.width / 2), py = Math.round(b[3] - gi.height); g.drawImage(gi, px, py); HF.picRect[n] = [px, py, px + gi.width, py + gi.height]; }
+    if(t.kind === 'place' && t.id === 'grinder' && T[n]) homeFeedPile(g, T[n], DRAWN); });
+  var B = window.BohemiaRigBodies; if(B && B.standing) P.slice().sort(function(a, b){ return a.y - b.y; }).forEach(function(q){ var s = B.standing(q.p.look, 'S'); if(!s || !s.im){ late = true; return; }
     /* __ONCE_AND_IN_THE_GROUND__ (rule 479(a)): a person stands ON the lot: his own shadow on its ground, in the footage's light (the
        sodium heads above and behind the lots throw it short and forward), never a figure pasted over the picture */
     g.save(); g.fillStyle = 'rgba(0,0,0,.5)'; g.beginPath(); g.ellipse(Math.round(q.x), Math.round(q.y + q.h * .02), Math.max(2, q.h * .2), Math.max(1, q.h * .06), 0, 0, 7); g.fill(); g.restore();
     DRAWN.people[q.p.name] = (DRAWN.people[q.p.name] | 0) + 1; DRAWN.feet.push({ name: q.p.name, x: Math.round(q.x), y: Math.round(q.y), shadow: true });
-    var k = q.h / (B.FIG_H || 108); g.filter = HF_GRADE; g.drawImage(s.im, Math.round(q.x - s.mid * k), Math.round(q.y - s.foot * k), Math.round(s.im.naturalWidth * k), Math.round(s.im.naturalHeight * k)); g.filter = 'none'; });
-  if(M.near){ var nr = hfImg(HF_BASE + 'near/cam' + cn + '_' + sh + '_' + fr + '.png'); if(hfReady(nr)) g.drawImage(nr, 0, 0); }
-  g.font = '8px monospace'; g.textBaseline = 'top'; var tx = function(x, y, s){ g.fillStyle = '#0a0a0a'; g.fillText(s, x + 1, y + 1); g.fillStyle = '#e2e6de'; g.fillText(s, x, y); };
-  tx(4, 3, M.cams[cn].name.replace('CAM ', 'CAM')); tx(f.cw - 24, 3, 'REC'); if(fr !== 1){ g.fillStyle = '#c83c32'; g.fillRect(f.cw - 32, 5, 5, 5); }
+    var k = q.h / (B.FIG_H || 108), gi = hfGraded(s.im, k); g.drawImage(gi, Math.round(q.x - s.mid * k), Math.round(q.y - s.foot * k)); });
+  if(M.near){ var nr = hfImg(HF_BASE + 'near/cam' + cn + '_' + sh + '_' + fr + '.png'); if(hfReady(nr)) g.drawImage(nr, 0, 0); else late = true; }
+  if(late) HF.dirty = true;   /* a picture still on its way: painted again next frame, not in a sixth of a second */
+  return true; }
+/* THE NEXT CAMERA IS READY BEFORE THE CUT (rule 480(c), ask row 729: on a phone slowed four times CAM 2 froze one frame 1,033 ms, a task
+   955 ms, and the first cut sideways here 2,367 ms): every camera's plates, lens layers and his pieces for the way the phone is held are
+   fetched and decoded a few at a time while nothing else is asked of the phone, so a cut only lays down what is already decoded */
+function homeFeedWarm(){ if(!HF.on || !HF.M || !HF.fit) return; var M = HF.M, sh = HF.fit.sh, key = sh + '|' + Object.keys(HF.slots).map(function(n){ return n + ':' + (HF.slots[n].pid || ''); }).join(','); if(HF.warmKey === key) return; HF.warmKey = key;
+  var U = [], cams = [HF.cam, 1, 2, 3].filter(function(c, i, a){ return a.indexOf(c) === i; });
+  cams.forEach(function(cn){ for(var f = 0; f < 3; f++){ U.push(HF_BASE + 'plates/block_cam' + cn + '_' + sh + '_' + f + '.png'); if(M.near) U.push(HF_BASE + 'near/cam' + cn + '_' + sh + '_' + f + '.png'); }
+    for(var n in HF.slots){ var t = HF.slots[n]; if(!t.pid) continue; var D = M.pieces[t.pid]; ['built', 'working'].forEach(function(st){ var E = D.states[st] && D.states[st].pics[cn + '_' + sh + '_' + n]; if(E) E.pictures.forEach(function(pn){ U.push(HF_BASE + 'pieces/' + pn); }); }); } });
+  var q = U.filter(function(u, i){ return U.indexOf(u) === i && !(HF.IM[u] && HF.IM[u].__warm); }), idle = window.requestIdleCallback || function(f){ return setTimeout(function(){ f({ timeRemaining: function(){ return 8; } }); }, 60); };
+  HF.warmLeft = q.length;
+  var step = function(dl){ var k = 0; while(q.length && k < 3 && (!dl || dl.timeRemaining() > 4)){ var u = q.shift(), im = hfImg(u); im.__warm = 1; k++; HF.warmLeft = q.length; try{ if(im.decode) im.decode().catch(function(){}); }catch(e){} } if(q.length && HF.on) idle(step, { timeout: 400 }); };
+  idle(step, { timeout: 400 }); }
+window.__HOME_FEED_WARM = function(){ return { key: HF.warmKey || null, left: HF.warmLeft | 0 }; };   /* read only */
+/* where the camera is pointed: the whole frame, or (a station open) its lot zoomed into what the sheet leaves of the glass */
+function homeStationLot(k){ for(var n in HF.slots) if(HF.slots[n].key === k) return +n; return null; }
+function homeStationTarget(){ var f = HF.fit, M = HF.M, full = { x: 0, y: 0, w: f.cw, h: f.ch, X: f.x, Y: f.y, W: f.w, H: f.h };
+  if(!HST.on || !HST.R) return full; var n = homeStationLot(HST.k), T = n != null ? (M.tap_px[HF.cam + '_' + f.sh] || {})[n] : null; if(!T) return full;
+  var bk = HF.cam + f.sh + n + HST.k, b = HST.bk === bk ? HST.box : null;
+  if(!b){ var pr = HF.picRect && HF.picRect[n], tw = T[2] - T[0]; b = T.slice();
+    /* what stands there: the lot, and the picture's height (a tall thing's top); its sides held to the lot's own width and a third (a
+       picture can carry a faint line of the empty block's shadow across the frame, which is not the building) */
+    if(pr){ b[0] = Math.max(T[0] - tw * .3, Math.min(b[0], pr[0])); b[2] = Math.min(T[2] + tw * .3, Math.max(b[2], pr[2])); b[1] = Math.min(b[1], pr[1]); }
+    if(pr){ HST.bk = bk; HST.box = b; } }   /* framed once per camera, way and lot: the two beats of a working picture never make it swim */
+  HST.box = b; HST.n = n;
+  var R = HST.R, A = R.W / R.H, bw = b[2] - b[0], bh = b[3] - b[1];
+  var w = Math.max(bw / .62, bh / .64 * A, R.W / (f.k * 3)), h = w / A, s = Math.min(1, f.cw / w, f.ch / h); w *= s; h *= s;   /* what stands on the lot about two thirds of the view, never past three times the plain picture */
+  var cx = (b[0] + b[2]) / 2, cy = (b[1] + b[3]) / 2;
+  return { x: Math.max(0, Math.min(f.cw - w, cx - w / 2)), y: Math.max(0, Math.min(f.ch - h, cy - h / 2)), w: w, h: h, X: R.X, Y: R.Y, W: R.W, H: R.H }; }
+function homeStationView(now){ var f = HF.fit, T = homeStationTarget(), dt = HST.moving ? Math.min(50, now - HST.last) : 16; HST.last = now;
+  if(!HST.V || HST.sh !== f.sh || HST.gw !== f.W || HST.gh !== f.H){ HST.V = Object.assign({}, T); HST.sh = f.sh; HST.gw = f.W; HST.gh = f.H; }   /* a turn of the glass: no glide across two pictures */
+  var a = 1 - Math.exp(-dt / 75), V = HST.V, mv = false;
+  ['x', 'y', 'w', 'h', 'X', 'Y', 'W', 'H'].forEach(function(q){ var d = T[q] - V[q]; if(Math.abs(d) > .3){ V[q] += d * a; mv = true; } else V[q] = T[q]; });
+  HST.moving = mv; V.z = (V.W / V.w) / f.k; HF.V = V; return V; }
+function homeFeedV(){ var f = HF.fit; return HF.V || { x: 0, y: 0, w: f.cw, h: f.ch, X: f.x, Y: f.y, W: f.w, H: f.h, z: 1 }; }
+/* the camera's own text, at the footage's own pixel, on the part of the glass the footage has: the camera, REC, the clock, the place;
+   zoomed in, the zoom and the tracking brackets round the lot with what stands there */
+function homeFeedOsd(c, now, fr, V){ var f = HF.fit, M = HF.M, k = f.k, w = Math.max(40, Math.round(V.W / k)), h = Math.max(30, Math.round(V.H / k));
+  if(!HF.osd){ HF.osd = document.createElement('canvas'); HF.ox = HF.osd.getContext('2d'); }
+  if(HF.osd.width !== w || HF.osd.height !== h){ HF.osd.width = w; HF.osd.height = h; } else HF.ox.clearRect(0, 0, w, h);
+  var g = HF.ox; g.font = '8px monospace'; g.textBaseline = 'top'; var tx = function(x, y, s){ g.fillStyle = '#0a0a0a'; g.fillText(s, x + 1, y + 1); g.fillStyle = '#e2e6de'; g.fillText(s, x, y); };
+  tx(4, 3, M.cams[HF.cam].name.replace('CAM ', 'CAM')); tx(w - 24, 3, 'REC'); if(fr !== 1){ g.fillStyle = '#c83c32'; g.fillRect(w - 32, 5, 5, 5); }
   var t = Math.floor((now - HF.t0) / 1000) + 14, p2 = function(v){ return (v < 10 ? '0' : '') + v; };
-  tx(4, f.ch - 12, '01-01-80  ' + p2(Math.floor(t / 3600) % 24) + ':' + p2(Math.floor(t / 60) % 60) + ':' + p2(t % 60));
-  tx(4, f.ch - 22, String(S.home.name || '').toUpperCase().slice(0, 22) + '  DAY ' + buildDay());
-  var dpr = Math.min(2, devicePixelRatio || 1); c.setTransform(dpr, 0, 0, dpr, 0, 0); c.imageSmoothingEnabled = false;
+  tx(4, h - 12, '01-01-80  ' + p2(Math.floor(t / 3600) % 24) + ':' + p2(Math.floor(t / 60) % 60) + ':' + p2(t % 60));
+  tx(4, h - 22, String(S.home.name || '').toUpperCase().slice(0, 22) + '  DAY ' + buildDay());
+  if(HST.on && HST.box && V.z > 1.04){ tx(4, 13, 'ZOOM ' + V.z.toFixed(1) + 'X');
+    var b = HST.box, sx = V.W / V.w / k, bx0 = (b[0] - V.x) * sx, by0 = (b[1] - V.y) * sx, bx1 = (b[2] - V.x) * sx, by1 = (b[3] - V.y) * sx, L = 5;
+    var br = function(col, o){ g.fillStyle = col; [[bx0, by0, 1, 1], [bx1, by0, -1, 1], [bx0, by1, 1, -1], [bx1, by1, -1, -1]].forEach(function(q){ var x = Math.round(q[0]) + o, y = Math.round(q[1]) + o;
+      g.fillRect(q[2] > 0 ? x : x - L + 1, y, L, 1); g.fillRect(x, q[3] > 0 ? y : y - L + 1, 1, L); }); };
+    br('#0a0a0a', 1); br('#e2e6de', 0);
+    var tt = HF.slots[HST.n], nm = String((tt && tt.name) || '').toUpperCase().slice(0, 18); if(nm) tx(Math.max(2, Math.min(w - nm.length * 5 - 4, Math.round(bx0))), Math.max(24, Math.round(by0) - 11), nm); }
+  c.drawImage(HF.osd, 0, 0, w, h, V.X, V.Y, V.W, V.H); }
+function homeFeedShow(now, fr){ var f = HF.fit, c = HF.el.getContext('2d'), dpr = Math.min(2, devicePixelRatio || 1);
+  c.setTransform(dpr, 0, 0, dpr, 0, 0); c.imageSmoothingEnabled = false;
   c.fillStyle = '#0c0b0a'; c.fillRect(0, 0, f.W, f.H);
-  var roll = 0, noise = false; if(HF.cut){ var dt = now - HF.cut.t0; if(dt < 140) roll = dt / 140; else if(dt < 260) noise = true; else { HF.cam = HF.cut.to; HF.cut = null; HF.lastCut = now; } }
-  if(noise){ for(var i = 0; i < 160; i++){ var v = (Math.random() * 200) | 0; c.fillStyle = 'rgb(' + (v * .86 | 0) + ',' + v + ',' + (v * .84 | 0) + ')'; c.fillRect(f.x + Math.random() * f.w, f.y + Math.random() * f.h, 2 + Math.random() * 30, 2); } return; }
-  var oy = Math.round(roll * f.h * .55); c.save(); c.beginPath(); c.rect(f.x, f.y, f.w, f.h); c.clip();
-  c.drawImage(HF.src, 0, 0, f.cw, f.ch, f.x, f.y + oy, f.w, f.h); if(roll) c.drawImage(HF.src, 0, 0, f.cw, f.ch, f.x, f.y + oy - f.h, f.w, f.h); c.restore(); }
+  var V = homeStationView(now), roll = 0, noise = false;
+  if(HF.cut){ var dt = now - HF.cut.t0; if(dt < 140) roll = dt / 140; else if(dt < 260) noise = true; else { HF.cam = HF.cut.to; HF.cut = null; HF.lastCut = now; HF.dirty = true; } }
+  if(noise){ for(var i = 0; i < 160; i++){ var v = (Math.random() * 200) | 0; c.fillStyle = 'rgb(' + (v * .86 | 0) + ',' + v + ',' + (v * .84 | 0) + ')'; c.fillRect(V.X + Math.random() * V.W, V.Y + Math.random() * V.H, 2 + Math.random() * 30, 2); } return; }
+  var oy = Math.round(roll * V.H * .55); c.save(); c.beginPath(); c.rect(V.X, V.Y, V.W, V.H); c.clip();
+  c.drawImage(HF.src, V.x, V.y, V.w, V.h, V.X, V.Y + oy, V.W, V.H); if(roll) c.drawImage(HF.src, V.x, V.y, V.w, V.h, V.X, V.Y + oy - V.H, V.W, V.H); c.restore();
+  homeFeedOsd(c, now, fr, V); }
+/* kept for any reader: one whole frame, painted and laid on the glass */
+function homeFeedDraw(now){ var fr = Math.floor((now - HF.t0) / (1000 / HF_FPS)) % 3; if(homeFeedPaint(now, fr)) homeFeedShow(now, fr); }
 function homeFeedLoop(now){ HF.raf = 0; if(!HF.on) return;
   if(!HF.cut && !S.open && !HF.down && now - HF.lastCut > HF_CYCLE){ HF.cut = { to: (HF.cam % 3) + 1, t0: now }; }   /* 354(h): a cut every 20 seconds, never while he reads or holds */
   if(S.open || HF.down) HF.lastCut = Math.max(HF.lastCut, now - HF_CYCLE + 1500);
-  try{ homeFeedDraw(now); }catch(e){} window.__HOME_FEED.cam = HF.cam; HF.raf = requestAnimationFrame(homeFeedLoop); }
-function homeFeedSize(){ if(!HF.el) return; homeFeedFit(); var dpr = Math.min(2, devicePixelRatio || 1); HF.el.width = Math.round(HF.fit.W * dpr); HF.el.height = Math.round(HF.fit.H * dpr); HF.el.style.width = HF.fit.W + 'px'; HF.el.style.height = HF.fit.H + 'px'; }
+  if(now - (HF.pileAt || 0) > 2500){ HF.pileAt = now; try{ var HM = homeHM(), G = HM && HM.grinder ? HM.grinder() : null, was = HF.pile ? HF.pile.dead : 0; HF.pile = G; if((G ? G.dead : 0) !== was) HF.dirty = true; }catch(e){} }
+  var tick = Math.floor((now - HF.t0) / (1000 / HF_FPS)), fr = tick % 3;
+  try{ if(tick !== HF.tick || HF.dirty || HF.always){ HF.tick = tick; HF.dirty = false; if(homeFeedPaint(now, fr)) homeFeedShow(now, fr); else { HF.dirty = true; var c0 = HF.el.getContext('2d'); c0.setTransform(1, 0, 0, 1, 0, 0); c0.fillStyle = '#0c0b0a'; c0.fillRect(0, 0, HF.el.width, HF.el.height); } }
+       else if(HF.cut || HST.moving || HST.on !== HST.was) homeFeedShow(now, fr);
+       HST.was = HST.on; HF.shows = (HF.shows | 0) + 1; }catch(e){ HF.err = String(e && e.message || e).slice(0, 120); }
+  window.__HOME_FEED.cam = HF.cam; HF.raf = requestAnimationFrame(homeFeedLoop); }
+function homeFeedSize(){ if(!HF.el) return; homeFeedFit(); var dpr = Math.min(2, devicePixelRatio || 1); HF.el.width = Math.round(HF.fit.W * dpr); HF.el.height = Math.round(HF.fit.H * dpr); HF.el.style.width = HF.fit.W + 'px'; HF.el.style.height = HF.fit.H + 'px'; HF.dirty = true; HST.V = null; HF.V = null; }   /* __THE_STATION__: a resized canvas is blank until painted again */
 function homeFeedSync(){ var want = homeFeedWant(), sc = document.getElementById('scene');
   if(!want){ if(HF.on){ HF.on = false; if(HF.el){ HF.el.remove(); HF.el = null; } if(HF.raf) cancelAnimationFrame(HF.raf); HF.raf = 0; } window.__HOME_FEED = { on: false }; return; }
   if(!HF.el){ HF.el = document.createElement('canvas'); HF.el.id = 'hfeed'; HF.el.setAttribute('aria-label', 'your place, on its security cameras');
@@ -2428,25 +2534,26 @@ function homeFeedSync(){ var want = homeFeedWant(), sc = document.getElementById
     HF.el.addEventListener('pointercancel', function(){ HF.down = false; });
     HF.el.addEventListener('click', function(e){ e.stopPropagation(); }); }
   if(!HF.on){ HF.on = true; HF.cam = 1; HF.cut = null; HF.lastCut = performance.now(); }
-  homeFeedSize(); homeFeedSlots();
+  homeFeedSize(); homeFeedSlots(); HF.pileAt = 0; HF.dirty = true; setTimeout(function(){ try{ homeFeedWarm(); }catch(e){} }, 900);   /* __THE_STATION__: what changed is painted, the pile read again, the other cameras warmed */
   window.__HOME_FEED = { on: true, cam: HF.cam, sh: HF.fit.sh, k: HF.fit.k, slots: (function(){ var o = {}; for(var n in HF.slots) o[n] = { key: HF.slots[n].key, door: (VAR.bareShopOf && VAR.bareShopOf[HF.slots[n].key]) || HF.slots[n].key, pid: HF.slots[n].pid || null, kind: HF.slots[n].kind, id: HF.slots[n].id || null }; return o; })(), unplaced: HF.unplaced.slice(), over: (HF.over || []).slice() };
   if(!HF.raf) HF.raf = requestAnimationFrame(homeFeedLoop); }
 /* the frame's pixel under a finger, and what answers there: a person first, then the smallest lot box the camera sees */
-function homeFeedPx(cxp, cyp){ var r = HF.el.getBoundingClientRect(), f = HF.fit; return { x: (cxp - r.left - f.x) / f.k, y: (cyp - r.top - f.y) / f.k }; }
+function homeFeedPx(cxp, cyp){ var r = HF.el.getBoundingClientRect(), V = homeFeedV(), gx = cxp - r.left, gy = cyp - r.top;   /* __THE_STATION__: through the camera where it points now */
+  return { x: V.x + (gx - V.X) * V.w / V.W, y: V.y + (gy - V.Y) * V.h / V.H, off: gx < V.X || gy < V.Y || gx > V.X + V.W || gy > V.Y + V.H }; }
 function homeFeedLotAt(px, py){ var T = HF.M.tap_px[HF.cam + '_' + HF.fit.sh] || {}, best = null, ba = 1e9;
   for(var n in T){ var b = T[n]; if(px >= b[0] && px <= b[2] && py >= b[1] && py <= b[3]){ var a = (b[2] - b[0]) * (b[3] - b[1]); if(a < ba){ ba = a; best = +n; } } } return best; }
-function homeFeedTap(cxp, cyp){ if(!HF.on || !HF.fit) return; var q = homeFeedPx(cxp, cyp); if(q.x < 0 || q.y < 0 || q.x > HF.fit.cw || q.y > HF.fit.ch){ if(S.open) hide(); return; }
-  var pr = HF.ppl.filter(function(o){ var w = Math.max(o.h * .35, 22 / HF.fit.k); return Math.abs(q.x - o.x) <= w && q.y <= o.y + 2 && q.y >= o.y - o.h - 2; }).sort(function(a, b){ return b.y - a.y; })[0];
+function homeFeedTap(cxp, cyp){ if(!HF.on || !HF.fit) return; var q = homeFeedPx(cxp, cyp); if(q.off || q.x < 0 || q.y < 0 || q.x > HF.fit.cw || q.y > HF.fit.ch){ if(S.open) hide(); return; }
+  var pr = HF.ppl.filter(function(o){ var w = Math.max(o.h * .35, 22 / (HF.fit.k * Math.max(1, homeFeedV().z || 1))); return Math.abs(q.x - o.x) <= w && q.y <= o.y + 2 && q.y >= o.y - o.h - 2; }).sort(function(a, b){ return b.y - a.y; })[0];
   if(pr){ window.__HOME_FEED_TAP = { person: pr.p.name }; openPerson(pr.p); return; }
   var n = homeFeedLotAt(q.x, q.y), t = n ? HF.slots[n] : null; window.__HOME_FEED_TAP = { lot: n, key: t ? t.key : null };
   if(!n){ if(S.open) hide(); return; }
   if(!t){ S.homePick = null; openB('build'); return; }
   openB((VAR.bareShopOf && VAR.bareShopOf[t.key]) || t.key); }
 /* read only, for the drivers and the gate: where lot n is on the glass now (the middle of what this camera sees of it), its width */
-window.__HOME_FEED_AT = function(n){ if(!HF.on || !HF.fit) return null; var b = (HF.M.tap_px[HF.cam + '_' + HF.fit.sh] || {})[n]; if(!b) return null; var r = HF.el.getBoundingClientRect(), f = HF.fit;
-  return { x: r.left + f.x + (b[0] + b[2]) / 2 * f.k, y: r.top + f.y + (b[1] + b[3]) / 2 * f.k, w: Math.round((b[2] - b[0]) * f.k), h: Math.round((b[3] - b[1]) * f.k) }; };
+window.__HOME_FEED_AT = function(n){ if(!HF.on || !HF.fit) return null; var b = (HF.M.tap_px[HF.cam + '_' + HF.fit.sh] || {})[n]; if(!b) return null; var r = HF.el.getBoundingClientRect(), V = homeFeedV(), k = V.W / V.w;
+  return { x: r.left + V.X + ((b[0] + b[2]) / 2 - V.x) * k, y: r.top + V.Y + ((b[1] + b[3]) / 2 - V.y) * k, w: Math.round((b[2] - b[0]) * k), h: Math.round((b[3] - b[1]) * k) }; };
 window.__HOME_FEED_AGE = function(ms){ HF.lastCut -= ms | 0; };   /* read only but for the gate: the cycle's clock moved on, so a 20-second cut is tested in one */
-window.__HOME_FEED_PEOPLE = function(){ if(!HF.on) return []; var r = HF.el.getBoundingClientRect(), f = HF.fit; return HF.ppl.map(function(o){ return { name: o.p.name, resident: !!o.p.resident, works: o.p.works || null, x: r.left + f.x + o.x * f.k, y: r.top + f.y + (o.y - o.h * .45) * f.k }; }); };
+window.__HOME_FEED_PEOPLE = function(){ if(!HF.on) return []; var r = HF.el.getBoundingClientRect(), V = homeFeedV(), k = V.W / V.w; return HF.ppl.map(function(o){ return { name: o.p.name, resident: !!o.p.resident, works: o.p.works || null, x: r.left + V.X + (o.x - V.x) * k, y: r.top + V.Y + (o.y - o.h * .45 - V.y) * k }; }); };
 /* a door of his is found where the feed shows it */
 (function(){ var w1 = where; where = function(k){ if(!HF.on) return w1.apply(this, arguments);
   var n = null; for(var m in HF.slots){ var t = HF.slots[m]; if(t.key === k || (VAR.bareShopOf && VAR.bareShopOf[t.key] === k)){ n = +m; break; } }
@@ -2466,6 +2573,26 @@ window.__HOME_FEED_PEOPLE = function(){ if(!HF.on) return []; var r = HF.el.getB
 document.addEventListener('click', function(e){ var o = HF.one; if(!o) return; HF.one = null;
   if(performance.now() - o.t < 700 && Math.abs(e.clientX - o.x) < 14 && Math.abs(e.clientY - o.y) < 14 && e.target !== HF.el){ e.stopPropagation(); e.preventDefault(); window.__HOME_FEED_SWALLOWED = (window.__HOME_FEED_SWALLOWED | 0) + 1; } }, true);
 window.addEventListener('message', function(e){ var d = e.data || {}; if(d.type === 'BOHEMIA_SETTLEMENT_OPEN'){ HF.cam = 1; HF.lastCut = performance.now(); } if(d.type === 'BOHEMIA_HOME' || d.type === 'BOHEMIA_SETTLEMENT_OPEN') setTimeout(function(){ try{ homeFeedSync(); }catch(er){} }, 0); });
+/* __THE_STATION__, the sheet: laid for the way the phone is held (rule 481(b)); the camera's target is what the sheet leaves */
+function homeStationLay(){ var sh = document.getElementById('sheet'); if(!sh) return;
+  if(!sh.classList.contains('on')){ if(HST.on){ HST.on = false; HST.k = null; HF.dirty = true; window.__HOME_STATION = null; } return; }   /* closing: the sheet slides out as it stood, the camera glides back */
+  var k = (HF.on && !HST.off && S.open && /^h\d+$/.test(S.open)) ? S.open : null, n = k ? homeStationLot(k) : null, on = n != null, side = on && view.W > view.H;
+  var right = !(FIT.phone && FIT.phone.side === 'left');
+  sh.classList.toggle('hstation', on); sh.classList.toggle('hside', side); sh.classList.toggle('hsl', side && !right);
+  if(on !== HST.on || k !== HST.k) HF.dirty = true; HST.on = on; HST.k = on ? k : null;
+  if(!side) sh.style.top = '';
+  if(!on){ window.__HOME_STATION = null; return; }
+  var W = view.W, H = view.H;
+  if(side){ var PW = Math.round(Math.max(280, Math.min(380, W * .36)));   /* the column the phone stood in */
+    sh.style.top = '0px'; sh.style.bottom = '0px'; sh.style.setProperty('--sheet-b', '0px'); sh.style.maxHeight = 'none'; sh.style.width = PW + 'px'; sh.style.left = (right ? W - PW : 0) + 'px';
+    HST.R = { X: right ? 0 : PW, Y: 0, W: W - PW, H: H }; }
+  else { sh.style.maxHeight = Math.round(H * .52) + 'px'; var hh = sh.offsetHeight || Math.round(H * .3); HST.R = { X: 0, Y: 0, W: W, H: Math.max(140, H - hh) }; }
+  window.__HOME_STATION = { key: k, lot: n, side: side, region: [HST.R.X, HST.R.Y, HST.R.W, HST.R.H] }; HF.dirty = true; }
+(function(){ var pc = placeChrome; placeChrome = function(){ var r = pc.apply(this, arguments); try{ homeStationLay(); }catch(e){} return r; }; })();
+(function(){ var hd = hide; hide = function(){ var r = hd.apply(this, arguments); try{ homeStationLay(); }catch(e){} return r; }; })();
+window.__HOME_FEED_VIEW = function(){ if(!HF.on || !HF.V) return null; var V = HF.V; return { x: V.x, y: V.y, w: V.w, h: V.h, X: V.X, Y: V.Y, W: V.W, H: V.H, z: V.z, moving: HST.moving, on: HST.on, shows: HF.shows | 0, paints: HF.paints | 0, k: HST.k, lot: HST.k ? homeStationLot(HST.k) : null, R: HST.R, cam: HF.cam, sh: HF.fit && HF.fit.sh, err: HF.err || null }; };   /* read only, for the gate */
+window.__HOME_FEED_NO_STATION = function(v){ HST.off = !!v; return HST.off; };   /* for the gate's planted leg only: the sheet as it was before the station */
+window.__HOME_FEED_ALWAYS = function(v){ HF.always = !!v; return HF.always; };   /* for the gate's planted leg only: painted every frame, as it was */
 /* ==== /__HIS_CAMERAS_AS_PROMISED__ ==== */
 /* ==== __THE_GRINDER__ (HOME BASE 3, 11/22, VAMILY rule 469(c): selling it is legal nowhere and done everywhere; realism first). Any
    town's stall buys his sausage as food: it is food, one count (rule 209), and nothing on the stall changes. Underneath, never said:
@@ -4197,6 +4324,12 @@ function loop(){
      draws nothing and looks again eight times a second; the frame the game goes, it draws. Nothing is let go: he is still in the town.
      Only for the game THIS visit opened (S.scavOpen) with its frame and its cover both on the glass: a leftover frame rests nothing. */
   if(S.scavOpen && document.getElementById('scavgame') && document.getElementById('scavcover')){ window.__TOWN_RESTED = (window.__TOWN_RESTED | 0) + 1; setTimeout(function(){ requestAnimationFrame(loop); }, 120); return; }
+  /* __THE_TOWN_RESTS_UNDER_HIS_CAMERAS__ (HOME BASE 4 11/26, rule 480(c), ask row 729): at his planted place the security footage is the
+     screen, its own canvas over the whole glass, opaque, so nothing this page draws under it is seen. MEASURED on the demo sideways, the
+     CPU slowed four times, three seconds over a camera cut: the town's own draw and its people were about 1 s of the 3 (drawPeople 951 ms,
+     fill 861 ms) while the footage took 215 ms. Under the footage the town draws nothing; who stands there (folkList, which the footage's
+     people are read from) and what is heard are kept four times a second; the moment the footage goes, it draws. */
+  if(HF.on && HF.el && !S.camp){ window.__TOWN_UNDER_FEED = (window.__TOWN_UNDER_FEED | 0) + 1; try{ folkList(); }catch(e){} try{ busyHeard(performance.now()); }catch(e){} setTimeout(function(){ requestAnimationFrame(loop); }, 250); return; }
   draw(); try{ crewOverDraw(); }catch(e){} try{ restTrails(); }catch(e){} busyHeard(performance.now()); requestAnimationFrame(loop);   /* CAMP's call in the town (RUN THREE) */
 }
 /* ==== __THE_LONG_EXPOSURE__ (FINISHER 11/2; rule 273(c), ask line 210; Paolo 10/26: 'HEAL/CAMP in the settlement screen: time

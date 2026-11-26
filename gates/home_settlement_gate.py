@@ -15,8 +15,9 @@ Reads what tools/bohemia_home_settlement_pipeline_11_3_26.py wrote to records/ta
      overhead: a lens under 20 mm, mounted under 16 m, within 20 m of the block's front wall
   S7 WHAT HANGS AT THE LENS (rule 373, second look): every camera, upright and sideways, has its near layer on all three frames, rendered
      by the script for the fixed set, and nothing else in its folder (the closeness is the camera's own world, made by the machine)
+  S8 NO SPECK IN THE STREET (HOME BASE 4 11/26): no piece picture carries a speck under its piece, nor a cut past what it shows
   M  it can fail: a planted fourth camera fails S2, a planted picture fails S3, a wall painted over lot 10 fails S5, a missing near
-     frame fails S7
+     frame fails S7, a speck under the grinder fails S8
 """
 import os, sys, json, copy
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -90,5 +91,21 @@ a = np.asarray(Image.open(os.path.join(tmp, 'gate_cam1_tall_all.png')).convert('
 a[m] = 0; Image.fromarray(a).save(os.path.join(tmp, 'gate_cam1_tall_all.png'))
 r, _, _ = s5(tmp); ok('M  a wall painted over lot 10 in CAM 1 fails S5', not r); shutil.rmtree(tmp)
 r, _ = s7(M, nfiles - {'cam2_tall_1.png'}); ok('M  a missing near frame fails S7', not r)
+# S8 NO SPECK IN THE STREET (HOME BASE 4 11/26, rules 479(a) and 481(b)): every piece picture carried a speck of 9 to 48 px well under
+# the piece's foot (the shadow subtraction's residue), each one a black puddle in the street on his footage, and its cut ran down to it
+# (the grinder's 72 x 105 for a piece of 39 x 24, so the camera could not frame the piece). The pipeline's own _no_specks is the ruler:
+# a picture it would still change carries a speck or a cut past its piece.
+def s8(names):
+    bad = []
+    for fn in names:
+        im = np.asarray(Image.open(os.path.join(OUT, 'pieces', fn)).convert('RGBA')).copy(); n0 = int((im[..., 3] > 0).sum())
+        o = H._no_specks(im.copy())
+        if o.shape != im.shape or int((o[..., 3] > 0).sum()) != n0: bad.append(fn)
+    return not bad, bad
+pn = sorted(f for f in os.listdir(os.path.join(OUT, 'pieces')) if f.endswith('.png'))
+r8, bad8 = s8(pn); ok('S8 no speck in the street: %d piece pictures, none carries a speck under its piece or a cut past it' % len(pn), r8, str(bad8[:3]))
+fn8 = 'grinder_built_cam1_wide_lot5_0.png'; im8 = np.asarray(Image.open(os.path.join(OUT, 'pieces', fn8)).convert('RGBA')).copy()
+pl = np.zeros((im8.shape[0] + 30, im8.shape[1], 4), np.uint8); pl[:im8.shape[0]] = im8; pl[-4:-1, 4:8] = (20, 26, 22, 255)
+o8 = H._no_specks(pl.copy()); ok('M  a speck planted 20 px under the grinder fails S8', o8.shape != pl.shape or int((o8[..., 3] > 0).sum()) != int((pl[..., 3] > 0).sum()))
 print('=== HOME SETTLEMENT GATE: %d passed, %d failed ===' % (ok_n, bad_n))
 sys.exit(1 if bad_n else 0)

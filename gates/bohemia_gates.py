@@ -10097,6 +10097,11 @@ GATES = [
      "once, before the fog; S3 it is a thing (a fifth of its box, 70 steps of tone, its two frames differ); S4 light, no purple; P1 planted. ON THE PAGE (the demo "
      "on a phone, the crew sent by the map's own travelTo): G1 loaded and seated; G2 off none drawn, on each 44 points across or more; G3 it is seen (the glass "
      "inside its rectangle is another picture). About 5 minutes; --static a second", False),
+    ('ONCE, EVERYWHERE', ['node', 'gates/once_everywhere_gate.js'],
+     "HOME BASE 4 gate, 11/26, VAMILY rule 479(b)(c) (PAOLO 11/22: 'on the cook, you have these walls and then there's an actual cook guy, but then they repeat "
+     "like 20 times'): on the demo upright and sideways, his place planted with four buildings and the camp's cook, blacksmith and surgeon hired: O1 THE MAP at "
+     "eight zooms walking and camped, he once, his two at most twice, each of the camp's people once (MAP_DREW); O2 EVERY SETTLEMENT, each person once, each name once, "
+     "each door once, his place's footage each thing and person once; O3 THE CAMP each of his people once; P planted repeats read red. About 8 minutes", False),
     ('YOUR PLACE, PLANTED', ['node', 'gates/home_base_gate.js'],
      "HOME BASE gate, 11/8, rule 437(b) (PAOLO 11/3: 'you plant your part of the city kind of wherever you want... a smart system... the daily battery usage... "
      "are you sure you wanna plant down here, like this is permanent'): ENGINE E1 the place's plan, 12 lots, every lot on a road, one network (429(h)); E2 planted: a lot cut off, "

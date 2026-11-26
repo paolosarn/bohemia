@@ -1,3 +1,12 @@
+HOME BASE 4 (home-base-01gkdyuux): 11/26 LATEST -- BUILD 11/26q - THE GRINDER, ON PURPOSE, BUILT, NOT YET SEEN (rule 481(b) his NO, ask row 733; rule 480(c), ask row 729; rule 479(c), ask row 721). Its block is handoffs/HOME_BASE.md.
+A tap on anything at his place zooms the security camera onto that lot (2.3 to 3x, bracketed and named); SIDEWAYS the sheet is a column the glass tall where the phone stood, GRIND under the
+thumb at its bottom, the footage never covered; UPRIGHT the sheet under the footage; the waiting dead lie on the grinder's lot, one bundle each; the speck under every one of the 2,232 piece
+pictures gone (black puddles in the street). His place at CPU 4x: standing 4.7 -> 15.6 fps, a camera cut 5.5 -> 30.2 (sideways 4.8, a 2.4 s freeze, -> 37.1); the town no longer draws under the
+footage. Counted everywhere, both ways (map 8 zooms walking and camped, 14 towns and his place, the camp, 3 cameras): no repeat; new gate ONCE, EVERYWHERE. FOR JOBS 2: the planner and the
+phone's board app stall every screen (row 729's note). FOR BOSSES: the COOK verb's fires pile up on the map, one per use. VOTE home-base-the-grinder-on-purpose-11-26.
+records/BOHEMIA_HOME_BASE_THE_GRINDER_ON_PURPOSE_11_26_26.md
+[bb Battle Brothers opens a building as a full panel with the building's own picture over its choices; ours keeps the place on the glass and points the camera at the building]
+[analog horror: the camera hunts, zooms and brackets the grinder, and the tarp bundles wait under the sodium light until they are gone]
 CHARACTER TWO (character-two-01gkdyuv): 11/26 LATEST -- BUILD 11/26m - THE CONE COMES OFF, BUILT, NOT YET SEEN (rule 470(f), 480(b)(c), 482; ask row 706).
 The straw cone is off every wearer: the Caravans' speakers (MANNY, MARISOL, Mama Ruth, Teo) and Old Tavo / NUMBER 212 wear the DUST RANCHER HAT on every
 sheet (faces and moods, fight, guns, idles, holds, melee, gang stills); the 8 Caravans hall men never drew it (only a label, fixed with 48 more wrong head

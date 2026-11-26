@@ -533,6 +533,48 @@ def medium(rgb, f, look, alpha=None):
     return np.clip(np.floor(t / step + d + 0.5) * step, 0, 255).astype(np.uint8)
 
 
+def _no_specks(o):
+    """HOME BASE 4 11/26 (rule 479(a), rule 481(b)): every piece picture carried a speck of 9 to 48 px well under the piece's foot (the
+    shadow subtraction's residue against the empty block, al - E0), measured on 2,232 of 2,232 pictures; on the footage each one was a
+    black puddle in the street in front of his place (the grinder's at frame 136-146 x 157-167, CAM 1 wide). The piece is what touches
+    the top of its cut and whatever lies within 8 px of it; a speck of 64 px or less wholly 8 px or more under the piece's foot goes.
+    o: the HxWx4 uint8 picture; returned cleaned and cut to what is left (its foot and right side; the top-left and xy as they were)."""
+    import numpy as np
+    from scipy import ndimage
+    a = o[..., 3] > 0
+    lab, n = ndimage.label(a, structure=np.ones((3, 3)))
+    if not n: return o
+    sl = ndimage.find_objects(lab); sz = ndimage.sum(a, lab, range(1, n + 1)); top = min(s[0].start for s in sl)
+    body = {i for i in range(n) if sl[i][0].start <= top + 3}
+    def bb(ids): return (min(sl[i][1].start for i in ids), min(sl[i][0].start for i in ids), max(sl[i][1].stop for i in ids), max(sl[i][0].stop for i in ids))
+    grew = True
+    while grew:
+        grew = False; B = bb(body)
+        for i in range(n):
+            if i in body: continue
+            s = sl[i]
+            if max(B[0] - s[1].stop, s[1].start - B[2], B[1] - s[0].stop, s[0].start - B[3]) < 8: body.add(i); grew = True
+    B = bb(body)
+    for i in range(n):
+        if i not in body and sz[i] <= 64 and sl[i][0].start >= B[3] + 8: o[lab == i + 1] = 0
+    ys, xs = np.nonzero(o[..., 3] > 0)                                    # the cut's foot and right side follow what is left (its top-left
+    if len(xs): o = o[:min(o.shape[0], ys.max() + 3), :min(o.shape[1], xs.max() + 3)]   # stays on the four-pixel grid, so xy holds)
+    return o
+
+
+def specks():
+    """the pieces already made, cleaned and cut by _no_specks in place (the same xy, so the manifest stands)"""
+    import numpy as np
+    from PIL import Image
+    d = os.path.join(OUT, 'pieces'); k = 0; px = 0
+    for fn in sorted(os.listdir(d)):
+        if not fn.endswith('.png'): continue
+        im = np.array(Image.open(os.path.join(d, fn)).convert('RGBA')); n0 = int((im[..., 3] > 0).sum()); s0 = im.shape
+        im = _no_specks(im); n1 = int((im[..., 3] > 0).sum())
+        if n1 != n0 or im.shape != s0: Image.fromarray(np.ascontiguousarray(im)).save(os.path.join(d, fn), optimize=True); k += 1; px += n0 - n1
+    print('  specks: %d pictures cleaned, %d px gone' % (k, px))
+
+
 def _cctv_no_tear(a):
     """the feeds' scene-B tape on a layer, but for its blur (done above, inside the piece) and its tear (the plate carries the picture's
     foot): the same grey, the same levels, the same interlace (the layer sits on the plate's own line parity)"""
@@ -598,7 +640,7 @@ def post(look='act1'):
                             rgb = L[y0:y1, x0:x1, :3]; a_ = al[y0:y1, x0:x1]
                             q = medium(rgb * a_[..., None], 0, look, alpha=a_)
                             if cn == 3: q = q   # (the dying frame is the plate's: CAM 3 dims the whole picture on its frame 1 at the screen)
-                            o = np.zeros(rgb.shape[:2] + (4,), np.uint8); o[..., :3] = q; o[..., 3] = np.where(a_ > 0.5, 255, (a_ > 0.12) * 150)
+                            o = np.zeros(rgb.shape[:2] + (4,), np.uint8); o[..., :3] = q; o[..., 3] = np.where(a_ > 0.5, 255, (a_ > 0.12) * 150); o = _no_specks(o)   # HOME BASE 4 11/26
                             nm = '%s_%s_cam%d_%s_lot%d_%d.png' % (pid, st, cn, sh, ln, bt); Image.fromarray(o).save(os.path.join(OUT, 'pieces', nm), optimize=True)
                             pics.append(nm)
                         if pics: ent['states'][st]['pics']['%d_%s_%d' % (cn, sh, ln)] = dict(pictures=pics, xy=xy)
@@ -648,7 +690,7 @@ def post_add(pids, look='act1'):
                                 x1 = min(L.shape[1], xs.max() + 3); y1 = min(L.shape[0], ys.max() + 3); xy = [int(x0), int(y0)]
                             rgb = L[y0:y1, x0:x1, :3]; a_ = al[y0:y1, x0:x1]
                             q = medium(rgb * a_[..., None], 0, look, alpha=a_)
-                            o = np.zeros(rgb.shape[:2] + (4,), np.uint8); o[..., :3] = q; o[..., 3] = np.where(a_ > 0.5, 255, (a_ > 0.12) * 150)
+                            o = np.zeros(rgb.shape[:2] + (4,), np.uint8); o[..., :3] = q; o[..., 3] = np.where(a_ > 0.5, 255, (a_ > 0.12) * 150); o = _no_specks(o)   # HOME BASE 4 11/26
                             nm = '%s_%s_cam%d_%s_lot%d_%d.png' % (pid, st, cn, sh, ln, bt); Image.fromarray(o).save(os.path.join(OUT, 'pieces', nm), optimize=True)
                             pics.append(nm)
                         if pics: ent['states'][st]['pics']['%d_%s_%d' % (cn, sh, ln)] = dict(pictures=pics, xy=xy)
@@ -765,3 +807,4 @@ if __name__ == '__main__':
     elif a[0] == 'post': post(a[1] if len(a) > 1 else 'act1')
     elif a[0] == 'post_add': post_add(a[1:])   # HOME BASE 2 11/21: new pieces only, merged
     elif a[0] == 'card': card()
+    elif a[0] == 'specks': specks()   # HOME BASE 4 11/26: the pieces already made, cleaned

@@ -1,0 +1,240 @@
+{
+ "phone_portrait": {
+  "set": {
+   "at": [
+    83,
+    46
+   ],
+   "planted": true,
+   "g": {
+    "ok": true,
+    "place": {
+     "id": "grinder",
+     "lot": 0,
+     "day": 2
+    }
+   },
+   "f": {
+    "ok": true,
+    "place": {
+     "id": "forge",
+     "lot": 1,
+     "day": 2
+    }
+   },
+   "won": {
+    "took": 1,
+    "left": 4,
+    "beastKg": 0,
+    "room": 1
+   },
+   "now": {
+    "stands": true,
+    "dead": 1,
+    "beastKg": 0,
+    "food": 26,
+    "carryKg": 63
+   }
+  },
+  "open": {
+   "st": {
+    "key": "h0",
+    "lot": 5,
+    "side": false,
+    "region": [
+     0,
+     0,
+     390,
+     607
+    ]
+   },
+   "view": {
+    "x": 0,
+    "y": 103.77253928866833,
+    "w": 70.96774193548387,
+    "h": 110.45492142266336,
+    "X": 0,
+    "Y": 0,
+    "W": 390,
+    "H": 607,
+    "z": 2.5363636363636366,
+    "moving": false,
+    "on": true,
+    "shows": 133,
+    "paints": 42,
+    "k": "h0",
+    "lot": 5,
+    "R": {
+     "X": 0,
+     "Y": 0,
+     "W": 390,
+     "H": 607
+    },
+    "cam": 1,
+    "sh": "tall",
+    "err": null
+   },
+   "pile": 1,
+   "btn": "GRIND1 BODY → 26 FOOD"
+  },
+  "food0": 12,
+  "food1": 38,
+  "ground": {
+   "btn": "NOBODY TO GRIND",
+   "say": "Ground. +26 food in the stores.",
+   "pile": 0
+  },
+  "shut": {
+   "st": null,
+   "view": {
+    "x": 0,
+    "y": 0,
+    "w": 180,
+    "h": 320,
+    "X": 0,
+    "Y": 0,
+    "W": 390,
+    "H": 693.3333333333333,
+    "z": 1,
+    "moving": false,
+    "on": false,
+    "shows": 234,
+    "paints": 83,
+    "k": null,
+    "lot": null,
+    "R": {
+     "X": 0,
+     "Y": 0,
+     "W": 390,
+     "H": 607
+    },
+    "cam": 1,
+    "sh": "tall",
+    "err": null
+   }
+  },
+  "view": {
+   "width": 390,
+   "height": 844
+  }
+ },
+ "phone_landscape": {
+  "set": {
+   "at": [
+    80,
+    34
+   ],
+   "planted": true,
+   "g": {
+    "ok": true,
+    "place": {
+     "id": "grinder",
+     "lot": 0,
+     "day": 2
+    }
+   },
+   "f": {
+    "ok": true,
+    "place": {
+     "id": "forge",
+     "lot": 1,
+     "day": 2
+    }
+   },
+   "won": {
+    "took": 1,
+    "left": 4,
+    "beastKg": 0,
+    "room": 1
+   },
+   "now": {
+    "stands": true,
+    "dead": 1,
+    "beastKg": 0,
+    "food": 26,
+    "carryKg": 63
+   }
+  },
+  "open": {
+   "st": {
+    "key": "h0",
+    "lot": 5,
+    "side": true,
+    "region": [
+     0,
+     0,
+     540,
+     310
+    ]
+   },
+   "view": {
+    "x": 32.34193548387096,
+    "y": 46.5,
+    "w": 104.51612903225806,
+    "h": 60,
+    "X": 0,
+    "Y": 0,
+    "W": 540,
+    "H": 310,
+    "z": 3,
+    "moving": false,
+    "on": true,
+    "shows": 134,
+    "paints": 37,
+    "k": "h0",
+    "lot": 5,
+    "R": {
+     "X": 0,
+     "Y": 0,
+     "W": 540,
+     "H": 310
+    },
+    "cam": 1,
+    "sh": "wide",
+    "err": null
+   },
+   "pile": 1,
+   "btn": "GRIND1 BODY → 26 FOOD"
+  },
+  "food0": 12,
+  "food1": 38,
+  "ground": {
+   "btn": "NOBODY TO GRIND",
+   "say": "Ground. +26 food in the stores.",
+   "pile": 0
+  },
+  "shut": {
+   "st": null,
+   "view": {
+    "x": 0,
+    "y": 0,
+    "w": 320,
+    "h": 180,
+    "X": 0,
+    "Y": 0,
+    "W": 551.1111111111111,
+    "H": 310,
+    "z": 0.9999999999999999,
+    "moving": false,
+    "on": false,
+    "shows": 292,
+    "paints": 68,
+    "k": null,
+    "lot": null,
+    "R": {
+     "X": 0,
+     "Y": 0,
+     "W": 540,
+     "H": 310
+    },
+    "cam": 1,
+    "sh": "wide",
+    "err": null
+   }
+  },
+  "view": {
+   "width": 844,
+   "height": 390
+  }
+ }
+}
