@@ -1,3 +1,10 @@
+COMBAT FOUR (combat-four-01gkdyuv): 11/26 LATEST -- BUILD 11/26s - THE TURN COUNT GOES HOME, BUILT (rules 480(b)(c), 482, 478, 441, 465; ask rows 722, 719). Its block is handoffs/COMBAT_THREE.md.
+ROW 722: the LEAVE that did nothing was the loop's tap read mid grow-in (3 of 16 loops, on the build PLUMBER named and after alike), FIXES 3's 11/26f fixed it first.
+FOUND ON THE WAY, THIS LANE'S: the fight's turn count never went home since 11/22zza (the ammo report rode under the same name 'rounds' and overwrote it:
+every fight came home 0 turns); now 'ammo'. The shell hands the fight to the end screen on its 'ready' as well as its 'load': in one run on a phone slowed 4x the end screen sat ready 4.3 s waiting for its pictures before the fight was sent (its tables in at 3.5 s, the fight sent at 7.8 s); now the fight goes at 'ready' when that comes first (it came first in 1 of 2 timed runs; the end screen held the fight 10.7 and 11.9 s after the win on this build, 13.4 and 17.0 s on main, on a shared box)
+An empty pocket gun stays in the pocket (never swapped in, by hand or AUTO). Gates: NO AMMO, NO SHOT 12/0 (N6, N7, N8, plants), THE WHOLE LOOP PLAYS 11/0 (the turn count).
+[bb Battle Brothers' after-battle report carries the battle's own numbers]
+[analog horror: a count that read zero on every tape]
 HOME BASE 4 (home-base-01gkdyuux): 11/26 LATEST -- BUILD 11/26q - THE GRINDER, ON PURPOSE, BUILT, NOT YET SEEN (rule 481(b) his NO, ask row 733; rule 480(c), ask row 729; rule 479(c), ask row 721). Its block is handoffs/HOME_BASE.md.
 A tap on anything at his place zooms the security camera onto that lot (2.3 to 3x, bracketed and named); SIDEWAYS the sheet is a column the glass tall where the phone stood, GRIND under the
 thumb at its bottom, the footage never covered; UPRIGHT the sheet under the footage; the waiting dead lie on the grinder's lot, one bundle each; the speck under every one of the 2,232 piece

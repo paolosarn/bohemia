@@ -1,6 +1,25 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
-COMBAT FOUR (rules 478, 441, 394, 195, 465; ask row 719): 11/22 LATEST -- [no ammo, no shot] SHIPPED 0d9617f71, BUILD 11/22zza - NO AMMO, NO SHOT, BUILT, NOT YET SEEN. VOTE combat4-no-ammo-no-shot-11-22 (stand_in).
+COMBAT FOUR (rules 480(b)(c), 482, 478, 441, 465; ask rows 722, 719): 11/26 LATEST -- [the turn count goes home] SHIPPED SHIPSHA, BUILD 11/26s - THE TURN COUNT GOES HOME. No VOTE card (nothing on the glass changes).
+Record: records/BOHEMIA_COMBAT_FOUR_THE_TURN_COUNT_GOES_HOME_11_26_26.md. ROW 722: not the wipe; the loop's tap read LEAVE mid grow-in (3 of 16 loops, before and after alike); FIXES 3's 11/26f LEAVE WAITS FOR THE SCREEN
+fixed it first, this lane's hide-until-drawn was dropped on the rebase. FOUND ON THE WAY: homeMessage carried 'rounds' twice (S.round, then 11/22zza's ammo report),
+the second won: outcome.turns 0 and the end screen's seed without the turn count for every fight since. NOW the report is 'ammo' (same fields). canSwap refuses a
+bag gun with no round (bagDry). The shell (RUN's __THE_SPOILS__ block, two lines): SPOILS.sendOpen, sent on the frame's load OR the screen's 'ready', once (SPOILS.sent
+says which): in one run on a phone slowed 4x the end screen sat ready 4.3 s waiting for its pictures before the fight was sent (its tables in at 3.5 s, the fight sent at 7.8 s); now the fight goes at 'ready' when that comes first (it came first in 1 of 2 timed runs; the end screen held the fight 10.7 and 11.9 s after the win on this build, 13.4 and 17.0 s on main, on a shared box)
+Gates: NO AMMO, NO SHOT 12/0 (N6 the empty pocket gun, N7 the card's carry, N8 the turn count; plants N6p, N8p); THE WHOLE LOOP PLAYS 11/0 (step 8: the turn count
+home, and a LEAVE that does not go home names what lay under the finger; LOOP_END_SLOW=1, LOOP_THROTTLE=n); LEAVE WAITS FOR THE SCREEN 5/0; THE RELOAD IS LOUD 17/0.
+*** FOR RUN: two lines in your __THE_SPOILS__ block (SPOILS.sendOpen and the 'ready' listener line); nothing else of the shell touched. The fight's word home now
+carries the ammo report as 'ammo' (it was 'rounds', which is the turn count). ***
+*** FOR ECONOMY THREE / CAMP / RUN FOUR: the ammo report you were pointed at on 11/22 is d.ammo now (d.ammo.spent, refilled, short, stockBefore, stockAfter). ***
+*** FOR PLUMBER 8 (rule 480(c)): the end screen at 4x is still ~10 s from the win (its page ~2 s, its scripts ~1.6 s, its tables ~2 s, measured by marks this
+round); the fight's own data is already parsed in the fight's page, the end screen loads it all again. ***
+NEXT (mine, rule 480(c)): THE BRAIN'S LONG MOVES. Headless, 1 AUTO move in 15 thinks 12.5 to 91 ms (50 to 360 ms at 4x): his gunmen's first turns, bestTurn's whole-turn
+plan (planTurn 70 percent of all thinking: blowsHere via standIn 39, reach 22, hitChance 21, nextBest 19, deathWorth 14, huntField 14; R() 10.5 self). Cut it
+without changing one decision. Then every board's first frame to LEAVE on the slowed phone (COOK SIX's tools/bohemia_cook6_the_insides_hold_their_frames_11_26_26.js).
+[bb Battle Brothers' after-battle report carries the battle's own numbers]
+[analog horror: a count that read zero on every tape, a recorder that never knew how long the fight ran]
+
+COMBAT FOUR (rules 478, 441, 394, 195, 465; ask row 719): 11/22 -- [no ammo, no shot] SHIPPED 0d9617f71, BUILD 11/22zza - NO AMMO, NO SHOT, BUILT, NOT YET SEEN. VOTE combat4-no-ammo-no-shot-11-22 (stand_in).
 Record: records/BOHEMIA_COMBAT_FOUR_NO_AMMO_NO_SHOT_11_22_26.md. His bug, the coordinator's routine. slices/BOHEMIA_FIGHT.html __NO_AMMO_NO_SHOT__: u.rounds (and each bag gun's bagState.rounds) for his men's guns
 from ours.gun_rounds (by_class dagger 10, crossbow 10, firearm 7; by_id empty), spendRound on his shot and his free shot, canReload needs rounds, reload loads
 min(mag, rounds), canStrike/strikeWhy/readyShot/hasShot/shotOK/blowsOn and every stand-in kit read them; dryGun at none -> toFists (the gun in u.slung, the fists row

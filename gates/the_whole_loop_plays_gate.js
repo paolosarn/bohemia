@@ -65,13 +65,27 @@ async function tapIn(dd, frame, sel) {
   const b = await h.boundingBox(); if (!b || b.width < 2) return 'not on the glass';
   if (was && Math.abs(was.y - b.y) > 2) SCROLLED.push(sel);
   if (frame !== dd.page.mainFrame() && await dd.page.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); return !!(e && e.closest && e.closest('#bohphone')); }, [b.x + b.width / 2, b.y + b.height / 2]).catch(() => false)) return 'under the phone';
+  LASTTAP = { x: b.x + b.width / 2, y: b.y + b.height / 2, sel: sel, at: Date.now() };
   await tapAt(dd, b.x + b.width / 2, b.y + b.height / 2); return true;
+}
+let LASTTAP = null;
+/* what is under the finger at the last tap's point: on the page (the top thing there) and inside the frame the tap was for (COMBAT FOUR
+   11/26, ask row 722: a LEAVE that was tapped and never ran) */
+async function underTap(dd, frame) {
+  if (!LASTTAP) return null;
+  const top = await dd.page.evaluate(([x, y]) => { const e = document.elementFromPoint(x, y); if (!e) return null; const z = getComputedStyle(e).zIndex;
+    return (e.tagName + (e.id ? '#' + e.id : '') + (e.className && typeof e.className === 'string' ? '.' + e.className.split(' ').slice(0, 2).join('.') : '') + ' z' + z + (e.closest('[id]') ? ' in #' + e.closest('[id]').id : '')); }, [LASTTAP.x, LASTTAP.y]).catch(() => 'x');
+  let inner = null;
+  if (frame && frame !== dd.page.mainFrame()) { const fe = await frame.frameElement().catch(() => null), fb = fe && await fe.boundingBox();
+    if (fb) inner = await frame.evaluate(([x, y, sel]) => { const e = document.elementFromPoint(x, y), t = document.querySelector(sel), r = t && t.getBoundingClientRect();
+      return { at: e ? e.tagName + (e.id ? '#' + e.id : '') : null, target: r ? Math.round(r.x) + ',' + Math.round(r.y) + ' ' + Math.round(r.width) + 'x' + Math.round(r.height) : null, hit: !!(e && t && (e === t || t.contains(e))), pe: t ? getComputedStyle(t).pointerEvents : null, dis: !!(t && t.disabled) }; }, [LASTTAP.x - fb.x, LASTTAP.y - fb.y, LASTTAP.sel]).catch(e => String(e).slice(0, 60)); }
+  return { tap: Math.round(LASTTAP.x) + ',' + Math.round(LASTTAP.y), top, inner };
 }
 const cityOf = (dd) => dd.page.frames().find(f => /BOHEMIA_CITY_WORLD/.test(f.url()));
 
 (async () => {
   console.log('\nTHE WHOLE LOOP PLAYS (rule 408(d)): ' + (alpha ? 'the alpha' : 'the demo') + ', ' + profile + '\n');
-  d = await D.open({ profile, alpha, fog: true });
+  d = await D.open({ profile, alpha, fog: true, throttle: +process.env.LOOP_THROTTLE || undefined });
   d.page.on('pageerror', e => errs.push('page: ' + String(e).slice(0, 140)));
   const fr = d.fr;
   await step(1, 'THE TITLE: it stands, and NEW GAME is pressed with a finger', async () => ({ ok: d.title.seen && d.title.via === 'new', why: JSON.stringify(d.title) }));
@@ -187,10 +201,16 @@ const cityOf = (dd) => dd.page.frames().find(f => /BOHEMIA_CITY_WORLD/.test(f.ur
 async function winAndLeave(dd) {
   const h = await dd.page.$('#fightFrame'), f = h && await h.contentFrame();
   if (!f) return { ok: false, why: 'no fight to win' };
-  await f.evaluate(() => { FIGHT.S.units.forEach(u => { if (u.side === 'them') u.dead = true; }); FIGHT.S.over = true; FIGHT.S.result = 'won'; try { showOver('won'); } catch (e) {} });
+  /* LOOP_END_SLOW=1 (COMBAT FOUR 11/26, rule 480(c)): the CPU 4x slower from the win until the end screen holds the fight, and how long that took */
+  const slow = !!process.env.LOOP_END_SLOW && !!dd.cdp && await dd.cdp.send('Emulation.setCPUThrottlingRate', { rate: 4 }).then(() => true).catch(() => false), T0 = Date.now();
+  const turnAt = await f.evaluate(() => { FIGHT.S.units.forEach(u => { if (u.side === 'them') u.dead = true; }); FIGHT.S.over = true; FIGHT.S.result = 'won'; try { showOver('won'); } catch (e) {} return FIGHT.S.round | 0; }).catch(() => null);
   const sp = await waitFor(() => dd.page.evaluate(() => !!(window.SPOILS && SPOILS.frame && document.getElementById('spoilsdoor'))), 30000);
   if (!sp) return { ok: false, why: 'NO END SCREEN after the win' };
   const sh = await dd.page.$('#spoilsdoor iframe'), sf = sh && await sh.contentFrame();
+  let endMs = null;
+  if (slow) { const op = sf && await waitFor(() => sf.evaluate(() => !!(window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened)), 60000); endMs = op ? Date.now() - T0 : -1;
+    await dd.cdp.send('Emulation.setCPUThrottlingRate', { rate: 1 }).catch(() => {});
+    console.log('   [the end, CPU 4x] the end screen held the fight ' + endMs + ' ms after the win; handed over on ' + JSON.stringify(await dd.page.evaluate(() => window.SPOILS && SPOILS.sent || 'load').catch(() => null))); }
   /* FIXES 3 11/26 (ask rows 722, 697): LEAVE pressed the way a thumb presses it (tools/bohemia_leave_the_end_screen.js: the screen opened,
      LEAVE on the glass, the top thing at its own middle, still). MEASURED: the end screen grows in out of the phone for about a second
      and its LEAVE answers nothing until the screen is opened (leave() returns while its seq is unset), so a press read off a box mid-grow
@@ -207,5 +227,16 @@ async function winAndLeave(dd) {
   let where = '';
   if (!(home && map)) where = ': ' + JSON.stringify(await dd.page.evaluate(() => ({ spoils: !!document.getElementById('spoilsdoor'), fight: !!document.getElementById('fightFrame'), nf: document.body.classList.contains('nf-on'),
     phone: (document.getElementById('bohphone') || { dataset: {} }).dataset.screen || null }))) + ' ' + JSON.stringify(c ? await c.evaluate(() => ({ mode: MODE, meet: !!(window.MEET && MEET.up), road: !!document.getElementById('roadcard'), town: !!(LOOP.open), camp: !!(window.BohemiaMapCamp && BohemiaMapCamp.on()) })).catch(e => String(e).slice(0, 80)) : 'no map frame');
-  return { ok: !!t && !!home && !!map, why: 'the end screen stood; LEAVE ' + (t ? 'tapped' : 'NOT TAPPED (' + tw + ')') + '; ' + (home && map ? 'the map, nothing over it' : 'NOT BACK ON THE MAP' + where) + (SCROLLED.length ? '; REACHED ONLY AFTER A SCROLL (rule 402, UI): ' + SCROLLED.join(', ') : '') };
+  if (!(home && map)) {   /* name the cause: what is under the finger, the end screen's own state, and what threw (COMBAT FOUR 11/26, ask row 722) */
+    const ss = sf ? await sf.evaluate(() => { const S = window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state; return S ? { ready: S.ready, seq: S.seq, leaving: S.leaving, said: (document.getElementById('say') || {}).textContent || null } : 'NO SCREEN'; }).catch(e => 'unreadable: ' + String(e).slice(0, 80)) : 'no frame';
+    const sh2 = await dd.page.evaluate(() => ({ left: SPOILS.left, d: !!SPOILS.d, over: !!(window.NF && NF.over), cityfight: typeof CITYFIGHT !== 'undefined' ? !!CITYFIGHT : null })).catch(() => null);
+    where += '; under the finger ' + JSON.stringify(await underTap(dd, sf)) + '; the end screen ' + JSON.stringify(ss) + '; home ' + JSON.stringify(sh2) + (errs.length ? '; THREW: ' + errs.slice(-3).join(' | ') : '');
+  }
+  /* THE FIGHT'S TURN COUNT CAME HOME (COMBAT FOUR 11/26, found on ask row 722): the fight's word home carries 'rounds', the turn count the
+     map keeps as outcome.turns; 11/22zza's ammo report rode under the same name and overwrote it (every fight came home 0 turns). The
+     map's outcome must carry the turn the fight was won on */
+  const turns = await dd.page.evaluate(() => (window.NF && NF.over) ? NF.over.turns : null).catch(() => null);
+  const turnsOk = turnAt == null || turnAt < 1 || turns === turnAt;
+  if (!turnsOk) where += '; THE TURN COUNT CAME HOME AS ' + JSON.stringify(turns) + ' (the fight was won on turn ' + turnAt + ')';
+  return { ok: !!t && !!home && !!map && turnsOk, why: 'the end screen stood; LEAVE ' + (t ? 'tapped' : 'NOT TAPPED (' + tw + ')') + '; ' + (home && map ? 'the map, nothing over it' + (turnsOk ? '; the turn count home ' + turns + ' (won on turn ' + turnAt + ')' : where) : 'NOT BACK ON THE MAP' + where) + (SCROLLED.length ? '; REACHED ONLY AFTER A SCROLL (rule 402, UI): ' + SCROLLED.join(', ') : '') };
 }

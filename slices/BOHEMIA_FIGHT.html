@@ -575,10 +575,14 @@ function loadAll() {
     .then(function () { return fetch('../records/target/bb/fight_shot.json', FRESH).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; }); })
     .then(function (k) { DB.shot = k && k.white && k.barrel ? k : null; });
 }
+/* COMBAT FOUR 11/26 (rule 480(c), the brain's long moves): the path's pieces are worked out once a path, never split again (R was a tenth
+   of all of AUTO's thinking); the rows are still walked fresh every call, so a row a mod, a slider or a gate changes is read as it is now */
+const R_PATH = new Map();
 function R(path) {
-  const parts = path.split('.');
-  let node = parts[0] === 'ours' ? DB.ours : parts[0] === 'ai' ? DB.ai : DB.rules;
-  const walk = (parts[0] === 'ours' || parts[0] === 'ai') ? parts.slice(1) : parts;
+  let pp = R_PATH.get(path);
+  if (!pp) { const parts = path.split('.'); pp = { root: parts[0] === 'ours' ? 1 : parts[0] === 'ai' ? 2 : 0, walk: (parts[0] === 'ours' || parts[0] === 'ai') ? parts.slice(1) : parts }; R_PATH.set(path, pp); }
+  let node = pp.root === 1 ? DB.ours : pp.root === 2 ? DB.ai : DB.rules;
+  const walk = pp.walk;
   for (let i = 0; i < walk.length; i++) node = node ? node[walk[i]] : undefined;
   if (!node || !('value' in node) || node.value === null) throw new Error('no sourced row at ' + path);
   DB.read[path] = node.source;
@@ -1174,7 +1178,9 @@ const FIGHT = (function () {
     S.roundsDone = out; return out;
   }
   /* ==== /__NO_AMMO_NO_SHOT__ ==== */
-  function canSwap(u, i) { const b = u.bag && u.bag[i]; return !S.over && !S.deploy && current() === u && !!b && !u.netted && !(isShield(b) && bothHands(u.weapon)) && u.ap >= swapCostOf(u, i); }
+  function canSwap(u, i) { const b = u.bag && u.bag[i]; return !S.over && !S.deploy && current() === u && !!b && !u.netted && !(isShield(b) && bothHands(u.weapon)) && u.ap >= swapCostOf(u, i) && !bagDry(u, i); }
+  /* rule 478 (COMBAT FOUR 11/26): a gun in his bag with no round left is never brought out (it would only be slung again, 4 AP for nothing) */
+  function bagDry(u, i) { const st = u.bagState && u.bagState[i]; return !!st && st.rounds != null && st.rounds <= 0 && isGun(u.bag[i]); }
   function swap(u, i) {
     if (!canSwap(u, i)) return false;
     if (isShield(u.bag[i])) {   /* a shield trades places with what is on his arm (an empty arm leaves the slot empty) */
@@ -12461,7 +12467,7 @@ function homeMessage(result) {
       look: v.look || null, hp: Math.max(0, Math.round(v.hp || 0)), hpMax: v.hpMax, armH: Math.max(0, Math.round(v.armH || 0)), armHMax: v.armHMax || 0,
       armB: Math.max(0, Math.round(v.armB || 0)), armBMax: v.armBMax || 0, head: v.headRow ? v.headRow.id : null, body: v.bodyRow ? v.bodyRow.id : null }; }),
     spoils: result === 'withdrew' ? null : (function () { try { return spoilsOf(); } catch (_e) { return null; } })(),   /* __THE_SPOILS__; rule 253: nothing taken from a lineup left */
-    rounds: (function () { try { return FIGHT.settleRounds(); } catch (_e) { return null; } })() };   /* __NO_AMMO_NO_SHOT__ (rule 478(c)): what his guns spent, what the company's rounds filled back, what is left */
+    ammo: (function () { try { return FIGHT.settleRounds(); } catch (_e) { return null; } })() };   /* __NO_AMMO_NO_SHOT__ (rule 478(c)): what his guns spent, what the company's rounds filled back, what is left. Its own name, 'ammo': 'rounds' above is the fight's turn count (the home's outcome.turns, the spoils' seed), and a second 'rounds' key overwrote it (COMBAT FOUR 11/26, found on ask row 722) */
 }
 /* ---------------- input: tap, drag, pinch ---------------- */
 const touches = {}; let gest = null;
