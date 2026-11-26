@@ -399,10 +399,22 @@
     }
     cur.dx = dx; cur.dy = dy; FIT.set(el, cur);
   }
+  /* __THE_WATCHER_SKIPS_A_HIDDEN_PAGE__ (UI FIVE 11/26, VAMILY rule 480(c)): four times a second this walked every page the game has
+     open, the ones kept hidden too (a fight's, the end screen's, a town's under the map), and asked every voice box in them whether it
+     shows (checkVisibility, a style pass each): on the slowed phone 60 to 115 ms in every 4 to 6 s of the thread, in every screen. A page
+     whose frame is gone, hidden or zero-sized has no voice on the glass, so it is not asked. */
+  function asleep(S) {
+    try {
+      if (!S.w || S.w.closed || !S.doc || !S.doc.documentElement || S.doc.hidden) return true;
+      for (var w = S.w; w && w !== W && w.frameElement; w = w.parent) { var fe = w.frameElement; if (!fe.isConnected || fe.offsetWidth === 0 || fe.offsetHeight === 0) return true; }
+    } catch (e) { return false; }
+    return false;
+  }
   function fitAll(only) {
     if (OFF) return;
     DOCS.forEach(function (S) {
       if (only && S.w !== only) return;
+      if (asleep(S)) return;   /* __THE_WATCHER_SKIPS_A_HIDDEN_PAGE__ */
       S.rows.forEach(function (row) { if (!row.voice) return;
         try { Array.prototype.forEach.call(S.doc.querySelectorAll(row.sel), function (el) { var box = row.voice === row.sel ? el : (el.matches(row.voice) ? el : el.querySelector(row.voice)); if (box && shownNow(box)) fitOne(box, S.w, row.id); }); } catch (e) {} });
     });

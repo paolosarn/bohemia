@@ -9527,6 +9527,14 @@ GATES = [
      "upright and sideways, N1 the title and all fifteen origins, N2 the start at rest, N3 every building's sheet, N4 the settings card "
      "(every row on the glass at once), N5 the crew screen, N6 a full company and stash, N7 the fight's page, N8 the fullest hall, N9 every "
      "UI size: nothing scrolls, every press on the glass, the floors. Over 10 min", True),
+    ('THE UI HOLDS ITS FRAMES', ['node', 'gates/the_ui_holds_its_frames_gate.js'],
+     "UI FIVE gate, 11/26, rule 480(c) (Paolo 11/26: 'make sure fps is never choppy for nothing'), ask row 723: on the demo and the alpha, "
+     "a phone upright and sideways, Caravans through the map's door: F1 the shop standing open, the town under it draws 10 pictures a "
+     "second or fewer where 6% or less of it shows, every frame where more does; F2 the same with a weapon's card up; F3 the sheet goes, "
+     "it draws every frame again; F4 the crew screen settled, it draws nothing, and again after the phone's DONE; F5 on a phone with the "
+     "CPU slowed four times, the shop standing open draws 1.6 times the frames of the same town with no sheet; F6 nothing threw; F7 ask "
+     "row 726 (FOUND BY EYES 11/26): the stall's BUY tapped twice 150 ms apart with the page busy 600 ms between, it buys three of three; "
+     "PLANTED (the demo upright): the rest taken out, F1 red; the taps timed by when the page handles them, F7 red. About 3 min a walk", True),
     ('ONE HAND OR TWO', ['node', 'gates/one_hand_or_two_gate.js'],
      "UI FIVE gate, 11/22, rule 477 (Paolo 11/22: 'It's still not clear to me when I'm buying a weapon from the shop if it's two-handed "
      "or one-handed or not... when I'm buying a weapon there is so much useless information, for real'), ask row 718: on the demo and "

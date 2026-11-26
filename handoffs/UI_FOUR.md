@@ -3,7 +3,31 @@
 # On VAMILY: pull main, re-read CLAUDE.md and the VAMILY front page (rules 453, 448, 452, 442(b), 441, 454(a), 402 as amended 11/7:
 # SMALLER, NEVER PAGES), then continue from the newest block below. FIGHT SCREEN 2 owns everything on the glass over the fight.
 
-UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/22 LATEST -- BUILD 11/22zzb - THE STRIP WHOLE ON ITS SIDE, BUILT, NOT
+UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/26 LATEST -- BUILD 11/26za - THE UI HOLDS ITS FRAMES, BUILT, NOT YET
+SEEN (rule 480(b)(c), ask row 723; the coordinator's routine 'UI FIVE: rule 480'). Record
+records/BOHEMIA_UI_FIVE_THE_UI_HOLDS_ITS_FRAMES_11_26_26.md. VOTE ui5-the-ui-holds-its-frames-11-26 (STAND-IN, a before-and-now chart).
+- MEASURED on the slowed phone (390 x 844, CPU 4x, the GPU drawing canvases): every UI change ran 6 to 11 frames a second; the biggest
+  thing on the thread in all of them was the town's own picture drawn under a shop sheet (2.9% of it showing upright, 5.4% on its side)
+  and under the crew screen (none showing).
+- slices/BOHEMIA_SETTLEMENT_SCREEN.html __THE_TOWN_RESTS_UNDER_ITS_SHEET__: under an open, still, opaque sheet hiding all but 6% the town
+  draws 8 a second (nothing if it hides all), under the settled crew screen nothing; every frame again the moment either goes. Sounds go
+  on. Counts its pictures (window.__TOWN_DRAWN).
+- slices/bohemia_ui_nothing_pops.js __THE_WATCHER_SKIPS_A_HIDDEN_PAGE__: the 4 Hz watcher skips hidden pages.
+- ASK ROW 726 (EYES): FIXES 3 shipped the fix first (__THE_FINGER_SETS_THE_BEAT__); my parallel copy was dropped at the rebase. My
+  gate's F7 holds theirs on the glass (stall BUY, a 600 ms busy page between the taps: 3/3; plant 0/3).
+- NOW: the shop standing open 11 -> 22 to 30 fps, a weapon 8.5 -> 17 to 21, MORE 8 -> 25 to 28, a buy 9 -> 21, the crew screen 7 -> 20
+  to 23. THE UI MORPHS EVERYWHERE E6 holds every change but the town to the lot (36.8 of 40: the lot boots a fight board, SCAVENGE's).
+- Gate THE UI HOLDS ITS FRAMES (new, in the suite): demo and alpha both ways, F1-F6, plant red.
+- FOR PLUMBER 8: the map and the town standing still are 9 to 12 fps slowed with nothing of the UI moving (town shadows' fill,
+  bohemia_idles warmOne getImageData, the browser's commit); the lot's opening boots the fight page.
+- LEFT (from 11/22): upright 'Buy it and ...' on the shop's buy button.
+NEXT for this lane, in order: (1) what EYES finds on the slowed phone in this build; (2) the settings card's opening hitch (one 380 to
+550 ms frame on the slowed phone, the card built while it grows); (3) the upright 'Buy it and ...' with WHAT YOU BUY's B2 mystery;
+(4) the crew screen's weight line as a picture with RUN TWO.
+[bb Battle Brothers' town screen is a still picture behind its windows: nothing under a window is drawn]
+[analog horror: the security monitor goes to a still frame when nobody is watching it, the timestamp still ticking]
+
+UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/22 -- BUILD 11/22zzb - THE STRIP WHOLE ON ITS SIDE, BUILT, NOT
 YET SEEN (the follow-up to 11/22zw, rule 477; record records/BOHEMIA_UI_FIVE_ONE_HAND_OR_TWO_AND_LESS_11_22_26.md, its last section).
 - On a phone on its side the shop strip's buttons read 'B | 113' and 'to the...' and the both-hands line was cut: now the words stand
   over the price, two lines, and the line has room (inside the strip's 300 px container query; upright and the computer untouched).

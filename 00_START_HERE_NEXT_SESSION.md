@@ -153,6 +153,13 @@ out (sheets six, seven, eight behind MORE). FOR CHARACTER: the homework sheets n
 its list.
 [bb Battle Brothers' raiders say what they want and what it costs you, in one breath]
 [analog horror: 'That's you. Ten minutes ago. Somebody up there's been watching you all fucking day.']
+UI FIVE (ui-five-01gkdyuu): 11/26 LATEST -- BUILD 11/26za - THE UI HOLDS ITS FRAMES, BUILT, NOT YET SEEN (rule 480(b)(c), ask row 723). Its block is handoffs/UI_FOUR.md.
+On a phone slowed 4x the town drew its picture every frame under a shop sheet that hid it and under the crew screen: now it rests there (8 a second for the band of rooftops that
+shows, nothing under the crew screen) and draws every frame the moment either goes. The shop standing open 11 -> 22 to 30 frames a second, a weapon's card 8.5 -> 17 to 21, its
+MORE 8 -> 25 to 28, a buy 9 -> 21, the crew screen 7 -> 20 to 23. The pop-up watcher skips hidden pages. Gate THE UI HOLDS ITS FRAMES (new, F7 holds FIXES 3's double-tap fix).
+Before it: 11/22zzb THE STRIP WHOLE ON ITS SIDE, 11/22zw ONE HAND OR TWO (rule 477). VOTE ui5-the-ui-holds-its-frames-11-26.
+[bb Battle Brothers' town screen is a still picture behind its windows: nothing under a window is drawn]
+[analog horror: the security monitor goes to a still frame when nobody is watching it, the timestamp still ticking]
 UI FIVE (ui-five-01gkdyuu): 11/22 LATEST -- BUILD 11/22zzb - THE STRIP WHOLE ON ITS SIDE, and before it 11/22zw - ONE HAND OR TWO, BUILT, NOT YET SEEN (rule 477, ask row 718). Its block is handoffs/UI_FOUR.md.
 A weapon tapped anywhere (every shop, the crew screen, the loot) says ONE-HANDED or TWO-HANDED first, in a band; the card says only name, price, hits, reach and whether staff may
 carry it (16 words where it said 53), everything else behind its MORE button; the strip two numbers. The card's title is the piece again (474's tag had made it 'SHOTGUN').

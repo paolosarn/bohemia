@@ -4346,6 +4346,43 @@ function townLetGo(){
   try{ if(window.BohemiaCampLook && BohemiaCampLook.away) BohemiaCampLook.away(); }catch(e){}   /* MOTION 3 __THE_CAMP_LETS_GO_WHEN_HE_LEAVES__ (ask row 560): a broken camp's board page let go, never baking behind the map */
   window.__TOWN_LET_GO = (window.__TOWN_LET_GO | 0) + 1;
 }
+/* ==== __THE_TOWN_RESTS_UNDER_ITS_SHEET__ (UI FIVE 11/26, VAMILY rule 480(c), the pattern of SCAVENGE 2's rest above). MEASURED (the
+   demo, a phone 390 x 844, the CPU slowed four times, the GPU drawing the canvases): with a shop open upright the town drew at about 10
+   frames a second, and the biggest single thing on the page's thread was this screen's own picture (its people's shadows and bodies,
+   fill() under draw, 13 to 20% of the thread) under a sheet that covers all of it but a 22 px band of rooftops above it. NOW while the
+   sheet is open, fully opaque, nothing in this page is moving (no running animation: the sheet growing out of its building or folding
+   back plays its frames over a town drawn every frame) and it hides all of the town's picture on the glass (2: the town draws nothing)
+   or all but a thin band (1: 6% of the picture or less shows, upright under the bar: the town draws eight times a second, that band
+   still lives), the town looks again eight times a second; its sounds go on (busyHeard); the frame the sheet starts to go (its box no
+   longer covers, or it moves), it draws every frame again. Nothing is let go: he is still in the town. On its side the smith's sheet
+   leaves 5.4% of the picture at its edges (measured), so it rests there too; where more of the town shows beside a sheet, it draws every
+   frame as before. THE SAME UNDER THE CREW SCREEN: settled over the
+   whole glass (opaque, not growing out of the phone, not folding back), the town draws nothing (it drew every frame under it, 541 ms
+   of fill in 5.9 s on the slowed phone). ==== */
+/* the crew screen over everything (engine/bohemia_crew_door.js #crewdoor: fixed, the whole glass, opaque; the door opens it in the page
+   that calls it, this one from the town, else a page above): settled over the whole glass and not folding away, nothing of the town shows */
+function townUnderCrew(){
+  try{ for(var w = window; w; w = w.parent){ var cd = w.document.getElementById('crewdoor');   /* this page's own (the town calls the door), else a page above */
+      if(cd && cd.getAttribute('data-bm-folded') !== '1'){ var r = cd.getBoundingClientRect(), st = w.getComputedStyle(cd);
+        if(+st.opacity >= 1 && st.visibility !== 'hidden' && st.display !== 'none' && r.left <= 0.5 && r.top <= 0.5 && r.right >= w.innerWidth - 0.5 && r.bottom >= w.innerHeight - 0.5) return true; }
+      if(w === w.parent) break; } }catch(e){}
+  return false;
+}
+function townUnderSheet(){
+  if(townUnderCrew()) return 2;
+  var sh = document.getElementById('sheet'), cv = document.getElementById('cv'); if(!sh || !cv || !sh.classList.contains('on')) return 0;
+  try{ if(document.getAnimations && document.getAnimations().some(function(a){ return a.playState === 'running'; })) return 0; }catch(e){ return 0; }
+  var a = sh.getBoundingClientRect(), c = cv.getBoundingClientRect();
+  var L = Math.max(0, c.left), T = Math.max(0, c.top), R = Math.min(innerWidth, c.right), B = Math.min(innerHeight, c.bottom);
+  if(R <= L || B <= T) return 0;
+  var iw = Math.max(0, Math.min(R, a.right) - Math.max(L, a.left)), ih = Math.max(0, Math.min(B, a.bottom) - Math.max(T, a.top)), shown = 1 - iw * ih / ((R - L) * (B - T));
+  if(shown > 0.06) return 0;
+  for(var e = sh; e && e.nodeType === 1; e = e.parentElement){ var st = getComputedStyle(e); if(+st.opacity < 1 || st.visibility === 'hidden' || st.display === 'none') return 0; }
+  var s0 = getComputedStyle(sh), bg = s0.backgroundColor.match(/[\d.]+/g);
+  if(s0.backgroundImage === 'none' && !(bg && (bg.length < 4 || +bg[3] >= 1))) return 0;
+  return shown > 0.002 ? 1 : 2;
+}
+/* ==== end __THE_TOWN_RESTS_UNDER_ITS_SHEET__ ==== */
 function loop(){
   if(window.frameElement && townHidden()){ if(!TOWN_LET_GO){ TOWN_LET_GO = true; townLetGo(); } setTimeout(function(){ requestAnimationFrame(loop); }, 250); return; }
   TOWN_LET_GO = false;
@@ -4362,6 +4399,9 @@ function loop(){
      fill 861 ms) while the footage took 215 ms. Under the footage the town draws nothing; who stands there (folkList, which the footage's
      people are read from) and what is heard are kept four times a second; the moment the footage goes, it draws. */
   if(HF.on && HF.el && !S.camp){ window.__TOWN_UNDER_FEED = (window.__TOWN_UNDER_FEED | 0) + 1; try{ folkList(); }catch(e){} try{ busyHeard(performance.now()); }catch(e){} setTimeout(function(){ requestAnimationFrame(loop); }, 250); return; }
+  var under = townUnderSheet();   /* __THE_TOWN_RESTS_UNDER_ITS_SHEET__: 2 all of it covered, 1 all but a thin band */
+  if(under){ window.__TOWN_RESTED_SHEET = (window.__TOWN_RESTED_SHEET | 0) + 1; if(under === 1){ window.__TOWN_DRAWN = (window.__TOWN_DRAWN | 0) + 1; draw(); try{ crewOverDraw(); }catch(e){} } busyHeard(performance.now()); setTimeout(function(){ requestAnimationFrame(loop); }, 120); return; }
+  window.__TOWN_DRAWN = (window.__TOWN_DRAWN | 0) + 1;   /* every picture this screen draws, counted (gates/the_ui_holds_its_frames_gate.js) */
   draw(); try{ crewOverDraw(); }catch(e){} try{ restTrails(); }catch(e){} busyHeard(performance.now()); requestAnimationFrame(loop);   /* CAMP's call in the town (RUN THREE) */
 }
 /* ==== __THE_LONG_EXPOSURE__ (FINISHER 11/2; rule 273(c), ask line 210; Paolo 10/26: 'HEAL/CAMP in the settlement screen: time
