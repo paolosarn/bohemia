@@ -46,7 +46,8 @@ The swap meet's tool is the newest pattern (ON the school's; a whole inside is a
 [bb Battle Brothers' brush: the trampled goods slow you, the racks and the vans hide a man]
 [analog horror: a television still on, showing snow, at a stall nobody stands at; a tape deck blinking 12:00]
 
-JOBS TWO (jobs-two-01gkdyuu): 11/26 LATEST -- BUILD 11/26j - THE CARD AT ONCE, BUILT, NOT YET SEEN (ask row 730; rules 482, 480(c)). Its block is handoffs/JOBS.md.
+JOBS TWO (jobs-two-01gkdyuu): 11/26 LATEST -- BUILD 11/26r - THE MOMENT HEARD, BUILT, NOT YET SEEN (rule 482: the arrival at a job seen and heard, the leftovers out, ask row 737 shipped). Its block is handoffs/JOBS.md.
+JOBS TWO (jobs-two-01gkdyuu): 11/26 -- BUILD 11/26j - THE CARD AT ONCE, BUILT, NOT YET SEEN (ask row 730; rules 482, 480(c)). Its block is handoffs/JOBS.md.
 A job's card opens at once (its reads kept and warmed from the board: the slowed phone's tap 120 to 244 ms, the town's own frame what is left) and reads clean (where and
 about how long beside its mark, a stop a line, no sums, no followers). Gate THE CARD READS CLEAN 4/0 (new). VOTE jobs2-the-card-at-once-11-26, sha 491efbe1c.
 COOK FIVE (cook-six-01gkdyut): 11/26 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/26h - THE TERMINAL, THE FORT AND THE MALL AGAIN, BUILT (0798ae711), NOT YET SEEN (rule 480(b); rule 466(e); rules 441; ask row 723).

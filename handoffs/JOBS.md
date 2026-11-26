@@ -1,6 +1,43 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/26 LATEST -- BUILD 11/26j - THE CARD AT ONCE, BUILT, NOT YET SEEN (ask row 730; rules 482,
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/26 LATEST -- BUILD 11/26r - THE MOMENT HEARD, BUILT, NOT YET SEEN (rule 482: 'the arrival
+at a job looks and sounds better, the leftover jobs code cleaned out, and row 737'; rules 402, 441, 480, the 120 BPM law). Content
+b168fded1. VOTE jobs2-the-moment-heard-11-26 (STAND-IN: the board before and now, the moment in four frames). Record
+records/BOHEMIA_JOBS_TWO_THE_BOARD_FITS_AND_THE_MOMENT_11_26_26.md.
+- ROW 737 (__THE_BOARD_FITS_FIVE__, slices/BOHEMIA_SETTLEMENT_SCREEN.html, only on UI 9's dense board #sheet.ns-d1): upright the pay
+  stands at the end of the client's last line when there is room (its own row only when not); sideways the pay stands beside the job
+  and the client's name has the whole width. F533 6/6 (upright 539 in 539, sideways 294 in 294, the first density step). In the game
+  (tools/bohemia_jobs_the_board_fits_five_on_the_phone.js): four jobs, the most a board deals (BOARD_SHELF counts.max 4), fit on every
+  phone before and now, now 15 to 30 px shorter; five fit on the demo upright (567 in 546 -> 546 in 546) but in the ALPHA five still run
+  28 to 30 px over (its tab row and resource bar sit over the town): needs a taller sheet than UI 9's 'under half' or smaller words
+  than its 11 px floor, UI's call. Said in the record.
+- THE MOMENT (__THE_MOMENT_IS_SEEN_AND_HEARD__, slices/bohemia_job_kinds.js flash()/flashDraw()/tackHeard()): the plate comes in like a
+  tape that catches (on, a 70 ms dropout, on; one more dropout before it goes), two green rings from his feet at 0 and 500 ms, and the
+  board's own tack (slices/vote/settlement_heard/board_nail.mp3, fetched in idle time 6 s after load) once on the effects bus
+  (__sfxOut), so EFFECTS and MUTE hold. Ten timed draws in 3.5 s, never a frame loop (on a map already drawing every frame they are
+  lost among its own). Gate THE MOMENT IS SEEN AND HEARD (new, in the suite).
+- THE MOMENT's steps go in order and none is skipped on a slow phone (a loaded box skipped the dropout once with a window per step).
+- EVERY JOB KIND (red on main before this, alone: E5, C4, V4, V5, R2, R3, P2): the checker's hand now waits for the end screen to land
+  before LEAVE (THE JOBS' PART D7's fix), V4 green; P2 re-aimed to the jobs' own marks (NO WAYPOINTS left no touch off the glass).
+  E5, C4, V5, R2, R3 STILL RED: a won job fight does not settle its job in the checker (E5's line now says how many of the job's
+  fights ended and whether its raid is still on the road); next to trace: does BOHEMIA_CITY_COMBAT_END reach the map after LEAVE.
+- NO WAYPOINTS W2: the alpha upright reads 15 marks inside the gate's two-shape run (16 alone, on main and on this build): a flake of
+  the run, not the marks; next to look at.
+- LEFTOVERS: MAP_DREW.jobOff gone; no function in the jobs file nothing calls. The settlement's four drafted OFFERS stay (the shelf's
+  fallback, read as text by the phone's board and quoted by the keeper's lines; people's lines, rule 465). Said in the record.
+NEXT: row 698 FIRST, ITS FIX IS DRAFTED (JOBS TWO ships it next as its own build; if this block is the last word, re-make it from here):
+the two-step deal as written below in slices/bohemia_board_shelf.js (and export rare: rareUp from bohemia_job_danger.js), the gate gates/a_job_has_one_door_gate.js (O1 the boards the same four read orders, O2 one door, O3 never empty, O1p the old deal planted).
+Row 698 (the board deals a job to a different town depending on when its danger read comes in): the deal in
+slices/bohemia_board_shelf.js dealt() asks the floor (BohemiaJobDanger.fits, null while reading) as it drafts, and what it posts while
+reading stays posted (MEMO), so the final board depends on the reads' timing. The fix as measured: draft each place's ordered list from
+the valley and the day only (no floor), then the floor thins each place's own list (a job kept back is never handed to another place);
+the never-empty pass stays per place. Its gates: THE BOARDS ALWAYS HAVE WORK, A POSTED JOB STAYS POSTED, A READ BOARD STAYS READ, THE
+TOWNS BOOK, EVERY CHANGE AT SIXTY C2. Also: the moment's plate floats 80 px over a crew drawn small at the middle zoom (WORLD's
+__A_MOMENT_HAS_A_PLATE__ height, hh = 72 x MAP_PEOPLE_K); the alpha's five-job board (UI).
+[bb Battle Brothers' contract list is one line a contract: the employer's face, the job, the pay on the right; nothing scrolls]
+[analog horror: the tape lets go of the picture for a moment and catches it again, and somewhere a tack goes into a board]
+
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/26 -- BUILD 11/26j - THE CARD AT ONCE, BUILT, NOT YET SEEN (ask row 730; rules 482,
 480(c), 466(c), 441). Content 491efbe1c. VOTE jobs2-the-card-at-once-11-26 (STAND-IN, before and now). Record records/BOHEMIA_JOBS_TWO_THE_CARD_READS_CLEAN_11_26_26.md.
 - THE CARD IS INSTANT (slices/bohemia_job_kinds.js asksCard/tripCard/warm, __THE_CARD_IS_INSTANT__): kept per job and town (ten minutes of
   the clock, his block, his jobs, crewKey, his name); bohemia_board_shelf.js seen() warms a read board's people in idle time; the

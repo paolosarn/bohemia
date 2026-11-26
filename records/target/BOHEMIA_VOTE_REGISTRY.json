@@ -24537,7 +24537,8 @@
    "stage": "stand_in",
    "record": "records/BOHEMIA_HOME_BASE_THE_GRINDER_ON_PURPOSE_11_26_26.md",
    "build": "BUILD 11/26q - THE GRINDER, ON PURPOSE"
-  }
+  },
+  {"id": "jobs2-the-moment-heard-11-26", "kind": "ui", "lane": "jobs 2", "sha": "b168fded1", "made": "11/26", "draft": true, "title": "A JOB'S MOMENT IS SEEN AND HEARD, AND A CROWDED BOARD FITS", "said": "rule 482: 'the arrival at a job looks and sounds better'; FIXES 3's row 737: five long jobs ran past the board's sheet", "why": "When you reach a job's thing, its plate flickers in like a tape catching, two green rings pulse from your crew a beat apart and the board's tack sound plays, and a crowded town board now fits with each pay beside its client. You see it in the RUN tab, on the map when you find a job's thing and on a town's BOARD, left before and right now.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/JOBS_TWO_THE_MOMENT_HEARD.jpg"}, "before_after": {"before": "the moment was a plate drawn in one frame, gone 3.5 s later, silent; five long jobs on a board ran 20 px past its sheet upright (the last card cut)", "after": "the plate on, a 70 ms dropout, on; a ring at once and a ring a beat later; the board's tack heard once; the pay at the end of the client's line, five jobs whole on the sheet", "scale": "the game on a phone upright (390 x 844 at 3), the demo: Caravans' board with five jobs, and the map at the middle zoom with the moment's four steps"}, "record": "records/BOHEMIA_JOBS_TWO_THE_BOARD_FITS_AND_THE_MOMENT_11_26_26.md", "build": "BUILD 11/26r - THE MOMENT HEARD"}
  ],
  "verdicts": [
   {
