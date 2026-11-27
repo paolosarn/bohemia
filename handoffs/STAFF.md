@@ -1,3 +1,22 @@
+STAFF 3 (staff3-01gkdyuv, took over from STAFF 2's HANDOFF READY): rule 471 (THE STAFF PUSH A CART), rules 482, 495. Written only by this lane.
+*** 11/27 LATEST -- BUILD 11/27zze - THE CAMP ON THE CREW SCREEN, BUILT, NOT YET SEEN (rule 471(b); STAFF 2's next (3)). Record:
+records/BOHEMIA_STAFF_THREE_THE_CAMP_ON_THE_CREW_SCREEN_11_27_26.md. VOTE staff3-the-camp-on-the-crew-screen-11-27 (faaeb422e). ***
+(a) RULE 495 ON THIS LANE'S LAYERS (1a4e6c1b1, game identical): the trade is retinue.json 'work' (BohemiaCamp.workOf), the trade cells'
+index is slices/rig_town/rig_staff.json read by engine/bohemia_idles.js itself (no merge, no timer), the scared run's numbers are ai.json
+fear_run read by R(); FOLLOWER_WORK, STAFF_HOME_WORK, STAFF_ACTS and the FEAR_RUN constant are gone; gate C16 ONE PLACE refuses a copy.
+(b) THE CREW SCREEN: a CAMP row (face, name, the weapon in hand), his card, the stash ONE HAND ONLY, a tap hands it over, HAND IT BACK;
+the fight swings it. The book: engine/bohemia_camp.js canHold/giveArms/takeArms/armsItem/tradeArms (kept with the job like the cart, gone
+on a lost field); refusals are data (staff.arms.refuse_class = the fight's RANGED + a thrown item, held equal by C18); the screen's part is
+its own module slices/bohemia_crew_camp.js (the roster page: a script tag and one call in draw()). Proof:
+tools/bohemia_staff_crew_camp_on_the_phone.js K1-K5 green demo and alpha both ways. Gate 21/0 (C18 new, a planted shield turns it red).
+(c) THE BRIGAND, MEASURED, ROUTED TO CHARACTER: his still (10/23) wears a GRASS WRAP COAT that rule 159 (10/24) taught THE OUTFIT to
+refuse; the roll has said ASH since 10/23, so no render can match the still (pack: shape 0.988, colour 25.6 against 5). The fix is
+CHARACTER's: re-dress town_43 at the source to their layered bar, re-make him through every set (their remake script, ~60-75 min), then
+STAFF renders his 'drink' (ANIMATION's person_one), packs it, puts him in rig_staff.json and gives the brigand "work": "drink".
+NEXT, IN ORDER: (1) the brigand once CHARACTER re-makes him (or ask the coordinator to route it); (2) his fist on the handle (a body key
+per look, new sheets: COOK SEVEN freed 29.55 MB, the site 870 of 900 MB, so there is room; measure first); (3) a column between his back
+row and the camp on narrow boards; (4) a scared run's sound with SOUNDS; (5) a camp person's handed weapon back to the stash when he falls
+on a held field (now it stays with the job, as the cart does). Gates in the foreground with a timeout; never send_later.
 STAFF 2 (staff2-01gkdyus, took over from STAFF at a full context): rule 471, THE STAFF PUSH A CART, ask row 709. Written only by this lane.
 *** 11/27 HANDOFF READY (context near full) -- FOR THE NEXT STAFF: the coordinator's order 11/27 21:51 is 'your handoff's order (the
 brigand's body, his fist on the handle, the crew screen), inside PLUMBER 8's iPhone budget, built the rule 495 way'. Not started; main is
