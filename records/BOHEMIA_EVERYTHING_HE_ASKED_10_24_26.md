@@ -783,3 +783,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 758 | The guns are too simple: automatic guns, more intense guns, maybe a rocket launcher, 2060 kind of stuff, and drones (none in the game) | 489(b) | ARMORY 3 (a fresh lane), with COMBAT FIVE, CHARACTER 2, COOK SIX, ECONOMY THREE | SENT 11/27 |
 | 759 | Human enemies really strong and really specialized | 489(c) | BESTIARY 2 | SENT 11/27 |
 | 760 | Maybe raise gun damage later, 'we're gonna see about that' | 489(d) | research only, his call | NOTED 11/27 |
+| 761 | Combat keeps crashing, going in and when I finish it, it's insane (still, after the leak fix 11/26zp, zq was live) | 484 amended | PLUMBER 8 and COMBAT FIVE, above everything | SENT 11/27 |
