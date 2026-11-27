@@ -2,7 +2,18 @@
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 # FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
 # FIXES FOUR (the chat answers to 'fixes 4', 11/27; FIXES 3 wrote HANDOFF READY at 02:13 11/27) carries this file on: same job, blocks named FIXES FOUR.
-FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (e) LATEST -- [the new reds] IN FLIGHT, BUILD 11/27zq - THE STALL HOLDS STILL BUILT, NOT YET SEEN: the routine
+FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (f) LATEST -- [the new reds] BUILD 11/27zw - A SLIDER KEEPS ITS TRAVEL, BUILT, NOT YET SEEN (the routine 'the 95
+new reds'). Record: records/BOHEMIA_FIXES_FOUR_THE_NEW_REDS_11_27_26.md (every red walked, its verdict, what was done; the rest by owner).
+WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): SETTINGS' music, ambience and effects sliders twice as long (136 px,
+the word over each), set anywhere by a finger; the stall's quick second tap buys what he tapped (11/27zq).
+REAL: THE WAGON AND THE SIX C4 (this lane's own 11/27zj, fixed 11/27zq); ONE SONG ONLY O10 (the sliders, bohemia_ui_no_scroll.js
+__A_SLIDER_KEEPS_ITS_TRAVEL__, UI FIVE's step, idle 12 h). STALE, re-aimed to the truth: EQUIP FROM THE STASH, THE FACE IS HIS OWN FACE,
+WHO YOU HIRE FIGHTS, ONE SONG ONLY's read. LOAD (green alone): THE SHOP TAPS, MAP HEARD, THE MAP PLAYS THE PART OF TOWN, THE ONE BEAT,
+THE VOTE CARDS PLAY. THE LIST: only ~30 of the 95 are named anywhere; the whole list is in CAMP FOUR's container (BOHEMIA_SUITE_DONE),
+never committed: ASK the coordinator to have it committed; then walk the rest by owner (UI 4, UI FIVE 4, PEOPLE 3, CHARACTER 3, BOSSES 3,
+WORLD 14 3, ...). Never send_later or anything that waits on a tap.
+
+FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (e) -- [the new reds] IN FLIGHT, BUILD 11/27zq - THE STALL HOLDS STILL BUILT, NOT YET SEEN: the routine
 'FIXES 4: the 95 new reds' (CAMP FOUR's full suite on main 1a47fd794: 1,089 ran, 434 red, 95 not on the quarantine). THE LIST: CAMP FOUR's
 record names about 30 of the 95 by owner; the whole list was its runner's BOHEMIA_SUITE_DONE file in its own container, never committed.
 ASK (for the coordinator): CAMP FOUR commits that file (or the 95 names) so the rest can be walked; until then this lane walks the named ones.

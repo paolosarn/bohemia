@@ -400,6 +400,15 @@
        over: the three sound sliders (music, ambience, effects) take one place each, two to a row, so the card loses a whole row of 44;
        each keeps a thumb's travel (about 86 px of a 170 place) and its number. The volume's own bars and the light's keep two places. */
     + 'html body #setwrap.ns-d1.ns-d3 #setcard .setrow.ns-span:has(> .setslide){grid-column:span 1!important}'
+    /* __A_SLIDER_KEEPS_ITS_TRAVEL__ (FIXES 4 11/27, CAMP FOUR's full suite: ONE SONG ONLY O10 red; rule 495(a), the cause is this step's
+       place). MEASURED on the demo upright: in one place of 170 px the label (58) and the number (26 + 8) left the range 72 px under a
+       26 px knob, about 46 px of travel for 0 to 100: a tap a quarter along read 0, three quarters 100, and his finger could not set the
+       music or the ambience between. The label now stands over its slider in that place (12 px), so the range takes the place's width
+       less its number: 136 px. The two slider rows grow 12 px each; the card still fits (this step saved a 44 px row). */
+    + 'html body #setwrap.ns-d1.ns-d3 #setcard .setrow.ns-span:has(> .setslide){flex-direction:column!important;align-items:stretch!important;justify-content:center;gap:0!important}'
+    + 'html body #setwrap.ns-d1.ns-d3 #setcard .setrow.ns-span:has(> .setslide)>.setlab{flex:0 0 auto!important;line-height:12px!important}'
+    + 'html body #setwrap.ns-d1.ns-d3 #setcard .setrow.ns-span:has(> .setslide)>.setslide{flex:0 0 auto!important;min-height:44px!important}'
+    + 'html body #setwrap.ns-d1.ns-d3 #setcard .setrow.ns-span:has(> .setslide)>.setslide input{height:44px!important}'
     /* and the card's name takes its own row there, so the grid's filling never pulls a slider up beside it: the sound stays together
        in its order (the volume, MUSIC beside AMBIENCE, EFFECTS beside MUTE) and the light's picture stays under its own row */
     + 'html body #setwrap.ns-d1.ns-d3 #setcard>.seth{grid-column:1 / -1!important}';

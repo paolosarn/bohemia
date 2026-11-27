@@ -152,10 +152,18 @@ const B = 'http://127.0.0.1:' + PORT;
   await check('W6');
   /* ---- W8 after a fight ---- */
   const k8 = await ctx.newPage(); await k8.goto(B + '/slices/__door.html');
-  const rows = [{ name: line0.crew[0], main: true, level: 1, xpGained: 1300, dead: false, down: false, laidUpDays: 0, injury: null },
-    { name: armed, main: false, level: 1, xpGained: 40, dead: true, down: true, laidUpDays: 0, injury: null },
-    { name: moved, main: false, level: 1, xpGained: 60, dead: false, down: true, laidUpDays: 3, injury: { id: 'brain_damage', name: 'Brain Damage', line: 'he forgets things' } }];
-  const kept8 = await k8.evaluate(a => { window.NF = { day: 2 }; (0, eval)(a.src + '\nwindow.__k = nfAfterKeep;'); return window.__k({ type: 'BOHEMIA_FIGHT_OVER', result: 'won', crew: a.rows }); }, { src: AFTER, rows });
+  /* RE-AIMED 11/27 by FIXES 4 (CAMP FOUR's full suite: red in the pack, a new red; rule 495(a): a stale check comes back to the truth).
+     MEASURED: the crew screen reads a wound's days from the company's condition, the one clock for a wound (engine/bohemia_condition.js,
+     CAMP's rule 234), and the shell writes it on the fight's end right before nfAfterKeep (slices/BOHEMIA_ALPHA_0_9.html: BohemiaCondition.
+     afterFight(d.crew, {day}) then nfAfterKeep(d)). This leg ran nfAfterKeep alone, with rows a real fight never sends (no hit points),
+     so the condition never heard of the wound and the screen read 0 days. It now runs the shell's own pair, in its order, on rows shaped
+     like the fight's (hp and hpMax; the struck-down man at one); what it holds is the same. */
+  const rows = [{ name: line0.crew[0], main: true, level: 1, xpGained: 1300, dead: false, down: false, laidUpDays: 0, injury: null, hp: 40, hpMax: 60 },
+    { name: armed, main: false, level: 1, xpGained: 40, dead: true, down: true, laidUpDays: 0, injury: null, hp: 0, hpMax: 55 },
+    { name: moved, main: false, level: 1, xpGained: 60, dead: false, down: true, laidUpDays: 3, injury: { id: 'brain_damage', name: 'Brain Damage', line: 'he forgets things' }, hp: 1, hpMax: 52 }];
+  await k8.addScriptTag({ url: B + '/engine/bohemia_condition.js' });
+  const kept8 = await k8.evaluate(a => { window.NF = { day: 2 }; (0, eval)(a.src + '\nwindow.__k = nfAfterKeep;'); const d = { type: 'BOHEMIA_FIGHT_OVER', result: 'won', crew: a.rows };
+    if (window.BohemiaCondition) BohemiaCondition.afterFight(d.crew, { day: NF.day }); return window.__k(d); }, { src: AFTER, rows });
   await k8.close();
   const o8 = await theDoor(2), n8 = (o8.company || []).map(m => m && m.name);
   ok('W8 the shell kept the fight\'s rows, and the next fight has the fallen one (rule 234) and never the dead hire', kept8 === 1 && n8.indexOf(armed) < 0 && n8.indexOf(moved) >= 0 && n8.length === 4, n8.join(', '));

@@ -202,6 +202,11 @@ const ARM = `(function(){ var C = AudioNode.prototype.connect; window.__conn = [
     /* O10 the sliders */
     await P.evaluate(() => BohemiaSettings.open());
     await P.waitForTimeout(600);
+    /* RE-AIMED 11/27 by FIXES 4 (CAMP FOUR's full suite: O10 red; rule 495(a)): MEASURED, the card grows in out of the phone and lands
+       about 670 ms after it opens (the pop's stepped grow and its overshoot); a fixed 600 ms read the sliders mid-grow (116 px at 87%)
+       and tapped where AMBIENCE was a frame before. It now also waits for the card to stand still (nothing under #setwrap moving, 3 s at
+       most); what it holds is the same: 44 tall, 120 wide, on screen, a tap three quarters along moves the mix and is saved. */
+    for (let i = 0; i < 60 && await P.evaluate(() => { const w = document.getElementById('setwrap'); return !!w && w.getAnimations({ subtree: true }).some(a => a.playState === 'running'); }); i++) await P.waitForTimeout(50);
     const geo = await P.evaluate(() => ['setmusic', 'setamb', 'setsfx'].map(id => { const i = document.querySelector('#' + id + ' input[type=range]');
       if (!i) return { id, missing: true }; const r = i.getBoundingClientRect(); return { id, x: r.x, y: r.y, w: r.width, h: r.height, v: +i.value }; }));
     ok('O10 *** THE SETTINGS CARD HAS MUSIC, AMBIENCE AND EFFECTS SLIDERS ***, each 44 points tall and on screen',
