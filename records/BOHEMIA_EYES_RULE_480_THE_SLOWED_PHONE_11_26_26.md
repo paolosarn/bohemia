@@ -206,3 +206,41 @@ records/eyes_rule480_11_26/twenty_fights_memory_11_27.txt).
 Not walked this round (said): 11/26za to zn and zh to zm by eye (the beasts' words, every weapon drops, a supply on the bar, the
 places in the ground, the cameras on patrol, the pay as a moment, the man who comes home, the crowd seated once, the robes off, the camp
 runs scared, the boss arrives, the hog squeals); rows 733, 736, 737, 740 to 743, 745, 746, 747 (their turn on AUTO), 749 to 754.
+
+## THE ROUTINE 'EYES: walk the new builds' (11/27a to 11/27s, main a7a8d6fb2; 11/27 morning)
+
+PLUMBER 8's IN AND OUT THE IPHONE'S WAY, run in the foreground alone (two fights in and out on the demo at 4x): 6 passed, 1 failed;
+the six real legs green (the dive's canvases 1 MB back on the map, the fight and spoils pages emptied, 141 and 149 MB of canvas back on
+the map, the ratchets 1,010 of 1,250 MB and 219 of 300 MB); THE FAIL IS ITS OWN PLANT: 'the old way' came back at 169 MB, under I3's
+170, so the plant meant to prove I3 bites did not bite (row 773 below). Its printed budget: every live picture 1,010 of the iPhone's
+768 MB, over by 242 (rows 768, 769 own it).
+TEN FIGHTS IN AND OUT on the alpha (EYES' AUTO tool, full speed, upright): no crash, 0 page errors; the renderer's peak per fight count,
+MB: 1,683 before; 2,199, 2,540, 2,544, 2,326, 2,527, 2,364, 2,107, 2,016, 2,075, 1,942 after the tenth: flat and easing, lower than the
+last round's 2.3 to 3.6 GB (records/eyes_rule480_11_26/ten_fights_memory_11_27.txt).
+
+| row | now (the slowed phone) | owner named by the routine | word |
+|---|---|---|---|
+| 724 the door into the game | upright BEGIN to the barber one frame 6,767 ms (task 6,689); sideways 6,633 (task 6,578) and GO to the town 4,917 (task 4,704) | FIXES 4 | STILL RED |
+| 725 LEAVE from a fight | the lit LEAVE home in 2.7 s with a 1,083 ms frame (task 775) upright; sideways 1,833 (task 1,424) | COMBAT FIVE | STILL RED |
+| 726 the stall | (the strip, row 772 below) | -- | HOLDS (bought) |
+| 728 camp | standing 11.4 fps, worst 150, no long task | -- | HOLDS |
+| 729 his place | CAM 2 51, CAM 3 53 fps; the door in one frame 1,500 ms (task 291) | HOME BASE | THE DOOR STILL RED |
+| 731 the town | standing 3.6 fps upright (tasks 504), 3.4 sideways (629); the map standing 58.8 upright, 46 sideways | WORLD 15 | STILL RED (the town) |
+| 732 the fight | sideways AUTO 8.1 fps; UPRIGHT A NIGHT FIGHT ON AUTO DREW AT 1.4 fps (frames of 1,167 and 1,150 ms while its tasks stayed at 314 ms: the drawing, about five times the last rounds' day fights) (e16) | COMBAT FIVE | WATCH (one night fight) |
+| 738 CONTINUE after a reload | the title with NEW GAME and CONTINUE | -- | HOLDS |
+| 744 / 748 the crash | ten fights in and out, no crash, memory flat | PLUMBER 8 | HOLDS |
+
+SEEN: 11/27f THE CLOCK UP TOP (the bar ends 'DAY 1 06:00' with the sun) (e14); 11/27o THE STALL READS THE TOWN'S CARD ('People are
+hungry. Bring me food and I pay good, 6 more.', THEY NEED IT, '37 left today'); 11/27l EVERYBODY IS STRAPPED IN PART (their THUGs walked
+in with a bludgeon, a shortsword and a pitchfork in hand: the pistol rides in the waistband by design; none drawn in this fight);
+11/27s and 11/27n the camp: standing smooth (its work by eye not judged). NOT SEEN: 11/27h and 11/27q the new guns and the drone (a
+first-day road crew carried none; his men dagger, dagger, light crossbow), 11/27i the songs (the box has no ears), 11/27r the city at
+work, 11/27p the dead Strip by day.
+
+FOUND 771 (COMBAT FIVE, with FIXES 4). A TAP ON THE FAINT LEAVE IS LOST: on the end screen upright at 4x LEAVE showed faint 0.33 s after
+the fight ended; a tap on it then did nothing and the screen stood over 40 s, until a second tap (e15). The round before, the same
+faint tap was kept and went home 9.9 s later: the same tap, two outcomes, and no sign either way that it was heard.
+FOUND 772 (ECONOMY THREE, with UI FIVE). THE STALL'S STRIP LAYS ITS NEXT LINE OVER THE LAST: after a buy, 'Bought. You have 22 nights
+of food.' shows its top half only, the price line's box over its foot (e14).
+FOUND 773 (PLUMBER 8). IN AND OUT THE IPHONE'S WAY IS RED ON MAIN BY ITS OWN PLANT: P1 ('the old way', nothing emptied) came back at
+169 MB, one under I3's 170, so the leg meant to prove I3 bites passed; 6/1.

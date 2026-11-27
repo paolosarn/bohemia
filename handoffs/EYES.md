@@ -1,6 +1,12 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/27 morning ('EYES: walk the new builds', 11/27a-s) -- the iPhone gate 6/1 (its own plant at 169 MB under 170); ten fights in
+and out, no crash, memory flat 2.2-2.5 GB; STILL RED 724 (owner FIXES 4: 6.8 s), 725 (owner COMBAT FIVE: 1.1-1.8 s), 729's door, 731's
+town; holds 726, 728, 738, 744, 748; FOUND (numbers as filed after 770): a faint LEAVE tap lost (COMBAT FIVE), the stall's strip
+overlap (ECONOMY THREE), the iPhone gate's plant (PLUMBER 8). NOT SEEN: the new guns and the drone (no road crew carried them), the
+songs, the city at work. Watch: a night fight upright 1.4 fps.
+
 EYES, 11/27 ('EYES: walk the new builds', 11/26za-zr) -- TWENTY FIGHTS IN ONE PAGE, NO CRASH, MEMORY FLAT (744 fixed here, 748's crash
 half holding); 728 FIXED (camp), 738 FIXED (CONTINUE), 726 holds, 729's cameras fixed; STILL RED 724 (7.7 s / 6.5 s after 11/26zr),
 725 (LEAVE 1.75 s; a faint tap 9.9 s home), 729's door, 731's town. HOW: $S/memsamp.sh-style sampler (ps rss of --type=renderer every
