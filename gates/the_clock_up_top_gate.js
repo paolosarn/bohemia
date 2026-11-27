@@ -15,6 +15,9 @@
         moon, the moonlit hour); at 09:40 day again
      K3 THE PHONE CARRIES NO TIME: no DAY and no hour drawn anywhere on the phone's face
      K4 nothing threw
+     K5 K1 and K2 again with the game's clock running fast (a game minute every 100 ms)
+   Every read is the bar against its own painted reading (data-day, data-min), at most an hour of game time behind the game's clock,
+   and waited for after a change (UI FIVE 11/27, after CAMP FOUR saw a leg red on main: a fixed one-second read raced the repaint).
    PLANTED (the demo upright, the service worker off): the clock taken off the bar, K1 red; the day and the hour put back on the phone, K3 red.
    (The town's and camp's bars, the band's one height and its other contents: THE TOP IS ONLY RESOURCES B1-B5; the day and the hour drawn
    once each: THE DAYS ONCE.)
@@ -36,7 +39,7 @@ const CLOCK = () => {
   const all = b ? [...b.querySelectorAll('[data-f=clock]')].filter(e => e.getBoundingClientRect().width > 0).length : 0;
   if (!c) return { n: all, game: { day: T.day, min: T.min } };
   const q = c.getBoundingClientRect(), br = b.getBoundingClientRect(), hb = c.querySelector('.ct b'), di = c.querySelector('.ct i'), dial = c.querySelector('img.dial');
-  return { n: all, day: di ? di.textContent.trim() : '', hour: hb ? hb.textContent.trim() : '', night: c.classList.contains('night'), aria: c.getAttribute('aria-label'),
+  return { n: all, day: di ? di.textContent.trim() : '', hour: hb ? hb.textContent.trim() : '', night: c.classList.contains('night'), aria: c.getAttribute('aria-label'), dday: +c.dataset.day, dmin: +c.dataset.min,
     dial: !!dial && dial.complete && dial.naturalWidth > 0 && dial.getBoundingClientRect().width >= 20, px: hb ? parseFloat(getComputedStyle(hb).fontSize) : 0,
     whole: q.left >= br.left - 0.5 && q.right <= br.right + 0.5 && q.right <= innerWidth + 0.5 && q.top >= br.top - 0.5 && q.bottom <= br.bottom + 0.5 && c.scrollWidth <= c.clientWidth + 1,
     game: { day: T.day, min: T.min } };
@@ -49,6 +52,18 @@ const PHONE = () => {
   return { hours: (own.match(/\b\d{1,2}:\d{2}\b/g) || []).length, days: (own.match(/\bDAY\b/g) || []).length, own: own.slice(0, 120) };
 };
 const hm = min => pad(((min / 60) | 0) % 24) + ':' + pad(Math.floor(min % 60));
+/* UI FIVE 11/27, after CAMP FOUR saw one leg red on main: the bar repaints twice a second and the game's clock can run between a
+   repaint and this read (a machine busy with other lanes' browsers, or time moving), so the bar is read against ITS OWN reading
+   (data-day, data-min: what it painted from) and that reading must be the game's clock or at most an hour of game time behind it;
+   and after the clock is put on a new time the bar is WAITED FOR (up to 4 s), never read after a fixed second. */
+const LAG = 60;
+const fresh = c => !!c && c.dmin === c.dmin && c.hour === hm(c.dmin) && c.day === 'DAY ' + c.dday && c.game.day === c.dday && c.game.min - c.dmin >= 0 && c.game.min - c.dmin <= LAG;
+async function seen(P, fr, m) {
+  await fr.evaluate(x => { T.min = x; }, m);
+  let c = null;
+  for (let i = 0; i < 27; i++) { await P.waitForTimeout(150); c = await fr.evaluate(CLOCK); if (c.dmin >= m && c.dmin - m <= LAG && fresh(c)) break; }
+  return c;
+}
 
 async function walk(page, profile, plant) {
   const tag = page + ' ' + (profile === 'phone_portrait' ? 'upright' : 'on its side');
@@ -64,23 +79,28 @@ async function walk(page, profile, plant) {
     await P.waitForTimeout(3000);
     const fr = d.fr;
     const k1 = await fr.evaluate(CLOCK), want1 = 'DAY ' + k1.game.day, wantH = hm(k1.game.min);
-    const good1 = k1.n === 1 && k1.day === want1 && k1.hour === wantH && k1.dial && k1.whole && k1.px >= 14;
+    const good1 = k1.n === 1 && fresh(k1) && k1.dial && k1.whole && k1.px >= 14;
     const ph = await P.evaluate(PHONE);
     if (plant) { ok(tag + ' PLANTED: the clock taken off the bar, K1 red (' + JSON.stringify({ n: k1.n, day: k1.day }) + ')', !good1);
       ok(tag + ' PLANTED: the day and the hour back on the phone, K3 red (' + JSON.stringify(ph) + ')', !!ph && (ph.days > 0 || ph.hours > 0)); return; }
-    ok('K1 ' + tag + ' THE CLOCK AT THE TOP: "' + k1.day + ' ' + k1.hour + '" (the game ' + want1 + ' ' + wantH + '), the dial ' + k1.dial + ', whole ' + k1.whole + ', the hour ' + k1.px + ' px', good1);
+    ok('K1 ' + tag + ' THE CLOCK AT THE TOP: "' + k1.day + ' ' + k1.hour + '" (painted from ' + k1.dday + '/' + hm(k1.dmin) + ', the game ' + want1 + ' ' + wantH + '), the dial ' + k1.dial + ', whole ' + k1.whole + ', the hour ' + k1.px + ' px', good1);
     /* K2 the game's own clock moved, then night, then day */
     const m0 = k1.game.min;
-    await fr.evaluate(m => { T.min = m; }, m0 + 125); await P.waitForTimeout(1100);
-    const k2 = await fr.evaluate(CLOCK);
-    await fr.evaluate(() => { T.min = 22 * 60 + 15; }); await P.waitForTimeout(1100);
-    const kn = await fr.evaluate(CLOCK);
-    await fr.evaluate(() => { T.min = 9 * 60 + 40; }); await P.waitForTimeout(1100);
-    const kd = await fr.evaluate(CLOCK);
+    const k2 = await seen(P, fr, m0 + 125);
+    const kn = await seen(P, fr, 22 * 60 + 15);
+    const kd = await seen(P, fr, 9 * 60 + 40);
     await fr.evaluate(m => { T.min = m; }, m0);
     ok('K2 ' + tag + ' IT MOVES AS TIME MOVES: ' + hm(m0) + ' + 2 h 5 min says ' + k2.hour + '; 22:15 says ' + kn.hour + (kn.night ? ' at night' : ' NOT NIGHT') + ' ("' + kn.aria + '"); 09:40 says ' + kd.hour + (kd.night ? ' NIGHT' : ' by day'),
-      k2.hour === hm(m0 + 125) && kn.hour === '22:15' && kn.night && /night/.test(kn.aria || '') && kd.hour === '09:40' && !kd.night);
+      fresh(k2) && k2.dmin >= m0 + 125 && fresh(kn) && kn.dmin >= 22 * 60 + 15 && kn.night && /night/.test(kn.aria || '') && fresh(kd) && kd.dmin >= 9 * 60 + 40 && kd.dmin < 19 * 60 && !kd.night);
     ok('K3 ' + tag + ' THE PHONE CARRIES NO TIME: ' + (ph ? ph.days + ' DAY, ' + ph.hours + ' hour(s) drawn on its face ("' + ph.own + '")' : 'no phone up'), !!ph && ph.days === 0 && ph.hours === 0);
+    /* K5 THE SAME WITH TIME RUNNING: a game minute every 100 ms (a game hour in six seconds, faster than camp's rest), the bar read
+       against its own reading and waited for, as above */
+    await fr.evaluate(() => { window.__CLOCK_RUN = setInterval(() => { T.min += 1; }, 100); });
+    await P.waitForTimeout(1200);
+    const r1 = await fr.evaluate(CLOCK), rn = await seen(P, fr, 21 * 60 + 30), rd = await seen(P, fr, 10 * 60);
+    await fr.evaluate(m => { clearInterval(window.__CLOCK_RUN); T.min = m; }, m0);
+    ok('K5 ' + tag + ' WITH TIME RUNNING (a game minute every 100 ms): the bar says ' + r1.hour + ' painted from ' + hm(r1.dmin) + ' with the game at ' + hm(r1.game.min) + '; 21:30 then says ' + rn.hour + (rn.night ? ' at night' : ' NOT NIGHT') + ', 10:00 says ' + rd.hour + (rd.night ? ' NIGHT' : ' by day'),
+      fresh(r1) && fresh(rn) && rn.dmin >= 21 * 60 + 30 && rn.night && fresh(rd) && rd.dmin >= 10 * 60 && !rd.night);
     ok('K4 ' + tag + ' nothing threw', !errs.length, errs.slice(0, 2).join(' | '));
   } catch (e) { ok(tag + ' ran', false, String(e.stack).slice(0, 300)); }
   finally { await d.close().catch(() => {}); }

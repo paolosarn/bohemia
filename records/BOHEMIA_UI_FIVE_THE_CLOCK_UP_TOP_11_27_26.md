@@ -57,3 +57,22 @@ After: 61 ok, 5 failed. The five left are other lanes' cards (dynasty-flip-at-cr
 plumber-8-fewer-freezes-11-10 and cook6-the-names-painted-11-26 on the why's length, character2-the-robes-come-off-11-26 on its
 differences and its 895 pt first picture, plumber-8-fewer-freezes-11-10 on its stage) and one finger drag on the VOTE page's picture
 (-100, 0 with room -100, -114: it moved sideways, not up), not looked at this round.
+
+## THE NEXT ROUND (UI FIVE 11/27, routine 'UI FIVE: keep cooking'): the clock check made fast-proof, the VOTE TAB gate green
+
+- THE CLOCK UP TOP, the leg CAMP FOUR saw red on main: on main it read 18/0 here, but every leg compared the bar's hour with the game's
+  clock read a moment LATER, and slept a fixed 1.1 s after moving the clock. The bar repaints twice a second, so with time running (camp's
+  rest, travel) or a machine busy with other lanes' browsers the two disagree by a minute or more. Measured with time running a game
+  minute every 100 ms: the bar said 06:09, painted from 06:09, with the game at 06:12 (the old K1 red). Now every read is the bar against
+  its own painted reading (data-day, data-min), at most an hour of game time behind the game, and each change is waited for (up to 4 s).
+  New K5: K1 and K2 again with time running fast. 22/0, plants red.
+- THE VOTE TAB GATE 61/5 -> 66/0, the line struck from the quarantine:
+  - THE WHY: 24 waiting cards ran past two sentences or named no place (the gate prints the first four only). Each condensed to two
+    sentences, its facts kept, its last naming where you see it (dynasty x2, plumber 8, cook 6 x4, character 2 x2, fight screen x4,
+    home base x3, world 13 x2, world 15 x3, bestiary 2 and 3, camp 4). No dialogue touched (rule 454(a)): these are card blurbs.
+  - plumber-8-fewer-freezes-11-10 had no stage: stand_in (a before-and-after chart, it asks nothing about a look).
+  - character2-the-robes-come-off-11-26: the third difference (the band's first man) and its first picture re-cut to one thing (the first
+    two gangs before and after, 480 x 700 of the sheet; it was a 380 x 1010 strip, 895 pt tall on his phone).
+  - economy3-the-stalls-day-11-27 had no first picture (860 pt tall): cut to the stall at first light, 585 x 488.
+  - THE DRAG: the gate wanted a sheet shorter than the screen to slide; the viewer keeps such a sheet centred (fvClamp), which is right.
+    A sheet that fits the screen one way now has no room that way.
