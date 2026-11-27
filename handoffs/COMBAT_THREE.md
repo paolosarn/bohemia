@@ -1,5 +1,33 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
+COMBAT FIVE (combat-five-01gkdyuv): 11/27 HANDOFF READY (context past the line). Built and live: BUILD 11/27g THE CAMERA COMES DOWN, LEAVE ANSWERS (c54b2ce6a,
+VOTE combat5-the-camera-comes-down-11-27, a before/now clip) and BUILD 11/27zb THE GROUND AT WHAT THE GLASS SHOWS (cccdb9d77). Everything measured is in
+records/BOHEMIA_COMBAT_FIVE_THE_CAMERA_COMES_DOWN_LEAVE_ANSWERS_11_27_26.md; the two blocks below say what each piece is and where it lives.
+THE NEXT COMBAT CHAT'S JOBS, IN THIS ORDER (the coordinator's routine 11/27 21:51, rule 484 his answer A first, built the rule 495 way: at the root, in the
+owning module, no duct tape; gates in the foreground with a timeout, never a tool that waits for a tap):
+(1) THE FIGHT'S HELD ART BY DAY: the coordinator's number, 290 to 380 MB for 22 to 35 looks, each a whole sheet. What this lane measured on one board
+    (tools/bohemia_combat_five_canvas_census.js; scratch probe: list FIGHT_UI.imgs and HOLD.ims with width x height x 4): the packed body sheets report
+    3,600 x 1,288 (17.7 MB) each and you_guns 2,160 x 3,864 (31.8 MB), seven of them ~135 MB; HOLD.ims (rig_hold, rig_melee) 2,048 x ~820, 6.4 MB each,
+    14 to 15 of them 53 to 63 MB; faces 7.9 + 3.2 MB. THE ROOT: the fight's sheet loaders (FIGHT.html packedLoad / whole() for fight_rig, and HOLD's
+    loader near 'HOLD.ims[k]') decode a whole sheet per look; hold only the frames this fight shows (the facings and poses its men use, the guns in
+    their hands) and let a look go when no man on the board wears it (a man down or fled), every bitmap closed at LEAVE (__fightLetGo already closes
+    what it counted: check the PackedSheet's own canvases are in its count). Measure the iPhone's way with PLUMBER 8 (the census, no forced collection;
+    TWENTY FIGHTS HOLD MEMORY FLAT for the canvas line).
+(2) THE WAY IN, SMOOTH AND QUICK ON A SLOWED PHONE (rules 407, 420): now ENGAGE to the fight 9 to 10.8 s at 4x; the hold (2.9 to 3.7 s) is the fight's
+    build under the dive's held picture (a CPU profile: start/setup/deal ~0.65 s, hud 0.24, laidPaint 0.24, the ring 0.16, oddsTick/oddsWorker 0.2,
+    (program) 1.4 s at 4x). Biggest levers: the ring and laidPaint off the board's first frame (COMBAT FOUR's own NEXT), the board dealt while the meet card
+    is up (the warm page takes FIGHT_OPTS only at ENGAGE: the card knows the fight), and the dive's three map draws (~0.35 s each at 4x).
+(3) THE ONE LOADING-LINE FRAME: gates/the_zoom_down_into_the_board_gate.js Z1 saw one frame (of ~270) where the fight's #load was uncovered during the
+    come or the hold, 2 of 9 upright runs (both right after browsers were killed on the box; 6 clean after). Suspect: a dive picture's dissolve re-timed
+    under it (slices/bohemia_motion.js retime() re-poses every picture on a new T0; a picture already in can get an inT in the future for a frame).
+    A copy of the gate that prints the sampler rows round the first bad frame: add cv.map(cls:op:F) to its row and print R.slice(k-4, k+3).
+(4) Then: the fight's held sheets of men no longer standing; twenty fights in and out SIDEWAYS (the census and the memory gate with --sideways);
+    ROW 736 (FIGHT.dealsAt, the seam in COMBAT FOUR's block below); the brain's long thinks.
+*** FOR PLUMBER 8: the map's people sheets (195 to 226 MB, rigSheetLoad) and idles (107 to 141 MB, engine/bohemia_idles.js) stay decoded as ImageBitmaps
+under every fight: the largest thing alive when his phone dies going in and coming out (the record's numbers). ***
+[bb Battle Brothers loads a battle's sprites per unit type on the field]
+[analog horror: the tape only keeps the faces that are still in the frame]
+
 COMBAT FIVE (combat-five-01gkdyuv; VAMILY rule 484 and its 11/27 amendment, 407, 420, 480(c), 482; ask row 725): 11/27 LATEST -- BUILD 11/27g - THE CAMERA COMES DOWN, LEAVE ANSWERS, BUILT. VOTE combat5-the-camera-comes-down-11-27 (a clip, before and now).
 Record: records/BOHEMIA_COMBAT_FIVE_THE_CAMERA_COMES_DOWN_LEAVE_ANSWERS_11_27_26.md (every number, before and after, and the numbers for PLUMBER 8).
 TOOLS: tools/bohemia_combat_five_the_way_in_record.js <outdir> [--profile phone_landscape] [--read ms] (films both ways at 4x, a clip at the real speed);
