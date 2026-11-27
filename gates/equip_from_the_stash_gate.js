@@ -56,7 +56,11 @@ const srv = http.createServer((rq, rs) => {
   /* PROOF SHOTS STAY PUT (PLUMBER 10/9): the VOTE picture is refreshed only with --shoot; a plain run shoots to scratch */
   await p.screenshot({ path: require(path.join(__dirname, '..', 'tools', 'bohemia_proof_shot.js')).proofShot(path.join(ROOT, 'slices/vote/RUN2_EQUIP_FROM_THE_STASH_10_13.png')) });
   /* 4. DONE closes it and hands the company back */
-  await fr.locator('#done').click(); await p.waitForTimeout(500);
+  /* RE-AIMED 11/27 by FIXES 4 (CAMP FOUR's full suite 11/27: red in the pack, a new red): MEASURED, DONE closes the company screen
+     after its fold back into the phone (MOTION 3's door, slices/bohemia_motion.js watchCrew): gone at 738 ms, and this leg read it at a
+     fixed 500 ms. It now waits for the door to be gone (3 s at most); the three things it holds are the same. */
+  await fr.locator('#done').click();
+  for (let i = 0; i < 30 && await p.evaluate(() => !!document.getElementById('crewdoor')); i++) await p.waitForTimeout(100);
   const after = await p.evaluate(id => ({ open: !!document.getElementById('crewdoor'), co: JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]'),
     stash: (JSON.parse(localStorage.getItem('bohemia.bag.v1') || '[]')).some(i => i.id === id), posted: (window.__settleLog || []).filter(x => x.act === 'crew').length }), bought[0].id);
   const man = after.co.find(m => m.name === who);

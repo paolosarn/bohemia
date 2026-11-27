@@ -2,7 +2,19 @@
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 # FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
 # FIXES FOUR (the chat answers to 'fixes 4', 11/27; FIXES 3 wrote HANDOFF READY at 02:13 11/27) carries this file on: same job, blocks named FIXES FOUR.
-FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (d) LATEST -- [no line under] BUILD 11/27zj - NO LINE UNDER ANOTHER, BUILT, NOT YET SEEN: ask row 777
+FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (e) LATEST -- [the new reds] IN FLIGHT, BUILD 11/27zq - THE STALL HOLDS STILL BUILT, NOT YET SEEN: the routine
+'FIXES 4: the 95 new reds' (CAMP FOUR's full suite on main 1a47fd794: 1,089 ran, 434 red, 95 not on the quarantine). THE LIST: CAMP FOUR's
+record names about 30 of the 95 by owner; the whole list was its runner's BOHEMIA_SUITE_DONE file in its own container, never committed.
+ASK (for the coordinator): CAMP FOUR commits that file (or the 95 names) so the rest can be walked; until then this lane walks the named ones.
+DONE SO FAR (each run alone on main, foreground): EQUIP FROM THE STASH stale (DONE's fold into the phone takes 738 ms, read at 500): re-aimed,
+7/0. THE FACE IS HIS OWN FACE a flake (F3 at the first place, red 1 of 3; a probe of that hall: the keeper's own face, 2 cards for 2 men):
+re-aimed to wait for the faces drawn, 18/0. THE SHOP TAPS 9/0 alone (load). THE WAGON AND THE SIX C4 REAL, AND MINE: 11/27zj's growing strip
+moved the list under his next tap (two quick taps on SIX ROUNDS bought tape); BUILD 11/27zq - THE STALL HOLDS STILL keeps the box's height; C4 10/0.
+NEXT: WHO YOU HIRE FIGHTS (the fallen hire's 3 wound days read 0 on the crew screen), SOUNDS' five (MAP HEARD, THE MAP PLAYS THE PART OF TOWN,
+THE VOTE CARDS PLAY, ONE SONG ONLY, THE ONE BEAT), PLUMBER 8's (theirs; read only), the rest by owner into the record
+records/BOHEMIA_FIXES_FOUR_THE_NEW_REDS_11_27_26.md (to write). Never send_later or anything that waits on a tap.
+
+FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (d) -- [no line under] BUILD 11/27zj - NO LINE UNDER ANOTHER, BUILT, NOT YET SEEN: ask row 777
 (EYES: after a buy at the stall the said line showed its top half, the price box over its foot; ECONOMY THREE handed off, nobody on it).
 WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): at a town's stall, after he buys or sells, the line saying what he did
 and what he has reads whole, nothing drawn over it, upright or on its side.

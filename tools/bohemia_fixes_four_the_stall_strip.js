@@ -37,7 +37,8 @@ const PLANT = process.argv.includes('--plant');
       const r = await sf.evaluate(() => { const b = document.querySelector('#sbody .stline[data-good="food"][data-n="1"] .sb.buy'); if (!b) return null; const q = b.getBoundingClientRect(); return [q.x + q.width / 2, q.y + q.height / 2, innerWidth, innerHeight]; });
       if (!r) return false; const hb = await sfH.boundingBox(); await P.touchscreen.tap(hb.x + r[0] * hb.width / r[2], hb.y + r[1] * hb.height / r[3]); return true; };   /* one tap */
     out.tapped = await tapBuy();   /* the first tap selects; the second, 150 ms after it, buys (the stall's 450 ms window) */
-    if (out.tapped) { const r = await sf.evaluate(() => { const b = document.querySelector('#sbody .stline[data-good="food"][data-n="1"] .sb.buy'); const q = b.getBoundingClientRect(); return [q.x + q.width / 2, q.y + q.height / 2, innerWidth, innerHeight]; });
+    await P.waitForTimeout(500); out.boxSelected = await sf.evaluate(() => { const f = document.querySelector('#stallstrip .ss-facts'); return f ? Math.round(f.getBoundingClientRect().height) : null; });   /* selected, before the buy (the next tap's second half comes after this, so this probe taps the same line again twice) */
+    if (out.tapped) { await tapBuy(); const r = await sf.evaluate(() => { const b = document.querySelector('#sbody .stline[data-good="food"][data-n="1"] .sb.buy'); const q = b.getBoundingClientRect(); return [q.x + q.width / 2, q.y + q.height / 2, innerWidth, innerHeight]; });
       const hb = await sfH.boundingBox(); await P.waitForTimeout(150); await P.touchscreen.tap(hb.x + r[0] * hb.width / r[2], hb.y + r[1] * hb.height / r[3]); }
     await P.waitForTimeout(900);
     out.strip = await sf.evaluate(() => {

@@ -36,3 +36,15 @@ CARRIED 18/5: its computer legs (L7, 'the gate ran on computer') fail on a null 
 
 TAB: RUN on the alpha link, and the demo link. In a town, at the stall: after he buys or sells, the line saying what he did and what he
 has now reads whole, and nothing is drawn over it, upright or on its side.
+
+## 6. AMENDED: THE BOX KEEPS ITS HEIGHT (BUILD 11/27zq - THE STALL HOLDS STILL, the 95 new reds' round)
+
+THE WAGON AND THE SIX (C4, real taps at a town's stall: a dose of meds, six rounds, a night of food, two quick taps each) went red on
+the 11/27zj tree and green with the page from before it (A/B, the same box): after the meds were bought the box grew to hold the said
+line (58 -> 67 px); the first tap on SIX ROUNDS cleared the said line, the box shrank back, the list moved, and the second tap landed
+on the roll of tape below it (rounds +0). A thing that grows under his finger moves what his finger is on. NOW the box keeps its 58 px
+always; while a said line shows it stands alone in the box (the price line repeats the same 'You have' and comes back with his next
+tap); on the dense sheet the box holds its 30 px while the said line shows, as it did with the price line in it.
+PROVEN: NO LINE UNDER ANOTHER 3/0 with a new hold (the box the same height before and after the buy, upright 58/58, on its side 30/30),
+PLANTED red; THE WAGON AND THE SIX 10/0 twice and 9/1 once (that one the first tap after the stall opens, the meds: the sheet's own
+opening, not the strip); NO LINE CUT WHILE THERE IS GLASS 12/0.

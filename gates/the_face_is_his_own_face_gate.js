@@ -129,6 +129,11 @@ const READ = () => new Promise(res => {
       await close();
       const xy = await p.evaluate(k => BohemiaSettlement.where(k), k); if (!xy) continue;
       await p.mouse.click(xy.x, xy.y); await p.waitForTimeout(160);
+      /* RE-AIMED 11/27 by FIXES 4 (CAMP FOUR's full suite: F3 red in the pack, at the first place only; green alone twice of three, and a
+         probe of the same camp's hall read the keeper's own face and 2 cards for 2 men): a fixed 160 ms read a sheet still drawing its
+         faces. It waits for the faces drawn (every .who and hire card with its canvas, 2 s at most); what it holds is the same. */
+      await p.waitForFunction(() => { const s = document.querySelector('#sheet.on'); if (!s) return true; const w = s.querySelectorAll('.who'), h = s.querySelectorAll('.hire');
+        return [].every.call(w, x => x.querySelector('canvas.face')) && [].every.call(h, x => x.querySelector('canvas.face')); }, null, { timeout: 2000 }).catch(() => {});
       const rows = await p.evaluate(READ); rows.forEach(r => allFaces.push(r));
       const body = await p.evaluate(k => { const q = BohemiaSettlement.folk().filter(q => q.keeper && q.k === k)[0]; return q ? q.look : null; }, k);
       if (body) {
