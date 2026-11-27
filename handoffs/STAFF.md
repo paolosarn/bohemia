@@ -1,6 +1,6 @@
 STAFF 2 (staff2-01gkdyus, took over from STAFF at a full context): rule 471, THE STAFF PUSH A CART, ask row 709. Written only by this lane.
 *** 11/27 LATEST -- RULE 482 AGAIN: BUILD 11/27n - THE CAMP AT ITS WORK, BUILT, NOT YET SEEN (rule 482; 461 as amended, 441, 465).
-Record: records/BOHEMIA_STAFF_TWO_THE_CAMP_AT_ITS_WORK_11_27_26.md. VOTE staff2-the-camp-at-its-work-11-27. ***
+Record: records/BOHEMIA_STAFF_TWO_THE_CAMP_AT_ITS_WORK_11_27_26.md. VOTE staff2-the-camp-at-its-work-11-27 (2135efccb). ***
 (a) AT CAMP (slices/bohemia_camp_look.js FOLLOWER_WORK): the cook cooks, the surgeon and the alchemist tend (kneeling by the worst hurt
 man lying, FOLLOWER_TEND), the blacksmith mends (ANIMATION's repair); the rest watch; a body with no act cell stands as before.
 (b) CELLS rendered with ANIMATION's own tool (person_one, every set; pack; the scratch venv's bpy 4.2, ~5 min a set); SHIPPED only the
