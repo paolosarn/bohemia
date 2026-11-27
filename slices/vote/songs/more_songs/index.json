@@ -1,0 +1,211 @@
+{
+ "made": "11/27",
+ "rule": 488,
+ "tool": "tools/bohemia_sounds_more_songs.js",
+ "songs": [
+  {
+   "name": "THE ICE CREAM TRUCK STILL PLAYS ITS SONG",
+   "slug": "the_ice_cream_truck_still_plays_its_song",
+   "dir": "vote/songs/more_songs/the_ice_cream_truck_still_plays_its_song/",
+   "id": "sounds-more-song-the-ice-cream-truck-still-plays-its-song-11-27",
+   "levels_db": [
+    -36.5,
+    -31.56,
+    -23.83
+   ],
+   "sub": "A new song, THE ICE CREAM TRUCK STILL PLAYS ITS SONG: an ice cream truck parked on a cul-de-sac in Summerlin, its battery dying, its jingle still calling kids who left with their families. Its own lead, a music box, the truck's own jingle, its own drums (a footstep for the kick, a bottle breaking for the snare, a kid slurping for the hat), in G lydian. It plays in the game now, in turn with the others.",
+   "what": {
+    "1": "1. THE MAP: the song as it plays on the map, the tune on top, a soft 120 beat under it.",
+    "2": "2. THEIR TURN: tension. The tune stays, the chord is held, the kick on the beat, the bass pushing.",
+    "3": "3. YOUR TURN: everything, much louder: the tune doubled an octave, the full kit, the bass driving, a hit when the turn comes back to you."
+   }
+  },
+  {
+   "name": "THE WEDDING CHAPEL TAKES ONE MORE BOOKING",
+   "slug": "the_wedding_chapel_takes_one_more_booking",
+   "dir": "vote/songs/more_songs/the_wedding_chapel_takes_one_more_booking/",
+   "id": "sounds-more-song-the-wedding-chapel-takes-one-more-booking-11-27",
+   "levels_db": [
+    -36.5,
+    -32.88,
+    -25.06
+   ],
+   "sub": "A new song, THE WEDDING CHAPEL TAKES ONE MORE BOOKING: a drive-through wedding chapel on the Strip with its lights on and its organ playing, booking couples who never come. Its own lead, a pump organ, the chapel's own, its own drums (the chapel door knocked for the kick, a champagne glass breaking for the snare, a sip for the hat), in G harmonic minor. It plays in the game now, in turn with the others.",
+   "what": {
+    "1": "1. THE MAP: the song as it plays on the map, the tune on top, a soft 120 beat under it.",
+    "2": "2. THEIR TURN: tension. The tune stays, the chord is held, the kick on the beat, the bass pushing.",
+    "3": "3. YOUR TURN: everything, much louder: the tune doubled an octave, the full kit, the bass driving, a hit when the turn comes back to you."
+   }
+  },
+  {
+   "name": "THE LOUNGE SINGER STILL TAKES REQUESTS",
+   "slug": "the_lounge_singer_still_takes_requests",
+   "dir": "vote/songs/more_songs/the_lounge_singer_still_takes_requests/",
+   "id": "sounds-more-song-the-lounge-singer-still-takes-requests-11-27",
+   "levels_db": [
+    -36.5,
+    -32.88,
+    -23.81
+   ],
+   "sub": "A new song, THE LOUNGE SINGER STILL TAKES REQUESTS: the lounge of a dead casino where a voice still sings to empty tables, taking requests from nobody. Its own lead, an ondes martenot, a voice that is not a voice, its own drums (a soft footstep for the kick, a breath for the brush, a saw stroke for the ride, swung), in B flat dorian. It plays in the game now, in turn with the others.",
+   "what": {
+    "1": "1. THE MAP: the song as it plays on the map, the tune on top, a soft 120 beat under it.",
+    "2": "2. THEIR TURN: tension. The tune stays, the chord is held, the kick on the beat, the bass pushing.",
+    "3": "3. YOUR TURN: everything, much louder: the tune doubled an octave, the full kit, the bass driving, a hit when the turn comes back to you."
+   }
+  },
+  {
+   "name": "ONE SIGN IN THE BONEYARD STILL BUZZES",
+   "slug": "one_sign_in_the_boneyard_still_buzzes",
+   "dir": "vote/songs/more_songs/one_sign_in_the_boneyard_still_buzzes/",
+   "id": "sounds-more-song-one-sign-in-the-boneyard-still-buzzes-11-27",
+   "levels_db": [
+    -36.5,
+    -32.96,
+    -25.22
+   ],
+   "sub": "A new song, ONE SIGN IN THE BONEYARD STILL BUZZES: the field off Las Vegas Boulevard where the dead signs were laid down, and one tube that still lights at night. Its own lead, a vibraphone, cold metal, its own drums (a footstep for the kick, a neon tube breaking for the snare, a crackle for the hat, half time), in E minor pentatonic. It plays in the game now, in turn with the others.",
+   "what": {
+    "1": "1. THE MAP: the song as it plays on the map, the tune on top, a soft 120 beat under it.",
+    "2": "2. THEIR TURN: tension. The tune stays, the chord is held, the kick on the beat, the bass pushing.",
+    "3": "3. YOUR TURN: everything, much louder: the tune doubled an octave, the full kit, the bass driving, a hit when the turn comes back to you."
+   }
+  },
+  {
+   "name": "LAKE MEAD GIVES BACK WHAT IT TOOK",
+   "slug": "lake_mead_gives_back_what_it_took",
+   "dir": "vote/songs/more_songs/lake_mead_gives_back_what_it_took/",
+   "id": "sounds-more-song-lake-mead-gives-back-what-it-took-11-27",
+   "levels_db": [
+    -36.5,
+    -32.9,
+    -24.77
+   ],
+   "sub": "A new song, LAKE MEAD GIVES BACK WHAT IT TOOK: the reservoir going down year after year, a town's roofs coming up out of the water, and the barrels on the new shore. Its own lead, a bamboo flute you can hear the breath in, its own drums (a drop of water for the kick, a boat's wood creaking for the snare, another drop for the hat), in A hirajoshi (five notes). It plays in the game now, in turn with the others.",
+   "what": {
+    "1": "1. THE MAP: the song as it plays on the map, the tune on top, a soft 120 beat under it.",
+    "2": "2. THEIR TURN: tension. The tune stays, the chord is held, the kick on the beat, the bass pushing.",
+    "3": "3. YOUR TURN: everything, much louder: the tune doubled an octave, the full kit, the bass driving, a hit when the turn comes back to you."
+   }
+  },
+  {
+   "name": "THE MONORAIL RUNS WITH NOBODY ON IT",
+   "slug": "the_monorail_runs_with_nobody_on_it",
+   "dir": "vote/songs/more_songs/the_monorail_runs_with_nobody_on_it/",
+   "id": "sounds-more-song-the-monorail-runs-with-nobody-on-it-11-27",
+   "levels_db": [
+    -36.5,
+    -33,
+    -23.62
+   ],
+   "sub": "A new song, THE MONORAIL RUNS WITH NOBODY ON IT: the Strip's monorail still running its loop on the last power, the doors opening at every empty station. Its own lead, a clarinet, the old-world kind, its own drums (a train for the kick, a crow on the rail for the snare, the train's rattle for the hat), in F sharp phrygian dominant. It plays in the game now, in turn with the others.",
+   "what": {
+    "1": "1. THE MAP: the song as it plays on the map, the tune on top, a soft 120 beat under it.",
+    "2": "2. THEIR TURN: tension. The tune stays, the chord is held, the kick on the beat, the bass pushing.",
+    "3": "3. YOUR TURN: everything, much louder: the tune doubled an octave, the full kit, the bass driving, a hit when the turn comes back to you."
+   }
+  },
+  {
+   "name": "THE DRIVE-IN SHOWS THE SAME REEL",
+   "slug": "the_drive_in_shows_the_same_reel",
+   "dir": "vote/songs/more_songs/the_drive_in_shows_the_same_reel/",
+   "id": "sounds-more-song-the-drive-in-shows-the-same-reel-11-27",
+   "levels_db": [
+    -36.5,
+    -32.87,
+    -24.83
+   ],
+   "sub": "A new song, THE DRIVE-IN SHOWS THE SAME REEL: the drive-in off Boulder Highway whose projector still runs one reel at dusk, and the cars that honk at it. Its own lead, an upright piano nobody tunes, the intermission's, its own drums (a footstep for the kick, a car horn for the snare, the film's crackle for the hat), in A flat major. It plays in the game now, in turn with the others.",
+   "what": {
+    "1": "1. THE MAP: the song as it plays on the map, the tune on top, a soft 120 beat under it.",
+    "2": "2. THEIR TURN: tension. The tune stays, the chord is held, the kick on the beat, the bass pushing.",
+    "3": "3. YOUR TURN: everything, much louder: the tune doubled an octave, the full kit, the bass driving, a hit when the turn comes back to you."
+   }
+  },
+  {
+   "name": "THE MOTEL SIGN SAYS VACANCY",
+   "slug": "the_motel_sign_says_vacancy",
+   "dir": "vote/songs/more_songs/the_motel_sign_says_vacancy/",
+   "id": "sounds-more-song-the-motel-sign-says-vacancy-11-27",
+   "levels_db": [
+    -36.5,
+    -32.89,
+    -25.06
+   ],
+   "sub": "A new song, THE MOTEL SIGN SAYS VACANCY: a motel on Fremont whose VACANCY sign has never once gone off, every room open, every key on its hook. Its own lead, a lap steel guitar, sliding, its own drums (a boot heel for the kick, a bottle breaking for the snare, a saw stroke for the shaker, a gallop), in D dorian. It plays in the game now, in turn with the others.",
+   "what": {
+    "1": "1. THE MAP: the song as it plays on the map, the tune on top, a soft 120 beat under it.",
+    "2": "2. THEIR TURN: tension. The tune stays, the chord is held, the kick on the beat, the bass pushing.",
+    "3": "3. YOUR TURN: everything, much louder: the tune doubled an octave, the full kit, the bass driving, a hit when the turn comes back to you."
+   }
+  },
+  {
+   "name": "THE WATER TOWER READS OUT NUMBERS",
+   "slug": "the_water_tower_reads_out_numbers",
+   "dir": "vote/songs/more_songs/the_water_tower_reads_out_numbers/",
+   "id": "sounds-more-song-the-water-tower-reads-out-numbers-11-27",
+   "levels_db": [
+    -36.5,
+    -32.59,
+    -24.77
+   ],
+   "sub": "A new song, THE WATER TOWER READS OUT NUMBERS: the water tower in North Las Vegas whose old emergency speaker plays a tune at night and then reads out numbers. Its own lead, a whistled tone, the station's call sign, its own drums (a low snore for the kick, a cough on the microphone for the snare, a breath for the hat, the tresillo), in B in-scale (five notes). It plays in the game now, in turn with the others.",
+   "what": {
+    "1": "1. THE MAP: the song as it plays on the map, the tune on top, a soft 120 beat under it.",
+    "2": "2. THEIR TURN: tension. The tune stays, the chord is held, the kick on the beat, the bass pushing.",
+    "3": "3. YOUR TURN: everything, much louder: the tune doubled an octave, the full kit, the bass driving, a hit when the turn comes back to you."
+   }
+  },
+  {
+   "name": "THE BUFFET STILL LAYS OUT THE TRAYS",
+   "slug": "the_buffet_still_lays_out_the_trays",
+   "dir": "vote/songs/more_songs/the_buffet_still_lays_out_the_trays/",
+   "id": "sounds-more-song-the-buffet-still-lays-out-the-trays-11-27",
+   "levels_db": [
+    -36.5,
+    -32.9,
+    -24.43
+   ],
+   "sub": "A new song, THE BUFFET STILL LAYS OUT THE TRAYS: an all-you-can-eat buffet off the Strip that still sets out its trays every evening, and the line that still forms for them. Its own lead, an accordion, a polka at the end of the world, its own drums (a grunt for the kick, a laugh from the line for the snare, a breath for the hat, oom-pah), in C sharp harmonic minor. It plays in the game now, in turn with the others.",
+   "what": {
+    "1": "1. THE MAP: the song as it plays on the map, the tune on top, a soft 120 beat under it.",
+    "2": "2. THEIR TURN: tension. The tune stays, the chord is held, the kick on the beat, the bass pushing.",
+    "3": "3. YOUR TURN: everything, much louder: the tune doubled an octave, the full kit, the bass driving, a hit when the turn comes back to you."
+   }
+  },
+  {
+   "name": "THE IMPERSONATOR DOES TWO SHOWS A NIGHT",
+   "slug": "the_impersonator_does_two_shows_a_night",
+   "dir": "vote/songs/more_songs/the_impersonator_does_two_shows_a_night/",
+   "id": "sounds-more-song-the-impersonator-does-two-shows-a-night-11-27",
+   "levels_db": [
+    -36.5,
+    -32.88,
+    -25.06
+   ],
+   "sub": "A new song, THE IMPERSONATOR DOES TWO SHOWS A NIGHT: a man in a white jumpsuit who still does both his shows in a showroom with the power out, to applause from the dark. Its own lead, a twangy electric guitar, the old rock and roll kind, its own drums (a footstep for the kick, the audience clapping for the snare, a drink poured for the hat, swung), in E flat mixolydian. It plays in the game now, in turn with the others.",
+   "what": {
+    "1": "1. THE MAP: the song as it plays on the map, the tune on top, a soft 120 beat under it.",
+    "2": "2. THEIR TURN: tension. The tune stays, the chord is held, the kick on the beat, the bass pushing.",
+    "3": "3. YOUR TURN: everything, much louder: the tune doubled an octave, the full kit, the bass driving, a hit when the turn comes back to you."
+   }
+  },
+  {
+   "name": "THE HOSPITAL KEEPS ONE LIGHT ON",
+   "slug": "the_hospital_keeps_one_light_on",
+   "dir": "vote/songs/more_songs/the_hospital_keeps_one_light_on/",
+   "id": "sounds-more-song-the-hospital-keeps-one-light-on-11-27",
+   "levels_db": [
+    -36.5,
+    -32.89,
+    -24.96
+   ],
+   "sub": "A new song, THE HOSPITAL KEEPS ONE LIGHT ON: the hospital on Charleston with one window lit on the fourth floor every night, a monitor still beeping for someone. Its own lead, a celesta, a lullaby on a ward, its own drums (a soft footstep for the kick, a cough on the ward for the snare, a ventilator's breath for the hat, the heartbeat), in C minor (aeolian). It plays in the game now, in turn with the others.",
+   "what": {
+    "1": "1. THE MAP: the song as it plays on the map, the tune on top, a soft 120 beat under it.",
+    "2": "2. THEIR TURN: tension. The tune stays, the chord is held, the kick on the beat, the bass pushing.",
+    "3": "3. YOUR TURN: everything, much louder: the tune doubled an octave, the full kit, the bass driving, a hit when the turn comes back to you."
+   }
+  }
+ ]
+}

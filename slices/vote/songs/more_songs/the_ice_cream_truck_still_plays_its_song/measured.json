@@ -1,0 +1,332 @@
+{
+ "name": "THE ICE CREAM TRUCK STILL PLAYS ITS SONG",
+ "made": "11/27",
+ "remade": null,
+ "tool": "tools/bohemia_sounds_more_songs.js",
+ "page_errors": 0,
+ "bars": 32,
+ "steps": 512,
+ "bpm": 120,
+ "key": "G lydian",
+ "root": 10,
+ "mode": [
+  0,
+  2,
+  4,
+  6,
+  7,
+  9,
+  11
+ ],
+ "story": "an ice cream truck parked on a cul-de-sac in Summerlin, its battery dying, its jingle still calling kids who left with their families",
+ "lead": "musicbox",
+ "lead_name": "a music box, the truck's own jingle",
+ "bass": "uprightslap",
+ "pad": "glasspad",
+ "drums": [
+  "3-94343-A-25",
+  "3-203373-A-39",
+  "2-122763-B-29"
+ ],
+ "kit_name": "a footstep for the kick, a bottle breaking for the snare, a kid slurping for the hat",
+ "swing": 0,
+ "play_gain_db": 0,
+ "mp3_kbps": 64,
+ "gap": {
+  "target_over_level_1_db": {
+   "2": 3.6,
+   "3": 11.4
+  },
+  "phone_db": [
+   -36.5,
+   -31.56,
+   -23.83
+  ],
+  "full_range_lufs": [
+   -32.33,
+   -28.71,
+   -18.95
+  ]
+ },
+ "level_1_rerender_vs_the_approved_file_db": null,
+ "run": {
+  "from_bar": 5,
+  "bars_each": 4,
+  "parts": [
+   "THE MAP (level 1)",
+   "THEIR TURN (level 2)",
+   "YOUR TURN (level 3)",
+   "THEIR TURN (level 2)",
+   "YOUR TURN (level 3)"
+  ]
+ },
+ "levels": [
+  {
+   "level": 1,
+   "file": "slices/vote/songs/more_songs/the_ice_cream_truck_still_plays_its_song/level_1.mp3",
+   "mp3_md5": "dbff597842b7082b71c3249569de8aea",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": null,
+   "parts": {
+    "kick": 64,
+    "bass": 64,
+    "pad": 96,
+    "hat": 64,
+    "lead": 133
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.2666,
+    "peak_db": -11.48,
+    "rms_db": -31.08,
+    "largest_jump": 0.1624,
+    "above_5k_pct": 3.352,
+    "above_8k_pct": 0.229,
+    "centroid_hz": 982.2,
+    "phone_rms_db": -36.5,
+    "bar_rms_db": [
+     -32.4,
+     -32.4,
+     -32.2,
+     -31.9,
+     -30.3,
+     -30.9,
+     -30.4,
+     -30.7,
+     -30.4,
+     -30.9,
+     -30.4,
+     -30.7,
+     -31,
+     -31,
+     -30.3,
+     -31.1,
+     -31,
+     -30.9,
+     -30.3,
+     -31,
+     -30.1,
+     -30.8,
+     -30.2,
+     -30.6,
+     -30.1,
+     -30.8,
+     -30.2,
+     -30.5,
+     -30.8,
+     -32.2,
+     -32.2,
+     -31.9,
+     -43.6
+    ]
+   }
+  },
+  {
+   "level": 2,
+   "file": "slices/vote/songs/more_songs/the_ice_cream_truck_still_plays_its_song/level_2.mp3",
+   "mp3_md5": "c64956da6d59cc0a4fe76808f05d3875",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": {
+    "limiter_worst_db": 0,
+    "limiter_mean_db": 0
+   },
+   "parts": {
+    "kick": 96,
+    "bass": 128,
+    "pad": 96,
+    "held": 96,
+    "hat": 256,
+    "lead": 133
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.2769,
+    "peak_db": -11.15,
+    "rms_db": -26.1,
+    "largest_jump": 0.2115,
+    "above_5k_pct": 2.696,
+    "above_8k_pct": 0.13,
+    "centroid_hz": 639.7,
+    "phone_rms_db": -31.56,
+    "bar_rms_db": [
+     -27.1,
+     -26.8,
+     -26.7,
+     -26.1,
+     -25.9,
+     -25.9,
+     -26.2,
+     -25.8,
+     -25.9,
+     -25.9,
+     -26.2,
+     -25.8,
+     -25.6,
+     -25.5,
+     -25.4,
+     -25.6,
+     -25.3,
+     -25.5,
+     -25.4,
+     -25.6,
+     -25.6,
+     -25.9,
+     -26.2,
+     -25.9,
+     -25.9,
+     -25.9,
+     -26.2,
+     -25.8,
+     -26,
+     -26.1,
+     -26.6,
+     -26.1,
+     -33.1
+    ]
+   }
+  },
+  {
+   "level": 3,
+   "file": "slices/vote/songs/more_songs/the_ice_cream_truck_still_plays_its_song/level_3.mp3",
+   "mp3_md5": "80a88d6fd82d34ad3e67f128d07cd0e1",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": {
+    "limiter_worst_db": 0,
+    "limiter_mean_db": 0
+   },
+   "parts": {
+    "kick": 96,
+    "hat": 256,
+    "bass": 256,
+    "pad": 96,
+    "lead": 261,
+    "snare": 84
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.6466,
+    "peak_db": -3.79,
+    "rms_db": -16.71,
+    "largest_jump": 0.5411,
+    "above_5k_pct": 9.036,
+    "above_8k_pct": 3.491,
+    "centroid_hz": 1041.1,
+    "phone_rms_db": -23.83,
+    "bar_rms_db": [
+     -17.1,
+     -17.1,
+     -17.1,
+     -17.1,
+     -16.5,
+     -16.5,
+     -16.6,
+     -16,
+     -16.5,
+     -16.5,
+     -16.6,
+     -15.9,
+     -16.6,
+     -16.6,
+     -16.5,
+     -16.1,
+     -16.7,
+     -16.7,
+     -16.5,
+     -16.1,
+     -16.6,
+     -16.6,
+     -16.6,
+     -16.1,
+     -16.5,
+     -16.6,
+     -16.6,
+     -16.1,
+     -16.6,
+     -16.6,
+     -16.6,
+     -16,
+     -39.1
+    ]
+   }
+  }
+ ],
+ "hit": {
+  "file": "slices/vote/songs/more_songs/the_ice_cream_truck_still_plays_its_song/hit.mp3",
+  "mp3_md5": "44845f4bc5ae1e62974c86218ed5d59f",
+  "bytes": 20524,
+  "audio": {
+   "seconds": 2.5,
+   "peak": 0.6466,
+   "peak_db": -3.79,
+   "rms_db": -23.84,
+   "largest_jump": 0.4736,
+   "above_5k_pct": 12.067,
+   "above_8k_pct": 5.637,
+   "centroid_hz": 1245.8,
+   "phone_rms_db": -30.56,
+   "bar_rms_db": [
+    -22.9
+   ]
+  }
+ },
+ "a_fight": {
+  "file": "slices/vote/songs/more_songs/the_ice_cream_truck_still_plays_its_song/a_fight.mp3",
+  "mp3_md5": "7175869c4058d41d834a5aca1b382250",
+  "bytes": 320618,
+  "audio": {
+   "seconds": 40,
+   "peak": 0.944,
+   "peak_db": -0.5,
+   "rms_db": -20.13,
+   "largest_jump": 0.5914,
+   "above_5k_pct": 7.991,
+   "above_8k_pct": 3.038,
+   "centroid_hz": 975.2,
+   "phone_rms_db": -27.05,
+   "bar_rms_db": [
+    -30.4,
+    -30.8,
+    -30.4,
+    -29.5,
+    -26,
+    -25.9,
+    -26.2,
+    -22.1,
+    -15.6,
+    -16.6,
+    -16.5,
+    -16.3,
+    -25.3,
+    -25.4,
+    -25.4,
+    -21.8,
+    -15.5,
+    -16.6,
+    -18.6
+   ]
+  }
+ },
+ "gain_to_his_loudness_db": -9.44,
+ "kit_scale_db": 1.18,
+ "tune_on_a_phone_vs_the_mix_db": -0.64,
+ "beat_on_a_phone_vs_the_mix_db": -6.14,
+ "beat_climbs_level_1_to_3_db": 12.14,
+ "chords_b": [
+  5,
+  1,
+  3,
+  4
+ ],
+ "balance": {
+  "target_bass_under_tune_k_db": -3,
+  "target_pad_under_tune_k_db": -9,
+  "bass_scale_db": 15.58,
+  "pad_scale_db": 6.73,
+  "tune_k_db": -24.87,
+  "bass_k_db": -43.45,
+  "pad_k_db": -40.59
+ }
+}

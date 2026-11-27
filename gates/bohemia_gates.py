@@ -8908,6 +8908,17 @@ GATES = [
      "the map plays 1 from its recording, twelve seconds never silent, a road fight on AUTO where every turn changes the level on a beat within 1.2 s (their turn 2, his turn 3; EYES line 87 heard 1 and 2), "
      "a song from the fight's first frame (never silent from the fight's frame in the page to 3 s after the board), the song never jumps nor goes silent, every decoded level's beat (folded on the eighth) within 15 ms of the transport's, back to 1 after. "
      "The gap (his turn 6 dB over theirs) and the hit are counted since the re-renders landed (SOUNDS TWO 11/7, rule 427(a): level 3 7.8 to 9.2 dB over level 2 in all thirteen; 86/0). green at registration: computer 9/0, phone 10/0, about 8 minutes", True),
+    ('MORE SONGS, THE SAME WAY', ['python3', 'gates/more_songs_the_same_way_gate.py'],
+     "SOUNDS THREE gate, 11/27, rule 488 (Paolo 11/27: 'we need more music please, the good way you did, the exact same way that you made it last time... I keep hearing the same songs'): "
+     "the batch in slices/vote/songs/more_songs/ made through the four of 10/25's own render and record (tools/bohemia_sounds_more_songs.js has no render of its own; the 32-bar form, the worn tape, the measured gap, the hit); "
+     "each song's files the ones measured, none clipped, the whole pass; the tune no more than 6 dB under the mix on a phone; a 120 BPM pulse at every level; level 2 3 dB over 1 and level 3 6 dB over 2 through a phone, the beat alone climbing 6 dB; "
+     "no two of the sixteen (this batch and the four) share more than one of lead, bass, drums, pad, key; a pitch fingerprint tells each from the other fifteen and his eight night songs (cosine under 0.95); "
+     "in the alpha's and the demo's book; its VOTE card's page names it and its list. about 90 s", True),
+    ('EVERY SONG IN TURN', ['node', 'gates/every_song_in_turn_gate.js'],
+     "SOUNDS THREE gate, 11/27, rule 488(b)(c) (Paolo 11/27: 'I keep hearing the same songs. I thought we had lots of songs'; MEASURED BEFORE: 13 songs, 11.5 different an hour, the first repeat a median 12 minutes in, a song back after 4.8 minutes): "
+     "engine/bohemia_every_song_in_turn.js byte for byte in the alpha and the demo and the hook at the head of the street's and the opening's picks; in both pages six hours of the street from a clean browser, every pick started as the game starts it: "
+     "never twice in a row, every song once before any twice, AN HOUR NEVER REPEATS (25 songs or more); THE PLANT (the old draw) breaks the turn; a song with verdict 0 never plays while another is left; a one-song pool plays; "
+     "a choice that never sounded is not a play; a reload keeps when each song was last heard and the opening opens on the one heard longest ago. about 40 s", True),
     ('THE FIGHT AS HE HEARS IT', ['node', 'gates/the_fight_as_he_hears_it_gate.js', '--fast'],
      "SOUNDS TWO gate, 11/7, rule 427(a) (asks 47, 88, 127, 212: music in every fight from the first frame to the end screen; the songs at three levels; his turn at least 6 dB harder, the full drums and the lead only on his; every action on the beat by hand and on AUTO; one pace for every turn). "
      "OFF THE AUDIO: four AudioWorklet ears on the demo's own graph (the music after his slider and the lift, the same through a phone, the effects bus, the end of the chain) in the real road fight: "

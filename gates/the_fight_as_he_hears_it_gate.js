@@ -96,7 +96,10 @@ function legs(tag, R) {
 /* ---- the files: every song's gap, measured fresh off the mp3 ---------------------------------------------------------- */
 function files() {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'heard_files_')), rows = [], bad = [], kit = [];
-  for (const idx of ['three_levels', 'new_four']) {
+  /* SOUNDS THREE 11/27 (rule 488): the twelve made the same way play every fight now too: held to the same lines */
+  const IDXS = ['three_levels', 'new_four'].concat(fs.existsSync(path.join(ROOT, 'slices', 'vote', 'songs', 'more_songs', 'index.json')) ? ['more_songs'] : []);
+  const WANT = IDXS.reduce((n, i) => n + JSON.parse(fs.readFileSync(path.join(ROOT, 'slices', 'vote', 'songs', i, 'index.json'), 'utf8')).songs.length, 0);
+  for (const idx of IDXS) {
     const I = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices', 'vote', 'songs', idx, 'index.json'), 'utf8'));
     for (const S of I.songs) {
       const dir = path.join(ROOT, 'slices', S.dir), lv = [1, 2, 3].map(l => path.join(dir, 'level_' + l + '.mp3'));
@@ -110,7 +113,7 @@ function files() {
          His nine: the backbeat is the clap and the knock on 2 and 4, the lead is the hook in his song's own lead voice (s:<lead>).
          The four new: the backbeat is the snare, the lead is the tune doubled an octave (level 3's lead notes over level 1's). */
       const M = JSON.parse(fs.readFileSync(path.join(dir, 'measured.json'), 'utf8')), P = l => { const x = (M.levels.find(y => y.level === l) || {}); return x.parts_added || x.parts || {}; };
-      const isNew = idx === 'new_four', lead = (M.his_voices || {}).lead;
+      const isNew = idx !== 'three_levels', lead = (M.his_voices || {}).lead;
       const back = c => isNew ? (c.snare || 0) : (c['d:clap'] || 0) + (c['d:knock'] || 0) + (c['d:snare'] || 0);
       const hook = (c, c1) => isNew ? Math.max(0, (c.lead || 0) - (c1.lead || 0)) : (c['s:' + lead] || 0);
       const p1 = P(1), p2 = P(2), p3 = P(3);
@@ -119,8 +122,8 @@ function files() {
     }
   }
   fs.rmSync(tmp, { recursive: true, force: true });
-  leg(rows.length === 13 && bad.length === 0, '*** THE FILES: HIS TURN AT LEAST ' + GAP_DB + ' dB OVER THEIRS IN ALL THIRTEEN SONGS, THROUGH A PHONE *** (127)', rows.join(', ') + (bad.length ? ' | SHORT: ' + bad.join('; ') : ''));
-  leg(rows.length === 13 && kit.length === 0, '*** THE FILES: THE FULL KIT AND THE LEAD IN LEVEL 3 ONLY *** (127, as the coordinator corrected 207(b): the tune in all three)', kit.length ? kit.slice(0, 3).join(' | ') : 'the backbeat and the hook scheduled in 3, neither in 2, in all ' + rows.length);
+  leg(rows.length === WANT && bad.length === 0, '*** THE FILES: HIS TURN AT LEAST ' + GAP_DB + ' dB OVER THEIRS IN ALL ' + WANT + ' SONGS, THROUGH A PHONE *** (127)', rows.join(', ') + (bad.length ? ' | SHORT: ' + bad.join('; ') : ''));
+  leg(rows.length === WANT && kit.length === 0, '*** THE FILES: THE FULL KIT AND THE LEAD IN LEVEL 3 ONLY *** (127, as the coordinator corrected 207(b): the tune in all three)', kit.length ? kit.slice(0, 3).join(' | ') : 'the backbeat and the hook scheduled in 3, neither in 2, in all ' + rows.length);
 }
 
 (async () => {

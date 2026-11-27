@@ -1,0 +1,330 @@
+{
+ "name": "LAKE MEAD GIVES BACK WHAT IT TOOK",
+ "made": "11/27",
+ "remade": null,
+ "tool": "tools/bohemia_sounds_more_songs.js",
+ "page_errors": 0,
+ "bars": 32,
+ "steps": 512,
+ "bpm": 120,
+ "key": "A hirajoshi (five notes)",
+ "root": 12,
+ "mode": [
+  0,
+  2,
+  3,
+  7,
+  8
+ ],
+ "story": "the reservoir going down year after year, a town's roofs coming up out of the water, and the barrels on the new shore",
+ "lead": "shakuhachi",
+ "lead_name": "a bamboo flute you can hear the breath in",
+ "bass": "boneyardbass",
+ "pad": "stillwater",
+ "drums": [
+  "3-164593-A-15",
+  "3-94355-A-33",
+  "3-164594-A-15"
+ ],
+ "kit_name": "a drop of water for the kick, a boat's wood creaking for the snare, another drop for the hat",
+ "swing": 0,
+ "play_gain_db": 0,
+ "mp3_kbps": 64,
+ "gap": {
+  "target_over_level_1_db": {
+   "2": 3.6,
+   "3": 11.4
+  },
+  "phone_db": [
+   -36.5,
+   -32.9,
+   -24.77
+  ],
+  "full_range_lufs": [
+   -34.07,
+   -29.18,
+   -21.38
+  ]
+ },
+ "level_1_rerender_vs_the_approved_file_db": null,
+ "run": {
+  "from_bar": 5,
+  "bars_each": 4,
+  "parts": [
+   "THE MAP (level 1)",
+   "THEIR TURN (level 2)",
+   "YOUR TURN (level 3)",
+   "THEIR TURN (level 2)",
+   "YOUR TURN (level 3)"
+  ]
+ },
+ "levels": [
+  {
+   "level": 1,
+   "file": "slices/vote/songs/more_songs/lake_mead_gives_back_what_it_took/level_1.mp3",
+   "mp3_md5": "4c3a6a39a6cb1cd870322065a482d3a0",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": null,
+   "parts": {
+    "kick": 64,
+    "hat": 128,
+    "bass": 32,
+    "pad": 96,
+    "lead": 80
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.1832,
+    "peak_db": -14.74,
+    "rms_db": -33.29,
+    "largest_jump": 0.0609,
+    "above_5k_pct": 0.71,
+    "above_8k_pct": 0.163,
+    "centroid_hz": 619.2,
+    "phone_rms_db": -36.5,
+    "bar_rms_db": [
+     -36,
+     -35.6,
+     -35.7,
+     -35.9,
+     -32.6,
+     -32.8,
+     -32.6,
+     -32.8,
+     -32.2,
+     -32.8,
+     -32.6,
+     -32.8,
+     -32.7,
+     -32.4,
+     -32.9,
+     -32.3,
+     -32.6,
+     -32.4,
+     -32.9,
+     -32.3,
+     -32.3,
+     -32.8,
+     -32.5,
+     -32.7,
+     -32.2,
+     -32.8,
+     -32.5,
+     -32.7,
+     -32.7,
+     -34.8,
+     -35.7,
+     -35.9,
+     -50.7
+    ]
+   }
+  },
+  {
+   "level": 2,
+   "file": "slices/vote/songs/more_songs/lake_mead_gives_back_what_it_took/level_2.mp3",
+   "mp3_md5": "a9092145347f78993d991138af918ef8",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": {
+    "limiter_worst_db": 0,
+    "limiter_mean_db": 0
+   },
+   "parts": {
+    "kick": 96,
+    "hat": 384,
+    "bass": 96,
+    "pad": 96,
+    "held": 96,
+    "lead": 80
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.3453,
+    "peak_db": -9.23,
+    "rms_db": -28.62,
+    "largest_jump": 0.1477,
+    "above_5k_pct": 2.449,
+    "above_8k_pct": 0.555,
+    "centroid_hz": 729.2,
+    "phone_rms_db": -32.9,
+    "bar_rms_db": [
+     -29.5,
+     -29.2,
+     -29.4,
+     -29.5,
+     -28.3,
+     -28.2,
+     -28.2,
+     -28.3,
+     -28.1,
+     -28.2,
+     -28.1,
+     -28.3,
+     -28.3,
+     -28.1,
+     -28.3,
+     -28.2,
+     -28.2,
+     -28.1,
+     -28.3,
+     -28.2,
+     -28.1,
+     -28.2,
+     -28.2,
+     -28.2,
+     -28.1,
+     -28.2,
+     -28.2,
+     -28.2,
+     -28.3,
+     -29,
+     -29.4,
+     -29.5,
+     -45.8
+    ]
+   }
+  },
+  {
+   "level": 3,
+   "file": "slices/vote/songs/more_songs/lake_mead_gives_back_what_it_took/level_3.mp3",
+   "mp3_md5": "7908edb1de2c839137c8604057ad39bc",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": {
+    "limiter_worst_db": 0,
+    "limiter_mean_db": 0
+   },
+   "parts": {
+    "kick": 96,
+    "hat": 288,
+    "bass": 192,
+    "pad": 96,
+    "lead": 156,
+    "snare": 84
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.6696,
+    "peak_db": -3.48,
+    "rms_db": -21.75,
+    "largest_jump": 0.4341,
+    "above_5k_pct": 3.414,
+    "above_8k_pct": 0.455,
+    "centroid_hz": 1240.6,
+    "phone_rms_db": -24.77,
+    "bar_rms_db": [
+     -23.6,
+     -23.4,
+     -23.6,
+     -23.6,
+     -21.5,
+     -21.5,
+     -21.5,
+     -20.7,
+     -21.4,
+     -21.5,
+     -21.5,
+     -20.7,
+     -21.5,
+     -21.3,
+     -21.5,
+     -20.7,
+     -21.5,
+     -21.3,
+     -21.5,
+     -20.7,
+     -21.3,
+     -21.5,
+     -21.5,
+     -20.7,
+     -21.4,
+     -21.5,
+     -21.5,
+     -20.7,
+     -21.6,
+     -22.1,
+     -22.3,
+     -21.3,
+     -45.1
+    ]
+   }
+  }
+ ],
+ "hit": {
+  "file": "slices/vote/songs/more_songs/lake_mead_gives_back_what_it_took/hit.mp3",
+  "mp3_md5": "38c53ec0739e8efe0c3bc76eafdf053b",
+  "bytes": 20524,
+  "audio": {
+   "seconds": 2.5,
+   "peak": 0.6471,
+   "peak_db": -3.78,
+   "rms_db": -28.62,
+   "largest_jump": 0.3665,
+   "above_5k_pct": 4.629,
+   "above_8k_pct": 0.443,
+   "centroid_hz": 1656.5,
+   "phone_rms_db": -31.1,
+   "bar_rms_db": [
+    -27.7
+   ]
+  }
+ },
+ "a_fight": {
+  "file": "slices/vote/songs/more_songs/lake_mead_gives_back_what_it_took/a_fight.mp3",
+  "mp3_md5": "686bc8b8f2070baabcdd7e7a828b26d0",
+  "bytes": 320618,
+  "audio": {
+   "seconds": 40,
+   "peak": 0.944,
+   "peak_db": -0.5,
+   "rms_db": -24.69,
+   "largest_jump": 0.4297,
+   "above_5k_pct": 3.044,
+   "above_8k_pct": 0.438,
+   "centroid_hz": 1130.7,
+   "phone_rms_db": -27.76,
+   "bar_rms_db": [
+    -32.6,
+    -32.9,
+    -32.5,
+    -31.2,
+    -28.1,
+    -28.2,
+    -28.1,
+    -25.1,
+    -21.1,
+    -21.3,
+    -21.5,
+    -20.8,
+    -28.2,
+    -28.1,
+    -28.3,
+    -24.9,
+    -20.9,
+    -21.5,
+    -24.1
+   ]
+  }
+ },
+ "gain_to_his_loudness_db": -8.6,
+ "kit_scale_db": -6.34,
+ "tune_on_a_phone_vs_the_mix_db": -0.74,
+ "beat_on_a_phone_vs_the_mix_db": -7.98,
+ "beat_climbs_level_1_to_3_db": 12.9,
+ "chords_b": [
+  2,
+  1,
+  4,
+  3
+ ],
+ "balance": {
+  "target_bass_under_tune_k_db": -3,
+  "target_pad_under_tune_k_db": -9,
+  "bass_scale_db": 3.43,
+  "pad_scale_db": -8.34,
+  "tune_k_db": -28.25,
+  "bass_k_db": -34.68,
+  "pad_k_db": -28.91
+ }
+}

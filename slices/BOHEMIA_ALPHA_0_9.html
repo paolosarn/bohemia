@@ -1588,7 +1588,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/27h - THE GUNS GROW UP, AND THE DRONE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/27i - TWELVE MORE SONGS, EVERY ONE IN TURN</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -18800,7 +18800,7 @@ const CITYMUS={on:false,watch:null,
      filter would empty the list and the streets would go silent, which is the
      opposite of the failsafe candidates() exists to provide. Chooses nothing
      for him: same pool, same verdict weighting. */
-  pick(){ let cs=this.candidates(); if(!cs.length)return null;
+  pick(){ let cs=this.candidates(); if(!cs.length)return null; if(window.SONGTURN&&SONGTURN.choose)return SONGTURN.choose(cs);   /* __EVERY_SONG_IN_TURN__ (SOUNDS THREE 11/27, rule 488(c)): least played first, never twice in a row */
     if(cs.length>1){ const fresh=cs.filter(c=>!(c.fi===MUS.cur&&c.slot===MUS.curSlot));
       if(fresh.length)cs=fresh; }
     const w=cs.map(c=>{ const f=(c.fi<MFACTIONS.length)?MFACTIONS[c.fi]:MLOOPS[c.fi-MFACTIONS.length];
@@ -18990,7 +18990,7 @@ const MENUMUS={on:false,watch:null,
       if(MUS.V[n+'#1']===0)continue;
       out.push({fi:MFACTIONS.length+mi,slot:1}); }
     return out; },
-  pick(){ const cs=this.candidates(); if(!cs.length)return null;
+  pick(){ const cs=this.candidates(); if(!cs.length)return null; if(window.SONGTURN&&SONGTURN.choose)return SONGTURN.choose(cs);   /* __EVERY_SONG_IN_TURN__ (SOUNDS THREE 11/27, rule 488(c)): least played first, never twice in a row */
     const w=cs.map(c=>{ const f=MLOOPS[c.fi-MFACTIONS.length];
       return MUS.V[f.n+'#1']===2?8:4; });     /* canon 8x, unjudged 4x */
     let t=w.reduce((a,b)=>a+b,0), r=Math.random()*t;
@@ -23586,7 +23586,7 @@ drawLogoBig();requestAnimationFrame(loop);
  'use strict';
  if(window.SONGBOOK) return;
  if(typeof MUS==='undefined' || typeof KILLMUS==='undefined') return;
- var BOOK=/*BOOK*/{"made":"10/26","rule":[207,221],"probe":"vote/songs/probe.mp3?v=17c599b6","songs":{"THE VAULT":{"dir":"vote/songs/three_levels/the_vault/","steps":512,"gain_db":0.0,"hit":true,"v":"ee17e16c"},"GHOST IN THE GRID":{"dir":"vote/songs/three_levels/ghost_in_the_grid/","steps":512,"gain_db":0.0,"hit":true,"v":"dfb6deca"},"SLOW BLEED":{"dir":"vote/songs/three_levels/slow_bleed/","steps":512,"gain_db":6.02,"hit":true,"v":"d2f7ae5a"},"SATELLITE PRAYER":{"dir":"vote/songs/three_levels/satellite_prayer/","steps":512,"gain_db":0.0,"hit":true,"v":"e0cb8025"},"SLOW CREEP":{"dir":"vote/songs/three_levels/slow_creep/","steps":512,"gain_db":6.02,"hit":true,"v":"3ddb84f3"},"THE PIT BOSS IS GONE":{"dir":"vote/songs/three_levels/the_pit_boss_is_gone/","steps":512,"gain_db":0.0,"hit":true,"v":"71f360d8"},"THE ORGAN IN THE DROWNED CHAPEL":{"dir":"vote/songs/three_levels/the_organ_in_the_drowned_chapel/","steps":512,"gain_db":0.0,"hit":true,"v":"67757028"},"CAMPFIRE CONFESSION":{"dir":"vote/songs/three_levels/campfire_confession/","steps":512,"gain_db":0.0,"hit":true,"v":"aa065698"},"REPO MAN":{"dir":"vote/songs/three_levels/repo_man/","steps":512,"gain_db":0.0,"hit":true,"v":"5fa24203"},"THE CHURCH CLOCK STRIKES TWELVE":{"dir":"vote/songs/new_four/the_church_clock_strikes_twelve/","steps":512,"gain_db":0.0,"hit":true,"v":"8b55974a","row":{"root":36,"scale":[0,2,3,5,7,8,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE SODA MACHINE STILL TAKES COINS":{"dir":"vote/songs/new_four/the_soda_machine_still_takes_coins/","steps":512,"gain_db":0.0,"hit":true,"v":"0b6fdb32","row":{"root":38,"scale":[0,1,3,5,7,8,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE HELICOPTER THAT NEVER LANDS":{"dir":"vote/songs/new_four/the_helicopter_that_never_lands/","steps":512,"gain_db":0.0,"hit":true,"v":"07355c25","row":{"root":43,"scale":[0,2,3,5,7,9,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE PAWN COUNTER AT FOUR IN THE MORNING":{"dir":"vote/songs/new_four/the_pawn_counter_at_four_in_the_morning/","steps":512,"gain_db":0.0,"hit":true,"v":"65806639","row":{"root":34,"scale":[0,2,3,5,7,8,11],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}}}}/*/BOOK*/;
+ var BOOK=/*BOOK*/{"made":"10/26","more":"11/27","rule":[207,221,488],"probe":"vote/songs/probe.mp3?v=17c599b6","songs":{"THE VAULT":{"dir":"vote/songs/three_levels/the_vault/","steps":512,"gain_db":0.0,"hit":true,"v":"ee17e16c"},"GHOST IN THE GRID":{"dir":"vote/songs/three_levels/ghost_in_the_grid/","steps":512,"gain_db":0.0,"hit":true,"v":"dfb6deca"},"SLOW BLEED":{"dir":"vote/songs/three_levels/slow_bleed/","steps":512,"gain_db":6.02,"hit":true,"v":"d2f7ae5a"},"SATELLITE PRAYER":{"dir":"vote/songs/three_levels/satellite_prayer/","steps":512,"gain_db":0.0,"hit":true,"v":"e0cb8025"},"SLOW CREEP":{"dir":"vote/songs/three_levels/slow_creep/","steps":512,"gain_db":6.02,"hit":true,"v":"3ddb84f3"},"THE PIT BOSS IS GONE":{"dir":"vote/songs/three_levels/the_pit_boss_is_gone/","steps":512,"gain_db":0.0,"hit":true,"v":"71f360d8"},"THE ORGAN IN THE DROWNED CHAPEL":{"dir":"vote/songs/three_levels/the_organ_in_the_drowned_chapel/","steps":512,"gain_db":0.0,"hit":true,"v":"67757028"},"CAMPFIRE CONFESSION":{"dir":"vote/songs/three_levels/campfire_confession/","steps":512,"gain_db":0.0,"hit":true,"v":"aa065698"},"REPO MAN":{"dir":"vote/songs/three_levels/repo_man/","steps":512,"gain_db":0.0,"hit":true,"v":"5fa24203"},"THE CHURCH CLOCK STRIKES TWELVE":{"dir":"vote/songs/new_four/the_church_clock_strikes_twelve/","steps":512,"gain_db":0.0,"hit":true,"v":"8b55974a","row":{"root":36,"scale":[0,2,3,5,7,8,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE SODA MACHINE STILL TAKES COINS":{"dir":"vote/songs/new_four/the_soda_machine_still_takes_coins/","steps":512,"gain_db":0.0,"hit":true,"v":"0b6fdb32","row":{"root":38,"scale":[0,1,3,5,7,8,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE HELICOPTER THAT NEVER LANDS":{"dir":"vote/songs/new_four/the_helicopter_that_never_lands/","steps":512,"gain_db":0.0,"hit":true,"v":"07355c25","row":{"root":43,"scale":[0,2,3,5,7,9,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE PAWN COUNTER AT FOUR IN THE MORNING":{"dir":"vote/songs/new_four/the_pawn_counter_at_four_in_the_morning/","steps":512,"gain_db":0.0,"hit":true,"v":"65806639","row":{"root":34,"scale":[0,2,3,5,7,8,11],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE ICE CREAM TRUCK STILL PLAYS ITS SONG":{"dir":"vote/songs/more_songs/the_ice_cream_truck_still_plays_its_song/","steps":512,"gain_db":0.0,"hit":true,"v":"4f2481f3","row":{"root":41,"scale":[0,2,4,6,7,9,11],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE WEDDING CHAPEL TAKES ONE MORE BOOKING":{"dir":"vote/songs/more_songs/the_wedding_chapel_takes_one_more_booking/","steps":512,"gain_db":0.0,"hit":true,"v":"fa99ee72","row":{"root":41,"scale":[0,2,3,5,7,8,11],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE LOUNGE SINGER STILL TAKES REQUESTS":{"dir":"vote/songs/more_songs/the_lounge_singer_still_takes_requests/","steps":512,"gain_db":0.0,"hit":true,"v":"acfd368c","row":{"root":44,"scale":[0,2,3,5,7,9,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"ONE SIGN IN THE BONEYARD STILL BUZZES":{"dir":"vote/songs/more_songs/one_sign_in_the_boneyard_still_buzzes/","steps":512,"gain_db":0.0,"hit":true,"v":"4fc01cac","row":{"root":38,"scale":[0,3,5,7,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"LAKE MEAD GIVES BACK WHAT IT TOOK":{"dir":"vote/songs/more_songs/lake_mead_gives_back_what_it_took/","steps":512,"gain_db":0.0,"hit":true,"v":"559ba4ef","row":{"root":43,"scale":[0,2,3,7,8],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE MONORAIL RUNS WITH NOBODY ON IT":{"dir":"vote/songs/more_songs/the_monorail_runs_with_nobody_on_it/","steps":512,"gain_db":0.0,"hit":true,"v":"c10e5fc0","row":{"root":40,"scale":[0,1,4,5,7,8,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE DRIVE-IN SHOWS THE SAME REEL":{"dir":"vote/songs/more_songs/the_drive_in_shows_the_same_reel/","steps":512,"gain_db":0.0,"hit":true,"v":"bbe5ddf1","row":{"root":42,"scale":[0,2,4,5,7,9,11],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE MOTEL SIGN SAYS VACANCY":{"dir":"vote/songs/more_songs/the_motel_sign_says_vacancy/","steps":512,"gain_db":0.0,"hit":true,"v":"bccda997","row":{"root":36,"scale":[0,2,3,5,7,9,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE WATER TOWER READS OUT NUMBERS":{"dir":"vote/songs/more_songs/the_water_tower_reads_out_numbers/","steps":512,"gain_db":0.0,"hit":true,"v":"77f5951a","row":{"root":45,"scale":[0,1,5,7,8],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE BUFFET STILL LAYS OUT THE TRAYS":{"dir":"vote/songs/more_songs/the_buffet_still_lays_out_the_trays/","steps":512,"gain_db":0.0,"hit":true,"v":"a4e4ded6","row":{"root":35,"scale":[0,2,3,5,7,8,11],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE IMPERSONATOR DOES TWO SHOWS A NIGHT":{"dir":"vote/songs/more_songs/the_impersonator_does_two_shows_a_night/","steps":512,"gain_db":0.0,"hit":true,"v":"64358c0f","row":{"root":37,"scale":[0,2,4,5,7,9,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}},"THE HOSPITAL KEEPS ONE LIGHT ON":{"dir":"vote/songs/more_songs/the_hospital_keeps_one_light_on/","steps":512,"gain_db":0.0,"hit":true,"v":"f0896302","row":{"root":34,"scale":[0,2,3,5,7,8,10],"wave":"sine","kick":[],"bass":[],"hat":[],"inst":{"b":"osc","l":"pad"},"mel":"longs","swing":0,"klay":"drive","rendered":true}}}}/*/BOOK*/;
  var SD=0.125, OFF=0.05, TOL=0.004;
  var R=window.SONGBOOK={ book:BOOK, sets:{}, src:null, ring:[], buses:{}, delay:null, queued:null, warm:[], switches:[], hits:0,
    fallback:0, steps:0, resync:0, errs:[], decoded:0, dropped:0, rate:null };
@@ -24121,6 +24121,130 @@ drawLogoBig();requestAnimationFrame(loop);
 try { if (window.BOH_PART_OF_TOWN && window.SONGFENCE && window.CITYMUS) BOH_PART_OF_TOWN.install(window); } catch (e) { window.__PART_OF_TOWN_ERR = String(e && e.message || e); }
 </script>
 <!-- /__THE_PART_OF_TOWN__ -->
+<!-- __EVERY_SONG_IN_TURN__ (SOUNDS THREE 11/27, rule 488) -->
+<script>
+/* ==== inlined verbatim from engine/bohemia_every_song_in_turn.js (the gate holds it byte for byte) ==== */
+/* BOHEMIA -- EVERY SONG IN TURN (SOUNDS THREE, 11/27/26, rule 488(c)).
+
+   PAOLO 11/27: 'I keep hearing the same songs. I thought we had lots of songs.' Rule 488(c): the rotation plays them all,
+   no song twice in a row, the least-played next.
+
+   MEASURED BEFORE (the alpha's own CITYMUS.pick called in the page, 400 hours of 25 picks, a song every 144 s: its 128 s
+   pass and the street's 16 s rest): of 13 songs an hour played 11.5 different ones and 13.5 repeats; the first repeat
+   came a median 12 minutes in (7.2 at the tenth percentile); a song could come back after 4.8 minutes. The pick drew at
+   random every time (canon 8x, unjudged 4x) and remembered only the song playing now.
+
+   NOW, in the shell (the alpha and the demo), over the music already there; it adds no song and no note:
+   - SONGTURN.choose(candidates) is the one choice: never the song playing now (unless it is the only one), a song he took
+     out in the MUSIC tab (its verdict 0) only when nothing else is left, then THE LEAST PLAYED THIS SESSION, and among
+     those the one he heard longest ago (across sessions, kept in this browser), a tie drawn at random. So every song in a
+     pool plays once before any plays twice, and a new session starts with what the last one did not reach.
+   - It is asked by the street's pick (CITYMUS.pick, whose first line calls it: the street, the song after a battle, the
+     part of town, the song queued a phrase early so its recording is in), the opening's (MENUMUS.pick), the fence's
+     (SONGFENCE.pick: a song outside his set swapped for one inside it), and the faction song's hand-off to a fight
+     (PARTOFTOWN.fightSong, its own pool: songs with a live engine, the ones held ready first).
+   - A song's turns this session are the more of its plays and its choices, so picks made while the music is off still
+     go round the pool.
+   - PLAYED is what the transport actually started: MUS.cur read every 250 ms while the music plays, counted once each
+     time it changes. A choice that never sounded is not a play.
+   - Kept in localStorage ('bohemia.songs.in.turn.v1', every read and write in a try: a private window plays the same
+     turns, it only forgets them at the end of the session).
+
+   window.SONGTURN: { choose, session, last, order (the songs started, in order), state() } for the gate.
+   The patch: tools/bohemia_sounds_every_song_in_turn_patch.py (inlines this file byte for byte, and the hook line in the
+   two picks). The gate: gates/every_song_in_turn_gate.js. */
+(function (root) {
+  'use strict';
+  var KEY = 'bohemia.songs.in.turn.v1';
+  var TICK = 250;
+
+  function install(W) {
+    if (W.SONGTURN) return W.SONGTURN;
+    var T = W.SONGTURN = { session: {}, chosen: {}, last: {}, seq: 0, order: [], choices: 0, started: 0, errs: [] };
+    /* the page's own globals: MUS and MLOOPS are top-level consts, not window's properties */
+    var GET = {};
+    function G(n) {
+      if (W[n] !== undefined) return W[n];
+      try { if (!GET[n]) GET[n] = W.Function('return typeof ' + n + " !== 'undefined' ? " + n + ' : undefined;'); return GET[n](); } catch (e) { return undefined; }
+    }
+    function nameOf(fi) { try { var f = G('MUS').lib()[fi]; return f ? f.n : null; } catch (e) { return null; } }
+    function keyOf(c) { var n = c ? nameOf(c.fi) : null; return n ? n + ((c.slot || 1) === 2 ? ' (SONG 2)' : '') : null; }
+    T.keyOf = keyOf;
+    try { var j = JSON.parse(W.localStorage.getItem(KEY) || 'null'); if (j && j.last && typeof j.last === 'object') { T.last = j.last; T.seq = j.seq | 0; } } catch (e) {}
+    function save() { try { W.localStorage.setItem(KEY, JSON.stringify({ seq: T.seq, last: T.last })); } catch (e) {} }
+
+    T.choose = function (cs) {
+      if (!cs || !cs.length) return null;
+      if (cs.length === 1) return cs[0];
+      var M = G('MUS'), cur = M ? M.cur : null, curSlot = M ? (M.curSlot || 1) : 1;
+      var pool = cs.filter(function (c) { return !(c.fi === cur && (c.slot || 1) === curSlot); });
+      if (!pool.length) pool = cs.slice();
+      var V = M && M.V;
+      var kept = pool.filter(function (c) { var n = nameOf(c.fi); return !(V && n && V[n + '#' + (c.slot || 1)] === 0); });
+      if (kept.length) pool = kept;
+      /* the order: its turns this session (played, or chosen: picks made while the music is off still take a turn), then
+         heard longest ago */
+      var bs = Infinity, bl = Infinity, ties = [];
+      pool.forEach(function (c) {
+        var k = keyOf(c), s = Math.max(T.session[k] || 0, T.chosen[k] || 0), l = T.last[k] == null ? -1 : T.last[k];
+        if (s < bs || (s === bs && l < bl)) { bs = s; bl = l; ties = [c]; }
+        else if (s === bs && l === bl) ties.push(c);
+      });
+      T.choices++;
+      var got = ties[(Math.random() * ties.length) | 0], gk = keyOf(got); if (gk) T.chosen[gk] = (T.chosen[gk] || 0) + 1;
+      return got;
+    };
+
+    /* PLAYED: what the transport started */
+    var seen = null;
+    T.tick = function () {
+      try {
+        var M = G('MUS'); if (!M || !M.playing) return;
+        var c = { fi: M.cur, slot: M.curSlot || 1 }, k = keyOf(c); if (!k) return;
+        var id = c.fi + ':' + c.slot; if (id === seen) return; seen = id;
+        T.started++; T.session[k] = (T.session[k] || 0) + 1; T.last[k] = ++T.seq;
+        T.order.push(k); if (T.order.length > 240) T.order.shift();
+        save();
+      } catch (e) { T.errs.push('tick: ' + e.message); if (T.errs.length > 20) T.errs.shift(); }
+    };
+    T.timer = setInterval(T.tick, TICK);
+
+    /* THE FENCE'S PICK (a song outside his set swapped for one inside it): the same choice over his set */
+    var F = G('SONGFENCE');
+    if (F && F.pool) {
+      T.fencePick0 = F.pick;
+      F.pick = function () { var cs = F.pool(); return cs.length ? T.choose(cs) : null; };
+    }
+    /* THE FACTION SONG'S HAND-OFF TO A FIGHT (rule 237(d)): its own pool, as engine/bohemia_part_of_town.js builds it (songs
+       his engine plays live at once, the ones whose recording is already held first), then the same choice */
+    var P = W.PARTOFTOWN;
+    if (P && P.fightSong && P.fence) {
+      T.fightSong0 = P.fightSong;
+      P.fightSong = function () {
+        try {
+          var B = W.SONGBOOK, cs = P.fence.pool(), held = [], live = [];
+          cs.forEach(function (c) { var n = nameOf(c.fi), b = B && B.book && B.book.songs[n];
+            if (b && b.row) return; live.push(c);
+            var st = B && B.sets && B.sets[n]; if (st && st.buf && (st.buf.level_1 || st.buf.level_2)) held.push(c); });
+          var pool = held.length ? held : live;
+          return pool.length ? T.choose(pool) : T.fightSong0.call(P);
+        } catch (e) { T.errs.push('fight: ' + e.message); return T.fightSong0.call(P); }
+      };
+    }
+
+    T.state = function () {
+      return { started: T.started, choices: T.choices, session: T.session, order: T.order.slice(-40), errs: T.errs.slice(-5),
+        hooked: { fence: !!T.fencePick0, fight: !!T.fightSong0 } };
+    };
+    return T;
+  }
+
+  root.BOH_EVERY_SONG_IN_TURN = { KEY: KEY, install: install };
+})(typeof window !== 'undefined' ? window : globalThis);
+/* ---- __EVERY_SONG_IN_TURN__: installed over the music already here (tools/bohemia_sounds_every_song_in_turn_patch.py) ---- */
+try { if (window.BOH_EVERY_SONG_IN_TURN) BOH_EVERY_SONG_IN_TURN.install(window); } catch (e) { window.__EVERY_SONG_IN_TURN_ERR = String(e && e.message || e); }
+</script>
+<!-- /__EVERY_SONG_IN_TURN__ -->
 <!-- BOHEMIA RUN BEAT BRIDGE (7/29/26) -->
 <script>
 /* === RUN BEAT BRIDGE (7/29/26, SOUNDS lane) ==============================

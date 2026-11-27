@@ -54,9 +54,21 @@ def die(msg):
     sys.exit(1)
 
 
+# MORE SONGS (SOUNDS THREE 11/27, rule 488): the batch made the same way as the four goes in the same way; the book is the
+# thirteen plus every song in slices/vote/songs/more_songs/index.json
+IDXS = ('three_levels', 'new_four', 'more_songs')
+
+
+def more_count():
+    f = os.path.join(SL, 'vote', 'songs', 'more_songs', 'index.json')
+    return len(json.load(open(f))['songs']) if os.path.exists(f) else 0
+
+
 def book():
     songs = {}
-    for idx in ('three_levels', 'new_four'):
+    for idx in IDXS:
+        if not os.path.exists(os.path.join(SL, 'vote', 'songs', idx, 'index.json')):
+            continue
         I = json.load(open(os.path.join(SL, 'vote', 'songs', idx, 'index.json')))
         for s in I['songs']:
             d = os.path.join(SL, s['dir'])
@@ -74,17 +86,18 @@ def book():
                 h.update(open(os.path.join(d, f), 'rb').read())
             e = {'dir': s['dir'], 'steps': int(M.get('steps') or M['bars'] * 16), 'gain_db': float(M.get('play_gain_db', 0)),
                  'hit': hit, 'v': h.hexdigest()[:8]}
-            if idx == 'new_four':
+            if idx != 'three_levels':
                 # a row with no notes: the fence, the street and the stings read its name, its key and its scale
                 e['row'] = {'root': int(M['root']) + 31, 'scale': M['mode'], 'wave': 'sine', 'kick': [], 'bass': [], 'hat': [],
                             'inst': {'b': 'osc', 'l': 'pad'}, 'mel': 'longs', 'swing': 0, 'klay': 'drive', 'rendered': True}
             songs[s['name']] = e
-    if len(songs) != 13 and not PARTIAL:
-        die('the book has %d songs, the ruling names 13' % len(songs))
+    want = 13 + more_count()
+    if len(songs) != want and not PARTIAL:
+        die('the book has %d songs, the rulings name %d (the thirteen and the more songs)' % (len(songs), want))
     probe = os.path.join(SL, 'vote', 'songs', 'probe.mp3')
     if not os.path.exists(probe):
         die('no slices/vote/songs/probe.mp3 (the decoder-delay probe)')
-    return {'made': '10/26', 'rule': [207, 221], 'probe': 'vote/songs/probe.mp3?v=' + hashlib.md5(open(probe, 'rb').read()).hexdigest()[:8],
+    return {'made': '10/26', 'more': '11/27', 'rule': [207, 221, 488], 'probe': 'vote/songs/probe.mp3?v=' + hashlib.md5(open(probe, 'rb').read()).hexdigest()[:8],
             'songs': songs}
 
 

@@ -1,0 +1,332 @@
+{
+ "name": "THE MOTEL SIGN SAYS VACANCY",
+ "made": "11/27",
+ "remade": null,
+ "tool": "tools/bohemia_sounds_more_songs.js",
+ "page_errors": 0,
+ "bars": 32,
+ "steps": 512,
+ "bpm": 120,
+ "key": "D dorian",
+ "root": 5,
+ "mode": [
+  0,
+  2,
+  3,
+  5,
+  7,
+  9,
+  10
+ ],
+ "story": "a motel on Fremont whose VACANCY sign has never once gone off, every room open, every key on its hook",
+ "lead": "lapsteel",
+ "lead_name": "a lap steel guitar, sliding",
+ "bass": "outlawbass",
+ "pad": "dawnwash",
+ "drums": [
+  "4-218304-A-25",
+  "2-141563-A-39",
+  "3-96606-A-49"
+ ],
+ "kit_name": "a boot heel for the kick, a bottle breaking for the snare, a saw stroke for the shaker, a gallop",
+ "swing": 0,
+ "play_gain_db": 0,
+ "mp3_kbps": 64,
+ "gap": {
+  "target_over_level_1_db": {
+   "2": 3.6,
+   "3": 11.4
+  },
+  "phone_db": [
+   -36.5,
+   -32.89,
+   -25.06
+  ],
+  "full_range_lufs": [
+   -34.42,
+   -29.84,
+   -22
+  ]
+ },
+ "level_1_rerender_vs_the_approved_file_db": null,
+ "run": {
+  "from_bar": 5,
+  "bars_each": 4,
+  "parts": [
+   "THE MAP (level 1)",
+   "THEIR TURN (level 2)",
+   "YOUR TURN (level 3)",
+   "THEIR TURN (level 2)",
+   "YOUR TURN (level 3)"
+  ]
+ },
+ "levels": [
+  {
+   "level": 1,
+   "file": "slices/vote/songs/more_songs/the_motel_sign_says_vacancy/level_1.mp3",
+   "mp3_md5": "f1589e5e016cf2cebfdded7f39aae776",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": null,
+   "parts": {
+    "kick": 64,
+    "bass": 32,
+    "pad": 96,
+    "hat": 64,
+    "lead": 67
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.234,
+    "peak_db": -12.62,
+    "rms_db": -32.64,
+    "largest_jump": 0.0371,
+    "above_5k_pct": 0.398,
+    "above_8k_pct": 0.017,
+    "centroid_hz": 558.3,
+    "phone_rms_db": -36.5,
+    "bar_rms_db": [
+     -34.8,
+     -34.8,
+     -34.7,
+     -34.7,
+     -32.6,
+     -32.4,
+     -32.3,
+     -33.1,
+     -31.8,
+     -32.2,
+     -31.7,
+     -33,
+     -31.8,
+     -32,
+     -32,
+     -32.8,
+     -31.7,
+     -31.8,
+     -31.9,
+     -32.8,
+     -31.1,
+     -31.6,
+     -30.7,
+     -32.7,
+     -31.1,
+     -31.6,
+     -32.4,
+     -32.8,
+     -32.2,
+     -33,
+     -34.3,
+     -34.5,
+     -45.2
+    ]
+   }
+  },
+  {
+   "level": 2,
+   "file": "slices/vote/songs/more_songs/the_motel_sign_says_vacancy/level_2.mp3",
+   "mp3_md5": "5408dc6814ad5018ace931095e3fbb60",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": {
+    "limiter_worst_db": 0,
+    "limiter_mean_db": 0
+   },
+   "parts": {
+    "kick": 64,
+    "hat": 384,
+    "bass": 96,
+    "pad": 96,
+    "held": 96,
+    "lead": 67
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.3865,
+    "peak_db": -8.26,
+    "rms_db": -27.53,
+    "largest_jump": 0.0752,
+    "above_5k_pct": 1.952,
+    "above_8k_pct": 0.075,
+    "centroid_hz": 533.4,
+    "phone_rms_db": -32.89,
+    "bar_rms_db": [
+     -28.4,
+     -28.3,
+     -28.4,
+     -28.3,
+     -27.5,
+     -27.3,
+     -27.4,
+     -27.7,
+     -27.1,
+     -27.2,
+     -27,
+     -27.6,
+     -27,
+     -27.1,
+     -27.1,
+     -27.5,
+     -27,
+     -27,
+     -27,
+     -27.5,
+     -26.6,
+     -26.9,
+     -26.4,
+     -27.4,
+     -26.6,
+     -26.9,
+     -27.3,
+     -27.4,
+     -27.2,
+     -27.6,
+     -28.1,
+     -28.1,
+     -39.7
+    ]
+   }
+  },
+  {
+   "level": 3,
+   "file": "slices/vote/songs/more_songs/the_motel_sign_says_vacancy/level_3.mp3",
+   "mp3_md5": "56aaf7e35d07e5b36c6a5b7af5a80f90",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": {
+    "limiter_worst_db": 0,
+    "limiter_mean_db": 0
+   },
+   "parts": {
+    "kick": 96,
+    "hat": 256,
+    "bass": 160,
+    "pad": 96,
+    "lead": 133,
+    "snare": 84
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.6998,
+    "peak_db": -3.1,
+    "rms_db": -20.93,
+    "largest_jump": 0.3534,
+    "above_5k_pct": 4.221,
+    "above_8k_pct": 0.285,
+    "centroid_hz": 852.3,
+    "phone_rms_db": -25.06,
+    "bar_rms_db": [
+     -21.8,
+     -21.8,
+     -21.8,
+     -21.8,
+     -20.8,
+     -20.6,
+     -20.6,
+     -20.6,
+     -20.4,
+     -20.6,
+     -20.5,
+     -20.6,
+     -20.5,
+     -20.5,
+     -20.5,
+     -20.7,
+     -20.4,
+     -20.5,
+     -20.5,
+     -20.7,
+     -20,
+     -20.4,
+     -20.2,
+     -20.6,
+     -20.3,
+     -20.5,
+     -20.7,
+     -20.6,
+     -20.8,
+     -21,
+     -21.4,
+     -21.1,
+     -40.6
+    ]
+   }
+  }
+ ],
+ "hit": {
+  "file": "slices/vote/songs/more_songs/the_motel_sign_says_vacancy/hit.mp3",
+  "mp3_md5": "262acf629598fa6ae664f6c1a0076c81",
+  "bytes": 20524,
+  "audio": {
+   "seconds": 2.5,
+   "peak": 0.6503,
+   "peak_db": -3.74,
+   "rms_db": -31.28,
+   "largest_jump": 0.2767,
+   "above_5k_pct": 11.915,
+   "above_8k_pct": 0.905,
+   "centroid_hz": 1921.6,
+   "phone_rms_db": -32.28,
+   "bar_rms_db": [
+    -30.3
+   ]
+  }
+ },
+ "a_fight": {
+  "file": "slices/vote/songs/more_songs/the_motel_sign_says_vacancy/a_fight.mp3",
+  "mp3_md5": "676b93b8a382666169baa4b25a8ce661",
+  "bytes": 320618,
+  "audio": {
+   "seconds": 40,
+   "peak": 0.944,
+   "peak_db": -0.5,
+   "rms_db": -23.94,
+   "largest_jump": 0.3444,
+   "above_5k_pct": 3.57,
+   "above_8k_pct": 0.232,
+   "centroid_hz": 827.6,
+   "phone_rms_db": -27.84,
+   "bar_rms_db": [
+    -32.6,
+    -32.4,
+    -32.3,
+    -30.2,
+    -27,
+    -27.3,
+    -27,
+    -25.4,
+    -20.3,
+    -20.6,
+    -20.5,
+    -20.8,
+    -26.9,
+    -27,
+    -27,
+    -25.1,
+    -19.9,
+    -20.5,
+    -22.8
+   ]
+  }
+ },
+ "gain_to_his_loudness_db": -9.04,
+ "kit_scale_db": -9.51,
+ "tune_on_a_phone_vs_the_mix_db": -0.66,
+ "beat_on_a_phone_vs_the_mix_db": -8.09,
+ "beat_climbs_level_1_to_3_db": 11.03,
+ "chords_b": [
+  2,
+  6,
+  0,
+  4
+ ],
+ "balance": {
+  "target_bass_under_tune_k_db": -3,
+  "target_pad_under_tune_k_db": -9,
+  "bass_scale_db": 10.9,
+  "pad_scale_db": -2.45,
+  "tune_k_db": -27.59,
+  "bass_k_db": -41.49,
+  "pad_k_db": -34.14
+ }
+}

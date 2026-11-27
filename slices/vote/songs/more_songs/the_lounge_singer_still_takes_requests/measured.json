@@ -1,0 +1,332 @@
+{
+ "name": "THE LOUNGE SINGER STILL TAKES REQUESTS",
+ "made": "11/27",
+ "remade": null,
+ "tool": "tools/bohemia_sounds_more_songs.js",
+ "page_errors": 0,
+ "bars": 32,
+ "steps": 512,
+ "bpm": 120,
+ "key": "B flat dorian",
+ "root": 13,
+ "mode": [
+  0,
+  2,
+  3,
+  5,
+  7,
+  9,
+  10
+ ],
+ "story": "the lounge of a dead casino where a voice still sings to empty tables, taking requests from nobody",
+ "lead": "ondes",
+ "lead_name": "an ondes martenot, a voice that is not a voice",
+ "bass": "uprightjazz",
+ "pad": "wornstrings",
+ "drums": [
+  "5-234855-A-25",
+  "2-54961-A-23",
+  "1-9886-A-49"
+ ],
+ "kit_name": "a soft footstep for the kick, a breath for the brush, a saw stroke for the ride, swung",
+ "swing": 0.22,
+ "play_gain_db": 0,
+ "mp3_kbps": 64,
+ "gap": {
+  "target_over_level_1_db": {
+   "2": 3.6,
+   "3": 11.4
+  },
+  "phone_db": [
+   -36.5,
+   -32.88,
+   -23.81
+  ],
+  "full_range_lufs": [
+   -33.78,
+   -28.66,
+   -20.84
+  ]
+ },
+ "level_1_rerender_vs_the_approved_file_db": null,
+ "run": {
+  "from_bar": 5,
+  "bars_each": 4,
+  "parts": [
+   "THE MAP (level 1)",
+   "THEIR TURN (level 2)",
+   "YOUR TURN (level 3)",
+   "THEIR TURN (level 2)",
+   "YOUR TURN (level 3)"
+  ]
+ },
+ "levels": [
+  {
+   "level": 1,
+   "file": "slices/vote/songs/more_songs/the_lounge_singer_still_takes_requests/level_1.mp3",
+   "mp3_md5": "7864a53d3d4c997d86fe156068732b10",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": null,
+   "parts": {
+    "kick": 64,
+    "bass": 64,
+    "pad": 96,
+    "hat": 64,
+    "lead": 83
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.2615,
+    "peak_db": -11.65,
+    "rms_db": -32.8,
+    "largest_jump": 0.0696,
+    "above_5k_pct": 0.635,
+    "above_8k_pct": 0.098,
+    "centroid_hz": 583.8,
+    "phone_rms_db": -36.5,
+    "bar_rms_db": [
+     -35.1,
+     -34.9,
+     -34.8,
+     -34.8,
+     -33.3,
+     -32.6,
+     -32.5,
+     -31.8,
+     -32.4,
+     -32.4,
+     -32.5,
+     -31.6,
+     -32.3,
+     -32.1,
+     -31.2,
+     -32.8,
+     -32.3,
+     -31.4,
+     -31.4,
+     -32.8,
+     -32.4,
+     -31.8,
+     -32.4,
+     -32.2,
+     -32.4,
+     -32.2,
+     -32.4,
+     -31.8,
+     -32.2,
+     -33.7,
+     -34.7,
+     -34.8,
+     -46.5
+    ]
+   }
+  },
+  {
+   "level": 2,
+   "file": "slices/vote/songs/more_songs/the_lounge_singer_still_takes_requests/level_2.mp3",
+   "mp3_md5": "b2e884ef93663d1a8e0f2da3b8a45998",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": {
+    "limiter_worst_db": 0,
+    "limiter_mean_db": 0
+   },
+   "parts": {
+    "kick": 64,
+    "hat": 320,
+    "bass": 128,
+    "pad": 96,
+    "held": 96,
+    "lead": 83
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.3863,
+    "peak_db": -8.26,
+    "rms_db": -27.82,
+    "largest_jump": 0.1313,
+    "above_5k_pct": 2.231,
+    "above_8k_pct": 0.342,
+    "centroid_hz": 706.5,
+    "phone_rms_db": -32.88,
+    "bar_rms_db": [
+     -28.7,
+     -28.5,
+     -28.5,
+     -28.4,
+     -27.9,
+     -27.6,
+     -27.5,
+     -27.2,
+     -27.6,
+     -27.5,
+     -27.5,
+     -27,
+     -27.5,
+     -27.5,
+     -27,
+     -27.7,
+     -27.5,
+     -27.1,
+     -27,
+     -27.7,
+     -27.5,
+     -27.2,
+     -27.6,
+     -27.4,
+     -27.5,
+     -27.4,
+     -27.6,
+     -27.3,
+     -27.4,
+     -28.1,
+     -28.5,
+     -28.4,
+     -42.5
+    ]
+   }
+  },
+  {
+   "level": 3,
+   "file": "slices/vote/songs/more_songs/the_lounge_singer_still_takes_requests/level_3.mp3",
+   "mp3_md5": "b7fd368310025a9a39a73f51b15547d2",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": {
+    "limiter_worst_db": 0,
+    "limiter_mean_db": 0
+   },
+   "parts": {
+    "kick": 96,
+    "hat": 192,
+    "bass": 192,
+    "pad": 96,
+    "lead": 163,
+    "snare": 84
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.6565,
+    "peak_db": -3.66,
+    "rms_db": -20.42,
+    "largest_jump": 0.2725,
+    "above_5k_pct": 1.681,
+    "above_8k_pct": 0.235,
+    "centroid_hz": 818.2,
+    "phone_rms_db": -23.81,
+    "bar_rms_db": [
+     -22.3,
+     -22.2,
+     -22.2,
+     -22.2,
+     -20.5,
+     -20.3,
+     -20.3,
+     -19.1,
+     -20.3,
+     -20.2,
+     -20.3,
+     -19,
+     -20.3,
+     -20.3,
+     -19.9,
+     -19.4,
+     -20.3,
+     -20.1,
+     -20,
+     -19.3,
+     -20.3,
+     -20.1,
+     -20.3,
+     -19.2,
+     -20.3,
+     -20.2,
+     -20.3,
+     -19,
+     -20.3,
+     -20.6,
+     -20.8,
+     -19.6,
+     -41.8
+    ]
+   }
+  }
+ ],
+ "hit": {
+  "file": "slices/vote/songs/more_songs/the_lounge_singer_still_takes_requests/hit.mp3",
+  "mp3_md5": "8e6d31f141b551f68f5d6a9b980d5707",
+  "bytes": 20524,
+  "audio": {
+   "seconds": 2.5,
+   "peak": 0.6548,
+   "peak_db": -3.68,
+   "rms_db": -27.22,
+   "largest_jump": 0.2347,
+   "above_5k_pct": 1.318,
+   "above_8k_pct": 0.155,
+   "centroid_hz": 858.3,
+   "phone_rms_db": -29.96,
+   "bar_rms_db": [
+    -26.3
+   ]
+  }
+ },
+ "a_fight": {
+  "file": "slices/vote/songs/more_songs/the_lounge_singer_still_takes_requests/a_fight.mp3",
+  "mp3_md5": "019bc8940655e0654abd56071d6de0c6",
+  "bytes": 320618,
+  "audio": {
+   "seconds": 40,
+   "peak": 0.944,
+   "peak_db": -0.5,
+   "rms_db": -23.56,
+   "largest_jump": 0.3052,
+   "above_5k_pct": 1.644,
+   "above_8k_pct": 0.234,
+   "centroid_hz": 789.1,
+   "phone_rms_db": -27.05,
+   "bar_rms_db": [
+    -33.1,
+    -32.7,
+    -32.3,
+    -29.3,
+    -27.5,
+    -27.6,
+    -27.4,
+    -23.8,
+    -20.1,
+    -20.2,
+    -20,
+    -19.4,
+    -27.5,
+    -27,
+    -27,
+    -24,
+    -20,
+    -20.2,
+    -23.2
+   ]
+  }
+ },
+ "gain_to_his_loudness_db": -9.13,
+ "kit_scale_db": -3.27,
+ "tune_on_a_phone_vs_the_mix_db": -0.71,
+ "beat_on_a_phone_vs_the_mix_db": -8.22,
+ "beat_climbs_level_1_to_3_db": 13.93,
+ "chords_b": [
+  2,
+  6,
+  3,
+  4
+ ],
+ "balance": {
+  "target_bass_under_tune_k_db": -3,
+  "target_pad_under_tune_k_db": -9,
+  "bass_scale_db": 7.71,
+  "pad_scale_db": -8.79,
+  "tune_k_db": -27.86,
+  "bass_k_db": -38.57,
+  "pad_k_db": -28.07
+ }
+}

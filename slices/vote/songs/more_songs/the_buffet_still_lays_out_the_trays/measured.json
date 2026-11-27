@@ -1,0 +1,332 @@
+{
+ "name": "THE BUFFET STILL LAYS OUT THE TRAYS",
+ "made": "11/27",
+ "remade": null,
+ "tool": "tools/bohemia_sounds_more_songs.js",
+ "page_errors": 0,
+ "bars": 32,
+ "steps": 512,
+ "bpm": 120,
+ "key": "C sharp harmonic minor",
+ "root": 4,
+ "mode": [
+  0,
+  2,
+  3,
+  5,
+  7,
+  8,
+  11
+ ],
+ "story": "an all-you-can-eat buffet off the Strip that still sets out its trays every evening, and the line that still forms for them",
+ "lead": "accordion",
+ "lead_name": "an accordion, a polka at the end of the world",
+ "bass": "jugbass",
+ "pad": "warmpad",
+ "drums": [
+  "3-233151-A-2",
+  "5-263775-A-26",
+  "5-238492-A-23"
+ ],
+ "kit_name": "a grunt for the kick, a laugh from the line for the snare, a breath for the hat, oom-pah",
+ "swing": 0,
+ "play_gain_db": 0,
+ "mp3_kbps": 64,
+ "gap": {
+  "target_over_level_1_db": {
+   "2": 3.6,
+   "3": 11.4
+  },
+  "phone_db": [
+   -36.5,
+   -32.9,
+   -24.43
+  ],
+  "full_range_lufs": [
+   -32.57,
+   -27.55,
+   -19.75
+  ]
+ },
+ "level_1_rerender_vs_the_approved_file_db": null,
+ "run": {
+  "from_bar": 5,
+  "bars_each": 4,
+  "parts": [
+   "THE MAP (level 1)",
+   "THEIR TURN (level 2)",
+   "YOUR TURN (level 3)",
+   "THEIR TURN (level 2)",
+   "YOUR TURN (level 3)"
+  ]
+ },
+ "levels": [
+  {
+   "level": 1,
+   "file": "slices/vote/songs/more_songs/the_buffet_still_lays_out_the_trays/level_1.mp3",
+   "mp3_md5": "0856f35bdedd8bf8988cdba44c8dcf4d",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": null,
+   "parts": {
+    "kick": 64,
+    "hat": 128,
+    "bass": 64,
+    "pad": 96,
+    "lead": 125
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.2369,
+    "peak_db": -12.51,
+    "rms_db": -30.34,
+    "largest_jump": 0.0466,
+    "above_5k_pct": 0.979,
+    "above_8k_pct": 0.177,
+    "centroid_hz": 402,
+    "phone_rms_db": -36.5,
+    "bar_rms_db": [
+     -32.2,
+     -32,
+     -31.8,
+     -31.8,
+     -30.1,
+     -29.9,
+     -29.8,
+     -30,
+     -29.7,
+     -29.9,
+     -29.8,
+     -30,
+     -29.8,
+     -29.7,
+     -29.6,
+     -29.9,
+     -29.7,
+     -29.7,
+     -29.6,
+     -29.9,
+     -29.6,
+     -29.8,
+     -29.6,
+     -29.9,
+     -29.6,
+     -29.8,
+     -29.6,
+     -29.9,
+     -29.8,
+     -31.3,
+     -31.8,
+     -31.8,
+     -43.9
+    ]
+   }
+  },
+  {
+   "level": 2,
+   "file": "slices/vote/songs/more_songs/the_buffet_still_lays_out_the_trays/level_2.mp3",
+   "mp3_md5": "3ec07eb9358ccb4e2b7ca1724f7e30d1",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": {
+    "limiter_worst_db": 0,
+    "limiter_mean_db": 0
+   },
+   "parts": {
+    "kick": 64,
+    "bass": 128,
+    "pad": 96,
+    "held": 96,
+    "hat": 320,
+    "lead": 125
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.3597,
+    "peak_db": -8.88,
+    "rms_db": -25.16,
+    "largest_jump": 0.1205,
+    "above_5k_pct": 2.795,
+    "above_8k_pct": 0.516,
+    "centroid_hz": 476.1,
+    "phone_rms_db": -32.9,
+    "bar_rms_db": [
+     -25.8,
+     -25.7,
+     -25.6,
+     -25.6,
+     -24.9,
+     -24.8,
+     -24.8,
+     -24.9,
+     -24.8,
+     -24.8,
+     -24.8,
+     -24.9,
+     -24.8,
+     -24.7,
+     -24.8,
+     -24.9,
+     -24.8,
+     -24.7,
+     -24.8,
+     -24.9,
+     -24.7,
+     -24.8,
+     -24.7,
+     -24.9,
+     -24.7,
+     -24.8,
+     -24.7,
+     -24.9,
+     -24.8,
+     -25.4,
+     -25.5,
+     -25.6,
+     -40.3
+    ]
+   }
+  },
+  {
+   "level": 3,
+   "file": "slices/vote/songs/more_songs/the_buffet_still_lays_out_the_trays/level_3.mp3",
+   "mp3_md5": "4f9774217245012364de514470eb26e8",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": {
+    "limiter_worst_db": 0,
+    "limiter_mean_db": 0
+   },
+   "parts": {
+    "kick": 64,
+    "hat": 256,
+    "bass": 192,
+    "pad": 96,
+    "lead": 245,
+    "snare": 112
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.7212,
+    "peak_db": -2.84,
+    "rms_db": -17.81,
+    "largest_jump": 0.1841,
+    "above_5k_pct": 1.368,
+    "above_8k_pct": 0.233,
+    "centroid_hz": 378.8,
+    "phone_rms_db": -24.43,
+    "bar_rms_db": [
+     -19.1,
+     -19,
+     -19,
+     -19,
+     -17.7,
+     -17.6,
+     -17.6,
+     -16.9,
+     -17.6,
+     -17.6,
+     -17.6,
+     -16.9,
+     -17.6,
+     -17.6,
+     -17.5,
+     -16.8,
+     -17.6,
+     -17.6,
+     -17.5,
+     -16.8,
+     -17.6,
+     -17.6,
+     -17.6,
+     -16.8,
+     -17.6,
+     -17.6,
+     -17.6,
+     -16.8,
+     -17.7,
+     -17.9,
+     -18,
+     -17.2,
+     -41.4
+    ]
+   }
+  }
+ ],
+ "hit": {
+  "file": "slices/vote/songs/more_songs/the_buffet_still_lays_out_the_trays/hit.mp3",
+  "mp3_md5": "3b288ffc9879e962a267f734072eb2f1",
+  "bytes": 20524,
+  "audio": {
+   "seconds": 2.5,
+   "peak": 0.6243,
+   "peak_db": -4.09,
+   "rms_db": -26.34,
+   "largest_jump": 0.1788,
+   "above_5k_pct": 1.385,
+   "above_8k_pct": 0.219,
+   "centroid_hz": 461.4,
+   "phone_rms_db": -31.4,
+   "bar_rms_db": [
+    -25.4
+   ]
+  }
+ },
+ "a_fight": {
+  "file": "slices/vote/songs/more_songs/the_buffet_still_lays_out_the_trays/a_fight.mp3",
+  "mp3_md5": "f5ab3921d8db8c3689a85be7318a8a38",
+  "bytes": 320618,
+  "audio": {
+   "seconds": 40,
+   "peak": 0.944,
+   "peak_db": -0.5,
+   "rms_db": -21.02,
+   "largest_jump": 0.262,
+   "above_5k_pct": 1.542,
+   "above_8k_pct": 0.269,
+   "centroid_hz": 403.2,
+   "phone_rms_db": -27.61,
+   "bar_rms_db": [
+    -30,
+    -29.9,
+    -29.8,
+    -28,
+    -24.7,
+    -24.8,
+    -24.8,
+    -21.8,
+    -17.3,
+    -17.6,
+    -17.6,
+    -17,
+    -24.9,
+    -24.7,
+    -24.8,
+    -21.6,
+    -17.3,
+    -17.6,
+    -20.2
+   ]
+  }
+ },
+ "gain_to_his_loudness_db": -6.93,
+ "kit_scale_db": -6.38,
+ "tune_on_a_phone_vs_the_mix_db": -0.63,
+ "beat_on_a_phone_vs_the_mix_db": -8.74,
+ "beat_climbs_level_1_to_3_db": 14.21,
+ "chords_b": [
+  3,
+  0,
+  4,
+  0
+ ],
+ "balance": {
+  "target_bass_under_tune_k_db": -3,
+  "target_pad_under_tune_k_db": -9,
+  "bass_scale_db": 11.23,
+  "pad_scale_db": -8.05,
+  "tune_k_db": -28.51,
+  "bass_k_db": -42.74,
+  "pad_k_db": -29.45
+ }
+}

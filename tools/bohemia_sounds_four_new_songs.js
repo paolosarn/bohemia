@@ -123,6 +123,8 @@ const FORM = ['I', 'I', 'I', 'I', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'B', '
 
 async function render(p, S, lv, only) {
   return p.evaluate(async ({ S, lv, only, bars, FORM, kitB64 }) => {
+    /* MORE SONGS (SOUNDS 11/27, rule 488): the same render for the next batch; every field below that the four do not carry
+       (a five-note scale, chordsB, bassScale, padScale, only 'bass' or 'pad') leaves the four's render exactly as it was */
     const SR = 44100, sd = 0.125, steps = only === 'hit' ? 0 : bars * 16, secs = only === 'hit' ? 2.5 : steps * sd + 3;
     MUS.audio();
     const OAC = new OfflineAudioContext(1, Math.ceil(SR * secs), SR);
@@ -142,21 +144,23 @@ async function render(p, S, lv, only) {
       for (let i = 0; i < n; i++) { const f = i > n * 0.7 ? (n - i) / (n * 0.3) : 1; od[i] = d[i0 + i] / (pk || 1) * 0.9 * f; }
       return o; };
     const HIT = {};
-    for (const part of ['kick', 'snare', 'hat']) { const k = S.kit[part]; HIT[part] = cut(await dec(kitB64[k.stem]), k.ms, null); }
+    for (const part of ['kick', 'snare', 'hat']) { const k = S.kit[part]; HIT[part] = cut(await dec(kitB64[k.stem]), k.ms, k.at != null ? k.at : null); }   /* at: a slow-swelling recording cut at its peak (MORE SONGS 11/27); the four carry none */
     let bell = null; if (S.lead.sample) bell = cut(await dec(kitB64[S.lead.sample]), S.lead.ms, S.lead.at);
     const counts = {};
     const hit = (part, t, g) => { counts[part] = (counts[part] || 0) + 1; const k = S.kit[part], s = OAC.createBufferSource(), v = OAC.createGain(); s.buffer = HIT[part]; v.gain.value = (k.gain || 1) * g * (S.kitScale || 1);
       let node = v; if (k.lp || k.hp) { const f = OAC.createBiquadFilter(); f.type = k.lp ? 'lowpass' : 'highpass'; f.frequency.value = k.lp || k.hp; v.connect(f); node = f; }
       s.connect(v); node.connect(B[part]); s.start(t); };
-    const deg = (d, oct) => S.mode[((d % 7) + 7) % 7] + 12 * (Math.floor(d / 7) + (oct || 0));
+    const NM = S.mode.length, deg = (d, oct) => S.mode[((d % NM) + NM) % NM] + 12 * (Math.floor(d / NM) + (oct || 0));
     const hz = x => MUS.noteHz(x);
     const note = (t, semi, len, g) => { counts.lead = (counts.lead || 0) + 1;
       if (bell) { const s = OAC.createBufferSource(), v = OAC.createGain(); s.buffer = bell; s.playbackRate.value = Math.pow(2, (45 + semi - S.lead.pitch) / 12);
         v.gain.setValueAtTime(S.lead.gain * g, t); v.gain.setTargetAtTime(0, t + Math.max(0.25, len * sd), 0.25); s.connect(v); v.connect(B.lead); s.start(t); s.stop(t + len * sd + 1.5); }
       else synthV(S.lead.voice, OAC, B.lead, hz, sd * len, semi, t, S.lead.gain * g); };
-    const muteTune = only === 'beat' || only === 'kit', onlyTune = only === 'tune', kitOnly = only === 'kit';
+    const partOnly = only === 'bass' || only === 'pad';
+    const muteTune = only === 'beat' || only === 'kit' || partOnly, onlyTune = only === 'tune', kitOnly = only === 'kit';
+    const BS = S.bassScale || 1, PS = S.padScale || 1;
     for (let s = 0; s < steps; s++) {
-      const bar = Math.floor(s / 16), q = s % 16, sec = FORM[bar], pib = (bar - 4) % 4, chord = S.chords[bar % 4];
+      const bar = Math.floor(s / 16), q = s % 16, sec = FORM[bar], pib = (bar - 4) % 4, chord = (sec === 'B' && S.chordsB ? S.chordsB : S.chords)[bar % 4];
       let t = 0.05 + s * sd; if (S.swing && q % 2 === 1) t += S.swing * sd * 0.5;
       const G = S.groove[lv];
       if (!onlyTune) {
@@ -164,21 +168,23 @@ async function render(p, S, lv, only) {
         /* MEASURED on THE CHURCH CLOCK's first take: the parts at 0.45 / 0.7 / 1 put level 2 0.5 dB and level 3 2.1 dB over
            level 1 on a phone (the bell led all three); the kit now climbs harder, the tune still leads */
         const soft = lv === 1 ? 0.45 : lv === 2 ? 0.95 : 1.35;
+        if (!partOnly) {
         if ((G.kick || []).includes(q)) hit('kick', t, soft);
         if ((G.snare || []).includes(q) && sec !== 'I') hit('snare', t, lv === 3 ? 1.3 : 1);
         if ((G.hat || []).includes(q)) hit('hat', t, lv === 1 ? 0.6 : lv === 3 && q % 4 === 0 ? 1.3 : 1);
         if (lv === 3 && sec !== 'I' && bar % 4 === 3 && q >= 12) hit('snare', t, 0.6 + (q - 12) * 0.1);   /* the fill into each phrase */
         if (lv >= 2 && q % 4 === 2 && lv === 2) hit('hat', t, 0.4);
+        }
         /* the bass: the song's own line on the chord's root */
-        if (!kitOnly) for (const [at, len] of S.bassLine[lv]) if (q === at) { counts.bass = (counts.bass || 0) + 1; synthV(S.bass, OAC, B.bass, hz, sd * len, S.root - 12 + deg(chord) + (lv === 3 && at % 4 === 2 ? 12 : 0), t, lv === 1 ? 0.08 : lv === 2 ? 0.12 : 0.14); }
+        if (!kitOnly && only !== 'pad') for (const [at, len] of S.bassLine[lv]) if (q === at) { counts.bass = (counts.bass || 0) + 1; synthV(S.bass, OAC, B.bass, hz, sd * len, S.root - 12 + deg(chord) + (lv === 3 && at % 4 === 2 ? 12 : 0), t, (lv === 1 ? 0.08 : lv === 2 ? 0.12 : 0.14) * BS); }
         /* the pad: the chord, held, once a bar (none on the dry song) */
-        if (S.pad && q === 0 && !kitOnly) for (const d of [0, 2, 4]) { counts.pad = (counts.pad || 0) + 1; synthV(S.pad, OAC, B.pad, hz, sd * 16, S.root - 12 + deg(chord + d), t, lv === 3 ? 0.035 : 0.05); }
+        if (S.pad && q === 0 && !kitOnly && only !== 'bass') for (const d of [0, 2, 4]) { counts.pad = (counts.pad || 0) + 1; synthV(S.pad, OAC, B.pad, hz, sd * 16, S.root - 12 + deg(chord + d), t, (lv === 3 ? 0.035 : 0.05) * PS); }
       }
       /* LEVEL 2 HOLDS THE CHORD UNDER THE TUNE (207(b): tension is a pulse, the bass, held notes; CORRECTED 10/25, rule 205
          sweep: the tune plays in all three levels) */
-      if (lv === 2 && !onlyTune && !kitOnly && q === 0) for (const d of [0, 2, 4]) { counts.held = (counts.held || 0) + 1;
-        if (S.pad) synthV(S.pad, OAC, B.pad, hz, sd * 16, S.root + deg(chord + d), t, 0.06);
-        else synthV(S.lead.voice, OAC, B.pad, hz, sd * 16, S.root + deg(chord + d), t, 0.03); }
+      if (lv === 2 && !onlyTune && !kitOnly && only !== 'bass' && q === 0) for (const d of [0, 2, 4]) { counts.held = (counts.held || 0) + 1;
+        if (S.pad) synthV(S.pad, OAC, B.pad, hz, sd * 16, S.root + deg(chord + d), t, 0.06 * PS);
+        else synthV(S.lead.voice, OAC, B.pad, hz, sd * 16, S.root + deg(chord + d), t, 0.03 * PS); }
       if (!muteTune && (sec === 'A' || sec === 'B' || sec === 'A2' || (sec === 'E' && bar === 28))) {
         const ph = sec === 'B' ? S.melody.B : S.melody.A, ib = sec === 'E' ? 3 : pib;
         for (const [b, at, d, len] of ph) if (b === ib && q === at) {
@@ -209,13 +215,29 @@ function kitFor(S) {
   return o;
 }
 const measure = raws => JSON.parse(execFileSync('python3', ['-I', path.join(ROOT, 'tools', 'bohemia_sounds_his_machine_measure.py')].concat(raws), { encoding: 'utf8', maxBuffer: 64 << 20 }));
-const toMp3 = (raw, out) => execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 's16le', '-ar', '44100', '-ac', '1', '-i', raw, '-c:a', 'libmp3lame', '-b:a', '96k', out]);
-async function record(which) {
-  const list = SONGS.filter(S => !which || which === 'all' || slug(S.name) === which);
+/* kbps: the four at 96; MORE SONGS (11/27) at 64, the same 44.1 kHz so the encoder's delay (the probe's) is the same, measured to keep
+   the published site under its 900 MB cap (the tape rolls the top off at 7.5 kHz, so 64 loses nothing the song carries) */
+const toMp3 = (raw, out, kbps) => execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-f', 's16le', '-ar', '44100', '-ac', '1', '-i', raw, '-c:a', 'libmp3lame', '-b:a', (kbps || 96) + 'k', out]);
+/* record(which, opts): the four by default; opts (MORE SONGS, SOUNDS 11/27, rule 488) carries another batch through the same
+   steps: { songs, outd, made, remade, tool, balance: { bass_k_db, pad_k_db } }. balance sets the bass and the pad by measuring
+   too, each alone at level 1 against the tune alone on full-range speakers (BS.1770 K-weighting), to the place the four's
+   bass and pad measured (tools/bohemia_sounds_more_songs.js, 'balance'); the four carry none and render as before. */
+async function record(which, opts) {
+  opts = opts || {};
+  const OUT = opts.outd || OUTD;
+  const list = (opts.songs || SONGS).filter(S => !which || which === 'all' || slug(S.name) === which);
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'new_four_'));
   const A = await Promise.all([0, 1, 2].map(() => H.openAlpha())), errs = [].concat(...A.map(x => x.errs));
   for (const S of list) {
-    const t0 = Date.now(), sl = slug(S.name), dir = path.join(OUTD, sl); fs.mkdirSync(dir, { recursive: true });
+    const t0 = Date.now(), sl = slug(S.name), dir = path.join(OUT, sl); fs.mkdirSync(dir, { recursive: true });
+    if (opts.balance) {
+      const part = async (only, i) => { const r = await render(A[i].p, Object.assign({}, S, { kitScale: 1, bassScale: 1, padScale: 1 }), 1, only);
+        const b = Buffer.from(r.b64, 'base64'); return TL.kDb(TL.f32(new Int16Array(b.buffer, b.byteOffset, b.length >> 1))); };
+      const [kt, kb, kp] = await Promise.all([part('tune', 0), part('bass', 1), S.pad ? part('pad', 2) : Promise.resolve(null)]);
+      S.bassScale = Math.max(0.1, Math.min(8, Math.pow(10, ((kt + opts.balance.bass_k_db) - kb) / 20)));
+      S.padScale = kp == null ? 1 : Math.max(0.1, Math.min(8, Math.pow(10, ((kt + opts.balance.pad_k_db) - kp) / 20)));
+      S._balance = { tune_k_db: +kt.toFixed(2), bass_k_db: +kb.toFixed(2), pad_k_db: kp == null ? null : +kp.toFixed(2) };
+    }
     /* THE KIT SET FROM THE TUNE (rule 166(c): the tune and the beat lead, the tune first). MEASURED on the first takes: the
        same kit gains put THE SODA MACHINE's beat 0.9 dB under its whole mix at level 1 (the tune 7 dB under) and THE CHURCH
        CLOCK's 13 dB under, because real hits are as loud as they were recorded. So a calibration pass, the tune alone and
@@ -247,13 +269,13 @@ async function record(which) {
     fs.writeFileSync(hraw, Buffer.from(hq.buffer, hq.byteOffset, hq.byteLength));
     const run = TL.i16(TL.fightRun({ 1: F[1].y, 2: F[2].y, 3: F[3].y }, hitY, 0.125, RUN)), rraw = path.join(tmp, sl + '_run.raw'); fs.writeFileSync(rraw, Buffer.from(run.buffer, run.byteOffset, run.byteLength));
     /* level 1 is the approved file: written only when there is none (its re-render is checked against it below) */
-    const files = {}; [['level_1', raws[0]], ['level_2', raws[1]], ['level_3', raws[2]], ['hit', hraw], ['a_fight', rraw]].forEach(([f, r]) => { const o = path.join(dir, f + '.mp3'); if (f !== 'level_1' || !fs.existsSync(o)) toMp3(r, o); files[f] = o; });
+    const files = {}; [['level_1', raws[0]], ['level_2', raws[1]], ['level_3', raws[2]], ['hit', hraw], ['a_fight', rraw]].forEach(([f, r]) => { const o = path.join(dir, f + '.mp3'); if (f !== 'level_1' || !fs.existsSync(o)) toMp3(r, o, opts.kbps); files[f] = o; });
     const m = measure(raws.concat([rraw, traw, braw, b3raw, hraw]));
     const old1 = (() => { try { return JSON.parse(fs.readFileSync(path.join(dir, 'measured.json'), 'utf8')).levels[0].audio.phone_rms_db; } catch (e) { return null; } })();
-    const out = { name: S.name, made: '10/25', remade: '10/25 rule 207', tool: 'tools/bohemia_sounds_four_new_songs.js', page_errors: errs.length, bars: BARS, steps: BARS * 16, bpm: 120,
+    const out = { name: S.name, made: opts.made || '10/25', remade: 'remade' in opts ? opts.remade : '10/25 rule 207', tool: opts.tool || 'tools/bohemia_sounds_four_new_songs.js', page_errors: errs.length, bars: BARS, steps: BARS * 16, bpm: 120,
       key: S.key, root: S.root, mode: S.mode, story: S.story, lead: S.lead.sample ? 'sample:' + S.lead.sample : S.lead.voice, lead_name: S.leadName, bass: S.bass, pad: S.pad,
       drums: [S.kit.kick.stem, S.kit.snare.stem, S.kit.hat.stem], kit_name: S.kitName, swing: S.swing || 0,
-      play_gain_db: 0,
+      play_gain_db: 0, mp3_kbps: opts.kbps || 96,
       gap: { target_over_level_1_db: TL.GAP, phone_db: [m[0].phone_rms_db, m[1].phone_rms_db, m[2].phone_rms_db], full_range_lufs: [F[1].k_db, F[2].k_db, F[3].k_db] },
       level_1_rerender_vs_the_approved_file_db: old1 == null ? null : +(m[0].phone_rms_db - old1).toFixed(2),
       run: { from_bar: RUN.from + 1, bars_each: RUN.bars, parts: RUN.parts.map(x => x[1] + ' (level ' + x[0] + ')') },
@@ -264,6 +286,9 @@ async function record(which) {
       gain_to_his_loudness_db: +(20 * Math.log10(gn)).toFixed(2), kit_scale_db: +(20 * Math.log10(S.kitScale)).toFixed(2),
       tune_on_a_phone_vs_the_mix_db: +(m[4].phone_rms_db - m[0].phone_rms_db).toFixed(2), beat_on_a_phone_vs_the_mix_db: +(m[5].phone_rms_db - m[0].phone_rms_db).toFixed(2),
       beat_climbs_level_1_to_3_db: +(m[6].phone_rms_db - m[5].phone_rms_db).toFixed(2) };
+    if (S.chordsB) out.chords_b = S.chordsB;
+    if (opts.balance) { out.balance = Object.assign({ target_bass_under_tune_k_db: opts.balance.bass_k_db, target_pad_under_tune_k_db: opts.balance.pad_k_db,
+      bass_scale_db: +(20 * Math.log10(S.bassScale)).toFixed(2), pad_scale_db: +(20 * Math.log10(S.padScale)).toFixed(2) }, S._balance); if (S.origin) out.origin = S.origin; }
     fs.writeFileSync(path.join(dir, 'measured.json'), JSON.stringify(out, null, 1) + '\n');
     console.log(S.name + ' in ' + ((Date.now() - t0) / 1000).toFixed(1) + ' s; phone rms ' + m.slice(0, 4).map(x => x.phone_rms_db).join(' / ') + ' (L2-L1 ' + (m[1].phone_rms_db - m[0].phone_rms_db).toFixed(2) + ', L3-L2 ' + (m[2].phone_rms_db - m[1].phone_rms_db).toFixed(2) + '); full range LUFS ' + [F[1].k_db, F[2].k_db, F[3].k_db].join('/') + '; level 1 re-render vs the approved file ' + out.level_1_rerender_vs_the_approved_file_db + ' dB; limiter L2 ' + F[2].limiter_worst_db + ' L3 ' + F[3].limiter_worst_db + '; clipped ' + [1, 2, 3].map(l => R[l].clipped).join('/'));
   }
@@ -318,4 +343,4 @@ if (require.main === module) {
   else if (cmd === 'register') register(arg || 'all', flag === '--write');
   else { console.log('usage: record [slug|all] | register [slug|all] [--write]'); process.exit(2); }
 }
-module.exports = { SONGS, slug, idOf, pageOf };
+module.exports = { SONGS, slug, idOf, pageOf, render, record, kitFor, measure, toMp3, FORM, BARS, RUN, TEMPLATE };

@@ -1,0 +1,329 @@
+{
+ "name": "THE DRIVE-IN SHOWS THE SAME REEL",
+ "made": "11/27",
+ "remade": null,
+ "tool": "tools/bohemia_sounds_more_songs.js",
+ "page_errors": 0,
+ "bars": 32,
+ "steps": 512,
+ "bpm": 120,
+ "key": "A flat major",
+ "root": 11,
+ "mode": [
+  0,
+  2,
+  4,
+  5,
+  7,
+  9,
+  11
+ ],
+ "story": "the drive-in off Boulder Highway whose projector still runs one reel at dusk, and the cars that honk at it",
+ "lead": "honkytonk",
+ "lead_name": "an upright piano nobody tunes, the intermission's",
+ "bass": "doghouse",
+ "pad": null,
+ "drums": [
+  "1-155858-E-25",
+  "5-179860-A-43",
+  "4-182369-A-12"
+ ],
+ "kit_name": "a footstep for the kick, a car horn for the snare, the film's crackle for the hat",
+ "swing": 0,
+ "play_gain_db": 0,
+ "mp3_kbps": 64,
+ "gap": {
+  "target_over_level_1_db": {
+   "2": 3.6,
+   "3": 11.4
+  },
+  "phone_db": [
+   -36.5,
+   -32.87,
+   -24.83
+  ],
+  "full_range_lufs": [
+   -33.98,
+   -29.05,
+   -21.25
+  ]
+ },
+ "level_1_rerender_vs_the_approved_file_db": null,
+ "run": {
+  "from_bar": 5,
+  "bars_each": 4,
+  "parts": [
+   "THE MAP (level 1)",
+   "THEIR TURN (level 2)",
+   "YOUR TURN (level 3)",
+   "THEIR TURN (level 2)",
+   "YOUR TURN (level 3)"
+  ]
+ },
+ "levels": [
+  {
+   "level": 1,
+   "file": "slices/vote/songs/more_songs/the_drive_in_shows_the_same_reel/level_1.mp3",
+   "mp3_md5": "84316ea7af60694b82cc90a2fd72b547",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": null,
+   "parts": {
+    "kick": 64,
+    "bass": 64,
+    "hat": 64,
+    "lead": 101
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.331,
+    "peak_db": -9.6,
+    "rms_db": -32.95,
+    "largest_jump": 0.1815,
+    "above_5k_pct": 0.5,
+    "above_8k_pct": 0.224,
+    "centroid_hz": 514.4,
+    "phone_rms_db": -36.5,
+    "bar_rms_db": [
+     -35.5,
+     -35.5,
+     -35.5,
+     -35.4,
+     -32,
+     -32,
+     -32.2,
+     -32.3,
+     -32,
+     -32,
+     -32.3,
+     -32.3,
+     -32.2,
+     -32.1,
+     -31.9,
+     -32.5,
+     -32.2,
+     -32.1,
+     -31.9,
+     -32.5,
+     -32.3,
+     -32.3,
+     -32.3,
+     -32.5,
+     -32.3,
+     -32.3,
+     -32.3,
+     -32.5,
+     -32.3,
+     -35.4,
+     -35.5,
+     -35.5,
+     -240
+    ]
+   }
+  },
+  {
+   "level": 2,
+   "file": "slices/vote/songs/more_songs/the_drive_in_shows_the_same_reel/level_2.mp3",
+   "mp3_md5": "c54272d02b79380b0fbe440c3c38c2d8",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": {
+    "limiter_worst_db": 0,
+    "limiter_mean_db": 0
+   },
+   "parts": {
+    "kick": 128,
+    "bass": 96,
+    "held": 96,
+    "hat": 192,
+    "lead": 101
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.4762,
+    "peak_db": -6.44,
+    "rms_db": -28.14,
+    "largest_jump": 0.3028,
+    "above_5k_pct": 0.678,
+    "above_8k_pct": 0.319,
+    "centroid_hz": 460.6,
+    "phone_rms_db": -32.87,
+    "bar_rms_db": [
+     -28.8,
+     -28.9,
+     -28.8,
+     -28.8,
+     -27.6,
+     -27.6,
+     -27.7,
+     -27.8,
+     -27.6,
+     -27.6,
+     -27.8,
+     -27.8,
+     -27.7,
+     -27.6,
+     -27.5,
+     -27.8,
+     -27.7,
+     -27.6,
+     -27.5,
+     -27.9,
+     -27.7,
+     -27.7,
+     -27.8,
+     -27.8,
+     -27.8,
+     -27.8,
+     -27.8,
+     -27.8,
+     -27.8,
+     -28.9,
+     -28.8,
+     -28.8,
+     -73.1
+    ]
+   }
+  },
+  {
+   "level": 3,
+   "file": "slices/vote/songs/more_songs/the_drive_in_shows_the_same_reel/level_3.mp3",
+   "mp3_md5": "84be4277bd66ce0d4202e9d011da98b0",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": {
+    "limiter_worst_db": 0,
+    "limiter_mean_db": 0
+   },
+   "parts": {
+    "kick": 128,
+    "bass": 192,
+    "hat": 128,
+    "lead": 199,
+    "snare": 84
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.7274,
+    "peak_db": -2.76,
+    "rms_db": -21.74,
+    "largest_jump": 0.4484,
+    "above_5k_pct": 0.604,
+    "above_8k_pct": 0.263,
+    "centroid_hz": 1178.1,
+    "phone_rms_db": -24.83,
+    "bar_rms_db": [
+     -23.5,
+     -23.5,
+     -23.5,
+     -23.5,
+     -21.4,
+     -21.4,
+     -21.5,
+     -20.7,
+     -21.4,
+     -21.4,
+     -21.5,
+     -20.7,
+     -21.5,
+     -21.4,
+     -21.4,
+     -20.7,
+     -21.5,
+     -21.4,
+     -21.4,
+     -20.7,
+     -21.5,
+     -21.5,
+     -21.5,
+     -20.7,
+     -21.5,
+     -21.5,
+     -21.5,
+     -20.7,
+     -21.6,
+     -22.2,
+     -22.1,
+     -21.2,
+     -45.3
+    ]
+   }
+  }
+ ],
+ "hit": {
+  "file": "slices/vote/songs/more_songs/the_drive_in_shows_the_same_reel/hit.mp3",
+  "mp3_md5": "4d8b9463aa78113e542868d70e807ecd",
+  "bytes": 20524,
+  "audio": {
+   "seconds": 2.5,
+   "peak": 0.729,
+   "peak_db": -2.75,
+   "rms_db": -28.6,
+   "largest_jump": 0.4788,
+   "above_5k_pct": 1.029,
+   "above_8k_pct": 0.437,
+   "centroid_hz": 1691.7,
+   "phone_rms_db": -30.96,
+   "bar_rms_db": [
+    -27.6
+   ]
+  }
+ },
+ "a_fight": {
+  "file": "slices/vote/songs/more_songs/the_drive_in_shows_the_same_reel/a_fight.mp3",
+  "mp3_md5": "f8c2128040a62020ec855fd2d4f7d620",
+  "bytes": 320618,
+  "audio": {
+   "seconds": 40,
+   "peak": 0.944,
+   "peak_db": -0.5,
+   "rms_db": -24.62,
+   "largest_jump": 0.4484,
+   "above_5k_pct": 0.574,
+   "above_8k_pct": 0.253,
+   "centroid_hz": 1010.2,
+   "phone_rms_db": -27.87,
+   "bar_rms_db": [
+    -31.8,
+    -32.2,
+    -32.1,
+    -29.6,
+    -27.5,
+    -27.7,
+    -27.7,
+    -25.4,
+    -21.2,
+    -21.4,
+    -21.4,
+    -20.6,
+    -27.7,
+    -27.6,
+    -27.6,
+    -25.3,
+    -21.2,
+    -21.5,
+    -24.4
+   ]
+  }
+ },
+ "gain_to_his_loudness_db": -6.43,
+ "kit_scale_db": -7.07,
+ "tune_on_a_phone_vs_the_mix_db": -0.55,
+ "beat_on_a_phone_vs_the_mix_db": -8.58,
+ "beat_climbs_level_1_to_3_db": 14.81,
+ "chords_b": [
+  3,
+  4,
+  2,
+  5
+ ],
+ "balance": {
+  "target_bass_under_tune_k_db": -3,
+  "target_pad_under_tune_k_db": -9,
+  "bass_scale_db": 5.12,
+  "pad_scale_db": 0,
+  "tune_k_db": -30.07,
+  "bass_k_db": -38.19,
+  "pad_k_db": null
+ }
+}

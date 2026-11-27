@@ -1,0 +1,330 @@
+{
+ "name": "THE WATER TOWER READS OUT NUMBERS",
+ "made": "11/27",
+ "remade": null,
+ "tool": "tools/bohemia_sounds_more_songs.js",
+ "page_errors": 0,
+ "bars": 32,
+ "steps": 512,
+ "bpm": 120,
+ "key": "B in-scale (five notes)",
+ "root": 14,
+ "mode": [
+  0,
+  1,
+  5,
+  7,
+  8
+ ],
+ "story": "the water tower in North Las Vegas whose old emergency speaker plays a tune at night and then reads out numbers",
+ "lead": "whistle",
+ "lead_name": "a whistled tone, the station's call sign",
+ "bass": "sub",
+ "pad": "ghostpad",
+ "drums": [
+  "3-151557-B-28",
+  "3-146873-A-24",
+  "5-261464-A-23"
+ ],
+ "kit_name": "a low snore for the kick, a cough on the microphone for the snare, a breath for the hat, the tresillo",
+ "swing": 0,
+ "play_gain_db": 0,
+ "mp3_kbps": 64,
+ "gap": {
+  "target_over_level_1_db": {
+   "2": 3.6,
+   "3": 11.4
+  },
+  "phone_db": [
+   -36.5,
+   -32.59,
+   -24.77
+  ],
+  "full_range_lufs": [
+   -32.9,
+   -29.3,
+   -20.16
+  ]
+ },
+ "level_1_rerender_vs_the_approved_file_db": null,
+ "run": {
+  "from_bar": 5,
+  "bars_each": 4,
+  "parts": [
+   "THE MAP (level 1)",
+   "THEIR TURN (level 2)",
+   "YOUR TURN (level 3)",
+   "THEIR TURN (level 2)",
+   "YOUR TURN (level 3)"
+  ]
+ },
+ "levels": [
+  {
+   "level": 1,
+   "file": "slices/vote/songs/more_songs/the_water_tower_reads_out_numbers/level_1.mp3",
+   "mp3_md5": "415c3035a0cc73f106295f050955a39c",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": null,
+   "parts": {
+    "kick": 96,
+    "hat": 128,
+    "bass": 96,
+    "pad": 96,
+    "lead": 93
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.1687,
+    "peak_db": -15.46,
+    "rms_db": -32.41,
+    "largest_jump": 0.0329,
+    "above_5k_pct": 0.071,
+    "above_8k_pct": 0.017,
+    "centroid_hz": 793,
+    "phone_rms_db": -36.5,
+    "bar_rms_db": [
+     -34.5,
+     -34.3,
+     -33.9,
+     -34.1,
+     -32.3,
+     -32.5,
+     -31.5,
+     -32.2,
+     -31.8,
+     -32.5,
+     -31.5,
+     -32.2,
+     -31.7,
+     -31.7,
+     -31.7,
+     -31.6,
+     -31.4,
+     -31.6,
+     -31.6,
+     -31.6,
+     -31.4,
+     -32.2,
+     -31.3,
+     -32.1,
+     -31.7,
+     -32.4,
+     -31.3,
+     -32.1,
+     -32,
+     -33.5,
+     -33.9,
+     -34.1,
+     -45.1
+    ]
+   }
+  },
+  {
+   "level": 2,
+   "file": "slices/vote/songs/more_songs/the_water_tower_reads_out_numbers/level_2.mp3",
+   "mp3_md5": "14608d6941b4b56cff4cc84954ca9638",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": {
+    "limiter_worst_db": 0,
+    "limiter_mean_db": 0
+   },
+   "parts": {
+    "kick": 96,
+    "hat": 384,
+    "bass": 96,
+    "pad": 96,
+    "held": 96,
+    "lead": 93
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.2626,
+    "peak_db": -11.62,
+    "rms_db": -28.77,
+    "largest_jump": 0.0515,
+    "above_5k_pct": 0.265,
+    "above_8k_pct": 0.064,
+    "centroid_hz": 726.5,
+    "phone_rms_db": -32.59,
+    "bar_rms_db": [
+     -30.9,
+     -30.5,
+     -30,
+     -29.5,
+     -28.9,
+     -29.4,
+     -28.8,
+     -28.7,
+     -28.7,
+     -29.4,
+     -28.8,
+     -28.7,
+     -28.3,
+     -28.4,
+     -27.9,
+     -27.3,
+     -26.8,
+     -27.5,
+     -27.6,
+     -27.3,
+     -26.8,
+     -28.2,
+     -28.5,
+     -28.6,
+     -28.7,
+     -29.4,
+     -28.7,
+     -28.6,
+     -28.8,
+     -29.9,
+     -29.9,
+     -29.5,
+     -35.1
+    ]
+   }
+  },
+  {
+   "level": 3,
+   "file": "slices/vote/songs/more_songs/the_water_tower_reads_out_numbers/level_3.mp3",
+   "mp3_md5": "53ff2c9e536e51e8c78e3f7a3483da55",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": {
+    "limiter_worst_db": 0,
+    "limiter_mean_db": 0
+   },
+   "parts": {
+    "kick": 96,
+    "hat": 288,
+    "bass": 192,
+    "pad": 96,
+    "lead": 183,
+    "snare": 84
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.6787,
+    "peak_db": -3.37,
+    "rms_db": -19.65,
+    "largest_jump": 0.2124,
+    "above_5k_pct": 1.21,
+    "above_8k_pct": 0.152,
+    "centroid_hz": 709.1,
+    "phone_rms_db": -24.77,
+    "bar_rms_db": [
+     -21.2,
+     -21.2,
+     -21,
+     -21.1,
+     -19.5,
+     -19.6,
+     -19.2,
+     -19,
+     -19.4,
+     -19.6,
+     -19.2,
+     -19,
+     -19,
+     -19.3,
+     -19.1,
+     -18.7,
+     -19,
+     -19.2,
+     -19.1,
+     -18.7,
+     -19.3,
+     -19.5,
+     -19.1,
+     -18.9,
+     -19.3,
+     -19.6,
+     -19.1,
+     -18.9,
+     -19.5,
+     -19.9,
+     -20,
+     -19.5,
+     -39.5
+    ]
+   }
+  }
+ ],
+ "hit": {
+  "file": "slices/vote/songs/more_songs/the_water_tower_reads_out_numbers/hit.mp3",
+  "mp3_md5": "2d369bd911cda45d296d52d2750c0cb2",
+  "bytes": 20524,
+  "audio": {
+   "seconds": 2.5,
+   "peak": 0.6474,
+   "peak_db": -3.78,
+   "rms_db": -26.37,
+   "largest_jump": 0.1796,
+   "above_5k_pct": 1.489,
+   "above_8k_pct": 0.235,
+   "centroid_hz": 557.6,
+   "phone_rms_db": -32.53,
+   "bar_rms_db": [
+    -25.4
+   ]
+  }
+ },
+ "a_fight": {
+  "file": "slices/vote/songs/more_songs/the_water_tower_reads_out_numbers/a_fight.mp3",
+  "mp3_md5": "a2e437027c48ac2ab3da04d5507e8810",
+  "bytes": 320618,
+  "audio": {
+   "seconds": 40,
+   "peak": 0.944,
+   "peak_db": -0.5,
+   "rms_db": -22.85,
+   "largest_jump": 0.2112,
+   "above_5k_pct": 1.317,
+   "above_8k_pct": 0.134,
+   "centroid_hz": 756.5,
+   "phone_rms_db": -27.55,
+   "bar_rms_db": [
+    -32.3,
+    -32.6,
+    -31.5,
+    -31,
+    -28.7,
+    -29.5,
+    -28.7,
+    -24,
+    -18.6,
+    -19.2,
+    -19.1,
+    -18.9,
+    -26.9,
+    -27.4,
+    -27.7,
+    -23.5,
+    -18.6,
+    -19.6,
+    -21.8
+   ]
+  }
+ },
+ "gain_to_his_loudness_db": -9.49,
+ "kit_scale_db": -6.98,
+ "tune_on_a_phone_vs_the_mix_db": -0.79,
+ "beat_on_a_phone_vs_the_mix_db": -7.62,
+ "beat_climbs_level_1_to_3_db": 9.4,
+ "chords_b": [
+  2,
+  1,
+  4,
+  3
+ ],
+ "balance": {
+  "target_bass_under_tune_k_db": -3,
+  "target_pad_under_tune_k_db": -9,
+  "bass_scale_db": 2.45,
+  "pad_scale_db": 11.65,
+  "tune_k_db": -26.07,
+  "bass_k_db": -31.52,
+  "pad_k_db": -46.72
+ }
+}

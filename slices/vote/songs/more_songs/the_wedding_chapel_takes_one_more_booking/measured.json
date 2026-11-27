@@ -1,0 +1,332 @@
+{
+ "name": "THE WEDDING CHAPEL TAKES ONE MORE BOOKING",
+ "made": "11/27",
+ "remade": null,
+ "tool": "tools/bohemia_sounds_more_songs.js",
+ "page_errors": 0,
+ "bars": 32,
+ "steps": 512,
+ "bpm": 120,
+ "key": "G harmonic minor",
+ "root": 10,
+ "mode": [
+  0,
+  2,
+  3,
+  5,
+  7,
+  8,
+  11
+ ],
+ "story": "a drive-through wedding chapel on the Strip with its lights on and its organ playing, booking couples who never come",
+ "lead": "pumporgan",
+ "lead_name": "a pump organ, the chapel's own",
+ "bass": "foreclosurebass",
+ "pad": "boychoir",
+ "drums": [
+  "4-186518-A-30",
+  "4-204777-A-39",
+  "5-204114-A-29"
+ ],
+ "kit_name": "the chapel door knocked for the kick, a champagne glass breaking for the snare, a sip for the hat",
+ "swing": 0,
+ "play_gain_db": 0,
+ "mp3_kbps": 64,
+ "gap": {
+  "target_over_level_1_db": {
+   "2": 3.6,
+   "3": 11.4
+  },
+  "phone_db": [
+   -36.5,
+   -32.88,
+   -25.06
+  ],
+  "full_range_lufs": [
+   -34.7,
+   -30.73,
+   -22.69
+  ]
+ },
+ "level_1_rerender_vs_the_approved_file_db": null,
+ "run": {
+  "from_bar": 5,
+  "bars_each": 4,
+  "parts": [
+   "THE MAP (level 1)",
+   "THEIR TURN (level 2)",
+   "YOUR TURN (level 3)",
+   "THEIR TURN (level 2)",
+   "YOUR TURN (level 3)"
+  ]
+ },
+ "levels": [
+  {
+   "level": 1,
+   "file": "slices/vote/songs/more_songs/the_wedding_chapel_takes_one_more_booking/level_1.mp3",
+   "mp3_md5": "3b8382678dc77a04c399ba08ef9d1e5c",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": null,
+   "parts": {
+    "kick": 64,
+    "hat": 128,
+    "bass": 32,
+    "pad": 96,
+    "lead": 87
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.1579,
+    "peak_db": -16.03,
+    "rms_db": -34.04,
+    "largest_jump": 0.0437,
+    "above_5k_pct": 0.256,
+    "above_8k_pct": 0.047,
+    "centroid_hz": 604.2,
+    "phone_rms_db": -36.5,
+    "bar_rms_db": [
+     -37.8,
+     -37.6,
+     -37.4,
+     -37.5,
+     -33.9,
+     -33.8,
+     -32.9,
+     -33.8,
+     -33.1,
+     -33.8,
+     -32.9,
+     -33.8,
+     -33.2,
+     -32.8,
+     -33.4,
+     -33.6,
+     -32.8,
+     -32.8,
+     -33.4,
+     -33.6,
+     -32.7,
+     -33.2,
+     -33.1,
+     -33.2,
+     -32.6,
+     -33.2,
+     -33.1,
+     -33.2,
+     -33.2,
+     -35.9,
+     -37.4,
+     -37.3,
+     -48.3
+    ]
+   }
+  },
+  {
+   "level": 2,
+   "file": "slices/vote/songs/more_songs/the_wedding_chapel_takes_one_more_booking/level_2.mp3",
+   "mp3_md5": "87efe2b2d47da9ae230c1057fc162cbf",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": {
+    "limiter_worst_db": 0,
+    "limiter_mean_db": 0
+   },
+   "parts": {
+    "kick": 96,
+    "hat": 384,
+    "bass": 128,
+    "pad": 96,
+    "held": 96,
+    "lead": 87
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.277,
+    "peak_db": -11.15,
+    "rms_db": -30.21,
+    "largest_jump": 0.1035,
+    "above_5k_pct": 1.036,
+    "above_8k_pct": 0.189,
+    "centroid_hz": 688,
+    "phone_rms_db": -32.88,
+    "bar_rms_db": [
+     -31.8,
+     -31.7,
+     -31.6,
+     -31.5,
+     -30.1,
+     -30,
+     -29.5,
+     -29.9,
+     -29.6,
+     -30,
+     -29.5,
+     -30,
+     -29.6,
+     -29.4,
+     -29.8,
+     -29.8,
+     -29.4,
+     -29.5,
+     -29.8,
+     -29.8,
+     -29.4,
+     -29.6,
+     -29.6,
+     -29.6,
+     -29.4,
+     -29.7,
+     -29.7,
+     -29.7,
+     -29.8,
+     -31,
+     -31.6,
+     -31.4,
+     -42.5
+    ]
+   }
+  },
+  {
+   "level": 3,
+   "file": "slices/vote/songs/more_songs/the_wedding_chapel_takes_one_more_booking/level_3.mp3",
+   "mp3_md5": "665e0a30f37eb626b73d5c3cfbe79254",
+   "bytes": 536494,
+   "clipped_samples": 0,
+   "fit": {
+    "limiter_worst_db": 0,
+    "limiter_mean_db": 0
+   },
+   "parts": {
+    "kick": 96,
+    "hat": 256,
+    "bass": 192,
+    "pad": 96,
+    "lead": 171,
+    "snare": 84
+   },
+   "audio": {
+    "seconds": 67,
+    "peak": 0.5974,
+    "peak_db": -4.47,
+    "rms_db": -22.83,
+    "largest_jump": 0.3856,
+    "above_5k_pct": 9.645,
+    "above_8k_pct": 0.487,
+    "centroid_hz": 1262.1,
+    "phone_rms_db": -25.06,
+    "bar_rms_db": [
+     -24.7,
+     -24.8,
+     -24.8,
+     -24.8,
+     -22.8,
+     -22.6,
+     -22.3,
+     -21.9,
+     -22.4,
+     -22.6,
+     -22.3,
+     -22,
+     -22.4,
+     -22.4,
+     -22.5,
+     -22,
+     -22.2,
+     -22.4,
+     -22.5,
+     -21.9,
+     -22.2,
+     -22.5,
+     -22.4,
+     -21.8,
+     -22.2,
+     -22.4,
+     -22.4,
+     -21.8,
+     -22.7,
+     -23.5,
+     -23.8,
+     -22.8,
+     -43.3
+    ]
+   }
+  }
+ ],
+ "hit": {
+  "file": "slices/vote/songs/more_songs/the_wedding_chapel_takes_one_more_booking/hit.mp3",
+  "mp3_md5": "a340e7aa9bdeb18343b8f562c38d062c",
+  "bytes": 20524,
+  "audio": {
+   "seconds": 2.5,
+   "peak": 0.5123,
+   "peak_db": -5.81,
+   "rms_db": -30.84,
+   "largest_jump": 0.274,
+   "above_5k_pct": 24.064,
+   "above_8k_pct": 0.992,
+   "centroid_hz": 2379.6,
+   "phone_rms_db": -31.73,
+   "bar_rms_db": [
+    -29.9
+   ]
+  }
+ },
+ "a_fight": {
+  "file": "slices/vote/songs/more_songs/the_wedding_chapel_takes_one_more_booking/a_fight.mp3",
+  "mp3_md5": "c97874655e61ad580d068a049a242a5f",
+  "bytes": 320618,
+  "audio": {
+   "seconds": 40,
+   "peak": 0.944,
+   "peak_db": -0.5,
+   "rms_db": -25.71,
+   "largest_jump": 0.4046,
+   "above_5k_pct": 7.847,
+   "above_8k_pct": 0.415,
+   "centroid_hz": 1166.4,
+   "phone_rms_db": -27.76,
+   "bar_rms_db": [
+    -33.8,
+    -33.8,
+    -32.8,
+    -32.2,
+    -29.7,
+    -30,
+    -29.4,
+    -25,
+    -22.2,
+    -22.3,
+    -22.5,
+    -22.2,
+    -29.4,
+    -29.4,
+    -29.8,
+    -24.9,
+    -22,
+    -22.5,
+    -25.3
+   ]
+  }
+ },
+ "gain_to_his_loudness_db": -9.07,
+ "kit_scale_db": -10.05,
+ "tune_on_a_phone_vs_the_mix_db": -1.02,
+ "beat_on_a_phone_vs_the_mix_db": -6.76,
+ "beat_climbs_level_1_to_3_db": 10.39,
+ "chords_b": [
+  5,
+  1,
+  4,
+  4
+ ],
+ "balance": {
+  "target_bass_under_tune_k_db": -3,
+  "target_pad_under_tune_k_db": -9,
+  "bass_scale_db": 8.52,
+  "pad_scale_db": -1.94,
+  "tune_k_db": -27.96,
+  "bass_k_db": -39.49,
+  "pad_k_db": -35.02
+ }
+}

@@ -53,19 +53,24 @@ const db = x => x > 0 ? 20 * Math.log10(x) : -120;
 const med = a => { const s = a.slice().sort((x, y) => x - y); return s.length ? s[Math.floor(s.length / 2)] : -120; };
 
 /* ---- THE FILES ------------------------------------------------------------------------------------------------------- */
+/* MORE SONGS (SOUNDS THREE 11/27, rule 488): the book is the thirteen and every song made the same way since, in
+   slices/vote/songs/more_songs/ (the same three levels, the same hit, the same checks below) */
+const IDXS = ['three_levels', 'new_four'].concat(fs.existsSync(path.join(SL, 'vote', 'songs', 'more_songs', 'index.json')) ? ['more_songs'] : []);
+const MORE = IDXS.includes('more_songs') ? JSON.parse(fs.readFileSync(path.join(SL, 'vote', 'songs', 'more_songs', 'index.json'), 'utf8')).songs.length : 0;
+const WANT = 13 + MORE;
 function songList() {
   const out = [];
-  for (const idx of ['three_levels', 'new_four']) for (const S of JSON.parse(fs.readFileSync(path.join(SL, 'vote', 'songs', idx, 'index.json'), 'utf8')).songs) {
+  for (const idx of IDXS) for (const S of JSON.parse(fs.readFileSync(path.join(SL, 'vote', 'songs', idx, 'index.json'), 'utf8')).songs) {
     const lv = [1, 2, 3].map(l => path.join(SL, S.dir, 'level_' + l + '.mp3'));
     if (lv.every(f => fs.existsSync(f))) out.push({ name: S.name, dir: S.dir });
   }
-  leg(out.length === 13, 'THE THIRTEEN: his nine and the four new songs, three levels each, on disk', out.length + ' songs');
+  leg(out.length === WANT, 'THE BOOK: his nine, the four new songs and the ' + MORE + ' more of 11/27, three levels each, on disk', out.length + ' of ' + WANT + ' songs');
   return out;
 }
 function files() {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'songs_go_in_'));
   const songs = [];
-  for (const idx of ['three_levels', 'new_four']) {
+  for (const idx of IDXS) {
     const I = JSON.parse(fs.readFileSync(path.join(SL, 'vote', 'songs', idx, 'index.json'), 'utf8'));
     for (const S of I.songs) {
       const dir = path.join(SL, S.dir), M = JSON.parse(fs.readFileSync(path.join(dir, 'measured.json'), 'utf8'));
@@ -101,7 +106,7 @@ function files() {
     }
   }
   fs.rmSync(tmp, { recursive: true, force: true });
-  leg(songs.length === 13, 'THE THIRTEEN: his nine and the four new songs all measured', songs.length + ' songs');
+  leg(songs.length === WANT, 'THE BOOK: his nine, the four new songs and the ' + MORE + ' more all measured', songs.length + ' of ' + WANT + ' songs');
   return songs;
 }
 
@@ -117,8 +122,8 @@ function shells(songs) {
       const h = crypto.createHash('md5'); ['level_1', 'level_2', 'level_3'].concat(e.hit === false ? [] : ['hit']).forEach(x => h.update(fs.readFileSync(path.join(SL, S.dir, x + '.mp3'))));
       if (e.v !== h.digest('hex').slice(0, 8) || e.dir !== S.dir) stale.push(S.name);
     }
-    leg(!!B && Object.keys(B.songs).length === 13 && !stale.length && s.includes('<!-- /__THE_SONGS_GO_IN__ -->'),
-      f + ': *** THE SONGS ARE IN THE GAME ***, the block and its book of thirteen, each song\'s files as they are now',
+    leg(!!B && Object.keys(B.songs).length === WANT && !stale.length && s.includes('<!-- /__THE_SONGS_GO_IN__ -->'),
+      f + ': *** THE SONGS ARE IN THE GAME ***, the block and its book of ' + WANT + ', each song\'s files as they are now',
       B ? Object.keys(B.songs).length + ' songs' + (stale.length ? '; stale: ' + stale.join(', ') : '') : 'no book');
   }
 }
