@@ -90,6 +90,14 @@ const DEAD_KINDS = [
   { dir: 'records/target/master_rig', kind: /\/(cook_trailer|cook_camp_trailer|cook_cart|truck)\/((raw|id|rigid|rigobj|shadow)_(S|SE|E|NE|N|NW|W|SW)\.png|calibration_(cube|sphere)\.png|calibration\.json|rig\.json|camp_trailer\.glb|rig_S\.look\.png|rig_S\.loop\.jsonl)$/,
     tell: /(['"`\/])(raw|id|rigid|rigobj|shadow)_(S|SE|E|NE|N|NW|W|SW)\b|calibration_(cube|sphere)|(raw|id|rigid|rigobj|shadow)_['"`]\s*\+|(^|[^\w.])rig\.json|camp_trailer\.glb|rig_S\.look|loop\.jsonl/,
     why: "COOK's camp renders' passes (COOK SEVEN 11/27, rule 482(c), measured: 112 files, 6.18 MB): the camp's loaders (slices/bohemia_camp_look.js, slices/bohemia_camp_map.js, the fight's CAMP_RIG) build only cook_cart/ and truck/ rig_<turn>.png; the trailers are not drawn (camp_look: 'drawn when COOK cuts a camp trailer'), and the raw, id, rig-id, rig-object and shadow passes, the calibration cube and sphere, rig.json, the .glb and the loop's look are the rig's working files" },
+  /* COOK SEVEN, 11/27/26 (rule 482(c), PAGES PUBLISH at 898 MB of 900 after BUILD 11/27zz THE FIRE STATION, twenty-one insides still to
+     draw): COOK's building renders (records/target/master_rig/cook_bld_<house>/rig_S.png, 22 files, 29.55 MB) shipped only because the
+     street board's data (slices/fight_ground/street_board/street_board.json and storeys.json) names each in a house's 'rig' key, saying
+     where its picture was cut from. No published code reads that key or names a cook_bld_ folder (measured: the houses' readers,
+     slices/bohemia_street_board.js, bohemia_map_houses.js, bohemia_freeway_boards.js, engine/bohemia_fight_kinds.js and the city and fight
+     pages, draw each house from its 'src' under slices/fight_ground/); the only master_rig folders code loads are cook_cart/ and truck/ */
+  { dir: 'records/target/master_rig', kind: /\/cook_bld_[^/]*\/rig_S\.png$/, tell: /cook_bld_/,
+    why: "COOK's building renders, named only by the street board's data as where each house was cut from ('rig'); every house is drawn from its 'src' under slices/fight_ground/, and no code names a cook_bld_ folder" },
   /* CHARACTER 3, 11/27/26 (ask row 769, PAGES PUBLISH at 910 MB of 900 after BUILD 11/27u THE MAP'S PEOPLE ARE PACKED): the walk renders
      a look is baked from (rig_Anim_<take>_<turn>_k<key>.png, 5.5 MB in the gangs' and the barber's folders): the map draws its walks from
      slices/rig_mix and BOHEMIA_RIG_CAST, the fight from slices/fight_rig; the one loader of these folders (engine/bohemia_rig_bodies.js)
