@@ -376,7 +376,16 @@
     if (B.state !== 'in' || !B.out || !L || !B.out.dead || !B.out.dead.length) return [];
     var f = fit(L, B.kit, B.sq); if (!f) return [];
     var cx = B.pitch.x + B.pitch.w / 2, cy = B.pitch.y + B.pitch.h / 2, th = f.T * AR;
-    if (B.fv) return bodiesAll().filter(function (q) { return fvSeen(q.x, q.y, 30); });   /* the fight's view: the dead he can see, where they fell */
+    if (B.fv) {   /* the fight's view: the dead he can see, where they fell */
+      var all = bodiesAll(), seen = all.filter(function (q) { return fvSeen(q.x, q.y, 30); });
+      /* CAMP FOUR 11/27 (rule 442(a) as MOTION 3 amended it: 'where none is, the square stays on the glass and his men go through the
+         bodies there'): MEASURED, upright after a win the fight's widest frame (z 0.213) could not hold his men (tiles 4 to 5) and the
+         last of theirs (tile 15) at once, the body lay past the glass's edge on the camp's own picture (the square as wide as the glass
+         is long), and nobody ever went through it. With none of the dead on the glass, the dead on the picture (he drags to them).
+         window.__CAMP_DEAD_ON_GLASS_ONLY = the way it was. */
+      if (seen.length || root.__CAMP_DEAD_ON_GLASS_ONLY) return seen;
+      return all.filter(function (q) { return q.x > 30 && q.x < B.fv.PW - 30 && q.y > 70 * B.fv.q && q.y < B.fv.PH - 30; });
+    }
     return B.out.dead.map(function (d, i) { return { i: i, side: d.side, x: Math.round(f.c[0] + (d.x + 0.5 + d.st - cx) * f.T), y: Math.round(f.c[1] + (d.y + 0.9 - cy) * th) }; })
       .filter(function (q) { return q.x > 40 && q.x < f.PW - 40 && q.y > 60 && q.y < f.PH - 20; });
   }

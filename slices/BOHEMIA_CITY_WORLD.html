@@ -47410,31 +47410,11 @@ function campBoardAsk(){
   var x = CAMP.at[0], y = CAMP.at[1], msg = { type: 'BOHEMIA_CITY_ENCOUNTER', why: 'camp', at: [x, y], __deal: CAMP.deal != null ? CAMP.deal : campDie(CAMP.at) };
   try{ msg.world = cityWorldNow([x, y]); }catch(_e){}
   try{ var c = om.at(x, y); msg.district = c ? c.district : null; }catch(_e){}
-  try{ campStampLikeTheDoor(msg); }catch(_e){}   /* CAMP FOUR 11/27: what the one door stamps on a fight there, so the camp's board IS that fight's */
+  /* rule 406(b)(c): the door's own stamps (doorStampsTheCell), so the camp stands on the board a fight on this cell is dealt (a place's,
+     or the cell's ground and zone) and a crew that finds him fights him on it (CAMP FOUR 11/27: measured before, the camp on 'strip +
+     suburb + lots' and the crew's fight there on 'yards + lots + suburb + culdesac', same block and die; THE CAMP IS PITCHED ON THE BOARD B4) */
+  try{ doorStampsTheCell(msg); }catch(_e){}
   try{ if (window.BohemiaWorldStateMap && BohemiaWorldStateMap.handOver) BohemiaWorldStateMap.handOver(msg); }catch(_e){}
-  return msg;
-}
-/* CAMP FOUR 11/27 __THE_CAMP_ASKS_AS_THE_DOOR_DOES__ (rule 406(b)(c), THE CAMP IS PITCHED ON THE BOARD's B4, red since it was
-   quarantined 11/10). MEASURED (the demo upright, an arterial block, one deal 2388192501): the camp stood on 'strip + suburb + lots'
-   (830c681d) and a crew that reached it fought him on 'yards + lots + suburb + culdesac' (a0edc23f), same block, same die, same
-   district and kind: the one door (cityHandOver) stamps a fight with the place standing on its cell (WORLD THIRTEEN __THE_CUT__,
-   msg.template) and the cell's ground, zone and street (__THE_GROUND_AND_THE_ZONE__, __EVERY_ZONE_ITS_GROUND__, msg.ground), and the
-   fight deals its dressing from them; the camp's ask carried neither, so its board was a board no fight there is dealt. The camp now
-   asks with the same stamps, the door's own lines (each only where the ask has none), so the camp's ground is the board a fight there
-   deals, and the crew that finds him fights him on it. If the door's stamps change, B4 goes red. window.__CAMP_ASK_PLAIN = the way it was. */
-function campStampLikeTheDoor(msg){
-  if (window.__CAMP_ASK_PLAIN || !msg) return msg;
-  var _ca = (msg.at && msg.at.length === 2) ? msg.at : [city.x, city.y];
-  /* NOT ON A PLACE'S CELL (measured the same round: THE CAMP LOADS IN ONE GO's valley, the camp on THE DECK, a cell one of the 15 places
-     stands on: with the place's template asked the camp's picture never came, 0/6, where the plain ask took 17.6 s): there the camp
-     asks as before, and a crew there still fights him on the place's board. NAMED for the next round: the camp on a place's board. */
-  try{ if (typeof vbTemplateAt === 'function' && vbTemplateAt(_ca[0]|0, _ca[1]|0)) return msg; }catch(_e){}
-  try{ if(!msg.template && !msg.ground && window.BohemiaFightKinds){ var _gx=_ca[0]|0, _gy=_ca[1]|0, _gt=om.at(_gx,_gy), _gd=_gt?_gt.district:null;
-    var _gr=_gd?BohemiaFightKinds.answer(_gd):null, _gp=_gd?BohemiaFightKinds.piece(_gd):null, _gl=null; try{ var _LV=vbLanesValley(); if(_LV) _gl=_LV[_gy*om.n+_gx]|0; }catch(_e2){}
-    if(_gr) msg.ground={ cell:[_gx,_gy], district:_gd, zone:_gr.zone||null, cls:_gr.class||null, building:_gr.building||null,
-      ground:_gp&&_gp.deal?_gp.deal.ground:null, kind:_gp&&_gp.deal?_gp.deal.kind:null, families:_gp&&_gp.deal?_gp.deal.families.slice():[],
-      street:_gl?{ way:(_gl&3)===1?'ew':(_gl&3)===2?'ns':null, ends:(_gl&12)>>2, mouths:(_gl&240)>>4 }:null }; } }catch(_e){}
-  try{ if(msg.ground && msg.ground.cell && window.BohemiaFightKinds){ var _TRk=null; try{ _TRk=vbTracksValley(); }catch(_e3){} vbZoneGround(om, msg.ground, BohemiaFightKinds, _TRk); } }catch(_e){}
   return msg;
 }
 function campFightAt(msg){
@@ -70600,6 +70580,32 @@ function vbZoneGround(m, G, FK, TR){
 /* __EVERY_FIGHT_WON_COUNTS__ (JOBS 11/20): each fight handed over gets its own stamp (its why and the moment), the key its CLOUT is
    paid under when it ends; a card first and ENGAGE after hand it over twice, and the second stamp is the fight's */
 var FIGHT_STAMP = null;
+/* WHAT THE ONE DOOR STAMPS ON THE CELL A FIGHT STARTS ON: the place standing there, else its ground, zone and street. One function,
+   owned by the door (WORLD THIRTEEN's three stamps, moved here whole by CAMP FOUR 11/27 under rule 495(b) so nothing copies them):
+   cityHandOver calls it for every fight, and the camp's board ask (campBoardAsk) calls it so the camp stands on the board a fight
+   on that cell is dealt. Each stamp only where the hand-over has none. */
+function doorStampsTheCell(msg){
+  if(!msg) return msg;
+  /* __THE_CUT__ (WORLD THIRTEEN 11/11, rules 429(a)(c), 430; ask line 504): a fight that starts on a cell of one of the 15 places
+     (vbTemplateAt: the place boards the generator stood on this valley) carries that place with it: its board, the cell's own
+     tiles of it under the spot it starts (the shell's nfOpts hands it to the fight as o.template; a boss's own board first). */
+  try{ if(!msg.template && !msg.boss && typeof vbTemplateAt === 'function'){ var _ca=(msg.at&&msg.at.length===2)?msg.at:(msg.at&&msg.at.gx!=null?[msg.at.gx,msg.at.gy]:[city.x,city.y]), _tc=vbTemplateAt(_ca[0]|0,_ca[1]|0);
+    if(_tc) msg.template={ id:_tc.id, board:_tc.board, tx:_tc.tx, ty:_tc.ty, flip:!!_tc.flip, cell:[_ca[0]|0,_ca[1]|0] }; } }catch(_e){}
+  /* __THE_GROUND_AND_THE_ZONE__ (WORLD THIRTEEN 11/14, rule 429(f)(g)(h); the coordinator: 'the map cells no place stands on handed
+     to COMBAT THREE with their ground and zone so it can cut a board there'): a fight that starts on a cell no place stands on carries
+     what the map knows of it: its kind, its zone (the land-use file's), its ground and the board kind and block families the one table
+     names (BohemiaFightKinds.piece), and its street (the generator's street byte: which way, which ends run on, the mouths). */
+  try{ if(!msg.template && !msg.ground && window.BohemiaFightKinds){ var _ga=(msg.at&&msg.at.length===2)?msg.at:(msg.at&&msg.at.gx!=null?[msg.at.gx,msg.at.gy]:[city.x,city.y]), _gx=_ga[0]|0, _gy=_ga[1]|0, _gt=om.at(_gx,_gy), _gd=_gt?_gt.district:null;
+    var _gr=_gd?BohemiaFightKinds.answer(_gd):null, _gp=_gd?BohemiaFightKinds.piece(_gd):null, _gl=null; try{ var _LV=vbLanesValley(); if(_LV) _gl=_LV[_gy*om.n+_gx]|0; }catch(_e2){}
+    if(_gr) msg.ground={ cell:[_gx,_gy], district:_gd, zone:_gr.zone||null, cls:_gr.class||null, building:_gr.building||null,
+      ground:_gp&&_gp.deal?_gp.deal.ground:null, kind:_gp&&_gp.deal?_gp.deal.kind:null, families:_gp&&_gp.deal?_gp.deal.families.slice():[],
+      street:_gl?{ way:(_gl&3)===1?'ew':(_gl&3)===2?'ns':null, ends:(_gl&12)>>2, mouths:(_gl&240)>>4 }:null }; } }catch(_e){}
+  /* __EVERY_ZONE_ITS_GROUND__ (WORLD THIRTEEN 11/17, rule 453(2)): the ground's zone place, the land beside a road, its way, the track,
+     the four sides (vbZoneGround, above) */
+  try{ if(msg.ground && msg.ground.cell && window.BohemiaFightKinds){ var _TRk=null; try{ _TRk=vbTracksValley(); }catch(_e3){}
+    vbZoneGround(om, msg.ground, BohemiaFightKinds, _TRk); } }catch(_e){}
+  return msg;
+}
 function cityHandOver(msg, skin){
   try{ if(msg && msg.type === 'BOHEMIA_CITY_ENCOUNTER') FIGHT_STAMP = String(msg.why || 'fight') + '@' + Date.now(); }catch(_e){}
   /* WORLD [the job tells the truth, in blood] (rule 208(e), WORLD's line in RUN's door): the party is rolled here, once, by the fight's
@@ -70659,24 +70665,7 @@ function cityHandOver(msg, skin){
   /* __THE_NEW_FIGHT_IS_THE_FIGHT__ (RUN 10/2): and the kind of block it starts on, which picks the
      rebuilt fight's board (COMBAT TWO cut its boards from the city's own block kinds) */
   try{ if(msg && !msg.district){ var _fa=(msg.at&&msg.at.length===2)?msg.at:[city.x,city.y], _ft=om.at(_fa[0]|0,_fa[1]|0); msg.district=_ft?_ft.district:null; } }catch(_e){}
-  /* __THE_CUT__ (WORLD THIRTEEN 11/11, rules 429(a)(c), 430; ask line 504): a fight that starts on a cell of one of the 15 places
-     (vbTemplateAt: the place boards the generator stood on this valley) carries that place with it: its board, the cell's own
-     tiles of it under the spot it starts (the shell's nfOpts hands it to the fight as o.template; a boss's own board first). */
-  try{ if(msg && !msg.template && !msg.boss && typeof vbTemplateAt === 'function'){ var _ca=(msg.at&&msg.at.length===2)?msg.at:(msg.at&&msg.at.gx!=null?[msg.at.gx,msg.at.gy]:[city.x,city.y]), _tc=vbTemplateAt(_ca[0]|0,_ca[1]|0);
-    if(_tc) msg.template={ id:_tc.id, board:_tc.board, tx:_tc.tx, ty:_tc.ty, flip:!!_tc.flip, cell:[_ca[0]|0,_ca[1]|0] }; } }catch(_e){}
-  /* __THE_GROUND_AND_THE_ZONE__ (WORLD THIRTEEN 11/14, rule 429(f)(g)(h); the coordinator: 'the map cells no place stands on handed
-     to COMBAT THREE with their ground and zone so it can cut a board there'): a fight that starts on a cell no place stands on carries
-     what the map knows of it: its kind, its zone (the land-use file's), its ground and the board kind and block families the one table
-     names (BohemiaFightKinds.piece), and its street (the generator's street byte: which way, which ends run on, the mouths). */
-  try{ if(msg && !msg.template && !msg.ground && window.BohemiaFightKinds){ var _ga=(msg.at&&msg.at.length===2)?msg.at:(msg.at&&msg.at.gx!=null?[msg.at.gx,msg.at.gy]:[city.x,city.y]), _gx=_ga[0]|0, _gy=_ga[1]|0, _gt=om.at(_gx,_gy), _gd=_gt?_gt.district:null;
-    var _gr=_gd?BohemiaFightKinds.answer(_gd):null, _gp=_gd?BohemiaFightKinds.piece(_gd):null, _gl=null; try{ var _LV=vbLanesValley(); if(_LV) _gl=_LV[_gy*om.n+_gx]|0; }catch(_e2){}
-    if(_gr) msg.ground={ cell:[_gx,_gy], district:_gd, zone:_gr.zone||null, cls:_gr.class||null, building:_gr.building||null,
-      ground:_gp&&_gp.deal?_gp.deal.ground:null, kind:_gp&&_gp.deal?_gp.deal.kind:null, families:_gp&&_gp.deal?_gp.deal.families.slice():[],
-      street:_gl?{ way:(_gl&3)===1?'ew':(_gl&3)===2?'ns':null, ends:(_gl&12)>>2, mouths:(_gl&240)>>4 }:null }; } }catch(_e){}
-  /* __EVERY_ZONE_ITS_GROUND__ (WORLD THIRTEEN 11/17, rule 453(2)): the ground's zone place, the land beside a road, its way, the track,
-     the four sides (vbZoneGround, above) */
-  try{ if(msg && msg.ground && msg.ground.cell && window.BohemiaFightKinds){ var _TRk=null; try{ _TRk=vbTracksValley(); }catch(_e3){}
-    vbZoneGround(om, msg.ground, BohemiaFightKinds, _TRk); } }catch(_e){}
+  doorStampsTheCell(msg);   /* the place, the ground and the zone of the cell it starts on (one function: the camp's ask calls it too) */
   try{ if(msg && window.BohemiaWorldStateMap && BohemiaWorldStateMap.handOver) BohemiaWorldStateMap.handOver(msg); }catch(_e){}   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ (WORLD 7): a burned block deals a burned board; the block's state and its power go with the fight */
   /* __EVERY_FIGHT_SIZED_TO_THE_CREW__ (RUN 10/23): which day it is and how many he has, on the one door, so the shell can
      hold the first day's line for a hand-over that never asked partyMath (the street's rosters) */

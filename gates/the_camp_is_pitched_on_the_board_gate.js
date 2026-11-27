@@ -25,6 +25,9 @@
         make-camp-from-the-fight gate wins its fight), MAKE CAMP pressed on the end screen: the camp stands on that fight's own board
         (its fingerprint at the win), every body drawn where it fell, the camp on the tiles where they lie, and by day his men with an
         easy job go through them
+     B8 *** ON A PLACE, THE PLACE'S BOARD *** (CAMP FOUR 11/27, rules 406(b)(c), 495(b)) camp on the nearest cell one of the 15
+        places stands on: the camp's ask carries the place (the one door's own stamp, doorStampsTheCell), and a crew that reaches it
+        fights him on the camp's board, the place's, the camp on its square
      B6 nothing threw
    node gates/the_camp_is_pitched_on_the_board_gate.js [--profile phone_landscape|phone_portrait|computer]   (no flag: the phone both ways) */
 'use strict';
@@ -185,7 +188,7 @@ async function run(profile) {
        fight's view (C.fv.on) is read with it, gates/the_camp_is_the_fights_board_gate.js proves the rest */
     const ff = p.frames().find(x => /BOHEMIA_FIGHT\.html/.test(x.url()) && x.parentFrame() === p.mainFrame());
     const won = ff ? await ff.evaluate(() => { const S = FIGHT.S; S.units.filter(u => u.side === 'them').forEach(u => { u.dead = true; u.armB = 0; u.armH = 0; });
-      const r = { sig: campBoardSig(), dead: S.units.filter(u => u.dead && !u.fled && !u.ghost).length }; S.over = true; S.result = 'won'; showOver('won'); return r; }).catch(() => null) : null;
+      const r = { sig: campBoardSig(), dead: S.units.filter(u => u.dead && !u.fled && !u.ghost).length, at: S.units.filter(u => u.side === 'them').map(u => [u.x, u.y]) }; S.over = true; S.result = 'won'; showOver('won'); return r; }).catch(() => null) : null;
     const SF = () => p.frames().find(x => /SPOILS_SCREEN/.test(x.url()));
     for (let i = 0; i < 100 && !(SF() && await SF().evaluate(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened).catch(() => false)); i++) await p.waitForTimeout(200);
     await p.waitForTimeout(1000);
@@ -205,7 +208,36 @@ async function run(profile) {
     ok(P + 'B7 *** CAMP HERE FROM THE VICTORY SCREEN *** that fight won, MAKE CAMP on the end screen: the camp stands on that fight\'s own board (its fingerprint), every body drawn where it fell, the camp pitched on the tiles where they lie, and by day his men go through them (rule 406(f)(g))',
       !!won && won.dead > 0 && !!v7 && v7.st === 'in' && v7.fromFight && v7.sig === won.sig && v7.bodies === won.dead && v7.dead === won.dead && v7.pitch && (v7.pitch.dead >= 1 || v7.fv) && v7.inView >= 1
         && srcs7.every(x => /^data:image\/gif/.test(x) || BOARD_SRC.test(x)) && !!looted && looted.acts.indexOf('loot') >= 0,
-      JSON.stringify({ won, camp: v7 && Object.assign({}, v7, { src: undefined }), srcs: srcs7.length, looted }));
+      JSON.stringify({ won, camp: v7 && Object.assign({}, v7, { src: undefined }), srcs: srcs7.length, looted, seen: await settle().evaluate(() => { try { const B = BohemiaCampBoard._B; return { all: BohemiaCampBoard.fvOn && B.fv ? (function () { const F = B.fv; return { v: { W: F.v.W, H: F.v.H, sx0: Math.round(F.v.sx0), sy0: Math.round(F.v.sy0), z: F.v.z, fx: F.v.fx, fy: F.v.fy }, dead: B.out && B.out.dead }; })() : null, shown: B.fvShown }; } catch (e) { return String(e); } }).catch(() => null) }));
+    /* ---- B8: on a place's cell (CAMP FOUR 11/27, rules 406(b)(c), 495(b)): the camp asks with the one door's own stamps
+       (doorStampsTheCell), so on a cell one of the 15 places stands on it stands on the place's board, and a crew there fights him on it ---- */
+    await fr.evaluate(() => { try { if (CAMP.on) BohemiaMapCamp.break(); } catch (e) {} try { if (LOOP.open) loopClose(); } catch (e) {} });
+    await p.waitForTimeout(1200);
+    const place = await fr.evaluate(() => { const N = om.n, cx = city.x | 0, cy = city.y | 0; let best = null;
+      for (let x = 2; x < N - 2; x++) for (let y = 2; y < N - 2; y++) { let tc = null; try { tc = vbTemplateAt(x, y); } catch (e) {} if (!tc) continue;
+        if (!cityWalkable(x, y) || (typeof townSafeAt === 'function' && townSafeAt(x, y)) || (typeof loopTownAt === 'function' && loopTownAt(x, y, 2))) continue;
+        const dd = Math.abs(x - cx) + Math.abs(y - cy); if (!best || dd < best.dd) best = { x, y, dd, id: tc.id }; }
+      return best; });
+    let b8 = { place };
+    if (place) {
+      await fr.evaluate((q) => { city.x = q.x + 0.5; city.y = q.y + 0.5; TOWN_EXIT = null; HUNT = null; return BohemiaMapCamp.make(); }, place);
+      let pitch8 = null; for (let k = 0; k < 160; k++) { await p.waitForTimeout(250); pitch8 = await fr.evaluate(() => CAMP.pitch ? { x: CAMP.pitch.x, y: CAMP.pitch.y, n: CAMP.pitch.n, pieces: CAMP.pitch.pieces.length, sig: CAMP.pitch.sig } : null); if (pitch8) break; }
+      b8.pitch = pitch8;
+      b8.ask = await fr.evaluate(() => { const a = campBoardAsk(); return a ? { template: a.template ? a.template.id : null, ground: !!a.ground, at: a.at } : null; });
+      const old = new Set(p.frames().filter(x => /BOHEMIA_FIGHT\.html/.test(x.url()) && x.parentFrame() === p.mainFrame()));
+      b8.handed = await fr.evaluate(() => { const r = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', why: 'gate:camp', label: 'A CREW', __met: true, party: { count: 3, faction: 'brigands' }, roster: [{ arch: 'human' }, { arch: 'human' }, { arch: 'human' }], street: true, at: { gx: city.x + 2, gy: city.y } }, null);
+        return { r: !!r, fought: window.__CAMP_FOUGHT ? { at: window.__CAMP_FOUGHT.at, sig: window.__CAMP_FOUGHT.sig } : null }; });
+      for (let k = 0; k < 200; k++) { await p.waitForTimeout(250);
+        const ff8 = p.frames().find(x => /BOHEMIA_FIGHT\.html/.test(x.url()) && x.parentFrame() === p.mainFrame() && !old.has(x)) || p.frames().find(x => /BOHEMIA_FIGHT\.html/.test(x.url()) && x.parentFrame() === p.mainFrame()); if (!ff8) continue;
+        b8.fight = await ff8.evaluate(() => { try { const o = window.FIGHT_OPTS || {}; return { board: !!(window.FIGHT_UI && FIGHT_UI.board), template: o.template ? o.template.id : null, camp: o.camp ? { x: o.camp.x, y: o.camp.y, n: o.camp.n } : null,
+          sig: window.campBoardSig ? campBoardSig() : null, drawn: window.CAMP_ON_THE_BOARD ? CAMP_ON_THE_BOARD.drawn : -1 }; } catch (e) { return null; } }).catch(() => null);
+        if (b8.fight && b8.fight.board && b8.fight.template && b8.fight.drawn > 3) break; }
+      if (process.env.BOHEMIA_SHOT_DIR) await p.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'camp4_place_fight_' + profile + '.png') });
+    }
+    const F8 = b8.fight || {};
+    ok(P + 'B8 *** ON A PLACE, THE PLACE\'S BOARD *** camp on a cell one of the 15 places stands on: the camp asks with the place (the door\'s own stamp), and a crew that reaches it fights him on the camp\'s board, the place\'s, the camp on its square',
+      !!place && !!b8.pitch && !!b8.ask && b8.ask.template === place.id && b8.handed && b8.handed.r && F8.board && F8.template === place.id && !!F8.camp && F8.camp.x === b8.pitch.x && F8.camp.y === b8.pitch.y && !!F8.sig && F8.sig === b8.pitch.sig && F8.drawn > 3,
+      JSON.stringify(b8));
   } catch (e) { ok(P + 'the gate ran to its end [' + String(e && e.message || e).slice(0, 300) + ']', false); }
   ok(P + 'B6 nothing threw', errs.length === 0, errs.slice(0, 3).join(' | '));
   try { await d.close(); } catch (e) {}
