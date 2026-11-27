@@ -1,5 +1,22 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
+HANDOFF READY (bestiary-three-01gkdyuu, context near its budget, 11/27): two builds live or deploying (11/27l EVERYBODY IS STRAPPED, 11/27u THE DRONE
+OPERATOR); a fresh BESTIARY opens on this block. THE JOB, IN THIS ORDER (the coordinator's rule 493 moved rule 491 to the top of the round):
+(1) RULE 491 THIS LANE'S HALF + RULE 493(c) THE CHAMPIONS (ask rows 774 and 491's): an enemy force's numbers and kit grow with HIS COMPANY (men, levels,
+    gear), so five killers at their best meet full, geared forces; champions in the hard jobs and the roaming forces (a name, a look, kit a tier up, a prize).
+    MEASURED BY BESTIARY 3 (main ebbf394f8): slices/BOHEMIA_FIGHT.html partyFor: the band's KIT TIER is tierPhase(days, difficulty) (the calendar only:
+    first/early/middle/late at days 1/8/20/60, ours.enemy_tiers.phases); its COUNT is handed in (the map's crowd x act weight; a job's from
+    partyMath('job', {skulls}) in slices/bohemia_job_kinds.js on records/target/bb/party_math.json, JOBS 2's); count_scale thins tough factions;
+    one champion a band at most (bohemia_enemies.json champions; COMBAT's u.champion). HIS COMPANY'S STRENGTH FEEDS NEITHER, except bandFor's fallback
+    (headcount only, ours.fallback_band_by_company). JOBS 2 owns the offers and the reader (slices/bohemia_job_danger.js); this lane the forces by tier.
+    THE RESEARCH (Battle Brothers' party scaling, skulls, champions, legendary places, ambitions, crises): a helper was writing it to the scratchpad when
+    this session closed; if records/BOHEMIA_BESTIARY_THREE_HOW_BATTLE_BROTHERS_SCALES_THE_ENEMY_11_27_26.md exists, it is that; else redo it (rule 491(c), 493(b)).
+(2) The roles left from records/BOHEMIA_BESTIARY_THREE_HUMAN_FORCES_BY_ROLE_THE_RESEARCH_11_27_26.md: the machine gunner (ARMORY 3's belt-fed behind a shield,
+    Battle Brothers' Gunner), the rocket man (one rocket a fight before the lines meet), the breacher (Line Breaker's shove that strips a wall), the medic.
+(3) FOR TUNING AND COMBAT FIVE (rule 490(d)): on AUTO a drone never lands on a man (every cross stepped off), so an all-melee crew walks away from it.
+TOOLS: gates/everybody_is_strapped_gate.js; tools/bohemia_bestiary_three_strapped_proof.js and _operator_proof.js (frames to records/bestiary_proof/, never
+records/target: the site is over its cap on main, ask row 775). Never run more than four browser gates at once on this box (they crash each other).
+
 BESTIARY 3 (bestiary-three-01gkdyuu; rule 490(c), ask row 762): 11/27 LATEST -- BUILD 11/27u THE DRONE OPERATOR, BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_THREE_THE_DRONE_OPERATOR_11_27_26.md. VOTE bestiary3-the-drone-operator-11-27 (a page: his drone over five lit tiles with a man on them; him at the back).
 - drone_operator ('OPERATOR', bohemia_enemies.json): the wiki's engineer (70 hp, soft), the Charge Drone (2 a fight) and a Knife (his waistband pistol after);
