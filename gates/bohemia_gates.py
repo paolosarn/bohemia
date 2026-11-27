@@ -8613,6 +8613,14 @@ GATES = [
      "PAGE (demo | alpha [phone_portrait | phone_landscape]), a road fight won: B1 nothing lit before; B2 LOOT ALL, the tape up by "
      "what the fight left, lit inside a second; B3 gone by three seconds; B4 the bar's row the same size; B5 the batteries still "
      "climb to the purse; B6 no page error. green at registration, 6/0 on all four, about 2 min a walk", True),
+    ('THE STALL\'S DAY', ['node', 'gates/the_stalls_day_gate.js', 'data'],
+     "ECONOMY THREE 11/27, rule 485(b) ('the city's money moves whether he is there or not... stalls open, sell out and close... "
+     "prices move with what is scarce'). records/BOHEMIA_ECONOMY_THREE_THE_RUNNING_CITY_11_27_26.md (cited: Night City, Sarajevo, Lebanon, "
+     "Venezuela, Battle Brothers' restock and situations). stall_prices.json the_day through engine theDay: D1 full at first light, "
+     "bought down and dearer through the day, shut at night; D2 a short town runs out sooner; D3 each place and day its own; D4 his buys "
+     "come off; D5 the price between dawn's and twice; D6 tape has no day (rule 271); D7 every number sourced. THE REAL PAGE (demo | alpha "
+     "[phone_portrait | phone_landscape]), Caravans' stall at 06:01, 19:30, 23:00: P1 the whole stock at dawn; P2 dearer or SOLD OUT late; "
+     "P3 SHUT at night, tape through the back, the keeper says it; P4 no page error. green at registration, 7/0 data, 4/0 a walk", True),
     ('HIS MAP', ['node', 'gates/his_map_gate.js'],
      "WORLD TWO gate, 10/26, row [the best of both maps] (rule 243, Paolo 10/26: 'think about Valheim's map and how Battle "
      "Brothers' map is, let's do the best of both worlds... bosses where you're able to alter the map and what's going on in the "

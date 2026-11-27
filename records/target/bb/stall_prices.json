@@ -533,5 +533,58 @@
   },
   "bb_quote_source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1763_Settlement buildings.txt",
   "bb_quote": "Can instantly repair items (Hold Alt and click an item), without using the party's tool supply, but at a costly price (heavily depends on the item's worth value)."
+ },
+ "the_day": {
+  "_about": "ECONOMY THREE 11/27, VAMILY rule 485(b) ('stalls open, sell out and close... prices move with what is scarce'): a stall's day. The engine is engine/bohemia_stall_prices.js theDay; the town reads the map's hour (slices/BOHEMIA_SETTLEMENT_SCREEN.html __THE_STALLS_DAY__). Food, meds and rounds; tape keeps its own shelf and back room (rule 271). Research: records/BOHEMIA_ECONOMY_THREE_THE_RUNNING_CITY_11_27_26.md.",
+  "draft": true,
+  "open": {
+   "value": [
+    360,
+    1200
+   ],
+   "unit": "the map's minutes the stall is open: first light to dusk (06:00 to 20:00); shut at night",
+   "source": "research s2: markets in a siege traded by daylight and hid from the dark and the shells (Sarajevo, Peter Andreas, Wilson Center; Il Post 2014 on Markale); Lebanon's blocks lit by the generator's shift (Human Rights Watch 2020)",
+   "why": "a stall is a man and a table; he goes home when the light goes"
+  },
+  "stock": {
+   "value": {
+    "food": {
+     "camp": 6,
+     "town": 14,
+     "fortress": 30
+    },
+    "meds": {
+     "camp": 2,
+     "town": 5,
+     "fortress": 10
+    },
+    "rounds": {
+     "camp": 3,
+     "town": 8,
+     "fortress": 16
+    }
+   },
+   "unit": "what the stall puts out at first light: nights of food for one man, doses, handfuls of six rounds",
+   "source": "Battle Brothers: a bigger place keeps more (1244_Market prices for various items.txt: a City Hall with 8 attached locations against a Village Hall with 1) and restocks every 3 days (0626_Developer Posts.txt: 'Locations restock every 3 days'); one of our map days holds four to six of Battle Brothers' (rule 264), so ours restocks every first light",
+   "why": "sized so a crew of three can always buy its night at dawn and a company of twelve buying three nights can clear a town's food: the shelf is a real limit, not a decoration"
+  },
+  "left_at_close": {
+   "value": 0.2,
+   "unit": "of the dawn stock a calm day leaves at dusk, after the town's own people have bought",
+   "source": "research s3: Battle Brothers' 'Raided: -50% items available' and 'Ambushed Trade Routes: -25% items available' (0054, 0888, 1626 situation files) as the size of a bad day against a calm one",
+   "why": "a calm town still has a little at dusk; a short or unlucky one does not"
+  },
+  "spread": {
+   "value": 0.35,
+   "unit": "how much one day's buying differs from the next, seeded by the place and the day",
+   "source": "research s2: Lebanon's street rate moved within the day, 'often increasing in the morning and decreasing in the evening' (Al Arabiya 2020); Venezuela's state stores let people in by the last digit of their ID on set days (NPR 2015)",
+   "why": "so one town's rice is gone by noon and the next one's lasts to dusk: the city's money moves whether he is there or not"
+  },
+  "climb": {
+   "value": 1,
+   "unit": "how far the price rises as the shelf empties: the last unit at (1 + climb) times the dawn price",
+   "source": "research s2: Venezuela's bachaqueros resold at 5 to 10 times the regulated price (Global Voices 2015); Battle Brothers' 'Buying raises the local price, selling lowers it' (reference/library/battle_brothers/07_ECONOMY.md)",
+   "why": "twice by the last unit inside one day: far under a black market's five to ten, because the stall is the honest price and the reseller is another man (routed)"
+  }
  }
 }

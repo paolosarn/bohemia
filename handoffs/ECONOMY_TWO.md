@@ -3,7 +3,29 @@
 # the VAMILY front page (rules 459, 441, 454(a)), then continue from the newest block below.
 # ECONOMY THREE (rule 462, 11/20) carries this file on: same job, same table; its blocks are named ECONOMY THREE.
 
-ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/26 LATEST -- BUILD 11/26zc - A SUPPLY LANDS ON THE BAR, BUILT, NOT YET SEEN
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/27 LATEST -- BUILD 11/27e - THE STALL'S DAY, BUILT, NOT YET SEEN
+(rules 485(b)(c) and 486). Records: records/BOHEMIA_ECONOMY_THREE_THE_RUNNING_CITY_11_27_26.md (cited: Night City is a feel not a sim,
+Sarajevo, Lebanon, Venezuela, Argentina, Moscow, Battle Brothers' restock and situations) and
+records/BOHEMIA_ECONOMY_THREE_THE_IMPLANT_IS_BLACK_MARKET_11_27_26.md (cited: real devices, their costs, risks and black markets).
+Gate THE STALL'S DAY (the suite runs data, 7/0; the page 4/0 on the demo and the alpha, upright and sideways). VOTE card
+economy3-the-stalls-day-11-27.
+- THE STALL'S DAY (stall_prices.json the_day; engine theDay; the town reads the map's hour, the map sends T.min with a town): open
+  06:00 to 20:00; a day's stock by size (food camp 6, town 14, fortress 30; meds 2/5/10; rounds 3/8/16); the town's own people buy it
+  down while he is away (a calm day leaves a fifth, a short town less, each place and day its own luck); the price climbs to twice by
+  the last unit; SOLD OUT; at night SHUT both ways, the tape through the back (rule 271). Measured: Caravans (a fortress, market day)
+  30 food at 3 at dawn, 1 left at 6 at 19:30, shut at 23:00. Nothing pops up: the box, the keeper and the strip say it.
+- THE IMPLANT (records/target/bb/implants.json, in the table, band an_implant 100 to 8,000): a salvaged pacemaker 160, a cochlear
+  implant 700, a powered arm 1,200, a microprocessor knee 1,500, a camera eye 4,000 (a real device in median working days at four AA a
+  day); a finder gets a tenth; the back room's risks from the research. FOR COMBAT FIVE: what each does (the 'proposes' lines). FOR
+  CHARACTER 2: how each looks. Nothing sells it yet: a back room is WORLD 15's place and WORDS' rumour.
+- FOR WORLD 15 and WORLD 13 (rule 485's other owners): the calls are in the running-city record, section 3 (the keeper gone at night
+  and the shutter down, a queue at the scarcest good, a block's lights on its paid generator, caravans that restock, a collector's
+  round). JOBS 2 already made a job's pay follow what is short (11/27c).
+- ALSO: THE BATTERY IS REAL green again after STAFF 2's camp copies (a 'sex' field) and BESTIARY's battery man as a list.
+- NEXT: the stock follows the town's card (raided half, a harvest double), a reseller outside a sold-out stall, a caravan's arrival
+  restocking it. NEVER a tool that waits for a tap.
+
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/26 -- BUILD 11/26zc - A SUPPLY LANDS ON THE BAR, BUILT, NOT YET SEEN
 (rule 482, the coordinator's list: 'a fight's spoils counted on the bar'). Record: records/BOHEMIA_ECONOMY_THREE_A_SUPPLY_LANDS_ON_THE_BAR_11_26_26.md.
 Gate A SUPPLY LANDS ON THE BAR (in the suite on the demo upright; 6/0 on the demo and the alpha, upright and sideways). VOTE card
 economy3-a-supply-lands-on-the-bar-11-26.

@@ -11,9 +11,9 @@
      D6 tape has no day (its own shelf and back room, rule 271)
      D7 every number of the day has a value and a source
    PAGE legs (demo | alpha, phone_portrait | phone_landscape), Caravans' stall opened by a finger at three hours of the map's day:
-     P1 first light: every BUY at its dawn price, nothing shut, nothing sold out (the stall as it always was in the morning)
+     P1 first light: every BUY open, the whole day's stock on the shelf (the strip says so), nothing shut, nothing sold out
      P2 late in the day: the food costs more than at dawn or says SOLD OUT; the strip says how many are left today
-     P3 night: food, meds and rounds say SHUT and do not sell; the tape still sells; the keeper says the shutters are down
+     P3 night: food, meds and rounds say SHUT both ways (he can neither buy nor sell them); the tape still sells; the keeper says the shutters are down
      P4 no page error
    node gates/the_stalls_day_gate.js [data | demo | alpha] [phone_portrait | phone_landscape] */
 'use strict';
@@ -62,8 +62,8 @@ const T = MODE + ' ' + SHAPE;
     await P.waitForTimeout(1500);
     for (let t = 0; t < 4; t++) { const xy = await sf.evaluate(() => BohemiaSettlement.where('stall')); if (xy) { const hb = await sfH.boundingBox(), iw = await sf.evaluate(() => [innerWidth, innerHeight]); await P.touchscreen.tap(hb.x + xy.x * hb.width / iw[0], hb.y + xy.y * hb.height / iw[1]); }
       await P.waitForTimeout(2500); if (await sf.evaluate(() => BohemiaSettlement.state.open === 'stall')) break; }
-    const r = await sf.evaluate(() => { const box = (good) => { const ln = document.querySelector('#sbody .stline[data-good="' + good + '"][data-n="1"]'); if (!ln) return null; const b = ln.querySelector('.sb.buy'); return { cap: b.querySelector('small').textContent, p: b.dataset.p, off: b.classList.contains('off') }; };
-      const k = document.querySelector('#sbody p, .speak p, #sbody .say'); return { min: BohemiaSettlement.state.mapMin, food: box('food'), meds: box('meds'), rounds: box('rounds'), tape: box('tape'), keeper: (document.querySelector('#sbody') || {}).innerText.split('\n').slice(0, 3).join(' ') }; });
+    const r = await sf.evaluate(() => { const box = (good) => { const ln = document.querySelector('#sbody .stline[data-good="' + good + '"][data-n="1"]'); if (!ln) return null; const b = ln.querySelector('.sb.buy'), s2 = ln.querySelector('.sb.sell'); return { cap: b.querySelector('small').textContent, p: b.dataset.p, off: b.classList.contains('off'), sell: s2 ? s2.querySelector('small').textContent : null }; };
+      return { tier: BohemiaSettlement.state.place.tier, min: BohemiaSettlement.state.mapMin, food: box('food'), meds: box('meds'), rounds: box('rounds'), tape: box('tape'), keeper: (document.querySelector('#sbody') || {}).innerText.split('\n').slice(0, 3).join(' ') }; });
     const sel = await sf.evaluate(() => { const b = document.querySelector('#sbody .stline[data-good="food"][data-n="1"] .sb.buy'); if (b) b.click(); const st = document.getElementById('stallstrip'); return st ? st.textContent : null; });
     r.strip = sel;
     await sf.evaluate(() => { const c = document.getElementById('close'); if (c) c.click(); }); await P.waitForTimeout(800);
@@ -73,14 +73,14 @@ const T = MODE + ' ' + SHAPE;
   try {
     await fr.waitForFunction(() => window.LOOP && LOOP.start && typeof townTap === 'function', null, { timeout: 300000 }); await P.waitForTimeout(4000);
     const dawn = await visit(361);
-    ok('P1 ' + T + ': first light (' + dawn.min + '): food ' + JSON.stringify(dawn.food) + ', meds ' + JSON.stringify(dawn.meds) + ', nothing shut, nothing sold out',
-      dawn.min === 361 && dawn.food && dawn.food.cap === 'BUY' && +dawn.food.p === 2 && dawn.meds && dawn.meds.cap === 'BUY' && dawn.rounds && dawn.rounds.cap === 'BUY');
+    ok('P1 ' + T + ': first light (' + dawn.min + '): food ' + JSON.stringify(dawn.food) + ' at ' + dawn.food.p + ', the whole day\'s stock left (' + FILE.the_day.stock.value.food[dawn.tier] + ' for a ' + dawn.tier + ': "' + String(dawn.strip).slice(0, 60) + '"), meds ' + JSON.stringify(dawn.meds) + ', nothing shut, nothing sold out',
+      dawn.min === 361 && dawn.food && dawn.food.cap === 'BUY' && new RegExp(' ' + FILE.the_day.stock.value.food[dawn.tier] + ' left today').test(dawn.strip) && dawn.meds && dawn.meds.cap === 'BUY' && dawn.rounds && dawn.rounds.cap === 'BUY');
     const late = await visit(19 * 60 + 30);
     ok('P2 ' + T + ': late (' + late.min + '): food ' + JSON.stringify(late.food) + ', the strip "' + String(late.strip).slice(0, 90) + '"',
-      late.food && ((late.food.cap === 'BUY' && +late.food.p > +dawn.food.p && /left today/.test(late.strip)) || (late.food.cap === 'SOLD OUT' && late.food.off && /Sold out/.test(late.strip))));
+      late.food && dawn.food && ((late.food.cap === 'BUY' && +late.food.p > +dawn.food.p && /left today/.test(late.strip)) || (late.food.cap === 'SOLD OUT' && late.food.off && /Sold out/.test(late.strip))));
     const night = await visit(23 * 60);
     ok('P3 ' + T + ': night (' + night.min + '): food ' + JSON.stringify(night.food) + ', meds ' + JSON.stringify(night.meds) + ', tape ' + JSON.stringify(night.tape) + '; the keeper "' + night.keeper.slice(0, 110) + '"',
-      ['food', 'meds', 'rounds'].every(g => night[g] && night[g].cap === 'SHUT' && night[g].off) && night.tape && night.tape.cap === 'BUY' && !night.tape.off && /Shutters are down/.test(night.keeper));
+      ['food', 'meds', 'rounds'].every(g => night[g] && night[g].cap === 'SHUT' && night[g].off && night[g].sell === 'SHUT') && night.tape && night.tape.cap === 'BUY' && !night.tape.off && /Shutters are down/.test(night.keeper));
   } catch (e) { ok('the walk ran', false, String(e && e.message || e).slice(0, 200)); }
   const e2 = errs.filter(e => !/ResizeObserver|favicon/.test(e));
   ok('P4 ' + T + ': no page error', e2.length === 0, e2.slice(0, 2).join(' | '));

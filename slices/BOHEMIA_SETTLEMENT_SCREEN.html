@@ -1556,6 +1556,7 @@ function stallSides(row){
   var buy = sl ? {k:sl.k, p:sl.p, back:true, need:sl.need | 0} : {k:row.units, p:pr.buy, back:false};
   var sell = bl ? {k:bl.k, p:bl.p, back:true} : {k:pr.k, p:pr.p, back:false};
   if(!sl && pr.day){ buy.shut = !pr.day.open; buy.gone = pr.day.open && pr.day.left < row.units; if(buy.shut || buy.gone) buy.p = null; }   /* __THE_STALLS_DAY__ */
+  if(!bl && pr.day && !pr.day.open){ sell.shut = true; sell.p = null; }   /* shut is shut: he buys nothing at night either (the tape's back door is its own rows) */
   buy.off = buy.p == null || bats() < buy.p;
   sell.off = !sell.k || have < sell.k || !(sell.p >= 1);
   return {pr:pr, buy:buy, sell:sell, have:have};
@@ -1580,9 +1581,9 @@ function stallDay(row, ctx){
 function stallDayLine(){   /* the keeper says the day, first: shut, or what is gone (draft:true, WORDS) */
   var rows = stallRows().filter(function(r){ return r.good !== 'tape' && r.units === 1; }), D = rows.map(function(r){ return {r:r, d:stallDay(r, stallCtx(r.good))}; }).filter(function(x){ return x.d; });
   if(!D.length) return null;
-  if(!D[0].d.open) return 'Shutters are down till first light. The tape is in the back, I can do that much.';
+  if(!D[0].d.open) return {shut:true, text:'Shutters are down till first light. The tape is in the back, I can do that much.'};
   var gone = D.filter(function(x){ return x.d.gone; }).map(function(x){ return x.r.good === 'food' ? 'the food' : x.r.good === 'meds' ? 'the meds' : 'the rounds'; });
-  if(gone.length) return (gone.length > 1 ? gone.slice(0, -1).join(', ') + ' and ' + gone[gone.length - 1] : gone[0]).replace(/^t/, 'T') + (gone.length > 1 ? ' are' : ' is') + ' gone for today. It all went this morning. Come back at first light.';
+  if(gone.length) return {text:(gone.length > 1 ? gone.slice(0, -1).join(', ') + ' and ' + gone[gone.length - 1] : gone[0]).replace(/^t/, 'T') + (gone.length > 1 ? ' are' : ' is') + ' gone for today. It all went this morning. Come back at first light.'};
   return null;
 }
 function moneyPoor(side, x){ return side === 'buy' && !x.back && x.p != null && bats() < x.p; }
@@ -1590,8 +1591,8 @@ function moneyHand(cap, good, n){ cap.classList.add('hand'); cap.appendChild(doc
 function stallBox(row, side, x){
   var b = document.createElement('button'); b.type = 'button'; b.className = 'sb ' + side + (x.back ? ' back' : '') + (x.off ? ' off' : '') + (moneyPoor(side, x) ? ' poor' : ''); b.dataset.side = side;
   b.dataset.p = x.p == null ? '' : x.p; b.dataset.k = x.k; if(x.off) b.setAttribute('aria-disabled', 'true');
-  var cap = document.createElement('small'); cap.textContent = x.back ? 'BACK' : side === 'buy' ? (x.shut ? 'SHUT' : x.gone ? 'SOLD OUT' : 'BUY') : (!x.k ? 'NOT TAKEN' : 'SELL'); b.appendChild(cap);
-  if(!x.back && side === 'sell' && x.k > 1 && row.units === 1) moneyHand(cap, row.good, row.good === 'rounds' ? x.k * 6 : x.k);   /* __THE_PRICE_AT_A_GLANCE__: what he hands over, in its own picture */
+  var cap = document.createElement('small'); cap.textContent = x.back ? 'BACK' : side === 'buy' ? (x.shut ? 'SHUT' : x.gone ? 'SOLD OUT' : 'BUY') : (x.shut ? 'SHUT' : !x.k ? 'NOT TAKEN' : 'SELL'); b.appendChild(cap);
+  if(!x.back && !x.shut && side === 'sell' && x.k > 1 && row.units === 1) moneyHand(cap, row.good, row.good === 'rounds' ? x.k * 6 : x.k);   /* __THE_PRICE_AT_A_GLANCE__: what he hands over, in its own picture */
   var pr = document.createElement('span'); pr.className = 'sp';
   if(x.p != null && (side === 'buy' || x.k)){ var bi = document.createElement('img'); bi.src = 'supply_icons/batteries.png'; bi.alt = ''; pr.appendChild(bi); pr.appendChild(document.createTextNode((side === 'sell' ? '+' : '') + x.p)); }
   b.appendChild(pr);
@@ -1676,7 +1677,8 @@ function stallSheet(k, body, acts, line){
   rows.forEach(function(r){ if(sh || r.units > 1) return; var p = stallPrice(r); if(p.word === 'short' && p.needLeft) sh = {r:r, p:p}; });
   var short = sh && STALL_WORDS && STALL_WORDS['short_' + sh.r.good];
   var said = short ? short[seedOf(S.place.name + ':' + stallWeek()) % short.length].text.replace(/\{sell\}/g, moneyWord(sh.p.p)).replace(/\{n\}/g, sh.p.needLeft) : null;   /* ECONOMY's words (draft:true): the town short of a thing says so first */
-  body.appendChild(speak(k, line || stallDayLine() || said || 'I buy and I sell. Half what I charge, more for what this town is short of. No haggling, mijo.'));   /* draft:true */
+  var dl = stallDayLine();   /* the shutters first: a shut stall says so before anything else; what is gone after his own line */
+  body.appendChild(speak(k, (dl && dl.shut ? dl.text : null) || line || (dl && dl.text) || said || 'I buy and I sell. Half what I charge, more for what this town is short of. No haggling, mijo.'));   /* draft:true */
   if(S.stallSel && !stallRowOf(S.stallSel.key)) S.stallSel = null;
   dearVisit('stall', rows, function(r){ return r.key; }, function(r){ return stallPrice(r).buy; }, function(r){ return r.units; }).forEach(function(r){ acts.appendChild(stallLine(r)); });   /* __DEAREST_FIRST__, kept for the visit */
   if(tapeOn()){ var sl = document.createElement('div'); sl.className = 'slots'; sl.id = 'tapeleft'; sl.textContent = tapeLeftText(); acts.appendChild(sl); }
