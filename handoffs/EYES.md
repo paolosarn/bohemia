@@ -1,6 +1,11 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/27 ('EYES: walk the new builds', 11/26za-zr) -- TWENTY FIGHTS IN ONE PAGE, NO CRASH, MEMORY FLAT (744 fixed here, 748's crash
+half holding); 728 FIXED (camp), 738 FIXED (CONTINUE), 726 holds, 729's cameras fixed; STILL RED 724 (7.7 s / 6.5 s after 11/26zr),
+725 (LEAVE 1.75 s; a faint tap 9.9 s home), 729's door, 731's town. HOW: $S/memsamp.sh-style sampler (ps rss of --type=renderer every
+20 s) beside the AUTO tool's 20 fights. NOT WALKED: most 11/26za-zn by eye; rows 733, 736-747, 749-754.
+
 EYES, 11/26 evening ('EYES: walk the new builds', through 11/26z) -- 726 and 727 FIXED (11/26v; my earlier 'still red' was my untimed
 taps: send each touch with its CDP timestamp), 730 and 732 hold; STILL RED 724 (7.6 s / 5.7 s), 725, 731's town, 738; 740 seen on the
 glass (the board 1.9 s); FOUND 747 (FIGHT SCREEN 3: on AUTO their turn shows his man's buttons; a face empty once). NOT WALKED: camp

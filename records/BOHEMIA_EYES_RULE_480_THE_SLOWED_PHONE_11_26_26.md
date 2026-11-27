@@ -178,3 +178,31 @@ FOUND 747 (FIGHT SCREEN 3). ON AUTO, ON THEIR TURN, THE PHONE STILL HOLDS HIS MA
 AUTO on, while 'Their move.' stood on the board (the fight's own current man theirs), the phone's card was RAUL's with RELOAD and STRIKE
 lit and 'No skills on this man yet. A level brings a perk.' (e10). On their first turn by hand the card named their THUG with his
 portrait box empty, a dark square (e11; one sample).
+
+## THE ROUTINE 'EYES: walk the new builds' (11/26za to 11/26zr, main c5b9ea411; 11/27)
+
+THE LONG SESSION FIRST (rows 744, 748, PLUMBER 8's 11/26zp and 11/26zq): EYES' AUTO tool played TWENTY road fights in one alpha page
+(upright, at full speed, the suburb, the strip, an arterial, Fremont and the casino floor): every fight to its end, NO CRASH, 0 page
+errors, 0 tool errors. The renderer's memory, sampled every 20 s (the peak while each fight count stood), in MB: before the first
+fight 1,798; then 2,752, 3,167, 3,508, 2,606, 3,563, 2,882, 2,772, 3,011, 3,438, 2,899, 2,879, 3,098, 2,973, 2,712, 2,625, 2,813,
+2,266, 2,634, 2,903, 2,501 after the twentieth: FLAT, it gives back after each fight (BESTIARY 2 measured about 340 MB a fight kept, to
+5.5 GB at ten). This box draws in software, so its 2.3 to 3.6 GB is not his phone's; the flat line is (the log:
+records/eyes_rule480_11_26/twenty_fights_memory_11_27.txt).
+
+| row | now (the slowed phone) | word |
+|---|---|---|
+| 724 the door into the game | 11/26zr did not reach it here: upright BEGIN to the barber one frame 7,733 ms (one task 7,650); sideways GO to the first town 6,500 ms (task 5,794) | STILL RED |
+| 725 LEAVE from a fight | upright 1,750 ms (task 1,182), sideways 917 (task 842); a tap on the faint LEAVE went home 9.9 s later at 4x | STILL RED |
+| 726 the stall | 3 of 3 double taps bought with each touch's own time; one tap nothing | HOLDS |
+| 728 camp | 11/26zo: camp standing 11.3 fps, worst 150 ms, no long task; the red cross 300 ms; its big clock gone off the column (e13) | FIXED |
+| 729 his place | CAM 2 54 fps, CAM 3 52 fps; the door in one frame 1,383 ms (task 436) | THE CAMERAS FIXED; THE DOOR STILL RED |
+| 730 a job | its card 750 ms frame (task 469, the town's own) | HOLDS (the rest is 731) |
+| 731 the town | the town standing 3.2 fps upright (tasks 862), 3.2 sideways (962); the map standing upright 53 fps (holds), sideways 13.6 with no long task | STILL RED (the town) |
+| 732 the fight | AUTO upright 6.5 fps, sideways 7.5: alike; upright reads lower than the last two rounds (9.2, 12.7) on this box | HOLDS (watch) |
+| 738 after a reload | 11/26zg: the alpha's front over a save shows BOHEMIA, NEW GAME and CONTINUE (e12) | FIXED |
+| 744 the page grows every fight | twenty fights flat (above) | FIXED ON THIS BOX |
+| 748 his crash entering combat | the crash half: twenty fights in one page, no crash, memory flat; the way in (COMBAT FOUR) not judged | THE CRASH HALF SEEN HOLDING |
+
+Not walked this round (said): 11/26za to zn and zh to zm by eye (the beasts' words, every weapon drops, a supply on the bar, the
+places in the ground, the cameras on patrol, the pay as a moment, the man who comes home, the crowd seated once, the robes off, the camp
+runs scared, the boss arrives, the hog squeals); rows 733, 736, 737, 740 to 743, 745, 746, 747 (their turn on AUTO), 749 to 754.
