@@ -1,0 +1,135 @@
+[
+ {
+  "n": "01_day1_map",
+  "note": "a new game, day 1 on the map: is there any sign that a place of his own exists?",
+  "phone": null,
+  "btns": []
+ },
+ {
+  "n": "02_day2_band",
+  "note": "day 2: PLANT in the phone band",
+  "phone": null,
+  "btns": [
+   "PLANT@732,306 92x23"
+  ]
+ },
+ {
+  "n": "03_your_place_page",
+  "note": "the YOUR PLACE page where he stands",
+  "phone": "THIS GROUND · CAMPUS | THE BLOCK NORTH-WEST | WATER | ■□□ | POWER | □□□ | ROAD | ■■□ | DANGER | ■■■ | NOT HERE. Somebody already lives here. | BETTER: 7 BLOCKS NORTH-WEST | GO THERE | PLANT HERE",
+  "btns": [
+   "plant your own place her@732,306 92x23",
+   "GO THERE@733,276 90x16",
+   "PLANT HERE@733,296 90x16 OFF"
+  ]
+ },
+ {
+  "n": "04_going_there",
+  "note": "GO THERE: the party travels",
+  "phone": "",
+  "btns": [
+   "PLANT@732,306 92x23",
+   "@733,276 90x16",
+   "@733,296 90x16 OFF"
+  ]
+ },
+ {
+  "n": "05_arrived",
+  "note": "arrived: does the phone say what to do now?",
+  "phone": "",
+  "btns": [
+   "PLANT@732,306 92x23",
+   "@733,276 90x16",
+   "@733,296 90x16 OFF"
+  ]
+ },
+ {
+  "n": "06_page_again",
+  "note": "PLANT again: the page where he stands now",
+  "phone": "THIS GROUND · SUBURB | THE BLOCK NORTH-EAST | WATER | ■■■ | POWER | □□□ | ROAD | ■■■ | DANGER | ■□□ | PLANT HERE",
+  "btns": [
+   "plant your own place her@732,306 92x23",
+   "PLANT HERE@733,238 90x16"
+  ]
+ },
+ {
+  "n": "07_are_you_sure",
+  "note": "Are you sure? This is permanent.",
+  "phone": "THIS GROUND · SUBURB | THE BLOCK NORTH-EAST | WATER | ■■■ | POWER | □□□ | ROAD | ■■■ | DANGER | ■□□ | Are you sure? This is permanent. | PLANT HERE | NOT YET",
+  "btns": [
+   "plant your own place her@732,306 92x23",
+   "PLANT HERE@733,259 44x16",
+   "NOT YET@780,259 44x16"
+  ]
+ },
+ {
+  "n": "08_planted",
+  "note": "planted: what now?",
+  "phone": "YOUR PLACE | PLANTED DAY 2 | A NIGHT | -2 BATT | keep 1 + lights 1 | LIVING THERE | 0 | STANDING | 0 OF 4 | GO HOME",
+  "btns": [
+   "GO HOME@733,238 90x16"
+  ]
+ },
+ {
+  "n": "09_map_after",
+  "note": "the map after planting: where is it, how does he go in?",
+  "phone": "YOUR PLACE | PLANTED DAY 2 | A NIGHT | -2 BATT | keep 1 + lights 1 | LIVING THERE | 0 | STANDING | 0 OF 4 | GO HOME",
+  "btns": [
+   "GO HOME@733,238 90x16"
+  ]
+ },
+ {
+  "n": "09b_where",
+  "note": "his place on the map",
+  "at": {
+   "n": "Custom",
+   "x": 58,
+   "y": 44,
+   "p": null
+  }
+ },
+ {
+  "n": "10_his_place",
+  "note": "his place opened: does it say what to do first?",
+  "phone": "",
+  "btns": [
+   "LEAVE@732,306 92x23",
+   "@733,238 90x16"
+  ]
+ },
+ {
+  "n": "11_desk",
+  "note": "a tap on an empty lot: BUILD's desk",
+  "phone": "",
+  "btns": [
+   "LEAVE@732,622 92x23",
+   "@733,554 90x16"
+  ]
+ },
+ {
+  "n": "11b_first",
+  "note": "the first build he can afford",
+  "first": {
+   "x": 87,
+   "y": 232,
+   "t": "WALL 1 BATTERY   2 TAPE KEEPS THE HOGS OUT"
+  }
+ },
+ {
+  "n": "12_first_build",
+  "note": "the first build: what did it say, does he know it stands tomorrow?",
+  "phone": "",
+  "btns": [
+   "LEAVE@732,622 92x23",
+   "@733,554 90x16"
+  ]
+ },
+ {
+  "n": "13_away",
+  "note": "away from his place on the map: how does he get back?",
+  "phone": "",
+  "btns": [
+   "@733,238 90x16"
+  ]
+ }
+]

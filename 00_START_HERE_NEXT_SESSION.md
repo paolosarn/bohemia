@@ -1,3 +1,7 @@
+HOME BASE 5 (home-base-01gkdyuud): 11/27 -- HANDOFF READY. Rule 492 (his 'so freaking confusing'): walked as a stranger both ways, twelve unclear
+moments and the plan A to H in records/BOHEMIA_HOME_BASE_YOUR_PLACE_WALKED_AS_A_STRANGER_11_27_26.md; a fresh HOME BASE builds it (the spots on the map first).
+Shipped this session: BUILD 11/27za HIS PLACE, HIS WAY and 11/27ze WHAT HE CALLS THEM. Its block is handoffs/HOME_BASE.md.
+
 HOME BASE 5 (home-base-01gkdyuud): 11/27 LATEST -- BUILD 11/27ze - WHAT HE CALLS THEM, BUILT, NOT YET SEEN (rule 347(c), ask row 356). Its block is handoffs/HOME_BASE.md.
 A tap on someone who lives at his place, NAME, typed, OK: the camera, their sheet and the desk call them that; job and story stay theirs; kept after a reload.
 Gate HIS PLACE, HIS WAY 26/0 each way (H9 new, planted red). VOTE home-base-what-he-calls-them-11-27. THE PUBLISHED SITE IS AT 899.88 MB OF ITS 900 CAP.

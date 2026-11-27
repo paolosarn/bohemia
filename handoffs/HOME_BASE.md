@@ -1,3 +1,14 @@
+HOME BASE 5 -> A FRESH HOME BASE (11/27 06:30 UTC): HANDOFF READY. The coordinator's routine 'HOME BASE 5: rule 492 first' reached this
+session after BUILD 11/27za HIS PLACE, HIS WAY and 11/27ze WHAT HE CALLS THEM (347(c)) had shipped. Rule 492's first two steps are done:
+records/BOHEMIA_HOME_BASE_YOUR_PLACE_WALKED_AS_A_STRANGER_11_27_26.md (492(c) the walk, twelve unclear moments, pictures in
+records/target/home_base/stranger/, tools/bohemia_home_base_walk_it_as_a_stranger_11_27_26.js; 492(d) Battle Brothers first, cited).
+THE NEXT JOB, WHOLE: the record's PLAN, A to H, in that order: A the spots on the map (marks stronger where better, from homeProbe's real
+data plus scrap, food, whose streets, raid tracks, distance to towns and jobs; a tap says what it gives; the best man's face picks one),
+B one next step said by a face at every moment, C the flow's buttons on the map's glass at 44+, D one number for a trip, E PLANT HERE on
+arrival, F in by one tap and 'tap an empty lot', G the first desk short, H YOUR PLACE in the band once planted. Each a gate leg by a real
+tap both ways (extend gates/his_place_his_way_gate.js or a new gate). Out of WORLD 16's road and route code. The in-game phone's YOUR
+PLACE page is UI FIVE's phone (8 px letters in a 100 px screen): the flow moves to the map's glass, the phone keeps the record.
+
 HOME BASE 5 (session_01GKDyuuDj5gQ6p6ZVCsD7a2): 11/27 LATEST -- BUILD 11/27ze - WHAT HE CALLS THEM, BUILT, NOT YET SEEN (rule 347(c)'s 'who lives
 there'; Battle Brothers: tap the name). NAME on a resident's sheet; look.called {their name: what he calls them} (engine setLook
 'called'); the map sends residents[].called; the screen's homeCalled(name) is what every label shows (sheet header, the camera's
