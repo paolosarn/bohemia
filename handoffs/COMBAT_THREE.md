@@ -21,9 +21,13 @@ AUTO AT 4X 7/0; DEMO BUILD 25/0; PAGES PUBLISH 30/0; MAKE CAMP FROM THE FIGHT 11
 purge: the map's people sheets 195 MB (rigSheetLoad, CHARACTER 2's 11/26 decode) and idles 107-124 MB (engine/bohemia_idles.js:149) stay alive under
 every fight; the fight's ground 80-125 MB, held sheets 53-63, packed 25, idles 26-28. The map's 300 MB under the fight is the biggest thing alive. ***
 *** FOR WORLD / COMBAT MAPS: the map's street stop (dark towers) and the board (bright houses) are two painters of one place; the scan covers the change. ***
-NEXT (mine, rule 484 first): (1) THE GROUND BLOCKS: decode each at the size the glass can show at the far stop (resizeWidth, one at a time) and the full
-block only for the blocks the near stop shows, on the pinch (DIRECTION's verdict 22 keeps the near stop one to one): -60 to -90 MB in every fight;
-(2) close the fight's held sheets of men no longer standing; (3) the sideways recording (the coordinator's interrupt stopped it) and twenty fights
+11/27 SECOND SHIP, BUILD 11/27zb - THE GROUND AT WHAT THE GLASS SHOWS (his answer A, ask row 766): __THE_GROUND_AT_WHAT_THE_GLASS_SHOWS__ (the fight:
+ground blocks decoded at half width one at a time, GROUND_Q, webpSize; the whole blocks on the pinch past zoom ~0.54, groundFullCheck in draw):
+a twelve-block board 215 -> 53.7 MB. window.__GROUND_FULL the old way.
+Touch screens only (GROUND_TOUCH); the art drawn on the glass (drawGround) always the whole blocks. THE REBUILT FIGHT PLAYS' sharpness legs re-aimed
+to measure after the whole blocks land (afterWhole); its two ground legs are red on main with the same numbers. *** FOUND, NOT FIXED: the zoom gate's Z1
+saw one loading-line frame in 2 of 9 runs (come or hold) - a one-frame gap in the dive's cover; look first next round. ***
+NEXT (mine, rule 484 first): (1) DONE above; (2) close the fight's held sheets of men no longer standing; (3) the sideways recording (the coordinator's interrupt stopped it) and twenty fights
 sideways; (4) then ROW 736 (FIGHT.dealsAt) and the brain's long thinks.
 [bb Battle Brothers cuts to a still battle screen; here the camera never stops]
 [analog horror: the surveillance camera finds them before the tape lets you in]

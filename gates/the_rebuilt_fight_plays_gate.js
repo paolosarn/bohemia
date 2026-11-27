@@ -1220,10 +1220,14 @@ async function artPixels() {
         const file = c.getContext('2d').getImageData(0, 0, c.width, c.height).data;
         const ay = Math.round(TOPH * DPR), ah = Math.round((H - TOPH - BOTH) * DPR), aw = Math.round(W * DPR);
         return { glass: edges(glass, gw, gh), file: edges(file, c.width, c.height), all: edges(cx.getImageData(0, ay, aw, ah).data, aw, ah), mode: U.groundMode, artPerGlass: U.tw * U.zoom * DPR / tp[0] }; };
-      requestAnimationFrame(() => requestAnimationFrame(() => { const now = measure(); U.bakedOnly = true;
+      /* COMBAT FIVE 11/27 (__THE_GROUND_AT_WHAT_THE_GLASS_SHOWS__, VAMILY rule 484 as amended: his iPhone killing the page for memory):
+         the ground blocks are decoded at half width until the camera goes in past what the half shows, then the whole blocks are
+         fetched (one at a time) and replace them. The near stop shows the art at its own pixels once they are in: measured then. */
+      const afterWhole = (fn) => { const tw0 = performance.now(); const go = () => { if (U.groundHalf && Object.keys(U.groundHalf).length && performance.now() - tw0 < 10000) { requestAnimationFrame(go); return; } fn(); }; requestAnimationFrame(go); };
+      afterWhole(() => requestAnimationFrame(() => requestAnimationFrame(() => { const now = measure(); U.bakedOnly = true;
         requestAnimationFrame(() => requestAnimationFrame(() => { const was = measure(); U.bakedOnly = false; U.groundOnly = false; U.fps = 0;
           const t0 = performance.now(); let n = 0; U.groundOnly = false;
-          const f = () => { n++; if (performance.now() - t0 < 1500) requestAnimationFrame(f); else res({ now, was, fps: n / 1.5, draws: U.gdraws }); }; requestAnimationFrame(f); })); })); });
+          const f = () => { n++; if (performance.now() - t0 < 1500) requestAnimationFrame(f); else res({ now, was, fps: n / 1.5, draws: U.gdraws }); }; requestAnimationFrame(f); })); }))); });
     const r = await d.page.evaluate(run); r.err = d.errs[0]; await d.close(); return r;
   };
   const day = await at('phone_portrait', false), night = await at('phone_portrait', true), wide = await at('computer', false);

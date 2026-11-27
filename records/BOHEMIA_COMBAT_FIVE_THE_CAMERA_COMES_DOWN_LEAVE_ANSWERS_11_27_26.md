@@ -104,6 +104,28 @@ TWENTY FIGHTS HOLD MEMORY FLAT 10/0 (8 fights upright); AUTO AT 4X NEVER CRASHES
 THE FIGHT 11/0; THE CAMP IS THE FIGHT'S BOARD 33/3 (the three are ask row 681's, quarantined, red on main on the same legs). Full suite
 unmeasured since PLUMBER 8's line.
 
+## THE SECOND SHIP: THE GROUND AT WHAT THE GLASS SHOWS (BUILD 11/27zb, his answer A: the page goes white or reloads)
+
+slices/BOHEMIA_FIGHT.html __THE_GROUND_AT_WHAT_THE_GLASS_SHOWS__: a board's ground blocks (fight_ground/block_*.webp, 2,575 x 1,820, 17.9 MB
+decoded each, five to twelve a board) are decoded at half their width (4.5 MB each, a quarter), one at a time (GROUND_Q: a decode never
+stacks on another; the size read off the WebP's own header; a browser that ignores the resize shrinks it through one canvas, the whole
+one let go at once); the whole blocks are fetched (one at a time, each replacing its half, the half and its quarter copy let go) when the fight draws the
+ground art on the glass itself (pinched in past the baked board, drawGround: zoom x pixel ratio past 1.02, about zoom 0.34 on a 3x
+phone, exactly as before) or when the glass asks more than the half has; the half serves the baked board and the ring (the fight's
+opening view, zoom about 0.27). THE REBUILT FIGHT PLAYS' sharpness legs (FIGHT VERDICT 22) re-aimed to measure once the whole blocks
+are in (they set the near stop and read two frames later).
+Every drawing of a block reads its source from the picture's own width (blockBlit, laidPaint), so the board is the same board.
+MEASURED (the census, one fight, the demo upright): a board with twelve block pictures held 53.7 MB of them (215 MB at full width).
+window.__GROUND_FULL: the old way. Paolo 10/10 voted the ground 'at its own pixels' NO ('Can't tell difference').
+On a phone or a tablet only (GROUND_TOUCH: a touch screen): measured with THE REBUILT FIGHT PLAYS' own ground legs, main's file served in
+place of this one, a computer's baked board read 30% fewer edges from the half (it keeps the whole art now, identical to main), a phone's
+10%. Those two legs (a tile's edges within a fifth of the file at the near stop; on a computer the drawn ground never softer than the
+bake) are RED ON MAIN with the same numbers (glass 0.0528 against the file's 0.0408; drawn 0.0378 against baked 0.0658): not this ship's.
+GATES (this ship): THE ZOOM DOWN INTO THE BOARD 15/0 in 7 of 9 upright runs; in 2 its Z1 saw ONE frame (of about 270) where the fight's
+loading line was uncovered during the come or the hold, both right after other browsers on the box were killed; 6 runs after them clean.
+A one-frame gap in the dive's cover is the suspect (a picture's dissolve re-timed under it); next round's first look. TWENTY FIGHTS HOLD
+MEMORY FLAT 10/0 (8 upright, the most 142 MB); AUTO AT 4X 7/0; THE WHOLE LOOP PLAYS 11/0.
+
 ## WHAT THIS DID NOT DO
 - The board still does not look like the map's street stop (the map's dark towers, the board's bright houses): two painters, one place.
   The scan and the exposure make the change read as the overlay making the board, not as a cut; the art is WORLD's and COMBAT MAPS'.

@@ -6858,6 +6858,62 @@ function rigLater(s) {
     if (typeof createImageBitmap !== 'function') { UI.imgs[s] = i; return; }
     createImageBitmap(i).then(function (b) { b.src = i.src; UI.imgs[s] = b; }, function () { UI.imgs[s] = i; }); }); });
 }
+/* ==== __THE_GROUND_AT_WHAT_THE_GLASS_SHOWS__ (COMBAT FIVE 11/27/26, VAMILY rule 484 as amended; Paolo 11/27: 'combat keeps crashing,
+   like when I get into combat and then when I finish it'; his answer A: the page goes white or reloads, Safari on his iPhone killing it
+   for memory). MEASURED (tools/bohemia_combat_five_canvas_census.js and the fight's own pictures, the demo upright): a board's ground
+   blocks are 2,575 x 1,820 each, 17.9 MB decoded, five to seven a board (80 to 125 MB, as ImageBitmaps a phone cannot purge), for a
+   board the glass shows at a tile of about 130 device pixels (the art's tile is 515) and bakes at 160. Half the width is still past
+   what the glass shows until the pinch passes zoom 0.54 on a 3x phone. NOW a block is decoded at half its width (a quarter of the
+   memory, 4.5 MB), one block at a time (a decode never stacks on another), and the whole block is fetched only when the camera goes in
+   past what the half shows (DIRECTION's verdict 22: the near stop at the art's own pixels), one at a time, the half let go as each
+   lands. Paolo 10/10 voted the ground 'at its own pixels' NO ('Can't tell difference'). window.__GROUND_FULL: the old way */
+const GROUND_K = 0.5;
+let GROUND_Q = Promise.resolve();
+/* a phone or a tablet only (the memory that kills the page is a phone's; a computer keeps the bake from the whole art, measured 30% crisper
+   there, 10% on a phone) */
+const GROUND_TOUCH = (function () { try { return (navigator.maxTouchPoints | 0) > 0 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent || ''); } catch (e) { return false; } })();
+function groundHalfWanted(s) { return !window.__GROUND_FULL && (GROUND_TOUCH || window.__GROUND_HALF_ALWAYS) && typeof createImageBitmap === 'function' && /^fight_ground\/block_[^/]+\.webp$/.test(s); }
+/* a WebP's own size, read off its first bytes (VP8, VP8L, VP8X), so the half is asked at its exact shape */
+function webpSize(buf) {
+  try { const u = new Uint8Array(buf), t = String.fromCharCode(u[12], u[13], u[14], u[15]);
+    if (t === 'VP8 ') return [(u[26] | u[27] << 8) & 0x3fff, (u[28] | u[29] << 8) & 0x3fff];
+    if (t === 'VP8L') { const b = u[21] | u[22] << 8 | u[23] << 16 | u[24] << 24; return [(b & 0x3fff) + 1, ((b >>> 14) & 0x3fff) + 1]; }
+    if (t === 'VP8X') return [1 + (u[24] | u[25] << 8 | u[26] << 16), 1 + (u[27] | u[28] << 8 | u[29] << 16)];
+  } catch (e) {} return null;
+}
+function groundHalf(blob, s) {
+  const job = GROUND_Q.then(function () { return blob.slice(0, 32).arrayBuffer(); }).then(function (head) {
+    const G = DB.ground, wh = webpSize(head) || [G.block_tiles * G.tile_px[0], G.block_tiles * G.tile_px[1]];
+    const w = Math.max(1, Math.round(wh[0] * GROUND_K)), h = Math.max(1, Math.round(wh[1] * GROUND_K));
+    return createImageBitmap(blob, { resizeWidth: w, resizeHeight: h, resizeQuality: 'high' }).then(function (bm) {
+      if (bm.width <= w + 1) return bm;
+      /* a browser that does not honour the size: shrunk through one canvas, the whole one let go at once */
+      const c = document.createElement('canvas'); c.width = w; c.height = h; const g = c.getContext('2d'); g.imageSmoothingQuality = 'high'; g.drawImage(bm, 0, 0, w, h);
+      try { bm.close(); } catch (e) {}
+      return createImageBitmap(c).then(function (sm) { c.width = 0; c.height = 0; return sm; });
+    }).then(function (bm) { bm.half = true; UI.groundHalf = UI.groundHalf || {}; UI.groundHalf[s] = true; return bm; });
+  });
+  GROUND_Q = job.catch(function () {});
+  return job;
+}
+/* the pinch went past what the half shows: the whole blocks, one at a time, each replacing its half */
+function groundFullCheck() {
+  if (!UI.groundHalf || UI.groundFullAsked || !DB.ground) return;
+  /* the art drawn on the glass itself (pinched in past the baked board, drawGround) is always the whole art, as before; the half serves
+     the baked board and the ring, and any glass that asks more than the half has */
+  const artDrawn = UI.zoom * DPR > 1.02 && !UI.bakedOnly;
+  if (!artDrawn && UI.zoom * UI.tw * DPR <= DB.ground.tile_px[0] * GROUND_K * 1.02) return;
+  UI.groundFullAsked = true; UI.groundFullAt = performance.now();
+  Object.keys(UI.groundHalf).forEach(function (s) {
+    GROUND_Q = GROUND_Q.then(function () { return fetch(s).then(function (r) { return r.ok ? r.blob() : null; }).then(function (b) { return b ? createImageBitmap(b) : null; }); })
+      .then(function (bm) { if (!bm) return; const old = UI.imgs[s]; bm.src = new URL(s, location.href).href; UI.imgs[s] = bm; delete UI.groundHalf[s];
+        try { const m = UI.mips && UI.mips.get(old); if (m) { m.width = 0; m.height = 0; UI.mips.delete(old); } } catch (e) {}
+        try { if (old && old.close) old.close(); } catch (e) {}
+        UI.gkey = null; UI.bkey = null; UI.bprev = null; UI.groundFullN = (UI.groundFullN | 0) + 1; })
+      .catch(function () {});
+  });
+}
+/* ==== end __THE_GROUND_AT_WHAT_THE_GLASS_SHOWS__ ==== */
 /* the ground: COMBAT TWO's blocks and cover baked once into one picture */
 const MEN_GRACE = 3000;
 function bakeBoard() {
@@ -6901,7 +6957,7 @@ function bakeBoard() {
   /* a breath between the bake's two halves on the camp's page (a MessageChannel: never throttled in a hidden frame); none in a fight */
   const campYield = function () { return typeof campBreath === 'function' ? campBreath('ground') : null; };
   const offThread = function (s) { return fetch(s).then(function (r) { return r.ok ? r.blob() : null; })
-    .then(function (b) { return b ? createImageBitmap(b) : null; })
+    .then(function (b) { return !b ? null : groundHalfWanted(s) ? groundHalf(b, s) : createImageBitmap(b); })
     .then(function (bm) { if (!bm) throw new Error('no bitmap'); bm.src = new URL(s, location.href).href; UI.imgs[s] = bm; return bm; }); };
   /* __THE_GROUND_DECODES_OFF_THE_GLASS__ (COMBAT FOUR 11/26, VAMILY rule 480(c): 'no frame that stalls while something loads'; PLUMBER 8's
      note for this lane, 'six whole ~600 KB block pictures a board'). MEASURED (tools/bohemia_combat_four_every_board_frames_11_26_26.js, the
@@ -9968,6 +10024,7 @@ function draw(now) {
   cx.setTransform(DPR, 0, 0, DPR, 0, 0);
   cx.fillStyle = '#0d0b09'; cx.fillRect(0, 0, W, H);
   if (!UI.board) return;
+  try { groundFullCheck(); } catch (e) {}   /* __THE_GROUND_AT_WHAT_THE_GLASS_SHOWS__ */
   if (UI.zoom * DPR > 1.02 && !UI.bakedOnly) drawGround();   /* close in: the art itself, and the ring's blocks around it */
   else {   /* zoomed out: the map's ring (baked once, half size, never black) and the baked board, two blits a frame */
     const rk = ringCanvas(), bt = DB.ground.block_tiles, R = SURROUND_BLOCKS;
