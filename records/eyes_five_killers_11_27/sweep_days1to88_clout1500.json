@@ -1,0 +1,745 @@
+{
+ "pool": 102,
+ "byKind": {
+  "hunt-kind": 5,
+  "recover-return": 11,
+  "find-place": 4,
+  "haul-caravan": 13,
+  "hold-defend": 8,
+  "clear-crew": 1,
+  "find-person": 5,
+  "carry": 4,
+  "clear-camp": 6,
+  "patrol": 2,
+  "ambush": 1,
+  "envoy": 1,
+  "bounty": 1,
+  "scout": 1,
+  "burn": 1,
+  "collect": 4,
+  "big-game": 3,
+  "signal": 1,
+  "free": 1,
+  "lair": 1,
+  "investigate": 1,
+  "carcass": 1,
+  "follow": 1,
+  "farm": 1,
+  "root-out": 3,
+  "siege": 3,
+  "obtain": 3,
+  "restore": 3,
+  "night-watch": 3,
+  "turn": 3,
+  "bid": 6
+ },
+ "tiers": {
+  "hunt-kind@camp": 3,
+  "recover-return@camp": 6,
+  "find-place@camp": 3,
+  "haul-caravan@camp": 9,
+  "hold-defend@camp": 5,
+  "recover-return@town": 3,
+  "clear-crew@town": 1,
+  "find-place@town": 3,
+  "find-place@fortress": 3,
+  "find-person@town": 4,
+  "carry@town": 3,
+  "hunt-kind@town": 1,
+  "clear-camp@fortress": 5,
+  "haul-caravan@fortress": 11,
+  "hold-defend@fortress": 6,
+  "find-person@fortress": 4,
+  "recover-return@fortress": 4,
+  "hunt-kind@fortress": 1,
+  "hold-defend@town": 5,
+  "clear-camp@camp": 2,
+  "clear-camp@town": 3,
+  "haul-caravan@town": 9,
+  "patrol@town": 2,
+  "patrol@fortress": 1,
+  "patrol@camp": 1,
+  "ambush@town": 1,
+  "ambush@fortress": 1,
+  "envoy@camp": 1,
+  "envoy@town": 1,
+  "bounty@camp": 1,
+  "bounty@fortress": 1,
+  "scout@camp": 1,
+  "scout@town": 1,
+  "burn@town": 1,
+  "burn@fortress": 1,
+  "collect@camp": 2,
+  "collect@town": 3,
+  "collect@fortress": 3,
+  "big-game@fortress": 3,
+  "big-game@town": 2,
+  "signal@camp": 1,
+  "signal@town": 1,
+  "free@town": 1,
+  "free@fortress": 1,
+  "free@camp": 1,
+  "lair@camp": 1,
+  "lair@town": 1,
+  "investigate@camp": 1,
+  "investigate@town": 1,
+  "carcass@camp": 1,
+  "carcass@town": 1,
+  "carcass@fortress": 1,
+  "follow@town": 1,
+  "follow@fortress": 1,
+  "farm@town": 1,
+  "farm@fortress": 1,
+  "carry@camp": 1,
+  "carry@fortress": 3,
+  "root-out@camp": 3,
+  "root-out@town": 3,
+  "root-out@fortress": 3,
+  "siege@camp": 3,
+  "siege@town": 3,
+  "siege@fortress": 3,
+  "obtain@camp": 3,
+  "obtain@town": 3,
+  "obtain@fortress": 3,
+  "restore@camp": 3,
+  "restore@town": 3,
+  "restore@fortress": 3,
+  "find-person@camp": 3,
+  "night-watch@camp": 3,
+  "night-watch@town": 3,
+  "night-watch@fortress": 3,
+  "turn@camp": 3,
+  "turn@town": 3,
+  "turn@fortress": 3,
+  "bid@camp": 6,
+  "bid@town": 6,
+  "bid@fortress": 6
+ },
+ "when": {
+  "hold-defend:raided": 3,
+  "clear-camp:raided": 1,
+  "haul-caravan:sickness": 1,
+  "find-place:sickness": 2,
+  "recover-return:sickness": 1,
+  "haul-caravan:market_day": 3
+ },
+ "dealt": {
+  "find-person": 49,
+  "haul-caravan": 207,
+  "bid": 118,
+  "collect": 7,
+  "carcass": 5,
+  "siege": 45,
+  "carry": 2,
+  "find-place": 58,
+  "root-out": 73,
+  "restore": 33,
+  "recover-return": 35,
+  "night-watch": 48,
+  "scout": 1,
+  "hunt-kind": 5,
+  "clear-camp": 4,
+  "farm": 29,
+  "turn": 42,
+  "obtain": 38,
+  "hold-defend": 6,
+  "ambush": 2,
+  "big-game": 2,
+  "follow": 1
+ },
+ "firstDay": {
+  "find-person": 1,
+  "haul-caravan": 1,
+  "bid": 1,
+  "collect": 1,
+  "carcass": 1,
+  "siege": 1,
+  "carry": 1,
+  "find-place": 1,
+  "root-out": 1,
+  "restore": 1,
+  "recover-return": 1,
+  "night-watch": 1,
+  "scout": 1,
+  "hunt-kind": 1,
+  "clear-camp": 4,
+  "farm": 4,
+  "turn": 4,
+  "obtain": 4,
+  "hold-defend": 7,
+  "ambush": 10,
+  "big-game": 34,
+  "follow": 73
+ },
+ "perWin": [
+  {
+   "day": 1,
+   "kinds": {
+    "find-person": 1,
+    "haul-caravan": 6,
+    "bid": 3,
+    "collect": 2,
+    "carcass": 1,
+    "siege": 1,
+    "carry": 1,
+    "find-place": 2,
+    "root-out": 3,
+    "restore": 2,
+    "recover-return": 2,
+    "night-watch": 1,
+    "scout": 1,
+    "hunt-kind": 1
+   }
+  },
+  {
+   "day": 4,
+   "kinds": {
+    "recover-return": 1,
+    "bid": 3,
+    "find-place": 2,
+    "haul-caravan": 6,
+    "siege": 1,
+    "clear-camp": 2,
+    "farm": 1,
+    "root-out": 3,
+    "restore": 2,
+    "night-watch": 2,
+    "find-person": 2,
+    "turn": 1,
+    "obtain": 1
+   }
+  },
+  {
+   "day": 7,
+   "kinds": {
+    "haul-caravan": 7,
+    "bid": 4,
+    "siege": 1,
+    "farm": 1,
+    "hold-defend": 1,
+    "root-out": 3,
+    "restore": 2,
+    "recover-return": 1,
+    "night-watch": 2,
+    "find-person": 1,
+    "turn": 1,
+    "obtain": 1,
+    "find-place": 2
+   }
+  },
+  {
+   "day": 10,
+   "kinds": {
+    "haul-caravan": 6,
+    "recover-return": 1,
+    "bid": 5,
+    "siege": 1,
+    "farm": 1,
+    "ambush": 1,
+    "restore": 2,
+    "root-out": 2,
+    "find-person": 2,
+    "turn": 1,
+    "obtain": 1,
+    "find-place": 2,
+    "night-watch": 2
+   }
+  },
+  {
+   "day": 13,
+   "kinds": {
+    "haul-caravan": 7,
+    "find-place": 2,
+    "siege": 2,
+    "farm": 1,
+    "hold-defend": 1,
+    "root-out": 3,
+    "bid": 4,
+    "recover-return": 1,
+    "night-watch": 3,
+    "find-person": 1,
+    "obtain": 1,
+    "turn": 1
+   }
+  },
+  {
+   "day": 16,
+   "kinds": {
+    "haul-caravan": 8,
+    "turn": 3,
+    "bid": 3,
+    "siege": 1,
+    "farm": 1,
+    "collect": 1,
+    "restore": 1,
+    "find-place": 2,
+    "recover-return": 1,
+    "root-out": 2,
+    "find-person": 1,
+    "obtain": 1,
+    "night-watch": 1,
+    "hold-defend": 1
+   }
+  },
+  {
+   "day": 19,
+   "kinds": {
+    "find-place": 2,
+    "bid": 4,
+    "haul-caravan": 8,
+    "siege": 2,
+    "farm": 1,
+    "root-out": 3,
+    "recover-return": 2,
+    "find-person": 1,
+    "obtain": 2,
+    "turn": 1,
+    "night-watch": 1
+   }
+  },
+  {
+   "day": 22,
+   "kinds": {
+    "haul-caravan": 6,
+    "find-person": 3,
+    "find-place": 2,
+    "siege": 2,
+    "farm": 1,
+    "recover-return": 2,
+    "bid": 4,
+    "obtain": 2,
+    "night-watch": 2,
+    "root-out": 2,
+    "restore": 1
+   }
+  },
+  {
+   "day": 25,
+   "kinds": {
+    "find-place": 2,
+    "find-person": 3,
+    "haul-caravan": 7,
+    "bid": 4,
+    "siege": 1,
+    "farm": 1,
+    "collect": 1,
+    "restore": 2,
+    "obtain": 1,
+    "root-out": 2,
+    "turn": 1,
+    "night-watch": 1,
+    "recover-return": 1
+   }
+  },
+  {
+   "day": 28,
+   "kinds": {
+    "turn": 1,
+    "find-person": 2,
+    "find-place": 2,
+    "bid": 4,
+    "siege": 1,
+    "haul-caravan": 6,
+    "collect": 1,
+    "farm": 1,
+    "carcass": 1,
+    "restore": 2,
+    "root-out": 2,
+    "recover-return": 1,
+    "night-watch": 2,
+    "ambush": 1
+   }
+  },
+  {
+   "day": 31,
+   "kinds": {
+    "find-person": 1,
+    "turn": 2,
+    "find-place": 2,
+    "bid": 4,
+    "siege": 1,
+    "haul-caravan": 7,
+    "farm": 1,
+    "hunt-kind": 1,
+    "restore": 2,
+    "root-out": 2,
+    "recover-return": 1,
+    "night-watch": 2,
+    "carcass": 1
+   }
+  },
+  {
+   "day": 34,
+   "kinds": {
+    "find-person": 2,
+    "turn": 1,
+    "find-place": 2,
+    "bid": 4,
+    "haul-caravan": 6,
+    "siege": 1,
+    "big-game": 1,
+    "farm": 1,
+    "carcass": 1,
+    "root-out": 2,
+    "restore": 1,
+    "recover-return": 1,
+    "obtain": 1,
+    "night-watch": 2,
+    "hold-defend": 1
+   }
+  },
+  {
+   "day": 37,
+   "kinds": {
+    "haul-caravan": 6,
+    "turn": 2,
+    "recover-return": 3,
+    "siege": 2,
+    "farm": 1,
+    "restore": 1,
+    "obtain": 2,
+    "night-watch": 3,
+    "find-place": 2,
+    "bid": 3,
+    "root-out": 2
+   }
+  },
+  {
+   "day": 40,
+   "kinds": {
+    "haul-caravan": 9,
+    "find-person": 1,
+    "find-place": 2,
+    "bid": 3,
+    "siege": 1,
+    "farm": 1,
+    "root-out": 3,
+    "night-watch": 2,
+    "recover-return": 1,
+    "turn": 1,
+    "obtain": 1,
+    "hold-defend": 1,
+    "restore": 1
+   }
+  },
+  {
+   "day": 43,
+   "kinds": {
+    "haul-caravan": 7,
+    "turn": 1,
+    "bid": 5,
+    "siege": 1,
+    "hunt-kind": 1,
+    "find-place": 2,
+    "farm": 1,
+    "root-out": 3,
+    "obtain": 2,
+    "restore": 1,
+    "recover-return": 1,
+    "night-watch": 2
+   }
+  },
+  {
+   "day": 46,
+   "kinds": {
+    "haul-caravan": 7,
+    "turn": 2,
+    "siege": 2,
+    "hunt-kind": 1,
+    "find-place": 2,
+    "farm": 1,
+    "root-out": 3,
+    "bid": 3,
+    "obtain": 2,
+    "night-watch": 3,
+    "recover-return": 1
+   }
+  },
+  {
+   "day": 49,
+   "kinds": {
+    "haul-caravan": 9,
+    "find-person": 3,
+    "siege": 2,
+    "bid": 3,
+    "farm": 1,
+    "root-out": 3,
+    "restore": 1,
+    "find-place": 1,
+    "turn": 1,
+    "obtain": 1,
+    "night-watch": 2
+   }
+  },
+  {
+   "day": 52,
+   "kinds": {
+    "haul-caravan": 7,
+    "turn": 2,
+    "siege": 2,
+    "bid": 4,
+    "recover-return": 1,
+    "farm": 1,
+    "restore": 2,
+    "root-out": 3,
+    "find-place": 2,
+    "find-person": 1,
+    "obtain": 1,
+    "night-watch": 1
+   }
+  },
+  {
+   "day": 55,
+   "kinds": {
+    "haul-caravan": 6,
+    "turn": 2,
+    "siege": 2,
+    "bid": 4,
+    "farm": 1,
+    "root-out": 3,
+    "restore": 2,
+    "find-place": 1,
+    "find-person": 2,
+    "obtain": 1,
+    "night-watch": 1,
+    "recover-return": 2
+   }
+  },
+  {
+   "day": 58,
+   "kinds": {
+    "find-person": 1,
+    "turn": 2,
+    "siege": 2,
+    "bid": 5,
+    "haul-caravan": 7,
+    "hunt-kind": 1,
+    "farm": 1,
+    "restore": 1,
+    "find-place": 2,
+    "obtain": 1,
+    "night-watch": 1,
+    "root-out": 1,
+    "clear-camp": 1,
+    "recover-return": 1
+   }
+  },
+  {
+   "day": 61,
+   "kinds": {
+    "turn": 2,
+    "find-person": 1,
+    "siege": 2,
+    "bid": 5,
+    "haul-caravan": 6,
+    "carry": 1,
+    "farm": 1,
+    "restore": 1,
+    "obtain": 2,
+    "recover-return": 1,
+    "night-watch": 1,
+    "root-out": 1,
+    "carcass": 1,
+    "find-place": 2
+   }
+  },
+  {
+   "day": 64,
+   "kinds": {
+    "bid": 6,
+    "find-person": 3,
+    "haul-caravan": 6,
+    "find-place": 2,
+    "siege": 1,
+    "farm": 1,
+    "restore": 2,
+    "root-out": 2,
+    "obtain": 1,
+    "turn": 1,
+    "night-watch": 1,
+    "recover-return": 1
+   }
+  },
+  {
+   "day": 67,
+   "kinds": {
+    "turn": 2,
+    "bid": 6,
+    "haul-caravan": 7,
+    "recover-return": 1,
+    "siege": 1,
+    "find-place": 2,
+    "farm": 1,
+    "root-out": 3,
+    "find-person": 1,
+    "obtain": 1,
+    "night-watch": 2
+   }
+  },
+  {
+   "day": 70,
+   "kinds": {
+    "turn": 2,
+    "find-person": 1,
+    "find-place": 2,
+    "bid": 4,
+    "haul-caravan": 8,
+    "siege": 1,
+    "farm": 1,
+    "restore": 1,
+    "root-out": 2,
+    "obtain": 2,
+    "recover-return": 1,
+    "night-watch": 1,
+    "collect": 1
+   }
+  },
+  {
+   "day": 73,
+   "kinds": {
+    "turn": 3,
+    "find-person": 3,
+    "find-place": 2,
+    "bid": 3,
+    "recover-return": 1,
+    "haul-caravan": 6,
+    "siege": 1,
+    "farm": 1,
+    "restore": 1,
+    "root-out": 2,
+    "obtain": 2,
+    "night-watch": 1,
+    "follow": 1
+   }
+  },
+  {
+   "day": 76,
+   "kinds": {
+    "find-person": 3,
+    "bid": 3,
+    "find-place": 2,
+    "recover-return": 1,
+    "siege": 2,
+    "haul-caravan": 6,
+    "farm": 1,
+    "root-out": 3,
+    "restore": 1,
+    "obtain": 2,
+    "turn": 1,
+    "night-watch": 1,
+    "collect": 1
+   }
+  },
+  {
+   "day": 79,
+   "kinds": {
+    "recover-return": 1,
+    "find-person": 3,
+    "bid": 3,
+    "siege": 2,
+    "haul-caravan": 8,
+    "find-place": 2,
+    "farm": 1,
+    "root-out": 2,
+    "obtain": 1,
+    "turn": 1,
+    "night-watch": 1,
+    "hold-defend": 1,
+    "restore": 1
+   }
+  },
+  {
+   "day": 82,
+   "kinds": {
+    "find-place": 2,
+    "bid": 3,
+    "siege": 2,
+    "haul-caravan": 7,
+    "farm": 1,
+    "root-out": 3,
+    "obtain": 2,
+    "recover-return": 1,
+    "find-person": 2,
+    "turn": 1,
+    "night-watch": 2,
+    "big-game": 1
+   }
+  },
+  {
+   "day": 85,
+   "kinds": {
+    "haul-caravan": 7,
+    "bid": 5,
+    "siege": 2,
+    "farm": 1,
+    "clear-camp": 1,
+    "root-out": 3,
+    "find-place": 2,
+    "recover-return": 1,
+    "find-person": 1,
+    "obtain": 1,
+    "turn": 2,
+    "night-watch": 1
+   }
+  },
+  {
+   "day": 88,
+   "kinds": {
+    "find-place": 2,
+    "find-person": 3,
+    "siege": 2,
+    "bid": 4,
+    "haul-caravan": 8,
+    "farm": 1,
+    "recover-return": 1,
+    "root-out": 2,
+    "turn": 1,
+    "obtain": 2,
+    "night-watch": 1
+   }
+  }
+ ],
+ "tiersOfPlaces": {
+  "town": 4,
+  "fortress": 5,
+  "camp": 4
+ },
+ "built": [
+  [
+   "haul-caravan",
+   true
+  ],
+  [
+   "find-place",
+   true
+  ],
+  [
+   "find-person",
+   true
+  ],
+  [
+   "hunt-kind",
+   true
+  ],
+  [
+   "clear-camp",
+   true
+  ],
+  [
+   "carry",
+   true
+  ],
+  [
+   "hold-defend",
+   true
+  ],
+  [
+   "recover-return",
+   true
+  ],
+  [
+   "patrol",
+   true
+  ]
+ ]
+}

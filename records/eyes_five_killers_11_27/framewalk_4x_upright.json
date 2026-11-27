@@ -1,0 +1,256 @@
+{
+"judged": [
+{
+"step": "boot (the page opening to the first mark)",
+"fps": 13.6,
+"frames": 953,
+"worst": 3316,
+"over50": 342,
+"over50page": 70,
+"worstPage": 3316
+},
+{
+"step": "the town he wakes in",
+"fps": 9.8,
+"frames": 29,
+"worst": 283,
+"over50": 29,
+"over50page": 1,
+"worstPage": 283
+},
+{
+"step": "town > map (his LEAVE)",
+"fps": 23.1,
+"frames": 90,
+"worst": 867,
+"over50": 10,
+"over50page": 2,
+"worstPage": 867
+},
+{
+"step": "the map, standing",
+"fps": 57.5,
+"frames": 230,
+"worst": 100,
+"over50": 1,
+"over50page": 1,
+"worstPage": 100
+},
+{
+"step": "the map travelling, slowest speed (1)",
+"fps": 2.7,
+"frames": 25,
+"worst": 600,
+"over50": 24,
+"over50page": 0,
+"worstPage": 0
+},
+{
+"step": "the map travelling, fastest speed (4)",
+"fps": 2.1,
+"frames": 27,
+"worst": 817,
+"over50": 27,
+"over50page": 2,
+"worstPage": 817
+},
+{
+"step": "the map panned (a finger drag)",
+"fps": 8.2,
+"frames": 269,
+"worst": 617,
+"over50": 91,
+"over50page": 61,
+"worstPage": 617
+},
+{
+"step": "the pinch in, to the street",
+"fps": 15.1,
+"frames": 503,
+"worst": 650,
+"over50": 86,
+"over50page": 64,
+"worstPage": 550
+},
+{
+"step": "the pinch out, to the far stop",
+"fps": 11.4,
+"frames": 530,
+"worst": 1000,
+"over50": 125,
+"over50page": 94,
+"worstPage": 800
+},
+{
+"step": "map > town",
+"fps": 6.9,
+"frames": 44,
+"worst": 667,
+"over50": 44,
+"over50page": 2,
+"worstPage": 283
+},
+{
+"step": "town > shop (smith)",
+"fps": 15.5,
+"frames": 47,
+"worst": 333,
+"over50": 20,
+"over50page": 1,
+"worstPage": 333
+},
+{
+"step": "shop > an item",
+"fps": 17.1,
+"frames": 40,
+"worst": 217,
+"over50": 17,
+"over50page": 1,
+"worstPage": 217
+},
+{
+"step": "the sheet shut",
+"fps": 10.9,
+"frames": 31,
+"worst": 133,
+"over50": 27,
+"over50page": 1,
+"worstPage": 67
+},
+{
+"step": "town > the jobs (the board)",
+"fps": 7.8,
+"frames": 22,
+"worst": 417,
+"over50": 22,
+"over50page": 3,
+"worstPage": 417
+},
+{
+"step": "the jobs: a job read",
+"fps": 7,
+"frames": 18,
+"worst": 517,
+"over50": 18,
+"over50page": 3,
+"worstPage": 517
+},
+{
+"step": "the jobs shut",
+"fps": 9.2,
+"frames": 25,
+"worst": 167,
+"over50": 25,
+"over50page": 1,
+"worstPage": 117
+},
+{
+"step": "town > the lot",
+"fps": 7.4,
+"frames": 15,
+"worst": 217,
+"over50": 15,
+"over50page": 1,
+"worstPage": 150
+},
+{
+"step": "SEARCH THE LOT (the minigame opens)",
+"fps": 12.1,
+"frames": 131,
+"worst": 817,
+"over50": 74,
+"over50page": 14,
+"worstPage": 450
+},
+{
+"step": "the minigame played (a spot tapped, its dial)",
+"fps": 12.7,
+"frames": 98,
+"worst": 217,
+"over50": 91,
+"over50page": 1,
+"worstPage": 217
+},
+{
+"step": "the minigame left",
+"fps": 10,
+"frames": 58,
+"worst": 200,
+"over50": 55,
+"over50page": 1,
+"worstPage": 100
+},
+{
+"step": "town > map (his LEAVE)",
+"fps": 24.9,
+"frames": 116,
+"worst": 467,
+"over50": 13,
+"over50page": 8,
+"worstPage": 467
+},
+{
+"step": "map > camp",
+"fps": 6.7,
+"frames": 25,
+"worst": 283,
+"over50": 21,
+"over50page": 0,
+"worstPage": 0
+},
+{
+"step": "camp > map",
+"fps": 38.1,
+"frames": 189,
+"worst": 550,
+"over50": 11,
+"over50page": 1,
+"worstPage": 83
+},
+{
+"step": "a fight starts (the way in)",
+"fps": 10.3,
+"frames": 123,
+"worst": 1133,
+"over50": 58,
+"over50page": 10,
+"worstPage": 617
+},
+{
+"step": "the fight on AUTO at 1x",
+"fps": 7.5,
+"frames": 90,
+"worst": 450,
+"over50": 70,
+"over50page": 0,
+"worstPage": 0
+},
+{
+"step": "the fight on AUTO at 4x",
+"fps": 6.3,
+"frames": 76,
+"worst": 383,
+"over50": 70,
+"over50page": 3,
+"worstPage": 350
+},
+{
+"step": "the fight ends (won, the spoils)",
+"fps": 44,
+"frames": 115,
+"worst": 117,
+"over50": 5,
+"over50page": 1,
+"worstPage": 117
+},
+{
+"step": "the spoils > map",
+"fps": 7.5,
+"frames": 65,
+"worst": 1667,
+"over50": 16,
+"over50page": 4,
+"worstPage": 1667
+}
+]
+}

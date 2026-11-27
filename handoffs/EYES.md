@@ -1,6 +1,20 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES 2, 11/27 night (the routine 'EYES: play a company like his') -- DONE: 493(d), 494(a), the slowed walk, the iPhone gate.
+Record: records/BOHEMIA_EYES_TWO_FIVE_KILLERS_AND_THE_JOB_KINDS_11_27_26.md; data records/eyes_five_killers_11_27/.
+FOUND, FILED: 783 (JOBS 2, BESTIARY 3) five killers read EVERY board job clean (97 jobs, L8 day 40, L11 day 60 at CLOUT 0 and 1,500, 0 red,
+the sweat job never posts); 784 (JOBS 2) hunt, camp, hold, patrol never dealt with no name (0 of 640, days 1-88), patrol never at all;
+the caravan IS dealt (30 in 100, called ESCORT, pays 38); 785 (BOSSES) the lairs hold (L11 0 to 100) but LENS and CISTERN are easy and
+THE SMITH is never won. MARKED: 774, 775, 776 measured; 778 FIXED (the iPhone gate 8/0). Slowed walk (frame walk to the spoils, 4x
+upright): all 28 steps inside the gate's lines; the spoils > map still 1.24 s (725), the boot's worst 3.3 s (724).
+NOT DONE, NEXT: 492 YOUR PLACE (HOME BASE 5's fixes have not landed: walk it the round one lands); WORLD 16's caravan truck (11/27zs and
+V2) on the glass; the boss fights by hand (AUTO only so far); the walk sideways, the boss fight, his place, the save and reload.
+HOW (both tools committed): tools/bohemia_eyes_five_killers.js (the five made by engine/bohemia_roster.js: --levels, --kit, --bosses
+10-18, --company-out); tools/bohemia_eyes_five_killers_on_the_page.js (EYES_KILLERS=<file> EYES_CLOUT=n EYES_DAYS=a,b EYES_SWEEP=1):
+the boards as dealt and read for his crew. Each under ten minutes in the foreground. A new game has CLOUT 0, so set EYES_CLOUT or the big
+work stays hidden (job_clout.json).
+
 EYES, 11/27 evening -- HANDOFF READY (this session's context is past the line; a fresh EYES takes the routine 'EYES: play a company
 like his', fired 11/27 21:25 UTC). NOT STARTED HERE, ALL OF IT YOURS, in this order:
 (1) RULE 493(d): play a company like his (five men at their best levels and kit) and write what is left to do on the map and the odds

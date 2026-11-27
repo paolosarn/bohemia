@@ -1,0 +1,313 @@
+{
+ "first": {
+  "town": "Volunteers",
+  "day": 1,
+  "origin": "newcrew",
+  "crew": [
+   "null L2",
+   "DESI L2",
+   "RAUL L2"
+  ]
+ },
+ "killers": "/tmp/claude-0/-home-user-bohemia/ca6816ab-9fe1-5ee0-bac5-5c297d3b53be/scratchpad/killers_L8_late.json",
+ "days": [
+  {
+   "day": 40,
+   "strength": {
+    "strength": {
+     "strength": 141,
+     "levels": 120,
+     "kit": 21,
+     "men": 5,
+     "counted": 5,
+     "armourRead": true
+    },
+    "roster": [
+     "YOU L8",
+     "DESI L8",
+     "RAUL L8",
+     "TITO L8",
+     "BOOKIE L8"
+    ]
+   },
+   "places": 13,
+   "offers": [
+    {
+     "place": "Anarchists",
+     "tier": "town",
+     "id": "qd-s06",
+     "title": "Move the fever camp off the well",
+     "skulls": 1,
+     "pay": 38,
+     "kind": "haul-caravan",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Anarchists",
+     "tier": "town",
+     "id": "jb-find-singer",
+     "title": "Find the singer who walked off",
+     "skulls": 1,
+     "pay": 15,
+     "kind": "find-person",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Blues",
+     "tier": "town",
+     "id": "qd-aa09",
+     "title": "Bring the freezer from the fossil beds",
+     "skulls": 1,
+     "pay": 27,
+     "kind": "find-place",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Blues",
+     "tier": "town",
+     "id": "jb-bid-water-blues",
+     "title": "Clear the water plant for the co-op",
+     "skulls": 1,
+     "pay": 34,
+     "kind": "bid",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Caravans",
+     "tier": "fortress",
+     "id": "jb-escort-water",
+     "title": "Walk the water drums to the dry camp",
+     "skulls": 1,
+     "pay": 38,
+     "kind": "haul-caravan",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Cartel",
+     "tier": "fortress",
+     "id": "qd-s04",
+     "title": "Haul eighty tyres to the co-op",
+     "skulls": 1,
+     "pay": 38,
+     "kind": "haul-caravan",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Cartel",
+     "tier": "fortress",
+     "id": "jk-collect-beto",
+     "title": "Collect what Don Beto owes",
+     "skulls": 1,
+     "pay": 40,
+     "kind": "collect",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Church",
+     "tier": "town",
+     "id": "qd-a02",
+     "title": "Ride shotgun to the salt camp",
+     "skulls": 1,
+     "pay": 38,
+     "kind": "haul-caravan",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Church",
+     "tier": "town",
+     "id": "jb-root-pures",
+     "title": "Close the two houses the Pures keep",
+     "skulls": 2,
+     "pay": 114,
+     "kind": "root-out",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Colorful",
+     "tier": "camp",
+     "id": "jb-escort-trunks",
+     "title": "Walk the costume trunks to the old bandshell",
+     "skulls": 2,
+     "pay": 64,
+     "kind": "haul-caravan",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Homeless",
+     "tier": "camp",
+     "id": "jb-watch-tunnel",
+     "title": "Keep the tunnel mouth through the night",
+     "skulls": 2,
+     "pay": 137,
+     "kind": "night-watch",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Mob",
+     "tier": "fortress",
+     "id": "qd-c02",
+     "title": "Get the clinic's cold box back",
+     "skulls": 1,
+     "pay": 34,
+     "kind": "recover-return",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Mob",
+     "tier": "fortress",
+     "id": "jb-carry-insulin",
+     "title": "Carry the cold box to the camp",
+     "skulls": 1,
+     "pay": 11,
+     "kind": "carry",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Network",
+     "tier": "fortress",
+     "id": "qd-ap09",
+     "title": "Bring six cells for the barber's pole",
+     "skulls": 1,
+     "pay": 10,
+     "kind": "recover-return",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Network",
+     "tier": "fortress",
+     "id": "jk-meat-vultures",
+     "title": "Find what the vultures found",
+     "skulls": 1,
+     "pay": 10,
+     "kind": "carcass",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Reds",
+     "tier": "town",
+     "id": "qd-ar06",
+     "title": "Bring medicine down from the lodge",
+     "skulls": 2,
+     "pay": 63,
+     "kind": "find-place",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Reds",
+     "tier": "town",
+     "id": "jb-bid-water-reds",
+     "title": "Clear the water plant for the Reds",
+     "skulls": 1,
+     "pay": 34,
+     "kind": "bid",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Remnants",
+     "tier": "fortress",
+     "id": "jb-root-stash",
+     "title": "Root out the Cartel's stash houses",
+     "skulls": 1,
+     "pay": 62,
+     "kind": "root-out",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Remnants",
+     "tier": "fortress",
+     "id": "qd-s03",
+     "title": "Haul two tankers of water",
+     "skulls": 1,
+     "pay": 38,
+     "kind": "haul-caravan",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Trades",
+     "tier": "camp",
+     "id": "qd-ar05",
+     "title": "Ride with three carts to Primm",
+     "skulls": 3,
+     "pay": 249,
+     "kind": "haul-caravan",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    },
+    {
+     "place": "Volunteers",
+     "tier": "camp",
+     "id": "jb-restore-school",
+     "title": "Make the old school safe again",
+     "skulls": 1,
+     "pay": 50,
+     "kind": "restore",
+     "state": "read",
+     "clean": 100,
+     "stars": null,
+     "party": null
+    }
+   ],
+   "sweat": null
+  }
+ ],
+ "errs": []
+}
