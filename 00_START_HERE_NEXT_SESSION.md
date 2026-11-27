@@ -1418,6 +1418,13 @@ VOTE jobs-jobs-that-fit-the-crew-11-10 (STAND-IN), sha da588c127. Record records
 The whole block: handoffs/JOBS.md.
 [bb a Battle Brothers contract is one budget spent on each enemy's own cost; ours now spends it the same way and still shows the crew's own odds in red]
 [analog horror: the board in the Network's camp still lists the hyenas as three red stars; the muralist only asks for three of them now]
+WORLD SIXTEEN (the successor of WORLD THIRTEEN, the map's draw loop and its people): 11/27 LATEST -- BUILD 11/27r - THE CITY GOES TO WORK,
+BUILT, NOT YET SEEN (rule 485(b)(c)): two of each crowd's three walk the streets to the nearest town in the morning and home at night, a
+caravan pulls a wagon full out and empty home, the gang's collector stands at a crowd's door after the stalls shut; all on the map's
+clock. VOTE world16-the-city-goes-to-work-11-27 (a clip). The whole block: handoffs/WORLD_THIRTEEN.md (WORLD SIXTEEN's blocks on top).
+[bb a Battle Brothers caravan carries a town's goods to the next; ours you can see full going and empty coming home]
+[analog horror: after dark the street is empty and one man in his gang's colours stands at a door as long as it takes]
+
 WORLD THIRTEEN (world-thirteen-01gkdyuw): 11/26 LATEST -- BUILD 11/26zj - THE CROWD IS SEATED ONCE, BUILT, NOT YET SEEN (rules 482,
 480(c)): the zoomed-out map's own work a frame 5.7 to 4.3 ms at full speed (the crowd's seats worked out once a frame, not once a man);
 the armour's first look at a sheet (a 112 ms frame) made off the page by a worker, the same answers.

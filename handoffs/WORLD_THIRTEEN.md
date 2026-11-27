@@ -1,7 +1,7 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN and from 11/27 by WORLD SIXTEEN, its successor: the map's draw loop
 # and its people; newest block on top)
 
-WORLD SIXTEEN (11/27, round one, rule 485(b)(c), WORLD 13's part): BUILD 11/27q - THE CITY GOES TO WORK, BUILT, NOT YET SEEN.
+WORLD SIXTEEN (11/27, round one, rule 485(b)(c), WORLD 13's part): BUILD 11/27r - THE CITY GOES TO WORK, BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_WORLD_SIXTEEN_THE_CITY_GOES_TO_WORK_11_27_26.md. VOTE world16-the-city-goes-to-work-11-27 (a clip, stand_in).
 - slices/BOHEMIA_CITY_WORLD.html __THE_CITY_GOES_TO_WORK__ (MAP_WORK): two of each crowd's three walk the streets to the nearest town's
   edge from about 06:15 and go in, walk home from about 16:00, all home by night (mapWorkerNow; the crowd's own spots 0 and 1 skipped
