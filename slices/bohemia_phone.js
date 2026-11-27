@@ -884,6 +884,7 @@
       + '#bohphone .abig{flex:0 0 50px;display:flex;gap:3px;margin:3px 3px 0}#bohphone .abig.none{display:none}'
       + '#bohphone .abig .bg{flex:1 1 0;min-width:0;position:relative;padding:0;margin:0;border:0;cursor:pointer;color:#1f1710;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;' + kit('tin', 0.5) + '}'
       + '#bohphone .abig .bg.reload{' + kit('tin_amber', 0.5) + '}'
+      + '#bohphone .abig .bg.empty{' + kit('well', 0.5) + 'cursor:default}'   /* __NOTHING_TO_PRESS_ON_THEIR_TURN__ (11/27): their turn's big row, dark wells like the skills' */
       + '#bohphone .abig .bg canvas{width:26px;height:26px;pointer-events:none;filter:drop-shadow(0 1px 0 rgba(0,0,0,.55))}'
       + '#bohphone .abig .bg b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:8px;line-height:9px;letter-spacing:1px;pointer-events:none}'
       + '#bohphone .abig .bg i{position:absolute;right:3px;top:2px;font-style:normal;font-size:6px;line-height:7px;padding:0 1px;color:#f6cf74;background:rgba(10,6,3,.8);pointer-events:none}'
@@ -945,6 +946,13 @@
       + '#bohphone .fh.them::before{background:#ff5a40}'
       + '#bohphone .fh .fme{background:none;box-shadow:none}'
       + '#bohphone .fh canvas{left:2px;top:2px;width:28px;height:28px;border-radius:0;transform:rotate(-1.2deg);box-shadow:0 0 0 1px #d8ceb6,0 0 0 2px #0d0a07,2px 2px 0 rgba(0,0,0,.55)}'
+      /* __THE_HIT_LANDS_ON_THE_CARD__ (FIGHT SCREEN THREE 11/27): three held keys (steps), never a smooth wobble: the photo slips right, back left, home;
+         red and blue ghosts off its edges (a filter: his frame keeps its own colour), the light blown for the first key */
+      + '#bohphone .fh.hit canvas{animation:fhHit .42s steps(1,end) 1}'
+      + '@keyframes fhHit{0%{transform:rotate(-1.2deg) translate(2px,-1px);filter:brightness(1.7) contrast(1.4) drop-shadow(-2px 0 0 rgba(224,64,46,.85)) drop-shadow(2px 0 0 rgba(80,200,230,.75))}'
+      + '33%{transform:rotate(-1.2deg) translate(-1px,0);filter:brightness(1.15) saturate(.4) drop-shadow(1px 0 0 rgba(224,64,46,.6)) drop-shadow(-1px 0 0 rgba(80,200,230,.5))}'
+      + '66%{transform:rotate(-1.2deg) translate(1px,0);filter:none}'
+      + '100%{transform:rotate(-1.2deg);filter:none}}'
       + '#bohphone .fh .fst{gap:1px;justify-content:center;align-self:stretch}'
       + '#bohphone .fh b{color:#f2e4c6}#bohphone .fh.them b{color:#ff8a6a}'
       + '#bohphone .fh b.long{font-size:7px;line-height:7px;letter-spacing:0;white-space:normal;overflow:visible;overflow-wrap:anywhere}'
@@ -1804,7 +1812,10 @@
       b.addEventListener('click', function () { F.press(a.i); setTimeout(function () { fightPaint(true); }, 80); });
       big.appendChild(b);
     });
-    big.classList.toggle('none', !mains.length);
+    /* __NOTHING_TO_PRESS_ON_THEIR_TURN__ (11/27): their turn keeps the big row's room as two dark empty wells, so nothing under the card moves when
+       the turn changes hands (hiding the row lifted the wells under it, every turn: THE MAN'S CARD ON THE PHONE P1 saw it) */
+    if (theirs) for (var e2 = 0; e2 < 2; e2++) { var eb = el('button', 'bg empty'); eb.type = 'button'; eb.disabled = true; eb.setAttribute('aria-label', 'empty'); big.appendChild(eb); }
+    big.classList.toggle('none', !mains.length && !theirs);
     window.__PHONE_BIG = mains.map(function (a) { return a.kind; }).join(',');
     A.list.forEach(function (a, i) { a.i = i; });
     (theirs ? [] : A.list).filter(function (a) { return a.kind !== 'reload' && a.kind !== 'strike'; }).slice(0, 12).forEach(function (a) {
@@ -1827,6 +1838,14 @@
     c.__draws = (c.__draws | 0) + 1;   /* __NEVER_CHOPPY__: counted, so a gate can see the face is drawn again only when it changed */
     try { var g = c.getContext('2d'); g.clearRect(0, 0, c.width, c.height); if (src && src.width) { g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high'; g.drawImage(src, 0, 0, c.width, c.height); } } catch (e) {}
   }
+  /* __THE_HIT_LANDS_ON_THE_CARD__: the class laid again on the next frame (so a second hit inside the first restarts it), off after the slip */
+  function cardHit(hd) {
+    window.__PHONE_CARD_HITS = (window.__PHONE_CARD_HITS | 0) + 1;
+    hd.classList.remove('hit'); clearTimeout(H.hitT);
+    requestAnimationFrame(function () { hd.classList.add('hit'); H.hitT = setTimeout(function () { hd.classList.remove('hit'); }, 600); });
+    /* off the moment the slip ends (the animation's own end; a long board frame can hold a timer back), the timer kept behind it */
+    var cv = hd.querySelector('canvas'); if (cv && !cv.__hitEnd) { cv.__hitEnd = true; cv.addEventListener('animationend', function (e) { if (e.animationName === 'fhHit') hd.classList.remove('hit'); }); }
+  }
   function manPaint(force) {
     var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F || !F.man) return;
     var M = F.man(), bars = [M.hp, M.arm, M.fat].map(function (b) { return b ? [b.w, b.c, b.n, b.l].join(',') : ''; });   /* b.l: __THE_LAST_HIT_ON_THE_CARD__ */
@@ -1840,6 +1859,12 @@
     if (!was('wh', M.round || '')) wh.textContent = M.round || '';
     if (!was('face', M.name + '|' + (M.faceKey != null ? M.faceKey : Math.random()))) faceInto(hd.querySelector('canvas'), M.face);   /* the fight draws his face again only when it changes (its faceKey) */
     if (!was('aria', M.name)) hd.querySelector('.fme').setAttribute('aria-label', ((M.name || 'his') + ' sheet').toLowerCase());   /* draft:true */
+    /* __THE_HIT_LANDS_ON_THE_CARD__ (FIGHT SCREEN THREE 11/27, VAMILY rule 482: 'hits and misses that land harder'; THE PUNCH on the board is
+       COMBAT's): when the man on the card loses blood (the same man, his blood bar shorter), his photo takes the blow: a frame of tape slip,
+       red and blue ghosts off its edges, for three held keys (a CSS animation on the hit alone: nothing runs between hits) */
+    var hpw = M.hp ? M.hp.w : null, seen = H.hpSeen;
+    if (seen && seen.name === M.name && hpw != null && seen.w != null && hpw < seen.w - 0.4) cardHit(hd);
+    H.hpSeen = { name: M.name, w: hpw };
     [['hp', M.hp, bars[0]], ['arm', M.arm, bars[1]], ['fat', M.fat, bars[2]]].forEach(function (p) {
       if (was('bar' + p[0], p[2])) return;
       var row = hd.querySelector('.fb.' + p[0]), b = p[1] || { w: 0, c: '', n: '' }, i = row.querySelector('i');
@@ -2098,6 +2123,8 @@
     press: function (a) { if (IS_HOST && H.el) { appPress(a); return true; } return false; },
     settings: function () { return IS_HOST ? settingsRows() : false; },
     /* for the gate: paint the wallpaper now and say what it shows */
+    /* for the gate (__NOTHING_TO_PRESS_ON_THEIR_TURN__, FIGHT SCREEN THREE 11/27): the fight's card painted now, in the same task as the fight's refresh */
+    fightPaint: function (force) { if (!IS_HOST || !H.el) return false; try { fightPaint(!!force); return true; } catch (e) { return false; } },
     ring: function () { return RING; },   /* where the HEAL ring's track is on its picture (232(b)) */
     wall: function () { if (!IS_HOST || !H.el) return null; paintWall(true); var c = H.el.querySelector('.wall'); return { what: H.wallWhat, w: c.width, h: c.height }; }
   };

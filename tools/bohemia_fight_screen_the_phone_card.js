@@ -34,6 +34,8 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
     const rel = decodeURIComponent(u.slice(BASE.length).split('?')[0].split('#')[0]), f = path.join(ROOT, rel);
     if (OLD[rel]) return route.fulfill({ status: 200, body: OLD[rel], headers: { 'Content-Type': MIME[path.extname(rel)] } });
     if (process.env.LASTHIT_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("lo.style.display = lw > 0.4 ? '' : 'none';", "lo.style.display = 'none';"); if (cut === src) throw new Error('the last-hit plant did not take'); return route.fulfill({ status: 200, body: cut, headers: { 'Content-Type': 'text/javascript' } }); }
+    if (process.env.HIT_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("if (seen && seen.name === M.name", "if (false && seen && seen.name === M.name");
+      if (cut === src) { log('HIT_PLANT DID NOT TAKE'); process.exit(1); } return route.fulfill({ status: 200, contentType: 'application/javascript', body: cut }); }   /* __THE_HIT_LANDS_ON_THE_CARD__'s plant */
     if (process.env.THEIRS_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("var theirs = A.whose === 'them';", "var theirs = false;");
       if (cut === src) { log('THEIRS_PLANT DID NOT TAKE'); process.exit(1); } return route.fulfill({ status: 200, contentType: 'application/javascript', body: cut }); }   /* __NOTHING_TO_PRESS_ON_THEIR_TURN__'s plant */
     if (process.env.NOCHOP_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("var P = H.manSub = force || !H.manSub ? {} : H.manSub,", "var P = H.manSub = {},");
@@ -132,7 +134,8 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
   log('HIS', JSON.stringify(T.cards.his));
   /* __THE_LAST_HIT_ON_THE_CARD__ (FIGHT SCREEN THREE 11/20): a quarter of his health and a third of his armour taken since the bell (his mark);
      the card's bars carry what is left and, in the board's punch colour, what was taken; then put back. LASTHIT_PLANT=1 takes the drawing out */
-  const hit = await f.evaluate(() => { let u = FIGHT.current(); if (!u || u.side !== 'you') { u = FIGHT.S.units.find(v => v.side === 'you' && FIGHT.onField(v)); if (!u) return null; UI.pend = { target: u }; }   /* his man on the card even if the turn is theirs */
+  const hit = await f.evaluate(() => { let u = FIGHT.current(); if (!u || u.side !== 'you') { u = FIGHT.S.units.find(v => v.side === 'you' && FIGHT.onField(v)); if (!u) return null; }
+    UI.pend = { target: u };   /* the man hit is the man on the card, his turn or not (a man the walk put there earlier, hisPut, is not left over him) */
     const w = { id: u.id, hp: u.hp, armB: u.armB };
     const dh = Math.max(0, Math.min(Math.round(u.hpMax * 0.25), u.hp - 1)), da = Math.min(u.armB, Math.round((u.armBMax + u.armHMax) / 3)); u.hp -= dh; u.armB -= da; hud();
     /* what the fight itself says was taken since his mark (a real blow before this one counts too) */
@@ -217,17 +220,44 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
     await f.evaluate((g) => { const u = FIGHT.byId(g.id); u.hp = g.hp; u.ap = g.ap; UI.pend = null; hud(); }, nc);
     log('NO CHOP', JSON.stringify(T.noChop));
   }
+  /* __THE_HIT_LANDS_ON_THE_CARD__ (FIGHT SCREEN THREE 11/27): his man on the card, five of his blood taken: the photo slips (the card's 'hit', the
+     canvas's fhHit animation) once, then is still; his armour alone taken: no slip. HIT_PLANT=1 takes the slip out */
+  { const hm = await f.evaluate(() => { const g = FIGHT.S.units.filter(v => v.side === 'you' && FIGHT.onField(v))[0]; if (!g) return null; UI.pend = { target: g }; hud(); return { id: g.id, hp: g.hp, armB: g.armB }; }).catch(() => null);
+    if (hm) { await wait(600);
+      const rd = () => page.evaluate(() => { const hd = document.querySelector('#bohphone .fh'), cv = hd && hd.querySelector('canvas'); return { n: window.__PHONE_CARD_HITS | 0, hit: !!hd && hd.classList.contains('hit'), anim: cv ? getComputedStyle(cv).animationName : '' }; });
+      const n0 = (await rd()).n;
+      await f.evaluate((g) => { const u = FIGHT.byId(g.id); u.hp = Math.max(1, u.hp - 5); hud(); }, hm);
+      let on = null; for (let k = 0; k < 12 && !on; k++) { await wait(40); const r = await rd(); if (r.hit) on = r; }
+      if (process.env.HIT_SHOTS) { const fhb = await page.evaluate(() => { const r = document.querySelector('#bohphone .fh').getBoundingClientRect(); return { x: r.x - 4, y: r.y - 4, width: r.width + 8, height: r.height + 8 }; });
+        for (let k = 0; k < 4; k++) { await page.screenshot({ path: path.join(OUT, 'shots', 'hit_' + k + '.png'), clip: fhb }).catch(() => {}); } }
+      let off = null; for (let k = 0; k < 30; k++) { await wait(50); off = await rd(); if (!off.hit) break; }   /* still again within 1.5 s */
+      await f.evaluate((g) => { const u = FIGHT.byId(g.id); u.armB = Math.max(0, u.armB - 5); hud(); }, hm); await wait(500); const arm = await rd();
+      await f.evaluate((g) => { const u = FIGHT.byId(g.id); u.hp = g.hp; u.armB = g.armB; UI.pend = null; hud(); }, hm);
+      T.hit = { n0: n0, on: on, off: off, arm: arm }; log('HIT', JSON.stringify(T.hit)); } }
   /* __NOTHING_TO_PRESS_ON_THEIR_TURN__ and __HIS_TURN_IS_SPENT_ON_THE_CARD__ (FIGHT SCREEN THREE 11/26, rule 482): the fight plays on by itself; on a
      real turn of theirs the phone's wells are read (no big STRIKE, no 'No skills' note, every well empty); on his next turn his AP is
      spent to none the way a turn ends, and the card's AP row is read (spent, red on the beat), the fight's own badge hidden under the phone */
   const WELLS = () => page.evaluate(() => { const fi = document.querySelector('#bohphone .fight'); if (!fi) return null; const big = fi.querySelector('.abig');
-    return { theirs: fi.classList.contains('theirs'), big: big ? [...big.querySelectorAll('.bg')].length : -1, bigShown: !!big && !big.classList.contains('none') && getComputedStyle(big).display !== 'none',
+    return { theirs: fi.classList.contains('theirs'), big: big ? [...big.querySelectorAll('.bg')].filter(b => b.getAttribute('aria-label') !== 'empty').length : -1, bigEmpty: big ? big.querySelectorAll('.bg[aria-label=empty]').length : 0,
+      bigShown: !!big && !big.classList.contains('none') && getComputedStyle(big).display !== 'none',
       note: !!fi.querySelector('.ab .none'), live: [...fi.querySelectorAll('.ab .sk')].filter(b => b.getAttribute('aria-label') !== 'empty').length, wells: fi.querySelectorAll('.ab .sk').length, head: (document.querySelector('#bohphone .fh b') || {}).textContent }; });
   T.turns = { theirs: null, spent: null };
-  for (let i = 0; i < 300 && (!T.turns.theirs || !T.turns.spent); i++) {
+  /* first, while the fight surely runs (a walk can end before a turn of theirs comes): the turn is set to a man of theirs the
+     way the order hands it (FIGHT.S.idx on his place in the order), the phone read, the turn put back */
+  { const w = await f.evaluate(() => { const them = FIGHT.S.units.find(v => v.side === 'them' && FIGHT.onField(v)), TB = window.top.BohemiaPhone; if (!them || FIGHT.S.over || !TB || !TB.fightPaint) return null;
+      const cur = FIGHT.current, D = window.top.document; let out = null;
+      FIGHT.current = function () { return them; };   /* one task: the card refreshed for a turn of theirs, the phone painted, read, put back; no frame runs between */
+      try { hud(); TB.fightPaint(true); const fi = D.querySelector('#bohphone .fight'), big = fi && fi.querySelector('.abig');
+        out = fi ? { theirs: fi.classList.contains('theirs'), big: big ? [...big.querySelectorAll('.bg')].filter(b => b.getAttribute('aria-label') !== 'empty').length : -1, bigEmpty: big ? big.querySelectorAll('.bg[aria-label=empty]').length : 0,
+          bigShown: !!big && !big.classList.contains('none') && getComputedStyle(big).display !== 'none', note: !!fi.querySelector('.ab .none'), live: [...fi.querySelectorAll('.ab .sk')].filter(b => b.getAttribute('aria-label') !== 'empty').length,
+          wells: fi.querySelectorAll('.ab .sk').length, head: them.name, forced: true } : null; }
+      finally { FIGHT.current = cur; hud(); TB.fightPaint(true); }
+      return out; }).catch(() => null);
+    if (w) T.turns.theirs = w; }
+  for (let i = 0; i < 300 && (!T.turns.theirs || T.turns.theirs.forced || !T.turns.spent); i++) {
     const st = await f.evaluate(() => { const u = FIGHT.current(); return { over: !!FIGHT.S.over, dep: !!FIGHT.S.deploy, side: u ? u.side : null, mine: u ? crewControlled(u) && !UI.anim.length : false, id: u ? u.id : null }; }).catch(() => ({ over: true }));
     if (st.over) break;
-    if (!T.turns.theirs && st.side === 'them' && !st.dep) { await wait(400); const w = await WELLS(); const still = await f.evaluate(() => { const u = FIGHT.current(); return !!u && u.side === 'them'; }).catch(() => false); if (still && w) { T.turns.theirs = w; await shot('8_phone_their_turn'); } }
+    if ((!T.turns.theirs || T.turns.theirs.forced) && st.side === 'them' && !st.dep) { await wait(400); const w = await WELLS(); const still = await f.evaluate(() => { const u = FIGHT.current(); return !!u && u.side === 'them'; }).catch(() => false); if (still && w) { T.turns.theirs = w; await shot('8_phone_their_turn'); } }
     if (!T.turns.spent && st.mine) {
       await f.evaluate(() => { const u = FIGHT.current(); u.ap = 0; hud(); });
       let got = null; for (let k = 0; k < 20 && !got; k++) { await wait(100); got = await page.evaluate(() => { const fa = document.querySelector('#bohphone .fh .fap'); return fa && fa.classList.contains('spent') ? { spent: true, pips: fa.querySelectorAll('.pp i').length } : null; }); }
