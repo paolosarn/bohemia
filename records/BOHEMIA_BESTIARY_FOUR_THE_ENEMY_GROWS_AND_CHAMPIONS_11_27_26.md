@@ -60,6 +60,15 @@ set for early fights and reads each of their men as worth two or three brigands;
 with nobody down. THE NEXT JOB: measure each human faction's worth a man in the late phase and set its thinning by phase (this lane's
 data), then re-measure the strong twelve.
 
+## AFTER THE SHIP: MORE BODIES ARE NOT THE ANSWER FOR THE OTHER FACTIONS (measured, reverted, not shipped)
+Their count_scale was set in the first phase against the first phase's thugs (the House 0.55 is a thug's XP 150 over a House man's 272);
+the brigands grow by phase (XP 207 middle, 262 late) and the other factions' mixes do not, so late a thinned faction fields 30 to 55 in 100
+of a brigand band's worth. Tried on the bench: the thinning following the brigands' growth by XP (the House 0.55 -> 0.70 middle, 0.89 late;
+the hired guns 0.35 -> 0.57; the takers 0.35 -> 0.61). Five killers then met 13 House men, 10 hired guns, 12 heavies, 11 takers at three
+stars and won 100, 100, 80, 100, nobody down but the heavies. Reverted: more men cost frames and memory on his iPhone (rule 484) and buy no
+fight. The gap is KIT: a late House man has health about 75 and armour about 110, a late brigand 90 and 190 to 250. The next job is each
+faction's late tier (Battle Brothers: the days give the kit, flat upgrades by day).
+
 ## THE PROOF ON THE PAGE (tools/bohemia_bestiary_four_champion_proof.js house; records/bestiary_proof/champion_proof.json)
 Five killers against a three-star House band of 12 on day 90, the band rolled by the fight's own setup (seed 2) and handed whole to the
 shipped fight page at 390 x 844, AUTO: the same man on the page (OLD VEGAS, the House's sergeant-at-arms, a shield man: health 95 against

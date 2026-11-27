@@ -17,9 +17,15 @@ Record: records/BOHEMIA_BESTIARY_FOUR_THE_ENEMY_GROWS_AND_CHAMPIONS_11_27_26.md.
 - GATES: THE ENEMY GROWS WITH HIS COMPANY 7/0 (new, in the suite; --plant 3 reds); PATCH LAYERS 10/0; STRAPPED 5/0 (S1 counts the swap kinds); GUNS
   GROW UP 28/0; THE BESTIARY 10/0; WORK SPANS 6/0; KILL CAMS 9/0; DEMO BUILD 25/0; VOTE TAB 66/0; FIGHT IS CLOSE 15/2 (main's own). The floor gate and
   THE JOB TELLS THE TRUTH run past the foreground limit here: F7's child check green alone; J9 held by never_in_phase (G4 leg).
-- NEXT, IN THIS ORDER: (1) COUNT_SCALE BY PHASE: measure each human faction's worth a man against the brigands in the late phase (the bench tool,
-  --factions), set count_scale by phase so the House, heavies, hired guns, takers and casino are as hard as the brigands for a strong company; re-measure
-  five killers and the strong twelve (the twelve still win everything). (2) CHAMPIONS CARRY A NAMED PIECE (BB: 'always a named item'): ARMORY 3's
+- MEASURED AFTER THE SHIP, NOT BUILT: MORE BODIES DO NOT MAKE THE OTHER FACTIONS HARD. Their count_scale was set against the first phase's thugs (the
+  House 0.55 = a thug's XP 150 over a House man's 272); the brigands grow by phase (XP 207 middle, 262 late) and their mixes do not. Tried: the thinning
+  following the brigands' growth (the House 0.55 -> 0.89 late, the hired 0.35 -> 0.57): five killers then met 13 House, 10 hired, 12 heavies, 11 takers
+  at three stars and still won 100, 100, 80, 100 (nobody down but the heavies). REVERTED (more men cost frames on his iPhone, rule 484, for no fight).
+  The gap is KIT: a late House man has health ~75 and armour ~110; a late brigand 90 and 190 to 250.
+- NEXT, IN THIS ORDER: (1) THE OTHER FACTIONS' LATE KIT (Battle Brothers: 'the days give the kit', flat upgrades by day, bb_all/0293_Brigand Marauder.txt
+  heavy lamellar after day 60): each human faction's kinds get a late tier (armour and a weapon a step up in the middle and late phases, data in
+  bohemia_enemies.json rows, FACTIONS' look), measured with tools/bohemia_bestiary_four_five_killers.js --factions house,hired,heavies,takers,casino;
+  the strong twelve still win everything, re-measure them too. (2) CHAMPIONS CARRY A NAMED PIECE (BB: 'always a named item'): ARMORY 3's
   named rows (armory.json 'named', 11/27zy) on a champion's gear where his kind fits (ARMORY 3 asked for it in its handoff). (3) The roles left from
   BESTIARY 3's research (the machine gunner, the rocket man, the breacher, the medic). (4) Tell EYES/TUNING: the bench's companies carry no grown stats.
 [bb Battle Brothers sends a late company more of its best ranks, and on a three-skull contract a named man with his famed piece]
