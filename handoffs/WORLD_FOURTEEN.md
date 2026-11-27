@@ -1,5 +1,20 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN and from 11/21 by WORLD FIFTEEN, its successor; newest block on top)
 
+WORLD FIFTEEN, ROUND FOUR (11/27; VAMILY rule 485(a), the districts read the money; 480(b); 461(c): every gate in the foreground).
+BUILD 11/27b - THE MONEY WALKED AWAY. BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_15_THE_MONEY_WALKED_AWAY_11_26_26.md.
+VOTE world15-the-money-walked-away-11-26 (tile, STAND-IN).
+- A fourth kind of block in the valley's state (world_state.json scars.unfinished; engine code 4; the painter's wsTint st 4, handed the
+  floor height): on every new game 1 to 5 luxury or downtown towers left as frames when the dollar died (bare slabs, open bays, no
+  glass, rust), never powered: dark at night beside the lit towers. Built on the blocks already there; no icon, no word.
+- MEASURED ON THE WAY: the whole painting DOES carry the valley's state (its key holds ':ws'); A DIFFERENT VALLEY's V4 reds were the
+  gate's timing (59/1 this run; its one red, four valleys alike zoomed out at 2.6%, was red on main before).
+- GATE: THE MONEY WALKED AWAY (new, registered) 14/0 on three valleys.
+- NEXT ON 485(a), IN THIS ORDER: the dead Strip by day (a dark circuit's casino reads dead in daylight, not only at night: the painter
+  has the dark circuits as POWER's live grid, the day tint does not read it yet); each gang's streets carrying its look (its colour on
+  its own blocks, COLOUR IS TERRITORY, through the same painter); ECONOMY THREE's calls (a place going dark, a place growing).
+[bb Battle Brothers' towns show what they have by what stands in them; ours shows what the money left standing.]
+[analog horror: forty floors of nothing, and the crane still parked on the top one, its hook moving a little in the wind.]
+
 WORLD FIFTEEN, ROUND THREE, BUILD TWO (11/26; rule 470(h), ask row 708; rule 482). BUILD 11/26zi - THE MAN WHO GOES HOME COMES BACK.
 BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_15_THE_MAN_WHO_GOES_HOME_COMES_BACK_11_26_26.md. No VOTE card (a line on the feed;
 this round's picture card is the places').

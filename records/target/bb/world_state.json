@@ -49,6 +49,16 @@
       "seat_on": ["commercial", "strip", "mall", "swapmeet", "truckstop", "storage", "warehouse", "downtown", "resort", "apartment", "medical"],
       "dark": true
     },
+    "unfinished": {
+      "name": "THE MONEY WALKED AWAY",
+      "what": "a luxury tower the money walked away from when the dollar died: the frame up, the floors open, no glass, rust on the rebar, never powered (VAMILY rule 485(a), WORLD 15 11/26)",
+      "count": [3, 5],
+      "radius": [0, 1],
+      "apart": 8,
+      "on": ["highroller", "luxor", "resort", "casino", "convention", "downtown"],
+      "seat_on": ["highroller", "luxor", "resort", "casino", "convention", "downtown"],
+      "dark": true
+    },
     "reclaimed": {
       "name": "REBUILT",
       "what": "a block a faction took back: panels on the roofs, the yards raked to dirt with salvaged panels laid out in rows (never green: no water here, rule 341), its own lights at night",

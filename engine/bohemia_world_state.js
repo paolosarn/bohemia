@@ -46,8 +46,8 @@
   }
   function span(R, a) { if (!a || a.length < 2) return a ? +a[0] || 0 : 0; return (a[0] | 0) + Math.floor(R() * ((a[1] | 0) - (a[0] | 0) + 1)); }
   function cheb(ax, ay, bx, by) { return Math.max(Math.abs(ax - bx), Math.abs(ay - by)); }
-  var CODES = { none: 0, burned: 1, looted: 2, reclaimed: 3 };
-  var NAMES = ['none', 'burned', 'looted', 'reclaimed'];
+  var CODES = { none: 0, burned: 1, looted: 2, reclaimed: 3, unfinished: 4 };
+  var NAMES = ['none', 'burned', 'looted', 'reclaimed', 'unfinished'];
 
   /* the valley as a flat list of districts, whatever the caller hands (a grid object with at(x,y), or rows of names) */
   function flat(grid) {
@@ -117,6 +117,20 @@
         centres.push(c); got++; out.push({ kind: kind, x: c[0], y: c[1], r: r, cells: m, name: K.name || kind.toUpperCase() });
       }
     });
+    /* THE MONEY WALKED AWAY (WORLD 15, 11/26; VAMILY rule 485(a), the half-built luxury the money walked away from): a tower or two
+       on the luxury and downtown blocks left as a frame when the dollar died, the floors open, no glass, never powered */
+    var K4 = S.unfinished;
+    if (K4) {
+      var R4 = rng(hash(code + ':scar:unfinished')), want4 = span(R4, K4.count), apart4 = K4.apart || 8;
+      var cand4 = listOf(V, K4.seat_on || K4.on, function (x, y) { return !nearBase(x, y, keep + 2) && x >= 3 && y >= 3 && x < n - 3 && y < n - 3; });
+      for (var t4 = 0, got4 = 0; t4 < 400 && got4 < want4 && cand4.length; t4++) {
+        var c4 = cand4[Math.floor(R4() * cand4.length) % cand4.length];
+        if (!farFrom(centres, c4[0], c4[1], apart4)) continue;
+        var r4 = span(R4, K4.radius), m4 = blob(R4, 'unfinished', c4[0], c4[1], r4, K4.on, function (x, y) { return !nearBase(x, y, keep); });
+        if (m4 < 1) continue;
+        centres.push(c4); got4++; out.push({ kind: 'unfinished', x: c4[0], y: c4[1], r: r4, cells: m4, name: K4.name || 'UNFINISHED' });
+      }
+    }
     var K3 = S.reclaimed;
     if (K3 && B.length) {
       var R3 = rng(hash(code + ':scar:reclaimed')), want3 = Math.min(B.length, span(R3, K3.count)), order = B.slice();
@@ -146,7 +160,7 @@
       var x = c.x, y = c.y, best = 1e9, off = false;
       for (var j = 0; j < pts.length; j++) { var dx = pts[j][0] - x, dy = pts[j][1] - y, dd = dx * dx + dy * dy; if (dd < best) { best = dd; off = pts[j][2]; } }
       var xi = Math.round(x), yi = Math.round(y), st = (xi >= 0 && yi >= 0 && xi < n && yi < n) ? cell[yi * n + xi] : 0;
-      if (st === CODES.burned || st === CODES.looted) off = true;   /* nothing burned or stripped has power */
+      if (st === CODES.burned || st === CODES.looted || st === CODES.unfinished) off = true;   /* nothing burned or stripped has power, and a frame never had any */
       if (st === CODES.reclaimed) off = false;
       for (var b = 0; b < B.length && off; b++) if (cheb(B[b][0], B[b][1], x, y) <= keep) off = false;
       if (off) out.push(c.id); else lit++;
@@ -257,7 +271,7 @@
     var mk = marks(V, c, D, B, cell);
     var rd = roads(V, c, D, B, opts.walk || null);
     var wx = weather(c, D);
-    var count = { burned: 0, looted: 0, reclaimed: 0 };
+    var count = { burned: 0, looted: 0, reclaimed: 0, unfinished: 0 };
     for (var i = 0; i < cell.length; i++) if (cell[i]) count[NAMES[cell[i]]]++;
     var key = hash(c + ':' + Array.prototype.join.call(cell, '') + ':' + dk.ids.join(',') + ':' + rd.list.map(function (r) { return r.x + ',' + r.y; }).join(';')).toString(36);
     return { code: c, v: D.version || 1, n: n, cell: cell, scars: sc, dark: dk, marks: mk, roads: rd.list, block: rd.block, weather: wx, count: count, key: key };
@@ -267,7 +281,7 @@
   function summary(S) {
     if (!S) return null;
     var m = {}; S.marks.forEach(function (k) { m[k.kind] = (m[k.kind] || 0) + 1; });
-    return { code: S.code, burned: S.count.burned, looted: S.count.looted, reclaimed: S.count.reclaimed, scars: S.scars.length, dark: S.dark.ids.length, lit: S.dark.lit,
+    return { code: S.code, burned: S.count.burned, looted: S.count.looted, reclaimed: S.count.reclaimed, unfinished: S.count.unfinished | 0, scars: S.scars.length, dark: S.dark.ids.length, lit: S.dark.lit,
              marks: m, roads: S.roads.length, weather: S.weather && S.weather.id, key: S.key };
   }
 

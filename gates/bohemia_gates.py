@@ -9876,6 +9876,11 @@ GATES = [
      "M2 not yet a day short, M3 back on his day (the company, the count, his let-go undone, his line on the feed), M4 a hired man back with his stats, "
      "M5 no wait stays gone, M6 a new game forgets, M7 nothing threw. About 2 min", True),
     ('THE MAN WHO GOES HOME COMES BACK (alpha)', ['node', 'gates/the_man_who_goes_home_comes_back_gate.js', 'alpha'], "WORLD 15 gate: the same, the alpha upright and sideways. About 2 min", True),
+    ('THE MONEY WALKED AWAY', ['node', 'gates/the_money_walked_away_gate.js'],
+     "WORLD 15 gate, 11/26 (rule 485(a): 'the half-built luxury the money walked away from beside the blocks that still have power'; 480(b)). A fourth kind of "
+     "block in the valley's state (world_state.json scars.unfinished, engine code 4), painted by the map's painter as a frame (wsTint st 4) and never powered. "
+     "D1 the row, the code and the page's inline copies; D2 the painter's rule; on three staged valleys G1 1 to 5 towers on luxury or downtown blocks, none round "
+     "a base, G2 none on a live circuit, G3 the painting carries the state and the other kinds are there, G4 nothing threw. About 2 min", True),
     ('THE DEAD SHRINK WITH THE MAP', ['node', 'gates/the_dead_shrink_with_the_map_gate.js'],
      "WORLD 15 gate, 11/22 (rule 476(b), Paolo 11/22: 'as I zoom out their blood pool is so big when I zoomed out, it's so ugly'; ask row 717; rule 441). slices/bohemia_carcass.js draws a kill and its pool at the map's scale, full from a block 72 px, smaller as he pulls out, faded, gone under 10. On the real page, demo and alpha, upright and sideways: never bigger, the glass it changes far a quarter or less of close, far out it fades and no tap answers, up close as it was. About 6 min", True),
     ('THE PLACES GET THEIR USE', ['node', 'gates/the_places_get_their_use_gate.js'],
