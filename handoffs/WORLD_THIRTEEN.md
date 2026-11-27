@@ -1,5 +1,25 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN; newest block on top)
 
+WORLD THIRTEEN (11/27, HANDOFF READY: context past 700k; no build this turn). THE NEXT JOB, for a fresh WORLD 13:
+RULE 485 (Paolo 11/26: 'cyberpunk vibes but their world has a running economy vibes'), WORLD 13's part: the map's people and parties
+MOVE THE ECONOMY WHERE HE CAN SEE IT: people going to work and home, deliveries and caravans crossing, gangs walking their blocks to
+collect, driven from ECONOMY THREE's calls (it owns the money running and the research; WORLD 15 the districts and places showing it).
+Rule 485(c): research first (a cited record), then BUILT INTO WHAT EXISTS (rule 480(b)): the map's crowds, parties, jobs and caravans
+already in the game, never a new system beside them; nothing pops up (32a), no icons (473). Cyberpunk 2077 is the WORLD'S CONSTRUCTION
+AND RUNNING ECONOMY only. All inside the frame budget (rule 480; the zoomed-out map toward 55 fps on a slowed phone is still WORLD 13's).
+WHERE TO START (read, measured this session):
+- The map's people: mapCrowdDraw / mapPersonDraw / rigMixFor (crowds seated once a frame since 11/26zj), mapPartyDraw and
+  mapCompanyPass (parties and his company), the jobs' crews and caravans (MAKE.haul-caravan, legSpot, standNear, regionRoute,
+  cityRouteByMinutes: seen in profiles at the opening and near stops). Ask ECONOMY THREE's handoff (handoffs/) for the calls it
+  exposes (who works where, deliveries, collections) before building.
+- The frame budget: tools/bohemia_world_thirteen_map_frames.js (five legs at 4x); gates/the_map_never_waits_on_the_glass_gate.js
+  (7/0: sprites in memory, the armour, the HUD writes, the borders, the hubs, the crowd); the per-part timer used this session times
+  mapGroundBegin, mapCrowdDraw, mapCompanyPass, mapDepthBlit, mapPersonDraw per frame (a tight loop of render(), not in rAF: render
+  skips redraws inside the animation loop). At full speed the whole valley's frame is 4.3 ms; on this box 4x reads 10 to 13 frames a
+  second on any build (the software GPU).
+- Still mine, owed: the ground's full repaint every 4 s while moving (mapGroundBegin ~10 ms, one of 65 ms at full speed; R.drawRoads
+  and vbCityReady/vbCityInput inside it, GC 16 in 100); then the map's look (rule 482).
+
 WORLD THIRTEEN (11/26, round eleven, rule 482): BUILD 11/26zj - THE CROWD IS SEATED ONCE, BUILT, NOT YET SEEN. Record:
 records/BOHEMIA_WORLD_THIRTEEN_THE_CROWD_IS_SEATED_ONCE_11_26_26.md. VOTE world13-the-crowd-is-seated-once-11-26 (stand_in).
 - rigMixFor once a frame a group (RIG_MIX_ONCE_A_FRAME); engine/bohemia_wear.js __A_SHEET_IS_MASKED_OFF_THE_PAGE__ (a worker makes
