@@ -19,7 +19,7 @@ const TYPES = { '.html': 'text/html', '.js': 'application/javascript', '.json': 
 const INSIDES = { hall: ['convention', 'the_split_hall'], mall: ['mall', 'the_atrium'], warehouse: ['warehouse', 'the_lanes'], datafort: ['datafort', 'the_white_space'],
   terminal: ['terminal', 'the_checkpoint'], stadium: ['stadium', 'the_last_show'], powerhouse: ['dam', 'the_generator_floor'], sphere: ['sphere', 'the_horseshoe'],
   homecenter: ['hardware', 'the_store_and_the_garden'], hospital: ['medical', 'the_emergency_room'], prison: ['prison', 'the_dayroom'], school: ['school', 'the_gym'],
-  courthouse: ['mobmuseum', 'the_courtroom'], swapmeet: ['swapmeet', 'the_covered_rows'], truckstop: ['truckstop', 'the_travel_store'], police: ['policestation', 'the_squad_room'], bank: ['bank', 'the_banking_hall'], library: ['library', 'the_stacks'], firehouse: ['firestation', 'the_apparatus_bay'],   // (COOK SEVEN 11/27)
+  courthouse: ['mobmuseum', 'the_courtroom'], swapmeet: ['swapmeet', 'the_covered_rows'], truckstop: ['truckstop', 'the_travel_store'], police: ['policestation', 'the_squad_room'], bank: ['bank', 'the_banking_hall'], library: ['library', 'the_stacks'], firehouse: ['firestation', 'the_apparatus_bay'], boneyard: ['boneyard', 'the_sign_shop'],   // (COOK SEVEN 11/27)
   street: ['downtown', null] };   // ('street': a plain board, no inside: the page's own cost, to measure against)
 
 (async () => {

@@ -1,0 +1,167 @@
+{
+ "letters": {
+  "w": 516,
+  "h": 381,
+  "foot": [
+   258.3,
+   367
+  ],
+  "piece": "letters",
+  "src": "boneyard/nb_letters.webp",
+  "facing": "S"
+ },
+ "faces": {
+  "w": 515,
+  "h": 326,
+  "foot": [
+   258.0,
+   325
+  ],
+  "piece": "faces",
+  "src": "boneyard/nb_faces.webp",
+  "facing": "S"
+ },
+ "sawhorses": {
+  "w": 515,
+  "h": 150,
+  "foot": [
+   257.7,
+   149
+  ],
+  "piece": "sawhorses",
+  "src": "boneyard/nb_sawhorses.webp",
+  "facing": "S"
+ },
+ "tubes": {
+  "w": 377,
+  "h": 149,
+  "foot": [
+   197.4,
+   107
+  ],
+  "piece": "tubes",
+  "src": "boneyard/nb_tubes.webp",
+  "facing": "S"
+ },
+ "bench": {
+  "w": 394,
+  "h": 150,
+  "foot": [
+   197.4,
+   124
+  ],
+  "piece": "bench",
+  "src": "boneyard/nb_bench.webp",
+  "facing": "S"
+ },
+ "cans": {
+  "w": 395,
+  "h": 227,
+  "foot": [
+   198.4,
+   201
+  ],
+  "piece": "cans",
+  "src": "boneyard/nb_cans.webp",
+  "facing": "S"
+ },
+ "transformers": {
+  "w": 412,
+  "h": 181,
+  "foot": [
+   206.4,
+   142
+  ],
+  "piece": "transformers",
+  "src": "boneyard/nb_transformers.webp",
+  "facing": "S"
+ },
+ "lift": {
+  "w": 352,
+  "h": 225,
+  "foot": [
+   198.3,
+   195
+  ],
+  "piece": "lift",
+  "src": "boneyard/nb_lift.webp",
+  "facing": "S"
+ },
+ "signs": {
+  "w": 516,
+  "h": 382,
+  "foot": [
+   258.3,
+   365
+  ],
+  "piece": "signs",
+  "src": "boneyard/nb_signs.webp",
+  "facing": "S"
+ },
+ "arrow": {
+  "w": 455,
+  "h": 158,
+  "foot": [
+   241.0,
+   110
+  ],
+  "piece": "arrow",
+  "src": "boneyard/nb_arrow.webp",
+  "facing": "S"
+ },
+ "bulbs": {
+  "w": 438,
+  "h": 174,
+  "foot": [
+   223.7,
+   132
+  ],
+  "piece": "bulbs",
+  "src": "boneyard/nb_bulbs.webp",
+  "facing": "S"
+ },
+ "crates": {
+  "w": 369,
+  "h": 187,
+  "foot": [
+   180.4,
+   157
+  ],
+  "piece": "crates",
+  "src": "boneyard/nb_crates.webp",
+  "facing": "S"
+ },
+ "projector": {
+  "w": 369,
+  "h": 267,
+  "foot": [
+   180.4,
+   231
+  ],
+  "piece": "projector",
+  "src": "boneyard/nb_projector.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 516,
+  "h": 184,
+  "foot": [
+   258.2,
+   176
+  ],
+  "piece": "wall_ew",
+  "src": "boneyard/nb_wall_ew.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 52,
+  "h": 531,
+  "foot": [
+   26.7,
+   530
+  ],
+  "piece": "wall_ns",
+  "src": "boneyard/nb_wall_ns.webp",
+  "facing": "S"
+ }
+}
