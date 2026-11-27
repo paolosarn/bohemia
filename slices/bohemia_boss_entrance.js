@@ -41,7 +41,7 @@
     if (document.getElementById('bossentrancecss')) return;
     var f = rom(), st = document.createElement('style'); st.id = 'bossentrancecss';
     st.textContent = [
-      '#bossentrance{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}',
+      '#bossentrance{position:fixed;inset:0;pointer-events:none;z-index:2147483000;overflow:hidden}',   /* over the fight's own light layers (MEASURED 11/27: THE CLIMB's card washed out under the sun on his board) */
       '#bossentrance .be-card{position:absolute;padding:9px 14px 10px 12px;border-left:3px solid #c8321e;background:linear-gradient(90deg,rgba(5,4,3,.94),rgba(5,4,3,.84) 72%,rgba(5,4,3,0));',
       'font-family:' + f + ';color:#e8e0cc;opacity:0;will-change:transform,opacity}',
       '#bossentrance .be-card::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3px)}',
@@ -57,7 +57,8 @@
       '#bossentrance .be-stamp{position:absolute;left:50%;transform:translate(-50%,-50%);font-family:' + f + ';color:#e8e0cc;text-align:center;opacity:0;',
       'font-size:15px;letter-spacing:2.4px;padding:8px 12px;background:rgba(5,4,3,.78);border-top:1px solid #c8321e;border-bottom:1px solid #c8321e;white-space:nowrap}',
       '#bossentrance .be-stamp s{text-decoration-color:#c8321e;text-decoration-thickness:2px}',
-      '#bossentrance .be-stop{position:absolute;inset:0;opacity:0;background:rgba(40,36,30,.35);backdrop-filter:saturate(.15) contrast(1.15);-webkit-backdrop-filter:saturate(.15) contrast(1.15)}',
+      /* rule 484 (his iPhone dies going in and out of a fight on memory): no backdrop-filter, no canvas; the tape's stop is a plain tint */
+      '#bossentrance .be-stop{position:absolute;inset:0;opacity:0;background:linear-gradient(rgba(34,31,27,.52),rgba(34,31,27,.52)),repeating-linear-gradient(0deg,rgba(0,0,0,.18) 0 1px,transparent 1px 3px)}',
       '#bossentrance .be-stopword{position:absolute;font-family:' + f + ';font-size:11px;letter-spacing:2px;color:#e8e0cc;opacity:0}'
     ].join('');
     document.head.appendChild(st);
@@ -126,10 +127,13 @@
       if (u.dead || u.fled || u._outAt !== undefined) { PLATE.style.display = 'none'; return; }
       var tw = UI.tw, th = UI.th, X = sx((dx(u) + .5) * tw), feet = sy((dy(u) + .9) * th), lvl = th * (typeof riseAt === 'function' ? riseAt(u.x, u.y) : 0);
       var Y = feet - lvl - manH() - 4, w = Math.max(34, Math.round(tw * UI.zoom * 0.8));
-      PLATE.style.display = ''; PLATE.style.left = Math.round(X) + 'px'; PLATE.style.top = Math.round(Y) + 'px';
+      /* kept on the glass: a long name by the board's edge was cut (MEASURED 11/27, THE SURVEYOR at x 358 of 390) */
+      var half = Math.max(PLATE.offsetWidth || 0, w) / 2 + 4, O = open(), lo = (O ? O.l : 0) + half, hi = (O ? O.r : innerWidth) - half;
+      var Xc = hi > lo ? Math.max(lo, Math.min(hi, X)) : X;
+      PLATE.style.display = ''; PLATE.style.left = Math.round(Xc) + 'px'; PLATE.style.top = Math.round(Y) + 'px';
       var sp = PLATE.firstChild; if (sp.textContent !== u.name) sp.textContent = u.name;
       var bar = PLATE.lastChild; bar.style.width = w + 'px'; bar.firstChild.style.width = Math.max(0, Math.min(100, Math.round(100 * u.hp / (u.hpMax || u.hp || 1)))) + '%';
-      BE.last.plate = { x: Math.round(X), y: Math.round(Y), name: u.name, on: X >= 0 && X <= innerWidth && Y >= 0 && Y <= innerHeight };
+      BE.last.plate = { x: Math.round(Xc), y: Math.round(Y), name: u.name, w: PLATE.offsetWidth | 0, on: Xc - half + 4 >= 0 && Xc + half - 4 <= innerWidth && Y >= 0 && Y <= innerHeight };
     } catch (e) { BE.last.plateErr = String(e && e.message || e); }
   }
   function reset() { try { if (ROOT) ROOT.innerHTML = ''; } catch (e) {} CARD = PLATE = TEAR = STAMP = null; ST = null; }

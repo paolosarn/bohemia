@@ -1,5 +1,16 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/27/26: RULE 482, BOSSES FOUR TO SIX ARRIVE THE SAME WAY (THE BURN, THE SURVEYOR, THE CLIMB; ask row 735), BUILD 11/27d
+Record: records/BOHEMIA_BOSSES_FOUR_TO_SIX_ARRIVE_11_27_26.md. Gate: THE BOSS ARRIVES now plays all six (THE POT to THE CLIMB), 44/0, about 12 min.
+VOTE bosses-four-to-six-arrive-11-27 (now, and the two that read weak before this round's fixes).
+- The arrival (the sign leads the camera, the entrance, the name over him, the moment at half, the fall) reached all three from their own
+  rows. Fixed what read weak on the phone: THE SURVEYOR's sign led to black (reading a sign now reveals one block round his place; his side
+  forgets it when the crew walks); THE CLIMB's entrance washed out under his board's light (the layer now over all of the fight's own);
+  THE SURVEYOR's long plate ran off the glass (kept inside the open area); the fall's tape stop lost its full-screen backdrop-filter
+  (rule 484: his iPhone's memory going in and out of a fight); the layer has no canvas.
+- NEXT FOR THIS LANE (rule 482, no act two): bosses seven to nine the same way (THE LOCKSMITH, THE CHARGE, THE MACHINIST), then on up;
+  THE BOSS ARRIVES takes the next three into THREE (its list) and runs longer each time; past nine, split it in two.
+
 ## BOSSES, 11/26/26: RULE 482, THE FIRST THREE FEEL LIKE BOSSES: THE SIGN LEADS TO HIM, HIS ENTRANCE, HIS NAME OVER HIM, HIS MOMENT, HIS FALL (the routine 'BOSSES: rule 482 next'; ask row 735), BUILD 11/26zm
 Record: records/BOHEMIA_BOSSES_THE_FIRST_THREE_FEEL_LIKE_BOSSES_11_26_26.md. Gate: THE BOSS ARRIVES (gates/the_boss_arrives_gate.js, registered;
 THE POT, THE TAP, THE FILTER played for real through the whole-ladder walk, about 6 min). VOTE bosses-the-boss-arrives-11-26 (before and now).

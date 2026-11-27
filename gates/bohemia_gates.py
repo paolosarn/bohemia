@@ -8806,12 +8806,13 @@ GATES = [
     ('THE BOSS ARRIVES', ['node', 'gates/the_boss_arrives_gate.js'],
      "BOSSES gate, 11/26, rule 482 (Paolo 11/26: 'More cooking up cleaning up improving things we're already doing'; the routine: 'make "
      "the first three he meets feel like bosses: the sign that leads to him, his entrance, his look, his fight's moment, what changes on the "
-     "map when he falls'): THE POT, THE TAP and THE FILTER played for real in one new game on the demo upright: his sign leads the camera "
+     "map when he falls'; 11/27: 'bosses four to six the same way'): THE POT, THE TAP, THE FILTER, THE BURN, THE SURVEYOR and THE CLIMB "
+     "played for real in one new game on the demo upright: his sign leads the camera "
      "to his place and back before his card (L1; never under a town's screen); his entrance, his name and title, once the fight is the "
      "thing on top (E1; it had played unseen behind the zoom down); his name over his head (P1); his moment at half with his own tip, his "
      "fall (M1; a lost fight shows none); nothing takes a tap (N1); still found, fought to LEAVE, his map changed (W1). Planted: a sign "
      "that never led, another man's name, a plate off the glass, a won fall with no moment, a fall on a lost fight, a layer that takes taps. "
-     "one phone, about 6 min", True),
+     "one phone, about 12 min", True),
     ('EVERY BOSS HOLDS ITS FRAMES', ['node', 'gates/every_boss_holds_its_frames_gate.js'],
      "BOSSES gate, 11/26, rule 480(b)(c) (Paolo 11/26: 'improve on what we already have. And make sure fps is never choppy for nothing'), "
      "what THE WHOLE LADDER, WALKED FOR REAL (tools/bohemia_bosses_the_whole_ladder_11_26_26.js: one new game, all 19 bosses, each sign, each "

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /* BOHEMIA -- BOSSES gate, 11/26, rule 482 (Paolo 11/26: 'More cooking up cleaning up improving things we're already doing'; the
    coordinator's routine: 'make the first three he meets feel like bosses: the sign that leads to him, his entrance, his look, his fight's
-   moment, what changes on the map when he falls'). THE POT, THE TAP and THE FILTER, each played for real in one new game on the demo
+   moment, what changes on the map when he falls'; 11/27: 'now bosses four to six the same way'). THE POT, THE TAP, THE FILTER, THE BURN,
+   THE SURVEYOR and THE CLIMB, each played for real in one new game on the demo
    upright (tools/bohemia_bosses_the_whole_ladder_11_26_26.js, LADDER_ONLY the three, the CPU unslowed), and read from what it saw:
 
      L1  the sign leads to him: the first time his sign is read the camera goes to his place, holds, comes back (go > hold > back), and
@@ -12,18 +13,18 @@
      M1  his moment: once, at half his blood, his own tip from his card; then his fall: struck through, DOWN, the tape stopped
      N1  nothing of it takes a tap (its layer is pointer-events none)
      W1  and he is still found by his sign, fought to LEAVE, and his map changes (the walk's S, F, M, E)
-   Planted fails for each. One phone, about 6 minutes. */
+   Planted fails for each. One phone, about 12 minutes. */
 'use strict';
 const path = require('path'), fs = require('fs'), os = require('os'), cp = require('child_process');
 const ROOT = path.join(__dirname, '..');
 let pass = 0, fail = 0;
 const ok = (n, c, w) => { if (c) pass++; else fail++; console.log((c ? '  ok   ' : '  FAIL ') + n + (w != null ? '  [' + w + ']' : '')); };
 const ROWS = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/boss_act_one.json'), 'utf8')).bosses;
-const THREE = ['THE POT', 'THE TAP', 'THE FILTER'];
+const THREE = ['THE POT', 'THE TAP', 'THE FILTER', 'THE BURN', 'THE SURVEYOR', 'THE CLIMB'];   /* 11/27, the routine: 'now bosses four to six the same way' */
 console.log('\nTHE BOSS ARRIVES (rule 482): ' + THREE.join(', ') + ', played for real on the demo upright\n');
 const out = fs.mkdtempSync(path.join(os.tmpdir(), 'bossarrives-'));
 const r = cp.spawnSync('node', [path.join(ROOT, 'tools/bohemia_bosses_the_whole_ladder_11_26_26.js'), 'phone_portrait', out],
-  { env: Object.assign({}, process.env, { LADDER_ONLY: THREE.join(','), LADDER_THROTTLE: '1' }), encoding: 'utf8', timeout: 1500000 });
+  { env: Object.assign({}, process.env, { LADDER_ONLY: THREE.join(','), LADDER_THROTTLE: '1' }), encoding: 'utf8', timeout: 2700000 });
 let got = [];
 try { got = fs.readFileSync(path.join(out, 'ladder.jsonl'), 'utf8').trim().split('\n').filter(Boolean).map(l => JSON.parse(l)).filter(x => THREE.indexOf(x.n) >= 0 && x.ok); } catch (e) {}
 const L1 = (x) => x && x.leadCam === 'go>hold>back';
@@ -39,7 +40,7 @@ const M1 = (x, row) => { const E = x && x.entranceEnd; if (!x || !E) return fals
   return E.moment ? E.moment.tip === row.tip && /^entrance>moment>fall$/.test(x.shown || '') : x.shown === 'entrance>fall' && E.f > 0.5; };
 const N1 = (x) => x && x.layer && x.layer.pe === 'none';
 const W1 = (x) => x && x.ok.S && x.ok.F && x.ok.M && x.ok.E;
-ok('the walk played the three', got.length === 3, got.map(x => x.n).join(', ') || (r.stdout || '').split('\n').slice(-4).join(' | '));
+ok('the walk played the ' + THREE.length, got.length === THREE.length, got.map(x => x.n).join(', ') || (r.stdout || '').split('\n').slice(-4).join(' | '));
 for (const n of THREE) {
   const x = got.filter(g => g.n === n)[0], row = ROWS.filter(b => b.n === n)[0];
   ok('L1 ' + n + ': his sign leads to his place (the camera goes, holds, comes back), then the card', L1(x), x && x.leadCam);

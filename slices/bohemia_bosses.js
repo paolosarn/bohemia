@@ -2794,6 +2794,10 @@
     try { if (MODE !== 'city' || bench()) return false; } catch (e) { return false; }
     try { if (townTurn() || fightUp()) return false; } catch (e) {}   /* never under a town's screen or a fight */
     var at = placeAt(f), cam = camGo(at[0], at[1], LEAD_MS.go); if (!cam) return false;
+    /* the sign tells you where he is, so his door is seen (one block round his place; his fall reveals more). MEASURED 11/27 on THE
+       SURVEYOR: the camera held on black, the fog and his static over his place; now his place stands in his static, and his side
+       forgets it again the moment the crew walks, by his own rule (holeForget) */
+    try { if (typeof fogReveal === 'function') fogReveal(at[0], at[1], 1); } catch (e) {}
     LEADCAM = { n: r.n, r: r, x: at[0], y: at[1], t0: performance.now(), cam: cam, phase: 'go' };
     LAST.leadCam = { n: r.n, at: at, started: Date.now(), phases: ['go'], done: null, draft: true }; root.__BOSS_LEAD_CAM = LAST.leadCam;
     tick(); return true;
