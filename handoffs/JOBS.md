@@ -14,8 +14,10 @@ JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/27 LATEST -- BUILD 11/27zzd - TH
 - GATES: THE KINDS HE MEETS 7/0 (new), THE WORK SPANS HIS STRENGTH 6/0 (W2's strong line 60 -> 70: main's
   fight moved under it, the same on clean main), THE BOARDS ALWAYS HAVE WORK 24/0, A JOB HAS ONE DOOR 4/0, pay 23/0. MAIN'S OWN REDS (same
   on clean main 5be5b4041): THE SIX CONTRACTS 5/2, EVERY JOB KIND 36/1 (F5), THE JOBS' PART 5/3 (the meet card's roster reads null).
-- NEXT: (1) 494(c) Battle Brothers' whole contract list, cited (bb_all/0441 Contracts lists civilian, noble, southern), each a Bohemia
-  version or a reason, map ones first; start records/BOHEMIA_JOBS_MORE_CONTRACT_KINDS_THE_BATTLE_BROTHERS_WAY_11_10_26.md. (2) 493(c) the
+- 494(c) DONE AS RESEARCH: records/BOHEMIA_JOBS_TWO_BATTLE_BROTHERS_WHOLE_CONTRACT_LIST_11_27_26.md (49 entries: 35 have, 4 half, 3 gaps,
+  7 reasons; six Bohemia versions written, map ones first).
+- NEXT: (1) build the gaps as kinds that play on the map, a VOTE card each (494(d)(e)): GAP 1 a town-to-town patrol, GAP 2 the road
+  crews (the map's own roaming parties), then GAP 6 a small hunt, GAP 5, GAP 3, GAP 4. (2) 493(c) the
   company's next goal on the phone, a face says it (BB ambitions: bb_all/0053 Ambitions; GROK_123; renown.json gains.ambition 100).
   (3) THE JOBS' PART roster read (R1, R4, line 217). (4) a hunt a new crew of three can win (every hunt reads under the floor early).
   (5) the paid-to-match half of 491(b).
