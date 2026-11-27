@@ -324,6 +324,7 @@ html.bm-camp-live.boh-phone-on[data-bm-roster]:not(#bm-x) body .who{justify-cont
 <script src="bohemia_injury_card.js"></script>  <!-- CAMP (rules 234(d), 241(c)): the injury card, the town clinic's own drawing -->
 <script src="../engine/bohemia_bag_sort.js"></script>
 <script src="../engine/bohemia_camp.js"></script>
+<script src="bohemia_crew_camp.js"></script>  <!-- STAFF 3 (rule 471(b)): the CAMP row, his card, the stash one hand only; the camp's part of this screen lives in that file -->
 <script src="../engine/bohemia_wages.js"></script>  <!-- RUN TWO [money teaches]: a hired man's night is his food and his pay -->  <!-- RUN TWO [the camp and the retinue]: the stash grows with the cart -->
 <script src="../engine/bohemia_shop_wear.js"></script>  <!-- RUN TWO __WHAT_YOU_BUY_GOES_ON_THE_MAN__ (rule 210): what the shop put on a man -->
 <script src="bohemia_ui_materials.js"></script>
@@ -773,7 +774,11 @@ function draw(){
       d.setAttribute('aria-label', m.name + ', kept out of the line'); kp.appendChild(d); });
     document.getElementById('keptrow').classList.toggle('on', kany); }
   drawCard(); drawBag(); talkOnLine(); besidePhone();
+  try{ if(window.BohemiaCrewCamp) BohemiaCrewCamp.draw(CREW_CAMP); }catch(e){}   /* STAFF 3 (rule 471(b)): the camp's row, and his card and the stash while one of the camp is picked */
 }
+/* what the camp's part of this screen (slices/bohemia_crew_camp.js) borrows of it: the one stash, a face, an item's picture, the line */
+var CREW_CAMP = { S: S, saveBag: function(){ saveBag(); }, redraw: function(){ draw(); }, say: function(t){ say(t); }, sfx: function(e){ sfx(e); },
+  faceCanvas: function(m){ return faceCanvas(m); }, itemPic: function(it, px){ return itemPic(it, px); }, shortName: function(it){ return shortName(it); }, face: function(it){ return face(it); }, slots: function(){ return BAG_SLOTS; } };
 /* ==== __ONE_CREW_SCREEN__ (RUN TWO, rule 147(b), Paolo 10/24: 'why is it showing me the crew twice? It should be simplified:
    one face, all the inventory'): each man once, his face on the line and nowhere else; tap him and the screen is him. ==== */
 var SLOT_NAME = {main:'MAIN HAND', off:'OFF HAND', body:'BODY', head:'HEAD', acc:'ACCESSORY', ammo:'AMMO', bag1:'BAG', bag2:'BAG'};

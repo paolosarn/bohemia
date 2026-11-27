@@ -97,7 +97,7 @@
   var LOADED = { asked: false, read: false }, PER_PLACE = 3;
   /* __THE_STAFF_FIGHT_TOO__ (STAFF, VAMILY rule 468): the camp's people in a fight, the file's staff block (records/target/bb/retinue.json
      staff; the copy below is that block, `node tools/bohemia_retinue_bake.js` writes it, gates/the_staff_fight_too_gate.js holds them equal) */
-  var STAFF = /* __STAFF_RULES__ */ {"stats":{"hp":[40,50],"resolve":[25,40],"melee_skill":[47,57],"ranged_skill":[32,42],"melee_defense":[0,5],"ranged_defense":[0,5],"initiative":[95,105],"fatigue":[90,100]},"level":1,"xp":false,"traits":["clumsy","craven","fainthearted","fragile","hesitant"],"weapon":"box_cutter","arms":{"one_handed_only":true,"by_trade":{"blacksmith":"pickaxe","scout":"snub_revolver","bounty_hunter":"snub_revolver"},"else":"box_cutter"},"cart":{"kinds":[{"id":"shopping_cart","word":"A SHOPPING CART","melee_defense":8,"ranged_defense":3,"fatigue":-6,"ap_per_tile":1,"holds":20,"price":0,"tape":0},{"id":"utility_cart","word":"A STEEL UTILITY CART","melee_defense":11,"ranged_defense":5,"fatigue":-8,"ap_per_tile":1,"holds":35,"price":150,"tape":20},{"id":"wagon","word":"A WAGON","melee_defense":14,"ranged_defense":7,"fatigue":-10,"ap_per_tile":1,"holds":60,"price":300,"tape":40}],"front_arc":1,"built_at":"forge","stock":{"cook":"food","surgeon":"meds","alchemist":"meds","blacksmith":"tape","scavenger":"tape","quartermaster":"rounds","bounty_hunter":"rounds"},"kept_when_he_falls":"won"},"armour":false,"starts":"Wavering","top":"Steady","struck_down":"dead","shakes_fighters":true,"shakes_staff":true,"in_the_pit":false,"rehire_price":"the same","words":{"take":"Stands in your fights. One of your {cap}.","full":"No room: your company is {n} of {cap}.","camp":"CAMP","cart":"Pushes {cart}. One hand only."}} /* /__STAFF_RULES__ */;
+  var STAFF = /* __STAFF_RULES__ */ {"stats":{"hp":[40,50],"resolve":[25,40],"melee_skill":[47,57],"ranged_skill":[32,42],"melee_defense":[0,5],"ranged_defense":[0,5],"initiative":[95,105],"fatigue":[90,100]},"level":1,"xp":false,"traits":["clumsy","craven","fainthearted","fragile","hesitant"],"weapon":"box_cutter","arms":{"one_handed_only":true,"by_trade":{"blacksmith":"pickaxe","scout":"snub_revolver","bounty_hunter":"snub_revolver"},"else":"box_cutter","refuse_class":["bow","crossbow","firearm","throwing","throwable_item"],"given":"STAFF 3 11/27 (rule 471(b), the crew screen): a one-handed weapon from the stash handed to a camp person rides in his hand instead of his trade's (BohemiaCamp.giveArms); kept with the job as the cart is (a rehire in the job holds it), back to the stash when he hands it back, gone with him when he falls and his side lost the field. refuse_class: the fight's ranged classes (slices/BOHEMIA_FIGHT.html RANGED, held equal by gates/the_staff_push_a_cart_gate.js C18) and a thrown item: he pushes a cart, so never a bow, a long gun or a throw; a pistol rides a dagger's row, so it is held"},"cart":{"kinds":[{"id":"shopping_cart","word":"A SHOPPING CART","melee_defense":8,"ranged_defense":3,"fatigue":-6,"ap_per_tile":1,"holds":20,"price":0,"tape":0},{"id":"utility_cart","word":"A STEEL UTILITY CART","melee_defense":11,"ranged_defense":5,"fatigue":-8,"ap_per_tile":1,"holds":35,"price":150,"tape":20},{"id":"wagon","word":"A WAGON","melee_defense":14,"ranged_defense":7,"fatigue":-10,"ap_per_tile":1,"holds":60,"price":300,"tape":40}],"front_arc":1,"built_at":"forge","stock":{"cook":"food","surgeon":"meds","alchemist":"meds","blacksmith":"tape","scavenger":"tape","quartermaster":"rounds","bounty_hunter":"rounds"},"kept_when_he_falls":"won"},"armour":false,"starts":"Wavering","top":"Steady","struck_down":"dead","shakes_fighters":true,"shakes_staff":true,"in_the_pit":false,"rehire_price":"the same","words":{"take":"Stands in your fights. One of your {cap}.","full":"No room: your company is {n} of {cap}.","camp":"CAMP","cart":"Pushes {cart}. One hand only.","hand":"In {his} hand: {weapon}.","only":"ONE HAND ONLY","pick":"Tap a piece in the stash to put it in {his} hand.","given":"{name} takes the {weapon}. The {tool} goes in the cart.","swap":"{name} takes the {weapon}. The {old} goes back in the stash.","back":"{name} hands the {weapon} back. It is in the stash.","none":"Nothing in the stash {he} can hold in one hand.","stash_full":"Your stash is full.","give_back":"HAND IT BACK"}} /* /__STAFF_RULES__ */;
   function readFile(j) {
     var v = j && j.followers && (j.followers.value || j.followers); if (!Array.isArray(v) || !v.length) return false;
     if (j.met_per_place && typeof j.met_per_place.value === 'number') PER_PLACE = Math.max(0, j.met_per_place.value | 0);
@@ -280,6 +280,9 @@
        BohemiaCamp.cartNext(id)     the next better cart and its price (batteries and tape), or null at the wagon
        BohemiaCamp.upgradeCart(id)  his job's cart one step up (the screen takes the price), its new cart
        BohemiaCamp.armsOf(id)       his one weapon by his trade: one-handed (a pistol or a one-handed blow), never two hands, never a shield
+       BohemiaCamp.canHold(item)    STAFF 3: a stash item he may be handed (a weapon, one hand, no class of staff.arms.refuse_class)
+       BohemiaCamp.giveArms(id, it) STAFF 3: he holds it instead of his trade's ({ ok, back }); takeArms(id) hands it back (the item)
+       BohemiaCamp.armsItem(id)     STAFF 3: the stash item in his hand, or null (his trade's: tradeArms(id))
        BohemiaCamp.cartLoad(id)     what his cart holds of the company's count: { kind, n } (the camp's order: the first of a kind fills first)
      The cart is his job's, kept by the camp's book under his job's id (a new person in the job pushes the same cart); when he falls (lose) it
      goes over: what it held leaves the company's count (bohemia.supplies.v1), and the cart is kept only when his side held the field. ==== */
@@ -304,10 +307,27 @@
   }
   function cartNext(id) { var C = cartRules(); if (!C) return null; var K = C.kinds[cartLevel(id) + 1]; return K ? { id: K.id, word: K.word, price: +K.price || 0, tape: +K.tape || 0, level: cartLevel(id) + 1 } : null; }
   function upgradeCart(id) { var s = state(); if (s.retinue.indexOf(id) < 0 || !cartNext(id)) return null; s.carts = s.carts || {}; s.carts[id] = cartLevel(id) + 1; save(s); return cartOf(id); }
-  function armsOf(id) {
+  function tradeArms(id) {
     var A = (STAFF && STAFF.arms) || null, w = A && A.by_trade && A.by_trade[id] ? A.by_trade[id] : (A && A.else) || STAFF.weapon || 'box_cutter';
     return String(w);
   }
+  /* STAFF 3 11/27 (rule 471(b), the crew screen): a one-handed weapon handed to him from the stash rides in his hand instead of his
+     trade's (records/target/bb/retinue.json staff.arms.given). The rule is the file's: a weapon, one hand, never a class in
+     staff.arms.refuse_class (the fight's ranged classes and a thrown item; a pistol rides a dagger's row, so it is held). The fight
+     still checks it on the board (staffArms). Kept with the job, as his cart is */
+  function canHold(it) {
+    var A = (STAFF && STAFF.arms) || {}, no = Array.isArray(A.refuse_class) ? A.refuse_class : [];
+    return !!it && typeof it === 'object' && it.kind === 'weapon' && !!it.id && (it.hands | 0) === 1 && no.indexOf(String(it.cls || '')) < 0;
+  }
+  function armsItem(id) { var it = (state().arms || {})[id]; return canHold(it) ? it : null; }
+  function armsOf(id) { var it = armsItem(id); return it ? String(it.id) : tradeArms(id); }
+  /* hand him one: { ok, back } (back: what he held before, for the stash), or { ok: false, why: 'hands' | 'nobody' } */
+  function giveArms(id, it) {
+    var s = state(); if (s.retinue.indexOf(id) < 0) return { ok: false, why: 'nobody' }; if (!canHold(it)) return { ok: false, why: 'hands' };
+    s.arms = s.arms || {}; var back = canHold(s.arms[id]) ? s.arms[id] : null; s.arms[id] = it; save(s); return { ok: true, back: back };
+  }
+  /* he hands it back: the item, for the stash (null when he held only his trade's) */
+  function takeArms(id) { var s = state(), it = (s.arms || {})[id] || null; if (!it) return null; delete s.arms[id]; save(s); return canHold(it) ? it : null; }
   /* his cart goes over (he died, or was taken with the field): what it held leaves the company's count; the cart stays with his job only if
      his side held the field (at.held, the fight's won), else it is gone with the field and the next one in his job starts on the first cart */
   function spill(id, why, at) {
@@ -319,11 +339,13 @@
       try { root.localStorage.setItem('bohemia.supplies.v1', JSON.stringify(w)); } catch (e) {}
     }
     if (!kept && lv > 0) { var s = state(); s.carts = s.carts || {}; delete s.carts[id]; save(s); }
+    if (!kept) { var s2 = state(); if (s2.arms && s2.arms[id]) { out.arms = s2.arms[id].name || s2.arms[id].id; delete s2.arms[id]; save(s2); } }   /* STAFF 3: the weapon he was handed goes with the field */
     return out;
   }
   /* ==== /__THE_STAFF_PUSH_A_CART__ ==== */
   root.BohemiaCamp = { READY: READY, xpDrill: xpDrill,
     /* __THE_STAFF_PUSH_A_CART__ */ cartOf: cartOf, cartNext: cartNext, upgradeCart: upgradeCart, armsOf: armsOf, cartLoad: cartLoad, cartLevel: cartLevel,
+    /* STAFF 3 (rule 471(b)): the crew screen hands him a one-hander */ canHold: canHold, armsItem: armsItem, tradeArms: tradeArms, giveArms: giveArms, takeArms: takeArms,
     /* __THE_STAFF_FIGHT_TOO__ */ staffRules: staffRules, person: person, staff: staff, lose: lose, dead: dead, deadLooks: deadLooks, KEY: KEY, BASE_SLOTS: BASE_SLOTS, CART: CART, LIVE: LIVE, WORD: WORD, state: state, stashSlots: stashSlots, cart: cart, buyCart: buyCart,
     retinue: retinue, has: has, hired: hired, offer: offer, hire: hire, letGo: letGo, mult: mult, plus: plus, look: look, MORE: MORE, NUMS: NUMS, moreOf: moreOf, scavenge: scavenge,
     /* __THE_RETINUE_DATA__ (RETINUE 11/7) */ row: row, rows: rows, workOf: workOf, price: price, inTown: inTown, meet: meet, looks: looks, LOADED: LOADED,

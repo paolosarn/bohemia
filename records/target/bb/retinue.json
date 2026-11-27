@@ -27,7 +27,9 @@
       "xp": false,
       "traits": ["clumsy", "craven", "fainthearted", "fragile", "hesitant"],
       "weapon": "box_cutter",
-      "arms": { "one_handed_only": true, "by_trade": { "blacksmith": "pickaxe", "scout": "snub_revolver", "bounty_hunter": "snub_revolver" }, "else": "box_cutter" },
+      "arms": { "one_handed_only": true, "by_trade": { "blacksmith": "pickaxe", "scout": "snub_revolver", "bounty_hunter": "snub_revolver" }, "else": "box_cutter",
+        "refuse_class": ["bow", "crossbow", "firearm", "throwing", "throwable_item"],
+        "given": "STAFF 3 11/27 (rule 471(b), the crew screen): a one-handed weapon from the stash handed to a camp person rides in his hand instead of his trade's (BohemiaCamp.giveArms); kept with the job as the cart is (a rehire in the job holds it), back to the stash when he hands it back, gone with him when he falls and his side lost the field. refuse_class: the fight's ranged classes (slices/BOHEMIA_FIGHT.html RANGED, held equal by gates/the_staff_push_a_cart_gate.js C18) and a thrown item: he pushes a cart, so never a bow, a long gun or a throw; a pistol rides a dagger's row, so it is held" },
       "cart": {
         "kinds": [
           { "id": "shopping_cart", "word": "A SHOPPING CART", "melee_defense": 8, "ranged_defense": 3, "fatigue": -6, "ap_per_tile": 1, "holds": 20, "price": 0, "tape": 0 },
@@ -47,7 +49,7 @@
       "shakes_staff": true,
       "in_the_pit": false,
       "rehire_price": "the same",
-      "words": { "take": "Stands in your fights. One of your {cap}.", "full": "No room: your company is {n} of {cap}.", "camp": "CAMP", "cart": "Pushes {cart}. One hand only." }
+      "words": { "take": "Stands in your fights. One of your {cap}.", "full": "No room: your company is {n} of {cap}.", "camp": "CAMP", "cart": "Pushes {cart}. One hand only.", "hand": "In {his} hand: {weapon}.", "only": "ONE HAND ONLY", "pick": "Tap a piece in the stash to put it in {his} hand.", "given": "{name} takes the {weapon}. The {tool} goes in the cart.", "swap": "{name} takes the {weapon}. The {old} goes back in the stash.", "back": "{name} hands the {weapon} back. It is in the stash.", "none": "Nothing in the stash {he} can hold in one hand.", "stash_full": "Your stash is full.", "give_back": "HAND IT BACK" }
     },
     "draft": true,
     "source": "VAMILY rule 468 (Paolo 11/21: 'they are forced to being in combat... the game becomes more about protecting your staff... they're not gonna have the best traits... they try to run away way quicker'); records/BOHEMIA_RESEARCH_THE_STAFF_FIGHT_TOO_11_21_26.md section C3, C4, C7: Battle Brothers' Indebted row at level one (bb_all/1073 Indebted (Background): hitpoints 40-50, resolve 25-40, initiative 95-105, 'Is permanently dead if struck down', no brave traits; bb_all/0368 the Daytaler's base for the rest)",

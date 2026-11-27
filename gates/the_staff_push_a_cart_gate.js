@@ -30,6 +30,7 @@
      C16 THE CAMP AT ITS WORK (STAFF 2 11/27, rule 482): by the fire the cook cooks, the surgeon tends the worst hurt, the blacksmith mends
          (STAFF 3 11/27, rule 495(b): ONE PLACE, the trade is retinue.json's 'work' through BohemiaCamp.workOf, the cells' index
          slices/rig_town/rig_staff.json read by BohemiaIdles, no page keeps a copy; C14's numbers are ai.json fear_run through R())
+     C18 THE CREW SCREEN HANDS HIM ONE (STAFF 3 11/27, rule 471(b)): the camp row, one hand only, the fight swings what he was handed
      C17 THE CAMP AT HIS PLACE (STAFF 2 11/27, rule 482): on his place's footage at their trade with their carts (phone proofs:
          tools/bohemia_staff_at_work_on_the_phone.js, tools/bohemia_staff_at_his_place_on_the_phone.js)
      C12 THE FIGHT STILL PLAYS: AUTO fights with carts against the same fights with none: printed, the camp's deaths and his wins
@@ -306,6 +307,36 @@ const nearest = (S, u) => S.units.filter(f => f.side !== u.side && F.onField(f) 
   const okF = /try\{ homeFeedStaff\(F, out, T, at, front\); \}catch\(e\)\{\}/.test(ss) && /homeFeedCart\(g, q, 'back'\); if\(gi\)\{ g\.drawImage\(gi\.edge, gx - 1, gy - 1\); g\.drawImage\(gi\.lit, gx, gy\); \} homeFeedCart\(g, q, 'front'\);/.test(ss);
   const okT = /if\(o\.p\.staffHome && o\.p\.act && o\.n != null\) add\(/.test(ss), okC = /cartCellOf: cartCellOf/.test(cl) && /function cartCellOf\(id, face, which\)/.test(cl);
   ok('C17 THE CAMP AT HIS PLACE: on his place\'s footage, at their trade, each with his cart, found by the camera\'s tour', okS && okF && okT && okC, ['place ' + okS, 'footage ' + okF, 'tour ' + okT, 'cart ' + okC].join(', '));
+}
+
+/* C18 THE CREW SCREEN HANDS HIM ONE (STAFF 3 11/27, rule 471(b): 'these characters can only use one-handed weapons, so either a pistol or
+   like a one-handed melee'): the camp book holds what the crew screen hands a camp person (BohemiaCamp.giveArms), only what he can hold
+   (the file's staff.arms.refuse_class: the fight's ranged classes, held equal here, and a thrown item; never two hands); the fight takes
+   it from the hand-over; HAND IT BACK returns his trade's tool; it goes with the field when he falls and his side lost; the crew screen
+   draws the camp from its own module (slices/bohemia_crew_camp.js). Phone proof: tools/bohemia_staff_crew_camp_on_the_phone.js K1-K5 */
+{
+  const fh = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8'), rs = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_ROSTER_SCREEN.html'), 'utf8');
+  const md = fs.existsSync(path.join(ROOT, 'slices/bohemia_crew_camp.js')) ? fs.readFileSync(path.join(ROOT, 'slices/bohemia_crew_camp.js'), 'utf8') : '';
+  const RG = Function('return ' + ((fh.match(/const RANGED = (\[[^\]]*\]);/) || [])[1] || '[]'))(), RF = (RET.staff.value.arms || {}).refuse_class || [];
+  const okE = RG.length > 0 && RG.every(c => RF.includes(c)) && RF.filter(c => !RG.includes(c)).every(c => c === 'throwable_item');
+  const R0 = require(path.join(ROOT, 'engine/bohemia_roster.js')); try { R0.load && R0.load(); } catch (e) {}
+  const W = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/weapons.json'), 'utf8')).rows, item = id => { const r = W.find(x => x.id === id); return r ? { id: r.id, kind: 'weapon', cls: r['class'], name: r.name, hands: r.hands || (/^(bow|crossbow|firearm)$/.test(r['class']) ? 2 : 1) } : null; };
+  const no = ['hunting_bow', 'woodcutter_s_axe', 'light_crossbow'].map(item).filter(Boolean).concat(W.filter(r => r['class'] === 'throwing' && (r.hands | 0) === 1).slice(0, 1).map(r => item(r.id)), [{ id: 'buckler', kind: 'shield', hands: 1 }]);
+  const yes = ['snub_revolver', 'hatchet'].map(item);
+  freshCamp(['cook', 'blacksmith']);
+  const refused = no.filter(it => !CAMP.canHold(it) && CAMP.giveArms('cook', it).ok === false).length, held = yes.filter(it => CAMP.canHold(it)).length;
+  const g1 = CAMP.giveArms('cook', yes[1]), hand = CAMP.staff().find(p => p.id === 'cook').weapon;
+  ctx.setSeed(1801); F.setup({ auto: true, formation: null, company: men(6), cap: 12, staff: CAMP.staff(), party: { count: 6, faction: 'brigands', days: 3 } });
+  const u = F.S.units.find(x => x.staff && x.staffId === 'cook'), fightW = u && u.weapon && u.weapon.id;
+  const g2 = CAMP.giveArms('cook', yes[0]), back = CAMP.takeArms('cook'), after = CAMP.armsOf('cook');
+  CAMP.giveArms('blacksmith', yes[1]); CAMP.lose('blacksmith', 'dead', { held: true }); const keptHeld = CAMP.armsOf('blacksmith');
+  freshCamp(['cook']); CAMP.giveArms('cook', yes[1]); const sp = CAMP.lose('cook', 'dead', { held: false }); const goneLost = CAMP.armsOf('cook');
+  const okB = refused === no.length && held === 2 && g1.ok && hand === 'hatchet' && fightW === 'hatchet' && g2.ok && g2.back && g2.back.id === 'hatchet' && back && back.id === 'snub_revolver' && after === 'box_cutter' &&
+    keptHeld === 'hatchet' && goneLost === 'box_cutter' && !!sp && !!(sp.spilt && sp.spilt.arms);
+  const okS = /<script src="bohemia_crew_camp\.js"><\/script>/.test(rs) && /BohemiaCrewCamp\.draw\(CREW_CAMP\)/.test(rs) && /C\.canHold\(it\)/.test(md) && /C\.giveArms\(p\.id, it\)/.test(md) && /C\.takeArms\(p\.id\)/.test(md) && !/canHold|giveArms/.test(rs);
+  const Wd = RET.staff.value.words || {}, okW = ['hand', 'only', 'pick', 'given', 'swap', 'back', 'none', 'stash_full', 'give_back'].every(k => typeof Wd[k] === 'string') && /No room/.test(Wd.full || '');
+  ok('C18 THE CREW SCREEN HANDS HIM ONE: ' + refused + ' of ' + no.length + ' refused (a bow, a two-handed axe, a crossbow, a throw, a shield), ' + held + ' of 2 held; the fight\'s cook swings the ' + fightW + ' she was handed; back: ' + after + '; kept on a held field: ' + keptHeld + ', lost with a lost one: ' + goneLost,
+    okE && okB && okS && okW, ['refusals = the fight\'s RANGED ' + okE, 'book and fight ' + okB, 'screen ' + okS, 'words ' + okW].join(', '));
 }
 
 /* C12 THE FIGHT STILL PLAYS (printed): the same AUTO fights with the carts and with none */

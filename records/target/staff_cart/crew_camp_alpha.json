@@ -1,0 +1,172 @@
+[
+ {
+  "shape": "phone_portrait",
+  "surface": "alpha",
+  "campMade": true,
+  "crewScreen": true,
+  "seeded": [
+   "snub_revolver:1:dagger",
+   "hatchet:1:axe",
+   "hunting_bow:2:bow",
+   "woodcutter_s_axe:2:axe"
+  ],
+  "row": [
+   {
+    "id": "cook",
+    "hand": true,
+    "name": "Graciela"
+   },
+   {
+    "id": "surgeon",
+    "hand": true,
+    "name": "Alan"
+   },
+   {
+    "id": "scout",
+    "hand": true,
+    "name": "Danny"
+   },
+   {
+    "id": "blacksmith",
+    "hand": true,
+    "name": "Walt"
+   }
+  ],
+  "rowOn": true,
+  "png": [
+   "records/target/staff_cart/alpha_upright_crew_camp_1_the_row.png",
+   "records/target/staff_cart/alpha_upright_crew_camp_2_the_cook_picked.png",
+   "records/target/staff_cart/alpha_upright_crew_camp_3_the_cook_holds_the_revolver.png"
+  ],
+  "tapCook": true,
+  "card": {
+   "camp": "cook",
+   "nm": "GRACIELA OCHOA",
+   "sub": "THE COOK  ·  CAMP",
+   "lines": [
+    "Pushes a shopping cart. One hand only.",
+    "In her hand: box cutter."
+   ],
+   "said": "Tap a piece in the stash to put it in her hand.",
+   "stash": [
+    "snub_revolver",
+    "hatchet"
+   ],
+   "head": "STASH 4/36   ONE HAND ONLY"
+  },
+  "tapGive": true,
+  "given": {
+   "book": "snub_revolver",
+   "inStash": 0,
+   "said": "Graciela takes the snub revolver. The box cutter goes in the cart.",
+   "saved": 0,
+   "corner": {}
+  },
+  "handOver": "snub_revolver",
+  "tapBack": true,
+  "back": {
+   "book": null,
+   "arms": "box_cutter",
+   "inStash": 1,
+   "said": "Graciela hands the snub revolver back. It is in the stash."
+  },
+  "tapMan": true,
+  "man": {
+   "camp": null,
+   "nm": "YOU",
+   "sel": null
+  },
+  "errs": [],
+  "K1": true,
+  "K2": true,
+  "K3": true,
+  "K4": true,
+  "K5": true,
+  "P": true
+ },
+ {
+  "shape": "phone_landscape",
+  "surface": "alpha",
+  "campMade": true,
+  "crewScreen": true,
+  "seeded": [
+   "snub_revolver:1:dagger",
+   "hatchet:1:axe",
+   "hunting_bow:2:bow",
+   "woodcutter_s_axe:2:axe"
+  ],
+  "row": [
+   {
+    "id": "cook",
+    "hand": true,
+    "name": "Graciela"
+   },
+   {
+    "id": "surgeon",
+    "hand": true,
+    "name": "Alan"
+   },
+   {
+    "id": "scout",
+    "hand": true,
+    "name": "Danny"
+   },
+   {
+    "id": "blacksmith",
+    "hand": true,
+    "name": "Walt"
+   }
+  ],
+  "rowOn": true,
+  "png": [
+   "records/target/staff_cart/alpha_sideways_crew_camp_1_the_row.png",
+   "records/target/staff_cart/alpha_sideways_crew_camp_2_the_cook_picked.png",
+   "records/target/staff_cart/alpha_sideways_crew_camp_3_the_cook_holds_the_revolver.png"
+  ],
+  "tapCook": true,
+  "card": {
+   "camp": "cook",
+   "nm": "GRACIELA OCHOA",
+   "sub": "THE COOK  ·  CAMP",
+   "lines": [
+    "Pushes a shopping cart. One hand only.",
+    "In her hand: box cutter."
+   ],
+   "said": "Tap a piece in the stash to put it in her hand.",
+   "stash": [
+    "snub_revolver",
+    "hatchet"
+   ],
+   "head": "STASH 4/36   ONE HAND ONLY"
+  },
+  "tapGive": true,
+  "given": {
+   "book": "snub_revolver",
+   "inStash": 0,
+   "said": "Graciela takes the snub revolver. The box cutter goes in the cart.",
+   "saved": 0,
+   "corner": {}
+  },
+  "handOver": "snub_revolver",
+  "tapBack": true,
+  "back": {
+   "book": null,
+   "arms": "box_cutter",
+   "inStash": 1,
+   "said": "Graciela hands the snub revolver back. It is in the stash."
+  },
+  "tapMan": true,
+  "man": {
+   "camp": null,
+   "nm": "YOU",
+   "sel": null
+  },
+  "errs": [],
+  "K1": true,
+  "K2": true,
+  "K3": true,
+  "K4": true,
+  "K5": true,
+  "P": true
+ }
+]
