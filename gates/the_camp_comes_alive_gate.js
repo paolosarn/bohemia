@@ -51,9 +51,9 @@ async function campRun(d, minute, cut, n) {
   const pressed = await p.evaluate(() => { try { return BohemiaPhone.press('heal'); } catch (e) { return false; } });
   const S = []; let wholeAt = null;
   for (let i = 0; i < (n || 400); i++) { await p.waitForTimeout(150);
-    const f = settle(p), r = f ? await f.evaluate(READ).catch(() => null) : null; if (!r) continue; r.t = i * 150; S.push(r);
+    const f = settle(p), r = f ? await f.evaluate(READ).catch(() => null) : null; if (!r) continue; r.t = i * 150; r.at = Date.now(); S.push(r);
     if (r.whole && wholeAt == null) wholeAt = S.length - 1;
-    if (wholeAt != null && S.length - 1 - wholeAt > 40) break; }
+    if (wholeAt != null && S.length - 1 - wholeAt > 40 && r.at - S[wholeAt].at > 6500) break; }   /* six seconds past the stop, by the clock (11/27: on a loaded box 40 reads ran past six seconds) */
   return { pressed, S, wholeAt };
 }
 async function campOff(d) { await d.fr.evaluate(() => { try { BohemiaMapCamp.road(); } catch (e) {} try { BohemiaMapCamp.break(); } catch (e) {} }).catch(() => {}); await d.page.waitForTimeout(2500); }
@@ -64,7 +64,12 @@ async function clockLeg(d, tag) {
   const p = d.page;
   const C = await campRun(d, 960, 0.45), S = C.S, W = C.wholeAt, band = await p.evaluate(BAND);
   const run = S.filter((r, i) => r.pitch === 'done' && r.tape && !r.whole && (W == null || i < W));
-  const after = W != null ? S[Math.min(S.length - 1, W + 38)] : null, atW = W != null ? S[Math.min(S.length - 1, W + 7)] : null;
+  /* 11/27 (CAMP FOUR): by the clock, not by the read's number: a read on a loaded box is slower than 150 ms, and seven reads ran past
+     the tape's three seconds at the stop. atW: a read within 2.5 s of the stop that shows it (else the one 1 s on, for the detail);
+     after: the first read 5 s or more past the stop */
+  const tW = W != null ? S[W].at : 0, inW = W != null ? S.slice(W).filter(r => r.at - tW <= 2500) : [];
+  const atW = W != null ? (inW.find(r => r.tape && /STOP/.test(String(r.tape.l1))) || S.slice(W).find(r => r.at - tW >= 1000) || S[S.length - 1]) : null;
+  const after = W != null ? (S.slice(W).find(r => r.at - tW >= 5000) || S[S.length - 1]) : null;
   const under = (r) => r && r.tape && r.tape.under && r.tape.band && !/DAY/.test(String(r.tape.clock)) && (!band || band.hidden || r.tape.pageY >= band.bottom - 1);
   const hrs = run.map(r => +((String(r.tape.l1).match(/\+(\d+)/) || [])[1] || -1));
   const told = S.map(r => r.top).filter(Boolean), toldRun = told.some(t => t.running), toldStop = told.some(t => t.whole && !t.running);
@@ -78,7 +83,7 @@ async function ownLeg(d, tag) {
   const C = await campRun(d, 960, 0.45), S = C.S, W = C.wholeAt;
   await p.evaluate(() => { const w = document.getElementById('cityFrame').contentWindow, st = w.document.getElementById('gateNoBandClock'); if (st) st.remove(); });
   const run = S.filter((r, i) => r.pitch === 'done' && r.tape && !r.whole && (W == null || i < W));
-  const after = W != null ? S[Math.min(S.length - 1, W + 38)] : null;
+  const after = W != null ? (S.slice(W).find(r => r.at - S[W].at >= 5000) || S[S.length - 1]) : null;   /* by the clock (11/27) */
   const atTop = (r) => r && r.tape && r.tape.top && !r.tape.under && Math.abs((r.tape.x + r.tape.w / 2) - r.W / 2) <= 12 && r.tape.y <= 40;
   const sun = run.find(r => /^DAY \d+\s+1[0-7]:/.test(r.tape.clock) && r.tape.night === false), moon = S.find(r => r.tape && /^DAY \d+\s+(1[89]|2\d|0[0-5]):/.test(r.tape.clock) && r.tape.night === true);
   ok('C2 ' + tag + ': NO CLOCK ON THE BAR, THE CAMP\'S OWN: with UI FIVE\'s clock off the bar, the camp\'s own clock stands at the top in the middle, DAY and the time, the sun by day and the moon from six, and stays once they are whole',

@@ -47524,8 +47524,10 @@ function campBoardAsk(){
 function campStampLikeTheDoor(msg){
   if (window.__CAMP_ASK_PLAIN || !msg) return msg;
   var _ca = (msg.at && msg.at.length === 2) ? msg.at : [city.x, city.y];
-  try{ if(!msg.template && !msg.boss && typeof vbTemplateAt === 'function'){ var _tc=vbTemplateAt(_ca[0]|0,_ca[1]|0);
-    if(_tc) msg.template={ id:_tc.id, board:_tc.board, tx:_tc.tx, ty:_tc.ty, flip:!!_tc.flip, cell:[_ca[0]|0,_ca[1]|0] }; } }catch(_e){}
+  /* NOT ON A PLACE'S CELL (measured the same round: THE CAMP LOADS IN ONE GO's valley, the camp on THE DECK, a cell one of the 15 places
+     stands on: with the place's template asked the camp's picture never came, 0/6, where the plain ask took 17.6 s): there the camp
+     asks as before, and a crew there still fights him on the place's board. NAMED for the next round: the camp on a place's board. */
+  try{ if (typeof vbTemplateAt === 'function' && vbTemplateAt(_ca[0]|0, _ca[1]|0)) return msg; }catch(_e){}
   try{ if(!msg.template && !msg.ground && window.BohemiaFightKinds){ var _gx=_ca[0]|0, _gy=_ca[1]|0, _gt=om.at(_gx,_gy), _gd=_gt?_gt.district:null;
     var _gr=_gd?BohemiaFightKinds.answer(_gd):null, _gp=_gd?BohemiaFightKinds.piece(_gd):null, _gl=null; try{ var _LV=vbLanesValley(); if(_LV) _gl=_LV[_gy*om.n+_gx]|0; }catch(_e2){}
     if(_gr) msg.ground={ cell:[_gx,_gy], district:_gd, zone:_gr.zone||null, cls:_gr.class||null, building:_gr.building||null,

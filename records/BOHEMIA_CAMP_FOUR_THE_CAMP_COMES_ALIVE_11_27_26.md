@@ -115,12 +115,21 @@ and its details were real, not load:
   camp's ask (campBoardAsk) carried neither, so the camp stood on a board no fight there is ever dealt. NOW (BOHEMIA_CITY_WORLD.html
   campStampLikeTheDoor, `window.__CAMP_ASK_PLAIN` = the way it was): the camp asks with the door's own stamps, so its ground is the
   board a fight there deals and the crew fights him on it (both 'yards + lots + suburb + culdesac', a0edc23f, every piece drawn). If
-  the door's stamps change, B4 goes red.
+  the door's stamps change, B4 goes red. NOT ON A PLACE'S CELL: THE CAMP LOADS IN ONE GO's valley (PTBTDN, the camp on THE DECK, a cell
+  one of the 15 places stands on) read 0/6 with the place's template asked (the camp's picture never came; main's own files 5/1 the same
+  hour); with the camp asking as before on a place's cell, 5/1 like main (8.8 s to the picture, under 9; L2's longest task 1,400 ms red on
+  main too, 1,064 ms, the box). There a crew still fights him on the place's board: NAMED for the next round, the camp on a place's board.
 - B2 (six and twelve men): the fixture broke the camp to stop its hours, and since MOTION 3's __THE_CAMP_LETS_GO_WHEN_HE_LEAVES__ a
   broken camp lets its board page go ('state: none'); it keeps the board while it asks (MOTION 3's own switch), green.
 - B7 upright: the one dead man of that deal lay off the upright glass (the camp after a win is the fight's own camera, MOTION 3 rule
   442(a)): 'inView 0', so no man had a body to go through ('loot' never dealt). On its side green. The quarantine line stays, its
   reason this, owner CAMP FOUR.
+
+The camp's own on this build, one or two at a time beside the suite: THE HEAL BUTTON 16/0; MAKE CAMP FROM THE FIGHT 11/0; THE CAMP WAITS
+FOR HIM 18/0; THE CAMP COMES ALIVE 7/0 (its C1, and THE CAMP READS AT A GLANCE's G2 and G3, now read the stop and the after by the clock:
+on a loaded box seven reads ran past the tape's three seconds, 'atWhole: alpha 0'); CAMP HOLDS UNTIL HE ENDS IT 14/0 (13/1 once beside
+another gate: 10 camped hours read for 12); A TOWN IS SAFE 12/0 alone right after main's own files read 12/0 (10/2 twice beside other
+gates: T1's heal per hour 8.5 and 8.8, the hours and the hit points read in two calls; 10 alone on both).
 
 ## The full suite (the routine's first ask)
 

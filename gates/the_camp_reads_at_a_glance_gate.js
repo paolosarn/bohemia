@@ -48,9 +48,9 @@ async function camp(d, minute, cut, plant) {
   const S = []; let wholeAt = null;
   for (let i = 0; i < 400; i++) { await p.waitForTimeout(150);
     const f = settle(p); if (plant && f) await f.evaluate(() => { window.__CAMP_NO_BARS = true; window.__CAMP_NO_TAPE = true; }).catch(() => {});
-    const r = f ? await f.evaluate(READ).catch(() => null) : null; if (!r) continue; r.t = i * 150; S.push(r);
+    const r = f ? await f.evaluate(READ).catch(() => null) : null; if (!r) continue; r.t = i * 150; r.at = Date.now(); S.push(r);
     if (r.whole && wholeAt == null) wholeAt = S.length - 1;
-    if (wholeAt != null && S.length - 1 - wholeAt > 40) break; }   /* six seconds past the stop */
+    if (wholeAt != null && S.length - 1 - wholeAt > 40 && r.at - S[wholeAt].at > 6500) break; }   /* six seconds past the stop, by the clock (11/27: on a loaded box 40 reads ran past six seconds) */
   return { n, pressed, S, wholeAt };
 }
 async function run(way) {
@@ -72,7 +72,11 @@ async function run(way) {
     const over = mend.filter(r => Object.keys((r.bars && r.bars.at) || {}).some(k => r.under && r.under.indexOf(k) < 0 && r.bars.at[k].tb >= 0.9 && r.bars.at[k].ta >= 0.9));
     ok('G1 ' + tag + ': THEIR BARS AT A GLANCE: while they mend the bars stand over every man of his under his line, none over it, and a man\'s blood rises on them', C.pressed && underReads.length >= 3 && mendBars.length >= underReads.length * 0.8 && over.length <= Math.max(1, mend.length * 0.2) && rose,
       JSON.stringify({ men: menN, mendReads: mend.length, underReads: underReads.length, matched: mendBars.length, overLine: over.length, rose, reads: mend.slice(0, 6).map(r => ({ t: r.t, under: r.under, at: r.bars && r.bars.at })) }));
-    const atW = W != null ? S[Math.min(S.length - 1, W + 7)] : null, after = W != null ? S[Math.min(S.length - 1, W + 38)] : null;
+    /* 11/27 (CAMP FOUR): by the clock, not by the read's number (a read on a loaded box is slower than 150 ms; seven reads ran past the
+       tape's three seconds at the stop): atW a read within 2.5 s of the stop that shows it (else the one 1 s on); after 5 s or more past it */
+    const tW = W != null ? S[W].at : 0, inW = W != null ? S.slice(W).filter(r => r.at - tW <= 2500) : [];
+    const atW = W != null ? (inW.find(r => r.tape && /STOP/.test(String(r.tape.l1))) || S.slice(W).find(r => r.at - tW >= 1000) || S[S.length - 1]) : null;
+    const after = W != null ? (S.slice(W).find(r => r.at - tW >= 5000) || S[S.length - 1]) : null;
     /* RE-AIMED 11/27 (his line): whole is every man over it, so at the stop no bar stands but a fresh wound's (none here: SET clears
        them), and five seconds on none at all */
     ok('G2 ' + tag + ': WHOLE: at the stop no bar over anyone (every man over his line), and none five seconds on', !!atW && Object.values(atW.bars.at || {}).every(v => v.tb >= 0.87 && v.ta >= 0.87) && !!after && after.bars.shown === 0,
