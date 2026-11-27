@@ -1,6 +1,6 @@
 STAFF 2 (staff2-01gkdyus, took over from STAFF at a full context): rule 471, THE STAFF PUSH A CART, ask row 709. Written only by this lane.
 *** 11/27 LATEST -- EVERY TRADE AT ITS WORK: BUILD 11/27zi - EVERY CAMP PERSON AT HIS TRADE, BUILT, NOT YET SEEN (rule 482; 461 as
-amended: gates in the foreground). Record: records/BOHEMIA_STAFF_TWO_EVERY_TRADE_AT_WORK_11_27_26.md. VOTE staff2-every-trade-at-work-11-27. ***
+amended: gates in the foreground). Record: records/BOHEMIA_STAFF_TWO_EVERY_TRADE_AT_WORK_11_27_26.md. VOTE staff2-every-trade-at-work-11-27 (2d4e30e68). ***
 17 of 18 at their trade at camp (FOLLOWER_WORK) and at his place (STAFF_HOME_WORK); 11 bodies rendered one act each by ANIMATION's tool and
 laid in by STAFF_ACTS (out of the town's index); the brigand's body does not pack (render/still mismatch) and stands. His place's footage
 spreads up to 5 a lot (a negative index dropped everyone past the 4th: fixed). Proofs --all green both pages both ways.
