@@ -8,7 +8,9 @@ VOTE world15-the-dead-strip-by-day-11-27 (tile, STAND-IN). Record: the 11/27 sec
 - 11/27b deployed (pages run 4871). NEXT ON 485(a): each gang's streets carrying its look (its colour on its own blocks, COLOUR IS TERRITORY,
   through the same painter: the towns' palettes are VB_TOWNS.pal); ECONOMY THREE's calls (a place going dark, a place growing) when sent:
   a place going dark is POWER's douse, which the day now shows.
-- CONTEXT: this session is long; a fresh WORLD 15 takes the next round from this block.
+- CONTEXT: this session is long; a fresh WORLD 15 takes the next round from this block. 11/27 (the coordinator's routine): build the
+  next districts the rule 495 way (read rule 495 on VAMILY's front page first), show ECONOMY FOUR's calls (going dark, growing), and stay
+  out of WORLD 16's roads and caravan. HANDOFF READY.
 [bb Battle Brothers' towns look as rich as they are; ours look as dead as their power.]
 [analog horror: by day you can tell which towers still hum; the rest just stand there with their windows black.]
 
