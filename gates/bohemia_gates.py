@@ -8866,6 +8866,11 @@ GATES = [
      "BOSSES gate, 11/27, rule 482 ('now bosses four to six the same way'): THE BOSS ARRIVES for THE BURN, THE SURVEYOR and THE CLIMB, the "
      "three before them fallen the quick way: the sign leads, the entrance, the name over him (whole, on the glass), the moment, the fall, "
      "nothing takes a tap, still found, fought to LEAVE, the map changed. Planted fails as THE BOSS ARRIVES. under 10 min", True),
+    ('THE HARD PLACES', ['node', 'gates/the_hard_places_gate.js'],
+     "BOSSES gate, 11/27, rule 493(c) (Paolo 11/27: 'five combat people... absolute killers... no more challenges'): bosses 10 to 18 have "
+     "lairs, Battle Brothers' legendary places as the model (a fixed fight far bigger than an ordinary one, a prize no shop sells): seven "
+     "of his own a tier up with a champion, about eleven round him, a hoard growing up the ladder (D1); THE PLATE played for real stands 11 "
+     "(F1) and his fall pays his hoard once and says it on his card (H1). Planted: no champion, his old four, an unpaid hoard. under 10 min", True),
     ('THE BOSS ARRIVES 7 TO 9', ['node', 'gates/the_boss_arrives_gate.js', 'THE LOCKSMITH,THE CHARGE,THE MACHINIST'],
      "BOSSES gate, 11/27, rule 482 ('bosses 7 to 9 the same way as 4 to 6... and the strapped bosses carry the new guns where it fits them, "
      "ARMORY 3's data, damage unchanged'): THE BOSS ARRIVES for THE LOCKSMITH, THE CHARGE and THE MACHINIST, and THE MACHINIST fights with "

@@ -1193,7 +1193,8 @@
     "card": "HIS WAGON IS STRIPPED AND PARKED: HIS STREET IS OPEN.",
     "card_none": "HIS WAGON IS STRIPPED.",
     "note": "BOSSES 11/14 (the coordinator's round 'BOSSES turn up', rules 441, 447): THE PLATE changes the map with A WALL THAT MOVES. While he stands his plated wagon rolls back and forth along a road of 'min_len' to 'max_len' blocks between two street blocks 'near'..'far' round his press, one block every 'step_mins' of the game's own clock; the block it stands on is shut (slices/bohemia_bosses.js (18) HIS WAGON, cityWalkable's bosses wrapper), never the crew's. When he falls it is stripped and parked at the end of its road. Pictures: slices/boss_places/wagon_before, wagon_after (tools/bohemia_bosses_ten_to_twelve_places_11_14_26.py)."
-   }
+   },
+   "lair": {"guards": [{"kind": "brigand_raider", "count": 2}, {"kind": "brigand_marauder", "count": 2}, {"kind": "brigand_marksman", "count": 2}, {"kind": "brigand_leader_champion", "count": 1}], "haul": 300, "word": "HIS WAGON’S STRONGBOX", "card": "{WORD}: +{haul} BATTERIES", "draft": true}
   },
   {
    "n": "THE TOOTH",
@@ -1300,7 +1301,8 @@
     "card_free": "HIS COLLECTORS ARE GONE FROM {TOWNS}: NOBODY PAYS AT THE GATE.",
     "card_none": "HIS COLLECTORS ARE GONE.",
     "note": "BOSSES 11/14 (the coordinator's round 'BOSSES turn up', rules 441, 447): THE TOOTH changes the map's TOWNS. While he stands his collectors sit at the gates of the 'towns' nearest his chair within 'radius' and take 'tax' batteries the first time each day the crew comes out of one (a beat after the town's screen closes: a debit while it is up is undone by the town handing the map back its purse, measured 11/14) (the purse's own debit, never more than it holds). When he falls they are gone and what they took off you is paid back once (slices/bohemia_bosses.js (19) HIS COLLECTORS). Pictures: slices/boss_places/collector_before, collector_after."
-   }
+   },
+   "lair": {"guards": [{"kind": "caravan_guard", "count": 2}, {"kind": "mercenary", "count": 2}, {"kind": "mercenary_marksman", "count": 2}, {"kind": "blade_dancer_champion", "count": 1}], "haul": 330, "word": "WHAT HIS COLLECTORS TOOK", "card": "{WORD}: +{haul} BATTERIES", "draft": true}
   },
   {
    "n": "THE LENS",
@@ -1406,7 +1408,8 @@
     "card": "HIS HAZE IS GONE: YOU SEE HIS SIDE BY DAY AGAIN.",
     "card_none": "HIS HAZE IS GONE.",
     "note": "BOSSES 11/14 (the coordinator's round 'BOSSES turn up', rules 441, 447): THE LENS changes the map's DAY. While he stands, by day, within 'radius' of his shop the crew sees 'sight' blocks (the map's own fog asks BohemiaBosses.dark(), THE BURN's door at night) and his side is painted with his haze; his sprayed eye charts stand near his door. When he falls the haze lifts for good (slices/bohemia_bosses.js (20) HIS BLUR). Pictures: slices/boss_places/haze_before, haze_after."
-   }
+   },
+   "lair": {"guards": [{"kind": "master_archer", "count": 2}, {"kind": "mercenary_marksman", "count": 2}, {"kind": "bounty_hunter", "count": 2}, {"kind": "master_archer_champion", "count": 1}], "haul": 360, "word": "HIS LOOKOUT’S CACHE", "card": "{WORD}: +{haul} BATTERIES", "draft": true}
   },
   {
    "n": "THE BARBER",
@@ -1474,7 +1477,8 @@
     "pic": "razorline",
     "rise": "-{hp}",
     "card": "HIS LINE IS GONE", "card_none": "HIS LINE IS GONE"
-   }
+   },
+   "lair": {"guards": [{"kind": "nomad_cutthroat", "count": 2}, {"kind": "nomad_outlaw", "count": 2}, {"kind": "nomad_executioner", "count": 2}, {"kind": "nomad_executioner_champion", "count": 1}], "haul": 390, "word": "HIS CHAIR’S TAKE", "card": "{WORD}: +{haul} BATTERIES", "draft": true}
   },
   {
    "n": "THE INK",
@@ -1543,7 +1547,8 @@
     "card": "{towns} OPEN AGAIN", "card_none": "HIS INK IS GONE",
     "towns": 2,
     "shut": "SHUT"
-   }
+   },
+   "lair": {"guards": [{"kind": "barbarian_reaver", "count": 2}, {"kind": "barbarian_thrall", "count": 2}, {"kind": "barbarian_drummer", "count": 1}, {"kind": "barbarian_chosen", "count": 1}, {"kind": "barbarian_chosen_champion", "count": 1}], "haul": 420, "word": "HIS PARLOR’S TAKE", "card": "{WORD}: +{haul} BATTERIES", "draft": true}
   },
   {
    "n": "THE DOGS",
@@ -1614,7 +1619,8 @@
     "rise": "-{hp}",
     "told": "HIS DOGS",
     "card": "HIS PACKS ARE GONE", "card_none": "HIS PACKS ARE GONE"
-   }
+   },
+   "lair": {"guards": [{"kind": "warhound", "count": 2}, {"kind": "wardog", "count": 1}, {"kind": "barbarian_reaver", "count": 2}, {"kind": "barbarian_chosen", "count": 1}, {"kind": "barbarian_chosen_champion", "count": 1}], "haul": 450, "word": "HIS KENNEL’S TAKE", "card": "{WORD}: +{haul} BATTERIES", "draft": true}
   },
   {
    "n": "THE WARD",
@@ -1685,7 +1691,8 @@
     "pic": "wardtape",
     "told": "NO HEALING",
     "card": "HIS CLINIC IS OPEN", "card_none": "HIS CLINIC IS OPEN"
-   }
+   },
+   "lair": {"guards": [{"kind": "man_at_arms", "count": 2}, {"kind": "footman", "count": 2}, {"kind": "conscript_with_polearm", "count": 2}, {"kind": "officer_champion", "count": 1}], "haul": 480, "word": "HIS CLINIC’S SAFE", "card": "{WORD}: +{haul} BATTERIES", "draft": true}
   },
   {
    "n": "THE CISTERN",
@@ -1769,7 +1776,8 @@
     "rise": "-{n} FOOD",
     "rise_after": "+{n} FOOD",
     "card": "{marks} TANKS OPEN", "card_none": "HIS TANKS ARE OPEN"
-   }
+   },
+   "lair": {"guards": [{"kind": "nomad_archer", "count": 2}, {"kind": "nomad_outlaw", "count": 2}, {"kind": "nomad_cutthroat", "count": 2}, {"kind": "nomad_leader_champion", "count": 1}], "haul": 510, "word": "WHAT HIS WATER BOUGHT", "card": "{WORD}: +{haul} BATTERIES", "draft": true}
   },
   {
    "n": "THE SMITH",
@@ -1840,7 +1848,8 @@
     "told": "NO MENDING",
     "rise_after": "+{n} ARMOUR",
     "card": "{marks} ANVILS ARE YOURS", "card_none": "HIS ANVILS ARE YOURS"
-   }
+   },
+   "lair": {"guards": [{"kind": "man_at_arms", "count": 2}, {"kind": "billman", "count": 2}, {"kind": "zweihander", "count": 1}, {"kind": "swordmaster", "count": 1}, {"kind": "knight_champion", "count": 1}], "haul": 540, "word": "HIS FORGE’S TAKE", "card": "{WORD}: +{haul} BATTERIES", "draft": true}
   },
   {
    "n": "THE MIDWIFE",

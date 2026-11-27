@@ -1,5 +1,18 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/27/26: RULE 493(c), THE HARD PLACES: BOSSES 10 TO 18 GUARD LAIRS SIZED FOR FIVE KILLERS, AND A HOARD (the routine 'BOSSES: hard places for a strong crew'; ask row 774), BUILD 11/27zu
+Record (Battle Brothers' legendary places cited from the library): records/BOHEMIA_BOSSES_THE_HARD_PLACES_11_27_26.md. Gate: THE HARD PLACES
+(gates/the_hard_places_gate.js, registered, foreground, under 10 min) 6/0. VOTE bosses-the-hard-places-11-27.
+- slices/bohemia_bosses.js (28) __THE_HARD_PLACES__ and the row's 'lair' (records/target/bb/boss_act_one.json): seven of his own a tier up,
+  one a champion, join his band (about eleven round him; THE PLATE played for real: 11 against 3), fixed whatever the day; his fall pays
+  his hoard once (BohemiaPurse.credit, 300 up to 540) and his card says it. BohemiaBosses.lair(n).
+- NOT DONE, FOR THE OWNERS (493(c)'s other two prizes): GEAR NO STALL SELLS needs a place for a named piece to land (the stash is counts
+  only, engine/bohemia_stash.js): ARMORY, with a named row per lair (THE SMITH's forge, THE LENS's scope) and this lane hands it on his
+  fall; A MAN WHO JOINS needs the hiring path (engine/bohemia_company.js computes the company): HIRES; this lane names the man per lair.
+- FOR EYES (493(d)): whether five killers at their best win a lair; this lane sized them by Battle Brothers' ratio (about two to one),
+  not by a strong company's run. If they are an easy win, the lair's guards and the champion's kit are the knobs (the row's 'lair').
+- NEXT: the prizes above with ARMORY and HIRES; bosses ten to twelve's arrival (THE PLATE, THE TOOTH, THE LENS) in a fourth gate part.
+
 ## BOSSES, 11/27/26: BOSSES SEVEN TO NINE ARRIVE, AND THE STRAPPED BOSSES CARRY THEIR GUNS (the routine 'BOSSES: bosses 7 to 9'; ask row 735), BUILD 11/27zg
 Record: records/BOHEMIA_BOSSES_SEVEN_TO_NINE_ARRIVE_AND_THE_STRAPPED_BOSSES_11_27_26.md. Gates (each in the foreground, under 10 min): THE BOSS ARRIVES
 (1-3) 27/0, THE BOSS ARRIVES 4 TO 6 27/0, THE BOSS ARRIVES 7 TO 9 28/0; THE LENS alone 16/0. VOTE bosses-seven-to-nine-arrive-11-27.

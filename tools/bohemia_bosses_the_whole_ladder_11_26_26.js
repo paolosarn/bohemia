@@ -222,6 +222,9 @@ const say = (s) => console.log(s);
     if (hold && SHOTS) {} 
     beatM = await READ(lv || a, b2); beatM.over50 = await over50(lv || a, b2);
     await throttle(1);
+    for (let i = 0; i < 15 && af; i++) { if (await fr.evaluate(() => document.querySelectorAll('#roadcard .rcground').length).catch(() => 0)) break; await page.waitForTimeout(200); }   /* his card's lines are laid a moment after it */
+    R.cardLines = await fr.evaluate(() => [].slice.call(document.querySelectorAll('#roadcard .rcground')).map(x => x.textContent)).catch(() => null);
+    R.cardText = await fr.evaluate(() => { const c = document.getElementById('roadcard'); return c ? c.innerText.replace(/\s+/g, ' ').slice(0, 400) : null; }).catch(e => String(e));
     if (af) await pressCard(0);
     await page.waitForTimeout(1500); await clearCards();
     s = await st();
@@ -231,6 +234,8 @@ const say = (s) => console.log(s);
     R.afterCard = af ? { head: af.head, hand: af.hand ? af.hand.name : null, ground: af.ground || null, text: af.text } : null;
     R.hold = hold;
     R.crew = await crew();
+    R.lair = await fr.evaluate((n) => { try { return BohemiaBosses.lair(n); } catch (e) { return null; } }, n).catch(() => null);
+    R.cardLines = await fr.evaluate(() => [].slice.call(document.querySelectorAll('#roadcard .rcground')).map(x => x.textContent)).catch(() => null);
     R.frames = { fight: fightM, beat: beatM };
     R.errs = errs.slice(R.errs0); delete R.errs0;
     R.minutes = +((Date.now() - t0) / 60000).toFixed(1); R.gameDay = s.day;

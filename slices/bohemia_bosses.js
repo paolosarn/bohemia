@@ -269,6 +269,8 @@
       d.style.cssText = 'margin-top:6px;padding:5px 8px;background:rgba(10,8,6,.45);box-shadow:inset 0 0 0 1px #3a2e20;font:400 11px BohemiaCasing,ui-monospace,monospace;letter-spacing:.8px;line-height:1.35;color:#e2b45a';
       d.textContent = String(g.said);
       at.parentNode.insertBefore(d, at.nextSibling);
+      var Lq = S && S.lair && S.lair[r.n];
+      if (Lq && Lq.paid && Lq.said) { var d2 = d.cloneNode(false); d2.className = 'rcground rclair'; d2.style.color = '#f0d080'; d2.textContent = String(Lq.said); d.parentNode.insertBefore(d2, d.nextSibling); }
       if (root.__BOSS_CARD) root.__BOSS_CARD.ground = String(g.said);
     } catch (e) { LAST.err = String(e && e.message || e); }
   }
@@ -328,6 +330,8 @@
   function dress(msg, r) {
     var b = row(r && r.n); if (!b || !b.boss || !msg) return false;
     var band = [b.boss.kind].concat(b.crew || []);
+    /* __THE_HARD_PLACES__ (rule 493(c)): his lair's guards stand with him, a fixed fight whatever the day (Battle Brothers' legendary places) */
+    if (b.lair && b.lair.guards) b.lair.guards.forEach(function (g) { for (var gi = 0; gi < (g.count | 0); gi++) band.push(g.kind); });
     msg.party = msg.party || {};
     msg.party.band = band.slice(); msg.party.count = band.length; msg.party.rolled = true; msg.party.boss = true;
     msg.party.faction = msg.party.faction || 'brigands';
@@ -3051,6 +3055,7 @@
     if (r.line) lineFell(r, h); if (r.ink) inkFell(r, h); if (r.packs) packsFell(r, h);   /* (21) (22) (23) */
     REACH.forEach(function (k) { if (r[k]) reachFell(r, h, k); });   /* (24) (25) (26) */
     if (r.cradles) cradlesFell(r, h);   /* (27) */
+    if (r.lair) lairFell(r, h);   /* (28) his hoard */
     var L = lead(r.n); L.afterDue = true; save();
     /* rule 480(c), BOSSES 11/26 (measured: of a fall's 455 ms on the slowed phone, 446 were this redraw, forced inside the fall): the
        redraw on the next frame, merged with it (the beat's own frames draw the map from then on) */
@@ -3064,6 +3069,22 @@
   });
   setInterval(function () { try { talkTick(); } catch (e) {} try { prizes(); } catch (e) {} try { if (sync()) toothTick(); } catch (e) {} }, 900);   /* (19) his collectors watch the town gates (in a town the map does not draw) */   /* (14) what he gives goes to your place */
   loadData();
+  /* ================= (28) __THE_HARD_PLACES__ (BOSSES 11/27, rule 493(c); Paolo 11/27: 'I have five combat people [that] were
+     absolute killers and there's no more challenges, nothing else to do'). Battle Brothers first (records/BOHEMIA_BOSSES_THE_HARD_PLACES_
+     11_27_26.md): its legendary places sit far from the towns, a fight you choose to enter, its size fixed whatever the day (the Black
+     Monolith's 47 with The Conqueror, the Sunken Library's Lorekeeper and 25), each guarding a prize no shop sells. Bosses ten to
+     eighteen are ours: each one's lair adds seven of his own people a tier up, one a champion, to the men he had (about eleven round
+     him, two to one against a company of five), and his fall pays his hoard once (a battery haul, the purse's own credit). ================= */
+  function lairFell(r, h) {
+    if (!S.lair) S.lair = {}; var Q = S.lair[r.n]; if (Q && Q.paid != null) return Q;
+    var G = r.lair || {}, haul = G.haul | 0;
+    Q = S.lair[r.n] = { paid: 0, day: day(), draft: true };
+    if (haul > 0) { try { BohemiaPurse.credit(purseGet(), 'electricity', haul, String(G.word || 'his hoard').toLowerCase(), 'boss-lair:' + r.n, day()); Q.paid = haul; }
+      catch (e) { Q.paid = 0; Q.err = String(e && e.message || e); } }
+    Q.said = fill(G.card || '{WORD}: +{haul} BATTERIES', { WORD: G.word || 'HIS HOARD', haul: Q.paid });
+    save(); LAST.lairFell = { n: r.n, paid: Q.paid, said: Q.said, at: Date.now() };
+    return Q;
+  }
   root.BohemiaBosses = {
     /* RUN's and WORLD TWO's hooks (__THE_BOSSES__) */
     draw: draw, dress: dress, onCard: onCard, paints: paints,
@@ -3122,6 +3143,7 @@
     anvils: function (n) { sync(); return S && S.anvils ? (n ? (S.anvils[n] || null) : S.anvils) : null; }, reachTick: function () { sync(); return reachTick(); }, reachHolds: function () { sync(); return reachHolds(); },
     wrapElapse: function () { wrapElapse(); return !!(root.BohemiaCondition && root.BohemiaCondition.__bossReach); },   /* (24) (25) (26) */
     cradles: function (n) { sync(); return S && S.cradles ? (n ? (S.cradles[n] || null) : S.cradles) : null; }, actOne: function () { sync(); return S ? (S.actOne || null) : null; },
+    lair: function (n) { sync(); return S && S.lair ? (n ? (S.lair[n] || null) : S.lair) : null; },
     /* rule 480(c), BOSSES 11/26: true while a boss's beat plays or his card is up, so the map's heavy work (the next sign's placing,
        WORLD TWO's) waits for the moment to finish instead of stalling a frame in the middle of the camera's move */
     busy: function () { if (BEAT || LEADCAM) return true; try { var c = root.__BOSS_CARD; return !!(c && c.kind === 'after' && document.getElementById('roadcard') && Date.now() - c.at < 120000); } catch (e) { return false; } },   /* the fall's moment only: his beat and the card after it (a rumour's or an asker's card never holds a sign back) */
