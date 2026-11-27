@@ -2435,6 +2435,11 @@ GATES = [
      'JOBS 2 11/26, ask row 730, rules 482, 480(c), 466(c), 441: a job\'s card opens at once (its reads kept and warmed from the board: '
      'the tap\'s longest task at 4x 608 ms -> under 300) and reads clean (the trip as PLACE and about how long, a stop a line, no followers); '
      'on the phone, the demo and the alpha both ways (records/BOHEMIA_JOBS_TWO_THE_CARD_READS_CLEAN_11_26_26.md).', True),
+    ('THE WORK SPANS HIS STRENGTH', ['node', 'gates/the_work_spans_his_strength_gate.js'],
+     'JOBS 2 11/27, rule 491(b)(d)(e), 254, 255, 441: one company strength from every man\'s level and kit (Battle Brothers\' 12 strongest '
+     'at 10 + 2 a level, and his armour), read by the map\'s party math; measured, a middling company\'s work spans easy, fair and one to '
+     'sweat for and a strong company is offered real danger; a town posts a red job when nothing on offer is one '
+     '(records/BOHEMIA_JOBS_TWO_THE_WORK_SPANS_HIS_STRENGTH_11_27_26.md).', True),
     ('THE WORK FOLLOWS WHAT IS SHORT', ['node', 'gates/the_work_follows_what_is_short_gate.js'],
      'JOBS 2 11/27, rule 485(b), 482, 441: a job that brings what the valley is short of (the map\'s own ledger: water, food, meds, '
      'fuel) pays more (1 + share x log2 of the ledger\'s price, capped; job_pay.json short) and the board asks one first; shown is '

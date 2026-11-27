@@ -46763,6 +46763,9 @@ function partyV(k){ return PARTY_MATH[k] && PARTY_MATH[k].value; }
 /* the roster's strength: the strongest 12 (14 for the wide origins) at 10 + 2 a level past 1; a man with no stated level
    is a recruit, level 1 (the origin file states the levels Battle Brothers states) */
 function partyRosterStrength(){
+  /* JOBS 2 11/27 __THE_COMPANY_HAS_ONE_STRENGTH__ (rule 491(e)): every man's level AND kit, one number (slices/bohemia_job_kinds.js
+     strength(): Battle Brothers' 12 strongest at 10 + 2 a level, and each man's armour at party_math.json kit_per_armour) */
+  try{ if(window.BohemiaJobKinds && BohemiaJobKinds.strength){ var __cs = BohemiaJobKinds.strength(); if(__cs && __cs.strength > 0) return __cs.strength; } }catch(_e){}
   var R = partyV('roster_strength'), st = LOOP.start || {}, co = st.company || [];
   var lv = co.map(function(m){ return Math.max(1, (m && m.level) | 0 || 1); });
   /* __THE_ROSTER_SCALES_THE_ENEMY__ (WORLD, rule 164 item 26: 'if I fill up my roster, the opponents go up too'): every man he

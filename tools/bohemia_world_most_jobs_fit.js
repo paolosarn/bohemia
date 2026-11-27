@@ -15,7 +15,7 @@
 //               fight's own classOf rule: three levels over his best, or DODGES and ARMOUR both), men of his struck down
 //   AND THE BOARDS  the share of offered jobs of each star on a town's board (the shelf's skulls by tier) and on the phone (its two
 //               best paid), so 'the share of jobs that outclass him' is weighted by what is actually offered
-//   node tools/bohemia_world_most_jobs_fit.js [--n 40] [--math bb|old] [--dress strength|calendar] [--base a,b,c] [--small 1] [--json out.json]
+//   node tools/bohemia_world_most_jobs_fit.js [--n 40] [--math bb|old] [--dress strength|calendar] [--base a,b,c] [--small 1] [--kit 1] [--json out.json]
 // Every number it prints is a MEASUREMENT of the game as it is (or with the math under test); nothing in the game reads it.
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -41,9 +41,14 @@ const POINTS = (arg('--small', '') ? [
   { day: 50, men: 9, level: 5, gear: 'middle' },
   { day: 90, men: 12, level: 8, gear: 'late' }
 ]).filter(P => !arg('--small', '') || P.day !== 1 && P.day !== 20 && P.day !== 50 && P.day !== 90);
-function strengthOf(levels) {
-  const R = PM.roster_strength.value;
-  return levels.slice().sort((a, b) => b - a).slice(0, R.strongest).reduce((t, l) => t + R.per_man + R.per_level * (l - 1), 0);
+/* --kit 1 (JOBS 2 11/27, rule 491(e)): each man's armour in his strength, the game's own rule (slices/bohemia_job_kinds.js strength():
+   head and body durability at party_math.json roster_strength.kit_per_armour a point); without it, Battle Brothers' levels only */
+const KIT = arg('--kit', '0') === '1';
+const ARM = (() => { const a = J('records/target/bb/armor.json'), m = {}; ['head', 'body'].forEach(k => (a[k] || []).forEach(r => { if (r && r.id) m[r.id] = +r.durability || 0; })); return m; })();
+function strengthOf(levels, company) {
+  const R = PM.roster_strength.value, kp = KIT ? (+R.kit_per_armour || 0) : 0;
+  const each = levels.map((l, i) => { const g = (company && company[i] && company[i].gear) || {}; return R.per_man + R.per_level * (l - 1) + kp * ((ARM[g.head] || 0) + (ARM[g.body] || 0)); });
+  return Math.round(each.sort((a, b) => b - a).slice(0, R.strongest).reduce((t, s) => t + s, 0) * 10) / 10;
 }
 /* the job's count: the map's partyMath('job') as it plays today, or Battle Brothers' contract multiplier under test */
 /* the math under test (--math bb): Battle Brothers' contract multiplier (Grok 105) on a base a skull (--base a,b,c), and the
@@ -116,7 +121,7 @@ async function main() {
     const stage = P.gear, company = G.companyOf(P.men, stage).map(m => Object.assign({}, m, P.level ? { level: P.level } : {}));
     const bgs = new Map(DB.backgrounds.rows.map(r => [r.id, r]));
     const levels = company.map(m => m.level || (sl => (sl[0] + sl[sl.length - 1]) / 2)(bgs.get(m.background).starting_level));
-    const str = strengthOf(levels);
+    const str = strengthOf(levels, company);
     for (const skulls of [1, 2, 3]) {
       const count = jobCount(str, skulls, P.men, P.day, MATH), stars = MATH === 'bb' ? skulls : starsOf(count, P.men);   /* rule 192(a): the stars are the skulls */
       const T = { won: 0, lost: 0, stall: 0, oc: 0, down: 0, men: 0 };

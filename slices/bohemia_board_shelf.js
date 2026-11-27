@@ -166,6 +166,20 @@
       var w = D.want[p.name] || 1; if (D.frozen[p.name] || D.dup[p.name] || map[p.name].length > round || map[p.name].length >= w) return;
       var got = pickOwn(p, day, { traits: p.traits || [], held: opt.held, done: opt.done, crew: p.crew || opt.crew }, posted, map[p.name].length + 1, map[p.name]);
       map[p.name] = got; mark(p.name); });
+    /* 2b. JOBS 2 11/27 __ONE_JOB_TO_SWEAT_FOR__ (rule 491(b), Paolo 11/27: 'the jobs not scaling with my team power level'): the work
+       on offer spans his strength, some easy, most a fair fight, and AT LEAST ONE his best men must sweat for. The reader's own line
+       (rule 254: a read under job_danger.json cut_one is red, AUTO no longer sure of him). When nothing on offer anywhere in the
+       valley reads red and a place's own list holds a red the floor lets through (rule 255 still governs the early weeks), that place
+       posts it in place of its last job: the job keeps its one door, and the same reads post the same boards */
+    if (FW && FW.peek && FW.cfg) { var CUT = (FW.cfg().cut_one) || 0.8, redOf = function (o, n) { try { var Q = FW.peek(o, n); return !!(Q && Q.state === 'read' && +Q.clean < CUT); } catch (e) { return false; } };
+      var anyRed = D.order.some(function (p) { return (map[p.name] || []).some(function (o) { return redOf(o, p.name); }); });
+      if (!anyRed) D.order.some(function (p) { if (D.frozen[p.name] || D.dup[p.name]) return false; var w = D.want[p.name] || 1, cur = map[p.name] || [];
+        var cand = (D.own[p.name] || []).filter(function (o) { return !posted[o.id] && cur.indexOf(o) < 0; }), keep = cur.length >= w ? cur.slice(0, w - 1) : cur.slice();
+        cand.slice(0, 2).forEach(function (o) { try { FW.fits(o, p.name, day, keep, w); } catch (e) {} });   /* its next two are asked for (read in the worker, never here) */
+        var red = cand.filter(function (o) { return redOf(o, p.name) && FW.fits(o, p.name, day, keep, w) !== false; })[0];
+        if (!red) return false;
+        if (cur.length >= w) { var out = cur[cur.length - 1]; delete posted[out.id]; }
+        map[p.name] = keep.concat([red]); posted[red.id] = p.name; root.__SWEAT_JOB = { place: p.name, id: red.id }; return true; }); }
     /* 3. the last pass: never empty (rule 335), the least dangerous of what the floor kept back */
     D.order.forEach(function (p) { if (!map[p.name].length) { map[p.name] = pickOwn(p, day, { traits: p.traits || [], held: opt.held, done: opt.done, crew: p.crew || opt.crew }, {}, 1, [], true); mark(p.name); } });
     DEAL = { key: key, map: map };

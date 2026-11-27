@@ -2210,6 +2210,33 @@
     hired.forEach(function (h) { if (h && h.name && !seen[h.name]) add(h, 'hired'); });
     return { men: men, from: from };
   }
+  /* JOBS 2 11/27 __THE_COMPANY_HAS_ONE_STRENGTH__ (rule 491(e), Paolo 11/27: 'I'm tired of the enemies not having enough of their own...
+     the jobs not scaling with my team power level'; 'I know Battle Brothers has a power level stat system'). Battle Brothers' roster
+     strength is the 12 strongest men at 10 + 2 a level past one (14 for the militia and the manhunters; reference/library/grok/wiki
+     bb_all/0828_Game Mechanics.txt; GROK_60: 'Gear does not count'). Ours is the same number with each man's KIT in it (rule 491(e):
+     'one number from every man's level and kit'): his head and body armour together (records/target/bb/armor.json durability) at
+     party_math.json roster_strength.kit_per_armour a point. MEASURED BEFORE: the map's partyRosterStrength counted levels only, so a
+     company that bought its men good armour met forces sized and dressed for rags. One number, read by the map's party math (the
+     forces' size and dress, BESTIARY 3's), the danger reader's plans, and anyone who asks (BohemiaJobKinds.strength()). */
+  var ARMOUR = null;
+  (function armourLoad() { try { if (!root.fetch) return; root.fetch('../records/target/bb/armor.json').then(function (r) { return r.json(); }).then(function (a) {
+    var m = {}; ['head', 'body'].forEach(function (k) { (a[k] || []).forEach(function (row) { if (row && row.id) m[row.id] = +row.durability || 0; }); }); ARMOUR = m; }).catch(function () {}); } catch (e) {} })();
+  function armourOf(id) { return (ARMOUR && id && ARMOUR[id]) || 0; }
+  function companyStrength() {
+    var R = null; try { R = typeof partyV === 'function' ? partyV('roster_strength') : null; } catch (e) {}
+    R = R || { per_man: 10, per_level: 2, strongest: 12, strongest_wide: 14, wide_origins: ['watch', 'debt'], kit_per_armour: 0 };
+    var st = {}; try { st = LOOP.start || {}; } catch (e) {}
+    var gear = {}; try { (JSON.parse(localStorage.getItem('bohemia.company.v1') || '[]') || []).forEach(function (m) { if (m && m.name) gear[m.name] = m.gear || {}; }); } catch (e) {}
+    try { (st.company || []).forEach(function (m) { if (m && m.name && !gear[m.name] && m.gear) gear[m.name] = m.gear; }); } catch (e) {}
+    var men = rosterMen().men.map(function (m) { var g = gear[m.name] || {}, a = armourOf(g.head) + armourOf(g.body), kit = a * (+R.kit_per_armour || 0);
+      return { name: m.name, level: m.level, armour: a, kit: +kit.toFixed(2), s: R.per_man + R.per_level * (m.level - 1) + kit }; });
+    if (!men.length) men = [1, 1, 1].map(function () { return { name: null, level: 1, armour: 0, kit: 0, s: R.per_man }; });
+    men.sort(function (a, b) { return b.s - a.s; });
+    var top = (R.wide_origins || []).indexOf(st.origin) >= 0 ? R.strongest_wide : R.strongest, use = men.slice(0, top);
+    var out = { strength: +use.reduce(function (t, m) { return t + m.s; }, 0).toFixed(1), levels: use.reduce(function (t, m) { return t + R.per_man + R.per_level * (m.level - 1); }, 0),
+      kit: +use.reduce(function (t, m) { return t + m.kit; }, 0).toFixed(1), men: men.length, counted: use.length, armourRead: !!ARMOUR };
+    root.__COMPANY_STRENGTH = out; return out;
+  }
   /* THE ROSTER, SAID (WORLD [the roster scales the enemy], rule 179; rule 164 item 26, Paolo 10/24: 'Battle Brothers matches you with
      opponents by the amount of people on your roster... if I fill up my roster, the opponents go up too'). The math was built
      (fce1fc7a: 3 men to 12, a two-skull job 3 to 10) and EYES could not see it in the game (records/BOHEMIA_EYES_EVERY_ASK_CHECKED_
@@ -2357,7 +2384,7 @@
   try { root.setInterval(function () { try { wrapRender(); if (DATA && lightTheDark() && typeof root.render === 'function') root.render(); } catch (e) {} }, 1000); } catch (e) {}
   root.BohemiaJobKinds = { load: load, set: set, ready: function () { return !!DATA; }, data: function () { return DATA; }, fightsOf: fightsOf,
     kindOf: kindOf, word: word, built: built, owns: owns, make: make, arrived: arrived, step: step, fightEnd: fightEnd,
-    here: here, pace: pace, status: status, tap: tap, draw: draw, plural: plural, flash: flash, short: short, shortNow: shortNow, goodOf: goodOf, hits: function () { return HITS.slice(); }, plates: function () { return MINE.slice(); },
+    here: here, pace: pace, status: status, tap: tap, draw: draw, plural: plural, flash: flash, short: short, shortNow: shortNow, goodOf: goodOf, strength: companyStrength, hits: function () { return HITS.slice(); }, plates: function () { return MINE.slice(); },
     roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, trip: trip, asks: asks, asksCard: asksCard, tripCard: tripCard, tripLine: tripLine, warm: warm, plan: plan, comesBack: comesBack, payMarkHTML: payMarkHTML, payMark: markOf, walkRoute: walkRoute, walkGo: walkGo, walkOf: walkOf, timeWords: timeWords, shortTime: shortTime, rosterWhy: rosterWhy, rosterSays: rosterSays, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
     drop: drop, dropCost: dropCost, standing: standing, settledTake: settledTake, settledPeek: settledQ, settleJob: settle, landTap: landTap,
     letGo: PACK_LETS_GO, beastPic: function (look) { return { im: beastImg(look), m: beastMeta(look) }; } };   /* WORLD 11: the pack's hold for the gate; a beast's own sheet for the kill on the map (slices/bohemia_carcass.js, WORLD 12) */
