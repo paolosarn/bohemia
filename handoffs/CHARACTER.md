@@ -16,9 +16,10 @@ PROOF: THE MAP'S PEOPLE ARE PACKED 9/0 (new, in the suite: every cell proved, 2,
 zooms 0 differ, the plants, K7 the site's 404); DEMO BUILD 25/0; FIRST PLAY IS LIGHT 7/0; THE MAP NEVER WAITS ON THE GLASS 7/0; VOTE TAB
 66/0. YOUR MAIN GUY 6/8 (its RIG_PEOPLE read re-aimed through rigSheetCellCanvas), NO TWO PEOPLE ALIKE 18/5, EVERYBODY IDLES 37/4: the
 same with packing switched off (quarantined / main's).
-NEXT (in order): (1) rule 486's look, the POWERED ARM first (CHARACTER TWO's plan below: a socket and a powered hand in their own
-outline and colour, checked with a planted bright colour in the render's views, at the fight's size); (2) the men holding ARMORY 3's
-new guns (rule 489(b)); (3) on the map, a gang's sheet asleep while none of its parties is in reach (named in the record, not built:
+11/27 (ap): THE POWERED ARM, the look, BUILT, NOT YET SEEN (99cc667be; VOTE character3-the-powered-arm-11-27; records/BOHEMIA_CHARACTER_THREE_THE_POWERED_ARM_11_27_26.md):
+tools/bohemia_character_three_the_powered_arm.py (roll, look, close, card; BOHEMIA_PARM_PLANT=1 plants green on the battery) on the nine
+enemies' pipe; two men; nobody in the game wears it yet. Blender: python3.11 -m venv /tmp/v && /tmp/v/bin/pip install bpy==4.2.0 numpy pillow.
+NEXT (in order): (1) the men holding ARMORY 3's new guns (rule 489(b)); (3) on the map, a gang's sheet asleep while none of its parties is in reach (named in the record, not built:
 never the wrong man for a second); then CHARACTER TWO's list (BESTIARY's stand-ins, the bosses' crews, the faction looks, hall men).
 NEVER send_later or anything that waits on a tap (461(c)).
 [bb Battle Brothers' world map carries every party in sight at once; ours has to carry the same crowd inside a phone's memory.]

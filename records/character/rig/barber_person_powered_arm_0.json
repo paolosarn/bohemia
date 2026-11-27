@@ -1,0 +1,35 @@
+{
+ "cut": "PERSON powered_arm_0",
+ "tag": "person_powered_arm_0",
+ "bank": {
+  "kind": "person",
+  "gang": "Powered Arm"
+ },
+ "worn_by": "Powered Arm, rolled",
+ "model": "records/character/rig/barber_person_powered_arm_0.glb",
+ "body": "records/character/rig/person_powered_arm_0.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  1
+ ],
+ "hair_rgb": [
+  29,
+  27,
+  27
+ ],
+ "skin_rgb": [
+  158,
+  118,
+  89
+ ],
+ "model_top_m": 1.5372,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7301,
+ "pieces": {
+  "barber_deep_taper_fade": 36377,
+  "barber_deep_taper": 147778
+ }
+}
