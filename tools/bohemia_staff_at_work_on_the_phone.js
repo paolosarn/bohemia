@@ -15,7 +15,7 @@ const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const A = process.argv.slice(2), arg = (k, d) => { const i = A.indexOf(k); return i >= 0 ? A[i + 1] : d; };
 const ALPHA = A.includes('--alpha'), CODE = arg('--code', 'K7QM9X'), SHAPES = arg('--shapes', 'phone_portrait,phone_landscape').split(',');
 const OUTD = path.resolve(ROOT, arg('--out', 'records/target/staff_cart')), TAG = ALPHA ? 'alpha' : 'demo';
-const CAMP = ['cook', 'surgeon', 'blacksmith', 'scout'];
+const CAMP = A.includes('--all') ? ['cook', 'scout', 'lookout', 'paymaster', 'blacksmith', 'surgeon', 'agent', 'alchemist', 'bounty_hunter', 'brigand', 'cartographer', 'drill_sergeant', 'minstrel', 'negotiator', 'quartermaster', 'recruiter', 'scavenger', 'trader'] : ['cook', 'surgeon', 'blacksmith', 'scout'];   /* --all: all eighteen (STAFF 2 11/27, every trade at its work) */
 fs.mkdirSync(OUTD, { recursive: true });
 
 async function walk(shape) {
@@ -51,7 +51,7 @@ async function walk(shape) {
           lying: folk.filter(m => m.campMan && (m.act === 'lie' || m.act === 'rest')).map(m => ({ name: m.name, act: m.act, x: m.x, y: m.y })),
           carts: Object.keys(C).map(k => ({ id: k, kind: C[k].kind, ago: Math.round(now - C[k].at) })) }; }).catch(() => null);
       const db = row.camp && row.camp.drawnBy || {}, F = row.camp && row.camp.followers || [];
-      if (F.length && F.every(f => /^anim:/.test(db[f.name] || '') || f.act === 'watch')) break; }
+      if (F.length && F.every(f => /^anim:/.test(db[f.name] || '') || f.act === 'watch' || f.id === 'brigand')) break; }
     await page.waitForTimeout(800);
     row.png = path.relative(ROOT, path.join(OUTD, TAG + '_' + short + '_the_camp_at_work.png'));
     await page.screenshot({ path: path.join(ROOT, row.png) });
@@ -60,7 +60,10 @@ async function walk(shape) {
   const c = row.camp || {}, db = c.drawnBy || {}, F = c.followers || [], by = id => (F.find(f => f.id === id) || {}), drew = id => db[by(id).name] || null;
   const sg = by('surgeon'), healed = (c.lying || []).find(l => sg.x !== undefined && Math.abs(l.x - sg.x) < 90 && Math.abs(l.y - sg.y) < 60);
   row.pass = { W1: drew('cook') === 'anim:cook', W2: drew('surgeon') === 'anim:tend' && !!healed, W3: drew('blacksmith') === 'anim:repair',
-    W4: CAMP.every(id => (c.carts || []).some(k => k.id === id && k.ago < 3000)), P: !row.err && !errs.length };
+    W4: CAMP.filter(id => F.some(f => f.id === id)).every(id => (c.carts || []).some(k => k.id === id && k.ago < 3000)) && F.length >= Math.min(CAMP.length, 12), P: !row.err && !errs.length };   /* every one the camp places (its own spots: 13 upright) */
+  /* W5 (--all): every camp person but the brigand draws his trade's act (the camp's own act table, ANIMATION's cells) */
+  if (A.includes('--all')) { const ANIM = { cook: 'cook', tend: 'tend', mend: 'repair', loot: 'loot', smoke: 'smoke', stall: 'stall', clean: 'clean', sit: 'sit', talk: 'talk', flirt: 'flirt', unpack: 'unpack' };
+    row.trades = F.map(f => f.id + ':' + f.act + ':' + (db[f.name] || '-')); row.placed = F.length; row.pass.W5 = F.length >= 12 && F.filter(f => f.id !== 'brigand').every(f => db[f.name] === 'anim:' + ANIM[f.act]); }
   row.healed = healed ? healed.name : null;
   await d.close().catch(() => {});
   return row;
@@ -72,7 +75,7 @@ async function walk(shape) {
     console.log(TAG + ' ' + s + (r.err ? ' ERR ' + r.err : '') + ' | hurt ' + JSON.stringify(r.hurt) + ' | camp ' + JSON.stringify(r.campMade) +
       '\n  followers ' + JSON.stringify((r.camp && r.camp.followers || []).map(f => f.id + ':' + f.act + ':' + ((r.camp.drawnBy || {})[f.name] || '-') + '@' + Math.round(f.x) + ',' + Math.round(f.y) + ' ' + f.face)) +
       '\n  lying ' + JSON.stringify(r.camp && r.camp.lying) + ' | healed ' + r.healed + ' | carts ' + JSON.stringify((r.camp && r.camp.carts || []).map(k => k.id + ':' + k.kind)) +
-      '\n  ' + JSON.stringify(r.pass) + (r.errs.length ? '\n  errors ' + r.errs.join(' / ') : '')); }
+      (r.trades ? '\n  placed ' + r.placed + ' of ' + CAMP.length + ' | trades ' + JSON.stringify(r.trades) : '') + '\n  ' + JSON.stringify(r.pass) + (r.errs.length ? '\n  errors ' + r.errs.join(' / ') : '')); }
   fs.writeFileSync(path.join(OUTD, 'work_' + TAG + '.json'), JSON.stringify(out, null, 1));
   process.exit(out.every(r => Object.values(r.pass).every(Boolean)) ? 0 : 1);
 })();

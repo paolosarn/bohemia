@@ -8,41 +8,106 @@
   "campMade": true,
   "camp": {
    "drawnBy": {
-    "Danny Nguyen": "still",
+    "Chuy Morales": "anim:flirt",
+    "Darnell Price": "anim:talk",
+    "Earl Pruitt": "anim:smoke",
+    "Danny Nguyen": "anim:loot",
+    "Ines Baptiste": "anim:talk",
+    "Felix Amari": "anim:tend",
     "Graciela Ochoa": "anim:cook",
+    "Hector Salas": "anim:stall",
+    "Rusty Kogan": "still",
     "DESI": "anim:tend",
     "Alan Cho": "anim:tend",
     "Walt Hensley": "anim:repair",
+    "Marcus Bell": "anim:clean",
+    "Ken Takeda": "anim:sit",
     "RAUL": "anim:lie"
    },
    "acts": [
-    "YOU:cook",
+    "YOU:clean",
     "DESI:tend",
     "RAUL:lie"
    ],
    "followers": [
     {
+     "id": "minstrel",
+     "name": "Chuy Morales",
+     "act": "flirt",
+     "x": 778,
+     "y": 208,
+     "face": "S"
+    },
+    {
+     "id": "drill_sergeant",
+     "name": "Darnell Price",
+     "act": "talk",
+     "x": 364,
+     "y": 228,
+     "face": "S"
+    },
+    {
+     "id": "lookout",
+     "name": "Earl Pruitt",
+     "act": "smoke",
+     "x": 1018,
+     "y": 463,
+     "face": "SW"
+    },
+    {
      "id": "scout",
      "name": "Danny Nguyen",
-     "act": "watch",
+     "act": "loot",
      "x": 74,
-     "y": 298,
+     "y": 468,
      "face": "SE"
+    },
+    {
+     "id": "agent",
+     "name": "Ines Baptiste",
+     "act": "talk",
+     "x": 64,
+     "y": 648,
+     "face": "E"
+    },
+    {
+     "id": "alchemist",
+     "name": "Felix Amari",
+     "act": "tend",
+     "x": 922,
+     "y": 758,
+     "face": "W"
     },
     {
      "id": "cook",
      "name": "Graciela Ochoa",
      "act": "cook",
      "x": 798,
-     "y": 638,
+     "y": 808,
      "face": "W"
+    },
+    {
+     "id": "paymaster",
+     "name": "Hector Salas",
+     "act": "stall",
+     "x": 998,
+     "y": 938,
+     "face": "W"
+    },
+    {
+     "id": "brigand",
+     "name": "Rusty Kogan",
+     "act": "watch",
+     "x": 54,
+     "y": 1078,
+     "face": "NE"
     },
     {
      "id": "surgeon",
      "name": "Alan Cho",
      "act": "tend",
      "x": 506,
-     "y": 986,
+     "y": 1156,
      "face": "N"
     },
     {
@@ -50,8 +115,24 @@
      "name": "Walt Hensley",
      "act": "mend",
      "x": 374,
-     "y": 1098,
+     "y": 1268,
      "face": "N"
+    },
+    {
+     "id": "bounty_hunter",
+     "name": "Marcus Bell",
+     "act": "clean",
+     "x": 728,
+     "y": 1318,
+     "face": "N"
+    },
+    {
+     "id": "cartographer",
+     "name": "Ken Takeda",
+     "act": "sit",
+     "x": 1038,
+     "y": 1368,
+     "face": "NW"
     }
    ],
    "lying": [
@@ -59,29 +140,74 @@
      "name": "RAUL",
      "act": "lie",
      "x": 546,
-     "y": 960
+     "y": 1130
     }
    ],
    "carts": [
     {
+     "id": "minstrel",
+     "kind": "shopping_cart",
+     "ago": 27
+    },
+    {
+     "id": "drill_sergeant",
+     "kind": "shopping_cart",
+     "ago": 27
+    },
+    {
+     "id": "lookout",
+     "kind": "shopping_cart",
+     "ago": 27
+    },
+    {
      "id": "scout",
      "kind": "shopping_cart",
-     "ago": 14
+     "ago": 27
+    },
+    {
+     "id": "agent",
+     "kind": "shopping_cart",
+     "ago": 27
+    },
+    {
+     "id": "alchemist",
+     "kind": "shopping_cart",
+     "ago": 27
     },
     {
      "id": "cook",
      "kind": "shopping_cart",
-     "ago": 14
+     "ago": 27
+    },
+    {
+     "id": "paymaster",
+     "kind": "shopping_cart",
+     "ago": 27
+    },
+    {
+     "id": "brigand",
+     "kind": "shopping_cart",
+     "ago": 27
     },
     {
      "id": "surgeon",
      "kind": "utility_cart",
-     "ago": 14
+     "ago": 27
     },
     {
      "id": "blacksmith",
      "kind": "wagon",
-     "ago": 14
+     "ago": 27
+    },
+    {
+     "id": "bounty_hunter",
+     "kind": "shopping_cart",
+     "ago": 27
+    },
+    {
+     "id": "cartographer",
+     "kind": "shopping_cart",
+     "ago": 27
     }
    ]
   },
@@ -92,8 +218,25 @@
    "W2": true,
    "W3": true,
    "W4": true,
-   "P": true
+   "P": true,
+   "W5": true
   },
+  "trades": [
+   "minstrel:flirt:anim:flirt",
+   "drill_sergeant:talk:anim:talk",
+   "lookout:smoke:anim:smoke",
+   "scout:loot:anim:loot",
+   "agent:talk:anim:talk",
+   "alchemist:tend:anim:tend",
+   "cook:cook:anim:cook",
+   "paymaster:stall:anim:stall",
+   "brigand:watch:still",
+   "surgeon:tend:anim:tend",
+   "blacksmith:mend:anim:repair",
+   "bounty_hunter:clean:anim:clean",
+   "cartographer:sit:anim:sit"
+  ],
+  "placed": 13,
   "healed": "RAUL"
  },
  {
@@ -105,11 +248,20 @@
   "campMade": true,
   "camp": {
    "drawnBy": {
-    "Danny Nguyen": "still",
+    "Earl Pruitt": "anim:smoke",
+    "Ken Takeda": "anim:sit",
+    "Rusty Kogan": "still",
+    "Danny Nguyen": "anim:loot",
+    "Hector Salas": "anim:stall",
+    "Marcus Bell": "anim:clean",
+    "Felix Amari": "anim:tend",
+    "Ines Baptiste": "anim:talk",
     "Graciela Ochoa": "anim:cook",
     "DESI": "anim:tend",
     "Walt Hensley": "anim:repair",
+    "Darnell Price": "anim:talk",
     "Alan Cho": "anim:tend",
+    "Chuy Morales": "anim:flirt",
     "RAUL": "anim:lie"
    },
    "acts": [
@@ -119,12 +271,68 @@
    ],
    "followers": [
     {
+     "id": "lookout",
+     "name": "Earl Pruitt",
+     "act": "smoke",
+     "x": 1722,
+     "y": 418,
+     "face": "W"
+    },
+    {
+     "id": "cartographer",
+     "name": "Ken Takeda",
+     "act": "sit",
+     "x": 1412,
+     "y": 418,
+     "face": "SW"
+    },
+    {
+     "id": "brigand",
+     "name": "Rusty Kogan",
+     "act": "watch",
+     "x": 508,
+     "y": 448,
+     "face": "E"
+    },
+    {
      "id": "scout",
      "name": "Danny Nguyen",
-     "act": "watch",
+     "act": "loot",
      "x": 338,
      "y": 488,
      "face": "E"
+    },
+    {
+     "id": "paymaster",
+     "name": "Hector Salas",
+     "act": "stall",
+     "x": 1482,
+     "y": 528,
+     "face": "W"
+    },
+    {
+     "id": "bounty_hunter",
+     "name": "Marcus Bell",
+     "act": "clean",
+     "x": 1642,
+     "y": 538,
+     "face": "W"
+    },
+    {
+     "id": "alchemist",
+     "name": "Felix Amari",
+     "act": "tend",
+     "x": 378,
+     "y": 668,
+     "face": "E"
+    },
+    {
+     "id": "agent",
+     "name": "Ines Baptiste",
+     "act": "talk",
+     "x": 1552,
+     "y": 688,
+     "face": "W"
     },
     {
      "id": "cook",
@@ -143,12 +351,28 @@
      "face": "E"
     },
     {
+     "id": "drill_sergeant",
+     "name": "Darnell Price",
+     "act": "talk",
+     "x": 678,
+     "y": 858,
+     "face": "NE"
+    },
+    {
      "id": "surgeon",
      "name": "Alan Cho",
      "act": "tend",
      "x": 990,
      "y": 866,
      "face": "N"
+    },
+    {
+     "id": "minstrel",
+     "name": "Chuy Morales",
+     "act": "flirt",
+     "x": 1282,
+     "y": 878,
+     "face": "NW"
     }
    ],
    "lying": [
@@ -161,24 +385,69 @@
    ],
    "carts": [
     {
+     "id": "lookout",
+     "kind": "shopping_cart",
+     "ago": 21
+    },
+    {
+     "id": "cartographer",
+     "kind": "shopping_cart",
+     "ago": 21
+    },
+    {
+     "id": "brigand",
+     "kind": "shopping_cart",
+     "ago": 21
+    },
+    {
      "id": "scout",
      "kind": "shopping_cart",
-     "ago": 15
+     "ago": 21
+    },
+    {
+     "id": "paymaster",
+     "kind": "shopping_cart",
+     "ago": 21
+    },
+    {
+     "id": "bounty_hunter",
+     "kind": "shopping_cart",
+     "ago": 21
+    },
+    {
+     "id": "alchemist",
+     "kind": "shopping_cart",
+     "ago": 21
+    },
+    {
+     "id": "agent",
+     "kind": "shopping_cart",
+     "ago": 21
     },
     {
      "id": "cook",
      "kind": "shopping_cart",
-     "ago": 15
+     "ago": 21
     },
     {
      "id": "blacksmith",
      "kind": "wagon",
-     "ago": 15
+     "ago": 21
+    },
+    {
+     "id": "drill_sergeant",
+     "kind": "shopping_cart",
+     "ago": 21
     },
     {
      "id": "surgeon",
      "kind": "utility_cart",
-     "ago": 15
+     "ago": 21
+    },
+    {
+     "id": "minstrel",
+     "kind": "shopping_cart",
+     "ago": 21
     }
    ]
   },
@@ -189,8 +458,25 @@
    "W2": true,
    "W3": true,
    "W4": true,
-   "P": true
+   "P": true,
+   "W5": true
   },
+  "trades": [
+   "lookout:smoke:anim:smoke",
+   "cartographer:sit:anim:sit",
+   "brigand:watch:still",
+   "scout:loot:anim:loot",
+   "paymaster:stall:anim:stall",
+   "bounty_hunter:clean:anim:clean",
+   "alchemist:tend:anim:tend",
+   "agent:talk:anim:talk",
+   "cook:cook:anim:cook",
+   "blacksmith:mend:anim:repair",
+   "drill_sergeant:talk:anim:talk",
+   "surgeon:tend:anim:tend",
+   "minstrel:flirt:anim:flirt"
+  ],
+  "placed": 13,
   "healed": "RAUL"
  }
 ]

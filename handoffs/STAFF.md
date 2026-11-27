@@ -1,4 +1,14 @@
 STAFF 2 (staff2-01gkdyus, took over from STAFF at a full context): rule 471, THE STAFF PUSH A CART, ask row 709. Written only by this lane.
+*** 11/27 LATEST -- EVERY TRADE AT ITS WORK: BUILD 11/27zi - EVERY CAMP PERSON AT HIS TRADE, BUILT, NOT YET SEEN (rule 482; 461 as
+amended: gates in the foreground). Record: records/BOHEMIA_STAFF_TWO_EVERY_TRADE_AT_WORK_11_27_26.md. VOTE staff2-every-trade-at-work-11-27. ***
+17 of 18 at their trade at camp (FOLLOWER_WORK) and at his place (STAFF_HOME_WORK); 11 bodies rendered one act each by ANIMATION's tool and
+laid in by STAFF_ACTS (out of the town's index); the brigand's body does not pack (render/still mismatch) and stands. His place's footage
+spreads up to 5 a lot (a negative index dropped everyone past the 4th: fixed). Proofs --all green both pages both ways.
+THE SITE'S CAP: PAGES PUBLISH red on main (900.02 MB); this build +0.73 MB net (1.07 of sheets, -0.34 re-encoding its own cards). PLUMBER 8's.
+LOCAL HYGIENE: partial renders (one act a body) were moved out of records/target/animation/towns and records/animation/town_joints, or THE
+TOWN'S ACTIVITIES counts them as men missing 19 acts; never commit a one-act body's joints there.
+NEXT: (1) the brigand's body (ANIMATION's pack refuses it: his still and his render differ); (2) his fist on the handle; (3) the crew screen
+shows the camp; (4) a column between his back row and the camp on narrow boards; (5) a scared run's sound.
 *** 11/27 LATEST -- RULE 482 AGAIN: BUILD 11/27n - THE CAMP AT ITS WORK, BUILT, NOT YET SEEN (rule 482; 461 as amended, 441, 465).
 Record: records/BOHEMIA_STAFF_TWO_THE_CAMP_AT_ITS_WORK_11_27_26.md. VOTE staff2-the-camp-at-its-work-11-27 (2135efccb). ***
 (a) AT CAMP (slices/bohemia_camp_look.js FOLLOWER_WORK): the cook cooks, the surgeon and the alchemist tend (kneeling by the worst hurt

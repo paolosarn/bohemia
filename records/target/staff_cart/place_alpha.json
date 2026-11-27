@@ -10,7 +10,21 @@
      "Alan Cho",
      "Walt Hensley",
      "Graciela Ochoa",
-     "Danny Nguyen"
+     "Hector Salas",
+     "Ines Baptiste",
+     "Rusty Kogan",
+     "Ken Takeda",
+     "Yolanda Reyes",
+     "Gary Lund",
+     "Dot Kowalski",
+     "Danny Nguyen",
+     "Earl Pruitt",
+     "Felix Amari",
+     "Marcus Bell",
+     "Chuy Morales",
+     "Darnell Price",
+     "Tony Arce",
+     "Memo Gallardo"
     ],
     "staff": [
      {
@@ -47,11 +61,151 @@
       "id": "scout",
       "name": "Danny Nguyen",
       "look": "person_town_42",
+      "act": "loot",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "lookout",
+      "name": "Earl Pruitt",
+      "look": "person_town_29",
+      "act": "smoke",
+      "n": 2,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "paymaster",
+      "name": "Hector Salas",
+      "look": "person_town_36",
+      "act": "stall",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "agent",
+      "name": "Ines Baptiste",
+      "look": "person_woman_3",
+      "act": "talk",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "alchemist",
+      "name": "Felix Amari",
+      "look": "person_town_19",
       "act": null,
       "n": 3,
       "h": 14.3,
       "face": "SW",
       "cell": false
+     },
+     {
+      "id": "bounty_hunter",
+      "name": "Marcus Bell",
+      "look": "person_town_26",
+      "act": "clean",
+      "n": 2,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "brigand",
+      "name": "Rusty Kogan",
+      "look": "person_town_43",
+      "act": null,
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": false
+     },
+     {
+      "id": "cartographer",
+      "name": "Ken Takeda",
+      "look": "person_town_28",
+      "act": "sit",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "minstrel",
+      "name": "Chuy Morales",
+      "look": "person_town_17",
+      "act": "flirt",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "drill_sergeant",
+      "name": "Darnell Price",
+      "look": "person_town_14",
+      "act": "talk",
+      "n": 2,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "recruiter",
+      "name": "Yolanda Reyes",
+      "look": "person_woman_1",
+      "act": "flirt",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "negotiator",
+      "name": "Gary Lund",
+      "look": "person_town_39",
+      "act": "talk",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "quartermaster",
+      "name": "Tony Arce",
+      "look": "person_town_9",
+      "act": "unpack",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "trader",
+      "name": "Memo Gallardo",
+      "look": "person_town_18",
+      "act": "stall",
+      "n": 2,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scavenger",
+      "name": "Dot Kowalski",
+      "look": "person_woman_2",
+      "act": "loot",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
      }
     ],
     "carts": {
@@ -59,28 +213,126 @@
       "kind": "utility_cart",
       "which": "front",
       "h": 5,
-      "at": 4653.700000000186,
+      "at": 4969.799999999814,
       "cam": 1
      },
      "blacksmith": {
       "kind": "wagon",
       "which": "back",
       "h": 10,
-      "at": 4653.799999999814,
+      "at": 4970.299999999814,
       "cam": 1
      },
      "cook": {
       "kind": "shopping_cart",
       "which": "front",
       "h": 9,
-      "at": 4653.899999999441,
+      "at": 4970.600000000093,
+      "cam": 1
+     },
+     "paymaster": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 4970.700000000186,
+      "cam": 1
+     },
+     "agent": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 4970.700000000186,
+      "cam": 1
+     },
+     "brigand": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 4970.799999999814,
+      "cam": 1
+     },
+     "cartographer": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 4970.799999999814,
+      "cam": 1
+     },
+     "recruiter": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 4970.899999999907,
+      "cam": 1
+     },
+     "negotiator": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 4970.899999999907,
+      "cam": 1
+     },
+     "scavenger": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 4971.100000000093,
       "cam": 1
      },
      "scout": {
       "kind": "shopping_cart",
       "which": "front",
       "h": 15,
-      "at": 4654,
+      "at": 4971.600000000093,
+      "cam": 1
+     },
+     "lookout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 4971.700000000186,
+      "cam": 1
+     },
+     "alchemist": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 4971.799999999814,
+      "cam": 1
+     },
+     "bounty_hunter": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 4971.899999999907,
+      "cam": 1
+     },
+     "minstrel": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 4971.899999999907,
+      "cam": 1
+     },
+     "drill_sergeant": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 4972,
+      "cam": 1
+     },
+     "quartermaster": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 4972.100000000093,
+      "cam": 1
+     },
+     "trader": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 4972.200000000186,
       "cam": 1
      }
     },
@@ -93,7 +345,21 @@
      "Alan Cho",
      "Walt Hensley",
      "Graciela Ochoa",
-     "Danny Nguyen"
+     "Ines Baptiste",
+     "Ken Takeda",
+     "Gary Lund",
+     "Hector Salas",
+     "Rusty Kogan",
+     "Yolanda Reyes",
+     "Dot Kowalski",
+     "Danny Nguyen",
+     "Felix Amari",
+     "Chuy Morales",
+     "Tony Arce",
+     "Earl Pruitt",
+     "Marcus Bell",
+     "Darnell Price",
+     "Memo Gallardo"
     ],
     "staff": [
      {
@@ -130,11 +396,151 @@
       "id": "scout",
       "name": "Danny Nguyen",
       "look": "person_town_42",
+      "act": "loot",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "lookout",
+      "name": "Earl Pruitt",
+      "look": "person_town_29",
+      "act": "smoke",
+      "n": 2,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "paymaster",
+      "name": "Hector Salas",
+      "look": "person_town_36",
+      "act": "stall",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "agent",
+      "name": "Ines Baptiste",
+      "look": "person_woman_3",
+      "act": "talk",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "alchemist",
+      "name": "Felix Amari",
+      "look": "person_town_19",
       "act": null,
       "n": 3,
       "h": 14.3,
       "face": "SW",
       "cell": false
+     },
+     {
+      "id": "bounty_hunter",
+      "name": "Marcus Bell",
+      "look": "person_town_26",
+      "act": "clean",
+      "n": 2,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "brigand",
+      "name": "Rusty Kogan",
+      "look": "person_town_43",
+      "act": null,
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": false
+     },
+     {
+      "id": "cartographer",
+      "name": "Ken Takeda",
+      "look": "person_town_28",
+      "act": "sit",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "minstrel",
+      "name": "Chuy Morales",
+      "look": "person_town_17",
+      "act": "flirt",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "drill_sergeant",
+      "name": "Darnell Price",
+      "look": "person_town_14",
+      "act": "talk",
+      "n": 2,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "recruiter",
+      "name": "Yolanda Reyes",
+      "look": "person_woman_1",
+      "act": "flirt",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "negotiator",
+      "name": "Gary Lund",
+      "look": "person_town_39",
+      "act": "talk",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "quartermaster",
+      "name": "Tony Arce",
+      "look": "person_town_9",
+      "act": "unpack",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "trader",
+      "name": "Memo Gallardo",
+      "look": "person_town_18",
+      "act": "stall",
+      "n": 2,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scavenger",
+      "name": "Dot Kowalski",
+      "look": "person_woman_2",
+      "act": "loot",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
      }
     ],
     "carts": {
@@ -142,28 +548,126 @@
       "kind": "utility_cart",
       "which": "front",
       "h": 5,
-      "at": 8984.5,
+      "at": 9295.299999999814,
       "cam": 2
      },
      "blacksmith": {
       "kind": "wagon",
       "which": "back",
       "h": 9,
-      "at": 8984.5,
+      "at": 9295.299999999814,
       "cam": 2
      },
      "cook": {
       "kind": "shopping_cart",
       "which": "front",
       "h": 9,
-      "at": 8984.599999999627,
+      "at": 9295.299999999814,
+      "cam": 2
+     },
+     "agent": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 9295.399999999907,
+      "cam": 2
+     },
+     "cartographer": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 9295.399999999907,
+      "cam": 2
+     },
+     "negotiator": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 9295.899999999907,
+      "cam": 2
+     },
+     "paymaster": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 9295.899999999907,
+      "cam": 2
+     },
+     "brigand": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 9296,
+      "cam": 2
+     },
+     "recruiter": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 9296.100000000093,
+      "cam": 2
+     },
+     "scavenger": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 9296.100000000093,
       "cam": 2
      },
      "scout": {
       "kind": "shopping_cart",
       "which": "front",
       "h": 15,
-      "at": 8984.599999999627,
+      "at": 9296.200000000186,
+      "cam": 2
+     },
+     "alchemist": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 9296.299999999814,
+      "cam": 2
+     },
+     "minstrel": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 9296.399999999907,
+      "cam": 2
+     },
+     "quartermaster": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 9296.399999999907,
+      "cam": 2
+     },
+     "lookout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 9296.5,
+      "cam": 2
+     },
+     "bounty_hunter": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 9296.5,
+      "cam": 2
+     },
+     "drill_sergeant": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 9296.5,
+      "cam": 2
+     },
+     "trader": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 9296.600000000093,
       "cam": 2
      }
     },
@@ -175,8 +679,22 @@
     "drew": [
      "Alan Cho",
      "Walt Hensley",
+     "Hector Salas",
+     "Rusty Kogan",
+     "Yolanda Reyes",
+     "Dot Kowalski",
      "Graciela Ochoa",
-     "Danny Nguyen"
+     "Ines Baptiste",
+     "Ken Takeda",
+     "Gary Lund",
+     "Earl Pruitt",
+     "Marcus Bell",
+     "Darnell Price",
+     "Memo Gallardo",
+     "Danny Nguyen",
+     "Felix Amari",
+     "Chuy Morales",
+     "Tony Arce"
     ],
     "staff": [
      {
@@ -213,11 +731,151 @@
       "id": "scout",
       "name": "Danny Nguyen",
       "look": "person_town_42",
+      "act": "loot",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "lookout",
+      "name": "Earl Pruitt",
+      "look": "person_town_29",
+      "act": "smoke",
+      "n": 2,
+      "h": 14.7,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "paymaster",
+      "name": "Hector Salas",
+      "look": "person_town_36",
+      "act": "stall",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "agent",
+      "name": "Ines Baptiste",
+      "look": "person_woman_3",
+      "act": "talk",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "alchemist",
+      "name": "Felix Amari",
+      "look": "person_town_19",
       "act": null,
       "n": 3,
       "h": 14.3,
       "face": "SW",
       "cell": false
+     },
+     {
+      "id": "bounty_hunter",
+      "name": "Marcus Bell",
+      "look": "person_town_26",
+      "act": "clean",
+      "n": 2,
+      "h": 14.7,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "brigand",
+      "name": "Rusty Kogan",
+      "look": "person_town_43",
+      "act": null,
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": false
+     },
+     {
+      "id": "cartographer",
+      "name": "Ken Takeda",
+      "look": "person_town_28",
+      "act": "sit",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "minstrel",
+      "name": "Chuy Morales",
+      "look": "person_town_17",
+      "act": "flirt",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "drill_sergeant",
+      "name": "Darnell Price",
+      "look": "person_town_14",
+      "act": "talk",
+      "n": 2,
+      "h": 14.7,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "recruiter",
+      "name": "Yolanda Reyes",
+      "look": "person_woman_1",
+      "act": "flirt",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "negotiator",
+      "name": "Gary Lund",
+      "look": "person_town_39",
+      "act": "talk",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "quartermaster",
+      "name": "Tony Arce",
+      "look": "person_town_9",
+      "act": "unpack",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "trader",
+      "name": "Memo Gallardo",
+      "look": "person_town_18",
+      "act": "stall",
+      "n": 2,
+      "h": 14.7,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scavenger",
+      "name": "Dot Kowalski",
+      "look": "person_woman_2",
+      "act": "loot",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
      }
     ],
     "carts": {
@@ -225,28 +883,126 @@
       "kind": "utility_cart",
       "which": "front",
       "h": 5,
-      "at": 13317.599999999627,
+      "at": 13628.299999999814,
       "cam": 3
      },
      "blacksmith": {
       "kind": "wagon",
       "which": "back",
       "h": 10,
-      "at": 13317.700000000186,
+      "at": 13628.299999999814,
+      "cam": 3
+     },
+     "paymaster": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 13628.5,
+      "cam": 3
+     },
+     "brigand": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 13628.5,
+      "cam": 3
+     },
+     "recruiter": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 13628.600000000093,
+      "cam": 3
+     },
+     "scavenger": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 13628.700000000186,
       "cam": 3
      },
      "cook": {
       "kind": "shopping_cart",
       "which": "front",
       "h": 9,
-      "at": 13317.799999999814,
+      "at": 13628.799999999814,
+      "cam": 3
+     },
+     "agent": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 13628.799999999814,
+      "cam": 3
+     },
+     "cartographer": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 13628.799999999814,
+      "cam": 3
+     },
+     "negotiator": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 13628.899999999907,
+      "cam": 3
+     },
+     "lookout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 13628.899999999907,
+      "cam": 3
+     },
+     "bounty_hunter": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 13629,
+      "cam": 3
+     },
+     "drill_sergeant": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 13629,
+      "cam": 3
+     },
+     "trader": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 13629.100000000093,
       "cam": 3
      },
      "scout": {
       "kind": "shopping_cart",
       "which": "front",
       "h": 15,
-      "at": 13318.099999999627,
+      "at": 13629.100000000093,
+      "cam": 3
+     },
+     "alchemist": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 13629.200000000186,
+      "cam": 3
+     },
+     "minstrel": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 13629.299999999814,
+      "cam": 3
+     },
+     "quartermaster": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 13629.399999999907,
       "cam": 3
      }
     },
@@ -259,7 +1015,21 @@
      "Alan Cho",
      "Walt Hensley",
      "Graciela Ochoa",
-     "Danny Nguyen"
+     "Hector Salas",
+     "Ines Baptiste",
+     "Rusty Kogan",
+     "Ken Takeda",
+     "Yolanda Reyes",
+     "Gary Lund",
+     "Dot Kowalski",
+     "Danny Nguyen",
+     "Earl Pruitt",
+     "Felix Amari",
+     "Marcus Bell",
+     "Chuy Morales",
+     "Darnell Price",
+     "Tony Arce",
+     "Memo Gallardo"
     ],
     "staff": [
      {
@@ -296,11 +1066,151 @@
       "id": "scout",
       "name": "Danny Nguyen",
       "look": "person_town_42",
+      "act": "loot",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "lookout",
+      "name": "Earl Pruitt",
+      "look": "person_town_29",
+      "act": "smoke",
+      "n": 2,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "paymaster",
+      "name": "Hector Salas",
+      "look": "person_town_36",
+      "act": "stall",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "agent",
+      "name": "Ines Baptiste",
+      "look": "person_woman_3",
+      "act": "talk",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "alchemist",
+      "name": "Felix Amari",
+      "look": "person_town_19",
       "act": null,
       "n": 3,
       "h": 14.3,
       "face": "SW",
       "cell": false
+     },
+     {
+      "id": "bounty_hunter",
+      "name": "Marcus Bell",
+      "look": "person_town_26",
+      "act": "clean",
+      "n": 2,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "brigand",
+      "name": "Rusty Kogan",
+      "look": "person_town_43",
+      "act": null,
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": false
+     },
+     {
+      "id": "cartographer",
+      "name": "Ken Takeda",
+      "look": "person_town_28",
+      "act": "sit",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "minstrel",
+      "name": "Chuy Morales",
+      "look": "person_town_17",
+      "act": "flirt",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "drill_sergeant",
+      "name": "Darnell Price",
+      "look": "person_town_14",
+      "act": "talk",
+      "n": 2,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "recruiter",
+      "name": "Yolanda Reyes",
+      "look": "person_woman_1",
+      "act": "flirt",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "negotiator",
+      "name": "Gary Lund",
+      "look": "person_town_39",
+      "act": "talk",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "quartermaster",
+      "name": "Tony Arce",
+      "look": "person_town_9",
+      "act": "unpack",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "trader",
+      "name": "Memo Gallardo",
+      "look": "person_town_18",
+      "act": "stall",
+      "n": 2,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scavenger",
+      "name": "Dot Kowalski",
+      "look": "person_woman_2",
+      "act": "loot",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
      }
     ],
     "carts": {
@@ -308,28 +1218,126 @@
       "kind": "utility_cart",
       "which": "front",
       "h": 5,
-      "at": 17650.700000000186,
+      "at": 17961.700000000186,
       "cam": 1
      },
      "blacksmith": {
       "kind": "wagon",
       "which": "back",
       "h": 10,
-      "at": 17650.700000000186,
+      "at": 17961.700000000186,
       "cam": 1
      },
      "cook": {
       "kind": "shopping_cart",
       "which": "front",
       "h": 9,
-      "at": 17650.700000000186,
+      "at": 17961.899999999907,
+      "cam": 1
+     },
+     "paymaster": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 17961.899999999907,
+      "cam": 1
+     },
+     "agent": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 17961.899999999907,
+      "cam": 1
+     },
+     "brigand": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 17962,
+      "cam": 1
+     },
+     "cartographer": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 17962,
+      "cam": 1
+     },
+     "recruiter": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 17962.100000000093,
+      "cam": 1
+     },
+     "negotiator": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 17962.100000000093,
+      "cam": 1
+     },
+     "scavenger": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 17962.200000000186,
       "cam": 1
      },
      "scout": {
       "kind": "shopping_cart",
       "which": "front",
       "h": 15,
-      "at": 17650.799999999814,
+      "at": 17962.200000000186,
+      "cam": 1
+     },
+     "lookout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 17962.299999999814,
+      "cam": 1
+     },
+     "alchemist": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 17962.399999999907,
+      "cam": 1
+     },
+     "bounty_hunter": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 17962.5,
+      "cam": 1
+     },
+     "minstrel": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 17962.5,
+      "cam": 1
+     },
+     "drill_sergeant": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 17962.600000000093,
+      "cam": 1
+     },
+     "quartermaster": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 17962.600000000093,
+      "cam": 1
+     },
+     "trader": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 17962.600000000093,
       "cam": 1
      }
     },
@@ -342,7 +1350,21 @@
      "Alan Cho",
      "Walt Hensley",
      "Graciela Ochoa",
-     "Danny Nguyen"
+     "Ines Baptiste",
+     "Ken Takeda",
+     "Gary Lund",
+     "Hector Salas",
+     "Rusty Kogan",
+     "Yolanda Reyes",
+     "Dot Kowalski",
+     "Danny Nguyen",
+     "Felix Amari",
+     "Chuy Morales",
+     "Tony Arce",
+     "Earl Pruitt",
+     "Marcus Bell",
+     "Darnell Price",
+     "Memo Gallardo"
     ],
     "staff": [
      {
@@ -379,11 +1401,151 @@
       "id": "scout",
       "name": "Danny Nguyen",
       "look": "person_town_42",
+      "act": "loot",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "lookout",
+      "name": "Earl Pruitt",
+      "look": "person_town_29",
+      "act": "smoke",
+      "n": 2,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "paymaster",
+      "name": "Hector Salas",
+      "look": "person_town_36",
+      "act": "stall",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "agent",
+      "name": "Ines Baptiste",
+      "look": "person_woman_3",
+      "act": "talk",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "alchemist",
+      "name": "Felix Amari",
+      "look": "person_town_19",
       "act": null,
       "n": 3,
       "h": 14.3,
       "face": "SW",
       "cell": false
+     },
+     {
+      "id": "bounty_hunter",
+      "name": "Marcus Bell",
+      "look": "person_town_26",
+      "act": "clean",
+      "n": 2,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "brigand",
+      "name": "Rusty Kogan",
+      "look": "person_town_43",
+      "act": null,
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": false
+     },
+     {
+      "id": "cartographer",
+      "name": "Ken Takeda",
+      "look": "person_town_28",
+      "act": "sit",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "minstrel",
+      "name": "Chuy Morales",
+      "look": "person_town_17",
+      "act": "flirt",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "drill_sergeant",
+      "name": "Darnell Price",
+      "look": "person_town_14",
+      "act": "talk",
+      "n": 2,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "recruiter",
+      "name": "Yolanda Reyes",
+      "look": "person_woman_1",
+      "act": "flirt",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "negotiator",
+      "name": "Gary Lund",
+      "look": "person_town_39",
+      "act": "talk",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "quartermaster",
+      "name": "Tony Arce",
+      "look": "person_town_9",
+      "act": "unpack",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "trader",
+      "name": "Memo Gallardo",
+      "look": "person_town_18",
+      "act": "stall",
+      "n": 2,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scavenger",
+      "name": "Dot Kowalski",
+      "look": "person_woman_2",
+      "act": "loot",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
      }
     ],
     "carts": {
@@ -391,28 +1553,126 @@
       "kind": "utility_cart",
       "which": "front",
       "h": 5,
-      "at": 21817.200000000186,
+      "at": 22295.299999999814,
       "cam": 2
      },
      "blacksmith": {
       "kind": "wagon",
       "which": "back",
       "h": 9,
-      "at": 21817.200000000186,
+      "at": 22295.399999999907,
       "cam": 2
      },
      "cook": {
       "kind": "shopping_cart",
       "which": "front",
       "h": 9,
-      "at": 21817.299999999814,
+      "at": 22295.399999999907,
+      "cam": 2
+     },
+     "agent": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 22295.5,
+      "cam": 2
+     },
+     "cartographer": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 22295.5,
+      "cam": 2
+     },
+     "negotiator": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 22295.5,
+      "cam": 2
+     },
+     "paymaster": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 22295.600000000093,
+      "cam": 2
+     },
+     "brigand": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 22295.600000000093,
+      "cam": 2
+     },
+     "recruiter": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 22295.600000000093,
+      "cam": 2
+     },
+     "scavenger": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 22295.700000000186,
       "cam": 2
      },
      "scout": {
       "kind": "shopping_cart",
       "which": "front",
       "h": 15,
-      "at": 21817.39999999944,
+      "at": 22295.700000000186,
+      "cam": 2
+     },
+     "alchemist": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 22295.799999999814,
+      "cam": 2
+     },
+     "minstrel": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 22295.899999999907,
+      "cam": 2
+     },
+     "quartermaster": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 22295.899999999907,
+      "cam": 2
+     },
+     "lookout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 22296,
+      "cam": 2
+     },
+     "bounty_hunter": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 22296.100000000093,
+      "cam": 2
+     },
+     "drill_sergeant": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 22296.100000000093,
+      "cam": 2
+     },
+     "trader": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 22296.100000000093,
       "cam": 2
      }
     },
@@ -424,8 +1684,22 @@
     "drew": [
      "Alan Cho",
      "Walt Hensley",
+     "Hector Salas",
+     "Rusty Kogan",
+     "Yolanda Reyes",
+     "Dot Kowalski",
      "Graciela Ochoa",
-     "Danny Nguyen"
+     "Ines Baptiste",
+     "Ken Takeda",
+     "Gary Lund",
+     "Earl Pruitt",
+     "Marcus Bell",
+     "Darnell Price",
+     "Memo Gallardo",
+     "Danny Nguyen",
+     "Felix Amari",
+     "Chuy Morales",
+     "Tony Arce"
     ],
     "staff": [
      {
@@ -462,11 +1736,151 @@
       "id": "scout",
       "name": "Danny Nguyen",
       "look": "person_town_42",
+      "act": "loot",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "lookout",
+      "name": "Earl Pruitt",
+      "look": "person_town_29",
+      "act": "smoke",
+      "n": 2,
+      "h": 14.7,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "paymaster",
+      "name": "Hector Salas",
+      "look": "person_town_36",
+      "act": "stall",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "agent",
+      "name": "Ines Baptiste",
+      "look": "person_woman_3",
+      "act": "talk",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "alchemist",
+      "name": "Felix Amari",
+      "look": "person_town_19",
       "act": null,
       "n": 3,
       "h": 14.3,
       "face": "SW",
       "cell": false
+     },
+     {
+      "id": "bounty_hunter",
+      "name": "Marcus Bell",
+      "look": "person_town_26",
+      "act": "clean",
+      "n": 2,
+      "h": 14.7,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "brigand",
+      "name": "Rusty Kogan",
+      "look": "person_town_43",
+      "act": null,
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": false
+     },
+     {
+      "id": "cartographer",
+      "name": "Ken Takeda",
+      "look": "person_town_28",
+      "act": "sit",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "minstrel",
+      "name": "Chuy Morales",
+      "look": "person_town_17",
+      "act": "flirt",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "drill_sergeant",
+      "name": "Darnell Price",
+      "look": "person_town_14",
+      "act": "talk",
+      "n": 2,
+      "h": 14.7,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "recruiter",
+      "name": "Yolanda Reyes",
+      "look": "person_woman_1",
+      "act": "flirt",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "negotiator",
+      "name": "Gary Lund",
+      "look": "person_town_39",
+      "act": "talk",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "quartermaster",
+      "name": "Tony Arce",
+      "look": "person_town_9",
+      "act": "unpack",
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": true
+     },
+     {
+      "id": "trader",
+      "name": "Memo Gallardo",
+      "look": "person_town_18",
+      "act": "stall",
+      "n": 2,
+      "h": 14.7,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scavenger",
+      "name": "Dot Kowalski",
+      "look": "person_woman_2",
+      "act": "loot",
+      "n": 1,
+      "h": 9,
+      "face": "SW",
+      "cell": true
      }
     ],
     "carts": {
@@ -474,28 +1888,126 @@
       "kind": "utility_cart",
       "which": "front",
       "h": 5,
-      "at": 26150.299999999814,
+      "at": 26461.299999999814,
       "cam": 3
      },
      "blacksmith": {
       "kind": "wagon",
       "which": "back",
       "h": 10,
-      "at": 26150.39999999944,
+      "at": 26461.299999999814,
+      "cam": 3
+     },
+     "paymaster": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 26461.399999999907,
+      "cam": 3
+     },
+     "brigand": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 26461.5,
+      "cam": 3
+     },
+     "recruiter": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 26461.600000000093,
+      "cam": 3
+     },
+     "scavenger": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 26461.700000000186,
       "cam": 3
      },
      "cook": {
       "kind": "shopping_cart",
       "which": "front",
       "h": 9,
-      "at": 26150.599999999627,
+      "at": 26461.700000000186,
+      "cam": 3
+     },
+     "agent": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 26461.799999999814,
+      "cam": 3
+     },
+     "cartographer": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 26461.799999999814,
+      "cam": 3
+     },
+     "negotiator": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 26461.799999999814,
+      "cam": 3
+     },
+     "lookout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 26462.200000000186,
+      "cam": 3
+     },
+     "bounty_hunter": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 26462.299999999814,
+      "cam": 3
+     },
+     "drill_sergeant": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 26462.399999999907,
+      "cam": 3
+     },
+     "trader": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 26462.399999999907,
       "cam": 3
      },
      "scout": {
       "kind": "shopping_cart",
       "which": "front",
       "h": 15,
-      "at": 26150.599999999627,
+      "at": 26462.399999999907,
+      "cam": 3
+     },
+     "alchemist": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 26462.799999999814,
+      "cam": 3
+     },
+     "minstrel": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 26462.899999999907,
+      "cam": 3
+     },
+     "quartermaster": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 26462.899999999907,
       "cam": 3
      }
     },
@@ -515,20 +2027,40 @@
     "name": "Graciela Ochoa",
     "act": "cook",
     "by": null,
-    "x": 861,
+    "x": 321,
     "y": 1007,
     "face": "SE",
     "cart": "shopping_cart"
    },
    {
-    "id": "surgeon",
-    "name": "Alan Cho",
-    "act": "tend",
-    "by": "RAUL",
-    "x": 838,
-    "y": 965,
-    "face": "W",
-    "cart": "utility_cart"
+    "id": "scout",
+    "name": "Danny Nguyen",
+    "act": "loot",
+    "by": null,
+    "x": 404,
+    "y": 1007,
+    "face": "SW",
+    "cart": "shopping_cart"
+   },
+   {
+    "id": "lookout",
+    "name": "Earl Pruitt",
+    "act": "smoke",
+    "by": null,
+    "x": 487,
+    "y": 1007,
+    "face": "SE",
+    "cart": "shopping_cart"
+   },
+   {
+    "id": "paymaster",
+    "name": "Hector Salas",
+    "act": "stall",
+    "by": null,
+    "x": 570,
+    "y": 1007,
+    "face": "SW",
+    "cart": "shopping_cart"
    },
    {
     "id": "blacksmith",
@@ -541,13 +2073,133 @@
     "cart": "wagon"
    },
    {
-    "id": "scout",
-    "name": "Danny Nguyen",
+    "id": "surgeon",
+    "name": "Alan Cho",
+    "act": "tend",
+    "by": "RAUL",
+    "x": 838,
+    "y": 965,
+    "face": "W",
+    "cart": "utility_cart"
+   },
+   {
+    "id": "agent",
+    "name": "Ines Baptiste",
+    "act": "talk",
+    "by": null,
+    "x": 653,
+    "y": 1007,
+    "face": "SE",
+    "cart": "shopping_cart"
+   },
+   {
+    "id": "alchemist",
+    "name": "Felix Amari",
     "act": null,
     "by": null,
-    "x": 944,
+    "x": 238,
     "y": 1007,
     "face": "SW",
+    "cart": "shopping_cart"
+   },
+   {
+    "id": "bounty_hunter",
+    "name": "Marcus Bell",
+    "act": "clean",
+    "by": null,
+    "x": 736,
+    "y": 1007,
+    "face": "SW",
+    "cart": "shopping_cart"
+   },
+   {
+    "id": "brigand",
+    "name": "Rusty Kogan",
+    "act": null,
+    "by": null,
+    "x": 819,
+    "y": 1007,
+    "face": "SE",
+    "cart": "shopping_cart"
+   },
+   {
+    "id": "cartographer",
+    "name": "Ken Takeda",
+    "act": "sit",
+    "by": null,
+    "x": 903,
+    "y": 1007,
+    "face": "SW",
+    "cart": "shopping_cart"
+   },
+   {
+    "id": "drill_sergeant",
+    "name": "Darnell Price",
+    "act": "talk",
+    "by": null,
+    "x": 986,
+    "y": 1007,
+    "face": "SE",
+    "cart": "shopping_cart"
+   },
+   {
+    "id": "minstrel",
+    "name": "Chuy Morales",
+    "act": "flirt",
+    "by": null,
+    "x": 1069,
+    "y": 1007,
+    "face": "SW",
+    "cart": "shopping_cart"
+   },
+   {
+    "id": "negotiator",
+    "name": "Gary Lund",
+    "act": "talk",
+    "by": null,
+    "x": 1152,
+    "y": 1007,
+    "face": "SE",
+    "cart": "shopping_cart"
+   },
+   {
+    "id": "quartermaster",
+    "name": "Tony Arce",
+    "act": "unpack",
+    "by": null,
+    "x": 1235,
+    "y": 1007,
+    "face": "SW",
+    "cart": "shopping_cart"
+   },
+   {
+    "id": "recruiter",
+    "name": "Yolanda Reyes",
+    "act": "flirt",
+    "by": null,
+    "x": 1318,
+    "y": 1007,
+    "face": "SE",
+    "cart": "shopping_cart"
+   },
+   {
+    "id": "scavenger",
+    "name": "Dot Kowalski",
+    "act": "loot",
+    "by": null,
+    "x": 1401,
+    "y": 1007,
+    "face": "SW",
+    "cart": "shopping_cart"
+   },
+   {
+    "id": "trader",
+    "name": "Memo Gallardo",
+    "act": "stall",
+    "by": null,
+    "x": 1484,
+    "y": 1007,
+    "face": "SE",
     "cart": "shopping_cart"
    }
   ],
@@ -580,649 +2232,147 @@
    "surgeon",
    "blacksmith",
    "cook",
-   "scout"
+   "scout",
+   "lookout",
+   "paymaster",
+   "agent",
+   "alchemist",
+   "bounty_hunter",
+   "brigand",
+   "cartographer",
+   "minstrel",
+   "drill_sergeant",
+   "recruiter",
+   "negotiator",
+   "quartermaster",
+   "trader",
+   "scavenger"
   ],
   "cartSeen": {
    "surgeon": {
     "kind": "utility_cart",
     "which": "front",
     "h": 5,
-    "at": 26150.299999999814,
+    "at": 26461.299999999814,
     "cam": 3
    },
    "blacksmith": {
     "kind": "wagon",
     "which": "back",
     "h": 10,
-    "at": 26150.39999999944,
+    "at": 26461.299999999814,
     "cam": 3
    },
    "cook": {
     "kind": "shopping_cart",
     "which": "front",
     "h": 9,
-    "at": 26150.599999999627,
+    "at": 26461.700000000186,
     "cam": 3
    },
    "scout": {
     "kind": "shopping_cart",
     "which": "front",
     "h": 15,
-    "at": 26150.599999999627,
-    "cam": 3
-   }
-  }
- },
- {
-  "shape": "phone_landscape",
-  "surface": "alpha",
-  "cams": [
-   {
-    "cam": 1,
-    "forgeLot": 6,
-    "drew": [
-     "Alan Cho",
-     "Walt Hensley",
-     "Graciela Ochoa",
-     "Danny Nguyen"
-    ],
-    "staff": [
-     {
-      "id": "surgeon",
-      "name": "Alan Cho",
-      "look": "person_town_44",
-      "act": "tend",
-      "n": 5,
-      "h": 10.1,
-      "face": "E",
-      "cell": true
-     },
-     {
-      "id": "blacksmith",
-      "name": "Walt Hensley",
-      "look": "person_town_23",
-      "act": "repair",
-      "n": 6,
-      "h": 11,
-      "face": "NE",
-      "cell": true
-     },
-     {
-      "id": "cook",
-      "name": "Graciela Ochoa",
-      "look": "person_woman_0",
-      "act": "cook",
-      "n": 4,
-      "h": 14.3,
-      "face": "SE",
-      "cell": true
-     },
-     {
-      "id": "scout",
-      "name": "Danny Nguyen",
-      "look": "person_town_42",
-      "act": null,
-      "n": 3,
-      "h": 15.8,
-      "face": "SW",
-      "cell": false
-     }
-    ],
-    "carts": {
-     "surgeon": {
-      "kind": "utility_cart",
-      "which": "front",
-      "h": 5,
-      "at": 4958.600000000559,
-      "cam": 1
-     },
-     "blacksmith": {
-      "kind": "wagon",
-      "which": "back",
-      "h": 11,
-      "at": 4958.600000000559,
-      "cam": 1
-     },
-     "cook": {
-      "kind": "shopping_cart",
-      "which": "front",
-      "h": 14,
-      "at": 4958.600000000559,
-      "cam": 1
-     },
-     "scout": {
-      "kind": "shopping_cart",
-      "which": "front",
-      "h": 16,
-      "at": 4959.200000000186,
-      "cam": 1
-     }
-    },
-    "png": "records/target/staff_cart/alpha_sideways_his_place_1_cam1.png"
-   },
-   {
-    "cam": 2,
-    "forgeLot": 6,
-    "drew": [
-     "Walt Hensley",
-     "Alan Cho",
-     "Graciela Ochoa",
-     "Danny Nguyen"
-    ],
-    "staff": [
-     {
-      "id": "surgeon",
-      "name": "Alan Cho",
-      "look": "person_town_44",
-      "act": "tend",
-      "n": 5,
-      "h": 10.3,
-      "face": "E",
-      "cell": true
-     },
-     {
-      "id": "blacksmith",
-      "name": "Walt Hensley",
-      "look": "person_town_23",
-      "act": "repair",
-      "n": 6,
-      "h": 10.6,
-      "face": "NE",
-      "cell": true
-     },
-     {
-      "id": "cook",
-      "name": "Graciela Ochoa",
-      "look": "person_woman_0",
-      "act": "cook",
-      "n": 4,
-      "h": 13.2,
-      "face": "SE",
-      "cell": true
-     },
-     {
-      "id": "scout",
-      "name": "Danny Nguyen",
-      "look": "person_town_42",
-      "act": null,
-      "n": 3,
-      "h": 16.1,
-      "face": "SW",
-      "cell": false
-     }
-    ],
-    "carts": {
-     "blacksmith": {
-      "kind": "wagon",
-      "which": "back",
-      "h": 11,
-      "at": 9291.400000000373,
-      "cam": 2
-     },
-     "surgeon": {
-      "kind": "utility_cart",
-      "which": "front",
-      "h": 6,
-      "at": 9291.5,
-      "cam": 2
-     },
-     "cook": {
-      "kind": "shopping_cart",
-      "which": "front",
-      "h": 13,
-      "at": 9292.100000000559,
-      "cam": 2
-     },
-     "scout": {
-      "kind": "shopping_cart",
-      "which": "front",
-      "h": 17,
-      "at": 9292.200000000186,
-      "cam": 2
-     }
-    },
-    "png": "records/target/staff_cart/alpha_sideways_his_place_2_cam2.png"
-   },
-   {
-    "cam": 3,
-    "forgeLot": 6,
-    "drew": [
-     "Alan Cho",
-     "Walt Hensley",
-     "Graciela Ochoa",
-     "Danny Nguyen"
-    ],
-    "staff": [
-     {
-      "id": "surgeon",
-      "name": "Alan Cho",
-      "look": "person_town_44",
-      "act": "tend",
-      "n": 5,
-      "h": 10.3,
-      "face": "E",
-      "cell": true
-     },
-     {
-      "id": "blacksmith",
-      "name": "Walt Hensley",
-      "look": "person_town_23",
-      "act": "repair",
-      "n": 6,
-      "h": 11.4,
-      "face": "NE",
-      "cell": true
-     },
-     {
-      "id": "cook",
-      "name": "Graciela Ochoa",
-      "look": "person_woman_0",
-      "act": "cook",
-      "n": 4,
-      "h": 14.3,
-      "face": "SE",
-      "cell": true
-     },
-     {
-      "id": "scout",
-      "name": "Danny Nguyen",
-      "look": "person_town_42",
-      "act": null,
-      "n": 3,
-      "h": 15.8,
-      "face": "SW",
-      "cell": false
-     }
-    ],
-    "carts": {
-     "surgeon": {
-      "kind": "utility_cart",
-      "which": "front",
-      "h": 6,
-      "at": 13624.600000000559,
-      "cam": 3
-     },
-     "blacksmith": {
-      "kind": "wagon",
-      "which": "back",
-      "h": 11,
-      "at": 13624.600000000559,
-      "cam": 3
-     },
-     "cook": {
-      "kind": "shopping_cart",
-      "which": "front",
-      "h": 14,
-      "at": 13624.800000000745,
-      "cam": 3
-     },
-     "scout": {
-      "kind": "shopping_cart",
-      "which": "front",
-      "h": 16,
-      "at": 13624.800000000745,
-      "cam": 3
-     }
-    },
-    "png": "records/target/staff_cart/alpha_sideways_his_place_3_cam3.png"
-   },
-   {
-    "cam": 1,
-    "forgeLot": 6,
-    "drew": [
-     "Alan Cho",
-     "Walt Hensley",
-     "Graciela Ochoa",
-     "Danny Nguyen"
-    ],
-    "staff": [
-     {
-      "id": "surgeon",
-      "name": "Alan Cho",
-      "look": "person_town_44",
-      "act": "tend",
-      "n": 5,
-      "h": 10.1,
-      "face": "E",
-      "cell": true
-     },
-     {
-      "id": "blacksmith",
-      "name": "Walt Hensley",
-      "look": "person_town_23",
-      "act": "repair",
-      "n": 6,
-      "h": 11,
-      "face": "NE",
-      "cell": true
-     },
-     {
-      "id": "cook",
-      "name": "Graciela Ochoa",
-      "look": "person_woman_0",
-      "act": "cook",
-      "n": 4,
-      "h": 14.3,
-      "face": "SE",
-      "cell": true
-     },
-     {
-      "id": "scout",
-      "name": "Danny Nguyen",
-      "look": "person_town_42",
-      "act": null,
-      "n": 3,
-      "h": 15.8,
-      "face": "SW",
-      "cell": false
-     }
-    ],
-    "carts": {
-     "surgeon": {
-      "kind": "utility_cart",
-      "which": "front",
-      "h": 5,
-      "at": 17957.700000000186,
-      "cam": 1
-     },
-     "blacksmith": {
-      "kind": "wagon",
-      "which": "back",
-      "h": 11,
-      "at": 17957.700000000186,
-      "cam": 1
-     },
-     "cook": {
-      "kind": "shopping_cart",
-      "which": "front",
-      "h": 14,
-      "at": 17957.900000000373,
-      "cam": 1
-     },
-     "scout": {
-      "kind": "shopping_cart",
-      "which": "front",
-      "h": 16,
-      "at": 17958,
-      "cam": 1
-     }
-    },
-    "png": "records/target/staff_cart/alpha_sideways_his_place_4_cam1.png"
-   },
-   {
-    "cam": 2,
-    "forgeLot": 6,
-    "drew": [
-     "Walt Hensley",
-     "Alan Cho",
-     "Graciela Ochoa",
-     "Danny Nguyen"
-    ],
-    "staff": [
-     {
-      "id": "surgeon",
-      "name": "Alan Cho",
-      "look": "person_town_44",
-      "act": "tend",
-      "n": 5,
-      "h": 10.3,
-      "face": "E",
-      "cell": true
-     },
-     {
-      "id": "blacksmith",
-      "name": "Walt Hensley",
-      "look": "person_town_23",
-      "act": "repair",
-      "n": 6,
-      "h": 10.6,
-      "face": "NE",
-      "cell": true
-     },
-     {
-      "id": "cook",
-      "name": "Graciela Ochoa",
-      "look": "person_woman_0",
-      "act": "cook",
-      "n": 4,
-      "h": 13.2,
-      "face": "SE",
-      "cell": true
-     },
-     {
-      "id": "scout",
-      "name": "Danny Nguyen",
-      "look": "person_town_42",
-      "act": null,
-      "n": 3,
-      "h": 16.1,
-      "face": "SW",
-      "cell": false
-     }
-    ],
-    "carts": {
-     "blacksmith": {
-      "kind": "wagon",
-      "which": "back",
-      "h": 11,
-      "at": 22290.800000000745,
-      "cam": 2
-     },
-     "surgeon": {
-      "kind": "utility_cart",
-      "which": "front",
-      "h": 6,
-      "at": 22290.900000000373,
-      "cam": 2
-     },
-     "cook": {
-      "kind": "shopping_cart",
-      "which": "front",
-      "h": 13,
-      "at": 22290.900000000373,
-      "cam": 2
-     },
-     "scout": {
-      "kind": "shopping_cart",
-      "which": "front",
-      "h": 17,
-      "at": 22291,
-      "cam": 2
-     }
-    },
-    "png": "records/target/staff_cart/alpha_sideways_his_place_5_cam2.png"
-   },
-   {
-    "cam": 3,
-    "forgeLot": 6,
-    "drew": [
-     "Alan Cho",
-     "Walt Hensley",
-     "Graciela Ochoa",
-     "Danny Nguyen"
-    ],
-    "staff": [
-     {
-      "id": "surgeon",
-      "name": "Alan Cho",
-      "look": "person_town_44",
-      "act": "tend",
-      "n": 5,
-      "h": 10.3,
-      "face": "E",
-      "cell": true
-     },
-     {
-      "id": "blacksmith",
-      "name": "Walt Hensley",
-      "look": "person_town_23",
-      "act": "repair",
-      "n": 6,
-      "h": 11.4,
-      "face": "NE",
-      "cell": true
-     },
-     {
-      "id": "cook",
-      "name": "Graciela Ochoa",
-      "look": "person_woman_0",
-      "act": "cook",
-      "n": 4,
-      "h": 14.3,
-      "face": "SE",
-      "cell": true
-     },
-     {
-      "id": "scout",
-      "name": "Danny Nguyen",
-      "look": "person_town_42",
-      "act": null,
-      "n": 3,
-      "h": 15.8,
-      "face": "SW",
-      "cell": false
-     }
-    ],
-    "carts": {
-     "surgeon": {
-      "kind": "utility_cart",
-      "which": "front",
-      "h": 6,
-      "at": 26457.5,
-      "cam": 3
-     },
-     "blacksmith": {
-      "kind": "wagon",
-      "which": "back",
-      "h": 11,
-      "at": 26457.5,
-      "cam": 3
-     },
-     "cook": {
-      "kind": "shopping_cart",
-      "which": "front",
-      "h": 14,
-      "at": 26457.60000000056,
-      "cam": 3
-     },
-     "scout": {
-      "kind": "shopping_cart",
-      "which": "front",
-      "h": 16,
-      "at": 26457.60000000056,
-      "cam": 3
-     }
-    },
-    "png": "records/target/staff_cart/alpha_sideways_his_place_6_cam3.png"
-   }
-  ],
-  "planted": [
-   49,
-   46
-  ],
-  "hurt": [
-   "RAUL"
-  ],
-  "staff": [
-   {
-    "id": "cook",
-    "name": "Graciela Ochoa",
-    "act": "cook",
-    "by": null,
-    "x": 2363,
-    "y": 788,
-    "face": "SE",
-    "cart": "shopping_cart"
-   },
-   {
-    "id": "surgeon",
-    "name": "Alan Cho",
-    "act": "tend",
-    "by": "RAUL",
-    "x": 2266,
-    "y": 746,
-    "face": "W",
-    "cart": "utility_cart"
-   },
-   {
-    "id": "blacksmith",
-    "name": "Walt Hensley",
-    "act": "repair",
-    "by": null,
-    "x": 2405,
-    "y": 769,
-    "face": "N",
-    "cart": "wagon"
-   },
-   {
-    "id": "scout",
-    "name": "Danny Nguyen",
-    "act": null,
-    "by": null,
-    "x": 2446,
-    "y": 788,
-    "face": "SW",
-    "cart": "shopping_cart"
-   }
-  ],
-  "workers": {
-   "workers": [
-    {
-     "name": "DESI",
-     "at": "yard",
-     "x": 2488,
-     "y": 785
-    },
-    {
-     "name": "RAUL",
-     "at": "grinder",
-     "x": 2234,
-     "y": 739
-    }
-   ],
-   "shop": "ReferenceError: shopCrew is not defined"
-  },
-  "crewHere": [],
-  "errs": [],
-  "pass": {
-   "F1": true,
-   "F2": true,
-   "F3": true,
-   "P": true
-  },
-  "seen": [
-   "surgeon",
-   "blacksmith",
-   "cook",
-   "scout"
-  ],
-  "cartSeen": {
-   "surgeon": {
-    "kind": "utility_cart",
-    "which": "front",
-    "h": 6,
-    "at": 26457.5,
+    "at": 26462.399999999907,
     "cam": 3
    },
-   "blacksmith": {
-    "kind": "wagon",
-    "which": "back",
-    "h": 11,
-    "at": 26457.5,
-    "cam": 3
-   },
-   "cook": {
+   "lookout": {
     "kind": "shopping_cart",
     "which": "front",
     "h": 14,
-    "at": 26457.60000000056,
+    "at": 26462.200000000186,
     "cam": 3
    },
-   "scout": {
+   "paymaster": {
     "kind": "shopping_cart",
     "which": "front",
-    "h": 16,
-    "at": 26457.60000000056,
+    "h": 9,
+    "at": 26461.399999999907,
+    "cam": 3
+   },
+   "agent": {
+    "kind": "shopping_cart",
+    "which": "front",
+    "h": 9,
+    "at": 26461.799999999814,
+    "cam": 3
+   },
+   "alchemist": {
+    "kind": "shopping_cart",
+    "which": "front",
+    "h": 15,
+    "at": 26462.799999999814,
+    "cam": 3
+   },
+   "bounty_hunter": {
+    "kind": "shopping_cart",
+    "which": "front",
+    "h": 14,
+    "at": 26462.299999999814,
+    "cam": 3
+   },
+   "brigand": {
+    "kind": "shopping_cart",
+    "which": "front",
+    "h": 9,
+    "at": 26461.5,
+    "cam": 3
+   },
+   "cartographer": {
+    "kind": "shopping_cart",
+    "which": "front",
+    "h": 9,
+    "at": 26461.799999999814,
+    "cam": 3
+   },
+   "minstrel": {
+    "kind": "shopping_cart",
+    "which": "front",
+    "h": 15,
+    "at": 26462.899999999907,
+    "cam": 3
+   },
+   "drill_sergeant": {
+    "kind": "shopping_cart",
+    "which": "front",
+    "h": 14,
+    "at": 26462.399999999907,
+    "cam": 3
+   },
+   "recruiter": {
+    "kind": "shopping_cart",
+    "which": "front",
+    "h": 9,
+    "at": 26461.600000000093,
+    "cam": 3
+   },
+   "negotiator": {
+    "kind": "shopping_cart",
+    "which": "front",
+    "h": 9,
+    "at": 26461.799999999814,
+    "cam": 3
+   },
+   "quartermaster": {
+    "kind": "shopping_cart",
+    "which": "front",
+    "h": 15,
+    "at": 26462.899999999907,
+    "cam": 3
+   },
+   "trader": {
+    "kind": "shopping_cart",
+    "which": "front",
+    "h": 14,
+    "at": 26462.399999999907,
+    "cam": 3
+   },
+   "scavenger": {
+    "kind": "shopping_cart",
+    "which": "front",
+    "h": 9,
+    "at": 26461.700000000186,
     "cam": 3
    }
   }

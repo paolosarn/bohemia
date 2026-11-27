@@ -16,7 +16,7 @@ const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const A = process.argv.slice(2), arg = (k, d) => { const i = A.indexOf(k); return i >= 0 ? A[i + 1] : d; };
 const ALPHA = A.includes('--alpha'), CODE = arg('--code', 'K7QM9X'), SHAPES = arg('--shapes', 'phone_portrait,phone_landscape').split(',');
 const OUTD = path.resolve(ROOT, arg('--out', 'records/target/staff_cart')), TAG = ALPHA ? 'alpha' : 'demo';
-const CAMP = ['cook', 'surgeon', 'blacksmith', 'scout'];
+const CAMP = A.includes('--all') ? ['cook', 'scout', 'lookout', 'paymaster', 'blacksmith', 'surgeon', 'agent', 'alchemist', 'bounty_hunter', 'brigand', 'cartographer', 'drill_sergeant', 'minstrel', 'negotiator', 'quartermaster', 'recruiter', 'scavenger', 'trader'] : ['cook', 'surgeon', 'blacksmith', 'scout'];   /* --all: all eighteen */
 fs.mkdirSync(OUTD, { recursive: true });
 
 async function walk(shape) {
@@ -71,7 +71,7 @@ async function walk(shape) {
   row.pass = {
     F1: CAMP.every(id => seen[id] && cartSeen[id]),
     F2: by('blacksmith').act === 'repair' && row.cams.some(c => (c.staff || []).some(s => s.id === 'blacksmith' && c.forgeLot != null && s.n === c.forgeLot)) && by('cook').act === 'cook' && by('surgeon').act === 'tend' && !!by('surgeon').by,
-    F3: ['cook', 'surgeon', 'blacksmith'].every(id => row.cams.some(c => (c.staff || []).some(s => s.id === id && s.cell))),
+    F3: st.filter(s => s.act).length >= (A.includes('--all') ? 15 : 3) && st.filter(s => s.act).every(s => row.cams.some(c => (c.staff || []).some(x => x.id === s.id && x.cell))),   /* every trade at work is ANIMATION's cell (the brigand, and a second healer with nobody hurt, stand) */
     P: !row.err && !errs.length };
   row.seen = Object.keys(seen); row.cartSeen = cartSeen;
   await d.close().catch(() => {});

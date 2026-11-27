@@ -2265,7 +2265,8 @@ function homeWorkers(out){
    pictures), doing his trade in ANIMATION's acts where his body has them: the cook cooks, the blacksmith hammers at the forge when it
    is built (else at his cart), the one who heals kneels by the man of his who is hurt worst (BohemiaCondition's hitpoints off) and stands
    by his cart when nobody is. A tap on one says his line. ==== */
-var STAFF_HOME_WORK = { cook: 'cook', surgeon: 'tend', alchemist: 'tend', blacksmith: 'repair' };
+var STAFF_HOME_WORK = { cook: 'cook', surgeon: 'tend', alchemist: 'tend', blacksmith: 'repair', scout: 'loot', scavenger: 'loot', lookout: 'smoke', paymaster: 'stall', trader: 'stall',
+  bounty_hunter: 'clean', cartographer: 'sit', drill_sergeant: 'talk', negotiator: 'talk', agent: 'talk', minstrel: 'flirt', recruiter: 'flirt', quartermaster: 'unpack' };   /* STAFF 2 11/27: each at his trade (the camp's FOLLOWER_WORK in ANIMATION's act names) */
 function homeStaff(out){
   window.__HOME_STAFF = []; if(!homeFeedWant() || !VAR || !VAR.boxes.build || !window.BohemiaCamp || !BohemiaCamp.staff) return;
   var st = []; try{ st = BohemiaCamp.staff() || []; }catch(e){} if(!st.length) return;
@@ -2289,8 +2290,9 @@ function homeFeedStaff(F, out, T, at, front){
   var k = 0; F.forEach(function(p){ if(!p.staffHome) return; var n = null, side = 0, face = 'SE';
     if(p.atForge && at.forge != null){ n = at.forge; side = -1; face = 'NE'; }
     else if(p.by){ var o = out.filter(function(x){ return x.p.name === p.by; })[0]; if(o){ n = o.n; side = o.x > (T[n] ? (T[n][0] + T[n][2]) / 2 : o.x) ? -1 : 1; face = side > 0 ? 'W' : 'E'; } }
-    if(n == null && front.length){ n = front[(front.length - 1 - k) % front.length]; k++; face = k % 2 ? 'SE' : 'SW'; }
-    if(n == null || !T[n]) return; var b = T[n], hpx = Math.max(9, (b[2] - b[0]) * .22), px = side < 0 ? b[0] + (b[2] - b[0]) * .25 : side > 0 ? b[2] - (b[2] - b[0]) * .22 : (b[0] + b[2]) / 2;
+    var slot = 0;
+    if(n == null && front.length){ var fl = front.length; n = front[(((fl - 1 - k) % fl) + fl) % fl]; slot = Math.floor(k / fl); k++; face = k % 2 ? 'SE' : 'SW'; }
+    if(n == null || !T[n]) return; var b = T[n], hpx = Math.max(9, (b[2] - b[0]) * .22), px = side < 0 ? b[0] + (b[2] - b[0]) * .25 : side > 0 ? b[2] - (b[2] - b[0]) * .22 : b[0] + (b[2] - b[0]) * [.5, .32, .68, .18, .82][slot % 5];   /* more than one a lot: side by side along it */
     out.push({ p: p, n: n, x: px, y: b[3] - 1, h: hpx, face: face }); });
   window.__HOME_FEED_STAFF = { cam: HF.cam, forge: at.forge != null ? at.forge : null, ppl: out.filter(function(o){ return o.p.staffHome; }).map(function(o){ return { id: o.p.follower, name: o.p.name, look: o.p.look, act: o.p.act, n: o.n, h: Math.round(o.h * 10) / 10, face: o.face }; }) }; }
 /* his cart on the footage, lit as the footage lights a person (hfLit), at his height: its back under him, its front over him */

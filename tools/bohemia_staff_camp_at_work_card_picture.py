@@ -4,7 +4,7 @@
 glass, scaled with nearest pixels, two panels a row, tall (the VOTE tab drags it):
   THE CAMP, on its side (the whole camp: the cook at her pot, the surgeon kneeling by the man lying hurt, the blacksmith at his hammer)
   THE CAMP, upright, close on the surgeon and the hurt man   |   HIS PLACE: the camera finds the blacksmith   |   HIS PLACE: the cook
-    python3 tools/bohemia_staff_camp_at_work_card_picture.py <out.webp> [demo|alpha]
+    python3 tools/bohemia_staff_camp_at_work_card_picture.py <out.webp> [demo|alpha] [all]
 """
 import os, sys
 from PIL import Image
@@ -25,7 +25,12 @@ def crop_frac(name, x0, y0, x1, y1):
     return im.crop((round(x0 * W), round(y0 * H), round(x1 * W), round(y1 * H)))
 
 
-def main(out, tag='demo'):
+def main(out, tag='demo', mode=''):
+    if mode == 'all':   # STAFF 2 11/27: all eighteen hired: the camp by its fire, upright in two halves and on its side; his place's cameras
+        panels = [crop_frac(tag + '_upright_the_camp_at_work.png', 0.0, 0.10, 1.0, 0.42), crop_frac(tag + '_upright_the_camp_at_work.png', 0.0, 0.40, 1.0, 0.72),
+                  crop_frac(tag + '_sideways_the_camp_at_work.png', 0.0, 0.06, 0.78, 0.94), crop_frac(tag + '_upright_his_place_1_cam1.png', 0.0, 0.10, 1.0, 0.62),
+                  crop_frac(tag + '_upright_his_place_2_cam2.png', 0.0, 0.10, 1.0, 0.62), crop_frac(tag + '_upright_his_place_3_cam3.png', 0.0, 0.10, 1.0, 0.62)]
+        return lay(panels, out)
     panels = [
         crop_frac(tag + '_upright_the_camp_at_work.png', 0.18, 0.30, 0.82, 0.56),      # upright, close on the surgeon by the hurt man
         crop_frac(tag + '_upright_the_camp_at_work.png', 0.55, 0.18, 1.0, 0.36),       # upright, close on the cook at her pot
@@ -34,6 +39,10 @@ def main(out, tag='demo'):
         crop_frac(tag + '_upright_his_place_1_cam1.png', 0.0, 0.10, 1.0, 0.62),        # his place: RAUL  GRINDER, the surgeon by him
         crop_frac(tag + '_upright_his_place_4_cam1.png', 0.0, 0.10, 1.0, 0.62),        # his place: GRACIELA  COOK
     ]
+    return lay(panels, out)
+
+
+def lay(panels, out):
     W, H, pad = 600, 900, 12
     cells = [fit(p, W, H) for p in panels]
     n = (len(cells) + 1) // 2
@@ -44,4 +53,4 @@ def main(out, tag='demo'):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else 'demo')
+    main(sys.argv[1], sys.argv[2] if len(sys.argv) > 2 else 'demo', sys.argv[3] if len(sys.argv) > 3 else '')

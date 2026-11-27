@@ -469,12 +469,20 @@
      surgeon and the alchemist tend (kneeling by the worst hurt man lying in the camp when there is one: FOLLOWER_TEND, his middle),
      the blacksmith mends (the hammer on the car door, its spark on the beat); the rest watch. A body ANIMATION has not rendered an act
      for stands as before (the act's fallback, then his idle, then his still). */
-  var FOLLOWER_WORK = { cook: 'cook', surgeon: 'tend', alchemist: 'tend', blacksmith: 'mend' };
+  var FOLLOWER_WORK = { cook: 'cook', surgeon: 'tend', alchemist: 'tend', blacksmith: 'mend',
+    /* STAFF 2 11/27 (rule 482, the coordinator: 'the 14 of 18 camp people who still have no animation, each doing his own job'): the
+       scout and the scavenger go through what they found, the lookout smokes on his watch, the paymaster and the trader go over the
+       stock, the bounty hunter cleans his gun, the cartographer sits over his maps, the drill sergeant, the negotiator and the agent
+       talk, the minstrel and the recruiter work a crowd (the flirt), the quartermaster unpacks; the brigand stands (his body's render
+       does not match his still, so ANIMATION's pack keeps nothing of it: he watches until it does) */
+    scout: 'loot', scavenger: 'loot', lookout: 'smoke', paymaster: 'stall', trader: 'stall', bounty_hunter: 'clean', cartographer: 'sit',
+    drill_sergeant: 'talk', negotiator: 'talk', agent: 'talk', minstrel: 'flirt', recruiter: 'flirt', quartermaster: 'unpack' };
   /* the camp's trades' own cells: a camp person's body that is not one of the town's crew carries only his trade's act (the surgeon's
      body tends, the blacksmith's repairs: ANIMATION's tool, rendered and packed as its crew are), kept out of the town's index (there
      every man has all twenty acts, the town deals any of them: THE TOWN'S ACTIVITIES) and laid into BohemiaIdles' looks once its index
      is in, here, in the frame that draws the camp and his place's footage */
-  var STAFF_ACTS = { person_town_44: { json: 'person_town_44.json', acts: ['tend'] }, person_town_23: { json: 'person_town_23.json', acts: ['repair'] } };
+  var STAFF_ACTS = { person_town_44: { json: 'person_town_44.json', acts: ['tend'] }, person_town_23: { json: 'person_town_23.json', acts: ['repair'] },
+    person_town_42: { json: 'person_town_42.json', acts: ['loot'] }, person_town_29: { json: 'person_town_29.json', acts: ['smoke'] }, person_town_36: { json: 'person_town_36.json', acts: ['stall'] }, person_town_19: { json: 'person_town_19.json', acts: ['tend'] }, person_town_26: { json: 'person_town_26.json', acts: ['clean'] }, person_town_28: { json: 'person_town_28.json', acts: ['sit'] }, person_town_14: { json: 'person_town_14.json', acts: ['talk'] }, person_town_17: { json: 'person_town_17.json', acts: ['flirt'] }, person_town_39: { json: 'person_town_39.json', acts: ['talk'] }, person_town_9: { json: 'person_town_9.json', acts: ['unpack'] }, person_town_18: { json: 'person_town_18.json', acts: ['stall'] } };
   function staffActs() { var I = root.BohemiaIdles, T = I && I.town ? I.town() : null; if (!T || !T.looks) return false;
     for (var k in STAFF_ACTS) if (!T.looks[k]) T.looks[k] = STAFF_ACTS[k]; return true; }
   (function waitIdles(n) { if (staffActs() || n > 120) return; setTimeout(function () { waitIdles(n + 1); }, 500); })(0);
@@ -589,6 +597,7 @@
      (its 'repair', the car door and the hammer); a man who was lying and is healed gets up ONCE ('rise', from the moment he
      healed), then does his job */
   var ANIM_ACT = { lie: 'lie', sleep: 'sleep', rest: 'mend', mend: 'repair', tend: 'tend', cook: 'cook', clean: 'clean', loot: 'loot', lean: 'flirt', talk: 'talk', smoke: 'smoke', drink: 'drink', sit: 'sit' };   /* CAMP FOUR __THE_CREW_LIVES__: ANIMATION's talk, smoke, drink and sit */   /* __THE_CAMP_AFTER_A_FIGHT__: lean is the flirt's wall (the hand up on it) */   /* CAMP THREE: loot, ANIMATION's when his look has it (the aftermath's act) */
+  ANIM_ACT.stall = 'stall'; ANIM_ACT.unpack = 'unpack'; ANIM_ACT.flirt = 'flirt';   /* STAFF 2 (rule 482): the camp's people's trades, ANIMATION's own acts by name */
   var RISE_MS = 4000;   /* its one slot: 24 keys, two bars at 120 BPM */
   var DRIFT_MS = 6000;   /* CAMP FOUR: twelve beats at 120 BPM between one man's next thing and the next man's */
   function animCell(m, now, face, I) {
