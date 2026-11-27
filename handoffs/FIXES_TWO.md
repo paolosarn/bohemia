@@ -2,7 +2,23 @@
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 # FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
 # FIXES FOUR (the chat answers to 'fixes 4', 11/27; FIXES 3 wrote HANDOFF READY at 02:13 11/27) carries this file on: same job, blocks named FIXES FOUR.
-FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (a) LATEST -- [beast bites] BUILD 11/27t - A BEAST BITES LIKE A BEAST, BUILT, NOT YET SEEN:
+FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (b) LATEST -- [leave lights] BUILD 11/27zc - LEAVE LIGHTS ON THE GLASS, BUILT, NOT YET SEEN: ask row 747
+(JOBS 2's find, FIGHT SCREEN 3's row, FIXES 3's open measurement). Record: records/BOHEMIA_FIXES_FOUR_LEAVE_LIGHTS_ON_THE_GLASS_11_27_26.md.
+No VOTE card (a timing; nothing new to look at). 11/27a (BUILD 11/27t, the beast bites) is pushed (40bf127fb).
+WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): after a fight, LEAVE and MAKE CAMP light the moment the end screen
+lands on the glass, not before it is even visible; the first tap on LEAVE goes home (it used to press the phone's fight button under
+that spot while the screen was still coming up out of the phone's corner: 6 of 8 first taps missed; now 8 of 8 at 1x, 3 of 3 at 4x).
+THE PIECE: slices/BOHEMIA_SPOILS_SCREEN.html __LEAVE_LIGHTS_ON_THE_GLASS__ (lightOnTheGlass, onTheGlass; state.litAt, state.litWaits;
+window.__LEAVE_LIGHTS_AT_ONCE on the top page = the old way). LEAVE's own rule (FIXES 3's) unchanged. The page loads live (no cut needed;
+the stamp and the demo cut ride along). The instrument: tools/bohemia_fixes_four_leave_mid_grow.js (--before for the A/B).
+PROVEN: LEAVE LIGHTS ON THE GLASS 3/0 (new; PLANTED red); LEAVE WAITS 5/0; THE WHOLE LOOP PLAYS 11/0; MAKE CAMP FROM THE FIGHT 11/0;
+THE SPOILS 18/1 and THE AFTERMATH 17/3 the same on clean main. FILED row 779 (UI FIVE with MOTION): the end screen grows in twice.
+NEXT (in this order): (1) EYES' 747 (AUTO on their turn, the phone still holds his man's buttons; FIGHT SCREEN 3's: read its newest
+commits first); (2) the death player's ON THE BEAT flake (one death in seven 33 ms off on the 4x phone; SOUNDS has no chat for it);
+(3) the teratorn's voice (a bird: two crow clips banked); (4) DESI's mark when CHARACTER TWO's body lands; (5) EYES' and PLUMBER 8's new
+rows. Never send_later or anything that waits on a tap.
+
+FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (a) -- [beast bites] BUILD 11/27t - A BEAST BITES LIKE A BEAST, BUILT, NOT YET SEEN:
 ask row 749 (BESTIARY 2's find; SOUNDS has no chat for it, SOUNDS 3 is on the music) on FIXES 3's written plan. Record:
 records/BOHEMIA_FIXES_FOUR_A_BEAST_BITES_LIKE_A_BEAST_11_27_26.md. VOTE card fixes4-a-beast-bites-like-a-beast-11-27 (a page, the game's own sounds, before and now).
 WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): an animal hitting one of his men in a fight is heard as the animal (a snarl

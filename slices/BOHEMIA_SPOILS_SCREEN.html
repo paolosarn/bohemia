@@ -921,13 +921,46 @@ function aftermath(f){
   var dead = ((f.spoils && f.spoils.bodies) || []).filter(function(b){ return b.dead; }).map(function(b, i){ return { name:b.name, look:i % 2 ? 'tier_poacher' : 'tier_thug', x:5 + (i % 2), y:3 + i * 2, face:(i * 3) % 8 }; });
   AM.fromSample({ men:men.filter(function(m){ return m.state !== 'dead'; }), dead:dead.concat(men.filter(function(m){ return m.state === 'dead'; })) }).then(function(sc2){ if(sc2 && S.fight === f) AM.start(cv, sc2, o); }).catch(function(){});
 }
+/* __LEAVE_LIGHTS_ON_THE_GLASS__ (FIXES 4 11/27, ask row 747 FOUND BY JOBS 2, rule 480(b)). MEASURED on the demo upright (one road fight a
+   boot, a real tap at LEAVE's drawn middle the first frame it lit, tools/bohemia_fixes_four_leave_mid_grow.js): LEAVE lit 232 to 328 ms
+   after the door was on the page at 1x (1,022 ms at 4x) while the door was still held invisible under the board (MOTION 3's door waits for
+   this page to be drawn) and before it grew out of the phone's corner (to 342 to 458 ms); a tap where LEAVE was drawn the frame it lit
+   pressed the phone's button under that spot (the fight row's app, 4 of 4 first taps, both speeds) and did nothing; the second tap went
+   home. NOW LEAVE and MAKE CAMP light when the screen stands on the glass: this page's frame at its full box, its door opaque, nothing
+   under the door still moving, two frames running (3 s at most, never stranded; a page with no frame at once). LEAVE's own rule is the
+   same as before (open is enough: FIXES 3's); only the light waits, so lit means a thumb there presses LEAVE. */
+var LIT_MAX_MS = 3000;
+function onTheGlass(){
+  try{
+    var fe = window.frameElement; if(!fe) return '';
+    var tw = fe.ownerDocument.defaultView, wr = fe.parentElement || fe, r = fe.getBoundingClientRect();
+    if(Math.abs(r.left) > 1 || Math.abs(r.top) > 1 || Math.abs(r.width - fe.clientWidth) > 1 || Math.abs(r.height - fe.clientHeight) > 1){ S.litBox = [Math.round(r.left), Math.round(r.top), Math.round(r.width), Math.round(r.height), fe.clientWidth, fe.clientHeight]; return 'box'; }
+    for(var e = fe; e && e !== fe.ownerDocument.documentElement; e = e.parentElement) if(+tw.getComputedStyle(e).opacity < 0.99) return 'faint';
+    var run = wr.getAnimations ? wr.getAnimations({ subtree: true }).filter(function(a){ return a.playState === 'running'; }) : [];
+    if(run.length) return 'moving:' + run.map(function(a){ var t = a.effect && a.effect.target; return (a.animationName || a.transitionProperty || a.id || 'anim') + '@' + (t ? (t.id || t.tagName) : '?'); }).join(',');
+    return '';
+  }catch(_e){ return ''; }
+}
+function lightOnTheGlass(seq){
+  var t0 = Date.now(), still = 0, lit = false;
+  var light = function(){ if(lit || S.seq !== seq) return; lit = true; S.litAt = Date.now() - t0; try{ document.documentElement.classList.add('sp-live'); }catch(_e){} };
+  var tick = function(){
+    if(lit || S.seq !== seq) return;
+    var why = onTheGlass(); still = why ? 0 : still + 1; if(why){ S.litWaits = S.litWaits || {}; S.litWaits[why] = (S.litWaits[why] | 0) + 1; }
+    var once = false; try{ once = !!(window.__LEAVE_LIGHTS_AT_ONCE || window.parent.__LEAVE_LIGHTS_AT_ONCE); }catch(_e){}   /* the way before, for a gate's A/B */
+    if(still >= 2 || Date.now() - t0 > LIT_MAX_MS || once) return light();
+    requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+  setTimeout(light, LIT_MAX_MS + 100);   /* a page with no frames to draw (hidden) still lights */
+}
 /* ---------- open ---------- */
 function open(o){
   o = o || {};
   if(!S.ready){ S.pending = o; return; }
   var f = o.fight || {};
   S.fight = f; S.seq = o.seq || Date.now();
-  try{ document.documentElement.classList.add('sp-live'); }catch(_e){}   /* __LEAVE_WAITS_FOR_THE_SCREEN__: open, LEAVE lights */
+  lightOnTheGlass(S.seq);   /* __LEAVE_WAITS_FOR_THE_SCREEN__: open, and LEAVE lights once the screen stands on the glass (below) */
   S.stash = (readJ(BAGKEY, []) || []).slice(0, S.cap);
   S.looks = {}; S.sexes = {}; ((f.spoils && f.spoils.looks) || []).forEach(function(l){ if(l && l.name){ S.looks[l.name] = l.look; if(l.sex) S.sexes[l.name] = l.sex; } });
   S.men = climbs(Array.isArray(f.crew) ? f.crew : []);
