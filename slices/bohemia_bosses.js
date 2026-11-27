@@ -221,7 +221,10 @@
        to his place and holds on it, then comes back to the crew, and only then is the card read out: GO TO HIS PLACE is a place he has
        seen. Nothing is drawn at the glass's edge (rule 473(d)); the camera moves, the map is the map. */
     if (LEADCAM) return true;
-    if (!L.ledCam && f) { if (leadCam(r, f)) { L.ledCam = day() + 1; save(); return true; } }
+    if (!L.ledCam && f) { if (leadCam(r, f)) { L.ledCam = day() + 1; L.leadTries = 0; save(); return true; }
+      /* MEASURED 11/27 (THE LOCKSMITH, one run in three): the camera could not start that instant and the card came with no lead; it
+         tries again on the next ticks (about 5 s) before the card is read out without it, and says why (LAST.leadMiss) */
+      L.leadTries = (L.leadTries | 0) + 1; if (L.leadTries < 6) return true; }
     L.read = day() + 1; L.thingDue = false; save();
     return talk('thing', r.n, { look: m.look, name: m.name, from: T.what ? 'one of yours, at ' + T.what : null, head: T.head, text: T.says || '', opts: [
       { t: 'GO TO HIS PLACE', tag: String((r.place && r.place.name) || r.n), fn: function () { closeCard(false); if (f) walkTo([f.x, f.y]); } },
@@ -2791,9 +2794,10 @@
   var LEAD_MS = { go: 1000, hold: 1500, back: 800 }, LEAD_PH = ['go', 'hold', 'back'];
   function leadAt(ph) { return ph === 'hold' ? LEAD_MS.go : ph === 'back' ? LEAD_MS.go + LEAD_MS.hold : 0; }
   function leadCam(r, f) {
-    try { if (MODE !== 'city' || bench()) return false; } catch (e) { return false; }
-    try { if (townTurn() || fightUp()) return false; } catch (e) {}   /* never under a town's screen or a fight */
-    var at = placeAt(f), cam = camGo(at[0], at[1], LEAD_MS.go); if (!cam) return false;
+    var miss = function (why) { LAST.leadMiss = { n: r.n, why: why, t: Date.now() }; return false; };
+    try { if (MODE !== 'city' || bench()) return miss('not on the map (' + MODE + ')'); } catch (e) { return miss('no map'); }
+    try { if (townTurn() || fightUp()) return miss('a town or a fight'); } catch (e) {}   /* never under a town's screen or a fight */
+    var at = placeAt(f), cam = camGo(at[0], at[1], LEAD_MS.go); if (!cam) return miss('the camera: ' + (LAST.camErr || 'none'));
     /* the sign tells you where he is, so his door is seen (one block round his place; his fall reveals more). MEASURED 11/27 on THE
        SURVEYOR: the camera held on black, the fog and his static over his place; now his place stands in his static, and his side
        forgets it again the moment the crew walks, by his own rule (holeForget) */

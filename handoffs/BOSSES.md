@@ -7,6 +7,8 @@ Record: records/BOHEMIA_BOSSES_SEVEN_TO_NINE_ARRIVE_AND_THE_STRAPPED_BOSSES_11_2
 - __THE_STRAPPED_BOSS__ (BOHEMIA_FIGHT.html): a boss whose row names a gun and whose kind's gear holds a gun fights with it. THE MACHINIST
   now has the Pipe Shotgun (he had fought with a Saif: the gunner's roll gave him his sidearm), THE LENS the Night-Sight AR. ARMORY 3's
   numbers unchanged. Everybody else carries BESTIARY 3's waistband pistol.
+- FOLLOW-UP BUILD 11/27zl THE SIGN ALWAYS LEADS: the card waits up to about 5 s for the camera's lead (it once came with none); the
+  walk's quick fall takes three tries at a sign (THE CLIMB's flyer). All three gate parts green after, in the foreground.
 - NEXT (rule 482, no act two): bosses ten to twelve (THE PLATE, THE TOOTH, THE LENS) the same way, a fourth gate part; where a sidearm
   fits better than the waistband's (THE TOOTH a Switched Pistol, THE SMITH a Pipe SMG), a 'sidearm' on his row.
 

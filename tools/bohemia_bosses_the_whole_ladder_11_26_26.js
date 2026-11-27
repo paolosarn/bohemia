@@ -123,7 +123,10 @@ const say = (s) => console.log(s);
   const crew = () => fr.evaluate(() => { try { const C = (typeof ctCrew === 'function' ? ctCrew() : null) || (window.BohemiaCompany && BohemiaCompany.men ? BohemiaCompany.men() : null); return C ? C.length : null; } catch (e) { return null; } }).catch(() => null);
 
   const quick = async (n) => {   /* LADDER_ONLY: the ones before the part asked for fall the quick way (the map's own fell()), and say so */
-    const w = await waitSign(n); let s = w.s; if (s.boss.sign && s.boss.sign.n === n && !s.boss.found[n]) { await go([s.boss.sign.x, s.boss.sign.y]); await settle(); }
+    const w = await waitSign(n); let s = w.s;
+    /* three tries to stand on his sign, the way the walked path does (MEASURED 11/27: THE CLIMB's flyer, one try, the crew stopped short
+       twice in four runs and the whole part failed with nobody walked) */
+    for (let k = 0; k < 3; k++) { s = await st(); if (!(s.boss.sign && s.boss.sign.n === n && !s.boss.found[n])) break; await go([s.boss.sign.x, s.boss.sign.y]); await settle(); await clearCards(n); }
     const th = await bossCard('thing', n, 8000); if (th) await pressCard(1); await clearCards(); s = await st(); if (!s.boss.found[n]) return false;
     await fr.evaluate((n) => { BohemiaHisMap.fell(n); }, n); const af = await bossCard('after', n, 30000); if (af) await pressCard(0); await page.waitForTimeout(2500); await clearCards(); s = await st(); return !!s.boss.fallen[n]; };
 
@@ -147,6 +150,7 @@ const say = (s) => console.log(s);
     if (ak) { await snap(n, 'b_asker'); await pressCard(0); const ay = await bossCard('asker_yes', n, 6000); if (ay) await pressCard(0); await page.waitForTimeout(600); }
     if (leadWatch) clearInterval(leadWatch);
     R.leadCam = await fr.evaluate((n) => { const c = window.__BOSS_LEAD_CAM; return c && c.n === n ? c.phases.join('>') : null; }, n).catch(() => null);
+    R.leadMiss = await fr.evaluate(() => (BohemiaBosses.last() || {}).leadMiss || null).catch(() => null);
     const th = await bossCard('thing', n, 12000); if (th) await pressCard(1);
     await page.waitForTimeout(800); await clearCards(n);
     s = await st(); R.found = !!s.boss.found[n]; R.asker = row.quiet ? 'quiet (rule 454(a))' : !!ak; R.thing = !!th;

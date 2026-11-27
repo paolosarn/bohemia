@@ -30,3 +30,10 @@ Each run in the foreground with a timeout.
 - Before the push (BUILD 11/27zg, on main as 11/27zd left it, shipped over 11/27zf): HANDOFF, BOSS LADDER, ATTEMPT green. PAGES PUBLISH RED, NOT THIS LANE'S:
   the published surface measures 911 MB against its 900 MB cap; this build adds 0.1 MB to the published folders (the VOTE picture), so
   main stood over it already (COOK SEVEN's truck stop art had just landed). For PLUMBER 8.
+
+## THE POST-CHECK, AND A FOLLOW-UP (BUILD 11/27zl - THE SIGN ALWAYS LEADS)
+Run again on main after the ship, THE BOSS ARRIVES 7 TO 9 went red twice, neither time in the bosses' arrival as built: (1) THE CLIMB's
+quick fall (the walk's helper for the bosses before the part) walked to his flyer once and stopped short, so nobody was walked; it now
+takes three tries, as the walked path does; (2) THE LOCKSMITH's sign once read with no camera lead: the camera could not start that
+instant and the card came at once. The card now waits up to about five seconds for the camera to lead first (slices/bohemia_bosses.js
+thing(), LAST.leadMiss says why when it never can). After: 1-3 27/0, 4-6 27/0, 7-9 28/0, each in the foreground.

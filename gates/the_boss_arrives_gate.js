@@ -47,7 +47,7 @@ const W1 = (x) => x && x.ok.S && x.ok.F && x.ok.M && x.ok.E;
 ok('the walk played the ' + THREE.length, got.length === THREE.length, got.map(x => x.n).join(', ') || (r.stdout || '').split('\n').slice(-4).join(' | '));
 for (const n of THREE) {
   const x = got.filter(g => g.n === n)[0], row = ROWS.filter(b => b.n === n)[0];
-  ok('L1 ' + n + ': his sign leads to his place (the camera goes, holds, comes back), then the card', L1(x), x && x.leadCam);
+  ok('L1 ' + n + ': his sign leads to his place (the camera goes, holds, comes back), then the card', L1(x), x && (x.leadCam || JSON.stringify(x.leadMiss || null)));
   ok('E1 ' + n + ': his entrance, his name and his title, once the fight is on top', E1(x, row), x && JSON.stringify(x.entrance && x.entrance.entrance));
   ok('P1 ' + n + ': his name rides over his head on the glass', P1(x), x && JSON.stringify(x.entrance && x.entrance.plate));
   ok('M1 ' + n + ': his moment at half with his own tip, then his fall' + (x && x.auto !== 'won' ? ' (AUTO lost him; the walk\'s checker won it, so his fall is owed)' : ''), M1(x, row), x && (x.shown + ' ' + JSON.stringify(x.entranceEnd && { moment: x.entranceEnd.moment, fall: x.entranceEnd.fall })));
