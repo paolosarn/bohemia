@@ -3,7 +3,22 @@
 # On VAMILY: pull main, re-read CLAUDE.md and the VAMILY front page (rules 453, 448, 452, 442(b), 441, 454(a), 402 as amended 11/7:
 # SMALLER, NEVER PAGES), then continue from the newest block below. FIGHT SCREEN 2 owns everything on the glass over the fight.
 
-UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/27 LATEST -- BUILD 11/27z - HIS FINGER ON THE DOOR, BUILT, NOT YET SEEN
+UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/27 LATEST -- BUILD 11/27zza - THE SHOP ON ITS SIDE READS WHOLE, BUILT, NOT YET SEEN
+(rules 482, 495, 441; the coordinator's routine 'UI FIVE: the next screen'). Record records/BOHEMIA_UI_FIVE_THE_SHOP_ON_ITS_SIDE_READS_WHOLE_11_27_26.md.
+VOTE ui5-the-shop-on-its-side-11-27 (STAND-IN, before and now, a body armour and a weapon).
+- SCROLLING IS ILLEGAL was 35/2 (N3, N9 on its side: 'Buy it' at 9 px): this lane's own 11/22 narrow-strip rule. Now 11 px, whole (the
+  narrow rule's padding !important over the density rule's, in that column only): 37/0. THE FULLEST HALL and NO LINE CUT: green.
+- Walking every piece on its side: every armour's class line ran 16-27 px under the man's box and its numbers off the right edge: the
+  class one sentence, the numbers in the box's spare row, 'ON YOU' and the 2 px sliver of its lines folded (slices/BOHEMIA_SETTLEMENT_SCREEN.html,
+  the narrow strip's @container rule; the facts box says its kind).
+- Gate THE NARROW STRIP READS WHOLE (new, in the suite) W1-W4, plants red.
+NEXT for this lane, in order: (1) A SHIELD ON ITS SIDE (five numbers and its man's lines run under the box; 38 of 91 pieces at one
+armourer); (2) row 779, the end screen grows in twice (UI's pop with MOTION's door: one owner); (3) the settings card's opening hitch
+on the slowed phone; (4) the crew screen's weight line as a picture with RUN TWO; (5) what EYES finds.
+[bb Battle Brothers' item tooltip: the armour's numbers in a column, every one whole]
+[analog horror: a price tag typed on a label maker, letters you can read from arm's length]
+
+UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/27 -- BUILD 11/27z - HIS FINGER ON THE DOOR, BUILT, NOT YET SEEN
 (rules 480(c), 482, 441; the coordinator's routine 'UI FIVE: keep cooking'). Record records/BOHEMIA_UI_FIVE_HIS_FINGER_ON_THE_DOOR_11_27_26.md.
 VOTE ui5-his-finger-on-the-door-11-27 (STAND-IN, a chart of every frame, three picks, before and now, both ways).
 - The first screens he meets at 4x: the title, NEW GAME, the picks standing all 58-60 fps; a TAP ON A CREW PICK 30-41 fps, worst 333-467 ms:

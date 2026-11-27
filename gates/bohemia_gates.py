@@ -9665,6 +9665,12 @@ GATES = [
      "the game's own day and hour, the sun's dial, the hour 14 px or more; K2 it moves as the game's clock moves, night at 22:15 (the moon), "
      "day at 09:40; K3 no day and no hour on the phone; K4 nothing threw; PLANTED: the clock off the bar (K1 red), the time back on the "
      "phone (K3 red); K5 K1 and K2 again with the game's clock running fast, each read against the bar's own painted reading. About 1 min a walk", True),
+    ('THE NARROW STRIP READS WHOLE', ['node', 'gates/the_narrow_strip_reads_whole_gate.js'],
+     "UI FIVE gate, 11/27, rules 441, 482, 495(a) (SCROLLING IS ILLEGAL N3/N9 on its side, words under 11 px): the demo on its side, a "
+     "town's smith, arms and armourer, every piece tapped: W1 every buy button's words at 11 px or more and whole; W2 no word cut in the "
+     "172 px strip on a weapon, a body armour or a helmet (the class line one sentence, an armour's numbers in the box's spare row); W3 the "
+     "shields reported (NOT YET, their own layout); W4 nothing threw; PLANTED: the words at 9 px (W1 red), the class back in its column "
+     "(W2 red). About 4 min", True),
     ('HIS FINGER ON THE DOOR', ['node', 'gates/his_finger_on_the_door_gate.js'],
      "UI FIVE gate, 11/27, rules 480(c), 482 ('the next screen he meets, never choppy'): on the demo, a fresh phone, the title, NEW GAME, "
      "upright and sideways, the CPU slowed 4x on the door: D1 three crew picks, no job plan made inside the 2.5 s after each touch (the "

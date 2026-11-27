@@ -1,3 +1,6 @@
+UI FIVE (ui-five-01gkdyuu): 11/27 LATEST -- BUILD 11/27zza - THE SHOP ON ITS SIDE READS WHOLE, BUILT, NOT YET SEEN (rules 482, 495). Its block is handoffs/UI_FOUR.md.
+On its side the shop's buy words were 9 px (SCROLLING IS ILLEGAL red, this lane's own rule): now 11 px, whole, 37/0. Every armour's class line and numbers were cut: now whole.
+Gate THE NARROW STRIP READS WHOLE (new) 4/0, plants red. VOTE ui5-the-shop-on-its-side-11-27. NEXT: a shield on its side, row 779 (the end screen's two grows).
 ARMORY 3 (armory-three-01gkdyuu): 11/27 LATEST -- BUILD 11/27zy - THE PRIZES NO STALL SELLS, BUILT, NOT YET SEEN (rule 493(c), 495). Before it: 11/27q BEAT-UP GUNS, 11/27h
 THE GUNS GROW UP, AND THE DRONE. Its block is handoffs/ARMORY.md. Eight named prizes, one per boss (7 to 18), each the boss's own weapon made his, never on a shelf, always
 dropped on his fall; a gun's damage never moves (489(d)). Gate THE GUNS GROW UP 28/0. VOTE armory3-the-named-prizes-11-27.
@@ -32,7 +35,7 @@ there; they stand at the build). Kept after a reload. Gate HIS PLACE, HIS WAY (n
 ONCE, EVERYWHERE 6/0 each way; THE VOTE TAB 66/0. VOTE home-base-his-place-his-way-11-27. NEXT: what it is made of (the pipeline's materials, needs bpy).
 [bb Battle Brothers: a name is changed by tapping it; ours: everything at his place]
 
-UI FIVE (ui-five-01gkdyuu): 11/27 LATEST -- BUILD 11/27z - HIS FINGER ON THE DOOR, BUILT, NOT YET SEEN (rules 480(c), 482). Its block is handoffs/UI_FOUR.md.
+UI FIVE (ui-five-01gkdyuu): 11/27 -- BUILD 11/27z - HIS FINGER ON THE DOOR, BUILT, NOT YET SEEN (rules 480(c), 482). Its block is handoffs/UI_FOUR.md.
 A tap on a crew pick on the door froze 333-467 ms at 4x (the jobs planned again under his finger); now they wait 2.5 s after his touch and run while he reads:
 55-58 fps, worst 33-83 ms, both ways. Gate HIS FINGER ON THE DOOR (new) both ways, plant red. VOTE ui5-his-finger-on-the-door-11-27. THE CLOCK UP TOP fast-proof 22/0;
 THE VOTE TAB GATE 66/0 (struck from the quarantine). [bb nothing behind the new-campaign screen moves while you choose]
