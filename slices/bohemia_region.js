@@ -409,6 +409,7 @@
        sits under IVANPAH SOLAR's plate'): a building drawn later never covers a name, and the place a job names keeps its spot;
        a neighbour moves up around it */
     names.sort(function(a, b){ return (b.job ? 1 : 0) - (a.job ? 1 : 0); });
+    if (window.__MAP_BARE) names = [];   /* COMBAT FIVE 11/26 __THE_MEN_COME_INTO_FOCUS__: the dive's in-between pictures carry no names (drawn at one size, a picture scaled up made them fill the glass) */
     names.forEach(function(n){
       var p = n.p, q = n.q, job = n.job;
       g.font = 'bold 10px ui-monospace, monospace'; g.textAlign = 'center';
@@ -568,7 +569,7 @@
       if (free) {
         try { if (window.mapNameTake) window.mapNameTake([tx, ty - 10, tw, 13], m.name, 'place'); } catch(_e){}
         g.fillStyle = 'rgba(14,11,8,0.82)'; g.fillRect(tx, ty - 10, Math.round(tw), 13);
-        g.fillStyle = '#e8dcc0'; g.fillText(m.name, Math.round(q.sx), ty); LM.named++;
+        if (!window.__MAP_BARE) { g.fillStyle = '#e8dcc0'; g.fillText(m.name, Math.round(q.sx), ty); LM.named++; }
       }
     });
     g.restore();

@@ -764,7 +764,16 @@
       };
     });
     AD.home = wrapFn(W, 'nfHome', function (orig) {
-      return function () {
+      return function homeW() {
+        /* __LEAVE_ANSWERS_ON_THE_NEXT_FRAME__: the end screen's fold, started in this task, goes to the compositor before the way home's
+           work (the fight's page let go, the map drawn again) takes the thread; a MAKE CAMP keeps its order (it reads the fight after) */
+        var sl = W.__BM_SPOILS_OUT;
+        if (sl && performance.now() - sl < 200 && !(W.__CAMP_HOLD_BOARD && Date.now() - W.__CAMP_HOLD_BOARD < 1000)) {
+          W.__BM_SPOILS_OUT = 0; var self = this, args = arguments;
+          W.requestAnimationFrame(function () { W.requestAnimationFrame(function () { setTimeout(function () { try { homeW.apply(self, args); } catch (e) {} }, 0); }); });
+          return true;
+        }
+        W.__BM_SPOILS_OUT = 0;
         var fw = fightWin(), fbar = fw && fw.document.getElementById('bmtb'), tray = fw && abilities(fw);
         var bbox = fbar && shown(fbar) ? topBox(fbar) : null, bnode = null, tbox = tray ? topBox(tray) : null, tnode = null;
         try { if (bbox) bnode = copyOf(fbar); } catch (e) {}
@@ -921,7 +930,7 @@
      Gate: gates/the_zoom_down_into_the_board_gate.js.
      ====================================================================================================================== */
   var TPB = 3;   /* a map block is 3 x 3 fight tiles: COMBAT TWO's one ruler (36 m / 12 m) */
-  var DIVE = { state: 'off', at: null, el: null, raf: 0, skip: false, log: [], seq: 0, row: null, z0: null };
+  var DIVE = { state: 'off', at: null, el: null, raf: 0, skip: false, log: [], seq: 0, row: null, z0: null, drawing: 0 };
   var SCALE_MEM = {};   /* the fight's block size on the glass, px, the last time a fight opened on a glass this size */
   function nfcSet(s) { try { if (!W.NFC) W.NFC = { state: 'off' }; W.NFC.state = s; W.NFC.since = performance.now(); } catch (e) {} }
   function diveClear() { try { return !(W.NFC && W.NFC.state && W.NFC.state !== 'off'); } catch (e) { return true; } }
@@ -940,10 +949,10 @@
   var CAM_BODY = "if (typeof CZOOM === 'undefined' || typeof MODE === 'undefined' || MODE !== 'city' || typeof cityGlidePos !== 'function') return null;"
     + "var G = cityGlidePos(performance.now());"
     + "if (op === 'read') { var zb = zoomBounds(), st = zb[1]; try { if (window.BohemiaMapHouses && BohemiaMapHouses.on()) st = Math.max(st, BohemiaMapHouses.streetTW() / TW0); } catch (e) {}"
-    + "  return { z: CZOOM, px: panX, py: panY, TW0: TW0, TH0: TH0, CVW: CVW, CVH: CVH, F: mapFocus(), camf: !!CAMF.on, street: st, zmax: zb[1], city: [city.x, city.y], want: (typeof VBT !== 'undefined' && VBT) ? (VBT.want | 0) : 0 }; }"
+    + "  return { drawMs: (window.ONE_RENDER && ONE_RENDER.ms) || 0, z: CZOOM, px: panX, py: panY, TW0: TW0, TH0: TH0, CVW: CVW, CVH: CVH, F: mapFocus(), camf: !!CAMF.on, street: st, zmax: zb[1], city: [city.x, city.y], want: (typeof VBT !== 'undefined' && VBT) ? (VBT.want | 0) : 0 }; }"
     + "if (op === 'aim') { CZOOM = a.z; TW = TW0 * a.z; TH = TH0 * a.z;"
     + "  panX = a.sx - CVW / 2 + (G.x - G.y) * TW / 2 - (a.u - a.v) * TW / 2; panY = a.sy - CVH / 2 + (G.x + G.y) * TH / 2 - (a.u + a.v) * TH / 2;"
-    + "  if (a.camf != null) { CAMF.on = !!a.camf; CAMF.from = null; } if (a.draw !== false) render(); return true; }"
+    + "  if (a.camf != null) { CAMF.on = !!a.camf; CAMF.from = null; } if (a.draw !== false) { window.__MAP_BARE = !!a.bare; try { render(); } finally { window.__MAP_BARE = false; } } return true; }"
     + "if (op === 'at') { var ox = Math.round(CVW / 2 - (G.x - G.y) * TW / 2 + panX), oy = Math.round(CVH / 2 - (G.x + G.y) * TH / 2 + panY);"
     + "  return { x: ox + (a.u - a.v) * TW / 2, y: oy + (a.u + a.v) * TH / 2, TW: TW, TH: TH }; }"
     + "if (op === 'heldAt') { var kz = CZOOM, kx = panX, ky = panY, r = null; CZOOM = a.z; TW = TW0 * a.z; TH = TH0 * a.z;"
@@ -974,7 +983,8 @@
     try { if (!cw.__bmDiveCam) cw.__bmDiveCam = new cw.Function('op', 'a', CAM_BODY); } catch (e) { return null; }
     var f = cw.__bmDiveCam;
     return function (op, a) { var t = performance.now(), drew = op === 'draw' || (op === 'aim' && (!a || a.draw !== false));
-      try { return f(op, a || {}); } catch (e) { return null; } finally { if (drew) DRAWMS += performance.now() - t; } };
+      if (drew) DIVE.drawing++;   /* __THE_MAP_HOLDS_UNDER_THE_DIVE__: the dive's own draw goes through the hold */
+      try { return f(op, a || {}); } catch (e) { return null; } finally { if (drew) { DIVE.drawing--; DRAWMS += performance.now() - t; } } };
   }
   function mapCanvas(cw) { try { var c = cw.document.getElementById('cv'); return c && shown(c) ? c : null; } catch (e) { return null; } }
   /* where the map puts map ground (u, v) on the top glass, and its two axes there (px per block) */
@@ -1051,6 +1061,13 @@
   function picOf(src, box, cls, k, parent) {
     if (!src || !box || !src.width || !src.height) return null;
     var w = src.width, h = src.height;
+    /* __THE_DIVE_FITS_AN_IPHONE__ (COMBAT FIVE 11/27/26, VAMILY rule 484 as amended: 'combat keeps crashing... when I get into combat and
+       then when I finish it'; his phone is Safari on an iPhone, a hard cap on every live canvas's pixels together). MEASURED (the census,
+       tools/bohemia_combat_five_canvas_census.js, the demo upright at 4x, no forced collection): the way in made five to eight copies of
+       the whole glass at the phone's three pixels a point, about 12 MB each, 35 MB on the page and as much again not yet collected, on top
+       of the map's 111 MB of canvases and the fight's being built (the canvases' peak 249 MB going in, Safari's line 256 to 384). A moving
+       camera's picture at two pixels a point is 5.3 MB and reads the same. window.__DIVE_FULL_PIXELS: the old way */
+    if (!k && !W.__DIVE_FULL_PIXELS && box.w > 0 && src.width / box.w > 2.05) k = 2;
     if (k) { w = Math.max(1, Math.round(box.w * k)); h = Math.max(1, Math.round(box.h * k)); }
     var c = D.createElement('canvas'); c.width = w; c.height = h; c.className = cls;
     try { c.getContext('2d').drawImage(src, 0, 0, w, h); } catch (e) { return null; }
@@ -1338,16 +1355,22 @@
     if (W.__DIVE_KEEPS_KEPT) return;
     (DIVE.keptPics || []).forEach(function (q) { try { if (q && q.c) { q.c.width = 0; q.c.height = 0; } } catch (e) {} });
     DIVE.keptPics = [];
+    try { if (DIVE.keepGone && DIVE.keepGone.width) { DIVE.keepGone.width = 0; DIVE.keepGone.height = 0; } } catch (e) {} DIVE.keepGone = null;   /* __THE_DIVE_FITS_AN_IPHONE__ */
   }
   function diveEnd(r) {
     (DIVE.timers || []).forEach(function (o) { try { clearTimeout(o.id); } catch (e) {} }); DIVE.timers = [];
     letGo(DIVE.el); DIVE.anims = [];   /* __THE_DIVE_LETS_ITS_PICTURES_GO__ */
+    /* __THE_DIVE_FITS_AN_IPHONE__: every picture the dive laid is emptied as it comes off (a removed canvas keeps its pixels until a
+       collection a phone may never run in time); the pictures kept for the way home are spared, and emptied when it is over (keptGo) */
+    try { if (DIVE.el && !W.__DIVE_FULL_PIXELS) { var keepC = (DIVE.keptPics || []).map(function (q) { return q && q.c; }).concat(DIVE.keep && DIVE.keep.c ? [DIVE.keep.c] : []);
+      Array.prototype.forEach.call(DIVE.el.querySelectorAll('canvas'), function (c) { if (keepC.indexOf(c) < 0) { c.width = 0; c.height = 0; } }); } } catch (e) {}
     try { if (DIVE.raf) W.cancelAnimationFrame(DIVE.raf); } catch (e) {} DIVE.raf = 0;
     try { if (DIVE.el) DIVE.el.remove(); } catch (e) {} DIVE.el = null; DIVE.skip = false;
     /* __THE_WAY_HOME_LETS_ITS_KEPT_PICTURES_GO__: the layer's own pieces the dive still named after it came off (its camera, its bands and
        their grids, the map's last photograph) were each a removed subtree of pictures kept alive until the next fight; the way home
        never reads them (it lays its own from DIVE.keep) */
-    if (!W.__DIVE_KEEPS_KEPT) { DIVE.cam = null; DIVE.bands = null; DIVE.mapPic = null; DIVE.push = null; }   /* DIVE.push: the camera's slow push, an animation
+    if (!W.__DIVE_KEEPS_KEPT) { DIVE.cam = null; DIVE.bands = null; DIVE.mapPic = null; DIVE.push = null; }
+    DIVE.finds = null;   /* __THE_CAMERA_NEVER_STOPS__: the hold's brackets name the camera, and the camera every picture under it */   /* DIVE.push: the camera's slow push, an animation
        cancelled above but still named here, and an animation names its target: the camera and every picture under it */
     if (DIVE.hum === 'down') humTo(false, 0.5);
     DIVE.state = 'off'; nfcSet('off');
@@ -1375,6 +1398,12 @@
     return b;
   }
   /* a red-only and a green-blue-only copy of a picture, half its pixels: together, screened over black, they are the picture */
+  /* a picture's mean brightness, 0..1 (a 12 x 12 copy) */
+  function lumOf(src) {
+    try { var c = D.createElement('canvas'); c.width = 12; c.height = 12; var x = c.getContext('2d'); x.drawImage(src, 0, 0, 12, 12);
+      var d = x.getImageData(0, 0, 12, 12).data, t = 0; for (var i = 0; i < d.length; i += 4) t += 0.2126 * d[i] + 0.7152 * d[i + 1] + 0.0722 * d[i + 2];
+      c.width = 0; c.height = 0; return t / (d.length / 4) / 255; } catch (e) { return null; }
+  }
   function tintOf(src, w, h, rgb) {
     var c = D.createElement('canvas'); c.width = w; c.height = h;
     try { var x = c.getContext('2d'); x.drawImage(src, 0, 0, w, h); x.globalCompositeOperation = 'multiply'; x.fillStyle = rgb; x.fillRect(0, 0, w, h); } catch (e) { return null; }
@@ -1382,6 +1411,23 @@
   }
 
   /* ---- THE WAY IN ---- */
+  /* __THE_CAMERA_NEVER_STOPS__ (COMBAT FIVE 11/26): how far the camera keeps coming down while the fight is built under it */
+  var PUSH = 1.08;
+  /* the two brackets of the hold: his crew ('us') and the crew that met him ('them'), on the glass where the map drew them */
+  function findsOn(parent, us, them, delay) {
+    var out = [], bm = beatNow(), s = Math.max(34, Math.min(70, Math.round(Math.min(W.innerWidth, W.innerHeight) * 0.13)));
+    [{ side: 'us', at: us }, { side: 'them', at: them }].forEach(function (q, i) {
+      if (!q.at || !isFinite(q.at.x) || !isFinite(q.at.y)) return;
+      var wrap = divEl('find ' + q.side, 'position:absolute;left:0;top:0;width:' + s + 'px;height:' + s + 'px;will-change:transform;transform:translate(' + (q.at.x - s / 2).toFixed(1) + 'px,' + (q.at.y - s * 0.62).toFixed(1) + 'px)', parent);
+      var b = bracketEl(wrap, q.side, s), d = (delay || 0) + i * bm * 0.5;
+      /* locking on: three blinks, the bracket closing from twice its size */
+      play(b, [{ opacity: 0, transform: 'scale(2)' }, { opacity: 1, transform: 'scale(1.6)', offset: 0.2 }, { opacity: 0, transform: 'scale(1.4)', offset: 0.4 }, { opacity: 1, transform: 'scale(1.2)', offset: 0.6 }, { opacity: 0, transform: 'scale(1.1)', offset: 0.8 }, { opacity: 1, transform: 'scale(1)' }], bm, { delay: d, easing: 'steps(1, end)', fill: 'forwards' });
+      /* then breathing on the beat */
+      var br = play(wrap, [{ opacity: 1 }, { opacity: 0.55 }, { opacity: 1 }], bm, { delay: d + bm, iter: Infinity, easing: 'ease-in-out' });
+      out.push(wrap);
+    });
+    return out;
+  }
   function diveDown(d, go) {
     if (DIVE.state !== 'off') diveEnd(DIVE.row);
     DIVE.anims = []; DIVE.timers = [];
@@ -1434,10 +1480,10 @@
        between two pictures measured on the last dive (a cautious 300 ms before the first), never under the old curve, never past 3.5
        beats */
     var bm = beatNow(), ratio = Math.abs(Math.log(zEnd / Math.max(1e-3, c.z)));
-    var nStops0 = Math.max(0, Math.min(3, Math.ceil(ratio / Math.log(2.2)) - 1)), step = DIVE.stepMs || 300;
+    var nStops0 = Math.max(0, Math.min(W.__DIVE_ONE_STOP ? 1 : 3, Math.ceil(ratio / Math.log(2.2)) - 1)), step = DIVE.stepMs || Math.max(300, Math.min(900, (c.drawMs || 0) * 1.3 + 150));   /* __THE_CAMERA_NEVER_OUTRUNS_ITS_PICTURES__: the first dive paced by the map's own measured draw */   /* __THE_FIGHT_BUILDS_SOONER__ (COMBAT FIVE 11/26): one picture between, not two (each a whole map draw, 0.2 to 0.6 s at 4x, before the fight could start); the deck covers the middle */
     var msCurve = Math.max(bm, Math.min(2.5 * bm, 0.6 * bm * ratio + 0.4 * bm));   /* the camera's own pace, what the climb back uses (it draws nothing) */
-    var ms = Math.max(bm, Math.min(3.5 * bm, Math.max(msCurve, (nStops0 + 1) * step + 150)));
-    r.step = Math.round(step);
+    var ms = Math.max(bm, Math.min((W.__DIVE_FOUR_BEATS ? 3.5 : 6) * bm, Math.max(msCurve, (nStops0 + 1) * step + 250)));   /* __THE_CAMERA_NEVER_OUTRUNS_ITS_PICTURES__ */
+    r.step = Math.round(step); r.drawMs = Math.round(c.drawMs || 0);
     r.comeMs = Math.round(ms);
     /* the camera's path (z: the zoom on the glass); each picture of it is drawn at its zoom over its own cover factor, so when it is
        laid in it covers the glass and the block still lands at the board's own size */
@@ -1458,7 +1504,7 @@
        the map's people giant, then snap), the camera slows from where it is, on the same progress, every picture and the deck rebuilt
        on the new clock (the curve unbroken: the progress at this moment is kept, only what is left is stretched) */
     var retime = function (ms2) {
-      ms2 = Math.min(4 * bm, ms2); r.ask = Math.round(ms2); if (T0 == null || !(ms2 > ms + 30)) return;
+      ms2 = Math.min((W.__DIVE_FOUR_BEATS ? 4 : 7) * bm, ms2); r.ask = Math.round(ms2); if (T0 == null || !(ms2 > ms + 30)) return;   /* __THE_CAMERA_NEVER_OUTRUNS_ITS_PICTURES__ (COMBAT FIVE 11/26): up to seven beats; the fight is built after the stop's picture whatever the camera's pace, so a slower camera only eats the hold (RECORDED at 4x: capped at four beats, the stop's picture landed 0.4 to 0.9 s late and the picture before it showed the map's people and names two to three times their size) */
       var now = since0(), u = Math.min(1, now / ms); if (u >= 0.97) return;
       T0 = T0 + (now - u * ms2) * SLOW; ms = ms2; r.comeMs = Math.round(ms); r.retimed = (r.retimed || 0) + 1;
       pics.forEach(function (p) { poseAnim(p); });
@@ -1485,7 +1531,7 @@
     /* a map picture drawn at the camera's pose for u, laid in at u (or now, if the draw came late) */
     var drawAt = function (u, zk, sk, name) {
       var t = performance.now(), P = at(u), skm = { x: sk.x / fx, y: sk.y / fy };
-      cam('aim', { z: zk, u: u0, v: v0, sx: skm.x, sy: skm.y, camf: false });
+      cam('aim', { z: zk, u: u0, v: v0, sx: skm.x, sy: skm.y, camf: false, bare: /^B/.test(name) && !W.__DIVE_PEOPLE_ALL_THE_WAY });   /* __THE_MEN_COME_INTO_FOCUS__: the pictures between are the ground and the buildings; the men and their names come in with the stop's */
       var under = pics[pics.length - 1], p = picOf(cv, cb, 'map', /^B/.test(name) ? Math.min(2, W.devicePixelRatio || 1) : null, camG); if (!p) return null;
       var since = since0(), wait = Math.max(40, u * ms - since - 60);   /* its first two frames unseen: a new layer can reach the glass a frame before its animation does */
       p.zk = zk; p.sk = sk; p.inT = since + wait; p.inEnd = p.inT + 230; p.hideT = null;   /* a dissolve, so the map's own names and people settle rather than snap */
@@ -1502,7 +1548,12 @@
       var top = DIVE.mapPic, gone = function () {
         /* kept for the way out (two pixels a point at most): the way out rewinds these very pictures */
         var kk = Math.min(2, W.devicePixelRatio || 1); DIVE.keptPics = [];
-        pics.forEach(function (p) { if (p !== top) { var q = picOf(p.c, p.box, 'kept', kk, D.createElement('div')); if (q) { q.zk = p.zk; q.sk = p.sk; q.layU = p.layU; DIVE.keptPics.push(q); } try { p.c.remove(); } catch (e) {} } }); };
+        pics.forEach(function (p) { if (p !== top) {
+          /* __THE_DIVE_FITS_AN_IPHONE__: the picture itself is kept (at two pixels a point already), never a copy of it */
+          var q = W.__DIVE_FULL_PIXELS ? picOf(p.c, p.box, 'kept', kk, D.createElement('div')) : p;
+          if (q && q !== p) { q.zk = p.zk; q.sk = p.sk; q.layU = p.layU; }
+          if (q) { try { if (q.anim) q.anim.cancel(); } catch (e) {} DIVE.keptPics.push(q); }
+          try { p.c.remove(); } catch (e) {} } }); };
       later(gone, Math.max(0, ms - since0(), (top && top.inAt ? top.inAt - performance.now() : 0)) + 150);
       DIVE.path = { z0: c.z, zEnd: zEnd, P0: P0, PF: PF, ms: msCurve, topU: top && top.layU != null ? top.layU : 0.94 };
       try { var rr = r.renders.filter(function (x) { return x.at != null; }); if (rr.length >= 2) DIVE.stepMs = Math.max(60, Math.min(700, (rr[rr.length - 1].at - (r.firstFrame || 0)) / rr.length)); } catch (e) {}
@@ -1510,8 +1561,15 @@
       DIVE.crew = (function () { var q = cam('crew'); return q ? { x: cb.x + q.x * fx, y: cb.y + q.y * fy } : null; })();
       var pose = poseOf(at(1), zC, PF), restMs = Math.max(0, ms - since0());
       camG.style.transformOrigin = (cb.x + PF.x).toFixed(1) + 'px ' + (cb.y + PF.y).toFixed(1) + 'px';
-      DIVE.push = play(camG, [{ transform: 'scale(1)' }, { transform: 'scale(1.035)' }], 9000, { delay: restMs, easing: 'cubic-bezier(.25,.6,.35,1)', fill: 'forwards' });
+      /* __THE_CAMERA_NEVER_STOPS__ (COMBAT FIVE 11/26/26, VAMILY rule 484(b), 420(b): 'never a frozen frame'). RECORDED at 4x: the hold
+         was 4 to 9 s of one picture pushed 3.5% over nine seconds, which reads as a frozen frame with lines on it. NOW the camera keeps
+         coming down through the hold (8%, settling over four seconds; the turn takes it back out with its own curve, so the street's
+         size on the glass never jumps), and the surveillance camera FINDS THE MEN while it waits: a bracket on his crew where the map
+         had them and one on the crew that met him, each locking on in three blinks and breathing on every beat (120 BPM); the turn's
+         own brackets start from the same two points and carry each man to his tile. */
+      DIVE.push = play(camG, [{ transform: 'scale(1)' }, { transform: 'scale(' + PUSH + ')' }], 4000, { delay: restMs, easing: 'cubic-bezier(.2,.55,.3,1)', fill: 'forwards' });
       DIVE.bands = bandsOn(camG, DIVE.mapPic, pose, restMs);
+      DIVE.finds = findsOn(camG, DIVE.crew, DIVE.mg && DIVE.mg.c, restMs);
       DIVE.pose = pose;
       later(function () { if (DIVE.state === 'come' || DIVE.state === 'settle') phase(r, 'hold'); }, restMs);
     };
@@ -1544,7 +1602,7 @@
       var poll = function () {
         if (DIVE.row !== r) return;
         var m = cam('prepaint', { z: zC, u: u0, v: v0, r: 1 });
-        if (m > 0 && performance.now() - t0 < Math.max(0, ms - since0()) + bm) { later(poll, 90); return; }
+        if (m > 0 && performance.now() - t0 < Math.max(0, ms - since0()) + (W.__DIVE_TILE_BEAT ? bm : 0)) { later(poll, 90); return; }   /* __THE_FIGHT_BUILDS_SOONER__: never a beat past the camera's arrival (measured: 0.66 s of the fight's build waited on it) */
         r.missing = m;
         if (missing0 > 0 && m <= 0 && C !== A) {
           phase(r, 'settle');
@@ -1552,12 +1610,21 @@
         }
         finishCome(); build(); waitFight(function () { turnIn(r); });
       };
-      if (missing0 > 0) later(poll, 90); else { r.missing = missing0; finishCome(); build(); waitFight(function () { turnIn(r); }); }
+      /* __THE_FIGHT_BUILDS_SOONER__ (COMBAT FIVE 11/26): the fight is built the moment the stop's picture is in, never after a wait for the
+         painter's last tiles (MEASURED: 0.6 s of the build's start waited on them; the stop's tiles are asked from the first frame and the
+         camera is paced to its pictures, so they are in by then nearly always). window.__DIVE_SETTLES: the wait, as before */
+      if (missing0 > 0 && W.__DIVE_SETTLES) later(poll, 90); else { r.missing = missing0; finishCome(); build(); waitFight(function () { turnIn(r); }); }
     };
     var started = false, startClock = function () {
       if (started) return; started = true;
       try { T0 = comeA && comeA.startTime != null ? comeA.startTime : D.timeline.currentTime; } catch (e) { T0 = null; }
       r.firstFrame = Math.round(performance.now() - r.t0);
+      /* __THE_CAMERA_NEVER_OUTRUNS_ITS_PICTURES__ (COMBAT FIVE 11/26): before the first picture is drawn the camera's clock is set so it
+         lands after that draw (a fresh zoom costs about nine of the map's ordinary, cached draws; the last dive's own pace once there is
+         one), so the map he left is never shown far past its own size (RECORDED at 4x: two to three times, his men's legs and the
+         place names filling the glass for half a second) */
+      try { if (stops.length && !W.__DIVE_FOUR_BEATS) { var est = DIVE.stepMs || Math.max(300, Math.min(900, (c.drawMs || 50) * 9)), u1 = uOf(stops[0]);
+        r.est = Math.round(est); retime((since0() + est + 300) / Math.max(0.15, u1)); } } catch (e) {}
       afterPaint(function () { drawStops(0, function () { afterPaint(stopPic); }); });
     };
     try { comeA.ready.then(startClock, startClock); } catch (e) { startClock(); }
@@ -1571,7 +1638,7 @@
     var fw = fightWin(), fc = fw && fw.document.getElementById('cv'), fg = fw ? fightGeo(fw, DIVE.at) : null, C = DIVE.mapPic, mg = DIVE.mg, camG = DIVE.cam;
     if (!fw || !fc || !fg || !C || !mg || !camG) { phase(r, 'fade'); nfcSet('off'); if (C) play(C.c, [{ opacity: 1 }, { opacity: 0 }], 300); bandsOff(DIVE.bands, 200); later(function () { diveEnd(r); }, 360); return; }
     r.laid = fg.laid; r.cell = fg.cell; SCALE_MEM[Math.round(W.innerWidth) + 'x' + Math.round(W.innerHeight)] = fg.a; r.a = Math.round(fg.a);
-    var bm = beatNow(), T = 2 * bm, N = 36, Wg = W.innerWidth, Hg = W.innerHeight, glass = { x: 0, y: 0, w: Wg, h: Hg };
+    var bm = beatNow(), T = (W.__DIVE_TURN_TWO ? 2 : 3) * bm, N = 48, Wg = W.innerWidth, Hg = W.innerHeight, glass = { x: 0, y: 0, w: Wg, h: Hg };   /* __THE_SCAN_MAKES_THE_BOARD__: three beats, so the scan is read */
     var kEnd = DIVE.kEnd || 1, mgT = { c: mg.c, M: mg.M, sm: mg.sm * kEnd, km: mg.km };
     var fbox = topBox(fc); if (!fbox) { diveEnd(r); return; }
     /* the board's first frame, full pixels, laid under the map's; a still copy of the map's frame for the corners of the turn */
@@ -1579,7 +1646,7 @@
     if (!F) { diveEnd(r); return; }
     camG.insertBefore(Cs ? Cs.c : F.c, C.c); if (Cs) camG.insertBefore(F.c, C.c);
     if (Cs) Cs.c.style.transform = DIVE.pose;
-    var kq = picOf(C.c, C.box, 'kept', Math.min(2, W.devicePixelRatio || 1), D.createElement('div'));
+    var kq = W.__DIVE_FULL_PIXELS ? picOf(C.c, C.box, 'kept', Math.min(2, W.devicePixelRatio || 1), D.createElement('div')) : { c: C.c };   /* __THE_DIVE_FITS_AN_IPHONE__: the stop's own picture, kept */
     DIVE.keep = { c: kq ? kq.c : null, box: C.box, mg: mg, kEnd: kEnd, PF: DIVE.PF, cb: DIVE.cb, pose: DIVE.pose, zEnd: DIVE.zEnd, path: DIVE.path, pics: DIVE.keptPics || [],
       glass: Math.round(Wg) + 'x' + Math.round(Hg), at: DIVE.at };
     var pathAt = function (u) { var e = smoother(u); return { e: e, A: turnA(mgT, fg, e), to: lerpP(mg.c, fg.c, e) }; };
@@ -1587,11 +1654,30 @@
     phase(r, 'turn');
     /* the camera's push-in eases back to nothing over the turn's first half; the tape tracks back in */
     var now0 = 'none'; try { now0 = getComputedStyle(camG).transform; } catch (e) {}
-    play(camG, [{ transform: now0 === 'none' ? 'scale(1)' : now0 }, { transform: 'scale(1)' }], bm, { easing: 'ease-in-out', fill: 'forwards' });
+    /* __THE_CAMERA_NEVER_STOPS__: the push of the hold comes out on the turn's own curve (the street's size on the glass held: the turn
+       grows the map's block to the board's as the push lets go), never a pull-back of its own */
+    var s0 = 1; try { var mt = /matrix\(([^,]+),/.exec(now0); if (mt) s0 = Math.max(0.5, Math.min(2, +mt[1] || 1)); } catch (e) {}
+    try { if (DIVE.push) DIVE.push.cancel(); } catch (e) {}
+    play(camG, keys(N, function (u) { return { transform: 'scale(' + Math.pow(s0, 1 - smoother(u)).toFixed(5) + ')' }; }), T, { fill: 'forwards' });
+    r.pushAt = +s0.toFixed(3);
     bandsOff(DIVE.bands, bm * 0.6);
-    play(C.c, keys(N, function (u) { var p = pathAt(u); return { transform: cssM(Lm(p), C.box, mg.c, p.to), opacity: 1 - sstep(0.45, 0.85, u) }; }), T);
-    if (Cs) play(Cs.c, keys(12, function (u) { return { opacity: 1 - sstep(0.45, 0.85, u) }; }), T);
-    play(F.c, keys(N, function (u) { var p = pathAt(u); return { transform: cssM(Lb(p), fbox, fg.c, p.to), opacity: sstep(0.36, 0.46, u) }; }), T);
+    (DIVE.finds || []).forEach(function (f) { play(f, [{ opacity: 1 }, { opacity: 1, offset: 0.25 }, { opacity: 0 }], 0.4 * T, { fill: 'forwards' }); });
+    var cOut = binn ? [0.86, 1] : [0.45, 0.85];   /* __THE_SCAN_MAKES_THE_BOARD__: the map stays until the scan has passed it */
+    play(C.c, keys(N, function (u) { var p = pathAt(u); return { transform: cssM(Lm(p), C.box, mg.c, p.to), opacity: 1 - sstep(cOut[0], cOut[1], u) }; }), T);
+    if (Cs) play(Cs.c, keys(12, function (u) { return { opacity: 1 - sstep(cOut[0], cOut[1], u) }; }), T);
+    /* __THE_SCAN_MAKES_THE_BOARD__ (COMBAT FIVE 11/26/26, rule 484(b), 420(b)(c)): RECORDED at 4x, the map's dark street and the bright
+       board crossed in a third of a second, two pictures of two places. NOW the surveillance overlay MAKES the board: the scan line runs
+       down the turning street from the far edge, the board is behind it row by row (the grid's own window, the same turn), the map
+       still in front of it; and the camera's exposure starts at the map's own light and opens to the board's as it lands (a black
+       veil over the board, its strength the two pictures' brightness measured, gone by the end of the turn). */
+    var bwin = !W.__DIVE_BOARD_FADES ? divEl('boardwin', glassCSS() + ';overflow:hidden;will-change:transform', camG) : null, binn = bwin ? divEl('boardin', glassCSS() + ';will-change:transform', bwin) : null;
+    if (binn) {
+      binn.appendChild(F.c); F.c.style.transform = 'none';
+      var expo = 0; try { var lm = lumOf(C.c), lb = lumOf(F.c); if (lm != null && lb > 0.02) expo = Math.max(0, Math.min(0.7, 1 - lm / lb)); } catch (e) {}
+      r.exposure = +expo.toFixed(3);
+      if (expo > 0.02) { var veil = divEl('expo', 'position:absolute;left:' + fbox.x + 'px;top:' + fbox.y + 'px;width:' + fbox.w + 'px;height:' + fbox.h + 'px;background:#000;opacity:' + expo.toFixed(3) + ';will-change:opacity', binn);
+        play(veil, [{ opacity: expo }, { opacity: expo, offset: 0.45 }, { opacity: 0 }], T + 0.5 * bm, { easing: 'cubic-bezier(.3,0,.4,1)', fill: 'forwards' }); }
+    } else play(F.c, keys(N, function (u) { var p = pathAt(u); return { transform: cssM(Lb(p), fbox, fg.c, p.to), opacity: sstep(0.36, 0.46, u) }; }), T);
     /* THE BOARD LANDS: the colours bleed and close; the held board gives way to the live one under it */
     var bw = Math.max(1, Math.round(fbox.w / 2)), bh = Math.max(1, Math.round(fbox.h / 2));
     var bl = divEl('bleed', 'position:absolute;left:' + fbox.x + 'px;top:' + fbox.y + 'px;width:' + fbox.w + 'px;height:' + fbox.h + 'px;isolation:isolate;background:#000;opacity:0;will-change:opacity', camG);
@@ -1603,7 +1689,7 @@
       play(Gb, [{ transform: 'translate(' + sp + 'px,-1px)' }, { transform: 'translate(0px,0px)' }], 0.7 * bm, { delay: T - 0.1 * bm, easing: 'cubic-bezier(.2,.7,.3,1)' });
       play(bl, [{ opacity: 0 }, { opacity: 1, offset: 0.12 }, { opacity: 1, offset: 0.45 }, { opacity: 0 }], 0.9 * bm, { delay: T - 0.1 * bm, fill: 'forwards' });
     } else bl.remove();
-    play(F.c, [{ opacity: 1 }, { opacity: 0 }], 0.25 * bm, { delay: T + 0.25 * bm, fill: 'forwards' });
+    play(binn ? bwin : F.c, [{ opacity: 1 }, { opacity: 0 }], 0.25 * bm, { delay: T + 0.25 * bm, fill: 'forwards' });
     /* THE GRID SCANS ON: the board's own tile lines, drawn once at rest, revealed from the far edge to the near through a window
        that turns with the board (transform only: the window moves down while the lines inside it are held in place) */
     var gw = divEl('gridwrap', glassCSS() + ';overflow:hidden;opacity:0;will-change:transform,opacity', camG);
@@ -1612,11 +1698,16 @@
     gc.style.cssText = 'position:absolute;left:0;top:0;width:' + Wg + 'px;height:' + Hg + 'px'; gi.appendChild(gc);
     gridDraw(gc, fg, [1, 0, 0, 1], fg.c, fg.c, 1.25, 1);
     var line = divEl('scanline', 'position:absolute;left:0;top:0;width:' + Wg + 'px;height:2px;background:rgba(246,236,204,.95);box-shadow:0 0 7px 1px rgba(246,236,204,.55);will-change:transform,opacity', gi);
-    var yTop = Math.max(0, fg.o0.y), yBot = Math.min(Hg, fg.o0.y + fg.h * fg.ty); if (!(yBot > yTop)) { yTop = 0; yBot = Hg; }
-    var scan = function (u) { return yTop + sstep(0.42, 0.96, u) * (yBot - yTop); };
-    play(gw, keys(N, function (u) { var p = pathAt(u), Y = scan(u); return { transform: cssM(Lb(p), glass, fg.c, p.to) + ' translate(0px,' + (-(Hg - Y)).toFixed(1) + 'px)', opacity: sstep(0.38, 0.5, u) }; }), T);
+    var yTop = Math.max(0, fg.o0.y), yBot = Math.min(Hg, fg.o0.y + fg.h * fg.ty); if (!(yBot > yTop) || binn) { yTop = 0; yBot = Hg; }
+    var sc0 = binn ? 0.22 : 0.42, sc1 = binn ? 0.9 : 0.96;
+    var scan = function (u) { return yTop + sstep(sc0, sc1, u) * (yBot - yTop); };
+    if (binn) {
+      play(bwin, keys(N, function (u) { var p = pathAt(u), Y = scan(u); return { transform: cssM(Lb(p), glass, fg.c, p.to) + ' translate(0px,' + (-(Hg - Y)).toFixed(1) + 'px)' }; }), T, { fill: 'forwards' });
+      play(binn, keys(N, function (u) { return { transform: 'translate(0px,' + (Hg - scan(u)).toFixed(1) + 'px)' }; }), T, { fill: 'forwards' });
+    }
+    play(gw, keys(N, function (u) { var p = pathAt(u), Y = scan(u); return { transform: cssM(Lb(p), glass, fg.c, p.to) + ' translate(0px,' + (-(Hg - Y)).toFixed(1) + 'px)', opacity: sstep(sc0 - 0.04, sc0 + 0.08, u) }; }), T);
     play(gi, keys(N, function (u) { return { transform: 'translate(0px,' + (Hg - scan(u)).toFixed(1) + 'px)' }; }), T);
-    play(line, keys(N, function (u) { return { transform: 'translate(0px,' + (scan(u) - 2).toFixed(1) + 'px)', opacity: sstep(0.4, 0.46, u) * (1 - sstep(0.93, 1, u)) }; }), T);
+    play(line, keys(N, function (u) { return { transform: 'translate(0px,' + (scan(u) - 2).toFixed(1) + 'px)', opacity: sstep(sc0 - 0.02, sc0 + 0.04, u) * (1 - sstep(sc1 - 0.03, sc1 + 0.04, u)) }; }), T);
     play(gi, [{ opacity: 1 }, { opacity: 0 }], bm, { delay: T + bm, fill: 'forwards' });
     /* THE MEN, FOUND WHERE THEY STOOD: a bracket on his crew where the map had them (theirs at the contact's block), locking on as
        the grid comes up and riding the turn to each man's own tile */
@@ -1724,7 +1815,7 @@
     if (!c || u0 == null || reduced() || !fg || !fits) {
       r.plain = true;
       var k = 0, wait = function () { if (++k < 3) { W.requestAnimationFrame(wait); return; } phase(r, 'fade'); nfcSet('off'); landed();
-        var ms = reduced() ? 167 : 300; play(pic.c, [{ opacity: 1 }, { opacity: 0 }], ms); later(function () { DIVE.keep = null; keptGo(); diveEnd(r); }, ms + 40); };
+        var ms = reduced() ? 167 : 300; play(pic.c, [{ opacity: 1 }, { opacity: 0 }], ms); later(function () { DIVE.keepGone = DIVE.keep && DIVE.keep.c; DIVE.keep = null; keptGo(); diveEnd(r); }, ms + 40); };
       W.requestAnimationFrame(wait); return;
     }
     var IP = K.path, bm = beatNow(), N = 36, Wg = W.innerWidth, Hg = W.innerHeight, glass = { x: 0, y: 0, w: Wg, h: Hg }, mg = K.mg, kEnd = K.kEnd || 1, mgT = { c: mg.c, M: mg.M, sm: mg.sm * kEnd, km: mg.km };
@@ -1790,7 +1881,7 @@
       if (DIVE.row !== r) return;
       if (!liveDone && performance.now() - r.t0 < tE + 4000) { later(end, 60); return; }
       var lo = kept[0] || Kp; if (lo) play(lo.c, [{ opacity: 1 }, { opacity: 0 }], 0.3 * bm, { fill: 'forwards' });
-      later(function () { DIVE.z0 = null; DIVE.keep = null; keptGo(); diveEnd(r); }, 0.3 * bm + 50);
+      later(function () { DIVE.z0 = null; DIVE.keepGone = DIVE.keep && DIVE.keep.c; DIVE.keep = null; keptGo(); diveEnd(r); }, 0.3 * bm + 50);
     };
     later(end, tE);
   }
@@ -2107,7 +2198,13 @@
         el.remove = function () {};   /* the shell lets go of its door; the door leaves after it has gone back into the phone */
         var r; try { r = orig.apply(this, arguments); } finally { try { delete el.remove; } catch (e) {} }
         var gone = function () { try { el.remove(); } catch (e) {} };
-        var mm = realMorph({ id: 'spoils', kind: 'piece', el: el, dir: 'out', to: trayBox(), rivets: false, onLand: gone, calmMax: 1500 });
+        /* __LEAVE_ANSWERS_ON_THE_NEXT_FRAME__ (COMBAT FIVE 11/26/26, VAMILY rule 484, ask row 725: 'LEAVE from a fight freezes about a
+           second'). RECORDED at 4x: after LEAVE the end screen stood still 1.1 to 2.5 s (this fold waited for the page to calm, up to
+           1.5 s, because the way home's work began in the same task), and the board turning back into the map played unseen under it.
+           NOW the fold starts on the next frame (it is the compositor's, smooth while the main thread works) and the way home begins
+           after that frame is on the glass (the shell's nfHome, held two frames, below). window.__SPOILS_CALM_OLD: the old way. */
+        W.__BM_SPOILS_OUT = W.__SPOILS_CALM_OLD ? 0 : performance.now();
+        var mm = realMorph({ id: 'spoils', kind: 'piece', el: el, dir: 'out', to: trayBox(), rivets: false, onLand: gone, calmMax: W.__SPOILS_CALM_OLD ? 1500 : 1 });
         if (!mm) gone();
         return r;
       };
@@ -2149,7 +2246,11 @@
     live: function () { return LIVE.map(function (m) { return { id: m.id, how: m.how, kind: m.kind, k: m.k, holds: m.holds ? m.holds.length : 0, waiting: m.waiting }; }); },
     log: LOG, taps: TAPS, adapters: AD,
     /* __THE_ZOOM_DOWN_INTO_THE_BOARD__: the shell's nfOpen hands its build to down(d, go); nfHome is wrapped (AD.home) */
-    dive: { down: diveDown, state: function () { return DIVE.state; }, log: DIVE.log, at: function () { return DIVE.at; }, clear: diveClear, letGo: function () { return { ends: LETGO.ends, cancelled: LETGO.cancelled }; } },
+    dive: { down: diveDown, state: function () { return DIVE.state; },
+      /* __THE_MAP_HOLDS_UNDER_THE_DIVE__ (COMBAT FIVE 11/26, rule 484(b)): the map's own draws wait while the dive comes down over it (its
+         pictures cover the glass); the dive's own draws (DIVE.drawing) go through. The map's render() asks this. window.__DIVE_MAP_DRAWS: the old way */
+      drawing: function () { return DIVE.drawing > 0; },
+      holdsMap: function () { return !W.__DIVE_MAP_DRAWS && DIVE.state !== 'off' && !DIVE.drawing && !!DIVE.row && DIVE.row.kind === 'down'; }, log: DIVE.log, at: function () { return DIVE.at; }, clear: diveClear, letGo: function () { return { ends: LETGO.ends, cancelled: LETGO.cancelled }; } },
     campHold: { on: function () { return CAMPHOLD.on; }, rows: CAMPHOLD.rows, held: campHeld },   /* __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ */
     budget: { piece: [PIECE_MIN, 2 * PIECE_MIN], mode: [MODE_MIN, MODE_MIN + PIECE_MIN], ceiling: CEILING, fade: 200, wait: WAIT_MAX, ready: READY_MAX },
     clock: function () { var g = beat(); return { src: g.src, beatMs: g.bm, holdMs: g.bm / 6 }; },

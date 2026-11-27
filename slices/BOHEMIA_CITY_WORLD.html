@@ -48668,6 +48668,7 @@ function streetRender(ox, oy, G, night){
   } finally { S.drawing = false; S.st = null; S.faceNow = null; MAP_DEPTH.on = depthWas; MAP_DEPTH.ref = null; }
 }
 function streetYouDraw(gx, gy, moving, st, G){
+  if (window.__MAP_BARE) return;   /* __THE_MEN_COME_INTO_FOCUS__ (COMBAT FIVE 11/26): his own figure and its ring too */
   var face = mapFaceNow(), body = null, how = 'cook';
   g.save(); g.globalAlpha = 1;
   { var rp = 0.85 + 0.15 * ((mapArtBeat() % 2) ? 1 : 0);
@@ -49654,12 +49655,14 @@ function mapNameFree(b){
 function mapNameTake(b, t, kind){ var e = { b: b, t: t, kind: kind }; MAP_NAMES.boxes.push(e); if (kind !== 'crew') MAP_NAMES.drawn.push(e); }
 /* the land's names wait for the places when the region paints its places after the city (it calls mapNamesLate) */
 function mapNamesLand(ox, oy, night){
+  if (window.__MAP_BARE) return;   /* __THE_MEN_COME_INTO_FOCUS__ */
   if (MAP_NAMES.on && window.BOH_REGION && BOH_REGION.ready && BOH_REGION.landAfterPlaces) { MAP_NAMES.land = [ox, oy, night]; return; }
   vbLabels(ox, oy, night);
 }
 window.mapNamesLate = function(){ var a = MAP_NAMES.land; MAP_NAMES.land = null; if (a) { try { vbLabels(a[0], a[1], a[2]); } catch (_e) {} } };
 /* ==== /__NO_NAME_COVERS_ANOTHER__ ==== */
 function mapPlatesDraw(){
+  if (window.__MAP_BARE) { MAP_PLATES = []; return; }   /* __THE_MEN_COME_INTO_FOCUS__ */
   /* __A_TAP_ON_A_TOWN_GOES_TO_THE_TOWN__: a party's plate never lies on a town's name or building; it is lifted clear above them
      (its leader line still names the party), and its tap box goes with it */
   try { for (var pi = 0; pi < MAP_PLATES.length; pi++) { var Pp = MAP_PLATES[pi]; if (!Pp.party) continue;
@@ -49820,6 +49823,7 @@ function mapMarchFrame(who, look, need, face, walkPh, walkFr){
 }
 /* ==== /__THEY_MEND_ON_THE_MARCH__ ==== */
 function mapPersonDraw(set, face, beat, sx, footY, walkPh, look){
+  if (window.__MAP_BARE) return null;   /* __THE_MEN_COME_INTO_FOCUS__ (COMBAT FIVE 11/26, rule 484(b)): the dive's in-between pictures are the ground and the buildings; a person is drawn at one size past the map's near zoom, so a picture scaled up on the way down showed his men and their names two to four times their size (recorded at 4x) */
   var f = set && (set[face] || set.S); if (!f || !f.idle) return null;
   var fr = (f.breathe && f.breathe.length) ? f.breathe[((beat % f.breathe.length) + f.breathe.length) % f.breathe.length] : f.idle;
   if (walkPh == null) { var __idle = mapIdleFrame(set, face, beat, f.idle); if (__idle) fr = __idle; }   /* __EVERYBODY_IDLES__ */
@@ -50413,6 +50417,7 @@ window.addEventListener('bohemia:condition', function(){ mapBarsRepaint(); });
 window.addEventListener('storage', function(e){ if(e && e.key === 'bohemia.condition.v1') mapBarsRepaint(); });
 /* ==== /__THE_BARS_OVER_THEIR_HEADS__ ==== */
 function mapCompanyPass(gx,gy,lift,moving,G,near,front){
+  if (window.__MAP_BARE) return;   /* __THE_MEN_COME_INTO_FOCUS__ */
   if(MAP_PARTY_AS_ONE.on) mapCompanyDraw(gx,gy,lift,moving,G,front?'front':'back');
   else if(!!near===!!front) mapCompanyDraw(gx,gy,lift,moving,G);
 }
@@ -54717,7 +54722,7 @@ function renderCity(){
      still when he stops. COOK's banner stands on its pole beside him and stirs on the
      beat while he travels, hanging dead when he stops (cook-the-map-has-markers-9-24).
      Drawn LAST, so nothing covers him, and at ONE size at every zoom. */
-  { const p=iso(__G.x,__G.y,ox,oy);                  /* __THE_MAP_GLIDES__: he rides the glide */
+  if (!window.__MAP_BARE) { const p=iso(__G.x,__G.y,ox,oy);                  /* __THE_MAP_GLIDES__: he rides the glide */   /* COMBAT FIVE __THE_MEN_COME_INTO_FOCUS__: not in the dive's in-between pictures */
     const __gx=p.sx, __gy=p.sy+TH*0.5-mapStandLift(__G.x,__G.y);   /* where his feet are (__YOU_WALK_BEHIND_IT__: on the berm on the freeway) */
     MAP_DEPTH.ox=ox; MAP_DEPTH.oy=oy; MAP_DEPTH.ref=mapDepthRef(__G.x,__G.y);   /* __YOU_WALK_BEHIND_IT__: him and his two, in depth with the city */
     try{ if(window.BohemiaCampMap) BohemiaCampMap.drawAt(g,__gx,__gy); }catch(_e){}   /* __CAMP_TWO__ (rule 257(a)): camped, his tents, his cart and his fire stand round him */
@@ -69276,12 +69281,25 @@ function render(){ try{ dayDistrictCheck(); }catch(_e){}   /* __DAY_LOOP__ */
   /* and its two glass-sized caches (the ground picture and the sharp land past the city, 16 MB each on a phone) are let go while it
      rests: the twenty-fight gate read the tab's canvases and bitmaps 0.2 MB over Safari's 384 MB line with them held; both are
      rebuilt by the first draw after the fight, under the clouds */
-  try{ var __P = window.parent; if(__P && __P !== window && __P.CITYFIGHT && __P.NF && __P.NF.frame && !__P.NF.over){ window.__MAP_RESTED = (window.__MAP_RESTED|0) + 1;
+  /* __THE_MAP_RESTS_UNDER_THE_END_SCREEN__ (COMBAT FIVE 11/26/26, VAMILY rule 484, ask row 725; rule 480(c)): MEASURED, a CPU profile
+     of the slowed phone (4x) from a won fight's end screen to the map: the map woke the moment the fight was won (NF.over) and drew
+     its whole street-stop picture behind the end screen, frame after frame (the crew's glide asking, 98 s of 142 s of the main thread,
+     vbTilesDraw's restore alone 70 s): the end screen's tables waited behind it, LEAVE came 14 to 77 s after the win and froze 4.5 s
+     when tapped. While the end screen stands over the fight the map rests as it does under the fight; the dive's own draws (the way
+     home's pictures) go through. window.__MAP_DRAWS_UNDER_THE_END: the old way. */
+  var __dvd = false; try{ var __BMr = window.parent && window.parent.BohemiaMotion; __dvd = !!(__BMr && __BMr.dive && __BMr.dive.drawing && __BMr.dive.drawing()); }catch(_e){}
+  try{ var __P = window.parent; if(__P && __P !== window && __P.CITYFIGHT && __P.NF && __P.NF.frame && (!__P.NF.over || (!window.__MAP_DRAWS_UNDER_THE_END && __P.SPOILS && __P.SPOILS.frame && !__P.SPOILS.left && !__dvd))){ window.__MAP_RESTED = (window.__MAP_RESTED|0) + 1;
     if(!window.__MAP_RESTING){ window.__MAP_RESTING = 1;
       try{ if(MAP_GROUND.cv){ MAP_GROUND.cv.width = 0; MAP_GROUND.cv.height = 0; MAP_GROUND.key = ''; MAP_GROUND.x = null; } }catch(_e){}
       try{ if(VBV.cv){ VBV.cv.width = 0; VBV.cv.height = 0; VBV.W = 0; VBV.H = 0; VBV.key = ''; VBV.x = null; } }catch(_e){}
       try{ mapDepthPoolFree(); }catch(_e){} }   /* __THE_MAN_BEHIND_IS_CUT_ON_THE_GPU__: the men's scratches let go too */
     return; } }catch(_e){}
+  /* __THE_MAP_HOLDS_UNDER_THE_DIVE__ (COMBAT FIVE 11/26/26, rule 484(b), 420(a), 480(c)): a CPU profile of the way in at 4x (ENGAGE to the
+     fight his) put 3.2 s of the main thread in THIS draw asked by the map's own loops (the crew's glide 2.5 s, the places' re-cut 0.7 s)
+     while the dive's held pictures covered the whole glass: nobody saw a pixel of it, and it took the thread from the dive's own three
+     pictures (each landed a second late) and from the fight being built under them. While the dive comes DOWN, the map draws only
+     what the dive asks it for (BohemiaMotion.dive.holdsMap); its clock, its people and its parties keep running. */
+  try{ var __PD = window.parent && window.parent !== window ? window.parent.BohemiaMotion : null; if(__PD && __PD.dive && __PD.dive.holdsMap && __PD.dive.holdsMap()){ window.__MAP_HELD_BY_DIVE = (window.__MAP_HELD_BY_DIVE|0) + 1; return; } }catch(_e){}
   window.__MAP_RESTING = 0;
   try{ MAP_DEPTH.frame++; }catch(_e){}   /* __THE_MAN_BEHIND_IS_CUT_ON_THE_GPU__: a scratch each man, a new set each draw */
   cvKeepDpr();   /* __THE_MAP_AT_THE_PHONES_PIXELS__: the map at the phone's pixels, the street at one */
@@ -70301,6 +70319,15 @@ function cityHandOver(msg, skin){
   try{ if(msg && msg.type === 'BOHEMIA_CITY_ENCOUNTER') msg.__ctx = { fighting: LOOP.fighting || null, raid: (typeof RAID_FIGHTING !== 'undefined' ? RAID_FIGHTING : null) || null,
     taking: (typeof RAID_TAKING !== 'undefined' ? RAID_TAKING : null) || null, boss: (function(){ try{ var hs = window.BohemiaHisMap && BohemiaHisMap.state(); return hs && hs.fighting ? hs.fighting : null; }catch(_e2){ return null; } })() }; }catch(_e){}
   try{ window.__HANDED = msg; }catch(_e){}   /* __PULLED_BACK__ (COMBAT, rule 275(c), a marked line): the contact kept whole, so a lineup left can be undone */
+  /* __THE_CAMERA_MOVES_ON_THE_TAP__ (COMBAT FIVE 11/26/26, VAMILY rule 484(b), rules 407(b), 420(b); Paolo 11/26: 'the combat transition
+     still sucks'). RECORDED at phone speed (the demo upright, the CPU slowed 4x, tools/bohemia_combat_five_the_way_in_record.js): from
+     ENGAGE the glass stood still 1.0 to 2.9 s, then went near black: V205's pull-back (two beats: the whole map drawn every frame with
+     the cloud shade crossing it, a blurred copy of the glass, the street shrunk to a third) still ran here BEFORE the shell's dive, the
+     dive took its first picture of that shaded frame, and the camera's first second was a black field with a grey blob. The dive
+     (slices/bohemia_motion.js) owns the way in: the fight goes to the shell at once, on the map's clean frame, and the camera moves on
+     the tap. Without the dive (a page with no motion layer) the pull-back is as it was. */
+  try{ var __BMd = (window.parent && window.parent !== window) ? window.parent.BohemiaMotion : null;
+    if(__BMd && __BMd.dive && __BMd.dive.down && !FZOOMING && !(typeof transing!=='undefined' && transing)){ window.__HANDED_AT_ONCE = (window.__HANDED_AT_ONCE|0) + 1; window.parent.postMessage(msg,'*'); return true; } }catch(_e){}
   try{
     return fightZoomOut(function(){
       try{ window.parent.postMessage(msg,'*'); }catch(_e){}
@@ -92180,7 +92207,10 @@ render=function(){ var r=_ctRender.apply(this,arguments); try{ ctVerb(); }catch(
     }
     if(inRaf) drew = frameT;
     ONE.drawn++;
-    return inner.apply(this, arguments);
+    /* COMBAT FIVE 11/26 (__THE_CAMERA_NEVER_OUTRUNS_ITS_PICTURES__): what a whole draw costs on this phone, kept (the dive paces its first
+       come-down by it: the camera guessed 300 ms a picture and outran the first one, the map he left shown two to three times its size) */
+    var __t0 = performance.now();
+    try { return inner.apply(this, arguments); } finally { var __dt = performance.now() - __t0; if (__dt > 2) ONE.ms = ONE.ms ? ONE.ms * 0.7 + __dt * 0.3 : __dt; }
   };
 })();
 

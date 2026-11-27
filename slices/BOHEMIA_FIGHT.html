@@ -7221,7 +7221,18 @@ function ringCanvas() {
   const S = FIGHT.S, G = DB.ground, bt = G.block_tiles, R = SURROUND_BLOCKS, key = UI.ringKey + ':' + !!S.night + ':' + UI.board;
   if (UI.ringC && UI.ringCKey === key) return UI.ringC;
   const ring = surround(), nx = Math.ceil(S.w / bt), ny = Math.ceil(S.h / bt);
-  const c = document.createElement('canvas'); c.width = Math.round((nx + R * (1 + 1)) * bt * UI.tw * RING_K); c.height = Math.round((ny + R * (1 + 1)) * bt * UI.th * RING_K);
+  /* __THE_RING_IS_ONE_CANVAS__ (COMBAT FIVE 11/27/26, VAMILY rule 484 as amended; Paolo 11/27: 'combat keeps crashing, like when I get
+     into combat'). MEASURED (tools/bohemia_combat_five_canvas_census.js, the demo upright at 4x): the ring is about 24 MB of pixels, and
+     a ring with a hole (its blocks still loading: exactly the first frames of a fight) was never kept, so EVERY FRAME of the board's
+     first second made a new 24 MB canvas, and at night a second one the same size for its copy, none emptied, all alive until a
+     collection an iPhone may not run in time (Safari's cap is on every live canvas together). NOW one canvas serves every unfinished
+     ring (drawn again in place), the night's copy is emptied once used, and a kept ring that is replaced is emptied.
+     window.__RING_NEW_EACH_TIME: the old way */
+  const RW = Math.round((nx + R * (1 + 1)) * bt * UI.tw * RING_K), RH = Math.round((ny + R * (1 + 1)) * bt * UI.th * RING_K);
+  let c = null;
+  if (!window.__RING_NEW_EACH_TIME && UI.ringWork && UI.ringWork !== UI.ringC) { c = UI.ringWork; if (c.width !== RW || c.height !== RH) { c.width = RW; c.height = RH; } }
+  if (!c) { c = document.createElement('canvas'); c.width = RW; c.height = RH; }
+  if (!window.__RING_NEW_EACH_TIME) UI.ringWork = c;
   const g = c.getContext('2d'), w = bt * UI.tw * RING_K, h = bt * UI.th * RING_K; g.imageSmoothingQuality = 'high';
   /* THE BLUE (his fourteenth votes NO: 'what the fuck is that blue collision'): a block that never loaded left glass, and the
      night's moonlight multiplied onto glass IS the blue; the ring is ground before it is blocks, so a hole is dirt, never blue */
@@ -7233,11 +7244,12 @@ function ringCanvas() {
     laidDim(g, nx, ny, R, w, h, 0, 0);
   } else ring.forEach(function (q) { const im = UI.imgs['fight_ground/' + G.blocks[blockBase(q.n)].src]; if (!im) { holes++; return; }
     const x = (q.bx + R) * w, y = (q.by + R) * h; blockBlit(g, mipFor(im, w / DPR), q.n, x, y, w, h); dimCell(g, q, nx, ny, x, y, w, h); });
-  if (S.night) { const dc = document.createElement('canvas'); dc.width = c.width; dc.height = c.height; dc.getContext('2d').drawImage(c, 0, 0); nightPass(g, c.width, c.height, null, 0, dc); }   /* the ground's night keeps its hues */
+  if (S.night) { const dc = document.createElement('canvas'); dc.width = c.width; dc.height = c.height; dc.getContext('2d').drawImage(c, 0, 0); nightPass(g, c.width, c.height, null, 0, dc); if (!window.__RING_NEW_EACH_TIME) { dc.width = 0; dc.height = 0; } }   /* the ground's night keeps its hues */
   /* A RING WITH A HOLE IS NEVER KEPT (10/18, measured: a second fight from AGAIN drew this ring while its blocks were still
      loading, kept it, and 35.7% of the glass stayed flat dirt for the whole fight; the key could not tell, because a canvas
      reads the same as a string every time) */
-  if (!holes) { UI.ringC = c; UI.ringCKey = key; }
+  if (!holes) { if (!window.__RING_NEW_EACH_TIME && UI.ringC && UI.ringC !== c && UI.ringC !== UI.ringWork) { try { UI.ringC.width = 0; UI.ringC.height = 0; } catch (e) {} }
+    UI.ringC = c; UI.ringCKey = key; if (UI.ringWork === c) UI.ringWork = null; }   /* kept: the next unfinished ring takes a new canvas */
   return c;
 }
 /* the ring: SURROUND_BLOCKS blocks on every side, each a block of the board's own kinds, picked by a hash of the fight's seed
@@ -13260,6 +13272,12 @@ let hudN = 0;
 /* the next frame is asked for FIRST: one bad frame is reported, it never freezes the fight (it did, 10/2) */
 function frame(now) {
   requestAnimationFrame(frame);
+  /* __THE_FIGHT_RESTS_UNDER_THE_END_SCREEN__ (COMBAT FIVE 11/26/26, VAMILY rule 484, ask row 725; rule 480(c)): a won or lost fight's end
+     screen covers the whole glass (the shell's #spoilsdoor, opaque), and the board went on drawing under it every frame (4.4 s of the
+     main thread in a profile of the slowed phone from the end screen to the map) while the end screen loaded and LEAVE waited. The
+     board's last frame stays on its canvas (the way home's first picture is that frame); it draws again the moment the screen goes
+     (LEAVE, MAKE CAMP). window.__FIGHT_DRAWS_UNDER_THE_END: the old way. */
+  try { const TS = window.top && window.top !== window ? window.top.SPOILS : null, FS = FIGHT.S; if (FS && FS.over && TS && TS.frame && !TS.left && !window.__FIGHT_DRAWS_UNDER_THE_END) { UI.restedUnderEnd = (UI.restedUnderEnd | 0) + 1; UI.lastFrameAt = now; return; } } catch (e) {}
   /* the device's own frame (rule 274(c)): a choice inside one frame of its grid point is not late, it is the device */
   if (UI.lastFrameAt) UI.frameMs = Math.min(250, (UI.frameMs || 16.7) * .9 + (now - UI.lastFrameAt) * .1); UI.lastFrameAt = now;
   try { poseSweep(performance.now()); } catch (e) { frameErr(e, now); }   /* __AUTO_AT_4X_NEVER_CRASHES__: a sheet nobody is drawn from is let go */

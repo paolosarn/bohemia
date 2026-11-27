@@ -1,5 +1,33 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
+COMBAT FIVE (combat-five-01gkdyuv; VAMILY rule 484 and its 11/27 amendment, 407, 420, 480(c), 482; ask row 725): 11/27 LATEST -- BUILD 11/27g - THE CAMERA COMES DOWN, LEAVE ANSWERS, BUILT. VOTE combat5-the-camera-comes-down-11-27 (a clip, before and now).
+Record: records/BOHEMIA_COMBAT_FIVE_THE_CAMERA_COMES_DOWN_LEAVE_ANSWERS_11_27_26.md (every number, before and after, and the numbers for PLUMBER 8).
+TOOLS: tools/bohemia_combat_five_the_way_in_record.js <outdir> [--profile phone_landscape] [--read ms] (films both ways at 4x, a clip at the real speed);
+tools/bohemia_combat_five_side_by_side.py <before> <now> <out.mp4>; tools/bohemia_combat_five_canvas_census.js [--fights n] (every canvas and ImageBitmap
+alive with pixels every 100 ms, no forced collection, the most at each step and who made it).
+THE WAY IN (slices/bohemia_motion.js, the map's page, slices/bohemia_region.js): __THE_CAMERA_MOVES_ON_THE_TAP__ (cityHandOver: no V205 pull-back when the
+dive is there), __THE_MAP_HOLDS_UNDER_THE_DIVE__ (dive.holdsMap/drawing), __THE_MEN_COME_INTO_FOCUS__ (window.__MAP_BARE in the B pictures),
+__THE_CAMERA_NEVER_OUTRUNS_ITS_PICTURES__ (ONE_RENDER.ms; the clock set before the first picture; up to 7 beats), __THE_FIGHT_BUILDS_SOONER__,
+__THE_CAMERA_NEVER_STOPS__ (PUSH 1.08, findsOn brackets), __THE_SCAN_MAKES_THE_BOARD__ (3 beats, bwin/binn window, lumOf exposure veil).
+THE WAY HOME: __THE_MAP_RESTS_UNDER_THE_END_SCREEN__, __THE_FIGHT_RESTS_UNDER_THE_END_SCREEN__ (frame()), __LEAVE_ANSWERS_ON_THE_NEXT_FRAME__ (spoilsClose
+wrapper calmMax 1; nfHome held two frames, never for MAKE CAMP).
+THE IPHONE: __THE_DIVE_FITS_AN_IPHONE__ (picOf at 2 px a point, kept pictures reused, every dive canvas sized to zero at diveEnd, keepGone),
+__THE_RING_IS_ONE_CANVAS__ (the fight: one canvas for every unfinished ring; it made a new 24 MB one every frame while the ground loaded).
+Every switch has its old way: __DIVE_MAP_DRAWS, __DIVE_ONE_STOP, __DIVE_TILE_BEAT, __DIVE_SETTLES, __DIVE_FOUR_BEATS, __DIVE_TURN_TWO, __DIVE_BOARD_FADES,
+__DIVE_PEOPLE_ALL_THE_WAY, __DIVE_FULL_PIXELS, __MAP_DRAWS_UNDER_THE_END, __FIGHT_DRAWS_UNDER_THE_END, __SPOILS_CALM_OLD, __RING_NEW_EACH_TIME.
+Gates: ZOOM DOWN 15/0 upright, 7/0 traced 4x, 12/0 computer; WHOLE LOOP 11/0; LEAVE WAITS 5/0; TWENTY FIGHTS HOLD MEMORY FLAT 10/0 (8 fights upright);
+AUTO AT 4X 7/0; DEMO BUILD 25/0; PAGES PUBLISH 30/0; MAKE CAMP FROM THE FIGHT 11/0; CAMP IS THE FIGHT'S BOARD 33/3 (ask row 681's, quarantined).
+*** FOR PLUMBER 8 (rule 484(a), the page side; numbers in the record): at the peak ~700-750 MB of pictures alive, 480-536 MB of it ImageBitmaps a phone cannot
+purge: the map's people sheets 195 MB (rigSheetLoad, CHARACTER 2's 11/26 decode) and idles 107-124 MB (engine/bohemia_idles.js:149) stay alive under
+every fight; the fight's ground 80-125 MB, held sheets 53-63, packed 25, idles 26-28. The map's 300 MB under the fight is the biggest thing alive. ***
+*** FOR WORLD / COMBAT MAPS: the map's street stop (dark towers) and the board (bright houses) are two painters of one place; the scan covers the change. ***
+NEXT (mine, rule 484 first): (1) THE GROUND BLOCKS: decode each at the size the glass can show at the far stop (resizeWidth, one at a time) and the full
+block only for the blocks the near stop shows, on the pinch (DIRECTION's verdict 22 keeps the near stop one to one): -60 to -90 MB in every fight;
+(2) close the fight's held sheets of men no longer standing; (3) the sideways recording (the coordinator's interrupt stopped it) and twenty fights
+sideways; (4) then ROW 736 (FIGHT.dealsAt) and the brain's long thinks.
+[bb Battle Brothers cuts to a still battle screen; here the camera never stops]
+[analog horror: the surveillance camera finds them before the tape lets you in]
+
 COMBAT FOUR (ask row 743; rules 480(b), 441, 465): 11/26 LATEST -- [every beast its own word] SHIPPED 725b01f24, BUILD 11/26zb - EVERY BEAST ITS OWN WORD. No VOTE card.
 Record: records/BOHEMIA_COMBAT_FOUR_EVERY_BEAST_ITS_OWN_WORD_11_26_26.md. FIGHT.wlineOf(w) (slices/BOHEMIA_FIGHT.html __EVERY_BEAST_ITS_OWN_WORD__): the class row of weapon_lines.json, and for 'natural' the first
 natural.by_attack entry whose 'match' is in the attack's id or name: its name and hands; 'line: true' keeps the class line (bites only). weaponCard, the man's
