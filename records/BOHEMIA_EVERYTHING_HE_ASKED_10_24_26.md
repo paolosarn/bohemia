@@ -789,3 +789,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 764 | Just more everything: more improving what we already have, fix the crashing, 60 frames the whole time | 480, 482, 484 | ALL LANES (the crash first: PLUMBER 8, COMBAT FIVE) | SENT 11/27 (every lane woken 02:04 to 02:11) |
 | 765 | How do I do the custom settlement, can I start it yet, how does it work? | 347, 445 | COORDINATOR (answered from the HOME BASE records: the phone's YOUR PLACE page on the map, PLANT HERE, permanent, it starts bare, tap an empty lot to BUILD) | ANSWERED 11/27 |
 | 766 | The crash: the page goes white or reloads by itself (his A) | 484 | PLUMBER 8, COMBAT FIVE | SENT 11/27 |
+| 767 | Tired of enemies not having enough men of their own; the jobs don't scale with my team's power level | 491 | JOBS 2 (offers), BESTIARY 3 (forces' numbers and kit) | SENT 11/27 |
