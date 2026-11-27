@@ -235,6 +235,47 @@
   function trained(store, name, xp) { store = store || {}; var t = store[name], x = Math.max(0, Math.round(+xp || 0));
     if (!t || !(t.left > 0)) return { xp: x, store: store, bonus: 0 };
     var out = Math.round(x * (+t.mult || 1)); t.left--; if (t.left <= 0) delete store[name]; return { xp: out, store: store, bonus: out - x }; }
+  /* ---------------- HIS PLACE, HIS WAY (HOME BASE 5 11/27, rule 347(c): 'literally every thing in our custom settlement can be
+     customized... super easy') ----------------
+     rec.look: spots { thingKey: footage lot 1..12 } (where it stands), paint { thingKey: paint id } (records/target/bb/home_base.json
+     look.paints; 'bare' is no paint), signs { thingKey: his words, 'gate': ... } (A-Z 0-9 and a little punctuation, look.sign_max),
+     jobs { resident name: lot key '3,0' | 'rest' } (who works what). A thing's key is the screen's 'h<lot>:<id>', so a lot cleared
+     and built again is a new thing. Pure: the map keeps it in the home record and saves it with the rest. */
+  function lookOf(rec) {
+    if (!rec) return null;
+    if (!rec.look || typeof rec.look !== 'object') rec.look = {};
+    ['spots', 'paint', 'signs', 'jobs'].forEach(function (k) { if (!rec.look[k] || typeof rec.look[k] !== 'object') rec.look[k] = {}; });
+    return rec.look;
+  }
+  function signText(t) {
+    var max = (D && D.look && D.look.sign_max) | 0 || 12;
+    return String(t == null ? '' : t).replace(/<[^>]*>/g, '').toUpperCase().replace(/[^A-Z0-9 .,!?'&#\-]/g, '').replace(/\s+/g, ' ').trim().slice(0, max).trim();
+  }
+  function paintIds() { return ((D && D.look && D.look.paints) || []).map(function (p) { return p.id; }); }
+  function setLook(rec, what, key, val) {
+    if (!rec || !planted(rec)) return { ok: false, why: 'NOT_PLANTED' };
+    var L = lookOf(rec); key = String(key == null ? '' : key);
+    if (!key || key.length > 48) return { ok: false, why: 'NO_KEY' };
+    if (what === 'spot') {
+      if (val == null || val === '') { delete L.spots[key]; return { ok: true }; }
+      var n = val | 0; if (n < 1 || n > 12) return { ok: false, why: 'NO_LOT' };
+      for (var k in L.spots) if (L.spots[k] === n && k !== key) delete L.spots[k];   /* one lot, one thing: whoever stood there by his word goes back to where it falls */
+      L.spots[key] = n; return { ok: true, spot: n };
+    }
+    if (what === 'paint') {
+      var ids = paintIds(); if (ids.indexOf(val) < 0) return { ok: false, why: 'NO_PAINT' };
+      if (val === ids[0]) delete L.paint[key]; else L.paint[key] = val; return { ok: true, paint: val };   /* the first paint is the bare one */
+    }
+    if (what === 'sign') {
+      var s = signText(val); if (s) L.signs[key] = s; else delete L.signs[key]; return { ok: true, sign: s };
+    }
+    if (what === 'job') {
+      if (val == null || val === '') { delete L.jobs[key]; return { ok: true }; }
+      var v = String(val); if (v !== 'rest' && !/^\d+,\d+$/.test(v)) return { ok: false, why: 'NO_JOB' };
+      L.jobs[key] = v; return { ok: true, job: v };
+    }
+    return { ok: false, why: 'NOT_A_CHOICE' };
+  }
   function save(rec) { try { return JSON.stringify(rec); } catch (e) { return null; } }
   function load(txt, seed) {
     var r = null; try { r = JSON.parse(txt || 'null'); } catch (e) { r = null; }
@@ -244,7 +285,8 @@
   }
 
   var API = { setData: setData, data: data, grade: grade, best: best, make: make, planted: planted, plant: plant, nameOf: nameOf, rename: rename,
-              addResident: addResident, prizesFrom: prizesFrom, note: note, tell: tell, whoFor: whoFor, give: give, placeWaiting: placeWaiting, buildPlace: buildPlace, placesOf: placesOf, trainCost: trainCost, train: train, trained: trained, bill: bill, plan: plan, roadCheck: roadCheck, lotsOpen: lotsOpen, save: save, load: load };
+              addResident: addResident, prizesFrom: prizesFrom, note: note, tell: tell, whoFor: whoFor, give: give, placeWaiting: placeWaiting, buildPlace: buildPlace, placesOf: placesOf, trainCost: trainCost, train: train, trained: trained, bill: bill, plan: plan, roadCheck: roadCheck, lotsOpen: lotsOpen, save: save, load: load,
+              lookOf: lookOf, setLook: setLook, signText: signText };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.BohemiaHome = API;
 })(typeof window !== 'undefined' ? window : this);

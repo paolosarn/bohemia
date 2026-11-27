@@ -1,3 +1,10 @@
+HOME BASE 5 (home-base-01gkdyuud): 11/27 LATEST -- BUILD 11/27za - HIS PLACE, HIS WAY, BUILT, NOT YET SEEN (rule 347(c), ask row 356). Its block is handoffs/HOME_BASE.md.
+Everything at his place changes by tapping it on his cameras: MOVE (the lots it can go to light up, a tap puts it there), PAINT (five paints, read on the night
+footage as their infrared value), SIGN (his words on a plate), ITS NAME (a tap on the camera's name line, or ANOTHER and OK), WORKS AT (a tap on someone who lives
+there; they stand at the build). Kept after a reload. Gate HIS PLACE, HIS WAY (new) 24/0 each way, every leg planted red; YOUR PLACE, PLANTED 150/0 and 147/0;
+ONCE, EVERYWHERE 6/0 each way; THE VOTE TAB 66/0. VOTE home-base-his-place-his-way-11-27. NEXT: what it is made of (the pipeline's materials, needs bpy).
+[bb Battle Brothers: a name is changed by tapping it; ours: everything at his place]
+
 UI FIVE (ui-five-01gkdyuu): 11/27 LATEST -- BUILD 11/27z - HIS FINGER ON THE DOOR, BUILT, NOT YET SEEN (rules 480(c), 482). Its block is handoffs/UI_FOUR.md.
 A tap on a crew pick on the door froze 333-467 ms at 4x (the jobs planned again under his finger); now they wait 2.5 s after his touch and run while he reads:
 55-58 fps, worst 33-83 ms, both ways. Gate HIS FINGER ON THE DOOR (new) both ways, plant red. VOTE ui5-his-finger-on-the-door-11-27. THE CLOCK UP TOP fast-proof 22/0;

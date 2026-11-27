@@ -10287,6 +10287,14 @@ GATES = [
      "like 20 times'): on the demo upright and sideways, his place planted with four buildings and the camp's cook, blacksmith and surgeon hired: O1 THE MAP at "
      "eight zooms walking and camped, he once, his two at most twice, each of the camp's people once (MAP_DREW); O2 EVERY SETTLEMENT, each person once, each name once, "
      "each door once, his place's footage each thing and person once; O3 THE CAMP each of his people once; P planted repeats read red. About 8 minutes", False),
+    ('HIS PLACE, HIS WAY', ['node', 'gates/his_place_his_way_gate.js'],
+     "HOME BASE 5 gate, 11/27, VAMILY rule 347(c) (PAOLO 11/3: 'literally every thing in our custom settlement can be customized... super easy... a Stardew "
+     "Valley vibe'): ENGINE W1 a spot is a footage lot, one lot one thing, unplanted refused; W2 a paint from home_base.json look.paints, BARE takes it off; W3 a "
+     "sign cleaned to what it can paint; W4 a job is a lot or REST. ON THE DEMO upright and sideways, every choice by a real tap: H1 MOVE (lots lit, moved, the "
+     "rest where they stood); H2 PAINT (LIME lifts the tank's pixels, TAR through the clinic's door drops the roof's); H3 SIGN; H4 ITS NAME (the camera's name "
+     "line, ANOTHER, OK, the gate's plate); H5 WHO WORKS WHAT (WORKS AT, the map puts him there, the footage stands him at it); H6 every sheet laid both ways "
+     "at 44 points; H7 at 4x his look adds no held frame; H8 KEPT after the page is shut and opened again; each planted with his look off at the map, red. "
+     "About 4 minutes a way; --engine a second", False),
     ('YOUR PLACE, PLANTED', ['node', 'gates/home_base_gate.js'],
      "HOME BASE gate, 11/8, rule 437(b) (PAOLO 11/3: 'you plant your part of the city kind of wherever you want... a smart system... the daily battery usage... "
      "are you sure you wanna plant down here, like this is permanent'): ENGINE E1 the place's plan, 12 lots, every lot on a road, one network (429(h)); E2 planted: a lot cut off, "

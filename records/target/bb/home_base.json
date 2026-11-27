@@ -449,5 +449,19 @@
       "value": "offensive_action",
       "source": "records/target/bb/relations.json acts: 'Offensive Action -20'. A town he sold a bad batch to finds out when its own people shake, years on (the same incubation), once"
     }
+  },
+  "look": {
+    "_about": "HOME BASE 5 11/27, rule 347(c): what he changes at his place by tapping it (records/BOHEMIA_HOME_BASE_HIS_PLACE_HIS_WAY_THE_RESEARCH_11_27_26.md). A move and a paint cost nothing and take no time (Stardew Valley's Robin moves a building for nothing). paints: the first is bare (as built); 'hex' is the colour he picks by day, 'ir' how it reads on his night cameras (near-infrared: lime whitewash and red-oxide primer reflect it and glow, carbon-black tar soaks it up), a multiplier on the piece's light. Words draft:true (WORDS); TUNING's to move.",
+    "draft": true,
+    "sign_max": 12,
+    "paints": [
+      { "id": "bare", "name": "BARE", "hex": null, "ir": 1.0 },
+      { "id": "lime", "name": "LIME", "hex": "#e6e1cf", "ir": 1.5 },
+      { "id": "primer", "name": "PRIMER", "hex": "#8e3b25", "ir": 1.3 },
+      { "id": "drab", "name": "DRAB", "hex": "#5d5f3c", "ir": 0.72 },
+      { "id": "tar", "name": "TAR", "hex": "#1d1b19", "ir": 0.42 }
+    ],
+    "names": ["LAST STOP", "LA COLONIA", "DRY CREEK", "CASA NADA", "THE HOLDOUT", "GOOD WATER", "EL REFUGIO", "TWO PALMS", "LOW TIDE", "THE KEEP", "SUNRISE BLOCK", "BUENA SUERTE"],
+    "words": { "move": "MOVE", "paint": "PAINT", "sign": "SIGN", "where": "Where does it go?", "back": "BACK", "ok": "OK", "another": "ANOTHER", "call": "What do we call it?", "works": "WORKS AT", "rest": "REST", "here": "HERE" }
   }
 }

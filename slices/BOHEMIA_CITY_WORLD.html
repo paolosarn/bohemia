@@ -96024,7 +96024,8 @@ function homeState(){
            act: actNow, story: (r.story || []).slice(-8), builds: HOME.data.builds || null, supplies: homeSupplies(), workers: homeWorkers(), morning: r.lastMorning || null,
            things: (r.things || []).slice(), waiting: (r.waiting || []).slice(),
            standing: standing, lotsOpen: BohemiaHome.lotsOpen(r, standing), words: D.words, grade: r.planted ? r.planted.grade : null,
-           opens: D.opens || null, places: BohemiaHome.placesOf(r, homeDay()), placeRows: D.places || null, deeds: (r.deeds || []).slice(-40), trained: homeTrainedAll() };   /* WHAT YOU BUILD OPENS A DOOR (rule 445(b)): which build opens which of his place's doors */
+           opens: D.opens || null, places: BohemiaHome.placesOf(r, homeDay()), placeRows: D.places || null, deeds: (r.deeds || []).slice(-40), trained: homeTrainedAll(),
+           look: HOME.lookOff ? null : JSON.parse(JSON.stringify(BohemiaHome.lookOf(r))), lookRows: D.look || null };   /* __HIS_PLACE_HIS_WAY__: what he changed, and the paints and words */   /* WHAT YOU BUILD OPENS A DOOR (rule 445(b)): which build opens which of his place's doors */
 }
 /* (b) plant where he stands; the engine refuses a second time and a block the grade says no to */
 function homePlant(){
@@ -96088,7 +96089,15 @@ function homeLabel(){ var r = homeRec(); return r && HOME.data ? BohemiaHome.nam
     return out; };
 })();
 window.addEventListener('message', function(e){ var d = e.data || {};
-  if (d.type === 'BOHEMIA_HOME_RENAME') { homeRename(d.name); try { LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_HOME', home: homeState(), plan: HOME.data && HOME.data.plan }, '*'); } catch (_e) {} } });
+  if (d.type === 'BOHEMIA_HOME_RENAME') { homeRename(d.name); try { LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_HOME', home: homeState(), plan: HOME.data && HOME.data.plan }, '*'); } catch (_e) {} }
+  if (d.type === 'BOHEMIA_HOME_SET') { homeSetLook(d.sets || []); try { LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_HOME', home: homeState(), plan: HOME.data && HOME.data.plan }, '*'); } catch (_e) {} } });
+/* __HIS_PLACE_HIS_WAY__ (HOME BASE 5 11/27, rule 347(c): 'literally every thing in our custom settlement can be customized... super easy'):
+   the town screen sends what he changed by tapping his place (where a thing stands, its paint, its sign, who works what); the engine
+   keeps it on his home record (BohemiaHome.setLook) and it is saved with the rest, so a reload, a CONTINUE, keeps it. */
+function homeSetLook(sets){ var r = homeRec(); if (!r || !r.planted) return []; var out = [];
+  (sets || []).slice(0, 16).forEach(function(s){ if (!s) return; out.push(BohemiaHome.setLook(r, s.what, s.key, s.val)); });
+  if (out.some(function(x){ return x && x.ok; })) { homeSave(); try { saveNow('home:look'); } catch (_e) {} }
+  window.__HOME_LOOK_SET = { sets: sets, out: out, at: Date.now() }; return out; }
 /* ==== __WHAT_HE_BUILDS__ (HOME BASE 11/10, rule 443(f), rule 343, rule 441; and EYES row 549) ====
    ROW 549, MEASURED BY EYES: 940 of 1,139 plantable blocks could never be stood on (a suburb block is not walkable; the crew stands on
    the street beside it), so GO THERE parked him beside the block for ever. Measured again here: 1,293 plantable, 182 walkable, 1,173
@@ -96141,8 +96150,13 @@ function homeWorkers(){
   var r = homeRec(), out = {}; if (!r || !r.planted) return out;
   var bk = null; try { bk = LOT_BOOK[homeMine()]; } catch (_e) {} if (!bk) return out;
   var keys = Object.keys(bk.lots).sort(function(a, b){ return (parseInt(a, 10) | 0) - (parseInt(b, 10) | 0); }), i = 0;
-  keys.forEach(function(k){ var L = bk.lots[k], row = homeBuildRow(L.id); if (!L.done || !row || !row.worked) return;
-    var p = r.residents[i++]; if (p) out[k] = p.name; });
+  /* __HIS_PLACE_HIS_WAY__ (HOME BASE 5, rule 347(c)): whom he put on a job works it; whom he told to REST works nothing; the rest go
+     where they always went, in the order they came, to the builds nobody was put on */
+  var J = (!HOME.lookOff && r.look && r.look.jobs) || {}, put = {}, can = function(k){ var L = bk.lots[k], row = L && homeBuildRow(L.id); return !!(L && L.done && row && row.worked); };
+  r.residents.forEach(function(p){ var k = J[p.name]; if (!k || k === 'rest' || !can(k) || out[k]) return; out[k] = p.name; put[p.name] = 1; });
+  var left = r.residents.filter(function(p){ return J[p.name] !== 'rest' && !put[p.name]; });   /* a job whose build came down: back to where he always went */
+  keys.forEach(function(k){ if (!can(k) || out[k]) return;
+    var p = left[i++]; if (p) out[k] = p.name; });
   return out;
 }
 /* the morning: what stands at his place gives, into the company's supplies (and a worked solar panel, a battery) */
@@ -96363,7 +96377,8 @@ function grindShows(){
 }
 setInterval(function(){ try { grindShows(); } catch (_e) {} }, 3000);
 /* ==== /__THE_GRINDER__ ==== */
-window.BohemiaHomeMap = { placeBuild: homePlaceBuild, press: homePress, watch: homeWatch, train: homeTrain, trainedAll: homeTrainedAll, give: homeGive, bossGifts: homeBossGifts, state: homeState, plant: homePlant, rawSeat: homeRawSeat, plantAt: homePlantAt, payGoods: homePayGoods, morning: homeMorning, workers: homeWorkers, choose: homeChoose, rename: homeRename, go: homeGo, probe: homeProbe, offer: homeOffer, billNight: homeBillNight, rec: homeRec, label: homeLabel, grind: homeGrind, grinder: homeGrinderNow, grinderState: function(){ return grindReady() ? grindSt() : null; }, grinderShows: grindShows, grinderFight: grindFightHome };   /* __THE_GRINDER__ (HOME BASE 3): grind, grinder (what the pile makes now), grinderState for gates */
+window.BohemiaHomeMap = { placeBuild: homePlaceBuild, press: homePress, watch: homeWatch, train: homeTrain, trainedAll: homeTrainedAll, give: homeGive, bossGifts: homeBossGifts, state: homeState, plant: homePlant, rawSeat: homeRawSeat, plantAt: homePlantAt, payGoods: homePayGoods, morning: homeMorning, workers: homeWorkers, choose: homeChoose, rename: homeRename, go: homeGo, probe: homeProbe, offer: homeOffer, billNight: homeBillNight, rec: homeRec, label: homeLabel, grind: homeGrind, grinder: homeGrinderNow, grinderState: function(){ return grindReady() ? grindSt() : null; }, grinderShows: grindShows, grinderFight: grindFightHome,
+  setLook: homeSetLook, lookOff: function(v){ HOME.lookOff = !!v; return HOME.lookOff; } };   /* __THE_GRINDER__ (HOME BASE 3): grind, grinder (what the pile makes now), grinderState for gates; __HIS_PLACE_HIS_WAY__ (HOME BASE 5): setLook, and lookOff for the gate's planted legs only */
 /* ==== /__HOME_BASE__ ==== */
 </script>
 </body></html>

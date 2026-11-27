@@ -102,6 +102,13 @@ html.boh-phone-on body:has(#sbody) #bmcorner{display:none!important}
 .hdesk b{display:block;color:var(--gold);font-weight:400;font-size:10px;letter-spacing:1px}.hdesk button{min-height:44px;font:inherit;background:var(--plate);color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:0 8px}
 .hplan{display:block;width:100%;max-height:8vh;object-fit:contain;object-position:left center;margin-top:2px;image-rendering:pixelated;border-radius:4px;touch-action:manipulation}
 @media (orientation:landscape){.hplan{max-height:15vh}.acts.two{grid-template-columns:repeat(4,minmax(0,1fr))}.hdesk{margin-top:4px}}   /* on its side: the plan short, the list four across, everything on the glass */
+/* __HIS_PLACE_HIS_WAY__ (HOME BASE 5, rule 347(c)): MOVE, PAINT, SIGN under a thing of his; the five paints; WORKS AT */
+.hlook{display:flex;gap:6px;margin-top:8px}.hlook .hlb{flex:1;min-width:0;min-height:44px;justify-content:center;font-size:12px;letter-spacing:2px;padding:4px 6px}
+.hlook .hlb.on,.act.on{border-color:var(--gold);box-shadow:inset 0 0 0 1px rgba(244,207,124,.45)}
+.hpaint{display:flex;gap:5px;margin-top:6px}.hpaint .hsw{flex:1;min-width:0;min-height:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:var(--plate);color:var(--ink);border:1px solid var(--line);border-radius:6px;font:inherit;font-size:10px;letter-spacing:1px;padding:4px 2px}
+.hpaint .hsw i{display:block;width:26px;height:18px;border-radius:3px;border:1px solid rgba(0,0,0,.5)}.hpaint .hsw.bare i{border:1px dashed rgba(239,228,204,.6);background:transparent}.hpaint .hsw.on{border-color:var(--gold);box-shadow:inset 0 0 0 1px rgba(244,207,124,.5)}
+.hjobs-h{margin:10px 0 0;font-size:11px;letter-spacing:2px;color:var(--dim)}.acts.two.hjobs{margin-top:4px}
+html body #sheet.hside.hstation .hlook,html body #sheet.hside.hstation .hpaint,html body #sheet.hside.hstation .hsign{flex:none}
 .hname{display:flex;gap:6px;margin-top:8px}.hname input{flex:1;min-height:44px;font:inherit;font-size:14px;background:#f1e8d2;color:#1f1710;border:1px solid var(--line);border-radius:5px;padding:0 8px;text-transform:uppercase}
 .act{min-height:48px;text-align:left;background:var(--plate);color:var(--ink);border:1px solid var(--line);
   border-radius:6px;font:inherit;padding:8px 10px;display:flex;justify-content:space-between;gap:8px;align-items:center}
@@ -2481,6 +2488,10 @@ function homeFeedHasPic(pid, n){ var D = HF.M && HF.M.pieces[pid]; if(!D || !D.s
 function homeFeedSlots(){ var M = HF.M; if(!M) return {}; var R = homeFeedRows(), used = {}, out = {}, un = [], over = [];
   var seen = {}, T = homeThingsHere().slice().sort(function(a, b){ return (a.lot | 0) - (b.lot | 0); }).filter(function(t){ if(seen[t.key]) return false; seen[t.key] = 1; return true; });   /* __ONCE_AND_IN_THE_GROUND__ (rule 479(b)): one thing is drawn once, however often it is handed */
   T.forEach(function(t){ t.pid = homeFeedPid(t); });
+  /* __HIS_PLACE_HIS_WAY__ (HOME BASE 5, rule 347(c)): what he moved stands where he put it, first; the rest fall as they always did */
+  var SP = homeLookOn() ? (S.home.look.spots || {}) : {};
+  T.forEach(function(t){ var n = SP[homeLookKey(t)]; if(!n || used[n] || !homeLookFits(t, n)) return; used[n] = 1; out[n] = t; t.spot = n; });
+  T = T.filter(function(t){ return !t.spot; });
   T.filter(function(t){ return t.pid; }).forEach(function(t){ var n = (R[M.pieces[t.pid].row] || []).filter(function(n){ return !used[n]; })[0]; if(n){ used[n] = 1; out[n] = t; } else over.push(t); });
   HF.over = [];
   over.forEach(function(t){ var n = null; homeFeedRowsOf(t.pid).some(function(rw){ n = (R[rw] || []).filter(function(x){ return !used[x] && homeFeedHasPic(t.pid, x); })[0]; return !!n; });
@@ -2498,12 +2509,12 @@ function homeFeedFit(){ var sc = document.getElementById('scene'), W = sc.client
 /* the people of his place on the footage: the ones who live there along the front row, his men at the buildings they work */
 function homeFeedPeople(){ var F = (VAR && VAR.folk) || [], M = HF.M, sh = HF.fit.sh, T = M.tap_px[HF.cam + '_' + sh] || {}, out = [], at = {};
   for(var n in HF.slots){ var t = HF.slots[n]; if(t.kind === 'place') at[t.id] = +n; }
-  var front = (homeFeedRows().front || []), ri = 0;
-  F.forEach(function(p){ var n = null, side = 0;
-    if(p.works && at[p.works]) { n = at[p.works]; side = 1; } else if(p.resident){ n = front[ri % Math.max(1, front.length)]; side = ri < front.length ? -1 : 1; ri++; }
+  var front = (homeFeedRows().front || []), ri = 0, job = homeJobLots();   /* __HIS_PLACE_HIS_WAY__: who lives there and works a build stands at it */
+  F.forEach(function(p){ var n = null, side = 0, jb = false;
+    if(p.works && at[p.works]) { n = at[p.works]; side = 1; } else if(p.resident && job[p.name] && T[job[p.name]]){ n = job[p.name]; side = -1; jb = true; } else if(p.resident){ n = front[ri % Math.max(1, front.length)]; side = ri < front.length ? -1 : 1; ri++; }
     if(!n || !T[n]) return; var b = T[n], hpx = Math.max(9, (b[2] - b[0]) * .22);
     var px = (side < 0 ? b[0] + (b[2] - b[0]) * .25 : b[2] - (b[2] - b[0]) * .22);
-    out.push({ p: p, n: n, x: px, y: b[3] - 1, h: hpx, face: p.works ? (side > 0 ? 'NW' : 'NE') : (p.face || 'S') }); });   /* __THE_CAMERAS_ON_PATROL__: a man at work faces his building, up the lot */
+    out.push({ p: p, n: n, x: px, y: b[3] - 1, h: hpx, job: jb, face: p.works ? (side > 0 ? 'NW' : 'NE') : jb ? 'NE' : (p.face || 'S') }); });   /* __THE_CAMERAS_ON_PATROL__: a man at work faces his building, up the lot */
   try{ homeFeedStaff(F, out, T, at, front); }catch(e){}   /* __THE_CAMP_WORKS_AT_HIS_PLACE__ (STAFF 2): his camp's people on the footage */
   HF.ppl = out; return out; }
 /* __THE_STATION__ (HOME BASE 4, 11/26, VAMILY rule 481(b), his NO on the grinder's screen: 'this has to be made for horizontal and
@@ -2571,8 +2582,9 @@ function homeFeedPaint(now, fr){
     if(t.pid){ var D = M.pieces[t.pid], st = t.done === false ? 'built' : (D.states.working && homeFeedWorks(t, now) ? 'working' : 'built'), E = D.states[st] && D.states[st].pics[cn + '_' + sh + '_' + n]; if(!E) return;   /* __IT_WORKS_WHEN_HE_WORKS_IT__ */
       DRAWN.states = DRAWN.states || {}; DRAWN.states[t.key] = st + (D.states.working ? '' : '!');
       var im = hfImg(HF_BASE + 'pieces/' + E.pictures[fr % E.pictures.length]); if(!hfReady(im)){ late = true; return; }
-      g.globalAlpha = t.done === false ? .45 : 1; g.drawImage(im, E.xy[0], E.xy[1]); g.globalAlpha = 1;   /* going up tonight: faint, as on the town screen */
-      HF.picRect[n] = [E.xy[0], E.xy[1], E.xy[0] + im.naturalWidth, E.xy[1] + im.naturalHeight]; }
+      var pnt = homeLookPaint(t), dim = pnt ? hfPainted(im, pnt) : im; if(pnt){ DRAWN.painted = DRAWN.painted || {}; DRAWN.painted[t.key] = pnt.id; }   /* __HIS_PLACE_HIS_WAY__: his paint, as his night camera reads it */
+      g.globalAlpha = t.done === false ? .45 : 1; g.drawImage(dim, E.xy[0], E.xy[1]); g.globalAlpha = 1;   /* going up tonight: faint, as on the town screen */
+      HF.picRect[n] = [E.xy[0], E.xy[1], E.xy[0] + im.naturalWidth, E.xy[1] + im.naturalHeight]; (HF.picIm = HF.picIm || {})[n] = im; }
     else if(t.pic && T[n]){ var pim = hfImg(t.pic); if(!hfReady(pim)){ late = true; return; } var b = T[n];
       /* __WHAT_HE_HAS_SITS_IN_THE_GROUND__ (HOME BASE 4 11/27, rule 479(a): 'they look like they're floating on top of the map'): a boss's
          thing with no piece of its own was its icon blown up to 70 percent of the lot, a hook as tall as a house, upright to the lens, no
@@ -2583,20 +2595,22 @@ function homeFeedPaint(now, fr){
       g.save(); g.globalAlpha = .38; g.translate(px, fy); g.transform(1, 0, -.55, -.32, 0, 0); g.drawImage(hfShade(gi), 0, 0); g.restore();
       g.save(); g.fillStyle = 'rgba(0,0,0,.55)'; g.beginPath(); g.ellipse(px + gi.width / 2, fy - 1, Math.max(3, gi.width * .55), Math.max(1.5, gi.height * .1), 0, 0, 7); g.fill(); g.restore();
       g.drawImage(gi, px, py); HF.picRect[n] = [px, py, px + gi.width, fy]; DRAWN.grounded = (DRAWN.grounded | 0) + 1; DRAWN.groundedH = Math.max(DRAWN.groundedH || 0, +(gi.height / (b[3] - b[1])).toFixed(2)); }
-    if(t.kind === 'place' && t.id === 'grinder' && T[n]) homeFeedPile(g, T[n], DRAWN); });
+    if(t.kind === 'place' && t.id === 'grinder' && T[n]) homeFeedPile(g, T[n], DRAWN);
+    if(T[n]) try{ homeFeedSign(g, t, T[n], DRAWN); }catch(e){} });   /* __HIS_PLACE_HIS_WAY__: his sign at its foot, under whatever stands nearer the lens */
+  try{ homeFeedGate(g, T, DRAWN); }catch(e){}   /* __HIS_PLACE_HIS_WAY__: his place's name on a plate at its gate */
   var B = window.BohemiaRigBodies; if(B && B.standing) P.slice().sort(function(a, b){ return a.y - b.y; }).forEach(function(q){
     /* __THE_CAMERAS_ON_PATROL__ (HOME BASE 4 11/26, rule 482): his people read on the footage: each one moves (ANIMATION's idles, and
        a man at his building at his work, the town's own activity cells), faces what he works at, and is lit the way a person is in
        infrared night footage, paler than the ground, with a dark edge, so a figure ten pixels tall is a man and not a smudge */
     var I = window.BohemiaIdles, fc = null, z = q.h / (B.FIG_H || 108), seed = 'home:' + (q.p.name || q.p.look);
-    try{ if(I && I.has && I.has(q.p.look)){ var fi = Math.max(0, I.DIRS.indexOf(q.face || 'S')), W2 = q.p.works ? HOME_WORK[q.p.works] : q.p.staffHome && q.p.act ? { act: q.p.act } : null;   /* STAFF 2: a camp person at his trade */
+    try{ if(I && I.has && I.has(q.p.look)){ var fi = Math.max(0, I.DIRS.indexOf(q.face || 'S')), W2 = q.p.works ? HOME_WORK[q.p.works] : q.p.staffHome && q.p.act ? { act: q.p.act } : q.job ? { act: 'stall' } : null;   /* STAFF 2: a camp person at his trade; HOME BASE 5: one who lives there at the build he works */
       if(W2 && I.activity) fc = I.activity(q.p.look, seed, now, fi, { act: W2.act });
       if(!fc) fc = I.frame(q.p.look, seed, now, fi, { set: 'bare' }); } }catch(e){ fc = null; }
     var s = fc ? null : B.standing(q.p.look, q.face && B.TURNS && B.TURNS.indexOf(q.face) >= 0 ? q.face : 'S'); if(!fc && (!s || !s.im)){ late = true; return; }
     /* __ONCE_AND_IN_THE_GROUND__ (rule 479(a)): a person stands ON the lot: his own shadow on its ground, in the footage's light (the
        sodium heads above and behind the lots throw it short and forward), never a figure pasted over the picture */
     g.save(); g.fillStyle = 'rgba(0,0,0,.5)'; g.beginPath(); g.ellipse(Math.round(q.x), Math.round(q.y + q.h * .02), Math.max(2, q.h * .2), Math.max(1, q.h * .06), 0, 0, 7); g.fill(); g.restore();
-    DRAWN.people[q.p.name] = (DRAWN.people[q.p.name] | 0) + 1; DRAWN.feet.push({ name: q.p.name, x: Math.round(q.x), y: Math.round(q.y), shadow: true, moves: !!fc });
+    DRAWN.people[q.p.name] = (DRAWN.people[q.p.name] | 0) + 1; DRAWN.feet.push({ name: q.p.name, x: Math.round(q.x), y: Math.round(q.y), shadow: true, moves: !!fc, lot: q.n, job: !!q.job });
     var gi, gx, gy;
     if(fc){ gi = hfLit(fc.img, fc.x, fc.y, fc.w, fc.h, z); gx = Math.round(q.x - (fc.foot[0] - fc.dx) * z); gy = Math.round(q.y - (fc.foot[1] - fc.dy) * z); }
     else { gi = hfLit(s.im, 0, 0, s.im.naturalWidth, s.im.naturalHeight, z); gx = Math.round(q.x - s.mid * z); gy = Math.round(q.y - s.foot * z); }
@@ -2656,7 +2670,8 @@ window.__HOME_FEED_USED = function(){ return JSON.parse(JSON.stringify(HF_USED))
 window.__HOME_FREE_LOT = function(){ var l = buildFreeLot(); return l ? l.x : null; };   /* read only, for the gate: the lot the desk would build on now */
 window.__HOME_FEED_TOUR = function(){ return HTOUR.k ? { n: HTOUR.k.n, why: HTOUR.k.why, who: HTOUR.k.who || null, z: HF.V ? +HF.V.z.toFixed(2) : 1 } : null; };   /* read only */
 window.__HOME_FEED_TOUR_AT = function(ms){ HF.lastCut = performance.now() - (ms | 0); HTOUR.until = 0; };   /* for the gate and the card only: the camera's round at ms */
-function homeStationLot(k){ for(var n in HF.slots) if(HF.slots[n].key === k) return +n; return null; }
+function homeStationLot(k){ if(/^p:/.test(k || '')){ var pp = homeStationWho(k); return pp ? pp.n : null; } if(k === 'gate'){ var fr0 = homeFeedRows().front || []; return HF.namePlate && fr0.length ? fr0[Math.floor(fr0.length / 2)] : null; } for(var n in HF.slots) if(HF.slots[n].key === k) return +n; return null; }
+function homeStationWho(k){ return (HF.ppl || []).filter(function(o){ return 'p:' + o.p.name === k; })[0] || null; }   /* __HIS_PLACE_HIS_WAY__: one who lives there is a station too (his WORKS AT under him) */
 function homeStationTarget(now){ var f = HF.fit, M = HF.M, full = { x: 0, y: 0, w: f.cw, h: f.ch, X: f.x, Y: f.y, W: f.w, H: f.h };
   if(!HST.on || !HST.R){ var tt = null; try{ tt = homeTourTarget(now || performance.now(), full); }catch(e){} return tt || full; } var n = homeStationLot(HST.k), T = n != null ? (M.tap_px[HF.cam + '_' + f.sh] || {})[n] : null; if(!T) return full;
   var bk = HF.cam + f.sh + n + HST.k, b = HST.bk === bk ? HST.box : null;
@@ -2665,7 +2680,10 @@ function homeStationTarget(now){ var f = HF.fit, M = HF.M, full = { x: 0, y: 0, 
        picture can carry a faint line of the empty block's shadow across the frame, which is not the building) */
     if(pr){ b[0] = Math.max(T[0] - tw * .3, Math.min(b[0], pr[0])); b[2] = Math.min(T[2] + tw * .3, Math.max(b[2], pr[2])); b[1] = Math.min(b[1], pr[1]); }
     if(pr){ HST.bk = bk; HST.box = b; } }   /* framed once per camera, way and lot: the two beats of a working picture never make it swim */
+  var who = /^p:/.test(HST.k || '') ? homeStationWho(HST.k) : null; if(who) b = [who.x - who.h * 1.2, who.y - who.h * 1.6, who.x + who.h * 1.2, who.y + who.h * .4];   /* __HIS_PLACE_HIS_WAY__: the person, framed */
+  if(HST.k === 'gate' && HF.namePlate){ var np = HF.namePlate; b = [np[0] - 14, np[1] - 22, np[2] + 14, np[3] + 6]; }   /* the plate, the gate behind it */
   HST.box = b; HST.n = n;
+  if(S.homeMove && S.homeMove.k === HST.k){ var mb = b.slice(); (S.homeMove.can || []).forEach(function(c){ var tc = (M.tap_px[HF.cam + '_' + f.sh] || {})[c.n]; if(tc){ mb[0] = Math.min(mb[0], tc[0]); mb[1] = Math.min(mb[1], tc[1]); mb[2] = Math.max(mb[2], tc[2]); mb[3] = Math.max(mb[3], tc[3]); } }); b = mb; }   /* MOVE: every lot it can go to on the glass, the thing's own still bracketed */
   var R = HST.R, A = R.W / R.H, bw = b[2] - b[0], bh = b[3] - b[1];
   var w = Math.max(bw / .62, bh / .64 * A, R.W / (f.k * 3)), h = w / A, s = Math.min(1, f.cw / w, f.ch / h); w *= s; h *= s;   /* what stands on the lot about two thirds of the view, never past three times the plain picture */
   var cx = (b[0] + b[2]) / 2, cy = (b[1] + b[3]) / 2;
@@ -2691,7 +2709,7 @@ function homeFeedOsd(c, now, fr, V){ var f = HF.fit, M = HF.M, k = f.k, w = Math
     var br = function(col, o){ g.fillStyle = col; [[bx0, by0, 1, 1], [bx1, by0, -1, 1], [bx0, by1, 1, -1], [bx1, by1, -1, -1]].forEach(function(q){ var x = Math.round(q[0]) + o, y = Math.round(q[1]) + o;
       g.fillRect(q[2] > 0 ? x : x - L + 1, y, L, 1); g.fillRect(x, q[3] > 0 ? y : y - L + 1, 1, L); }); };
     br('#0a0a0a', 1); br('#e2e6de', 0);
-    var tt = HF.slots[HST.n], tk = !HST.on && HTOUR.k, nm = String(tk && tk.why === 'home' ? tk.who : (tk && tk.who ? tk.who + '  ' : '') + ((tt && tt.name) || '')).toUpperCase().slice(0, 26); if(nm) tx(Math.max(2, Math.min(w - nm.length * 5 - 4, Math.round(bx0))), Math.max(24, Math.round(by0) - 11), nm); }
+    var tt = HF.slots[HST.n], tk = !HST.on && HTOUR.k, nm = String(HST.on && /^p:/.test(HST.k || '') ? HST.k.slice(2) : tk && tk.why === 'home' ? tk.who : (tk && tk.who ? tk.who + '  ' : '') + ((tt && tt.name) || '')).toUpperCase().slice(0, 26); if(nm) tx(Math.max(2, Math.min(w - nm.length * 5 - 4, Math.round(bx0))), Math.max(24, Math.round(by0) - 11), nm); }
   c.drawImage(HF.osd, 0, 0, w, h, V.X, V.Y, V.W, V.H); }
 function homeFeedShow(now, fr){ var f = HF.fit, c = HF.el.getContext('2d'), dpr = Math.min(2, devicePixelRatio || 1);
   c.setTransform(dpr, 0, 0, dpr, 0, 0); c.imageSmoothingEnabled = false;
@@ -2766,7 +2784,10 @@ window.addEventListener('message', function(e){ var d = e.data || {}; if(d.type 
 /* __THE_STATION__, the sheet: laid for the way the phone is held (rule 481(b)); the camera's target is what the sheet leaves */
 function homeStationLay(){ var sh = document.getElementById('sheet'); if(!sh) return;
   if(!sh.classList.contains('on')){ if(HST.on){ HST.on = false; HST.k = null; HST.outAt = performance.now(); HF.dirty = true; window.__HOME_STATION = null; } return; }   /* closing: the camera comes back out at once, not at the patrol's pace */   /* closing: the sheet slides out as it stood, the camera glides back */
-  var k = (HF.on && !HST.off && S.open && /^h\d+$/.test(S.open)) ? S.open : null, n = k ? homeStationLot(k) : null, on = n != null, side = on && view.W > view.H;
+  var k = (HF.on && !HST.off && S.open && /^h\d+$/.test(S.open)) ? S.open : null;
+  if(!k && HF.on && !HST.off && S.open === 'person' && S.person && S.person.resident && homeLookOn()) k = 'p:' + S.person.name;   /* __HIS_PLACE_HIS_WAY__: one who lives there, a station */
+  if(!k && HF.on && !HST.off && S.open === 'hname' && homeLookOn()) k = 'gate';   /* the name: the camera on the plate at his gate */
+  var n = k ? homeStationLot(k) : null, on = n != null, side = on && view.W > view.H;
   var right = !(FIT.phone && FIT.phone.side === 'left');
   sh.classList.toggle('hstation', on); sh.classList.toggle('hside', side); sh.classList.toggle('hsl', side && !right);
   if(on !== HST.on || k !== HST.k) HF.dirty = true; HST.on = on; HST.k = on ? k : null;
@@ -2783,6 +2804,218 @@ function homeStationLay(){ var sh = document.getElementById('sheet'); if(!sh) re
 window.__HOME_FEED_VIEW = function(){ if(!HF.on || !HF.V) return null; var V = HF.V; return { x: V.x, y: V.y, w: V.w, h: V.h, X: V.X, Y: V.Y, W: V.W, H: V.H, z: V.z, moving: HST.moving, on: HST.on, shows: HF.shows | 0, paints: HF.paints | 0, k: HST.k, lot: HST.k ? homeStationLot(HST.k) : null, R: HST.R, cam: HF.cam, sh: HF.fit && HF.fit.sh, err: HF.err || null }; };   /* read only, for the gate */
 window.__HOME_FEED_NO_STATION = function(v){ HST.off = !!v; return HST.off; };   /* for the gate's planted leg only: the sheet as it was before the station */
 window.__HOME_FEED_ALWAYS = function(v){ HF.always = !!v; return HF.always; };   /* for the gate's planted leg only: painted every frame, as it was */
+/* ==== __HIS_PLACE_HIS_WAY__ (HOME BASE 5, 11/27, VAMILY rule 347(c), PAOLO 11/3: 'literally every thing in our custom settlement can
+   be customized... super easy to customize... that pseudo mayor vibe... a Stardew Valley vibe'; rules 343(d), 480(c), 441). Research:
+   records/BOHEMIA_HOME_BASE_HIS_PLACE_HIS_WAY_THE_RESEARCH_11_27_26.md (Stardew: tap the building, then the paint or the spot; Battle
+   Brothers: tap the name). MEASURED BEFORE: his place could be changed one way, NAME IT on the desk; where each thing stood, who worked
+   what, and everything else was decided for him, and the people who live there all stood along the front row whatever they worked.
+   NOW, all by tapping his place on its cameras, all kept on his home record (the map's BohemiaHome.setLook, saved, so a reload keeps it):
+   MOVE (a thing's station: the lots it can stand on light up, a tap on one moves it there, a thing standing there swaps; everything
+   else stays where it stood), PAINT (five paints; his night cameras read a paint as its infrared value, the swatch is its colour by
+   day), SIGN (his words on a plate at the lot's foot, in a 3 by 5 letter at the footage's own pixel), ITS NAME (a tap on the name in
+   the camera's text or on the plate at his gate: type it, or ANOTHER and OK), WHO WORKS WHAT (a tap on one who lives there: WORKS AT,
+   each standing build that takes a hand, or REST; he stands at the build he works). Every choice is free and undone the same way. A
+   material (tin, block, wood) is not here: it needs the 11/3 pipeline to render each piece in it (the record says so). Words draft:true
+   (home_base.json look). ==== */
+function homeLookOn(){ return !!(S.home && S.home.planted && S.home.look && S.home.lookRows); }
+function homeLookKey(t){ return t.key + ':' + t.id; }
+function homeLookWords(){ return (S.home && S.home.lookRows && S.home.lookRows.words) || {}; }
+/* a thing can stand on lot n when it has a picture there (its own row always; a row behind only where that picture was rendered) */
+function homeLookFits(t, n){ var M = HF.M, L = M && (M.lots || []).filter(function(x){ return x.n === +n; })[0]; if(!L || !t) return false;
+  if(!t.pid) return !!t.pic; var own = M.pieces[t.pid].row; if(L.row === own) return true;
+  return homeFeedRowsOf(t.pid).indexOf(L.row) >= 0 && homeFeedHasPic(t.pid, +n); }
+function homeLookPaint(t){ if(!homeLookOn() || !t || !t.pid) return null; var id = (S.home.look.paint || {})[homeLookKey(t)]; if(!id) return null;
+  return (S.home.lookRows.paints || []).filter(function(p){ return p.id === id; })[0] || null; }
+function homeSignText(v){ var max = ((S.home && S.home.lookRows) || {}).sign_max || 12;
+  return String(v == null ? '' : v).replace(/<[^>]*>/g, '').toUpperCase().replace(/[^A-Z0-9 .,!?'&#\-]/g, '').replace(/\s+/g, ' ').trim().slice(0, max).trim(); }   /* the engine's own rule (BohemiaHome.signText) */
+/* who works which build: their name to the lot the footage shows that build on (the map decides who works what: S.home.workers) */
+function homeJobLots(){ var out = {}; if(!homeLookOn()) return out; var wk = S.home.workers || {};
+  for(var lk in wk){ var key = 'h' + (parseInt(lk, 10) | 0); for(var n in HF.slots) if(HF.slots[n].key === key){ out[wk[lk]] = +n; break; } } return out; }
+/* what he changed goes to the map at once and shows at once (the map sends his place back the same way) */
+function homeLookSend(sets){ if(!homeLookOn()) return; var L = S.home.look; ['spots', 'paint', 'signs', 'jobs'].forEach(function(k){ L[k] = L[k] || {}; });
+  sets.forEach(function(s){ if(s.what === 'spot'){ for(var k in L.spots) if(L.spots[k] === s.val && k !== s.key) delete L.spots[k]; L.spots[s.key] = s.val; }
+    else if(s.what === 'paint'){ if(s.val === 'bare') delete L.paint[s.key]; else L.paint[s.key] = s.val; }
+    else if(s.what === 'sign'){ var v = homeSignText(s.val); if(v) L.signs[s.key] = v; else delete L.signs[s.key]; }
+    else if(s.what === 'job') L.jobs[s.key] = s.val; });
+  HF.dirty = true; HST.bk = null; window.__HOME_LOOK_SENT = sets;
+  try{ if(!S.standalone) window.parent.postMessage({ type: 'BOHEMIA_HOME_SET', sets: sets }, '*'); }catch(e){} }
+/* PAINT, as his night camera sees it: near-infrared reads a paint's value, not its colour (lime and red-oxide primer glow, tar goes
+   black); each picture re-graded once per paint and kept (480(c): nothing is filtered per frame). A brightening paint leaves the
+   piece's black edges black (measured: the pieces read 6 to 34 of 255 at night, so a lift by multiplying alone moved a wall 13 to 14). */
+var HFP = typeof WeakMap === 'function' ? new WeakMap() : null;
+function hfPainted(im, p){ var m = HFP && HFP.get(im); if(m && m[p.id]) return m[p.id];
+  var w = im.naturalWidth, h = im.naturalHeight, c = document.createElement('canvas'); c.width = w; c.height = h; var x = c.getContext('2d'); x.drawImage(im, 0, 0);
+  try{ var d = x.getImageData(0, 0, w, h), a = d.data, k = +p.ir || 1;
+    for(var i = 0; i < a.length; i += 4){ if(!a[i + 3]) continue; var L = .3 * a[i] + .59 * a[i + 1] + .11 * a[i + 2];
+      var wg = k > 1 ? Math.max(0, Math.min(1, (L - 3) / 9)) : 1, f = 1 + (k - 1) * wg, ad = k > 1 ? 60 * (k - 1) * wg : 0;   /* a pale paint lifts the dark night picture into a glow (whitewash under IR), the black edges stay black */
+      a[i] = Math.min(255, a[i] * f + ad); a[i + 1] = Math.min(255, a[i + 1] * f + ad); a[i + 2] = Math.min(255, a[i + 2] * f + ad); }
+    x.putImageData(d, 0, 0); }catch(e){ window.__HOME_PAINT_ERR = String(e && e.message || e).slice(0, 120); return im; }
+  if(HFP){ if(!m){ m = {}; HFP.set(im, m); } m[p.id] = c; } return c; }
+/* SIGNS: a 3 by 5 letter at the footage's own pixel (the camera's text is a font too), white paint on a dark board, which glows under
+   infrared; made once per sign */
+var HF_FONT = { A:'010101111101101', B:'110101110101110', C:'011100100100011', D:'110101101101110', E:'111100110100111', F:'111100110100100',
+  G:'011100101101011', H:'101101111101101', I:'111010010010111', J:'001001001101010', K:'101101110101101', L:'100100100100111', M:'1000111011101011000110001',
+  N:'10011101101110011001', O:'010101101101010', P:'110101110100100', Q:'010101101110011', R:'110101110101101', S:'011100010001110', T:'111010010010010',
+  U:'101101101101111', V:'101101101101010', W:'1000110001101011101110001', X:'101101010101101', Y:'101101010010010', Z:'111001010100111',
+  '0':'111101101101111', '1':'010110010010111', '2':'110001010100111', '3':'110001010001110', '4':'101101111001001', '5':'111100110001110',
+  '6':'011100111101111', '7':'111001010010010', '8':'111101111101111', '9':'111101111001110', '.':'000000000000010', ',':'000000000010100',
+  '!':'010010010000010', '?':'110001010000010', "'":'010010000000000', '&':'010101010101011', '#':'101111101111101', '-':'000000111000000', ' ':'000000000000000' };
+function hfGw(ch){ var gl = HF_FONT[ch]; return gl ? gl.length / 5 : 3; }   /* most letters 3 wide; N 4, M and W 5, or they read as H (measured: 'WATER' read 'HATER') */
+function hfTw(s){ var w = 0; for(var i = 0; i < s.length; i++) w += hfGw(s.charAt(i)) + 1; return Math.max(0, w - 1); }
+function hfText(g, s, x, y, col){ g.fillStyle = col; for(var i = 0; i < s.length; i++){ var gl = HF_FONT[s.charAt(i)], gw = hfGw(s.charAt(i)); if(gl)
+  for(var j = 0; j < gl.length; j++) if(gl.charAt(j) === '1') g.fillRect(x + (j % gw), y + ((j / gw) | 0), 1, 1); x += gw + 1; } }
+function hfWrap(s, per){ var W = String(s).split(' '), out = [], cur = ''; W.forEach(function(w){ if(!cur) cur = w; else if((cur + ' ' + w).length <= per) cur += ' ' + w; else { out.push(cur); cur = w; } }); if(cur) out.push(cur);
+  return out.length > 2 ? [out[0], out.slice(1).join(' ')] : out; }
+var HF_PLATES = {};
+function hfPlate(text, per){ var key = per + '|' + text; if(HF_PLATES[key]) return HF_PLATES[key];
+  var L = hfWrap(text, per), n = Math.max.apply(null, L.map(hfTw).concat([3])), w = n + 4, h = L.length * 6 + 3, P = 3;
+  var c = document.createElement('canvas'); c.width = w; c.height = h + P; var g = c.getContext('2d');
+  g.fillStyle = '#0d120e'; g.fillRect(2, h, 1, P); g.fillRect(w - 3, h, 1, P);   /* its two posts */
+  g.fillStyle = '#56655a'; g.fillRect(0, 0, w, h); g.fillStyle = '#182019'; g.fillRect(1, 1, w - 2, h - 2);   /* the board, its edge catching the sodium */
+  L.forEach(function(l, i){ hfText(g, l, 2 + Math.round((n - hfTw(l)) / 2), 2 + i * 6, '#d9e2cf'); });
+  HF_PLATES[key] = c; return c; }
+function homeFeedSign(g, t, b, DRAWN){ if(!homeLookOn()) return; var s = (S.home.look.signs || {})[homeLookKey(t)]; if(!s) return;
+  var pc = hfPlate(s, 6), x = Math.round((b[0] + b[2]) / 2 - pc.width / 2), y = Math.round(b[3] + 1 - pc.height);
+  g.fillStyle = 'rgba(0,0,0,.5)'; g.fillRect(x + 1, b[3] + 1, pc.width, 1);   /* its foot's shadow on the lot */
+  g.drawImage(pc, x, y); DRAWN.signs = DRAWN.signs || {}; DRAWN.signs[t.key] = { text: s, at: [x, y, x + pc.width, y + pc.height] }; }
+/* ITS NAME at its gate: the plate on the walk in front of the two middle lots of the front row (where the block's road meets the street) */
+function homeFeedGate(g, T, DRAWN){ HF.namePlate = null; if(!homeLookOn()) return; var fr = homeFeedRows().front || []; if(fr.length < 2) return;
+  var m = Math.floor(fr.length / 2), a = T[fr[m - 1]], b = T[fr[m]], nm = String(S.home.name || '').toUpperCase(); if(!a || !b || !nm) return;
+  var pc = hfPlate(nm, 11), x = Math.round((a[2] + b[0]) / 2 - pc.width / 2), y = Math.round(Math.max(a[3], b[3]) + 2);   /* out on the walk in front of the gate, nearer the lens than anybody standing on his lots (measured: on the lots' edge his man at the yard stood over its first letter) */
+  g.fillStyle = 'rgba(0,0,0,.5)'; g.fillRect(x + 1, y + pc.height, pc.width, 1);
+  g.drawImage(pc, x, y); HF.namePlate = [x, y, x + pc.width, y + pc.height]; DRAWN.gate = { text: nm, at: HF.namePlate.slice() }; }
+/* MOVE: where a thing can go (a lot it has a picture for; a thing there swaps only if it can stand where this one stood) */
+function homeMoveCan(t){ var M = HF.M, out = [], cur = t ? homeStationLot(t.key) : null; if(!M || cur == null) return out;
+  (M.lots || []).forEach(function(L){ var n = L.n; if(n === cur || !homeLookFits(t, n)) return; var o = HF.slots[n]; if(o && !homeLookFits(o, cur)) return; out.push({ n: n, swap: o ? o.key : null }); });
+  return out; }
+function homeMoveStart(k){ var n = homeStationLot(k), t = n != null ? HF.slots[n] : null; if(!t) return; var can = homeMoveCan(t); if(!can.length) return;
+  S.homeMove = { k: k, from: n, can: can }; S.homeLookOpen = null; HF.dirty = true; HST.bk = null;
+  var W = homeLookWords(), body = document.getElementById('sbody'); body.textContent = '';
+  body.appendChild(speak('build', W.where || 'Where does it go?'));
+  var acts = document.createElement('div'); acts.className = 'acts'; var bk = act(W.back || 'BACK', '', function(){ homeMoveEnd(); }); bk.dataset.look = 'move-back'; acts.appendChild(bk); body.appendChild(acts);
+  window.__HOME_MOVE = { k: k, from: n, can: can.map(function(c){ return c.n; }) }; show(); }
+function homeMoveEnd(){ var m = S.homeMove; S.homeMove = null; window.__HOME_MOVE = null; HF.dirty = true; HST.bk = null; if(m) openB(m.k); }
+function homeMoveTo(n){ var m = S.homeMove; if(!m) return false; var c = m.can.filter(function(x){ return x.n === n; })[0]; if(!c) return false;
+  var sets = []; for(var q in HF.slots){ if(+q !== m.from && +q !== n) sets.push({ what: 'spot', key: homeLookKey(HF.slots[q]), val: +q }); }   /* everything else stays exactly where it stands */
+  sets.push({ what: 'spot', key: homeLookKey(HF.slots[m.from]), val: n }); if(c.swap) sets.push({ what: 'spot', key: homeLookKey(HF.slots[n]), val: m.from });
+  homeLookSend(sets); window.__HOME_MOVED = { k: m.k, from: m.from, to: n, swap: c.swap };
+  S.homeMove = null; window.__HOME_MOVE = null; homeFeedSlots(); HF.dirty = true; HST.bk = null;
+  try{ sfx('pickup', view.night ? NIGHT_TRIM : null); }catch(e){} openB(m.k); return true; }
+/* the lots it can go to, lit on the camera's glass (Stardew's green tiles, in the camera's own white): a pale wash that breathes on the
+   beat (120 BPM: on half a beat, off half) and the brackets */
+function homeMoveOsd(c, V){ var m = S.homeMove; if(!m || !HF.fit || !HF.M) return; var T = HF.M.tap_px[HF.cam + '_' + HF.fit.sh] || {}, sx = V.W / V.w, k = Math.max(1, Math.round(HF.fit.k)), L = 5 * k, lit = Math.floor(performance.now() / 250) % 2 === 0;
+  c.save(); c.beginPath(); c.rect(V.X, V.Y, V.W, V.H); c.clip();
+  m.can.forEach(function(cn){ var b = T[cn.n]; if(!b) return; var x0 = V.X + (b[0] + 1 - V.x) * sx, y0 = V.Y + (b[1] + 1 - V.y) * sx, x1 = V.X + (b[2] - 1 - V.x) * sx, y1 = V.Y + (b[3] - 1 - V.y) * sx;
+    if(lit){ c.fillStyle = 'rgba(226,230,222,.13)'; c.fillRect(x0, y0, x1 - x0, y1 - y0); }
+    [['#0a0a0a', k], ['#e2e6de', 0]].forEach(function(st){ c.fillStyle = st[0]; var o = st[1];
+      [[x0, y0, 1, 1], [x1, y0, -1, 1], [x0, y1, 1, -1], [x1, y1, -1, -1]].forEach(function(q){ var x = Math.round(q[0]) + o, y = Math.round(q[1]) + o;
+        c.fillRect(q[2] > 0 ? x : x - L + k, y, L, k); c.fillRect(x, q[3] > 0 ? y : y - L + k, k, L); }); }); });
+  c.restore(); }
+(function(){ var fo = homeFeedOsd; homeFeedOsd = function(c, now, fr, V){ var r = fo.apply(this, arguments); try{ homeMoveOsd(c, V); }catch(e){} return r; }; })();
+/* the name in the camera's own text, on the glass: the line the camera writes his place's name on (homeFeedOsd), tall enough for a thumb */
+function homeNameOsdBox(){ if(!HF.on || !HF.fit || !HF.el) return null; var V = homeFeedV(), k = HF.fit.k, w = Math.max(40, Math.round(V.W / k)), h = Math.max(30, Math.round(V.H / k)), sc = V.W / w;
+  var nm = String((S.home && S.home.name) || '').slice(0, 22), x0 = V.X, x1 = V.X + (8 + (nm.length + 7) * 5) * sc, yc = V.Y + (h - 17) * sc, hh = Math.max(22, 5 * sc);
+  return [x0, yc - hh, Math.min(V.X + V.W, x1), Math.min(V.Y + V.H, yc + hh)]; }
+function homeNameHit(cxp, cyp, q){ if(!homeLookOn()) return false; var r = HF.el.getBoundingClientRect(), gx = cxp - r.left, gy = cyp - r.top, o = homeNameOsdBox();
+  if(o && gx >= o[0] && gx <= o[2] && gy >= o[1] && gy <= o[3]) return true;
+  var p = HF.namePlate; return !!(p && !q.off && q.x >= p[0] - 3 && q.x <= p[2] + 3 && q.y >= p[1] - 3 && q.y <= p[3] + 3); }
+(function(){ var ft = homeFeedTap; homeFeedTap = function(cxp, cyp){
+  if(!HF.on || !HF.fit || !homeLookOn()) return ft.apply(this, arguments);
+  var q = homeFeedPx(cxp, cyp);
+  if(S.homeMove){ var n = q.off ? null : homeFeedLotAt(q.x, q.y); window.__HOME_FEED_TAP = { move: true, lot: n };
+    if(n != null && S.homeMove.can.some(function(c){ return c.n === n; })){ homeMoveTo(n); return; }
+    if(n === S.homeMove.from) homeMoveEnd(); return; }   /* a tap anywhere else in MOVE does nothing: BACK, or the thing itself, puts it down */
+  if(homeNameHit(cxp, cyp, q)){ window.__HOME_FEED_TAP = { name: true }; homeNameSheet(); return; }
+  return ft.apply(this, arguments); }; })();
+/* ITS NAME: type it, or ANOTHER (the next of a short list) and OK; no keyboard needed */
+function homeNameSheet(){ if(!homeLookOn()) return; var W = homeLookWords(), R = S.home.lookRows || {};
+  S.homeMove = null; S.open = 'hname'; var body = document.getElementById('sbody'); body.textContent = '';
+  body.appendChild(speak('build', W.call || 'What do we call it?'));
+  var w = document.createElement('div'); w.className = 'hname'; var i = document.createElement('input'); i.maxLength = 22; i.value = S.home.name || ''; i.setAttribute('aria-label', 'your place\'s name'); i.dataset.look = 'name';
+  var ok = document.createElement('button'); ok.type = 'button'; ok.textContent = W.ok || 'OK'; ok.className = 'act'; ok.style.minHeight = '44px'; ok.dataset.look = 'name-ok';
+  var go = function(){ var v = String(i.value || '').replace(/[<>&"]/g, '').trim().slice(0, 22); if(!v) return; S.home.name = v.toUpperCase(); HF.dirty = true;
+    post('home_rename', { name: v }); try{ if(!S.standalone) window.parent.postMessage({ type: 'BOHEMIA_HOME_RENAME', name: v }, '*'); }catch(e){} window.__HOME_NAMED = S.home.name; hide(); };
+  ok.addEventListener('click', go); i.addEventListener('keydown', function(ev){ if(ev.key === 'Enter') go(); });
+  w.appendChild(i); w.appendChild(ok); body.appendChild(w);
+  var acts = document.createElement('div'); acts.className = 'acts';
+  var an = act(W.another || 'ANOTHER', '', function(){ var L = R.names || []; if(!L.length) return; var cur = String(i.value || '').toUpperCase(); i.value = L[(L.indexOf(cur) + 1) % L.length]; }); an.dataset.look = 'another'; acts.appendChild(an);
+  body.appendChild(acts); window.__HOME_NAME_SHEET = { name: S.home.name }; show(); }
+/* a thing's station: MOVE, PAINT, SIGN under what it does; PAINT and SIGN open their row in place */
+function homeLookRow(k){ var body = document.getElementById('sbody'); if(!body) return; [].forEach.call(body.querySelectorAll('.hlook, .hpaint, .hsign'), function(e){ e.remove(); });
+  if(!homeLookOn() || !HF.on || S.open !== k) return; var n = homeStationLot(k), t = n != null ? HF.slots[n] : null; if(!t) return;
+  var W = homeLookWords(), open = S.homeLookOpen && S.homeLookOpen.k === k ? S.homeLookOpen.what : null, row = document.createElement('div'); row.className = 'hlook';
+  var mk = function(id, label, fn, on, off){ var b = document.createElement('button'); b.type = 'button'; b.className = 'act hlb' + (on ? ' on' : ''); b.dataset.look = id; b.textContent = label; b.disabled = !!off; b.addEventListener('click', fn); row.appendChild(b); return b; };
+  var tog = function(what){ return function(){ S.homeLookOpen = open === what ? null : { k: k, what: what }; openB(k); }; };
+  mk('move', W.move || 'MOVE', function(){ homeMoveStart(k); }, false, !homeMoveCan(t).length);
+  if(t.pid) mk('paint', W.paint || 'PAINT', tog('paint'), open === 'paint');
+  mk('sign', W.sign || 'SIGN', tog('sign'), open === 'sign');
+  body.appendChild(row);
+  if(open === 'paint' && t.pid) body.appendChild(homePaintRow(t, k));
+  if(open === 'sign') body.appendChild(homeSignRow(t, k));
+  window.__HOME_LOOK_ROW = { k: k, lot: n, open: open, move: !row.querySelector('[data-look="move"]').disabled }; }
+function homePaintRow(t, k){ var R = S.home.lookRows || {}, cur = (S.home.look.paint || {})[homeLookKey(t)] || 'bare', row = document.createElement('div'); row.className = 'hpaint';
+  (R.paints || []).forEach(function(p){ var b = document.createElement('button'); b.type = 'button'; b.className = 'hsw' + (p.id === cur ? ' on' : '') + (p.hex ? '' : ' bare'); b.dataset.paint = p.id; b.setAttribute('aria-label', p.name);
+    var sw = document.createElement('i'); if(p.hex) sw.style.background = p.hex; b.appendChild(sw); var tx = document.createElement('span'); tx.textContent = p.name; b.appendChild(tx);
+    b.addEventListener('click', function(){ homeLookSend([{ what: 'paint', key: homeLookKey(t), val: p.id }]); window.__HOME_PAINTED = { k: k, paint: p.id }; openB(k); }); row.appendChild(b); });
+  return row; }
+function homeSignRow(t, k){ var W = homeLookWords(), cur = (S.home.look.signs || {})[homeLookKey(t)] || '', w = document.createElement('div'); w.className = 'hname hsign';
+  var i = document.createElement('input'); i.maxLength = ((S.home.lookRows || {}).sign_max) || 12; i.value = cur; i.dataset.look = 'sign-in'; i.setAttribute('aria-label', 'its sign');
+  var ok = document.createElement('button'); ok.type = 'button'; ok.textContent = W.ok || 'OK'; ok.className = 'act'; ok.style.minHeight = '44px'; ok.dataset.look = 'sign-ok';
+  var go = function(){ homeLookSend([{ what: 'sign', key: homeLookKey(t), val: i.value }]); window.__HOME_SIGNED = { k: k, text: homeSignText(i.value) }; S.homeLookOpen = null; openB(k); };
+  ok.addEventListener('click', go); i.addEventListener('keydown', function(ev){ if(ev.key === 'Enter') go(); });
+  w.appendChild(i); w.appendChild(ok); return w; }
+(function(){ var ts = homeThingSheet; homeThingSheet = function(k){ if(!S.homeLookOpen || S.homeLookOpen.k !== k) S.homeLookOpen = null; S.homeMove = null; window.__HOME_MOVE = null;
+  var r = ts.apply(this, arguments); try{ homeLookRow(k); homeStationLay(); }catch(e){} return r; }; })();
+(function(){ var ps = homePlaceSheet; homePlaceSheet = function(k){ var r = ps.apply(this, arguments); try{ homeLookRow(k); homeStationLay(); }catch(e){} return r; }; })();
+/* a build that IS a shop's door at his place (the vendor stall TRADE, the shed MEND, the roof HEAL: __IT_STARTS_BARE__) opens the
+   shop; its sheet carries the same three, and each takes him to the thing's own station (measured: the roof, the shed and the stall
+   had no way to be moved, painted or signed, a tap on them opened the shop) */
+function homeLookShopRow(k){ if(!homeLookOn() || !HF.on || !VAR || !VAR.bareShopOf || S.open !== k) return; var hk = null; for(var q in VAR.bareShopOf) if(VAR.bareShopOf[q] === k) hk = q; if(!hk) return;
+  var body = document.getElementById('sbody'); if(!body) return; [].forEach.call(body.querySelectorAll('.hlook'), function(e){ e.remove(); }); var n = homeStationLot(hk), t = n != null ? HF.slots[n] : null; if(!t) return;
+  var W = homeLookWords(), row = document.createElement('div'); row.className = 'hlook hshop';
+  ['move', 'paint', 'sign'].forEach(function(id){ if(id === 'paint' && !t.pid) return; var b = document.createElement('button'); b.type = 'button'; b.className = 'act hlb'; b.dataset.look = id; b.textContent = W[id] || id.toUpperCase();
+    if(id === 'move' && !homeMoveCan(t).length) b.disabled = true;
+    b.addEventListener('click', function(){ if(id === 'move'){ S.open = hk; homeMoveStart(hk); } else { S.homeLookOpen = { k: hk, what: id }; openB(hk); } }); row.appendChild(b); });
+  body.appendChild(row); window.__HOME_LOOK_ROW = { k: hk, shop: k, lot: n, open: null }; }
+(function(){ var ob = openB; openB = function(k){ var r = ob.apply(this, arguments); try{ homeLookShopRow(k); }catch(e){} return r; }; })();
+/* WHO WORKS WHAT: one who lives there, tapped on the footage: WORKS AT each standing build that takes a hand, or REST */
+function homeJobRow(p){ if(!homeLookOn() || !p || !p.resident) return; var b = buildState(); if(!b || !b.site) return; var body = document.getElementById('sbody');
+  [].forEach.call(body.querySelectorAll('.hjobs, .hjobs-h'), function(e){ e.remove(); });
+  var W = homeLookWords(), wk = S.home.workers || {}, J = S.home.look.jobs || {}, rows = S.home.builds || {}, mine = null, LB = window.BohemiaLotBuild;
+  for(var lk0 in wk) if(wk[lk0] === p.name) mine = lk0; if(!mine && J[p.name] === 'rest') mine = 'rest';
+  var lab = document.createElement('div'); lab.className = 'hjobs-h'; lab.textContent = W.works || 'WORKS AT';
+  var acts = document.createElement('div'), n = 0; acts.className = 'acts two hjobs';
+  Object.keys(b.site.lots).sort(function(x, y){ return (parseInt(x, 10) | 0) - (parseInt(y, 10) | 0); }).forEach(function(lk){ var L = b.site.lots[lk], row = rows[L.id]; if(!L.done || !row || !row.worked) return;
+    var nm = ((LB && LB.markerOf(L.id)) || {}).name || String(L.id).toUpperCase(), other = wk[lk] && wk[lk] !== p.name ? String(wk[lk]).replace(/^THE\s+/i, '').split(' ')[0] : null;   /* 'ORTIZ', never 'THE' */
+    var bt = act(nm, lk === mine ? (W.here || 'HERE') : other ? other : '+' + homeGoodsWords(row.worked), function(){ homeJobSet(p, lk); });
+    bt.dataset.job = lk; if(lk === mine) bt.classList.add('on'); acts.appendChild(bt); n++; });
+  var rs = act(W.rest || 'REST', mine === 'rest' ? (W.here || 'HERE') : '', function(){ homeJobSet(p, 'rest'); }); rs.dataset.job = 'rest'; if(mine === 'rest') rs.classList.add('on'); acts.appendChild(rs);
+  body.appendChild(lab); body.appendChild(acts); window.__HOME_JOBS = { name: p.name, mine: mine, builds: n }; }
+function homeJobSet(p, lk){ homeLookSend([{ what: 'job', key: p.name, val: lk }]); window.__HOME_JOB = { name: p.name, job: lk }; }
+(function(){ var rt = homeResidentTalk; homeResidentTalk = function(p){ S.homeMove = null; var r = rt.apply(this, arguments); try{ homeJobRow(p); homeStationLay(); }catch(e){} return r; }; })();
+(function(){ var hd = hide; hide = function(){ S.homeLookOpen = null; S.homeMove = null; window.__HOME_MOVE = null; return hd.apply(this, arguments); }; })();   /* a sheet shut: its rows fold, MOVE is put down */
+/* upright, the station's camera frames what the sheet leaves: a sheet that grows after it was laid (a row of choices opened, a face
+   come in, the UI's page-turn landing) lays the camera again (measured: the tank's sheet grew 206 -> 250 px after it was laid, and lay
+   44 px over the footage) */
+try{ if(window.ResizeObserver) new ResizeObserver(function(){ var sh = document.getElementById('sheet'); if(!HST.on || !HST.R || !sh || sh.classList.contains('hside')) return;
+  var hh = sh.offsetHeight; if(Math.abs(Math.max(140, view.H - hh) - HST.R.H) > 2) homeStationLay(); }).observe(document.getElementById('sheet')); }catch(e){}
+/* the map sends his place back after a change: the person's jobs read again (who works what is the map's to decide) */
+window.addEventListener('message', function(e){ var d = e.data || {}; if(d.type !== 'BOHEMIA_HOME') return;
+  try{ if(S.open === 'person' && S.person && S.person.resident) homeResidentTalk(S.person); }catch(er){} });
+/* read only, for the gate and the card: what he changed and what the footage drew of it */
+window.__HOME_LOOK = function(){ var d = HF.drawn || {}, spots = {}; for(var n in HF.slots) spots[HF.slots[n].key] = +n;
+  return { on: homeLookOn(), spots: spots, look: S.home && S.home.look ? JSON.parse(JSON.stringify(S.home.look)) : null, painted: d.painted || {}, signs: d.signs || {}, gate: d.gate || null,
+    feet: (d.feet || []).map(function(f){ return { name: f.name, lot: f.lot, job: f.job }; }), workers: (S.home && S.home.workers) || {}, move: window.__HOME_MOVE || null, name: S.home && S.home.name, cam: HF.cam, sh: HF.fit && HF.fit.sh }; };
+/* read only: where on the glass a thing of his footage is (the name in the camera's text, the plate at the gate, a sign) */
+window.__HOME_LOOK_AT = function(what, key){ if(!HF.on || !HF.fit) return null; homeTourStop(); var r = HF.el.getBoundingClientRect(), V = homeFeedV(), k = V.W / V.w, B = null;
+  if(what === 'osd'){ var o = homeNameOsdBox(); return o ? { x: r.left + (o[0] + o[2]) / 2, y: r.top + (o[1] + o[3]) / 2 } : null; }
+  if(what === 'gate') B = HF.namePlate; else if(what === 'sign') B = ((HF.drawn || {}).signs || {})[key] ? HF.drawn.signs[key].at : null;
+  return B ? { x: r.left + V.X + ((B[0] + B[2]) / 2 - V.x) * k, y: r.top + V.Y + ((B[1] + B[3]) / 2 - V.y) * k, w: Math.round((B[2] - B[0]) * k), h: Math.round((B[3] - B[1]) * k) } : null; };
+/* read only: how light a thing's picture reads on the footage now (the mean of its pixels in the frame), so a paint is measured */
+window.__HOME_LOOK_LUM = function(key){ var n = null; for(var m in HF.slots) if(HF.slots[m].key === key) n = +m; var R = n != null && HF.picRect ? HF.picRect[n] : null, im = HF.picIm && HF.picIm[n]; if(!R || !im || !HF.sx) return null;
+  try{ var w = R[2] - R[0], h = R[3] - R[1], c = document.createElement('canvas'); c.width = w; c.height = h; var x = c.getContext('2d'); x.drawImage(im, 0, 0); var A = x.getImageData(0, 0, w, h).data, d = HF.sx.getImageData(R[0], R[1], w, h).data, s = 0, k = 0;
+    for(var i = 0; i < d.length; i += 4){ if(A[i + 3] < 250) continue; s += .3 * d[i] + .59 * d[i + 1] + .11 * d[i + 2]; k++; } return k ? +(s / k).toFixed(1) : null; }catch(e){ return 'err:' + String(e && e.message || e).slice(0, 80); } };   /* the mean of the thing's own pixels as the frame drew them */
+/* ==== /__HIS_PLACE_HIS_WAY__ ==== */
 /* ==== /__HIS_CAMERAS_AS_PROMISED__ ==== */
 /* ==== __THE_GRINDER__ (HOME BASE 3, 11/22, VAMILY rule 469(c): selling it is legal nowhere and done everywhere; realism first). Any
    town's stall buys his sausage as food: it is food, one count (rule 209), and nothing on the stall changes. Underneath, never said:

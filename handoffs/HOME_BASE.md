@@ -1,3 +1,35 @@
+HOME BASE 5 (session_01GKDyuuDj5gQ6p6ZVCsD7a2): 11/27 LATEST -- BUILD 11/27za - HIS PLACE, HIS WAY, BUILT, NOT YET SEEN (rule 347(c), the
+routine 'HOME BASE 4: customize his place'; rules 343(d), 480(c), 481(b), 441; ask row 356). Research record
+records/BOHEMIA_HOME_BASE_HIS_PLACE_HIS_WAY_THE_RESEARCH_11_27_26.md; build record records/BOHEMIA_HOME_BASE_HIS_PLACE_HIS_WAY_11_27_26.md.
+VOTE card home-base-his-place-his-way-11-27. Gate HIS PLACE, HIS WAY (new, gates/his_place_his_way_gate.js) 24/0 each way.
+- THE NEXT JOB BELOW (rule 347(c)) IS DONE BUT FOR 'WHAT IT IS MADE OF' (tin, block, wood): MOVE, PAINT, SIGN on every thing of his
+  (its station, and the clinic, bench and stall sheets that are his builds' doors), ITS NAME from the camera's text or the gate's plate
+  (type, or ANOTHER and OK), WHO WORKS WHAT (WORKS AT on a person who lives there; he stands at it on the footage).
+- WHERE IT LIVES: engine/bohemia_home.js lookOf / setLook / signText (rec.look: spots {thingKey: footage lot}, paint, signs, jobs
+  {name: lot key | 'rest'}; a thing's key is 'h<lot>:<id>'). records/target/bb/home_base.json look (paints with hex and ir, sign_max,
+  twelve names, words, all draft). slices/BOHEMIA_CITY_WORLD.html homeSetLook (BOHEMIA_HOME_SET), homeWorkers honours jobs, homeState
+  sends look and lookRows; BohemiaHomeMap.setLook, lookOff (the gate's planted switch only). slices/BOHEMIA_SETTLEMENT_SCREEN.html
+  __HIS_PLACE_HIS_WAY__ (after the station's sheet block): homeFeedSlots takes his spots first; homeFeedPaint draws hfPainted (each
+  picture re-graded once per paint, cached), homeFeedSign, homeFeedGate (the name's plate on the walk); homeFeedPeople stands a
+  resident at the build he works (homeJobLots); homeMoveStart/To/End and homeMoveOsd (the lit lots); homeNameSheet (homeNameHit:
+  the OSD name line or the plate); homeLookRow / homeLookShopRow; homeJobRow on homeResidentTalk; stations for a person ('p:<name>')
+  and the gate ('gate'); a ResizeObserver lays the camera again when an upright sheet grows. Read hooks: __HOME_LOOK(),
+  __HOME_LOOK_AT('osd'|'gate'|'sign', key), __HOME_LOOK_LUM(key) (the mean of a thing's own pixels on the frame), __HOME_MOVE,
+  __HOME_MOVED, __HOME_PAINTED, __HOME_SIGNED, __HOME_NAMED, __HOME_JOBS.
+- THE CARD: tools/bohemia_home_base_his_place_his_way_card_11_27_26.js --only <profile> once each way (fits a 10-minute clock), the
+  .py composes it when both are in.
+- NEXT (rule 482, then 347(c)'s last part):
+  1. WHAT IT IS MADE OF: render each piece in tin, block and wood with roof / walls / trim as regions (so the paint goes on each, like
+     Stardew's three) in the 11/3 pipeline (tools/bohemia_home_settlement_pipeline_11_3_26.py; Blender is not on this box,
+     `pip install bpy` is the way; measure the disk first). A material then is a fourth row under MOVE, PAINT, SIGN.
+  2. Renaming a person who lives there (Battle Brothers: tap the name): their name keys the place's story and their job; carry both.
+  3. The door's first paint (warm cam 1 while the map travels there), and BUILD's desk laid both ways like the stations (HOME BASE 4's
+     list, still open).
+- MEASURED AND ROUTED, NOT MINE: at his place on a phone slowed 4x the town page under the footage holds 1 to 6 frames past 50 ms in
+  3 s with his look off (PLUMBER 8's frame walk, rule 480(d)); his look adds none.
+[bb Battle Brothers: a name is changed by tapping it; ours: everything at his place is changed by tapping it on his cameras]
+[analog horror: his own words and his own paint, read back to him in grey-green by a security camera at 3 am]
+
 HOME BASE 4 -> A FRESH HOME BASE (11/27 04:30 UTC): HANDOFF READY. HOME BASE 4 carried three builds this session (11/26q THE GRINDER,
 ON PURPOSE; 11/26zf THE CAMERAS ON PATROL; 11/27a WHAT HE HAS SITS IN THE GROUND) and its context is long; the routine 'HOME BASE 4:
 customize his place' (rule 347(c)) is a new feature and goes to a fresh session whole, research first.

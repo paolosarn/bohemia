@@ -1,0 +1,634 @@
+{
+ "phone_portrait": {
+  "steps": [
+   {
+    "before": {
+     "on": true,
+     "spots": {
+      "h4": 1,
+      "h7": 2,
+      "h0": 5,
+      "h1": 6,
+      "h2": 7,
+      "h5": 8,
+      "h3": 9,
+      "h8": 10,
+      "h6": 11
+     },
+     "look": {
+      "spots": {},
+      "paint": {},
+      "signs": {},
+      "jobs": {}
+     },
+     "painted": {},
+     "signs": {},
+     "gate": {
+      "text": "YOUR PLACE",
+      "at": [
+       69,
+       229,
+       112,
+       241
+      ]
+     },
+     "feet": [
+      {
+       "name": "RAUL",
+       "lot": 8,
+       "job": false
+      },
+      {
+       "name": "THE ORTIZ FAMILY",
+       "lot": 5,
+       "job": true
+      },
+      {
+       "name": "TOMAS ARVIZU",
+       "lot": 6,
+       "job": true
+      },
+      {
+       "name": "DESI",
+       "lot": 2,
+       "job": false
+      }
+     ],
+     "workers": {
+      "0,0": "THE ORTIZ FAMILY",
+      "1,0": "TOMAS ARVIZU"
+     },
+     "move": null,
+     "name": "YOUR PLACE",
+     "cam": 1,
+     "sh": "tall"
+    }
+   }
+  ],
+  "set": {
+   "at": [
+    82,
+    60
+   ],
+   "places": [
+    "grinder@5",
+    "forge@6",
+    "yard@7",
+    "lookout@8"
+   ],
+   "lots": [
+    "0,0:tank",
+    "1,0:garden",
+    "2,0:solar",
+    "3,0:roof",
+    "4,0:wall"
+   ],
+   "res": [
+    "THE ORTIZ FAMILY",
+    "TOMAS ARVIZU"
+   ],
+   "workers": {
+    "0,0": "THE ORTIZ FAMILY",
+    "1,0": "TOMAS ARVIZU"
+   }
+  },
+  "tankOpen": true,
+  "move": {
+   "k": "h0",
+   "from": 5,
+   "can": [
+    6,
+    7,
+    8,
+    11,
+    12
+   ]
+  },
+  "moved": {
+   "k": "h0",
+   "from": 5,
+   "to": 6,
+   "swap": "h1"
+  },
+  "lum": {
+   "tankBare": 21.3,
+   "tankLime": 50.6,
+   "roofBare": 34.1,
+   "roofTar": 14.3
+  },
+  "named": "LAST STOP",
+  "people": [
+   "THE ORTIZ FAMILY",
+   "TOMAS ARVIZU"
+  ],
+  "jobsBefore": {
+   "name": "TOMAS ARVIZU",
+   "mine": "1,0",
+   "builds": 3
+  },
+  "jobTo": "2,0",
+  "jobsAfter": {
+   "name": "TOMAS ARVIZU",
+   "mine": "2,0",
+   "builds": 3
+  },
+  "after": {
+   "on": true,
+   "spots": {
+    "h4": 1,
+    "h7": 2,
+    "h1": 5,
+    "h0": 6,
+    "h2": 7,
+    "h5": 8,
+    "h3": 9,
+    "h8": 10,
+    "h6": 11
+   },
+   "look": {
+    "spots": {
+     "h4:wall": 1,
+     "h7:yard": 2,
+     "h2:solar": 7,
+     "h5:grinder": 8,
+     "h3:roof": 9,
+     "h8:lookout": 10,
+     "h6:forge": 11,
+     "h0:tank": 6,
+     "h1:garden": 5
+    },
+    "paint": {
+     "h0:tank": "lime",
+     "h3:roof": "tar"
+    },
+    "signs": {
+     "h0:tank": "NO WATER"
+    },
+    "jobs": {
+     "TOMAS ARVIZU": "2,0"
+    }
+   },
+   "painted": {
+    "h3": "tar",
+    "h0": "lime"
+   },
+   "signs": {
+    "h0": {
+     "text": "NO WATER",
+     "at": [
+      54,
+      158,
+      79,
+      176
+     ]
+    }
+   },
+   "gate": {
+    "text": "LAST STOP",
+    "at": [
+     71,
+     229,
+     110,
+     241
+    ]
+   },
+   "feet": [
+    {
+     "name": "RAUL",
+     "lot": 8,
+     "job": false
+    },
+    {
+     "name": "THE ORTIZ FAMILY",
+     "lot": 6,
+     "job": true
+    },
+    {
+     "name": "TOMAS ARVIZU",
+     "lot": 7,
+     "job": true
+    },
+    {
+     "name": "DESI",
+     "lot": 2,
+     "job": false
+    }
+   ],
+   "workers": {
+    "2,0": "TOMAS ARVIZU",
+    "0,0": "THE ORTIZ FAMILY"
+   },
+   "move": null,
+   "name": "LAST STOP",
+   "cam": 1,
+   "sh": "tall"
+  },
+  "reloaded": {
+   "on": true,
+   "spots": {
+    "h4": 1,
+    "h7": 2,
+    "h1": 5,
+    "h0": 6,
+    "h2": 7,
+    "h5": 8,
+    "h3": 9,
+    "h8": 10,
+    "h6": 11
+   },
+   "look": {
+    "spots": {
+     "h4:wall": 1,
+     "h7:yard": 2,
+     "h2:solar": 7,
+     "h5:grinder": 8,
+     "h3:roof": 9,
+     "h8:lookout": 10,
+     "h6:forge": 11,
+     "h0:tank": 6,
+     "h1:garden": 5
+    },
+    "paint": {
+     "h0:tank": "lime",
+     "h3:roof": "tar"
+    },
+    "signs": {
+     "h0:tank": "NO WATER"
+    },
+    "jobs": {
+     "TOMAS ARVIZU": "2,0"
+    }
+   },
+   "painted": {
+    "h3": "tar",
+    "h0": "lime"
+   },
+   "signs": {
+    "h0": {
+     "text": "NO WATER",
+     "at": [
+      54,
+      158,
+      79,
+      176
+     ]
+    }
+   },
+   "gate": {
+    "text": "LAST STOP",
+    "at": [
+     71,
+     229,
+     110,
+     241
+    ]
+   },
+   "feet": [
+    {
+     "name": "RAUL",
+     "lot": 8,
+     "job": false
+    },
+    {
+     "name": "THE ORTIZ FAMILY",
+     "lot": 6,
+     "job": true
+    },
+    {
+     "name": "TOMAS ARVIZU",
+     "lot": 7,
+     "job": true
+    },
+    {
+     "name": "DESI",
+     "lot": 2,
+     "job": false
+    }
+   ],
+   "workers": {
+    "2,0": "TOMAS ARVIZU",
+    "0,0": "THE ORTIZ FAMILY"
+   },
+   "move": null,
+   "name": "LAST STOP",
+   "cam": 1,
+   "sh": "tall"
+  }
+ },
+ "phone_landscape": {
+  "steps": [
+   {
+    "before": {
+     "on": true,
+     "spots": {
+      "h4": 1,
+      "h7": 2,
+      "h0": 5,
+      "h1": 6,
+      "h2": 7,
+      "h5": 8,
+      "h3": 9,
+      "h8": 10,
+      "h6": 11
+     },
+     "look": {
+      "spots": {},
+      "paint": {},
+      "signs": {},
+      "jobs": {}
+     },
+     "painted": {},
+     "signs": {},
+     "gate": {
+      "text": "YOUR PLACE",
+      "at": [
+       139,
+       153,
+       182,
+       165
+      ]
+     },
+     "feet": [
+      {
+       "name": "RAUL",
+       "lot": 8,
+       "job": false
+      },
+      {
+       "name": "THE ORTIZ FAMILY",
+       "lot": 5,
+       "job": true
+      },
+      {
+       "name": "TOMAS ARVIZU",
+       "lot": 6,
+       "job": true
+      },
+      {
+       "name": "DESI",
+       "lot": 2,
+       "job": false
+      }
+     ],
+     "workers": {
+      "0,0": "THE ORTIZ FAMILY",
+      "1,0": "TOMAS ARVIZU"
+     },
+     "move": null,
+     "name": "YOUR PLACE",
+     "cam": 1,
+     "sh": "wide"
+    }
+   }
+  ],
+  "set": {
+   "at": [
+    47,
+    37
+   ],
+   "places": [
+    "grinder@5",
+    "forge@6",
+    "yard@7",
+    "lookout@8"
+   ],
+   "lots": [
+    "0,0:tank",
+    "1,0:garden",
+    "2,0:solar",
+    "3,0:roof",
+    "4,0:wall"
+   ],
+   "res": [
+    "THE ORTIZ FAMILY",
+    "TOMAS ARVIZU"
+   ],
+   "workers": {
+    "0,0": "THE ORTIZ FAMILY",
+    "1,0": "TOMAS ARVIZU"
+   }
+  },
+  "tankOpen": true,
+  "move": {
+   "k": "h0",
+   "from": 5,
+   "can": [
+    6,
+    7,
+    8,
+    11,
+    12
+   ]
+  },
+  "moved": {
+   "k": "h0",
+   "from": 5,
+   "to": 6,
+   "swap": "h1"
+  },
+  "lum": {
+   "tankBare": 22.6,
+   "tankLime": 50.5,
+   "roofBare": 33.5,
+   "roofTar": 14.1
+  },
+  "named": "LAST STOP",
+  "people": [
+   "THE ORTIZ FAMILY",
+   "TOMAS ARVIZU"
+  ],
+  "jobsBefore": {
+   "name": "TOMAS ARVIZU",
+   "mine": "1,0",
+   "builds": 3
+  },
+  "jobTo": "2,0",
+  "jobsAfter": {
+   "name": "TOMAS ARVIZU",
+   "mine": "2,0",
+   "builds": 3
+  },
+  "after": {
+   "on": true,
+   "spots": {
+    "h4": 1,
+    "h7": 2,
+    "h1": 5,
+    "h0": 6,
+    "h2": 7,
+    "h5": 8,
+    "h3": 9,
+    "h8": 10,
+    "h6": 11
+   },
+   "look": {
+    "spots": {
+     "h4:wall": 1,
+     "h7:yard": 2,
+     "h2:solar": 7,
+     "h5:grinder": 8,
+     "h3:roof": 9,
+     "h8:lookout": 10,
+     "h6:forge": 11,
+     "h0:tank": 6,
+     "h1:garden": 5
+    },
+    "paint": {
+     "h0:tank": "lime",
+     "h3:roof": "tar"
+    },
+    "signs": {
+     "h0:tank": "NO WATER"
+    },
+    "jobs": {
+     "TOMAS ARVIZU": "2,0"
+    }
+   },
+   "painted": {
+    "h3": "tar",
+    "h0": "lime"
+   },
+   "signs": {
+    "h0": {
+     "text": "NO WATER",
+     "at": [
+      121,
+      76,
+      146,
+      94
+     ]
+    }
+   },
+   "gate": {
+    "text": "LAST STOP",
+    "at": [
+     141,
+     153,
+     180,
+     165
+    ]
+   },
+   "feet": [
+    {
+     "name": "RAUL",
+     "lot": 8,
+     "job": false
+    },
+    {
+     "name": "THE ORTIZ FAMILY",
+     "lot": 6,
+     "job": true
+    },
+    {
+     "name": "TOMAS ARVIZU",
+     "lot": 7,
+     "job": true
+    },
+    {
+     "name": "DESI",
+     "lot": 2,
+     "job": false
+    }
+   ],
+   "workers": {
+    "2,0": "TOMAS ARVIZU",
+    "0,0": "THE ORTIZ FAMILY"
+   },
+   "move": null,
+   "name": "LAST STOP",
+   "cam": 1,
+   "sh": "wide"
+  },
+  "reloaded": {
+   "on": true,
+   "spots": {
+    "h4": 1,
+    "h7": 2,
+    "h1": 5,
+    "h0": 6,
+    "h2": 7,
+    "h5": 8,
+    "h3": 9,
+    "h8": 10,
+    "h6": 11
+   },
+   "look": {
+    "spots": {
+     "h4:wall": 1,
+     "h7:yard": 2,
+     "h2:solar": 7,
+     "h5:grinder": 8,
+     "h3:roof": 9,
+     "h8:lookout": 10,
+     "h6:forge": 11,
+     "h0:tank": 6,
+     "h1:garden": 5
+    },
+    "paint": {
+     "h0:tank": "lime",
+     "h3:roof": "tar"
+    },
+    "signs": {
+     "h0:tank": "NO WATER"
+    },
+    "jobs": {
+     "TOMAS ARVIZU": "2,0"
+    }
+   },
+   "painted": {
+    "h3": "tar",
+    "h0": "lime"
+   },
+   "signs": {
+    "h0": {
+     "text": "NO WATER",
+     "at": [
+      121,
+      76,
+      146,
+      94
+     ]
+    }
+   },
+   "gate": {
+    "text": "LAST STOP",
+    "at": [
+     141,
+     153,
+     180,
+     165
+    ]
+   },
+   "feet": [
+    {
+     "name": "RAUL",
+     "lot": 8,
+     "job": false
+    },
+    {
+     "name": "THE ORTIZ FAMILY",
+     "lot": 6,
+     "job": true
+    },
+    {
+     "name": "TOMAS ARVIZU",
+     "lot": 7,
+     "job": true
+    },
+    {
+     "name": "DESI",
+     "lot": 2,
+     "job": false
+    }
+   ],
+   "workers": {
+    "2,0": "TOMAS ARVIZU",
+    "0,0": "THE ORTIZ FAMILY"
+   },
+   "move": null,
+   "name": "LAST STOP",
+   "cam": 1,
+   "sh": "wide"
+  }
+ }
+}
