@@ -109,6 +109,10 @@ async function run(profile) {
     const inside = last.camp ? last.camp.pieces.every(q => q.u >= last.camp.x - 0.02 && q.u <= last.camp.x + last.camp.w + 0.02 && q.v >= last.camp.y - 0.02 && q.v <= last.camp.y + last.camp.h + 0.02) : false;
     const openTiles = await lsf.evaluate(() => { const B = BohemiaCampBoard._B, g = B.out && B.out.grid, s = B.pitch; if (!g || !s) return null; let all = true; for (let j = 0; j < s.h; j++) for (let i = 0; i < s.w; i++) if (!g.ok[s.y + j][s.x + i]) all = false; return all; });
     const bigger = [];
+    /* CAMP FOUR 11/27: since MOTION 3's __THE_CAMP_LETS_GO_WHEN_HE_LEAVES__ (ask row 560) a broken camp lets its board page go, so the
+       bigger companies asked after the break found no page ('state: none', every leg's run since); the fixture keeps the board while
+       it asks (MOTION 3's own switch, __CAMP_LEAVE_KEEPS_BOARD), and lets it go after */
+    await p.evaluate(() => { window.__CAMP_LEAVE_KEEPS_BOARD = true; });
     await fr.evaluate(() => { try { if (CAMP.on) BohemiaMapCamp.break(); } catch (e) {} });   /* the camp's own hours would ask its own company's board again under the fixture */
     await p.waitForTimeout(600);
     for (const men of [6, 12]) {
@@ -117,6 +121,7 @@ async function run(profile) {
       const g2 = await lsf.evaluate(() => { const B = BohemiaCampBoard._B, g = B.out && B.out.grid, s = B.pitch; if (!g || !s) return null; let all = true; for (let j = 0; j < s.h; j++) for (let i = 0; i < s.w; i++) if (!g.ok[s.y + j][s.x + i]) all = false; return all; });
       bigger.push({ men, n: s2.pitch && s2.pitch.n, w: s2.pitch && s2.pitch.w, h: s2.pitch && s2.pitch.h, state: s2.state, open: g2, same: s2.board && last.st.b.board && s2.board.sig === last.st.b.board.sig, board: s2.board && s2.board.name, was: last.st.b.board && last.st.b.board.name, bakes: s2.bakes, opts: s2.opts, wasOpts: last.st.b.opts, both: s2.sameBoth });
     }
+    await p.evaluate(() => { window.__CAMP_LEAVE_KEEPS_BOARD = false; });
     /* his own company's board back for B4 */
     await lsf.evaluate(() => { const B = BohemiaCampBoard._B; BohemiaCampBoard.want(B.ask, Object.assign({}, B.plan, { men: BohemiaCampLook.state().men }), B.kit); });
     for (let k = 0; k < 120; k++) { await p.waitForTimeout(250); if ((await lsf.evaluate(() => BohemiaCampBoard.state().state)) === 'in') break; }
@@ -159,18 +164,20 @@ async function run(profile) {
     await fr.evaluate((q) => { try { if (LOOP.open) loopClose(); } catch (e) {} city.x = q.x + 0.5; city.y = q.y + 0.5; TOWN_EXIT = null; return BohemiaMapCamp.make(); }, last.b);
     let pitch = null; for (let k = 0; k < 120; k++) { await p.waitForTimeout(250); pitch = await fr.evaluate(() => CAMP.pitch ? { x: CAMP.pitch.x, y: CAMP.pitch.y, n: CAMP.pitch.n, pieces: CAMP.pitch.pieces.length, sig: CAMP.pitch.sig } : null); if (pitch) break; }
     await p.waitForTimeout(1500);
+    const campAsk4 = await lsf.evaluate(() => { try { const B = BohemiaCampBoard._B, a = B.ask || {}, o = B.opts || {}; return { deal: a.__deal, district: a.district, at: a.at, world: a.world ? JSON.stringify(a.world).slice(0, 120) : null, optsDeal: o.deal, optsCell: o.cell, board: B.board && B.board.name }; } catch (e) { return String(e); } }).catch(() => null);
     const handed = await fr.evaluate(() => { const r = cityHandOver({ type: 'BOHEMIA_CITY_ENCOUNTER', why: 'gate:camp', label: 'A CREW', __met: true, party: { count: 3, faction: 'brigands' }, roster: [{ arch: 'human' }, { arch: 'human' }, { arch: 'human' }], street: true, at: { gx: city.x + 2, gy: city.y } }, null);
       return { r: !!r, fought: window.__CAMP_FOUGHT || null }; });
     let f4 = null;
     for (let k = 0; k < 160; k++) { await p.waitForTimeout(250);
       const ff = p.frames().find(x => /BOHEMIA_FIGHT\.html/.test(x.url()) && x.parentFrame() === p.mainFrame()); if (!ff) continue;
       f4 = await ff.evaluate(() => { try { const o = window.FIGHT_OPTS || {}; return { board: !!(window.FIGHT_UI && FIGHT_UI.board), camp: o.camp ? { x: o.camp.x, y: o.camp.y, n: o.camp.n, pieces: o.camp.pieces.length } : null,
-        sig: window.campBoardSig ? campBoardSig() : null, drawn: window.CAMP_ON_THE_BOARD ? CAMP_ON_THE_BOARD.drawn : -1 }; } catch (e) { return null; } }).catch(() => null);
+        sig: window.campBoardSig ? campBoardSig() : null, drawn: window.CAMP_ON_THE_BOARD ? CAMP_ON_THE_BOARD.drawn : -1,
+        opts: { deal: o.deal, district: o.district, cell: o.cell, kind: o.kind, world: o.world ? JSON.stringify(o.world).slice(0, 120) : null, street: o.street, place: o.place ? (o.place.name || o.place) : null, board: (FIGHT.S && FIGHT.S.boardDef && FIGHT.S.boardDef.name) || null } }; } catch (e) { return null; } }).catch(() => null);
       if (f4 && f4.board && f4.drawn > 3) break; }
     if (process.env.BOHEMIA_SHOT_DIR) await p.screenshot({ path: path.join(process.env.BOHEMIA_SHOT_DIR, 'camp3_fight_' + profile + '.png') });
     ok(P + 'B4 *** A CREW AT CAMP FIGHTS HIM THERE *** the fight opens on the camp\'s board, block for block, the camp on its square, every piece drawn on the glass',
       !!pitch && handed.r && !!handed.fought && !!f4 && f4.board && !!f4.camp && f4.camp.x === pitch.x && f4.camp.y === pitch.y && f4.camp.n === pitch.n && f4.camp.pieces === pitch.pieces && !!f4.sig && f4.sig === pitch.sig && f4.drawn > 3,
-      JSON.stringify({ pitch, fought: handed.fought, fight: f4 && Object.assign({}, f4, { same: f4.sig === (pitch && pitch.sig) }) }));
+      JSON.stringify({ pitch, fought: handed.fought, fight: f4 && Object.assign({}, f4, { same: f4.sig === (pitch && pitch.sig) }), campAsk: campAsk4 }));
     /* ---- B7: the victory path (rule 406(f)(g)): that fight won, MAKE CAMP on the end screen (a real press) ---- */
     /* AMENDED 11/10 by MOTION 3 (rule 442(a), newest wins: the camp after a win is the fight's own view, the same camera): the camp's square
        is pitched ON THE GLASS the fight was seen through, by the dead it shows when an open tile beside them is on it; where none is,

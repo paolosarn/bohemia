@@ -78,6 +78,50 @@ named for PLUMBER 8). UI FIVE's THE CLOCK UP TOP: 17/1 and 16/2 here on K2 (the 
 1.7 s on main and on this build alike, the read's window; UI FIVE re-aimed it on main since (8d668cfa4, 'reads the bar against its own
 painting').
 
+## After the build: HIS LINE IN CAMP (BUILD 11/27zo - THE BARS KEEP HIS LINE)
+
+Found running the camp's own reds after the suite (THE BARS OVER THEIR HEADS was on the quarantine, CAMP's, 'UNSURE: one run's B4
+detail decides'). B4's detail decided it, and it was this lane's own: since 11/26 (THEIR BARS AT A GLANCE) the camp drew the fight's
+bars over EVERY man while anyone mended, a man at 95 percent among them, against his own words (rule 261(e) and 278(c), Paolo 10/26: 'if
+they're at full health it never has to display... above 87 percent it doesn't display anymore... I need to see how everyone's
+healing'). And the fill eased to the camp's acts' numbers, which are the hour the camp was opened: a man's bars never rose as the hours
+mended him (THE CAMP READS AT A GLANCE's G1 passed on the ease alone, read when every man carried bars).
+
+1. HIS LINE (slices/bohemia_camp_look.js barOf; `window.__CAMP_BARS_ALL` = the way it was): a man in camp carries his bars as he does on
+   the map and in a town, under the condition's own line (bars().show: under 87 percent, or a fresh wound's days), none over it. A
+   man's bars go the moment he mends past 87, as on the map; the stop reads EVERYONE WHOLE on the tape, and no bar stands.
+2. HIS NUMBER NOW: the fill is the condition's hpF and armF (read at most five times a second), the numbers the map's and the town's
+   bars draw; the camp's own numbers only for a man with no record. The rise eases in and shines as before.
+3. The look's state let go of the bars it last drew when it draws none (`bars.at` stood after they went; G2 read it).
+
+Gates: THE BARS OVER THEIR HEADS 12/0 phone and computer (was 6/6; LIFTED, its quarantine line struck, the ratchet and VAMILY's red
+debt line 392/308). Its legs re-aimed and why: B1 and B2 (the map) waited for the shell's FIRST PLAY (PLUMBER 6
+__FIRST_PLAY_IS_LIGHT__ holds the map's people sheets until it; the leg closed the start town before its picture was in, the hold stayed
+on, his two men were never drawn: 'sheets: town:0, first: true'); B4 (the camp) reads the look's own men and bars (the camp is drawn by
+its look on the fight's board since rules 406(b), 442(a), not by the settlement's folk: 'the camp has 0 men'), each fill against his
+number within an hour's mending. THE CAMP READS AT A GLANCE 8/0 upright and 7/0 on its side (two runs; G3 on its side missed once with
+the suite running: the tape's STOP read past its three seconds, green the next run): G1 and G2 re-aimed to the line, the cut 70 off
+(was 45) so the bars stand long enough to read rising. STRUCK DOWN, HE STILL FIGHTS 36/0 (S6 waits for the camp's hours to start:
+11 to 14 s on a box at a load of 14, the set-up's 2.25 to 4.5 s by design and the rest the load; shipped fb86e3699).
+
+## After the build: A CREW AT CAMP FIGHTS HIM ON THE CAMP'S GROUND (rule 406(b)(c), the same build)
+
+THE CAMP IS PITCHED ON THE BOARD (CAMP THREE's, quarantined 11/10 'LOAD: timed out') read 9 passed, 5 failed alone on main, both ways,
+and its details were real, not load:
+- B4 *** A CREW AT CAMP FIGHTS HIM THERE ***: MEASURED, one arterial block, one deal (2388192501), the same district and kind: the camp
+  stood on 'strip + suburb + lots' (830c681d) and the crew's fight dealt 'yards + lots + suburb + culdesac' (a0edc23f). The one door
+  (cityHandOver) stamps every fight with the place on its cell (WORLD THIRTEEN __THE_CUT__, msg.template) and the cell's ground, zone
+  and street (__THE_GROUND_AND_THE_ZONE__, __EVERY_ZONE_ITS_GROUND__, msg.ground), and the fight deals its dressing from them; the
+  camp's ask (campBoardAsk) carried neither, so the camp stood on a board no fight there is ever dealt. NOW (BOHEMIA_CITY_WORLD.html
+  campStampLikeTheDoor, `window.__CAMP_ASK_PLAIN` = the way it was): the camp asks with the door's own stamps, so its ground is the
+  board a fight there deals and the crew fights him on it (both 'yards + lots + suburb + culdesac', a0edc23f, every piece drawn). If
+  the door's stamps change, B4 goes red.
+- B2 (six and twelve men): the fixture broke the camp to stop its hours, and since MOTION 3's __THE_CAMP_LETS_GO_WHEN_HE_LEAVES__ a
+  broken camp lets its board page go ('state: none'); it keeps the board while it asks (MOTION 3's own switch), green.
+- B7 upright: the one dead man of that deal lay off the upright glass (the camp after a win is the fight's own camera, MOTION 3 rule
+  442(a)): 'inView 0', so no man had a body to go through ('loot' never dealt). On its side green. The quarantine line stays, its
+  reason this, owner CAMP FOUR.
+
 ## The full suite (the routine's first ask)
 
 SUITE_RESULTS

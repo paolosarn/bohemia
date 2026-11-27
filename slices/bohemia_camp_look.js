@@ -589,7 +589,7 @@
         if (m.campFollower) campCart(cx, ctx, m, x, y, s, H, 'back', now);   /* __THE_STAFF_PUSH_A_CART__: his cart by him */
         drawMan(cx, ctx, m, x, y, walking, now, s, k, H, B, I, z);
         if (m.campFollower) campCart(cx, ctx, m, x, y, s, H, 'front', now);
-        else barQ(m.main ? 'YOU' : (m.name || m.look), ctx.view.ox + x * s, ctx.view.oy + y * s, (m.act === 'lie' || m.act === 'sleep') ? H * .42 : H, m.blood, m.armour); } });   /* __THEIR_BARS_AT_A_GLANCE__ */
+        else { var bo = barOf(m); if (bo) barQ(m.main ? 'YOU' : (m.name || m.look), ctx.view.ox + x * s, ctx.view.oy + y * s, (m.act === 'lie' || m.act === 'sleep') ? H * .42 : H, bo.b, bo.a); } } });   /* __THEIR_BARS_AT_A_GLANCE__, under his line, his number now (barOf) */
     });
   }
   /* ANIMATION's camp acts (records/BOHEMIA_ANIMATION_THE_CAMPS_ACTS_10_26_26.md, its call BohemiaIdles.activity): what the camp's
@@ -678,20 +678,40 @@
      Once everyone is whole the bars stand three seconds, full, and fade: then the camp is only his men idling. YOU too, walking or lying.
      window.__CAMP_NO_BARS = the way it was. ==== */
   var BAR_RIM = '#d9a85a', BAR_ARM = '#9aa6b0', BAR_BLOOD = '#8fae6a', BAR_PT = 3;
+  /* CAMP FOUR 11/27, HIS LINE (rule 261(e) and 278(c), Paolo 10/26: 'if they're at full health it never has to display... above 87
+     percent it doesn't display anymore'): the camp's bars stood over EVERY man while anyone mended (11/26), a man at 95 percent among
+     them, and THE BARS OVER THEIR HEADS' B4 read it. Now a man in camp carries his bars as he does on the map and in a town: under the
+     line (the condition's own bars(), RATE.bars_hide_at 0.87) or with a fresh wound's days on him; over it, none. The hour they are
+     whole the bars still left (a wound's days) stand three seconds and fade as before. window.__CAMP_BARS_ALL = the way it was. */
+  /* AND THE FILL IS HIS NUMBER NOW (CAMP FOUR 11/27, found by the line): the fill eased to the camp's own numbers (its acts' blood and
+     armour), which are the hour the camp was opened, so a man's bars never rose as the hours mended him; the condition heals him every
+     hour. Now the fill is the condition's own (bars().hpF and armF, read at most five times a second), the numbers the map's and the
+     town's bars draw; the camp's own numbers only when he has no record. barOf: null = no bars (over the line), else { b, a }. */
+  function barOf(m) {
+    if (!m) return null;
+    var BC = root.BohemiaCondition, t = Date.now(), r = null;
+    if (BC && BC.bars && BC.get) {
+      if (!K.barSt || t - K.barStAt > 200) { try { K.barSt = BC.get(); } catch (e) { K.barSt = null; } K.barStAt = t; }
+      if (K.barSt) { try { r = BC.bars(m.main ? { main: true } : { name: m.name || '', look: m.look }, K.barSt); } catch (e) { r = null; } }
+    }
+    if (r) return (root.__CAMP_BARS_ALL || r.show) ? { b: r.hpF, a: r.armF } : null;
+    var b = typeof m.blood === 'number' ? m.blood : 1, a = typeof m.armour === 'number' ? m.armour : 1;   /* no record: the camp's own numbers, the same line */
+    return (root.__CAMP_BARS_ALL || b < .87 || a < .87) ? { b: b, a: a } : null;
+  }
   function barQ(key, X, Y, h, b, a) { if (root.__CAMP_NO_BARS || typeof b !== 'number') return; (K.barsQ || (K.barsQ = [])).push({ key: key, X: X, Y: Y, h: h, b: b, a: typeof a === 'number' ? a : 1 }); }
   function barYou(ctx) {   /* YOU, the walker: his bars over the settlement's own lead */
     if (K.hide || !K.st) return;
     var me = K.st.acts && K.st.acts.filter(function (e) { return e.main; })[0]; if (!me) return;
     var BS = root.BohemiaSettlement; if (!BS || !BS.lead) return;
     if (!K.leadAt || ctx.now - K.leadAt.t > 200) { var L = null; try { L = BS.lead(); } catch (e) { L = null; } K.leadAt = { t: ctx.now, x: L && L.x, y: L && L.y, lift: L && L.lift || 0 }; }
-    var Lx = K.leadAt.x, Ly = K.leadAt.y; if (Lx == null || Ly == null) return;
-    barQ('YOU', ctx.view.ox + Lx * ctx.s, ctx.view.oy + Ly * ctx.s - (K.leadAt.lift || 0), ctx.personH * ctx.s, me.blood, me.armour);
+    var Lx = K.leadAt.x, Ly = K.leadAt.y, bo = barOf(me); if (Lx == null || Ly == null || !bo) return;
+    barQ('YOU', ctx.view.ox + Lx * ctx.s, ctx.view.oy + Ly * ctx.s - (K.leadAt.lift || 0), ctx.personH * ctx.s, bo.b, bo.a);
   }
   function barsDraw(cx, now) {
-    var Q = K.barsQ; K.barsQ = []; if (!Q || !Q.length) { K.barsShown = 0; return; }
+    var Q = K.barsQ; K.barsQ = []; if (!Q || !Q.length) { K.barsShown = 0; K.barsAt = {}; return; }   /* nothing drawn, nothing read (11/27: the last bars stood in the state after they went) */
     var V = K.barV || (K.barV = {}), whole = !!(K.info && K.info.whole), al = 1;
     if (whole) { if (K.barWholeT == null) K.barWholeT = now; var tw = now - K.barWholeT; al = tw < 3000 ? 1 : Math.max(0, 1 - (tw - 3000) / 1000); } else K.barWholeT = null;
-    K.barsAlpha = al; if (al <= 0) { K.barsShown = 0; return; }
+    K.barsAlpha = al; if (al <= 0) { K.barsShown = 0; K.barsAt = {}; return; }
     var dt = K.barLast != null ? Math.min(100, now - K.barLast) : 16, ease = Math.min(1, dt / 260); K.barLast = now;
     var cl = function (v) { return Math.max(0, Math.min(1, v)); }, n = 0, out = {};
     cx.save(); cx.globalAlpha = al;
@@ -712,7 +732,7 @@
         var s0 = Math.round(bw * cl(v.pa)), s1 = Math.round(bw * cl(q.a)); if (s1 > s0) cx.fillRect(bx + s0, by, s1 - s0, BAR_PT);
         var t0 = Math.round(bw * cl(v.pb)), t1 = Math.round(bw * cl(q.b)); if (t1 > t0) cx.fillRect(bx + t0, by + BAR_PT + 1, t1 - t0, BAR_PT);
       }
-      out[q.key] = { x: bx, y: by, w: bw, b: Math.round(cl(v.b) * 100) / 100, a: Math.round(cl(v.a) * 100) / 100 }; n++;
+      out[q.key] = { x: bx, y: by, w: bw, b: Math.round(cl(v.b) * 100) / 100, a: Math.round(cl(v.a) * 100) / 100, tb: Math.round(cl(q.b) * 1000) / 1000, ta: Math.round(cl(q.a) * 1000) / 1000 }; n++;   /* tb/ta: the man's own numbers the fill eases to */
     });
     cx.restore(); K.barsShown = n; K.barsAt = out;
   }

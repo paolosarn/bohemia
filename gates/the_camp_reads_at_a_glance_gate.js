@@ -5,8 +5,10 @@
    feels like time, zooming in on a man in camp looks good'. Paolo 11/22 (rule 472): 'I want time to go by until everyone's healed...
    What if I want to zoom in on my character, see them chilling?'
    On the demo upright and on its side: HEAL on the map at 16:00 with his men hurt, watched every 150 ms to the stop, then two fingers in.
-     G1 THEIR BARS AT A GLANCE: while they mend, the fight's two bars over every man of his (YOU too), and a man's blood rises on them
-     G2 WHOLE: the hour they are whole every bar reads full, and five seconds later the bars are gone (the camp is his men idling)
+     G1 THEIR BARS AT A GLANCE: while they mend, the fight's two bars over every man of his (YOU too) under his line (87 percent, rule
+        278(c); RE-AIMED 11/27: none over it), and a man's blood rises on them
+     G2 WHOLE: the hour they are whole no bar stands (every man over the line; RE-AIMED 11/27, they stood full three seconds), and five
+        seconds later none (the camp is his men idling)
      G3 THE TAPE RUNS: while they mend the tape counts the hours gone, rising; at whole it reads STOP and EVERYONE WHOLE; five seconds
         later its words are gone (RE-AIMED 11/27, CAMP FOUR, rule 487: the tape is the line under the camp's clock at the top, and the clock
         stays; gates/the_camp_comes_alive_gate.js holds the clock)
@@ -36,7 +38,7 @@ const SET = ([minute, cut]) => { try { const dm = ((minute - T.min) + 1440) % 14
   localStorage.setItem(KEY, JSON.stringify(s)); const W = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || '{}'); W.tape = 400; localStorage.setItem('bohemia.supplies.v1', JSON.stringify(W));
   return BohemiaCondition.company().names.length; };
 const settle = (p) => p.frames().find(x => /SETTLEMENT_SCREEN/.test(x.url()));
-const READ = () => { try { const L = BohemiaCampLook.state(); return { men: L.men | 0, bars: L.bars, sun: L.sun, tape: L.tape, whole: L.whole, hour: L.hour, night: L.night, nightIn: L.nightIn | 0, twoLights: (function () { const P = window.__SETTLE_PIC; return !!(P && P.day && P.night && P.day !== P.night); })(), pitch: L.pitch ? (L.pitch.on ? 'on' : 'done') : null, dusk: window.__CAMP_DUSK || null, soft: window.__CAMP_SOFT | 0, man: window.__PINCH_MAN || null, drawnAt: L.drawnAt, W: innerWidth, H: innerHeight }; } catch (e) { return null; } };
+const READ = () => { try { const L = BohemiaCampLook.state(); return { men: L.men | 0, bars: L.bars, under: (L.acts || []).filter(a => { const b = window.BohemiaCondition ? BohemiaCondition.bars(a.name === 'YOU' ? { main: true } : { name: a.name || '', look: a.look }) : null; return b ? b.show : (a.blood < 0.87 || a.armour < 0.87); }).map(a => a.name).sort(), sun: L.sun, tape: L.tape, whole: L.whole, hour: L.hour, night: L.night, nightIn: L.nightIn | 0, twoLights: (function () { const P = window.__SETTLE_PIC; return !!(P && P.day && P.night && P.day !== P.night); })(), pitch: L.pitch ? (L.pitch.on ? 'on' : 'done') : null, dusk: window.__CAMP_DUSK || null, soft: window.__CAMP_SOFT | 0, man: window.__PINCH_MAN || null, drawnAt: L.drawnAt, W: innerWidth, H: innerHeight }; } catch (e) { return null; } };
 async function camp(d, minute, cut, plant) {
   const p = d.page, fr = d.fr;
   await fr.evaluate(REST); await fr.evaluate(D.offTheTown); await p.waitForTimeout(600);
@@ -57,15 +59,23 @@ async function run(way) {
   const p = d.page, tag = way.name;
   try {
     await p.waitForTimeout(2500);
-    const C = await camp(d, 960, 0.45, false), S = C.S, W = C.wholeAt;
+    const C = await camp(d, 960, 0.7, false), S = C.S, W = C.wholeAt;   /* 11/27: cut to 30 percent (was 45 off), so the bars, gone at his line, stand long enough to read rising */
     const mend = S.filter((r, i) => r.pitch === 'done' && !r.whole && (W == null || i < W));
-    const menN = Math.max(1, ...S.map(r => r.men | 0)), mendBars = mend.filter(r => r.bars && r.bars.shown >= menN);
-    const keys = mend.length ? Object.keys(mend[mend.length - 1].bars.at || {}) : [];
-    const rose = keys.some(k => { const a = mend.find(r => r.bars.at && r.bars.at[k]), b = [...mend].reverse().find(r => r.bars.at && r.bars.at[k]); return a && b && b.bars.at[k].b > a.bars.at[k].b + 0.03; });
-    ok('G1 ' + tag + ': THEIR BARS AT A GLANCE: while they mend the bars stand over every man of his and a man\'s blood rises on them', C.pressed && mend.length >= 3 && mendBars.length >= mend.length * 0.8 && rose,
-      JSON.stringify({ men: menN, mendReads: mend.length, withAllBars: mendBars.length, rose, last: mend.length ? mend[mend.length - 1].bars.at : null }));
+    /* RE-AIMED 11/27 (CAMP FOUR, his line, rule 278(c): 'above 87 percent it doesn't display anymore'): while they mend the bars stand
+       over every man of his UNDER the line and over none above it (the condition's own line, read in the same frame as the camp; a man
+       crossing it between the look's read, five a second, and the gate's is the one read in five that may differ) */
+    const menN = Math.max(1, ...S.map(r => r.men | 0)), underReads = mend.filter(r => r.under && r.under.length);
+    const mendBars = underReads.filter(r => r.bars && JSON.stringify(Object.keys(r.bars.at || {}).sort()) === JSON.stringify(r.under));
+    const keys = mend.length ? [...new Set(mend.flatMap(r => Object.keys((r.bars && r.bars.at) || {})))] : [];
+    const lv = (v) => v.tb != null ? v.tb : v.b;   /* the number the bar fills to (11/27: under the line the bars stand a few reads, the eased fill lags them) */
+    const rose = keys.some(k => { const a = mend.find(r => r.bars.at && r.bars.at[k]), b = [...mend].reverse().find(r => r.bars.at && r.bars.at[k]); return a && b && lv(b.bars.at[k]) > lv(a.bars.at[k]) + 0.03; });
+    const over = mend.filter(r => Object.keys((r.bars && r.bars.at) || {}).some(k => r.under && r.under.indexOf(k) < 0 && r.bars.at[k].tb >= 0.9 && r.bars.at[k].ta >= 0.9));
+    ok('G1 ' + tag + ': THEIR BARS AT A GLANCE: while they mend the bars stand over every man of his under his line, none over it, and a man\'s blood rises on them', C.pressed && underReads.length >= 3 && mendBars.length >= underReads.length * 0.8 && over.length <= Math.max(1, mend.length * 0.2) && rose,
+      JSON.stringify({ men: menN, mendReads: mend.length, underReads: underReads.length, matched: mendBars.length, overLine: over.length, rose, reads: mend.slice(0, 6).map(r => ({ t: r.t, under: r.under, at: r.bars && r.bars.at })) }));
     const atW = W != null ? S[Math.min(S.length - 1, W + 7)] : null, after = W != null ? S[Math.min(S.length - 1, W + 38)] : null;
-    ok('G2 ' + tag + ': WHOLE: every bar full at the stop, and the bars gone five seconds on', !!atW && Object.values(atW.bars.at || {}).every(v => v.b >= 0.98 && v.a >= 0.98) && atW.bars.shown >= Math.max(1, ...S.map(r => r.men | 0)) && !!after && after.bars.shown === 0,
+    /* RE-AIMED 11/27 (his line): whole is every man over it, so at the stop no bar stands but a fresh wound's (none here: SET clears
+       them), and five seconds on none at all */
+    ok('G2 ' + tag + ': WHOLE: at the stop no bar over anyone (every man over his line), and none five seconds on', !!atW && Object.values(atW.bars.at || {}).every(v => v.tb >= 0.87 && v.ta >= 0.87) && !!after && after.bars.shown === 0,
       JSON.stringify({ wholeRead: W, atWhole: atW && atW.bars, after: after && after.bars && { shown: after.bars.shown, alpha: after.bars.alpha } }));
     const tapes = mend.map(r => r.tape).filter(Boolean), hrs = tapes.map(t => +((String(t.l1 + ' ' + t.l2).match(/\+(\d+)/) || [])[1] || -1));   /* RE-AIMED 11/27: the hours on the tape's line under the clock */
     ok('G3 ' + tag + ': THE TAPE RUNS: the hours gone counted while they mend, STOP and EVERYONE WHOLE at the stop, its words gone five seconds on (the clock stays)',
