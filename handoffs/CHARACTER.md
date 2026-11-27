@@ -1,5 +1,21 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+CHARACTER TWO (character-two-01gkdyuv, 11/27, the routine 'rules 486, 482'): 11/27 (an) LATEST -- *** HANDOFF READY: rule 486's look STOPPED AT LOOP 3, NOT SHIPPED; nothing in the game changed. ***
+Record: records/BOHEMIA_CHARACTER_TWO_IMPLANTS_HOW_THEY_LOOK_11_27_26.md (the research, cited; the three loops; what they say).
+The cone is off everywhere (BUILD 11/26m) and the robes are out of the enemy pools (BUILD 11/26zk), both live.
+WHAT IS KEPT: an 'implant' part on PORTRAIT's head tool ('camera eye': a bezel with four screws over the right socket, a lens, a red
+light, a lead taped over the cheek to a transmitter box; 'hearing': a coil on the left side and a processor over the ear, black
+plastic), inert until a head is given one; tools/bohemia_character_two_implants.py builds two fitted heads on Old Tavo's body,
+renders them and makes a card. Neither reads yet at 128 px; the record's last section is the plan.
+NEXT (in order): (1) rule 486's look: the ARM first (the only part that reads at the fight's size: a socket and a powered hand in their
+own outline and colour), then the eye and the ear as the face's detail, each a shape that breaks the face's outline, checked with a
+planted bright colour in the render's own views before the real material; never a fourth loop on the same idea; (2) BESTIARY's five
+stand-ins in their own clothes; (3) the bosses' crews; (4) the thirteen faction_* looks in layers; (5) nine hall men at three layers.
+Blender: python3.11 -m venv /tmp/v && /tmp/v/bin/pip install bpy==4.2.0 numpy pillow; ln -s /tmp/v v; BOHEMIA_BPY=/tmp/v/bin/python
+for the wound tool. NEVER send_later.
+[bb Battle Brothers' wounded veterans carry their injuries for good; ours can buy one back, at a price.]
+[analog horror: a red light where a man's right eye was, blinking on when he looks at you.]
+
 CHARACTER TWO (character-two-01gkdyuv, 11/26, the routine 'rule 482 next'): 11/26 (am) LATEST -- *** SHIPPED BUILD 11/26zk: THE ROBES COME OFF THE ROAD GANGS. ***
 TAB: VOTE (character2-the-robes-come-off-11-26); every fight against the road gangs, the marauders, the skirmishers, the orcs' crews.
 Record: records/BOHEMIA_CHARACTER_TWO_THE_ROBES_COME_OFF_THE_ROAD_GANGS_11_26_26.md.

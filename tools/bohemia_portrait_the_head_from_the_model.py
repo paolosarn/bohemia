@@ -838,6 +838,85 @@ def build(who, out):
         sd = ha.modifiers.new('rim', 'SOLIDIFY'); sd.thickness = 0.009; sd.offset = -1
         bpy.ops.object.modifier_apply(modifier='rim')
         objs.append(ha)
+    # IMPLANTS (CHARACTER TWO, 11/27, rule 486: 'a cybernetic implant... pretty expensive... fucked up black market shit'): REAL
+    # TECH ONLY, salvaged and fitted in a back room, never chrome (records/BOHEMIA_CHARACTER_TWO_IMPLANTS_HOW_THEY_LOOK_11_27_26.md):
+    #   'camera eye'  Rob Spence's Eyeborg, the real one: a camera in a prosthetic eye shell, a lens, a red light while it records,
+    #                 its weak transmitter worn outside: here a matte black shell over his right eye, the lens, the red dot, a lead
+    #                 taped down the temple to a transmitter box behind the ear, the tape gone grey
+    #   'hearing'     a cochlear implant as it is worn: a coin of a coil held to the skull by the implanted magnet above and behind
+    #                 the left ear, a thin lead to the processor hooked behind the ear, the processor a dirty beige plastic
+    imp = P.get('implant') or ()
+    if isinstance(imp, str): imp = (imp,)
+    def tube_bm(bm, pts, r, seg=8):
+        rings = []
+        for i, p_ in enumerate(pts):
+            t = (pts[min(i + 1, len(pts) - 1)] - pts[max(i - 1, 0)]).normalized()
+            a = t.cross(Vector((0, 0, 1))); a = a.normalized() if a.length > 1e-6 else Vector((1, 0, 0)); b_ = t.cross(a).normalized()
+            rings.append([bm.verts.new(p_ + (a * math.cos(2 * math.pi * k / seg) + b_ * math.sin(2 * math.pi * k / seg)) * r) for k in range(seg)])
+        for i in range(len(rings) - 1):
+            for k in range(seg): bm.faces.new((rings[i][k], rings[i][(k + 1) % seg], rings[i + 1][(k + 1) % seg], rings[i + 1][k]))
+    def on_skull(d, lift=0.0):   # the point on the head's ellipsoid along d (head-centred), lifted off it
+        d = d.normalized(); k = 1.0 / math.sqrt((d.x / RX) ** 2 + (d.y / RY) ** 2 + (d.z / RZ) ** 2)
+        return d * (k + lift)
+    def solid(bm, name, rgb, rough=0.85):
+        bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
+        me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()
+        for f in me.polygons: f.use_smooth = True
+        me.materials.append(mat('portrait_%s_%s' % (who.lower(), name), rgb, rough=rough))
+        ob = bpy.data.objects.new(name, me); sc.collection.objects.link(ob); ob.location = C; objs.append(ob); return ob
+    PLASTIC, LENS, LED, TAPE, BEIGE = (34, 32, 30), (14, 16, 18), (176, 34, 26), (128, 122, 108), (122, 112, 96)
+    if 'camera eye' in imp:
+        # (loop 1, looking at the render: flush with the lids in near-black it read as a dark iris; the unit now bulges 4 mm out of
+        # the socket, a back-room fit, in dull grey plastic, a matte metal ring round the lens, a 4 mm red light, the lead over the
+        # cheekbone where the skin shows it)
+        ex, ez = -EYE_X, EYE_Z; ey = surf_y(ex, ez) + 0.006 + EYE_R * 0.35 - 0.004
+        # (loop 2: a grey ring round a dark lens read as an iris at 128 px: the housing is a bezel glued over the whole socket, lids
+        # and all, 30 mm across and 7 mm proud, four screw heads, the lens dark glass in its middle)
+        bz = Vector((ex, eye_cy - EYE_R - 0.003, ez))   # (loop 3: the head's surface line sits behind the eyeball's front; the bezel's back is flush with the lids' front)
+        bm = bmesh.new()
+        bmesh.ops.create_cone(bm, cap_ends=True, segments=28, radius1=0.0155, radius2=0.0130, depth=0.007,
+                              matrix=Matrix.Translation(bz + Vector((0, -0.0035, 0))) @ Matrix.Rotation(math.radians(90), 4, 'X'))
+        solid(bm, 'implant_eye_shell', (58, 56, 52), 0.8)
+        for k in range(4):   # the screws
+            a_ = math.pi / 4 + k * math.pi / 2; bm = bmesh.new()
+            bmesh.ops.create_uvsphere(bm, u_segments=8, v_segments=6, radius=0.0016, matrix=Matrix.Translation(bz + Vector((math.cos(a_) * 0.0115, -0.0072, math.sin(a_) * 0.0115))))
+            solid(bm, 'implant_eye_screw%d' % k, (104, 100, 92), 0.6)
+        bm = bmesh.new()   # the lens ring, matte aluminium
+        bmesh.ops.create_cone(bm, cap_ends=True, segments=24, radius1=0.0072, radius2=0.0066, depth=0.004,
+                              matrix=Matrix.Translation(bz + Vector((0.001, -0.0085, -0.001))) @ Matrix.Rotation(math.radians(90), 4, 'X'))
+        solid(bm, 'implant_eye_ring', (116, 114, 108), 0.6)
+        bm = bmesh.new()   # the glass
+        bmesh.ops.create_cone(bm, cap_ends=True, segments=20, radius1=0.0050, radius2=0.0050, depth=0.0012,
+                              matrix=Matrix.Translation(bz + Vector((0.001, -0.0105, -0.001))) @ Matrix.Rotation(math.radians(90), 4, 'X'))
+        solid(bm, 'implant_eye_lens', LENS, 0.15)
+        ey = bz.y + 0.004   # the light and the lead below sit on the bezel
+        bm = bmesh.new()   # the red light that says it is recording
+        bmesh.ops.create_uvsphere(bm, u_segments=10, v_segments=8, radius=0.0024, matrix=Matrix.Translation(bz + Vector((-0.0105, -0.0068, 0.0075))))
+        solid(bm, 'implant_eye_led', LED, 0.35)
+        # the lead from the outer corner over the cheekbone to below his right ear, and the transmitter box it ends in
+        p0 = bz + Vector((-0.014, -0.003, -0.004))
+        way = [p0] + [on_skull(Vector((-1.0, -0.95 + 1.2 * t, -0.05 - 0.10 * math.sin(math.pi * t * 0.8))), 0.003) for t in (0.12, 0.3, 0.5, 0.7, 0.9)]
+        bm = bmesh.new(); tube_bm(bm, way, 0.0018); solid(bm, 'implant_eye_lead', PLASTIC, 0.6)
+        bx = on_skull(Vector((-1.0, 0.35, -0.12)), 0.009)
+        bm = bmesh.new(); bmesh.ops.create_cube(bm, size=1.0, matrix=Matrix.Translation(bx) @ Matrix.Diagonal((0.010, 0.024, 0.016, 1.0)))
+        solid(bm, 'implant_eye_box', PLASTIC, 0.8)
+        for k in range(2):   # two strips of tape holding the lead to the cheek, gone grey with sweat
+            tp = way[1 + 2 * k]; bm = bmesh.new()
+            bmesh.ops.create_cube(bm, size=1.0, matrix=Matrix.Translation(tp + Vector((-0.001, 0, 0))) @ Matrix.Rotation(math.radians(70 - 30 * k), 4, 'Y') @ Matrix.Diagonal((0.003, 0.010, 0.024, 1.0)))
+            solid(bm, 'implant_eye_tape%d' % k, TAPE, 0.95)
+    if 'hearing' in imp:
+        # (loop 1: behind the ear the front view never saw it; now above and a little behind the ear, where a three-quarter view
+        # and the fight's camera see it, 8 mm proud of the skull)
+        cc = on_skull(Vector((1.0, 0.05, 0.24)), 0.014); n = cc.normalized()   # (loop 3: lower and forward, where the three-quarter camera looks)   # (loop 2: 2 mm off the skull it sat inside the hair; a coil sits on the hair)
+        bm = bmesh.new()   # the coil: a coin 34 mm across, 8 mm thick, flat on the skull, held by the magnet under the skin
+        rot = n.to_track_quat('Z', 'Y').to_matrix().to_4x4()
+        bmesh.ops.create_cone(bm, cap_ends=True, segments=28, radius1=0.017, radius2=0.0155, depth=0.008, matrix=Matrix.Translation(cc + n * 0.004) @ rot)
+        solid(bm, 'implant_coil', (40, 39, 37), 0.8)   # (loop 2: beige on a pale skin did not read; the black ones do)
+        bm = bmesh.new()   # the processor hooked over the ear's top and down its back
+        arc = [on_skull(Vector((1.0, -0.02 + 0.30 * t, 0.10 - 0.36 * t * t)), 0.016) for t in [i / 6 for i in range(7)]]
+        tube_bm(bm, arc, 0.0065, seg=10); solid(bm, 'implant_processor', (40, 39, 37), 0.85)
+        bm = bmesh.new(); tube_bm(bm, [arc[1], arc[1] + (cc - arc[1]) * 0.5 + n * 0.007, cc + n * 0.006], 0.0014)   # its lead up to the coil
+        solid(bm, 'implant_coil_lead', PLASTIC, 0.6)
     if P['hair'] in ('taper', 'long', 'shag', 'coil', 'fall', 'slick', 'fringe'):
         # THE CREW'S CUTS, the curls' method: the skull's own scalp faces lifted. A taper is a 3 to 8 mm shell combed
         # front to back; a long cut a 10 mm shell that fills to 20 mm toward the jaw; a shag the long cut in choppy lumps;
