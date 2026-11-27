@@ -121,6 +121,24 @@ moment's clock stands above the map's left buttons (EYES e03, e06). New gate HIT
 records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_UP_AT_ONCE_11_26_26.md. FOR PLUMBER 8 / COMBAT: HEAL's hidden fight page load. FOR UI FIVE: the HIT THE ROAD band 26 pt tall.
 [bb Battle Brothers: making camp is instant; ours shows it built on the fight's own ground]
 [analog horror: the tape pauses on the street you won, and the fire is already burning when it plays again]
+COOK FIVE (cook-seven-01gkdyuu): 11/27 LATEST -- COOK SEVEN, carrying COOK FIVE's list after COOK SIX -- BUILD 11/27zn - THE LIBRARY, BUILT (56786867c), NOT YET SEEN (rules 480(b), 482; rules 461, 441, 416, 451(a); ask row 723).
+THE LIBRARY (COMBAT FOUR's, its 'FOR COOK (SIX)'; the fifth of the 27 stand-in insides): all 207 pieces of the_stacks and 188 of the_reading_room were stand-ins. Now
+slices/fight_ground/library/ holds library_art.json (floor.floor and floor.ring the 50 cm carpet tile in both rooms, its own ground lb_carpet; all 11 names), 11 pieces (the stacks
+a tile long on the truck stop shelving's lines with their end shelves; the catalogue and the circulation desk a tile long; a microfilm screen still lit) and its ceiling (the
+police station's grid, sooted): 367,856 bytes. Made by tools/bohemia_cook7_the_library_finished_11_27_26.py ON the bank tool. A3 caught pages of the floor's litter lying across
+tile edges (8.0 against 6.4): the litter lies inside each tile now (2.9). Every piece 9.1 to 76.6% of its tile.
+PROOF on the page both ways: the_stacks 207, the_reading_room 188, 0 stand-ins, the ceiling's picture drawn, 0 page errors. Gate THE INSIDES WEAR FINISHED ART 147/0.
+VOTE cook7-the-library-11-27. Record: records/BOHEMIA_COOK_SEVEN_THE_LIBRARY_11_27_26.md.
+THIS ROUND, FIVE BUILDS: the truck stop (11/27zd), the police station (11/27zk), the bank (11/27zm), the library (11/27zn); the rule 482(c) clean (6.18 MB of COOK's unloaded camp
+render passes off the published surface); the 480(c) frame walk (the art costs no frames; the night board's slideshow is the page's, to PLUMBER 8 and COMBAT FIVE).
+Its block is handoffs/COOK_FIVE.md (COOK SEVEN writes there).
+*** NEXT ON THIS LANE (480(b)), the same way (a tool ON the library's, about an hour a kit on bpy 4.2 in /tmp/v): THE FIRE STATION, THE NEON BONEYARD, then aquarium, arsenal,
+ballpark, battery farm, campus, city hall, fuel depot, granary, hangar, jobs office, justice center, mini grand prix, the museum, radio, rail shops, the animal shelter, speedway,
+storage, TV station, water plant (names in handoffs/COMBAT_THREE.md, 'FOR COOK (SIX)'). Every piece measured for a share of its tile (9% or near it), a floor with joints gets its
+own ground (a plan's one-pixel line never reaches the render), a floor's litter stays inside its tile. THEN ARMORY 3's NEW GUNS: CHARACTER 3 put five own guns in men's hands
+at 11/27 (its card character3-the-new-guns-in-his-hands-11-27); the rest of the sixteen's own models and the drone's own picture are what is left (ARMORY 3's record, OWED).
+[bb Battle Brothers' forest: the stacks hide a man from sight, and the aisles are the fight]
+[analog horror: a microfilm reader's screen still lit on a frame nobody is reading; half of every shelf burned for heat]
 COOK FIVE (cook-seven-01gkdyuu): 11/27 LATEST -- COOK SEVEN, carrying COOK FIVE's list after COOK SIX -- BUILD 11/27zm - THE BANK, BUILT (a92740730), NOT YET SEEN (rules 480(b), 480(c), 482; rules 461, 441, 416, 451(a); ask row 723).
 THE BANK (COMBAT FOUR's, its 'FOR COOK (SIX)'; the fourth of the 27 stand-in insides): all 161 pieces of the_banking_hall and 241 of the_vault_floor were stand-ins. Now
 slices/fight_ground/bank/ holds bank_art.json (floor.floor and floor.ring the bank's 1.2 m marble in both rooms, its own ground bk_slab, laid darker: 153 against the mall's 160;
