@@ -4,7 +4,34 @@
 # ECONOMY THREE (rule 462, 11/20) carries this file on: same job, same table; its blocks are named ECONOMY THREE.
 # ECONOMY FOUR (11/27, from ECONOMY THREE's HANDOFF READY) carries it on: same job, same table; its blocks are named ECONOMY FOUR.
 
-ECONOMY FOUR (session_01GKDyutzGsUBG4o5BXk1Y2V): 11/27 LATEST -- BUILD 11/27zt - A PLACE EARNS OR GOES DARK, BUILT, NOT YET SEEN
+ECONOMY FOUR (session_01GKDyutzGsUBG4o5BXk1Y2V): 11/27 LATEST -- BUILD 11/27zx - THE NEW GUNS PRICED, BUILT, NOT YET SEEN (rule 489(b),
+job 3 of 4); HANDOFF READY (this session's context is spent: the next ECONOMY session takes job 4 from here). Record
+records/BOHEMIA_ECONOMY_FOUR_THE_NEW_GUNS_PRICED_11_27_26.md. Gate THE NEW GUNS PRICED 7/0 (in the suite). VOTE card
+economy4-the-new-guns-priced-11-27 (the ladder: each piece here over its real price).
+- MEASURED: every ARMORY 3 piece was already in the one table by the catalog rule (weapons.json value, crowns at ten to one); no
+  where-row missing. A written price is kept by the armory tool (LATER): a lane moves it in weapons.json with value_by.
+- records/target/bb/gun_street.json (sourced): each piece's real price in US working days ($243) at four AA a day, the implants' way;
+  bands: a common gun x1 to x4, army kit x1 to x8, the burned drone x1 to x2 (his word, rule 489(b): 'the cheap first-person drone').
+- MOVED: the charge drone 90 -> 30 for the kit of two (weapons.json 900 -> 300 crowns with value_by; armory.json tune.set the same).
+- HELD by name (the gate allows these three and only fewer): the Semi-Auto Shotgun x14.9, the Double Shotgun x4.9 (the shotgun family
+  at Battle Brothers' handgonne; the smith's plain shotgun 388) and the Rocket Launcher x12.7: realism first says bring them down,
+  but it moves the whole shotgun family's place in the fight's ladder: TUNING's research, routed with the numbers.
+- THE ROUNDS stay scarce: six for 1 AA is x25 their old price; a full belt 17 AA (over a night of food for three, over a town's day of
+  rounds); a rocket refills at 30 rounds, 5 AA, x1.5 a real one.
+- JOB 4, FOR THE NEXT ECONOMY SESSION (rule 491(b) 'paid to match', rule 493(a) 'the hardest job on offer is never an easy win'):
+  JOBS 2 built the company's strength (slices/bohemia_job_kinds.js strength(), window.__COMPANY_STRENGTH; partyRosterStrength() in
+  CITY_WORLD) and the board's one red job (bohemia_board_shelf.js __ONE_JOB_TO_SWEAT_FOR__); a job sized up for a strong company still
+  pays the base of engine/bohemia_job_pay.js (records/target/bb/job_pay.json: map hours x 2.75 + fights x 26 x skulls). Battle Brothers
+  grows a contract's payment with the same difficulty multiplier that grows its enemies (the contract multiplier 0.94 x (strength /
+  100)^0.89, held 0.75..5, party_math.json job_bb, Grok 105). MEASURE FIRST with tools/bohemia_economy_job_pay.js --purse (the probe
+  must stay a raise, not an explosion: A JOB PAYS FOR THE TIME AND THE RISK's bar) and tools/bohemia_world_most_jobs_fit.js --kit 1
+  (weak / middling / strong); then the pay takes the fight's size the job is dealt (its enemies over the day's base count), in the
+  one table, with its gate; the board's red job says its pay (the board already prints loopJobPay's number).
+- FOR WORLD 16 / WORLD 15 / TUNING / FIXES 4: the calls in this file's two blocks below (a broke place's parties; the towns' look; the
+  shotguns' place; the stall strip's 2 px sideways).
+- NEVER a tool that waits for a tap (461(c)).
+
+ECONOMY FOUR (session_01GKDyutzGsUBG4o5BXk1Y2V): 11/27 -- BUILD 11/27zt - A PLACE EARNS OR GOES DARK, BUILT, NOT YET SEEN
 (rule 485(b), job 2 of 4; rule 495: the logic in one engine module). Record records/BOHEMIA_ECONOMY_FOUR_A_PLACE_EARNS_OR_GOES_DARK_11_27_26.md.
 Gate A PLACE EARNS OR GOES DARK (the suite: data 8/0 and the demo upright; 8/0 on the demo and the alpha, upright and sideways). VOTE card
 economy4-a-place-earns-or-goes-dark-11-27.

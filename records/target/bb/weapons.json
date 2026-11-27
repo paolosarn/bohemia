@@ -9225,7 +9225,7 @@
    "armor_ignore_pct": 45,
    "fatigue": -7,
    "durability": null,
-   "value": 900,
+   "value": 300, "value_by": "ECONOMY FOUR 11/27 (rule 489(b) 'the cheap first-person drone'; records/BOHEMIA_ECONOMY_FOUR_THE_NEW_GUNS_PRICED_11_27_26.md): two FPV kits with their charges at about 900 dollars each, in median US working days ($243) at four AA a day; was 900 crowns, priced like a good rifle",
    "range": 8,
    "range_min": 1,
    "range_max": 8,

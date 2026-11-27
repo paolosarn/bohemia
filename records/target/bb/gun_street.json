@@ -1,0 +1,46 @@
+{
+ "_about": "ECONOMY FOUR 11/27, VAMILY rule 489(b) (ARMORY 3's new guns, drones and rounds 'in the one price table'), ECONOMY THREE's handoff job 3 ('bands from the research: real street prices in working days at four AA a day, as the implants were priced'; rounds stay scarce, rule 478). What each of ARMORY 3's pieces really cost before the crash, in US dollars, turned into AA the way records/target/bb/implants.json does: median US working days (BLS, $1,214 a week, $243 a day, Q3 2025) at four AA a day. The game's price is the weapons table's (records/target/bb/weapons.json value, crowns at ten to one: the catalog rule of records/target/bb/battery_table.json). The gate (gates/the_new_guns_priced_gate.js) holds each piece inside its band or on the HELD list with its reason, and the HELD list may only shrink. Research and the ladder: records/BOHEMIA_ECONOMY_FOUR_THE_NEW_GUNS_PRICED_11_27_26.md.",
+ "draft": true,
+ "day_usd": {"value": 243, "source": "BLS usual weekly earnings, full-time, median $1,214, Q3 2025 (the implants' own figure, records/target/bb/implants.json)"},
+ "aa_a_day": {"value": 4, "source": "records/target/bb/implants.json: four AA a skilled day (a hired man is paid 1 to 4 a night)"},
+ "bands": {
+  "value": {"civilian": [1, 4], "rare": [1, 8], "consumable": [1, 2]},
+  "unit": "the game's price over the real one, lowest and highest",
+  "source": "ARMORY 3's research (records/BOHEMIA_ARMORY_THREE_THE_GUNS_GROW_UP_AND_THE_DRONE_11_27_26.md): 393 million guns and 32 million semi-automatic rifles in America, so a civilian gun is common and carries only the collapse's premium (rule 489(a): 'what runs short is the ammunition'); select-fire, belt-fed, rockets and military optics were never sold to civilians or only under the NFA, so they carry a scarcity premium; rule 489(b) calls the charge drone 'the cheap first-person drone'",
+  "why": "a gun the valley owns by the million costs at most four times what it did; one the army had costs up to eight; a drone you burn stays cheap"
+ },
+ "pieces": {
+  "value": {
+   "switched_pistol": {"usd": 750, "band": "civilian", "real": "a Glock 19 (about $550) with a printed auto switch (about $200 on the street)"},
+   "box_smg": {"usd": 700, "band": "rare", "real": "a MAC-pattern box SMG made automatic (a semi clone about $500; a registered machine gun was never a civilian buy)"},
+   "pipe_smg": {"usd": 300, "band": "civilian", "real": "a homemade Luty-pattern SMG: tube, sheet steel and a spring, about $300 worked"},
+   "printed_carbine": {"usd": 500, "band": "civilian", "real": "an FGC-9 printed carbine: about $500 in parts and filament"},
+   "ranch_ar": {"usd": 800, "band": "civilian", "real": "an AR-15 off a gun store wall, about $800"},
+   "guard_carbine": {"usd": 1200, "band": "rare", "real": "an M4 carbine, select-fire, about $1,200 to the Army"},
+   "kalash": {"usd": 900, "band": "civilian", "real": "an AK-pattern rifle, about $900 retail"},
+   "belt_fed": {"usd": 5000, "band": "rare", "real": "an M249 SAW, about $5,000 to the Army"},
+   "auto_shotgun": {"usd": 1200, "band": "civilian", "real": "a semi-auto 12 gauge, $900 (Mossberg 940) to $2,000 (Benelli M4)"},
+   "rocket_launcher": {"usd": 1200, "band": "rare", "real": "an RPG-7 launcher on the black market, about $700 to $1,500 where wars sell them"},
+   "throwaway_rocket": {"usd": 1500, "band": "rare", "real": "an M72 LAW, about $1,500 to the Army"},
+   "charge_drone": {"usd": 1800, "band": "consumable", "real": "two FPV racing kits with a charge taped under each, about $900 each (ARMORY 3: 'a frame is 500 to 1,000 dollars')"},
+   "scout_drone": {"usd": 2000, "band": "civilian", "real": "a DJI Mavic-class camera drone, about $2,000"},
+   "night_sight_ar": {"usd": 4300, "band": "rare", "real": "an AR ($800) with a Gen 3 night scope (about $3,500)"},
+   "thermal_rifle": {"usd": 3200, "band": "rare", "real": "a hunting rifle ($700) with a thermal scope (about $2,500)"},
+   "double_shotgun": {"usd": 500, "band": "civilian", "real": "a side-by-side double, about $500"}
+  },
+  "source": "[general knowledge] US retail and reported prices 2024-26 (each piece's 'real'); ARMORY 3's record for what each piece is; the military unit costs are the Army's purchase prices, the black market's the war markets' reported range",
+  "why": "the real thing first; the game's number answers to it"
+ },
+ "worn_share": {"value": 0.55, "source": "records/target/bb/armory.json worn value_pct 55 ('a little over half the price (a used gun's)')", "why": "a beat-up gun is a little over half the clean one's price"},
+ "rocket_usd": {"value": 200, "source": "[general knowledge] a PG-7V rocket on the war markets, about $100 to $300", "why": "a rocket refills from the crew's rounds at per_shot (armory.json fire), so its price is that many rounds at the stall's six for one AA"},
+ "rounds_usd": {"value": 0.4, "source": "[general knowledge] 9 mm, 5.56 and 7.62x39 about 30 to 50 cents a round retail before the crash", "why": "six rounds were about $2.40; the stall's six for one AA is the scarcity (rule 478: what runs short is the ammunition)"},
+ "held": {
+  "value": {
+   "auto_shotgun": "the shotgun family sits at Battle Brothers' handgonne, its only firearm and an end-game piece (the smith's plain shotgun is 388); a real semi-auto 12 gauge is about 20 AA. Realism first says bring the family down; that moves every shotgun's place in the game and is TUNING's research and his call, not this lane's alone",
+   "rocket_launcher": "the handgonne's price made a rocket (armory.json between handgonne and the spiked impaler); 250 against a black-market RPG-7's about 20 AA, past the rare band's eight times. The same family question as the shotguns",
+   "double_shotgun": "the shotgun family again: 40 against a real side-by-side's about 8 AA, just over the civilian band's four times"
+  },
+  "source": "this lane, 11/27: the pieces outside their band and why they were not moved this round",
+  "why": "a held piece is named, never hidden; the list may only get shorter"
+ }
+}

@@ -8662,6 +8662,12 @@ GATES = [
      "place; P2 the wires' charge one line a faction a night; P3 a place that cannot feed its men loses its farthest wire, the feed says "
      "it, and gets it back with a month and a week; P4 the town handed its verdict; P5 the pockets and the book survive a snapshot "
      "restored; P6 a night under 40 ms; P7 no page error. green at registration, 8/0 on all four, about 3 min a walk", True),
+    ('THE NEW GUNS PRICED', ['node', 'gates/the_new_guns_priced_gate.js'],
+     "ECONOMY FOUR 11/27, rule 489(b) (ARMORY 3's guns, drones and rounds 'in the one price table'), rule 478 (rounds stay scarce). "
+     "records/BOHEMIA_ECONOMY_FOUR_THE_NEW_GUNS_PRICED_11_27_26.md; records/target/bb/gun_street.json (real prices in US working days "
+     "at four AA a day, the implants' way): G1 every new piece a real and a game price; G2 inside its band (common x4, army kit x8, the "
+     "burned drone x2) or HELD by name, at most 3; G3 the charge drone cheap (his word); G4 beat-up at 55%; G5 a rocket's refill near "
+     "a real one; G6 the rounds scarce (x25, a belt over a night of food for three); G7 every number sourced. green at registration, 7/0", False),
     ('HIS MAP', ['node', 'gates/his_map_gate.js'],
      "WORLD TWO gate, 10/26, row [the best of both maps] (rule 243, Paolo 10/26: 'think about Valheim's map and how Battle "
      "Brothers' map is, let's do the best of both worlds... bosses where you're able to alter the map and what's going on in the "
