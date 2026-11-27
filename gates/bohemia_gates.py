@@ -8532,6 +8532,12 @@ GATES = [
      "waterline, the bathtub ring on the sand and rock beside it, a stranded hull; the painter's own count (VBC.stand.shore) on the whole "
      "painting and a close tile, the demo upright and the alpha on its side; the palette apart by value; planted (the shore off) red. "
      "about 4 min", True),
+    ('THE CARAVAN DRIVES', ['node', 'gates/the_caravan_drives_gate.js'],
+     "WORLD 16 gate, 11/27, rule 494(d) ('the caravan is a truck that follows his party town to town on the clock and raiders come for "
+     "it on the road'): the voted truck's eight facings packed fresh from DIRECTION's renders (under 1 MB decoded); the board's own "
+     "escort taken and driven: the truck drawn behind him on the frames of the road, gliding (never half a block between two frames), "
+     "facing its motion; the raiders come out onto the road walking, facing him, closing, and their card stands; planted (the truck "
+     "off) red; the demo upright and the alpha on its side. about 3 min", True),
     ('THE CITY GOES TO WORK', ['node', 'gates/the_city_goes_to_work_gate.js'],
      "WORLD 16 gate, 11/27, rule 485(b)(c) ('cyberpunk vibes but their world has a running economy vibes'): the map's crowds walk to "
      "work and home by the clock (two of three out by day, every walk a chain of streets to a town's edge under 150 minutes, found in "

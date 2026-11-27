@@ -1,0 +1,97 @@
+{
+ "about": "the escort job's truck on the map, eight facings over their contact shadows (tools/bohemia_world_sixteen_the_caravan_truck_bake.py; WORLD 16 11/27, rule 494(d)); the truck he voted UP, DIRECTION's master rig render, nothing redrawn",
+ "lane": "WORLD 16",
+ "rule": "494(d)",
+ "source": {
+  "dir": "records/target/direction_the_truck_turned_up/truck",
+  "ppm": 57.0,
+  "ground_px": [
+   152,
+   115
+  ],
+  "bytes": {
+   "N": 52168,
+   "NE": 70302,
+   "E": 70171,
+   "SE": 74086,
+   "S": 54684,
+   "SW": 72709,
+   "W": 70024,
+   "NW": 70758
+  }
+ },
+ "scale": 0.6,
+ "man_px": 98,
+ "man_m": 1.72,
+ "size": [
+  512,
+  419
+ ],
+ "decoded_mb": 0.86,
+ "cells": {
+  "N": [
+   85,
+   0,
+   83,
+   153,
+   40,
+   66
+  ],
+  "NE": [
+   169,
+   161,
+   168,
+   140,
+   83,
+   58
+  ],
+  "E": [
+   0,
+   303,
+   182,
+   116,
+   91,
+   43
+  ],
+  "SE": [
+   169,
+   0,
+   168,
+   148,
+   84,
+   63
+  ],
+  "S": [
+   0,
+   0,
+   84,
+   160,
+   41,
+   69
+  ],
+  "SW": [
+   338,
+   0,
+   168,
+   148,
+   85,
+   63
+  ],
+  "W": [
+   183,
+   303,
+   182,
+   116,
+   91,
+   43
+  ],
+  "NW": [
+   0,
+   161,
+   168,
+   141,
+   84,
+   58
+  ]
+ }
+}

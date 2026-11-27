@@ -51174,6 +51174,73 @@ function mapWagonPart(wg, f, sx, footY, which){
   if (which === 'back' && MAP_DREW && MAP_DREW.art) { MAP_DREW.art.wagons = (MAP_DREW.art.wagons | 0) + 1; (MAP_DREW.art.wagonLoads = MAP_DREW.art.wagonLoads || []).push(wg.load); }
   return true;
 }
+/* ---- __THE_CARAVAN_DRIVES__ (WORLD 16, 11/27/26; VAMILY rule 494(d), Paolo 11/27: 'I haven't seen one caravan quest... go from one
+   city to another'; the rule: 'the caravan is a truck that follows his party town to town on the clock and raiders come for it on the
+   road'; record records/BOHEMIA_WORLD_SIXTEEN_THE_CARAVAN_DRIVES_11_27_26.md). The escort job (slices/bohemia_job_kinds.js, JOBS 2's
+   kinds) already walked its cargo a block behind him and sent raiders at it ahead on his road; on the glass the cargo was one small
+   picture of the truck always facing south-west, 26 points wide, jumping a block at a time, and the raiders two men frozen mid-stride
+   facing the camera, jumping a block at a time. NOW the map's side: the truck he voted UP drives behind his party in all eight
+   facings (DIRECTION's master rig render with its contact shadow, packed by tools/bohemia_world_sixteen_the_caravan_truck_bake.py,
+   0.86 MB decoded), at 0.6 of its true size beside his men (about one and a half men long), gliding block to block on the clock like
+   every party, facing the way it rolls, a pixel of a bounce on the beat while it rolls; in depth with the city (cut where a building
+   stands in front, and outlined there as his own men are: it is the thing he guards, so it is always found). The raiders glide toward it and walk, facing him, the job's own men. MAP_CARAVAN.on = false is the
+   way before. ---- */
+var MAP_CARAVAN = { on: true, state: 0, j: null, im: null, face: {}, drew: 0 };
+try { window.MAP_CARAVAN = MAP_CARAVAN; } catch (_e) {}
+function mapCaravanSheet(){
+  var C = MAP_CARAVAN;
+  if (!C.state) { C.state = 1; try { fetch('fight_rig/map_caravan_truck.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ if (!j || !j.cells) { C.state = 3; return; } var im = new Image(); im.decoding = 'async'; im.onload = function(){ C.j = j; C.im = im; C.state = 2; try { mapBarsRepaint(); } catch (_e) {} }; im.onerror = function(){ C.state = 3; }; im.src = 'fight_rig/map_caravan_truck.webp'; }, function(){ C.state = 3; }); } catch (_e) { C.state = 3; } }
+  return C.state === 2 ? C : null;
+}
+/* a glide keeps drawing until it lands (the parties' own rule): the job's draw comes after the parties' ask, so it asks for itself */
+function mapCaravanKeepDrawing(gq){ if (gq && gq.u < 1 && !CITY_GLIDE.raf) CITY_GLIDE.raf = requestAnimationFrame(function(){ CITY_GLIDE.raf = 0; try { if (typeof MODE !== 'undefined' && MODE === 'city') render(); } catch (_e) {} }); }
+/* the way a glide is going (its last target against where it is), else the way it went last, else toward him */
+function mapCaravanFace(key, gx, gy, toX, toY){
+  var G = PARTY_GLIDE[key], f = MAP_CARAVAN.face[key];
+  if (G) { var dx = G.tx - gx, dy = G.ty - gy; if (Math.abs(dx) > 0.04 || Math.abs(dy) > 0.04) f = MAP_FACE_OF[Math.sign(Math.round(dx * 4)) + ',' + Math.sign(Math.round(dy * 4))] || f; }
+  if (!f) f = MAP_FACE_OF[Math.sign(toX - gx) + ',' + Math.sign(toY - gy)] || 'SW';
+  return (MAP_CARAVAN.face[key] = f);
+}
+/* THE TRUCK: the escort's cargo at block `at` (the job's trail, a block behind him). Returns where it stands and how tall, or null (the old
+   picture then) */
+function mapCaravanDrive(job, at, ox, oy){
+  if (!MAP_CARAVAN.on || window.__MAP_BARE || !job || !at) return null;
+  var C = mapCaravanSheet(); if (!C) return null;
+  var key = 'cargo:' + job.id, gq = partyGlidePos(key, at[0], at[1], performance.now());
+  mapCaravanKeepDrawing(gq);
+  var f = mapCaravanFace(key, gq.x, gq.y, city.x, city.y), q = C.j.cells[f] || C.j.cells.SW;
+  var s = iso(gq.x, gq.y, ox, oy), fy = s.sy + TH / 2 - mapStandLift(gq.x, gq.y) + 2;
+  if (s.sx < -60 || s.sx > CVW + 60 || s.sy < -60 || s.sy > CVH + 60) return null;
+  var man = 56 * MAP_PERSON_K * MAP_PEOPLE_K * 100 / 112, z = man / (C.j.man_px || 98);   /* the cells are baked at the share of his size they are drawn at */
+  var bob = (gq.u < 1 && (mapArtBeat() & 1)) ? 1 : 0;   /* a pixel of a bounce on the beat while it rolls (the road is broken) */
+  var x0 = mapSnap(s.sx - q[4] * z), y0 = mapSnap(fy - q[5] * z - bob), w = q[2] * z, h = q[3] * z;
+  MAP_DEPTH.ref = mapDepthRef(gq.x, gq.y);
+  mapDepthBlit(function(){ g.imageSmoothingEnabled = false; g.drawImage(C.im, q[0], q[1], q[2], q[3], x0, y0, w, h); }, x0, y0, w, h);   /* behind a building it is cut AND outlined, as his own men are: it is the thing he is guarding, so it is always found (MEASURED: through downtown the towers hid all but a sliver of it) */
+  MAP_DEPTH.ref = null;
+  MAP_CARAVAN.drew++;
+  try { MAP_DREW.truck = { face: f, at: [Math.round(gq.x * 10) / 10, Math.round(gq.y * 10) / 10], block: [at[0], at[1]], w: Math.round(w), h: Math.round(h), moving: gq.u < 1 }; } catch (_e) {}
+  return { sx: s.sx, fy: fy, h: Math.max(12, fy - y0) };
+}
+/* THE RAIDERS: the job's band at its block, gliding toward the truck as it closes, two of the job's men walking, facing him */
+function mapCaravanRaiders(job, r, ox, oy, bt, kp, n){
+  if (!MAP_CARAVAN.on || window.__MAP_BARE || !job || !r || !mapPeopleOf('job', 0)) return null;
+  var key = 'raid:' + job.id, now = performance.now();
+  /* THEY COME OUT ONTO THE ROAD: a band the job has just put ahead of him starts two blocks further off and runs in to where it waits,
+     so the first thing he sees is them coming (the job puts them 2 to 4 blocks up his road; a first draw of them standing read as a
+     band that was always there) */
+  if (!PARTY_GLIDE[key]) { var ax = Math.sign(r.x - city.x) || 1, ay = Math.sign(r.y - city.y); partyGlidePos(key, r.x + 2 * ax, r.y + 2 * ay, now - BEAT); }
+  var gq = partyGlidePos(key, r.x, r.y, now);
+  mapCaravanKeepDrawing(gq);
+  var s = iso(gq.x, gq.y, ox, oy), fy = s.sy + TH / 2 - mapStandLift(gq.x, gq.y) + 2;
+  if (s.sx < -40 || s.sx > CVW + 40 || s.sy < -40 || s.sy > CVH + 60) return { sx: s.sx, fy: fy, hh: 30 * kp, off: true };
+  var f = MAP_FACE_OF[Math.sign(Math.round(city.x - gq.x)) + ',' + Math.sign(Math.round(city.y - gq.y))] || 'S', wp = strideOf(gq), L = null;
+  MAP_DEPTH.ref = mapDepthRef(gq.x, gq.y);
+  mapPersonDraw(mapPeopleOf('job', 7 + (n | 0)), f, bt + 1, s.sx + 7 * kp, fy - 2 * kp, wp == null ? null : wp + 0.5);
+  L = mapPersonDraw(mapPeopleOf('job', 9 + (n | 0)), f, bt, s.sx - 3 * kp, fy + kp, wp);
+  MAP_DEPTH.ref = null;
+  try { MAP_DREW.raiders = { face: f, at: [Math.round(gq.x * 10) / 10, Math.round(gq.y * 10) / 10], block: [r.x, r.y], walking: wp != null }; } catch (_e) {}
+  return { sx: s.sx, fy: fy, hh: L ? L.h : 30 * kp };
+}
 /* a gang's man for the collector: his gang's own rolled man when that sheet is already in for its parties (no sheet is fetched for him),
    else the gang's look off the cast every map already holds */
 function mapCollectorSet(fac, H){

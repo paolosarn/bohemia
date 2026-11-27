@@ -1945,6 +1945,11 @@
   function cargoDraw(job, ox, oy, kp) {
     var tr = job.trail || [], at = tr.length >= 2 ? tr[tr.length - 2] : [city.x, city.y];
     if (at[0] === city.x && at[1] === city.y) at = [city.x + 1, city.y + 1];
+    /* __THE_CARAVAN_DRIVES__ (WORLD 16 11/27, rule 494(d), the map's side): the truck he voted UP in eight facings, gliding behind him on
+       the clock (BOHEMIA_CITY_WORLD.html mapCaravanDrive); the small south-west picture below until its sheet is in */
+    var dv = null; try { dv = typeof root.mapCaravanDrive === 'function' ? root.mapCaravanDrive(job, at, ox, oy) : null; } catch (e) { dv = null; }
+    if (dv) { plate(job.cargo.n + '/' + job.cargo.of + ' ' + plural(job.cargo.unit, job.cargo.of).toUpperCase(), dv.sx, dv.fy, '#f2d7a0', dv.h + 8);
+      try { MAP_DREW.cargo = (MAP_DREW.cargo | 0) + 1; } catch (e) {} return; }
     var p = iso(at[0], at[1], ox, oy); if (!vis(p)) return;
     var tk = window.__RIG_TRUCK, fy = p.sy + TH / 2 + 2;
     if (tk && tk.complete && tk.naturalWidth) { var tw = Math.round(26 * Math.max(0.7, kp)), th = Math.round(tw * tk.naturalHeight / tk.naturalWidth), sm = g.imageSmoothingEnabled;
@@ -1969,10 +1974,15 @@
     cargoDraw(j, ox, oy, kp);
     var d = iso(j.target.x, j.target.y, ox, oy);
     if (vis(d)) hit(j, plate('ESCORT TO ' + String(j.dest.name).toUpperCase(), d.sx, d.sy + TH / 2 + 2, '#f0b44c', 30), [j.target.x, j.target.y]);
-    if (j.raid) { var r = iso(j.raid.x, j.raid.y, ox, oy), fy = r.sy + TH / 2 + 2;
+    if (j.raid) {
+      /* __THE_CARAVAN_DRIVES__: the raiders glide in toward the truck and walk, facing him (mapCaravanRaiders); the old still pair if not */
+      var rv = null; try { rv = typeof root.mapCaravanRaiders === 'function' ? root.mapCaravanRaiders(j, j.raid, ox, oy, bt, kp, 0) : null; } catch (e) { rv = null; }
+      if (rv) { if (!rv.off) { hit(j, plate('RAIDERS · ' + j.raid.n, rv.sx, rv.fy, j.raid.held ? '#f2d7a0' : '#ff8f7a', rv.hh + 14, true), [j.raid.x, j.raid.y]);
+          HITS.push({ job: j.id, x: rv.sx - 18 * kp, y: rv.fy - rv.hh - 4, w: 36 * kp, h: rv.hh + 10, cell: [j.raid.x, j.raid.y], pack: null }); } }
+      else { var r = iso(j.raid.x, j.raid.y, ox, oy), fy = r.sy + TH / 2 + 2;
       if (vis(r)) { var hh = peopleDraw(r.sx, fy, bt, kp, '#7a1f1a', 0);
         hit(j, plate('RAIDERS · ' + j.raid.n, r.sx, fy, j.raid.held ? '#f2d7a0' : '#ff8f7a', hh + 14, true), [j.raid.x, j.raid.y]);
-        HITS.push({ job: j.id, x: r.sx - 18 * kp, y: fy - hh - 4, w: 36 * kp, h: hh + 10, cell: [j.raid.x, j.raid.y], pack: null }); } }
+        HITS.push({ job: j.id, x: r.sx - 18 * kp, y: fy - hh - 4, w: 36 * kp, h: hh + 10, cell: [j.raid.x, j.raid.y], pack: null }); } } }
     holdersDraw(j, ox, oy, bt, kp);
   };
   function ringDraw(j, ox, oy) {
