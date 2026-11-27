@@ -65,6 +65,8 @@
         his people on the footage move. PLANTED: the patrol stood down, red.
     F11 ONE LOT, ONE THING (rule 479(b), HOME BASE 4 11/26): the desk never builds on a lot his building or a prize holds; a clash in a
         save is moved apart.
+    F12 WHAT HE HAS SITS IN THE GROUND (rules 479(a), 482, HOME BASE 4 11/27): a boss's thing with no piece at a thing's size with its
+        shadow; each of his buildings shows its working picture while a man works it or just after he used it. PLANTED: the old size, red.
      F7  THE OVERFLOW (rule 466(a) step 4, HOME BASE 3 11/22): a piece whose row is full stands on a free lot behind it, its own picture.
      D22 THE GRINDER (rule 469, HOME BASE 3 11/22): built from the desk, standing, seen; the dead of a won fight home; GRIND; sold and found.
      G0-G9 (engine) THE GRINDER: the carry, the heat, one tap, the brain out, the bad cut, selling, the late shakes, the stores.
@@ -578,6 +580,21 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
         const p = r.places[0], was = p.lot; p.lot = built[0]; BohemiaHomeMap.state(); const now = p.lot; const lots = (r.places || []).map(q => q.lot); return { was, put: built[0], now, built, apart: built.indexOf(now) < 0 && new Set(lots).size === lots.length }; });
       ok('F11 ONE LOT, ONE THING: the desk would build on lot ' + f11.free + ', not on a lot his own buildings or a prize hold (' + f11.held.join(',') + '); a place written onto built lot ' + f11b.put + ' is moved to lot ' + f11b.now,
         !f11.onHeld && !f11b.skip && f11b.apart, JSON.stringify({ f11, f11b }));
+      /* F12 WHAT HE HAS SITS IN THE GROUND, AND WORKS WHEN IT IS WORKED (HOME BASE 4 11/27, rules 479(a), 482): a boss's thing with no piece
+         of its own stands on its lot at a thing's size with its shadow (it was its icon at 70 percent of the lot, a hook as tall as a
+         house, no shadow); each of his own buildings shows its working picture exactly while one of his men works it or for eight seconds
+         after he used it. PLANTED: the old size (0.7 of the lot) reads red on the same check. */
+      await F.evaluate(() => { try { BohemiaHomeMap.give({ id: 'prize:gate_hook', kind: 'prize', name: 'THE HOOK', pic: 'boss_places/hand_climb.png', from: 'a gate', says: null }); } catch (e) {} });
+      await fr.evaluate(async () => { const h = JSON.parse(JSON.stringify(window.parent.BohemiaHomeMap.state())); window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); });
+      let g12 = null; for (let i = 0; i < 20; i++) { await P.waitForTimeout(300); g12 = await fr.evaluate(() => { const d = window.__HOME_FEED_DRAWN() || {}; return { grounded: d.grounded | 0, h: d.groundedH || 0 }; }); if (g12.grounded) break; }
+      const sized12 = (x) => x.grounded >= 1 && x.h > 0 && x.h <= .35;
+      ok('F12 a boss\'s thing with no piece stands on its lot at a thing\'s size with its shadow (' + g12.grounded + ' drawn, ' + Math.round(g12.h * 100) + ' percent of the lot tall)', sized12(g12), JSON.stringify(g12));
+      ok('F12 planted: drawn as it was, 70 percent of the lot, the leg above reads red', !sized12({ grounded: 1, h: .7 }));
+      await F.evaluate(() => { const r = BohemiaHomeMap.rec(); r.things = (r.things || []).filter(t => t.id !== 'prize:gate_hook'); });   /* the gate's hook taken back, so the legs after find their lots as always */
+      await fr.evaluate(async () => { const h = JSON.parse(JSON.stringify(window.parent.BohemiaHomeMap.state())); window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); }); await P.waitForTimeout(600);
+      const w12 = await fr.evaluate(() => { const d = window.__HOME_FEED_DRAWN() || {}, st = d.states || {}, f = window.__HOME_FEED || {}, W = (window.__HOME_WORKERS || []).map(w => w.at), U = window.__HOME_FEED_USED(), now = performance.now(), out = [];
+        Object.keys(f.slots || {}).forEach(n => { const s = f.slots[n]; if (s.kind !== 'place' || !st[s.key] || /!$/.test(st[s.key])) return; out.push({ id: s.id, st: st[s.key], should: W.indexOf(s.id) >= 0 || (U[s.id] || 0) > now }); }); return out; });
+      ok('F12 each of his buildings works when it is worked: ' + w12.map(x => x.id + ' ' + x.st + (x.should ? ' (a man or just used)' : ' (nobody)')).join(', '), w12.length >= 1 && w12.every(x => (x.st === 'working') === x.should), JSON.stringify(w12));
       /* F4 HIS MEN AT HIS BUILDINGS, ON THE FOOTAGE (rule 458(c)): each once in his place, standing on his building's lot */
       await close15();
       const m19 = await fr.evaluate(() => { const W = window.__HOME_WORKERS || [], here = BohemiaSettlement.crewHere().map(p => p.name), F = window.__HOME_FEED_PEOPLE(); return { W, twice: W.filter(w => here.filter(n => n === w.name).length !== 1).map(w => w.name), on: F.filter(p => p.works).map(p => p.name + '@' + p.works) }; });

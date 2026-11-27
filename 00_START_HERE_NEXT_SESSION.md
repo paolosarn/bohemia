@@ -1,3 +1,9 @@
+HOME BASE 4 (home-base-01gkdyuux): 11/27 LATEST -- BUILD 11/27a - WHAT HE HAS SITS IN THE GROUND, BUILT, NOT YET SEEN (rules 482, 479(a); ask rows 735, 721). Its block is handoffs/HOME_BASE.md.
+The bosses' things with no piece of their own were icons pasted at 70 percent of a lot (a hook as tall as a house, no shadow): now things on the ground at a thing's size with their
+shadows; his buildings work (coals, smoke, the bag) only while a man works them or just after he used them; GRIND takes the bodies in one a beat. Gate YOUR PLACE, PLANTED F12 (250/0).
+VOTE home-base-what-he-has-sits-in-the-ground-11-27. records/BOHEMIA_HOME_BASE_WHAT_HE_HAS_SITS_IN_THE_GROUND_11_27_26.md
+[bb Battle Brothers hangs trophies as pictures on a backdrop; ours stand on his ground under his light]
+[analog horror: a hook and a drum on the lot at 3 am, their shadows long, nobody near them]
 CHARACTER TWO (character-two-01gkdyuv): 11/26 LATEST -- BUILD 11/26zk - THE ROBES COME OFF THE ROAD GANGS, BUILT, NOT YET SEEN (rules 482(a)(c)(d), 480(b)).
 Ten enemy pools dealt the six old one-colour gang robes (16 entries, often the band's first man); out, each pool keeps its gang's layered men.
 The cone is off everywhere (BUILD 11/26m, THE CONE HAT IS DEAD 4/0). Its block is handoffs/CHARACTER.md; VOTE character2-the-robes-come-off-11-26;

@@ -1,3 +1,13 @@
+HOME BASE 4 (session_01GKDyuuxd1n5GC5qbBwv9B6): 11/27 LATEST -- BUILD 11/27a - WHAT HE HAS SITS IN THE GROUND, BUILT, NOT YET
+SEEN (the routine 'HOME BASE 4: rule 482'; rules 482, 479(a)(b); ask rows 735, 721). Record
+records/BOHEMIA_HOME_BASE_WHAT_HE_HAS_SITS_IN_THE_GROUND_11_27_26.md. VOTE card home-base-what-he-has-sits-in-the-ground-11-27.
+- The bosses' things with no piece (homeFeedPaint's t.pic branch): a thing's size, contact and cast shadow (hfShade); DRAWN.grounded/H.
+- Working pictures by homeFeedWorks (HOME_AT, S.home.workers, HF_USED from homeUsed after GRIND/PRESS/TRAIN); DRAWN.states.
+- GRIND: HF_GOING, one bundle a beat. Closing a sheet: HST.outAt, the camera out at tau 110 ms.
+- Gate F12; read hook __HOME_FEED_USED.
+- NEXT (rule 482): the door's first paint (warm cam 1 while the map travels there); BUILD's desk and a prize's own door laid both ways
+  like the stations; the bosses' things could get pieces of their own in the 11/3 pipeline (Blender is not on this box).
+
 HOME BASE 4 (session_01GKDyuuxd1n5GC5qbBwv9B6): 11/26 LATEST -- BUILD 11/26zf - THE CAMERAS ON PATROL, BUILT, NOT YET SEEN (the routine
 'HOME BASE 4: rule 482 next'; rules 482, 480(b), 479(a)(b), 441; ask rows 735, 721). Record records/BOHEMIA_HOME_BASE_THE_CAMERAS_ON_PATROL_11_26_26.md.
 VOTE card home-base-the-cameras-on-patrol-11-26.

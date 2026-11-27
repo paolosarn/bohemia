@@ -1,0 +1,146 @@
+{
+ "before_phone_portrait": {
+  "set": {
+   "at": [
+    70,
+    37
+   ],
+   "places": [
+    "grinder@5",
+    "forge@6",
+    "yard@7",
+    "lookout@8"
+   ],
+   "lots": [
+    "0,0",
+    "1,0",
+    "2,0",
+    "3,0",
+    "4,0"
+   ],
+   "res": [
+    "THE ORTIZ FAMILY"
+   ]
+  },
+  "tours": [
+   {
+    "grounded": 0,
+    "h": null,
+    "states": null
+   }
+  ]
+ },
+ "before_phone_landscape": {
+  "set": {
+   "at": [
+    35,
+    42
+   ],
+   "places": [
+    "grinder@5",
+    "forge@6",
+    "yard@7",
+    "lookout@8"
+   ],
+   "lots": [
+    "0,0",
+    "1,0",
+    "2,0",
+    "3,0",
+    "4,0"
+   ],
+   "res": [
+    "THE ORTIZ FAMILY"
+   ]
+  },
+  "tours": [
+   {
+    "grounded": 0,
+    "h": null,
+    "states": null
+   }
+  ]
+ },
+ "now_phone_portrait": {
+  "set": {
+   "at": [
+    82,
+    55
+   ],
+   "places": [
+    "grinder@5",
+    "forge@6",
+    "yard@7",
+    "lookout@8"
+   ],
+   "lots": [
+    "0,0",
+    "1,0",
+    "2,0",
+    "3,0",
+    "4,0"
+   ],
+   "res": [
+    "THE ORTIZ FAMILY"
+   ]
+  },
+  "tours": [
+   {
+    "grounded": 3,
+    "h": 0.23,
+    "states": {
+     "h3": "built!",
+     "h8": "built",
+     "h6": "built",
+     "h0": "working",
+     "h5": "working",
+     "h1": "built",
+     "h2": "built",
+     "h4": "built",
+     "h7": "working"
+    }
+   }
+  ]
+ },
+ "now_phone_landscape": {
+  "set": {
+   "at": [
+    61,
+    64
+   ],
+   "places": [
+    "grinder@5",
+    "forge@6",
+    "yard@7",
+    "lookout@8"
+   ],
+   "lots": [
+    "0,0",
+    "1,0",
+    "2,0",
+    "3,0",
+    "4,0"
+   ],
+   "res": [
+    "THE ORTIZ FAMILY"
+   ]
+  },
+  "tours": [
+   {
+    "grounded": 3,
+    "h": 0.23,
+    "states": {
+     "h3": "built!",
+     "h8": "built",
+     "h6": "built",
+     "h0": "working",
+     "h5": "working",
+     "h1": "built",
+     "h2": "built",
+     "h4": "built",
+     "h7": "working"
+    }
+   }
+  ]
+ }
+}

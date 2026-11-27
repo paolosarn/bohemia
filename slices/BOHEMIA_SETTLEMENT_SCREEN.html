@@ -2260,11 +2260,11 @@ function homePlaceSheet(k, t){
         if(bats() < cost) return homePlaceSheet(k, t);
         var r = HM && HM.train(m.name); if(!r) return;
         P.debit(S.purse, 'electricity', cost, 'train:' + m.name, S.place.name, buildDay()); shelf();
-        window.__HOME_TRAINED = { name: m.name, cost: cost, left: r.left, mult: r.mult }; homeRefresh(); homePlaceSheet(k, homeThingsHere().filter(function(x){ return x.key === k; })[0] || t); }), on || bats() < cost);
+        window.__HOME_TRAINED = { name: m.name, cost: cost, left: r.left, mult: r.mult }; homeUsed('yard', 8000); homeRefresh(); homePlaceSheet(k, homeThingsHere().filter(function(x){ return x.key === k; })[0] || t); }), on || bats() < cost);
       b.dataset.train = m.name; acts.appendChild(b); }); }
   else if(t.id === 'forge'){ body.appendChild(speak('build', W.forge || ''));
     var F = (S.home.placeRows || {}).forge || {}, sp = homeSupplies(), short = Object.keys(F.takes || {}).some(function(g){ return (sp[g] | 0) < (F.takes[g] | 0); });
-    var pb = act(W.press || 'PRESS', homeGoodsWords(F.takes) + ' → ' + homeGoodsWords(F.makes), guard(function(){ var r = HM && HM.press(); if(!r || !r.ok) return; window.__HOME_PRESS = r; homeRefresh(); homePlaceSheet(k, t); }), short);
+    var pb = act(W.press || 'PRESS', homeGoodsWords(F.takes) + ' → ' + homeGoodsWords(F.makes), guard(function(){ var r = HM && HM.press(); if(!r || !r.ok) return; window.__HOME_PRESS = r; homeUsed('forge', 8000); homeRefresh(); homePlaceSheet(k, t); }), short);
     pb.dataset.press = '1'; acts.appendChild(pb);
     homeCartRows(acts, k, t, guard); }   /* __THE_STAFF_PUSH_A_CART__ (STAFF 2, rule 471(d)): the camp's carts welded up here */
   else if(t.id === 'grinder'){   /* __THE_GRINDER__ (HOME BASE 3, rule 469): one line in a mouth, one button; nothing else is explained (466(c)) */
@@ -2272,7 +2272,7 @@ function homePlaceSheet(k, t){
     body.appendChild(speak('build', gd ? homeFill(W.ground, {n: gd}) : (W.grinder || '')));
     var none = !G || !(G.food > 0);
     var gb = act(none ? (W.nobody || 'NOBODY TO GRIND') : (W.grind || 'GRIND'), none ? '' : homeGrindWords(G), guard(function(){ var r = HM && HM.grind ? HM.grind() : null; if(!r || !r.ok) return;
-      window.__HOME_GRIND = r; S.homeGround = r.food; try{ sfx('pickup', view.night ? NIGHT_TRIM : null); }catch(e){} homeRefresh(); homePlaceSheet(k, t); }), none);
+      window.__HOME_GRIND = r; S.homeGround = r.food; try{ sfx('pickup', view.night ? NIGHT_TRIM : null); }catch(e){} homeUsed('grinder', 8000, (G && G.dead) | 0); homeRefresh(); homePlaceSheet(k, t); }), none);
     gb.dataset.grind = '1'; acts.appendChild(gb); }
   else if(t.id === 'lookout'){ var w = HM && HM.watch ? HM.watch() : null;
     body.appendChild(speak('build', w && !w.none ? homeFill(W.saw, {who: w.who, n: w.d, dir: w.dir}) : homeFill(W.none, {n: (w && w.reach) || 10}))); }
@@ -2461,9 +2461,23 @@ function hfLit(im, sx, sy, sw, sh, z){ var w = Math.max(1, Math.round(sw * z)), 
   var E = document.createElement('canvas'); E.width = w + 2; E.height = h + 2; var y = E.getContext('2d'); y.imageSmoothingEnabled = false;
   [[0, 1], [2, 1], [1, 0], [1, 2]].forEach(function(o){ y.drawImage(L, o[0], o[1]); }); y.globalCompositeOperation = 'source-in'; y.fillStyle = 'rgba(6,9,7,.72)'; y.fillRect(0, 0, w + 2, h + 2);
   var r = { lit: L, edge: E }; if(HFL){ if(!m){ m = {}; HFL.set(im, m); } m[key] = r; } return r; }
+/* __IT_WORKS_WHEN_HE_WORKS_IT__ (HOME BASE 4 11/27, rule 482; rule 479(b), 'you're not being logical'): a piece with a working picture
+   (the forge's coals, the grinder's smoke, the pump's water, the yard's bag swinging) showed it all the time, nobody at it. Now it works
+   while one of his men works it (his own buildings, HOME_AT; a build, the man the morning put on it), or for eight seconds after he used
+   it (GRIND, PRESS, a man trained); a boss's thing keeps its own way. GRIND also takes the bodies in one a beat (120 BPM). */
+var HF_USED = {}, HF_GOING = null;
+function homeUsed(id, ms, dead){ HF_USED[id] = performance.now() + (ms | 0); if(dead > 0) HF_GOING = { n: Math.min(6, dead | 0), t0: performance.now() }; HF.dirty = true; }
+function homeFeedWorks(t, now){ if(t.kind === 'prize' || t.kind === 'trophy') return true;
+  if(t.kind === 'place'){ if((HF_USED[t.id] || 0) > now) return true; for(var nm in HOME_AT) if(HOME_AT[nm] === t.id) return true; return false; }
+  if(t.kind === 'build'){ var wk = (S.home && S.home.workers) || {}; return !!wk[t.lot + ',0']; }
+  return false; }
+/* a picture's shadow: its shape filled dark, made once */
+var HFS = typeof WeakMap === 'function' ? new WeakMap() : null;
+function hfShade(c){ var e = HFS && HFS.get(c); if(e) return e; e = document.createElement('canvas'); e.width = c.width; e.height = c.height; var x = e.getContext('2d'); x.drawImage(c, 0, 0); x.globalCompositeOperation = 'source-in'; x.fillStyle = '#000'; x.fillRect(0, 0, e.width, e.height); if(HFS) HFS.set(c, e); return e; }
 /* the bodies waiting at the grinder, on its lot: tarp bundles tied twice, three on the ground, two on them, one on top; one each */
-function homeFeedPile(g, b, DRAWN){ var G = HF.pile; if(!G || !(G.dead > 0)) return;
-  var n = Math.min(6, G.dead | 0), bw = b[2] - b[0], w = Math.max(8, Math.round(bw * .3)), h = Math.max(3, Math.round(w * .3)), x0 = b[0] + Math.round(bw * .02), y0 = b[3] - 2;
+function homeFeedPile(g, b, DRAWN){ var G = HF.pile, going = HF_GOING && performance.now() - HF_GOING.t0 < HF_GOING.n * 500 ? HF_GOING.n - Math.floor((performance.now() - HF_GOING.t0) / 500) : 0;
+  if(!going) HF_GOING = null; if(!going && (!G || !(G.dead > 0))) return;
+  var n = going || Math.min(6, G.dead | 0), bw = b[2] - b[0], w = Math.max(8, Math.round(bw * .3)), h = Math.max(3, Math.round(w * .3)), x0 = b[0] + Math.round(bw * .02), y0 = b[3] - 2;
   var at = [[0, 0], [1, 0], [2, 0], [.5, 1], [1.5, 1], [1, 2]];
   for(var i = 0; i < n; i++){ var x = Math.round(x0 + at[i][0] * w * .72), y = Math.round(y0 - h - at[i][1] * h * .8);
     if(!at[i][1]){ g.fillStyle = 'rgba(0,0,0,.55)'; g.fillRect(x - 1, y + h - 1, w + 3, 2); }   /* its shadow on the lot */
@@ -2482,12 +2496,21 @@ function homeFeedPaint(now, fr){
   var T = M.tap_px[cn + '_' + sh] || {}, P = homeFeedPeople(), late = false;
   var DRAWN = { pieces: {}, people: {}, feet: [], pile: 0, cam: cn, sh: sh }; HF.drawn = DRAWN; HF.picRect = {};   /* __ONCE_AND_IN_THE_GROUND__ (HOME BASE 3, rule 479): what this frame drew, counted */
   (M.order[cn] || []).forEach(function(n){ var t = HF.slots[n]; if(!t) return; DRAWN.pieces[t.key] = (DRAWN.pieces[t.key] | 0) + 1;
-    if(t.pid){ var D = M.pieces[t.pid], st = t.done === false ? 'built' : (D.states.working ? 'working' : 'built'), E = D.states[st] && D.states[st].pics[cn + '_' + sh + '_' + n]; if(!E) return;
+    if(t.pid){ var D = M.pieces[t.pid], st = t.done === false ? 'built' : (D.states.working && homeFeedWorks(t, now) ? 'working' : 'built'), E = D.states[st] && D.states[st].pics[cn + '_' + sh + '_' + n]; if(!E) return;   /* __IT_WORKS_WHEN_HE_WORKS_IT__ */
+      DRAWN.states = DRAWN.states || {}; DRAWN.states[t.key] = st + (D.states.working ? '' : '!');
       var im = hfImg(HF_BASE + 'pieces/' + E.pictures[fr % E.pictures.length]); if(!hfReady(im)){ late = true; return; }
       g.globalAlpha = t.done === false ? .45 : 1; g.drawImage(im, E.xy[0], E.xy[1]); g.globalAlpha = 1;   /* going up tonight: faint, as on the town screen */
       HF.picRect[n] = [E.xy[0], E.xy[1], E.xy[0] + im.naturalWidth, E.xy[1] + im.naturalHeight]; }
-    else if(t.pic && T[n]){ var pim = hfImg(t.pic); if(!hfReady(pim)){ late = true; return; } var b = T[n], hh = Math.max(8, (b[3] - b[1]) * .7), ww = hh * pim.naturalWidth / pim.naturalHeight;
-      var gi = hfGraded(pim, hh / pim.naturalHeight), px = Math.round((b[0] + b[2]) / 2 - gi.width / 2), py = Math.round(b[3] - gi.height); g.drawImage(gi, px, py); HF.picRect[n] = [px, py, px + gi.width, py + gi.height]; }
+    else if(t.pic && T[n]){ var pim = hfImg(t.pic); if(!hfReady(pim)){ late = true; return; } var b = T[n];
+      /* __WHAT_HE_HAS_SITS_IN_THE_GROUND__ (HOME BASE 4 11/27, rule 479(a): 'they look like they're floating on top of the map'): a boss's
+         thing with no piece of its own was its icon blown up to 70 percent of the lot, a hook as tall as a house, upright to the lens, no
+         shadow. Now it is a thing on the ground: as tall as a man's shoulder (a man on the footage is a fifth of the lot), set on the lot's
+         ground line to one side, its foot in a contact shadow and its shadow thrown short and forward by the sodium heads behind the lots */
+      var mh = Math.max(9, (b[2] - b[0]) * .22), hh = Math.max(6, Math.round(mh * .8)), sc2 = hh / pim.naturalHeight, gi = hfGraded(pim, sc2);
+      var px = Math.round(b[0] + (b[2] - b[0]) * .38 - gi.width / 2), py = Math.round(b[3] - (b[3] - b[1]) * .18 - gi.height), fy = py + gi.height;
+      g.save(); g.globalAlpha = .38; g.translate(px, fy); g.transform(1, 0, -.55, -.32, 0, 0); g.drawImage(hfShade(gi), 0, 0); g.restore();
+      g.save(); g.fillStyle = 'rgba(0,0,0,.55)'; g.beginPath(); g.ellipse(px + gi.width / 2, fy - 1, Math.max(3, gi.width * .55), Math.max(1.5, gi.height * .1), 0, 0, 7); g.fill(); g.restore();
+      g.drawImage(gi, px, py); HF.picRect[n] = [px, py, px + gi.width, fy]; DRAWN.grounded = (DRAWN.grounded | 0) + 1; DRAWN.groundedH = Math.max(DRAWN.groundedH || 0, +(gi.height / (b[3] - b[1])).toFixed(2)); }
     if(t.kind === 'place' && t.id === 'grinder' && T[n]) homeFeedPile(g, T[n], DRAWN); });
   var B = window.BohemiaRigBodies; if(B && B.standing) P.slice().sort(function(a, b){ return a.y - b.y; }).forEach(function(q){
     /* __THE_CAMERAS_ON_PATROL__ (HOME BASE 4 11/26, rule 482): his people read on the footage: each one moves (ANIMATION's idles, and
@@ -2556,6 +2579,7 @@ function homeTourTarget(now, full){ if(S.open || HF.down || HF.cut || now < HTOU
   var O = FIT.open || { x0: 0, y0: 0, x1: full.W, y1: full.H }, mx = (Math.max(full.X, O.x0) + Math.min(full.X + full.W, O.x1)) / 2, my = (Math.max(full.Y, O.y0) + Math.min(full.Y + full.H, O.y1)) / 2;
   var fx = (mx - full.X) / full.W, fy = (my - full.Y) / full.H, cx = (b[0] + b[2]) / 2, cy = (b[1] + b[3]) / 2;
   return { x: Math.max(0, Math.min(f.cw - w, cx - w * fx)), y: Math.max(0, Math.min(f.ch - h, cy - h * fy)), w: w, h: h, X: full.X, Y: full.Y, W: full.W, H: full.H }; }
+window.__HOME_FEED_USED = function(){ return JSON.parse(JSON.stringify(HF_USED)); };   /* read only, for the gate */
 window.__HOME_FREE_LOT = function(){ var l = buildFreeLot(); return l ? l.x : null; };   /* read only, for the gate: the lot the desk would build on now */
 window.__HOME_FEED_TOUR = function(){ return HTOUR.k ? { n: HTOUR.k.n, why: HTOUR.k.why, who: HTOUR.k.who || null, z: HF.V ? +HF.V.z.toFixed(2) : 1 } : null; };   /* read only */
 window.__HOME_FEED_TOUR_AT = function(ms){ HF.lastCut = performance.now() - (ms | 0); HTOUR.until = 0; };   /* for the gate and the card only: the camera's round at ms */
@@ -2575,7 +2599,7 @@ function homeStationTarget(now){ var f = HF.fit, M = HF.M, full = { x: 0, y: 0, 
   return { x: Math.max(0, Math.min(f.cw - w, cx - w / 2)), y: Math.max(0, Math.min(f.ch - h, cy - h / 2)), w: w, h: h, X: R.X, Y: R.Y, W: R.W, H: R.H }; }
 function homeStationView(now){ var f = HF.fit, T = homeStationTarget(now), dt = HST.moving ? Math.min(50, now - HST.last) : 16; HST.last = now;
   if(!HST.V || HST.sh !== f.sh || HST.gw !== f.W || HST.gh !== f.H){ HST.V = Object.assign({}, T); HST.sh = f.sh; HST.gw = f.W; HST.gh = f.H; }   /* a turn of the glass: no glide across two pictures */
-  var a = 1 - Math.exp(-dt / (HST.on ? 75 : HTOUR.k ? 900 : 420)), V = HST.V, mv = false;   /* the patrol pushes in slowly, a PTZ's own pace */
+  var a = 1 - Math.exp(-dt / (HST.on ? 75 : now - (HST.outAt || 0) < 1500 ? 110 : HTOUR.k ? 900 : 420)), V = HST.V, mv = false;   /* the patrol pushes in slowly, a PTZ's own pace */
   ['x', 'y', 'w', 'h', 'X', 'Y', 'W', 'H'].forEach(function(q){ var d = T[q] - V[q]; if(Math.abs(d) > .3){ V[q] += d * a; mv = true; } else V[q] = T[q]; });
   HST.moving = mv; V.z = (V.W / V.w) / f.k; HF.V = V; return V; }
 function homeFeedV(){ var f = HF.fit; return HF.V || { x: 0, y: 0, w: f.cw, h: f.ch, X: f.x, Y: f.y, W: f.w, H: f.h, z: 1 }; }
@@ -2668,7 +2692,7 @@ document.addEventListener('click', function(e){ var o = HF.one; if(!o) return; H
 window.addEventListener('message', function(e){ var d = e.data || {}; if(d.type === 'BOHEMIA_SETTLEMENT_OPEN'){ HF.cam = 1; HF.lastCut = performance.now(); } if(d.type === 'BOHEMIA_HOME' || d.type === 'BOHEMIA_SETTLEMENT_OPEN') setTimeout(function(){ try{ homeFeedSync(); }catch(er){} }, 0); });
 /* __THE_STATION__, the sheet: laid for the way the phone is held (rule 481(b)); the camera's target is what the sheet leaves */
 function homeStationLay(){ var sh = document.getElementById('sheet'); if(!sh) return;
-  if(!sh.classList.contains('on')){ if(HST.on){ HST.on = false; HST.k = null; HF.dirty = true; window.__HOME_STATION = null; } return; }   /* closing: the sheet slides out as it stood, the camera glides back */
+  if(!sh.classList.contains('on')){ if(HST.on){ HST.on = false; HST.k = null; HST.outAt = performance.now(); HF.dirty = true; window.__HOME_STATION = null; } return; }   /* closing: the camera comes back out at once, not at the patrol's pace */   /* closing: the sheet slides out as it stood, the camera glides back */
   var k = (HF.on && !HST.off && S.open && /^h\d+$/.test(S.open)) ? S.open : null, n = k ? homeStationLot(k) : null, on = n != null, side = on && view.W > view.H;
   var right = !(FIT.phone && FIT.phone.side === 'left');
   sh.classList.toggle('hstation', on); sh.classList.toggle('hside', side); sh.classList.toggle('hsl', side && !right);
