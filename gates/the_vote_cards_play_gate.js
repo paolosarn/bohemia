@@ -25,7 +25,11 @@ let pass = 0, fail = 0;
 const leg = (ok, what, why) => { if (ok) pass++; else fail++; console.log((ok ? '  ok   ' : '  FAIL ') + what + (why !== undefined ? '  [' + why + ']' : '')); };
 function pw() { for (const g of ['/opt/node22/lib/node_modules', '/usr/lib/node_modules', '/usr/local/lib/node_modules']) { try { return require(path.join(g, 'playwright')); } catch (e) {} } return require('playwright'); }
 const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.css': 'text/css', '.png': 'image/png', '.mp3': 'audio/mpeg', '.webmanifest': 'application/manifest+json' };
-const CARD = 'sounds-three-levels-the-vault-10-25';
+const CARD = process.env.CARD || 'sounds-three-levels-the-vault-10-25';   /* CARD=<id>: the same legs on another song card (SOUNDS THREE 11/27: the twelve more songs) */
+const NOFILE = (() => { try { const r = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/BOHEMIA_VOTE_REGISTRY.json'), 'utf8')).items.find(x => x.id === CARD);
+  const pg = fs.readFileSync(path.join(ROOT, 'slices', r.show.src), 'utf8'), list = (pg.match(/<meta name="list" content="([^"]+)">/) || [])[1], song = (pg.match(/<meta name="song" content="([^"]*)">/) || [])[1];
+  const I = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices', list), 'utf8')), S = I.songs.find(x => x.slug === song) || I.songs[0];
+  return new RegExp(S.dir.replace(/[.*+?^${}()|[\]\\\/]/g, '\\$&') + '(level_|hit)'); } catch (e) { return /vote\/songs\/three_levels\/the_vault\/(level_|hit)/; } })();
 
 function serve(block) {
   const s = http.createServer((req, res) => {
@@ -79,7 +83,8 @@ async function cardFrame(p, port) {
 }
 
 async function one(b, prof, how) {
-  const s = await serve(how === 'nofile' ? /vote\/songs\/three_levels\/the_vault\/(level_|hit)/ : null);
+  /* the card's own song folder is the one taken away (read off its page's list), so CARD=<id> tests its own files */
+  const s = await serve(how === 'nofile' ? NOFILE : null);
   const ctx = await b.newContext(prof.ctx), p = await ctx.newPage(), errs = [];
   p.on('pageerror', e => errs.push(e.message));
   await ctx.addInitScript((how) => {

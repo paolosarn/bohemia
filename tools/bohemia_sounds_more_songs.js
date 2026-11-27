@@ -248,6 +248,9 @@ const SONGS = [
    song and this list), the sha the commit on main that holds its recordings. A new song is in the game from this round
    (EVERYTHING IS A THUMB: he corrects after), so its card asks to keep it or take it out. */
 const REG = path.join(ROOT, 'records', 'target', 'BOHEMIA_VOTE_REGISTRY.json');
+/* two sentences, the second says where he hears it (rule 22f, the VOTE tab's own gate) */
+const whyOf = S => 'A new song made the same way as the four you liked, ' + S.name + ': ' + S.leadName + ' over ' + S.kitName + ', in ' + S.key + ', already playing in the game in turn with the others. ' +
+  'Tap 1, 2, 3 and A FIGHT and you hear it here in the VOTE tab, the turns changing on the bar.';
 const idOf = S => 'sounds-more-song-' + slug(S.name).replace(/_/g, '-') + '-11-27';
 const pageOf = S => 'BOHEMIA_MORE_SONG_' + slug(S.name).toUpperCase() + '_11_27_26.html';
 function entry(S) {
@@ -257,6 +260,33 @@ function entry(S) {
     what: { 1: '1. THE MAP: the song as it plays on the map, the tune on top, a soft 120 beat under it.',
             2: '2. THEIR TURN: tension. The tune stays, the chord is held, the kick on the beat, the bass pushing.',
             3: '3. YOUR TURN: everything, much louder: the tune doubled an octave, the full kit, the bass driving, a hit when the turn comes back to you.' } };
+}
+/* THE REGISTRY IS EVERYBODY'S FILE: never re-serialized (that rewrote 16,000 lines of other lanes' cards, measured 11/27).
+   This batch's cards are appended as text before the verdicts, or, when they are there, their own blocks replaced. */
+function writeReg(reg) {
+  let t = fs.readFileSync(REG, 'utf8');
+  const mine = reg.items.filter(it => SONGS.some(S => idOf(S) === it.id));
+  const block = it => JSON.stringify(it, null, 1).split('\n').map(l => '  ' + l).join('\n');
+  const fresh = [];
+  for (const it of mine) {
+    const at = t.indexOf('"id": "' + it.id + '"');
+    if (at < 0) { fresh.push(it); continue; }
+    const a = t.lastIndexOf('\n  {', at), b = t.indexOf('\n  }', at);
+    t = t.slice(0, a + 1) + block(it) + t.slice(b + 4);
+  }
+  if (fresh.length) {
+    /* A BATCH OF TWELVE NEVER TAKES HIS WHOLE FIRST SCREEN (measured 11/27: appended last, the twelve were the twelve newest
+       and pushed every other lane's card of the day behind MORE, and the tab's own FULL SIZE leg found no picture card left
+       on his front): the tab sorts by the card's day, then its place, so the batch goes in just before the day's first card
+       and the day's other cards keep their places ahead of it */
+    const mark = '\n ],\n "verdicts": [', i = t.indexOf(mark);
+    if (i < 0 || t.indexOf(mark, i + 1) >= 0) throw new Error('the registry lost its items/verdicts seam');
+    const day = '"made": "' + fresh[0].made + '"', d = t.indexOf(day);
+    if (d >= 0 && d < i) { const a = t.lastIndexOf('\n  {', d); t = t.slice(0, a + 1) + fresh.map(block).join(',\n') + ',\n' + t.slice(a + 1); }
+    else t = t.slice(0, i).replace(/\s+$/, '') + ',\n' + fresh.map(block).join(',\n') + t.slice(i);
+  }
+  JSON.parse(t);
+  fs.writeFileSync(REG, t);
 }
 function register(which, write) {
   const reg = JSON.parse(fs.readFileSync(REG, 'utf8')), have = new Set(reg.items.map(x => x.id));
@@ -272,15 +302,16 @@ function register(which, write) {
     const sha = execFileSync('git', ['log', '-1', '--format=%h', process.env.REF || 'HEAD', '--', path.join('slices', 'vote', 'songs', 'more_songs', slug(S.name))], { cwd: ROOT, encoding: 'utf8' }).trim();
     if (!sha && write) throw new Error(S.name + ': commit the recordings first');
     if (have.has(idOf(S))) { const it = reg.items.find(x => x.id === idOf(S));
-      if (write && it.sha !== sha) { console.log('the card\'s sha moved: ' + it.sha + ' -> ' + sha); it.sha = sha; } else console.log('already a card: ' + idOf(S)); continue; }
+      if (write && it.sha !== sha) { console.log('the card\'s sha moved: ' + it.sha + ' -> ' + sha); it.sha = sha; } else console.log('already a card: ' + idOf(S));
+      if (write && it.why !== whyOf(S)) it.why = whyOf(S);
+      continue; }
     const card = { id: idOf(S), kind: 'song', lane: 'sounds', sha: sha || 'unpushed', made: '11/27', title: 'A NEW SONG: ' + S.name,
-      why: 'You asked for more songs made the same way as the four you liked. This is one of twelve: ' + S.name + ', ' + S.leadName + ' for the lead, ' + S.kitName + ', in ' + S.key + ', a tune you can hum, at the three levels of a fight on the 120 beat. It already plays in the game, in turn with the others. ' +
-        'Tap 1, 2, 3 and then A FIGHT, and you hear it on this card in the VOTE tab, the turns changing on the bar.',
+      why: whyOf(S),
       options: ['A, keep it in the game', 'B, take it out'], show: { how: 'page', src: pageOf(S) }, draft: true };
     if (write) { reg.items.push(card); have.add(card.id); }
     console.log((write ? 'REGISTERED ' : 'would register ') + card.id + ' at ' + card.sha);
   }
-  if (write) fs.writeFileSync(REG, JSON.stringify(reg, null, 1) + '\n');
+  if (write) writeReg(reg);
   writeIndex();
 }
 /* the list the cards and the game's book read: every song recorded here */

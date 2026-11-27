@@ -24264,6 +24264,222 @@
     "first": "../records/target/vote_first/ui5-the-alpha-says-continue-11-26.webp",
     "firstAt": [0, 0, 1182, 560]
    }, "before_after": {"before": "every new crew's choice and BEGIN, which continued his saved game", "after": "the title: NEW GAME (asked once) or CONTINUE", "scale": "the alpha on a 390 x 844 phone, after a reload"}, "record": "records/BOHEMIA_UI_FIVE_THE_ALPHA_SAYS_CONTINUE_11_26_26.md"},
+  {
+   "id": "sounds-more-song-the-ice-cream-truck-still-plays-its-song-11-27",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "2c6341227",
+   "made": "11/27",
+   "title": "A NEW SONG: THE ICE CREAM TRUCK STILL PLAYS ITS SONG",
+   "why": "A new song made the same way as the four you liked, THE ICE CREAM TRUCK STILL PLAYS ITS SONG: a music box, the truck's own jingle over a footstep for the kick, a bottle breaking for the snare, a kid slurping for the hat, in G lydian, already playing in the game in turn with the others. Tap 1, 2, 3 and A FIGHT and you hear it here in the VOTE tab, the turns changing on the bar.",
+   "options": [
+    "A, keep it in the game",
+    "B, take it out"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MORE_SONG_THE_ICE_CREAM_TRUCK_STILL_PLAYS_ITS_SONG_11_27_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-more-song-the-wedding-chapel-takes-one-more-booking-11-27",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "2c6341227",
+   "made": "11/27",
+   "title": "A NEW SONG: THE WEDDING CHAPEL TAKES ONE MORE BOOKING",
+   "why": "A new song made the same way as the four you liked, THE WEDDING CHAPEL TAKES ONE MORE BOOKING: a pump organ, the chapel's own over the chapel door knocked for the kick, a champagne glass breaking for the snare, a sip for the hat, in G harmonic minor, already playing in the game in turn with the others. Tap 1, 2, 3 and A FIGHT and you hear it here in the VOTE tab, the turns changing on the bar.",
+   "options": [
+    "A, keep it in the game",
+    "B, take it out"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MORE_SONG_THE_WEDDING_CHAPEL_TAKES_ONE_MORE_BOOKING_11_27_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-more-song-the-lounge-singer-still-takes-requests-11-27",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "2c6341227",
+   "made": "11/27",
+   "title": "A NEW SONG: THE LOUNGE SINGER STILL TAKES REQUESTS",
+   "why": "A new song made the same way as the four you liked, THE LOUNGE SINGER STILL TAKES REQUESTS: an ondes martenot, a voice that is not a voice over a soft footstep for the kick, a breath for the brush, a saw stroke for the ride, swung, in B flat dorian, already playing in the game in turn with the others. Tap 1, 2, 3 and A FIGHT and you hear it here in the VOTE tab, the turns changing on the bar.",
+   "options": [
+    "A, keep it in the game",
+    "B, take it out"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MORE_SONG_THE_LOUNGE_SINGER_STILL_TAKES_REQUESTS_11_27_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-more-song-one-sign-in-the-boneyard-still-buzzes-11-27",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "2c6341227",
+   "made": "11/27",
+   "title": "A NEW SONG: ONE SIGN IN THE BONEYARD STILL BUZZES",
+   "why": "A new song made the same way as the four you liked, ONE SIGN IN THE BONEYARD STILL BUZZES: a vibraphone, cold metal over a footstep for the kick, a neon tube breaking for the snare, a crackle for the hat, half time, in E minor pentatonic, already playing in the game in turn with the others. Tap 1, 2, 3 and A FIGHT and you hear it here in the VOTE tab, the turns changing on the bar.",
+   "options": [
+    "A, keep it in the game",
+    "B, take it out"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MORE_SONG_ONE_SIGN_IN_THE_BONEYARD_STILL_BUZZES_11_27_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-more-song-lake-mead-gives-back-what-it-took-11-27",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "2c6341227",
+   "made": "11/27",
+   "title": "A NEW SONG: LAKE MEAD GIVES BACK WHAT IT TOOK",
+   "why": "A new song made the same way as the four you liked, LAKE MEAD GIVES BACK WHAT IT TOOK: a bamboo flute you can hear the breath in over a drop of water for the kick, a boat's wood creaking for the snare, another drop for the hat, in A hirajoshi (five notes), already playing in the game in turn with the others. Tap 1, 2, 3 and A FIGHT and you hear it here in the VOTE tab, the turns changing on the bar.",
+   "options": [
+    "A, keep it in the game",
+    "B, take it out"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MORE_SONG_LAKE_MEAD_GIVES_BACK_WHAT_IT_TOOK_11_27_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-more-song-the-monorail-runs-with-nobody-on-it-11-27",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "2c6341227",
+   "made": "11/27",
+   "title": "A NEW SONG: THE MONORAIL RUNS WITH NOBODY ON IT",
+   "why": "A new song made the same way as the four you liked, THE MONORAIL RUNS WITH NOBODY ON IT: a clarinet, the old-world kind over a train for the kick, a crow on the rail for the snare, the train's rattle for the hat, in F sharp phrygian dominant, already playing in the game in turn with the others. Tap 1, 2, 3 and A FIGHT and you hear it here in the VOTE tab, the turns changing on the bar.",
+   "options": [
+    "A, keep it in the game",
+    "B, take it out"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MORE_SONG_THE_MONORAIL_RUNS_WITH_NOBODY_ON_IT_11_27_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-more-song-the-drive-in-shows-the-same-reel-11-27",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "2c6341227",
+   "made": "11/27",
+   "title": "A NEW SONG: THE DRIVE-IN SHOWS THE SAME REEL",
+   "why": "A new song made the same way as the four you liked, THE DRIVE-IN SHOWS THE SAME REEL: an upright piano nobody tunes, the intermission's over a footstep for the kick, a car horn for the snare, the film's crackle for the hat, in A flat major, already playing in the game in turn with the others. Tap 1, 2, 3 and A FIGHT and you hear it here in the VOTE tab, the turns changing on the bar.",
+   "options": [
+    "A, keep it in the game",
+    "B, take it out"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MORE_SONG_THE_DRIVE_IN_SHOWS_THE_SAME_REEL_11_27_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-more-song-the-motel-sign-says-vacancy-11-27",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "2c6341227",
+   "made": "11/27",
+   "title": "A NEW SONG: THE MOTEL SIGN SAYS VACANCY",
+   "why": "A new song made the same way as the four you liked, THE MOTEL SIGN SAYS VACANCY: a lap steel guitar, sliding over a boot heel for the kick, a bottle breaking for the snare, a saw stroke for the shaker, a gallop, in D dorian, already playing in the game in turn with the others. Tap 1, 2, 3 and A FIGHT and you hear it here in the VOTE tab, the turns changing on the bar.",
+   "options": [
+    "A, keep it in the game",
+    "B, take it out"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MORE_SONG_THE_MOTEL_SIGN_SAYS_VACANCY_11_27_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-more-song-the-water-tower-reads-out-numbers-11-27",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "2c6341227",
+   "made": "11/27",
+   "title": "A NEW SONG: THE WATER TOWER READS OUT NUMBERS",
+   "why": "A new song made the same way as the four you liked, THE WATER TOWER READS OUT NUMBERS: a whistled tone, the station's call sign over a low snore for the kick, a cough on the microphone for the snare, a breath for the hat, the tresillo, in B in-scale (five notes), already playing in the game in turn with the others. Tap 1, 2, 3 and A FIGHT and you hear it here in the VOTE tab, the turns changing on the bar.",
+   "options": [
+    "A, keep it in the game",
+    "B, take it out"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MORE_SONG_THE_WATER_TOWER_READS_OUT_NUMBERS_11_27_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-more-song-the-buffet-still-lays-out-the-trays-11-27",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "2c6341227",
+   "made": "11/27",
+   "title": "A NEW SONG: THE BUFFET STILL LAYS OUT THE TRAYS",
+   "why": "A new song made the same way as the four you liked, THE BUFFET STILL LAYS OUT THE TRAYS: an accordion, a polka at the end of the world over a grunt for the kick, a laugh from the line for the snare, a breath for the hat, oom-pah, in C sharp harmonic minor, already playing in the game in turn with the others. Tap 1, 2, 3 and A FIGHT and you hear it here in the VOTE tab, the turns changing on the bar.",
+   "options": [
+    "A, keep it in the game",
+    "B, take it out"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MORE_SONG_THE_BUFFET_STILL_LAYS_OUT_THE_TRAYS_11_27_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-more-song-the-impersonator-does-two-shows-a-night-11-27",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "2c6341227",
+   "made": "11/27",
+   "title": "A NEW SONG: THE IMPERSONATOR DOES TWO SHOWS A NIGHT",
+   "why": "A new song made the same way as the four you liked, THE IMPERSONATOR DOES TWO SHOWS A NIGHT: a twangy electric guitar, the old rock and roll kind over a footstep for the kick, the audience clapping for the snare, a drink poured for the hat, swung, in E flat mixolydian, already playing in the game in turn with the others. Tap 1, 2, 3 and A FIGHT and you hear it here in the VOTE tab, the turns changing on the bar.",
+   "options": [
+    "A, keep it in the game",
+    "B, take it out"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MORE_SONG_THE_IMPERSONATOR_DOES_TWO_SHOWS_A_NIGHT_11_27_26.html"
+   },
+   "draft": true
+  },
+  {
+   "id": "sounds-more-song-the-hospital-keeps-one-light-on-11-27",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "2c6341227",
+   "made": "11/27",
+   "title": "A NEW SONG: THE HOSPITAL KEEPS ONE LIGHT ON",
+   "why": "A new song made the same way as the four you liked, THE HOSPITAL KEEPS ONE LIGHT ON: a celesta, a lullaby on a ward over a soft footstep for the kick, a cough on the ward for the snare, a ventilator's breath for the hat, the heartbeat, in C minor (aeolian), already playing in the game in turn with the others. Tap 1, 2, 3 and A FIGHT and you hear it here in the VOTE tab, the turns changing on the bar.",
+   "options": [
+    "A, keep it in the game",
+    "B, take it out"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_MORE_SONG_THE_HOSPITAL_KEEPS_ONE_LIGHT_ON_11_27_26.html"
+   },
+   "draft": true
+  },
   {"id": "ui5-the-clock-up-top-11-27", "kind": "ui", "lane": "ui five", "sha": "7eacf5dfe", "made": "11/27", "draft": true, "title": "THE DAY AND THE HOUR ARE AT THE TOP OF THE SCREEN NOW, WITH THE SUN OR THE MOON", "said": "I feel like the players aren't connected to the time in the day, so... take it off the phone and put it at the top of the screen cause I feel like people aren't connecting", "why": "The day and the hour moved off the phone to the top bar, with a sun on its arc by day and a moon at night, and they move as time moves. You see it on the map, in a town and at camp, upright and sideways; before, now and night are side by side.", "stage": "stand_in", "show": {"how": "image", "src": "../records/target/ui5_the_clock_up_top_11_27/before_and_now.webp",
     "first": "../records/target/vote_first/ui5-the-clock-up-top-11-27.webp",
     "firstAt": [0, 0, 1779, 90]

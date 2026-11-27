@@ -1628,6 +1628,15 @@ from the fight's first frame; the fight's grid point never lost to a tenth of a 
 ahead. Gate THE FIGHT AS HE HEARS IT (with a planted fail). The whole block: handoffs/SOUNDS_TWO.md.
 [bb Battle Brothers never changes its battle track on a turn; ours changes on every turn on the beat, so the beat must never slip.]
 [analog horror: his turn is the tape running hot; their turn the same tape with only the heartbeat and the ticking clock left on it.]
+
+SOUNDS THREE (sounds-three-01gkdyus): 11/27 LATEST -- BUILD 11/27i - TWELVE MORE SONGS, EVERY ONE IN TURN, BUILT, NOT YET SEEN (rule 488,
+ask row 756): measured first, an hour on the road played 11.5 different songs of 13 and repeated one 12 minutes in. Twelve new songs made
+exactly the way the four of 10/25 were (their own tool, form, tape, three levels, gap, hit, 120 beat), 25 in the alpha's and the demo's
+book; the rotation plays every song once before any twice, never twice in a row, the least played next (an hour never repeats). Twelve
+VOTE cards. Every origin and faction has its song (two origins share one: NEXT). Gates MORE SONGS, THE SAME WAY and EVERY SONG IN TURN.
+The whole block: handoffs/SOUNDS_THREE.md.
+[bb Battle Brothers cycles a dozen or so map tracks; ours cycles 25 on the road, every one before a repeat.]
+[analog horror: one worn tape over every song; the drums are a dead city's own recordings, a crow on the rail, a horn at the drive-in.]
 ORIGINS (origins-01gkdyuu): 11/7 LATEST -- BUILD 11/7x - EACH ORIGIN ITS OWN, BUILT, NOT YET SEEN (rule 427(c), asks 103 and 233): every
 origin's crew walks in wearing its own gear (thirty pieces, each its own model off the master rig: the Lone Wolf in gilded riot plate, the water
 truck in hi-vis, the deserters with their patches torn off, the faithful in ash robes with the screen's test circle), only its home town's
