@@ -1,3 +1,7 @@
+HOME BASE 5 (home-base-01gkdyuud): 11/27 21:55 -- HANDOFF READY (rule 495 read): the plan A to H for a fresh HOME BASE, built in one owning module (the spots beside
+engine/bohemia_home.js, the flow on the map's glass in its own slice module), the phone page's 8 px letters fixed at the root by moving the flow off the phone;
+this lane's wrapper blocks in the settlement screen are its debt to fold. Its block is handoffs/HOME_BASE.md.
+
 HOME BASE 5 (home-base-01gkdyuud): 11/27 -- HANDOFF READY. Rule 492 (his 'so freaking confusing'): walked as a stranger both ways, twelve unclear
 moments and the plan A to H in records/BOHEMIA_HOME_BASE_YOUR_PLACE_WALKED_AS_A_STRANGER_11_27_26.md; a fresh HOME BASE builds it (the spots on the map first).
 Shipped this session: BUILD 11/27za HIS PLACE, HIS WAY and 11/27ze WHAT HE CALLS THEM. Its block is handoffs/HOME_BASE.md.

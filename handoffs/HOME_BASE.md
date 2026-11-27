@@ -1,3 +1,23 @@
+HOME BASE 5 -> A FRESH HOME BASE (11/27 21:55 UTC): HANDOFF READY, AGAIN, WITH RULE 495. The routine 'HOME BASE 5: the plan A to H' (21:50)
+asks for the plan below built the rule 495 way (no duct tape); this session is near its context and does not start it half-built.
+HOW TO BUILD IT (rule 495(a)(b)(c), read before the first line):
+1. ONE OWNING MODULE for the flow, not more wrapper blocks in the big pages: the spot grading and the spot list are pure logic beside
+   engine/bohemia_home.js (grade, best: extend it there, e.g. a spots(probes) that returns each spot's gives and costs from the map's
+   own probe); the map's drawing of the marks and the flow's face and buttons in one new slice module (e.g. slices/bohemia_your_place.js,
+   loaded by the map like bohemia_phone.js), the map handing it homeProbe/homeChoose through BohemiaHomeMap (already exported).
+2. THE PHONE'S 8 PX LETTERS (the routine: 'first, since he reads them'): the cause is that the whole flow lives on the in-game phone's
+   100 px page; the root fix is plan C (the flow's words and buttons on the map's glass at 44 px and up, said by a face), after which
+   the phone page keeps only the record (the bill, who lives there) and its PLANT HERE / GO THERE / GO HOME leave it. Ask UI FIVE before
+   changing the phone's own type scale (the phone is theirs; its __HOME_BASE__ block is HOME BASE's).
+3. THE DEBT THIS LANE ALREADY HOLDS (count it, shrink it): slices/BOHEMIA_SETTLEMENT_SCREEN.html carries HOME BASE's wrapper blocks
+   (__HIS_PLACE_HIS_WAY__ wraps homeFeedTap, homeFeedOsd, homeThingSheet, homePlaceSheet, homeResidentTalk, openB, hide; __THE_STATION__,
+   __THE_CAMERAS_ON_PATROL__, __IT_WORKS_WHEN_HE_WORKS_IT__ before it). When PLUMBER 9's count lands, fold them into one module of his
+   place's (slices/bohemia_his_place.js) in small safe steps, gates green each step (HIS PLACE, HIS WAY; YOUR PLACE, PLANTED; ONCE,
+   EVERYWHERE). Never a big rewrite, never while another lane edits the screen that round.
+4. Then the plan's order below (A the spots on the map, B one next step by a face, C buttons at 44+, D to H), each shipped with a VOTE
+   card that plays the flow, EYES 2 walking it as a stranger after; then the made-of (tin, block, wood) when PLUMBER has room (the site
+   is at its cap).
+
 HOME BASE 5 -> A FRESH HOME BASE (11/27 06:30 UTC): HANDOFF READY. The coordinator's routine 'HOME BASE 5: rule 492 first' reached this
 session after BUILD 11/27za HIS PLACE, HIS WAY and 11/27ze WHAT HE CALLS THEM (347(c)) had shipped. Rule 492's first two steps are done:
 records/BOHEMIA_HOME_BASE_YOUR_PLACE_WALKED_AS_A_STRANGER_11_27_26.md (492(c) the walk, twelve unclear moments, pictures in
