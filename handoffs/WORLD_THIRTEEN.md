@@ -17,7 +17,11 @@ Record: records/BOHEMIA_WORLD_SIXTEEN_THE_CITY_GOES_TO_WORK_11_27_26.md. VOTE wo
   this box for 6 to 10 caravans (two depth cuts each); the plan 11.5 ms in all, the longest piece 5 ms at full speed.
 - FOR ECONOMY THREE: a caravan that gets through is already listed (PARTIES_TODAY, its leg turning 'back'); the stall can read it for the
   arrival's restock (your next). FOR WORLD 15: people in and out of a town's own gate on the town screen are yours if you want them.
-- NEXT, MINE (rule 482, improve what is there): one depth cut for both parts of a wagon (halves its cost); the ground's full repaint
+- LIVE: the pages run for 618b4afc0 concluded success (BUILD 11/27r on the link). 11/27o and p went to ECONOMY THREE and WORLD 15 and
+  q to ARMORY 3 while this was built, so it is r.
+- MEASURED AFTER, AND DROPPED: one open-check for both parts of a wagon would save nothing: 91 in 100 of a wagon's cuts land behind
+  something (58 of 654 open, 12 map hours, two zooms), and a covered cut is the cost.
+- NEXT, MINE (rule 482, improve what is there): the ground's full repaint
   every 4 s while moving (mapGroundBegin, WORLD THIRTEEN's owed item); a market day's crowd at the town gate thicker in the morning.
   NEVER a tool that waits for a tap (461(c)).
 
