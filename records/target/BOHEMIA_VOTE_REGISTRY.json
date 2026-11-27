@@ -24655,7 +24655,37 @@
   {"id": "camp4-the-camp-reads-at-a-glance-11-26", "kind": "ui", "lane": "camp 4", "sha": "6846575c5", "made": "11/26", "draft": true, "title": "CAMP: WHO IS HURT READS AT A GLANCE, THE HOURS RUN LIKE A TAPE, AND TWO FINGERS IN LAND ON YOUR MEN", "said": "I want time to go by until everyone's healed... What if I want to zoom in on my character, see them chilling?", "why": "Top row, upright: his men mending at the fire with the fight's own bars over each one and the tape fast-forwarding the hours in the corner; the hour they are all whole it reads STOP, EVERYONE WHOLE and the bars go; two fingers in at the middle now end on his men, the ground soft like a camcorder zoom. Bottom row: the same on its side. You see it when you tap HEAL on the phone with someone hurt, or MAKE CAMP after a fight.", "show": {"how": "image", "src": "../records/target/CAMP_FOUR_THE_CAMP_READS_AT_A_GLANCE_11_26.webp",
     "first": "../records/target/vote_first/camp4-the-camp-reads-at-a-glance-11-26.webp",
     "firstAt": [14, 14, 351, 749]
-   }, "before_after": {"before": "main 0ebbe568c: nothing over his men said who was hurt; the clock only on the phone; the day's ground swapped for the night's in one frame (and after a fight the night's picture never laid in at all); two fingers in at the middle ended on bare ground with a mosaic of 22 px squares", "after": "the fight's bars over each man while they mend, full then gone; the tape counting the hours and stopping when they are whole; the shadows swing with the hour and the dusk comes over from five to seven; two fingers in end on a man, the ground softened", "scale": "the demo on a phone upright (390 x 844) and on its side (844 x 390), HEAL at 16:00 with his men hurt, the camp's own camera"}, "stage": "stand_in", "record": "records/BOHEMIA_CAMP_FOUR_THE_CAMP_READS_AT_A_GLANCE_11_26_26.md"}
+   }, "before_after": {"before": "main 0ebbe568c: nothing over his men said who was hurt; the clock only on the phone; the day's ground swapped for the night's in one frame (and after a fight the night's picture never laid in at all); two fingers in at the middle ended on bare ground with a mosaic of 22 px squares", "after": "the fight's bars over each man while they mend, full then gone; the tape counting the hours and stopping when they are whole; the shadows swing with the hour and the dusk comes over from five to seven; two fingers in end on a man, the ground softened", "scale": "the demo on a phone upright (390 x 844) and on its side (844 x 390), HEAL at 16:00 with his men hurt, the camp's own camera"}, "stage": "stand_in", "record": "records/BOHEMIA_CAMP_FOUR_THE_CAMP_READS_AT_A_GLANCE_11_26_26.md"},
+  {
+   "id": "home-base-what-he-has-sits-in-the-ground-11-27",
+   "kind": "ui",
+   "lane": "home base",
+   "sha": "49a7bb6c8",
+   "made": "11/27",
+   "draft": true,
+   "title": "WHAT YOU HAVE SITS IN THE GROUND: THE BOSSES' THINGS ON YOUR LOTS, YOUR BUILDINGS WORK WHEN WORKED",
+   "said": "I hate when you add my buildings and they look like they're floating on top of the map rather than actually being integrated properly into the map",
+   "why": "The things the bosses gave you that have no building of their own (a hook, a drum, charges, a rope) were pasted onto your cameras as huge flat icons, a hook as tall as a house, with no shadow. Now each one is a thing on the ground at its real size, with its shadow in the street light. Your buildings also show their work (the forge's coals, the grinder's smoke, the training bag swinging) only while one of your men works there or right after you use them, and GRIND takes the bodies in one a beat. On the demo: beat a boss or two, open your place, look at your front lots.",
+   "show": {
+    "how": "image",
+    "src": "../records/target/home_base/vote_what_he_has_sits_in_the_ground.webp",
+    "first": "../records/target/vote_first/home-base-what-he-has-sits-in-the-ground-11-27.webp",
+    "firstAt": [
+     856,
+     916,
+     844,
+     390
+    ]
+   },
+   "before_after": {
+    "before": "a boss's thing with no piece was its icon at 70 percent of its lot, upright to the lens, no shadow; every building worked with nobody at it",
+    "after": "each stands on its lot at a thing's size with a contact and a cast shadow; a building works while a man works it or just after he used it",
+    "scale": "the demo on his phone, the same game before and now: upright on top, sideways below, a close-up of the front row on the right"
+   },
+   "stage": "stand_in",
+   "record": "records/BOHEMIA_HOME_BASE_WHAT_HE_HAS_SITS_IN_THE_GROUND_11_27_26.md",
+   "build": "BUILD 11/27a - WHAT HE HAS SITS IN THE GROUND"
+  }
  ],
  "verdicts": [
   {
