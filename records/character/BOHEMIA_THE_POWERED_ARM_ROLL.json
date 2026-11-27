@@ -1,0 +1,83 @@
+[
+ {
+  "id": "powered_arm_0",
+  "gang": "Powered Arm",
+  "heritage": "asian",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "DEEP TAPER",
+  "hair": [
+   "cloth_black",
+   1
+  ],
+  "face": {
+   "face.browY": 2,
+   "brows.len": 11,
+   "face.eyeY": 1,
+   "face.jawW": 30,
+   "face.chinW": 15,
+   "face.craniumH": 8,
+   "nose.w": 4
+  },
+  "face_name": "HEAVY BROW",
+  "legs": "BLACK CARGOS",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "LEATHER BELT"
+  ],
+  "type": "Powered Arm",
+  "top": "BONE TANK",
+  "pieces": [
+   "powered_arm"
+  ],
+  "dials": {
+   "height": 0.25,
+   "belly": 0.0,
+   "shoulders": 0.45,
+   "hips": 0.0
+  }
+ },
+ {
+  "id": "powered_arm_1",
+  "gang": "Powered Arm",
+  "heritage": "hispanic",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.craniumH": 15,
+   "face.len": 31,
+   "face.foreheadW": 28,
+   "face.cheekW": 31
+  },
+  "face_name": "HIGH DOME",
+  "legs": "SOOT CARGOS",
+  "feet": "FIELD BOOTS",
+  "kit": [
+   "LEATHER BELT"
+  ],
+  "type": "Powered Arm",
+  "top": "STORM GREY TEE",
+  "coat": "TACTICAL VEST",
+  "hat": "HAT CHARCOAL WATCH CAP",
+  "pieces": [
+   "powered_arm"
+  ],
+  "dials": {
+   "height": 0.05,
+   "belly": 0.25,
+   "shoulders": 0.55,
+   "hips": 0.1
+  }
+ }
+]
