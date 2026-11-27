@@ -218,7 +218,33 @@
     return price;
   }
 
-  var API = { mendPrice: mendPrice, buyEach: buyEach, buyShown: buyShown, sellEach: sellEach, sellEachAt: sellEachAt, pays: pays,
+  /* ---------------------------------------------------------------------------
+     THE STALL'S DAY (ECONOMY THREE 11/27, VAMILY rule 485(b): 'the city's money moves whether he is there or not, and he can see it:
+     stalls open, sell out and close... prices move with what is scarce'). records/BOHEMIA_ECONOMY_THREE_THE_RUNNING_CITY_11_27_26.md.
+     A stall puts out a day's stock at first light (the_day.stock, by the place's size) and the town's own people buy it down while it
+     is open, faster where the town is short (ctx.need, the town's card) and by the day's own luck (seeded by place and day, so one
+     town's rice is gone by noon and the next one's lasts to dusk). What he bought this visit comes off it too. The price climbs as
+     the shelf empties (the last unit at 1 + climb times the dawn price). Shut at night (the_day.open). Tape is not on it: tape keeps
+     its own shelf and back room (rule 271). Returns null where the good has no day (the stall then sells as before).
+       ctx: { tier, min (the map's minute of the day), day, seed (the place's name), need, bought (units he bought this visit) }
+     --------------------------------------------------------------------------- */
+  function seedOf(str) { var h = 2166136261; str = String(str); for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0) / 4294967296; }
+  function theDay(file, good, ctx) {
+    var D = file && file.the_day; ctx = ctx || {};
+    if (!D || typeof ctx.min !== 'number' || !isFinite(ctx.min)) return null;
+    var st = D.stock && D.stock.value && D.stock.value[good]; if (!st) return null;
+    var full = +st[ctx.tier || 'town'] || +st.town || 0; if (!(full > 0)) return null;
+    var hours = (D.open && D.open.value) || [360, 1200], m = ((ctx.min % 1440) + 1440) % 1440;
+    var open = m >= hours[0] && m < hours[1];
+    var f = Math.max(0, Math.min(1, (m - hours[0]) / Math.max(1, hours[1] - hours[0])));
+    var luck = 1 + num(D.spread, 0) * (seedOf(String(ctx.seed || '') + ':' + good + ':' + (ctx.day | 0)) * 2 - 1);
+    var burn = full * (1 - num(D.left_at_close, 0.25)) * f * luck * (ctx.need > 0 ? ctx.need : 1);
+    var left = Math.max(0, Math.round(full - burn - (ctx.bought | 0)));
+    var climb = 1 + num(D.climb, 1) * (1 - left / full);
+    return { open: open, full: full, left: left, climb: climb, gone: left <= 0 };
+  }
+
+  var API = { mendPrice: mendPrice, theDay: theDay, buyEach: buyEach, buyShown: buyShown, sellEach: sellEach, sellEachAt: sellEachAt, pays: pays,
               handful: handful, line: line, needUnits: needUnits, needAt: needAt, warns: warns, cutOf: cutOf, sizeOf: sizeOf,
               tapeShelf: tapeShelf, tapePrice: tapePrice,
               tradeGood: tradeGood, madeHere: madeHere, makes: makes, tradeBuy: tradeBuy, tradeSell: tradeSell, tradeStock: tradeStock,

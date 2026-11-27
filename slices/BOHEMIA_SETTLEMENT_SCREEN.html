@@ -1545,7 +1545,8 @@ function stallPrice(row){
   var file = STALLP && window.BohemiaStallPrices ? STALLP : null, ctx = stallCtx(row.good), m = traitMult(), L = file ? BohemiaStallPrices.line(file, row.good, ctx) : null;
   var buy = row.good === 'tape' ? tapeCost(row.units) : L ? L.buy : Math.max(1, Math.round(row.price * m.buy * (row.good === 'meds' ? m.meds : 1) * (row.good === 'food' ? m.food : 1)));   /* no file yet: the old one battery */
   var k = row.units > 1 ? row.units : (L ? L.handful : 0), p = file && k ? BohemiaStallPrices.pays(file, row.good, ctx, k) : 0;
-  return {buy:buy, k:k, p:p, word:L ? L.word : null, needLeft:L ? L.needLeft : 0};
+  var D = stallDay(row, ctx); if(D && D.open) buy = Math.max(buy, Math.round(buy * D.climb));   /* __THE_STALLS_DAY__: dearer as the shelf empties */
+  return {buy:buy, k:k, p:p, word:L ? L.word : null, needLeft:L ? L.needLeft : 0, day:D};
 }
 function stallLots(key){ if(!S.stallLots || S.stallLots.visit !== S.visit) S.stallLots = {visit:S.visit, rows:{}}; return S.stallLots.rows[key] = S.stallLots.rows[key] || {sold:[], bought:[]}; }
 /* the two boxes of a line as they stand: BUY (or BACK, what he sold here this visit) and SELL (or BACK, what he bought) */
@@ -1554,6 +1555,7 @@ function stallSides(row){
   var sl = lots.sold[lots.sold.length - 1], bl = lots.bought[lots.bought.length - 1];
   var buy = sl ? {k:sl.k, p:sl.p, back:true, need:sl.need | 0} : {k:row.units, p:pr.buy, back:false};
   var sell = bl ? {k:bl.k, p:bl.p, back:true} : {k:pr.k, p:pr.p, back:false};
+  if(!sl && pr.day){ buy.shut = !pr.day.open; buy.gone = pr.day.open && pr.day.left < row.units; if(buy.shut || buy.gone) buy.p = null; }   /* __THE_STALLS_DAY__ */
   buy.off = buy.p == null || bats() < buy.p;
   sell.off = !sell.k || have < sell.k || !(sell.p >= 1);
   return {pr:pr, buy:buy, sell:sell, have:have};
@@ -1568,12 +1570,27 @@ function haveWord(good, n){ return good === 'food' ? n + (n === 1 ? ' night' : '
    at the end of a line. NOW: a price over his purse is red wherever he buys (Battle Brothers' own way), the box still readable; what he
    hands over to sell is the good's own picture and the count; both buys say the price; a label takes a second line before it is cut.
    No row grows, nothing moves (the boxes and the strip keep their sizes). ==== */
+/* ==== __THE_STALLS_DAY__ (ECONOMY THREE 11/27, rule 485(b)): what the stall has left at this hour, by the engine's theDay
+   (engine/bohemia_stall_prices.js); food, meds and rounds; tape keeps its own shelf. No hour from the map: as before. ==== */
+function stallDay(row, ctx){
+  if(row.good === 'tape' || typeof S.mapMin !== 'number' || !STALLP || !window.BohemiaStallPrices || !BohemiaStallPrices.theDay) return null;
+  var bought = 0; try{ stallRows().forEach(function(r){ if(r.good === row.good) stallLots(r.key).bought.forEach(function(b){ bought += (b.k | 0) * (r.units | 0 || 1); }); }); }catch(e){}
+  return BohemiaStallPrices.theDay(STALLP, row.good, {tier:S.place.tier, min:S.mapMin, day:S.mapDay | 0, seed:S.place.name, need:ctx && ctx.need, bought:bought});
+}
+function stallDayLine(){   /* the keeper says the day, first: shut, or what is gone (draft:true, WORDS) */
+  var rows = stallRows().filter(function(r){ return r.good !== 'tape' && r.units === 1; }), D = rows.map(function(r){ return {r:r, d:stallDay(r, stallCtx(r.good))}; }).filter(function(x){ return x.d; });
+  if(!D.length) return null;
+  if(!D[0].d.open) return 'Shutters are down till first light. The tape is in the back, I can do that much.';
+  var gone = D.filter(function(x){ return x.d.gone; }).map(function(x){ return x.r.good === 'food' ? 'the food' : x.r.good === 'meds' ? 'the meds' : 'the rounds'; });
+  if(gone.length) return (gone.length > 1 ? gone.slice(0, -1).join(', ') + ' and ' + gone[gone.length - 1] : gone[0]).replace(/^t/, 'T') + (gone.length > 1 ? ' are' : ' is') + ' gone for today. It all went this morning. Come back at first light.';
+  return null;
+}
 function moneyPoor(side, x){ return side === 'buy' && !x.back && x.p != null && bats() < x.p; }
 function moneyHand(cap, good, n){ cap.classList.add('hand'); cap.appendChild(document.createTextNode(' ')); var im = document.createElement('img'); im.className = 'sbg'; im.alt = ''; im.src = 'supply_icons/small/' + good + '.png'; cap.appendChild(im); cap.appendChild(document.createTextNode(String(n))); }
 function stallBox(row, side, x){
   var b = document.createElement('button'); b.type = 'button'; b.className = 'sb ' + side + (x.back ? ' back' : '') + (x.off ? ' off' : '') + (moneyPoor(side, x) ? ' poor' : ''); b.dataset.side = side;
   b.dataset.p = x.p == null ? '' : x.p; b.dataset.k = x.k; if(x.off) b.setAttribute('aria-disabled', 'true');
-  var cap = document.createElement('small'); cap.textContent = x.back ? 'BACK' : side === 'buy' ? 'BUY' : (!x.k ? 'NOT TAKEN' : 'SELL'); b.appendChild(cap);
+  var cap = document.createElement('small'); cap.textContent = x.back ? 'BACK' : side === 'buy' ? (x.shut ? 'SHUT' : x.gone ? 'SOLD OUT' : 'BUY') : (!x.k ? 'NOT TAKEN' : 'SELL'); b.appendChild(cap);
   if(!x.back && side === 'sell' && x.k > 1 && row.units === 1) moneyHand(cap, row.good, row.good === 'rounds' ? x.k * 6 : x.k);   /* __THE_PRICE_AT_A_GLANCE__: what he hands over, in its own picture */
   var pr = document.createElement('span'); pr.className = 'sp';
   if(x.p != null && (side === 'buy' || x.k)){ var bi = document.createElement('img'); bi.src = 'supply_icons/batteries.png'; bi.alt = ''; pr.appendChild(bi); pr.appendChild(document.createTextNode((side === 'sell' ? '+' : '') + x.p)); }
@@ -1649,6 +1666,7 @@ function stallStripFill(el){
   else t = x.back ? 'Sell back ' + unitWord(row.good, x.k) + ' you bought: ' + moneyWord(x.p) + ', what it cost.'
     : !x.k ? 'They have plenty here this week. They will not take it.'
     : 'Sell ' + unitWord(row.good, x.k) + ': +' + moneyWord(x.p) + '.' + (s.have < x.k ? ' You do not have ' + (x.k === 1 ? 'one' : x.k) + '.' : s.pr.word === 'short' && s.pr.needLeft ? ' They need it here: ' + s.pr.needLeft + ' more at this price.' : '');
+  if(sel.side === 'buy' && s.pr.day) t = s.pr.day.open ? (x.gone ? 'Sold out for today. ' : t + ' ' + s.pr.day.left + ' left today.') : 'Shut till first light. ';   /* __THE_STALLS_DAY__ (draft:true) */
   t += ' You have ' + haveWord(row.good, stallHave(row.good)) + (row.good === 'food' ? ', your ' + (S.crewSize || 3) + ' men eat ' + (S.crewSize || 3) + ' a night.' : '.');
   w.textContent = t; f.appendChild(w);
   if(sel.side === 'sell' && !x.back && x.k && s.have >= x.k && stallWarns(row, s)){ var wn = document.createElement('div'); wn.className = 'st-warn'; wn.textContent = 'That leaves less than tonight\'s food for your men.' + (S.stallWarned ? ' Tap it twice again to sell it anyway.' : ''); f.appendChild(wn); }   /* rule 242(a) */
@@ -1658,7 +1676,7 @@ function stallSheet(k, body, acts, line){
   rows.forEach(function(r){ if(sh || r.units > 1) return; var p = stallPrice(r); if(p.word === 'short' && p.needLeft) sh = {r:r, p:p}; });
   var short = sh && STALL_WORDS && STALL_WORDS['short_' + sh.r.good];
   var said = short ? short[seedOf(S.place.name + ':' + stallWeek()) % short.length].text.replace(/\{sell\}/g, moneyWord(sh.p.p)).replace(/\{n\}/g, sh.p.needLeft) : null;   /* ECONOMY's words (draft:true): the town short of a thing says so first */
-  body.appendChild(speak(k, line || said || 'I buy and I sell. Half what I charge, more for what this town is short of. No haggling, mijo.'));   /* draft:true */
+  body.appendChild(speak(k, line || stallDayLine() || said || 'I buy and I sell. Half what I charge, more for what this town is short of. No haggling, mijo.'));   /* draft:true */
   if(S.stallSel && !stallRowOf(S.stallSel.key)) S.stallSel = null;
   dearVisit('stall', rows, function(r){ return r.key; }, function(r){ return stallPrice(r).buy; }, function(r){ return r.units; }).forEach(function(r){ acts.appendChild(stallLine(r)); });   /* __DEAREST_FIRST__, kept for the visit */
   if(tapeOn()){ var sl = document.createElement('div'); sl.className = 'slots'; sl.id = 'tapeleft'; sl.textContent = tapeLeftText(); acts.appendChild(sl); }
@@ -4255,6 +4273,7 @@ function campTime(d){
 function townRest(d){
   if(!!d.night !== !!view.night){ view.night = !!d.night; VAR && (VAR.folkKey = null); if(window.BohemiaHeard) BohemiaHeard.night(view.night); }
   window.__TOWN_REST = { hours: d.hours, day: d.day, min: d.min, town: d.town, at: Date.now() };
+  if(typeof d.min === 'number'){ S.mapMin = d.min; if(typeof d.day === 'number') S.mapDay = d.day; if(S.open === 'stall') try{ stallRefresh(); }catch(e){} }   /* __THE_STALLS_DAY__: the hours pass on the shelf too */
 }
 /* CAMP [camp holds until he ends it] (rule 267(a)): a crew coming is a warning, never the end. One of his men says who and how far, at
    the top of the camp, from his mouth with his face (rule 32a); it never takes a finger (whatever is under it still answers) and goes
@@ -6295,7 +6314,8 @@ function open(o){
   if(typeof o.night === 'boolean') view.night = o.night;
   S.build = null;   /* __BUILD_ON_THE_SCREEN__: a new place, its own lots */
   if(o.held !== undefined) S.mine = !!o.held;   /* __BUILD_ON_THE_SCREEN__: the map says whether this place is yours */
-  if(typeof o.day === 'number') S.mapDay = o.day;   /* __BUILD_ON_THE_SCREEN__: the map's day */
+  if(typeof o.day === 'number') S.mapDay = o.day;
+  if(typeof o.min === 'number') S.mapMin = o.min;   /* ECONOMY THREE __THE_STALLS_DAY__: the map's hour, for what the stall has left */   /* __BUILD_ON_THE_SCREEN__: the map's day */
   heard('');   /* EYES [eyes: the last town's line] (rule 150): a town opens with nothing carried from the last one */
   /* RUN TWO 10/25 (EYES [eyes: the job's real pay]): what a contract pays here is what the map pays (its start's bonus in it),
      and the valley's places, so this board deals from the same list as the phone and no job stands on two boards */
