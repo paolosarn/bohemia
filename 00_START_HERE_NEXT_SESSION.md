@@ -1761,7 +1761,9 @@ ahead. Gate THE FIGHT AS HE HEARS IT (with a planted fail). The whole block: han
 [bb Battle Brothers never changes its battle track on a turn; ours changes on every turn on the beat, so the beat must never slip.]
 [analog horror: his turn is the tape running hot; their turn the same tape with only the heartbeat and the ticking clock left on it.]
 
-SOUNDS THREE (sounds-three-01gkdyus): 11/27 LATEST -- BUILD 11/27w EVERY ORIGIN ITS OWN SONG, BUILT, NOT YET SEEN: THE PROMISE KEEPERS
+SOUNDS THREE (sounds-three-01gkdyus): 11/27 LATEST -- BUILD 11/27zr THE DRONE HEARD, BUILT, NOT YET SEEN: the drone whines going up,
+lands with a blast (the rocket too) and pops shot down, from real recordings, where the fight's sounds live (rule 495); VOTE card.
+BEFORE IT, BUILD 11/27w EVERY ORIGIN ITS OWN SONG: THE PROMISE KEEPERS
 and THE HUNTERS no longer share another origin's song (his THE ORGAN IN THE DROWNED CHAPEL and SLOW CREEP, played at once on the tape,
 before any recording may load); fifteen origins, fifteen songs; VOTE card. The next song batch waits on room: the site is 899 of 900 MB.
 BEFORE IT, BUILD 11/27i TWELVE MORE SONGS, EVERY ONE IN TURN (rule 488, ask row 756): measured first, an hour on the road played 11.5 different songs of 13 and repeated one 12 minutes in. Twelve new songs made

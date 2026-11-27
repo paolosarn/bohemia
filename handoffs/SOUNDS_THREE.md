@@ -1,6 +1,12 @@
 # SOUNDS THREE -- the handoff block (written only by SOUNDS THREE; chat 08c, opened 11/27 by the coordinator for rule 488, ask row 756)
 
-SOUNDS THREE (sounds-three-01gkdyus): 11/27 LATEST -- BUILD 11/27w EVERY ORIGIN ITS OWN SONG, BUILT, NOT YET SEEN (the routine's
+SOUNDS THREE (sounds-three-01gkdyus): 11/27 LATEST -- BUILD 11/27zr THE DRONE HEARD, BUILT, NOT YET SEEN (rule 490, the routine's
+'the next songs and the drone'). The drone whines going up, lands with a blast (the rocket's house too), pops and clatters shot
+down, from real recordings (tools/bohemia_bullet_lands.py voices drone_whine, blast, drone_down; the fight names them in its own
+sound lines; engine/bohemia_bullet_lands.js plays them, the old power-on and shot until loaded). BULLET LANDS 17/0, THE GUNS GROW UP
+23/0. Card sounds3-the-drone-heard-11-27 (TAB: VOTE). The bursts were already real guns, one per round.
+
+ROUND TWO (BUILD 11/27w): BUILD 11/27w EVERY ORIGIN ITS OWN SONG, BUILT, NOT YET SEEN (the routine's
 'keep cooking', rule 488(b) on 237(b)). Before it: BUILD 11/27i TWELVE MORE SONGS, EVERY ONE IN TURN (below).
 
 ROUND TWO, WHAT HE HEARS (TAB: VOTE, the card EVERY ORIGIN ITS OWN SONG; and a new game as THE PROMISE KEEPERS or THE HUNTERS):

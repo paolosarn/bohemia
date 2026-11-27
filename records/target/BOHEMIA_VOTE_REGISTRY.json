@@ -24265,6 +24265,26 @@
     "firstAt": [0, 0, 1182, 560]
    }, "before_after": {"before": "every new crew's choice and BEGIN, which continued his saved game", "after": "the title: NEW GAME (asked once) or CONTINUE", "scale": "the alpha on a 390 x 844 phone, after a reload"}, "record": "records/BOHEMIA_UI_FIVE_THE_ALPHA_SAYS_CONTINUE_11_26_26.md"},
   {
+   "id": "sounds3-the-drone-heard-11-27",
+   "kind": "sound",
+   "lane": "sounds",
+   "sha": "e3fce33d4",
+   "made": "11/27",
+   "title": "THE DRONE HEARD: ITS WHINE, ITS BLAST, SHOT DOWN",
+   "why": "The drone borrowed the power-on hum and a gunshot, so now it whines when it goes up, lands with a blast (the rocket too) and pops and clatters when you shoot it down, all from real recordings. Tap the five buttons and you hear it here in the VOTE tab, and in any fight with a drone or a rocket.",
+   "options": [
+    "A, keep them",
+    "B, not these"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_THE_DRONE_HEARD_11_27_26.html"
+   },
+   "draft": true,
+   "record": "records/BOHEMIA_SOUNDS_THREE_MORE_SONGS_THE_SAME_WAY_11_27_26.md",
+   "build": "BUILD 11/27zr - THE DRONE HEARD"
+  },
+  {
    "id": "sounds3-every-origin-its-own-song-11-27",
    "kind": "song",
    "lane": "sounds",

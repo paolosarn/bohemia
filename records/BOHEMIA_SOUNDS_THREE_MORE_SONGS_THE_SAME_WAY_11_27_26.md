@@ -118,3 +118,17 @@ FIGHT. Each asks: A, keep it in the game; B, take it out. They are in the game a
   list are PLUMBER 8's: routed with these numbers.
 - THE CARD: sounds3-every-origin-its-own-song-11-27 (TAB: VOTE), the three-levels page with its song picker on the two
   songs; THE VOTE CARDS PLAY with CARD set to it, the phone through the alpha's VOTE tab: 8/0.
+
+## ROUND THREE (the routine 'the next songs and the drone', BUILD 11/27zr): THE DRONE HEARD (rule 490, with ARMORY 3)
+- MEASURED: the fight had no name for the drone's or the rocket's sounds: the launch and the scout drone posted 'power_on', the
+  landing and the rocket's house a gunshot (the shooter's rifle). ARMORY 3's record: 'SOUNDS owes a drone's whine and a blast'.
+  The new guns' bursts were already real: every round of a burst or the belt plays a real gun (THE BULLET LANDS, per its gun).
+- BUILT IN THE OWNING PLACES (rule 495, no new patch layer): the fight names them ('drone_up', 'blast', 'drone_down'); three voices
+  in tools/bohemia_bullet_lands.py from real CC0 recordings through the same street, camcorder and tape (the whine: a vacuum motor
+  sped up 2.5 to 2.8 times, a helicopter's rotor, an insect swarm; the blast: a far gunshot slowed to a third, a near crack, glass,
+  gravel, a door slammed slow; the drone down: a pop, the motor dying, steel and gravel); levels through the game's own chain (the
+  blast -12, 8 dB over a gun; the whine -22; the drone down -19); engine/bohemia_bullet_lands.js plays them and falls back to what
+  played before until the sprite is in. Every old voice re-rendered identical; the sprite 91.8 -> 104.4 s, 735 -> 836 KB.
+- GATES: THE BULLET LANDS 17/0 (new legs: the three voices played and placed, the fallback, the fight naming them; the demo's real
+  fight); THE GUNS GROW UP 23/0; ALPHA LOADS 20/0. The card's page on a phone: LOADING, then PLAYING; the file blocked, plain words.
+- THE CARD: sounds3-the-drone-heard-11-27 (TAB: VOTE), five buttons: it goes up, it lands, shot down, and the two as a fight plays them.
