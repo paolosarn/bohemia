@@ -121,6 +121,21 @@ moment's clock stands above the map's left buttons (EYES e03, e06). New gate HIT
 records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_UP_AT_ONCE_11_26_26.md. FOR PLUMBER 8 / COMBAT: HEAL's hidden fight page load. FOR UI FIVE: the HIT THE ROAD band 26 pt tall.
 [bb Battle Brothers: making camp is instant; ours shows it built on the fight's own ground]
 [analog horror: the tape pauses on the street you won, and the fire is already burning when it plays again]
+COOK FIVE (cook-seven-01gkdyuu): 11/27 LATEST -- COOK SEVEN, carrying COOK FIVE's list after COOK SIX -- BUILD 11/27zk - THE POLICE STATION, BUILT (635b09f6f), NOT YET SEEN (rules 480(b), 482; rules 461, 441, 416, 451(a); ask row 723).
+THE POLICE STATION (COMBAT FOUR's BUILD 11/22e, its 'FOR COOK (SIX)'; the third of the 27 stand-in insides): all 198 pieces of the_squad_room and 175 of the_sally_port were
+stand-ins. Now slices/fight_ground/police/ holds police_art.json (floor.floor and floor.ring the squad room's 30 cm vinyl, its own ground pd_vct, rows 0-2; floor.port the
+truck stop bay's concrete, rows 3-4; all 16 names), 16 pieces (the cells, lockers, evidence cage, glass and property cages a tile long so runs meet; the patrol car east to west)
+and its dropped ceiling (dark tees, tiles out, a troffer, a camera's dome in every bay): 572,348 bytes. police.json: only its ceiling entry's "have" and "tile" ([10, 10]).
+Made by tools/bohemia_cook7_the_police_station_finished_11_27_26.py ON the truck stop tool. FOUND: THE GATE's C3 caught the first ceiling at 25 steps, 2% lines (89, 30% now);
+A3 caught a plan two-tone stepping the joins (5.7 against 7.2 now); seven pieces were 2.3 to 7.4% of a tile, now 7.8 (the cones) to 10.5%.
+PROOF on the page both ways: the_squad_room 198, the_sally_port 175, 0 stand-ins, the ceiling's picture drawn, 0 page errors. Gate THE INSIDES WEAR FINISHED ART 133/0.
+VOTE cook7-the-police-station-11-27. Record: records/BOHEMIA_COOK_SEVEN_THE_POLICE_STATION_11_27_26.md.
+*** FOR COMBAT FIVE: the sally port wears the squad room's vinyl until the_sally_port names a floor area: 'floor_areas': { "the_sally_port": [{ "kind": "port", "x": [0, 19], "y": [0, 14] }] }.
+Its block is handoffs/COOK_FIVE.md (COOK SEVEN writes there).
+*** NEXT ON THIS LANE (480(b)): THE BANK (rendered; its small hall pieces and its deposit-box wall are being made fuller, tools/bohemia_cook7_the_bank_finished_11_27_26.py), then the
+library, the fire station, the neon boneyard and the rest (names in handoffs/COMBAT_THREE.md, 'FOR COOK (SIX)'); then ARMORY 3's new guns at fight size.
+[bb Battle Brothers' palisade you see through: the bars and the evidence mesh, a wall for the feet and not for the eyes]
+[analog horror: a phone off its hook on a desk in a station nobody answers; one cell's door open and the others locked with nobody in them]
 COOK FIVE (cook-seven-01gkdyuu): 11/27 LATEST -- COOK SEVEN, carrying COOK FIVE's list after COOK SIX -- BUILD 11/27zd - THE TRUCK STOP, BUILT (19374131e), NOT YET SEEN (rules 480(b), 482; rules 461, 441, 416, 451(a), 479(b); ask row 723).
 THE TRUCK STOP (COMBAT FOUR's BUILD 11/21ze, its 'FOR COOK (SIX)'; the second of the 27 stand-in insides, a map kind of its own on the freeway, seven fights in ten inside):
 all 192 pieces of the_travel_store and 160 of the_service_bay were stand-ins on the mall's floor. Now slices/fight_ground/truckstop/ holds truckstop_art.json (THE GARAGE'S
