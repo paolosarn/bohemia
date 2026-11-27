@@ -9579,6 +9579,14 @@ GATES = [
      "at most 170 MB of canvas (the old way 212 to 316), I4 a ratchet on the most at any step (1,250 MB), P1 the old way past I3 "
      "(__AN_IPHONE_COUNTS_EVERY_CANVAS_UNTIL_IT_IS_EMPTIED__). records/BOHEMIA_PLUMBER_IN_AND_OUT_THE_IPHONES_WAY_11_27_26.md. "
      "Solo. About 4 min", True),
+    ('THE MAP\'S PEOPLE ARE PACKED', ['node', 'gates/the_maps_people_are_packed_gate.js'],
+     "CHARACTER 3 gate, 11/27, ask row 769, VAMILY rule 484(a) amended (Paolo 11/27: 'combat keeps crashing... going in and when I "
+     "finish it'; his A, Safari killing the tab for memory). The map's people sheets as atlases (every cell cut to the box its pixels "
+     "fill, tools/bohemia_character_three_the_map_sheets_packed.py): K1 every atlas fresh and every cell its sheet's cell, K2 on the "
+     "demo's map every people sheet packed in at most half the whole sheets' memory (114 MB of 253 measured), K3 every frame the same "
+     "canvas, K4 the map's own mapPersonDraw from the atlas and the whole sheet at three zooms the same pixels, K5 the depth's box and the "
+     "march's place the same, K6 no page error, P1 the way before (__MAP_SHEETS_WHOLE) all whole, P2 a stale table draws that sheet "
+     "whole, K7 on the site (a fresh sheet's whole file not published, a 404) the map draws from the atlases. records/BOHEMIA_CHARACTER_THREE_THE_MAPS_PEOPLE_ARE_PACKED_11_27_26.md. About 5 min", True),
     ('NEVER CHOPPY (THE FRAME WALK)', ['node', 'gates/never_choppy_the_frame_walk_gate.js'],
      "PLUMBER 8 gate, 11/26, VAMILY rule 480(c)(d) (Paolo 11/26: 'make sure fps is never choppy for nothing'). One walk through every "
      "screen and every move between them on a slowed phone (390 x 844, CPU 4x, the canvas on a GPU process): the freeze census's walk of "

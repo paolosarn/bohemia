@@ -49818,11 +49818,12 @@ function mapMarchFrame(who, look, need, face, walkPh, walkFr){
   var M = window.BohemiaMarch; if (!MAP_MARCH.on || !M || !look || walkPh == null || !(walkFr instanceof RigFrame)) return null;
   var q = null; try { q = M.frame(who, look, need, face, walkPh, true); } catch (_e) { q = null; }
   if (!q) return null;
-  var c = q.cell, key = look + ':' + q.act + ':' + face + ':' + q.pose + ':' + q.leg + ':' + walkFr.ox + ',' + walkFr.oy + ':' + walkFr.height, e = MAP_MARCH.fr[key];
+  var __wx = rigCellX(walkFr), __wy = rigCellY(walkFr);   /* __THE_MAPS_PEOPLE_ARE_PACKED__ (CHARACTER 3): the walk cell's own place in his box, packed or whole */
+  var c = q.cell, key = look + ':' + q.act + ':' + face + ':' + q.pose + ':' + q.leg + ':' + __wx + ',' + __wy + ':' + walkFr.height, e = MAP_MARCH.fr[key];
   if (!e) e = MAP_MARCH.fr[key] = {
-    body: rigFrame(q.img, c[0], c[1], c[2], c[3], walkFr.ox + c[4], walkFr.oy + c[5], walkFr.width, walkFr.height),
-    front: rigFrame(q.front, c[0], c[1], c[2], c[3], walkFr.ox + c[4], walkFr.oy + c[5], walkFr.width, walkFr.height),
-    headAt: q.helm ? [walkFr.ox + q.helm[0], walkFr.oy + q.helm[1]] : null, walk: walkFr };
+    body: rigFrame(q.img, c[0], c[1], c[2], c[3], __wx + c[4], __wy + c[5], walkFr.width, walkFr.height),
+    front: rigFrame(q.front, c[0], c[1], c[2], c[3], __wx + c[4], __wy + c[5], walkFr.width, walkFr.height),
+    headAt: q.helm ? [__wx + q.helm[0], __wy + q.helm[1]] : null, walk: walkFr };
   try { MAP_DREW = MAP_DREW || {}; MAP_DREW.march = MAP_DREW.march || {}; MAP_DREW.march[q.act] = (MAP_DREW.march[q.act] | 0) + 1;
         MAP_DREW.marchLast = { who: who, look: look, act: q.act, pose: q.pose, leg: q.leg, key: q.key, face: face }; } catch (_e) {}
   return e;
@@ -49928,6 +49929,12 @@ var RIG_CAST = { state: 0, meta: null, img: null, sets: {}, drew: 0 };
    (his outlined body, a gate reading the pixels) gets one from a small cache of 48 (rigCanvas), the oldest let go. ==== */
 var RIG_FRAME_ID = 0, RIG_LRU = new Map(), RIG_LRU_MAX = 48;
 function RigFrame(img, sx, sy, sw, sh, ox, oy, W, H){ this.__sheet = img; this.sx = sx; this.sy = sy; this.sw = sw; this.sh = sh; this.ox = ox; this.oy = oy; this.width = W; this.height = H; this.__id = ++RIG_FRAME_ID; }
+/* __THE_MAPS_PEOPLE_ARE_PACKED__ (CHARACTER 3, 11/27/26, ask row 769): a frame cut from a packed atlas keeps where its WHOLE cell sat in
+   its box (cx, cy, cw, ch): the rectangle drawn is the trimmed one, every reader of the cell's place (the depth's box, the march's acts)
+   reads the whole cell's, so nothing moves by a pixel. An unpacked frame's cell is its own rectangle. */
+function rigFrameCell(img, sx, sy, sw, sh, ox, oy, W, H, cx, cy, cw, ch){ var f = new RigFrame(img, sx, sy, sw, sh, ox, oy, W, H); f.cx = cx; f.cy = cy; f.cw = cw; f.ch = ch; return f; }
+function rigCellX(fr){ return fr.cx != null ? fr.cx : fr.ox; }
+function rigCellY(fr){ return fr.cy != null ? fr.cy : fr.oy; }
 RigFrame.prototype.getContext = function(t){ return rigCanvas(this).getContext(t); };
 function rigFrame(img, sx, sy, sw, sh, ox, oy, W, H){ return new RigFrame(img, sx, sy, sw, sh, ox, oy, W, H); }
 /* __A_SPRITE_IS_MADE_IN_MEMORY__ (WORLD THIRTEEN 11/26, rule 480(c); see outline1): the map's sprites keep their pixels in memory
@@ -49944,7 +49951,7 @@ function rigCanvas(fr){
   c = document.createElement('canvas'); c.width = fr.width; c.height = fr.height;
   if (!rigSheetLive(fr)) return c;   /* its sheet let go under a fight: blank, and not kept */
   var x = mapSpriteCtx(c); x.imageSmoothingEnabled = false;   /* __A_SPRITE_IS_MADE_IN_MEMORY__: its pixels are read (the outline), never off the GPU */
-  x.drawImage(fr.__sheet, fr.sx, fr.sy, fr.sw, fr.sh, fr.ox, fr.oy, fr.sw, fr.sh);
+  if (fr.sw > 0 && fr.sh > 0) x.drawImage(fr.__sheet, fr.sx, fr.sy, fr.sw, fr.sh, fr.ox, fr.oy, fr.sw, fr.sh);   /* a packed cell with no pixels has no rectangle */
   RIG_LRU.set(fr.__id, c);
   while (RIG_LRU.size > RIG_LRU_MAX) RIG_LRU.delete(RIG_LRU.keys().next().value);
   return c;
@@ -49954,9 +49961,14 @@ function rigBlit(fr, dx, dy, w, h){
   if (fr instanceof RigFrame && !rigSheetLive(fr)) return;   /* __THE_MAP_LETS_ITS_SHEETS_GO_UNDER_THE_FIGHT__ */
   if (!(fr instanceof RigFrame)) { if (window.MAP_DEPTH_CORE) window.MAP_DEPTH_CORE.push([dx, dy, w, h]); g.drawImage(fr, dx, dy, w, h); return; }
   var kx = w / fr.width, ky = h / fr.height;
+  if (fr.cw != null) {   /* __THE_MAPS_PEOPLE_ARE_PACKED__: the depth reads the whole cell's box, as it did from the whole sheet */
+    var c0 = Math.max(0, fr.cx), c1 = Math.max(0, fr.cy), c2 = Math.min(fr.width, fr.cx + fr.cw), c3 = Math.min(fr.height, fr.cy + fr.ch);
+    if (c2 <= c0 || c3 <= c1) return;
+    if (window.MAP_DEPTH_CORE) window.MAP_DEPTH_CORE.push([dx + c0 * kx, dy + c1 * ky, (c2 - c0) * kx, (c3 - c1) * ky]);
+  }
   var x0 = Math.max(0, fr.ox), y0 = Math.max(0, fr.oy), x1 = Math.min(fr.width, fr.ox + fr.sw), y1 = Math.min(fr.height, fr.oy + fr.sh);
   if (x1 <= x0 || y1 <= y0) return;
-  if (window.MAP_DEPTH_CORE) window.MAP_DEPTH_CORE.push([dx + x0 * kx, dy + y0 * ky, (x1 - x0) * kx, (y1 - y0) * ky]);   /* __THE_MAN_BEHIND_IS_CUT_ON_THE_GPU__: where the frame's own box is */
+  if (window.MAP_DEPTH_CORE && fr.cw == null) window.MAP_DEPTH_CORE.push([dx + x0 * kx, dy + y0 * ky, (x1 - x0) * kx, (y1 - y0) * ky]);   /* __THE_MAN_BEHIND_IS_CUT_ON_THE_GPU__: where the frame's own box is */
   g.drawImage(fr.__sheet, fr.sx + (x0 - fr.ox), fr.sy + (y0 - fr.oy), x1 - x0, y1 - y0, dx + x0 * kx, dy + y0 * ky, (x1 - x0) * kx, (y1 - y0) * ky);
 }
 /* ==== /__THE_MAP_DRAWS_FROM_THE_SHEET__ ==== */
@@ -50038,7 +50050,7 @@ var MAP_SHEETS_HELD = { on: false, quiet: false, pending: false, released: [], r
 var RIG_CLOSED = (typeof WeakMap !== 'undefined') ? new WeakMap() : null;
 function rigSheetLive(fr){
   var im = fr && fr.__sheet; if (!im || im.width !== 0 || !RIG_CLOSED) return !!im;
-  var S = RIG_CLOSED.get(im); if (S && S.state === 2 && S.img) { fr.__sheet = S.img; return true; }
+  var S = RIG_CLOSED.get(im); if (S && S.state === 2 && S.img && ((fr.cw != null) === !!S.pk)) { fr.__sheet = S.img; return true; }   /* CHARACTER 3 __THE_MAPS_PEOPLE_ARE_PACKED__: a packed frame takes only an atlas again, a whole frame a whole sheet */
   return false;
 }
 window.__mapSheetsLetGo = function(){
@@ -50064,6 +50076,52 @@ window.__mapSheetsAgain = function(){
 };
 window.MAP_SHEETS_HELD = MAP_SHEETS_HELD;
 /* ==== end __THE_MAP_LETS_ITS_SHEETS_GO_UNDER_THE_FIGHT__ ==== */
+/* ==== __THE_MAPS_PEOPLE_ARE_PACKED__ (CHARACTER 3, 11/27/26; ask row 769, rule 484(a) amended: 'combat keeps crashing, like when I get
+   into combat and then when I finish it', his A: the page goes white, Safari killing the tab for memory). MEASURED (the demo upright,
+   the map after the town, nothing collected): the map held 166 MB of people sheets in 11 bitmaps for the whole session, under the fight
+   too, and a man fills 23 percent of his cell (town_2 to town_4: 5 to 7 percent, their people stand). NOW each sheet comes as its
+   ATLAS (slices/rig_mix_packed, tools/bohemia_character_three_the_map_sheets_packed.py, the fight's own packer's way): every cell cut
+   to the box its pixels fill, a table of where it went, and a frame is that rectangle with its offset moved by the trim, so the same
+   pixels land on the same glass pixels (the tool proves every cell; THE MAP'S PEOPLE ARE PACKED proves the page). Used only when the
+   sheet's bytes on the server equal the table's (a HEAD request): a sheet re-rendered since the last pack is drawn whole, never old
+   art. BOHEMIA_RIG_YOU stays whole (3 MB). window.__MAP_SHEETS_WHOLE = true is the way before. MAP_PACKED counts what came which way. ==== */
+var MAP_PACKED = { asked: null, index: null, used: 0, whole: 0, stale: 0, MB: 0, wholeMB: 0, by: {} };
+try { window.MAP_PACKED = MAP_PACKED; } catch (_e) {}
+function mapPackedIndex(){
+  if (!MAP_PACKED.asked) MAP_PACKED.asked = fetch('rig_mix_packed/index.json').then(function(r){ return r.ok ? r.json() : null; })
+    .then(function(j){ return (MAP_PACKED.index = j && j.sheets ? j.sheets : {}); }, function(){ return (MAP_PACKED.index = {}); });
+  return MAP_PACKED.asked;
+}
+function mapPackedFor(name, m){   /* the atlas's table when it was cut from the sheet on the server now; null: the whole sheet */
+  if (window.__MAP_SHEETS_WHOLE || typeof fetch !== 'function') return Promise.resolve(null);
+  return mapPackedIndex().then(function(ix){
+    var e = ix && ix[name];
+    if (!e || !m || e.cw !== m.w || e.ch !== m.h || e.cols !== m.cols) return null;
+    /* ON THE SITE a sheet whose atlas is fresh is not published (tools/bohemia_publish_list.js, rule 6's kind for slices/rig_mix): its
+       size asked, a 404 says the deploy found the atlas fresh; a sheet re-rendered since its pack ships whole and answers its size */
+    return fetch(name + '.png', { method: 'HEAD' }).then(function(r){ if (r.status === 404) { MAP_PACKED.unpublished = (MAP_PACKED.unpublished | 0) + 1; return e.bytes; } return +(r.headers.get('content-length') || 0); }, function(){ return 0; })
+      .then(function(bytes){
+        if (!bytes || bytes !== e.bytes) { MAP_PACKED.stale++; return null; }
+        return fetch('rig_mix_packed/' + e.stem + '.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(pk){
+          if (!pk || pk.bytes !== e.bytes || pk.cw !== m.w || pk.ch !== m.h) return null;
+          var b = atob(pk.cells), t = new Uint16Array(b.length >> 1);
+          for (var i = 0; i < t.length; i++) t[i] = b.charCodeAt(i * 2) | (b.charCodeAt(i * 2 + 1) << 8);
+          pk.t = t; pk.url = 'rig_mix_packed/' + pk.atlas; return pk;
+        });
+      });
+  }).catch(function(){ return null; });
+}
+/* one cell of a sheet at its whole size (m.w x m.h), packed or whole: for a reader that reads a sheet's cell by its row and column */
+function rigSheetCellCanvas(S, row, col){
+  var m = S && S.meta; if (!m || !S.img) return null;
+  var c = document.createElement('canvas'); c.width = m.w; c.height = m.h;
+  var x = c.getContext('2d', { willReadFrequently: true }); x.imageSmoothingEnabled = false;
+  if (S.pk) { var i = (row * S.pk.cols + col) * 6, t = S.pk.t; if (t[i + 4] && t[i + 5]) x.drawImage(S.img, t[i], t[i + 1], t[i + 4], t[i + 5], t[i + 2], t[i + 3], t[i + 4], t[i + 5]); }
+  else x.drawImage(S.img, col * m.w, row * m.h, m.w, m.h, 0, 0, m.w, m.h);
+  return c;
+}
+try { window.rigSheetCellCanvas = rigSheetCellCanvas; } catch (_e) {}
+/* ==== /__THE_MAPS_PEOPLE_ARE_PACKED__ ==== */
 function rigSheetLoad(S, name){
   S.__name = name;
   if (S.state) return;
@@ -50072,7 +50130,15 @@ function rigSheetLoad(S, name){
   S.state = 1;
   try {
     fetch(name + '.json').then(function(r){ return r.json(); }).then(function(m){
-      var land = function(im){ S.meta = m; S.img = im; S.state = 2; mapSheetLanded(); };   /* PLUMBER 8 __A_SHEET_LANDING_DRAWS_ONCE__ */
+      /* __THE_MAPS_PEOPLE_ARE_PACKED__: its atlas when it is cut from this very sheet, else the whole sheet as before */
+      if (name !== 'BOHEMIA_RIG_YOU' && !S.__wholeOnly) return mapPackedFor(name, m).then(function(pk){ if (!pk) { S.__wholeOnly = true; S.state = 0; S.__m = m; rigSheetLoad(S, name); return; }
+        var landP = function(im){ S.meta = m; S.pk = pk; S.img = im; S.state = 2; MAP_PACKED.used++; MAP_PACKED.MB += pk.aw * pk.ah * 4 / 1048576; MAP_PACKED.by[name] = 'packed ' + pk.aw + 'x' + pk.ah; mapSheetLanded(); };
+        var picP = function(){ var im = new Image(); im.onload = function(){ landP(im); }; im.onerror = function(){ S.pk = null; S.__wholeOnly = true; S.state = 0; rigSheetLoad(S, name); }; im.src = pk.url; };
+        if (window.__SHEETS_NO_BITMAP || typeof window.createImageBitmap !== 'function') { picP(); return; }
+        fetch(pk.url).then(function(r){ if (!r.ok) throw new Error('' + r.status); return r.blob(); })
+          .then(function(b){ return createImageBitmap(b); }).then(function(bm){ try { bm.naturalWidth = bm.width; bm.naturalHeight = bm.height; bm.complete = true; bm.src = bm.currentSrc = new URL(pk.url, document.baseURI).href; } catch (_x) {} landP(bm); }, picP);   /* its own address: BohemiaWear's mask worker fetches the atlas itself */
+      });
+      var land = function(im){ S.meta = m; S.img = im; S.state = 2; if (name !== 'BOHEMIA_RIG_YOU') MAP_PACKED.whole++; MAP_PACKED.wholeMB += (im.width || 0) * (im.height || 0) * 4 / 1048576; MAP_PACKED.by[name] = 'whole ' + im.width + 'x' + im.height; mapSheetLanded(); };   /* PLUMBER 8 __A_SHEET_LANDING_DRAWS_ONCE__ */
       var asPicture = function(){ var im = new Image(); im.onload = function(){ land(im); }; im.onerror = function(){ S.state = 3; }; im.src = name + '.png'; };
       /* __A_SHEET_DECODES_OFF_THE_FRAME__ (CHARACTER 2, 11/26/26, rule 480(c)): a people sheet (rig_mix, 476 x 8,256; the town's
          490 x 12,288) was unpacked on the page's thread the first time the map drew from it, one frame of 67 to 100 ms on a CPU
@@ -50093,7 +50159,10 @@ function rigSheetSet(S, key){
   while (Math.round(H * 0.93) < m.foot) H++;   /* the tallest hat inside the picture (10/19: all thirteen walk, the feet sit at 124; the people's at 135) */
   /* __THE_MAP_DRAWS_FROM_THE_SHEET__ (RUN 10/24): a frame is its rectangle on the sheet, not a canvas of its own */
   var cut = function(row, col){
-    return rigFrame(S.img, col * m.w, row * m.h, m.w, m.h, 56 - m.w / 2, Math.round(H * 0.93) - m.foot, 112, H);
+    var ox = 56 - m.w / 2, oy = Math.round(H * 0.93) - m.foot;
+    if (S.pk) { var t = S.pk.t, i = (row * S.pk.cols + col) * 6;   /* __THE_MAPS_PEOPLE_ARE_PACKED__: the cell's rectangle on the atlas, moved by its trim */
+      return rigFrameCell(S.img, t[i], t[i + 1], t[i + 4], t[i + 5], ox + t[i + 2], oy + t[i + 3], 112, H, ox, oy, m.w, m.h); }
+    return rigFrame(S.img, col * m.w, row * m.h, m.w, m.h, ox, oy, 112, H);
   };
   for (var di = 0; di < m.dirs.length; di++) {
     var row = gi * m.dirs.length + di, f = { idle: cut(row, 0) };

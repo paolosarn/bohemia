@@ -63,7 +63,8 @@ async function run(profile) {
   ok('Y1 his map sheet is the fight\'s own YOU, cut and not redrawn', y1.frames === 56 && y1.bad === 0, y1.frames + ' frames, ' + y1.bad + ' off, the worst ' + y1.worst + ' levels');
   /* the two heads, off the sheets */
   const ref = await fr.evaluate(() => ({ you: __HEAD.avg(__HEAD.frame(RIG_YOU.img, 0, 0, RIG_YOU.meta.w, RIG_YOU.meta.h), RIG_YOU.meta.w, RIG_YOU.meta.h),
-    body: (() => { const m = RIG_PEOPLE.meta, gi = m.gangs.indexOf('body'); return __HEAD.avg(__HEAD.frame(RIG_PEOPLE.img, 0, gi * 8 * m.h, m.w, m.h), m.w, m.h); })() }));
+    body: (() => { const m = RIG_PEOPLE.meta, gi = m.gangs.indexOf('body'); const c = window.rigSheetCellCanvas ? rigSheetCellCanvas(RIG_PEOPLE, gi * 8, 0) : null;   /* CHARACTER 3 11/27: the cell at its whole size, the sheet packed or whole (__THE_MAPS_PEOPLE_ARE_PACKED__) */
+      return __HEAD.avg(c ? __HEAD.frame(c, 0, 0, m.w, m.h) : __HEAD.frame(RIG_PEOPLE.img, 0, gi * 8 * m.h, m.w, m.h), m.w, m.h); })() }));
   const onGlass = async (z) => fr.evaluate((z) => {
     /* WHOSE BODY leads, read with CHARACTER's armour layer off (10/26, __THE_ARMOUR_HE_WEARS_SHOWS__ puts a helmet on his head; that
        layer is CHARACTER's gate's, THE ARMOUR HE WEARS SHOWS): the head under it is the man */

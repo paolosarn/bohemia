@@ -626,6 +626,10 @@ const castNote = 'none: the demo draws its people from the 3-D rig sheets only (
 let packNote = 'not checked';
 try { const pk = require('child_process').spawnSync('python3', [path.join(ROOT, 'tools/bohemia_run_the_sheets_packed.py')], { cwd: ROOT, encoding: 'utf8', timeout: 600000 });
   packNote = ((pk.stdout || pk.stderr || '') + '').trim().split('\n').pop(); } catch (_e) { packNote = 'the packer did not run: ' + _e.message; }
+/* __THE_MAPS_PEOPLE_ARE_PACKED__ (CHARACTER 3, 11/27, ask row 769): the map's people sheets the same way; a sheet re-rendered since its
+   last pack is drawn whole until it is packed again (seconds when nothing is stale) */
+try { const pm = require('child_process').spawnSync('python3', [path.join(ROOT, 'tools/bohemia_character_three_the_map_sheets_packed.py')], { cwd: ROOT, encoding: 'utf8', timeout: 600000 });
+  packNote += '; the map: ' + ((pm.stdout || pm.stderr || '') + '').trim().split('\n').pop(); } catch (_e) { packNote += '; the map\'s packer did not run: ' + _e.message; }
 console.log('=== CUT THE DEMO ===');
 console.log('  workshop : ' + (alpha.length / 1048576).toFixed(2) + ' MB, ' + (notes.removedTabs.length + notes.keptTabs.length) + ' tabs');
 console.log('  removed  : ' + notes.removedTabs.length + ' dev tab(s) -- ' + notes.removedTabs.join(' '));

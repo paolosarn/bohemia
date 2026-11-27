@@ -90,6 +90,24 @@ const DEAD_KINDS = [
   { dir: 'records/target/master_rig', kind: /\/(cook_trailer|cook_camp_trailer|cook_cart|truck)\/((raw|id|rigid|rigobj|shadow)_(S|SE|E|NE|N|NW|W|SW)\.png|calibration_(cube|sphere)\.png|calibration\.json|rig\.json|camp_trailer\.glb|rig_S\.look\.png|rig_S\.loop\.jsonl)$/,
     tell: /(['"`\/])(raw|id|rigid|rigobj|shadow)_(S|SE|E|NE|N|NW|W|SW)\b|calibration_(cube|sphere)|(raw|id|rigid|rigobj|shadow)_['"`]\s*\+|(^|[^\w.])rig\.json|camp_trailer\.glb|rig_S\.look|loop\.jsonl/,
     why: "COOK's camp renders' passes (COOK SEVEN 11/27, rule 482(c), measured: 112 files, 6.18 MB): the camp's loaders (slices/bohemia_camp_look.js, slices/bohemia_camp_map.js, the fight's CAMP_RIG) build only cook_cart/ and truck/ rig_<turn>.png; the trailers are not drawn (camp_look: 'drawn when COOK cuts a camp trailer'), and the raw, id, rig-id, rig-object and shadow passes, the calibration cube and sphere, rig.json, the .glb and the loop's look are the rig's working files" },
+  /* CHARACTER 3, 11/27/26 (ask row 769, PAGES PUBLISH at 910 MB of 900 after BUILD 11/27u THE MAP'S PEOPLE ARE PACKED): the walk renders
+     a look is baked from (rig_Anim_<take>_<turn>_k<key>.png, 5.5 MB in the gangs' and the barber's folders): the map draws its walks from
+     slices/rig_mix and BOHEMIA_RIG_CAST, the fight from slices/fight_rig; the one loader of these folders (engine/bohemia_rig_bodies.js)
+     builds <look>/rig_<turn>.png, the eight turns; engine/bohemia_people_mix.js names the kind only in its src note */
+  { dir: 'records/target/character', kind: /\/rig_Anim_[^/]*\.png$/, tell: /rig_Anim_['"`]|rig_Anim_[^<\s'"`]*['"`]\s*\+|rig_Anim_[^\s'"`]*\$\{|['"`]Anim_['"`]?\s*\+/,
+    why: "the walk renders a look is baked from: the map and the fight draw their walks from the baked sheets (slices/rig_mix, BOHEMIA_RIG_CAST, slices/fight_rig); the folder's one loader builds <look>/rig_<turn>.png" },
+  /* CHARACTER 3, 11/27/26, the same round: a map people sheet whose atlas is fresh (slices/rig_mix_packed/index.json's bytes equal the
+     sheet's) is drawn from the atlas, so the whole sheet does not ship; the map reads a whole sheet the site does not have (its size
+     asked, a 404) as 'the atlas is fresh' (__THE_MAPS_PEOPLE_ARE_PACKED__). A sheet re-rendered since its pack is not fresh and ships
+     whole, as the map then draws it. A page that names one exactly still publishes it (rule 2). */
+  { dir: 'slices/rig_mix', kind: (function () {
+      const fresh = new Set();
+      try { const ix = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/rig_mix_packed/index.json'), 'utf8')).sheets || {};
+        for (const n in ix) { const f = n + '.png'; if (!/^rig_mix\//.test(n)) continue;
+          try { if (fs.statSync(path.join(ROOT, 'slices', f)).size === ix[n].bytes && fs.existsSync(path.join(ROOT, 'slices/rig_mix_packed', ix[n].stem + '.png'))) fresh.add('slices/' + f); } catch (e) {} } } catch (e) {}
+      return { test: (f) => fresh.has(f), toString: () => 'a sheet with a fresh atlas (' + fresh.size + ')', size: fresh.size };
+    })(), tell: /rig_mix\/['"`]\s*\+[^;\n]*['"`]\.png['"`]|rig_mix\/[A-Za-z0-9_]+\.png/,
+    why: "the map's people sheets whose atlas is fresh: the map draws them from slices/rig_mix_packed and reads a missing whole sheet as the atlas being fresh" },
 ];
 /* and rule 3 does not take a folder whole that the code names only in prose (a path in a comment broken at the line's end) */
 const NOT_WHOLE = new Map([
@@ -192,7 +210,8 @@ function compute() {
         else if (!/\.[A-Za-z0-9]{1,5}$/.test(p)) {
           /* rule 2b: a bare name the code adds its own extension to (rigSheetLoad(RIG_CAST, 'BOHEMIA_RIG_CAST') fetches
              BOHEMIA_RIG_CAST.json and .png; found by the serve-only gate, 11/6) */
-          for (const x of EXT) if (FILE.has(p + x)) add(p + x, f + '  (the bare name ' + bare + ', ' + x + ' added)', isWeak);
+          for (const x of EXT) if (FILE.has(p + x)) { if (!CODE.test(f) && deadKind(p + x)) continue;   /* rule 7 for a bare name too (CHARACTER 3, 11/27: rig_mix_packed's table names each sheet bare) */
+            add(p + x, f + '  (the bare name ' + bare + ', ' + x + ' added)', isWeak); }
         }
         if (!FILE.has(p) && !isWeak && CODE.test(f) && DIR.has(p) && t.includes('/') && !NEVER_WHOLE.has(p) && !NOT_WHOLE.has(p)) { if (!whole.has(p)) whole.set(p, f); }
       }
