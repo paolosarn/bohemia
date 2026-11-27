@@ -87,7 +87,14 @@ async function oneFight(d, o) {
   out.fightShotPage = shot; out.camLoop = cam;
   const SF = () => p.frames().find(x => /SPOILS_SCREEN/.test(x.url()));
   for (let i = 0; i < 120 && !(SF() && await SF().evaluate(() => window.BohemiaSpoilsScreen && BohemiaSpoilsScreen.state.opened).catch(() => false)); i++) await p.waitForTimeout(200);
+  if (o.onLoot) { try { await o.onLoot(); } catch (e) { out.errs.push('onLoot: ' + e.message); } }   /* CAMP FOUR: the moment the loot screen is up */
   await p.waitForTimeout(o.lootMs || 1200);   /* lootMs: he reads the loot first (a player's few seconds on the loot screen) */
+  /* CAMP FOUR (rule 482, __HEAL_IS_WARM__): o.leave: LEAVE by a real tap instead of MAKE CAMP, and back on the map */
+  if (o.leave) { out.warmAtLeave = await p.evaluate(() => window.CW ? { made: CW.made, on: !!CW.fr, loaded: !!CW.loaded, why: CW.why } : null).catch(() => null);
+    try { await p.frameLocator('#spoilsdoor iframe').locator('#leave').tap({ timeout: 8000 }); out.left = true; } catch (e) { out.err = 'no LEAVE on the loot screen'; return out; }
+    for (let i = 0; i < 150; i++) { if (await p.evaluate(() => !document.getElementById('spoilsdoor') && !document.getElementById('fightFrame')).catch(() => false)) break; await p.waitForTimeout(200); }
+    await p.waitForTimeout(1500); out.home = await p.evaluate(() => !document.getElementById('spoilsdoor') && !document.getElementById('fightFrame')).catch(() => false);
+    return out; }
   /* the camp held while it is measured: a camp made for mending ends itself the hour his men are whole (CAMP's rule 278(a), the
      game's own; measured: after a fight on AUTO the men were whole in about two seconds of the camp's clock and the camp closed before
      it could be read). The gate reads the camp's look, so the map's campDone is held off for this page (said in the gate) */

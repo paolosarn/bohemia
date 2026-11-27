@@ -7,8 +7,9 @@
    On the demo upright and on its side: HEAL on the map at 16:00 with his men hurt, watched every 150 ms to the stop, then two fingers in.
      G1 THEIR BARS AT A GLANCE: while they mend, the fight's two bars over every man of his (YOU too), and a man's blood rises on them
      G2 WHOLE: the hour they are whole every bar reads full, and five seconds later the bars are gone (the camp is his men idling)
-     G3 THE TAPE RUNS: while they mend the tape in the corner counts the hours gone, rising; at whole it reads STOP and EVERYONE WHOLE;
-        five seconds later it is gone
+     G3 THE TAPE RUNS: while they mend the tape counts the hours gone, rising; at whole it reads STOP and EVERYONE WHOLE; five seconds
+        later its words are gone (RE-AIMED 11/27, CAMP FOUR, rule 487: the tape is the line under the camp's clock at the top, and the clock
+        stays; gates/the_camp_comes_alive_gate.js holds the clock)
      G4 THE HOURS ON THE GROUND: each man's shadow moves with the hour (the sun's swing) while the hours run
      G5 THE DUSK COMES OVER: the hours crossing five to seven, the night's picture is laid over the day's part of the way (never a swap)
      G6 THE NIGHT LAID IN: by nightfall the screen's own picture slots hold the camp's day and its night, two pictures (the look's '+'
@@ -66,9 +67,9 @@ async function run(way) {
     const atW = W != null ? S[Math.min(S.length - 1, W + 7)] : null, after = W != null ? S[Math.min(S.length - 1, W + 38)] : null;
     ok('G2 ' + tag + ': WHOLE: every bar full at the stop, and the bars gone five seconds on', !!atW && Object.values(atW.bars.at || {}).every(v => v.b >= 0.98 && v.a >= 0.98) && atW.bars.shown >= Math.max(1, ...S.map(r => r.men | 0)) && !!after && after.bars.shown === 0,
       JSON.stringify({ wholeRead: W, atWhole: atW && atW.bars, after: after && after.bars && { shown: after.bars.shown, alpha: after.bars.alpha } }));
-    const tapes = mend.map(r => r.tape).filter(Boolean), hrs = tapes.map(t => +((String(t.l2).match(/\+(\d+)/) || [])[1] || -1));
-    ok('G3 ' + tag + ': THE TAPE RUNS: the hours gone counted in the corner while they mend, STOP and EVERYONE WHOLE at the stop, gone five seconds on',
-      tapes.length >= 3 && hrs[hrs.length - 1] > hrs[0] && !!atW && !!atW.tape && /STOP/.test(atW.tape.l1) && /WHOLE/.test(atW.tape.l2) && !!after && !after.tape,
+    const tapes = mend.map(r => r.tape).filter(Boolean), hrs = tapes.map(t => +((String(t.l1 + ' ' + t.l2).match(/\+(\d+)/) || [])[1] || -1));   /* RE-AIMED 11/27: the hours on the tape's line under the clock */
+    ok('G3 ' + tag + ': THE TAPE RUNS: the hours gone counted while they mend, STOP and EVERYONE WHOLE at the stop, its words gone five seconds on (the clock stays)',
+      tapes.length >= 3 && hrs[hrs.length - 1] > hrs[0] && !!atW && !!atW.tape && /STOP/.test(atW.tape.l1) && /WHOLE/.test(atW.tape.l2) && !!after && (!after.tape || (!after.tape.l1 && !after.tape.l2 && !!after.tape.clock)),   /* RE-AIMED 11/27 (CAMP FOUR, rule 487): the tape's words go, the camp's clock stays at the top */
       JSON.stringify({ first: tapes[0], last: tapes[tapes.length - 1], atWhole: atW && atW.tape, after: after && after.tape }));
     const dxs = mend.map(r => r.sun && r.sun.shadowDx).filter(v => v != null);
     ok('G4 ' + tag + ': THE HOURS ON THE GROUND: the men\'s shadows swing with the hour while it runs', dxs.length >= 3 && Math.max(...dxs) - Math.min(...dxs) >= 5, JSON.stringify({ min: Math.min(...dxs), max: Math.max(...dxs), reads: dxs.length }));

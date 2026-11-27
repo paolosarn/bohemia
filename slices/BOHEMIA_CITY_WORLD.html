@@ -47530,7 +47530,9 @@ window.BohemiaMapCamp = { make: campMake, break: function(){ campBreak('left'); 
   pitched: function(p, st){ if (CAMP.on && p) { CAMP.pitch = p; window.__CAMP_PITCH = { x: p.x, y: p.y, n: p.n, pieces: (p.pieces || []).length, board: p.board || null, sig: p.sig || null, state: st ? st.state : null, ms: st ? st.ms : null }; } return !!CAMP.pitch; }, on: function(){ return CAMP.on; }, condition: function(){ return campCondition(); }, toggle: function(){ if (CAMP.on) { campBreak('left'); return false; } return campMake(); }, state: function(){ return { on: CAMP.on, hours: CAMP.hours, why: CAMP.why, at: CAMP.at, sight: { street: SIGHT.street, open: SIGHT.open }, followers: Object.keys(CT_FOLLOWERS), whole: !!CAMP.whole, setting: CAMP.on ? campSettingUp() : false }; },
   /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ (rule 472(c)): everyone whole and the clock stopped: who says it and what (the phone's line); his tap */
   whole: function(){ var w = CAMP.on && CAMP.whole; return w ? { line: w.line, who: (w.who && w.who.name) || '', look: (w.who && w.who.look) || null, rest: !!w.rest, town: w.town, t: w.t } : null; },
-  road: function(){ return campRoad(); } };
+  road: function(){ return campRoad(); },
+  /* CAMP FOUR __HEAL_IS_WARM__ (rule 482): anyone still mending (the shell keeps the camp's page warm for HEAL while this is true) */
+  mending: function(){ var c = campCondition(); return !!(c && !c.done); } };
 /* ==== /__THE_CAMP__ ==== */
 /* ==== __THE_MOMENTS_BETWEEN__ (WORLD round 2, ask line 273, Paolo 11/2: 'The transition of the camp to when time passes by and an
    enemy wants to attack you, it's just like sloppy quick bullshit... I want things to look less choppy... less AI slop'). MEASURED

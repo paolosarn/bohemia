@@ -498,7 +498,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"600e444c515ca87a",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"1059895d455cb01f",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1602,7 +1602,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/27r - THE CITY GOES TO WORK</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/27s - THE CAMP COMES ALIVE</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12604,6 +12604,7 @@ function nfOpts(d){
 function nfCamp(){ try{ var cf = document.getElementById('cityFrame'), C = cf && cf.contentWindow && cf.contentWindow.BohemiaCamp; if(C) return C; }catch(_e){} return window.BohemiaCamp || null; }
 function nfOpen(d){
   var pc = document.getElementById('p-combat'); if (!pc) return false;
+  try{ campWarmDrop('a fight'); }catch(_e){}   /* CAMP FOUR __HEAL_IS_WARM__ */
   /* __THE_FIGHT_IS_READ_WHILE_HE_READS_THE_CARD__: a hidden page still reading its files when he says ENGAGE would read them while the
      camera comes down (measured: one 434 ms frame of the way in at 4x, the checkers' ENGAGE the moment the card is up): it goes, and the
      fight's page is made at the camera's stop as before. Only a page already waiting is the fight's. */
@@ -12656,6 +12657,7 @@ var NFW = { fr: null, at: 0, made: 0, used: 0, dropped: 0, loaded: 0 };
 window.NFW = NFW;
 function nfWarm(why){
   if (window.__NO_FIGHT_WARM || NFW.fr || document.getElementById('fightFrame')) return false;
+  try{ campWarmDrop('a fight\'s card'); }catch(_e){}   /* CAMP FOUR __HEAL_IS_WARM__: one hidden fight page at a time */
   var pc = document.getElementById('p-combat'); if (!pc) return false;
   var fr = document.createElement('iframe');
   fr.id = 'fightWarm'; fr.title = 'The fight'; fr.tabIndex = -1; fr.setAttribute('aria-hidden', 'true');
@@ -12686,6 +12688,58 @@ function nfWarmTake(){
 }
 window.nfWarm = nfWarm; window.nfWarmDrop = nfWarmDrop;
 /* ==== /__THE_FIGHT_IS_READ_WHILE_HE_READS_THE_CARD__ ==== */
+/* ==== CAMP FOUR __HEAL_IS_WARM__ (VAMILY rule 482, the coordinator 11/27: 'HEAL never slow'; rule 472(e), rule 441). MEASURED (the demo
+   upright, CPU 4x, HEAL on the map with his men hurt): the camp's first frame 8.0 to 8.9 s after the press, 5.6 s of it a hidden copy of
+   the fight page read cold to bake the camp's ground (slices/bohemia_camp_board.js); a camp made after a fight no longer needs that page
+   (its board is handed at the tap), so since CAMP FOUR's 11/26l nothing read it ahead for HEAL. Idle, the page holds 0.5 MB of
+   pictures and about 6 MB of script; reading it is two short tasks (218 and 175 ms at 4x). NOW, after LEAVE from a fight with any man
+   still mending, once the fight's page is gone and the map has been back four seconds, the camp's page is read in the map's idle time
+   and kept, hidden, while he still has someone to mend: HEAL takes it (the camp's board finds it, campWarmTake) and only bakes. NEVER on
+   the loot screen: rule 484 amended 11/27 (his iPhone dies going into and coming out of a fight), so no page is added while the fight's
+   is alive. It goes when a fight's card comes up or a fight opens (never two fight pages at once), when every man is whole, after ten
+   minutes, or when the camp is made off the fight. window.__HEAL_COLD: the way it was (HEAL reads it cold). ==== */
+var CW = { fr: null, at: 0, made: 0, taken: 0, dropped: 0, why: null, droppedWhy: null };
+window.CW = CW;
+function campMending(){ try{ var cw = document.getElementById('cityFrame').contentWindow; return !!(cw && cw.BohemiaMapCamp && cw.BohemiaMapCamp.mending && cw.BohemiaMapCamp.mending()); }catch(_e){ return false; } }
+function campWarm(why){
+  if (window.__HEAL_COLD || window.__CAMP_WARM_OFF || CW.fr) return false;
+  var fr = document.createElement('iframe'); fr.title = 'the camp\'s board'; fr.setAttribute('aria-hidden', 'true'); fr.tabIndex = -1; fr.id = 'campboardframe';
+  fr.style.cssText = 'position:fixed;left:-12000px;top:0;width:480px;height:320px;border:0;visibility:hidden;pointer-events:none;z-index:-5';
+  var W0 = { campBoard: { warm: true }, odds: false, deploy: false };
+  var set = function(){ try{ var cw = fr.contentWindow; if (cw && cw.location && /BOHEMIA_FIGHT/.test(cw.location.href) && !cw.FIGHT_OPTS) cw.FIGHT_OPTS = W0; }catch(_e){} };
+  var iv = setInterval(set, 4);
+  fr.addEventListener('load', function(){ clearInterval(iv); set(); if (CW.fr === fr) CW.loaded = Date.now(); });
+  fr.src = 'BOHEMIA_FIGHT.html'; (document.body || document.documentElement).appendChild(fr);
+  CW.fr = fr; CW.iv = iv; CW.at = Date.now(); CW.loaded = 0; CW.why = why || null; CW.made++;
+  clearInterval(CW.check); CW.check = setInterval(function(){
+    if (!CW.fr) { clearInterval(CW.check); return; }
+    if (Date.now() - CW.at > 600000) campWarmDrop('ten minutes'); else if (!campMending() && !SPOILS.frame) campWarmDrop('every man whole'); }, 15000);
+  return true;
+}
+function campWarmDrop(why){
+  var fr = CW.fr; if (!fr) return false;
+  CW.fr = null; clearInterval(CW.iv); clearInterval(CW.check); CW.dropped++; CW.droppedWhy = why || null;
+  try{ var cw = fr.contentWindow; if (cw && cw.__fightLetGo) cw.__fightLetGo(); }catch(_e){}
+  try{ fr.src = 'about:blank'; }catch(_e){} try{ fr.remove(); }catch(_e){}
+  return true;
+}
+/* the camp's board takes it (null: none) */
+function campWarmTake(){
+  var fr = CW.fr; if (!fr || window.__HEAL_COLD) return null;
+  CW.fr = null; clearInterval(CW.iv); clearInterval(CW.check);
+  if (!fr.isConnected) return null;
+  CW.taken++; CW.takenAt = Date.now(); CW.age = CW.takenAt - CW.at; CW.ready = !!CW.loaded;
+  return fr;
+}
+function campWarmLater(){
+  if (window.__HEAL_COLD || window.__CAMP_WARM_OFF) return false;
+  clearTimeout(CW.later); CW.later = setTimeout(function(){
+    var go = function(){ try{ if (!CW.fr && !document.getElementById('fightFrame') && !SPOILS.frame && !NFW.fr && campMending()) campWarm('heal'); }catch(_e){} };
+    if (window.requestIdleCallback) requestIdleCallback(go, { timeout: 3000 }); else go(); }, 4000);
+  return true;
+}
+window.campWarm = campWarm; window.campWarmDrop = campWarmDrop; window.campWarmTake = campWarmTake; window.campMending = campMending; window.campWarmLater = campWarmLater;
+/* ==== /__HEAL_IS_WARM__ ==== */
 function nfBuild(d){
   var pc = document.getElementById('p-combat'); if (!pc) return false;
   var fr = document.getElementById('fightFrame');
@@ -12857,7 +12911,8 @@ window.addEventListener('message', function(ev){
   if(m.act === 'counts'){ spoilsPay(m); try{ spoilsScrapToTape(); }catch(_e){} }
   if(m.act === 'leave'){ SPOILS.left = true; if(m.camp) try{ campFromFightKeep(); }catch(_e){}   /* CAMP THREE __THE_CAMP_ON_THE_BOARD__ (rule 406(f)): before the fight's page goes */
     if(m.camp) window.__CAMP_HOLD_BOARD = Date.now();
-    else try{ var cwW = document.getElementById('cityFrame').contentWindow, LW = cwW && cwW.LOOP && cwW.LOOP.frame && cwW.LOOP.frame.contentWindow; if(LW && LW.BohemiaCampBoard && LW.BohemiaCampBoard.warmDrop) LW.BohemiaCampBoard.warmDrop(); }catch(_e){}   /* LEAVE: the warmed camp page let go */   /* MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (rule 444(a)): the board stays on the glass while the camp is made under it (slices/bohemia_motion.js) */
+    else try{ var cwW = document.getElementById('cityFrame').contentWindow, LW = cwW && cwW.LOOP && cwW.LOOP.frame && cwW.LOOP.frame.contentWindow; if(LW && LW.BohemiaCampBoard && LW.BohemiaCampBoard.warmDrop) LW.BohemiaCampBoard.warmDrop(); }catch(_e){}
+    if(!m.camp) try{ campWarmLater(); }catch(_e){}   /* CAMP FOUR __HEAL_IS_WARM__: read for HEAL once the fight is gone and the map is quiet */   /* LEAVE: the warmed camp page let go */   /* MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (rule 444(a)): the board stays on the glass while the camp is made under it (slices/bohemia_motion.js) */
     spoilsClose(); nfHome(); if(m.camp) spoilsCamp(); }
 });
 /* MAKE CAMP FROM THE FIGHT (RUN FOUR [make camp from the fight], rule 267(b), Paolo 10/26: 'after combat ends there should be a button

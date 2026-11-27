@@ -131,7 +131,13 @@
     f.src = 'BOHEMIA_FIGHT.html'; (home.body || home.documentElement).appendChild(f);
     return true;
   }
-  function warmTake() { var w = B.warm; if (!w || !w.f || !w.f.isConnected) { B.warm = null; return null; } clearTimeout(w.timer); B.warm = null; B.warmTaken = (B.warmTaken | 0) + 1; B.warmAge = Date.now() - w.t0; return w.f; }
+  function warmTake() { var w = B.warm; if (!w || !w.f || !w.f.isConnected) { B.warm = null; return shellWarm(); } clearTimeout(w.timer); B.warm = null; B.warmTaken = (B.warmTaken | 0) + 1; B.warmAge = Date.now() - w.t0; return w.f; }
+  /* CAMP FOUR __HEAL_IS_WARM__ (rule 482): the page the shell read on the loot screen and kept while a man is mending (BOHEMIA_ALPHA_0_9.html
+     campWarm); window.__HEAL_COLD: the way it was */
+  function shellWarm() { var T = null; try { T = root.top; } catch (e) { T = null; } if (!T || T === root || T.__HEAL_COLD || typeof T.campWarmTake !== 'function') return null;
+    var f = null; try { f = T.campWarmTake(); } catch (e) { f = null; } if (!f) return null;
+    B.warmTaken = (B.warmTaken | 0) + 1; B.warmAge = T.CW ? T.CW.age : null; B.healWarm = (B.healWarm | 0) + 1; return f; }
+  function shellWarmDrop(why) { try { var T = root.top; if (T && T !== root && typeof T.campWarmDrop === 'function') T.campWarmDrop(why); } catch (e) {} }
   function warmGo(f, opts) {   /* the real options: read by its boot if it is still loading; else its own bake run again */
     var cw = null; try { cw = f.contentWindow; } catch (e) { cw = null; } if (!cw) return;
     var done = false; try { done = cw.__CAMP_BOARD !== undefined; } catch (e) { done = false; }
@@ -201,7 +207,7 @@
       pitch: p, day: live(Q.day) ? Q.day.board : null, night: live(Q.nightL) ? Q.nightL.board : null };   /* a day fight hands no night: it is graded here */
     B.fromFight = true; B.wantSig = ask.sig || null; B.handed = true; B.quickLanded = (B.quickLanded | 0) + 1;
     B.opts = { kind: null, district: ask.district || null, cell: null, night: !!Q.night, deal: ask.__deal != null ? ask.__deal : null, quick: true };
-    warmDrop();   /* nobody needs the warmed page now */
+    warmDrop(); shellWarmDrop('the camp made off the fight');   /* nobody needs the warmed page now */
     fvLandedQuick(key, R);
     return true;
   }
@@ -683,7 +689,7 @@
     if (!B.fv) return null; var F = B.fv;
     return { on: fvOn(), sig: F.sig, z: F.v.z, gw: Math.round(F.gw * 100) / 100, gh: Math.round(F.gh * 100) / 100, man: Math.round(F.v.man * 10) / 10, q: Math.round(F.q * 1e4) / 1e4, T: Math.round(F.T * 10) / 10,
       handed: !!B.handed, r0: F.r0 || 0, okS: F.okS || null, S: F.S, PW: F.PW, PH: F.PH, ox0: F.ox0, oy0: F.oy0, rho: Math.round(F.rho * 100) / 100, W: F.v.W, H: F.v.H, sx0: F.v.sx0, sy0: F.v.sy0, fx: F.v.fx, fy: F.v.fy, ringed: !!F.ringed, composeMs: F.composeMs || null,
-      glass: fvGlass(), men: fromFight(), left: B.fvLeft || [], warm: { taken: B.warmTaken | 0, was: B.warmWas || null, age: B.warmAge || null, made: B.warms | 0, dropped: B.warmDropped | 0 }, bothAt: B.bothAt || null };
+      glass: fvGlass(), men: fromFight(), left: B.fvLeft || [], warm: { taken: B.warmTaken | 0, was: B.warmWas || null, age: B.warmAge || null, made: B.warms | 0, dropped: B.warmDropped | 0, heal: B.healWarm | 0 }, bothAt: B.bothAt || null };
   }
   /* MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__ (rule 444(b)): where the camp stands, tile by tile (the gate's read, nothing drawn):
      every piece's footprint and every man's feet on the board's tiles, and what each tile is: open ground of the camp's height (the
@@ -707,7 +713,7 @@
       win: B.out ? B.out.win : null, tw: B.out ? B.out.tw : null, sameBoth: B.out ? B.out.sameBoth : null, t: B.out ? B.out.t : null,
       fromFight: !!B.fromFight, wantSig: B.wantSig || null, bodies: B.out ? B.out.bodies : 0, dead: B.out && B.out.dead ? B.out.dead.length : 0,
       plates: Object.keys(B.plates).map(function (k) { var P = B.plates[k]; return { key: k, ready: !!P.ready, T: P.T, w: P.w, h: P.h, ms: P.ms }; }), fv: fvState(),
-      tl: B.tl || null, quick: B.quick ? { landed: B.quickLanded | 0, spent: !!B.quick.spent, ms: B.quick.ms, bodies: B.quick.bodies, oneLight: B.oneLight || null } : null };   /* CAMP FOUR __THE_CAMP_COMES_UP_AT_ONCE__ */
+      tl: B.tl || null, heal: { warm: B.healWarm | 0, taken: B.warmTaken | 0 }, quick: B.quick ? { landed: B.quickLanded | 0, spent: !!B.quick.spent, ms: B.quick.ms, bodies: B.quick.bodies, oneLight: B.oneLight || null } : null };   /* CAMP FOUR __THE_CAMP_COMES_UP_AT_ONCE__ */
   }
   root.BohemiaCampBoard = { want: want, state: state, plate: plate, variantOf: variantOf, handOver: handOver, drop: drop, bodies: bodies, walls: walls, onBoard: onBoard, settle: settle, houses: houses, fromFight: fromFight, fvOn: fvOn, fvState: fvState, fvWhere: fvWhere, warm: warm, warmDrop: warmDrop, warmOn: function () { return !!B.warm; }, fvGlass: function () { return B.fv ? fvGlass() : null; }, fit: function (L) { return B.kit && B.sq ? fit(L, B.kit, B.sq) : null; },
     onChange: function (fn) { if (typeof fn === 'function' && B.fns.indexOf(fn) < 0) B.fns.push(fn); }, _B: B };

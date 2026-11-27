@@ -9749,6 +9749,14 @@ GATES = [
      "on PAUSE; a camp made whole runs no hour; two fingers zoom in until a man stands 150 px; after a won fight the camp stands on the "
      "fight's own board handed at the tap, its first frame within 4.5 s, no frame held over 750 ms; planted: the old break and the old "
      "second bake go red. records/BOHEMIA_CAMP_FOUR_THE_CAMP_WAITS_FOR_YOU_11_22_26.md", True),
+    ('THE CAMP COMES ALIVE', ['node', 'gates/the_camp_comes_alive_gate.js'],
+     "CAMP FOUR gate, 11/27, VAMILY rules 482, 487, 472(b)(e), 484 amended (the coordinator 11/27: 'time passing in camp ties to the clock "
+     "now moving to the top of the screen, HEAL never slow, and the crew idling looks alive'). On the demo: C1 the camp's clock at the top in "
+     "the middle, DAY and the time with the sun or the moon, the hours under it while they run, staying once they are whole, the time "
+     "handed to the top page (upright and on its side); C2 under a shell clock (data-top-clock) only the tape's line; C3 the crew lives: "
+     "ANIMATION's talk, smoke, drink, sit, two talking face to face, never two on one spot; C4 HEAL is warm: nothing read on the loot screen, "
+     "the camp's page read on the quiet map and taken by HEAL, let go by a fight's card; P1 __CAMP_IDLE_PLAIN and __HEAL_COLD go red. "
+     "records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_ALIVE_11_27_26.md", True),
     ('THE CAMP READS AT A GLANCE', ['node', 'gates/the_camp_reads_at_a_glance_gate.js'],
      "CAMP FOUR gate, 11/26, VAMILY rules 482 and 480(b) on rule 472(b), rule 441 (the coordinator 11/26: 'the crew idling and healing "
      "reads at a glance, the time passing feels like time, zooming in on a man in camp looks good'). On the demo upright and on its side, "

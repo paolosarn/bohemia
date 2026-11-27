@@ -89,14 +89,15 @@
        gun to the fire, a turn on watch; by night they sleep but the one on watch, as they were */
     if (info && info.whole && !night && (K.drift | 0) > 0) {
       var J = ['cook', 'clean', 'rest', 'watch'], fr = A.filter(function (e) { return !e.main && J.indexOf(e.act) >= 0; });
-      for (var dk = 0, dn = (K.drift | 0) % Math.max(1, fr.length * J.length * 3); dk < dn && fr.length; dk++) { var de = fr[dk % fr.length]; de.act = J[(J.indexOf(de.act) + 1 + (dk % 2)) % J.length]; }
+      if (!root.__CAMP_IDLE_PLAIN && !(root.parent && root.parent.__CAMP_IDLE_PLAIN)) livesActs(fr, K.drift | 0, hour);   /* CAMP FOUR __THE_CREW_LIVES__ */
+      else for (var dk = 0, dn = (K.drift | 0) % Math.max(1, fr.length * J.length * 3); dk < dn && fr.length; dk++) { var de = fr[dk % fr.length]; de.act = J[(J.indexOf(de.act) + 1 + (dk % 2)) % J.length]; }
     }
     if (K.st && K.st.acts) {   /* a man who lay hurt and is healed gets up once (ANIMATION's 'rise') */
       var was = {}; K.st.acts.forEach(function (e) { was[e.name || e.look] = e.act; });
       var tn = root.performance ? performance.now() : Date.now();
       A.forEach(function (e) { var kk = e.name || e.look; if (was[kk] === 'lie' && e.act !== 'lie' && e.act !== 'sleep') (K.rise || (K.rise = {}))[kk] = tn; });
     }
-    var P = CL.spots(A, L);
+    var P = livesSpots(A, L);   /* CAMP FOUR __THE_CREW_LIVES__: CL.spots, with the idle acts placed round the fire and the talkers face to face */
     /* __THE_CAMP_ON_THE_BOARD__ (CAMP THREE, rule 406(g), AMENDED 11/6, Paolo: 'your company's interacting with their kills'): a camp
        made on the board just fought on has its dead where they fell; by day the men with an easy job go through them, the nearest body
        first, a man to a body, never more than half the company (the rest keep the fire, the watch and the hurt) */
@@ -145,6 +146,57 @@
     warmLooks(A);
     return { layout: L, men: M, acts: A, spots: P, hour: hour, night: night, cart: cart, retinue: ret, tall: !!L.tall, fv: !!FV, key: (FV ? 'F' : '') + (L.tall ? 'T|' : 'W|') + A.map(function (e) { return e.act; }).join(',') + '|' + L.pieces.length + '|' + cart + '|' + ret.join(',') };
   }
+  /* ==== CAMP FOUR __THE_CREW_LIVES__ (VAMILY rule 482 on 472(b), the coordinator 11/27: 'the crew idling looks alive'; Paolo 11/22: 'I
+     still want the characters to move around as they were, doing whatever, just breathing and idling around... see them chilling').
+     MEASURED (the demo, a camp made whole, its clock stopped): three men in three still poses a camp apart, none turned to another, and
+     every six seconds one of them carried to the next of the same four jobs (the pot, the gun, the crate, the watch). ANIMATION drew
+     every man of his in five acts the camp never asked for (slices/rig_town: talk, smoke, drink, sit on a crate, light). NOW, once they
+     are whole, the men with nothing to do (never YOU, never the hurt, the dead's or the wall's man) live a scene: two face each other and
+     talk, one smokes or drinks by the fire, they sit round it on crates; the scene turns one man at a time (DRIFT_MS each, the same
+     walk), and the hour picks the scenes: mornings the pot, afternoons talk and smokes, evenings round the fire; by night they sleep and
+     one keeps watch, as before. A lone talker talks to the nearest man, who turns to him. window.__CAMP_IDLE_PLAIN: the way it was. ==== */
+  var LIVES = {
+    morning: [['cook', 'talk', 'talk', 'clean', 'drink', 'watch'], ['talk', 'talk', 'smoke', 'cook', 'talk', 'talk'], ['cook', 'drink', 'clean', 'smoke', 'watch', 'sit'], ['smoke', 'talk', 'talk', 'cook', 'clean', 'drink']],
+    day: [['talk', 'talk', 'smoke', 'cook', 'talk', 'talk'], ['smoke', 'drink', 'cook', 'clean', 'watch', 'sit'], ['drink', 'talk', 'talk', 'smoke', 'clean', 'cook'], ['clean', 'smoke', 'talk', 'talk', 'drink', 'watch']],
+    evening: [['sit', 'sit', 'sit', 'talk', 'sit', 'sit'], ['drink', 'talk', 'talk', 'smoke', 'sit', 'sit'], ['talk', 'talk', 'sit', 'drink', 'talk', 'talk'], ['sit', 'smoke', 'drink', 'sit', 'talk', 'talk']] };
+  var LIVE_ACTS = { talk: 1, smoke: 1, drink: 1, sit: 1 };
+  function livesActs(F, d, hour) {
+    var n = F.length; if (!n) return;
+    var band = LIVES[hour < 11 ? 'morning' : hour < 17 ? 'day' : 'evening'], step = d - 1, cur = Math.floor(step / n), k = step % n;
+    F.forEach(function (e, i) { var sc = i <= k ? cur : cur - 1; if (sc < 0) return; var S = band[sc % band.length]; e.act = S[i % S.length]; e.lives = true; });
+    K.livesScene = cur;
+  }
+  function dirOf(dx, dy) { var a = Math.atan2(dy * 2, dx), k = Math.round(a / (Math.PI / 4)); return ['E', 'SE', 'S', 'SW', 'W', 'NW', 'N', 'NE'][((k % 8) + 8) % 8]; }
+  function livesSpots(A, L) {
+    var real = {}; A.forEach(function (e) { if (LIVE_ACTS[e.act]) { real[e.i] = e.act; e.act = e.act === 'sit' || e.act === 'talk' ? 'clean' : 'rest'; } });   /* the ring round the fire (the sitters') */
+    var P = CL.spots(A, L);
+    A.forEach(function (e) { if (real[e.i]) { e.act = real[e.i]; if (P[e.i]) P[e.i].act = e.act; } });
+    if (!Object.keys(real).length) return P;
+    var f = L.fire, T = A.filter(function (e) { return e.act === 'talk' && P[e.i]; }), side = function (q) { return q.x >= f.x ? 1 : -1; };
+    var face2 = function (a, b) { a.face = dirOf(b.x - a.x, b.y - a.y); b.face = dirOf(a.x - b.x, a.y - b.y); };
+    /* clear of everyone else (and of YOU at his job): a man of the pair never within 100 px (most of a man's height) of another man's spot */
+    var others = function (skip) { var o = []; A.forEach(function (e) { if (skip.indexOf(e.i) < 0 && P[e.i]) o.push(P[e.i]); }); return o; };
+    var clear = function (pts, skip) { var o = others(skip); return pts.every(function (q) { return o.every(function (r) { return Math.hypot(r.x - q.x, r.y - q.y) >= 100; }); }); };
+    /* where two talk: the spot round the fire farthest from every other man (YOU at his job too), every piece of the camp and the fire */
+    var obst = function (skip) { var o = others(skip); (L.pieces || []).forEach(function (pc) { if (pc.kind !== 'follower') o.push({ x: pc.x, y: pc.y - (pc.kind === 'tent' ? 30 : 0) }); }); return o; };
+    var best2 = function (cands, skip) { var o = obst(skip), bestC = null, bs = -1; cands.forEach(function (c) { var m = 1e9; c.pts.forEach(function (q) { o.forEach(function (r) { m = Math.min(m, Math.hypot(r.x - q.x, r.y - q.y)); }); }); if (m > bs) { bs = m; bestC = c; } }); return bestC; };
+    for (var j = 0; j + 1 < T.length; j += 2) {   /* two talk: a stride apart, face to face */
+      var a = P[T[j].i], b = P[T[j + 1].i], skip = [T[j].i, T[j + 1].i], C2 = [];
+      [[a.x, a.y], [f.x - 230, f.y + 70], [f.x + 230, f.y + 70], [f.x - 200, f.y + 190], [f.x + 200, f.y + 190], [f.x - 40, f.y + 230], [f.x - 260, f.y - 40], [f.x + 260, f.y - 40]].forEach(function (c) {
+        [-1, 1].forEach(function (dx) { C2.push({ pts: [{ x: c[0], y: c[1] }, { x: c[0] + dx * 74, y: c[1] + 10 }] }); }); });
+      var pk = best2(C2, skip);
+      a.x = Math.round(pk.pts[0].x); a.y = Math.round(pk.pts[0].y); b.x = Math.round(pk.pts[1].x); b.y = Math.round(pk.pts[1].y);
+      face2(a, b); a.with = T[j + 1].i; b.with = T[j].i; }
+    if (T.length % 2) {   /* a lone talker talks to the nearest man (never YOU, never one lying), who turns to him */
+      var lt = T[T.length - 1], q = P[lt.i], best = null, bd = 1e9;
+      A.forEach(function (e) { if (e === lt || e.main || !P[e.i] || e.act === 'lie' || e.act === 'sleep' || e.act === 'watch') return; var dd = Math.hypot(P[e.i].x - q.x, P[e.i].y - q.y); if (dd < bd) { bd = dd; best = e; } });
+      if (best) { var o = P[best.i], skip2 = [lt.i, best.i], c0 = [[side(o) * 70, 8], [-side(o) * 70, 8], [0, 70], [side(o) * 60, 60]];
+        var pk = c0.filter(function (t) { return clear([{ x: o.x + t[0], y: o.y + t[1] }], skip2); })[0] || c0[0];
+        q.x = Math.round(o.x + pk[0]); q.y = Math.round(o.y + pk[1]); face2(q, o); q.with = best.i; }
+    }
+    return P;
+  }
+  /* ==== end __THE_CREW_LIVES__ ==== */
   function open(info, S) {
     K.info = info || {};
     K.st = build(K.info);
@@ -352,7 +404,7 @@
     var p = K.st.layout.pieces.filter(function (q) { return q.key === k; })[0]; if (!p || !p.sleeps) return [];
     return p.sleeps.map(function (i) { var m = K.st.men[i]; return m ? (m.main ? 'YOU' : m.name || 'ONE OF YOURS') : null; }).filter(Boolean);
   }
-  var SAYS = { lean: 'leans on the wall', loot: 'goes through the dead', lie: 'is down, bandaged', rest: 'binds a cut by the fire', mend: 'mends his armour', tend: 'sits with the hurt', cook: 'cooks', clean: 'cleans a gun', watch: 'keeps watch', sleep: 'sleeps' };
+  var SAYS = { lean: 'leans on the wall', loot: 'goes through the dead', lie: 'is down, bandaged', rest: 'binds a cut by the fire', mend: 'mends his armour', tend: 'sits with the hurt', cook: 'cooks', clean: 'cleans a gun', watch: 'keeps watch', sleep: 'sleeps', talk: 'shoots the shit', smoke: 'has a smoke', drink: 'takes a pull off the bottle', sit: 'sits by the fire' };   /* CAMP FOUR __THE_CREW_LIVES__: the four new, draft:true */
   function doing() {
     if (!K.st) return [];
     return K.st.acts.map(function (e) { return (e.main ? 'YOU' : (e.name || 'ONE OF YOURS')) + ' ' + (SAYS[e.act] || 'rests'); });
@@ -496,7 +548,7 @@
     /* his men: in the pitch they come out of the carrier to their places; after it, each at his act */
     /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ (rule 472(b)): the clock stopped, the men keep moving about (build's drift, one man a step) */
     var WH = K.info && K.info.whole;
-    if (WH && !(K.pitch && K.pitch.on)) { if (K.wholeT0 == null) K.wholeT0 = now; var drn = Math.floor((now - K.wholeT0) / DRIFT_MS); if (drn !== (K.drift | 0)) { K.drift = drn; try { K.st = build(K.info); K.folkKey = null; } catch (e) {} } }
+    if (WH && !(K.pitch && K.pitch.on)) { if (K.wholeT0 == null) K.wholeT0 = now; var drn = Math.floor((now - K.wholeT0) / (+root.__CAMP_DRIFT_MS > 0 ? +root.__CAMP_DRIFT_MS : DRIFT_MS));   /* a gate may hurry the drift (never the game) */ if (drn !== (K.drift | 0)) { K.drift = drn; try { K.st = build(K.info); K.folkKey = null; } catch (e) {} } }
     else if (!WH && K.wholeT0 != null) { K.wholeT0 = null; K.drift = 0; }
     var F = folk(), B = ctx.B, I = ctx.I, k = ctx.k, H = ctx.personH * s;
     try { barYou(ctx); } catch (e) {}   /* __THEIR_BARS_AT_A_GLANCE__: YOU, walking */
@@ -536,7 +588,7 @@
      own words for an act are in its pictures. 'rest' is binding a cut on a crate (its 'mend'), 'mend' is the armour at the cart
      (its 'repair', the car door and the hammer); a man who was lying and is healed gets up ONCE ('rise', from the moment he
      healed), then does his job */
-  var ANIM_ACT = { lie: 'lie', sleep: 'sleep', rest: 'mend', mend: 'repair', tend: 'tend', cook: 'cook', clean: 'clean', loot: 'loot', lean: 'flirt' };   /* __THE_CAMP_AFTER_A_FIGHT__: lean is the flirt's wall (the hand up on it) */   /* CAMP THREE: loot, ANIMATION's when his look has it (the aftermath's act) */
+  var ANIM_ACT = { lie: 'lie', sleep: 'sleep', rest: 'mend', mend: 'repair', tend: 'tend', cook: 'cook', clean: 'clean', loot: 'loot', lean: 'flirt', talk: 'talk', smoke: 'smoke', drink: 'drink', sit: 'sit' };   /* CAMP FOUR __THE_CREW_LIVES__: ANIMATION's talk, smoke, drink and sit */   /* __THE_CAMP_AFTER_A_FIGHT__: lean is the flirt's wall (the hand up on it) */   /* CAMP THREE: loot, ANIMATION's when his look has it (the aftermath's act) */
   var RISE_MS = 4000;   /* its one slot: 24 keys, two bars at 120 BPM */
   var DRIFT_MS = 6000;   /* CAMP FOUR: twelve beats at 120 BPM between one man's next thing and the next man's */
   function animCell(m, now, face, I) {
@@ -660,30 +712,89 @@
      horror law: a camcorder's own words): while the hours run the camp's glass carries the tape's fast-forward in its top corner, the
      two arrows stepping on the beat, the clock and the hours gone since he sat down; the hour the last man is whole it reads STOP, three
      seconds, and goes. Drawn once an hour into a small picture (a few words, never a font a frame). window.__CAMP_NO_TAPE = off. ==== */
+  /* ==== CAMP FOUR __THE_CLOCK_AT_THE_TOP__ (VAMILY rule 487, Paolo 11/27: 'take it off the phone and put it at the top of the screen cause
+     I feel like people aren't connecting'; the coordinator 11/27: 'time passing in camp ties to the clock now moving to the top of the
+     screen'). The tape above stood in the camp's top corner and went with the stop. NOW it is the camp's clock at the TOP of the screen,
+     in the middle, under the map's bar: the day and the time with the sun or the moon, there the whole camp (stopped or running); under
+     it, while the hours run, the tape's fast-forward and the hours gone; at the stop 'STOP, EVERYONE WHOLE' three seconds, then only the
+     clock stays. The clock is UI FIVE's (rule 487, BUILD 11/27f THE CLOCK UP TOP: the day and the hour at the map's bar's right end, on
+     every screen that wears the bar, camp too, the map's own clock read twice a second): when that clock stands (or any clock marked
+     data-top-clock above this page), the camp draws no clock of its own, only the tape's line, hung under it, so the one clock at the
+     top races while the tape says why; the camp's own clock at the top middle stands in only when there is none. The camp hands its time
+     to the top page every hour (top.__CAMP_TIME, the event 'bohemia-camp-time'). window.__CAMP_TAPE_CORNER: the way it was. ==== */
+  function topClockEl() {   /* UI FIVE's clock on the map's bar (#bmtb .s.clk, __THE_CLOCK_UP_TOP__) or any clock marked data-top-clock, in a page above this one; its box in this page's own coordinates */
+    var w = root, ox = 0, oy = 0;
+    for (var k = 0; k < 4; k++) {
+      var fe = null; try { fe = w.frameElement; } catch (e) { fe = null; }
+      if (!fe || !w.parent || w.parent === w) break;
+      var r0 = fe.getBoundingClientRect(); ox += r0.left; oy += r0.top; w = w.parent;
+      var el = null; try { el = w.document.querySelector('[data-top-clock], #bmtb .s.clk[data-f=clock]'); } catch (e) { el = null; }
+      if (el) { var r = el.getBoundingClientRect(); if (r.width > 0 && r.height > 0) return { left: r.left - ox, top: r.top - oy, width: r.width, height: r.height, bottom: r.bottom - oy, right: r.right - ox, band: !el.hasAttribute('data-top-clock') }; }
+    }
+    return null;
+  }
+  function campTimeTell(t) { try { var T = root.top; if (!T || T === root) return; var key = JSON.stringify(t); if (K.timeTold === key) return; K.timeTold = key; T.__CAMP_TIME = t; T.dispatchEvent(new T.CustomEvent('bohemia-camp-time', { detail: t })); } catch (e) {} }
   function tapeDraw(cx, ctx) {
     if (root.__CAMP_NO_TAPE || !K.st || !K.info || typeof K.info.min !== 'number' || !K.pitch || K.pitch.on || boardWait()) { K.tapeShown = null; return; }   /* once the camp is set up: its hours are what it counts */
-    var now = ctx.now, whole = !!K.info.whole, al = 1;
-    if (whole) { if (K.tapeWholeT == null) K.tapeWholeT = now; var tw = now - K.tapeWholeT; al = tw < 3000 ? 1 : Math.max(0, 1 - (tw - 3000) / 600); } else K.tapeWholeT = null;
-    if (al <= 0) { K.tapeShown = null; return; }
-    var two = function (n) { return (n < 10 ? '0' : '') + n; }, m = ((K.info.min % 1440) + 1440) % 1440, hrs = K.info.hours | 0;
-    var clock = two(Math.floor(m / 60)) + ':' + two(m % 60), line1 = (whole ? 'STOP  ' : '') + clock, line2 = whole ? 'EVERYONE WHOLE' : '+' + hrs + (hrs === 1 ? ' HOUR' : ' HOURS');   /* draft:true */
-    var key = line1 + '|' + line2;
+    var corner = !!(root.__CAMP_TAPE_CORNER || (root.parent && root.parent.__CAMP_TAPE_CORNER));
+    var now = ctx.now, whole = !!K.info.whole, a2 = 1;
+    if (whole) { if (K.tapeWholeT == null) K.tapeWholeT = now; var tw = now - K.tapeWholeT; a2 = tw < 3000 ? 1 : Math.max(0, 1 - (tw - 3000) / 600); } else K.tapeWholeT = null;
+    var two = function (n) { return (n < 10 ? '0' : '') + n; }, m = ((K.info.min % 1440) + 1440) % 1440, hrs = K.info.hours | 0, day = (K.info.day | 0) || 1, hh = Math.floor(m / 60);
+    var clock = two(hh) + ':' + two(m % 60), night = hh >= 18 || hh < 6;
+    campTimeTell({ on: true, day: day, min: m, night: night, hours: hrs, running: !whole, whole: whole });
+    if (corner) { if (a2 <= 0) { K.tapeShown = null; return; } }
+    if (!K.extAt || now - K.extAt > 500 || now < K.extAt) { K.extAt = now; K.ext = corner ? null : topClockEl();   /* UI FIVE's clock at the top, if the shell carries one (read twice a second, never a frame) */
+      var ox1 = 0, oy1 = 0; try { var wv = root; while (wv && wv.parent && wv !== wv.parent && wv.frameElement) { var fr0 = wv.frameElement.getBoundingClientRect(); ox1 += fr0.left; oy1 += fr0.top; wv = wv.parent; } } catch (e) {}
+      K.extOff = [ox1, oy1]; }
+    var ext = K.ext;
+    var l0 = corner || ext ? null : 'DAY ' + day + '  ' + clock;   /* the clock line (draft:true) */
+    var l1 = corner ? (whole ? 'STOP  ' : '') + clock : (whole ? 'STOP' : '+' + hrs + (hrs === 1 ? ' HOUR' : ' HOURS'));
+    var l2 = corner ? (whole ? 'EVERYONE WHOLE' : '+' + hrs + (hrs === 1 ? ' HOUR' : ' HOURS')) : (whole ? 'EVERYONE WHOLE' : null);   /* draft:true */
+    var showTape = a2 > 0;
+    var key = [l0, l1, l2, night, showTape].join('|');
+    var F = 'BohemiaROM,BohemiaCasing,ui-monospace,monospace';
     if (K.tapeKey !== key || !K.tapeC) {
-      var c = K.tapeC || (K.tapeC = document.createElement('canvas')), g = c.getContext('2d'), fs = 13, lh = 17;
-      g.font = '700 ' + fs + 'px BohemiaROM,BohemiaCasing,ui-monospace,monospace';
-      var w = Math.ceil(Math.max(g.measureText('>> ' + line1).width, g.measureText(line2).width)) + 30;
-      c.width = w; c.height = lh * 2 + 8; g = c.getContext('2d'); g.font = '700 ' + fs + 'px BohemiaROM,BohemiaCasing,ui-monospace,monospace'; g.textBaseline = 'top';
+      var c = K.tapeC || (K.tapeC = document.createElement('canvas')), g = c.getContext('2d'), fs0 = 16, fs = 13, lh0 = 21, lh = 17, pad = 26;
+      var tapeLine = corner ? null : (whole ? l1 + '  ' + l2 : l1);
+      g.font = '700 ' + fs0 + 'px ' + F; var w0 = l0 ? g.measureText(l0).width + 24 : 0;
+      g.font = '700 ' + fs + 'px ' + F; var w1 = corner ? Math.max(g.measureText('>> ' + l1).width, g.measureText(l2).width) + 30 : (showTape && tapeLine ? g.measureText(tapeLine).width + pad : 0);
+      var w = Math.ceil(Math.max(w0, w1, 40)), h = corner ? lh * 2 + 8 : (l0 ? lh0 : 0) + (showTape && tapeLine ? lh : 0) + 6;
+      c.width = w; c.height = Math.max(8, h); g = c.getContext('2d'); g.textBaseline = 'top';
       var ink = function (t, x, y) { g.fillStyle = 'rgba(214,40,32,.55)'; g.fillText(t, x + 2, y); g.fillStyle = 'rgba(70,196,214,.4)'; g.fillText(t, x - 1, y); g.fillStyle = 'rgba(0,0,0,.7)'; g.fillText(t, x + 1, y + 1); g.fillStyle = '#efe7d2'; g.fillText(t, x, y); };
-      ink(line1, 26, 2); ink(line2, 26, 2 + lh);
+      if (corner) { g.font = '700 ' + fs + 'px ' + F; ink(l1, 26, 2); ink(l2, 26, 2 + lh); K.tapeLay = { corner: true }; }
+      else {
+        var y = 2, L0 = null, L1 = null;
+        if (l0) { g.font = '700 ' + fs0 + 'px ' + F; var tw0 = g.measureText(l0).width, x0c = Math.round((w - tw0 - 24) / 2);
+          /* the sun or the moon, before the day */
+          g.save(); g.translate(x0c + 8, y + 9);
+          if (!night) { g.fillStyle = 'rgba(0,0,0,.6)'; g.beginPath(); g.arc(1, 1, 6, 0, 7); g.fill(); g.fillStyle = '#f0b84a'; g.beginPath(); g.arc(0, 0, 6, 0, 7); g.fill(); }
+          else { g.fillStyle = 'rgba(0,0,0,.6)'; g.beginPath(); g.arc(1, 1, 6, 0, 7); g.fill(); g.fillStyle = '#d8dbe6'; g.beginPath(); g.arc(0, 0, 6, 0, 7); g.fill(); g.globalCompositeOperation = 'destination-out'; g.beginPath(); g.arc(3, -2, 5, 0, 7); g.fill(); }
+          g.restore();
+          ink(l0, x0c + 24, y); L0 = { x: x0c, y: y, w: tw0 + 24 }; y += lh0; }
+        if (showTape && tapeLine) { g.font = '700 ' + fs + 'px ' + F; var tw1 = g.measureText(tapeLine).width, x1c = Math.round((w - tw1 - pad) / 2); ink(tapeLine, x1c + pad, y + 1); L1 = { x: x1c, y: y + 1 }; }
+        K.tapeLay = { L0: L0, L1: L1 };
+      }
       K.tapeC = c; K.tapeKey = key;
     }
-    var x0 = 14, y0 = 58, beatOn = (now % 500) < 300;
-    cx.save(); cx.globalAlpha = al; cx.drawImage(K.tapeC, x0, y0);
+    var W = ctx.cx && ctx.cx.canvas ? ctx.cx.canvas.width / ((root.devicePixelRatio || 1) || 1) : 390;
+    try { var VW = root.innerWidth || W; W = VW; } catch (e) {}
+    var cw0 = K.tapeC.width, x0, y0;
+    if (corner) { x0 = 14; y0 = 58; }
+    var ox = (K.extOff || [0, 0])[0], oy = (K.extOff || [0, 0])[1];   /* this page's place in the top page */
+    if (corner) {}
+    else if (ext) { var Wc = W || 390; x0 = Math.round(Math.max(4, Math.min(Wc - cw0 - 4, (ext.left + ext.width / 2) - cw0 / 2))); y0 = Math.round(Math.max(4, ext.bottom + 4)); }   /* under his clock, on this page's glass */
+    else { x0 = Math.round((W - cw0) / 2); y0 = 8; }
+    var beatOn = (now % 500) < 300, LY = K.tapeLay || {};
+    cx.save(); cx.drawImage(K.tapeC, x0, y0);
     cx.fillStyle = '#efe7d2';
-    if (whole) cx.fillRect(x0 + 6, y0 + 4, 10, 10);   /* the stop square */
-    else if (beatOn) { cx.beginPath(); cx.moveTo(x0 + 2, y0 + 3); cx.lineTo(x0 + 10, y0 + 9); cx.lineTo(x0 + 2, y0 + 15); cx.closePath(); cx.moveTo(x0 + 11, y0 + 3); cx.lineTo(x0 + 19, y0 + 9); cx.lineTo(x0 + 11, y0 + 15); cx.closePath(); cx.fill(); }   /* the two arrows, on the beat */
+    if (corner) { cx.globalAlpha = 1;
+      if (whole) cx.fillRect(x0 + 6, y0 + 4, 10, 10);
+      else if (beatOn) { cx.beginPath(); cx.moveTo(x0 + 2, y0 + 3); cx.lineTo(x0 + 10, y0 + 9); cx.lineTo(x0 + 2, y0 + 15); cx.closePath(); cx.moveTo(x0 + 11, y0 + 3); cx.lineTo(x0 + 19, y0 + 9); cx.lineTo(x0 + 11, y0 + 15); cx.closePath(); cx.fill(); } }
+    else if (showTape && LY.L1) { var ax = x0 + LY.L1.x + 2, ay = y0 + LY.L1.y + 1; cx.globalAlpha = a2;
+      if (whole) cx.fillRect(ax + 4, ay + 2, 10, 10);   /* the stop square */
+      else if (beatOn) { cx.beginPath(); cx.moveTo(ax, ay + 1); cx.lineTo(ax + 8, ay + 7); cx.lineTo(ax, ay + 13); cx.closePath(); cx.moveTo(ax + 9, ay + 1); cx.lineTo(ax + 17, ay + 7); cx.lineTo(ax + 9, ay + 13); cx.closePath(); cx.fill(); } }   /* the fast-forward, on the beat */
     cx.restore();
-    K.tapeShown = { l1: line1, l2: line2, alpha: Math.round(al * 100) / 100, x: x0, y: y0, w: K.tapeC.width, h: K.tapeC.height };
+    K.tapeShown = { clock: l0 || clock, l1: showTape ? l1 : null, l2: showTape ? l2 : null, alpha: Math.round(a2 * 100) / 100, x: x0, y: y0, w: cw0, h: K.tapeC.height, top: !corner, under: !!ext, band: !!(ext && ext.band), night: night, pageY: Math.round(y0 + oy) };
   }
   function drawMan(cx, ctx, m, x, y, walking, now, s, k, H, B, I, z) {
     var fx = ctx.view.ox + x * s, fy = ctx.view.oy + y * s, night = K.st.night;
