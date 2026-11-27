@@ -102,8 +102,8 @@ handoffs/CHARACTER.md; records/BOHEMIA_CHARACTER_TWO_THE_CONE_COMES_OFF_11_26_26
 
 CAMP FOUR (camp-four-01gkdyuu): 11/27 LATEST -- BUILD 11/27zo - THE BARS KEEP HIS LINE, BUILT, NOT YET SEEN (rules 261(e), 278(c), 406(b)(c); rule 13's full suite). Its block is handoffs/CAMP_THREE.md.
 The camp's bars follow his 87 percent line and rise with his number now (they stood over every man and never rose); a crew that reaches the camp fights him on the camp's own
-ground (the camp asked for its board without the fight door's stamps). THE BARS OVER THEIR HEADS LIFTED (12/0); THE CAMP IS PITCHED ON THE BOARD 13/1. FULL SUITE (main 1a47fd794): 1,020 of 1,238 at 11:14 UTC,
-621 green, 399 red (332 the quarantine's); its last line follows.
+ground (the camp asked for its board without the fight door's stamps). THE BARS OVER THEIR HEADS LIFTED (12/0); THE CAMP IS PITCHED ON THE BOARD 13/1. FULL SUITE (main 1a47fd794): DONE, 1,089 of 1,238 ran
+(the ten-hour clock), 655 green, 434 red; the quarantine 368 red, 23 CAN LIFT; 95 new reds to the alone pass, by owner in the record; no camp red is real (all five green alone).
 records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_ALIVE_11_27_26.md.
 [bb Battle Brothers: the bars show who is hurt and nothing else; the ambush at night is fought where the company sleeps]
 [analog horror: a bar that drains back up as the tape runs, gone when he is whole]

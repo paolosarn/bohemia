@@ -133,7 +133,27 @@ gates: T1's heal per hour 8.5 and 8.8, the hours and the hit points read in two 
 
 ## The full suite (the routine's first ask)
 
-SUITE_RESULTS
+Run on main 1a47fd794 in its own worktree (BOHEMIA_SUITE_BUDGET 36000 s, started 02:09 UTC, the pack ended near 12:20 UTC).
+- THE PACK: 1,089 of 1,238 gates ran before the ten-hour clock ended it (149 never ran); 655 green, 434 red.
+- THE QUARANTINE (the suite's own count): 394 listed, 368 ran red (named debt, they never decide a ship), 23 ran green and CAN LIFT:
+  DROP A JOB RIGHT IN THE TOWN, EVERY FIGHT HANDS HIM BACK, NO OVERLAP, SETTINGS, SETTLEMENT PEOPLE (ORPHAN), THE BEST RECRUIT AT THE TOP,
+  THE FIGHT SAVES AT ITS START, THE NORMIE HOUR WORLD, THE ROLL CALL, THE TOWN AND THE HIRE, REACHABILITY, LOOK, EVERY ITEM HAS AN ICON,
+  SEE EVERY HIT, THE BESTIARY, THE NEW ENEMIES, WEAPON SHAPES, THE FIGHT DRIVES THE MUSIC, THE FIRST FIGHT TEACHES, THE LOSS IS
+  UNDERSTOOD, FATIGUE COMES BACK EVERY TURN, A JOB PAYS FOR THE TIME AND THE RISK, NO RUN ENDS FOR TAPE. Each line is its owner's to
+  strike (this lane struck only its own, THE BARS OVER THEIR HEADS).
+- NEW REDS (not on the quarantine): 95, which the suite then re-runs ALONE to tell a real red from load. At 12:30 UTC 9 of them were
+  green alone (STING AUDIBLE, NO TWO TEXTS OVERLAP ON THE DEMO, THE MAP ANSWERS AFTER BEGIN, THE MAP HEARS, THE START SCREEN, THE CARD
+  READS CLEAN, THE FORMATION IS KEPT, SAVE BEFORE THE BELL, DEMO TALKS); the alone pass runs hours past this round and is not counted here.
+- THE NEW REDS BY OWNER (the 63 the log names with a lane; the rest are timeouts): PLUMBER 8 7 (NEVER CHOPPY THE FRAME WALK, NO FREEZE
+  OVER HALF A SECOND, THE LOT IS BAKED WHILE HE READS, THE FLASH COSTS NO FRAMES, THE PHONE REDRAWS ONLY WHAT MOVED, THE CAMP LOADS IN ONE
+  GO, ...); RUN TWO 5 (EQUIP FROM THE STASH, THE FACE IS HIS OWN FACE, WHO YOU HIRE FIGHTS, THE WAGON AND THE SIX, THE SHOP TAPS); SOUNDS 5
+  (MAP HEARD, THE MAP PLAYS THE PART OF TOWN, THE VOTE CARDS PLAY, ONE SONG ONLY, THE ONE BEAT); CAMP 4 (THE HEAL BUTTON, STRUCK DOWN HE
+  STILL FIGHTS, CAMP HOLDS UNTIL HE ENDS IT, A TOWN IS SAFE); UI 4; UI FIVE 4; PEOPLE 3; CHARACTER 3; BOSSES 3; WORLD 14 3; COMBAT 7 2;
+  PLUMBER 6 2; MOTION 3 2; RUN SIX 2; one each RUN FOUR, ANIMATION, RUN, RUN THREE, COMBAT 9, COMBAT 10, PLUMBER 3, FEED, UI TWO, PORTRAIT,
+  CAMP FOUR, WORLD 11, WORLD 12, WORDS THREE.
+- THE CAMP'S OWN: the four CAMP reds were each green alone on main (STRUCK DOWN's S6 re-aimed to wait for the camp's hours, fb86e3699);
+  CAMP FOUR's HIT THE ROAD, EVERY TIME (R5 on its side in the pack: no MAKE CAMP on the end screen) ran 13/0 alone on main 55958e4d5
+  at 12:29 UTC. No camp red is real on main.
 
 [bb Battle Brothers: the company sits round the fire between contracts; the men are the life of the screen, and the day's clock is at
 the top, always.]

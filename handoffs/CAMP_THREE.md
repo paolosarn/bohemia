@@ -19,10 +19,12 @@ THE CAMP LOADS IN ONE GO 5/1 like main's own files (L2's longest task: the box).
 NOT DONE, NEXT: (1) the camp on a place's board (asked with the template, its picture never comes; a crew there fights him on the place's
 board, the camp on another); (2) B7 upright: the camp after a win on the fight's camera, a dead man off the upright glass is never gone
 through; (3) from the 11/27s block: HEAL cold, the ground bake (COMBAT's), the followers' carts in the set-up.
-THE FULL SUITE (the routine's first ask; main 1a47fd794, a worktree, BOHEMIA_SUITE_BUDGET 36000 s, started 02:09 UTC): at 11:14 UTC 1,020 of
-1,238 reported, 621 green, 399 red, 332 of them on the quarantine (the debt), 67 not on it; 22 quarantined gates green again (CAN LIFT).
-The camp's four new reds in it (THE HEAL BUTTON, STRUCK DOWN, CAMP HOLDS, A TOWN IS SAFE) all green alone on main (STRUCK DOWN's S6
-re-aimed, fb86e3699). Its last line and the new reds by owner follow from this lane when its clock ends (12:09 UTC at the latest).
+THE FULL SUITE (the routine's first ask; main 1a47fd794, a worktree, BOHEMIA_SUITE_BUDGET 36000 s, started 02:09 UTC): DONE. The pack ran
+1,089 of 1,238 before the ten-hour clock (149 never ran): 655 green, 434 red. The quarantine (the suite's count): 394 listed, 368 red, 23
+green again (CAN LIFT, named in the record, each its owner's to strike). 95 new reds went to the alone pass (9 green alone by 12:30 UTC;
+it runs hours past this round). By owner: PLUMBER 8 7, RUN TWO 5, SOUNDS 5, CAMP 4, UI 4, UI FIVE 4, PEOPLE 3, CHARACTER 3, BOSSES 3,
+WORLD 14 3, then twos and ones (the record lists them). The camp's own five (THE HEAL BUTTON, STRUCK DOWN, CAMP HOLDS, A TOWN IS SAFE,
+HIT THE ROAD) are all green alone on main (S6 re-aimed fb86e3699; HIT THE ROAD 13/0 on 55958e4d5). No camp red is real.
 [bb Battle Brothers: the bars show who is hurt and nothing else; the ambush at night is fought where the company sleeps.]
 [analog horror: a bar that drains back up as the tape runs, gone when he is whole.]
 
