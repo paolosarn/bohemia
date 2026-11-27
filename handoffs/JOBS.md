@@ -1,6 +1,25 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/27 LATEST -- BUILD 11/27c - THE WORK FOLLOWS WHAT IS SHORT, BUILT, NOT YET SEEN
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/27 LATEST -- BUILD 11/27y - THE WORK SPANS HIS STRENGTH, BUILT, NOT YET SEEN (rule 491
+(b)(c)(d)(e); ask row 767). Content 40940b165. VOTE jobs2-the-work-spans-his-strength-11-27 (STAND-IN: the measured table).
+Record records/BOHEMIA_JOBS_TWO_THE_WORK_SPANS_HIS_STRENGTH_11_27_26.md.
+- (c) cited: Battle Brothers' contract scales with the roster's strength, the 12 strongest at 10 + 2 a level (14 for the militia),
+  gear not counted (bb_all/0828 Game Mechanics; GROK_60); the map's partyMath job_bb was already it.
+- (e) bohemia_job_kinds.js strength() (__THE_COMPANY_HAS_ONE_STRENGTH__): that number + each man's head and body armour
+  (armor.json durability, fetched at load) x party_math.json roster_strength.kit_per_armour 0.01; partyRosterStrength() (CITY_WORLD)
+  reads it. For BESTIARY 3: BohemiaJobKinds.strength() / window.__COMPANY_STRENGTH.
+- (b) bohemia_board_shelf.js __ONE_JOB_TO_SWEAT_FOR__ (dealt step 2b): nothing on offer reads red (rule 254, cut_one 0.8) and a
+  place's own list holds a red the floor lets through: posted in place of its last job; its next two are asked to be read.
+- (d) tools/bohemia_world_most_jobs_fit.js --kit 1 (new flag): weak 96/79/79, middling 96/88/29 -> 96/75/29, strong 96/46/46 ->
+  88/46/46. Gate THE WORK SPANS HIS STRENGTH 6/0 (in the suite).
+- Main's own reds, unchanged: MOST JOBS FIT THE COMPANY 3/2, THE ROSTER SCALES THE ENEMY 4/2.
+NEXT: BESTIARY 3's (a) lifts the 13-man top so a strong company's three stars are harder than its two; the 'paid to match' half of
+491(b) (a job sized up for a strong company pays the same base; Battle Brothers grows the payment with the difficulty multiplier:
+measure before building, job_pay's table is ECONOMY THREE's); row 747 (FIGHT SCREEN 3).
+[bb Battle Brothers sizes a contract to the twelve strongest men you have; the sellsword in famed armour is still a level 8 to it]
+[analog horror: the crews on the road start wearing what you wear]
+
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/27 -- BUILD 11/27c - THE WORK FOLLOWS WHAT IS SHORT, BUILT, NOT YET SEEN
 (rule 485(b), rule 482; ask row 752's jobs part). Content 41d8d0910. VOTE jobs2-the-work-follows-what-is-short-11-27 (STAND-IN: the
 Anarchists' board, the seed sacks 120 before, 142 now). Record records/BOHEMIA_JOBS_TWO_THE_WORK_FOLLOWS_WHAT_IS_SHORT_11_27_26.md.
 - bohemia_job_kinds.js short(offer)/shortNow()/goodOf(): the job's good from its title's words (records/target/bb/job_pay.json short:
