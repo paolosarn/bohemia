@@ -1,0 +1,38 @@
+{
+ "why": "VAMILY rule 495(c), PLUMBER 9 11/27: every number may only go down; gates/the_patch_layers_only_go_down_gate.js holds them and --tighten lowers them; the census is tools/bohemia_publisher_read.js",
+ "set": "2026-11-27",
+ "from": "d136c8af9 plus this commit (the gate lands here; ECONOMY FOUR 2e5ba3130 __A_PLACE_EARNS_OR_GOES_DARK__ landed one block and five hooks before it existed)",
+ "pages": {
+  "slices/BOHEMIA_FIGHT.html": {
+   "blocks": 29,
+   "hookLines": 428,
+   "overrides": 3
+  },
+  "slices/BOHEMIA_ALPHA_0_9.html": {
+   "blocks": 34,
+   "hookLines": 361,
+   "overrides": 0
+  },
+  "slices/BOHEMIA_DEMO.html": {
+   "blocks": 34,
+   "hookLines": 361,
+   "overrides": 0
+  },
+  "slices/BOHEMIA_CITY_WORLD.html": {
+   "blocks": 152,
+   "hookLines": 1792,
+   "overrides": 16
+  },
+  "slices/BOHEMIA_SETTLEMENT_SCREEN.html": {
+   "blocks": 57,
+   "hookLines": 400,
+   "overrides": 0
+  }
+ },
+ "copies": {
+  "inlinedPairs": 172,
+  "pastedCopies": 41,
+  "loadedTwice": 0
+ },
+ "lowered": "2026-11-27"
+}

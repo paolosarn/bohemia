@@ -89,7 +89,16 @@ for p in mods:
         i = decoded.find(hdr)
         if i >= 0:
             i = decoded.index('\n', i) + 1
-            j = decoded.find('\n/* ==== engine/', i)
+            # THE MODULE'S OWN CLOSING BANNER FIRST (PLUMBER 9, 11/27/26): the city closes some modules with
+            # '/* ==== /engine/<name> ==== */' or '/* ==== end engine/<name> ==== */', and a cut that only looked for
+            # the NEXT '/* ==== engine/' ran past bohemia_followers.js into 417,750 bytes of other code and refused,
+            # which stopped this whole sweep (exit 3) for every lane and left INLINED FRESH red since 11/10. Its own
+            # closer, when it has one, is exactly where its body ends; the next module's banner is the fallback.
+            base = os.path.basename(p)
+            own = [decoded.find('\n' + c, i) for c in ('/* ==== /engine/' + base, '/* ==== end engine/' + base,
+                                                       '/* ==== engine/' + base)]
+            own = [k for k in own if k >= 0]
+            j = min(own) if own else decoded.find('\n/* ==== engine/', i)
             if j < 0:
                 j = len(decoded)
             cand = decoded[i:j + 1]

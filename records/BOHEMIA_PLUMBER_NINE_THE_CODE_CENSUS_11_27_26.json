@@ -1,0 +1,4552 @@
+{
+ "when": "2026-11-27T22:36:04.758Z",
+ "minBody": 100,
+ "files": {
+  "code": 636,
+  "slices": 339,
+  "engine": 297,
+  "modules": 359,
+  "dataJs": 10
+ },
+ "core": [
+  "engine/bohemia_arena.js",
+  "engine/bohemia_arrivaltraits.js",
+  "engine/bohemia_bag_sort.js",
+  "engine/bohemia_barber.js",
+  "engine/bohemia_camp.js",
+  "engine/bohemia_camp_life.js",
+  "engine/bohemia_century.js",
+  "engine/bohemia_condition.js",
+  "engine/bohemia_crawl.js",
+  "engine/bohemia_crew_door.js",
+  "engine/bohemia_crew_faces.js",
+  "engine/bohemia_economy.js",
+  "engine/bohemia_ending.js",
+  "engine/bohemia_fight_kinds.js",
+  "engine/bohemia_fight_start.js",
+  "engine/bohemia_followers.js",
+  "engine/bohemia_goodbros.js",
+  "engine/bohemia_grinder.js",
+  "engine/bohemia_haptics.js",
+  "engine/bohemia_hire_lock.js",
+  "engine/bohemia_home.js",
+  "engine/bohemia_homebases.js",
+  "engine/bohemia_housing.js",
+  "engine/bohemia_idles.js",
+  "engine/bohemia_job_pay.js",
+  "engine/bohemia_livingmap.js",
+  "engine/bohemia_long_injury.js",
+  "engine/bohemia_lotbuild.js",
+  "engine/bohemia_march_acts.js",
+  "engine/bohemia_meet_ground.js",
+  "engine/bohemia_names.js",
+  "engine/bohemia_people_mix.js",
+  "engine/bohemia_place.js",
+  "engine/bohemia_place_book.js",
+  "engine/bohemia_powerbuild.js",
+  "engine/bohemia_purse.js",
+  "engine/bohemia_relations.js",
+  "engine/bohemia_renown.js",
+  "engine/bohemia_rig_bodies.js",
+  "engine/bohemia_roster.js",
+  "engine/bohemia_scavenge.js",
+  "engine/bohemia_settlement_heard.js",
+  "engine/bohemia_shop_wear.js",
+  "engine/bohemia_spanglish.js",
+  "engine/bohemia_stall_prices.js",
+  "engine/bohemia_stats.js",
+  "engine/bohemia_unique_name.js",
+  "engine/bohemia_voice.js",
+  "engine/bohemia_voice_recorded.js",
+  "engine/bohemia_wages.js",
+  "engine/bohemia_wear.js",
+  "slices/BOHEMIA_ALPHA_0_9.html",
+  "slices/BOHEMIA_CITY_FLOORS.js",
+  "slices/BOHEMIA_CITY_PROPS.js",
+  "slices/BOHEMIA_CITY_TILEFORMS.js",
+  "slices/BOHEMIA_CITY_TILES_01.js",
+  "slices/BOHEMIA_CITY_TILES_LATE.js",
+  "slices/BOHEMIA_CITY_WORLD.html",
+  "slices/BOHEMIA_FIGHT.html",
+  "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+  "slices/bohemia_arena_crowd.js",
+  "slices/bohemia_arena_town.js",
+  "slices/bohemia_bar_news.js",
+  "slices/bohemia_big_inside.js",
+  "slices/bohemia_board_shelf.js",
+  "slices/bohemia_boss_entrance.js",
+  "slices/bohemia_bosses.js",
+  "slices/bohemia_busy_heard.js",
+  "slices/bohemia_camp_look.js",
+  "slices/bohemia_camp_map.js",
+  "slices/bohemia_carcass.js",
+  "slices/bohemia_casino_floor.js",
+  "slices/bohemia_difficulty.js",
+  "slices/bohemia_fight_face.js",
+  "slices/bohemia_fight_opener.js",
+  "slices/bohemia_fight_why.js",
+  "slices/bohemia_flood_tunnels.js",
+  "slices/bohemia_frame_meter.js",
+  "slices/bohemia_freeway_boards.js",
+  "slices/bohemia_his_map.js",
+  "slices/bohemia_injury_card.js",
+  "slices/bohemia_job_danger.js",
+  "slices/bohemia_job_kinds.js",
+  "slices/bohemia_killcams.js",
+  "slices/bohemia_map_ambient.js",
+  "slices/bohemia_map_houses.js",
+  "slices/bohemia_map_sight.js",
+  "slices/bohemia_motion.js",
+  "slices/bohemia_parking_garage.js",
+  "slices/bohemia_phone_board.js",
+  "slices/bohemia_place_pieces.js",
+  "slices/bohemia_place_visits.js",
+  "slices/bohemia_quest_travel.js",
+  "slices/bohemia_radio.js",
+  "slices/bohemia_real_places.js",
+  "slices/bohemia_region.js",
+  "slices/bohemia_road_events.js",
+  "slices/bohemia_road_more.js",
+  "slices/bohemia_screen_class.js",
+  "slices/bohemia_settings.js",
+  "slices/bohemia_street_board.js",
+  "slices/bohemia_the_real_fog.js",
+  "slices/bohemia_the_strat.js",
+  "slices/bohemia_ui_crashbox.js",
+  "slices/bohemia_ui_materials.js",
+  "slices/bohemia_ui_no_scroll.js",
+  "slices/bohemia_ui_nothing_pops.js",
+  "slices/bohemia_ui_three_items.js",
+  "slices/bohemia_world_state_map.js"
+ ],
+ "coreBytes": 21278860,
+ "biggest": [
+  {
+   "file": "slices/BOHEMIA_RUN_CURRENT.html",
+   "bytes": 22575562
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_WORLD.html",
+   "bytes": 6840719
+  },
+  {
+   "file": "slices/BOHEMIA_ALPHA_0_9.html",
+   "bytes": 6668518
+  },
+  {
+   "file": "slices/BOHEMIA_VOTE_CURRENT.html",
+   "bytes": 6466360
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_TILES_02.js",
+   "bytes": 5070264
+  },
+  {
+   "file": "slices/BOHEMIA_TARGET_SCREEN_JUDGE_7_26_26.html",
+   "bytes": 4982690
+  },
+  {
+   "file": "slices/BOHEMIA_LIVE_SLICE_V9_7_14_26.html",
+   "bytes": 4585387
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_TILES_05.js",
+   "bytes": 4191830
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_TILES_07.js",
+   "bytes": 4182227
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_TILES_06.js",
+   "bytes": 4078735
+  },
+  {
+   "file": "slices/BOHEMIA_DEMO.html",
+   "bytes": 4016477
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_TILES_08.js",
+   "bytes": 4015194
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_TILES_09.js",
+   "bytes": 3886701
+  },
+  {
+   "file": "slices/BOHEMIA_LIVE_SLICE_V11_7_16_26.html",
+   "bytes": 3146972
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_TILES_03.js",
+   "bytes": 2659761
+  },
+  {
+   "file": "slices/BOHEMIA_HOUSE_FACTORY_GALLERY_7_14_26.html",
+   "bytes": 2631411
+  },
+  {
+   "file": "slices/BOHEMIA_PERIMETER_JUDGE_8_2_26.html",
+   "bytes": 2386377
+  },
+  {
+   "file": "slices/BOHEMIA_CURRENT_SLICE.html",
+   "bytes": 2202362
+  },
+  {
+   "file": "slices/BOHEMIA_V12_BAKE_PROOF_35_6.html",
+   "bytes": 1815098
+  },
+  {
+   "file": "slices/BOHEMIA_V12_BAKE_PROOF_36_6.html",
+   "bytes": 1651416
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_TILES_01.js",
+   "bytes": 1619209
+  },
+  {
+   "file": "slices/BOHEMIA_CITY_TILES_04.js",
+   "bytes": 1577923
+  },
+  {
+   "file": "slices/BOHEMIA_WORDS_CURRENT.html",
+   "bytes": 1526583
+  },
+  {
+   "file": "slices/BOHEMIA_REAL_VEGAS_BLOCKS_7_14_26.html",
+   "bytes": 1514727
+  },
+  {
+   "file": "slices/BOHEMIA_ASSET_ROUNDUP_JUDGE_7_21_26.html",
+   "bytes": 1444237
+  }
+ ],
+ "pages": {
+  "slices/BOHEMIA_FIGHT.html": {
+   "bytes": 1298487,
+   "lines": 14058,
+   "inlineScripts": 4,
+   "externalScripts": 18,
+   "codeBytes": 731450,
+   "commentBytes": 459408,
+   "stringBytes": 61934,
+   "dataUriBytes": 0,
+   "dataScriptBytes": 0,
+   "namedPatches": 112,
+   "blocks": 29,
+   "closedBlocks": 27,
+   "hookLines": 428,
+   "topHooked": [
+    [
+     "ARMORY_THREE",
+     34
+    ],
+    [
+     "THE_STAFF_FIGHT_TOO",
+     25
+    ],
+    [
+     "THE_FIGHTS_WEIGHT",
+     17
+    ],
+    [
+     "THE_ARENA",
+     14
+    ],
+    [
+     "THE_BOARD_IS_THE_CITY_AT_THAT_SPOT",
+     11
+    ],
+    [
+     "THE_STAFF_PUSH_A_CART",
+     11
+    ],
+    [
+     "AUTO_AT_4X_NEVER_CRASHES",
+     11
+    ],
+    [
+     "THE_BAKE_DOES_NOT_FREEZE",
+     11
+    ],
+    [
+     "THE_WINDED_MAN_ACTS",
+     10
+    ],
+    [
+     "THE_OLD_LAYOUT_THE_NEW_HOUSES",
+     9
+    ],
+    [
+     "THE_FLOOD_TUNNELS",
+     9
+    ],
+    [
+     "THE_WHY_LINE",
+     9
+    ]
+   ],
+   "redeclared": 0,
+   "redeclaredNames": [],
+   "assignedOver": 3,
+   "assignedOverNames": [
+    [
+     "drawer",
+     2
+    ],
+    [
+     "weaponCard",
+     1
+    ]
+   ],
+   "overrides": 3,
+   "loads": 17,
+   "pagesNamed": [],
+   "parentReach": 12,
+   "frameReach": 1,
+   "postMessage": 21,
+   "underscoreGlobals": 12,
+   "generatedFrom": null,
+   "blockList": [
+    {
+     "name": "THE_FIGHT_LETS_GO",
+     "from": 7,
+     "to": 1048,
+     "closed": false
+    },
+    {
+     "name": "HEAVY_ARMOUR_COSTS_A_TILE",
+     "from": 1049,
+     "to": 1080,
+     "closed": true
+    },
+    {
+     "name": "NO_AMMO_NO_SHOT",
+     "from": 1109,
+     "to": 1201,
+     "closed": true
+    },
+    {
+     "name": "ARMORY_THREE",
+     "from": 1202,
+     "to": 1355,
+     "closed": true
+    },
+    {
+     "name": "EVERYBODY_IS_STRAPPED",
+     "from": 1628,
+     "to": 1670,
+     "closed": true
+    },
+    {
+     "name": "THE_STAFF_FIGHT_TOO",
+     "from": 3013,
+     "to": 3224,
+     "closed": true
+    },
+    {
+     "name": "THE_STAFF_PUSH_A_CART",
+     "from": 3030,
+     "to": 3064,
+     "closed": true
+    },
+    {
+     "name": "THEY_FIGHT_LIKE_STAFF",
+     "from": 3124,
+     "to": 3194,
+     "closed": true
+    },
+    {
+     "name": "AUTO_KNOWS_ITS_MAN",
+     "from": 6020,
+     "to": 6108,
+     "closed": true
+    },
+    {
+     "name": "THE_SHEETS_ARE_PACKED",
+     "from": 6747,
+     "to": 6845,
+     "closed": true
+    },
+    {
+     "name": "THE_GROUND_AT_WHAT_THE_GLASS_SHOWS",
+     "from": 6868,
+     "to": 6923,
+     "closed": true
+    },
+    {
+     "name": "AUTO_AT_4X_NEVER_CRASHES",
+     "from": 7296,
+     "to": 7408,
+     "closed": true
+    },
+    {
+     "name": "THE_LASH",
+     "from": 8176,
+     "to": 8231,
+     "closed": false
+    },
+    {
+     "name": "THE_FIGHTS_WEIGHT",
+     "from": 8232,
+     "to": 8319,
+     "closed": true
+    },
+    {
+     "name": "YOU_SEE_THEM_RUN",
+     "from": 10417,
+     "to": 10451,
+     "closed": true
+    },
+    {
+     "name": "EVERYBODY_IDLES",
+     "from": 10529,
+     "to": 10582,
+     "closed": true
+    },
+    {
+     "name": "THE_ARMOUR_HE_WEARS_SHOWS",
+     "from": 10538,
+     "to": 10559,
+     "closed": true
+    },
+    {
+     "name": "THE_CRAWL",
+     "from": 10583,
+     "to": 10629,
+     "closed": true
+    },
+    {
+     "name": "WHAT_A_MAN_HOLDS",
+     "from": 10630,
+     "to": 11050,
+     "closed": true
+    },
+    {
+     "name": "THE_STAFF_PUSH_A_CART",
+     "from": 10817,
+     "to": 10851,
+     "closed": true
+    },
+    {
+     "name": "THE_CAMP_RUNS_SCARED",
+     "from": 10852,
+     "to": 10874,
+     "closed": true
+    },
+    {
+     "name": "WHAT_HE_CARRIES_IS_DRAWN",
+     "from": 10983,
+     "to": 11049,
+     "closed": true
+    },
+    {
+     "name": "THE_SIX_GUNS",
+     "from": 11051,
+     "to": 11096,
+     "closed": true
+    },
+    {
+     "name": "THE_MANS_SHEET",
+     "from": 12443,
+     "to": 12561,
+     "closed": true
+    },
+    {
+     "name": "UI_THREE_STATS",
+     "from": 12562,
+     "to": 12603,
+     "closed": true
+    },
+    {
+     "name": "THE_MANS_SHEET",
+     "from": 12604,
+     "to": 12613,
+     "closed": true
+    },
+    {
+     "name": "THE_SPOILS",
+     "from": 12820,
+     "to": 12877,
+     "closed": true
+    },
+    {
+     "name": "THE_CAMP_ON_THE_BOARD",
+     "from": 13765,
+     "to": 14036,
+     "closed": true
+    },
+    {
+     "name": "THE_CAMP_COMES_UP_AT_ONCE",
+     "from": 13889,
+     "to": 13948,
+     "closed": true
+    }
+   ]
+  },
+  "slices/BOHEMIA_ALPHA_0_9.html": {
+   "bytes": 6668518,
+   "lines": 43110,
+   "inlineScripts": 33,
+   "externalScripts": 19,
+   "codeBytes": 1500636,
+   "commentBytes": 1198272,
+   "stringBytes": 3724759,
+   "dataUriBytes": 0,
+   "dataScriptBytes": 133053,
+   "namedPatches": 187,
+   "blocks": 34,
+   "closedBlocks": 14,
+   "hookLines": 361,
+   "topHooked": [
+    [
+     "THE_ONE_BEAT",
+     10
+    ],
+    [
+     "DIRECT_COVERS_QUESTS",
+     8
+    ],
+    [
+     "ONE_BEAT_FOR_EVERYTHING",
+     7
+    ],
+    [
+     "THE_COMPANY_TAKES_HIS_NAME",
+     6
+    ],
+    [
+     "ONLY_THE_FINAL_LOOK",
+     6
+    ],
+    [
+     "ONE_SONG_ONLY",
+     6
+    ],
+    [
+     "THE_SQUIGGLE_RECORDED",
+     6
+    ],
+    [
+     "THE_ARENA",
+     5
+    ],
+    [
+     "HEAL_IS_WARM",
+     5
+    ],
+    [
+     "THE_BEAT_BEFORE_THE_SONG",
+     5
+    ],
+    [
+     "EVERY_SONG_IN_TURN",
+     5
+    ],
+    [
+     "THE_BULLET_LANDS",
+     5
+    ]
+   ],
+   "redeclared": 0,
+   "redeclaredNames": [],
+   "assignedOver": 0,
+   "assignedOverNames": [],
+   "overrides": 0,
+   "loads": 19,
+   "pagesNamed": [
+    "BOHEMIA_ART_CURRENT.html",
+    "BOHEMIA_CITY_WORLD.html",
+    "BOHEMIA_CURRENT_SLICE.html",
+    "BOHEMIA_FIGHT.html",
+    "BOHEMIA_LIFE_CURRENT.html",
+    "BOHEMIA_LOOK_CURRENT.html",
+    "BOHEMIA_MAP_CURRENT.html",
+    "BOHEMIA_RUN_CURRENT.html",
+    "BOHEMIA_SPOILS_SCREEN.html",
+    "BOHEMIA_UIWALL_CURRENT.html",
+    "BOHEMIA_UI_CURRENT.html",
+    "BOHEMIA_VOTE_TAB.html",
+    "BOHEMIA_WORDS_CURRENT.html"
+   ],
+   "parentReach": 17,
+   "frameReach": 14,
+   "postMessage": 57,
+   "underscoreGlobals": 137,
+   "generatedFrom": null,
+   "blockList": [
+    {
+     "name": "STOP_AND_COME_BACK",
+     "from": 1601,
+     "to": 5683,
+     "closed": false
+    },
+    {
+     "name": "THE_COLOUR_HE_PICKED",
+     "from": 5684,
+     "to": 7877,
+     "closed": false
+    },
+    {
+     "name": "THE_IDLE_REDONE",
+     "from": 7878,
+     "to": 9107,
+     "closed": false
+    },
+    {
+     "name": "A_CLIP_DECLARES_A_HAND_AT_THE_FACE",
+     "from": 9108,
+     "to": 11374,
+     "closed": false
+    },
+    {
+     "name": "ONLY_THE_FINAL_LOOK",
+     "from": 11375,
+     "to": 11641,
+     "closed": false
+    },
+    {
+     "name": "THE_STREET_IS_SIX_PEOPLE",
+     "from": 11642,
+     "to": 12418,
+     "closed": false
+    },
+    {
+     "name": "THE_NEW_FIGHT_IS_THE_FIGHT",
+     "from": 12419,
+     "to": 13085,
+     "closed": true
+    },
+    {
+     "name": "WHO_YOU_HIRE_FIGHTS",
+     "from": 12489,
+     "to": 12530,
+     "closed": true
+    },
+    {
+     "name": "DAMAGE_STAYS",
+     "from": 12551,
+     "to": 12560,
+     "closed": false
+    },
+    {
+     "name": "THE_ARENA",
+     "from": 12561,
+     "to": 12574,
+     "closed": true
+    },
+    {
+     "name": "THE_STAFF_FIGHT_TOO",
+     "from": 12578,
+     "to": 12586,
+     "closed": true
+    },
+    {
+     "name": "ONE_ENGINE_OWNS_THE_ROOM_IN_THE_NEW_FIGHT_TOO",
+     "from": 12613,
+     "to": 12632,
+     "closed": false
+    },
+    {
+     "name": "THE_FIGHT_IS_READ_WHILE_HE_READS_THE_CARD",
+     "from": 12633,
+     "to": 12676,
+     "closed": true
+    },
+    {
+     "name": "WHO_YOU_HIRE_FIGHTS",
+     "from": 12790,
+     "to": 12805,
+     "closed": true
+    },
+    {
+     "name": "THE_SPOILS",
+     "from": 12806,
+     "to": 12966,
+     "closed": true
+    },
+    {
+     "name": "THE_FIGHT_SAVES_AT_ITS_START",
+     "from": 13060,
+     "to": 13084,
+     "closed": true
+    },
+    {
+     "name": "THE_ZOOM_DOWN_INTO_THE_BOARD",
+     "from": 13086,
+     "to": 13105,
+     "closed": true
+    },
+    {
+     "name": "THE_WIPE_RIDES_HOME",
+     "from": 13479,
+     "to": 13486,
+     "closed": true
+    },
+    {
+     "name": "ONLY_THE_FINAL_LOOK",
+     "from": 13916,
+     "to": 14017,
+     "closed": false
+    },
+    {
+     "name": "THE_FRONT_DOOR",
+     "from": 14018,
+     "to": 14178,
+     "closed": false
+    },
+    {
+     "name": "A_NEW_VALLEY_EVERY_GAME",
+     "from": 14179,
+     "to": 14290,
+     "closed": false
+    },
+    {
+     "name": "THE_DOOR_KEEPS_ITS_TAPS",
+     "from": 14291,
+     "to": 14306,
+     "closed": true
+    },
+    {
+     "name": "THE_START_SCREEN",
+     "from": 14366,
+     "to": 14631,
+     "closed": true
+    },
+    {
+     "name": "TILE_WARM",
+     "from": 14690,
+     "to": 14754,
+     "closed": false
+    },
+    {
+     "name": "TILE_WARM_END",
+     "from": 14755,
+     "to": 19728,
+     "closed": false
+    },
+    {
+     "name": "THE_FIGHT_DRIVES_THE_MUSIC",
+     "from": 19729,
+     "to": 19785,
+     "closed": true
+    },
+    {
+     "name": "THE_SONG_ABOVE_THE_FIGHT",
+     "from": 19786,
+     "to": 19820,
+     "closed": true
+    },
+    {
+     "name": "INTENSITY_WATCHER",
+     "from": 19821,
+     "to": 23612,
+     "closed": false
+    },
+    {
+     "name": "FIRST_PLAY_IS_LIGHT",
+     "from": 23613,
+     "to": 26823,
+     "closed": false
+    },
+    {
+     "name": "THE_MENU_HEARS_ONLY_ITS_FEED",
+     "from": 26824,
+     "to": 27006,
+     "closed": false
+    },
+    {
+     "name": "THE_ROOM_IS_ON_BEFORE_THE_SONG",
+     "from": 27007,
+     "to": 41391,
+     "closed": false
+    },
+    {
+     "name": "DIR_FAMILY",
+     "from": 41392,
+     "to": 41460,
+     "closed": false
+    },
+    {
+     "name": "DIR_STANDING",
+     "from": 41461,
+     "to": 41566,
+     "closed": false
+    },
+    {
+     "name": "DIR_TOWNS",
+     "from": 41567,
+     "to": 43110,
+     "closed": false
+    }
+   ]
+  },
+  "slices/BOHEMIA_DEMO.html": {
+   "bytes": 4016477,
+   "lines": 43391,
+   "inlineScripts": 37,
+   "externalScripts": 19,
+   "codeBytes": 1502088,
+   "commentBytes": 1209442,
+   "stringBytes": 1057158,
+   "dataUriBytes": 0,
+   "dataScriptBytes": 133053,
+   "namedPatches": 187,
+   "blocks": 34,
+   "closedBlocks": 14,
+   "hookLines": 361,
+   "topHooked": [
+    [
+     "THE_ONE_BEAT",
+     10
+    ],
+    [
+     "DIRECT_COVERS_QUESTS",
+     8
+    ],
+    [
+     "ONE_BEAT_FOR_EVERYTHING",
+     7
+    ],
+    [
+     "THE_COMPANY_TAKES_HIS_NAME",
+     6
+    ],
+    [
+     "ONLY_THE_FINAL_LOOK",
+     6
+    ],
+    [
+     "ONE_SONG_ONLY",
+     6
+    ],
+    [
+     "THE_SQUIGGLE_RECORDED",
+     6
+    ],
+    [
+     "THE_ARENA",
+     5
+    ],
+    [
+     "HEAL_IS_WARM",
+     5
+    ],
+    [
+     "THE_BEAT_BEFORE_THE_SONG",
+     5
+    ],
+    [
+     "EVERY_SONG_IN_TURN",
+     5
+    ],
+    [
+     "THE_BULLET_LANDS",
+     5
+    ]
+   ],
+   "redeclared": 0,
+   "redeclaredNames": [],
+   "assignedOver": 0,
+   "assignedOverNames": [],
+   "overrides": 0,
+   "loads": 19,
+   "pagesNamed": [
+    "BOHEMIA_ART_CURRENT.html",
+    "BOHEMIA_CITY_WORLD.html",
+    "BOHEMIA_CURRENT_SLICE.html",
+    "BOHEMIA_FIGHT.html",
+    "BOHEMIA_LIFE_CURRENT.html",
+    "BOHEMIA_LOOK_CURRENT.html",
+    "BOHEMIA_MAP_CURRENT.html",
+    "BOHEMIA_RUN_CURRENT.html",
+    "BOHEMIA_SPOILS_SCREEN.html",
+    "BOHEMIA_UIWALL_CURRENT.html",
+    "BOHEMIA_UI_CURRENT.html",
+    "BOHEMIA_VOTE_TAB.html",
+    "BOHEMIA_WORDS_CURRENT.html"
+   ],
+   "parentReach": 17,
+   "frameReach": 14,
+   "postMessage": 57,
+   "underscoreGlobals": 139,
+   "generatedFrom": "slices/BOHEMIA_ALPHA_0_9.html (tools/bohemia_cut_the_demo.js)",
+   "blockList": [
+    {
+     "name": "STOP_AND_COME_BACK",
+     "from": 1615,
+     "to": 5697,
+     "closed": false
+    },
+    {
+     "name": "THE_COLOUR_HE_PICKED",
+     "from": 5698,
+     "to": 7891,
+     "closed": false
+    },
+    {
+     "name": "THE_IDLE_REDONE",
+     "from": 7892,
+     "to": 9121,
+     "closed": false
+    },
+    {
+     "name": "A_CLIP_DECLARES_A_HAND_AT_THE_FACE",
+     "from": 9122,
+     "to": 11388,
+     "closed": false
+    },
+    {
+     "name": "ONLY_THE_FINAL_LOOK",
+     "from": 11389,
+     "to": 11655,
+     "closed": false
+    },
+    {
+     "name": "THE_STREET_IS_SIX_PEOPLE",
+     "from": 11656,
+     "to": 12432,
+     "closed": false
+    },
+    {
+     "name": "THE_NEW_FIGHT_IS_THE_FIGHT",
+     "from": 12433,
+     "to": 13099,
+     "closed": true
+    },
+    {
+     "name": "WHO_YOU_HIRE_FIGHTS",
+     "from": 12503,
+     "to": 12544,
+     "closed": true
+    },
+    {
+     "name": "DAMAGE_STAYS",
+     "from": 12565,
+     "to": 12574,
+     "closed": false
+    },
+    {
+     "name": "THE_ARENA",
+     "from": 12575,
+     "to": 12588,
+     "closed": true
+    },
+    {
+     "name": "THE_STAFF_FIGHT_TOO",
+     "from": 12592,
+     "to": 12600,
+     "closed": true
+    },
+    {
+     "name": "ONE_ENGINE_OWNS_THE_ROOM_IN_THE_NEW_FIGHT_TOO",
+     "from": 12627,
+     "to": 12646,
+     "closed": false
+    },
+    {
+     "name": "THE_FIGHT_IS_READ_WHILE_HE_READS_THE_CARD",
+     "from": 12647,
+     "to": 12690,
+     "closed": true
+    },
+    {
+     "name": "WHO_YOU_HIRE_FIGHTS",
+     "from": 12804,
+     "to": 12819,
+     "closed": true
+    },
+    {
+     "name": "THE_SPOILS",
+     "from": 12820,
+     "to": 12980,
+     "closed": true
+    },
+    {
+     "name": "THE_FIGHT_SAVES_AT_ITS_START",
+     "from": 13074,
+     "to": 13098,
+     "closed": true
+    },
+    {
+     "name": "THE_ZOOM_DOWN_INTO_THE_BOARD",
+     "from": 13100,
+     "to": 13119,
+     "closed": true
+    },
+    {
+     "name": "THE_WIPE_RIDES_HOME",
+     "from": 13493,
+     "to": 13500,
+     "closed": true
+    },
+    {
+     "name": "ONLY_THE_FINAL_LOOK",
+     "from": 13930,
+     "to": 14031,
+     "closed": false
+    },
+    {
+     "name": "THE_FRONT_DOOR",
+     "from": 14032,
+     "to": 14192,
+     "closed": false
+    },
+    {
+     "name": "A_NEW_VALLEY_EVERY_GAME",
+     "from": 14193,
+     "to": 14304,
+     "closed": false
+    },
+    {
+     "name": "THE_DOOR_KEEPS_ITS_TAPS",
+     "from": 14305,
+     "to": 14320,
+     "closed": true
+    },
+    {
+     "name": "THE_START_SCREEN",
+     "from": 14380,
+     "to": 14645,
+     "closed": true
+    },
+    {
+     "name": "TILE_WARM",
+     "from": 14704,
+     "to": 14768,
+     "closed": false
+    },
+    {
+     "name": "TILE_WARM_END",
+     "from": 14769,
+     "to": 19742,
+     "closed": false
+    },
+    {
+     "name": "THE_FIGHT_DRIVES_THE_MUSIC",
+     "from": 19743,
+     "to": 19799,
+     "closed": true
+    },
+    {
+     "name": "THE_SONG_ABOVE_THE_FIGHT",
+     "from": 19800,
+     "to": 19834,
+     "closed": true
+    },
+    {
+     "name": "INTENSITY_WATCHER",
+     "from": 19835,
+     "to": 23626,
+     "closed": false
+    },
+    {
+     "name": "FIRST_PLAY_IS_LIGHT",
+     "from": 23627,
+     "to": 26837,
+     "closed": false
+    },
+    {
+     "name": "THE_MENU_HEARS_ONLY_ITS_FEED",
+     "from": 26838,
+     "to": 27020,
+     "closed": false
+    },
+    {
+     "name": "THE_ROOM_IS_ON_BEFORE_THE_SONG",
+     "from": 27021,
+     "to": 41405,
+     "closed": false
+    },
+    {
+     "name": "DIR_FAMILY",
+     "from": 41406,
+     "to": 41474,
+     "closed": false
+    },
+    {
+     "name": "DIR_STANDING",
+     "from": 41475,
+     "to": 41580,
+     "closed": false
+    },
+    {
+     "name": "DIR_TOWNS",
+     "from": 41581,
+     "to": 43391,
+     "closed": false
+    }
+   ]
+  },
+  "slices/BOHEMIA_CITY_WORLD.html": {
+   "bytes": 6840719,
+   "lines": 96515,
+   "inlineScripts": 12,
+   "externalScripts": 51,
+   "codeBytes": 2367159,
+   "commentBytes": 2973281,
+   "stringBytes": 1354217,
+   "dataUriBytes": 5070,
+   "dataScriptBytes": 0,
+   "namedPatches": 632,
+   "blocks": 152,
+   "closedBlocks": 77,
+   "hookLines": 1792,
+   "topHooked": [
+    [
+     "A_RETREAT_GETS_HIM_AWAY",
+     17
+    ],
+    [
+     "THE_HOUSES_STAND_UP_CLOSE",
+     16
+    ],
+    [
+     "THE_MAP_STANDS_UP",
+     16
+    ],
+    [
+     "YOU_WALK_BEHIND_IT",
+     15
+    ],
+    [
+     "THE_STREETS_JOIN",
+     15
+    ],
+    [
+     "THE_MAP_ZOOMS_IN_TO_THE_STREET",
+     14
+    ],
+    [
+     "EVERY_TOWN_ITS_OWN",
+     14
+    ],
+    [
+     "DAY_LOOP",
+     13
+    ],
+    [
+     "A_DIFFERENT_VALLEY_EVERY_GAME",
+     12
+    ],
+    [
+     "EVERYONE_IN_THE_FIGHT_HOLDS",
+     12
+    ],
+    [
+     "CITY_MEMORY",
+     12
+    ],
+    [
+     "TILEFORM_POOL",
+     11
+    ]
+   ],
+   "redeclared": 0,
+   "redeclaredNames": [],
+   "assignedOver": 16,
+   "assignedOverNames": [
+    [
+     "render",
+     4
+    ],
+    [
+     "crewBillNight",
+     2
+    ],
+    [
+     "stepOnce",
+     1
+    ],
+    [
+     "updHud",
+     1
+    ],
+    [
+     "swapMode",
+     1
+    ],
+    [
+     "pplPeople",
+     1
+    ],
+    [
+     "ctBases",
+     1
+    ],
+    [
+     "turfSeats",
+     1
+    ],
+    [
+     "lotIsMine",
+     1
+    ],
+    [
+     "mapPlatesDraw",
+     1
+    ],
+    [
+     "loopPostOpen",
+     1
+    ],
+    [
+     "lotWake",
+     1
+    ]
+   ],
+   "overrides": 16,
+   "loads": 51,
+   "pagesNamed": [
+    "BOHEMIA_CURRENT_SLICE.html",
+    "BOHEMIA_SETTLEMENT_SCREEN.html"
+   ],
+   "parentReach": 40,
+   "frameReach": 5,
+   "postMessage": 60,
+   "underscoreGlobals": 229,
+   "generatedFrom": null,
+   "blockList": [
+    {
+     "name": "CITY_WHYWALK",
+     "from": 633,
+     "to": 640,
+     "closed": false
+    },
+    {
+     "name": "CITY_VALLEY",
+     "from": 641,
+     "to": 652,
+     "closed": false
+    },
+    {
+     "name": "CITY_OUTFIT",
+     "from": 653,
+     "to": 1358,
+     "closed": false
+    },
+    {
+     "name": "ONLY_THE_FINAL_LOOK",
+     "from": 1359,
+     "to": 1394,
+     "closed": false
+    },
+    {
+     "name": "A_NEW_VALLEY_EVERY_GAME",
+     "from": 1395,
+     "to": 1647,
+     "closed": false
+    },
+    {
+     "name": "THE_MAP_CAN_TURN",
+     "from": 1648,
+     "to": 1667,
+     "closed": false
+    },
+    {
+     "name": "A_DIFFERENT_VALLEY_EVERY_GAME",
+     "from": 1668,
+     "to": 2035,
+     "closed": false
+    },
+    {
+     "name": "THE_MISSING_REAL_PLACES",
+     "from": 2036,
+     "to": 2768,
+     "closed": false
+    },
+    {
+     "name": "THE_VALLEY_HAS_ITS_ZONES",
+     "from": 2769,
+     "to": 2824,
+     "closed": false
+    },
+    {
+     "name": "THE_PLACES_ARE_TEMPLATES",
+     "from": 2825,
+     "to": 3314,
+     "closed": false
+    },
+    {
+     "name": "A_STREET_IN_FRONT_OF_EVERY_HOUSE",
+     "from": 3315,
+     "to": 3357,
+     "closed": false
+    },
+    {
+     "name": "THE_DESERT_HAS_ITS_TRACKS",
+     "from": 3358,
+     "to": 37432,
+     "closed": false
+    },
+    {
+     "name": "THE_VALLEY_AT_THE_STALL",
+     "from": 37433,
+     "to": 37456,
+     "closed": true
+    },
+    {
+     "name": "A_FACTION_MINES_ITS_LAND",
+     "from": 37747,
+     "to": 40857,
+     "closed": false
+    },
+    {
+     "name": "THE_NIGHT_IS_PLAYED",
+     "from": 40858,
+     "to": 41456,
+     "closed": false
+    },
+    {
+     "name": "LANDLOCK_RELAY",
+     "from": 41457,
+     "to": 43115,
+     "closed": false
+    },
+    {
+     "name": "WALK_FEEL_SLIDE",
+     "from": 43116,
+     "to": 43272,
+     "closed": true
+    },
+    {
+     "name": "SLIDE_NOW",
+     "from": 43127,
+     "to": 43140,
+     "closed": false
+    },
+    {
+     "name": "ONE_WALK_FRAME_PICK",
+     "from": 43141,
+     "to": 44072,
+     "closed": false
+    },
+    {
+     "name": "ROAD_INTERRUPTS_ON_FOOT",
+     "from": 44073,
+     "to": 44088,
+     "closed": false
+    },
+    {
+     "name": "THE_SAME_THING_DOES_NOT_KEEP_HAPPENING",
+     "from": 44089,
+     "to": 44178,
+     "closed": false
+    },
+    {
+     "name": "WALK_ENCOUNTERS",
+     "from": 44179,
+     "to": 44667,
+     "closed": false
+    },
+    {
+     "name": "OVER_THE_MOUNTAIN",
+     "from": 44668,
+     "to": 45193,
+     "closed": false
+    },
+    {
+     "name": "FLOOR_DOES_SOMETHING",
+     "from": 45194,
+     "to": 45244,
+     "closed": true
+    },
+    {
+     "name": "THE_TIME_NOT_THE_TAPS",
+     "from": 45346,
+     "to": 45414,
+     "closed": false
+    },
+    {
+     "name": "THE_MAP_IS_HOW_YOU_TRAVEL",
+     "from": 45415,
+     "to": 45796,
+     "closed": true
+    },
+    {
+     "name": "STRAIGHT_THROUGH_THE_CROSSING",
+     "from": 45611,
+     "to": 45797,
+     "closed": false
+    },
+    {
+     "name": "THE_FIRST_TAP_GOES_SOMEWHERE",
+     "from": 45798,
+     "to": 46288,
+     "closed": true
+    },
+    {
+     "name": "ANY_SIDE_OF_A_TOWN_IS_ITS_DOOR",
+     "from": 45840,
+     "to": 45924,
+     "closed": true
+    },
+    {
+     "name": "THE_JOBS_STARS",
+     "from": 46017,
+     "to": 46038,
+     "closed": true
+    },
+    {
+     "name": "THE_FIGHT_SAVES_AT_ITS_START",
+     "from": 46262,
+     "to": 46276,
+     "closed": true
+    },
+    {
+     "name": "THE_LOOP_ON_THE_MAP",
+     "from": 46290,
+     "to": 46335,
+     "closed": false
+    },
+    {
+     "name": "SIGHT_DOWN_THE_STREET",
+     "from": 46336,
+     "to": 46370,
+     "closed": true
+    },
+    {
+     "name": "A_FRESH_START_AND_A_FOG_OF_WAR",
+     "from": 46371,
+     "to": 46531,
+     "closed": true
+    },
+    {
+     "name": "THE_GAME_STARTS_IN_A_TOWN",
+     "from": 46532,
+     "to": 46618,
+     "closed": true
+    },
+    {
+     "name": "MAKE_YOUR_MAIN_GUY",
+     "from": 46594,
+     "to": 46614,
+     "closed": true
+    },
+    {
+     "name": "THE_WIPE_WAKES_IN_TOWN",
+     "from": 46779,
+     "to": 46842,
+     "closed": true
+    },
+    {
+     "name": "ONE_BILL_IN_DAYS",
+     "from": 46843,
+     "to": 46977,
+     "closed": true
+    },
+    {
+     "name": "THE_CAMP",
+     "from": 47043,
+     "to": 47448,
+     "closed": true
+    },
+    {
+     "name": "A_TOWN_IS_SAFE",
+     "from": 47067,
+     "to": 47151,
+     "closed": false
+    },
+    {
+     "name": "CAMP_HOLDS",
+     "from": 47152,
+     "to": 47180,
+     "closed": false
+    },
+    {
+     "name": "THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES",
+     "from": 47181,
+     "to": 47205,
+     "closed": true
+    },
+    {
+     "name": "THE_CLOCK_WAITS_FOR_THE_CAMP_TO_LOAD",
+     "from": 47206,
+     "to": 47234,
+     "closed": true
+    },
+    {
+     "name": "HEALING_STOPS_ITSELF",
+     "from": 47272,
+     "to": 47328,
+     "closed": true
+    },
+    {
+     "name": "CAMP_WAITS_FOR_HIM",
+     "from": 47279,
+     "to": 47333,
+     "closed": false
+    },
+    {
+     "name": "THE_HEAL_BUTTON",
+     "from": 47334,
+     "to": 47353,
+     "closed": true
+    },
+    {
+     "name": "THE_CAMP_ON_THE_BOARD",
+     "from": 47381,
+     "to": 47437,
+     "closed": true
+    },
+    {
+     "name": "THE_MOMENTS_BETWEEN",
+     "from": 47449,
+     "to": 47701,
+     "closed": true
+    },
+    {
+     "name": "THE_VALLEY_KEEPS_BREATHING",
+     "from": 47920,
+     "to": 47963,
+     "closed": true
+    },
+    {
+     "name": "THE_MAP_FRAMES_AROUND_THE_PHONE",
+     "from": 48020,
+     "to": 48096,
+     "closed": true
+    },
+    {
+     "name": "THE_MAP_ZOOMS_IN_TO_THE_STREET",
+     "from": 48207,
+     "to": 48610,
+     "closed": true
+    },
+    {
+     "name": "THE_MAP_FITS_YOUR_JOBS",
+     "from": 48611,
+     "to": 48675,
+     "closed": true
+    },
+    {
+     "name": "PLAY_TAKES_YOU_THERE",
+     "from": 48676,
+     "to": 48801,
+     "closed": true
+    },
+    {
+     "name": "THE_DISTRICTS_READ_APART",
+     "from": 49078,
+     "to": 49337,
+     "closed": false
+    },
+    {
+     "name": "CONTACT_STOPS_HIM_DEAD",
+     "from": 49338,
+     "to": 49389,
+     "closed": true
+    },
+    {
+     "name": "THE_MAP_HAS_ITS_PEOPLE",
+     "from": 49392,
+     "to": 51560,
+     "closed": true
+    },
+    {
+     "name": "NO_NAME_COVERS_ANOTHER",
+     "from": 49539,
+     "to": 49577,
+     "closed": true
+    },
+    {
+     "name": "EVERYBODY_IDLES",
+     "from": 49667,
+     "to": 49699,
+     "closed": true
+    },
+    {
+     "name": "THE_ARMOUR_HE_WEARS_SHOWS",
+     "from": 49701,
+     "to": 49716,
+     "closed": true
+    },
+    {
+     "name": "THEY_MEND_ON_THE_MARCH",
+     "from": 49717,
+     "to": 49740,
+     "closed": true
+    },
+    {
+     "name": "THE_GANGS_WEAR_THE_RIG",
+     "from": 49820,
+     "to": 49830,
+     "closed": false
+    },
+    {
+     "name": "THE_MAP_DRAWS_FROM_THE_SHEET",
+     "from": 49831,
+     "to": 49883,
+     "closed": true
+    },
+    {
+     "name": "FIRST_PLAY_IS_LIGHT",
+     "from": 49884,
+     "to": 49933,
+     "closed": true
+    },
+    {
+     "name": "A_SHEET_LANDING_DRAWS_ONCE",
+     "from": 49934,
+     "to": 49949,
+     "closed": true
+    },
+    {
+     "name": "THE_MAP_LETS_ITS_SHEETS_GO_UNDER_THE_FIGHT",
+     "from": 49950,
+     "to": 49990,
+     "closed": true
+    },
+    {
+     "name": "THE_MAPS_PEOPLE_ARE_PACKED",
+     "from": 49991,
+     "to": 50036,
+     "closed": true
+    },
+    {
+     "name": "THE_MAP_IS_ALL_RIG",
+     "from": 50091,
+     "to": 50105,
+     "closed": false
+    },
+    {
+     "name": "YOUR_MAIN_GUY_LEADS_THE_WALK",
+     "from": 50106,
+     "to": 50129,
+     "closed": true
+    },
+    {
+     "name": "ONLY_THE_FINAL_LOOK",
+     "from": 50152,
+     "to": 50185,
+     "closed": false
+    },
+    {
+     "name": "NO_TWO_ALIKE",
+     "from": 50186,
+     "to": 50272,
+     "closed": false
+    },
+    {
+     "name": "THE_ROBOTS_ON_THE_MAP",
+     "from": 50273,
+     "to": 50321,
+     "closed": true
+    },
+    {
+     "name": "THE_BARS_OVER_THEIR_HEADS",
+     "from": 50379,
+     "to": 50455,
+     "closed": true
+    },
+    {
+     "name": "THE_MARKER_IS_YOUR_CREW",
+     "from": 50485,
+     "to": 50542,
+     "closed": true
+    },
+    {
+     "name": "YOU_WALK_BEHIND_IT",
+     "from": 50543,
+     "to": 50804,
+     "closed": true
+    },
+    {
+     "name": "THE_MAN_BEHIND_IS_CUT_ON_THE_GPU",
+     "from": 50598,
+     "to": 50803,
+     "closed": true
+    },
+    {
+     "name": "THE_STAFF_PUSH_A_CART",
+     "from": 50821,
+     "to": 50874,
+     "closed": true
+    },
+    {
+     "name": "THE_CITY_GOES_TO_WORK",
+     "from": 50875,
+     "to": 51145,
+     "closed": true
+    },
+    {
+     "name": "THE_TOWN_SITS_IN_THE_GROUND",
+     "from": 51188,
+     "to": 51200,
+     "closed": true
+    },
+    {
+     "name": "THE_TOWN_IS_PAINTED_IN",
+     "from": 51201,
+     "to": 51499,
+     "closed": true
+    },
+    {
+     "name": "EVERY_TOWN_ITS_OWN",
+     "from": 51211,
+     "to": 51415,
+     "closed": true
+    },
+    {
+     "name": "THE_MAP_GROUND_IS_PAINTED_ONCE",
+     "from": 51561,
+     "to": 51606,
+     "closed": false
+    },
+    {
+     "name": "THE_STREETS_JOIN",
+     "from": 51607,
+     "to": 52358,
+     "closed": true
+    },
+    {
+     "name": "THE_VALLEY_HAS_AN_EDGE",
+     "from": 51759,
+     "to": 53964,
+     "closed": true
+    },
+    {
+     "name": "THE_FAR_END_AT_THE_PHONES_PIXELS",
+     "from": 52026,
+     "to": 52209,
+     "closed": false
+    },
+    {
+     "name": "THE_STREETS_JOIN",
+     "from": 52210,
+     "to": 52358,
+     "closed": true
+    },
+    {
+     "name": "THE_MAP_STANDS_TALLER",
+     "from": 52446,
+     "to": 52473,
+     "closed": true
+    },
+    {
+     "name": "THE_TOWN_IS_PAINTED_IN",
+     "from": 52474,
+     "to": 52758,
+     "closed": true
+    },
+    {
+     "name": "THE_STRIP_READS_AS_THE_STRIP",
+     "from": 52759,
+     "to": 52798,
+     "closed": true
+    },
+    {
+     "name": "THE_STREETS_READ_AS_STREETS",
+     "from": 52862,
+     "to": 52973,
+     "closed": true
+    },
+    {
+     "name": "THE_CORNERS_JOIN",
+     "from": 52974,
+     "to": 52994,
+     "closed": false
+    },
+    {
+     "name": "A_STREET_IN_FRONT_OF_EVERY_HOUSE",
+     "from": 52995,
+     "to": 53107,
+     "closed": false
+    },
+    {
+     "name": "THE_VALLEY_HAS_ITS_ZONES",
+     "from": 53108,
+     "to": 53318,
+     "closed": false
+    },
+    {
+     "name": "THE_PAINTING_WEARS_COOK",
+     "from": 53319,
+     "to": 53353,
+     "closed": true
+    },
+    {
+     "name": "ONE_DRAW_FOR_WHAT_LANDS",
+     "from": 53469,
+     "to": 53481,
+     "closed": true
+    },
+    {
+     "name": "ONE_MAP_AT_EVERY_ZOOM",
+     "from": 53608,
+     "to": 53795,
+     "closed": true
+    },
+    {
+     "name": "THE_MAP_SHARPENS_TO_ITS_OWN_PIXELS",
+     "from": 53653,
+     "to": 53965,
+     "closed": false
+    },
+    {
+     "name": "THE_NEAR_END_IS_THE_BLOCK",
+     "from": 53966,
+     "to": 54080,
+     "closed": true
+    },
+    {
+     "name": "CITY_GROUND",
+     "from": 54353,
+     "to": 54506,
+     "closed": false
+    },
+    {
+     "name": "WHOSE_FOOTPRINTS_ARE_THESE",
+     "from": 54507,
+     "to": 54593,
+     "closed": false
+    },
+    {
+     "name": "THE_MAP_HAS_NEVER_DRAWN_THE_LIGHTS",
+     "from": 54594,
+     "to": 58508,
+     "closed": false
+    },
+    {
+     "name": "THE_COMPANY_IS_A_CAST",
+     "from": 58509,
+     "to": 58691,
+     "closed": false
+    },
+    {
+     "name": "CITY_AGAINST",
+     "from": 58692,
+     "to": 66412,
+     "closed": false
+    },
+    {
+     "name": "THE_COMPANY_IS_A_CAST",
+     "from": 66413,
+     "to": 66513,
+     "closed": false
+    },
+    {
+     "name": "A_GOAL_THE_COMPANY_SETS_ITSELF",
+     "from": 66514,
+     "to": 66682,
+     "closed": false
+    },
+    {
+     "name": "THE_INJURED",
+     "from": 66683,
+     "to": 67182,
+     "closed": false
+    },
+    {
+     "name": "THE_VALLEY_HAS_ANIMALS",
+     "from": 67183,
+     "to": 67602,
+     "closed": false
+    },
+    {
+     "name": "CITY_WILDLIFE",
+     "from": 67603,
+     "to": 67668,
+     "closed": false
+    },
+    {
+     "name": "CITY_PACKS",
+     "from": 67669,
+     "to": 67920,
+     "closed": false
+    },
+    {
+     "name": "THERE_ARE_ENEMIES",
+     "from": 67921,
+     "to": 68003,
+     "closed": false
+    },
+    {
+     "name": "THE_APPROACH_IS_THE_TELL",
+     "from": 68004,
+     "to": 69569,
+     "closed": false
+    },
+    {
+     "name": "THE_MAP_RESTS_UNDER_A_PLACE",
+     "from": 69570,
+     "to": 69597,
+     "closed": true
+    },
+    {
+     "name": "MEET_BEFORE_YOU_FIGHT",
+     "from": 70119,
+     "to": 70528,
+     "closed": true
+    },
+    {
+     "name": "FALL_BACK_HOLDS",
+     "from": 70346,
+     "to": 70449,
+     "closed": true
+    },
+    {
+     "name": "EVERYONE_IN_THE_FIGHT_HOLDS",
+     "from": 70356,
+     "to": 70409,
+     "closed": true
+    },
+    {
+     "name": "A_TOWN_IS_ALWAYS_A_DOOR",
+     "from": 70450,
+     "to": 70481,
+     "closed": true
+    },
+    {
+     "name": "MAKE_CAMP_NEARBY",
+     "from": 70482,
+     "to": 70527,
+     "closed": true
+    },
+    {
+     "name": "THE_SAVE_REMEMBERS",
+     "from": 71537,
+     "to": 71565,
+     "closed": true
+    },
+    {
+     "name": "THE_ALPHA_OPENS_ON_THE_MAP",
+     "from": 72736,
+     "to": 72813,
+     "closed": false
+    },
+    {
+     "name": "CITY_FEEDBACK",
+     "from": 72814,
+     "to": 73864,
+     "closed": false
+    },
+    {
+     "name": "BATTERY_WORTH",
+     "from": 73865,
+     "to": 73882,
+     "closed": false
+    },
+    {
+     "name": "THIS_WEEK",
+     "from": 73883,
+     "to": 74706,
+     "closed": false
+    },
+    {
+     "name": "CLICK_OUTSIDE_CLOSES",
+     "from": 74707,
+     "to": 74782,
+     "closed": true
+    },
+    {
+     "name": "SPACE_HOLDS_FOUR_TIMES",
+     "from": 74799,
+     "to": 74861,
+     "closed": true
+    },
+    {
+     "name": "ONE_PICTURE_FOR_A_PIXEL_DISC",
+     "from": 75031,
+     "to": 75070,
+     "closed": true
+    },
+    {
+     "name": "THE_SHADOW_OF_WHAT_YOU_DID",
+     "from": 75460,
+     "to": 75597,
+     "closed": false
+    },
+    {
+     "name": "THE_BLOCK_PAYS_ITS_OWNER",
+     "from": 75598,
+     "to": 75754,
+     "closed": false
+    },
+    {
+     "name": "THE_LENDER_VISITS_THE_HEIR",
+     "from": 75755,
+     "to": 76063,
+     "closed": false
+    },
+    {
+     "name": "A_PLACE_EARNS_OR_GOES_DARK",
+     "from": 76064,
+     "to": 76132,
+     "closed": true
+    },
+    {
+     "name": "THE_ARENA",
+     "from": 76372,
+     "to": 76443,
+     "closed": true
+    },
+    {
+     "name": "THE_HIRE_ASKS_WHO_YOU_ARE",
+     "from": 77017,
+     "to": 77566,
+     "closed": false
+    },
+    {
+     "name": "THE_TURN_TAKES_THE_BEAT",
+     "from": 77567,
+     "to": 78329,
+     "closed": false
+    },
+    {
+     "name": "CITY_FACTIONBODY",
+     "from": 78330,
+     "to": 78429,
+     "closed": false
+    },
+    {
+     "name": "CITY_TRADEFIT",
+     "from": 78430,
+     "to": 80076,
+     "closed": false
+    },
+    {
+     "name": "THE_FIGHT_GETS_THE_ROOM",
+     "from": 80077,
+     "to": 80154,
+     "closed": false
+    },
+    {
+     "name": "STREET_FIGHT",
+     "from": 80155,
+     "to": 80475,
+     "closed": false
+    },
+    {
+     "name": "TILES_ARRIVED",
+     "from": 80476,
+     "to": 80589,
+     "closed": false
+    },
+    {
+     "name": "TILES_ARRIVED_END",
+     "from": 80590,
+     "to": 80758,
+     "closed": false
+    },
+    {
+     "name": "FURNITURE_PASS",
+     "from": 80759,
+     "to": 80799,
+     "closed": true
+    },
+    {
+     "name": "CITY_AGAINST",
+     "from": 85232,
+     "to": 86263,
+     "closed": false
+    },
+    {
+     "name": "WHAT_YOU_OWE",
+     "from": 86264,
+     "to": 86391,
+     "closed": false
+    },
+    {
+     "name": "CITY_VOUCH",
+     "from": 86392,
+     "to": 86537,
+     "closed": false
+    },
+    {
+     "name": "CITY_VALLEY",
+     "from": 86538,
+     "to": 86681,
+     "closed": false
+    },
+    {
+     "name": "CITY_WHO_VOUCHES",
+     "from": 86682,
+     "to": 86828,
+     "closed": false
+    },
+    {
+     "name": "CITY_OUTFIT",
+     "from": 86829,
+     "to": 94299,
+     "closed": false
+    },
+    {
+     "name": "A_QUIET_EVENT_IS_A_POST",
+     "from": 94300,
+     "to": 94328,
+     "closed": true
+    },
+    {
+     "name": "HOME_BASE",
+     "from": 96003,
+     "to": 96512,
+     "closed": true
+    },
+    {
+     "name": "ONLY_THE_PLANTED_PLACE",
+     "from": 96047,
+     "to": 96230,
+     "closed": false
+    },
+    {
+     "name": "WHAT_HE_BUILDS",
+     "from": 96231,
+     "to": 96312,
+     "closed": false
+    },
+    {
+     "name": "EVERYTHING_HIS_LIVES_THERE",
+     "from": 96313,
+     "to": 96355,
+     "closed": false
+    },
+    {
+     "name": "HIS_GATE_HELD",
+     "from": 96356,
+     "to": 96370,
+     "closed": true
+    },
+    {
+     "name": "HIS_OWN_BUILDINGS",
+     "from": 96379,
+     "to": 96416,
+     "closed": true
+    },
+    {
+     "name": "THE_GRINDER",
+     "from": 96417,
+     "to": 96509,
+     "closed": true
+    }
+   ]
+  },
+  "slices/BOHEMIA_SETTLEMENT_SCREEN.html": {
+   "bytes": 718998,
+   "lines": 6742,
+   "inlineScripts": 1,
+   "externalScripts": 49,
+   "codeBytes": 401030,
+   "commentBytes": 216045,
+   "stringBytes": 51910,
+   "dataUriBytes": 0,
+   "dataScriptBytes": 0,
+   "namedPatches": 126,
+   "blocks": 57,
+   "closedBlocks": 49,
+   "hookLines": 400,
+   "topHooked": [
+    [
+     "CAMP_TWO",
+     26
+    ],
+    [
+     "THE_CAMP",
+     15
+    ],
+    [
+     "THE_ARENA",
+     15
+    ],
+    [
+     "THE_TOWNS_WIRED_TALL_AND_WIDE",
+     12
+    ],
+    [
+     "THE_BEST_RECRUIT_AT_THE_TOP",
+     11
+    ],
+    [
+     "BUILD_ON_THE_SCREEN",
+     10
+    ],
+    [
+     "NOTHING_TAPPABLE_UNDER_THE_PHONE",
+     10
+    ],
+    [
+     "HOME_BASE",
+     9
+    ],
+    [
+     "HIS_PLACE_HIS_WAY",
+     9
+    ],
+    [
+     "THE_WALK_UP",
+     9
+    ],
+    [
+     "THE_STATION",
+     8
+    ],
+    [
+     "TRADE_GOODS_CARRIED",
+     8
+    ]
+   ],
+   "redeclared": 0,
+   "redeclaredNames": [],
+   "assignedOver": 0,
+   "assignedOverNames": [],
+   "overrides": 0,
+   "loads": 49,
+   "pagesNamed": [
+    "BOHEMIA_SCAVENGE.html"
+   ],
+   "parentReach": 37,
+   "frameReach": 2,
+   "postMessage": 8,
+   "underscoreGlobals": 81,
+   "generatedFrom": null,
+   "blockList": [
+    {
+     "name": "WHAT_YOU_SELL_SITS_ON_THEIR_SHELF",
+     "from": 694,
+     "to": 717,
+     "closed": true
+    },
+    {
+     "name": "ONE_TAP_SELECTS",
+     "from": 758,
+     "to": 972,
+     "closed": true
+    },
+    {
+     "name": "THE_FINGER_SETS_THE_BEAT",
+     "from": 769,
+     "to": 783,
+     "closed": false
+    },
+    {
+     "name": "DEAREST_FIRST",
+     "from": 784,
+     "to": 808,
+     "closed": true
+    },
+    {
+     "name": "THE_SHOP_SAYS_WHAT_IT_DOES",
+     "from": 973,
+     "to": 1113,
+     "closed": true
+    },
+    {
+     "name": "WHAT_YOU_BUY_GOES_ON_THE_MAN",
+     "from": 1114,
+     "to": 1147,
+     "closed": true
+    },
+    {
+     "name": "UI_THREE_STATS",
+     "from": 1148,
+     "to": 1190,
+     "closed": true
+    },
+    {
+     "name": "UI_THREE_ITEMS",
+     "from": 1191,
+     "to": 1207,
+     "closed": true
+    },
+    {
+     "name": "NOTHING_SHOWS_UNTIL_HE_TAPS",
+     "from": 1208,
+     "to": 1236,
+     "closed": true
+    },
+    {
+     "name": "NO_LINE_CUT_WHILE_THERE_IS_GLASS",
+     "from": 1237,
+     "to": 1335,
+     "closed": true
+    },
+    {
+     "name": "THE_FULLEST_HALL_FITS",
+     "from": 1258,
+     "to": 1306,
+     "closed": true
+    },
+    {
+     "name": "TAPE_AT_EVERY_STALL",
+     "from": 1507,
+     "to": 1529,
+     "closed": true
+    },
+    {
+     "name": "SELL_AT_THE_STALL",
+     "from": 1530,
+     "to": 1901,
+     "closed": true
+    },
+    {
+     "name": "THE_VALLEY_AT_THE_STALL",
+     "from": 1548,
+     "to": 1580,
+     "closed": false
+    },
+    {
+     "name": "THE_PRICE_AT_A_GLANCE",
+     "from": 1581,
+     "to": 1587,
+     "closed": false
+    },
+    {
+     "name": "THE_STALLS_DAY",
+     "from": 1588,
+     "to": 1717,
+     "closed": false
+    },
+    {
+     "name": "EVERY_STALL_BUYS",
+     "from": 1718,
+     "to": 1763,
+     "closed": true
+    },
+    {
+     "name": "TRADE_GOODS_CARRIED",
+     "from": 1764,
+     "to": 1891,
+     "closed": true
+    },
+    {
+     "name": "THE_SMITH_MENDS",
+     "from": 1902,
+     "to": 1938,
+     "closed": true
+    },
+    {
+     "name": "HOME_BASE",
+     "from": 2095,
+     "to": 3082,
+     "closed": true
+    },
+    {
+     "name": "EVERYTHING_HIS_LIVES_THERE",
+     "from": 2163,
+     "to": 2224,
+     "closed": false
+    },
+    {
+     "name": "WHAT_YOU_BUILD_OPENS_A_DOOR",
+     "from": 2225,
+     "to": 2251,
+     "closed": true
+    },
+    {
+     "name": "HIS_PLACE_SEEN_AS_HE_WILL_SEE_IT",
+     "from": 2252,
+     "to": 2283,
+     "closed": true
+    },
+    {
+     "name": "THE_CAMP_WORKS_AT_HIS_PLACE",
+     "from": 2284,
+     "to": 2334,
+     "closed": true
+    },
+    {
+     "name": "HIS_OWN_BUILDINGS",
+     "from": 2335,
+     "to": 2426,
+     "closed": true
+    },
+    {
+     "name": "THE_STAFF_PUSH_A_CART",
+     "from": 2389,
+     "to": 2408,
+     "closed": true
+    },
+    {
+     "name": "IT_STARTS_BARE",
+     "from": 2427,
+     "to": 2476,
+     "closed": true
+    },
+    {
+     "name": "HIS_CAMERAS_AS_PROMISED",
+     "from": 2477,
+     "to": 3062,
+     "closed": true
+    },
+    {
+     "name": "HIS_PLACE_HIS_WAY",
+     "from": 2833,
+     "to": 3061,
+     "closed": true
+    },
+    {
+     "name": "THE_GRINDER",
+     "from": 3063,
+     "to": 3081,
+     "closed": true
+    },
+    {
+     "name": "EVERY_TOWN_ITS_OWN",
+     "from": 3130,
+     "to": 3207,
+     "closed": true
+    },
+    {
+     "name": "NOTHING_TAPPABLE_UNDER_THE_PHONE",
+     "from": 3208,
+     "to": 3234,
+     "closed": true
+    },
+    {
+     "name": "THE_TOWN_FITS_THE_SCREEN",
+     "from": 3273,
+     "to": 3467,
+     "closed": true
+    },
+    {
+     "name": "FOUR_LAYOUTS",
+     "from": 3329,
+     "to": 3372,
+     "closed": false
+    },
+    {
+     "name": "THE_TOWN_IS_ONE_PICTURE",
+     "from": 3373,
+     "to": 3418,
+     "closed": true
+    },
+    {
+     "name": "THE_FLIP_GLIDES",
+     "from": 3469,
+     "to": 3632,
+     "closed": true
+    },
+    {
+     "name": "YOUR_CREW_LIVES_IN_THE_TOWN",
+     "from": 3692,
+     "to": 3835,
+     "closed": true
+    },
+    {
+     "name": "EVERYBODY_IDLES",
+     "from": 4020,
+     "to": 4060,
+     "closed": true
+    },
+    {
+     "name": "THE_ARMOUR_HE_WEARS_SHOWS",
+     "from": 4031,
+     "to": 4040,
+     "closed": true
+    },
+    {
+     "name": "THE_WALK_UP",
+     "from": 4061,
+     "to": 4308,
+     "closed": true
+    },
+    {
+     "name": "THE_CAMP",
+     "from": 4309,
+     "to": 4655,
+     "closed": true
+    },
+    {
+     "name": "THE_RETINUE",
+     "from": 4380,
+     "to": 4517,
+     "closed": true
+    },
+    {
+     "name": "THE_STAFF_FIGHT_TOO",
+     "from": 4419,
+     "to": 4441,
+     "closed": true
+    },
+    {
+     "name": "THE_HEAL_BUTTON",
+     "from": 4628,
+     "to": 4652,
+     "closed": true
+    },
+    {
+     "name": "THE_BARS_OVER_THEIR_HEADS",
+     "from": 4689,
+     "to": 4705,
+     "closed": true
+    },
+    {
+     "name": "THE_TOWN_RESTS_UNDER_ITS_SHEET",
+     "from": 4832,
+     "to": 4868,
+     "closed": true
+    },
+    {
+     "name": "THE_LONG_EXPOSURE",
+     "from": 4890,
+     "to": 4914,
+     "closed": true
+    },
+    {
+     "name": "PINCH_OUT_TO_THE_MAP",
+     "from": 5063,
+     "to": 5144,
+     "closed": true
+    },
+    {
+     "name": "A_FEW_WOMEN_AT_THE_POST",
+     "from": 5232,
+     "to": 5248,
+     "closed": true
+    },
+    {
+     "name": "FOURTEEN_RARE_MEN",
+     "from": 5284,
+     "to": 5493,
+     "closed": false
+    },
+    {
+     "name": "THE_BEST_RECRUIT_AT_THE_TOP",
+     "from": 5494,
+     "to": 5589,
+     "closed": true
+    },
+    {
+     "name": "UI_THREE_STATS",
+     "from": 5664,
+     "to": 5716,
+     "closed": true
+    },
+    {
+     "name": "TWO_JOBS_AT_ONCE",
+     "from": 5933,
+     "to": 5947,
+     "closed": true
+    },
+    {
+     "name": "THE_RETINUE",
+     "from": 6081,
+     "to": 6099,
+     "closed": true
+    },
+    {
+     "name": "THE_CLINIC_HALVES_BOTH",
+     "from": 6186,
+     "to": 6220,
+     "closed": true
+    },
+    {
+     "name": "SCAVENGE_ON_THE_DIAL",
+     "from": 6351,
+     "to": 6489,
+     "closed": true
+    },
+    {
+     "name": "THE_LOT_IS_BAKED_WHILE_HE_READS",
+     "from": 6394,
+     "to": 6742,
+     "closed": false
+    }
+   ]
+  }
+ },
+ "totals": {
+  "blocks": 306,
+  "hookLines": 3342,
+  "namedPatches": 1244,
+  "overrides": 19
+ },
+ "copies": {
+  "inlinedPairs": 172,
+  "inlinedBodies": 1423,
+  "pastedCopies": 41,
+  "loadedTwice": 0,
+  "inlined": [
+   {
+    "module": "engine/bohemia_feedstream.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 48,
+    "ofModule": 48,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_agents.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 37,
+    "ofModule": 37,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_towns.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 33,
+    "ofModule": 33,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_district_kit.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 32,
+    "ofModule": 32,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_people.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 32,
+    "ofModule": 32,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_engine.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 31,
+    "ofModule": 66,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_homebases.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 31,
+    "ofModule": 31,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_population.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 30,
+    "ofModule": 30,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_overmap.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 26,
+    "ofModule": 26,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_suburb.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 24,
+    "ofModule": 24,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_acts.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 22,
+    "ofModule": 22,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_sfx.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 22,
+    "ofModule": 22,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_world_state.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 20,
+    "ofModule": 20,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_purse.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 20,
+    "ofModule": 20,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_standing.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 19,
+    "ofModule": 19,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_resolve.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 18,
+    "ofModule": 18,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_voice_recorded.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 16,
+    "ofModule": 16,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_strip.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 15,
+    "ofModule": 15,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_pockets.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 15,
+    "ofModule": 15,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_heirs.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 15,
+    "ofModule": 15,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_payday.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 15,
+    "ofModule": 15,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_arterial.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 14,
+    "ofModule": 14,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_dead.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 14,
+    "ofModule": 14,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_haggle.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 14,
+    "ofModule": 14,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_parties.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 14,
+    "ofModule": 14,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_commitment.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 13,
+    "ofModule": 13,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_family.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 13,
+    "ofModule": 13,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_livingmap.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 13,
+    "ofModule": 13,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_utility.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 13,
+    "ofModule": 13,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_voice.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 13,
+    "ofModule": 13,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_belonging.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 12,
+    "ofModule": 12,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_between.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 12,
+    "ofModule": 12,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_bodyvar.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 12,
+    "ofModule": 12,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_owing.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 12,
+    "ofModule": 12,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_ties.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 12,
+    "ofModule": 12,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_blackbox.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 11,
+    "ofModule": 11,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_lotbuild.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 11,
+    "ofModule": 11,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_rail.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 11,
+    "ofModule": 11,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_succession.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 11,
+    "ofModule": 11,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_world_seed.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 10,
+    "ofModule": 10,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_asks.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 10,
+    "ofModule": 10,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_claims.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 10,
+    "ofModule": 10,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_direct_bq.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 10,
+    "ofModule": 10,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_part_of_town.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 10,
+    "ofModule": 10,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_ladderwalk.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 10,
+    "ofModule": 10,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_save.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 10,
+    "ofModule": 12,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_against.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 9,
+    "ofModule": 9,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_production.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 9,
+    "ofModule": 9,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_encounters.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 9,
+    "ofModule": 9,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_exchanges.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 9,
+    "ofModule": 9,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_housing.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 9,
+    "ofModule": 9,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_interchange.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 9,
+    "ofModule": 9,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_introductions.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 9,
+    "ofModule": 9,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_mandate.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 9,
+    "ofModule": 9,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_stage.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 9,
+    "ofModule": 9,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_cells.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 8,
+    "ofModule": 8,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_century.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 8,
+    "ofModule": 8,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_cityedit.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 8,
+    "ofModule": 8,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_claim.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 8,
+    "ofModule": 8,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_coalition.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 8,
+    "ofModule": 8,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_company.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 8,
+    "ofModule": 8,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_deeds.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 8,
+    "ofModule": 8,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_interior_ground.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 8,
+    "ofModule": 8,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_fuse.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 8,
+    "ofModule": 8,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_ground.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 8,
+    "ofModule": 8,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_lattice.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 8,
+    "ofModule": 8,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_vista.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 8,
+    "ofModule": 8,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_watertreat.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 8,
+    "ofModule": 8,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_work.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 8,
+    "ofModule": 8,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 7,
+    "ofModule": 44,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_engine_graphics_7_14_26.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 7,
+    "ofModule": 40,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_economy.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 7,
+    "ofModule": 7,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_favour.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 7,
+    "ofModule": 7,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_floorplan.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 7,
+    "ofModule": 7,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_floorplan.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 7,
+    "ofModule": 7,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_golf.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 7,
+    "ofModule": 7,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_hazard.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 7,
+    "ofModule": 7,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_packs.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 7,
+    "ofModule": 7,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_lend.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 7,
+    "ofModule": 7,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_ownpower.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 7,
+    "ofModule": 7,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_park.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 7,
+    "ofModule": 7,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_quirk.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 7,
+    "ofModule": 8,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_wash.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 7,
+    "ofModule": 7,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_powergrid.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 6,
+    "ofModule": 6,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_backhouse.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 6,
+    "ofModule": 6,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_pumps.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 6,
+    "ofModule": 6,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_powerbuild.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 6,
+    "ofModule": 6,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_kept.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 6,
+    "ofModule": 6,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_known.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 6,
+    "ofModule": 6,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_names.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 6,
+    "ofModule": 6,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_retreat.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 6,
+    "ofModule": 6,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_school.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 6,
+    "ofModule": 6,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_stayed.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 6,
+    "ofModule": 6,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_weather.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 6,
+    "ofModule": 6,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_barter.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 5,
+    "ofModule": 5,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_cemetery.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 5,
+    "ofModule": 5,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_down.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 5,
+    "ofModule": 5,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_freeway.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 5,
+    "ofModule": 5,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_furnish.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 5,
+    "ofModule": 5,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_stadium.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 5,
+    "ofModule": 5,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_hostiles.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 5,
+    "ofModule": 6,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_wildlife.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 5,
+    "ofModule": 5,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_lock.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 5,
+    "ofModule": 5,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_obligation.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 5,
+    "ofModule": 5,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_origins.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 5,
+    "ofModule": 5,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_quest_runtime.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 5,
+    "ofModule": 5,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_quest_runtime.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 5,
+    "ofModule": 5,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_railyard.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 5,
+    "ofModule": 5,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_terrain_noise.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 5,
+    "ofModule": 5,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_airfield.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 4,
+    "ofModule": 4,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_hunger.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 4,
+    "ofModule": 4,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_combatfloor.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 4,
+    "ofModule": 4,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_commercial.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 4,
+    "ofModule": 4,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_demoquests.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 4,
+    "ofModule": 4,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_farm.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 4,
+    "ofModule": 4,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_fold.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 4,
+    "ofModule": 4,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_followers.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 4,
+    "ofModule": 4,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_heir.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 4,
+    "ofModule": 4,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_landfill.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 4,
+    "ofModule": 4,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_memory.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 4,
+    "ofModule": 4,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_scene.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 4,
+    "ofModule": 4,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_speedway.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 4,
+    "ofModule": 4,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_town.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 4,
+    "ofModule": 4,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_waterpark.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 4,
+    "ofModule": 4,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_apartment.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_asking.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_ballpark.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_trailer.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_bq.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_bq.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_campus.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_conversation.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_courthouse.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_dayloop.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_death_sounds.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_drivein.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_every_song_in_turn.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_jail.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_region_news.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 18,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_mall.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_medical.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_mountain.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_punch_heard.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_reach.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_storage.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_story_surface.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_substation.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_warehouse.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 3,
+    "ofModule": 3,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_ambitions.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_battery.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_boneyard.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_firestation.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_policestation.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_bullet_lands.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_casino.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_chapel.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_cityhall.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_desert.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_downtown.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_industrial.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_landmarks.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_library.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_solar.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_resort.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_swapmeet.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_terminal.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_truckstop.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 2,
+    "ofModule": 2,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_daycycle.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 1,
+    "ofModule": 1,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_clout.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 1,
+    "ofModule": 1,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_guns_heard.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 1,
+    "ofModule": 1,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_radio_heard.js",
+    "page": "slices/BOHEMIA_ALPHA_0_9.html",
+    "bodies": 1,
+    "ofModule": 1,
+    "alsoLoaded": false
+   },
+   {
+    "module": "engine/bohemia_water.js",
+    "page": "slices/BOHEMIA_CITY_WORLD.html",
+    "bodies": 1,
+    "ofModule": 1,
+    "alsoLoaded": false
+   }
+  ],
+  "pasted": [
+   {
+    "name": "hz",
+    "len": 172,
+    "files": [
+     "slices/bohemia_big_inside.js",
+     "slices/bohemia_casino_floor.js",
+     "slices/bohemia_flood_tunnels.js",
+     "slices/bohemia_parking_garage.js"
+    ],
+    "extra": 3
+   },
+   {
+    "name": "rngOf",
+    "len": 138,
+    "files": [
+     "slices/bohemia_big_inside.js",
+     "slices/bohemia_casino_floor.js",
+     "slices/bohemia_flood_tunnels.js",
+     "slices/bohemia_parking_garage.js"
+    ],
+    "extra": 3
+   },
+   {
+    "name": "hash",
+    "len": 155,
+    "files": [
+     "engine/bohemia_arena.js",
+     "slices/bohemia_aftermath.js",
+     "slices/bohemia_freeway_boards.js"
+    ],
+    "extra": 2
+   },
+   {
+    "name": "hash32",
+    "len": 272,
+    "files": [
+     "engine/bohemia_goodbros.js",
+     "engine/bohemia_long_injury.js"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "needOk",
+    "len": 169,
+    "files": [
+     "slices/bohemia_place_visits.js",
+     "slices/bohemia_road_events.js"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "esc",
+    "len": 144,
+    "files": [
+     "slices/bohemia_phone.js",
+     "slices/bohemia_road_events.js"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "dirTo",
+    "len": 142,
+    "files": [
+     "engine/bohemia_camp_life.js",
+     "slices/bohemia_camp_look.js"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "row",
+    "len": 136,
+    "files": [
+     "slices/bohemia_bosses.js",
+     "slices/bohemia_his_map.js"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "font",
+    "len": 129,
+    "files": [
+     "slices/bohemia_his_map.js",
+     "slices/bohemia_world_state_map.js"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "esc",
+    "len": 127,
+    "files": [
+     "slices/bohemia_fight_opener.js",
+     "slices/bohemia_ui_materials.js"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "esc",
+    "len": 127,
+    "files": [
+     "slices/bohemia_ui_materials.js",
+     "slices/bohemia_ui_weapon_card.js"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "nearTown",
+    "len": 125,
+    "files": [
+     "slices/bohemia_bosses.js",
+     "slices/bohemia_his_map.js"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "ls",
+    "len": 121,
+    "files": [
+     "engine/bohemia_kill_tally.js",
+     "engine/bohemia_unique_name.js"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "ls",
+    "len": 116,
+    "files": [
+     "engine/bohemia_hire_lock.js",
+     "slices/bohemia_road_more.js"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "el",
+    "len": 116,
+    "files": [
+     "engine/bohemia_stats.js",
+     "slices/bohemia_ui_three_items.js"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "fill",
+    "len": 107,
+    "files": [
+     "slices/bohemia_bosses.js",
+     "slices/bohemia_ui_materials.js"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "(2 helpers of bohemia_camp_life.js)",
+    "len": 0,
+    "files": [
+     "engine/bohemia_camp_life.js",
+     "slices/BOHEMIA_CITY_WORLD.html"
+    ],
+    "extra": 2
+   },
+   {
+    "name": "(2 helpers of bohemia_ask_spoken.js)",
+    "len": 0,
+    "files": [
+     "engine/bohemia_ask_spoken.js",
+     "slices/BOHEMIA_CITY_WORLD.html"
+    ],
+    "extra": 2
+   },
+   {
+    "name": "(2 helpers of bohemia_board_shelf.js)",
+    "len": 0,
+    "files": [
+     "slices/bohemia_board_shelf.js",
+     "slices/BOHEMIA_CITY_WORLD.html"
+    ],
+    "extra": 2
+   },
+   {
+    "name": "(2 helpers of bohemia_job_kinds.js)",
+    "len": 0,
+    "files": [
+     "slices/bohemia_job_kinds.js",
+     "slices/BOHEMIA_CITY_WORLD.html"
+    ],
+    "extra": 2
+   },
+   {
+    "name": "(2 helpers of bohemia_personlook.js)",
+    "len": 0,
+    "files": [
+     "engine/bohemia_personlook.js",
+     "slices/BOHEMIA_ALPHA_0_9.html"
+    ],
+    "extra": 2
+   },
+   {
+    "name": "(1 helper of bohemia_slice_engine.js)",
+    "len": 0,
+    "files": [
+     "engine/bohemia_slice_engine.js",
+     "slices/BOHEMIA_CITY_WORLD.html"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "(1 helper of bohemia_arena.js)",
+    "len": 0,
+    "files": [
+     "engine/bohemia_arena.js",
+     "slices/BOHEMIA_CITY_WORLD.html"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "(1 helper of bohemia_fight_opener.js)",
+    "len": 0,
+    "files": [
+     "slices/bohemia_fight_opener.js",
+     "slices/BOHEMIA_CITY_WORLD.html"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "(1 helper of bohemia_job_danger.js)",
+    "len": 0,
+    "files": [
+     "slices/bohemia_job_danger.js",
+     "slices/BOHEMIA_CITY_WORLD.html"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "(1 helper of bohemia_turfledger.js)",
+    "len": 0,
+    "files": [
+     "engine/bohemia_turfledger.js",
+     "slices/BOHEMIA_CITY_WORLD.html"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "(1 helper of bohemia_roster.js)",
+    "len": 0,
+    "files": [
+     "engine/bohemia_roster.js",
+     "slices/BOHEMIA_CITY_WORLD.html"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "(1 helper of bohemia_bar_news.js)",
+    "len": 0,
+    "files": [
+     "slices/bohemia_bar_news.js",
+     "slices/BOHEMIA_CITY_WORLD.html"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "(1 helper of bohemia_ui_three_items.js)",
+    "len": 0,
+    "files": [
+     "slices/bohemia_ui_three_items.js",
+     "slices/BOHEMIA_CITY_WORLD.html"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "(1 helper of bohemia_wants.js)",
+    "len": 0,
+    "files": [
+     "engine/bohemia_wants.js",
+     "slices/BOHEMIA_CITY_WORLD.html"
+    ],
+    "extra": 1
+   },
+   {
+    "name": "(1 helper of bohemia_motion.js)",
+    "len": 0,
+    "files": [
+     "slices/bohemia_motion.js",
+     "slices/BOHEMIA_CITY_WORLD.html"
+    ],
+    "extra": 1
+   }
+  ],
+  "loadedTwiceList": []
+ },
+ "forks": {
+  "count": 5,
+  "top": [
+   {
+    "name": "fogSeen",
+    "versions": 2,
+    "files": [
+     "slices/BOHEMIA_CITY_WORLD.html",
+     "slices/BOHEMIA_FIGHT.html"
+    ]
+   },
+   {
+    "name": "dirOf",
+    "versions": 2,
+    "files": [
+     "slices/BOHEMIA_CITY_WORLD.html",
+     "slices/BOHEMIA_FIGHT.html"
+    ]
+   },
+   {
+    "name": "ease",
+    "versions": 2,
+    "files": [
+     "slices/BOHEMIA_CITY_WORLD.html",
+     "slices/BOHEMIA_FIGHT.html"
+    ]
+   },
+   {
+    "name": "walkSay",
+    "versions": 2,
+    "files": [
+     "slices/BOHEMIA_CITY_WORLD.html",
+     "slices/BOHEMIA_FIGHT.html"
+    ]
+   },
+   {
+    "name": "rigFrame",
+    "versions": 2,
+    "files": [
+     "slices/BOHEMIA_ALPHA_0_9.html",
+     "slices/BOHEMIA_CITY_WORLD.html"
+    ]
+   }
+  ]
+ },
+ "dead": {
+  "unpublished": 254,
+  "unpublishedBytes": 59024338,
+  "pasted": 4,
+  "testsOnly": 141,
+  "nothing": 109,
+  "nothingBytes": 974784,
+  "pastedList": [
+   "engine/BOHEMIA_GRAPHICS_ENGINE_MASTER_7_16_26.js",
+   "engine/bohemia_bodyvar.js",
+   "engine/bohemia_engine_graphics_7_14_26.js",
+   "engine/bohemia_region_news.js"
+  ],
+  "testsOnlyList": [
+   "engine/BOHEMIA_AGENT_LOOK_7_10_26.js",
+   "engine/BOHEMIA_AGENT_RAGS_7_10_26.js",
+   "engine/BOHEMIA_SKIN_PALETTES_WORLD_7_10_26.js",
+   "engine/bohemia_act_state.js",
+   "engine/bohemia_aftermoney.js",
+   "engine/bohemia_bq_tests.js",
+   "engine/bohemia_charge.js",
+   "engine/bohemia_chip_song.js",
+   "engine/bohemia_godgear.js",
+   "engine/bohemia_graphics_tests.js",
+   "engine/bohemia_hunted.js",
+   "engine/bohemia_insides.js",
+   "engine/bohemia_interior_levels.js",
+   "engine/bohemia_keeper_lines.js",
+   "engine/bohemia_keepers.js",
+   "engine/bohemia_light_pass.js",
+   "engine/bohemia_light_registry.js",
+   "engine/bohemia_loop_channel_tests.js",
+   "engine/bohemia_loop_clout_tests.js",
+   "engine/bohemia_loop_entities_tests.js",
+   "engine/bohemia_loop_faction_bridge_tests.js",
+   "engine/bohemia_loop_feed_tests.js",
+   "engine/bohemia_loop_ledger_tests.js",
+   "engine/bohemia_loop_profile_tests.js",
+   "engine/bohemia_loop_quests_tests.js",
+   "engine/bohemia_loop_slice_tests.js",
+   "engine/bohemia_loop_talk_tests.js",
+   "engine/bohemia_map_joins.js",
+   "engine/bohemia_personlook.js",
+   "engine/bohemia_plotgen.js",
+   "engine/bohemia_prop_scale.js",
+   "engine/bohemia_quest_runtime_tests.js",
+   "engine/bohemia_roads.js",
+   "engine/bohemia_slice_core.js",
+   "engine/bohemia_slice_engine.js",
+   "engine/bohemia_tests.js",
+   "engine/bohemia_the_real_corner.js",
+   "engine/bohemia_threeblocks.js",
+   "engine/bohemia_tilekinds.js",
+   "engine/bohemia_tilepool.js",
+   "engine/bohemia_tract.js",
+   "engine/bohemia_transitions.js",
+   "engine/bohemia_war.js",
+   "engine/bohemia_watch.js",
+   "slices/BOHEMIA_ANIM_GAP_PROOF_7_14_26.html",
+   "slices/BOHEMIA_ANSWER_SHEET_7_31_26.html",
+   "slices/BOHEMIA_A_STRANGER_GETS_THE_WORST_WORK_9_28_26.html",
+   "slices/BOHEMIA_BAKE_V8_GALLERY_7_10_26.html",
+   "slices/BOHEMIA_CITY_CURRENT.html",
+   "slices/BOHEMIA_COMMERCIAL_PROOF.html",
+   "slices/BOHEMIA_DIFFICULTY_THE_CURVE_11_3_26.html",
+   "slices/BOHEMIA_DOOR_SINGLE_LEAF_PROOF_7_14_26.html",
+   "slices/BOHEMIA_ENTER_SLICE_7_18_26.html",
+   "slices/BOHEMIA_EYES_ROUND_1_9_5_26.html",
+   "slices/BOHEMIA_FIVE_WAYS_A_LABEL_SITS_ON_THE_WORLD_9_18_26.html",
+   "slices/BOHEMIA_FIVE_WAYS_A_NOTE_LANDS_9_20_26.html",
+   "slices/BOHEMIA_FIVE_WAYS_A_PERSON_TALKS_9_21_26.html",
+   "slices/BOHEMIA_FIVE_WAYS_A_ROW_HAS_A_BODY_9_16_26.html",
+   "slices/BOHEMIA_FIVE_WAYS_THE_GAME_OPENS_9_21_26.html",
+   "slices/BOHEMIA_FIVE_WAYS_THE_MACHINE_SPEAKS_9_15_26.html",
+   "slices/BOHEMIA_FIVE_WAYS_THE_NOTES_SECTION_SITS_9_21_26.html",
+   "slices/BOHEMIA_FIVE_WAYS_THE_VOTE_TAB_SITS_9_21_26.html",
+   "slices/BOHEMIA_FOUR_WAYS_A_WORD_IS_STAMPED_9_21_26.html",
+   "slices/BOHEMIA_FOUR_WAYS_THE_FIGHT_READS_9_21_26.html",
+   "slices/BOHEMIA_FOUR_WAYS_THE_GAME_LOADS_9_22_26.html",
+   "slices/BOHEMIA_FOUR_WAYS_THE_TOP_BAR_FITS_9_22_26.html",
+   "slices/BOHEMIA_GOOD_BROS_10_9_26.html",
+   "slices/BOHEMIA_HER_NAME_AND_HER_FACE_9_24_26.html",
+   "slices/BOHEMIA_HOUSE_FACTORY_GALLERY_7_14_26.html",
+   "slices/BOHEMIA_HOUSE_ISO_JUDGE_7_29_26.html",
+   "slices/BOHEMIA_HOUSE_PART_ROLES_7_14_26.html",
+   "slices/BOHEMIA_KEEPERS_10_10_26.html",
+   "slices/BOHEMIA_LIVE_SLICE_V11_7_16_26.html",
+   "slices/BOHEMIA_LIVE_SLICE_V12_7_18_26.html",
+   "slices/BOHEMIA_LIVE_SLICE_V9_7_14_26.html",
+   "slices/BOHEMIA_MODS_THE_DATA_SCHEMA_10_9_26.html",
+   "slices/BOHEMIA_MULTICELL_TRAINING_7_10_26.html",
+   "slices/BOHEMIA_NIGHT_BLOCKS_PROOF_7_14_26.html",
+   "slices/BOHEMIA_NIGHT_FREIGHT_10_18_26.html",
+   "slices/BOHEMIA_NOBODY_STANDS_ON_ANYBODY_9_22_26.html",
+   "slices/BOHEMIA_NOBODY_STOPS_YOU_YET_9_24_26.html",
+   "slices/BOHEMIA_NO_SLOP_9_11_26.html",
+   "slices/BOHEMIA_ONE_STORY_THREE_MOUTHS_9_22_26.html",
+   "slices/BOHEMIA_OVER_THE_RIDGE_10_18_26.html",
+   "slices/BOHEMIA_PALETTE_JUDGE_7_29_26.html",
+   "slices/BOHEMIA_QUEST_DEMO_7_19_26.html",
+   "slices/BOHEMIA_QUEST_JUDGE_7_25_26.html",
+   "slices/BOHEMIA_REAL_VEGAS_BLOCKS_7_14_26.html",
+   "slices/BOHEMIA_REASSEMBLY_7_26_26.html",
+   "slices/BOHEMIA_REASSEMBLY_RECOOK_7_28_26.html",
+   "slices/BOHEMIA_REPO_MAN_THE_MACHINE_PARTY_10_19_26.html",
+   "slices/BOHEMIA_RUN_CURRENT.html",
+   "slices/BOHEMIA_SCALE_STUDY_7_18_26.html",
+   "slices/BOHEMIA_SESSION_SHOWCASE_7_10_26.html",
+   "slices/BOHEMIA_SOCIAL_PHONE_DEMO_7_20_26.html",
+   "slices/BOHEMIA_STALL_STRIPING_PROOF_7_14_26.html",
+   "slices/BOHEMIA_STASH_SCREEN.html",
+   "slices/BOHEMIA_STREET_GEN_GALLERY_7_13_26.html",
+   "slices/BOHEMIA_STREET_TILE_ROLES_7_13_26.html",
+   "slices/BOHEMIA_SUBURB_JUDGE_7_18_26.html",
+   "slices/BOHEMIA_SUBURB_MODULAR_PROOF.html",
+   "slices/BOHEMIA_THE_FIVE_REGISTERS_9_12_26.html",
+   "slices/BOHEMIA_THE_KEEPERS_SPEAK_10_9_26.html",
+   "slices/BOHEMIA_THE_LEFT_RAIL_9_11_26.html",
+   "slices/BOHEMIA_THE_LONG_INJURY_10_9_26.html",
+   "slices/BOHEMIA_THE_LONG_ROAD_10_18_26.html",
+   "slices/BOHEMIA_THE_ONE_WHO_STOOD_THERE_9_23_26.html",
+   "slices/BOHEMIA_THE_ONE_WHO_WALKS_WITH_YOU_9_21_26.html",
+   "slices/BOHEMIA_THE_PANEL_IS_A_PLATE_9_12_26.html",
+   "slices/BOHEMIA_THE_PHONE_IS_AN_OBJECT_9_11_26.html",
+   "slices/BOHEMIA_THE_REACH_AT_HALF_9_7_26.html",
+   "slices/BOHEMIA_THE_RECAP_SPEAKS_10_16_26.html",
+   "slices/BOHEMIA_THE_RING_DRESSED_9_7_26.html",
+   "slices/BOHEMIA_THE_ROSARY_BESIDE_HIS_SONGS_10_18_26.html",
+   "slices/BOHEMIA_THE_ROSARY_ON_CHANNEL_3_10_18_26.html",
+   "slices/BOHEMIA_THE_STREET_AT_THREE_HOURS_9_21_26.html",
+   "slices/BOHEMIA_THE_THREE_BEFORE_ACT_ONE_9_28_26.html",
+   "slices/BOHEMIA_THE_TOP_MENU_BAR_9_7_26.html",
+   "slices/BOHEMIA_THE_TOWN_YOU_DID_NOT_DEFEND_11_3_26.html",
+   "slices/BOHEMIA_THREE_LEVELS_10_25_26.html",
+   "slices/BOHEMIA_TUNING_EASIER_MEASURED_10_18_26.html",
+   "slices/BOHEMIA_TUNING_EASIER_THAN_BATTLE_BROTHERS_10_18_26.html",
+   "slices/BOHEMIA_TUNING_SLIGHTLY_HARDER_10_18_26.html",
+   "slices/BOHEMIA_TUNING_THE_FIGHT_IS_CLOSE_11_3_26.html",
+   "slices/BOHEMIA_TUNING_THE_FIRST_HOUR_10_19_26.html",
+   "slices/BOHEMIA_TUNING_THE_FIRST_KIT_IS_GUNS_10_19_26.html",
+   "slices/BOHEMIA_TUNING_THE_NUMBERS_AROUND_THE_FIGHT_10_18_26.html",
+   "slices/BOHEMIA_TUNING_THE_SAME_FIGHT_THREE_LEVELS_11_3_26.html",
+   "slices/BOHEMIA_TUNING_THE_TWENTY_FIELDS_10_18_26.html",
+   "slices/BOHEMIA_TUNING_THE_WHOLE_GRID_10_18_26.html",
+   "slices/BOHEMIA_TUNING_WHAT_IS_IN_THE_WAGON_10_19_26.html",
+   "slices/BOHEMIA_UI_SIZE_OPTIONS_9_6_26.html",
+   "slices/BOHEMIA_UI_SKIN_OPTIONS_9_7_26.html",
+   "slices/BOHEMIA_V12_BAKE_PROOF_33_6.html",
+   "slices/BOHEMIA_V12_BAKE_PROOF_34_6.html",
+   "slices/BOHEMIA_V12_BAKE_PROOF_35_6.html",
+   "slices/BOHEMIA_V12_BAKE_PROOF_36_6.html",
+   "slices/BOHEMIA_VOTE_CURRENT.html",
+   "slices/BOHEMIA_WHAT_PEOPLE_REPEAT_ABOUT_YOU_9_22_26.html",
+   "slices/BOHEMIA_WHO_YOU_WERE_9_27_26.html",
+   "slices/bohemia_loading_screen.js"
+  ],
+  "nothingList": [
+   "slices/BOHEMIA_ARGUING_THE_PRICE_9_21_26.html",
+   "slices/BOHEMIA_A_BLOCK_IS_TWO_THINGS_TOUCHING_10_10_26.html",
+   "slices/BOHEMIA_A_DESERT_NOT_A_RAINFOREST_10_18_26.html",
+   "slices/BOHEMIA_A_FOOTSTEP_THAT_IS_NOT_SAND_9_24_26.html",
+   "slices/BOHEMIA_A_GOAL_THE_COMPANY_SETS_ITSELF_9_30_26.html",
+   "slices/BOHEMIA_A_SIGHTED_PARTY_STOPS_THE_MARCH_9_30_26.html",
+   "slices/BOHEMIA_A_WALK_THAT_NEVER_REPEATS_9_30_26.html",
+   "slices/BOHEMIA_DEATH_SOUNDS_THAT_TERRIFY_10_26_26.html",
+   "slices/BOHEMIA_DOES_A_RUN_SOUND_LIKE_A_RUN_9_24_26.html",
+   "slices/BOHEMIA_FIVE_WAYS_A_CHOICE_FITS_9_13_26.html",
+   "slices/BOHEMIA_FIVE_WAYS_A_CHOICE_LOOKS_9_13_26.html",
+   "slices/BOHEMIA_FIVE_WAYS_FOUR_BUTTONS_FIT_9_13_26.html",
+   "slices/BOHEMIA_FIVE_WAYS_ONE_DOOR_9_14_26.html",
+   "slices/BOHEMIA_FIVE_WAYS_THE_QUEUE_READS_9_15_26.html",
+   "slices/BOHEMIA_FIVE_WAYS_THE_SCREEN_READS_9_13_26.html",
+   "slices/BOHEMIA_FIVE_WAYS_THE_WRITING_READS_9_13_26.html",
+   "slices/BOHEMIA_HOW_A_LABEL_IS_SPACED_9_12_26.html",
+   "slices/BOHEMIA_HOW_LOW_THE_ROOM_9_23_26.html",
+   "slices/BOHEMIA_MODS_AT_BOOT_9_28_26.html",
+   "slices/BOHEMIA_MODS_A_MODDERS_FIRST_HOUR_10_10_26.html",
+   "slices/BOHEMIA_MODS_A_ROW_ID_IS_A_PROMISE_10_10_26.html",
+   "slices/BOHEMIA_MODS_HOW_BIG_IS_TOO_BIG_10_10_26.html",
+   "slices/BOHEMIA_MODS_MODS_TO_COPY_10_10_26.html",
+   "slices/BOHEMIA_MODS_PATCH_INSIDE_A_LIST_10_10_26.html",
+   "slices/BOHEMIA_MODS_THE_MODS_FOLDER_10_10_26.html",
+   "slices/BOHEMIA_MODS_THE_WEAPON_FILE_10_10_26.html",
+   "slices/BOHEMIA_MODS_WHEN_THE_DATA_CHANGES_10_10_26.html",
+   "slices/BOHEMIA_NEW_SONG_THE_CHURCH_CLOCK_STRIKES_TWELVE_10_25_26.html",
+   "slices/BOHEMIA_NEW_SONG_THE_HELICOPTER_THAT_NEVER_LANDS_10_25_26.html",
+   "slices/BOHEMIA_NEW_SONG_THE_PAWN_COUNTER_AT_FOUR_IN_THE_MORNING_10_25_26.html",
+   "slices/BOHEMIA_NEW_SONG_THE_SODA_MACHINE_STILL_TAKES_COINS_10_25_26.html",
+   "slices/BOHEMIA_ONE_GUN_FORTY_TWO_PLACES_9_28_26.html",
+   "slices/BOHEMIA_ONE_HONEST_NUMBER_BESIDE_THE_ARMOUR_10_1_26.html",
+   "slices/BOHEMIA_ONE_HUMAN_ONE_PAST_9_29_26.html",
+   "slices/BOHEMIA_REAL_FAMILIES_DONT_COME_OUT_FOUR_OF_FOUR_9_28_26.html",
+   "slices/BOHEMIA_SOMEBODY_ASKS_YOU_9_21_26.html",
+   "slices/BOHEMIA_SOMETHING_HERE_STILL_WORKS_10_10_26.html",
+   "slices/BOHEMIA_THE_AMBIENCE_COMES_DOWN_10_4_26.html",
+   "slices/BOHEMIA_THE_BARS_GLASS_10_10_26.html",
+   "slices/BOHEMIA_THE_DARK_INSTITUTIONS_9_22_26.html",
+   "slices/BOHEMIA_THE_DECK_AND_THE_FLIP_9_27_26.html",
+   "slices/BOHEMIA_THE_FIGHT_AS_YOU_HEAR_IT_11_7_26.html",
+   "slices/BOHEMIA_THE_FIRST_NOTICE_9_21_26.html",
+   "slices/BOHEMIA_THE_GROUND_TAKES_IT_AND_THINGS_GET_SET_DOWN_10_1_26.html",
+   "slices/BOHEMIA_THE_LAST_LIGHT_9_23_26.html",
+   "slices/BOHEMIA_THE_MAP_HEARS_THE_DESERT_10_18_26.html",
+   "slices/BOHEMIA_THE_MAP_IN_MOTION_10_5_26.html",
+   "slices/BOHEMIA_THE_MARK_ON_THE_WALL_9_22_26.html",
+   "slices/BOHEMIA_THE_NOTICE_AT_THE_EDGE_9_22_26.html",
+   "slices/BOHEMIA_THE_ONES_NOBODY_CAME_FOR_9_24_26.html",
+   "slices/BOHEMIA_THE_ONE_WHO_FELL_IN_9_24_26.html",
+   "slices/BOHEMIA_THE_ONE_WRONG_DETAIL_9_21_26.html",
+   "slices/BOHEMIA_THE_PUNCH_HEARD_11_3_26.html",
+   "slices/BOHEMIA_THE_RETINUE_10_1_26.html",
+   "slices/BOHEMIA_THE_ROOM_ON_THE_TAP_9_21_26.html",
+   "slices/BOHEMIA_THE_SAND_IS_OUT_9_24_26.html",
+   "slices/BOHEMIA_THE_SETTLEMENT_ANSWERS_10_5_26.html",
+   "slices/BOHEMIA_THE_SETTLEMENT_HEARD_WHOLE_10_17_26.html",
+   "slices/BOHEMIA_THE_SIGNS_AT_NIGHT_9_22_26.html",
+   "slices/BOHEMIA_THE_SIGN_STILL_LIGHTS_9_21_26.html",
+   "slices/BOHEMIA_THE_SOUNDSCAPE_FIRST_TWO_10_9_26.html",
+   "slices/BOHEMIA_THE_SURER_THE_WRONGER_9_24_26.html",
+   "slices/BOHEMIA_THE_TITLE_IS_DETUNED_10_5_26.html",
+   "slices/BOHEMIA_THE_TITLE_IS_THE_DESERT_10_18_26.html",
+   "slices/BOHEMIA_THE_TURN_CLOSES_10_4_26.html",
+   "slices/BOHEMIA_THE_VALLEY_STILL_BROADCASTS_9_24_26.html",
+   "slices/BOHEMIA_THE_WATER_STILL_RUNS_9_21_26.html",
+   "slices/BOHEMIA_THREE_HUMS_OFF_THE_GRID_9_28_26.html",
+   "slices/BOHEMIA_THREE_LEVELS_CAMPFIRE_CONFESSION_10_25_26.html",
+   "slices/BOHEMIA_THREE_LEVELS_GHOST_IN_THE_GRID_10_25_26.html",
+   "slices/BOHEMIA_THREE_LEVELS_REPO_MAN_10_25_26.html",
+   "slices/BOHEMIA_THREE_LEVELS_SATELLITE_PRAYER_10_25_26.html",
+   "slices/BOHEMIA_THREE_LEVELS_SLOW_BLEED_10_25_26.html",
+   "slices/BOHEMIA_THREE_LEVELS_SLOW_CREEP_10_25_26.html",
+   "slices/BOHEMIA_THREE_LEVELS_THE_ORGAN_IN_THE_DROWNED_CHAPEL_10_25_26.html",
+   "slices/BOHEMIA_THREE_LEVELS_THE_PIT_BOSS_IS_GONE_10_25_26.html",
+   "slices/BOHEMIA_THREE_LEVELS_THE_VAULT_10_25_26.html",
+   "slices/BOHEMIA_THREE_MORE_GROUNDS_9_29_26.html",
+   "slices/BOHEMIA_THREE_SOUNDS_9_21_26.html",
+   "slices/BOHEMIA_TRY_A_MOD_9_28_26.html",
+   "slices/BOHEMIA_TUNING_DOES_THE_MONEY_MATCH_THE_LABEL_10_10_26.html",
+   "slices/BOHEMIA_TUNING_EVERY_NUMBER_9_28_26.html",
+   "slices/BOHEMIA_TUNING_EVERY_NUMBER_THE_FIGHT_FEELS_10_10_26.html",
+   "slices/BOHEMIA_TUNING_EVERY_ROLL_A_MAN_MAKES_10_10_26.html",
+   "slices/BOHEMIA_TUNING_FIVE_POINTS_9_28_26.html",
+   "slices/BOHEMIA_TUNING_HOW_BIG_THE_BOARD_IS_10_10_26.html",
+   "slices/BOHEMIA_TUNING_HOW_FAR_EACH_WEAPON_REACHES_10_10_26.html",
+   "slices/BOHEMIA_TUNING_HOW_HARD_IS_A_KILLER_10_10_26.html",
+   "slices/BOHEMIA_TUNING_HOW_LONG_A_FIGHT_TAKES_9_29_26.html",
+   "slices/BOHEMIA_TUNING_HOW_LONG_A_LIFE_IS_10_18_26.html",
+   "slices/BOHEMIA_TUNING_HOW_LONG_THEY_LIVE_9_28_26.html",
+   "slices/BOHEMIA_TUNING_THE_DIFFICULTY_DIALS_10_1_26.html",
+   "slices/BOHEMIA_TUNING_WHAT_A_RESPEC_COSTS_10_10_26.html",
+   "slices/BOHEMIA_TUNING_WHAT_A_SETTLEMENT_PAYS_YOU_10_10_26.html",
+   "slices/BOHEMIA_TUNING_WHAT_A_STARTING_COMPANY_IS_WORTH_10_10_26.html",
+   "slices/BOHEMIA_TUNING_WHAT_EACH_DIFFICULTY_CHANGES_10_9_26.html",
+   "slices/BOHEMIA_TUNING_WHAT_EACH_ORIGIN_STARTS_KNOWN_FOR_10_10_26.html",
+   "slices/BOHEMIA_TUNING_WHAT_THE_STARTING_KIT_COSTS_10_10_26.html",
+   "slices/BOHEMIA_TUNING_WHEN_A_MAN_WALKS_10_10_26.html",
+   "slices/BOHEMIA_TUNING_WHEN_THE_AMMO_RUNS_OUT_10_10_26.html",
+   "slices/BOHEMIA_TUNING_WHO_DIES_9_30_26.html",
+   "slices/BOHEMIA_UI_THE_CAMERA_FEEDS_11_3_26.html",
+   "slices/BOHEMIA_UI_THE_LOADING_SCREEN_THREE_FEEDS_11_3_26.html",
+   "slices/BOHEMIA_WHAT_A_FLIP_SOUNDS_LIKE_9_25_26.html",
+   "slices/BOHEMIA_WHAT_IS_DATA_AND_WHAT_IS_NOT_10_9_26.html",
+   "slices/BOHEMIA_WHAT_MODS_FIX_9_29_26.html",
+   "slices/BOHEMIA_WHAT_THIS_VALLEY_STRIKES_9_24_26.html",
+   "slices/BOHEMIA_YOUR_SETTLEMENT.html",
+   "slices/bohemia_sign_kit.js"
+  ],
+  "publishedPages": 63,
+  "publishedPagesList": [
+   "slices/BOHEMIA_ALPHA_0_9.html",
+   "slices/BOHEMIA_ART_CURRENT.html",
+   "slices/BOHEMIA_ASSET_ROUNDUP_JUDGE_7_21_26.html",
+   "slices/BOHEMIA_BULK_JUDGE_7_27_26.html",
+   "slices/BOHEMIA_CITY_WORLD.html",
+   "slices/BOHEMIA_CURRENT_SLICE.html",
+   "slices/BOHEMIA_DEMO.html",
+   "slices/BOHEMIA_DISTRICT_HERO_JUDGE_7_23_26.html",
+   "slices/BOHEMIA_EVERY_ORIGIN_ITS_OWN_SONG_11_27_26.html",
+   "slices/BOHEMIA_FACTION_DOSSIER_JUDGE_8_2_26.html",
+   "slices/BOHEMIA_FACTION_GAPS_JUDGE_8_2_26.html",
+   "slices/BOHEMIA_FIGHT.html",
+   "slices/BOHEMIA_HOUSE_SKIN_JUDGE_7_21_26.html",
+   "slices/BOHEMIA_HOW_LOUD_8_6_26.html",
+   "slices/BOHEMIA_LIFE_CURRENT.html",
+   "slices/BOHEMIA_LIFE_SLICE_7_19_26.html",
+   "slices/BOHEMIA_LOOK_CURRENT.html",
+   "slices/BOHEMIA_LOOP.html",
+   "slices/BOHEMIA_MAP_CURRENT.html",
+   "slices/BOHEMIA_MORE_SONG_LAKE_MEAD_GIVES_BACK_WHAT_IT_TOOK_11_27_26.html",
+   "slices/BOHEMIA_MORE_SONG_ONE_SIGN_IN_THE_BONEYARD_STILL_BUZZES_11_27_26.html",
+   "slices/BOHEMIA_MORE_SONG_THE_BUFFET_STILL_LAYS_OUT_THE_TRAYS_11_27_26.html",
+   "slices/BOHEMIA_MORE_SONG_THE_DRIVE_IN_SHOWS_THE_SAME_REEL_11_27_26.html",
+   "slices/BOHEMIA_MORE_SONG_THE_HOSPITAL_KEEPS_ONE_LIGHT_ON_11_27_26.html",
+   "slices/BOHEMIA_MORE_SONG_THE_ICE_CREAM_TRUCK_STILL_PLAYS_ITS_SONG_11_27_26.html",
+   "slices/BOHEMIA_MORE_SONG_THE_IMPERSONATOR_DOES_TWO_SHOWS_A_NIGHT_11_27_26.html",
+   "slices/BOHEMIA_MORE_SONG_THE_LOUNGE_SINGER_STILL_TAKES_REQUESTS_11_27_26.html",
+   "slices/BOHEMIA_MORE_SONG_THE_MONORAIL_RUNS_WITH_NOBODY_ON_IT_11_27_26.html",
+   "slices/BOHEMIA_MORE_SONG_THE_MOTEL_SIGN_SAYS_VACANCY_11_27_26.html",
+   "slices/BOHEMIA_MORE_SONG_THE_WATER_TOWER_READS_OUT_NUMBERS_11_27_26.html",
+   "slices/BOHEMIA_MORE_SONG_THE_WEDDING_CHAPEL_TAKES_ONE_MORE_BOOKING_11_27_26.html",
+   "slices/BOHEMIA_PERIMETER_JUDGE_8_2_26.html",
+   "slices/BOHEMIA_PIXEL_CRAFT_JUDGE_7_27_26.html",
+   "slices/BOHEMIA_QUEST_JUDGE_7_26_26.html",
+   "slices/BOHEMIA_QUEST_PLACEMENT_JUDGE_7_26_26.html",
+   "slices/BOHEMIA_ROSTER_SCREEN.html",
+   "slices/BOHEMIA_RUN_SLICE_7_26_26.html",
+   "slices/BOHEMIA_SAME_BODY_8_12_26.html",
+   "slices/BOHEMIA_SCAVENGE.html",
+   "slices/BOHEMIA_SCHOOL_JUDGE_7_28_26.html",
+   "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+   "slices/BOHEMIA_SPOILS_SCREEN.html",
+   "slices/BOHEMIA_SUBURB_WALK_7_18_26.html",
+   "slices/BOHEMIA_TARGET_SCREEN_JUDGE_7_26_26.html",
+   "slices/BOHEMIA_THE_DRONE_HEARD_11_27_26.html",
+   "slices/BOHEMIA_THE_ENTRANCE_8_12_26.html",
+   "slices/BOHEMIA_THE_GUNS_HEARD_10_19_26.html",
+   "slices/BOHEMIA_THE_PAD_IS_ONE_RING_9_7_26.html",
+   "slices/BOHEMIA_THE_SIXTEEN_INTRODUCTIONS_8_12_26.html",
+   "slices/BOHEMIA_THE_STEPS_FROM_A_RECORDING_10_18_26.html",
+   "slices/BOHEMIA_THE_STEP_IN_THE_FIGHT_10_18_26.html",
+   "slices/BOHEMIA_THE_WALL_8_15_26.html",
+   "slices/BOHEMIA_TILEFORMS_JUDGE_8_9_26.html",
+   "slices/BOHEMIA_UIWALL_CURRENT.html",
+   "slices/BOHEMIA_UI_CURRENT.html",
+   "slices/BOHEMIA_VOTE_TAB.html",
+   "slices/BOHEMIA_WHAT_IT_COST_8_11_26.html",
+   "slices/BOHEMIA_WHAT_THEY_WANT_8_12_26.html",
+   "slices/BOHEMIA_WHICH_SURFACE_8_15_26.html",
+   "slices/BOHEMIA_WHO_KNOWS_WHO_8_12_26.html",
+   "slices/BOHEMIA_WHO_YOU_STIRRED_UP_8_7_26.html",
+   "slices/BOHEMIA_WORDS_CURRENT.html",
+   "slices/BOHEMIA_WORD_TRAVELS_8_2_26.html"
+  ],
+  "coreFunctions": 8466,
+  "coreFunctionsNeverNamed": 70,
+  "coreDeadByFile": [
+   [
+    "slices/BOHEMIA_CITY_WORLD.html",
+    38
+   ],
+   [
+    "slices/BOHEMIA_ALPHA_0_9.html",
+    12
+   ],
+   [
+    "slices/BOHEMIA_FIGHT.html",
+    7
+   ],
+   [
+    "slices/BOHEMIA_SETTLEMENT_SCREEN.html",
+    3
+   ],
+   [
+    "slices/bohemia_region.js",
+    2
+   ],
+   [
+    "slices/bohemia_ui_materials.js",
+    1
+   ],
+   [
+    "slices/bohemia_ui_crashbox.js",
+    1
+   ],
+   [
+    "slices/bohemia_motion.js",
+    1
+   ],
+   [
+    "slices/bohemia_job_kinds.js",
+    1
+   ],
+   [
+    "slices/bohemia_radio.js",
+    1
+   ],
+   [
+    "slices/bohemia_his_map.js",
+    1
+   ],
+   [
+    "slices/bohemia_world_state_map.js",
+    1
+   ],
+   [
+    "engine/bohemia_scavenge.js",
+    1
+   ]
+  ],
+  "coreDeadSample": [
+   "slices/BOHEMIA_FIGHT.html nightHeld",
+   "slices/BOHEMIA_FIGHT.html oddsPct",
+   "slices/BOHEMIA_FIGHT.html mancInstall",
+   "slices/BOHEMIA_FIGHT.html skinOf",
+   "slices/BOHEMIA_FIGHT.html drawLadders",
+   "slices/BOHEMIA_FIGHT.html faceCanvas",
+   "slices/BOHEMIA_FIGHT.html deployZoom",
+   "slices/bohemia_ui_materials.js clockOf",
+   "slices/BOHEMIA_ALPHA_0_9.html famParents",
+   "slices/BOHEMIA_ALPHA_0_9.html renderWordmark",
+   "slices/BOHEMIA_ALPHA_0_9.html faceReach",
+   "slices/BOHEMIA_ALPHA_0_9.html crumplePose",
+   "slices/BOHEMIA_ALPHA_0_9.html poseHoldCount",
+   "slices/BOHEMIA_ALPHA_0_9.html loadStepBank",
+   "slices/BOHEMIA_ALPHA_0_9.html nfReady",
+   "slices/BOHEMIA_ALPHA_0_9.html abortEncounter",
+   "slices/BOHEMIA_ALPHA_0_9.html combatSetEncounter",
+   "slices/BOHEMIA_ALPHA_0_9.html warmTheFight",
+   "slices/BOHEMIA_ALPHA_0_9.html warmTheWorld",
+   "slices/BOHEMIA_ALPHA_0_9.html intensityWatcher",
+   "slices/bohemia_ui_crashbox.js ply",
+   "slices/bohemia_motion.js mapGeo",
+   "slices/BOHEMIA_CITY_WORLD.html fillHomes",
+   "slices/BOHEMIA_CITY_WORLD.html ringRect",
+   "slices/BOHEMIA_CITY_WORLD.html placeCol",
+   "slices/BOHEMIA_CITY_WORLD.html placeEdge2",
+   "slices/BOHEMIA_CITY_WORLD.html ringHomes",
+   "slices/BOHEMIA_CITY_WORLD.html ellRing",
+   "slices/BOHEMIA_CITY_WORLD.html feText",
+   "slices/BOHEMIA_CITY_WORLD.html cbOnDiamond",
+   "slices/BOHEMIA_CITY_WORLD.html cbCost",
+   "slices/BOHEMIA_CITY_WORLD.html contactPosted",
+   "slices/BOHEMIA_CITY_WORLD.html roadCard",
+   "slices/BOHEMIA_CITY_WORLD.html loopJobCrew",
+   "slices/BOHEMIA_CITY_WORLD.html btwFrameRest",
+   "slices/BOHEMIA_CITY_WORLD.html streetGlideMs",
+   "slices/BOHEMIA_CITY_WORLD.html streetPartyGlideMs",
+   "slices/BOHEMIA_CITY_WORLD.html mapNearYou",
+   "slices/BOHEMIA_CITY_WORLD.html vbJoinsTo",
+   "slices/BOHEMIA_CITY_WORLD.html __concreteTile",
+   "slices/BOHEMIA_CITY_WORLD.html tpTap",
+   "slices/BOHEMIA_CITY_WORLD.html tjCount",
+   "slices/BOHEMIA_CITY_WORLD.html ctWhoSawLast",
+   "slices/BOHEMIA_CITY_WORLD.html shade2",
+   "slices/BOHEMIA_CITY_WORLD.html fightZooming",
+   "slices/BOHEMIA_CITY_WORLD.html ctAskWhoAmI",
+   "slices/BOHEMIA_CITY_WORLD.html ctFall",
+   "slices/BOHEMIA_CITY_WORLD.html fbStart",
+   "slices/BOHEMIA_CITY_WORLD.html skyDisc",
+   "slices/BOHEMIA_CITY_WORLD.html owingParentCreditors",
+   "slices/BOHEMIA_CITY_WORLD.html pocketsTake",
+   "slices/BOHEMIA_CITY_WORLD.html lotSprite",
+   "slices/BOHEMIA_CITY_WORLD.html houseFloorAt",
+   "slices/BOHEMIA_CITY_WORLD.html ctOnJobBlock",
+   "slices/BOHEMIA_CITY_WORLD.html readShelf",
+   "slices/BOHEMIA_CITY_WORLD.html readGrid",
+   "slices/BOHEMIA_CITY_WORLD.html readBorder",
+   "slices/BOHEMIA_CITY_WORLD.html readDoor",
+   "slices/BOHEMIA_CITY_WORLD.html readTalk",
+   "slices/BOHEMIA_CITY_WORLD.html homePlanted"
+  ]
+ },
+ "ms": 46826
+}

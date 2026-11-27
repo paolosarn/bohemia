@@ -51,6 +51,9 @@ MARK = '__THE_ENDING__'
 MOD_SRC = 'engine/bohemia_ending.js'
 MOD_BANNER = '/* ==== engine/bohemia_ending.js ==== */'
 MOD_ANCHOR = '/* ==== engine/bohemia_demoquests.js ==== */'
+# PLUMBER 9, 11/27/26 (VAMILY rule 495(b)): the city loads the module FROM ITS FILE now, not a pasted copy. This tag is the
+# module's own evidence in the page; module_body() writes it (the script element cut in two around it), never the copy.
+MOD_TAG = '<script src="../engine/bohemia_ending.js"></script>'
 
 # ---- 1. THE SHELL TELLS THE CITY WHICH SURFACE IT IS --------------------------
 ALPHA_ANCHOR = "window.addEventListener('message',ev=>{const m=ev&&ev.data;if(!m||m.type!=='BOHEMIA_SHOT_RESULT')return;"
@@ -196,10 +199,10 @@ CSS = ("""    /* __THE_ENDING__ -- a text message reads bigger and slower than a
 
 
 def module_body():
-    body = open(MOD_SRC, encoding='utf-8').read()
-    if not body.endswith('\n'):
-        body += '\n'
-    return MOD_BANNER + '\n' + body + MOD_BANNER + '\n'
+    # THE MODULE LOADS FROM ITS FILE (PLUMBER 9, 11/27/26, rule 495(b)): the old body pasted engine/bohemia_ending.js in
+    # whole, a second copy of it. The script element is cut in two around a plain tag instead, so the module runs in the
+    # same place and order. records/BOHEMIA_PLUMBER_NINE_THE_PUBLISHERS_READ_11_27_26.md section 5.
+    return '</script>\n' + MOD_TAG + '\n<script>\n'
 
 
 def repair(html):
@@ -208,7 +211,7 @@ def repair(html):
     place, and the only symptom was a feature quietly not existing. A patch that
     no-ops on its own marker cannot heal that. This checks the module's OWN
     evidence."""
-    if MOD_BANNER in html:
+    if MOD_TAG in html or MOD_BANNER in html:
         return html, False
     if html.count(MOD_ANCHOR) != 1:
         sys.exit('FAILED: cannot repair -- the day-loop module banner resolves %d times.'

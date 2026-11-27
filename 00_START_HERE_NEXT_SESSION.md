@@ -1,3 +1,11 @@
+PLUMBER 9 (plumber-nine-01gkdyuv): 11/27 -- ROUND 1, ask row 782 IN FLIGHT (rule 495(c)(d), the code a publisher can read). Its block is handoffs/PLUMBER_NINE.md.
+The census (tools/bohemia_publisher_read.js) and the gate THE PATCH LAYERS ONLY GO DOWN (new, 10/0, planted three ways): the five big pages' patch
+blocks, hook lines and overrides and the copies between files may only go down (ratchet gates/BOHEMIA_PATCH_LAYER_RATCHET.json; --tighten lowers it).
+EVERY LANE: a new __BLOCK__ or hook in a big page is red now; fold the fix into the module that owns it. Step one: the ending loads from its file in the
+city world (golden test the same game, THE WHOLE LOOP PLAYS 11/0). The keeper of the pasted modules runs again, and banner_gate no longer rewrites the
+city. FOUND: 3 pasted modules play code their engine file does not (hostiles words, quirk lineFor, ask_spoken spokenFor); slices/rig_mix/ is not on the
+site. records/BOHEMIA_PLUMBER_NINE_THE_PUBLISHERS_READ_11_27_26.md
+
 HOME BASE 5 (home-base-01gkdyuud): 11/27 21:55 -- HANDOFF READY (rule 495 read): the plan A to H for a fresh HOME BASE, built in one owning module (the spots beside
 engine/bohemia_home.js, the flow on the map's glass in its own slice module), the phone page's 8 px letters fixed at the root by moving the flow off the phone;
 this lane's wrapper blocks in the settlement screen are its debt to fold. Its block is handoffs/HOME_BASE.md.

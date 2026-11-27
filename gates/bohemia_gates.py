@@ -9743,6 +9743,13 @@ GATES = [
      "display:none on the map (rule 61b), and every save working it out again to keep it: 1.9 s of a 3.2 s restore. H1 behind the "
      "door, the line hidden: the cast never worked out, a save does not work it out; H2 the line drawn: its address worked out as "
      "before; P1 the old way (window.__QLINE_ALWAYS) works it out in a save. About 1 min", True),
+    ('THE PATCH LAYERS ONLY GO DOWN', ['node', 'gates/the_patch_layers_only_go_down_gate.js'],
+     "PLUMBER 9 gate, 11/27, VAMILY rule 495(c) (Paolo 11/27: 'don't just... fix it with fucked up coding duct tape... when we give it "
+     "to a publisher'): the census (tools/bohemia_publisher_read.js) of the five big pages and the scripts they load, held to "
+     "gates/BOHEMIA_PATCH_LAYER_RATCHET.json, every number only going down: R1 patch blocks, R2 hook lines (a fix reaching back into "
+     "older code), R3 overrides (a function declared twice or assigned over), per page; R4 inlined pairs (a module pasted into a page), "
+     "R5 pasted copies (a hand copy no module carries), R6 loaded twice; M1 the ratchet whole; P1 to P3 plants (one more block and two "
+     "hooks, two overrides, a copy, a pair, a double load) each read. Below the ratchet: --tighten lowers it. About 30 s", False),
     ('THE RED DEBT ONLY SHRINKS', ['python3', 'gates/the_red_debt_only_shrinks_gate.py'],
      "PLUMBER 8 gate, 11/10, the coordinator's routine 'clear the red debt' (VAMILY rule 13, rule 441): the debt is "
      "gates/BOHEMIA_QUARANTINE.txt, every red on main named with its owner and verdict; NAMED (its lines) and LEFT (those not "

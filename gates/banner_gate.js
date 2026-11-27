@@ -278,13 +278,23 @@ ok('the scanner still finds modules by a ONE-LINE banner, which is what makes a 
    of it was found hiding inside base64 -- had been raising ValueError on line one since 8/2,
    when the city moved out of the alpha and the tool kept hard-coding the old location. Two
    weeks. Nothing said a word, because nobody runs a tool to see whether it still starts. */
+/* A CHECK NEVER WRITES THE GAME (PLUMBER 9, 11/27/26, VAMILY rule 495(a)). This leg ran the module keeper
+   WITHOUT --check, so the keeper rewrote slices/BOHEMIA_CITY_WORLD.html with whatever engine bodies had moved:
+   measured 11/27, the moment the keeper could finish again, one run of this gate swapped three pasted modules
+   (hostiles, ambitions, followers) into the city and changed the bark lines the game plays, in the working tree of
+   whoever ran the suite. It was harmless only while the keeper crashed. The question this leg asks is "does it
+   still start and report", and --check answers that without touching a file: exit 0 fresh, 1 stale, 2 a body it
+   cannot place, each WITH its report line; a refusal (3), a traceback or no report is a keeper that does not run.
+   The overmap keeper has no --check and writes only when its module moved; it is named in the record. */
 {
-  const { execFileSync } = require('child_process');
-  const keepers = ['tools/bohemia_city_module_resync.py', 'tools/bohemia_city_overmap_resync.py'];
-  keepers.forEach(k => {
-    let alive = true, why = '';
-    try { execFileSync('python3', [k], { cwd: ROOT, stdio: 'pipe', timeout: 120000 }); }
-    catch (e) { alive = false; why = String((e.stderr || e.message || '')).trim().split('\n').pop(); }
+  const { spawnSync } = require('child_process');
+  const keepers = [['tools/bohemia_city_module_resync.py', ['--check'], /CITY MODULE RESYNC:/],
+                   ['tools/bohemia_city_overmap_resync.py', [], null]];
+  keepers.forEach(([k, args, report]) => {
+    const r = spawnSync('python3', [k].concat(args), { cwd: ROOT, encoding: 'utf8', timeout: 120000 });
+    const out = String(r.stdout || '') + String(r.stderr || '');
+    const alive = report ? ([0, 1, 2].includes(r.status) && report.test(out) && !/Traceback/.test(out)) : r.status === 0;
+    const why = alive ? '' : (out.trim().split('\n').pop() || ('exit ' + r.status));
     ok('the keeper RUNS: ' + k.split('/').pop() + (alive ? '' : ' -- ' + why), alive);
   });
 }
