@@ -1,5 +1,27 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
+COOK FIVE (cook-seven-01gkdyuu): 11/27 LATEST -- COOK SEVEN, carrying COOK FIVE's list after COOK SIX -- BUILD 11/27zz - THE FIRE STATION, BUILT (5eb6d4666), NOT YET SEEN (rules 480(b), 480(c), 482, 495; rules 461, 441, 416, 451(a); ask row 723).
+RULE 495 PULLED FIRST (b093bf91b): the cut, the sizes and art files, the ceiling's hand-off, the share print and the VOTE sheet lived in four copies (truck stop, police station,
+bank, library); they live once now in tools/bohemia_cook7_inside_kit.py, and each kit tool says only what is its own in one K = KIT.make(...). Proved byte-identical on all four.
+THE FIRE STATION (COMBAT FOUR's, its 'FOR COOK (SIX)'; the sixth of the 27 stand-in insides, the first of the trigger's order): all 172 pieces of the_apparatus_bay and 164 of
+the_quarters were stand-ins. Now slices/fight_ground/firehouse/ holds firehouse_art.json (floor.floor and floor.ring the bay's sealed concrete with a drain grate in every tile's
+middle and oil; floor.quarters the police station's vinyl on rows 3-4, waiting for a floor area; all 14 names), 14 pieces (two pumpers to a house; the gear racks with a coat on every
+hook, the kitchen and the lockers a tile long) and its steel roof with the exhaust hoses hanging dead: 570,816 bytes. Made by tools/bohemia_cook7_the_fire_station_finished_11_27_26.py,
+the first kit written on the inside kit. FOUND: a drain through every tile drew a half-tile grid line (a short grate now); seven small pieces made fuller: 10.2 to 30.3% of a tile.
+480(c) MEASURED: the fire station costs no frames against its stand-ins. The library's LOADING SCREEN runs ~5 fps slower with its pictures (19.7, 18.6 against 25.5, 23.6; its
+worst frame the same), where they decode before they are needed; its board the same or better. Both in the record's table, for PLUMBER 8 and COMBAT FIVE.
+*** FOR COMBAT FIVE: (1) GATE THE BIG INSIDES I8 FIREHOUSE is red on main before this art and identical with it ('101 of 250 men (40%) on the bare open floor, with the rule off
+142 (57%)'): the layout's open floor between the engine blocks, not a picture. (2) the_quarters wears the bay's concrete until it names a floor area:
+'floor_areas': { "the_quarters": [{ "kind": "quarters", "x": [0, 19], "y": [0, 14] }] }.
+PROOF on the page both ways: the_apparatus_bay 172, the_quarters 164, 0 stand-ins, the ceiling's picture drawn, 0 page errors. Gate THE INSIDES WEAR FINISHED ART 154/0.
+VOTE cook7-the-fire-station-11-27. Record: records/BOHEMIA_COOK_SEVEN_THE_FIRE_STATION_11_27_26.md.
+*** THE SITE IS AT 898 MB OF ITS 900 MB CAP (pages gate): the next kit makes room in this lane's own published files first (482(c)), never someone else's.
+*** NEXT ON THIS LANE (480(b)), a tool ON the fire station's through the inside kit (about an hour a kit): THE NEON BONEYARD, then aquarium, arsenal, ballpark, battery farm,
+campus, city hall, fuel depot, granary, hangar, jobs office, justice center, mini grand prix, the museum, radio, rail shops, the animal shelter, speedway, storage, TV station,
+water plant; then ARMORY 3's new guns (the rest of the sixteen's own models and the drone's picture).
+[bb Battle Brothers' wagon-fort: the engines are the walls you fight between, nobody stands on one and nobody sees through one]
+[analog horror: every coat still on its hook and every helmet over it, as if the crew went out on a call and never came back; the pots still on the range]
+
 COOK FIVE (cook-seven-01gkdyuu): 11/27 LATEST -- COOK SEVEN, carrying COOK FIVE's list after COOK SIX -- BUILD 11/27zn - THE LIBRARY, BUILT (56786867c), NOT YET SEEN (rules 480(b), 482; rules 461, 441, 416, 451(a); ask row 723).
 THE LIBRARY (COMBAT FOUR's, its 'FOR COOK (SIX)'; the fifth of the 27 stand-in insides): all 207 pieces of the_stacks and 188 of the_reading_room were stand-ins. Now
 slices/fight_ground/library/ holds library_art.json (floor.floor and floor.ring the 50 cm carpet tile in both rooms, its own ground lb_carpet; all 11 names), 11 pieces (the stacks
