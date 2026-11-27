@@ -2,7 +2,17 @@
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 # FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
 # FIXES FOUR (the chat answers to 'fixes 4', 11/27; FIXES 3 wrote HANDOFF READY at 02:13 11/27) carries this file on: same job, blocks named FIXES FOUR.
-FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (c) LATEST -- [faint tap] BUILD 11/27zf - A FAINT TAP IS KEPT, BUILT, NOT YET SEEN: ask row 776
+FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (d) LATEST -- [no line under] BUILD 11/27zj - NO LINE UNDER ANOTHER, BUILT, NOT YET SEEN: ask row 777
+(EYES: after a buy at the stall the said line showed its top half, the price box over its foot; ECONOMY THREE handed off, nobody on it).
+WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): at a town's stall, after he buys or sells, the line saying what he did
+and what he has reads whole, nothing drawn over it, upright or on its side.
+THE PIECE: slices/BOHEMIA_SETTLEMENT_SCREEN.html __NO_LINE_UNDER_ANOTHER__ (CSS: no strip line shrinks; :has(>.ss-said) height auto; the
+dense sheet shows the said line alone). Probe tools/bohemia_fixes_four_the_stall_strip.js; gate NO LINE UNDER ANOTHER 3/0, PLANTED red.
+Record: records/BOHEMIA_FIXES_FOUR_NO_LINE_UNDER_ANOTHER_11_27_26.md. No VOTE card (a line that reads whole; nothing new).
+NEXT: as 11/27 (b) below: EYES' 747 is FIGHT SCREEN 3's and they are live on that card (leave it); the death player's ON THE BEAT flake
+(33 ms on one death in six at 4x: not felt, low); the teratorn's voice; DESI's mark; EYES' and PLUMBER 8's newest rows (776, 777 done).
+
+FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (c) -- [faint tap] BUILD 11/27zf - A FAINT TAP IS KEPT, BUILT, NOT YET SEEN: ask row 776
 (EYES: a tap on the faint LEAVE was lost, the screen stood 40 s; 'COMBAT FIVE (with FIXES 4)': the faint LEAVE is FIXES 3's rule, so this lane).
 WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): a tap on LEAVE or MAKE CAMP while it is still faint stays pressed and
 goes home by itself the moment the end screen is ready, the loot counts paid first; never lost, never a second tap needed.
