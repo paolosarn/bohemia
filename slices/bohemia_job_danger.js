@@ -148,7 +148,7 @@
   function roll(party, ctx) {
     var E = MAIN; if (!E || !party || !(party.count > 0)) return null;
     ctx = ctx || {};
-    var P = { count: party.count | 0, faction: party.faction || 'brigands', days: party.days | 0 || 1, difficulty: party.difficulty | 0, act: party.act };
+    var P = { count: party.count | 0, faction: party.faction || 'brigands', days: party.days | 0 || 1, difficulty: party.difficulty | 0, act: party.act, over: +party.over || 1, skulls: party.skulls | 0 };   /* BESTIARY 4 11/27, rules 491(a), 493(c): the men sent a rung up and the champion's stars ride the roll */
     /* the first game day's line (RUN's __EVERY_FIGHT_SIZED_TO_THE_CREW__, the shell's door holds the same): the company plus one */
     var cn = crewNow(); if ((ctx.day != null ? ctx.day : dayNow()) <= 1 && cn > 0 && P.count > cn + 1) { P.count = cn + 1; P.dayOneCap = true; }   /* JOBS 11/21: the day the fight comes, when the card says it */
     /* the board under the roll is dealt from the seed alone (no district), so the band is the same wherever he meets it; only the
@@ -165,7 +165,7 @@
       E.F.setup(o);
       var band = E.F.S.units.filter(function (u) { return u.side === 'them'; }).map(function (u) { return u.kind; });
       var fac = E.F.S.roadFaction || (E.F.isGraveyard(o) ? E.R('ours.graveyard').faction : P.faction);
-      return { band: band, faction: fac, count: band.length, days: P.days, difficulty: P.difficulty, act: P.act, asked: party.count | 0 };
+      return { band: band, faction: fac, count: band.length, days: P.days, difficulty: P.difficulty, act: P.act, asked: party.count | 0, skulls: P.skulls };
     } catch (e) { return null; }
   }
   /* what they are, in a word, from what stands: MEN, or the beasts by their own names */
@@ -239,7 +239,7 @@
     if (!o) {   /* the map alone (a checker's page): the origin's men */
       o = { kind: null, company: null, party: null };
       try { var st = LOOP.start || {}; if (st.company) { o.company = st.company.slice(0, Math.max(1, crewNow())); o.cap = st.cap; } } catch (e) {}
-      if (party) o.party = { count: party.band ? party.band.length : party.count, band: party.band, faction: party.faction, days: party.days, difficulty: party.difficulty, rolled: true };
+      if (party) o.party = { count: party.band ? party.band.length : party.count, band: party.band, faction: party.faction, days: party.days, difficulty: party.difficulty, rolled: true, skulls: party.skulls | 0 };
     }
     o.auto = true; o.odds = false; o.met = 0; o.deploy = false;
     return JSON.parse(JSON.stringify(o));
@@ -363,11 +363,11 @@
       var metAt = f.road ? metBase : metBase + before; if (!f.road && f.p >= 0.999) before++;
       var W = f.road || f.dark ? null : whenOf(f);
       var party = null; try { party = f.road ? partyMath('roaming', { x: f.at ? f.at.x : 0, y: f.at ? f.at.y : 0 }) : partyMath('job', { skulls: job.skulls }); } catch (e) { party = { count: f.n, days: 1, difficulty: 1 }; }
-      party = { count: f.n, faction: f.faction || 'brigands', days: party.days, difficulty: party.difficulty };
+      party = { count: f.n, faction: f.faction || 'brigands', days: party.days, difficulty: party.difficulty, over: f.road ? 1 : +party.over || 1, skulls: f.road ? 0 : job.skulls | 0 };
       var at = f.at ? [f.at.x | 0, f.at.y | 0] : null, why = f.why || (f.road ? 'road:' + o.id : 'contract:' + o.id + ':' + f.what);   /* the hand-over's own why, so the band read is the band met */
       var gnd = f.ground ? [f.ground.x != null ? f.ground.x | 0 : f.ground[0] | 0, f.ground.y != null ? f.ground.y | 0 : f.ground[1] | 0] : at;   /* JOBS 11/21 __THE_ONES_WHO_MOVED_IT__: the crowd's own ground */
       var r = roll(party, { key: why + ':' + f.n, district: gnd ? districtAt(gnd) : null, night: f.dark ? true : (W ? W.night : undefined), met: metAt, day: W ? W.day : undefined });
-      return r ? { what: f.what, why: why, n: f.n, p: f.p, band: r.band, faction: r.faction, days: r.days, difficulty: r.difficulty, at: at, road: !!f.road, hours: f.hours, dark: !!f.dark, comes: W ? W.mins : null, waits: W ? W.waits : null } : null;
+      return r ? { what: f.what, why: why, n: f.n, p: f.p, band: r.band, faction: r.faction, days: r.days, difficulty: r.difficulty, skulls: r.skulls | 0, at: at, road: !!f.road, hours: f.hours, dark: !!f.dark, comes: W ? W.mins : null, waits: W ? W.waits : null } : null;
     }).filter(Boolean);
   }
   function readKey(o, place) { return String(o && o.id) + '@' + String(place || (o && o.from) || '') + (o && o.plays ? ':held:' + (o.stage || '') + ':' + (o.wave | 0) + ':' + (o.got | 0) + ':' + ((o.ambush || []).length) + ':' + (o.bands | 0) + ':' + (o.holders ? o.holders.n : '') : ''); }
@@ -432,7 +432,7 @@
     var rk = R.key, ck = R.crew;
     R.fights = fs;
     /* what he is looking at now goes first: a fight asked for again moves to the front of the line */
-    fs.forEach(function (f) { f.opts = doorOpts({ count: f.band.length, band: f.band, faction: f.faction, days: f.days, difficulty: f.difficulty }, f.at); });   /* the hand-over each fight is played with, fixed with the read */
+    fs.forEach(function (f) { f.opts = doorOpts({ count: f.band.length, band: f.band, faction: f.faction, days: f.days, difficulty: f.difficulty, skulls: f.skulls | 0 }, f.at); });   /* the hand-over each fight is played with, fixed with the read */
     /* a read the board asks for itself (rule 255: is it fit to post?) waits at the back of the line, behind what is on the glass */
     var sure = {}; fs.forEach(function (f) { if (f.p >= 0.25) sure[fightBase(f, ck)] = 1; });
     fs.slice().reverse().forEach(function (f) { f.fk = fightKey(f, ck, sure);
@@ -459,7 +459,7 @@
     if (F.later && fk.indexOf(crewKey() + '|') !== 0) { delete FIGHTS[fk];
       F.reads.forEach(function (rk) { if (READS[rk] && READS[rk].state === 'reading') delete READS[rk]; });   /* asked again, it reads afresh */
       return pump(); }
-    var f = F.f, opts = f.opts || doorOpts({ count: f.band.length, band: f.band, faction: f.faction, days: f.days, difficulty: f.difficulty }, f.at);
+    var f = F.f, opts = f.opts || doorOpts({ count: f.band.length, band: f.band, faction: f.faction, days: f.days, difficulty: f.difficulty, skulls: f.skulls | 0 }, f.at);
     /* a fight that only might come (the road's, a twist's) weighs little in the product: fewer plays; a fight that is plainly lost
        stops early (under stop_below after stop_from plays: any job with it in is three stars whatever the rest) */
     var full = /\|full$/.test(fk), runs = full ? (CFG.runs | 0 || 32) : Math.max(8, Math.round((CFG.runs | 0 || 32) / 4));   /* the key says full or light */
@@ -655,7 +655,7 @@
   }
   function state() {
     var rs = Object.keys(READS).map(function (k) { var R = READS[k]; return { id: R.id, place: R.place, state: R.state, stars: R.stars, danger: R.danger, clean: R.clean, blood: R.blood,
-      fights: R.fights.map(function (f) { return { what: f.what, why: f.why, n: f.n, p: f.p, band: f.band.slice(), faction: f.faction, days: f.days, difficulty: f.difficulty, at: f.at, clean: f.clean, runs: f.runs, won: f.won, road: f.road }; }) }; });
+      fights: R.fights.map(function (f) { return { what: f.what, why: f.why, n: f.n, p: f.p, band: f.band.slice(), faction: f.faction, days: f.days, difficulty: f.difficulty, skulls: f.skulls | 0, at: f.at, clean: f.clean, runs: f.runs, won: f.won, road: f.road }; }) }; });
     return { engine: !!MAIN, worker: !!W, err: WERR, queue: Q.length + PLANQ.length, busy: !!BUSY,   /* __A_NEW_CREW_IS_PLANNED_OVER_FRAMES__: a plan still to make is work in the line */
        played: Object.keys(PLAYED).length, reads: rs, cfg: CFG, plans: Object.assign({ waiting: PLANQ.length }, PLANST) };
   }

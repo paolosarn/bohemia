@@ -2440,6 +2440,12 @@ GATES = [
      'at 10 + 2 a level, and his armour), read by the map\'s party math; measured, a middling company\'s work spans easy, fair and one to '
      'sweat for and a strong company is offered real danger; a town posts a red job when nothing on offer is one '
      '(records/BOHEMIA_JOBS_TWO_THE_WORK_SPANS_HIS_STRENGTH_11_27_26.md).', True),
+    ('THE ENEMY GROWS WITH HIS COMPANY', ['node', 'gates/the_enemy_grows_with_his_company_gate.js'],
+     'BESTIARY 4 11/27, rules 491(a), 493(a)(c)(d), 482, 441: five killers (five men of level 11, their stats grown the crew screen\'s '
+     'way) won every job before; the dress reads his men (a company of twelve like them), a few strong men are sized nearer that company '
+     '(Battle Brothers\' arena guard at half), the math past the job\'s most fills a thinned faction and sends men a rung up, and a champion '
+     'is rolled Battle Brothers\' way (none on one star, about half the three-star late bands) with his numbers, his skull, his kit at the '
+     'top and a prize that always drops (records/BOHEMIA_BESTIARY_FOUR_THE_ENEMY_GROWS_AND_CHAMPIONS_11_27_26.md).', True),
     ('THE WORK FOLLOWS WHAT IS SHORT', ['node', 'gates/the_work_follows_what_is_short_gate.js'],
      'JOBS 2 11/27, rule 485(b), 482, 441: a job that brings what the valley is short of (the map\'s own ledger: water, food, meds, '
      'fuel) pays more (1 + share x log2 of the ledger\'s price, capped; job_pay.json short) and the board asks one first; shown is '

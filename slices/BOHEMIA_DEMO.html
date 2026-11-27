@@ -498,7 +498,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"839280d338eea33c",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"17c3de1474bd441a",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1602,7 +1602,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/27zza - THE SHOP ON ITS SIDE READS WHOLE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/27zzb - THE ENEMY GROWS</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12543,7 +12543,7 @@ function nfOpts(d){
     } }catch(_e){}
   /* ==== end __WHO_YOU_HIRE_FIGHTS__ ==== */
   /* __A_FEW_NOT_TWELVE__ (rule 75b): the party the map sized, to COMBAT's enemy math (it dresses it by tier) */
-  try{ var q = d && d.party; if(q && q.count > 0) o.party = { count: q.count | 0, days: q.days | 0 || 1, difficulty: q.difficulty | 0, faction: q.faction || 'brigands' };
+  try{ var q = d && d.party; if(q && q.count > 0) o.party = { count: q.count | 0, days: q.days | 0 || 1, difficulty: q.difficulty | 0, faction: q.faction || 'brigands', skulls: (q.skulls | 0) || ((q.ctx && q.ctx.skulls) | 0), over: +q.over || 1 };   /* BESTIARY 4 11/27: the job's stars (the champion's roll) and what the math wanted past the most (rule 491(a)) */
     /* WORLD [the job tells the truth, in blood] (rule 208(e), WORLD's line in RUN's door): a band the map rolled through the fight's own
        math (slices/bohemia_job_danger.js, the first day's line already held) rides whole, so the meet card counts what stands */
     if(o.party && Array.isArray(q.band) && q.band.length){ o.party.band = q.band.slice(); o.party.count = q.band.length; o.party.rolled = true; } }catch(_e){}

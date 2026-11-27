@@ -984,7 +984,7 @@
       "brigand_marksman": 2,
       "brigand_marauder": 3,
       "brigand_leader": 1,
-      "brigand_leader_champion": 0.5
+      "brigand_leader_champion": 0
      }
     },
     "beasts": {
@@ -1054,7 +1054,7 @@
      "late": {
       "goblin_skirmisher": 2,
       "goblin_wolfrider": 1,
-      "goblin_skirmisher_champion": 0.6,
+      "goblin_skirmisher_champion": 0,
       "kids_horn": 1
      }
     },
@@ -1075,7 +1075,7 @@
      "late": {
       "orc_warrior": 3,
       "orc_young": 1,
-      "orc_warrior_champion": 0.8,
+      "orc_warrior_champion": 0,
       "heavy_bruiser": 1
      }
     }

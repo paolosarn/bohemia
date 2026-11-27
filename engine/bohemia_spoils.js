@@ -122,6 +122,20 @@
       if (f.found) out.items.push({ kind: 'weapon', id: s.id, cond: s.durability, max: s.durability, from: b.name, sidearm: true });
       if (s.ammo > 0) out.counts.rounds += s.ammo | 0;
     });
+    /* BESTIARY 4 11/27, VAMILY rule 493(c): 'a prize on him'; Battle Brothers: a champion 'always [has] a named
+       item' and it always drops, even broken, bb_all/0363_Champions.txt): a dead champion's weapon, shield and armour are found whatever
+       their dice said, whole pieces at the wear they ended at (never tape), and his pockets' batteries (the fight's prize, rolled off the
+       band). After every other die, so nobody else's loot moves */
+    kit.forEach(function (b) {
+      if (!b.champion) return;
+      var has = function (kind, id) { return out.items.some(function (it) { return it.kind === kind && it.id === id && it.from === b.name; }); };
+      var put = function (kind, id, cond, max) { if (!id || has(kind, id)) return; out.items.push({ kind: kind, id: id, cond: Math.max(1, Math.round(cond || max || 1)), max: max, from: b.name, prize: true }); };
+      if (b.weapon) put('weapon', b.weapon.id, b.weapon.durability, b.weapon.durability);
+      if (b.shield) put('shield', b.shield.id, b.shield.durability, b.shield.durability);
+      ['body', 'head'].forEach(function (part) { var a = b[part]; if (a) put(part, a.id, a.now, a.max); });
+      if (b.prize && b.prize.batteries > 0) { out.counts.batteries += b.prize.batteries | 0; out.prizeBatteries = (out.prizeBatteries | 0) + (b.prize.batteries | 0); }
+      out.champions = (out.champions || []).concat([b.name]);
+    });
     out.wreckTape = out.counts.tape - (out.kitTape | 0) - out.winTape;
     return out;
   }

@@ -35,6 +35,8 @@ function run(plant) {
   const T = DB.ours.enemy_tiers.value, phases = T.phases, KINDS = {};
   Object.keys(T.mix).forEach(f => phases.forEach(ph => Object.keys(T.mix[f][ph.name] || {}).forEach(k => { if (T.mix[f][ph.name][k] > 0 && !KINDS[k]) KINDS[k] = { from: ph.from_day, phase: ph.name }; })));
   Object.keys(T.heads || {}).forEach(f => { const k = T.heads[f]; if (!KINDS[k]) KINDS[k] = { from: 1, phase: phases[0].name }; });
+  /* BESTIARY 4 11/27 __A_CHAMPION_IS_ROLLED__: the wiki's champion kinds left the late mixes; the roll deals them (champions.swap), late */
+  Object.values((DB.newEnemies.champions || {}).swap || {}).forEach(k => { if (!KINDS[k]) KINDS[k] = { from: phases[phases.length - 1].from_day, phase: phases[phases.length - 1].name }; });
   /* S1, S2 */
   let men = 0; const bare = [], badRounds = [], ownFirst = [];
   for (const id of Object.keys(KINDS)) {

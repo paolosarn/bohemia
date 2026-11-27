@@ -1,0 +1,162 @@
+{
+ "at": "2026-11-27T22:16:24.844Z",
+ "faction": "house",
+ "party": {
+  "count": 13,
+  "days": 100,
+  "difficulty": 1,
+  "over": 1.377,
+  "raw": 17.9,
+  "strength": 171,
+  "dressStr": 410
+ },
+ "strength": {
+  "strength": 171,
+  "counted": 5
+ },
+ "rolled_at_seed": 1,
+ "band": [
+  "house_sergeant",
+  "house_shield",
+  "house_sergeant",
+  "house_crossbow",
+  "house_greatsword",
+  "house_crossbow",
+  "house_shield",
+  "house_crossbow",
+  "house_greatsword",
+  "house_shield"
+ ],
+ "champion": {
+  "name": "OLD VEGAS",
+  "title": "the House's sergeant-at-arms",
+  "kind": "house_shield",
+  "hp": 95,
+  "armour": [
+   60,
+   80
+  ],
+  "mskill": 63,
+  "rskill": 57,
+  "mdef": 6,
+  "prize": {
+   "batteries": 7
+  }
+ },
+ "same_kind_plain": {
+  "hp": 70,
+  "armour": [
+   46,
+   60
+  ],
+  "mskill": 55,
+  "rskill": 50,
+  "mdef": 5
+ },
+ "shots": [
+  {
+   "file": "records/bestiary_proof/champion_start.jpg",
+   "mark": {
+    "x": 315,
+    "y": 257
+   }
+  },
+  {
+   "file": "records/bestiary_proof/champion_close.jpg",
+   "mark": {
+    "x": 315,
+    "y": 257
+   }
+  },
+  {
+   "file": "records/bestiary_proof/champion_end.jpg"
+  }
+ ],
+ "page": {
+  "champions": [
+   {
+    "id": "e1",
+    "kind": "house_shield",
+    "name": "OLD VEGAS",
+    "title": "the House's sergeant-at-arms",
+    "rolled": true,
+    "prize": {
+     "batteries": 7
+    }
+   }
+  ],
+  "band": [
+   "house_sergeant",
+   "house_shield",
+   "house_sergeant",
+   "house_crossbow",
+   "house_greatsword",
+   "house_crossbow",
+   "house_shield",
+   "house_crossbow",
+   "house_greatsword",
+   "house_shield"
+  ]
+ },
+ "same_man_on_the_page": true,
+ "over": {
+  "result": "won",
+  "rounds": 9,
+  "champion_dead": true,
+  "champion_fled": false
+ },
+ "prize": {
+  "items": [
+   {
+    "kind": "body",
+    "id": "mail_hauberk",
+    "cond": 72,
+    "max": 107,
+    "from": "SERGEANT"
+   },
+   {
+    "kind": "weapon",
+    "id": "arming_sword",
+    "cond": 56,
+    "max": 56,
+    "from": "OLD VEGAS",
+    "prize": true
+   },
+   {
+    "kind": "shield",
+    "id": "old_wooden_shield",
+    "cond": 16,
+    "max": 16,
+    "from": "OLD VEGAS",
+    "prize": true
+   }
+  ],
+  "counts": {
+   "batteries": 7,
+   "rounds": 18,
+   "tape": 0
+  },
+  "from": 10,
+  "faction": "house",
+  "winTape": 0,
+  "prizeBatteries": 7,
+  "champions": [
+   "OLD VEGAS"
+  ],
+  "wreckTape": 0
+ },
+ "champion_body": [
+  {
+   "name": "OLD VEGAS",
+   "weapon": "arming_sword",
+   "body": null,
+   "head": null,
+   "prize": {
+    "batteries": 7,
+    "title": "the House's sergeant-at-arms"
+   },
+   "dead": true
+  }
+ ],
+ "errors": []
+}

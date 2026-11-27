@@ -1511,7 +1511,11 @@ const FIGHT = (function () {
     /* THE ACT WEIGHS EVERY KIND (rule 134(b), ours.act_weights): the mix times the kind's weight in the act the fight is told */
     const AW = R('ours.act_weights'), act = Math.max(1, Math.min(AW.acts, p.act || S.act || 1)), mix = {};
     /* SIZED TO THE CREW (COMBAT [bestiary], rule 133; ours.enemy_tiers.count_scale): a tougher faction fields fewer for the same count */
-    const csc = (T.count_scale || {})[p.faction], count = csc ? Math.max(1, Math.round(p.count * csc)) : p.count;
+    /* rule 491(a): the thinning reads what the math WANTED (p.count x p.over), never past the job's most (p.count);
+       a beast's pack grows with nothing here (its hunt is sized by its own kind) */
+    const csc = (T.count_scale || {})[p.faction], beastF = Object.keys(raw).every(function (k) { return !!R('ours.beast_looks')[k]; });
+    const want = p.count * (beastF ? 1 : Math.max(1, +p.over || 1)), count = csc ? Math.max(1, Math.min(p.count, Math.round(want * csc))) : p.count;
+    const overN = beastF ? 1 : Math.max(1, (csc ? want * csc : want) / count);
     Object.keys(raw).forEach(function (k) { mix[k] = raw[k] * (AW.by_kind[k] || AW.default)[act - 1]; });
     const out = [], ids = Object.keys(mix), lead = ids.filter(function (k) { return /leader/.test(k); })[0];
     if (lead && count >= T.leader_from_count) out.push(lead);
@@ -1527,7 +1531,75 @@ const FIGHT = (function () {
       let r = rng() * pool.reduce(function (t, k) { return t + mix[k]; }, 0);
       out.push(pool.filter(function (k) { r -= mix[k]; return r < 0; })[0] || pool[0]);
     }
+    return growUp(out, Object.assign({}, p, { over: overN }), phase);
+  }
+  /* THE ENEMY GROWS WITH HIS COMPANY, the enemy math's own step (BESTIARY 4 11/27, VAMILY rules 491(a), 493(a); Paolo 11/27: 'I have five combat people
+     [that] were absolute killers and there's no more challenges, nothing else to do'). MEASURED BEFORE (tools/bohemia_bestiary_four_five_
+     killers.js): twelve men of level 8 met the job's most, 13, on a two-star and a three-star job alike, the same fight, though the math
+     wanted 16.7 and 22.3. NOW, Battle Brothers' way ('the maximum number and type of enemies is limited by the spawn list used',
+     bb_all/0827_Game Guide.txt L238; its brigands grow by rank, bb_all/0299_Brigands.txt): what the map wanted past the job's most rides
+     here as p.over (records/target/bb/party_math.json job_bb.grows); a faction thinned by count_scale thins what the math wanted, so it fills the board first; then (over - 1) x the band's count of men step one rung up their own
+     faction's ladder (the kinds of its mix from this phase on, melee and shooters apart, by the wiki's XP), the weakest first, up to
+     rungs_max rungs a man (bohemia_enemies.json numbers.grows); never into a leader or a champion kind, never a beast pack. No die. */
+  function xpOf(k) { const r = DB.enemies.rows.filter(function (e) { return e.id === k; })[0]; if (!r) return 0; const m = String(r.xp == null ? 0 : r.xp).match(/\d+(\.\d+)?/g); return m ? Math.max.apply(null, m.map(Number)) : 0; }
+  function growUp(out, p, phase) {
+    const over = +(p && p.over) || 1; if (!(over > 1) || !DB.newEnemies || !DB.newEnemies.numbers || !DB.newEnemies.numbers.grows) return out;
+    const G = NEW('grows'), T = R('ours.enemy_tiers'), M = T.mix[p.faction || 'brigands'] || {}, PH = T.phases.map(function (x) { return x.name; });
+    const skip = function (k) { return (G.skip || []).some(function (w) { return k.indexOf(w) >= 0; }) || !!R('ours.beast_looks')[k] || (T.heads || {})[p.faction] === k; };
+    const ranged = function (k) { return DB.ai.kinds[k] && DB.ai.kinds[k].value === 'backline'; };
+    const seen = {}; PH.slice(Math.max(0, PH.indexOf(phase))).forEach(function (ph) { Object.keys(M[ph] || {}).forEach(function (k) { if (M[ph][k] > 0 && !skip(k)) seen[k] = 1; }); });
+    const ladder = function (k) { return Object.keys(seen).filter(function (q) { return ranged(q) === ranged(k); }).sort(function (a, b) { return xpOf(a) - xpOf(b) || (a < b ? -1 : 1); }); };
+    let n = Math.round((over - 1) * out.length);   /* the math's men past the most, sent as better men */
+    const order = out.map(function (k, i) { return i; }).sort(function (a, b) { return xpOf(out[a]) - xpOf(out[b]) || a - b; });
+    for (let pass = 0; pass < (G.rungs_max | 0) && n > 0; pass++) order.forEach(function (i) {
+      if (n <= 0 || skip(out[i])) return;
+      const L = ladder(out[i]), at = L.indexOf(out[i]);
+      const up = L.filter(function (q, j) { return j > at && xpOf(q) > xpOf(out[i]); })[0];
+      if (up) { out[i] = up; n--; }
+    });
     return out;
+  }
+  /* A CHAMPION IS ROLLED, the champions' own roll (BESTIARY 4 11/27, VAMILY rule 493(c): 'champions in the hard jobs and the roaming forces, each with a
+     name, a look, kit a tier up and a prize on him'). MEASURED BEFORE: a champion came only as one of three wiki kinds in a late mix
+     (brigands, kids, heavies), 50 to 80 in 100 late bands even on a one-star job, and never in the House, the hired guns or any other
+     faction. NOW Battle Brothers' roll (bb_all/0363_Champions.txt, bb_all/0827_Game Guide.txt L938-952): every man of a human band is a
+     champion at base_pct (elite_pct for the elite kinds), plus three_skulls_pct on a three-star job, plus one_skull_pct on a one-star
+     job, plus before_late_pct before the late phase (bohemia_enemies.json numbers.champion); one a band, the first the band's own die
+     names (seeded off the band, its stars and its day, so the card's read and the fight meet the same man, and no die of the fight
+     moves). A kind with a wiki champion row becomes it (champions.swap); the rest keep their kind and take Battle Brothers' champion
+     numbers (champOn). A band already holding a champion kind (handed, or rolled on the card) rolls nothing. */
+  function champFaction(opts) { return S.roadFaction || (opts && opts.party && !Array.isArray(opts.party) && opts.party.faction) || 'brigands'; }
+  function champRoll(band, opts) {
+    const N = DB.newEnemies, CHN = N && N.champions; if (!CHN || !N.numbers || !N.numbers.champion || !Array.isArray(band) || !band.length) return -1;
+    if (band.some(function (k) { return CHN.kinds && CHN.kinds[k]; })) return -1;
+    const fac = champFaction(opts); if (!(CHN.by_faction || {})[fac]) return -1;
+    const C = NEW('champion'), p = (opts && opts.party && !Array.isArray(opts.party)) ? opts.party : {}, sk = (p.skulls || (p.ctx && p.ctx.skulls) || 0) | 0;
+    const ph = tierPhase(S.days, S.difficulty), late = ph === 'late', bossK = opts && opts.boss && opts.boss.kind;
+    if ((C.never_in_phase || []).indexOf(ph) >= 0) return -1;   /* the first week: thugs first (rule 120(a)) */
+    const die = dieOf(seedOf('champ:' + band.join(',') + ':' + sk + ':' + (S.days | 0)));
+    for (let i = 0; i < band.length; i++) {
+      const k = band[i], r = DB.enemies.rows.filter(function (e) { return e.id === k; })[0]; if (!r) continue;
+      const pct = ((C.elite || []).indexOf(k) >= 0 ? C.elite_pct : C.base_pct) + (sk === 3 ? C.three_skulls_pct : 0) + (sk === 1 ? C.one_skull_pct : 0) + (late ? 0 : C.before_late_pct);
+      const roll = die() * 100;   /* drawn for every man, so a man's chance never moves another's */
+      if (k === bossK || R('ours.beast_looks')[k] || R('ours.bestiary').mechanic.machines.indexOf(k) >= 0 || (r.traits || []).indexOf('Incorporeal') >= 0) continue;
+      if (roll < pct) { const sw = (CHN.swap || {})[k]; if (sw && DB.enemies.rows.some(function (e) { return e.id === sw; })) band[i] = sw; return i; }
+    }
+    return -1;
+  }
+  /* his numbers and his prize: a kind with no champion row of its own takes Battle Brothers' champion numbers (own); every champion wears
+     his row's armour at its top (kit a tier up) and carries his prize (his weapon and armour drop whole, his pockets' batteries) */
+  function champOn(u, own, die) {
+    const C = NEW('champion'), r = DB.enemies.rows.filter(function (e) { return e.id === u.kind; })[0] || {};
+    if (own) {
+      u.hp = Math.round(u.hp * C.hp_x); u.hpMax = u.hp;
+      u.mskill = Math.round(u.mskill * C.skill_x); u.rskill = Math.round(u.rskill * C.skill_x);
+      u.mdef = Math.round(u.mdef * C.defence_x); u.rdef = Math.round(u.rdef * C.defence_x);
+      if (u.resolve !== null && u.resolve !== undefined) u.resolve = Math.round(u.resolve * C.resolve_x);
+    }
+    if (C.armour === 'top') { if (r.armor_head != null) { u.armH = rangeMax(r.armor_head); u.armHMax = u.armH; } if (r.armor_body != null) { u.armB = rangeMax(r.armor_body); u.armBMax = u.armB; } }
+    const B = C.prize_batteries || [0, 0];
+    u.prize = { batteries: B[0] + Math.floor(die() * (B[1] - B[0] + 1)) };
+    return u;
   }
   /* THE FALLBACK IS SIZED BY THE COMPANY (COMBAT [the ten changes: the fight's part], TUNING's change 1(b), rule 133, Paolo
      10/23: 'quicker and funner for normies'): a company handed with no party and no band met first_band, nine brigands, and a
@@ -2705,6 +2777,7 @@ const FIGHT = (function () {
     /* __EACH_ORIGIN_ITS_OWN__: the standard (the promise keepers' old one, Battle Brothers' Battle Standard) is carried by his main man */
     if (S.way && S.way.standard) { const sb = crewUnits.filter(function (u) { return u.main; })[0] || crewUnits[0]; if (sb) sb.standard = S.way.standard; }
     const band = isGraveyard(opts) && !opts.band && !Array.isArray(opts.party) && !(opts.party && Array.isArray(opts.party.band) && opts.party.band.length) ? graveyardBand(opts, crewUnits.length) : bandOf(roadOpts(opts), crewUnits.length);   /* WORLD (rule 208(e)): a rolled band holds in the graveyard too */
+    const champAt = champRoll(band, opts);   /* rule 493(c): off the band itself, before a man of it is made */
     LOOKS_TAKEN = new Set(crewUnits.concat(staffUnits).map(function (u) { return u.look; }));   /* NO TWO PEOPLE ALIKE: his men's faces are taken too (__THE_STAFF_FIGHT_TOO__: and his camp's) */
     const bandUnits = band.map(enemyUnit);
     /* __THE_BOSS_IS_A_MAN__ (BOSSES 11/2, rule 302; Paolo: 'unique locations and bosses with themes'): the map's hand-over names the
@@ -2731,11 +2804,13 @@ const FIGHT = (function () {
        data (records/target/bb/bohemia_enemies.json champions, drafts for WORDS) and is a champion, so his fall is HELD BREATH (CUT_SAYS).
        His numbers are his champion row's own; nothing new is rolled but his name. */
     S.champions = [];
-    try { const CH = DB.newEnemies && DB.newEnemies.champions && DB.newEnemies.champions.kinds;
-      if (CH) bandUnits.forEach(function (u) { const c = CH[u.kind]; if (!c || u.boss || !c.names || !c.names.length) return;
+    try { const CHN = DB.newEnemies && DB.newEnemies.champions, CH = CHN && CHN.kinds;
+      if (CH) bandUnits.forEach(function (u, i) { const c = CH[u.kind] || (i === champAt ? (CHN.by_faction || {})[champFaction(opts)] : null); if (!c || u.boss || !c.names || !c.names.length) return;
         const used = S.champions.map(function (x) { return x.name; }), left = c.names.map(function (n) { return String(n).toUpperCase(); }).filter(function (n) { return used.indexOf(n) < 0; }), pick = left.length ? left : c.names.map(function (n) { return String(n).toUpperCase(); });   /* two in one band never share a name */
-        u.champion = true; u.name = pick[Math.floor(rng() * pick.length)]; u.champTitle = c.title || null;
-        S.champions.push({ id: u.id, kind: u.kind, name: u.name, title: u.champTitle }); });
+        const die = dieOf(seedOf('champion:' + band.join(',') + ':' + i));   /* rule 493(c): his name off the band, so no die of the fight moves */
+        u.champion = true; u.name = pick[Math.floor(die() * pick.length)]; u.champTitle = c.title || null;
+        champOn(u, !CH[u.kind], die);
+        S.champions.push({ id: u.id, kind: u.kind, name: u.name, title: u.champTitle, rolled: !CH[u.kind] || i === champAt, prize: u.prize }); });
     } catch (e) { S.champErr = String(e && e.message || e); }
     LOOKS_TAKEN = null;
     /* THE BOARD GROWS TO FIT (COMBAT 7, rule 378(b), ask line 407; Paolo 11/3: 'make sure there's not a cap on the amount of players
@@ -11550,6 +11625,7 @@ const ROOF_MARK = '#d8c9a8';
 const COVER_MARK = '#9aa6b0', SHIELD_MARK = ['.###.', '#####', '#####', '#####', '.###.', '..#..'];
 /* __THE_STAFF_FIGHT_TOO__ (STAFF, rule 468, C2): a camp follower's mark, a small tent right of his bars, so he reads 'camp' at a glance */
 const CAMP_MARK = '#d8b478', TENT_MARK = ['..#..', '.#.#.', '.#.#.', '#.#.#', '#####'];
+const CHAMP_GOLD = '#e0a040', CHAMP_MARK = ['.###.', '#####', '#.#.#', '#####', '.#.#.'];   /* rule 493(c): a skull, five cells wide */
 function coverOn(v) {
   const u = FIGHT.current(); if (!u || v.side === 'you' || !crewControlled(u) || !FIGHT.isRanged(u.weapon) || !FIGHT.onField(v) || FIGHT.S.deploy) return null;
   const key = u.id + ':' + u.x + ',' + u.y + ':' + v.id + ':' + v.x + ',' + v.y + ':' + FIGHT.S.round + ':' + FIGHT.S.idx + ':' + (u.weapon && u.weapon.id);
@@ -11799,8 +11875,13 @@ function drawMan(v, tw, th) {
       for (let i = 0; i < up; i++) upChevron(cx0, cy0 - i * 3 * k, k, you ? SIDE_RIM.you : SIDE_RIM.them); mkOff(); v._up = { n: up, x: (cx0 + k) * MKU / DPR, y: cy0 * MKU / DPR, at: now }; }
     /* THE SHIELD-COVER MARK (rule 230(c)): a man of theirs his shooter's line reaches only through a man in the way wears a small
        shield right of his bars, while that shooter aims (the cut on the shot square says by how much) */
+    /* A CHAMPION READS ON THE BOARD (rule 493(c): 'a name, a look'): Battle Brothers' skull on a champion's token, gold, right of his bars */
+    if (!you && v.champion) { mkOn(); const k = 2 * Math.max(1, Math.round(h / 46)), c0 = mc(bx + bw + 3), r0 = mc(by - 4);   /* twice the other marks: the one man to find first */
+      CHAMP_MARK.forEach(function (row, j) { for (let i = 0; i < row.length; i++) if (row[i] === '#') { mkCell(c0 + i * k, r0 + j * k + k, k, k, MK.ink); } });
+      CHAMP_MARK.forEach(function (row, j) { for (let i = 0; i < row.length; i++) if (row[i] === '#') { mkCell(c0 + i * k, r0 + j * k, k, k, CHAMP_GOLD); } });
+      mkOff(); v._champ = { x: (c0 + k) * MKU / DPR, y: r0 * MKU / DPR, at: now }; }
     const cc = coverOn(v);
-    if (cc) { mkOn(); const k = Math.max(1, Math.round(h / 46)), c0 = mc(bx + bw + 4), r0 = mc(by - 1);
+    if (cc) { mkOn(); const k = Math.max(1, Math.round(h / 46)), c0 = mc(bx + bw + 4) + (!you && v.champion ? 12 * k : 0), r0 = mc(by - 1);
       SHIELD_MARK.forEach(function (row, j) { for (let i = 0; i < row.length; i++) if (row[i] === '#') { mkCell(c0 + i * k, r0 + j * k + k, k, k, MK.ink); } });
       SHIELD_MARK.forEach(function (row, j) { for (let i = 0; i < row.length; i++) if (row[i] === '#') { mkCell(c0 + i * k, r0 + j * k, k, k, COVER_MARK); } });
       mkOff(); v._cover = { cut: cc.cut, x: (c0 + k) * MKU / DPR, y: r0 * MKU / DPR, at: now }; }
@@ -12848,6 +12929,7 @@ function spoilsOf() {
   const fac = theirFaction(), nf = DB.newEnemies && DB.newEnemies.factions && DB.newEnemies.factions[fac];
   return { faction: fac, theyAre: (nf && nf.name) || THEY_ARE[fac] || null, bodies: S.units.filter(function (v) { return v.side === 'them'; }).map(function (t) {
       return { name: t.name, kind: t.kind, boss: !!t.boss, xp: t.xp | 0, dead: !!t.dead, fled: !!t.fled, beast: !!t.beast, ghost: !!t.ghost, machine: !!t.machine,
+        champion: !!t.champion, prize: t.champion && t.prize ? { batteries: t.prize.batteries | 0, title: t.champTitle || null } : null,   /* rule 493(c): his prize rides home with him */
         weapon: row(t.weapon) ? { id: t.weapon.id, cls: row(t.weapon).class, durability: row(t.weapon).durability, gun: !!t.weapon.gun || isGunW(t.weapon), ammo: t.ammo, ammoMax: t.ammoMax, named: !!(row(t.weapon).armory && row(t.weapon).armory.named) } : null,   /* ARMORY 3: a named prize always drops (engine/bohemia_spoils.js) */
         shield: t.shield ? { id: t.shield.id, durability: t.shield.durability } : null,
         sidearm: sidearmOf(t, row),   /* __EVERYBODY_IS_STRAPPED__: the pistol still in his waistband, and the rounds left in it */

@@ -46686,7 +46686,13 @@ function partyMath(kind, ctx){
      party by the days). records/target/bb/party_math.json job_bb; measured by tools/bohemia_world_most_jobs_fit.js */
   var B = (kind === 'job') ? partyV('job_bb') : null;
   if(kind === 'job' && B){ P = partyV('job');
-    var bm = Math.max(B.mult_min, Math.min(B.mult_max, B.k * Math.pow(str / 100, B.exp)));
+    /* rule 491(a), job_bb.grows.small: a few strong men are read nearer the company they fight like (Battle
+       Brothers' arena guard, 12 / the roster, at half its power, from a man of level 6 to a man of level 11) */
+    var __G0 = B.grows, __c0 = null; try{ __c0 = (ctx.strength == null && window.__COMPANY_STRENGTH) || null; }catch(_e){}
+    var strC = str, __t = 0; if(__G0 && __G0.small && __c0 && __c0.counted > 0 && __c0.counted < __G0.like_men && Math.abs(__c0.strength - str) < 0.5){
+      var __sm = __G0.small; __t = Math.max(0, Math.min(1, (str / __c0.counted - __sm.from_per_man) / (__sm.full_per_man - __sm.from_per_man)));
+      strC = str * Math.pow(__G0.like_men / __c0.counted, __sm.exp * __t); }
+    var bm = Math.max(B.mult_min, Math.min(B.mult_max, B.k * Math.pow(strC / 100, B.exp)));
     n = (B.base_men[String(ctx.skulls || 1)] || B.base_men['2']) * bm * mult;
     /* __NO_CHAMPION_ON_DAY_ONE__ (WORLD, EYES round three 10/26: the Block Watch's twelve at level 1 met 'an LV 8 Marauder with 386
        armour' three times on days one and two, on a ONE-star job): twelve men is strength 120, the dress of a typical company on day
@@ -46699,17 +46705,26 @@ function partyMath(kind, ctx){
        first week each day counts dress_ahead.mult[level] days (party_math.json job_bb; none was the old line: never past today, so a
        strong company met day-20 men until day 60). The first week stays the calendar's (rule 120(a): thugs first) */
     var __A = B.dress_ahead, __m = (__A && __A.mult && __A.mult[dif]) || 1;
-    days = Math.min(partyDressDay(str, B.dress), Math.min(partyV('day_cap') || 100, Math.round(days + Math.max(0, days - ((__A && __A.from_day) | 0)) * (__m - 1)))); }
+    /* THE ENEMY GROWS WITH HIS COMPANY (BESTIARY 4 11/27, rule 491(a); Paolo: 'I have five combat people [that] were absolute killers
+       and there's no more challenges'): MEASURED, five men of level 11 in the best kit are strength 180, a typical company's day 56, so
+       every job sent them the middle men. The dress now reads his MEN as they are: a company of job_bb.grows.like_men men like his (his
+       strength a counted man), on the same ramp as the count (a man of level 6 to a man of level 11, job_bb.grows.small), so a crew of
+       recruits is never dressed up for being few; still never past the day the calendar allows (dress_ahead) */
+    var __dress = str; if(__G0 && __G0.small && __c0 && __c0.counted > 0 && __c0.counted < __G0.like_men && Math.abs(__c0.strength - str) < 0.5) __dress = str * Math.pow(__G0.like_men / __c0.counted, __t);   /* the same ramp: recruits are never dressed up for being few */
+    days = Math.min(partyDressDay(__dress, B.dress), Math.min(partyV('day_cap') || 100, Math.round(days + Math.max(0, days - ((__A && __A.from_day) | 0)) * (__m - 1)))); }
   else if(kind === 'job'){ P = partyV('job'); n = str / P.strength_per_enemy * (P.skull_mult[String(ctx.skulls || 1)] || 1) * mult; }
   else { P = partyV('roaming'); var dist = (ctx.x != null) ? partyTownDistance(ctx.x, ctx.y) : 0;
     n = (P.base + P.per_day * (days - 1) + P.per_block_from_town * dist + P.per_strength * str) * mult; }
   var mx = (kind === 'job' && P.max_by_difficulty && P.max_by_difficulty[dif]) || P.max;   /* __THE_THREAT_MEETS_THE_COMPANY__: the job's most, by level (party_math.json job) */
-  n = Math.max(P.min, Math.min(mx, Math.floor(n + 0.5)));
+  var __raw = n; n = Math.max(P.min, Math.min(mx, Math.floor(n + 0.5)));
+  /* rule 491(a): what the math wanted past the most rides to the fight, which sends that many men up a rung */
+  var __gw = (partyV('job_bb') || {}).grows, over = (__gw && n > 0 && __raw > n + 0.5) ? +Math.max(1, __raw / n).toFixed(3) : 1;
   /* __EVERY_FIGHT_SIZED_TO_THE_CREW__ (RUN 10/23, TUNING's change 1): ON THE FIRST GAME DAY no party is bigger than the
      company plus one (a lone wolf meets two at most, three men meet four), so the first threat is survivable by accident;
      from day two the math above stands whole. The shell holds the same line for a hand-over that never came through here. */
   var cap1 = false; try{ var cc = crewCount(); if(loopDay() <= 1 && cc > 0 && n > cc + 1){ n = cc + 1; cap1 = true; } }catch(_e){}
-  return { count: n, word: partyWord(n), days: days, difficulty: dif, faction: 'brigands', strength: str, kind: kind, dayOneCap: cap1, ctx: { skulls: ctx.skulls, x: ctx.x, y: ctx.y } };
+  if(cap1) over = 1;
+  return { count: n, word: partyWord(n), days: days, difficulty: dif, faction: 'brigands', strength: str, kind: kind, dayOneCap: cap1, over: over, skulls: kind === 'job' ? (ctx.skulls | 0) || 1 : 0, ctx: { skulls: ctx.skulls, x: ctx.x, y: ctx.y } };
 }
 /* HOW MANY ARE IN HIS CREW TONIGHT: the company the origin built, the men hired at the posts (the settlement screen keeps
    them in bohemia.hired.v1 until the game's save does), less the men who walked when the batteries ran out (the bill,
