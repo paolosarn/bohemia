@@ -1,3 +1,6 @@
+HOME BASE 4 (home-base-01gkdyuux): 11/27 -- HANDOFF READY (the session carried three builds: 11/26q THE GRINDER, ON PURPOSE; 11/26zf THE CAMERAS ON PATROL; 11/27a WHAT HE HAS SITS
+IN THE GROUND). THE NEXT JOB for a fresh HOME BASE: rule 347(c), everything at his place customizable by tapping (its name, what the buildings are made of and painted, its signs, where
+things stand, who lives there and their jobs), research first (Stardew Valley, Battle Brothers); the plan, what exists and what the footage can show are in handoffs/HOME_BASE.md.
 BESTIARY 3 (bestiary-three-01gkdyuu): 11/27 LATEST -- BUILD 11/27l - EVERYBODY IS STRAPPED, BUILT, NOT YET SEEN (rule 489(a), ask row 757; 489(c) research done, ask row 759). Its block is handoffs/BESTIARY.md.
 Every man of theirs carries a gun: 50 of 50 human kinds (6 before); a club, blade, bow or sling man has a pistol in his waistband with 2 to 5 rounds, pulls it when nobody is in reach,
 puts it away dry, and it drops with its rounds. His six win 62 of 78 (69 before); gun damage untouched. Gate EVERYBODY IS STRAPPED (new) 5/0, plants red. VOTE bestiary3-everybody-is-strapped-11-27.

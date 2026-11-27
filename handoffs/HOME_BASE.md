@@ -1,3 +1,33 @@
+HOME BASE 4 -> A FRESH HOME BASE (11/27 04:30 UTC): HANDOFF READY. HOME BASE 4 carried three builds this session (11/26q THE GRINDER,
+ON PURPOSE; 11/26zf THE CAMERAS ON PATROL; 11/27a WHAT HE HAS SITS IN THE GROUND) and its context is long; the routine 'HOME BASE 4:
+customize his place' (rule 347(c)) is a new feature and goes to a fresh session whole, research first.
+
+## THE NEXT JOB: RULE 347(c), EVERYTHING AT HIS PLACE CUSTOMIZABLE, EASY, BY TAPPING (the routine, 11/27 04:30 UTC)
+Paolo 11/3: 'literally every thing in our custom settlement can be customized... super easy to customize... that pseudo mayor vibe...
+a Stardew Valley vibe' (rules 347(c), 343). The list: ITS NAME, WHAT EACH BUILDING IS MADE OF AND PAINTED, ITS SIGNS, WHERE THINGS STAND,
+WHO LIVES THERE AND THEIR JOBS; upright and sideways, never choppy (480(c)); research first.
+1. RESEARCH FIRST (a cited record, rules 'how did Battle Brothers do it' and 343's Stardew feel; Stardew is named for this, Battle
+   Brothers for the company): Stardew Valley: naming the farm at the start, Robin's shop (build, MOVE a building: pick it, then tap
+   where), the 1.5 paint bucket on a building (a few colour regions), signs you write on, the mobile version's taps; Battle Brothers:
+   the company's name and banner (picked at the start, changed in the company screen), a man's name and title edited by tapping it,
+   the retinue. What keeps both EASY: few choices, each a tap, seen at once on the thing itself, undoable.
+2. WHAT EXISTS TO BUILD ON (slices/BOHEMIA_SETTLEMENT_SCREEN.html unless said): NAME IT on the desk (homePlaceRows' 'NAME IT', .hname,
+   posts BOHEMIA_HOME_RENAME -> slices/BOHEMIA_CITY_WORLD.html homeRename -> BohemiaHome.rename); the lot he picks for the next build
+   (S.homePick, buildFreeLot, homeLotsHeld); CLEAR a lot (homeClear); his own buildings' lots (engine/bohemia_home.js buildPlace,
+   placeLots; the map's homePlaceLot, homeUnclash); the residents (S.home.residents, engine addResident) and who works a build
+   (S.home.workers, the morning) and his men at his buildings (homeWorkers, HOME_WORK); the station (__THE_STATION__: a tap on a lot
+   zooms the camera onto it and lays the sheet for the way the phone is held: the natural place for each choice is that sheet).
+3. WHAT THE FOOTAGE CAN AND CANNOT SHOW, said plainly before building: the pieces are pre-rendered per camera, shape and lot of their
+   row (tools/bohemia_home_settlement_pipeline_11_3_26.py; Blender is not on this box, pip install bpy would be the way), at night under
+   sodium in the footage's grey-green, so: WHERE THINGS STAND is cheap (a piece has a picture for every lot of its row: MOVE = pick the
+   thing in its station, the free lots of its row light, tap one; keep homeUnclash honest); ITS NAME and ITS SIGNS can be drawn on the
+   footage (a plate on a lot or the gate, his words in the camera's own pixel font, like the OSD); WHO LIVES THERE AND THEIR JOBS is a
+   tap on a person on the footage (openPerson) -> 'WORKS AT' (his buildings, the builds that take a man); WHAT IT IS MADE OF AND PAINTED
+   reads on night CCTV only as light or dark: a paint choice can be kept on the record and shown as a value on the footage now, the
+   colour wherever his place is seen by day; materials (tin, block, wood) need the pipeline's variants. Decide and say which.
+4. Gates: YOUR PLACE, PLANTED (gates/home_base_gate.js, F1-F12) and ONCE, EVERYWHERE stay green; each new choice gets its leg (a real
+   tap both ways, kept across a reload) and its planted red. A VOTE card that shows each choice made, before and after, both ways.
+
 HOME BASE 4 (session_01GKDyuuxd1n5GC5qbBwv9B6): 11/27 LATEST -- BUILD 11/27a - WHAT HE HAS SITS IN THE GROUND, BUILT, NOT YET
 SEEN (the routine 'HOME BASE 4: rule 482'; rules 482, 479(a)(b); ask rows 735, 721). Record
 records/BOHEMIA_HOME_BASE_WHAT_HE_HAS_SITS_IN_THE_GROUND_11_27_26.md. VOTE card home-base-what-he-has-sits-in-the-ground-11-27.
