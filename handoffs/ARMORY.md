@@ -1,5 +1,15 @@
 # ARMORY (the lane's own block; newest on top, written only by ARMORY)
 
+## ARMORY 3, 11/27 round two: BEAT-UP GUNS, THE DRONE LIT BEFORE YOU SEND IT (rule 490(e), 482; BUILD 11/27q)
+BUILT, NOT YET SEEN. The record's ROUND TWO section. armory.json keys 'worn_of' + 'worn' {hit, value_pct} (six beat-up pieces) and
+'own_gun' (COOK's own gun pictures by_row in slices/fight_rig/own_guns.json); the Double Shotgun; fire_shapes 'Launch Drone' (cross),
+fire_bands drone flat line; the fight's nextAct says SEND / SPOT and the drone's men ON IT. Gate THE GUNS GROW UP 23/0. Proof ONLY=hands,cross.
+VOTE armory3-worn-guns-and-the-drone-lit-11-27. Shops stock by tier with no change (measured).
+NEXT: own models for the AR, Kalash, belt-fed, rockets, drone kit (COOK SIX; no Blender here); the whine and blast (SOUNDS 3); the
+roles (BESTIARY 3); a worn version for the rockets and the belt if he likes the beat-up ones.
+[bb Battle Brothers sells the same weapon at different qualities by its row; ours by its wear]
+[analog horror: a beat-up rifle with the paint worn to the metal, taped where it cracked]
+
 ## ARMORY 3, 11/27: THE GUNS GROW UP, AND THE DRONE (rules 489(b), 490; ask rows 758, 762, 763; BUILD 11/27h)
 BUILT, NOT YET SEEN. records/BOHEMIA_ARMORY_THREE_THE_GUNS_GROW_UP_AND_THE_DRONE_11_27_26.md (PART ONE the cited research: the 393
 million guns, 32 million semi-automatic rifles, the switches, the FGC-9 and the Luty, the RPG-7 and the LAW, Ukraine's 1.5 million FPV

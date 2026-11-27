@@ -230,3 +230,41 @@ CLOSE 15/2 (P1 armour prices, B1). All on the quarantine list.
   to judge and tune (the whine is the power-on sound for now: SOUNDS owes a drone's whine and a blast).
 - Gun DAMAGE on the old rows: untouched, rule 489(d). The research for his decision is in PART ONE (A, B) and the Battle Brothers
   numbers are in weapons.json.
+
+## ROUND TWO (BUILD 11/27q - BEAT-UP GUNS, THE DRONE LIT BEFORE YOU SEND IT; the routine 'ARMORY 3: keep cooking', rules 482, 490(e))
+The routine's ask: "more variations of the guns (makes, worn and homemade versions), each gun drawn in hand at fight size so he can
+tell them apart, the shops and the enemy roles stocking them by tier, the drone's whine and blast sounds. Gun damage unchanged."
+
+MEASURED FIRST: a weapon's durability is never worn in our fight or between fights (engine/bohemia_condition.js wears and mends armour
+only), so a "worn" gun that only had less durability would differ from the clean one by price alone. The real difference of a worn gun
+is its shot: a shot-out barrel and a loose action throw wide.
+
+WHAT SHIPPED:
+- WORN ('worn_of', 'worn' {hit, value_pct} in armory.json): six beat-up pieces, each its base gun (the same Battle Brothers rows, the
+  same fire, the same damage, rule 489(d)), its shot 10 points harder to land (one Battle Brothers step) and 55 percent of the price:
+  the Beat-up Ranch AR (25 batteries, clean 45), Kalash (26 / 48), Guard Carbine (77 / 140), Switched Pistol (16 / 29), Box SMG (37 / 68),
+  Semi-Auto Shotgun (162 / 295). The shop's icons read 'beat-up' and draw them rusted and taped (bohemia_ui_materials.js qualOf).
+- A MAKE: the Double Shotgun (handgonne / hunting bow, the farm side-by-side): a magazine of two, two blasts and the handgonne's
+  9 AP reload; 40 batteries.
+- TOLD APART IN HIS HANDS ('own_gun' -> slices/fight_rig/own_guns.json by_row): where COOK's own rendered guns hold the right kind,
+  the piece is drawn as it: the switched pistol (and its beat-up one) as the service pistol, the pipe SMG as the zip gun, the pipe and
+  double shotguns as the sawed-off's two barrels, the semi-auto shotgun (and its beat-up one) as the pump, the night-sight AR and the
+  thermal rifle as the scoped rifle. records/target/armory/armory3_hands.jpg: his man holding all 23 at fight size.
+  HONEST: the AR, the Kalash, the Guard carbine, the printed carbine, the belt-fed, the box SMG, the rockets and the drone kits still draw
+  as their family's gun (or the bottles' throw); own models need Blender, which this box has none of (COOK SIX's).
+- THE DRONE LIT BEFORE HE SENDS IT: 'Launch Drone' is a shape (fire_shapes, kind 'cross', the call's cross), so his pick lights the
+  five tiles; the big button says SEND and how many of theirs are on it (never a hit chance: a drone is flown, not rolled); each man
+  on it says ON IT; the drone's band is flat (its own line), so no ring of the board hatches weak (armory3_cross_lit.jpg).
+- THE SHOPS BY TIER (measured, 24 shops of each size on the settlement page, rolled by price as every row): camps sold the pipe
+  shotgun (7), the pipe SMG (6), the beat-up ranch AR (9), the beat-up switched pistol (4), the printed carbine (4), the beat-up Kalash
+  (3); towns the drones (charge 5, scout 2), the box SMG (5), the ranch AR, the double; forts the rocket launcher (4), the belt-fed (2),
+  the Guard carbine (3), the semi-auto shotgun (4), the night-sight AR (5). No shop change was needed: the price is the tier.
+
+CHECKS: THE GUNS GROW UP 23/0 (four new legs: WORN, TOLD APART IN HIS HANDS, THE DOUBLE, THE DRONE'S CROSS IS ITS SHAPE); weapon shapes
+9/0; no ammo 12/0; whip 13/0; range bands 15/0; melee one tile 10/0; icons 10/0; two hands 9/0; two-hander name 8/0; god gear 37/0;
+item card 42/0; crew guns 7/0; demo build 25/0. Reds as on main: model manifest 321/1, sourced numbers 85 typed (none added), every
+weapon shows 12/3.
+
+OWED: the drone's whine and the blast (SOUNDS 3: the launch plays the power-on, the landing the shot, today); the enemy roles that
+carry the new guns by tier (BESTIARY 3: carried_by seeds the Guard carbine, the Kalash, the belt-fed and the semi-auto shotgun); own
+models (COOK SIX, CHARACTER 2).

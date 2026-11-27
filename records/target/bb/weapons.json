@@ -8389,7 +8389,8 @@
      "burst": 3,
      "mag": 17,
      "rounds": 17
-    }
+    },
+    "own_gun": "dagger"
    }
   },
   {
@@ -8567,7 +8568,8 @@
      "burst": 3,
      "mag": 20,
      "rounds": 20
-    }
+    },
+    "own_gun": "zip_gun"
    }
   },
   {
@@ -9003,7 +9005,8 @@
     ],
     "across": "Battle Brothers has one firearm, so B is the cheapest bow",
     "carried_by": [],
-    "draft": true
+    "draft": true,
+    "own_gun": "sawed_off"
    }
   },
   {
@@ -9078,7 +9081,8 @@
      "mode": "semi",
      "mag": 7,
      "rounds": 7
-    }
+    },
+    "own_gun": "pump_shotgun"
    }
   },
   {
@@ -9399,7 +9403,8 @@
      "mag": 30,
      "rounds": 30,
      "sight": "night"
-    }
+    },
+    "own_gun": "scoped_deer_rifle"
    }
   },
   {
@@ -9466,12 +9471,596 @@
     "draft": true,
     "fire": {
      "sight": "heat"
+    },
+    "own_gun": "scoped_deer_rifle"
+   }
+  },
+  {
+   "id": "worn_ranch_ar",
+   "name": "Beat-up Ranch AR",
+   "class": "crossbow",
+   "hands": null,
+   "damage_min": 35,
+   "damage_max": 55,
+   "armor_damage_pct": 60,
+   "armor_ignore_pct": 45,
+   "fatigue": -6,
+   "durability": 60,
+   "value": 250,
+   "range": 6,
+   "range_min": 6,
+   "range_max": 6,
+   "skills": [
+    {
+     "name": "Shoot",
+     "ap": 4,
+     "fatigue": 15,
+     "hit_bonus": 5,
+     "range": null,
+     "effect": "+15% chance to hit, -3% chance to hit per tile of distance, 50% Direct Damage; ARMORY 3: from a magazine of 30, no reload between shots; Quick Shot's cost, two a turn",
+     "page": "Shoot Bolt (5 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1782_Shoot Bolt (5 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ],
+     "bb_name": "Shoot Bolt",
+     "cost_from": "Quick Shot (15 fatigue) (reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1614_Quick Shot (15 fatigue).txt)"
+    },
+    {
+     "name": "Reload",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Reloads the crossbow",
+     "page": "Reload (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1677_Reload (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
     }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of light_crossbow and hunting_bow, fought with light_crossbow's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0461_Crossbows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1166_Light Crossbow.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0273_Bows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1043_Hunting Bow.txt | ARMORY 3 worn of ranch_ar: {\"hit\": -10, \"value_pct\": 55, \"why\": \"a shot-out barrel and a loose action: the same gun and the same damage (rule 489(d)), ten points harder to land (one Battle Brothers step), a little over half the price (a used gun's)\"}",
+   "skills_basis": "weapon page Skills section",
+   "fire": "semi",
+   "mag": 30,
+   "ammo": "For 30 uses",
+   "worn": {
+    "hit": -10,
+    "value_pct": 55,
+    "why": "a shot-out barrel and a loose action: the same gun and the same damage (rule 489(d)), ten points harder to land (one Battle Brothers step), a little over half the price (a used gun's)"
+   },
+   "armory": {
+    "name": "beat-up ranch ar",
+    "object": "ranch ar",
+    "line": "The black rifle out of a flooded garage. Both hands. Cheap, and it throws a little wide.",
+    "tier": "camp",
+    "kind": "scavenged",
+    "role": "Battle Brothers' light crossbow with a magazine: the black rifle in every garage (NSSF: 32 million in circulation by 2026)",
+    "between": [
+     "light_crossbow",
+     "hunting_bow"
+    ],
+    "across": "the semi-automatic rifle the valley owns: the light crossbow's bolt and the hunting bow's arrow",
+    "carried_by": [],
+    "draft": true,
+    "fire": {
+     "mode": "semi",
+     "mag": 30,
+     "rounds": 30
+    },
+    "worn_of": "ranch_ar"
+   }
+  },
+  {
+   "id": "worn_kalash",
+   "name": "Beat-up Kalash",
+   "class": "crossbow",
+   "hands": null,
+   "damage_min": 35,
+   "damage_max": 55,
+   "armor_damage_pct": 60,
+   "armor_ignore_pct": 45,
+   "fatigue": -6,
+   "durability": 54,
+   "value": 260,
+   "range": 6,
+   "range_min": 6,
+   "range_max": 6,
+   "skills": [
+    {
+     "name": "Burst",
+     "ap": 7,
+     "fatigue": 20,
+     "hit_bonus": 5,
+     "range": null,
+     "effect": "+15% chance to hit, -3% chance to hit per tile of distance, 50% Direct Damage; ARMORY 3: 3 rounds a press at the man aimed at, each its own roll, each after the first -recoil (ours.armory_fire.burst); Aimed Shot's cost, one a turn",
+     "page": "Shoot Bolt (5 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1782_Shoot Bolt (5 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ],
+     "bb_name": "Shoot Bolt",
+     "cost_from": "Aimed Shot (25 fatigue) (reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0039_Aimed Shot (25 fatigue).txt)"
+    },
+    {
+     "name": "Reload",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Reloads the crossbow",
+     "page": "Reload (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1677_Reload (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of crossbow and short_bow, fought with crossbow's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0461_Crossbows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0458_Crossbow.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0273_Bows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1785_Short Bow.txt | ARMORY 3 worn of kalash: {\"hit\": -10, \"value_pct\": 55, \"why\": \"a shot-out barrel and a loose action: the same gun and the same damage (rule 489(d)), ten points harder to land (one Battle Brothers step), a little over half the price (a used gun's)\"}",
+   "skills_basis": "weapon page Skills section",
+   "fire": "burst",
+   "burst": 3,
+   "mag": 30,
+   "ammo": "For 30 uses",
+   "worn": {
+    "hit": -10,
+    "value_pct": 55,
+    "why": "a shot-out barrel and a loose action: the same gun and the same damage (rule 489(d)), ten points harder to land (one Battle Brothers step), a little over half the price (a used gun's)"
+   },
+   "armory": {
+    "name": "beat-up kalash",
+    "object": "kalash",
+    "line": "An AK with the paint worn to the metal. Both hands. Three a pull, and they spread.",
+    "tier": "camp",
+    "kind": "scavenged",
+    "role": "Battle Brothers' crossbow, the one every war ends up with: the select-fire AK pattern",
+    "between": [
+     "crossbow",
+     "short_bow"
+    ],
+    "across": "the 7.62 short round: the crossbow's bolt and the short bow's arrow",
+    "carried_by": [],
+    "draft": true,
+    "fire": {
+     "mode": "burst",
+     "burst": 3,
+     "mag": 30,
+     "rounds": 30
+    },
+    "worn_of": "kalash"
+   }
+  },
+  {
+   "id": "worn_guard_carbine",
+   "name": "Beat-up Guard Carbine",
+   "class": "crossbow",
+   "hands": null,
+   "damage_min": 35,
+   "damage_max": 50,
+   "armor_damage_pct": 65,
+   "armor_ignore_pct": 45,
+   "fatigue": -6,
+   "durability": 50,
+   "value": 770,
+   "range": 6,
+   "range_min": 6,
+   "range_max": 6,
+   "skills": [
+    {
+     "name": "Burst",
+     "ap": 7,
+     "fatigue": 20,
+     "hit_bonus": 5,
+     "range": null,
+     "effect": "+15% chance to hit, -3% chance to hit per tile of distance, 50% Direct Damage; ARMORY 3: 3 rounds a press at the man aimed at, each its own roll, each after the first -recoil (ours.armory_fire.burst); Aimed Shot's cost, one a turn",
+     "page": "Shoot Bolt (5 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1782_Shoot Bolt (5 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ],
+     "bb_name": "Shoot Bolt",
+     "cost_from": "Aimed Shot (25 fatigue) (reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0039_Aimed Shot (25 fatigue).txt)"
+    },
+    {
+     "name": "Reload",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Reloads the crossbow",
+     "page": "Reload (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1677_Reload (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of crossbow and boondock_bow, fought with crossbow's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0461_Crossbows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0458_Crossbow.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0273_Bows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0269_Boondock Bow.txt | ARMORY 2 tune: {\"set\": {\"value\": 1400}} (it comes out of an armory, never a garage: priced between the lever rifle and the deer rifle, so a fortress shelf carries it) | ARMORY 3 worn of guard_carbine: {\"hit\": -10, \"value_pct\": 55, \"why\": \"a shot-out barrel and a loose action: the same gun and the same damage (rule 489(d)), ten points harder to land (one Battle Brothers step), a little over half the price (a used gun's)\"}",
+   "skills_basis": "weapon page Skills section",
+   "fire": "burst",
+   "burst": 3,
+   "mag": 30,
+   "ammo": "For 30 uses",
+   "worn": {
+    "hit": -10,
+    "value_pct": 55,
+    "why": "a shot-out barrel and a loose action: the same gun and the same damage (rule 489(d)), ten points harder to land (one Battle Brothers step), a little over half the price (a used gun's)"
+   },
+   "armory": {
+    "name": "beat-up guard carbine",
+    "object": "guard carbine",
+    "line": "A Guard carbine that sat in the rain. Both hands. Still bursts, a little loose.",
+    "tier": "town",
+    "kind": "scavenged",
+    "role": "Battle Brothers' crossbow, select-fire: a National Guard armory carbine with a three-round burst (the M4's)",
+    "between": [
+     "crossbow",
+     "boondock_bow"
+    ],
+    "across": "a 5.56 round is light: the crossbow's bolt and the boondock bow's arrow",
+    "carried_by": [],
+    "draft": true,
+    "fire": {
+     "mode": "burst",
+     "burst": 3,
+     "mag": 30,
+     "rounds": 30
+    },
+    "worn_of": "guard_carbine"
+   }
+  },
+  {
+   "id": "worn_switched_pistol",
+   "name": "Beat-up Switched Pistol",
+   "class": "dagger",
+   "hands": 1,
+   "damage_min": 20,
+   "damage_max": 40,
+   "armor_damage_pct": 65,
+   "armor_ignore_pct": 20,
+   "fatigue": null,
+   "durability": 45,
+   "value": 160,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Stab",
+     "ap": 4,
+     "fatigue": 7,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "20% Direct Damage",
+     "page": "Stab (7 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1864_Stab (7 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Puncture",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": -25,
+     "range": null,
+     "effect": "-15% chance to hit, completely ignores armor (100% Direct Damage), no critical hits (body hits only), no Double Grip damage bonus",
+     "page": "Puncture (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1610_Puncture (20 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of dagger and rondel_dagger, fought with dagger's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0503_Daggers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0501_Dagger.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0503_Daggers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1701_Rondel Dagger.txt | ARMORY 3 worn of switched_pistol: {\"hit\": -10, \"value_pct\": 55, \"why\": \"a shot-out barrel and a loose action: the same gun and the same damage (rule 489(d)), ten points harder to land (one Battle Brothers step), a little over half the price (a used gun's)\"}",
+   "class_page_section": "One-Handed Daggers",
+   "hands_basis": "Daggers page heading \"One-Handed Daggers\"",
+   "skills_basis": "weapon page Skills section",
+   "fire": "burst",
+   "burst": 3,
+   "mag": 17,
+   "shot_skill": {
+    "name": "Burst",
+    "ap": 7,
+    "fatigue": 20,
+    "hit_bonus": 10,
+    "range": null,
+    "effect": "+20% chance to hit, -10% chance to hit per tile of distance past 2, 45% Direct Damage; ARMORY 3: 3 rounds a press at the man aimed at, each its own roll, each after the first -recoil (ours.armory_fire.burst); Aimed Shot's cost, one a turn",
+    "page": "Throw Javelin (15 fatigue)",
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1997_Throw Javelin (15 fatigue).txt",
+    "missing": [
+     "range (skill page states no range; the weapon range applies)"
+    ],
+    "bb_name": "Throw Javelin",
+    "cost_from": "Aimed Shot (25 fatigue) (reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0039_Aimed Shot (25 fatigue).txt)"
+   },
+   "worn": {
+    "hit": -10,
+    "value_pct": 55,
+    "why": "a shot-out barrel and a loose action: the same gun and the same damage (rule 489(d)), ten points harder to land (one Battle Brothers step), a little over half the price (a used gun's)"
+   },
+   "armory": {
+    "name": "beat-up switched pistol",
+    "object": "switched pistol",
+    "line": "A nine with a cracked printed switch. One hand. Three a pull, all over the place.",
+    "tier": "camp",
+    "kind": "scavenged",
+    "role": "Battle Brothers' dagger with a printed switch on its back: the pistol everybody owns, made automatic (ATF: 814 switches recovered 2012-2016, 5,454 in 2017-2021)",
+    "between": [
+     "dagger",
+     "rondel_dagger"
+    ],
+    "across": null,
+    "carried_by": [],
+    "draft": true,
+    "fire": {
+     "mode": "burst",
+     "burst": 3,
+     "mag": 17,
+     "rounds": 17
+    },
+    "worn_of": "switched_pistol",
+    "own_gun": "dagger"
+   }
+  },
+  {
+   "id": "worn_box_smg",
+   "name": "Beat-up Box SMG",
+   "class": "dagger",
+   "hands": 1,
+   "damage_min": 25,
+   "damage_max": 40,
+   "armor_damage_pct": 65,
+   "armor_ignore_pct": 20,
+   "fatigue": -3,
+   "durability": 52,
+   "value": 370,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Slash",
+     "ap": 4,
+     "fatigue": 10,
+     "hit_bonus": 0,
+     "range": null,
+     "effect": "+10% chance to hit, 20% Direct Damage",
+     "page": "Slash (10 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1807_Slash (10 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Puncture",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": -25,
+     "range": null,
+     "effect": "-15% chance to hit, completely ignores armor (100% Direct Damage), no critical hits (body hits only), no Double Grip damage bonus",
+     "page": "Puncture (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1610_Puncture (20 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of notched_blade and qatal_dagger, fought with notched_blade's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0503_Daggers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1461_Notched Blade.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0503_Daggers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1611_Qatal Dagger.txt | ARMORY 3 worn of box_smg: {\"hit\": -10, \"value_pct\": 55, \"why\": \"a shot-out barrel and a loose action: the same gun and the same damage (rule 489(d)), ten points harder to land (one Battle Brothers step), a little over half the price (a used gun's)\"}",
+   "class_page_section": "One-Handed Daggers",
+   "hands_basis": "Daggers page heading \"One-Handed Daggers\"",
+   "skills_basis": "weapon page Skills section",
+   "also_listed_in": [
+    "Swords page / One-Handed Swords"
+   ],
+   "fire": "burst",
+   "burst": 4,
+   "mag": 30,
+   "shot_skill": {
+    "name": "Burst",
+    "ap": 7,
+    "fatigue": 20,
+    "hit_bonus": 10,
+    "range": null,
+    "effect": "+20% chance to hit, -10% chance to hit per tile of distance past 2, 45% Direct Damage; ARMORY 3: 4 rounds a press at the man aimed at, each its own roll, each after the first -recoil (ours.armory_fire.burst); Aimed Shot's cost, one a turn",
+    "page": "Throw Javelin (15 fatigue)",
+    "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1997_Throw Javelin (15 fatigue).txt",
+    "missing": [
+     "range (skill page states no range; the weapon range applies)"
+    ],
+    "bb_name": "Throw Javelin",
+    "cost_from": "Aimed Shot (25 fatigue) (reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0039_Aimed Shot (25 fatigue).txt)"
+   },
+   "worn": {
+    "hit": -10,
+    "value_pct": 55,
+    "why": "a shot-out barrel and a loose action: the same gun and the same damage (rule 489(d)), ten points harder to land (one Battle Brothers step), a little over half the price (a used gun's)"
+   },
+   "armory": {
+    "name": "beat-up box smg",
+    "object": "box smg",
+    "line": "A rusted steel box that still sprays. One hand. Cheap and wild.",
+    "tier": "camp",
+    "kind": "scavenged",
+    "role": "Battle Brothers' dagger, the fast one: a steel-box submachine gun that empties thirty rounds in two seconds",
+    "between": [
+     "notched_blade",
+     "qatal_dagger"
+    ],
+    "across": null,
+    "carried_by": [],
+    "draft": true,
+    "fire": {
+     "mode": "burst",
+     "burst": 4,
+     "mag": 30,
+     "rounds": 30
+    },
+    "worn_of": "box_smg"
+   }
+  },
+  {
+   "id": "worn_auto_shotgun",
+   "name": "Beat-up Semi-Auto Shotgun",
+   "class": "firearm",
+   "hands": null,
+   "damage_min": 45,
+   "damage_max": 75,
+   "armor_damage_pct": 75,
+   "armor_ignore_pct": 30,
+   "fatigue": -10,
+   "durability": 80,
+   "value": 1620,
+   "range": 2,
+   "range_min": 2,
+   "range_max": 2,
+   "skills": [
+    {
+     "name": "Fire Handgonne",
+     "ap": 4,
+     "fatigue": 15,
+     "hit_bonus": 0,
+     "range": null,
+     "effect": "+10% chance to hit, -10% chance to hit per tile of distance, chance is unaffected by objects or characters in the line of fire, can hit 5 tiles behind the target, 25% Direct Damage; ARMORY 3: from a magazine of 7, no reload between shots; Quick Shot's cost, two a turn",
+     "page": "Fire Handgonne (5 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0766_Fire Handgonne (5 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ],
+     "bb_name": "Fire Handgonne",
+     "cost_from": "Quick Shot (15 fatigue) (reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1614_Quick Shot (15 fatigue).txt)"
+    },
+    {
+     "name": "Reload Handgonne",
+     "ap": 9,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Reloads the Handgonne",
+     "page": "Reload Handgonne (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1678_Reload Handgonne (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of handgonne and war_bow, fought with handgonne's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0771_Firearms.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0935_Handgonne.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0273_Bows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2170_War Bow.txt | ARMORY 3 worn of auto_shotgun: {\"hit\": -10, \"value_pct\": 55, \"why\": \"a shot-out barrel and a loose action: the same gun and the same damage (rule 489(d)), ten points harder to land (one Battle Brothers step), a little over half the price (a used gun's)\"}",
+   "range_basis": "class table Range 2; weapon page tilerange \"2 - 2\"",
+   "skills_basis": "weapon page Skills section",
+   "fire": "semi",
+   "mag": 7,
+   "ammo": "For 7 uses",
+   "worn": {
+    "hit": -10,
+    "value_pct": 55,
+    "why": "a shot-out barrel and a loose action: the same gun and the same damage (rule 489(d)), ten points harder to land (one Battle Brothers step), a little over half the price (a used gun's)"
+   },
+   "armory": {
+    "name": "beat-up semi-auto shotgun",
+    "object": "auto shotgun",
+    "line": "A police shotgun with a taped stock. Both hands. Seven shells, a little wide.",
+    "tier": "town",
+    "kind": "scavenged",
+    "role": "Battle Brothers' handgonne with a magazine tube: the semi-automatic 12-gauge, the gun Ukraine's soldiers shoot drones down with",
+    "between": [
+     "handgonne",
+     "war_bow"
+    ],
+    "across": "Battle Brothers has one firearm, so B is the war bow",
+    "carried_by": [],
+    "draft": true,
+    "fire": {
+     "mode": "semi",
+     "mag": 7,
+     "rounds": 7
+    },
+    "worn_of": "auto_shotgun",
+    "own_gun": "pump_shotgun"
+   }
+  },
+  {
+   "id": "double_shotgun",
+   "name": "Double Shotgun",
+   "class": "firearm",
+   "hands": null,
+   "damage_min": 40,
+   "damage_max": 70,
+   "armor_damage_pct": 75,
+   "armor_ignore_pct": 30,
+   "fatigue": -10,
+   "durability": 70,
+   "value": 400,
+   "range": 2,
+   "range_min": 2,
+   "range_max": 2,
+   "skills": [
+    {
+     "name": "Fire Handgonne",
+     "ap": 4,
+     "fatigue": 15,
+     "hit_bonus": 10,
+     "range": null,
+     "effect": "+10% chance to hit, -10% chance to hit per tile of distance, chance is unaffected by objects or characters in the line of fire, can hit 5 tiles behind the target, 25% Direct Damage; ARMORY 3: from a magazine of 2, no reload between shots; Quick Shot's cost, two a turn",
+     "page": "Fire Handgonne (5 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0766_Fire Handgonne (5 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ],
+     "bb_name": "Fire Handgonne",
+     "cost_from": "Quick Shot (15 fatigue) (reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1614_Quick Shot (15 fatigue).txt)"
+    },
+    {
+     "name": "Reload Handgonne",
+     "ap": 9,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Reloads the Handgonne",
+     "page": "Reload Handgonne (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1678_Reload Handgonne (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of handgonne and hunting_bow, fought with handgonne's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0771_Firearms.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0935_Handgonne.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0273_Bows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1043_Hunting Bow.txt | ARMORY 2 tune: {\"set\": {\"value\": 400}} (the gun on every farmhouse wall: common and cheap (40 batteries))",
+   "range_basis": "class table Range 2; weapon page tilerange \"2 - 2\"",
+   "skills_basis": "weapon page Skills section",
+   "fire": "semi",
+   "mag": 2,
+   "ammo": "For 2 uses",
+   "armory": {
+    "name": "double shotgun",
+    "object": "double shotgun",
+    "line": "Grandpa's side-by-side. Both hands. Two blasts, then break it open and load.",
+    "tier": "camp",
+    "kind": "pre-collapse",
+    "role": "Battle Brothers' handgonne with two barrels: the farm's side-by-side 12-gauge, two shots then open it and load",
+    "between": [
+     "handgonne",
+     "hunting_bow"
+    ],
+    "across": "Battle Brothers has one firearm, so B is the hunting bow",
+    "carried_by": [],
+    "draft": true,
+    "fire": {
+     "mode": "semi",
+     "mag": 2,
+     "rounds": 7
+    },
+    "own_gun": "sawed_off"
    }
   }
  ],
  "_armory": {
-  "count": 41,
+  "count": 48,
   "by": "tools/bohemia_armory.py from armory.json",
   "record": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md"
  }

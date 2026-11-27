@@ -33,13 +33,13 @@ const ctx = engine(), F = ctx.FIGHT, DB = ctx.DB, T = F._t;
 const R = k => { const p = k.split('.'); const o = DB[p[0]][p[1]]; return o && o.value !== undefined ? o.value : o; };
 const row = id => DB.weapons.rows.find(r => r.id === id);
 const SPEC = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/armory.json'), 'utf8'));
-const NEW = SPEC.weapons.filter(s => s.fire || ['pipe_shotgun'].indexOf(s.id) >= 0).map(s => s.id);
+const NEW = SPEC.weapons.filter(s => s.fire || s.worn_of || ['pipe_shotgun'].indexOf(s.id) >= 0).map(s => s.id);   /* round two (11/27): the worn and the double too */
 const AF = R('ours.armory_fire'), G = R('ours.gun_rounds');
 
 /* ---------------- DATA ---------------- */
 const rows = NEW.map(row);
-leg(NEW.length === 16 && rows.every(Boolean) && rows.every(r => r.armory && r.armory.between && r.armory.between.length === 2),
-  'the sixteen pieces are weapon rows of armory.json, each between two Battle Brothers rows', NEW.length + ': ' + NEW.join(', '));
+leg(NEW.length >= 23 && rows.every(Boolean) && rows.every(r => r.armory && r.armory.between && r.armory.between.length === 2),
+  'the pieces (sixteen, then six worn and the double) are weapon rows of armory.json, each between two Battle Brothers rows', NEW.length + ': ' + NEW.join(', '));
 const hands = r => r.hands ? r.hands | 0 : (/^(bow|crossbow|firearm)$/.test(r.class) ? 2 : 1);
 leg(rows.every(r => hands(r) === 1 || hands(r) === 2) && ['switched_pistol', 'box_smg', 'pipe_smg', 'charge_drone', 'scout_drone'].every(id => hands(row(id)) === 1) && ['belt_fed', 'rocket_launcher', 'ranch_ar'].every(id => hands(row(id)) === 2),
   'each says one hand or two (rule 477): the pistols, the SMGs and the drone kits (launched off the palm) one, the long guns, the belt and the rockets two', rows.map(r => r.id + ' ' + hands(r) + 'H').join(', '));
@@ -49,6 +49,23 @@ leg(withRounds.every(s => G.by_id[s.id] === s.fire.rounds) && (G.consumable || [
 const OLD = { zip_gun: [15, 30], snub_revolver: [20, 35], lever_rifle: [35, 55], scoped_deer_rifle: [45, 65], sawed_off: [35, 65], pump_shotgun: [45, 75], knife: [15, 25], dagger: [15, 35], light_crossbow: [30, 50], crossbow: [40, 60], heavy_crossbow: [50, 70], handgonne: [35, 75], bundle_of_javelins: [30, 45] };
 const moved = Object.keys(OLD).filter(id => { const r = row(id); return !r || r.damage_min !== OLD[id][0] || r.damage_max !== OLD[id][1]; });
 leg(!moved.length, "*** THE OLD GUNS' DAMAGE IS UNTOUCHED *** (rule 489(d): damage waits on him)", moved.length ? 'moved: ' + moved.join(', ') : Object.keys(OLD).length + ' rows as they were');
+
+/* ---------------- ROUND TWO (rule 490(e): makes, worn and homemade versions, each told apart in his hands) ---------------- */
+const worn = SPEC.weapons.filter(s => s.worn_of), wornBad = [];
+worn.forEach(s => { const r = row(s.id), b = row(s.worn_of); if (!r || !b) return wornBad.push(s.id + ' missing');
+  const hb = x => { const k = (x.shot_skill ? [x.shot_skill] : x.skills).find(q => !/^Reload/.test(q.name)); return k && k.hit_bonus; };
+  if (r.damage_min !== b.damage_min || r.damage_max !== b.damage_max) wornBad.push(s.id + ' damage moved');
+  if (hb(r) !== hb(b) + s.worn.hit) wornBad.push(s.id + ' hit ' + hb(r) + ' against ' + hb(b));
+  if (!(r.value < b.value)) wornBad.push(s.id + ' not cheaper');
+  if (r.burst !== b.burst || r.mag !== b.mag || G.by_id[s.id] !== G.by_id[s.worn_of]) wornBad.push(s.id + ' fires otherwise'); });
+leg(worn.length >= 6 && !wornBad.length, "WORN: a beat-up gun is its gun, the same damage (rule 489(d)) and the same fire, its shot harder to land and its price lower",
+  wornBad.length ? wornBad.join('; ') : worn.map(s => s.id + ' ' + Math.round(row(s.id).value / 10) + ' of ' + Math.round(row(s.worn_of).value / 10)).join(', '));
+const OG = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/fight_rig/own_guns.json'), 'utf8')), ogBad = [];
+SPEC.weapons.forEach(s => { const g = s.own_gun || (s.worn_of && (SPEC.weapons.find(x => x.id === s.worn_of) || {}).own_gun); if (!g) return;
+  if (OG.by_row[s.id] !== g || !OG.guns[g]) ogBad.push(s.id); });
+leg(!ogBad.length && ['switched_pistol', 'pipe_smg', 'pipe_shotgun', 'auto_shotgun', 'night_sight_ar', 'thermal_rifle', 'double_shotgun'].every(id => OG.by_row[id]),
+  "TOLD APART IN HIS HANDS: a piece whose own_gun names one of COOK's own guns is drawn as that gun (the service pistol, the zip gun, the sawed-off's two barrels, the pump, the scoped rifle)",
+  ogBad.length ? 'unmapped: ' + ogBad.join(', ') : Object.keys(OG.by_row).filter(k => NEW.indexOf(k) >= 0).map(k => k + ' -> ' + OG.by_row[k]).join(', '));
 
 /* ---------------- a board ---------------- */
 ctx.setSeed(3);
@@ -70,6 +87,11 @@ a.ap = 9; a.ammo = 0; const dryNo = !F.canStrike(a, them[0]); const rl = F.reloa
 leg(semiTwo && dryNo && rl && back, 'SEMI: a magazine fires two shots a turn with no reload between (Quick Shot, 4 AP); empty it cannot fire; RELOAD fills it whole',
   'two shots ' + semiTwo + ', 30 -> 28; empty refused ' + dryNo + '; reloaded to ' + a.ammo);
 
+fresh('double_shotgun', [[2, 0]]);
+n0 = S.log.length; const d1 = F.strike(a, them[0]), d2 = F.strike(a, them[0]), d3 = F.strike(a, them[0]);
+leg(!!d1 && !!d2 && !d3 && a.ammo === 0 && F.reloadSkill(a.weapon) && T.skillAP(a.weapon, F.reloadSkill(a.weapon), a) === 9,
+  'THE DOUBLE: two blasts, then it is open and loaded (the handgonne\'s 9 AP)', 'two blasts ' + (!!d1 && !!d2) + ', a third refused ' + !d3 + ', shells left ' + a.ammo);
+
 /* ---------------- BURST ---------------- */
 fresh('guard_carbine', [[3, 0]]);
 n0 = S.log.length; F.strike(a, them[0], { roll: 100, all: { roll: 100 } });
@@ -84,6 +106,9 @@ leg(atk(n0).length === 1 && a.ammo === 29, 'BURST: the press stops when the man 
 const sk = n => ({ name: n }), P = (x, y) => ({ x, y }), same = (p, q) => p.length === q.length && p.every(z => q.some(w => w.x === z.x && w.y === z.y));
 const A0 = { x: 10, y: 6 };
 const straight = F.shapeTiles(A0, P(13, 6), sk('Traverse')), diag = F.shapeTiles(A0, P(12, 8), sk('Traverse')), blast = F.shapeTiles(A0, P(13, 6), sk('Fire Rocket'));
+const crossLit = F.shapeTiles(A0, P(14, 6), sk('Launch Drone'));
+leg(same(crossLit, [P(14, 6), P(15, 6), P(13, 6), P(14, 7), P(14, 5)]),
+  "THE DRONE'S CROSS IS ITS SHAPE: his own launch lights the man's tile and the four beside it before he taps (the tiles it will land on)", crossLit.map(q => q.x + ',' + q.y).join(' '));
 leg(same(straight, [P(13, 6), P(13, 5), P(13, 7)]) && same(diag, [P(12, 8), P(11, 9), P(13, 7)]),
   "BELT: the traverse is the man and the tile each side of him across the line of fire, straight and diagonal (Paolo: 'a machine gun is comparable to a greatsword')", straight.map(q => q.x + ',' + q.y).join(' ') + ' | ' + diag.map(q => q.x + ',' + q.y).join(' '));
 fresh('belt_fed', [[3, -1], [3, 0], [3, 1]]);

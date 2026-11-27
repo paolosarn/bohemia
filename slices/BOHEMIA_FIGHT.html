@@ -4251,6 +4251,8 @@ const FIGHT = (function () {
     } else if (row.kind === 'across') {   /* __ARMORY_THREE__: the belt's traverse, the tile each side of him square across the line of fire */
       const sx = Math.sign(t.x - a.x), sy = Math.sign(t.y - a.y);
       out.push({ x: t.x - sy, y: t.y + sx }); out.push({ x: t.x + sy, y: t.y - sx });
+    } else if (row.kind === 'cross') {   /* __ARMORY_THREE__: the drone's cross, the man's tile and the four beside it (lit before he sends it) */
+      callCross(t.x, t.y).forEach(function (q) { if (q.x !== t.x || q.y !== t.y) out.push(q); });
     } else if (row.kind === 'blast') {   /* __ARMORY_THREE__: the rocket, the tile hit and its eight (the Fire Pot's area) */
       for (let y = t.y - 1; y <= t.y + 1; y++) for (let x = t.x - 1; x <= t.x + 1; x++) if (x !== t.x || y !== t.y) out.push({ x: x, y: y });
     } else if (row.kind === 'cone') {
@@ -10106,7 +10108,8 @@ function draw(now) {
        it touches marked teal (him, or the men a rally steadies). Shapes are foe only (rule 117): a friend in one is passed over */
     if (pt && psk) {
       const caught = FIGHT.shapeOf(psk) ? FIGHT.shapeFoes(u, pt, psk) : [pt];
-      caught.forEach(function (v) { if (FIGHT.onField(v)) UI.hurtShown.push({ id: v.id, chance: FIGHT.hitChance(u, v, psk).chance, hp: FIGHT.preview(u, v).hp, sure: true, say: !FIGHT.shapeOf(psk) && UI.pend.sweep ? 'DISARM' : null }); });
+      const dk3 = FIGHT.droneOf && FIGHT.droneOf(u.weapon);   /* __ARMORY_THREE__: a drone is never rolled: each man on its cross says ON IT, his chance none */
+      caught.forEach(function (v) { if (FIGHT.onField(v)) UI.hurtShown.push(dk3 ? { id: v.id, sure: true, txt: dk3 === 'drone' ? 'ON IT' : 'SEEN' } : { id: v.id, chance: FIGHT.hitChance(u, v, psk).chance, hp: FIGHT.preview(u, v).hp, sure: true, say: !FIGHT.shapeOf(psk) && UI.pend.sweep ? 'DISARM' : null }); });
     } else if (UI.sweep) {
       const sk = FIGHT.sweepSkill(u.weapon, UI.sweep), row = sk && FIGHT.shapeOf(sk);
       if (row) {
@@ -12280,6 +12283,11 @@ function nextAct(u) {
   }
   if (p.target) {
     if (!FIGHT.canStrike(u, p.target)) return null;
+    /* __ARMORY_THREE__: a drone is sent, never rolled (it lands next turn on whoever is still on its lit tiles): SEND, and how many
+       of theirs stand on them now; the scout drone SPOT */
+    const dk = FIGHT.droneOf && FIGHT.droneOf(u.weapon);
+    if (dk) { const on = dk === 'drone' ? FIGHT.S.units.filter(function (o) { return FIGHT.onField(o) && o.side !== u.side && FIGHT.onCross(o, p.target); }).length : 0;
+      return { k: 'shoot', label: dk === 'drone' ? 'SEND' : 'SPOT', sub: dk === 'drone' ? on + ' ON IT' : 'ALL' }; }
     const pv = p.pv || FIGHT.preview(u, p.target);
     const k = !FIGHT.isRanged(u.weapon) ? 'hit' : FIGHT.isGun(u.weapon) ? 'shoot' : 'throw';
     return { k: k, label: k.toUpperCase(), sub: pv.chance + '%' };

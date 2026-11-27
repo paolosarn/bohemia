@@ -174,7 +174,9 @@
     "pipe_shotgun",
     "auto_shotgun",
     "rocket_launcher",
-    "throwaway_rocket"
+    "throwaway_rocket",
+    "worn_auto_shotgun",
+    "double_shotgun"
    ],
    "sha1": "a6477d2363848dd40220d37e5fc581253a9c93f9",
    "hands": 2
@@ -196,7 +198,10 @@
     "kalash",
     "belt_fed",
     "night_sight_ar",
-    "thermal_rifle"
+    "thermal_rifle",
+    "worn_ranch_ar",
+    "worn_kalash",
+    "worn_guard_carbine"
    ],
    "sha1": "c49629ee2815fe28f8a0630cff6bdd865d257fc7",
    "hands": 2
@@ -1907,7 +1912,9 @@
     "estoc",
     "switched_pistol",
     "box_smg",
-    "pipe_smg"
+    "pipe_smg",
+    "worn_switched_pistol",
+    "worn_box_smg"
    ],
    "sha1": "6c879bb22832be3078f6ba1f7528002b53e05650",
    "hand_grow": "1.35 over real about the grip, WEAPONS 11/7 rule 426(c): what his fist leaves showing reads its real length (the pistol a forearm's)",

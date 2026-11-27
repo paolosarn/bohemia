@@ -524,7 +524,7 @@
     'tire iron', 'golf club', 'bowie knife', 'pipe wrench', 'tomahawk', 'slot machine handle',
     /* ARMORY 3 (rules 489(b) and 490, Paolo 11/27: 'automatic guns or more intense guns, maybe even a rocket launcher... drones'): sixteen */
     'switched pistol', 'box smg', 'pipe smg', 'printed carbine', 'ranch ar', 'guard carbine', 'kalash', 'belt-fed saw', 'pipe shotgun', 'auto shotgun',
-    'rocket launcher', 'throwaway rocket', 'charge drone', 'scout drone', 'night-sight ar', 'thermal hunting rifle'];
+    'rocket launcher', 'throwaway rocket', 'charge drone', 'scout drone', 'night-sight ar', 'thermal hunting rifle', 'double shotgun'];
   function objOf(item) {
     var n = String(item.name || '').toLowerCase();
     for (var i = OBJECTS.length - 1; i >= 0; i--) if (n.indexOf(OBJECTS[i]) >= 0) {
@@ -631,6 +631,7 @@
       case 'scout drone': for (i = 0; i < 4; i++) { put(6 + i, 6 + i, 'steel'); put(15 - i, 6 + i, 'steel'); put(6 + i, 15 - i, 'steel'); put(15 - i, 15 - i, 'steel'); }
         [[5, 5], [16, 5], [5, 16], [16, 16]].forEach(function (q) { ell(q[0], q[1], 2.6, 1, 'white', true); put(q[0], q[1], 'dsteel'); }); rect(9, 9, 4, 4, 'steel'); rect(10, 13, 2, 2, 'black'); put(10, 14, 'glass'); break;
       case 'night-sight ar': line(1, 19, 6, 15, 'black', 3); line(6, 15, 15, 9, 'black', 3); line(15, 9, 20 + L, 6, 'dsteel', 1); line(10, 13, 11, 18, 'black', 2); line(8, 9, 14, 5, 'olive', 3); put(15, 4, 'green'); put(7, 10, 'green'); break;
+      case 'double shotgun': line(1, 19, 6, 15, 'wood', 3); rect(6, 13, 3, 3, 'dsteel'); line(8, 13, 20 + L, 6, 'steel', 1); line(8, 14, 20 + L, 7, 'dsteel', 1); line(10, 14, 14, 12, 'wood', 2); put(7, 16, 'dsteel'); put(5, 14, 'brass'); break;
       case 'thermal hunting rifle': line(1, 19, 6, 15, 'wood', 3); line(6, 15, 20 + L, 5, 'dsteel', 2); rect(8, 7, 6, 3, 'black'); put(14, 7, 'flame'); put(7, 9, 'red'); line(11, 13, 14, 11, 'wood', 2); put(10, 12, 'steel'); break;
       case 'halberd': line(2, 20, 12, 10, 'dsteel', 2); for (i = 0; i < 3; i++) put(4 + i * 3, 18 - i * 3, 'black'); ell(15, 6, 4.6, 4.6, 'red'); rect(11, 6, 9, 1, 'white'); rect(11, 6, 1, 1, 'red'); put(15, 6, 'white'); break;
       case 'riot shield': rect(5, 2, 12, 18, 'glass'); rect(5, 8, 12, 2, 'white'); rect(5, 2, 12, 1, 'black'); rect(5, 19, 12, 1, 'black'); rect(10, 12, 2, 4, 'black'); break;

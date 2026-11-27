@@ -1,3 +1,9 @@
+ARMORY 3 (armory-three-01gkdyuu): 11/27 LATEST -- BUILD 11/27q - BEAT-UP GUNS, THE DRONE LIT BEFORE YOU SEND IT, BUILT, NOT YET SEEN (rules 490(e), 482). Before it: BUILD 11/27h
+THE GUNS GROW UP, AND THE DRONE (rules 489(b), 490; ask rows 758, 762, 763). Its block is handoffs/ARMORY.md. Six beat-up guns (half price, 10 harder to land, same damage),
+a double shotgun, seven guns drawn as their own kind in his hands (COOK's own guns), his drone's five tiles lit before he sends it (SEND, ON IT). Gate THE GUNS GROW UP 23/0.
+VOTE armory3-worn-guns-and-the-drone-lit-11-27. records/BOHEMIA_ARMORY_THREE_THE_GUNS_GROW_UP_AND_THE_DRONE_11_27_26.md
+[bb Battle Brothers sells the same weapon at different qualities by its row; ours by its wear]
+[analog horror: the drone feed's scan lines crawl down the lit tiles]
 HOME BASE 4 (home-base-01gkdyuux): 11/27 -- HANDOFF READY (the session carried three builds: 11/26q THE GRINDER, ON PURPOSE; 11/26zf THE CAMERAS ON PATROL; 11/27a WHAT HE HAS SITS
 IN THE GROUND). THE NEXT JOB for a fresh HOME BASE: rule 347(c), everything at his place customizable by tapping (its name, what the buildings are made of and painted, its signs, where
 things stand, who lives there and their jobs), research first (Stardew Valley, Battle Brothers); the plan, what exists and what the footage can show are in handoffs/HOME_BASE.md.
@@ -6,12 +12,6 @@ Every man of theirs carries a gun: 50 of 50 human kinds (6 before); a club, blad
 puts it away dry, and it drops with its rounds. His six win 62 of 78 (69 before); gun damage untouched. Gate EVERYBODY IS STRAPPED (new) 5/0, plants red. VOTE bestiary3-everybody-is-strapped-11-27.
 records/BOHEMIA_BESTIARY_THREE_EVERYBODY_IS_STRAPPED_11_27_26.md. NEXT: rule 490's drone operator, then the roles, then rule 491's forces by tier.
 [bb Battle Brothers gives a third of its melee men a bag of javelins; the valley gives every one of them a pistol]
-ARMORY 3 (armory-three-01gkdyuu): 11/27 LATEST -- BUILD 11/27h - THE GUNS GROW UP, AND THE DRONE, BUILT, NOT YET SEEN (rules 489(b), 490; ask rows 758, 762, 763). Its block is handoffs/ARMORY.md.
-Sixteen real guns and kits: automatic bursts, magazines, a belt-fed that sweeps three tiles, rockets that take a house and its eight, a charge drone that flies one turn and lands the
-next (step off or shoot it down), a scout drone, night and heat sights. Old gun damage untouched (rule 489(d)). Gate THE GUNS GROW UP (new) 19/0. VOTE armory3-the-guns-grow-up-11-27.
-records/BOHEMIA_ARMORY_THREE_THE_GUNS_GROW_UP_AND_THE_DRONE_11_27_26.md
-[bb Battle Brothers: four ranged ladders by worth, gunpowder hits an area you always see lit]
-[analog horror: the drone feed's scan lines crawl down the lit tiles]
 UI FIVE (ui-five-01gkdyuu): 11/27 LATEST -- BUILD 11/27f - THE CLOCK UP TOP, BUILT, NOT YET SEEN (rule 487, ask row 755). Its block is handoffs/UI_FOUR.md.
 The day and the hour left the phone for the top bar's right end, with the sun's dial (the moon and a moonlit hour at night), on the map, in a town, at camp and on the end screen,
 upright and sideways, moving with the game's clock. Gate THE CLOCK UP TOP (new) 18/0, plants red; THE TOP IS ONLY RESOURCES and THE DAYS ONCE re-aimed. VOTE ui5-the-clock-up-top-11-27.

@@ -146,9 +146,37 @@ async function spot() {
   out.errs = d.errs || []; await d.close(); return out;
 }
 
+/* ROUND TWO: his man at fight size holding each piece, cut round him, one sheet (armory3_hands.jpg); his own drone picked by hand,
+   its cross lit before the tap (armory3_cross_lit.jpg) */
+async function hands() {
+  const d = await fight([man('ranch_ar', 0)]), p = d.page, out = { cells: [] };
+  out.stand = await stand(p, [[6, 0]]);
+  const ids = await p.evaluate(() => DB.weapons.rows.filter(r => r.armory && (r.armory.fire || r.armory.worn_of || r.id === 'pipe_shotgun')).map(r => r.id));
+  const shots = [];
+  for (const id of ids) {
+    const box = await p.evaluate(id => { const a = FIGHT.current(), w = DB.weapons.rows.find(r => r.id === id); const ps = FIGHT._t.pistolShot(w); a.weapon = ps || w; a.job = FIGHT.jobOfWeapon(a.weapon); a._face = 2;
+      UI.zoom = Math.max(UI.zoom, UI.far * 2.2); const q = aimAt(a.x, a.y); UI.cx = q[0]; UI.cy = q[1]; try { hud(); } catch (e) {}
+      const B = manBox(a.x, a.y), h = manH(); return { x: Math.max(0, Math.round(B.x - h * 0.75)), y: Math.max(0, Math.round(B.head - h * 0.15)), width: Math.round(h * 1.5), height: Math.round(h * 1.25) }; }, id);
+    await sleep(450);
+    const f = path.join(OUT, 'hand_' + id + '.png'); await p.screenshot({ path: f, clip: box }); shots.push({ id, f });
+    out.cells.push({ id, drawn: await p.evaluate(id => Object.keys(UI.clipSeen || {}).filter(k => /^gun:/.test(k)), id) });
+  }
+  out.ids = ids; out.errs = d.errs || []; await d.close();
+  fs.writeFileSync(path.join(OUT, 'hands_list.json'), JSON.stringify(shots.map(s => s.id)));
+  return out;
+}
+async function cross() {
+  const d = await fight([man('charge_drone', 0)]), p = d.page, out = {};
+  out.stand = await stand(p, [[5, 0], [5, 1]]);
+  await p.evaluate(() => { const S = FIGHT.S, a = FIGHT.current(), t = S.units.find(u => u.side === 'them' && FIGHT.onField(u) && u.x === a.x + 5 && u.y === a.y); UI.pend = { target: t }; try { hud(); } catch (e) {} });
+  await sleep(800); out.lit = await p.evaluate(() => JSON.parse(JSON.stringify(UI.shapeLit || null)));
+  await p.screenshot({ path: path.join(OUT, 'armory3_cross_lit.jpg'), type: 'jpeg', quality: 82 });
+  out.errs = d.errs || []; await d.close(); return out;
+}
+
 (async () => {
   const only = process.env.ONLY ? process.env.ONLY.split(',') : null, want = k => !only || only.indexOf(k) >= 0;
-  for (const [k, f] of [['burst', burst], ['belt', belt], ['rocket', rocket], ['drone', drone], ['mine', mine], ['spot', spot]]) {
+  for (const [k, f] of [['burst', burst], ['belt', belt], ['rocket', rocket], ['drone', drone], ['mine', mine], ['spot', spot], ['hands', hands], ['cross', cross]]) {
     if (!want(k)) continue;
     try { proof[k] = await f(); } catch (e) { proof[k] = { crashed: String(e && e.stack || e).slice(0, 400) }; }
     console.log(k + ': ' + JSON.stringify(proof[k]).slice(0, 900));

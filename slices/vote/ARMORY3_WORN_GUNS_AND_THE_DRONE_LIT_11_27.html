@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Worn guns, the drone lit</title>
+<!-- ARMORY 3 round two 11/27 (rule 490(e), rules 482, 489(b)): the VOTE card's page. The pictures are the real fight page at phone size
+     (tools/bohemia_armory_three_proof.js ONLY=cross,hands) and the shop's own icons; the pieces read live from
+     records/target/bb/weapons.json. Words draft:true. -->
+<style>
+:root { --bg:#16110c; --ink:#e8dcc4; --dim:#9a8a70; --rust:#c8643a; --card:#221a12; --line:#3a2e20; }
+body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.4 ui-monospace,Menlo,Consolas,monospace; padding:16px; }
+h1 { font-size:18px; letter-spacing:2px; margin:0 0 4px; color:var(--rust); }
+h2 { font-size:15px; letter-spacing:2px; margin:20px 0 6px; color:var(--rust); }
+p.sub { margin:0 0 10px; color:var(--dim); font-size:13px; }
+img.shot { width:100%; display:block; border:1px solid var(--line); margin:0 0 6px; }
+.row { display:flex; gap:10px; align-items:center; background:var(--card); border:1px solid var(--line); padding:8px; margin:0 0 6px; }
+.row .who { flex:1; } .row .who b { display:block; letter-spacing:1px; } .row .who span { color:var(--dim); font-size:12px; }
+.pr { flex:none; text-align:right; font-size:12px; } .pr b { color:#ffd9c2; }
+</style></head><body>
+<h1>YOUR DRONE IS LIT BEFORE YOU SEND IT</h1>
+<p class="sub">Pick a man with the drone kit: the five tiles it will hit light up, the button says SEND and how many of them are on it. No fake hit chance: a drone always flies.</p>
+<img class="shot" src="../../records/target/armory/armory3_card_cross.jpg" alt="the drone's five tiles lit, SEND 2 ON IT">
+
+<h2>BEAT-UP GUNS</h2>
+<p class="sub">Six guns now come worn too: about half the price, ten points harder to hit with. Same gun, same damage. In 24 shops of each size: camps sold the homemade and beat-up guns, towns the clean rifles and the drones, forts the rockets and the belt-fed.</p>
+<img class="shot" src="../../records/target/armory/armory3_icons_worn.jpg" alt="clean and beat-up guns side by side">
+<div id="pairs"></div>
+
+<h2>THE DOUBLE SHOTGUN</h2>
+<p class="sub">Grandpa's side-by-side: two blasts, then a whole turn to break it open and load. 40 batteries, in the towns.</p>
+
+<h2>IN HIS HANDS, TODAY</h2>
+<p class="sub">Some new guns now look like their own kind in his hands: the switched pistol is a service pistol, the pipe guns are the homemade ones, the shotguns are a pump or a double, the night and heat sights sit on a scoped rifle. The AR, the Kalash, the belt-fed, the rockets and the drone kits still look like their family's gun until they get their own models.</p>
+<img class="shot" src="../../records/target/armory/armory3_hands.jpg" alt="his man holding each piece at fight size">
+<script>
+'use strict';
+const el = document.getElementById('pairs');
+fetch('../../records/target/bb/weapons.json').then(r => r.json()).then(W => {
+  W.rows.filter(r => r.armory && r.armory.worn_of).forEach(r => {
+    const b = W.rows.find(x => x.id === r.armory.worn_of); if (!b) return;
+    const d = document.createElement('div'); d.className = 'row';
+    d.innerHTML = '<div class="who"><b></b><span></span></div><div class="pr"><b></b><br><span></span></div>';
+    d.querySelector('.who b').textContent = r.name.toUpperCase(); d.querySelector('.who span').textContent = r.armory.line;
+    d.querySelector('.pr b').textContent = Math.round(r.value / 10) + ' batteries'; d.querySelector('.pr span').textContent = 'clean ' + Math.round(b.value / 10);
+    el.appendChild(d);
+  });
+}).catch(() => { el.textContent = 'THE LIST DID NOT LOAD'; });
+</script>
+</body></html>

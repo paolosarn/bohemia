@@ -1,73 +1,50 @@
 {
- "at": "2026-11-27T03:11:54.615Z",
- "drone": {
+ "at": "2026-11-27T04:36:20.281Z",
+ "cross": {
   "stand": {
    "ok": true,
    "a": [
-    5,
-    6
+    4,
+    7
    ],
    "them": [
     [
-     10,
-     6
+     9,
+     7
+    ],
+    [
+     9,
+     8
     ]
    ]
   },
-  "launch": {
-   "ev": [
-    "drone_launch"
-   ],
-   "drone": {
-    "x": 5,
-    "y": 6,
-    "on": [
-     "YOU",
-     "DESI"
-    ]
-   }
-  },
-  "square": {
-   "text": "41%",
-   "title": "SHOOT THE DRONE DOWN"
-  },
-  "drawn": {
-   "ground": "ok",
-   "air": "ok",
-   "fly": "{\"drone1\":{\"at\":2990.1999999997206}}",
-   "drones": "[{\"id\":\"drone1\",\"by\":\"e0\",\"side\":\"them\",\"x\":5,\"y\":6,\"to\":\"c0\",\"round\":1,\"from\":{\"x\":10,\"y\":6}}]"
-  },
-  "lands": {
-   "before": [
+  "lit": {
+   "skill": "Launch Drone",
+   "tiles": [
     {
-     "name": "YOU",
-     "hp": 58,
-     "armour": 55
+     "x": 9,
+     "y": 7
     },
     {
-     "name": "DESI",
-     "hp": 60,
-     "armour": 150
-    }
-   ],
-   "after": [
-    {
-     "name": "YOU",
-     "hp": 0,
-     "dead": false,
-     "down": true
+     "x": 10,
+     "y": 7
     },
     {
-     "name": "DESI",
-     "hp": 0,
-     "dead": false,
-     "down": true
+     "x": 8,
+     "y": 7
+    },
+    {
+     "x": 9,
+     "y": 8
+    },
+    {
+     "x": 9,
+     "y": 6
     }
    ],
-   "ev": [
-    "skill:drone_lands",
-    "attack:drone",
-    "attack:drone"
+   "struck": [
+    "e0",
+    "e1"
    ]
   },
   "errs": []

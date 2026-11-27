@@ -130,6 +130,15 @@ def main(mode, part=None):
     L0 = copy.deepcopy(L)                                              # the looks as they were: an 'own' key a model gave a row is kept
     W_PIECES = set(load(P('slices/wear/wear.json'))['pieces'])         # the pieces the wear sheet holds
     rec = spec['record']
+    # ARMORY 3 (11/27, rule 490(e) 'more variations... makes, conditions, homemade versions'): a 'worn_of' entry is its base piece
+    # (the base's family rows, fire, tune and own picture) with its own id, name, line, tier, kind and carried_by, and 'worn'
+    base = {s['id']: s for s in spec['weapons']}
+    def expand(s):
+        if not s.get('worn_of'): return s
+        b = copy.deepcopy(base[s['worn_of']])
+        for k in ('carried_by', 'starter'): b.pop(k, None)
+        b.update(s); return b
+    spec['weapons'] = [expand(s) for s in spec['weapons']]
     # WEAPONS 11/7 (rule 424): a rerun only ADDS. Measured: a second `write` put every own model back on its family prop
     # (rig_melee by_row: the crowbar drawn as the pipe again, all thirteen of COOK's and the two two-handers), took the rows off
     # COOK's own entries in items.json, and undid TUNING's prices (value_by) and the armour's own looks ('own'). What a later lane
@@ -179,9 +188,19 @@ def main(mode, part=None):
         if s.get('fire'):
             fb = fire_skills(s, r, a, wid, rec)
             if fb: bad.append(s['id'] + ': ' + fb); continue
+        # ARMORY 3: WORN (a shot-out barrel, a loose action): the same gun, the same damage (rule 489(d)), its shot 'hit' points
+        # harder to land and 'value_pct' of the price
+        if s.get('worn'):
+            wv = s['worn']
+            for sk in (r.get('skills') or []) + ([r['shot_skill']] if r.get('shot_skill') else []):
+                if not sk['name'].startswith('Reload') and isinstance(sk.get('hit_bonus'), (int, float)): sk['hit_bonus'] += wv['hit']
+            r['value'] = r10(r['value'] * wv['value_pct'] / 100.0); r['worn'] = wv
+            r['source'] += ' | ARMORY 3 worn of ' + s['worn_of'] + ': ' + json.dumps(wv)
         r['armory'] = {'name': s['name'].lower(), 'object': s['object'], 'line': s['line'], 'tier': s['tier'], 'kind': s['kind'],
                        'role': s['role'], 'between': s['between'], 'across': s.get('across'), 'carried_by': s['carried_by'], 'draft': True}
         if s.get('fire'): r['armory']['fire'] = s['fire']
+        if s.get('worn_of'): r['armory']['worn_of'] = s['worn_of']
+        if s.get('own_gun'): r['armory']['own_gun'] = s['own_gun']
         if s.get('starter'): r['armory']['starter'] = True
         if s.get('prop'): r['armory']['prop'] = s['prop']
         same = [x for x in W['rows'] if x['class'] == r['class'] and (x['damage_min'], x['damage_max'], x.get('armor_damage_pct'), x.get('value')) ==
@@ -281,6 +300,14 @@ def main(mode, part=None):
             if not k.startswith('_'): RB['value'][k] = v
         t = ours_line(t, 'range_bands', RB)
     open(op, 'w').write(t); json.loads(t)
+    # ARMORY 3: a piece's own picture in his hands, where COOK's own guns hold one that fits (slices/fight_rig/own_guns.json by_row,
+    # its compact layout kept); only this file's rows are touched
+    OGP = P('slices/fight_rig/own_guns.json'); OG = load(OGP); mineids = set(s['id'] for s in spec['weapons'])
+    for s in spec['weapons']:
+        g = s.get('own_gun')
+        if g and g in OG['guns']: OG['by_row'][s['id']] = g
+        elif s['id'] in OG['by_row'] and s['id'] in mineids and s.get('fire'): OG['by_row'].pop(s['id'])
+    dump(OGP, OG, compact=True)
     if spec.get('fire_shapes'):
         # the file is laid out by hand (COMBAT's): ours go in as one line each before the rows close, the rest byte for byte
         SP = os.path.join(BB, 'weapon_shapes.json'); st = open(SP).read()
