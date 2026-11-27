@@ -44,11 +44,15 @@ require(path.join(ROOT, 'engine', 'bohemia_part_of_town.js'));
 const POT = globalThis.BOH_PART_OF_TOWN;
 {
   const ids = JSON.parse(fs.readFileSync(path.join(ROOT, 'records', 'target', 'bb', 'origins.json'), 'utf8')).origins.map(o => o.id);
-  const miss = ids.filter(i => !POT.ORIGIN_SONG[i] || POT.FACTIONS.indexOf(POT.ORIGIN_SONG[i]) < 0);
-  const used = new Set(Object.values(POT.ORIGIN_SONG));
-  leg(ids.length === 15 && !miss.length && POT.ORIGIN_SONG.faith === 'CHURCH' && POT.ORIGIN_SONG.truck === 'CARAVANS',
-    '*** EVERY ORIGIN ITS SONG ***: the fifteen origins each a faction song (THE FAITHFUL the CHURCH\'s, THE WATER TRUCK the CARAVANS\', his words)',
-    ids.map(i => i + ' ' + POT.ORIGIN_SONG[i]).join(', ') + '; ' + used.size + ' of 13 faction songs used' + (miss.length ? '; MISSING ' + miss.join(',') : ''));
+  /* SOUNDS THREE 11/27 (rule 488(b) on 237(b)): EVERY ORIGIN ITS OWN SONG, no two sharing: a faction song, or ('SONG:<name>') one of
+     his own road songs, which his engine plays at once (the tape plays before any recording may load) */
+  const HIS = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices', 'vote', 'songs', 'three_levels', 'index.json'), 'utf8')).songs.map(x => x.name);
+  const has = v => POT.FACTIONS.indexOf(v) >= 0 || (String(v).indexOf('SONG:') === 0 && HIS.indexOf(String(v).slice(5)) >= 0);
+  const miss = ids.filter(i => !POT.ORIGIN_SONG[i] || !has(POT.ORIGIN_SONG[i]));
+  const used = new Set(ids.map(i => POT.ORIGIN_SONG[i]));
+  leg(ids.length === 15 && !miss.length && used.size === 15 && POT.ORIGIN_SONG.faith === 'CHURCH' && POT.ORIGIN_SONG.truck === 'CARAVANS',
+    '*** EVERY ORIGIN ITS OWN SONG ***: the fifteen origins each a song the game has, no two the same (THE FAITHFUL the CHURCH\'s, THE WATER TRUCK the CARAVANS\', his words)',
+    ids.map(i => i + ' ' + POT.ORIGIN_SONG[i]).join(', ') + '; ' + used.size + ' different of 15' + (miss.length ? '; MISSING ' + miss.join(',') : ''));
 }
 
 const ST = () => {
@@ -83,7 +87,7 @@ async function live(profile, throttle) {
     const tape = await p.evaluate(() => ({ origin: PARTOFTOWN.origin, turns: PARTOFTOWN.turns.filter(t => t.turn === 'the tape') }));
     const realTape = tape.turns.length ? tape.turns[0].to : null;
     const origins = [];
-    for (const o of [tape.origin || 'newcrew', 'faith', 'truck']) {
+    for (const o of [tape.origin || 'newcrew', 'faith', 'truck', 'promise', 'hunt']) {
       const r = await p.evaluate(async o => { __originSong(o, 'intro'); await new Promise(r => setTimeout(r, 900)); const n = SONGFENCE.now(), w = PARTOFTOWN.want();
         __originSong(o, 'done'); return { o, now: n, want: w, after: PARTOFTOWN.tape }; }, o);
       r.ok = (await songsOf(POT.ORIGIN_SONG[o])).indexOf(r.now) >= 0 && r.after === null; origins.push(r);

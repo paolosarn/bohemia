@@ -16,6 +16,9 @@ import os, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ALPHA = os.path.join(ROOT, 'slices', 'BOHEMIA_ALPHA_0_9.html')
+# SOUNDS THREE 11/27: the demo carries the same block (THE SONGS GO IN and EVERY SONG IN TURN patch both); a change to the engine
+# reaches it here too, replaced between its markers, never inserted (only RUN cuts a new demo)
+DEMO = os.path.join(ROOT, 'slices', 'BOHEMIA_DEMO.html')
 ENGINE = os.path.join(ROOT, 'engine', 'bohemia_part_of_town.js')
 START = '<!-- __THE_PART_OF_TOWN__ (SOUNDS 10/26, rule 237) -->\n<script>\n'
 END = '</script>\n<!-- /__THE_PART_OF_TOWN__ -->\n'
@@ -38,6 +41,11 @@ def main():
         s = s.replace(ANCHOR, ANCHOR + START + body + END)
     open(ALPHA, 'w', encoding='utf-8').write(s)
     print('THE PART OF TOWN PATCH: the alpha carries it (%d bytes)' % len(body))
+    d = open(DEMO, encoding='utf-8').read()
+    if START in d:
+        a = d.index(START); b = d.index(END, a) + len(END)
+        open(DEMO, 'w', encoding='utf-8').write(d[:a] + START + body + END + d[b:])
+        print('THE PART OF TOWN PATCH: the demo carries it too')
 
 
 if __name__ == '__main__':

@@ -1,0 +1,34 @@
+{
+ "made": "11/27",
+ "rule": [
+  488,
+  237
+ ],
+ "tool": "engine/bohemia_part_of_town.js (ORIGIN_SONG)",
+ "songs": [
+  {
+   "name": "SLOW CREEP",
+   "slug": "slow_creep",
+   "dir": "vote/songs/three_levels/slow_creep/",
+   "levels_db": [
+    -45.15,
+    -42.05,
+    -39.65
+   ],
+   "id": "sounds3-every-origin-its-own-song-11-27",
+   "sub": "THE HUNTERS now open on SLOW CREEP, their own: 'You track what came out of the lab. It tracks you back.' Before, they shared another origin's song. It plays the moment the tape starts, from his own engine, and at home from its recording."
+  },
+  {
+   "name": "THE ORGAN IN THE DROWNED CHAPEL",
+   "slug": "the_organ_in_the_drowned_chapel",
+   "dir": "vote/songs/three_levels/the_organ_in_the_drowned_chapel/",
+   "levels_db": [
+    -36,
+    -31.63,
+    -30.45
+   ],
+   "id": "sounds3-every-origin-its-own-song-11-27",
+   "sub": "THE PROMISE KEEPERS now open on THE ORGAN IN THE DROWNED CHAPEL, their own: 'Two of you and a promise you made at a grave.' Before, they shared another origin's song. It plays the moment the tape starts, from his own engine, and at home from its recording."
+  }
+ ]
+}

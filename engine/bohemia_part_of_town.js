@@ -33,16 +33,20 @@
     truck: 'CARAVANS',      /* THE WATER TRUCK: his word -> Highway 15 South */
     watch: 'VOLUNTEERS',    /* THE BLOCK WATCH: twelve neighbours with pipes -> Hands That Still Build */
     scav: 'HOMELESS',       /* THE SCAVENGERS: every gutted store to the dam -> Dead Man's Slide */
-    promise: 'CHURCH',      /* THE PROMISE KEEPERS: a promise made at a grave -> Fluorescent Dawn */
+    promise: 'SONG:THE ORGAN IN THE DROWNED CHAPEL',   /* THE PROMISE KEEPERS: 'a promise you made at a grave' -> his own chapel song (SOUNDS THREE 11/27: it shared THE FAITHFUL's) */
     desert: 'REMNANTS',     /* THE DESERTERS: walked off a faction's line -> Throne of Static */
     raid: 'ANARCHISTS',     /* THE RAIDERS: you take -> Broken Window Anthem */
     lab: 'NETWORK',         /* THE LAB RATS: the lab the animals broke out of -> Delta Blues, Server Farm */
     faith: 'CHURCH',        /* THE FAITHFUL: his word -> Fluorescent Dawn */
     debt: 'MOB',            /* THE DEBT COLLECTORS: the two collect -> The Boss Takes His Cut */
-    hunt: 'REMNANTS',       /* THE HUNTERS: out where the static is -> Throne of Static */
+    hunt: 'SONG:SLOW CREEP',   /* THE HUNTERS: 'you track what came out of the lab; it tracks you back' -> his own SLOW CREEP (SOUNDS THREE 11/27: it shared THE DESERTERS') */
     pit: 'COLORFUL',        /* THE FIGHT PIT: a casino floor that charged to watch -> Parade of Lost Balloons */
     wolf: 'BLUES'           /* THE LONE WOLF: just you -> The Last Good Check */
   };
+  /* EVERY ORIGIN ITS OWN SONG (SOUNDS THREE 11/27, rule 488(b) on 237(b)): fifteen origins, thirteen faction songs, so two pairs
+     shared one. A value 'SONG:<name>' names one of HIS OWN road songs, which his engine plays at once: the tape plays before the
+     first play, when no recording may load (FIRST PLAY IS LIGHT, P4; measured 11/27: the tape at 15.0 to 20.3 s, the first play at
+     23.7 s), so an origin's own song must sound without a file. At home after the first play it plays from its recording. */
   var NUM = { NEAR: 2, THREAT: 3, PHRASE: 128, TICK: 150 };
 
   function install(W) {
@@ -76,6 +80,7 @@
     T.isFaction = function (c) { return !!(c && factionOfSong(c.fi, c.slot)); };
     /* every song his MUSIC tab files under a faction (NETWORK has two) */
     T.songsOf = function (cat) {
+      if (cat && String(cat).indexOf('SONG:') === 0) { var nm = String(cat).slice(5), Lb = lib(); for (var q = nf(); q < Lb.length; q++) if (Lb[q].n === nm) return [{ fi: q, slot: 1 }]; return []; }
       var out = [], L = lib(), k = nf();
       for (var fi = k; fi < L.length; fi++) if (catsOf(L[fi].n).indexOf(cat) >= 0) out.push({ fi: fi, slot: 1 });
       return out;
@@ -87,7 +92,8 @@
       return T.faction;
     };
     T.now = function () { try { var M = G('MUS'); return factionOfSong(M.cur, M.curSlot || 1); } catch (e) { return null; } };
-    function matches() { var w = T.want(), n = T.now(); return w ? n === w : !n; }
+    function matches() { var w = T.want(); if (w && String(w).indexOf('SONG:') === 0) { try { var M0 = G('MUS'); return (M0.curSlot || 1) === 1 && nameOf(M0.cur) === String(w).slice(5); } catch (e) { return false; } }
+      var n = T.now(); return w ? n === w : !n; }
     T.matches = matches;
     /* a fight owns the music from the moment its frame is in the page (the rebuilt fight never turns FIGHTMUS on) */
     function fightOn() {
