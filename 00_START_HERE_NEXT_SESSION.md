@@ -1534,7 +1534,10 @@ VOTE jobs-jobs-that-fit-the-crew-11-10 (STAND-IN), sha da588c127. Record records
 The whole block: handoffs/JOBS.md.
 [bb a Battle Brothers contract is one budget spent on each enemy's own cost; ours now spends it the same way and still shows the crew's own odds in red]
 [analog horror: the board in the Network's camp still lists the hyenas as three red stars; the muralist only asks for three of them now]
-WORLD SIXTEEN (the successor of WORLD THIRTEEN, the map's draw loop and its people): 11/27 LATEST -- BUILD 11/27r - THE CITY GOES TO WORK,
+WORLD SIXTEEN (the successor of WORLD THIRTEEN, the map's draw loop and its people): 11/27 LATEST -- BUILD 11/27zs - THE CARAVAN DRIVES,
+BUILT, NOT YET SEEN (rule 494(d), the map's side): the escort's truck is the voted truck in eight facings rolling behind him on the clock,
+outlined behind buildings; the raiders come out onto the road and walk at him before their card. VOTE world16-the-caravan-drives-11-27.
+Before: BUILD 11/27r - THE CITY GOES TO WORK,
 BUILT, NOT YET SEEN (rule 485(b)(c)): two of each crowd's three walk the streets to the nearest town in the morning and home at night, a
 caravan pulls a wagon full out and empty home, the gang's collector stands at a crowd's door after the stalls shut; all on the map's
 clock. VOTE world16-the-city-goes-to-work-11-27 (a clip). The whole block: handoffs/WORLD_THIRTEEN.md (WORLD SIXTEEN's blocks on top).

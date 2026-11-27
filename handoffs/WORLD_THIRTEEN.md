@@ -1,6 +1,19 @@
 # WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN and from 11/27 by WORLD SIXTEEN, its successor: the map's draw loop
 # and its people; newest block on top)
 
+WORLD SIXTEEN (11/27, round two, rule 494(d), the map's side of the caravan): BUILD 11/27zs - THE CARAVAN DRIVES, BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_WORLD_SIXTEEN_THE_CARAVAN_DRIVES_11_27_26.md. VOTE world16-the-caravan-drives-11-27 (a clip, stand_in).
+- slices/BOHEMIA_CITY_WORLD.html __THE_CARAVAN_DRIVES__ (MAP_CARAVAN, mapCaravanSheet, mapCaravanDrive, mapCaravanRaiders): the escort's
+  truck is the voted truck in eight facings (slices/fight_rig/map_caravan_truck.webp/.json, tools/bohemia_world_sixteen_the_caravan_truck_bake.py,
+  0.86 MB decoded), gliding on the job's block behind him, facing its motion, outlined behind buildings; the raiders glide in from two
+  blocks further off and walk, facing him. slices/bohemia_job_kinds.js (JOBS 2's kinds) cargoDraw and DRAWS['haul-caravan'] call them; the
+  job's rules untouched (EVERY JOB KIND escort 10/0).
+- Gate THE CARAVAN DRIVES 6/0 (new, in the suite). Clip tool tools/bohemia_world_sixteen_the_caravan_drives_clip.js.
+- FOR JOBS 2: the raiders are put 2 to 4 blocks up his road (aheadOf): at 2x they are on the glass about two seconds before their card;
+  further out is your number. The board in the start town carries the escort on the demo ('Walk the water carts to the wash', Church).
+- NEXT, MINE: crates in the truck's bed (a load picture, as the wagon has); then rule 485's next map piece (a market day's crowd at the
+  gate; the ground's repaint while moving). NEVER a tool that waits for a tap (461(c)).
+
 WORLD SIXTEEN (11/27, round one, rule 485(b)(c), WORLD 13's part): BUILD 11/27r - THE CITY GOES TO WORK, BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_WORLD_SIXTEEN_THE_CITY_GOES_TO_WORK_11_27_26.md. VOTE world16-the-city-goes-to-work-11-27 (a clip, stand_in).
 - slices/BOHEMIA_CITY_WORLD.html __THE_CITY_GOES_TO_WORK__ (MAP_WORK): two of each crowd's three walk the streets to the nearest town's
