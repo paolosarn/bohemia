@@ -1,0 +1,1230 @@
+[
+ {
+  "shape": "phone_portrait",
+  "surface": "alpha",
+  "cams": [
+   {
+    "cam": 1,
+    "forgeLot": 6,
+    "drew": [
+     "Alan Cho",
+     "Walt Hensley",
+     "Graciela Ochoa",
+     "Danny Nguyen"
+    ],
+    "staff": [
+     {
+      "id": "surgeon",
+      "name": "Alan Cho",
+      "look": "person_town_44",
+      "act": "tend",
+      "n": 5,
+      "h": 9,
+      "face": "E",
+      "cell": true
+     },
+     {
+      "id": "blacksmith",
+      "name": "Walt Hensley",
+      "look": "person_town_23",
+      "act": "repair",
+      "n": 6,
+      "h": 9.7,
+      "face": "NE",
+      "cell": true
+     },
+     {
+      "id": "cook",
+      "name": "Graciela Ochoa",
+      "look": "person_woman_0",
+      "act": "cook",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scout",
+      "name": "Danny Nguyen",
+      "look": "person_town_42",
+      "act": null,
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": false
+     }
+    ],
+    "carts": {
+     "surgeon": {
+      "kind": "utility_cart",
+      "which": "front",
+      "h": 5,
+      "at": 4653.700000000186,
+      "cam": 1
+     },
+     "blacksmith": {
+      "kind": "wagon",
+      "which": "back",
+      "h": 10,
+      "at": 4653.799999999814,
+      "cam": 1
+     },
+     "cook": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 4653.899999999441,
+      "cam": 1
+     },
+     "scout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 4654,
+      "cam": 1
+     }
+    },
+    "png": "records/target/staff_cart/alpha_upright_his_place_1_cam1.png"
+   },
+   {
+    "cam": 2,
+    "forgeLot": 6,
+    "drew": [
+     "Alan Cho",
+     "Walt Hensley",
+     "Graciela Ochoa",
+     "Danny Nguyen"
+    ],
+    "staff": [
+     {
+      "id": "surgeon",
+      "name": "Alan Cho",
+      "look": "person_town_44",
+      "act": "tend",
+      "n": 5,
+      "h": 9.5,
+      "face": "E",
+      "cell": true
+     },
+     {
+      "id": "blacksmith",
+      "name": "Walt Hensley",
+      "look": "person_town_23",
+      "act": "repair",
+      "n": 6,
+      "h": 9.5,
+      "face": "NE",
+      "cell": true
+     },
+     {
+      "id": "cook",
+      "name": "Graciela Ochoa",
+      "look": "person_woman_0",
+      "act": "cook",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scout",
+      "name": "Danny Nguyen",
+      "look": "person_town_42",
+      "act": null,
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": false
+     }
+    ],
+    "carts": {
+     "surgeon": {
+      "kind": "utility_cart",
+      "which": "front",
+      "h": 5,
+      "at": 8984.5,
+      "cam": 2
+     },
+     "blacksmith": {
+      "kind": "wagon",
+      "which": "back",
+      "h": 9,
+      "at": 8984.5,
+      "cam": 2
+     },
+     "cook": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 8984.599999999627,
+      "cam": 2
+     },
+     "scout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 8984.599999999627,
+      "cam": 2
+     }
+    },
+    "png": "records/target/staff_cart/alpha_upright_his_place_2_cam2.png"
+   },
+   {
+    "cam": 3,
+    "forgeLot": 6,
+    "drew": [
+     "Alan Cho",
+     "Walt Hensley",
+     "Graciela Ochoa",
+     "Danny Nguyen"
+    ],
+    "staff": [
+     {
+      "id": "surgeon",
+      "name": "Alan Cho",
+      "look": "person_town_44",
+      "act": "tend",
+      "n": 5,
+      "h": 9,
+      "face": "E",
+      "cell": true
+     },
+     {
+      "id": "blacksmith",
+      "name": "Walt Hensley",
+      "look": "person_town_23",
+      "act": "repair",
+      "n": 6,
+      "h": 10.1,
+      "face": "NE",
+      "cell": true
+     },
+     {
+      "id": "cook",
+      "name": "Graciela Ochoa",
+      "look": "person_woman_0",
+      "act": "cook",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scout",
+      "name": "Danny Nguyen",
+      "look": "person_town_42",
+      "act": null,
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": false
+     }
+    ],
+    "carts": {
+     "surgeon": {
+      "kind": "utility_cart",
+      "which": "front",
+      "h": 5,
+      "at": 13317.599999999627,
+      "cam": 3
+     },
+     "blacksmith": {
+      "kind": "wagon",
+      "which": "back",
+      "h": 10,
+      "at": 13317.700000000186,
+      "cam": 3
+     },
+     "cook": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 13317.799999999814,
+      "cam": 3
+     },
+     "scout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 13318.099999999627,
+      "cam": 3
+     }
+    },
+    "png": "records/target/staff_cart/alpha_upright_his_place_3_cam3.png"
+   },
+   {
+    "cam": 1,
+    "forgeLot": 6,
+    "drew": [
+     "Alan Cho",
+     "Walt Hensley",
+     "Graciela Ochoa",
+     "Danny Nguyen"
+    ],
+    "staff": [
+     {
+      "id": "surgeon",
+      "name": "Alan Cho",
+      "look": "person_town_44",
+      "act": "tend",
+      "n": 5,
+      "h": 9,
+      "face": "E",
+      "cell": true
+     },
+     {
+      "id": "blacksmith",
+      "name": "Walt Hensley",
+      "look": "person_town_23",
+      "act": "repair",
+      "n": 6,
+      "h": 9.7,
+      "face": "NE",
+      "cell": true
+     },
+     {
+      "id": "cook",
+      "name": "Graciela Ochoa",
+      "look": "person_woman_0",
+      "act": "cook",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scout",
+      "name": "Danny Nguyen",
+      "look": "person_town_42",
+      "act": null,
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": false
+     }
+    ],
+    "carts": {
+     "surgeon": {
+      "kind": "utility_cart",
+      "which": "front",
+      "h": 5,
+      "at": 17650.700000000186,
+      "cam": 1
+     },
+     "blacksmith": {
+      "kind": "wagon",
+      "which": "back",
+      "h": 10,
+      "at": 17650.700000000186,
+      "cam": 1
+     },
+     "cook": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 17650.700000000186,
+      "cam": 1
+     },
+     "scout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 17650.799999999814,
+      "cam": 1
+     }
+    },
+    "png": "records/target/staff_cart/alpha_upright_his_place_4_cam1.png"
+   },
+   {
+    "cam": 2,
+    "forgeLot": 6,
+    "drew": [
+     "Alan Cho",
+     "Walt Hensley",
+     "Graciela Ochoa",
+     "Danny Nguyen"
+    ],
+    "staff": [
+     {
+      "id": "surgeon",
+      "name": "Alan Cho",
+      "look": "person_town_44",
+      "act": "tend",
+      "n": 5,
+      "h": 9.5,
+      "face": "E",
+      "cell": true
+     },
+     {
+      "id": "blacksmith",
+      "name": "Walt Hensley",
+      "look": "person_town_23",
+      "act": "repair",
+      "n": 6,
+      "h": 9.5,
+      "face": "NE",
+      "cell": true
+     },
+     {
+      "id": "cook",
+      "name": "Graciela Ochoa",
+      "look": "person_woman_0",
+      "act": "cook",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scout",
+      "name": "Danny Nguyen",
+      "look": "person_town_42",
+      "act": null,
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": false
+     }
+    ],
+    "carts": {
+     "surgeon": {
+      "kind": "utility_cart",
+      "which": "front",
+      "h": 5,
+      "at": 21817.200000000186,
+      "cam": 2
+     },
+     "blacksmith": {
+      "kind": "wagon",
+      "which": "back",
+      "h": 9,
+      "at": 21817.200000000186,
+      "cam": 2
+     },
+     "cook": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 21817.299999999814,
+      "cam": 2
+     },
+     "scout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 21817.39999999944,
+      "cam": 2
+     }
+    },
+    "png": "records/target/staff_cart/alpha_upright_his_place_5_cam2.png"
+   },
+   {
+    "cam": 3,
+    "forgeLot": 6,
+    "drew": [
+     "Alan Cho",
+     "Walt Hensley",
+     "Graciela Ochoa",
+     "Danny Nguyen"
+    ],
+    "staff": [
+     {
+      "id": "surgeon",
+      "name": "Alan Cho",
+      "look": "person_town_44",
+      "act": "tend",
+      "n": 5,
+      "h": 9,
+      "face": "E",
+      "cell": true
+     },
+     {
+      "id": "blacksmith",
+      "name": "Walt Hensley",
+      "look": "person_town_23",
+      "act": "repair",
+      "n": 6,
+      "h": 10.1,
+      "face": "NE",
+      "cell": true
+     },
+     {
+      "id": "cook",
+      "name": "Graciela Ochoa",
+      "look": "person_woman_0",
+      "act": "cook",
+      "n": 4,
+      "h": 9,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scout",
+      "name": "Danny Nguyen",
+      "look": "person_town_42",
+      "act": null,
+      "n": 3,
+      "h": 14.3,
+      "face": "SW",
+      "cell": false
+     }
+    ],
+    "carts": {
+     "surgeon": {
+      "kind": "utility_cart",
+      "which": "front",
+      "h": 5,
+      "at": 26150.299999999814,
+      "cam": 3
+     },
+     "blacksmith": {
+      "kind": "wagon",
+      "which": "back",
+      "h": 10,
+      "at": 26150.39999999944,
+      "cam": 3
+     },
+     "cook": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 9,
+      "at": 26150.599999999627,
+      "cam": 3
+     },
+     "scout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 15,
+      "at": 26150.599999999627,
+      "cam": 3
+     }
+    },
+    "png": "records/target/staff_cart/alpha_upright_his_place_6_cam3.png"
+   }
+  ],
+  "planted": [
+   49,
+   46
+  ],
+  "hurt": [
+   "RAUL"
+  ],
+  "staff": [
+   {
+    "id": "cook",
+    "name": "Graciela Ochoa",
+    "act": "cook",
+    "by": null,
+    "x": 861,
+    "y": 1007,
+    "face": "SE",
+    "cart": "shopping_cart"
+   },
+   {
+    "id": "surgeon",
+    "name": "Alan Cho",
+    "act": "tend",
+    "by": "RAUL",
+    "x": 838,
+    "y": 965,
+    "face": "W",
+    "cart": "utility_cart"
+   },
+   {
+    "id": "blacksmith",
+    "name": "Walt Hensley",
+    "act": "repair",
+    "by": null,
+    "x": 926,
+    "y": 978,
+    "face": "NW",
+    "cart": "wagon"
+   },
+   {
+    "id": "scout",
+    "name": "Danny Nguyen",
+    "act": null,
+    "by": null,
+    "x": 944,
+    "y": 1007,
+    "face": "SW",
+    "cart": "shopping_cart"
+   }
+  ],
+  "workers": {
+   "workers": [
+    {
+     "name": "DESI",
+     "at": "yard",
+     "x": 954,
+     "y": 982
+    },
+    {
+     "name": "RAUL",
+     "at": "grinder",
+     "x": 806,
+     "y": 958
+    }
+   ],
+   "shop": "ReferenceError: shopCrew is not defined"
+  },
+  "crewHere": [],
+  "errs": [],
+  "pass": {
+   "F1": true,
+   "F2": true,
+   "F3": true,
+   "P": true
+  },
+  "seen": [
+   "surgeon",
+   "blacksmith",
+   "cook",
+   "scout"
+  ],
+  "cartSeen": {
+   "surgeon": {
+    "kind": "utility_cart",
+    "which": "front",
+    "h": 5,
+    "at": 26150.299999999814,
+    "cam": 3
+   },
+   "blacksmith": {
+    "kind": "wagon",
+    "which": "back",
+    "h": 10,
+    "at": 26150.39999999944,
+    "cam": 3
+   },
+   "cook": {
+    "kind": "shopping_cart",
+    "which": "front",
+    "h": 9,
+    "at": 26150.599999999627,
+    "cam": 3
+   },
+   "scout": {
+    "kind": "shopping_cart",
+    "which": "front",
+    "h": 15,
+    "at": 26150.599999999627,
+    "cam": 3
+   }
+  }
+ },
+ {
+  "shape": "phone_landscape",
+  "surface": "alpha",
+  "cams": [
+   {
+    "cam": 1,
+    "forgeLot": 6,
+    "drew": [
+     "Alan Cho",
+     "Walt Hensley",
+     "Graciela Ochoa",
+     "Danny Nguyen"
+    ],
+    "staff": [
+     {
+      "id": "surgeon",
+      "name": "Alan Cho",
+      "look": "person_town_44",
+      "act": "tend",
+      "n": 5,
+      "h": 10.1,
+      "face": "E",
+      "cell": true
+     },
+     {
+      "id": "blacksmith",
+      "name": "Walt Hensley",
+      "look": "person_town_23",
+      "act": "repair",
+      "n": 6,
+      "h": 11,
+      "face": "NE",
+      "cell": true
+     },
+     {
+      "id": "cook",
+      "name": "Graciela Ochoa",
+      "look": "person_woman_0",
+      "act": "cook",
+      "n": 4,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scout",
+      "name": "Danny Nguyen",
+      "look": "person_town_42",
+      "act": null,
+      "n": 3,
+      "h": 15.8,
+      "face": "SW",
+      "cell": false
+     }
+    ],
+    "carts": {
+     "surgeon": {
+      "kind": "utility_cart",
+      "which": "front",
+      "h": 5,
+      "at": 4958.600000000559,
+      "cam": 1
+     },
+     "blacksmith": {
+      "kind": "wagon",
+      "which": "back",
+      "h": 11,
+      "at": 4958.600000000559,
+      "cam": 1
+     },
+     "cook": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 4958.600000000559,
+      "cam": 1
+     },
+     "scout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 16,
+      "at": 4959.200000000186,
+      "cam": 1
+     }
+    },
+    "png": "records/target/staff_cart/alpha_sideways_his_place_1_cam1.png"
+   },
+   {
+    "cam": 2,
+    "forgeLot": 6,
+    "drew": [
+     "Walt Hensley",
+     "Alan Cho",
+     "Graciela Ochoa",
+     "Danny Nguyen"
+    ],
+    "staff": [
+     {
+      "id": "surgeon",
+      "name": "Alan Cho",
+      "look": "person_town_44",
+      "act": "tend",
+      "n": 5,
+      "h": 10.3,
+      "face": "E",
+      "cell": true
+     },
+     {
+      "id": "blacksmith",
+      "name": "Walt Hensley",
+      "look": "person_town_23",
+      "act": "repair",
+      "n": 6,
+      "h": 10.6,
+      "face": "NE",
+      "cell": true
+     },
+     {
+      "id": "cook",
+      "name": "Graciela Ochoa",
+      "look": "person_woman_0",
+      "act": "cook",
+      "n": 4,
+      "h": 13.2,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scout",
+      "name": "Danny Nguyen",
+      "look": "person_town_42",
+      "act": null,
+      "n": 3,
+      "h": 16.1,
+      "face": "SW",
+      "cell": false
+     }
+    ],
+    "carts": {
+     "blacksmith": {
+      "kind": "wagon",
+      "which": "back",
+      "h": 11,
+      "at": 9291.400000000373,
+      "cam": 2
+     },
+     "surgeon": {
+      "kind": "utility_cart",
+      "which": "front",
+      "h": 6,
+      "at": 9291.5,
+      "cam": 2
+     },
+     "cook": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 13,
+      "at": 9292.100000000559,
+      "cam": 2
+     },
+     "scout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 17,
+      "at": 9292.200000000186,
+      "cam": 2
+     }
+    },
+    "png": "records/target/staff_cart/alpha_sideways_his_place_2_cam2.png"
+   },
+   {
+    "cam": 3,
+    "forgeLot": 6,
+    "drew": [
+     "Alan Cho",
+     "Walt Hensley",
+     "Graciela Ochoa",
+     "Danny Nguyen"
+    ],
+    "staff": [
+     {
+      "id": "surgeon",
+      "name": "Alan Cho",
+      "look": "person_town_44",
+      "act": "tend",
+      "n": 5,
+      "h": 10.3,
+      "face": "E",
+      "cell": true
+     },
+     {
+      "id": "blacksmith",
+      "name": "Walt Hensley",
+      "look": "person_town_23",
+      "act": "repair",
+      "n": 6,
+      "h": 11.4,
+      "face": "NE",
+      "cell": true
+     },
+     {
+      "id": "cook",
+      "name": "Graciela Ochoa",
+      "look": "person_woman_0",
+      "act": "cook",
+      "n": 4,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scout",
+      "name": "Danny Nguyen",
+      "look": "person_town_42",
+      "act": null,
+      "n": 3,
+      "h": 15.8,
+      "face": "SW",
+      "cell": false
+     }
+    ],
+    "carts": {
+     "surgeon": {
+      "kind": "utility_cart",
+      "which": "front",
+      "h": 6,
+      "at": 13624.600000000559,
+      "cam": 3
+     },
+     "blacksmith": {
+      "kind": "wagon",
+      "which": "back",
+      "h": 11,
+      "at": 13624.600000000559,
+      "cam": 3
+     },
+     "cook": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 13624.800000000745,
+      "cam": 3
+     },
+     "scout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 16,
+      "at": 13624.800000000745,
+      "cam": 3
+     }
+    },
+    "png": "records/target/staff_cart/alpha_sideways_his_place_3_cam3.png"
+   },
+   {
+    "cam": 1,
+    "forgeLot": 6,
+    "drew": [
+     "Alan Cho",
+     "Walt Hensley",
+     "Graciela Ochoa",
+     "Danny Nguyen"
+    ],
+    "staff": [
+     {
+      "id": "surgeon",
+      "name": "Alan Cho",
+      "look": "person_town_44",
+      "act": "tend",
+      "n": 5,
+      "h": 10.1,
+      "face": "E",
+      "cell": true
+     },
+     {
+      "id": "blacksmith",
+      "name": "Walt Hensley",
+      "look": "person_town_23",
+      "act": "repair",
+      "n": 6,
+      "h": 11,
+      "face": "NE",
+      "cell": true
+     },
+     {
+      "id": "cook",
+      "name": "Graciela Ochoa",
+      "look": "person_woman_0",
+      "act": "cook",
+      "n": 4,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scout",
+      "name": "Danny Nguyen",
+      "look": "person_town_42",
+      "act": null,
+      "n": 3,
+      "h": 15.8,
+      "face": "SW",
+      "cell": false
+     }
+    ],
+    "carts": {
+     "surgeon": {
+      "kind": "utility_cart",
+      "which": "front",
+      "h": 5,
+      "at": 17957.700000000186,
+      "cam": 1
+     },
+     "blacksmith": {
+      "kind": "wagon",
+      "which": "back",
+      "h": 11,
+      "at": 17957.700000000186,
+      "cam": 1
+     },
+     "cook": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 17957.900000000373,
+      "cam": 1
+     },
+     "scout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 16,
+      "at": 17958,
+      "cam": 1
+     }
+    },
+    "png": "records/target/staff_cart/alpha_sideways_his_place_4_cam1.png"
+   },
+   {
+    "cam": 2,
+    "forgeLot": 6,
+    "drew": [
+     "Walt Hensley",
+     "Alan Cho",
+     "Graciela Ochoa",
+     "Danny Nguyen"
+    ],
+    "staff": [
+     {
+      "id": "surgeon",
+      "name": "Alan Cho",
+      "look": "person_town_44",
+      "act": "tend",
+      "n": 5,
+      "h": 10.3,
+      "face": "E",
+      "cell": true
+     },
+     {
+      "id": "blacksmith",
+      "name": "Walt Hensley",
+      "look": "person_town_23",
+      "act": "repair",
+      "n": 6,
+      "h": 10.6,
+      "face": "NE",
+      "cell": true
+     },
+     {
+      "id": "cook",
+      "name": "Graciela Ochoa",
+      "look": "person_woman_0",
+      "act": "cook",
+      "n": 4,
+      "h": 13.2,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scout",
+      "name": "Danny Nguyen",
+      "look": "person_town_42",
+      "act": null,
+      "n": 3,
+      "h": 16.1,
+      "face": "SW",
+      "cell": false
+     }
+    ],
+    "carts": {
+     "blacksmith": {
+      "kind": "wagon",
+      "which": "back",
+      "h": 11,
+      "at": 22290.800000000745,
+      "cam": 2
+     },
+     "surgeon": {
+      "kind": "utility_cart",
+      "which": "front",
+      "h": 6,
+      "at": 22290.900000000373,
+      "cam": 2
+     },
+     "cook": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 13,
+      "at": 22290.900000000373,
+      "cam": 2
+     },
+     "scout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 17,
+      "at": 22291,
+      "cam": 2
+     }
+    },
+    "png": "records/target/staff_cart/alpha_sideways_his_place_5_cam2.png"
+   },
+   {
+    "cam": 3,
+    "forgeLot": 6,
+    "drew": [
+     "Alan Cho",
+     "Walt Hensley",
+     "Graciela Ochoa",
+     "Danny Nguyen"
+    ],
+    "staff": [
+     {
+      "id": "surgeon",
+      "name": "Alan Cho",
+      "look": "person_town_44",
+      "act": "tend",
+      "n": 5,
+      "h": 10.3,
+      "face": "E",
+      "cell": true
+     },
+     {
+      "id": "blacksmith",
+      "name": "Walt Hensley",
+      "look": "person_town_23",
+      "act": "repair",
+      "n": 6,
+      "h": 11.4,
+      "face": "NE",
+      "cell": true
+     },
+     {
+      "id": "cook",
+      "name": "Graciela Ochoa",
+      "look": "person_woman_0",
+      "act": "cook",
+      "n": 4,
+      "h": 14.3,
+      "face": "SE",
+      "cell": true
+     },
+     {
+      "id": "scout",
+      "name": "Danny Nguyen",
+      "look": "person_town_42",
+      "act": null,
+      "n": 3,
+      "h": 15.8,
+      "face": "SW",
+      "cell": false
+     }
+    ],
+    "carts": {
+     "surgeon": {
+      "kind": "utility_cart",
+      "which": "front",
+      "h": 6,
+      "at": 26457.5,
+      "cam": 3
+     },
+     "blacksmith": {
+      "kind": "wagon",
+      "which": "back",
+      "h": 11,
+      "at": 26457.5,
+      "cam": 3
+     },
+     "cook": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 14,
+      "at": 26457.60000000056,
+      "cam": 3
+     },
+     "scout": {
+      "kind": "shopping_cart",
+      "which": "front",
+      "h": 16,
+      "at": 26457.60000000056,
+      "cam": 3
+     }
+    },
+    "png": "records/target/staff_cart/alpha_sideways_his_place_6_cam3.png"
+   }
+  ],
+  "planted": [
+   49,
+   46
+  ],
+  "hurt": [
+   "RAUL"
+  ],
+  "staff": [
+   {
+    "id": "cook",
+    "name": "Graciela Ochoa",
+    "act": "cook",
+    "by": null,
+    "x": 2363,
+    "y": 788,
+    "face": "SE",
+    "cart": "shopping_cart"
+   },
+   {
+    "id": "surgeon",
+    "name": "Alan Cho",
+    "act": "tend",
+    "by": "RAUL",
+    "x": 2266,
+    "y": 746,
+    "face": "W",
+    "cart": "utility_cart"
+   },
+   {
+    "id": "blacksmith",
+    "name": "Walt Hensley",
+    "act": "repair",
+    "by": null,
+    "x": 2405,
+    "y": 769,
+    "face": "N",
+    "cart": "wagon"
+   },
+   {
+    "id": "scout",
+    "name": "Danny Nguyen",
+    "act": null,
+    "by": null,
+    "x": 2446,
+    "y": 788,
+    "face": "SW",
+    "cart": "shopping_cart"
+   }
+  ],
+  "workers": {
+   "workers": [
+    {
+     "name": "DESI",
+     "at": "yard",
+     "x": 2488,
+     "y": 785
+    },
+    {
+     "name": "RAUL",
+     "at": "grinder",
+     "x": 2234,
+     "y": 739
+    }
+   ],
+   "shop": "ReferenceError: shopCrew is not defined"
+  },
+  "crewHere": [],
+  "errs": [],
+  "pass": {
+   "F1": true,
+   "F2": true,
+   "F3": true,
+   "P": true
+  },
+  "seen": [
+   "surgeon",
+   "blacksmith",
+   "cook",
+   "scout"
+  ],
+  "cartSeen": {
+   "surgeon": {
+    "kind": "utility_cart",
+    "which": "front",
+    "h": 6,
+    "at": 26457.5,
+    "cam": 3
+   },
+   "blacksmith": {
+    "kind": "wagon",
+    "which": "back",
+    "h": 11,
+    "at": 26457.5,
+    "cam": 3
+   },
+   "cook": {
+    "kind": "shopping_cart",
+    "which": "front",
+    "h": 14,
+    "at": 26457.60000000056,
+    "cam": 3
+   },
+   "scout": {
+    "kind": "shopping_cart",
+    "which": "front",
+    "h": 16,
+    "at": 26457.60000000056,
+    "cam": 3
+   }
+  }
+ }
+]

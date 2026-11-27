@@ -374,12 +374,17 @@
     /* __THE_RETINUE__ (RETINUE 11/7, rule 425(c), rule 270(b): 'each sits in the camp at his spot doing his work'): every follower with
        you stands by his own piece as himself (records/target/bb/retinue.json's look: the body his face was made from), turned to the
        fire; a tap on him opens the retinue. Not one of your company: no bars over him, never on the crew screen. */
-    try { var CC = up('BohemiaCamp'), FR = K.st.layout.fire, TN = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
+    try { var CC = up('BohemiaCamp'), FR = K.st.layout.fire, TN = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'], tended = {};
+      var faceTo = function (x0, y0, x1, y1) { var t = Math.atan2(y1 - y0, x1 - x0) * 180 / Math.PI; return TN[(((Math.round((90 - t) / 45)) % 8) + 8) % 8]; };
       if (CC && CC.row) K.st.layout.pieces.forEach(function (p, i) {
         if (p.kind !== 'follower') return; var r = CC.row(p.follower); if (!r || !r.look) return;
         var side = p.x >= FR.x ? 1 : -1, x = Math.round(p.x + side * 52), y = Math.round(p.y + 8);
-        var t = Math.atan2(FR.y - y, FR.x - x) * 180 / Math.PI, f = TN[(((Math.round((90 - t) / 45)) % 8) + 8) % 8];
-        out.push({ campFollower: true, follower: p.follower, look: r.look, name: r.name || '', act: 'watch', face: f, loop: [f], beat: i % 4, x: x, y: y, ph: 0, slot: 100 + i, clip: 'wait' });
+        var f = faceTo(x, y, FR.x, FR.y), act = FOLLOWER_WORK[p.follower] || 'watch';
+        /* STAFF 2 (rule 482): the one who heals kneels by the worst hurt man lying in the camp, at his middle, facing him */
+        if (act === 'tend') { var hurt = out.filter(function (e) { return e.campMan && !e.main && !tended[e.slot] && (e.act === 'lie' || e.act === 'rest'); })
+            .sort(function (a, b) { return ((a.act === 'lie' ? 0 : 1) - (b.act === 'lie' ? 0 : 1)) || ((a.blood || 0) - (b.blood || 0)); })[0];
+          if (hurt) { tended[hurt.slot] = 1; x = Math.round(hurt.x + FOLLOWER_TEND.dx * (hurt.act === 'lie' ? 1 : 0.5)); y = Math.round(hurt.y + FOLLOWER_TEND.dy); f = faceTo(x, y, hurt.x + (hurt.act === 'lie' ? FOLLOWER_TEND.dx : 0), hurt.y - 4); } }
+        out.push({ campFollower: true, follower: p.follower, look: r.look, name: r.name || '', act: act, face: f, loop: [f], beat: i % 4, x: x, y: y, ph: 0, slot: 100 + i, clip: 'wait' });
       }); } catch (e) {}
     out.sort(function (a, b) { return a.y - b.y; });
     K.folk = out; K.folkKey = key; K.hide = hide;
@@ -407,6 +412,21 @@
     return out;
   }
   var ACT_PIC = { rest: 'sit', clean: 'sit', tend: 'sit', mend: 'stall', cook: 'stall', watch: 'smoke', loot: 'stall', lean: 'smoke' };
+  /* STAFF 2 (VAMILY rule 482, the coordinator 11/27: 'their work at camp and at his place shows (the cook cooking, the medic healing)'):
+     a camp person by the fire does his trade in ANIMATION's own camp acts (BohemiaIdles.activity): the cook cooks at her pot, the
+     surgeon and the alchemist tend (kneeling by the worst hurt man lying in the camp when there is one: FOLLOWER_TEND, his middle),
+     the blacksmith mends (the hammer on the car door, its spark on the beat); the rest watch. A body ANIMATION has not rendered an act
+     for stands as before (the act's fallback, then his idle, then his still). */
+  var FOLLOWER_WORK = { cook: 'cook', surgeon: 'tend', alchemist: 'tend', blacksmith: 'mend' };
+  /* the camp's trades' own cells: a camp person's body that is not one of the town's crew carries only his trade's act (the surgeon's
+     body tends, the blacksmith's repairs: ANIMATION's tool, rendered and packed as its crew are), kept out of the town's index (there
+     every man has all twenty acts, the town deals any of them: THE TOWN'S ACTIVITIES) and laid into BohemiaIdles' looks once its index
+     is in, here, in the frame that draws the camp and his place's footage */
+  var STAFF_ACTS = { person_town_44: { json: 'person_town_44.json', acts: ['tend'] }, person_town_23: { json: 'person_town_23.json', acts: ['repair'] } };
+  function staffActs() { var I = root.BohemiaIdles, T = I && I.town ? I.town() : null; if (!T || !T.looks) return false;
+    for (var k in STAFF_ACTS) if (!T.looks[k]) T.looks[k] = STAFF_ACTS[k]; return true; }
+  (function waitIdles(n) { if (staffActs() || n > 120) return; setTimeout(function () { waitIdles(n + 1); }, 500); })(0);
+  var FOLLOWER_TEND = { dx: -40, dy: 26 };
   var TURNS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
 
   /* ---------------------------------------------------------------- drawing */
@@ -545,6 +565,26 @@
     cx.drawImage(src, q[0], q[1], q[2], q[3], Math.round(fx + (q[4] - J.foot[0]) * z0), Math.round(fy + (q[5] - J.foot[1]) * z0), Math.round(q[2] * z0), Math.round(q[3] * z0));
     cx.restore();
     (root.__CAMP_CARTS || (root.__CAMP_CARTS = {}))[m.follower] = { kind: c.id, load: c.load, face: m.face, which: which, at: now };
+  }
+  /* STAFF 2 (rule 482, 'the cart reads from every camera'): the same cart laid anywhere a camp person stands, at screen coordinates
+     (his place's feed draws its people itself): his job's cart, his facing, at his height; the screens that call it count it */
+  function cartAt(cx, id, face, fx, fy, H, which, dusk) {
+    var CC = up('BohemiaCamp'), c = CC && CC.cartOf ? CC.cartOf(id) : null, J = campCartMeta(); if (!c || !J) return false;
+    var KD = J.kinds[c.id] || J.kinds.shopping_cart, set = KD && (KD.cells[c.load] || KD.cells.gear), q = set && set[face] && set[face][which]; if (!q) return false;
+    var im = campCartIm(KD.file); if (!im) return false;
+    var src = dusk ? dusk({ im: im }) : im, z0 = H / 98;
+    cx.save(); cx.imageSmoothingEnabled = false;
+    cx.drawImage(src, q[0], q[1], q[2], q[3], Math.round(fx + (q[4] - J.foot[0]) * z0), Math.round(fy + (q[5] - J.foot[1]) * z0), Math.round(q[2] * z0), Math.round(q[3] * z0));
+    cx.restore();
+    (root.__HOME_CARTS || (root.__HOME_CARTS = {}))[id] = { kind: c.id, load: c.load, face: face, which: which, at: root.performance ? performance.now() : Date.now(), h: Math.round(q[3] * z0) };
+    return true;
+  }
+  /* the cell itself, for a screen that lights it its own way (his place's footage): the sheet, the cell, and where it sits off his feet */
+  function cartCellOf(id, face, which) {
+    var CC = up('BohemiaCamp'), c = CC && CC.cartOf ? CC.cartOf(id) : null, J = campCartMeta(); if (!c || !J) return null;
+    var KD = J.kinds[c.id] || J.kinds.shopping_cart, set = KD && (KD.cells[c.load] || KD.cells.gear), q = set && set[face] && set[face][which]; if (!q) return null;
+    var im = campCartIm(KD.file); if (!im) return null;
+    return { im: im, x: q[0], y: q[1], w: q[2], h: q[3], ox: q[4] - J.foot[0], oy: q[5] - J.foot[1], kind: c.id, load: c.load, H: 98 };
   }
   /* ==== /__THE_STAFF_PUSH_A_CART__ ==== */
   /* ==== CAMP FOUR __THE_HOURS_ON_THE_GROUND__ (rule 482 on rule 472(b), the coordinator 11/26: 'the time passing feels like time'):
@@ -969,6 +1009,6 @@
       walking: Object.keys(K.walk || {}).filter(function (k) { var w = K.walk[k], n = root.performance ? performance.now() : Date.now(); return w.ms && n - w.t0 < w.ms; }),
       drawnPos: (K.folk || []).map(function (m) { return { name: m.name || (m.main ? 'YOU' : m.look), x: m.drawX != null ? Math.round(m.drawX) : null, y: m.drawY != null ? Math.round(m.drawY) : null, act: m.act }; }) };
   }
-  root.BohemiaCampLook = { fightScale: fightScale, fightView: function () { var C = CB(); return C && C.fvState ? C.fvState() : null; }, glass: function () { return K.st ? glassOf(K.st.layout) : null; }, ready: function () { return !!CL; }, variant: variant, board: function () { var C = CB(); return C ? C.state() : null; }, boardIn: boardIn, open: open, time: time, boxes: boxes, names: names, sheetKey: sheetKey, sleepers: sleepers, doing: doing,
+  root.BohemiaCampLook = { cartAt: cartAt, cartCellOf: cartCellOf, fightScale: fightScale, fightView: function () { var C = CB(); return C && C.fvState ? C.fvState() : null; }, glass: function () { return K.st ? glassOf(K.st.layout) : null; }, ready: function () { return !!CL; }, variant: variant, board: function () { var C = CB(); return C ? C.state() : null; }, boardIn: boardIn, open: open, time: time, boxes: boxes, names: names, sheetKey: sheetKey, sleepers: sleepers, doing: doing,
     folk: folk, hideLead: hideLead, leadSpot: leadSpot, phone: phone, phoneOn: phoneOn, compose: compose, wantTall: wantTall, tier: tier, wantsFlip: wantsFlip, flip: flip, holdFrame: holdFrame, drawn: drawn, blocks: blocks, items: items, lit: lit, under: under, over: over, tap: tap, pitchNow: pitchNow, reads: reads, peek: peek, close: close, away: away, awayN: function () { return { n: K.awayN | 0, how: K.awayHow || null }; }, settingUp: settingUp, state: state, ZK: ZK };
 })(typeof window !== 'undefined' ? window : this);

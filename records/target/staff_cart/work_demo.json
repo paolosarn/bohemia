@@ -1,0 +1,196 @@
+[
+ {
+  "shape": "phone_portrait",
+  "surface": "demo",
+  "hurt": [
+   "RAUL"
+  ],
+  "campMade": true,
+  "camp": {
+   "drawnBy": {
+    "Danny Nguyen": "still",
+    "Graciela Ochoa": "anim:cook",
+    "DESI": "anim:tend",
+    "Alan Cho": "anim:tend",
+    "Walt Hensley": "anim:repair",
+    "RAUL": "anim:lie"
+   },
+   "acts": [
+    "YOU:cook",
+    "DESI:tend",
+    "RAUL:lie"
+   ],
+   "followers": [
+    {
+     "id": "scout",
+     "name": "Danny Nguyen",
+     "act": "watch",
+     "x": 74,
+     "y": 298,
+     "face": "SE"
+    },
+    {
+     "id": "cook",
+     "name": "Graciela Ochoa",
+     "act": "cook",
+     "x": 798,
+     "y": 638,
+     "face": "W"
+    },
+    {
+     "id": "surgeon",
+     "name": "Alan Cho",
+     "act": "tend",
+     "x": 506,
+     "y": 986,
+     "face": "N"
+    },
+    {
+     "id": "blacksmith",
+     "name": "Walt Hensley",
+     "act": "mend",
+     "x": 374,
+     "y": 1098,
+     "face": "N"
+    }
+   ],
+   "lying": [
+    {
+     "name": "RAUL",
+     "act": "lie",
+     "x": 546,
+     "y": 960
+    }
+   ],
+   "carts": [
+    {
+     "id": "scout",
+     "kind": "shopping_cart",
+     "ago": 18
+    },
+    {
+     "id": "cook",
+     "kind": "shopping_cart",
+     "ago": 18
+    },
+    {
+     "id": "surgeon",
+     "kind": "utility_cart",
+     "ago": 18
+    },
+    {
+     "id": "blacksmith",
+     "kind": "wagon",
+     "ago": 18
+    }
+   ]
+  },
+  "png": "records/target/staff_cart/demo_upright_the_camp_at_work.png",
+  "errs": [],
+  "pass": {
+   "W1": true,
+   "W2": true,
+   "W3": true,
+   "W4": true,
+   "P": true
+  },
+  "healed": "RAUL"
+ },
+ {
+  "shape": "phone_landscape",
+  "surface": "demo",
+  "hurt": [
+   "RAUL"
+  ],
+  "campMade": true,
+  "camp": {
+   "drawnBy": {
+    "Danny Nguyen": "still",
+    "Graciela Ochoa": "anim:cook",
+    "DESI": "anim:tend",
+    "Walt Hensley": "anim:repair",
+    "Alan Cho": "anim:tend",
+    "RAUL": "anim:lie"
+   },
+   "acts": [
+    "YOU:cook",
+    "DESI:tend",
+    "RAUL:lie"
+   ],
+   "followers": [
+    {
+     "id": "scout",
+     "name": "Danny Nguyen",
+     "act": "watch",
+     "x": 338,
+     "y": 488,
+     "face": "E"
+    },
+    {
+     "id": "cook",
+     "name": "Graciela Ochoa",
+     "act": "cook",
+     "x": 1332,
+     "y": 708,
+     "face": "W"
+    },
+    {
+     "id": "blacksmith",
+     "name": "Walt Hensley",
+     "act": "mend",
+     "x": 418,
+     "y": 798,
+     "face": "E"
+    },
+    {
+     "id": "surgeon",
+     "name": "Alan Cho",
+     "act": "tend",
+     "x": 990,
+     "y": 866,
+     "face": "N"
+    }
+   ],
+   "lying": [
+    {
+     "name": "RAUL",
+     "act": "lie",
+     "x": 1030,
+     "y": 840
+    }
+   ],
+   "carts": [
+    {
+     "id": "scout",
+     "kind": "shopping_cart",
+     "ago": 14
+    },
+    {
+     "id": "cook",
+     "kind": "shopping_cart",
+     "ago": 14
+    },
+    {
+     "id": "blacksmith",
+     "kind": "wagon",
+     "ago": 14
+    },
+    {
+     "id": "surgeon",
+     "kind": "utility_cart",
+     "ago": 14
+    }
+   ]
+  },
+  "png": "records/target/staff_cart/demo_sideways_the_camp_at_work.png",
+  "errs": [],
+  "pass": {
+   "W1": true,
+   "W2": true,
+   "W3": true,
+   "W4": true,
+   "P": true
+  },
+  "healed": "RAUL"
+ }
+]

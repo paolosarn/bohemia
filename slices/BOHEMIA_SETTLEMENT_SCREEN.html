@@ -2099,6 +2099,7 @@ function homeFolk(out, hand, R){
     out.push({resident:true, name:r.name, says:r.says, look:look, clip:'wait', face:l[0], loop:l, beat:i % 4, x:g.x, y:g.y, ph:0}); });
   window.__HOME_FOLK = rs.map(function(r){ return r.name; });
   try{ homeWorkers(out); }catch(e){}   /* __HIS_PLACE_SEEN_AS_HE_WILL_SEE_IT__: his men at his own buildings */
+  try{ homeStaff(out); }catch(e){}   /* __THE_CAMP_WORKS_AT_HIS_PLACE__ (STAFF 2): his camp's people at their work, each with his cart */
 }
 /* read only, for the gate: where each resident stands on the glass now (his middle, where a finger lands) */
 window.__HOME_FOLK_AT = function(){ try{ var r = document.getElementById('scene').getBoundingClientRect(), H = personH() * view.s;
@@ -2248,6 +2249,55 @@ function homeWorkers(out){
     HOME_AT[m.name] = p.id; window.__HOME_WORKERS.push({ name: m.name, at: p.id, x: Math.round(g.x), y: Math.round(g.y) });
     out.push({ crewMan: true, n: 100 + i, name: m.name, look: m.look, act: W.act, clip: W.clip, x: g.x, y: g.y, face: face, loop: [face], beat: i % 4, ph: 0, pair: null, partner: false, since: 0, works: p.id }); }); }
 /* ==== /__HIS_PLACE_SEEN_AS_HE_WILL_SEE_IT__ ==== */
+/* ==== __THE_CAMP_WORKS_AT_HIS_PLACE__ (STAFF 2 11/27, VAMILY rule 482, the coordinator: 'their work at camp and at his place shows
+   (the cook cooking, the medic healing), the cart reads from every camera'). MEASURED BEFORE: at his place (the feed) his men stood at
+   his buildings and his camp's people were nowhere; their carts were on the fight, the map and the camp, never on his place's cameras.
+   NOW, on his place's feed, every camp person stands in front of his buildings in a row (the middle of the lots, a step nearer the
+   glass than his men at their buildings), each with the cart his job pushes beside him (BohemiaCampLook.cartAt, the camp's own
+   pictures), doing his trade in ANIMATION's acts where his body has them: the cook cooks, the blacksmith hammers at the forge when it
+   is built (else at his cart), the one who heals kneels by the man of his who is hurt worst (BohemiaCondition's hitpoints off) and stands
+   by his cart when nobody is. A tap on one says his line. ==== */
+var STAFF_HOME_WORK = { cook: 'cook', surgeon: 'tend', alchemist: 'tend', blacksmith: 'repair' };
+function homeStaff(out){
+  window.__HOME_STAFF = []; if(!homeFeedWant() || !VAR || !VAR.boxes.build || !window.BohemiaCamp || !BohemiaCamp.staff) return;
+  var st = []; try{ st = BohemiaCamp.staff() || []; }catch(e){} if(!st.length) return;
+  var bx = VAR.boxes.build, h = personH(), forge = (S.home.places || []).filter(function(p){ return p.done && p.id === 'forge'; })[0];
+  var BC = window.BohemiaCondition || (function(){ try{ return window.parent.BohemiaCondition; }catch(e){ return null; } })();
+  var lost = function(m){ var c = null; try{ c = BC && BC.condFor ? BC.condFor(m.name) : null; }catch(e){} return c ? (c.lostHp | 0) : 0; };   /* his hitpoints off (BohemiaCondition's own count) */
+  var hurt = out.filter(function(m){ return m.crewMan && !m.main && lost(m) > 0; }).sort(function(a, b){ return lost(b) - lost(a); });
+  var row = st.filter(function(p){ return !(p.id === 'blacksmith' && forge) && !(STAFF_HOME_WORK[p.id] === 'tend' && hurt.length); });
+  st.forEach(function(p, i){
+    var act = STAFF_HOME_WORK[p.id] || null, g = null, face = 'S', by = null;
+    var atForge = p.id === 'blacksmith' && !!forge;
+    if(atForge){ var b = homeKitBox(forge.lot, forge.piece); if(b){ g = { x: (b[0] + b[2]) / 2 + h * .36, y: Math.min(picH() - 4, b[3] + h * 1.04) }; face = campDir((b[0] + b[2]) / 2 - g.x, ((b[1] + b[3]) / 2 - g.y) * .3); } }
+    if(act === 'tend'){ var m = hurt.shift(); if(m){ g = { x: m.x + h * .24, y: m.y + h * .05 }; face = campDir(m.x - g.x, (m.y - g.y) * .3); by = m.name; } else act = null; }
+    if(!g){ var j = row.indexOf(p), n = row.length; g = { x: (bx[0] + bx[2]) / 2 + (j - (n - 1) / 2) * h * .62, y: Math.min(picH() - 4, bx[3] + h * 1.4) }; face = j % 2 ? 'SW' : 'SE'; }
+    window.__HOME_STAFF.push({ id: p.id, name: p.name, act: act, by: by, x: Math.round(g.x), y: Math.round(g.y), face: face, cart: p.cart ? p.cart.id : null });
+    out.push({ staffHome: true, follower: p.id, name: p.name, look: p.look, act: act, trade: String(p.role || '').replace(/^THE /, ''), clip: 'look', x: g.x, y: g.y, face: face, loop: [face], beat: i % 4, ph: 0, n: 200 + i, slot: 300 + i, atForge: atForge, by: by }); }); }
+/* on the footage (his place on camera): a camp person on a lot as his men are, the blacksmith at the forge's lot (the side his man at
+   the forge leaves free), the one who heals on the hurt man's lot beside him, the rest along the front row's lots from the far end, a
+   three-quarter turn so his cart stands clear beside him */
+function homeFeedStaff(F, out, T, at, front){
+  var k = 0; F.forEach(function(p){ if(!p.staffHome) return; var n = null, side = 0, face = 'SE';
+    if(p.atForge && at.forge != null){ n = at.forge; side = -1; face = 'NE'; }
+    else if(p.by){ var o = out.filter(function(x){ return x.p.name === p.by; })[0]; if(o){ n = o.n; side = o.x > (T[n] ? (T[n][0] + T[n][2]) / 2 : o.x) ? -1 : 1; face = side > 0 ? 'W' : 'E'; } }
+    if(n == null && front.length){ n = front[(front.length - 1 - k) % front.length]; k++; face = k % 2 ? 'SE' : 'SW'; }
+    if(n == null || !T[n]) return; var b = T[n], hpx = Math.max(9, (b[2] - b[0]) * .22), px = side < 0 ? b[0] + (b[2] - b[0]) * .25 : side > 0 ? b[2] - (b[2] - b[0]) * .22 : (b[0] + b[2]) / 2;
+    out.push({ p: p, n: n, x: px, y: b[3] - 1, h: hpx, face: face }); });
+  window.__HOME_FEED_STAFF = { cam: HF.cam, forge: at.forge != null ? at.forge : null, ppl: out.filter(function(o){ return o.p.staffHome; }).map(function(o){ return { id: o.p.follower, name: o.p.name, look: o.p.look, act: o.p.act, n: o.n, h: Math.round(o.h * 10) / 10, face: o.face }; }) }; }
+/* his cart on the footage, lit as the footage lights a person (hfLit), at his height: its back under him, its front over him */
+function homeFeedCart(g, q, which){
+  if(!q.p.staffHome || !window.BohemiaCampLook || !BohemiaCampLook.cartCellOf) return;
+  var c = BohemiaCampLook.cartCellOf(q.p.follower, q.face || 'SE', which); if(!c) return; var z = q.h / c.H, gi = hfLit(c.im, c.x, c.y, c.w, c.h, z); if(!gi) return;
+  var gx = Math.round(q.x + c.ox * z), gy = Math.round(q.y + c.oy * z); g.drawImage(gi.edge, gx - 1, gy - 1); g.drawImage(gi.lit, gx, gy);
+  (window.__HOME_FEED_CARTS || (window.__HOME_FEED_CARTS = {}))[q.p.follower] = { kind: c.kind, which: which, h: Math.round(c.h * z), at: performance.now(), cam: HF.cam }; }
+/* his camp person's cart round his body, as the camp lays it: its back under him, its front over him */
+function homeCartWrap(p, fn, s, H){
+  if(!p.staffHome || !window.BohemiaCampLook || !BohemiaCampLook.cartAt) return fn;
+  return function(){ var fx = view.ox + p.x * s, fy = view.oy + p.y * s, dk = view.night ? duskOf : null, f = turnOf(p, performance.now()) || p.face;
+    BohemiaCampLook.cartAt(cx, p.follower, f, fx, fy, H, 'back', dk); fn(); BohemiaCampLook.cartAt(cx, p.follower, f, fx, fy, H, 'front', dk); };
+}
+/* ==== /__THE_CAMP_WORKS_AT_HIS_PLACE__ ==== */
 /* ==== __HIS_OWN_BUILDINGS__ (HOME BASE 11/17, rules 445, 453): the training yard, the forge and the lookout on his place's lots, drawn
    from CAMP TWO's own pieces (slices/camp_two/kit.json, kit.png: the drill sergeant's bag, the blacksmith's anvil, the lookout's seat),
    each a door: the yard trains a man (Battle Brothers' Veteran's Lessons), the forge presses rounds out of tape, the lookout says the
@@ -2453,6 +2503,7 @@ function homeFeedPeople(){ var F = (VAR && VAR.folk) || [], M = HF.M, sh = HF.fi
     if(!n || !T[n]) return; var b = T[n], hpx = Math.max(9, (b[2] - b[0]) * .22);
     var px = (side < 0 ? b[0] + (b[2] - b[0]) * .25 : b[2] - (b[2] - b[0]) * .22);
     out.push({ p: p, n: n, x: px, y: b[3] - 1, h: hpx, face: p.works ? (side > 0 ? 'NW' : 'NE') : (p.face || 'S') }); });   /* __THE_CAMERAS_ON_PATROL__: a man at work faces his building, up the lot */
+  try{ homeFeedStaff(F, out, T, at, front); }catch(e){}   /* __THE_CAMP_WORKS_AT_HIS_PLACE__ (STAFF 2): his camp's people on the footage */
   HF.ppl = out; return out; }
 /* __THE_STATION__ (HOME BASE 4, 11/26, VAMILY rule 481(b), his NO on the grinder's screen: 'this has to be made for horizontal and
    vertical phone wielding... It looks like dog shit... sideways like you didn't even try'; rule 480(c) never choppy; rule 479). MEASURED
@@ -2537,7 +2588,7 @@ function homeFeedPaint(now, fr){
        a man at his building at his work, the town's own activity cells), faces what he works at, and is lit the way a person is in
        infrared night footage, paler than the ground, with a dark edge, so a figure ten pixels tall is a man and not a smudge */
     var I = window.BohemiaIdles, fc = null, z = q.h / (B.FIG_H || 108), seed = 'home:' + (q.p.name || q.p.look);
-    try{ if(I && I.has && I.has(q.p.look)){ var fi = Math.max(0, I.DIRS.indexOf(q.face || 'S')), W2 = q.p.works ? HOME_WORK[q.p.works] : null;
+    try{ if(I && I.has && I.has(q.p.look)){ var fi = Math.max(0, I.DIRS.indexOf(q.face || 'S')), W2 = q.p.works ? HOME_WORK[q.p.works] : q.p.staffHome && q.p.act ? { act: q.p.act } : null;   /* STAFF 2: a camp person at his trade */
       if(W2 && I.activity) fc = I.activity(q.p.look, seed, now, fi, { act: W2.act });
       if(!fc) fc = I.frame(q.p.look, seed, now, fi, { set: 'bare' }); } }catch(e){ fc = null; }
     var s = fc ? null : B.standing(q.p.look, q.face && B.TURNS && B.TURNS.indexOf(q.face) >= 0 ? q.face : 'S'); if(!fc && (!s || !s.im)){ late = true; return; }
@@ -2548,7 +2599,7 @@ function homeFeedPaint(now, fr){
     var gi, gx, gy;
     if(fc){ gi = hfLit(fc.img, fc.x, fc.y, fc.w, fc.h, z); gx = Math.round(q.x - (fc.foot[0] - fc.dx) * z); gy = Math.round(q.y - (fc.foot[1] - fc.dy) * z); }
     else { gi = hfLit(s.im, 0, 0, s.im.naturalWidth, s.im.naturalHeight, z); gx = Math.round(q.x - s.mid * z); gy = Math.round(q.y - s.foot * z); }
-    if(gi){ g.drawImage(gi.edge, gx - 1, gy - 1); g.drawImage(gi.lit, gx, gy); } });
+    homeFeedCart(g, q, 'back'); if(gi){ g.drawImage(gi.edge, gx - 1, gy - 1); g.drawImage(gi.lit, gx, gy); } homeFeedCart(g, q, 'front'); });   /* STAFF 2: his cart by him */
   if(M.near){ var nr = hfImg(HF_BASE + 'near/cam' + cn + '_' + sh + '_' + fr + '.png'); if(hfReady(nr)) g.drawImage(nr, 0, 0); else late = true; }
   if(late) HF.dirty = true;   /* a picture still on its way: painted again next frame, not in a sixth of a second */
   return true; }
@@ -2577,6 +2628,7 @@ function homeTourStop(){ var was = !!HTOUR.k; HTOUR.until = performance.now() + 
 function homeTourPick(){ var C = [], at = {}, seen = {}; for(var n in HF.slots){ var t = HF.slots[n]; at[t.kind === 'place' ? t.id : t.key] = +n; }
   var add = function(o){ if(o.n == null || seen[o.n]) return; seen[o.n] = 1; C.push(o); };
   (HF.ppl || []).forEach(function(o){ if(o.p.works && at[o.p.works] != null) add({ n: at[o.p.works], why: 'work', who: String(o.p.name || '').split(' ')[0], name: o.p.name }); });
+  (HF.ppl || []).forEach(function(o){ if(o.p.staffHome && o.p.act && o.n != null) add({ n: o.n, why: 'home', who: String(o.p.name || '').split(' ')[0] + '  ' + String(o.p.trade || ''), name: o.p.name }); });   /* STAFF 2 (rule 482): the camera finds his camp at its work too, 'GRACIELA  COOK' */
   if(HF.pile && HF.pile.dead > 0 && at.grinder != null) add({ n: at.grinder, why: 'pile' });
   (HF.ppl || []).forEach(function(o){ if(o.p.resident && o.n != null) add({ n: o.n, why: 'home', who: String(o.p.name || ''), name: o.p.name }); });
   /* then his own buildings, then the tallest things he put up (a garden bed or a wall is a line on the ground from across the street) */
@@ -3713,7 +3765,7 @@ function idlePerson(p, now, k, s, H){   /* his idle picture as a draw, laid in d
   var I = window.BohemiaIdles; if(!I) return null;
   var f = Math.max(0, I.DIRS.indexOf(turnOf(p, now))), q = null;
   /* __YOUR_CREW_LIVES_IN_THE_TOWN__: one of yours does his activity (ANIMATION's cell) when his pictures are in */
-  if(p.crewMan && I.activity) q = I.activity(p.look, 'crew:' + S.place.name + ':' + (p.name || p.look), now, f, {act:p.act, n:p.n, pair:p.pair || undefined, partner:p.partner || undefined, since:p.since});
+  if((p.crewMan || (p.staffHome && p.act)) && I.activity) q = I.activity(p.look, 'crew:' + S.place.name + ':' + (p.name || p.look), now, f, {act:p.act, n:p.n, pair:p.pair || undefined, partner:p.partner || undefined, since:p.since});   /* STAFF 2: his camp's people at their trade too */
   if(q){ p.doing = 'activity'; }
   else if(p.crewMan) p.doing = I.has(p.look) ? 'idle' : 'still';
   if(!q && !I.has(p.look)) return null;
@@ -4330,7 +4382,7 @@ function drawPeople(s){
   L.forEach(function(p){
     if(p.camp2) return;   /* __CAMP_TWO__: drawn by the camp's own file, by what he does */
     if(!p.pre){ p.pre = 1; p.loop.forEach(function(t){ B.standing(p.look, t); }); }   /* every turn he will look, asked for once */
-    var idl = view.still ? null : idlePerson(p, now, k, s, H); if(idl){ items.push({y:p.y, draw:idl}); return; }   /* __EVERYBODY_IDLES__: he breathes and idles at his post (ANIMATION) */
+    var idl = view.still ? null : idlePerson(p, now, k, s, H); if(idl){ items.push({y:p.y, draw:homeCartWrap(p, idl, s, H)}); return; }   /* __EVERYBODY_IDLES__: he breathes and idles at his post (ANIMATION) */
     var r = (!view.still && B.standing(p.look, turnOf(p, now))) || B.standing(p.look, p.face); if(!r) return;   /* a turn not in yet: his first one (view.still: held for a measurement, his still facing the street) */
     items.push({y:p.y, draw:function(){
       var fx = view.ox + p.x*s, fy = view.oy + p.y*s, w = r.im.naturalWidth*k*s, h = r.im.naturalHeight*k*s;
@@ -4338,6 +4390,7 @@ function drawPeople(s){
       cx.drawImage(view.night ? duskOf(r) : r.im, Math.round(fx - r.mid*k*s), Math.round(fy - r.foot*k*s), Math.round(w), Math.round(h));
       if(p.crewMan) wearOn(p.look, { img: r.im, x: 0, y: 0, w: r.im.naturalWidth, h: r.im.naturalHeight, dx: 0, dy: 0 }, fx - r.mid*k*s, fy - r.foot*k*s, k*s,
         Math.max(0, ['S','SE','E','NE','N','NW','W','SW'].indexOf(view.still ? p.face : turnOf(p, now)))); }});   /* __THE_ARMOUR_HE_WEARS_SHOWS__ */
+    if(p.staffHome) items[items.length - 1].draw = homeCartWrap(p, items[items.length - 1].draw, s, H);   /* STAFF 2: his cart by him on his still too */
   });
   leadItem(items, s, now);   /* __THE_WALK_UP__: your lead, in depth with everybody else */
   /* THE SETTLEMENT IS BUSY: the walkers, in depth with everybody else; one not in yet is not drawn (never a stand-in look) */
@@ -4667,6 +4720,7 @@ function openPerson(p, said){
   try{ leadToPerson(p); }catch(e){}   /* __THE_WALK_UP__: he walks up to the man you tapped while the talk opens */
   if(p.campMan || p.crewMan){ campMan(p); return; }   /* __THE_CAMP__ and __YOUR_CREW_LIVES_IN_THE_TOWN__: one of yours, on the crew screen */
   if(p.campFollower){ openB('f_' + p.follower); return; }   /* __THE_RETINUE__ (RETINUE 11/7): a follower by his piece opens the retinue */
+  if(p.staffHome){ var r0 = window.BohemiaCamp && BohemiaCamp.row ? BohemiaCamp.row(p.follower) : null; heard(p.name + ': ' + ((r0 && r0.name === p.name && r0.ask) || (r0 && r0.does) || '')); return; }   /* STAFF 2: one of his camp at his place says his line; draft:true */
   if(p.keeper){ openB(p.k); return; }
   if(p.resident){ homeResidentTalk(p); return; }   /* __HOME_BASE__: one of the people who live in his place, telling it */
   if(p.post){ openB('hall'); var hc = document.querySelector('#sbody .hire[data-id="' + p.rid + '"]'); if(hc){ hc.classList.add('picked'); try{ hc.scrollIntoView({block:'nearest'}); }catch(e){} } return; }

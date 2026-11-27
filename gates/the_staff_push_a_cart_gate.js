@@ -27,6 +27,9 @@
          cart) and one hand only, on his opened row and in the fullest hall's held finger (the phone proof: tools/bohemia_staff_hire_reads.js)
      C14 THE CAMP RUNS SCARED (STAFF 2 11/26, rule 482): a camp person's walk away from theirs: quick feet, a quicker walk, a lean
      C15 THE CAMP IS MOURNED (STAFF 2 11/26, rule 482): the end screen's row for a camp person lost (the phone proof's M2 reads it)
+     C16 THE CAMP AT ITS WORK (STAFF 2 11/27, rule 482): by the fire the cook cooks, the surgeon tends the worst hurt, the blacksmith mends
+     C17 THE CAMP AT HIS PLACE (STAFF 2 11/27, rule 482): on his place's footage at their trade with their carts (phone proofs:
+         tools/bohemia_staff_at_work_on_the_phone.js, tools/bohemia_staff_at_his_place_on_the_phone.js)
      C12 THE FIGHT STILL PLAYS: AUTO fights with carts against the same fights with none: printed, the camp's deaths and his wins
    PLANTED FAILS: --plant patches the fight in memory: the cart guards from every side, a staff member keeps a two-hander, and a fighter is
    handed a cart: C2, C3 and C4 must go red, exit 1.
@@ -259,6 +262,34 @@ const nearest = (S, u) => S.units.filter(f => f.side !== u.side && F.onField(f) 
   const okA = /r\.lost = \{ word: gone\.word \|\| null, sex: gone\.sex \|\| null, spilt: gone\.spilt \|\| null/.test(al);
   ok('C15 THE CAMP IS MOURNED: the dead cook kept as ' + JSON.stringify(g && { word: g.word, spilt: g.spilt && g.spilt.n + ' ' + g.spilt.kind }) + '; the shell hands it on, the end screen gives her a row',
     okB && okS && okA, ['book ' + okB, 'screen ' + okS, 'shell ' + okA].join(', '));
+}
+
+/* C16 THE CAMP AT ITS WORK (STAFF 2 11/27, rule 482: 'their work at camp and at his place shows (the cook cooking, the medic healing)'):
+   by the fire each camp person takes his trade's act (the cook cooks, the surgeon tends, kneeling by the worst hurt man lying, the
+   blacksmith mends), and ANIMATION's cells for those acts exist for the bodies the camp book deals them (rig_town: the cook's own body
+   cooks in the town's index, the surgeon's tends and the blacksmith's repairs in the camp's STAFF_ACTS); a body without the act stands */
+{
+  const cl = fs.readFileSync(path.join(ROOT, 'slices/bohemia_camp_look.js'), 'utf8'), T = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/rig_town/rig_town.json'), 'utf8'));
+  const W = (cl.match(/var FOLLOWER_WORK = (\{[^}]*\});/) || [])[1], work = W ? Function('return ' + W)() : {};
+  const looks = {}; (RET.followers.value || []).forEach(f => { looks[f.id] = f.look; });
+  const SA = (cl.match(/var STAFF_ACTS = (\{[^\n]*\});/) || [])[1], staffActs = SA ? Function('return ' + SA)() : {};   /* the camp's trades' own cells, out of the town's index */
+  const ANIM = { cook: 'cook', tend: 'tend', mend: 'repair' }, has = id => { const L = T.looks[looks[id]] || staffActs[looks[id]]; return !!(L && L.acts && L.acts.indexOf(ANIM[work[id]]) >= 0); };
+  const okW = work.cook === 'cook' && work.surgeon === 'tend' && work.blacksmith === 'mend';
+  const okC = ['cook', 'surgeon', 'blacksmith'].every(has), okP = /act = FOLLOWER_WORK\[p\.follower\] \|\| 'watch'/.test(cl) && /if \(act === 'tend'\) \{ var hurt = out\.filter/.test(cl);
+  const okF = ['cook', 'surgeon', 'blacksmith'].every(id => fs.existsSync(path.join(ROOT, 'slices/rig_town', looks[id] + '_' + ANIM[work[id]] + '.webp')));
+  ok('C16 THE CAMP AT ITS WORK: ' + JSON.stringify(work) + '; the cells: ' + ['cook', 'surgeon', 'blacksmith'].map(id => id + ' (' + looks[id] + ') ' + (has(id) ? ANIM[work[id]] : 'NONE')).join(', '),
+    okW && okC && okP && okF, ['acts ' + okW, 'cells ' + okC, 'files ' + okF, 'healer ' + okP].join(', '));
+}
+
+/* C17 THE CAMP AT HIS PLACE (STAFF 2 11/27, rule 482: '... and at his place', 'the cart reads from every camera'): on his place's
+   footage every camp person stands on a lot with his cart (the camp's own cell, lit as the footage lights a person), at his trade
+   (the blacksmith on the forge's lot, the one who heals on the hurt man's lot), and the footage's camera finds them on its tour */
+{
+  const ss = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.html'), 'utf8'), cl = fs.readFileSync(path.join(ROOT, 'slices/bohemia_camp_look.js'), 'utf8');
+  const okS = /try\{ homeStaff\(out\); \}catch\(e\)\{\}/.test(ss) && /var STAFF_HOME_WORK = \{ cook: 'cook', surgeon: 'tend', alchemist: 'tend', blacksmith: 'repair' \};/.test(ss);
+  const okF = /try\{ homeFeedStaff\(F, out, T, at, front\); \}catch\(e\)\{\}/.test(ss) && /homeFeedCart\(g, q, 'back'\); if\(gi\)\{ g\.drawImage\(gi\.edge, gx - 1, gy - 1\); g\.drawImage\(gi\.lit, gx, gy\); \} homeFeedCart\(g, q, 'front'\);/.test(ss);
+  const okT = /if\(o\.p\.staffHome && o\.p\.act && o\.n != null\) add\(/.test(ss), okC = /cartCellOf: cartCellOf/.test(cl) && /function cartCellOf\(id, face, which\)/.test(cl);
+  ok('C17 THE CAMP AT HIS PLACE: on his place\'s footage, at their trade, each with his cart, found by the camera\'s tour', okS && okF && okT && okC, ['place ' + okS, 'footage ' + okF, 'tour ' + okT, 'cart ' + okC].join(', '));
 }
 
 /* C12 THE FIGHT STILL PLAYS (printed): the same AUTO fights with the carts and with none */

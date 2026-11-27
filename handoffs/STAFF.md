@@ -1,4 +1,19 @@
 STAFF 2 (staff2-01gkdyus, took over from STAFF at a full context): rule 471, THE STAFF PUSH A CART, ask row 709. Written only by this lane.
+*** 11/27 LATEST -- RULE 482 AGAIN: BUILD 11/27n - THE CAMP AT ITS WORK, BUILT, NOT YET SEEN (rule 482; 461 as amended, 441, 465).
+Record: records/BOHEMIA_STAFF_TWO_THE_CAMP_AT_ITS_WORK_11_27_26.md. VOTE staff2-the-camp-at-its-work-11-27. ***
+(a) AT CAMP (slices/bohemia_camp_look.js FOLLOWER_WORK): the cook cooks, the surgeon and the alchemist tend (kneeling by the worst hurt
+man lying, FOLLOWER_TEND), the blacksmith mends (ANIMATION's repair); the rest watch; a body with no act cell stands as before.
+(b) CELLS rendered with ANIMATION's own tool (person_one, every set; pack; the scratch venv's bpy 4.2, ~5 min a set); SHIPPED only the
+trade act (person_town_44_tend.webp, person_town_23_repair.webp), laid in by the camp's STAFF_ACTS, out of the town's index (all 40 sheets
+put the site at 901 MB over its 900 cap; the town's index wants all 20 acts a man). rig_town.json unchanged.
+(c) AT HIS PLACE (BOHEMIA_SETTLEMENT_SCREEN.html __THE_CAMP_WORKS_AT_HIS_PLACE__: homeStaff, homeFeedStaff, homeFeedCart, homeCartWrap,
+the tour's pick): on his place's footage every camp person on a lot with his cart (BohemiaCampLook.cartCellOf, lit by hfLit), the
+blacksmith on the forge's lot repairing, the cook cooking, the surgeon kneeling on the hurt man's lot (BohemiaCondition lostHp); the
+camera's tour finds them ('WALT  BLACKSMITH', 'GRACIELA  COOK'); a tap says his line.
+PROOF: gate C16, C17 (18/0); tools/bohemia_staff_at_work_on_the_phone.js W1-W4 and tools/bohemia_staff_at_his_place_on_the_phone.js F1-F3
+green on the demo and the alpha, upright and sideways (one man struck down by afterFight; his place planted by HOME BASE's own calls, said).
+NEXT, IN ORDER: (1) act cells for the other 14 camp bodies (their trades: the scout's, the lookout's, the quartermaster's...); (2) his fist
+on the handle; (3) the crew screen shows the camp; (4) a column between his back row and the camp on narrow boards; (5) a scared run's sound.
 *** 11/26 LATEST -- RULE 482'S ROUND ON THE STAFF AS BUILT: BUILD 11/26zl - THE CAMP RUNS SCARED, BUILT, NOT YET SEEN (rules 482, 480(b);
 461 as amended, 441, 465). Record: records/BOHEMIA_STAFF_TWO_RULE_482_THE_STAFF_BETTER_11_26_26.md. VOTE staff2-the-camp-runs-scared-11-26 (5865420c2). ***
 (a) THE CARTS READ APART: re-rendered (tools/bohemia_staff_the_cart.py, the scratch venv's bpy 4.2; render utility_cart wagon, pack, sheet):
