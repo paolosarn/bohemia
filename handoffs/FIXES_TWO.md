@@ -12,7 +12,9 @@ __A_SLIDER_KEEPS_ITS_TRAVEL__, UI FIVE's step, idle 12 h). STALE, re-aimed to th
 WHO YOU HIRE FIGHTS, ONE SONG ONLY's read. LOAD (green alone): THE SHOP TAPS, MAP HEARD, THE MAP PLAYS THE PART OF TOWN, THE ONE BEAT,
 THE VOTE CARDS PLAY. THE LIST: only ~30 of the 95 are named anywhere; the whole list is in CAMP FOUR's container (BOHEMIA_SUITE_DONE),
 never committed: ASK the coordinator to have it committed; then walk the rest by owner (UI 4, UI FIVE 4, PEOPLE 3, CHARACTER 3, BOSSES 3,
-WORLD 14 3, ...). Never send_later or anything that waits on a tap.
+WORLD 14 3, ...). RULE 495 DEBT OF THIS LANE'S OWN (read against it 11/27): 11/27zc __LEAVE_LIGHTS_ON_THE_GLASS__ reads MOTION's
+door from inside the end screen (frameElement's animations) with a 3 s cap; its cause is row 779 (two owners of one door). When 779
+gives the door one owner, LEAVE lights on that owner's 'landed' and the poll and the cap go. Never send_later or anything that waits on a tap.
 
 FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (e) -- [the new reds] IN FLIGHT, BUILD 11/27zq - THE STALL HOLDS STILL BUILT, NOT YET SEEN: the routine
 'FIXES 4: the 95 new reds' (CAMP FOUR's full suite on main 1a47fd794: 1,089 ran, 434 red, 95 not on the quarantine). THE LIST: CAMP FOUR's
