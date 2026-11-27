@@ -533,6 +533,15 @@
     /* THE PLACE THE WORDS NAME (rule 164 item 3): a real place is where it goes, however far; a made one is a block in range */
     if (job.real) { var d0 = gate(job.real.x, job.real.y), p0 = d0 ? route(city.x, city.y, d0[0], d0[1]) : null;
       if (p0) { job.dest = { name: job.real.name, x: job.real.x, y: job.real.y, real: true }; job.target = { x: d0[0], y: d0[1] }; return p0; } }
+    /* JOBS 2 11/27 __THE_CARAVAN_GOES_TOWN_TO_TOWN__ (rule 494, Paolo 11/27: 'I haven't seen one caravan quest... go from one city to
+       another'). MEASURED: every one of the thirteen escorts on the boards went to a spot the words named (THE TRUCK STOP, THE DRY CAMP)
+       or out of the valley (Primm, the dam); not one went from one of the valley's towns to another. A row whose place names a town
+       ({town: 'Church'}) goes to that town's door, however far; a valley without it (a new valley every game) sends it to another
+       town in the table's range, never to a made spot */
+    if (job.destTown) { var tw = towns().filter(function (t) { return t.name !== town.name && String(t.name).toUpperCase() === job.destTown.toUpperCase(); })[0];
+      var dT = tw ? gate(tw.x, tw.y) : null, pT = dT ? route(city.x, city.y, dT[0], dT[1]) : null;
+      if (pT) { job.dest = { name: tw.name, x: tw.x, y: tw.y, town: true }; job.target = { x: dT[0], y: dT[1] }; job.placeName = String(tw.name).toUpperCase(); return pT; }
+      job.placeName = null; }
     if (job.placeName) { var s0 = spotOut(town.x, town.y, lo, hi, R, true), p1 = s0 ? route(city.x, city.y, s0[0], s0[1]) : null;
       if (p1) { job.dest = { name: job.placeName, x: s0[0], y: s0[1], made: true }; job.target = { x: s0[0], y: s0[1] }; return p1; } }
     var ts = towns().filter(function (t) { return t.name !== town.name; }).map(function (t) { return { t: t, d: cheb(t.x, t.y, town.x, town.y) }; });
@@ -1285,6 +1294,7 @@
     job.placeName = pl && pl.name ? String(pl.name).toUpperCase() : null;
     job.real = pl && pl.real ? realPlace(pl.real) : null;
     job.placeWay = pl && pl.way ? String(pl.way) : null;
+    job.destTown = pl && pl.town ? String(pl.town) : null;   /* JOBS 2 11/27 __THE_CARAVAN_GOES_TOWN_TO_TOWN__: a row that goes to one of the valley's towns */
     if (!built(kind) || kind === 'clear-crew' || window.__JOB_KINDS_OFF) {
       /* today's crew job: at the real place when the words name one (a crew he can reach beside it), else where the map put it */
       if (job.real && !window.__JOB_KINDS_OFF) { var R0 = rng(seedOf(job.id + ':crew')), s0 = nearReal(job, R0); if (s0) { job.target = { x: s0[0], y: s0[1] };

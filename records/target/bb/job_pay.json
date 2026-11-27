@@ -224,6 +224,66 @@
       "fights": 1,
       "why": "killing work: 2.6 h x 2.75 + 1 fight x 26 x 1"
     },
+    "jb-caravan-beans": {
+      "pay": 40,
+      "before": 40,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 1,
+      "hours": 4.3,
+      "fights": 1,
+      "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 1, the floor 40"
+    },
+    "jb-caravan-cells": {
+      "pay": 80,
+      "before": 80,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 2,
+      "hours": 4.3,
+      "fights": 1,
+      "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 2, the floor 80"
+    },
+    "jb-caravan-copper": {
+      "pay": 40,
+      "before": 40,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 1,
+      "hours": 4.3,
+      "fights": 1,
+      "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 1, the floor 40"
+    },
+    "jb-caravan-diesel": {
+      "pay": 168,
+      "before": 120,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 3,
+      "hours": 4.3,
+      "fights": 2,
+      "why": "killing work: 4.3 h x 2.75 + 2 fights x 26 x 3"
+    },
+    "jb-caravan-flour": {
+      "pay": 40,
+      "before": 40,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 1,
+      "hours": 4.3,
+      "fights": 1,
+      "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 1, the floor 40"
+    },
+    "jb-caravan-insulin": {
+      "pay": 80,
+      "before": 80,
+      "violent": true,
+      "kind": "haul-caravan",
+      "skulls": 2,
+      "hours": 4.3,
+      "fights": 1,
+      "why": "killing work: 4.3 h x 2.75 + 1 fight x 26 x 2, the floor 80"
+    },
     "jb-carry-deed": {
       "pay": 20,
       "before": 60,

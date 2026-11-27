@@ -1,6 +1,26 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/27 LATEST -- BUILD 11/27y - THE WORK SPANS HIS STRENGTH, BUILT, NOT YET SEEN (rule 491
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/27 LATEST -- BUILD 11/27zzd - THE CARAVAN GOES TOWN TO TOWN, BUILT, NOT YET SEEN (rules
+493(a), 494(a)(b); ask rows 774, 775, 783, 784). VOTE jobs2-the-caravan-goes-town-to-town-11-27
+(STAND-IN: the board and the caravan's card on the phone, the first day of each kind before and now). Record records/BOHEMIA_JOBS_TWO_THE_KINDS_HE_MEETS_11_27_26.md.
+- 493(a): EYES 2 (row 783) was right and this lane's fit tool was wrong (it sets levels, never climbs men): measure anything past day 20
+  with EYES' builder (tools/bohemia_eyes_five_killers.js), NOT tools/bohemia_world_most_jobs_fit.js. A dress-by-mean-level fix was built
+  here and DROPPED UNSHIPPED: BESTIARY 4 shipped the same lever in partyMath first (BUILD 11/27zzb THE ENEMY GROWS; one system, one session).
+- 494(a)(b): tools/bohemia_jobs_the_kinds_he_meets.js (a run like his on the real board code offline; the live truth is EYES' sweep,
+  tools/bohemia_eyes_five_killers_on_the_page.js EYES_SWEEP=1). Six town-to-town caravans (jb-caravan-*, place.town; job_kinds pickDest
+  __THE_CARAVAN_GOES_TOWN_TO_TOWN__); board_shelf __EVERY_KIND_HE_MEETS__: a board mixes kinds (take() orders by kind; own and short
+  passes never a second of a kind) and THE VALLEY'S PASS in draft() (the nine kinds missing this window, scarcest first, the first place
+  that can offer one); counts camp 2, town 3, fortress 4 (tools/bohemia_run2_board_shelf.py, rebaked by the pay bake).
+- GATES: THE KINDS HE MEETS 7/0 (new), THE WORK SPANS HIS STRENGTH 6/0 (W2's strong line 60 -> 70: main's
+  fight moved under it, the same on clean main), THE BOARDS ALWAYS HAVE WORK 24/0, A JOB HAS ONE DOOR 4/0, pay 23/0. MAIN'S OWN REDS (same
+  on clean main 5be5b4041): THE SIX CONTRACTS 5/2, EVERY JOB KIND 36/1 (F5), THE JOBS' PART 5/3 (the meet card's roster reads null).
+- NEXT: (1) 494(c) Battle Brothers' whole contract list, cited (bb_all/0441 Contracts lists civilian, noble, southern), each a Bohemia
+  version or a reason, map ones first; start records/BOHEMIA_JOBS_MORE_CONTRACT_KINDS_THE_BATTLE_BROTHERS_WAY_11_10_26.md. (2) 493(c) the
+  company's next goal on the phone, a face says it (BB ambitions: bb_all/0053 Ambitions; GROK_123; renown.json gains.ambition 100).
+  (3) THE JOBS' PART roster read (R1, R4, line 217). (4) a hunt a new crew of three can win (every hunt reads under the floor early).
+  (5) the paid-to-match half of 491(b).
+
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/27 -- BUILD 11/27y - THE WORK SPANS HIS STRENGTH, BUILT, NOT YET SEEN (rule 491
 (b)(c)(d)(e); ask row 767). Content 40940b165. VOTE jobs2-the-work-spans-his-strength-11-27 (STAND-IN: the measured table).
 Record records/BOHEMIA_JOBS_TWO_THE_WORK_SPANS_HIS_STRENGTH_11_27_26.md.
 - (c) cited: Battle Brothers' contract scales with the roster's strength, the 12 strongest at 10 + 2 a level (14 for the militia),

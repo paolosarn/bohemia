@@ -69,6 +69,21 @@
   function shortJK() { try { var J = root.BohemiaJobKinds || (root.parent && root.parent !== root && root.parent.BohemiaJobKinds); return J && J.short && J.shortNow ? J : null; } catch (e) { return null; } }
   function shortSig() { var J = shortJK(); try { return J ? J.shortNow().join('+') : ''; } catch (e) { return ''; } }
   function fitter() { try { var W = root.BohemiaJobDanger || (root.parent && root.parent !== root && root.parent.BohemiaJobDanger); return W && W.fits ? W : null; } catch (e) { return null; } }
+  /* JOBS 2 11/27 __EVERY_KIND_HE_MEETS__ (rule 494(a)(b), Paolo 11/27: 'in Battle Brothers there's so many different quest types... I
+     haven't seen one caravan quest'). MEASURED (tools/bohemia_jobs_the_kinds_he_meets.js, a run like his on these boards, campaign
+     K7QM9X): of the nine kinds the map plays, CLEAR A CAMP and PATROL were first offered on day 18 and HUNT A KIND four times in fifteen
+     days, while a fortress's board could be two caravans and nothing else. NOW, read from the job kinds' own kindOf (the map's): a
+     board takes a kind it does not hold yet before a second of one it does (a board mixes kinds), and in the draft each place's first
+     pick past its news and its own person is the least dangerous job of a kind the map plays that no place in the valley has drafted
+     this window (every kind on offer somewhere, early). No reader: the boards deal as they did. */
+  function kindsJK() { try { var J = root.BohemiaJobKinds || (root.parent && root.parent !== root && root.parent.BohemiaJobKinds); return J && J.kindOf && J.built ? J : null; } catch (e) { return null; } }
+  var BYID = { shelf: null, map: null };
+  function offerById(id) { if (!SHELF) return null; if (BYID.shelf !== SHELF || BYID.n !== SHELF.offers.length) { BYID = { shelf: SHELF, n: SHELF.offers.length, map: {} }; SHELF.offers.forEach(function (o) { BYID.map[o.id] = o; }); } return BYID.map[id] || null; }
+  function kindOfJ(KJ, o) { try { return KJ.kindOf(o); } catch (e) { return null; } }
+  /* how many jobs of a kind the shelf holds (counted once a shelf): the scarce kinds are dealt first */
+  var KHELD = { shelf: null, n: 0, map: null };
+  function kindsHeld(KJ, k) { if (!SHELF) return 0; if (KHELD.shelf !== SHELF || KHELD.n !== SHELF.offers.length) { KHELD = { shelf: SHELF, n: SHELF.offers.length, map: {} };
+      SHELF.offers.forEach(function (o) { var x = kindOfJ(KJ, o); if (x) KHELD.map[x] = (KHELD.map[x] || 0) + 1; }); } return KHELD.map[k] || 0; }
   function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
   /* a copy that is safe to hand around: {crew} said, the client copied */
   function said(o, crew) {
@@ -141,6 +156,25 @@
       if (frozen[p.name] || own[p.name].length > round || own[p.name].length >= want[p.name]) return;
       var got = pickOwn(p, day, po(p), taken, own[p.name].length + 1, own[p.name]);
       got.forEach(function (o) { taken[o.id] = p.name; }); own[p.name] = got; });
+    /* __EVERY_KIND_HE_MEETS__ (JOBS 2 11/27, rule 494(b)): THE VALLEY'S PASS. Every kind with a play of its own (the nine: escort, find a
+       place, find a person, hunt, camp, carry, hold, recover, patrol) that no board drafted this window, the scarcest first, is asked of
+       the places in the draft's order: the first that can offer one (its tier, its trust, his name, the rare roll) puts its least
+       dangerous job up, in an empty slot, or in place of its last job when that job repeats a kind on its board or is played by legs
+       (never its news or its own person). MEASURED on the demo (EYES' sweep, no name, 88 days): asked place by place inside each
+       board, the news and the town's own person filled the slots first and hunting, a camp and holding came on days 10, 28 or never */
+    var KJd = kindsJK(); if (KJd) { var D0 = null; try { D0 = KJd.data ? KJd.data() : null; } catch (e) { D0 = null; }
+      var legsK = function (k) { var r = D0 && D0.kinds && D0.kinds[k]; return !!(r && Array.isArray(r.legs) && r.legs.length); };
+      var onOffer = {}; order.forEach(function (p) { (own[p.name] || []).slice(0, want[p.name]).forEach(function (o) { var k = kindOfJ(KJd, o); if (k) onOffer[k] = 1; }); });
+      var nine = {}; SHELF.offers.forEach(function (o) { var k = kindOfJ(KJd, o); if (k && !onOffer[k] && KJd.built(k) && !legsK(k) && k !== 'clear-crew') nine[k] = 1; });
+      Object.keys(nine).sort(function (a, b) { return kindsHeld(KJd, a) - kindsHeld(KJd, b) || (a < b ? -1 : 1); }).forEach(function (k) {
+        for (var i = 0; i < order.length; i++) { var p = order[i], mine = own[p.name] || [], w = want[p.name] || 1; if (frozen[p.name]) continue;
+          var kinds = mine.slice(0, w).map(function (o) { return kindOfJ(KJd, o); }), slot = mine.length < w ? mine.length : -1;
+          if (slot < 0) { var j = w - 1, lk = kinds[j]; if (mine[j] && !mine[j].when && !mine[j].towns && (legsK(lk) || kinds.indexOf(lk) < j)) slot = j; }
+          if (slot < 0) continue;
+          var got = pickOwn(p, day, { traits: p.traits || [], held: opt.held, done: opt.done, crew: p.crew || opt.crew, draft: true, kind: k }, taken, 1, [])[0];
+          if (!got) continue;
+          if (slot < mine.length) { delete taken[mine[slot].id]; mine[slot] = got; } else mine.push(got);
+          own[p.name] = mine; taken[got.id] = p.name; break; } }); }
     for (var r2 = 0; r2 < RESERVE; r2++) order.forEach(function (p) {   /* then each place's next, what it posts when the floor keeps one back */
       if (frozen[p.name] || own[p.name].length >= want[p.name] + RESERVE || own[p.name].length > want[p.name] + r2) return;
       var got = pickOwn(p, day, po(p, true), taken, own[p.name].length + 1, own[p.name]);
@@ -218,9 +252,13 @@
     out.forEach(function (o) { seen[o.id] = 1; });
     var FW = fitter(), size = Math.min(C[tier] || 1, C.max || 4);   /* WORLD __THE_BOARD_GROWS_WITH_THE_DAYS__ */
     function free(o) { return !seen[o.id] && !taken[o.id] && held.indexOf(o.id) < 0 && done.indexOf(o.id) < 0 && !(o.rival && (held.indexOf(o.rival) >= 0 || done.indexOf(o.rival) >= 0)); }   /* JOBS 11/14: a job two towns bid on is gone from both once he takes either */
-    function take(pool, n) {
+    var KJ = kindsJK();   /* __EVERY_KIND_HE_MEETS__ */
+    function take(pool, n, mixOnly) {
       if (upto != null) n = opt.reserve ? upto : Math.min(n, upto);
-      shuffled(pool, R).forEach(function (o) { if (out.length >= n || !free(o)) return;
+      var sh = shuffled(pool, R);
+      if (KJ) { var on = {}; out.forEach(function (o) { var k = kindOfJ(KJ, o); if (k) on[k] = 1; });   /* a board mixes kinds: a kind it does not hold first */
+        sh = sh.filter(function (o) { return !on[kindOfJ(KJ, o)]; }).concat(mixOnly ? [] : sh.filter(function (o) { return !!on[kindOfJ(KJ, o)]; })); }   /* the own and the short passes never a second of a kind: it waits for the board's last pass */
+      sh.forEach(function (o) { if (out.length >= n || !free(o)) return;
         if (opt.draft) { if (FW && FW.rare && FW.rare(o, place.name, day) === false) { kept.push(o); return; } }   /* __A_JOB_HAS_ONE_DOOR__: the draft asks no read, only the valley's own roll */
         else if (FW && FW.fits(o, place.name, day, out, size) === false) { kept.push(o); return; }   /* under the day's floor: kept back, not lost (rule 335) */
         seen[o.id] = 1; out.push(said(o, opt.crew)); });
@@ -229,6 +267,9 @@
       CL = clout(), waiting = [], waitNeed = 0;
     if (CL != null) ordinary = ordinary.filter(function (o) { var nd = needOf(o, tier); if (CL >= nd) return true; waiting.push(o); waitNeed = waitNeed ? Math.min(waitNeed, nd) : nd; return false; });   /* __THE_BIG_WORK_WAITS_FOR_A_NAME__ */
     WAITS[String(place.name)] = waiting.length ? { need: waitNeed, have: CL } : null;
+    if (opt.kind && KJ) {   /* __EVERY_KIND_HE_MEETS__: the valley's pass asks a place for one job of a kind, its least dangerous */
+      var ofK = ordinary.filter(function (o) { return kindOfJ(KJ, o) === opt.kind && free(o); }), lo = Math.min.apply(null, ofK.map(function (o) { return (o.skulls | 0) || 1; }).concat([9]));
+      take(ofK.filter(function (o) { return ((o.skulls | 0) || 1) === lo; }), out.length + 1); return out; }
     if (opt.reserve) { take(ordinary, upto != null ? upto : out.length + 1); return out; }   /* __A_JOB_HAS_ONE_DOOR__: the place's next, past its board's count */
     var own = ordinary.filter(function (o) { return !!o.towns; });   /* JOBS 11/11 (rule 425): a job that fits its town is posted there only, and the town's own person asks first, one of them */
     if (traits.indexOf('raided') >= 0) {   /* the raid leaves one job, and it is the crew that hit it */
@@ -243,9 +284,9 @@
     ['sickness', 'market_day'].forEach(function (t) {   /* what is happening here asks first */
       if (traits.indexOf(t) >= 0) take(all.filter(function (o) { return o.when === t && trusted(o, TR); }), Math.min(n, out.length + 1));   /* __THE_TOWN_REMEMBERS__: the news's work is trusted the same */
     });
-    if (own.length) take(own, Math.min(n, out.length + 1));
+    if (own.length) take(own, Math.min(n, out.length + 1), true);
     var SJ = shortJK();   /* __THE_WORK_FOLLOWS_WHAT_IS_SHORT__: what the valley is short of asks next: one job that brings it */
-    if (SJ && shortSig()) take(ordinary.filter(function (o) { try { return SJ.short(o).mult > 1; } catch (e) { return false; } }), Math.min(n, out.length + 1));
+    if (SJ && shortSig()) take(ordinary.filter(function (o) { try { return SJ.short(o).mult > 1; } catch (e) { return false; } }), Math.min(n, out.length + 1), true);
     take(ordinary, n);
     return never(out, kept, ordinary);
     /* *** THE BOARDS ALWAYS HAVE WORK (PLUMBER 3, rule 335, Paolo 11/2: 'no one has any jobs anymore... make sure it doesn't

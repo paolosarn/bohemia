@@ -2446,6 +2446,10 @@ GATES = [
      '(Battle Brothers\' arena guard at half), the math past the job\'s most fills a thinned faction and sends men a rung up, and a champion '
      'is rolled Battle Brothers\' way (none on one star, about half the three-star late bands) with his numbers, his skull, his kit at the '
      'top and a prize that always drops (records/BOHEMIA_BESTIARY_FOUR_THE_ENEMY_GROWS_AND_CHAMPIONS_11_27_26.md).', True),
+    ('THE KINDS HE MEETS', ['node', 'gates/the_kinds_he_meets_gate.js'],
+     'JOBS 2 11/27, rule 494(a)(b): in a run like his on the real boards every kind the map plays is offered by day 6, the caravan on '
+     'day 1 and one that goes TOWN TO TOWN by day 3; a board mixes kinds; a camp shows two jobs, a town three, a fortress four; every '
+     'town-to-town caravan goes to the town its words name (records/BOHEMIA_JOBS_TWO_THE_KINDS_HE_MEETS_11_27_26.md).', True),
     ('THE WORK FOLLOWS WHAT IS SHORT', ['node', 'gates/the_work_follows_what_is_short_gate.js'],
      'JOBS 2 11/27, rule 485(b), 482, 441: a job that brings what the valley is short of (the map\'s own ledger: water, food, meds, '
      'fuel) pays more (1 + share x log2 of the ledger\'s price, capped; job_pay.json short) and the board asks one first; shown is '

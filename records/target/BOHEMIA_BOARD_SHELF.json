@@ -3,12 +3,12 @@
  "version": "board-shelf-10-18",
  "draft": true,
  "counts": {
-  "camp": 1,
-  "town": 2,
-  "fortress": 3,
+  "camp": 2,
+  "town": 3,
+  "fortress": 4,
   "raided": 1,
   "max": 4,
-  "why": "QUESTS QR-O: camp 1, town 2, fortress 3, raid leaves 1, never over 4 (the settlement's TIER_OFFERS)"
+  "why": "JOBS 2 11/27 (rule 494(b), Paolo 11/27: 'in Battle Brothers there's so many different quest types'): a board carries enough offers that the choice is real. Battle Brothers: 'The number of contracts on offer in a single settlement is no longer limited to just 3' (reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/1415 News and Dev Blogs), a village's few and a city's more. MEASURED (tools/bohemia_jobs_the_kinds_he_meets.js): at QUESTS QR-O's camp 1, town 2, fortress 3 a camp had no choice and CLEAR A CAMP and PATROL were first offered on day 18; at camp 2, town 3, fortress 4 every kind the map plays is on offer by day 6, the board still four at most (it fits the phone, row 737), a fortress's big work still waits for a name (rule 453), a raid still leaves one"
  },
  "refresh_days": 3,
  "refresh_why": "QUESTS QR-O's draft, one board per base per 3 map days; TUNING owns it",

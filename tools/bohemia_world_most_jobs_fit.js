@@ -15,7 +15,7 @@
 //               fight's own classOf rule: three levels over his best, or DODGES and ARMOUR both), men of his struck down
 //   AND THE BOARDS  the share of offered jobs of each star on a town's board (the shelf's skulls by tier) and on the phone (its two
 //               best paid), so 'the share of jobs that outclass him' is weighted by what is actually offered
-//   node tools/bohemia_world_most_jobs_fit.js [--n 40] [--math bb|old] [--dress strength|calendar] [--base a,b,c] [--small 1] [--kit 1] [--json out.json]
+//   node tools/bohemia_world_most_jobs_fit.js [--n 40] [--math bb|old] [--dress strength|calendar] [--base a,b,c] [--small 1] [--kit 1] [--company men,level,gear,day] [--json out.json]
 // Every number it prints is a MEASUREMENT of the game as it is (or with the math under test); nothing in the game reads it.
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -40,7 +40,9 @@ const POINTS = (arg('--small', '') ? [
   { day: 20, men: 6, level: 3, gear: 'early' },
   { day: 50, men: 9, level: 5, gear: 'middle' },
   { day: 90, men: 12, level: 8, gear: 'late' }
-]).filter(P => !arg('--small', '') || P.day !== 1 && P.day !== 20 && P.day !== 50 && P.day !== 90);
+]).filter(P => !arg('--small', '') || P.day !== 1 && P.day !== 20 && P.day !== 50 && P.day !== 90)
+  /* --company men,level,gear,day (JOBS 2 11/27, rule 493(a): 'five combat people... absolute killers'): only that company, e.g. 5,11,late,90 */
+  .filter(P => !arg('--company', '')).concat(arg('--company', '') ? [(c => ({ day: +c[3] || 90, men: +c[0], level: +c[1], gear: c[2] || 'late' }))(arg('--company', '').split(','))] : []);
 /* --kit 1 (JOBS 2 11/27, rule 491(e)): each man's armour in his strength, the game's own rule (slices/bohemia_job_kinds.js strength():
    head and body durability at party_math.json roster_strength.kit_per_armour a point); without it, Battle Brothers' levels only */
 const KIT = arg('--kit', '0') === '1';
@@ -140,7 +142,7 @@ async function main() {
         won_in_100: Math.round(100 * T.won / N), outclass_in_100: Math.round(100 * T.oc / N), struck_down_share: Math.round(100 * T.down / Math.max(1, T.men)),
         board_share: Math.round(100 * offers.board[skulls]), phone_share: Math.round(100 * offers.phone[skulls]) };
       rows.push(row);
-      console.log(`day ${String(row.day).padStart(2)} (dressed ${String(row.dressed_for_day).padStart(2)})  ${row.men} men L${row.level}  ${skulls} skull${skulls > 1 ? 's' : ' '}  ${String(count).padStart(2)} of them (${stars}★)  won ${String(row.won_in_100).padStart(3)}  outclassed ${String(row.outclass_in_100).padStart(3)}  down ${String(row.struck_down_share).padStart(3)}%   on a board ${row.board_share}%  on the phone ${row.phone_share}%`);
+      console.log(`day ${String(row.day).padStart(2)} (strength ${row.strength}, dressed ${String(row.dressed_for_day).padStart(2)})  ${row.men} men L${row.level}  ${skulls} skull${skulls > 1 ? 's' : ' '}  ${String(count).padStart(2)} of them (${stars}★)  won ${String(row.won_in_100).padStart(3)}  outclassed ${String(row.outclass_in_100).padStart(3)}  down ${String(row.struck_down_share).padStart(3)}%   on a board ${row.board_share}%  on the phone ${row.phone_share}%`);
     }
   }
   /* the shares he meets: jobs whose enemy outclasses him or that he loses more than half the time, weighted by what is offered */
