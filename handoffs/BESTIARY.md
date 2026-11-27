@@ -1,5 +1,31 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
+HANDOFF READY (bestiary-two-01gkdyut, context past its budget, 11/27): the routine 'BESTIARY 2: rule 482' fired; a fresh BESTIARY 2 opens on this block.
+BESTIARY 2 (rules 489(a)(c), 482, 480(b), 461(c) amended, 441, 465): 11/27 -- THE JOB, IN THIS ORDER, NEWEST WORD FIRST.
+(1) RULE 489(a), OWNED BY THIS LANE (Paolo 11/27: 'most enemies should be having pistols... everybody is strapped'): EVERY ARMED HUMAN
+    ENEMY IN A GROUP CARRIES AT LEAST A PISTOL, whatever else he holds; the rounds stay scarce (rule 478). MEASURE FIRST: which of the 53
+    human kinds carry no gun today (tools/bohemia_bestiary_every_type.js prints each kind's weapon; the wiki's rows' gear is
+    records/target/bb/enemies.json, COMBAT's; BESTIARY's and FACTIONS' rows' gear is bohemia_enemies.json rows[].gear) and how the fight
+    arms a man with a second weapon (slices/BOHEMIA_FIGHT.html enemyUnit: the gear list picks one weapon; his crew carry a bag; COMBAT
+    FOUR's __NO_AMMO_NO_SHOT__ and FIGHT.carried for rounds). A sidearm the man draws when his first weapon cannot reach or is empty is
+    COMBAT FOUR's rules to touch; the gear lists are this lane's data. Then the drops follow (the end screen hands over a pistol by its
+    own id, FIGHT SCREEN 3's spoils).
+(2) RULE 489(c), RESEARCH FIRST, cited: human forces fight as ROLES (the marksman, the machine gunner, the rocket man, the drone operator,
+    the medic, the shield, the breacher), each with his kit and job, as Battle Brothers ranks each faction by role and tier
+    (reference/library/grok/wiki/PAGES_ALL.tar.gz, the faction pages); a record, then the roles into the factions' mixes. The new guns and
+    drones themselves are ARMORY 3's (489(b)); damage waits on him (489(d)).
+(3) THE ROUTINE'S ('the next beasts he meets, better'): after the coyote, bull, hog, camel and cats (11/26zn), the Ice Age horses (1.7% of
+    act one's road), the teratorns (1.7%), the mountain lion (1.4%), the stilt-legged horses: how each moves (its own sheet's walk; the
+    kick, the charge), its body after the fight (the kill on the map, slices/bohemia_job_kinds.js beastDraw, and the end screen's aftermath)
+    and its drops (meat by kilos, hides by 250 kg, carcass.json). Its sound waits on SOUNDS (row 749).
+TOOLS THIS LANE HAS: gates/every_type_through_a_fight_gate.js (E1 to E5, the rules: every dealt kind's look, moves, drops, words);
+gates/the_bestiary_every_type_fight.js (the page: KINDS, PROFILES, ALPHA=1, MOVES=0, SHOTS, OUT; chunks of 10 to 12 kinds a browser,
+the renderer grows ~300 MB a fight, row 744); tools/bohemia_bestiary_biggest_pack_frames.js (a band on the slowed phone, frames and a
+profile). Never hold a Playwright element handle in a loop (it pins every fight's page): find frames by address.
+OPEN ROWS FROM THIS LANE: 744 (PLUMBER 8: memory a fight; rule 484 names it), 745, 746 (CHARACTER TWO), 749 (SOUNDS), 750 (WORLD 15).
+[bb Battle Brothers' brigands carry what a brigand can get; ours carry what a valley full of guns leaves lying around]
+[analog horror: the kid with the bat has a pistol in his waistband too, and you only see it when he goes for it]
+
 BESTIARY 2 (bestiary-two-01gkdyut, routine 'BESTIARY 2: rule 482 next'; rules 482, 480(b), 461(c) amended, 441, 465): 11/26 LATEST -- BUILD 11/26zn THE HOG SQUEALS, THE HIDE FOLLOWS THE ANIMAL, BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_TWO_THE_HOG_SQUEALS_11_26_26.md. VOTE bestiary2-the-hog-squeals-11-26 (a page: the death takes before and now, the hides a kill gives).
 - The beasts he meets first, measured on the act-one road: the coyotes, the bull, the hogs, the camels, the horses, the teratorns, the lion.

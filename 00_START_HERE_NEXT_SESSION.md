@@ -1439,7 +1439,7 @@ past the glass) and its receipt never scrolls the page sideways. Gate THE FOURTE
 fail). The whole block: handoffs/FIXES.md.
 [bb Battle Brothers' recruit list keeps every man one line and the one you pick in his own panel; our hall on its side the same.]
 [analog horror: a talking face with a blank name tag is the one wrong thing the bible saves for on purpose; this one was an accident.]
-BESTIARY 2 (bestiary-two-01gkdyut): 11/26 LATEST -- BUILD 11/26zn THE HOG SQUEALS, THE HIDE FOLLOWS THE ANIMAL, BUILT, NOT YET SEEN (rule 482; ask rows 743, 749). Before it: BUILD 11/26z THE BEAST THAT BEAT YOU (rules 480(b)(c), 482; ask rows 723, 742 to 746).
+BESTIARY 2 (bestiary-two-01gkdyut): 11/27 LATEST -- HANDOFF READY (context past its budget): a fresh BESTIARY 2 opens on handoffs/BESTIARY.md's top block: rule 489(a) first (every armed human enemy carries at least a pistol; this lane owns the loadouts), then 489(c) research (roles), then the next beasts. Last builds: BUILD 11/26zn THE HOG SQUEALS, THE HIDE FOLLOWS THE ANIMAL; BUILD 11/26z THE BEAST THAT BEAT YOU.
 All 80 enemy kinds the bands deal fought on the demo and the alpha, a phone both ways: own look, move, drops or kill, home, 0 page errors (new gate EVERY
 TYPE THROUGH A FIGHT). Fixed: the wipe card named nine beast parties 'the road crew' (now 'A ground sloth keeps the field'); three freed sheets back in the
 road crew; the horn, bruiser and battery man's act weights (THE BESTIARY green). The biggest pack (17 men) is no choppier than 2 at 4x. Asked: 742 the thrown
