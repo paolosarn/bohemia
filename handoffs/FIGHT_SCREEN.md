@@ -5,7 +5,23 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
-FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/26 LATEST -- [every weapon drops] SHIPPED e20903107, BUILD 11/26zd - EVERY WEAPON DROPS, BUILT, NOT YET SEEN (ask row 742, FOUND BY BESTIARY TWO; rules 482, 480(b), 441). VOTE fight-screen-every-weapon-drops-11-26 (stand_in; before and now).
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/27 LATEST -- [the hit lands on the card] SHIPPED cf3d05b4b, BUILD 11/27j - THE HIT LANDS ON THE CARD, BUILT, NOT YET SEEN (rule 482: 'hits and misses that land harder'; ask row 735). VOTE fight-screen-the-hit-lands-on-the-card-11-27 (stand_in; the slip's four keys).
+Record: records/BOHEMIA_FIGHT_SCREEN_THE_HIT_LANDS_ON_THE_CARD_11_27_26.md. slices/bohemia_phone.js __THE_HIT_LANDS_ON_THE_CARD__ (manPaint; cardHit; CSS
+.fh.hit canvas + @keyframes fhHit, steps): his blood bar shorter for the same man -> the photo slips (red/blue drop-shadow ghosts, light blown),
+washes out, settles, 0.42 s; off at animationend (a timer behind). Armour alone: none. Counter window.__PHONE_CARD_HITS.
+FIXED, this lane's own 11/26p: their turn's big row keeps its room (two empty dark wells, .bg.empty with the kit's well) so nothing under the card
+moves when the turn changes hands. The phone exports fightPaint(force) for gates (beside wall/ring). Card gate 20/0 (P13 + HIT_PLANT), on the
+merged tree too; THE PHONE 268/0.
+LESSON: a gate that waits on the fight's own turns must not depend on which turn comes when: read the state in one task (the hook), and pin the
+man you change to the card (a man an earlier step left there is not the man you hit).
+NEXT, in order:
+ (1) EYES' notes and his votes on 11/26d, 11/26p, 11/26zd, 11/27j (rule 441(b)).
+ (2) A MISS on his man (dodged): the card could answer too (his photo leans away a key), only if a miss is shown on the board first (COMBAT's).
+ (3) The end screen upright has a tall empty middle; the loot tiles could stand bigger there (RUN's layout: say it, do not move it alone).
+[bb Battle Brothers flashes the struck man's portrait on the bar; ours is a tape that slips]
+[analog horror: the photo of your man jumps on the tape when the blow lands, and goes still as if nothing happened]
+
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/26 -- [every weapon drops] SHIPPED e20903107, BUILD 11/26zd - EVERY WEAPON DROPS, BUILT, NOT YET SEEN (ask row 742, FOUND BY BESTIARY TWO; rules 482, 480(b), 441). VOTE fight-screen-every-weapon-drops-11-26 (stand_in; before and now).
 Record: records/BOHEMIA_FIGHT_SCREEN_EVERY_WEAPON_DROPS_11_26_26.md. engine/bohemia_spoils.js __EVERY_WEAPON_DROPS__: spent only when the weapon carries a
 count (w.ammoMax != null) and it is at none; a piece with no wear found on its roll alone (rollOnly), never wrecked. The kids' bolas, the keepers'
 throwing axes, the water people's sling drop again. BESTIARY TWO's EVERY TYPE THROUGH A FIGHT E3: 53 of 53 kinds, NO_DROP_DEBT emptied (paid, noted

@@ -819,13 +819,12 @@ Gate THE BATTERY IS REAL 43/0 (the table with eight planted faults; nine legs a 
 FOR UI FOUR, JOBS, HOME BASE, WORDS TWO, TUNING, DIRECTION: each has lines in the handoff. NOT DECIDED AND NOT BUILT ON: who holds the working sun (459(e)).
 [bb Battle Brothers counts one coin and lets the number run to tens of thousands; ours is the coin and the things a coin is]
 [analog horror: a man counting out twelve drill batteries on a hood, slowly, because a wrong count gets somebody killed]
-FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/26 LATEST -- BUILD 11/26zd - EVERY WEAPON DROPS, BUILT (e20903107), NOT YET SEEN (ask row 742). Before it: 11/26p NOTHING TO PRESS, THE LOOT READS (93a0381f0), 11/26d RELOAD OR OUT, NEVER CHOPPY (79ddcbd34). Its block is handoffs/FIGHT_SCREEN.md.
-THIS CHAT IS FIGHT SCREEN THREE. The kids' bolas, the keepers' throwing axes and the water people's sling drop on the end screen again (the spoils
-read a bundle with no wear as wrecked and a sling with no count as spent): 53 of 53 kinds of men can leave a piece. Gates THE LOOT READS 6/0,
-EVERY TYPE THROUGH A FIGHT 5/0 (the debt emptied). The sling reads BOTTLES (the roster's word, said for CHARACTER / ARMORY).
-VOTE fight-screen-every-weapon-drops-11-26 (STAND-IN), and 11/26p's and 11/26d's. NEXT: a hit on his man lands on his card too.
-[bb Battle Brothers drops a throwing weapon with uses left and a sling like any weapon; ours now does]
-[analog horror: what they threw at you lies on the ground after, still half full]
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/26 LATEST -- BUILD 11/27j - THE HIT LANDS ON THE CARD, BUILT (cf3d05b4b), NOT YET SEEN (rule 482, ask row 735). Before it: 11/26zd EVERY WEAPON DROPS (e20903107), 11/26p NOTHING TO PRESS, THE LOOT READS (93a0381f0). Its block is handoffs/FIGHT_SCREEN.md.
+THIS CHAT IS FIGHT SCREEN THREE. A hit on the man on the phone's card makes his photo slip like a tape for half a second (only on blood lost); their
+turn keeps the phone's layout still (two empty dark wells where STRIKE and RELOAD stand). Gate THE MAN'S CARD ON THE PHONE 20/0, THE PHONE 268/0.
+VOTE fight-screen-the-hit-lands-on-the-card-11-27 (STAND-IN), and the 11/26 cards. NEXT: EYES' notes and his votes; a miss on the card only after COMBAT shows one.
+[bb Battle Brothers flashes the struck man's portrait on the bar; ours is a tape that slips]
+[analog horror: the photo of your man jumps on the tape when the blow lands, and goes still as if nothing happened]
 COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18p - THE TERMINAL IS AN AIRPORT, BUILT (4c0cf87e7), NOT YET SEEN (rule 453, round after round, this round's fifth build; rules 416, 451(a), 455; ask row 627).
 COMBAT THREE's airport terminal wears its own art under its own names (slices/fight_ground/terminal/terminal_art.json, the garage's format; no code):
 the terrazzo floor, 25 pictures under 27 names (the checkpoint a tile with its tubs, both screens, the desks, the queue, the newsstand, the luggage
