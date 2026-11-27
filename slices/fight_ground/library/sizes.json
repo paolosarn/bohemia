@@ -1,0 +1,123 @@
+{
+ "stacks": {
+  "w": 516,
+  "h": 338,
+  "foot": [
+   258.4,
+   336
+  ],
+  "piece": "stacks",
+  "src": "library/lb_stacks.webp",
+  "facing": "S"
+ },
+ "endshelf": {
+  "w": 516,
+  "h": 279,
+  "foot": [
+   258.2,
+   209
+  ],
+  "piece": "endshelf",
+  "src": "library/lb_endshelf.webp",
+  "facing": "S"
+ },
+ "catalogue": {
+  "w": 516,
+  "h": 144,
+  "foot": [
+   258.1,
+   108
+  ],
+  "piece": "catalogue",
+  "src": "library/lb_catalogue.webp",
+  "facing": "S"
+ },
+ "desk": {
+  "w": 515,
+  "h": 173,
+  "foot": [
+   257.9,
+   143
+  ],
+  "piece": "desk",
+  "src": "library/lb_desk.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 52,
+  "h": 514,
+  "foot": [
+   26.7,
+   513
+  ],
+  "piece": "wall_ns",
+  "src": "library/lb_wall_ns.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 516,
+  "h": 166,
+  "foot": [
+   258.4,
+   158
+  ],
+  "piece": "wall_ew",
+  "src": "library/lb_wall_ew.webp",
+  "facing": "S"
+ },
+ "table": {
+  "w": 258,
+  "h": 186,
+  "foot": [
+   129.2,
+   162
+  ],
+  "piece": "table",
+  "src": "library/lb_table.webp",
+  "facing": "S"
+ },
+ "carrel": {
+  "w": 258,
+  "h": 154,
+  "foot": [
+   129.2,
+   136
+  ],
+  "piece": "carrel",
+  "src": "library/lb_carrel.webp",
+  "facing": "S"
+ },
+ "heap": {
+  "w": 300,
+  "h": 166,
+  "foot": [
+   146.3,
+   145
+  ],
+  "piece": "heap",
+  "src": "library/lb_heap.webp",
+  "facing": "S"
+ },
+ "bookcart": {
+  "w": 284,
+  "h": 158,
+  "foot": [
+   138.3,
+   134
+  ],
+  "piece": "bookcart",
+  "src": "library/lb_bookcart.webp",
+  "facing": "S"
+ },
+ "readers": {
+  "w": 266,
+  "h": 133,
+  "foot": [
+   112.3,
+   115
+  ],
+  "piece": "readers",
+  "src": "library/lb_readers.webp",
+  "facing": "S"
+ }
+}
