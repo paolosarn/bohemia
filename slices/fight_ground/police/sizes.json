@@ -1,0 +1,178 @@
+{
+ "cells": {
+  "w": 516,
+  "h": 272,
+  "foot": [
+   258.4,
+   239
+  ],
+  "piece": "cells",
+  "src": "police/pd_cells.webp",
+  "facing": "S"
+ },
+ "lockers": {
+  "w": 516,
+  "h": 133,
+  "foot": [
+   258.2,
+   115
+  ],
+  "piece": "lockers",
+  "src": "police/pd_lockers.webp",
+  "facing": "S"
+ },
+ "evidence": {
+  "w": 516,
+  "h": 219,
+  "foot": [
+   258.1,
+   198
+  ],
+  "piece": "evidence",
+  "src": "police/pd_evidence.webp",
+  "facing": "S"
+ },
+ "glass": {
+  "w": 515,
+  "h": 137,
+  "foot": [
+   257.9,
+   131
+  ],
+  "piece": "glass",
+  "src": "police/pd_glass.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 52,
+  "h": 505,
+  "foot": [
+   26.7,
+   504
+  ],
+  "piece": "wall_ns",
+  "src": "police/pd_wall_ns.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 516,
+  "h": 158,
+  "foot": [
+   258.4,
+   149
+  ],
+  "piece": "wall_ew",
+  "src": "police/pd_wall_ew.webp",
+  "facing": "S"
+ },
+ "counter": {
+  "w": 408,
+  "h": 118,
+  "foot": [
+   185.2,
+   97
+  ],
+  "piece": "counter",
+  "src": "police/pd_counter.webp",
+  "facing": "S"
+ },
+ "desks": {
+  "w": 253,
+  "h": 136,
+  "foot": [
+   146.2,
+   124
+  ],
+  "piece": "desks",
+  "src": "police/pd_desks.webp",
+  "facing": "S"
+ },
+ "files": {
+  "w": 257,
+  "h": 142,
+  "foot": [
+   129.2,
+   124
+  ],
+  "piece": "files",
+  "src": "police/pd_files.webp",
+  "facing": "S"
+ },
+ "bunk": {
+  "w": 322,
+  "h": 141,
+  "foot": [
+   146.4,
+   132
+  ],
+  "piece": "bunk",
+  "src": "police/pd_bunk.webp",
+  "facing": "S"
+ },
+ "boxes": {
+  "w": 300,
+  "h": 171,
+  "foot": [
+   150.5,
+   147
+  ],
+  "piece": "boxes",
+  "src": "police/pd_boxes.webp",
+  "facing": "S"
+ },
+ "chairs": {
+  "w": 232,
+  "h": 165,
+  "foot": [
+   146.6,
+   138
+  ],
+  "piece": "chairs",
+  "src": "police/pd_chairs.webp",
+  "facing": "S"
+ },
+ "cages": {
+  "w": 516,
+  "h": 235,
+  "foot": [
+   258.3,
+   196
+  ],
+  "piece": "cages",
+  "src": "police/pd_cages.webp",
+  "facing": "S"
+ },
+ "car": {
+  "w": 257,
+  "h": 163,
+  "foot": [
+   128.8,
+   154
+  ],
+  "piece": "car",
+  "src": "police/pd_car.webp",
+  "facing": "S"
+ },
+ "cones": {
+  "w": 292,
+  "h": 179,
+  "foot": [
+   146.6,
+   167
+  ],
+  "piece": "cones",
+  "src": "police/pd_cones.webp",
+  "facing": "S"
+ },
+ "barrier": {
+  "w": 287,
+  "h": 128,
+  "foot": [
+   146.3,
+   126
+  ],
+  "piece": "barrier",
+  "src": "police/pd_barrier.webp",
+  "facing": "S"
+ }
+}
