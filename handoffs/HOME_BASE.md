@@ -7,6 +7,9 @@ home-base-what-he-calls-them-11-27 (tools/bohemia_home_base_his_place_his_way_ca
   wood) need about 30 MB of it: bpy 5.3.0 installs here (Python 3.13), the room does not exist. Ask before rendering.
 - NEXT for HOME BASE: (1) materials when there is room; (2) the door's first paint warmed while the map travels there; (3) BUILD's desk
   laid both ways like the stations.
+- MEASURED (ask row 780, tools/bohemia_home_base_the_door_at_4x_11_27_26.js): at 4x his place's first 9 s draw 123 to 191 frames
+  (worst 450 to 783 ms); an ordinary town's 62 to 74 (7 to 10 a second): the weight is the town screen under every place, PLUMBER 8's.
+  Item (2) is worth doing only after that: his place is already the lighter door.
 
 HOME BASE 5 (session_01GKDyuuDj5gQ6p6ZVCsD7a2): 11/27 LATEST -- BUILD 11/27za - HIS PLACE, HIS WAY, BUILT, NOT YET SEEN (rule 347(c), the
 routine 'HOME BASE 4: customize his place'; rules 343(d), 480(c), 481(b), 441; ask row 356). Research record
