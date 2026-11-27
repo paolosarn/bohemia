@@ -394,10 +394,11 @@
     var list = abilityButtons(sk).map(function (b, i) {
       var lab = b.querySelector('b');
       return { i: i, title: b.title || '', ap: lab ? String(lab.textContent || '') : '', on: b.classList.contains('on'), off: !!b.disabled,
-        cv: b.querySelector('canvas'), kind: b.id === 'bstrike' ? 'strike' : b.id === 'breload' ? 'reload' : b.id === 'bback' ? 'back' : b.classList.contains('bag') ? 'bag' : b.dataset.sweep ? 'sweep' : 'skill' };
+        cv: b.querySelector('canvas'), kind: b.id === 'bstrike' ? 'strike' : b.id === 'breload' ? 'reload' : b.id === 'bback' ? 'back' : b.classList.contains('bag') ? 'bag' : b.dataset.sweep ? 'sweep' : b.dataset.skill === 'shoot_drone' ? 'drone' : 'skill',
+        cross: b.classList.contains('cross') };   /* drone, cross: __THE_DRONE_ON_THE_BIG_ROW__ (FIGHT SCREEN THREE 11/27) */
     });
     var who = document.getElementById('cnm');
-    return { key: (sk.dataset.key || '') + '|' + (sk.dataset.whose || '') + '|' + list.map(function (a) { return a.on + '' + a.off; }).join(''), list: list, whose: sk.dataset.whose || '',   /* whose: __NOTHING_TO_PRESS_ON_THEIR_TURN__ */
+    return { key: (sk.dataset.key || '') + '|' + (sk.dataset.whose || '') + '|' + list.map(function (a) { return a.on + '' + a.off + (a.cross ? 'c' : ''); }).join(''), list: list, whose: sk.dataset.whose || '',   /* whose: __NOTHING_TO_PRESS_ON_THEIR_TURN__ */
       name: who ? String(who.textContent || '').replace(/\s*\*$/, '') : '', face: document.getElementById('face') };
   };
   /* THE FIGHT'S COMMANDS (rule 238(a)): the big button (FIGHT at the line, then what the first tap picked: WALK, SHOOT, HIT,
@@ -884,7 +885,13 @@
       + '#bohphone .abig{flex:0 0 50px;display:flex;gap:3px;margin:3px 3px 0}#bohphone .abig.none{display:none}'
       + '#bohphone .abig .bg{flex:1 1 0;min-width:0;position:relative;padding:0;margin:0;border:0;cursor:pointer;color:#1f1710;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;' + kit('tin', 0.5) + '}'
       + '#bohphone .abig .bg.reload{' + kit('tin_amber', 0.5) + '}'
-      + '#bohphone .abig .bg.empty{' + kit('well', 0.5) + 'cursor:default}'   /* __NOTHING_TO_PRESS_ON_THEIR_TURN__ (11/27): their turn's big row, dark wells like the skills' */
+      + '#bohphone .abig .bg.empty{' + kit('well', 0.5) + 'cursor:default}'
+      /* __THE_DRONE_ON_THE_BIG_ROW__: the drone's big square, dark tin and a red rim; its cross on his man: the rim and the word red on the beat */
+      + '#bohphone .abig .bg.drone{' + kit('well', 0.5) + 'color:#f2e4c6!important;box-shadow:inset 0 0 0 1px #a8301f,inset 0 1px 0 rgba(255,236,200,.1)!important}'
+      + '#bohphone .abig .bg.drone b{color:#f2e4c6!important;text-shadow:0 1px 0 #000}'
+      + '#bohphone .abig .bg.drone.cross{box-shadow:inset 0 0 0 2px #a8301f!important}'
+      + '#bohphone[data-beat="3"] .abig .bg.drone.cross,#bohphone[data-beat="2"] .abig .bg.drone.cross{box-shadow:inset 0 0 0 2px #e0402e,inset 0 0 0 60px rgba(224,64,46,.4)!important}'
+      + '#bohphone[data-beat="3"] .abig .bg.drone.cross b,#bohphone[data-beat="2"] .abig .bg.drone.cross b{color:#fff!important}'   /* __NOTHING_TO_PRESS_ON_THEIR_TURN__ (11/27): their turn's big row, dark wells like the skills' */
       + '#bohphone .abig .bg canvas{width:26px;height:26px;pointer-events:none;filter:drop-shadow(0 1px 0 rgba(0,0,0,.55))}'
       + '#bohphone .abig .bg b{font-weight:400;font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:8px;line-height:9px;letter-spacing:1px;pointer-events:none}'
       + '#bohphone .abig .bg i{position:absolute;right:3px;top:2px;font-style:normal;font-size:6px;line-height:7px;padding:0 1px;color:#f6cf74;background:rgba(10,6,3,.8);pointer-events:none}'
@@ -1802,12 +1809,15 @@
        a man of THEIRS (their turn) is never his to press: no big STRIKE with their weapon on it, no 'No skills' note about their man, the
        wells stand empty and dark until his man is up */
     var theirs = A.whose === 'them'; H.el.querySelector('.fight').classList.toggle('theirs', theirs);
-    var mains = theirs ? [] : A.list.filter(function (a) { return a.kind === 'reload'; }).concat(A.list.filter(function (a) { return a.kind === 'strike'; }));
+    /* __THE_DRONE_ON_THE_BIG_ROW__ (FIGHT SCREEN THREE 11/27, rule 482; ARMORY THREE's drone, rule 490): SHOOT THE DRONE was a 24 point square among
+       the skills; a drone diving on his man is the fight's most urgent press: it stands first in the big row, named, its chance on it, red on the
+       beat while its lit cross is on HIS man */
+    var mains = theirs ? [] : A.list.filter(function (a) { return a.kind === 'drone'; }).slice(0, 1).concat(A.list.filter(function (a) { return a.kind === 'reload'; }), A.list.filter(function (a) { return a.kind === 'strike'; }));
     mains.forEach(function (a) {
-      var b = el('button', 'bg ' + a.kind + (a.on ? ' on' : '')); b.type = 'button'; b.disabled = a.off; b.title = a.title; b.setAttribute('aria-label', a.kind);
+      var b = el('button', 'bg ' + a.kind + (a.on ? ' on' : '') + (a.cross ? ' cross' : '')); b.type = 'button'; b.disabled = a.off; b.title = a.title; b.setAttribute('aria-label', a.kind);
       var c = document.createElement('canvas'); c.width = 52; c.height = 52;
       try { if (a.cv && a.cv.width) c.getContext('2d').drawImage(a.cv, 0, 0, 52, 52); } catch (e) {}
-      b.appendChild(c); var w = el('b'); w.textContent = a.kind === 'reload' ? 'RELOAD' : 'STRIKE'; b.appendChild(w);   /* draft:true */
+      b.appendChild(c); var w = el('b'); w.textContent = a.kind === 'reload' ? 'RELOAD' : a.kind === 'drone' ? 'DRONE' : 'STRIKE'; b.appendChild(w);   /* draft:true */
       if (a.ap) { var t = el('i'); t.textContent = a.ap; b.appendChild(t); }
       b.addEventListener('click', function () { F.press(a.i); setTimeout(function () { fightPaint(true); }, 80); });
       big.appendChild(b);
@@ -1818,7 +1828,7 @@
     big.classList.toggle('none', !mains.length && !theirs);
     window.__PHONE_BIG = mains.map(function (a) { return a.kind; }).join(',');
     A.list.forEach(function (a, i) { a.i = i; });
-    (theirs ? [] : A.list).filter(function (a) { return a.kind !== 'reload' && a.kind !== 'strike'; }).slice(0, 12).forEach(function (a) {
+    (theirs ? [] : A.list).filter(function (a) { return mains.indexOf(a) < 0; }).slice(0, 12).forEach(function (a) {
       var i = a.i;
       var b = el('button', 'sk' + (a.on ? ' on' : '')); b.type = 'button'; b.disabled = a.off; b.title = a.title; b.setAttribute('aria-label', a.title.toLowerCase());
       var c = document.createElement('canvas'); c.width = 52; c.height = 52;

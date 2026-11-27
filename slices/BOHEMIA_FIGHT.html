@@ -12221,6 +12221,7 @@ function hud() {
         b.className = 'sq drone'; b.appendChild(droneIcon(30));
         const t = document.createElement('b'); t.textContent = FIGHT.droneChance(u, d0) + '%'; b.appendChild(t);
         b.dataset.skill = 'shoot_drone'; b.title = 'SHOOT THE DRONE DOWN';
+        if (FIGHT.onCross && FIGHT.onCross(u, d0)) b.classList.add('cross');   /* __THE_DRONE_ON_THE_BIG_ROW__ (FIGHT SCREEN THREE 11/27): its cross is on HIS man: the phone's square pulses red */
         b.onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } const cu = FIGHT.current(); if (crewControlled(cu)) { UI.pend = null; FIGHT.shootDrone(cu, d0); take(); } };
         sk.appendChild(b);
       }

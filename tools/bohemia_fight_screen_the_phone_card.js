@@ -34,6 +34,8 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
     const rel = decodeURIComponent(u.slice(BASE.length).split('?')[0].split('#')[0]), f = path.join(ROOT, rel);
     if (OLD[rel]) return route.fulfill({ status: 200, body: OLD[rel], headers: { 'Content-Type': MIME[path.extname(rel)] } });
     if (process.env.LASTHIT_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("lo.style.display = lw > 0.4 ? '' : 'none';", "lo.style.display = 'none';"); if (cut === src) throw new Error('the last-hit plant did not take'); return route.fulfill({ status: 200, body: cut, headers: { 'Content-Type': 'text/javascript' } }); }
+    if (process.env.DRONE_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("A.list.filter(function (a) { return a.kind === 'drone'; }).slice(0, 1).concat(", "[].concat(");
+      if (cut === src) { log('DRONE_PLANT DID NOT TAKE'); process.exit(1); } return route.fulfill({ status: 200, contentType: 'application/javascript', body: cut }); }   /* __THE_DRONE_ON_THE_BIG_ROW__'s plant */
     if (process.env.HIT_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("if (seen && seen.name === M.name", "if (false && seen && seen.name === M.name");
       if (cut === src) { log('HIT_PLANT DID NOT TAKE'); process.exit(1); } return route.fulfill({ status: 200, contentType: 'application/javascript', body: cut }); }   /* __THE_HIT_LANDS_ON_THE_CARD__'s plant */
     if (process.env.THEIRS_PLANT && rel === 'slices/bohemia_phone.js') { const src = fs.readFileSync(f, 'utf8'), cut = src.replace("var theirs = A.whose === 'them';", "var theirs = false;");
@@ -234,6 +236,32 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
       await f.evaluate((g) => { const u = FIGHT.byId(g.id); u.armB = Math.max(0, u.armB - 5); hud(); }, hm); await wait(500); const arm = await rd();
       await f.evaluate((g) => { const u = FIGHT.byId(g.id); u.hp = g.hp; u.armB = g.armB; UI.pend = null; hud(); }, hm);
       T.hit = { n0: n0, on: on, off: off, arm: arm }; log('HIT', JSON.stringify(T.hit)); } }
+  /* __THE_DRONE_ON_THE_BIG_ROW__ (FIGHT SCREEN THREE 11/27): a drone of theirs in the air over his gunman (its operator one of theirs on the field),
+     his turn by hand, read in one task (the phone's fightPaint hook): the big row's first square is the drone (DRONE, its chance), red-rimmed and
+     marked 'cross' while its cross is on him; the drone gone, the square goes. DRONE_PLANT=1 keeps it among the small squares */
+  for (let tries = 0; tries < 20 && !T.drone; tries++) {
+    T.drone = await f.evaluate(() => { const S = FIGHT.S, TB = window.top.BohemiaPhone, D = window.top.document; if (S.over || !TB || !TB.fightPaint || !FIGHT.canShootDrone || UI.anim.length) return null;
+      const g = S.units.filter(v => v.side === 'you' && FIGHT.onField(v) && FIGHT.rounds(v) && FIGHT.rounds(v).left > 0)[0], op = S.units.filter(v => v.side === 'them' && FIGHT.onField(v))[0]; if (!g || !op) return null;
+      const cur = FIGHT.current, keep = S.drones, read = () => { const big = D.querySelector('#bohphone .fight .abig'), bs = big ? [...big.querySelectorAll('.bg')] : [], d = bs.find(b => b.classList.contains('drone'));
+        return { first: bs[0] ? bs[0].getAttribute('aria-label') : null, drone: !!d, word: d ? (d.querySelector('b') || {}).textContent : null, chance: d ? (d.querySelector('i') || {}).textContent : null, cross: !!d && d.classList.contains('cross'),
+          small: [...D.querySelectorAll('#bohphone .fight .ab .sk')].some(b => /drone/i.test(b.getAttribute('aria-label') || '') || /DRONE/.test(b.title || '')) }; };
+      const k = S.order.indexOf(g.id), idx0 = S.idx; if (k < 0) return null;
+      let out = null; S.idx = k;   /* one task: his gunman up (the engine's own turn), the drone in the air, the phone read, all put back; no frame runs between */
+      try { S.drones = [{ id: 'droneT', by: op.id, side: 'them', x: g.x, y: g.y, to: g.id, round: S.round, from: { x: op.x, y: op.y } }];
+        const can = FIGHT.canShootDrone(g, S.drones[0]); UI.pend = null; hud(); TB.fightPaint(true); out = { can: can, on: read(), man: g.name };
+        S.drones = []; hud(); TB.fightPaint(true); out.gone = read(); }
+      finally { S.drones = keep || []; S.idx = idx0; hud(); TB.fightPaint(true); }
+      return out; }).catch(e => ({ err: String(e).slice(0, 120) }));
+    if (!T.drone || T.drone.err) { T.drone = T.drone && T.drone.err ? T.drone : null; if (!T.drone) await wait(300); }
+  }
+  log('DRONE', JSON.stringify(T.drone));
+  if (process.env.DRONE_SHOTS) {   /* the picture: the same state held on his turn (by hand: no AI moves), two stills across a beat, then put back */
+    const hold = await f.evaluate(() => { const S = FIGHT.S, g = S.units.filter(v => v.side === 'you' && FIGHT.onField(v) && FIGHT.rounds(v) && FIGHT.rounds(v).left > 0)[0], op = S.units.filter(v => v.side === 'them' && FIGHT.onField(v))[0];
+      if (!g || !op) return null; const r = { idx: S.idx }; S.idx = S.order.indexOf(g.id); S.drones = [{ id: 'droneT', by: op.id, side: 'them', x: g.x, y: g.y, to: g.id, round: S.round, from: { x: op.x, y: op.y } }]; UI.pend = null; hud(); return r; }).catch(() => null);
+    if (hold) { await wait(500); const pb = await page.evaluate(() => { const r = document.getElementById('bohphone').getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height }; });
+      for (let k = 0; k < 4; k++) { await page.screenshot({ path: path.join(OUT, 'shots', 'drone_' + k + '.png'), clip: pb }).catch(() => {}); await wait(130); }
+      await page.screenshot({ path: path.join(OUT, 'shots', 'drone_board.png') }).catch(() => {});
+      await f.evaluate((h) => { FIGHT.S.drones = []; FIGHT.S.idx = h.idx; hud(); }, hold).catch(() => null); } }
   /* __NOTHING_TO_PRESS_ON_THEIR_TURN__ and __HIS_TURN_IS_SPENT_ON_THE_CARD__ (FIGHT SCREEN THREE 11/26, rule 482): the fight plays on by itself; on a
      real turn of theirs the phone's wells are read (no big STRIKE, no 'No skills' note, every well empty); on his next turn his AP is
      spent to none the way a turn ends, and the card's AP row is read (spent, red on the beat), the fight's own badge hidden under the phone */

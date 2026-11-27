@@ -42,13 +42,17 @@
          glass, is hidden (display none)
      P13 THE HIT LANDS ON THE CARD (FIGHT SCREEN THREE 11/27, rule 482): his man on the card loses five of his blood: the card's photo takes the
          blow once (the card's hit, its canvas playing fhHit) and is still again after; his armour alone taken: no slip
+     P14 THE DRONE ON THE BIG ROW (FIGHT SCREEN THREE 11/27; ARMORY THREE's drone, rule 490): a drone of theirs in the air over his gunman on his
+         turn: the phone's big row's first square is DRONE with its chance (it was a 24 point square among the skills), marked cross while its
+         cross is on him, never also among the small squares; the drone gone, the square goes
      planted: the two-line fit taken out (P2 red: the long name is cut)
      planted: the last hit's drawing taken out (P8 red)
      planted: the rounds' drawing taken out (P9 red)
      planted: the card painted whole on every change (NOCHOP_PLANT, the old way: P10 red)
      planted: their turn's row drawn as his (THEIRS_PLANT: P11 red)
      planted: the slip taken out (HIT_PLANT: P13 red)
-   Run: node gates/the_mans_card_on_the_phone_gate.js      (about eight minutes: seven boots of the demo) */
+     planted: the drone left among the small squares (DRONE_PLANT: P14 red)
+   Run: node gates/the_mans_card_on_the_phone_gate.js      (about nine minutes: eight boots of the demo) */
 'use strict';
 const fs = require('fs'), path = require('path'), os = require('os'), { spawn } = require('child_process');
 const ROOT = path.join(__dirname, '..');
@@ -103,6 +107,8 @@ const run = (way, env) => new Promise((res) => { const out = fs.mkdtempSync(path
   const thOk = (T) => { const W0 = T.turns && T.turns.theirs; return !!W0 && W0.theirs && W0.big === 0 && W0.bigEmpty === 2 && W0.bigShown && !W0.note && W0.live === 0; };   /* 11/27: the big row keeps its room, empty */
   const spOk = (T) => { const P0 = T.turns && T.turns.spent; return !!P0 && P0.spent && (P0.beat || []).indexOf('rgb(224, 64, 46)') >= 0 && (P0.beat || []).indexOf('rgb(74, 20, 14)') >= 0 && P0.badge === 'none'; };
   const hitOk = (T) => { const H0 = T.hit; return !!H0 && !!H0.on && H0.on.hit && H0.on.anim === 'fhHit' && H0.on.n === H0.n0 + 1 && !H0.off.hit && H0.arm.n === H0.on.n && !H0.arm.hit; };
+  const drOk = (T) => { const D0 = T.drone; return !!D0 && D0.can && D0.on && D0.on.first === 'drone' && D0.on.word === 'DRONE' && /^\d+%$/.test(D0.on.chance || '') && D0.on.cross && !D0.on.small && D0.gone && !D0.gone.drone; };
+  check(drOk(U) && drOk(S), 'P14', 'the drone on the big row: ' + W.map(w => w[0] + ' ' + JSON.stringify(w[1].drone || null)).join(' | '));
   check(hitOk(U) && hitOk(S), 'P13', 'the hit lands on the card: ' + W.map(w => w[0] + ' ' + JSON.stringify(w[1].hit || null)).join(' | '));
   check(thOk(U) && thOk(S), 'P11', 'nothing to press on their turn: ' + W.map(w => w[0] + ' ' + JSON.stringify((w[1].turns || {}).theirs || null)).join(' | '));
   check(spOk(U) && spOk(S), 'P12', 'his turn spent on the card: ' + W.map(w => w[0] + ' ' + JSON.stringify((w[1].turns || {}).spent || null)).join(' | '));
@@ -114,6 +120,8 @@ const run = (way, env) => new Promise((res) => { const out = fs.mkdtempSync(path
   check(!!PL && !!PL.lastHit && !lhOk(PL), 'planted', 'the last hit\'s drawing taken out: P8 reads ' + (PL && PL.lastHit ? 'health ' + PL.lastHit.hp.lost + ' of ' + PL.lastHit.want.hp : 'nothing') + ' (red)');
   const PR = await run('upright', { ROUNDS_PLANT: '1' });
   check(!!PR && !!PR.rounds && !rdOk(PR), 'planted', 'the rounds\' drawing taken out: P9 reads ' + (PR && PR.rounds && PR.rounds.full ? (PR.rounds.full.shown ? PR.rounds.full.lit + ' lit' : 'no cartridges') : 'nothing') + ' (red)');
+  const PD = await run('upright', { DRONE_PLANT: '1' });
+  check(!!PD && !drOk(PD), 'planted', 'the drone left among the small squares: P14 reads ' + JSON.stringify(PD ? PD.drone : null) + ' (red)');
   const PH = await run('upright', { HIT_PLANT: '1' });
   check(!!PH && !hitOk(PH), 'planted', 'the slip taken out: P13 reads ' + JSON.stringify(PH ? PH.hit : null) + ' (red)');
   const PT = await run('upright', { THEIRS_PLANT: '1' });
