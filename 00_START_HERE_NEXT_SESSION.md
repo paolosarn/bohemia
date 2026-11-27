@@ -1655,11 +1655,13 @@ ahead. Gate THE FIGHT AS HE HEARS IT (with a planted fail). The whole block: han
 [bb Battle Brothers never changes its battle track on a turn; ours changes on every turn on the beat, so the beat must never slip.]
 [analog horror: his turn is the tape running hot; their turn the same tape with only the heartbeat and the ticking clock left on it.]
 
-SOUNDS THREE (sounds-three-01gkdyus): 11/27 LATEST -- BUILD 11/27i - TWELVE MORE SONGS, EVERY ONE IN TURN, BUILT, NOT YET SEEN (rule 488,
-ask row 756): measured first, an hour on the road played 11.5 different songs of 13 and repeated one 12 minutes in. Twelve new songs made
+SOUNDS THREE (sounds-three-01gkdyus): 11/27 LATEST -- BUILD 11/27w EVERY ORIGIN ITS OWN SONG, BUILT, NOT YET SEEN: THE PROMISE KEEPERS
+and THE HUNTERS no longer share another origin's song (his THE ORGAN IN THE DROWNED CHAPEL and SLOW CREEP, played at once on the tape,
+before any recording may load); fifteen origins, fifteen songs; VOTE card. The next song batch waits on room: the site is 899 of 900 MB.
+BEFORE IT, BUILD 11/27i TWELVE MORE SONGS, EVERY ONE IN TURN (rule 488, ask row 756): measured first, an hour on the road played 11.5 different songs of 13 and repeated one 12 minutes in. Twelve new songs made
 exactly the way the four of 10/25 were (their own tool, form, tape, three levels, gap, hit, 120 beat), 25 in the alpha's and the demo's
 book; the rotation plays every song once before any twice, never twice in a row, the least played next (an hour never repeats). Twelve
-VOTE cards. Every origin and faction has its song (two origins share one: NEXT). Gates MORE SONGS, THE SAME WAY and EVERY SONG IN TURN.
+VOTE cards. Gates MORE SONGS, THE SAME WAY and EVERY SONG IN TURN.
 The whole block: handoffs/SOUNDS_THREE.md.
 [bb Battle Brothers cycles a dozen or so map tracks; ours cycles 25 on the road, every one before a repeat.]
 [analog horror: one worn tape over every song; the drums are a dead city's own recordings, a crow on the rail, a horn at the drive-in.]

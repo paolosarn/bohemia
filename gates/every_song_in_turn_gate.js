@@ -103,9 +103,11 @@ async function open(b, f) {
       try { const c = CITYMUS.pick(); return !!c && c.fi === one.fi; } finally { CITYMUS.candidates = real; } });
     leg(E7, 'E7 ' + f + ': a one-song pool still plays (the street never goes silent)');
     const E8 = await p.evaluate(() => {
-      const cs = SONGFENCE.pool(), s0 = SONGTURN.started; const pl = MUS.playing;
-      MUS.playing = false; MUS.cur = cs[1].fi; SONGTURN.tick(); const off = SONGTURN.started - s0;
-      MUS.playing = true; SONGTURN.tick(); SONGTURN.tick(); const on = SONGTURN.started - s0 - off; MUS.cur = cs[2].fi; SONGTURN.tick(); const on2 = SONGTURN.started - s0 - off;
+      /* two songs that are not the one counted last (the leg before may have left either of them counted: a flake, 11/27) */
+      const last = SONGTURN.order[SONGTURN.order.length - 1], all = SONGFENCE.pool(), cs = all.filter(c => MUS.lib()[c.fi].n !== last && c.fi !== MUS.cur);
+      const s0 = SONGTURN.started; const pl = MUS.playing;
+      MUS.playing = false; MUS.cur = cs[0].fi; SONGTURN.tick(); const off = SONGTURN.started - s0;
+      MUS.playing = true; SONGTURN.tick(); SONGTURN.tick(); const on = SONGTURN.started - s0 - off; MUS.cur = cs[1].fi; SONGTURN.tick(); const on2 = SONGTURN.started - s0 - off;
       MUS.playing = pl; return { off, on, on2 };
     });
     leg(E8.off === 0 && E8.on === 1 && E8.on2 === 2, 'E8 ' + f + ': a choice that never sounded is not a play; one count per song started', JSON.stringify(E8));

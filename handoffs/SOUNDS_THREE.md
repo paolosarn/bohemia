@@ -1,6 +1,18 @@
 # SOUNDS THREE -- the handoff block (written only by SOUNDS THREE; chat 08c, opened 11/27 by the coordinator for rule 488, ask row 756)
 
-SOUNDS THREE (sounds-three-01gkdyus): 11/27 LATEST -- BUILD 11/27i - MORE SONGS, EVERY ONE IN TURN, BUILT, NOT YET SEEN
+SOUNDS THREE (sounds-three-01gkdyus): 11/27 LATEST -- BUILD 11/27w EVERY ORIGIN ITS OWN SONG, BUILT, NOT YET SEEN (the routine's
+'keep cooking', rule 488(b) on 237(b)). Before it: BUILD 11/27i TWELVE MORE SONGS, EVERY ONE IN TURN (below).
+
+ROUND TWO, WHAT HE HEARS (TAB: VOTE, the card EVERY ORIGIN ITS OWN SONG; and a new game as THE PROMISE KEEPERS or THE HUNTERS):
+those two origins no longer borrow another's song: THE PROMISE KEEPERS open on THE ORGAN IN THE DROWNED CHAPEL, THE HUNTERS on
+SLOW CREEP, his own songs, from the tape's first beat (his engine plays them at once; the tape ends 3 s before any recording may
+load). Fifteen origins, fifteen songs. engine/bohemia_part_of_town.js ORIGIN_SONG 'SONG:<name>'; the part-of-town patch now
+replaces the demo's block too; THE MAP PLAYS THE PART OF TOWN 17/0 (every origin its own, no two the same).
+THE NEXT BATCH WAITS ON ROOM: the published site is 899 of 900 MB; a song is about 2 MB. The cap and the publish list are PLUMBER
+8's (10.1 MB of the songs' A FIGHT previews ship though only cards play them, 13 of those cards already voted). Not squeezed in.
+
+ROUND ONE (BUILD 11/27i):
+TWELVE MORE SONGS, EVERY ONE IN TURN, BUILT, NOT YET SEEN
 (rule 488, ask row 756). Record: records/BOHEMIA_SOUNDS_THREE_MORE_SONGS_THE_SAME_WAY_11_27_26.md.
 
 WHAT HE HEARS (TAB: VOTE, twelve cards 'A NEW SONG: ...', each plays 1, 2, 3 and A FIGHT; and the DEMO and the alpha on the
@@ -30,10 +42,10 @@ SAID OUT LOUD:
   THE SONGS GO IN loads it then, so on the road it is in; after a fight the queued song's bytes are held and it decodes on the
   first bar (the phone's time to decode not measured this round).
 
-NEXT (this lane, in order): (1) the two shared origins their own songs: the tape plays before first play, when no song
-recording may load (FIRST PLAY IS LIGHT, P4), so it needs a live-engine song or a tape that starts after first play: ask
-PLUMBER 8 / RUN which; (2) rule 237(e): the thirteen faction songs remade at three levels the same way; (3) EYES hears the
-twelve on his phone (179).
+NEXT (this lane, in order): (1) the next batch (rule 237(e): the thirteen faction songs remade at three levels the same way,
+then more road songs) once PLUMBER 8 makes room under the 900 MB cap; (2) re-aim THE SONGS GO IN's 'THE BEAT ON THE GRID'
+to read the kit, not a slow lead's swell (it reads the same file 0 ms at 44.1 kHz and 75 ms at 24 kHz); (3) EYES hears the
+twelve and the two origins on his phone (179).
 PENDING Paolo: nothing.
 [bb Battle Brothers ships a dozen or so exploration tracks and cycles them; ours now cycles 25 on the road, every one before a repeat.]
 [analog horror: every song goes through the same worn tape; the drums are real recordings of a dead city (a crow on the rail,

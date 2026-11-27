@@ -95,3 +95,26 @@ FIGHT. Each asks: A, keep it in the game; B, take it out. They are in the game a
   next song a phrase early, so on the road it is in; straight after a fight the queued song is held as bytes and decodes in
   under a second on the computer (the phone not measured this round).
 - The two shared origin songs and the faction songs at three levels (rule 237(e)) are the next jobs, not this round's.
+
+## ROUND TWO (the routine 'keep cooking', BUILD 11/27w): EVERY ORIGIN ITS OWN SONG, THE PART OF TOWN, THE NEXT BATCH
+- MEASURED: 15 origins on 13 faction songs; THE FAITHFUL and THE PROMISE KEEPERS shared the CHURCH's, THE DESERTERS and THE
+  HUNTERS the REMNANTS'. The tape (the squad up close) asks for the origin's song at 15.0 s and ends at 20.3 s; the first play
+  lands at 23.7 s (the demo, the phone profile). So the whole tape plays before any song recording may load (FIRST PLAY IS
+  LIGHT, P4), and a recorded song there would be silent.
+- BUILT: an origin may name one of HIS OWN road songs ('SONG:<name>' in ORIGIN_SONG), which his engine plays at once: THE
+  PROMISE KEEPERS ('a promise you made at a grave') THE ORGAN IN THE DROWNED CHAPEL, THE HUNTERS ('you track what came out of
+  the lab; it tracks you back') SLOW CREEP. Fifteen origins, fifteen different songs; THE FAITHFUL keeps the CHURCH's and
+  THE WATER TRUCK the CARAVANS' (his words). At home after the first play the song plays from its recording.
+  MEASURED on the demo before the first play: each sounds at once from his engine (25 engine steps in 3 s, -24 to -38 dB on
+  the music bus), 0 song files fetched.
+- THE PART OF TOWN (rule 237(c)) was built 10/26 and stands: THE MAP PLAYS THE PART OF TOWN 17/0 (three districts their
+  songs on the beat, the road an overworld song, now five origins' tapes their own songs). The faction songs: none missing
+  (13 of 13); their remake at three levels (237(e)) is a batch like the twelve.
+- THE NEXT BATCH WAITS ON ROOM: the published site is 899 of its 900 MB cap (PAGES PUBLISH). A song made this way is about
+  2 MB; twelve more is 23 MB. Moving SOUNDS' reference recordings (his_night_songs, 6.2 MB) would free nothing: the publish
+  list never carried them (it ships only what pages, code and cards name), tried and undone. What SOUNDS ships: the 25 songs'
+  levels and hits, and 10.1 MB of A FIGHT previews that only the cards play (13 of those cards are already voted, so their
+  previews can never be opened, but every card page names 'a_fight', so the list cannot tell them apart). The cap and the
+  list are PLUMBER 8's: routed with these numbers.
+- THE CARD: sounds3-every-origin-its-own-song-11-27 (TAB: VOTE), the three-levels page with its song picker on the two
+  songs; THE VOTE CARDS PLAY with CARD set to it, the phone through the alpha's VOTE tab: 8/0.

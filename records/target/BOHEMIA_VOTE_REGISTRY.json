@@ -24265,6 +24265,26 @@
     "firstAt": [0, 0, 1182, 560]
    }, "before_after": {"before": "every new crew's choice and BEGIN, which continued his saved game", "after": "the title: NEW GAME (asked once) or CONTINUE", "scale": "the alpha on a 390 x 844 phone, after a reload"}, "record": "records/BOHEMIA_UI_FIVE_THE_ALPHA_SAYS_CONTINUE_11_26_26.md"},
   {
+   "id": "sounds3-every-origin-its-own-song-11-27",
+   "kind": "song",
+   "lane": "sounds",
+   "sha": "cb3e12522",
+   "made": "11/27",
+   "title": "EVERY ORIGIN ITS OWN SONG: THE PROMISE KEEPERS AND THE HUNTERS",
+   "why": "Two origins shared another's song, so now THE PROMISE KEEPERS open on THE ORGAN IN THE DROWNED CHAPEL and THE HUNTERS on SLOW CREEP, his own songs that play the moment the tape starts. Pick each in the song list and tap 1, 2, 3 and A FIGHT, and you hear it here in the VOTE tab.",
+   "options": [
+    "A, keep them",
+    "B, give them other songs"
+   ],
+   "show": {
+    "how": "page",
+    "src": "BOHEMIA_EVERY_ORIGIN_ITS_OWN_SONG_11_27_26.html"
+   },
+   "draft": true,
+   "record": "records/BOHEMIA_SOUNDS_THREE_MORE_SONGS_THE_SAME_WAY_11_27_26.md",
+   "build": "BUILD 11/27w - EVERY ORIGIN ITS OWN SONG"
+  },
+  {
    "id": "sounds-more-song-the-ice-cream-truck-still-plays-its-song-11-27",
    "kind": "song",
    "lane": "sounds",
