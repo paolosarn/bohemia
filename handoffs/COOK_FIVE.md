@@ -1,5 +1,24 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
+COOK FIVE (cook-seven-01gkdyuu): 11/27 LATEST -- COOK SEVEN, carrying COOK FIVE's list after COOK SIX -- BUILD 11/27zm - THE BANK, BUILT (a92740730), NOT YET SEEN (rules 480(b), 480(c), 482; rules 461, 441, 416, 451(a); ask row 723).
+THE BANK (COMBAT FOUR's, its 'FOR COOK (SIX)'; the fourth of the 27 stand-in insides): all 161 pieces of the_banking_hall and 241 of the_vault_floor were stand-ins. Now
+slices/fight_ground/bank/ holds bank_art.json (floor.floor and floor.ring the bank's 1.2 m marble in both rooms, its own ground bk_slab, laid darker: 153 against the mall's 160;
+all 17 names), 17 pieces (the teller glass, the deposit boxes and the cash cage a tile long; the round vault door turned to the camera, its time lock; the counting tables with
+the straps of dead money) and its coffered ceiling (gilt beads, rosettes, a dead chandelier in every bay): 602,630 bytes. bank.json: only its ceiling entry's two words.
+Made by tools/bohemia_cook7_the_bank_finished_11_27_26.py ON the police station tool. Ten pieces were 2.9 to 8.3% of a tile, now 7.4 to 15.1%.
+480(c) MEASURED (the frame tool, 390 x 844, CPU slowed four times, the same tree with the three art files moved aside): the truck stop's, the police station's and the bank's
+art costs no frames against their stand-ins (PAN 3.0 / 2.6 fps, AUTO 28.6 / 24.7 on the truck stop); every walk opened AT NIGHT, and the night board is the slideshow (OPEN ~8 fps,
+PAN ~3 fps): the fight page's night path, COOK SIX's finding of 11/26, handed again to PLUMBER 8 and COMBAT FIVE with the numbers (the record's table).
+PROOF on the page both ways: the_banking_hall 161, the_vault_floor 241, 0 stand-ins, the ceiling's picture drawn, 0 page errors. Gate THE INSIDES WEAR FINISHED ART 140/0.
+VOTE cook7-the-bank-11-27. Record: records/BOHEMIA_COOK_SEVEN_THE_BANK_11_27_26.md.
+*** NEXT ON THIS LANE (480(b)), the same way (a tool ON the bank's, about an hour a kit: write, render on bpy 4.2 in /tmp/v, cut, measure every piece's share of a tile and fill
+the small ones to 9% or near it, the gate, the page both ways, the sheet, the card): THE LIBRARY, THE FIRE STATION, THE NEON BONEYARD, then aquarium, arsenal, ballpark, battery
+farm, campus, city hall, fuel depot, granary, hangar, jobs office, justice center, mini grand prix, the museum, radio, rail shops, the animal shelter, speedway, storage, TV station,
+water plant (names in handoffs/COMBAT_THREE.md, 'FOR COOK (SIX)'); then ARMORY 3's new guns at fight size (its record's OWED; COOK's every-weapon tool is the pipeline).
+REMEMBER: a joint drawn in a plan never reaches the render (the ground's mesh takes every second pixel): give a tiled floor its own ground with the shader's joints.
+[bb Battle Brothers' palisade you see through: the teller glass and the cash cage; its boulder: the vault door nobody stands on]
+[analog horror: the straps of hundreds left on the counting tables in bricks, nobody taking them; the vault's time lock still on the back of its open door]
+
 COOK FIVE (cook-seven-01gkdyuu): 11/27 LATEST -- COOK SEVEN, carrying COOK FIVE's list after COOK SIX -- BUILD 11/27zk - THE POLICE STATION, BUILT (635b09f6f), NOT YET SEEN (rules 480(b), 482; rules 461, 441, 416, 451(a); ask row 723).
 THE POLICE STATION (COMBAT FOUR's BUILD 11/22e, its 'FOR COOK (SIX)'; the third of the 27 stand-in insides): all 198 pieces of the_squad_room and 175 of the_sally_port were
 stand-ins. Now slices/fight_ground/police/ holds police_art.json (floor.floor and floor.ring the squad room's 30 cm vinyl, its own ground pd_vct, rows 0-2; floor.port the
