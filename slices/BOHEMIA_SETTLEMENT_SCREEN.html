@@ -2291,8 +2291,9 @@ function homeWorkers(out){
    pictures), doing his trade in ANIMATION's acts where his body has them: the cook cooks, the blacksmith hammers at the forge when it
    is built (else at his cart), the one who heals kneels by the man of his who is hurt worst (BohemiaCondition's hitpoints off) and stands
    by his cart when nobody is. A tap on one says his line. ==== */
-var STAFF_HOME_WORK = { cook: 'cook', surgeon: 'tend', alchemist: 'tend', blacksmith: 'repair', scout: 'loot', scavenger: 'loot', lookout: 'smoke', paymaster: 'stall', trader: 'stall',
-  bounty_hunter: 'clean', cartographer: 'sit', drill_sergeant: 'talk', negotiator: 'talk', agent: 'talk', minstrel: 'flirt', recruiter: 'flirt', quartermaster: 'unpack' };   /* STAFF 2 11/27: each at his trade (the camp's FOLLOWER_WORK in ANIMATION's act names) */
+/* each at his trade: the camp book's (BohemiaCamp.workOf, records/target/bb/retinue.json 'work', ANIMATION's act names; STAFF 3 11/27, rule
+   495(b): this was a second copy of the camp's table) */
+function staffWork(id){ try{ return (window.BohemiaCamp && BohemiaCamp.workOf) ? BohemiaCamp.workOf(id) : null; }catch(e){ return null; } }
 function homeStaff(out){
   window.__HOME_STAFF = []; if(!homeFeedWant() || !VAR || !VAR.boxes.build || !window.BohemiaCamp || !BohemiaCamp.staff) return;
   var st = []; try{ st = BohemiaCamp.staff() || []; }catch(e){} if(!st.length) return;
@@ -2300,9 +2301,9 @@ function homeStaff(out){
   var BC = window.BohemiaCondition || (function(){ try{ return window.parent.BohemiaCondition; }catch(e){ return null; } })();
   var lost = function(m){ var c = null; try{ c = BC && BC.condFor ? BC.condFor(m.name) : null; }catch(e){} return c ? (c.lostHp | 0) : 0; };   /* his hitpoints off (BohemiaCondition's own count) */
   var hurt = out.filter(function(m){ return m.crewMan && !m.main && lost(m) > 0; }).sort(function(a, b){ return lost(b) - lost(a); });
-  var row = st.filter(function(p){ return !(p.id === 'blacksmith' && forge) && !(STAFF_HOME_WORK[p.id] === 'tend' && hurt.length); });
+  var row = st.filter(function(p){ return !(p.id === 'blacksmith' && forge) && !(staffWork(p.id) === 'tend' && hurt.length); });
   st.forEach(function(p, i){
-    var act = STAFF_HOME_WORK[p.id] || null, g = null, face = 'S', by = null;
+    var act = staffWork(p.id), g = null, face = 'S', by = null;
     var atForge = p.id === 'blacksmith' && !!forge;
     if(atForge){ var b = homeKitBox(forge.lot, forge.piece); if(b){ g = { x: (b[0] + b[2]) / 2 + h * .36, y: Math.min(picH() - 4, b[3] + h * 1.04) }; face = campDir((b[0] + b[2]) / 2 - g.x, ((b[1] + b[3]) / 2 - g.y) * .3); } }
     if(act === 'tend'){ var m = hurt.shift(); if(m){ g = { x: m.x + h * .24, y: m.y + h * .05 }; face = campDir(m.x - g.x, (m.y - g.y) * .3); by = m.name; } else act = null; }

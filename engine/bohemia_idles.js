@@ -203,18 +203,25 @@
      his bare idles. Walking the street is the walk he has (slices/rig_walk, 'walk_plain'), its stops 'stall' or his idles. */
   var TBASE = root.BOHEMIA_TOWN_BASE || BASE.replace(/rig_idles\/?$/, 'rig_town/');
   var TOWN = null, tstate = 0, TDATA = {}, TP = {};
+  /* THE CAMP'S TRADES' OWN CELLS (STAFF 3 11/27, VAMILY rule 495(b)): rig_staff.json beside the town's index, the same shape, read here
+     with it: a camp person's body that carries only his trade's act (records/target/bb/retinue.json 'work'). Its looks are found by
+     townLook only, never put in TOWN.looks, so the town's index keeps its rule (every man there has every act) and the town never deals
+     these bodies. Was: slices/bohemia_camp_look.js pasted the index and laid it into TOWN.looks on a 500 ms timer. */
+  var STAFFIX = null;
   function townLoad() {
     if (tstate) return tstate === 2;
     tstate = 1;
     try {
       fetch(TBASE + 'rig_town.json').then(function (r) { return r.ok ? r.json() : null; })
         .then(function (m) { TOWN = m; tstate = (m && m.looks) ? 2 : 3; }, function () { tstate = 3; });
+      fetch(TBASE + 'rig_staff.json').then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (m) { STAFFIX = (m && m.looks) ? m.looks : {}; }, function () { STAFFIX = {}; });
     } catch (e) { tstate = 3; }
     return false;
   }
   function townLook(look) {
     if (!townLoad()) return null;
-    var L = TOWN.looks[look]; if (!L) return null;
+    var L = TOWN.looks[look] || (STAFFIX && STAFFIX[look]); if (!L) return null;
     var e = TDATA[look];
     if (!e) {
       e = TDATA[look] = { d: null };
@@ -307,7 +314,7 @@
   /* ==== end __THE_TOWNS_ACTIVITIES__ ==== */
   root.BohemiaIdles = { load: load, ready: ready, has: has, at: at, cell: cell, gun: gun, frame: frame, hash: hash, DIRS: DIRS,
     image: sheet, map: map, mapPeople: mapPeople, activities: activities, townAt: townAt, activity: activity,
-    town: function () { townLoad(); return TOWN; },
+    town: function () { townLoad(); return TOWN; }, staffLooks: function () { townLoad(); return STAFFIX; },
     meta: function () { return META; },
     /* __THE_TOWN_LETS_GO__ (RUN 10/24, rule 141(e)): a screen that is put away lets go of every sheet it drew from (the town's
        idles were 188 MB decoded across three places and none was ever let go); the next frame() fetches what it needs again */

@@ -431,7 +431,7 @@
       if (CC && CC.row) K.st.layout.pieces.forEach(function (p, i) {
         if (p.kind !== 'follower') return; var r = CC.row(p.follower); if (!r || !r.look) return;
         var side = p.x >= FR.x ? 1 : -1, x = Math.round(p.x + side * 52), y = Math.round(p.y + 8);
-        var f = faceTo(x, y, FR.x, FR.y), act = FOLLOWER_WORK[p.follower] || 'watch';
+        var f = faceTo(x, y, FR.x, FR.y), act = campActOf(CC.workOf ? CC.workOf(p.follower) : null) || 'watch';
         /* STAFF 2 (rule 482): the one who heals kneels by the worst hurt man lying in the camp, at his middle, facing him */
         if (act === 'tend') { var hurt = out.filter(function (e) { return e.campMan && !e.main && !tended[e.slot] && (e.act === 'lie' || e.act === 'rest'); })
             .sort(function (a, b) { return ((a.act === 'lie' ? 0 : 1) - (b.act === 'lie' ? 0 : 1)) || ((a.blood || 0) - (b.blood || 0)); })[0];
@@ -467,25 +467,13 @@
   /* STAFF 2 (VAMILY rule 482, the coordinator 11/27: 'their work at camp and at his place shows (the cook cooking, the medic healing)'):
      a camp person by the fire does his trade in ANIMATION's own camp acts (BohemiaIdles.activity): the cook cooks at her pot, the
      surgeon and the alchemist tend (kneeling by the worst hurt man lying in the camp when there is one: FOLLOWER_TEND, his middle),
-     the blacksmith mends (the hammer on the car door, its spark on the beat); the rest watch. A body ANIMATION has not rendered an act
-     for stands as before (the act's fallback, then his idle, then his still). */
-  var FOLLOWER_WORK = { cook: 'cook', surgeon: 'tend', alchemist: 'tend', blacksmith: 'mend',
-    /* STAFF 2 11/27 (rule 482, the coordinator: 'the 14 of 18 camp people who still have no animation, each doing his own job'): the
-       scout and the scavenger go through what they found, the lookout smokes on his watch, the paymaster and the trader go over the
-       stock, the bounty hunter cleans his gun, the cartographer sits over his maps, the drill sergeant, the negotiator and the agent
-       talk, the minstrel and the recruiter work a crowd (the flirt), the quartermaster unpacks; the brigand stands (his body's render
-       does not match his still, so ANIMATION's pack keeps nothing of it: he watches until it does) */
-    scout: 'loot', scavenger: 'loot', lookout: 'smoke', paymaster: 'stall', trader: 'stall', bounty_hunter: 'clean', cartographer: 'sit',
-    drill_sergeant: 'talk', negotiator: 'talk', agent: 'talk', minstrel: 'flirt', recruiter: 'flirt', quartermaster: 'unpack' };
-  /* the camp's trades' own cells: a camp person's body that is not one of the town's crew carries only his trade's act (the surgeon's
-     body tends, the blacksmith's repairs: ANIMATION's tool, rendered and packed as its crew are), kept out of the town's index (there
-     every man has all twenty acts, the town deals any of them: THE TOWN'S ACTIVITIES) and laid into BohemiaIdles' looks once its index
-     is in, here, in the frame that draws the camp and his place's footage */
-  var STAFF_ACTS = { person_town_44: { json: 'person_town_44.json', acts: ['tend'] }, person_town_23: { json: 'person_town_23.json', acts: ['repair'] },
-    person_town_42: { json: 'person_town_42.json', acts: ['loot'] }, person_town_29: { json: 'person_town_29.json', acts: ['smoke'] }, person_town_36: { json: 'person_town_36.json', acts: ['stall'] }, person_town_19: { json: 'person_town_19.json', acts: ['tend'] }, person_town_26: { json: 'person_town_26.json', acts: ['clean'] }, person_town_28: { json: 'person_town_28.json', acts: ['sit'] }, person_town_14: { json: 'person_town_14.json', acts: ['talk'] }, person_town_17: { json: 'person_town_17.json', acts: ['flirt'] }, person_town_39: { json: 'person_town_39.json', acts: ['talk'] }, person_town_9: { json: 'person_town_9.json', acts: ['unpack'] }, person_town_18: { json: 'person_town_18.json', acts: ['stall'] } };
-  function staffActs() { var I = root.BohemiaIdles, T = I && I.town ? I.town() : null; if (!T || !T.looks) return false;
-    for (var k in STAFF_ACTS) if (!T.looks[k]) T.looks[k] = STAFF_ACTS[k]; return true; }
-  (function waitIdles(n) { if (staffActs() || n > 120) return; setTimeout(function () { waitIdles(n + 1); }, 500); })(0);
+     the blacksmith mends (the hammer on the car door, its spark on the beat), and every other trade its own; a body ANIMATION has not
+     rendered the act for stands as before (the act's fallback, then his idle, then his still). STAFF 3 11/27 (rule 495(b), one thing
+     one place): his trade is the camp book's (BohemiaCamp.workOf, the 'work' of records/target/bb/retinue.json, in ANIMATION's act
+     names), read here in the camp's own words for an act (campActOf, ANIM_ACT read backwards: ANIMATION's 'repair' is the camp's
+     'mend'); the trade bodies' cells are BohemiaIdles' own second index (slices/rig_town/rig_staff.json). Was: a table here, a second
+     one on the settlement screen, and this index pasted here and laid into the town's on a timer. */
+  function campActOf(a) { if (!a) return null; if (ANIM_ACT[a] === a) return a; for (var k in ANIM_ACT) if (ANIM_ACT[k] === a) return k; return null; }
   var FOLLOWER_TEND = { dx: -40, dy: 26 };
   var TURNS = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'];
 

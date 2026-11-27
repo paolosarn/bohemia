@@ -28,6 +28,8 @@
      C14 THE CAMP RUNS SCARED (STAFF 2 11/26, rule 482): a camp person's walk away from theirs: quick feet, a quicker walk, a lean
      C15 THE CAMP IS MOURNED (STAFF 2 11/26, rule 482): the end screen's row for a camp person lost (the phone proof's M2 reads it)
      C16 THE CAMP AT ITS WORK (STAFF 2 11/27, rule 482): by the fire the cook cooks, the surgeon tends the worst hurt, the blacksmith mends
+         (STAFF 3 11/27, rule 495(b): ONE PLACE, the trade is retinue.json's 'work' through BohemiaCamp.workOf, the cells' index
+         slices/rig_town/rig_staff.json read by BohemiaIdles, no page keeps a copy; C14's numbers are ai.json fear_run through R())
      C17 THE CAMP AT HIS PLACE (STAFF 2 11/27, rule 482): on his place's footage at their trade with their carts (phone proofs:
          tools/bohemia_staff_at_work_on_the_phone.js, tools/bohemia_staff_at_his_place_on_the_phone.js)
      C12 THE FIGHT STILL PLAYS: AUTO fights with carts against the same fights with none: printed, the camp's deaths and his wins
@@ -230,10 +232,12 @@ const nearest = (S, u) => S.units.filter(f => f.side !== u.side && F.onField(f) 
    upright and rattling; only the camp, only away from a man of theirs near him */
 {
   const fh = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_FIGHT.html'), 'utf8');
-  const m = fh.match(/const FEAR_RUN = \{ near: (\d+), dur: ([\d.]+), keys: (\d+), lean: ([\d.]+) \};/), N = m ? { near: +m[1], dur: +m[2], keys: +m[3], lean: +m[4] } : null;
-  const okN = !!N && N.keys === 12 && N.dur > 0.5 && N.dur < 1 && N.lean > 0 && N.lean <= 0.15 && N.near >= 2 && N.near <= 6;
+  /* STAFF 3 11/27 (rule 495(b)): its numbers are records/target/bb/ai.json fear_run, read by the fight through R(), and no copy of them in the page */
+  const AIJ = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/ai.json'), 'utf8')), FR = AIJ.fear_run && AIJ.fear_run.value, N = FR && typeof FR.near === 'number' ? { near: FR.near, dur: FR.dur, keys: FR.keys, lean: FR.lean } : null;
+  const okR = /function fearRun\(\) \{ return R\('ai\.fear_run'\); \}/.test(fh) && !/FEAR_RUN\s*=/.test(fh) && !!(AIJ.fear_run && AIJ.fear_run.source);
+  const okN = okR && !!N && N.keys === 12 && N.dur > 0.5 && N.dur < 1 && N.lean > 0 && N.lean <= 0.15 && N.near >= 2 && N.near <= 6;
   const okT = /fear: !!\(u && u\.staff && scaredStep\(u, e\)\)/.test(fh) && /return Math\.max\(Math\.abs\(best\.x - e\.x\), Math\.abs\(best\.y - e\.y\)\) > bd;/.test(fh);
-  const okP = /beatMs\(\) \/ \(w\.fear \? FEAR_RUN\.keys : 6\)\)\) % 6, L\), clip: 'walk', fear: !!w\.fear/.test(fh);
+  const okP = /beatMs\(\) \/ \(w\.fear \? fearRun\(\)\.keys : 6\)\)\) % 6, L\), clip: 'walk', fear: !!w\.fear/.test(fh);
   const b = fh.indexOf("const lean = fearLean(p);"), r = fh.indexOf("if (lean) cx.setTransform(1, 0, 0, 1, 0, 0);"), fr = fh.indexOf("cartLayer(v, 'front', ox, oy, s, now);"), bk = fh.indexOf("cartLayer(v, 'back', ox, oy, s, now);");
   const okL = bk > 0 && b > bk && r > b && fr > r && /rattle = w \? \(w\.fear \? 2 : 1\)/.test(fh);
   /* in real fights: the same AUTO fights as C12's, every camp person's walk read off the fight's own event stream by the board's rule
@@ -247,8 +251,8 @@ const nearest = (S, u) => S.units.filter(f => f.side !== u.side && F.onField(f) 
         if (best && N && bd <= N.near && Math.max(Math.abs(best.x - e.x), Math.abs(best.y - e.y)) > bd) scared++; });
       lastId = null; } }
   ok('C14 THE CAMP RUNS SCARED, IN REAL FIGHTS: ' + NF + ' AUTO fights, ' + walks + ' camp walks, ' + scared + ' of them scared runs (' + (walks ? (100 * scared / walks).toFixed(0) : 0) + '%)', scared > 0, 'printed');
-  ok('C14 THE CAMP RUNS SCARED: ' + (N ? 'feet at ' + N.keys + ' keys a beat, a tile in ' + N.dur + ' of a walk, leant ' + N.lean + ' of his height, within ' + N.near + ' tiles of theirs' : 'no FEAR_RUN') + '; only the camp, only away; the cart straight',
-    okN && okT && okP && okL, ['numbers ' + okN, 'who ' + okT, 'feet ' + okP, 'lean ' + okL].join(', '));
+  ok('C14 THE CAMP RUNS SCARED: ' + (N ? 'feet at ' + N.keys + ' keys a beat, a tile in ' + N.dur + ' of a walk, leant ' + N.lean + ' of his height, within ' + N.near + ' tiles of theirs' : 'no fear_run in ai.json') + '; only the camp, only away; the cart straight',
+    okN && okT && okP && okL, ['numbers (ai.json fear_run, read by R) ' + okN, 'who ' + okT, 'feet ' + okP, 'lean ' + okL].join(', '));
 }
 
 /* C15 THE CAMP IS MOURNED (STAFF 2 11/26, rule 482): a camp person lost keeps his trade and sex in the camp book's dead list; the shell
@@ -266,22 +270,31 @@ const nearest = (S, u) => S.units.filter(f => f.side !== u.side && F.onField(f) 
 
 /* C16 THE CAMP AT ITS WORK (STAFF 2 11/27, rule 482: 'their work at camp and at his place shows (the cook cooking, the medic healing)'):
    by the fire each camp person takes his trade's act (the cook cooks, the surgeon tends, kneeling by the worst hurt man lying, the
-   blacksmith mends), and ANIMATION's cells for those acts exist for the bodies the camp book deals them (rig_town: the cook's own body
-   cooks in the town's index, the surgeon's tends and the blacksmith's repairs in the camp's STAFF_ACTS); a body without the act stands */
+   blacksmith mends), and ANIMATION's cells for those acts exist for the bodies the camp book deals them (the cook's own body cooks in the
+   town's index, slices/rig_town/rig_town.json; a camp body with only his trade in BohemiaIdles' second index, rig_staff.json); a body
+   without the act stands. STAFF 3 11/27 (rule 495(b), ONE THING ONE PLACE): his trade is the camp book's (BohemiaCamp.workOf, the file's
+   'work'), the trade cells' index is a data file BohemiaIdles reads itself, and no page keeps a copy of either */
 {
   const cl = fs.readFileSync(path.join(ROOT, 'slices/bohemia_camp_look.js'), 'utf8'), T = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/rig_town/rig_town.json'), 'utf8'));
-  const W = (cl.match(/var FOLLOWER_WORK = (\{[^}]*\});/) || [])[1], work = W ? Function('return ' + W.replace(/\/\*[\s\S]*?\*\//g, '')) () : {};
-  const looks = {}; (RET.followers.value || []).forEach(f => { looks[f.id] = f.look; });
-  const SA = (cl.match(/var STAFF_ACTS = (\{[\s\S]*?\} \});/) || [])[1], staffActs = SA ? Function('return ' + SA)() : {};   /* the camp's trades' own cells, out of the town's index */
-  const ANIM = { cook: 'cook', tend: 'tend', mend: 'repair', loot: 'loot', smoke: 'smoke', stall: 'stall', clean: 'clean', sit: 'sit', talk: 'talk', flirt: 'flirt', unpack: 'unpack' }, has = id => { const L = T.looks[looks[id]] || staffActs[looks[id]]; return !!(L && L.acts && L.acts.indexOf(ANIM[work[id]]) >= 0); };
+  const SX = JSON.parse(fs.readFileSync(path.join(ROOT, 'slices/rig_town/rig_staff.json'), 'utf8')), staffActs = SX.looks || {};
+  const idl = fs.readFileSync(path.join(ROOT, 'engine/bohemia_idles.js'), 'utf8'), stl = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.html'), 'utf8');
+  const looks = {}, work = {}; (RET.followers.value || []).forEach(f => { looks[f.id] = f.look; work[f.id] = CAMP.workOf(f.id); });
+  const has = id => { const L = T.looks[looks[id]] || staffActs[looks[id]]; return !!(L && L.acts && L.acts.indexOf(work[id]) >= 0); };
   const all = Object.keys(looks), working = all.filter(id => work[id] && has(id)), named = all.filter(id => !working.includes(id));   /* STAFF 2 11/27: every trade, its own act */
   const okAll = working.length >= 17 && named.every(id => id === 'brigand') && Object.keys(staffActs).every(k => fs.existsSync(path.join(ROOT, 'slices/rig_town', staffActs[k].json)) && staffActs[k].acts.every(a => fs.existsSync(path.join(ROOT, 'slices/rig_town', k + '_' + a + '.webp'))));
   ok('C16 EVERY TRADE AT ITS WORK: ' + working.length + ' of ' + all.length + ' camp people do their trade at camp (' + working.map(id => id + ' ' + work[id]).join(', ') + '); still: ' + (named.join(', ') || 'none'), okAll);
-  const okW = work.cook === 'cook' && work.surgeon === 'tend' && work.blacksmith === 'mend';
-  const okC = ['cook', 'surgeon', 'blacksmith'].every(has), okP = /act = FOLLOWER_WORK\[p\.follower\] \|\| 'watch'/.test(cl) && /if \(act === 'tend'\) \{ var hurt = out\.filter/.test(cl);
-  const okF = ['cook', 'surgeon', 'blacksmith'].every(id => fs.existsSync(path.join(ROOT, 'slices/rig_town', looks[id] + '_' + ANIM[work[id]] + '.webp')));
-  ok('C16 THE CAMP AT ITS WORK: ' + JSON.stringify(work) + '; the cells: ' + ['cook', 'surgeon', 'blacksmith'].map(id => id + ' (' + looks[id] + ') ' + (has(id) ? ANIM[work[id]] : 'NONE')).join(', '),
+  const okW = work.cook === 'cook' && work.surgeon === 'tend' && work.blacksmith === 'repair' && work.brigand === null;
+  const okC = ['cook', 'surgeon', 'blacksmith'].every(has), okP = /act = campActOf\(CC\.workOf \? CC\.workOf\(p\.follower\) : null\) \|\| 'watch'/.test(cl) && /mend: 'repair'/.test(cl) && /if \(act === 'tend'\) \{ var hurt = out\.filter/.test(cl);
+  const okF = ['cook', 'surgeon', 'blacksmith'].every(id => fs.existsSync(path.join(ROOT, 'slices/rig_town', looks[id] + '_' + work[id] + '.webp')));
+  ok('C16 THE CAMP AT ITS WORK: ' + JSON.stringify(work) + '; the cells: ' + ['cook', 'surgeon', 'blacksmith'].map(id => id + ' (' + looks[id] + ') ' + (has(id) ? work[id] : 'NONE')).join(', '),
     okW && okC && okP && okF, ['acts ' + okW, 'cells ' + okC, 'files ' + okF, 'healer ' + okP].join(', '));
+  /* ONE PLACE: no page pastes the trade table or the cells' index; the idles engine reads rig_staff.json and never puts its looks in the
+     town's index (the town deals every man there any act) */
+  const copies = [['slices/bohemia_camp_look.js', cl], ['slices/BOHEMIA_SETTLEMENT_SCREEN.html', stl]].filter(p => /FOLLOWER_WORK|STAFF_HOME_WORK|STAFF_ACTS/.test(p[1])).map(p => p[0]);
+  const okI = /fetch\(TBASE \+ 'rig_staff\.json'\)/.test(idl) && /TOWN\.looks\[look\] \|\| \(STAFFIX && STAFFIX\[look\]\)/.test(idl) && !/T\.looks\[k\] = /.test(cl) && Object.keys(staffActs).every(k => !T.looks[k]);
+  const okD = !!(RET.fields && RET.fields.value && RET.fields.value.work);
+  ok('C16 ONE PLACE: the trade is the file\'s (' + Object.keys(work).filter(id => work[id]).length + ' rows with work), the cells\' index rig_staff.json (' + Object.keys(staffActs).length + ' bodies) read by BohemiaIdles; copies left: ' + (copies.join(', ') || 'none'),
+    !copies.length && okI && okD, ['copies ' + !copies.length, 'idles ' + okI, 'field ' + okD].join(', '));
 }
 
 /* C17 THE CAMP AT HIS PLACE (STAFF 2 11/27, rule 482: '... and at his place', 'the cart reads from every camera'): on his place's
@@ -289,7 +302,7 @@ const nearest = (S, u) => S.units.filter(f => f.side !== u.side && F.onField(f) 
    (the blacksmith on the forge's lot, the one who heals on the hurt man's lot), and the footage's camera finds them on its tour */
 {
   const ss = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.html'), 'utf8'), cl = fs.readFileSync(path.join(ROOT, 'slices/bohemia_camp_look.js'), 'utf8');
-  const okS = /try\{ homeStaff\(out\); \}catch\(e\)\{\}/.test(ss) && /var STAFF_HOME_WORK = \{ cook: 'cook', surgeon: 'tend', alchemist: 'tend', blacksmith: 'repair', scout: 'loot'/.test(ss);
+  const okS = /try\{ homeStaff\(out\); \}catch\(e\)\{\}/.test(ss) && /var act = staffWork\(p\.id\), g = null/.test(ss) && /function staffWork\(id\)\{ try\{ return \(window\.BohemiaCamp && BohemiaCamp\.workOf\) \? BohemiaCamp\.workOf\(id\)/.test(ss);   /* STAFF 3 (rule 495(b)): the camp book's trade */
   const okF = /try\{ homeFeedStaff\(F, out, T, at, front\); \}catch\(e\)\{\}/.test(ss) && /homeFeedCart\(g, q, 'back'\); if\(gi\)\{ g\.drawImage\(gi\.edge, gx - 1, gy - 1\); g\.drawImage\(gi\.lit, gx, gy\); \} homeFeedCart\(g, q, 'front'\);/.test(ss);
   const okT = /if\(o\.p\.staffHome && o\.p\.act && o\.n != null\) add\(/.test(ss), okC = /cartCellOf: cartCellOf/.test(cl) && /function cartCellOf\(id, face, which\)/.test(cl);
   ok('C17 THE CAMP AT HIS PLACE: on his place\'s footage, at their trade, each with his cart, found by the camera\'s tour', okS && okF && okT && okC, ['place ' + okS, 'footage ' + okF, 'tour ' + okT, 'cart ' + okC].join(', '));

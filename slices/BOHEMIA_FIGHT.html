@@ -7908,10 +7908,10 @@ function take() {
          the man was drawn for one frame on the tile he was walking to) */
       const u = FIGHT.byId(e.id), last = UI.anim[UI.anim.length - 1], end = last && last.path && last.path[last.path.length - 1];
       if (last && last.k === 'step' && last.e.id === e.id && !last.at && end.x === e.fx && end.y === e.fy) {
-        last.path.push({ x: e.x, y: e.y }); last.e.x = e.x; last.e.y = e.y; last.dur = beatMs() * TILE_BEATS * (last.path.length - 1) * (last.fear ? FEAR_RUN.dur : 1);
+        last.path.push({ x: e.x, y: e.y }); last.e.x = e.x; last.e.y = e.y; last.dur = beatMs() * TILE_BEATS * (last.path.length - 1) * (last.fear ? fearRun().dur : 1);
       } else UI.anim.push({ k: 'step', e: Object.assign({}, e), path: [{ x: e.fx, y: e.fy }, { x: e.x, y: e.y }], dur: beatMs() * TILE_BEATS,
         fear: !!(u && u.staff && scaredStep(u, e)) });   /* __THE_CAMP_RUNS_SCARED__: a camp person getting away from theirs */
-      { const a0 = UI.anim[UI.anim.length - 1]; if (a0.fear && a0.path.length === 2 && !a0._fc) { a0._fc = 1; a0.dur = Math.max(beatMs() * 0.5, beatMs() * TILE_BEATS * FEAR_RUN.dur); UI.fearWalks = (UI.fearWalks | 0) + 1; } }   /* never under half a beat: a turn is seen (EVERY MAN ACTS ON AUTO M7) */
+      { const a0 = UI.anim[UI.anim.length - 1]; if (a0.fear && a0.path.length === 2 && !a0._fc) { a0._fc = 1; a0.dur = Math.max(beatMs() * 0.5, beatMs() * TILE_BEATS * fearRun().dur); UI.fearWalks = (UI.fearWalks | 0) + 1; } }   /* never under half a beat: a turn is seen (EVERY MAN ACTS ON AUTO M7) */
       if (u && !u._at && !walkOf(u)) u._at = { x: e.fx, y: e.fy };   /* he stands where his walk starts until it does */
     }
     else if (e.t === 'attack' && (e.sweep || e.astray || e.burst) && swing && swing.e.id === e.id) { (swing.also = swing.also || []).push(e); swing.dur += beatMs() / (e.burst ? 8 : 4); }   /* __ARMORY_THREE__: a burst's rounds ride its press, an eighth of a beat apart */
@@ -10488,9 +10488,9 @@ function poseOf(v, now) {
   }
   const w = walkOf(v);
   if (w) { const p = walkAt(w, now); turnTo(v, p.face, now); v._face = p.face;
-    return { col: clipCol('walk', Math.floor(Math.max(0, now - w.at) / (beatMs() / (w.fear ? FEAR_RUN.keys : 6))) % 6, L), clip: 'walk', fear: !!w.fear, face: p.face }; }   /* __THE_CAMP_RUNS_SCARED__: his feet twice as quick */
+    return { col: clipCol('walk', Math.floor(Math.max(0, now - w.at) / (beatMs() / (w.fear ? fearRun().keys : 6))) % 6, L), clip: 'walk', fear: !!w.fear, face: p.face }; }   /* __THE_CAMP_RUNS_SCARED__: his feet twice as quick */
   const o = v._outAt !== undefined ? outRun(v, now) : null;   /* __YOU_SEE_THEM_RUN__: his own walk off the board, on the beat */
-  if (o) { v._face = o.face; return { col: clipCol('walk', Math.floor(Math.max(0, now - v._outAt) / (beatMs() / (v.staff ? FEAR_RUN.keys : 6))) % 6, L), clip: 'walk', fear: !!v.staff, face: o.face }; }
+  if (o) { v._face = o.face; return { col: clipCol('walk', Math.floor(Math.max(0, now - v._outAt) / (beatMs() / (v.staff ? fearRun().keys : 6))) % 6, L), clip: 'walk', fear: !!v.staff, face: o.face }; }
   if (a && a.at && a.k === 'attack') {
     const k = Math.max(0, Math.min(.999, (now - a.at) / Math.max(1, a.dur)));
     if (a.e.id === v.id) {
@@ -10843,7 +10843,7 @@ function cartLayer(v, which, ox, oy, s, now) {
   const cc = cartCell(v, which, now); if (!cc) return;
   const im = holdImg(cc[0].file, 'fight_rig/'); if (!im) return;
   const q = cc[1], x = Math.round(dx(v)), y = Math.round(dy(v)), dark = FIGHT.S.night && !FIGHT._t.litAt(x, y);
-  const w = cc[3] ? walkOf(v) : null, rattle = w ? (w.fear ? 2 : 1) * (Math.floor(Math.max(0, now - w.at) / (beatMs() / (w.fear ? FEAR_RUN.keys : 6))) % 2) : 0;   /* the wire rattles a pixel on every other key of his walk (two, and twice as quick, when he runs scared) */
+  const w = cc[3] ? walkOf(v) : null, rattle = w ? (w.fear ? 2 : 1) * (Math.floor(Math.max(0, now - w.at) / (beatMs() / (w.fear ? fearRun().keys : 6))) % 2) : 0;   /* the wire rattles a pixel on every other key of his walk (two, and twice as quick, when he runs scared) */
   cxDraw(dark ? nightSheet(im, moonOf(x, y)) : im, q[0], q[1], q[2], q[3], ox + q[4] * s, oy + (q[5] - rattle) * s, q[2] * s, q[3] * s);
   UI.clipSeen = UI.clipSeen || {}; UI.clipSeen['cart:' + cc[2]] = (UI.clipSeen['cart:' + cc[2]] || 0) + 1;
   (UI.cartDrawn || (UI.cartDrawn = {}))[v.id] = { at: now, which: cc[2], kind: v.cart.id, load: v.cart.load, face: DIR8[v._fallAt !== undefined ? v._cartFell : (w ? walkAt(w, now).face : v.cartFace)] };
@@ -10852,16 +10852,16 @@ function cartLayer(v, which, ox, oy, s, now) {
 /* ==== __THE_CAMP_RUNS_SCARED__ (STAFF 2 11/26, VAMILY rule 482 on the staff as built: 'a staff man running looks like fear'). MEASURED
    BEFORE: a camp person getting away from theirs walked the board exactly as a fighter walks it (the walk's six keys a beat, a tile in
    TILE_BEATS), so the cook backing off from a man with a blade looked like a man going for a stroll. NOW a camp person's walk that
-   starts within FEAR_RUN.near tiles of one of theirs and takes him farther from the nearest is a scared run, on the glass only (the
+   starts within fear_run.near tiles of one of theirs and takes him farther from the nearest is a scared run, on the glass only (the
    rules moved him already): his feet twice as quick (the walk's own six keys at twelve a beat, every key drawn, none skipped), the
-   tiles in FEAR_RUN.dur of a walk's time (never under half a beat, the floor a turn is seen at), his body leant into the run (a shear about his feet, FEAR_RUN.lean of his height to the
+   tiles in fear_run.dur of a walk's time (never under half a beat, the floor a turn is seen at), his body leant into the run (a shear about his feet, fear_run.lean of his height to the
    side he runs; north and south he runs upright), his cart rattling two pixels a key and staying on its wheels; his run off the
    board when he gets out is scared the same way. ==== */
-const FEAR_RUN = { near: 4, dur: 0.7, keys: 12, lean: 0.09 };
+function fearRun() { return R('ai.fear_run'); }   /* its numbers: records/target/bb/ai.json fear_run (STAFF 3 11/27, rule 495(b): was a constant here) */
 function scaredStep(u, e) {
   const S = FIGHT.S; let best = null, bd = 1e9;
   S.units.forEach(function (o) { if (o.side === u.side || o.side === 'prop' || o.decoy || !FIGHT.onField(o)) return; const d = Math.max(Math.abs(o.x - e.fx), Math.abs(o.y - e.fy)); if (d < bd) { bd = d; best = o; } });
-  if (!best || bd > FEAR_RUN.near) return false;
+  if (!best || bd > fearRun().near) return false;
   return Math.max(Math.abs(best.x - e.x), Math.abs(best.y - e.y)) > bd;
 }
 /* the shear of his lean: to the side of the glass he runs to (SE, E, NE right; NW, W, SW left), none running north or south */
@@ -10869,7 +10869,7 @@ function fearLean(p) {
   if (!p || !p.fear || p.face === undefined) return 0;
   const f = ((p.face % 8) + 8) % 8, side = f >= 1 && f <= 3 ? 1 : f >= 5 && f <= 7 ? -1 : 0;
   UI.fearSeen = (UI.fearSeen | 0) + (side ? 1 : 0);
-  return -side * FEAR_RUN.lean;
+  return -side * fearRun().lean;
 }
 /* ==== end __THE_CAMP_RUNS_SCARED__ ==== */
 /* which clip and key of his for the pose the fight gave him: the shield's, the two-hander's, or the one-hander's */

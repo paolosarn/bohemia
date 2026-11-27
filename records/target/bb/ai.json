@@ -448,5 +448,15 @@
   "source": "VAMILY rule 470(a), Paolo 11/22: 'They're weak as fuck compared to the front line. They will stay behind. They will take defensive positions and they will attempt to not be flanked and circled.'; bb_all/0424 Combat Mechanics and bb_all/1316 Morale (the surround: +5% to hit for every attacker past the first; +3 resolve a man beside him)",
   "why": "how a camp follower weighs a tile (lower is safer; STAFF 11/22, slices/BOHEMIA_FIGHT.html __THEY_FIGHT_LIKE_STAFF__): danger a man of theirs who can reach it by their next turn; unscreened one of theirs with no fighter of his between him and the tile; foe_beside one of theirs on the tile's eight; foe_behind one of theirs west of him (his line faces east) within behind_tiles; open_side an open side of the eight (a wall, a building, cover or one of his own closes it: a corner is the best ground, nobody circles him there); cover_piece the board's cover beside the tile (ours.cover_defence); high_ground a roof; ahead_of_line a tile east of the middle of his standing fighters less behind_line_by; camp_beside another of the camp beside him (up to huddle_cap: they huddle); fighter_beside a fighter of his beside him; move_margin what a tile must beat where he stands by before he walks. Draft, TUNING",
   "draft": true
+ },
+ "fear_run": {
+  "value": {
+   "near": 4,
+   "dur": 0.7,
+   "keys": 12,
+   "lean": 0.09
+  },
+  "source": "VAMILY rule 482 on the staff as built (STAFF 2 11/26: 'a staff man running looks like fear'); records/BOHEMIA_STAFF_TWO_RULE_482_THE_STAFF_BETTER_11_26_26.md",
+  "why": "a camp person's walk on the glass only (the rules already moved him): a walk that starts within near tiles of one of theirs and takes him farther from the nearest is a scared run: his feet at keys a beat (the walk's own six keys twice as quick, every key drawn), the tiles in dur of a walk's time (never under half a beat, the floor a turn is seen at), his body leant lean of his height to the side he runs (none north or south), his cart upright and rattling. MEASURED (STAFF 2 11/26): 25% of camp walks in 20 AUTO fights are scared runs. Moved here from a constant in slices/BOHEMIA_FIGHT.html (STAFF 3 11/27, VAMILY rule 495(b): felt numbers in the one numbers table). Draft, TUNING"
  }
 }
