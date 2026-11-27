@@ -1,5 +1,21 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/27, BUILD 11/27x THE MAP LETS ITS SHEETS GO UNDER THE FIGHT (rule 484(a), ask row 769, given to this lane).
+  CUT: __THE_MAP_LETS_ITS_SHEETS_GO_UNDER_THE_FIGHT__ (BOHEMIA_CITY_WORLD.html __mapSheetsLetGo/__mapSheetsAgain; the shell's NFC setter
+  in BOHEMIA_ALPHA_0_9.html calls it 300 ms after the zoom down lands on a fight; nfHome asks again while the way up plays): every
+  people-sheet bitmap closed (a frame still naming one draws nothing and takes the new sheet when it lands: rigSheetLive, RIG_CLOSED),
+  the idle module's release, no sheet loads while held (rigSheetLoad; engine/bohemia_idles.js sheet() under __IDLES_HELD); the
+  landings draw the map once, after the dive. Switch __MAP_SHEETS_KEEP.
+  MEASURED (IN AND OUT THE IPHONE'S WAY 8/0 with its plant; new I6): let go 3 and 17, every one back; the most in and out 1,027 to
+  1,100 -> 907 to 1,018 MB, over the 768 budget by 139 to 250. The swing is the landing: the fight's sheets (decoded at the meet card)
+  and the map's (drawn by the dive's zoom stops) alive together for a moment. THE ZOOM DOWN INTO THE BOARD 32/0, THE WHOLE LOOP 11/0,
+  MAKE CAMP FROM THE FIGHT 11/0. The map's sheets at rest grow with the people on the glass (14 to 17 after two fights, 200+ MB).
+  NEXT (the routine's order): COMBAT FIVE's 768 with them (the fight's bitmaps decoded at the meet card: hold them to the landing, or
+  let the map's go at the dive's last zoom stop: both in their files); then TWENTY FIGHTS in and out on the budget (it cannot pass
+  until the peak is under 768); then 770 (the first map tap sometimes not taken); camp's HEAL. AND FIRST, BEFORE ANY OF THAT: THE SITE IS AT 900.4 OF ITS 900 MB on
+  main (PAGES PUBLISH red on main's own tree, 11/27t: the songs and the cards); GitHub's own limit is 1 GB, so deploys still land, but
+  trim what nothing loads (tools/bohemia_publish_list.js --why) before it is. The front page's RED DEBT line fixed to the list's 393/309.
+
 PLUMBER 8 (chat 18) 11/27, BUILD 11/27m THE IPHONE BUDGET (rule 484(a) amended; the routines 'iPhone crash first' and 'his answer A').
   THE BUDGET, FROM THE RESEARCH (records/BOHEMIA_PLUMBER_IN_AND_OUT_THE_IPHONES_WAY_11_27_26.md): WebKit's old canvas cap 256 MB (iPad,
   iOS 12), 288 (iPhone X), 384 (iOS 15), taken out of WebKit 6/2023; an iPhone tab's soft limit about 1.5 GB (jetsam: the page goes

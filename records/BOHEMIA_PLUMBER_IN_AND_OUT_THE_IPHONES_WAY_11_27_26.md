@@ -62,6 +62,25 @@ photographs of the glass for its fight zoom (fzSnap, 10 MB each), all waiting on
   gate each run; its ratchets (I4 1,250 MB, I5 300 MB) may only come down to it.
 - The spoils page's canvases are emptied as it closes too (__SPOILS_PAGE_EMPTIED), so every fight page is let go at LEAVE.
 
+## THE MAP LETS ITS SHEETS GO UNDER THE FIGHT (BUILD 11/27n; ask row 769, the coordinator's to this lane)
+
+The map's people sheets were bitmaps held the whole session, under the fight too (151 MB in 10 after one fight; 14 to 17 sheets,
+about 200 to 260 MB, after two, as more people come on the glass), and its idle sheets 82 MB.
+- __THE_MAP_LETS_ITS_SHEETS_GO_UNDER_THE_FIGHT__ (BOHEMIA_CITY_WORLD.html __mapSheetsLetGo / __mapSheetsAgain): when the zoom down has
+  landed on a fight (the shell's NFC state goes 'off' with a fight up, read by a setter in BOHEMIA_ALPHA_0_9.html, so the dive's file
+  is untouched), every sheet bitmap is closed and its sheet marked to be asked again, the idle module's release drops its sheets, and
+  no sheet loads while held (rigSheetLoad; engine/bohemia_idles.js sheet() under __IDLES_HELD). nfHome asks for every one again while
+  the way up plays; their landings draw the map once, after the dive (no whole-map draw under the climb for each sheet). A frame still
+  naming a closed sheet draws nothing and takes the new sheet when it lands (rigSheetLive over a WeakMap of the closed ones).
+  Switch window.__MAP_SHEETS_KEEP.
+- MEASURED (the gate, two fights): let go 3 and 17, asked again 3 and 17, every one back. The most alive in and out 907 to 1,018 MB
+  (it was 1,027 to 1,100): over the 768 budget by 139 to 250 MB, the swing being the landing itself, where the fight's sheets (decoded
+  at the meet card) and the map's (still drawn by the dive's zoom stops) are both alive for a moment. THE ZOOM DOWN INTO THE BOARD
+  32/0 (no stall on the way in or back), THE WHOLE LOOP PLAYS 11/0, MAKE CAMP FROM THE FIGHT 11/0.
+- WHAT IS LEFT OF THE OVER: the fight's own bitmaps (ask row 768, COMBAT FIVE: decoded at the meet card, 400 to 600 MB at the most);
+  the map's sheets at rest (CHARACTER 3, the sheets smaller); letting the map's go at the dive's last zoom stop instead of the landing
+  would take the overlap out (the dive's file, COMBAT FIVE's).
+
 ## WHAT IS LEFT: THE BITMAPS (the most of the peak; filed)
 
 At the most of a fight, nothing collected, about 1,000 to 1,100 MB in all, and 570 to 750 MB of it is ImageBitmaps. An iPhone can

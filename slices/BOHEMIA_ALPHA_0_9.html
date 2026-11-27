@@ -1588,7 +1588,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/27w - EVERY ORIGIN ITS OWN SONG</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/27x - THE MAP LETS ITS SHEETS GO UNDER THE FIGHT</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -13042,6 +13042,7 @@ function nfHome(){
      2.5 s stays as the fall-back for a map that cannot save yet) */
   try{ var cfS = document.getElementById('cityFrame'); if(window.BohemiaFightStart && sa && cfS && cfS.contentWindow){ var tokS = 'home:' + sa + ':' + Date.now(); NF.clearOn = { token: tokS, at: sa };
     cfS.contentWindow.postMessage({ bohemiaSaveNow: { why: 'fight:home', token: tokS } }, '*'); } }catch(_e){}
+  try{ var _cfA = document.getElementById('cityFrame'); if (_cfA && _cfA.contentWindow && _cfA.contentWindow.__mapSheetsAgain) _cfA.contentWindow.__mapSheetsAgain(); }catch(_e){}   /* __THE_MAP_LETS_ITS_SHEETS_GO_UNDER_THE_FIGHT__: asked again while the way up plays */
   try{ if (fr && fr.contentWindow && fr.contentWindow.__fightLetGo) fr.contentWindow.__fightLetGo(); }catch(_e){}   /* RUN 10/25 __THE_FIGHT_LETS_GO__ (rule 173): its bitmaps closed, its canvases emptied, now */
   /* __AN_IPHONE_COUNTS_EVERY_CANVAS_UNTIL_IT_IS_EMPTIED__ (PLUMBER 8, 11/27, rule 484(a) amended): the fight's own let-go empties the canvases
      it made in code; the ones written in its page (its board's #cv, 1170 x 2532 on a phone, and the rest) were left for a collector,
@@ -13091,6 +13092,14 @@ window.addEventListener('message', function(ev){
    (the motion layer's held phone, the gates) waits on the zoom the same way. */
 var NFC = { state: 'off', since: 0 };
 window.NFC = NFC;
+/* __THE_MAP_LETS_ITS_SHEETS_GO_UNDER_THE_FIGHT__ (PLUMBER 8, 11/27, rule 484(a), ask row 769): when the zoom down has landed on a fight
+   (the state goes 'off' with the fight's page up and not over) the map lets its sheets go; nfHome asks for them again. Read here, so
+   the dive's own file is not touched. */
+(function(){ var st = NFC.state;
+  try { Object.defineProperty(NFC, 'state', { configurable: true, enumerable: true, get: function(){ return st; }, set: function(v){ var was = st; st = v;
+    try { if (v === 'off' && was !== 'off' && window.NF && NF.frame && !NF.over && !window.__MAP_SHEETS_KEEP) { var cf = document.getElementById('cityFrame');
+      if (cf && cf.contentWindow && cf.contentWindow.__mapSheetsLetGo) setTimeout(function(){ try { if (NF.frame && !NF.over) cf.contentWindow.__mapSheetsLetGo(); } catch (_e) {} }, 300); } } catch (_e) {} } }); } catch (_e) {}
+})();
 /* the fight is ready when its own loading line is gone (it hides it when the ground is built) */
 function nfReady(fr){ try{ var l = fr.contentDocument.getElementById('load'); return !!(l && l.style.display === 'none'); }catch(_e){ return false; } }
 /* ===== /__THE_ZOOM_DOWN_INTO_THE_BOARD__ ===== */

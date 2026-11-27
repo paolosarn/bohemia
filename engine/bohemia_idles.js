@@ -154,6 +154,7 @@
   function sheet(file) {
     var u = BASE + file, e = IM[u];
     if (!e) {
+      if (root.__IDLES_HELD) return null;   /* __THE_MAP_LETS_ITS_SHEETS_GO_UNDER_THE_FIGHT__ (PLUMBER 8, 11/27): none while the map is held under a fight */
       e = IM[u] = { im: null, ok: false };
       if (!offFrame(u, e)) { e.im = new Image(); e.im.onload = function () { loaded(e); }; e.im.src = u; }
     }

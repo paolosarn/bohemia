@@ -22,7 +22,9 @@
         sheets and block pictures, COMBAT FIVE; the map's people and idle sheets, CHARACTER 2 and WORLD 13: ask rows 768, 769)
      I5 the canvases alive at any step at most 300 MB (a ratchet, only down)
      THE IPHONE BUDGET (from the research: canvases 256 MB, every live picture 768 MB) printed against the most measured, with the gap's owners
-     P1 PLANT the old way (__DIVE_KEEPS_KEPT, __DIVE_FULL_PIXELS, __FIGHT_KEEPS_ITS_PAGE, __FZ_KEEPS_ITS_SNAPS), one fight: I3 turns red
+     I6 the map lets its sheet bitmaps go under each fight (closed at the landing) and has every one back after (__THE_MAP_LETS_ITS_SHEETS_GO_UNDER_THE_FIGHT__)
+     P1 PLANT the old way (__DIVE_KEEPS_KEPT, __DIVE_FULL_PIXELS, __FIGHT_KEEPS_ITS_PAGE, __FZ_KEEPS_ITS_SNAPS, __MAP_SHEETS_KEEP), one fight:
+        I1, I2 and I6 all red
    The demo upright, the CPU slowed 4x. About 6 minutes.
    ============================================================================ */
 'use strict';
@@ -73,7 +75,7 @@ async function trip(n, arm, label) {
         P.cv = Math.max(P.cv, s.cv); P.im = Math.max(P.im, s.im); P.bm = Math.max(P.bm, s.bm); P.sum = Math.max(P.sum, s.cv + s.im + s.bm); P.ren = Math.max(P.ren, ren() || 0); } } catch (e) {} await sleep(300); } })();
   const waitFor = async (fn, ms) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { try { const v = await fn(); if (v) return v; } catch (e) {} await sleep(200); } return null; };
   const fightFrame = async () => { const h = await p.$('#fightFrame'); const c = h && await h.contentFrame(); return c && await c.evaluate(() => typeof FIGHT !== 'undefined' && !!FIGHT.S && !!FIGHT.S.board && FIGHT.S.units.length > 0).catch(() => false) ? c : null; };
-  const counts = () => M(() => { let fz = 0; try { fz = document.getElementById('cityFrame').contentWindow.__FZ_LET_GO | 0; } catch (e) {} return { page: window.__FIGHT_PAGE_EMPTIED | 0, spoils: window.__SPOILS_PAGE_EMPTIED | 0, fz }; });
+  const counts = () => M(() => { let fz = 0, sh = null; try { const cw = document.getElementById('cityFrame').contentWindow; fz = cw.__FZ_LET_GO | 0; const H = cw.MAP_SHEETS_HELD; if (H) { const last = H.last || [], live = last.filter(S => S && S.state === 2).length, all = last.length; sh = { rel: H.rel, again: H.again, on: H.on, live, all }; } } catch (e) {} return { page: window.__FIGHT_PAGE_EMPTIED | 0, spoils: window.__SPOILS_PAGE_EMPTIED | 0, fz, sh }; });
   try {
     await sleep(3000); await fr.evaluate(() => { try { loopClose(); } catch (e) {} }); await sleep(3000);
     for (let k = 1; k <= n; k++) {
@@ -94,8 +96,8 @@ async function trip(n, arm, label) {
       phase = 'back'; await sleep(4000);
       const s = await M(SAMPLE), c1 = await counts();
       const dive = s ? Object.keys(s.by).filter(k => /^BOHEMIA_DEMO\.html \| .*bohemia_motion\.js/.test(k)).reduce((q, k) => q + s.by[k], 0) : null;
-      rows.push({ rest: s ? s.cv : null, by: s ? s.by : {}, dive, d: { page: c1.page - c0.page, spoils: c1.spoils - c0.spoils, fz: c1.fz - c0.fz } });
-      console.log('  ' + label + ' fight ' + k + ': back on the map ' + (s ? s.cv + ' MB of canvas, ' + s.bm + ' MB of bitmaps, ' + s.im + ' MB of pictures' : '?') + '; the zoom-down\'s canvases alive ' + rows[rows.length - 1].dive + ' MB; emptied: the spoils page ' + rows[rows.length - 1].d.spoils + ', the fight page ' + rows[rows.length - 1].d.page + ', the map\'s zoom ' + rows[rows.length - 1].d.fz + (s ? '; by page and maker: ' + Object.entries(s.by).sort((x, y) => y[1] - x[1]).slice(0, 6).map(([k, v]) => v + ' ' + k.replace(/^BOHEMIA_/, '').slice(0, 70)).join(', ') : ''));
+      rows.push({ rest: s ? s.cv : null, by: s ? s.by : {}, dive, d: { page: c1.page - c0.page, spoils: c1.spoils - c0.spoils, fz: c1.fz - c0.fz, rel: c1.sh && c0.sh ? c1.sh.rel - c0.sh.rel : -1, again: c1.sh && c0.sh ? c1.sh.again - c0.sh.again : -1, held: c1.sh ? c1.sh.on : null, live: c1.sh ? c1.sh.live + ' of ' + c1.sh.all : '?' } });
+      console.log('  ' + label + ' fight ' + k + ': back on the map ' + (s ? s.cv + ' MB of canvas, ' + s.bm + ' MB of bitmaps, ' + s.im + ' MB of pictures' : '?') + '; the zoom-down\'s canvases alive ' + rows[rows.length - 1].dive + ' MB; emptied: the spoils page ' + rows[rows.length - 1].d.spoils + ', the fight page ' + rows[rows.length - 1].d.page + ', the map\'s zoom ' + rows[rows.length - 1].d.fz + '; the map\'s sheets let go ' + rows[rows.length - 1].d.rel + ', asked again ' + rows[rows.length - 1].d.again + ', back ' + rows[rows.length - 1].d.live + (s ? '; by page and maker: ' + Object.entries(s.by).sort((x, y) => y[1] - x[1]).slice(0, 6).map(([k, v]) => v + ' ' + k.replace(/^BOHEMIA_/, '').slice(0, 70)).join(', ') : ''));
     }
   } finally { run = false; await sampler; try { await d.close(); } catch (e) {} }
   rows.peak = peak; return rows;
@@ -110,6 +112,7 @@ async function trip(n, arm, label) {
     ok('I1 the zoom-down\'s canvases emptied once it is over: at most 12 MB of them alive back on the map, nothing collected, every fight (the old way 78 to 120)', good.length > 0 && good.every(r => r.dive != null && r.dive <= 12), good.map(r => r.dive + ' MB').join(', '));
     ok('I2 the fight page\'s and the spoils page\'s canvases emptied as they closed, and the map\'s zoom photographs, every fight', good.length > 0 && good.every(r => r.d.page > 0 && r.d.spoils > 0 && r.d.fz > 0), good.map(r => 'page ' + r.d.page + ', spoils ' + r.d.spoils + ', zoom ' + r.d.fz).join('; '));
     ok('I3 back on the map after each fight, nothing collected, at most ' + REST_MB + ' MB of canvas alive (the old way 263 to 308)', good.length > 0 && good.every(r => r.rest != null && r.rest <= REST_MB), good.map(r => r.rest + ' MB').join(', '));
+    ok('I6 the map let its sheet bitmaps go under each fight and had them back after (none held, every sheet it let go back)', good.length > 0 && good.every(r => r.d.rel > 0 && r.d.again === r.d.rel && r.d.held === false && /^(\d+) of \1$/.test(r.d.live)), good.map(r => 'let go ' + r.d.rel + ', again ' + r.d.again + ', back ' + r.d.live).join('; '));
     const P = R.peak, most = Object.keys(P).reduce((q, k) => Math.max(q, P[k].sum), 0);
     Object.keys(P).forEach(k => console.log('  (the most of ' + k.padEnd(6) + ': canvases ' + P[k].cv + ' MB, bitmaps ' + P[k].bm + ' MB, pictures ' + P[k].im + ' MB, all ' + P[k].sum + ' MB; the renderer ' + P[k].ren + ' MB)'));
     ok('I4 THE RATCHET: the most alive at any step in or out at most ' + MOST_MB + ' MB (canvases + bitmaps + pictures, nothing collected; only down)', most > 0 && most <= MOST_MB, most + ' MB');
@@ -119,9 +122,10 @@ async function trip(n, arm, label) {
       + '; every live picture ' + most + ' of ' + BUDGET_ALL_MB + ' MB' + (most > BUDGET_ALL_MB ? ' (over by ' + (most - BUDGET_ALL_MB) + ', ' + mostBm + ' MB of it bitmaps: the fight\'s, ask row 768 COMBAT FIVE; the map\'s 233 MB, ask row 769 CHARACTER 2 and WORLD 13)' : ' (inside)'));
   }
   if (!a.includes('--no-plant')) {
-    const Q = await trip(1, 'window.__DIVE_KEEPS_KEPT = true; window.__DIVE_FULL_PIXELS = true; window.__FIGHT_KEEPS_ITS_PAGE = true; window.__FZ_KEEPS_ITS_SNAPS = true;', 'the old way');
+    const Q = await trip(1, 'window.__DIVE_KEEPS_KEPT = true; window.__DIVE_FULL_PIXELS = true; window.__FIGHT_KEEPS_ITS_PAGE = true; window.__FZ_KEEPS_ITS_SNAPS = true; window.__MAP_SHEETS_KEEP = true;', 'the old way');
     const g = Q.filter(r => !r.err);
-    ok('P1 PLANT the old way (nothing emptied): back on the map past I3\'s ' + REST_MB + ' MB (I3 bites)', g.length === 1 && g[0].rest > REST_MB, g.map(r => r.rest + ' MB').join(', ') || 'the fight never came');
+    ok('P1 PLANT the old way (nothing emptied, nothing let go): I1, I2 and I6 all turn red (the zoom-down\'s canvases past 12 MB, no page emptied, no sheet let go)', g.length === 1 && g[0].dive > 12 && g[0].d.page === 0 && g[0].d.spoils === 0 && g[0].d.fz === 0 && g[0].d.rel <= 0,
+      g.map(r => 'the zoom-down\'s ' + r.dive + ' MB, pages emptied ' + r.d.page + '/' + r.d.spoils + '/' + r.d.fz + ', sheets let go ' + r.d.rel + '; back on the map ' + r.rest + ' MB').join(', ') || 'the fight never came');
   }
   console.log('\nIN AND OUT THE IPHONE\'S WAY: ' + pass + ' passed, ' + fail + ' failed');
   process.exit(fail ? 1 : 0);

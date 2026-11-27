@@ -49795,6 +49795,7 @@ function mapWearOn(fr, ox, oy, s, face, look, extra){
   var W = window.BohemiaWear; if (!W || !fr || !look) return false;
   /* the door's company when the crew screen has saved none: each man at his place in the crew's looks, as the fight dresses him */
   try { if (LOOP && LOOP.start && LOOP.start.company && CREW_DEFS) W.fallback(LOOP.start.company.map(function(m, i){ return { look: m.look || CREW_DEFS.looks[i], gear: m.gear }; })); } catch (_e) {}
+  if (typeof RigFrame !== 'undefined' && fr instanceof RigFrame && typeof rigSheetLive === 'function' && !rigSheetLive(fr)) return false;   /* its sheet let go under a fight */
   var c = (typeof RigFrame !== 'undefined' && fr instanceof RigFrame) ? { img: fr.__sheet, x: fr.sx, y: fr.sy, w: fr.sw, h: fr.sh, dx: fr.ox, dy: fr.oy }
     : { img: fr, x: 0, y: 0, w: fr.width, h: fr.height, dx: 0, dy: 0 };
   var f = ['S', 'SE', 'E', 'NE', 'N', 'NW', 'W', 'SW'].indexOf(face); if (f < 0) f = 0;
@@ -49938,6 +49939,7 @@ function rigCanvas(fr){
   var c = RIG_LRU.get(fr.__id);
   if (c) { RIG_LRU.delete(fr.__id); RIG_LRU.set(fr.__id, c); return c; }
   c = document.createElement('canvas'); c.width = fr.width; c.height = fr.height;
+  if (!rigSheetLive(fr)) return c;   /* its sheet let go under a fight: blank, and not kept */
   var x = mapSpriteCtx(c); x.imageSmoothingEnabled = false;   /* __A_SPRITE_IS_MADE_IN_MEMORY__: its pixels are read (the outline), never off the GPU */
   x.drawImage(fr.__sheet, fr.sx, fr.sy, fr.sw, fr.sh, fr.ox, fr.oy, fr.sw, fr.sh);
   RIG_LRU.set(fr.__id, c);
@@ -49946,6 +49948,7 @@ function rigCanvas(fr){
 }
 /* the frame into its box on the glass (dx, dy, w, h), clipped to the box the canvas was */
 function rigBlit(fr, dx, dy, w, h){
+  if (fr instanceof RigFrame && !rigSheetLive(fr)) return;   /* __THE_MAP_LETS_ITS_SHEETS_GO_UNDER_THE_FIGHT__ */
   if (!(fr instanceof RigFrame)) { if (window.MAP_DEPTH_CORE) window.MAP_DEPTH_CORE.push([dx, dy, w, h]); g.drawImage(fr, dx, dy, w, h); return; }
   var kx = w / fr.width, ky = h / fr.height;
   var x0 = Math.max(0, fr.ox), y0 = Math.max(0, fr.oy), x1 = Math.min(fr.width, fr.ox + fr.sw), y1 = Math.min(fr.height, fr.oy + fr.sh);
@@ -50012,6 +50015,7 @@ function mapWarmUnderThePlace(){
    window.__SHEET_RENDER_EACH = the way it was. ==== */
 var MAP_SHEET_DRAW = { q: false, held: 0, drew: 0 };
 function mapSheetLanded(){
+  if (MAP_SHEETS_HELD.quiet) { MAP_SHEETS_HELD.pending = true; return; }   /* __THE_MAP_LETS_ITS_SHEETS_GO_UNDER_THE_FIGHT__ */
   if (window.__SHEET_RENDER_EACH) { try { render(); } catch (_e) {} return; }
   try { if (LOOP && LOOP.open && LOOP.frame && LOOP.frame.style.display === 'block') { MAP_SHEET_DRAW.held++; return; } } catch (_e) {}
   if (MAP_SHEET_DRAW.q) return; MAP_SHEET_DRAW.q = true;
@@ -50019,8 +50023,48 @@ function mapSheetLanded(){
   try { requestAnimationFrame(go); } catch (_e) {} setTimeout(go, 120);   /* a frame that never paints (a hidden tab) still draws */
 }
 /* ==== end __A_SHEET_LANDING_DRAWS_ONCE__ ==== */
+/* ==== __THE_MAP_LETS_ITS_SHEETS_GO_UNDER_THE_FIGHT__ (PLUMBER 8, 11/27, VAMILY rule 484(a), ask row 769, the coordinator's to this lane) ====
+   MEASURED the iPhone's way (IN AND OUT THE IPHONE'S WAY): the map held its people sheets as bitmaps the whole session (151 MB in 10,
+   since 11/26 they unpack off the frame) and its idle sheets (82 MB), under the fight too, where nobody sees the map; an iPhone cannot
+   drop a bitmap's pixels under pressure as it can a picture's, and every live picture together was 259 MB over the 768 MB budget.
+   NOW the shell asks the map to let them go once the zoom down has landed (__mapSheetsLetGo: each bitmap closed, its sheet asked
+   again later; the idle module's release; no sheet loads while held) and asks again as the fight ends (__mapSheetsAgain, while the
+   way up plays; the landings draw once, after the dive). A frame still naming a closed sheet draws nothing and takes the new one
+   when it lands (RIG_CLOSED). window.__MAP_SHEETS_KEEP: the old way */
+var MAP_SHEETS_HELD = { on: false, quiet: false, pending: false, released: [], rel: 0, again: 0, idles: 0 };
+var RIG_CLOSED = (typeof WeakMap !== 'undefined') ? new WeakMap() : null;
+function rigSheetLive(fr){
+  var im = fr && fr.__sheet; if (!im || im.width !== 0 || !RIG_CLOSED) return !!im;
+  var S = RIG_CLOSED.get(im); if (S && S.state === 2 && S.img) { fr.__sheet = S.img; return true; }
+  return false;
+}
+window.__mapSheetsLetGo = function(){
+  if (window.__MAP_SHEETS_KEEP || MAP_SHEETS_HELD.on) return 0;
+  MAP_SHEETS_HELD.on = true; var n = 0, all = [];
+  try { all = [RIG_CAST, RIG_PEOPLE, RIG_YOU]; for (var k in RIG_MIX.sheets) all.push(RIG_MIX.sheets[k]); } catch (_e) {}
+  all.forEach(function(S){ try { if (S && S.state === 2 && S.img && typeof S.img.close === 'function' && S.__name) {
+    var im = S.img; if (RIG_CLOSED) RIG_CLOSED.set(im, S); S.img = null; S.state = 0; S.sets = {}; MAP_SHEETS_HELD.released.push(S); im.close(); n++; } } catch (_e) {} });
+  try { if (window.BohemiaIdles && BohemiaIdles.release) { BohemiaIdles.release(); MAP_SHEETS_HELD.idles++; } } catch (_e) {}
+  window.__IDLES_HELD = true; MAP_SHEETS_HELD.rel += n; return n;
+};
+window.__mapSheetsAgain = function(){
+  if (!MAP_SHEETS_HELD.on) return 0;
+  MAP_SHEETS_HELD.on = false; window.__IDLES_HELD = false; MAP_SHEETS_HELD.quiet = true;
+  var L = MAP_SHEETS_HELD.released; MAP_SHEETS_HELD.released = []; MAP_SHEETS_HELD.last = L;
+  L.forEach(function(S){ try { rigSheetLoad(S, S.__name); } catch (_e) {} });
+  MAP_SHEETS_HELD.again += L.length;
+  /* the landings draw once, after the way up: never a whole map drawn under the climb for every sheet that lands */
+  var tries = 0, settle = function(){ var busy = false; try { var B = window.parent && window.parent.BohemiaMotion; busy = !!(B && B.dive && B.dive.state && B.dive.state() !== 'off'); } catch (_e) {}
+    if (busy && ++tries < 120) { setTimeout(settle, 250); return; } MAP_SHEETS_HELD.quiet = false; if (MAP_SHEETS_HELD.pending) { MAP_SHEETS_HELD.pending = false; mapSheetLanded(); } };
+  setTimeout(settle, 250);
+  return L.length;
+};
+window.MAP_SHEETS_HELD = MAP_SHEETS_HELD;
+/* ==== end __THE_MAP_LETS_ITS_SHEETS_GO_UNDER_THE_FIGHT__ ==== */
 function rigSheetLoad(S, name){
+  S.__name = name;
   if (S.state) return;
+  if (MAP_SHEETS_HELD.on) return;   /* __THE_MAP_LETS_ITS_SHEETS_GO_UNDER_THE_FIGHT__: none while a fight is over the map */
   if (/^rig_mix\//.test(name) && mapHeldForFirstPlay()) return;   /* __FIRST_PLAY_IS_LIGHT__: asked again on the first draw after it */
   S.state = 1;
   try {
