@@ -12,7 +12,22 @@ square when FIGHT.onCross(u, d0): red flood on the beat). Card gate 22/0 (P14 + 
 drone of theirs over him, the phone painted, read, put back), on the merged tree 22/0; THE GUNS GROW UP 23/0; THE PHONE 268/0.
 NOT DONE (the order's list, the board's part is ARMORY THREE's / COMBAT's): the burst, the belt's sweep, the rocket's blast and the lit cross read on
 the board; walk them on the slowed phone (FRAMES=1) for hitches when they land, and route what drops a frame.
+HANDOFF READY (11/27, this chat's context spent; the coordinator's order of 11/27 21:51 is the next session's first job, below).
 NEXT, in order:
+ (0) THE COORDINATOR'S ORDER 11/27 (rules 482, 493, 495): A CHAMPION READS ON THE FIGHT SCREEN, with BESTIARY FOUR: his name, his face, why he is
+     dangerous, the prize on him, WITHOUT A POP-UP (a quest is people, places and things; nothing pops up; text from a mouth with a portrait).
+     Where he can read: the phone's card when he is on it (his plate already carries LV and the marks: a champion mark and his title, the prize's
+     picture beside them), his sheet (the drawer: sheetTell already reads v.champTitle; the prize a line under it), and the why at the bell if a
+     champion leads the band. Ask BESTIARY FOUR for the champion's data (v.champion, v.champTitle, the prize) before drawing; read the page both
+     ways first. THEN the next thing on the screen not yet clear and punchy (the new guns' words on the aim line: a burst, the belt's three tiles,
+     the rocket's house; FRAMES=1 with drones and rockets for hitches).
+     BUILT THE RULE 495 WAY: no new marked patch block in slices/BOHEMIA_FIGHT.html or slices/bohemia_phone.js for it; the card's logic goes where it
+     is owned. THIS LANE'S DEBT UNDER 495(c), to fold, not to grow: the phone card's marked blocks in slices/bohemia_phone.js (__THE_ROUNDS_ON_THE_CARD__,
+     __NEVER_CHOPPY__ manPaint sub-keys, __HIS_TURN_IS_SPENT_ON_THE_CARD__, __NOTHING_TO_PRESS_ON_THEIR_TURN__, __THE_HIT_LANDS_ON_THE_CARD__,
+     __THE_DRONE_ON_THE_BIG_ROW__, __THE_LAST_HIT_ON_THE_CARD__, __THE_MANS_CARD_ON_THE_PHONE__) and in slices/BOHEMIA_FIGHT.html (the same names in
+     hud(), __EVERY_LINE_AGREES__ nWord, __THE_WHY_IS_A_TAPE__, __THE_RECEIPT_IS_GONE__ overLook): one module for the fight's card (what the fight
+     says about the man on the card, read by the phone), the phone only drawing it; the gates (THE MAN'S CARD ON THE PHONE 22/0, THE WHY IS A TAPE,
+     THE RECEIPT IS GONE, THE LOOT READS) are the net while it moves.
  (1) EYES' notes and his votes on 11/26d, 11/26p, 11/26zd, 11/27j, 11/27v (rule 441(b)).
  (2) The new guns' words on the glass: the aim line for a burst ('three rounds, each a try'), the belt's three tiles, the rocket's house: read them
      on the page both ways (the aim line is this lane's), and the man's card's rounds for a belt (a magazine past six lights its share).
