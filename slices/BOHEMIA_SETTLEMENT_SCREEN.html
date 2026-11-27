@@ -1576,7 +1576,8 @@ function haveWord(good, n){ return good === 'food' ? n + (n === 1 ? ' night' : '
 function stallDay(row, ctx){
   if(row.good === 'tape' || typeof S.mapMin !== 'number' || !STALLP || !window.BohemiaStallPrices || !BohemiaStallPrices.theDay) return null;
   var bought = 0; try{ stallRows().forEach(function(r){ if(r.good === row.good) stallLots(r.key).bought.forEach(function(b){ bought += (b.k | 0) * (r.units | 0 || 1); }); }); }catch(e){}
-  return BohemiaStallPrices.theDay(STALLP, row.good, {tier:S.place.tier, min:S.mapMin, day:S.mapDay | 0, seed:S.place.name, need:ctx && ctx.need, bought:bought});
+  var tm = traitMult(), sm = tm.stock * (row.good === 'food' ? tm.foodStock : 1);   /* a raided town puts out half, a good harvest twice the food (the town's card) */
+  return BohemiaStallPrices.theDay(STALLP, row.good, {tier:S.place.tier, min:S.mapMin, day:S.mapDay | 0, seed:S.place.name, need:ctx && ctx.need, bought:bought, stockMult:sm});
 }
 function stallDayLine(){   /* the keeper says the day, first: shut, or what is gone (draft:true, WORDS) */
   var rows = stallRows().filter(function(r){ return r.good !== 'tape' && r.units === 1; }), D = rows.map(function(r){ return {r:r, d:stallDay(r, stallCtx(r.good))}; }).filter(function(x){ return x.d; });

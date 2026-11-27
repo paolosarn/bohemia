@@ -226,7 +226,8 @@
      town's rice is gone by noon and the next one's lasts to dusk). What he bought this visit comes off it too. The price climbs as
      the shelf empties (the last unit at 1 + climb times the dawn price). Shut at night (the_day.open). Tape is not on it: tape keeps
      its own shelf and back room (rule 271). Returns null where the good has no day (the stall then sells as before).
-       ctx: { tier, min (the map's minute of the day), day, seed (the place's name), need, bought (units he bought this visit) }
+       ctx: { tier, min (the map's minute of the day), day, seed (the place's name), need, bought (units he bought this visit),
+              stockMult (the town's card: what it has out, Battle Brothers' items available) }
      --------------------------------------------------------------------------- */
   function seedOf(str) { var h = 2166136261; str = String(str); for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0) / 4294967296; }
   function theDay(file, good, ctx) {
@@ -234,6 +235,7 @@
     if (!D || typeof ctx.min !== 'number' || !isFinite(ctx.min)) return null;
     var st = D.stock && D.stock.value && D.stock.value[good]; if (!st) return null;
     var full = +st[ctx.tier || 'town'] || +st.town || 0; if (!(full > 0)) return null;
+    if (ctx.stockMult > 0 && ctx.stockMult !== 1) full = Math.max(1, Math.round(full * ctx.stockMult));   /* the town's card: Battle Brothers' 'items available' (Raided -50%, Good Harvest +100% food) */
     var hours = (D.open && D.open.value) || [360, 1200], m = ((ctx.min % 1440) + 1440) % 1440;
     var open = m >= hours[0] && m < hours[1];
     var f = Math.max(0, Math.min(1, (m - hours[0]) / Math.max(1, hours[1] - hours[0])));

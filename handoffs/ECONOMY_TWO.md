@@ -3,7 +3,30 @@
 # the VAMILY front page (rules 459, 441, 454(a)), then continue from the newest block below.
 # ECONOMY THREE (rule 462, 11/20) carries this file on: same job, same table; its blocks are named ECONOMY THREE.
 
-ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/27 LATEST -- BUILD 11/27e - THE STALL'S DAY, BUILT, NOT YET SEEN
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/27 LATEST -- BUILD 11/27o - THE STALL READS THE TOWN'S CARD, BUILT, NOT YET
+SEEN; HANDOFF READY (this session's context is spent: the next ECONOMY session starts from this block).
+- BUILT THIS ROUND (rule 485(b), prices with what is scarce): the stall's day stock follows the town's card (engine theDay
+  ctx.stockMult; the town passes traitMult's items_mult, and foodStock for food): a raided town puts out half and sells out sooner, a
+  good harvest twice the food (Battle Brothers' 'Raided -50% items available', 'Good Harvest +100% food available'). Caravans on its
+  market day: 38 nights of food at first light instead of 30. THE STALL'S DAY data 8/0 (D8 new), the demo upright 4/0.
+- THE NEXT ECONOMY SESSION, IN ORDER (the coordinator's 11/27 list):
+  1. PRICES WITH WHAT IS SCARCE ACROSS THE VALLEY: the map's trading hub (CITY_WORLD mktAdvanceDay, valleyRunsOut, the valley's stocks)
+     and the stall's day should be one story: a town short on the hub pays more at its stall and puts out less (read the hub's stock
+     into ctx.need / stockMult); a caravan's arrival restocks (WORLD 13's caravans).
+  2. A PLACE THAT STOPS EARNING GOES DARK, ONE THAT EARNS GROWS: the faction treasuries (BohemiaPockets, rent lands there every
+     night since 11/26e) are each place's earning; give WORLD 15 and WORLD 16 a daily take per place (a pure function over the pockets
+     and the rent) and the thresholds (dark under N nights of upkeep, growing over M), cited (Lebanon's generator blocks; Battle
+     Brothers' settlements grow and shrink with resources, 0626_Developer Posts.txt).
+  3. THE NEW GUNS' AND ROUNDS' PRICES (rule 489(b), ARMORY 3): every new gun, drone and round into the one table (a where-row per file
+     ARMORY 3 adds, bands from the research: real street prices in working days at four AA a day, as the implants were priced);
+     rounds stay scarce (rule 478).
+  4. THE JOB PAY FOLLOWS COMPANY STRENGTH (rule 491(b), with JOBS 2): the pay formula (engine/bohemia_job_pay.js,
+     records/target/bb/job_pay.json) takes the fight's size and kit as the enemy grows with his company; the probe in
+     tools/bohemia_economy_job_pay.js --purse must stay a raise, not an explosion (A JOB PAYS FOR THE TIME AND THE RISK).
+- STANDING: every price in the one table (688 numbers, 18 files; check after every other lane's ship: two greens this round were
+  other lanes' files); the three-battery drawing dead (463); never a tool that waits for a tap (461(c)).
+
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/27 -- BUILD 11/27e - THE STALL'S DAY, BUILT, NOT YET SEEN
 (rules 485(b)(c) and 486). Records: records/BOHEMIA_ECONOMY_THREE_THE_RUNNING_CITY_11_27_26.md (cited: Night City is a feel not a sim,
 Sarajevo, Lebanon, Venezuela, Argentina, Moscow, Battle Brothers' restock and situations) and
 records/BOHEMIA_ECONOMY_THREE_THE_IMPLANT_IS_BLACK_MARKET_11_27_26.md (cited: real devices, their costs, risks and black markets).

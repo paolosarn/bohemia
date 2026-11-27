@@ -10,6 +10,7 @@
      D5 the price never under the dawn price, never over (1 + climb) times it
      D6 tape has no day (its own shelf and back room, rule 271)
      D7 every number of the day has a value and a source
+     D8 the town's card moves the shelf: a raided town puts out half, a good harvest twice the food (Battle Brothers' items available)
    PAGE legs (demo | alpha, phone_portrait | phone_landscape), Caravans' stall opened by a finger at three hours of the map's day:
      P1 first light: every BUY open, the whole day's stock on the shelf (the strip says so), nothing shut, nothing sold out
      P2 late in the day: the food costs more than at dawn or says SOLD OUT; the strip says how many are left today
@@ -41,6 +42,8 @@ if (MODE === 'data') {
   const top = 1 + ((FILE.the_day.climb || {}).value || 1);
   ok('D5 the price between the dawn price and x' + top + ' (' + Math.min(...climbs).toFixed(2) + ' to ' + Math.max(...climbs).toFixed(2) + ', ' + climbs.length + ' looks)', Math.min(...climbs) >= 1 && Math.max(...climbs) <= top + 1e-9);
   ok('D6 tape has no day (its own shelf, rule 271)', SP.theDay(FILE, 'tape', { tier: 'town', min: 900 }) === null);
+  const raid = day('food', { min: 600, stockMult: 0.5 }), calm2 = day('food', { min: 600 }), harvest = day('food', { min: 600, stockMult: 2 });
+  ok('D8 the town\'s card: a raided town puts out ' + raid.full + ' (' + raid.left + ' left at ten), a calm one ' + calm2.full + ' (' + calm2.left + '), a good harvest ' + harvest.full + ' (' + harvest.left + ')', raid.full === Math.round(calm2.full / 2) && harvest.full === calm2.full * 2 && raid.left < calm2.left && harvest.left > calm2.left);
   const D = FILE.the_day || {}, rows = ['open', 'stock', 'left_at_close', 'spread', 'climb'], bad = rows.filter(k => !D[k] || D[k].value === undefined || !D[k].source);
   ok('D7 every number of the day has a value and a source', bad.length === 0, bad.join(', '));
   console.log('=== THE STALL\'S DAY (data): ' + pass + ' ok, ' + fail + ' failed ===');
@@ -73,8 +76,8 @@ const T = MODE + ' ' + SHAPE;
   try {
     await fr.waitForFunction(() => window.LOOP && LOOP.start && typeof townTap === 'function', null, { timeout: 300000 }); await P.waitForTimeout(4000);
     const dawn = await visit(361);
-    ok('P1 ' + T + ': first light (' + dawn.min + '): food ' + JSON.stringify(dawn.food) + ' at ' + dawn.food.p + ', the whole day\'s stock left (' + FILE.the_day.stock.value.food[dawn.tier] + ' for a ' + dawn.tier + ': "' + String(dawn.strip).slice(0, 60) + '"), meds ' + JSON.stringify(dawn.meds) + ', nothing shut, nothing sold out',
-      dawn.min === 361 && dawn.food && dawn.food.cap === 'BUY' && new RegExp(' ' + FILE.the_day.stock.value.food[dawn.tier] + ' left today').test(dawn.strip) && dawn.meds && dawn.meds.cap === 'BUY' && dawn.rounds && dawn.rounds.cap === 'BUY');
+    ok('P1 ' + T + ': first light (' + dawn.min + '): food ' + JSON.stringify(dawn.food) + ' at ' + dawn.food.p + ', the whole day\'s stock left (' + FILE.the_day.stock.value.food[dawn.tier] + ' for a ' + dawn.tier + ', its card halving to doubling it: "' + String(dawn.strip).slice(0, 60) + '"), meds ' + JSON.stringify(dawn.meds) + ', nothing shut, nothing sold out',
+      dawn.min === 361 && dawn.food && dawn.food.cap === 'BUY' && (n => n >= FILE.the_day.stock.value.food[dawn.tier] / 2 && n <= FILE.the_day.stock.value.food[dawn.tier] * 2)(+((/ (\d+) left today/.exec(dawn.strip) || [])[1] || 0)) && dawn.meds && dawn.meds.cap === 'BUY' && dawn.rounds && dawn.rounds.cap === 'BUY');
     const late = await visit(19 * 60 + 30);
     ok('P2 ' + T + ': late (' + late.min + '): food ' + JSON.stringify(late.food) + ', the strip "' + String(late.strip).slice(0, 90) + '"',
       late.food && dawn.food && ((late.food.cap === 'BUY' && +late.food.p > +dawn.food.p && /left today/.test(late.strip)) || (late.food.cap === 'SOLD OUT' && late.food.off && /Sold out/.test(late.strip))));
