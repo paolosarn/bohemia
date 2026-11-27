@@ -24685,7 +24685,8 @@
    "stage": "stand_in",
    "record": "records/BOHEMIA_HOME_BASE_WHAT_HE_HAS_SITS_IN_THE_GROUND_11_27_26.md",
    "build": "BUILD 11/27a - WHAT HE HAS SITS IN THE GROUND"
-  }
+  },
+  {"id": "world15-the-money-walked-away-11-26", "kind": "tile", "lane": "world 15", "sha": "16aa576cb", "made": "11/27", "draft": true, "title": "THE MONEY WALKED AWAY: A FEW LUXURY TOWERS ON THE MAP STAND HALF-BUILT, LEFT AS FRAMES WHEN THE DOLLAR DIED", "said": "cyberpunk vibes but their world has a running economy vibes", "why": "Every new game now leaves one to five casino, resort or downtown towers as bare frames: open floors, no glass, rust, no power, so they stay dark at night beside the towers that still have light. On the map in the RUN tab.", "show": {"how": "image", "src": "../records/target/WORLD15_THE_MONEY_WALKED_AWAY_11_26.webp", "first": "../records/target/vote_first/world15-the-money-walked-away-11-26.webp", "firstAt": [722, 44, 560, 560]}, "before_after": {"before": "main: every luxury and downtown tower stood finished and whole", "after": "1 to 5 of them a frame the money left, built into the valley's state and painted by the map's own painter, never powered", "scale": "his phone upright (390 x 844 at 3), the demo's map at a block 29 and 72 px, the valley VEGAS7"}, "stage": "stand_in", "record": "records/BOHEMIA_WORLD_15_THE_MONEY_WALKED_AWAY_11_26_26.md"}
  ],
  "verdicts": [
   {
