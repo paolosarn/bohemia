@@ -4005,7 +4005,18 @@ function drawBenches(s){
 }
 /* lit by the night picture's light, not the render's noon sun: a dimmed copy of each render, made once (a canvas filter
    per draw took the screen from 42 frames a second to 5 at night, measured 10/19) */
+/* CAMP FOUR 11/27 (rules 480(c), 495(a)): THE DUSK IS MADE ONCE A PICTURE. MEASURED, the camp after a fight at night (THE CAMP IS THE
+   FIGHT'S BOARD's F1 profile, the demo upright): duskOf 337 ms and its getImageData 175 ms of every 2.5 s, the camp at 19 to 21 frames a
+   second against 47: the camp's men (slices/bohemia_camp_look.js) hand a new {im} each frame, so r.dusk was never there and every man's
+   whole sheet was read back, dimmed and written again every frame. The dusk is kept by the picture itself (the sheets are loaded once
+   and never drawn into), so whoever asks with whatever wrapper gets the one copy. window.__DUSK_EACH_FRAME = the way it was. */
+var DUSK_BY_PIC = typeof WeakMap === 'function' ? new WeakMap() : null;
 function duskOf(r){
+  if(r.dusk) return r.dusk;
+  if(DUSK_BY_PIC && r.im && (r.im.naturalWidth || r.im.width) > 0 && !window.__DUSK_EACH_FRAME){ var kept = DUSK_BY_PIC.get(r.im); if(kept) return (r.dusk = kept); r.dusk = duskMake(r); DUSK_BY_PIC.set(r.im, r.dusk); return r.dusk; }
+  return duskMake(r);
+}
+function duskMake(r){
   if(r.dusk) return r.dusk;
   /* PLUMBER 8 __THE_DUSK_IS_WORKED_OUT_ON_THE_CPU__ (rule 472(e), measured: making camp at night read every man's sheet back off a canvas
      that lives on the phone's GPU, 770 ms of one second of the camp's load): the same sums on a canvas kept on the CPU, then the dusk
