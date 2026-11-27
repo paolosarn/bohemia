@@ -10,7 +10,8 @@
 
    WHAT IT ANSWERS (the message; it is heard BEFORE the bullets and gives them everything it does not claim):
      swing_air                      the swing's air (a machine's: its servo under it)
-     melee_hit / vital  {melee}     a blow: blunt or blade by the weapon's blow, steel when it lands on a machine
+     melee_hit / vital  {melee}     a blow: blunt or blade by the weapon's blow, steel when it lands on a machine; a beast's
+                                    blow {striker: its kind} its own animal (a bite, a cat's maul, a hog's or a bull's ram)
      miss               {melee}     the swing that missed: a foot thrown aside
      hurt               {melee}     a blow on one of his, close; returns null so his ruled 'that was you' plays on top
      went_down                      a man struck down by a blow (a shot heard in the last 1.4 s leaves it to the bullets)
@@ -32,6 +33,14 @@
   var ONLY = { high_ground: ['high'], road_stop: ['road_stop'], boss_found: ['boss_found'], they_come: ['they_come'],
     camp_make: ['camp_make'], camp_break: ['camp_break'], phone_tap: ['phone_tap'], phone_open: ['phone_open'], phone_close: ['phone_close'] };
   function blowOf(m) { return (m.blow === 'cutting' || m.blow === 'piercing') ? 'blade' : 'blunt'; }
+  /* A BEAST'S BLOW (FIXES 4 11/27, ask row 749, rule 482: 'each moves and sounds like the animal it is'): the fight names the beast
+     that struck (m.striker, its kind); the animal is the death player's own word for it (BOH_DEATH.animalOf: canine, cat, big), so
+     a beast's hit and its death are the same animal. A blow from a man never carries a striker. */
+  function beastOf(m) {
+    if (!m.striker) return null;
+    var D = root.BOH_DEATH, a = D && D.animalOf ? D.animalOf(m.striker) : 'canine';
+    return 'beast_' + (a === 'big' || a === 'cat' ? a : 'canine');
+  }
   /* the facts -> [voices] to play, or null when it is not this player's */
   function voicesOf(m, recentShot) {
     var ev = m.ev, mach = !!m.machine;
@@ -41,9 +50,9 @@
     if (ev === 'body_land') return mach ? ['thud', 'metal_step'] : ['thud'];
     if ((ev === 'kill' || ev === 'went_down') && m.victim === 'machine') return ['machine_fall'];
     if (!m.melee) { if (ev === 'went_down' && !m.gun && !recentShot) return ['down']; return null; }
-    if (ev === 'melee_hit' || ev === 'vital') return [m.target_machine ? 'machine_hit' : blowOf(m)];
+    if (ev === 'melee_hit' || ev === 'vital') return [m.target_machine ? 'machine_hit' : beastOf(m) || blowOf(m)];
     if (ev === 'miss') return ['scuff'];
-    if (ev === 'hurt') return ['hurt_body'];
+    if (ev === 'hurt') return [beastOf(m) || 'hurt_body'];
     if (ev === 'went_down') return ['down'];
     return null;
   }
@@ -104,6 +113,7 @@
         var names = voicesOf(m, nowMs() - this.lastShot < NUM.WITHIN); if (!names) return null;
         var o = this.ctx(); if (!o) return null;
         if (!this.ready()) { if (!this.loading) this.load(); return null; }   /* never silent where it was not: the old sound until this is in */
+        if (/^beast_/.test(names[0]) && !this.idx.voices[names[0]]) names = [m.ev === 'hurt' ? 'hurt_body' : blowOf(m)];   /* a sprite from before the beasts: the blow it had */
         var any = false;
         for (var i = 0; i < names.length; i++) if (this.voice(names[i], o)) any = true;
         if (!any) return null;
@@ -113,5 +123,5 @@
     return S;
   }
 
-  root.BOH_PUNCH = { NUM: NUM, voicesOf: voicesOf, make: make };
+  root.BOH_PUNCH = { NUM: NUM, voicesOf: voicesOf, beastOf: beastOf, make: make };
 })(typeof window !== 'undefined' ? window : globalThis);

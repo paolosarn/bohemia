@@ -7722,10 +7722,15 @@ const SND = {
   step: function () { tone(70, 0.05, 0.05, 'triangle'); },
   metal: function (u) { if (u && u.machine) sfx('fight_step', { side: u.side, machine: true }); },   /* a man's step stays this one (his DOWN on REAL SHOES IN THE FIGHT, 10/18) */
   swing: function (u) { sfx('swing_air', u ? { side: u.side, machine: !!u.machine } : undefined); },
-  /* a blow is a blow (melee), its kind (blunt or blade, SND.death's rule) and whether it landed on steel */
-  blow: function (u, t) { const w = u && u.weapon, c = w && ((w.of && w.of.class) || w.class);
-    return { melee: true, side: u ? u.side : null, target_machine: !!(t && t.machine),
-      blow: ['mace', 'hammer', 'flail', 'natural', 'throwing'].indexOf(c) >= 0 || !c ? 'blunt' : ['dagger', 'spear', 'polearm'].indexOf(c) >= 0 ? 'piercing' : 'cutting' }; },
+  /* a blow is a blow (melee), its kind (blunt or blade, SND.death's rule) and whether it landed on steel; a beast's blow names the
+     beast (striker: its kind), so the shell plays the animal, never the pipe (FIXES 4 11/27, ask row 749) */
+  blow: function (u, t) { const w = u && u.weapon, c = w && ((w.of && w.of.class) || w.class), bk = SND.beastOf(u);
+    const f = { melee: true, side: u ? u.side : null, target_machine: !!(t && t.machine),
+      blow: ['mace', 'hammer', 'flail', 'natural', 'throwing'].indexOf(c) >= 0 || !c ? 'blunt' : ['dagger', 'spear', 'polearm'].indexOf(c) >= 0 ? 'piercing' : 'cutting' };
+    if (bk) f.striker = bk;
+    return f; },
+  /* the beast a unit is (its kind), or null for a man: one reading for its blow and its death */
+  beastOf: function (u) { return u && (u.beast || /wolf|hyena|dog|hound|unhold|lindwurm|schrat|kraken|ghoul|nachzehrer|serpent|spider|webknecht/.test(u.kind || '')) ? (u.kind || String(u.beast)) : null; },
   /* the body lands on the fall's last key: COMBAT's thud (thudAt), heard where it is seen */
   thud: function (u, at, B) { const k = DB.rig.keys_per_beat; setTimeout(function () { sfx('body_land', { side: u.side, machine: !!u.machine }); }, Math.max(0, at + B * (k - 1) / k - SONG.lat - performance.now())); },
   shot: function (f) { sfx('shot', f); },
@@ -7748,7 +7753,7 @@ const SND = {
   death: function (u, e) {
     const f = { side: u.side }, a = e && e.by ? FIGHT.byId(e.by) : null, w = a && a.weapon, b = u._blow || {};
     if (u.machine || u.ghost) f.victim = u.machine ? 'machine' : 'ghost';
-    if (u.beast || /wolf|hyena|dog|hound|unhold|lindwurm|schrat|kraken|ghoul|nachzehrer|serpent|spider|webknecht/.test(u.kind || '')) f.beast = u.kind || u.beast;
+    const bk = SND.beastOf(u); if (bk) f.beast = bk;
     if (w) {
       const c = (w.of && w.of.class) || w.class, nm = String(w.name || w.id || '');
       f.weapon = c;

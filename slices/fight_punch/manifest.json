@@ -347,6 +347,72 @@
     "2-152895-A-31",
     "3-171041-A-38"
    ]
+  },
+  "beast_canine": {
+   "takes": [
+    {
+     "at_s": 37.3143,
+     "dur_s": 0.3703
+    },
+    {
+     "at_s": 37.8046,
+     "dur_s": 0.3913
+    },
+    {
+     "at_s": 38.316,
+     "dur_s": 0.377
+    }
+   ],
+   "sources": [
+    "1-51147-A-25",
+    "2-117271-A-0",
+    "5-204114-A-29",
+    "5-234855-A-25"
+   ]
+  },
+  "beast_cat": {
+   "takes": [
+    {
+     "at_s": 38.8129,
+     "dur_s": 0.5152
+    },
+    {
+     "at_s": 39.4481,
+     "dur_s": 0.5484
+    },
+    {
+     "at_s": 40.1165,
+     "dur_s": 0.5862
+    }
+   ],
+   "sources": [
+    "1-9886-A-49",
+    "3-146972-A-5",
+    "5-204114-A-29",
+    "5-234855-A-25"
+   ]
+  },
+  "beast_big": {
+   "takes": [
+    {
+     "at_s": 40.8227,
+     "dur_s": 0.5789
+    },
+    {
+     "at_s": 41.5216,
+     "dur_s": 0.59
+    },
+    {
+     "at_s": 42.2316,
+     "dur_s": 0.6568
+    }
+   ],
+   "sources": [
+    "2-118624-A-30",
+    "2-133889-A-30",
+    "4-132383-B-2",
+    "5-234855-A-25"
+   ]
   }
  },
  "sources": {
@@ -537,6 +603,34 @@
    "source": "clock_tick_close.wav",
    "author": "life_interconnected",
    "url": "http://www.freesound.org/people/life_interconnected/sounds/62849/",
+   "licence": "CC0"
+  },
+  "2-117271-A-0": {
+   "category": "Dog",
+   "source": "angry_dogs.wav",
+   "author": "polipa",
+   "url": "http://www.freesound.org/people/polipa/sounds/117271/",
+   "licence": "CC0"
+  },
+  "5-204114-A-29": {
+   "category": "Drinking - sipping",
+   "source": "Man Eating Teriyaki Noodles.wav",
+   "author": "marcjunker",
+   "url": "http://www.freesound.org/people/marcjunker/sounds/204114/",
+   "licence": "CC0"
+  },
+  "3-146972-A-5": {
+   "category": "Cat",
+   "source": "catAttack.wav",
+   "author": "Zabuhailo",
+   "url": "http://www.freesound.org/people/Zabuhailo/sounds/146972/",
+   "licence": "CC0"
+  },
+  "4-132383-B-2": {
+   "category": "Pig",
+   "source": "Black_Pigs_Fighting_Alentejo_Portugal_2011.wav",
+   "author": "ideiasemvideo",
+   "url": "http://www.freesound.org/people/ideiasemvideo/sounds/132383/",
    "licence": "CC0"
   }
  }

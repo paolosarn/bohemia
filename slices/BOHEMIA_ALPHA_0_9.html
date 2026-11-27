@@ -1588,7 +1588,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/27s - THE CAMP COMES ALIVE</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">BUILD 11/27t - A BEAST BITES LIKE A BEAST</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -23104,7 +23104,7 @@ drawLogoBig();requestAnimationFrame(loop);
   var KINDS = ['bone', 'blade', 'gun', 'beast', 'slow', 'armour'];
   function animalOf(id) {
     var s = String(id || '').toLowerCase();
-    if (/unhold|lindwurm|schrat|kraken|golem|ifrit|bear|mammoth|sloth|bison|camel|horse|boar|bull|hog|ox\b|shrub_ox|llama/.test(s)) return 'big';   /* BESTIARY 2 11/26: the feral hog died as a dog; 'big' holds the pig's squeal (4-132383-B-2) and the cow (5-194899-B-3); the shrub-ox and the llama with it */
+    if (/unhold|lindwurm|schrat|kraken|golem|ifrit|bear|mammoth|sloth|bison|camel|horse|boar|bull|hog|ox\b|shrub_ox|llama|goat/.test(s)) return 'big';   /* BESTIARY 2 11/26: the feral hog died as a dog; 'big' holds the pig's squeal (4-132383-B-2) and the cow (5-194899-B-3); the shrub-ox and the llama with it; FIXES 4 11/27: Harrington's goat too (it died as a dog), and a beast's blow reads this same word (engine/bohemia_punch_heard.js beastOf) */
     if (/ghoul|nachzehrer|cat|lion|tiger|smilodon|cheetah|jaguar|sabre|serpent|spider|webknecht|alp\b|hexe/.test(s)) return 'cat';   /* BESTIARY 2 11/26: the cheetah, the jaguar and the sabre-tooth died as dogs */
     return 'canine';   /* the wolves, hyenas and war dogs, and any beast not named */
   }
@@ -23239,7 +23239,8 @@ drawLogoBig();requestAnimationFrame(loop);
 
    WHAT IT ANSWERS (the message; it is heard BEFORE the bullets and gives them everything it does not claim):
      swing_air                      the swing's air (a machine's: its servo under it)
-     melee_hit / vital  {melee}     a blow: blunt or blade by the weapon's blow, steel when it lands on a machine
+     melee_hit / vital  {melee}     a blow: blunt or blade by the weapon's blow, steel when it lands on a machine; a beast's
+                                    blow {striker: its kind} its own animal (a bite, a cat's maul, a hog's or a bull's ram)
      miss               {melee}     the swing that missed: a foot thrown aside
      hurt               {melee}     a blow on one of his, close; returns null so his ruled 'that was you' plays on top
      went_down                      a man struck down by a blow (a shot heard in the last 1.4 s leaves it to the bullets)
@@ -23261,6 +23262,14 @@ drawLogoBig();requestAnimationFrame(loop);
   var ONLY = { high_ground: ['high'], road_stop: ['road_stop'], boss_found: ['boss_found'], they_come: ['they_come'],
     camp_make: ['camp_make'], camp_break: ['camp_break'], phone_tap: ['phone_tap'], phone_open: ['phone_open'], phone_close: ['phone_close'] };
   function blowOf(m) { return (m.blow === 'cutting' || m.blow === 'piercing') ? 'blade' : 'blunt'; }
+  /* A BEAST'S BLOW (FIXES 4 11/27, ask row 749, rule 482: 'each moves and sounds like the animal it is'): the fight names the beast
+     that struck (m.striker, its kind); the animal is the death player's own word for it (BOH_DEATH.animalOf: canine, cat, big), so
+     a beast's hit and its death are the same animal. A blow from a man never carries a striker. */
+  function beastOf(m) {
+    if (!m.striker) return null;
+    var D = root.BOH_DEATH, a = D && D.animalOf ? D.animalOf(m.striker) : 'canine';
+    return 'beast_' + (a === 'big' || a === 'cat' ? a : 'canine');
+  }
   /* the facts -> [voices] to play, or null when it is not this player's */
   function voicesOf(m, recentShot) {
     var ev = m.ev, mach = !!m.machine;
@@ -23270,9 +23279,9 @@ drawLogoBig();requestAnimationFrame(loop);
     if (ev === 'body_land') return mach ? ['thud', 'metal_step'] : ['thud'];
     if ((ev === 'kill' || ev === 'went_down') && m.victim === 'machine') return ['machine_fall'];
     if (!m.melee) { if (ev === 'went_down' && !m.gun && !recentShot) return ['down']; return null; }
-    if (ev === 'melee_hit' || ev === 'vital') return [m.target_machine ? 'machine_hit' : blowOf(m)];
+    if (ev === 'melee_hit' || ev === 'vital') return [m.target_machine ? 'machine_hit' : beastOf(m) || blowOf(m)];
     if (ev === 'miss') return ['scuff'];
-    if (ev === 'hurt') return ['hurt_body'];
+    if (ev === 'hurt') return [beastOf(m) || 'hurt_body'];
     if (ev === 'went_down') return ['down'];
     return null;
   }
@@ -23333,6 +23342,7 @@ drawLogoBig();requestAnimationFrame(loop);
         var names = voicesOf(m, nowMs() - this.lastShot < NUM.WITHIN); if (!names) return null;
         var o = this.ctx(); if (!o) return null;
         if (!this.ready()) { if (!this.loading) this.load(); return null; }   /* never silent where it was not: the old sound until this is in */
+        if (/^beast_/.test(names[0]) && !this.idx.voices[names[0]]) names = [m.ev === 'hurt' ? 'hurt_body' : blowOf(m)];   /* a sprite from before the beasts: the blow it had */
         var any = false;
         for (var i = 0; i < names.length; i++) if (this.voice(names[i], o)) any = true;
         if (!any) return null;
@@ -23342,7 +23352,7 @@ drawLogoBig();requestAnimationFrame(loop);
     return S;
   }
 
-  root.BOH_PUNCH = { NUM: NUM, voicesOf: voicesOf, make: make };
+  root.BOH_PUNCH = { NUM: NUM, voicesOf: voicesOf, beastOf: beastOf, make: make };
 })(typeof window !== 'undefined' ? window : globalThis);
 /* ---- __THE_PUNCH_HEARD__: the glue (tools/bohemia_sounds_the_punch_patch.py) ---- */
 (function () {

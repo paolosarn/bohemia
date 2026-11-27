@@ -38,7 +38,7 @@
   var KINDS = ['bone', 'blade', 'gun', 'beast', 'slow', 'armour'];
   function animalOf(id) {
     var s = String(id || '').toLowerCase();
-    if (/unhold|lindwurm|schrat|kraken|golem|ifrit|bear|mammoth|sloth|bison|camel|horse|boar|bull|hog|ox\b|shrub_ox|llama/.test(s)) return 'big';   /* BESTIARY 2 11/26: the feral hog died as a dog; 'big' holds the pig's squeal (4-132383-B-2) and the cow (5-194899-B-3); the shrub-ox and the llama with it */
+    if (/unhold|lindwurm|schrat|kraken|golem|ifrit|bear|mammoth|sloth|bison|camel|horse|boar|bull|hog|ox\b|shrub_ox|llama|goat/.test(s)) return 'big';   /* BESTIARY 2 11/26: the feral hog died as a dog; 'big' holds the pig's squeal (4-132383-B-2) and the cow (5-194899-B-3); the shrub-ox and the llama with it; FIXES 4 11/27: Harrington's goat too (it died as a dog), and a beast's blow reads this same word (engine/bohemia_punch_heard.js beastOf) */
     if (/ghoul|nachzehrer|cat|lion|tiger|smilodon|cheetah|jaguar|sabre|serpent|spider|webknecht|alp\b|hexe/.test(s)) return 'cat';   /* BESTIARY 2 11/26: the cheetah, the jaguar and the sabre-tooth died as dogs */
     return 'canine';   /* the wolves, hyenas and war dogs, and any beast not named */
   }

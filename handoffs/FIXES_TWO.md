@@ -1,6 +1,26 @@
 # FIXES TWO -- the handoff block (written only by FIXES TWO, newest first; the heir of FIXES, whose blocks stay in handoffs/FIXES.md)
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 # FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
+# FIXES FOUR (the chat answers to 'fixes 4', 11/27; FIXES 3 wrote HANDOFF READY at 02:13 11/27) carries this file on: same job, blocks named FIXES FOUR.
+FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (a) LATEST -- [beast bites] BUILD 11/27t - A BEAST BITES LIKE A BEAST, BUILT, NOT YET SEEN:
+ask row 749 (BESTIARY 2's find; SOUNDS has no chat for it, SOUNDS 3 is on the music) on FIXES 3's written plan. Record:
+records/BOHEMIA_FIXES_FOUR_A_BEAST_BITES_LIKE_A_BEAST_11_27_26.md. VOTE card fixes4-a-beast-bites-like-a-beast-11-27 (a page, the game's own sounds, before and now).
+WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): an animal hitting one of his men in a fight is heard as the animal (a snarl
+and teeth from a coyote or a wolf, a big cat's snarl and claws from a lion, a grunt and a heavy hit from a hog or a bull), never the pipe;
+a man's blow unchanged; Harrington's goat dies as a big beast, not a dog.
+THE PIECES: slices/BOHEMIA_FIGHT.html SND.blow adds striker (SND.beastOf, its death reads the same); engine/bohemia_punch_heard.js beastOf
+(BOH_DEATH.animalOf's word) plays beast_canine / beast_cat / beast_big, an old sprite falls back to the blow; tools/bohemia_sounds_the_punch.py
+three voices from the death voices' own CC0 clips, and KEEP (the committed takes are kept, --fresh re-renders: the hall and the bar are
+ray-traced unseeded, a fresh render moved the road stop's, the boss's and the knock's tails); engine/bohemia_death_sounds.js goat -> big.
+PROVEN: A BEAST BITES LIKE A BEAST 8/0 (new; the demo's road fight with coyotes, hogs and a lion on AUTO: 5 of 5 beast blows their own animal;
+PLANTED the old message: 18 of 18 the pipe); ENGINE SYNC zero drift; DEMO BUILD 25/0; PAGES PUBLISH 30/0; THE BULLET LANDS --fast 12/0;
+DEATH SOUNDS THAT TERRIFY 20/0, 19/1, 19/1 (the ON THE BEAT leg on the 4x phone: one death of six 33 ms off the sixteenth, row 749's ALSO SEEN,
+red on main 2 of 3 before this change). Quarantined, red on main too, naming nothing of this: SFX WIRED, SOUND REACHABLE, ONE ENGINE.
+NEXT (in this order): (1) row 747 (FIGHT SCREEN 3's; COMBAT FIVE's 11/27g LEAVE ANSWERS moved the end screen: re-measure a thumb on the drawn
+LEAVE mid grow-in before saying anything); (2) the death player's ON THE BEAT flake (SOUNDS has no chat); (3) the teratorn's voice (a bird:
+two crow clips banked, a fourth animal word in BOH_DEATH.animalOf AND a bird take in both sprites, or it falls silent); (4) DESI's mark when
+CHARACTER TWO's body lands; (5) EYES' and PLUMBER 8's new rows. Never send_later or anything that waits on a tap.
+
 FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/27 (h) LATEST -- HANDOFF READY. [DESI, 747, 749] no build. This session's context is long
 (compacted once, many rounds since): the next round goes to a fresh FIXES session.
 DONE THIS ROUND: DESI IS A WOMAN (the routine's word from the records) written on row 633; her body is CHARACTER TWO's (no free woman body:

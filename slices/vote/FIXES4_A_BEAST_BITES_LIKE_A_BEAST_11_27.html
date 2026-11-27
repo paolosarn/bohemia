@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A beast bites like a beast</title>
+<!-- FIXES 4 11/27 (BUILD 11/27t, ask row 749, rule 482): the VOTE card's page. Plays the game's own fight sounds (slices/fight_punch/punch.mp3
+     at the offsets and the gains in its index.json): what a coyote's bite, a lion's maul and a hog's or a bull's ram sounded like before (the
+     pipe-on-bone take every blow used) and now (each beast its own animal under the hit). And the goat's death, which was a dog's. -->
+<style>
+:root { --bg:#16110c; --ink:#e8dcc4; --dim:#9a8a70; --rust:#c8643a; --card:#221a12; --line:#3a2e20; }
+body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.4 ui-monospace,Menlo,Consolas,monospace; padding:16px; }
+h1 { font-size:18px; letter-spacing:2px; margin:0 0 4px; color:var(--rust); }
+p.sub { margin:0 0 14px; color:var(--dim); font-size:13px; }
+.row { display:flex; gap:10px; align-items:center; background:var(--card); border:1px solid var(--line); padding:10px; margin:0 0 8px; }
+.row .who { flex:1; }
+.row .who b { display:block; letter-spacing:1px; }
+.row .who span { color:var(--dim); font-size:12px; }
+button { font:inherit; font-size:13px; padding:10px 12px; min-width:84px; background:#2e2418; color:var(--ink); border:1px solid #5a4630; cursor:pointer; }
+button.now { border-color:var(--rust); color:#ffd9c2; }
+h2 { font-size:15px; letter-spacing:2px; margin:18px 0 8px; color:var(--rust); }
+</style></head><body>
+<h1>A BEAST BITES LIKE A BEAST</h1>
+<p class="sub">When an animal hits one of your men in a fight. It used to be the same pipe-on-bone sound as a man with a pipe. Tap to hear the game's own sound.</p>
+<div class="row"><div class="who"><b>COYOTE, WOLF, HYENA, WAR DOG</b><span>now: a snarl and teeth going in</span></div><button data-s="punch" data-v="blunt">BEFORE</button><button class="now" data-s="punch" data-v="beast_canine">NOW</button></div>
+<div class="row"><div class="who"><b>MOUNTAIN LION, SABRE-TOOTH, JAGUAR</b><span>now: a big cat's snarl, claws, the body</span></div><button data-s="punch" data-v="blunt">BEFORE</button><button class="now" data-s="punch" data-v="beast_cat">NOW</button></div>
+<div class="row"><div class="who"><b>HOG, BULL, BISON, CAMEL, BEAR</b><span>now: a grunt and the weight behind it</span></div><button data-s="punch" data-v="blunt">BEFORE</button><button class="now" data-s="punch" data-v="beast_big">NOW</button></div>
+<h2>A MAN STILL HITS LIKE A MAN</h2>
+<div class="row"><div class="who"><b>A PIPE, A BAT, A FIST</b><span>unchanged</span></div><button data-s="punch" data-v="blunt">PIPE</button><button data-s="punch" data-v="blade">BLADE</button></div>
+<h2>THE GOAT DIES AS A GOAT</h2>
+<div class="row"><div class="who"><b>HARRINGTON'S GOAT</b><span>before: it died with a dog's yelp</span></div><button data-s="death" data-v="animal_canine">BEFORE</button><button class="now" data-s="death" data-v="animal_big">NOW</button></div>
+<script>
+'use strict';
+let AC = null;
+const SPR = { punch: { dir: '../fight_punch/', file: 'punch.mp3' }, death: { dir: '../fight_death/', file: 'death.mp3' } };
+async function load(k) {
+  const S = SPR[k]; if (S.buf) return S;
+  AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+  S.idx = S.idx || await fetch(S.dir + 'index.json').then(r => r.json());
+  const ab = await fetch(S.dir + (S.idx.file || S.file)).then(r => r.arrayBuffer());
+  S.buf = await AC.decodeAudioData(ab);
+  return S;
+}
+document.querySelectorAll('button[data-v]').forEach(b => b.addEventListener('click', async () => {
+  let S; try { S = await load(b.dataset.s); } catch (e) { b.textContent = 'NO SOUND'; return; }
+  if (AC.state !== 'running') await AC.resume();
+  const v = S.idx.voices[b.dataset.v], t = v.takes[Math.floor(Math.random() * v.takes.length)];
+  const s = AC.createBufferSource(); s.buffer = S.buf; const g = AC.createGain(); g.gain.value = Math.min(1.5, Math.pow(10, ((v.db || 0) + 6) / 20));   /* the game's own gain, 6 dB up for a phone speaker with no fight under it */
+  s.connect(g).connect(AC.destination); s.start(0, t[0], t[1]);
+}));
+</script>
+</body></html>

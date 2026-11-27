@@ -19,7 +19,8 @@ const MARK = {
   blunt: -15, blade: -16, swing: -22, scuff: -23, hurt_body: -14, down: -14, thud: -17, high: -22,
   metal_step: -22, servo: -25, machine_hit: -15, machine_fall: -14,
   road_stop: -26, boss_found: -25, they_come: -25, camp_make: -28, camp_break: -28,
-  phone_tap: -30, phone_open: -29, phone_close: -30
+  phone_tap: -30, phone_open: -29, phone_close: -30,
+  beast_canine: -15, beast_cat: -15, beast_big: -14   /* a beast's blow lands where the eye is, like a man's (FIXES 4 11/27, row 749); the big one's mass a dB over */
 };
 
 const srv = http.createServer((rq, rs) => {

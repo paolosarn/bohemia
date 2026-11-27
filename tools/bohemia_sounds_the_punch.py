@@ -184,6 +184,23 @@ def camp_break(k):
     f = span(FIRE, 2.5, 3.6, fi=0.02, fo=0.7)
     ticks = np.concatenate([hit(RELAY, i, 0.05) for i in range(6)]); ticks = FR.speed(ticks, 1.8)
     return finish(mix([(f, 0.0, -2), (hit(GRAVEL, 2, 0.3, spd=0.85), 0.35, 0), (ticks, 0.5, -6)]), lo=120, hi=7000, tape=0.8)
+# ---- A BEAST'S BLOW (FIXES 4 11/27, ask row 749, rule 482: 'each moves and sounds like the animal it is'): a coyote's bite, a cat's
+# maul, a hog's or a bull's ram were the pipe-on-bone take (blunt). Each is its own animal now, cut from the same licensed clips the
+# death voices are (animal_canine, animal_cat, animal_big: tools/bohemia_death_sounds.py), so a beast's hit and its death are one animal.
+DOG, CAT_ATTACK, PIGS_FIGHT, SIP = '2-117271-A-0', '3-146972-A-5', '4-132383-B-2', '5-204114-A-29'
+def beast_canine(k): return finish(mix([(hit(DOG, k + 1, 0.16, spd=0.78, jump=6), 0.0, 0),        # the snarl: a dog's bark lowered
+                                         (hit(CARPET, k, 0.18, spd=0.7), 0.004, -4),               # the body taking it
+                                         (hit(SIP, k, 0.16, spd=0.7, jump=6), 0.012, -3),          # the teeth in: the wet
+                                         (hit(WET, k + 1, 0.1), 0.02, -8)]), lo=90, tape=1.0)
+def beast_cat(k): return finish(mix([(span(CAT_ATTACK, 0.16, 0.5, spd=0.66 - 0.04 * k, fi=0.003, fo=0.08), 0.0, 0),   # the snarl, lowered
+                                      (hit(SAW, k, 0.1, spd=2.2, jump=6), 0.02, -7),                 # the claws through cloth
+                                      (hit(CARPET, k + 1, 0.18, spd=0.7), 0.03, -3),                 # the body
+                                      (hit(SIP, k + 1, 0.12, spd=0.75, jump=6), 0.04, -6)]), lo=110, tape=1.0)
+def beast_big(k): return finish(mix([(hit(PIGS_FIGHT, k, 0.2, spd=0.62, jump=6), 0.0, -2),         # the grunt: two hogs fighting, lowered
+                                      (hit(CARPET, k, 0.2, spd=0.6), 0.0, -1),                       # the body taking it
+                                      (hit(KNOCK, k, 0.16, spd=0.55), 0.004, 0),                     # the mass behind the horns (a 120 BPM beat long, no more)
+                                      (slam(DOOR_SHUT, 0.25, spd=0.7 - 0.04 * k), 0.01, -6)]), lo=50, tape=1.0)
+
 def phone_tap(k): return finish(mix([(hit(CLICK, k, 0.06), 0.0, 0), (hit(TOOTH, k, 0.05, spd=1.2), 0.004, -6)]), lo=300, tape=0.3)
 def phone_open(k):
     gears = np.concatenate([hit(RELAY, i, 0.035, spd=1.5) for i in range(5)])
@@ -201,14 +218,42 @@ VOICES = [  # name, takes, maker, the sources it reads
     ('road_stop', 1, road_stop, [BELL, CLICK]), ('boss_found', 1, boss_found, [SIREN, BELL]), ('they_come', 1, they_come, [KNOCK, WOLF]),
     ('camp_make', 1, camp_make, [FIRE, GRAVEL]), ('camp_break', 1, camp_break, [FIRE, GRAVEL, RELAY]),
     ('phone_tap', 3, phone_tap, [CLICK, TOOTH]), ('phone_open', 1, phone_open, [RELAY, CLICK]), ('phone_close', 1, phone_close, [RELAY, CLICK]),
+    # appended last, so every take above keeps its place in the sprite (FIXES 4 11/27, ask row 749)
+    ('beast_canine', 3, beast_canine, [DOG, CARPET, SIP, WET]), ('beast_cat', 3, beast_cat, [CAT_ATTACK, SAW, CARPET, SIP]),
+    ('beast_big', 3, beast_big, [PIGS_FIGHT, CARPET, KNOCK, DOOR_SHUT]),
 ]
+
+
+def kept():
+    """KEEP (FIXES 4 11/27): the committed sprite's own audio for every voice it already holds, in its order. The hall and the bar are
+    ray-traced rooms (pyroomacoustics, unseeded), so a fresh render moves the road stop's, the boss's and the knock's tails a little
+    every time: a new voice must never quietly change a sound he has already heard. Returns (audio, seconds, manifest) or None."""
+    mp, mf = os.path.join(OUT, 'punch.mp3'), os.path.join(OUT, 'manifest.json')
+    if '--fresh' in sys.argv or not (os.path.exists(mp) and os.path.exists(mf)): return None
+    old = json.load(open(mf)); names = list(old['voices'])
+    if [v[0] for v in VOICES[:len(names)]] != names or any(len(old['voices'][n]['takes']) != VOICES[i][1] for i, n in enumerate(names)):
+        raise SystemExit('the committed sprite\'s voices are not the first voices of VOICES in order: run with --fresh, on purpose')
+    last = old['voices'][names[-1]]['takes'][-1]; end = last['at_s'] + last['dur_s'] + GAP
+    with tempfile.TemporaryDirectory() as td:
+        wav = os.path.join(td, 'old.wav')
+        subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', mp, '-ac', '1', '-ar', str(SR), wav], check=True)
+        x, _ = sf.read(wav, dtype='float32')
+    n = int(round(end * SR)); x = np.concatenate([x, np.zeros(max(0, n - len(x)), dtype=np.float32)])[:n]
+    return x, n / SR, old
 
 
 def main():
     os.makedirs(OUT, exist_ok=True)
     parts, at, man = [], 0.0, {'_readme': 'THE PUNCH HEARD (SOUNDS 11/3/26): every voice\'s takes in punch.mp3 and the CC0 recordings each is cut from (tools/bohemia_sounds_the_punch.py). The game reads index.json (the gains, tools/bohemia_sounds_the_punch_level.js).',
                                'file': 'punch.mp3', 'voices': {}, 'sources': {}}
+    K = kept()
+    if K:
+        parts.append(K[0]); at = K[1]
+        for name in K[2]['voices']: man['voices'][name] = K[2]['voices'][name]
+        man['sources'].update(K[2]['sources'])
+        print('  kept the committed sprite\'s %d voices as they are (%.2f s)' % (len(K[2]['voices']), at))
     for name, n, fn, srcs in VOICES:
+        if name in man['voices']: continue
         takes = []
         for k in range(n):
             y = fn(k)
