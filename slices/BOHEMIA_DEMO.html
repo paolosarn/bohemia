@@ -1602,7 +1602,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/27zq - THE STALL HOLDS STILL</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/27zr - THE DRONE HEARD</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -22847,7 +22847,8 @@ drawLogoBig();requestAnimationFrame(loop);
 
    WHAT THE FIGHT SAYS, AND WHAT IT CAN SAY (the message; every field but ev is optional, and the ones COMBAT adds are the
    whole difference between a good guess and the truth):
-     { type: 'BOHEMIA_SFX', ev,                      'shot' 'hit' 'vital' 'miss' 'hurt' 'kill' 'went_down' 'mag_home' ...
+     { type: 'BOHEMIA_SFX', ev,                      'shot' 'hit' 'vital' 'miss' 'hurt' 'kill' 'went_down' 'mag_home'
+                                                     'drone_up' 'blast' 'drone_down' (SOUNDS THREE 11/27) ...
        gun:    'pistol' | 'shotgun' | 'rifle' | 'mg' (or the weapon's class: dagger, firearm, crossbow)
        side:   'you' | 'them'   who FIRED (for kill and went_down: the side of the man who FELL)
        hp, armour:  what the blow did (armour > 0 and no hp: the plate stopped it; both: it went through)
@@ -23014,6 +23015,16 @@ drawLogoBig();requestAnimationFrame(loop);
           if (gun === 'mg' && !this.ready()) return null;
           return this.fire(o, gun, shooter) ? 'done' : null;
         }
+        /* THE DRONE AND THE ROCKET (SOUNDS THREE 11/27, rule 490; ARMORY 3 owed them): the fight names them; side is who sent
+           it. The whine is always near (it is coming for someone); the blast is over there when his side sent it, among his
+           men when theirs did; a drone shot down falls by the man who shot it. Until the sprite is in, the drone's launch plays
+           the power-on and the blast a shot, as they did before; a drone going down adds nothing (the fight's shot plays). */
+        if (ev === 'drone_up' || ev === 'blast' || ev === 'drone_down') {
+          if (!o || !this.ready()) return ev === 'drone_up' ? { swap: 'power_on' } : ev === 'blast' ? { swap: 'shot' } : 'done';
+          var by = m.side === 'them' ? 'them' : m.side === 'you' ? 'you' : shooter;
+          var played = this.voice(ev === 'drone_up' ? 'drone_whine' : ev, o, ev === 'blast' ? by === 'you' : ev === 'drone_down' ? by === 'them' : false, 0, 0, ev === 'blast');
+          return played ? 'done' : (ev === 'drone_up' ? { swap: 'power_on' } : ev === 'blast' ? { swap: 'shot' } : 'done');
+        }
         if (ev === 'mag_home') { var rg = gunOf(m.gun); return (o && rg && this.reload(o, rg)) ? 'done' : null; }
         var ranged = !!m.gun || recent;
         if (!o || !this.ready() || !ranged) return null;   /* a blade, a pipe, a fist: never touched */
@@ -23077,8 +23088,7 @@ drawLogoBig();requestAnimationFrame(loop);
   var since = 0, iv = setInterval(function () {
     try {
       if (B.ready() || B.loading) { clearInterval(iv); return; }
-      if (typeof MUS !== 'undefined' && MUS.AC && MUS.AC.state === 'running' && !(window.bohemiaFirstPlayHeld && bohemiaFirstPlayHeld())) { since = since || Date.now();   /* __FIRST_PLAY_IS_LIGHT__: 'the music first runs' counts from first play (the title's own tap runs it now) */
-        if (Date.now() - since > 25000) { B.load(); clearInterval(iv); } }
+      if (typeof MUS !== 'undefined' && MUS.AC && MUS.AC.state === 'running') { since = since || Date.now(); if (Date.now() - since > 25000) { B.load(); clearInterval(iv); } }
     } catch (_e) {}
   }, 1000);
 })();

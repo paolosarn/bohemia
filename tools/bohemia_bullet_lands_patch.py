@@ -112,6 +112,14 @@ def main():
     s = once(s, RECV_OLD, RECV_NEW, "_bl = window.BULLET ? BULLET.heard(d) : null;", 'the fight\'s sound line')
     open(ALPHA, 'w', encoding='utf-8').write(s)
     print('THE BULLET LANDS PATCH: the alpha carries the player (%d bytes), the bus hook and the fight\'s sound line' % len(body))
+    # SOUNDS THREE 11/27: the demo carries the same block; a change to the engine reaches it here too, replaced between its
+    # markers, never inserted (only RUN cuts a new demo; the bus hook and the fight's line are already in it)
+    demo = os.path.join(ROOT, 'slices', 'BOHEMIA_DEMO.html')
+    d = open(demo, encoding='utf-8').read()
+    if START in d:
+        a = d.index(START); b = d.index(END, a) + len(END)
+        open(demo, 'w', encoding='utf-8').write(d[:a] + START + body + END + d[b:])
+        print('THE BULLET LANDS PATCH: the demo carries it too')
 
 
 if __name__ == '__main__':

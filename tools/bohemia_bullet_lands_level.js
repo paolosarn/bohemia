@@ -33,7 +33,10 @@ const MARK = {
   ricochet: -20.0,
   down_dead: -13.0, down_hurt: -14.0,
   gun_mg_yours: -20.0, gun_mg_theirs: -24.0,
-  tick: -30.0, tally_up: -19.0, tally_down: -21.0
+  tick: -30.0, tally_up: -19.0, tally_down: -21.0,
+  /* SOUNDS THREE 11/27 (rule 490): the drone's whine under a gun (a threat coming, not a shot), the blast over every gun (the
+     loudest thing in the fight: a drone or a rocket landing), the drone shot down a pop and a clatter at a landing's level */
+  drone_whine: -22.0, blast: -12.0, drone_down: -19.0
 };
 const CAP = 24.0;
 

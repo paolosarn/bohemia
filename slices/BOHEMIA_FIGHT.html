@@ -8928,7 +8928,8 @@ function startAnimHeard(a) {
     if (ranged && !e.free && crewControlled(u) && FIGHT.emptyGun(u)) later(function () { sfx('dry_fire'); }, B * 0.8); onTime(function () { UI.dryAt = performance.now(); teach('reload'); }, B * 0.8);
     if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = a.at + B * 1.5; (UI.hitFrom = UI.hitFrom || {})[t.id] = a.at + B * 0.45; goreHit(t, u, e.hp, a.at + B * 0.45); punchLand(u, t, e, a.at + B * 0.45, B, ranged); }
     else if (t && ranged) dustAt(u, t, a.at + B * 0.45, B);
-    if (a.rocket) (UI.booms = UI.booms || []).push({ x: a.rocket.x, y: a.rocket.y, at: a.at + B * 0.45, blast: true });   /* __ARMORY_THREE__: the rocket's house and its eight */
+    if (a.rocket) { (UI.booms = UI.booms || []).push({ x: a.rocket.x, y: a.rocket.y, at: a.at + B * 0.45, blast: true });   /* __ARMORY_THREE__: the rocket's house and its eight */
+      later(function () { sfx('blast', { side: u.side }); }, B * 0.45); }   /* SOUNDS THREE 11/27 (rule 490): the house heard going, with its boom */
     else if (wBlocked(u, t, e, ranged)) wBlockLand(u, t, a.at + B * 0.45, B);   /* __THE_FIGHTS_WEIGHT__: taken on the shield */
     /* WEAPON SHAPES: every other man the sweep caught, a sixteenth apart after the first, his own sound and his own mark */
     (a.also || []).forEach(function (o, i) {
@@ -9052,12 +9053,12 @@ function startAnimHeard(a) {
     else if (e.t === 'skill' && e.skill === 'dart') { const t = FIGHT.byId(e.to); sfx('dry_fire'); if (t) pop(t, e.hit ? 'ASLEEP' : '', '#9cb4d8', !!e.hit, e.hit ? t.name + ' sleeps.' : u.name + ' misses.'); }
     else if (e.t === 'skill' && e.skill === 'asleep') { pop(u, 'asleep', '#9cb4d8', false, u.name + ' sleeps.'); }
     else if (e.t === 'skill' && e.skill === 'wakes') { pop(u, 'wakes', '#c9b48a', false, u.name + ' wakes.'); }
-    else if (e.t === 'skill' && e.skill === 'drone_launch') { sfx('power_on', { side: u.side }); (UI.droneFly = UI.droneFly || {})[e.drone] = { at: a.at }; pop(u, 'DRONE', '#f0e6d0', true, u.name + ' sends a drone at ' + nameOf(e.to) + '. It hits next turn: get off the lit tiles or shoot it down.'); }   /* __ARMORY_THREE__ (rule 490); draft:true */
-    else if (e.t === 'skill' && e.skill === 'drone_lands') { sfx('shot', { side: u.side }); (UI.booms = UI.booms || []).push({ x: e.x, y: e.y, at: a.at, cross: true }); pop(u, '', '#f0b04a', false, e.n ? 'The drone hits ' + e.n + '.' : 'The drone hits nothing. They got off the tiles.'); }
-    else if (e.t === 'skill' && e.skill === 'drone_down') { sfx('shot', { side: u.side }); (UI.booms = UI.booms || []).push({ x: e.x, y: e.y, at: a.at + B * 0.35, small: true }); pop(u, 'DRONE DOWN', '#f0e6d0', true, u.name + ' shoots the drone out of the air.'); }
+    else if (e.t === 'skill' && e.skill === 'drone_launch') { sfx('drone_up', { side: u.side });   /* SOUNDS THREE 11/27: its whine (the shell plays the power-on until the recording is in) */ (UI.droneFly = UI.droneFly || {})[e.drone] = { at: a.at }; pop(u, 'DRONE', '#f0e6d0', true, u.name + ' sends a drone at ' + nameOf(e.to) + '. It hits next turn: get off the lit tiles or shoot it down.'); }   /* __ARMORY_THREE__ (rule 490); draft:true */
+    else if (e.t === 'skill' && e.skill === 'drone_lands') { sfx('blast', { side: u.side });   /* SOUNDS THREE 11/27: the blast (a shot until the recording is in) */ (UI.booms = UI.booms || []).push({ x: e.x, y: e.y, at: a.at, cross: true }); pop(u, '', '#f0b04a', false, e.n ? 'The drone hits ' + e.n + '.' : 'The drone hits nothing. They got off the tiles.'); }
+    else if (e.t === 'skill' && e.skill === 'drone_down') { sfx('shot', { side: u.side }); later(function () { sfx('drone_down', { side: u.side }); }, B * 0.35);   /* SOUNDS THREE 11/27: the drone hit, its motor dying, the street */ (UI.booms = UI.booms || []).push({ x: e.x, y: e.y, at: a.at + B * 0.35, small: true }); pop(u, 'DRONE DOWN', '#f0e6d0', true, u.name + ' shoots the drone out of the air.'); }
     else if (e.t === 'skill' && e.skill === 'drone_miss') { sfx('shot', { side: u.side }); pop(u, 'MISSED IT', '#c8c4b8', false, u.name + ' misses the drone (' + e.chance + '%).'); }
     else if (e.t === 'skill' && e.skill === 'drone_falls') { pop(u, '', '#c8c4b8', false, 'The drone drops with its pilot.'); }
-    else if (e.t === 'skill' && e.skill === 'spot') { sfx('power_on', { side: u.side }); pop(u, 'SPOTTED', '#9cc3e8', true, u.name + "'s drone is up. Your side sees every one of them."); }
+    else if (e.t === 'skill' && e.skill === 'spot') { sfx('drone_up', { side: u.side, scout: true }); pop(u, 'SPOTTED', '#9cc3e8', true, u.name + "'s drone is up. Your side sees every one of them."); }
     else if (e.t === 'skill' && e.skill === 'spot_ends') { pop(u, '', '#9cc3e8', false, 'The scout drone comes down.'); }
     else if (e.t === 'skill' && e.skill === 'burst') { /* the rounds of the press speak for themselves */ }
     else if (e.t === 'skill' && e.skill === 'call_lands') { sfx('shot', { side: u.side }); pop(u, '', '#e04030', false, e.n ? 'The roof hits ' + e.n + '.' : 'The roof hits nothing.'); }

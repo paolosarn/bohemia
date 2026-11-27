@@ -78,6 +78,8 @@ STREET_R0 = 20.0
 # THE REAL MATERIAL
 # ----------------------------------------------------------------------------------------------------------------------
 ESC = {   # stem: what it is, as its author named it (the licence line is frozen by FR.freeze_sources: CC0 or refused)
+    '5-231551-A-36': 'a vacuum cleaner\'s motor running (MrAuralization): sped up, a drone\'s small motor screaming (SOUNDS THREE 11/27)',
+    '3-154926-A-40': 'a helicopter passing (kerouac21): its rotor chop under the drone\'s scream (SOUNDS THREE 11/27)',
     '2-76408-B-22': 'a single clap, close (therabidfrog, Clap.mp3)',
     '2-76408-C-22': 'a single clap, close (therabidfrog, Clap.mp3)',
     '2-76408-D-22': 'a single clap, close (therabidfrog, Clap.mp3)',
@@ -382,6 +384,60 @@ def v_tally(up, k):
                 L(YANTAR, k + 1, 0.08, spd=1.0, db=-6.0)]
     return [L(WAGON[(k + 1) % 2], k + 2, 0.3, spd=0.8, db=0.0, hp=150.0), L(DOOR, k, 0.3, spd=1.4, db=-4.0, at=0.003)]
 
+# THE DRONE AND THE ROCKET (SOUNDS THREE 11/27, rule 490; ARMORY 3's record: 'SOUNDS owes a drone's whine and a blast'; until
+# now the launch played the power-on and the landing a gunshot). From real recordings, through the same street and tape:
+#   drone_whine  an FPV drone is a small motor screaming: a vacuum cleaner's motor sped up two and a half times and kept to the
+#                band a small motor fills, the rotor chop of a real helicopter sped up under it, the insect swarm's buzz on top;
+#                it rises as it comes (three layers entering one after another), about three beats
+#   blast        the drone landing and the rocket: a real gunshot heard from far off slowed to a third (the boom, the low end a
+#                phone still plays at its 300 Hz floor), a near shot's crack at its own speed for the hit, then the street
+#                coming down: glass breaking and gravel, a door's slam slowed (the debris), all inside the canyon
+#   drone_down   a drone shot out of the air: a small pop (a near crack, quickened), its motor dying (the whine slowed and short)
+#                and it hitting the street (the wagons' steel quickened, gravel)
+MOTOR, ROTOR = '5-231551-A-36', '3-154926-A-40'
+FARS = ['H_15_0_far', 'B_21_0_far', 'B_22_0_far']
+NEARS = ['B_15_0_shot', 'H_16_0_shot', 'B_23_0_shot']
+
+def F(bid, dur, spd=1.0, db=0.0, at=0.0, hp=None, lp=None, skip=0.0):
+    """One real layer from the gun library (a banked window), sped, filtered, levelled by its peak."""
+    x = ffsl(bid); a = int(skip * SR); y = x[a:a + int((dur / spd) * SR)].copy()
+    y = FR.speed(y, spd)
+    if hp: y = FR.hp(y, hp)
+    if lp: y = FR.lp(y, lp)
+    f = min(len(y), int(0.03 * SR)); y[-f:] *= np.linspace(1, 0, f, dtype=np.float32) ** 2
+    return dict(y=norm(y), at=at, db=db, src='ffsl:' + bid, k=0, spd=spd)
+
+def C(stem, dur, spd=1.0, db=0.0, at=0.0, hp=None, lp=None, skip=0.3):
+    """One real layer from a continuous clip (a motor, a swarm): no onset to find, a window from skip, faded in and out."""
+    x = esc(stem); a = int(skip * SR); y = x[a:a + int((dur / spd) * SR)].copy()
+    y = FR.speed(y, spd)
+    if hp: y = FR.hp(y, hp)
+    if lp: y = FR.lp(y, lp)
+    fi = min(len(y) // 3, int(0.25 * SR)); y[:fi] *= np.linspace(0, 1, fi, dtype=np.float32) ** 2
+    fo = min(len(y) // 3, int(0.2 * SR)); y[-fo:] *= np.linspace(1, 0, fo, dtype=np.float32) ** 2
+    return dict(y=norm(y), at=at, db=db, src=stem, k=0, spd=spd)
+
+def v_drone_whine(k):
+    sp = 2.5 + 0.15 * k
+    return [C(ROTOR, 1.4, spd=1.8, db=-10.0, at=0.0, hp=200.0, skip=0.5 + 0.4 * k),
+            C(MOTOR, 1.3, spd=sp, db=-2.0, at=0.15, hp=350.0, lp=6000.0, skip=0.4 + 0.5 * k),
+            C(FLY, 1.0, spd=1.25, db=-9.0, at=0.4, hp=600.0, skip=0.2 + 0.3 * k)]
+
+def v_blast(k):
+    return [F(FARS[k % 3], 1.4, spd=0.34, db=0.0, at=0.0, hp=40.0),
+            F(NEARS[k % 3], 0.35, spd=0.8, db=-5.0, at=0.0, hp=200.0),
+            L(GLASS[k % 2], k, 0.5, spd=0.9, db=-9.0, at=0.12, hp=400.0),
+            L(GRAVEL, k + 2, 0.4, spd=0.7, db=-8.0, at=0.18, hp=150.0),
+            L(DOOR, k + 1, 0.5, spd=0.6, db=-7.0, at=0.06, hp=60.0)]
+
+def v_drone_down(k):
+    return [F(NEARS[(k + 1) % 3], 0.2, spd=1.4, db=-4.0, at=0.0, hp=600.0),
+            C(MOTOR, 0.45, spd=1.3, db=-8.0, at=0.02, hp=300.0, lp=5000.0, skip=1.0 + 0.3 * k),
+            L(WAGON[k % 2], k + 5, 0.25, spd=1.5, db=-6.0, at=0.42, hp=300.0),
+            L(GRAVEL, k + 3, 0.25, spd=1.1, db=-10.0, at=0.44, hp=300.0)]
+
+DRONE_CUT, BLAST_CUT = 1.5, 1.75   # the whine three beats; the blast and the street coming down three and a half
+
 # the voices: name -> (builder, cut length, loudness under the shotgun's shot in dB)
 FEW = 3   # the rarer voices (the head, cover, the spray, the ricochet, the falls) carry three takes, still never one twice running
 
@@ -404,6 +460,9 @@ def voices():
     V['tick'] = (v_tick, 0.25, -17.0)
     V['tally_up'] = (lambda k: v_tally(True, k), CUT, -9.0)
     V['tally_down'] = (lambda k: v_tally(False, k), CUT, -11.0)
+    V['drone_whine'] = (v_drone_whine, DRONE_CUT, -8.0)
+    V['blast'] = (v_blast, BLAST_CUT, 1.0)
+    V['drone_down'] = (v_drone_down, CUT, -6.0)
     return V
 
 def chain(x, cut, agc_max=AGC_MAX, r0=STREET_R0):
@@ -474,7 +533,7 @@ def render():
     man = dict(_readme='THE BULLET LANDS (SOUNDS 10/24/26, row [the bullet lands], rule 120): where the bullet goes, from real recordings, through the guns\' own street, camcorder and tape (tools/bohemia_bullet_lands.py). ONE sprite, lands.mp3: every take of every voice at its own at_s, dur_s long. The game\'s player is engine/bohemia_bullet_lands.js.',
                made='10/24/26', lane='sounds', bpm=120, file='lands.mp3', kbps=64, peak_db_decoded=round(pk, 2), seconds=round(len(sprite) / SR, 2),
                top_loud_100ms_db=G, chain='layers > street canyon %.0f m (an echo every 16th) > camcorder AGC (2 ms / 500 ms / up to +%.0f dB) > tape > VHS band 100 Hz to 10 kHz > cut, a 16th fade > one loudness per voice' % (STREET_R0, AGC_MAX),
-               sources=dict(ffsl=dict(library=GH.LIBRARY, windows={b: lic_ffsl[b] for b in sorted(set(crack_ids() + ['%s_0_burst' % t for v in BURSTS.values() for _f, t in v]))}),
+               sources=dict(ffsl=dict(library=GH.LIBRARY, windows={b: lic_ffsl[b] for b in sorted(set(crack_ids() + ['%s_0_burst' % t for v in BURSTS.values() for _f, t in v] + FARS + NEARS))}),
                             esc50_cc0={s: dict(what=ESC.get(s, ''), author=lic_esc[s]['author'], freesound=lic_esc[s]['url'], licence=lic_esc[s]['licence']) for s in sorted(set(used_esc)) if s in lic_esc}),
                voices=man_voices)
     json.dump(man, open(os.path.join(OUT, 'manifest.json'), 'w'), indent=1)

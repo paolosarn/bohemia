@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Drone Heard</title>
+<!-- BOHEMIA -- THE DRONE HEARD (SOUNDS THREE 11/27/26, rule 490; ARMORY 3's record: 'SOUNDS owes a drone's whine and a blast').
+     The VOTE card's page: the three new voices of slices/fight_heard/lands.mp3 (tools/bohemia_bullet_lands.py, levels from
+     tools/bohemia_bullet_lands_level.js), played the way the fight plays them (engine/bohemia_bullet_lands.js): each take at its
+     index.json place and gain. BEFORE is what the fight played until now: the drone's launch was the power-on, its landing and the
+     rocket's a gunshot. The first tap plays (the phone's playback session asked for, Web Audio unlocked inside the tap); when Web
+     Audio will not start, a plain player takes the same tap; when the file will not come, plain words. -->
+<style>
+:root{--bg:#0d0c0a;--ink:#e8dcc0;--dim:#9a8f78;--hot:#f0b04a;--line:#2a2620}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 ui-monospace,Menlo,Consolas,monospace}
+main{max-width:560px;margin:0 auto;padding:18px 16px 40px}
+h1{font-size:17px;letter-spacing:2px;margin:0 0 6px}
+p{margin:6px 0 14px;color:var(--dim)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+button{flex:1 1 140px;min-height:52px;background:#16140f;color:var(--ink);border:1px solid var(--line);border-radius:6px;font:inherit;letter-spacing:1px;padding:8px}
+button:active{border-color:var(--hot)}
+button.big{flex-basis:100%;border-color:#5a4a2a}
+#say{min-height:44px;color:var(--hot);margin-top:12px}
+small{color:var(--dim)}
+</style>
+</head>
+<body>
+<main>
+<h1>THE DRONE, HEARD</h1>
+<p>The drone used to borrow the power-on hum and a gunshot. Now it has its own sounds, made from real recordings through the fight's street and tape.</p>
+<div class="row">
+ <button data-v="drone_whine">1. IT GOES UP<br><small>the whine</small></button>
+ <button data-v="blast">2. IT LANDS<br><small>the blast (and the rocket)</small></button>
+ <button data-v="drone_down">3. SHOT DOWN<br><small>the pop, the motor dying</small></button>
+</div>
+<div class="row"><button class="big" data-seq="1">IN A FIGHT: it goes up, a turn later it lands</button></div>
+<div class="row"><button class="big" data-seq="2">IN A FIGHT: it goes up and you shoot it down</button></div>
+<div id="say">Tap a button.</div>
+</main>
+<script>
+(function(){
+ 'use strict';
+ var DIR='fight_heard/', AC=null, buf=null, idx=null, loading=null, last={}, el=null, plain=false;
+ var say=function(t){ document.getElementById('say').textContent=t; };
+ function ctx(){ try{ if(navigator.audioSession) navigator.audioSession.type='playback'; }catch(e){}
+  if(!AC){ var C=window.AudioContext||window.webkitAudioContext; if(C) AC=new C(); }
+  if(AC && AC.state!=='running'){ try{ AC.resume(); }catch(e){} }
+  return AC; }
+ function load(){
+  if(loading) return loading;
+  say('LOADING the drone\'s sounds...');
+  loading=fetch(DIR+'index.json').then(function(r){ if(!r.ok) throw new Error(r.status); return r.json(); }).then(function(j){ idx=j;
+   return fetch(DIR+j.file).then(function(r){ if(!r.ok) throw new Error(r.status); return r.arrayBuffer(); }); })
+   .then(function(ab){ return new Promise(function(res,rej){ AC.decodeAudioData(ab,res,rej); }); })
+   .then(function(b){ buf=b; return b; })
+   .catch(function(e){ loading=null; say('It did not play: the file did not load. Check your signal and tap again.'); throw e; });
+  return loading;
+ }
+ function take(name){ var v=idx&&idx.voices[name]; if(!v) return null; var n=v.takes.length, k;
+  k=n<2?0:Math.floor(Math.random()*n); if(n>1&&k===last[name]) k=(k+1)%n; last[name]=k; return { v:v, t:v.takes[k] }; }
+ function voice(name, delay){
+  var tk=take(name); if(!tk) return;
+  var s=AC.createBufferSource(), g=AC.createGain(); s.buffer=buf; g.gain.value=Math.pow(10,(tk.v.db||0)/20);
+  s.connect(g); g.connect(AC.destination); s.start(AC.currentTime+(delay||0), Math.max(0,tk.t[0]-0.005), tk.t[1]+0.005);
+ }
+ /* the plain player: the same sprite through an <audio>, seeked to the take and stopped at its end */
+ function plainPlay(name){
+  plain=true; if(!el){ el=new Audio(); el.src=DIR+'lands.mp3'; el.preload='auto'; }
+  var go=function(){ var tk=take(name); if(!tk){ say('It did not play: the file did not load. Check your signal and tap again.'); return; }
+   el.currentTime=tk.t[0]; var p=el.play(); if(p&&p.catch) p.catch(function(){ say('It did not play: the file did not load. Check your signal and tap again.'); });
+   setTimeout(function(){ try{ el.pause(); }catch(e){} }, tk.t[1]*1000); say('PLAYING (the simple player): '+name.replace('_',' ')); };
+  if(idx) go(); else fetch(DIR+'index.json').then(function(r){ return r.json(); }).then(function(j){ idx=j; go(); }).catch(function(){ say('It did not play: the file did not load. Check your signal and tap again.'); });
+ }
+ function play(names){
+  var A=ctx();
+  if(!A || plain){ plainPlay(names[0][0]); return; }
+  load().then(function(){
+   if(A.state!=='running'){ plainPlay(names[0][0]); return; }
+   names.forEach(function(x){ voice(x[0], x[1]); });
+   say('PLAYING '+names.map(function(x){ return x[0].replace('_',' '); }).join(', then '));
+  }).catch(function(){});
+ }
+ document.querySelectorAll('button[data-v]').forEach(function(b){ b.addEventListener('click', function(){ play([[b.getAttribute('data-v'),0]]); }); });
+ document.querySelectorAll('button[data-seq]').forEach(function(b){ b.addEventListener('click', function(){
+  /* the fight's own spacing at 120 BPM: up, a turn later (four beats) the landing; or up, and the shot a beat and a half later, the fall a third of a beat after it */
+  play(b.getAttribute('data-seq')==='1' ? [['drone_whine',0],['blast',2.0]] : [['drone_whine',0],['drone_down',0.9]]); }); });
+})();
+</script>
+</body>
+</html>

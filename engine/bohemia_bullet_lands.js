@@ -7,7 +7,8 @@
 
    WHAT THE FIGHT SAYS, AND WHAT IT CAN SAY (the message; every field but ev is optional, and the ones COMBAT adds are the
    whole difference between a good guess and the truth):
-     { type: 'BOHEMIA_SFX', ev,                      'shot' 'hit' 'vital' 'miss' 'hurt' 'kill' 'went_down' 'mag_home' ...
+     { type: 'BOHEMIA_SFX', ev,                      'shot' 'hit' 'vital' 'miss' 'hurt' 'kill' 'went_down' 'mag_home'
+                                                     'drone_up' 'blast' 'drone_down' (SOUNDS THREE 11/27) ...
        gun:    'pistol' | 'shotgun' | 'rifle' | 'mg' (or the weapon's class: dagger, firearm, crossbow)
        side:   'you' | 'them'   who FIRED (for kill and went_down: the side of the man who FELL)
        hp, armour:  what the blow did (armour > 0 and no hp: the plate stopped it; both: it went through)
@@ -173,6 +174,16 @@
           if (!o || !gun || !this.guns) return null;   /* never late, never silent: the old shot plays until the real one is in */
           if (gun === 'mg' && !this.ready()) return null;
           return this.fire(o, gun, shooter) ? 'done' : null;
+        }
+        /* THE DRONE AND THE ROCKET (SOUNDS THREE 11/27, rule 490; ARMORY 3 owed them): the fight names them; side is who sent
+           it. The whine is always near (it is coming for someone); the blast is over there when his side sent it, among his
+           men when theirs did; a drone shot down falls by the man who shot it. Until the sprite is in, the drone's launch plays
+           the power-on and the blast a shot, as they did before; a drone going down adds nothing (the fight's shot plays). */
+        if (ev === 'drone_up' || ev === 'blast' || ev === 'drone_down') {
+          if (!o || !this.ready()) return ev === 'drone_up' ? { swap: 'power_on' } : ev === 'blast' ? { swap: 'shot' } : 'done';
+          var by = m.side === 'them' ? 'them' : m.side === 'you' ? 'you' : shooter;
+          var played = this.voice(ev === 'drone_up' ? 'drone_whine' : ev, o, ev === 'blast' ? by === 'you' : ev === 'drone_down' ? by === 'them' : false, 0, 0, ev === 'blast');
+          return played ? 'done' : (ev === 'drone_up' ? { swap: 'power_on' } : ev === 'blast' ? { swap: 'shot' } : 'done');
         }
         if (ev === 'mag_home') { var rg = gunOf(m.gun); return (o && rg && this.reload(o, rg)) ? 'done' : null; }
         var ranged = !!m.gun || recent;

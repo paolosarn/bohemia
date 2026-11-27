@@ -141,6 +141,12 @@ const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
       out.count = { up: up, upTicks: upLog.filter(l => l.voice === 'tick').length, upTally: upLog.filter(l => l.voice === 'tally_up').length,
         dn: dn, dnTicks: dnLog.filter(l => l.voice === 'tick').length, dnTally: dnLog.filter(l => l.voice === 'tally_down').length, dnBell: dnLog.filter(l => l.voice === 'tally_up').length, off: off,
         upLand: upLog.filter(l => l.voice === 'tally_up').map(l => l.at)[0], upFirst: upLog.filter(l => l.voice === 'tick').map(l => l.at)[0] };
+      /* 7b THE DRONE AND THE ROCKET (SOUNDS THREE 11/27, rule 490): the fight names them; side is who sent it */
+      t += 5000;
+      out.drone = [say({ ev: 'drone_up', side: 'them' }), say({ ev: 'drone_up', side: 'you', scout: true }), say({ ev: 'blast', side: 'you' }),
+        say({ ev: 'blast', side: 'them' }), say({ ev: 'drone_down', side: 'you' }), say({ ev: 'drone_down', side: 'them' })];
+      const B0 = BOH_BULLET_LANDS.make({ out: () => null });   /* the sprite not in yet: what the fight played before */
+      out.drone0 = [B0.heard({ ev: 'drone_up', side: 'them' }), B0.heard({ ev: 'blast', side: 'you' }), B0.heard({ ev: 'drone_down', side: 'you' })];
       return out;
     });
     const P = (i) => R.withCtx[i].played.join(' ');
@@ -183,7 +189,22 @@ const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
       && C.dn && C.dnTicks === 10 && C.dnTally === 1 && C.dnBell === 0 && C.off && C.off.ticks === 3 && !C.off.onGrid && Math.abs(C.upFirst - 0.1) < 0.002;
     leg(countOk, '*** THE COUNT-UP ON THE BEAT ***: 240 to 270 ticks 24 sixteenths from the song\'s next step and drops on its beat with the bell; 100 to 90 ticks 10 and drops dull, no bell; with no song it still counts',
       JSON.stringify({ up: C.up && { ticks: C.up.ticks, steps: stepsToLand, onGrid: C.up.onGrid }, upTicks: C.upTicks, dn: C.dnTicks, dnTally: C.dnTally, bell: C.dnBell, off: C.off && C.off.ticks, first: C.upFirst }));
+    {
+      const D = R.drone.map(x => (x.r === 'done' ? '' : 'NOT DONE ') + x.played.join('+'));
+      leg(D.join('|') === 'drone_whine:near|drone_whine:near|blast:far|blast:near|drone_down:near|drone_down:far',
+        '*** THE DRONE AND THE ROCKET HEARD *** (SOUNDS THREE 11/27, rule 490): a drone going up whines near (theirs and his scout alike), the blast lands over there when his side sent it and among his men when theirs did, a drone shot down falls by the man who shot it',
+        D.join(' | '));
+      leg(JSON.stringify(R.drone0) === JSON.stringify([{ swap: 'power_on' }, { swap: 'shot' }, 'done']),
+        'until the sprite is in, the drone plays what it played before (its power-on, a shot) and a drone going down adds nothing', JSON.stringify(R.drone0));
+    }
   } catch (e) { leg(false, 'the engines ran on a bare page', String(e.message).slice(0, 240)); }
+  {
+    const F = fs.readFileSync(path.join(ROOT, 'slices', 'BOHEMIA_FIGHT.html'), 'utf8');
+    const has = re => re.test(F);
+    leg(has(/skill === 'drone_launch'\) \{ sfx\('drone_up'/) && has(/skill === 'spot'\) \{ sfx\('drone_up'/) && has(/skill === 'drone_lands'\) \{ sfx\('blast'/)
+      && has(/skill === 'drone_down'\) \{ sfx\('shot'[^\n]*sfx\('drone_down'/) && has(/a\.rocket\) \{[^\n]*\n[^\n]*sfx\('blast'/),
+      'THE FIGHT NAMES THEM: the drone\'s launch and the scout drone post drone_up, its landing and the rocket\'s house post blast, a drone shot down posts its shot and then drone_down');
+  }
   leg(!errs.length, 'nothing threw on the bare page', errs.slice(0, 2).join(' | '));
   await browser.close(); srv.close();
 

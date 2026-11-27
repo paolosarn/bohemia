@@ -6,7 +6,7 @@
  "file": "lands.mp3",
  "kbps": 64,
  "peak_db_decoded": -5.73,
- "seconds": 91.78,
+ "seconds": 104.41,
  "top_loud_100ms_db": -23.38,
  "chain": "layers > street canyon 20 m (an echo every 16th) > camcorder AGC (2 ms / 500 ms / up to +6 dB) > tape > VHS band 100 Hz to 10 kHz > cut, a 16th fade > one loudness per voice",
  "sources": {
@@ -20,6 +20,19 @@
     "listing": "https://opengameart.org/content/the-free-firearm-sound-library"
    },
    "windows": {
+    "B_15_0_shot": {
+     "clipped_source_samples": 0,
+     "event": 0,
+     "gun_folder": "1917",
+     "kind": "shot",
+     "master_track": "Master Tracks/1917/B_15.wav",
+     "onset_s": 0.556,
+     "source_rate": 192000,
+     "window_s": [
+      0.256,
+      2.556
+     ]
+    },
     "B_21_0_crack": {
      "clipped_source_samples": 0,
      "event": 0,
@@ -36,6 +49,19 @@
       1.825
      ]
     },
+    "B_21_0_far": {
+     "clipped_source_samples": 0,
+     "event": 0,
+     "gun_folder": "1917",
+     "kind": "far",
+     "master_track": "Master Tracks/1917/B_21.wav",
+     "onset_s": 1.812,
+     "source_rate": 192000,
+     "window_s": [
+      1.512,
+      3.812
+     ]
+    },
     "B_21_1_crack": {
      "clipped_source_samples": 0,
      "event": 1,
@@ -50,6 +76,32 @@
      "window_s": [
       6.9025,
       6.9175
+     ]
+    },
+    "B_22_0_far": {
+     "clipped_source_samples": 10,
+     "event": 0,
+     "gun_folder": "1917",
+     "kind": "far",
+     "master_track": "Master Tracks/1917/B_22.wav",
+     "onset_s": 1.496,
+     "source_rate": 192000,
+     "window_s": [
+      1.196,
+      3.496
+     ]
+    },
+    "B_23_0_shot": {
+     "clipped_source_samples": 0,
+     "event": 0,
+     "gun_folder": "1917",
+     "kind": "shot",
+     "master_track": "Master Tracks/1917/B_23.wav",
+     "onset_s": 1.046,
+     "source_rate": 192000,
+     "window_s": [
+      0.746,
+      3.046
      ]
     },
     "C_17_0_crack": {
@@ -174,6 +226,32 @@
      "window_s": [
       0.28,
       1.89
+     ]
+    },
+    "H_15_0_far": {
+     "clipped_source_samples": 0,
+     "event": 0,
+     "gun_folder": "Charles Daly",
+     "kind": "far",
+     "master_track": "Master Tracks/Charles Daly/H_15.wav",
+     "onset_s": 0.422,
+     "source_rate": 192000,
+     "window_s": [
+      0.122,
+      2.422
+     ]
+    },
+    "H_16_0_shot": {
+     "clipped_source_samples": 15,
+     "event": 0,
+     "gun_folder": "Charles Daly",
+     "kind": "shot",
+     "master_track": "Master Tracks/Charles Daly/H_16.wav",
+     "onset_s": 0.606,
+     "source_rate": 192000,
+     "window_s": [
+      0.306,
+      2.606
      ]
     },
     "M_26_0_crack": {
@@ -387,6 +465,12 @@
     "freesound": "http://www.freesound.org/people/therabidfrog/sounds/76408/",
     "licence": "CC0"
    },
+   "3-154926-A-40": {
+    "what": "a helicopter passing (kerouac21): its rotor chop under the drone's scream (SOUNDS THREE 11/27)",
+    "author": "kerouac21",
+    "freesound": "http://www.freesound.org/people/kerouac21/sounds/154926/",
+    "licence": "CC0"
+   },
    "3-166125-A-23": {
     "what": "scared breathing (Adam_N)",
     "author": "Adam_N",
@@ -451,6 +535,12 @@
     "what": "a bluebottle fly, foley (jamesrodavidson)",
     "author": "jamesrodavidson",
     "freesound": "http://www.freesound.org/people/jamesrodavidson/sounds/195518/",
+    "licence": "CC0"
+   },
+   "5-231551-A-36": {
+    "what": "a vacuum cleaner's motor running (MrAuralization): sped up, a drone's small motor screaming (SOUNDS THREE 11/27)",
+    "author": "MrAuralization",
+    "freesound": "http://www.freesound.org/people/MrAuralization/sounds/231551/",
     "licence": "CC0"
    },
    "5-232816-A-23": {
@@ -4932,13 +5022,409 @@
     }
    ]
   },
+  "drone_whine": {
+   "cut_s": 1.5,
+   "loud_100ms_db": -31.38,
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 85.38,
+     "dur_s": 1.5,
+     "layers": [
+      {
+       "source": "3-154926-A-40",
+       "event": 0,
+       "speed": 1.8,
+       "at_s": 0.0,
+       "db": -10.0
+      },
+      {
+       "source": "5-231551-A-36",
+       "event": 0,
+       "speed": 2.5,
+       "at_s": 0.15,
+       "db": -2.0
+      },
+      {
+       "source": "5-195518-A-7",
+       "event": 0,
+       "speed": 1.25,
+       "at_s": 0.4,
+       "db": -9.0
+      }
+     ],
+     "seconds": 1.5,
+     "peak_db": -20.75,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.01017,
+     "above_20k": 1e-06,
+     "first_1ms_db": -166.5,
+     "last_1ms_db": -178.8
+    },
+    {
+     "k": 1,
+     "at_s": 86.95,
+     "dur_s": 1.5,
+     "layers": [
+      {
+       "source": "3-154926-A-40",
+       "event": 0,
+       "speed": 1.8,
+       "at_s": 0.0,
+       "db": -10.0
+      },
+      {
+       "source": "5-231551-A-36",
+       "event": 0,
+       "speed": 2.65,
+       "at_s": 0.15,
+       "db": -2.0
+      },
+      {
+       "source": "5-195518-A-7",
+       "event": 0,
+       "speed": 1.25,
+       "at_s": 0.4,
+       "db": -9.0
+      }
+     ],
+     "seconds": 1.5,
+     "peak_db": -22.14,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00644,
+     "above_20k": 0.0,
+     "first_1ms_db": -135.0,
+     "last_1ms_db": -190.1
+    },
+    {
+     "k": 2,
+     "at_s": 88.52,
+     "dur_s": 1.5,
+     "layers": [
+      {
+       "source": "3-154926-A-40",
+       "event": 0,
+       "speed": 1.8,
+       "at_s": 0.0,
+       "db": -10.0
+      },
+      {
+       "source": "5-231551-A-36",
+       "event": 0,
+       "speed": 2.8,
+       "at_s": 0.15,
+       "db": -2.0
+      },
+      {
+       "source": "5-195518-A-7",
+       "event": 0,
+       "speed": 1.25,
+       "at_s": 0.4,
+       "db": -9.0
+      }
+     ],
+     "seconds": 1.5,
+     "peak_db": -21.56,
+     "loud_100ms_db": -31.38,
+     "above_10k": 0.00119,
+     "above_20k": 0.0,
+     "first_1ms_db": -127.6,
+     "last_1ms_db": -185.3
+    }
+   ]
+  },
+  "blast": {
+   "cut_s": 1.75,
+   "loud_100ms_db": -22.38,
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 90.09,
+     "dur_s": 1.75,
+     "layers": [
+      {
+       "source": "ffsl:H_15_0_far",
+       "event": 0,
+       "speed": 0.34,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "ffsl:B_15_0_shot",
+       "event": 0,
+       "speed": 0.8,
+       "at_s": 0.0,
+       "db": -5.0
+      },
+      {
+       "source": "3-203373-A-39",
+       "event": 0,
+       "speed": 0.9,
+       "at_s": 0.12,
+       "db": -9.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 2,
+       "speed": 0.7,
+       "at_s": 0.18,
+       "db": -8.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 1,
+       "speed": 0.6,
+       "at_s": 0.06,
+       "db": -7.0
+      }
+     ],
+     "seconds": 1.75,
+     "peak_db": -10.76,
+     "loud_100ms_db": -22.38,
+     "above_10k": 0.0303,
+     "above_20k": 1.1e-05,
+     "first_1ms_db": -98.3,
+     "last_1ms_db": -146.7
+    },
+    {
+     "k": 1,
+     "at_s": 91.91,
+     "dur_s": 1.75,
+     "layers": [
+      {
+       "source": "ffsl:B_21_0_far",
+       "event": 0,
+       "speed": 0.34,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "ffsl:H_16_0_shot",
+       "event": 0,
+       "speed": 0.8,
+       "at_s": 0.0,
+       "db": -5.0
+      },
+      {
+       "source": "4-204777-A-39",
+       "event": 1,
+       "speed": 0.9,
+       "at_s": 0.12,
+       "db": -9.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 3,
+       "speed": 0.7,
+       "at_s": 0.18,
+       "db": -8.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 2,
+       "speed": 0.6,
+       "at_s": 0.06,
+       "db": -7.0
+      }
+     ],
+     "seconds": 1.75,
+     "peak_db": -8.48,
+     "loud_100ms_db": -22.38,
+     "above_10k": 0.00088,
+     "above_20k": 1e-06,
+     "first_1ms_db": -78.9,
+     "last_1ms_db": -131.7
+    },
+    {
+     "k": 2,
+     "at_s": 93.73,
+     "dur_s": 1.75,
+     "layers": [
+      {
+       "source": "ffsl:B_22_0_far",
+       "event": 0,
+       "speed": 0.34,
+       "at_s": 0.0,
+       "db": 0.0
+      },
+      {
+       "source": "ffsl:B_23_0_shot",
+       "event": 0,
+       "speed": 0.8,
+       "at_s": 0.0,
+       "db": -5.0
+      },
+      {
+       "source": "3-203373-A-39",
+       "event": 2,
+       "speed": 0.9,
+       "at_s": 0.12,
+       "db": -9.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 4,
+       "speed": 0.7,
+       "at_s": 0.18,
+       "db": -8.0
+      },
+      {
+       "source": "2-118624-A-30",
+       "event": 3,
+       "speed": 0.6,
+       "at_s": 0.06,
+       "db": -7.0
+      }
+     ],
+     "seconds": 1.75,
+     "peak_db": -11.01,
+     "loud_100ms_db": -22.38,
+     "above_10k": 0.01673,
+     "above_20k": 2e-06,
+     "first_1ms_db": -92.6,
+     "last_1ms_db": -128.4
+    }
+   ]
+  },
+  "drone_down": {
+   "cut_s": 0.75,
+   "loud_100ms_db": -29.38,
+   "takes": [
+    {
+     "k": 0,
+     "at_s": 95.55,
+     "dur_s": 0.75,
+     "layers": [
+      {
+       "source": "ffsl:H_16_0_shot",
+       "event": 0,
+       "speed": 1.4,
+       "at_s": 0.0,
+       "db": -4.0
+      },
+      {
+       "source": "5-231551-A-36",
+       "event": 0,
+       "speed": 1.3,
+       "at_s": 0.02,
+       "db": -8.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 5,
+       "speed": 1.5,
+       "at_s": 0.42,
+       "db": -6.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 3,
+       "speed": 1.1,
+       "at_s": 0.44,
+       "db": -10.0
+      }
+     ],
+     "seconds": 0.75,
+     "peak_db": -19.04,
+     "loud_100ms_db": -29.38,
+     "above_10k": 0.0027,
+     "above_20k": 0.0,
+     "first_1ms_db": -29.0,
+     "last_1ms_db": -145.1
+    },
+    {
+     "k": 1,
+     "at_s": 96.37,
+     "dur_s": 0.75,
+     "layers": [
+      {
+       "source": "ffsl:B_23_0_shot",
+       "event": 0,
+       "speed": 1.4,
+       "at_s": 0.0,
+       "db": -4.0
+      },
+      {
+       "source": "5-231551-A-36",
+       "event": 0,
+       "speed": 1.3,
+       "at_s": 0.02,
+       "db": -8.0
+      },
+      {
+       "source": "4-165845-B-45",
+       "event": 6,
+       "speed": 1.5,
+       "at_s": 0.42,
+       "db": -6.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 4,
+       "speed": 1.1,
+       "at_s": 0.44,
+       "db": -10.0
+      }
+     ],
+     "seconds": 0.75,
+     "peak_db": -19.66,
+     "loud_100ms_db": -29.38,
+     "above_10k": 0.00858,
+     "above_20k": 0.0,
+     "first_1ms_db": -20.4,
+     "last_1ms_db": -135.5
+    },
+    {
+     "k": 2,
+     "at_s": 97.19,
+     "dur_s": 0.75,
+     "layers": [
+      {
+       "source": "ffsl:B_15_0_shot",
+       "event": 0,
+       "speed": 1.4,
+       "at_s": 0.0,
+       "db": -4.0
+      },
+      {
+       "source": "5-231551-A-36",
+       "event": 0,
+       "speed": 1.3,
+       "at_s": 0.02,
+       "db": -8.0
+      },
+      {
+       "source": "4-165845-A-45",
+       "event": 7,
+       "speed": 1.5,
+       "at_s": 0.42,
+       "db": -6.0
+      },
+      {
+       "source": "3-94344-A-25",
+       "event": 5,
+       "speed": 1.1,
+       "at_s": 0.44,
+       "db": -10.0
+      }
+     ],
+     "seconds": 0.75,
+     "peak_db": -18.96,
+     "loud_100ms_db": -29.38,
+     "above_10k": 0.00368,
+     "above_20k": 0.0,
+     "first_1ms_db": -21.8,
+     "last_1ms_db": -160.9
+    }
+   ]
+  },
   "gun_mg_yours": {
    "cut_s": 1.0,
    "loud_100ms_db": -25.38,
    "takes": [
     {
      "k": 0,
-     "at_s": 85.38,
+     "at_s": 98.01,
      "dur_s": 1.0,
      "layers": {
       "gun": "AK-47",
@@ -4962,7 +5448,7 @@
     },
     {
      "k": 1,
-     "at_s": 86.45,
+     "at_s": 99.08,
      "dur_s": 1.0,
      "layers": {
       "gun": "PPSh",
@@ -4984,7 +5470,7 @@
     },
     {
      "k": 2,
-     "at_s": 87.52,
+     "at_s": 100.15,
      "dur_s": 1.0,
      "layers": {
       "gun": "Carl Gustav M45_Swedish K",
@@ -5014,7 +5500,7 @@
    "takes": [
     {
      "k": 0,
-     "at_s": 88.59,
+     "at_s": 101.22,
      "dur_s": 1.0,
      "layers": {
       "gun": "AK-47",
@@ -5035,7 +5521,7 @@
     },
     {
      "k": 1,
-     "at_s": 89.66,
+     "at_s": 102.29,
      "dur_s": 1.0,
      "layers": {
       "gun": "PPSh",
@@ -5058,7 +5544,7 @@
     },
     {
      "k": 2,
-     "at_s": 90.73,
+     "at_s": 103.36,
      "dur_s": 1.0,
      "layers": {
       "gun": "Carl Gustav M45_Swedish K",
