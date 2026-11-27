@@ -100,6 +100,13 @@ labels); the wardrobe's wide brim is DUST RANCHER HAT; GATE THE CONE HAT IS DEAD
 page's thread (__A_SHEET_DECODES_OFF_THE_FRAME__: 4 frames over 50 ms -> 0 on the engine at 4x, the town exit 316.7 -> 200 ms). Its block is
 handoffs/CHARACTER.md; records/BOHEMIA_CHARACTER_TWO_THE_CONE_COMES_OFF_11_26_26.md; VOTE character2-the-cone-comes-off-11-26.
 
+CAMP FOUR (camp-four-01gkdyuu): 11/27 LATEST -- BUILD 11/27zo - THE BARS KEEP HIS LINE, BUILT, NOT YET SEEN (rules 261(e), 278(c), 406(b)(c); rule 13's full suite). Its block is handoffs/CAMP_THREE.md.
+The camp's bars follow his 87 percent line and rise with his number now (they stood over every man and never rose); a crew that reaches the camp fights him on the camp's own
+ground (the camp asked for its board without the fight door's stamps). THE BARS OVER THEIR HEADS LIFTED (12/0); THE CAMP IS PITCHED ON THE BOARD 13/1. FULL SUITE (main 1a47fd794): 1,020 of 1,238 at 11:14 UTC,
+621 green, 399 red (332 the quarantine's); its last line follows.
+records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_ALIVE_11_27_26.md.
+[bb Battle Brothers: the bars show who is hurt and nothing else; the ambush at night is fought where the company sleeps]
+[analog horror: a bar that drains back up as the tape runs, gone when he is whole]
 CAMP FOUR (camp-four-01gkdyuu): 11/27 LATEST -- BUILD 11/27s - THE CAMP COMES ALIVE, BUILT, NOT YET SEEN (rules 482 and 487 on 472(b)(e); ask rows 711, 712, 755). Its block is handoffs/CAMP_THREE.md.
 Once they are whole his men live a scene (ANIMATION's talk, smoke, drink and sit: two talk face to face, evenings round the fire), one man at a time; under UI FIVE's clock on the
 bar the camp draws no clock of its own, only the tape's fast-forward hung under it (its own clock at the top middle only when the bar has none); HEAL warm after a fight (the camp's

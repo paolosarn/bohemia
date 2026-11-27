@@ -1,3 +1,31 @@
+CAMP FOUR (camp-four-01gkdyuu, the camp lane's fourth chat; written only by this lane): 11/27 LATEST -- BUILD 11/27zo - THE BARS KEEP HIS LINE,
+BUILT, NOT YET SEEN (rule 13's full suite, then the camp's own reds: rules 261(e), 278(c), 406(b)(c)). Record: records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_ALIVE_11_27_26.md
+(its sections after the build). This lane schedules nothing and calls nothing that waits for a person (461(c) amended).
+
+WHAT IS LIVE, each with its switch back:
+- HIS LINE IN CAMP (bohemia_camp_look.js barOf; __CAMP_BARS_ALL): a man in camp carries the fight's bars only under 87 percent (or with a
+  fresh wound's days), as on the map and in a town, and the fill is his number now (the condition's hpF/armF): the bars rise as the hours
+  mend him and go at 87. Before: every man carried bars while anyone mended, and they never rose (eased to the camp's opening numbers).
+- A CREW AT CAMP FIGHTS HIM ON THE CAMP'S GROUND (BOHEMIA_CITY_WORLD.html campStampLikeTheDoor; __CAMP_ASK_PLAIN): the camp asks for its
+  board with the one door's stamps (WORLD THIRTEEN's msg.template and msg.ground), so its ground is the board a fight there deals; before,
+  a crew that reached the camp fought him on another board of the same block. NOT on a cell one of the 15 places stands on: there the
+  camp's ask with the place's template never brought its picture (THE CAMP LOADS IN ONE GO 0/6), so it asks as before.
+GATES: THE BARS OVER THEIR HEADS 12/0 (LIFTED, quarantine line struck, ratchet and VAMILY 392/308); THE CAMP IS PITCHED ON THE BOARD 6/1
+upright (B7: that deal's dead man off the upright glass) and 7/0 on its side (re-reasoned line, owner CAMP FOUR); THE CAMP READS AT A GLANCE
+15/0 (G1/G2 to the line); STRUCK DOWN, HE STILL FIGHTS 36/0 (S6 waits for the camp's hours, fb86e3699); THE HEAL BUTTON 16/0; MAKE CAMP
+FROM THE FIGHT 11/0; THE CAMP WAITS FOR HIM green. THE CAMP COMES ALIVE and THE CAMP READS AT A GLANCE read the stop and the after by the
+clock now (a loaded box read seven reads past the tape's three seconds); HOLDS 14/0; A TOWN IS SAFE 12/0 alone (10/2 beside other gates);
+THE CAMP LOADS IN ONE GO 5/1 like main's own files (L2's longest task: the box).
+NOT DONE, NEXT: (1) the camp on a place's board (asked with the template, its picture never comes; a crew there fights him on the place's
+board, the camp on another); (2) B7 upright: the camp after a win on the fight's camera, a dead man off the upright glass is never gone
+through; (3) from the 11/27s block: HEAL cold, the ground bake (COMBAT's), the followers' carts in the set-up.
+THE FULL SUITE (the routine's first ask; main 1a47fd794, a worktree, BOHEMIA_SUITE_BUDGET 36000 s, started 02:09 UTC): at 11:14 UTC 1,020 of
+1,238 reported, 621 green, 399 red, 332 of them on the quarantine (the debt), 67 not on it; 22 quarantined gates green again (CAN LIFT).
+The camp's four new reds in it (THE HEAL BUTTON, STRUCK DOWN, CAMP HOLDS, A TOWN IS SAFE) all green alone on main (STRUCK DOWN's S6
+re-aimed, fb86e3699). Its last line and the new reds by owner follow from this lane when its clock ends (12:09 UTC at the latest).
+[bb Battle Brothers: the bars show who is hurt and nothing else; the ambush at night is fought where the company sleeps.]
+[analog horror: a bar that drains back up as the tape runs, gone when he is whole.]
+
 CAMP FOUR (camp-four-01gkdyuu, the camp lane's fourth chat; written only by this lane): 11/27 LATEST -- BUILD 11/27s - THE CAMP COMES ALIVE,
 BUILT, NOT YET SEEN (rules 482 and 487 on 472(b)(e); 484 amended read; ask rows 711, 712, 755). Record: records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_ALIVE_11_27_26.md.
 VOTE camp4-the-camp-comes-alive-11-27. This lane schedules nothing and calls nothing that waits for a person (461(c) amended).
