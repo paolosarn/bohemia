@@ -9,8 +9,12 @@ OPERATOR); a fresh BESTIARY opens on this block. THE JOB, IN THIS ORDER (the coo
     partyMath('job', {skulls}) in slices/bohemia_job_kinds.js on records/target/bb/party_math.json, JOBS 2's); count_scale thins tough factions;
     one champion a band at most (bohemia_enemies.json champions; COMBAT's u.champion). HIS COMPANY'S STRENGTH FEEDS NEITHER, except bandFor's fallback
     (headcount only, ours.fallback_band_by_company). JOBS 2 owns the offers and the reader (slices/bohemia_job_danger.js); this lane the forces by tier.
-    THE RESEARCH (Battle Brothers' party scaling, skulls, champions, legendary places, ambitions, crises): a helper was writing it to the scratchpad when
-    this session closed; if records/BOHEMIA_BESTIARY_THREE_HOW_BATTLE_BROTHERS_SCALES_THE_ENEMY_11_27_26.md exists, it is that; else redo it (rule 491(c), 493(b)).
+    THE RESEARCH IS DONE: records/BOHEMIA_BESTIARY_THREE_HOW_BATTLE_BROTHERS_SCALES_THE_ENEMY_11_27_26.md (cited). The heart of it: one strength number from
+    the 12 strongest men, 10 + 2 x (level - 1) each, heads and levels only (Battle Brothers tried gear and dropped it); a contract's enemies times
+    0.94 x (strength/100)^0.89, held 0.75 to 5, x 0.85/1.00/1.15 by difficulty; the DAYS give the kit (flat upgrades at set days); skulls size 70-85/95-105/
+    105-135% and pay apart; champions 1% (2% elite humans), +5% on three skulls, -99% on one, ~1.35x health, 1.15x damage, 1.5x resolve, one named item that
+    always drops. The routine 'BESTIARY 3: rule 491 enough of them' (11/27 04:18) fired into this session after this block was written: no company
+    strength number exists yet (slices/bohemia_job_danger.js plays jobs on AUTO, never one number); the fight is handed the company, so it can count it.
 (2) The roles left from records/BOHEMIA_BESTIARY_THREE_HUMAN_FORCES_BY_ROLE_THE_RESEARCH_11_27_26.md: the machine gunner (ARMORY 3's belt-fed behind a shield,
     Battle Brothers' Gunner), the rocket man (one rocket a fight before the lines meet), the breacher (Line Breaker's shove that strips a wall), the medic.
 (3) FOR TUNING AND COMBAT FIVE (rule 490(d)): on AUTO a drone never lands on a man (every cross stepped off), so an all-melee crew walks away from it.
