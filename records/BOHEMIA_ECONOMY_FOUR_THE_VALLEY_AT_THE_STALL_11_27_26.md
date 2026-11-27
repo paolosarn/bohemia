@@ -88,3 +88,13 @@ THE SMITH MENDS 6/2 (M1, M4: the same on main, ECONOMY THREE's 11/26 measure).
 plundered (+20% buying, -25% items); ours, the same two cards read off the map's own caravans, scaled by how far the valley has run
 down, and a caravan in today refills the shelf.]
 [analog horror: the price chalked over twice on a board with no truck behind it; a shutter half down at noon on a town nobody drives to.]
+
+## 6. AMENDED WITH BUILD 11/27zr (the same round)
+
+THE CARAVAN IS SAID BY THE KEEPER, NOT THE STRIP. MEASURED with FIXES 4's 58 px strip box (11/27zq, NO LINE UNDER ANOTHER): sideways
+the stall's strip is 30 px tall and its plain buy line already needs 32 (on main, before and after this build: routed to FIXES 4); the
+caravan sentence made it longer still. The sentence is out of the strip; the keeper says it from his mouth with his face ('The Mob
+caravan got in at 13:20. Shelf is full again, for now.') whenever his town's own card is quiet. THE VALLEY AT THE STALL P3 now walks the
+first road town whose keeper says it and checks the shelf was refilled (10 of 11 at 15:00, restocked), 4/0 on the demo upright and
+sideways and the alpha upright.
+

@@ -8650,6 +8650,18 @@ GATES = [
      "the roads, Mob on one); P2 eleven map days on, Caravans' need up, its shelf down, its food at first light no cheaper, SHORT; P3 Mob "
      "after a caravan: the strip names it and the hour, more left than Caravans; P4 no page error. green at registration, 4/0 on all "
      "four, about 3 min a walk", True),
+    ('A PLACE EARNS OR GOES DARK', ['node', 'gates/a_place_earns_or_goes_dark_gate.js', 'data'],
+     "ECONOMY FOUR 11/27, rule 485(b) ('a place that stops earning goes dark and a place that earns grows'). records/"
+     "BOHEMIA_ECONOMY_FOUR_A_PLACE_EARNS_OR_GOES_DARK_11_27_26.md (cited: Battle Brothers' developers on a location's resources, its "
+     "parties, its growth and its stock; Lebanon's generators; Moscow's kiosks). engine/bohemia_place_book.js and place_book.json: B1 men "
+     "by the days, never his strength; B2 the bill's price handed in; B3 short: one wire out, the men its take feeds; B4 no spiral; B5 well "
+     "off relights and takes men back; B6 farthest out, nearest back; B7 the measured valley 120 nights bounded; B8 every number sourced. "
+     "green at registration, 8/0", True),
+    ('A PLACE EARNS OR GOES DARK (demo)', ['node', 'gates/a_place_earns_or_goes_dark_gate.js', 'demo', 'phone_portrait'],
+     "ECONOMY FOUR gate: THE REAL PAGE (demo | alpha [phone_portrait | phone_landscape]): P1 the book at nightfall for every seated "
+     "place; P2 the wires' charge one line a faction a night; P3 a place that cannot feed its men loses its farthest wire, the feed says "
+     "it, and gets it back with a month and a week; P4 the town handed its verdict; P5 the pockets and the book survive a snapshot "
+     "restored; P6 a night under 40 ms; P7 no page error. green at registration, 8/0 on all four, about 3 min a walk", True),
     ('HIS MAP', ['node', 'gates/his_map_gate.js'],
      "WORLD TWO gate, 10/26, row [the best of both maps] (rule 243, Paolo 10/26: 'think about Valheim's map and how Battle "
      "Brothers' map is, let's do the best of both worlds... bosses where you're able to alter the map and what's going on in the "

@@ -1,0 +1,50 @@
+{
+ "_about": "ECONOMY FOUR 11/27, VAMILY rule 485(b) ('a place that stops earning goes dark and a place that earns grows'), ECONOMY THREE's handoff job 2. A place (a faction's pocket, engine/bohemia_pockets.js) takes in what its live wires, the rent and the road bring; it feeds the men it keeps on the road; a night it cannot pay them in full one of its live wires goes dark; a month of their keep in the bank and a week that paid for itself relights one it lost. The engine is engine/bohemia_place_book.js; the map applies it at nightfall (slices/BOHEMIA_CITY_WORLD.html __A_PLACE_EARNS_OR_GOES_DARK__); the town reads the verdict for its shelves. Research: records/BOHEMIA_ECONOMY_FOUR_A_PLACE_EARNS_OR_GOES_DARK_11_27_26.md. A modder edits this file.",
+ "draft": true,
+ "keep_per_man": {
+  "from": "records/target/bb/nightly_bill.json per_man_per_night",
+  "unit": "what one of a place's men on the road eats a night, in batteries",
+  "source": "the bill's own 'one price for the same night everywhere it is bought'; Battle Brothers: a place spends its resources on the parties it sends ('a raiding party worth 30 points. Now the location is down to 70', bb_all/0626_Developer Posts.txt)",
+  "why": "a gang feeds the men it keeps on the road the same night his crew eats, at the same counter; no second copy of the number"
+ },
+ "men_by_days": {
+  "from": "records/target/bb/party_math.json roaming (base, per_day, min, max; a caravan one less, a crew one more)",
+  "unit": "a place's men on the road: each of its parties sized by the days alone",
+  "source": "the map's own party size (partySizeOf) without his company's strength or the distance: Battle Brothers sizes a roaming party by the days ('a roaming party by the days', party_math.json job_bb); a place's costs are its own, never his",
+  "why": "a place keeps more men out as the valley hardens, and pays for every one"
+ },
+ "collect_nights": {
+  "value": 30,
+  "unit": "nights over which one head on a place's ground pays it one AA (the collector's round)",
+  "source": "ruling 9/16: 'one battery per head on day one, held by the treasury of whoever holds that person's ground' (engine/bohemia_pockets.js OPENING): a head pays that cell again once a month; Moscow 1992, the kiosks at Sukharevskaya paying racketeers 'kind of like an insurance policy' (Los Angeles Times 1992); Lebanon's neighbourhood generators sold power by the amp at 44 percent of a monthly salary (Human Rights Watch 2023), so a month's protection for one cell is a floor; Battle Brothers: 'the amount of resources could also slowly rise over time (through the villages normal business)' (bb_all/0626_Developer Posts.txt)",
+  "why": "WORLD 16's collector walks the doors at dusk (__THE_CITY_GOES_TO_WORK__); now what he collects lands in his gang's pocket, and a place with people always earns a little"
+ },
+ "week_nights": {
+  "value": 7,
+  "unit": "the nights a place's take and spend are added up over to say whether its week paid for itself",
+  "source": "the stall's week (stall_prices.json need_units: a town's need is a week of its card) and a week of the bill (nightly_bill.json red_at_days counts nights)",
+  "why": "one bad night does not make a place broke; one good night does not make it rich"
+ },
+ "well_off_nights": {
+  "value": 30,
+  "unit": "nights of its men's keep in the bank at or over which a place whose week paid for itself is WELL OFF",
+  "source": "Battle Brothers: 'once a spawnpoint has gathered enough resources it will send out a party that will found a new location' (bb_all/0626_Developer Posts.txt); a month of keep in hand is what our stall calls calm (stall_prices.json the_valley calm_days 30)",
+  "why": "a place with a month of its men paid in the bank and no week in the red has money to put back into its wires"
+ },
+ "douse": {
+  "value": "a night a place cannot feed all its men on the road, one of its live wires goes dark: the farthest from its seat first",
+  "source": "Battle Brothers: 'watchtowers and castles rely on military supply caravans... If these get intercepted regularly the towers and castles also get into trouble' and 'you can effectively bleed them dry' (bb_all/0626_Developer Posts.txt); Lebanon 2019 on: generator owners cut their hours when they could not buy the diesel (Human Rights Watch 2020, blackouts up to 22 hours a day); unguarded lines are stripped for their copper (the trade good 'stripped copper wire', stall_prices.json trade)",
+  "why": "the edge of a gang's ground is the last place its unpaid men walk; the copper there goes first"
+ },
+ "relight": {
+  "value": "a WELL OFF place relights one wire it lost, a night: the nearest to its seat first",
+  "source": "Battle Brothers: 'locations that are active (sending out parties, gathering resources) will send out troops to found a new location once they have accumulated enough resources' (bb_all/0626_Developer Posts.txt); the grid keeps which wires can ever be lit (the CLUSTERED POWER law), so growing is getting back what it lost, never lighting a new one",
+  "why": "money buys the lights back; it does not invent a grid the valley never had"
+ },
+ "shelf": {
+  "value": {"broke": 0.75, "well_off": 1.25},
+  "unit": "the town's shelves (every shop's stock and the stall's day) by its place's verdict",
+  "source": "Battle Brothers: 'Locations restock every 3 days with quality und quantity based on their current resources' and 'a really wealthy town will have top tier equip' (bb_all/0626_Developer Posts.txt); the sizes are its Ambushed Trade Routes' '-25% items available' (0054) and its Seasonal Fair's '+25% items' (1744)",
+  "why": "a broke town puts out a quarter less; a rich one a quarter more"
+ }
+}

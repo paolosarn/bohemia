@@ -4,7 +4,28 @@
 # ECONOMY THREE (rule 462, 11/20) carries this file on: same job, same table; its blocks are named ECONOMY THREE.
 # ECONOMY FOUR (11/27, from ECONOMY THREE's HANDOFF READY) carries it on: same job, same table; its blocks are named ECONOMY FOUR.
 
-ECONOMY FOUR (session_01GKDyutzGsUBG4o5BXk1Y2V): 11/27 LATEST -- BUILD 11/27zp - THE VALLEY AT THE STALL, BUILT, NOT YET SEEN
+ECONOMY FOUR (session_01GKDyutzGsUBG4o5BXk1Y2V): 11/27 LATEST -- BUILD 11/27zt - A PLACE EARNS OR GOES DARK, BUILT, NOT YET SEEN
+(rule 485(b), job 2 of 4; rule 495: the logic in one engine module). Record records/BOHEMIA_ECONOMY_FOUR_A_PLACE_EARNS_OR_GOES_DARK_11_27_26.md.
+Gate A PLACE EARNS OR GOES DARK (the suite: data 8/0 and the demo upright; 8/0 on the demo and the alpha, upright and sideways). VOTE card
+economy4-a-place-earns-or-goes-dark-11-27.
+- MEASURED: every faction's pocket only grew (Network 652 -> 2,092 in 30 days), not one light changed, six factions take in nothing;
+  nothing reads a treasury; the charge was one ledger line a wire a night, so the pockets never rode the save.
+- BUILT: engine/bohemia_place_book.js + records/target/bb/place_book.json (sourced: Battle Brothers' developers on a location's
+  resources, parties, growth and stock; Lebanon; Moscow). At nightfall (the map's placeNight, after the charge): the collector's round
+  (a head pays its holder one AA a month), each place feeds the men it keeps on the road (by the days, the bill's 2 a man); short: its
+  farthest wire goes dark (never one he pays for), it keeps only the men its take feeds, the phone's feed says it; a month of keep in
+  hand and a paying week: a lost wire back, a man back on. The town's shelves x0.75 broke, x1.25 well off (traitMult's stock). The
+  charge is one line a faction a night; a place's pocket folds to its week; the pockets and the book ride the save (17 to 33 KB).
+- AMENDED job 1 the same round (BUILD 11/27zt carries it): the caravan line left the stall's strip (FIXES 4's 58 px box; sideways the
+  box is 30 px for 32 of text on main already: FIXES 4's) and is said by the keeper when his card is quiet.
+- ROUTED (record s5): WORLD 16 a broke place's parties (PLACE_BOOK.st[f].men against .want); WORLD 15 a broke or well-off town can look
+  it (S.wealth); FEED/WORDS the valley's post; TUNING the pace (collect_nights, per_day); FIXES 4 the strip's 2 px sideways.
+- RED NOT MINE: EVERY POCKET 'the one handoff' (2 on main), PEOPLE CHARGE 'the six he killed' (WORLD's cards), PARTIES MOVE, THE SMITH
+  MENDS M1/M4. Flaky only when four browsers share the box: TAPE AT EVERY STALL K1, TRADE GOODS CARRIED L7 (green alone).
+- NEXT: job 3 (ARMORY 3's guns, drones and rounds in the one table: a where-row per file), job 4 (job pay with company strength: JOBS 2
+  shipped 11/27y THE WORK SPANS HIS STRENGTH, read it first). NEVER a tool that waits for a tap.
+
+ECONOMY FOUR (session_01GKDyutzGsUBG4o5BXk1Y2V): 11/27 -- BUILD 11/27zp - THE VALLEY AT THE STALL, BUILT, NOT YET SEEN
 (rule 485(b), ECONOMY THREE's job 1 of 4). Record records/BOHEMIA_ECONOMY_FOUR_THE_VALLEY_AT_THE_STALL_11_27_26.md. Gate THE VALLEY AT
 THE STALL (the suite runs data 8/0 and the demo upright; 4/0 on the demo and the alpha, upright and sideways). VOTE card
 economy4-the-valley-at-the-stall-11-27.

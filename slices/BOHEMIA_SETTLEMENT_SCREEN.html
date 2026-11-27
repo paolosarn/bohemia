@@ -516,6 +516,9 @@ function traitMult(){
   /* __EACH_ORIGIN_ITS_OWN__ (ORIGINS, rule 427(c)): the origin's own prices in every town (the water truck's Trader, 10% better;
      the hunters' prejudice, 10% worse; records/target/bb/origins.json personal.rule.does buy_mult / sell_mult) */
   var od = owDoes(); if(od.buy_mult > 0) m.buy *= od.buy_mult; if(od.sell_mult > 0) m.sell *= od.sell_mult;
+  /* ECONOMY FOUR __A_PLACE_EARNS_OR_GOES_DARK__: the place's money sets how much it puts out (Battle Brothers: 'quantity based on their
+     current resources'): a broke place a quarter less on every shelf, a well-off one a quarter more (records/target/bb/place_book.json shelf) */
+  if(S.wealth && S.wealth.shelf > 0) m.stock *= S.wealth.shelf;
   return m;
 }
 /* __EACH_ORIGIN_ITS_OWN__: the game's origin ways (engine/bohemia_origin_ways.js, loaded by the page this screen sits in) */
@@ -1693,7 +1696,6 @@ function stallStripFill(el){
     : !x.k ? 'They have plenty here this week. They will not take it.'
     : 'Sell ' + unitWord(row.good, x.k) + ': +' + moneyWord(x.p) + '.' + (s.have < x.k ? ' You do not have ' + (x.k === 1 ? 'one' : x.k) + '.' : s.pr.word === 'short' && s.pr.needLeft ? ' They need it here: ' + s.pr.needLeft + ' more at this price.' : '');
   if(sel.side === 'buy' && s.pr.day) t = s.pr.day.open ? (x.gone ? 'Sold out for today. ' : t + ' ' + s.pr.day.left + ' left today.') : 'Shut till first light. ';   /* __THE_STALLS_DAY__ (draft:true) */
-  if(sel.side === 'buy' && s.pr.day && s.pr.day.open && s.pr.day.restocked && S.valley && S.valley.from) t += ' The ' + S.valley.from + ' caravan got in at ' + caravanAt() + '.';   /* ECONOMY FOUR __THE_VALLEY_AT_THE_STALL__: why the shelf is full again (draft:true) */
   t += ' You have ' + haveWord(row.good, stallHave(row.good)) + (row.good === 'food' ? ', your ' + (S.crewSize || 3) + ' men eat ' + (S.crewSize || 3) + ' a night.' : '.');
   w.textContent = t; f.appendChild(w);
   if(sel.side === 'sell' && !x.back && x.k && s.have >= x.k && stallWarns(row, s)){ var wn = document.createElement('div'); wn.className = 'st-warn'; wn.textContent = 'That leaves less than tonight\'s food for your men.' + (S.stallWarned ? ' Tap it twice again to sell it anyway.' : ''); f.appendChild(wn); }   /* rule 242(a) */
@@ -6648,7 +6650,8 @@ function open(o){
   if(o.held !== undefined) S.mine = !!o.held;   /* __BUILD_ON_THE_SCREEN__: the map says whether this place is yours */
   if(typeof o.day === 'number') S.mapDay = o.day;
   if(typeof o.min === 'number') S.mapMin = o.min;   /* ECONOMY THREE __THE_STALLS_DAY__: the map's hour, for what the stall has left */
-  if(o.valley !== undefined) S.valley = o.valley; else if(o.place) S.valley = null;   /* ECONOMY FOUR __THE_VALLEY_AT_THE_STALL__: the valley's days, the road, the last caravan */   /* __BUILD_ON_THE_SCREEN__: the map's day */
+  if(o.valley !== undefined) S.valley = o.valley; else if(o.place) S.valley = null;
+  if(o.wealth !== undefined) S.wealth = o.wealth; else if(o.place) S.wealth = null;   /* ECONOMY FOUR __A_PLACE_EARNS_OR_GOES_DARK__: the place's money, for its shelves */   /* ECONOMY FOUR __THE_VALLEY_AT_THE_STALL__: the valley's days, the road, the last caravan */   /* __BUILD_ON_THE_SCREEN__: the map's day */
   heard('');   /* EYES [eyes: the last town's line] (rule 150): a town opens with nothing carried from the last one */
   /* RUN TWO 10/25 (EYES [eyes: the job's real pay]): what a contract pays here is what the map pays (its start's bonus in it),
      and the valley's places, so this board deals from the same list as the phone and no job stands on two boards */

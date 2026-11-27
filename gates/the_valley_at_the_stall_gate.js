@@ -16,7 +16,8 @@
      P1 the map hands the town the valley: its days of food and meds, the road (Mob is on one, Caravans is not)
      P2 eleven map days on (the valley's food gone), Caravans' stall at first light reads the valley lower than on day one (its need up,
         its shelf down), its food costs at least what it did at first light on day one, and the stall reads it SHORT (its own word)
-     P3 Mob after a caravan got in today: the strip names whose caravan and the hour, and the shelf holds more than Caravans' does
+     P3 a road town after a caravan got in today (the first whose own card is quiet): the keeper names whose caravan and the hour, and
+        its shelf was refilled when it came (most of the day's stock still out in the afternoon)
      P4 no page error
    node gates/the_valley_at_the_stall_gate.js [data | demo | alpha] [phone_portrait | phone_landscape] */
 'use strict';
@@ -84,6 +85,8 @@ const T = MODE + ' ' + SHAPE;
         keeper: ((document.querySelector('#sbody .say, #sbody .speech, #sbody') || {}).innerText || '').split('\n').slice(0, 4).join(' ') }; });
     r.strip = await sf.evaluate(() => { const b = document.querySelector('#sbody .stline[data-good="food"][data-n="1"] .sb.buy'); if (b) b.click(); const st = document.getElementById('stallstrip'); return st ? st.textContent : null; });
     r.left = +((/ (\d+) left today/.exec(r.strip || '') || [])[1] || 0);
+    r.fits = await sf.evaluate(() => { const f = document.querySelector('#stallstrip .ss-facts'); if (!f) return null; const box = f.getBoundingClientRect(); const kids = Array.from(f.children);
+      return kids.every(k => { const b = k.getBoundingClientRect(); return b.bottom <= box.bottom + 1 && k.scrollHeight <= k.clientHeight + 1; }) && f.scrollHeight <= f.clientHeight + 1; });
     r.v = await sf.evaluate(() => { try { return BohemiaSettlement._valley('food'); } catch (e) { return { err: String(e) }; } }); r.word = r.v && r.v.word;
     r.sellWord = await sf.evaluate(() => { const b = document.querySelector('#sbody .stline[data-good="food"][data-n="1"] .sb.sell'); if (b) b.click(); const st = document.getElementById('stallstrip'); return st ? st.textContent : null; });
     await sf.evaluate(() => { const c = document.getElementById('close'); if (c) c.click(); }); await P.waitForTimeout(800);
@@ -102,12 +105,15 @@ const T = MODE + ' ' + SHAPE;
     const k1 = (c1.v && c1.v.card) || {}, k2 = (c2.v && c2.v.card) || {};
     ok('P2 ' + T + ': day ' + dd.day + ' (the valley\'s food ' + dd.food + ' days): Caravans\' valley need ' + k1.need + ' -> ' + k2.need + ', shelf ' + k1.shelf + ' -> ' + k2.shelf + '; food at first light ' + (c1.food && c1.food.p) + ' -> ' + (c2.food && c2.food.p) + '; the stall\'s word ' + c2.word + '; the keeper "' + c2.keeper.slice(0, 100) + '"',
       dd.food === 0 && k2.need > k1.need && k2.shelf < k1.shelf && c2.food && c1.food && +c2.food.p >= +c1.food.p && c2.word === 'short');
-    /* Mob after a caravan: the clock runs to mid-afternoon, a caravan has got in today */
+    /* a road town after a caravan: the clock runs to mid-afternoon; the first road town whose keeper has no card of his own to say
+       names the caravan (a town's card speaks first) */
     await toHour(15 * 60);
-    const got = await fr.evaluate(() => { const v = valleyFor('Mob'); return v; });
-    const mb = await visit('Mob');
-    ok('P3 ' + T + ': Mob at ' + mb.min + ' (the last caravan from ' + got.from + ', ' + got.agoMin + ' min ago): the strip "' + String(mb.strip).slice(0, 150) + '", ' + mb.left + ' left today against Caravans\' ' + c2.left,
-      got.road && got.from && got.agoMin != null && new RegExp('The ' + got.from + ' caravan got in at \\d\\d:\\d\\d').test(mb.strip || '') && mb.left > c2.left);
+    let mb = null, got = null, who = null;
+    for (const n of ['Reds', 'Network', 'Blues', 'Volunteers', 'Mob']) {
+      const g = await fr.evaluate((nm) => valleyFor(nm), n); if (!g.road || !g.from || g.agoMin == null) continue;
+      const r = await visit(n); if (!mb || /caravan|trucks/i.test(r.keeper)) { mb = r; got = g; who = n; } if (/caravan|trucks/i.test(r.keeper)) break; }
+    ok('P3 ' + T + ': ' + who + ' at ' + (mb && mb.min) + ' (the last caravan from ' + (got && got.from) + ', ' + (got && got.agoMin) + ' min ago): the keeper "' + (mb ? mb.keeper.slice(0, 130) : '') + '", the shelf refilled (' + (mb && mb.v && mb.v.day ? mb.v.day.left + ' of ' + mb.v.day.full + ', restocked ' + mb.v.day.restocked : '-') + '); the strip\'s box holds its lines: ' + (mb && mb.fits) + ' (read, not judged: sideways it is 30 px for 32 of text on main too, FIXES 4\'s)',
+      !!mb && /caravan|trucks/i.test(mb.keeper) && new RegExp(String(got.from)).test(mb.keeper) && /\d\d:\d\d/.test(mb.keeper) && !!(mb.v && mb.v.day && mb.v.day.restocked) && mb.v.day.left >= mb.v.day.full * 0.6);
   } catch (e) { ok('the walk ran', false, String(e && e.message || e).slice(0, 200)); }
   const e2 = errs.filter(e => !/ResizeObserver|favicon/.test(e));
   ok('P4 ' + T + ': no page error', e2.length === 0, e2.slice(0, 2).join(' | '));
