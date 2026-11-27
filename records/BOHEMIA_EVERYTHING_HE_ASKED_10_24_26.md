@@ -786,3 +786,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 761 | Combat keeps crashing, going in and when I finish it, it's insane (still, after the leak fix 11/26zp, zq was live) | 484 amended | PLUMBER 8 and COMBAT FIVE, above everything | SENT 11/27 |
 | 762 | The drone doesn't explode and move the same turn, you can escape it, but if it lands it's damn near a one-hit KO; a drone controller guy; very hurtful to all-melee teams | 490 | ARMORY 3, BESTIARY 2, COMBAT FIVE (after the crash) | SENT 11/27 |
 | 763 | More weapons, more variations of the weapons | 489(b), 490(e) | ARMORY 3 | SENT 11/27 |
+| 764 | Just more everything: more improving what we already have, fix the crashing, 60 frames the whole time | 480, 482, 484 | ALL LANES (the crash first: PLUMBER 8, COMBAT FIVE) | SENT 11/27 (every lane woken 02:04 to 02:11) |
