@@ -959,7 +959,7 @@
     "name": "THE MACHINIST",
     "title": "the man who makes guns",
     "hp_x": 2.0,
-    "weapon": "Handgonne",
+    "weapon": "Pipe Shotgun",
     "shield": null,
     "look": "boss_machinist_0",
     "says": "Pipe, a cap, a nail. That's a gun. That's my gun."
@@ -1319,7 +1319,7 @@
     "name": "THE LENS",
     "title": "the man with the last ground glass",
     "hp_x": 1.8,
-    "weapon": "Light Crossbow",
+    "weapon": "Night-Sight AR",
     "shield": null,
     "look": "boss_lens_0",
     "says": "I see you. You don't see me."

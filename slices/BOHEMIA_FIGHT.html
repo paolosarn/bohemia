@@ -2716,6 +2716,13 @@ const FIGHT = (function () {
         if (B.look && DB.rig.looks[B.look]) u.look = B.look;   /* HIS OWN LOOK (BOSSES 11/2, rule 330): the chef's whites, the vest, the respirator (tools/bohemia_bosses_the_three_men.py) */
         const k = +B.hp_x || 1; if (k > 1) { u.hp = Math.round(u.hp * k); u.hpMax = u.hp; }
         const bw = B.weapon ? weaponByName(B.weapon) : null; if (bw && strikeSkill(bw) && !isRanged(bw)) u.weapon = bw;
+        /* __THE_STRAPPED_BOSS__ (BOSSES 11/27, rule 482; ARMORY 3's guns, their numbers unchanged): a boss whose kind already shoots
+           carries his own gun from his row (THE MACHINIST's Pipe Shotgun, THE LENS's Night-Sight AR), its magazine set the way the
+           band's guns are. 'Shoots' is his kind's gear (MEASURED 11/27: the gunner's roll handed THE MACHINIST his Saif, the sidearm,
+           so the man whose tip is 'RUSH HIM THE TURN AFTER HE FIRES' never fired); a kind with no gun in its gear is never handed one */
+        else if (bw && strikeSkill(bw) && isRanged(bw) && ((u.weapon && isRanged(u.weapon)) || ((DB.enemies.rows.filter(function (e) { return e.id === u.kind; })[0] || {}).gear || []).some(function (g) { const w = weaponByName(g); return !!w && isRanged(w); }))) { u.weapon = bw; const am = bw.ammo ? String(bw.ammo).match(/\d+/) : null;
+          u.ammo = bw.mag || (am ? Number(am[0]) : null); u.ammoMax = u.ammo; u.loaded = true; u.rounds = null; u.roundsMax = null; u.strapped = true;
+          if (bw.hands !== 1) u.shield = null; }   /* a long gun leaves no hand for a shield; a pistol keeps it */
         const bs = B.shield ? shieldByName(B.shield) : null; if (bs && u.weapon && u.weapon.hands === 1) u.shield = bs;
         if (bw && u.weapon === bw && bw.hands === 2) u.shield = null;   /* BOSSES 4 11/3: a two-handed boss weapon (THE SURVEYOR's range pole) leaves no hand for the shield his kind rolled */
         S.boss = { name: u.name, id: u.id, kind: B.kind, look: u.look || null, lesson: B.lesson || null, title: B.title || null, tip: B.tip || null, hp: u.hp, weapon: u.weapon && u.weapon.name, shield: u.shield && u.shield.name }; } } } catch (e) { S.bossErr = String(e && e.message || e); }

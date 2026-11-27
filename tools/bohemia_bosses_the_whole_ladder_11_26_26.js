@@ -38,7 +38,8 @@ const THR = +(process.env.LADDER_THROTTLE || 4);
 const ONLY = (process.env.LADDER_ONLY || '').split(',').map(s => s.trim()).filter(Boolean);
 const PATIENCE = +(process.env.LADDER_PATIENCE || 600);
 const REST = +(process.env.LADDER_REST || 0);
-const SHOTS = process.env.LADDER_SHOTS === '1';   /* a picture at each step (the sign, his asker, his card, the fight's open, his fall, his beat) */   /* hours the crew rests after each boss (the map's own clock, advance()), the way a player would */
+const SHOTS = process.env.LADDER_SHOTS === '1';
+const SPEED = +(process.env.LADDER_SPEED || 1);   /* the fight's own speed button tapped up to this (a player in a hurry); the frames walk keeps 1 */   /* a picture at each step (the sign, his asker, his card, the fight's open, his fall, his beat) */   /* hours the crew rests after each boss (the map's own clock, advance()), the way a player would */
 fs.mkdirSync(OUT, { recursive: true });
 const LOG = path.join(OUT, 'ladder.jsonl');
 fs.writeFileSync(LOG, '');
@@ -171,10 +172,18 @@ const say = (s) => console.log(s);
         R.us0 = await ff.evaluate(() => FIGHT.S.units.filter(u => u.side !== 'them').length).catch(() => null);
         R.them0 = await ff.evaluate(() => FIGHT.S.units.filter(u => u.side === 'them').length).catch(() => null);
         await snap(n, 'd_fight_open');
-        for (let i = 0; i < 80; i++) { const en = await ff.evaluate(() => !!(window.__BOSS_ENTRANCE && window.__BOSS_ENTRANCE.entrance)).catch(() => false); if (en) { await page.waitForTimeout(800); await snap(n, 'e_his_entrance'); break; } await page.waitForTimeout(200); }
+        for (let i = 0; i < 80; i++) { const en = await ff.evaluate(() => !!(window.__BOSS_ENTRANCE && window.__BOSS_ENTRANCE.entrance)).catch(() => false); if (en) { await page.waitForTimeout(800);
+            R.cardSeen = await ff.evaluate(() => { const c = document.querySelector('#bossentrance .be-card'), fe = window.frameElement; if (!c) return { card: false };
+              const r = c.getBoundingClientRect(), cs = getComputedStyle(c), fr = fe ? fe.getBoundingClientRect() : { left: 0, top: 0 }, fcs = fe ? window.parent.getComputedStyle(fe) : null;
+              const top = fe ? window.parent.document.elementFromPoint(fr.left + r.left + r.width / 2, fr.top + r.top + r.height / 2) : null;
+              return { card: true, op: cs.opacity, box: [Math.round(r.left), Math.round(r.top), Math.round(r.width), Math.round(r.height)], frame: fcs ? [fcs.display, fcs.visibility, fcs.opacity, fcs.zIndex] : null,
+                top: top ? (top.id || top.tagName) : null, vis: document.visibilityState }; }).catch(e => ({ err: String(e) }));
+            await snap(n, 'e_his_entrance'); break; } await page.waitForTimeout(200); }
         R.entrance = await ff.evaluate(() => JSON.parse(JSON.stringify(window.__BOSS_ENTRANCE || null))).catch(() => null);
         R.layer = await ff.evaluate(() => { const L = document.getElementById('bossentrance'); return L ? { pe: getComputedStyle(L).pointerEvents, kids: L.children.length } : null; }).catch(() => null);
+        R.bossWeapon = await ff.evaluate(() => FIGHT.S.boss ? FIGHT.S.boss.weapon : null).catch(() => null);
         const ft0 = Date.now(); await tapEl(await ff.$('#bauto'));
+        for (let k = 0; k < 4 && SPEED > 1; k++) { const hs = await ff.evaluate(() => UI.hand || 1).catch(() => 1); if (hs >= SPEED) break; await tapEl(await ff.$('#bspeed')); await page.waitForTimeout(300); }
         let shotHalf = false, shotDown = false;
         for (let i = 0; i < PATIENCE * 2 && !res; i++) { await page.waitForTimeout(500); res = await ff.evaluate(() => FIGHT.S.over ? FIGHT.S.result : null).catch(() => null);
           if (SHOTS && (!shotHalf || !shotDown)) { const hb = await ff.evaluate(() => { const u = FIGHT.S.units.filter(u => u.boss)[0]; return u ? { f: u.hp / (u.hpMax || u.hp || 1), dead: !!u.dead } : null; }).catch(() => null);

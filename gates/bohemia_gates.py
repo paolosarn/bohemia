@@ -8822,7 +8822,7 @@ GATES = [
      "closes on the first birth only if somebody speaks for you (A1), and then it is kept and DYNASTY is told (A2); she is on CAM 3 "
      "(H1); the reload holds (R1). Planted: DELIVER before her, a meeting that asked for a fight, a delivery that brought nothing, a close "
      "nobody was told of, somebody who does not live there, a phone that forgot the save, a prize the seam never got. about 40 min a way", True),
-    ('THE BOSS ARRIVES', ['node', 'gates/the_boss_arrives_gate.js'],
+    ('THE BOSS ARRIVES', ['node', 'gates/the_boss_arrives_gate.js', 'THE POT,THE TAP,THE FILTER'],
      "BOSSES gate, 11/26, rule 482 (Paolo 11/26: 'More cooking up cleaning up improving things we're already doing'; the routine: 'make "
      "the first three he meets feel like bosses: the sign that leads to him, his entrance, his look, his fight's moment, what changes on the "
      "map when he falls'; 11/27: 'bosses four to six the same way'): THE POT, THE TAP, THE FILTER, THE BURN, THE SURVEYOR and THE CLIMB "
@@ -8831,7 +8831,15 @@ GATES = [
      "thing on top (E1; it had played unseen behind the zoom down); his name over his head (P1); his moment at half with his own tip, his "
      "fall (M1; a lost fight shows none); nothing takes a tap (N1); still found, fought to LEAVE, his map changed (W1). Planted: a sign "
      "that never led, another man's name, a plate off the glass, a won fall with no moment, a fall on a lost fight, a layer that takes taps. "
-     "one phone, about 12 min", True),
+     "one phone, under 10 min a part (the fights on AUTO at the fight's own 4x)", True),
+    ('THE BOSS ARRIVES 4 TO 6', ['node', 'gates/the_boss_arrives_gate.js', 'THE BURN,THE SURVEYOR,THE CLIMB'],
+     "BOSSES gate, 11/27, rule 482 ('now bosses four to six the same way'): THE BOSS ARRIVES for THE BURN, THE SURVEYOR and THE CLIMB, the "
+     "three before them fallen the quick way: the sign leads, the entrance, the name over him (whole, on the glass), the moment, the fall, "
+     "nothing takes a tap, still found, fought to LEAVE, the map changed. Planted fails as THE BOSS ARRIVES. under 10 min", True),
+    ('THE BOSS ARRIVES 7 TO 9', ['node', 'gates/the_boss_arrives_gate.js', 'THE LOCKSMITH,THE CHARGE,THE MACHINIST'],
+     "BOSSES gate, 11/27, rule 482 ('bosses 7 to 9 the same way as 4 to 6... and the strapped bosses carry the new guns where it fits them, "
+     "ARMORY 3's data, damage unchanged'): THE BOSS ARRIVES for THE LOCKSMITH, THE CHARGE and THE MACHINIST, and THE MACHINIST fights with "
+     "his own Pipe Shotgun (G1; planted: his gun dropped for his kind's own). under 10 min", True),
     ('EVERY BOSS HOLDS ITS FRAMES', ['node', 'gates/every_boss_holds_its_frames_gate.js'],
      "BOSSES gate, 11/26, rule 480(b)(c) (Paolo 11/26: 'improve on what we already have. And make sure fps is never choppy for nothing'), "
      "what THE WHOLE LADDER, WALKED FOR REAL (tools/bohemia_bosses_the_whole_ladder_11_26_26.js: one new game, all 19 bosses, each sign, each "

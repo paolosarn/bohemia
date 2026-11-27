@@ -1,5 +1,15 @@
 # BOSSES (written only by the BOSSES lane)
 
+## BOSSES, 11/27/26: BOSSES SEVEN TO NINE ARRIVE, AND THE STRAPPED BOSSES CARRY THEIR GUNS (the routine 'BOSSES: bosses 7 to 9'; ask row 735), BUILD 11/27zg
+Record: records/BOHEMIA_BOSSES_SEVEN_TO_NINE_ARRIVE_AND_THE_STRAPPED_BOSSES_11_27_26.md. Gates (each in the foreground, under 10 min): THE BOSS ARRIVES
+(1-3) 27/0, THE BOSS ARRIVES 4 TO 6 27/0, THE BOSS ARRIVES 7 TO 9 28/0; THE LENS alone 16/0. VOTE bosses-seven-to-nine-arrive-11-27.
+- THE LOCKSMITH, THE CHARGE, THE MACHINIST arrive like the six before (sign leads, entrance, name, moment, fall, map change).
+- __THE_STRAPPED_BOSS__ (BOHEMIA_FIGHT.html): a boss whose row names a gun and whose kind's gear holds a gun fights with it. THE MACHINIST
+  now has the Pipe Shotgun (he had fought with a Saif: the gunner's roll gave him his sidearm), THE LENS the Night-Sight AR. ARMORY 3's
+  numbers unchanged. Everybody else carries BESTIARY 3's waistband pistol.
+- NEXT (rule 482, no act two): bosses ten to twelve (THE PLATE, THE TOOTH, THE LENS) the same way, a fourth gate part; where a sidearm
+  fits better than the waistband's (THE TOOTH a Switched Pistol, THE SMITH a Pipe SMG), a 'sidearm' on his row.
+
 ## BOSSES, 11/27/26: RULE 482, BOSSES FOUR TO SIX ARRIVE THE SAME WAY (THE BURN, THE SURVEYOR, THE CLIMB; ask row 735), BUILD 11/27d
 Record: records/BOHEMIA_BOSSES_FOUR_TO_SIX_ARRIVE_11_27_26.md. Gate: THE BOSS ARRIVES now plays all six (THE POT to THE CLIMB), 44/0, about 12 min.
 VOTE bosses-four-to-six-arrive-11-27 (now, and the two that read weak before this round's fixes).
