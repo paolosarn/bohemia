@@ -1,0 +1,156 @@
+{
+ "engine": {
+  "w": 516,
+  "h": 405,
+  "foot": [
+   258.3,
+   400
+  ],
+  "piece": "engine",
+  "src": "firehouse/fh_engine.webp",
+  "facing": "S"
+ },
+ "gearwall": {
+  "w": 515,
+  "h": 320,
+  "foot": [
+   258.0,
+   317
+  ],
+  "piece": "gearwall",
+  "src": "firehouse/fh_gearwall.webp",
+  "facing": "S"
+ },
+ "hose": {
+  "w": 515,
+  "h": 148,
+  "foot": [
+   257.7,
+   122
+  ],
+  "piece": "hose",
+  "src": "firehouse/fh_hose.webp",
+  "facing": "S"
+ },
+ "bottles": {
+  "w": 394,
+  "h": 179,
+  "foot": [
+   197.4,
+   128
+  ],
+  "piece": "bottles",
+  "src": "firehouse/fh_bottles.webp",
+  "facing": "S"
+ },
+ "toolbox": {
+  "w": 421,
+  "h": 173,
+  "foot": [
+   232.4,
+   125
+  ],
+  "piece": "toolbox",
+  "src": "firehouse/fh_toolbox.webp",
+  "facing": "S"
+ },
+ "cones": {
+  "w": 369,
+  "h": 182,
+  "foot": [
+   185.4,
+   131
+  ],
+  "piece": "cones",
+  "src": "firehouse/fh_cones.webp",
+  "facing": "S"
+ },
+ "bench": {
+  "w": 412,
+  "h": 163,
+  "foot": [
+   215.4,
+   137
+  ],
+  "piece": "bench",
+  "src": "firehouse/fh_bench.webp",
+  "facing": "S"
+ },
+ "kitchen": {
+  "w": 516,
+  "h": 259,
+  "foot": [
+   258.3,
+   229
+  ],
+  "piece": "kitchen",
+  "src": "firehouse/fh_kitchen.webp",
+  "facing": "S"
+ },
+ "lockers": {
+  "w": 515,
+  "h": 166,
+  "foot": [
+   258.0,
+   149
+  ],
+  "piece": "lockers",
+  "src": "firehouse/fh_lockers.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 515,
+  "h": 175,
+  "foot": [
+   257.7,
+   167
+  ],
+  "piece": "wall_ew",
+  "src": "firehouse/fh_wall_ew.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 52,
+  "h": 522,
+  "foot": [
+   26.7,
+   521
+  ],
+  "piece": "wall_ns",
+  "src": "firehouse/fh_wall_ns.webp",
+  "facing": "S"
+ },
+ "bunks": {
+  "w": 326,
+  "h": 301,
+  "foot": [
+   163.4,
+   271
+  ],
+  "piece": "bunks",
+  "src": "firehouse/fh_bunks.webp",
+  "facing": "S"
+ },
+ "table": {
+  "w": 352,
+  "h": 138,
+  "foot": [
+   172.4,
+   137
+  ],
+  "piece": "table",
+  "src": "firehouse/fh_table.webp",
+  "facing": "S"
+ },
+ "couches": {
+  "w": 343,
+  "h": 182,
+  "foot": [
+   180.4,
+   134
+  ],
+  "piece": "couches",
+  "src": "firehouse/fh_couches.webp",
+  "facing": "S"
+ }
+}
