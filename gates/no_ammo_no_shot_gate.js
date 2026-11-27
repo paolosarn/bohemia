@@ -11,7 +11,7 @@
      N3  A RELOAD NEVER LOADS WHAT HE DOES NOT CARRY: a pistol with 7 rounds and a magazine of 5 reloads to 2, never to 5
      N4  WHEN THE FIGHT ENDS: what each gun has left is kept by his name; the company's rounds fill them back one a shot as far as the
          stock goes (a stock of 4 fills 4 and is 0 after); an empty stock leaves them as they were; the dead keep nothing
-     N5  THEIR SIDE IS AS IT WAS: their guns carry no count (Battle Brothers' endless quivers)
+     N5  THEIR SIDE IS AS IT WAS: their guns carry no count (Battle Brothers' endless quivers); the waistband pistol (rule 489(a)) carries its few
      N6  AN EMPTY POCKET GUN STAYS IN THE POCKET (11/26): no swap, by AUTO or by hand, ever brings out a gun of his bag with no round
          left (it would only be slung again: 4 AP for nothing)
      N7  THE CARD SHOWS WHAT HE CARRIES (11/26, the coordinator's 'the card shows the rounds'; Battle Brothers' bar shows the quiver): a
@@ -77,13 +77,15 @@ function fight(E, seed, opt) {
       dryOutAll = dryOutAll.concat(R.dryOut); fightsN6++;
       atZero = atZero.concat(R.atZero); over = over.concat(R.over); pocket = pocket.concat(R.pocket); dry += R.dry; fistsBlows += R.fists; swaps += R.swaps; shots += R.shots;
       if (R.startFists.CHUY) startFists++; if (R.startWeapon.YOU === 'snub_revolver' && !R.startFists.YOU) startOk++;
-      theirCount += R.theirs.filter(t => t.rounds != null).length; }
+      /* re-aimed 11/27 by BESTIARY 3 (VAMILY rule 489(a): 'everybody is strapped', the rounds stay scarce): the pistol out of a man's waistband
+         carries its few rounds; every other gun of theirs keeps Battle Brothers' endless quiver */
+      theirCount += R.theirs.filter(t => t.rounds != null && !(t.strapped && t.weapon && t.weapon.id === t.strapped)).length; }
     check(fights >= 12 && !atZero.length && !over.length && dry > 0 && (fistsBlows + swaps) > 0 && shots > 0, 'N1',
       'EVERY SHOT SPENDS ONE AND AT NONE NOTHING FIRES: ' + fights + ' fights on AUTO, ' + shots + ' shots of his; fired with no round left ' + atZero.length + (atZero.length ? ' (' + atZero.slice(0, 3).join('; ') + ')' : '') +
       '; a gun past what it walked in with ' + over.length + (over.length ? ' (' + over.slice(0, 3).join('; ') + ')' : '') + '; guns run dry ' + dry + ', then ' + fistsBlows + ' blows with his fists and ' + swaps + ' swaps');
     check(fights >= 12 && startFists === fights && startOk === fights && !pocket.length, 'N2',
       'ONLY THE WEAPON IN HIS HANDS FIRES: the empty-handed man (a pistol in his bag) starts with his fists in ' + startFists + ' of ' + fights + ' fights, the pistol man with his pistol in ' + startOk + '; a shot from a gun not in his hands ' + pocket.length + (pocket.length ? ' (' + pocket.slice(0, 3).join('; ') + ')' : ''));
-    check(fights >= 12 && theirCount === 0, 'N5', 'THEIR SIDE IS AS IT WAS: their men carrying a count of rounds ' + theirCount + ' (their quivers are endless)'); }
+    check(fights >= 12 && theirCount === 0, 'N5', 'THEIR SIDE IS AS IT WAS: their men carrying a count of rounds ' + theirCount + ' (their quivers are endless; the waistband pistol\'s few rounds, rule 489(a), are not a quiver)'); }
   /* N6: an empty pocket gun stays in the pocket; and by hand: a bag gun with no round is refused */
   { const E = make(); E.ls.setItem('bohemia.rounds.v1', JSON.stringify({ v: 1, men: { YOU: { lever_rifle: [0] } } })); E.ctx.setSeed(78);
     E.F.setup({ kind: 'suburb', cell: { gx: 12, gy: 8 }, night: false, auto: true, formation: null, deploy: false,

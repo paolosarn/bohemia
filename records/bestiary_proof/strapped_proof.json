@@ -1,0 +1,154 @@
+{
+ "at": "2026-11-27T04:09:45.063Z",
+ "faction": "brigands",
+ "days": 20,
+ "seed": 11,
+ "shots": [
+  {
+   "file": "records/bestiary_proof/strapped_draw_0.jpg",
+   "holds": "Dagger",
+   "rounds": 3,
+   "firing": false,
+   "feed": [
+    "MARKSMAN pulls a pistol from his waistband.",
+    "THUG pulls a pistol from his waistband.",
+    "THUG hits YOU, -10 health, -22 armour (51%)"
+   ]
+  },
+  {
+   "file": "records/bestiary_proof/strapped_draw_1.jpg",
+   "holds": "Dagger",
+   "rounds": 3,
+   "firing": false,
+   "feed": [
+    "RAIDER loses 2 breath: dodge.",
+    "YOU misses RAIDER (87%)",
+    "RAMON: Stop dancing, coward!"
+   ]
+  },
+  {
+   "file": "records/bestiary_proof/strapped_draw_2.jpg",
+   "holds": "Dagger",
+   "rounds": 3,
+   "firing": false,
+   "feed": [
+    "RAMON: Stop dancing, coward!",
+    "RAIDER loses 5 breath: hit.",
+    "YOU hits RAIDER in the head, -1 health, -30 armour (87%)"
+   ]
+  },
+  {
+   "file": "records/bestiary_proof/strapped_draw_3.jpg",
+   "holds": "Dagger",
+   "rounds": 3,
+   "firing": false,
+   "feed": [
+    "YOU hits RAIDER in the head, -1 health, -30 armour (87%)",
+    "RAIDER loses 2 breath: dodge.",
+    "DESI misses RAIDER (72%)"
+   ]
+  },
+  {
+   "file": "records/bestiary_proof/strapped_draw_4.jpg",
+   "holds": "Dagger",
+   "rounds": 3,
+   "firing": false,
+   "feed": [
+    "RAIDER loses 1 breath: hit.",
+    "DESI hits RAIDER in the head, -3 health, -34 armour (72%)",
+    "RAMON hits RAIDER, -7 health, -39 armour (63%)"
+   ]
+  },
+  {
+   "file": "records/bestiary_proof/strapped_draw_5.jpg",
+   "holds": "Dagger",
+   "rounds": 3,
+   "firing": false,
+   "feed": [
+    "RAMON hits RAIDER, -7 health, -39 armour (63%)",
+    "DESI: Ka-ching.",
+    "RAMON hits RAIDER, -16 health, -32 armour (63%)"
+   ]
+  },
+  {
+   "file": "records/bestiary_proof/strapped_draw_6.jpg",
+   "holds": "Dagger",
+   "rounds": 3,
+   "firing": false,
+   "feed": [
+    "RAIDER: wavering",
+    "YOU loses 5 breath: hit.",
+    "MARKSMAN hits YOU, -31 health, -12 armour (66%)"
+   ]
+  },
+  {
+   "file": "records/bestiary_proof/strapped_draw_7.jpg",
+   "holds": "Dagger",
+   "rounds": 3,
+   "firing": false,
+   "feed": [
+    "YOU: wavering",
+    "YOU loses 5 breath: hit.",
+    "MARKSMAN hits YOU in the head, -5 health, -24 armour (67%)"
+   ]
+  }
+ ],
+ "theirs": [
+  {
+   "name": "RAIDER",
+   "kind": "brigand_raider",
+   "weapon": "Two-Handed Wooden Flail",
+   "waistband": "Dagger",
+   "rounds": 4
+  },
+  {
+   "name": "RAIDER",
+   "kind": "brigand_raider",
+   "weapon": "Two-Handed Mace",
+   "waistband": "Snub Revolver",
+   "rounds": 4
+  },
+  {
+   "name": "THUG",
+   "kind": "brigand_thug",
+   "weapon": "Pitchfork",
+   "waistband": "Dagger",
+   "rounds": 4
+  },
+  {
+   "name": "RAIDER",
+   "kind": "brigand_raider",
+   "weapon": "Splitting Maul",
+   "waistband": "Dagger",
+   "rounds": 4
+  },
+  {
+   "name": "MARKSMAN",
+   "kind": "brigand_marksman",
+   "weapon": "Short Bow",
+   "waistband": "Dagger",
+   "rounds": 4
+  }
+ ],
+ "drew": true,
+ "who": {
+  "id": "e2",
+  "name": "THUG",
+  "kind": "brigand_thug",
+  "gun": "Dagger",
+  "said": "pistol",
+  "rounds": 3
+ },
+ "over": {
+  "result": "lost",
+  "rounds": 8,
+  "words": [
+   "RAIDER is out of rounds: the pistol goes back in his waistband.",
+   "THUG is out of rounds: the pistol goes back in his waistband.",
+   "RAIDER pulls a pistol from his waistband.",
+   "MARKSMAN is out of rounds: the pistol goes back in his waistband.",
+   "RAIDER is out of rounds: the pistol goes back in his waistband."
+  ]
+ },
+ "errors": []
+}

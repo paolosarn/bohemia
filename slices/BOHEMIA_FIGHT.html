@@ -1573,7 +1573,10 @@ const FIGHT = (function () {
     const mc = DB.ours.model_carries && DB.ours.model_carries.value, m = mc && mc.looks && mc.looks[l]; if (!m || !w) return true;
     return !isRanged(w) && !pistolShot(w) && (w.hands || 1) === 1 && m.classes.indexOf(w.class) >= 0;
   }
-  function freeLook(pool, i, w) {
+  /* __EVERYBODY_IS_STRAPPED__: a man with a pistol in his bag never wears a body whose model carries its own weapon (his pistol would
+     come out of a hand holding the pipe); a pool of only those keeps them, as before */
+  function freeLook(pool, i, w, strapped) {
+    if (strapped) { const mc = DB.ours.model_carries && DB.ours.model_carries.value, bare = mc && mc.looks ? pool.filter(function (l) { return !mc.looks[l]; }) : pool; if (bare.length) pool = bare; }
     for (let t = 0; t < pool.length; t++) { const l = pool[(i + t) % pool.length]; if (!modelFits(l, w)) continue; if (!LOOKS_TAKEN || !LOOKS_TAKEN.has(l)) { if (LOOKS_TAKEN) LOOKS_TAKEN.add(l); return l; } }
     const fit = pool.filter(function (l) { return modelFits(l, w); });
     return fit.length ? fit[i % fit.length] : pool[i % pool.length];
@@ -1622,6 +1625,49 @@ const FIGHT = (function () {
   }
   /* a number of the new enemies' (bohemia_enemies.json numbers), remembered as read like R's */
   function NEW(k) { const n = DB.newEnemies && DB.newEnemies.numbers[k]; if (!n || !n.value) throw new Error('no sourced row at bohemia_enemies.' + k); DB.read['bohemia_enemies.' + k] = n.source; return n.value; }
+  /* ==== __EVERYBODY_IS_STRAPPED__ (BESTIARY 3 11/27, VAMILY rule 489(a), Paolo 11/27: 'most enemies should be having pistols... if
+     you are a force walking around, bro you're at least gonna have some guns... human forces probably have at the very least pistols,
+     everybody is strapped'). MEASURED BEFORE (main 278d7afe0, 8 of each kind the bands deal): of 50 human kinds, 44 walked in with no
+     gun in their hands and 37 had none anywhere in their gear; only the marksman (2 in 8), the House's crossbows, the darter, the
+     casino's gunner and spotter and the mechanic shot. NOW, Battle Brothers' way (a melee man carries his throwing weapons in the bag
+     and throws them closing in, bb_all/0297_Brigand Raider.txt, a third of them there; every one here): every armed man of theirs who
+     is not a beast, a machine or a ghost and has no gun in his hands carries a pistol in his bag, his own gear's pistol first, else
+     his phase's list by his place in the band (bohemia_enemies.json numbers.strapped; no die thrown, so every roll after him is the
+     one it was). It holds the few rounds that list says, never an endless quiver (rule 478: the rounds stay scarce), and the swap is
+     the bag's 4 AP: the brain that weighs every swap (__AUTO_KNOWS_ITS_MAN__) draws it when nobody is in reach of his own weapon and
+     puts it back when a man is. Dry, it goes on its sling and his own weapon comes back out of the bag. It drops like his weapon. ==== */
+  function strapOf(id, r, w, side, i) {
+    const N = DB.newEnemies && DB.newEnemies.numbers && DB.newEnemies.numbers.strapped; if (!N || !N.value || !w) return null;
+    if (R('ours.beast_looks')[id] || R('ours.bestiary').mechanic.machines.indexOf(id) >= 0 || (r.traits || []).indexOf('Incorporeal') >= 0) return null;
+    if (isGun(w) || (side && isGun(side))) return null;   /* a gun in his hands already (a pistol, a shotgun, a rifle) */
+    const P = NEW('strapped');
+    let row = null;
+    if (P.own_gear_first) (r.gear || []).forEach(function (n) { const x = weaponByName(n); if (!row && x && pistolShot(x)) row = x; });
+    const ph = P.by_phase[tierPhase(S.days, S.difficulty)] || P.by_phase.first;
+    if (!row) { const L = (ph.pistols || []).map(weaponByName).filter(function (x) { return x && pistolShot(x); }); row = L.length ? L[i % L.length] : null; }
+    return row ? { gun: pistolShot(row), rounds: Math.max(1, ph.rounds | 0) } : null;
+  }
+  function strapOn(u, s) {
+    if (!s) return u;
+    const g = s.gun;
+    u.bag = [g]; u.bagKit = true; u.strapped = g.id; u.strappedName = g.name;
+    u.bagState = [{ ammo: g.mag ? Math.min(g.mag, s.rounds) : s.rounds, ammoMax: g.mag || s.rounds, loaded: true, rounds: s.rounds, roundsMax: s.rounds }];
+    return u;
+  }
+  /* his last round gone: the pistol goes back in his waistband and his own weapon comes out of the bag, the swap's AP (what he has
+     left of them), never his fists while his own weapon rides there (MEASURED: 40 fights, 100 pistols went dry, 120 blows were fists) */
+  function strapHome(u) {
+    if (!u.strapped || !u.weapon || u.weapon.id !== u.strapped || !dryGun(u)) return false;
+    const i = (u.bag || []).findIndex(function (b) { return b && !isShield(b) && !isGun(b); }); if (i < 0) return false;
+    const gun = u.weapon, own = u.bag[i], st = (u.bagState && u.bagState[i]) || null, c = Math.min(u.ap, swapCost(u));
+    u.ap -= c; u.bag[i] = gun; u.bagState[i] = { ammo: u.ammo, ammoMax: u.ammoMax, loaded: false, rounds: 0, roundsMax: u.roundsMax };
+    u.weapon = own; u.ammo = st ? st.ammo : null; u.ammoMax = st ? st.ammoMax : null; u.loaded = st ? st.loaded !== false : true; u.rounds = null; u.roundsMax = null;
+    u.job = jobOfWeapon(own);
+    if (bothHands(own) && u.shield) { u.shieldBack = u.shield; u.shield = null; } else if (!bothHands(own) && !u.shield && u.shieldBack) { u.shield = u.shieldBack; u.shieldBack = null; }
+    emit({ t: 'dry', id: u.id, gun: gun.name, strapped: true }); emit({ t: 'swap', id: u.id, slot: i, from: gun.name, to: own.name, ap: c, strapped: 'home' });
+    return true;
+  }
+  /* ==== /__EVERYBODY_IS_STRAPPED__ ==== */
   function enemyUnit(id, i) {
     const r = robotRow(id, DB.enemies.rows.filter(function (e) { return e.id === id; })[0]);
     if (!r) throw new Error('the fight has no enemy row ' + id);
@@ -1650,15 +1696,16 @@ const FIGHT = (function () {
     /* THE KIDS (COMBAT [bestiary]): the blade he carries beside the sling for when the stones run out, and his net (the page's chance) */
     let side = null; if (Ak.throws) gear.forEach(function (n) { const x = weaponByName(n); if (notNet(x) && !side && strikeSkill(x) && !isRanged(x) && !pistolShot(x)) side = x; });
     const netRow = (DB.racial.by_enemy[id] || []).indexOf('throw_net') >= 0 && (r.gear || []).indexOf('Throwing Net') >= 0 ? DB.racial.rows.throw_net : null;
+    const strap = strapOf(id, r, w, side, i);   /* __EVERYBODY_IS_STRAPPED__ */
     const lp = R('ours.bestiary').look_pools[id], pl = R('ours.people_looks').band, pool = (lp && pl[lp]) || pl[id] || pl['default'], beast = R('ours.beast_looks')[id] || null;
-    return makeUnit({ look: beast ? pool[i % pool.length] : freeLook(pool, i, w), beast: beast, id: 'e' + i, side: 'them', name: R('ours.bestiary').names[id] || r.name.replace(/^(Lower )?Brigand /, '').replace(/Direwolf/, 'Dire Wolf').replace(/^Geist$/, 'Ghost').toUpperCase(),
+    return strapOn(makeUnit({ look: beast ? pool[i % pool.length] : freeLook(pool, i, w, !!strap), beast: beast, id: 'e' + i, side: 'them', name: R('ours.bestiary').names[id] || r.name.replace(/^(Lower )?Brigand /, '').replace(/Direwolf/, 'Dire Wolf').replace(/^Geist$/, 'Ghost').toUpperCase(),
       racial: (DB.racial && DB.racial.by_enemy[id]) || [], traits: (r.traits || []).slice(), ghost: (r.traits || []).indexOf('Incorporeal') >= 0, kind: id, machine: R('ours.bestiary').mechanic.machines.indexOf(id) >= 0, job: w.class, perks: (R('ours.decoy').enemy_archetypes.indexOf(kind) >= 0 ? ['decoy'] : []).concat(perksByName(r.perks, S.days)),
       hp: stat(r.hp), fatigue: stat(r.fatigue), resolve: r.resolve === null ? null : stat(r.resolve), initiative: stat(r.initiative),
       mskill: dayStat(r.melee_skill), rskill: dayStat(r.ranged_skill), mdef: dayStat(r.melee_defense), rdef: dayStat(r.ranged_defense),
       apTurn: stat(r.ap) || R('ap.per_turn'), weapon: w, shield: sh, bodyRow: null, headRow: null, gearNames: gear, immune: r.immune || [],   /* gearNames: his armour's weight (rule 377) */
       captain: (r.perks || []).concat(r.skills || []).some(function (x) { return /^captain$/i.test(String(x)); }),
       sideArm: side, nets: netRow && rng() * 100 < netRow.carry_chance_pct ? 1 : 0,
-      armH: stat(r.armor_head), armB: stat(r.armor_body), xp: stat(r.xp), arche: kind, lurking: !!Ak.lurks });
+      armH: stat(r.armor_head), armB: stat(r.armor_body), xp: stat(r.xp), arche: kind, lurking: !!Ak.lurks }), strap);
   }
 
   /* ---------------- SETUP ---------------- */
@@ -4999,7 +5046,8 @@ const FIGHT = (function () {
      his own turns (flee), can be caught and killed, and can rally (Battle Brothers' stop-fleeing check, beginTurn). */
   function afterAction(u) {
     dronesFall();   /* __ARMORY_THREE__: a pilot dropped by this action takes his drones down */
-    if (dryGun(u)) toFists(u, u.weapon, true);   /* rule 478: the last round is gone, the gun goes on its sling, his fists come up */
+    if (strapHome(u)) {}   /* __EVERYBODY_IS_STRAPPED__: their man's pistol back in his waistband, his own weapon out */
+    else if (dryGun(u)) toFists(u, u.weapon, true);   /* rule 478: the last round is gone, the gun goes on its sling, his fists come up */
     const you = alive('you').filter(function (v) { return !v.staff; }), them = alive('them');   /* __THE_STAFF_FIGHT_TOO__ (C8): staff alone never hold the board */
     if (!them.length || !you.length) {
       S.over = true; S.allFlee = false;
@@ -5069,7 +5117,8 @@ const FIGHT = (function () {
     spendRound(g);   /* rule 478 */
     const r = resolveAttack(g, u, strikeSkill(g.weapon));
     apply(g, u, r, { free: true });
-    if (dryGun(g)) toFists(g, g.weapon, true);   /* rule 478: his last round */
+    if (strapHome(g)) {}   /* __EVERYBODY_IS_STRAPPED__ */
+    else if (dryGun(g)) toFists(g, g.weapon, true);   /* rule 478: his last round */
     return r;
   }
 
@@ -7778,7 +7827,8 @@ function bullet(moment, a, t, e) {
    something: the fall plays whole (three keys, one beat), a ring for a skill or a rally half a beat, a reload or a held step a
    quarter, a morale word or an injury nothing (they are rings on the man already) */
 const NOTE_BEATS = { idle: .75, decoy: .5, knocked: .5, spark: 1, burn: .25, allflee: .5, free: .25, stuck: .25, dead: 1, down: 1, skill: .5, rally: .5, nine: .5, berserk: .5, reload: .25, held: .25, fled: .25, morale: 0, injury: 0,
-  bleeding: 0, bled: .25, stunned: 0, stunned_turn: .25, disarmed: 0, cell: 0, cut: 0, crack: 0, flood_warn: .5, flood: 1, flood_gone: .25 };   /* __THE_FLOOD_TUNNELS__: the flood's three notes */   /* ARMORY 2: the whip's marks */
+  bleeding: 0, bled: .25, stunned: 0, stunned_turn: .25, disarmed: 0, cell: 0, cut: 0, crack: 0, flood_warn: .5, flood: 1, flood_gone: .25,
+  dry: 0, swap: 0 };   /* __EVERYBODY_IS_STRAPPED__ (BESTIARY 3 11/27): 'dry' (rule 478's NO ROUNDS) and 'swap' (their man's pistol out of his waistband) were never in this table, so neither flash ever played; at no length, so no turn takes longer */   /* __THE_FLOOD_TUNNELS__: the flood's three notes */   /* ARMORY 2: the whip's marks */
 function take() {
   const ev = FIGHT.S.events, n0 = UI.anim.length; FIGHT.S.events = [];
   let swing = null;   /* WEAPON SHAPES: the other men a sweep strikes ride the one swing (one motion, one beat, every man it caught) */
@@ -8873,7 +8923,9 @@ function startAnimHeard(a) {
     /* THE MAG SEATS (rule 124; the approved 'mag_home': 'the beat where you cannot shoot, and the player has to HEAR it') */
     if (e.t === 'reload' && u) { if (a.firstSent === undefined) sfx('mag_home', { gun: u.job, side: u.side }); pop(u, '', '#f0d296', false, u.name + ' reloads.'); u._reloadAt = performance.now();   /* __WHAT_A_MAN_HOLDS__: he reloads on his body (ANIMATION) */
       if (crewControlled(u)) { const r = FIGHT.rounds(u); say('Loaded' + (r && r.of > 1 ? ': ' + nWord(r.left, 'round', 'rounds') + '.' : '.')); } }   /* __EVERY_LINE_AGREES__: a reload loads only what he carries (rule 478), so one round is a line now */
-    if (e.t === 'dry' && u) pop(u, 'NO ROUNDS', '#d0a070', false, u.name + ' is out of rounds: the gun goes on its sling.');   /* rule 478, draft: a flash on him; the words go to the fight's kept feed (rule 67), never on the glass */
+    if (e.t === 'dry' && u) pop(u, 'NO ROUNDS', '#d0a070', false, u.name + (e.strapped ? ' is out of rounds: the pistol goes back in his waistband.' : ' is out of rounds: the gun goes on its sling.'));   /* rule 478, draft: a flash on him; the words go to the fight's kept feed (rule 67), never on the glass */
+    /* __EVERYBODY_IS_STRAPPED__ (rule 489(a), draft): you only see it when he goes for it */
+    if (e.t === 'swap' && u && u.side === 'them' && u.strappedName && e.to === u.strappedName) { const sg = [u.weapon].concat(u.bag || []).filter(function (x) { return x && x.id === u.strapped; })[0]; pop(u, 'PISTOL', '#e8b860', true, u.name + ' pulls a ' + (sg ? armName(u, sg) : 'pistol') + ' from his waistband.'); sfx('swap', { from: e.from, to: e.to, side: 'them' }); }
     if (e.t === 'rally') pop(u, 'rallies', '#a8d08a');
     if (e.t === 'pinned' && u) pop(u, 'PINNED', '#e8c39c', false, u.name + ' is down under it. He has to fight his way up.');   /* FIVE MORE BEASTS, draft:true */
     if (e.t === 'staggered' && u) pop(u, 'KNOCKED DOWN', '#e8a07c', false, u.name + ' is knocked flat and loses his next turn.');
@@ -12703,6 +12755,15 @@ function spoilsOf() {
     return { id: a.id, now: Math.max(0, Math.round(now || 0)), max: Math.round(max) };
   };
   const row = function (w) { return w ? DB.weapons.rows.filter(function (r) { return r.id === w.id; })[0] || null : null; };
+  /* __EVERYBODY_IS_STRAPPED__ (BESTIARY 3, rule 489(a)): a man of theirs whose pistol never left his waistband (or went back in it dry)
+     still has it on him: it rides home beside his weapon, its rounds with it (engine/bohemia_spoils.js found() rolls it like his weapon) */
+  const sidearmOf = function (t, row) {
+    if (!t.strapped || (t.weapon && t.weapon.id === t.strapped)) return null;
+    const i = (t.bag || []).findIndex(function (b) { return b && b.id === t.strapped; });
+    const b = i >= 0 ? t.bag[i] : (t.slung && t.slung.id === t.strapped ? t.slung : null), rw = row(b); if (!rw) return null;
+    const st = i >= 0 ? (t.bagState || [])[i] : t.slungState;
+    return { id: b.id, cls: rw.class, durability: rw.durability, gun: true, ammo: st && st.rounds != null ? Math.max(0, st.rounds | 0) : 0 };
+  };
   /* FIXES 11/9 (ask row 530): the fight's own name for who they were rides home with them (the data's name, else the fight's own
      word), so the end screen never has to guess a faction it has not met */
   const fac = theirFaction(), nf = DB.newEnemies && DB.newEnemies.factions && DB.newEnemies.factions[fac];
@@ -12710,6 +12771,7 @@ function spoilsOf() {
       return { name: t.name, kind: t.kind, boss: !!t.boss, xp: t.xp | 0, dead: !!t.dead, fled: !!t.fled, beast: !!t.beast, ghost: !!t.ghost, machine: !!t.machine,
         weapon: row(t.weapon) ? { id: t.weapon.id, cls: row(t.weapon).class, durability: row(t.weapon).durability, gun: !!t.weapon.gun || isGunW(t.weapon), ammo: t.ammo, ammoMax: t.ammoMax } : null,
         shield: t.shield ? { id: t.shield.id, durability: t.shield.durability } : null,
+        sidearm: sidearmOf(t, row),   /* __EVERYBODY_IS_STRAPPED__: the pistol still in his waistband, and the rounds left in it */
         body: wear(t, 'body', t.armB, t.armBMax), head: wear(t, 'head', t.armH, t.armHMax) }; }),
     /* WHAT EACH HAND HOLDS WHEN IT ENDS (COMBAT, rule 164 item 15, RUN TWO's note 10/25): a swap in the fight is kept, so the crew
        screen can put back main, off and the bag as they ended (item ids; the car door on his back counts as the off hand) */

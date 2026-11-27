@@ -1,3 +1,8 @@
+BESTIARY 3 (bestiary-three-01gkdyuu): 11/27 LATEST -- BUILD 11/27l - EVERYBODY IS STRAPPED, BUILT, NOT YET SEEN (rule 489(a), ask row 757; 489(c) research done, ask row 759). Its block is handoffs/BESTIARY.md.
+Every man of theirs carries a gun: 50 of 50 human kinds (6 before); a club, blade, bow or sling man has a pistol in his waistband with 2 to 5 rounds, pulls it when nobody is in reach,
+puts it away dry, and it drops with its rounds. His six win 62 of 78 (69 before); gun damage untouched. Gate EVERYBODY IS STRAPPED (new) 5/0, plants red. VOTE bestiary3-everybody-is-strapped-11-27.
+records/BOHEMIA_BESTIARY_THREE_EVERYBODY_IS_STRAPPED_11_27_26.md. NEXT: rule 490's drone operator, then the roles, then rule 491's forces by tier.
+[bb Battle Brothers gives a third of its melee men a bag of javelins; the valley gives every one of them a pistol]
 ARMORY 3 (armory-three-01gkdyuu): 11/27 LATEST -- BUILD 11/27h - THE GUNS GROW UP, AND THE DRONE, BUILT, NOT YET SEEN (rules 489(b), 490; ask rows 758, 762, 763). Its block is handoffs/ARMORY.md.
 Sixteen real guns and kits: automatic bursts, magazines, a belt-fed that sweeps three tiles, rockets that take a house and its eight, a charge drone that flies one turn and lands the
 next (step off or shoot it down), a scout drone, night and heat sights. Old gun damage untouched (rule 489(d)). Gate THE GUNS GROW UP (new) 19/0. VOTE armory3-the-guns-grow-up-11-27.

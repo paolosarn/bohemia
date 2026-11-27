@@ -1,5 +1,31 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
+BESTIARY 3 (bestiary-three-01gkdyuu; rules 489(a)(c), 490, 491, 478, 482, 480(b), 461(c) amended, 441): 11/27 LATEST -- BUILD 11/27l EVERYBODY IS STRAPPED, BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_BESTIARY_THREE_EVERYBODY_IS_STRAPPED_11_27_26.md. VOTE bestiary3-everybody-is-strapped-11-27 (a page: a thug with a club pulls his pistol and fires, the hit lands; the numbers before and now).
+- RULE 489(a) DONE (ask row 757): 50 of 50 human kinds armed with a gun (6 before). Every club, blade, bow, sling and thrower of theirs carries a pistol in
+  his bag (his waistband): his own gear's pistol first, else bohemia_enemies.json numbers.strapped by phase (2 rounds first, 3 early, 4 middle, 5 late;
+  never an endless quiver). The bag's swap draws it (__AUTO_KNOWS_ITS_MAN__ weighs it, nothing new in the brain); dry it goes back in the waistband and his
+  own weapon comes out (strapHome; 120 fist blows in 40 fights -> 0). It drops with its rounds (spoilsOf sidearm; engine/bohemia_spoils.js found(), rolled
+  after every other die). Code: slices/BOHEMIA_FIGHT.html __EVERYBODY_IS_STRAPPED__ (strapOf, strapOn, strapHome, freeLook's strapped flag, the swap
+  and dry notes, spoilsOf's sidearmOf).
+- MEASURED (78 fights, same dice): his six win 69 -> 62 of 78; men lost a fight 0.29 -> 0.40; their pistol shots 0 -> 6.6 a fight; the brain 451 -> 580 ms a
+  fight, its slowest move 87 -> 75 ms. Loot a won fight: pistols 0 -> 4.3, rounds 0 -> 8.2 (ECONOMY THREE's to price).
+- FOUND AND FIXED: NOTE_BEATS had no 'dry' and no 'swap': rule 478's NO ROUNDS flash never played on his men since 11/22 (COMBAT FOUR's words).
+- RULE 489(c) RESEARCH DONE (ask row 759): records/BOHEMIA_BESTIARY_THREE_HUMAN_FORCES_BY_ROLE_THE_RESEARCH_11_27_26.md (every army: fodder, a shield line
+  guarding named roles, a reach rank, ranged behind, one leader, elites; the nearest Battle Brothers model for each of our seven roles; no enemy medic exists).
+- TOOLS: gates/everybody_is_strapped_gate.js (S1 armed, S2 scarce, S3 draws and puts away dry, S4 drops, S5 seen; --plant: three reds);
+  tools/bohemia_bestiary_three_strapped_proof.js [faction] [days] (the page at 390 x 844, AUTO, the first club man who draws, frames to
+  records/bestiary_proof/: NOT records/target, the site is at 898 of its 900 MB). NO AMMO's N5 re-aimed to 489(a).
+- NEXT, IN THIS ORDER: (1) RULE 490 THE DRONE OPERATOR (ask row 762, this lane's part): an enemy kind that stays back and flies ARMORY 3's charge drone
+  (records/target/bb/armory.json 'charge_drone'; the fight's armoryFirst already flies a drone for either side and dronesFall drops them with the pilot);
+  research says the Engineer and the Mortar (bb_all/1321_Mortar.txt, bb_all/1190_Load Mortar (10 fatigue).txt): soft, at the back, the first kill;
+  field him only where drones are real (the eye in the sky, the hired guns, the House; measure). (2) the other roles from the research: the machine gunner
+  (the belt-fed behind a shield, Battle Brothers' Gunner), the rocket man (one rocket a fight before the lines meet), the breacher (Line Breaker's shove),
+  the medic (ours: one a squad, at the back, spends his turn). (3) RULE 491 (the coordinator, 11/27: 'THE ENEMY GROWS WITH HIS COMPANY', this lane's half:
+  the forces' numbers and kit by tier) with JOBS 2. (4) the beasts BESTIARY 2 listed (the horses, the teratorns, the lion: how they move, their bodies).
+[bb Battle Brothers gives a third of its melee men a bag of javelins; the valley gives every one of them a pistol]
+[analog horror: the kid with the bat has a pistol in his waistband too, and you only see it when he goes for it]
+
 HANDOFF READY (bestiary-two-01gkdyut, context past its budget, 11/27): the routine 'BESTIARY 2: rule 482' fired; a fresh BESTIARY 2 opens on this block.
 BESTIARY 2 (rules 489(a)(c), 482, 480(b), 461(c) amended, 441, 465): 11/27 -- THE JOB, IN THIS ORDER, NEWEST WORD FIRST.
 (1) RULE 489(a), OWNED BY THIS LANE (Paolo 11/27: 'most enemies should be having pistols... everybody is strapped'): EVERY ARMED HUMAN

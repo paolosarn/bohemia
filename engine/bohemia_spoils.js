@@ -111,6 +111,15 @@
        three, rolled even), so a fight drops tape scaled to the kills; rolled after his gear, so the gear's own dice do not move */
     var K = kitTape(D);
     if (K && K[1] > 0) kit.forEach(function () { var n = K[0] + Math.floor(rnd() * (K[1] - K[0] + 1)); out.counts.tape += n; out.kitTape = (out.kitTape | 0) + n; });
+    /* __EVERYBODY_IS_STRAPPED__ (BESTIARY 3 11/27, VAMILY rule 489(a)): the pistol in a dead man's waistband (the fight's sidearmOf) is found
+       on the weapon's roll like the weapon in his hand, and the rounds left in it are his rounds; rolled after everything else, so no
+       other die moves. A pistol at full wear is never wrecked, so it leaves no tape */
+    kit.forEach(function (b) {
+      var s = b.sidearm; if (!s) return;
+      var f = partFound('weapon', s.durability, s.durability, D, rnd);
+      if (f.found) out.items.push({ kind: 'weapon', id: s.id, cond: s.durability, max: s.durability, from: b.name, sidearm: true });
+      if (s.ammo > 0) out.counts.rounds += s.ammo | 0;
+    });
     out.wreckTape = out.counts.tape - (out.kitTape | 0) - out.winTape;
     return out;
   }
