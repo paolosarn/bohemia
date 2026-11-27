@@ -17,11 +17,10 @@
      I2 the fight page's written-in canvases and the spoils page's emptied as they close (__FIGHT_PAGE_EMPTIED, __SPOILS_PAGE_EMPTIED),
         the map's zoom photographs (__FZ_LET_GO)
      I3 back on the map after each fight, nothing collected, the canvases alive at most 170 MB (117 to 127 measured; the old way 212 to 316)
-     I4 the most alive at any step in or out (canvases + bitmaps + pictures, nothing collected) at most 1250 MB (956 to 1144 measured;
-        a ratchet, only down); the most of each step printed, and the bitmaps by page: they are the most of what is left (the fight's
+     I4 THE IPHONE BUDGET: the most alive at any step in or out (canvases + bitmaps + pictures, nothing collected) at most 768 MB
+        (671 to 677 measured 11/27, after 11/27x, CHARACTER 3's packed people and COMBAT FIVE's half-width ground; it was 1,027 to 1,100); the most of each step printed, and the bitmaps by page: they are the most of what is left (the fight's
         sheets and block pictures, COMBAT FIVE; the map's people and idle sheets, CHARACTER 2 and WORLD 13: ask rows 768, 769)
-     I5 the canvases alive at any step at most 300 MB (a ratchet, only down)
-     THE IPHONE BUDGET (from the research: canvases 256 MB, every live picture 768 MB) printed against the most measured, with the gap's owners
+     I5 THE IPHONE BUDGET: the canvases alive at any step at most 256 MB (205 to 219 measured)
      I6 the map lets its sheet bitmaps go under each fight (closed at the landing) and has every one back after (__THE_MAP_LETS_ITS_SHEETS_GO_UNDER_THE_FIGHT__)
      P1 PLANT the old way (__DIVE_KEEPS_KEPT, __DIVE_FULL_PIXELS, __FIGHT_KEEPS_ITS_PAGE, __FZ_KEEPS_ITS_SNAPS, __MAP_SHEETS_KEEP), one fight:
         I1, I2 and I6 all red
@@ -34,13 +33,13 @@ const D = require(path.join(ROOT, 'tools', 'bohemia_drive_the_demo.js'));
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 let pass = 0, fail = 0;
 const ok = (n, c, w) => { if (c) pass++; else fail++; console.log((c ? '  ok   ' : '  FAIL ') + n + (w != null ? '  [' + w + ']' : '')); };
-const REST_MB = 170, MOST_MB = 1250, CANVAS_STEP_MB = 300;
+const REST_MB = 170;
 /* THE IPHONE BUDGET, FROM THE RESEARCH (records/BOHEMIA_PLUMBER_IN_AND_OUT_THE_IPHONES_WAY_11_27_26.md): WebKit capped the canvases of a
    page at a share of the phone's memory (256 MB reported on an iPad on iOS 12, 288 MB on an iPhone X, 384 MB on iOS 15; the cap was
    taken out of WebKit in June 2023 because pages were killed for memory first); an iPhone's tab process is killed past a soft limit
    of about 1.5 GB (WebKit's engineers; lower on phones with less memory). The budget: canvases at most 256 MB at every step, and
    every live picture (canvases, bitmaps, decoded pictures) at most 768 MB, half the tab's limit, the rest for the code, the heap, the
-   page and the sound. PRINTED against what is measured, with the owners of the gap; the ratchets below may only come down to it. */
+   page and the sound. PRINTED against what is measured, with the owners of the gap; I4 and I5 judge it. */
 const BUDGET_CANVAS_MB = 256, BUDGET_ALL_MB = 768;
 const REG = "(function(){ var T = window.top; if (window === T) { T.__R = { cv: [], im: [], bm: [] }; T.__radd = function (k, e, w) { T.__R[k].push({ r: new WeakRef(e), w: w }); }; }"
   + " var who = function () { var st = ''; try { st = String(new Error().stack || '').split('\\n').slice(3, 5).map(function (l) { return l.trim().replace(/^at /, '').replace(/\\(?(https?|file):[^ )]*\\//, '(').replace(/:\\d+\\)?$/, ')'); }).join(' < ').slice(0, 100); } catch (x) {} return String(location.pathname).split('/').pop() + ' | ' + st; };"
@@ -94,6 +93,8 @@ async function trip(n, arm, label) {
       await waitFor(() => M(() => !document.getElementById('fightFrame') && !document.body.classList.contains('nf-on') && (!window.BohemiaMotion || BohemiaMotion.dive.state() === 'off')), 90000);
       /* the emptying waits until no dive plays and the page is idle (emptying mid-dive stalled a frame), so the count is taken 4 s on */
       phase = 'back'; await sleep(4000);
+      /* every sheet the map let go is asked again as the way up plays: wait for the last to land (10 s at most), then count */
+      await waitFor(() => M(() => { try { const cw = document.getElementById('cityFrame').contentWindow, H = cw.MAP_SHEETS_HELD; return !H || !H.last || H.last.every(S => !S || S.state === 2 || S.state === 3); } catch (e) { return true; } }), 10000);
       const s = await M(SAMPLE), c1 = await counts();
       const dive = s ? Object.keys(s.by).filter(k => /^BOHEMIA_DEMO\.html \| .*bohemia_motion\.js/.test(k)).reduce((q, k) => q + s.by[k], 0) : null;
       rows.push({ rest: s ? s.cv : null, by: s ? s.by : {}, dive, d: { page: c1.page - c0.page, spoils: c1.spoils - c0.spoils, fz: c1.fz - c0.fz, rel: c1.sh && c0.sh ? c1.sh.rel - c0.sh.rel : -1, again: c1.sh && c0.sh ? c1.sh.again - c0.sh.again : -1, held: c1.sh ? c1.sh.on : null, live: c1.sh ? c1.sh.live + ' of ' + c1.sh.all : '?' } });
@@ -115,10 +116,10 @@ async function trip(n, arm, label) {
     ok('I6 the map let its sheet bitmaps go under each fight and had them back after (none held, every sheet it let go back)', good.length > 0 && good.every(r => r.d.rel > 0 && r.d.again === r.d.rel && r.d.held === false && /^(\d+) of \1$/.test(r.d.live)), good.map(r => 'let go ' + r.d.rel + ', again ' + r.d.again + ', back ' + r.d.live).join('; '));
     const P = R.peak, most = Object.keys(P).reduce((q, k) => Math.max(q, P[k].sum), 0);
     Object.keys(P).forEach(k => console.log('  (the most of ' + k.padEnd(6) + ': canvases ' + P[k].cv + ' MB, bitmaps ' + P[k].bm + ' MB, pictures ' + P[k].im + ' MB, all ' + P[k].sum + ' MB; the renderer ' + P[k].ren + ' MB)'));
-    ok('I4 THE RATCHET: the most alive at any step in or out at most ' + MOST_MB + ' MB (canvases + bitmaps + pictures, nothing collected; only down)', most > 0 && most <= MOST_MB, most + ' MB');
+    ok('I4 THE IPHONE BUDGET: every live picture at any step in or out at most ' + BUDGET_ALL_MB + ' MB (canvases + bitmaps + pictures, nothing collected; 671 to 677 measured 11/27, it was 1,027 to 1,100)', most > 0 && most <= BUDGET_ALL_MB, most + ' MB');
     const mostCv = Object.keys(P).reduce((q, k) => Math.max(q, P[k].cv), 0), mostBm = Object.keys(P).reduce((q, k) => Math.max(q, P[k].bm), 0);
-    ok('I5 THE RATCHET: the canvases alive at any step in or out at most ' + CANVAS_STEP_MB + ' MB (259 to 275 measured; only down)', mostCv > 0 && mostCv <= CANVAS_STEP_MB, mostCv + ' MB');
-    console.log('  THE IPHONE BUDGET (printed, not yet met): canvases ' + mostCv + ' of ' + BUDGET_CANVAS_MB + ' MB' + (mostCv > BUDGET_CANVAS_MB ? ' (over by ' + (mostCv - BUDGET_CANVAS_MB) + ')' : ' (inside)')
+    ok('I5 THE IPHONE BUDGET: the canvases alive at any step in or out at most ' + BUDGET_CANVAS_MB + ' MB (205 to 219 measured 11/27; it was 259 to 399)', mostCv > 0 && mostCv <= BUDGET_CANVAS_MB, mostCv + ' MB');
+    console.log('  THE IPHONE BUDGET: canvases ' + mostCv + ' of ' + BUDGET_CANVAS_MB + ' MB' + (mostCv > BUDGET_CANVAS_MB ? ' (over by ' + (mostCv - BUDGET_CANVAS_MB) + ')' : ' (inside)')
       + '; every live picture ' + most + ' of ' + BUDGET_ALL_MB + ' MB' + (most > BUDGET_ALL_MB ? ' (over by ' + (most - BUDGET_ALL_MB) + ', ' + mostBm + ' MB of it bitmaps: the fight\'s, ask row 768 COMBAT FIVE; the map\'s 233 MB, ask row 769 CHARACTER 2 and WORLD 13)' : ' (inside)'));
   }
   if (!a.includes('--no-plant')) {

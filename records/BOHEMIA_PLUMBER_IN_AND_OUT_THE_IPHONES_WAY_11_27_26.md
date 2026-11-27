@@ -107,3 +107,17 @@ zoom-down emptied, I2 the fight page's written-in canvases and the map's zoom ph
 canvas with nothing collected (the merged tree 130 and 140), I4 a ratchet on the most at any step (1,250 MB, only down), P1 the old way past I3. 6/0.
 THE ZOOM DOWN INTO THE BOARD 32/0, MAKE CAMP FROM THE FIGHT 11/0, THE WHOLE LOOP PLAYS 11/0, EVERY FIGHT HANDS HIM BACK 10/0,
 TWENTY FIGHTS (four fights) 10/0.
+
+## ON MAIN AFTER 11/27x, CHARACTER 3'S PACKED PEOPLE AND COMBAT FIVE'S HALF-WIDTH GROUND (BUILD 11/27zv, the routine 'the crash, next')
+
+- Two fights in and out (IN AND OUT THE IPHONE'S WAY): every live picture 671 to 677 MB at the most, canvases 205 to 219: INSIDE the
+  budget. I4 and I5 now judge the budget itself (768, 256); the old ratchets 1,250 and 300 are gone.
+- TWENTY FIGHTS in and out (TWENTY FIGHTS HOLD MEMORY FLAT, given the same count every 400 ms, nothing collected): the first run FOUND
+  A LEAK OF THIS LANE'S OWN: 440 -> 1,481 MB over twelve fights, about 100 MB a fight, 71 idle-sheet bitmaps (632 MB) alive after
+  six. 11/27x had the idle module release its sheets under each fight; its release only dropped its own references while the bitmaps
+  are held elsewhere too, so every fight fetched the sheets again beside the old ones. TAKEN BACK (the people sheets, closed and
+  asked again, stay let go). AFTER: twenty fights upright on the slowed phone, no crash, no reload, flat at 711 to 774 MB, canvases
+  233 to 246: AT the budget, once 6 MB over (fight 10). C4 and C5 judge 800 and 270, the budget printed beside, only down.
+- A sheet asked again after a fight skips the map's first-trip hold (it was drawn before); I6 waits for every sheet to land.
+- LEFT TO GET UNDER: the map's idle sheets (82 MB, pinned under the fight; close them only once whoever else holds them lets go:
+  ANIMATION's module, CHARACTER 3), the fight's own sheets (768, COMBAT FIVE). Sideways twenty not re-run this round.

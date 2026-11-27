@@ -1,5 +1,18 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/27, BUILD 11/27zv TWENTY FIGHTS ON THE IPHONE BUDGET (rule 484(a), the routine 'the crash, next').
+  ON MAIN (11/27x, CHARACTER 3's packed people, COMBAT FIVE's half-width ground in): IN AND OUT THE IPHONE'S WAY two fights INSIDE
+  the budget (every live picture 671 to 686 of 768 MB, canvases 205 to 219 of 256); I4 and I5 now judge the budget itself.
+  TWENTY FIGHTS HOLD MEMORY FLAT now carries the same count (every 400 ms, nothing collected; C4, C5). ITS FIRST RUN FOUND MY OWN LEAK:
+  11/27x had the idle module release its sheets under each fight; the release drops only its own references and the bitmaps are held
+  elsewhere, so each fight fetched them again beside the old ones (+100 MB a fight; 71 idle bitmaps, 632 MB, after six). TAKEN BACK:
+  the idle sheets stay (82 MB); the people sheets, closed and asked again, stay let go. AFTER: twenty upright at 4x, no crash, no
+  reload, flat at 711 to 774 MB (at the budget, once 6 MB over), canvases 233 to 246. C4/C5 judge 800 and 270, the budget printed.
+  A re-asked sheet skips the map's first-trip hold; I6 waits for every sheet. Sideways twenty NOT re-run this round.
+  NEXT: under the budget for twenty: the map's idle sheets closed safely (find who else holds them: BohemiaWear's once-a-sheet mask is
+  keyed by the sheet; ANIMATION's module), the fight's own (768, COMBAT FIVE); then C4/C5 down to 768/256; THE SITE (900.4 of 900 MB on
+  main, PAGES PUBLISH red: trim what nothing loads); 770 (the first map tap sometimes not taken); camp's HEAL.
+
 PLUMBER 8 (chat 18) 11/27, BUILD 11/27x THE MAP LETS ITS SHEETS GO UNDER THE FIGHT (rule 484(a), ask row 769, given to this lane).
   CUT: __THE_MAP_LETS_ITS_SHEETS_GO_UNDER_THE_FIGHT__ (BOHEMIA_CITY_WORLD.html __mapSheetsLetGo/__mapSheetsAgain; the shell's NFC setter
   in BOHEMIA_ALPHA_0_9.html calls it 300 ms after the zoom down lands on a fight; nfHome asks again while the way up plays): every

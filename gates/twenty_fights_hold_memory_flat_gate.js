@@ -14,6 +14,8 @@
    (390 x 844) and sideways (844 x 390), a forced collection after each; read from the second fight to the last (the first fills the caches
    every game fills once):
      C1 no crash and no reload over the twenty fights
+     C4, C5 THE IPHONE'S COUNT every 400 ms through every step in and out, nothing collected: every live picture at most 800 MB and the
+        canvases at most 270 MB at every step of every fight (the budget 768 and 256 printed beside; 711 to 774 and 233 to 246 measured)
      C2 an iPhone's canvas budget: the canvases alive under 256 MB at every fight (Safari gives a page a fixed canvas allowance; past it a
         new canvas draws nothing and the ground shows through)
      C3 THE RATCHET: at most 176 MB of canvases alive at every fight (147 upright, 134 sideways measured, + 20%; it may only come down)
@@ -53,6 +55,33 @@ const REG = "(function(){ var T = window.top; if (window === T) { T.__CVREG = { 
   + " Document.prototype.createElement = function (n) { var e = ce.apply(this, arguments); try { if (String(n).toLowerCase() === 'canvas' && T.__cvAdd) T.__cvAdd(e, who(), String(location.pathname).split('/').pop()); } catch (x) {} return e; };"
   + " })();";
 const DIVE_PICS = /\b(picOf|turnIn|diveUp)\b/;
+/* THE IPHONE'S COUNT through every step, nothing collected (the same registry and count as IN AND OUT THE IPHONE'S WAY) */
+const REG2 = "(function(){ var T = window.top; if (window === T) { T.__R = { cv: [], im: [], bm: [] }; T.__radd = function (k, e, w) { T.__R[k].push({ r: new WeakRef(e), w: w }); }; }"
+  + " var who = function () { var st = ''; try { st = String(new Error().stack || '').split('\\n').slice(3, 5).map(function (l) { return l.trim().replace(/^at /, '').replace(/\\(?(https?|file):[^ )]*\\//, '(').replace(/:\\d+\\)?$/, ')'); }).join(' < ').slice(0, 100); } catch (x) {} return String(location.pathname).split('/').pop() + ' | ' + st; };"
+  + " var ce = Document.prototype.createElement; Document.prototype.createElement = function (n) { var e = ce.apply(this, arguments); try { var t = String(n).toLowerCase(); if (t === 'canvas') T.__radd('cv', e, who()); else if (t === 'img') T.__radd('im', e, who()); } catch (x) {} return e; };"
+  + " try { var I0 = window.Image; var I1 = function (a, b) { var e = new I0(a, b); try { T.__radd('im', e, who()); } catch (x) {} return e; }; I1.prototype = I0.prototype; window.Image = I1; } catch (x) {}"
+  + " try { var cib = window.createImageBitmap; if (cib) window.createImageBitmap = function () { var st = ''; try { st = String(new Error().stack || '').split('\\n').slice(2, 4).map(function (l) { return l.trim().replace(/^at /, '').replace(/\\(?(https?|file):[^ )]*\\//, '(').replace(/:\\d+\\)?$/, ')'); }).join(' < ').slice(0, 110); } catch (x) {} return cib.apply(window, arguments).then(function (b) { try { T.__radd('bm', b, who() + ' | ' + st); } catch (x) {} return b; }); }; } catch (x) {}"
+  + " })();";
+const SAMPLE = () => {
+  const T = window, R = T.__R; if (!R) return null;
+  const cs = new Set(), is = new Set(), by = {};
+  const walk = (w) => { try { const d = w.document; d.querySelectorAll('canvas').forEach(c => cs.add(c)); d.querySelectorAll('img').forEach(i => is.add(i)); for (let i = 0; i < w.frames.length; i++) walk(w.frames[i]); } catch (e) {} };
+  walk(T);
+  R.cv = R.cv.filter(x => { const e = x.r.deref(); if (e) { cs.add(e); e.__w = e.__w || x.w; } return !!e; });
+  R.im = R.im.filter(x => { const e = x.r.deref(); if (e) { is.add(e); e.__w = e.__w || x.w; } return !!e; });
+  R.bm = R.bm.filter(x => !!x.r.deref());
+  let cv = 0, im = 0, bm = 0;
+  cs.forEach(c => { const px = (c.width | 0) * (c.height | 0); cv += px; const k = (c.__w || ((c.ownerDocument && String(c.ownerDocument.location.pathname).split('/').pop()) + ' | in the page' + (c.id ? ' #' + c.id : '')) || '?'); by[k] = (by[k] || 0) + px; });
+  is.forEach(i => { if (i.complete && i.naturalWidth) im += i.naturalWidth * i.naturalHeight; });
+  const bby = {}; R.bm.forEach(x => { const b = x.r.deref(); if (b && b.width) { bm += b.width * b.height; bby[x.w] = bby[x.w] || [0, 0, '']; bby[x.w][0] += b.width * b.height; bby[x.w][1]++; if (!bby[x.w][2]) bby[x.w][2] = b.width + 'x' + b.height; } });
+  T.__BBY = bby;
+  const MB = (px) => Math.round(px * 4 / 1048576);
+  const byMB = {}; Object.keys(by).forEach(k => { const m = MB(by[k]); if (m) byMB[k] = m; });
+  return { cv: MB(cv), im: MB(im), bm: MB(bm), by: byMB };
+};
+/* the iPhone's budget (IN AND OUT THE IPHONE'S WAY: every live picture 768 MB, canvases 256 MB); over twenty fights the count sits AT it
+   (711 to 774 MB, flat; canvases 233 to 246), so these two judge a line just over it, the budget printed, and may only come down */
+const BUDGET_ALL_MB = 768, BUDGET_CANVAS_MB = 256, LINE_ALL_MB = 800, LINE_CANVAS_MB = 270;
 function procMem() {
   try { let ren = 0, gpu = 0; execSync('ps -eo rss,args --no-headers', { encoding: 'utf8', maxBuffer: 64e6 }).split('\n').forEach(l => { const m = l.trim().match(/^(\d+)\s+(.*)$/); if (!m || !/chrom/i.test(m[2])) return;
       if (/--type=renderer/.test(m[2])) ren += +m[1]; else if (/--type=gpu-process/.test(m[2])) gpu += +m[1]; });
@@ -60,7 +89,7 @@ function procMem() {
 }
 
 async function loop(n, arm, label, side, throttle) {
-  const d = await D.open({ profile: side ? 'phone_landscape' : 'phone_portrait', door: 180000, engage: true, pages: true, gpu: true, throttle: throttle || 1, arm: REG + (arm || '') });
+  const d = await D.open({ profile: side ? 'phone_landscape' : 'phone_portrait', door: 180000, engage: true, pages: true, gpu: true, throttle: throttle || 1, arm: REG + REG2 + (arm || '') });
   const p = d.page, fr = d.fr, M = (fn, a) => p.evaluate(fn, a), rows = [];
   let crashed = 0, loads = 0; p.on('crash', () => { crashed++; }); p.on('load', () => { loads++; }); rows.crash = () => crashed; rows.loads = () => loads;
   const waitFor = async (fn, ms) => { const t0 = Date.now(); while (Date.now() - t0 < ms) { try { const v = await fn(); if (v) return v; } catch (e) {} await sleep(250); } return null; };
@@ -80,6 +109,9 @@ async function loop(n, arm, label, side, throttle) {
     try { c.docs = (await d.cdp.send('Memory.getDOMCounters')).documents; } catch (e) {}
     c.proc = procMem(); return c; };
   const t0 = Date.now(), T = () => Math.round((Date.now() - t0) / 1000) + ' s';
+  /* every 400 ms, nothing collected: the most alive this fight (canvases, and every live picture) */
+  let PK = { cv: 0, all: 0 }, run = true, hold = false;
+  const sampler = (async () => { while (run) { if (!hold) { try { const x = await M(SAMPLE); if (x) { PK.cv = Math.max(PK.cv, x.cv); PK.all = Math.max(PK.all, x.cv + x.im + x.bm); } } catch (e) {} } await sleep(400); } })();
   try {
     await sleep(3000); await fr.evaluate(() => { try { loopClose(); } catch (e) {} }); await sleep(3000);
     for (let k = 1; k <= n; k++) {
@@ -96,10 +128,16 @@ async function loop(n, arm, label, side, throttle) {
       await waitFor(() => M(() => !!(window.SPOILS && SPOILS.frame) || !document.getElementById('fightFrame')), 60000); await sleep(800);
       await M(() => { try { if (window.SPOILS && SPOILS.frame && typeof spoilsLeave === 'function') spoilsLeave(); else if (typeof nfHome === 'function') nfHome(); } catch (e) {} });
       await waitFor(() => M(() => !document.getElementById('fightFrame') && !document.body.classList.contains('nf-on') && (!window.BohemiaMotion || BohemiaMotion.dive.state() === 'off')), 90000); await sleep(800);
-      const c = await census(); await slow(throttle || 1); c.crashed = crashed; c.loads = loads; rows.push(c);
-      console.log('  ' + label + ' fight ' + k + ' (' + T() + '): canvases ' + c.n + ' (' + c.mp + ' Mpx = ' + Math.round(c.mp * 4) + ' MB; the dive\'s ' + c.dive + '), documents ' + c.docs + ', JS heap ' + c.heap + ' MB; renderer ' + c.proc.ren + ' MB, gpu ' + c.proc.gpu + ' MB');
+      if (process.env.BOHEMIA_MEM_WHO && k === n) { const who = await M(() => { const R = window.__R, out = { bm: {}, im: {} }; if (!R) return out;
+          R.bm.forEach(x => { const b = x.r.deref(); if (b && b.width) { const k = x.w.slice(0, 110); out.bm[k] = out.bm[k] || [0, 0, b.width + 'x' + b.height]; out.bm[k][0] += b.width * b.height * 4 / 1048576; out.bm[k][1]++; } });
+          R.im.forEach(x => { const i = x.r.deref(); if (i && i.complete && i.naturalWidth) { const k = x.w.slice(0, 110) + ' ' + String(i.currentSrc || i.src).split('/').slice(-2).join('/').slice(0, 50); out.im[k] = out.im[k] || [0, 0]; out.im[k][0] += i.naturalWidth * i.naturalHeight * 4 / 1048576; out.im[k][1]++; } });
+          return out; });
+        console.log('  WHO, bitmaps:\n    ' + Object.entries(who.bm).sort((a, b) => b[1][0] - a[1][0]).slice(0, 10).map(([k, v]) => Math.round(v[0]) + ' MB in ' + v[1] + ' (' + v[2] + ') ' + k).join('\n    '));
+        console.log('  WHO, pictures:\n    ' + Object.entries(who.im).sort((a, b) => b[1][0] - a[1][0]).slice(0, 10).map(([k, v]) => Math.round(v[0]) + ' MB in ' + v[1] + ' ' + k).join('\n    ')); }
+      hold = true; const c = await census(); await slow(throttle || 1); c.pk = PK; PK = { cv: 0, all: 0 }; hold = false; c.crashed = crashed; c.loads = loads; rows.push(c);
+      console.log('  ' + label + ' fight ' + k + ' (' + T() + '): canvases ' + c.n + ' (' + c.mp + ' Mpx = ' + Math.round(c.mp * 4) + ' MB; the dive\'s ' + c.dive + '), the iPhone\'s count at its most ' + c.pk.all + ' MB (' + c.pk.cv + ' of canvas), documents ' + c.docs + ', JS heap ' + c.heap + ' MB; renderer ' + c.proc.ren + ' MB, gpu ' + c.proc.gpu + ' MB');
     }
-  } finally { try { await d.close(); } catch (e) {} }
+  } finally { run = false; try { await sampler; } catch (e) {} try { await d.close(); } catch (e) {} }
   return rows;
 }
 
@@ -116,6 +154,9 @@ async function loop(n, arm, label, side, throttle) {
     const worst = good.reduce((q, r) => Math.max(q, r.mp), 0);
     ok(tag + ': C2 AN IPHONE\'S CANVAS BUDGET: the canvases alive under ' + IPHONE_CANVAS_MB + ' MB at every fight', good.length > 0 && worst * 4 <= IPHONE_CANVAS_MB, 'the most ' + Math.round(worst * 4) + ' MB (' + worst + ' Mpx)');
     ok(tag + ': C3 THE RATCHET: the canvases alive at most ' + MOST_CANVAS_MB + ' MB at every fight (147 upright, 134 sideways measured; it may only come down)', good.length > 0 && worst * 4 <= MOST_CANVAS_MB, 'the most ' + Math.round(worst * 4) + ' MB');
+    const pkAll = good.reduce((q, r) => Math.max(q, (r.pk || {}).all || 0), 0), pkCv = good.reduce((q, r) => Math.max(q, (r.pk || {}).cv || 0), 0);
+    ok(tag + ': C4 every live picture at most ' + LINE_ALL_MB + ' MB at every step in and out of every fight, nothing collected (the iPhone budget ' + BUDGET_ALL_MB + '; 711 to 774 measured over twenty; only down)', good.length > 0 && pkAll > 0 && pkAll <= LINE_ALL_MB, 'the most ' + pkAll + ' MB' + (pkAll > BUDGET_ALL_MB ? ', over the budget by ' + (pkAll - BUDGET_ALL_MB) : ', inside the budget'));
+    ok(tag + ': C5 the canvases at most ' + LINE_CANVAS_MB + ' MB at every step in and out of every fight, nothing collected (the iPhone budget ' + BUDGET_CANVAS_MB + '; 233 to 246 measured; only down)', good.length > 0 && pkCv > 0 && pkCv <= LINE_CANVAS_MB, 'the most ' + pkCv + ' MB' + (pkCv > BUDGET_CANVAS_MB ? ', over the budget by ' + (pkCv - BUDGET_CANVAS_MB) : ', inside the budget'));
     if (walked) {
       ok(tag + ': M1 the canvases alive grow at most ' + M1_MPX + ' megapixels from the second fight to the last', rN.mp - r2.mp <= M1_MPX, r2.mp + ' -> ' + rN.mp + ' Mpx (' + r2.n + ' -> ' + rN.n + ' canvases)');
       ok(tag + ': M2 the dive\'s own pictures alive no more after the last fight than after the second', rN.dive <= r2.dive, r2.dive + ' -> ' + rN.dive);

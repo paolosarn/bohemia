@@ -50112,14 +50112,17 @@ window.__mapSheetsLetGo = function(){
   try { all = [RIG_CAST, RIG_PEOPLE, RIG_YOU]; for (var k in RIG_MIX.sheets) all.push(RIG_MIX.sheets[k]); } catch (_e) {}
   all.forEach(function(S){ try { if (S && S.state === 2 && S.img && typeof S.img.close === 'function' && S.__name) {
     var im = S.img; if (RIG_CLOSED) RIG_CLOSED.set(im, S); S.img = null; S.state = 0; S.sets = {}; MAP_SHEETS_HELD.released.push(S); im.close(); n++; } } catch (_e) {} });
-  try { if (window.BohemiaIdles && BohemiaIdles.release) { BohemiaIdles.release(); MAP_SHEETS_HELD.idles++; } } catch (_e) {}
-  window.__IDLES_HELD = true; MAP_SHEETS_HELD.rel += n; return n;
+  /* THE IDLE SHEETS ARE NOT LET GO (PLUMBER 8, 11/27, taken back the same round): the idle module's release only dropped its own
+     references and the sheet's bitmap is held elsewhere too, so every fight fetched the sheets again beside the old ones: TWENTY FIGHTS'
+     new iPhone count found 71 idle bitmaps (632 MB) alive after six fights, about 100 MB more every fight. The people sheets, closed
+     and asked again, stay let go. */
+  MAP_SHEETS_HELD.rel += n; return n;
 };
 window.__mapSheetsAgain = function(){
   if (!MAP_SHEETS_HELD.on) return 0;
-  MAP_SHEETS_HELD.on = false; window.__IDLES_HELD = false; MAP_SHEETS_HELD.quiet = true;
+  MAP_SHEETS_HELD.on = false; MAP_SHEETS_HELD.quiet = true;
   var L = MAP_SHEETS_HELD.released; MAP_SHEETS_HELD.released = []; MAP_SHEETS_HELD.last = L;
-  L.forEach(function(S){ try { rigSheetLoad(S, S.__name); } catch (_e) {} });
+  L.forEach(function(S){ try { S.__again = true; rigSheetLoad(S, S.__name); } catch (_e) {} });
   MAP_SHEETS_HELD.again += L.length;
   /* the landings draw once, after the way up: never a whole map drawn under the climb for every sheet that lands */
   var tries = 0, settle = function(){ var busy = false; try { var B = window.parent && window.parent.BohemiaMotion; busy = !!(B && B.dive && B.dive.state && B.dive.state() !== 'off'); } catch (_e) {}
@@ -50179,7 +50182,7 @@ function rigSheetLoad(S, name){
   S.__name = name;
   if (S.state) return;
   if (MAP_SHEETS_HELD.on) return;   /* __THE_MAP_LETS_ITS_SHEETS_GO_UNDER_THE_FIGHT__: none while a fight is over the map */
-  if (/^rig_mix\//.test(name) && mapHeldForFirstPlay()) return;   /* __FIRST_PLAY_IS_LIGHT__: asked again on the first draw after it */
+  if (/^rig_mix\//.test(name) && mapHeldForFirstPlay() && !S.__again) return;   /* a sheet asked again after a fight was drawn before: never held back */   /* __FIRST_PLAY_IS_LIGHT__: asked again on the first draw after it */
   S.state = 1;
   try {
     fetch(name + '.json').then(function(r){ return r.json(); }).then(function(m){
