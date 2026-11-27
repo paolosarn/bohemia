@@ -69580,6 +69580,17 @@ function fzSnap(){
   }catch(_e){ try{ b.getContext('2d').drawImage(c,0,0); }catch(_e2){} }
   return { sharp:c, soft:b };
 }
+/* __AN_IPHONE_COUNTS_EVERY_CANVAS_UNTIL_IT_IS_EMPTIED__ (PLUMBER 8, 11/27, rule 484(a) amended: 'every canvas a fight made let go (sized to
+   zero) when the fight ends'): the zoom's two photographs of the glass (1170 x 2532 each on a phone, 10 MB apiece) were left for a
+   collector after every fight going in and coming out, and an iPhone counts them all that time; emptied as the zoom ends.
+   window.__FZ_KEEPS_ITS_SNAPS: the old way */
+function fzLetGo(snap){ if(!snap || window.__FZ_KEEPS_ITS_SNAPS) return; var L=[snap.sharp, snap.soft]; window.__FZ_LET_GO=(window.__FZ_LET_GO|0)+1;
+  /* never while the shell's zoom down is playing: emptying two drawn canvases of the glass's size mid-dive stalled a frame 170 to 470 ms
+     at 4x (THE ZOOM DOWN INTO THE BOARD P4); so after it, on idle time */
+  var go=function(){ L.forEach(function(c){ try{ if(c){ c.width=0; c.height=0; } }catch(_e){} }); };
+  var tries=0, wait=function(){ var busy=false; try{ var B=window.parent && window.parent.BohemiaMotion; busy=!!(B && B.dive && B.dive.state && B.dive.state()!=='off'); }catch(_e){}
+    if(busy && ++tries<120){ setTimeout(wait, 500); return; } if(window.requestIdleCallback) requestIdleCallback(go,{timeout:2000}); else setTimeout(go,0); };
+  setTimeout(wait, 400); }
 function fzPaint(snap,s,a,u,skin){
   const W=CVW,H=CVH;
   g.save();
@@ -69651,7 +69662,7 @@ function fightZoomOut(then, skin){
     }
     if(!fired && u>=FZ_HAND){ clearTimeout(onTime); fire(); }
     if(u<1) requestAnimationFrame(frame);
-    else { clearTimeout(bail); clearTimeout(onTime); fire(); FZOOMING=false; try{ render(); }catch(_e){} }
+    else { clearTimeout(bail); clearTimeout(onTime); fire(); FZOOMING=false; try{ render(); }catch(_e){} fzLetGo(snap); snap=null; }
   })(t0);
   return true;
 }
@@ -69684,7 +69695,7 @@ function fightZoomIn(skin){
       try{ fightShade(a,v,FZ_SKIN); }catch(_e){}
     }
     if(u<1) requestAnimationFrame(frame);
-    else { clearTimeout(bail); FZOOMING=false; try{ render(); }catch(_e){} }
+    else { clearTimeout(bail); FZOOMING=false; try{ render(); }catch(_e){} fzLetGo(snap); snap=null; }
   })(t0);
   return true;
 }
@@ -92902,13 +92913,10 @@ document.getElementById('sleepbtn').addEventListener('click',function(){
 var RESTORE_ANSWERED=false;
 function bootWake(){
   if(window.__BOOTED_WAKE)return; window.__BOOTED_WAKE=true;
-  /* __THE_ALPHA_WAKES_A_BLOCK_AT_A_TIME__ (PLUMBER 8, 11/26, ask row 724, rule 480): RUN's block-a-task wake below was the demo's
-     alone, so the alpha, the game's own link, built the morning's street in one task under his first tap after BEGIN: 2.9 to 4.1 s
-     frozen on a phone slowed 4x. Inside the alpha the wake now warms its blocks on idle time first, as the demo's does; the same ring,
-     a block at a time. The demo is untouched; a page opened on its own (no shell, a checker's) wakes as it always did.
-     __WAKE_ALL_AT_ONCE: the old way */
-  var inAlpha = false; try { inAlpha = window.parent && window.parent !== window && !window.parent.__BOHEMIA_DEMO_BUILD && !window.parent.__WAKE_ALL_AT_ONCE; } catch(_e){}
-  if(!DAY_RESTORED){ if(CT_IS_DEMO || (inAlpha && !window.__WAKE_ALL_AT_ONCE)) wakeWarm(showWake); else showWake(); } else updQline();
+  /* __THE_ALPHA_WAKES_A_BLOCK_AT_A_TIME__ (PLUMBER 8, 11/26zr) TAKEN BACK 11/27: warming the morning a block at a time in the alpha cut
+     its door's longest freeze 4.6 -> 1.2 s at 4x, but his first tap on the map was then never taken while it warmed (THE MAP ANSWERS
+     AFTER BEGIN 12/0 -> 9/3, three runs; 12/0 again with it out). A tap that does nothing is worse than a freeze. Ask row 724. */
+  if(!DAY_RESTORED){ if(CT_IS_DEMO) wakeWarm(showWake); else showWake(); } else updQline();
 }
 /* __THE_RING_WAITS_FOR_ITS_STREET__ (RUN 10/11, [ten seconds to play]). The morning's offer says how far the job's
    people are (offerRing -> castAddresses), and finding them builds the street's people block by block: on the

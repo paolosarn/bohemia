@@ -1,5 +1,23 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/27, BUILD 11/27k AN IPHONE COUNTS EVERY CANVAS (VAMILY rule 484(a) amended, ask row 761, with COMBAT FIVE).
+  MEASURED THE IPHONE'S WAY (gates/in_and_out_the_iphones_way_gate.js; probe scratchpad inout.js): nothing collected, every 300 ms
+  through a fight from the map and home, every canvas in every page (made in code or written in the page), every ImageBitmap, every
+  decoded picture, by page and maker. Back on the map after a fight 263 to 308 MB of canvas: the zoom-down's layers, the fight page's
+  written-in canvases, the map's zoom photographs (fzSnap), none emptied. The peak going in about 1,000 to 1,100 MB, 570 to 750 MB of it
+  bitmaps (an iPhone cannot drop a bitmap's pixels under pressure).
+  CUT: the shell empties the fight page's written-in canvases as it closes (nfHome, 400 ms on; __FIGHT_KEEPS_ITS_PAGE); the map empties
+  its zoom's photographs once the dive is over (fzLetGo; __FZ_KEEPS_ITS_SNAPS: emptied mid-dive it stalled a frame 170 to 470 ms at 4x,
+  THE ZOOM DOWN INTO THE BOARD P4). The zoom-down's own emptying is COMBAT FIVE's (__THE_DIVE_FITS_AN_IPHONE__, same round); mine was
+  merged out in their favour. NOW back on the map 117 to 140 MB, the zoom-down's 1 MB.
+  GATE IN AND OUT THE IPHONE'S WAY (solo, in the suite) 6/0: I1 the zoom-down's alive at most 12 MB, I2 the page and the photographs
+  emptied, I3 at most 170 MB back on the map, I4 the most at any step at most 1,250 MB (a ratchet), P1 the old way past I3.
+  FILED: 768 COMBAT FIVE (the fight's bitmaps and canvases going in), 769 CHARACTER 2 and WORLD 13 (the map's 233 MB of bitmaps),
+  770 RUN (THE MAP ANSWERS AFTER BEGIN unsteady on main, 9/3 in about 6 of 10 runs: his first map tap sometimes never taken).
+  TAKEN BACK: 11/26zr's alpha wake (suspected for 770; the evidence mixed; its gate THE ALPHA WAKES A BLOCK AT A TIME removed).
+  NEXT (mine): THE SITE IS AT 897 OF ITS 900 MB (PAGES PUBLISH, 11/27j; the songs and cards of 11/27): trim before the next lane's add
+  stops every deploy; camp's HEAL at 7.5 s; the frame walk's biggest red; 770 if RUN is not on it; the twenty fights re-run both ways.
+
 PLUMBER 8 (chat 18) 11/26, BUILD 11/26zr THE ALPHA WAKES A BLOCK AT A TIME (ask row 724, the routine's (2); rules 480, 441).
   MEASURED (the alpha upright, CPU 4x, GPU canvas; the Long Tasks API and a CPU profile for 30 s from the tap on BEGIN, each long task
   given its functions; probe in the scratchpad, begin_prof.js): two of RUN's slow-phone cuts were the demo's alone. (1) The map's
