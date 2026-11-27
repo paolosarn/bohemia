@@ -49888,6 +49888,7 @@ function mapCrowdDraw(sx, footY, a, b, beat){
   if (!mapPeopleOf('crowd', 0)) return false;
   var spots = [[-8, -3, 'SE'], [8, -2, 'SW'], [0, 2, (h0 & 1) ? 'S' : 'SW']];
   for (var i = 0; i < spots.length; i++) {
+    if (mapWorkAway(a, b, i)) { if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.crowdOut = (MAP_DREW.art.crowdOut | 0) + 1; continue; }   /* __THE_CITY_GOES_TO_WORK__: the two who work are out, on the road or at work */
     if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.crowdPeople++;
     mapPersonDraw(mapPeopleOf('crowd', h0 + i), spots[i][2], beat + i + (h0 & 3), sx + spots[i][0] * MAP_PEOPLE_K, footY + spots[i][1] * MAP_PEOPLE_K);
   }
@@ -50298,8 +50299,11 @@ function mapPartyDraw(p, idx, sx, footY, beat, walkPh){
     var kq = MAP_PEOPLE_K, fq = mapPartyFace(p);
     /* __NO_TWO_ALIKE__: the party's two men are two of the gang, never one man twice */
     var pn = rigMixNum(p, idx);   /* his number is the party's own, so a party keeps its two men as the list reorders */
+    var __wg = mapWagonOf(p, pn);   /* __THE_CITY_GOES_TO_WORK__: a caravan's lead pulls its wagon, full out, empty home */
     mapPersonDraw(rigMixFor(fac, 'party:' + pn + ':1', pn * 2 + 1) || rig, fq, beat + 1, sx + 7 * kq, footY - 2 * kq, walkPh == null ? null : walkPh + 0.5);
+    if (__wg) mapWagonPart(__wg, fq, sx - 3 * kq, footY + kq, 'back');
     var lq = mapPersonDraw(rigMixFor(fac, 'party:' + pn + ':0', pn * 2) || rig, fq, beat, sx - 3 * kq, footY + kq, walkPh);
+    if (__wg) mapWagonPart(__wg, fq, sx - 3 * kq, footY + kq, 'front');
     mapFlagDraw(sx - 11 * kq, footY + kq, (lq ? lq.h : 30 * kq) + 8 * kq, mapFactionColour(fac), beat, true);
     if (MAP_DREW && MAP_DREW.art) { MAP_DREW.art.partyPeople += 2; MAP_DREW.art.rigPeople = (MAP_DREW.art.rigPeople | 0) + 2; }
     RIG_CAST.drew += 2;
@@ -50310,8 +50314,11 @@ function mapPartyDraw(p, idx, sx, footY, beat, walkPh){
   var kp = MAP_PEOPLE_K;
   /* a party with no gang of its own: COOK THREE's men on the rig (__THE_MAP_IS_ALL_RIG__) */
   /* the second man is half a stride out of step with the leader: two men never walk as one */
+  var __wg2 = mapWagonOf(p, base);   /* __THE_CITY_GOES_TO_WORK__: a caravan's lead pulls its wagon */
   mapPersonDraw(mapPeopleOf('job', base + 1), face, beat + 1, sx + 7 * kp, footY - 2 * kp, walkPh == null ? null : walkPh + 0.5);
+  if (__wg2) mapWagonPart(__wg2, face, sx - 3 * kp, footY + kp, 'back');
   var lead = mapPersonDraw(mapPeopleOf('job', base), face, beat, sx - 3 * kp, footY + kp, walkPh);
+  if (__wg2) mapWagonPart(__wg2, face, sx - 3 * kp, footY + kp, 'front');
   mapFlagDraw(sx - 11 * kp, footY + kp, (lead ? lead.h : 30 * kp) + 8 * kp, mapFactionColour(fac), beat, true);
   if (MAP_DREW && MAP_DREW.art) MAP_DREW.art.partyPeople += 2;
   return true;
@@ -50835,6 +50842,210 @@ function mapCampDraw(gx, gy, lift, moving, G){
   MAP_CREW_DRAWING = false;
 }
 /* ==== /__THE_STAFF_PUSH_A_CART__ ==== */
+/* ==== __THE_CITY_GOES_TO_WORK__ (WORLD 16, 11/27/26; VAMILY rule 485(b)(c), Paolo 11/26: 'Lets go cyberpunk vibes but their world has
+   a running economy vibes!'; ECONOMY THREE's calls for this lane, records/BOHEMIA_ECONOMY_THREE_THE_RUNNING_CITY_11_27_26.md s3; record
+   records/BOHEMIA_WORLD_SIXTEEN_THE_CITY_GOES_TO_WORK_11_27_26.md). The money moves where he can see it, built on what already walks on
+   this map (rule 480(b)), nothing beside it, nothing that pops up (32a), no icon (473):
+   (1) THE CROWD GOES TO WORK. The three people at each of the valley's crowds (where its two hundred live) are two who work and one who
+       keeps the house. From about 06:15 the two walk the streets to the nearest town (its stalls open at 06:00, ECONOMY THREE's day), go
+       in, and from about 16:00 walk home; by night all three are home. Sarajevo walked hours for work and water; a walk over two and a
+       half hours each way is no commute (MAP_WORK.capMin), so a crowd that far from any town works at home.
+   (2) THE CARAVAN PULLS ITS WAGON. A caravan (bohemia_parties.js' agenda) pulls STAFF 2's wagon, loaded on the way out with what it
+       carries, empty on the way home (Battle Brothers: a caravan carries a town's goods to the next; ours you can see full or empty).
+   (3) THE COLLECTOR WALKS HIS BLOCKS. Once the stalls shut (20:00), the gang that holds a crowd's ground sends a man from its seat to
+       that crowd's street; he stands at their door a while and walks home (Moscow 1992: the kiosks paid the racket 'kind of like an
+       insurance policy'). A seat more than two and a half hours' walk away sends nobody.
+   EVERY PLACE IS THE CLOCK'S: where each of them is comes from the map's day and minute and the valley alone, so nothing is saved,
+   nothing ticks between draws, the same hour draws the same street on every phone, and when the clock stops they stand. They walk the
+   streets at the walked surface's own minutes a block (a paved block at half the open ground's, as he does, without his scout), glide
+   as the parties do (partyGlidePos) and walk behind what stands in front of them (the parties' depth). THE FRAME BUDGET (rule 480): the commuters ARE the crowd's people (no man is added: a man on the
+   road is one not standing at home, the same picture and seat), a man at work is drawn by nobody, the routes are found once a valley
+   a crowd at a time in idle time (MAP_WORK.ms, .slices), and the wagon is a 2.9 MB pack of the wagon's own cells (tools/bohemia_world_sixteen_pack_the_caravan_wagon.py; the
+   whole sheet is 6.6 MB, rule 484). MAP_WORK.on / .wagon / .collect = false is the way before, a part at a time. ==== */
+var MAP_WORK = { on: true, wagon: true, collect: true, capMin: 150, key: null, plan: null, build: null, ms: 0, slices: 0, built: 0, w: { state: 0, j: null, im: null } };
+try { window.MAP_WORK = MAP_WORK; } catch (_e) {}
+function mapWorkHash(a, b, c, d){ var h = mapHash(a * 31 + (c | 0), b * 17 + (d | 0) * 7919); h ^= h >>> 16; h = Math.imul(h, 2246822507) >>> 0; return (h ^ (h >>> 13)) >>> 0; }
+/* THE GROUND'S MINUTES, once a valley: what a block costs a person on foot by the walked surface's own rule (a paved block at
+   PAVED_SPEED, rough going by TERRAIN_GOING; his scout and his job's pace are his, not theirs), Infinity where nobody walks */
+function mapWorkGround(n){
+  var G = new Float32Array(n * n), base = (typeof MIN_PER_CELL === 'number' ? MIN_PER_CELL : 0.084) * (typeof FN === 'number' ? FN : 128);
+  for (var y = 0; y < n; y++) for (var x = 0; x < n; x++) {
+    var k = y * n + x, f = 1, t = null;
+    if (!cityWalkable(x, y)) { G[k] = Infinity; continue; }
+    try { t = om.at(x, y); } catch (_e) {}
+    if (t && CITY_PAVED[t.district]) f = PAVED_SPEED.factor; else if (t && TERRAIN_GOING[t.district] && TERRAIN_GOING.on !== false) f = TERRAIN_GOING[t.district];
+    G[k] = base * f;
+  }
+  return G;
+}
+/* from a crowd's block, the quickest walk by those minutes (the routes' own rules: N E S W first, never a corner cut) to the edge of
+   every town within `cap` minutes: { faction: [path, minutes to each block of it] } */
+function mapWorkSearch(G, n, ax, ay, goals, cap){
+  var k0 = ay * n + ax, cost = new Map(), from = new Map(), done = new Set(), H = [], found = {};
+  var wk = function(x, y){ return x >= 0 && y >= 0 && x < n && y < n && G[y * n + x] < Infinity; };
+  var push = function(c, k){ H.push(c, k); var i = (H.length >> 1) - 1; while (i > 0) { var p = (i - 1) >> 1; if (H[p * 2] <= H[i * 2]) break; var a = H[p * 2], b = H[p * 2 + 1]; H[p * 2] = H[i * 2]; H[p * 2 + 1] = H[i * 2 + 1]; H[i * 2] = a; H[i * 2 + 1] = b; i = p; } };
+  var pop = function(){ var c = H[0], k = H[1], lc = H[H.length - 2], lk = H[H.length - 1]; H.length -= 2; if (H.length) { H[0] = lc; H[1] = lk; var i = 0, m = H.length >> 1; for (;;) { var l = 2 * i + 1, r = l + 1, s2 = i; if (l < m && H[l * 2] < H[s2 * 2]) s2 = l; if (r < m && H[r * 2] < H[s2 * 2]) s2 = r; if (s2 === i) break; var a = H[s2 * 2], b = H[s2 * 2 + 1]; H[s2 * 2] = H[i * 2]; H[s2 * 2 + 1] = H[i * 2 + 1]; H[i * 2] = a; H[i * 2 + 1] = b; i = s2; } } return [c, k]; };
+  cost.set(k0, 0); from.set(k0, -1); push(0, k0);
+  while (H.length) {
+    var e = pop(), c = e[0], k = e[1]; if (done.has(k)) continue; done.add(k);
+    if (c > cap) break;
+    var gl = k !== k0 ? goals.get(k) : null;
+    if (gl) gl.forEach(function(f){ if (!found[f]) { var path = [], q = k; while (q !== -1) { path.push(q); q = from.get(q); } path.reverse();
+      found[f] = path.map(function(i2){ return [i2 % n, (i2 / n) | 0, cost.get(i2)]; }); } });
+    var x = k % n, y = (k / n) | 0;
+    for (var o = 0; o < ROUTE_ORDER.length; o++) {
+      var D = DIRS[ROUTE_ORDER[o]], nx = x + D[0], ny = y + D[1], kk = ny * n + nx;
+      if (!wk(nx, ny) || done.has(kk) || routeCutsCorner(x, y, D[0], D[1], wk)) continue;
+      var nc = c + G[kk] + (D[0] && D[1] ? ROUTE_DIAG_HAIR : 0);
+      if (!(nc < (cost.has(kk) ? cost.get(kk) : Infinity))) continue;
+      cost.set(kk, nc); from.set(kk, k); push(nc, kk);
+    }
+  }
+  return found;
+}
+/* the valley's commutes and rounds, found once a valley (its key is the parties' own), A CROWD AT A TIME IN IDLE TIME so finding them
+   never costs a frame (rule 480(d)); until they are found everybody is home, as before */
+function mapWorkPlan(){
+  var key = seed + ':' + ((om && om.n) | 0) + ':' + (typeof WORLD_SEED !== 'undefined' ? WORLD_SEED : '');
+  if (MAP_WORK.key === key && MAP_WORK.plan) return MAP_WORK.plan;
+  var B = MAP_WORK.build;
+  if (!B || B.key !== key) {
+    var pg = null, seats = null; try { pg = pplGrid(); seats = turfSeats(); } catch (_e) {}
+    if (!pg || !seats || !seats.length || typeof cityWalkable !== 'function') return null;
+    var n = om.n | 0, goals = new Map(), todo = [];
+    seats.forEach(function(st){ for (var dy = -1; dy <= 1; dy++) for (var dx = -1; dx <= 1; dx++) { var x = st.x + dx, y = st.y + dy; if (x < 0 || y < 0 || x >= n || y >= n) continue; var k = y * n + x; (goals.get(k) || (goals.set(k, []), goals.get(k))).push(st.faction); } });
+    for (var py = 0; py < pg.n; py++) for (var px = 0; px < pg.n; px++) if (pg.zone[py * pg.n + px] === 'cluster') { var cx = px * pg.NB + (pg.NB >> 1), cy = py * pg.NB + (pg.NB >> 1); if (cx < n && cy < n) todo.push([px, py, cx, cy]); }
+    B = MAP_WORK.build = { key: key, n: n, G: null, goals: goals, todo: todo, i: 0, plan: { homes: [], by: {} }, ms: 0, slices: 0, asked: false };
+  }
+  if (!B.asked) { B.asked = true; mapWorkBuildLater(B); }
+  return null;
+}
+function mapWorkBuildLater(B){
+  var go = function(dl){
+    if (MAP_WORK.build !== B) return;
+    var t0 = performance.now();
+    try {
+      if (!B.G) { B.G = mapWorkGround(B.n); B.unit = Math.max(B.unit | 0, performance.now() - t0); }
+      else {
+        do {
+          var tu = performance.now(), c = B.todo[B.i++], H = { px: c[0], py: c[1], cx: c[2], cy: c[3], h0: mapHash(c[0], c[1]), work: null, holder: null, round: null };
+          try { var t = turfAt(c[2], c[3]); H.holder = t && t.faction || null; } catch (_e) {}
+          var F = mapWorkSearch(B.G, B.n, c[2], c[3], B.goals, MAP_WORK.capMin), best = null;
+          for (var f in F) if (!best || F[f][F[f].length - 1][2] < best[best.length - 1][2]) best = F[f];
+          H.work = best; H.round = (H.holder && F[H.holder] && F[H.holder].length >= 3) ? F[H.holder] : null;
+          B.plan.homes.push(H); B.plan.by[c[0] + ',' + c[1]] = H; B.unit = Math.max(B.unit || 0, performance.now() - tu);
+        } while (B.i < B.todo.length && dl && dl.timeRemaining && dl.timeRemaining() > 6);
+      }
+    } catch (_e) { B.err = String(_e && _e.message || _e); }
+    B.ms += performance.now() - t0; B.slices++;
+    if (B.i < B.todo.length && !B.err) return mapWorkBuildLater(B);
+    MAP_WORK.ms = Math.round(B.ms * 10) / 10; MAP_WORK.slices = B.slices; MAP_WORK.unit = Math.round((B.unit || 0) * 10) / 10;   /* the longest piece of work one slice cannot split (the ground, or one crowd's search) */ MAP_WORK.built++; MAP_WORK.key = B.key; MAP_WORK.plan = B.plan;
+    try { mapBarsRepaint(); } catch (_e) {}   /* one draw on the next frame: the crowd steps out if the hour says so */
+  };
+  try { if (typeof requestIdleCallback === 'function') { requestIdleCallback(go, { timeout: 1500 }); return; } } catch (_e) {}
+  setTimeout(go, 30);
+}
+/* where a walk's walker stands `e` minutes into it (back: from its far end): the block (whole: the glide walks between them) and the
+   way he faces */
+function mapWorkOn(path, e, back){
+  var L = path.length - 1, T0 = path[0][2], tot = path[L][2] - T0, k = 0;
+  if (!back) { while (k < L && path[k + 1][2] - T0 <= e) k++; }
+  else { k = L; while (k > 0 && tot - (path[k - 1][2] - T0) <= e) k--; }
+  var s = back ? -1 : 1, a = k, b = k + s;
+  if (b < 0 || b > L) { a = k - s; b = k; }   /* at the end of the walk he still faces the way he came */
+  if (a < 0 || a > L) a = b = k;
+  var dx = Math.sign(path[b][0] - path[a][0]), dy = Math.sign(path[b][1] - path[a][1]);
+  return { x: path[k][0], y: path[k][1], face: MAP_FACE_OF[dx + ',' + dy] || 'S' };
+}
+function mapWorkClock(){ var d = 1, m = 0; try { d = T.day | 0; m = +T.min || 0; } catch (_e) {} return { d: d, m: m }; }
+/* worker i (0 or 1) of a crowd at this clock: 'home', 'work', or where he walks */
+function mapWorkerNow(H, i, C){
+  if (!MAP_WORK.on || !H || !H.work || i > 1) return 'home';
+  var P = H.work, W = P[P.length - 1][2], h = mapWorkHash(H.px, H.py, i + 1, C.d), h2 = mapWorkHash(H.py, H.px, i + 5, C.d);
+  var leave = (DAY.WAKE_MIN | 0) + 15 + (h % 75), arrive = leave + W, off = Math.max(arrive + 300, 16 * 60 + (h2 % 90)), home = off + W;
+  if (C.m < leave || C.m >= home) return 'home';
+  if (C.m < arrive) return mapWorkOn(P, C.m - leave, false);
+  if (C.m < off) return 'work';
+  return mapWorkOn(P, C.m - off, true);
+}
+/* the collector of a crowd's ground at this clock: null, or where he walks or stands (at their door: the walk's first block out) */
+function mapCollectorNow(H, C){
+  if (!MAP_WORK.on || !MAP_WORK.collect || !H || !H.round || !H.holder) return null;
+  var R = H.round.slice(1), W = R[R.length - 1][2] - R[0][2], at = 20 * 60 + (mapWorkHash(H.px, H.py, 9, C.d) % 45), stay = 25;   /* seat to door and back; the door is the street outside their block */
+  var go = at - W, done = at + stay + W;
+  if (C.m < go || C.m >= done) return null;
+  if (C.m < at) { var o = mapWorkOn(R, C.m - go, true); o.walk = true; return o; }
+  if (C.m < at + stay) { var P = H.round, dx = Math.sign(P[0][0] - P[1][0]), dy = Math.sign(P[0][1] - P[1][1]); return { x: P[1][0], y: P[1][1], face: MAP_FACE_OF[dx + ',' + dy] || 'S', walk: false, door: true }; }
+  var o2 = mapWorkOn(R, C.m - at - stay, false); o2.walk = true; return o2;
+}
+/* is the crowd's spot i out (at work or on the road)? the crowd's own draw asks */
+function mapWorkAway(px, py, i){
+  if (!MAP_WORK.on || i > 1) return false;
+  var P = mapWorkPlan(), H = P && P.by[px + ',' + py]; if (!H || !H.work) return false;
+  return mapWorkerNow(H, i, mapWorkClock()) !== 'home';
+}
+/* the wagon a caravan pulls: STAFF 2's wagon cells, packed for the map */
+function mapWagonSheet(){
+  var W = MAP_WORK.w;
+  if (!W.state) { W.state = 1; try { fetch('fight_rig/map_caravan_wagon.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ if (!j || !j.kinds) { W.state = 3; return; } var im = new Image(); im.decoding = 'async'; im.onload = function(){ W.j = j; W.im = im; W.state = 2; try { mapBarsRepaint(); } catch (_e) {} }; im.onerror = function(){ W.state = 3; }; im.src = 'fight_rig/' + j.kinds.wagon.file; }, function(){ W.state = 3; }); } catch (_e) { W.state = 3; } }
+  return W.state === 2 ? W : null;
+}
+var MAP_WAGON_LOADS = ['food', 'food', 'gear', 'rounds', 'meds'];   /* what a caravan carries out, food first (the trade a collapse runs on); home, the wagon is empty */
+function mapWagonOf(p, num){
+  if (!MAP_WORK.on || !MAP_WORK.wagon || !p || p.agenda !== 'caravan') return null;
+  var back = false; try { back = BohemiaParties.legOf(p) === 'back'; } catch (_e) {}
+  return { load: back ? 'empty' : MAP_WAGON_LOADS[(num | 0) % MAP_WAGON_LOADS.length] };
+}
+function mapWagonPart(wg, f, sx, footY, which){
+  var W = mapWagonSheet(); if (!W || !wg) return false;
+  var cells = W.j.kinds.wagon.cells, set = cells[wg.load] || cells.empty, q = set && set[f] && set[f][which]; if (!q) return false;
+  var man = 56 * MAP_PERSON_K * MAP_PEOPLE_K * 100 / 112, z = man / (W.j.man_px || 98);
+  var x0 = mapSnap(sx + (q[4] - W.j.foot[0]) * z), y0 = mapSnap(footY + (q[5] - W.j.foot[1]) * z), w = q[2] * z, h = q[3] * z;
+  mapDepthBlit(function(){ g.imageSmoothingEnabled = false; g.drawImage(W.im, q[0], q[1], q[2], q[3], x0, y0, w, h); }, x0, y0, w, h, true);   /* cut where a building stands in front, never outlined: the pale outline is how a MAN behind a wall is found, and a wagon is not looked for */
+  if (which === 'back' && MAP_DREW && MAP_DREW.art) { MAP_DREW.art.wagons = (MAP_DREW.art.wagons | 0) + 1; (MAP_DREW.art.wagonLoads = MAP_DREW.art.wagonLoads || []).push(wg.load); }
+  return true;
+}
+/* a gang's man for the collector: his gang's own rolled man when that sheet is already in for its parties (no sheet is fetched for him),
+   else the gang's look off the cast every map already holds */
+function mapCollectorSet(fac, H){
+  var g0 = String(fac || '').toLowerCase(), names = RIG_MIX.index && RIG_MIX.index.pools && RIG_MIX.index.pools[g0];
+  if (names && names.length && names.every(function(n){ var S = RIG_MIX.sheets[n]; return S && S.state === 2; })) {
+    var s = rigMixFor(g0, 'collect:' + H.px + ',' + H.py, H.h0); if (s) return s;
+  }
+  return rigSetOf(fac);
+}
+/* THE DRAW: the walkers and the collectors, in the parties' pass (their depth, their glide). Returns true while one is mid-glide */
+function mapWorkDraw(ox, oy){
+  if (!MAP_WORK.on || window.__MAP_BARE || rigWaiting()) return false;
+  var P = mapWorkPlan(); if (!P) return false;
+  var C = mapWorkClock(), now = performance.now(), moving = false, beat = mapArtBeat(), A = (MAP_DREW && MAP_DREW.art) || {};
+  A.commuting = A.commuting | 0; A.atWork = A.atWork | 0; A.collectors = A.collectors | 0;
+  var put = function(key, at, set, walk, b){
+    if (fogHides(at.x, at.y)) return false;
+    var gq = partyGlidePos(key, at.x, at.y, now); if (gq.u < 1) moving = true;
+    var s = iso(gq.x, gq.y, ox, oy); if (s.sx < -30 || s.sx > CVW + 30 || s.sy < -30 || s.sy > CVH + 40) return false;
+    var fy = s.sy + TH / 2 - mapStandLift(gq.x, gq.y) + 2;
+    MAP_DEPTH.ref = mapDepthRef(gq.x, gq.y);
+    mapPersonDraw(set, at.face, b, s.sx, fy, walk ? strideOf(gq) : null);
+    MAP_DEPTH.ref = null;
+    try { (MAP_DREW.workAt = MAP_DREW.workAt || {})[key] = [Math.round(gq.x * 10) / 10, Math.round(gq.y * 10) / 10, at.face, at.x, at.y];   /* where he is drawn (the glide) and the block the clock puts him on */ } catch (_e) {}
+    return true;
+  };
+  for (var k = 0; k < P.homes.length; k++) {
+    var H = P.homes[k];
+    for (var i = 0; i < 2 && H.work; i++) {
+      var at = mapWorkerNow(H, i, C);
+      if (at === 'home') continue;
+      if (at === 'work') { A.atWork++; continue; }
+      var set = mapPeopleOf('crowd', H.h0 + i); if (!set) continue;   /* the crowd's own man, the same seat: he is who stood at home */
+      if (put('work:' + H.px + ',' + H.py + ':' + i, at, set, true, beat + i + (H.h0 & 3))) A.commuting++;
+    }
+    var cl = mapCollectorNow(H, C);
+    if (cl) { var cs = mapCollectorSet(H.holder, H); if (cs && put('collect:' + H.px + ',' + H.py, cl, cs, cl.walk, beat + 5)) { A.collectors++; if (cl.door) A.collecting = (A.collecting | 0) + 1; } }
+  }
+  return moving;
+}
+/* ==== /__THE_CITY_GOES_TO_WORK__ ==== */
 function mapCompanyDraw(gx, gy, lift, moving, G, pass){
   MAP_CREW_DRAWING = !!MAP_CREW_K.on && !MAP_PARTY_AS_ONE.on;   /* __THE_MARKER_IS_YOUR_CREW__: his size, his spacing (the as-one candidate keeps its own) */
   try {
@@ -54671,6 +54882,7 @@ function renderCity(){
         MAP_PARTY_HIT.push(__ph); } catch (_e) {}
     }
   } catch (_e) {}
+  try { if (mapWorkDraw(ox, oy)) __partyMoving = true; } catch (_e) { try { MAP_DREW.workErr = String(_e && _e.message || _e); } catch (_e2) {} }   /* __THE_CITY_GOES_TO_WORK__: the crowd's workers and the collectors, in the parties' depth */
   MAP_DEPTH.ref = null;
   window.__MAP_OXY = { ox: ox, oy: oy };   /* __THE_MOMENTS_BETWEEN__: where this frame put the valley, so the fire and the dark sit on him */
   /* __LOOK_BEFORE_YOU_FIGHT__: the party coming for him, its plate always up (they are coming), and the road away */

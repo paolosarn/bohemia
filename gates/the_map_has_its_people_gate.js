@@ -116,8 +116,10 @@ const done = () => { console.log('THE MAP HAS ITS PEOPLE: ' + pass + ' passed, '
        ground is painted with. Counted by the render as it draws them, not guessed from pixels. */
     const art = c.drew.art || {};
     const nBases = kinds.reduce((n, k) => n + (places[k] || 0), 0);
-    ok('*** EVERY CROWD IS THREE OF THE GAME\'S OWN PEOPLE *** (' + (art.crowdPeople | 0) + ' people for ' + c.drew.crowds + ' crowds)',
-       c.drew.crowds > 0 && art.crowdPeople === c.drew.crowds * 3);
+    /* WORLD 16 11/27 (__THE_CITY_GOES_TO_WORK__, rule 485(b)): two of a crowd's three walk to work by day; a man out (on the road,
+       drawn by the work's own pass, or at work in town) is still one of the crowd's three, so the count is home + out */
+    ok('*** EVERY CROWD IS THREE OF THE GAME\'S OWN PEOPLE *** (' + (art.crowdPeople | 0) + ' people at home and ' + (art.crowdOut | 0) + ' out at work for ' + c.drew.crowds + ' crowds)',
+       c.drew.crowds > 0 && (art.crowdPeople | 0) + (art.crowdOut | 0) === c.drew.crowds * 3);
     ok('*** EVERY HOME BASE IS ITS TIER\'S OWN BUILDING *** (' + (art.buildings | 0) + ' of ' + nBases + ')',
        nBases > 0 && art.buildings === nBases);
 

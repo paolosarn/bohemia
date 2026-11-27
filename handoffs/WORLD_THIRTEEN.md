@@ -1,4 +1,25 @@
-# WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN; newest block on top)
+# WORLD THIRTEEN (one file per lane, written only by WORLD THIRTEEN and from 11/27 by WORLD SIXTEEN, its successor: the map's draw loop
+# and its people; newest block on top)
+
+WORLD SIXTEEN (11/27, round one, rule 485(b)(c), WORLD 13's part): BUILD 11/27q - THE CITY GOES TO WORK, BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_WORLD_SIXTEEN_THE_CITY_GOES_TO_WORK_11_27_26.md. VOTE world16-the-city-goes-to-work-11-27 (a clip, stand_in).
+- slices/BOHEMIA_CITY_WORLD.html __THE_CITY_GOES_TO_WORK__ (MAP_WORK): two of each crowd's three walk the streets to the nearest town's
+  edge from about 06:15 and go in, walk home from about 16:00, all home by night (mapWorkerNow; the crowd's own spots 0 and 1 skipped
+  while out, counted as art.crowdOut); a caravan's lead pulls STAFF 2's wagon, full out, empty home (mapWagonOf / mapWagonPart, the
+  wagon packed for the map: slices/fight_rig/map_caravan_wagon.webp, 2.91 MB decoded); after the stalls shut the gang holding a crowd's
+  ground sends a man to their door (mapCollectorNow). Every place is the clock's (T.day, T.min, the valley); routes by the walked
+  surface's minutes a block (mapWorkGround, mapWorkSearch), found in idle time a crowd a slice (mapWorkPlan / mapWorkBuildLater);
+  drawn in the parties' pass (mapWorkDraw), their glide and depth. Switches: MAP_WORK.on / .wagon / .collect.
+- Gate THE CITY GOES TO WORK 9/0 (new, in the suite). THE MAP HAS ITS PEOPLE's crowd leg counts home + out (its 5 reds main's own).
+- Tools: the clip (tools/bohemia_world_sixteen_the_city_goes_to_work_clip.js), the cost a frame (tools/bohemia_world_sixteen_work_frames.js),
+  the wagon's pack (tools/bohemia_world_sixteen_pack_the_caravan_wagon.py).
+- MEASURED: no man added for the commute (a man on the road is one not at home); the wagons are the new cost, 7 to 9 ms a draw at 4x on
+  this box for 6 to 10 caravans (two depth cuts each); the plan 11.5 ms in all, the longest piece 5 ms at full speed.
+- FOR ECONOMY THREE: a caravan that gets through is already listed (PARTIES_TODAY, its leg turning 'back'); the stall can read it for the
+  arrival's restock (your next). FOR WORLD 15: people in and out of a town's own gate on the town screen are yours if you want them.
+- NEXT, MINE (rule 482, improve what is there): one depth cut for both parts of a wagon (halves its cost); the ground's full repaint
+  every 4 s while moving (mapGroundBegin, WORLD THIRTEEN's owed item); a market day's crowd at the town gate thicker in the morning.
+  NEVER a tool that waits for a tap (461(c)).
 
 WORLD THIRTEEN (11/27, HANDOFF READY: context past 700k; no build this turn). THE NEXT JOB, for a fresh WORLD 13:
 RULE 485 (Paolo 11/26: 'cyberpunk vibes but their world has a running economy vibes'), WORLD 13's part: the map's people and parties

@@ -8527,6 +8527,12 @@ GATES = [
      "waterline, the bathtub ring on the sand and rock beside it, a stranded hull; the painter's own count (VBC.stand.shore) on the whole "
      "painting and a close tile, the demo upright and the alpha on its side; the palette apart by value; planted (the shore off) red. "
      "about 4 min", True),
+    ('THE CITY GOES TO WORK', ['node', 'gates/the_city_goes_to_work_gate.js'],
+     "WORLD 16 gate, 11/27, rule 485(b)(c) ('cyberpunk vibes but their world has a running economy vibes'): the map's crowds walk to "
+     "work and home by the clock (two of three out by day, every walk a chain of streets to a town's edge under 150 minutes, found in "
+     "idle time), the gangs' collectors at their doors after the stalls shut, every caravan pulling its wagon full out and empty home; "
+     "three a crowd at every hour; the same hour the same street; the demo upright and the alpha on its side; planted (the work off, "
+     "the wagon off) red. about 3 min", True),
     ('THE MAP NEVER WAITS ON THE GLASS', ['node', 'gates/the_map_never_waits_on_the_glass_gate.js'],
      "WORLD THIRTEEN gate, 11/26, rule 480(c)(d), row 661: the map's walker sprites keep their pixels in memory (no read waits on the "
      "GPU; planted the old way red); the whole valley sliding on a phone slowed 4x: the armour reads nothing off the GPU and costs under "
