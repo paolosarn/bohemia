@@ -27,6 +27,18 @@
   ],
   "undo": [
    { "text": "Changed your mind? Same price back, no hard feelings.", "draft": true }
+  ],
+  "valley_caravan": [
+   { "text": "The {from} caravan got in at {at}. Shelf is full again, for now.", "draft": true, "by": "ECONOMY FOUR 11/27 __THE_VALLEY_AT_THE_STALL__" },
+   { "text": "{from} trucks came through at {at}, mijo. Buy while it is here.", "draft": true, "by": "ECONOMY FOUR 11/27" }
+  ],
+  "valley_thin": [
+   { "text": "No caravan comes up this road. What you see is what the valley left us.", "draft": true, "by": "ECONOMY FOUR 11/27" },
+   { "text": "Nobody trucks anything out here. The valley is running dry and we feel it first.", "draft": true, "by": "ECONOMY FOUR 11/27" }
+  ],
+  "valley_dry": [
+   { "text": "The valley is out of food, mijo. No caravan comes this way. Half a shelf, and it costs what it costs.", "draft": true, "by": "ECONOMY FOUR 11/27" },
+   { "text": "Nothing left in the valley and no trucks up this road. I put out what I have. It goes fast.", "draft": true, "by": "ECONOMY FOUR 11/27" }
   ]
  }
 }

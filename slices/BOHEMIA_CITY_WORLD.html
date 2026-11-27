@@ -37427,7 +37427,32 @@ function livingMapSteps(ps, n){
   BohemiaLivingMap.prune(st, h);
   /* who got where: a crew at a base you hold opens a raid ([a raid on your base], LIFE+CITY 10/9) */
   if(arr.length && typeof raidArrivals === 'function'){ try{ raidArrivals(arr); }catch(_e){} }
+  if(arr.length){ try{ caravansIn(ps, arr); }catch(_e){} }   /* ECONOMY FOUR __THE_VALLEY_AT_THE_STALL__: a caravan got in */
 }
+/* ==== __THE_VALLEY_AT_THE_STALL__ (ECONOMY FOUR 11/27, VAMILY rule 485(b): 'prices move with what is scarce'; records/
+   BOHEMIA_ECONOMY_FOUR_THE_VALLEY_AT_THE_STALL_11_27_26.md). MEASURED on the demo (K7QM9X, 30 map days): the valley's own ledger
+   (MKT_LEDGER) has 8.5 days of food at the start and none from day 11, and its meds run out by day 31, and the nightfall card and the
+   phone say so; but every town's stall sold its 30 nights of food at its day-one price for ever. Caravans reach 7 of the 13 towns
+   (Mob, Network, Reds, Volunteers, Blues, Trades, Colorful) and never the other 6. NOW the town is handed the valley's days of
+   supply, whether a caravan is sent to it and when the last one got in (engine/bohemia_stall_prices.js valleyCard, restockMin):
+   off the roads the town feels the whole valley running down, on a road a quarter of it and the convoy's card. Read only: the
+   ledger is not touched (valleyRunsOut writes its nightfall mark; report() is pure). ==== */
+var CARAVANS_IN = {};   /* town (mapNorm) -> {from, hour}: the last caravan that reached it (never saved: the parties are not either) */
+function caravansIn(ps, arr){
+  for(var i = 0; i < arr.length; i++){ var a = arr[i]; if(!a || a.agenda !== 'caravan') continue;
+    var p = null; for(var j = 0; j < (ps || []).length; j++) if(ps[j] && ps[j].id === a.id){ p = ps[j]; break; }
+    var to = p && p.toward; if(!to) continue;
+    CARAVANS_IN[mapNorm(to)] = { from: a.faction, hour: +a.hour || 0 }; }
+}
+function valleyFor(name){
+  var o = { days: {}, road: false, from: null, agoMin: null };
+  try{ var L = (typeof MKT_LEDGER !== 'undefined' && MKT_LEDGER) || mktLedger();
+    (BohemiaEconomy.report(L) || []).forEach(function(r){ if(r && r.daysLeft != null) o.days[r.good] = +r.daysLeft; }); }catch(_e){}
+  try{ var n = mapNorm(name); (partiesAll() || []).forEach(function(p){ if(p && p.agenda === 'caravan' && mapNorm(p.toward) === n) o.road = true; });
+    var c = CARAVANS_IN[n]; if(c){ o.from = c.from; o.agoMin = Math.max(0, Math.round((livingMapHour() - c.hour) * 60)); } }catch(_e){}
+  return o;
+}
+/* ==== /__THE_VALLEY_AT_THE_STALL__ ==== */
 /* the crowd at a place's gate today, and the traits it is showing (null until the file is in) */
 function livingMapCrowd(name, tier){
   if(!livingMapOn() || !LIVING_MAP.traits) return null;
@@ -47142,6 +47167,7 @@ function loopPostOpen(){
     held: (function(){ try{ if(typeof lotIsMine === 'function') return lotIsMine(t.name); var m = BohemiaBetween.mine(), n = function(v){ return String(v||'').toUpperCase().replace(/[\s_]/g,''); };
              return !!m && n(m) === n(t.name); }catch(_e2){ return false; } })(),
     day: loopDay(), min: T.min,   /* ECONOMY THREE __THE_STALLS_DAY__ (rule 485(b)): the hour, for what the stall has left (only the hour: the town's night look is not this lane's) */
+    valley: (function(){ try{ return valleyFor(t.name); }catch(_e2){ return undefined; } })(),   /* ECONOMY FOUR __THE_VALLEY_AT_THE_STALL__: the valley's days of supply, the road, the last caravan */
     /* RUN TWO 10/25 (EYES [eyes: the job's real pay], rule 150): the board prints what a contract pays (the start's bonus in it,
        loopJobPay's own numbers), and deals from the same list of places as the phone, so one contract is posted in one place */
     payRule: LOOP.start ? { add: LOOP.start.pay | 0, mult: LOOP.start.mult || 1 } : null,
@@ -47381,7 +47407,8 @@ function campHour(){
     if (MEET.up || LOOP.fighting || (typeof CITY_CONTACT_POSTED !== 'undefined' && CITY_CONTACT_POSTED)) { campBreak('contact'); return; }
     if (!warn) try{ warn = campWarn(lim); }catch(_e){}
   }
-  try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_CAMP_TIME', day: T.day, min: T.min, night: isNight(), batteries: loopBats(), bill: campBill(), hours: CAMP.hours, condition: campCondition(), warn: warn, town: CAMP.town ? CAMP.town.name : null }, '*'); }catch(_e){}
+  try{ LOOP.frame.contentWindow.postMessage({ type: 'BOHEMIA_CAMP_TIME', day: T.day, min: T.min, night: isNight(), batteries: loopBats(), bill: campBill(), hours: CAMP.hours, condition: campCondition(), warn: warn, town: CAMP.town ? CAMP.town.name : null,
+    valley: (function(){ try{ return CAMP.town ? valleyFor(CAMP.town.name) : undefined; }catch(_e2){ return undefined; } })() }, '*'); }catch(_e){}   /* ECONOMY FOUR __THE_VALLEY_AT_THE_STALL__: the hours pass in the valley too */
   campDone();
 }
 /* ==== __HEALING_STOPS_ITSELF__ (CAMP [healing stops itself at full], rule 278(a), Paolo 10/26: 'I camp out, time speeds along, and it

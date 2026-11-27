@@ -238,15 +238,51 @@
     if (ctx.stockMult > 0 && ctx.stockMult !== 1) full = Math.max(1, Math.round(full * ctx.stockMult));   /* the town's card: Battle Brothers' 'items available' (Raided -50%, Good Harvest +100% food) */
     var hours = (D.open && D.open.value) || [360, 1200], m = ((ctx.min % 1440) + 1440) % 1440;
     var open = m >= hours[0] && m < hours[1];
-    var f = Math.max(0, Math.min(1, (m - hours[0]) / Math.max(1, hours[1] - hours[0])));
+    /* ECONOMY FOUR __THE_VALLEY_AT_THE_STALL__: a caravan that got in while the stall was open put the shelf back to its dawn count,
+       so the town buys it down from the hour it came in (ctx.restockMin, the minute of today it arrived) */
+    var from = hours[0], rs = typeof ctx.restockMin === 'number' && isFinite(ctx.restockMin) ? ctx.restockMin : null;
+    if (rs != null && rs > hours[0] && rs <= m && rs < hours[1]) from = rs;
+    var f = Math.max(0, Math.min(1, (m - from) / Math.max(1, hours[1] - hours[0])));
     var luck = 1 + num(D.spread, 0) * (seedOf(String(ctx.seed || '') + ':' + good + ':' + (ctx.day | 0)) * 2 - 1);
     var burn = full * (1 - num(D.left_at_close, 0.25)) * f * luck * (ctx.need > 0 ? ctx.need : 1);
     var left = Math.max(0, Math.round(full - burn - (ctx.bought | 0)));
     var climb = 1 + num(D.climb, 1) * (1 - left / full);
-    return { open: open, full: full, left: left, climb: climb, gone: left <= 0 };
+    return { open: open, full: full, left: left, climb: climb, gone: left <= 0, restocked: from !== hours[0] };
   }
 
-  var API = { mendPrice: mendPrice, theDay: theDay, buyEach: buyEach, buyShown: buyShown, sellEach: sellEach, sellEachAt: sellEachAt, pays: pays,
+  /* ---------------------------------------------------------------------------
+     THE VALLEY AT THE STALL (ECONOMY FOUR 11/27, VAMILY rule 485(b): 'prices move with what is scarce'; the handoff's job 1: the
+     map's trading hub and the stall's day are one story). records/BOHEMIA_ECONOMY_FOUR_THE_VALLEY_AT_THE_STALL_11_27_26.md.
+     The valley keeps one ledger of what it has left (engine/bohemia_economy.js: days of food, water and meds for everybody in it,
+     eaten down every night); the map hands the town those days and whether a caravan comes to it. A town OFF the caravan roads feels
+     the whole of the valley running down (dearer, and less on the shelf: Battle Brothers' Ambushed Trade Routes, at the bottom a
+     raided town's half); a town ON a road feels a quarter of it and the convoy's Well Supplied card (Battle Brothers 2199: -10%
+     buying and selling, +15% items). Calm at 30 days of supply or more (the ledger's own price is flat there).
+       valley: { days: {food, water, meds: days of supply left in the valley}, road: a caravan is sent to this town }
+     Returns { need, shelf, down, days, road } (need and shelf multiply the town's own card), or null where the good has no
+     reading (rounds: the valley keeps no ledger of them; rule 478 keeps them scarce on their own shelf).
+     --------------------------------------------------------------------------- */
+  function valleyCard(file, good, valley) {
+    var V = file && file.the_valley; if (!V || !valley || !valley.days) return null;
+    var reads = V.reads && V.reads.value && V.reads.value[good]; if (!reads || !reads.length) return null;
+    var d = Infinity;
+    for (var i = 0; i < reads.length; i++) { var x = valley.days[reads[i]]; if (typeof x === 'number' && isFinite(x)) d = Math.min(d, Math.max(0, x)); }
+    if (!isFinite(d)) return null;
+    var calm = num(V.calm_days, 30), down = Math.max(0, Math.min(1, (calm - d) / Math.max(1, calm)));
+    var road = !!valley.road, keeps = road ? num(V.road_keeps, 0.25) : 1;
+    var need = (1 + num(V.short_need_add, 1) * down * keeps) * (road ? num(V.road_need, 0.9) : 1);
+    var shelf = (1 - num(V.short_shelf_cut, 0.5) * down * keeps) * (road ? num(V.road_items, 1.15) : 1);
+    return { need: Math.round(need * 1000) / 1000, shelf: Math.round(shelf * 1000) / 1000, down: Math.round(down * 1000) / 1000, days: d, road: road };
+  }
+  /* the minute of today a caravan's arrival `agoMin` minutes before `min` falls on, or null if it came before first light
+     (the night's arrival is the dawn's stock anyway) or the stall was shut when it came */
+  function restockMin(file, min, agoMin) {
+    var D = file && file.the_day; if (!D || typeof min !== 'number' || typeof agoMin !== 'number' || !(agoMin >= 0)) return null;
+    var hours = (D.open && D.open.value) || [360, 1200], m = ((min % 1440) + 1440) % 1440, at = m - agoMin;
+    return (at > hours[0] && at < hours[1] && at <= m) ? at : null;
+  }
+
+  var API = { mendPrice: mendPrice, theDay: theDay, valleyCard: valleyCard, restockMin: restockMin, buyEach: buyEach, buyShown: buyShown, sellEach: sellEach, sellEachAt: sellEachAt, pays: pays,
               handful: handful, line: line, needUnits: needUnits, needAt: needAt, warns: warns, cutOf: cutOf, sizeOf: sizeOf,
               tapeShelf: tapeShelf, tapePrice: tapePrice,
               tradeGood: tradeGood, madeHere: madeHere, makes: makes, tradeBuy: tradeBuy, tradeSell: tradeSell, tradeStock: tradeStock,

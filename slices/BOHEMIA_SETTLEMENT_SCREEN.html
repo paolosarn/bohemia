@@ -1542,7 +1542,11 @@ function stallNeedAll(){ try{ var a = JSON.parse(localStorage.getItem(STALL_NEED
 function stallNeedSold(good){ var a = stallNeedAll()[stallWeek()]; return a ? (a[good] | 0) : 0; }
 function stallNeedAdd(good, n){ var A = stallNeedAll(), k = stallWeek(); Object.keys(A).forEach(function(x){ if(x !== k && x.slice(0, x.lastIndexOf(':')) === S.place.name) delete A[x]; });
   var a = A[k] = A[k] || {}; a[good] = Math.max(0, (a[good] | 0) + n); try{ localStorage.setItem(STALL_NEED, JSON.stringify(A)); }catch(e){} }
-function stallCtx(good){ var m = traitMult(), r = relPrice(); return {tier:S.place.tier, need:good === 'food' ? m.food : good === 'meds' ? m.meds : 1, buyMult:m.buy, sellMult:m.sell, relBuySub:r.buySub, relSellAdd:r.sellAdd, soldToNeed:stallNeedSold(good)}; }
+/* ==== __THE_VALLEY_AT_THE_STALL__ (ECONOMY FOUR 11/27, rule 485(b): 'prices move with what is scarce'): the valley's days of supply and
+   the caravan road, handed by the map (S.valley), read by the engine (BohemiaStallPrices.valleyCard): off the roads the whole valley's
+   running down, on a road a quarter of it and the convoy's card; it multiplies the town's own card. No map (the VOTE shot): calm. ==== */
+function stallValley(good){ try{ return (S.valley && STALLP && window.BohemiaStallPrices && BohemiaStallPrices.valleyCard) ? BohemiaStallPrices.valleyCard(STALLP, good, S.valley) : null; }catch(e){ return null; } }
+function stallCtx(good){ var m = traitMult(), r = relPrice(), vc = stallValley(good); return {tier:S.place.tier, need:(good === 'food' ? m.food : good === 'meds' ? m.meds : 1) * (vc ? vc.need : 1), buyMult:m.buy, sellMult:m.sell, relBuySub:r.buySub, relSellAdd:r.sellAdd, soldToNeed:stallNeedSold(good)}; }
 /* the stall's lines: the three goods, and tape by the roll and the stack */
 function stallRows(){ var R = STALL.map(function(g){ return {key:g.good, good:g.good, label:g.label, units:1, per:g.adds || 1, price:g.price || 1}; });
   if(tapeOn()) R.push({key:'tape1', good:'tape', label:'A roll of tape', units:1, per:1}, {key:'tape' + TAPE_STACK, good:'tape', label:'A stack of tape, ' + TAPE_STACK + ' rolls', units:TAPE_STACK, per:1});
@@ -1584,7 +1588,9 @@ function stallDay(row, ctx){
   if(row.good === 'tape' || typeof S.mapMin !== 'number' || !STALLP || !window.BohemiaStallPrices || !BohemiaStallPrices.theDay) return null;
   var bought = 0; try{ stallRows().forEach(function(r){ if(r.good === row.good) stallLots(r.key).bought.forEach(function(b){ bought += (b.k | 0) * (r.units | 0 || 1); }); }); }catch(e){}
   var tm = traitMult(), sm = tm.stock * (row.good === 'food' ? tm.foodStock : 1);   /* a raided town puts out half, a good harvest twice the food (the town's card) */
-  return BohemiaStallPrices.theDay(STALLP, row.good, {tier:S.place.tier, min:S.mapMin, day:S.mapDay | 0, seed:S.place.name, need:ctx && ctx.need, bought:bought, stockMult:sm});
+  var vc = stallValley(row.good); if(vc) sm *= vc.shelf;   /* ECONOMY FOUR __THE_VALLEY_AT_THE_STALL__: the valley's shelf */
+  var rs = (S.valley && S.valley.road && BohemiaStallPrices.restockMin) ? BohemiaStallPrices.restockMin(STALLP, S.mapMin, S.valley.agoMin) : null;   /* a caravan got in today: the shelf was full again */
+  return BohemiaStallPrices.theDay(STALLP, row.good, {tier:S.place.tier, min:S.mapMin, day:S.mapDay | 0, seed:S.place.name, need:ctx && ctx.need, bought:bought, stockMult:sm, restockMin:rs});
 }
 function stallDayLine(){   /* the keeper says the day, first: shut, or what is gone (draft:true, WORDS) */
   var rows = stallRows().filter(function(r){ return r.good !== 'tape' && r.units === 1; }), D = rows.map(function(r){ return {r:r, d:stallDay(r, stallCtx(r.good))}; }).filter(function(x){ return x.d; });
@@ -1592,6 +1598,17 @@ function stallDayLine(){   /* the keeper says the day, first: shut, or what is g
   if(!D[0].d.open) return {shut:true, text:'Shutters are down till first light. The tape is in the back, I can do that much.'};
   var gone = D.filter(function(x){ return x.d.gone; }).map(function(x){ return x.r.good === 'food' ? 'the food' : x.r.good === 'meds' ? 'the meds' : 'the rounds'; });
   if(gone.length) return {text:(gone.length > 1 ? gone.slice(0, -1).join(', ') + ' and ' + gone[gone.length - 1] : gone[0]).replace(/^t/, 'T') + (gone.length > 1 ? ' are' : ' is') + ' gone for today. It all went this morning. Come back at first light.'};
+  return stallValleyLine(D);   /* ECONOMY FOUR __THE_VALLEY_AT_THE_STALL__: the caravan that got in, or the road nobody comes up */
+}
+/* the keeper says the valley (draft:true, WORDS; banks/BOHEMIA_ECONOMY_THE_STALLS_WORDS_10_26_26.json valley_*): a caravan that got in
+   today and refilled him (its people and the hour), or, off the roads with the valley half gone or worse, that nothing comes up his road */
+function caravanAt(){ var at = ((S.mapMin - ((S.valley && S.valley.agoMin) | 0)) % 1440 + 1440) % 1440; return String((at / 60) | 0).padStart(2, '0') + ':' + String(at % 60 | 0).padStart(2, '0'); }
+function stallValleyLine(D){
+  var V = S.valley; if(!V) return null;
+  var food = D.filter(function(x){ return x.r.good === 'food'; })[0], vc = stallValley('food'), pick = function(k){ var L = STALL_WORDS[k]; return L && L.length ? L[seedOf(S.place.name + ':' + (S.mapDay | 0) + ':' + k) % L.length].text : null; };
+  if(V.road && food && food.d.restocked && V.from){ var hh = caravanAt();
+    var t = pick('valley_caravan'); return t ? {text:t.replace(/\{from\}/g, V.from).replace(/\{at\}/g, hh), valley:true, news:true} : null; }
+  if(!V.road && vc && vc.down >= 0.5){ var t2 = pick(vc.down >= 1 ? 'valley_dry' : 'valley_thin'); return t2 ? {text:t2, valley:true} : null; }
   return null;
 }
 function moneyPoor(side, x){ return side === 'buy' && !x.back && x.p != null && bats() < x.p; }
@@ -1676,6 +1693,7 @@ function stallStripFill(el){
     : !x.k ? 'They have plenty here this week. They will not take it.'
     : 'Sell ' + unitWord(row.good, x.k) + ': +' + moneyWord(x.p) + '.' + (s.have < x.k ? ' You do not have ' + (x.k === 1 ? 'one' : x.k) + '.' : s.pr.word === 'short' && s.pr.needLeft ? ' They need it here: ' + s.pr.needLeft + ' more at this price.' : '');
   if(sel.side === 'buy' && s.pr.day) t = s.pr.day.open ? (x.gone ? 'Sold out for today. ' : t + ' ' + s.pr.day.left + ' left today.') : 'Shut till first light. ';   /* __THE_STALLS_DAY__ (draft:true) */
+  if(sel.side === 'buy' && s.pr.day && s.pr.day.open && s.pr.day.restocked && S.valley && S.valley.from) t += ' The ' + S.valley.from + ' caravan got in at ' + caravanAt() + '.';   /* ECONOMY FOUR __THE_VALLEY_AT_THE_STALL__: why the shelf is full again (draft:true) */
   t += ' You have ' + haveWord(row.good, stallHave(row.good)) + (row.good === 'food' ? ', your ' + (S.crewSize || 3) + ' men eat ' + (S.crewSize || 3) + ' a night.' : '.');
   w.textContent = t; f.appendChild(w);
   if(sel.side === 'sell' && !x.back && x.k && s.have >= x.k && stallWarns(row, s)){ var wn = document.createElement('div'); wn.className = 'st-warn'; wn.textContent = 'That leaves less than tonight\'s food for your men.' + (S.stallWarned ? ' Tap it twice again to sell it anyway.' : ''); f.appendChild(wn); }   /* rule 242(a) */
@@ -1686,7 +1704,7 @@ function stallSheet(k, body, acts, line){
   var short = sh && STALL_WORDS && STALL_WORDS['short_' + sh.r.good];
   var said = short ? short[seedOf(S.place.name + ':' + stallWeek()) % short.length].text.replace(/\{sell\}/g, moneyWord(sh.p.p)).replace(/\{n\}/g, sh.p.needLeft) : null;   /* ECONOMY's words (draft:true): the town short of a thing says so first */
   var dl = stallDayLine();   /* the shutters first: a shut stall says so before anything else; what is gone after his own line */
-  body.appendChild(speak(k, (dl && dl.shut ? dl.text : null) || line || (dl && dl.text) || said || 'I buy and I sell. Half what I charge, more for what this town is short of. No haggling, mijo.'));   /* draft:true */
+  body.appendChild(speak(k, (dl && dl.shut ? dl.text : null) || line || (dl && (!dl.valley || dl.news) && dl.text) || said || (dl && dl.text) || 'I buy and I sell. Half what I charge, more for what this town is short of. No haggling, mijo.'));   /* draft:true */
   if(S.stallSel && !stallRowOf(S.stallSel.key)) S.stallSel = null;
   dearVisit('stall', rows, function(r){ return r.key; }, function(r){ return stallPrice(r).buy; }, function(r){ return r.units; }).forEach(function(r){ acts.appendChild(stallLine(r)); });   /* __DEAREST_FIRST__, kept for the visit */
   if(tapeOn()){ var sl = document.createElement('div'); sl.className = 'slots'; sl.id = 'tapeleft'; sl.textContent = tapeLeftText(); acts.appendChild(sl); }
@@ -1873,7 +1891,11 @@ function tradeSellBack(it){ if(!it || !it.trade || !STALLP || !window.BohemiaSta
    published, so the two the stall says are carried here as they are written there) */
 var STALL_WORDS = {
   short_food:[{text:"We're short on food here. I'll pay {sell} a night for {n} more.", draft:true}, {text:'People are hungry, mijo. Bring me food and I pay good, {n} more.', draft:true}],
-  short_meds:[{text:'They need meds here. {sell} a dose, for {n} more.', draft:true}, {text:"Half the block is coughing. Every dose you've got, I'll take {n}.", draft:true}]};
+  short_meds:[{text:'They need meds here. {sell} a dose, for {n} more.', draft:true}, {text:"Half the block is coughing. Every dose you've got, I'll take {n}.", draft:true}],
+  /* ECONOMY FOUR __THE_VALLEY_AT_THE_STALL__ (draft:true, WORDS owns them) */
+  valley_caravan:[{text:'The {from} caravan got in at {at}. Shelf is full again, for now.', draft:true}, {text:'{from} trucks came through at {at}, mijo. Buy while it is here.', draft:true}],
+  valley_thin:[{text:'No caravan comes up this road. What you see is what the valley left us.', draft:true}, {text:'Nobody trucks anything out here. The valley is running dry and we feel it first.', draft:true}],
+  valley_dry:[{text:'The valley is out of food, mijo. No caravan comes this way. Half a shelf, and it costs what it costs.', draft:true}, {text:'Nothing left in the valley and no trucks up this road. I put out what I have. It goes fast.', draft:true}]};
 /* ==== end __SELL_AT_THE_STALL__ ==== */
 /* ==== __THE_SMITH_MENDS__ (RUN TWO [the smith mends], rule 277, Paolo 10/26: 'if I go to a settlement that has a smith and an armourer
    I should be able to repair my stuff with them pretty easily and quickly... the fact that that's not even an option is insane').
@@ -4580,6 +4602,7 @@ function campTime(d){
 function townRest(d){
   if(!!d.night !== !!view.night){ view.night = !!d.night; VAR && (VAR.folkKey = null); if(window.BohemiaHeard) BohemiaHeard.night(view.night); }
   window.__TOWN_REST = { hours: d.hours, day: d.day, min: d.min, town: d.town, at: Date.now() };
+  if(d.valley) S.valley = d.valley;   /* ECONOMY FOUR __THE_VALLEY_AT_THE_STALL__: and in the valley */
   if(typeof d.min === 'number'){ S.mapMin = d.min; if(typeof d.day === 'number') S.mapDay = d.day; if(S.open === 'stall') try{ stallRefresh(); }catch(e){} }   /* __THE_STALLS_DAY__: the hours pass on the shelf too */
 }
 /* CAMP [camp holds until he ends it] (rule 267(a)): a crew coming is a warning, never the end. One of his men says who and how far, at
@@ -6624,7 +6647,8 @@ function open(o){
   S.build = null;   /* __BUILD_ON_THE_SCREEN__: a new place, its own lots */
   if(o.held !== undefined) S.mine = !!o.held;   /* __BUILD_ON_THE_SCREEN__: the map says whether this place is yours */
   if(typeof o.day === 'number') S.mapDay = o.day;
-  if(typeof o.min === 'number') S.mapMin = o.min;   /* ECONOMY THREE __THE_STALLS_DAY__: the map's hour, for what the stall has left */   /* __BUILD_ON_THE_SCREEN__: the map's day */
+  if(typeof o.min === 'number') S.mapMin = o.min;   /* ECONOMY THREE __THE_STALLS_DAY__: the map's hour, for what the stall has left */
+  if(o.valley !== undefined) S.valley = o.valley; else if(o.place) S.valley = null;   /* ECONOMY FOUR __THE_VALLEY_AT_THE_STALL__: the valley's days, the road, the last caravan */   /* __BUILD_ON_THE_SCREEN__: the map's day */
   heard('');   /* EYES [eyes: the last town's line] (rule 150): a town opens with nothing carried from the last one */
   /* RUN TWO 10/25 (EYES [eyes: the job's real pay]): what a contract pays here is what the map pays (its start's bonus in it),
      and the valley's places, so this board deals from the same list as the phone and no job stands on two boards */
@@ -6651,6 +6675,7 @@ function open(o){
 document.getElementById('crew').addEventListener('click', function(){ if(!window.BohemiaCrewDoor) return;
   BohemiaCrewDoor.open({ onDone: function(m){ bagLoad(); if(S.open === 'person' && S.person) openPerson(S.person); else if(S.open) openB(S.open); post('crew', {company:m.company, formation:m.formation}); } }); });
 window.BohemiaSettlement = {restock:function(){ restock(); },
+  _valley:function(good){ var r = stallRowOf(good), p = r ? stallPrice(r) : null; return {card:stallValley(good), word:p ? p.word : null, buy:p ? p.buy : null, day:p ? p.day : null}; },   /* ECONOMY FOUR __THE_VALLEY_AT_THE_STALL__: what the valley does to this stall's line, for the gate */
   _hall:function(){ openB('hall'); return S.open === 'hall'; },   /* __THE_STAFF_PUSH_A_CART__ (rule 480(b)): the town hall's sheet as a tap on the hall opens it, for the phone proof */
   _forge:function(){ S.home = S.home || {placeRows:{}, places:[]}; S.home.placeRows = S.home.placeRows || {}; homePlaceSheet('hforge', {id:'forge', name:'FORGE', done:true, key:'hforge'}); return true; },   /* __THE_STAFF_PUSH_A_CART__: the forge's sheet opened as his built forge opens it, for the phone proof's real tap */
   _bats:function(){ return bats(); },   /* FIXES (rule 364): the shelf rolled again (the town's ground arriving, a camp turning), for the gate */

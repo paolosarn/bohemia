@@ -586,5 +586,56 @@
    "source": "research s2: Venezuela's bachaqueros resold at 5 to 10 times the regulated price (Global Voices 2015); Battle Brothers' 'Buying raises the local price, selling lowers it' (reference/library/battle_brothers/07_ECONOMY.md)",
    "why": "twice by the last unit inside one day: far under a black market's five to ten, because the stall is the honest price and the reseller is another man (routed)"
   }
+ },
+ "the_valley": {
+  "_about": "ECONOMY FOUR 11/27, VAMILY rule 485(b) ('prices move with what is scarce'; the handoff's job 1: the map's trading hub and the stall's day are one story). The valley's one ledger of what it has left (engine/bohemia_economy.js, eaten down every night by everybody in the valley) reaches every stall: the map hands the town its days of supply and whether a caravan is sent to it (the map's caravans, engine/bohemia_parties.js); the engine is engine/bohemia_stall_prices.js valleyCard and restockMin; the town is slices/BOHEMIA_SETTLEMENT_SCREEN.html __THE_VALLEY_AT_THE_STALL__. Research: records/BOHEMIA_ECONOMY_FOUR_THE_VALLEY_AT_THE_STALL_11_27_26.md.",
+  "draft": true,
+  "reads": {
+   "value": {"food": ["food", "water"], "meds": ["meds"]},
+   "unit": "which of the valley's goods each stall line reads: the scarcer of them sets its day",
+   "source": "rule 209 (Paolo 10/26: 'water and food are one resource'): the stall's food is a night of food and water, so the scarcer of the valley's two counts; the valley's ledger keeps no rounds (rule 478 keeps them scarce on their own shelf) and no tape (rule 271)",
+   "why": "the valley says THE FOOD IS GONE at nightfall and the phone says the meds are thinning: the stall now says the same thing with its price and its shelf"
+  },
+  "calm_days": {
+   "value": 30,
+   "unit": "days of supply left in the valley at or over which a stall is calm (no valley effect)",
+   "source": "engine/bohemia_economy.js scarcityMult: the valley's own price is flat at 30 days of supply or more and climbs under it",
+   "why": "one threshold for the hub and the stall, so they never disagree about when the valley is short"
+  },
+  "short_need_add": {
+   "value": 0.5,
+   "unit": "how much a town off the caravan roads adds to its need when the valley has none left (need 1 + this x how far the valley has run down)",
+   "source": "between Battle Brothers' Ambushed Trade Routes, '+20% buying prices' (0054), and its Sickness card's food x2 (records/target/settlement_traits.json sickness food_buy_mult 2.0); real sieges went far past both (Sarajevo 1992-93: two pounds of potatoes $50, JTA); the stall's climb doubles it again by dusk. MEASURED on the demo at 1: Caravans' night at ten on day one was 8 against the crew's nightly bill of 2 (records/target/bb/nightly_bill.json, 'one price for the same night everywhere'), because the valley opens with 8.5 days of food",
+   "why": "a town nobody brings anything to pays half again for its night when the valley is empty, and twice that by dusk: dear, close enough to the bill that buying there is a choice, never the siege's fifty times"
+  },
+  "short_shelf_cut": {
+   "value": 0.5,
+   "unit": "how much of the day's stock a town off the roads loses when the valley has none left",
+   "source": "Battle Brothers' Raided card, '-50% items available' (1626), the bottom of a bad day; its Ambushed Trade Routes, '-25% items available' (0054), is the road cut with the valley halfway down",
+   "why": "an empty valley halves what a town off the roads can put out at first light"
+  },
+  "road_keeps": {
+   "value": 0.25,
+   "unit": "of the valley's shortage a town ON a caravan road still feels",
+   "source": "Battle Brothers: 'caravans reaching a destination raise both towns' resources' (0626_Developer Posts.txt); Sarajevo 1994: when movement opened, siege prices collapsed (Christian Science Monitor 1994); the sellers were whoever could cross (Andreas, Wilson Center)",
+   "why": "the caravans carry three quarters of the hunger away from the towns they reach: where the trucks come, the night stays near its calm price"
+  },
+  "road_need": {
+   "value": 0.9,
+   "unit": "the town's need on a caravan road, buying and selling (a multiplier)",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2199_Well Supplied (Settlement Situation).txt: '-10% buying prices', '-10% selling prices' (records/target/bb/arrival_traits.json well_supplied, 'A convoy made it in')",
+   "why": "the convoy's card, kept as Battle Brothers wrote it"
+  },
+  "road_items": {
+   "value": 1.15,
+   "unit": "the day's stock on a caravan road (a multiplier)",
+   "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz bb_all/2199_Well Supplied (Settlement Situation).txt: '+15% items available'",
+   "why": "the convoy's card, kept as Battle Brothers wrote it"
+  },
+  "restock": {
+   "value": "a caravan that gets in while the stall is open puts the shelf back to its dawn count; the town buys it down from that hour",
+   "source": "Battle Brothers: 'Locations restock every 3 days with quality und quantity based on their current resources' and caravans raise them (0626_Developer Posts.txt); records/BOHEMIA_ECONOMY_THREE_THE_RUNNING_CITY_11_27_26.md s3 ('a caravan's arrival restocking the stall')",
+   "why": "he can see a caravan's arrival: the count of what is left today jumps back up and the price comes back down"
+  }
  }
 }

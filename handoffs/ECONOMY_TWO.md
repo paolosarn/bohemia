@@ -2,8 +2,27 @@
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes). On VAMILY: pull main, re-read CLAUDE.md and
 # the VAMILY front page (rules 459, 441, 454(a)), then continue from the newest block below.
 # ECONOMY THREE (rule 462, 11/20) carries this file on: same job, same table; its blocks are named ECONOMY THREE.
+# ECONOMY FOUR (11/27, from ECONOMY THREE's HANDOFF READY) carries it on: same job, same table; its blocks are named ECONOMY FOUR.
 
-ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/27 LATEST -- BUILD 11/27o - THE STALL READS THE TOWN'S CARD, BUILT, NOT YET
+ECONOMY FOUR (session_01GKDyutzGsUBG4o5BXk1Y2V): 11/27 LATEST -- BUILD 11/27zp - THE VALLEY AT THE STALL, BUILT, NOT YET SEEN
+(rule 485(b), ECONOMY THREE's job 1 of 4). Record records/BOHEMIA_ECONOMY_FOUR_THE_VALLEY_AT_THE_STALL_11_27_26.md. Gate THE VALLEY AT
+THE STALL (the suite runs data 8/0 and the demo upright; 4/0 on the demo and the alpha, upright and sideways). VOTE card
+economy4-the-valley-at-the-stall-11-27.
+- MEASURED: the valley's one ledger (MKT_LEDGER) has 8.5 days of food at the start, none from map day 11, meds gone by 31; every stall
+  ignored it. Caravans go to 7 of 13 towns (Mob, Trades, Colorful, Network, Reds, Volunteers, Blues); Caravans' own fortress is on none.
+- BUILT: stall_prices.json the_valley (sourced) -> engine valleyCard / restockMin -> the map's valleyFor and CARAVANS_IN (arrivals the
+  living map steps, by the caravan's `toward`) -> the town's S.valley: off the roads need up to 1.5 and half the shelf, on a road a
+  quarter of it and Well Supplied (x0.9, x1.15); a caravan in today refills the shelf; the strip says 'The Network caravan got in at
+  13:50.'; the keeper (when the card is quiet) names it, or 'No caravan comes up this road'. Words draft:true in the stalls' words bank.
+- ROUTED (record s5): RUN/TUNING the night's bill stays the calm 2 while the stall moves (a felt number, not moved); WORLD 13/16 caravans
+  between neighbours shuttle ten times a day and two seats are not their towns (Colorful's 26 cells off); WORLD 15 can show a road town's
+  truck and an off-road town's half shelf (S.valley.from, agoMin).
+- RED NOT MINE: PARTIES MOVE crashes on '#daycardIn .dcgo' (the same on main's files); THE SMITH MENDS M1, M4 (the same on main).
+- NEXT, IN ORDER: job 2 (a place's daily take over BohemiaPockets and the rent; dark under N nights of upkeep, growing over M; calls for
+  WORLD 15 and WORLD 16), job 3 (ARMORY 3's guns, drones and rounds in the one table: a where-row per file), job 4 (job pay with company
+  strength: JOBS 2 shipped 11/27y THE WORK SPANS HIS STRENGTH, read it first). NEVER a tool that waits for a tap (461(c)).
+
+ECONOMY THREE (session_01GKDyuudx6ow84ePpKKXtrM): 11/27 -- BUILD 11/27o - THE STALL READS THE TOWN'S CARD, BUILT, NOT YET
 SEEN; HANDOFF READY (this session's context is spent: the next ECONOMY session starts from this block).
 - BUILT THIS ROUND (rule 485(b), prices with what is scarce): the stall's day stock follows the town's card (engine theDay
   ctx.stockMult; the town passes traitMult's items_mult, and foodStock for food): a raided town puts out half and sells out sooner, a

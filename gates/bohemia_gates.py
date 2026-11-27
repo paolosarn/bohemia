@@ -8632,6 +8632,18 @@ GATES = [
      "come off; D5 the price between dawn's and twice; D6 tape has no day (rule 271); D7 every number sourced. THE REAL PAGE (demo | alpha "
      "[phone_portrait | phone_landscape]), Caravans' stall at 06:01, 19:30, 23:00: P1 the whole stock at dawn; P2 dearer or SOLD OUT late; "
      "P3 SHUT at night, tape through the back, the keeper says it; P4 no page error. green at registration, 7/0 data, 4/0 a walk", True),
+    ('THE VALLEY AT THE STALL', ['node', 'gates/the_valley_at_the_stall_gate.js', 'data'],
+     "ECONOMY FOUR 11/27, rule 485(b) ('prices move with what is scarce'): the map's trading hub and the stall's day are one story. "
+     "records/BOHEMIA_ECONOMY_FOUR_THE_VALLEY_AT_THE_STALL_11_27_26.md (cited: Battle Brothers' Well Supplied and Ambushed Trade Routes, "
+     "its caravans raising a town's resources; Sarajevo's prices collapsing when movement opened). stall_prices.json the_valley through "
+     "engine valleyCard and restockMin: V1 calm changes nothing; V2 the empty valley off the roads, need 1.5 and half the shelf; V3 a road "
+     "never dearer or thinner; V4 monotone; V5 food reads water too, rounds and tape none; V6 a caravan in today refills the shelf; V7 every "
+     "number sourced; V8 the valley never written. green at registration, 8/0", True),
+    ('THE VALLEY AT THE STALL (demo)', ['node', 'gates/the_valley_at_the_stall_gate.js', 'demo', 'phone_portrait'],
+     "ECONOMY FOUR gate: THE REAL PAGE (demo | alpha [phone_portrait | phone_landscape]): P1 the town is handed the valley (Caravans off "
+     "the roads, Mob on one); P2 eleven map days on, Caravans' need up, its shelf down, its food at first light no cheaper, SHORT; P3 Mob "
+     "after a caravan: the strip names it and the hour, more left than Caravans; P4 no page error. green at registration, 4/0 on all "
+     "four, about 3 min a walk", True),
     ('HIS MAP', ['node', 'gates/his_map_gate.js'],
      "WORLD TWO gate, 10/26, row [the best of both maps] (rule 243, Paolo 10/26: 'think about Valheim's map and how Battle "
      "Brothers' map is, let's do the best of both worlds... bosses where you're able to alter the map and what's going on in the "
