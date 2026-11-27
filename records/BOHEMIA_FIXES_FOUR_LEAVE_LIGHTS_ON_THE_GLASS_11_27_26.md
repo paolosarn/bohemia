@@ -59,3 +59,19 @@ there presses LEAVE. state.litAt and state.litWaits say how long and why (box, f
   door. The pop's 'end screen' row animates a door MOTION holds invisible; either the row defers to MOTION's door (the row's own
   `moving()` check cannot see a door that has not started moving yet) or MOTION's door drops its hold. Filed as an ask row.
 - FIGHT SCREEN 3 (the row's owner): told on the row; nothing of its end screen moved but the light.
+
+## 7. AND A FAINT TAP IS KEPT (BUILD 11/27zf - A FAINT TAP IS KEPT, ask row 776 FOUND BY EYES, 'COMBAT FIVE (with FIXES 4)')
+
+EYES 11/27 on the alpha at 4x: LEAVE showed faint 0.33 s after the fight ended; a tap on it then did nothing and the screen stood over
+40 s until a second tap; the round before, the same faint tap went home 9.9 s later: 'the same tap, two outcomes, no sign it was
+heard'. The faint LEAVE is FIXES 3's waiting rule (11/26f: until the screen opens, a tap does nothing), so this lane took it.
+NOW (slices/BOHEMIA_SPOILS_SCREEN.html __A_FAINT_TAP_IS_KEPT__): a tap on the faint LEAVE or MAKE CAMP is kept, every time. It sends
+nothing home while the screen is not open (the summary and the pockets still come first, FIXES 3's reason stands), the button shows
+pressed at once (html.sp-asked: 0.4 -> 0.7 and pushed down a pixel), and the moment the screen lights (open and on the glass, or its
+tables failed) it goes home by itself, once, as that button would (MAKE CAMP makes camp), the counts paid before the leave.
+state.keptTap says how long it waited. One outcome, and he sees it was heard.
+PROVEN: LEAVE WAITS FOR THE SCREEN re-aimed to the new rule (FIXES' own gate) 7/0: L1 held tables, a real tap sends nothing home and
+shows pressed (0.4 -> 0.7); L2 the tables let in, the kept tap goes home by itself once, the pockets paid first (counts, stash,
+leave), a second tap sends no second leave; L4 no early tap, one tap home paid first; L3 a dead network still goes home; P1 PLANTED
+(no wait) the early tap goes home unpaid-first; P2 PLANTED (FIXES 3's 11/26 page, the tap dropped) the faint tap is lost, the leg
+sees it.

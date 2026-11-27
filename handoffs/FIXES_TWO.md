@@ -2,7 +2,16 @@
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 # FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
 # FIXES FOUR (the chat answers to 'fixes 4', 11/27; FIXES 3 wrote HANDOFF READY at 02:13 11/27) carries this file on: same job, blocks named FIXES FOUR.
-FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (b) LATEST -- [leave lights] BUILD 11/27zc - LEAVE LIGHTS ON THE GLASS, BUILT, NOT YET SEEN: ask row 747
+FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (c) LATEST -- [faint tap] BUILD 11/27zf - A FAINT TAP IS KEPT, BUILT, NOT YET SEEN: ask row 776
+(EYES: a tap on the faint LEAVE was lost, the screen stood 40 s; 'COMBAT FIVE (with FIXES 4)': the faint LEAVE is FIXES 3's rule, so this lane).
+WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): a tap on LEAVE or MAKE CAMP while it is still faint stays pressed and
+goes home by itself the moment the end screen is ready, the loot counts paid first; never lost, never a second tap needed.
+THE PIECE: slices/BOHEMIA_SPOILS_SCREEN.html __A_FAINT_TAP_IS_KEPT__ (leave() keeps S.asked; keptTap() on the light and on a failed
+load; html.sp-asked). Gate LEAVE WAITS FOR THE SCREEN (FIXES' own) re-aimed to it, 7/0 (L1 L2 L4 L3, P1 P2 red). Record: section 7 of
+records/BOHEMIA_FIXES_FOUR_LEAVE_LIGHTS_ON_THE_GLASS_11_27_26.md. 11/27b (BUILD 11/27zc) pushed f95e2bc29.
+NEXT: as 11/27 (b) below, (1) to (5).
+
+FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (b) -- [leave lights] BUILD 11/27zc - LEAVE LIGHTS ON THE GLASS, BUILT, NOT YET SEEN: ask row 747
 (JOBS 2's find, FIGHT SCREEN 3's row, FIXES 3's open measurement). Record: records/BOHEMIA_FIXES_FOUR_LEAVE_LIGHTS_ON_THE_GLASS_11_27_26.md.
 No VOTE card (a timing; nothing new to look at). 11/27a (BUILD 11/27t, the beast bites) is pushed (40bf127fb).
 WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): after a fight, LEAVE and MAKE CAMP light the moment the end screen

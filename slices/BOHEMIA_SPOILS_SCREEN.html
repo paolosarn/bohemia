@@ -182,6 +182,8 @@ html body #counts .count[data-count=tape]::before{background-image:url(supply_ic
 /* __LEAVE_WAITS_FOR_THE_SCREEN__ (FIXES 3 11/26, rule 480(b), ask rows 697 and 722): until the screen has opened on the fight (its tables in,
    the fight's message read) LEAVE and MAKE CAMP read as not ready, and a tap on them does nothing; the moment it opens they light */
 html:not(.sp-live) #leave,html:not(.sp-live) #camp{opacity:.4;cursor:default}
+/* __A_FAINT_TAP_IS_KEPT__ (FIXES 4 11/27, row 776): pressed while faint, it stays pressed (heard), and goes the moment the screen lights */
+html.sp-asked:not(.sp-live) #leave,html.sp-asked:not(.sp-live) #camp{opacity:.7;translate:1px 1px;filter:none}
 .lost #loot{display:none}
 .man .xp,.man .nums,.man .lv{color:#c4b190}
 /* a phone: LOOT ALL rides the bottom bar beside LEAVE, one tap without a scroll however long the crew is (mobile first, rule 164 item 16) */
@@ -720,7 +722,12 @@ function leave(camp){
      went home at once: the summary he asked to stand (rule 164 item 28) never showed, and the batteries, rounds and tape off the bodies
      were never paid, because they are only found when the screen opens. Now LEAVE waits for the screen; if its tables cannot load at all,
      LEAVE still takes him home (nothing found, nothing lost). */
-  if(!S.seq && !S.failed) return;
+  /* __A_FAINT_TAP_IS_KEPT__ (FIXES 4 11/27, ask row 776 FOUND BY EYES: 'a tap on the faint LEAVE is lost ... the screen stood over 40 s
+     until a second tap; the round before the same faint tap was kept ... the same tap, two outcomes, no sign it was heard'). NOW a tap on
+     the faint LEAVE or MAKE CAMP is kept, every time: the button shows it was pressed at once (html.sp-asked), and the moment the screen
+     lights (open and on the glass, __LEAVE_LIGHTS_ON_THE_GLASS__; or its tables failed) it goes home as that button would, the counts
+     paid first. One outcome, and he sees it was heard. */
+  if(!S.seq && !S.failed){ S.asked = { camp: camp === true, at: Date.now() }; try{ document.documentElement.classList.add('sp-asked'); }catch(_e){} return; }
   if(!S.seq){ if(S.leaving === 'failed') return; S.leaving = 'failed'; post('leave', {left:0, stash:S.stash.length, camp:camp === true, failed:true}); return; }
   if(S.leaving === S.seq) return;   /* one leave a screen (a second tap during the tear does nothing) */
   try{ if(window.BohemiaAftermath) BohemiaAftermath.stop(); }catch(e){}   /* lets go of the fight's board and sheets before the frame is taken down */
@@ -943,7 +950,8 @@ function onTheGlass(){
 }
 function lightOnTheGlass(seq){
   var t0 = Date.now(), still = 0, lit = false;
-  var light = function(){ if(lit || S.seq !== seq) return; lit = true; S.litAt = Date.now() - t0; try{ document.documentElement.classList.add('sp-live'); }catch(_e){} };
+  var light = function(){ if(lit || S.seq !== seq) return; lit = true; S.litAt = Date.now() - t0; try{ document.documentElement.classList.add('sp-live'); }catch(_e){}
+    keptTap(); };
   var tick = function(){
     if(lit || S.seq !== seq) return;
     var why = onTheGlass(); still = why ? 0 : still + 1; if(why){ S.litWaits = S.litWaits || {}; S.litWaits[why] = (S.litWaits[why] | 0) + 1; }
@@ -953,6 +961,12 @@ function lightOnTheGlass(seq){
   };
   requestAnimationFrame(tick);
   setTimeout(light, LIT_MAX_MS + 100);   /* a page with no frames to draw (hidden) still lights */
+}
+/* __A_FAINT_TAP_IS_KEPT__: the tap he gave the faint LEAVE (or MAKE CAMP), answered the moment the screen lights */
+function keptTap(){
+  var a = S.asked; if(!a) return; S.asked = null; S.keptTap = { camp: a.camp, waited: Date.now() - a.at };
+  try{ document.documentElement.classList.remove('sp-asked'); }catch(_e){}
+  leave(a.camp);
 }
 /* ---------- open ---------- */
 function open(o){
@@ -1023,6 +1037,7 @@ Promise.all([C.load('../records/target/bb/'), fetch('../records/target/bb/loot.j
     open({ fight:smp, seed:7 }); }
   else post('ready', {});
 }).catch(function(e){ S.failed = true; try{ document.documentElement.classList.add('sp-live'); }catch(_e){}   /* __LEAVE_WAITS_FOR_THE_SCREEN__: LEAVE still goes home */
+  try{ keptTap(); }catch(_e){}   /* __A_FAINT_TAP_IS_KEPT__: a tap kept while it loaded goes home now */
   say('The spoils could not load: ' + e.message, true); post('ready', {failed:String(e && e.message)}); });
 })();
 </script>

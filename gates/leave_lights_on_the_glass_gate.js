@@ -23,9 +23,9 @@ const done = () => { console.log('LEAVE LIGHTS ON THE GLASS' + (PLANT ? ' (PLANT
 
 const SP = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SPOILS_SCREEN.html'), 'utf8');
 const l1 = /lightOnTheGlass\(S\.seq\);/.test(SP) && /function onTheGlass\(\)/.test(SP) && /var LIT_MAX_MS = 3000;/.test(SP) && /still >= 2/.test(SP)
-  && /setTimeout\(light, LIT_MAX_MS \+ 100\)/.test(SP) && /if\(!S\.seq && !S\.failed\) return;/.test(SP)
+  && /setTimeout\(light, LIT_MAX_MS \+ 100\)/.test(SP) && /if\(!S\.seq && !S\.failed\)\{ S\.asked = /.test(SP) && /keptTap\(\); \};/.test(SP)
   && !/classList\.add\('sp-live'\); \}catch\(_e\)\{\}   \/\* __LEAVE_WAITS_FOR_THE_SCREEN__: open, LEAVE lights \*\//.test(SP);
-leg(l1, '*** L1 THE PAGE ***: LEAVE lights when the screen stands on the glass (full box, opaque, still two frames, 3 s at most, a timer behind); LEAVE\'s own rule unchanged', l1);
+leg(l1, '*** L1 THE PAGE ***: LEAVE lights when the screen stands on the glass (full box, opaque, still two frames, 3 s at most, a timer behind); a faint tap kept for the light', l1);
 if (FAST) return done();
 
 function walk(throttle, fights) {
