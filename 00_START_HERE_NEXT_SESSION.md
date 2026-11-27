@@ -1,6 +1,7 @@
 UI FIVE (ui-five-01gkdyuu): 11/27 LATEST -- BUILD 11/27f - THE CLOCK UP TOP, BUILT, NOT YET SEEN (rule 487, ask row 755). Its block is handoffs/UI_FOUR.md.
 The day and the hour left the phone for the top bar's right end, with the sun's dial (the moon and a moonlit hour at night), on the map, in a town, at camp and on the end screen,
 upright and sideways, moving with the game's clock. Gate THE CLOCK UP TOP (new) 18/0, plants red; THE TOP IS ONLY RESOURCES and THE DAYS ONCE re-aimed. VOTE ui5-the-clock-up-top-11-27.
+Deployed (carried by ca29e8029's SUCCESS). THE VOTE TAB gate's door legs re-aimed at BEGIN, GO and the bar's or the phone's gear: 58/8 -> 61/5, the five other lanes' cards and one drag.
 [bb Battle Brothers: the day and the hour sit at the top of the world map, a sun or a moon beside them]
 HOME BASE 4 (home-base-01gkdyuux): 11/27 LATEST -- BUILD 11/27a - WHAT HE HAS SITS IN THE GROUND, BUILT, NOT YET SEEN (rules 482, 479(a); ask rows 735, 721). Its block is handoffs/HOME_BASE.md.
 The bosses' things with no piece of their own were icons pasted at 70 percent of a lot (a hook as tall as a house, no shadow): now things on the ground at a thing's size with their

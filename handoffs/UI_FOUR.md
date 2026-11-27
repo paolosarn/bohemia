@@ -11,6 +11,13 @@ records/BOHEMIA_UI_FIVE_THE_CLOCK_UP_TOP_11_27_26.md. VOTE ui5-the-clock-up-top-
   one row. slices/bohemia_phone.js: the phone's first line no longer says the day and the hour.
 - Gate THE CLOCK UP TOP (new): K1-K4 demo and alpha both ways, plants red. Re-aimed: THE TOP IS ONLY RESOURCES (B5 new; FOLLOWERS
   allowed; P1/P3 no time on the phone) and THE DAYS ONCE (once each, in the bar's clock).
+- DEPLOYED: the clock's own pages run was cancelled by the queue; the three after it (592831d94, c54b2ce6a, ca29e8029) carry it, all
+  SUCCESS. The VOTE card commit 5d51c6d0b.
+- THE VOTE TAB GATE, three door legs re-aimed (58/8 -> 61/5, the gate's finger, not the game): the landing leg taps BEGIN and the
+  barber's GO (its (195, 500) is a crew card now) and reads vote/p-vote; the gear leg presses the bar's gear or, upright, the phone's
+  SETTINGS (the floating gear steps aside once the bar has one, rule 150); the reach is read once the card stops growing (106 x 44).
+  The five left: other lanes' cards (dynasty x2, plumber 8 x2, cook 6, character 2 x2) and one finger drag on the VOTE page's picture
+  (moved -100, 0 with room -100, -114: sideways, not up), not looked at.
 NEXT for this lane, in order: (1) what EYES finds in this build; (2) the settings card's opening hitch on the slowed phone; (3) the
 upright 'Buy it and ...'; (4) the crew screen's weight line as a picture with RUN TWO.
 [bb Battle Brothers: the day and the hour sit at the top of the world map, a sun or a moon beside them]
