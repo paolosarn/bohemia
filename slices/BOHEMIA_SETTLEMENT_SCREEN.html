@@ -5543,7 +5543,7 @@ function clientName(o){ return (o.client.name + ', ' + o.client.from).toUpperCas
 function clientAct(o, full){
   /* RUN 10/25 __THE_JOBS_STARS__ (rule 146(e): one mark, stars, never skulls): the map's stars for the job, the UI's star */
   var stN = Math.max(1, Math.min(3, o.skulls || 1)); try{ if(window.parent && window.parent.loopJobStars) stN = window.parent.loopJobStars(o); }catch(e){}
-  var b = act(o.title, moneyWord(payShown(o.pay)), function(){ offerSpeak(o); }, full);
+  var b = act(o.title, moneyWord(payShown(o.pay, o)), function(){ offerSpeak(o); }, full);
   /* WORLD [a job says how far]: how long, beside the pay, on the board's list too */
   try{ var JK = window.parent && window.parent.BohemiaJobKinds, TR = (JK && JK.trip) ? (JK.tripCard ? JK.tripCard(o, S.place.name) : JK.trip(o, S.place.name)) : null, J = TR && TR.job, em0 = b.querySelector('em');   /* JOBS 2 __THE_CARD_IS_INSTANT__: the row and its card share one read */
     if(J && em0 && J.plays !== 'hold-defend'){ var tw = J.exact ? (J.total != null ? J.total : J.mins) : (J.totalHi != null ? J.totalHi : J.minsHi), h = tw / 60,   /* rule 222: there and back when he comes back to be paid */ sh = h < 1 ? 'UNDER 1 H' : h < 22 ? Math.round(h) + ' H' : (Math.round(h / 24 * 2) / 2) + (h < 36 ? ' DAY' : ' DAYS');
@@ -5626,10 +5626,10 @@ function offerSpeak(o){
   S.open = 'board';
   S.offerUp = o;
   var body = document.getElementById('sbody'); body.textContent = '';
-  var w = document.createElement('div'); w.className = 'who'; w.appendChild(mouth(face(null, clientWho(o), clientLook(o)), o.says.replace(/\{pay\}/g, payShown(o.pay))));
+  var w = document.createElement('div'); w.className = 'who'; w.appendChild(mouth(face(null, clientWho(o), clientLook(o)), o.says.replace(/\{pay\}/g, payShown(o.pay, o))));
   var sy = document.createElement('div'); sy.className = 'say';
   var nm = document.createElement('div'); nm.className = 'nm'; nm.textContent = clientName(o); sy.appendChild(nm);
-  var pp = document.createElement('p'); pp.textContent = o.says.replace(/\{pay\}/g, payShown(o.pay)); sy.appendChild(pp);
+  var pp = document.createElement('p'); pp.textContent = o.says.replace(/\{pay\}/g, payShown(o.pay, o)); sy.appendChild(pp);
   /* WORLD [a job says how far] (rule 186(c), Paolo 10/25: 'every time a job is presented it should show how long it's going to take
      to get there'): the trip before the yes, the map's own road and clock on the job the yes would make (BohemiaJobKinds.trip) */
   try{ var JK = window.parent && window.parent.BohemiaJobKinds, TR = (JK && JK.trip) ? (JK.tripCard ? JK.tripCard(o, S.place.name) : JK.trip(o, S.place.name)) : null;   /* JOBS 2 __THE_CARD_IS_INSTANT__ */
@@ -5644,7 +5644,7 @@ function offerSpeak(o){
   try{ var ST = standHere(); if(ST.word){ var sw = document.createElement('div'); sw.className = 'trip stand'; sw.textContent = ST.word; sy.appendChild(sw); } }catch(e){}   /* ECONOMY 2: the standing, said on the offer */
   w.appendChild(sy); body.appendChild(w);
   var acts = document.createElement('div'); acts.className = 'acts offer';
-  var take = function(){ S.held.push(o.id); (S.heldInfo = S.heldInfo || {})[o.id] = {title:o.title, place:S.place.name}; post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, payShown(o.pay)), standing:{mult:standHere().mult}})});   /* the base pay rides on, the map adds the start's bonus once (loopJobPay) */ heard('On your map: '+o.title+', for '+o.client.name+'.'); shelf(); };
+  var take = function(){ S.held.push(o.id); (S.heldInfo = S.heldInfo || {})[o.id] = {title:o.title, place:S.place.name}; post('contract',{contract:Object.assign({}, o, {says:o.says.replace(/\{pay\}/g, payShown(o.pay, o)), standing:{mult:standHere().mult}, short:{mult:shortHere(o).mult, good:shortHere(o).good || null}})});   /* the base pay rides on, the map adds the start's bonus once (loopJobPay) */ heard('On your map: '+o.title+', for '+o.client.name+'.'); shelf(); };
   var out = S.held.length >= SLOTS ? swapOut() : null, oc = out ? heldCost(out) : null;
   if(out && jobsK()){   /* __DROP_A_JOB_RIGHT_IN_THE_TOWN__ (rule 197(b)): full, so he asks once and the yes swaps in the same tap */
     /* __TWO_JOBS_AT_ONCE__ (rule 228(b)): two is the most, said plainly, and the swap for either job he holds (this town's first) */
@@ -5677,7 +5677,10 @@ function offerSpeak(o){
    bar (opinionNow, the arrival's own number) on records/target/bb/job_pay.json's standing: a friend pays a little more and the offer
    says so; the number rides to the map with the contract, so what he is shown is what he is paid */
 function standHere(){ try{ if(window.BohemiaJobPay) return BohemiaJobPay.standing(opinionNow()); }catch(e){} return { mult:1, pct:0, word:'' }; }
-function payShown(p){ var r = S.payRule, cm = (window.BohemiaRenown ? BohemiaRenown.payMult() : 1) * (standHere().mult || 1);   /* __CLOUT__: the map's loopJobPay, the same sum (and the standing) */
+/* JOBS 2 11/26 __THE_WORK_FOLLOWS_WHAT_IS_SHORT__ (rule 485(b)): a job that brings what the valley is short of pays more (the map's
+   ledger through BohemiaJobKinds.short); the board's number rides with the contract (short), so what he is shown is what he is paid */
+function shortHere(o){ try{ var J = window.parent && window.parent.BohemiaJobKinds; var s = (o && J && J.short) ? J.short(o) : null; return (s && +s.mult > 0) ? s : { mult: 1 }; }catch(e){ return { mult: 1 }; } }
+function payShown(p, o){ var r = S.payRule, cm = (window.BohemiaRenown ? BohemiaRenown.payMult() : 1) * (standHere().mult || 1) * (o ? shortHere(o).mult : 1);   /* __CLOUT__: the map's loopJobPay, the same sum (and the standing) */
   return r ? Math.max(1, Math.round(((p | 0) + (r.add | 0)) * (r.mult || 1) * cm)) : Math.max(1, Math.round((p | 0) * cm)); }
 function boardHere(){
   var SH = window.BohemiaBoardShelf, ids = (S.traits||[]).map(function(t){ return t.id; });

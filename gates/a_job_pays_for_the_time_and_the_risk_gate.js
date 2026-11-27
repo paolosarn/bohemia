@@ -72,11 +72,11 @@ ok('the bar drifts back toward 50 by the wiki\'s 0.25 a dawn between visits (75,
 /* THE WIRES */
 const CW = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_CITY_WORLD.html'), 'utf8'), SE = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.html'), 'utf8');
 const PH = fs.readFileSync(path.join(ROOT, 'slices/bohemia_phone_board.js'), 'utf8');
-const lj = (CW.match(/function loopJobPay\(base, place, st\)\{[\s\S]*?\n  if\(!p\)/) || [''])[0];
+const lj = (CW.match(/function loopJobPay\(base, place, st(, offer)?\)\{[\s\S]*?\n  if\(!p\)/) || [''])[0];   /* JOBS 2 11/27: and the job (offer), for what the valley is short of (rule 485(b)) */
 ok('the map\'s pay reads the town\'s standing (the board\'s number first, else the town\'s own bar)', /st\.mult/.test(lj) && /BohemiaJobPay\.at\(String\(place\)/.test(lj));
-ok('the take hands the town and the board\'s number to the pay', CW.indexOf('pay: loopJobPay(c.pay, town.name, c.standing)') >= 0);
-ok('the town\'s board shows the bent pay, says killing work or walking pay and the standing under the trip, and sends the number with the contract', /function payShown\(p\)\{[^\n]*standHere\(\)\.mult/.test(SE) && /ST\.word/.test(SE) && /BohemiaJobPay\.violenceWord\(o\.id\)/.test(SE) && SE.indexOf('standing:{mult:standHere().mult}') >= 0);
-ok('the phone passes the place, so it lists the bent pay', PH.indexOf('loopJobPay(o.pay, name)') >= 0);
+ok('the take hands the town and the board\'s number to the pay', (CW.indexOf('pay: loopJobPay(c.pay, town.name, c.standing)') >= 0 || CW.indexOf('pay: loopJobPay(c.pay, town.name, c.standing, c)') >= 0));
+ok('the town\'s board shows the bent pay, says killing work or walking pay and the standing under the trip, and sends the number with the contract', /function payShown\(p(, o)?\)\{[^\n]*standHere\(\)\.mult/.test(SE) && /ST\.word/.test(SE) && /BohemiaJobPay\.violenceWord\(o\.id\)/.test(SE) && SE.indexOf('standing:{mult:standHere().mult}') >= 0);
+ok('the phone passes the place, so it lists the bent pay', (PH.indexOf('loopJobPay(o.pay, name)') >= 0 || PH.indexOf('loopJobPay(o.pay, name, null, o)') >= 0));
 ok('both pages load the pay engine', CW.indexOf('<script src="../engine/bohemia_job_pay.js"></script>') >= 0 && SE.indexOf('<script src="../engine/bohemia_job_pay.js"></script>') >= 0);
 const SH = fs.readFileSync(path.join(ROOT, 'tools/bohemia_run2_board_shelf.py'), 'utf8');
 ok('the shelf\'s baker reads the table (a modder edits job_pay.json, not the baker)', /job_pay\.json/.test(SH) && /PAYS\.get\(/.test(SH));

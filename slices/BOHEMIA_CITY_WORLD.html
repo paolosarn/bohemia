@@ -46734,11 +46734,14 @@ function startInTown(p){
   need('../engine/bohemia_roster.js', function(){ return !!window.BohemiaRoster; }, function(){ go(0); });
 }
 /* ==== /__THE_GAME_STARTS_IN_A_TOWN__ ==== */
-function loopJobPay(base, place, st){ var p = LOOP.start, cm = window.BohemiaRenown ? BohemiaRenown.payMult() : 1;   /* __CLOUT__ (RUN TWO [money teaches], rule 151(b)): Battle Brothers' 'the crowns reward increases with your company's Renown', x1 to x4.5 (TUNING) */
+function loopJobPay(base, place, st, offer){ var p = LOOP.start, cm = window.BohemiaRenown ? BohemiaRenown.payMult() : 1;   /* __CLOUT__ (RUN TWO [money teaches], rule 151(b)): Battle Brothers' 'the crowns reward increases with your company's Renown', x1 to x4.5 (TUNING) */
   /* __A_JOB_PAYS_FOR_THE_TIME_AND_THE_RISK__ (ECONOMY 2, rule 323, Paolo 11/2: 'how friendly you are with the settlement'): the client
      town's standing bends the pay (records/target/bb/job_pay.json standing: a friend +4 to +15%, a cold town less); the board hands
      the number it showed (st), else the town's own bar (engine/bohemia_job_pay.js). The base itself is the job's time and risk, baked */
   try{ if(st && +st.mult > 0) cm *= +st.mult; else if(place && window.BohemiaJobPay) cm *= BohemiaJobPay.at(String(place), loopDay()).mult; }catch(_e){}
+  /* JOBS 2 11/26 __THE_WORK_FOLLOWS_WHAT_IS_SHORT__ (rule 485(b)): a job that brings what the valley is short of pays more; the board's
+     number rides with the contract (offer.short), else the valley's ledger now (slices/bohemia_job_kinds.js short()) */
+  try{ if(offer){ var __sh = (offer.short && +offer.short.mult > 0) ? offer.short : (window.BohemiaJobKinds && BohemiaJobKinds.short ? BohemiaJobKinds.short(offer) : null); if(__sh && +__sh.mult > 0) cm *= +__sh.mult; } }catch(_e){}
   if(!p) return Math.max(1, Math.round((base | 0) * cm)); return Math.max(1, Math.round(((base | 0) + (p.pay | 0)) * (p.mult || 1) * cm)); }
 /* __A_FEW_NOT_TWELVE__ (RUN 10/5, [a few, not twelve], rule 75b). PAOLO 10/5: 'for demo purposes just one enemy
    attacking... 12 vs 12 is cool but that can't be the flow... a lot of math on the type of enemies, the difficulty, the
@@ -47829,7 +47832,7 @@ function loopTakeContract(c){
   if(LOOP.held.some(function(h){ return h.id === c.id; })) return false;
   var town = LOOP.open || loopTownAt(city.x, city.y, 2) || { x: city.x, y: city.y, name: '?' };
   var tg = loopTarget(town, c.id); if(!tg) return false;
-  var job = { id: c.id, title: String(c.title || 'a job'), pay: loopJobPay(c.pay, town.name, c.standing), from: town.name,
+  var job = { id: c.id, title: String(c.title || 'a job'), pay: loopJobPay(c.pay, town.name, c.standing, c), from: town.name,
               target: tg, skulls: (c.skulls | 0) || 1 };
   job.party = partyMath('job', { skulls: job.skulls }); job.crew = job.party.count;   /* __A_FEW_NOT_TWELVE__: sized by the math */
   /* __EVERY_JOB_KIND__ (WORLD [every job kind], rule 153(b), Paolo 10/24: 'I want more quest types'): the job's KIND decides where it

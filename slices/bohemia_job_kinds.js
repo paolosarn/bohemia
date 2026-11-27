@@ -1819,6 +1819,23 @@
      (0 and 500 ms, the 120 BPM law), and it drops out once more before it goes; and the board's own tack is heard once (SOUNDS'
      recording 'THE BOARD: A TACK GOES IN', slices/vote/settlement_heard/board_nail.mp3, the job's paper getting its mark) on the
      game's effects bus, so the EFFECTS slider and MUTE hold for it. */
+  /* JOBS 2 11/26 __THE_WORK_FOLLOWS_WHAT_IS_SHORT__ (rule 485(b): 'prices move with what is scarce'; the coordinator: 'a job's pay and
+     its client follow what the city is short of; ECONOMY THREE has the calls'). The valley's own ledger (the map's mktLedger(),
+     engine/bohemia_economy.js: water, food, meds and fuel run down every day whether he looks or not) prices a good by its days of
+     supply. A job that brings a good the valley is short of pays more (records/target/bb/job_pay.json short: 1 + share x log2 of the
+     ledger's price, capped), and the board asks one such job first (slices/bohemia_board_shelf.js). The job's good is read from its
+     title's words (the same table). What the board shows rides to the map with the contract (short.mult), so it is what he is paid. */
+  function shortTable() { try { var P = root.BohemiaJobPay, D = P && P.data ? P.data() : null; return D && D.short && D.short.value ? D.short.value : null; } catch (e) { return null; } }
+  function goodOf(o) { var T = shortTable(); if (!T || !o) return null; var t = (String(o.title || '') + ' ' + String(o.id || '')).toLowerCase();
+    for (var g in T.goods) { var W = T.goods[g] || []; for (var i = 0; i < W.length; i++) if (t.indexOf(W[i]) >= 0) return g; } return null; }
+  function scarceOf(g) { try { var E = root.BohemiaEconomy, L = typeof mktLedger === 'function' ? mktLedger() : null; if (!E || !L || !g || !E.GOODS[g]) return null;
+    var dl = E.daysLeft(L, g); return { days: dl, price: E.scarcityMult(dl) }; } catch (e) { return null; } }
+  function short(o) {
+    var T = shortTable(), g = goodOf(o); if (!T || !g) return { good: g, mult: 1 };
+    var s = scarceOf(g); if (!s || !(s.price > 1)) return { good: g, mult: 1, days: s ? s.days : null };
+    return { good: g, mult: +Math.min(T.cap || 1.5, 1 + (T.share || 0) * Math.log(s.price) / Math.LN2).toFixed(3), days: s.days, price: s.price };
+  }
+  function shortNow() { var T = shortTable(); if (!T) return []; return Object.keys(T.goods).filter(function (g) { var s = scarceOf(g); return !!s && s.price > 1; }).sort(); }
   /* the steps, in order: [ms, the plate on, which ring (-1 none), how far out]; a slow phone shows every one, one a frame, late */
   var FLASH_SEQ = [[0, 1, 0, 0], [70, 0, 0, 0.5], [140, 1, 0, 1], [210, 1, -1, 0], [500, 1, 1, 0], [570, 1, 1, 0.5], [640, 1, 1, 1], [710, 1, -1, 0], [3300, 0, -1, 0], [3400, 1, -1, 0]];
   var FLASH = null, FLASH_O = [0, 0], FLASH_STEPS = [70, 140, 210, 500, 570, 640, 710, 3300, 3400, 3600];
@@ -2340,7 +2357,7 @@
   try { root.setInterval(function () { try { wrapRender(); if (DATA && lightTheDark() && typeof root.render === 'function') root.render(); } catch (e) {} }, 1000); } catch (e) {}
   root.BohemiaJobKinds = { load: load, set: set, ready: function () { return !!DATA; }, data: function () { return DATA; }, fightsOf: fightsOf,
     kindOf: kindOf, word: word, built: built, owns: owns, make: make, arrived: arrived, step: step, fightEnd: fightEnd,
-    here: here, pace: pace, status: status, tap: tap, draw: draw, plural: plural, flash: flash, hits: function () { return HITS.slice(); }, plates: function () { return MINE.slice(); },
+    here: here, pace: pace, status: status, tap: tap, draw: draw, plural: plural, flash: flash, short: short, shortNow: shortNow, goodOf: goodOf, hits: function () { return HITS.slice(); }, plates: function () { return MINE.slice(); },
     roster: rosterMen, rosterLevels: rosterLevels, names: names, nextOf: nextOf, realPlace: realPlace, trip: trip, asks: asks, asksCard: asksCard, tripCard: tripCard, tripLine: tripLine, warm: warm, plan: plan, comesBack: comesBack, payMarkHTML: payMarkHTML, payMark: markOf, walkRoute: walkRoute, walkGo: walkGo, walkOf: walkOf, timeWords: timeWords, shortTime: shortTime, rosterWhy: rosterWhy, rosterSays: rosterSays, phonePlaces: phonePlaces, placesNamed: placesNamed, lightTheDark: lightTheDark,
     drop: drop, dropCost: dropCost, standing: standing, settledTake: settledTake, settledPeek: settledQ, settleJob: settle, landTap: landTap,
     letGo: PACK_LETS_GO, beastPic: function (look) { return { im: beastImg(look), m: beastMeta(look) }; } };   /* WORLD 11: the pack's hold for the gate; a beast's own sheet for the kill on the map (slices/bohemia_carcass.js, WORLD 12) */

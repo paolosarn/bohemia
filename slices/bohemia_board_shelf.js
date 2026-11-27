@@ -64,6 +64,10 @@
       var nd = needOf(o, tier); if (CL < nd) need = need ? Math.min(need, nd) : nd; });
     return need ? { need: need, have: CL } : null;
   }
+  /* JOBS 2 11/26 __THE_WORK_FOLLOWS_WHAT_IS_SHORT__ (rule 485(b)): the map's read of what the valley is short of (BohemiaJobKinds.short,
+     the valley's own ledger), from a board's page or the map's own */
+  function shortJK() { try { var J = root.BohemiaJobKinds || (root.parent && root.parent !== root && root.parent.BohemiaJobKinds); return J && J.short && J.shortNow ? J : null; } catch (e) { return null; } }
+  function shortSig() { var J = shortJK(); try { return J ? J.shortNow().join('+') : ''; } catch (e) { return ''; } }
   function fitter() { try { var W = root.BohemiaJobDanger || (root.parent && root.parent !== root && root.parent.BohemiaJobDanger); return W && W.fits ? W : null; } catch (e) { return null; } }
   function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
   /* a copy that is safe to hand around: {crew} said, the client copied */
@@ -114,7 +118,7 @@
   var DRAFT = { key: null }, RESERVE = 4;
   function draft(day, opt) {
     var win = Math.floor((day || 0) / (SHELF.refresh_days || 3)), C = SHELF.counts || {};
-    var key = win + '|' + (day | 0) + '|' + (opt.held || []).join(',') + '|' + (opt.done || []).join(',') + '|' + (opt.crew || '') + '|' + cloutLevel(clout()) + '|' + barsSig() + '|' + opt.places.map(function (p) { return p.name + ':' + p.tier + ':' + (p.traits || []).join('+'); }).join(';');
+    var key = win + '|' + (day | 0) + '|' + (opt.held || []).join(',') + '|' + (opt.done || []).join(',') + '|' + (opt.crew || '') + '|' + cloutLevel(clout()) + '|' + barsSig() + '|' + shortSig() + '|' + opt.places.map(function (p) { return p.name + ':' + p.tier + ':' + (p.traits || []).join('+'); }).join(';');
     if (DRAFT.key === key) return DRAFT;
     var order = opt.places.slice().sort(function (a, b) { return seedOf(a.name + ':order:' + win) - seedOf(b.name + ':order:' + win) || (a.name < b.name ? -1 : 1); });
     var taken = {}, own = {}, want = {}, frozen = {}, dup = {};
@@ -226,6 +230,8 @@
       if (traits.indexOf(t) >= 0) take(all.filter(function (o) { return o.when === t && trusted(o, TR); }), Math.min(n, out.length + 1));   /* __THE_TOWN_REMEMBERS__: the news's work is trusted the same */
     });
     if (own.length) take(own, Math.min(n, out.length + 1));
+    var SJ = shortJK();   /* __THE_WORK_FOLLOWS_WHAT_IS_SHORT__: what the valley is short of asks next: one job that brings it */
+    if (SJ && shortSig()) take(ordinary.filter(function (o) { try { return SJ.short(o).mult > 1; } catch (e) { return false; } }), Math.min(n, out.length + 1));
     take(ordinary, n);
     return never(out, kept, ordinary);
     /* *** THE BOARDS ALWAYS HAVE WORK (PLUMBER 3, rule 335, Paolo 11/2: 'no one has any jobs anymore... make sure it doesn't

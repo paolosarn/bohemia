@@ -2435,6 +2435,10 @@ GATES = [
      'JOBS 2 11/26, ask row 730, rules 482, 480(c), 466(c), 441: a job\'s card opens at once (its reads kept and warmed from the board: '
      'the tap\'s longest task at 4x 608 ms -> under 300) and reads clean (the trip as PLACE and about how long, a stop a line, no followers); '
      'on the phone, the demo and the alpha both ways (records/BOHEMIA_JOBS_TWO_THE_CARD_READS_CLEAN_11_26_26.md).', True),
+    ('THE WORK FOLLOWS WHAT IS SHORT', ['node', 'gates/the_work_follows_what_is_short_gate.js'],
+     'JOBS 2 11/27, rule 485(b), 482, 441: a job that brings what the valley is short of (the map\'s own ledger: water, food, meds, '
+     'fuel) pays more (1 + share x log2 of the ledger\'s price, capped; job_pay.json short) and the board asks one first; shown is '
+     'paid; on the phone, the demo and the alpha (records/BOHEMIA_JOBS_TWO_THE_WORK_FOLLOWS_WHAT_IS_SHORT_11_27_26.md).', True),
     ('A JOB HAS ONE DOOR', ['node', 'gates/a_job_has_one_door_gate.js'],
      'JOBS 2 11/26, ask row 698 (FOUND BY PLUMBER 8, EVERY CHANGE AT SIXTY C2), rules 425, 255, 335, 441: the board deals a job to the '
      'same town whatever order the danger reads come in; the deal on the real shelf in Node, the reads landing four ways, the boards the '
