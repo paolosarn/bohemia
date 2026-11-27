@@ -19,12 +19,15 @@
      E8  THE PLACE REMEMBERS (rule 412): planting, a move-in, a prize, a name, a build are kept; a resident tells one, 'you' in its act,
          'your father' one on, 'your granddad' two on; planted: a story told in act 3 that still says 'you' is caught
    ON THE DEMO (phone upright and sideways; the game itself, never a bench page):
-     D1  never in the first minute: no PLANT on day 1 in the town he wakes in, nor on the map
-     D2  from day 2, on the map, PLANT is on the glass in the phone's band and the finger lands on it
-     D3  its page grades the block he stands on (WATER, POWER, ROAD, DANGER) and PLANT HERE is off on ground that cannot take it
+     (D1 to D5 RE-AIMED by HOME BASE 6 11/27, rule 492(a), plan C: the flow left the phone's 100 px page for the map's glass, said by his
+      crew's best man, slices/bohemia_your_place.js; the taps are the glass's, tools/bohemia_your_place_glass.js; the phone keeps the record)
+     D1  never in the first minute: nothing of his place on the glass on day 1 in the town he wakes in, nor on the map
+     D2  from day 2, on the map, his best man says it on the glass and LOOK FOR GROUND is under the finger, 44 px and up
+     D3  the glass shows what the block he stands on gives (WATER, POWER, ROAD, SAFE, in pips), says why ground that cannot take it
+         is no good, and offers no PLANT HERE there; beside good ground PLANT HERE is the gold button under the finger
      D4  PLANT HERE asks 'Are you sure? This is permanent.'; NOT YET leaves him unplanted
      D5  PLANT HERE planted it: his outfit's seat is the block (ctBases, turfSeats, the painter's key), the map names it his
-         (never CUSTOM), PLANT is gone; a second planting is refused PERMANENT
+         (never CUSTOM), the glass offers no planting any more (GO IN); a second planting is refused PERMANENT
      D6  the night bills it from the purse (the bill's own number), and a man he let go comes to live there and eats from it;
          planted: the night's hook taken out is caught
      D7  a boss's prize (THE POT's verb) stands there and pays back
@@ -230,6 +233,7 @@ if (process.argv.includes('--engine')) done();
 /* ---------------- ON THE DEMO ---------------- */
 const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
 const { throughTheTitle, continueThroughTitle } = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
+const GL = require(path.join(ROOT, 'tools/bohemia_your_place_glass.js'));   /* HOME BASE 6: the flow is on the map's glass */
 const ONLY = arg('--only');
 const PROFS = ['phone_portrait', 'phone_landscape'].filter(p => !ONLY || p === ONLY);
 async function box(P, sel) { return P.evaluate(s => { const e = document.querySelector(s); if (!e) return null; const cs = getComputedStyle(e); if (cs.display === 'none' || cs.visibility === 'hidden') return null;
@@ -251,8 +255,8 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
     const P = d.page, F = d.fr;
     for (let i = 0; i < 40; i++) { if (await F.evaluate(() => !!(window.BohemiaHome && BohemiaHome.data())).catch(() => false)) break; await P.waitForTimeout(250); }
     const d1 = await F.evaluate(() => ({ day: DAY.day | 0, offer: BohemiaHomeMap.offer(), planted: BohemiaHomeMap.state().planted, label: BohemiaHomeMap.label() }));
-    const b1 = await box(P, '#bohphone .bpctx .pl');
-    ok('D1 day ' + d1.day + ' where he wakes: no PLANT on the phone, unplanted, his camp reads ' + d1.label, d1.day <= 1 && !d1.offer && !b1 && !d1.planted && d1.label === 'YOUR CAMP', JSON.stringify(d1));
+    const y1 = await GL.state(F);
+    ok('D1 day ' + d1.day + ' where he wakes: nothing of his place on the glass (' + (y1 && y1.step) + '), unplanted, his camp reads ' + d1.label, d1.day <= 1 && !d1.offer && !!y1 && y1.step === 'quiet' && !y1.shown && !d1.planted && d1.label === 'YOUR CAMP', JSON.stringify([d1, y1]));
     /* a block that can take it, near him, that he can stand on */
     const spot = await F.evaluate(() => { try { loopClose(); } catch (e) {} const x0 = city.x, y0 = city.y; let best = null, blk = null;
       for (let r = 2; r < 24 && !best; r++) for (let dy = -r; dy <= r && !best; dy++) for (let dx = -r; dx <= r; dx++) { if (Math.max(Math.abs(dx), Math.abs(dy)) !== r) continue;
@@ -263,8 +267,8 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
         const ch = BohemiaHomeMap.choose(x, y); if (ch && ch.g && !ch.g.ok) return [x, y]; } return null; })();
       city.x = bad[0]; city.y = bad[1]; try { render(); } catch (e) {} return { best, bad, blk }; });
     await P.waitForTimeout(900);
-    const b1m = await box(P, '#bohphone .bpctx .pl');
-    ok('D1 day 1 on the map: still no PLANT (never in the first minute)', !b1m);
+    const y1m = await GL.state(F);
+    ok('D1 day 1 on the map: still nothing of his place on the glass (never in the first minute)', !!y1m && y1m.step === 'quiet' && !y1m.shown, JSON.stringify(y1m));
     await F.evaluate(() => { try { render(); } catch (e) {} }); await P.waitForTimeout(500);
     const h0 = await F.evaluate(HIS);
     ok('D11 a fresh game, before planting: NO place of his (camp on the map ' + h0.onMap + ', ledger ' + h0.ledger.length + ', yours ' + h0.mine.length + ', seat ' + h0.seats + ', named CUSTOM/YOUR CAMP ' + h0.plates.some(t => /CUSTOM|YOUR CAMP/.test(t)) + ')',
@@ -277,11 +281,12 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
     const boss = await F.evaluate(() => { const H = BohemiaHomeBases, bs = ctBases(), n = Object.keys(bs)[0]; const r = H.took(hbRec(), { base: n, to: H.YOU, by: 'boss', why: 'THE TAP', day: 2 }); return { n, r, his: lotIsMine(n) }; });
     ok('D11 a boss\'s fall handing him ' + boss.n + ' is refused by the ledger (' + (boss.r && boss.r.reason) + ')', boss.r && !boss.r.applied && boss.r.reason === 'ONLY_THE_PLANTED_PLACE' && !boss.his, JSON.stringify(boss));
     await F.evaluate(() => { DAY.day = 2; try { render(); } catch (e) {} }); await P.waitForTimeout(1200);
-    const b2 = await box(P, '#bohphone .bpctx .pl');
-    ok('D2 day 2 on the map: PLANT on the glass in the band, the finger lands on it', !!b2 && b2.hit && b2.on, JSON.stringify(b2));
-    if (b2) await P.touchscreen.tap(b2.x, b2.y); await P.waitForTimeout(1100);
-    const t3 = await phoneText(P), pb3 = await box(P, '#bohphone .hb button[data-h="plant"]');
-    ok('D3 on ground he can stand on with nothing to plant on it or beside it: the page grades it and PLANT HERE is off, NOT HERE said', /WATER/.test(t3) && /POWER/.test(t3) && /ROAD/.test(t3) && /DANGER/.test(t3) && pb3 && pb3.dis && /NOT HERE/.test(t3), t3.replace(/\n/g, ' '));
+    const y2 = await GL.until(F, 'offer'), p2 = await GL.panel(F), b2 = await GL.button(P, F, 'look');
+    ok('D2 day 2 on the map: ' + (p2 && p2.who) + ' says it on the glass (' + (p2 && p2.line) + '), LOOK FOR GROUND under the finger, ' + (b2 && b2.h) + ' px', !!y2 && !y2.timedOut && !!p2 && p2.face > 200 && !!b2 && b2.hit && b2.in && b2.h >= 44 && b2.gold, JSON.stringify([y2 && y2.step, p2, b2]));
+    if (b2) await GL.tap(P, F, 'look', 1100);
+    const y3 = await GL.until(F, ['bad', 'none']), p3 = await GL.panel(F), why3 = await F.evaluate(() => { const s = BohemiaHomeMap.state(), g = s.here && s.here.g; return g ? (BohemiaHome.data().flow.why || {})[g.why] || '' : ''; });
+    ok('D3 on ground he can stand on with nothing to plant on it or beside it: the glass shows what it gives (' + (p3 && p3.marks.map(m => m.k + ' ' + m.n).join(', ')) + '), says why (' + (p3 && p3.line) + ') and offers no PLANT HERE',
+       !!p3 && p3.marks.map(m => m.k).join() === 'water,power,road,safe' && p3.buttons.indexOf('plant') < 0 && !!why3 && p3.line.indexOf(why3) === 0, JSON.stringify([y3 && y3.step, p3, why3]));
     const b12 = await F.evaluate(() => { const st = BohemiaHomeMap.state(), b = st.better; if (!b) return { none: true };
       const ch = BohemiaHomeMap.choose(b.x, b.y); return { b, walk: cityWalkable(b.x, b.y), ok: !!(ch && ch.g && ch.g.ok), planted: ch ? [ch.x, ch.y] : null }; });
     ok('D12 (row 549) from where nothing can be planted, BETTER points ' + (b12.b ? b12.b.d + ' ' + b12.b.dir : 'nowhere') + ' at a street he can stand on, and from there PLANT HERE works', !b12.none && b12.walk && b12.ok, JSON.stringify(b12));
@@ -290,16 +295,20 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       if (g && g.ok && !cityWalkable(x, y)) { const ch = BohemiaHomeMap.choose(x, y); return { at: [x, y], pass: cityWalkable(x, y) && !!(ch && ch.g && ch.g.ok) }; } } return null; });
     ok('D12 planted: the same test aimed at a plantable block he cannot stand on (' + (m12 && m12.at) + ', the old target) is red', !!m12 && m12.pass === false, JSON.stringify(m12));
     await F.evaluate(s => { city.x = s[0]; city.y = s[1]; try { render(); } catch (e) {} }, spot.best); await P.waitForTimeout(1500);
-    const t3b = await phoneText(P), pb3b = await box(P, '#bohphone .hb button[data-h="plant"]');
-    ok('D3 (row 549) on the street beside a block with water ' + spot.best[2] + ' and road ' + spot.best[3] + ': THE BLOCK ' + spot.blk[2] + ', PLANT HERE is on', !!pb3b && !pb3b.dis && pb3b.hit && /THE BLOCK/.test(t3b), t3b.replace(/\n/g, ' '));
-    ok('D14 the YOUR PLACE page says it: WAITING FOR YOUR PLACE: ' + (t3b.match(/WAITING FOR YOUR PLACE: ([^\n]*)/) || [])[1], /WAITING FOR YOUR PLACE: .*POT/.test(t3b), t3b.replace(/\n/g, ' '));
-    await P.touchscreen.tap(pb3b.x, pb3b.y); await P.waitForTimeout(800);
-    const t4 = await phoneText(P), no = await box(P, '#bohphone .hb button[data-h="no"]');
-    ok('D4 it asks: Are you sure? This is permanent.', /Are you sure\? This is permanent\./.test(t4) && !!no, t4.replace(/\n/g, ' '));
-    if (no) await P.touchscreen.tap(no.x, no.y); await P.waitForTimeout(700);
+    const y3b = await GL.until(F, 'good'), pb3b = await GL.button(P, F, 'plant');
+    ok('D3 (row 549) on the street beside a block with water ' + spot.best[2] + ' and road ' + spot.best[3] + ' (' + spot.blk[2] + '): PLANT HERE is the gold button under the finger, ' + (pb3b && pb3b.h) + ' px', !!y3b && !y3b.timedOut && !!pb3b && pb3b.hit && pb3b.in && pb3b.gold && pb3b.h >= 44, JSON.stringify([y3b && y3b.step, pb3b]));
+    /* the phone keeps THE RECORD (rule 492, plan C): its YOUR PLACE page, opened by the phone's own press */
+    await P.evaluate(() => window.BohemiaPhone.press('home')).catch(() => {}); await P.waitForTimeout(900);
+    const t3b = await phoneText(P), pbtn = await P.evaluate(() => document.querySelectorAll('#bohphone .hb button').length).catch(() => -1);
+    ok('D14 the phone\'s record says it: WAITING FOR YOUR PLACE: ' + (t3b.match(/WAITING FOR YOUR PLACE: ([^\n]*)/) || [])[1] + '; the record has no buttons of the flow (' + pbtn + ')', /WAITING FOR YOUR PLACE: .*POT/.test(t3b) && pbtn === 0, t3b.replace(/\n/g, ' '));
+    await P.evaluate(() => window.BohemiaPhone.press('home')).catch(() => {}); await P.waitForTimeout(500);
+    await GL.until(F, 'good'); await GL.tap(P, F, 'plant', 800);
+    const y4 = await GL.until(F, 'sure'), no = await GL.button(P, F, 'no');
+    ok('D4 it asks: Are you sure? This is permanent. (' + (y4 && y4.line) + '), NOT YET under the finger', !!y4 && y4.line === 'Are you sure? This is permanent.' && !!no && no.hit && no.h >= 44, JSON.stringify([y4, no]));
+    if (no) await GL.tap(P, F, 'no', 700);
     ok('D4 NOT YET leaves him unplanted', !(await F.evaluate(() => BohemiaHomeMap.state().planted)));
-    const pb4 = await box(P, '#bohphone .hb button[data-h="plant"]'); if (pb4) await P.touchscreen.tap(pb4.x, pb4.y); await P.waitForTimeout(700);
-    const yes = await box(P, '#bohphone .hb button[data-h="yes"]'); if (yes) await P.touchscreen.tap(yes.x, yes.y); await P.waitForTimeout(1500);
+    await GL.until(F, 'good'); await GL.tap(P, F, 'plant', 700);
+    await GL.until(F, 'sure'); await GL.tap(P, F, 'plant', 1500);
     const a5 = await F.evaluate(s => { const bs = ctBases(), m = BohemiaBetween.mine(), seat = (turfSeats() || []).filter(x => x.faction === m)[0];
       const f = townFoot({ name: m, x: s[0], y: s[1] });
       return { st: BohemiaHomeMap.state(), base: [bs[m].x, bs[m].y], seat: seat ? [seat.x, seat.y] : null, key: VB_TOWNS.key || '', foot: f.x0 + ',' + f.y0 + ',' + f.n,
@@ -310,7 +319,8 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
     ok('D5 planted the block ' + spot.blk[2] + ', ' + spot.blk.slice(0, 2) + ': his outfit\'s seat IS the block (bases ' + a5.base + ', seat ' + a5.seat + ')', a5.st.planted && a5.base[0] === spot.blk[0] && a5.base[1] === spot.blk[1] && a5.seat && a5.seat[0] === spot.blk[0], JSON.stringify(a5).slice(0, 300));
     ok('D5 the painter is handed his place\'s foot (' + a5.foot + ' in the key)', (await F.evaluate(() => VB_TOWNS.key || '')).indexOf(a5.foot) >= 0);
     ok('D5 the map names it his (' + a5.st.name + '), never CUSTOM', plates.indexOf(a5.st.name) >= 0 && plates.indexOf('CUSTOM') < 0, plates.join('|'));
-    ok('D5 PLANT is gone; a second planting is refused ' + a5.again + '; the save holds it', !(await box(P, '#bohphone .bpctx .pl')) && a5.again === 'PERMANENT' && a5.saved && a5.saved.x === spot.blk[0]);
+    const y5 = await GL.state(F);
+    ok('D5 the glass offers no planting any more (' + (y5 && y5.step) + ': ' + (y5 && y5.buttons.join(',')) + '); a second planting is refused ' + a5.again + '; the save holds it', !!y5 && y5.buttons.indexOf('plant') < 0 && y5.step !== 'offer' && y5.step !== 'pill' && a5.again === 'PERMANENT' && a5.saved && a5.saved.x === spot.blk[0], JSON.stringify(y5));
     const h5 = await F.evaluate(HIS);
     ok('D11 after planting: EXACTLY ONE place of his, the planted block (' + h5.mine.join(',') + ' at ' + h5.at + '; the ledger ' + h5.ledger.length + ')', h5.onMap && h5.mine.length === 1 && h5.ledger.length === 1 && h5.at[0] === spot.blk[0] && h5.at[1] === spot.blk[1], JSON.stringify(h5));
     /* D6 the night */

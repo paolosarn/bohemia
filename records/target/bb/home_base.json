@@ -147,12 +147,10 @@
     "default": "YOUR PLACE"
   },
   "words": {
-    "plant_title": "PLANT HERE?",
     "plant_sure": "Are you sure? This is permanent.",
-    "plant_yes": "PLANT HERE",
-    "plant_no": "NOT YET",
     "planted": "planted",
-    "not_here": "NOT HERE"
+    "page_none_title": "NO PLACE YET",
+    "page_none": "Your crew shows you good ground on the map."
   },
   "story": {
     "_about": "THE PLACE REMEMBERS (rule 412: 'a lot of your relations and experience with the settlements and your custom settlement will be remembered... they'll tell a story about your granddad'). Every planting, move-in, finished build, prize and name is kept on the place's record; a person who lives there tells it from his own mouth and face (rule 9/20), 'you' in the act it happened, 'your father' one act on, 'your granddad' two on. Words draft:true, WORDS overwrites; the player does not speak Spanglish, the people who live there may.",
@@ -463,5 +461,24 @@
     ],
     "names": ["LAST STOP", "LA COLONIA", "DRY CREEK", "CASA NADA", "THE HOLDOUT", "GOOD WATER", "EL REFUGIO", "TWO PALMS", "LOW TIDE", "THE KEEP", "SUNRISE BLOCK", "BUENA SUERTE"],
     "words": { "move": "MOVE", "paint": "PAINT", "sign": "SIGN", "where": "Where does it go?", "back": "BACK", "ok": "OK", "another": "ANOTHER", "call": "What do we call it?", "works": "WORKS AT", "rest": "REST", "here": "HERE", "rename": "NAME" }
+  },
+  "flow": {
+    "_about": "YOUR PLACE IS EASY (HOME BASE 6 11/27, VAMILY rule 492(a)): the one next step, said by his crew's best man on the map's glass (slices/bohemia_your_place.js), each line short enough to read at a glance; engine/bohemia_home.js step() picks which. Every word draft:true (WORDS overwrites). {why} is the reason the ground he stands on is no good, {dir} the way to better ground.",
+    "draft": true,
+    "lines": {
+      "offer": "We need a place of our own.",
+      "good": "Good ground. Plant it here.",
+      "bad": "{why} Go {dir}.",
+      "none": "Nothing good near. Walk on.",
+      "going": "Walking. I'll say when.",
+      "arrived": "This is it. Plant it.",
+      "sure": "Are you sure? This is permanent.",
+      "planted": "Ours now. Go in and build.",
+      "inside": "Tap an empty lot to build.",
+      "built": "It goes up tonight."
+    },
+    "why": { "on_road": "This is the road.", "on_water": "This is the water.", "on_wash": "A wash. It floods.", "on_rock": "Bare rock.", "walled": "Somebody's walls.", "dump": "The dump.", "town": "Somebody lives here.", "boss": "Somebody's place.", "water": "No water near.", "road": "No road in.", "ground": "Nothing here.", "nothing": "Nothing here." },
+    "buttons": { "look": "LOOK FOR GROUND", "later": "LATER", "pill": "YOUR PLACE", "plant": "PLANT HERE", "walk": "WALK THERE", "close": "CLOSE", "no": "NOT YET", "in": "GO IN" },
+    "marks": { "water": "WATER", "power": "POWER", "road": "ROAD", "safe": "SAFE" }
   }
 }

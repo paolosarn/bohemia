@@ -4,7 +4,9 @@
    where a player would tap: day 2 on the map (PLANT appears), the phone's YOUR PLACE page, GO THERE if the ground is no good, PLANT HERE,
    'Are you sure?', planted; his place opened from the map (a tap on it); the first build (a tap on an empty lot, BUILD's desk, a build);
    away and back (the page's GO HOME). A picture at every step and what was on the glass, into records/target/home_base/stranger/.
-   Run: node tools/bohemia_home_base_walk_it_as_a_stranger_11_27_26.js --only phone_portrait (then phone_landscape) */
+   Run: node tools/bohemia_home_base_walk_it_as_a_stranger_11_27_26.js --only phone_portrait (then phone_landscape)
+   HISTORY (HOME BASE 6 11/27): this walks the flow as it was BEFORE BUILD 11/27zzc (the phone's band and page); the flow is on the map's
+   glass now and the stranger's walk is gates/your_place_is_easy_gate.js (Y1 to Y8). Kept as the record's own tool, it no longer finds PLANT. */
 'use strict';
 const path = require('path'), fs = require('fs');
 const ROOT = path.dirname(__dirname), OUT = path.join(ROOT, 'records/target/home_base/stranger');

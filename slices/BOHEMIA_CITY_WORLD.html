@@ -96522,8 +96522,26 @@ function grindShows(){
 }
 setInterval(function(){ try { grindShows(); } catch (_e) {} }, 3000);
 /* ==== /__THE_GRINDER__ ==== */
+/* YOUR PLACE IS EASY (HOME BASE 6 11/27, rule 492(a)): what the flow on the glass (slices/bohemia_your_place.js, engine step()) needs
+   from the map, read once a tick: on the map with nothing over it, inside his place and whether a sheet or the arrival card is over it, walking, and
+   how many builds of his own are booked there (a gift's lot is not his build) */
+function homeFlowFacts(){
+  var r = homeRec(), m = homeMine(), onMap = false, inside = false, sheet = false, travelling = false, booked = 0, at = null;
+  try { onMap = MODE === 'city' && !LOOP.fighting && !(LOOP.frame && LOOP.frame.style.display === 'block') && !(MEET && MEET.up) && !(CAMP && CAMP.on); } catch (_e) {}
+  try { inside = !!(r && r.planted && LOOP.open && !LOOP.open.camp && mapNorm(LOOP.open.name) === mapNorm(m) && LOOP.frame && LOOP.frame.style.display === 'block'); } catch (_e) {}
+  if (inside) { try { var sw = LOOP.frame.contentWindow, B = sw.BohemiaSettlement, ar = sw.document.getElementById('arrive');
+    sheet = !!(B && B.state && B.state.open) || !!(ar && ar.classList.contains('on')); } catch (_e) {} }   /* a sheet, or the place's arrival card, over the footage: a tap there is theirs */
+  try { travelling = !!TRAVEL; } catch (_e) {}
+  try { var bk = LOT_BOOK[m]; if (bk) for (var k in bk.lots) if (bk.lots[k] && !bk.lots[k].gift) booked++; } catch (_e) {}
+  try { booked += ((r && r.places) || []).length; } catch (_e) {}
+  try { at = [city.x | 0, city.y | 0]; } catch (_e) {}
+  return { onMap: onMap, inside: inside, sheet: sheet, travelling: travelling, booked: booked, at: at };
+}
+/* one tap in: the map's own door to his place (travelTo hands his block to townTap: beside it, it opens; further, the walk there) */
+function homeGoIn(){ var r = homeRec(); if (!r || !r.planted) return false; try { return !!travelTo(null, null, [r.planted.x, r.planted.y]); } catch (_e) { return false; } }
 window.BohemiaHomeMap = { placeBuild: homePlaceBuild, press: homePress, watch: homeWatch, train: homeTrain, trainedAll: homeTrainedAll, give: homeGive, bossGifts: homeBossGifts, state: homeState, plant: homePlant, rawSeat: homeRawSeat, plantAt: homePlantAt, payGoods: homePayGoods, morning: homeMorning, workers: homeWorkers, choose: homeChoose, rename: homeRename, go: homeGo, probe: homeProbe, offer: homeOffer, billNight: homeBillNight, rec: homeRec, label: homeLabel, grind: homeGrind, grinder: homeGrinderNow, grinderState: function(){ return grindReady() ? grindSt() : null; }, grinderShows: grindShows, grinderFight: grindFightHome,
-  setLook: homeSetLook, lookOff: function(v){ HOME.lookOff = !!v; return HOME.lookOff; } };   /* __THE_GRINDER__ (HOME BASE 3): grind, grinder (what the pile makes now), grinderState for gates; __HIS_PLACE_HIS_WAY__ (HOME BASE 5): setLook, and lookOff for the gate's planted legs only */
+  setLook: homeSetLook, lookOff: function(v){ HOME.lookOff = !!v; return HOME.lookOff; }, flowFacts: homeFlowFacts, goIn: homeGoIn };   /* __THE_GRINDER__ (HOME BASE 3): grind, grinder (what the pile makes now), grinderState for gates; __HIS_PLACE_HIS_WAY__ (HOME BASE 5): setLook, and lookOff for the gate's planted legs only */
 /* ==== /__HOME_BASE__ ==== */
 </script>
+<script src="bohemia_your_place.js"></script>  <!-- HOME BASE 6 (rule 492(a)): YOUR PLACE on the glass, the next step said by a face -->
 </body></html>

@@ -280,6 +280,42 @@
     }
     return { ok: false, why: 'NOT_A_CHOICE' };
   }
+  /* ---------------- YOUR PLACE IS EASY (HOME BASE 6 11/27, rule 492(a): 'one obvious next step on screen at every moment, said by
+     a face') ----------------
+     step(c) is the one next thing to do, from what the map knows (c.planted, c.offer, c.onMap, c.inside, c.sheet, c.booked, c.here,
+     c.better, c.travelling) and what he pressed (c.open, c.later, c.going, c.target, c.at, c.asked, c.built). It answers
+     { id, line, buttons: [{ id, label, gold }] } with the words from home_base.json flow (draft); 'quiet' says nothing and shows
+     nothing. Pure: the glass (slices/bohemia_your_place.js) draws it and the gate reads it. */
+  function flowWords() { return (D && D.flow) || { lines: {}, why: {}, buttons: {} }; }
+  function btn(id, gold) { var B = flowWords().buttons || {}; return { id: id, label: B[id] || id.toUpperCase(), gold: !!gold }; }
+  function says(id, vars) { var t = (flowWords().lines || {})[id] || ''; vars = vars || {};
+    return String(t).replace(/\{(\w+)\}/g, function (m, k) { return vars[k] != null ? String(vars[k]) : ''; }).replace(/\s+/g, ' ').trim(); }
+  function step(c) {
+    c = c || {}; var F = flowWords(), W = (D && D.words) || {};
+    var out = function (id, buttons, vars) { return { id: id, line: id === 'quiet' ? '' : (id === 'sure' ? (W.plant_sure || says(id)) : says(id, vars)), buttons: buttons || [] }; };
+    if (c.planted) {
+      if (c.booked > 0) return out(c.inside && c.built && !c.sheet ? 'built' : 'quiet');   /* the first build is booked: the flow is done, said once, on his cameras */
+      if (c.inside) return out(c.sheet ? 'quiet' : 'inside');                  /* a sheet open is his to read; the line waits */
+      if (c.onMap) return out('planted', [btn('in', true)]);
+      return out('quiet');
+    }
+    if (!c.offer) return out('quiet');
+    if (c.asked) return out('sure', [btn('plant', true), btn('no')]);
+    var g = c.here && c.here.g;
+    if (c.going && c.travelling) return out('going');
+    if (c.going && g && g.ok && c.target && c.at && Math.max(Math.abs(c.at[0] - c.target[0]), Math.abs(c.at[1] - c.target[1])) <= 1) return out('arrived', [btn('plant', true), btn('close')]);
+    if (!c.open && !c.going) return c.later ? out('pill', [btn('pill', true)]) : out('offer', [btn('look', true), btn('later')]);
+    if (g && g.ok) return out('good', [btn('plant', true), btn('close')]);
+    if (c.better) return out('bad', [btn('walk', true), btn('close')], { why: (F.why || {})[(g && g.why) || 'nothing'] || '', dir: String(c.better.dir || '').toLowerCase() });
+    return out('none', [btn('close', true)]);   /* the one thing left to do: put it away and walk on */
+  }
+  /* who says it: his crew's best man (rule 492(b)): the highest level, then the most experience; never him, never the dead; a man
+     with no face says nothing. men: [{ name, look, level, xp, main, dead }] */
+  function bestMan(men) {
+    var c = (men || []).filter(function (m) { return m && m.look && m.name && !m.main && !m.dead; });
+    c.sort(function (a, b) { return (b.level || 1) - (a.level || 1) || (b.xp || 0) - (a.xp || 0); });
+    return c[0] || null;
+  }
   function save(rec) { try { return JSON.stringify(rec); } catch (e) { return null; } }
   function load(txt, seed) {
     var r = null; try { r = JSON.parse(txt || 'null'); } catch (e) { r = null; }
@@ -290,7 +326,7 @@
 
   var API = { setData: setData, data: data, grade: grade, best: best, make: make, planted: planted, plant: plant, nameOf: nameOf, rename: rename,
               addResident: addResident, prizesFrom: prizesFrom, note: note, tell: tell, whoFor: whoFor, give: give, placeWaiting: placeWaiting, buildPlace: buildPlace, placesOf: placesOf, trainCost: trainCost, train: train, trained: trained, bill: bill, plan: plan, roadCheck: roadCheck, lotsOpen: lotsOpen, save: save, load: load,
-              lookOf: lookOf, setLook: setLook, signText: signText };
+              lookOf: lookOf, setLook: setLook, signText: signText, step: step, bestMan: bestMan };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.BohemiaHome = API;
 })(typeof window !== 'undefined' ? window : this);

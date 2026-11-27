@@ -10376,11 +10376,22 @@ GATES = [
      "HOME BASE gate, 11/8, rule 437(b) (PAOLO 11/3: 'you plant your part of the city kind of wherever you want... a smart system... the daily battery usage... "
      "are you sure you wanna plant down here, like this is permanent'): ENGINE E1 the place's plan, 12 lots, every lot on a road, one network (429(h)); E2 planted: a lot cut off, "
      "a stub split, each red; E3 the smart system refuses the freeway, a wash, a town, no water, no road; E4 PERMANENT, a second planting refused; E5 the night's bill reads "
-     "nightly_bill.json, a typed number caught; E6 lots open as it grows; E7 a new game a new home. ON THE DEMO, upright and sideways: D1 no PLANT in the first minute, "
-     "D2 PLANT in the phone's band from day 2, D3 the grade and NOT HERE on a road, D4 'Are you sure? This is permanent.', NOT YET, D5 his outfit's seat moves to the block "
-     "(bases, seats, the painter's key), the map names it his, PLANT gone, the save; D6 the night bills it, a let-go man lives there, planted: the hook taken out is caught; "
+     "nightly_bill.json, a typed number caught; E6 lots open as it grows; E7 a new game a new home. ON THE DEMO, upright and sideways (D1 to D5 re-aimed 11/27 by HOME BASE 6 at the map's glass, rule 492): D1 nothing of his place in the first minute, "
+     "D2 his best man says it on the glass from day 2, LOOK FOR GROUND 44 px under the finger, D3 the four marks and why on a road, no PLANT HERE, PLANT HERE gold beside good ground, "
+     "D4 'Are you sure? This is permanent.', NOT YET, D5 his outfit's seat moves to the block "
+     "(bases, seats, the painter's key), the map names it his, the glass offers no planting, the save; D6 the night bills it, a let-go man lives there, planted: the hook taken out is caught; "
      "D7 THE POT's prize stands there and pays back; D8 his place's BUILD opens the desk (the plan, A NIGHT, LIVING HERE, NAME IT, 44 px presses on the glass), the name "
      "typed there is the map's. About 9 min", True),
+    ('YOUR PLACE IS EASY', ['node', 'gates/your_place_is_easy_gate.js'],
+     "HOME BASE 6 gate, 11/27, VAMILY rule 492(a)(c), plan C and B (PAOLO 11/27: 'the settlement stuff on my phone was so freaking confusing... I thought it'd be "
+     "more intuitive and easy to navigate'; 'build the easy shit man'): ENGINE E1 every moment its one step (engine/bohemia_home.js step: day 1 nothing, the offer, "
+     "LATER's YOUR PLACE, good ground PLANT HERE, bad ground why and WALK THERE, walking, there, are you sure, planted GO IN, inside 'tap an empty lot', the first build "
+     "once, then nothing); E2 one gold button a step, every line 40 letters or fewer, drafted; E3 his best man says it; P1 planted. ON THE DEMO upright and sideways, "
+     "a stranger's whole walk by real taps on the glass (slices/bohemia_your_place.js): Y1 nothing on day 1; Y2 his best man's face, name and a 20 px line, every "
+     "button 44 px, under the finger, clear of the phone (P2 planted: a 30 px button and the panel over the phone read red); Y8 one face at a time with the map's "
+     "voice; Y3 LATER and YOUR PLACE; Y4 why, WALK THERE, the walk, 'This is it. Plant it.'; Y5 are you sure, planted, GO IN; Y6 his place by the map's own door, "
+     "'Tap an empty lot to build.' after the arrival card and never over the lot; Y7 the desk, a build, 'It goes up tonight.' once, then quiet. About 3 minutes a way; "
+     "--engine a second", True),
     ('THE FOURTEEN EYES FOUND', ['node', 'gates/the_fourteen_eyes_found_gate.js', '--only', 'F530,F529,F537,F525,F532,F533,F536,F535,F531,F527'],
      "FIXES gate, 11/9, ask rows 525 to 538 (FOUND BY EYES 11/8, EYES' phone playthrough 1c7c9b10f), one leg per fix, each with a PLANTED fail, phone upright "
      "AND sideways: F525 the end screen (EYES' fight and a heavier one): every man's hurt, every count, every piece and the leave buttons on the glass, nothing "

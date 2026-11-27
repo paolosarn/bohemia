@@ -662,7 +662,7 @@
       + '#bohphone .bpctx .rd{display:none;position:absolute;inset:0;width:100%;padding:0 6px;border:0;cursor:pointer;align-items:center;gap:6px;font:10px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.3px;color:#1f1710;' + kit('tin', 0.5) + '}'
       + '#bohphone .bpctx .rd img{width:22px;height:23.5px;pointer-events:none}'
       + '@keyframes bohRoadLit{0%{filter:brightness(1.45)}50%{filter:brightness(.85)}100%{filter:none}}'
-      + '#bohphone .bpctx.road .rd{display:flex;animation:bohRoadLit ' + BEAT + 'ms steps(2,end) 4}#bohphone .bpctx.road .clk,#bohphone .bpctx.road .lv,#bohphone .bpctx.road .vb,#bohphone .bpctx.road .pl{display:none}'
+      + '#bohphone .bpctx.road .rd{display:flex;animation:bohRoadLit ' + BEAT + 'ms steps(2,end) 4}#bohphone .bpctx.road .clk,#bohphone .bpctx.road .lv,#bohphone .bpctx.road .vb{display:none}'
       + '#bohphone .bpfd.road{box-shadow:inset 0 0 0 1px rgba(246,207,116,.55)}#bohphone .bpfd.road .fp b{color:#9fd08a}'
       /* __THE_BOSS_VERB_ON_THE_PHONE__ (BOSSES 11/2, rule 302): on the map, where a verb a boss gave him works, the band is that verb */
       + '#bohphone .bpctx .vb{display:none;position:absolute;inset:0;width:100%;padding:0 6px;border:0;cursor:pointer;align-items:center;gap:6px;font:9px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.1px;color:#1f1710;' + kit('tin', 0.5) + ';box-shadow:inset 0 0 0 1px #f2c56a}'
@@ -670,10 +670,7 @@
       + '@keyframes bohVerbLit{0%{filter:brightness(1.6)}50%{filter:brightness(.8)}100%{filter:none}}#bohphone .bpctx.verb .vb{animation:bohVerbLit ' + BEAT + 'ms steps(2,end) 2}'   /* it lights where it works, a tube coming on */
       + '#bohphone .bpctx .vb.off{opacity:.55;cursor:default}'
       + '#bohphone .bpctx.verb .vb{display:flex}#bohphone .bpctx.verb .clk{display:none}'
-      /* __HOME_BASE__ (HOME BASE 11/8, rule 437(b)): PLANT in the band on the map until his place is planted; beside the boss's verb it takes the right half */
-      + '#bohphone .bpctx .pl{display:none;position:absolute;inset:0;width:100%;padding:0 6px;border:0;cursor:pointer;align-items:center;justify-content:center;gap:5px;font:9px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1.3px;color:#1f1710;background:#d9b867;box-shadow:inset 0 0 0 1px rgba(40,26,10,.55)}'
-      + '#bohphone .bpctx .pl i{width:9px;height:12px;flex:none;background:linear-gradient(#5a3c1c,#5a3c1c) 4px 3px/1px 9px no-repeat,linear-gradient(135deg,#a8341e 50%,transparent 50%) 5px 3px/4px 4px no-repeat}'
-      + '#bohphone .bpctx.plant .pl{display:flex}#bohphone .bpctx.plant .clk{display:none}#bohphone .bpctx.plant.verb .pl{left:50%;width:50%}#bohphone .bpctx.plant.verb .vb{width:50%}'
+      /* __HOME_BASE__ (HOME BASE 6 11/27, rule 492(a)): the band's PLANT is gone; YOUR PLACE is on the map's glass, said by a face (slices/bohemia_your_place.js) */
       + '#bohphone .hb{display:flex;flex-direction:column;gap:2px}#bohphone .hb .hd{font:8px "BohemiaCasing",ui-sans-serif,sans-serif;letter-spacing:1px;color:#e2b052}'
       + '#bohphone .hb .mk{display:flex;justify-content:space-between;gap:4px}#bohphone .hb .mk b{font-weight:400;color:#e8dec8}#bohphone .hb .mk s{text-decoration:none;letter-spacing:1px;color:#d9b867}#bohphone .hb .mk.dg s{color:#d0745c}'
       + '#bohphone .hb .ln{color:#c9bda4}#bohphone .hb .no{color:#d0745c}#bohphone .hb .sure{color:#e2b052;margin-top:2px}'
@@ -1214,11 +1211,9 @@
     ctx.innerHTML = '<div class="clk" aria-hidden="true"><i class="g"></i></div>'   /* UI 7 (rule 368): the day and the hour are the phone's first line now (__THE_DAY_ON_THE_PHONE__), said once; the band keeps what the clock is doing */
       + '<button type="button" class="lv" aria-label="leave"><img alt="" src="' + IMG('app_leave') + '"><span>LEAVE</span></button>'   /* draft:true */
       + '<button type="button" class="rd" aria-label="pack up camp and get back on the road" data-draft="true"><img alt="" src="' + IMG('app_leave') + '"><span>HIT THE ROAD</span></button>'   /* CAMP FOUR __CAMP_WAITS_FOR_HIM__: draft:true */
-      + '<button type="button" class="vb" aria-label="use what a boss gave you"><img alt=""><span></span></button>'   /* __THE_BOSS_VERB_ON_THE_PHONE__ (BOSSES 11/2) */
-      + '<button type="button" class="pl" aria-label="plant your own place here"><i></i><span>PLANT</span></button>';   /* __HOME_BASE__ (HOME BASE 11/8): draft:true */
+      + '<button type="button" class="vb" aria-label="use what a boss gave you"><img alt=""><span></span></button>';   /* __THE_BOSS_VERB_ON_THE_PHONE__ (BOSSES 11/2) */
     ctx.querySelector('.lv').addEventListener('click', function () { appPress('leave'); });
     ctx.querySelector('.rd').addEventListener('click', function () { appPress('road'); });   /* CAMP FOUR __CAMP_WAITS_FOR_HIM__ */
-    ctx.querySelector('.pl').addEventListener('click', function () { appPress('home'); });   /* __HOME_BASE__ */
     /* __THE_BOSS_VERB_ON_THE_PHONE__ (BOSSES 11/2, rule 330: 'I can put the fire down, I can purify the water, I'm so confused by what that
        means'): a held finger on it says what it does, in one plain line from the boss's file (verb.tip); a tap still uses it. UI 4's
        long-press tooltips take this over when they land (a minimal one until then) */
@@ -1263,7 +1258,7 @@
     if (a === 'verb') { var Bv = cw && cw.BohemiaBosses, v = H.verb; if (Bv && v && !v.off && scr === 'map') { Bv.use(v.id); H.homeSig = null; setTimeout(tick, 60); } return; }   /* __THE_BOSS_VERB_ON_THE_PHONE__ */
     if (a === 'heal' || a === 'camp') { if (L && (scr === 'map' || scr === 'camp' || scr === 'town')) { L.camp(); setTimeout(tick, 60); } return; }   /* CAMP [a town is safe] (rule 273(b)): HEAL in a town rests there */
     if (a === 'relations') { if (H.page === a) pageClose(); else pageOpen(a); return; }
-    if (a === 'home') { H.homeAsk = false; if (H.page === a) pageClose(); else pageOpen(a); return; }   /* __HOME_BASE__ */
+    if (a === 'home') { if (H.page === a) pageClose(); else pageOpen(a); return; }   /* __HOME_BASE__ */
   }
 
   /* ---- THE APPS' OWN PAGES, on the phone's own glass ---- */
@@ -1310,53 +1305,34 @@
       [].forEach.call(pb.querySelectorAll('.po.qp'), function (q) { var go = function () { questGo(q.dataset.quest, 'feed', q); };
         q.addEventListener('click', go); q.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } }); });
     } else if (H.page === 'home') {   /* __HOME_BASE__ */
-      var hm = cw && cw.BohemiaHomeMap, hs = hm ? hm.state() : null, hsig = JSON.stringify([hs && hs.planted, hs && hs.here, hs && hs.name, hs && hs.bill, H.homeAsk, hs && hs.residents.length]);
+      var hm = cw && cw.BohemiaHomeMap, hs = hm ? hm.state() : null, hsig = JSON.stringify([hs && hs.planted, hs && hs.name, hs && hs.bill, hs && hs.waiting && hs.waiting.length, hs && hs.residents.length, hs && hs.standing]);
       if (!fresh && hsig === H.homeSig2) return; H.homeSig2 = hsig;
-      pb.innerHTML = homeHtml(hs); homeWire(pb, hm);
+      pb.innerHTML = homeHtml(hs);
     } else if (H.page === 'relations') {
       if (!fresh && H.relAt && performance.now() - H.relAt < 2000) return; H.relAt = performance.now();
       pb.innerHTML = relationsHtml(L);
     }   /* the speeds page a hold used to open is the slider now (__HOLD_PLAY_SLIDE_THE_SPEED__, above) */
   }
-  /* ==== __HOME_BASE__ (HOME BASE 11/8/26, rule 437(b), ask lines 356, 522): YOUR PLACE on the phone. Unplanted: the smart system's
-     grade of the block he stands on (water, power, road, danger, as marks), the best block near it, PLANT HERE, then 'Are you sure?
-     This is permanent.' Planted: its name, its night's bill, who lives there, the bosses' prizes standing there, GO HOME. The map
-     (slices/BOHEMIA_CITY_WORLD.html __HOME_BASE__) owns every number; words draft:true. ==== */
+  /* ==== __HOME_BASE__ (HOME BASE 11/8/26, rule 437(b), ask lines 356, 522): YOUR PLACE on the phone. AMENDED HOME BASE 6 11/27 (rule
+     492(a), plan C: the whole flow lived here, in 8 px letters with 18 px buttons): the flow is on the map's glass now, said by a face
+     (slices/bohemia_your_place.js); this page is THE RECORD only. Unplanted: no place yet, and what waits for one. Planted: its name, the
+     day, its night's bill, who lives there, the bosses' prizes, what stands. The map (slices/BOHEMIA_CITY_WORLD.html __HOME_BASE__) owns
+     every number; words draft:true. ==== */
   function homeWord(cw, place) { try { var hm = cw && cw.BohemiaHomeMap; if (hm && String(place).toUpperCase() === 'CUSTOM') return hm.label() || place; } catch (e) {} return place; }
-  function homeMarks(n, ch) { var o = ''; for (var i = 0; i < 3; i++) o += i < n ? '\u25A0' : '\u25A1'; return o; }
   function homeHtml(hs) {
     if (!hs) return '<div class="hb"><div class="ln">Looking at the ground...</div></div>';
-    var h = '<div class="hb">', W = hs.words || {};
+    var h = '<div class="hb">', F = hs.words || {};
     if (!hs.planted) {
-      var g = hs.here && hs.here.g;
-      h += '<div class="hd">THIS GROUND' + (g && g.district ? ' &middot; ' + esc(String(g.district).toUpperCase()) : '') + '</div>';
-      if (hs.here && hs.here.side) h += '<div class="ln">THE BLOCK ' + esc(hs.here.side) + '</div>';
-      if (hs.waiting && hs.waiting.length) h += '<div class="ln">WAITING FOR YOUR PLACE: ' + hs.waiting.map(function (w) { return esc(w.name); }).join(', ') + '</div>';   /* rule 445: a prize waits for him and says so */   /* __HOME_BASE__ row 549: he plants the block beside the street he stands on */
-      if (g) [['water', 'WATER'], ['power', 'POWER'], ['road', 'ROAD'], ['danger', 'DANGER']].forEach(function (m) {
-        h += '<div class="mk' + (m[0] === 'danger' ? ' dg' : '') + '"><b>' + m[1] + '</b><s>' + homeMarks(g[m[0]]) + '</s></div>'; });
-      var why = { ground: 'Nothing stands here. Find open ground.', on_road: 'This is the road. Nobody builds where the trucks go through.',   /* draft:true, FIXES 11/10 (row 553): the reason true */
-        on_water: 'This is the water. Nothing stands on it.', on_wash: 'A dry wash. The first storm takes whatever stands in it.', on_rock: 'Bare rock and loose scree. Nothing goes up here.',
-        walled: 'Somebody else\'s walls. Not yours.', dump: 'The dump. Nobody lives on it twice.', town: 'Somebody already lives here.', boss: 'This is somebody\'s place. Not yours.', water: 'No water in reach. People die here.', road: 'No road comes in. Nothing trades here.', nothing: 'Nothing to stand on.' };
-      if (g && !g.ok) h += '<div class="no">' + esc((W.not_here || 'NOT HERE') + '. ' + (why[g.why] || '')) + '</div>';
-      if (hs.better) h += '<div class="ln">BETTER: ' + hs.better.d + ' ' + (hs.better.d === 1 ? 'BLOCK' : 'BLOCKS') + ' ' + esc(hs.better.dir) + '</div><button type="button" data-h="better">GO THERE</button>';
-      if (H.homeAsk && g && g.ok) h += '<div class="sure">' + esc(W.plant_sure || 'Are you sure? This is permanent.') + '</div><div class="two"><button type="button" class="go" data-h="yes">' + esc(W.plant_yes || 'PLANT HERE') + '</button><button type="button" data-h="no">' + esc(W.plant_no || 'NOT YET') + '</button></div>';
-      else h += '<button type="button" class="go" data-h="plant"' + (g && g.ok ? '' : ' disabled') + '>' + esc(W.plant_yes || 'PLANT HERE') + '</button>';
+      h += '<div class="hd">' + esc(F.page_none_title || 'NO PLACE YET') + '</div><div class="ln">' + esc(F.page_none || 'Your crew shows you good ground on the map.') + '</div>';
+      if (hs.waiting && hs.waiting.length) h += '<div class="ln">WAITING FOR YOUR PLACE: ' + hs.waiting.map(function (w) { return esc(w.name); }).join(', ') + '</div>';   /* rule 445: a prize waits for him and says so */
     } else {
       h += '<div class="hd">' + esc(hs.name) + '</div><div class="ln">PLANTED DAY ' + esc(hs.day) + '</div>';
       if (hs.bill) h += '<div class="mk"><b>A NIGHT</b><s>-' + esc(hs.bill.due) + ' BATT</s></div><div class="ln">keep ' + hs.bill.keep + (hs.bill.power ? ' + lights ' + hs.bill.power : '') + (hs.bill.people ? ' + ' + hs.bill.people + ' living there ' + hs.bill.eat : '') + (hs.bill.back ? ' - prizes ' + hs.bill.back : '') + '</div>';
       h += '<div class="mk"><b>LIVING THERE</b><s>' + hs.residents.length + '</s></div>';
       if (hs.prizes.length) h += '<div class="ln">' + hs.prizes.map(function (p) { return esc(p.name); }).join(', ') + '</div>';
-      h += '<div class="mk"><b>STANDING</b><s>' + hs.standing + ' OF ' + hs.lotsOpen + '</s></div><button type="button" class="go" data-h="home">GO HOME</button>';
+      h += '<div class="mk"><b>STANDING</b><s>' + hs.standing + ' OF ' + hs.lotsOpen + '</s></div>';
     }
     return h + '</div>';
-  }
-  function homeWire(pb, hm) {
-    [].forEach.call(pb.querySelectorAll('.hb button[data-h]'), function (b) { b.addEventListener('click', function () {
-      var k = b.dataset.h; H.presses++; window.__PHONE_PRESSES = H.presses;
-      if (k === 'plant') H.homeAsk = true; else if (k === 'no') H.homeAsk = false;
-      else if (k === 'yes') { var r = hm && hm.plant(); H.homeAsk = false; window.__HOME_PLANT_PRESSED = r; try { window.postMessage({ type: 'BOHEMIA_SFX', ev: 'phone_tap' }, '*'); } catch (e) {} }
-      else if (k === 'better' || k === 'home') { if (hm) hm.go(k); pageClose(); return; }
-      H.homeSig2 = null; pagePaint(true); H.homeSig = null; setTimeout(tick, 60); }); });
   }
   /* ==== /__HOME_BASE__ ==== */
   function renameStart() {
@@ -1602,8 +1578,7 @@
     if (vb) { cxv.classList.toggle('verb', !!vh && scr === 'map'); vb.classList.toggle('off', !!(vh && vh.off)); vb.dataset.verb = vh ? vh.id : '';
       if (vh) { vb.querySelector('span').textContent = vh.button; vb.setAttribute('aria-label', vh.button.toLowerCase() + (vh.tip ? ': ' + vh.tip : '')); vb.title = vh.tip || '';
         var vi = ''; try { vi = cw.BohemiaBosses.icon ? cw.BohemiaBosses.icon(vh.id) : ''; } catch (e) {} var im0 = vb.querySelector('img'); if (vi && im0.getAttribute('src') !== vi) im0.setAttribute('src', vi); } }
-    try { var hmo = scr === 'map' && cw && cw.BohemiaHomeMap ? !!cw.BohemiaHomeMap.offer() : false; if (cxv) cxv.classList.toggle('plant', hmo);   /* __HOME_BASE__ */
-      if (H.page === 'home' && scr !== 'map') pageClose(); } catch (e) {}   /* YOUR PLACE is a map page: a town, a fight or camp closes it */
+    try { if (H.page === 'home' && scr !== 'map') pageClose(); } catch (e) {}   /* __HOME_BASE__: YOUR PLACE is a map page: a town, a fight or camp closes it */
     var stW = H.el.querySelector('.stat .wh');
     if (s) stW.textContent = scr === 'camp' ? (s.campTown ? String(s.campTown).toUpperCase() : 'YOUR CAMP') : homeWord(cw, s.place || '');   /* CAMP [a town is safe]: resting in a town, the town's name */
     var stD = H.el.querySelector('.stat .dt');   /* __THE_DAY_ON_THE_PHONE__ (rule 368): the day and the hour, once, on the first line */
