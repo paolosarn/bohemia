@@ -1,4 +1,32 @@
 STAFF 2 (staff2-01gkdyus, took over from STAFF at a full context): rule 471, THE STAFF PUSH A CART, ask row 709. Written only by this lane.
+*** 11/27 HANDOFF READY (context near full) -- FOR THE NEXT STAFF: the coordinator's order 11/27 21:51 is 'your handoff's order (the
+brigand's body, his fist on the handle, the crew screen), inside PLUMBER 8's iPhone budget, built the rule 495 way'. Not started; main is
+clean of this lane's work in flight. READ VAMILY rule 495 FIRST (no duct tape: a fix at the root, one thing one place, the patch layers
+in the big pages are counted debt and may only go down). DO IN THIS ORDER: ***
+(0) RULE 495 ON THIS LANE'S OWN LAYERS, before anything new: the camp people's trade table lives TWICE (slices/bohemia_camp_look.js
+FOLLOWER_WORK in the camp's act words, slices/BOHEMIA_SETTLEMENT_SCREEN.html STAFF_HOME_WORK in ANIMATION's act names) and the trade
+cells' index lives in camp_look's STAFF_ACTS merged into BohemiaIdles at run time. Fold to ONE place: a 'work' field per follower in
+records/target/bb/retinue.json (data, the modder's), read by engine/bohemia_camp.js (workOf(id), the camp book: it already owns the
+followers' rows), and the trade cells' index as a data file engine/bohemia_idles.js reads itself (a second index beside rig_town.json, so
+the town's index keeps its every-man-all-acts rule) instead of camp_look's run-time merge; then camp_look and the settlement screen call
+those. Likewise the cart's camp draw (camp_look campCart, cartAt, cartCellOf) is the camp's; the footage's homeFeedStaff/homeFeedCart and
+homeStaff are this lane's blocks in HOME BASE's file: keep them one block, calling the camp's module. The fight's __THE_STAFF_PUSH_A_CART__
+and __THE_CAMP_RUNS_SCARED__ blocks and FEAR_RUN's numbers: FEAR_RUN belongs in TUNING's one numbers table (records/target/bb), the cart's
+numbers already are (retinue.json staff.cart). The gate THE STAFF PUSH A CART reads these by regex: re-aim it to the modules, never loosen.
+(1) THE BRIGAND'S BODY (person_town_43): rendered (drink) but tools/bohemia_animation_the_towns_activities.py pack refuses it ('a man whose
+Stand here does not match that still keeps nothing'): find why his render's Stand differs from his still (slices/rig_idles person_town_43
+bare) at the root (the build or the still), with ANIMATION's tool; then pack his drink and give the brigand 'drink' in the one table.
+(2) HIS FIST ON THE HANDLE: the cart's handle sits at the hand's side; a body key per look (the melee tool's person pipeline) closes the
+left fist on it. (3) THE CREW SCREEN shows the camp and lets him hand a camp person a one-handed weapon (BohemiaCamp.armsOf and the fight's
+staffArms refuse two-handers). (4) a column between his back row and the camp on narrow boards; (5) a scared run's sound with SOUNDS.
+BUDGET: PLUMBER 8's iPhone budget (live pictures; each trade sheet ~1.5 MB decoded, 13 now ~20 MB); PAGES PUBLISH was red on main at
+900.02 MB before 11/27zi and 11/27zi added +0.73 MB net: make room before adding sheets (rule 495 (c): retire, don't add).
+TOOLS THIS LANE USES: bpy 4.2 in a python3.11 venv (python3.11 -m venv v && v/bin/pip install bpy==4.2.0 numpy pillow scipy, ~3 min);
+ANIMATION's person_one <body> <act> renders one act in ~2 min (BOHEMIA_TOWN_AGAIN=1 BOHEMIA_BPY=<venv python>); a one-act body's renders
+and joints must NOT stay in records/target/animation/towns or records/animation/town_joints (THE TOWN'S ACTIVITIES counts them as men
+missing 19 acts). Phone proofs: tools/bohemia_staff_at_work_on_the_phone.js and tools/bohemia_staff_at_his_place_on_the_phone.js (--all,
+--alpha, --shapes), bohemia_staff_cart_on_the_phone.js, bohemia_staff_hire_reads.js, bohemia_staff_frames_slowed.js. Gates in the
+foreground with a timeout (rule 461(c) amended).
 *** 11/27 LATEST -- EVERY TRADE AT ITS WORK: BUILD 11/27zi - EVERY CAMP PERSON AT HIS TRADE, BUILT, NOT YET SEEN (rule 482; 461 as
 amended: gates in the foreground). Record: records/BOHEMIA_STAFF_TWO_EVERY_TRADE_AT_WORK_11_27_26.md. VOTE staff2-every-trade-at-work-11-27 (2d4e30e68). ***
 17 of 18 at their trade at camp (FOLLOWER_WORK) and at his place (STAFF_HOME_WORK); 11 bodies rendered one act each by ANIMATION's tool and

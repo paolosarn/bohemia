@@ -340,7 +340,7 @@ Gate ONE HAND OR TWO (new) 24/0, demo and alpha both ways, its plant red. VOTE u
 11/22zzb: on a phone on its side the shop strip's buttons said 'B | 113' and 'to the...' and the both-hands line was cut; now whole (upright 'Buy it and ...' still open).
 [bb Battle Brothers: the slot says what it is at a glance, the long numbers live in the tooltip]
 [analog horror: a pawn ticket with BOTH HANDS or ONE HAND stamped in a box at the top]
-STAFF 2 (handoffs/STAFF.md): 11/27 LATEST -- BUILD 11/27zi - EVERY CAMP PERSON AT HIS TRADE, BUILT, NOT YET SEEN (rule 482): 17 of 18
+STAFF 2 (handoffs/STAFF.md): HANDOFF READY 11/27 (next: rule 495 on this lane's layers first, then the brigand's body, the fist, the crew screen). 11/27 LATEST -- BUILD 11/27zi - EVERY CAMP PERSON AT HIS TRADE, BUILT, NOT YET SEEN (rule 482): 17 of 18
 camp people at their trade by the fire and on his place's cameras (the brigand's body does not pack yet). Site cap: PAGES PUBLISH red on main,
 this build +0.73 MB net (PLUMBER 8's). Before: 11/27n THE CAMP AT ITS WORK. Gate 19/0.
 STAFF (staff-01gkdyus): 11/22 (before) -- CONTEXT NEAR FULL, a fresh STAFF takes rule 471 (the cart) from handoffs/STAFF.md. BUILD 11/22zi - THEY FIGHT LIKE STAFF, BUILT, NOT YET SEEN (rule 470(a), his order on his YES; rules 461, 441, 465; ask row 701). Its block is handoffs/STAFF.md.
