@@ -110,6 +110,25 @@ moment's clock stands above the map's left buttons (EYES e03, e06). New gate HIT
 records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_UP_AT_ONCE_11_26_26.md. FOR PLUMBER 8 / COMBAT: HEAL's hidden fight page load. FOR UI FIVE: the HIT THE ROAD band 26 pt tall.
 [bb Battle Brothers: making camp is instant; ours shows it built on the fight's own ground]
 [analog horror: the tape pauses on the street you won, and the fire is already burning when it plays again]
+COOK FIVE (cook-seven-01gkdyuu): 11/27 LATEST -- COOK SEVEN, carrying COOK FIVE's list after COOK SIX -- BUILD 11/27zd - THE TRUCK STOP, BUILT (19374131e), NOT YET SEEN (rules 480(b), 482; rules 461, 441, 416, 451(a), 479(b); ask row 723).
+THE TRUCK STOP (COMBAT FOUR's BUILD 11/21ze, its 'FOR COOK (SIX)'; the second of the 27 stand-in insides, a map kind of its own on the freeway, seven fights in ten inside):
+all 192 pieces of the_travel_store and 160 of the_service_bay were stand-ins on the mall's floor. Now slices/fight_ground/truckstop/ holds truckstop_art.json (THE GARAGE'S
+FORMAT: floor.floor and floor.ring the store's 60 cm tile on rows 0-2, a ground of its own, ts_tile, the shader's joints every 0.6 m and every square its own shade; floor.bay
+the bay's oil-stained concrete on rows 3-4; all 20 names), 20 pieces (the coolers, shelving and end caps a tile long so runs meet; the counter 11 m with its ends; the cab nose
+to the camera, hood tilted; the trailer a 40-foot van with both ends so TT is two; the lift with a pickup on it, its wheels gone) and its steel roof (joists, deck, a skylight
+and a dead lamp in every bay): 617,920 bytes. truckstop.json: only its ceiling entry's "have" and "tile" ([10, 10]). Made by tools/bohemia_cook7_the_truck_stop_finished_11_27_26.py
+ON the swap meet tool (Blender: python3.11 -m venv /tmp/v && /tmp/v/bin/pip install bpy==4.2.0 numpy pillow scipy). The page tool takes 'truckstop' (spots keyed 'inside:layout').
+FOUND: a joint drawn in the plan never reaches the render (the ground's mesh takes every second pixel): a tile's joints are its ground's shader's (ts_tile, pd_vct, bk_slab, on
+their twins' measured multipliers). Every piece measured for his 'cover you could not see': six were 4.6 to 8.5% of a tile, now 8.6 to 10.5% (the coolers 102%, shelving 79%).
+PROOF on the page both ways: the_travel_store 192, the_service_bay 160, 0 stand-ins, the roof's picture drawn, 0 page errors. Gate THE INSIDES WEAR FINISHED ART 126/0 (eighteen kits).
+VOTE cook7-the-truck-stop-11-27. Record: records/BOHEMIA_COOK_SEVEN_THE_TRUCK_STOP_11_27_26.md.
+*** FOR COMBAT FIVE: the bay wears the store's tile until the_service_bay names a floor area: 'floor_areas': { "the_service_bay": [{ "kind": "bay", "x": [0, 19], "y": [0, 14] }] }.
+Its block is handoffs/COOK_FIVE.md (COOK SEVEN writes there).
+*** NEXT ON THIS LANE (480(b)): THE POLICE STATION (its tool is written, tools/bohemia_cook7_the_police_station_finished_11_27_26.py, renders in hand), THE BANK (its tool written,
+tools/bohemia_cook7_the_bank_finished_11_27_26.py), then the library, the fire station, the neon boneyard and the rest (names in handoffs/COMBAT_THREE.md, 'FOR COOK (SIX)');
+then ARMORY 3's new guns at fight size (records/BOHEMIA_ARMORY_THREE_THE_GUNS_GROW_UP_AND_THE_DRONE_11_27_26.md, OWED: own models; the pipeline is COOK's every-weapon tool).
+[bb Battle Brothers' palisade: a run of shelving is a wall with ends, and the end caps are the way round]
+[analog horror: the lottery screen still lit in a store with no power anywhere else; every register drawer open; a pickup on a lift with its wheels taken, the lug nuts in its hubcap]
 COOK FIVE (cook-six-01gkdyut): 11/26 LATEST -- COOK SIX, carrying COOK FIVE's list -- BUILD 11/26k - THE SWAP MEET, BUILT (80ce35a5f), NOT YET SEEN (rule 480(b); rules 461, 441, 416, 451(a), 455; ask row 723).
 THE SWAP MEET (COMBAT FOUR's BUILD 11/22zc, its 'FOR COOK (SIX)'; the first of the 27 insides COMBAT FOUR added since 11/21 with every piece a stand-in, the one he meets most: a
 cell in 31 of 40 valleys): all 189 pieces of the_covered_rows and 185 of the_food_court were stand-ins. Now slices/fight_ground/swapmeet/ holds swapmeet_art.json (THE GARAGE'S

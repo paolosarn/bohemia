@@ -3,7 +3,7 @@
 COMBAT FOUR's BUILD 11/21ze asked 'FOR COOK (SIX)'; VAMILY rule 480(b) (finished art where a stand-in still stands: the second of the 27 insides
 COMBAT FOUR added since 11/21 with every piece a stand-in, the one he meets next most after the swap meet: the truck stop is a map kind of its own
 on the freeway and seven fights in ten there go inside); rule 482 (more cooking, improving what we have); rules 461, 441, 416, 451(a), 479(b).
-COOK SEVEN takes over from COOK SIX (its plan, its handoff, its tools). BUILD 11/27o - THE TRUCK STOP.
+COOK SEVEN takes over from COOK SIX (its plan, its handoff, its tools). BUILD 11/27zd - THE TRUCK STOP.
 
 ## WHAT THIS IS
 COMBAT FOUR's truck stop: its travel store or its service bay. Every one of its 20 pieces was a stand-in (the casino's screens, cage, seats and
