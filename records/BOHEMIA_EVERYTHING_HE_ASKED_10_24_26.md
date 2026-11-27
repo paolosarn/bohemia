@@ -784,3 +784,5 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 759 | Human enemies really strong and really specialized | 489(c) | BESTIARY 2 | SENT 11/27 |
 | 760 | Maybe raise gun damage later, 'we're gonna see about that' | 489(d) | research only, his call | NOTED 11/27 |
 | 761 | Combat keeps crashing, going in and when I finish it, it's insane (still, after the leak fix 11/26zp, zq was live) | 484 amended | PLUMBER 8 and COMBAT FIVE, above everything | SENT 11/27 |
+| 762 | The drone doesn't explode and move the same turn, you can escape it, but if it lands it's damn near a one-hit KO; a drone controller guy; very hurtful to all-melee teams | 490 | ARMORY 3, BESTIARY 2, COMBAT FIVE (after the crash) | SENT 11/27 |
+| 763 | More weapons, more variations of the weapons | 489(b), 490(e) | ARMORY 3 | SENT 11/27 |
