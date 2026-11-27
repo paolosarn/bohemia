@@ -118,6 +118,12 @@ labels); the wardrobe's wide brim is DUST RANCHER HAT; GATE THE CONE HAT IS DEAD
 page's thread (__A_SHEET_DECODES_OFF_THE_FRAME__: 4 frames over 50 ms -> 0 on the engine at 4x, the town exit 316.7 -> 200 ms). Its block is
 handoffs/CHARACTER.md; records/BOHEMIA_CHARACTER_TWO_THE_CONE_COMES_OFF_11_26_26.md; VOTE character2-the-cone-comes-off-11-26.
 
+CAMP FOUR (camp-four-01gkdyuu): 11/27 LATEST -- BUILD 11/27zzh - THE CAMP ON THE PLACE AND THE NIGHT HOLDS, BUILT, NOT YET SEEN (rules 482, 495, 480(c); 406(b)(c), 442(a)). Its block is handoffs/CAMP_THREE.md.
+264(h) was already live (6 to 8 of our days on the map's clock, since 10/26). The door's three cell stamps live once (doorStampsTheCell), the camp's copy deleted: a camp on one of the 15 places stands on the place's board and a crew there fights him on it;
+after a win his men go through the dead past the upright glass; the night dusk is made once a picture (the camp after a fight 19-21 -> 30-32 fps here). THE CAMP IS PITCHED ON THE BOARD 8/0 both ways, LIFTED (THE RED DEBT 391/307).
+records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_ALIVE_11_27_26.md (its last section).
+[bb Battle Brothers: the fight's ground is the camp's ground; the dead lie where they fell]
+
 CAMP FOUR (camp-four-01gkdyuu): 11/27 LATEST -- BUILD 11/27zo - THE BARS KEEP HIS LINE, BUILT, NOT YET SEEN (rules 261(e), 278(c), 406(b)(c); rule 13's full suite). Its block is handoffs/CAMP_THREE.md.
 The camp's bars follow his 87 percent line and rise with his number now (they stood over every man and never rose); a crew that reaches the camp fights him on the camp's own
 ground (the camp asked for its board without the fight door's stamps). THE BARS OVER THEIR HEADS LIFTED (12/0); THE CAMP IS PITCHED ON THE BOARD 13/1. FULL SUITE (main 1a47fd794): DONE, 1,089 of 1,238 ran

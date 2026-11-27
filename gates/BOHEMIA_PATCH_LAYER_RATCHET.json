@@ -20,7 +20,7 @@
   },
   "slices/BOHEMIA_CITY_WORLD.html": {
    "blocks": 152,
-   "hookLines": 1791,
+   "hookLines": 1788,
    "overrides": 16
   },
   "slices/BOHEMIA_SETTLEMENT_SCREEN.html": {
@@ -34,5 +34,5 @@
   "pastedCopies": 41,
   "loadedTwice": 0
  },
- "lowered": "2026-11-27"
+ "lowered": "2026-11-28"
 }

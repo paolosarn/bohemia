@@ -1,3 +1,29 @@
+CAMP FOUR (camp-four-01gkdyuu, the camp lane's fourth chat; written only by this lane): 11/27 LATEST -- BUILD 11/27zzh - THE CAMP ON THE
+PLACE AND THE NIGHT HOLDS, BUILT, NOT YET SEEN (the routine 'the next camp job': rules 482, 495, 480(c); 406(b)(c), 442(a)). Record:
+records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_ALIVE_11_27_26.md, its last section. This lane schedules nothing and calls nothing that waits for
+a person; gates in the foreground with a timeout (461(c) amended).
+264(h) THE INJURY DAYS ON OUR CLOCK: already live since 10/26 (e8299097): 6 to 8 of our days, run down by the map's clock (condition
+elapse). Nothing to build; read on main this round.
+WHAT IS LIVE, each with its switch back:
+- ONE DOOR STAMP (rule 495(b)): doorStampsTheCell (BOHEMIA_CITY_WORLD.html, beside cityHandOver) is WORLD THIRTEEN's three stamps
+  (the place's template, the cell's ground and zone) once; the door and campBoardAsk both call it; the camp's copy is deleted. A camp
+  on one of the 15 places' cells stands on the place's board and a crew there fights him on it (it was skipped there on a wrong reason:
+  THE DECK is the freeway, not a place). On redrock at 4x the picture came in 9.7 s (the plain ask 14.3 s).
+- THE DEAD PAST THE GLASS (bohemia_camp_board.js bodies(); __CAMP_DEAD_ON_GLASS_ONLY): with none of the dead on the glass, his men go
+  through the dead on the camp's picture (upright the fight's widest frame can leave the last of theirs past the glass).
+- THE DUSK ONCE A PICTURE (BOHEMIA_SETTLEMENT_SCREEN.html duskOf; __DUSK_EACH_FRAME): kept by the picture, not the wrapper; the camp
+  after a fight at night 19-21 fps -> 30-32 on this box (duskOf 337 ms + getImageData 175 ms of 2.5 s gone).
+GATES: THE CAMP IS PITCHED ON THE BOARD 8/0 both ways (B8 new: a place's cell) - LIFTED, line struck, THE RED DEBT 391/307; EVERY ZONE
+ITS GROUND 14/0; A PLAIN CELL IS NOT THE PLACE 12/0; THE CREW STARTS ON ITS CELL 9/0; MAKE CAMP FROM THE FIGHT 11/0; THE CAMP LOADS IN
+ONE GO 6/0; HIT THE ROAD 13/0; THE HEAL BUTTON 16/0; BARS 12/0; A TOWN IS SAFE 12/0; READS AT A GLANCE 15/0; COMES ALIVE 7/0; THE CAMP IS
+THE FIGHT'S BOARD 34/2 (main 34/2 and 31/5: Cn5, F1, MOTION 3's line); PATCH LAYERS 10/0 (CITY_WORLD hooks 1792 -> 1789, tightened).
+NOT DONE, NEXT: (1) F1: the camp after a fight still draws 30 of the old camp's 54 fps on this software box ((program) 2.3 s of 2.5:
+the bigger picture's raster), measure on a GPU (PLUMBER 8's frame walk) before cutting anything; (2) HEAL cold (the first camp since the
+page opened); (3) the followers' carts in the set-up; (4) Cn5 (a man at the dead at rest, by day): his men mending or resting take
+no easy job, so on some boards nobody goes through the dead (MOTION 3's leg, the camp's acts are this lane's).
+[bb Battle Brothers: the fight's ground is the camp's ground; the dead lie where they fell and the company goes through them by day.]
+[analog horror: the night tape is dimmed once and kept, never re-exposed frame by frame.]
+
 CAMP FOUR (camp-four-01gkdyuu, the camp lane's fourth chat; written only by this lane): 11/27 LATEST -- BUILD 11/27zo - THE BARS KEEP HIS LINE,
 BUILT, NOT YET SEEN (rule 13's full suite, then the camp's own reds: rules 261(e), 278(c), 406(b)(c)). Record: records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_ALIVE_11_27_26.md
 (its sections after the build). This lane schedules nothing and calls nothing that waits for a person (461(c) amended).

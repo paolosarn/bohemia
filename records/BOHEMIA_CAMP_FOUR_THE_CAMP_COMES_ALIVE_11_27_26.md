@@ -155,6 +155,41 @@ Run on main 1a47fd794 in its own worktree (BOHEMIA_SUITE_BUDGET 36000 s, started
   CAMP FOUR's HIT THE ROAD, EVERY TIME (R5 on its side in the pack: no MAKE CAMP on the end screen) ran 13/0 alone on main 55958e4d5
   at 12:29 UTC. No camp red is real on main.
 
+## After the build: THE CAMP ON THE PLACE AND THE NIGHT HOLDS (BUILD 11/27zzh; the routine 'the next camp job', rules 482, 495, 480(c))
+
+THE INJURY DAYS ON OUR CLOCK (264(h)), the routine's first named: ALREADY DONE AND LIVE since 10/26 (e8299097): ours.json
+struck_down_laid_up_days [6, 8], engine/bohemia_long_injury.js LAID_UP_DAYS_MIN 6 / MAX 8, and the days run down on the map's own clock
+(engine/bohemia_condition.js elapse: wound.left -= hours / 24, from the map's advance()). Read on main this round; nothing to build.
+
+1. ONE DOOR STAMP (rule 495(b)). The cause: campBoardAsk carried a second copy of the door's ground and zone lines (11/27zo's
+   campStampLikeTheDoor) and skipped the 15 places' cells. The door's three stamps (WORLD THIRTEEN's __THE_CUT__, __THE_GROUND_AND_THE_ZONE__,
+   __EVERY_ZONE_ITS_GROUND__) now live once in doorStampsTheCell beside cityHandOver; the door and the camp's ask both call it; the copy is
+   gone (the city page's patch hook lines 1792 -> 1789, the ratchet lowered).
+   THE SKIP'S REASON WAS WRONG: '0/6 on THE DECK, a place's cell' - THE DECK is the freeway (bohemia_freeway_boards.js), not one of the 15
+   places, and the start cell of that valley today has no place on it. MEASURED on a place (redrock, PTBTDN [52,23], the demo upright,
+   CPU 4x): asked with the place, the camp's picture in 9.7 s; the plain ask on the same cell before, 14.3 s. Upright and on its side the
+   camp stands on the place's ground (the red rock wall across the top, upright), tents, fire, cart and his men drawn.
+2. THE DEAD PAST THE UPRIGHT GLASS ARE GONE THROUGH (rule 442(a) as amended: 'where none is, the square stays on the glass and his men go
+   through the bodies there'). The cause, slices/bohemia_camp_board.js bodies(): only the dead on the glass. MEASURED (THE CAMP IS PITCHED
+   ON THE BOARD B7 upright, red since 11/10): the fight's widest frame (z 0.213) could not hold his men (tiles 4 to 5) and the last of
+   theirs (tile 15), the body lay past the glass on the camp's own picture (as wide as the glass is long; he drags to it), and nobody went
+   through it. With none on the glass, the dead on the picture. Switch window.__CAMP_DEAD_ON_GLASS_ONLY. (A first guess, that the gate's
+   win was a win no fight has, was tested and was wrong: the fight's own framing with the last man standing left the camera where it was.)
+3. THE DUSK IS MADE ONCE A PICTURE (rules 480(c), 495(a)). The cause, BOHEMIA_SETTLEMENT_SCREEN.html duskOf: it kept the dusk on the
+   wrapper it was handed, and the camp's men hand a new {im} every frame, so at night every man's whole sheet was read back, dimmed and
+   written again every frame. MEASURED (THE CAMP IS THE FIGHT'S BOARD's profile, the demo upright, this box's software raster): duskOf
+   337 ms and getImageData 175 ms of every 2.5 s, the camp after a fight at 18.7 to 20.9 fps. Now kept by the picture (a WeakMap; sheets
+   are loaded once and never drawn into; never a picture not loaded yet): duskOf gone from the profile, 29.7 to 31.7 fps. F1 still asks
+   70 percent of the voted-NO camp's 53.9 on this box: the rest is (program) 2.3 s of 2.5, the box's software raster of the bigger
+   picture, named for PLUMBER 8's walk on a GPU. Switch window.__DUSK_EACH_FRAME.
+
+GATES, each alone in the foreground with a timeout (461(c) amended): THE CAMP IS PITCHED ON THE BOARD 8/0 on its side and 8/0 upright
+(B8 new: a place's cell, the ask carries the place, a crew there fights on the camp's board, the place's) - LIFTED, its quarantine line
+struck, THE RED DEBT 391 NAMED, 307 LEFT; EVERY ZONE ITS GROUND 14/0; A PLAIN CELL IS NOT THE PLACE 12/0; THE CREW STARTS ON ITS CELL
+9/0; MAKE CAMP FROM THE FIGHT 11/0; THE CAMP LOADS IN ONE GO 6/0 (main 5/1); HIT THE ROAD 13/0; THE HEAL BUTTON 16/0 (14/2 once, H5's
+tape read on a busy box); THE BARS OVER THEIR HEADS 12/0; A TOWN IS SAFE 12/0; THE CAMP READS AT A GLANCE 15/0; THE CAMP COMES ALIVE 7/0;
+THE CAMP IS THE FIGHT'S BOARD 34/2 (main 34/2 and 31/5 the same hour: Cn5 and F1, MOTION 3's line); THE PATCH LAYERS ONLY GO DOWN 10/0.
+
 [bb Battle Brothers: the company sits round the fire between contracts; the men are the life of the screen, and the day's clock is at
 the top, always.]
 [analog horror: the camcorder's clock burned into the top of the tape, and under it the fast-forward that stops when they are whole.]
