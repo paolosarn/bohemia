@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The named prizes</title>
+<!-- ARMORY 3 round three 11/27 (rule 493(c)): the VOTE card's page. The prizes read live from records/target/bb/weapons.json (armory
+     'named') and drawn with the shop's own icons (slices/bohemia_ui_materials.js); the two bosses photographed on the real fight page
+     (tools/bohemia_armory_three_proof.js ONLY=bosses). Words draft:true. -->
+<style>
+:root { --bg:#16110c; --ink:#e8dcc4; --dim:#9a8a70; --rust:#c8643a; --card:#221a12; --line:#3a2e20; --brass:#d6aa4a; }
+body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.4 ui-monospace,Menlo,Consolas,monospace; padding:16px; }
+h1 { font-size:18px; letter-spacing:2px; margin:0 0 4px; color:var(--rust); }
+h2 { font-size:15px; letter-spacing:2px; margin:20px 0 6px; color:var(--rust); }
+p.sub { margin:0 0 10px; color:var(--dim); font-size:13px; }
+img.shot { width:100%; display:block; border:1px solid var(--line); margin:0 0 6px; image-rendering:pixelated; }
+.two { display:flex; gap:6px; } .two img { width:50%; }
+.row { display:flex; gap:10px; align-items:flex-start; background:var(--card); border:1px solid var(--line); padding:8px; margin:0 0 6px; }
+.row canvas { flex:none; }
+.row .who { flex:1; } .row .who b { display:block; letter-spacing:1px; color:var(--brass); }
+.row .who i { display:block; font-style:normal; color:var(--ink); font-size:12px; margin:2px 0; }
+.row .who span { color:var(--dim); font-size:12px; }
+</style></head><body>
+<h1>THE PRIZES NO STALL SELLS</h1>
+<p class="sub">Eight bosses now hold their own named weapon. Kill the boss and it drops every time. No shop has one. Each hits harder or shoots straighter than the plain one (guns shoot straighter, their damage stays the same).</p>
+<div id="list"></div>
+<h2>THE BOSS HOLDS IT</h2>
+<p class="sub">THE SMITH with The Last Hammer (behind his shield), THE LENS with The Ground-Glass Rifle, on the real fight.</p>
+<div class="two"><img class="shot" src="../../records/target/armory/armory3_boss_smith.jpg" alt="THE SMITH"><img class="shot" src="../../records/target/armory/armory3_boss_lens.jpg" alt="THE LENS"></div>
+<h2>PLAIN AND NAMED</h2>
+<p class="sub">Each prize next to the weapon it was made from.</p>
+<img class="shot" src="../../records/target/armory/armory3_icons_named.jpg" alt="the plain weapons and the named prizes">
+<script src="../bohemia_ui_materials.js"></script>
+<script>
+'use strict';
+const el = document.getElementById('list');
+fetch('../../records/target/bb/weapons.json').then(r => r.json()).then(W => {
+  W.rows.filter(r => r.armory && r.armory.named).forEach(r => {
+    const d = document.createElement('div'); d.className = 'row';
+    try { const M = window.BohemiaMaterials; d.appendChild(M.itemIcon(M.itemFromRow('weapon', r, W.rows), 48)); } catch (e) {}
+    const w = document.createElement('div'); w.className = 'who';
+    const b = document.createElement('b'); b.textContent = r.name.toUpperCase(); w.appendChild(b);
+    const i = document.createElement('i'); i.textContent = r.armory.named.story; w.appendChild(i);
+    const s = document.createElement('span'); s.textContent = r.armory.named.guarded_by + ' holds it. ' + r.armory.line; w.appendChild(s);
+    d.appendChild(w); el.appendChild(d);
+  });
+}).catch(() => { el.textContent = 'THE LIST DID NOT LOAD'; });
+</script>
+</body></html>

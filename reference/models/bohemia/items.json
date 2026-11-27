@@ -176,7 +176,8 @@
     "rocket_launcher",
     "throwaway_rocket",
     "worn_auto_shotgun",
-    "double_shotgun"
+    "double_shotgun",
+    "named_machinist_pipe"
    ],
    "sha1": "a6477d2363848dd40220d37e5fc581253a9c93f9",
    "hands": 2
@@ -201,7 +202,8 @@
     "thermal_rifle",
     "worn_ranch_ar",
     "worn_kalash",
-    "worn_guard_carbine"
+    "worn_guard_carbine",
+    "named_ground_glass"
    ],
    "sha1": "c49629ee2815fe28f8a0630cff6bdd865d257fc7",
    "hands": 2
@@ -227,7 +229,8 @@
     "two_handed_mace",
     "two_handed_flanged_mace",
     "polemace",
-    "goedendag"
+    "goedendag",
+    "named_valve_key"
    ],
    "sha1": "485ccd2268f5c4418146570a13525defe3139619",
    "hands": 1,
@@ -270,7 +273,9 @@
     "two_handed_mallet",
     "two_handed_skull_hammer",
     "two_handed_hammer",
-    "polehammer"
+    "polehammer",
+    "named_press_mallet",
+    "named_last_hammer"
    ],
    "sha1": "910e29baf96950ef00260b5bebfb9c5fecd2e210",
    "hands": 2,
@@ -513,7 +518,9 @@
     "military_cleaver",
     "head_chopper",
     "thorned_whip",
-    "battle_whip"
+    "battle_whip",
+    "named_tooth_lancet",
+    "named_kennel_leash"
    ],
    "sha1": "0ecdb078255b28eb592e375b2729da42732075ae",
    "hands": 1,
@@ -554,7 +561,8 @@
     "wooden_flail",
     "reinforced_wooden_flail",
     "flail",
-    "three_headed_flail"
+    "three_headed_flail",
+    "named_locksmith_ring"
    ],
    "sha1": "0d4035851e31306b66670dadbe484bfcd0c70563",
    "hands": 1,
@@ -1914,7 +1922,8 @@
     "box_smg",
     "pipe_smg",
     "worn_switched_pistol",
-    "worn_box_smg"
+    "worn_box_smg",
+    "named_pearl_six"
    ],
    "sha1": "6c879bb22832be3078f6ba1f7528002b53e05650",
    "hand_grow": "1.35 over real about the grip, WEAPONS 11/7 rule 426(c): what his fist leaves showing reads its real length (the pistol a forearm's)",

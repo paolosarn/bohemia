@@ -1,52 +1,21 @@
 {
- "at": "2026-11-27T04:36:20.281Z",
- "cross": {
-  "stand": {
-   "ok": true,
-   "a": [
-    4,
-    7
-   ],
-   "them": [
-    [
-     9,
-     7
-    ],
-    [
-     9,
-     8
-    ]
-   ]
+ "at": "2026-11-27T21:58:02.350Z",
+ "bosses": {
+  "smith": {
+   "boss": {
+    "name": "THE SMITH",
+    "weapon": "The Last Hammer",
+    "named": true
+   },
+   "errs": []
   },
-  "lit": {
-   "skill": "Launch Drone",
-   "tiles": [
-    {
-     "x": 9,
-     "y": 7
-    },
-    {
-     "x": 10,
-     "y": 7
-    },
-    {
-     "x": 8,
-     "y": 7
-    },
-    {
-     "x": 9,
-     "y": 8
-    },
-    {
-     "x": 9,
-     "y": 6
-    }
-   ],
-   "struck": [
-    "e0",
-    "e1"
-   ]
-  },
-  "errs": []
+  "lens": {
+   "boss": {
+    "name": "THE LENS",
+    "weapon": "The Ground-Glass Rifle",
+    "named": true
+   },
+   "errs": []
+  }
  }
 }

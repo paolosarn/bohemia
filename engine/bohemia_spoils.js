@@ -88,7 +88,9 @@
            never read as wrecked (partFound took a null wear as wrecked, tape). Battle Brothers drops a throwing weapon with uses left, and a sling
            like any weapon */
         var spent = thrown && D.drop.weapon.thrown_needs_ammo && w.ammoMax != null && !(w.ammo > 0);   /* a thrown weapon spent is not there: nothing, not tape */
-        if (!spent) { var f = w.durability == null ? rollOnly('weapon', D, rnd) : partFound('weapon', w.durability, w.durability, D, rnd);
+        /* ARMORY 3 (rule 493(c)): a NAMED prize always drops, its roll never taken (Battle Brothers, bb_all/0363_Champions.txt: 'Named
+           weapons, armors and helmets always drop, even with zero durability'); the fight's report marks it (w.named) */
+        if (!spent) { var f = w.named ? { found: true } : w.durability == null ? rollOnly('weapon', D, rnd) : partFound('weapon', w.durability, w.durability, D, rnd);
           if (f.found) out.items.push({ kind: 'weapon', id: w.id, cond: w.durability, max: w.durability, from: b.name });
           else if (f.wrecked) out.counts.tape += wreck; }
         if (w.gun && w.ammo > 0) out.counts.rounds += w.ammo | 0;   /* counts.rounds: the rounds left in his gun */

@@ -1,3 +1,9 @@
+ARMORY 3 (armory-three-01gkdyuu): 11/27 LATEST -- BUILD 11/27zy - THE PRIZES NO STALL SELLS, BUILT, NOT YET SEEN (rule 493(c), 495). Before it: 11/27q BEAT-UP GUNS, 11/27h
+THE GUNS GROW UP, AND THE DRONE. Its block is handoffs/ARMORY.md. Eight named prizes, one per boss (7 to 18), each the boss's own weapon made his, never on a shelf, always
+dropped on his fall; a gun's damage never moves (489(d)). Gate THE GUNS GROW UP 28/0. VOTE armory3-the-named-prizes-11-27.
+records/BOHEMIA_ARMORY_THREE_THE_GUNS_GROW_UP_AND_THE_DRONE_11_27_26.md
+[bb Battle Brothers: champions always carry a named item, and named items always drop]
+[analog horror: the drone feed's scan lines crawl down the lit tiles]
 PLUMBER 9 (plumber-nine-01gkdyuv): 11/27 -- ROUND 1, ask row 782 IN FLIGHT (rule 495(c)(d), the code a publisher can read). Its block is handoffs/PLUMBER_NINE.md.
 The census (tools/bohemia_publisher_read.js) and the gate THE PATCH LAYERS ONLY GO DOWN (new, 10/0, planted three ways): the five big pages' patch
 blocks, hook lines and overrides and the copies between files may only go down (ratchet gates/BOHEMIA_PATCH_LAYER_RATCHET.json; --tighten lowers it).
@@ -33,12 +39,6 @@ THE VOTE TAB GATE 66/0 (struck from the quarantine). [bb nothing behind the new-
 BESTIARY 3 (bestiary-three-01gkdyuu): 11/27 LATEST -- BUILD 11/27u - THE DRONE OPERATOR, BUILT, NOT YET SEEN (rule 490(c), ask row 762). Its block is handoffs/BESTIARY.md.
 The eye in the sky brings a drone operator from the middle of the game: he stands at the back, flies two charge drones (the cross lit a turn ahead), then pulls his pistol;
 drop him and his drone falls. 75 enemy types now (his floor). On AUTO his drones never land on a man (they step off): TUNING's and COMBAT FIVE's. VOTE bestiary3-the-drone-operator-11-27.
-ARMORY 3 (armory-three-01gkdyuu): 11/27 LATEST -- BUILD 11/27q - BEAT-UP GUNS, THE DRONE LIT BEFORE YOU SEND IT, BUILT, NOT YET SEEN (rules 490(e), 482). Before it: BUILD 11/27h
-THE GUNS GROW UP, AND THE DRONE (rules 489(b), 490; ask rows 758, 762, 763). Its block is handoffs/ARMORY.md. Six beat-up guns (half price, 10 harder to land, same damage),
-a double shotgun, seven guns drawn as their own kind in his hands (COOK's own guns), his drone's five tiles lit before he sends it (SEND, ON IT). Gate THE GUNS GROW UP 23/0.
-VOTE armory3-worn-guns-and-the-drone-lit-11-27. records/BOHEMIA_ARMORY_THREE_THE_GUNS_GROW_UP_AND_THE_DRONE_11_27_26.md
-[bb Battle Brothers sells the same weapon at different qualities by its row; ours by its wear]
-[analog horror: the drone feed's scan lines crawl down the lit tiles]
 HOME BASE 4 (home-base-01gkdyuux): 11/27 -- HANDOFF READY (the session carried three builds: 11/26q THE GRINDER, ON PURPOSE; 11/26zf THE CAMERAS ON PATROL; 11/27a WHAT HE HAS SITS
 IN THE GROUND). THE NEXT JOB for a fresh HOME BASE: rule 347(c), everything at his place customizable by tapping (its name, what the buildings are made of and painted, its signs, where
 things stand, who lives there and their jobs), research first (Stardew Valley, Battle Brothers); the plan, what exists and what the footage can show are in handoffs/HOME_BASE.md.

@@ -731,7 +731,7 @@
     "name": "THE LOCKSMITH",
     "title": "the man with every key",
     "hp_x": 1.6,
-    "weapon": "Bike-Lock Chain",
+    "weapon": "The Locksmith's Ring",
     "shield": null,
     "look": "boss_locksmith_0",
     "says": "Every door is mine. You want in? Knock."
@@ -959,7 +959,7 @@
     "name": "THE MACHINIST",
     "title": "the man who makes guns",
     "hp_x": 2.0,
-    "weapon": "Pipe Shotgun",
+    "weapon": "The Machinist's Pipe",
     "shield": null,
     "look": "boss_machinist_0",
     "says": "Pipe, a cap, a nail. That's a gun. That's my gun."
@@ -1086,7 +1086,7 @@
     "name": "THE PLATE",
     "title": "the man with the last press",
     "hp_x": 2.0,
-    "weapon": "Two-Handed Mallet",
+    "weapon": "The Press Mallet",
     "shield": null,
     "look": "boss_plate_0",
     "says": "Plate is for my men. You get cardboard."
@@ -1213,7 +1213,7 @@
     "name": "THE TOOTH",
     "title": "the man with the only dental kit",
     "hp_x": 1.6,
-    "weapon": "Box Cutter",
+    "weapon": "The Tooth's Lancet",
     "shield": null,
     "look": "boss_tooth_0",
     "says": "Open wide. Everybody pays the Tooth."
@@ -1321,7 +1321,7 @@
     "name": "THE LENS",
     "title": "the man with the last ground glass",
     "hp_x": 1.8,
-    "weapon": "Night-Sight AR",
+    "weapon": "The Ground-Glass Rifle",
     "shield": null,
     "look": "boss_lens_0",
     "says": "I see you. You don't see me."
@@ -1563,7 +1563,7 @@
     "kind": "barbarian_beastmaster",
     "name": "THE DOGS",
     "hp_x": 2.0,
-    "weapon": "Thorned Whip",
+    "weapon": "The Kennel Leash",
     "shield": null,
     "look": "boss_dogs_0",
     "says": "Sic 'em."
@@ -1707,7 +1707,7 @@
     "kind": "nomad_leader",
     "name": "THE CISTERN",
     "hp_x": 1.8,
-    "weapon": "Tire Iron",
+    "weapon": "The Valve Key",
     "shield": null,
     "look": "boss_cistern_0",
     "says": "Die thirsty."
@@ -1792,7 +1792,7 @@
     "kind": "knight",
     "name": "THE SMITH",
     "hp_x": 1.6,
-    "weapon": "Warhammer",
+    "weapon": "The Last Hammer",
     "shield": null,
     "look": "boss_smith_0",
     "says": "Burn, kid."

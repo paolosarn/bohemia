@@ -497,7 +497,7 @@
     if (kind === 'weapon') {
       /* RUN TWO __A_TWO_HANDER_WEARS_ITS_OWN_NAME__ (rule 194): mirrors the market's rule, a two-hander in a class that holds both is a
          'two-hand' one, ranked among its own kind (the object it draws is the same thing, so its icon is unchanged) */
-      if (row.armory) return { id: row.id, kind: 'weapon', name: row.armory.name };   /* __THE_ARMORY__ (rule 302): the valley's own piece, its own name and its own drawn object */
+      if (row.armory) return { id: row.id, kind: 'weapon', name: row.armory.name, named: !!row.armory.named };   /* ARMORY 3: a named prize is drawn whole, never worn (qualOf) */   /* __THE_ARMORY__ (rule 302): the valley's own piece, its own name and its own drawn object */
       var hd = function (x) { return x.hands ? x.hands | 0 : (/^(bow|crossbow|firearm)$/.test(x['class']) ? 2 : 1); }, h = hd(row), rows = (all || [row]).filter(function (x) { return !x.armory; });
       var mixed = rows.some(function (x) { return x['class'] === row['class'] && hd(x) === 1; }) && rows.some(function (x) { return x['class'] === row['class'] && hd(x) === 2; });
       var c = OBJ_CLASS[row['class']] || 'pipe', same = rows.filter(function (x) { return x['class'] === row['class'] && hd(x) === h; }).sort(function (a, b) { return a.value - b.value; });
@@ -524,7 +524,9 @@
     'tire iron', 'golf club', 'bowie knife', 'pipe wrench', 'tomahawk', 'slot machine handle',
     /* ARMORY 3 (rules 489(b) and 490, Paolo 11/27: 'automatic guns or more intense guns, maybe even a rocket launcher... drones'): sixteen */
     'switched pistol', 'box smg', 'pipe smg', 'printed carbine', 'ranch ar', 'guard carbine', 'kalash', 'belt-fed saw', 'pipe shotgun', 'auto shotgun',
-    'rocket launcher', 'throwaway rocket', 'charge drone', 'scout drone', 'night-sight ar', 'thermal hunting rifle', 'double shotgun'];
+    'rocket launcher', 'throwaway rocket', 'charge drone', 'scout drone', 'night-sight ar', 'thermal hunting rifle', 'double shotgun',
+    /* ARMORY 3 round three (rule 493(c)): the named prizes, each the boss's own, each its own look */
+    "the locksmith's ring", "the machinist's pipe", 'the press mallet', "the tooth's lancet", 'the ground-glass rifle', 'the valve key', 'the last hammer', 'the kennel leash'];
   function objOf(item) {
     var n = String(item.name || '').toLowerCase();
     for (var i = OBJECTS.length - 1; i >= 0; i--) if (n.indexOf(OBJECTS[i]) >= 0) {
@@ -532,7 +534,7 @@
       var best = OBJECTS[i]; OBJECTS.forEach(function (o) { if (n.indexOf(o) >= 0 && o.length > best.length) best = o; }); return best; }
     return item.kind === 'head' ? 'hard hat' : item.kind === 'body' ? 'work jacket' : item.kind === 'shield' ? 'car door' : 'pipe';
   }
-  function qualOf(item) { var n = String(item.name || '').toLowerCase(); return /beat-up|rag |work jacket|car door/.test(n) ? 0 : /good|full /.test(n) ? 2 : 1; }
+  function qualOf(item) { if (item && item.named) return 2; var n = String(item.name || '').toLowerCase(); return /beat-up|rag |work jacket|car door/.test(n) ? 0 : /good|full /.test(n) ? 2 : 1; }
   function hashStr(t) { var h = 2166136261; for (var i = 0; i < t.length; i++) { h ^= t.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
   var MAT = { steel: [154, 163, 168], dsteel: [92, 98, 104], rust: [150, 78, 38], wood: [134, 92, 52], red: [176, 46, 32], yellow: [214, 168, 40],
     black: [44, 42, 40], olive: [96, 104, 60], khaki: [150, 130, 88], glass: [128, 170, 186], tape: [206, 188, 140], rag: [214, 206, 186],
@@ -632,6 +634,16 @@
         [[5, 5], [16, 5], [5, 16], [16, 16]].forEach(function (q) { ell(q[0], q[1], 2.6, 1, 'white', true); put(q[0], q[1], 'dsteel'); }); rect(9, 9, 4, 4, 'steel'); rect(10, 13, 2, 2, 'black'); put(10, 14, 'glass'); break;
       case 'night-sight ar': line(1, 19, 6, 15, 'black', 3); line(6, 15, 15, 9, 'black', 3); line(15, 9, 20 + L, 6, 'dsteel', 1); line(10, 13, 11, 18, 'black', 2); line(8, 9, 14, 5, 'olive', 3); put(15, 4, 'green'); put(7, 10, 'green'); break;
       case 'double shotgun': line(1, 19, 6, 15, 'wood', 3); rect(6, 13, 3, 3, 'dsteel'); line(8, 13, 20 + L, 6, 'steel', 1); line(8, 14, 20 + L, 7, 'dsteel', 1); line(10, 14, 14, 12, 'wood', 2); put(7, 16, 'dsteel'); put(5, 14, 'brass'); break;
+      /* ARMORY 3 round three: the named prizes, brass where the boss kept them, never rusted */
+      case "the locksmith's ring": line(3, 19, 9, 13, 'leather', 3); for (i = 0; i < 3; i++) ell(10 + i * 2.2, 11 - i * 2.2, 1.6, 1.4, 'steel', true); ell(16, 6, 3.4, 3.4, 'brass', true);
+        rect(13, 9, 2, 3, 'brass'); rect(18, 8, 2, 3, 'brass'); rect(16, 10, 1, 3, 'steel'); rect(19, 3, 2, 2, 'brass'); put(14, 12, 'brass'); put(19, 11, 'brass'); break;
+      case "the machinist's pipe": line(3, 18, 7, 14, 'wood', 3); line(7, 14, 19 + L, 5, 'steel', 3); rect(6, 13, 3, 2, 'brass'); rect(11, 10, 2, 3, 'brass'); rect(15, 7, 2, 3, 'brass'); put(9, 15, 'red'); put(19 + L, 4, 'white'); break;
+      case 'the press mallet': line(4, 20, 12, 9, 'yellow', 2); put(5, 19, 'black'); put(7, 16, 'black'); rect(9, 2, 10, 6, 'dsteel'); rect(9, 2, 10, 1, 'white'); put(10, 4, 'brass'); put(17, 4, 'brass'); put(10, 6, 'brass'); put(17, 6, 'brass'); break;
+      case "the tooth's lancet": line(4, 19, 9, 14, 'white', 2); put(5, 18, 'glass'); put(7, 16, 'glass'); rect(9, 13, 2, 2, 'brass'); line(11, 12, 18, 5, 'white', 1); line(11, 13, 18, 6, 'steel', 1); put(19, 4, 'red'); break;
+      case 'the ground-glass rifle': line(1, 19, 6, 15, 'black', 3); line(6, 15, 15, 9, 'black', 3); line(15, 9, 20 + L, 6, 'dsteel', 1); line(10, 13, 11, 18, 'black', 2); line(7, 9, 14, 5, 'black', 3); ell(15, 4.5, 1.8, 1.8, 'glass'); put(15, 4, 'flame'); rect(9, 7, 2, 1, 'brass'); break;
+      case 'the valve key': line(4, 18, 17, 5, 'steel', 2); line(4, 5, 17, 18, 'steel', 2); rect(3, 3, 3, 3, 'brass'); rect(16, 3, 3, 3, 'brass'); rect(3, 16, 3, 3, 'brass'); rect(16, 16, 3, 3, 'brass'); put(10, 11, 'dsteel'); put(11, 11, 'dsteel'); break;
+      case 'the last hammer': line(5, 20, 12, 9, 'leather', 2); rect(5, 18, 2, 2, 'brass'); rect(8, 4, 10, 4, 'dsteel'); rect(18, 3, 2, 6, 'white'); line(7, 5, 5, 3, 'dsteel', 2); rect(11, 8, 2, 1, 'brass'); break;
+      case 'the kennel leash': ell(5, 17, 3, 2.4, 'red', true); line(7, 15, 18, 4, 'steel', 1); for (i = 0; i < 5; i++) { var kx = 9 + i * 2, ky = 13 - i * 2; put(kx - 1, ky, 'dsteel'); put(kx, ky - 1, 'dsteel'); put(kx + 1, ky + 1, 'brass'); } put(19, 3, 'brass'); break;
       case 'thermal hunting rifle': line(1, 19, 6, 15, 'wood', 3); line(6, 15, 20 + L, 5, 'dsteel', 2); rect(8, 7, 6, 3, 'black'); put(14, 7, 'flame'); put(7, 9, 'red'); line(11, 13, 14, 11, 'wood', 2); put(10, 12, 'steel'); break;
       case 'halberd': line(2, 20, 12, 10, 'dsteel', 2); for (i = 0; i < 3; i++) put(4 + i * 3, 18 - i * 3, 'black'); ell(15, 6, 4.6, 4.6, 'red'); rect(11, 6, 9, 1, 'white'); rect(11, 6, 1, 1, 'red'); put(15, 6, 'white'); break;
       case 'riot shield': rect(5, 2, 12, 18, 'glass'); rect(5, 8, 12, 2, 'white'); rect(5, 2, 12, 1, 'black'); rect(5, 19, 12, 1, 'black'); rect(10, 12, 2, 4, 'black'); break;

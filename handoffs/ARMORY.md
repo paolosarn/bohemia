@@ -1,5 +1,16 @@
 # ARMORY (the lane's own block; newest on top, written only by ARMORY)
 
+## ARMORY 3, 11/27 round three: THE PRIZES NO STALL SELLS (rule 493(c), 495; BUILD 11/27zy)
+BUILT, NOT YET SEEN. The record's ROUND THREE section. armory.json 'named' + 'named_of' (eight prizes, one per boss: the Locksmith, the
+Machinist, the Plate, the Tooth, the Lens, the Cistern, the Smith, the Dogs); boss_act_one.json names each as the boss's weapon; the
+shelf's pick passes named rows (settlement restock); engine/bohemia_spoils.js drops a named piece every time; the fight's spoils report
+marks it. Icons in bohemia_ui_materials.js. Gate THE GUNS GROW UP 28/0. Proof ONLY=bosses. VOTE armory3-the-named-prizes-11-27.
+NEXT: named armour and helmets (Battle Brothers' named armours: the same 'named' key on armory body/head rows); the champions' tier up
+with BESTIARY 4 (carried_by on the named or the armory's better rows for each champion kind); a named prize for bosses 13 to 18 that hold
+no armory piece yet (THE BARBER needs a kind that shoots, BOSSES' call).
+[bb Battle Brothers: champions always carry a named item, and named items always drop]
+[analog horror: a hammer worn to a mirror, lying where its smith fell]
+
 ## ARMORY 3, 11/27 round two: BEAT-UP GUNS, THE DRONE LIT BEFORE YOU SEND IT (rule 490(e), 482; BUILD 11/27q)
 BUILT, NOT YET SEEN. The record's ROUND TWO section. armory.json keys 'worn_of' + 'worn' {hit, value_pct} (six beat-up pieces) and
 'own_gun' (COOK's own gun pictures by_row in slices/fight_rig/own_guns.json); the Double Shotgun; fire_shapes 'Launch Drone' (cross),

@@ -9225,7 +9225,7 @@
    "armor_ignore_pct": 45,
    "fatigue": -7,
    "durability": null,
-   "value": 300, "value_by": "ECONOMY FOUR 11/27 (rule 489(b) 'the cheap first-person drone'; records/BOHEMIA_ECONOMY_FOUR_THE_NEW_GUNS_PRICED_11_27_26.md): two FPV kits with their charges at about 900 dollars each, in median US working days ($243) at four AA a day; was 900 crowns, priced like a good rifle",
+   "value": 300,
    "range": 8,
    "range_min": 1,
    "range_max": 8,
@@ -9242,7 +9242,7 @@
      "cost_from": "Throw Fire Pot (bohemia_enemies.json numbers.fire_pot)"
     }
    ],
-   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of bundle_of_heavy_javelins and throwing_spear, fought with bundle_of_heavy_javelins's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2006_Throwing Weapons.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0326_Bundle of Heavy Javelins.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2006_Throwing Weapons.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2005_Throwing Spear.txt | ARMORY 2 tune: {\"set\": {\"value\": 900, \"range\": 8, \"range_min\": 1, \"range_max\": 8, \"band\": \"drone\"}} (one hand, as Battle Brothers' throwing family (the hold the fight draws for a thing sent off the hand: the drone is launched from the palm, the radio a thumb pad); an FPV crosses the board (8, the farthest any row reaches); a frame is 500 to 1,000 dollars, priced like a good rifle (90 batteries a kit of two))",
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of bundle_of_heavy_javelins and throwing_spear, fought with bundle_of_heavy_javelins's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2006_Throwing Weapons.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0326_Bundle of Heavy Javelins.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2006_Throwing Weapons.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2005_Throwing Spear.txt | ARMORY 2 tune: {\"set\": {\"value\": 300, \"range\": 8, \"range_min\": 1, \"range_max\": 8, \"band\": \"drone\"}} (one hand, as Battle Brothers' throwing family (the hold the fight draws for a thing sent off the hand: the drone is launched from the palm, the radio a thumb pad); an FPV crosses the board (8, the farthest any row reaches); a frame is 500 to 1,000 dollars. PRICE (ECONOMY FOUR 11/27, rule 489(b) 'the cheap first-person drone'; records/BOHEMIA_ECONOMY_FOUR_THE_NEW_GUNS_PRICED_11_27_26.md): two kits with their charges at about 900 dollars each, in median US working days ($243) at four AA a day; was 900 crowns, priced like a good rifle)",
    "hands_basis": "Throwing Weapons page: \"One-handed Throwing Weapons (i.e. all, except Slings)\"",
    "range_basis": "max from class table; min from Throwing Weapons page: \"The minimum range is 2, except for Slings.\"",
    "weapon_hit_chance": -5,
@@ -9271,7 +9271,8 @@
      "rounds": 2,
      "consumable": true
     }
-   }
+   },
+   "value_by": "ECONOMY FOUR 11/27 (rule 489(b) 'the cheap first-person drone'; records/BOHEMIA_ECONOMY_FOUR_THE_NEW_GUNS_PRICED_11_27_26.md): two FPV kits with their charges at about 900 dollars each, in median US working days ($243) at four AA a day; was 900 crowns, priced like a good rifle"
   },
   {
    "id": "scout_drone",
@@ -10057,10 +10058,672 @@
     },
     "own_gun": "sawed_off"
    }
+  },
+  {
+   "id": "named_locksmith_ring",
+   "name": "The Locksmith's Ring",
+   "class": "flail",
+   "hands": 1,
+   "damage_min": 20,
+   "damage_max": 40,
+   "armor_damage_pct": 65,
+   "armor_ignore_pct": 30,
+   "fatigue": -5,
+   "durability": 50,
+   "value": 510,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Flail",
+     "ap": 4,
+     "fatigue": 13,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Ignores the defense bonus of shields, 30% Direct Damage",
+     "page": "Flail (13 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0783_Flail (13 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Lash",
+     "ap": 4,
+     "fatigue": 25,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "100% chance to hit the head (if the attack hits), 30% Direct Damage",
+     "page": "Lash (25 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1143_Lash (25 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of wooden_flail and reinforced_wooden_flail, fought with wooden_flail's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0785_Flails.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2236_Wooden Flail.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0785_Flails.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1669_Reinforced Wooden Flail.txt | ARMORY 3 named of bike_lock_chain: {\"damage\": 5, \"lighter_pct\": 30, \"durability_pct\": 40, \"value_x\": 3, \"why\": \"Battle Brothers' named weapon, durability always better and two more stats: the blow 5 harder at both ends (its 'Damage Regular') and a third lighter; three times the worth\"}",
+   "class_page_section": "One-Handed Flails",
+   "hands_basis": "Flails page heading \"One-Handed Flails\"",
+   "head_hit_chance": 10,
+   "skills_basis": "weapon page Skills section",
+   "named": {
+    "guarded_by": "THE LOCKSMITH",
+    "story": "Every key in the valley on one steel ring, a padlock the size of a fist at the end. He opened doors with it, and heads.",
+    "improve": {
+     "damage": 5,
+     "lighter_pct": 30,
+     "durability_pct": 40,
+     "value_x": 3,
+     "why": "Battle Brothers' named weapon, durability always better and two more stats: the blow 5 harder at both ends (its 'Damage Regular') and a third lighter; three times the worth"
+    }
+   },
+   "armory": {
+    "name": "the locksmith's ring",
+    "object": "the locksmith's ring",
+    "line": "His chain of keys. One hand. It comes over a shield and it rings.",
+    "tier": "named",
+    "kind": "named",
+    "role": "the Bike-Lock Chain made his: Battle Brothers' named flail",
+    "between": [
+     "wooden_flail",
+     "reinforced_wooden_flail"
+    ],
+    "across": null,
+    "carried_by": [],
+    "draft": true,
+    "named": {
+     "guarded_by": "THE LOCKSMITH",
+     "story": "Every key in the valley on one steel ring, a padlock the size of a fist at the end. He opened doors with it, and heads."
+    },
+    "named_of": "bike_lock_chain"
+   }
+  },
+  {
+   "id": "named_machinist_pipe",
+   "name": "The Machinist's Pipe",
+   "class": "firearm",
+   "hands": null,
+   "damage_min": 35,
+   "damage_max": 65,
+   "armor_damage_pct": 70,
+   "armor_ignore_pct": 30,
+   "fatigue": -6,
+   "durability": 28,
+   "value": 720,
+   "range": 2,
+   "range_min": 2,
+   "range_max": 2,
+   "skills": [
+    {
+     "name": "Fire Handgonne",
+     "ap": 3,
+     "fatigue": 5,
+     "hit_bonus": 20,
+     "range": null,
+     "effect": "+10% chance to hit, -10% chance to hit per tile of distance, chance is unaffected by objects or characters in the line of fire, can hit 5 tiles behind the target, 25% Direct Damage",
+     "page": "Fire Handgonne (5 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0766_Fire Handgonne (5 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Reload Handgonne",
+     "ap": 9,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Reloads the Handgonne",
+     "page": "Reload Handgonne (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1678_Reload Handgonne (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of handgonne and short_bow, fought with handgonne's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0771_Firearms.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0935_Handgonne.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0273_Bows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1785_Short Bow.txt | ARMORY 2 tune: {\"set\": {\"value\": 90, \"durability\": 20}} (two lengths of plumbing pipe and a nail: priced and worn like junk (9 batteries, 20 wear), so a camp's smith sells it) | ARMORY 3 named of pipe_shotgun: {\"hit\": 10, \"lighter_pct\": 30, \"durability_pct\": 40, \"value_x\": 8, \"why\": \"Battle Brothers' named weapon, durability always better and two more stats: a gun's shot 10 surer and a third lighter (rule 489(d): a gun's damage never moves); three times the worth; the pipe gun was worth nine batteries, so its maker's own is eight times that (72): a prize is worth the blood (rule 493(c))\"}",
+   "range_basis": "class table Range 2; weapon page tilerange \"2 - 2\"",
+   "skills_basis": "weapon page Skills section",
+   "named": {
+    "guarded_by": "THE MACHINIST",
+    "story": "Three dead guns filed down into one on his own bench. Every part fits. It is still one shell, but it goes where he points it.",
+    "improve": {
+     "hit": 10,
+     "lighter_pct": 30,
+     "durability_pct": 40,
+     "value_x": 8,
+     "why": "Battle Brothers' named weapon, durability always better and two more stats: a gun's shot 10 surer and a third lighter (rule 489(d): a gun's damage never moves); three times the worth; the pipe gun was worth nine batteries, so its maker's own is eight times that (72): a prize is worth the blood (rule 493(c))"
+    }
+   },
+   "armory": {
+    "name": "the machinist's pipe",
+    "object": "the machinist's pipe",
+    "line": "His hand-built pipe gun. Both hands. One shell, and it never throws wide.",
+    "tier": "named",
+    "kind": "named",
+    "role": "the Pipe Shotgun made his: Battle Brothers' named handgonne",
+    "between": [
+     "handgonne",
+     "short_bow"
+    ],
+    "across": "Battle Brothers has one firearm, so B is the cheapest bow",
+    "carried_by": [],
+    "draft": true,
+    "named": {
+     "guarded_by": "THE MACHINIST",
+     "story": "Three dead guns filed down into one on his own bench. Every part fits. It is still one shell, but it goes where he points it."
+    },
+    "named_of": "pipe_shotgun",
+    "own_gun": "sawed_off"
+   }
+  },
+  {
+   "id": "named_press_mallet",
+   "name": "The Press Mallet",
+   "class": "hammer",
+   "hands": 2,
+   "damage_min": 45,
+   "damage_max": 75,
+   "armor_damage_pct": 150,
+   "armor_ignore_pct": 50,
+   "fatigue": -10,
+   "durability": 70,
+   "value": 1500,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Smite",
+     "ap": 6,
+     "fatigue": 15,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Does +20Damage, 100% chance to stagger target, 50% Direct Damage (60% Direct Damage for Barbarian hammer, 40% Direct Damage for Pollaxe)",
+     "page": "Smite (15 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1821_Smite (15 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Shatter",
+     "ap": 6,
+     "fatigue": 30,
+     "hit_bonus": -10,
+     "range": null,
+     "effect": "Hits up to 3 targets counterclockwise, -10% chance to hit, 33% chance to stagger target, 33% chance to knock back target, 40% Direct Damage (50% Direct Damage for Barbarian hammer)",
+     "page": "Shatter (30 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1772_Shatter (30 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Split Shield",
+     "ap": 6,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Direct damage to shield",
+     "page": "Split Shield (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1853_Split Shield (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of two_handed_mallet and two_handed_mallet, fought with two_handed_mallet's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0932_Hammers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2047_Two-Handed Mallet.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0932_Hammers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2047_Two-Handed Mallet.txt | ARMORY 3 named: {\"damage\": 5, \"lighter_pct\": 30, \"durability_pct\": 40, \"value_x\": 3, \"why\": \"Battle Brothers' named weapon, durability always better and two more stats: the blow 5 harder at both ends (its 'Damage Regular') and a third lighter; three times the worth\"}",
+   "class_page_section": "Two-Handed Hammers",
+   "hands_basis": "Hammers page heading \"Two-Handed Hammers\"",
+   "shield_damage": 20,
+   "skills_basis": "weapon page Skills section",
+   "named": {
+    "guarded_by": "THE PLATE",
+    "story": "The mallet that set the last press in the valley. The head is a die block off the line, the handle a forklift's tine.",
+    "improve": {
+     "damage": 5,
+     "lighter_pct": 30,
+     "durability_pct": 40,
+     "value_x": 3,
+     "why": "Battle Brothers' named weapon, durability always better and two more stats: the blow 5 harder at both ends (its 'Damage Regular') and a third lighter; three times the worth"
+    }
+   },
+   "armory": {
+    "name": "the press mallet",
+    "object": "the press mallet",
+    "line": "His mallet. Both hands. It puts a man on the floor.",
+    "tier": "named",
+    "kind": "named",
+    "role": "Battle Brothers' named two-handed mallet",
+    "between": [
+     "two_handed_mallet",
+     "two_handed_mallet"
+    ],
+    "across": null,
+    "carried_by": [],
+    "draft": true,
+    "named": {
+     "guarded_by": "THE PLATE",
+     "story": "The mallet that set the last press in the valley. The head is a die block off the line, the handle a forklift's tine."
+    }
+   }
+  },
+  {
+   "id": "named_tooth_lancet",
+   "name": "The Tooth's Lancet",
+   "class": "cleaver",
+   "hands": 1,
+   "damage_min": 30,
+   "damage_max": 40,
+   "armor_damage_pct": 80,
+   "armor_ignore_pct": 25,
+   "fatigue": -4,
+   "durability": 49,
+   "value": 690,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Cleave",
+     "ap": 4,
+     "fatigue": 12,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Inflicts 5 bleeding damage each turn for 2 turns (Caused by losing at least 6 Hitpoints), 25% Direct Damage (35% Direct Damage for Barbarian cleavers)",
+     "page": "Cleave (12 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0400_Cleave (12 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Decapitate",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Target gets decapitated when killed with this skill (if possible), has a damage bonus that scales with lost health, 25% Direct Damage (35% Direct Damage for Barbarian cleavers)",
+     "page": "Decapitate (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0524_Decapitate (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of butcher_s_cleaver and falx, fought with butcher_s_cleaver's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0403_Cleavers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0336_Butcher's Cleaver.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0403_Cleavers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0735_Falx.txt | ARMORY 3 named of box_cutter: {\"damage\": 5, \"lighter_pct\": 30, \"durability_pct\": 40, \"value_x\": 3, \"why\": \"Battle Brothers' named weapon, durability always better and two more stats: the blow 5 harder at both ends (its 'Damage Regular') and a third lighter; three times the worth\"}",
+   "class_page_section": "One-Handed Cleavers",
+   "hands_basis": "Cleavers page heading \"One-Handed Cleavers\"",
+   "skills_basis": "weapon page Skills section",
+   "named": {
+    "guarded_by": "THE TOOTH",
+    "story": "The only clean blade in the valley, kept in a jar of the last alcohol. It goes in between the plates and comes out red.",
+    "improve": {
+     "damage": 5,
+     "lighter_pct": 30,
+     "durability_pct": 40,
+     "value_x": 3,
+     "why": "Battle Brothers' named weapon, durability always better and two more stats: the blow 5 harder at both ends (its 'Damage Regular') and a third lighter; three times the worth"
+    }
+   },
+   "armory": {
+    "name": "the tooth's lancet",
+    "object": "the tooth's lancet",
+    "line": "His lancet. One hand. Armour does not help much.",
+    "tier": "named",
+    "kind": "named",
+    "role": "the Box Cutter made his: Battle Brothers' named cleaver",
+    "between": [
+     "butcher_s_cleaver",
+     "falx"
+    ],
+    "across": null,
+    "carried_by": [],
+    "draft": true,
+    "named": {
+     "guarded_by": "THE TOOTH",
+     "story": "The only clean blade in the valley, kept in a jar of the last alcohol. It goes in between the plates and comes out red."
+    },
+    "named_of": "box_cutter"
+   }
+  },
+  {
+   "id": "named_ground_glass",
+   "name": "The Ground-Glass Rifle",
+   "class": "crossbow",
+   "hands": null,
+   "damage_min": 35,
+   "damage_max": 55,
+   "armor_damage_pct": 65,
+   "armor_ignore_pct": 45,
+   "fatigue": -4,
+   "durability": 84,
+   "value": 3300,
+   "range": 6,
+   "range_min": 6,
+   "range_max": 6,
+   "skills": [
+    {
+     "name": "Shoot",
+     "ap": 4,
+     "fatigue": 15,
+     "hit_bonus": 25,
+     "range": null,
+     "effect": "+15% chance to hit, -3% chance to hit per tile of distance, 50% Direct Damage; ARMORY 3: from a magazine of 30, no reload between shots; Quick Shot's cost, two a turn",
+     "page": "Shoot Bolt (5 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1782_Shoot Bolt (5 fatigue).txt",
+     "missing": [
+      "range (skill page states no range; the weapon range applies)"
+     ],
+     "bb_name": "Shoot Bolt",
+     "cost_from": "Quick Shot (15 fatigue) (reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1614_Quick Shot (15 fatigue).txt)"
+    },
+    {
+     "name": "Reload",
+     "ap": 4,
+     "fatigue": 20,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Reloads the crossbow",
+     "page": "Reload (20 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1677_Reload (20 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of light_crossbow and composite_bow, fought with light_crossbow's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0461_Crossbows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1166_Light Crossbow.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0273_Bows.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0430_Composite Bow.txt | ARMORY 2 tune: {\"set\": {\"value\": 1100}} (a tube night sight costs about three times the rifle under it) | ARMORY 3 named of night_sight_ar: {\"hit\": 10, \"lighter_pct\": 30, \"durability_pct\": 40, \"value_x\": 3, \"why\": \"Battle Brothers' named weapon, durability always better and two more stats: a gun's shot 10 surer and a third lighter (rule 489(d): a gun's damage never moves); three times the worth\", \"sight\": \"heat\"}",
+   "skills_basis": "weapon page Skills section",
+   "sight": "heat",
+   "fire": "semi",
+   "mag": 30,
+   "ammo": "For 30 uses",
+   "named": {
+    "guarded_by": "THE LENS",
+    "story": "He ground the last good lens in the valley and put it on his rifle. It reads a man's heat through smoke and the dark.",
+    "improve": {
+     "hit": 10,
+     "lighter_pct": 30,
+     "durability_pct": 40,
+     "value_x": 3,
+     "why": "Battle Brothers' named weapon, durability always better and two more stats: a gun's shot 10 surer and a third lighter (rule 489(d): a gun's damage never moves); three times the worth",
+     "sight": "heat"
+    }
+   },
+   "armory": {
+    "name": "the ground-glass rifle",
+    "object": "the ground-glass rifle",
+    "line": "His rifle with the heat glass. Both hands. Nothing hides from it.",
+    "tier": "named",
+    "kind": "named",
+    "role": "the Night-Sight AR made his: a heat sight in place of the night tube",
+    "between": [
+     "light_crossbow",
+     "composite_bow"
+    ],
+    "across": "the semi-automatic rifle: the light crossbow's bolt and the composite bow's arrow",
+    "carried_by": [],
+    "draft": true,
+    "fire": {
+     "mode": "semi",
+     "mag": 30,
+     "rounds": 30,
+     "sight": "night"
+    },
+    "named": {
+     "guarded_by": "THE LENS",
+     "story": "He ground the last good lens in the valley and put it on his rifle. It reads a man's heat through smoke and the dark."
+    },
+    "named_of": "night_sight_ar",
+    "own_gun": "scoped_deer_rifle"
+   }
+  },
+  {
+   "id": "named_valve_key",
+   "name": "The Valve Key",
+   "class": "mace",
+   "hands": 1,
+   "damage_min": 30,
+   "damage_max": 40,
+   "armor_damage_pct": 85,
+   "armor_ignore_pct": 40,
+   "fatigue": -6,
+   "durability": 90,
+   "value": 300,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Bash",
+     "ap": 4,
+     "fatigue": 13,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Target gets additional 10Fatigue, 40% Direct Damage (50% Direct Damage for Barbarian mace)",
+     "page": "Bash (13 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0199_Bash (13 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Knock Out",
+     "ap": 4,
+     "fatigue": 25,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "75% chance to stun target, does -50%Damage, target gets additional 10Fatigue, 40% Direct Damage (50% Direct Damage for Barbarian mace)",
+     "page": "Knock Out (25 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1131_Knock Out (25 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of bludgeon and nomad_mace, fought with bludgeon's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1224_Maces.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0260_Bludgeon.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1224_Maces.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1448_Nomad Mace.txt | ARMORY 3 named of tire_iron: {\"damage\": 5, \"lighter_pct\": 30, \"durability_pct\": 40, \"value_x\": 3, \"why\": \"Battle Brothers' named weapon, durability always better and two more stats: the blow 5 harder at both ends (its 'Damage Regular') and a third lighter; three times the worth\"}",
+   "class_page_section": "One-Handed Maces",
+   "hands_basis": "Maces page heading \"One-Handed Maces\"",
+   "skills_basis": "weapon page Skills section",
+   "named": {
+    "guarded_by": "THE CISTERN",
+    "story": "The four-way iron that opens every roof tank on the strip. Whoever holds it decides who drinks.",
+    "improve": {
+     "damage": 5,
+     "lighter_pct": 30,
+     "durability_pct": 40,
+     "value_x": 3,
+     "why": "Battle Brothers' named weapon, durability always better and two more stats: the blow 5 harder at both ends (its 'Damage Regular') and a third lighter; three times the worth"
+    }
+   },
+   "armory": {
+    "name": "the valve key",
+    "object": "the valve key",
+    "line": "His valve key. One hand. It cracks a helmet like a tank cap.",
+    "tier": "named",
+    "kind": "named",
+    "role": "the Tire Iron made his: Battle Brothers' named club",
+    "between": [
+     "bludgeon",
+     "nomad_mace"
+    ],
+    "across": null,
+    "carried_by": [],
+    "draft": true,
+    "named": {
+     "guarded_by": "THE CISTERN",
+     "story": "The four-way iron that opens every roof tank on the strip. Whoever holds it decides who drinks."
+    },
+    "named_of": "tire_iron"
+   }
+  },
+  {
+   "id": "named_last_hammer",
+   "name": "The Last Hammer",
+   "class": "hammer",
+   "hands": 1,
+   "damage_min": 35,
+   "damage_max": 45,
+   "armor_damage_pct": 225,
+   "armor_ignore_pct": 50,
+   "fatigue": -6,
+   "durability": 140,
+   "value": 6900,
+   "range": 1,
+   "range_min": 1,
+   "range_max": 1,
+   "skills": [
+    {
+     "name": "Batter",
+     "ap": 4,
+     "fatigue": 14,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Inflicts at least 10 Hitpoints damage, 50% Direct Damage (60% Direct Damage for Barbarian hammer)",
+     "page": "Batter (14 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0204_Batter (14 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    },
+    {
+     "name": "Destroy Armor",
+     "ap": 4,
+     "fatigue": 25,
+     "hit_bonus": null,
+     "range": null,
+     "effect": "Does 50% more Armor Damage, inflicts exactly 10 Hitpoints damage",
+     "page": "Destroy Armor (25 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0573_Destroy Armor (25 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)",
+      "range (skill page states no range; the weapon range applies)"
+     ]
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of warhammer and warhammer, fought with warhammer's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0932_Hammers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2181_Warhammer.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0932_Hammers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2181_Warhammer.txt | ARMORY 3 named: {\"damage\": 5, \"lighter_pct\": 30, \"durability_pct\": 40, \"value_x\": 3, \"why\": \"Battle Brothers' named weapon, durability always better and two more stats: the blow 5 harder at both ends (its 'Damage Regular') and a third lighter; three times the worth\"}",
+   "class_page_section": "One-Handed Hammers",
+   "hands_basis": "Hammers page heading \"One-Handed Hammers\"",
+   "skills_basis": "weapon page Skills section",
+   "named": {
+    "guarded_by": "THE SMITH",
+    "story": "The hammer that made every blade sold in the valley since the money died. The face is worn to a mirror.",
+    "improve": {
+     "damage": 5,
+     "lighter_pct": 30,
+     "durability_pct": 40,
+     "value_x": 3,
+     "why": "Battle Brothers' named weapon, durability always better and two more stats: the blow 5 harder at both ends (its 'Damage Regular') and a third lighter; three times the worth"
+    }
+   },
+   "armory": {
+    "name": "the last hammer",
+    "object": "the last hammer",
+    "line": "His hammer. One hand. Plate folds under it.",
+    "tier": "named",
+    "kind": "named",
+    "role": "Battle Brothers' named warhammer",
+    "between": [
+     "warhammer",
+     "warhammer"
+    ],
+    "across": null,
+    "carried_by": [],
+    "draft": true,
+    "named": {
+     "guarded_by": "THE SMITH",
+     "story": "The hammer that made every blade sold in the valley since the money died. The face is worn to a mirror."
+    }
+   }
+  },
+  {
+   "id": "named_kennel_leash",
+   "name": "The Kennel Leash",
+   "class": "cleaver",
+   "hands": 1,
+   "damage_min": 25,
+   "damage_max": 40,
+   "armor_damage_pct": 20,
+   "armor_ignore_pct": 15,
+   "fatigue": -4,
+   "durability": 56,
+   "value": 1080,
+   "range": "1-2",
+   "range_min": 1,
+   "range_max": 2,
+   "skills": [
+    {
+     "name": "Lash",
+     "ap": 4,
+     "fatigue": 15,
+     "hit_bonus": null,
+     "range": 2,
+     "effect": "Reaches 2 tiles (ours.whip.reach, rule 320; Battle Brothers 3); two stacks of 5 bleeding a turn for 2 turns when it takes 6 health or more; its row's share straight through; a landed lash may disarm him for his next turn (ours.whip.disarm_pct, a low luck roll)",
+     "page": "Whip (15 fatigue)",
+     "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/2200_Whip (15 fatigue).txt",
+     "missing": [
+      "hit_bonus (no base chance-to-hit modifier stated on skill page)"
+     ],
+     "bb_name": "Whip"
+    }
+   ],
+   "source": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md | ARMORY 11/2: the mean of thorned_whip and battle_whip, fought with thorned_whip's skills | A: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0403_Cleavers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/1985_Thorned Whip.txt | B: reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0403_Cleavers.txt | reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0215_Battle Whip.txt | ARMORY 2 tune: {\"add\": {\"damage_min\": 5, \"damage_max\": 5}, \"set\": {\"armor_damage_pct\": 20, \"value\": 360}} (Battle Brothers' whips plus five each end (his 'a little more'); wire is softer on armour than leather (20 against the whips' 25 to 30); fence wire is cheap (36 batteries)) | ARMORY 3 named of barbed_wire: {\"damage\": 5, \"lighter_pct\": 30, \"durability_pct\": 40, \"value_x\": 3, \"why\": \"Battle Brothers' named weapon, durability always better and two more stats: the blow 5 harder at both ends (its 'Damage Regular') and a third lighter; three times the worth\"}",
+   "class_page_section": "One-Handed Cleavers",
+   "hands_basis": "Cleavers page heading \"One-Handed Cleavers\"",
+   "skills_basis": "weapon page Skills section",
+   "whip": {
+    "bleed_stacks": 3,
+    "why": "three stacks of Battle Brothers' bleeding where the whip lays two (the most bleeding of the four: bleeding is a number, his 'Battle Brothers creates a bleeding effect'); VOTE FIXES 11/2 (Paolo: 'Bro just animate... don't do the stat shit'): no cut on his own hands, the barbs are drawn, not charged"
+   },
+   "named": {
+    "guarded_by": "THE DOGS",
+    "story": "A choke chain and barbed wire braided into one leash. Every dog in the kennel knows its sound.",
+    "improve": {
+     "damage": 5,
+     "lighter_pct": 30,
+     "durability_pct": 40,
+     "value_x": 3,
+     "why": "Battle Brothers' named weapon, durability always better and two more stats: the blow 5 harder at both ends (its 'Damage Regular') and a third lighter; three times the worth"
+    }
+   },
+   "armory": {
+    "name": "the kennel leash",
+    "object": "the kennel leash",
+    "line": "His leash. One hand, two tiles. It bleeds them.",
+    "tier": "named",
+    "kind": "named",
+    "role": "the Barbed Wire made his: Battle Brothers' named whip",
+    "between": [
+     "thorned_whip",
+     "battle_whip"
+    ],
+    "across": null,
+    "carried_by": [],
+    "draft": true,
+    "named": {
+     "guarded_by": "THE DOGS",
+     "story": "A choke chain and barbed wire braided into one leash. Every dog in the kennel knows its sound."
+    },
+    "named_of": "barbed_wire",
+    "prop": "chain"
+   }
   }
  ],
  "_armory": {
-  "count": 48,
+  "count": 56,
   "by": "tools/bohemia_armory.py from armory.json",
   "record": "records/BOHEMIA_ARMORY_TWELVE_GUNS_AND_BLADES_AND_NINE_ARMOURS_11_2_26.md"
  }

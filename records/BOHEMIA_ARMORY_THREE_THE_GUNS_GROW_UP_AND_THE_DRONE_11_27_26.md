@@ -268,3 +268,45 @@ weapon shows 12/3.
 OWED: the drone's whine and the blast (SOUNDS 3: the launch plays the power-on, the landing the shot, today); the enemy roles that
 carry the new guns by tier (BESTIARY 3: carried_by seeds the Guard carbine, the Kalash, the belt-fed and the semi-auto shotgun); own
 models (COOK SIX, CHARACTER 2).
+
+## ROUND THREE (BUILD 11/27zy - THE PRIZES NO STALL SELLS; the routine 'ARMORY 3: the prize gear', rules 493(c), 495, 489(d))
+The routine's ask: "the gear a strong company fights for (493(c)): kit a tier up for the champions (BESTIARY 4) and named prize gear
+that no stall sells, guarded by the bosses' lairs (BOSSES), each with its own look and story line (draft:true); gun damage unchanged."
+
+RESEARCH FIRST (rule 493(b), this lane's slice; the library, reference/library/grok/wiki/PAGES_ALL.tar.gz):
+- bb_all/1403_Named Weapons.txt: a named weapon is its base weapon improved: "Durability is always modified. Then two other random stats
+  among the following are improved: Damage (Regular, Direct, Armor), Shield damage, Chance to hit head, Maximum Fatigue penalty, Fatigue
+  cost for active skills".
+- bb_all/0363_Champions.txt: "Champions are stronger versions of enemies that always have a named item... Named weapons, armors and
+  helmets always drop, even with zero durability".
+- bb_all/1160_Legendary Locations.txt (the legendary places, WORLD's god gear already built on them): the prize no trader sells.
+THE FINDING THAT PROVES US WRONG: nothing in our game was a prize. Every weapon a boss held was a plain shop row (THE SMITH a Warhammer,
+THE PLATE a Two-Handed Mallet), it dropped on the same roll as a thug's (the warhammer 178 of 200 in the gate's own rolls), and the
+same piece sat on a fortress shelf. BOSSES' own record (THE HARD PLACES, 11/27) wrote the gap down for this lane: "GEAR NO STALL SELLS
+(a named piece...) needs a place for gear to land, ARMORY's".
+
+WHAT SHIPPED (the rule 495 way, each part in the module that owns it):
+- THE DATA (records/target/bb/armory.json 'named' {guarded_by, story, improve} and 'named_of'; tools/bohemia_armory.py): eight named prizes,
+  each a boss's own weapon made his: The Locksmith's Ring (THE LOCKSMITH's chain of keys), The Machinist's Pipe (his hand-built pipe gun),
+  The Press Mallet (THE PLATE), The Tooth's Lancet (THE TOOTH), The Ground-Glass Rifle (THE LENS: a heat sight in place of the night tube),
+  The Valve Key (THE CISTERN), The Last Hammer (THE SMITH), The Kennel Leash (THE DOGS). Each: durability +40, a third lighter, three times
+  the worth (the Machinist's eight: his pipe gun was worth nine batteries); a GUN's shot 10 surer and ITS DAMAGE ITS BASE'S (rule 489(d),
+  the gate checks); a blade's, a club's or a whip's blow +5 at both ends (Battle Brothers' Damage Regular). A story line each (draft:true).
+- WHO HOLDS IT (records/target/bb/boss_act_one.json, each boss's own 'weapon'): the eight bosses now hold their prize (the fight's own
+  boss arming, weaponByName: THE SMITH swings The Last Hammer, THE LENS shoots The Ground-Glass Rifle; photographed on the real page,
+  armory3_boss_smith.jpg, armory3_boss_lens.jpg). THE BARBER's revolver was drafted and dropped: his kind carries no gun, so the fight
+  would swing a pistol as a knife; THE CISTERN's valve key took its place.
+- NO STALL SELLS ONE (slices/BOHEMIA_SETTLEMENT_SCREEN.html restock's pick, the one roll every shelf deals from): a named row is passed.
+- IT ALWAYS DROPS (engine/bohemia_spoils.js found(), the one place the drop is decided; the fight's report marks the weapon named):
+  200 of 200 against the plain warhammer's 178. It lands where every looted piece lands: the spoils screen's YOUR STASH (the company's
+  bag, bohemia.bag.v1), equipped from the crew screen.
+- ITS OWN LOOK (slices/bohemia_ui_materials.js): eight icons cut by hand, brass where the boss kept them, never rusted (a named item's
+  quality is whole); in his hands the guns draw as COOK's own pictures of their kind (own_gun).
+- THE CHAMPIONS' TIER UP is BESTIARY 4's (rule 493(c)); the named rows are there for its champions to carry (a champion kind whose gear
+  holds the base row can be handed one by armory.json carried_by, the way the brigands carry the armory's pieces).
+
+CHECKS: THE GUNS GROW UP 28/0 (five new legs: NAMED PRIZES, NAMED better and a gun's damage its base's, NAMED ALWAYS DROPS 200/200, NO STALL
+SELLS ONE, THE BOSS HOLDS HIS PRIZE); the spoils 18/1 (the walk's tap, quarantined, as main); everybody is strapped 5/0; optimize loot 22/0;
+god gear 37/0; THE BOSS ARRIVES 27/0; THE HARD PLACES 6/0; THE FIRST THREE BOSSES 55 legs green before the shell's ten minutes ran out
+(quarantined LOAD-leaning; bosses one to six untouched); shapes 9/0, no ammo 12/0, whip 13/0, bands 15/0, melee 10/0, icons 10/0, two
+hands 9/0, two-hander 8/0; demo build 25/0. Sourced numbers 85 typed (none added); model manifest 321/1 as main.

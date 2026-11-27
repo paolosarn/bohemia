@@ -174,9 +174,30 @@ async function cross() {
   out.errs = d.errs || []; await d.close(); return out;
 }
 
+/* ROUND THREE (rule 493(c)): a boss holding his named prize on the real page, cut round him (armory3_boss_<name>.jpg) */
+async function bossHolds(B, file) {
+  const arm = 'window.FIGHT_OPTS = ' + JSON.stringify({ seed: 5, speed: 1, auto: false, deploy: false, teach: false, company: [man('kalash', 0)], boss: B, party: { faction: 'brigands', band: [B.kind, 'brigand_thug', 'brigand_thug'], days: 20 } }) + ';';
+  const d = await open({ file: 'BOHEMIA_FIGHT.html', bare: true, arm }), p = d.page, out = {};
+  await until(p, () => typeof FIGHT !== 'undefined' && FIGHT.S && FIGHT.S.units && FIGHT.S.units.length > 1 && !FIGHT.S.deploy, null, 60000);
+  await sleep(2500);
+  await p.evaluate(() => { for (let g = 0; g < 400 && FIGHT.current() && FIGHT.current().side !== 'you' && !FIGHT.S.over; g++) FIGHT.aiStep(FIGHT.current()); try { take(); } catch (e) {} });
+  await until(p, () => !(UI.anim && UI.anim.length), null, 20000); await sleep(6000);   /* his entrance played (BOSSES' THE BOSS ARRIVES) */
+  const box = await p.evaluate(() => { const S = FIGHT.S, b = S.units.find(u => u.boss); if (!b) return null; b._face = 2;
+    UI.zoom = Math.max(UI.zoom, UI.far * 1.8); const q = aimAt(b.x, b.y); UI.cx = q[0]; UI.cy = q[1]; try { hud(); } catch (e) {}
+    const M = manBox(b.x, b.y), h = manH(); return { box: { x: Math.max(0, Math.round(M.x - h * 0.9)), y: Math.max(0, Math.round(M.head - h * 0.35)), width: Math.round(h * 1.8), height: Math.round(h * 1.5) }, name: b.name, weapon: b.weapon && b.weapon.name, named: !!(b.weapon && (b.weapon.of || b.weapon).named) }; });
+  out.boss = box && { name: box.name, weapon: box.weapon, named: box.named };
+  await sleep(700);
+  if (box) await p.screenshot({ path: path.join(OUT, file), clip: box.box, type: 'jpeg', quality: 85 });
+  out.errs = d.errs || []; await d.close(); return out;
+}
+async function bosses() {
+  return { smith: await bossHolds({ kind: 'knight', name: 'THE SMITH', weapon: 'The Last Hammer', hp_x: 2 }, 'armory3_boss_smith.jpg'),
+           lens: await bossHolds({ kind: 'arbalester', name: 'THE LENS', weapon: 'The Ground-Glass Rifle', hp_x: 2 }, 'armory3_boss_lens.jpg') };
+}
+
 (async () => {
   const only = process.env.ONLY ? process.env.ONLY.split(',') : null, want = k => !only || only.indexOf(k) >= 0;
-  for (const [k, f] of [['burst', burst], ['belt', belt], ['rocket', rocket], ['drone', drone], ['mine', mine], ['spot', spot], ['hands', hands], ['cross', cross]]) {
+  for (const [k, f] of [['burst', burst], ['belt', belt], ['rocket', rocket], ['drone', drone], ['mine', mine], ['spot', spot], ['hands', hands], ['cross', cross], ['bosses', bosses]]) {
     if (!want(k)) continue;
     try { proof[k] = await f(); } catch (e) { proof[k] = { crashed: String(e && e.stack || e).slice(0, 400) }; }
     console.log(k + ': ' + JSON.stringify(proof[k]).slice(0, 900));

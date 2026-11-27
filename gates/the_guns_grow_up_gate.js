@@ -67,6 +67,31 @@ leg(!ogBad.length && ['switched_pistol', 'pipe_smg', 'pipe_shotgun', 'auto_shotg
   "TOLD APART IN HIS HANDS: a piece whose own_gun names one of COOK's own guns is drawn as that gun (the service pistol, the zip gun, the sawed-off's two barrels, the pump, the scoped rifle)",
   ogBad.length ? 'unmapped: ' + ogBad.join(', ') : Object.keys(OG.by_row).filter(k => NEW.indexOf(k) >= 0).map(k => k + ' -> ' + OG.by_row[k]).join(', '));
 
+/* ---------------- ROUND THREE (rule 493(c): the gear a strong company fights for) ---------------- */
+const named = SPEC.weapons.filter(s => s.named), namedBad = [], BOSS = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/boss_act_one.json'), 'utf8')).bosses;
+named.forEach(s => { const r = row(s.id); if (!r || !r.armory || !r.armory.named) return namedBad.push(s.id + ' not written');
+  const B = BOSS.find(b => b.n === s.named.guarded_by); if (!B || B.boss.weapon !== r.name) namedBad.push(s.id + ': ' + s.named.guarded_by + ' does not hold it');
+  if (!s.named.story || !s.line) namedBad.push(s.id + ' has no story'); });
+leg(named.length >= 8 && !namedBad.length, "NAMED PRIZES: each a boss's own weapon made his (Battle Brothers' named items), with its story, held by the boss who guards it (boss_act_one.json)",
+  namedBad.length ? namedBad.join('; ') : named.map(s => row(s.id).name + ' (' + s.named.guarded_by + ')').join(', '));
+const gunMoved = named.filter(s => { const r = row(s.id), b = s.named_of ? row(s.named_of) : row(s.between[0]); const gun = !!s.shot || /^(crossbow|firearm|bow)$/.test(r.class);
+  return gun && (r.damage_min !== b.damage_min || r.damage_max !== b.damage_max); });
+const better = named.filter(s => { const r = row(s.id), b = s.named_of ? row(s.named_of) : row(s.between[0]); return !(r.durability > b.durability && r.value > b.value); });
+leg(!gunMoved.length && !better.length, "NAMED: better than its base (durability, worth), and A NAMED GUN'S DAMAGE IS ITS BASE'S (rule 489(d))", (gunMoved.concat(better)).map(s => s.id).join(', ') || 'all ' + named.length);
+const SP = require(path.join(ROOT, 'engine/bohemia_spoils.js')), LOOT = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/bb/loot.json'), 'utf8'));
+let always = 0, plain = 0; const N = 200;
+for (let i = 0; i < N; i++) {
+  const r1 = row('named_last_hammer'), r2 = row('warhammer'), mk = (r, nm) => ({ name: 'THE SMITH', kind: 'knight', boss: true, dead: true, weapon: { id: r.id, cls: r.class, durability: Math.max(1, (r.durability | 0) >> 3), gun: false, named: nm } });
+  let s = (i * 7919 + 1) % 1000; const rnd = () => { s = (s * 16807) % 2147483647; return (s % 10000) / 10000; };
+  if (SP.found({ bodies: [mk(r1, true)] }, LOOT, rnd).items.some(x => x.id === r1.id)) always++;
+  if (SP.found({ bodies: [mk(r2, false)] }, LOOT, rnd).items.some(x => x.id === r2.id)) plain++;
+}
+leg(always === N && plain < N, "NAMED ALWAYS DROPS: his named prize is on the ground every time he falls, even worn down (Battle Brothers: 'Named weapons... always drop'); a plain weapon still rolls",
+  'named ' + always + ' of ' + N + ', the plain warhammer ' + plain + ' of ' + N);
+const SETTLE = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.html'), 'utf8');
+leg(/return r\.value != null && held\.indexOf\(r\.id\) < 0 && !\(r\.armory && r\.armory\.named\)/.test(SETTLE),
+  "NO STALL SELLS ONE: the shelf's roll passes every named prize (slices/BOHEMIA_SETTLEMENT_SCREEN.html restock's pick)", 'the filter is in the one roll every shelf deals from');
+
 /* ---------------- a board ---------------- */
 ctx.setSeed(3);
 F.setup({ seed: 3, kind: 'strip', auto: true, formation: null, party: { faction: 'brigands', count: 4, days: 1 } });
@@ -211,6 +236,12 @@ for (let seed = 1; seed <= 8; seed++) {
 leg(!errs.length && fights === 8 && tally.drone_launch > 0 && tally.drone_down > 0 && tally.drone_lands_on_nobody > 0 && tally.burst > 0 && tally['attack:Traverse'] > 0,
   'AUTO: eight real fights, both sides on AUTO, drones and bursts in their hands: nothing throws; drones fly, are shot down, and men step off the cross',
   errs.length ? errs.join('; ') : JSON.stringify(tally));
+
+/* ---------------- THE BOSS HOLDS HIS PRIZE (round three) ---------------- */
+ctx.setSeed(9);
+F.setup({ seed: 9, kind: 'strip', auto: true, formation: null, boss: { kind: 'knight', name: 'THE SMITH', weapon: 'The Last Hammer', hp_x: 2 }, party: { faction: 'brigands', band: ['knight', 'brigand_thug'], days: 1 } });
+const smith = F.S.units.find(u => u.boss);
+leg(!!smith && smith.weapon && smith.weapon.id === 'named_last_hammer', 'THE BOSS HOLDS HIS PRIZE in the fight: THE SMITH swings The Last Hammer', smith ? smith.name + ' with ' + (smith.weapon && smith.weapon.name) : 'no boss: ' + (F.S.bossErr || ''));
 
 console.log('THE GUNS GROW UP: ' + pass + ' passed, ' + fail + ' failed (' + Math.round((Date.now() - t0) / 1000) + ' s)');
 process.exit(fail ? 1 : 0);

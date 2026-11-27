@@ -134,8 +134,9 @@ def main(mode, part=None):
     # (the base's family rows, fire, tune and own picture) with its own id, name, line, tier, kind and carried_by, and 'worn'
     base = {s['id']: s for s in spec['weapons']}
     def expand(s):
-        if not s.get('worn_of'): return s
-        b = copy.deepcopy(base[s['worn_of']])
+        of = s.get('worn_of') or s.get('named_of')   # ARMORY 3 round three (rule 493(c)): a NAMED prize is its base piece made better
+        if not of: return s
+        b = copy.deepcopy(base[of])
         for k in ('carried_by', 'starter'): b.pop(k, None)
         b.update(s); return b
     spec['weapons'] = [expand(s) for s in spec['weapons']]
@@ -188,6 +189,21 @@ def main(mode, part=None):
         if s.get('fire'):
             fb = fire_skills(s, r, a, wid, rec)
             if fb: bad.append(s['id'] + ': ' + fb); continue
+        # ARMORY 3 round three: NAMED (rule 493(c), Battle Brothers' named items, bb_all/1403_Named Weapons.txt: 'Durability is always
+        # modified. Then two other random stats... are improved'; ours designed, not rolled): durability up, the weight lighter, and a
+        # gun's shot surer, a blade's or a club's blow harder; A GUN'S DAMAGE NEVER MOVES (rule 489(d)); never on a stall, always dropped
+        if s.get('named'):
+            im = s['named']['improve']; gunlike = bool(s.get('shot')) or r['class'] in ('crossbow', 'firearm', 'bow') or r.get('gun')
+            if im.get('damage') and not gunlike: r['damage_min'] += im['damage']; r['damage_max'] += im['damage']
+            if im.get('hit'):
+                for sk in (r.get('skills') or []) + ([r['shot_skill']] if r.get('shot_skill') else []):
+                    if not sk['name'].startswith('Reload') and isinstance(sk.get('hit_bonus'), (int, float)): sk['hit_bonus'] += im['hit']
+            if im.get('lighter_pct') and isinstance(r.get('fatigue'), (int, float)): r['fatigue'] = -int(round(abs(r['fatigue']) * (1 - im['lighter_pct'] / 100.0)))
+            if im.get('durability_pct') and isinstance(r.get('durability'), (int, float)): r['durability'] = int(round(r['durability'] * (1 + im['durability_pct'] / 100.0)))
+            if im.get('sight'): r['sight'] = im['sight']
+            r['value'] = r10(r['value'] * im.get('value_x', 3))
+            r['named'] = {'guarded_by': s['named']['guarded_by'], 'story': s['named']['story'], 'improve': im}
+            r['source'] += ' | ARMORY 3 named' + (' of ' + s['named_of'] if s.get('named_of') else '') + ': ' + json.dumps(im)
         # ARMORY 3: WORN (a shot-out barrel, a loose action): the same gun, the same damage (rule 489(d)), its shot 'hit' points
         # harder to land and 'value_pct' of the price
         if s.get('worn'):
@@ -200,6 +216,8 @@ def main(mode, part=None):
                        'role': s['role'], 'between': s['between'], 'across': s.get('across'), 'carried_by': s['carried_by'], 'draft': True}
         if s.get('fire'): r['armory']['fire'] = s['fire']
         if s.get('worn_of'): r['armory']['worn_of'] = s['worn_of']
+        if s.get('named'): r['armory']['named'] = {'guarded_by': s['named']['guarded_by'], 'story': s['named']['story']}
+        if s.get('named_of'): r['armory']['named_of'] = s['named_of']
         if s.get('own_gun'): r['armory']['own_gun'] = s['own_gun']
         if s.get('starter'): r['armory']['starter'] = True
         if s.get('prop'): r['armory']['prop'] = s['prop']
@@ -307,6 +325,8 @@ def main(mode, part=None):
         g = s.get('own_gun')
         if g and g in OG['guns']: OG['by_row'][s['id']] = g
         elif s['id'] in OG['by_row'] and s['id'] in mineids and s.get('fire'): OG['by_row'].pop(s['id'])
+    allrows = set(x['id'] for x in W['rows'])
+    for k in [k for k in OG['by_row'] if k not in allrows]: OG['by_row'].pop(k)   # a picture kept for a row that is gone points at nothing
     dump(OGP, OG, compact=True)
     if spec.get('fire_shapes'):
         # the file is laid out by hand (COMBAT's): ours go in as one line each before the rows close, the rest byte for byte
