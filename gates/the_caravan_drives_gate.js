@@ -11,8 +11,10 @@
      V1 THE SHEET: the voted truck's eight facings packed from DIRECTION's renders (each source file's bytes as the bake read them, so a
         re-render reads stale), every cell inside the atlas, its ground point inside its cell, under 1 MB decoded
      V2 THE TRUCK ROLLS BEHIND HIM (the board's own escort offer taken in the town he starts in, the travel order to where it goes, the
-        1x pace): drawn on most frames of the journey as the truck (not the old picture), never more than three blocks behind the block
-        the job puts it on (the glide trails the clock like every party's: measured up to just over two on this box), never more than half a block between two frames (it glides; the old way jumped a whole block), facing the way it rolls
+        1x pace): drawn on most frames of the journey as the truck (not the old picture), never more than four blocks behind the block
+        the job puts it on (the glide trails the clock like every party's; measured 1.7 to 3.2 blocks over four runs on this box: a
+        slow frame swallows beats and the journey pays them back as a burst of blocks, and the glide's step is capped at 120 ms a frame;
+        past four would be the glide's cut), never more than half a block between two frames (it glides; the old way jumped a whole block), facing the way it rolls
         (the facing agrees with its own motion on the frames it moves), at least two facings over the route
      V3 THE RAIDERS COME ON THE ROAD: the job's band appears, is drawn walking on some frame, facing him, and its drawn place closes on
         him; the raiders' card stands (the fight's door, as before)
@@ -87,15 +89,15 @@ const ride = (fr) => fr.evaluate(() => new Promise((res) => {
         for (let i = 0; i < F.length; i++) {
           const f = F[i]; if (!f.truck || !f.block) continue;
           faces.add(f.truck.face);
-          const off = Math.max(Math.abs(f.truck.at[0] - f.block[0]), Math.abs(f.truck.at[1] - f.block[1])); farMost = Math.max(farMost, off); if (off > 3.01) far++;
+          const off = Math.max(Math.abs(f.truck.at[0] - f.block[0]), Math.abs(f.truck.at[1] - f.block[1])); farMost = Math.max(farMost, off); if (off > 4.01) far++;
           const p = F[i - 1]; if (!p || !p.truck) continue;
           const dx = f.truck.at[0] - p.truck.at[0], dy = f.truck.at[1] - p.truck.at[1];
           if (Math.max(Math.abs(dx), Math.abs(dy)) > 0.5) jump++;
           if (Math.abs(dx) + Math.abs(dy) > 0.02) { faceN++; const want = { '1,0': 'SE', '0,1': 'SW', '1,1': 'S', '1,-1': 'E', '-1,0': 'NW', '0,-1': 'NE', '-1,-1': 'N', '-1,1': 'W' }[Math.sign(Math.round(dx * 50)) + ',' + Math.sign(Math.round(dy * 50))];
             if (want === f.truck.face) faceOk++; }
         }
-        const old = rolling.filter((f) => f.cargo && !f.truck).length;
-        ok('V2 THE TRUCK ROLLS BEHIND HIM ("' + R.title + '" to ' + R.dest + '): drawn as the truck on ' + drawn.length + ' of ' + rolling.length + ' frames (the old picture ' + old + '), the most it trails its block ' + farMost.toFixed(2) + ' blocks (over three: ' + far + '), a jump over half a block between frames ' + jump + ', facing its motion ' + faceOk + ' of ' + faceN + ', facings ' + [...faces].join(' '),
+        const old = rolling.filter((f) => f.cargo && !f.truck).length, dts = F.slice(1).map((f, i) => f.t - F[i].t).sort((x, y) => x - y), midDt = dts.length ? dts[dts.length >> 1] : 0;
+        ok('V2 THE TRUCK ROLLS BEHIND HIM ("' + R.title + '" to ' + R.dest + '): drawn as the truck on ' + drawn.length + ' of ' + rolling.length + ' frames (the old picture ' + old + '), the most it trails its block ' + farMost.toFixed(2) + ' blocks (over four: ' + far + '; this box\'s frames ' + midDt + ' ms the middle), a jump over half a block between frames ' + jump + ', facing its motion ' + faceOk + ' of ' + faceN + ', facings ' + [...faces].join(' '),
           rolling.length >= 30 && drawn.length >= rolling.length * 0.8 && far === 0 && jump === 0 && faceN >= 5 && faceOk >= faceN * 0.8 && faces.size >= 2);
         const rf = F.filter((f) => f.raiders), walking = rf.filter((f) => f.raiders.walking), facing = rf.filter((f) => { const want = { '1,0': 'SE', '0,1': 'SW', '1,1': 'S', '1,-1': 'E', '-1,0': 'NW', '0,-1': 'NE', '-1,-1': 'N', '-1,1': 'W' }[Math.sign(Math.round(f.me[0] - f.raiders.at[0])) + ',' + Math.sign(Math.round(f.me[1] - f.raiders.at[1]))]; return !want || want === f.raiders.face; });
         const dist = (f) => Math.max(Math.abs(f.raiders.at[0] - f.me[0]), Math.abs(f.raiders.at[1] - f.me[1]));

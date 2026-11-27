@@ -49,8 +49,9 @@ the road, it reads plainly on the map upright and sideways, never choppy.'
 ## 4. PROVED
 
 - Gate gates/the_caravan_drives_gate.js (THE CARAVAN DRIVES, in the suite) 6/0: V1 the sheet (fresh from the renders, under 1 MB);
-  V2 the truck on 230 of 230 frames of the road, trailing its block by at most 1.8 blocks (just over 2 on one run: the glide trails
-  the clock like every party's; the leg holds it under 3), never half a block between two frames, facing its motion on 108 of 116
+  V2 the truck on 222 to 249 of every frame of the road, trailing its block by 1.7 to 3.2 blocks over four runs (the glide trails
+  the clock like every party's: a slow frame on this box swallows beats and the journey pays them back as a burst of blocks; the leg
+  holds it under 4, past which the glide cuts), never half a block between two frames, facing its motion on 108 of 116
   moving frames, five facings over the route; V3 the raiders drawn on 40 frames, walking on 36, facing him on
   40, 6.0 blocks off at first and 2.2 at the last, their card stands; V4 planted (the truck off: not drawn); V5 the alpha on its side.
 - EVERY JOB KIND (escort legs) 10/0: taken, drawn, slow, raided, the fight, paid per crate, he stands where he brought it.
