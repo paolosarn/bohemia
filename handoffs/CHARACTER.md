@@ -9,7 +9,9 @@ plastic), inert until a head is given one; tools/bohemia_character_two_implants.
 renders them and makes a card. Neither reads yet at 128 px; the record's last section is the plan.
 NEXT (in order): (1) rule 486's look: the ARM first (the only part that reads at the fight's size: a socket and a powered hand in their
 own outline and colour), then the eye and the ear as the face's detail, each a shape that breaks the face's outline, checked with a
-planted bright colour in the render's own views before the real material; never a fourth loop on the same idea; (2) BESTIARY's five
+planted bright colour in the render's own views before the real material; never a fourth loop on the same idea; (1b) the
+routine's 11/27 04:30 order: then the men holding ARMORY 3's new guns (rule 489(b)) so each gun reads in hand at the fight's size
+(COMBAT's guns-in-hands render, tools/bohemia_combat_the_guns_in_their_hands.py; this lane's pack tool for a fresh box); (2) BESTIARY's five
 stand-ins in their own clothes; (3) the bosses' crews; (4) the thirteen faction_* looks in layers; (5) nine hall men at three layers.
 Blender: python3.11 -m venv /tmp/v && /tmp/v/bin/pip install bpy==4.2.0 numpy pillow; ln -s /tmp/v v; BOHEMIA_BPY=/tmp/v/bin/python
 for the wound tool. NEVER send_later.
