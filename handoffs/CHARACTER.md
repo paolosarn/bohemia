@@ -1,5 +1,34 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+CHARACTER THREE (character-three-01gkdyuv, the routine 'CHARACTER 3: the champions' look', 11/27 21:50): 11/27 (ar) LATEST -- *** HANDOFF READY: the session's working memory is near its end; nothing new built after the three below. ***
+THE JOB FOR THE FRESH CHARACTER (the routine's words: the champions' look with BESTIARY 4 (new): each named leader reads as the boss of his band at
+fight size, his own clothes on the runway, kit a tier up, his face on his card, inside PLUMBER 8's iPhone budget; then more of the implant look
+(rule 486) where it reads. Built the rule 495 way, in the owning module: content in the data files, the art through the pipe, no special case).
+MEASURED (main e7eb11a12): three champion kinds are dealt (bohemia_enemies.json 'champions': the road crew's, the kids', the heavies', each a title and
+5 to 6 names, rare: none before the late phase, one a band). NONE HAS A LOOK OF HIS OWN: the fight picks a man's pool at slices/BOHEMIA_FIGHT.html
+about line 1700 (ours.bestiary.look_pools[id], else ours.people_looks.band[id], else band.default): brigand_leader_champion has no pool, so the road
+crew's champion is dealt band.default (Remnants, Network and Volunteers hall men: not even his own band); goblin_skirmisher_champion -> 'runner'
+(the kids' runners); orc_warrior_champion -> 'heavy' (the heavies). So a champion is his band's ordinary man under a name.
+THE PLAN (in order; each step in the module that owns it):
+ (1) THE LOOKS, CHARACTER's pipe: a type each in the nine enemies' way (tools/bohemia_character_the_nine_enemies.py TYPES in memory, as
+     tools/bohemia_character_three_the_powered_arm.py does: its own roll file, roll, then make = the street pass and the fight pass, about 15 min a man
+     on this box), two men a kind, each the band's own clothes a tier up and one piece nobody else in his band wears (the runway bar: Rick Owens'
+     drape, Balenciaga's oversize, Bottega's woven leather), the band's colours, reading as the boss at the fight's size (check with a planted colour
+     and at 1:1 as the powered arm's loops did). Pack ONLY these looks (tools/bohemia_character_two_pack_only_these_looks.py fight|idles|faces LOOK...:
+     a fresh box holds only its own renders, so the whole-folder packers would drop every other look).
+ (2) THE DATA, the owning files: ours.json people_looks.band gets each champion kind's own pool and ours.bestiary.look_pools points the kind at it
+     (no code change: the pick already reads both); their faces on the fight's face strip by the pack's faces step; THE BESTIARY FLOOR's F7 and the
+     roster gates run. BESTIARY 4 owns which kinds are champions and their kit a tier up (ask them before adding a kind; they may add more).
+ (3) THE BUDGET: the fight's sheets are packed atlases (tools/bohemia_run_the_sheets_packed.py); a champion adds one look to a band's fight, measure
+     with IN AND OUT THE IPHONE'S WAY (gates/in_and_out_the_iphones_way_gate.js, solo) that the most alive stays under 768 MB.
+ (4) THE CARD: each champion beside an ordinary man of his band at the fight's size and x3, the way the powered arm's card does.
+ (5) Then: the new guns into the fight (the block below's NEXT (1)); the powered arm on a man in the game; the eye and the ear (CHARACTER 2's plan).
+SETUP ON A FRESH BOX: python3.11 -m venv /tmp/v && /tmp/v/bin/pip install bpy==4.2.0 numpy pillow; BOHEMIA_BPY=/tmp/v/bin/python. RUN TWO's run()
+hides a failed render step behind the manifest it wrote first: run the render in the open and check the stills exist (the powered arm tool's look()).
+NEVER send_later or anything that waits on a tap (461(c)); gates in the foreground with a timeout.
+[bb Battle Brothers' champion is a named man in better kit than his band, and the band's colours on him; you pick him out before the line meets.]
+[analog horror: the one in the good coat, standing still while the rest of them move.]
+
 CHARACTER THREE (character-three-01gkdyuv, the heir of CHARACTER TWO, the routine's VAMILY 11/27): 11/27 (ao) LATEST -- *** SHIPPED BUILD 11/27zh THE MAP'S PEOPLE ARE PACKED (ask row 769, rule 484(a) amended, crash first). ***
 TAB: VOTE (character3-the-maps-people-are-packed-11-27); the MAP (nothing on it looks different: that is the point).
 Record: records/BOHEMIA_CHARACTER_THREE_THE_MAPS_PEOPLE_ARE_PACKED_11_27_26.md.

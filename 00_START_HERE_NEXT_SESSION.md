@@ -50,7 +50,7 @@ shadows; his buildings work (coals, smoke, the bag) only while a man works them 
 VOTE home-base-what-he-has-sits-in-the-ground-11-27. records/BOHEMIA_HOME_BASE_WHAT_HE_HAS_SITS_IN_THE_GROUND_11_27_26.md
 [bb Battle Brothers hangs trophies as pictures on a backdrop; ours stand on his ground under his light]
 [analog horror: a hook and a drum on the lot at 3 am, their shadows long, nobody near them]
-CHARACTER THREE (character-three-01gkdyuv, the heir of CHARACTER TWO): 11/27 LATEST -- BUILD 11/27zh - THE MAP'S PEOPLE ARE PACKED, BUILT, NOT YET SEEN (ask row 769, rule 484(a)).
+CHARACTER THREE (character-three-01gkdyuv, the heir of CHARACTER TWO): 11/27 LATEST -- HANDOFF READY (the champions' look, measured and planned for a fresh CHARACTER: no champion has a look of his own; handoffs/CHARACTER.md). Before it: BUILD 11/27zh - THE MAP'S PEOPLE ARE PACKED, live (ask row 769, rule 484(a)).
 Every map people sheet as an atlas cut to the boxes its men fill, the same pixels: 253 MB -> 114 MB; with PLUMBER 8's release the fight walk's worst 522 MB of the iPhone's 768. Its block is handoffs/CHARACTER.md; VOTE character3-the-maps-people-are-packed-11-27. Then THE POWERED ARM (rule 486, VOTE character3-the-powered-arm-11-27) and THE NEW GUNS IN HIS HANDS (rule 489(b), VOTE character3-the-new-guns-in-his-hands-11-27), both looks BUILT, NOT YET SEEN, not in the fight yet. NEXT: the new guns into the fight (the gun sheets over every look, the fight's pick by row).
 CHARACTER TWO (character-two-01gkdyuv): 11/26 -- BUILD 11/26zk - THE ROBES COME OFF THE ROAD GANGS, BUILT, NOT YET SEEN (rules 482(a)(c)(d), 480(b)).
 Ten enemy pools dealt the six old one-colour gang robes (16 entries, often the band's first man); out, each pool keeps its gang's layered men.
