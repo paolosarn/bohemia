@@ -24711,6 +24711,25 @@
    },
    "record": "records/BOHEMIA_ECONOMY_THREE_THE_RUNNING_CITY_11_27_26.md",
    "build": "BUILD 11/27e - THE STALL'S DAY"
+  },
+  {
+   "id": "combat5-the-camera-comes-down-11-27",
+   "kind": "ui",
+   "lane": "combat 5",
+   "sha": "c54b2ce6a",
+   "made": "11/27",
+   "draft": true,
+   "title": "THE WAY INTO A FIGHT AND BACK: BEFORE ON THE LEFT, NOW ON THE RIGHT, ON A PHONE SLOWED FOUR TIMES",
+   "said": "the combat transition still sucks... combat keeps crashing, like when I get into combat and then when I finish it",
+   "why": "Press play: both sides start on the ENGAGE tap, then on the LEAVE tap; now the camera moves on the tap, comes down through the dust onto bare streets while brackets find both crews on the beat, a scan line draws the board onto the turning street, and LEAVE folds the screen into the phone at once. You see it on every fight you take on the map.",
+   "show": {
+    "how": "clip",
+    "src": "../records/target/combat5_way_in/the_way_in_before_now.mp4"
+   },
+   "before_after": {
+    "before": "main 9011874a4: ENGAGE, then 1 to 3 s of nothing, then near black, giant legs and name tags, a 5 to 9 s frozen picture, a half-second snap to the board; ENGAGE to the fight 14 to 15.5 s at 4x. LEAVE came 14 to 77 s after the win, then the screen sat still 1 to 4.5 s.",
+    "after": "ENGAGE to the fight 9 to 10.8 s at 4x, never still; LEAVE on the glass about 4 s after the win and answering within half a second; LEAVE to the map 4 to 5 s. Canvases going in 249 -> 212 MB, nothing of the dive left after a fight."
+   }
   }
  ],
  "verdicts": [
