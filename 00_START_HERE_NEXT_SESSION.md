@@ -75,6 +75,13 @@ labels); the wardrobe's wide brim is DUST RANCHER HAT; GATE THE CONE HAT IS DEAD
 page's thread (__A_SHEET_DECODES_OFF_THE_FRAME__: 4 frames over 50 ms -> 0 on the engine at 4x, the town exit 316.7 -> 200 ms). Its block is
 handoffs/CHARACTER.md; records/BOHEMIA_CHARACTER_TWO_THE_CONE_COMES_OFF_11_26_26.md; VOTE character2-the-cone-comes-off-11-26.
 
+CAMP FOUR (camp-four-01gkdyuu): 11/27 LATEST -- BUILD 11/27s - THE CAMP COMES ALIVE, BUILT, NOT YET SEEN (rules 482 and 487 on 472(b)(e); ask rows 711, 712, 755). Its block is handoffs/CAMP_THREE.md.
+Once they are whole his men live a scene (ANIMATION's talk, smoke, drink and sit: two talk face to face, evenings round the fire), one man at a time; under UI FIVE's clock on the
+bar the camp draws no clock of its own, only the tape's fast-forward hung under it (its own clock at the top middle only when the bar has none); HEAL warm after a fight (the camp's
+page read on the quiet map, never on the loot screen): 0.85-1.38 s against 1.77-2.70 s cold at full speed. New gate THE CAMP COMES ALIVE 7/0. VOTE camp4-the-camp-comes-alive-11-27.
+records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_ALIVE_11_27_26.md. The full suite is running on main 1a47fd794; its line follows.
+[bb Battle Brothers: the company round the fire between contracts, the day's clock at the top]
+[analog horror: the camcorder's clock at the top of the tape, and under it the fast-forward that stops when they are whole]
 CAMP FOUR (camp-four-01gkdyuu): 11/26 LATEST -- BUILD 11/26zo - THE CAMP READS AT A GLANCE, BUILT, NOT YET SEEN (rule 482 on 472(b); ask rows 711, 728). Its block is handoffs/CAMP_THREE.md.
 In camp the fight's own two bars stand over each of his men while they mend, full at the stop, then gone; the tape's fast-forward in the corner counts the hours and reads
 STOP, EVERYONE WHOLE; the shadows swing with the hour; from five to seven the night comes over the day (and the night's picture now lays in: its swap had never run); two fingers
