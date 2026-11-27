@@ -45,7 +45,7 @@ Object.keys(T.mix).forEach(f => phases.forEach(ph => Object.keys(T.mix[f][ph.nam
 Object.keys(T.heads || {}).forEach(f => { const k = T.heads[f]; if (!KINDS[k]) KINDS[k] = { faction: f, phase: phases[0].name, from: phases[0].from_day, head: true }; });
 const ONLY = process.env.ONLY ? process.env.ONLY.split(',') : null;
 const rowOf = id => NE.rows.filter(r => r.id === id)[0] || null;
-const BRAIN_SKILLS = { ripostes: ['on_guard', 'riposte'], turns: ['turn', 'turned'], calls: ['call', 'call_lands'], smokes: ['smoke_pot'], firebombs: ['fire_pot'], darts: ['dart'], binds: ['bond', 'bond_hurt'], doors: ['back_door'], sirens: ['siren'], acid: ['acid'], tramples: ['trample'], flings: ['flings'], screams: ['horrific_scream'], martyrs: ['martyr'] };
+const BRAIN_SKILLS = { ripostes: ['on_guard', 'riposte'], turns: ['turn', 'turned'], calls: ['call', 'call_lands'], smokes: ['smoke_pot'], firebombs: ['fire_pot'], darts: ['dart'], binds: ['bond', 'bond_hurt'], doors: ['back_door'], sirens: ['siren'], acid: ['acid'], tramples: ['trample'], flings: ['flings'], screams: ['horrific_scream'], martyrs: ['martyr'], drones: ['drone_launch'] };   /* BESTIARY 3 11/27: the drone operator (rule 490) */
 const out = { kinds: {}, n: 0, of: Object.keys(KINDS).length };
 function play(o, seed, kind, tally) {
   ctx.setSeed(seed); F.setup(Object.assign({ auto: true, formation: null, deploy: false, company: crew(6) }, o));

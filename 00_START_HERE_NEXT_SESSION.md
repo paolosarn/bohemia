@@ -1,3 +1,6 @@
+BESTIARY 3 (bestiary-three-01gkdyuu): 11/27 LATEST -- BUILD 11/27u - THE DRONE OPERATOR, BUILT, NOT YET SEEN (rule 490(c), ask row 762). Its block is handoffs/BESTIARY.md.
+The eye in the sky brings a drone operator from the middle of the game: he stands at the back, flies two charge drones (the cross lit a turn ahead), then pulls his pistol;
+drop him and his drone falls. 75 enemy types now (his floor). On AUTO his drones never land on a man (they step off): TUNING's and COMBAT FIVE's. VOTE bestiary3-the-drone-operator-11-27.
 ARMORY 3 (armory-three-01gkdyuu): 11/27 LATEST -- BUILD 11/27q - BEAT-UP GUNS, THE DRONE LIT BEFORE YOU SEND IT, BUILT, NOT YET SEEN (rules 490(e), 482). Before it: BUILD 11/27h
 THE GUNS GROW UP, AND THE DRONE (rules 489(b), 490; ask rows 758, 762, 763). Its block is handoffs/ARMORY.md. Six beat-up guns (half price, 10 harder to land, same damage),
 a double shotgun, seven guns drawn as their own kind in his hands (COOK's own guns), his drone's five tiles lit before he sends it (SEND, ON IT). Gate THE GUNS GROW UP 23/0.

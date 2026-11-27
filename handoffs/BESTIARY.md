@@ -1,5 +1,17 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
+BESTIARY 3 (bestiary-three-01gkdyuu; rule 490(c), ask row 762): 11/27 LATEST -- BUILD 11/27u THE DRONE OPERATOR, BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_BESTIARY_THREE_THE_DRONE_OPERATOR_11_27_26.md. VOTE bestiary3-the-drone-operator-11-27 (a page: his drone over five lit tiles with a man on them; him at the back).
+- drone_operator ('OPERATOR', bohemia_enemies.json): the wiki's engineer (70 hp, soft), the Charge Drone (2 a fight) and a Knife (his waistband pistol after);
+  brain 'operator' (stand-and-shoot, throws, kites, drones); the eye in the sky's middle and late bands, weight 1; look a STAND-IN (faction_network).
+  The fight flies his drone already (ARMORY 3's armoryFirst/droneTarget); one line: strapOf arms a drone man with his pistol. The roster: 75 types (the floor met).
+- MEASURED: 6 fights, 16 drones, 6 shot down, 10 landed on empty ground (AUTO steps off every cross), 0 men hit; he dropped first in 3 of 6. FOR TUNING AND
+  COMBAT FIVE: on AUTO a drone never lands on a man, so rule 490(d)'s answer to an all-melee crew is not hard yet (they walk off the cross).
+- TOOLS: tools/bohemia_bestiary_three_operator_proof.js [days] (the page, 390 x 844, frames to records/bestiary_proof/). EVERY TYPE's BRAIN_SKILLS reads 'drones'.
+- NEXT: the machine gunner (the belt-fed behind a shield), the rocket man, the breacher, the medic (the research record's lessons); then rule 491 with JOBS 2.
+[bb Battle Brothers' Engineer stands by his mortar at the back and the wiki says to kill him first; ours stands at the back with a controller]
+[analog horror: you hear the drone before you see it, and you never see the man flying it until he is the last one standing]
+
 BESTIARY 3 (bestiary-three-01gkdyuu; rules 489(a)(c), 490, 491, 478, 482, 480(b), 461(c) amended, 441): 11/27 LATEST -- BUILD 11/27l EVERYBODY IS STRAPPED, BUILT, NOT YET SEEN.
 Record: records/BOHEMIA_BESTIARY_THREE_EVERYBODY_IS_STRAPPED_11_27_26.md. VOTE bestiary3-everybody-is-strapped-11-27 (a page: a thug with a club pulls his pistol and fires, the hit lands; the numbers before and now).
 - RULE 489(a) DONE (ask row 757): 50 of 50 human kinds armed with a gun (6 before). Every club, blade, bow, sling and thrower of theirs carries a pistol in

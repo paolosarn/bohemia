@@ -1,0 +1,61 @@
+{
+ "at": "2026-11-27T04:33:54.587Z",
+ "days": 30,
+ "seed": 7,
+ "shots": [
+  {
+   "file": "records/bestiary_proof/operator_drone_0.jpg",
+   "up": 1
+  },
+  {
+   "file": "records/bestiary_proof/operator_drone_1.jpg",
+   "up": 1
+  },
+  {
+   "file": "records/bestiary_proof/operator_drone_2.jpg",
+   "up": 1
+  },
+  {
+   "file": "records/bestiary_proof/operator_drone_3.jpg",
+   "up": 1
+  },
+  {
+   "file": "records/bestiary_proof/operator_drone_4.jpg",
+   "up": 1
+  },
+  {
+   "file": "records/bestiary_proof/operator_drone_5.jpg",
+   "up": 1
+  }
+ ],
+ "operator": {
+  "name": "OPERATOR",
+  "look": "faction_network",
+  "weapon": "Charge Drone",
+  "drones": 2,
+  "waistband": "Knife"
+ },
+ "flew": true,
+ "over": {
+  "result": "won",
+  "rounds": 6,
+  "drone_events": [
+   "drone_launch",
+   "drone_miss",
+   "drone_lands",
+   "drone_launch",
+   "drone_lands"
+  ],
+  "words": [
+   "OPERATOR: wavering",
+   "RAMON's free swing holds OPERATOR.",
+   "Free swing: RAMON hits OPERATOR, -12 health, -49 armour (75%)",
+   "RAMON's free swing holds OPERATOR.",
+   "RAMON hits OPERATOR, -29 health, -11 armour (75%)",
+   "OPERATOR: fractured elbow",
+   "OPERATOR: breaking",
+   "RAMON hits OPERATOR, -46 health (75%)"
+  ]
+ },
+ "errors": []
+}

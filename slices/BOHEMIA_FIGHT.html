@@ -1639,7 +1639,7 @@ const FIGHT = (function () {
   function strapOf(id, r, w, side, i) {
     const N = DB.newEnemies && DB.newEnemies.numbers && DB.newEnemies.numbers.strapped; if (!N || !N.value || !w) return null;
     if (R('ours.beast_looks')[id] || R('ours.bestiary').mechanic.machines.indexOf(id) >= 0 || (r.traits || []).indexOf('Incorporeal') >= 0) return null;
-    if (isGun(w) || (side && isGun(side))) return null;   /* a gun in his hands already (a pistol, a shotgun, a rifle) */
+    if ((isGun(w) && !droneOf(w)) || (side && isGun(side))) return null;   /* a gun in his hands already (a pistol, a shotgun, a rifle; a drone is not one: its operator carries his pistol too) */
     const P = NEW('strapped');
     let row = null;
     if (P.own_gear_first) (r.gear || []).forEach(function (n) { const x = weaponByName(n); if (!row && x && pistolShot(x)) row = x; });

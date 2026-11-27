@@ -11,8 +11,8 @@
  },
  "count": {
   "families": 14,
-  "types": 184,
-  "types_in_the_fight": 74,
+  "types": 185,
+  "types_in_the_fight": 75,
   "beasts": 17,
   "bosses": 5,
   "champions": 21
@@ -163,6 +163,7 @@
     "casino_spotter",
     "conscript",
     "conscript_with_polearm",
+    "drone_operator",
     "engineer",
     "gladiator",
     "gunner",
@@ -1628,6 +1629,27 @@
    "champion": false,
    "boss": false,
    "page": "bb_all/0657_Donkey.txt"
+  },
+  {
+   "type": "drone_operator",
+   "bb_name": "Drone Operator",
+   "bb_faction": "city_states",
+   "family": "casino_security",
+   "rows": [
+    "drone_operator"
+   ],
+   "name": "OPERATOR",
+   "act_weights": [
+    1,
+    1,
+    1
+   ],
+   "fielded": [
+    "casino"
+   ],
+   "champion": false,
+   "boss": false,
+   "page": "bb_all/0691_Engineer.txt"
   },
   {
    "type": "engineer",
