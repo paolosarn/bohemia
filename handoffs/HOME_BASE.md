@@ -1,3 +1,32 @@
+HOME BASE 6 (11/27 23:50 UTC): LATEST -- BUILD 11/27zzc - YOUR PLACE, THE EASY WAY, BUILT, NOT YET SEEN (rule 492(a)(c), plan C and B
+of the stranger's walk; ask row 786). Record records/BOHEMIA_HOME_BASE_YOUR_PLACE_IS_EASY_11_27_26.md. VOTE card home-base-your-place-is-easy-11-27
+(a clip that plays the flow, upright then sideways: tools/bohemia_home_base_your_place_is_easy_card_11_27_26.js --only <profile> once each way).
+- WHAT IT IS: on the map's glass beside the phone, his crew's best man says the ONE next step with one gold 48 px button: day 2 'We need a
+  place of our own.' LOOK FOR GROUND / LATER (LATER leaves a YOUR PLACE button); good ground PLANT HERE; bad ground the true reason and the
+  way, WALK THERE; walking; 'This is it. Plant it.'; 'Are you sure? This is permanent.'; 'Ours now. Go in and build.' GO IN; inside, after
+  the arrival card, 'Tap an empty lot to build.'; the first build, desk closed, 'It goes up tonight.' once; then quiet for good. The four
+  marks (WATER, POWER, ROAD, SAFE) on the panel, more lit is better. One face at a time (voice, hint plate, road card, settings, door).
+- WHERE IT LIVES: engine/bohemia_home.js step(c) / bestMan(men) (pure); records/target/bb/home_base.json flow {lines, why, buttons, marks}
+  and words.page_none*; the map's __HOME_BASE__ block homeFlowFacts() / homeGoIn() on BohemiaHomeMap (flowFacts, goIn), and one script tag
+  after the block; slices/bohemia_your_place.js (draws, times, presses; window.BohemiaYourPlace, read hook window.__YOUR_PLACE);
+  slices/bohemia_phone.js __HOME_BASE__: the band's PLANT gone, the YOUR PLACE page is the record only (no door to it after planting:
+  plan H); tools/bohemia_your_place_glass.js (state, until, button, tap, panel) for gates and cards.
+- GATES: YOUR PLACE IS EASY (new) 6/0 engine, 18/0 each way; YOUR PLACE, PLANTED D1-D5 + D14's record re-aimed at the glass, 149/1 and
+  146/1: D22 SELLING IT is red on main the same (ask row 787: the stall's need card makes the food sale hungry, a hungry town never asks).
+- NEXT, in this order (rule 492's plan; build each small, a VOTE clip each, gates by real taps both ways):
+  A. THE SPOTS ON THE MAP: when LOOK FOR GROUND is pressed, the plantable blocks near him marked on the map itself, stronger where
+     BohemiaHome.grade's score is better (the map's own probe; add scrap, food, whose streets, raid tracks, distance to towns and jobs as
+     pure logic beside step(), e.g. spots(probes)); a tap on a mark says what it gives and costs in the panel's four marks and words; the
+     best man names his pick ('That one. Water and a road.'). Draw the marks from slices/bohemia_your_place.js through a map draw hook the
+     map already calls for modules (see how slices/bohemia_place_pieces.js draws on blocks before the fog); out of WORLD 16's road code.
+  D. one number for a trip: if the line ever names a distance, the road's (the walk's own SETTING OUT count), never a straight line.
+  F. the empty lots breathe once inside (the MOVE brackets of 11/27za) with 'Tap an empty lot'.
+  G. the first desk short: three (the cheapest food, water, a wall) and MORE.
+  H. YOUR PLACE in the band once planted: a tap walks him home; the record page's door.
+  Then 787 (D22) and the made-of (tin, block, wood) when the site has room (871 of 900 MB now).
+[bb Battle Brothers says what a town has on the map itself; ours now says the next step by a face where the thumb is; the map's marks next]
+[analog horror: the face that tells you where to live is the face that will tell you who died; it says it once, plainly, and goes]
+
 HOME BASE 5 -> A FRESH HOME BASE (11/27 21:55 UTC): HANDOFF READY, AGAIN, WITH RULE 495. The routine 'HOME BASE 5: the plan A to H' (21:50)
 asks for the plan below built the rule 495 way (no duct tape); this session is near its context and does not start it half-built.
 HOW TO BUILD IT (rule 495(a)(b)(c), read before the first line):
