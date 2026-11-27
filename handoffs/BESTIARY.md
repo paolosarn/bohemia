@@ -13,7 +13,13 @@ BESTIARY 2 (rules 489(a)(c), 482, 480(b), 461(c) amended, 441, 465): 11/27 -- TH
 (2) RULE 489(c), RESEARCH FIRST, cited: human forces fight as ROLES (the marksman, the machine gunner, the rocket man, the drone operator,
     the medic, the shield, the breacher), each with his kit and job, as Battle Brothers ranks each faction by role and tier
     (reference/library/grok/wiki/PAGES_ALL.tar.gz, the faction pages); a record, then the roles into the factions' mixes. The new guns and
-    drones themselves are ARMORY 3's (489(b)); damage waits on him (489(d)).
+    drones themselves are ARMORY 3's (489(b)); damage waits on him (489(d)). The coordinator's routine 'BESTIARY 2: rule 489 everybody
+    strapped' (11/27 02:09) sent (1) and (2) as this lane's FIRST job, before the beasts; give ARMORY 3's pieces to the roles as they land.
+    RULE 490 (Paolo 11/27, routine 'BESTIARY 2: rule 490 the operator'): THE DRONE OPERATOR is this lane's role: a man who stays at the back
+    and flies charge drones (ARMORY 3 builds the drone, COMBAT FIVE its turns: it flies in one turn, shows the tiles it will hit, blows the
+    next, close to a one-hit kill); he is the target, drop him and his drones fall; field him only in the factions that would really have
+    drones (measure who: the casino's eye in the sky, the House, the machines' mechanic are the first to look at), and he is the hard answer
+    to an all-melee crew on purpose (490(d)).
 (3) THE ROUTINE'S ('the next beasts he meets, better'): after the coyote, bull, hog, camel and cats (11/26zn), the Ice Age horses (1.7% of
     act one's road), the teratorns (1.7%), the mountain lion (1.4%), the stilt-legged horses: how each moves (its own sheet's walk; the
     kick, the charge), its body after the fight (the kill on the map, slices/bohemia_job_kinds.js beastDraw, and the end screen's aftermath)
