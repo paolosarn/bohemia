@@ -2,7 +2,7 @@
 
 JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/27 LATEST -- BUILD 11/27zzd - THE CARAVAN GOES TOWN TO TOWN, BUILT, NOT YET SEEN (rules
 493(a), 494(a)(b); ask rows 774, 775, 783, 784). VOTE jobs2-the-caravan-goes-town-to-town-11-27
-(STAND-IN: the board and the caravan's card on the phone, the first day of each kind before and now). Record records/BOHEMIA_JOBS_TWO_THE_KINDS_HE_MEETS_11_27_26.md.
+(STAND-IN: the board and the caravan's card on the phone, the first day of each kind before and now). Record records/BOHEMIA_JOBS_TWO_THE_KINDS_HE_MEETS_11_27_26.md. Content 723b7f22c.
 - 493(a): EYES 2 (row 783) was right and this lane's fit tool was wrong (it sets levels, never climbs men): measure anything past day 20
   with EYES' builder (tools/bohemia_eyes_five_killers.js), NOT tools/bohemia_world_most_jobs_fit.js. A dress-by-mean-level fix was built
   here and DROPPED UNSHIPPED: BESTIARY 4 shipped the same lever in partyMath first (BUILD 11/27zzb THE ENEMY GROWS; one system, one session).
