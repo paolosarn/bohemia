@@ -1,0 +1,207 @@
+{
+ "look": "PERSON_POWERED_ARM_0",
+ "shape": "person_powered_arm_0: a man who lost his left forearm, on a salvaged powered arm: a carbon socket, a gunmetal hand, tape, an outside battery, his own skin skin_deep 3, BONE TANK",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE TANK",
+  "legs": "BLACK CARGOS",
+  "feet": "TALL MOTO BOOTS",
+  "waist": "LEATHER BELT"
+ },
+ "dials": {
+  "height": 0.25,
+  "belly": 0.0,
+  "shoulders": 0.45,
+  "hips": 0.0
+ },
+ "model": "records/character/rig/person_powered_arm_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7415,
+ "real_height_for_rig": 1.7476,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_powered_arm_0_shoe": 4484,
+  "person_powered_arm_0_shirt": 21004,
+  "person_powered_arm_0_parm_socket": 8674,
+  "person_powered_arm_0_parm_tape_0": 1024,
+  "person_powered_arm_0_parm_tape_1": 1024,
+  "parm_hand": 392,
+  "person_powered_arm_0_parm_pack": 866,
+  "person_powered_arm_0_parm_lead": 32,
+  "person_powered_arm_0_trouser": 43706,
+  "person_powered_arm_0_rolled_hem": 2048,
+  "person_powered_arm_0_cargo_pockets": 252,
+  "person_powered_arm_0_cargo_flaps": 108,
+  "person_powered_arm_0_sole_1": 242,
+  "person_powered_arm_0_midsole_1": 242,
+  "person_powered_arm_0_sole_0": 242,
+  "person_powered_arm_0_midsole_0": 242,
+  "person_powered_arm_0_boot_collar": 2048,
+  "person_powered_arm_0_boot_collar_line": 2048,
+  "person_powered_arm_0_boot_strap": 2048,
+  "person_powered_arm_0_leather_belt": 1792,
+  "person_powered_arm_0_leather_belt_buckle": 34,
+  "person_powered_arm_0_hair": 17968,
+  "person_powered_arm_0_hand_L": 392,
+  "person_powered_arm_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_powered_arm_0_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_powered_arm_0_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_powered_arm_0_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_powered_arm_0_cargo_flaps": [
+   0.011,
+   0.0152,
+   0.0091
+  ],
+  "person_powered_arm_0_cargo_pockets": [
+   0.0319,
+   0.0437,
+   0.0232
+  ],
+  "person_powered_arm_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_powered_arm_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_powered_arm_0_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_powered_arm_0_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_powered_arm_0_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_powered_arm_0_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_powered_arm_0_parm_hand": [
+   0.0887,
+   0.0931,
+   0.0976
+  ],
+  "person_powered_arm_0_parm_hand_m0": [
+   0.0232,
+   0.0232,
+   0.0252
+  ],
+  "person_powered_arm_0_parm_lead": [
+   0.0091,
+   0.0091,
+   0.0091
+  ],
+  "person_powered_arm_0_parm_pack": [
+   0.5271,
+   0.1441,
+   0.0232
+  ],
+  "person_powered_arm_0_parm_socket": [
+   0.016,
+   0.016,
+   0.0185
+  ],
+  "person_powered_arm_0_parm_tape_0": [
+   0.3325,
+   0.3325,
+   0.2961
+  ],
+  "person_powered_arm_0_parm_tape_1": [
+   0.162,
+   0.162,
+   0.1441
+  ],
+  "person_powered_arm_0_person_powered_arm_0_parm_pack_m0": [
+   0.0091,
+   0.0091,
+   0.0091
+  ],
+  "person_powered_arm_0_person_powered_arm_0_parm_pack_m1": [
+   0.1878,
+   0.0545,
+   0.013
+  ],
+  "person_powered_arm_0_person_powered_arm_0_parm_socket_m0": [
+   0.0545,
+   0.0545,
+   0.0612
+  ],
+  "person_powered_arm_0_rolled_hem": [
+   0.0823,
+   0.0999,
+   0.0561
+  ],
+  "person_powered_arm_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_powered_arm_0_shoe": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_powered_arm_0_shoes": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_powered_arm_0_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_powered_arm_0_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_powered_arm_0_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_powered_arm_0_trouser": [
+   0.0319,
+   0.0437,
+   0.0232
+  ],
+  "person_powered_arm_0_trousers": [
+   0.0319,
+   0.0437,
+   0.0232
+  ]
+ }
+}
