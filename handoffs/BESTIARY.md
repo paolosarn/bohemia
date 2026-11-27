@@ -1,5 +1,30 @@
 # BESTIARY (one file per lane, written only by BESTIARY; newest block on top)
 
+BESTIARY 4 (session_01GKDyus69ru62vF18nJMSBU; rules 491(a), 493(a)(c), 482, 495, 461(c) amended, 441): 11/27 LATEST -- BUILD 11/27zzb THE ENEMY GROWS, BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_BESTIARY_FOUR_THE_ENEMY_GROWS_AND_CHAMPIONS_11_27_26.md. VOTE bestiary4-the-enemy-grows-11-27 (a page: OLD VEGAS with his gold skull; the board; the table 100/100/100 -> 92/58/8).
+- MEASURED FIRST (tools/bohemia_bestiary_four_five_killers.js [--n] [--who] [--factions] [--json]; men's stats GROWN the crew screen's way, which the
+  older bench tools never do): on main five L11 and twelve L8 won 100 of every job of every star and faction. Banks: banks/BOHEMIA_BESTIARY_FOUR_FIVE_KILLERS_{BEFORE,AFTER}_11_27_26.json.
+- BUILT, each in its owner (rule 495; census unchanged, no new block, no new hook): partyMath (CITY_WORLD) dresses by his men (party_math.json job_bb.grows:
+  like_men 12 on small's ramp, a man of level 6 -> 11), sizes a few strong men nearer that company (BB's arena guard at half), hands over and skulls;
+  partyFor (FIGHT) thins a faction off what the math WANTED and steps (over - 1) x the band one rung up (bohemia_enemies.json numbers.grows);
+  champRoll/champOn (FIGHT, the champions' system): BB's roll (numbers.champion: 1/2 elite, +5 three stars, -99 one star, never the first week, -2 before
+  late), off the band's own die, the wiki's three champion rows by champions.swap (weights 0 in ours.json late mixes), BB's numbers (no damage, rule
+  489(d)), armour at the top, a name per human faction (champions.by_faction, draft for WORDS), the gold skull (CHAMP_MARK); engine/bohemia_spoils.js
+  found(): a dead champion's gear always drops whole and his batteries; the reader (bohemia_job_danger.js) and the alpha's door carry skulls and over.
+- AFTER: five killers vs brigands 92/58/8 (was 100/100/100). STILL EASY: the House, the heavies, the hired guns (100 at every star for five killers AND
+  the strong twelve): their count_scale (0.55, 0.45, 0.35, bohemia_enemies.json) reads each man as two or three brigands; on the bench late, ten House
+  men fall to five killers with nobody down.
+- GATES: THE ENEMY GROWS WITH HIS COMPANY 7/0 (new, in the suite; --plant 3 reds); PATCH LAYERS 10/0; STRAPPED 5/0 (S1 counts the swap kinds); GUNS
+  GROW UP 28/0; THE BESTIARY 10/0; WORK SPANS 6/0; KILL CAMS 9/0; DEMO BUILD 25/0; VOTE TAB 66/0; FIGHT IS CLOSE 15/2 (main's own). The floor gate and
+  THE JOB TELLS THE TRUTH run past the foreground limit here: F7's child check green alone; J9 held by never_in_phase (G4 leg).
+- NEXT, IN THIS ORDER: (1) COUNT_SCALE BY PHASE: measure each human faction's worth a man against the brigands in the late phase (the bench tool,
+  --factions), set count_scale by phase so the House, heavies, hired guns, takers and casino are as hard as the brigands for a strong company; re-measure
+  five killers and the strong twelve (the twelve still win everything). (2) CHAMPIONS CARRY A NAMED PIECE (BB: 'always a named item'): ARMORY 3's
+  named rows (armory.json 'named', 11/27zy) on a champion's gear where his kind fits (ARMORY 3 asked for it in its handoff). (3) The roles left from
+  BESTIARY 3's research (the machine gunner, the rocket man, the breacher, the medic). (4) Tell EYES/TUNING: the bench's companies carry no grown stats.
+[bb Battle Brothers sends a late company more of its best ranks, and on a three-skull contract a named man with his famed piece]
+[analog horror: the one with the gold skull is the one they all look at before they move]
+
 HANDOFF READY (bestiary-three-01gkdyuu, context near its budget, 11/27): two builds live or deploying (11/27l EVERYBODY IS STRAPPED, 11/27u THE DRONE
 OPERATOR); a fresh BESTIARY opens on this block. THE JOB, IN THIS ORDER (the coordinator's rule 493 moved rule 491 to the top of the round):
 (1) RULE 491 THIS LANE'S HALF + RULE 493(c) THE CHAMPIONS (ask rows 774 and 491's): an enemy force's numbers and kit grow with HIS COMPANY (men, levels,

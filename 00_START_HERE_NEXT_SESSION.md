@@ -39,6 +39,8 @@ UI FIVE (ui-five-01gkdyuu): 11/27 -- BUILD 11/27z - HIS FINGER ON THE DOOR, BUIL
 A tap on a crew pick on the door froze 333-467 ms at 4x (the jobs planned again under his finger); now they wait 2.5 s after his touch and run while he reads:
 55-58 fps, worst 33-83 ms, both ways. Gate HIS FINGER ON THE DOOR (new) both ways, plant red. VOTE ui5-his-finger-on-the-door-11-27. THE CLOCK UP TOP fast-proof 22/0;
 THE VOTE TAB GATE 66/0 (struck from the quarantine). [bb nothing behind the new-campaign screen moves while you choose]
+BESTIARY 4 (session_01GKDyus69ru62vF18nJMSBU): 11/27 LATEST -- BUILD 11/27zzb - THE ENEMY GROWS, BUILT, NOT YET SEEN (rules 491(a), 493(a)(c); ask rows 774, 783). Its block is handoffs/BESTIARY.md.
+Five killers won every job; now the crews read his men (the late men for five of level 11), a few strong men are sized nearer the company they fight like, past the most better men; a champion is rolled BB's way in every human band (gold skull, a name, kit at the top, his gear and batteries drop). Brigands 92/58/8 for five killers; the House, heavies, hired guns still easy (next). Gate THE ENEMY GROWS WITH HIS COMPANY 7/0. VOTE bestiary4-the-enemy-grows-11-27.
 BESTIARY 3 (bestiary-three-01gkdyuu): 11/27 LATEST -- BUILD 11/27u - THE DRONE OPERATOR, BUILT, NOT YET SEEN (rule 490(c), ask row 762). Its block is handoffs/BESTIARY.md.
 The eye in the sky brings a drone operator from the middle of the game: he stands at the back, flies two charge drones (the cross lit a turn ahead), then pulls his pistol;
 drop him and his drone falls. 75 enemy types now (his floor). On AUTO his drones never land on a man (they step off): TUNING's and COMBAT FIVE's. VOTE bestiary3-the-drone-operator-11-27.
