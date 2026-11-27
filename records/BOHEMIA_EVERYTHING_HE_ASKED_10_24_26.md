@@ -779,3 +779,7 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 754 | A cybernetic implant should be possible: black market, one of the most expensive things you can do (capitalism is at 100% in Cyberpunk, at 5% in our world) | 486 | ECONOMY THREE (research, price), COMBAT FIVE (what it does), CHARACTER 2 (look) | SENT 11/27 |
 | 755 | Players aren't connected to the time of day: take it off the phone and put it at the top of the screen | 487 | UI FIVE | SENT 11/27 |
 | 756 | More music, made the exact same way as last time (it was good); I keep hearing the same songs | 488 | SOUNDS (a fresh lane) | SENT 11/27 |
+| 757 | Most enemies should have pistols: every human force is strapped, at least a pistol | 489(a) | BESTIARY 2 | SENT 11/27 |
+| 758 | The guns are too simple: automatic guns, more intense guns, maybe a rocket launcher, 2060 kind of stuff, and drones (none in the game) | 489(b) | ARMORY 3 (a fresh lane), with COMBAT FIVE, CHARACTER 2, COOK SIX, ECONOMY THREE | SENT 11/27 |
+| 759 | Human enemies really strong and really specialized | 489(c) | BESTIARY 2 | SENT 11/27 |
+| 760 | Maybe raise gun damage later, 'we're gonna see about that' | 489(d) | research only, his call | NOTED 11/27 |
