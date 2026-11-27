@@ -1,7 +1,20 @@
 # FIXES TWO -- the handoff block (written only by FIXES TWO, newest first; the heir of FIXES, whose blocks stay in handoffs/FIXES.md)
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 # FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
-FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/26 (g) LATEST -- [742] no build: taken in parallel, FIGHT SCREEN 3 shipped the same fix first
+FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/27 (h) LATEST -- HANDOFF READY. [DESI, 747, 749] no build. This session's context is long
+(compacted once, many rounds since): the next round goes to a fresh FIXES session.
+DONE THIS ROUND: DESI IS A WOMAN (the routine's word from the records) written on row 633; her body is CHARACTER TWO's (no free woman body:
+the four person_woman_0 to 3 are the retinue's four women; a fifth woman's whole body and face first, rule 203(a)); then FIXES puts
+'sex':'f' on her crew row in records/target/bb/ours.json and checks every screen that says her (F619's legs) on the glass.
+Row 747: FIXES' grow-in measurement added for FIGHT SCREEN 3. Row 749: read, the plan written on the row.
+NEXT (a fresh FIXES session, in this order): (1) row 749, A BEAST'S BLOW LANDS AS A PIPE (SOUNDS has no chat): SND.blow in
+slices/BOHEMIA_FIGHT.html (SOUNDS' block) adds the attacker's beast; the punch sprite (tools/bohemia_sounds_the_punch.py, its manifest,
+slices/fight_punch/) takes three animal takes cut from the licensed esc50_cc0 clips at its measured level; engine/bohemia_punch_heard.js
+plays a beast's take under the blunt hit, the beast named by engine/bohemia_death_sounds.js animalOf; a gate hears it on the demo with a
+plant. (2) DESI's mark the round CHARACTER TWO's body lands. (3) EYES' and PLUMBER 8's new rows; before taking a row named for a live lane,
+read that lane's newest commits, not only its block (742 was fixed twice in one hour). NEVER send_later or anything that waits on a tap.
+
+FIXES THREE (session_01GKDyuw4msTZutLEGiuMWVT): 11/26 (g) -- [742] no build: taken in parallel, FIGHT SCREEN 3 shipped the same fix first
 (e20903107, BUILD 11/26zd EVERY WEAPON DROPS: the same two conditions in engine/bohemia_spoils.js, its glass leg, BESTIARY 2's debt paid);
 FIXES 3's copy (the engine change, a gate, the stamp) dropped whole at the push (one fix per system; rule 482(c)). Record: section 9.
 READ AND LEFT: 745 and 746 owned (COMBAT FOUR with PLUMBER 8, CHARACTER TWO); 633 waits on his word; 736 with COMBAT FOUR. No other open

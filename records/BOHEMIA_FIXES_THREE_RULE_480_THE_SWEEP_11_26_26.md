@@ -201,3 +201,13 @@ was dropped whole (the engine change, the gate, the stamp): one fix per system, 
 (rule 482(c)). Nothing of FIXES 3's for 742 is on main but this note.
 READ AND LEFT: 745 (COMBAT FOUR with PLUMBER 8) and 746 (CHARACTER TWO) are owned; 633 waits on his word (who DESI is, a woman or
 Desiderio); 736 with COMBAT FOUR. No other open bug row he can feel was left unowned in the list.
+
+## 10. DESI, AND THE NEXT ROWS (the coordinator's routine 'FIXES 3: Desi, and next', 11/27)
+
+DESI IS A WOMAN (the word from the records: EYES 10/26m). Her body is the blocker, measured: she wears people_looks.crew[1] = person_town_0,
+a man's; the rig's four woman bodies (person_woman_0 to 3) are the retinue's four women (engine/bohemia_camp.js: the cook, the recruiter,
+the scavenger, the agent); one of them on DESI would be two people in one body, and the fight draws one pre-rendered sheet a look, so a
+new woman is a new render: CHARACTER TWO's (row 633: a fifth woman's whole body and face, then FIXES' mark 'sex':'f' on her crew row).
+The mark was NOT put on a man's body (rule 203(a): never a man's sprite with a woman's name).
+ROW 747 (JOBS 2's, FIGHT SCREEN 3's): FIXES' measurement of the end screen's grow-in (rows 697 and 722) added to it.
+ROW 749 (SOUNDS', no chat since 11/7): read and planned for the next round (the row carries the plan).
