@@ -9578,6 +9578,12 @@ GATES = [
      "upright and sideways, N1 the title and all fifteen origins, N2 the start at rest, N3 every building's sheet, N4 the settings card "
      "(every row on the glass at once), N5 the crew screen, N6 a full company and stash, N7 the fight's page, N8 the fullest hall, N9 every "
      "UI size: nothing scrolls, every press on the glass, the floors. Over 10 min", True),
+    ('THE CLOCK UP TOP', ['node', 'gates/the_clock_up_top_gate.js'],
+     "UI FIVE gate, 11/27, rule 487 (Paolo 11/27: 'the players aren't connected to the time in the day... take it off the phone and put "
+     "it at the top of the screen'), ask row 755: on the demo and the alpha, a phone upright and sideways: K1 the bar's clock once, whole, "
+     "the game's own day and hour, the sun's dial, the hour 14 px or more; K2 it moves as the game's clock moves, night at 22:15 (the moon), "
+     "day at 09:40; K3 no day and no hour on the phone; K4 nothing threw; PLANTED: the clock off the bar (K1 red), the time back on the "
+     "phone (K3 red). About 1 min a walk", True),
     ('THE ALPHA SAYS CONTINUE', ['node', 'gates/the_alpha_says_continue_gate.js'],
      "UI FIVE gate, 11/26, ask row 738 (FOUND BY EYES 11/26: 'after a reload the alpha's front says Start clean with every new game's "
      "choice and no CONTINUE; BEGIN then brought back the game he was playing'), rules 482, 441: the alpha upright and sideways: A1 a "

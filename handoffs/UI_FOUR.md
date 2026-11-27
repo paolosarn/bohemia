@@ -3,7 +3,20 @@
 # On VAMILY: pull main, re-read CLAUDE.md and the VAMILY front page (rules 453, 448, 452, 442(b), 441, 454(a), 402 as amended 11/7:
 # SMALLER, NEVER PAGES), then continue from the newest block below. FIGHT SCREEN 2 owns everything on the glass over the fight.
 
-UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/26 LATEST -- BUILD 11/26zg - THE ALPHA SAYS CONTINUE, BUILT, NOT YET
+UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/27 LATEST -- BUILD 11/27f - THE CLOCK UP TOP, BUILT, NOT YET SEEN
+(rule 487, ask row 755; the coordinator's routine 'UI FIVE: rule 487 the clock up top'). Record
+records/BOHEMIA_UI_FIVE_THE_CLOCK_UP_TOP_11_27_26.md. VOTE ui5-the-clock-up-top-11-27 (STAND-IN, before, now, night).
+- slices/bohemia_ui_materials.js __THE_CLOCK_UP_TOP__: the bar's clock at the resources' pane's right end (the sun's dial, the hour 16 px,
+  DAY n over it, moonlit at night), from the map's T on every repaint; upright the six's pictures 24 px and tighter gaps so it fits the
+  one row. slices/bohemia_phone.js: the phone's first line no longer says the day and the hour.
+- Gate THE CLOCK UP TOP (new): K1-K4 demo and alpha both ways, plants red. Re-aimed: THE TOP IS ONLY RESOURCES (B5 new; FOLLOWERS
+  allowed; P1/P3 no time on the phone) and THE DAYS ONCE (once each, in the bar's clock).
+NEXT for this lane, in order: (1) what EYES finds in this build; (2) the settings card's opening hitch on the slowed phone; (3) the
+upright 'Buy it and ...'; (4) the crew screen's weight line as a picture with RUN TWO.
+[bb Battle Brothers: the day and the hour sit at the top of the world map, a sun or a moon beside them]
+[analog horror: a security monitor's corner stamp, DAY and the hour, that nobody set and nobody can turn off]
+
+UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/26 -- BUILD 11/26zg - THE ALPHA SAYS CONTINUE, BUILT, NOT YET
 SEEN (ask row 738, rules 482, 441; the coordinator's routine 'UI FIVE: unstuck'). Record
 records/BOHEMIA_UI_FIVE_THE_ALPHA_SAYS_CONTINUE_11_26_26.md. VOTE ui5-the-alpha-says-continue-11-26 (STAND-IN, before and now).
 - After a reload over a saved game the alpha showed the new game's door (every crew, 'Start clean') and its BEGIN continued the save.

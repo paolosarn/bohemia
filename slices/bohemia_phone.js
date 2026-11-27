@@ -633,7 +633,7 @@
          round and the beat's trace are its line there, and the fight's clock does not run) */
       + '#bohphone .stat .wh{flex:0 1 auto;min-width:0}'
       + '#bohphone .stat .dt{flex:0 0 auto;margin-left:auto;white-space:pre;letter-spacing:.3px;color:#f4e8cc}'
-      + '#bohphone .stat .dt:empty{display:none}#bohphone.fighting .stat .dt{display:none}'
+      + '#bohphone .stat .dt{display:none!important}'   /* __THE_CLOCK_UP_TOP__ (UI FIVE 11/27, rule 487): the phone no longer carries the day and the hour */
       + '#bohphone .stat .wh+.dt{padding-left:4px}#bohphone.tl .stat .tl{margin-left:3px}'
       + '#bohphone .stat .tl{display:none;height:11px;padding:0 3px;border:0;cursor:pointer;font:6.5px "BohemiaROM",ui-monospace,monospace;letter-spacing:.4px;color:#1f1710;background:#f2c96a}'
       + '#bohphone.tl .stat .tl{display:block}#bohphone.tl .stat .wh{max-width:64px}'
@@ -1592,7 +1592,7 @@
     var stW = H.el.querySelector('.stat .wh');
     if (s) stW.textContent = scr === 'camp' ? (s.campTown ? String(s.campTown).toUpperCase() : 'YOUR CAMP') : homeWord(cw, s.place || '');   /* CAMP [a town is safe]: resting in a town, the town's name */
     var stD = H.el.querySelector('.stat .dt');   /* __THE_DAY_ON_THE_PHONE__ (rule 368): the day and the hour, once, on the first line */
-    if (stD && s) { var dtx = (s.day ? 'DAY ' + s.day : '') + (s.clock ? (s.day ? '  ' : '') + s.clock : ''); if (stD.textContent !== dtx) stD.textContent = dtx; }
+    if (stD && stD.textContent) stD.textContent = '';   /* __THE_CLOCK_UP_TOP__ (UI FIVE 11/27, rule 487): the day and the hour left the phone for the top of the screen (bohemia_ui_materials.js) */
     /* the place's whole name beside them: a long name steps down half a point at a time (to 5.5) before a letter is ever cut */
     var fitK = stW.textContent + '|' + (stD ? stD.textContent : '') + '|' + H.el.className;
     if (stW.__fit !== fitK) { stW.__fit = fitK; stW.style.fontSize = ''; for (var fs = 7; stW.scrollWidth > stW.clientWidth + 0.5 && fs > 5.5;) { fs -= 0.5; stW.style.fontSize = fs + 'px'; } }

@@ -12,14 +12,15 @@
    On the DEMO, through the one driver, his phone upright (390 x 844) and on its side (844 x 390), with a finger:
      B  ON THE MAP, IN A TOWN, AT CAMP, AND ON THE FIGHT'S SCREENS (during the fight and the end screen after it):
         B1 everything drawn in the top band is a resource count (an icon and its number in the resources' pane); nothing else
-        B2 no DAY, no hour, no sun's dial, no crew face, no head count and no place's name in the band
+        B2 no DAY, no hour, no sun's dial, no crew face, no head count and no place's name in the band, but for the clock (B5)
+        B5 (rule 487, UI FIVE 11/27) THE CLOCK AT THE TOP: once, whole, at the pane's end, the game's own day and hour
         B3 the band is slim: under 72 points (it was 108 upright)
         B4 nothing of any screen lies over the band (what the glass shows across it is the band)
         IN THE FIGHT nothing is across the top at all (rule 280 stands); the end screen's band is the resources only
-     P  THE PHONE CARRIES WHAT LEFT THE TOP:
-        P1 its first line says the game's own day and hour, read the same moment (DAY n  hh:mm) on the map, in a town and at camp
+     P  THE PHONE CARRIES WHAT LEFT THE TOP (the crew, the place); RE-AIMED 11/27 (rule 487) for the time, which went back up:
+        P1 its first line no longer says the day and the hour
         P2 its first line says the place whole (a town's name, the camp), no letter cut
-        P3 the day and the hour are on the phone once (never a second clock on its face)
+        P3 no day and no hour anywhere on its face
      C  ONE BUTTON FOR ONE THING:
         C1 on the glass exactly one press opens the company: the phone's CREW (the bar's crew plate and the town's own CREW are off it)
         C2 a finger on the phone's CREW opens the company screen
@@ -42,8 +43,14 @@ const BAND = (place) => {
   const drawn = e => { const r = e.getBoundingClientRect(); if (r.width < 1 || r.height < 1) return false;
     for (let q = e; q && q !== document.documentElement; q = q.parentElement) { const cs = getComputedStyle(q); if (cs.display === 'none' || cs.visibility === 'hidden' || +cs.opacity < 0.05) return false; } return true; };
   const leaves = [...root.querySelectorAll('*')].filter(e => (e.tagName === 'IMG' || (e.childElementCount === 0 && e.textContent.trim())) && drawn(e));
-  const stray = leaves.filter(e => !e.closest('[data-tb=g] .s.six, [data-tb=g] .s.days'));
-  const words = leaves.map(e => e.tagName === 'IMG' ? '[' + (e.getAttribute('alt') || 'picture') + ']' : e.textContent.trim());
+  /* RE-AIMED 11/27 BY UI FIVE (rule 487, amends 368: 'take it off the phone and put it at the top of the screen'): the clock at the
+     pane's end ([data-f=clock]: the sun's dial, DAY n, the hour) is the one thing beside the resources; everything else is read as before */
+  const inClock = e => !!e.closest('[data-tb=g] .s.clk[data-f=clock]');
+  const clockEls = [...root.querySelectorAll('[data-tb=g] .s.clk[data-f=clock]')].filter(drawn);
+  const clockSays = clockEls.map(c => [...c.querySelectorAll('*')].filter(x => x.childElementCount === 0 && x.textContent.trim()).map(x => x.textContent.trim()).join(' '));
+  /* and the FOLLOWERS count (JOBS 2, rules 466(c), 470(b): his followers on the bar he reads, at his ask) */
+  const stray = leaves.filter(e => !e.closest('[data-tb=g] .s.six, [data-tb=g] .s.days, [data-tb=g] .s.clout') && !inClock(e));
+  const words = leaves.filter(e => !inClock(e)).map(e => e.tagName === 'IMG' ? '[' + (e.getAttribute('alt') || 'picture') + ']' : e.textContent.trim());
   const res = [...root.querySelectorAll('[data-tb=g] .s.six')].filter(drawn).map(e => e.dataset.f);
   const said = words.join(' ');
   const bad = [];
@@ -52,7 +59,7 @@ const BAND = (place) => {
   if (leaves.some(e => e.tagName === 'IMG' && /^data:/.test(e.getAttribute('src') || '') && e.closest('[data-f=day]'))) bad.push('the sun\'s dial');
   /* over the band: what the glass shows across it, from this page down */
   let over = 0, pts = 0; for (let x = hr.left + 6; x < hr.right - 2; x += 24) for (let y = hr.top + 4; y < hr.bottom - 2; y += 10) { pts++; const e = document.elementFromPoint(x, y); if (!e || !e.closest('.bmhost')) over++; }
-  return { on: drawn(root), h: Math.round(hr.height), top: Math.round(hr.top), stray: stray.map(e => e.tagName === 'IMG' ? '[' + (e.getAttribute('alt') || 'picture') + ']' : e.textContent.trim()).slice(0, 6), words: said, res, bad, over, pts };
+  return { clocks: clockSays, clockWhole: clockEls.every(c => { const q = c.getBoundingClientRect(), g = c.parentElement.getBoundingClientRect(); return q.left >= g.left - 0.5 && q.right <= g.right + 0.5 && c.scrollWidth <= c.clientWidth + 1; }), on: drawn(root), h: Math.round(hr.height), top: Math.round(hr.top), stray: stray.map(e => e.tagName === 'IMG' ? '[' + (e.getAttribute('alt') || 'picture') + ']' : e.textContent.trim()).slice(0, 6), words: said, res, bad, over, pts };
 };
 /* the phone's first line and what its face says (drawn things only) */
 const PHONE = () => {
@@ -89,14 +96,16 @@ async function side(profile) {
     await p.waitForTimeout(250);
     const P = await p.evaluate('(' + PHONE + ')()'), c2 = await clock(), want2 = 'DAY ' + c2.day + '  ' + pad((c2.min / 60) | 0) + ':' + pad(Math.floor(c2.min % 60));
     if (!P) { ok(tag + ' P the phone is up', false); return; }
-    ok(tag + ' P1 the phone\'s first line says the game\'s day and hour', P.dt === want || P.dt === want2, JSON.stringify(P.dt) + ' vs ' + JSON.stringify(want));
+    ok(tag + ' P1 (rule 487) the phone\'s first line no longer says the day and the hour (they are at the top of the screen)', !P.dt, JSON.stringify(P.dt));
     if (place !== undefined) ok(tag + ' P2 the phone\'s first line says the place whole', !!P.wh && (place === null || P.wh === place) && P.whole, JSON.stringify(P.wh) + (place ? ' vs ' + place : '') + (P.whole ? ', whole' : ', CUT'));
-    ok(tag + ' P3 the day and the hour on the phone once', P.days === 1 && P.hours === 1, P.days + ' DAY, ' + P.hours + ' hour(s): ' + P.own.slice(0, 80));
+    ok(tag + ' P3 (rule 487) no day and no hour anywhere on the phone\'s face', P.days === 0 && P.hours === 0, P.days + ' DAY, ' + P.hours + ' hour(s): ' + P.own.slice(0, 80));
   };
   const band = async (tag, frame, place) => {
     const B = await frame.evaluate('(' + BAND + ')(' + JSON.stringify(place || null) + ')');
     if (!B.on) { ok(tag + ' the band is on the glass', false); return B; }
-    ok(tag + ' B1 everything in the top band is a resource count', B.stray.length === 0 && B.res.indexOf('batteries') === 0, 'resources ' + B.res.join(' ') + (B.stray.length ? '; ALSO ' + B.stray.join(' | ') : ''));
+    const c = await clock(), want = 'DAY ' + c.day + ' ' + pad((c.min / 60) | 0) + ':' + pad(Math.floor(c.min % 60));
+    ok(tag + ' B5 (rule 487) the clock at the top: once, whole, the game\'s own day and hour ("' + B.clocks.join(' | ') + '", the game ' + want + ')', B.clocks.length === 1 && B.clockWhole && /^DAY \d+ \d{2}:\d{2}$/.test(B.clocks[0]) && B.clocks[0].split(' ')[1] === String(c.day));
+    ok(tag + ' B1 everything in the top band is a resource count, the FOLLOWERS count, or the clock', B.stray.length === 0 && B.res.indexOf('batteries') === 0, 'resources ' + B.res.join(' ') + (B.stray.length ? '; ALSO ' + B.stray.join(' | ') : ''));
     ok(tag + ' B2 no day, hour, sun, crew, head count or place in the band', B.bad.length === 0, B.bad.length ? B.bad.join(', ') : B.words.slice(0, 60));
     ok(tag + ' B3 the band is slim (under ' + SLIM + ' points; it was 108)', B.h < SLIM, B.h + ' points');
     ok(tag + ' B4 nothing lies over the band', B.over === 0, B.over + ' of ' + B.pts + ' points under something else');
@@ -134,7 +143,7 @@ async function side(profile) {
         ok('PLANTED: the bar\'s crew plate back on the glass is caught (C1: two crew buttons)', pc.length >= 2, pc.join(', '));
         await p.evaluate(() => { const b = document.querySelector('#bohphone .bprow'); const x = document.createElement('span'); x.id = 'plantclk'; x.textContent = '14:05'; x.style.cssText = 'position:absolute;left:4px;top:-10px;font-size:8px;color:#fff'; b.appendChild(x); });
         await p.waitForTimeout(100); const pp = await p.evaluate('(' + PHONE + ')()'); await p.evaluate(() => document.getElementById('plantclk').remove());
-        ok('PLANTED: a second clock on the phone\'s face is caught (P3)', pp && pp.hours >= 2, pp && pp.hours + ' hours');
+        ok('PLANTED: a clock on the phone\'s face is caught (P3)', pp && pp.hours >= 1, pp && pp.hours + ' hours');
       }
       const s = sfr(); if (s) await s.evaluate(() => { const b = document.getElementById('leave'); if (b) b.click(); }).catch(() => {});
       for (let i = 0; i < 40 && await fr.evaluate(() => { const sf = document.getElementById('settleFrame'); return !!sf && sf.style.display !== 'none'; }); i++) await p.waitForTimeout(250);

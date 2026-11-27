@@ -964,6 +964,16 @@
     + '#bmtb .r1{display:none!important}'
     + '#bmtb .r2 .t.gear{flex:0 0 44px;margin-left:2px} #bmtb .r2 .g{min-height:44px}'   /* the pane as tall as the gear: one height with the gear or without (measured: 4 points of strip when the phone took the gear) */
     + '@media (orientation:landscape) and (max-height:500px),(min-width:700px){#bmtb .r2 .gear{order:5}}'
+    /* __THE_CLOCK_UP_TOP__ (UI FIVE 11/27, rule 487): the clock at the resources' pane's right end; upright on a phone the six's pictures
+       a size smaller and the gaps tighter, so the day and the hour fit beside them on the one row (the band keeps its one height) */
+    + '#bmtb .s.clk{margin-left:auto;gap:5px;color:#f4e8cc}'
+    + '#bmtb .s.clk img.dial{width:30px;height:18px;image-rendering:pixelated}'
+    + '#bmtb .s.clk .ct{display:inline-flex;flex-direction:column;align-items:flex-start;justify-content:center;line-height:1;gap:1px}'
+    + '#bmtb .s.clk .ct i{font-style:normal;font-size:9px;letter-spacing:.6px;color:#ddd2b8}'
+    + '#bmtb .s.clk .ct b{font-size:16px;letter-spacing:.5px;color:#ffd98a}'
+    + '#bmtb .s.clk.night .ct b{color:#b9c8e6}'
+    + '@media (orientation:portrait) and (max-width:480px){#bmtb .s.six img{width:24px;height:24px} #bmtb .s.six[data-f=food] img{width:32px}'
+    +   ' #bmtb .g,#bmtb .g:has(.s.clout.fol){gap:4px;padding-left:6px;padding-right:6px} #bmtb .s.six{gap:2px} #bmtb .s.clk img.dial{width:26px;height:16px} #bmtb .s.clk{gap:3px}}'
     /* ==== end __THE_TOP_IS_ONLY_RESOURCES__ ==== */
     + '';
   var TB_SHELL_CSS = 'html.bm-gear-in-bar #gearbtn{display:none!important}';
@@ -1055,6 +1065,18 @@
       if (FOL.n != null && fn !== FOL.n) { FOL.dir = fn > FOL.n ? ' up' : ' down'; FOL.at = now; } FOL.n = fn;
       var fmv = FOL.dir && now - FOL.at < 1200 ? FOL.dir : '';
       g += '<span class="s clout' + (fw.length > 6 ? ' fol' : '') + fmv + '" data-f="clout"><i>' + hudEsc(fw) + '</i><b>' + fn + '</b></span>'; } } catch (_e) {}
+    /* ==== __THE_CLOCK_UP_TOP__ (UI FIVE 11/27, VAMILY rule 487; Paolo 11/27: 'I feel like the players aren't connected to the time in the
+       day, so... take it off the phone and put it at the top of the screen cause I feel like people aren't connecting'; amends rule 368's
+       'the only thing at the top is the resources'). The day and the hour, and day or night, at the bar's right end where the eye already
+       goes, on the map and every screen that wears this bar (a town, camp, the end screen), upright and on its side: the sun's dial (the
+       sun on its arc by day, the bitten moon by night, the same dots the old day plate drew), the hour big, DAY n small over it, the hour
+       moonlit at night. It is the map's own clock (T), read every time the bar repaints (twice a second), so it moves as time moves.
+       The phone no longer carries it (bohemia_phone.js __THE_DAY_ON_THE_PHONE__, off). Words draft:true. ==== */
+    if (f.day != null && f.min != null) {
+      var hh = (((f.min / 60) | 0) % 24 + 24) % 24, mm = ((f.min % 60) + 60) % 60, nt = !(hh >= 6 && hh < 19), hm = (hh < 10 ? '0' : '') + hh + ':' + (mm < 10 ? '0' : '') + mm;
+      g += '<span class="s clk' + (nt ? ' night' : '') + '" data-f="clock" data-day="' + f.day + '" data-min="' + f.min + '" role="img" aria-label="DAY ' + f.day + ', ' + hm + ', ' + (nt ? 'night' : 'day') + '">'
+        + '<img class="dial" alt="" src="' + tbDial(f.min) + '"><span class="ct"><i>DAY ' + f.day + '</i><b>' + hm + '</b></span></span>';
+    }
     g += (f.place ? '<span class="where" data-f="place">' + f.place + '</span>' : '');
     /* ONE HUD: where you are, said once where it has room. The glass carries the six now (RUN TWO's wagon, rule 200), and on a
        phone held upright six counts fill the pane to its edge, so there the place stands in the presses' row between the crew
