@@ -5,7 +5,22 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
-FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/27 LATEST -- [the hit lands on the card] SHIPPED cf3d05b4b, BUILD 11/27j - THE HIT LANDS ON THE CARD, BUILT, NOT YET SEEN (rule 482: 'hits and misses that land harder'; ask row 735). VOTE fight-screen-the-hit-lands-on-the-card-11-27 (stand_in; the slip's four keys).
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/27 LATEST -- [the drone on the big row] SHIPPED 45b8ca53a, BUILD 11/27v - THE DRONE ON THE BIG ROW, BUILT, NOT YET SEEN (rule 482: 'the new guns and drones on the fight screen reading clear and punchy'; ARMORY THREE's rule 490). VOTE fight-screen-the-drone-on-the-big-row-11-27 (stand_in).
+Record: records/BOHEMIA_FIGHT_SCREEN_THE_DRONE_ON_THE_BIG_ROW_11_27_26.md. SHOOT THE DRONE was a 24 point skill square; now FIRST in the phone's big row
+(P.abilities kind 'drone', fightPaint mains; DRONE, its chance in the corner tag; .abig .bg.drone on the kit's well, red rim; .cross from the fight's
+square when FIGHT.onCross(u, d0): red flood on the beat). Card gate 22/0 (P14 + DRONE_PLANT; the drone read in one task: S.idx to his gunman, a
+drone of theirs over him, the phone painted, read, put back), on the merged tree 22/0; THE GUNS GROW UP 23/0; THE PHONE 268/0.
+NOT DONE (the order's list, the board's part is ARMORY THREE's / COMBAT's): the burst, the belt's sweep, the rocket's blast and the lit cross read on
+the board; walk them on the slowed phone (FRAMES=1) for hitches when they land, and route what drops a frame.
+NEXT, in order:
+ (1) EYES' notes and his votes on 11/26d, 11/26p, 11/26zd, 11/27j, 11/27v (rule 441(b)).
+ (2) The new guns' words on the glass: the aim line for a burst ('three rounds, each a try'), the belt's three tiles, the rocket's house: read them
+     on the page both ways (the aim line is this lane's), and the man's card's rounds for a belt (a magazine past six lights its share).
+ (3) FRAMES=1 with drones and rockets in the fight (the walk's band can be given ARMORY's pieces) for hitches at the blast.
+[bb Battle Brothers puts a skill you must use now in the bar's first slot; ours puts the drone first and paints it red on the beat]
+[analog horror: the button turns red in time with the song while the dot is on your man]
+
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/27 -- [the hit lands on the card] SHIPPED cf3d05b4b, BUILD 11/27j - THE HIT LANDS ON THE CARD, BUILT, NOT YET SEEN (rule 482: 'hits and misses that land harder'; ask row 735). VOTE fight-screen-the-hit-lands-on-the-card-11-27 (stand_in; the slip's four keys).
 Record: records/BOHEMIA_FIGHT_SCREEN_THE_HIT_LANDS_ON_THE_CARD_11_27_26.md. slices/bohemia_phone.js __THE_HIT_LANDS_ON_THE_CARD__ (manPaint; cardHit; CSS
 .fh.hit canvas + @keyframes fhHit, steps): his blood bar shorter for the same man -> the photo slips (red/blue drop-shadow ghosts, light blown),
 washes out, settles, 0.42 s; off at animationend (a timer behind). Armour alone: none. Counter window.__PHONE_CARD_HITS.

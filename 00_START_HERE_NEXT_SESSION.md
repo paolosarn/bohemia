@@ -837,12 +837,12 @@ Gate THE BATTERY IS REAL 43/0 (the table with eight planted faults; nine legs a 
 FOR UI FOUR, JOBS, HOME BASE, WORDS TWO, TUNING, DIRECTION: each has lines in the handoff. NOT DECIDED AND NOT BUILT ON: who holds the working sun (459(e)).
 [bb Battle Brothers counts one coin and lets the number run to tens of thousands; ours is the coin and the things a coin is]
 [analog horror: a man counting out twelve drill batteries on a hood, slowly, because a wrong count gets somebody killed]
-FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/26 LATEST -- BUILD 11/27j - THE HIT LANDS ON THE CARD, BUILT (cf3d05b4b), NOT YET SEEN (rule 482, ask row 735). Before it: 11/26zd EVERY WEAPON DROPS (e20903107), 11/26p NOTHING TO PRESS, THE LOOT READS (93a0381f0). Its block is handoffs/FIGHT_SCREEN.md.
-THIS CHAT IS FIGHT SCREEN THREE. A hit on the man on the phone's card makes his photo slip like a tape for half a second (only on blood lost); their
-turn keeps the phone's layout still (two empty dark wells where STRIKE and RELOAD stand). Gate THE MAN'S CARD ON THE PHONE 20/0, THE PHONE 268/0.
-VOTE fight-screen-the-hit-lands-on-the-card-11-27 (STAND-IN), and the 11/26 cards. NEXT: EYES' notes and his votes; a miss on the card only after COMBAT shows one.
-[bb Battle Brothers flashes the struck man's portrait on the bar; ours is a tape that slips]
-[analog horror: the photo of your man jumps on the tape when the blow lands, and goes still as if nothing happened]
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/26 LATEST -- BUILD 11/27v - THE DRONE ON THE BIG ROW, BUILT (45b8ca53a), NOT YET SEEN (rule 482; ARMORY THREE's 490). Before it: 11/27j THE HIT LANDS ON THE CARD (cf3d05b4b), 11/26zd EVERY WEAPON DROPS (e20903107). Its block is handoffs/FIGHT_SCREEN.md.
+THIS CHAT IS FIGHT SCREEN THREE. SHOOT THE DRONE stands first in the phone's big row (DRONE, its chance), red on the beat while the drone's cross is on
+his man (it was a tiny skill square). A hit on his man slips his photo on the card. Gate THE MAN'S CARD ON THE PHONE 22/0, THE PHONE 268/0.
+VOTE fight-screen-the-drone-on-the-big-row-11-27 and fight-screen-the-hit-lands-on-the-card-11-27 (STAND-IN). NEXT: the new guns' words on the aim line; FRAMES=1 with drones and rockets.
+[bb Battle Brothers puts a skill you must use now in the bar's first slot; ours puts the drone first and paints it red on the beat]
+[analog horror: the button turns red in time with the song while the dot is on your man]
 COOK FIVE (cook-five-01gkdyus): 11/18 LATEST -- BUILD 11/18p - THE TERMINAL IS AN AIRPORT, BUILT (4c0cf87e7), NOT YET SEEN (rule 453, round after round, this round's fifth build; rules 416, 451(a), 455; ask row 627).
 COMBAT THREE's airport terminal wears its own art under its own names (slices/fight_ground/terminal/terminal_art.json, the garage's format; no code):
 the terrazzo floor, 25 pictures under 27 names (the checkpoint a tile with its tubs, both screens, the desks, the queue, the newsstand, the luggage
