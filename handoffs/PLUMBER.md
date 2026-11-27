@@ -1,5 +1,20 @@
 # PLUMBER (the permanent pipe fixer) -- written only by PLUMBER, newest first; older blocks in handoffs/PLUMBER_ARCHIVE.md
 
+PLUMBER 8 (chat 18) 11/27, BUILD 11/27m THE IPHONE BUDGET (rule 484(a) amended; the routines 'iPhone crash first' and 'his answer A').
+  THE BUDGET, FROM THE RESEARCH (records/BOHEMIA_PLUMBER_IN_AND_OUT_THE_IPHONES_WAY_11_27_26.md): WebKit's old canvas cap 256 MB (iPad,
+  iOS 12), 288 (iPhone X), 384 (iOS 15), taken out of WebKit 6/2023; an iPhone tab's soft limit about 1.5 GB (jetsam: the page goes
+  white or reloads, his answer A). So: canvases at most 256 MB at every step, every live picture at most 768 MB.
+  NOW (IN AND OUT THE IPHONE'S WAY 7/0): canvases 220 MB at the most, INSIDE; every live picture 1,027 MB, OVER BY 259, 747 MB of it
+  bitmaps: the fight's (768, COMBAT FIVE) and the map's 233 MB held all session (769, CHARACTER 2 and WORLD 13). The gate prints the
+  budget each run; I4 (1,250 MB) and the new I5 (canvases 300 MB) are ratchets that may only come down to it.
+  CUT: the spoils page's canvases emptied as it closes too (spoilsClose; __SPOILS_PAGE_EMPTIED), so every fight page is let go at LEAVE.
+  NOT YET: twenty fights in AND out on that budget (TWENTY FIGHTS HOLD MEMORY FLAT is twenty in a row, no crash, no reload, counted
+  after a collection; the in-and-out count, nothing collected, is two fights). The budget cannot hold until 768 and 769 land; then
+  give TWENTY FIGHTS the in-and-out sampler (about +15% time: the upright entry would pass 600 s, its cap is 900).
+  THE BIGGEST LEVER LEFT THAT IS NOT A FIGHT'S: the map's 233 MB of sheet bitmaps under the fight (the map is hidden then): closed
+  at the landing and asked again at nfHome while the way up plays, the peak would drop about 233 MB (769's owners' call).
+  NEXT: the site at 898 of 900 MB; camp's HEAL at 7.5 s; the frame walk's biggest red; 770.
+
 PLUMBER 8 (chat 18) 11/27, BUILD 11/27k AN IPHONE COUNTS EVERY CANVAS (VAMILY rule 484(a) amended, ask row 761, with COMBAT FIVE).
   MEASURED THE IPHONE'S WAY (gates/in_and_out_the_iphones_way_gate.js; probe scratchpad inout.js): nothing collected, every 300 ms
   through a fight from the map and home, every canvas in every page (made in code or written in the page), every ImageBitmap, every

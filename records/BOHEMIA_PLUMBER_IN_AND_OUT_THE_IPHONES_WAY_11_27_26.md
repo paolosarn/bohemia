@@ -46,6 +46,22 @@ photographs of the glass for its fight zoom (fzSnap, 10 MB each), all waiting on
 | canvases at the way in, the most | 277 to 399 MB | 259 to 275 MB |
 | the old way in the gate's plant (one fight) | | 212 to 316 MB (the zoom-down's 112) |
 
+## THE IPHONE BUDGET (from the research, 11/27)
+
+- WebKit capped the canvases of one page at a share of the phone's memory (maxActivePixelMemory): 256 MB reported on an iPad on iOS
+  12, 288 MB on an iPhone X, 384 MB on iOS 15; the fix the reports name is the one this round ships (a canvas's width and height set
+  to 0 before it is dropped). WebKit took the cap out in June 2023 because pages were killed for memory first (bugs.webkit.org 190280,
+  195325; trac.webkit.org r193500; pqina.nl's write-up).
+- An iPhone's tab process (WebContent) is killed by jetsam past a soft limit of about 1.5 GB (WebKit engineers on bugs.webkit.org
+  277848 and Apple's developer forums; logs show 1,536 MB soft and 2,048 MB hard on a 12 GB phone; lower on phones with less memory).
+  When it is killed the page goes white or reloads: his answer A.
+- THE BUDGET: canvases at most 256 MB at every step (the lowest cap reported, for an older iOS); every live picture (canvases, bitmaps,
+  decoded pictures) at most 768 MB at every step, half the tab's soft limit, the rest for the code, the heap, the page and the sound.
+- MEASURED NOW (the gate's run): canvases 220 MB at the most, INSIDE; every live picture 1,027 MB at the most, OVER BY 259 MB, 747 MB
+  of it bitmaps: the fight's (ask row 768, COMBAT FIVE) and the map's 233 MB (ask row 769, CHARACTER 2 and WORLD 13). Printed by the
+  gate each run; its ratchets (I4 1,250 MB, I5 300 MB) may only come down to it.
+- The spoils page's canvases are emptied as it closes too (__SPOILS_PAGE_EMPTIED), so every fight page is let go at LEAVE.
+
 ## WHAT IS LEFT: THE BITMAPS (the most of the peak; filed)
 
 At the most of a fight, nothing collected, about 1,000 to 1,100 MB in all, and 570 to 750 MB of it is ImageBitmaps. An iPhone can

@@ -498,7 +498,7 @@ button.opt.on{ border-color:var(--acc); color:var(--acc); }
 }
 </script>
 <script id="demo-flag-early">window.__BOHEMIA_DEMO_BUILD = true;</script>
-<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"552ad82a46fbc00e",raw:null,wait:[],at:0,end:function(){}};</script>
+<script id="demo-cast-early">window.__DEMO_CAST={state:"none",key:"685185f92ec55aae",raw:null,wait:[],at:0,end:function(){}};</script>
 <style id="demo-cut">
 /* THE DEMO HAS NO TAB BAR. #app is a flex column of #tabs then
    #stage{flex:1}, so hiding the bar hands the game the whole screen.
@@ -1602,7 +1602,7 @@ var BOH_FRONT_LOGO_B64 = "iVBORw0KGgoAAAANSUhEUgAAAZAAAACCCAIAAADntAm/AADrU0lEQV
        silent with every source check still green. The gate caught it.) -->
   <div id="standalonenote" style="display:none;position:absolute;left:14px;right:14px;bottom:34px;
        font:11px ui-monospace,monospace;color:#8d7c5e;letter-spacing:1px;line-height:1.5;text-align:center"></div>
-  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/27l - EVERYBODY IS STRAPPED</div>
+  <div id="buildstamp" style="position:absolute;bottom:10px;left:0;right:0;text-align:center;font:10px ui-monospace,monospace;color:#6a5a3e;letter-spacing:2px">DEMO - BUILD 11/27m - THE IPHONE BUDGET</div>
   <!-- THIS TAG CLOSES THE FRONT SPLASH. IT IS ON ITS OWN LINE ON PURPOSE.
        Twice on 8/2 a lane updating the build stamp above ate it, which nested
        the whole app inside the splash - so tapping the splash hid the splash
@@ -12812,7 +12812,15 @@ function spoilsPay(m){
   }catch(_e){ return false; }
   return true;
 }
-function spoilsClose(){ try{ if(SPOILS.wrap) SPOILS.wrap.remove(); }catch(_e){} SPOILS.wrap = null; SPOILS.frame = null; }
+function spoilsClose(){
+  /* __AN_IPHONE_COUNTS_EVERY_CANVAS_UNTIL_IT_IS_EMPTIED__ (PLUMBER 8, 11/27, rule 484(a): 'every fight canvas let go at LEAVE'): the spoils
+     page's canvases (its icons, its marks, its glass-sized draws) emptied a beat after it comes off, as the fight page's are.
+     window.__FIGHT_KEEPS_ITS_PAGE: the old way */
+  try{ var sf = SPOILS.frame; if (sf && !window.__FIGHT_KEEPS_ITS_PAGE) { var sd = sf.contentDocument || (sf.contentWindow && sf.contentWindow.document), sl = [];
+    if (sd) sd.querySelectorAll('canvas').forEach(function(c){ if (c.width || c.height) sl.push(c); });
+    window.__SPOILS_PAGE_EMPTIED = (window.__SPOILS_PAGE_EMPTIED|0) + sl.length;
+    setTimeout(function(){ sl.forEach(function(c){ try{ c.width = 0; c.height = 0; }catch(_e2){} }); }, 400); } }catch(_e){}
+  try{ if(SPOILS.wrap) SPOILS.wrap.remove(); }catch(_e){} SPOILS.wrap = null; SPOILS.frame = null; }
 /* SCRAP IS TAPE (RUN FOUR [scrap is tape], rule 276(a), Paolo 10/26: 'at the end of the fight it says I won scrap, what is scrap, why am
    I not getting more duct tape for my armour'): an old save's loot scrap sits in the purse's resources as 'loot: N rounds, M scrap'; each
    such entry gives M times ECONOMY's rolls a wrecked piece (records/target/bb/tape_income.json salvage.tape_per_scrap: 'an old save's
