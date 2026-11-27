@@ -1,0 +1,189 @@
+{
+ "glass": {
+  "w": 516,
+  "h": 156,
+  "foot": [
+   258.4,
+   147
+  ],
+  "piece": "glass",
+  "src": "bank/bk_glass.webp",
+  "facing": "S"
+ },
+ "stations": {
+  "w": 326,
+  "h": 118,
+  "foot": [
+   163.2,
+   94
+  ],
+  "piece": "stations",
+  "src": "bank/bk_stations.webp",
+  "facing": "S"
+ },
+ "desks": {
+  "w": 352,
+  "h": 201,
+  "foot": [
+   189.2,
+   147
+  ],
+  "piece": "desks",
+  "src": "bank/bk_desks.webp",
+  "facing": "S"
+ },
+ "column": {
+  "w": 111,
+  "h": 275,
+  "foot": [
+   56.2,
+   260
+  ],
+  "piece": "column",
+  "src": "bank/bk_column.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 52,
+  "h": 522,
+  "foot": [
+   26.7,
+   521
+  ],
+  "piece": "wall_ns",
+  "src": "bank/bk_wall_ns.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 516,
+  "h": 177,
+  "foot": [
+   258.4,
+   168
+  ],
+  "piece": "wall_ew",
+  "src": "bank/bk_wall_ew.webp",
+  "facing": "S"
+ },
+ "counter": {
+  "w": 267,
+  "h": 168,
+  "foot": [
+   168.3,
+   147
+  ],
+  "piece": "counter",
+  "src": "bank/bk_counter.webp",
+  "facing": "S"
+ },
+ "safes": {
+  "w": 245,
+  "h": 136,
+  "foot": [
+   146.4,
+   127
+  ],
+  "piece": "safes",
+  "src": "bank/bk_safes.webp",
+  "facing": "S"
+ },
+ "files": {
+  "w": 296,
+  "h": 154,
+  "foot": [
+   146.6,
+   133
+  ],
+  "piece": "files",
+  "src": "bank/bk_files.webp",
+  "facing": "S"
+ },
+ "island": {
+  "w": 322,
+  "h": 169,
+  "foot": [
+   185.4,
+   142
+  ],
+  "piece": "island",
+  "src": "bank/bk_island.webp",
+  "facing": "S"
+ },
+ "chairs": {
+  "w": 327,
+  "h": 150,
+  "foot": [
+   172.5,
+   132
+  ],
+  "piece": "chairs",
+  "src": "bank/bk_chairs.webp",
+  "facing": "S"
+ },
+ "paper": {
+  "w": 369,
+  "h": 131,
+  "foot": [
+   184.6,
+   113
+  ],
+  "piece": "paper",
+  "src": "bank/bk_paper.webp",
+  "facing": "S"
+ },
+ "boxes": {
+  "w": 516,
+  "h": 158,
+  "foot": [
+   258.4,
+   141
+  ],
+  "piece": "boxes",
+  "src": "bank/bk_boxes.webp",
+  "facing": "S"
+ },
+ "cage": {
+  "w": 516,
+  "h": 209,
+  "foot": [
+   258.2,
+   198
+  ],
+  "piece": "cage",
+  "src": "bank/bk_cage.webp",
+  "facing": "S"
+ },
+ "vaultdoor": {
+  "w": 211,
+  "h": 240,
+  "foot": [
+   78.0,
+   237
+  ],
+  "piece": "vaultdoor",
+  "src": "bank/bk_vaultdoor.webp",
+  "facing": "S"
+ },
+ "tables": {
+  "w": 326,
+  "h": 151,
+  "foot": [
+   168.0,
+   131
+  ],
+  "piece": "tables",
+  "src": "bank/bk_tables.webp",
+  "facing": "S"
+ },
+ "dumped": {
+  "w": 369,
+  "h": 155,
+  "foot": [
+   185.3,
+   135
+  ],
+  "piece": "dumped",
+  "src": "bank/bk_dumped.webp",
+  "facing": "S"
+ }
+}

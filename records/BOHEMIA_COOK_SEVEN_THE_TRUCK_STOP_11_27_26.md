@@ -90,7 +90,8 @@ tools/bohemia_cook6_the_insides_hold_their_frames_11_26_26.js takes swapmeet, tr
 ## NOT DONE, SAID PLAINLY
 1. The bay wears the store's tile until COMBAT FIVE names its floor area (above). The map rarely deals the bay (COMBAT FOUR: one cell, store
    or lot, on its valleys).
-2. No night versions; the frame walk on the slowed phone for this inside is in the police station's record (the next ship), with the before.
+2. No night versions; the frame walk on the slowed phone for this inside (with its art and with its stand-ins: the art costs nothing) is in
+   records/BOHEMIA_COOK_SEVEN_THE_BANK_11_27_26.md.
 3. Adding three grounds puts the rig's calibration board past its 25 squares (the calibrate scene would leave them out): they carry their
    twins' measured multipliers, as the convention hall's slab did.
 

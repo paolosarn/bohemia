@@ -1,0 +1,311 @@
+{
+ "version": "cook7-bank-art-11-27",
+ "lane": "cook 7 (COOK FIVE's list, after COOK SIX)",
+ "stage": "finished",
+ "for": "COMBAT FOUR's bank (slices/fight_ground/bank/bank.json): the names its handoff asked for, the garage's format. floor.floor is the bank's marble in both rooms (1.2 m slabs of a warm grey stone, each its own shade with soft veins, the polish worn dull in a path, heel scuffs, a slab cracked, mud tracked in; a tile's edge is a joint); floor.ring the same.",
+ "floor": {
+  "floor": [
+   "bank/bank_floor_0.webp#0,0",
+   "bank/bank_floor_0.webp#1,0",
+   "bank/bank_floor_0.webp#2,0",
+   "bank/bank_floor_0.webp#3,0",
+   "bank/bank_floor_0.webp#4,0",
+   "bank/bank_floor_0.webp#0,1",
+   "bank/bank_floor_0.webp#1,1",
+   "bank/bank_floor_0.webp#2,1",
+   "bank/bank_floor_0.webp#3,1",
+   "bank/bank_floor_0.webp#4,1",
+   "bank/bank_floor_0.webp#0,2",
+   "bank/bank_floor_0.webp#1,2",
+   "bank/bank_floor_0.webp#2,2",
+   "bank/bank_floor_0.webp#3,2",
+   "bank/bank_floor_0.webp#4,2",
+   "bank/bank_floor_0.webp#0,3",
+   "bank/bank_floor_0.webp#1,3",
+   "bank/bank_floor_0.webp#2,3",
+   "bank/bank_floor_0.webp#3,3",
+   "bank/bank_floor_0.webp#4,3",
+   "bank/bank_floor_0.webp#0,4",
+   "bank/bank_floor_0.webp#1,4",
+   "bank/bank_floor_0.webp#2,4",
+   "bank/bank_floor_0.webp#3,4",
+   "bank/bank_floor_0.webp#4,4"
+  ],
+  "ring": [
+   "bank/bank_floor_0.webp#0,0",
+   "bank/bank_floor_0.webp#1,0",
+   "bank/bank_floor_0.webp#2,0",
+   "bank/bank_floor_0.webp#3,0",
+   "bank/bank_floor_0.webp#4,0",
+   "bank/bank_floor_0.webp#0,1",
+   "bank/bank_floor_0.webp#1,1",
+   "bank/bank_floor_0.webp#2,1",
+   "bank/bank_floor_0.webp#3,1",
+   "bank/bank_floor_0.webp#4,1",
+   "bank/bank_floor_0.webp#0,2",
+   "bank/bank_floor_0.webp#1,2",
+   "bank/bank_floor_0.webp#2,2",
+   "bank/bank_floor_0.webp#3,2",
+   "bank/bank_floor_0.webp#4,2",
+   "bank/bank_floor_0.webp#0,3",
+   "bank/bank_floor_0.webp#1,3",
+   "bank/bank_floor_0.webp#2,3",
+   "bank/bank_floor_0.webp#3,3",
+   "bank/bank_floor_0.webp#4,3",
+   "bank/bank_floor_0.webp#0,4",
+   "bank/bank_floor_0.webp#1,4",
+   "bank/bank_floor_0.webp#2,4",
+   "bank/bank_floor_0.webp#3,4",
+   "bank/bank_floor_0.webp#4,4"
+  ]
+ },
+ "kit": {
+  "bk_glass": {
+   "kind": "COVER",
+   "h": 2.5,
+   "name": "THE TELLER LINE'S GLASS",
+   "stage": "finished",
+   "src": "bank/bk_glass.webp",
+   "w": 516,
+   "h_px": 156,
+   "foot": [
+    258.4,
+    147
+   ]
+  },
+  "bk_stations": {
+   "kind": "LOW_COVER",
+   "h": 1.2,
+   "name": "TELLER STATIONS",
+   "stage": "finished",
+   "src": "bank/bk_stations.webp",
+   "w": 326,
+   "h_px": 118,
+   "foot": [
+    163.2,
+    94
+   ]
+  },
+  "bk_desks": {
+   "kind": "COVER",
+   "h": 1.1,
+   "name": "AN OFFICER'S DESK",
+   "stage": "finished",
+   "src": "bank/bk_desks.webp",
+   "w": 352,
+   "h_px": 201,
+   "foot": [
+    189.2,
+    147
+   ]
+  },
+  "bk_column": {
+   "kind": "COVER",
+   "h": 5.0,
+   "name": "A MARBLE COLUMN",
+   "stage": "finished",
+   "src": "bank/bk_column.webp",
+   "w": 111,
+   "h_px": 275,
+   "foot": [
+    56.2,
+    260
+   ]
+  },
+  "bk_wall_ns": {
+   "kind": "WALL",
+   "h": 3.4,
+   "name": "THE BANK'S WALL",
+   "stage": "finished",
+   "src": "bank/bk_wall_ns.webp",
+   "w": 52,
+   "h_px": 522,
+   "foot": [
+    26.7,
+    521
+   ]
+  },
+  "bk_wall_ew": {
+   "kind": "WALL",
+   "h": 3.4,
+   "name": "THE BANK'S WALL",
+   "stage": "finished",
+   "src": "bank/bk_wall_ew.webp",
+   "w": 516,
+   "h_px": 177,
+   "foot": [
+    258.4,
+    168
+   ]
+  },
+  "bk_counter": {
+   "kind": "LOW_COVER",
+   "h": 1.15,
+   "name": "THE COUNTER'S END",
+   "stage": "finished",
+   "src": "bank/bk_counter.webp",
+   "w": 267,
+   "h_px": 168,
+   "foot": [
+    168.3,
+    147
+   ]
+  },
+  "bk_safes": {
+   "kind": "COVER",
+   "h": 1.2,
+   "name": "A CASH SAFE",
+   "stage": "finished",
+   "src": "bank/bk_safes.webp",
+   "w": 245,
+   "h_px": 136,
+   "foot": [
+    146.4,
+    127
+   ]
+  },
+  "bk_files": {
+   "kind": "COVER",
+   "h": 1.4,
+   "name": "FILING CABINETS",
+   "stage": "finished",
+   "src": "bank/bk_files.webp",
+   "w": 296,
+   "h_px": 154,
+   "foot": [
+    146.6,
+    133
+   ]
+  },
+  "bk_island": {
+   "kind": "LOW_COVER",
+   "h": 1.4,
+   "name": "A CHECK-WRITING ISLAND",
+   "stage": "finished",
+   "src": "bank/bk_island.webp",
+   "w": 322,
+   "h_px": 169,
+   "foot": [
+    185.4,
+    142
+   ]
+  },
+  "bk_chairs": {
+   "kind": "LOW_COVER",
+   "h": 0.9,
+   "name": "WAITING CHAIRS",
+   "stage": "finished",
+   "src": "bank/bk_chairs.webp",
+   "w": 327,
+   "h_px": 150,
+   "foot": [
+    172.5,
+    132
+   ]
+  },
+  "bk_paper": {
+   "kind": "LOW_COVER",
+   "h": 0.2,
+   "name": "PAPER DRIFTS",
+   "stage": "finished",
+   "src": "bank/bk_paper.webp",
+   "w": 369,
+   "h_px": 131,
+   "foot": [
+    184.6,
+    113
+   ]
+  },
+  "bk_boxes": {
+   "kind": "WALL",
+   "h": 2.5,
+   "name": "SAFE DEPOSIT BOXES",
+   "stage": "finished",
+   "src": "bank/bk_boxes.webp",
+   "w": 516,
+   "h_px": 158,
+   "foot": [
+    258.4,
+    141
+   ]
+  },
+  "bk_cage": {
+   "kind": "COVER",
+   "h": 2.66,
+   "name": "THE CASH CAGE",
+   "stage": "finished",
+   "src": "bank/bk_cage.webp",
+   "w": 516,
+   "h_px": 209,
+   "foot": [
+    258.2,
+    198
+   ]
+  },
+  "bk_vaultdoor": {
+   "kind": "WALL",
+   "h": 3.2,
+   "name": "THE VAULT DOOR",
+   "stage": "finished",
+   "src": "bank/bk_vaultdoor.webp",
+   "w": 211,
+   "h_px": 240,
+   "foot": [
+    78.0,
+    237
+   ]
+  },
+  "bk_tables": {
+   "kind": "COVER",
+   "h": 1.0,
+   "name": "COUNTING TABLES",
+   "stage": "finished",
+   "src": "bank/bk_tables.webp",
+   "w": 326,
+   "h_px": 151,
+   "foot": [
+    168.0,
+    131
+   ]
+  },
+  "bk_dumped": {
+   "kind": "LOW_COVER",
+   "h": 0.2,
+   "name": "DUMPED DEPOSIT BOXES",
+   "stage": "finished",
+   "src": "bank/bk_dumped.webp",
+   "w": 369,
+   "h_px": 155,
+   "foot": [
+    185.3,
+    135
+   ]
+  }
+ },
+ "how_it_lays": {
+  "the banking hall": "bk_glass a tile long so the teller line runs (G); bk_counter is the line's return with its gate; bk_column a square pier drawn 5 m up; bk_desks a walnut desk pushed over.",
+  "the vault floor": "bk_boxes and bk_cage a tile long so a run meets; bk_vaultdoor the round door turned to face the camera, its hinge arm and collar to the east (the vault's wall); bk_tables with the straps of notes left on them.",
+  "the walls": "bk_wall_ew / _ns: a marble wainscot, plaster to 3.4 m, a tile long."
+ },
+ "bytes": {
+  "floor": 170032,
+  "ceiling": 35308
+ },
+ "ceiling": {
+  "sheet": "bank/bank_ceiling.webp",
+  "bays": [
+   5,
+   5
+  ],
+  "bay_px": [
+   129,
+   91
+  ],
+  "covers": [
+   10,
+   10
+  ],
+  "what": "the banking hall's coffered plaster from under it: the beams both ways with a gilt bead, a rosette in every coffer, a dead chandelier in every bay, damp and soot, plaster fallen to the lath",
+  "contract": "bank.json 'ceiling' (COMBAT FOUR's: the fight draws it over the board at that alpha, rule 451(a)); five bays by five that repeat"
+ }
+}

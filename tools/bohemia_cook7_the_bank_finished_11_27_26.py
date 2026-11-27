@@ -83,7 +83,7 @@ def plan_bk_floor(ID, seed=263):
     shade = np.random.RandomState(seed + 1).rand(64, 64)[np.clip(gy + 11 * row, 0, 63), np.clip(gx + 11 * col, 0, 63)]
     vein = TG.stretch(rng, 0.45, 3.5) * 0.75 + FW.vnoise((H, W), 0.25 * PPM, rng) * 0.25; vein2 = FW.vnoise((H, W), 1.2 * PPM, rng)
     veins = np.clip(1 - np.abs(vein - 0.5) / 0.02, 0, 1) * np.clip((vein2 - 0.35) / 0.2, 0, 1)    # soft veins, long, running east-west and broken
-    dark = 0.16 + (shade - 0.5) * 0.04 + veins * 0.1 + np.clip((0.5 - dust) / 0.3, 0, 1) * 0.06
+    dark = 0.27 + (shade - 0.5) * 0.04 + veins * 0.1 + np.clip((0.5 - dust) / 0.3, 0, 1) * 0.06          # (laid darker: 160 at 0.16 read as the palest floor of all, the mall's that he flagged; the courthouse's marble is 146)
     pale = np.zeros((H, W), np.float32)
     for r in ROWS:
         for c in range(5):
@@ -158,7 +158,7 @@ def counter(P, ox, oy, rng):
 def stations(P, ox, oy, rng):
     """two tellers' stations behind the line: a laminate desk, the cash drawer pulled and empty, a coin counter, a dead screen, a receipt
     printer, a stool on its side"""
-    for dx in (-2.0, 1.0):
+    for dx in (-3.4, -0.9, 1.6):
         x0 = ox + dx
         P.box('bk_wood_l', x0, x0 + 1.8, oy + 0.4, oy + 1.1, 0.0, 0.8); P.box('sc_top', x0 - 0.02, x0 + 1.82, oy + 0.38, oy + 1.12, 0.8, 0.83)
         P.box('pd_steel', x0 + 0.5, x0 + 1.1, oy + 0.0, oy + 0.4, 0.62, 0.74); P.box('black', x0 + 0.55, x0 + 1.05, oy + 0.04, oy + 0.36, 0.735, 0.74)   # the drawer, empty
@@ -176,6 +176,7 @@ def safes(P, ox, oy, rng):
         P.box('black', x0 + 0.05, x0 + 0.75, oy + 0.59, oy + 0.6, 0.15, 1.15); P.box('pd_steel', x0 + 0.1, x0 + 0.7, oy + 0.65, oy + 1.25, 0.6, 0.62)
         P.poly('bk_safe', [(x0 + 0.8, oy + 0.6), (x0 + 0.84, oy + 0.58), (x0 + 1.2, oy + 0.0), (x0 + 1.16, oy - 0.02)], 0.15, 1.15)   # its door
         P.drum('chrome', x0 + 1.0, oy + 0.28, 0.6, 0.65, 0.06, 8)
+    for x0 in (ox - 3.2, ox - 2.3): P.box('bk_safe', x0, x0 + 0.8, oy + 1.5, oy + 2.2, 0.1, 1.2); P.box('pd_steel', x0 + 0.35, x0 + 0.45, oy + 1.48, oy + 1.5, 0.6, 0.7)   # two shut, at the back
     P.box('bk_safe', ox + 0.9, ox + 2.0, oy + 0.5, oy + 1.2, 0.0, 0.8); P.box('black', ox + 0.95, ox + 1.95, oy + 0.48, oy + 0.5, 0.05, 0.75)   # over on its side
     for (u, v) in ((ox + 1.1, oy + 0.4), (ox + 1.8, oy + 0.4)): P.wheel('black', u, v, 0.45, 0.05, 0.04, 8)
 
@@ -183,6 +184,7 @@ def safes(P, ox, oy, rng):
 def files(P, ox, oy, rng):
     """loan files in steel lateral cabinets: one standing with its drawers out, two tipped over, the folders fanned out"""
     P.box('bk_cab', ox - 2.0, ox - 1.1, oy + 0.9, oy + 1.4, 0.0, 1.4)
+    for x in (ox - 3.2, ox + 2.4): P.box('bk_cab', x, x + 0.9, oy + 1.6, oy + 2.1, 0.0, 1.4); P.box('chrome', x + 0.35, x + 0.55, oy + 1.58, oy + 1.6, 1.1, 1.13)
     for j in range(4):
         z = 0.05 + j * 0.34; P.box('chrome', ox - 1.65, ox - 1.45, oy + 0.88, oy + 0.9, z + 0.24, z + 0.27)
         if j in (0, 2): P.box('bk_cab', ox - 1.98, ox - 1.12, oy + 0.4, oy + 0.9, z + 0.02, z + 0.3); P.box('bk_folder', ox - 1.94, ox - 1.16, oy + 0.43, oy + 0.87, z + 0.28, z + 0.34)
@@ -211,6 +213,11 @@ def desks(P, ox, oy, rng):
     for dx in (-2.2, -1.5): P.box('bk_leather', ox + dx, ox + dx + 0.55, oy - 0.1, oy + 0.45, 0.0, 0.45)
     P.box('bk_brass', ox - 0.3, ox + 0.1, oy - 0.3, oy - 0.22, 0.0, 0.07); P.box('black', ox - 0.28, ox + 0.08, oy - 0.305, oy - 0.3, 0.01, 0.06)   # the nameplate
     P.drum('bk_lamp', ox + 0.6, oy - 0.2, 0.0, 0.14, 0.13, 10)
+    x0 = ox - 3.8; P.box('bk_wood_d', x0, x0 + 1.6, oy + 1.4, oy + 2.2, 0.0, 0.74); P.box('bk_wood', x0 - 0.02, x0 + 1.62, oy + 1.38, oy + 2.22, 0.74, 0.78)   # a second desk, standing
+    P.box('bk_leather', x0 + 0.5, x0 + 1.1, oy + 2.3, oy + 2.9, 0.0, 0.5); P.box('bk_leather', x0 + 0.5, x0 + 1.1, oy + 2.8, oy + 2.95, 0.4, 1.0)
+    P.box('bk_wood_d', ox - 1.0, ox + 2.2, oy + 2.6, oy + 3.0, 0.0, 0.75)                                    # a credenza behind
+    for x in np.arange(ox - 4.2, ox + 3.6, 1.3): P.box('bk_brass', x - 0.03, x + 0.03, oy - 0.95, oy - 0.89, 0.0, 0.9)   # the platform's brass rail
+    P.box('bk_brass', ox - 4.2, ox + 1.0, oy - 0.95, oy - 0.89, 0.85, 0.9); P.bar('bk_brass', (ox + 1.0, oy - 0.92, 0.88), (ox + 2.2, oy - 1.6, 0.05), 0.03)   # bent down where it broke
     for _ in range(12): u, v = ox + rng.uniform(-2.4, 2.4), oy + rng.uniform(-0.7, 0.2); P.box(('paper', 'white', 'bk_folder')[rng.randint(3)], u, u + 0.21, v, v + 0.28, 0.0, 0.004)
 
 
@@ -221,8 +228,11 @@ def island(P, ox, oy, rng):
     P.box('bk_brass', ox - 0.9, ox + 0.9, oy + 0.7, oy + 0.8, 1.12, 1.4)
     for k in range(6): x = ox - 0.85 + k * 0.29; P.box(('white', 'bk_slip_g', 'paper')[k % 3], x, x + 0.22, oy + 0.72, oy + 0.78, 1.15, 1.38)
     P.bar('chrome', (ox + 0.6, oy + 0.75, 1.12), (ox + 0.9, oy + 0.3, 1.13), 0.006)
+    for dx in (-3.0,):                                                                                         # a second, standing
+        P.box('bk_brass', ox + dx - 0.15, ox + dx + 0.15, oy + 1.6, oy + 1.9, 0.0, 1.05); P.box('bk_marble', ox + dx - 1.0, ox + dx + 1.0, oy + 1.35, oy + 2.15, 1.05, 1.12)
+        P.box('bk_brass', ox + dx - 0.9, ox + dx + 0.9, oy + 1.7, oy + 1.8, 1.12, 1.4)
     P.box('bk_brass', ox + 1.3, ox + 1.5, oy + 0.1, oy + 0.9, 0.0, 0.08); P.box('bk_marble', ox + 1.0, ox + 2.6, oy + 0.0, oy + 0.9, 0.08, 0.14)   # a second one, toppled
-    for _ in range(40): u, v = ox + rng.uniform(-2.0, 3.0), oy + rng.uniform(-0.8, 1.6); P.box(('white', 'bk_slip_g', 'paper')[rng.randint(3)], u, u + 0.16, v, v + 0.07, 0.0, 0.004)
+    for _ in range(90): u, v = ox + rng.uniform(-4.0, 3.0), oy + rng.uniform(-0.8, 2.4); P.box(('white', 'bk_slip_g', 'paper')[rng.randint(3)], u, u + 0.16, v, v + 0.07, 0.0, 0.004)
 
 
 def chairs(P, ox, oy, rng):
@@ -232,17 +242,21 @@ def chairs(P, ox, oy, rng):
         if back: P.box('bk_leather', x, x + 0.8, y, y + 0.5, 0.0, 0.8); P.box('bk_leather', x, x + 0.8, y + 0.5, y + 0.9, 0.0, 0.4)
         else: P.box('bk_leather', x, x + 0.8, y, y + 0.8, 0.0, 0.45); P.box('bk_leather', x, x + 0.8, y + 0.6, y + 0.8, 0.45, 0.85); P.box('bk_leather', x - 0.05, x + 0.05, y, y + 0.8, 0.45, 0.6); P.box('bk_leather', x + 0.75, x + 0.85, y, y + 0.8, 0.45, 0.6)
     P.box('bk_wood', ox - 0.6, ox + 0.6, oy - 0.3, oy + 0.3, 0.0, 0.42); P.box('bk_glass', ox - 0.55, ox + 0.55, oy - 0.25, oy + 0.25, 0.42, 0.44)
+    for (dx, dy) in ((-3.6, 1.6), (-2.7, 2.0), (2.6, 1.8)): x, y = ox + dx, oy + dy; P.box('bk_leather', x, x + 0.8, y, y + 0.8, 0.0, 0.45); P.box('bk_leather', x, x + 0.8, y + 0.6, y + 0.8, 0.45, 0.85)
+    P.drum('bk_marble_d', ox - 3.1, oy + 0.4, 0.0, 0.6, 0.35, 12); P.drum('stain', ox - 3.1, oy + 0.4, 0.6, 0.62, 0.3, 12)   # a planter, its palm dead
+    for a in range(7): t = a * 0.9; P.bar('bk_dead', (ox - 3.1, oy + 0.4, 0.6), (ox - 3.1 + 0.8 * math.cos(t), oy + 0.4 + 0.8 * math.sin(t), 0.3 + 0.4 * (a % 2)), 0.03)
 
 
 def paper(P, ox, oy, rng):
     """paper drifted: ledgers splayed, statements, slips, and the banded notes nobody wants, a strap burst into a fan of them"""
-    for _ in range(70):
-        u, v = ox + rng.uniform(-2.6, 2.6), oy + rng.uniform(-0.4, 2.2); a = rng.uniform(-1.2, 1.2); ca, sa = math.cos(a), math.sin(a)
+    for _ in range(190):
+        u, v = ox + rng.uniform(-4.0, 4.0), oy + rng.uniform(-0.4, 3.0); a = rng.uniform(-1.2, 1.2); ca, sa = math.cos(a), math.sin(a)
         w_, d_ = rng.choice((0.1, 0.15, 0.08)), rng.choice((0.13, 0.11, 0.035)); z = rng.uniform(0.0, 0.08)
         P.poly(('paper', 'white', 'bk_slip_g', NOTE, NOTE)[rng.randint(5)], [(u + p * ca - q * sa, v + p * sa + q * ca) for (p, q) in ((-w_, -d_), (w_, -d_), (w_, d_), (-w_, d_))], z, z + 0.004)
-    for (u, v) in ((ox - 1.0, oy + 0.6), (ox + 0.8, oy + 1.3)):                                                # ledgers, splayed open
+    for (u, v) in ((ox - 1.0, oy + 0.6), (ox + 0.8, oy + 1.3), (ox - 3.0, oy + 1.8), (ox + 2.6, oy + 0.3)):        # ledgers, splayed open
         P.box('bk_ledger', u, u + 0.45, v, v + 0.32, 0.0, 0.04); P.box('white', u + 0.03, u + 0.42, v + 0.02, v + 0.3, 0.04, 0.045)
-    for k in range(5): strap(P, ox + 1.4 + rng.uniform(-0.3, 0.3), oy + 0.2 + k * 0.1, 0.0, rng.randint(3, 9))
+    for (bx, by) in ((1.4, 0.2), (-2.2, 0.4), (0.0, 2.2)):
+        for k in range(5): strap(P, ox + bx + rng.uniform(-0.3, 0.3), oy + by + k * 0.1, 0.0, rng.randint(3, 9))
 
 
 def vaultdoor(P, ox, oy, rng):
@@ -272,7 +286,7 @@ def boxes(P, ox, oy, rng):
     for i in range(cols):
         for j in range(rows_):
             x, z = ox - 6.0 + i * dw, 0.1 + j * dh
-            if rng.rand() < 0.62:
+            if rng.rand() < 0.34:
                 P.box('black', x + 0.015, x + dw - 0.015, y0 - 0.002, y0, z + 0.015, z + dh - 0.015)
                 if rng.rand() < 0.5: P.poly('bk_brass', [(x + 0.015, y0), (x + 0.03, y0 - 0.01), (x + 0.15, y0 - 0.22), (x + 0.135, y0 - 0.23)], z + 0.02, z + dh - 0.02)
             else:
@@ -283,14 +297,15 @@ def boxes(P, ox, oy, rng):
 
 def dumped(P, ox, oy, rng):
     """deposit boxes pulled out and dumped: the long steel boxes on their sides, lids open, their trays, papers, an empty ring box, a will"""
-    for _ in range(16):
-        x, y = ox + rng.uniform(-1.8, 1.6), oy + rng.uniform(0.0, 1.8); a = rng.uniform(-1.4, 1.4); ca, sa = math.cos(a), math.sin(a)
+    for _ in range(40):
+        x, y = ox + rng.uniform(-3.6, 3.4), oy + rng.uniform(0.0, 2.8); a = rng.uniform(-1.4, 1.4); ca, sa = math.cos(a), math.sin(a)
         P.poly('bk_dbox', [(x + p * ca - q * sa, y + p * sa + q * ca) for (p, q) in ((-0.3, -0.07), (0.3, -0.07), (0.3, 0.07), (-0.3, 0.07))], 0.0, 0.08)
         if rng.rand() < 0.5: P.poly('bk_dbox', [(x + p * ca - q * sa, y + p * sa + q * ca) for (p, q) in ((-0.3, 0.07), (0.3, 0.07), (0.3, 0.2), (-0.3, 0.2))], 0.0, 0.012)
-    for _ in range(34):
-        u, v = ox + rng.uniform(-2.4, 2.4), oy + rng.uniform(-0.6, 2.3); a = rng.uniform(-1.0, 1.0); ca, sa = math.cos(a), math.sin(a)
+    for _ in range(80):
+        u, v = ox + rng.uniform(-4.0, 4.0), oy + rng.uniform(-0.6, 3.2); a = rng.uniform(-1.0, 1.0); ca, sa = math.cos(a), math.sin(a)
         P.poly(('paper', 'white', 'bk_folder')[rng.randint(3)], [(u + p * ca - q * sa, v + p * sa + q * ca) for (p, q) in ((-0.15, -0.11), (0.15, -0.11), (0.15, 0.11), (-0.15, 0.11))], 0.0, 0.005)
     P.box('bk_ringbox', ox + 0.4, ox + 0.5, oy + 0.9, oy + 1.0, 0.0, 0.06)
+    for k in range(7): P.box('bk_dbox', ox - 1.0, ox - 0.4, oy + 1.4, oy + 1.55, k * 0.09, k * 0.09 + 0.08)   # a stack of them, emptied
 
 
 def cage(P, ox, oy, rng):
@@ -311,6 +326,12 @@ def tables(P, ox, oy, rng):
     for (u, v) in ((x0 + 0.05, oy + 0.65), (x0 + 1.7, oy + 0.65), (x0 + 0.05, oy + 1.4), (x0 + 1.7, oy + 1.4)): P.box('pd_steel', u, u + 0.05, v, v + 0.05, 0.0, 0.82)
     for i in range(4):
         for j in range(3): strap(P, x0 + 0.15 + i * 0.4, oy + 0.75 + j * 0.22, 0.86, rng.randint(4, 12))
+    x1 = ox - 3.6; P.box('pd_steel', x1, x1 + 1.8, oy + 1.6, oy + 2.5, 0.82, 0.86)                           # a second, standing, its bricks
+    for (u, v) in ((x1 + 0.05, oy + 1.65), (x1 + 1.7, oy + 1.65), (x1 + 0.05, oy + 2.4), (x1 + 1.7, oy + 2.4)): P.box('pd_steel', u, u + 0.05, v, v + 0.05, 0.0, 0.82)
+    for i in range(3):
+        for j in range(2): strap(P, x1 + 0.2 + i * 0.5, oy + 1.75 + j * 0.3, 0.86, rng.randint(6, 14))
+    P.box('pd_steel', ox + 2.4, ox + 3.4, oy + 1.2, oy + 1.8, 0.2, 1.0); P.box('black', ox + 2.45, ox + 3.35, oy + 1.25, oy + 1.75, 0.95, 1.0)   # a money cart, its bins empty
+    for (u, v) in ((ox + 2.5, oy + 1.3), (ox + 3.3, oy + 1.3), (ox + 2.5, oy + 1.7), (ox + 3.3, oy + 1.7)): P.drum('black', u, v, 0.0, 0.2, 0.08, 8)
     P.box('black', ox - 0.6, ox - 0.1, oy - 0.3, oy + 0.05, 0.0, 0.25); P.box(NOTE, ox - 0.5, ox - 0.2, oy - 0.32, oy - 0.3, 0.12, 0.2)   # a note counter, down
     for _ in range(24): u, v = ox + rng.uniform(-2.0, 2.4), oy + rng.uniform(-0.6, 0.4); a = rng.uniform(-1, 1); P.poly(NOTE, [(u, v), (u + 0.16 * math.cos(a), v + 0.16 * math.sin(a)), (u + 0.16 * math.cos(a) - 0.07 * math.sin(a), v + 0.16 * math.sin(a) + 0.07 * math.cos(a)), (u - 0.07 * math.sin(a), v + 0.07 * math.cos(a))], 0.0, 0.003)
 
@@ -357,7 +378,7 @@ def bk_mats(bpy, NF, F, M, which):
              bk_slip_g=m('in_paper_slip_green', 'clay_teal', 4, 0.85), bk_note=m('in_paper_dollar', 'clay_teal', 3, 0.75), bk_strap=m('in_paper_strap', 'clay_mustard', 3, 0.9),
              bk_ledger=m('in_cloth_ledger', 'clay_rust', 1, 0.9), bk_vault=m('in_steel_vault', 'tape_grey', 2, 0.9), bk_vault_d=m('in_steel_vault_dark', 'tape_grey', 1, 0.9),
              bk_dbox=m('in_steel_deposit_box', 'tape_grey', 2, 0.85), bk_ringbox=m('in_velvet_ringbox', 'clay_rust', 0, 1.0),
-             bk_plaster=m('in_plaster_bank', 'clay_bone', 2, 0.92), bk_plaster_d=m('in_plaster_bank_dark', 'clay_bone', 1, 0.95))
+             bk_plaster=m('in_plaster_bank', 'clay_bone', 2, 0.92), bk_plaster_d=m('in_plaster_bank_dark', 'clay_bone', 1, 0.95), bk_dead=m('in_palm_dead', 'tape_masking', 1, 0.9))
 
 
 TG.PARTS['bk_pieces'] = bk_parts
@@ -417,12 +438,12 @@ NAME = dict(glass="THE TELLER LINE'S GLASS", counter="THE COUNTER'S END", statio
             column='A MARBLE COLUMN', desks="AN OFFICER'S DESK", island='A CHECK-WRITING ISLAND', chairs='WAITING CHAIRS', paper='PAPER DRIFTS',
             vaultdoor='THE VAULT DOOR', boxes='SAFE DEPOSIT BOXES', dumped='DUMPED DEPOSIT BOXES', cage='THE CASH CAGE', tables='COUNTING TABLES',
             wall_ew="THE BANK'S WALL", wall_ns="THE BANK'S WALL")
-BOX = dict(glass=(-6.0, 6.01, -0.3, 1.2 + 2.5 * 1.45), stations=(-2.6, 3.4, -0.8, 1.2 + 1.3 * 1.45), desks=(-2.6, 2.4, -0.8, 1.5 + 1.2 * 1.45),
+BOX = dict(glass=(-6.0, 6.01, -0.3, 1.2 + 2.5 * 1.45), stations=(-3.8, 3.8, -0.8, 1.2 + 1.3 * 1.45), desks=(-4.4, 3.8, -1.8, 3.1 + 1.2 * 1.45),
            column=(-1.3, 1.3, -0.5, 1.3 + 5.0 * 1.45), wall_ns=(-0.6, 0.6, -0.05, 12.1 + (WALL_H + 0.1) * 1.45), wall_ew=(-6.0, 6.01, -0.3, 0.45 + (WALL_H + 0.1) * 1.45),
-           counter=(-3.9, 2.3, -0.7, 3.1 + 1.2 * 1.45), safes=(-1.9, 2.3, -0.3, 1.5 + 1.3 * 1.45), files=(-2.6, 3.0, -0.7, 1.5 + 1.5 * 1.45),
-           island=(-2.2, 3.2, -0.9, 1.7 + 1.5 * 1.45), chairs=(-1.6, 2.4, -0.4, 1.9 + 1.0 * 1.45), paper=(-2.8, 2.8, -0.6, 2.4 + 0.3 * 1.45),
+           counter=(-3.9, 2.3, -0.7, 3.1 + 1.2 * 1.45), safes=(-3.4, 2.3, -0.3, 2.3 + 1.3 * 1.45), files=(-3.4, 3.5, -0.7, 2.2 + 1.5 * 1.45),
+           island=(-4.3, 3.2, -0.9, 2.5 + 1.5 * 1.45), chairs=(-4.0, 3.6, -0.6, 2.9 + 1.0 * 1.45), paper=(-4.3, 4.3, -0.6, 3.3 + 0.3 * 1.45),
            boxes=(-6.0, 6.01, -0.6, 1.0 + 2.5 * 1.45), cage=(-6.0, 6.01, -0.4, 2.6 + 2.7 * 1.45), vaultdoor=(-1.8, 3.1, -0.1, 3.0 + 3.3 * 1.45),
-           tables=(-2.2, 2.6, -0.7, 1.6 + 1.1 * 1.45), dumped=(-2.6, 2.6, -0.7, 2.4 + 0.3 * 1.45))
+           tables=(-3.9, 3.7, -0.7, 2.7 + 1.1 * 1.45), dumped=(-4.3, 4.3, -0.7, 3.4 + 0.7 * 1.45))
 WALLS = ('wall_ew', 'glass', 'boxes', 'cage')
 SHADOW = dict(wall_ns=0.5)
 
