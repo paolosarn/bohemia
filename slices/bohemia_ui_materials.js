@@ -521,7 +521,10 @@
     /* ARMORY 2 (rule 320): the pool pole spear and the whips, the two-tile weapon */
     'pool pole spear', 'extension cord', 'live wire', 'barbed wire', 'bullwhip',
     /* WEAPONS (rule 424(b), Paolo 11/7: 'we need more one-handed weapons'): six one-handers a man finds in a dead Bohemia */
-    'tire iron', 'golf club', 'bowie knife', 'pipe wrench', 'tomahawk', 'slot machine handle'];
+    'tire iron', 'golf club', 'bowie knife', 'pipe wrench', 'tomahawk', 'slot machine handle',
+    /* ARMORY 3 (rules 489(b) and 490, Paolo 11/27: 'automatic guns or more intense guns, maybe even a rocket launcher... drones'): sixteen */
+    'switched pistol', 'box smg', 'pipe smg', 'printed carbine', 'ranch ar', 'guard carbine', 'kalash', 'belt-fed saw', 'pipe shotgun', 'auto shotgun',
+    'rocket launcher', 'throwaway rocket', 'charge drone', 'scout drone', 'night-sight ar', 'thermal hunting rifle'];
   function objOf(item) {
     var n = String(item.name || '').toLowerCase();
     for (var i = OBJECTS.length - 1; i >= 0; i--) if (n.indexOf(OBJECTS[i]) >= 0) {
@@ -610,6 +613,25 @@
       case 'pipe wrench': line(4, 19, 13, 10, 'red', 2); put(5, 18, 'white'); put(6, 17, 'white'); put(7, 16, 'white'); rect(12, 6, 3, 5, 'dsteel'); rect(15, 4, 4, 2, 'dsteel'); rect(15, 8, 4, 2, 'dsteel'); put(13, 7, 'steel'); put(14, 8, 'steel'); put(3, 20, 'black'); break;
       case 'tomahawk': line(4, 19, 14, 9, 'wood', 2); line(4, 19, 7, 16, 'black', 2); rect(13, 6, 3, 3, 'dsteel'); rect(15, 3, 3, 7, 'dsteel'); line(18, 3, 18, 9, 'steel', 1); line(12, 9, 10, 11, 'dsteel', 1); put(10, 13, 'flame'); break;
       case 'slot machine handle': rect(2, 18, 4, 2, 'dsteel'); put(2, 20, 'steel'); put(5, 20, 'steel'); line(5, 17, 14, 8, 'steel', 2); put(9, 13, 'tape'); put(10, 12, 'tape'); put(14, 8, 'black'); put(13, 9, 'black'); ell(16, 6, 3, 3, 'red'); put(15, 5, 'white'); break;
+      /* ARMORY 3 (rules 489(b), 490): the automatics, the belt, the rockets and the drones; grip bottom-left, business end top-right */
+      case 'switched pistol': rect(4, 7, 13 + L, 4, 'black'); rect(5, 7, 12 + L, 1, 'dsteel'); line(7, 11, 5, 17, 'black', 4); put(10, 12, 'dsteel'); put(11, 13, 'dsteel'); rect(2, 8, 2, 2, 'white'); put(3, 10, 'white'); put(16 + L, 6, 'dsteel'); break;
+      case 'box smg': rect(5, 6, 10, 5, 'black'); rect(15, 7, 4 + L, 2, 'dsteel'); line(9, 11, 9, 18, 'black', 3); rect(9, 17, 3, 2, 'dsteel'); put(12, 12, 'dsteel'); put(13, 13, 'dsteel'); rect(5, 6, 10, 1, 'dsteel'); line(5, 9, 2, 11, 'dsteel', 1); break;
+      case 'pipe smg': line(4, 13, 18 + L, 6, 'steel', 3); line(6, 13, 5, 19, 'wood', 3); line(11, 11, 12, 17, 'rust', 2); rect(8, 10, 2, 2, 'tape'); rect(14, 7, 2, 2, 'tape'); put(19 + L, 5, 'dsteel'); break;
+      case 'printed carbine': line(1, 19, 6, 15, 'khaki', 3); line(6, 15, 20 + L, 6, 'khaki', 2); line(14, 10, 20 + L, 6, 'dsteel', 1); line(9, 14, 10, 18, 'black', 2); for (i = 0; i < 4; i++) put(4 + i * 3, 17 - i * 2, 'olive'); put(12, 13, 'dsteel'); break;
+      case 'ranch ar': line(1, 19, 6, 15, 'black', 3); line(6, 15, 15, 9, 'black', 3); line(15, 9, 20 + L, 6, 'dsteel', 1); line(10, 13, 11, 18, 'black', 2); put(12, 18, 'black'); rect(9, 9, 3, 1, 'dsteel'); put(13, 14, 'dsteel'); break;
+      case 'guard carbine': line(1, 19, 6, 15, 'khaki', 3); line(6, 15, 15, 9, 'black', 3); line(15, 9, 20 + L, 6, 'dsteel', 1); line(10, 13, 11, 18, 'black', 2); put(12, 18, 'black'); rect(10, 8, 3, 2, 'black'); put(11, 8, 'red'); line(13, 11, 15, 10, 'khaki', 2); break;
+      case 'kalash': line(1, 19, 6, 15, 'wood', 3); line(6, 15, 12, 11, 'dsteel', 3); line(12, 11, 16, 9, 'wood', 2); line(16, 9, 20 + L, 6, 'dsteel', 1); line(10, 13, 11, 16, 'dsteel', 2); line(11, 16, 13, 18, 'dsteel', 2); put(18 + L, 6, 'dsteel'); break;
+      case 'belt-fed saw': line(1, 17, 5, 14, 'black', 3); line(5, 14, 17, 8, 'black', 3); line(17, 8, 20 + L, 6, 'dsteel', 1); rect(8, 13, 4, 3, 'olive'); for (i = 0; i < 4; i++) put(7 - i, 16 + i, 'brass'); line(15, 10, 13, 15, 'dsteel', 1); line(15, 10, 17, 15, 'dsteel', 1); break;
+      case 'pipe shotgun': line(3, 18, 7, 14, 'rust', 3); line(7, 14, 19 + L, 5, 'steel', 3); rect(6, 14, 3, 1, 'tape'); rect(12, 10, 2, 2, 'tape'); put(5, 18, 'dsteel'); put(9, 15, 'red'); break;
+      case 'auto shotgun': line(1, 19, 6, 15, 'black', 3); rect(6, 12, 5, 3, 'black'); line(10, 12, 20 + L, 6, 'dsteel', 1); line(10, 14, 18, 9, 'dsteel', 1); put(8, 16, 'dsteel'); for (i = 0; i < 3; i++) put(4 + i, 17 - i, 'red'); break;
+      case 'rocket launcher': line(2, 18, 15, 8, 'dsteel', 2); line(6, 15, 9, 13, 'wood', 3); line(8, 15, 8, 18, 'black', 2); ell(17, 6.5, 2.6, 2.6, 'olive'); put(19, 4, 'olive'); put(20, 3, 'dsteel'); rect(10, 10, 2, 1, 'glass'); break;
+      case 'throwaway rocket': line(2, 18, 18 + L, 5, 'olive', 3); rect(8, 12, 3, 1, 'yellow'); rect(14, 8, 2, 1, 'yellow'); line(9, 15, 9, 18, 'black', 2); put(2, 19, 'black'); put(19 + L, 4, 'black'); break;
+      case 'charge drone': for (i = 0; i < 4; i++) { put(6 + i, 6 + i, 'dsteel'); put(15 - i, 6 + i, 'dsteel'); put(6 + i, 15 - i, 'dsteel'); put(15 - i, 15 - i, 'dsteel'); }
+        [[5, 5], [16, 5], [5, 16], [16, 16]].forEach(function (q) { ell(q[0], q[1], 2.6, 1, 'glass', true); put(q[0], q[1], 'black'); }); rect(9, 9, 4, 4, 'black'); rect(9, 13, 4, 2, 'khaki'); put(12, 9, 'red'); break;
+      case 'scout drone': for (i = 0; i < 4; i++) { put(6 + i, 6 + i, 'steel'); put(15 - i, 6 + i, 'steel'); put(6 + i, 15 - i, 'steel'); put(15 - i, 15 - i, 'steel'); }
+        [[5, 5], [16, 5], [5, 16], [16, 16]].forEach(function (q) { ell(q[0], q[1], 2.6, 1, 'white', true); put(q[0], q[1], 'dsteel'); }); rect(9, 9, 4, 4, 'steel'); rect(10, 13, 2, 2, 'black'); put(10, 14, 'glass'); break;
+      case 'night-sight ar': line(1, 19, 6, 15, 'black', 3); line(6, 15, 15, 9, 'black', 3); line(15, 9, 20 + L, 6, 'dsteel', 1); line(10, 13, 11, 18, 'black', 2); line(8, 9, 14, 5, 'olive', 3); put(15, 4, 'green'); put(7, 10, 'green'); break;
+      case 'thermal hunting rifle': line(1, 19, 6, 15, 'wood', 3); line(6, 15, 20 + L, 5, 'dsteel', 2); rect(8, 7, 6, 3, 'black'); put(14, 7, 'flame'); put(7, 9, 'red'); line(11, 13, 14, 11, 'wood', 2); put(10, 12, 'steel'); break;
       case 'halberd': line(2, 20, 12, 10, 'dsteel', 2); for (i = 0; i < 3; i++) put(4 + i * 3, 18 - i * 3, 'black'); ell(15, 6, 4.6, 4.6, 'red'); rect(11, 6, 9, 1, 'white'); rect(11, 6, 1, 1, 'red'); put(15, 6, 'white'); break;
       case 'riot shield': rect(5, 2, 12, 18, 'glass'); rect(5, 8, 12, 2, 'white'); rect(5, 2, 12, 1, 'black'); rect(5, 19, 12, 1, 'black'); rect(10, 12, 2, 4, 'black'); break;
     }

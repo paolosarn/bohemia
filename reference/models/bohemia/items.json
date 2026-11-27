@@ -170,7 +170,11 @@
    "say": "",
    "made": "COOK 10/18",
    "rows": [
-    "handgonne"
+    "handgonne",
+    "pipe_shotgun",
+    "auto_shotgun",
+    "rocket_launcher",
+    "throwaway_rocket"
    ],
    "sha1": "a6477d2363848dd40220d37e5fc581253a9c93f9",
    "hands": 2
@@ -185,7 +189,14 @@
     "light_crossbow",
     "crossbow",
     "heavy_crossbow",
-    "spiked_impaler"
+    "spiked_impaler",
+    "printed_carbine",
+    "ranch_ar",
+    "guard_carbine",
+    "kalash",
+    "belt_fed",
+    "night_sight_ar",
+    "thermal_rifle"
    ],
    "sha1": "c49629ee2815fe28f8a0630cff6bdd865d257fc7",
    "hands": 2
@@ -308,7 +319,9 @@
     "flask_of_blessed_water",
     "fire_pot",
     "smoke_pot",
-    "flash_pot"
+    "flash_pot",
+    "charge_drone",
+    "scout_drone"
    ],
    "sha1": "b38a5f5c3ebe523f2bffa266f9a4e2d043cc13a6",
    "hands": 1,
@@ -1891,7 +1904,10 @@
     "notched_blade",
     "rondel_dagger",
     "qatal_dagger",
-    "estoc"
+    "estoc",
+    "switched_pistol",
+    "box_smg",
+    "pipe_smg"
    ],
    "sha1": "6c879bb22832be3078f6ba1f7528002b53e05650",
    "hand_grow": "1.35 over real about the grip, WEAPONS 11/7 rule 426(c): what his fist leaves showing reads its real length (the pistol a forearm's)",

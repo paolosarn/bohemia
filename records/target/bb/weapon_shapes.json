@@ -35,6 +35,8 @@
     { "skill": "Fire Handgonne", "kind": "cone", "count": 5, "bb_count": 6, "wedge_degrees": 60, "wedge_half_slope": 0.5774, "ranks_behind": 2,
       "bb_says": "can hit 5 tiles behind the target",
       "ours": "the man shot and the tiles behind him inside the 60 degree wedge Battle Brothers' cone fills (two ranks deep, widening): on hexes that wedge holds five behind, on squares four, the same on every heading. The SHOTGUN's blast (weapon_lines: firearm = SHOTGUN).",
-      "page": "Fire Handgonne (5 fatigue)", "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0766_Fire Handgonne (5 fatigue).txt" }
+      "page": "Fire Handgonne (5 fatigue)", "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0766_Fire Handgonne (5 fatigue).txt" },
+    {"skill": "Traverse", "armory": true, "kind": "across", "count": 3, "bb_says": "none: Battle Brothers has no machine gun", "ours": "the man aimed at and the tile each side of him, square across the line of fire: the belt walks across three houses (Paolo 9/24, rule 46d: 'a machine gun is comparable to a greatsword or a battle axe')", "page": "Paolo 9/24 (rule 46d)", "source": "VAMILY.md rule 46d; records/BOHEMIA_ARMORY_THREE_THE_GUNS_GROW_UP_AND_THE_DRONE_11_27_26.md"},
+    {"skill": "Fire Rocket", "armory": true, "kind": "blast", "count": 9, "bb_count": 7, "bb_says": "A thrown pot will set 7 tiles", "ours": "the tile hit and its eight: Battle Brothers' Fire Pot's seven on hexes, the tile and its ring, are our nine on squares (hex_to_square)", "page": "Fire Pot", "source": "reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/0770_Fire Pot.txt"}
   ]
 }

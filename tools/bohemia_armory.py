@@ -13,7 +13,9 @@ fight, the loot, the crew screen and the icons meet every piece with no new load
   slices/rig_melee         a melee piece held as its family's prop (A's own), one hand or two as A
 Idempotent: every row it wrote before is taken out first. `check` only measures.
 
-    python3 tools/bohemia_armory.py [write|check]
+    python3 tools/bohemia_armory.py [write|check] [weapons]
+ARMORY 3 (11/27): 'write weapons' writes the weapons only and leaves every armour row, name, look and model as it is on disk
+(measured: a full rerun put ORIGINS' 11/7 armour rows back to ARMORY 1's source line and key order, and re-bucketed their models).
 """
 import copy, json, os, re, sys
 
@@ -40,7 +42,87 @@ def mean(a, b, f):
     return f((a + b) / 2.0)
 
 
-def main(mode):
+LIB = 'reference/library/grok/wiki/PAGES_ALL.tar.gz:bb_all/'
+
+
+def bb_skill(wid, row, name):
+    """a Battle Brothers skill as its own row carries it (weapons.json), copied"""
+    r = wid.get(row)
+    for k in (r or {}).get('skills', []):
+        if k['name'] == name: return copy.deepcopy(k)
+    raise KeyError(row + ' has no ' + name)
+
+
+def fire_skills(s, r, a, wid, rec):
+    """ARMORY 3 (Paolo 11/27, rules 489(b) and 490): the skills a piece fires with, by its 'fire' mode, each cost a Battle Brothers
+    skill's own (its page in the skill's source). Writes r['fire'], r['burst'], r['mag'], r['ammo'], r['sight'], r['gun'],
+    r['skills'] (or, for a pistol, r['shot_skill'], the skill its shot fires with: ours.pistol_shot builds the shot at the fight).
+    Returns a refusal or None."""
+    f = s['fire']; m = f.get('mode'); pistol = bool(s.get('shot'))
+    QS = bb_skill(wid, 'short_bow', 'Quick Shot'); AS = bb_skill(wid, 'short_bow', 'Aimed Shot')
+    RH = bb_skill(wid, 'handgonne', 'Reload Handgonne'); RL = bb_skill(wid, 'light_crossbow', 'Reload')
+    if f.get('sight'): r['sight'] = f['sight']
+    if not m: return None
+    r['fire'] = m
+    base = bb_skill(wid, s['shot'], 'Throw Javelin') if pistol else next((copy.deepcopy(k) for k in a['skills'] if not k['name'].startswith('Reload')), None)
+    if base is None: return 'no strike skill on ' + a['id']
+    reload = next((copy.deepcopy(k) for k in a['skills'] if k['name'].startswith('Reload')), None)
+    def cost(k, name, frm, why):
+        k['bb_name'] = k['name']; k['name'] = name; k['ap'] = frm['ap']; k['fatigue'] = frm['fatigue']
+        k['cost_from'] = frm['page'] + ' (' + frm['source'] + ')'
+        k['effect'] = (k.get('effect') or '') + '; ARMORY 3: ' + why
+        return k
+    if m in ('semi', 'burst', 'belt'):
+        if not f.get('mag'): return m + ' needs a magazine'
+        # a shotgun's shot keeps its own name: its cone is weapon_shapes.json's row for that skill (Fire Handgonne)
+        if m == 'semi': k = cost(base, base['name'] if a['class'] == 'firearm' else 'Shoot', QS, 'from a magazine of %d, no reload between shots; Quick Shot\'s cost, two a turn' % f['mag'])
+        elif m == 'burst': k = cost(base, 'Burst', AS, '%d rounds a press at the man aimed at, each its own roll, each after the first -%s (ours.armory_fire.burst); Aimed Shot\'s cost, one a turn' % (f['burst'], 'recoil'))
+        else: k = cost(base, 'Traverse', AS, 'a belt: %d rounds a press across the man aimed at and the tile each side of him (weapon_shapes.json Traverse); Aimed Shot\'s cost' % f['burst'])
+        if m != 'semi': r['burst'] = f['burst']
+        r['mag'] = f['mag']
+        if m == 'belt': reload = RH
+        if pistol: r['shot_skill'] = k
+        else:
+            r['ammo'] = 'For %d uses' % f['mag']
+            r['skills'] = [k] + ([reload] if reload else [RL])
+    elif m in ('rocket', 'tube'):
+        k = copy.deepcopy(base); k['bb_name'] = k['name']; k['name'] = 'Fire Rocket'
+        k['effect'] = re.sub(r',? ?can hit \d+ tiles behind the target', '', k.get('effect') or '')   # a rocket is no cone: its blast is below
+        k['effect'] = (k.get('effect') or '') + '; ARMORY 3: the blast, the tile hit and its eight (weapon_shapes.json Blast, Battle Brothers\' Fire Pot area)' + ('; one rocket a fight, the tube thrown away, refilled after (Battle Brothers\' Firelance)' if m == 'tube' else '')
+        r['skills'] = [k] + ([reload] if m == 'rocket' and reload else [])
+        if m == 'tube': r['ammo'] = 'For 1 uses'
+    elif m in ('drone', 'spot'):
+        P = load(os.path.join(BB, 'bohemia_enemies.json'))['numbers']['fire_pot']
+        if m == 'drone':
+            k = {'name': 'Launch Drone', 'ap': P['value']['ap'], 'fatigue': P['value']['fatigue'], 'hit_bonus': 0, 'range': None,
+                 'effect': 'ARMORY 3 (rule 490): the drone flies to the man picked and hovers over his tile and the four beside it, lit; it blows at the start of the operator\'s next turn on whoever is still on them (ours.armory_fire.drone); a gun can shoot it down first; drop the operator and it falls',
+                 'page': 'Throw Fire Pot (20 fatigue)', 'source': LIB + '1995_Throw Fire Pot (20 fatigue).txt', 'cost_from': 'Throw Fire Pot (bohemia_enemies.json numbers.fire_pot)'}
+        else:
+            k = cost({'name': 'Spot', 'hit_bonus': 0, 'range': None, 'page': QS['page'], 'source': QS['source']}, 'Spot', QS,
+                     'the scout drone hangs over the board: for his next turns (ours.armory_fire.spot) his side sees every man of theirs and its shots at them land easier')
+            k.pop('bb_name', None)
+        r['skills'] = [k]; r['ammo'] = 'For %d uses' % f['rounds']; r['gun'] = True
+        r['drone'] = m
+    else:
+        return 'no fire mode ' + str(m)
+    return None
+
+
+def ours_line(t, key, value):
+    """ours.json keeps each top-level key in its own layout (one line, or laid out one space a level): that key's value replaced
+    in the layout it had, or a new key added on one line before the closing brace"""
+    m = re.search(r'^ "%s": ' % re.escape(key), t, re.M)
+    if m:
+        v0, end = json.JSONDecoder().raw_decode(t, m.end())
+        laid = '\n' in t[m.end():end]
+        s = json.dumps(value, indent=1, ensure_ascii=False).replace('\n', '\n ') if laid else json.dumps(value, ensure_ascii=False)
+        return t[:m.end()] + s + t[end:]
+    end = t.rstrip().rfind('}')
+    return t[:end].rstrip() + ',\n "%s": %s\n}\n' % (key, json.dumps(value, ensure_ascii=False))
+
+
+def main(mode, part=None):
+    wonly = part == 'weapons'
     spec = load(os.path.join(BB, 'armory.json'))
     W = load(os.path.join(BB, 'weapons.json')); A = load(os.path.join(BB, 'armor.json'))
     N = load(os.path.join(BB, 'armour_names.json')); L = load(os.path.join(BB, 'armour_looks.json'))
@@ -93,8 +175,13 @@ def main(mode):
             for sk in r['skills']:
                 if sk['name'] == 'Lash': sk['effect'] += '; a landed lash may disarm him for his next turn (ours.whip.disarm_pct, a low luck roll)'
             r['whip'] = dict(s.get('whip') or {})
+        # ARMORY 3 (rules 489(b), 490): how the piece fires, each mode's skills Battle Brothers' own (fire_skills below)
+        if s.get('fire'):
+            fb = fire_skills(s, r, a, wid, rec)
+            if fb: bad.append(s['id'] + ': ' + fb); continue
         r['armory'] = {'name': s['name'].lower(), 'object': s['object'], 'line': s['line'], 'tier': s['tier'], 'kind': s['kind'],
                        'role': s['role'], 'between': s['between'], 'across': s.get('across'), 'carried_by': s['carried_by'], 'draft': True}
+        if s.get('fire'): r['armory']['fire'] = s['fire']
         if s.get('starter'): r['armory']['starter'] = True
         if s.get('prop'): r['armory']['prop'] = s['prop']
         same = [x for x in W['rows'] if x['class'] == r['class'] and (x['damage_min'], x['damage_max'], x.get('armor_damage_pct'), x.get('value')) ==
@@ -130,8 +217,11 @@ def main(mode):
         for r in out_a[k]: print('  %-18s %-4s holds %s  weight %s  %s batteries' % (r['id'], k, r['durability'], r['fatigue'], max(1, rint(r['value'] / 10.0))))
     if mode != 'write': return 0
     W['rows'] += out_w; W['_armory'] = {'count': len(out_w), 'by': 'tools/bohemia_armory.py from armory.json', 'record': rec}
+    if wonly:   # the armour as it is on disk, untouched
+        A = load(os.path.join(BB, 'armor.json')); N = load(os.path.join(BB, 'armour_names.json')); L = load(os.path.join(BB, 'armour_looks.json'))
+        out_a = {'body': [], 'head': []}
     for k in ('body', 'head'): A[k] += out_a[k]
-    A['_armory'] = {'body': len(out_a['body']), 'head': len(out_a['head']), 'by': 'tools/bohemia_armory.py from armory.json', 'record': rec}
+    if not wonly: A['_armory'] = {'body': len(out_a['body']), 'head': len(out_a['head']), 'by': 'tools/bohemia_armory.py from armory.json', 'record': rec}
     for k in ('body', 'head'):
         for r in out_a[k]:
             N[k][r['id']] = r['armory']['name']
@@ -160,8 +250,10 @@ def main(mode):
         for r in out_a[k]:
             if r['id'] not in mine: I['items'][bucket(k, r['durability'])]['rows'].append(r['id'])
     dump(IP, I)
-    dump(os.path.join(BB, 'weapons.json'), W); dump(os.path.join(BB, 'armor.json'), A)
-    dump(os.path.join(BB, 'armour_names.json'), N); dump(os.path.join(BB, 'armour_looks.json'), L)
+    dump(os.path.join(BB, 'weapons.json'), W)
+    if not wonly:
+        dump(os.path.join(BB, 'armor.json'), A)
+        dump(os.path.join(BB, 'armour_names.json'), N); dump(os.path.join(BB, 'armour_looks.json'), L)
     dump(P('slices/rig_melee/rig_melee.json'), M, compact=True)
     # ours.json: the new pistols' shots, written into its by_row block as text (the file's own layout kept)
     op = os.path.join(BB, 'ours.json'); t = open(op).read()
@@ -170,10 +262,36 @@ def main(mode):
     body = m.group(2).rstrip()
     add = ''.join(',\n    "%s": "%s"' % (s['id'], s['shot']) for s in spec['weapons'] if s.get('shot'))
     t = t[:m.start(2)] + body + add + '\n   ' + t[m.end(2):]
+    # ARMORY 3 (rules 478, 489(b), 490): what each piece carries into a fight, what a refill costs the stock, what is never refilled
+    # (ours.gun_rounds, COMBAT FOUR's key: only by_id, per_shot_by_id and consumable are written, each piece's own); the fire's numbers
+    # (ours.armory_fire), its bands (ours.range_bands) and its two shapes (weapon_shapes.json), each from armory.json's own block
+    O = json.loads(t)
+    G = O['gun_rounds']; gv = G['value']
+    mine3 = [s for s in spec['weapons'] if s.get('fire') and s['fire'].get('rounds')]
+    gv['by_id'] = dict((k, v) for k, v in (gv.get('by_id') or {}).items() if k not in set(s['id'] for s in spec['weapons']))
+    for s in mine3: gv['by_id'][s['id']] = s['fire']['rounds']
+    gv['per_shot_by_id'] = dict((s['id'], s['fire']['per_shot']) for s in mine3 if s['fire'].get('per_shot'))
+    gv['consumable'] = [s['id'] for s in mine3 if s['fire'].get('consumable')]
+    G['armory'] = 'by_id, per_shot_by_id and consumable are written by tools/bohemia_armory.py from armory.json (ARMORY 3, ' + spec.get('record_4', '') + ')'
+    t = ours_line(t, 'gun_rounds', G)
+    if spec.get('fire_numbers'): t = ours_line(t, 'armory_fire', spec['fire_numbers'])
+    if spec.get('fire_bands'):
+        RB = O['range_bands']
+        for k, v in spec['fire_bands'].items():
+            if not k.startswith('_'): RB['value'][k] = v
+        t = ours_line(t, 'range_bands', RB)
     open(op, 'w').write(t); json.loads(t)
+    if spec.get('fire_shapes'):
+        # the file is laid out by hand (COMBAT's): ours go in as one line each before the rows close, the rest byte for byte
+        SP = os.path.join(BB, 'weapon_shapes.json'); st = open(SP).read()
+        st = '\n'.join(l for l in st.split('\n') if not (l.lstrip().startswith('{"skill": ') and '"armory": true' in l))   # ours out, a line each
+        i = st.rstrip().rfind(']'); head = st[:i].rstrip().rstrip(',')
+        add = ''.join(',\n    ' + json.dumps(dict([('skill', x['skill']), ('armory', True)] + [(k, v) for k, v in x.items() if k not in ('skill', 'armory')]), ensure_ascii=False) for x in spec['fire_shapes'])
+        st = head + add + '\n  ' + st[i:]
+        json.loads(st); open(SP, 'w').write(st)
     print('ARMORY: written')
     return 0
 
 
 if __name__ == '__main__':
-    sys.exit(main(sys.argv[1] if len(sys.argv) > 1 else 'check'))
+    sys.exit(main(sys.argv[1] if len(sys.argv) > 1 else 'check', sys.argv[2] if len(sys.argv) > 2 else None))

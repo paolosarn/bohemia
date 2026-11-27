@@ -49,7 +49,13 @@ WP.rows.forEach(r => r.skills.forEach(s => { if (/Hits (up to )?\d+ targets|tile
 let tar = '';
 try { tar = execSync('tar -tzf ' + JSON.stringify(path.join(ROOT, 'reference/library/grok/wiki/PAGES_ALL.tar.gz')), { maxBuffer: 1 << 26 }).toString(); } catch (_e) {}
 const bad = [];
+/* ARMORY 3 (11/27, rules 489(b) and 490): a row marked 'armory' is a shape of the valley's own (the belt's Traverse, the rocket's
+   Fire Rocket blast): Battle Brothers has no machine gun and no rocket, so its quote and page are the armory's, held by
+   gates/the_guns_grow_up_gate.js; here it needs only a skill of that name in weapons.json behind it */
+const OURS = new Set(SH.rows.filter(x => x.armory).map(x => x.skill));
+WP.rows.forEach(r => r.skills.forEach(s => { if (OURS.has(s.name)) { delete many[s.name]; (many[s.name + ' (armory)'] = many[s.name + ' (armory)'] || []).push(s.effect); } }));
 Object.keys(many).forEach(n => {
+  if (/ \(armory\)$/.test(n)) return;
   const r = SH.rows.filter(x => x.skill === n)[0];
   if (!r) return bad.push(n + ': no row');
   if (!many[n].every(e => e.indexOf(r.bb_says) >= 0)) bad.push(n + ': the quote is not its words');
@@ -63,7 +69,7 @@ Object.keys(many).forEach(n => {
     if (Math.abs(Math.tan(r.wedge_degrees / 2 * Math.PI / 180) - r.wedge_half_slope) > 0.001) bad.push(n + ': slope is not tan(' + r.wedge_degrees + '/2)');
   }
 });
-SH.rows.forEach(r => { if (!many[r.skill]) bad.push(r.skill + ': a row with no skill behind it'); });
+SH.rows.forEach(r => { if (!many[r.skill] && !many[r.skill + ' (armory)']) bad.push(r.skill + ': a row with no skill behind it'); });
 leg(bad.length === 0 && Object.keys(many).length >= 7,
   '*** THE TABLE IS BATTLE BROTHERS\' ***: every skill that strikes more than one tile has its row, its own words, its page, its count',
   Object.keys(many).length + ' sweeps in weapons.json (' + Object.keys(many).join(', ') + ')' + (bad.length ? '; ' + bad.join('; ') : ''));

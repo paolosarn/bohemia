@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The guns grow up</title>
+<!-- ARMORY 3 11/27 (rules 489(b) and 490): the VOTE card's page. The pictures are the real fight page at phone size, the fight's own
+     strike and its own drawing (tools/bohemia_armory_three_proof.js -> records/target/armory/armory3_*.jpg); the sixteen pieces are read
+     live from records/target/bb/weapons.json and drawn with the shop's own icons (slices/bohemia_ui_materials.js). Words draft:true. -->
+<style>
+:root { --bg:#16110c; --ink:#e8dcc4; --dim:#9a8a70; --rust:#c8643a; --card:#221a12; --line:#3a2e20; }
+body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.4 ui-monospace,Menlo,Consolas,monospace; padding:16px; }
+h1 { font-size:18px; letter-spacing:2px; margin:0 0 4px; color:var(--rust); }
+h2 { font-size:15px; letter-spacing:2px; margin:20px 0 6px; color:var(--rust); }
+p.sub { margin:0 0 10px; color:var(--dim); font-size:13px; }
+img.shot { width:100%; display:block; border:1px solid var(--line); image-rendering:auto; margin:0 0 6px; }
+.row { display:flex; gap:10px; align-items:center; background:var(--card); border:1px solid var(--line); padding:8px; margin:0 0 6px; }
+.row canvas { flex:none; }
+.row .who { flex:1; }
+.row .who b { display:block; letter-spacing:1px; }
+.row .who span { color:var(--dim); font-size:12px; }
+.hand { flex:none; font-size:12px; letter-spacing:1px; padding:3px 6px; border:1px solid #5a4630; }
+.hand.one { color:#ffd9c2; border-color:var(--rust); }
+</style></head><body>
+<h1>THE GUNS GROW UP, AND THE DRONE</h1>
+<p class="sub">Their pilot sends a drone. It flies in this turn and hangs over the lit tiles, and hits on his next turn. Step off, or shoot it down (the square shows your chance).</p>
+<img class="shot" src="../../records/target/armory/armory3_card_drone_close.jpg" alt="a drone over lit tiles, the SHOOT THE DRONE square on the bar">
+<p class="sub">Sixteen new guns and kits, all real ones a broken America would have. These are pictures of the real fight on a phone. A sword can't reach a drone.</p>
+<img class="shot" src="../../records/target/armory/armory3_card_drone.jpg" alt="the same, the whole board">
+<p class="sub">Nobody moved, so it landed. A man in light armour goes down every time. Heavy armour lives about two times in three.</p>
+<img class="shot" src="../../records/target/armory/armory3_card_drone_lands.jpg" alt="the drone landing">
+<p class="sub">Your own pilot can send one too.</p>
+<img class="shot" src="../../records/target/armory/armory3_card_drone_mine.jpg" alt="his own drone over three of theirs">
+
+<h2>AUTOMATIC: THREE ROUNDS A PULL</h2>
+<p class="sub">One press, three rounds at one man. Each round rolls on its own and the later ones are harder to land. It eats your rounds three times as fast.</p>
+<img class="shot" src="../../records/target/armory/armory3_card_burst.jpg" alt="a three-round burst">
+
+<h2>THE BELT-FED: THREE HOUSES AT ONCE</h2>
+<p class="sub">It sweeps the man you pick and the house on each side of him. The tiles light up before you fire.</p>
+<img class="shot" src="../../records/target/armory/armory3_card_belt.jpg" alt="the belt-fed's three tiles lit">
+
+<h2>THE ROCKET: A HOUSE AND THE EIGHT AROUND IT</h2>
+<p class="sub">Lit before you fire, then the blast. Two rockets, and a whole turn to reload.</p>
+<img class="shot" src="../../records/target/armory/armory3_card_rocket_lit.jpg" alt="the rocket's nine tiles lit">
+<img class="shot" src="../../records/target/armory/armory3_card_rocket.jpg" alt="the rocket's blast">
+
+<h2>ALL SIXTEEN</h2>
+<p class="sub">Each says one hand or two. You find them in the shops and in enemy hands.</p>
+<div id="list"></div>
+<script src="../bohemia_ui_materials.js"></script>
+<script>
+'use strict';
+const el = document.getElementById('list');
+fetch('../../records/target/bb/weapons.json').then(r => r.json()).then(W => {
+  const rows = W.rows.filter(r => r.armory && (r.armory.fire || r.id === 'pipe_shotgun'));
+  rows.forEach(r => {
+    const hands = r.hands ? r.hands | 0 : (/^(bow|crossbow|firearm)$/.test(r['class']) ? 2 : 1);
+    const d = document.createElement('div'); d.className = 'row';
+    try { const M = window.BohemiaMaterials; d.appendChild(M.itemIcon(M.itemFromRow('weapon', r, W.rows), 44)); } catch (e) {}
+    const who = document.createElement('div'); who.className = 'who';
+    const b = document.createElement('b'); b.textContent = r.name.toUpperCase(); who.appendChild(b);
+    const s = document.createElement('span'); s.textContent = r.armory.line + ' ' + Math.max(1, Math.round(r.value / 10)) + ' batteries.'; who.appendChild(s);
+    d.appendChild(who);
+    const h = document.createElement('div'); h.className = 'hand' + (hands === 1 ? ' one' : ''); h.textContent = hands === 1 ? 'ONE HAND' : 'TWO HANDS'; d.appendChild(h);
+    el.appendChild(d);
+  });
+}).catch(() => { el.textContent = 'THE LIST DID NOT LOAD'; });
+</script>
+</body></html>

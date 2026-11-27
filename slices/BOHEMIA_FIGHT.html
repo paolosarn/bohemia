@@ -923,7 +923,7 @@ const FIGHT = (function () {
     let v = R('board.vision_default') + traitVision(u, S.night);
     if (u.headRow && typeof u.headRow.vision === 'number') v += u.headRow.vision;
     const bm = PK(u, 'bow_mastery'); if (bm && bm.vision_bonus) v += bm.vision_bonus;
-    if (S.night && !(t && litAt(t.x, t.y))) v += R('hit_chance.night.nighttime_status').vision;
+    if (S.night && !(t && litAt(t.x, t.y)) && !sightCuts(u, 'dark')) v += R('hit_chance.night.nighttime_status').vision;   /* __ARMORY_THREE__: a night sight */
     if (u.poison > 0) v -= NEW('poison').vision;   /* THE NEEDLE (Goblin Poison's page): -1 vision */
     v = Math.max(R('board.vision_floor'), v);
     if (t && inBoard(t.x, t.y) && inBoard(u.x, u.y)) { const up = level(u.x, u.y) - level(t.x, t.y); if (up > 0) v += up * R('ours.sight').per_level; }
@@ -933,6 +933,7 @@ const FIGHT = (function () {
   function litAt(x, y) { return !!(S.lit && S.lit[y] && S.lit[y][x]); }
   function darkAt(x, y) { return S.night && !litAt(x, y); }
   function sideSees(side, t) {
+    if (t.side !== side && onField(t) && spotted(side)) return true;   /* __ARMORY_THREE__: the scout drone sees them all */
     /* THE CUTTER AND THE NEEDLE (FACTIONS 11/3, bohemia_enemies.json 'lurks'): unseen until a man of the other side stands within
        lurk.seen_within tiles, or he strikes; once seen he stays seen */
     if (t.lurking && t.side !== side) {
@@ -960,8 +961,12 @@ const FIGHT = (function () {
     const r = weaponRow(P.by_row[w.id]), rl = weaponRow(P.reload.rides).skills.filter(function (k) { return k.name === P.reload.skill; })[0];
     /* the ridden row's uses are the rounds IN THE GUN, a magazine an empty pistol reloads whole (ours.pistol_shot.reload) */
     const mag = Number(String(r.ammo).match(/\d+/)[0]);
-    return Object.assign({}, r, { id: w.id, name: w.name, value: w.value, fatigue: w.fatigue, durability: w.durability, gun: true, of: w, rides: r.name, mag: mag,
-      skills: r.skills.concat([rl]) });
+    /* __ARMORY_THREE__: a pistol of the armory's that fires its own way (the switched pistol, the SMGs: 'fire', 'shot_skill') keeps its
+       real magazine and its burst; its shot is the javelin row's still, fired at the skill's own cost */
+    const own = w.shot_skill ? [Object.assign({}, w.shot_skill)] : null, m3 = w.mag || mag;
+    return Object.assign({}, r, { id: w.id, name: w.name, value: w.value, fatigue: w.fatigue, durability: w.durability, gun: true, of: w, rides: r.name, mag: m3,
+      ammo: w.mag ? 'For ' + m3 + ' uses' : r.ammo, burst: w.burst || undefined, fire: w.fire || undefined, sight: w.sight || undefined,
+      skills: (own || r.skills).concat([rl]) });
   }
   /* THE PISTOL IS NEVER A CLUB (rule 195, Paolo 10/25: 'the game still says the pistol is a club at one tile I never asked for
      that shit'; rule 185: 'if I have a pistol in my hand... I should still be shooting'): a gun shoots, from the tile beside him
@@ -1178,8 +1183,11 @@ const FIGHT = (function () {
       (v.bag || []).forEach(function (b, i) { if (b) put(b, v.bagState && v.bagState[i] ? v.bagState[i].rounds : null); });
       const rec = {};
       guns.forEach(function (g) {
-        const need = g.full - g.left, take = Math.min(need, stock * G.stock.per_shot | 0) / G.stock.per_shot | 0;
-        stock -= take * G.stock.per_shot; g.filled = take; g.left += take; out.refilled += take; out.short += need - take;
+        /* __ARMORY_THREE__: a rocket costs the stock its own rounds (per_shot_by_id); a drone is never refilled (consumable: Battle Brothers'
+           throwable items 'cannot be refilled after use') */
+        const per = (G.per_shot_by_id && G.per_shot_by_id[g.id]) || G.stock.per_shot, eaten = (G.consumable || []).indexOf(g.id) >= 0;
+        const need = eaten ? 0 : g.full - g.left, take = Math.min(need, Math.floor(stock / per));
+        stock -= take * per; g.filled = take; g.left += take; out.refilled += take; out.short += need - take;
         (rec[g.id] = rec[g.id] || []).push(g.left);
       });
       st.men[v.name] = rec;
@@ -1191,6 +1199,160 @@ const FIGHT = (function () {
     S.roundsDone = out; return out;
   }
   /* ==== /__NO_AMMO_NO_SHOT__ ==== */
+  /* ==== __ARMORY_THREE__ (ARMORY 3 11/27, VAMILY rules 489(b) and 490, ask rows 758, 762, 763; Paolo 11/27: 'we only have hunting
+     rifles and pistols right now and shotguns, very simplified, we haven't even added automatic guns or more intense guns, maybe even a
+     rocket launcher... I'm not even seeing any fucking drones'; 'the drone maybe doesn't explode and move the same turn, and it's
+     possible to escape from it, but an explosion from a drone is gonna be damn near a one KO for most people... a drone controller
+     guy... it could be very hurtful towards teams that are only melee people'). records/BOHEMIA_ARMORY_THREE_THE_GUNS_GROW_UP_AND_THE_DRONE_11_27_26.md.
+     The pieces are weapons.json rows (records/target/bb/armory.json 'fire', tools/bohemia_armory.py); each fires through the fight's
+     own strike, its numbers in ours.armory_fire (draft, TUNING's):
+       SEMI    a magazine ('mag', 'ammo'): no reload between shots, reloaded whole when empty (the pistol's way); Quick Shot's 4 AP
+       BURST   'burst' rounds a press at the man aimed at, each its own roll, each after the first armory_fire.burst.recoil_per_round
+               harder; every round one of what he carries and one of the magazine; the press stops when the man falls
+       BELT    the burst walks the TRAVERSE (weapon_shapes.json: the man aimed at and the tile each side of him across the line of
+               fire): a round a tile a pass, a pass for every three rounds
+       ROCKET  the BLAST (the tile hit and its eight, Battle Brothers' Fire Pot area): every man of theirs in it his own roll
+       DRONE   LAUNCH: it flies to the man picked and hovers over THE CROSS (his tile and the four beside it, BESTIARY's spotter's
+               call: the pilot can chase a man one house); at the start of its operator's NEXT turn it lands on every man still on
+               it, either side, as the call and the Fire Pot (rule 490(a)(b)); a gun can shoot it out of the air first, a shotgun
+               best; a melee weapon cannot reach it (490(d)); drop the operator and his drones fall (490(c)); one in the air a man
+       SPOT    the scout drone: for armory_fire.spot.turns of the spotter's turns his side sees every man of theirs and its shots at
+               them take spot.hit_bonus
+       SIGHT   a night sight takes the dark off his shot and his eye; a heat sight the smoke too
+     AUTO: a man under a drone of theirs shoots it down if his gun can, else steps off the cross; a gunman shoots one down over his
+     friend; AUTO never ends a walk on a lit cross of theirs; an operator sends his drone where most of the other side stand and none
+     of his own. ==== */
+  function AF() { try { return R('ours.armory_fire'); } catch (e) { return null; } }
+  function burstOf(w) { const n = w && (w.burst || (w.of && w.of.burst)); return n > 1 ? n : 0; }
+  function droneOf(w) { const b = w && (w.of || w); return (b && b.drone) || null; }   /* 'drone' or 'spot' */
+  function sightOf(u) { const b = u && u.weapon && (u.weapon.of || u.weapon); return (b && b.sight) || null; }
+  function sightCuts(u, what) { const s = sightOf(u), A = AF(); return !!(s && A && A.sight[s] && A.sight[s]['cuts_' + what]); }
+  /* a round left for the next of the press: the magazine and what he carries */
+  function roundLeft(a) { return !(a.weapon.ammo && a.ammo !== null && a.ammo <= 0) && !(a.rounds != null && a.rounds <= 0); }
+  function spendOne(a) { if (a.weapon.ammo && a.ammo !== null) a.ammo--; spendRound(a); }
+  /* THE PRESS: what strike() already fired was the first round (and the first pass of a traverse); the rest of the burst here */
+  function burstOn(a, t, s, forced) {
+    const n = burstOf(a.weapon), A = AF(); if (!n || !A) return 0;   /* burstOf is 0 for a gun that fires one */
+    const at = { x: t.x, y: t.y }, tiles = shapeOf(s) ? shapeTiles(a, at, s) : [at], passes = Math.max(1, Math.round(n / tiles.length));
+    let fired = 0;
+    for (let i = 1; i < tiles.length && roundLeft(a); i++) { spendOne(a); fired++; }   /* the first pass's other rounds (strike spent one) */
+    for (let p = 1; p < passes; p++) {
+      if (A.burst.stops_when_he_falls && tiles.length === 1 && !onField(t)) break;
+      for (let i = 0; i < tiles.length; i++) {
+        if (!roundLeft(a) || !onField(a)) return fired;
+        spendOne(a); fired++;
+        const o = unitAt(tiles[i].x, tiles[i].y); if (!o || o.side === a.side || o === a) continue;
+        apply(a, o, resolveAttack(a, o, s, Object.assign({}, forced && forced.all, { recoil: A.burst.recoil_per_round * p })), { sweep: o !== t, skill: s.name, burst: p });
+      }
+    }
+    if (fired) emit({ t: 'skill', id: a.id, skill: 'burst', to: t.id, n: fired + 1 });
+    return fired;
+  }
+  /* THE DRONES IN THE AIR: an operator gone (dead, down, fled) takes his down with him */
+  function operatorUp(d) { const by = byId(d.by); return !!(by && onField(by)); }
+  function dronesFall() {
+    if (!S.drones || !S.drones.length) return;
+    S.drones = S.drones.filter(function (d) { if (operatorUp(d)) return true; emit({ t: 'skill', id: d.by, skill: 'drone_falls', to: d.to, x: d.x, y: d.y }); return false; });
+    Object.keys(S.spot || {}).forEach(function (k) { const sp = S.spot[k]; if (sp && !operatorUp(sp)) { delete S.spot[k]; emit({ t: 'skill', id: sp.by, skill: 'spot_ends', to: sp.by }); } });
+  }
+  function onCross(o, d) { return callCross(d.x, d.y).some(function (q) { return q.x === o.x && q.y === o.y; }); }
+  /* a lit cross of the other side's on this tile (AUTO's walk never ends on one) */
+  function litFor(u, x, y) { return (S.drones || []).some(function (d) { return d.side !== u.side && operatorUp(d) && onCross({ x: x, y: y }, d); }); }
+  function launchDrone(a, t) {
+    const s = strikeSkill(a.weapon);
+    a.ap -= skillAP(a.weapon, s, a); a.fat += skillFat(a, s); spendOne(a); a.threw = true;
+    const d = { id: 'drone' + (S.dronesSent = (S.dronesSent | 0) + 1), by: a.id, side: a.side, x: t.x, y: t.y, to: t.id, round: S.round, from: { x: a.x, y: a.y } };
+    S.drones = (S.drones || []).concat([d]);
+    const n = S.units.filter(function (o) { return onField(o) && o.side !== a.side && onCross(o, d); }).length;
+    emit({ t: 'skill', id: a.id, skill: 'drone_launch', to: t.id, x: t.x, y: t.y, n: n, drone: d.id });
+    afterAction(a); return { hit: false, drone: d.id, chance: 100 };
+  }
+  /* WHEN ITS OPERATOR'S NEXT TURN OPENS: it lands on every man still on its cross, either side (the call's own way): hp_min to hp_max,
+     armour_pct of it on his body armour, direct_pct straight through, a quarter less for each piece of cover on his tile */
+  function droneLands(u) {
+    const mine = (S.drones || []).filter(function (d) { return d.by === u.id; }); if (!mine.length) return;
+    S.drones = S.drones.filter(function (d) { return d.by !== u.id; });
+    const D = AF().drone, cd = R('ours.cover_defence');
+    mine.forEach(function (d) {
+      const on = S.units.filter(function (o) { return onField(o) && onCross(o, d); });
+      emit({ t: 'skill', id: u.id, skill: 'drone_lands', to: on.length ? on[0].id : u.id, x: d.x, y: d.y, n: on.length, drone: d.id });
+      on.forEach(function (o) {
+        const cut = Math.max(0, 1 - D.cover_cut_per_piece * Math.min(cd.max_pieces, (S.coverCount[o.y] || [])[o.x] || 0));
+        const dmg = rint(D.hp_min, D.hp_max) * cut, toArm = Math.round(dmg * D.armour_pct / 100), held = Math.min(o.armB, toArm);
+        apply(u, o, { hit: true, head: false, hp: Math.round(dmg * D.direct_pct / 100) + (toArm - held), armour: held, chance: 100, parts: cut < 1 ? ['drone', 'cover'] : ['drone'] }, { free: true, skill: 'drone' });
+      });
+    });
+    afterAction(u);
+  }
+  /* SHOOT IT DOWN (rule 490(a)(d)): a ranged man of the other side, his own shot's cost and round (a burst's every round its roll),
+     his chance against its defence, a shotgun's pellets surest; a melee weapon never */
+  function droneChance(a, d) {
+    const w = a.weapon, D = AF().drone.shoot_down, L = shotLineOf(w), s = strikeSkill(w), cap = R('hit_chance.cap');
+    const dark = darkAt(d.x, d.y) && !sightCuts(a, 'dark') ? R('hit_chance.night.multiplier') : 1;
+    let ch = a.rskill * moraleMult(a, 'ranged_skill') * injMult(a, 'ranged_skill_pct') * dark - D.defence + L.base + L.per * Math.max(0, dist(a, d) - L.free)
+      + (s && typeof s.hit_bonus === 'number' ? s.hit_bonus : 0) + (w.class === 'firearm' ? D.shotgun_bonus : 0) + rollShift(a);
+    return Math.round(Math.max(cap.min, Math.min(cap.max, ch)));
+  }
+  function canShootDrone(a, d) {
+    if (!d || !onField(a) || current() !== a || d.side === a.side || !operatorUp(d) || a.morale === 'Fleeing' || a.disarmed || climbedNow(a)) return false;
+    const w = a.weapon; if (!w || w.fists || !isRanged(w) || droneOf(w)) return false;
+    const s = strikeSkill(w); if (a.ap < skillAP(w, s, a) || a.fat + skillFat(a, s) > fatMax(a)) return false;
+    if (reloadSkill(w) && !w.mag && !a.loaded) return false;
+    if (!roundLeft(a)) return false;
+    return dist(a, d) <= rangeMax(w.range) + reachUp(a, null);
+  }
+  function shootDrone(a, d) {
+    if (S.over || !canShootDrone(a, d)) return null;
+    const w = a.weapon, s = strikeSkill(w), n = Math.max(1, burstOf(w)), ch = droneChance(a, d);
+    a.ap -= skillAP(w, s, a); a.fat += skillFat(a, s); if (reloadSkill(w) && !w.mag) a.loaded = false;
+    let hit = false, fired = 0;
+    for (let i = 0; i < n && !hit && roundLeft(a); i++) { spendOne(a); fired++; if (die() <= ch - (i ? AF().burst.recoil_per_round * i : 0)) hit = true; }
+    if (hit) S.drones = S.drones.filter(function (x) { return x !== d; });
+    emit({ t: 'skill', id: a.id, skill: hit ? 'drone_down' : 'drone_miss', to: d.to, x: d.x, y: d.y, chance: ch, n: fired, drone: d.id, shot: true });
+    afterAction(a); return { hit: hit, chance: ch };
+  }
+  /* SPOT (the scout drone): his side sees them all, and its shots at them land easier, for spot.turns of the spotter's turns */
+  function spotOn(a, t) {
+    const s = strikeSkill(a.weapon), P = AF().spot;
+    a.ap -= skillAP(a.weapon, s, a); a.fat += skillFat(a, s); spendOne(a);
+    S.spot = S.spot || {}; S.spot[a.side] = { by: a.id, left: P.turns };
+    emit({ t: 'skill', id: a.id, skill: 'spot', to: t.id, x: t.x, y: t.y }); afterAction(a); return { hit: false, spot: true, chance: 100 };
+  }
+  function spotted(side) { const sp = S.spot && S.spot[side]; return !!(sp && sp.left > 0 && operatorUp(sp)); }
+  function spotTurn(u) { Object.keys(S.spot || {}).forEach(function (k) { const sp = S.spot[k]; if (sp && sp.by === u.id && --sp.left <= 0) { delete S.spot[k]; emit({ t: 'skill', id: u.id, skill: 'spot_ends', to: u.id }); } }); }
+  /* AUTO's sends: the cross with the most of the other side on it and none of his own (at least drone.auto_min_men) */
+  function droneTarget(u) {
+    const D = AF().drone; if ((S.drones || []).some(function (d) { return d.by === u.id; })) return null;
+    let best = null;
+    foes(u).forEach(function (f) { if (!sideSees(u.side, f) || !canStrike(u, f)) return;
+      const d = { x: f.x, y: f.y }, on = S.units.filter(function (o) { return onField(o) && onCross(o, d); });
+      if (on.some(function (o) { return o.side === u.side; })) return;
+      if (on.length >= D.auto_min_men && (!best || on.length > best.n || (on.length === best.n && f.armB < best.t.armB))) best = { t: f, n: on.length }; });
+    return best;
+  }
+  /* the cheapest tile off every lit cross of theirs he can walk to this turn */
+  function escapeTile(u) {
+    if (u.netted) return null;
+    const f = reach(u); let best = null, bc = Infinity;
+    Object.keys(f.best).forEach(function (k) { k = Number(k); const x = k % S.w, y = Math.floor(k / S.w);
+      if ((x === u.x && y === u.y) || litFor(u, x, y)) return; if (f.best[k] < bc) { bc = f.best[k]; best = { x: x, y: y }; } });
+    return best;
+  }
+  function armoryFirst(u) {
+    if (!AF()) return false;
+    const live = (S.drones || []).filter(function (d) { return d.side !== u.side && operatorUp(d); });
+    /* a drone over him or a friend of his: his gun brings it down */
+    const over = live.filter(function (d) { return S.units.some(function (o) { return o.side === u.side && onField(o) && onCross(o, d); }); })
+      .sort(function (p, q) { return (onCross(u, q) ? 1 : 0) - (onCross(u, p) ? 1 : 0) || dist(u, p) - dist(u, q); });
+    for (let i = 0; i < over.length; i++) if (canShootDrone(u, over[i])) { shootDrone(u, over[i]); return true; }
+    /* over him and no shot: he gets off the cross */
+    if (live.some(function (d) { return onCross(u, d); })) { const e = escapeTile(u); if (e && moveTo(u, e.x, e.y)) { u.btWhy = 'drone'; return true; } }
+    /* his own kit: the drone where it pays; the scout over a fight it does not yet see */
+    if (droneOf(u.weapon) === 'drone') { const c = droneTarget(u); if (c) { strike(u, c.t); return true; } }
+    if (droneOf(u.weapon) === 'spot' && !spotted(u.side)) { const t = foes(u).filter(function (f) { return canStrike(u, f); })[0]; if (t) { strike(u, t); return true; } }
+    return false;
+  }
+  /* ==== /__ARMORY_THREE__ ==== */
   function canSwap(u, i) { const b = u.bag && u.bag[i]; return !S.over && !S.deploy && current() === u && !!b && !u.netted && !(isShield(b) && bothHands(u.weapon)) && u.ap >= swapCostOf(u, i) && !bagDry(u, i); }
   /* rule 478 (COMBAT FOUR 11/26): a gun in his bag with no round left is never brought out (it would only be slung again, 4 AP for nothing) */
   function bagDry(u, i) { const st = u.bagState && u.bagState[i]; return !!st && st.rounds != null && st.rounds <= 0 && isGun(u.bag[i]); }
@@ -2432,7 +2594,7 @@ const FIGHT = (function () {
       if (!opts.flat && opts.houses !== false) housesIn(opts, cx, cy);   /* __THE_OLD_LAYOUT_THE_NEW_HOUSES__: the template's layout, the new houses in it */
     }
     if (seeded) SEED = dice;
-    S.fire = []; S.smoke = []; S.sparkSeen = {}; S.calls = [];   /* BESTIARY 11/20: a spotter's called ground never outlives its fight */   /* THE CELL VEST: the burning ground, the smoke, who has seen one go off */
+    S.fire = []; S.smoke = []; S.sparkSeen = {}; S.calls = []; S.drones = []; S.spot = {}; S.dronesSent = 0;   /* __ARMORY_THREE__ */   /* BESTIARY 11/20: a spotter's called ground never outlives its fight */   /* THE CELL VEST: the burning ground, the smoke, who has seen one go off */
     /* GROUND THAT IS ALREADY BURNING (COMBAT MAPS 3, rule 341: the landfill's gas): a piece whose def says burning stands on a
        tile that is On Fire from the first round to the last (the cell vest's own rule 305: 15 to 30 to a man who ends his turn
        on it, walking through is free); nobody set it */
@@ -3136,7 +3298,7 @@ const FIGHT = (function () {
     u.walled = false; u.hooked = false; u.rallied = false; u.swung = false;   /* THE SHIELD's wall lasts until his next turn; one hook, one rally a turn */
     if (u.poison > 0) u.ap = Math.max(0, u.ap - NEW('poison').ap);   /* THE NEEDLE (Goblin Poison's page): -1 AP for 3 turns */
     if (u.stunned) { u.ap = 0; emit({ t: 'stunned_turn', id: u.id }); }   /* ARMORY 2: the live wire's stun, Battle Brothers' way: he loses this turn */
-    u.onGuard = false; turnedTurn(u); callLands(u); sleepTurn(u);   /* BESTIARY 11/17: the duelist's guard lasts until his next turn; the preacher's man; the spotter's ground */
+    u.onGuard = false; turnedTurn(u); callLands(u); dronesFall(); droneLands(u); spotTurn(u); sleepTurn(u);   /* __ARMORY_THREE__: his drone lands, his scout's turns count down */   /* BESTIARY 11/17: the duelist's guard lasts until his next turn; the preacher's man; the spotter's ground */
     u.resting = false;   /* the rest (rule 283(b)) lasts until his next turn begins */
     u.threw = false; u.kited = false; u.shoved = false; u.swappedFree = false;   /* Quick Hands: one free swap a turn */
     /* THE NET: his melee skill against it, -10 the first try, +10 for every try that failed (the Throwing Net's page) */
@@ -3285,7 +3447,8 @@ const FIGHT = (function () {
       });
     }
     /* a friend's tile is a way through, never a place to stand; nor is a wall a ghost slipped through */
-    Object.keys(best).forEach(function (k) { k = Number(k); const x = k % S.w, y = Math.floor(k / S.w), o = unitAt(x, y); if ((o && o !== u) || ((x !== u.x || y !== u.y) && !passable(x, y))) delete best[k]; });
+    Object.keys(best).forEach(function (k) { k = Number(k); const x = k % S.w, y = Math.floor(k / S.w), o = unitAt(x, y); if ((o && o !== u) || ((x !== u.x || y !== u.y) && !passable(x, y))) delete best[k];
+      else if (AI_DEPTH > 0 && (x !== u.x || y !== u.y) && S.drones && S.drones.length && litFor(u, x, y)) delete best[k]; });   /* __ARMORY_THREE__: AUTO never ends a walk on a lit cross of theirs */
     return { best: best, prev: prev, key: key, up: up };   /* up[k]: the cheapest way to k climbs a roof (rule 328) */
   }
   /* the nearest open tile to x,y that 'who' can get to over the ground and through his own men: no man on it, no wall */
@@ -3547,7 +3710,7 @@ const FIGHT = (function () {
       ch = sk - df + (skill && typeof skill.hit_bonus === 'number' ? skill.hit_bonus : 0);
     } else {
       /* night (ours.night_lights): the shooter is blind to a man in the dark; the man cannot see a shot come out of the dark */
-      const nightM = darkAt(t.x, t.y) ? R('hit_chance.night.multiplier') : 1, nightD = darkAt(a.x, a.y) ? R('hit_chance.night.multiplier') : 1;
+      const nightM = darkAt(t.x, t.y) && !sightCuts(a, 'dark') ? R('hit_chance.night.multiplier') : 1, nightD = darkAt(a.x, a.y) ? R('hit_chance.night.multiplier') : 1;   /* __ARMORY_THREE__: a night or heat sight sees him in the dark */
       if (S.night) parts.push(nightM === 1 ? 'lit' : 'dark');
       const sk = a.rskill * moraleMult(a, 'ranged_skill') * injMult(a, 'ranged_skill_pct') * nightM * loneMult(a) * overMult(a);
       let df = t.rdef * netCut(t) + shieldDef(t, 'ranged_defense') + cartDef(t, 'ranged_defense', a) + defenceBonus(t, 'ranged_defense_bonus') + coverDef(t, 'ranged_defense') + ghostDef(a, t, 'per_tile_ranged_defense');
@@ -3577,7 +3740,8 @@ const FIGHT = (function () {
     if (la > lt) { ch += HA.above_per_storey * (la - lt); parts.push('above'); }
     if (la < lt) { ch += HA.below_per_storey * (lt - la); parts.push('below'); }
     /* THE CELL VEST's smoke (rule 305): a shot through it, -20 (ours.cell_vest.smoke) */
-    if (isRanged(w) && smokeOn(a, t)) { ch += CV().smoke.hit_points; parts.push('smoke'); }
+    if (isRanged(w) && smokeOn(a, t) && !sightCuts(a, 'smoke')) { ch += CV().smoke.hit_points; parts.push('smoke'); }   /* __ARMORY_THREE__: a heat sight sees through it */
+    if (isRanged(w) && t.side !== a.side && spotted(a.side)) { ch += AF().spot.hit_bonus; parts.push('spotted'); }   /* __ARMORY_THREE__: the scout drone walks the fire on */
     ch += rollShift(a);
     const cap = R('hit_chance.cap');
     return { chance: Math.round(Math.max(cap.min, Math.min(cap.max, ch))), parts: parts };
@@ -3625,6 +3789,7 @@ const FIGHT = (function () {
     try { hc = hitChance(a, t, skill); } finally { NOBLOCK = false; }
     if (forced.astray) { const cap = R('hit_chance.cap'); hc.chance = Math.max(cap.min, hc.chance + R('hit_chance.ranged.cover_hit_chance_page').astray_penalty); hc.parts = hc.parts.concat(['astray']); }   /* rule 230(b): -15 */
     if (forced.bonus) { const cap = R('hit_chance.cap'); hc.chance = Math.min(cap.max || 95, hc.chance + forced.bonus); hc.parts = hc.parts.concat(['charge']); }   /* THE BULL's run (FIVE MORE BEASTS) */
+    if (forced.recoil) { const cap = R('hit_chance.cap'); hc.chance = Math.max(cap.min, hc.chance - forced.recoil); hc.parts = hc.parts.concat(['recoil']); }   /* __ARMORY_THREE__: a burst's later rounds */
     const roll = forced.roll !== undefined ? forced.roll : die();
     const res = { by: a.id, to: t.id, chance: hc.chance, parts: hc.parts, roll: roll, hit: roll <= hc.chance, head: false, armour: 0, hp: 0, astray: !!forced.astray };
     if (!res.hit) return res;
@@ -3682,7 +3847,7 @@ const FIGHT = (function () {
     S.firstBlow = S.firstBlow || S.round; S.lastHitBy = S.lastHitBy || {}; if (r.hit) S.lastHitBy[a.side] = S.round;   /* THE STANDOFF ENDS reads these */
     if (!isRanged(a.weapon)) S.contact = true;
     emit({ t: 'attack', id: a.id, to: t.id, hit: r.hit, head: r.head, hp: r.hp, armour: r.armour, chance: r.chance, free: !!opt.free, parts: r.parts,
-      shot: isRanged(a.weapon), arm: a.weapon.id, hands: a.weapon.hands, sweep: !!opt.sweep, astray: !!opt.astray, skill: opt.skill || null });   /* the arm that struck: a gun's is always its shot (rule 195) */
+      shot: isRanged(a.weapon), arm: a.weapon.id, hands: a.weapon.hands, sweep: !!opt.sweep, astray: !!opt.astray, skill: opt.skill || null, burst: opt.burst || 0 });   /* __ARMORY_THREE__: burst, the round of the press */   /* the arm that struck: a gun's is always its shot (rule 195) */
     if (PK(a, 'overwhelm') && S.order.indexOf(t.id) > S.idx) t.overwhelmed++;   /* he has not acted yet this round */
     a.lurking = false; a.swung = true;   /* THE CUTTER: the blow shows him; THE SHIELD: a turn he swings he holds no wall */
     if (!r.hit) {
@@ -3958,6 +4123,7 @@ const FIGHT = (function () {
     if (reloadSkill(a.weapon) && !a.weapon.mag && !a.loaded) return false;
     if (a.weapon.ammo && a.ammo !== null && a.ammo <= 0) return false;   /* no round, no shot: a gun is never a club (rule 195) */
     if (a.rounds != null && a.rounds <= 0 && isRanged(a.weapon)) return false;   /* rule 478: none left anywhere, no shot */
+    if (droneOf(a.weapon) && (S.drones || []).some(function (d) { return d.by === a.id; })) return false;   /* __ARMORY_THREE__: one in the air a man */
     return inRange(a, t);
   }
   /* WHY A STRIKE IS REFUSED, the real reason (EYES [eyes: the reason is AP], 10/24: a pistol man three tiles off with 3 AP was told
@@ -3975,10 +4141,12 @@ const FIGHT = (function () {
     if (reloadSkill(a.weapon) && !a.weapon.mag && !a.loaded) return { why: 'reload' };
     if (a.weapon.ammo && a.ammo !== null && a.ammo <= 0) return { why: 'ammo' };
     if (a.rounds != null && a.rounds <= 0 && isRanged(a.weapon)) return { why: 'ammo' };   /* rule 478 */
+    if (droneOf(a.weapon) && (S.drones || []).some(function (d) { return d.by === a.id; })) return { why: 'drone' };   /* __ARMORY_THREE__ */
     return null;
   }
   function strike(a, t, forced) {
     if (S.over || current() !== a || !canStrike(a, t)) return null;
+    const dk = droneOf(a.weapon); if (dk) return dk === 'spot' ? spotOn(a, t) : launchDrone(a, t);   /* __ARMORY_THREE__: the drone flies, it does not strike */
     const s = strikeSkill(a.weapon);
     a.ap -= skillAP(a.weapon, s, a); a.fat += skillFat(a, s);
     if (reloadSkill(a.weapon) && !a.weapon.mag) a.loaded = false;
@@ -3998,6 +4166,7 @@ const FIGHT = (function () {
        COMBAT TWO's brain reads the line before it shoots (NOTEd) */
     if (!q.hit && way && onField(way) && way.side !== a.side && !(forced && forced.noAstray)) { const r2 = resolveAttack(a, way, s, { astray: true, roll: forced && forced.astrayRoll }); apply(a, way, r2, { astray: true, skill: s.name }); q.astray = { to: way.id, hit: r2.hit, chance: r2.chance }; }
     also.forEach(function (o) { if (onField(o) && onField(a)) apply(a, o, resolveAttack(a, o, s, forced && forced.all), { sweep: true, skill: s.name }); });   /* BESTIARY 11/17: a man the riposte dropped swings no more */
+    if (onField(a)) q.burst = burstOn(a, t, s, forced);   /* __ARMORY_THREE__: the rest of the press */
     afterAction(a); return q;
   }
   /* ---------------- WEAPON SHAPES (COMBAT [weapon shapes], rules 33i and 46d, Paolo 9/24: 'some weapons hit multiple tiles at the
@@ -4032,6 +4201,11 @@ const FIGHT = (function () {
          the tile front-right of him (the next one round each way), never the five beside and behind (ours.round_swing) */
       if (row.kind === 'ring' && frontSwing(s)) { if (ring.length) { out.push(ring[0]); if (ring.length > 1) out.push(ring[ring.length - 1]); } }
       else ring.slice(0, row.kind === 'ring' ? ring.length : row.count - 1).forEach(function (q) { out.push(q); });
+    } else if (row.kind === 'across') {   /* __ARMORY_THREE__: the belt's traverse, the tile each side of him square across the line of fire */
+      const sx = Math.sign(t.x - a.x), sy = Math.sign(t.y - a.y);
+      out.push({ x: t.x - sy, y: t.y + sx }); out.push({ x: t.x + sy, y: t.y - sx });
+    } else if (row.kind === 'blast') {   /* __ARMORY_THREE__: the rocket, the tile hit and its eight (the Fire Pot's area) */
+      for (let y = t.y - 1; y <= t.y + 1; y++) for (let x = t.x - 1; x <= t.x + 1; x++) if (x !== t.x || y !== t.y) out.push({ x: x, y: y });
     } else if (row.kind === 'cone') {
       /* behind the man shot, inside the wedge: no farther off the line of fire than along it times the wedge's slope */
       const L = Math.hypot(t.x - a.x, t.y - a.y), ux = (t.x - a.x) / L, uy = (t.y - a.y) / L, k = row.ranks_behind;
@@ -4824,6 +4998,7 @@ const FIGHT = (function () {
      END THE FIGHT wins it (endFight, Battle Brothers': the runners get away, the fallen are his). A runner runs for the edge on
      his own turns (flee), can be caught and killed, and can rally (Battle Brothers' stop-fleeing check, beginTurn). */
   function afterAction(u) {
+    dronesFall();   /* __ARMORY_THREE__: a pilot dropped by this action takes his drones down */
     if (dryGun(u)) toFists(u, u.weapon, true);   /* rule 478: the last round is gone, the gun goes on its sling, his fists come up */
     const you = alive('you').filter(function (v) { return !v.staff; }), them = alive('them');   /* __THE_STAFF_FIGHT_TOO__ (C8): staff alone never hold the board */
     if (!them.length || !you.length) {
@@ -6050,6 +6225,7 @@ const FIGHT = (function () {
     const A = arche(u), w = u.weapon, ranged = isRanged(w);
     const adj = foes(u).filter(function (f) { return dist(f, u) === 1 && !isRanged(f.weapon); });
     if (aiFirst(u)) return true;
+    if (armoryFirst(u)) return true;   /* __ARMORY_THREE__: the drone over him, his friend's drone, his own kit */
     /* THE NEW ACT-ONE ENEMIES (FACTIONS 11/3, bohemia_enemies.json brains) */
     if (A.runs_below && !u.ranOnce && u.morale !== 'Fleeing' && u.hp < u.hpMax * A.runs_below) {   /* THE NEIGHBOR: hurt, he runs, once */
       u.ranOnce = true; u.morale = 'Fleeing'; u.roundsFleeing = 0; emit({ t: 'morale', id: u.id, to: u.morale }); ripple(u, null, 'flees'); return true;
@@ -6345,6 +6521,7 @@ const FIGHT = (function () {
     swap: swap, canSwap: canSwap, swapCost: swapCost, swapCostOf: swapCostOf, isShield: isShield, bagSlots: bagSlots, bagFat: bagFat, jobOfWeapon: jobOfWeapon,
     level: level, isRoof: isRoof, storeysAt: storeysAt, reachLevel: reachLevel, rangeUp: rangeUp, openStreet: openStreet, tileKeyAt: tileKeyAt, streetCost: streetCost, goodGround: goodGround, groundSteps: groundSteps, oddsOf: oddsOf, digsIn: digsIn, sidePower: sidePower, dangerOn: dangerOn, canSpark: canSpark, spark: spark, sparkPreview: sparkPreview, vestLive: vestLive, fireAt: fireAt, smokeAt: smokeAt, nothingLeft: nothingLeft, sparkDeath: sparkDeath, climbedNow: climbedNow, climbsOn: climbsOn, climbsUp: climbsUp, blockNameAt: blockNameAt, rowAt: rowAt, rowOf: rowOf, groundSay: groundSay, groundOf: groundOf, isRanged: isRanged, fatMax: fatMax, strikeSkill: strikeSkill, reloadSkill: reloadSkill, byId: byId,
     /* the parts a gate needs to hold one perk against its wiki number */
+    shootDrone: shootDrone, canShootDrone: canShootDrone, droneChance: droneChance, burstOf: burstOf, droneOf: droneOf, sightOf: sightOf, spotted: spotted, onCross: onCross, litFor: litFor, droneTarget: droneTarget,   /* __ARMORY_THREE__ */
     canUse: canUse, useSkill: useSkill, winded: winded, tooHeavy: tooHeavy, kitFloored: kitFloored, breathFloor: breathFloor, rawFatMax: rawFatMax, skillNums: skillNums, levelFor: levelFor, xpAt: xpAt, zocOn: zocOn, holdsRing: holdsRing, isGun: isGun, isWhip: isWhip, reachOf: reachOf, rangeMax: rangeMax, skillTargets: skillTargets, needsTarget: needsTarget, ACTIVE: ACTIVE, rallyable: rallyable,
     deployMove: deployMove, startFight: startFight, inZone: inZone, /* __THE_STAFF_PUSH_A_CART__ */ cartFront: cartFront, cartDef: cartDef, staffArms: staffArms, cartTurn: cartTurn, /* __THE_STAFF_FIGHT_TOO__ */ staffZone: staffZone, campPull: campPull, guardsCamp: guardsCamp, staffOut: staffOut, staffTile: function (u) { const G = staffGround(u), mine = friends(u).filter(function (g) { return !g.staff && g.morale !== 'Fleeing'; }); return G ? staffTile(u, u.x, u.y, G, mine, foes(u).filter(function (f) { return f.morale !== 'Fleeing' && !f.decoy; }), staffLineX(mine)) : null; },
     setPull: function (n) { FIGHT_OPTS_PULL = n === null || n === undefined ? null : +n; }, shown: shown, freeze: freeze, thaw: thaw, pieceDef: pieceDef, pieceSrc: pieceSrc, isGraveyard: isGraveyard,
@@ -7617,8 +7794,8 @@ function take() {
       { const a0 = UI.anim[UI.anim.length - 1]; if (a0.fear && a0.path.length === 2 && !a0._fc) { a0._fc = 1; a0.dur = Math.max(beatMs() * 0.5, beatMs() * TILE_BEATS * FEAR_RUN.dur); UI.fearWalks = (UI.fearWalks | 0) + 1; } }   /* never under half a beat: a turn is seen (EVERY MAN ACTS ON AUTO M7) */
       if (u && !u._at && !walkOf(u)) u._at = { x: e.fx, y: e.fy };   /* he stands where his walk starts until it does */
     }
-    else if (e.t === 'attack' && (e.sweep || e.astray) && swing && swing.e.id === e.id) { (swing.also = swing.also || []).push(e); swing.dur += beatMs() / 4; }
-    else if (e.t === 'attack') { swing = { k: 'attack', e: e, dur: beatMs() }; UI.anim.push(swing); }
+    else if (e.t === 'attack' && (e.sweep || e.astray || e.burst) && swing && swing.e.id === e.id) { (swing.also = swing.also || []).push(e); swing.dur += beatMs() / (e.burst ? 8 : 4); }   /* __ARMORY_THREE__: a burst's rounds ride its press, an eighth of a beat apart */
+    else if (e.t === 'attack') { swing = { k: 'attack', e: e, dur: beatMs() }; UI.anim.push(swing); if (e.skill === 'Fire Rocket') { const rt = FIGHT.byId(e.to); if (rt) swing.rocket = { x: rt.x, y: rt.y }; } }
     /* STAMINA SEEN (rule 313): the breath a blow, a dodge or a shove took rides the motion that took it, said as it lands */
     else if (e.t === 'fat') { const host = swing || UI.anim[UI.anim.length - 1]; if (host) (host.fat = host.fat || []).push(e); else windTag(e, 0); }
     else if (NOTE_BEATS[e.t] !== undefined) UI.anim.push({ k: 'note', e: e, dur: e.unplugged || e.hand ? beatMs() / 4 : beatMs() * NOTE_BEATS[e.t] });   /* __EVERY_TURN_READS__: a turn he closed himself holds the glass a sixteenth, no more */   /* his machines drop a sixteenth apart */
@@ -8593,7 +8770,8 @@ function resultSay(e, also) {
   const a = FIGHT.byId(e.id), shot = a && (e.shot === undefined ? FIGHT.isRanged(a.weapon) : e.shot);
   if (shot && FIGHT.emptyGun(a)) s += ' Empty: RELOAD.';
   /* WEAPON SHAPES: what the rest of the sweep did, in one count */
-  if (also && also.length) { const caught = also.filter(function (o) { return o.hit; }).length; s += ' The ' + (e.skill || 'sweep').toLowerCase() + ' caught ' + caught + ' of ' + also.length + ' more.'; }
+  if (also && also.some(function (o) { return o.burst; })) { const hits = also.filter(function (o) { return o.hit; }).length + (e.hit ? 1 : 0); s += ' ' + hits + ' of ' + (also.length + 1) + ' rounds hit.'; }   /* __ARMORY_THREE__: a burst or a belt is rounds, not a sweep */
+  else if (also && also.length) { const caught = also.filter(function (o) { return o.hit; }).length; s += ' The ' + (e.skill || 'sweep').toLowerCase() + ' caught ' + caught + ' of ' + also.length + ' more.'; }
   say(s, true);
 }
 function startAnim(a) { const at0 = UI.sfxAt; UI.sfxAt = a.at === undefined ? performance.now() : a.at; try { return startAnimHeard(a); } finally { UI.sfxAt = at0; } }   /* __SOUNDS_TWO_ON_THE_BEAT__ */
@@ -8630,6 +8808,7 @@ function startAnimHeard(a) {
     if (ranged && !e.free && crewControlled(u) && FIGHT.emptyGun(u)) later(function () { sfx('dry_fire'); }, B * 0.8); onTime(function () { UI.dryAt = performance.now(); teach('reload'); }, B * 0.8);
     if (e.hit) { UI.hitUntil = UI.hitUntil || {}; UI.hitUntil[t.id] = a.at + B * 1.5; (UI.hitFrom = UI.hitFrom || {})[t.id] = a.at + B * 0.45; goreHit(t, u, e.hp, a.at + B * 0.45); punchLand(u, t, e, a.at + B * 0.45, B, ranged); }
     else if (t && ranged) dustAt(u, t, a.at + B * 0.45, B);
+    if (a.rocket) (UI.booms = UI.booms || []).push({ x: a.rocket.x, y: a.rocket.y, at: a.at + B * 0.45, blast: true });   /* __ARMORY_THREE__: the rocket's house and its eight */
     else if (wBlocked(u, t, e, ranged)) wBlockLand(u, t, a.at + B * 0.45, B);   /* __THE_FIGHTS_WEIGHT__: taken on the shield */
     /* WEAPON SHAPES: every other man the sweep caught, a sixteenth apart after the first, his own sound and his own mark */
     (a.also || []).forEach(function (o, i) {
@@ -8751,6 +8930,14 @@ function startAnimHeard(a) {
     else if (e.t === 'skill' && e.skill === 'dart') { const t = FIGHT.byId(e.to); sfx('dry_fire'); if (t) pop(t, e.hit ? 'ASLEEP' : '', '#9cb4d8', !!e.hit, e.hit ? t.name + ' sleeps.' : u.name + ' misses.'); }
     else if (e.t === 'skill' && e.skill === 'asleep') { pop(u, 'asleep', '#9cb4d8', false, u.name + ' sleeps.'); }
     else if (e.t === 'skill' && e.skill === 'wakes') { pop(u, 'wakes', '#c9b48a', false, u.name + ' wakes.'); }
+    else if (e.t === 'skill' && e.skill === 'drone_launch') { sfx('power_on', { side: u.side }); (UI.droneFly = UI.droneFly || {})[e.drone] = { at: a.at }; pop(u, 'DRONE', '#f0e6d0', true, u.name + ' sends a drone at ' + nameOf(e.to) + '. It hits next turn: get off the lit tiles or shoot it down.'); }   /* __ARMORY_THREE__ (rule 490); draft:true */
+    else if (e.t === 'skill' && e.skill === 'drone_lands') { sfx('shot', { side: u.side }); (UI.booms = UI.booms || []).push({ x: e.x, y: e.y, at: a.at, cross: true }); pop(u, '', '#f0b04a', false, e.n ? 'The drone hits ' + e.n + '.' : 'The drone hits nothing. They got off the tiles.'); }
+    else if (e.t === 'skill' && e.skill === 'drone_down') { sfx('shot', { side: u.side }); (UI.booms = UI.booms || []).push({ x: e.x, y: e.y, at: a.at + B * 0.35, small: true }); pop(u, 'DRONE DOWN', '#f0e6d0', true, u.name + ' shoots the drone out of the air.'); }
+    else if (e.t === 'skill' && e.skill === 'drone_miss') { sfx('shot', { side: u.side }); pop(u, 'MISSED IT', '#c8c4b8', false, u.name + ' misses the drone (' + e.chance + '%).'); }
+    else if (e.t === 'skill' && e.skill === 'drone_falls') { pop(u, '', '#c8c4b8', false, 'The drone drops with its pilot.'); }
+    else if (e.t === 'skill' && e.skill === 'spot') { sfx('power_on', { side: u.side }); pop(u, 'SPOTTED', '#9cc3e8', true, u.name + "'s drone is up. Your side sees every one of them."); }
+    else if (e.t === 'skill' && e.skill === 'spot_ends') { pop(u, '', '#9cc3e8', false, 'The scout drone comes down.'); }
+    else if (e.t === 'skill' && e.skill === 'burst') { /* the rounds of the press speak for themselves */ }
     else if (e.t === 'skill' && e.skill === 'call_lands') { sfx('shot', { side: u.side }); pop(u, '', '#e04030', false, e.n ? 'The roof hits ' + e.n + '.' : 'The roof hits nothing.'); }
     else if (e.t === 'skill' && e.skill === 'charge') { sfx('door_drag'); pop(u, 'CHARGE', '#e8a07c', false, u.name + (u.beast ? ' puts its head down and runs at ' : ' runs straight at ') + nameOf(e.to) + '.'); }   /* BESTIARY 11/11: a man runs straight in (the water outlaw); draft:true */
     else if (e.t === 'skill' && e.skill === 'feeds') { pop(u, 'FEEDS', '#c06050', false, u.name + ' eats from ' + nameOf(e.to) + ' and gets back up.'); }
@@ -9937,6 +10124,7 @@ function draw(now) {
   goreTick(now); drawStains();
   drawFire(now);   /* THE CELL VEST (rule 305): the ground that burns, under the men */
   drawCalled(now);   /* BESTIARY 11/17: the spotter's called ground */
+  drawDroneGround(now);   /* __ARMORY_THREE__ (rule 490): the drone's lit cross, under the men */
   drawStanding();   /* __STANDING_WATER_IS_SWAMP__ (COMBAT FOUR 11/20): water a board lays (the cell block's flooded floor) reads as water */
   drawFlood(now);   /* __THE_FLOOD_TUNNELS__: the flash flood in the main channel, under the men */
   /* the fallen lie where they fell, from the moment their fall plays (rule 121: the fall plays whole) */
@@ -9955,6 +10143,7 @@ function draw(now) {
   drawDust(now);   /* THE PUNCH: a shot that misses kicks dust off the ground past him */
   drawSmoke(now, tw, th);   /* THE CELL VEST (rule 305): the smoke, the vest on the man, the white frame on the beat */
   drawLash(now);   /* ARMORY 2: the whip's cord out to the second tile, on the beat */
+  drawDrones(now);   /* __ARMORY_THREE__ (rule 490): the drone in the air, the blasts */
   drawCeiling();   /* __AN_INSIDE_SHOWS_ITS_CEILING__ (rule 451(a)): the building he is inside of, faint, over the men */
   /* his rounds over the man you control, drawn after every man so nobody standing in front covers them (rule 124) */
   if (u && crewControlled(u) && !S.deploy && !S.over && FIGHT.onField(u) && manH() > 26 && !UI.cut) {
@@ -11915,7 +12104,8 @@ function hud() {
   const upNow = mine && FIGHT.climbedNow(u);   /* rule 328: CLIMBED THIS TURN on the strike square */
   const vestK = mine && FIGHT.vestLive(u) ? 'v' + (FIGHT.canSpark(u) ? 1 : 0) + (UI.skillMode === 'spark' ? 'on' : '') + u.vest.cells : '';   /* rule 305 */
   const key = (lineup ? 'L' + lineup.id + lineup.job : '') + (u ? u.id + u.job + (u.weapon && u.weapon.id) : '') + '|' + (upNow ? 'up' : '') + '|' + bagK + '|' + chance + '|' + canR + dry + (rd ? rd.left : '') + '|' + back + '|' + want.map(function (id) { return id + (FIGHT.canUse(u, id) ? 1 : 0) + (UI.skillMode === id ? 'on' : ''); }).join(',')
-    + '|' + sweeps.map(function (k) { return k.name + (UI.sweep === k.name ? 'on' : '') + (u.ap >= FIGHT._t.skillAP(u.weapon, k, u) ? 1 : 0); }).join(',') + '|' + vestK;
+    + '|' + sweeps.map(function (k) { return k.name + (UI.sweep === k.name ? 'on' : '') + (u.ap >= FIGHT._t.skillAP(u.weapon, k, u) ? 1 : 0); }).join(',') + '|' + vestK
+    + '|' + (mine && S.drones && S.drones.length && FIGHT.canShootDrone ? S.drones.map(function (d) { return d.id + (FIGHT.canShootDrone(u, d) ? FIGHT.droneChance(u, d) : 'x'); }).join(',') : '');   /* __ARMORY_THREE__: the SHOOT THE DRONE square comes and goes with the drone */
   if (sk.dataset.key !== key) {
     sk.dataset.key = key;
     const bs = document.getElementById('bstrike'), br = document.getElementById('breload'), bb = document.getElementById('bback');
@@ -11962,6 +12152,19 @@ function hud() {
       b.onclick = function () { sweepTap(k.name); };
       sk.appendChild(b);
     });
+    /* __ARMORY_THREE__ (rule 490(a)(d)): a drone of theirs in the air that his gun can reach: SHOOT THE DRONE, its chance on the
+       square; one tap fires (his shot's own AP and round; a burst's every round a try). A melee man never has this square */
+    if (u && !lineup && FIGHT.S.drones && FIGHT.S.drones.length && FIGHT.canShootDrone) {
+      const ds = FIGHT.S.drones.filter(function (d) { return FIGHT.canShootDrone(u, d); }).sort(function (p, q) { return (FIGHT.onCross(u, q) ? 1 : 0) - (FIGHT.onCross(u, p) ? 1 : 0); });
+      if (ds.length) {
+        const d0 = ds[0], b = document.createElement('button');
+        b.className = 'sq drone'; b.appendChild(droneIcon(30));
+        const t = document.createElement('b'); t.textContent = FIGHT.droneChance(u, d0) + '%'; b.appendChild(t);
+        b.dataset.skill = 'shoot_drone'; b.title = 'SHOOT THE DRONE DOWN';
+        b.onclick = function () { audio(); if (UI.heldCard) { UI.heldCard = false; return; } const cu = FIGHT.current(); if (crewControlled(cu)) { UI.pend = null; FIGHT.shootDrone(cu, d0); take(); } };
+        sk.appendChild(b);
+      }
+    }
     /* THE CELL VEST (rule 305): his square, two taps, the second on the beat */
     if (vestK) {
       const b = document.createElement('button'), can = FIGHT.canSpark(u);
@@ -12655,6 +12858,16 @@ function sparkTap() {
   UI.skillMode = 'spark'; say(sparkSay(u), true); hud();
 }
 /* the square's picture: a vest of cells in two rows, wires between, a crimson edge (lithium's flame; never purple) */
+/* __ARMORY_THREE__: the SHOOT THE DRONE square's picture, the quad from above in whole cells (twelve a side) */
+function droneIcon(css) {
+  const c = document.createElement('canvas'), d = Math.max(1, Math.round(Math.min(window.devicePixelRatio || 1, 3))), g = c.getContext('2d');
+  c.width = c.height = css * d; c.style.width = c.style.height = css + 'px';
+  const k = Math.floor(css * d / 12), px = function (x, y, w, h, col) { g.fillStyle = col; g.fillRect(x * k, y * k, w * k, h * k); };
+  [[1, 1], [9, 1], [1, 9], [9, 9]].forEach(function (q) { px(q[0], q[1] + 0.5, 2, 1, '#d2d6d0'); px(q[0] + 0.5, q[1], 1, 2, '#5c6268'); });
+  for (let i = 2; i < 10; i++) { px(i, i, 1, 1, '#5c6268'); px(11 - i, i, 1, 1, '#5c6268'); }
+  px(4, 4, 4, 4, '#1c1a18'); px(5, 7, 2, 1, '#b0965a'); px(7, 4, 1, 1, '#f0281e');
+  return c;
+}
 function vestIcon(css, cells) {
   const c = document.createElement('canvas'), d = Math.max(1, Math.round(Math.min(window.devicePixelRatio || 1, 3))), g = c.getContext('2d'), L = R('ours.cell_vest').look;
   c.width = c.height = css * d; c.style.width = c.style.height = css + 'px';
@@ -12818,6 +13031,72 @@ function drawCalled(now) {
         mkCell(b[0], b[1], L, k, col); mkCell(b[2] > 0 ? b[0] : T.x1 - k, b[3] > 0 ? b[1] : T.y1 - L, k, L, col); });
       for (let yy = T.y0 + 2 * k; yy < T.y1 - k; yy += 3 * k) mkCell(T.x0, yy, w, Math.max(1, k >> 1), 'rgba(214,38,34,.10)');
       if (d[0] === 0 && d[1] === 0 && on) mkCell(T.x0 + 2 * k, T.y0 + 2 * k, 2 * k, 2 * k, 'rgba(240,40,30,.95)');
+    });
+  });
+  mkOff();
+}
+/* __ARMORY_THREE__ (rule 490(a), Paolo 11/27: 'it flies in on one turn and shows where it will hit'): the drone's cross lit the way
+   Battle Brothers lights every tile in a gun's line of fire (bb_all/0610_Dev Blog 132: 'you'll now always see which tiles are in the
+   line of fire'): taped corners, a pale fill, the drone feed's scan lines crawling down it on the beat (a sixteenth a key), the
+   crosshair on its middle blinking on the half beat. Theirs bone white, his tape. Whole cells, the ink of the call's own drawing */
+function drawDroneGround(now) {
+  const S = FIGHT.S; if (!S.drones || !S.drones.length) return;
+  const B = beatMs(), on = Math.floor(now / (B / 2)) % 2 === 0, key = Math.floor(now / (B / 4)) % 4;
+  mkOn();
+  S.drones.forEach(function (d) {
+    const by = FIGHT.byId(d.by); if (!by || !FIGHT.onField(by)) return;
+    const f = UI.droneFly && UI.droneFly[d.id]; if (f && now < f.at + B * 0.75) return;   /* the tiles light as it gets there */
+    const mine = d.side === 'you', col = mine ? 'rgba(224,176,98,.98)' : 'rgba(250,244,228,.98)', fill = mine ? 'rgba(150,110,30,.26)' : 'rgba(240,232,214,.24)', scan = mine ? 'rgba(224,176,98,.30)' : 'rgba(250,244,228,.30)';
+    [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]].forEach(function (q) {
+      const x = d.x + q[0], y = d.y + q[1]; if (x < 0 || y < 0 || x >= S.w || y >= S.h) return;
+      const T = mkTile(x, y), w = T.x1 - T.x0, h = T.y1 - T.y0, k = Math.max(2, Math.round(w / 16)), L = Math.round(w / 3);
+      mkCell(T.x0, T.y0, w, h, fill);
+      [[T.x0, T.y0, 1, 1], [T.x1 - L, T.y0, -1, 1], [T.x0, T.y1 - k, 1, -1], [T.x1 - L, T.y1 - k, -1, -1]].forEach(function (b) {
+        mkCell(b[0], b[1], L, k, col); mkCell(b[2] > 0 ? b[0] : T.x1 - k, b[3] > 0 ? b[1] : T.y1 - L, k, L, col); });
+      for (let yy = T.y0 + (key + 1) * k; yy < T.y1 - k; yy += 4 * k) mkCell(T.x0 + k, yy, w - 2 * k, Math.max(1, k >> 1), scan);
+      if (q[0] === 0 && q[1] === 0 && on) { const m = Math.round((T.x0 + T.x1) / 2), n = Math.round((T.y0 + T.y1) / 2), r = 3 * k;
+        mkCell(m - r, n - (k >> 1), r - k, k, col); mkCell(m + k, n - (k >> 1), r - k, k, col); mkCell(m - (k >> 1), n - r, k, r - k, col); mkCell(m - (k >> 1), n + k, k, r - k, col); }
+    });
+  });
+  mkOff();
+}
+/* the drone itself, over its man's house: a racing quad in cells, four arms, four props that blur on the keys (four a beat), a red
+   light on the half beat, its shadow on the ground under it; it flies from its pilot's tile over one beat (eased on the grid), then
+   hangs and bobs a cell. The blasts: a white key, then the flame ring, then the dust, three keys over a beat (the drone's cross, the
+   rocket's house and its eight, a small pop where a shot takes one out of the air) */
+function drawDrones(now) {
+  const S = FIGHT.S, B = beatMs();
+  UI.booms = (UI.booms || []).filter(function (b) { return now - b.at < B; });
+  if ((!S.drones || !S.drones.length) && !UI.booms.length) return;
+  mkOn();
+  (S.drones || []).forEach(function (d) {
+    const by = FIGHT.byId(d.by); if (!by || !FIGHT.onField(by)) return;
+    const f = UI.droneFly && UI.droneFly[d.id], key4 = Math.floor(now / (B / 4)), p = f ? Math.max(0, Math.min(1, Math.floor((now - f.at) / (B / 6)) / 6)) : 1;
+    const ox = d.from ? d.from.x : d.x, oy = d.from ? d.from.y : d.y, gx = ox + (d.x - ox) * p, gy = oy + (d.y - oy) * p;
+    const T = mkTile(gx, gy), w = T.x1 - T.x0, h = T.y1 - T.y0, k = Math.max(2, Math.round(w / 13)), m = Math.round(T.x0 + w * 0.92), lift = Math.round(h * 1.5) + (key4 % 2 ? k : 0), n = Math.round(T.y1 - h * 0.35) - lift;   /* off his shoulder, clear of the tags over his head: it dives in at an angle */
+    const dark = 'rgba(28,26,24,.96)', grey = 'rgba(92,98,104,.96)', blur = 'rgba(210,214,208,.55)';
+    mkCell(Math.round(T.x0 + w * 0.5) - 3 * k, Math.round(T.y1 - h * 0.3), 6 * k, k, 'rgba(10,8,6,.38)');   /* its shadow on the house it will hit */
+    [[-1, -1], [1, -1], [-1, 1], [1, 1]].forEach(function (s) {
+      for (let i = 1; i <= 3; i++) mkCell(m + s[0] * i * k - (k >> 1), n + s[1] * i * Math.round(k * 0.6) - (k >> 1), k, k, grey);   /* the arm */
+      const px = m + s[0] * 4 * k, py = n + s[1] * Math.round(k * 2.4), wide = (key4 + (s[0] > 0 ? 1 : 0)) % 2 ? 3 : 2;   /* the prop, a blur that turns on the keys */
+      mkCell(px - wide * k, py - (k >> 1), 2 * wide * k, Math.max(1, k >> 1), blur); mkCell(px - k, py - k, 2 * k, 2 * k, 'rgba(244,236,214,.45)'); mkCell(px - (k >> 1), py - (k >> 1), k, k, dark);
+    });
+    mkCell(m - 3 * k, n - 2 * k, 6 * k, 4 * k, 'rgba(244,236,214,.55)');   /* a pale rim, so the dark body reads over a dark roof (the drone feed's own white) */
+    mkCell(m - 2 * k, n - k, 4 * k, 2 * k, dark); mkCell(m - k, n + k, 2 * k, k, 'rgba(176,150,90,.95)');   /* the body and the charge taped under it */
+    if (Math.floor(now / (B / 2)) % 2 === 0) mkCell(m + k, n - k, k, k, 'rgba(240,40,30,.98)');   /* the red light */
+  });
+  UI.booms.forEach(function (b) {
+    const q = Math.floor((now - b.at) / (B / 3)); if (now < b.at || q > 2) return;
+    const tiles = b.cross ? [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1]] : b.blast ? [[0, 0], [1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]] : [[0, 0]];
+    tiles.forEach(function (o) {
+      const x = b.x + o[0], y = b.y + o[1]; if (x < 0 || y < 0 || x >= S.w || y >= S.h) return;
+      const T = mkTile(x, y), w = T.x1 - T.x0, h = T.y1 - T.y0, k = Math.max(2, Math.round(w / 16)), mx = Math.round((T.x0 + T.x1) / 2), my = Math.round((T.y0 + T.y1) / 2) - (b.small ? Math.round(h * 1.2) : 0);
+      const r = b.small ? Math.round(w * 0.22) : Math.round(w * (0.34 + 0.12 * q)), col = q === 0 ? 'rgba(255,250,236,.95)' : q === 1 ? 'rgba(240,138,58,.9)' : 'rgba(54,48,42,.7)';
+      for (let yy = -r; yy <= r; yy += k) for (let xx = -r; xx <= r; xx += k) {
+        const dd = Math.abs(xx) + Math.abs(yy); if (q === 0 ? dd > r : dd > r || dd < r - 4 * k) continue;   /* the flash whole, then a thick ring of fire, then the dust */
+        if ((((xx / k) | 0) * 7 + ((yy / k) | 0) * 13 + q) % 3 === 0 && q > 0) continue;   /* a broken ring, never a clean shape */
+        mkCell(mx + xx, my + yy, k, k, col);
+      }
     });
   });
   mkOff();

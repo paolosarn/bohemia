@@ -1,3 +1,9 @@
+ARMORY 3 (armory-three-01gkdyuu): 11/27 LATEST -- BUILD 11/27h - THE GUNS GROW UP, AND THE DRONE, BUILT, NOT YET SEEN (rules 489(b), 490; ask rows 758, 762, 763). Its block is handoffs/ARMORY.md.
+Sixteen real guns and kits: automatic bursts, magazines, a belt-fed that sweeps three tiles, rockets that take a house and its eight, a charge drone that flies one turn and lands the
+next (step off or shoot it down), a scout drone, night and heat sights. Old gun damage untouched (rule 489(d)). Gate THE GUNS GROW UP (new) 19/0. VOTE armory3-the-guns-grow-up-11-27.
+records/BOHEMIA_ARMORY_THREE_THE_GUNS_GROW_UP_AND_THE_DRONE_11_27_26.md
+[bb Battle Brothers: four ranged ladders by worth, gunpowder hits an area you always see lit]
+[analog horror: the drone feed's scan lines crawl down the lit tiles]
 UI FIVE (ui-five-01gkdyuu): 11/27 LATEST -- BUILD 11/27f - THE CLOCK UP TOP, BUILT, NOT YET SEEN (rule 487, ask row 755). Its block is handoffs/UI_FOUR.md.
 The day and the hour left the phone for the top bar's right end, with the sun's dial (the moon and a moonlit hour at night), on the map, in a town, at camp and on the end screen,
 upright and sideways, moving with the game's clock. Gate THE CLOCK UP TOP (new) 18/0, plants red; THE TOP IS ONLY RESOURCES and THE DAYS ONCE re-aimed. VOTE ui5-the-clock-up-top-11-27.
