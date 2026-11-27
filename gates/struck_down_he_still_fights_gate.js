@@ -193,13 +193,22 @@ async function run(profile) {
     await quiet();
     const c0 = await d.fr.evaluate((K) => { const C = BohemiaCondition.get(); return { lost: C.men[K].lostHp, campHours: C.campHours }; }, K);
     await d.fr.evaluate(() => { try { BohemiaMapCamp.make(); } catch (e) {} });
+    /* CAMP FOUR 11/27: no hour of the camp runs before the camp stands (MOTION 3 __THE_CAMP_IS_SET_UP_WHILE_HE_WATCHES__, rule 444(a)), so
+       a fixed 4.2 s read 0 camp hours whenever the camp's screen and its set-up took longer (the full suite, a box at a load of 14 on 4
+       cores: 0.0 camp hours on both legs). Wait for the camp's hours to start (up to 60 s), then give them the same 4.2 s to run. */
+    const tCamp = Date.now(); let started = false;
+    while (Date.now() - tCamp < 60000) {
+      started = await d.fr.evaluate((h0) => { try { return BohemiaCondition.get().campHours - h0 >= 0.5; } catch (e) { return false; } }, c0.campHours);
+      if (started) break; await d.page.waitForTimeout(250);
+    }
+    const waited = Date.now() - tCamp;
     await d.page.waitForTimeout(4200);
     const c1 = await d.fr.evaluate((K) => { const C = BohemiaCondition.get(); return { lost: C.men[K].lostHp, campHours: C.campHours, on: BohemiaMapCamp.on() }; }, K);
     await d.fr.evaluate(() => { try { BohemiaMapCamp.break(); } catch (e) {} });
     const ch = c1.campHours - c0.campHours, got = c0.lost - c1.lost, rate = V('hp_per_hour_camp');
     ok(P + 'S6 THE CAMP HEALS HIM at the table\'s rate (' + rate + ' an hour camped): his hitpoints up by the rate times the camped hours, or what he was missing',
       ch >= 1 && got > 0 && got <= Math.min(c0.lost, (rate + V('cook_hp_per_hour')) * ch) + 0.01 && (c1.lost < 0.01 || got >= rate * ch - rate - 0.01),
-      ch.toFixed(1) + ' camp hours, +' + got.toFixed(1) + ' hp, missing ' + c0.lost.toFixed(1) + ' -> ' + c1.lost.toFixed(1));
+      ch.toFixed(1) + ' camp hours, +' + got.toFixed(1) + ' hp, missing ' + c0.lost.toFixed(1) + ' -> ' + c1.lost.toFixed(1) + '; the hours started ' + (started ? waited + ' ms after the make' : 'NEVER in 60 s'));
 
     /* ---- S10 his face: the stage the condition hands PORTRAIT, fresh now, then the band-aid as the map's clock closes it ---- */
     const s10 = await d.fr.evaluate((K) => { const m = BohemiaCondition.get().men[K], a = BohemiaCondition.injuryOf(m.shown), w = m.wound;
