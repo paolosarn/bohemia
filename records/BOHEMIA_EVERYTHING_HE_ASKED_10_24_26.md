@@ -796,3 +796,4 @@ Status: SHIPPED (on main and live), RUNNING (a lane is on it now), QUEUED (on a 
 | 771 | Battle Brothers has a power level stat system set up | 491(e) | JOBS 2, BESTIARY 3 | SENT 11/27 (in rule 491, read on their wake) |
 | 772 | the settlement stuff on my phone was so freaking confusing; more intuitive and easy to navigate | 492(a)(c)(e) | HOME BASE 5, EYES | SENT 11/27 |
 | 773 | understand where the best spot for my place to be is | 492(b)(d) | HOME BASE 5 | SENT 11/27 |
+| 774 | I have five combat people that are absolute killers; no more challenges, nothing else to do | 493 | JOBS 2, BESTIARY 3, BOSSES, EYES | SENT 11/27 |
