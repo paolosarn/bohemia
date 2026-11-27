@@ -1,5 +1,17 @@
 # WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN and from 11/21 by WORLD FIFTEEN, its successor; newest block on top)
 
+WORLD FIFTEEN, ROUND FOUR, BUILD TWO (11/27; VAMILY rules 485(a), 482). BUILD 11/27p - THE DEAD STRIP BY DAY. BUILT, NOT YET SEEN.
+VOTE world15-the-dead-strip-by-day-11-27 (tile, STAND-IN). Record: the 11/27 section of records/BOHEMIA_WORLD_15_THE_MONEY_WALKED_AWAY_11_26_26.md.
+- The painter read power only at night; now by day a casino or tower on a block with no power reads dead (gold and neon dulled, windows
+  black, walls grimed); powered blocks keep their colour. Same grid the night reads (__THE_DEAD_STRIP_BY_DAY__). Gate THE MONEY WALKED
+  AWAY D3; A DIFFERENT VALLEY 59/1 (its V4 timing red, known).
+- 11/27b deployed (pages run 4871). NEXT ON 485(a): each gang's streets carrying its look (its colour on its own blocks, COLOUR IS TERRITORY,
+  through the same painter: the towns' palettes are VB_TOWNS.pal); ECONOMY THREE's calls (a place going dark, a place growing) when sent:
+  a place going dark is POWER's douse, which the day now shows.
+- CONTEXT: this session is long; a fresh WORLD 15 takes the next round from this block.
+[bb Battle Brothers' towns look as rich as they are; ours look as dead as their power.]
+[analog horror: by day you can tell which towers still hum; the rest just stand there with their windows black.]
+
 WORLD FIFTEEN, ROUND FOUR (11/27; VAMILY rule 485(a), the districts read the money; 480(b); 461(c): every gate in the foreground).
 BUILD 11/27b - THE MONEY WALKED AWAY. BUILT, NOT YET SEEN. Record: records/BOHEMIA_WORLD_15_THE_MONEY_WALKED_AWAY_11_26_26.md.
 VOTE world15-the-money-walked-away-11-26 (tile, STAND-IN).

@@ -30,6 +30,9 @@ function statics() {
      !!U && U.dark === true && JSON.stringify(U.on) === JSON.stringify(KINDS) && W.CODES.unfinished === 4 && W.NAMES[4] === 'unfinished' && !!m && JSON.stringify(JSON.parse(m[1])) === JSON.stringify(data) && page.indexOf(mod) >= 0,
      U ? U.name : 'no row');
   ok('D2 the painter paints it (st 4: the slabs, the open bays, the rust) and hands it the floors', /if \(st === 4\) \{/.test(page) && /function wsTint\(b0, st, top, c2, h, u, v, lk\)/.test(page) && /qu \+ XS, qv \+ YS, liftk\); \}/.test(page));
+  /* 11/27 (rule 485(a), THE DEAD STRIP BY DAY): a casino or a tower on a block with no power reads dead in daylight, off the same grid the night reads */
+  ok('D3 the dead Strip by day: an unpowered casino or tower is dulled (its gold and neon dust, its windows black, its walls grimed), read off the night\'s own grid',
+     /__THE_DEAD_STRIP_BY_DAY__/.test(page) && /if \(!wsv && \(cl2 === VB_CLASS\.casino \|\| cl2 === VB_CLASS\.tower\)\) \{/.test(page) && /!live\[dby \* N \+ dbx\]/.test(page));
 }
 
 async function pageRun() {

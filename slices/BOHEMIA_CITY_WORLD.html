@@ -53091,6 +53091,19 @@ function vbCityCore(inp){
       if (top) { ST.top++; if (SHD[qo] > 0) ST.shade++; }
       var wsv = 0; if (WST) { var wbx = Math.floor(qu / S) - PAD, wby = Math.floor(qv / S) - PAD; if (wbx >= 0 && wby >= 0 && wbx < N && wby < N) wsv = WST[wby * N + wbx];
         if (wsv) b = wsTint(b, wsv, top, cl2, vbHash(qu + XS, qv + YS, sd + 29), qu + XS, qv + YS, liftk); }   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ (liftk: THE MONEY WALKED AWAY's floors) */
+      /* __THE_DEAD_STRIP_BY_DAY__ (WORLD 15, 11/27, VAMILY rule 485(a): 'the dead Strip ... beside the blocks that still have power'):
+         MEASURED, the power read only at night (the lights below), so by day a dead casino and a live one were the same picture. Now a
+         casino or a tower on a block with no power reads dead in daylight: its gold and its neon gone to dull dust, its windows black
+         (no sky in them), its walls grimed a shade darker; a block that still has power keeps its colour. Nothing added, the same pixels read off
+         the grid the night already reads. */
+      if (!wsv && (cl2 === VB_CLASS.casino || cl2 === VB_CLASS.tower)) {
+        var dbx = Math.floor(qu / S) - PAD, dby = Math.floor(qv / S) - PAD;
+        if (dbx >= 0 && dby >= 0 && dbx < N && dby < N && !live[dby * N + dbx]) {
+          if (part2 === PART.neon || (top && cl2 === VB_CLASS.casino)) { var mn = mute(b, 0.62); b = [mn[0] * 0.78, mn[1] * 0.76, mn[2] * 0.74]; }
+          else if (part2 === PART.window) b = [b[0] * 0.18 + 24, b[1] * 0.18 + 23, b[2] * 0.18 + 22];
+          else { var mw = mute(b, 0.2); b = [mw[0] * 0.84, mw[1] * 0.83, mw[2] * 0.82]; }
+        }
+      }
       var o8 = (vv * P + uu) * 4;
       for (var z = 0; z < 3; z++) { day[o8 + z] = b[z] * sh; night[o8 + z] = b[z] * sh * NM[z]; }
       day[o8 + 3] = 255; night[o8 + 3] = 255;

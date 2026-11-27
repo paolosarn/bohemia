@@ -29,3 +29,10 @@ colour on its own blocks, COLOUR IS TERRITORY); ECONOMY THREE's calls (a place g
 
 [bb Battle Brothers' towns show what they have by what stands in them; ours shows what the money left standing.]
 [analog horror: forty floors of nothing, and the crane still parked on the top one, its hook moving a little in the wind.]
+
+## 11/27: THE DEAD STRIP BY DAY (BUILD 11/27p, the same rule)
+MEASURED: the painter read the power grid only at night (its lights), so by day a dead casino and a live one were the same picture.
+NOW (__THE_DEAD_STRIP_BY_DAY__ in the painter): a casino or a tower on a block with no power reads dead in daylight: its gold and neon
+dulled to dust, its windows black, its walls grimed a shade darker; a block that still has power keeps its colour. Nothing added: the
+same grid the night reads (a campaign puts 35% to 70% of the live circuits out, never round a faction's base). Gate leg D3.
+VOTE world15-the-dead-strip-by-day-11-27 (before and now, VEGAS7 up close).

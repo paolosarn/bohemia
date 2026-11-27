@@ -1470,7 +1470,9 @@ All 80 enemy kinds the bands deal fought on the demo and the alpha, a phone both
 TYPE THROUGH A FIGHT). Fixed: the wipe card named nine beast parties 'the road crew' (now 'A ground sloth keeps the field'); three freed sheets back in the
 road crew; the horn, bruiser and battery man's act weights (THE BESTIARY green). The biggest pack (17 men) is no choppier than 2 at 4x. Asked: 742 the thrown
 weapons never drop (FIGHT SCREEN 3), 743 every beast 'bites' (COMBAT FOUR), 744 the page grows ~340 MB a fight (PLUMBER 8), 745, 746. Block: handoffs/BESTIARY.md.
-WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/27 LATEST -- BUILD 11/27b - THE MONEY WALKED AWAY, BUILT, NOT YET SEEN (rule 485(a)): on every
+WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/27 LATEST (build two) -- BUILD 11/27p - THE DEAD STRIP BY DAY, BUILT, NOT YET SEEN (rule 485(a)):
+by day a casino or tower with no power reads dead (dulled gold, black windows), powered ones keep their colour. VOTE world15-the-dead-strip-by-day-11-27.
+WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/27 (build one) -- BUILD 11/27b - THE MONEY WALKED AWAY, BUILT, NOT YET SEEN (rule 485(a)): on every
 new game 1 to 5 luxury or downtown towers stand as frames the money left when the dollar died (bare slabs, open bays, no glass, never
 powered), built into the valley's state and its painter. Gate THE MONEY WALKED AWAY 14/0 (new). VOTE world15-the-money-walked-away-11-26.
 WORLD FIFTEEN (handoffs/WORLD_FOURTEEN.md): 11/26 (build two) -- BUILD 11/26zi - THE MAN WHO GOES HOME COMES BACK, BUILT, NOT YET SEEN
