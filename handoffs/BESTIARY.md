@@ -7,7 +7,7 @@ Record: records/BOHEMIA_BESTIARY_FOUR_THE_ENEMY_GROWS_AND_CHAMPIONS_11_27_26.md.
 - BUILT, each in its owner (rule 495; census unchanged, no new block, no new hook): partyMath (CITY_WORLD) dresses by his men (party_math.json job_bb.grows:
   like_men 12 on small's ramp, a man of level 6 -> 11), sizes a few strong men nearer that company (BB's arena guard at half), hands over and skulls;
   partyFor (FIGHT) thins a faction off what the math WANTED and steps (over - 1) x the band one rung up (bohemia_enemies.json numbers.grows);
-  champRoll/champOn (FIGHT, the champions' system): BB's roll (numbers.champion: 1/2 elite, +5 three stars, -99 one star, never the first week, -2 before
+  champRoll/champOn (FIGHT, the champions' system): BB's roll (numbers.champion: 1/2 elite, by_skulls_pct +5 three stars, -99 one star, never the first week, -2 before
   late), off the band's own die, the wiki's three champion rows by champions.swap (weights 0 in ours.json late mixes), BB's numbers (no damage, rule
   489(d)), armour at the top, a name per human faction (champions.by_faction, draft for WORDS), the gold skull (CHAMP_MARK); engine/bohemia_spoils.js
   found(): a dead champion's gear always drops whole and his batteries; the reader (bohemia_job_danger.js) and the alpha's door carry skulls and over.

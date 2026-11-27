@@ -35,8 +35,8 @@ async function run(plant) {
   const humans = Object.keys(NE.factions).filter(f => Object.keys(NE.mix[f] || {}).length && !Object.values(NE.mix[f]).some(m => Object.keys(m).some(beastKind))).concat(['brigands', 'kids', 'heavies']);
   const unnamed = humans.filter(f => !(CH.by_faction || {})[f]);
   const lateCh = ['brigands', 'kids', 'heavies'].filter(f => Object.keys(O.enemy_tiers.value.mix[f].late).some(k => /champion/.test(k) && O.enemy_tiers.value.mix[f].late[k] > 0));
-  out.g1 = ok('G1 the data', gr && gr.like_men === 12 && gr.small && gr.small.exp > 0 && ng && ng.source && nc && nc.source && nc.value.one_skull_pct <= -90 && !unnamed.length && !lateCh.length,
-    'like_men ' + (gr && gr.like_men) + ', small ' + JSON.stringify(gr && gr.small) + '; champion ' + JSON.stringify(nc && { b: nc.value.base_pct, e: nc.value.elite_pct, three: nc.value.three_skulls_pct, one: nc.value.one_skull_pct }) + '; human factions unnamed: ' + (unnamed.join(',') || 'none') + '; champion kinds still in a late mix: ' + (lateCh.join(',') || 'none'));
+  out.g1 = ok('G1 the data', gr && gr.like_men === 12 && gr.small && gr.small.exp > 0 && ng && ng.source && nc && nc.source && nc.value.by_skulls_pct && nc.value.by_skulls_pct['1'] <= -90 && !unnamed.length && !lateCh.length,
+    'like_men ' + (gr && gr.like_men) + ', small ' + JSON.stringify(gr && gr.small) + '; champion ' + JSON.stringify(nc && { b: nc.value.base_pct, e: nc.value.elite_pct, by_skulls: nc.value.by_skulls_pct }) + '; human factions unnamed: ' + (unnamed.join(',') || 'none') + '; champion kinds still in a late mix: ' + (lateCh.join(',') || 'none'));
   /* G2 */
   const CW = T('slices/BOHEMIA_CITY_WORLD.html');
   const anchors = ['rule 491(a), job_bb.grows.small', 'B.k * Math.pow(strC / 100, B.exp)', '__dress = str * Math.pow(__G0.like_men / __c0.counted, __t)', 'over: over, skulls:'].filter(a => CW.indexOf(a) < 0);
@@ -48,7 +48,7 @@ async function run(plant) {
   /* the live fight */
   const ctx = await G.engine(true, null), F = ctx.FIGHT, DB = ctx.DB;
   if (plant === 'over') DB.newEnemies.numbers.grows.value.rungs_max = 0;
-  if (plant === 'one') DB.newEnemies.numbers.champion.value.one_skull_pct = 0;
+  if (plant === 'one') DB.newEnemies.numbers.champion.value.by_skulls_pct['1'] = 0;
   const band = (party, seed, men) => { ctx.setSeed(seed); F.setup({ auto: true, formation: null, company: men || killers, cap: 12, party: party, days: party.days }); return F.S.units.filter(u => u.side === 'them'); };
   /* G3 */
   let mar1 = 0, mar2 = 0, n1 = 0, n2 = 0, h1 = 0, h2 = 0, b1 = 0, b2 = 0;

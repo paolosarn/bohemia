@@ -1563,8 +1563,7 @@ const FIGHT = (function () {
      name, a look, kit a tier up and a prize on him'). MEASURED BEFORE: a champion came only as one of three wiki kinds in a late mix
      (brigands, kids, heavies), 50 to 80 in 100 late bands even on a one-star job, and never in the House, the hired guns or any other
      faction. NOW Battle Brothers' roll (bb_all/0363_Champions.txt, bb_all/0827_Game Guide.txt L938-952): every man of a human band is a
-     champion at base_pct (elite_pct for the elite kinds), plus three_skulls_pct on a three-star job, plus one_skull_pct on a one-star
-     job, plus before_late_pct before the late phase (bohemia_enemies.json numbers.champion); one a band, the first the band's own die
+     champion at base_pct (elite_pct for the elite kinds), plus by_skulls_pct for the job's stars (+5 on three, -99 on one), plus before_late_pct before the late phase (bohemia_enemies.json numbers.champion); one a band, the first the band's own die
      names (seeded off the band, its stars and its day, so the card's read and the fight meet the same man, and no die of the fight
      moves). A kind with a wiki champion row becomes it (champions.swap); the rest keep their kind and take Battle Brothers' champion
      numbers (champOn). A band already holding a champion kind (handed, or rolled on the card) rolls nothing. */
@@ -1579,7 +1578,7 @@ const FIGHT = (function () {
     const die = dieOf(seedOf('champ:' + band.join(',') + ':' + sk + ':' + (S.days | 0)));
     for (let i = 0; i < band.length; i++) {
       const k = band[i], r = DB.enemies.rows.filter(function (e) { return e.id === k; })[0]; if (!r) continue;
-      const pct = ((C.elite || []).indexOf(k) >= 0 ? C.elite_pct : C.base_pct) + (sk === 3 ? C.three_skulls_pct : 0) + (sk === 1 ? C.one_skull_pct : 0) + (late ? 0 : C.before_late_pct);
+      const pct = ((C.elite || []).indexOf(k) >= 0 ? C.elite_pct : C.base_pct) + ((C.by_skulls_pct || {})[sk] || 0) + (late ? 0 : C.before_late_pct);
       const roll = die() * 100;   /* drawn for every man, so a man's chance never moves another's */
       if (k === bossK || R('ours.beast_looks')[k] || R('ours.bestiary').mechanic.machines.indexOf(k) >= 0 || (r.traits || []).indexOf('Incorporeal') >= 0) continue;
       if (roll < pct) { const sw = (CHN.swap || {})[k]; if (sw && DB.enemies.rows.some(function (e) { return e.id === sw; })) band[i] = sw; return i; }
