@@ -25061,7 +25061,46 @@
      "recipe": "tools/bohemia_character_three_the_powered_arm.py: the nine enemies' pipe, a type in memory, the piece on his left forearm",
      "record": "records/BOHEMIA_CHARACTER_THREE_THE_POWERED_ARM_11_27_26.md"
     },
-  {"id": "cook7-the-police-station-11-27", "kind": "tile", "lane": "cook 7", "sha": "635b09f6f", "made": "11/27", "draft": true, "said": "More cooking up cleaning up improving things we're already doing type shit", "stage": "made_from", "golden": "arena2-the-pit-is-a-pit-11-7", "title": "THE FIGHT AT THE POLICE STATION LOOKS LIKE A POLICE STATION NOW: THE HOLDING CELLS, THE LOCKERS, THE LOBBY GLASS, THE PATROL CARS", "why": "The fight at the police station now has its own pictures instead of other places' ones: holding cells with one door standing open, a bank of lockers, the evidence cage cut open, the lobby's bullet glass starred where it held, six desks pushed together with a phone off its hook, and in the sally port patrol cars on flat tyres among the cages and barriers. You see it when a fight starts at a police station, in the RUN tab.", "options": ["A, yes, that's a police station", "B, close, change something (say what)", "C, no, not like this"], "show": {"how": "image", "src": "../records/target/COOK7_THE_POLICE_STATION_11_27.webp", "first": "../records/target/vote_first/cook7-the-police-station-11-27.webp", "firstAt": [786, 96, 383, 559]}, "before_after": {"before": "main a32d636c7: all 198 pieces of the squad room (and 175 of the sally port) are stand-ins from the casino, the tunnels, the street board and the garage, on the mall's floor; the ceiling drawn by the page", "after": "the station's own vinyl and concrete, 16 pictures under its 16 names and its dropped ceiling, through the master rig; it lays them with no code changed", "scale": "the fight on his phone upright (390 x 844) as it opens, before and now; close in; the sally port; the pieces at their own pixels"}, "twin": {"src": "fight_ground/truckstop/ts_counter.webp", "diffs": ["THE SAME RIG AND CUT as the truck stop's kit.", "THE CELLS' BARS AND THE EVIDENCE MESH ARE SEEN THROUGH, as the board treats them.", "THE CEILING READS AT YOUR 10%: dark tees, tiles out to the dark above."]}, "record": "records/BOHEMIA_COOK_SEVEN_THE_POLICE_STATION_11_27_26.md", "build": "BUILD 11/27zk - THE POLICE STATION"}
+  {"id": "cook7-the-police-station-11-27", "kind": "tile", "lane": "cook 7", "sha": "635b09f6f", "made": "11/27", "draft": true, "said": "More cooking up cleaning up improving things we're already doing type shit", "stage": "made_from", "golden": "arena2-the-pit-is-a-pit-11-7", "title": "THE FIGHT AT THE POLICE STATION LOOKS LIKE A POLICE STATION NOW: THE HOLDING CELLS, THE LOCKERS, THE LOBBY GLASS, THE PATROL CARS", "why": "The fight at the police station now has its own pictures instead of other places' ones: holding cells with one door standing open, a bank of lockers, the evidence cage cut open, the lobby's bullet glass starred where it held, six desks pushed together with a phone off its hook, and in the sally port patrol cars on flat tyres among the cages and barriers. You see it when a fight starts at a police station, in the RUN tab.", "options": ["A, yes, that's a police station", "B, close, change something (say what)", "C, no, not like this"], "show": {"how": "image", "src": "../records/target/COOK7_THE_POLICE_STATION_11_27.webp", "first": "../records/target/vote_first/cook7-the-police-station-11-27.webp", "firstAt": [786, 96, 383, 559]}, "before_after": {"before": "main a32d636c7: all 198 pieces of the squad room (and 175 of the sally port) are stand-ins from the casino, the tunnels, the street board and the garage, on the mall's floor; the ceiling drawn by the page", "after": "the station's own vinyl and concrete, 16 pictures under its 16 names and its dropped ceiling, through the master rig; it lays them with no code changed", "scale": "the fight on his phone upright (390 x 844) as it opens, before and now; close in; the sally port; the pieces at their own pixels"}, "twin": {"src": "fight_ground/truckstop/ts_counter.webp", "diffs": ["THE SAME RIG AND CUT as the truck stop's kit.", "THE CELLS' BARS AND THE EVIDENCE MESH ARE SEEN THROUGH, as the board treats them.", "THE CEILING READS AT YOUR 10%: dark tees, tiles out to the dark above."]}, "record": "records/BOHEMIA_COOK_SEVEN_THE_POLICE_STATION_11_27_26.md", "build": "BUILD 11/27zk - THE POLICE STATION"},
+    {
+     "id": "character3-the-new-guns-in-his-hands-11-27",
+     "kind": "ui",
+     "stage": "made_from",
+     "golden": "cook-the-first-guns-off-the-rig-10-19",
+     "lane": "character",
+     "made": "11/27",
+     "sha": "c50eb32c5",
+     "draft": true,
+     "title": "THE NEW GUNS IN HIS HANDS: EACH ITS OWN SHAPE",
+     "said": "we haven't even added automatic guns or more intense guns, maybe even a rocket launcher",
+     "why": "Today the fight draws every new rifle as the one wood rifle and the rocket as the shotgun; here each has its own shape in a man's hands (a tan AR, a wood Kalash, a short box SMG, a belt-fed with its olive ammo box, a long rocket tube). You see it only on this card for now: the fight learns to draw them next.",
+     "options": [
+      "A, yes, these read as the guns they are",
+      "B, close, change one (say which)",
+      "C, no, not like this"
+     ],
+     "show": {
+      "how": "image",
+      "src": "../records/target/character/the_guns_held/CHARACTER_THREE_THE_NEW_GUNS_IN_HIS_HANDS.webp",
+      "first": "../records/target/vote_first/character3-the-new-guns-in-his-hands-11-27.webp",
+      "firstAt": [
+       0,
+       0,
+       480,
+       307
+      ]
+     },
+     "twin": {
+      "src": "records/target/armory/armory3_hands.jpg",
+      "diffs": [
+       "TODAY (ARMORY 3's card): the Ranch AR, the Guard Carbine, the Kalash, the Night-Sight AR and the Belt-Fed are one wood rifle in his hands.",
+       "NOW: the AR's tan furniture and black magazine, the Kalash's wood and curved magazine, the belt-fed's olive ammo box under a long barrel.",
+       "NOW: the box SMG short and square with a can, and the rocket a long pale tube with its warhead, where the fight draws a pistol and a shotgun."
+      ]
+     },
+     "recipe": "tools/bohemia_character_three_the_guns_held.py: five models at real size, COMBAT's hands render on the fight's Carry and Aim",
+     "record": "records/BOHEMIA_CHARACTER_THREE_THE_NEW_GUNS_IN_HIS_HANDS_11_27_26.md"
+    }
  ],
  "verdicts": [
   {

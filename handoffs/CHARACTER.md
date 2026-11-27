@@ -19,7 +19,13 @@ same with packing switched off (quarantined / main's).
 11/27 (ap): THE POWERED ARM, the look, BUILT, NOT YET SEEN (99cc667be; VOTE character3-the-powered-arm-11-27; records/BOHEMIA_CHARACTER_THREE_THE_POWERED_ARM_11_27_26.md):
 tools/bohemia_character_three_the_powered_arm.py (roll, look, close, card; BOHEMIA_PARM_PLANT=1 plants green on the battery) on the nine
 enemies' pipe; two men; nobody in the game wears it yet. Blender: python3.11 -m venv /tmp/v && /tmp/v/bin/pip install bpy==4.2.0 numpy pillow.
-NEXT (in order): (1) the men holding ARMORY 3's new guns (rule 489(b)); (3) on the map, a gang's sheet asleep while none of its parties is in reach (named in the record, not built:
+11/27 (aq): THE NEW GUNS IN HIS HANDS, the look, BUILT, NOT YET SEEN (c50eb32c5; VOTE character3-the-new-guns-in-his-hands-11-27;
+records/BOHEMIA_CHARACTER_THREE_THE_NEW_GUNS_IN_HIS_HANDS_11_27_26.md): tools/bohemia_character_three_the_guns_held.py (model, pose, guns, card):
+five own models (reference/models/bohemia/gun_<ar|kalash|smg|saw|rocket>_c3.glb) held through COMBAT's hands render on the fight's Carry and Aim.
+NEXT (in order): (1) the new guns INTO THE FIGHT: the hands render of the five over every look (about 40 s a look a gun; COMBAT's
+fight renders are gitignored, so a fresh box poses and renders each look first: the guns tool's pose step), packed beside each
+look's three classes, and the fight's gun pick reading a row's own model before its class (COMBAT FIVE's pick, ARMORY 3's 'held' key
+in armory.json); the rocket on the shoulder is COMBAT's hold; (1b) the powered arm on a man in the game (who: BESTIARY or HIRES); (3) on the map, a gang's sheet asleep while none of its parties is in reach (named in the record, not built:
 never the wrong man for a second); then CHARACTER TWO's list (BESTIARY's stand-ins, the bosses' crews, the faction looks, hall men).
 NEVER send_later or anything that waits on a tap (461(c)).
 [bb Battle Brothers' world map carries every party in sight at once; ours has to carry the same crowd inside a phone's memory.]
