@@ -87,7 +87,8 @@ The swap meet's tool is the newest pattern (ON the school's; a whole inside is a
 [bb Battle Brothers' brush: the trampled goods slow you, the racks and the vans hide a man]
 [analog horror: a television still on, showing snow, at a stall nobody stands at; a tape deck blinking 12:00]
 
-JOBS TWO (jobs-two-01gkdyuu): 11/26 LATEST -- BUILD 11/26zh - THE PAY IS A MOMENT, BUILT, NOT YET SEEN (rules 480, 482: every job kind checked from the board to the pay, 37/0; the pay a moment over his crew; ask row 747 to FIGHT SCREEN 3). Its block is handoffs/JOBS.md.
+JOBS TWO (jobs-two-01gkdyuu): 11/27 LATEST -- BUILD 11/27c - THE WORK FOLLOWS WHAT IS SHORT, BUILT, NOT YET SEEN (rule 485(b): a job that brings what the valley is short of pays more and is asked first; ask row 752's jobs part). Its block is handoffs/JOBS.md.
+JOBS TWO (jobs-two-01gkdyuu): 11/26 -- BUILD 11/26zh - THE PAY IS A MOMENT, BUILT, NOT YET SEEN (rules 480, 482: every job kind checked from the board to the pay, 37/0; the pay a moment over his crew; ask row 747 to FIGHT SCREEN 3). Its block is handoffs/JOBS.md.
 JOBS TWO (jobs-two-01gkdyuu): 11/26 -- BUILD 11/26t - A JOB HAS ONE DOOR, SHIPPED (ask row 698: a job's town no longer depends on how fast the phone read its danger; PLUMBER 8's C2 green). Its block is handoffs/JOBS.md.
 JOBS TWO (jobs-two-01gkdyuu): 11/26 -- BUILD 11/26r - THE MOMENT HEARD, BUILT, NOT YET SEEN (rule 482: the arrival at a job seen and heard, the leftovers out, ask row 737 shipped). Its block is handoffs/JOBS.md.
 JOBS TWO (jobs-two-01gkdyuu): 11/26 -- BUILD 11/26j - THE CARD AT ONCE, BUILT, NOT YET SEEN (ask row 730; rules 482, 480(c)). Its block is handoffs/JOBS.md.

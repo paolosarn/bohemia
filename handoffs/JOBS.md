@@ -1,6 +1,24 @@
 # JOBS (one file per lane, written only by JOBS; newest block on top)
 
-JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/26 LATEST -- BUILD 11/26zh - THE PAY IS A MOMENT, BUILT, NOT YET SEEN (rules 480,
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/27 LATEST -- BUILD 11/27c - THE WORK FOLLOWS WHAT IS SHORT, BUILT, NOT YET SEEN
+(rule 485(b), rule 482; ask row 752's jobs part). Content 41d8d0910. VOTE jobs2-the-work-follows-what-is-short-11-27 (STAND-IN: the
+Anarchists' board, the seed sacks 120 before, 142 now). Record records/BOHEMIA_JOBS_TWO_THE_WORK_FOLLOWS_WHAT_IS_SHORT_11_27_26.md.
+- bohemia_job_kinds.js short(offer)/shortNow()/goodOf(): the job's good from its title's words (records/target/bb/job_pay.json short:
+  water 16 jobs, food 4, meds 5, fuel 2), the valley's own ledger (mktLedger(): food 8.5 days on day 1, out by 14; meds by 30; water
+  by 60) through BohemiaEconomy.scarcityMult, the pay bent 1 + 0.1 x log2(price), cap 1.5 (draft: ECONOMY THREE's call).
+- THE PAY: loopJobPay(base, place, st, offer) (CITY_WORLD, the contract and the phone's list pass the job); the town's board
+  payShown(pay, o) with shortHere(o); the contract carries short:{mult, good} beside standing: shown is paid.
+- THE CLIENT: bohemia_board_shelf.js pickOwn asks one short-good job right after the town's own person; the draft's key carries
+  shortSig() (A JOB HAS ONE DOOR 4/0).
+- A JOB PAYS FOR THE TIME AND THE RISK 23/0: job_pay.json re-baked by tools/bohemia_economy_job_pay.js (the short entry in its
+  format); its wire regexes take the job. MONEY TEACHES 3/1 and THE BATTERY IS REAL 51/2 are main's own reds.
+NEXT: ECONOMY THREE's calls (share, cap, the words; a town's own ledger if rule 485(b) gives each place one: short() reads it the
+same way); early on only food is short and the 4 food jobs mostly wait on followers, so a new crew rarely meets the bend before
+water and meds run low (about day 20 to 45): ECONOMY THREE's or TUNING's call whether to tie more work to food. Row 747 (FIGHT SCREEN 3).
+[bb Battle Brothers' settlements show their situation (a food shortage, a sickness) and the contracts there pay for what they lack]
+[analog horror: the greenhouse woman pays more each week, and the stall with the bread closes earlier every day]
+
+JOBS TWO (session_01GKDyuunbmA8XDuHfDsuDVe): 11/26 -- BUILD 11/26zh - THE PAY IS A MOMENT, BUILT, NOT YET SEEN (rules 480,
 482: the job kinds he meets first, start to end; 441). Content 72c7a27bc. VOTE jobs2-the-pay-is-a-moment-11-26 (STAND-IN: the
 client's card, FOUND IT, PAID · 57, the dropout). Record records/BOHEMIA_JOBS_TWO_A_JOB_START_TO_END_11_26_26.md.
 - EVERY JOB KIND 37/0 (was 30 to 33): the won job fights never settled in the checker because the end screen stayed up. Its hand
