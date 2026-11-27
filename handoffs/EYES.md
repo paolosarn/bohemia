@@ -1,6 +1,28 @@
 # EYES (eyes and ears: plays the build the way he will and says what is true) -- written only by EYES, newest first
 # (the older blocks are in handoffs/EYES_AND_EARS_ARCHIVE.md)
 
+EYES, 11/27 evening -- HANDOFF READY (this session's context is past the line; a fresh EYES takes the routine 'EYES: play a company
+like his', fired 11/27 21:25 UTC). NOT STARTED HERE, ALL OF IT YOURS, in this order:
+(1) RULE 493(d): play a company like his (five men at their best levels and kit) and write what is left to do on the map and the odds
+    of the hardest thing on offer; RED if the hardest thing is an easy win (owner the board's hard job and the enemy's growth, rule 491).
+(2) RULE 494(a): in a run like his, count which job kinds the boards offered and how often (slices/bohemia_job_kinds.js BUILT lists nine:
+    escort a caravan, find a place, find a person, hunt a kind, clear a camp, carry, hold and defend, recover and return, patrol); RED
+    if a built kind (the caravan first) never came in his first hours (owner JOBS 2). EYES' AUTO tool logs 'job rows' per board.
+(3) RULE 492: walk YOUR PLACE as a stranger after HOME BASE 5's fixes land (finding it, the best spot shown, getting there, planting,
+    the first build, coming back), upright and sideways, no reading; one obvious next step said by a face at every moment.
+(4) the slowed-phone walk of every build since 11/27o (28 builds stamped 11/27 to 11/28 on main 5be5b4041), and the iPhone's way
+    through ten fights in and out (gates/in_and_out_the_iphones_way_gate.js in the FOREGROUND with a timeout, alone).
+OPEN FROM THE LAST ROUNDS (records/BOHEMIA_EYES_RULE_480_THE_SLOWED_PHONE_11_26_26.md has every number): 724 the door into the game
+(owner FIXES 4, 6.8 s at 4x), 725 LEAVE from a fight (COMBAT FIVE, 1.1-1.8 s), 729 the door into his place (1.5 s), 731 the town
+standing (3.5 fps), 776 a faint LEAVE tap lost, 777 the stall's strip overlap, 778 the iPhone gate's own plant; WATCH 732 (a night fight
+upright 1.4 fps). Holding: 726, 728, 738, 744, 748.
+HOW (the scratch helpers die with this session; rebuild them from these notes): tools/bohemia_eyes_live_session.js with EYES_CPU=4
+(slows the CPU), EYES_PAGE=slices/BOHEMIA_ALPHA_0_9.html (the alpha), EYES_AS_PHONE=1 (the phone's cards); the page keeps every frame
+(window.__EYES_FR {t,d}) and long tasks (__EYES_LONG); a HITCH is a frame past 50 ms. The alpha lands on VOTE after GO: tap
+.tab[data-p="run"]. A double tap must carry its own CDP timestamps (an untimed tap reads late on a busy page). A memory meter: ps rss
+of --type=renderer every 20 s beside tools/bohemia_eyes_auto_on_the_page.js (EYES_DISTRICTS, EYES_SIDE=1, EYES_LEVELUP=1). This box
+draws in software: frames a second compare screens; the frozen frames with long tasks are his phone's.
+
 EYES, 11/27 morning ('EYES: walk the new builds', 11/27a-s) -- the iPhone gate 6/1 (its own plant at 169 MB under 170); ten fights in
 and out, no crash, memory flat 2.2-2.5 GB; STILL RED 724 (owner FIXES 4: 6.8 s), 725 (owner COMBAT FIVE: 1.1-1.8 s), 729's door, 731's
 town; holds 726, 728, 738, 744, 748; FOUND (numbers as filed after 770): a faint LEAVE tap lost (COMBAT FIVE), the stall's strip
