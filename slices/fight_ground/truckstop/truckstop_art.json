@@ -1,0 +1,342 @@
+{
+ "version": "cook7-truckstop-art-11-27",
+ "lane": "cook 7 (COOK FIVE's list, after COOK SIX)",
+ "stage": "finished",
+ "for": "COMBAT FOUR's truck stop (slices/fight_ground/truckstop/truckstop.json, BUILD 11/21ze): the names its handoff asked for, the garage's format. floor.floor is the store's gritty tile (60 cm porcelain, its grout dark, each square its own shade, dirt tracked in, soda dried, a tile cracked, one gone to its mortar; a tile's edge is a grout line); floor.ring the same. floor.bay is the service bay's oil-stained concrete (saw cuts every 4 m, the oil where rigs stood, the wheel paths east to west, a drain): it is laid the day the_service_bay names a floor area of kind 'bay' (one rectangle, the whole layout); until then the bay wears the store's tile.",
+ "floor": {
+  "floor": [
+   "truckstop/truckstop_floor_0.webp#0,0",
+   "truckstop/truckstop_floor_0.webp#1,0",
+   "truckstop/truckstop_floor_0.webp#2,0",
+   "truckstop/truckstop_floor_0.webp#3,0",
+   "truckstop/truckstop_floor_0.webp#4,0",
+   "truckstop/truckstop_floor_0.webp#0,1",
+   "truckstop/truckstop_floor_0.webp#1,1",
+   "truckstop/truckstop_floor_0.webp#2,1",
+   "truckstop/truckstop_floor_0.webp#3,1",
+   "truckstop/truckstop_floor_0.webp#4,1",
+   "truckstop/truckstop_floor_0.webp#0,2",
+   "truckstop/truckstop_floor_0.webp#1,2",
+   "truckstop/truckstop_floor_0.webp#2,2",
+   "truckstop/truckstop_floor_0.webp#3,2",
+   "truckstop/truckstop_floor_0.webp#4,2"
+  ],
+  "ring": [
+   "truckstop/truckstop_floor_0.webp#0,0",
+   "truckstop/truckstop_floor_0.webp#1,0",
+   "truckstop/truckstop_floor_0.webp#2,0",
+   "truckstop/truckstop_floor_0.webp#3,0",
+   "truckstop/truckstop_floor_0.webp#4,0",
+   "truckstop/truckstop_floor_0.webp#0,1",
+   "truckstop/truckstop_floor_0.webp#1,1",
+   "truckstop/truckstop_floor_0.webp#2,1",
+   "truckstop/truckstop_floor_0.webp#3,1",
+   "truckstop/truckstop_floor_0.webp#4,1",
+   "truckstop/truckstop_floor_0.webp#0,2",
+   "truckstop/truckstop_floor_0.webp#1,2",
+   "truckstop/truckstop_floor_0.webp#2,2",
+   "truckstop/truckstop_floor_0.webp#3,2",
+   "truckstop/truckstop_floor_0.webp#4,2"
+  ],
+  "bay": [
+   "truckstop/truckstop_floor_0.webp#0,3",
+   "truckstop/truckstop_floor_0.webp#1,3",
+   "truckstop/truckstop_floor_0.webp#2,3",
+   "truckstop/truckstop_floor_0.webp#3,3",
+   "truckstop/truckstop_floor_0.webp#4,3",
+   "truckstop/truckstop_floor_0.webp#0,4",
+   "truckstop/truckstop_floor_0.webp#1,4",
+   "truckstop/truckstop_floor_0.webp#2,4",
+   "truckstop/truckstop_floor_0.webp#3,4",
+   "truckstop/truckstop_floor_0.webp#4,4"
+  ]
+ },
+ "kit": {
+  "ts_cooler": {
+   "kind": "COVER",
+   "h": 2.6,
+   "name": "THE COOLERS",
+   "stage": "finished",
+   "src": "truckstop/ts_cooler.webp",
+   "w": 516,
+   "h_px": 397,
+   "foot": [
+    258.4,
+    374
+   ]
+  },
+  "ts_shelving": {
+   "kind": "COVER",
+   "h": 2.1,
+   "name": "SHELVING",
+   "stage": "finished",
+   "src": "truckstop/ts_shelving.webp",
+   "w": 516,
+   "h_px": 351,
+   "foot": [
+    258.2,
+    348
+   ]
+  },
+  "ts_wall_ew": {
+   "kind": "WALL",
+   "h": 3.05,
+   "name": "THE BUILDING'S WALL",
+   "stage": "finished",
+   "src": "truckstop/ts_wall_ew.webp",
+   "w": 516,
+   "h_px": 158,
+   "foot": [
+    258.1,
+    149
+   ]
+  },
+  "ts_counter": {
+   "kind": "COVER",
+   "h": 2.2,
+   "name": "THE COUNTER",
+   "stage": "finished",
+   "src": "truckstop/ts_counter.webp",
+   "w": 507,
+   "h_px": 207,
+   "foot": [
+    254.0,
+    186
+   ]
+  },
+  "ts_wall_ns": {
+   "kind": "WALL",
+   "h": 3.05,
+   "name": "THE BUILDING'S WALL",
+   "stage": "finished",
+   "src": "truckstop/ts_wall_ns.webp",
+   "w": 52,
+   "h_px": 505,
+   "foot": [
+    26.7,
+    504
+   ]
+  },
+  "ts_island": {
+   "kind": "COVER",
+   "h": 2.4,
+   "name": "THE COFFEE ISLAND",
+   "stage": "finished",
+   "src": "truckstop/ts_island.webp",
+   "w": 292,
+   "h_px": 218,
+   "foot": [
+    146.3,
+    200
+   ]
+  },
+  "ts_hotcase": {
+   "kind": "COVER",
+   "h": 2.06,
+   "name": "THE HOT FOOD CASE",
+   "stage": "finished",
+   "src": "truckstop/ts_hotcase.webp",
+   "w": 197,
+   "h_px": 156,
+   "foot": [
+    90.2,
+    138
+   ]
+  },
+  "ts_booths": {
+   "kind": "LOW_COVER",
+   "h": 1.1,
+   "name": "DELI BOOTHS",
+   "stage": "finished",
+   "src": "truckstop/ts_booths.webp",
+   "w": 232,
+   "h_px": 153,
+   "foot": [
+    116.2,
+    135
+   ]
+  },
+  "ts_water": {
+   "kind": "COVER",
+   "h": 1.5,
+   "name": "STACKED WATER",
+   "stage": "finished",
+   "src": "truckstop/ts_water.webp",
+   "w": 240,
+   "h_px": 140,
+   "foot": [
+    120.2,
+    116
+   ]
+  },
+  "ts_endcap": {
+   "kind": "LOW_COVER",
+   "h": 1.5,
+   "name": "AN END CAP",
+   "stage": "finished",
+   "src": "truckstop/ts_endcap.webp",
+   "w": 516,
+   "h_px": 289,
+   "foot": [
+    258.4,
+    210
+   ]
+  },
+  "ts_stock": {
+   "kind": "COVER",
+   "h": 1.3,
+   "name": "PULLED-DOWN CASES",
+   "stage": "finished",
+   "src": "truckstop/ts_stock.webp",
+   "w": 240,
+   "h_px": 165,
+   "foot": [
+    120.3,
+    147
+   ]
+  },
+  "ts_jerky": {
+   "kind": "LOW_COVER",
+   "h": 1.8,
+   "name": "A JERKY STAND",
+   "stage": "finished",
+   "src": "truckstop/ts_jerky.webp",
+   "w": 271,
+   "h_px": 177,
+   "foot": [
+    125.4,
+    141
+   ]
+  },
+  "ts_pallets": {
+   "kind": "LOW_COVER",
+   "h": 1.2,
+   "name": "EMPTY PALLETS",
+   "stage": "finished",
+   "src": "truckstop/ts_pallets.webp",
+   "w": 249,
+   "h_px": 221,
+   "foot": [
+    146.6,
+    173
+   ]
+  },
+  "ts_trailer": {
+   "kind": "COVER",
+   "h": 4.1,
+   "name": "A TRAILER",
+   "stage": "finished",
+   "src": "truckstop/ts_trailer.webp",
+   "w": 515,
+   "h_px": 282,
+   "foot": [
+    258.3,
+    276
+   ]
+  },
+  "ts_lift": {
+   "kind": "COVER",
+   "h": 3.7,
+   "name": "A LIFT, RAISED",
+   "stage": "finished",
+   "src": "truckstop/ts_lift.webp",
+   "w": 352,
+   "h_px": 299,
+   "foot": [
+    146.8,
+    281
+   ]
+  },
+  "ts_cab": {
+   "kind": "COVER",
+   "h": 3.9,
+   "name": "A TRACTOR'S CAB",
+   "stage": "finished",
+   "src": "truckstop/ts_cab.webp",
+   "w": 154,
+   "h_px": 397,
+   "foot": [
+    77.2,
+    394
+   ]
+  },
+  "ts_tires": {
+   "kind": "COVER",
+   "h": 1.8,
+   "name": "STACKED TIRES",
+   "stage": "finished",
+   "src": "truckstop/ts_tires.webp",
+   "w": 244,
+   "h_px": 179,
+   "foot": [
+    107.3,
+    174
+   ]
+  },
+  "ts_toolchest": {
+   "kind": "LOW_COVER",
+   "h": 1.6,
+   "name": "A TOOL CHEST",
+   "stage": "finished",
+   "src": "truckstop/ts_toolchest.webp",
+   "w": 215,
+   "h_px": 172,
+   "foot": [
+    99.3,
+    142
+   ]
+  },
+  "ts_drums": {
+   "kind": "LOW_COVER",
+   "h": 1.6,
+   "name": "OIL DRUMS",
+   "stage": "finished",
+   "src": "truckstop/ts_drums.webp",
+   "w": 287,
+   "h_px": 173,
+   "foot": [
+    150.4,
+    150
+   ]
+  },
+  "ts_compressor": {
+   "kind": "LOW_COVER",
+   "h": 1.7,
+   "name": "THE COMPRESSOR",
+   "stage": "finished",
+   "src": "truckstop/ts_compressor.webp",
+   "w": 287,
+   "h_px": 146,
+   "foot": [
+    150.4,
+    135
+   ]
+  }
+ },
+ "how_it_lays": {
+  "the travel store": "ts_cooler, ts_shelving and ts_endcap are a tile long so a run of C or of G is one run; ts_shelving is three double runs of gondolas; ts_endcap puts an end cap on each of the gondolas' three lines on both its edges, lined up with ts_shelving's at your 'at' [0.5, 0.72] and [0.5, 0.95]; ts_counter is 11 m with its ends finished, so KK leaves a way through between two.",
+  "the service bay": "ts_trailer is a 40-foot van with both its ends, so TT is two trailers nose to tail; ts_cab stands nose to the camera, uncoupled, its hood tilted forward (one picture serves the cab west of its trailers and the cab east of them); ts_lift a four-post lift east to west.",
+  "the walls": "ts_wall_ew / _ns: painted block to 3 m, a tile long."
+ },
+ "bytes": {
+  "floor": 126282,
+  "ceiling": 32420
+ },
+ "ceiling": {
+  "sheet": "truckstop/truckstop_ceiling.webp",
+  "bays": [
+   5,
+   5
+  ],
+  "bay_px": [
+   129,
+   91
+  ],
+  "covers": [
+   10,
+   10
+  ],
+  "what": "the steel roof from under it: the metal deck, the girders, open-web joists every 2 m, a sprinkler main, a dead high-bay lamp and a skylight in every bay, rust and holes through to the sky",
+  "contract": "truckstop.json 'ceiling' (COMBAT FOUR's: the fight draws it over the board at that alpha, rule 451(a)); five bays by five that repeat"
+ }
+}

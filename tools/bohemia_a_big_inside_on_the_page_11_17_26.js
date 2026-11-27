@@ -3,7 +3,7 @@
 // phone (390 x 844 and 844 x 390 at 2), asks for the inside by name (opts.inside, a named layout), and shoots what he meets: the
 // opening view with the ceiling off (UI.noCeiling, the page test's own switch) and as the data file says, then close on named
 // spots, as the page is (ask row 646 is fixed: nothing is mended in memory any more).
-//   node tools/bohemia_a_big_inside_on_the_page_11_17_26.js <outdir> <hall|mall|warehouse|datafort|terminal|stadium|powerhouse|sphere|homecenter|hospital|prison|school|courthouse|swapmeet> [upright,sideways] [layout]
+//   node tools/bohemia_a_big_inside_on_the_page_11_17_26.js <outdir> <hall|mall|warehouse|datafort|terminal|stadium|powerhouse|sphere|homecenter|hospital|prison|school|courthouse|swapmeet|truckstop|police|bank> [upright,sideways] [layout]
 // writes <inside>_<shape>_open_a0.png, _open_a01.png, _<spot>_close.png and page_<shape>.json (the
 // board's own count of stand-ins, the pieces with no picture, whether the ceiling's picture drew, a fight tile's size in points).
 const http = require('http'), fs = require('fs'), path = require('path');
@@ -36,8 +36,15 @@ const SPOTS = { the_split_hall: { cots: [2.5, 4], mezz: [3, 1.6], stair_w: [16.5
   the_courtroom: { pews: [5, 6.6], bench: [10.5, 2.2], jury: [4, 2.0], witness: [16, 2.0], aisle: [9.5, 9.0] },
   the_museum_floor: { cases: [4, 2.6], walls: [8, 5.6], kiosk: [7, 7.6], brick: [9, 1.4] },
   the_covered_rows: { stalls: [8, 2.6], sets: [4, 3.6], vans: [2, 1.6], booth: [9, 5.6] },
-  the_food_court: { stands: [5, 5.6], picnic: [4, 2.6] } };
-const INSIDES = { hall: { district: 'convention', layout: 'the_split_hall' }, mall: { district: 'mall', layout: 'the_atrium' }, warehouse: { district: 'warehouse', layout: 'the_lanes' }, datafort: { district: 'datafort', layout: 'the_white_space' }, terminal: { district: 'terminal', layout: 'the_checkpoint' }, stadium: { district: 'stadium', layout: 'the_last_show' }, powerhouse: { district: 'dam', layout: 'the_generator_floor' }, sphere: { district: 'sphere', layout: 'the_horseshoe' }, homecenter: { district: 'hardware', layout: 'the_store_and_the_garden' }, hospital: { district: 'medical', layout: 'the_emergency_room' }, prison: { district: 'prison', layout: 'the_dayroom' }, school: { district: 'school', layout: 'the_gym' }, courthouse: { district: 'mobmuseum', layout: 'the_courtroom' }, swapmeet: { district: 'swapmeet', layout: 'the_covered_rows' } };
+  the_food_court: { stands: [5, 5.6], picnic: [4, 2.6] },
+  // (COOK SEVEN 11/27) the truck stop: its bay shares a layout name with the powerhouse's, so an inside's own spots are keyed 'inside:layout'
+  'truckstop:the_travel_store': { coolers: [3, 1.4], shelving: [5, 3.4], hotcase: [6, 6.4], island: [9.5, 6.8], booths: [4, 7.4], counter: [5, 12.4] },
+  'truckstop:the_service_bay': { cab: [4, 3.4], trailer: [6, 3.4], lift: [9.5, 4.6], tires: [1.5, 1.4], compressor: [9.5, 7.4] },
+  'police:the_squad_room': { cells: [5, 1.6], desks: [5, 5.4], counter: [9.5, 5.6], glass: [9.5, 8.6], lockers: [14, 12.4], evidence: [2, 12.4] },
+  'police:the_sally_port': { car: [6, 3.6], cages: [2, 1.4], barrier: [9.5, 2.4] },
+  'bank:the_banking_hall': { glass: [4, 3.6], desks: [2, 6.4], stations: [5, 1.6], column: [4, 7.4], island: [10, 7.6] },
+  'bank:the_vault_floor': { vaultdoor: [5, 5.6], boxes: [8, 5.4], cage: [2, 1.4], tables: [7, 1.6] } };
+const INSIDES = { hall: { district: 'convention', layout: 'the_split_hall' }, mall: { district: 'mall', layout: 'the_atrium' }, warehouse: { district: 'warehouse', layout: 'the_lanes' }, datafort: { district: 'datafort', layout: 'the_white_space' }, terminal: { district: 'terminal', layout: 'the_checkpoint' }, stadium: { district: 'stadium', layout: 'the_last_show' }, powerhouse: { district: 'dam', layout: 'the_generator_floor' }, sphere: { district: 'sphere', layout: 'the_horseshoe' }, homecenter: { district: 'hardware', layout: 'the_store_and_the_garden' }, hospital: { district: 'medical', layout: 'the_emergency_room' }, prison: { district: 'prison', layout: 'the_dayroom' }, school: { district: 'school', layout: 'the_gym' }, courthouse: { district: 'mobmuseum', layout: 'the_courtroom' }, swapmeet: { district: 'swapmeet', layout: 'the_covered_rows' }, truckstop: { district: 'truckstop', layout: 'the_travel_store' }, police: { district: 'policestation', layout: 'the_squad_room' }, bank: { district: 'bank', layout: 'the_banking_hall' } };
 (async () => {
   const out = process.argv[2], inside = process.argv[3] || 'hall', shapes = (process.argv[4] || 'upright,sideways').split(','), layout = process.argv[5] || INSIDES[inside].layout;
   fs.mkdirSync(out, { recursive: true });
@@ -66,7 +73,7 @@ const INSIDES = { hall: { district: 'convention', layout: 'the_split_hall' }, ma
     // named its shots 'held'. It counts the old calls still: 0 on a mended page, and nothing is turned.)
     const aim = async (at) => { await p.evaluate(([tx, ty]) => { const U = eval('UI'); eval('camMine')(); U.zoom = U.near; U.cx = (tx + 0.5) * U.tw; U.cy = (ty + 0.5) * U.th; eval('clampCam')(); }, at); };
     info.old_calls = await p.evaluate(() => (String(window.groundOn).match(/cxDraw\(/g) || []).length);
-    for (const [name, at] of Object.entries(SPOTS[layout] || {})) { await aim(at); await shot(name + '_close'); }
+    for (const [name, at] of Object.entries(SPOTS[inside + ':' + layout] || SPOTS[layout] || {})) { await aim(at); await shot(name + '_close'); }
     info.lost = lost.slice(); info.errors = errs.slice(0, 4);
     fs.writeFileSync(path.join(out, 'page_' + shape[0] + '.json'), JSON.stringify(info, null, 1));
     await ctx.close();

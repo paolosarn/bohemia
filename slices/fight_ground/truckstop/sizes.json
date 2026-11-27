@@ -1,0 +1,222 @@
+{
+ "cooler": {
+  "w": 516,
+  "h": 397,
+  "foot": [
+   258.4,
+   374
+  ],
+  "piece": "cooler",
+  "src": "truckstop/ts_cooler.webp",
+  "facing": "S"
+ },
+ "shelving": {
+  "w": 516,
+  "h": 351,
+  "foot": [
+   258.2,
+   348
+  ],
+  "piece": "shelving",
+  "src": "truckstop/ts_shelving.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 516,
+  "h": 158,
+  "foot": [
+   258.1,
+   149
+  ],
+  "piece": "wall_ew",
+  "src": "truckstop/ts_wall_ew.webp",
+  "facing": "S"
+ },
+ "counter": {
+  "w": 507,
+  "h": 207,
+  "foot": [
+   254.0,
+   186
+  ],
+  "piece": "counter",
+  "src": "truckstop/ts_counter.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 52,
+  "h": 505,
+  "foot": [
+   26.7,
+   504
+  ],
+  "piece": "wall_ns",
+  "src": "truckstop/ts_wall_ns.webp",
+  "facing": "S"
+ },
+ "island": {
+  "w": 292,
+  "h": 218,
+  "foot": [
+   146.3,
+   200
+  ],
+  "piece": "island",
+  "src": "truckstop/ts_island.webp",
+  "facing": "S"
+ },
+ "hotcase": {
+  "w": 197,
+  "h": 156,
+  "foot": [
+   90.2,
+   138
+  ],
+  "piece": "hotcase",
+  "src": "truckstop/ts_hotcase.webp",
+  "facing": "S"
+ },
+ "booths": {
+  "w": 232,
+  "h": 153,
+  "foot": [
+   116.2,
+   135
+  ],
+  "piece": "booths",
+  "src": "truckstop/ts_booths.webp",
+  "facing": "S"
+ },
+ "water": {
+  "w": 240,
+  "h": 140,
+  "foot": [
+   120.2,
+   116
+  ],
+  "piece": "water",
+  "src": "truckstop/ts_water.webp",
+  "facing": "S"
+ },
+ "endcap": {
+  "w": 516,
+  "h": 289,
+  "foot": [
+   258.4,
+   210
+  ],
+  "piece": "endcap",
+  "src": "truckstop/ts_endcap.webp",
+  "facing": "S"
+ },
+ "stock": {
+  "w": 240,
+  "h": 165,
+  "foot": [
+   120.3,
+   147
+  ],
+  "piece": "stock",
+  "src": "truckstop/ts_stock.webp",
+  "facing": "S"
+ },
+ "jerky": {
+  "w": 271,
+  "h": 177,
+  "foot": [
+   125.4,
+   141
+  ],
+  "piece": "jerky",
+  "src": "truckstop/ts_jerky.webp",
+  "facing": "S"
+ },
+ "pallets": {
+  "w": 249,
+  "h": 221,
+  "foot": [
+   146.6,
+   173
+  ],
+  "piece": "pallets",
+  "src": "truckstop/ts_pallets.webp",
+  "facing": "S"
+ },
+ "trailer": {
+  "w": 515,
+  "h": 282,
+  "foot": [
+   258.3,
+   276
+  ],
+  "piece": "trailer",
+  "src": "truckstop/ts_trailer.webp",
+  "facing": "S"
+ },
+ "lift": {
+  "w": 352,
+  "h": 299,
+  "foot": [
+   146.8,
+   281
+  ],
+  "piece": "lift",
+  "src": "truckstop/ts_lift.webp",
+  "facing": "S"
+ },
+ "cab": {
+  "w": 154,
+  "h": 397,
+  "foot": [
+   77.2,
+   394
+  ],
+  "piece": "cab",
+  "src": "truckstop/ts_cab.webp",
+  "facing": "S"
+ },
+ "tires": {
+  "w": 244,
+  "h": 179,
+  "foot": [
+   107.3,
+   174
+  ],
+  "piece": "tires",
+  "src": "truckstop/ts_tires.webp",
+  "facing": "S"
+ },
+ "toolchest": {
+  "w": 215,
+  "h": 172,
+  "foot": [
+   99.3,
+   142
+  ],
+  "piece": "toolchest",
+  "src": "truckstop/ts_toolchest.webp",
+  "facing": "S"
+ },
+ "drums": {
+  "w": 287,
+  "h": 173,
+  "foot": [
+   150.4,
+   150
+  ],
+  "piece": "drums",
+  "src": "truckstop/ts_drums.webp",
+  "facing": "S"
+ },
+ "compressor": {
+  "w": 287,
+  "h": 146,
+  "foot": [
+   150.4,
+   135
+  ],
+  "piece": "compressor",
+  "src": "truckstop/ts_compressor.webp",
+  "facing": "S"
+ }
+}

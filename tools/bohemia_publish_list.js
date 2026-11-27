@@ -87,6 +87,9 @@ const DEAD_KINDS = [
     why: "PORTRAIT's render passes for each crew look (the raw, object, id, rig-object, rig-id and shadow passes a turn, the calibration cube and sphere; 4.1 MB, PLUMBER 8 11/18): the folder's one loader (engine/bohemia_rig_bodies.js) builds <look>/rig_<turn>.png only" },
   { dir: 'records/target/portrait/rig/crew', kind: /\/(raw|rig)_portrait_[^/]*\.png$/, tell: /raw_portrait|portrait\/rig\/crew[^\n]*rig_portrait/,
     why: "PORTRAIT's renders of the crew's faces: the folder's one loader (engine/bohemia_rig_bodies.js) builds <look>/rig_<turn>.png, the turns S SE E NE N NW W SW" },
+  { dir: 'records/target/master_rig', kind: /\/(cook_trailer|cook_camp_trailer|cook_cart|truck)\/((raw|id|rigid|rigobj|shadow)_(S|SE|E|NE|N|NW|W|SW)\.png|calibration_(cube|sphere)\.png|calibration\.json|rig\.json|camp_trailer\.glb|rig_S\.look\.png|rig_S\.loop\.jsonl)$/,
+    tell: /(['"`\/])(raw|id|rigid|rigobj|shadow)_(S|SE|E|NE|N|NW|W|SW)\b|calibration_(cube|sphere)|(raw|id|rigid|rigobj|shadow)_['"`]\s*\+|(^|[^\w.])rig\.json|camp_trailer\.glb|rig_S\.look|loop\.jsonl/,
+    why: "COOK's camp renders' passes (COOK SEVEN 11/27, rule 482(c), measured: 112 files, 6.18 MB): the camp's loaders (slices/bohemia_camp_look.js, slices/bohemia_camp_map.js, the fight's CAMP_RIG) build only cook_cart/ and truck/ rig_<turn>.png; the trailers are not drawn (camp_look: 'drawn when COOK cuts a camp trailer'), and the raw, id, rig-id, rig-object and shadow passes, the calibration cube and sphere, rig.json, the .glb and the loop's look are the rig's working files" },
 ];
 /* and rule 3 does not take a folder whole that the code names only in prose (a path in a comment broken at the line's end) */
 const NOT_WHOLE = new Map([
