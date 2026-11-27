@@ -63,6 +63,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(R, 'tools'))
+import bohemia_cook7_inside_kit as KIT                            # this lane's: the cut, the sheet, the ceiling's hand-off, once (rule 495(b))
 import bohemia_cook6_the_swap_meet_finished_11_26_26 as SM            # COOK SIX's: the swap meet (and the chain under it)
 
 SC = SM.SC; TG = SM.TG; FW = SM.FW; HS = SM.HS; SD = SM.SD
@@ -690,91 +691,27 @@ WALLS = ('wall_ew', 'cooler', 'shelving', 'endcap')   # a tile long: runs meet
 SHADOW = dict(wall_ns=0.5, endcap=1.0)
 
 
-def cut():
-    os.makedirs(SHIP, exist_ok=True); bytes_ = {}
-    im = Image.open(os.path.join(REND, 'ts_floor.png')).convert('RGB'); fn = os.path.join(SHIP, 'truckstop_floor_0.webp'); im.save(fn, 'WEBP', quality=TG.QS, method=6); bytes_['floor'] = os.path.getsize(fn)
-    sz = {}
-    for scene, AT in (('ts_pieces', TS_AT), ('ts_bay', BAY_AT)):
-        im = Image.open(os.path.join(REND, scene + '.png')).convert('RGBA')
-        for key, (x, y) in AT.items():
-            b = BOX[key]; sz[key] = TG.cut_piece(im, (x, y), (x + b[0], x + b[1], y + b[2], y + b[3]), 'ts_' + key, 'truckstop', SHADOW.get(key, 1.0))
-    for key, v in sz.items():
-        if v['foot'][1] > v['h']:
-            fn = os.path.join(SHIP, 'ts_%s.webp' % key); q = Image.open(fn).convert('RGBA'); o = Image.new('RGBA', (q.width, int(v['foot'][1]) + 1), (0, 0, 0, 0)); o.alpha_composite(q, (0, 0))
-            o.save(fn, 'WEBP', quality=86, method=6); v['h'] = o.height
-    for k, v in sz.items(): v.update(piece=k, src='truckstop/ts_%s.webp' % k, facing='S')
-    json.dump(sz, open(os.path.join(SHIP, 'sizes.json'), 'w'), indent=1)
-    cells = lambda rows: ['truckstop/truckstop_floor_0.webp#%d,%d' % (c, r) for r in rows for c in range(5)]
-    ent = lambda k: dict(kind=KIND[k], h=HM[k], name=NAME[k], stage='finished', src=sz[k]['src'], w=sz[k]['w'], h_px=sz[k]['h'], foot=sz[k]['foot'])
-    kit = {'ts_' + k: ent(k) for k in sz}
-    art = {'version': 'cook7-truckstop-art-11-27', 'lane': "cook 7 (COOK FIVE's list, after COOK SIX)", 'stage': 'finished',
-           'for': "COMBAT FOUR's truck stop (slices/fight_ground/truckstop/truckstop.json, BUILD 11/21ze): the names its handoff asked for, the garage's format. floor.floor is the store's gritty tile (60 cm porcelain, its grout dark, each square its own shade, dirt tracked in, soda dried, a tile cracked, one gone to its mortar; a tile's edge is a grout line); floor.ring the same. floor.bay is the service bay's oil-stained concrete (saw cuts every 4 m, the oil where rigs stood, the wheel paths east to west, a drain): it is laid the day the_service_bay names a floor area of kind 'bay' (one rectangle, the whole layout); until then the bay wears the store's tile.",
-           'floor': {'floor': cells(STORE), 'ring': cells(STORE), 'bay': cells(BAY)}, 'kit': kit,
-           'how_it_lays': {'the travel store': "ts_cooler, ts_shelving and ts_endcap are a tile long so a run of C or of G is one run; ts_shelving is three double runs of gondolas; ts_endcap puts an end cap on each of the gondolas' three lines on both its edges, lined up with ts_shelving's at your 'at' [0.5, 0.72] and [0.5, 0.95]; ts_counter is 11 m with its ends finished, so KK leaves a way through between two.",
+
+# the cut and the sheet are the inside kit's (tools/bohemia_cook7_inside_kit.py, rule 495(b): one thing, one place); this tool says what is its own
+K = KIT.make(TG, kit='truckstop', prefix='ts_', floor_render='ts_floor', floor_lists=[('floor', STORE), ('ring', STORE), ('bay', BAY)], scenes=[('ts_pieces', TS_AT), ('ts_bay', BAY_AT)], box=BOX, kind=KIND, hm=HM, name=NAME, shadow=SHADOW,
+             art_for="COMBAT FOUR's truck stop (slices/fight_ground/truckstop/truckstop.json, BUILD 11/21ze): the names its handoff asked for, the garage's format. floor.floor is the store's gritty tile (60 cm porcelain, its grout dark, each square its own shade, dirt tracked in, soda dried, a tile cracked, one gone to its mortar; a tile's edge is a grout line); floor.ring the same. floor.bay is the service bay's oil-stained concrete (saw cuts every 4 m, the oil where rigs stood, the wheel paths east to west, a drain): it is laid the day the_service_bay names a floor area of kind 'bay' (one rectangle, the whole layout); until then the bay wears the store's tile.",
+             how_it_lays={'the travel store': "ts_cooler, ts_shelving and ts_endcap are a tile long so a run of C or of G is one run; ts_shelving is three double runs of gondolas; ts_endcap puts an end cap on each of the gondolas' three lines on both its edges, lined up with ts_shelving's at your 'at' [0.5, 0.72] and [0.5, 0.95]; ts_counter is 11 m with its ends finished, so KK leaves a way through between two.",
                            'the service bay': "ts_trailer is a 40-foot van with both its ends, so TT is two trailers nose to tail; ts_cab stands nose to the camera, uncoupled, its hood tilted forward (one picture serves the cab west of its trailers and the cab east of them); ts_lift a four-post lift east to west.",
                            'the walls': "ts_wall_ew / _ns: painted block to 3 m, a tile long."},
-           'bytes': bytes_}
-    TG.keep_ceiling(art, os.path.join(SHIP, 'truckstop_art.json'))
-    cp = os.path.join(REND, 'ceil_truckstop.png')
-    if os.path.exists(cp):
-        im = Image.open(cp).convert('RGBA'); bg = Image.new('RGBA', im.size, tuple(int(v) for v in np.asarray(im)[..., :3].reshape(-1, 3).mean(0)) + (255,)); bg.alpha_composite(im)
-        fn = os.path.join(SHIP, 'truckstop_ceiling.webp'); bg.convert('RGB').resize(TG.CEIL_PX, Image.LANCZOS).save(fn, 'WEBP', quality=70, method=6); bytes_['ceiling'] = os.path.getsize(fn)
-        p = os.path.join(FG, 'truckstop/truckstop.json'); s = open(p).read(); i = s.index('"ceiling"'); j = s.index('}', i); e = s[i:j]
-        assert '"src": "truckstop/truckstop_ceiling.webp"' in e
-        now = json.loads(s)['ceiling']
-        if not (now.get('have') is True and now.get('tile') == [TG.CEIL_COVERS, TG.CEIL_COVERS]):   # (the one agreed edit in COMBAT FOUR's file)
-            e = re.sub(r'"have":\s*(false|true)', '"have": true', e); e = re.sub(r'"tile":\s*\[[^\]]*\]', '"tile": [%d, %d]' % (TG.CEIL_COVERS, TG.CEIL_COVERS), e)
-            open(p, 'w').write(s[:i] + e + s[j:])
-        art['ceiling'] = dict(sheet='truckstop/truckstop_ceiling.webp', bays=[5, 5], bay_px=[TG.CEIL_PX[0] // 5, TG.CEIL_PX[1] // 5], covers=[TG.CEIL_COVERS, TG.CEIL_COVERS], what=TG.CEILINGS['truckstop'][2],
-                              contract="truckstop.json 'ceiling' (COMBAT FOUR's: the fight draws it over the board at that alpha, rule 451(a)); five bays by five that repeat")
-    json.dump(art, open(os.path.join(SHIP, 'truckstop_art.json'), 'w'), indent=1)
-    print('truckstop: bytes', bytes_, 'pieces', {k: (v['w'], v['h'], v['foot']) for k, v in sz.items()})
-    tot = sum(os.path.getsize(os.path.join(SHIP, f)) for f in os.listdir(SHIP) if f.endswith('.webp')); print('the folder\'s pictures', tot, 'bytes')
+             sheet_name='THE_TRUCK_STOP', card_id='cook7-the-truck-stop-11-27', heading='THE TRUCK STOP, BEFORE AND NOW',
+             sub='on his phone, 390 x 844, as the fight opens in the travel store: before (every piece a stand-in), now, and now with the roof at his 10%',
+             off_label='NOW, THE ROOF OFF', meets_label='NOW, AS HE MEETS IT: THE ROOF AT 10%', close_title='CLOSE IN, AND THE SERVICE BAY',
+             close_sub='the coolers and the shelving, the coffee island and the hot case; the bay: rigs, lifts, tires',
+             closes=[('THE COOLERS, THE SHELVING', 'shelving'), ('THE ISLAND, THE HOT CASE', 'island')], other=('THE SERVICE BAY', 'bay'), pieces_title='THE PIECES AT THEIR OWN PIXELS',
+             pieces_sub='the store: coolers, shelving, end caps, counter, island, hot case, booths, water, cases, jerky, pallets; the bay: trailer, lift, cab, tires, tools, drums, compressor',
+             rows=[(('cooler', 'shelving'), 230), (('counter', 'endcap'), 170), (('island', 'hotcase', 'booths', 'water'), 150), (('stock', 'jerky', 'pallets'), 130), (('trailer', 'lift', 'cab'), 220), (('tires', 'toolchest', 'drums', 'compressor'), 130), (('wall_ew',), 110)],
+             floor_title="THE TILE, THE BAY'S CONCRETE, AND THE ROOF AT FULL STRENGTH", floor_sub='60 cm porcelain, dirt tracked in, soda dried; the oil where rigs stood, the saw cuts; the joists, the deck, a skylight in every bay')
 
 
-def sheet(before_dir, page_dir):
-    """records/target/COOK7_THE_TRUCK_STOP_11_27.webp: before and now on his phone, the bay, close in, the pieces, the floor, the roof"""
-    font = lambda z: ImageFont.truetype(os.path.join(R, 'slices/fonts/BohemiaROM-Regular.ttf'), z)
-    WID = 1170; INK, DIM, BG = (232, 222, 196), (150, 140, 118), (16, 14, 12); rows = []
-    def title(t, sub):
-        im = Image.new('RGB', (WID, 64), BG); d = ImageDraw.Draw(im); d.text((10, 6), t, font=font(24), fill=INK); d.text((10, 38), sub, font=font(14), fill=DIM); rows.append(im)
-    def strip(items, cw, ch):
-        r = Image.new('RGB', (WID, ch + 26), BG); d = ImageDraw.Draw(r); x = 0
-        for lab, n in items: n = n.convert('RGB').resize((cw, ch), Image.LANCZOS); d.text((x + 4, 4), lab, font=font(14), fill=INK); r.paste(n, (x, 26)); x += cw + 10
-        rows.append(r)
-    up = lambda fn: (lambda n: n.crop((0, int(n.width * 150 / 390), n.width, int(n.width * 720 / 390))))(Image.open(fn))
-    title('THE TRUCK STOP, BEFORE AND NOW', 'on his phone, 390 x 844, as the fight opens in the travel store: before (every piece a stand-in), now, and now with the roof at his 10%')
-    cw = (WID - 20) // 3; ch = int(570 * cw / 390)
-    strip((('BEFORE: ALL ITS PIECES STAND-INS', up(os.path.join(before_dir, 'truckstop_upright_open_a0.png'))), ('NOW, THE ROOF OFF', up(os.path.join(page_dir, 'truckstop_upright_open_a0.png'))),
-           ('NOW, AS HE MEETS IT: THE ROOF AT 10%', up(os.path.join(page_dir, 'truckstop_upright_open_a01.png')))), cw, ch)
-    first_row = len(rows) - 1
-    title('CLOSE IN, AND THE SERVICE BAY', 'the coolers and the shelving, the coffee island and the hot case; the bay: rigs, lifts, tires')
-    bay = os.path.join(page_dir, 'bay', 'truckstop_upright_open_a0.png')
-    strip((('THE COOLERS, THE SHELVING', up(os.path.join(page_dir, 'truckstop_upright_shelving_close.png'))), ('THE ISLAND, THE HOT CASE', up(os.path.join(page_dir, 'truckstop_upright_island_close.png'))),
-           ('THE SERVICE BAY', up(bay) if os.path.exists(bay) else Image.new('RGB', (390, 570), BG))), cw, ch)
-    title('THE PIECES AT THEIR OWN PIXELS', 'the store: coolers, shelving, end caps, counter, island, hot case, booths, water, cases, jerky, pallets; the bay: trailer, lift, cab, tires, tools, drums, compressor')
-    def piece(k, bg=(150, 146, 132)):
-        im = Image.open(os.path.join(SHIP, 'ts_%s.webp' % k)).convert('RGBA'); o = Image.new('RGBA', im.size, bg + (255,)); o.alpha_composite(im); return o.convert('RGB')
-    def row_of(keys, hgt):
-        ims = [piece(k) for k in keys]; ims = [i.resize((max(1, int(i.width * hgt / i.height)), hgt), Image.LANCZOS) for i in ims]
-        tot = sum(i.width for i in ims) + 8 * (len(ims) - 1); k = min(1.0, WID / tot)
-        r = Image.new('RGB', (WID, int(hgt * k)), BG); x = 0
-        for i in ims: i = i.resize((max(1, int(i.width * k)), int(hgt * k)), Image.LANCZOS); r.paste(i, (x, 0)); x += i.width + 8
-        rows.append(r)
-    row_of(('cooler', 'shelving'), 230); row_of(('counter', 'endcap'), 170); row_of(('island', 'hotcase', 'booths', 'water'), 150); row_of(('stock', 'jerky', 'pallets'), 130)
-    row_of(('trailer', 'lift', 'cab'), 220); row_of(('tires', 'toolchest', 'drums', 'compressor'), 130); row_of(('wall_ew',), 110)
-    title('THE TILE, THE BAY\'S CONCRETE, AND THE ROOF AT FULL STRENGTH', '60 cm porcelain, dirt tracked in, soda dried; the oil where rigs stood, the saw cuts; the joists, the deck, a skylight in every bay')
-    fl = Image.open(os.path.join(SHIP, 'truckstop_floor_0.webp')).convert('RGB'); ce = Image.open(os.path.join(SHIP, 'truckstop_ceiling.webp')).convert('RGB')
-    t1 = fl.crop((TW, 0, TW * 2, TH)); t2 = fl.crop((TW * 2, TH * 3, TW * 3, TH * 4)); cw3 = (WID - 20) // 4; hh3 = int(TH * cw3 / TW)
-    cwc = WID - 2 * (cw3 + 10); hc = int(ce.height * cwc / ce.width); r = Image.new('RGB', (WID, max(hh3, hc)), BG)
-    r.paste(t1.resize((cw3, hh3), Image.LANCZOS), (0, 0)); r.paste(t2.resize((cw3, hh3), Image.LANCZOS), (cw3 + 10, 0)); r.paste(ce.resize((cwc, hc), Image.LANCZOS), (2 * (cw3 + 10), 0)); rows.append(r)
-    out = Image.new('RGB', (WID, sum(r.height for r in rows) + 6 * len(rows)), BG); y = 0; first_at = None
-    for i, r in enumerate(rows):
-        if i == first_row: first_at = [cw + 10 + cw + 10, y + 26, cw, ch]
-        out.paste(r, (0, y)); y += r.height + 6
-    fn = os.path.join(R, 'records/target/COOK7_THE_TRUCK_STOP_11_27.webp'); out.save(fn, 'WEBP', quality=74, method=6)
-    x, y0, w, h = first_at; fst = out.crop((x, y0, x + w, y0 + h)); f2 = os.path.join(R, 'records/target/vote_first/cook7-the-truck-stop-11-27.webp'); fst.save(f2, 'WEBP', quality=78, method=6)
-    print('sheet', out.size, os.path.getsize(fn), 'first', fst.size, os.path.getsize(f2), 'firstAt', first_at)
+def cut(): KIT.cut(K)
+
+
+def sheet(before_dir, page_dir): KIT.sheet(K, before_dir, page_dir)
 
 
 if __name__ == '__main__':

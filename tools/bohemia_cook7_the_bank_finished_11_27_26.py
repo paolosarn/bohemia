@@ -56,6 +56,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(R, 'tools'))
+import bohemia_cook7_inside_kit as KIT                            # this lane's: the cut, the sheet, the ceiling's hand-off, once (rule 495(b))
 import bohemia_cook7_the_police_station_finished_11_27_26 as PD       # this lane's: the police station (the truck stop's and the chain under it)
 
 TS = PD.TS; SM = TS.SM; TG = TS.TG; FW = TS.FW; HS = TS.HS
@@ -448,91 +449,27 @@ WALLS = ('wall_ew', 'glass', 'boxes', 'cage')
 SHADOW = dict(wall_ns=0.5)
 
 
-def cut():
-    os.makedirs(SHIP, exist_ok=True); bytes_ = {}
-    im = Image.open(os.path.join(REND, 'bk_floor.png')).convert('RGB'); fn = os.path.join(SHIP, 'bank_floor_0.webp'); im.save(fn, 'WEBP', quality=TG.QS, method=6); bytes_['floor'] = os.path.getsize(fn)
-    sz = {}
-    for scene, AT in (('bk_pieces', BK_AT), ('bk_vault', VAULT_AT)):
-        im = Image.open(os.path.join(REND, scene + '.png')).convert('RGBA')
-        for key, (x, y) in AT.items():
-            b = BOX[key]; sz[key] = TG.cut_piece(im, (x, y), (x + b[0], x + b[1], y + b[2], y + b[3]), 'bk_' + key, 'bank', SHADOW.get(key, 1.0))
-    for key, v in sz.items():
-        if v['foot'][1] > v['h']:
-            fn = os.path.join(SHIP, 'bk_%s.webp' % key); q = Image.open(fn).convert('RGBA'); o = Image.new('RGBA', (q.width, int(v['foot'][1]) + 1), (0, 0, 0, 0)); o.alpha_composite(q, (0, 0))
-            o.save(fn, 'WEBP', quality=86, method=6); v['h'] = o.height
-    for k, v in sz.items(): v.update(piece=k, src='bank/bk_%s.webp' % k, facing='S')
-    json.dump(sz, open(os.path.join(SHIP, 'sizes.json'), 'w'), indent=1)
-    cells_ = lambda rows: ['bank/bank_floor_0.webp#%d,%d' % (c, r) for r in rows for c in range(5)]
-    ent = lambda k: dict(kind=KIND[k], h=HM[k], name=NAME[k], stage='finished', src=sz[k]['src'], w=sz[k]['w'], h_px=sz[k]['h'], foot=sz[k]['foot'])
-    kit = {'bk_' + k: ent(k) for k in sz}
-    art = {'version': 'cook7-bank-art-11-27', 'lane': "cook 7 (COOK FIVE's list, after COOK SIX)", 'stage': 'finished',
-           'for': "COMBAT FOUR's bank (slices/fight_ground/bank/bank.json): the names its handoff asked for, the garage's format. floor.floor is the bank's marble in both rooms (1.2 m slabs of a warm grey stone, each its own shade with soft veins, the polish worn dull in a path, heel scuffs, a slab cracked, mud tracked in; a tile's edge is a joint); floor.ring the same.",
-           'floor': {'floor': cells_(ROWS), 'ring': cells_(ROWS)}, 'kit': kit,
-           'how_it_lays': {'the banking hall': "bk_glass a tile long so the teller line runs (G); bk_counter is the line's return with its gate; bk_column a square pier drawn 5 m up; bk_desks a walnut desk pushed over.",
+
+# the cut and the sheet are the inside kit's (tools/bohemia_cook7_inside_kit.py, rule 495(b): one thing, one place); this tool says what is its own
+K = KIT.make(TG, kit='bank', prefix='bk_', floor_render='bk_floor', floor_lists=[('floor', ROWS), ('ring', ROWS)], scenes=[('bk_pieces', BK_AT), ('bk_vault', VAULT_AT)], box=BOX, kind=KIND, hm=HM, name=NAME, shadow=SHADOW,
+             art_for="COMBAT FOUR's bank (slices/fight_ground/bank/bank.json): the names its handoff asked for, the garage's format. floor.floor is the bank's marble in both rooms (1.2 m slabs of a warm grey stone, each its own shade with soft veins, the polish worn dull in a path, heel scuffs, a slab cracked, mud tracked in; a tile's edge is a joint); floor.ring the same.",
+             how_it_lays={'the banking hall': "bk_glass a tile long so the teller line runs (G); bk_counter is the line's return with its gate; bk_column a square pier drawn 5 m up; bk_desks a walnut desk pushed over.",
                            'the vault floor': "bk_boxes and bk_cage a tile long so a run meets; bk_vaultdoor the round door turned to face the camera, its hinge arm and collar to the east (the vault's wall); bk_tables with the straps of notes left on them.",
                            'the walls': "bk_wall_ew / _ns: a marble wainscot, plaster to 3.4 m, a tile long."},
-           'bytes': bytes_}
-    TG.keep_ceiling(art, os.path.join(SHIP, 'bank_art.json'))
-    cp = os.path.join(REND, 'ceil_bank.png')
-    if os.path.exists(cp):
-        im = Image.open(cp).convert('RGBA'); bg = Image.new('RGBA', im.size, tuple(int(v) for v in np.asarray(im)[..., :3].reshape(-1, 3).mean(0)) + (255,)); bg.alpha_composite(im)
-        fn = os.path.join(SHIP, 'bank_ceiling.webp'); bg.convert('RGB').resize(TG.CEIL_PX, Image.LANCZOS).save(fn, 'WEBP', quality=70, method=6); bytes_['ceiling'] = os.path.getsize(fn)
-        p = os.path.join(FG, 'bank/bank.json'); s = open(p).read(); i = s.index('"ceiling"'); j = s.index('}', i); e = s[i:j]
-        assert '"src": "bank/bank_ceiling.webp"' in e
-        now = json.loads(s)['ceiling']
-        if not (now.get('have') is True and now.get('tile') == [TG.CEIL_COVERS, TG.CEIL_COVERS]):   # (the one agreed edit in COMBAT FOUR's file)
-            e = re.sub(r'"have":\s*(false|true)', '"have": true', e); e = re.sub(r'"tile":\s*\[[^\]]*\]', '"tile": [%d, %d]' % (TG.CEIL_COVERS, TG.CEIL_COVERS), e)
-            open(p, 'w').write(s[:i] + e + s[j:])
-        art['ceiling'] = dict(sheet='bank/bank_ceiling.webp', bays=[5, 5], bay_px=[TG.CEIL_PX[0] // 5, TG.CEIL_PX[1] // 5], covers=[TG.CEIL_COVERS, TG.CEIL_COVERS], what=TG.CEILINGS['bank'][2],
-                              contract="bank.json 'ceiling' (COMBAT FOUR's: the fight draws it over the board at that alpha, rule 451(a)); five bays by five that repeat")
-    json.dump(art, open(os.path.join(SHIP, 'bank_art.json'), 'w'), indent=1)
-    print('bank: bytes', bytes_, 'pieces', {k: (v['w'], v['h'], v['foot']) for k, v in sz.items()})
-    tot = sum(os.path.getsize(os.path.join(SHIP, f)) for f in os.listdir(SHIP) if f.endswith('.webp')); print('the folder\'s pictures', tot, 'bytes')
+             sheet_name='THE_BANK', card_id='cook7-the-bank-11-27', heading='THE BANK, BEFORE AND NOW',
+             sub='on his phone, 390 x 844, as the fight opens in the banking hall: before (every piece a stand-in), now, and now with the ceiling at his 10%',
+             off_label='NOW, THE CEILING OFF', meets_label='NOW, AS HE MEETS IT: THE CEILING AT 10%', close_title='CLOSE IN, AND THE VAULT FLOOR',
+             close_sub="the teller line and the officers' desks; the vault: its door, the deposit boxes, the cash cage, the counting tables",
+             closes=[('THE TELLER LINE', 'glass'), ('THE HALL', 'desks')], other=('THE VAULT FLOOR', 'vault'), pieces_title='THE PIECES AT THEIR OWN PIXELS',
+             pieces_sub='the teller line, its end, the stations, safes, files, a column, a desk, an island, chairs, paper; the vault door, the boxes, the cage, the tables, the dumped boxes',
+             rows=[(('glass', 'boxes'), 170), (('cage', 'vaultdoor', 'column'), 200), (('counter', 'stations', 'desks', 'safes'), 140), (('files', 'island', 'chairs', 'tables'), 130), (('paper', 'dumped'), 110), (('wall_ew',), 110)],
+             floor_title='THE MARBLE, AND THE CEILING AT FULL STRENGTH', floor_sub='1.2 m slabs, veined, worn dull in a path; the coffers, the gilt, a dead chandelier in every bay')
 
 
-def sheet(before_dir, page_dir):
-    """records/target/COOK7_THE_BANK_11_27.webp: before and now on his phone, the vault floor, close in, the pieces, the floor, the ceiling"""
-    font = lambda z: ImageFont.truetype(os.path.join(R, 'slices/fonts/BohemiaROM-Regular.ttf'), z)
-    WID = 1170; INK, DIM, BG = (232, 222, 196), (150, 140, 118), (16, 14, 12); rows = []
-    def title(t, sub):
-        im = Image.new('RGB', (WID, 64), BG); d = ImageDraw.Draw(im); d.text((10, 6), t, font=font(24), fill=INK); d.text((10, 38), sub, font=font(14), fill=DIM); rows.append(im)
-    def strip(items, cw, ch):
-        r = Image.new('RGB', (WID, ch + 26), BG); d = ImageDraw.Draw(r); x = 0
-        for lab, n in items: n = n.convert('RGB').resize((cw, ch), Image.LANCZOS); d.text((x + 4, 4), lab, font=font(14), fill=INK); r.paste(n, (x, 26)); x += cw + 10
-        rows.append(r)
-    up = lambda fn: (lambda n: n.crop((0, int(n.width * 150 / 390), n.width, int(n.width * 720 / 390))))(Image.open(fn))
-    title('THE BANK, BEFORE AND NOW', 'on his phone, 390 x 844, as the fight opens in the banking hall: before (every piece a stand-in), now, and now with the ceiling at his 10%')
-    cw = (WID - 20) // 3; ch = int(570 * cw / 390)
-    strip((('BEFORE: ALL ITS PIECES STAND-INS', up(os.path.join(before_dir, 'bank_upright_open_a0.png'))), ('NOW, THE CEILING OFF', up(os.path.join(page_dir, 'bank_upright_open_a0.png'))),
-           ('NOW, AS HE MEETS IT: THE CEILING AT 10%', up(os.path.join(page_dir, 'bank_upright_open_a01.png')))), cw, ch)
-    first_row = len(rows) - 1
-    title('CLOSE IN, AND THE VAULT FLOOR', 'the teller line and the officers\' desks; the vault: its door, the deposit boxes, the cash cage, the counting tables')
-    vault = os.path.join(page_dir, 'vault', 'bank_upright_open_a0.png')
-    strip((('THE TELLER LINE', up(os.path.join(page_dir, 'bank_upright_glass_close.png'))), ('THE HALL', up(os.path.join(page_dir, 'bank_upright_desks_close.png'))),
-           ('THE VAULT FLOOR', up(vault) if os.path.exists(vault) else Image.new('RGB', (390, 570), BG))), cw, ch)
-    title('THE PIECES AT THEIR OWN PIXELS', 'the teller line, its end, the stations, safes, files, a column, a desk, an island, chairs, paper; the vault door, the boxes, the cage, the tables, the dumped boxes')
-    def piece(k, bg=(150, 146, 132)):
-        im = Image.open(os.path.join(SHIP, 'bk_%s.webp' % k)).convert('RGBA'); o = Image.new('RGBA', im.size, bg + (255,)); o.alpha_composite(im); return o.convert('RGB')
-    def row_of(keys, hgt):
-        ims = [piece(k) for k in keys]; ims = [i.resize((max(1, int(i.width * hgt / i.height)), hgt), Image.LANCZOS) for i in ims]
-        tot = sum(i.width for i in ims) + 8 * (len(ims) - 1); k = min(1.0, WID / tot)
-        r = Image.new('RGB', (WID, int(hgt * k)), BG); x = 0
-        for i in ims: i = i.resize((max(1, int(i.width * k)), int(hgt * k)), Image.LANCZOS); r.paste(i, (x, 0)); x += i.width + 8
-        rows.append(r)
-    row_of(('glass', 'boxes'), 170); row_of(('cage', 'vaultdoor', 'column'), 200); row_of(('counter', 'stations', 'desks', 'safes'), 140)
-    row_of(('files', 'island', 'chairs', 'tables'), 130); row_of(('paper', 'dumped'), 110); row_of(('wall_ew',), 110)
-    title('THE MARBLE, AND THE CEILING AT FULL STRENGTH', '1.2 m slabs, veined, worn dull in a path; the coffers, the gilt, a dead chandelier in every bay')
-    fl = Image.open(os.path.join(SHIP, 'bank_floor_0.webp')).convert('RGB'); ce = Image.open(os.path.join(SHIP, 'bank_ceiling.webp')).convert('RGB')
-    t1 = fl.crop((TW, 0, TW * 2, TH)); t2 = fl.crop((TW * 2, TH * 3, TW * 3, TH * 4)); cw3 = (WID - 20) // 4; hh3 = int(TH * cw3 / TW)
-    cwc = WID - 2 * (cw3 + 10); hc = int(ce.height * cwc / ce.width); r = Image.new('RGB', (WID, max(hh3, hc)), BG)
-    r.paste(t1.resize((cw3, hh3), Image.LANCZOS), (0, 0)); r.paste(t2.resize((cw3, hh3), Image.LANCZOS), (cw3 + 10, 0)); r.paste(ce.resize((cwc, hc), Image.LANCZOS), (2 * (cw3 + 10), 0)); rows.append(r)
-    out = Image.new('RGB', (WID, sum(r.height for r in rows) + 6 * len(rows)), BG); y = 0; first_at = None
-    for i, r in enumerate(rows):
-        if i == first_row: first_at = [cw + 10 + cw + 10, y + 26, cw, ch]
-        out.paste(r, (0, y)); y += r.height + 6
-    fn = os.path.join(R, 'records/target/COOK7_THE_BANK_11_27.webp'); out.save(fn, 'WEBP', quality=74, method=6)
-    x, y0, w, h = first_at; fst = out.crop((x, y0, x + w, y0 + h)); f2 = os.path.join(R, 'records/target/vote_first/cook7-the-bank-11-27.webp'); fst.save(f2, 'WEBP', quality=78, method=6)
-    print('sheet', out.size, os.path.getsize(fn), 'first', fst.size, os.path.getsize(f2), 'firstAt', first_at)
+def cut(): KIT.cut(K)
+
+
+def sheet(before_dir, page_dir): KIT.sheet(K, before_dir, page_dir)
 
 
 if __name__ == '__main__':
