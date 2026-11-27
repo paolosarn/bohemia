@@ -37,3 +37,23 @@ tools/bohemia_ui_five_the_clock_up_top_card.py.
 
 [bb Battle Brothers: the day and the hour sit at the top of the world map, a sun or a moon beside them, and the eye finds them there]
 [analog horror: a security monitor's corner stamp, DAY and the hour, that nobody set and nobody can turn off]
+
+## AND THE VOTE TAB GATE'S DOOR LEGS, RE-AIMED (UI FIVE 11/27, the same round)
+
+Registering this round's card, the VOTE TAB gate read 58 ok, 8 failed, the same with and without the card. Three of the eight were the gate's
+own finger, not the game, each measured by hand on main:
+
+- THE ALPHA LANDS ON VOTE AFTER BEGIN read run/p-city. Its tap at (195, 500) upright is the door's THE FIGHTS card now, so nobody began.
+  Pressed the way he does (BEGIN, then the barber's GO), the alpha lands on vote/p-vote and stays (900 ms, 3 s, 8 s). The gate now taps
+  BEGIN (#fronttap) and waits for GO in the chair; it does not stop at __PLAY_BEGAN, which is true at BEGIN, before the chair is armed
+  (stopping there left the chair over the whole page for the rest of the leg).
+- THE GEAR'S VOTE DOOR waited 90 s for the shell's floating gear, which steps aside for good once the map's bar carries one
+  (html.bm-gear-in-bar, rule 150). His way to it: RUN (once the squad's tape has cleared, about 5.7 s after GO), then the bar's gear, or
+  upright the phone's SETTINGS app. The gate presses whichever is under its own centre pixel, the old gear only as the fallback.
+- THE REACH read 26 x 10: the card grows in from the finger (rule 229(b)), measured 7 x 1, 26 x 10, 100 x 43, then 106 x 44 at 600 ms and
+  still. The gate reads the button once it stops moving.
+
+After: 61 ok, 5 failed. The five left are other lanes' cards (dynasty-flip-at-crisis-10-9, dynasty-animal-era-10-10 and
+plumber-8-fewer-freezes-11-10 and cook6-the-names-painted-11-26 on the why's length, character2-the-robes-come-off-11-26 on its
+differences and its 895 pt first picture, plumber-8-fewer-freezes-11-10 on its stage) and one finger drag on the VOTE page's picture
+(-100, 0 with room -100, -114: it moved sideways, not up), not looked at this round.

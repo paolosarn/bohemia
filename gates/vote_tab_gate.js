@@ -843,7 +843,20 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
        directly: run/p-city -> vote/p-vote, and it stays there). A probe that presses a
        button before the button exists is measuring its own impatience. */
     await p4.waitForFunction(() => window.__LOAD_READY === true, { timeout: 180000 });
-    await p4.mouse.click(195, 500);
+    /* *** UI FIVE 11/27: THE MIDDLE OF THE SCREEN IS A CREW PICK NOW, NOT THE DOOR. *** Measured on main: (195, 500) upright is
+       the door's THE FIGHTS 'combat' card, so this tap picked a card, nobody began, and the leg read run/p-city about a build that
+       lands on vote/p-vote when he presses BEGIN and the barber's GO (measured the same round, 900 ms, 3 s and 8 s after GO). So
+       the finger goes where his does: BEGIN (#fronttap), then GO in the barber's chair once it is armed. */
+    const beginAt = await p4.evaluate(() => { const f = document.getElementById('fronttap'); if (!f) return null; const r = f.getBoundingClientRect(); return r.width > 4 ? [r.x + r.width / 2, r.y + r.height / 2] : null; });
+    if (beginAt) await p4.touchscreen.tap(beginAt[0], beginAt[1]); else await p4.mouse.click(195, 500);
+    for (let i = 0; i < 40; i++) {
+      await p4.waitForTimeout(500);
+      const go = await p4.evaluate(() => { const w = document.getElementById('mainmaker'); if (!w || w.dataset.armed !== '1') return null; const k = w.querySelector('.go'), r = k && k.getBoundingClientRect(); return r && r.width > 4 ? [r.x + r.width / 2, r.y + r.height / 2] : null; });
+      if (go) { await p4.touchscreen.tap(go[0], go[1]); break; }
+      /* the game counts as begun at BEGIN, before the chair is armed (measured: a break on __PLAY_BEGAN left the chair up over
+         VOTE, and over RUN, for the rest of the leg), so only a page with no chair at all after 4 s stops waiting for GO */
+      if (i >= 8 && await p4.evaluate(() => !document.getElementById('mainmaker'))) break;
+    }
     /* *** THE LANDING LEG. PAOLO SAID IT TWICE: "in the alpha why does it open the run
        first thing, I told you to not have that happen." Ruled 9/20 (rule 15g), still
        true on main 9/22, built 9/22.
@@ -872,7 +885,26 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
     const invite = await p4.waitForSelector('#openNot', { state: 'visible', timeout: 2000 })
       .catch(() => null);
     if (invite) await p4.click('#openNot');
-    await p4.waitForSelector('#gearbtn.on', { timeout: 90000 });
+    /* *** UI FIVE 11/27: THE GEAR LIVES ON THE MAP'S BAR NOW (UI [eyes: the gear on top], rule 150). *** Once the map's bar carries
+       its own gear the shell's floating one steps aside for good (html.bm-gear-in-bar, slices/bohemia_ui_materials.js), so on the
+       VOTE landing there is no gear on the glass and this waited 90 s for one that is hidden by design. His way to it is the bar:
+       RUN, then the bar's gear (which presses the shell's gear for him). Measured: the shell's gear 'on', display none. */
+    await p4.waitForSelector('#gearbtn.on', { state: 'attached', timeout: 90000 });
+    const inBar = await p4.evaluate(() => document.documentElement.classList.contains('bm-gear-in-bar'));
+    let barGear = null;
+    if (inBar) {
+      /* the squad's tape (#squadup, after GO) covers the whole glass for its few seconds: the finger waits until RUN is what is under it */
+      await p4.waitForFunction(() => { const t = document.querySelector('.tab[data-p="run"]'); if (!t) return false; const r = t.getBoundingClientRect(); if (r.width < 1) return false;
+        const e = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); return !!e && (e === t || t.contains(e)); }, null, { timeout: 60000 }).catch(() => {});
+      const runTab = await p4.$('.tab[data-p="run"]'); if (runTab) { const rb = await runTab.boundingBox(); if (rb) await p4.touchscreen.tap(rb.x + rb.width / 2, rb.y + rb.height / 2); }
+      for (let i = 0; i < 60 && !barGear; i++) {
+        await p4.waitForTimeout(500);
+        for (const f of p4.frames()) { const g = await f.$('#bmtb .t.gear').catch(() => null); const bb = g && await g.boundingBox().catch(() => null); if (bb && bb.width > 4 && bb.height > 4) { barGear = bb; break; } }
+        /* upright the phone carries the gear (its settings app, slices/bohemia_phone.js): the one under its own centre pixel */
+        if (!barGear) barGear = await p4.evaluate(() => { for (const e of document.querySelectorAll('#bohphone [aria-label=settings]')) { const r = e.getBoundingClientRect(); if (r.width < 4 || r.height < 4) continue;
+          const u = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2); if (u && (u === e || e.contains(u))) return { x: r.x, y: r.y, width: r.width, height: r.height }; } return null; });
+      }
+    }
     /* *** THIS LEG FLAKED ABOUT ONE RUN IN FOUR AND TWO OTHER LANES NEARLY CLAIMED THE
        RED AS THEIR OWN (FACTIONS df8dd14d, WORDS ee5ad2af; coordinator's row [flaky leg],
        9/21b). The cause is a race this gate created, not anything in the game.
@@ -886,7 +918,8 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
        click, wait for the SETTINGS PANEL'S OWN STATE (#setwrap.on) rather than for a
        child of it to become measurable. Same shape as the driver's own clearAxis, which
        exists for exactly this reason (rule 14g, trap 6). */
-    await p4.waitForFunction(() => {
+    if (barGear) await p4.touchscreen.tap(barGear.x + barGear.width / 2, barGear.y + barGear.height / 2);
+    else { await p4.waitForFunction(() => {
       const g = document.getElementById('gearbtn');
       if (!g) return false;
       const r = g.getBoundingClientRect();
@@ -894,9 +927,13 @@ const url = p => 'http://127.0.0.1:' + PORT + '/' + p;
       const own = document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2);
       return !!own && (own === g || g.contains(own));
     }, null, { timeout: 60000 });
-    await p4.click('#gearbtn');
+    await p4.click('#gearbtn'); }
     await p4.waitForSelector('#setwrap.on', { timeout: 60000 });
     await p4.waitForSelector('#setvote', { state: 'visible', timeout: 60000 });
+    /* UI FIVE 11/27: the card GROWS IN from the finger now (__THE_UI_MORPHS__, rule 229(b)): measured 7x1, 26x10, 100x43, then
+       106x44 at 600 ms and still. The reach is read once the card has stopped moving, not on the morph's first frames. */
+    await p4.waitForFunction(() => { const r = document.getElementById('setvote').getBoundingClientRect(), k = Math.round(r.width) + 'x' + Math.round(r.height) + '@' + Math.round(r.x) + ',' + Math.round(r.y);
+      const same = window.__SETVOTE_AT === k; window.__SETVOTE_AT = k; return same && r.width > 0; }, null, { timeout: 10000, polling: 200 }).catch(() => {});
     const reach = await p4.evaluate(() => {
       const r = document.getElementById('setvote').getBoundingClientRect();
       return [Math.round(r.width), Math.round(r.height)];
