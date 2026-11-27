@@ -28,7 +28,10 @@
          beside the footage, upright under it, never over it; every button on the glass and 44 points tall.
      H7  NEVER CHOPPY (480(c)): the phone slowed four times, three seconds with his look off and three with everything painted and
          signed: the footage paints at its own six a second and his look adds no frame held past 50 ms (one at most, the spread).
-     H8  KEPT: saved, the page shut and opened again (CONTINUE): the tank where he put it, its paint, its sign, the name, the job.
+     H8  KEPT: saved, the page shut and opened again (CONTINUE): the tank where he put it, its paint, its sign, the name, the job,
+         what he calls them.
+     H9  WHAT HE CALLS THEM (Battle Brothers: tap the name): NAME on a person's sheet, typed, OK: the map calls them that, the sheet
+         says it, their job stays theirs. PLANTED: called by the name they came with, red.
    Run: node gates/his_place_his_way_gate.js [--engine] [--only phone_portrait]
    ========================================================================== */
 'use strict';
@@ -166,14 +169,22 @@ const laid = (g) => { if (!g.st || !g.R) return false; const lay = g.side ? (g.S
     ok('H4 ITS NAME: a tap on the camera\'s name line, ANOTHER, OK: the map calls it ' + nm + ' and the plate at his gate says "' + (l4.gate && l4.gate.text) + '"', nOpen && nm === want && l4.gate && l4.gate.text === want, JSON.stringify({ nm, gate: l4.gate }));
     /* H5 WHO WORKS WHAT */
     const ppl = await fr.evaluate(() => window.__HOME_FEED_PEOPLE().filter(p => p.resident).map(p => p.name)), who = ppl.indexOf('TOMAS ARVIZU') >= 0 ? 'TOMAS ARVIZU' : ppl[0];
-    let jobTo = null, w5 = null, f5 = null;
+    let jobTo = null, w5 = null, f5 = null, r9 = null;
     if (who) { for (let t = 0; t < 3; t++) { await T.at(n => { const p = window.__HOME_FEED_PEOPLE().filter(q => q.name === n)[0]; return p ? { x: p.x, y: p.y } : null; }, who); if (await T.until(() => !!document.querySelector('#sbody .hjobs'), 2500)) break; }
       await P.waitForTimeout(900);
       const g6w = await fr.evaluate(LAY);
       ok('H6 ' + who + '\'s sheet (WORKS AT) laid ' + (g6w.side ? 'beside' : 'under') + ' the footage, its buttons on the glass at 44+', laid(g6w) && g6w.btn.some(b => b.t === 'rest'), JSON.stringify(g6w));
       jobTo = await fr.evaluate(() => { const b = [...document.querySelectorAll('#sbody .hjobs .act[data-job]')].filter(e => !e.classList.contains('on') && e.dataset.job !== 'rest'); const free = b.filter(e => /^\+/.test((e.querySelector('em') || {}).textContent || '')); const e = free[0] || b[0]; return e ? e.dataset.job : null; });
       if (jobTo) { await T.sel('#sbody .hjobs .act[data-job="' + jobTo + '"]'); await T.until(g => (window.__HOME_JOBS || {}).mine === g, 3000, jobTo); await P.waitForTimeout(1500); }
-      w5 = await F.evaluate(() => BohemiaHomeMap.workers()); f5 = await L(); await close(); }
+      w5 = await F.evaluate(() => BohemiaHomeMap.workers()); f5 = await L();
+      /* H9 WHAT HE CALLS THEM: NAME on the same sheet, typed, OK */
+      await T.sel('#sbody .hwho [data-look="rename"]'); await T.until(() => !!document.querySelector('#sbody [data-look="rename-in"]'), 2500); await P.waitForTimeout(1100);
+      await fr.evaluate(() => { const i = document.querySelector('#sbody [data-look="rename-in"]'); if (i) i.value = ''; });
+      await T.sel('#sbody [data-look="rename-in"]'); await P.keyboard.type('el flaco'); await T.sel('#sbody [data-look="rename-ok"]'); await T.until(() => !!window.__HOME_RENAMED, 2500); await P.waitForTimeout(1500);
+      r9 = { map: await F.evaluate(n => (BohemiaHomeMap.state().residents.filter(r => r.name === n)[0] || {}).called || null, who), head: await fr.evaluate(() => (document.querySelector('#sbody .say .nm') || {}).textContent || ''), job: await F.evaluate(() => BohemiaHomeMap.workers()) };
+      await close(); }
+    ok('H9 WHAT HE CALLS THEM: NAME on ' + who + '\'s sheet, typed, OK: the map calls them ' + (r9 && r9.map) + ', the sheet says "' + (r9 && r9.head) + '", and their job is still theirs',
+      !!r9 && r9.map === 'EL FLACO' && /^EL FLACO/.test(r9.head) && r9.job[jobTo] === who, JSON.stringify(r9));
     const jobLot = f5 ? f5.spots['h' + parseInt(jobTo, 10)] : null, onFoot = f5 ? f5.feet.filter(x => x.name === who)[0] : null;
     ok('H5 WHO WORKS WHAT: a tap on ' + who + ', WORKS AT ' + jobTo + ': the map puts him there (' + JSON.stringify(w5) + ') and the footage stands him at its lot ' + jobLot + ' (' + (onFoot && onFoot.lot) + ')',
       !!jobTo && !!w5 && w5[jobTo] === who && !!onFoot && onFoot.lot === jobLot && onFoot.job, JSON.stringify({ jobTo, w5, onFoot, jobLot }));
@@ -203,6 +214,8 @@ const laid = (g) => { if (!g.st || !g.R) return false; const lay = g.side ? (g.S
     await T.at(() => window.__HOME_LOOK_AT('osd') || { x: 30, y: (document.getElementById('hfeed').getBoundingClientRect().bottom - 40) }); await P.waitForTimeout(900);
     const pn = await fr.evaluate(() => !!document.querySelector('#sbody [data-look="another"]')); await close();
     ok('H4 planted: the same tap on the name opens nothing and no plate stands at the gate, the name leg reads red', !pn && !pl.gate);
+    const pc9 = await F.evaluate(n => (BohemiaHomeMap.state().residents.filter(r => r.name === n)[0] || {}).called || null, who);
+    ok('H9 planted: his look off, they are called ' + (pc9 || who) + ' again, the name leg reads red', pc9 !== 'EL FLACO');
     ok('H5 planted: the map back to the old order (' + JSON.stringify(plW) + '), the job leg reads red', !(plW[jobTo] === who && pl.feet.some(x => x.name === who && x.job)));
     await off(false);
     /* H8 KEPT across a reload */
@@ -213,8 +226,9 @@ const laid = (g) => { if (!g.st || !g.R) return false; const lay = g.side ? (g.S
     for (let i = 0; i < 40; i++) { if (await e.fr.evaluate(() => !!(window.BohemiaHome && BohemiaHome.data())).catch(() => false)) break; await e.page.waitForTimeout(250); }
     const fr2 = await openHis(e.page, e.fr);
     const k8 = fr2 ? await fr2.evaluate(() => window.__HOME_LOOK()) : null, w8 = await e.fr.evaluate(() => BohemiaHomeMap.workers()).catch(() => null);
-    ok('H8 KEPT: the page shut and opened again (CONTINUE): the tank on lot ' + (k8 && k8.spots[tank]) + ', ' + (k8 && k8.painted[tank]) + ', "' + (k8 && k8.signs[tank] && k8.signs[tank].text) + '", the gate "' + (k8 && k8.gate && k8.gate.text) + '", ' + who + ' at ' + jobTo,
-      !!k8 && k8.spots[tank] === to && k8.painted[tank] === 'lime' && k8.signs[tank] && k8.signs[tank].text === 'NO WATER' && k8.gate && k8.gate.text === want && !!w8 && w8[jobTo] === who, JSON.stringify({ k8, w8 }).slice(0, 900));
+    const c8 = await e.fr.evaluate(n => (BohemiaHomeMap.state().residents.filter(r => r.name === n)[0] || {}).called || null, who).catch(() => null);
+    ok('H8 KEPT: the page shut and opened again (CONTINUE): the tank on lot ' + (k8 && k8.spots[tank]) + ', ' + (k8 && k8.painted[tank]) + ', "' + (k8 && k8.signs[tank] && k8.signs[tank].text) + '", the gate "' + (k8 && k8.gate && k8.gate.text) + '", ' + who + ' at ' + jobTo + ', called ' + c8,
+      c8 === 'EL FLACO' && !!k8 && k8.spots[tank] === to && k8.painted[tank] === 'lime' && k8.signs[tank] && k8.signs[tank].text === 'NO WATER' && k8.gate && k8.gate.text === want && !!w8 && w8[jobTo] === who, JSON.stringify({ k8, w8 }).slice(0, 900));
     await e.close();
   }
   done();

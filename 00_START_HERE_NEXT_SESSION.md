@@ -1,3 +1,8 @@
+HOME BASE 5 (home-base-01gkdyuud): 11/27 LATEST -- BUILD 11/27ze - WHAT HE CALLS THEM, BUILT, NOT YET SEEN (rule 347(c), ask row 356). Its block is handoffs/HOME_BASE.md.
+A tap on someone who lives at his place, NAME, typed, OK: the camera, their sheet and the desk call them that; job and story stay theirs; kept after a reload.
+Gate HIS PLACE, HIS WAY 26/0 each way (H9 new, planted red). VOTE home-base-what-he-calls-them-11-27. THE PUBLISHED SITE IS AT 899.88 MB OF ITS 900 CAP.
+[bb Battle Brothers renames a man by tapping his name; ours, the people who live at his place]
+
 HOME BASE 5 (home-base-01gkdyuud): 11/27 LATEST -- BUILD 11/27za - HIS PLACE, HIS WAY, BUILT, NOT YET SEEN (rule 347(c), ask row 356). Its block is handoffs/HOME_BASE.md.
 Everything at his place changes by tapping it on his cameras: MOVE (the lots it can go to light up, a tap puts it there), PAINT (five paints, read on the night
 footage as their infrared value), SIGN (his words on a plate), ITS NAME (a tap on the camera's name line, or ANOTHER and OK), WORKS AT (a tap on someone who lives

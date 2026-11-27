@@ -96020,7 +96020,7 @@ function homeState(){
   var B = homeBillNow(), standing = homeStanding(), actNow = homeAct(), dayNow = homeDay();
   return { planted: !!r.planted, at: r.planted ? [r.planted.x, r.planted.y] : null, day: r.planted ? r.planted.day : null, name: BohemiaHome.nameOf(r),
            offer: homeOffer(), here: here, better: better, bill: B, prizes: homePrizes(),
-           residents: r.residents.map(function(p){ return { name: p.name, look: p.look, why: p.why, day: p.day, says: BohemiaHome.tell(r, p.name, actNow, dayNow) }; }),
+           residents: r.residents.map(function(p){ return { name: p.name, called: (!HOME.lookOff && r.look && r.look.called && r.look.called[p.name]) || null, look: p.look, why: p.why, day: p.day, says: BohemiaHome.tell(r, p.name, actNow, dayNow) }; }),   /* called: what he renamed them (HOME BASE 5) */
            act: actNow, story: (r.story || []).slice(-8), builds: HOME.data.builds || null, supplies: homeSupplies(), workers: homeWorkers(), morning: r.lastMorning || null,
            things: (r.things || []).slice(), waiting: (r.waiting || []).slice(),
            standing: standing, lotsOpen: BohemiaHome.lotsOpen(r, standing), words: D.words, grade: r.planted ? r.planted.grade : null,

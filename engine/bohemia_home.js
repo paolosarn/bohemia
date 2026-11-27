@@ -239,12 +239,12 @@
      customized... super easy') ----------------
      rec.look: spots { thingKey: footage lot 1..12 } (where it stands), paint { thingKey: paint id } (records/target/bb/home_base.json
      look.paints; 'bare' is no paint), signs { thingKey: his words, 'gate': ... } (A-Z 0-9 and a little punctuation, look.sign_max),
-     jobs { resident name: lot key '3,0' | 'rest' } (who works what). A thing's key is the screen's 'h<lot>:<id>', so a lot cleared
+     jobs { resident name: lot key '3,0' | 'rest' } (who works what), called { resident name: what he calls them }. A thing's key is the screen's 'h<lot>:<id>', so a lot cleared
      and built again is a new thing. Pure: the map keeps it in the home record and saves it with the rest. */
   function lookOf(rec) {
     if (!rec) return null;
     if (!rec.look || typeof rec.look !== 'object') rec.look = {};
-    ['spots', 'paint', 'signs', 'jobs'].forEach(function (k) { if (!rec.look[k] || typeof rec.look[k] !== 'object') rec.look[k] = {}; });
+    ['spots', 'paint', 'signs', 'jobs', 'called'].forEach(function (k) { if (!rec.look[k] || typeof rec.look[k] !== 'object') rec.look[k] = {}; });
     return rec.look;
   }
   function signText(t) {
@@ -268,6 +268,10 @@
     }
     if (what === 'sign') {
       var s = signText(val); if (s) L.signs[key] = s; else delete L.signs[key]; return { ok: true, sign: s };
+    }
+    if (what === 'called') {   /* a person who lives there, called what he calls them (Battle Brothers: tap the name); the name they came with stays their key */
+      var c = String(val == null ? '' : val).replace(/<[^>]*>/g, '').toUpperCase().replace(/[^A-Z0-9 .'\-]/g, '').replace(/\s+/g, ' ').trim().slice(0, 20).trim();
+      if (c && c !== key) L.called[key] = c; else delete L.called[key]; return { ok: true, called: c || null };
     }
     if (what === 'job') {
       if (val == null || val === '') { delete L.jobs[key]; return { ok: true }; }

@@ -51,7 +51,56 @@ function tapper(P, fr) {
 }
 async function shoot(P, prof, name) { const f = path.join(TMP, prof + '_' + name + '.png'); await P.screenshot({ path: f }); (shots[prof] = shots[prof] || {})[name] = f; }
 
-(async () => {
+/* --rename: the second card, WHAT HE CALLS THEM (one person's sheet before and after NAME, and the camera naming them), one way a run */
+async function renameRun() {
+  const R = rd('rename.json');
+  for (const prof of (process.argv.includes('--card') ? [] : PROFS)) {
+    const d = await drive.open({ profile: prof, keepCards: true, beforeTap: async (pg) => {
+      for (let i = 0; i < 120; i++) { if (await pg.evaluate(() => !!window.__LOAD_READY && !!document.getElementById('title')).catch(() => false)) break; await pg.waitForTimeout(250); }
+      await pg.waitForTimeout(1500); await throughTheTitle(pg); await pg.waitForTimeout(1800); } });
+    const P = d.page, F = d.fr;
+    for (let i = 0; i < 40; i++) { if (await F.evaluate(() => !!(window.BohemiaHome && BohemiaHome.data() && window.BohemiaGrinder)).catch(() => false)) break; await P.waitForTimeout(250); }
+    await setUp(F); const fr = await openHis(P, F); if (!fr) { await d.close(); continue; }
+    const T = tapper(P, fr), out = R[prof] = {};
+    const tapWho = async () => { for (let t = 0; t < 3; t++) { await T.at(n => { const p = window.__HOME_FEED_PEOPLE().filter(q => q.name === n)[0]; return p ? { x: p.x, y: p.y } : null; }, 'TOMAS ARVIZU'); if (await T.until(() => !!document.querySelector('#sbody .hwho'), 3000)) return true; } return false; };
+    await tapWho(); await P.waitForTimeout(1400);
+    out.before = path.join(TMP, 'rename_' + prof + '_before.png'); await P.screenshot({ path: out.before });
+    await T.sel('#sbody .hwho [data-look="rename"]'); await T.until(() => !!document.querySelector('#sbody [data-look="rename-in"]'), 2500); await P.waitForTimeout(1100);
+    await fr.evaluate(() => { const i = document.querySelector('#sbody [data-look="rename-in"]'); if (i) i.value = ''; });
+    await T.sel('#sbody [data-look="rename-in"]'); await P.keyboard.type('el flaco'); await P.waitForTimeout(300);
+    out.typing = path.join(TMP, 'rename_' + prof + '_typing.png'); await P.screenshot({ path: out.typing });
+    await T.sel('#sbody [data-look="rename-ok"]'); await T.until(() => !!window.__HOME_RENAMED, 2500); await P.waitForTimeout(1600);
+    out.after = path.join(TMP, 'rename_' + prof + '_after.png'); await P.screenshot({ path: out.after });
+    out.facts = { renamed: await fr.evaluate(() => window.__HOME_RENAMED), map: await F.evaluate(() => BohemiaHomeMap.state().residents.map(r => r.name + '=' + (r.called || ''))) };
+    console.log(prof, JSON.stringify(out.facts));
+    await d.close();
+  }
+  fs.writeFileSync(path.join(TMP, 'rename.json'), JSON.stringify(R));
+  if (!R.phone_portrait || !R.phone_landscape) process.exit(0);
+  const py = `
+import sys, json
+from PIL import Image, ImageDraw, ImageFont
+a = json.loads(sys.argv[1]); R = a['R']
+try: fnt = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf', 18)
+except Exception: fnt = ImageFont.load_default()
+G, T = 10, 28; uw, uh, sw, sh = 360, 778, 600, 277
+W = 3 * uw + 2 * G + G + sw; H = max(T + uh, 3 * (T + sh + 2))
+C = Image.new('RGB', (W, H), (18, 14, 10)); d = ImageDraw.Draw(C)
+one = lambda p, w, h: Image.open(p).convert('RGB').resize((w, h), Image.LANCZOS)
+for i, (k, t) in enumerate([('before', 'BEFORE'), ('typing', 'NAME, TYPED'), ('after', 'AFTER')]):
+    x = i * (uw + G); d.text((x + 4, 4), t, font=fnt, fill=(190, 170, 140) if k == 'before' else (226, 196, 120)); C.paste(one(R['phone_portrait'][k], uw, uh), (x, T))
+x0 = 3 * (uw + G)
+for i, (k, t) in enumerate([('before', 'BEFORE (sideways)'), ('typing', 'NAME, TYPED (sideways)'), ('after', 'AFTER (sideways)')]):
+    y = i * (T + sh + 2); d.text((x0 + 4, y + 4), t, font=fnt, fill=(190, 170, 140) if k == 'before' else (226, 196, 120)); C.paste(one(R['phone_landscape'][k], sw, sh - 18), (x0, y + T))
+C.save(a['out'], 'WEBP', quality=70, method=6)
+one(R['phone_landscape']['after'], 844, 390).save(a['first'], 'WEBP', quality=80, method=6)
+print(json.dumps({'card': C.size, 'firstAt': [x0, 2 * (T + sh + 2) + T, sw, sh - 18]}))
+`;
+  const r = spawnSync('python3', ['-c', py, JSON.stringify({ R, out: path.join(OUT, 'vote_what_he_calls_them.webp'), first: path.join(ROOT, 'records/target/vote_first/home-base-what-he-calls-them-11-27.webp') })], { encoding: 'utf8' });
+  console.log(r.stdout.trim(), r.stderr.trim().slice(-600)); process.exit(0);
+}
+if (process.argv.includes('--rename')) renameRun().catch(e => { console.error(e); process.exit(1); });
+else (async () => {
   for (const prof of (process.argv.includes('--card') ? [] : PROFS)) {
     const d = await drive.open({ profile: prof, keepCards: true, beforeTap: async (pg) => {
       for (let i = 0; i < 120; i++) { if (await pg.evaluate(() => !!window.__LOAD_READY && !!document.getElementById('title')).catch(() => false)) break; await pg.waitForTimeout(250); }

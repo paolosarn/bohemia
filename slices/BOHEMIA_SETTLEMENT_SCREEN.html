@@ -2084,7 +2084,7 @@ function homeDesk(body){
   var c1 = document.createElement('div'); c1.innerHTML = '<b>A NIGHT</b>-' + (B.due|0) + ' batteries';
   var wk = H.workers || {}, wname = {}; for(var wkk in wk) wname[wk[wkk]] = wkk;
   var c2 = document.createElement('div'); c2.innerHTML = '<b>LIVING HERE</b>' + H.residents.length + (H.residents.length ? ': ' + H.residents.slice(0, 2).map(function(r){ var at = wname[r.name], L = at ? (buildState().site || {lots:{}}).lots[at] : null;
-      return String(r.name).replace(/[<>&]/g, '') + (L ? ' (' + String(L.id).toUpperCase() + ')' : ''); }).join(', ') + (H.residents.length > 2 ? '...' : '') : ' yet');   /* who works what */
+      return String(r.called || r.name).replace(/[<>&]/g, '') + (L ? ' (' + String(L.id).toUpperCase() + ')' : ''); }).join(', ') + (H.residents.length > 2 ? '...' : '') : ' yet');   /* who works what */
   if(H.morning && H.morning.gave && Object.keys(H.morning.gave).length) c1.innerHTML += '<br>+' + homeGoodsWords(H.morning.gave).toLowerCase() + ' a day';
   var nm = document.createElement('button'); nm.type = 'button'; nm.textContent = 'NAME IT'; nm.setAttribute('aria-label', 'name your place');
   nm.addEventListener('click', function(){ var w = document.createElement('div'); w.className = 'hname'; var i = document.createElement('input'); i.maxLength = 22; i.value = H.name || ''; i.setAttribute('aria-label', 'your place\'s name');
@@ -2645,7 +2645,7 @@ function homeTourPick(){ var C = [], at = {}, seen = {}; for(var n in HF.slots){
   (HF.ppl || []).forEach(function(o){ if(o.p.works && at[o.p.works] != null) add({ n: at[o.p.works], why: 'work', who: String(o.p.name || '').split(' ')[0], name: o.p.name }); });
   (HF.ppl || []).forEach(function(o){ if(o.p.staffHome && o.p.act && o.n != null) add({ n: o.n, why: 'home', who: String(o.p.name || '').split(' ')[0] + '  ' + String(o.p.trade || ''), name: o.p.name }); });   /* STAFF 2 (rule 482): the camera finds his camp at its work too, 'GRACIELA  COOK' */
   if(HF.pile && HF.pile.dead > 0 && at.grinder != null) add({ n: at.grinder, why: 'pile' });
-  (HF.ppl || []).forEach(function(o){ if(o.p.resident && o.n != null) add({ n: o.n, why: 'home', who: String(o.p.name || ''), name: o.p.name }); });
+  (HF.ppl || []).forEach(function(o){ if(o.p.resident && o.n != null) add({ n: o.n, why: 'home', who: homeCalled(o.p.name), name: o.p.name }); });   /* HOME BASE 5: what he calls them */
   /* then his own buildings, then the tallest things he put up (a garden bed or a wall is a line on the ground from across the street) */
   Object.keys(HF.slots).map(Number).sort(function(a, b){ var A = HF.slots[a], B2 = HF.slots[b], ra = HF.picRect && HF.picRect[a], rb = HF.picRect && HF.picRect[b];
     return ((B2.kind === 'place') - (A.kind === 'place')) || ((rb ? rb[3] - rb[1] : 0) - (ra ? ra[3] - ra[1] : 0)) || a - b; }).forEach(function(n){ add({ n: n, why: 'stand' }); });
@@ -2709,7 +2709,7 @@ function homeFeedOsd(c, now, fr, V){ var f = HF.fit, M = HF.M, k = f.k, w = Math
     var br = function(col, o){ g.fillStyle = col; [[bx0, by0, 1, 1], [bx1, by0, -1, 1], [bx0, by1, 1, -1], [bx1, by1, -1, -1]].forEach(function(q){ var x = Math.round(q[0]) + o, y = Math.round(q[1]) + o;
       g.fillRect(q[2] > 0 ? x : x - L + 1, y, L, 1); g.fillRect(x, q[3] > 0 ? y : y - L + 1, 1, L); }); };
     br('#0a0a0a', 1); br('#e2e6de', 0);
-    var tt = HF.slots[HST.n], tk = !HST.on && HTOUR.k, nm = String(HST.on && /^p:/.test(HST.k || '') ? HST.k.slice(2) : tk && tk.why === 'home' ? tk.who : (tk && tk.who ? tk.who + '  ' : '') + ((tt && tt.name) || '')).toUpperCase().slice(0, 26); if(nm) tx(Math.max(2, Math.min(w - nm.length * 5 - 4, Math.round(bx0))), Math.max(24, Math.round(by0) - 11), nm); }
+    var tt = HF.slots[HST.n], tk = !HST.on && HTOUR.k, nm = String(HST.on && /^p:/.test(HST.k || '') ? homeCalled(HST.k.slice(2)) : tk && tk.why === 'home' ? tk.who : (tk && tk.who ? tk.who + '  ' : '') + ((tt && tt.name) || '')).toUpperCase().slice(0, 26); if(nm) tx(Math.max(2, Math.min(w - nm.length * 5 - 4, Math.round(bx0))), Math.max(24, Math.round(by0) - 11), nm); }
   c.drawImage(HF.osd, 0, 0, w, h, V.X, V.Y, V.W, V.H); }
 function homeFeedShow(now, fr){ var f = HF.fit, c = HF.el.getContext('2d'), dpr = Math.min(2, devicePixelRatio || 1);
   c.setTransform(dpr, 0, 0, dpr, 0, 0); c.imageSmoothingEnabled = false;
@@ -2832,11 +2832,12 @@ function homeSignText(v){ var max = ((S.home && S.home.lookRows) || {}).sign_max
 function homeJobLots(){ var out = {}; if(!homeLookOn()) return out; var wk = S.home.workers || {};
   for(var lk in wk){ var key = 'h' + (parseInt(lk, 10) | 0); for(var n in HF.slots) if(HF.slots[n].key === key){ out[wk[lk]] = +n; break; } } return out; }
 /* what he changed goes to the map at once and shows at once (the map sends his place back the same way) */
-function homeLookSend(sets){ if(!homeLookOn()) return; var L = S.home.look; ['spots', 'paint', 'signs', 'jobs'].forEach(function(k){ L[k] = L[k] || {}; });
+function homeLookSend(sets){ if(!homeLookOn()) return; var L = S.home.look; ['spots', 'paint', 'signs', 'jobs', 'called'].forEach(function(k){ L[k] = L[k] || {}; });
   sets.forEach(function(s){ if(s.what === 'spot'){ for(var k in L.spots) if(L.spots[k] === s.val && k !== s.key) delete L.spots[k]; L.spots[s.key] = s.val; }
     else if(s.what === 'paint'){ if(s.val === 'bare') delete L.paint[s.key]; else L.paint[s.key] = s.val; }
     else if(s.what === 'sign'){ var v = homeSignText(s.val); if(v) L.signs[s.key] = v; else delete L.signs[s.key]; }
-    else if(s.what === 'job') L.jobs[s.key] = s.val; });
+    else if(s.what === 'job') L.jobs[s.key] = s.val;
+    else if(s.what === 'called'){ L.called = L.called || {}; L.called[s.key] = s.val; } });
   HF.dirty = true; HST.bk = null; window.__HOME_LOOK_SENT = sets;
   try{ if(!S.standalone) window.parent.postMessage({ type: 'BOHEMIA_HOME_SET', sets: sets }, '*'); }catch(e){} }
 /* PAINT, as his night camera sees it: near-infrared reads a paint's value, not its colour (lime and red-oxide primer glow, tar goes
@@ -2986,13 +2987,29 @@ function homeJobRow(p){ if(!homeLookOn() || !p || !p.resident) return; var b = b
   var lab = document.createElement('div'); lab.className = 'hjobs-h'; lab.textContent = W.works || 'WORKS AT';
   var acts = document.createElement('div'), n = 0; acts.className = 'acts two hjobs';
   Object.keys(b.site.lots).sort(function(x, y){ return (parseInt(x, 10) | 0) - (parseInt(y, 10) | 0); }).forEach(function(lk){ var L = b.site.lots[lk], row = rows[L.id]; if(!L.done || !row || !row.worked) return;
-    var nm = ((LB && LB.markerOf(L.id)) || {}).name || String(L.id).toUpperCase(), other = wk[lk] && wk[lk] !== p.name ? String(wk[lk]).replace(/^THE\s+/i, '').split(' ')[0] : null;   /* 'ORTIZ', never 'THE' */
+    var nm = ((LB && LB.markerOf(L.id)) || {}).name || String(L.id).toUpperCase(), other = wk[lk] && wk[lk] !== p.name ? String(homeCalled(wk[lk])).replace(/^THE\s+/i, '').split(' ')[0] : null;   /* 'ORTIZ', never 'THE' */
     var bt = act(nm, lk === mine ? (W.here || 'HERE') : other ? other : '+' + homeGoodsWords(row.worked), function(){ homeJobSet(p, lk); });
     bt.dataset.job = lk; if(lk === mine) bt.classList.add('on'); acts.appendChild(bt); n++; });
   var rs = act(W.rest || 'REST', mine === 'rest' ? (W.here || 'HERE') : '', function(){ homeJobSet(p, 'rest'); }); rs.dataset.job = 'rest'; if(mine === 'rest') rs.classList.add('on'); acts.appendChild(rs);
   body.appendChild(lab); body.appendChild(acts); window.__HOME_JOBS = { name: p.name, mine: mine, builds: n }; }
+/* WHAT HE CALLS THEM (Battle Brothers: a man's name is changed by tapping it): NAME on the person's sheet, typed, OK; the name they
+   came with stays their key (their job, their story); what he calls them shows wherever their name shows */
+function homeCalled(name){ var R = S.home && S.home.residents; if(!R) return String(name || ''); for(var i = 0; i < R.length; i++) if(R[i].name === name) return R[i].called || R[i].name; return String(name || ''); }
+function homeNameRow(p){ var body = document.getElementById('sbody'); if(!body || !homeLookOn() || !p || !p.resident) return; [].forEach.call(body.querySelectorAll('.hlook.hwho, .hsign.hwho'), function(e){ e.remove(); });
+  var W = homeLookWords(), open = S.homeLookOpen && S.homeLookOpen.k === 'p:' + p.name && S.homeLookOpen.what === 'rename', row = document.createElement('div'); row.className = 'hlook hwho';
+  var b = document.createElement('button'); b.type = 'button'; b.className = 'act hlb' + (open ? ' on' : ''); b.dataset.look = 'rename'; b.textContent = W.rename || 'NAME';
+  b.addEventListener('click', function(){ S.homeLookOpen = open ? null : { k: 'p:' + p.name, what: 'rename' }; homeResidentTalk(p); }); row.appendChild(b);
+  var nm = body.querySelector('.say .nm'); if(nm) nm.textContent = String(homeCalled(p.name)).toUpperCase() + '  ·  LIVES HERE';
+  var h = body.querySelector('.hjobs-h'); if(h) body.insertBefore(row, h); else body.appendChild(row);
+  if(!open) return;
+  var w = document.createElement('div'); w.className = 'hname hsign hwho'; var i = document.createElement('input'); i.maxLength = 20; i.value = homeCalled(p.name); i.dataset.look = 'rename-in'; i.setAttribute('aria-label', 'what you call them');
+  var ok = document.createElement('button'); ok.type = 'button'; ok.textContent = W.ok || 'OK'; ok.className = 'act'; ok.style.minHeight = '44px'; ok.dataset.look = 'rename-ok';
+  var go = function(){ homeLookSend([{ what: 'called', key: p.name, val: i.value }]); var c = String(i.value || '').replace(/<[^>]*>/g, '').toUpperCase().replace(/[^A-Z0-9 .'\-]/g, '').replace(/\s+/g, ' ').trim().slice(0, 20).trim();
+    (S.home.residents || []).forEach(function(r){ if(r.name === p.name) r.called = c && c !== p.name ? c : null; }); window.__HOME_RENAMED = { name: p.name, called: homeCalled(p.name) }; S.homeLookOpen = null; HF.dirty = true; homeResidentTalk(p); };
+  ok.addEventListener('click', go); i.addEventListener('keydown', function(ev){ if(ev.key === 'Enter') go(); });
+  w.appendChild(i); w.appendChild(ok); row.parentNode.insertBefore(w, row.nextSibling); }
 function homeJobSet(p, lk){ homeLookSend([{ what: 'job', key: p.name, val: lk }]); window.__HOME_JOB = { name: p.name, job: lk }; }
-(function(){ var rt = homeResidentTalk; homeResidentTalk = function(p){ S.homeMove = null; var r = rt.apply(this, arguments); try{ homeJobRow(p); homeStationLay(); }catch(e){} return r; }; })();
+(function(){ var rt = homeResidentTalk; homeResidentTalk = function(p){ S.homeMove = null; if(S.homeLookOpen && S.homeLookOpen.k !== 'p:' + (p && p.name)) S.homeLookOpen = null; var r = rt.apply(this, arguments); try{ homeJobRow(p); homeNameRow(p); homeStationLay(); }catch(e){} return r; }; })();
 (function(){ var hd = hide; hide = function(){ S.homeLookOpen = null; S.homeMove = null; window.__HOME_MOVE = null; return hd.apply(this, arguments); }; })();   /* a sheet shut: its rows fold, MOVE is put down */
 /* upright, the station's camera frames what the sheet leaves: a sheet that grows after it was laid (a row of choices opened, a face
    come in, the UI's page-turn landing) lays the camera again (measured: the tank's sheet grew 206 -> 250 px after it was laid, and lay

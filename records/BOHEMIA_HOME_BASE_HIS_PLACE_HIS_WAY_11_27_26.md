@@ -54,3 +54,18 @@ TWO PALMS, LOW TIDE, THE KEEP, SUNRISE BLOCK, BUENA SUERTE).
 
 [bb Battle Brothers: a name is changed by tapping it; ours: everything at his place is changed by tapping it on his cameras]
 [analog horror: his own words, his own paint, read back to him in grey-green by a security camera at 3 am]
+
+## BUILD 11/27ze - WHAT HE CALLS THEM (the same round, rule 347(c)'s 'who lives there'; Battle Brothers renames a man by tapping his name)
+- MEASURED BEFORE: a person who lived there kept the name they came with; nothing let him change it.
+- NOW: NAME on the person's sheet (above WORKS AT): typed, OK. The engine keeps it as look.called {name they came with: what he calls
+  them} (BohemiaHome.setLook 'called', 20 letters); the name they came with stays the key, so their job, their story and their
+  face are theirs still. What he calls them shows on the sheet's header, the camera's tracking label (the station and the patrol),
+  the desk's LIVING HERE and the WORKS AT row of the others. Kept after a reload.
+- GATE HIS PLACE, HIS WAY: H9 (NAME by real taps; the map calls them that, the sheet says it, the job stays) and H8 now also checks
+  what he calls them after CONTINUE: 26/0 upright, 26/0 sideways; H9 planted (his look off) red. YOUR PLACE, PLANTED 150/0 upright.
+- VOTE card home-base-what-he-calls-them-11-27 (before, typing, after; upright and sideways).
+- THE PUBLISHED SITE: 899.88 MB of its 900 cap after both cards (this lane made room: its four waiting cards re-saved smaller, the
+  first card at 80 percent, the loose shots out). PLUMBER: the next lane to add a picture will meet the cap.
+- WHAT IT IS MADE OF, MEASURED: `pip index versions bpy` offers 5.3.0 for this box's Python 3.13, so the pipeline could render here;
+  but tin, block and wood for every piece is three times the 15 MB of pieces, about 30 MB the published site does not have. It waits on
+  room (PLUMBER's), not on Blender.

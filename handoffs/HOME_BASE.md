@@ -1,3 +1,13 @@
+HOME BASE 5 (session_01GKDyuuDj5gQ6p6ZVCsD7a2): 11/27 LATEST -- BUILD 11/27ze - WHAT HE CALLS THEM, BUILT, NOT YET SEEN (rule 347(c)'s 'who lives
+there'; Battle Brothers: tap the name). NAME on a resident's sheet; look.called {their name: what he calls them} (engine setLook
+'called'); the map sends residents[].called; the screen's homeCalled(name) is what every label shows (sheet header, the camera's
+tracking label, the desk, WORKS AT). Gate HIS PLACE, HIS WAY H9 (and H8 checks it after CONTINUE): 26/0 each way. VOTE card
+home-base-what-he-calls-them-11-27 (tools/bohemia_home_base_his_place_his_way_card_11_27_26.js --rename --only <profile>, once each way).
+- THE PUBLISHED SITE IS AT 899.88 MB OF 900 (PAGES PUBLISH): this lane made its room; told PLUMBER in the record. Materials (tin, block,
+  wood) need about 30 MB of it: bpy 5.3.0 installs here (Python 3.13), the room does not exist. Ask before rendering.
+- NEXT for HOME BASE: (1) materials when there is room; (2) the door's first paint warmed while the map travels there; (3) BUILD's desk
+  laid both ways like the stations.
+
 HOME BASE 5 (session_01GKDyuuDj5gQ6p6ZVCsD7a2): 11/27 LATEST -- BUILD 11/27za - HIS PLACE, HIS WAY, BUILT, NOT YET SEEN (rule 347(c), the
 routine 'HOME BASE 4: customize his place'; rules 343(d), 480(c), 481(b), 441; ask row 356). Research record
 records/BOHEMIA_HOME_BASE_HIS_PLACE_HIS_WAY_THE_RESEARCH_11_27_26.md; build record records/BOHEMIA_HOME_BASE_HIS_PLACE_HIS_WAY_11_27_26.md.

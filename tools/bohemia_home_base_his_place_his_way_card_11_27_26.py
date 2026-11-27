@@ -28,7 +28,8 @@ for i, (k, t) in enumerate(SIDE):
     lab(x, y, t + ' (sideways)', dim if k == '0_before' else grn)
     if k in L: C.paste(one(L[k], sw, sh), (x, y + T))
     if k == '7_named_whole': first = (x, y + T)
+C = C.resize((round(C.width * .8), round(C.height * .8)), Image.LANCZOS)   # the published site sits at its cap
 C.save(a['out'], 'WEBP', quality=70, method=6)
 if '7_named_whole' in L: Image.open(L['7_named_whole']).convert('RGB').resize((844, 390), Image.LANCZOS).save(a['first'], 'WEBP', quality=88, method=6)
 # the loose shots are not kept: the card holds every one, and the published site sits at its 900 MB cap (PAGES PUBLISH)
-print(json.dumps({'card': C.size, 'firstAt': list(first) + [sw, sh] if first else None}))
+print(json.dumps({'card': C.size, 'firstAt': [round(v * .8) for v in list(first) + [sw, sh]] if first else None}))

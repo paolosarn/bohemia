@@ -462,6 +462,6 @@
       { "id": "tar", "name": "TAR", "hex": "#1d1b19", "ir": 0.42 }
     ],
     "names": ["LAST STOP", "LA COLONIA", "DRY CREEK", "CASA NADA", "THE HOLDOUT", "GOOD WATER", "EL REFUGIO", "TWO PALMS", "LOW TIDE", "THE KEEP", "SUNRISE BLOCK", "BUENA SUERTE"],
-    "words": { "move": "MOVE", "paint": "PAINT", "sign": "SIGN", "where": "Where does it go?", "back": "BACK", "ok": "OK", "another": "ANOTHER", "call": "What do we call it?", "works": "WORKS AT", "rest": "REST", "here": "HERE" }
+    "words": { "move": "MOVE", "paint": "PAINT", "sign": "SIGN", "where": "Where does it go?", "back": "BACK", "ok": "OK", "another": "ANOTHER", "call": "What do we call it?", "works": "WORKS AT", "rest": "REST", "here": "HERE", "rename": "NAME" }
   }
 }

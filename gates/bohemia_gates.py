@@ -10292,7 +10292,8 @@ GATES = [
      "Valley vibe'): ENGINE W1 a spot is a footage lot, one lot one thing, unplanted refused; W2 a paint from home_base.json look.paints, BARE takes it off; W3 a "
      "sign cleaned to what it can paint; W4 a job is a lot or REST. ON THE DEMO upright and sideways, every choice by a real tap: H1 MOVE (lots lit, moved, the "
      "rest where they stood); H2 PAINT (LIME lifts the tank's pixels, TAR through the clinic's door drops the roof's); H3 SIGN; H4 ITS NAME (the camera's name "
-     "line, ANOTHER, OK, the gate's plate); H5 WHO WORKS WHAT (WORKS AT, the map puts him there, the footage stands him at it); H6 every sheet laid both ways "
+     "line, ANOTHER, OK, the gate's plate); H5 WHO WORKS WHAT (WORKS AT, the map puts him there, the footage stands him at it); H9 WHAT HE CALLS THEM "
+     "(NAME on a person, kept); H6 every sheet laid both ways "
      "at 44 points; H7 at 4x his look adds no held frame; H8 KEPT after the page is shut and opened again; each planted with his look off at the map, red. "
      "About 4 minutes a way; --engine a second", False),
     ('YOUR PLACE, PLANTED', ['node', 'gates/home_base_gate.js'],
