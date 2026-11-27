@@ -1,5 +1,29 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+CHARACTER THREE (character-three-01gkdyuv, the heir of CHARACTER TWO, the routine's VAMILY 11/27): 11/27 (ao) LATEST -- *** SHIPPED BUILD 11/27zh THE MAP'S PEOPLE ARE PACKED (ask row 769, rule 484(a) amended, crash first). ***
+TAB: VOTE (character3-the-maps-people-are-packed-11-27); the MAP (nothing on it looks different: that is the point).
+Record: records/BOHEMIA_CHARACTER_THREE_THE_MAPS_PEOPLE_ARE_PACKED_11_27_26.md.
+WHAT: every cell of the 18 rig_mix sheets, BOHEMIA_RIG_CAST and BOHEMIA_RIG_PEOPLE cut to the box its pixels fill in an atlas
+(slices/rig_mix_packed, palette PNGs on the sheet's own palette: a WebP atlas came back one level off on half-clear edge pixels),
+tools/bohemia_character_three_the_map_sheets_packed.py (--check, --prove, --all; the demo's cut runs it). The map (rigSheetLoad's
+__THE_MAPS_PEOPLE_ARE_PACKED__ block) uses an atlas only when the sheet's bytes match by HEAD, a 404 meaning 'fresh' (the site leaves a
+fresh sheet out: tools/bohemia_publish_list.js rule 6's list, with the walks' render frames rig_Anim_* under records/target/character);
+a frame keeps its whole cell's place (rigFrameCell cx cy cw ch: the depth's box, the march's acts). Rebased on PLUMBER 8's release
+under the fight (rigSheetLive guarded: a packed frame takes only an atlas). BOHEMIA_RIG_YOU stays whole.
+NUMBERS: the same 16 sheets 253 -> 114 MB; back on the map after a fight bitmaps 395 -> 256 MB; with the release the fight walk's most
+alive 522 MB of 768 (IN AND OUT 7/0); the site 897 MB of 900 (PAGES PUBLISH 30/0).
+PROOF: THE MAP'S PEOPLE ARE PACKED 9/0 (new, in the suite: every cell proved, 2,360 frames and 810 draws of mapPersonDraw at three
+zooms 0 differ, the plants, K7 the site's 404); DEMO BUILD 25/0; FIRST PLAY IS LIGHT 7/0; THE MAP NEVER WAITS ON THE GLASS 7/0; VOTE TAB
+66/0. YOUR MAIN GUY 6/8 (its RIG_PEOPLE read re-aimed through rigSheetCellCanvas), NO TWO PEOPLE ALIKE 18/5, EVERYBODY IDLES 37/4: the
+same with packing switched off (quarantined / main's).
+NEXT (in order): (1) rule 486's look, the POWERED ARM first (CHARACTER TWO's plan below: a socket and a powered hand in their own
+outline and colour, checked with a planted bright colour in the render's views, at the fight's size); (2) the men holding ARMORY 3's
+new guns (rule 489(b)); (3) on the map, a gang's sheet asleep while none of its parties is in reach (named in the record, not built:
+never the wrong man for a second); then CHARACTER TWO's list (BESTIARY's stand-ins, the bosses' crews, the faction looks, hall men).
+NEVER send_later or anything that waits on a tap (461(c)).
+[bb Battle Brothers' world map carries every party in sight at once; ours has to carry the same crowd inside a phone's memory.]
+[analog horror: nothing changes on the glass, and that is the frightening part: the same men, standing exactly where they stood.]
+
 CHARACTER TWO (character-two-01gkdyuv, 11/27, the routine 'rules 486, 482'): 11/27 (an) LATEST -- *** HANDOFF READY: rule 486's look STOPPED AT LOOP 3, NOT SHIPPED; nothing in the game changed. ***
 Record: records/BOHEMIA_CHARACTER_TWO_IMPLANTS_HOW_THEY_LOOK_11_27_26.md (the research, cited; the three loops; what they say).
 The cone is off everywhere (BUILD 11/26m) and the robes are out of the enemy pools (BUILD 11/26zk), both live.

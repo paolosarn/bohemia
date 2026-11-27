@@ -46,7 +46,9 @@ shadows; his buildings work (coals, smoke, the bag) only while a man works them 
 VOTE home-base-what-he-has-sits-in-the-ground-11-27. records/BOHEMIA_HOME_BASE_WHAT_HE_HAS_SITS_IN_THE_GROUND_11_27_26.md
 [bb Battle Brothers hangs trophies as pictures on a backdrop; ours stand on his ground under his light]
 [analog horror: a hook and a drum on the lot at 3 am, their shadows long, nobody near them]
-CHARACTER TWO (character-two-01gkdyuv): 11/26 LATEST -- BUILD 11/26zk - THE ROBES COME OFF THE ROAD GANGS, BUILT, NOT YET SEEN (rules 482(a)(c)(d), 480(b)).
+CHARACTER THREE (character-three-01gkdyuv, the heir of CHARACTER TWO): 11/27 LATEST -- BUILD 11/27zh - THE MAP'S PEOPLE ARE PACKED, BUILT, NOT YET SEEN (ask row 769, rule 484(a)).
+Every map people sheet as an atlas cut to the boxes its men fill, the same pixels: 253 MB -> 114 MB; with PLUMBER 8's release the fight walk's worst 522 MB of the iPhone's 768. Its block is handoffs/CHARACTER.md; VOTE character3-the-maps-people-are-packed-11-27. NEXT: rule 486's powered arm, then the men holding ARMORY 3's guns.
+CHARACTER TWO (character-two-01gkdyuv): 11/26 -- BUILD 11/26zk - THE ROBES COME OFF THE ROAD GANGS, BUILT, NOT YET SEEN (rules 482(a)(c)(d), 480(b)).
 Ten enemy pools dealt the six old one-colour gang robes (16 entries, often the band's first man); out, each pool keeps its gang's layered men.
 The cone is off everywhere (BUILD 11/26m, THE CONE HAT IS DEAD 4/0). Its block is handoffs/CHARACTER.md; VOTE character2-the-robes-come-off-11-26;
 records/BOHEMIA_CHARACTER_TWO_THE_ROBES_COME_OFF_THE_ROAD_GANGS_11_26_26.md.
