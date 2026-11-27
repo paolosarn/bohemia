@@ -106,6 +106,11 @@
    "max": 500,
    "say": "the big standing buys (a man who joins the camp) are a car battery or two"
   },
+  "an_implant": {
+   "min": 100,
+   "max": 8000,
+   "say": "an implant off the black market (rule 486): a salvaged pacemaker 160 (under a car battery), a cochlear implant 700, a powered arm 1,200, a microprocessor knee 1,500, a camera eye 4,000 (16 car batteries): a real device's price in median working days at four AA a skilled day; among the dearest things in the game"
+  },
   "a_cart": {
    "min": 50,
    "max": 500,
@@ -551,6 +556,26 @@
    "what": "the two things a boss's verb makes (a pipe gun, a pressed plate)",
    "band": "gear_piece",
    "owner": "BOSSES"
+  },
+  {
+   "file": "records/target/bb/implants.json",
+   "paths": [
+    "implants[*].price",
+    "implants[*].price_range[*]"
+   ],
+   "what": "an implant off the black market, fitted in a back room (rule 486): real tech only, priced in real working days",
+   "band": "an_implant",
+   "owner": "ECONOMY THREE",
+   "note": "what it does is COMBAT FIVE's, how it looks CHARACTER 2's"
+  },
+  {
+   "file": "records/target/bb/implants.json",
+   "paths": [
+    "finder_share.value"
+   ],
+   "what": "what a scavenger who pulls one out is paid, a share of its price (the organ trade's under ten percent)",
+   "unit": "ratio",
+   "owner": "ECONOMY THREE"
   },
   {
    "file": "records/target/bb/retinue.json",
@@ -1167,109 +1192,109 @@
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"cook\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"cook\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=cook].price"
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"scout\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"scout\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=scout].price"
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"lookout\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"lookout\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=lookout].price"
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"paymaster\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"paymaster\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=paymaster].price"
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"blacksmith\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"blacksmith\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=blacksmith].price"
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"surgeon\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"surgeon\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=surgeon].price"
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"agent\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"agent\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=agent].price"
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"alchemist\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"alchemist\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=alchemist].price"
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"bounty_hunter\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"bounty_hunter\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=bounty_hunter].price"
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"brigand\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"brigand\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=brigand].price"
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"cartographer\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"cartographer\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=cartographer].price"
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"drill_sergeant\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"drill_sergeant\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=drill_sergeant].price"
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"minstrel\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"minstrel\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=minstrel].price"
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"negotiator\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"negotiator\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=negotiator].price"
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"quartermaster\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"quartermaster\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=quartermaster].price"
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"recruiter\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"recruiter\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=recruiter].price"
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"scavenger\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"scavenger\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=scavenger].price"
   },
   {
    "file": "engine/bohemia_camp.js",
-   "find": "\"id\":\"trader\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",\"price\":(\\d+)",
+   "find": "\"id\":\"trader\",\"bb\":\"[^\"]*\",\"name\":\"[^\"]*\",\"look\":\"[^\"]*\",(?:\"sex\":\"[^\"]*\",)?\"price\":(\\d+)",
    "what": "the camp engine's copy of a follower's price until retinue.json lands",
    "row": "records/target/bb/retinue.json#followers.value[id=trader].price"
   },
@@ -2652,6 +2677,24 @@
    "bosses[8].verb.item.price": 120,
    "bosses[9].verb.item.price": 13
   },
+  "records/target/bb/implants.json": {
+   "implants[id=powered_arm].price": 1200,
+   "implants[id=powered_arm].price_range[0]": 400,
+   "implants[id=powered_arm].price_range[1]": 1600,
+   "implants[id=powered_knee].price": 1500,
+   "implants[id=powered_knee].price_range[0]": 800,
+   "implants[id=powered_knee].price_range[1]": 2000,
+   "implants[id=cochlear].price": 700,
+   "implants[id=cochlear].price_range[0]": 500,
+   "implants[id=cochlear].price_range[1]": 900,
+   "implants[id=camera_eye].price": 4000,
+   "implants[id=camera_eye].price_range[0]": 2500,
+   "implants[id=camera_eye].price_range[1]": 8000,
+   "implants[id=pacemaker].price": 160,
+   "implants[id=pacemaker].price_range[0]": 140,
+   "implants[id=pacemaker].price_range[1]": 180,
+   "finder_share.value": 0.1
+  },
   "records/target/bb/retinue.json": {
    "followers.value[id=cook].price": 200,
    "followers.value[id=scout].price": 250,
@@ -2788,8 +2831,8 @@
   }
  },
  "count": {
-  "rows": 672,
-  "files": 17,
+  "rows": 688,
+  "files": 18,
   "copies": 167,
   "prose": 17
  }

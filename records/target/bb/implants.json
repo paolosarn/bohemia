@@ -1,0 +1,29 @@
+{
+ "_about": "ECONOMY THREE 11/27, VAMILY rule 486 (Paolo 11/27: 'it definitely would be possible to get a cybernetic implant. It would just be pretty expensive... probably one of the most expensive things you can do... it'd be fucked up black market shit though... cyberpunk world, capitalism is at 100%, in our world it's at like 5%'). REAL TECH ONLY: what medicine builds today, salvaged from before the collapse, fitted by a back-room surgeon, never a clinic, never chrome. The prices are a real device's price in median US working days (BLS, $1,214 a week, $243 a day, Q3 2025) at four AA a skilled day (a hired man is paid 1 to 4 a night), the same days of work then and now. The risks are the clinical rates raised toward what bought organs abroad really did (wound infection 16.7% against 2.0%, graft failure at three years 11.7% against 0.8%, Avicenna J Med 2022). WHAT IT DOES IN A FIGHT is COMBAT FIVE's (the 'proposes' lines are the research's, for them to take or leave); HOW IT LOOKS is CHARACTER 2's. Research: records/BOHEMIA_ECONOMY_THREE_THE_IMPLANT_IS_BLACK_MARKET_11_27_26.md.",
+ "draft": true,
+ "sold_by": {"value": "a back-room surgeon, never the clinic", "source": "VAMILY rule 486(b)", "why": "no clinic sells it; the part may be stolen off someone"},
+ "finder_share": {"value": 0.1, "unit": "of the price, what a scavenger who pulls one out of a dead man's house is paid for it", "source": "Library of Parliament Canada citing UNODC (organ trade: the supplier gets under 10 percent of what the buyer pays), https://lop.parl.ca/sites/PublicWebsite/default/en_CA/ResearchPublications/202083E", "why": "the black market's cut is the trade's own"},
+ "implants": [
+  {"id": "powered_arm", "name": "a powered arm", "what": "sensors on the stump read his muscles and drive the hand's motors; it sits in a socket, no surgery", "price": 1200, "price_range": [400, 1600],
+   "real": "a bebionic-class hand GBP 15,000 to 25,000 (Mondaq UK 2022); US multi-grip hands $40,000 to $100,000+; 82 to 412 working days",
+   "risk": {"never_fits": [0.25, 0.45]}, "risk_source": "23 percent of adults give up an electric arm even with full care (Biddiss and Chau 2007); 44 percent in Austria (Salminger et al.)",
+   "charge": "about 19 Wh a day (Hero Arm, 7.4 V 2,600 mAh, charged every night, Open Bionics)", "proposes": "a man who lost an arm to a debilitating injury fights again with it (COMBAT FIVE)"},
+  {"id": "powered_knee", "name": "a microprocessor knee", "what": "a computer sets the knee's resistance every step: he walks and runs on it and falls less", "price": 1500, "price_range": [800, 2000],
+   "real": "C-Leg about $35,600 each (VA 2006); mid-range near $50,000; Genium GBP 59,250, X3 85,750 (Keoghs 2024); 206 to 494 working days",
+   "risk": {"never_fits": [0.25, 0.45]}, "risk_source": "the socket limbs' abandonment above; no cut, no infection",
+   "charge": "25 hours a charge, 5.5 hours to fill (Ossur Power Knee); 2 to 5 days (Ottobock)", "proposes": "a man who lost a leg walks again at his old pace (COMBAT FIVE)"},
+  {"id": "cochlear", "name": "a cochlear implant", "what": "a wire in the inner ear fed by a processor worn outside: coarse sound, months to learn it", "price": 700, "price_range": [500, 900],
+   "real": "$30,000 to $50,000 an ear all in (UCSF); a 2025 average $51,072; 123 to 206 working days; sealed old stock only (a used inner part is never fitted again)",
+   "risk": {"infection": [0.10, 0.25], "dead_unit": [0.05, 0.10]}, "risk_source": "adult infection 0.4 to 5.1 percent, about 1.2 percent removed (Stanford cohort); revisions 5 to 10 percent",
+   "charge": "a processor's battery a day", "proposes": "a deaf man hears the fight again (COMBAT FIVE)"},
+  {"id": "camera_eye", "name": "a camera eye", "what": "a camera on glasses feeds a chip on the retina: flashes and edges, never faces; only for some kinds of blindness", "price": 4000, "price_range": [2500, 8000],
+   "real": "Argus II about $150,000, one patient's whole bill $497,000 (IEEE Spectrum 2022); 617 to 2,045 working days; its maker failed in 2019 and 350 users were left with no repairs",
+   "risk": {"serious_complication": [0.40, 0.60], "dead_in_years": [0.20, 0.40]}, "risk_source": "12 of 30 had a serious event in the trial, 24 of 30 still working at five years (da Cruz et al., Ophthalmology 2016); no follow-up care exists",
+   "charge": "glasses and a pack worn on the belt", "proposes": "the most expensive thing in the game; what it gives is COMBAT FIVE's to say, and it is never repaired"},
+  {"id": "pacemaker", "name": "a salvaged pacemaker", "what": "keeps a failing heart in time; 10 to 15 years on its own battery", "price": 160, "price_range": [140, 180],
+   "real": "about $8,200 to $11,100 all in (Medicare); 34 to 46 working days; reused pacemakers worked about as well as new (3.86 against 2.23 percent events, not significant, Sinha et al. 2018)",
+   "risk": {"infection": [0.08, 0.20], "malfunction": [0.01, 0.05]}, "risk_source": "infection 1 to 5 percent in a hospital (Cleveland Clinic); raised for a back room",
+   "charge": "none: its own battery for years", "proposes": "the one implant that is no upgrade: it saves a man who would die (COMBAT FIVE, the injury rule)"}
+ ],
+ "never_sold": {"value": ["a brain chip that moves a cursor (BrainGate, Neuralink)"], "source": "Willett et al., Nature 2023 (62 words a minute); Reuters 2026 (21 people enrolled); it needs a lab team to train the decoder", "why": "a story, never a shelf"}
+}

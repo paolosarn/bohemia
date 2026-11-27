@@ -62,6 +62,7 @@ T['bands'] = {
     'job_part': {'min': 1, 'max': 60, 'say': 'the parts a job\'s pay is built from'},
     'purse': {'min': 20, 'max': 400, 'say': 'what a crew starts with: tool packs to a car battery and change'},
     'big': {'min': 100, 'max': 500, 'say': 'the big standing buys (a man who joins the camp) are a car battery or two'},
+    'an_implant': {'min': 100, 'max': 8000, 'say': 'an implant off the black market (rule 486): a salvaged pacemaker 160 (under a car battery), a cochlear implant 700, a powered arm 1,200, a microprocessor knee 1,500, a camera eye 4,000 (16 car batteries): a real device\'s price in median working days at four AA a skilled day; among the dearest things in the game'},   # ECONOMY THREE 11/27
     'a_cart': {'min': 50, 'max': 500, 'zero_ok': True, 'say': 'a cart the staff push (rule 471): the first is a shopping cart off a lot, free; then tool packs to a car battery and a bit, beside the camp\'s own cart steps (100 to 500)'},   # ECONOMY THREE 11/26
     'prize': {'min': 5, 'max': 250, 'say': 'a purse in the pit is tool packs, never over a car battery'},
     'gear_piece': {'min': 1, 'max': 300, 'say': 'a made thing with its own price is tens to a few hundred'},
@@ -157,6 +158,8 @@ where(BB + 'origins.json', ['origins[*].pay'], 'an origin\'s bonus on every job 
 where(BB + 'boss_act_one.json', ['bosses[*].verb.pay_batteries', 'bosses[*].ground.till', 'bosses[*].tooth.tax', 'bosses[*].verb.cost'], 'the bosses: what a verb pays a time, THE POT\'s till, THE TOOTH\'s tax a town a day, a fade', 'the_road', owner='BOSSES')
 where(BB + 'boss_act_one.json', ['bosses[*].verb.item.price'], 'the two things a boss\'s verb makes (a pipe gun, a pressed plate)', 'gear_piece', owner='BOSSES')
 # ---- the big standing buys
+where(BB + 'implants.json', ['implants[*].price', 'implants[*].price_range[*]'], 'an implant off the black market, fitted in a back room (rule 486): real tech only, priced in real working days', 'an_implant', owner='ECONOMY THREE', note='what it does is COMBAT FIVE\'s, how it looks CHARACTER 2\'s')   # ECONOMY THREE 11/27
+where(BB + 'implants.json', 'finder_share.value', 'what a scavenger who pulls one out is paid, a share of its price (the organ trade\'s under ten percent)', unit='ratio', owner='ECONOMY THREE')
 where(BB + 'retinue.json', ['followers.value[*].price'], 'the eighteen who join the camp, once each', 'big', owner='RETINUE')
 where(BB + 'retinue.json', ['staff.value.cart.kinds[*].price'], 'the cart the staff push into a fight, built at his forge (rule 471): a shopping cart free, a steel utility cart 150, a wagon 300 (their tape is the build\'s, not money)', 'a_cart', owner='RETINUE')   # ECONOMY THREE 11/26: brought in
 where(BB + 'retinue.json', ['followers.value[*].nums.champPayLo', 'followers.value[*].nums.champPayHi', 'followers.value[*].nums.placePayLo', 'followers.value[*].nums.placePayHi'], 'what two of them bring in: a champion\'s head, a place found', 'prize', owner='RETINUE')

@@ -69,7 +69,7 @@ for o in _org:
 for cid, v in (('handcart', 100), ('pickup', 200), ('boxtruck', 350), ('trailer', 500)):
     copy(E + 'bohemia_camp.js', r"id: '" + cid + r"', word: '[^']*', slots: \d+, price: (\d+)", 'THE CART: its four steps, bought once each (five tool packs, ten, a car battery and five, two car batteries)', is_=v)
 for f in _j.load(open(os.path.join(R, RET)))['followers']['value']:
-    copy(E + 'bohemia_camp.js', r'"id":"' + f['id'] + r'","bb":"[^"]*","name":"[^"]*","look":"[^"]*","price":(\d+)', 'the camp engine\'s copy of a follower\'s price until retinue.json lands', row=RET + '#followers.value[id=' + f['id'] + '].price')
+    copy(E + 'bohemia_camp.js', r'"id":"' + f['id'] + r'","bb":"[^"]*","name":"[^"]*","look":"[^"]*",(?:"sex":"[^"]*",)?"price":(\d+)', 'the camp engine\'s copy of a follower\'s price until retinue.json lands', row=RET + '#followers.value[id=' + f['id'] + '].price')
 copy(E + 'bohemia_camp.js', r"he pays (\d+) to \d+ batteries a head", 'the camp engine\'s copy of the bounty hunter\'s line', row=RET + '#followers.value[id=bounty_hunter].nums.champPayLo')
 copy(E + 'bohemia_camp.js', r"he pays \d+ to (\d+) batteries a head", 'the camp engine\'s copy of the bounty hunter\'s line', row=RET + '#followers.value[id=bounty_hunter].nums.champPayHi')
 copy(E + 'bohemia_camp.js', r"He pays you (\d+) to \d+ batteries", 'the camp engine\'s copy of the cartographer\'s line', row=RET + '#followers.value[id=cartographer].nums.placePayLo')
