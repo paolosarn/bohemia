@@ -1,3 +1,7 @@
+UI FIVE (ui-five-01gkdyuu): 11/27 LATEST -- BUILD 11/27z - HIS FINGER ON THE DOOR, BUILT, NOT YET SEEN (rules 480(c), 482). Its block is handoffs/UI_FOUR.md.
+A tap on a crew pick on the door froze 333-467 ms at 4x (the jobs planned again under his finger); now they wait 2.5 s after his touch and run while he reads:
+55-58 fps, worst 33-83 ms, both ways. Gate HIS FINGER ON THE DOOR (new) both ways, plant red. VOTE ui5-his-finger-on-the-door-11-27. THE CLOCK UP TOP fast-proof 22/0;
+THE VOTE TAB GATE 66/0 (struck from the quarantine). [bb nothing behind the new-campaign screen moves while you choose]
 BESTIARY 3 (bestiary-three-01gkdyuu): 11/27 LATEST -- BUILD 11/27u - THE DRONE OPERATOR, BUILT, NOT YET SEEN (rule 490(c), ask row 762). Its block is handoffs/BESTIARY.md.
 The eye in the sky brings a drone operator from the middle of the game: he stands at the back, flies two charge drones (the cross lit a turn ahead), then pulls his pistol;
 drop him and his drone falls. 75 enemy types now (his floor). On AUTO his drones never land on a man (they step off): TUNING's and COMBAT FIVE's. VOTE bestiary3-the-drone-operator-11-27.
@@ -15,7 +19,7 @@ Every man of theirs carries a gun: 50 of 50 human kinds (6 before); a club, blad
 puts it away dry, and it drops with its rounds. His six win 62 of 78 (69 before); gun damage untouched. Gate EVERYBODY IS STRAPPED (new) 5/0, plants red. VOTE bestiary3-everybody-is-strapped-11-27.
 records/BOHEMIA_BESTIARY_THREE_EVERYBODY_IS_STRAPPED_11_27_26.md. NEXT: rule 490's drone operator, then the roles, then rule 491's forces by tier.
 [bb Battle Brothers gives a third of its melee men a bag of javelins; the valley gives every one of them a pistol]
-UI FIVE (ui-five-01gkdyuu): 11/27 LATEST -- BUILD 11/27f - THE CLOCK UP TOP, BUILT, NOT YET SEEN (rule 487, ask row 755). Its block is handoffs/UI_FOUR.md.
+UI FIVE (ui-five-01gkdyuu): 11/27 -- BUILD 11/27f - THE CLOCK UP TOP, BUILT, NOT YET SEEN (rule 487, ask row 755). Its block is handoffs/UI_FOUR.md.
 The day and the hour left the phone for the top bar's right end, with the sun's dial (the moon and a moonlit hour at night), on the map, in a town, at camp and on the end screen,
 upright and sideways, moving with the game's clock. Gate THE CLOCK UP TOP (new) 18/0, plants red; THE TOP IS ONLY RESOURCES and THE DAYS ONCE re-aimed. VOTE ui5-the-clock-up-top-11-27.
 Deployed (carried by ca29e8029's SUCCESS). THE VOTE TAB gate's door legs re-aimed at BEGIN, GO and the bar's or the phone's gear: 58/8 -> 61/5, the five other lanes' cards and one drag.
@@ -838,7 +842,7 @@ Gate THE BATTERY IS REAL 43/0 (the table with eight planted faults; nine legs a 
 FOR UI FOUR, JOBS, HOME BASE, WORDS TWO, TUNING, DIRECTION: each has lines in the handoff. NOT DECIDED AND NOT BUILT ON: who holds the working sun (459(e)).
 [bb Battle Brothers counts one coin and lets the number run to tens of thousands; ours is the coin and the things a coin is]
 [analog horror: a man counting out twelve drill batteries on a hood, slowly, because a wrong count gets somebody killed]
-FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/26 LATEST -- BUILD 11/27v - THE DRONE ON THE BIG ROW, BUILT (45b8ca53a), NOT YET SEEN (rule 482; ARMORY THREE's 490). Before it: 11/27j THE HIT LANDS ON THE CARD (cf3d05b4b), 11/26zd EVERY WEAPON DROPS (e20903107). Its block is handoffs/FIGHT_SCREEN.md.
+FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/26 LATEST -- BUILD 11/27z - THE DRONE ON THE BIG ROW, BUILT (45b8ca53a), NOT YET SEEN (rule 482; ARMORY THREE's 490). Before it: 11/27j THE HIT LANDS ON THE CARD (cf3d05b4b), 11/26zd EVERY WEAPON DROPS (e20903107). Its block is handoffs/FIGHT_SCREEN.md.
 THIS CHAT IS FIGHT SCREEN THREE. SHOOT THE DRONE stands first in the phone's big row (DRONE, its chance), red on the beat while the drone's cross is on
 his man (it was a tiny skill square). A hit on his man slips his photo on the card. Gate THE MAN'S CARD ON THE PHONE 22/0, THE PHONE 268/0.
 VOTE fight-screen-the-drone-on-the-big-row-11-27 and fight-screen-the-hit-lands-on-the-card-11-27 (STAND-IN). NEXT: the new guns' words on the aim line; FRAMES=1 with drones and rockets.

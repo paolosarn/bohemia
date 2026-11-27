@@ -9607,7 +9607,12 @@ GATES = [
      "it at the top of the screen'), ask row 755: on the demo and the alpha, a phone upright and sideways: K1 the bar's clock once, whole, "
      "the game's own day and hour, the sun's dial, the hour 14 px or more; K2 it moves as the game's clock moves, night at 22:15 (the moon), "
      "day at 09:40; K3 no day and no hour on the phone; K4 nothing threw; PLANTED: the clock off the bar (K1 red), the time back on the "
-     "phone (K3 red). About 1 min a walk", True),
+     "phone (K3 red); K5 K1 and K2 again with the game's clock running fast, each read against the bar's own painted reading. About 1 min a walk", True),
+    ('HIS FINGER ON THE DOOR', ['node', 'gates/his_finger_on_the_door_gate.js'],
+     "UI FIVE gate, 11/27, rules 480(c), 482 ('the next screen he meets, never choppy'): on the demo, a fresh phone, the title, NEW GAME, "
+     "upright and sideways, the CPU slowed 4x on the door: D1 three crew picks, no job plan made inside the 2.5 s after each touch (the "
+     "planner waits, slices/bohemia_job_danger.js __NO_PLANS_UNDER_HIS_FINGER_ON_THE_DOOR__); D2 5 s untouched, the planner works again; "
+     "D3 on the map it never waits for the door; D4 nothing threw; PLANTED: __PLANS_UNDER_THE_DOOR (the way it was) turns D1 red. About 2 min a walk", True),
     ('THE ALPHA SAYS CONTINUE', ['node', 'gates/the_alpha_says_continue_gate.js'],
      "UI FIVE gate, 11/26, ask row 738 (FOUND BY EYES 11/26: 'after a reload the alpha's front says Start clean with every new game's "
      "choice and no CONTINUE; BEGIN then brought back the game he was playing'), rules 482, 441: the alpha upright and sideways: A1 a "

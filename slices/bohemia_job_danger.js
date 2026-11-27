@@ -276,6 +276,13 @@
      planned at once, as before. A checker's old way: window.__JOB_DANGER_SYNC = true. */
   var BUDGET = { t: 0, used: 0 };   /* __A_BOARD_PLANS_IN_A_BUDGET__: the board's own plans made at once in one piece of work, in ms */
   var PLANQ = [], PLAYED_CK = {}, PLANT = null, PLANST = { deferred: 0, planned: 0, dropped: 0, slices: 0, sliceMax: 0, planMax: 0, waited: 0 };
+  function doorHear() { try { var W = root.top, D = W && W.document; if (!D || W.__BOH_DOOR_HEARD) return;   /* his last touch on the top page, by the clock */
+    W.__BOH_DOOR_HEARD = 1; var hear = function () { W.__BOH_DOOR_TOUCH = Date.now(); }; D.addEventListener('pointerdown', hear, true); D.addEventListener('keydown', hear, true); } catch (e) {} }
+  function doorUp() { try { var W = root.top, D = W && W.document; if (!D) return false;   /* __NO_PLANS_UNDER_HIS_FINGER_ON_THE_DOOR__: the door or the barber's chair on the glass */
+    var f = D.getElementById('front'); if (f && !W.__PLAY_BEGAN && f.offsetWidth > 0 && W.getComputedStyle(f).display !== 'none') return true;
+    var m = D.getElementById('mainmaker'); return !!(m && m.offsetWidth > 0 && W.getComputedStyle(m).display !== 'none'); } catch (e) { return false; } }
+  function doorTouched() { try { return Date.now() - (root.top.__BOH_DOOR_TOUCH || 0) < CFG_DOOR_QUIET; } catch (e) { return false; } }
+  var CFG_DOOR_QUIET = 2500;   /* ms after his last touch on the door or the chair */
   function motionBusy() { try { var T = root.top; return !!(T && T.BohemiaMotion && typeof T.BohemiaMotion.busy === 'function' && T.BohemiaMotion.busy()); } catch (e) { return false; } }
   function planSoon(ms) { if (PLANT != null || !PLANQ.length) return;   /* a gap of frames, then the page's idle time (a slice is one job's plan at most past 6 ms) */
     PLANT = setTimeout(function () { try { if (typeof root.requestIdleCallback === 'function') { root.requestIdleCallback(planSlice, { timeout: 400 }); return; } } catch (e) {} planSlice(); }, ms == null ? 100 : ms); }
@@ -292,6 +299,16 @@
        way it was. */
     if (!root.__PLANS_UNDER_CAMP) { var CC = null; try { CC = root.BohemiaMapCamp; } catch (e) { CC = null; } if (CC && CC.on && CC.on()) { PLANST.campWaited = (PLANST.campWaited | 0) + 1; return planSoon(1000); } }
     else PLANST.waitFrom = 0;
+    /* UI FIVE __NO_PLANS_UNDER_HIS_FINGER_ON_THE_DOOR__ (11/27, rule 480(c), rule 482, the routine's 'the next screen he meets, never
+       choppy'). MEASURED (the demo, CPU 4x, a fresh phone, NEW GAME): a tap on a crew pick held the door's frames 333 to 400 ms (long
+       tasks 425, 243, 219 ms upright; 337, 210 on its side), and the profile put 876 of them here: the pick turns the crew key (its
+       company, its cap), so every job in the valley is planned again, one job of about 300 ms a slice, starting 100 ms after his tap,
+       on top of the door redrawing under his finger. Holding them for the whole door only moved them (measured: GO and the 10 s after it
+       38 -> 24 frames a second, the plans landing on the squad's tape). So they wait only while his finger is busy on the door or the
+       barber's chair (2.5 s after his last touch there) and run while he reads, as before: done by GO, never under a pick. What he looks
+       at is still planned at once (a town's board asks). window.__PLANS_UNDER_THE_DOOR = the way it was. */
+    doorHear();
+    if (!root.__PLANS_UNDER_THE_DOOR && doorUp() && doorTouched()) { PLANST.doorWaited = (PLANST.doorWaited | 0) + 1; return planSoon(400); }
     var t0 = performance.now(), ck = crewKey(), day = dayNow(), n = 0;
     while (PLANQ.length && (n === 0 || performance.now() - t0 < CFG.slice_ms)) {
       var rk = PLANQ.shift(), R = READS[rk]; if (!R || !R.plan) continue;

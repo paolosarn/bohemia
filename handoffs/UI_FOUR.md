@@ -3,7 +3,25 @@
 # On VAMILY: pull main, re-read CLAUDE.md and the VAMILY front page (rules 453, 448, 452, 442(b), 441, 454(a), 402 as amended 11/7:
 # SMALLER, NEVER PAGES), then continue from the newest block below. FIGHT SCREEN 2 owns everything on the glass over the fight.
 
-UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/27 LATEST -- BUILD 11/27f - THE CLOCK UP TOP, BUILT, NOT YET SEEN
+UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/27 LATEST -- BUILD 11/27z - HIS FINGER ON THE DOOR, BUILT, NOT YET SEEN
+(rules 480(c), 482, 441; the coordinator's routine 'UI FIVE: keep cooking'). Record records/BOHEMIA_UI_FIVE_HIS_FINGER_ON_THE_DOOR_11_27_26.md.
+VOTE ui5-his-finger-on-the-door-11-27 (STAND-IN, a chart of every frame, three picks, before and now, both ways).
+- The first screens he meets at 4x: the title, NEW GAME, the picks standing all 58-60 fps; a TAP ON A CREW PICK 30-41 fps, worst 333-467 ms:
+  the pick turns the crew key and the jobs' planner made every job again, 300 ms a slice, under his finger. slices/bohemia_job_danger.js
+  __NO_PLANS_UNDER_HIS_FINGER_ON_THE_DOOR__ (beside CAMP FOUR's camp rule): on the door or the barber's chair the plans wait 2.5 s after
+  his last touch and run while he reads, so they are still done by GO. Now 55-58 fps, worst 33-83 ms. (Holding them for the whole door
+  only moved them onto GO: measured and dropped.)
+- Gate HIS FINGER ON THE DOOR (new, in the suite) D1-D4 both ways, plant red.
+- Same round, before it: THE CLOCK UP TOP made fast-proof (each read against the bar's own painting, K5 with time running) 22/0;
+  THE VOTE TAB GATE 61/5 -> 66/0 (24 whys condensed to two sentences, two first pictures cut, a third difference, a stage, the drag's
+  room for a short sheet), struck from the quarantine.
+NEXT for this lane, in order: (1) what EYES finds in this build; (2) the settings card's opening hitch on the slowed phone; (3) the
+upright 'Buy it and ...'; (4) the crew screen's weight line as a picture with RUN TWO. NOT MINE, measured: BEGIN to the chair and GO
+(row 724, PLUMBER 8).
+[bb Battle Brothers' new-campaign screen: you click through origins and nothing behind it moves]
+[analog horror: the camera feed holds still while you choose; the hum behind it waits for your hand to leave the glass]
+
+UI FIVE (ui-five-01gkdyuu, session_01GKDyuu7rcHALAdgc3md19x): 11/27 -- BUILD 11/27f - THE CLOCK UP TOP, BUILT, NOT YET SEEN
 (rule 487, ask row 755; the coordinator's routine 'UI FIVE: rule 487 the clock up top'). Record
 records/BOHEMIA_UI_FIVE_THE_CLOCK_UP_TOP_11_27_26.md. VOTE ui5-the-clock-up-top-11-27 (STAND-IN, before, now, night).
 - slices/bohemia_ui_materials.js __THE_CLOCK_UP_TOP__: the bar's clock at the resources' pane's right end (the sun's dial, the hour 16 px,
