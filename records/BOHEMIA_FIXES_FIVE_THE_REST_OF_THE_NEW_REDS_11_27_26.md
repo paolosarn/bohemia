@@ -111,3 +111,10 @@ WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): at a smith o
 Deploy: the pages run for 9c8626704 (BUILD 11/28j) SUCCESS.
 
 STILL TO WALK: PEOPLE 22 (3 reds), ANIMATION 18 (1), RUN 7 (1), BOSSES' three newest, WORLD 14's last three views, AUTO AT 4X's A6.
+
+## 8. WHERE THIS SESSION STOPPED
+
+RUN: THE REGION IS BATTLE BROTHERS SIZE, THE SHEETS ARE PACKED, NO NAME COVERS ANOTHER green alone; THE MAP FRAMES AROUND THE PHONE and
+THE MAP FITS YOUR JOBS ran past a 200 s cap (not a verdict: run them with the full cap); YOUR MAIN GUY LEADS THE WALK and ANY SIDE OF A
+TOWN IS ITS DOOR not run. Then PEOPLE 22, ANIMATION 18, BOSSES' newest three, WORLD 14's last three views, AUTO AT 4X's A6. The next FIXES
+session takes it from the handoff block (handoffs/FIXES_TWO.md, FIXES FIVE 11/28 (d)).

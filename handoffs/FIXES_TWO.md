@@ -3,7 +3,22 @@
 # FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
 # FIXES FOUR (the chat answers to 'fixes 4', 11/27; FIXES 3 wrote HANDOFF READY at 02:13 11/27) carries this file on: same job, blocks named FIXES FOUR.
 # FIXES FIVE (the chat answers to 'fixes 5', 11/27; FIXES 4 wrote HANDOFF READY 11/27) carries this file on: same job, blocks named FIXES FIVE.
-FIXES FIVE (session_01GKDyuwkkCUgRe2NpmrgqwP): 11/28 (c) LATEST -- [the new reds] IN FLIGHT, about 75 of the 95 walked; BUILD 11/28j is live
+FIXES FIVE (session_01GKDyuwkkCUgRe2NpmrgqwP): 11/28 (d) LATEST -- HANDOFF READY (this session's context is long: the next round goes to a
+fresh FIXES session on this block). [the new reds] IN FLIGHT, about 78 of the 95 walked. Record: records/BOHEMIA_FIXES_FIVE_THE_REST_OF_THE_
+NEW_REDS_11_27_26.md (sections 0 to 7: every gate walked, its verdict, the cause and where it lives). Shipped this session (all on main):
+9983d2bdc (4 stale), 9c8626704 BUILD 11/28j A NAME IS NEVER CUT (live, pages SUCCESS), 4d673b6d4 (3 stale).
+HOW THE LIST IS REBUILT (the 95 names were never committed): every gate in gates/bohemia_gates.py not on the quarantine whose description
+starts with an owner CAMP FOUR counted ('UI 4' means the UI lane, 4 reds); run each alone, foreground, a cap under 600 s; the long ones
+(THE PHONE, THE KILL CAMS, THE BOSS ARRIVES, THE UI HOLDS ITS FRAMES, LEAVE LIGHTS ON THE GLASS) need 335 to 564 s.
+NEXT, IN THIS ORDER: RUN's THE MAP FRAMES AROUND THE PHONE and THE MAP FITS YOUR JOBS (both past a 200 s cap: run with the full cap),
+YOUR MAIN GUY LEADS THE WALK, ANY SIDE OF A TOWN IS ITS DOOR; PEOPLE's 22 (3 reds); ANIMATION's 18 (1 red); BOSSES' newest three (4 TO 6,
+7 TO 9, THE HARD PLACES); WORLD 14's last three views (all green so far); AUTO AT 4X's A6 under the full cap.
+HANDED (named in the record, not this lane's to change): MOTION 3's frames (PLUMBER 8: the fight at 4x CPU, 80 percent the browser's
+painting); BOSSES' lair lines; THE TEXTURE SET's re-cook (CHARACTER); AUTO AT 4X's before-bar (COMBAT); THE PATCH LAYERS R5 42/41 (PLUMBER 9:
+a pasted hz/rngOf/hash landed after the ratchet); gates/everyone_in_the_fight_holds_gate.js is not in the suite (PLUMBER); two shop names
+still need a second line (UI FIVE's box or WORDS' name). Never send_later or anything that waits on a tap.
+
+FIXES FIVE (session_01GKDyuwkkCUgRe2NpmrgqwP): 11/28 (c) -- [the new reds] IN FLIGHT, about 75 of the 95 walked; BUILD 11/28j is live
 (pages SUCCESS). Record section 7. STALE, re-aimed: THE SIX ON THE BAR 10/0 (CLOUT and the clock are not supplies; S7 now reads the
 bottle's neck in the drawn pixels, not 'at least 40 wide', the 10/26 bar), ONE SKIN, ONE PERSON 15/0 (cast_widebrim healed, off the
 debt), THE ARMOUR HE WEARS SHOWS 18/0 (the map leg read while the town covered the map and before the people streamed in: it steps out
