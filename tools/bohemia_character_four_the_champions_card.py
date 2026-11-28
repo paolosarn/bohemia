@@ -114,7 +114,44 @@ def card_bands(before, after):
     print('card', c.size)
 
 
+EIGHT = [('THE HOUSE', 'enemy_house_shield_0', 'the casino\'s gold mantle over the tabard'), ('THE BLOCK WATCH', 'enemy_watch_neighbor_0', 'rust plate over the hi-vis, the green sash'),
+         ('THE KEEPERS', 'enemy_keeper_thrall_0', 'the coyote\'s pelt over the strips, a spiked pauldron'), ('THE WATER PEOPLE', 'enemy_water_cutter_0', 'the jug and the needles both, plate over the robe'),
+         ('THE FLOCK', 'enemy_flock_faithful_0', 'the one in white under the black cowl'), ('THE HIRED GUNS', 'enemy_hired_gun_0', 'a split-tail coat, the company\'s sash, soot plate'),
+         ('THE HEAD TAKERS', 'enemy_head_taker_0', 'an oxblood coat to the shin, plate, the blaze'), ('THE EYE IN THE SKY', 'enemy_casino_gunner_0', 'the pit boss in a white tailcoat, gold tie')]
+EIGHT_FIRST = os.path.join(ROOT, 'records/target/vote_first/character4-the-eight-champions-11-28.webp')
+EIGHT_LOOK = ['enemy_champion_house_0', 'enemy_champion_watch_0', 'enemy_champion_keepers_0', 'enemy_champion_water_0', 'enemy_champion_flock_0',
+              'enemy_champion_hired_0', 'enemy_champion_takers_0', 'enemy_champion_casino_0']
+
+
+def card_eight():
+    """THE EIGHT OTHER CHAMPIONS (11/28): each faction's champion beside one of his men, the fight's own frames at one to one and twice,
+    his face on his card"""
+    I = json.load(open(os.path.join(FR, 'fight_rig.json')))
+    W = 1000; BG, INK, DIM, GROUND, GOLD = (24, 21, 18), (226, 214, 190), (150, 138, 116), (118, 106, 88), (224, 160, 64)
+    cell_h = 300; H = 110 + 4 * cell_h + 10
+    c = Image.new('RGB', (W, H), BG); g = ImageDraw.Draw(c)
+    g.text((20, 16), 'EVERY BAND\'S CHAMPION IN HIS OWN CLOTHES', font=font(28, True), fill=INK)
+    g.text((20, 56), 'The eight other factions: one of his men, then him, at the fight\'s size and twice it, his face on his card.', font=font(15), fill=DIM)
+    for k, ((name, man, line), lk) in enumerate(zip(EIGHT, EIGHT_LOOK)):
+        x0 = 20 + (k % 2) * 490; y0 = 100 + (k // 2) * cell_h
+        g.rectangle((x0, y0, x0 + 470, y0 + cell_h - 12), fill=GROUND)
+        g.text((x0 + 8, y0 + 6), name, font=font(15, True), fill=(40, 30, 20)); g.text((x0 + 8, y0 + 26), line, font=font(12), fill=(40, 34, 28))
+        a, b = frame(I, man), frame(I, lk); x = x0 + 10
+        for im in (a, b):
+            c.paste(im, (x, y0 + cell_h - 20 - im.size[1]), im); x += im.size[0] + 8
+        x += 14
+        for im in (a, b):
+            big = im.resize((im.size[0] * 2, im.size[1] * 2), Image.NEAREST); c.paste(big, (x, y0 + cell_h - 20 - big.size[1]), big); x += big.size[0] + 6
+        f = face(I, lk)
+        if f: f = f.resize((96, 96), Image.LANCZOS); c.paste(f, (x0 + 470 - 104, y0 + 50), f)
+    c.save(os.path.join(D, 'CHARACTER_FOUR_THE_EIGHT_CHAMPIONS.webp'), 'WEBP', quality=90)
+    c.crop((0, 0, W, 100 + 2 * cell_h)).resize((480, int((100 + 2 * cell_h) * 480 / W)), Image.LANCZOS).save(EIGHT_FIRST, 'WEBP', quality=86)
+    print('card', c.size, int((100 + 2 * cell_h) * 480 / W))
+
+
 if __name__ == '__main__':
+    import sys as _s
+    if len(_s.argv) > 1 and _s.argv[1] == 'eight': card_eight(); raise SystemExit
     import sys
     if len(sys.argv) > 2: card_bands(sys.argv[1], sys.argv[2])
     else: card()

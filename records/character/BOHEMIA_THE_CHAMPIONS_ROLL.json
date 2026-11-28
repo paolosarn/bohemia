@@ -269,5 +269,375 @@
    "shoulders": 1.0,
    "hips": 0.4
   }
+ },
+ {
+  "id": "champion_house_0",
+  "gang": "House Champion",
+  "heritage": "white",
+  "tone": "pale",
+  "skin": [
+   "skin_light",
+   2
+  ],
+  "hair_cut": "DEEP TAPER",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.foreheadW": 30,
+   "face.cheekW": 33,
+   "face.jawW": 21,
+   "face.chinW": 8,
+   "eyes.gap": 7,
+   "mouth.w": 7
+  },
+  "face_name": "HEART",
+  "mark_name": "BROW SCAR",
+  "scar": "brow",
+  "legs": "LEATHER STACK PANT",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "GOLD SHOULDER MANTLE",
+   "SOOT GORGET",
+   "LEATHER GLOVES"
+  ],
+  "type": "House Champion",
+  "top": "CHARCOAL TURTLENECK",
+  "coat": "LEATHER JACKET",
+  "hat": "HUBCAP KETTLE",
+  "pieces": [
+   "tabard"
+  ],
+  "dials": {
+   "height": 0.3,
+   "belly": 0.2,
+   "shoulders": 0.75,
+   "hips": 0.1
+  }
+ },
+ {
+  "id": "champion_watch_0",
+  "gang": "Watch Champion",
+  "heritage": "asian",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "DEEP TAPER",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 27,
+   "face.jawW": 23,
+   "face.chinW": 9,
+   "face.foreheadW": 23,
+   "nose.w": 2,
+   "face.craniumH": 12
+  },
+  "face_name": "LONG AND NARROW",
+  "facial_hair": "HORSESHOE MOUSTACHE",
+  "new_beard": "horseshoe",
+  "mark_name": "CHEEK BURN",
+  "mark": "cheek_burn",
+  "legs": "KHAKI CARGOS",
+  "feet": "RANCH BOOTS",
+  "kit": [
+   "SCRAP CHEST PLATE",
+   "LEATHER GLOVES",
+   "LEATHER BELT"
+  ],
+  "type": "Watch Champion",
+  "top": "KHAKI BUTTON-UP",
+  "coat": "HI-VIS VEST",
+  "hat": "BIKE HELMET BONE",
+  "pieces": [
+   "hivis",
+   "sash",
+   "floormats",
+   "bullhorn"
+  ],
+  "dials": {
+   "height": 0.3,
+   "belly": 0.4,
+   "shoulders": 0.6,
+   "hips": 0.25
+  }
+ },
+ {
+  "id": "champion_keepers_0",
+  "gang": "Keeper Champion",
+  "heritage": "white",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "HOME CLIPPERS",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.craniumH": 15,
+   "face.len": 31,
+   "face.foreheadW": 28,
+   "face.cheekW": 31
+  },
+  "face_name": "HIGH DOME",
+  "mark_name": "CAULIFLOWER EAR",
+  "mark": "cauliflower_ear",
+  "legs": "LEATHER STACK PANT",
+  "feet": "WRAPPED BOOTS",
+  "kit": [
+   "HAND WRAPS",
+   "SPIKED PAULDRON",
+   "LEAD WAIST WRAP"
+  ],
+  "type": "Keeper Champion",
+  "top": "BLACK TANK",
+  "hat": "COYOTE PELT",
+  "pieces": [
+   "pelt_legs",
+   "strips"
+  ],
+  "dials": {
+   "height": 0.6,
+   "belly": 0.15,
+   "shoulders": 1.0,
+   "hips": 0.2
+  }
+ },
+ {
+  "id": "champion_water_0",
+  "gang": "Water Champion",
+  "heritage": "hispanic",
+  "tone": "bronze",
+  "skin": [
+   "skin_mid",
+   2
+  ],
+  "hair_cut": "HOME CLIPPERS",
+  "hair": [
+   "tape_masking",
+   1
+  ],
+  "face": {
+   "face.craniumH": 15,
+   "face.len": 31,
+   "face.foreheadW": 28,
+   "face.cheekW": 31
+  },
+  "face_name": "HIGH DOME",
+  "facial_hair": "SOUL PATCH",
+  "new_beard": "soul_patch",
+  "mark_name": "BROW SCAR",
+  "scar": "brow",
+  "legs": "ANKLE WRAP SKIRT",
+  "feet": "SANDWALKERS",
+  "kit": [
+   "LEATHER GLOVES",
+   "SCRAP CHEST PLATE"
+  ],
+  "type": "Water Champion",
+  "top": "BONE TURTLENECK",
+  "coat": "LEATHER WRAP COAT",
+  "hat": "HAT DESERT SHEMAGH",
+  "eyewear": "FACE FACE WRAP",
+  "pieces": [
+   "jug",
+   "syringes"
+  ],
+  "dials": {
+   "height": 0.45,
+   "belly": -0.3,
+   "shoulders": 0.3,
+   "hips": -0.1
+  },
+  "robe": 0.3
+ },
+ {
+  "id": "champion_flock_0",
+  "gang": "Flock Champion",
+  "heritage": "mixed",
+  "tone": "bronze",
+  "skin": [
+   "skin_mid",
+   2
+  ],
+  "hair_cut": "SHORT ROPES",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 29,
+   "face.cheekW": 37,
+   "face.jawW": 30,
+   "face.chinW": 13,
+   "face.foreheadW": 27,
+   "face.craniumH": 11,
+   "nose.w": 4
+  },
+  "face_name": "ROUND",
+  "legs": "CHARCOAL WRAP SKIRT",
+  "feet": "WRAPPED BOOTS",
+  "kit": [
+   "DRAPED COWL",
+   "OXBLOOD BRACERS",
+   "LEATHER BELT"
+  ],
+  "type": "Flock Champion",
+  "top": "BONE BUTTON-UP",
+  "coat": "BONE DUSTER",
+  "pieces": [],
+  "dials": {
+   "height": 0.5,
+   "belly": -0.2,
+   "shoulders": 0.3,
+   "hips": -0.1
+  }
+ },
+ {
+  "id": "champion_hired_0",
+  "gang": "Hired Champion",
+  "heritage": "black",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "DRY TAPER",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "mouth.w": 6,
+   "nose.w": 2,
+   "eyes.gap": 5,
+   "face.chinW": 9,
+   "face.len": 30,
+   "brows.len": 5
+  },
+  "face_name": "SMALL FEATURES",
+  "mark_name": "CHEEK SCAR",
+  "scar": "cheek",
+  "legs": "LEATHER STACK PANT",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "SOOT CHEST PLATE",
+   "LEATHER GLOVES"
+  ],
+  "type": "Hired Champion",
+  "top": "FADED BLACK LONGSLEEVE",
+  "coat": "LEATHER SPLIT-TAIL COAT",
+  "hat": "HAT SCRAP HELM",
+  "pieces": [
+   "sash"
+  ],
+  "dials": {
+   "height": 0.4,
+   "belly": 0.1,
+   "shoulders": 0.8,
+   "hips": 0.1
+  }
+ },
+ {
+  "id": "champion_takers_0",
+  "gang": "Taker Champion",
+  "heritage": "mixed",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "TEMPLE TAPER",
+  "hair": [
+   "clay_rust",
+   1
+  ],
+  "face": {
+   "face.len": 28,
+   "face.craniumH": 15,
+   "face.foreheadW": 29,
+   "face.cheekW": 33,
+   "face.jawW": 24,
+   "face.chinW": 7,
+   "eyes.gap": 8,
+   "face.eyeY": 2,
+   "nose.w": 2,
+   "mouth.w": 6,
+   "brows.len": 5
+  },
+  "face_name": "BABY FACE",
+  "legs": "LEATHER STACK PANT",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "BLAZE SCARF",
+   "SCRAP CHEST PLATE",
+   "LEATHER GLOVES"
+  ],
+  "type": "Taker Champion",
+  "top": "CHARCOAL TURTLENECK",
+  "coat": "DRIFTER'S COAT",
+  "pieces": [],
+  "dials": {
+   "height": 0.45,
+   "belly": -0.1,
+   "shoulders": 0.6,
+   "hips": 0.0
+  }
+ },
+ {
+  "id": "champion_casino_0",
+  "gang": "Casino Champion",
+  "heritage": "black",
+  "tone": "brown",
+  "skin": [
+   "skin_light",
+   1
+  ],
+  "hair_cut": "GREASE BACK",
+  "hair": [
+   "clay_mustard",
+   1
+  ],
+  "face": {
+   "face.len": 29,
+   "face.craniumH": 7,
+   "face.cheekW": 37,
+   "face.jawW": 34,
+   "face.chinW": 20,
+   "mouth.w": 14,
+   "nose.w": 5,
+   "face.browY": 2
+  },
+  "face_name": "BULLDOG",
+  "facial_hair": "STUBBLE",
+  "stubble": true,
+  "legs": "DROP RISE TROUSER",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "SHELL BANDOLIER",
+   "OXBLOOD GLOVES"
+  ],
+  "type": "Casino Champion",
+  "top": "SOOT BUTTON-UP",
+  "coat": "BONE SPLIT-TAIL COAT",
+  "eyewear": "FACE WRAPAROUND SHADES",
+  "pieces": [
+   "tie"
+  ],
+  "dials": {
+   "height": 0.4,
+   "belly": 0.15,
+   "shoulders": 0.55,
+   "hips": 0.05
+  }
  }
 ]

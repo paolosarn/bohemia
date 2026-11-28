@@ -101,6 +101,33 @@ their own clothes, before -> now: road crews 3 of 30 -> 30 of 30 (thugs, raiders
 GATES: THE ENEMY GROWS WITH HIS COMPANY 7/0; A CHAMPION READS 9/0; EVERYBODY IS STRAPPED 5/0; THE BESTIARY 10/0. VOTE
 character4-every-champion-dressed-11-28 (three road-crew bands the fight dealt, before and now).
 
+## 6c. BUILD 11/28i - EVERY BAND'S CHAMPION (the eight other factions, the next job of 6b)
+One man a faction (a band carries one champion, so a pool of one is never two of him), each his band's signature piece with plate a
+tier over it and one mark his men do not carry, through the same tool (FACTION_TYPES):
+  THE HOUSE        the carpet tabard over a leather jacket, the hubcap kettle, a gorget, the casino's GOLD MANTLE (Battle Brothers'
+                   black and gold)
+  THE BLOCK WATCH  the hi-vis vest and the floor-mat greaves under a RUST CHEST PLATE, the Watch's green sash, the bullhorn, a bike helmet
+  THE KEEPERS      the lab coyote's PELT as his head over the cloak of bleached strips, bare arms in wraps, a spiked pauldron
+  THE WATER PEOPLE the robe and the leather wrap coat, the amber JUG and the NEEDLE BANDOLIER both, plate over the robe
+  THE FLOCK        the one in WHITE: a bone duster to the ankle under the flock's charcoal cowl, his own head bare
+  THE HIRED GUNS   a leather split-tail coat, the company's sash in its banner ink, a SOOT CHEST PLATE, the scrap helm
+  THE HEAD TAKERS  an OXBLOOD DRIFTER'S COAT to the shin, plate strapped over it, the hunter's blaze
+  THE EYE IN THE SKY the pit boss in a WHITE DINNER TAILCOAT (a new cloth: the split-tail coat in bone) over the house's black
+                   shirt, the gold tie, dark glasses, a bandolier of shells
+LOOP 1 (beside one of his men at 1:1): the casino's champion in the house's black tailcoat was one more black suit beside the gunner
+and the doorman -> white. The water people's robe was lost: the nine's roll_more never set a type's robe (roll() did): set at the
+root. Weakest reads, said plainly: the House's (the gold sits on his shoulders, small at 1:1) and the keepers' (the pelt's head over
+the strips his men wear): the next pass for either is a bigger mark.
+MEASURED (tools/bohemia_character_four_every_champion_bands.js, 60 three-star late bands a faction, the fight's own code): champions
+in their own clothes: the House 26 of 26, the watch 26/26, the keepers 23/23, the water people 24/24, the flock 23/23, the hired guns
+23/23, the takers 14/14, the casino 12/12 (all were 0); the road crews, kids and heavies stay 30/30, 29/29, 20/20.
+THE SITE 874 MB of 900 (PAGES PUBLISH 30/0, the fight renders set aside); eight more sheets and atlases (327 to 405 KB each); the face
+strip holds the fourteen. Data: ours.json people_looks.band champion_<faction>, bohemia_enemies.json champions.by_faction[f].look_pool
+(the champions' by_faction, never the mix's: a first pass of the tool wrote it into the mix's house, watch, keepers... entries, caught
+by the count (0 of 26) and reverted; the tool now anchors on the champions block and refuses a look_pool in a mix).
+GATES: THE BESTIARY 10/0; THE ENEMY GROWS 7/0; A CHAMPION READS 9/0; THE SHEETS ARE PACKED 4/0; THE BESTIARY FLOOR data legs 13/0;
+PAGES PUBLISH 30/0. VOTE character4-the-eight-champions-11-28.
+
 ## 7. THE METHOD (rule 495)
 One owning module each: tools/bohemia_character_four_the_champions.py adds three types IN MEMORY to the nine enemies' pipe
 (tools/bohemia_character_the_nine_enemies.py: the barber's roll, the body build, RUN TWO's render on DIRECTION's master rig, COMBAT's

@@ -1,5 +1,16 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+CHARACTER FOUR (character-four-01gkdyuu): 11/28 (au) LATEST -- *** SHIPPED BUILD 11/28i EVERY BAND'S CHAMPION (the eight other factions; the block below's NEXT (1)). ***
+TAB: VOTE (character4-the-eight-champions-11-28); RUN (a three-star late fight of any human faction that carries a champion).
+WHAT: one champion a faction for the House, the watch, the keepers, the water people, the flock, the hired guns, the takers and the casino (FACTION_TYPES in
+tools/bohemia_character_four_the_champions.py; record section 6c lists each); data() writes each pool (ours.json people_looks.band champion_<faction>) and
+its by_faction look_pool (anchored on the champions block; it refuses a look_pool in a mix). MEASURED: every champion of all eleven human factions in his own
+clothes (House 26/26, watch 26/26, keepers 23/23, water 24/24, flock 23/23, hired 23/23, takers 14/14, casino 12/12; road 30/30, kids 29/29, heavies 20/20).
+Gates: THE BESTIARY 10/0, THE ENEMY GROWS 7/0, A CHAMPION READS 9/0, THE SHEETS ARE PACKED 4/0, THE BESTIARY FLOOR data 13/0, PAGES PUBLISH 30/0 (874 MB).
+NEXT (in order): (1) the weakest reads, a bigger mark each: the House's champion (the gold sits small on his shoulders) and the keepers' (the pelt's head
+over the strips his men wear); (2) a second man for each of the eight (two a faction, as the road crew, kids and heavies); (3) the cell's headroom to COMBAT
+(record section 4); (4) CHARACTER 3's list (the new guns into the fight, the eye and the ear, the stand-ins, the bosses' crews).
+
 CHARACTER FOUR (character-four-01gkdyuu): 11/28 (at) LATEST -- *** SHIPPED BUILD 11/28f EVERY CHAMPION DRESSED (the one line the block below owed, built here: nobody held it). ***
 TAB: VOTE (character4-every-champion-dressed-11-28); RUN (any three-star late fight of the road crews, the kids or the heavies that carries a champion).
 WHAT: the fight's champion block (slices/BOHEMIA_FIGHT.html, after champOn) dresses a rolled man of ANY kind in his faction's champion men, from data

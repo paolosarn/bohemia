@@ -1,0 +1,258 @@
+{
+ "look": "PERSON_CHAMPION_HIRED_0",
+ "shape": "person_champion_hired_0: the hired guns' champion: a leather split-tail coat, the company's sash in its banner ink, a soot chest plate, the scrap helm, his own skin skin_light 1, FADED BLACK LONGSLEEVE under LEATHER SPLIT-TAIL COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "FADED BLACK LONGSLEEVE",
+  "outer": "LEATHER SPLIT-TAIL COAT",
+  "legs": "LEATHER STACK PANT",
+  "feet": "TALL MOTO BOOTS",
+  "gear": "SOOT CHEST PLATE",
+  "hands": "LEATHER GLOVES",
+  "outfit": [
+   "FADED BLACK LONGSLEEVE and LEATHER SPLIT-TAIL COAT read as one, and no colour of either cut reads apart",
+   "the sleeves pushed up the forearm"
+  ]
+ },
+ "dials": {
+  "height": 0.4,
+  "belly": 0.1,
+  "shoulders": 0.8,
+  "hips": 0.1
+ },
+ "layers": {
+  "base": {
+   "under": "SPLIT TAIL",
+   "arms_covered": true
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "sleeve_to": 1.42,
+   "push": true
+  }
+ },
+ "model": "records/character/rig/person_champion_hired_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7544,
+ "real_height_for_rig": 1.7606,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_champion_hired_0_shoe": 4484,
+  "person_champion_hired_0_shirt": 67428,
+  "person_champion_hired_0_collar": 1536,
+  "person_champion_hired_0_cuffs": 2048,
+  "person_champion_hired_0_hem": 1792,
+  "person_champion_hired_0_coat": 63676,
+  "person_champion_hired_0_coat_skirt": 5850,
+  "person_champion_hired_0_collar.001": 1536,
+  "person_champion_hired_0_lapels": 396,
+  "person_champion_hired_0_pushed": 2048,
+  "person_champion_hired_0_pockets": 252,
+  "person_champion_hired_0_pocket_flaps": 252,
+  "person_champion_hired_0_sash": 2048,
+  "person_champion_hired_0_sash_knot": 52,
+  "person_champion_hired_0_sash_tail_0": 26,
+  "person_champion_hired_0_sash_tail_1": 26,
+  "person_champion_hired_0_trouser": 43706,
+  "person_champion_hired_0_sole_1": 242,
+  "person_champion_hired_0_midsole_1": 242,
+  "person_champion_hired_0_sole_0": 242,
+  "person_champion_hired_0_midsole_0": 242,
+  "person_champion_hired_0_boot_collar": 2048,
+  "person_champion_hired_0_boot_collar_line": 2048,
+  "person_champion_hired_0_boot_strap": 2048,
+  "person_champion_hired_0_soot_chest_plate": 6042,
+  "person_champion_hired_0_soot_chest_plate_x": 196,
+  "person_champion_hired_0_leather_gloves_L": 392,
+  "person_champion_hired_0_leather_gloves_R": 392,
+  "person_champion_hired_0_leather_gloves_cuff": 2048,
+  "person_champion_hired_0_hair": 17968,
+  "person_champion_hired_0_hand_L": 392,
+  "person_champion_hired_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_champion_hired_0_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_champion_hired_0_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_hired_0_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_hired_0_coat": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_hired_0_coat_skirt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_hired_0_collar": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_champion_hired_0_cuffs": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_champion_hired_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_champion_hired_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_champion_hired_0_hem": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_champion_hired_0_lapels": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_champion_hired_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_hired_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_champion_hired_0_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_hired_0_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_hired_0_pocket_flaps": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_champion_hired_0_pockets": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_hired_0_pushed": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_hired_0_sash": [
+   0.0887,
+   0.107,
+   0.305
+  ],
+  "person_champion_hired_0_sash_knot": [
+   0.0887,
+   0.107,
+   0.305
+  ],
+  "person_champion_hired_0_sash_tail_0": [
+   0.0887,
+   0.107,
+   0.305
+  ],
+  "person_champion_hired_0_sash_tail_1": [
+   0.0887,
+   0.107,
+   0.305
+  ],
+  "person_champion_hired_0_shirt": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_champion_hired_0_shoe": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_champion_hired_0_shoes": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_champion_hired_0_skin": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "person_champion_hired_0_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_champion_hired_0_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_champion_hired_0_soot_chest_plate": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_champion_hired_0_soot_chest_plate_collar": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_champion_hired_0_soot_chest_plate_rivets": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_champion_hired_0_soot_chest_plate_x": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_champion_hired_0_trouser": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_hired_0_trouser_folds": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_champion_hired_0_trousers": [
+   0.1301,
+   0.0513,
+   0.016
+  ]
+ }
+}

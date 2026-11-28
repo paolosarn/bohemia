@@ -453,6 +453,7 @@ def roll_more(t):
         if T['hats'][k]: P['hat'] = T['hats'][k]
         if T['eyewear'][k]: P['eyewear'] = T['eyewear'][k]
         P['pieces'] = list(T['pieces'][k]); P['dials'] = T['dials'][k]
+        if T.get('robe'): P['robe'] = T['robe'][k]   # CHARACTER 4, 11/28: roll() set it and this did not (a type rolled later lost its robe)
         key = BB.key(P) + (P['top'], P.get('coat'), t)
         if key in seen: continue
         seen.add(key); new.append(P); got += 1

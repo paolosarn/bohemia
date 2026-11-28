@@ -1,0 +1,480 @@
+{
+ "look": "PERSON_CHAMPION_WATER_0",
+ "shape": "person_champion_water_0: the water people's champion: the robe and the leather wrap coat, the amber water jug on his back and the needle bandolier across him, plate over the robe, his own skin skin_mid 2, BONE TURTLENECK under LEATHER WRAP COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE TURTLENECK",
+  "outer": "LEATHER WRAP COAT",
+  "legs": "ANKLE WRAP SKIRT",
+  "feet": "SANDWALKERS",
+  "hands": "LEATHER GLOVES",
+  "gear": "SCRAP CHEST PLATE",
+  "outfit": [
+   "the sleeve ends short of the cuff under it"
+  ]
+ },
+ "dials": {
+  "height": 0.45,
+  "belly": -0.3,
+  "shoulders": 0.3,
+  "hips": -0.1
+ },
+ "layers": {
+  "base": {
+   "under": "WRAP COAT",
+   "arms_covered": true,
+   "cuff_to": 1.89
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "sleeve_to": 1.7
+  }
+ },
+ "model": "records/character/rig/person_champion_water_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7587,
+ "real_height_for_rig": 1.7649,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_champion_water_0_shoe": 2508,
+  "person_champion_water_0_vestment": 6692,
+  "person_champion_water_0_shirt": 79720,
+  "person_champion_water_0_cuffs": 2048,
+  "person_champion_water_0_hem": 1792,
+  "person_champion_water_0_coat": 69340,
+  "person_champion_water_0_coat_skirt": 6048,
+  "person_champion_water_0_collar": 1536,
+  "person_champion_water_0_belt": 1792,
+  "person_champion_water_0_wrap_edge": 198,
+  "person_champion_water_0_knot": 68,
+  "person_champion_water_0_jug": 438,
+  "person_champion_water_0_jug_cap": 32,
+  "person_champion_water_0_jug_strap_0": 1280,
+  "person_champion_water_0_jug_strap_1": 1280,
+  "person_champion_water_0_jug_harness_1": 162,
+  "person_champion_water_0_jug_harness_0": 162,
+  "person_champion_water_0_jug_hose": 216,
+  "person_champion_water_0_jug_valve": 20,
+  "person_champion_water_0_needle_band": 2048,
+  "person_champion_water_0_syr_dregs_0": 20,
+  "person_champion_water_0_syr_barrel_0": 20,
+  "person_champion_water_0_syr_cap_0": 16,
+  "person_champion_water_0_syr_plunger_0": 28,
+  "person_champion_water_0_syr_dregs_1": 20,
+  "person_champion_water_0_syr_barrel_1": 20,
+  "person_champion_water_0_syr_cap_1": 16,
+  "person_champion_water_0_syr_plunger_1": 28,
+  "person_champion_water_0_syr_dregs_2": 20,
+  "person_champion_water_0_syr_barrel_2": 20,
+  "person_champion_water_0_syr_cap_2": 16,
+  "person_champion_water_0_syr_plunger_2": 28,
+  "person_champion_water_0_syr_dregs_3": 20,
+  "person_champion_water_0_syr_barrel_3": 20,
+  "person_champion_water_0_syr_cap_3": 16,
+  "person_champion_water_0_syr_plunger_3": 28,
+  "person_champion_water_0_syr_dregs_4": 20,
+  "person_champion_water_0_syr_barrel_4": 20,
+  "person_champion_water_0_syr_cap_4": 16,
+  "person_champion_water_0_syr_plunger_4": 28,
+  "person_champion_water_0_syr_dregs_5": 20,
+  "person_champion_water_0_syr_barrel_5": 20,
+  "person_champion_water_0_syr_cap_5": 16,
+  "person_champion_water_0_syr_plunger_5": 28,
+  "person_champion_water_0_syr_dregs_6": 20,
+  "person_champion_water_0_syr_barrel_6": 20,
+  "person_champion_water_0_syr_cap_6": 16,
+  "person_champion_water_0_syr_plunger_6": 28,
+  "person_champion_water_0_skirt": 8736,
+  "person_champion_water_0_skirt_tie": 1792,
+  "person_champion_water_0_sole_1": 242,
+  "person_champion_water_0_sole_0": 242,
+  "person_champion_water_0_strap_1_0": 90,
+  "person_champion_water_0_strap_1_1": 90,
+  "person_champion_water_0_strap_0_0": 90,
+  "person_champion_water_0_strap_0_1": 90,
+  "person_champion_water_0_ankle_strap": 2048,
+  "person_champion_water_0_leather_gloves_L": 392,
+  "person_champion_water_0_leather_gloves_R": 392,
+  "person_champion_water_0_leather_gloves_cuff": 2048,
+  "person_champion_water_0_scrap_chest_plate": 6566,
+  "person_champion_water_0_scrap_chest_plate_x": 196,
+  "person_champion_water_0_hair": 17968,
+  "person_champion_water_0_hand_L": 392,
+  "person_champion_water_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_champion_water_0_ankle_strap": [
+   0.1356,
+   0.0704,
+   0.0203
+  ],
+  "person_champion_water_0_belt": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_champion_water_0_coat": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_water_0_coat_skirt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_water_0_collar": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_water_0_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_champion_water_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_champion_water_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_champion_water_0_hem": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_champion_water_0_jug": [
+   0.3515,
+   0.2159,
+   0.0802
+  ],
+  "person_champion_water_0_jug_cap": [
+   0.0369,
+   0.0319,
+   0.0252
+  ],
+  "person_champion_water_0_jug_harness_0": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_champion_water_0_jug_harness_1": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_champion_water_0_jug_hose": [
+   0.0844,
+   0.0612,
+   0.0319
+  ],
+  "person_champion_water_0_jug_strap_0": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_champion_water_0_jug_strap_1": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_champion_water_0_jug_valve": [
+   0.2016,
+   0.0319,
+   0.0252
+  ],
+  "person_champion_water_0_knot": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_champion_water_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_water_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_champion_water_0_needle_band": [
+   0.0452,
+   0.0252,
+   0.0144
+  ],
+  "person_champion_water_0_person_champion_water_0_jug_m0": [
+   0.0802,
+   0.0343,
+   0.0091
+  ],
+  "person_champion_water_0_person_champion_water_0_jug_m1": [
+   0.162,
+   0.0648,
+   0.0116
+  ],
+  "person_champion_water_0_person_champion_water_0_jug_m2": [
+   0.107,
+   0.0844,
+   0.0513
+  ],
+  "person_champion_water_0_scrap_chest_plate": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_champion_water_0_scrap_chest_plate_collar": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_champion_water_0_scrap_chest_plate_rivets": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_champion_water_0_scrap_chest_plate_x": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_champion_water_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_champion_water_0_shoe": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_champion_water_0_shoes": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_champion_water_0_skin": [
+   0.3916,
+   0.162,
+   0.0723
+  ],
+  "person_champion_water_0_skirt": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_champion_water_0_skirt_edge": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_champion_water_0_skirt_fold": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_champion_water_0_skirt_tie": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_champion_water_0_sole_0": [
+   0.0343,
+   0.0212,
+   0.0103
+  ],
+  "person_champion_water_0_sole_1": [
+   0.0343,
+   0.0212,
+   0.0103
+  ],
+  "person_champion_water_0_strap_0_0": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_champion_water_0_strap_0_1": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_champion_water_0_strap_1_0": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_champion_water_0_strap_1_1": [
+   0.2918,
+   0.159,
+   0.0423
+  ],
+  "person_champion_water_0_syr_barrel_0": [
+   0.552,
+   0.552,
+   0.491
+  ],
+  "person_champion_water_0_syr_barrel_1": [
+   0.552,
+   0.552,
+   0.491
+  ],
+  "person_champion_water_0_syr_barrel_2": [
+   0.552,
+   0.552,
+   0.491
+  ],
+  "person_champion_water_0_syr_barrel_3": [
+   0.552,
+   0.552,
+   0.491
+  ],
+  "person_champion_water_0_syr_barrel_4": [
+   0.552,
+   0.552,
+   0.491
+  ],
+  "person_champion_water_0_syr_barrel_5": [
+   0.552,
+   0.552,
+   0.491
+  ],
+  "person_champion_water_0_syr_barrel_6": [
+   0.552,
+   0.552,
+   0.491
+  ],
+  "person_champion_water_0_syr_cap_0": [
+   0.3916,
+   0.117,
+   0.0252
+  ],
+  "person_champion_water_0_syr_cap_1": [
+   0.3916,
+   0.117,
+   0.0252
+  ],
+  "person_champion_water_0_syr_cap_2": [
+   0.3916,
+   0.117,
+   0.0252
+  ],
+  "person_champion_water_0_syr_cap_3": [
+   0.3916,
+   0.117,
+   0.0252
+  ],
+  "person_champion_water_0_syr_cap_4": [
+   0.3916,
+   0.117,
+   0.0252
+  ],
+  "person_champion_water_0_syr_cap_5": [
+   0.3916,
+   0.117,
+   0.0252
+  ],
+  "person_champion_water_0_syr_cap_6": [
+   0.3916,
+   0.117,
+   0.0252
+  ],
+  "person_champion_water_0_syr_dregs_0": [
+   0.117,
+   0.0212,
+   0.0176
+  ],
+  "person_champion_water_0_syr_dregs_1": [
+   0.117,
+   0.0212,
+   0.0176
+  ],
+  "person_champion_water_0_syr_dregs_2": [
+   0.117,
+   0.0212,
+   0.0176
+  ],
+  "person_champion_water_0_syr_dregs_3": [
+   0.117,
+   0.0212,
+   0.0176
+  ],
+  "person_champion_water_0_syr_dregs_4": [
+   0.117,
+   0.0212,
+   0.0176
+  ],
+  "person_champion_water_0_syr_dregs_5": [
+   0.117,
+   0.0212,
+   0.0176
+  ],
+  "person_champion_water_0_syr_dregs_6": [
+   0.117,
+   0.0212,
+   0.0176
+  ],
+  "person_champion_water_0_syr_plunger_0": [
+   0.0252,
+   0.0232,
+   0.0212
+  ],
+  "person_champion_water_0_syr_plunger_1": [
+   0.0252,
+   0.0232,
+   0.0212
+  ],
+  "person_champion_water_0_syr_plunger_2": [
+   0.0252,
+   0.0232,
+   0.0212
+  ],
+  "person_champion_water_0_syr_plunger_3": [
+   0.0252,
+   0.0232,
+   0.0212
+  ],
+  "person_champion_water_0_syr_plunger_4": [
+   0.0252,
+   0.0232,
+   0.0212
+  ],
+  "person_champion_water_0_syr_plunger_5": [
+   0.0252,
+   0.0232,
+   0.0212
+  ],
+  "person_champion_water_0_syr_plunger_6": [
+   0.0252,
+   0.0232,
+   0.0212
+  ],
+  "person_champion_water_0_trousers": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_champion_water_0_vestment": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_champion_water_0_wrap_edge": [
+   0.0545,
+   0.0222,
+   0.0075
+  ]
+ }
+}

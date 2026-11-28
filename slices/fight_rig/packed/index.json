@@ -427,6 +427,18 @@
 "fill": 0.189,
 "packedMB": 3.99
 },
+"enemy_champion_casino_0.webp": {
+"bytes": 335802,
+"decodedMB": 18.17,
+"fill": 0.187,
+"packedMB": 3.95
+},
+"enemy_champion_flock_0.webp": {
+"bytes": 386208,
+"decodedMB": 16.83,
+"fill": 0.212,
+"packedMB": 4.13
+},
 "enemy_champion_heavy_0.webp": {
 "bytes": 449298,
 "decodedMB": 17.32,
@@ -438,6 +450,24 @@
 "decodedMB": 17.32,
 "fill": 0.264,
 "packedMB": 5.08
+},
+"enemy_champion_hired_0.webp": {
+"bytes": 351008,
+"decodedMB": 18.68,
+"fill": 0.185,
+"packedMB": 4.01
+},
+"enemy_champion_house_0.webp": {
+"bytes": 391890,
+"decodedMB": 17.32,
+"fill": 0.217,
+"packedMB": 4.28
+},
+"enemy_champion_keepers_0.webp": {
+"bytes": 415648,
+"decodedMB": 16.83,
+"fill": 0.225,
+"packedMB": 4.37
 },
 "enemy_champion_kids_0.webp": {
 "bytes": 344848,
@@ -462,6 +492,24 @@
 "decodedMB": 17.57,
 "fill": 0.225,
 "packedMB": 4.46
+},
+"enemy_champion_takers_0.webp": {
+"bytes": 357138,
+"decodedMB": 18.05,
+"fill": 0.194,
+"packedMB": 4.07
+},
+"enemy_champion_watch_0.webp": {
+"bytes": 346660,
+"decodedMB": 18.05,
+"fill": 0.195,
+"packedMB": 4.07
+},
+"enemy_champion_water_0.webp": {
+"bytes": 410366,
+"decodedMB": 18.68,
+"fill": 0.204,
+"packedMB": 4.27
 },
 "enemy_flock_faithful_0.webp": {
 "bytes": 349282,
@@ -1527,8 +1575,8 @@
 }
 },
 "totals": {
-"decodedMB": 5047.3,
-"packedMB": 1044.4,
-"sheets": 254
+"decodedMB": 5189.9,
+"packedMB": 1077.5,
+"sheets": 262
 }
 }

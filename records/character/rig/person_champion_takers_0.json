@@ -1,0 +1,246 @@
+{
+ "look": "PERSON_CHAMPION_TAKERS_0",
+ "shape": "person_champion_takers_0: the head takers' champion: an oxblood drifter's coat to the shin, plate strapped over it, the hunter's blaze at his throat, his own skin skin_deep 3, BONE TURTLENECK under DRIFTER'S COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE TURTLENECK",
+  "outer": "DRIFTER'S COAT",
+  "legs": "LEATHER STACK PANT",
+  "feet": "TALL MOTO BOOTS",
+  "neck": "BLAZE SCARF",
+  "gear": "SCRAP CHEST PLATE",
+  "hands": "LEATHER GLOVES",
+  "outfit": [
+   "CHARCOAL TURTLENECK read as one with DRIFTER'S COAT (52 and 56 of 255): the same cut in BONE TURTLENECK (154)",
+   "the sleeve ends short of the cuff under it"
+  ]
+ },
+ "dials": {
+  "height": 0.45,
+  "belly": -0.1,
+  "shoulders": 0.6,
+  "hips": 0.0
+ },
+ "layers": {
+  "base": {
+   "under": "LONGCOAT",
+   "arms_covered": true,
+   "cuff_to": 1.89
+  },
+  "mid": {},
+  "outer": {
+   "lift": 0.0039,
+   "sleeve_to": 1.7
+  }
+ },
+ "model": "records/character/rig/person_champion_takers_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7587,
+ "real_height_for_rig": 1.7649,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_champion_takers_0_shoe": 4484,
+  "person_champion_takers_0_shirt": 79720,
+  "person_champion_takers_0_cuffs": 2048,
+  "person_champion_takers_0_hem": 1792,
+  "person_champion_takers_0_coat": 66592,
+  "person_champion_takers_0_coat_skirt": 7770,
+  "person_champion_takers_0_collar": 1536,
+  "person_champion_takers_0_lapels": 396,
+  "person_champion_takers_0_pockets": 252,
+  "person_champion_takers_0_pocket_flaps": 252,
+  "person_champion_takers_0_trouser": 43706,
+  "person_champion_takers_0_sole_1": 242,
+  "person_champion_takers_0_midsole_1": 242,
+  "person_champion_takers_0_sole_0": 242,
+  "person_champion_takers_0_midsole_0": 242,
+  "person_champion_takers_0_boot_collar": 2048,
+  "person_champion_takers_0_boot_collar_line": 2048,
+  "person_champion_takers_0_boot_strap": 2048,
+  "person_champion_takers_0_blaze_scarf": 3072,
+  "person_champion_takers_0_blaze_scarf_tail": 162,
+  "person_champion_takers_0_blaze_scarf_fringe": 54,
+  "person_champion_takers_0_scrap_chest_plate": 6558,
+  "person_champion_takers_0_scrap_chest_plate_x": 196,
+  "person_champion_takers_0_leather_gloves_L": 392,
+  "person_champion_takers_0_leather_gloves_R": 392,
+  "person_champion_takers_0_leather_gloves_cuff": 2048,
+  "person_champion_takers_0_hair": 17968,
+  "person_champion_takers_0_hand_L": 392,
+  "person_champion_takers_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_champion_takers_0_blaze_scarf": [
+   0.2159,
+   0.305,
+   0.0452
+  ],
+  "person_champion_takers_0_blaze_scarf_fringe": [
+   0.0823,
+   0.1356,
+   0.0044
+  ],
+  "person_champion_takers_0_blaze_scarf_tail": [
+   0.2159,
+   0.305,
+   0.0452
+  ],
+  "person_champion_takers_0_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_champion_takers_0_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_takers_0_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_takers_0_coat": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_champion_takers_0_coat_skirt": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_champion_takers_0_collar": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_champion_takers_0_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_champion_takers_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_champion_takers_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_champion_takers_0_hem": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_champion_takers_0_lapels": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_champion_takers_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_takers_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_champion_takers_0_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_takers_0_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_takers_0_pocket_flaps": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_champion_takers_0_pockets": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_champion_takers_0_scrap_chest_plate": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_champion_takers_0_scrap_chest_plate_collar": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_champion_takers_0_scrap_chest_plate_rivets": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_champion_takers_0_scrap_chest_plate_x": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_champion_takers_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_champion_takers_0_shoe": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_champion_takers_0_shoes": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_champion_takers_0_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_champion_takers_0_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_champion_takers_0_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_champion_takers_0_trouser": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_takers_0_trouser_folds": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_champion_takers_0_trousers": [
+   0.1301,
+   0.0513,
+   0.016
+  ]
+ }
+}

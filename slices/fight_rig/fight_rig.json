@@ -4242,6 +4242,134 @@
    "type": "champion_heavy",
    "set": "champions",
    "rig": "records/target/combat/rig/enemy_champion_heavy_1/rig.json"
+  },
+  "enemy_champion_house_0": {
+   "file": "enemy_champion_house_0.webp",
+   "w": 141,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.772,
+   "kind": "enemy",
+   "ref": "faction_remnants",
+   "guns": "faction_remnants_guns.webp",
+   "type": "champion_house",
+   "set": "champions",
+   "rig": "records/target/combat/rig/enemy_champion_house_0/rig.json"
+  },
+  "enemy_champion_watch_0": {
+   "file": "enemy_champion_watch_0.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.782,
+   "kind": "enemy",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "type": "champion_watch",
+   "set": "champions",
+   "rig": "records/target/combat/rig/enemy_champion_watch_0/rig.json"
+  },
+  "enemy_champion_keepers_0": {
+   "file": "enemy_champion_keepers_0.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    69,
+    110
+   ],
+   "height_m": 1.838,
+   "kind": "enemy",
+   "ref": "faction_homeless",
+   "guns": "faction_homeless_guns.webp",
+   "type": "champion_keepers",
+   "set": "champions",
+   "rig": "records/target/combat/rig/enemy_champion_keepers_0/rig.json"
+  },
+  "enemy_champion_water_0": {
+   "file": "enemy_champion_water_0.webp",
+   "w": 144,
+   "h": 170,
+   "foot": [
+    69,
+    114
+   ],
+   "height_m": 1.776,
+   "kind": "enemy",
+   "ref": "faction_caravans",
+   "guns": "faction_caravans_guns.webp",
+   "type": "champion_water",
+   "set": "champions",
+   "rig": "records/target/combat/rig/enemy_champion_water_0/rig.json"
+  },
+  "enemy_champion_flock_0": {
+   "file": "enemy_champion_flock_0.webp",
+   "w": 137,
+   "h": 161,
+   "foot": [
+    69,
+    110
+   ],
+   "height_m": 1.734,
+   "kind": "enemy",
+   "ref": "faction_homeless",
+   "guns": "faction_homeless_guns.webp",
+   "type": "champion_flock",
+   "set": "champions",
+   "rig": "records/target/combat/rig/enemy_champion_flock_0/rig.json"
+  },
+  "enemy_champion_hired_0": {
+   "file": "enemy_champion_hired_0.webp",
+   "w": 144,
+   "h": 170,
+   "foot": [
+    69,
+    114
+   ],
+   "height_m": 1.743,
+   "kind": "enemy",
+   "ref": "faction_caravans",
+   "guns": "faction_caravans_guns.webp",
+   "type": "champion_hired",
+   "set": "champions",
+   "rig": "records/target/combat/rig/enemy_champion_hired_0/rig.json"
+  },
+  "enemy_champion_takers_0": {
+   "file": "enemy_champion_takers_0.webp",
+   "w": 146,
+   "h": 162,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.767,
+   "kind": "enemy",
+   "ref": "faction_volunteers",
+   "guns": "faction_volunteers_guns.webp",
+   "type": "champion_takers",
+   "set": "champions",
+   "rig": "records/target/combat/rig/enemy_champion_takers_0/rig.json"
+  },
+  "enemy_champion_casino_0": {
+   "file": "enemy_champion_casino_0.webp",
+   "w": 147,
+   "h": 162,
+   "foot": [
+    68,
+    110
+   ],
+   "height_m": 1.717,
+   "kind": "enemy",
+   "ref": "faction_reds",
+   "guns": "faction_reds_guns.webp",
+   "type": "champion_casino",
+   "set": "champions",
+   "rig": "records/target/combat/rig/enemy_champion_casino_0/rig.json"
   }
  },
  "faces": {
@@ -4475,7 +4603,15 @@
      "enemy_champion_kids_0",
      "enemy_champion_kids_1",
      "enemy_champion_heavy_0",
-     "enemy_champion_heavy_1"
+     "enemy_champion_heavy_1",
+     "enemy_champion_house_0",
+     "enemy_champion_watch_0",
+     "enemy_champion_keepers_0",
+     "enemy_champion_water_0",
+     "enemy_champion_flock_0",
+     "enemy_champion_hired_0",
+     "enemy_champion_takers_0",
+     "enemy_champion_casino_0"
     ],
     "by": "CHARACTER 4 11/27, tools/bohemia_character_four_the_champions.py pack"
    }

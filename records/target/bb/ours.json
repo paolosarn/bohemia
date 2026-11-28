@@ -902,6 +902,30 @@
      "enemy_heavy_2",
      "enemy_heavy_3"
     ],
+    "champion_casino": [
+     "enemy_champion_casino_0"
+    ],
+    "champion_takers": [
+     "enemy_champion_takers_0"
+    ],
+    "champion_hired": [
+     "enemy_champion_hired_0"
+    ],
+    "champion_flock": [
+     "enemy_champion_flock_0"
+    ],
+    "champion_water": [
+     "enemy_champion_water_0"
+    ],
+    "champion_keepers": [
+     "enemy_champion_keepers_0"
+    ],
+    "champion_watch": [
+     "enemy_champion_watch_0"
+    ],
+    "champion_house": [
+     "enemy_champion_house_0"
+    ],
     "champion_heavy": [
      "enemy_champion_heavy_0",
      "enemy_champion_heavy_1"

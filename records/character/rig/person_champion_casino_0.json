@@ -1,0 +1,250 @@
+{
+ "look": "PERSON_CHAMPION_CASINO_0",
+ "shape": "person_champion_casino_0: the eye in the sky's champion: the pit boss in a white dinner tailcoat over the house's black shirt, the gold tie, dark glasses, a bandolier of shells across the suit, his own skin skin_light 1, SOOT BUTTON-UP under BONE SPLIT-TAIL COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "SOOT BUTTON-UP",
+  "outer": "BONE SPLIT-TAIL COAT",
+  "legs": "DROP RISE TROUSER",
+  "feet": "TALL MOTO BOOTS",
+  "gear": "SHELL BANDOLIER",
+  "hands": "OXBLOOD GLOVES"
+ },
+ "dials": {
+  "height": 0.4,
+  "belly": 0.15,
+  "shoulders": 0.55,
+  "hips": 0.05
+ },
+ "model": "records/character/rig/person_champion_casino_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7544,
+ "real_height_for_rig": 1.7606,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_champion_casino_0_shoe": 4484,
+  "person_champion_casino_0_shirt": 71268,
+  "person_champion_casino_0_collar": 1536,
+  "person_champion_casino_0_collar_points": 180,
+  "person_champion_casino_0_placket": 162,
+  "person_champion_casino_0_buttons": 204,
+  "person_champion_casino_0_cuffs": 2048,
+  "person_champion_casino_0_tail": 2016,
+  "person_champion_casino_0_coat": 73340,
+  "person_champion_casino_0_coat_skirt": 5850,
+  "person_champion_casino_0_collar.001": 1536,
+  "person_champion_casino_0_lapels": 396,
+  "person_champion_casino_0_pockets": 252,
+  "person_champion_casino_0_pocket_flaps": 252,
+  "person_champion_casino_0_tie_blade": 72,
+  "person_champion_casino_0_tie_knot": 8,
+  "person_champion_casino_0_trouser": 43706,
+  "person_champion_casino_0_drop_yoke": 5600,
+  "person_champion_casino_0_ankle": 2048,
+  "person_champion_casino_0_sole_1": 242,
+  "person_champion_casino_0_midsole_1": 242,
+  "person_champion_casino_0_sole_0": 242,
+  "person_champion_casino_0_midsole_0": 242,
+  "person_champion_casino_0_boot_collar": 2048,
+  "person_champion_casino_0_boot_collar_line": 2048,
+  "person_champion_casino_0_boot_strap": 2048,
+  "person_champion_casino_0_shell_bandolier": 1792,
+  "person_champion_casino_0_shell_bandolier_shells": 374,
+  "person_champion_casino_0_shell_bandolier_pouch": 26,
+  "person_champion_casino_0_oxblood_gloves_L": 392,
+  "person_champion_casino_0_oxblood_gloves_R": 392,
+  "person_champion_casino_0_oxblood_gloves_cuff": 2048,
+  "person_champion_casino_0_hair": 17968,
+  "person_champion_casino_0_hand_L": 392,
+  "person_champion_casino_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_champion_casino_0_ankle": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_champion_casino_0_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_champion_casino_0_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_casino_0_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_casino_0_buttons": [
+   0.063,
+   0.0578,
+   0.063
+  ],
+  "person_champion_casino_0_coat": [
+   0.4678,
+   0.3916,
+   0.2307
+  ],
+  "person_champion_casino_0_coat_skirt": [
+   0.4678,
+   0.3916,
+   0.2307
+  ],
+  "person_champion_casino_0_collar": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_champion_casino_0_collar_points": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_champion_casino_0_cuffs": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_champion_casino_0_drop_yoke": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_champion_casino_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_champion_casino_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_champion_casino_0_lapels": [
+   0.2747,
+   0.2307,
+   0.1384
+  ],
+  "person_champion_casino_0_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_casino_0_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_casino_0_oxblood_gloves": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_champion_casino_0_oxblood_gloves_cuff": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_champion_casino_0_placket": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_champion_casino_0_pocket_flaps": [
+   0.2747,
+   0.2307,
+   0.1384
+  ],
+  "person_champion_casino_0_pockets": [
+   0.4678,
+   0.3916,
+   0.2307
+  ],
+  "person_champion_casino_0_shell_bandolier": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_casino_0_shell_bandolier_pouch": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_champion_casino_0_shell_bandolier_shells": [
+   0.4342,
+   0.2623,
+   0.0612
+  ],
+  "person_champion_casino_0_shirt": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_champion_casino_0_shoe": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_champion_casino_0_shoes": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_champion_casino_0_skin": [
+   0.2051,
+   0.0976,
+   0.0685
+  ],
+  "person_champion_casino_0_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_champion_casino_0_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_champion_casino_0_tail": [
+   0.0284,
+   0.0252,
+   0.0284
+  ],
+  "person_champion_casino_0_tie_blade": [
+   0.305,
+   0.2384,
+   0.0723
+  ],
+  "person_champion_casino_0_tie_knot": [
+   0.1779,
+   0.1384,
+   0.0437
+  ],
+  "person_champion_casino_0_trouser": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_champion_casino_0_trousers": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_champion_casino_0_yoke_drape": [
+   0.0152,
+   0.013,
+   0.0152
+  ]
+ }
+}

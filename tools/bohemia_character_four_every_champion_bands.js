@@ -2,11 +2,11 @@
 /* CHARACTER 4, 11/28/26: EVERY CHAMPION IN HIS BAND'S CHAMPION CLOTHES, measured on the fight's own code (tools/bohemia_fight_headless.js):
    60 three-star late bands of each of the road crews, the kids and the heavies; how many champions, how many in their own clothes;
    and the first three road-crew bands whose champion was rolled off an ordinary man (for the VOTE card).
-     node tools/bohemia_character_four_every_champion_bands.js [out.json]   */
+     node tools/bohemia_character_four_every_champion_bands.js [out.json] [faction,faction...]   */
 const path = require('path'); const ROOT = path.dirname(__dirname);
 const { engine } = require(path.join(ROOT, 'tools/bohemia_fight_headless.js'));
 const ctx = engine(), F = ctx.FIGHT; const out = {}; const keep = [];
-for (const fac of ['brigands', 'kids', 'heavies']) {
+for (const fac of (process.argv[3] || 'brigands,kids,heavies').split(',')) {
   let champ = 0, own = 0;
   for (let s = 1; s <= 60; s++) {
     ctx.setSeed(s); F.setup({ auto: true, formation: null, cap: 12, party: { faction: fac, count: 13, days: 90, difficulty: 1, skulls: 3 }, days: 90 });

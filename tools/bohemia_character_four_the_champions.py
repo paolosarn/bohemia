@@ -115,6 +115,58 @@ TYPES = {
         # market part on a man rich and feared enough to own one (486(e): a status), and a part that can be taken off him (486(b))
         pieces=[['exo', 'crashbar'], ['exo', 'crashbar', 'powered_arm_right']], outfit=False, cuts=['TEMPLE TAPER', 'HOME CLIPPERS', 'DRY TAPER', 'DEEP TAPER']),
 }
+# ---- 11/28: THE OTHER EIGHT FACTIONS' CHAMPIONS (BESTIARY 4's roll makes a champion of any man of a human band; one man a faction:
+# a band carries one champion, so his pool of one is never two of him). Each is his band's own signature piece with plate a tier
+# over it and one mark his men do not carry; the faction's ink where it has one (COLOUR IS TERRITORY). The faction is the
+# champions.by_faction key his pool is pointed from (data()).
+def one(row, faction, stand_in, cell, what, dial, top, coat, legs, feet, kit, hat, eye, pieces, cuts, **more):
+    return dict(row=row, faction=faction, stand_in=stand_in, cell=cell, count=1, what=what, dials=[dial], tops=[top], coats=[coat],
+                legs=[legs], feet=[feet], kit=[kit], hats=[hat], eyewear=[eye], pieces=[pieces], cuts=cuts, **more)
+
+
+FACTION_TYPES = {
+    'House Champion': one('champion_house', 'house', 'Remnants', 'faction_remnants',
+        'the House\'s champion: the carpet tabard over a leather jacket, the hubcap kettle, a gorget, and the casino\'s gold mantle on his shoulders (Battle Brothers\' black and gold)',
+        dict(height=0.30, belly=0.20, shoulders=0.75, hips=0.10), 'CHARCOAL TURTLENECK', 'LEATHER JACKET', 'LEATHER STACK PANT', 'TALL MOTO BOOTS',
+        ['GOLD SHOULDER MANTLE', 'SOOT GORGET', 'LEATHER GLOVES'], 'HUBCAP KETTLE', None, ['tabard'], ['TEMPLE TAPER', 'HOME CLIPPERS', 'DEEP TAPER']),
+    'Watch Champion': one('champion_watch', 'watch', 'Volunteers', 'faction_volunteers',
+        'the block watch\'s champion: the hi-vis vest, the floor-mat greaves, the Watch\'s green sash and the bullhorn, and a rust chest plate over it all',
+        dict(height=0.30, belly=0.40, shoulders=0.60, hips=0.25), 'KHAKI BUTTON-UP', 'HI-VIS VEST', 'KHAKI CARGOS', 'RANCH BOOTS',
+        ['SCRAP CHEST PLATE', 'LEATHER GLOVES', 'LEATHER BELT'], 'BIKE HELMET BONE', None, ['hivis', 'sash', 'floormats', 'bullhorn'], ['TEMPLE TAPER', 'DRY TAPER', 'DEEP TAPER']),
+    'Keeper Champion': one('champion_keepers', 'keepers', 'Homeless', 'faction_homeless',
+        'the keepers\' champion: the lab coyote\'s pelt as his head and cape over the cloak of bleached strips, bare arms in wraps, a spiked pauldron',
+        dict(height=0.60, belly=0.15, shoulders=1.00, hips=0.20), 'BLACK TANK', None, 'LEATHER STACK PANT', 'WRAPPED BOOTS',
+        ['HAND WRAPS', 'SPIKED PAULDRON', 'LEAD WAIST WRAP'], 'COYOTE PELT', None, ['pelt_legs', 'strips'], ['RAZOR SKULL', 'HOME CLIPPERS', 'TEMPLE TAPER'], outfit=False),
+    'Water Champion': one('champion_water', 'water', 'Caravans', 'faction_caravans',
+        'the water people\'s champion: the robe and the leather wrap coat, the amber water jug on his back and the needle bandolier across him, plate over the robe',
+        dict(height=0.45, belly=-0.30, shoulders=0.30, hips=-0.10), 'BONE TURTLENECK', 'LEATHER WRAP COAT', 'ANKLE WRAP SKIRT', 'SANDWALKERS',
+        ['LEATHER GLOVES', 'SCRAP CHEST PLATE'], 'HAT DESERT SHEMAGH', 'FACE FACE WRAP', ['jug', 'syringes'], ['TEMPLE TAPER', 'HOME CLIPPERS', 'DRY TAPER'], robe=[0.30]),
+    'Flock Champion': one('champion_flock', 'flock', 'Homeless', 'faction_homeless',
+        'the flock\'s champion: the one in white, a bone duster to the ankle under the flock\'s charcoal cowl, his own head bare',
+        dict(height=0.50, belly=-0.20, shoulders=0.30, hips=-0.10), 'BONE BUTTON-UP', 'BONE DUSTER', 'CHARCOAL WRAP SKIRT', 'WRAPPED BOOTS',
+        ['DRAPED COWL', 'OXBLOOD BRACERS', 'LEATHER BELT'], None, None, [], ['HOME CLIPPERS', 'LAYERED FALL', 'SHORT ROPES']),
+    'Hired Champion': one('champion_hired', 'hired', 'Caravans', 'faction_caravans',
+        'the hired guns\' champion: a leather split-tail coat, the company\'s sash in its banner ink, a soot chest plate, the scrap helm',
+        dict(height=0.40, belly=0.10, shoulders=0.80, hips=0.10), 'FADED BLACK LONGSLEEVE', 'LEATHER SPLIT-TAIL COAT', 'LEATHER STACK PANT', 'TALL MOTO BOOTS',
+        ['SOOT CHEST PLATE', 'LEATHER GLOVES'], 'HAT SCRAP HELM', None, ['sash'], ['TEMPLE TAPER', 'DRY TAPER', 'RAZOR SKULL'], sash=(84, 92, 150)),
+    'Taker Champion': one('champion_takers', 'takers', 'Volunteers', 'faction_volunteers',
+        'the head takers\' champion: an oxblood drifter\'s coat to the shin, plate strapped over it, the hunter\'s blaze at his throat',
+        dict(height=0.45, belly=-0.10, shoulders=0.60, hips=0.0), 'CHARCOAL TURTLENECK', "DRIFTER'S COAT", 'LEATHER STACK PANT', 'TALL MOTO BOOTS',
+        ['BLAZE SCARF', 'SCRAP CHEST PLATE', 'LEATHER GLOVES'], None, None, [], ['TEMPLE TAPER', 'DRY TAPER', 'DEEP TAPER']),
+    'Casino Champion': one('champion_casino', 'casino', 'Reds', 'faction_reds',
+        'the eye in the sky\'s champion: the pit boss in a white dinner tailcoat over the house\'s black shirt, the gold tie, dark glasses, a bandolier of shells across the suit',
+        # loop 1 (looking, beside the gunner at 1:1): in the house's black tailcoat he was one more black suit; the pit boss wears white
+        dict(height=0.40, belly=0.15, shoulders=0.55, hips=0.05), 'SOOT BUTTON-UP', 'BONE SPLIT-TAIL COAT', 'DROP RISE TROUSER', 'TALL MOTO BOOTS',
+        ['SHELL BANDOLIER', 'OXBLOOD GLOVES'], None, 'FACE WRAPAROUND SHADES', ['tie'], ['GREASE BACK', 'TEMPLE TAPER', 'DEEP TAPER'], tie=NE.CASINO_GOLD, outfit=False),
+}
+FACTION_OF = {t: T['faction'] for t, T in FACTION_TYPES.items()}
+FACTION_OF.update({'Road Champion': 'brigands', 'Kids Champion': 'kids', 'Heavy Champion': 'heavies'})
+TYPES.update(FACTION_TYPES)
+for t, T in FACTION_TYPES.items():
+    NE.TYPES[t] = T
+    if t not in NE.ORDER: NE.ORDER.append(t)
+    NE.POOL[t] = T['row']
+
 THREE = ('exo', 'crashbar', 'sling')   # the three enemies' own pieces (the heavies' frame and bar, the kids' sling)
 
 for t, T in TYPES.items():
@@ -147,6 +199,7 @@ def register_garments():
     coat('BLACK COCOON COAT', 'COCOON COAT', ['BLACK', 'COAT', 'COCOON'], ramp='BLACKCLOTH', **BLACK_CLOTH)
     coat('BLACK SMITH\'S APRON', 'SMITH\'S APRON', ['APRON', 'BLACK', 'SMITH'], ramp='BLACKLEATHER', **BLACK_LEATHER)
     coat('BLACK LEATHER VEST', 'LEATHER VEST', ['BLACK', 'LEATHER', 'VEST'], ramp='BLACKLEATHER', **BLACK_LEATHER)
+    coat('BONE SPLIT-TAIL COAT', 'SPLIT-TAIL COAT', ['BONE', 'COAT', 'SPLIT', 'TAIL'], ramp='BONECLOTH', dk=(140, 132, 112), mid=(178, 168, 142), lt=(204, 196, 174))
     if 'RUNNER SCARF' not in GEAR.BY:
         S = dict(GEAR.BY['TRAILING SCARF']); S.update(name='RUNNER SCARF', tag='kit_runner_scarf', ramp='RUNNERGREEN', words=['RUNNER', 'SCARF'], **RUNNER_GREEN)
         GEAR.BY['RUNNER SCARF'] = S
@@ -223,14 +276,17 @@ def pack():
 
 
 def data():
-    """ours.json: each champion kind's own pool (people_looks.band[row]) and the kind pointed at it (bestiary.look_pools), as
-    text, two lines added and the three pointers set, so nobody else's lines move; a kind is pointed only when all its men are
-    on the fight's sheet"""
+    """the data the fight deals them from, as text so nobody else's lines move; a type is written only when all its men are on the
+    fight's sheet. ours.json: each type's men are a pool in people_looks.band (its row); bestiary.look_pools points the three wiki
+    champion kinds at theirs (a band handed one of those kinds). bohemia_enemies.json: champions.by_faction[f].look_pool names the
+    faction's pool, which the fight's champion block dresses a rolled man of any kind in (11/28)"""
     I = json.load(open(os.path.join(ROOT, 'slices/fight_rig/fight_rig.json')))
     txt = open(OURS).read(); D = json.loads(txt)
     band = D['people_looks']['value']['band']; lp = D['bestiary']['value']['look_pools']
-    for t, kind in KINDS.items():
-        T = TYPES[t]; row = T['row']; men = [NE.look_of(NE.pid_of(t, k)) for k in range(T['count'])]
+    ENEMIES = os.path.join(ROOT, 'records/target/bb/bohemia_enemies.json'); et = open(ENEMIES).read()
+    bf = json.loads(et)['champions']['by_faction']
+    for t, T in TYPES.items():
+        row = T['row']; men = [NE.look_of(NE.pid_of(t, k)) for k in range(T['count'])]
         if not all(m in I['looks'] for m in men): print('HELD', row, 'not all on the fight sheet'); continue
         if band.get(row) != men:
             assert row not in band, row + ' is in the band pools already with other men: re-read the file'
@@ -239,18 +295,23 @@ def data():
             key, item, close = m.group(1), m.group(2), m.group(3)
             add = ',\n%s"%s": [\n%s\n%s]' % (key, row, ',\n'.join(item + json.dumps(x) for x in men), close)
             txt = txt[:m.end()] + add + txt[m.end():]
-        if lp.get(kind) != row:
+        kind = KINDS.get(t)
+        if kind and lp.get(kind) != row:
             if kind in lp:
                 old = '"%s": %s' % (kind, json.dumps(lp[kind])); assert txt.count(old) == 1, old
                 txt = txt.replace(old, '"%s": "%s"' % (kind, row))
             else:
                 m = re.search(r'"look_pools": \{\n( +)', txt); assert m and txt.count('"look_pools": {') == 1
                 txt = txt[:m.end()] + '"%s": "%s",\n%s' % (kind, row, m.group(1)) + txt[m.end():]
-        print('DEALT', kind, '->', row, men)
-    D2 = json.loads(txt)
-    assert D2['people_looks']['value']['band'].keys() >= band.keys()
-    open(OURS, 'w').write(txt)
-
+        f = FACTION_OF.get(t)
+        if f and f in bf and bf[f].get('look_pool') != row:
+            assert 'look_pool' not in bf[f], f + ' points at another pool: re-read the file'
+            at = et.index('"by_faction": {', et.index('"champions": {')); m = re.compile(r'"%s": \{(\s*)' % re.escape(f)).search(et, at); assert m   # the champions' by_faction, not the mix's
+            et = et[:m.end()] + '"look_pool": "%s",%s' % (row, m.group(1) or ' ') + et[m.end():]
+        print('DEALT', t, '->', row, men, '| by_faction', f)
+    json.loads(txt); E2 = json.loads(et)
+    assert all(('look_pool' not in v) for m_ in E2['mix'].values() for v in [m_]), 'a look_pool landed in a mix'
+    open(OURS, 'w').write(txt); open(ENEMIES, 'w').write(et)
 
 if __name__ == '__main__':
     cmd = sys.argv[1] if len(sys.argv) > 1 else ''

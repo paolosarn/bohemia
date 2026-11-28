@@ -1,0 +1,40 @@
+{
+ "cut": "PERSON champion_house_0",
+ "tag": "person_champion_house_0",
+ "bank": {
+  "kind": "person",
+  "gang": "House Champion"
+ },
+ "worn_by": "House Champion, rolled",
+ "model": "records/character/rig/barber_person_champion_house_0.glb",
+ "body": "records/character/rig/person_champion_house_0.glb (the mannequin in None)",
+ "zcap": 0.3,
+ "head": "PORTRAIT's starred head (tools/bohemia_portrait_the_head_from_the_model.py, imported)",
+ "bone": "Skeleton_neck_joint_2",
+ "hair_palette": [
+  "cloth_black",
+  0
+ ],
+ "hair_rgb": [
+  20,
+  19,
+  19
+ ],
+ "skin_rgb": [
+  201,
+  154,
+  124
+ ],
+ "model_top_m": 1.575,
+ "body_top_m": 1.5283,
+ "real_height_for_rig": 1.7725,
+ "pieces": {
+  "barber_deep_taper_fade": 35505,
+  "barber_deep_taper": 152954,
+  "kettle_dome": 173658,
+  "kettle_brim": 1168,
+  "kettle_rivets": 340,
+  "kettle_strap": 192,
+  "person_champion_house_0_turtle": 6528
+ }
+}
