@@ -1,5 +1,16 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+CHARACTER FOUR (character-four-01gkdyuu): 11/28 (at) LATEST -- *** SHIPPED BUILD 11/28f EVERY CHAMPION DRESSED (the one line the block below owed, built here: nobody held it). ***
+TAB: VOTE (character4-every-champion-dressed-11-28); RUN (any three-star late fight of the road crews, the kids or the heavies that carries a champion).
+WHAT: the fight's champion block (slices/BOHEMIA_FIGHT.html, after champOn) dresses a rolled man of ANY kind in his faction's champion men, from data
+(bohemia_enemies.json champions.by_faction[f].look_pool -> ours.json people_looks.band), by the fight's own freeLook, the way a boss's look is set.
+MEASURED (tools/bohemia_character_four_every_champion_bands.js, the fight's own code, 60 bands each): in his own clothes, before -> now: road crews 3/30 ->
+30/30, kids 19/29 -> 29/29, heavies 12/20 -> 20/20; the House 0/26 and the hired guns 0/23 have no pool yet. Gates: THE ENEMY GROWS 7/0, A CHAMPION READS
+9/0, EVERYBODY IS STRAPPED 5/0, THE BESTIARY 10/0, THE PATCH LAYERS R1 R2 green (R5 42/41 main's), DEMO BUILD 25/0. Record: the same record, section 6b.
+NEXT (in order): (1) the other eight factions' champions (the House, the watch, the keepers, the water people, the flock, the hired guns, the takers, the
+casino), two men each, tools/bohemia_character_four_the_champions.py (TYPES in memory, ~6 min a man with two workers), then one look_pool line each in
+champions.by_faction; (2) the cell's headroom to COMBAT (record section 4); (3) CHARACTER 3's list (the new guns into the fight, the eye and the ear).
+
 CHARACTER FOUR (character-four-01gkdyuu, the coordinator's VAMILY: the champions' look with BESTIARY 4, rules 482, 486, 493, 495): 11/28 (as) LATEST -- *** SHIPPED BUILD 11/28e THE CHAMPIONS DRESS THE PART (ask row 774, CHARACTER's part). ***
 TAB: VOTE (character4-the-champions-11-27); RUN (a late hard fight that carries a road crew's, a kids' or a heavies' champion).
 Record: records/BOHEMIA_CHARACTER_FOUR_THE_CHAMPIONS_11_27_26.md (the measurement, Battle Brothers' champions from the library, the loops, the numbers).

@@ -81,5 +81,40 @@ def card():
     print('card', c.size, os.path.getsize(out) // 1024, 'KB')
 
 
+BANDS_FIRST = os.path.join(ROOT, 'records/target/vote_first/character4-every-champion-dressed-11-28.webp')
+
+
+def card_bands(before, after):
+    """EVERY CHAMPION DRESSED (11/28): three road-crew bands the fight dealt (the same seed before and now, its champion rolled off an
+    ordinary man), the whole band in the fight's own frames, before (his kind's clothes) and now (the road crew's champion's)"""
+    I = json.load(open(os.path.join(FR, 'fight_rig.json')))
+    B, A = json.load(open(before)), json.load(open(after))
+    W = 1000; BG, INK, DIM, GROUND, GOLD = (24, 21, 18), (226, 214, 190), (150, 138, 116), (118, 106, 88), (224, 160, 64)
+    rows = list(zip(B, A))[:3]
+    H = 120 + len(rows) * (2 * 150 + 44) + 10
+    c = Image.new('RGB', (W, H), BG); g = ImageDraw.Draw(c)
+    g.text((20, 16), 'EVERY CHAMPION IN HIS OWN CLOTHES', font=font(30, True), fill=INK)
+    g.text((20, 58), 'A champion is rolled off any man of the band. Before, only a rolled leader got the champion\'s', font=font(16), fill=DIM)
+    g.text((20, 80), 'clothes; now the thug, the raider, the marksman rolled wears them too. The band the fight dealt:', font=font(16), fill=DIM)
+    y = 116
+    for b, a in rows:
+        g.text((20, y), '%s, a %s rolled champion:' % (a['name'], a['champ'].replace('brigand_', '').replace('_', ' ')), font=font(17, True), fill=GOLD); y += 26
+        for tag, band, champ in (('BEFORE', b['band'], b['look']), ('NOW', a['band'], a['look'])):
+            g.rectangle((20, y, W - 20, y + 140), fill=GROUND); g.text((28, y + 6), tag, font=font(13, True), fill=(40, 34, 28))
+            x = 90; done = False
+            for lk in band:
+                im = frame(I, lk)
+                if lk == champ and not done:
+                    g.rectangle((x - 3, y + 4, x + im.size[0] + 3, y + 136), outline=GOLD, width=2); done = True
+                c.paste(im, (x, y + 132 - im.size[1]), im); x += im.size[0] + 4
+            y += 148
+        y += 14
+    c.save(os.path.join(D, 'CHARACTER_FOUR_EVERY_CHAMPION_DRESSED.webp'), 'WEBP', quality=90)
+    c.crop((0, 0, W, 116 + 26 + 296)).resize((480, int(438 * 480 / W)), Image.LANCZOS).save(BANDS_FIRST, 'WEBP', quality=86)
+    print('card', c.size)
+
+
 if __name__ == '__main__':
-    card()
+    import sys
+    if len(sys.argv) > 2: card_bands(sys.argv[1], sys.argv[2])
+    else: card()

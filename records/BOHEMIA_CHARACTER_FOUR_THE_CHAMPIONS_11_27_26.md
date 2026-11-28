@@ -88,6 +88,19 @@ THE GROUND MAY ZOOM, THE PERSON MAY NOT forbids scaling him. So he reads by colo
 - FOR COMBAT: the cell's headroom (section 4, loop 3).
 - His idles: the champions' fight sheets carry their stand and walk; the town idles are ANIMATION's (they meet no one in town).
 
+## 6b. BUILD 11/28f - EVERY CHAMPION DRESSED (the same round, the one line of section 6 nobody held)
+BESTIARY 4's next jobs were the other factions' late kit and the named piece, not the look, so the line was nobody's: built here.
+WHERE: the fight's champion block (slices/BOHEMIA_FIGHT.html, after champOn): a rolled man of any kind wears his faction's champion men,
+read from data (bohemia_enemies.json champions.by_faction[f].look_pool, a pool name in ours.json people_looks.band: brigands
+champion_road, kids champion_kids, heavies champion_heavy), picked by the fight's own freeLook, the way a boss's look is set; a swapped
+kind already wears them. No new block, no new hook (THE PATCH LAYERS R1 R2 green; R5 42/41 is main's).
+MEASURED (tools/bohemia_character_four_every_champion_bands.js, the fight's own code, 60 three-star late bands each): champions in
+their own clothes, before -> now: road crews 3 of 30 -> 30 of 30 (thugs, raiders, marauders and marksmen rolled), kids 19 of 29 ->
+29 of 29 (the horn, the wolf rider), heavies 12 of 20 -> 20 of 20 (the young, the bruiser). The House and the hired guns: 0 of 26 and
+0 of 23, no pool yet (CHARACTER's next: the other eight factions' champions, then one look_pool line each).
+GATES: THE ENEMY GROWS WITH HIS COMPANY 7/0; A CHAMPION READS 9/0; EVERYBODY IS STRAPPED 5/0; THE BESTIARY 10/0. VOTE
+character4-every-champion-dressed-11-28 (three road-crew bands the fight dealt, before and now).
+
 ## 7. THE METHOD (rule 495)
 One owning module each: tools/bohemia_character_four_the_champions.py adds three types IN MEMORY to the nine enemies' pipe
 (tools/bohemia_character_the_nine_enemies.py: the barber's roll, the body build, RUN TWO's render on DIRECTION's master rig, COMBAT's

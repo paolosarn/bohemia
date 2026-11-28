@@ -2826,6 +2826,9 @@ const FIGHT = (function () {
         const die = dieOf(seedOf('champion:' + band.join(',') + ':' + i));   /* rule 493(c): his name off the band, so no die of the fight moves */
         u.champion = true; u.name = pick[Math.floor(die() * pick.length)]; u.champTitle = c.title || null;
         champOn(u, !CH[u.kind], die);
+        /* HIS OWN CLOTHES (CHARACTER 4 11/28, rule 493(c) 'a look'): a rolled man of any kind wears his faction's champion men (champions.by_faction[f].look_pool,
+           a pool in ours.people_looks.band), as a boss wears his look; a swapped kind already wears them (look_pools) */
+        const lp = c.look_pool && R('ours.people_looks').band[c.look_pool]; if (lp && lp.length && lp.indexOf(u.look) < 0) u.look = freeLook(lp, i, u.weapon, false);
         S.champions.push({ id: u.id, kind: u.kind, name: u.name, title: u.champTitle, rolled: !CH[u.kind] || i === champAt, prize: u.prize }); });
     } catch (e) { S.champErr = String(e && e.message || e); }
     /* A CHAMPION READS (FIGHT SCREEN 4 11/27, rule 493(c)): each champion read once, here, against his own men on this board, by the one
