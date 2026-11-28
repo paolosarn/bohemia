@@ -431,6 +431,7 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       await close15();
       const MAN = JSON.parse(fs.readFileSync(path.join(ROOT, 'records/target/home_settlement/manifest.json'), 'utf8'));
       const rowOfLot = {}; MAN.lots.forEach(L => { rowOfLot[L.n] = L.row; });
+      const fitsLot = (pid, n) => { const D = MAN.pieces[pid]; if (!D) return false; const st = D.states.built || D.states[Object.keys(D.states)[0]]; return D.row === rowOfLot[n] || ((D.rows || []).indexOf(rowOfLot[n]) >= 0 && !!(st && st.pics && st.pics['1_tall_' + n])); };   /* 11/28: own row, or a row behind with its picture */
       const feed = () => fr.evaluate(() => { const f = window.__HOME_FEED || {}, c = document.getElementById('hfeed'), cv = document.getElementById('cv');
         let lit = 0; try { const g = c.getContext('2d'), d = g.getImageData(0, 0, c.width, c.height).data; for (let i = 0; i < d.length; i += 4 * 97) if (d[i] + d[i + 1] + d[i + 2] > 60) lit++; } catch (e) { lit = -1; }
         return { on: !!f.on, cam: f.cam, sh: f.sh, slots: f.slots || {}, unplaced: f.unplaced || [], lit, lens: !!document.getElementById('hlens') || /matrix3d/.test(cv.style.transform), sw: !!document.getElementById('hcamb') }; });
@@ -440,15 +441,19 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       const rowsOk = sl => Object.keys(sl).every(n => !sl[n].pid || MAN.pieces[sl[n].pid].row === rowOfLot[n]);
       ok('F1 every thing of his stands on a lot of its own row (low in front, tall at the back: ' + Object.keys(f1.slots).map(n => n + ':' + (f1.slots[n].pid || f1.slots[n].kind)).join(', ') + ')', Object.keys(f1.slots).length >= 5 && rowsOk(f1.slots), JSON.stringify(f1.slots));
       ok('F1 planted: a lookout put on a front lot reads red (the leg above)', !rowsOk(Object.assign({}, f1.slots, { 1: { pid: 'lookout' } })));
-      const cam2 = await fr.evaluate(async () => { const c0 = window.__HOME_FEED.cam; window.__HOME_FEED_AGE(21000); await new Promise(r => setTimeout(r, 1200)); const c1 = window.__HOME_FEED.cam; window.__HOME_FEED_AGE(21000); await new Promise(r => setTimeout(r, 1200)); const c2 = window.__HOME_FEED.cam; return [c0, c1, c2]; });
-      ok('F2 the cameras cut on their own every 20 seconds, he never picks one (CAM ' + cam2.join(' -> ') + ')', cam2[0] === 1 && cam2[1] === 2 && cam2[2] === 3, JSON.stringify(cam2));
+      /* F2 AMENDED 11/28 (Paolo, ask row 788: 'one camera angle from that angle from now on'): ONE CAMERA. Forty seconds on the old clock
+         (two of the old 20-second cuts) the camera is still CAM 1 and has not zoomed. PLANTED: the old cycle CAM 1 -> 2 -> 3 reads red. */
+      const cam2 = await fr.evaluate(async () => { const z = () => { const v = window.__HOME_FEED_VIEW(); return v ? +v.z.toFixed(2) : 1; }; const c0 = [window.__HOME_FEED.cam, z()]; window.__HOME_FEED_AGE(21000); await new Promise(r => setTimeout(r, 1200)); const c1 = [window.__HOME_FEED.cam, z()]; window.__HOME_FEED_AGE(21000); await new Promise(r => setTimeout(r, 1200)); const c2 = [window.__HOME_FEED.cam, z()]; return [c0, c1, c2]; });
+      const oneCam = cs => cs.every(c => c[0] === 1 && c[1] === 1);
+      ok('F2 ONE CAMERA: forty seconds on, CAM ' + cam2.map(c => c[0] + ' at ' + c[1] + 'x').join(' -> ') + ' (he never sees a cut or a push in)', oneCam(cam2), JSON.stringify(cam2));
+      ok('F2 planted: the old cycle CAM 1 -> 2 -> 3 reads red on the leg above', !oneCam([[1, 1], [2, 1], [3, 1]]));
       await fr.evaluate(() => { window.__HOME_THING = null; });
       for (let t = 0; t < 3; t++) { const w = await fr.evaluate(() => { const x = BohemiaSettlement.where('h11'); return x ? [x.x, x.y] : null; }); if (!w) break; await P.touchscreen.tap(fb.x + w[0], fb.y + w[1]); let up = false; for (let i = 0; i < 12 && !up; i++) { await P.waitForTimeout(250); up = await fr.evaluate(() => !!window.__HOME_THING); } if (up) break; }
       const t16 = await fr.evaluate(async () => { const th = window.__HOME_THING && window.__HOME_THING.name, c0 = window.__HOME_FEED.cam; window.__HOME_FEED_AGE(21000); await new Promise(r => setTimeout(r, 1200)); return { th, c0, c1: window.__HOME_FEED.cam, open: BohemiaSettlement.state.open }; });
-      ok('F2 a real tap on the pot where CAM 3 shows it says what it is (' + t16.th + '), and the camera holds while its sheet is open (CAM ' + t16.c0 + ' -> ' + t16.c1 + ')', /POT/.test(t16.th || '') && t16.c0 === t16.c1 && !!t16.open, JSON.stringify(t16));
+      ok('F2 a real tap on the pot where CAM ' + t16.c0 + ' shows it says what it is (' + t16.th + '), and the camera holds while its sheet is open (CAM ' + t16.c0 + ' -> ' + t16.c1 + ')', /POT/.test(t16.th || '') && t16.c0 === t16.c1 && !!t16.open, JSON.stringify(t16));
       await close15();
       const camBack = await fr.evaluate(async () => { window.__HOME_FEED_AGE(21000); await new Promise(r => setTimeout(r, 1200)); return window.__HOME_FEED.cam; });
-      ok('F2 the sheet put away, the cycle goes on (CAM ' + camBack + ')', camBack === 1, String(camBack));
+      ok('F2 the sheet put away, the one camera stays (CAM ' + camBack + ')', camBack === 1, String(camBack));
       const doors16 = []; for (const n of Object.keys(f1.slots)) { const sl = f1.slots[n], at = await fr.evaluate(n => window.__HOME_FEED_AT(+n), n); if (!at) { doors16.push([n, 'unseen']); continue; }
         await P.touchscreen.tap(fb.x + at.x, fb.y + at.y); let got = null; for (let i = 0; i < 12 && !got; i++) { await P.waitForTimeout(250); got = await fr.evaluate(() => BohemiaSettlement.state.open).catch(() => null); }
         doors16.push([n, sl.door || sl.key, got, Math.min(at.w, at.h)]); await close15(); }
@@ -473,8 +478,10 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       await P.waitForTimeout(2500); await gone15(); await close15();
       const pl17 = await fr.evaluate(() => (window.__HOME_DESK.home.places || []).map(p => ({ id: p.id, k: 'h' + p.lot, done: p.done })));
       ok('D17 the next days all three stand, each a door (' + pl17.map(p => p.id + '=' + p.k).join(', ') + '; the forge ' + pb17[0] + ', the lookout ' + pb17[1] + ' on the lot the place grew)', pl17.length === 3 && pl17.every(p => p.done) && await fr.evaluate(ks => ks.every(k => (window.__HOME_DOORS || []).indexOf(k) >= 0), pl17.map(p => p.k)), JSON.stringify(pl17));
-      const seen17 = await (async () => { for (let i = 0; i < 12; i++) { const f = await feed(); const S2 = Object.keys(f.slots).filter(n => f.slots[n].kind === 'place'); if (S2.length >= 3) return S2.map(n => [f.slots[n].id, +n, MAN.pieces[f.slots[n].pid].row === rowOfLot[n]]); await P.waitForTimeout(250); } return []; })();
-      ok('D17 the footage shows them standing on lots of their rows (' + seen17.map(x => x[0] + ' on ' + x[1]).join(', ') + ')', seen17.length === 3 && seen17.every(x => x[2]), JSON.stringify(seen17));
+      const seen17 = await (async () => { for (let i = 0; i < 12; i++) { const f = await feed(); const S2 = Object.keys(f.slots).filter(n => f.slots[n].kind === 'place'); if (S2.length >= 3) return S2.map(n => [f.slots[n].id, +n, fitsLot(f.slots[n].pid, +n)]); await P.waitForTimeout(250); } return []; })();
+      /* AMENDED 11/28 (Paolo, ask row 788: what he buys stands on the plot he tapped): a thing stands on its own row or a row behind it it
+         has its picture for (the desk greys the rest), not only on its own row */
+      ok('D17 the footage shows them standing on plots they fit, where he put them (' + seen17.map(x => x[0] + ' on ' + x[1]).join(', ') + ')', seen17.length === 3 && seen17.every(x => x[2]), JSON.stringify(seen17));
       const yk17 = pl17.filter(p => p.id === 'yard')[0].k, fk17 = pl17.filter(p => p.id === 'forge')[0].k, lk17 = pl17.filter(p => p.id === 'lookout')[0].k;
       await tap15(yk17, () => !!document.querySelector('#sbody .act[data-train]'));
       const bt17 = await F.evaluate(() => loopBats());
@@ -511,8 +518,8 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       await F.evaluate(() => { DAY.day = (DAY.day | 0) + 1; const bs = ctBases(), n = BohemiaBetween.mine(); loopOpenTown({ name: n, x: bs[n].x, y: bs[n].y, tier: mapTierOf(n) }); });
       await P.waitForTimeout(2500); await gone15(); await close15();
       const gk22 = await fr.evaluate(() => { const p = ((window.__HOME_DESK.home || {}).places || []).filter(p => p.id === 'grinder')[0]; return p && p.done ? 'h' + p.lot : null; });
-      const gs22 = await (async () => { for (let i = 0; i < 12; i++) { const f = await feed(); const n = Object.keys(f.slots).filter(n => f.slots[n].kind === 'place' && f.slots[n].id === 'grinder')[0]; if (n) return [+n, f.slots[n].pid, !!MAN.pieces[f.slots[n].pid] && MAN.pieces[f.slots[n].pid].row === rowOfLot[n]]; await P.waitForTimeout(250); } return null; })();
-      ok('D22 the next day it stands, a door (' + gk22 + '), and the footage shows its own piece (' + (gs22 && gs22[1]) + ') on lot ' + (gs22 && gs22[0]) + ' of its row', !!gk22 && await fr.evaluate(k => (window.__HOME_DOORS || []).indexOf(k) >= 0, gk22) && !!gs22 && gs22[1] === 'grinder' && gs22[2], JSON.stringify(gs22));
+      const gs22 = await (async () => { for (let i = 0; i < 12; i++) { const f = await feed(); const n = Object.keys(f.slots).filter(n => f.slots[n].kind === 'place' && f.slots[n].id === 'grinder')[0]; if (n) return [+n, f.slots[n].pid, fitsLot(f.slots[n].pid, +n)]; await P.waitForTimeout(250); } return null; })();
+      ok('D22 the next day it stands, a door (' + gk22 + '), and the footage shows its own piece (' + (gs22 && gs22[1]) + ') on plot ' + (gs22 && gs22[0]) + ', one it fits (11/28: where he tapped)', !!gk22 && await fr.evaluate(k => (window.__HOME_DOORS || []).indexOf(k) >= 0, gk22) && !!gs22 && gs22[1] === 'grinder' && gs22[2], JSON.stringify(gs22));
       const fh22 = await F.evaluate(() => { const lost = BohemiaHomeMap.grinderFight({ outcome: { victory: false, bodies: [{ beast: false }] } });
         const won = BohemiaHomeMap.grinderFight({ outcome: { victory: true, bodies: [{ beast: false }, { beast: false }, { beast: false }, { beast: false }, { beast: false }, { beast: true, kind: 'coyote' }] } });
         return { lost: lost, won: won, now: BohemiaHomeMap.grinder(), crew: crewCount() }; });
@@ -538,9 +545,9 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
         const lotIn = !!g.lot && g.lot[0] >= g.R[0] && g.lot[0] <= g.R[2] && g.lot[1] >= g.R[1] && g.lot[1] <= g.R[3];
         const lay = g.side ? (g.S[0] >= g.R[2] - 1 || g.S[2] <= g.R[0] + 1) && g.S[3] - g.S[1] >= g.H * .95 && g.grind[1] >= g.S[1] + (g.S[3] - g.S[1]) * .4 && g.st.side
                            : g.S[1] >= g.R[3] - 1 && g.S[3] - g.S[1] <= g.H * .55 && !g.st.side;
-        return g.ov <= g.W && g.z >= 1.5 && lotIn && lay && on(g.grind) && on(g.more); };
+        return g.ov <= g.W && g.z <= 1 && lotIn && lay && on(g.grind) && on(g.more); };   /* AMENDED 11/28 (ONE CAMERA, ask row 788): the whole picture steps back above the sheet, never pushed in (was z >= 1.5) */
       const g9 = await geo9(), dead9 = await F.evaluate(() => BohemiaHomeMap.grinder().dead | 0);
-      ok('F9 THE STATION (' + (g9.side ? 'sideways' : 'upright') + '): the camera zoomed ' + g9.z + 'x onto the grinder\'s lot ' + (g9.st && g9.st.lot) + ', the footage ' + JSON.stringify(g9.R) + ' and the sheet ' + JSON.stringify(g9.S) + ' overlap ' + g9.ov + ' px, ' + (g9.side ? 'the sheet a column the glass tall, GRIND in its lower half' : 'the sheet under the footage, under 55 percent of the glass') + ', GRIND and BUILD MORE 44 px and on the glass',
+      ok('F9 THE STATION (' + (g9.side ? 'sideways' : 'upright') + '): the one camera\'s whole picture at ' + g9.z + 'x, the grinder\'s plot ' + (g9.st && g9.st.lot) + ' on it, the footage ' + JSON.stringify(g9.R) + ' and the sheet ' + JSON.stringify(g9.S) + ' overlap ' + g9.ov + ' px, ' + (g9.side ? 'the sheet a column the glass tall, GRIND in its lower half' : 'the sheet under the footage, under 55 percent of the glass') + ', GRIND and BUILD MORE 44 px and on the glass',
         good9(g9), JSON.stringify(g9));
       ok('F9 the bodies waiting lie on the grinder\'s lot, one bundle each (' + g9.pile + ' drawn, ' + dead9 + ' waiting)', g9.pile === Math.min(6, dead9) && dead9 >= 1, JSON.stringify({ pile: g9.pile, dead9 }));
       await close15(); await fr.evaluate(() => window.__HOME_FEED_NO_STATION(true));
@@ -567,20 +574,16 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       const i9 = await idle9(false), i9p = await idle9(true);
       ok('F9 standing still, the footage painted ' + i9.paints + ' times in 2 s (its own 6 a second; the page ran ' + i9.rafIn500 * 4 + ' frames a second)', i9.paints >= 6 && i9.paints <= 16, JSON.stringify(i9));
       ok('F9 planted: painted every frame as it was, ' + i9p.paints + ' times in 2 s, the leg above reads red', !(i9p.paints >= 6 && i9p.paints <= 16), JSON.stringify(i9p));
-      /* F10 THE CAMERAS ON PATROL (HOME BASE 4 11/26, rule 482: 'the cameras' shots worth watching'): eight seconds into a camera's round it
-         has pushed in (1.5x to 2.3x) on what is going on (his man at work first), bracketed and named, standing in the glass the phone
-         leaves; each person on the footage moves (an idle or his work). PLANTED: the patrol stood down (a reader asked where a lot is),
-         the same check reads red. */
+      /* F10 AMENDED 11/28 (Paolo, ask row 788): THE CAMERAS ON PATROL ARE DEAD (graveyard/POSTMORTEM_HOME_BASE_THE_CAMERAS_ON_PATROL_11_28_26.txt).
+         Eight seconds into what was a patrol round the camera has not pushed in on anything (1x, no tour), and his people on the footage
+         still move (an idle or his work). PLANTED: the old push in (1.8x on his man at work) reads red. */
       const tour10 = async () => { await fr.evaluate(() => window.__HOME_FEED_TOUR_AT(8000)); await P.waitForTimeout(3600);
-        return fr.evaluate(() => { const t = window.__HOME_FEED_TOUR(), v = window.__HOME_FEED_VIEW(), d = window.__HOME_FEED_DRAWN() || {}; return { t, z: v ? +v.z.toFixed(2) : 0, feet: (d.feet || []).map(f => f.name + ':' + (f.moves ? 'moves' : 'still')) }; }); };
+        return fr.evaluate(() => { const t = window.__HOME_FEED_TOUR(), v = window.__HOME_FEED_VIEW(), d = window.__HOME_FEED_DRAWN() || {}; return { t, z: v ? +v.z.toFixed(2) : 1, feet: (d.feet || []).map(f => f.name + ':' + (f.moves ? 'moves' : 'still')) }; }); };
       const t10 = await tour10();
-      const good10 = (x) => !!x.t && x.z >= 1.45 && x.z <= 2.35 && ['work', 'pile', 'home', 'stand'].indexOf(x.t.why) >= 0;
-      ok('F10 THE CAMERAS ON PATROL: eight seconds into the round the camera has pushed in ' + t10.z + 'x on ' + (t10.t ? t10.t.why + ' at lot ' + t10.t.n + (t10.t.who ? ' (' + t10.t.who + ')' : '') : 'nothing') + '; his people on the footage: ' + t10.feet.join(', '),
-        good10(t10) && t10.feet.length >= 1 && t10.feet.some(f => /moves$/.test(f)), JSON.stringify(t10));
-      await fr.evaluate(() => window.__HOME_FEED_AT(5)); await P.waitForTimeout(400);
-      const t10p = await fr.evaluate(() => { const t = window.__HOME_FEED_TOUR(), v = window.__HOME_FEED_VIEW(); return { t, z: v ? +v.z.toFixed(2) : 0, feet: [] }; });
-      ok('F10 planted: the patrol stood down (a reader asked where lot 5 is), the leg above reads red (zoom ' + t10p.z + ')', !good10(t10p), JSON.stringify(t10p));
-      await fr.evaluate(() => window.__HOME_FEED_TOUR_AT(0));   /* the camera's round from its start again */
+      const still10 = (x) => !x.t && x.z === 1;
+      ok('F10 NO PATROL: eight seconds on the camera is at ' + t10.z + 'x on ' + (t10.t ? t10.t.why : 'nothing') + '; his people on the footage: ' + t10.feet.join(', '),
+        still10(t10) && t10.feet.length >= 1 && t10.feet.some(f => /moves$/.test(f)), JSON.stringify(t10));
+      ok('F10 planted: the old push in (1.8x on his man at work) reads red on the leg above', !still10({ t: { why: 'work', n: 5 }, z: 1.8 }));
       /* F11 ONE LOT, ONE THING (HOME BASE 4 11/26, rule 479(b)): the build desk never offers a lot his own building or a boss's prize stands
          on (measured: the grinder on lot 0, then a wall on lot 0, one key, the grinder gone from his cameras), and a save that already
          has two things on one lot has his building moved to a free lot. PLANTED: a place written onto a built lot is moved (else red). */
@@ -646,7 +649,7 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       await fr.evaluate(() => { try { window.__HOME_FEED_TOUR_AT(0); } catch (e) {} });   /* HOME BASE 4 11/26: a fresh round, so no cut of the camera's own lands inside the three reads (F10 moves its clock) */
       const cams8 = []; for (let c = 0; c < 3; c++) { await P.waitForTimeout(700); cams8.push(await fr.evaluate(() => { const f = window.__HOME_FEED || {}, d = window.__HOME_FEED_DRAWN ? window.__HOME_FEED_DRAWN() : null; return { cam: f.cam, slots: Object.keys(f.slots || {}).length, d }; })); await fr.evaluate(() => { try { window.__HOME_FEED_AGE(99999); } catch (e) {} }); }
       const once8 = c => !!c.d && Object.keys(c.d.pieces).length === c.slots && Object.values(c.d.pieces).every(n => n === 1) && Object.values(c.d.people).every(n => n === 1) && c.d.feet.every(q => q.shadow);
-      ok('F8 ONCE AND IN THE GROUND: in CAM ' + cams8.map(c => c.cam).join(', ') + ' each thing of his drawn once (' + cams8.map(c => c.d ? Object.keys(c.d.pieces).length : '?').join('/') + ') and each person once on his own shadow (' + cams8.map(c => c.d ? Object.keys(c.d.people).length : '?').join('/') + ')', cams8.length === 3 && new Set(cams8.map(c => c.cam)).size === 3 && cams8.every(once8), JSON.stringify(cams8));
+      ok('F8 ONCE AND IN THE GROUND (the one camera, 11/28): in CAM ' + cams8.map(c => c.cam).join(', ') + ' each thing of his drawn once (' + cams8.map(c => c.d ? Object.keys(c.d.pieces).length : '?').join('/') + ') and each person once on his own shadow (' + cams8.map(c => c.d ? Object.keys(c.d.people).length : '?').join('/') + ')', cams8.length === 3 && cams8.every(c => c.cam === 1) && cams8.every(once8), JSON.stringify(cams8));
       const dup8 = await fr.evaluate(async () => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); const p = (h.places || [])[0]; if (p) h.places.push(JSON.parse(JSON.stringify(p))); const sent = (h.places || []).length, sentKeys = (h.places || []).map(x => 'h' + x.lot); window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); await new Promise(r => setTimeout(r, 900)); const f = window.__HOME_FEED || {}; return { sent, sentKeys, slots: Object.keys(f.slots || {}).length, keys: Object.values(f.slots || {}).map(x => x.key) }; });
       ok('F8 the same building handed twice is drawn once (' + dup8.keys.join(',') + '; ' + dup8.sent + ' sent); planted: counted on what was sent, the same check reads red', new Set(dup8.keys).size === dup8.keys.length && dup8.sent > new Set(dup8.sentKeys).size, JSON.stringify(dup8));
       await fr.evaluate(async () => { const h = JSON.parse(JSON.stringify(window.__HOME_DESK.home)); window.postMessage({ type: 'BOHEMIA_HOME', home: h, plan: null }, '*'); });
@@ -714,11 +717,13 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       await P.screenshot({ path: path.join(require('os').tmpdir(), 'home_base_gate_desk_' + prof + '.png') }).catch(() => {});   /* the proof picture, never into the repo */
       /* D10 a build from the desk goes up and stands on a lot of its row in the footage; CLEAR on its own sheet takes it down */
       const before10 = await F.evaluate(() => Object.keys(LOT_BOOK[BohemiaBetween.mine()].lots));
+      const plot10 = await fr.evaluate(() => (window.__HOME_PLOTS_DRAWN() || {}).lot);   /* 11/28: the plot the desk is open for */
       await fr.evaluate(() => { const b = [...document.querySelectorAll('#sbody .act')].find(x => /GARDEN BED/.test(x.textContent)); if (b) b.click(); }); await P.waitForTimeout(1000);
       const lots10 = await F.evaluate(() => Object.keys(LOT_BOOK[BohemiaBetween.mine()].lots)), new10 = lots10.filter(k => before10.indexOf(k) < 0)[0];
       await close15(); await fr.evaluate(() => { try { window.__HOME_FEED_AGE(0); } catch (e) {} }); await P.waitForTimeout(500);
       const s10 = await fr.evaluate(k => { const f = window.__HOME_FEED; for (const n in f.slots) if (f.slots[n].key === k) return { n: +n, pid: f.slots[n].pid, at: window.__HOME_FEED_AT(+n) }; return null; }, new10 ? 'h' + parseInt(new10, 10) : null);
-      ok('D10 the garden from the desk goes up (lot ' + new10 + ') and stands in the footage on lot ' + (s10 && s10.n) + ' of its row (' + (s10 && rowOfLot[s10.n]) + ')', !!new10 && !!s10 && s10.pid === 'garden_bed' && rowOfLot[s10.n] === 'middle' && !!s10.at && s10.at.w >= 44, JSON.stringify({ new10, s10 }));
+      /* AMENDED 11/28 (ask row 788): it stands on the plot the desk was opened for, one it fits (was: on a lot of its own row) */
+      ok('D10 the garden from the desk goes up (lot ' + new10 + ') and stands in the footage on plot ' + (s10 && s10.n) + ', the plot the desk was opened for (' + plot10 + '), one it fits (' + (s10 && rowOfLot[s10.n]) + ')', !!new10 && !!s10 && s10.pid === 'garden_bed' && (plot10 == null || s10.n === plot10) && fitsLot('garden_bed', s10.n) && !!s10.at && s10.at.w >= 44, JSON.stringify({ new10, s10, plot10 }));
       if (s10 && s10.at) { await P.touchscreen.tap(fb.x + s10.at.x, fb.y + s10.at.y); await P.waitForTimeout(1300); }
       const clr = await fr.evaluate(() => { const b = document.querySelector('#sbody .act[data-home="clear"]'); if (!b) return null; const r = b.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2, r.height]; });
       const half = await fr.evaluate(() => { const b = document.getElementById('sbody'); const t = Math.min.apply(null, [].slice.call(b.querySelectorAll('*')).filter(x => x.offsetWidth).map(x => x.getBoundingClientRect().top)); return { top: t, h: innerHeight }; });
@@ -726,7 +731,7 @@ async function phoneText(P) { return P.evaluate(() => { const e = document.query
       if (clr) { await P.waitForTimeout(500); await P.touchscreen.tap(fb.x + clr[0], fb.y + clr[1]); await P.waitForTimeout(900); }
       const lots10b = await F.evaluate(() => Object.keys(LOT_BOOK[BohemiaBetween.mine()].lots));
       ok('D10 CLEAR took it down (' + (lots10b.join(' ') || 'nothing') + ')', !!new10 && lots10b.indexOf(new10) < 0, JSON.stringify(lots10b));
-      { const e10 = await fr.evaluate(() => { const f = window.__HOME_FEED, n = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].filter(x => !f.slots[x])[0]; return n ? window.__HOME_FEED_AT(n) : null; });
+      { const e10 = await fr.evaluate(() => BohemiaSettlement.where('build'));   /* 11/28: the empty plot readers are pointed to (the back row first: every build fits it) */
         if (e10) { await P.touchscreen.tap(fb.x + e10.x, fb.y + e10.y); await P.waitForTimeout(1300); } }   /* the desk again, by an empty lot, for the rows below */
       /* D13 each build whole */
       const rows13 = await fr.evaluate(() => [...document.querySelectorAll('#sbody .act[data-build]')].map(b => ({ id: b.dataset.build, t: b.textContent, off: b.disabled })));

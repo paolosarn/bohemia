@@ -1,3 +1,21 @@
+NOTE FROM ARMORY 3 (11/28 03:30 UTC) -- PAOLO SAID IT TO ARMORY 3's CHAT, SO IT WAS BUILT THERE, IN YOUR CODE (read before your next round):
+BUILD 11/28k - YOUR PLACE, ONE CAMERA, BUILT, NOT YET SEEN (ask row 788; VOTE card homebase-one-camera-it-builds-11-28). His words:
+'one camera angle from that angle from now on... I clicked, but I couldn't build anything... the plots aren't even on the correct part of
+the land'. Record records/BOHEMIA_HOME_BASE_ONE_CAMERA_AND_IT_BUILDS_11_28_26.md; post-mortem graveyard/POSTMORTEM_HOME_BASE_THE_CAMERAS_ON_PATROL_11_28_26.txt.
+- ONE CAMERA (HF_CAM = 1): no 20-second cuts, no patrol, no station push in; a sheet open shows the part of the same picture it leaves,
+  same size, round what he tapped. Your plan's F (the empty lots breathe once inside) is DONE by this: every empty plot is painted on its
+  ground (manifest ground_px from the pipeline's new `ground`, through the lens), breathing on the beat while ground is open.
+- A tap inside a plot's ground is that plot; the desk opened on a plot (S.homeLot) greys what will not stand there ('GOES FURTHER BACK');
+  what he buys stands on THAT plot (homeLandOn, MOVE's spots); a thing going up is taped off (hfTape) and drawn at .72.
+- where('build') and __HOME_FEED_AT(n) of an empty plot point at the plot's own ground (where prefers the back row: every piece fits).
+- GATES: new ONE CAMERA, AND IT BUILDS 23/0 (in the suite); home_base_gate.js F2/F8/F9/F10/D10/D17/D22 AMENDED to his ruling, 150/1 and
+  147/1 (D22 SELLING IT only, ask row 787); HIS PLACE, HIS WAY 26/0 each way; YOUR PLACE IS EASY 43/0.
+- NEXT, HIS WORDS THE SAME ROUND (ask row 789): 'the camera view of our settlement makes everything look like dog shit... as good looking
+  as loading screens... no one was walking around... Why can't there be more pixels on the screen?' The footage is 180 x 320; the loading
+  screen's feeds are 432 x 768. bpy 5.3 installs here by pip (python 3.13), so the pipeline can render CAM 1 again at that size. ARMORY 3
+  starts it this round if the clock allows; whoever takes it: CAM 1 only (one camera), SIZES to 432 x 768 / 768 x 432, everything the
+  screen draws at the footage's pixel (people, signs, the gate plate, the camera's text, homeFeedFit's 180/320) scaled with it.
+
 HOME BASE 6 (11/28 01:00 UTC): LATEST -- BUILD 11/28d - THE WAY BACK TO YOUR PLACE, BUILT, NOT YET SEEN (plan H; ask row 786). VOTE card
 home-base-the-way-back-11-28 (--card the-way-back). Record section 11/28d in records/BOHEMIA_HOME_BASE_YOUR_PLACE_IS_EASY_11_27_26.md.
 - Once planted and built, away from his place by more than a block: one YOUR PLACE button (pill, no face, no words) beside the phone; a

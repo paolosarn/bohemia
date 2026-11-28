@@ -1,0 +1,102 @@
+{
+ "phone_portrait": {
+  "plots": "records/target/home_base/one_camera_phone_portrait_plots.jpg",
+  "plots_drawn": {
+   "plots": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "open": true,
+   "cam": 1,
+   "lot": null,
+   "slots": []
+  },
+  "desk": {
+   "lot": 7,
+   "greyed": [
+    "roof: GOES FURTHER BACK",
+    "lookout: GOES FURTHER BACK"
+   ]
+  },
+  "tank": {
+   "key": "h0",
+   "id": "tank",
+   "lot": 7,
+   "at": 7
+  },
+  "yard": {
+   "key": "h1",
+   "id": "yard",
+   "lot": 2,
+   "at": 2
+  },
+  "taped": [
+   "2=yard~",
+   "7=tank~"
+  ],
+  "morning": [
+   "2=yard",
+   "7=tank"
+  ]
+ },
+ "phone_landscape": {
+  "plots": "records/target/home_base/one_camera_phone_landscape_plots.jpg",
+  "plots_drawn": {
+   "plots": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "open": true,
+   "cam": 1,
+   "lot": null,
+   "slots": []
+  },
+  "desk": {
+   "lot": 7,
+   "greyed": [
+    "roof: GOES FURTHER BACK",
+    "lookout: GOES FURTHER BACK"
+   ]
+  },
+  "tank": {
+   "key": "h0",
+   "id": "tank",
+   "lot": 7,
+   "at": 7
+  },
+  "yard": {
+   "key": "h1",
+   "id": "yard",
+   "lot": 2,
+   "at": 2
+  },
+  "taped": [
+   "2=yard~",
+   "7=tank~"
+  ],
+  "morning": [
+   "2=yard",
+   "7=tank"
+  ]
+ }
+}

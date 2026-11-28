@@ -1,0 +1,30 @@
+POST-MORTEM: HOME BASE, THE CAMERAS ON PATROL AND THE 20-SECOND CUTS (killed 11/28/26 by Paolo, ask row 788)
+
+WHAT IT WAS
+- Rule 354(h) (11/3): his place shown by three fixed security cameras (CAM 1 the street light, CAM 2 the power pole, CAM 3 the
+  billboard) that cut on their own every 20 seconds; he never picks one.
+- HOME BASE 4 (11/26, rule 482, __THE_CAMERAS_ON_PATROL__): between cuts each camera pushed in slowly (1.5x to 2.3x) on what was going on
+  (his man at work, the dead at the grinder, the people who live there, else a building), held, and pulled back before the cut.
+- A thing's sheet (its station) pushed the camera in 1.6x to 3x on that thing.
+
+WHY IT DIED (his words, 11/28)
+'We can just have it to one camera angle from that angle from now on so we can focus more on the assets that we need to create from just
+one intimate security camera perspective. I clicked, but I couldn't build anything... I could just like move things and then the plots
+aren't even on the correct part of the land.'
+
+WHAT WENT WRONG (measured on the demo, a fresh place, a phone upright)
+- The plot under his finger moved: the picture changed camera every 20 seconds and zoomed between cuts, so a tap aimed at one place
+  landed on another, or on nothing.
+- Three cameras tripled every picture the pipeline had to make (each piece x state x lot x camera x shape) for a view he could not
+  hold still long enough to use.
+- Nothing on the ground said where a plot was, so a moving picture of an empty block gave him nothing to aim at.
+
+WHAT REPLACED IT
+ONE CAMERA (CAM 1, the street light), still. The plots are painted on their own ground (the manifest's ground_px, the plot through the
+camera's lens). A sheet open shows the part of the same picture the sheet leaves, at the same size, round what he tapped; never a push in.
+slices/BOHEMIA_SETTLEMENT_SCREEN.html, ONE CAMERA, AND THE PLOTS ON THE LAND; gate gates/one_camera_it_builds_gate.js; record
+records/BOHEMIA_HOME_BASE_ONE_CAMERA_AND_IT_BUILDS_11_28_26.md.
+
+THE LESSON
+A camera that moves on its own is a camera the player cannot point at. Motion is for what lives in the picture (his people), never for
+the picture itself while he is trying to touch it.

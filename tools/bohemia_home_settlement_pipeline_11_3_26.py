@@ -791,6 +791,42 @@ def card(was_dir='/tmp/claude-0/was'):
     frames[0].save('/tmp/claude-0/home_intimate_card.png'); print('  card', dst, frames[0].size)
 
 
+def lens_px(cn, shape, p):
+    """a point of the block (metres) to its pixel in camera cn's picture, the way _camera and _aim shoot it, without Blender: the camera
+    looks from CAMS[cn].loc at .at[shape] (track -Z, up Y), an equisolid fisheye (r = 2 f sin(theta / 2)) on a 36 mm sensor fitted to
+    the picture's longer side. Measured 11/28 against the baked tap boxes (rendered by Blender): every plot within 2 to 5 px."""
+    C = CAMS[cn]; W, H = SIZES[shape]; loc = C['loc']; at = C['at'][shape]
+    f = [at[i] - loc[i] for i in range(3)]; n = math.sqrt(sum(x * x for x in f)); f = [x / n for x in f]
+    d = f[2]; up = [-d * f[0], -d * f[1], 1 - d * f[2]]; n = math.sqrt(sum(x * x for x in up)); up = [x / n for x in up]
+    rt = [f[1] * up[2] - f[2] * up[1], f[2] * up[0] - f[0] * up[2], f[0] * up[1] - f[1] * up[0]]
+    v = [p[i] - loc[i] for i in range(3)]
+    cx = sum(v[i] * rt[i] for i in range(3)); cy = sum(v[i] * up[i] for i in range(3)); cz = sum(v[i] * f[i] for i in range(3))
+    th = math.acos(max(-1.0, min(1.0, cz / math.sqrt(cx * cx + cy * cy + cz * cz)))); ph = math.atan2(cy, cx)
+    r = 2 * C['f'][shape] * math.sin(th / 2); k = max(W, H) / 36.0
+    return [W / 2 + r * math.cos(ph) * k, H / 2 - r * math.sin(ph) * k]
+
+
+def ground(per_edge=4):
+    """THE PLOTS ON THE LAND (Paolo 11/28: 'I couldn't build anything... the plots aren't even on the correct part of the land'): each
+    plot's own ground, its four edges bent by the lens (per_edge points an edge, clockwise from the street's left corner), in every
+    camera and shape, into the manifest as ground_px. The settlement screen draws the empty ones on the footage and answers a tap
+    inside one; tap_px (the plot's tallest volume, which overlaps the plots behind) stays for what stands on a plot."""
+    M = json.load(open(os.path.join(OUT, 'manifest.json'))); out = {}
+    for cn in CAMS:
+        for sh in SIZES:
+            k = '%d_%s' % (cn, sh); out[k] = {}
+            for L in LOTS:
+                x0, y0, x1, y1 = L['box']; z = L['z']; pts = []
+                for a0, b0 in (((x0, y0), (x1, y0)), ((x1, y0), (x1, y1)), ((x1, y1), (x0, y1)), ((x0, y1), (x0, y0))):
+                    for t in range(per_edge):
+                        u = t / float(per_edge); pts.append([round(c, 1) for c in lens_px(cn, sh, (a0[0] + (b0[0] - a0[0]) * u, a0[1] + (b0[1] - a0[1]) * u, z))])
+                out[k][str(L['n'])] = pts
+    M['ground_px'] = out; M['ground_note'] = ('each plot\'s ground through the lens, clockwise from its street-side left corner, ' + str(per_edge)
+                                              + ' points an edge (tools/bohemia_home_settlement_pipeline_11_3_26.py ground, 11/28)')
+    with open(os.path.join(OUT, 'manifest.json'), 'w') as fh: json.dump(M, fh, indent=1)
+    print('  ground', ', '.join('%s %d plots' % (k, len(v)) for k, v in sorted(out.items())))
+
+
 if __name__ == '__main__':
     a = sys.argv[1:]
     if not a: raise SystemExit(__doc__)
@@ -808,3 +844,4 @@ if __name__ == '__main__':
     elif a[0] == 'post_add': post_add(a[1:])   # HOME BASE 2 11/21: new pieces only, merged
     elif a[0] == 'card': card()
     elif a[0] == 'specks': specks()   # HOME BASE 4 11/26: the pieces already made, cleaned
+    elif a[0] == 'ground': ground()   # 11/28 (Paolo: 'the plots aren't even on the correct part of the land'): each plot's ground, through the lens

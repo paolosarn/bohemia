@@ -32,3 +32,13 @@ like move things and then the plots aren't even on the correct part of the land.
 HOME BASE (the lane; HOME BASE 6 is in flight on rule 492's plan A to H; this ruling covers its F, 'the empty lots breathe once inside').
 Built in the same round by the chat he said it to (ARMORY 3), in HOME BASE's own code (rule 495: root fixes in the owning places):
 see records/BOHEMIA_HOME_BASE_ONE_CAMERA_AND_IT_BUILDS_11_28_26.md.
+
+## HIS NEXT WORDS, THE SAME ROUND (ask row 789)
+'Like the menu screens are like really good looking and then the fucking camera view of our settlement looks makes everything look like
+dog shit. I want it to be basically as good looking as loading streams [screens], that too hard to ask and then no one was walking around
+what the fuck. Why can't there be more pixels on the screen?'
+- MEASURED: his place's footage is 180 x 320 upright (320 x 180 sideways), the PS1 size of rule 354(k), blown up about 2.2 times to the
+  phone; the starred loading screen's feeds (slices/crashbox/feed_*_tall.webp) are 432 x 768 a frame, 5.8 times the pixels.
+- THE ORDER: his place's one camera is rendered again at the loading screen's size (432 x 768 upright, 768 x 432 sideways), the same
+  look made at the source; his people walk round his place on the footage. bpy 5.3 installs in this container (pip), so the pipeline can
+  run here.

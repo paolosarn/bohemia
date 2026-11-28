@@ -2036,6 +2036,8 @@ function buildTick(){
   if(b.parent) return null;   /* the map's morning ticks it, into the map's purse and century */
   var r = LB.tick(b.site, S.purse, b.century, buildDay(), buildHold()); buildSave(); return r;
 }
+/* no free ground: at his place the plots are there but the place opens them as it grows (rule 347(g)); words draft:true (11/28) */
+function homeNoRoom(){ return (S.home && S.home.planted) ? 'That is all the ground we can work for now. When it stands, we open more.' : 'Every lot here has something on it.'; }
 function buildLots(){ return (S.home && S.home.planted && S.home.lotsOpen) ? S.home.lotsOpen : BUILD_LOTS; }   /* __HOME_BASE__: his place opens more lots as it grows */
 /* __ONE_LOT_ONE_THING__ (HOME BASE 4 11/26, rule 479(b)): at his place a lot his own building or a boss's prize stands on is not free
    for a build (measured: the grinder on lot 0, then a wall on lot 0, one key, the grinder gone from his cameras) */
@@ -2076,7 +2078,7 @@ function buildSheet(body, acts, line){
     body.appendChild(acts); return show(); }
   if(S.home && S.home.planted) acts.className = 'acts two' + (S.home.placeRows ? ' three' : '');   /* __HIS_OWN_BUILDINGS__: eleven to build, three across upright, six on its side: the desk keeps its height */
   var free = buildFreeLot(), list = LB.list(b.site, S.purse, hold);
-  body.appendChild(speak('build', line || (free ? (S.home && S.home.planted ? S.home.name + '. One battery and a day for any of these. What goes up?' : 'One battery and a day for any of these. What goes up?') : 'Every lot here has something on it.')));
+  body.appendChild(speak('build', line || (free ? (S.home && S.home.planted ? S.home.name + '. One battery and a day for any of these. What goes up?' : 'One battery and a day for any of these. What goes up?') : homeNoRoom())));
   if(S.home && S.home.planted){ var hpr = document.createElement('div'); hpr.className = 'hplanrow'; try{ var hcl = homeCanLine(); if(hcl) hpr.appendChild(hcl); }catch(e){} body.appendChild(hpr); homeDesk(body);   /* __WHAT_YOU_BUILD_OPENS_A_DOOR__: what his place can do; __HIS_PLACE_SEEN_AS_HE_WILL_SEE_IT__ (rule 458(c)): no top-down plan, his lots are picked in the feed above */
     var pk = S.homePick, pl = pk != null && b.site ? b.site.lots[pk+',0'] : null;
     if(pl){ var dk = body.querySelector('.hdesk'), cl = document.createElement('button'); cl.type = 'button'; cl.textContent = 'CLEAR ' + (pk + 1); cl.dataset.home = 'clear';
@@ -2085,13 +2087,13 @@ function buildSheet(body, acts, line){
     var hrow = (S.home && S.home.planted && S.home.builds) ? S.home.builds[e.id] : null;   /* __WHAT_HE_BUILDS__: his place's own costs and gives */
     var short = hrow ? homeShort(hrow) : null;
     var row = act(e.name, hrow ? homeCostLine(hrow) : '1 battery  ' + buildDoes(e), function(){
-      var lot = buildFreeLot(); if(!lot) return openB('build', 'Every lot here has something on it.');
+      var lot = buildFreeLot(); if(!lot) return openB('build', homeNoRoom());
       if(hrow){ var HM = homeMap(), pg = HM ? HM.payGoods(e.id) : { ok: false };   /* the goods first, out of the company's supplies */
         if(!pg.ok) return openB('build', 'Not enough ' + Object.keys(pg.need || {}).join(' or ') + ' for that. ' + homeNeedLine(pg.need) + '.');
         for(var gk in (hrow.cost || {})) S.home.supplies[gk] = (S.home.supplies[gk] | 0) - (hrow.cost[gk] | 0); }
       var r = LB.start(b.site, S.purse, lot, e.id, buildDay(), hold);
       if(!r.ok) return openB('build', BUILD_NO[r.why] || 'It will not go up.');
-      buildSave(); post('build', {id:e.id, lot:lot, day:buildDay()}); shelf();
+      buildSave(); post('build', {id:e.id, lot:lot, day:buildDay()}); shelf(); try{ homeLandOn('h' + lot.x, e.id); }catch(er){}   /* ONE CAMERA, AND THE PLOTS ON THE LAND (11/28): on the plot he tapped */
       heard('The ' + e.name.toLowerCase() + ' goes up. It stands tomorrow.'); openB('build', 'It goes up tonight. Tomorrow it stands.');
     }, !free || !e.affordable || !!short);
     if(hrow){ row.dataset.build = e.id; if(short) row.dataset.short = Object.keys(short).join(',');
@@ -2433,8 +2435,9 @@ function homePlaceRows(acts){ var H = S.home, R = H && H.placeRows; if(!R) retur
     var sp = homeSupplies(), short = Object.keys(row.cost || {}).some(function(g){ return (sp[g] | 0) < (row.cost[g] | 0); });
     var b = act(row.name, '', function(){ if(have) return; var HM = homeHM(); if(!HM) return;
       if(bats() < 1) return openB('build', BUILD_NO.CANNOT_AFFORD || 'Not enough batteries.');
-      var r = HM.placeBuild(id); if(!r || !r.ok) return openB('build', r && r.why === 'SHORT' ? homeNeedLine(r.need) + '.' : 'Every lot here has something on it.');
+      var r = HM.placeBuild(id); if(!r || !r.ok) return openB('build', r && r.why === 'SHORT' ? homeNeedLine(r.need) + '.' : homeNoRoom());
       P.debit(S.purse, 'electricity', 1, 'build:' + id, S.place.name, buildDay()); shelf(); homeRefresh();
+      try{ var pl0 = (S.home.places || []).filter(function(p){ return p.id === id; })[0]; if(pl0) homeLandOn('h' + pl0.lot, id); }catch(er){}   /* ONE CAMERA, AND THE PLOTS ON THE LAND (11/28): on the plot he tapped */
       heard('The ' + String(row.name).toLowerCase() + ' goes up. It stands tomorrow.'); openB('build', 'It goes up tonight. Tomorrow it stands.'); }, have || short || bats() < 1);
     var em = b.querySelector('em') || (function(){ var e = document.createElement('em'); b.appendChild(e); return e; })();
     em.textContent = ''; em.className = 'hcost'; [have ? 'BUILT' : '1 BATTERY' + (row.cost ? ' ' + homeGoodsWords(row.cost) : ''), String(row.line || '').toUpperCase()].forEach(function(x){ var sp2 = document.createElement('span'); sp2.textContent = x; em.appendChild(sp2); });
@@ -2499,12 +2502,13 @@ window.__HOME_BARE_AT = function(){ var F = (VAR && VAR.folk) || [], W = (VAR &&
    sodium, the near things big and the far small, every lot in every camera. NOW, at his planted place only, the screen IS that feed:
    the camera's plate, each thing of his on a lot of its row as its own piece (low things in front, the middle, tall things at the
    back, rule 354(i); a row holds four), a boss's thing with no piece as its own picture on a lot, the people who live there and his
-   men at his buildings standing on their lots in the footage's own grade, what hangs at the lens, the camera's own text. The cameras
-   cut on their own every 20 seconds (354(h): he never picks; held while a sheet is open or a finger is down). A tap on a lot opens
+   men at his buildings standing on their lots in the footage's own grade, what hangs at the lens, the camera's own text. ONE CAMERA
+   (Paolo 11/28, ask row 788: 'one camera angle from that angle from now on'): CAM 1, never cut, never moved (354(h)'s 20-second cuts
+   are dead; see ONE CAMERA, AND THE PLOTS ON THE LAND below). A tap on a lot opens
    what stands there (an empty one opens BUILD), a tap on a person is that person. The skewed board (the town picture under a
    perspective transform) is off at his place. ==== */
 var HF = { M: null, on: false, el: null, src: null, sx: null, cam: 1, t0: performance.now(), lastCut: performance.now(), cut: null, down: false, fit: null, slots: {}, unplaced: [], ppl: [], raf: 0, IM: {} };
-var HF_CYCLE = 20000, HF_FPS = 6, HF_BASE = '../records/target/home_settlement/';
+var HF_FPS = 6, HF_BASE = '../records/target/home_settlement/';
 var HF_GRADE = 'grayscale(.9) sepia(.35) hue-rotate(52deg) saturate(.8) contrast(1.15) brightness(.72)';   /* a person in the footage's own green, as the plate was baked */
 var HF_PIECE = { build: { garden: 'garden_bed', tank: 'water_tank', solar: 'solar_panel', roof: 'house_plain', wall: 'wall', shed: 'shed', pump: 'pump', stall: 'stall' },
                  place: { yard: 'yard', forge: 'forge', lookout: 'lookout', grinder: 'grinder' }, prize: { cook: 'kitchen', open: 'main', purify: 'purifier' } };
@@ -2611,6 +2615,68 @@ function homeFeedPile(g, b, DRAWN){ var G = HF.pile, going = HF_GOING && perform
     g.fillStyle = '#1e2621'; g.fillRect(x + 1, y + h - 1, w - 2, 1);   /* its belly in its own shade */
     g.fillStyle = '#2a342e'; g.fillRect(x + Math.round(w * .34), y + 1, 1, h - 1); g.fillRect(x + Math.round(w * .66), y + 1, 1, h - 1);   /* the rope, cinched twice */
     DRAWN.pile++; } }
+/* ONE CAMERA, AND THE PLOTS ON THE LAND (Paolo 11/28, ask row 788: 'one camera angle from that angle from now on... one intimate
+   security camera perspective... I clicked, but I couldn't build anything... I could just like move things and then the plots aren't
+   even on the correct part of the land'). MEASURED on the demo (records/BOHEMIA_PAOLO_HIS_PLACE_ONE_CAMERA_AND_IT_BUILDS_11_28_26.md):
+   the twelve plots were never drawn; a tap answered through each plot's tallest volume (tap_px), boxes that overlapped the plots
+   behind and left the middle of the street dead; a build went up on the first free plot of its row, never the one tapped; the camera
+   cut every 20 seconds and patrolled between cuts, so the plot under his finger moved. NOW his place is ONE camera (HF_CAM, CAM 1 the
+   street light) that never cuts and never moves on its own; every empty plot is painted on its own ground (the manifest's ground_px:
+   the plot through the camera's own lens, tools/bohemia_home_settlement_pipeline_11_3_26.py ground), survey paint and a stake at each
+   corner, breathing on the beat while he can build there and faint while the place has no more ground open (rule 347(g)); a tap inside
+   a plot's ground is that plot; the desk greys what will not stand on it; what he buys stands on the plot he tapped. */
+var HF_CAM = 1;
+function homeFeedGround(n){ var G = HF.M && HF.M.ground_px && HF.fit ? HF.M.ground_px[HF.cam + '_' + HF.fit.sh] : null; return G ? (n == null ? G : G[n] || null) : null; }
+function hfInPoly(P, x, y){ var c = false; for(var i = 0, j = P.length - 1; i < P.length; j = i++){ var a = P[i], b = P[j]; if((a[1] > y) !== (b[1] > y) && x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]) c = !c; } return c; }
+function hfPolyGap(P, x, y){ var d = Infinity; for(var i = 0, j = P.length - 1; i < P.length; j = i++){ var a = P[j], b = P[i], vx = b[0] - a[0], vy = b[1] - a[1], L = vx * vx + vy * vy,
+  t = L ? Math.max(0, Math.min(1, ((x - a[0]) * vx + (y - a[1]) * vy) / L)) : 0, ex = a[0] + vx * t - x, ey = a[1] + vy * t - y; d = Math.min(d, Math.sqrt(ex * ex + ey * ey)); } return d; }
+/* the picture drawn on plot n covers this pixel (its own alpha, kept once per picture): what stands nearer the lens answers first */
+var HFA = typeof WeakMap === 'function' ? new WeakMap() : null;
+function hfDrawnAt(n, x, y){ var r = HF.picRect && HF.picRect[n]; if(!r || x < r[0] || x >= r[2] || y < r[1] || y >= r[3]) return false; var im = HF.picIm && HF.picIm[n]; if(!im || !HFA) return true;
+  var A = HFA.get(im); if(!A){ try{ var c = document.createElement('canvas'); c.width = im.naturalWidth; c.height = im.naturalHeight; var x2 = c.getContext('2d'); x2.drawImage(im, 0, 0); A = { w: c.width, h: c.height, d: x2.getImageData(0, 0, c.width, c.height).data }; }catch(e){ A = { all: true }; } HFA.set(im, A); }
+  if(A.all) return true; var ix = Math.floor(x - r[0]), iy = Math.floor(y - r[1]);
+  for(var dy = -1; dy <= 1; dy++) for(var dx = -1; dx <= 1; dx++){ var qx = ix + dx, qy = iy + dy; if(qx >= 0 && qy >= 0 && qx < A.w && qy < A.h && A.d[(qy * A.w + qx) * 4 + 3] > 40) return true; } return false; }
+/* he can put up one more thing now (a lot of the place's open ground is free; four open at planting, four more each time they all stand) */
+function homeCanBuild(){ try{ return !!buildFreeLot(); }catch(e){ return false; } }
+/* a piece stands on plot n: its own row, or a row behind it has its picture for (homeLookFits for a thing not yet built) */
+function homeFeedPidFits(pid, n){ var M = HF.M, L = M && (M.lots || []).filter(function(x){ return x.n === +n; })[0]; if(!L || !pid || !M.pieces[pid]) return false;
+  return M.pieces[pid].row === L.row || (homeFeedRowsOf(pid).indexOf(L.row) >= 0 && homeFeedHasPic(pid, +n)); }
+/* what he buys stands on the plot he tapped: everything else pinned where it stands (MOVE's own way), the new
+   thing on his plot; the map keeps it (BOHEMIA_HOME_SET) */
+function homeLandOn(key, id){ var n = S.homeLot; S.homeLot = null; if(n == null || !HF.on || !homeLookOn()) return false; homeFeedSlots();
+  var sets = []; for(var q in HF.slots){ var t = HF.slots[q]; if(t.key !== key) sets.push({ what: 'spot', key: homeLookKey(t), val: +q }); }
+  sets.push({ what: 'spot', key: key + ':' + id, val: +n }); homeLookSend(sets); homeFeedSlots(); HF.dirty = true;
+  window.__HOME_LANDED = { key: key, id: id, lot: +n, at: (function(){ for(var q in HF.slots) if(HF.slots[q].key === key) return +q; return null; })() }; return true; }
+/* a plot taped off for the night's work: a site's barricade tape round the plot's ground (its stripes read light and dark on a night
+   camera) and a stake at each corner */
+function hfTape(g, P){ var cx = 0, cy = 0; P.forEach(function(p){ cx += p[0]; cy += p[1]; }); cx /= P.length; cy /= P.length;
+  P = P.map(function(p){ var dx = cx - p[0], dy = cy - p[1], d = Math.sqrt(dx * dx + dy * dy) || 1; return [p[0] + dx / d * 1.5, p[1] + dy / d * 1.5]; });   /* inside the plot's own edge, clear of the walk */
+  g.fillStyle = 'rgba(217,226,207,.13)'; g.beginPath(); P.forEach(function(p, i){ if(i) g.lineTo(p[0], p[1]); else g.moveTo(p[0], p[1]); }); g.closePath(); g.fill();   /* the work light on the cleared ground */
+  for(var i = 0; i < P.length; i++){ var p = P[i], q = P[(i + 1) % P.length], L = Math.max(1, Math.round(Math.max(Math.abs(q[0] - p[0]), Math.abs(q[1] - p[1]))));
+    for(var s = 0; s < L; s++){ var x = Math.round(p[0] + (q[0] - p[0]) * s / L), y = Math.round(p[1] + (q[1] - p[1]) * s / L) - 1; g.fillStyle = (x + y) % 4 < 2 ? 'rgba(226,230,212,.92)' : 'rgba(12,12,10,.75)'; g.fillRect(x, y, 1, 1); } }
+  for(var c = 0; c < 4; c++){ var k = P[Math.round(c * P.length / 4)]; g.fillStyle = 'rgba(10,10,10,.6)'; g.fillRect(Math.round(k[0]) + 1, Math.round(k[1]) - 4, 1, 5); g.fillStyle = 'rgba(226,230,212,.95)'; g.fillRect(Math.round(k[0]), Math.round(k[1]) - 4, 1, 5); } }
+/* a plot's line, made once per plot, way of holding and kind (broken survey paint, or solid for the plot the desk is open for), with a
+   surveyor's stake at each corner when the plot is open; drawn each frame at its alpha */
+var HF_PL = {};
+function hfPlotLine(n, P, solid, stakes){ var key = HF.fit.sh + n + (solid ? 's' : 'd') + (stakes ? 'k' : ''); if(HF_PL[key]) return HF_PL[key]; var b = hfBox(P), x0 = Math.floor(b[0]) - 2, y0 = Math.floor(b[1]) - 5;
+  var c = document.createElement('canvas'); c.width = Math.max(1, Math.ceil(b[2]) - x0 + 3); c.height = Math.max(1, Math.ceil(b[3]) - y0 + 3); var x = c.getContext('2d'); x.fillStyle = '#d9e2cf';
+  for(var i = 0; i < P.length; i++){ var p = P[i], q = P[(i + 1) % P.length], L = Math.max(1, Math.round(Math.max(Math.abs(q[0] - p[0]), Math.abs(q[1] - p[1]))));
+    for(var s = 0; s < L; s++){ if(!solid && s % 3 === 2) continue; x.fillRect(Math.round(p[0] + (q[0] - p[0]) * s / L) - x0, Math.round(p[1] + (q[1] - p[1]) * s / L) - y0, 1, 1); } }   /* a broken line, one pixel of the footage */
+  if(stakes) for(var k = 0; k < 4; k++){ var q2 = P[Math.round(k * P.length / 4)], sx = Math.round(q2[0]) - x0, sy = Math.round(q2[1]) - y0 - 3; x.fillStyle = 'rgba(10,10,10,.6)'; x.fillRect(sx + 1, sy, 1, 4); x.fillStyle = '#e6ecdf'; x.fillRect(sx, sy, 1, 4); }
+  return (HF_PL[key] = { c: c, x: x0, y: y0 }); }
+/* the plots, on the footage under what stands: every empty one (breathing while he can build, faint while no more ground is open);
+   in MOVE the plots it can go to, brighter; the plot the desk is open for, solid */
+function homeFeedPlots(g, now, DRAWN){ var G = homeFeedGround(); DRAWN.plots = []; if(!G) return;
+  var br = .5 + .5 * Math.cos(((now % 500) / 500) * 6.2832), mv = S.homeMove, can = {}, sel = S.open === 'build' ? S.homeLot : null, open = homeCanBuild();
+  if(mv) mv.can.forEach(function(c){ can[c.n] = 1; });
+  for(var n in G){ var P = G[n], empty = !HF.slots[n], lit = !!can[n], pick = sel != null && sel === +n, going = !empty && HF.slots[n].done === false && !mv;
+    if(going){ hfTape(g, P); DRAWN.going = (DRAWN.going || []).concat([+n]); continue; }   /* what he bought, going up tonight: the plot taped off, so he sees it took */
+    if(!lit && !pick && (!empty || mv)) continue;
+    var a = pick ? .95 : lit ? .6 + .35 * br : open ? .36 + .24 * br : .16;   /* survey paint under his night camera: it glows, and breathes on the beat (120 BPM) */
+    if(pick || lit){ g.fillStyle = 'rgba(217,226,207,' + (pick ? .18 : .12 * br).toFixed(3) + ')'; g.beginPath(); P.forEach(function(p, i){ if(i) g.lineTo(p[0], p[1]); else g.moveTo(p[0], p[1]); }); g.closePath(); g.fill(); }
+    var im = hfPlotLine(n, P, pick, open || pick || lit); g.globalAlpha = Math.min(1, a); g.drawImage(im.c, im.x, im.y); g.globalAlpha = 1;   /* the line and its stakes, made once (480(c): nothing redrawn pixel by pixel each frame) */
+    DRAWN.plots.push(+n); }
+  DRAWN.open = open; }
 function homeFeedPaint(now, fr){
   var M = HF.M, f = HF.fit, cn = HF.cam, sh = f.sh, plate = hfImg(HF_BASE + 'plates/block_cam' + cn + '_' + sh + '_' + fr + '.png');
   if(!HF.src){ HF.src = document.createElement('canvas'); HF.sx = HF.src.getContext('2d'); }
@@ -2620,12 +2686,13 @@ function homeFeedPaint(now, fr){
   HF.paints = (HF.paints | 0) + 1; g.filter = 'none'; g.globalAlpha = 1; g.drawImage(plate, 0, 0);
   var T = M.tap_px[cn + '_' + sh] || {}, P = homeFeedPeople(), late = false;
   var DRAWN = { pieces: {}, people: {}, feet: [], pile: 0, cam: cn, sh: sh }; HF.drawn = DRAWN; HF.picRect = {};   /* __ONCE_AND_IN_THE_GROUND__ (HOME BASE 3, rule 479): what this frame drew, counted */
+  homeFeedPlots(g, now, DRAWN);   /* ONE CAMERA, AND THE PLOTS ON THE LAND (11/28): painted on the ground, under whatever stands */
   (M.order[cn] || []).forEach(function(n){ var t = HF.slots[n]; if(!t) return; DRAWN.pieces[t.key] = (DRAWN.pieces[t.key] | 0) + 1;
     if(t.pid){ var D = M.pieces[t.pid], st = t.done === false ? 'built' : (D.states.working && homeFeedWorks(t, now) ? 'working' : 'built'), E = D.states[st] && D.states[st].pics[cn + '_' + sh + '_' + n]; if(!E) return;   /* __IT_WORKS_WHEN_HE_WORKS_IT__ */
       DRAWN.states = DRAWN.states || {}; DRAWN.states[t.key] = st + (D.states.working ? '' : '!');
       var im = hfImg(HF_BASE + 'pieces/' + E.pictures[fr % E.pictures.length]); if(!hfReady(im)){ late = true; return; }
       var pnt = homeLookPaint(t), dim = pnt ? hfPainted(im, pnt) : im; if(pnt){ DRAWN.painted = DRAWN.painted || {}; DRAWN.painted[t.key] = pnt.id; }   /* __HIS_PLACE_HIS_WAY__: his paint, as his night camera reads it */
-      g.globalAlpha = t.done === false ? .45 : 1; g.drawImage(dim, E.xy[0], E.xy[1]); g.globalAlpha = 1;   /* going up tonight: faint, as on the town screen */
+      g.globalAlpha = t.done === false ? .72 : 1; g.drawImage(dim, E.xy[0], E.xy[1]); g.globalAlpha = 1;   /* going up tonight: lighter than standing, inside its tape (11/28: at .45 on a night picture he could not see it took) */
       HF.picRect[n] = [E.xy[0], E.xy[1], E.xy[0] + im.naturalWidth, E.xy[1] + im.naturalHeight]; (HF.picIm = HF.picIm || {})[n] = im; }
     else if(t.pic && T[n]){ var pim = hfImg(t.pic); if(!hfReady(pim)){ late = true; return; } var b = T[n];
       /* __WHAT_HE_HAS_SITS_IN_THE_GROUND__ (HOME BASE 4 11/27, rule 479(a): 'they look like they're floating on top of the map'): a boss's
@@ -2664,7 +2731,7 @@ function homeFeedPaint(now, fr){
    955 ms, and the first cut sideways here 2,367 ms): every camera's plates, lens layers and his pieces for the way the phone is held are
    fetched and decoded a few at a time while nothing else is asked of the phone, so a cut only lays down what is already decoded */
 function homeFeedWarm(){ if(!HF.on || !HF.M || !HF.fit) return; var M = HF.M, sh = HF.fit.sh, key = sh + '|' + Object.keys(HF.slots).map(function(n){ return n + ':' + (HF.slots[n].pid || ''); }).join(','); if(HF.warmKey === key) return; HF.warmKey = key;
-  var U = [], cams = [HF.cam, 1, 2, 3].filter(function(c, i, a){ return a.indexOf(c) === i; });
+  var U = [], cams = [HF_CAM];   /* ONE CAMERA (11/28): only its pictures are ever drawn */
   cams.forEach(function(cn){ for(var f = 0; f < 3; f++){ U.push(HF_BASE + 'plates/block_cam' + cn + '_' + sh + '_' + f + '.png'); if(M.near) U.push(HF_BASE + 'near/cam' + cn + '_' + sh + '_' + f + '.png'); }
     for(var n in HF.slots){ var t = HF.slots[n]; if(!t.pid) continue; var D = M.pieces[t.pid]; ['built', 'working'].forEach(function(st){ var E = D.states[st] && D.states[st].pics[cn + '_' + sh + '_' + n]; if(E) E.pictures.forEach(function(pn){ U.push(HF_BASE + 'pieces/' + pn); }); }); } });
   var q = U.filter(function(u, i){ return U.indexOf(u) === i && !(HF.IM[u] && HF.IM[u].__warm); }), idle = window.requestIdleCallback || function(f){ return setTimeout(function(){ f({ timeRemaining: function(){ return 8; } }); }, 60); };
@@ -2672,67 +2739,40 @@ function homeFeedWarm(){ if(!HF.on || !HF.M || !HF.fit) return; var M = HF.M, sh
   var step = function(dl){ var k = 0; while(q.length && k < 3 && (!dl || dl.timeRemaining() > 4)){ var u = q.shift(), im = hfImg(u); im.__warm = 1; k++; HF.warmLeft = q.length; try{ if(im.decode) im.decode().catch(function(){}); }catch(e){} } if(q.length && HF.on) idle(step, { timeout: 400 }); };
   idle(step, { timeout: 400 }); }
 window.__HOME_FEED_WARM = function(){ return { key: HF.warmKey || null, left: HF.warmLeft | 0 }; };   /* read only */
-/* where the camera is pointed: the whole frame, or (a station open) its lot zoomed into what the sheet leaves of the glass */
-/* __THE_CAMERAS_ON_PATROL__ (HOME BASE 4 11/26, rule 482: 'the cameras' shots worth watching'): MEASURED, his three cameras showed the
-   same block from three spots a few metres apart, his buildings a band across the middle and his people ten pixels tall, so a cut every
-   20 seconds changed almost nothing. Now each camera, on its 20 seconds, holds the whole block, then pushes in slowly (a PTZ's own pace)
-   on what is going on at his place: one of his men at his work ('MOTION', his name and the building's), the dead waiting at the grinder,
-   the people who live there, else one of his buildings, a different one each camera and each round; it holds, and pulls back out before
-   the cut. A tap means what was on the glass when the finger landed; a sheet's station takes the camera at once; a reader asking where a
-   lot or a person is (the walk-up, a gate) stands the patrol down for 15 seconds first, so what it is told is the whole block. */
-var HTOUR = { k: null, cam: null, at: null, turn: 0, until: 0 }, HF_TOUR_IN = 3500, HF_TOUR_OUT = 3200;
-function homeTourStop(){ var was = !!HTOUR.k; HTOUR.until = performance.now() + 15000; HTOUR.k = null; if(was || (HF.V && HF.V.z > 1.01)){ HST.V = null; HF.V = null; HF.dirty = true; } }
-function homeTourPick(){ var C = [], at = {}, seen = {}; for(var n in HF.slots){ var t = HF.slots[n]; at[t.kind === 'place' ? t.id : t.key] = +n; }
-  var add = function(o){ if(o.n == null || seen[o.n]) return; seen[o.n] = 1; C.push(o); };
-  (HF.ppl || []).forEach(function(o){ if(o.p.works && at[o.p.works] != null) add({ n: at[o.p.works], why: 'work', who: String(o.p.name || '').split(' ')[0], name: o.p.name }); });
-  (HF.ppl || []).forEach(function(o){ if(o.p.staffHome && o.p.act && o.n != null) add({ n: o.n, why: 'home', who: String(o.p.name || '').split(' ')[0] + '  ' + String(o.p.trade || ''), name: o.p.name }); });   /* STAFF 2 (rule 482): the camera finds his camp at its work too, 'GRACIELA  COOK' */
-  if(HF.pile && HF.pile.dead > 0 && at.grinder != null) add({ n: at.grinder, why: 'pile' });
-  (HF.ppl || []).forEach(function(o){ if(o.p.resident && o.n != null) add({ n: o.n, why: 'home', who: homeCalled(o.p.name), name: o.p.name }); });   /* HOME BASE 5: what he calls them */
-  /* then his own buildings, then the tallest things he put up (a garden bed or a wall is a line on the ground from across the street) */
-  Object.keys(HF.slots).map(Number).sort(function(a, b){ var A = HF.slots[a], B2 = HF.slots[b], ra = HF.picRect && HF.picRect[a], rb = HF.picRect && HF.picRect[b];
-    return ((B2.kind === 'place') - (A.kind === 'place')) || ((rb ? rb[3] - rb[1] : 0) - (ra ? ra[3] - ra[1] : 0)) || a - b; }).forEach(function(n){ add({ n: n, why: 'stand' }); });
-  return C; }
-function homeTourTarget(now, full){ if(S.open || HF.down || HF.cut || now < HTOUR.until || !HF.fit){ HTOUR.k = null; return null; }
-  var t = now - HF.lastCut; if(t < HF_TOUR_IN || t > HF_CYCLE - HF_TOUR_OUT){ HTOUR.k = null; return null; }
-  if(HTOUR.cam !== HF.cam || HTOUR.at !== HF.lastCut){ HTOUR.cam = HF.cam; HTOUR.at = HF.lastCut; HTOUR.turn++; var C = homeTourPick(); HTOUR.pick = C.length ? C[(HTOUR.turn - 1) % C.length] : null; }   /* what is going on first: his men at work, the dead, the family, then the rest, round by round */
-  var k = HTOUR.pick; if(!k){ HTOUR.k = null; return null; }
-  var f = HF.fit, T = (HF.M.tap_px[HF.cam + '_' + f.sh] || {})[k.n]; if(!T){ HTOUR.k = null; return null; }
-  var b = T.slice(), pr = HF.picRect && HF.picRect[k.n], tw = T[2] - T[0];
-  if(pr){ b[0] = Math.max(T[0] - tw * .3, Math.min(b[0], pr[0])); b[2] = Math.min(T[2] + tw * .3, Math.max(b[2], pr[2])); b[1] = Math.min(b[1], pr[1]); }
-  var pp = k.name ? (HF.ppl || []).filter(function(o){ return o.p.name === k.name; })[0] : null;   /* a person: the brackets are round him (and his building, at work) */
-  if(pp && k.why === 'home') b = [pp.x - pp.h * 1.1, pp.y - pp.h * 1.5, pp.x + pp.h * 1.1, pp.y + pp.h * .35];
-  else if(pp){ b[0] = Math.min(b[0], pp.x - pp.h * .5); b[1] = Math.min(b[1], pp.y - pp.h * 1.15); b[2] = Math.max(b[2], pp.x + pp.h * .5); b[3] = Math.max(b[3], pp.y + 2); }
-  HST.box = b; HST.n = k.n; HTOUR.k = k;
-  var A = full.W / full.H, bw = b[2] - b[0], bh = b[3] - b[1], w = Math.min(f.cw / 1.6, Math.max(bw / .42, bh / .5 * A, f.cw / 2.2)), h = w / A, sc = Math.min(1, f.cw / w, f.ch / h); w *= sc; h *= sc;   /* the thing and its neighbours, 1.6x to 2.2x: a push in you can see */
-  /* what it shows stands in the middle of the glass the phone leaves (upright the phone covers the bottom right) */
-  var O = FIT.open || { x0: 0, y0: 0, x1: full.W, y1: full.H }, mx = (Math.max(full.X, O.x0) + Math.min(full.X + full.W, O.x1)) / 2, my = (Math.max(full.Y, O.y0) + Math.min(full.Y + full.H, O.y1)) / 2;
-  var fx = (mx - full.X) / full.W, fy = (my - full.Y) / full.H, cx = (b[0] + b[2]) / 2, cy = (b[1] + b[3]) / 2;
-  return { x: Math.max(0, Math.min(f.cw - w, cx - w * fx)), y: Math.max(0, Math.min(f.ch - h, cy - h * fy)), w: w, h: h, X: full.X, Y: full.Y, W: full.W, H: full.H }; }
+/* where the camera is pointed: the whole frame, always (ONE CAMERA, Paolo 11/28); a sheet open slides the frame, never zooms it */
+/* __THE_CAMERAS_ON_PATROL__'s push-ins (HOME BASE 4 11/26) are DEAD by his ruling 11/28 ('one camera angle from that angle from now
+   on'; ask row 788): the camera never moves on its own. Its post-mortem: graveyard/POSTMORTEM_HOME_BASE_THE_CAMERAS_ON_PATROL_11_28_26.txt.
+   What stays for the readers that called it: a reader asking where a lot or a person is gets the whole block (homeTourStop). */
+var HTOUR = { k: null, until: 0 };
+function homeTourStop(){ HTOUR.until = performance.now() + 15000; }
 window.__HOME_FEED_USED = function(){ return JSON.parse(JSON.stringify(HF_USED)); };   /* read only, for the gate */
 window.__HOME_FREE_LOT = function(){ var l = buildFreeLot(); return l ? l.x : null; };   /* read only, for the gate: the lot the desk would build on now */
-window.__HOME_FEED_TOUR = function(){ return HTOUR.k ? { n: HTOUR.k.n, why: HTOUR.k.why, who: HTOUR.k.who || null, z: HF.V ? +HF.V.z.toFixed(2) : 1 } : null; };   /* read only */
-window.__HOME_FEED_TOUR_AT = function(ms){ HF.lastCut = performance.now() - (ms | 0); HTOUR.until = 0; };   /* for the gate and the card only: the camera's round at ms */
-function homeStationLot(k){ if(/^p:/.test(k || '')){ var pp = homeStationWho(k); return pp ? pp.n : null; } if(k === 'gate'){ var fr0 = homeFeedRows().front || []; return HF.namePlate && fr0.length ? fr0[Math.floor(fr0.length / 2)] : null; } for(var n in HF.slots) if(HF.slots[n].key === k) return +n; return null; }
+window.__HOME_FEED_TOUR = function(){ return null; };   /* read only: no patrol, ever */
+window.__HOME_FEED_TOUR_AT = function(){ HTOUR.until = 0; };   /* kept for the older gates and cards: there is no round to move */
+function homeStationLot(k){ if(/^lot:\d+$/.test(k || '')) return +k.slice(4); if(/^p:/.test(k || '')){ var pp = homeStationWho(k); return pp ? pp.n : null; } if(k === 'gate'){ var fr0 = homeFeedRows().front || []; return HF.namePlate && fr0.length ? fr0[Math.floor(fr0.length / 2)] : null; } for(var n in HF.slots) if(HF.slots[n].key === k) return +n; return null; }
 function homeStationWho(k){ return (HF.ppl || []).filter(function(o){ return 'p:' + o.p.name === k; })[0] || null; }   /* __HIS_PLACE_HIS_WAY__: one who lives there is a station too (his WORKS AT under him) */
+function hfBox(P){ var b = [Infinity, Infinity, -Infinity, -Infinity]; P.forEach(function(p){ b[0] = Math.min(b[0], p[0]); b[1] = Math.min(b[1], p[1]); b[2] = Math.max(b[2], p[0]); b[3] = Math.max(b[3], p[1]); }); return b; }
+/* what the open sheet leaves of the glass, for the BUILD desk on a plot (the desk is not a station: its own layout stays) */
+function homeDeskRegion(){ var sh = document.getElementById('sheet'); if(!sh || !sh.classList.contains('on') || !HF.el) return null; var g = HF.el.getBoundingClientRect(), r = sh.getBoundingClientRect(), W = g.width, H = g.height;
+  var top = r.top - g.top, left = r.left - g.left, right = r.right - g.left;
+  if(top > H * .3) return { X: 0, Y: 0, W: W, H: top }; if(left > W * .3) return { X: 0, Y: 0, W: left, H: H }; return { X: right, Y: 0, W: Math.max(1, W - right), H: H }; }
 function homeStationTarget(now){ var f = HF.fit, M = HF.M, full = { x: 0, y: 0, w: f.cw, h: f.ch, X: f.x, Y: f.y, W: f.w, H: f.h };
-  if(!HST.on || !HST.R){ var tt = null; try{ tt = homeTourTarget(now || performance.now(), full); }catch(e){} return tt || full; } var n = homeStationLot(HST.k), T = n != null ? (M.tap_px[HF.cam + '_' + f.sh] || {})[n] : null; if(!T) return full;
-  var bk = HF.cam + f.sh + n + HST.k, b = HST.bk === bk ? HST.box : null;
-  if(!b){ var pr = HF.picRect && HF.picRect[n], tw = T[2] - T[0]; b = T.slice();
-    /* what stands there: the lot, and the picture's height (a tall thing's top); its sides held to the lot's own width and a third (a
-       picture can carry a faint line of the empty block's shadow across the frame, which is not the building) */
-    if(pr){ b[0] = Math.max(T[0] - tw * .3, Math.min(b[0], pr[0])); b[2] = Math.min(T[2] + tw * .3, Math.max(b[2], pr[2])); b[1] = Math.min(b[1], pr[1]); }
-    if(pr){ HST.bk = bk; HST.box = b; } }   /* framed once per camera, way and lot: the two beats of a working picture never make it swim */
-  var who = /^p:/.test(HST.k || '') ? homeStationWho(HST.k) : null; if(who) b = [who.x - who.h * 1.2, who.y - who.h * 1.6, who.x + who.h * 1.2, who.y + who.h * .4];   /* __HIS_PLACE_HIS_WAY__: the person, framed */
-  if(HST.k === 'gate' && HF.namePlate){ var np = HF.namePlate; b = [np[0] - 14, np[1] - 22, np[2] + 14, np[3] + 6]; }   /* the plate, the gate behind it */
+  var desk = !HST.on && S.open === 'build' && S.homeLot != null, R = HST.on ? HST.R : desk ? homeDeskRegion() : null; if(!R) return full;
+  var n = desk ? +S.homeLot : homeStationLot(HST.k), T = n != null ? (M.tap_px[HF.cam + '_' + f.sh] || {})[n] : null; if(!T) return full;
+  var G = homeFeedGround(n), b = G ? hfBox(G) : T.slice(), pr = HF.picRect && HF.slots[n] ? HF.picRect[n] : null;
+  if(pr) b = [Math.min(b[0], pr[0]), Math.min(b[1], pr[1]), Math.max(b[2], pr[2]), Math.max(b[3], pr[3])];   /* the plot's own ground and what stands on it */
+  var who = !desk && /^p:/.test(HST.k || '') ? homeStationWho(HST.k) : null; if(who) b = [who.x - who.h * 1.2, who.y - who.h * 1.6, who.x + who.h * 1.2, who.y + who.h * .4];   /* __HIS_PLACE_HIS_WAY__: the person */
+  if(!desk && HST.k === 'gate' && HF.namePlate){ var np = HF.namePlate; b = [np[0] - 14, np[1] - 22, np[2] + 14, np[3] + 6]; }   /* the plate, the gate behind it */
   HST.box = b; HST.n = n;
-  if(S.homeMove && S.homeMove.k === HST.k){ var mb = b.slice(); (S.homeMove.can || []).forEach(function(c){ var tc = (M.tap_px[HF.cam + '_' + f.sh] || {})[c.n]; if(tc){ mb[0] = Math.min(mb[0], tc[0]); mb[1] = Math.min(mb[1], tc[1]); mb[2] = Math.max(mb[2], tc[2]); mb[3] = Math.max(mb[3], tc[3]); } }); b = mb; }   /* MOVE: every lot it can go to on the glass, the thing's own still bracketed */
-  var R = HST.R, A = R.W / R.H, bw = b[2] - b[0], bh = b[3] - b[1];
-  var w = Math.max(bw / .62, bh / .64 * A, R.W / (f.k * 3)), h = w / A, s = Math.min(1, f.cw / w, f.ch / h); w *= s; h *= s;   /* what stands on the lot about two thirds of the view, never past three times the plain picture */
-  var cx = (b[0] + b[2]) / 2, cy = (b[1] + b[3]) / 2;
-  return { x: Math.max(0, Math.min(f.cw - w, cx - w / 2)), y: Math.max(0, Math.min(f.ch - h, cy - h / 2)), w: w, h: h, X: R.X, Y: R.Y, W: R.W, H: R.H }; }
+  if(S.homeMove && S.homeMove.k === HST.k) (S.homeMove.can || []).forEach(function(c){ var q = homeFeedGround(c.n); if(q){ q = hfBox(q); b = [Math.min(b[0], q[0]), Math.min(b[1], q[1]), Math.max(b[2], q[2]), Math.max(b[3], q[3])]; } });   /* MOVE: every plot it can go to */
+  /* ONE CAMERA (Paolo 11/28): a sheet open, the glass the sheet leaves shows that part of the same picture at the same size, round the
+     plot or thing he tapped (the sky above the block is what goes); never pushed in, never turned, never under the sheet (it was a push
+     in of 1.6 to 3 times on the thing: the plots moved under his finger) */
+  var k = f.k, w = Math.min(f.cw, R.W / k), h = Math.min(f.ch, R.H / k), cx = (b[0] + b[2]) / 2, cy = (b[1] + b[3]) / 2;
+  return { x: Math.max(0, Math.min(f.cw - w, cx - w / 2)), y: Math.max(0, Math.min(f.ch - h, cy - h / 2)), w: w, h: h, X: R.X + (R.W - w * k) / 2, Y: R.Y + (R.H - h * k) / 2, W: w * k, H: h * k }; }
 function homeStationView(now){ var f = HF.fit, T = homeStationTarget(now), dt = HST.moving ? Math.min(50, now - HST.last) : 16; HST.last = now;
   if(!HST.V || HST.sh !== f.sh || HST.gw !== f.W || HST.gh !== f.H){ HST.V = Object.assign({}, T); HST.sh = f.sh; HST.gw = f.W; HST.gh = f.H; }   /* a turn of the glass: no glide across two pictures */
-  var a = 1 - Math.exp(-dt / (HST.on ? 75 : now - (HST.outAt || 0) < 1500 ? 110 : HTOUR.k ? 900 : 420)), V = HST.V, mv = false;   /* the patrol pushes in slowly, a PTZ's own pace */
+  var a = 1 - Math.exp(-dt / (HST.on ? 75 : now - (HST.outAt || 0) < 1500 ? 110 : 160)), V = HST.V, mv = false;   /* a slide, never a push in (ONE CAMERA, 11/28) */
   ['x', 'y', 'w', 'h', 'X', 'Y', 'W', 'H'].forEach(function(q){ var d = T[q] - V[q]; if(Math.abs(d) > .3){ V[q] += d * a; mv = true; } else V[q] = T[q]; });
   HST.moving = mv; V.z = (V.W / V.w) / f.k; HF.V = V; return V; }
 function homeFeedV(){ var f = HF.fit; return HF.V || { x: 0, y: 0, w: f.cw, h: f.ch, X: f.x, Y: f.y, W: f.w, H: f.h, z: 1 }; }
@@ -2756,21 +2796,17 @@ function homeFeedOsd(c, now, fr, V){ var f = HF.fit, M = HF.M, k = f.k, w = Math
 function homeFeedShow(now, fr){ var f = HF.fit, c = HF.el.getContext('2d'), dpr = Math.min(2, devicePixelRatio || 1);
   c.setTransform(dpr, 0, 0, dpr, 0, 0); c.imageSmoothingEnabled = false;
   c.fillStyle = '#0c0b0a'; c.fillRect(0, 0, f.W, f.H);
-  var V = homeStationView(now), roll = 0, noise = false;
-  if(HF.cut){ var dt = now - HF.cut.t0; if(dt < 140) roll = dt / 140; else if(dt < 260) noise = true; else { HF.cam = HF.cut.to; HF.cut = null; HF.lastCut = now; HF.dirty = true; } }
-  if(noise){ for(var i = 0; i < 160; i++){ var v = (Math.random() * 200) | 0; c.fillStyle = 'rgb(' + (v * .86 | 0) + ',' + v + ',' + (v * .84 | 0) + ')'; c.fillRect(V.X + Math.random() * V.W, V.Y + Math.random() * V.H, 2 + Math.random() * 30, 2); } return; }
-  var oy = Math.round(roll * V.H * .55); c.save(); c.beginPath(); c.rect(V.X, V.Y, V.W, V.H); c.clip();
-  c.drawImage(HF.src, V.x, V.y, V.w, V.h, V.X, V.Y + oy, V.W, V.H); if(roll) c.drawImage(HF.src, V.x, V.y, V.w, V.h, V.X, V.Y + oy - V.H, V.W, V.H); c.restore();
+  var V = homeStationView(now); c.save(); c.beginPath(); c.rect(V.X, V.Y, V.W, V.H); c.clip();   /* ONE CAMERA (11/28): no cut, no roll, no snow */
+  c.drawImage(HF.src, V.x, V.y, V.w, V.h, V.X, V.Y, V.W, V.H); c.restore();
   homeFeedOsd(c, now, fr, V); }
 /* kept for any reader: one whole frame, painted and laid on the glass */
 function homeFeedDraw(now){ var fr = Math.floor((now - HF.t0) / (1000 / HF_FPS)) % 3; if(homeFeedPaint(now, fr)) homeFeedShow(now, fr); }
 function homeFeedLoop(now){ HF.raf = 0; if(!HF.on) return;
-  if(!HF.cut && !S.open && !HF.down && now - HF.lastCut > HF_CYCLE){ HF.cut = { to: (HF.cam % 3) + 1, t0: now }; }   /* 354(h): a cut every 20 seconds, never while he reads or holds */
-  if(S.open || HF.down) HF.lastCut = Math.max(HF.lastCut, now - HF_CYCLE + 1500);
+  HF.cam = HF_CAM;   /* ONE CAMERA (Paolo 11/28, ask row 788): 354(h)'s cut every 20 seconds is dead; the camera never changes */
   if(now - (HF.pileAt || 0) > 2500){ HF.pileAt = now; try{ var HM = homeHM(), G = HM && HM.grinder ? HM.grinder() : null, was = HF.pile ? HF.pile.dead : 0; HF.pile = G; if((G ? G.dead : 0) !== was) HF.dirty = true; }catch(e){} }
   var tick = Math.floor((now - HF.t0) / (1000 / HF_FPS)), fr = tick % 3;
   try{ if(tick !== HF.tick || HF.dirty || HF.always){ HF.tick = tick; HF.dirty = false; if(homeFeedPaint(now, fr)) homeFeedShow(now, fr); else { HF.dirty = true; var c0 = HF.el.getContext('2d'); c0.setTransform(1, 0, 0, 1, 0, 0); c0.fillStyle = '#0c0b0a'; c0.fillRect(0, 0, HF.el.width, HF.el.height); } }
-       else if(HF.cut || HST.moving || HST.on !== HST.was) homeFeedShow(now, fr);
+       else if(HST.moving || HST.on !== HST.was) homeFeedShow(now, fr);
        HST.was = HST.on; HF.shows = (HF.shows | 0) + 1; }catch(e){ HF.err = String(e && e.message || e).slice(0, 120); }
   window.__HOME_FEED.cam = HF.cam; HF.raf = requestAnimationFrame(homeFeedLoop); }
 function homeFeedSize(){ if(!HF.el) return; homeFeedFit(); var dpr = Math.min(2, devicePixelRatio || 1); HF.el.width = Math.round(HF.fit.W * dpr); HF.el.height = Math.round(HF.fit.H * dpr); HF.el.style.width = HF.fit.W + 'px'; HF.el.style.height = HF.fit.H + 'px'; HF.dirty = true; HST.V = null; HF.V = null; }   /* __THE_STATION__: a resized canvas is blank until painted again */
@@ -2783,46 +2819,70 @@ function homeFeedSync(){ var want = homeFeedWant(), sc = document.getElementById
     HF.el.addEventListener('pointerup', function(e){ HF.down = false; e.stopPropagation(); HF.one = { t: performance.now(), x: e.clientX, y: e.clientY }; try{ homeFeedTap(e.clientX, e.clientY); } finally { HF.tapV = null; } });
     HF.el.addEventListener('pointercancel', function(){ HF.down = false; HF.tapV = null; });
     HF.el.addEventListener('click', function(e){ e.stopPropagation(); }); }
-  if(!HF.on){ HF.on = true; HF.cam = 1; HF.cut = null; HF.lastCut = performance.now(); }
+  if(!HF.on){ HF.on = true; HF.cam = HF_CAM; HF.lastCut = performance.now(); }
   homeFeedSize(); homeFeedSlots(); HF.pileAt = 0; HF.dirty = true; setTimeout(function(){ try{ homeFeedWarm(); }catch(e){} }, 900);   /* __THE_STATION__: what changed is painted, the pile read again, the other cameras warmed */
   window.__HOME_FEED = { on: true, cam: HF.cam, sh: HF.fit.sh, k: HF.fit.k, slots: (function(){ var o = {}; for(var n in HF.slots) o[n] = { key: HF.slots[n].key, door: (VAR.bareShopOf && VAR.bareShopOf[HF.slots[n].key]) || HF.slots[n].key, pid: HF.slots[n].pid || null, kind: HF.slots[n].kind, id: HF.slots[n].id || null }; return o; })(), unplaced: HF.unplaced.slice(), over: (HF.over || []).slice() };
   if(!HF.raf) HF.raf = requestAnimationFrame(homeFeedLoop); }
 /* the frame's pixel under a finger, and what answers there: a person first, then the smallest lot box the camera sees */
 function homeFeedPx(cxp, cyp){ var r = HF.el.getBoundingClientRect(), V = HF.tapV || homeFeedV(), gx = cxp - r.left, gy = cyp - r.top;   /* __THE_STATION__: through the camera where it points now */
   return { x: V.x + (gx - V.X) * V.w / V.W, y: V.y + (gy - V.Y) * V.h / V.H, off: gx < V.X || gy < V.Y || gx > V.X + V.W || gy > V.Y + V.H }; }
-function homeFeedLotAt(px, py){ var T = HF.M.tap_px[HF.cam + '_' + HF.fit.sh] || {}, best = null, ba = 1e9;
-  for(var n in T){ var b = T[n]; if(px >= b[0] && px <= b[2] && py >= b[1] && py <= b[3]){ var a = (b[2] - b[0]) * (b[3] - b[1]); if(a < ba){ ba = a; best = +n; } } } return best; }
+/* ONE CAMERA, AND THE PLOTS ON THE LAND (11/28): what stands nearer the lens first (its own drawn picture under the finger), then the
+   plot whose painted ground is under it, then what stands on a plot by its body's box, then a thumb's width from a plot's edge. The old
+   test (every plot's tallest-volume box, the smallest) answered the plot behind and left the street's middle dead. */
+function homeFeedLotAt(px, py){ var T = HF.M.tap_px[HF.cam + '_' + HF.fit.sh] || {}, G = homeFeedGround(), O = (HF.M.order[HF.cam] || []).slice().reverse(), n, i, best = null, ba = 1e9;
+  for(i = 0; i < O.length; i++){ n = O[i]; if(HF.slots[n] && hfDrawnAt(n, px, py)) return n; }
+  if(G) for(n in G) if(hfInPoly(G[n], px, py)) return +n;
+  for(n in T){ var b = T[n]; if((HF.slots[n] || !G) && px >= b[0] && px <= b[2] && py >= b[1] && py <= b[3]){ var a = (b[2] - b[0]) * (b[3] - b[1]); if(a < ba){ ba = a; best = +n; } } } if(best != null) return best;
+  if(!G) return null; var tol = 11 / (HF.fit.k * Math.max(1, homeFeedV().z || 1)), bd = tol;   /* 11 points: a thumb's half on the glass */
+  for(n in G){ var d = hfPolyGap(G[n], px, py); if(d < bd){ bd = d; best = +n; } } return best; }
 function homeFeedTap(cxp, cyp){ if(!HF.on || !HF.fit) return; var q = homeFeedPx(cxp, cyp); if(q.off || q.x < 0 || q.y < 0 || q.x > HF.fit.cw || q.y > HF.fit.ch){ if(S.open) hide(); return; }
   var pr = HF.ppl.filter(function(o){ var w = Math.max(o.h * .35, 22 / (HF.fit.k * Math.max(1, homeFeedV().z || 1))); return Math.abs(q.x - o.x) <= w && q.y <= o.y + 2 && q.y >= o.y - o.h - 2; }).sort(function(a, b){ return b.y - a.y; })[0];
   if(pr){ window.__HOME_FEED_TAP = { person: pr.p.name }; openPerson(pr.p); return; }
   var n = homeFeedLotAt(q.x, q.y), t = n ? HF.slots[n] : null; window.__HOME_FEED_TAP = { lot: n, key: t ? t.key : null };
   if(!n){ if(S.open) hide(); return; }
-  if(!t){ S.homePick = null; openB('build'); return; }
-  openB((VAR.bareShopOf && VAR.bareShopOf[t.key]) || t.key); }
+  if(!t){ S.homePick = null; S.homeLot = n; openB('build'); return; }   /* ONE CAMERA, AND THE PLOTS ON THE LAND (11/28): the desk is for THIS plot */
+  S.homeLot = null; openB((VAR.bareShopOf && VAR.bareShopOf[t.key]) || t.key); }
 /* read only, for the drivers and the gate: where lot n is on the glass now (the middle of what this camera sees of it), its width */
-window.__HOME_FEED_AT = function(n){ if(!HF.on || !HF.fit) return null; homeTourStop(); var b = (HF.M.tap_px[HF.cam + '_' + HF.fit.sh] || {})[n]; if(!b) return null; var r = HF.el.getBoundingClientRect(), V = homeFeedV(), k = V.W / V.w;
+window.__HOME_FEED_AT = function(n){ if(!HF.on || !HF.fit) return null; homeTourStop(); if(!HF.slots[n] && homeFeedGround(n)){ var q = window.__HOME_PLOT_AT(n); return q ? { x: q.x, y: q.y, w: Math.round(q.box[2] - q.box[0]), h: Math.round(q.box[3] - q.box[1]) } : null; }   /* an empty plot is its own ground (11/28) */
+  var b = (HF.M.tap_px[HF.cam + '_' + HF.fit.sh] || {})[n]; if(!b) return null; var r = HF.el.getBoundingClientRect(), V = homeFeedV(), k = V.W / V.w;
   return { x: r.left + V.X + ((b[0] + b[2]) / 2 - V.x) * k, y: r.top + V.Y + ((b[1] + b[3]) / 2 - V.y) * k, w: Math.round((b[2] - b[0]) * k), h: Math.round((b[3] - b[1]) * k) }; };
+/* read only, for the gates and the card: plot n's painted ground on the glass now (its middle, its box, whether anything stands on it) */
+window.__HOME_PLOT_AT = function(n){ if(!HF.on || !HF.fit) return null; var P = homeFeedGround(n); if(!P) return null; var r = HF.el.getBoundingClientRect(), V = homeFeedV(), k = V.W / V.w, b = hfBox(P), cx = 0, cy = 0;
+  P.forEach(function(p){ cx += p[0]; cy += p[1]; }); cx /= P.length; cy /= P.length; var gx = function(x){ return r.left + V.X + (x - V.x) * k; }, gy = function(y){ return r.top + V.Y + (y - V.y) * k; };
+  return { x: gx(cx), y: gy(cy), box: [gx(b[0]), gy(b[1]), gx(b[2]), gy(b[3])], empty: !HF.slots[n], open: homeCanBuild(), row: ((HF.M.lots || []).filter(function(L){ return L.n === +n; })[0] || {}).row }; };
+window.__HOME_PLOTS_DRAWN = function(){ return HF.drawn ? { plots: (HF.drawn.plots || []).slice(), open: !!HF.drawn.open, cam: HF.cam, lot: S.homeLot == null ? null : +S.homeLot, slots: Object.keys(HF.slots).map(function(n){ return +n + '=' + HF.slots[n].id + (HF.slots[n].done === false ? '~' : ''); }) } : null; };
 window.__HOME_FEED_AGE = function(ms){ HF.lastCut -= ms | 0; };   /* read only but for the gate: the cycle's clock moved on, so a 20-second cut is tested in one */
 window.__HOME_FEED_PEOPLE = function(){ if(!HF.on) return []; homeTourStop(); var r = HF.el.getBoundingClientRect(), V = homeFeedV(), k = V.W / V.w; return HF.ppl.map(function(o){ return { name: o.p.name, resident: !!o.p.resident, works: o.p.works || null, x: r.left + V.X + (o.x - V.x) * k, y: r.top + V.Y + (o.y - o.h * .45 - V.y) * k }; }); };
 /* a door of his is found where the feed shows it */
 (function(){ var w1 = where; where = function(k){ if(!HF.on) return w1.apply(this, arguments);
   var n = null; for(var m in HF.slots){ var t = HF.slots[m]; if(t.key === k || (VAR.bareShopOf && VAR.bareShopOf[t.key] === k)){ n = +m; break; } }
-  if(n == null && k === 'build'){ var R = homeFeedRows(); n = ['front', 'middle', 'back'].map(function(r){ return R[r].filter(function(x){ return !HF.slots[x]; })[0]; }).filter(Boolean)[0] || null; }
+  if(n == null && k === 'build') n = homeFeedFreePlot();
+  if(n != null && !HF.slots[n] && homeFeedGround(n)){ var q = window.__HOME_PLOT_AT(n); return q ? { x: q.x, y: q.y, px: (q.box[2] - q.box[0]) * (q.box[3] - q.box[1]), lot: n } : null; }   /* an empty plot: the middle of its own ground (11/28) */
   var p = n != null ? window.__HOME_FEED_AT(n) : null; return p ? { x: p.x, y: p.y, px: p.w * p.h, lot: n } : null; }; })();
+/* the empty plot a reader is pointed to: the back row first (every piece has its picture there, so the desk offers everything), then
+   the middle, then the front, the nearest the middle of the picture first (11/28: the front row's end plots are half out of the upright
+   picture) */
+function homeFeedFreePlot(){ var M = HF.M, G = homeFeedGround(), RK = { back: 0, middle: 1, front: 2 }; if(!M) return null;
+  var L = (M.lots || []).filter(function(x){ return !HF.slots[x.n]; }).map(function(x){ var P = G ? G[x.n] : null, cx = P ? P.reduce(function(s, p){ return s + p[0]; }, 0) / P.length : 0; return { n: x.n, r: RK[x.row], d: Math.abs(cx - HF.fit.cw / 2) }; });
+  L.sort(function(a, b){ return a.r - b.r || a.d - b.d; }); return L.length ? L[0].n : null; }
 (function(){ var hd = homeDoors; homeDoors = function(){ var r = hd.apply(this, arguments); try{ homeFeedSync(); }catch(e){} return r; }; })();
 (function(){ var lo = layout; layout = function(){ var r = lo.apply(this, arguments); try{ if(HF.on) homeFeedSize(); }catch(e){} return r; }; })();
 /* the desk: a build whose row is full is offered greyed, and says so (the block holds four in a row) */
 (function(){ var ob = openB; openB = function(k){ var r = ob.apply(this, arguments);
   if(k === 'build' && HF.on) try{ [].forEach.call(document.querySelectorAll('#sbody .act[data-build], #sbody .act[data-place]'), function(b){
-    var pid = b.dataset.build ? HF_PIECE.build[b.dataset.build] : HF_PIECE.place[b.dataset.place]; if(!pid || !homeFeedRowFull(pid) || b.disabled) return;
-    b.disabled = true; b.dataset.rowfull = HF.M.pieces[pid].row; var em = b.querySelector('em'); if(em) em.textContent = 'THE ' + HF.M.pieces[pid].row.toUpperCase() + ' ROW IS FULL'; }); }catch(e){}
+    var pid = b.dataset.build ? HF_PIECE.build[b.dataset.build] : HF_PIECE.place[b.dataset.place]; if(!pid || b.disabled) return;
+    /* ONE CAMERA, AND THE PLOTS ON THE LAND (11/28): the desk opened on a plot offers what stands on THAT plot; a thing whose row is
+       further back is greyed and says so (a front plot holds what is low enough not to hide the plots behind, rule 354(i)) (words draft:true) */
+    if(homeFeedRowFull(pid)){ b.disabled = true; b.dataset.rowfull = HF.M.pieces[pid].row; var em = b.querySelector('em'); if(em) em.textContent = 'THE ' + HF.M.pieces[pid].row.toUpperCase() + ' ROW IS FULL'; return; }   /* nowhere at all for it: that first */
+    if(S.homeLot == null || homeFeedPidFits(pid, S.homeLot)) return; var L = (HF.M.lots || []).filter(function(x){ return x.n === +S.homeLot; })[0], RK = { front: 0, middle: 1, back: 2 };
+    b.disabled = true; b.dataset.notHere = S.homeLot; var em0 = b.querySelector('em'); if(em0) em0.textContent = L && RK[L.row] < RK[HF.M.pieces[pid].row] ? 'GOES FURTHER BACK' : 'NOT ON THIS PLOT'; }); }catch(e){}
   return r; }; })();
 /* ONE TAP, ONE ANSWER on the feed too (the town screen's own rule, __ONE_TAP_ONE_ANSWER__): the click a phone sends after a tap on the
    feed is that tap's own and is swallowed before a sheet that just opened under the finger hears it (measured 11/21: a tap on an empty
    lot opened BUILD and the same touch's click put up a water tank) */
 document.addEventListener('click', function(e){ var o = HF.one; if(!o) return; HF.one = null;
   if(performance.now() - o.t < 700 && Math.abs(e.clientX - o.x) < 14 && Math.abs(e.clientY - o.y) < 14 && e.target !== HF.el){ e.stopPropagation(); e.preventDefault(); window.__HOME_FEED_SWALLOWED = (window.__HOME_FEED_SWALLOWED | 0) + 1; } }, true);
-window.addEventListener('message', function(e){ var d = e.data || {}; if(d.type === 'BOHEMIA_SETTLEMENT_OPEN'){ HF.cam = 1; HF.lastCut = performance.now(); } if(d.type === 'BOHEMIA_HOME' || d.type === 'BOHEMIA_SETTLEMENT_OPEN') setTimeout(function(){ try{ homeFeedSync(); }catch(er){} }, 0); });
+window.addEventListener('message', function(e){ var d = e.data || {}; if(d.type === 'BOHEMIA_SETTLEMENT_OPEN'){ HF.cam = HF_CAM; HF.lastCut = performance.now(); } if(d.type === 'BOHEMIA_HOME' || d.type === 'BOHEMIA_SETTLEMENT_OPEN') setTimeout(function(){ try{ homeFeedSync(); }catch(er){} }, 0); });
 /* __THE_STATION__, the sheet: laid for the way the phone is held (rule 481(b)); the camera's target is what the sheet leaves */
 function homeStationLay(){ var sh = document.getElementById('sheet'); if(!sh) return;
   if(!sh.classList.contains('on')){ if(HST.on){ HST.on = false; HST.k = null; HST.outAt = performance.now(); HF.dirty = true; window.__HOME_STATION = null; } return; }   /* closing: the camera comes back out at once, not at the patrol's pace */   /* closing: the sheet slides out as it stood, the camera glides back */
@@ -2944,17 +3004,8 @@ function homeMoveTo(n){ var m = S.homeMove; if(!m) return false; var c = m.can.f
   homeLookSend(sets); window.__HOME_MOVED = { k: m.k, from: m.from, to: n, swap: c.swap };
   S.homeMove = null; window.__HOME_MOVE = null; homeFeedSlots(); HF.dirty = true; HST.bk = null;
   try{ sfx('pickup', view.night ? NIGHT_TRIM : null); }catch(e){} openB(m.k); return true; }
-/* the lots it can go to, lit on the camera's glass (Stardew's green tiles, in the camera's own white): a pale wash that breathes on the
-   beat (120 BPM: on half a beat, off half) and the brackets */
-function homeMoveOsd(c, V){ var m = S.homeMove; if(!m || !HF.fit || !HF.M) return; var T = HF.M.tap_px[HF.cam + '_' + HF.fit.sh] || {}, sx = V.W / V.w, k = Math.max(1, Math.round(HF.fit.k)), L = 5 * k, lit = Math.floor(performance.now() / 250) % 2 === 0;
-  c.save(); c.beginPath(); c.rect(V.X, V.Y, V.W, V.H); c.clip();
-  m.can.forEach(function(cn){ var b = T[cn.n]; if(!b) return; var x0 = V.X + (b[0] + 1 - V.x) * sx, y0 = V.Y + (b[1] + 1 - V.y) * sx, x1 = V.X + (b[2] - 1 - V.x) * sx, y1 = V.Y + (b[3] - 1 - V.y) * sx;
-    if(lit){ c.fillStyle = 'rgba(226,230,222,.13)'; c.fillRect(x0, y0, x1 - x0, y1 - y0); }
-    [['#0a0a0a', k], ['#e2e6de', 0]].forEach(function(st){ c.fillStyle = st[0]; var o = st[1];
-      [[x0, y0, 1, 1], [x1, y0, -1, 1], [x0, y1, 1, -1], [x1, y1, -1, -1]].forEach(function(q){ var x = Math.round(q[0]) + o, y = Math.round(q[1]) + o;
-        c.fillRect(q[2] > 0 ? x : x - L + k, y, L, k); c.fillRect(x, q[3] > 0 ? y : y - L + k, k, L); }); }); });
-  c.restore(); }
-(function(){ var fo = homeFeedOsd; homeFeedOsd = function(c, now, fr, V){ var r = fo.apply(this, arguments); try{ homeMoveOsd(c, V); }catch(e){} return r; }; })();
+/* the plots it can go to are lit on the ground itself (homeFeedPlots, ONE CAMERA, AND THE PLOTS ON THE LAND, 11/28): the brackets round
+   each plot's tallest box floated over the plots behind ('the plots aren't even on the correct part of the land') */
 /* the name in the camera's own text, on the glass: the line the camera writes his place's name on (homeFeedOsd), tall enough for a thumb */
 function homeNameOsdBox(){ if(!HF.on || !HF.fit || !HF.el) return null; var V = homeFeedV(), k = HF.fit.k, w = Math.max(40, Math.round(V.W / k)), h = Math.max(30, Math.round(V.H / k)), sc = V.W / w;
   var nm = String((S.home && S.home.name) || '').slice(0, 22), x0 = V.X, x1 = V.X + (8 + (nm.length + 7) * 5) * sc, yc = V.Y + (h - 17) * sc, hh = Math.max(22, 5 * sc);
@@ -6303,7 +6354,7 @@ function show(){
   try{ placeChrome(); }catch(e){}   /* __ONE_TAP_SELECTS__: a shop's sheet stands the whole open area tall */
 
 }
-function hide(){ S.sheetFor = null; try{ if(!S.scavOpen) scavWarmGone(); }catch(e){} try{ document.getElementById('sheet').classList.remove('ar-picking'); }catch(e){}   /* __THE_ARENA__: the pick's whole-glass sheet folds back */
+function hide(){ S.sheetFor = null; S.homeLot = null; try{ if(!S.scavOpen) scavWarmGone(); }catch(e){}   /* the desk's plot (11/28) lets go */ try{ document.getElementById('sheet').classList.remove('ar-picking'); }catch(e){}   /* __THE_ARENA__: the pick's whole-glass sheet folds back */
    if(S.open==='clinic') sfx('door_shut', view.night ? NIGHT_TRIM : null); S.open = null; if(window.BohemiaHeard) BohemiaHeard.closed(); document.getElementById('sheet').classList.remove('on'); shelf(); }
 
 /* ---------- SCAVENGE: WORLD's engine, on this place's own lot ---------- */

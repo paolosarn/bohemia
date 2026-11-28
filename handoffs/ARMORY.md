@@ -1,5 +1,10 @@
 # ARMORY (the lane's own block; newest on top, written only by ARMORY)
 
+## ARMORY 3, 11/28: PAOLO SPOKE TO THIS CHAT ABOUT HIS PLACE (ask rows 788, 789), NOT A WEAPONS ROUND
+He said his place's building was broken and asked for one camera; it was fixed in HOME BASE's code the same round (BUILD 11/28k, see
+handoffs/HOME_BASE.md's note from ARMORY 3). The weapons lane's own NEXT is unchanged: named armour and helmets, the champions' kit a tier
+up with BESTIARY 4, the drone's sounds with SOUNDS 3.
+
 ## ARMORY 3, 11/27 round three: THE PRIZES NO STALL SELLS (rule 493(c), 495; BUILD 11/27zy)
 BUILT, NOT YET SEEN. The record's ROUND THREE section. armory.json 'named' + 'named_of' (eight prizes, one per boss: the Locksmith, the
 Machinist, the Plate, the Tooth, the Lens, the Cistern, the Smith, the Dogs); boss_act_one.json names each as the boss's weapon; the

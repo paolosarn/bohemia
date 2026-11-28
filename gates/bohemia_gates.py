@@ -10445,6 +10445,14 @@ GATES = [
      "each on its own block (CBcellAt's flat answer), a thumb each, apart, his pick with his face and BETTER's block, P4 planted; A4 a tap on a mark says what it "
      "gives, on his pick 'That one.', WALK THERE. PLAN H (11/28d): H1 engine the way back; H2 at his door nothing, walked away one YOUR PLACE "
      "button (44 px, no face, no words), a tap walks him home and opens it, nothing said again inside. About 3 minutes a way; --engine a second", True),
+    ('ONE CAMERA, AND IT BUILDS', ['node', 'gates/one_camera_it_builds_gate.js'],
+     "ARMORY 3 in HOME BASE's code, 11/28, ask row 788 (PAOLO 11/28: 'one camera angle from that angle from now on... I clicked, but I couldn't build anything... "
+     "the plots aren't even on the correct part of the land'): DATA G1 every plot's ground in every camera and shape is the plot through that camera's lens "
+     "(manifest ground_px, recomputed from its cams and lots within half a pixel, at the foot of its tap box), planted: a plot moved 12 px red; G2 the old "
+     "tallest-box test measured. ON THE DEMO upright and sideways, a fresh place, real taps: O1 ONE CAMERA through the old cut's and patrol's clocks (CAM 1, 1x, "
+     "still), planted: a cut red; O2 the twelve plots painted on the land; O3 a real tap on each plot's middle opens BUILD for that plot; O4 a front plot's desk "
+     "greys the middle and back pieces 'GOES FURTHER BACK'; O5 the tank and the yard stand on the plots tapped, taped off; O6 the next morning standing there; "
+     "O7 MOVE lights its plots on the ground and a tap moves it; O8 never pushed in. About 80 seconds a way; --data a second", True),
     ('THE FOURTEEN EYES FOUND', ['node', 'gates/the_fourteen_eyes_found_gate.js', '--only', 'F530,F529,F537,F525,F532,F533,F536,F535,F531,F527'],
      "FIXES gate, 11/9, ask rows 525 to 538 (FOUND BY EYES 11/8, EYES' phone playthrough 1c7c9b10f), one leg per fix, each with a PLANTED fail, phone upright "
      "AND sideways: F525 the end screen (EYES' fight and a heavier one): every man's hurt, every count, every piece and the leave buttons on the glass, nothing "
