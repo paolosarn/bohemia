@@ -6,19 +6,24 @@
    'It goes up tonight.' The glass is filmed four times a second as it is; each tap is marked with a ring where the finger went.
    Writes records/target/home_base/your_place_is_easy.mp4 (upright, then sideways) and records/target/vote_first/home-base-your-place-is-easy-11-27.webp.
    Run: node tools/bohemia_home_base_your_place_is_easy_card_11_27_26.js --only phone_portrait, then --only phone_landscape (one way fits
-   a short clock; the clip is made when both are in). --clip makes it from the frames already taken. */
+   a short clock; the clip is made when both are in). --clip makes it from the frames already taken.
+   BUILD 11/28b (plan A, the spots on the map): --card the-best-spot films the marks too (a tap on another mark, then on his pick) into
+   records/target/home_base/your_place_the_best_spot.mp4 and records/target/vote_first/home-base-the-best-spot-on-the-map-11-28.webp. */
 'use strict';
 const path = require('path'), fs = require('fs'), { spawnSync } = require('child_process');
-const ROOT = path.dirname(__dirname), OUT = path.join(ROOT, 'records/target/home_base'), TMP = path.join(require('os').tmpdir(), 'hb6-easy-frames');
-fs.mkdirSync(TMP, { recursive: true }); fs.mkdirSync(OUT, { recursive: true });
+const ROOT = path.dirname(__dirname), OUT = path.join(ROOT, 'records/target/home_base');
+fs.mkdirSync(OUT, { recursive: true });
 const arg = n => { const i = process.argv.indexOf(n); return i > 0 ? process.argv[i + 1] : null; };
 const PROFS = ['phone_portrait', 'phone_landscape'].filter(p => !arg('--only') || p === arg('--only'));
+const SPOTS = arg('--card') === 'the-best-spot';
+const CLIP = SPOTS ? { mp4: 'your_place_the_best_spot.mp4', first: 'home-base-the-best-spot-on-the-map-11-28.webp', tmp: 'hb6-spot-frames' } : { mp4: 'your_place_is_easy.mp4', first: 'home-base-your-place-is-easy-11-27.webp', tmp: 'hb6-easy-frames' };
+const FR = path.join(require('os').tmpdir(), CLIP.tmp); fs.mkdirSync(FR, { recursive: true });
 
 async function film(prof) {
   const drive = require(path.join(ROOT, 'tools/bohemia_drive_the_demo.js'));
   const { throughTheTitle } = require(path.join(ROOT, 'tools/bohemia_through_the_title.js'));
   const GL = require(path.join(ROOT, 'tools/bohemia_your_place_glass.js'));
-  const dir = path.join(TMP, prof); fs.rmSync(dir, { recursive: true, force: true }); fs.mkdirSync(dir, { recursive: true });
+  const dir = path.join(FR, prof); fs.rmSync(dir, { recursive: true, force: true }); fs.mkdirSync(dir, { recursive: true });
   const d = await drive.open({ profile: prof, keepCards: true, beforeTap: async (pg) => {
     for (let i = 0; i < 120; i++) { if (await pg.evaluate(() => !!window.__LOAD_READY && !!document.getElementById('title')).catch(() => false)) break; await pg.waitForTimeout(250); }
     await pg.waitForTimeout(1500); await throughTheTitle(pg); await pg.waitForTimeout(1800); } });
@@ -41,7 +46,15 @@ async function film(prof) {
   await F.evaluate(() => { DAY.day = 2; try { render(); } catch (e) {} });
   await step('offer'); await hold(3000); await tap('look');
   await step(['bad', 'good']); await hold(3200);
-  if ((await GL.state(F)).step === 'bad') { await tap('walk', 600);
+  if (SPOTS) {   /* the marks: a tap on another, what it gives; a tap on his pick, 'That one.' */
+    const fb = await (await F.frameElement()).boundingBox();
+    const mk = () => F.evaluate(() => [...document.querySelectorAll('#ypmarks.on button')].filter(b => b.style.visibility !== 'hidden').map(b => { const r = b.getBoundingClientRect(); return { best: b.classList.contains('best'), x: r.left + r.width / 2, y: r.top + r.height / 2 }; }));
+    await GL.until(F, [], 20000); const o = (await mk()).filter(m => !m.best)[0];   /* the marks hide with the panel while another face speaks */
+    if (o) { taps.push({ t: Date.now() - t0, x: fb.x + o.x, y: fb.y + o.y }); await P.touchscreen.tap(fb.x + o.x, fb.y + o.y); await step('spot', 15000); await hold(3200); }
+    await GL.until(F, [], 20000); const b = (await mk()).filter(m => m.best)[0];
+    if (b) { taps.push({ t: Date.now() - t0, x: fb.x + b.x, y: fb.y + b.y }); await P.touchscreen.tap(fb.x + b.x, fb.y + b.y); await step('pick', 15000); await hold(3200); }
+  }
+  if (['bad', 'spot', 'pick'].indexOf((await GL.state(F)).step) >= 0) { await tap('walk', 600);
     for (let i = 0; i < 120; i++) { await P.waitForTimeout(500); await F.evaluate(() => { try { if (window.BohemiaRoadEvents && BohemiaRoadEvents.up()) BohemiaRoadEvents.close(); } catch (e) {} }); const s = await GL.state(F); if (s && s.step === 'arrived' && s.shown) break; }
     await hold(2600); }
   await tap('plant'); await step('sure'); await hold(2800); await tap('plant', 1500);
@@ -65,11 +78,11 @@ async function film(prof) {
 }
 (async () => {
   if (!process.argv.includes('--clip')) for (const p of PROFS) await film(p);
-  const have = ['phone_portrait', 'phone_landscape'].filter(p => fs.existsSync(path.join(TMP, p, 'film.json')));
+  const have = ['phone_portrait', 'phone_landscape'].filter(p => fs.existsSync(path.join(FR, p, 'film.json')));
   if (have.length < 2) { console.log('frames for', have.join(','), '- run the other way, then the clip is made'); process.exit(0); }
   const py = fs.readFileSync(path.join(ROOT, 'tools/bohemia_home_base_your_place_is_easy_card_11_27_26.py'), 'utf8');
-  const r = spawnSync('python3', ['-c', py, JSON.stringify({ films: have.map(p => path.join(TMP, p, 'film.json')), out: path.join(OUT, 'your_place_is_easy.mp4'),
-    first: path.join(ROOT, 'records/target/vote_first/home-base-your-place-is-easy-11-27.webp'), tmp: TMP })], { encoding: 'utf8' });
+  const r = spawnSync('python3', ['-c', py, JSON.stringify({ films: have.map(p => path.join(FR, p, 'film.json')), out: path.join(OUT, CLIP.mp4),
+    first: path.join(ROOT, 'records/target/vote_first/' + CLIP.first), tmp: FR })], { encoding: 'utf8' });
   console.log(r.stdout.trim(), r.stderr.trim().slice(-800));
   process.exit(r.status || 0);
 })().catch(e => { console.error(e); process.exit(1); });

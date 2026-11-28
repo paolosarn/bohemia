@@ -10409,8 +10409,10 @@ GATES = [
      "a stranger's whole walk by real taps on the glass (slices/bohemia_your_place.js): Y1 nothing on day 1; Y2 his best man's face, name and a 20 px line, every "
      "button 44 px, under the finger, clear of the phone (P2 planted: a 30 px button and the panel over the phone read red); Y8 one face at a time with the map's "
      "voice; Y3 LATER and YOUR PLACE; Y4 why, WALK THERE, the walk, 'This is it. Plant it.'; Y5 are you sure, planted, GO IN; Y6 his place by the map's own door, "
-     "'Tap an empty lot to build.' after the arrival card and never over the lot; Y7 the desk, a build, 'It goes up tonight.' once, then quiet. About 3 minutes a way; "
-     "--engine a second", True),
+     "'Tap an empty lot to build.' after the arrival card and never over the lot; Y7 the desk, a build, 'It goes up tonight.' once, then quiet. PLAN A (11/28b): "
+     "A1 engine spots (plantable only, best first, never two within two blocks, six at most), P3 planted; A2 what a spot gives in words; A3 the marks on the map, "
+     "each on its own block (CBcellAt's flat answer), a thumb each, apart, his pick with his face and BETTER's block, P4 planted; A4 a tap on a mark says what it "
+     "gives, on his pick 'That one.', WALK THERE. About 3 minutes a way; --engine a second", True),
     ('THE FOURTEEN EYES FOUND', ['node', 'gates/the_fourteen_eyes_found_gate.js', '--only', 'F530,F529,F537,F525,F532,F533,F536,F535,F531,F527'],
      "FIXES gate, 11/9, ask rows 525 to 538 (FOUND BY EYES 11/8, EYES' phone playthrough 1c7c9b10f), one leg per fix, each with a PLANTED fail, phone upright "
      "AND sideways: F525 the end screen (EYES' fight and a heavier one): every man's hurt, every count, every piece and the leave buttons on the glass, nothing "

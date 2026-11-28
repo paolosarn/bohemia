@@ -61,6 +61,15 @@
       + 'font-family:"BohemiaCasing",ui-sans-serif,sans-serif;font-size:20px;letter-spacing:1px;line-height:1;color:#1f1710;background:#b9b39c;' + kit('tin', 1) + 'text-shadow:none}'
       + '#yourplace button.gold{flex:1 1 auto;white-space:normal;color:#120c06;background:#c8ab63;' + kit('tin_amber', 1) + '}'
       + '#yourplace button:active{transform:translateY(1px)}'
+      + '#ypmarks{position:fixed;inset:0;z-index:' + (Z - 1) + ';pointer-events:none;display:none}#ypmarks.on{display:block}'
+      + '#ypmarks button{position:absolute;left:0;top:0;width:48px;height:56px;margin:0;padding:0;border:0;background:none;pointer-events:auto;cursor:pointer;touch-action:manipulation;display:flex;flex-direction:column;align-items:center;justify-content:flex-end}'
+      + '#ypmarks button b{display:flex;align-items:flex-end;gap:2px;height:20px;padding:3px 5px;box-sizing:border-box;background:#3a3d31;' + kit('tin', .5) + shadow + '}'
+      + '#ypmarks button b i{display:block;width:4px;background:#3d3a2e;box-shadow:inset 0 0 0 1px #0e0a05}#ypmarks button b i.f{background:#e6c475}'
+      + '#ypmarks button b i:nth-child(1){height:6px}#ypmarks button b i:nth-child(2){height:10px}#ypmarks button b i:nth-child(3){height:14px}'
+      + '#ypmarks button.best b{background:#c8ab63;' + kit('tin_amber', .5) + '}#ypmarks button.best b i.f{background:#120c06}'
+      + '#ypmarks button u{display:block;width:2px;height:14px;background:#5a3c1c;box-shadow:1px 0 0 #0e0a05}'
+      + '#ypmarks button canvas{display:block;width:24px;height:24px;margin-bottom:2px;border:2px solid #0e0a05;background:#0a0d0b;image-rendering:pixelated}'
+      + '#ypmarks button.on b{outline:2px solid #e6c475;outline-offset:1px}'
       + '#yourplace.pill{padding:6px;gap:0}#yourplace.pill button{padding:6px 14px 6px 10px;display:flex;align-items:center;gap:8px}'
       + '#yourplace.pill button i{display:block;width:18px;height:22px;flex:none;background:linear-gradient(#5a3c1c,#5a3c1c) 8px 4px/2px 18px no-repeat,linear-gradient(135deg,#a8341e 50%,transparent 50%) 10px 4px/8px 8px no-repeat}';
     var st = document.createElement('style'); st.id = 'yourplace-css'; st.textContent = t; document.head.appendChild(st);
@@ -114,7 +123,7 @@
     var els = [document.getElementById('bmvoice')]; try { els.push(window.top.document.getElementById('cbxsay')); } catch (e) {}
     els.forEach(function (e) { if (!e || WATCHED.has(e)) return; WATCHED.add(e);
       try { var MO = e.ownerDocument.defaultView.MutationObserver;
-        new MO(function () { var o = someoneElse(); if (o && S.el && S.el.classList.contains('on')) { hide(o); out(S.step); } }).observe(e, { attributes: true, attributeFilter: ['class', 'style'] }); } catch (x) {} });
+        new MO(function () { var o = someoneElse(); if (o && S.el && S.el.classList.contains('on')) { hide(o); marksShow(false); out(S.step); } }).observe(e, { attributes: true, attributeFilter: ['class', 'style'] }); } catch (x) {} });
   }
 
   /* ---------------- THE STEP ---------------- */
@@ -126,7 +135,10 @@
     if (f.inside && !f.sheet && f.booked > 0 && S.sawBooked === 0 && !S.builtAt) S.builtAt = now;   /* the first build: said once he is back on his cameras */
     if (!f.travelling && S.going && S.target && f.at && Math.max(Math.abs(f.at[0] - S.target[0]), Math.abs(f.at[1] - S.target[1])) > 1 && S.wasTravelling === false) S.going = false;
     S.wasTravelling = f.travelling;
-    return { planted: s.planted, offer: !!s.offer, onMap: f.onMap, inside: f.inside, sheet: f.sheet, booked: f.booked, here: s.here, better: s.better, travelling: f.travelling,
+    var look = !s.planted && s.offer && S.open && !S.going;   /* the marks while he looks, not while he walks (a block a step would re-measure) */
+    S.spots = look && HM.spots ? (HM.spots() || []) : [];
+    if (S.picked && !S.spots.some(function (p) { return p.x === S.picked.x && p.y === S.picked.y; })) S.picked = null;   /* he moved: the marks are the new block's */
+    return { picked: S.going ? null : S.picked, planted: s.planted, offer: !!s.offer, onMap: f.onMap, inside: f.inside, sheet: f.sheet, booked: f.booked, here: s.here, better: s.better, travelling: f.travelling,
       open: S.open, later: S.later, going: S.going, target: S.target, at: f.at, asked: S.asked, built: !!S.builtAt && now - S.builtAt < 14 * BEAT, words: s.words };
   }
 
@@ -163,11 +175,25 @@
       if (a.right <= b.left || a.left >= b.right || a.bottom <= b.top || a.top >= b.bottom) return;
       d.style.top = ''; d.style.bottom = Math.round(innerHeight - a.top + 8) + 'px'; } catch (e) {}
   }
+  /* HIS PICK IS NEVER UNDER THE PANEL (sideways the panel beside the phone stands over the middle of the map, where he and the spots
+     near him are): when the best man's mark would be under it, the panel goes to the other side of the glass, for as long as he looks */
+  function avoidPick(d) {
+    var HM = window.BohemiaHomeMap, pk = S.spots && S.spots[0]; if (!pk || !HM || !HM.screenOf || !d.classList.contains('on')) { S.flip = false; return; }
+    var p = HM.screenOf(pk.x, pk.y); if (!p) return;
+    var meets = function () { var b = d.getBoundingClientRect(); return !(p.x + 24 <= b.left || p.x - 24 >= b.right || p.y <= b.top || p.y - 56 >= b.bottom); };
+    if (!S.flip && !meets()) return;
+    S.flip = true; var W = innerWidth, H = innerHeight, r = null; try { r = window.BOH_PHONE_RECT ? BOH_PHONE_RECT() : null; } catch (e) {}
+    var right = !r || r.side !== 'left', w = d.getBoundingClientRect().width;
+    if (W >= H) { d.style.left = d.style.right = ''; if (right) d.style.left = '16px'; else d.style.right = '16px'; }   /* the far side from the phone */
+    else { var h = d.getBoundingClientRect().height; d.style.left = '16px'; d.style.right = '';   /* upright: below the pick if it fits, else above it */
+      if (p.y + 16 + h <= H - 8) { d.style.bottom = ''; d.style.top = Math.round(p.y + 16) + 'px'; } else { d.style.top = ''; d.style.bottom = Math.round(H - (p.y - 64)) + 'px'; } }
+    if (meets()) { place(d, false); clear(d); S.flip = false; }   /* nowhere clear: where it stood */
+  }
   function syl(w) { var m = String(w).toLowerCase().match(/[aeiouy]+/g); return Math.max(1, m ? m.length : 1); }
   function paint(st, man) {
     var d = box(), pill = st.id === 'pill';
     d.classList.toggle('pill', pill);
-    var g = st.id === 'good' || st.id === 'bad' || st.id === 'arrived' ? (S.c && S.c.here && S.c.here.g) : null;
+    var g = st.id === 'spot' || st.id === 'pick' ? (S.picked && S.picked.g) : st.id === 'good' || st.id === 'bad' || st.id === 'arrived' ? (S.c && S.c.here && S.c.here.g) : null;
     var words = st.line.split(/\s+/);
     d.textContent = '';
     if (!pill) {
@@ -180,7 +206,7 @@
     if (st.buttons.length) { var bs = el('div', 'btns');
       st.buttons.forEach(function (b) { var e = el('button', b.gold ? 'gold' : null); e.type = 'button'; e.dataset.yp = b.id; if (b.id === 'pill') e.appendChild(el('i')); e.appendChild(document.createTextNode(b.label)); bs.appendChild(e); });
       d.appendChild(bs); }
-    d.classList.add('on'); place(d, pill); clear(d);
+    d.classList.add('on'); place(d, pill); clear(d); if (!pill) avoidPick(d);
     (S.wordT || []).forEach(clearTimeout); S.wordT = null;
     if (pill) return;
     var F = window.BohemiaCrewFaces, c = d.querySelector('canvas');
@@ -202,20 +228,61 @@
     var c = facts(); S.c = c;
     if (!c) { hide('not ready'); return out(null); }
     var st = window.BohemiaHome.step(c); S.step = st;
+    marksShow(['good', 'bad', 'spot', 'pick'].indexOf(st.id) >= 0 && !someoneElse());
     if (st.id === 'quiet') { hide('quiet'); return out(st); }
     var other = someoneElse(); if (other) { hide(other); return out(st); }
     var man = who(); if (!man && st.id !== 'pill') { hide('no face'); return out(st); }
     S.who = man; S.hidden = '';
-    var g = c.here && c.here.g, sig = JSON.stringify([st.id, st.line, st.buttons.map(function (b) { return b.id; }), man && man.look, g && [g.water, g.power, g.road, g.danger], innerWidth, innerHeight]);
+    var g = (S.picked && S.picked.g) || (c.here && c.here.g), sig = JSON.stringify([st.id, st.line, st.buttons.map(function (b) { return b.id; }), man && man.look, g && [g.water, g.power, g.road, g.danger], innerWidth, innerHeight]);
     if (sig !== S.sig || !S.el.classList.contains('on')) { S.sig = sig; paint(st, man); }
-    else { place(S.el, st.id === 'pill'); clear(S.el); }   /* the phone can move (turned, flipped to the other side); the map's line can come and go */
+    else { place(S.el, st.id === 'pill'); clear(S.el); if (st.id !== 'pill') avoidPick(S.el); }   /* the phone can move (turned, flipped to the other side); the map's line can come and go */
     out(st);
   }
   function out(st) {
     var r = null; try { if (S.el && S.el.classList.contains('on')) { var b = S.el.getBoundingClientRect(); r = { x: Math.round(b.left), y: Math.round(b.top), w: Math.round(b.width), h: Math.round(b.height) }; } } catch (e) {}
     window.__YOUR_PLACE = { step: st ? st.id : null, line: st ? st.line : '', buttons: st ? st.buttons.map(function (b) { return b.id; }) : [], shown: !!r, rect: r, hidden: S.hidden, who: S.who ? S.who.name : null,
-      open: S.open, later: S.later, going: S.going, asked: S.asked, presses: S.presses, said: S.log.slice(-12) };
+      open: S.open, later: S.later, going: S.going, asked: S.asked, presses: S.presses, said: S.log.slice(-12),
+      marks: MK.el && MK.el.classList.contains('on') ? MK.list.map(function (p) { return { x: p.x, y: p.y, n: p.strength, rank: p.rank, d: p.d, walk: p.walk }; }) : [], picked: S.picked ? [S.picked.x, S.picked.y] : null };
   }
+
+  /* ---------------- THE SPOTS ON THE MAP (plan A): a mark on each of the best blocks round him, more bars where it is better; his
+     best man's face on the one he would pick; a tap on a mark says what it gives ---------------- */
+  var MK = { el: null, sig: '', raf: 0, list: [] };
+  function marksBox() {
+    if (MK.el) return MK.el; css(); var d = el('div'); d.id = 'ypmarks';
+    ['pointerdown', 'pointerup', 'touchstart', 'touchend', 'mousedown', 'mouseup', 'click'].forEach(function (k) { d.addEventListener(k, function (e) { if (e.target && e.target.closest && e.target.closest('button')) { try { e.stopPropagation(); } catch (_e) {} } }, { passive: true }); });
+    d.addEventListener('click', function (e) { var b = e.target && e.target.closest ? e.target.closest('button[data-i]') : null; if (b) pickSpot(+b.dataset.i); });
+    document.body.appendChild(d); MK.el = d; return d;
+  }
+  function marksShow(on) {
+    var d = marksBox(), want = on && S.spots && S.spots.length ? S.spots : [];
+    var sig = JSON.stringify([want.map(function (p) { return [p.x, p.y, p.strength]; }), S.picked && [S.picked.x, S.picked.y], S.who && S.who.look]);
+    if (sig !== MK.sig) { MK.sig = sig; MK.list = want; d.textContent = '';
+      want.forEach(function (p, i) { var b = el('button', (p.rank === 0 ? 'best' : '') + (S.picked && S.picked.x === p.x && S.picked.y === p.y ? ' on' : ''));
+        b.type = 'button'; b.dataset.i = i; b.dataset.x = p.x; b.dataset.y = p.y; b.dataset.n = p.strength;
+        b.setAttribute('aria-label', 'a spot for your place, ' + p.strength + ' of 3');
+        if (p.rank === 0 && S.who) { var c = el('canvas'); c.width = c.height = 48; try { window.BohemiaCrewFaces.draw(c.getContext('2d'), S.who.look, 48); } catch (e) {} b.appendChild(c); }
+        var bars = el('b'); for (var k = 0; k < 3; k++) bars.appendChild(el('i', k < p.strength ? 'f' : null)); b.appendChild(bars); b.appendChild(el('u'));
+        d.appendChild(b); }); }
+    d.classList.toggle('on', want.length > 0);
+    if (want.length && !MK.raf) MK.raf = requestAnimationFrame(marksPlace);
+  }
+  /* each frame they are up: on their blocks as the map moves, never under the panel, the phone or the top bar */
+  function marksPlace() {
+    MK.raf = 0; var d = MK.el; if (!d || !d.classList.contains('on')) return;
+    var HM = window.BohemiaHomeMap, pr = null, ph = null; try { pr = S.el && S.el.classList.contains('on') ? S.el.getBoundingClientRect() : null; ph = window.BOH_PHONE_RECT ? BOH_PHONE_RECT() : null; } catch (e) {}
+    var inR = function (x, y, r) { return r && r.width > 0 && x >= r.left - 4 && x <= r.right + 4 && y >= r.top - 4 && y <= r.bottom + 4; }, up = [];
+    /* best first: a mark within a thumb of a better one on the glass steps back (zoomed out the blocks are a few pixels; two marks a
+       finger cannot tell apart are one mark too many), and comes back when he zooms in */
+    [].forEach.call(d.children, function (b) { var p = HM && HM.screenOf ? HM.screenOf(+b.dataset.x, +b.dataset.y) : null, show = !!p;
+      if (p) { var bx = p.x - 24, by = p.y - 56; show = p.x > 8 && p.x < innerWidth - 8 && by > 60 && p.y < innerHeight - 8 && !inR(p.x, p.y, pr) && !inR(p.x, by + 28, pr) && !inR(p.x, p.y, ph) && !inR(p.x, by + 28, ph)
+          && !up.some(function (q) { return Math.abs(q[0] - p.x) < 50 && Math.abs(q[1] - p.y) < 58; });
+        if (show) { up.push([p.x, p.y]); b.style.transform = 'translate(' + Math.round(bx) + 'px,' + Math.round(by) + 'px)'; } }
+      b.style.visibility = show ? '' : 'hidden'; });
+    MK.raf = requestAnimationFrame(marksPlace);
+  }
+  function pickSpot(i) { var p = MK.list[i]; if (!p) return; S.presses++; S.picked = p; S.open = true; S.later = false;
+    try { window.top.postMessage({ type: 'BOHEMIA_SFX', ev: 'phone_tap' }, '*'); } catch (e) {} S.sig = ''; tick(); }
 
   /* ---------------- A PRESS ---------------- */
   function press(id) {
@@ -224,9 +291,10 @@
     var HM = window.BohemiaHomeMap, step = S.step ? S.step.id : null;
     if (id === 'look' || id === 'pill') { S.open = true; S.later = false; }
     else if (id === 'later') { S.later = true; S.open = false; }
-    else if (id === 'close') { S.open = false; S.going = false; S.asked = false; S.later = true; }
+    else if (id === 'close') { S.open = false; S.going = false; S.asked = false; S.later = true; S.picked = null; }
     else if (id === 'no') S.asked = false;
-    else if (id === 'walk') { var b = S.c && S.c.better; if (b && HM) { S.going = true; S.target = [b.x, b.y]; S.wasTravelling = null; try { HM.go('better'); } catch (e) {} } }
+    else if (id === 'walk') { var p = S.picked, b = S.c && S.c.better, to = p && p.walk ? p.walk : (b ? [b.x, b.y] : null);   /* the mark he tapped, else his best man's pick */
+      if (to && HM) { S.going = true; S.target = to; S.wasTravelling = null; S.picked = null; try { HM.go(p && p.walk ? to : 'better'); } catch (e) {} } }
     else if (id === 'plant') {
       if (step === 'sure') { var r = null; try { r = HM.plant(); } catch (e) {} S.asked = false; S.open = false; S.going = false; window.__YOUR_PLACE_PLANTED = r; }
       else S.asked = true;
@@ -237,7 +305,7 @@
 
   function boot() { css(); box(); setInterval(tick, 250); tick();
     /* the map's voice is made the first time it speaks: catch it being put on the page, so its very first line is alone too */
-    try { new MutationObserver(function () { watch(); var o = someoneElse(); if (o && S.el && S.el.classList.contains('on')) { hide(o); out(S.step); } }).observe(document.body, { childList: true }); } catch (e) {} }
+    try { new MutationObserver(function () { watch(); var o = someoneElse(); if (o && S.el && S.el.classList.contains('on')) { hide(o); marksShow(false); out(S.step); } }).observe(document.body, { childList: true }); } catch (e) {} }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot); else boot();
   window.BohemiaYourPlace = { state: function () { return window.__YOUR_PLACE || null; }, open: function () { press('pill'); return true; }, press: press, on: function () { return true; } };
 })();

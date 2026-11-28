@@ -70,9 +70,30 @@ stands. (The page had no door after planting before this build either; plan H pu
   upright then sideways, a gold ring where each finger went), tools/bohemia_home_base_your_place_is_easy_card_11_27_26.js --only
   <profile> once each way.
 
+## BUILD 11/28b - THE BEST SPOT ON THE MAP (plan A, rule 492(b): 'the map shows where a place can go... the better spots read at
+## a glance... his crew's best man says which one he would pick and why'). VOTE card home-base-the-best-spot-on-the-map-11-28 (a clip).
+- WHAT: when he looks for ground, up to six of the best plantable blocks within twelve get a mark ON THE MAP (a tin plate on a pole
+  standing on the block, one to three gold bars by how good it is against the others); his best man's face stands on the one he would
+  pick (BETTER's own block, the same function). A real tap on a mark: the panel says what it gives in a few words ('Water and a road.',
+  'Raiders near.', 'Quiet.'), its four marks are that block's, WALK THERE walks there; on his pick: 'That one. Water and a road. Quiet.'
+- NEVER CROWDED, NEVER HIDDEN: two marks never within two blocks; on the glass a mark within a thumb (50 x 58 px) of a better one steps
+  back (zoomed out the blocks are a few pixels) and comes back when he zooms in; a mark never stands under the panel, the phone or the top
+  bar; his pick is never under the panel: when it would be, the panel goes to the far side of the glass (sideways) or below or above the
+  pick (upright), for as long as he looks. Measured first: sideways the panel beside the phone stood over the middle of the map, where he
+  and his pick are (A3 red sideways before the move).
+- WHERE IT LIVES: engine/bohemia_home.js spots(list, n) and gives(g) (pure; best() is now spots()'s first, one ranking for BETTER and
+  the marks); home_base.json flow.lines.pick / spot and flow.gives (draft); the map's __HOME_BASE__ block: homeCandidates(x, y) (the one
+  measured list, BETTER and the spots both read it, cached while he stands on the block: 17 to 21 ms a new block), homeSpots(),
+  homeScreenOf(x, y) (the map's own btwAt: its iso and the offset its last frame drew at; null on the street), homeGo([x, y]);
+  slices/bohemia_your_place.js the marks (#ypmarks, placed each frame they are up) and avoidPick. No new block or hook in the page.
+- WHAT IS NOT IN IT YET (realism first, rule 492(b)'s full list, the next small build): scrap and food near a block, whose streets
+  they are (the turf), how often raiders pass (the parties' tracks), how far the towns and the jobs are. The marks rank by the four the
+  grade already measures (water, power, a road, danger).
+- PROOF: YOUR PLACE IS EASY 24/0 upright and 24/0 sideways (engine 9/0: A1, A2, P3; demo A3, A4, P4 added); YOUR PLACE, PLANTED (BETTER
+  now through spots) re-run, see the commit; PATCH LAYERS 10/0.
+
 ## WHAT IS NOT DONE (the plan's next builds, in order)
-A the spots MARKED ON THE MAP (stronger where better; scrap, food, whose streets, raid tracks, distance to towns and jobs; a tap on one
-says what it gives and costs; his best man names his pick and why). D one number for a trip (the line no longer gives a straight-line
+A2 the rest of what a spot gives (scrap, food, whose streets, raid tracks, distance to towns and jobs) on the marks and in the words. D one number for a trip (the line no longer gives a straight-line
 count, so the walk's own 'SETTING OUT: N BLOCKS' is the only number now). E is done here (PLANT HERE on arrival). F half done (GO IN by
 one tap, 'tap an empty lot'); the empty lots breathing once is not. G the first desk short (three and MORE). H YOUR PLACE in the band
 once planted (and the record's door).

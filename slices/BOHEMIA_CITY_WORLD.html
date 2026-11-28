@@ -96199,7 +96199,8 @@ function homePlant(){
   return res;
 }
 function homeRename(nm){ var r = homeRec(); if (r) { r.lastDay = homeDay(); r.lastAct = homeAct(); } var ok = !!r && BohemiaHome.rename(r, nm); if (ok) homeSave(); try { render(); } catch (_e) {} return ok; }
-function homeGo(which){
+function homeGo(which){   /* 'better', 'home', or a cell [x, y] (a spot's street, HOME BASE 6) */
+  if (Array.isArray(which)) { try { return travelTo(null, null, [which[0] | 0, which[1] | 0]); } catch (_e) { return false; } }
   var s = homeState(); if (!s) return false; var c = which === 'better' ? (s.better && [s.better.x, s.better.y]) : s.at;
   if (!c) return false; try { return travelTo(null, null, c); } catch (_e) { return false; }
 }
@@ -96276,13 +96277,20 @@ function homeWalkBeside(bx, by, fx, fy){ var w = null, wd = 1e9;
   for (var dy = -1; dy <= 1; dy++) for (var dx = -1; dx <= 1; dx++) { var x = bx + dx, y = by + dy; try { if (!cityWalkable(x, y)) continue; } catch (_e) { continue; }
     var d = Math.max(Math.abs(x - fx), Math.abs(y - fy)); if (d < wd) { wd = d; w = [x, y]; } }
   return w; }
-function homeBetter(x, y){
+/* every block within twelve that he can reach (the block, or the street beside it), probed: what BETTER and the marks on the map
+   choose from (HOME BASE 6: one list, BohemiaHome.best and BohemiaHome.spots both read it) */
+function homeCandidates(x, y){
+  var k = x + ',' + y; if (HOME.cand && HOME.cand.k === k && Date.now() - HOME.cand.t < 4000) return HOME.cand.list;   /* measured once for both, while he stands there */
   var list = [], R = 12;
   for (var dy = -R; dy <= R; dy++) for (var dx = -R; dx <= R; dx++) { if (Math.max(Math.abs(dx), Math.abs(dy)) < 2) continue;
     var bx = x + dx, by = y + dy, p = homeProbe(bx, by); if (!p) continue;
     var w = homeWalkBeside(bx, by, x, y); if (!w) continue;   /* only ground he can reach: the block, or the street beside it */
     list.push({ x: bx, y: by, d: Math.max(Math.abs(w[0] - x), Math.abs(w[1] - y)), probe: p, walk: w }); }
-  var b = BohemiaHome.best(list); if (!b) return null;
+  HOME.cand = { k: k, t: Date.now(), list: list };
+  return list;
+}
+function homeBetter(x, y){
+  var b = BohemiaHome.best(homeCandidates(x, y)); if (!b) return null;
   var a = Math.atan2(b.y - y, b.x - x), i = ((Math.round(a / (Math.PI / 4)) % 8) + 8) % 8;
   return { x: b.walk[0], y: b.walk[1], block: [b.x, b.y], d: b.d, g: b.g, dir: HOME_DIRS[i] };
 }
@@ -96546,10 +96554,20 @@ function homeFlowFacts(){
   try { at = [city.x | 0, city.y | 0]; } catch (_e) {}
   return { onMap: onMap, inside: inside, sheet: sheet, travelling: travelling, booked: booked, at: at };
 }
+/* THE SPOTS ON THE MAP (HOME BASE 6, rule 492(b)): the best plantable blocks round him, measured once per block he stands on, and
+   where a block's middle is on the glass (the flat answer of CBcellAt, turned round; null on the street, where the map is another
+   camera) so the flow can pin a mark on it */
+function homeSpots(){ var r = homeRec(); if (!r || r.planted || !HOME.data) return []; var x = city.x | 0, y = city.y | 0, k = x + ',' + y;
+  if (!HOME.spots || HOME.spots.k !== k) HOME.spots = { k: k, list: BohemiaHome.spots(homeCandidates(x, y), 6) };
+  return HOME.spots.list; }
+function homeScreenOf(x, y){   /* the map's own answer (btwAt: its iso and the offset its last frame drew at), never a second copy of it */
+  try { if (typeof streetIsOn === 'function' && streetIsOn()) return null; if (MODE !== 'city' || !window.__MAP_OXY) return null;
+    var p = btwAt(x, y); return p ? { x: p.x, y: p.y, tw: TW } : null; } catch (_e) { return null; }
+}
 /* one tap in: the map's own door to his place (travelTo hands his block to townTap: beside it, it opens; further, the walk there) */
 function homeGoIn(){ var r = homeRec(); if (!r || !r.planted) return false; try { return !!travelTo(null, null, [r.planted.x, r.planted.y]); } catch (_e) { return false; } }
 window.BohemiaHomeMap = { placeBuild: homePlaceBuild, press: homePress, watch: homeWatch, train: homeTrain, trainedAll: homeTrainedAll, give: homeGive, bossGifts: homeBossGifts, state: homeState, plant: homePlant, rawSeat: homeRawSeat, plantAt: homePlantAt, payGoods: homePayGoods, morning: homeMorning, workers: homeWorkers, choose: homeChoose, rename: homeRename, go: homeGo, probe: homeProbe, offer: homeOffer, billNight: homeBillNight, rec: homeRec, label: homeLabel, grind: homeGrind, grinder: homeGrinderNow, grinderState: function(){ return grindReady() ? grindSt() : null; }, grinderShows: grindShows, grinderFight: grindFightHome,
-  setLook: homeSetLook, lookOff: function(v){ HOME.lookOff = !!v; return HOME.lookOff; }, flowFacts: homeFlowFacts, goIn: homeGoIn };   /* __THE_GRINDER__ (HOME BASE 3): grind, grinder (what the pile makes now), grinderState for gates; __HIS_PLACE_HIS_WAY__ (HOME BASE 5): setLook, and lookOff for the gate's planted legs only */
+  setLook: homeSetLook, lookOff: function(v){ HOME.lookOff = !!v; return HOME.lookOff; }, flowFacts: homeFlowFacts, goIn: homeGoIn, spots: homeSpots, screenOf: homeScreenOf };   /* __THE_GRINDER__ (HOME BASE 3): grind, grinder (what the pile makes now), grinderState for gates; __HIS_PLACE_HIS_WAY__ (HOME BASE 5): setLook, and lookOff for the gate's planted legs only */
 /* ==== /__HOME_BASE__ ==== */
 </script>
 <script src="bohemia_your_place.js"></script>  <!-- HOME BASE 6 (rule 492(a)): YOUR PLACE on the glass, the next step said by a face -->

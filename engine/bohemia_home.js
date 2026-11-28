@@ -53,12 +53,28 @@
     g.score = g.water * 3 + g.road * 2 + g.power - g.danger * 2;
     return g;
   }
-  /* the best plantable spot among probes [{x, y, probe}], nearest first on a tie; null if none */
-  function best(list) {
-    var b = null;
-    (list || []).forEach(function (o) { var g = grade(o.probe); if (!g || !g.ok) return; o.g = g;
-      if (!b || g.score > b.g.score || (g.score === b.g.score && (o.d | 0) < (b.d | 0))) b = o; });
-    return b;
+  /* THE SPOTS (HOME BASE 6 11/27, rule 492(b): 'the map shows where a place can go... the better spots read at a glance'): every
+     plantable block among probes [{x, y, d, walk, probe}], the best first (the grade's score, nearest on a tie), never two within two
+     blocks of each other so the marks never crowd, at most n; each with strength 1..3 (3 the best of them) for the mark on the map */
+  function spots(list, n) {
+    var all = [], kept = [];
+    (list || []).forEach(function (o) { var g = grade(o.probe); if (!g || !g.ok) return; all.push({ x: o.x, y: o.y, d: o.d | 0, walk: o.walk || null, g: g }); });
+    all.sort(function (a, b) { return b.g.score - a.g.score || a.d - b.d; });
+    all.forEach(function (s) { if (kept.length >= (n || 6)) return; if (kept.some(function (k) { return Math.max(Math.abs(k.x - s.x), Math.abs(k.y - s.y)) < 3; })) return; kept.push(s); });
+    var hi = kept.length ? kept[0].g.score : 0, lo = kept.length ? kept[kept.length - 1].g.score : 0;
+    kept.forEach(function (s, i) { s.rank = i; s.strength = hi === lo ? 3 : 1 + Math.round(2 * (s.g.score - lo) / (hi - lo)); });
+    return kept;
+  }
+  /* the best plantable spot among probes, nearest first on a tie; null if none (the spots' first) */
+  function best(list) { return spots(list, 1)[0] || null; }
+  /* what a spot gives, in a few plain words, from its grade (water and a road first: they weigh most); raiders near said plainly */
+  function gives(g) {
+    if (!g) return ''; var W = (flowWords().gives) || {}, w = [];
+    if (g.water >= 2) w.push(W.water || 'water'); if (g.road >= 2) w.push(W.road || 'a road'); if (g.power >= 2) w.push(W.power || 'power');
+    var t = w.length ? (w.length > 1 ? w.slice(0, -1).join(', ') + ' and ' + w[w.length - 1] : w[0]) : (W.little || 'not much');
+    t = t.charAt(0).toUpperCase() + t.slice(1) + '.';
+    if ((g.danger | 0) >= 2) t += ' ' + (W.raiders || 'Raiders near.'); else if ((g.danger | 0) === 0) t += ' ' + (W.quiet || 'Quiet.');
+    return t;
   }
 
   /* ---------------- THE RECORD ---------------- */
@@ -305,6 +321,7 @@
     if (c.going && c.travelling) return out('going');
     if (c.going && g && g.ok && c.target && c.at && Math.max(Math.abs(c.at[0] - c.target[0]), Math.abs(c.at[1] - c.target[1])) <= 1) return out('arrived', [btn('plant', true), btn('close')]);
     if (!c.open && !c.going) return c.later ? out('pill', [btn('pill', true)]) : out('offer', [btn('look', true), btn('later')]);
+    if (c.picked && c.picked.g) return out(c.picked.rank === 0 ? 'pick' : 'spot', [btn('walk', true), btn('close')], { gives: gives(c.picked.g) });   /* a mark on the map tapped */
     if (g && g.ok) return out('good', [btn('plant', true), btn('close')]);
     if (c.better) return out('bad', [btn('walk', true), btn('close')], { why: (F.why || {})[(g && g.why) || 'nothing'] || '', dir: String(c.better.dir || '').toLowerCase() });
     return out('none', [btn('close', true)]);   /* the one thing left to do: put it away and walk on */
@@ -326,7 +343,7 @@
 
   var API = { setData: setData, data: data, grade: grade, best: best, make: make, planted: planted, plant: plant, nameOf: nameOf, rename: rename,
               addResident: addResident, prizesFrom: prizesFrom, note: note, tell: tell, whoFor: whoFor, give: give, placeWaiting: placeWaiting, buildPlace: buildPlace, placesOf: placesOf, trainCost: trainCost, train: train, trained: trained, bill: bill, plan: plan, roadCheck: roadCheck, lotsOpen: lotsOpen, save: save, load: load,
-              lookOf: lookOf, setLook: setLook, signText: signText, step: step, bestMan: bestMan };
+              lookOf: lookOf, setLook: setLook, signText: signText, step: step, bestMan: bestMan, spots: spots, gives: gives };
   if (typeof module !== 'undefined' && module.exports) module.exports = API;
   root.BohemiaHome = API;
 })(typeof window !== 'undefined' ? window : this);

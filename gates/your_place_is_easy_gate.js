@@ -28,6 +28,15 @@
          then the glass is quiet for good
      Y8  ONE FACE AT A TIME: while the map's own voice speaks, the panel is not on the glass
      PLANTED: a button shrunk to 30 px reads red on Y2's thumb test; the panel moved over the phone reads red on Y2's clear test
+   PLAN A, THE SPOTS ON THE MAP (BUILD 11/27zzd, rule 492(b)):
+     A1  engine spots(): plantable blocks only, the best first (score, then nearest), never two within two blocks, at most six,
+         strength 3 for the best; best() is its first; P3 PLANTED: an unsorted list and a road block in it read red
+     A2  engine gives(): what a spot gives in a few words from its grade ('Water and a road. Quiet.', 'Raiders near.')
+     A3  on the demo after LOOK FOR GROUND on bad ground: marks stand on the map, each on its own block, each 44 px or more under the
+         finger, none within a thumb of another, the best his best man's pick (his face on it) and BETTER's own block; P4 planted:
+         a mark shrunk to 30 px reads red
+     A4  a real tap on another mark: what it gives ('spot'), the panel's four marks are that block's; a tap on his pick: 'That one.
+         ...'; WALK THERE walks there (Y4)
    About 3 minutes a way; --engine a second.
    ========================================================================== */
 'use strict';
@@ -62,6 +71,8 @@ const CASES = [
   ['after', { planted: true, inside: true, booked: 1 }, 'quiet', []],
   ['planted, in a fight', { planted: true, onMap: false, booked: 0 }, 'quiet', []]
 ];
+CASES.push(['a mark tapped (his pick)', { offer: true, open: true, picked: { rank: 0, g: G(true) } }, 'pick', ['walk', 'close']]);
+CASES.push(['a mark tapped', { offer: true, open: true, picked: { rank: 2, g: G(true) } }, 'spot', ['walk', 'close']]);
 const steps = CASES.map(c => [c, H.step(c[1])]);
 ok('E1 every moment has its one step: ' + steps.map(x => x[1].id).join(' > '), steps.every(x => x[1].id === x[0][2] && x[1].buttons.map(b => b.id).join() === x[0][3].join()),
    JSON.stringify(steps.filter(x => x[1].id !== x[0][2] || x[1].buttons.map(b => b.id).join() !== x[0][3].join()).map(x => [x[0][0], x[1]])));
@@ -79,6 +90,26 @@ ok('E3 his best man says it (' + (bm && bm.name) + '): the highest level, then e
 const P1 = all.map(x => Object.assign({}, x)); P1[1] = Object.assign({}, P1[1], { line: 'x'.repeat(60) });
 const P2 = all.map(x => Object.assign({}, x)); P2[3] = Object.assign({}, P2[3], { buttons: P2[3].buttons.map(b => Object.assign({}, b, { gold: true })) });
 ok('P1 planted: a 60-letter line and a step with two gold buttons each read red on E2\'s test', !glance(P1) && !glance(P2));
+/* A1, A2 the spots and what they give */
+const pr = (dist, extra) => Object.assign({ district: 'suburb', near: { water: dist[0], power: dist[1], road: dist[2], danger: dist[3] }, town: false, boss: false }, extra || {});
+const LIST = [
+  { x: 10, y: 10, d: 4, walk: [10, 11], probe: pr([1, 9, 1, 12]) },   /* water 3, road 3, safe: the best ground */
+  { x: 11, y: 10, d: 3, walk: [11, 11], probe: pr([1, 9, 1, 12]) },   /* the same ground one block over and nearer: it is the mark, its twin is not */
+  { x: 20, y: 20, d: 2, walk: [20, 21], probe: pr([3, 2, 2, 7]) },
+  { x: 30, y: 5, d: 9, walk: [30, 6], probe: pr([5, 9, 4, 2]) },      /* raiders on top */
+  { x: 5, y: 30, d: 1, walk: [5, 31], probe: pr([1, 1, 1, 12], { district: 'arterial' }) },   /* the road itself: never a mark */
+  { x: 40, y: 40, d: 1, walk: [40, 41], probe: pr([20, 1, 1, 12]) }   /* no water: never a mark */
+];
+const SP = H.spots(LIST, 6);
+const spotsOk = sp => sp.length >= 1 && sp.length <= 6 && sp.every(o => H.grade(LIST.filter(l => l.x === o.x && l.y === o.y)[0].probe).ok) && sp.every((o, i) => i === 0 || sp[i - 1].g.score > o.g.score || (sp[i - 1].g.score === o.g.score && sp[i - 1].d <= o.d))
+  && sp.every((o, i) => sp.every((q, j) => i === j || Math.max(Math.abs(o.x - q.x), Math.abs(o.y - q.y)) >= 3)) && sp[0].strength === 3;
+ok('A1 the spots: ' + SP.map(o => o.x + ',' + o.y + ' score ' + o.g.score + ' strength ' + o.strength).join('; ') + ' (the road and the dry block never marked; of the two equal blocks side by side the nearer kept, its twin dropped); best() is the first',
+   spotsOk(SP) && SP.length === 3 && SP[0].x === 11 && !SP.some(o => o.x === 10 || o.x === 5 || o.x === 40) && H.best(LIST).x === SP[0].x, JSON.stringify(SP.map(o => [o.x, o.y, o.g.score, o.strength])));
+const P3a = SP.slice().reverse(), P3b = SP.concat([{ x: 5, y: 30, d: 1, g: { score: 1 }, strength: 1 }]);
+let p3b = false; try { p3b = spotsOk(P3b); } catch (e) { p3b = false; }
+ok('P3 planted: the same spots backwards, and with the road block put in, each read red on A1\'s test', !spotsOk(P3a) && !p3b);
+const gv = [H.gives(SP[0].g), H.gives(SP[SP.length - 1].g)];
+ok('A2 what a spot gives, in a few words: "' + gv.join('" / "') + '"', /^Water and a road\. Quiet\.$/.test(gv[0]) && /Raiders near\.$/.test(gv[1]) && gv.every(t => t.length <= 40), JSON.stringify(gv));
 if (process.argv.includes('--engine')) done();
 
 /* ---------------- ON THE DEMO ---------------- */
@@ -126,7 +157,11 @@ async function laid(P, F) {
     const pl = await F.evaluate(() => { const b = document.querySelector('#yourplace button[data-yp="later"]'), d = document.getElementById('yourplace'); const keep = [b.style.cssText, d.style.cssText];
       b.style.minHeight = '30px'; b.style.height = '30px'; b.style.padding = '0'; const r = window.BOH_PHONE_RECT(); d.style.left = Math.round(r.left) + 'px'; d.style.right = ''; window.__YP_KEEP = keep; return true; });
     const lp = await laid(P, F);
-    await F.evaluate(() => { const b = document.querySelector('#yourplace button[data-yp="later"]'), d = document.getElementById('yourplace'); if (b) b.style.cssText = window.__YP_KEEP[0]; d.style.cssText = window.__YP_KEEP[1]; window.BohemiaYourPlace.press && 0; });
+    /* the over-the-phone half measured in one go (the panel lays itself again every quarter second) */
+    const over2 = await F.evaluate(() => { const d = document.getElementById('yourplace'), r = window.BOH_PHONE_RECT(); d.style.left = Math.round(r.left) + 'px'; d.style.right = '';
+      const q = d.getBoundingClientRect(); return r.width > 0 && !(q.right <= r.left || q.left >= r.right || q.bottom <= r.top || q.top >= r.bottom); });
+    if (lp) lp.geo.overPhone = over2;
+    await F.evaluate(() => { const b = document.querySelector('#yourplace button[data-yp="later"]'), d = document.getElementById('yourplace'); if (b) b.style.cssText = window.__YP_KEEP[0]; d.style.cssText = window.__YP_KEEP[1]; });
     ok('P2 planted: LATER shrunk to 30 px reads red on the thumb test (' + (lp && lp.bs.map(b => b.id + ' ' + b.h).join(', ')) + '); the panel over the phone reads red on the clear test', pl && !!lp && !lp.thumbs && lp.geo.overPhone, JSON.stringify(lp && [lp.bs, lp.geo]));
     await P.waitForTimeout(400);
     /* Y8 one face at a time: while the offer is on the glass the map's own voice speaks; the panel is never on with it, and comes back after */
@@ -147,6 +182,32 @@ async function laid(P, F) {
     const y4 = await GL.until(F, ['bad', 'none', 'good'], 20000), l4 = await laid(P, F);
     ok('Y4 on ground that cannot be planted (' + (spot && spot.at) + '): "' + (l4 && l4.line) + '", the four marks (' + (l4 && l4.marks.map(m => m.k + ' ' + m.n).join(', ')) + '), WALK THERE gold under the finger',
        !!spot && !!y4 && y4.step === 'bad' && !!l4 && l4.thumbs && l4.marks.length === 4 && l4.bs[0].id === 'walk' && l4.bs[0].gold && / Go (north|south|east|west)/.test(l4.line), JSON.stringify([spot, y4, l4 && [l4.line, l4.bs]]));
+    /* A3 the marks on the map */
+    const mk = async () => { const fb = await (await F.frameElement()).boundingBox(); return F.evaluate(fbx => [...document.querySelectorAll('#ypmarks.on button')].filter(b => b.style.visibility !== 'hidden').map(b => {
+      const r = b.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2, h = document.elementFromPoint(cx, cy), x = +b.dataset.x, y = +b.dataset.y;
+      const cvr = document.getElementById('cv').getBoundingClientRect();   /* the pin's foot in the canvas's own pixels, read back by CBcellAt's flat ground answer (its camera, its iso) */
+      const ox = Math.round(CVW / 2 - (city.x - city.y) * TW / 2 + panX), oy = Math.round(CVH / 2 - (city.x + city.y) * TH / 2 + panY), fx = r.left + r.width / 2 - cvr.left, fy = r.bottom - cvr.top;
+      const dx = fx - ox, dy = fy - oy - TH / 2, bx = Math.round(dx / TW + dy / TH), by = Math.round(dy / TH - dx / TW);
+      return { x, y, best: b.classList.contains('best'), face: !!b.querySelector('canvas'), w: Math.round(r.width), h: Math.round(r.height), hit: !!h && b.contains(h), foot: [bx, by], tx: fbx.x + cx, ty: fbx.y + cy, cx, cy }; }), fb); };
+    await P.waitForTimeout(600); await GL.until(F, [], 20000);   /* the marks hide with the panel while another face speaks */
+    const m3 = await mk(), b3 = await F.evaluate(() => { const b = BohemiaHomeMap.state().better; return b ? b.block : null; });
+    const apart = m3.every((a, i) => m3.every((q, j) => i === j || Math.abs(a.cx - q.cx) >= 44 || Math.abs(a.cy - q.cy) >= 44));
+    const thumbs3 = ms => ms.length > 0 && ms.every(m => m.w >= 44 && m.h >= 44 && m.hit);
+    ok('A3 marks on the map (' + m3.map(m => m.x + ',' + m.y + (m.best ? ' PICK' : '') + ' foot ' + m.foot).join('; ') + '): each on its own block, each a thumb under the finger, none within a thumb of another; the pick carries his face and is BETTER\'s block (' + b3 + ')',
+       thumbs3(m3) && apart && m3.every(m => m.foot[0] === m.x && m.foot[1] === m.y) && m3.filter(m => m.best).length === 1 && m3.filter(m => m.best)[0].face && !!b3 && m3.filter(m => m.best)[0].x === b3[0] && m3.filter(m => m.best)[0].y === b3[1], JSON.stringify([m3, b3]));
+    await F.evaluate(() => { const b = document.querySelector('#ypmarks.on button'); if (b) { b.style.width = '30px'; b.style.height = '30px'; } });
+    const m3p = await mk(); await F.evaluate(() => { const b = document.querySelector('#ypmarks.on button'); if (b) { b.style.width = ''; b.style.height = ''; } });
+    ok('P4 planted: a mark shrunk to 30 px reads red on A3\'s thumb test', !thumbs3(m3p), JSON.stringify(m3p.map(m => [m.w, m.h])));
+    /* A4 a tap on another mark, then on his pick */
+    const other4 = m3.filter(m => !m.best)[0], pick4 = m3.filter(m => m.best)[0];
+    let s4o = null, p4o = null;
+    if (other4) { await GL.until(F, [], 20000); await P.touchscreen.tap(other4.tx, other4.ty); await P.waitForTimeout(900); s4o = await GL.until(F, 'spot', 15000); p4o = await GL.panel(F); }
+    const g4o = other4 ? await F.evaluate(o => { const s = BohemiaHomeMap.spots().filter(q => q.x === o.x && q.y === o.y)[0]; return s ? { gives: BohemiaHome.gives(s.g), g: [s.g.water, s.g.power, s.g.road, Math.max(0, 3 - s.g.danger)] } : null; }, other4) : null;
+    if (pick4) { await GL.until(F, [], 20000); const m = (await mk()).filter(q => q.best)[0] || pick4; await P.touchscreen.tap(m.tx, m.ty); await P.waitForTimeout(900); }
+    const s4p = await GL.until(F, 'pick', 15000), p4p = await GL.panel(F);
+    ok('A4 a tap on another mark: "' + (s4o ? s4o.line : 'no other mark on the glass') + '" (its own: "' + (g4o && g4o.gives) + '", marks ' + (p4o && p4o.marks.map(m => m.n).join('')) + '); on his pick: "' + (s4p && s4p.line) + '", WALK THERE',
+       (!other4 || (!!s4o && s4o.step === 'spot' && !!g4o && s4o.line === g4o.gives && !!p4o && p4o.marks.map(m => m.n).join() === g4o.g.join())) && !!s4p && s4p.step === 'pick' && /^That one\. /.test(s4p.line) && !!p4p && p4p.buttons[0] === 'walk',
+       JSON.stringify([s4o, g4o, p4o && p4o.marks, s4p]));
     await GL.tap(P, F, 'walk', 600);
     const y4g = await GL.until(F, ['going', 'arrived'], 15000);
     let y4a = null;
