@@ -248,7 +248,13 @@ def main():
     caught.append(('the freeze edited', bool(judge(g, f, s, mk, rg)[0]['H8'])))
     missed = [n for n, c in caught if not c]
     ok('P  the plants are caught (%d of %d): ' % (len(caught) - len(missed), len(caught)) + ', '.join(n for n, _ in caught), not missed and len(caught) >= 11, ('MISSED: ' + ', '.join(missed)) if missed else '')
-    g, f, s, mk, rg = fresh(); opened(s, rg); g[M].append(good); mk[M] = [{'line': good, 'scary': 'desperate', 'second': 'asking'}]
+    # ONE GOOD REWRITE, ON ITS OWN (FIXES 5 11/28, CAMP FOUR's suite red: 'H2: a line with no scary-first mark: "The flatbed takes flour
+    # and the Church's mail..."'). The copy opened the job board's mouth with every line it carries today, and since JOBS 2's 11/27zzd
+    # (THE CARAVAN GOES TOWN TO TOWN) that mouth carries six new lines, legal in a closed mouth (H1 counts them), unmarked, one with
+    # Spanish in it: opened, H2 and H5 rightly ask for them, so this plant stopped asking its own question (does the gate let one real
+    # rewrite through?). The copy is now the mouth as frozen plus the one marked line, so the plant reads only the rewrite it plants.
+    # The day he opens this mouth, those six are a rewriter's to mark (WORDS THREE's, named in the record).
+    g, f, s, mk, rg = fresh(); opened(s, rg); g[M] = list(f['mouths'][M]) + [good]; mk[M] = [{'line': good, 'scary': 'desperate', 'second': 'asking'}]
     Rg = judge(g, f, s, mk, rg)[0]; bad = [h + ': ' + '; '.join(v[:1]) for h, v in Rg.items() if v]
     ok('P  ONE GOOD REWRITE passes every leg: an open mouth, a new line marked scary, the deal said, no Spanish', not bad, ' | '.join(bad))
     print('\n=== THE VOICE HOLDS: %d passed, %d failed (asleep: %d of %d mouths open) ===' % (passed[0], failed[0], len(info['open']), nm))

@@ -879,6 +879,18 @@ function shopSell(k, it){
   post('sellArms', {item:it, got:back}); shelf(); shopRedo(k, 'Sold. ' + back + ' batteries. It is on their shelf, back for the same.');
 }
 /* the strip: always there, always one size; a selection only changes what is in it */
+/* A NAME IS NEVER CUT (FIXES 5 11/28; UI FIVE's ONE HAND OR TWO H2 red on its side, 'worn_guard_carbine the strip's name cut'). On a
+   phone on its side the strip is a 172 px column and its box keeps its height for every piece (UI FIVE: nothing moves from one piece to
+   the next), so the name has one line; it was cut with an ellipsis, and 40 of the shop's 221 names are wider than that line (measured
+   in this font: 'Beat-up guard carbine' 175 px). A name wider than its line closes its letters up, then steps down a pixel at a time
+   to the 11 px floor: 38 of the 40 fit. The two longest ('duct-taped carpet padded vest', 'Bundle of Heavy Throwing Axes', 192 px at
+   the floor) still need a second line the box has not got: named in records/BOHEMIA_FIXES_FIVE_THE_REST_OF_THE_NEW_REDS_11_27_26.md. */
+function shopNameFits(b){
+  try{ if(!b || !b.isConnected || b.scrollWidth <= b.clientWidth + 1) return;
+    b.style.letterSpacing = '0';
+    for(var fs = 12; fs >= 11 && b.scrollWidth > b.clientWidth + 1; fs--) b.style.fontSize = fs + 'px';
+  }catch(_e){}
+}
 function shopStripFill(k, el){
   var st = el || document.getElementById('shopstrip'); if(!st) return; st.textContent = '';   /* el: the strip of a sheet still being built (not in the page yet) */
   var sl = shopSelIt(k), it = sl ? sl.it : null, shelfIt = !!it && sl.from === 'shelf';
@@ -890,7 +902,7 @@ function shopStripFill(k, el){
     var t = document.createElement('div'); t.className = 'ss-title';
     var nm = document.createElement('b'), nw = it.name.replace(/^(a|an) /, ''); nm.textContent = nw.charAt(0).toUpperCase() + nw.slice(1); t.appendChild(nm);
     if(it.kind === 'weapon'){ var th = document.createElement('span'); th.className = 'twoh' + (it.hands === 2 ? '' : ' oneh'); th.textContent = it.hands === 2 ? 'TWO-HANDED' : 'ONE-HANDED'; t.appendChild(th); }   /* __ONE_HAND_OR_TWO__ (UI FIVE 11/22, rule 477(a)): every weapon says it, plainly, beside its name (draft:true) */   /* __A_TWO_HANDER_WEARS_ITS_OWN_NAME__ (rule 194(b)) */
-    f.appendChild(t);
+    f.appendChild(t); shopNameFits(nm);
     var al = it.kind === 'weapon' && window.BohemiaRoster && HIRE.roster ? BohemiaRoster.armLine(BohemiaRoster.itemOf('weapon', it.id), true) : null;
     f.appendChild(itemNums(it, al));   /* __THE_SHOP_SAYS_WHAT_IT_DOES__ (rule 202(a)): its own numbers, UI's icons */
   }

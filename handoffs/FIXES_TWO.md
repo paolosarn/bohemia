@@ -3,7 +3,23 @@
 # FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
 # FIXES FOUR (the chat answers to 'fixes 4', 11/27; FIXES 3 wrote HANDOFF READY at 02:13 11/27) carries this file on: same job, blocks named FIXES FOUR.
 # FIXES FIVE (the chat answers to 'fixes 5', 11/27; FIXES 4 wrote HANDOFF READY 11/27) carries this file on: same job, blocks named FIXES FIVE.
-FIXES FIVE (session_01GKDyuwkkCUgRe2NpmrgqwP): 11/28 (a) LATEST -- [the new reds] IN FLIGHT, about 17 of the 95 walked (FIXES 4's
+FIXES FIVE (session_01GKDyuwkkCUgRe2NpmrgqwP): 11/28 (b) LATEST -- [the new reds] IN FLIGHT, about 45 of the 95 walked. BUILD 11/28j - A
+NAME IS NEVER CUT, BUILT, NOT YET SEEN. Record: records/BOHEMIA_FIXES_FIVE_THE_REST_OF_THE_NEW_REDS_11_27_26.md section 6.
+WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): a smith's or armourer's strip with the phone on its side reads a long
+name whole ('Beat-up guard carbine'), letters a little closer, nothing moved.
+REAL: ONE HAND OR TWO H2 (UI FIVE's): the narrow strip's fixed box gives a name one line and cut it with an ellipsis; 40 of the shop's 221
+names did not fit. shopNameFits (slices/BOHEMIA_SETTLEMENT_SCREEN.html, where the strip writes the name): letters closed up, then a pixel at
+a time to the 11 px floor; 38 of 40 fit; two still need a line the box has not got (UI FIVE's box or WORDS' name). A wrap was tried first and
+SEEN wrong on the glass (the row clipped the second line); the gate passed it, so H2 now asks the name inside its own row. 25/0.
+STALE: THE VOICE HOLDS (its good-rewrite plant read JOBS 2's six legal caravan lines; the copy is now the frozen mouth plus its own line) 11/0.
+ORPHANS OF THIS LANE: FIXES 4's LEAVE LIGHTS ON THE GLASS, A BEAST BITES LIKE A BEAST, NO LINE UNDER ANOTHER were never in the suite's table:
+registered, 3/0, 8/0, 3/0. HANDED: MOTION 3's two (THE FIGHT'S WEIGHT, THE UI MORPHS EVERYWHERE): the fight's frames at 4x CPU, 80 percent
+the browser's painting, PLUMBER 8's frame budget; BOSSES' lair rows lack a line for nothing (D1, not felt); THE KILL CAMS 564 s and THE BOSS
+ARRIVES 403 s alone (split them). LOAD (green alone): RUN FOUR 4, COMBAT 7 4, UI 4, RUN THREE 2, PORTRAIT 2, WORDS THREE 2, UI FIVE 2, BOSSES 1.
+NEXT: UI FIVE's THE ALPHA SAYS CONTINUE, HIS FINGER ON THE DOOR, THE UI HOLDS ITS FRAMES, THE CLOCK UP TOP; WORLD 14 11; CHARACTER 5; PEOPLE
+22; ANIMATION 18; UI 21; RUN 7; AUTO AT 4X's A6. Never send_later or anything that waits on a tap.
+
+FIXES FIVE (session_01GKDyuwkkCUgRe2NpmrgqwP): 11/28 (a) -- [the new reds] IN FLIGHT, about 17 of the 95 walked (FIXES 4's
 handoff; rule 495). Record: records/BOHEMIA_FIXES_FIVE_THE_REST_OF_THE_NEW_REDS_11_27_26.md. No build: four checks that cried wolf now tell
 the truth (gates and one tool; nothing he sees changed, so no stamp and no cut). THE LIST REBUILT: the 95 names were never committed, but the
 suite names a gate's owner by its description's first words, so the list is every gate off the quarantine whose description starts with an

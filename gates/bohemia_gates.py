@@ -10247,6 +10247,21 @@ GATES = [
      "real taps: L1 the tables held, LEAVE reads not ready and a tap sends nothing home; L2 the tables in, LEAVE lights, a tap goes home once "
      "with the counts paid first; L3 the loot table refused, LEAVE still goes home; P1 PLANTED the wait taken out (the early tap goes home, "
      "seen). About 40 s", True),
+    # FIXES 5 11/28: FIXES 4's three gates of 11/27 were written and run but never put in this table, so the suite never ran them
+    # (a gate the suite does not run is not enforced); registered here beside their sibling.
+    ('LEAVE LIGHTS ON THE GLASS', ['node', 'gates/leave_lights_on_the_glass_gate.js'],
+     "FIXES 4 gate, 11/27, ask row 747 (FOUND BY JOBS 2), rules 480(b), 441: after a fight LEAVE and MAKE CAMP light the moment the end "
+     "screen stands on the glass (6 of 8 first taps used to press the phone's fight button under that spot while the screen grew out of "
+     "the phone's corner). L1 the page, L2 the demo upright (two road fights on AUTO, a real tap at LEAVE the first lit frame goes home), "
+     "a faint tap kept for the light; PLANTED the old way. records/BOHEMIA_FIXES_FOUR_LEAVE_LIGHTS_ON_THE_GLASS_11_27_26.md. About 5 min", True),
+    ('A BEAST BITES LIKE A BEAST', ['node', 'gates/a_beast_bites_like_a_beast_gate.js'],
+     "FIXES 4 gate, 11/27, ask row 749 (FOUND BY BESTIARY 2), rule 482 ('each moves and sounds like the animal it is'): a beast's natural "
+     "blow is heard as its own bite, maul or tusk, never the pipe-on-bone punch; the demo heard. "
+     "records/BOHEMIA_FIXES_FOUR_A_BEAST_BITES_LIKE_A_BEAST_11_27_26.md. About 70 s", True),
+    ('NO LINE UNDER ANOTHER', ['node', 'gates/no_line_under_another_gate.js'],
+     "FIXES 4 gate, 11/27, ask row 777 (FOUND BY EYES): after a buy at a stall the said line is whole, no line squeezed or drawn over "
+     "another, the strip's box the same height before and after (nothing under his finger moves), upright and on its side; PLANTED. "
+     "records/BOHEMIA_FIXES_FOUR_NO_LINE_UNDER_ANOTHER_11_27_26.md. About 1 min", True),
     ('THE CARD THAT OPENS A FIGHT', ['node', 'gates/the_card_that_opens_a_fight_gate.js'],
      "FIGHT SCREEN TWO gate, 11/14, VAMILY rule 450(a) (ask row 621; PAOLO 11/14, twice: 'The card bro, the combat card is UGLY AS SHIT, TRY "
      "TO MAKE SOME AWESOME BIG BRAIN FINAL SHIT'). The card where he chooses ENGAGE or FALL BACK shows their leader's face, the one WHY "

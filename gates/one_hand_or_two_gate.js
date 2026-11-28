@@ -61,7 +61,8 @@ const STRIP = () => {
       const om = st.querySelector('.onman.ss-man'), sp = st.querySelector('.onman.ss-man .lns .stop');
       if (om && sp && sp.offsetHeight) { const o = om.getBoundingClientRect(), q = sp.getBoundingClientRect(), L = sp.parentElement.getBoundingClientRect(); if (q.bottom > Math.min(o.bottom, L.bottom) + 0.5) out.push('the line "' + sp.textContent.slice(0, 30) + '" cut'); }
       return out; })(),
-    before: !!(a && b) && (a.r <= b.l + 0.5 || a.b <= b.t + 0.5), nameWhole: !!(b && f) && b.w > 8 && b.l >= f.l - 0.5 && b.r <= f.r + 0.5 && b.t >= f.t - 0.5 && b.b <= f.b + 0.5 && nm.scrollWidth <= nm.clientWidth + 1 };
+    before: !!(a && b) && (a.r <= b.l + 0.5 || a.b <= b.t + 0.5), nameWhole: !!(b && f) && b.w > 8 && b.l >= f.l - 0.5 && b.r <= f.r + 0.5 && b.t >= f.t - 0.5 && b.b <= f.b + 0.5 && nm.scrollWidth <= nm.clientWidth + 1
+      && b.b - R(nm.parentElement).b < 0.25 * parseFloat(getComputedStyle(nm).fontSize) };   /* FIXES 5 11/28: and inside its own row, less than a quarter of a letter below it (its line's own padding is 2 px): a name let wrap read 'whole' here while its row clipped the second line, 14 px, under the numbers */
 };
 const still = async (P, h) => { let q = await h.boundingBox(), same = 0; for (let i = 0; i < 40 && same < 5; i++) { await P.waitForTimeout(60); const r = await h.boundingBox(); same = r && q && Math.abs(r.x - q.x) < 0.5 && Math.abs(r.y - q.y) < 0.5 ? same + 1 : 0; q = r; } return q; };
 const tapEl = async (P, h) => { if (!h) return false; const q = await still(P, h); if (!q) return false; await P.touchscreen.tap(q.x + q.width / 2, q.y + q.height / 2); return true; };

@@ -63,3 +63,33 @@ THE WOUND, EVERY FACE BREATHES), WORDS THREE 3, RUN FOUR 4, MOTION 3 3, COMBAT 7
 
 Nothing new on the screen this round: four checks that cried wolf now tell the truth, and the door that keeps a hurried thumb off the map
 is measured where it holds. TAB: none (the checks are the studio's).
+
+## 6. THE SECOND STRETCH (11/28, BUILD 11/28j - A NAME IS NEVER CUT)
+
+| gate | owner | verdict | the cause, and where it lives | after |
+|---|---|---|---|---|
+| ONE HAND OR TWO | UI FIVE | REAL (felt, small) | on its side the shop strip is a 172 px column whose box keeps its height for every piece (UI FIVE: 'nothing moves from one piece to the next'), so a name has one line, cut with an ellipsis: 'Beat-up guard carbine' (ARMORY 3's) is 175 px. Measured over every name the shop can sell, in its font: 40 of 221 were wider than the line (armour and weapons; 'Bundle of Heavy Throwing Axes' 241 px). The cause lives where the strip writes the name (slices/BOHEMIA_SETTLEMENT_SCREEN.html shopStripFill). FIRST TRY WRONG, SEEN ON THE GLASS: a name let wrap took a second line its fixed row clipped under the numbers ('Beat-up guard' and two dots), and the gate's 'name whole' passed it (it asked only that the name sit in the facts box). | shopNameFits: a name wider than its line closes its letters up, then steps down a pixel at a time to the 11 px floor; 38 of the 40 now fit (the carbine at 164 px, 13 px type). The two longest ('duct-taped carpet padded vest', 'Bundle of Heavy Throwing Axes', 192 px at the floor) still need a second line the box has not got: UI FIVE's box or WORDS' name. The gate's H2 now also asks the name to sit inside its own row (less than a quarter of a letter below it; the row's own padding is 2 px, the clipped line was 14). 25/0 demo and alpha, upright and on its side; THE WAGON AND THE SIX 10/0 and NO LINE UNDER ANOTHER 3/0 (the stall strip unmoved) |
+| THE VOICE HOLDS | WORDS THREE | STALE FIXTURE | its plant ONE GOOD REWRITE opens the job board's mouth on a copy and adds one marked line; since JOBS 2's 11/27zzd (THE CARAVAN GOES TOWN TO TOWN) that mouth carries six new lines, legal while it is closed (H1 counts them), unmarked, one with Spanish ('nunca antes'), so opened they rightly fail H2 and H5 and the plant stopped asking its own question | the plant's copy is the mouth as frozen plus the one marked line. 11/0. For WORDS THREE: the day he opens the job board's mouth, those six are a rewriter's to mark, and the Spanish one is H5's |
+| THE FIGHT'S WEIGHT, THE UI MORPHS EVERYWHERE | MOTION 3 | FRAMES (handed) | red alone on a quiet box: a blow's frame 320 to 420 ms with the CPU slowed 4x (W1 to W3), LEAVE's fold one drawn frame, E6 under 40 fps. MOTION 3 measured a blow's beat at one or two frames (about 140 ms) on 11/10. The idle fight at 4x: median 44 ms a frame, 80 percent of the time the browser's own painting ('(program)'), the script on top small (the phone strip's layout reads, bohemia_phone.js fitStrip and offsetIn, about 6 percent). On this box (no graphics chip) the fight's frame is heavier than when these were written | NOT CHANGED: the fight page is three lanes' this round (COMBAT SIX, FIGHT SCREEN 4, CHARACTER 4); the frame budget is PLUMBER 8's |
+| EVERY BOSS HOLDS ITS FRAMES | BOSSES | REAL (data, not felt) | D1: BOSSES' 11/27zu lairs (bosses 10 to 18) carry a card line ('{WORD}: +{haul} BATTERIES') and no line for nothing to count; the game hides the line when the hoard pays 0 (only on a purse error), so nothing wrong shows | handed to BOSSES (live; their own new data's words) |
+| THE KILL CAMS | COMBAT 7 | TIMEOUT (slow) | 9/0 alone in 564 s of the 600 s cap | wants splitting (COMBAT's) |
+| THE BOSS ARRIVES | BOSSES | TIMEOUT (slow) | 27/0 alone in 403 s | wants splitting (BOSSES') |
+| EVERY LEVEL WAITS, SCRAP IS TAPE, OPTIMIZE LOOT, MAKE CAMP FROM THE FIGHT | RUN FOUR | LOAD | | 12/0, 11/0, 22/0, 11/0 alone |
+| RETREAT IS A RUN FOR THE EDGE, THE ENEMY WANTS TO LIVE, THE DECOY, HEAVY ARMOUR COSTS A TILE | COMBAT 7 | LOAD | | 5/0, 4/0, 6/0, 8/0 alone |
+| THE CARD WAITS ITS TURN | BOSSES | LOAD | | 10/0 alone |
+| THE PERKS FIT, EACH SLOT ITS OWN PICTURE | UI FIVE | LOAD | | 10/0, 29/0 alone |
+| NOTHING POPS, VOICES CLEAR, TOOLTIPS | UI 4 | LOAD | | 38/0 alone |
+| THE GAME STARTS IN A TOWN, YOUR CREW LIVES IN THE TOWN | RUN THREE | LOAD | | 15/0, 10/0 alone |
+| THE FACE SHOWS THE WOUND, EVERY FACE BREATHES | PORTRAIT | LOAD | | 32/0, 15/0 alone |
+| HIS ANSWER IS KEPT, THE VOTE TAB IS NEVER CHOPPY | WORDS THREE | LOAD | | 15/0, 7/0 |
+| THE CAMP LETS GO WHEN HE LEAVES | MOTION 3 | LOAD | | 7/0 alone |
+
+THIS LANE'S OWN ORPHANS: FIXES 4's three gates of 11/27 (LEAVE LIGHTS ON THE GLASS, A BEAST BITES LIKE A BEAST, NO LINE UNDER ANOTHER)
+were run by hand and never put in the suite's table, so nothing ran them after. Registered (3/0, 8/0, 3/0 alone).
+
+STILL TO WALK: UI FIVE's three (THE ALPHA SAYS CONTINUE, HIS FINGER ON THE DOOR, THE UI HOLDS ITS FRAMES, THE CLOCK UP TOP), the later
+BOSSES three (4 TO 6, 7 TO 9, THE HARD PLACES: newer than CAMP FOUR's run), WORLD 14 11, CHARACTER 5, PEOPLE 22, ANIMATION 18, UI 21, RUN 7;
+AUTO AT 4X's A6 under the full cap.
+
+WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): at a smith or an armourer with the phone on its side, a long name
+('Beat-up guard carbine') reads whole in the strip beside the shelf, its letters a little closer, nothing else moved.
