@@ -189,6 +189,11 @@ struck, THE RED DEBT 391 NAMED, 307 LEFT; EVERY ZONE ITS GROUND 14/0; A PLAIN CE
 9/0; MAKE CAMP FROM THE FIGHT 11/0; THE CAMP LOADS IN ONE GO 6/0 (main 5/1); HIT THE ROAD 13/0; THE HEAL BUTTON 16/0 (14/2 once, H5's
 tape read on a busy box); THE BARS OVER THEIR HEADS 12/0; A TOWN IS SAFE 12/0; THE CAMP READS AT A GLANCE 15/0; THE CAMP COMES ALIVE 7/0;
 THE CAMP IS THE FIGHT'S BOARD 34/2 (main 34/2 and 31/5 the same hour: Cn5 and F1, MOTION 3's line); THE PATCH LAYERS ONLY GO DOWN 10/0.
+AFTER THE REBASES onto 688334b4e and 961b7e09d (STAFF 3's 11/27zze, COOK SEVEN's zzf and WORLD 17's zzg took the letters while it shipped; this is zzh): THE CAMP IS PITCHED ON THE BOARD
+8/0 upright again, THE STAFF PUSH A CART 21/0, THE VOTE TAB GATE 66/0, HANDOFF 10/0, THE RED DEBT ONLY SHRINKS 4/0. THE PATCH LAYERS ONLY
+GO DOWN is 9/1 ON PLAIN MAIN 688334b4e, not from this lane: R5 pasted copies 42 against its ratchet 41, the new one in STAFF 3's new
+slices/bohemia_crew_camp.js (a helper another file already carries; the gate names it); this lane's own counts went down (CITY_WORLD
+hook lines 1791 -> 1788 on the newest main). VOTE camp4-the-camp-on-the-place-11-27 names 901d8a9ac.
 
 [bb Battle Brothers: the company sits round the fire between contracts; the men are the life of the screen, and the day's clock is at
 the top, always.]
