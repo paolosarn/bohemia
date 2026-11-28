@@ -1,0 +1,498 @@
+{
+ "look": "PERSON_CHAMPION_HEAVY_0",
+ "shape": "person_champion_heavy_0: the heavies' champion: in black leather under the band's exo frame and crash bar, rust plate over it, a welder's mask down over his face, his own skin skin_deep 3, CHARCOAL TURTLENECK under BLACK SMITH'S APRON",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "CHARCOAL TURTLENECK",
+  "outer": "BLACK SMITH'S APRON",
+  "legs": "SOOT CARGOS",
+  "feet": "TALL MOTO BOOTS",
+  "gear": "SCRAP CHEST PLATE",
+  "hands": "OXBLOOD GLOVES"
+ },
+ "dials": {
+  "height": 0.7,
+  "belly": 0.9,
+  "shoulders": 1.0,
+  "hips": 0.35
+ },
+ "model": "records/character/rig/person_champion_heavy_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7802,
+ "real_height_for_rig": 1.7865,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_champion_heavy_0_shoe": 4484,
+  "person_champion_heavy_0_shirt": 79720,
+  "person_champion_heavy_0_cuffs": 2048,
+  "person_champion_heavy_0_hem": 1792,
+  "person_champion_heavy_0_apron": 3146,
+  "person_champion_heavy_0_apron_ties": 1792,
+  "person_champion_heavy_0_apron_strap": 1536,
+  "person_champion_heavy_0_rivets": 136,
+  "person_champion_heavy_0_exo_thigh_L": 24,
+  "person_champion_heavy_0_exo_shin_L": 24,
+  "person_champion_heavy_0_exo_piston_L": 36,
+  "person_champion_heavy_0_exo_hip_disc_L": 32,
+  "person_champion_heavy_0_exo_hip_bolt_L": 20,
+  "person_champion_heavy_0_exo_knee_disc_L": 32,
+  "person_champion_heavy_0_exo_knee_bolt_L": 20,
+  "person_champion_heavy_0_exo_stirrup_L": 26,
+  "person_champion_heavy_0_exo_strap_L_45": 1024,
+  "person_champion_heavy_0_exo_strap_L_20": 1024,
+  "person_champion_heavy_0_exo_thigh_R": 24,
+  "person_champion_heavy_0_exo_shin_R": 24,
+  "person_champion_heavy_0_exo_piston_R": 36,
+  "person_champion_heavy_0_exo_hip_disc_R": 32,
+  "person_champion_heavy_0_exo_hip_bolt_R": 20,
+  "person_champion_heavy_0_exo_knee_disc_R": 32,
+  "person_champion_heavy_0_exo_knee_bolt_R": 20,
+  "person_champion_heavy_0_exo_stirrup_R": 26,
+  "person_champion_heavy_0_exo_strap_R_45": 1024,
+  "person_champion_heavy_0_exo_strap_R_20": 1024,
+  "person_champion_heavy_0_exo_spine": 82,
+  "person_champion_heavy_0_exo_hip_ring": 1792,
+  "person_champion_heavy_0_exo_yoke_1": 206,
+  "person_champion_heavy_0_exo_motor_1": 32,
+  "person_champion_heavy_0_exo_motor_cap_1": 24,
+  "person_champion_heavy_0_exo_hip_pivot_1": 28,
+  "person_champion_heavy_0_exo_yoke_0": 206,
+  "person_champion_heavy_0_exo_motor_0": 32,
+  "person_champion_heavy_0_exo_motor_cap_0": 24,
+  "person_champion_heavy_0_exo_hip_pivot_0": 28,
+  "person_champion_heavy_0_exo_chest_strap": 1792,
+  "person_champion_heavy_0_exo_battery": 26,
+  "person_champion_heavy_0_exo_term_0": 20,
+  "person_champion_heavy_0_exo_term_1": 20,
+  "person_champion_heavy_0_exo_battery_strap": 8,
+  "person_champion_heavy_0_exo_upper_1": 24,
+  "person_champion_heavy_0_exo_fore_1": 24,
+  "person_champion_heavy_0_exo_elbow_1": 28,
+  "person_champion_heavy_0_exo_upper_0": 24,
+  "person_champion_heavy_0_exo_fore_0": 24,
+  "person_champion_heavy_0_exo_elbow_0": 28,
+  "person_champion_heavy_0_crashbar_frame": 1402,
+  "person_champion_heavy_0_crashbar_panel": 8,
+  "person_champion_heavy_0_crashbar_plate": 8,
+  "person_champion_heavy_0_crashbar_strap_25": 768,
+  "person_champion_heavy_0_crashbar_strap_75": 768,
+  "person_champion_heavy_0_trouser": 43706,
+  "person_champion_heavy_0_rolled_hem": 2048,
+  "person_champion_heavy_0_cargo_pockets": 252,
+  "person_champion_heavy_0_cargo_flaps": 108,
+  "person_champion_heavy_0_sole_1": 242,
+  "person_champion_heavy_0_midsole_1": 242,
+  "person_champion_heavy_0_sole_0": 242,
+  "person_champion_heavy_0_midsole_0": 242,
+  "person_champion_heavy_0_boot_collar": 2048,
+  "person_champion_heavy_0_boot_collar_line": 2048,
+  "person_champion_heavy_0_boot_strap": 2048,
+  "person_champion_heavy_0_scrap_chest_plate": 5034,
+  "person_champion_heavy_0_scrap_chest_plate_x": 196,
+  "person_champion_heavy_0_oxblood_gloves_L": 392,
+  "person_champion_heavy_0_oxblood_gloves_R": 392,
+  "person_champion_heavy_0_oxblood_gloves_cuff": 2048,
+  "person_champion_heavy_0_hair": 17968,
+  "person_champion_heavy_0_hand_L": 392,
+  "person_champion_heavy_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_champion_heavy_0_apron": [
+   0.0222,
+   0.0176,
+   0.0152
+  ],
+  "person_champion_heavy_0_apron_strap": [
+   0.0086,
+   0.007,
+   0.007
+  ],
+  "person_champion_heavy_0_apron_ties": [
+   0.0086,
+   0.007,
+   0.007
+  ],
+  "person_champion_heavy_0_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_champion_heavy_0_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_heavy_0_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_heavy_0_cargo_flaps": [
+   0.0152,
+   0.013,
+   0.0152
+  ],
+  "person_champion_heavy_0_cargo_pockets": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_champion_heavy_0_crashbar_frame": [
+   0.162,
+   0.15,
+   0.1274
+  ],
+  "person_champion_heavy_0_crashbar_panel": [
+   0.0513,
+   0.0482,
+   0.0423
+  ],
+  "person_champion_heavy_0_crashbar_plate": [
+   0.402,
+   0.3712,
+   0.2384
+  ],
+  "person_champion_heavy_0_crashbar_plate_ink": [
+   0.0343,
+   0.0545,
+   0.107
+  ],
+  "person_champion_heavy_0_crashbar_rust": [
+   0.1384,
+   0.0612,
+   0.0273
+  ],
+  "person_champion_heavy_0_crashbar_strap_25": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_champion_heavy_0_crashbar_strap_75": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_champion_heavy_0_cuffs": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_champion_heavy_0_exo_battery": [
+   0.0252,
+   0.0252,
+   0.0273
+  ],
+  "person_champion_heavy_0_exo_battery_strap": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_champion_heavy_0_exo_chest_strap": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_champion_heavy_0_exo_elbow_0": [
+   0.0513,
+   0.0482,
+   0.0423
+  ],
+  "person_champion_heavy_0_exo_elbow_1": [
+   0.0513,
+   0.0482,
+   0.0423
+  ],
+  "person_champion_heavy_0_exo_fore_0": [
+   0.162,
+   0.15,
+   0.1274
+  ],
+  "person_champion_heavy_0_exo_fore_1": [
+   0.162,
+   0.15,
+   0.1274
+  ],
+  "person_champion_heavy_0_exo_hip_bolt_L": [
+   0.1384,
+   0.0612,
+   0.0273
+  ],
+  "person_champion_heavy_0_exo_hip_bolt_R": [
+   0.1384,
+   0.0612,
+   0.0273
+  ],
+  "person_champion_heavy_0_exo_hip_disc_L": [
+   0.0513,
+   0.0482,
+   0.0423
+  ],
+  "person_champion_heavy_0_exo_hip_disc_R": [
+   0.0513,
+   0.0482,
+   0.0423
+  ],
+  "person_champion_heavy_0_exo_hip_pivot_0": [
+   0.0513,
+   0.0482,
+   0.0423
+  ],
+  "person_champion_heavy_0_exo_hip_pivot_1": [
+   0.0513,
+   0.0482,
+   0.0423
+  ],
+  "person_champion_heavy_0_exo_hip_ring": [
+   0.0513,
+   0.0482,
+   0.0423
+  ],
+  "person_champion_heavy_0_exo_knee_bolt_L": [
+   0.1384,
+   0.0612,
+   0.0273
+  ],
+  "person_champion_heavy_0_exo_knee_bolt_R": [
+   0.1384,
+   0.0612,
+   0.0273
+  ],
+  "person_champion_heavy_0_exo_knee_disc_L": [
+   0.0513,
+   0.0482,
+   0.0423
+  ],
+  "person_champion_heavy_0_exo_knee_disc_R": [
+   0.0513,
+   0.0482,
+   0.0423
+  ],
+  "person_champion_heavy_0_exo_motor_0": [
+   0.0513,
+   0.0482,
+   0.0423
+  ],
+  "person_champion_heavy_0_exo_motor_1": [
+   0.0513,
+   0.0482,
+   0.0423
+  ],
+  "person_champion_heavy_0_exo_motor_cap_0": [
+   0.1384,
+   0.0612,
+   0.0273
+  ],
+  "person_champion_heavy_0_exo_motor_cap_1": [
+   0.1384,
+   0.0612,
+   0.0273
+  ],
+  "person_champion_heavy_0_exo_piston_L": [
+   0.0513,
+   0.0482,
+   0.0423
+  ],
+  "person_champion_heavy_0_exo_piston_R": [
+   0.0513,
+   0.0482,
+   0.0423
+  ],
+  "person_champion_heavy_0_exo_shin_L": [
+   0.162,
+   0.15,
+   0.1274
+  ],
+  "person_champion_heavy_0_exo_shin_R": [
+   0.162,
+   0.15,
+   0.1274
+  ],
+  "person_champion_heavy_0_exo_spine": [
+   0.162,
+   0.15,
+   0.1274
+  ],
+  "person_champion_heavy_0_exo_stirrup_L": [
+   0.0513,
+   0.0482,
+   0.0423
+  ],
+  "person_champion_heavy_0_exo_stirrup_R": [
+   0.0513,
+   0.0482,
+   0.0423
+  ],
+  "person_champion_heavy_0_exo_strap_L_20": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_champion_heavy_0_exo_strap_L_45": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_champion_heavy_0_exo_strap_R_20": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_champion_heavy_0_exo_strap_R_45": [
+   0.2307,
+   0.107,
+   0.0395
+  ],
+  "person_champion_heavy_0_exo_term_0": [
+   0.305,
+   0.0273,
+   0.0194
+  ],
+  "person_champion_heavy_0_exo_term_1": [
+   0.013,
+   0.013,
+   0.013
+  ],
+  "person_champion_heavy_0_exo_thigh_L": [
+   0.162,
+   0.15,
+   0.1274
+  ],
+  "person_champion_heavy_0_exo_thigh_R": [
+   0.162,
+   0.15,
+   0.1274
+  ],
+  "person_champion_heavy_0_exo_upper_0": [
+   0.162,
+   0.15,
+   0.1274
+  ],
+  "person_champion_heavy_0_exo_upper_1": [
+   0.162,
+   0.15,
+   0.1274
+  ],
+  "person_champion_heavy_0_exo_yoke_0": [
+   0.162,
+   0.15,
+   0.1274
+  ],
+  "person_champion_heavy_0_exo_yoke_1": [
+   0.162,
+   0.15,
+   0.1274
+  ],
+  "person_champion_heavy_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_champion_heavy_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_champion_heavy_0_hem": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_champion_heavy_0_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_heavy_0_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_heavy_0_oxblood_gloves": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_champion_heavy_0_oxblood_gloves_cuff": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_champion_heavy_0_rivets": [
+   0.0578,
+   0.0452,
+   0.0369
+  ],
+  "person_champion_heavy_0_rolled_hem": [
+   0.0823,
+   0.0762,
+   0.0823
+  ],
+  "person_champion_heavy_0_scrap_chest_plate": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_champion_heavy_0_scrap_chest_plate_collar": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_champion_heavy_0_scrap_chest_plate_rivets": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_champion_heavy_0_scrap_chest_plate_x": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_champion_heavy_0_shirt": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_champion_heavy_0_shoe": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_champion_heavy_0_shoes": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_champion_heavy_0_skin": [
+   0.3419,
+   0.1812,
+   0.0999
+  ],
+  "person_champion_heavy_0_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_champion_heavy_0_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_champion_heavy_0_trouser": [
+   0.0382,
+   0.0343,
+   0.0382
+  ],
+  "person_champion_heavy_0_trousers": [
+   0.0382,
+   0.0343,
+   0.0382
+  ]
+ }
+}

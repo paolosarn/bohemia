@@ -1,0 +1,273 @@
+[
+ {
+  "id": "champion_road_0",
+  "gang": "Road Champion",
+  "heritage": "black",
+  "tone": "ebony",
+  "skin": [
+   "skin_mid",
+   1
+  ],
+  "hair_cut": "RAZOR SKULL",
+  "hair": [
+   "tape_grey",
+   1
+  ],
+  "face": {
+   "face.len": 39,
+   "face.cheekW": 27,
+   "face.jawW": 23,
+   "face.chinW": 9,
+   "face.foreheadW": 23,
+   "nose.w": 2,
+   "face.craniumH": 12
+  },
+  "face_name": "LONG AND NARROW",
+  "legs": "LEATHER STACK PANT",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "SCRAP CHEST PLATE",
+   "LEATHER GLOVES",
+   "LEATHER BELT"
+  ],
+  "type": "Road Champion",
+  "top": "BONE HENLEY",
+  "coat": "BLACK LEATHER DUSTER",
+  "hat": "GAMBLER HAT ROAD",
+  "pieces": [],
+  "dials": {
+   "height": 0.1,
+   "belly": 0.05,
+   "shoulders": 0.7,
+   "hips": 0.05
+  }
+ },
+ {
+  "id": "champion_road_1",
+  "gang": "Road Champion",
+  "heritage": "hispanic",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "GREASE BACK",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 28,
+   "face.craniumH": 15,
+   "face.foreheadW": 29,
+   "face.cheekW": 33,
+   "face.jawW": 24,
+   "face.chinW": 7,
+   "eyes.gap": 8,
+   "face.eyeY": 2,
+   "nose.w": 2,
+   "mouth.w": 6,
+   "brows.len": 5
+  },
+  "face_name": "BABY FACE",
+  "legs": "DUST TROUSERS",
+  "feet": "LEATHER STACK BOOT",
+  "kit": [
+   "SPIKED PAULDRON",
+   "OXBLOOD GLOVES",
+   "LEATHER BELT"
+  ],
+  "type": "Road Champion",
+  "top": "RUST HENLEY",
+  "coat": "BLACK LEATHER DUSTER",
+  "hat": "GAMBLER HAT ROAD",
+  "eyewear": "FACE WRAPAROUND SHADES",
+  "pieces": [],
+  "dials": {
+   "height": -0.1,
+   "belly": 0.3,
+   "shoulders": 0.8,
+   "hips": 0.15
+  }
+ },
+ {
+  "id": "champion_kids_0",
+  "gang": "Kids Champion",
+  "heritage": "black",
+  "tone": "ebony",
+  "skin": [
+   "skin_mid",
+   1
+  ],
+  "hair_cut": "HALF SHAVE",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.craniumH": 7,
+   "face.browY": 2,
+   "face.len": 34,
+   "nose.w": 5,
+   "face.noseY": 1,
+   "mouth.w": 13,
+   "face.foreheadW": 26
+  },
+  "face_name": "FLAT AND LOW",
+  "legs": "DROP RISE TROUSER",
+  "feet": "STACKED SOLE BOOT",
+  "kit": [
+   "RUNNER SCARF",
+   "CHEST RIG",
+   "SOOT HAND WRAPS"
+  ],
+  "type": "Kids Champion",
+  "top": "HOOD-UP ASH HOODIE",
+  "coat": "BLACK COCOON COAT",
+  "eyewear": "FACE WRAPAROUND SHADES",
+  "pieces": [],
+  "dials": {
+   "height": -0.2,
+   "belly": -0.4,
+   "shoulders": -0.2,
+   "hips": 0.0
+  }
+ },
+ {
+  "id": "champion_kids_1",
+  "gang": "Kids Champion",
+  "heritage": "white",
+  "tone": "olive",
+  "skin": [
+   "skin_mid",
+   3
+  ],
+  "hair_cut": "SPRING CURLS",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "face.len": 29,
+   "face.craniumH": 7,
+   "face.cheekW": 37,
+   "face.jawW": 34,
+   "face.chinW": 20,
+   "mouth.w": 14,
+   "nose.w": 5,
+   "face.browY": 2
+  },
+  "face_name": "BULLDOG",
+  "facial_hair": "STUBBLE",
+  "stubble": true,
+  "legs": "GREY SWEATS",
+  "feet": "WHITE SNEAKERS",
+  "kit": [
+   "RUNNER SCARF",
+   "SHELL BANDOLIER",
+   "HAND WRAPS"
+  ],
+  "type": "Kids Champion",
+  "top": "BONE SHOULDER SHIRT",
+  "coat": "BLACK COCOON COAT",
+  "hat": "HAT CHARCOAL WATCH CAP",
+  "pieces": [],
+  "dials": {
+   "height": -0.3,
+   "belly": -0.35,
+   "shoulders": -0.25,
+   "hips": 0.05
+  }
+ },
+ {
+  "id": "champion_heavy_0",
+  "gang": "Heavy Champion",
+  "heritage": "hispanic",
+  "tone": "tan",
+  "skin": [
+   "skin_deep",
+   3
+  ],
+  "hair_cut": "DRY TAPER",
+  "hair": [
+   "tape_masking",
+   1
+  ],
+  "face": {
+   "face.craniumH": 7,
+   "face.browY": 2,
+   "face.len": 34,
+   "nose.w": 5,
+   "face.noseY": 1,
+   "mouth.w": 13,
+   "face.foreheadW": 26
+  },
+  "face_name": "FLAT AND LOW",
+  "legs": "SOOT CARGOS",
+  "feet": "TALL MOTO BOOTS",
+  "kit": [
+   "SCRAP CHEST PLATE",
+   "OXBLOOD GLOVES"
+  ],
+  "type": "Heavy Champion",
+  "top": "CHARCOAL TURTLENECK",
+  "coat": "BLACK SMITH'S APRON",
+  "hat": "WELDER DOWN",
+  "pieces": [
+   "exo",
+   "crashbar"
+  ],
+  "dials": {
+   "height": 0.7,
+   "belly": 0.9,
+   "shoulders": 1.0,
+   "hips": 0.35
+  }
+ },
+ {
+  "id": "champion_heavy_1",
+  "gang": "Heavy Champion",
+  "heritage": "white",
+  "tone": "fair",
+  "skin": [
+   "skin_deep",
+   4
+  ],
+  "hair_cut": "DRY TAPER",
+  "hair": [
+   "cloth_black",
+   0
+  ],
+  "face": {
+   "eyes.gap": 10,
+   "nose.w": 4,
+   "mouth.w": 12,
+   "face.cheekW": 34,
+   "face.len": 31
+  },
+  "face_name": "WIDE SET",
+  "facial_hair": "PENCIL MOUSTACHE",
+  "new_beard": "pencil",
+  "legs": "KHAKI CARGOS",
+  "feet": "CHARCOAL BOOTS",
+  "kit": [
+   "SPIKED PAULDRON",
+   "SOOT GLOVES"
+  ],
+  "type": "Heavy Champion",
+  "top": "OLIVE DRAB TEE",
+  "coat": "BLACK LEATHER VEST",
+  "hat": "WELDER DOWN",
+  "pieces": [
+   "exo",
+   "crashbar",
+   "powered_arm_right"
+  ],
+  "dials": {
+   "height": 0.55,
+   "belly": 1.0,
+   "shoulders": 1.0,
+   "hips": 0.4
+  }
+ }
+]

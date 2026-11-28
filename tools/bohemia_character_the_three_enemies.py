@@ -474,7 +474,8 @@ def body_pieces(names, X):
 
 
 # ---- THE WELDING MASK, PUSHED UP (a hat the barber's head build calls through HATS 1's door) --------------------------
-def welder(L):
+def welder(L, up=True):
+    """up (CHARACTER 4, 11/27): the Mechanic wears it turned up on its pivots; the heavies' champion wears it DOWN over his face"""
     bpy, bmesh = L['bpy'], L['bmesh']
     Vector, BVHTree = L['Vector'], L['BVHTree']
     C, sc, skull_bm, finish, mat = L['C'], L['sc'], L['skull_bm'], L['finish'], L['mat']
@@ -489,7 +490,14 @@ def welder(L):
     m_mask = mat('welder_shell', MASK, 0.55); m_lens = mat('welder_lens', LENS, 0.25); m_band = mat('welder_band', (30, 28, 26), 0.8)
     # the shell built DOWN over the face: a grid round the head from cheek to cheek and chin to brow, standing 4 cm off it,
     # the front pushed flat-ish and the chin forward the way a hood is cut
-    NA, NZ = 22, 12; A0, A1 = -1.18, 1.18; Z0, Z1 = -0.125, 0.080
+    # DOWN (CHARACTER 4, loop 2 on the heavies' champion, x3): the shell stopping 8 cm over the eyes left his dusted crown as a
+    # pale egg over a black band, a bandit's mask from the game's camera; a real helmet's shell runs up over the crown to the
+    # headgear, so worn down it rises over the crown and closes over the top in an ellipse. Pack 1 (the fight's cell holds 110 px
+    # over the foot): risen to a fixed 16 cm it stood 2 px past the cell's top in 17 of 200 frames, so it closes 1.5 cm over his
+    # own skull's top, read off the skull (a ray down), the way the gambler's crown is fitted
+    top = bvh.ray_cast(C + Vector((0, 0, 0.5)), Vector((0, 0, -1)), 1.0)[0]
+    TOPZ = ((top - C).z if top is not None else 0.13) + 0.015
+    NA, NZ = 22, (12 if up else 16); A0, A1 = -1.18, 1.18; Z0, Z1 = -0.125, (0.080 if up else TOPZ)
     pivot = C + Vector((0.0, 0.0, 0.050))
     bm = bmesh.new(); grid = []
     for j in range(NZ + 1):
@@ -498,13 +506,14 @@ def welder(L):
             az = A0 + (A1 - A0) * i / NA
             zz = max(-0.08, min(0.07, z))
             r = skull_r(az, zz) + 0.040 + 0.012 * math.cos(az) ** 2 + 0.018 * max(0.0, (-0.03 - z) / 0.095) * math.cos(az)
+            if z > 0.07: r *= max(0.12, math.sqrt(max(0.0, 1.0 - ((z - 0.07) / (Z1 - 0.07 + 0.005)) ** 2)))
             row.append(bm.verts.new(C + Vector((math.sin(az) * r, -math.cos(az) * r, z))))
         grid.append(row)
     for j in range(NZ):
         for i in range(NA):
             bm.faces.new((grid[j][i], grid[j][i + 1], grid[j + 1][i + 1], grid[j + 1][i]))
     # turn it up on the pivots: the chin swings forward and up over the brow, the lens to the sky
-    Rx = __import__('mathutils').Matrix.Rotation(math.radians(-95), 3, 'X')
+    Rx = __import__('mathutils').Matrix.Rotation(math.radians(-95 if up else 0), 3, 'X')
     for v in bm.verts: v.co = pivot + Rx @ (v.co - pivot)
     bmesh.ops.recalc_face_normals(bm, faces=bm.faces[:])
     made.append(finish(bm, 'welder_shell', m_mask, 0.006))
@@ -544,9 +553,9 @@ def install_hat():
     if getattr(HATS, '_three_enemies', False): return
     old = HATS.build
     def build(cut, L):
-        if cut == 'WELDER UP':
+        if cut in ('WELDER UP', 'WELDER DOWN'):
             # short hair under it: the scalp painted dark where the band sits
-            return welder(L)
+            return welder(L, up=(cut == 'WELDER UP'))
         return old(cut, L)
     HATS.build = build; HATS._three_enemies = True
 

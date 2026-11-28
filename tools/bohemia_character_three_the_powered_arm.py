@@ -147,11 +147,16 @@ def arm_pieces(X, spec, side=1):
 _ORIG = NE.body_pieces
 
 
+ARMS = {'powered_arm': 1, 'powered_arm_right': -1}   # CHARACTER 4, 11/27: the right forearm too (the heavies' champion carries his crash bar on the left)
+
+
 def body_pieces(names, X, spec):
     names = list(names or [])
-    mine = [n for n in names if n == 'powered_arm']
-    rest = [n for n in names if n != 'powered_arm']
-    return (_ORIG(rest, X, spec) if rest else []) + (arm_pieces(X, spec) if mine else [])
+    mine = [n for n in names if n in ARMS]
+    rest = [n for n in names if n not in ARMS]
+    out = _ORIG(rest, X, spec) if rest else []
+    for n in mine: out += arm_pieces(X, spec, side=ARMS[n])
+    return out
 
 
 NE.body_pieces = body_pieces

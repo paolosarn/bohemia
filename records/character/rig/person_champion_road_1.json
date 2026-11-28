@@ -1,0 +1,251 @@
+{
+ "look": "PERSON_CHAMPION_ROAD_1",
+ "shape": "person_champion_road_1: the road crew's champion: a black leather duster to the ankle, a black gambler's hat banded in the road crews' orange, plate a tier over his band, his own skin skin_mid 3, RUST HENLEY under BLACK LEATHER DUSTER",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "RUST HENLEY",
+  "outer": "BLACK LEATHER DUSTER",
+  "legs": "DUST TROUSERS",
+  "feet": "LEATHER STACK BOOT",
+  "gear": "SPIKED PAULDRON",
+  "hands": "OXBLOOD GLOVES",
+  "waist": "LEATHER BELT"
+ },
+ "dials": {
+  "height": -0.1,
+  "belly": 0.3,
+  "shoulders": 0.8,
+  "hips": 0.15
+ },
+ "model": "records/character/rig/person_champion_road_1.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7114,
+ "real_height_for_rig": 1.7174,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_champion_road_1_shoe": 3836,
+  "person_champion_road_1_shirt": 67428,
+  "person_champion_road_1_collar": 1536,
+  "person_champion_road_1_placket": 126,
+  "person_champion_road_1_buttons": 102,
+  "person_champion_road_1_cuffs": 2048,
+  "person_champion_road_1_hem": 1792,
+  "person_champion_road_1_coat": 73396,
+  "person_champion_road_1_coat_skirt": 8694,
+  "person_champion_road_1_collar.001": 1536,
+  "person_champion_road_1_lapels": 396,
+  "person_champion_road_1_pockets": 252,
+  "person_champion_road_1_pocket_flaps": 252,
+  "person_champion_road_1_trouser": 43706,
+  "person_champion_road_1_rolled_hem": 2048,
+  "person_champion_road_1_crease": 180,
+  "person_champion_road_1_sole_1": 242,
+  "person_champion_road_1_midsole_1": 242,
+  "person_champion_road_1_sole_0": 242,
+  "person_champion_road_1_midsole_0": 242,
+  "person_champion_road_1_boot_collar": 2048,
+  "person_champion_road_1_boot_collar_line": 2048,
+  "person_champion_road_1_spiked_pauldron": 8922,
+  "person_champion_road_1_spiked_pauldron_strap": 1792,
+  "person_champion_road_1_spiked_pauldron_spike_0": 16,
+  "person_champion_road_1_spiked_pauldron_spike_1": 16,
+  "person_champion_road_1_spiked_pauldron_spike_2": 16,
+  "person_champion_road_1_oxblood_gloves_L": 392,
+  "person_champion_road_1_oxblood_gloves_R": 392,
+  "person_champion_road_1_oxblood_gloves_cuff": 2048,
+  "person_champion_road_1_leather_belt": 1792,
+  "person_champion_road_1_leather_belt_buckle": 34,
+  "person_champion_road_1_hair": 17968,
+  "person_champion_road_1_hand_L": 392,
+  "person_champion_road_1_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_champion_road_1_boot_collar": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_champion_road_1_boot_collar_line": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_champion_road_1_buttons": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_champion_road_1_coat": [
+   0.0222,
+   0.0176,
+   0.0152
+  ],
+  "person_champion_road_1_coat_skirt": [
+   0.0222,
+   0.0176,
+   0.0152
+  ],
+  "person_champion_road_1_collar": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_champion_road_1_crease": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_champion_road_1_cuffs": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_champion_road_1_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_champion_road_1_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_champion_road_1_hem": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_champion_road_1_lapels": [
+   0.0086,
+   0.007,
+   0.007
+  ],
+  "person_champion_road_1_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_road_1_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_champion_road_1_midsole_0": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_champion_road_1_midsole_1": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_champion_road_1_oxblood_gloves": [
+   0.1441,
+   0.0252,
+   0.0176
+  ],
+  "person_champion_road_1_oxblood_gloves_cuff": [
+   0.0482,
+   0.0103,
+   0.0086
+  ],
+  "person_champion_road_1_placket": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_champion_road_1_pocket_flaps": [
+   0.0086,
+   0.007,
+   0.007
+  ],
+  "person_champion_road_1_pockets": [
+   0.0222,
+   0.0176,
+   0.0152
+  ],
+  "person_champion_road_1_rolled_hem": [
+   0.4072,
+   0.2831,
+   0.1221
+  ],
+  "person_champion_road_1_shirt": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_champion_road_1_shoe": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_road_1_shoes": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_road_1_skin": [
+   0.6105,
+   0.3515,
+   0.1714
+  ],
+  "person_champion_road_1_sole_0": [
+   0.0452,
+   0.0232,
+   0.0116
+  ],
+  "person_champion_road_1_sole_1": [
+   0.0452,
+   0.0232,
+   0.0116
+  ],
+  "person_champion_road_1_spiked_pauldron": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_champion_road_1_spiked_pauldron_rim": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_champion_road_1_spiked_pauldron_spike_0": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_champion_road_1_spiked_pauldron_spike_1": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_champion_road_1_spiked_pauldron_spike_2": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_champion_road_1_spiked_pauldron_strap": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_champion_road_1_trouser": [
+   0.2423,
+   0.1529,
+   0.0561
+  ],
+  "person_champion_road_1_trousers": [
+   0.2423,
+   0.1529,
+   0.0561
+  ]
+ }
+}

@@ -1,0 +1,237 @@
+{
+ "look": "PERSON_CHAMPION_ROAD_0",
+ "shape": "person_champion_road_0: the road crew's champion: a black leather duster to the ankle, a black gambler's hat banded in the road crews' orange, plate a tier over his band, his own skin skin_mid 1, BONE HENLEY under BLACK LEATHER DUSTER",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE HENLEY",
+  "outer": "BLACK LEATHER DUSTER",
+  "legs": "LEATHER STACK PANT",
+  "feet": "TALL MOTO BOOTS",
+  "gear": "SCRAP CHEST PLATE",
+  "hands": "LEATHER GLOVES",
+  "waist": "LEATHER BELT"
+ },
+ "dials": {
+  "height": 0.1,
+  "belly": 0.05,
+  "shoulders": 0.7,
+  "hips": 0.05
+ },
+ "model": "records/character/rig/person_champion_road_0.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.7286,
+ "real_height_for_rig": 1.7347,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_champion_road_0_shoe": 4484,
+  "person_champion_road_0_shirt": 67432,
+  "person_champion_road_0_collar": 1536,
+  "person_champion_road_0_placket": 126,
+  "person_champion_road_0_buttons": 102,
+  "person_champion_road_0_cuffs": 2048,
+  "person_champion_road_0_hem": 1792,
+  "person_champion_road_0_coat": 73356,
+  "person_champion_road_0_coat_skirt": 8694,
+  "person_champion_road_0_collar.001": 1536,
+  "person_champion_road_0_lapels": 396,
+  "person_champion_road_0_pockets": 252,
+  "person_champion_road_0_pocket_flaps": 252,
+  "person_champion_road_0_trouser": 43706,
+  "person_champion_road_0_sole_1": 242,
+  "person_champion_road_0_midsole_1": 242,
+  "person_champion_road_0_sole_0": 242,
+  "person_champion_road_0_midsole_0": 242,
+  "person_champion_road_0_boot_collar": 2048,
+  "person_champion_road_0_boot_collar_line": 2048,
+  "person_champion_road_0_boot_strap": 2048,
+  "person_champion_road_0_scrap_chest_plate": 6350,
+  "person_champion_road_0_scrap_chest_plate_x": 196,
+  "person_champion_road_0_leather_gloves_L": 392,
+  "person_champion_road_0_leather_gloves_R": 392,
+  "person_champion_road_0_leather_gloves_cuff": 2048,
+  "person_champion_road_0_leather_belt": 1792,
+  "person_champion_road_0_leather_belt_buckle": 34,
+  "person_champion_road_0_hair": 17968,
+  "person_champion_road_0_hand_L": 392,
+  "person_champion_road_0_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_champion_road_0_boot_collar": [
+   0.0685,
+   0.0685,
+   0.0844
+  ],
+  "person_champion_road_0_boot_collar_line": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_road_0_boot_strap": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_road_0_buttons": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_champion_road_0_coat": [
+   0.0222,
+   0.0176,
+   0.0152
+  ],
+  "person_champion_road_0_coat_skirt": [
+   0.0222,
+   0.0176,
+   0.0152
+  ],
+  "person_champion_road_0_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_champion_road_0_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_champion_road_0_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_champion_road_0_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_champion_road_0_hem": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_champion_road_0_lapels": [
+   0.0086,
+   0.007,
+   0.007
+  ],
+  "person_champion_road_0_leather_belt": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_road_0_leather_belt_buckle": [
+   0.2423,
+   0.1022,
+   0.0331
+  ],
+  "person_champion_road_0_leather_gloves": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_road_0_leather_gloves_cuff": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_champion_road_0_midsole_0": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_road_0_midsole_1": [
+   0.0116,
+   0.0116,
+   0.0137
+  ],
+  "person_champion_road_0_placket": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_champion_road_0_pocket_flaps": [
+   0.0086,
+   0.007,
+   0.007
+  ],
+  "person_champion_road_0_pockets": [
+   0.0222,
+   0.0176,
+   0.0152
+  ],
+  "person_champion_road_0_scrap_chest_plate": [
+   0.2122,
+   0.0595,
+   0.0185
+  ],
+  "person_champion_road_0_scrap_chest_plate_collar": [
+   0.3231,
+   0.1248,
+   0.0513
+  ],
+  "person_champion_road_0_scrap_chest_plate_rivets": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_champion_road_0_scrap_chest_plate_x": [
+   0.0865,
+   0.0252,
+   0.0091
+  ],
+  "person_champion_road_0_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_champion_road_0_shoe": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_champion_road_0_shoes": [
+   0.0296,
+   0.0296,
+   0.0356
+  ],
+  "person_champion_road_0_skin": [
+   0.1384,
+   0.0467,
+   0.0252
+  ],
+  "person_champion_road_0_sole_0": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_champion_road_0_sole_1": [
+   0.0116,
+   0.0116,
+   0.013
+  ],
+  "person_champion_road_0_trouser": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_road_0_trouser_folds": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_champion_road_0_trousers": [
+   0.1301,
+   0.0513,
+   0.016
+  ]
+ }
+}

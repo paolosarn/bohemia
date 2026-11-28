@@ -4146,6 +4146,102 @@
    "guns": "you_guns.webp",
    "gang": "town",
    "rig": "records/target/combat/rig/person_town_18/rig.json"
+  },
+  "enemy_champion_road_0": {
+   "file": "enemy_champion_road_0.webp",
+   "w": 143,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.768,
+   "kind": "enemy",
+   "ref": "faction_cartel",
+   "guns": "faction_cartel_guns.webp",
+   "type": "champion_road",
+   "set": "champions",
+   "rig": "records/target/combat/rig/enemy_champion_road_0/rig.json"
+  },
+  "enemy_champion_road_1": {
+   "file": "enemy_champion_road_1.webp",
+   "w": 143,
+   "h": 161,
+   "foot": [
+    66,
+    110
+   ],
+   "height_m": 1.787,
+   "kind": "enemy",
+   "ref": "faction_cartel",
+   "guns": "faction_cartel_guns.webp",
+   "type": "champion_road",
+   "set": "champions",
+   "rig": "records/target/combat/rig/enemy_champion_road_1/rig.json"
+  },
+  "enemy_champion_kids_0": {
+   "file": "enemy_champion_kids_0.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.734,
+   "kind": "enemy",
+   "ref": "faction_colorful",
+   "guns": "faction_colorful_guns.webp",
+   "type": "champion_kids",
+   "set": "champions",
+   "rig": "records/target/combat/rig/enemy_champion_kids_0/rig.json"
+  },
+  "enemy_champion_kids_1": {
+   "file": "enemy_champion_kids_1.webp",
+   "w": 139,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.717,
+   "kind": "enemy",
+   "ref": "faction_colorful",
+   "guns": "faction_colorful_guns.webp",
+   "type": "champion_kids",
+   "set": "champions",
+   "rig": "records/target/combat/rig/enemy_champion_kids_1/rig.json"
+  },
+  "enemy_champion_heavy_0": {
+   "file": "enemy_champion_heavy_0.webp",
+   "w": 141,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.722,
+   "kind": "enemy",
+   "ref": "faction_remnants",
+   "guns": "faction_remnants_guns.webp",
+   "type": "champion_heavy",
+   "set": "champions",
+   "rig": "records/target/combat/rig/enemy_champion_heavy_0/rig.json"
+  },
+  "enemy_champion_heavy_1": {
+   "file": "enemy_champion_heavy_1.webp",
+   "w": 141,
+   "h": 161,
+   "foot": [
+    67,
+    110
+   ],
+   "height_m": 1.743,
+   "kind": "enemy",
+   "ref": "faction_remnants",
+   "guns": "faction_remnants_guns.webp",
+   "type": "champion_heavy",
+   "set": "champions",
+   "rig": "records/target/combat/rig/enemy_champion_heavy_1/rig.json"
   }
  },
  "faces": {
@@ -4370,6 +4466,18 @@
      "person_town_18"
     ],
     "what": "STAFF [the camp bodies] 11/21 (VAMILY rule 468): the camp people's faces, the head of each one's own model (records/target/character/barber/person_<id>/face/rest_128.png)"
+   },
+   {
+    "file": "faces_champions.webp",
+    "order": [
+     "enemy_champion_road_0",
+     "enemy_champion_road_1",
+     "enemy_champion_kids_0",
+     "enemy_champion_kids_1",
+     "enemy_champion_heavy_0",
+     "enemy_champion_heavy_1"
+    ],
+    "by": "CHARACTER 4 11/27, tools/bohemia_character_four_the_champions.py pack"
    }
   ]
  },

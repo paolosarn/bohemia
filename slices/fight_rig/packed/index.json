@@ -427,6 +427,42 @@
 "fill": 0.189,
 "packedMB": 3.99
 },
+"enemy_champion_heavy_0.webp": {
+"bytes": 449298,
+"decodedMB": 17.32,
+"fill": 0.261,
+"packedMB": 5.05
+},
+"enemy_champion_heavy_1.webp": {
+"bytes": 459782,
+"decodedMB": 17.32,
+"fill": 0.264,
+"packedMB": 5.08
+},
+"enemy_champion_kids_0.webp": {
+"bytes": 344848,
+"decodedMB": 17.07,
+"fill": 0.201,
+"packedMB": 3.99
+},
+"enemy_champion_kids_1.webp": {
+"bytes": 339814,
+"decodedMB": 17.07,
+"fill": 0.202,
+"packedMB": 3.99
+},
+"enemy_champion_road_0.webp": {
+"bytes": 377402,
+"decodedMB": 17.57,
+"fill": 0.218,
+"packedMB": 4.36
+},
+"enemy_champion_road_1.webp": {
+"bytes": 392952,
+"decodedMB": 17.57,
+"fill": 0.225,
+"packedMB": 4.46
+},
 "enemy_flock_faithful_0.webp": {
 "bytes": 349282,
 "decodedMB": 16.83,
@@ -1491,8 +1527,8 @@
 }
 },
 "totals": {
-"decodedMB": 4943.4,
-"packedMB": 1017.5,
-"sheets": 248
+"decodedMB": 5047.3,
+"packedMB": 1044.4,
+"sheets": 254
 }
 }

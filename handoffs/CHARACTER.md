@@ -1,5 +1,39 @@
 # CHARACTER (05) -- the lane's own handoff block (newest first)
 
+CHARACTER FOUR (character-four-01gkdyuu, the coordinator's VAMILY: the champions' look with BESTIARY 4, rules 482, 486, 493, 495): 11/28 (as) LATEST -- *** SHIPPED BUILD 11/28e THE CHAMPIONS DRESS THE PART (ask row 774, CHARACTER's part). ***
+TAB: VOTE (character4-the-champions-11-27); RUN (a late hard fight that carries a road crew's, a kids' or a heavies' champion).
+Record: records/BOHEMIA_CHARACTER_FOUR_THE_CHAMPIONS_11_27_26.md (the measurement, Battle Brothers' champions from the library, the loops, the numbers).
+WHAT: six champions of their own, two a band, through the nine enemies' pipe (tools/bohemia_character_four_the_champions.py roll|model|look|make|pack|data|card):
+the ROAD CREW'S in a black leather duster to the ankle and a black gambler's hat with the road crews' orange band and feather, rust plate;
+the KIDS' in a black oversize cocoon coat over a pale hood, the runners' green scarf, his face showing; the HEAVIES' in black leather under
+the band's frame and crash bar, rust plate, the welder's mask DOWN over his face, and champion_heavy_1 on CHARACTER 3's POWERED ARM (his right
+forearm): the first man in the game who wears one (rule 486(e) a status, (b) a part that can be taken off him). Dealt by data only: ours.json
+people_looks.band champion_road / champion_kids / champion_heavy, bestiary.look_pools points the three kinds at them (no fight code changed);
+faces on faces_champions.webp (fight_rig.json faces.more). THE SITE: the wardrobe's catalogue stills (barber/base_*, outer_*, hat_*, 12.9 MB) are
+a dead kind in the publish list now (no code builds their names; the tell guards it): 897 -> 864 MB with COOK SEVEN's cut and the six.
+AT THE ROOT (rule 495), in the owners: the nine's pack takes strip, set_, colours and keep (keep_marks: a 64-colour median cut merged every warm
+pixel away, the battery 54 -> 0; the champions pack at 128 with 8 held: 5,993); the welder's mask builder takes up or down (down closes 1.5 cm over
+the skull's own top); the powered arm's door takes either forearm (powered_arm_right); the gambler hat takes its plume.
+PROOF: IN AND OUT THE IPHONE'S WAY 8/0 (the most alive 605 of 768 MB; a champion adds one atlas, 4.2 to 5.3 MB); PAGES PUBLISH 30/0; THE SHEETS ARE
+PACKED 4/0; THE BESTIARY 10/0; THE BESTIARY FLOOR data legs 13/0 (--no-browser; the browser legs ran past nine minutes); PACKERS MERGE 4/0; CONE HAT
+IS DEAD 4/0; HER BODY 9/0; DEMO BUILD 25/0; the fight's own code (tools/bohemia_fight_headless.js) deals LA NAVAJA, LITTLE SAINT and BIG IRON in their
+own clothes beside their bands. Not mine: LOOK GATE 23/1 (51 pictures older than the alpha), WHAT A MAN HOLDS 16/1 (person_caravans_0's guns cells).
+Not run: THE NEW ENEMIES, EVERYBODY IDLES, MELEE IN HAND, THE MAP'S PEOPLE ARE PACKED (each past five minutes here).
+NEXT (in order):
+ (1) FOR BESTIARY 4 / FIGHT SCREEN 4, THE ONE LINE OWED: BESTIARY 4's BUILD 11/27zzb ROLLS the champion off any man of a human band and swaps only
+     the four wiki kinds (champions.swap); every other rolled champion (most of the road crews', all of the House's, watch's, keepers', water
+     people's, flock's, hired guns', takers' and casino's) keeps his kind's ordinary clothes. The fight's champion block should set his look from
+     his faction's champion pool (data: brigands champion_road, kids champion_kids, heavies champion_heavy), the way a boss's u.look is set.
+ (2) THIS LANE: the other eight factions' champions, two men each, the same tool (TYPES in memory; about 6 minutes a man, two workers on this box).
+ (3) The cell's headroom (110 px over the foot) cuts tall hats (the road champions' crowns and plumes in walk, aim and hit, the duelist's too):
+     COMBAT's cell; routed in the record.
+ (4) CHARACTER 3's list: the new guns into the fight, the eye and the ear, BESTIARY's stand-ins, the bosses' crews, the faction looks, hall men.
+SETUP ON A FRESH BOX: python3.11 -m venv /tmp/v && /tmp/v/bin/pip install bpy==4.2.0 numpy pillow; BOHEMIA_BPY=/tmp/v/bin/python. The fight renders
+(records/target/combat/rig) are .gitignore'd: set them aside before measuring the site (the publish list follows fight_rig.json's 'rig' paths).
+NEVER send_later or anything that waits on a tap (461(c)); gates in the foreground with a timeout.
+[bb Battle Brothers' champion is a named man in better kit than his band; you pick him out before the line meets.]
+[analog horror: the one in the long black coat, standing still while the rest of them move; the one whose face is a welding mask.]
+
 CHARACTER THREE (character-three-01gkdyuv, the routine 'CHARACTER 3: the champions' look', 11/27 21:50): 11/27 (ar) LATEST -- *** HANDOFF READY: the session's working memory is near its end; nothing new built after the three below. ***
 THE JOB FOR THE FRESH CHARACTER (the routine's words: the champions' look with BESTIARY 4 (new): each named leader reads as the boss of his band at
 fight size, his own clothes on the runway, kit a tier up, his face on his card, inside PLUMBER 8's iPhone budget; then more of the implant look

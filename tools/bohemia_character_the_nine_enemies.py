@@ -1188,7 +1188,7 @@ def head_pieces(cut, L):
         # the feather: tucked in the band on his left (+x: he faces -y), its quill up and back, a curve to the tip
         # loop 1: 3 cm wide by 20 long it was a line of one pixel; now 4.6 by 25, leaning out from the crown so the front sees it
         AF = 1.75; base = ring_at(AF, rb(AF) + 0.006, zb(AF) + 0.010) - C
-        a_, b_ = Vector((0.30, 0.42, 0.86)).normalized(), Vector((0.06, 0.40, -0.30)); Lf = 0.25
+        a_, b_ = Vector((0.30, 0.42, 0.86)).normalized(), Vector((0.06, 0.40, -0.30)); Lf = G.get('plume', 0.25)   # CHARACTER 4: a hat may carry a shorter plume
         bm = bmesh.new(); prev = None; NT = 14; spine = []
         for k in range(NT + 1):
             t = k / NT; p = base + (a_ * t + b_ * t * t) * Lf
@@ -1367,7 +1367,32 @@ def worker(w, n):
 
 
 # ---- THE PACK: the fight's sheets, the face strip, each type's row pointed at its own men -----------------------------
-def pack():
+def keep_marks(img, opaque, colours, keep):
+    """the sheet's palette: a median cut of colours - keep, and (CHARACTER 4, 11/27) keep slots for the most coloured pixels of
+    the sheet (chroma, max minus min, over 40), grouped to 8 levels a channel and taken by how many pixels each has, so a small
+    mark the cut merges into its neighbours (the powered arm's battery, a band's ink) is drawn in its own colour; keep 0 is the
+    plain median cut, as the nine were packed"""
+    from PIL import Image
+    import numpy as np
+    if not keep: return img.quantize(colours, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert('RGB')
+    a = np.asarray(img).astype(int); px = a[opaque]
+    chroma = px.max(1) - px.min(1); hot = px[chroma > 40]
+    extra = []
+    if len(hot):
+        keys, inv, cnt = np.unique(hot // 32, axis=0, return_inverse=True, return_counts=True)
+        for k in np.argsort(-cnt)[:keep]:
+            extra += [int(v) for v in hot[inv.reshape(-1) == k].mean(0).round()]
+    base = img.quantize(colours - len(extra) // 3, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE)
+    pal = base.getpalette()[:(colours - len(extra) // 3) * 3] + extra
+    P = Image.new('P', (1, 1)); P.putpalette(pal + [0] * (768 - len(pal)))
+    return img.quantize(palette=P, dither=Image.Dither.NONE).convert('RGB')
+
+
+def pack(strip='faces_more.webp', by='CHARACTER 11/7, tools/bohemia_character_the_nine_enemies.py pack', set_='nine', colours=64, keep=0):
+    """strip, by, set_ (CHARACTER 4, 11/27): a tool that adds its types in memory (the champions) packs its own roll through
+    this one pack, onto its own face strip, so the nine's strip is never rewritten without the nine; colours, the sheet's palette
+    (a small warm piece, the powered arm's battery, is merged away by a median cut of 64 over 200 frames); keep, palette slots
+    held for the sheet's most coloured pixels (keep_marks), so a small mark keeps its colour"""
     import numpy as np
     from PIL import Image
     R = R2()
@@ -1404,28 +1429,28 @@ def pack():
                     near[1:, :] |= op[:-1, :]; near[:-1, :] |= op[1:, :]; near[:, 1:] |= op[:, :-1]; near[:, :-1] |= op[:, 1:]
                     cell[near & ~op] = RIM
                     sheet[row * h:(row + 1) * h, col * w:(col + 1) * w] = cell; col += 1
-        q = Image.fromarray(sheet[..., :3]).quantize(64, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.NONE).convert('RGB')
+        q = keep_marks(Image.fromarray(sheet[..., :3]), sheet[..., 3] > 0, colours, keep)
         Image.fromarray(np.dstack([np.asarray(q), sheet[..., 3]]), 'RGBA').save(os.path.join(FR, lk + '.webp'), 'WEBP', lossless=True, quality=100, method=6)
         I['looks'][lk] = dict(file=lk + '.webp', w=w, h=h, foot=Lr['foot'], height_m=fr['real_dims_m'][2], kind='enemy', ref=ref,
-                              guns=Lr.get('guns'), type=POOL[p['gang']], set='nine', rig=os.path.relpath(os.path.join(fd, 'rig.json'), ROOT))
+                              guns=Lr.get('guns'), type=POOL[p['gang']], set=set_, rig=os.path.relpath(os.path.join(fd, 'rig.json'), ROOT))
         made_.append((p, lk)); print('PACKED %s in %s\'s cell, %d px outside it, %d KB' % (lk, ref, lost, os.path.getsize(os.path.join(FR, lk + '.webp')) // 1024))
     # THE FACES: the fight's one strip holds 121 faces of 128 px (15,488 px) and a WebP stops at 16,383, so these ride the
     # next strip (faces.more, read by the fight's __THE_SECOND_FACE_STRIP__), in the same size and the same way
     F = I['faces']; S = F['size']
     assert not [l for l in F['order'] if l in mine], 'a nine-enemies face is on the first strip: take it off before packing here'
-    MORE = 'faces_more.webp'
+    MORE = strip
     at = next((i for i, M in enumerate(F.get('more', [])) if M['file'] == MORE), len(F.get('more', [])))   # 11/18: the strip keeps its place among the others (BOSSES' faces_bosses.webp came after it)
     more = [M for M in F.get('more', []) if M['file'] != MORE]
     # the strip holds every man of the roll whose sheet is on the fight (his street face is committed, so a man not made on
     # this box keeps his tile)
-    strip = [(p, look_of(p['id'])) for p in roll_ if look_of(p['id']) in I['looks'] and made(p['id'])]
-    tiles = [Image.open(os.path.join(ROOT, OUT, lk, 'face', 'rest_128.png')).convert('RGBA').resize((S, S), Image.BOX) for p, lk in strip]
+    faces_of = [(p, look_of(p['id'])) for p in roll_ if look_of(p['id']) in I['looks'] and made(p['id'])]
+    tiles = [Image.open(os.path.join(ROOT, OUT, lk, 'face', 'rest_128.png')).convert('RGBA').resize((S, S), Image.BOX) for p, lk in faces_of]
     if tiles:
         assert S * len(tiles) <= 16383, 'the second strip is full too'
         out = Image.new('RGBA', (S * len(tiles), S), (0, 0, 0, 0))
         for i, t in enumerate(tiles): out.paste(t, (i * S, 0))
         out.save(os.path.join(FR, MORE), 'WEBP', quality=85, alpha_quality=100, method=6)
-        more.insert(at, dict(file=MORE, order=[lk for p, lk in strip], by='CHARACTER 11/7, tools/bohemia_character_the_nine_enemies.py pack'))
+        more.insert(at, dict(file=MORE, order=[lk for p, lk in faces_of], by=by))
     F['more'] = more
     I['enemies_nine'] = ("CHARACTER [more enemy types, their own art] 11/7 (rule 427(b)): FACTIONS' nine act-one types in their own "
                          "garments (kind 'enemy', set 'nine'), packed by tools/bohemia_character_the_nine_enemies.py pack into each type's old "

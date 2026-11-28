@@ -901,6 +901,18 @@
      "enemy_heavy_1",
      "enemy_heavy_2",
      "enemy_heavy_3"
+    ],
+    "champion_heavy": [
+     "enemy_champion_heavy_0",
+     "enemy_champion_heavy_1"
+    ],
+    "champion_kids": [
+     "enemy_champion_kids_0",
+     "enemy_champion_kids_1"
+    ],
+    "champion_road": [
+     "enemy_champion_road_0",
+     "enemy_champion_road_1"
     ]
    }
   },
@@ -1651,6 +1663,7 @@
     "drop_when_he_falls": true
    },
    "look_pools": {
+    "brigand_leader_champion": "champion_road",
     "necromancer": "mechanic",
     "goblin_skirmisher": "runner",
     "lower_goblin_skirmisher": "runner",
@@ -1659,8 +1672,8 @@
     "lower_orc_warrior": "heavy",
     "wiederganger": "robot",
     "armored_wiederganger": "robot",
-    "goblin_skirmisher_champion": "runner",
-    "orc_warrior_champion": "heavy"
+    "goblin_skirmisher_champion": "champion_kids",
+    "orc_warrior_champion": "champion_heavy"
    }
   },
   "source": "records/BOHEMIA_BATTLE_BROTHERS_SCHOOL_THE_BESTIARY_COUNT_9_29_26.md (the 9/29 draft; NECROMANCER -> THE MECHANIC is marked his words); VAMILY.md COMBAT [bestiary]",

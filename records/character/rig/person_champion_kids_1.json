@@ -1,0 +1,246 @@
+{
+ "look": "PERSON_CHAMPION_KIDS_1",
+ "shape": "person_champion_kids_1: the kids' champion: a head over his band in a black oversize cocoon coat over a pale hood, the runners' green scarf, his face bare, his own skin skin_mid 3, BONE SHOULDER SHIRT under BLACK COCOON COAT",
+ "worn": {
+  "hair": "TEMPLE TAPER",
+  "base": "BONE SHOULDER SHIRT",
+  "outer": "BLACK COCOON COAT",
+  "legs": "GREY SWEATS",
+  "feet": "WHITE SNEAKERS",
+  "neck": "RUNNER SCARF",
+  "gear": "SHELL BANDOLIER",
+  "hands": "HAND WRAPS"
+ },
+ "dials": {
+  "height": -0.3,
+  "belly": -0.35,
+  "shoulders": -0.25,
+  "hips": 0.05
+ },
+ "model": "records/character/rig/person_champion_kids_1.glb",
+ "from_body": "reference/models/khronos/CesiumMan.glb",
+ "body_top_m": 1.5283,
+ "model_top_m": 1.5337,
+ "real_height_m": 1.6942,
+ "real_height_for_rig": 1.7002,
+ "meshes": {
+  "Cesium_Man": 3273,
+  "person_champion_kids_1_shoe": 3500,
+  "person_champion_kids_1_shirt": 67536,
+  "person_champion_kids_1_collar": 1536,
+  "person_champion_kids_1_cuffs": 2048,
+  "person_champion_kids_1_hem": 1792,
+  "person_champion_kids_1_coat": 73232,
+  "person_champion_kids_1_coat_skirt": 5886,
+  "person_champion_kids_1_collar.001": 1536,
+  "person_champion_kids_1_lapels": 396,
+  "person_champion_kids_1_trouser": 43706,
+  "person_champion_kids_1_cuff": 2048,
+  "person_champion_kids_1_sole_1": 242,
+  "person_champion_kids_1_midsole_1": 242,
+  "person_champion_kids_1_sole_0": 242,
+  "person_champion_kids_1_midsole_0": 242,
+  "person_champion_kids_1_tongue_1": 98,
+  "person_champion_kids_1_laces_1": 200,
+  "person_champion_kids_1_heel_1": 90,
+  "person_champion_kids_1_tongue_0": 98,
+  "person_champion_kids_1_laces_0": 200,
+  "person_champion_kids_1_heel_0": 90,
+  "person_champion_kids_1_runner_scarf": 3072,
+  "person_champion_kids_1_runner_scarf_tail": 162,
+  "person_champion_kids_1_runner_scarf_fringe": 54,
+  "person_champion_kids_1_shell_bandolier": 1792,
+  "person_champion_kids_1_shell_bandolier_shells": 374,
+  "person_champion_kids_1_shell_bandolier_pouch": 26,
+  "person_champion_kids_1_hand_wraps_L": 392,
+  "person_champion_kids_1_hand_wraps_R": 392,
+  "person_champion_kids_1_hand_wraps_wrap_0": 2048,
+  "person_champion_kids_1_hand_wraps_wrap_1": 2048,
+  "person_champion_kids_1_hand_wraps_wrap_2": 2048,
+  "person_champion_kids_1_hair": 17968,
+  "person_champion_kids_1_hand_L": 392,
+  "person_champion_kids_1_hand_R": 392
+ },
+ "materials": {
+  "Cesium_Man-effect": [
+   0.8,
+   0.8,
+   0.8
+  ],
+  "person_champion_kids_1_coat": [
+   0.0232,
+   0.0222,
+   0.0252
+  ],
+  "person_champion_kids_1_coat_skirt": [
+   0.0232,
+   0.0222,
+   0.0252
+  ],
+  "person_champion_kids_1_collar": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_champion_kids_1_cuff": [
+   0.1878,
+   0.1878,
+   0.2384
+  ],
+  "person_champion_kids_1_cuffs": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_champion_kids_1_eyes": [
+   0.0212,
+   0.0103,
+   0.008
+  ],
+  "person_champion_kids_1_hair": [
+   0.0194,
+   0.0116,
+   0.008
+  ],
+  "person_champion_kids_1_hand_wraps": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_champion_kids_1_hand_wraps_wrap_0": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_champion_kids_1_hand_wraps_wrap_1": [
+   0.5776,
+   0.5271,
+   0.3712
+  ],
+  "person_champion_kids_1_hand_wraps_wrap_2": [
+   0.2122,
+   0.1746,
+   0.1046
+  ],
+  "person_champion_kids_1_heel_0": [
+   0.4179,
+   0.3916,
+   0.3372
+  ],
+  "person_champion_kids_1_heel_1": [
+   0.4179,
+   0.3916,
+   0.3372
+  ],
+  "person_champion_kids_1_hem": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_champion_kids_1_laces_0": [
+   0.4179,
+   0.3916,
+   0.3372
+  ],
+  "person_champion_kids_1_laces_1": [
+   0.4179,
+   0.3916,
+   0.3372
+  ],
+  "person_champion_kids_1_lapels": [
+   0.0091,
+   0.0086,
+   0.0103
+  ],
+  "person_champion_kids_1_midsole_0": [
+   0.9131,
+   0.8879,
+   0.8228
+  ],
+  "person_champion_kids_1_midsole_1": [
+   0.9131,
+   0.8879,
+   0.8228
+  ],
+  "person_champion_kids_1_runner_scarf": [
+   0.0648,
+   0.1981,
+   0.0356
+  ],
+  "person_champion_kids_1_runner_scarf_fringe": [
+   0.0262,
+   0.0823,
+   0.0176
+  ],
+  "person_champion_kids_1_runner_scarf_tail": [
+   0.0648,
+   0.1981,
+   0.0356
+  ],
+  "person_champion_kids_1_shell_bandolier": [
+   0.1301,
+   0.0513,
+   0.016
+  ],
+  "person_champion_kids_1_shell_bandolier_pouch": [
+   0.0545,
+   0.0222,
+   0.0075
+  ],
+  "person_champion_kids_1_shell_bandolier_shells": [
+   0.4342,
+   0.2623,
+   0.0612
+  ],
+  "person_champion_kids_1_shirt": [
+   0.3763,
+   0.3231,
+   0.2086
+  ],
+  "person_champion_kids_1_shoe": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_champion_kids_1_shoes": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_champion_kids_1_skin": [
+   0.6105,
+   0.3515,
+   0.1714
+  ],
+  "person_champion_kids_1_sole_0": [
+   0.0232,
+   0.0212,
+   0.0194
+  ],
+  "person_champion_kids_1_sole_1": [
+   0.0232,
+   0.0212,
+   0.0194
+  ],
+  "person_champion_kids_1_tongue_0": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_champion_kids_1_tongue_1": [
+   0.6654,
+   0.6308,
+   0.5583
+  ],
+  "person_champion_kids_1_trouser": [
+   0.1878,
+   0.1878,
+   0.2384
+  ],
+  "person_champion_kids_1_trousers": [
+   0.1878,
+   0.1878,
+   0.2384
+  ]
+ }
+}

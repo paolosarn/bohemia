@@ -104,6 +104,13 @@ const DEAD_KINDS = [
      builds <look>/rig_<turn>.png, the eight turns; engine/bohemia_people_mix.js names the kind only in its src note */
   { dir: 'records/target/character', kind: /\/rig_Anim_[^/]*\.png$/, tell: /rig_Anim_['"`]|rig_Anim_[^<\s'"`]*['"`]\s*\+|rig_Anim_[^\s'"`]*\$\{|['"`]Anim_['"`]?\s*\+/,
     why: "the walk renders a look is baked from: the map and the fight draw their walks from the baked sheets (slices/rig_mix, BOHEMIA_RIG_CAST, slices/fight_rig); the folder's one loader builds <look>/rig_<turn>.png" },
+  /* CHARACTER 4, 11/27/26 (rule 482(c); PAGES PUBLISH at 897 MB of 900 before the champions' six fight sheets): the wardrobe's
+     catalogue stills, every garment, top and hat on the barber's mannequin (records/target/character/barber/base_*, outer_*, hat_*;
+     1,649 files, 12.9 MB), made for the garment cards he judged in VOTE. The folder's loaders build only a rolled man's look
+     (engine/bohemia_rig_bodies.js and engine/bohemia_crew_faces.js: person_<id>, his stills and face) and the barber's chair's parts
+     (engine/bohemia_main_man.js: a cut, beard_, mark_ and face_ portrait, never a garment or a hat); no published code names one */
+  { dir: 'records/target/character/barber', kind: /\/(base|outer|hat)_[^/]+\//, tell: /character\/barber\/(base|outer|hat)_|['"`](base|outer|hat)_['"`]\s*\+/,
+    why: "the wardrobe's catalogue stills (a garment or a hat on the barber's mannequin): the folder's loaders build person_<id> looks and the barber's cut, beard_, mark_ and face_ portraits, never a garment's" },
   /* CHARACTER 3, 11/27/26, the same round: a map people sheet whose atlas is fresh (slices/rig_mix_packed/index.json's bytes equal the
      sheet's) is drawn from the atlas, so the whole sheet does not ship; the map reads a whole sheet the site does not have (its size
      asked, a 404) as 'the atlas is fresh' (__THE_MAPS_PEOPLE_ARE_PACKED__). A sheet re-rendered since its pack is not fresh and ships
