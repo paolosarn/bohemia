@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your place, more pixels</title>
+<!-- 11/28 (ask row 789, Paolo: 'the camera view of our settlement makes everything look like dog shit... as good looking as loading
+     screens... Why can't there be more pixels on the screen?'). Built by ARMORY 3 in HOME BASE's code: the one camera's plate and lens
+     layer rendered again at the loading screen's size (tools/bohemia_home_settlement_pipeline_11_3_26.py BOHEMIA_HOME_HI=1, post_hi; bpy
+     5.3) with the loading screen's own tape look. Pictures on the demo by real taps (tools/bohemia_home_base_one_camera_card_11_28_26.js).
+     Record: records/BOHEMIA_HOME_BASE_ONE_CAMERA_AND_IT_BUILDS_11_28_26.md, section THE LOADING SCREEN'S PIXELS. -->
+<style>
+:root { --bg:#16110c; --ink:#e8dcc4; --dim:#9a8a70; --rust:#c8643a; --line:#3a2e20; --brass:#d6aa4a; }
+body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.4 ui-monospace,Menlo,Consolas,monospace; padding:16px; }
+h1 { font-size:18px; letter-spacing:2px; margin:0 0 4px; color:var(--rust); }
+h2 { font-size:15px; letter-spacing:2px; margin:20px 0 6px; color:var(--brass); }
+p.sub { margin:0 0 10px; color:var(--dim); font-size:13px; }
+img { width:100%; display:block; border:1px solid var(--line); margin:0 0 6px; }
+.two { display:flex; gap:6px; } .two > div { flex:1; min-width:0; } .two span { display:block; font-size:12px; color:var(--dim); margin:0 0 3px; }
+</style></head><body>
+<h1>YOUR PLACE, AT THE LOADING SCREENS' PIXELS</h1>
+<p class="sub">Your place's camera is now drawn as big as the loading-screen feeds: 432 by 768 instead of 180 by 320, almost 6 times the pixels. It has the same tape look as the loading screens. You can see the houses past the wall, the palms, the poles and the truck.</p>
+<h2>BEFORE AND NOW</h2>
+<img src="../../records/target/home_base/pixels_before_land.jpg" alt="before, 180 x 320">
+<img src="../../records/target/home_base/pixels_now_land.jpg" alt="now, 432 x 768">
+<h2>THE WHOLE SCREEN, UPRIGHT</h2>
+<div class="two"><div><span>before</span><img src="../../records/target/home_base/pixels_before_portrait.jpg" alt="before"></div>
+<div><span>now</span><img src="../../records/target/home_base/one_camera_phone_portrait_plots.jpg" alt="now"></div></div>
+<div class="two"><div><span>built: taped off for the night</span><img src="../../records/target/home_base/one_camera_phone_portrait_taped.jpg" alt="taped"></div>
+<div><span>next morning</span><img src="../../records/target/home_base/one_camera_phone_portrait_morning.jpg" alt="morning"></div></div>
+<h2>SIDEWAYS</h2>
+<img src="../../records/target/home_base/one_camera_phone_landscape_plots.jpg" alt="sideways">
+<img src="../../records/target/home_base/one_camera_phone_landscape_taped.jpg" alt="sideways, taped">
+<p class="sub">Still to do: the buildings you put up are still the old smaller pictures blown up (they get re-rendered at this size next), and your people walking around your place.</p>
+</body></html>

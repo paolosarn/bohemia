@@ -304,9 +304,11 @@ const nearest = (S, u) => S.units.filter(f => f.side !== u.side && F.onField(f) 
 {
   const ss = fs.readFileSync(path.join(ROOT, 'slices/BOHEMIA_SETTLEMENT_SCREEN.html'), 'utf8'), cl = fs.readFileSync(path.join(ROOT, 'slices/bohemia_camp_look.js'), 'utf8');
   const okS = /try\{ homeStaff\(out\); \}catch\(e\)\{\}/.test(ss) && /var act = staffWork\(p\.id\), g = null/.test(ss) && /function staffWork\(id\)\{ try\{ return \(window\.BohemiaCamp && BohemiaCamp\.workOf\) \? BohemiaCamp\.workOf\(id\)/.test(ss);   /* STAFF 3 (rule 495(b)): the camp book's trade */
-  const okF = /try\{ homeFeedStaff\(F, out, T, at, front\); \}catch\(e\)\{\}/.test(ss) && /homeFeedCart\(g, q, 'back'\); if\(gi\)\{ g\.drawImage\(gi\.edge, gx - 1, gy - 1\); g\.drawImage\(gi\.lit, gx, gy\); \} homeFeedCart\(g, q, 'front'\);/.test(ss);
-  const okT = /if\(o\.p\.staffHome && o\.p\.act && o\.n != null\) add\(/.test(ss), okC = /cartCellOf: cartCellOf/.test(cl) && /function cartCellOf\(id, face, which\)/.test(cl);
-  ok('C17 THE CAMP AT HIS PLACE: on his place\'s footage, at their trade, each with his cart, found by the camera\'s tour', okS && okF && okT && okC, ['place ' + okS, 'footage ' + okF, 'tour ' + okT, 'cart ' + okC].join(', '));
+  const okF = /try\{ homeFeedStaff\(F, out, T, at, front\); \}catch\(e\)\{\}/.test(ss) && /homeFeedCart\(g, q, 'back'\); if\(gi\) hfPerson\(g, gi, gx, gy\); homeFeedCart\(g, q, 'front'\);/.test(ss) && /function hfPerson\(g, gi, gx, gy\)\{ g\.save\(\); g\.setTransform\(1, 0, 0, 1, 0, 0\); g\.drawImage\(gi\.edge, gx - 1, gy - 1\); g\.drawImage\(gi\.lit, gx, gy\); g\.restore\(\); \}/.test(ss);   /* 11/28: the person at the plate's own pixels */
+  const okC = /cartCellOf: cartCellOf/.test(cl) && /function cartCellOf\(id, face, which\)/.test(cl);
+  /* AMENDED 11/28 (Paolo, ask row 788: 'one camera angle'): the camera's tour is dead (graveyard/POSTMORTEM_HOME_BASE_THE_CAMERAS_ON_PATROL_11_28_26.txt), so
+     'found by the camera's tour' is no longer asked; the camp people stand on the one camera's footage at their trade with their carts */
+  ok('C17 THE CAMP AT HIS PLACE: on his place\'s footage (the one camera), at their trade, each with his cart', okS && okF && okC, ['place ' + okS, 'footage ' + okF, 'cart ' + okC].join(', '));
 }
 
 /* C18 THE CREW SCREEN HANDS HIM ONE (STAFF 3 11/27, rule 471(b): 'these characters can only use one-handed weapons, so either a pistol or

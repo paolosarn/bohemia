@@ -42,3 +42,19 @@ graveyard/POSTMORTEM_HOME_BASE_THE_CAMERAS_ON_PATROL_11_28_26.txt. VOTE card hom
 ## NEXT (ask row 789, his words the same round): more pixels and people walking
 His place's footage is 180 x 320 (the PS1 size of 354(k)); the loading screen's feeds are 432 x 768. Render the one camera again at that
 size (bpy 5.3 installs here), the people at his place walking on the block's walks.
+
+## THE LOADING SCREEN'S PIXELS (BUILD 11/28l, ask row 789, the same round)
+His words: 'the camera view of our settlement makes everything look like dog shit... as good looking as loading screens... Why can't
+there be more pixels on the screen?' MEASURED: the footage 180 x 320 blown up about 2.2 times; the loading screen's feeds 432 x 768.
+- bpy 5.3 (pip, python 3.13) in the session's scratchpad; tools/bohemia_home_settlement_pipeline_11_3_26.py BOHEMIA_HOME_HI=1 renders the
+  ONE camera at 432 x 768 / 768 x 432 (plate: 3 frames in about 3 minutes; the lens layer and the block's shadows under a minute each),
+  BOHEMIA_HOME_RAW names the raw folder; `post_hi` gives them the act's look at their own size (medium: the starred feeds' own tape, then
+  the levels) into records/target/home_settlement/plates_hi/ and near_hi/, and the manifest's `hi` (scale 2.4).
+- slices/BOHEMIA_SETTLEMENT_SCREEN.html: the footage's source is the plate's own size (hfHi, HF.srcK); the plots, the tape, the people
+  (hfPerson, hfLit at z x 2.4) and the lens layer at the plate's own pixels; signs and the name plate at a whole number of pixels (hfBlit);
+  pieces still at the PS1 size, scaled into it; taps, plots and slots keep the PS1 size's numbers, so nothing that answers a finger moved.
+- GATES: ONE CAMERA, AND IT BUILDS 23/0; YOUR PLACE, PLANTED 150/1 and 147/1 (D22 only); HIS PLACE, HIS WAY 26/0 each way (H2 PAINT read
+  at the plate's pixels, H7 never choppy at 4x); YOUR PLACE IS EASY 43/0; THE STAFF PUSH A CART 21/0 (C17 amended: no camera tour);
+  THE PATCH LAYERS R1 R2 R3 green.
+- NOT YET: the pieces (his buildings) rendered again at this size (18 pieces, CAM 1 only now, about a minute a scene and 16 seconds a
+  frame); his people WALKING round his place (his crew at a fresh place stands nowhere: nothing to stand at). Both on HOME BASE's next.

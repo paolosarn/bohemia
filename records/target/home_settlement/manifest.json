@@ -20863,5 +20863,23 @@
    ]
   }
  },
- "ground_note": "each plot's ground through the lens, clockwise from its street-side left corner, 4 points an edge (tools/bohemia_home_settlement_pipeline_11_3_26.py ground, 11/28)"
+ "ground_note": "each plot's ground through the lens, clockwise from its street-side left corner, 4 points an edge (tools/bohemia_home_settlement_pipeline_11_3_26.py ground, 11/28)",
+ "hi": {
+  "sizes": {
+   "tall": [
+    432,
+    768
+   ],
+   "wide": [
+    768,
+    432
+   ]
+  },
+  "scale": 2.4,
+  "cam": 1,
+  "plates": "plates_hi",
+  "near": "near_hi",
+  "frames": 3,
+  "note": "his one camera at the loading screen's size (11/28, ask row 789); pieces still at the PS1 size, scaled by the screen"
+ }
 }

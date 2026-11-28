@@ -10,7 +10,12 @@ the land'. Record records/BOHEMIA_HOME_BASE_ONE_CAMERA_AND_IT_BUILDS_11_28_26.md
 - where('build') and __HOME_FEED_AT(n) of an empty plot point at the plot's own ground (where prefers the back row: every piece fits).
 - GATES: new ONE CAMERA, AND IT BUILDS 23/0 (in the suite); home_base_gate.js F2/F8/F9/F10/D10/D17/D22 AMENDED to his ruling, 150/1 and
   147/1 (D22 SELLING IT only, ask row 787); HIS PLACE, HIS WAY 26/0 each way; YOUR PLACE IS EASY 43/0.
-- NEXT, HIS WORDS THE SAME ROUND (ask row 789): 'the camera view of our settlement makes everything look like dog shit... as good looking
+- BUILD 11/28l (ask row 789, the same round): THE LOADING SCREEN'S PIXELS for the plate and the lens layer: BOHEMIA_HOME_HI=1 renders (bpy 5.3
+  by pip in a scratch venv: `uv venv x --python 3.13; uv pip install bpy==5.3.0 numpy pillow`; BOHEMIA_BPY=x/bin/python,
+  BOHEMIA_HOME_RAW=<scratch>), `post_hi` -> plates_hi/ near_hi/ + manifest `hi` (scale 2.4); the screen paints at that size (hfHi,
+  HF.srcK, hfPerson, hfBlit). YOUR NEXT: the 18 pieces rendered with BOHEMIA_HOME_HI=1 (CAM 1 only) and a post_hi for pieces (their xy
+  and rects at the hi size: the screen then draws them at identity, not scaled); then HIS PEOPLE WALKING round his place.
+- (was) NEXT, HIS WORDS THE SAME ROUND (ask row 789): 'the camera view of our settlement makes everything look like dog shit... as good looking
   as loading screens... no one was walking around... Why can't there be more pixels on the screen?' The footage is 180 x 320; the loading
   screen's feeds are 432 x 768. bpy 5.3 installs here by pip (python 3.13), so the pipeline can render CAM 1 again at that size. ARMORY 3
   starts it this round if the clock allows; whoever takes it: CAM 1 only (one camera), SIZES to 432 x 768 / 768 x 432, everything the

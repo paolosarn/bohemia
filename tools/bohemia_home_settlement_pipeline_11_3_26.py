@@ -38,7 +38,13 @@ import os, sys, json, math, random, hashlib, subprocess
 R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(R, 'tools'))
 OUT = os.path.join(R, 'records/target/home_settlement')
-RAW = '/tmp/claude-0/home_settlement_raw'
+RAW = os.environ.get('BOHEMIA_HOME_RAW') or '/tmp/claude-0/home_settlement_raw'   # 11/28: a session's own scratch folder when set
+# THE LOADING SCREEN'S PIXELS (Paolo 11/28, ask row 789: 'as good looking as loading screens... Why can't there be more pixels on the
+# screen?'): BOHEMIA_HOME_HI=1 renders his ONE camera (ask row 788) at the starred loading screen's own size, 432 x 768 upright and
+# 768 x 432 sideways (slices/crashbox/feed_*: 5.8 times the PS1 size's pixels), into RAW; `post_hi` gives it the same look and
+# writes plates_hi/ and near_hi/ with the manifest's `hi` (bpy 5.3 from pip runs it: python 3.13)
+HI = os.environ.get('BOHEMIA_HOME_HI') == '1'
+HI_SIZES = {'tall': (432, 768), 'wide': (768, 432)}
 VENV = os.environ.get('BOHEMIA_BPY') or '/tmp/v/bin/python'   # HOME BASE 2 11/21: the venv's path from the environment when set
 SIZES = {'tall': (180, 320), 'wide': (320, 180)}   # each camera shot both ways from the same mount (rule 348), at the PS1's size
 PT_PX = 180 / 390.0                         # a point on the phone in source pixels (both shapes fit 180 px to 390 points)
@@ -68,6 +74,7 @@ CAMS = {1: dict(name='CAM 1 THE STREET LIGHT', mount='the street light across fr
                 at={'tall': (21.0, 30.0, 0.0), 'wide': (21.0, 22.0, 0.0)}, f={'tall': 15.0, 'wide': 16.8}),
         3: dict(name='CAM 3 THE BILLBOARD', mount='the dead billboard across the street, 14.8 m', loc=(22.0, -4.0, 14.8),
                 at={'tall': (19.6, 29.0, 0.0), 'wide': (19.8, 22.0, 0.0)}, f={'tall': 15.0, 'wide': 16.8})}
+if HI: SIZES = dict(HI_SIZES); CAMS = {1: CAMS[1]}   # the one camera (11/28), at the loading screen's size
 def cams_hash(): return hashlib.sha1(json.dumps([CAMS, SIZES], sort_keys=True).encode()).hexdigest()[:12]
 # what stands near each lens (part of the base plate, and an occluder in the gate): the camera's own world in the foreground
 FOREGROUND = [('gate_light_pole', (15.6, 2.2, 0.0, 0.11, 6.8)), ('sign_post', (3.3, 2.4, 0.0, 0.06, 1.6)), ('hydrant', (27.0, 1.9, 0.0, 0.14, 0.8))]
@@ -791,6 +798,32 @@ def card(was_dir='/tmp/claude-0/was'):
     frames[0].save('/tmp/claude-0/home_intimate_card.png'); print('  card', dst, frames[0].size)
 
 
+def post_hi(look='act1'):
+    """THE LOADING SCREEN'S PIXELS (11/28, ask row 789): the one camera's plate and near layer rendered with BOHEMIA_HOME_HI=1 get the act's
+    look at their own size (medium: the starred feeds' own tape, then the levels) into plates_hi/ and near_hi/; the manifest's `hi` says the
+    size and the scale against the PS1 size (pieces, plots, taps and people stay in the PS1 size's numbers, the screen scales them)"""
+    import numpy as np
+    from PIL import Image
+    M = json.load(open(os.path.join(OUT, 'manifest.json'))); kind = 'block'
+    for d in ('plates_hi', 'near_hi'): os.makedirs(os.path.join(OUT, d), exist_ok=True)
+    for sh in HI_SIZES:
+        for f in range(3):
+            a = np.asarray(Image.open(os.path.join(RAW, 'plate_%s_cam1_%s_%d.png' % (kind, sh, f))).convert('RGB'))
+            Image.fromarray(medium(a, f, look)).save(os.path.join(OUT, 'plates_hi', '%s_cam1_%s_%d.png' % (kind, sh, f)), optimize=True)
+        E0 = np.asarray(Image.open(os.path.join(RAW, 'empty_cam1_%s.png' % sh)).convert('RGBA'))[..., 3] / 255.0
+        for f in range(3):
+            L = np.asarray(Image.open(os.path.join(RAW, 'near_cam1_%s_%d.png' % (sh, f))).convert('RGBA')); al = L[..., 3] / 255.0
+            al = np.where(al > 0.95, al, np.clip(al - E0 - 0.04, 0, 1)); al = np.where(al > 0.12, al, 0.0)
+            q = medium(L[..., :3] * al[..., None], f, look, alpha=al)
+            o = np.zeros(L.shape[:2] + (4,), np.uint8); o[..., :3] = q; o[..., 3] = np.where(al > 0.5, 255, (al > 0.12) * 150)
+            Image.fromarray(o).save(os.path.join(OUT, 'near_hi', 'cam1_%s_%d.png' % (sh, f)), optimize=True)
+    lo = M['sizes']['tall'][0]
+    M['hi'] = dict(sizes=HI_SIZES, scale=round(HI_SIZES['tall'][0] / float(lo), 4), cam=1, plates='plates_hi', near='near_hi', frames=3,
+                   note='his one camera at the loading screen\'s size (11/28, ask row 789); pieces still at the PS1 size, scaled by the screen')
+    with open(os.path.join(OUT, 'manifest.json'), 'w') as fh: json.dump(M, fh, indent=1)
+    print('  post_hi', M['hi']['sizes'], 'scale', M['hi']['scale'])
+
+
 def lens_px(cn, shape, p):
     """a point of the block (metres) to its pixel in camera cn's picture, the way _camera and _aim shoot it, without Blender: the camera
     looks from CAMS[cn].loc at .at[shape] (track -Z, up Y), an equisolid fisheye (r = 2 f sin(theta / 2)) on a 36 mm sensor fitted to
@@ -844,4 +877,5 @@ if __name__ == '__main__':
     elif a[0] == 'post_add': post_add(a[1:])   # HOME BASE 2 11/21: new pieces only, merged
     elif a[0] == 'card': card()
     elif a[0] == 'specks': specks()   # HOME BASE 4 11/26: the pieces already made, cleaned
-    elif a[0] == 'ground': ground()   # 11/28 (Paolo: 'the plots aren't even on the correct part of the land'): each plot's ground, through the lens
+    elif a[0] == 'ground': ground()
+    elif a[0] == 'post_hi': post_hi()   # 11/28 (ask row 789): the loading screen's pixels, after the BOHEMIA_HOME_HI=1 renders   # 11/28 (Paolo: 'the plots aren't even on the correct part of the land'): each plot's ground, through the lens
