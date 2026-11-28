@@ -1,5 +1,23 @@
 # COOK FIVE (one file per lane, written only by COOK FIVE, and from 11/20 by COOK SIX, which carries its list; newest block on top)
 
+COOK FIVE (cook-seven-01gkdyuu): 11/28 LATEST -- COOK SEVEN, carrying COOK FIVE's list after COOK SIX -- BUILD 11/28g - THE AQUARIUM, BUILT (dba929461), NOT YET SEEN (rules 480(b), 480(c), 482, 495; rules 461, 441, 416, 451(a); ask row 723).
+THE AQUARIUM (COMBAT FOUR's, its 'FOR COOK (SIX)'; the eighth of the 27 stand-in insides): all 160 pieces of the_reef_halls and 149 of the_shark_tunnel were stand-ins. Now
+slices/fight_ground/aquarium/ holds aquarium_art.json (floor.floor and floor.ring the halls' dark carpet, the library's lb_carpet, with a woven wave that runs on and the tanks'
+tide lines; laid from 20 of its cells; all 9 names), 9 pieces (tanks gone green with the dead fish floating, a house wide so a block of Q is a bank of tanks; the glass tunnel a
+tile long through them, its walkway stopped, green water round it; jellyfish columns, rockwork, fallen panels, benches, kiosks) and its black ceiling (ducts, dead spotlight
+tracks): 398,648 bytes. Made by tools/bohemia_cook7_the_aquarium_finished_11_28_26.py ON the boneyard tool through the inside kit (whose sheet date is a setting now, K['date']).
+480(c) MEASURED HARD (the record's table): the first cut opened ~2 fps under its stand-ins; not picture size (the tank's 650 -> 371 px, kept), not the roof; the floor (the same
+pieces on the mall's floor ran level); laid from 20 cells like the mall's floor: opening 10.5 against 11.4, loading level. The boneyard showed no 25-vs-20 difference, so the
+cause is not settled: numbers to PLUMBER 9. EVERY NEXT KIT: time it against its stand-ins in paired runs (three or more), not one.
+*** FOR COMBAT FIVE: the touch pool 'S' and the leak 'W' tiles wear the carpet until a floor area names them.
+PROOF on the page both ways: the_reef_halls 160, the_shark_tunnel 149, 0 stand-ins, the ceiling's picture drawn, 0 page errors. THE INSIDES WEAR FINISHED ART 168/0;
+THE BIG INSIDES aquarium 23/0. VOTE cook7-the-aquarium-11-28. Record: records/BOHEMIA_COOK_SEVEN_THE_AQUARIUM_11_28_26.md.
+*** NEXT ON THIS LANE (480(b)), a tool ON the aquarium's through the inside kit (about an hour a kit, date='11_28'): arsenal, ballpark, battery farm, campus, city hall, fuel
+depot, granary, hangar, jobs office, justice center, mini grand prix, the museum, radio, rail shops, the animal shelter, speedway, storage, TV station, water plant (folder ids
+in slices/fight_ground/insides.json); then ARMORY 3's new guns (the rest of the sixteen's own models and the drone's picture).
+[bb Battle Brothers' fence you see over: a tank stops a shot and nobody crosses it, but every man sees through the glass]
+[analog horror: the dead fish still floating on the green water of tanks nobody has drained; the walkway through the shark tank stopped mid-step]
+
 COOK FIVE (cook-seven-01gkdyuu): 11/27 LATEST -- COOK SEVEN, carrying COOK FIVE's list after COOK SIX -- BUILD 11/27zzf - THE NEON BONEYARD, BUILT (55279ef85), NOT YET SEEN (rules 480(b), 480(c), 482, 495; rules 461, 441, 416, 451(a); ask row 723).
 ROOM FIRST (ef02dfab7, 482(c)): the site was at 898 MB of 900. COOK's 22 building renders (master_rig/cook_bld_*/rig_S.png, 29.55 MB) shipped only because the street board's
 data names each in a house's 'rig' key; no published code reads it. One DEAD_KIND with its tell in tools/bohemia_publish_list.js: 870 MB, room for every inside left.
