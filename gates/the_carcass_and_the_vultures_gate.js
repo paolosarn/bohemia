@@ -4,7 +4,8 @@
    voted it NO (11/6, rule 426(e)) and WORLD 12 rebuilt it as one tap into the stash, checked by gates/the_kill_goes_in_the_stash_gate.js.
    What stays here is the pack's half, on the demo he plays (phone held up):
      P1 a pack of beasts he fell back from (the meet card's FALL BACK) has lost him for good
-     P2 camped two blocks from that pack for two game days: no card from it, it never comes within two blocks
+     P2 camped two blocks from that pack while his men mend (handed a fight first: a whole crew's camp runs no hour, rule 472(a)),
+        to the hour the clock stops: no card from it, it never comes within two blocks
      P3 walking past it for hours, not at it: no card from it
      P4 THE BEFORE (PACK_LETS_GO off): the same camp, and the pack's card came back on its own
      P5 his own chase on it asks first (the meet card), never a fight on its own
@@ -60,8 +61,14 @@ const NOW = () => T.day * 1440 + T.min;
     await fr.evaluate((id) => { const j = LOOP.held.filter(x => x.id === id)[0], pk = j.packs[0]; let best = null;
       for (let y = pk.y - 3; y <= pk.y + 3 && !best; y++) for (let x = pk.x - 3; x <= pk.x + 3 && !best; x++) if (Math.max(Math.abs(x - pk.x), Math.abs(y - pk.y)) === 2 && cityWalkable(x, y) && !townGround(x, y)) best = [x, y];
       if (best) { city.x = best[0]; city.y = best[1]; } try { camHold(); render(); } catch (e) {} }, id);
+    /* RE-AIMED 11/27 BY FIXES 5 (CAMP FOUR's suite: P2 'made true, hours 0'): since CAMP FOUR's __CAMP_WAITS_FOR_HIM__ (rule 472(a),
+       Paolo 11/22: 'I want time to go by until everyone's healed, but then when everyone is healed I want time to stop') a camp runs
+       the clock only while a man mends, and a fall-back hurts nobody, so this camp stood with the clock still. His men are handed a
+       fight first, through the condition's own door (tools/bohemia_hand_a_fight.js), and the camp is read for the whole of its mend,
+       to the hour the clock stops (about six game hours at the camp's rates; P2b below stands him there for about ten game days). */
+    const hurt = await fr.evaluate(require(path.join(ROOT, 'tools/bohemia_hand_a_fight.js')).handAFight, { hp: 6, hpMax: 60, armour: 0.1 });
     const made = await fr.evaluate(() => { try { return !!BohemiaMapCamp.make(); } catch (e) { return false; } });
-    const t0 = await fr.evaluate(NOW); let cards = 0, fights = 0, minD = 99, broke = 0;
+    const t0 = await fr.evaluate(NOW); let cards = 0, fights = 0, minD = 99, broke = 0, tl = -1, still = 0, mended = false;
     for (let i = 0; i < hours * 2 + 40; i++) { await sleep(500);
       const s = await fr.evaluate((id) => { const j = LOOP.held.filter(x => x.id === id)[0], pk = j && j.packs[0]; return { t: GNOW(), meet: !!(window.MEET && MEET.up), why: window.MEET && MEET.up ? String(MEET.up.msg.why) : null, fight: !!LOOP.fighting || !!window.parent.document.getElementById('fightFrame'), camp: !!(window.CAMP && CAMP.on), d: pk ? Math.max(Math.abs(pk.x - city.x), Math.abs(pk.y - city.y)) : 99 }; }, id);
       if (s.d < minD) minD = s.d;
@@ -69,9 +76,10 @@ const NOW = () => T.day * 1440 + T.min;
       else if (s.meet) await fr.evaluate(() => { try { MEET_DONE(false); } catch (e) {} });
       if (s.fight) fights++;
       if (!s.camp) { broke++; await fr.evaluate(() => { try { BohemiaMapCamp.make(); } catch (e) {} }); }
+      if (s.t === tl && s.t - t0 >= 60) { if (++still >= 6) { mended = await fr.evaluate(() => !!(window.CAMP && CAMP.on && (CAMP.whole || campDone()))); break; } } else still = 0; tl = s.t;
       if (s.t - t0 >= hours * 60) break; }
     const t1 = await fr.evaluate(NOW); await fr.evaluate(() => { try { if (window.CAMP && CAMP.on) campBreak('left'); } catch (e) {} });
-    return { made, hours: Math.round((t1 - t0) / 60), cards, fights, minD, broke };
+    return { made, hurt: hurt.hurt + ' of ' + hurt.men, hours: Math.round((t1 - t0) / 60), mended, cards, fights, minD, broke };
   }
   const stillNear = (id) => fr.evaluate((id) => { const j = LOOP.held.filter(x => x.id === id)[0], pk = j.packs[0]; pk.home = [pk.x, pk.y]; let best = null;
     for (let y = pk.y - 3; y <= pk.y + 3 && !best; y++) for (let x = pk.x - 3; x <= pk.x + 3 && !best; x++) if (Math.max(Math.abs(x - pk.x), Math.abs(y - pk.y)) === 2 && cityWalkable(x, y) && !townGround(x, y)) best = [x, y];
@@ -114,7 +122,7 @@ const NOW = () => T.day * 1440 + T.min;
       j.chase = null; return { up, why, fightPage: page, d: Math.max(Math.abs(pk.x - city.x), Math.abs(pk.y - city.y)) }; }, pk.id);
     ok('P5 his own chase on it asks first (the meet card), never a fight on its own', p5.up && /^contract:gate-pack/.test(p5.why || '') && !p5.fightPage, JSON.stringify(p5));
     const p2 = await campNear(pk.id, 48, 'after');
-    ok('P2 camped two blocks from that pack for two game days: no card from it, never within two blocks', p2.made && p2.hours >= 48 && p2.cards === 0 && p2.fights === 0 && p2.minD >= 2, JSON.stringify(p2));
+    ok('P2 camped two blocks from that pack while his men mend, to the hour the clock stops: no card from it, never within two blocks', p2.made && p2.hours >= 4 && p2.mended && p2.cards === 0 && p2.fights === 0 && p2.minD >= 2, JSON.stringify(p2));
     const p2b = await stillNear(pk.id);
     ok('P2b standing two blocks off for 1500 of the world\'s steps (about ten game days): no card from it, never within two blocks', p2b.cards === 0 && p2b.minD >= 2, JSON.stringify(p2b));
     const p2c = await besideIt(pk.id, 12);

@@ -12,7 +12,8 @@
      R1 it comes home as its own outcome, never a loss: no 'back to your last save', the clock never rolled back
      R2 the crew holds the field: it stands where the fight was, never on his heels, no road-away lights
      R3 he walks away for half a game day: no card from them, and his distance from them never shrinks
-     R4 he comes back and waits near them (three blocks, not aimed at them) for two game days: no card from them, ever
+     R4 he comes back and waits near them (three blocks, not aimed at them) for two game days, standing (the world's own hour run on
+        him: a camp with everyone whole runs no hour since rule 472(a)): no card from them, ever
      R5 they are back at their own business after half a day (off the field, not hunting him)
      R6 his own walk aimed at them is his choice and it ASKS (the meet card), never a fight on its own
    R7 nothing threw on any page.
@@ -99,18 +100,30 @@ async function oneRetreat(kind) {
     if (last !== null && s.d !== null && s.d < last) shrank++; if (s.d !== null) last = s.d; hunts.push(s.d);
     if (!s.trav || s.t - t0 >= 720) break; }
   ok(tag + ' R3: walking away, no card from them and his distance from them never shrinks', !!away && cards === 0 && shrank === 0, (away ? 'to ' + away.slice(0, 2) : 'NO JOURNEY') + '; their distance ' + hunts.filter(x => x !== null).slice(0, 12).join(' ') + '; ' + cards + ' cards, ' + shrank + ' closer');
-  /* R4 and R5: back near the field (three blocks, a walk not aimed at them), then two game days there, in camp (the world walks an hour a beat) */
+  /* R4 and R5: back near the field (three blocks, a walk not aimed at them), then two game days there, standing (the world walks an hour
+     at a time). RE-AIMED 11/27 BY FIXES 5 (CAMP FOUR's suite: R4 'camped 0 game hours', R5 'still holding the field'): this passed the two
+     days in a camp, and since CAMP FOUR's __CAMP_WAITS_FOR_HIM__ (rule 472(a), Paolo 11/22: 'when everyone is healed I want time to
+     stop') a camp made with everyone whole runs no hour; a retreat from the lineup hurts nobody, so the clock stood still for the whole
+     leg (measured: CAMP.on, campDone() true, hours 0 over 120 beats). The world's two days are now the camp's own old hour, run with him
+     standing on that block: the clock an hour (advance), six steps of the world's parties and hunters (meetWalk(mapStepWorld), the hour
+     campHour walks), his contact read after every step; a card or a fight from them is counted as before. */
   await fr.evaluate((c) => { try { travelStop(); } catch (e) {} let best = null, bd = 1e9; for (let y = c[1] - 4; y <= c[1] + 4; y++) for (let x = c[0] - 4; x <= c[0] + 4; x++) { const dd = Math.max(Math.abs(x - c[0]), Math.abs(y - c[1])); if (dd === 3 && cityWalkable(x, y) && !townGround(x, y)) { best = [x, y]; break; } } if (best) { city.x = best[0]; city.y = best[1]; } }, h.at);
-  const camp = await fr.evaluate(() => { try { return !!BohemiaMapCamp.make(); } catch (e) { return false; } });
-  const t1 = await fr.evaluate(NOW); let cards2 = 0, broke = null, back = null;
-  for (let i = 0; i < 120; i++) { await sleep(500);
-    const s = await fr.evaluate((id) => ({ t: retreatNow(), meet: !!(window.MEET && MEET.up), camp: !!(window.CAMP && CAMP.on), why: window.CAMP ? CAMP.why : null, hunt: HUNT ? { id: HUNT.id, hold: !!HUNT.hold, at: HUNT.at.slice() } : null, fought: !!LOOP.fighting || !!window.parent.document.getElementById('fightFrame') }), h.id);
-    if (s.meet || s.fought) { cards2++; await fr.evaluate(() => { try { MEET_DONE(false); } catch (e) {} }); }
+  const stood = await fr.evaluate(() => [city.x, city.y]);
+  const t1 = await fr.evaluate(NOW); let cards2 = 0, back = null, hours = 0, moved = 0;
+  for (let i = 0; i < 54; i++) {   /* two days are 48 of these; the day loop's minute can read one short of 2,880 at the 48th, so the bar is read, not the count */
+    const s = await fr.evaluate((id) => { let met = false;
+      try { advance(60); } catch (e) {}
+      for (let k = 0; k < 6; k++) { try { meetWalk(function () { mapStepWorld(); }); } catch (e) {} try { mapContact(); } catch (e) {}
+        if ((window.MEET && MEET.up) || LOOP.fighting || (typeof CITY_CONTACT_POSTED !== 'undefined' && CITY_CONTACT_POSTED)) { met = true; break; } }
+      return { t: retreatNow(), meet: met, at: [city.x, city.y], hunt: HUNT ? { id: HUNT.id, hold: !!HUNT.hold, at: HUNT.at.slice() } : null, fought: !!LOOP.fighting || !!window.parent.document.getElementById('fightFrame') }; }, h.id);
+    hours++;
+    if (s.at[0] !== stood[0] || s.at[1] !== stood[1]) moved++;
+    if (s.meet || s.fought) { cards2++; await fr.evaluate(() => { try { MEET_DONE(false); } catch (e) {} try { CITY_CONTACT_POSTED = false; } catch (e) {} }); }
     if (back === null && (!s.hunt || s.hunt.id !== h.id || !s.hunt.hold)) back = s.t - home.bell;
-    if (!s.camp) { broke = s.why; await fr.evaluate(() => { try { BohemiaMapCamp.make(); } catch (e) {} }); }
-    if (s.t - t1 >= 2880) break; }
+    if (s.t - t1 >= 2880) break;
+    if (i % 6 === 5) await sleep(250); }
   const t2 = await fr.evaluate(NOW);
-  ok(tag + ' R4: two game days camped three blocks from the field: no card from them, ever', camp && cards2 === 0 && t2 - t1 >= 2880, (camp ? 'camped' : 'NO CAMP') + ' ' + Math.round((t2 - t1) / 60) + ' game hours; ' + cards2 + ' cards' + (broke ? '; the camp broke once (' + broke + ')' : ''));
+  ok(tag + ' R4: two game days standing three blocks from the field: no card from them, ever', cards2 === 0 && t2 - t1 >= 2880 && moved === 0, 'stood at ' + stood + ', ' + (t2 - t1) + ' game minutes (' + hours + ' of the world\'s hours walked); ' + cards2 + ' cards' + (moved ? '; HE MOVED ' + moved + ' TIMES' : ''));
   ok(tag + ' R5: they go back to their own business after half a day (off the field, never hunting him)', back !== null && back >= 600 && back <= 900, back === null ? 'STILL HOLDING THE FIELD after two days' : 'gone ' + Math.round(back / 60) + ' game hours after the fight');
   await fr.evaluate(() => { try { if (window.CAMP && CAMP.on) campBreak('left'); } catch (e) {} });
 }

@@ -15,10 +15,11 @@
                            back: the same, and the fight does not come back
      S4 AT CAMP            camped on the map, the hours running; the tab goes; back: between the save and the glass (never later
                            than the glass, at most one save beat of camp hours behind), and the camp's hours stop
-     EVERY RELOAD          for four seconds after CONTINUE nothing moves: no journey, no minute, no block (the double tap and
-                           the door's third tap never reach the map)
-     S5 THE LEG CAN FAIL   the same reload with the door's hold switched off (window.__DOOR_HOLD_OFF, the before): the taps
-                           reach the map and the party moves; if this leg ever passes the gate is blind, and it says so
+     EVERY RELOAD          for four seconds after CONTINUE nothing moves: no journey, no minute, no block; and none of the
+                           thumb's touches (the double tap, the door's third tap, on the finger's clock) lands on the map
+     S5 THE LEG CAN FAIL   the same reload with the door's hold switched off (window.__DOOR_HOLD_OFF, the before): the touches
+                           reach the map (counted on it; he may stand, the third touch stopping what the second began); if
+                           none does the gate is blind, and it says so
      S6 nothing threw on any page
    node gates/the_save_comes_back_the_same_gate.js [--no-mutation] */
 'use strict';
@@ -40,7 +41,29 @@ const fmt = (s) => s ? 'day ' + s.day + ' ' + String(Math.floor(s.min / 60)).pad
 const HELD = () => { try { const s = CITYSAVE.load(); return s && s.data ? { day: s.data.day, min: s.data.min, x: s.data.cx, y: s.data.cy } : null; } catch (e) { return null; } };
 
 /* THE THUMB AT THE TITLE: CONTINUE twice, 120 ms apart, once the valley has loaded (so the first press goes in), then the middle of
-   the glass 250 ms later, while the door is switching itself off */
+   the glass 250 ms later, while the door is switching itself off.
+   ON THE FINGER'S OWN CLOCK (FIXES 5, 11/27; CAMP FOUR's suite had S1 to S4 red in turn, one reload in three, alone too): the thumb
+   was `await tap(); await sleep(120); await tap(); await sleep(250); await tap()`, and a tap's await returns only when the page has
+   handled it. The page is busy restoring the save in that second, so on the loaded box the second touch was handled at 674 ms and
+   the third SENT at about 940 ms: after the door was off the glass and its beat was over (the map's hold let go at 939 ms, the
+   shell's own clock, records/BOHEMIA_FIXES_FIVE_THE_REST_OF_THE_NEW_REDS_11_27_26.md), a tap on the map by the door's own rule. A
+   finger does not wait for the page: its touches are queued at 0, 120 and 370 ms and the page takes them when it is free. So the
+   three touches go out on that clock through the browser's own input (CDP, not awaited one by one), and every touch that reaches
+   the shell is written down with the door's state at that instant (__THUMB_SEEN, printed by the leg).
+   AND THE DOOR IS MEASURED WHERE IT HOLDS: on that clock a touch that does reach the map does not always move him (the second touch
+   starts a journey and the third stops it, the map's own 'a second tap cancels'), so 'nothing moves' alone could not see a door
+   that let the thumb through. The map's frame counts every touch that lands on it from the first touch on (__THUMB_ON_MAP); each
+   reload's door leg asks for none, and S5 (the hold off) asks for at least one. */
+async function fingerTaps(page, at) {
+  const cdp = await page.context().newCDPSession(page), sent = [];
+  const t0 = Date.now();
+  for (const [ms, x, y] of at) {
+    const wait = t0 + ms - Date.now(); if (wait > 0) await sleep(wait);
+    sent.push(cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y }] }).catch(() => {}));
+    sent.push(cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] }).catch(() => {}));
+  }
+  await Promise.all(sent); await cdp.detach().catch(() => {});
+}
 function thumb(hold) {
   return async (page) => {
     if (hold === false) await page.evaluate(() => { window.__DOOR_HOLD_OFF = true; });
@@ -48,8 +71,14 @@ function thumb(hold) {
       const b = t.querySelector('.bm-start [data-k=continue]') || t.querySelector('[data-k=cont]'); if (!b || b.classList.contains('off')) return null;
       const r = b.getBoundingClientRect(); return r.width > 4 ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; }), 180000, 100);
     if (!c) return;
-    await page.touchscreen.tap(c.x, c.y); await sleep(120); await page.touchscreen.tap(c.x, c.y);
-    await sleep(250); const vw = await page.evaluate(() => [innerWidth, innerHeight]); await page.touchscreen.tap(vw[0] / 2, vw[1] / 2);
+    const map = page.frames().find(f => /BOHEMIA_CITY_WORLD/.test(f.url()));
+    if (map) await map.evaluate(() => { const on = window.__THUMB_ON_MAP = []; const t0 = performance.now();
+      document.addEventListener('pointerdown', (e) => { on.push(Math.round(performance.now() - t0) + ' ms on ' + ((e.target && (e.target.id || e.target.tagName)) || '?')); }, true); }).catch(() => {});
+    const vw = await page.evaluate(() => { const seen = window.__THUMB_SEEN = []; const t0 = performance.now();
+      document.addEventListener('pointerdown', (e) => { const h = window.__DOOR_HOLD, f = document.getElementById('front');
+        seen.push(Math.round(performance.now() - t0) + ' ms on ' + ((e.target && (e.target.id || e.target.tagName)) || '?') + (h && h.on ? ', the map held' : ', THE MAP OPEN') + (f && getComputedStyle(f).display !== 'none' ? ', the door up' : ', the door gone')); }, true);
+      return [innerWidth, innerHeight]; });
+    await fingerTaps(page, [[0, c.x, c.y], [120, c.x, c.y], [370, vw[0] / 2, vw[1] / 2]]);
     /* a door that still asks (the valley was not ready for the first press): BEGIN, then the same third tap */
     const b = await waitFor(() => page.evaluate(() => { const f = document.getElementById('fronttap'), fr = document.getElementById('front'); if (!fr || getComputedStyle(fr).display === 'none') return 'in';
       if (!window.__LOAD_READY || !f) return null; const r = f.getBoundingClientRect(); return r.width > 4 ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; }), 30000, 100);
@@ -65,7 +94,9 @@ async function reopen(hold) {
   await waitFor(() => c.evaluate(() => typeof T !== 'undefined' && MODE === 'city' && typeof RESTORE_ANSWERED !== 'undefined' && RESTORE_ANSWERED), 60000);
   const a = await c.evaluate(GLASS); await sleep(4000); const b = await c.evaluate(GLASS);
   const fight = await cur.page.evaluate(() => !!document.getElementById('fightFrame') || !!(window.BohemiaFightStart && BohemiaFightStart.pending()));
-  return { c, a, b, fight, title: cur.title };
+  const seen = await cur.page.evaluate(() => window.__THUMB_SEEN || null).catch(() => null);
+  const onMap = await c.evaluate(() => window.__THUMB_ON_MAP || null).catch(() => null);
+  return { c, a, b, fight, title: cur.title, seen, onMap };
 }
 const still = (r) => r.a.day === r.b.day && r.a.min === r.b.min && r.a.x === r.b.x && r.a.y === r.b.y && !r.b.trav;
 const same = (p, q) => !!p && !!q && p.day === q.day && p.min === q.min && p.x === q.x && p.y === q.y;
@@ -83,7 +114,9 @@ function judge(tag, G, S, R, lag) {
   ok(tag + ': never later than the glass' + (lag ? ' (' + slack + ' game min of slack for the tab coming down), and at most one save beat behind it (' + lag + ' game min)' : ', to the minute'), behind >= -slack && behind <= lag,
     behind >= 0 ? behind + ' min behind the glass' : (-behind) + ' MIN AHEAD OF THE GLASS');
   ok(tag + ': the batteries and the crew come back as they were', R.a.bats === G.bats && R.a.crew === G.crew, 'had ' + G.bats + ' batteries, ' + G.crew + ' men; back ' + R.a.bats + ', ' + R.a.crew);
-  ok(tag + ': for four seconds after CONTINUE (a double tap, a third tap on the door) nothing moves', still(R) && R.title.via !== 'new', fmt(R.a) + ' -> ' + fmt(R.b) + (R.b.trav ? ', A JOURNEY RUNNING' : '') + (R.fight ? ', A FIGHT' : ''));
+  ok(tag + ': for four seconds after CONTINUE (a double tap, a third tap on the door) nothing moves', still(R) && R.title.via !== 'new', fmt(R.a) + ' -> ' + fmt(R.b) + (R.b.trav ? ', A JOURNEY RUNNING' : '') + (R.fight ? ', A FIGHT' : '') + '; the shell took ' + (R.seen ? R.seen.length + ' of the 3 touches (' + R.seen.join('; ') + ')' : 'NO THUMB'));
+  ok(tag + ': the door holds the thumb: none of its touches reaches the map', !!R.onMap && R.onMap.length === 0,
+    R.onMap ? R.onMap.length + ' on the map' + (R.onMap.length ? ' (' + R.onMap.join('; ') + ')' : '') : 'THE MAP WAS NOT WATCHED (no city frame when the thumb came)');
 }
 
 (async () => {
@@ -153,9 +186,10 @@ function judge(tag, G, S, R, lag) {
     await sleep(2000);
     G = await c.evaluate(GLASS);
     R = await reopen(false); c = R.c;
-    const moved = !still(R) || R.a.x !== G.x || R.a.y !== G.y || abs(R.b) !== abs(G);
-    ok('S5 the leg can fail: with the door\'s hold off (the before) the same thumb reaches the map and he moves', moved,
-      moved ? 'saved ' + fmt(G) + ', back ' + fmt(R.a) + ' -> ' + fmt(R.b) + (R.b.trav ? ', walking' : '') : 'HE DID NOT MOVE: the thumb never reached the map, so the legs above prove nothing about the door');
+    const moved = !still(R) || R.a.x !== G.x || R.a.y !== G.y || abs(R.b) !== abs(G), reached = R.onMap ? R.onMap.length : -1;
+    ok('S5 the leg can fail: with the door\'s hold off (the before) the same thumb reaches the map', reached > 0,
+      (reached > 0 ? reached + ' touch(es) on the map (' + R.onMap.join('; ') + ')' : reached === 0 ? 'NONE ON THE MAP: the thumb never reached it, so the door legs above prove nothing' : 'THE MAP WAS NOT WATCHED')
+      + '; saved ' + fmt(G) + ', back ' + fmt(R.a) + ' -> ' + fmt(R.b) + (moved ? ', he moved' : ', he stood (the third touch stops the journey the second began)'));
   }
   ok('S6 nothing threw on any page', errs.length === 0, errs.slice(0, 3).join(' | '));
   console.log('\nTHE SAVE COMES BACK THE SAME: ' + pass + ' passed, ' + fail + ' failed');

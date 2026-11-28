@@ -2,7 +2,28 @@
 # SPELLED WITH LETTERS (a digit in a lane name breaks the fleet's lane-head regexes); the chat answers to 'fixes 2'.
 # FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
 # FIXES FOUR (the chat answers to 'fixes 4', 11/27; FIXES 3 wrote HANDOFF READY at 02:13 11/27) carries this file on: same job, blocks named FIXES FOUR.
-FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (f) LATEST -- HANDOFF READY (this session's context is long: the next round goes to a
+# FIXES FIVE (the chat answers to 'fixes 5', 11/27; FIXES 4 wrote HANDOFF READY 11/27) carries this file on: same job, blocks named FIXES FIVE.
+FIXES FIVE (session_01GKDyuwkkCUgRe2NpmrgqwP): 11/28 (a) LATEST -- [the new reds] IN FLIGHT, about 17 of the 95 walked (FIXES 4's
+handoff; rule 495). Record: records/BOHEMIA_FIXES_FIVE_THE_REST_OF_THE_NEW_REDS_11_27_26.md. No build: four checks that cried wolf now tell
+the truth (gates and one tool; nothing he sees changed, so no stamp and no cut). THE LIST REBUILT: the 95 names were never committed, but the
+suite names a gate's owner by its description's first words, so the list is every gate off the quarantine whose description starts with an
+owner CAMP FOUR counted (script in the record's section 0).
+STALE, RE-AIMED TO THE TRUTH (each run alone on main ef1881941): THE SAVE COMES BACK THE SAME 26/0 (the cause was the gate's thumb: awaited
+taps on a busy page sent the third touch after the door's beat; now the finger's own clock, and a new door leg that counts touches ON THE MAP:
+stricter, the old 'nothing moves' was blind to a leaky door); A RETREAT GETS HIM AWAY 14/0, THE FEED IS ALIVE 31/0 (C5 split into C5 and
+C5b), A PACK HE RAN FROM LETS HIM GO 9/0: one cause, CAMP FOUR's rule 472(a) (a whole crew's camp runs no hour), so the checkers' camps
+stood the clock still. NEW SHARED PIECE: tools/bohemia_hand_a_fight.js (hurt the company through BohemiaCondition.afterFight, the shell's
+own door; 14 gates still write the condition's storage by hand: rule 495(c) debt, PLUMBER 9's count).
+LOAD (green alone): YOU SEE THEM RUN, THE PHONE (341 s), FIRST PLAY IS LIGHT, THE HEAP STAYS FLAT, WHAT LIVES ON THE MAP HAS A CAP, THE KILL
+GOES IN THE STASH, THE PLACE IN THE DARK, THE MAP'S PEOPLE ARE PACKED. TIMEOUT: THE BOARDS ALWAYS HAVE WORK (over 330 s alone, legs green so
+far). HANDED: AUTO AT 4X NEVER CRASHES (A1 to A5 green, no crash; A3's 'before' bar 1.92x of 2x reads the whole picture peak, day sheets
+included, which grew: COMBAT's call, COMBAT SIX live on rule 484; A6 needs the full cap); gates/everyone_in_the_fight_holds_gate.js has the
+same stale camp step and is not in the suite's table (PLUMBER's).
+NEXT (record section 4, felt first): UI 4, RUN THREE 2, PORTRAIT 2, WORDS THREE 3, RUN FOUR 4, MOTION 3 3, COMBAT 7 5, BOSSES 6, UI FIVE 7,
+WORLD 14 11, CHARACTER 5, PEOPLE 22, ANIMATION 18, UI 21, RUN 7. Runner: run each alone with a cap under 600 s, foreground. Never
+send_later or anything that waits on a tap.
+
+FIXES FOUR (session_01GKDyuw6giHRPkwhvFvmGvk): 11/27 (f) -- HANDOFF READY (this session's context is long: the next round goes to a
 fresh FIXES session on this block). [the new reds] BUILD 11/27zw - A SLIDER KEEPS ITS TRAVEL, BUILT, NOT YET SEEN (the routine 'the 95
 new reds'). Record: records/BOHEMIA_FIXES_FOUR_THE_NEW_REDS_11_27_26.md (every red walked, its verdict, what was done; the rest by owner).
 WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): SETTINGS' music, ambience and effects sliders twice as long (136 px,

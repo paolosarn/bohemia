@@ -30,7 +30,10 @@
       C2 the company's own page posts when the game starts
       C3 a job taken (the game's own loopTakeContract) posts; dropped (WORLD's own drop) posts
       C4 a town opened (the map's own loopOpenTown) posts
-      C5 CAMP (the real button) runs the clock and the city talks: posts of all three kinds, from handles in the file
+      C5 CAMP (the real button) runs the clock while his men mend (a fight handed to the condition first: a whole crew's camp runs no
+         hour, rule 472(a)): at least four game hours
+      C5b the clock running (that camp, then a played minute on the road: the talk is paced by the glass's seconds while the clock
+         runs live, and a camp's mend is about three of them), the city talks: posts of all three kinds, from handles in the file
       C6 the newest post is on the phone (the handle and the words in the slot), nothing over the map
       C7 nothing thrown
    Run: node gates/the_feed_is_alive_gate.js [--headless] */
@@ -237,16 +240,41 @@ async function live(profile) {
     const fb = await p.evaluate(() => { const r = document.getElementById('cityFrame').getBoundingClientRect(); return { x: r.x, y: r.y }; });
     /* RE-AIMED 10/26 BY UI TWO (rules 212(b), 226): the CAMP plate is the phone's HEAL app, drawn by the shell; the tap is at its real place */
     const cb = await p.evaluate(() => { const b = document.querySelector('#bohphone .app[data-app=heal]'); if (!b || !document.getElementById('bohphone').classList.contains('on')) return null; const r = b.getBoundingClientRect(); return r.width ? { x: r.x + r.width / 2, y: r.y + r.height / 2 } : null; });
+    /* RE-AIMED 11/27 BY FIXES 5 (CAMP FOUR's suite: C5 'camp true, 0 game hours', both profiles): CAMP runs the clock only while a
+       man mends since CAMP FOUR's __CAMP_WAITS_FOR_HIM__ (rule 472(a), Paolo 11/22: 'I want time to go by until everyone's healed,
+       but then when everyone is healed I want time to stop'), and this company had never fought, so HEAL stood the clock still. A
+       fight is handed to the condition first, through its own door (tools/bohemia_hand_a_fight.js: BohemiaCondition.afterFight, the shell's call after every fight):
+       every man down to 6 of 60 and a tenth of his armour, about five and a half hours of mending at the camp's rate; then the
+       real tap, and the hours run while they mend. */
+    const hurt = await fr.evaluate(require(path.join(ROOT, 'tools/bohemia_hand_a_fight.js')).handAFight, { hp: 6, hpMax: 60, armour: 0.1 });
     const t0 = await fr.evaluate(() => DAY.day * 1440 + DAY.min), n0 = await fr.evaluate(() => BohemiaFeed.stats().posts);
     if (cb) { if (profile === 'computer') await p.mouse.click(cb.x, cb.y); else await p.touchscreen.tap(cb.x, cb.y); }
-    await p.waitForTimeout(75000);
+    /* the camp's hours: until the clock stops (everyone whole, rule 472(a)) or 75 s, as before */
+    const tc = Date.now(); let tl = -1, still = 0;
+    while (Date.now() - tc < 75000) { await p.waitForTimeout(1500); const tt = await fr.evaluate(() => DAY.day * 1440 + DAY.min); if (tt === tl && tt - t0 >= 60) { if (++still >= 4) break; } else still = 0; tl = tt; }
+    const c5a = await fr.evaluate(() => ({ t: DAY.day * 1440 + DAY.min, camp: !!(BohemiaMapCamp.on && BohemiaMapCamp.on()) }));
+    leg(!!cb && c5a.t - t0 >= 240, 'C5  [' + profile + '] CAMP (THE REAL BUTTON) RUNS THE CLOCK WHILE HIS MEN MEND',
+      'camp ' + !!cb + ' (his men handed a fight: ' + hurt.hurt + ' of ' + hurt.men + ' hurt), ' + Math.round((c5a.t - t0) / 60) + ' game hours before the clock stopped');
+    /* the city talks while the clock runs live: a played stretch on the road (the feed paces its talk by the glass's own seconds while
+       the clock runs, pace.real_gap_s; a camp's mend runs about three of them, a minute of travel about sixty) */
+    await fr.evaluate(() => { try { if (BohemiaMapCamp.on()) BohemiaMapCamp.break(); } catch (e) {} });
+    await p.waitForTimeout(1500);
+    const walk = await fr.evaluate(() => { try { if (LOOP.open) loopClose(); } catch (e) {} const N = om.n, C = [];
+      for (let y = 2; y < N - 2; y += 3) for (let x = 2; x < N - 2; x += 3) { const dd = Math.abs(x - city.x) + Math.abs(y - city.y); if (dd >= 50 && cityWalkable(x, y) && !loopTownAt(x, y, 2)) C.push([x, y, dd]); }
+      C.sort((a, b) => b[2] - a[2]);
+      for (const q of C.slice(0, 30)) { const r = travelTo(0, 0, [q[0], q[1]]); if (r && TRAVEL && TRAVEL.path && TRAVEL.path.length >= 40) { travelSpeedSet(1); return TRAVEL.path.length; } try { travelStop(); } catch (e) {} }
+      return 0; });
+    const tw = Date.now(), tw0 = await fr.evaluate(() => DAY.day * 1440 + DAY.min);
+    while (Date.now() - tw < 70000) { await p.waitForTimeout(2000);
+      await fr.evaluate(() => { try { if (window.MEET && MEET.up && window.MEET_DONE) MEET_DONE(false); } catch (e) {} try { if (!TRAVEL && LOOP.open) loopClose(); } catch (e) {} }); }
     const c5 = await fr.evaluate(() => ({ t: DAY.day * 1440 + DAY.min, st: BohemiaFeed.stats(), posts: BohemiaFeed.read({ limit: 80 }) }));
+    try { await fr.evaluate(() => { try { travelStop(); } catch (e) {} }); } catch (e) {}
     const handles = {}; FILE.accounts.concat(WORLD.accounts || []).forEach(a => { handles[a.id] = 1; });
     const kinds = { mine: 0, world: 0, life: 0 }; c5.posts.forEach(x => { kinds[x.kind]++; });
     const strangers = c5.posts.filter(x => !handles[x.account] || !x.handle);
-    leg(!!cb && c5.t - t0 >= 240 && c5.st.posts > n0 && kinds.mine > 0 && kinds.world > 0 && kinds.life > 0 && strangers.length === 0,
-      'C5  [' + profile + '] CAMP (THE REAL BUTTON) RUNS THE CLOCK AND THE CITY TALKS, FROM HANDLES IN THE FILE',
-      'camp ' + !!cb + ', ' + Math.round((c5.t - t0) / 60) + ' game hours, posts ' + n0 + ' -> ' + c5.st.posts + ' ' + JSON.stringify(kinds) + '; newest: ' + (c5.posts[0] ? c5.posts[0].handle + ': ' + c5.posts[0].text : '-'));
+    leg(walk > 0 && c5.st.posts > n0 && kinds.mine > 0 && kinds.world > 0 && kinds.life > 0 && strangers.length === 0,
+      'C5b [' + profile + '] THE CLOCK RUNNING (the camp, then a played minute on the road), THE CITY TALKS, FROM HANDLES IN THE FILE',
+      'a walk of ' + walk + ' blocks, ' + Math.round((c5.t - tw0) / 60) + ' game hours on the road, posts ' + n0 + ' -> ' + c5.st.posts + ' ' + JSON.stringify(kinds) + (strangers.length ? ', ' + strangers.length + ' FROM NO HANDLE IN THE FILE' : '') + '; newest: ' + (c5.posts[0] ? c5.posts[0].handle + ': ' + c5.posts[0].text : '-'));
     /* the phone: RE-AIMED 10/26 BY UI TWO (rule 212(b), 215(e)): the slot is gone; the phone's FEED app reads BohemiaFeed.read(),
        its newest post first, inside the phone's glass, in one tap (the camp broken first, so the phone shows its apps).
        Rule 286(c)(d): no FEED app; the feed is a strip on the phone's face and one tap on it opens the catalogue. */
