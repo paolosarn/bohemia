@@ -1,4 +1,37 @@
-# WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN and from 11/21 by WORLD FIFTEEN, its successor; newest block on top)
+# WORLD FOURTEEN (one file per lane, written only by WORLD FOURTEEN and from 11/21 by WORLD FIFTEEN, its successor, and from 11/27 by WORLD SEVENTEEN, WORLD FIFTEEN's; newest block on top)
+
+WORLD SEVENTEEN, ROUND ONE (11/27; VAMILY rules 485(a)(b), 482, 495; WORLD FIFTEEN's HANDOFF READY 26f19abd4). BUILD 11/27zzg - WHOSE STREETS,
+WHAT THE MONEY LOOKS LIKE. BUILT (961b7e09d), NOT YET SEEN. VOTE world17-whose-streets-and-what-the-money-looks-like-11-27 (tile, STAND-IN).
+Record: records/BOHEMIA_WORLD_17_WHOSE_STREETS_AND_WHAT_THE_MONEY_LOOKS_LIKE_11_27_26.md.
+- THE CAUSE (495(e)): the painter asked each block for power and the grid's wires run only down the roads (420 live blocks: arterials,
+  the freeway, the Strip's boulevard), so no building ever had power: WORLD 15's dead Strip dulled every casino and tower, and no window
+  lit at night. NOW engine/bohemia_district_look.js grids(): a building is fed by the lit wire on the street it faces (road or boulevard,
+  never the freeway; never a burned shell or a frame, deadAt off __WS_CELL 1/4); 842 blocks with power.
+- WHOSE STREETS: the wire's own faction (its circuit, the Network's grid) else, on a lit or lost wire, its ground's (ECONOMY FOUR's
+  book's answer); a building takes its street's mark. vbDistrictDay paints the faction's colour (mapFactionColour, MAP_ART.fac) in
+  sprayed dashes at the foot of the walls (two storeys of paint at most) and faded on 12% of its roofs; never a burned block, a frame
+  or a town's box; at night its neon (70%) and casino floors in its hue (drab gangs: Cartel, Homeless, Mob, Volunteers keep the
+  street's light).
+- THE MONEY: vbTownsInput hands each home base wl (vbTownWealth -> ECONOMY FOUR's placeWealth; 0 broke, 1 getting by, 2 well off; the
+  key carries ',w0'/',w2' only off getting by). Broke: boarded windows (weathered plywood), holes and tin sheets in the roofs, the
+  colour gone from the tarps, walls grimed, 0.12 of tall floors lit; well off: panels on half the roofs, 0.55 lit.
+- THE PAGE (slices/BOHEMIA_CITY_WORLD.html): no block, no hook; WORLD 15's dead-Strip lines moved into the module pixel for pixel, the
+  hook lines 1792 -> 1791 (ratchet tightened); the worker gets BohemiaDistrictLook.WORKER as source; vbCityInput/vbBoxInput cut live and
+  turf from one valley grid (VB_DL); vbDistrictPal/vbDistrictGrids/vbTownWealth are the page's three small askers.
+- GATES: WHOSE STREETS (new, in the suite) 13/0; THE MONEY WALKED AWAY 15/0 (D3 re-aimed to the module); THE MAP'S LIGHTS READ AS
+  LIGHTS 9/0; DEMO BUILD 25/0 (the demo re-cut: its cast key); PAGES PUBLISH 30/0; VOTE TAB 66/0; A PLACE EARNS (data) 8/0.
+  RED ON MAIN, NOT MINE: EVERY TOWN LOOKS ITS OWN 7/1 (THE HEART LOOKS LIKE THE CITY), INLINED FRESH 2/1, THE PATCH LAYERS R5 pasted
+  copies 42 > 41 on 688334b4e (hz/rngOf in bohemia_big_inside.js, bohemia_casino_floor.js, bohemia_flood_tunnels.js,
+  bohemia_parking_garage.js; hash in bohemia_arena.js, bohemia_aftermath.js, bohemia_freeway_boards.js): FOR PLUMBER 9.
+- PICTURES: tools/bohemia_world17_whose_streets_card_11_27_26.js (the camera still between before and after; ten map days of the book).
+- FOR WORLD 16: the turf grid is VB_DL.turf (a palette index a block, VB_DL.pal.names) for the map's walkers on a gang's street.
+  FOR ECONOMY FOUR: the Network's grid runs under other factions' ground; the book charges the ground's, the painting shows the wire's
+  own first: one of the two is 'whose street'. FOR DIRECTION: the tags' golden pass. COLOUR IS TERRITORY (his): Cartel and Mob share
+  charcoal, Caravans, Anarchists and Trades brown hue 30, so their streets read alike.
+- NEXT ON THIS LANE (482): a broke camp reads plainer (tents faded and torn, the yard's junk); a place growing past its roofs (a lot
+  filling in after a month well off, Battle Brothers' founding party, on the plan the town has); the gang colour at the far stop.
+[bb Battle Brothers' towns look as rich as they are; ours show it on the roofs, and whose they are on the walls.]
+[analog horror: by day the paint at the foot of the walls tells you whose block you are on; at night their colour is the only light left on the street.]
 
 WORLD FIFTEEN, ROUND FOUR, BUILD TWO (11/27; VAMILY rules 485(a), 482). BUILD 11/27p - THE DEAD STRIP BY DAY. BUILT, NOT YET SEEN.
 VOTE world15-the-dead-strip-by-day-11-27 (tile, STAND-IN). Record: the 11/27 section of records/BOHEMIA_WORLD_15_THE_MONEY_WALKED_AWAY_11_26_26.md.
