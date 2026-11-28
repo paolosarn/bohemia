@@ -9630,6 +9630,14 @@ GATES = [
      "at most 170 MB of canvas (the old way 212 to 316), I4 a ratchet on the most at any step (1,250 MB), P1 the old way past I3 "
      "(__AN_IPHONE_COUNTS_EVERY_CANVAS_UNTIL_IT_IS_EMPTIED__). records/BOHEMIA_PLUMBER_IN_AND_OUT_THE_IPHONES_WAY_11_27_26.md. "
      "Solo. About 4 min", True),
+    ('THE FIGHT HOLDS WHAT IT SHOWS', ['node', 'gates/the_fight_holds_what_it_shows_gate.js'],
+     "COMBAT SIX gate, 11/27, VAMILY rule 484 amended (Paolo 11/27: 'combat keeps crashing, like when I get into combat and then when I "
+     "finish it'; his A, Safari killing the tab for memory), built the rule 495 way. A sheet is cut to the cells the fight still shows "
+     "(slices/BOHEMIA_FIGHT.html, the packed sheets' module): H1 the face strips to the faces of the men on the board, the same pixels; "
+     "H2 a look worn only by the dead to the cells they lie in, the same pixels, the body sheets down; H3 the night the same pixels and "
+     "moons; H4 a cut cell drawn brings the whole back (5 s); H5 AUTO plays on, no error; H6 through the demo at 4x: under the end screen "
+     "no held or melee sheet, every body sheet only its dead, the men's pictures at most 15% of the fight's, LEAVE home; P1 "
+     "window.__SHEETS_WHOLE cuts nothing. records/BOHEMIA_COMBAT_SIX_THE_FIGHT_HOLDS_WHAT_IT_SHOWS_11_27_26.md. Solo. About 6 min", True),
     ('THE MAP\'S PEOPLE ARE PACKED', ['node', 'gates/the_maps_people_are_packed_gate.js'],
      "CHARACTER 3 gate, 11/27, ask row 769, VAMILY rule 484(a) amended (Paolo 11/27: 'combat keeps crashing... going in and when I "
      "finish it'; his A, Safari killing the tab for memory). The map's people sheets as atlases (every cell cut to the box its pixels "

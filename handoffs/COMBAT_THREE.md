@@ -1,5 +1,30 @@
 # COMBAT THREE (combat 3), FROM 11/20 COMBAT FOUR (combat 4, rule 462: the same lane on a fresh model) -- the handoff block (written only by this lane, newest first; COMBAT TWO is archived, its block is handoffs/COMBAT_TWO.md)
 
+COMBAT SIX (combat-six-01gkdyut; VAMILY rule 484 as amended 11/27, his answer A; rules 407, 420, 495, 461(c)): 11/28 LATEST -- BUILD 11/28a - THE FIGHT HOLDS WHAT IT SHOWS, BUILT, NOT YET SEEN.
+Record: records/BOHEMIA_COMBAT_SIX_THE_FIGHT_HOLDS_WHAT_IT_SHOWS_11_27_26.md (every number, before and after). No VOTE card: a memory fix is the same pixels (gated).
+WHERE THE CAUSE WAS (rule 495(e)): the fight's sheet loaders kept every sheet whole to the end; the fix is in the packed sheets' own block of slices/BOHEMIA_FIGHT.html
+(sheetCut, gridSheet, sheetsWanted, sheetsHeldSweep, sheetsRest, sheetMissed, sheetAgain, sheetGo; packedDraw's miss; poseSweep(now, 0)). No new patch block, no hook line.
+(1) DONE: THE FIGHT'S HELD ART BY DAY, the part a grid can cut: the face strips to the faces on the board (12.3 MB of strips -> 27 cells of 128 x 128, about 2 MB; the three other strips to none);
+    a look nobody standing wears to the cells its dead and struck-down lie in (11 v 16: body 108 -> 77 MB with 12 looks on the ground); under the end screen every held and
+    melee sheet let go and every body sheet cut to the dead the camp lays (the men's pictures 95.9 -> 0.6 MB). The fight page alone through the demo at 4x: in the fight
+    210 -> 178 and 172 -> 145 MB; at LEAVE 210 -> 102 and 172 -> 96 MB. IN AND OUT THE IPHONE'S WAY: the most at any step 496 of 768. Twelve fights in and out: 703 at the most.
+    A cut cell drawn brings the whole sheet back (112 to 298 ms); twice back, never cut again. window.__SHEETS_WHOLE the old way.
+GATES: THE FIGHT HOLDS WHAT IT SHOWS 12/0 (new, in the suite, ~6 min); MAKE CAMP FROM THE FIGHT 11/0; IN AND OUT THE IPHONE'S WAY 8/0; TWENTY FIGHTS HOLD MEMORY FLAT upright at
+BOHEMIA_MEM_FIGHTS=12 12/0 (twenty does not fit a 10-minute foreground call); THE WHOLE LOOP 11/0; LEAVE WAITS 7/0; EVERY ENEMY READS AT NIGHT 4/0; DEMO BUILD 25/0 (the demo re-cut);
+PATCH LAYERS R1-R3 at the ratchet. RED THE SAME ON CLEAN MAIN (measured with main's fight page, not mine): AUTO AT 4X 6/1 (A3's ratio: main 0.511, here 0.500-0.503);
+THE FIGHT DRAWS WHAT HE WEARS 18/1 (H2, the deal: 0 such bodies dealt in 60); PATCH LAYERS R5 42/41 (hz, rngOf in bohemia_big_inside/casino_floor/flood_tunnels/parking_garage.js:
+COOK SEVEN's and PLUMBER 9's).
+THE NEXT COMBAT CHAT'S JOBS, IN THIS ORDER (rule 484 first, the rule 495 way):
+(1b) THE HELD AND MELEE SHEETS IN PLAY (92 + 45 MB in an 11 v 16): irregular cells (x, y, w, h: rig_hold/*.json sheet.cells, rig_melee), so sheetCut cannot take them yet. A long-gun
+     man draws 31% of his look's held sheet, a pistol man 68% (rig_hold.json 'guns'). Cut a held sheet to the clips its wearers' kinds use: a table of its own over a cut atlas
+     (the look's d.sheet.cells read through it), the same miss path (holdImg asks the whole again). The melee sheets by the props the men carry.
+(2) THE WAY IN, SMOOTH AND QUICK ON A SLOWED PHONE (rules 407, 420): COMBAT FIVE's (2) stands as written (ENGAGE to the fight 9 to 10.8 s at 4x; the hold 2.9 to 3.7 s; levers:
+     the ring and laidPaint off the board's first frame, the board dealt while the meet card is up, the dive's three map draws). NOT STARTED this round.
+(3) COMBAT FIVE's (3) the one loading-line frame (Z1, 2 of 9 runs) and (4) as written. Twenty fights SIDEWAYS on the new numbers.
+*** FOR COOK SEVEN: THE BIG INSIDES I8 BONEYARD (your note) is received, not looked at this round. ***
+[bb Battle Brothers keeps a dead man's body on the field and nothing else of him]
+[analog horror: the tape keeps the last frame of the dead and lets the rest of the reel go dark]
+
 COMBAT FIVE (combat-five-01gkdyuv): 11/27 HANDOFF READY (context past the line). Built and live: BUILD 11/27g THE CAMERA COMES DOWN, LEAVE ANSWERS (c54b2ce6a,
 VOTE combat5-the-camera-comes-down-11-27, a before/now clip) and BUILD 11/27zb THE GROUND AT WHAT THE GLASS SHOWS (cccdb9d77). Everything measured is in
 records/BOHEMIA_COMBAT_FIVE_THE_CAMERA_COMES_DOWN_LEAVE_ANSWERS_11_27_26.md; the two blocks below say what each piece is and where it lives.

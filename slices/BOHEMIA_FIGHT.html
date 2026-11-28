@@ -6909,12 +6909,146 @@ function packedDraw(ctx, d0, img, a) {
     const c0 = Math.max(0, Math.floor(sx / cw)), c1 = Math.min(img.cols - 1, Math.ceil((sx + sw) / cw) - 1);
     const r0 = Math.max(0, Math.floor(sy / ch)), r1 = Math.min(img.rows - 1, Math.ceil((sy + sh) / ch) - 1);
     for (let r = r0; r <= r1; r++) for (let c = c0; c <= c1; c++) {
-      const i = (r * img.cols + c) * 6, tw = t[i + 4], th = t[i + 5]; if (!tw) continue;
+      const i = (r * img.cols + c) * 6, tw = t[i + 4], th = t[i + 5];
+      if (!tw) { if (img.whole && img.whole[i + 4]) sheetMissed(img); continue; }   /* a cell the cut let go is asked for: the whole sheet comes back */
       const X = c * cw + t[i + 2], Y = r * ch + t[i + 3];
       const x0 = Math.max(X, sx), y0 = Math.max(Y, sy), x1 = Math.min(X + tw, sx + sw), y1 = Math.min(Y + th, sy + sh);
       if (x1 <= x0 || y1 <= y0) continue;
       d0.call(ctx, img.atlas, t[i] + (x0 - X), t[i + 1] + (y0 - Y), x1 - x0, y1 - y0, dx + (x0 - sx) * kx, dy + (y0 - sy) * ky, (x1 - x0) * kx, (y1 - y0) * ky);
     }
+}
+/* THE FIGHT HOLDS WHAT IT SHOWS (COMBAT SIX 11/27/26, VAMILY rule 484 as amended, built the rule 495 way: in the packed sheets' own
+   module; Paolo 11/27: 'combat keeps crashing, like when I get into combat and then when I finish it'; his answer A: the page goes white
+   or reloads, Safari on his iPhone killing it for memory). MEASURED on the fight's own page (11 of his against 16, 27 looks, phone
+   upright) and through the demo (tools/bohemia_combat_five_canvas_census.js): the fight held every sheet it ever loaded, whole, to the
+   end: 107 MB of body sheets when 15 of the 27 looks were worn only by the dead; 12.3 MB of face strips (172 faces) for the 6 to 27 faces
+   it shows; and 50 to 140 MB of held and melee sheets alive under the end screen, where the board is never drawn again (it rests; LEAVE
+   and MAKE CAMP take the page away). NOW a sheet is CUT to the cells the fight still shows: the same grid and the same table over a new
+   atlas of only those cells (sheetCut), so packedDraw, the night, the machine's chip and the camp's bodies read it as before. The face
+   strips are cut to the faces of the men on the board; a look nobody standing wears any more to the cells its dead lie in (a gun sheet
+   nobody standing holds, to nothing); and once the end screen covers the board, every held and melee sheet is let go and every body
+   sheet is cut to the dead the camp lays. A cut cell that is drawn after all (a man raised, a ghost in a dead man's look, the board
+   drawn again) asks the whole sheet back the way it came, off the glass, once; a sheet that had to come back twice is never cut again.
+   One cut a sweep (a few cells drawn and one small bitmap), never two in a frame. window.__SHEETS_WHOLE: the old way. */
+const SHEET_SWEEP_MS = 2000, SHEET_CUT_GAIN = 0.75, SHEET_FELL_BEATS = 2;
+/* a whole picture as a packed sheet of cw x ch cells, each cell itself (the face strips): drawn exactly as the picture was */
+function gridSheet(pic, cw, ch, src) {
+  const cols = Math.max(1, Math.floor(pic.width / cw)), rows = Math.max(1, Math.floor(pic.height / ch)), t = new Uint16Array(cols * rows * 6);
+  for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) { const i = (r * cols + c) * 6; t[i] = c * cw; t[i + 1] = r * ch; t[i + 4] = cw; t[i + 5] = ch; }
+  return new PackedSheet({ w: pic.width, h: pic.height, cw: cw, ch: ch, cols: cols, rows: rows, t: t }, pic, src || pic.src);
+}
+/* the sheet P cut to the cells keep (indices row * cols + col): shelves, tallest first; a cell not kept is 0 by 0 and 'whole' remembers
+   it was there; resolves to the cut, or null when the cut would not save a quarter of the atlas */
+function sheetCut(P, keep) {
+  const t = P.t, cells = [];
+  keep.forEach(function (i) { const k = i * 6; if (i >= 0 && k + 5 < t.length && t[k + 4] && t[k + 5] && cells.indexOf(i) < 0) cells.push(i); });
+  cells.sort(function (a, b) { return t[b * 6 + 5] - t[a * 6 + 5] || a - b; });
+  let area = 0, wide = 1; cells.forEach(function (i) { area += t[i * 6 + 4] * t[i * 6 + 5]; wide = Math.max(wide, t[i * 6 + 4]); });
+  const W = Math.min(4096, Math.max(wide, Math.ceil(Math.sqrt(area) * 1.15))), pos = {};
+  let x = 0, y = 0, rowH = 0;
+  cells.forEach(function (i) { const w = t[i * 6 + 4], h = t[i * 6 + 5]; if (x + w > W) { x = 0; y += rowH; rowH = 0; } pos[i] = [x, y]; x += w; rowH = Math.max(rowH, h); });
+  const H = Math.max(1, y + rowH), A = P.atlas;
+  if (W * H >= SHEET_CUT_GAIN * (A.width * A.height)) return Promise.resolve(null);
+  const c = document.createElement('canvas'); c.width = W; c.height = H;
+  const g = c.getContext('2d'), d0 = sheetNative(g), t2 = new Uint16Array(t.length);
+  cells.forEach(function (i) { const k = i * 6, p = pos[i];
+    d0.call(g, A, t[k], t[k + 1], t[k + 4], t[k + 5], p[0], p[1], t[k + 4], t[k + 5]);
+    t2[k] = p[0]; t2[k + 1] = p[1]; t2[k + 2] = t[k + 2]; t2[k + 3] = t[k + 3]; t2[k + 4] = t[k + 4]; t2[k + 5] = t[k + 5]; });
+  const made = function (atlas) {
+    try { atlas.src = P.src; } catch (_e) {}
+    const Q = new PackedSheet(Object.assign({}, P.meta, { t: t2, cells: null }), atlas, P.src);
+    Q.whole = P.whole || t; Q.key = P.key; Q.kept = cells.length;
+    /* what was read off the whole sheet stays its answer: the night's id (its cells already darkened) and the pick's light */
+    try { NIGHT.ids.set(Q, nightIdOf(P)); const lum = NIGHT.lum.get(P); if (lum) NIGHT.lum.set(Q, lum); } catch (_e) {}
+    return Q; };
+  if (typeof createImageBitmap !== 'function') return Promise.resolve(made(c));
+  return createImageBitmap(c).then(function (bm) { c.width = 0; c.height = 0; return made(bm); }, function () { return made(c); });
+}
+/* a sheet's picture let go at once (a phone frees a bitmap only when it is closed) */
+function sheetGo(P) {
+  const A = P && (P.atlas || P);
+  try { if (A && A.close) A.close(); else if (A && A.getContext) { A.width = 0; A.height = 0; } } catch (_e) {}
+}
+/* the whole sheet again, the way it came (the atlas off the glass, else the file decoded off the glass) */
+function sheetAgain(s) {
+  const file = function () { return fetch(s).then(function (r) { return r.ok ? r.blob() : null; }).then(function (b) { return b && typeof createImageBitmap === 'function' ? createImageBitmap(b) : null; })
+    .then(function (bm) { if (bm) bm.src = new URL(s, location.href).href; return bm; }); };
+  return (UI.sheetFace && UI.sheetFace[s] ? Promise.resolve(null) : packedLoad(s)).then(function (p) { return p || file(); }).catch(function () { return null; });
+}
+const SHEET_BACK = {};
+function sheetMissed(Q) {
+  const s = Q.key; if (!s || SHEET_BACK[s]) return;
+  SHEET_BACK[s] = 1; UI.sheetsBack = (UI.sheetsBack | 0) + 1;
+  UI.sheetBackN = UI.sheetBackN || {}; UI.sheetBackN[s] = (UI.sheetBackN[s] | 0) + 1;
+  sheetAgain(s).then(function (p) {
+    delete SHEET_BACK[s];
+    if (!p) return;
+    if (UI.imgs[s] !== Q) { sheetGo(p); return; }
+    UI.imgs[s] = p; sheetGo(Q);
+  });
+}
+/* the cells each sheet must still hold: 'all', or a list (the faces of the men on the board; a look nobody standing wears: where its
+   dead lie). Resting under the end screen, a body sheet holds only its dead (the camp lays them) and a gun sheet nothing */
+function sheetsWanted(now, resting) {
+  const W = {}, S = FIGHT.S, F = DB.rig.faces, fell = SHEET_FELL_BEATS * beatMs();
+  const add = function (s, cell) { if (W[s] === 'all') return; (W[s] = W[s] || []).push(cell); };
+  const all = function (s) { W[s] = 'all'; };
+  if (F) [F.file].concat((F.more || []).map(function (M) { return M.file; })).forEach(function (f) { W['fight_rig/' + f] = []; });   /* a strip nobody here wears a face of holds nothing */
+  S.units.forEach(function (v) {
+    const L = lookOf(v); if (!L || !L.file) return;
+    const s = 'fight_rig/' + L.file, gun = L.guns ? 'fight_rig/' + L.guns : null;
+    /* the face on the turn strip and the card, the dead's darkened (drawPortrait) */
+    if (F && !beastOf(v)) { const fk = L === DB.rig.looks[v.look] ? v.look : F.order[0];
+      let fs = 'fight_rig/' + F.file, fi = F.order.indexOf(fk);
+      if (fi < 0) (F.more || []).some(function (M) { const j = M.order.indexOf(fk); if (j < 0) return false; fi = j; fs = 'fight_rig/' + M.file; return true; });
+      if (fi >= 0) add(fs, fi); }
+    const clips = L.clips || DB.rig.clips, P = UI.imgs[s];
+    /* on the ground: dead, or struck down (he lies on his fall's last key; his crawl is drawn off its own sheets) */
+    const lies = (v.dead || v.down) && !v.machine && !v.decoy && v._fallAt !== undefined && now - v._fallAt > fell && clips.fall && P && P.cols;
+    const gone = v.fled && !v.dead && !v.down && !v.decoy && !stillRunning(v, now) && v._fallAt === undefined;
+    if (lies) add(s, (v._face || 0) * P.cols + clipCol('fall', 1e6, L));
+    else if (resting && v.dead && !v.fled && !v.ghost && !v.machine && clips.fall && P && P.cols) add(s, (v._face || 0) * P.cols + clipCol('fall', 1e6, L));   /* the camp lays every dead man (campFromFight) */
+    else if (gone || (resting && !v.machine && !v.decoy)) { if (!W[s]) W[s] = []; }
+    else { all(s); if (gun) all(gun); }
+    if (gun && !W[gun]) W[gun] = [];
+  });
+  return W;
+}
+/* one cut a sweep; resting: one a frame (the board is not drawn) */
+function sheetsHeldSweep(now, resting) {
+  if (window.__SHEETS_WHOLE || !FIGHT.S || !UI.board || UI.sheetCutting || !DB.rig) return;
+  if (!resting && UI.sheetsSweptAt && now - UI.sheetsSweptAt < SHEET_SWEEP_MS) return; UI.sheetsSweptAt = now;
+  const W = sheetsWanted(now, !!resting), F = DB.rig.faces;
+  UI.sheetFace = UI.sheetFace || {};
+  const keys = Object.keys(W);
+  for (let n = 0; n < keys.length; n++) {
+    const s = keys[n], want = W[s]; let P = UI.imgs[s];
+    if (want === 'all' || !P || SHEET_BACK[s] || (UI.sheetBackN && UI.sheetBackN[s] >= 2)) continue;
+    if (!sheetIsPacked(P)) {   /* a face strip, a whole picture: read as a grid of its faces */
+      const face = F && (s === 'fight_rig/' + F.file || (F.more || []).some(function (M) { return s === 'fight_rig/' + M.file; }));
+      if (!face || !(P.width > 0)) continue;
+      UI.sheetFace[s] = true; P = gridSheet(P, F.size, F.size, P.src); P.key = s; UI.imgs[s] = P;
+    }
+    P.key = s;
+    const held = []; for (let i = 0, k = 0; k < P.t.length; i++, k += 6) if (P.t[k + 4]) held.push(i);
+    if (held.every(function (i) { return want.indexOf(i) >= 0; })) continue;   /* it holds nothing more than it shows */
+    if (UI.sheetNoGain && UI.sheetNoGain[s] === held.length) continue;   /* tried: the cut would not save a quarter */
+    UI.sheetCutting = true;
+    sheetCut(P, want.filter(function (i) { return held.indexOf(i) >= 0; })).then(function (Q) {
+      UI.sheetCutting = false;
+      if (!Q) { (UI.sheetNoGain = UI.sheetNoGain || {})[s] = held.length; return; }
+      if (UI.imgs[s] !== P) { sheetGo(Q); return; }
+      UI.imgs[s] = Q; sheetGo(P);
+      UI.sheetCuts = (UI.sheetCuts | 0) + 1; (UI.sheetCut = UI.sheetCut || {})[s] = Q.kept;
+    }, function () { UI.sheetCutting = false; });
+    return;
+  }
+}
+/* the end screen covers the board: the held and melee sheets let go once, then a body sheet a frame cut to its dead */
+function sheetsRest(now) {
+  if (window.__SHEETS_WHOLE) return;
+  if (!UI.restLetGo) { UI.restLetGo = true; try { poseSweep(now, 0); } catch (_e) {} }
+  sheetsHeldSweep(now, true);
 }
 /* ==== /__THE_SHEETS_ARE_PACKED__ ==== */
 /* __NO_PICTURE_DECODED_MID_PLAY__ (PLUMBER 4, 11/5/26, ask line 454, rule 400(a) and (e), his brother: 'when you start a battle it glitches
@@ -7444,7 +7578,7 @@ window.FIGHT_PICS = function () {
   Object.keys(HOLD.ims).forEach(function (k) { pose += px(HOLD.ims[k].b); });
   if (UI.darkOf) UI.darkOf.forEach(function (m) { Object.keys(m).forEach(function (k) { if (!/^lum/.test(k)) { whole += px(m[k]); wholeN++; } }); });
   const out = { body: mb(body), pose: mb(pose), poseSheets: Object.keys(HOLD.ims).length, poseLetGo: UI.poseLetGo || 0, night: +(NIGHT.bytes / 1048576).toFixed(1), nightCells: NIGHT.cells.size,
-    nightWhole: mb(whole), nightWholeN: wholeN, ground: mb(ground), faces: UI.facePool ? UI.facePool.size : 0 };
+    nightWhole: mb(whole), nightWholeN: wholeN, ground: mb(ground), faces: UI.facePool ? UI.facePool.size : 0, cuts: UI.sheetCuts | 0, back: UI.sheetsBack | 0 };
   out.held = +(out.body + out.pose + out.night + out.nightWhole).toFixed(1);   /* the decoded bitmaps a phone cannot purge */
   return out;
 };
@@ -10759,10 +10893,12 @@ function holdImg(file, dir) {
    are closed (the bitmap's memory goes at once) and forgotten; asked for again, a sheet comes back the way it came the first time
    (fetched, decoded off the frames) and the man is drawn as before until it is in. */
 const POSE_IDLE_MS = 20000;
-function poseSweep(now) {
-  if (UI.poseSweptAt && now - UI.poseSweptAt < 2000) return; UI.poseSweptAt = now;
+/* idle: how long undrawn before a sheet goes (0: every sheet, a sheet still coming too, when the end screen covers the board) */
+function poseSweep(now, idle) {
+  const every = idle === 0;
+  if (!every && UI.poseSweptAt && now - UI.poseSweptAt < 2000) return; UI.poseSweptAt = now;
   Object.keys(HOLD.ims).forEach(function (k) {
-    const e = HOLD.ims[k]; if (!e.b || now - e.at < POSE_IDLE_MS) return;
+    const e = HOLD.ims[k]; if ((!e.b && !every) || (!every && now - e.at < POSE_IDLE_MS)) return;
     delete HOLD.ims[k]; UI.poseLetGo = (UI.poseLetGo || 0) + 1;
     try { if (e.b.close) e.b.close(); } catch (_e) {}
     e.b = null;
@@ -13778,10 +13914,10 @@ function frame(now) {
      main thread in a profile of the slowed phone from the end screen to the map) while the end screen loaded and LEAVE waited. The
      board's last frame stays on its canvas (the way home's first picture is that frame); it draws again the moment the screen goes
      (LEAVE, MAKE CAMP). window.__FIGHT_DRAWS_UNDER_THE_END: the old way. */
-  try { const TS = window.top && window.top !== window ? window.top.SPOILS : null, FS = FIGHT.S; if (FS && FS.over && TS && TS.frame && !TS.left && !window.__FIGHT_DRAWS_UNDER_THE_END) { UI.restedUnderEnd = (UI.restedUnderEnd | 0) + 1; UI.lastFrameAt = now; return; } } catch (e) {}
+  try { const TS = window.top && window.top !== window ? window.top.SPOILS : null, FS = FIGHT.S; if (FS && FS.over && TS && TS.frame && !TS.left && !window.__FIGHT_DRAWS_UNDER_THE_END) { UI.restedUnderEnd = (UI.restedUnderEnd | 0) + 1; UI.lastFrameAt = now; try { sheetsRest(performance.now()); } catch (e2) { frameErr(e2, now); } return; } } catch (e) {}
   /* the device's own frame (rule 274(c)): a choice inside one frame of its grid point is not late, it is the device */
   if (UI.lastFrameAt) UI.frameMs = Math.min(250, (UI.frameMs || 16.7) * .9 + (now - UI.lastFrameAt) * .1); UI.lastFrameAt = now;
-  try { poseSweep(performance.now()); } catch (e) { frameErr(e, now); }   /* __AUTO_AT_4X_NEVER_CRASHES__: a sheet nobody is drawn from is let go */
+  try { poseSweep(performance.now()); sheetsHeldSweep(performance.now()); } catch (e) { frameErr(e, now); }   /* __AUTO_AT_4X_NEVER_CRASHES__: a sheet nobody is drawn from is let go */
   /* the board draws whatever the director threw (COMBAT [the fight is broken live]: a throw in tick skipped the draw, so a broken
      turn froze the picture too) */
   try { tick(now); } catch (e) { frameErr(e, now); }
