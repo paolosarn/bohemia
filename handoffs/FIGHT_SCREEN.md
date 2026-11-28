@@ -5,7 +5,27 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
-FIGHT SCREEN 4 (fight-screen-4-01gkdyuu): 11/28 LATEST -- [a champion reads] BUILD 11/28c - A CHAMPION READS, BUILT, NOT YET SEEN (the coordinator's order of 11/27: rules 493(c), 482, 495; ask row 774, this lane's part). VOTE fight-screen-a-champion-reads-11-28 (stand_in; before and now).
+FIGHT SCREEN 4 (fight-screen-4-01gkdyuu): 11/28 LATEST -- [the press said] BUILD 11/28h - THE PRESS IS SAID, BUILT, NOT YET SEEN (rule 482: 'the new guns and drones on the fight screen reading clear and punchy'; ARMORY 3's guns). VOTE fight-screen-the-press-is-said-11-28 (stand_in; before and now, upright and on its side).
+Record: records/BOHEMIA_FIGHT_SCREEN_THE_PRESS_IS_SAID_11_28_26.md. MEASURED: a burst gun's aim line said one chance ('55% to hit... 30 left') though a tap
+fires 3 (or 4, or the belt's 6) rounds, each a try 10 down; the belt's sweep read 'The blast'; on its side the strip held two lines and the third (the
+rounds left) was cut for the shotgun, the belt and the rocket. BUILT in the aim line's own section (slices/BOHEMIA_FIGHT.html aimPress, aimLines' first
+line, aimSay's shape line, roundsLine): every number the rules' own (FIGHT.preview, FIGHT.burstOf, ours.armory_fire.burst, hit_chance.cap, burstOn's
+passes); the words in weapon_shapes.json ("aim": default, burst, burst_shape, left; a row's own "aim" for Traverse and Fire Rocket). On its side each
+line is a span.ln (text unchanged for every reader) and in the strip they run on with a dot (#say.instrip .ln). No new marked block, no hook line.
+Also: champions.read.she_first + MOTHER, MERCY (CHARACTER 4's new names). P8 of the card gate fixed in the tool (f780c31f8: read while pinned).
+GATES: THE PRESS IS SAID 7/0 (new, registered; tools/bohemia_fight_screen_the_aim_line.js <upright|sideways> <out> [BEFORE=1] [AIM_PLANT=1]); THE GUNS
+GROW UP 28/0; EVERY WEAPON HAS ITS RANGE BANDS 15/0; THE FIGHT SAYS WHAT IS WEAK 11/0; HEIGHTS YOU CAN READ 4/0; A CHAMPION READS 9/0; DEMO BUILD 25/0;
+PATCH LAYERS R5 42/41 on main (not this lane's).
+LESSON: the driver's serve map keys are URL paths with the leading slash ('/records/target/bb/weapon_shapes.json'); without it the plant never took.
+NEXT, in order:
+ (1) FRAMES=1 with drones and rockets for hitches at the blast (tools/bohemia_fight_screen_the_walk.js, the walk's band handed ARMORY's pieces).
+ (2) Fold this lane's marked-block debt (the phone card's marks into one card module the phone only draws; list in the 11/27 block below).
+ (3) The sheet on its side with many skills: the eight stat bars in two columns are a few points long (numbers readable, nearly no bar).
+ (4) EYES' notes and his votes on 11/26d, 11/26p, 11/26zd, 11/27j, 11/27v, 11/28c, 11/28h (rule 441(b)).
+[bb Battle Brothers' tooltip for a skill names its shots and its area before you fire; ours says the rounds a tap, each try's chance and the houses it walks]
+[analog horror: the gun counts its own rounds out loud on the paper, and every try after the first is worse]
+
+FIGHT SCREEN 4 (fight-screen-4-01gkdyuu): 11/28 -- [a champion reads] BUILD 11/28c - A CHAMPION READS, BUILT, NOT YET SEEN (the coordinator's order of 11/27: rules 493(c), 482, 495; ask row 774, this lane's part). VOTE fight-screen-a-champion-reads-11-28 (stand_in; before and now).
 Record: records/BOHEMIA_FIGHT_SCREEN_A_CHAMPION_READS_11_28_26.md. ONE MODULE (rule 495): engine/bohemia_champion.js read(u, band, C, opt), called once at the
 champion deal (u.champRead): WHY HE IS DANGEROUS measured against his own men on the board (blood, armour, the skill his weapon uses, nerve, initiative;
 the bars and words in bohemia_enemies.json champions.read), THE PRIZE = what BESTIARY 4's spoils rule drops (his weapon whole + u.prize.batteries), HER

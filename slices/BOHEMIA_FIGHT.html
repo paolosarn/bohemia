@@ -271,6 +271,10 @@ html[data-materials] #bwait.run{font-size:9px;word-spacing:normal} html[data-mat
 #say.aim{white-space:normal;text-align:left;line-height:1.35;max-width:min(92vw,380px)}
 #say.aim b{font-size:13px}
 #say.instrip,html[data-materials] #say.instrip{right:auto;margin:0;transform:translateY(-50%) rotate(-.6deg);white-space:normal;max-width:none;line-height:1.3;max-height:calc(2.6em + 13px);overflow:hidden}
+/* FIGHT SCREEN 4 11/28 (rule 482, measured on its side): the strip holds two lines and the aim line can carry three (the chance, how the shot
+   reaches, the rounds: a shotgun's, a belt's, a rocket's third line was cut); in the strip its lines run on, a dot between them, and wrap */
+#say.instrip br{display:none}
+#say.instrip .ln+br+.ln::before{content:" \00b7  ";opacity:.55}
 #drawer{position:fixed;left:10px;right:10px;display:none;z-index:5;color:var(--paper-ink);
   background:var(--mat-receipt,#e2dac6) center/cover;box-shadow:0 4px 10px rgba(0,0,0,.6);padding:12px 12px 14px;font-size:11px;transform:rotate(-.4deg)}
 #drawer .r{display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px dashed rgba(42,34,26,.3)}
@@ -8552,10 +8556,25 @@ function weightOf(v, now) { return { block: !!wBlockOf(v, now), flare: !!wFlareO
 /* ==== end __THE_FIGHTS_WEIGHT__ ==== */
 const BAND_SAYS = { close: 'Point-blank: your {arm} is clumsy this close, <b>-{n}%</b>.', near: 'Too close for your {arm}: <b>-{n}%</b> at {tiles} tiles.',
   spread: 'At {tiles} tiles the {arm}\'s shot spreads: <b>{pct}%</b> of its damage.', best: ', best at {a} to {b}', bestOne: ', best at {a}' };   /* draft:true (WEAPONS 11/7: 'near' is the scope's, the bow's point-blank is no gun) */
+/* THE PRESS, SAID (FIGHT SCREEN 4 11/28, VAMILY rule 482: the new guns reading clear and punchy; measured: a Guard Carbine's aim line said
+   '55% to hit... 30 left' though a tap fires three rounds, each a try a recoil down, and the belt's sweep across three houses read 'The
+   blast'): what a tap does when it is more than one try, in the rules' own numbers (FIGHT.preview, FIGHT.burstOf, ours.armory_fire.burst,
+   hit_chance.cap, the shape's tiles as burstOn walks them) and the shapes file's words (weapon_shapes.json aim, a row's own aim) */
+function aimPress(u, t) {
+  const bk = FIGHT.blowSkill(u, t), row = FIGHT.shapeOf(bk), n = FIGHT.burstOf(u.weapon), W = (DB.shapes && DB.shapes.aim) || {};
+  if (!row && !n) return null;
+  const c = FIGHT.preview(u, t).chance, houses = row ? row.count : 1, passes = n ? Math.max(1, Math.round(n / houses)) : 1, tries = [];
+  let rec = 0, lo = 0; try { rec = R('ours.armory_fire').burst.recoil_per_round; lo = R('hit_chance.cap').min; } catch (_e) {}
+  for (let i = 0; i < passes; i++) tries.push(Math.max(lo, c - rec * i));
+  return { W: W, row: row, rounds: n || 1, houses: houses, ring: Math.max(0, houses - 1), passes: passes, foes: row ? FIGHT.shapeFoes(u, t, bk).length : 1,
+    tries: tries.map(function (x) { return '<b>' + x + '%</b>'; }).join(', ') };
+}
 function aimLines(u, t) {
   const p = FIGHT.preview(u, t), out = [];
   if (t.side === 'them' && classOf(t).outclass) out.push('<b class="oc">This one outclasses you.</b> ' + classLine(t).replace(/<[^>]+>/g, '').replace(CLASS_SAYS.outclass + ' · ', '') + '.');   /* draft:true */
-  out.push('<b>' + p.chance + '%</b> to hit. A hit: <b>-' + p.hp + '</b> health, <b>-' + p.armour + '</b> armour.');
+  const pr = aimPress(u, t);
+  const bw = pr && pr.rounds > 1 ? (pr.row ? pr.W.burst_shape : pr.W.burst) : null;   /* a burst: its tries in place of the one chance */
+  out.push(bw ? wfill(bw, { rounds: pr.rounds, passes: pr.passes, tries: pr.tries, hp: p.hp, armour: p.armour }) : '<b>' + p.chance + '%</b> to hit. A hit: <b>-' + p.hp + '</b> health, <b>-' + p.armour + '</b> armour.');
   const la = FIGHT.level(u.x, u.y), lt = FIGHT.level(t.x, t.y);
   if (la > lt) out.push(wfill(HEIGHT_SAYS.above, { n: la - lt, bonus: R('ours.height_is_accuracy').above_per_storey * (la - lt), reach: FIGHT.isRanged(u.weapon) && FIGHT.rangeUp(u, t) ? ', reach +' + FIGHT.rangeUp(u, t) : '' }));
   if (la < lt) out.push(wfill(HEIGHT_SAYS.below, { n: lt - la, pen: -R('ours.height_is_accuracy').below_per_storey * (lt - la) }));
@@ -8587,8 +8606,9 @@ function aimSay(u, t) {
   if (rl) L.splice(1, 0, rl);
   /* WEAPON SHAPES: a blow with a shape (the shotgun's blast) says how many of theirs it strikes (draft:true for WORDS) */
   const bk = FIGHT.blowSkill(u, t);
-  if (FIGHT.shapeOf(bk)) { const n = FIGHT.shapeFoes(u, t, bk).length; L.splice(1, 0, 'The blast strikes ' + n + ' of theirs.'); }
-  e.innerHTML = L.join('<br>'); e.classList.add('aim'); e.style.display = 'block';
+  const pr = FIGHT.shapeOf(bk) ? aimPress(u, t) : null;   /* the shape in its own words (weapon_shapes.json), the press's rounds and tries */
+  if (pr) L.splice(1, 0, wfill(pr.row.aim || pr.W['default'] || 'The blast strikes {foes} of theirs.', pr));
+  e.innerHTML = L.map(function (l) { return '<span class="ln">' + l + '</span>'; }).join('<br>'); e.classList.add('aim'); e.style.display = 'block';   /* each line its own piece: on its side they run on in the strip (#say.instrip .ln) */
 }
 /* THE ROUNDS WHERE HE LOOKS WHILE HE AIMS (rule 124): under the chance, his gun's bullets, a spent one an empty case, and the
    count; the last one in red; a one-shot gun says it needs a reload after. */
@@ -8599,7 +8619,8 @@ function roundsLine(u, t) {
   h += '</span>';
   if (r.of === 1) return h + 'One shot, then reload.';
   if (r.left === 1) return h + '<b class="dry">Last round.</b>';
-  return h + r.left + ' left.';
+  const bn = FIGHT.burstOf(u.weapon), W = (DB.shapes && DB.shapes.aim) || {};
+  return h + (bn > 1 && W.left ? wfill(W.left, { left: r.left, rounds: bn }) : r.left + ' left.');   /* a burst says what a tap spends */
 }
 /* ---------------- THE FIRST FIGHT TEACHES (COMBAT [the first fight teaches]; the plan's part D, his 10/19 'better for people
    that understand') ----------------

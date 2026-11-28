@@ -10212,6 +10212,13 @@ GATES = [
      "phone shapes, upright and on its side: every piece's name whole (a 34 point picture in a 45 point tile squeezed it to nothing or sliced it "
      "at the floor), its picture inside, a worn piece's bar never across its name, the picture never over it (L1); no picture squashed (L2). "
      "Planted: the rules taken out, L1 red. Under a minute", True),
+    ('THE PRESS IS SAID', ['node', 'gates/the_press_is_said_gate.js'],
+     "FIGHT SCREEN 4 gate, 11/28, VAMILY rule 482 ('the new guns and drones on the fight screen reading clear and punchy'; ARMORY 3's guns, "
+     "rule 489). The aim line says what one tap does, in the rules' own numbers and the shapes file's words: the carbine '3 rounds a tap, each a "
+     "try' with its three chances the recoil apart and '3 a tap' on its rounds, the SMG four (A1); the belt '6 rounds a tap, 2 tries a house' "
+     "and 'The belt walks across 3 houses: 3 of theirs' (A2); the rocket's house and the 8 round it (A3); the shotgun and a semi-auto as they "
+     "were (A4); every aim line on the glass, uncut, 11 points and up, upright and on its side, where the strip's lines now run on (A5). "
+     "Planted: the shapes file's aim words taken out, A1 and A2 red. About 6 min", True),
     ('A CHAMPION READS', ['node', 'gates/a_champion_reads_gate.js'],
      "FIGHT SCREEN 4 gate, 11/27, VAMILY rule 493(c) (the coordinator's order: 'a champion reads on the fight screen: his name, his face, why "
      "he is dangerous, the prize on him, without a pop-up'), rules 482, 495. One place says it (engine/bohemia_champion.js, read once when the "
