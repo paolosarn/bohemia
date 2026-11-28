@@ -226,6 +226,15 @@ async function mapLeg(profile, errs) {
   try {
     const fr = d.fr;
     await until(fr, () => window.BohemiaWear && BohemiaWear.ready() && window.MAP_DREW && MAP_DREW.you && typeof CREW_DEFS !== 'undefined' && CREW_DEFS && LOOP.start && LOOP.start.company, null, 60000);
+    /* RE-AIMED 11/28 BY FIXES 5 (CAMP FOUR's suite: M1 'helmet 0 frames, vest 0; his men: none', M2 'not reached'): the game opens in a
+       town (RUN THREE, rule 27x [the game starts in a town]) and the map does not paint under the town's screen, so the map's last
+       drawing of him was its first one, before his rig was in ('cook', no body to dress), and every count read 0 (measured: 40 s, the
+       town up the whole time, MAP_DREW.you.how 'cook'). He steps out of the town onto the map first, as a player does; and since PLUMBER
+       6's __FIRST_PLAY_IS_LIGHT__ (rule 418(a)) a new game's people stream in after the town opens, so the leg waits for the map's own
+       'the 3-D people are in' (rigAllReady: the cast, the people, his sheet and his two men's) before it reads (measured: read 20 s
+       after the door, RIG_CAST, RIG_PEOPLE and RIG_YOU in, his men's sheets not yet). If they never come the leg says so */
+    await fr.evaluate(() => { try { if (LOOP.open) loopClose(); } catch (e) {} });
+    const people = await until(fr, () => { try { render(); } catch (e) {} return rigAllReady(); }, null, 60000);
     await fr.evaluate(([h, b]) => {
       const co = LOOP.start.company.map((m, i) => Object.assign({}, m, { look: m.look || CREW_DEFS.looks[i], name: m.name || (i ? 'M' + i : 'YOU'), main: i === 0 }));
       co[0].gear = Object.assign({}, co[0].gear, { head: h, body: b });
@@ -236,7 +245,7 @@ async function mapLeg(profile, errs) {
     const s = got || await fr.evaluate(() => JSON.parse(JSON.stringify(BohemiaWear.seen.map || {})));
     const others = Object.keys(s).filter(k => !/@/.test(k) && !/riot_helmet|police_vest/.test(k));
     ok('M1 ' + profile + ': on the map he walks in the police riot helmet and the police vest, his two men in theirs', !!got && others.length > 0,
-      'helmet ' + (s['head:riot_helmet'] | 0) + ' frames, vest ' + (s['body:police_vest'] | 0) + '; his men: ' + others.join(' '));
+      'helmet ' + (s['head:riot_helmet'] | 0) + ' frames, vest ' + (s['body:police_vest'] | 0) + '; his men: ' + others.join(' ') + (people ? '' : '; THE 3-D PEOPLE NEVER CAME IN 60 s'));
     if (profile === 'phone_portrait') await shootPair(d.page, 'MAP', 'map:you', 'canvas', false, [150, 130], fr);
     /* M2 THE CLOSE END: pinched in with two fingers (the driver's pinch), then to the closest the map goes (the game's own
        setZoomAt, which the pinch calls), he still wears both. The ground zooms and he does not grow (THE GROUND MAY ZOOM, THE

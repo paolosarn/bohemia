@@ -3,7 +3,15 @@
 # FIXES THREE (the chat answers to 'fixes 3', 11/21; FIXES 2 stopped on a spent model limit) carries this file on: same job, blocks named FIXES THREE.
 # FIXES FOUR (the chat answers to 'fixes 4', 11/27; FIXES 3 wrote HANDOFF READY at 02:13 11/27) carries this file on: same job, blocks named FIXES FOUR.
 # FIXES FIVE (the chat answers to 'fixes 5', 11/27; FIXES 4 wrote HANDOFF READY 11/27) carries this file on: same job, blocks named FIXES FIVE.
-FIXES FIVE (session_01GKDyuwkkCUgRe2NpmrgqwP): 11/28 (b) LATEST -- [the new reds] IN FLIGHT, about 45 of the 95 walked. BUILD 11/28j - A
+FIXES FIVE (session_01GKDyuwkkCUgRe2NpmrgqwP): 11/28 (c) LATEST -- [the new reds] IN FLIGHT, about 75 of the 95 walked; BUILD 11/28j is live
+(pages SUCCESS). Record section 7. STALE, re-aimed: THE SIX ON THE BAR 10/0 (CLOUT and the clock are not supplies; S7 now reads the
+bottle's neck in the drawn pixels, not 'at least 40 wide', the 10/26 bar), ONE SKIN, ONE PERSON 15/0 (cast_widebrim healed, off the
+debt), THE ARMOUR HE WEARS SHOWS 18/0 (the map leg read while the town covered the map and before the people streamed in: it steps out
+and waits for rigAllReady). HANDED: THE TEXTURE SET (DUST RANCHER HAT not cooked into the set: CHARACTER re-runs its cook).
+NEXT: PEOPLE 22 (3 reds), ANIMATION 18 (1), RUN 7 (1), BOSSES' newest three, WORLD 14's last three views, AUTO AT 4X's A6.
+Never send_later or anything that waits on a tap.
+
+FIXES FIVE (session_01GKDyuwkkCUgRe2NpmrgqwP): 11/28 (b) -- [the new reds] IN FLIGHT, about 45 of the 95 walked. BUILD 11/28j - A
 NAME IS NEVER CUT, BUILT, NOT YET SEEN. Record: records/BOHEMIA_FIXES_FIVE_THE_REST_OF_THE_NEW_REDS_11_27_26.md section 6.
 WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): a smith's or armourer's strip with the phone on its side reads a long
 name whole ('Beat-up guard carbine'), letters a little closer, nothing moved.

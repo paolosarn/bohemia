@@ -7,13 +7,15 @@
    S1  the five icons are his pack tiles (slices/supply_icons/ against reference/art_bank/prop): four byte for byte, FOOD the
        can with the water bottle standing NEXT to it, his two tiles laid side by side pixel for pixel, 95 in 100 of the bottle
        showing, and the stall's icon the same picture (UI, rules 209(b), 240: 'I don't see the water icon next to it');
-   S7  on his phone the food icon is drawn at least 40 points wide and its height kept (the can and the bottle, the neck clear)
+   S7  on his phone the food icon reads at the bar's size: the bottle's neck in the drawn pixels, a can beside it, never smaller than its
+       neighbours, its shape kept (rule 240(c); re-aimed 11/28 from 'at least 40 wide', the 10/26 bar)
    S2  the game counts the six (RE-AIMED 10/25, RUN TWO's wagon): the glass carries them from the first minute, no dash, the pack's cells;
    S3  a count handed by the map (window.BOH_SUPPLIES, the one door the purse or the map fills) stands at once, in ECONOMY's order,
        each with its own pack prop, on the phone and on the computer, fitting the glass;
    S4  low reads red: water for under three days of the crew the bill feeds; enough food is not red;
    S5  a hold (a mouse over the glass) shows the nights after the batteries and the days food and water last; letting go hides them;
    S6  what is not a number never stands (a string, NaN, a missing key);
+   S8  after the five, CLOUT (rule 466(c)) and the day and the hour (rule 487), at the bar's end, inside the glass;
    S7  the page threw nothing.
    Run: node gates/the_six_on_the_bar_gate.js */
 'use strict';
@@ -54,16 +56,32 @@ const SRC = { batteries: 'pack_11_survival_props_045', food: 'pack_11_survival_p
     const d = await open({ profile: prof });
     const p = d.page, fr = d.fr;
     await p.waitForTimeout(2000); try { await d.clearCards(); } catch (_e) {}
-    const read = () => fr.evaluate(() => { const g = document.querySelector('#bmtb [data-tb=g]'), gr = g.getBoundingClientRect();
-      return [...g.querySelectorAll('.s')].filter(e => e.offsetWidth > 0).map(e => { const r = e.getBoundingClientRect(), im = e.querySelector('img'), b = e.querySelector('b'), i = e.querySelector('i');
+    /* RE-AIMED 11/28 BY FIXES 5 (CAMP FOUR's suite: S2, S3, S6 red): the bar carries two more cells after the five since, CLOUT (JOBS,
+       rule 466(c), 11/21) and the day and the hour (UI FIVE, rule 487, 11/27); they are not supplies, so the supply legs read the
+       supply cells and S8 holds the other two to the bar's end, in that order */
+    const OTHER = ['clout', 'clock'];
+    const read = (all) => fr.evaluate((all) => { const g = document.querySelector('#bmtb [data-tb=g]'), gr = g.getBoundingClientRect();
+      return [...g.querySelectorAll('.s')].filter(e => e.offsetWidth > 0 && (all || ['clout', 'clock'].indexOf(e.dataset.f) < 0)).map(e => { const r = e.getBoundingClientRect(), im = e.querySelector('img'), b = e.querySelector('b'), i = e.querySelector('i');
         return { f: e.dataset.f, n: b ? b.textContent.trim() : '', low: !!(b && b.classList.contains('low')), src: im ? im.getAttribute('src') : '', icon: im ? Math.round(im.getBoundingClientRect().height) : 0, iw: im ? Math.round(im.getBoundingClientRect().width) : 0,
-          inside: r.left >= gr.left - 1 && r.right <= gr.right + 1, i: i && i.offsetWidth > 0 ? i.textContent.trim() : '' }; }); });
+          inside: r.left >= gr.left - 1 && r.right <= gr.right + 1, i: i && i.offsetWidth > 0 ? i.textContent.trim() : '', neck: (function () {
+            /* rule 240(c): the bottle's outline with its neck, as drawn: the icon laid at its drawn size on the screen's pixels; in its right
+               third (the bottle) the top tenth of the bottle's own rows is narrower than its middle (a neck), and the left half holds a can */
+            if (e.dataset.f !== 'food' || !im || !im.complete) return null;
+            try { const D = window.devicePixelRatio || 1, ib = im.getBoundingClientRect(), W = Math.round(ib.width * D), H = Math.round(ib.height * D), c = document.createElement('canvas'); c.width = W; c.height = H;
+              const x = c.getContext('2d'); x.drawImage(im, 0, 0, W, H); const a = x.getImageData(0, 0, W, H).data, on = (px, py) => a[(py * W + px) * 4 + 3] > 128;
+              const x0 = Math.floor(W * 0.62), rows = []; for (let yy = 0; yy < H; yy++) { let n = 0; for (let xx = x0; xx < W; xx++) if (on(xx, yy)) n++; if (n) rows.push([yy, n]); }
+              let can = 0; for (let yy = 0; yy < H; yy++) for (let xx = 0; xx < W >> 1; xx++) if (on(xx, yy)) can++;
+              if (rows.length < 6) return { ok: false, why: 'no bottle', can };
+              const top = rows.slice(0, Math.max(1, Math.round(rows.length * 0.1))), mid = rows[rows.length >> 1];
+              const tw = Math.max(...top.map(r => r[1])); return { ok: tw < mid[1] * 0.75 && can > W * H * 0.1, neck: tw, body: mid[1], can, px: W + 'x' + H }; } catch (err) { return { ok: false, why: String(err).slice(0, 60) }; } })() }; }); }, !!all);
     let r0 = await read();
     /* RE-AIMED 10/25 (RUN TWO __THE_WAGON__): the game counts the six now (bohemia.supplies.v1, seeded at the door: the origin's
        wagon and its Battle Brothers start), so the glass carries the batteries and every count the game keeps from the first minute */
     const kept = await fr.evaluate(() => { try { const w = JSON.parse(localStorage.getItem('bohemia.supplies.v1') || 'null'); return ['food', 'tape', 'meds', 'rounds'].filter(k => w && typeof w[k] === 'number'); } catch (e) { return []; } });
     if (prof === 'phone_portrait') leg(r0.map(x => x.f).join(' ') === ['batteries'].concat(kept).join(' ') && kept.length === 4 && !r0.some(x => /^[–-]$/.test(x.n)) && /supply_icons\/batteries\.png$/.test(r0[0].src) && r0.every(x => /^\d+$/.test(x.n)),
       'S2  THE GAME COUNTS THE FIVE: THE GLASS CARRIES THEM FROM THE FIRST MINUTE, NO DASH, THE PACK\'S CELLS', JSON.stringify(r0.map(x => x.f + ':' + x.n)));
+    if (prof === 'phone_portrait') { const ra = await read(true), tail = ra.slice(-2).map(x => x.f).join(' ');
+      leg(tail === OTHER.join(' ') && ra.slice(0, -2).every(x => OTHER.indexOf(x.f) < 0) && ra.every(x => x.inside), 'S8  AFTER THE FIVE, CLOUT AND THEN THE DAY AND THE HOUR, AT THE BAR\'S END, INSIDE THE GLASS (rules 466(c), 487)', ra.map(x => x.f + (x.inside ? '' : ' OUT')).join(' ')); }
     const crew = await fr.evaluate(() => (window.__BILL && __BILL.crew) | 0);
     await fr.evaluate(() => { window.BOH_SUPPLIES = { food: 2, water: 30, tape: 3, meds: 1, rounds: 40 };   /* a water key handed by an old door never stands */ });
     await p.waitForTimeout(900);
@@ -72,7 +90,13 @@ const SRC = { batteries: 'pack_11_survival_props_045', food: 'pack_11_survival_p
       'S3  ' + prof.toUpperCase() + ': THE FIVE STAND AT ONCE, IN ECONOMY\'S ORDER, EACH ITS OWN PROP, INSIDE THE GLASS, NO WATER ALONE', r1.map(x => x.f + ':' + x.n + '@' + x.icon + (x.inside ? '' : ' OUT')).join(' '));
     const fd = r1.find(x => x.f === 'food'), rd = r1.find(x => x.f === 'rounds');
     /* S7 (rule 240(c)): at the bar's size on his phone the can and the bottle both read: its box at least 40 wide, its height the icons' */
-    if (prof === 'phone_portrait') leg(!!fd && fd.iw >= 40 && fd.icon >= 30 && Math.abs(fd.iw / fd.icon - 125 / 96) < 0.06, 'S7  ON HIS PHONE THE CAN AND THE BOTTLE BESIDE IT ARE DRAWN AT LEAST 40 POINTS WIDE, THE HEIGHT KEPT', fd && (fd.iw + 'x' + fd.icon));
+    /* RE-AIMED 11/28 BY FIXES 5: this read 'at least 40 wide and 30 tall', the bar of 10/26; since rule 487 put the day and the hour on the
+       bar UI FIVE draws every supply at 24 tall on the phone (the food icon 32 x 24), and the can and the bottle with its neck still read
+       there (seen, records/BOHEMIA_FIXES_FIVE_THE_REST_OF_THE_NEW_REDS_11_27_26.md). The leg now measures 240(c) itself: the bottle's neck
+       in the drawn pixels, a can beside it, the icon never smaller than its neighbours, its shape kept */
+    const tallest = Math.max(...r1.filter(x => x.f !== 'food').map(x => x.icon));
+    if (prof === 'phone_portrait') leg(!!fd && fd.icon >= 24 && fd.icon >= tallest && Math.abs(fd.iw / fd.icon - 125 / 96) < 0.06 && !!fd.neck && fd.neck.ok,
+      'S7  ON HIS PHONE THE CAN AND THE BOTTLE BESIDE IT READ AT THE BAR\'S SIZE: THE BOTTLE\'S NECK DRAWN, A CAN BESIDE IT, NEVER SMALLER THAN ITS NEIGHBOURS, ITS SHAPE KEPT', fd && (fd.iw + 'x' + fd.icon + ' (the others ' + tallest + ' tall); ' + JSON.stringify(fd.neck)));
     if (prof === 'phone_portrait') leg(fd && fd.low && rd && !rd.low && crew > 0, 'S4  LOW READS RED: 2 NIGHTS OF FOOD AND WATER FOR A CREW OF ' + crew + ' IS RED, 40 ROUNDS IS NOT', 'food low ' + (fd && fd.low) + ', rounds low ' + (rd && rd.low));
     if (prof === 'computer') {
       const gb = await fr.evaluate(() => { const r = document.querySelector('#bmtb [data-tb=g]').getBoundingClientRect(); return { x: r.x + r.width - 20, y: r.y + r.height / 2 }; });

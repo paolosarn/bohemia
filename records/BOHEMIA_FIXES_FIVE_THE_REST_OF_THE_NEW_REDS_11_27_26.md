@@ -93,3 +93,21 @@ AUTO AT 4X's A6 under the full cap.
 
 WHAT HE WOULD MEET (TAB: RUN on the alpha link, and the demo link): at a smith or an armourer with the phone on its side, a long name
 ('Beat-up guard carbine') reads whole in the strip beside the shelf, its letters a little closer, nothing else moved.
+
+## 7. THE THIRD STRETCH (11/28, gates only)
+
+| gate | owner | verdict | the cause, and where it lives | after |
+|---|---|---|---|---|
+| THE SIX ON THE BAR | UI | STALE (rules 466(c), 487) | S2, S3, S6 read every cell of the bar as a supply, and the bar carries CLOUT (JOBS, 11/21) and the day and the hour (UI FIVE, 11/27) after the five. S7 asked the food icon 'at least 40 wide, 30 tall', the bar of 10/26; since the clock moved up UI FIVE draws every supply 24 tall on the phone (the food icon 32 x 24). Looked at on the phone's bar: the can and the bottle beside it, the bottle's neck plain (rule 240(a)) | the supply legs read the supply cells; a new S8 holds CLOUT then the clock to the bar's end, inside the glass; S7 measures 240(c) itself: the icon laid at its drawn size on the screen's pixels, the bottle's top tenth narrower than its middle (neck 21 px against a 35 px body, 96 x 72 device pixels), a can in its left half, never smaller than its neighbours, its shape kept. 10/0 |
+| ONE SKIN, ONE PERSON | CHARACTER | STALE (good news) | S7: cast_widebrim's face matches its body again (CHARACTER 3's 11/27 re-render), and the frozen debt only shrinks | taken off PORTRAIT_DEBT (empty now). 15/0 |
+| THE ARMOUR HE WEARS SHOWS | CHARACTER | STALE (rules 27x, 418(a)) | M1 'helmet 0 frames, vest 0; his men: none', M2 not reached. Traced: the game opens in a town and the map does not paint under it, so its last drawing of him was its first, his fallback figure ('cook', nothing to dress); and since PLUMBER 6's FIRST PLAY IS LIGHT a new game's people stream in after the town opens, so read 20 s after the door his two men's sheets were not in yet (rigAllReady false: mapCrewSheetsIn). Probed by hand once they were in: his men in hard hat and padded vest, 21 frames each | the leg steps out of the town onto the map and waits for the map's own 'the 3-D people are in' (60 s at most, said if never): helmet and vest drawn, his men in theirs, at the close end 76 and 86 more helmet frames. 18/0 |
+| THE TEXTURE SET | CHARACTER | REAL (generated data, not felt) | 'DUST RANCHER HAT' is on the rail (in e287deafe, 11/27) and not in the generated set | handed: CHARACTER re-cooks the set (tools/bohemia_cook_the_texture_set.js) |
+| THE ALPHA SAYS CONTINUE, HIS FINGER ON THE DOOR, THE CLOCK UP TOP | UI FIVE | LOAD | | 11/0, 9/0, 22/0 alone |
+| THE UI HOLDS ITS FRAMES | UI FIVE | TIMEOUT (slow) | 335 s alone | 27/0 |
+| UI's twenty (THE ONE SCREEN to THE PAD IS TRAVEL SPEED) | UI | LOAD | | each green alone |
+| THE PLACES GET THEIR USE, THE SCRAP MILL (both), THE STRAT LOOKOUT (both), TWELVE MORE ON THE ROAD (demo), THE ROAD KNOWS HIS PLACE (demo, upright) | WORLD 14 | LOAD | 255 to 288 s each for the long ones | each green alone |
+| BARBER, THE NAME MATCHES THE RAMP | CHARACTER | LOAD | | green |
+
+Deploy: the pages run for 9c8626704 (BUILD 11/28j) SUCCESS.
+
+STILL TO WALK: PEOPLE 22 (3 reds), ANIMATION 18 (1), RUN 7 (1), BOSSES' three newest, WORLD 14's last three views, AUTO AT 4X's A6.

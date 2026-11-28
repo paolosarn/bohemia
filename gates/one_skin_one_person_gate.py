@@ -56,7 +56,8 @@ K_HEADS = 0.45        # the two enemy heads' portrait camera (thug 0.455, poache
 SHARE = 0.95          # S4: of a sheet's ladder-coloured pixels, the share that must be the person's own tone
 # S7's frozen debt: PORTRAIT's faces that did not match their body the day the file landed (10/19). It may only shrink.
 # (10/19, PORTRAIT [the face is the body's face]: eight healed by the rebuild on CHARACTER's rig steps, taken off as S7 asks)
-PORTRAIT_DEBT = sorted(['cast_widebrim'])
+# (11/28, FIXES 5: cast_widebrim healed, its face one rung of its body since CHARACTER 3's 11/27 re-render; taken off as S7 asks: the list is empty)
+PORTRAIT_DEBT = sorted([])
 
 P = F = 0
 
