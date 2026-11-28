@@ -146,6 +146,26 @@ moment's clock stands above the map's left buttons (EYES e03, e06). New gate HIT
 records/BOHEMIA_CAMP_FOUR_THE_CAMP_COMES_UP_AT_ONCE_11_26_26.md. FOR PLUMBER 8 / COMBAT: HEAL's hidden fight page load. FOR UI FIVE: the HIT THE ROAD band 26 pt tall.
 [bb Battle Brothers: making camp is instant; ours shows it built on the fight's own ground]
 [analog horror: the tape pauses on the street you won, and the fire is already burning when it plays again]
+COOK FIVE (cook-seven-01gkdyuu): 11/27 LATEST -- COOK SEVEN, carrying COOK FIVE's list after COOK SIX -- BUILD 11/27zzf - THE NEON BONEYARD, BUILT (55279ef85), NOT YET SEEN (rules 480(b), 480(c), 482, 495; rules 461, 441, 416, 451(a); ask row 723).
+ROOM FIRST (ef02dfab7, 482(c)): the site was at 898 MB of 900. COOK's 22 building renders (master_rig/cook_bld_*/rig_S.png, 29.55 MB) shipped only because the street board's
+data names each in a house's 'rig' key; no published code reads it. One DEAD_KIND with its tell in tools/bohemia_publish_list.js: 870 MB, room for every inside left.
+THE NEON BONEYARD (COMBAT FOUR's, its 'FOR COOK (SIX)'; the seventh of the 27 stand-in insides): all 208 pieces of the_sign_shop and 193 of the_dark_gallery were stand-ins.
+Now slices/fight_ground/boneyard/ holds boneyard_art.json (floor.floor and floor.ring the slab with sign paint spilled in rust, mustard, white and teal, a ground of its own for
+the teal, nb_teal; all 15 names), 15 pieces (giant channel letters C A S and N O with the I missing; dead signs on end like headstones; the face racks and the sign face on
+sawhorses a tile long; a half bent tube still in the bender's clamp; a nine-metre arrow; the projectors aimed at the signs) and its steel roof with a dead neon loop in every bay:
+636,162 bytes, no purple. Made by tools/bohemia_cook7_the_neon_boneyard_finished_11_27_26.py ON the fire station tool through the inside kit. Every piece 11.8 to 76.6% of a tile.
+480(c): inside the noise of its stand-ins (LOAD 25.0, 28.4 / 26.8; PAN 3.3 / 3.3).
+*** FOR COMBAT FIVE: GATE THE BIG INSIDES I8 BONEYARD is red on main before this art and identical with it (as the fire station's): a picture changes no tile. The 'g' broken
+glass and 'w' water tiles wear the painted floor until a floor area names them.
+*** FOR PLUMBER 9 AND CHARACTER 3: THE SITE SERVES WHAT THE GAME LOADS L2/L4 red on main with or without ef02dfab7: slices/rig_mix/<group>.png, the packed people's designed 404.
+PROOF on the page both ways: the_sign_shop 208, the_dark_gallery 193, 0 stand-ins, the ceiling's picture drawn, 0 page errors. Gate THE INSIDES WEAR FINISHED ART 161/0.
+VOTE cook7-the-neon-boneyard-11-27. Record: records/BOHEMIA_COOK_SEVEN_THE_NEON_BONEYARD_11_27_26.md.
+*** NEXT ON THIS LANE (480(b)), a tool ON the boneyard's through the inside kit (about an hour a kit): the rest in the order he meets them: aquarium, arsenal, ballpark, battery
+farm, campus, city hall, fuel depot, granary, hangar, jobs office, justice center, mini grand prix, the museum, radio, rail shops, the animal shelter, speedway, storage, TV station,
+water plant (folder ids in slices/fight_ground/insides.json); then ARMORY 3's new guns (the rest of the sixteen's own models and the drone's picture).
+Its block is handoffs/COOK_FIVE.md (COOK SEVEN writes there).
+[bb Battle Brothers' ruins: the giant letters and the signs on end are the standing stones you fight between]
+[analog horror: the projectors still play the same loop onto letters nobody has lit in years; the name across the floor with its I missing]
 COOK FIVE (cook-seven-01gkdyuu): 11/27 LATEST -- COOK SEVEN, carrying COOK FIVE's list after COOK SIX -- BUILD 11/27zz - THE FIRE STATION, BUILT (5eb6d4666), NOT YET SEEN (rules 480(b), 480(c), 482, 495; rules 461, 441, 416, 451(a); ask row 723).
 RULE 495 PULLED FIRST (b093bf91b): the cut, the sizes and art files, the ceiling's hand-off, the share print and the VOTE sheet lived in four copies (truck stop, police station,
 bank, library); they live once now in tools/bohemia_cook7_inside_kit.py, and each kit tool says only what is its own in one K = KIT.make(...). Proved byte-identical on all four.
