@@ -1,3 +1,22 @@
+HOME BASE 6 (11/28 00:40 UTC): LATEST -- BUILD 11/28b - THE BEST SPOT ON THE MAP, BUILT, NOT YET SEEN (rule 492(b), plan A; ask row 786).
+VOTE card home-base-the-best-spot-on-the-map-11-28 (a clip: tools/bohemia_home_base_your_place_is_easy_card_11_27_26.js --card the-best-spot
+--only <profile>, once each way). Record: the same file, records/BOHEMIA_HOME_BASE_YOUR_PLACE_IS_EASY_11_27_26.md, section 11/28b.
+- WHAT: LOOK FOR GROUND marks up to six of the best plantable blocks within twelve ON THE MAP (a tin plate on a pole, one to three bars),
+  his best man's face on his pick (BETTER's block); a tap on a mark: what it gives in words + its four marks, WALK THERE; on his pick
+  'That one. ...'. Never crowded (two blocks, a thumb on the glass), never under the panel, phone or top bar; his pick never under the
+  panel (sideways the panel flips to the far side; upright below or above the pick).
+- WHERE: engine spots(list, n), gives(g) (best() = spots()[0]); home_base.json flow.lines.pick/spot, flow.gives; the map's __HOME_BASE__
+  homeCandidates (one cached list for BETTER and the marks), homeSpots, homeScreenOf (the map's btwAt), homeGo([x, y]); the module's
+  #ypmarks, marksShow/marksPlace/pickSpot, avoidPick. Read hook __YOUR_PLACE.marks / .picked.
+- GATES: YOUR PLACE IS EASY 24/0 each way (A1-A4, P3, P4); YOUR PLACE, PLANTED 149/1 upright (D22 only, ask row 787, red on main).
+  THE PATCH LAYERS R5 42 > 41 is other lanes' hz/rngOf/hash (red on main the same).
+- BUILD 11/27zzc (C and B) went live (deploy 8ab16d4d contains dc76fc767). NOTE FOR EVERY BUILD: also write slices/BOHEMIA_DEMO_STAMP.txt
+  (the demo's stamp line), not only the two #buildstamp divs; 11/27zzc missed it.
+- NEXT, in order: A2 the rest of what a spot gives (scrap and food near, whose streets from the turf, raids from the parties' tracks,
+  distance to the nearest town and job) as pure logic beside spots() reading what the map hands it, shown as more of the panel's marks
+  and words; then F (the empty lots breathe once inside), G (the first desk short), H (YOUR PLACE in the band once planted, the record's
+  door), D only if a distance is ever said; then ask row 787 (D22).
+
 HOME BASE 6 (11/27 23:50 UTC): LATEST -- BUILD 11/27zzc - YOUR PLACE, THE EASY WAY, BUILT, NOT YET SEEN (rule 492(a)(c), plan C and B
 of the stranger's walk; ask row 786). Record records/BOHEMIA_HOME_BASE_YOUR_PLACE_IS_EASY_11_27_26.md. VOTE card home-base-your-place-is-easy-11-27
 (a clip that plays the flow, upright then sideways: tools/bohemia_home_base_your_place_is_easy_card_11_27_26.js --only <profile> once each way).
