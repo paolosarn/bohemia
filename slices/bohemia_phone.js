@@ -450,8 +450,17 @@
       faceKey: (function () { try { return typeof UI !== 'undefined' && UI && UI.faceKey != null ? String(UI.faceKey) + '#' + (UI.faceN | 0) : null; } catch (e) { return null; } })(),   /* __NEVER_CHOPPY__: the fight's face changes only with this */
       /* __THE_MANS_CARD_ON_THE_PHONE__ (FIGHT SCREEN TWO 11/17, a marked line by the coordinator's word): the plate as marks: [level, outclasses, dodges, armour] and the words they stand for */
       full: nm && nm.dataset.full ? String(nm.dataset.full) : '',
-      plate: cl && cl.style.display !== 'none' && cl.dataset.plate ? cl.dataset.plate.split(',').map(Number) : null, says: cl && cl.dataset.says ? String(cl.dataset.says).split('|') : [] };
+      plate: cl && cl.style.display !== 'none' && cl.dataset.plate ? cl.dataset.plate.split(',').map(Number) : null, says: cl && cl.dataset.says ? String(cl.dataset.says).split('|') : [],
+      champ: champOn() };
   };
+  /* A CHAMPION READS (FIGHT SCREEN 4 11/27, rule 493(c)): the man on the card's champion read, off the fight itself (u.champRead: the one module,
+     engine/bohemia_champion.js); plain strings only, so nothing of the fight's window is kept by the page that draws the card */
+  function champOn() {
+    try { var v = typeof UI !== 'undefined' && UI.cardId != null && typeof FIGHT !== 'undefined' ? FIGHT.byId(UI.cardId) : null, R = v && v.side === 'them' && v.champRead; if (!R) return null;
+      var Z = R.prize || {}, sk = ''; try { sk = typeof CHAMP_MARK !== 'undefined' ? CHAMP_MARK.join('/') + '|' + CHAMP_GOLD : ''; } catch (e) { sk = ''; }   /* the board's own skull and gold */
+      return { title: String(R.title || ''), mark: String(R.mark || ''), why: String(R.why || ''), prize: String(R.prizeLine || ''), part: String(Z.part || ''), id: String(Z.id || ''), pname: String(Z.name || ''), skull: sk };
+    } catch (e) { return null; }
+  }
   /* his face on the phone is the fight's own card: one tap opens the man's sheet (the fight's drawer), a second closes it */
   P.card = function () { var c = document.getElementById('card'), d = document.getElementById('drawer'); if (!c) return false; if (d) d.dataset.peek = '';
     c.click(); window.__PHONE_CARD = (window.__PHONE_CARD | 0) + 1; return true; };
@@ -972,12 +981,16 @@
       + '#bohphone .fap{height:5px;margin-top:1px}#bohphone .fap .pp{gap:1px}#bohphone .fap .pp i{flex:0 0 5px;height:5px}'
       + '#bohphone .fap .pl{display:none}'
       + '#bohphone .fap.cls{height:8px}#bohphone .fap.cls .pp{display:none}'
-      + '#bohphone .fap.cls .pl{display:flex;align-items:center;gap:3px;min-width:0}'
+      + '#bohphone .fap.cls .pl{display:flex;align-items:center;gap:2px;min-width:0}'
       + '#bohphone .fap .pl .lv{font:400 8px/8px "BohemiaCasing",ui-sans-serif,sans-serif;font-style:normal;letter-spacing:.5px;color:#ff8a6a;white-space:nowrap;text-shadow:0 1px 0 #000}'
       + '#bohphone .fap .pl .mk{flex:0 0 8px;width:8px;height:8px;background:center/contain no-repeat;image-rendering:pixelated}'
       + '#bohphone .fap .pl .mk.oc{background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 8 8%27%3E%3Cpath d=%27M1 2.5 4 .5 7 2.5M1 5 4 3 7 5M1 7.5 4 5.5 7 7.5%27 fill=%27none%27 stroke=%27%23ff5a40%27 stroke-width=%271.2%27/%3E%3C/svg%3E\")}'
       + '#bohphone .fap .pl .mk.dodge{background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 8 8%27%3E%3Cpath d=%27M.5 4h7M2.6 1.6.5 4l2.1 2.4M5.4 1.6 7.5 4 5.4 6.4%27 fill=%27none%27 stroke=%27%23f2e4c6%27 stroke-width=%271.1%27/%3E%3C/svg%3E\")}'
       + '#bohphone .fap .pl .mk.armour{background-image:url(\"data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 8 8%27%3E%3Cpath d=%27M1 1h6v3.4c0 2.1-3 3.1-3 3.1s-3-1-3-3.1z%27 fill=%27%239fb0c4%27 stroke=%27%230d0a07%27 stroke-width=%27.6%27/%3E%3C/svg%3E\")}'
+      /* a champion (FIGHT SCREEN 4 11/27, rule 493(c)): his name and level in the board's champion gold, the board's skull, the prize on him as a still in a gold rim */
+      + '#bohphone .fh.them.champ b{color:#e0a040}#bohphone .fap .pl.champ .lv{color:#e0a040}'
+      + '#bohphone .fap .pl .mk.ch{background-size:contain}'   /* the board's skull, set on it from the fight (champSkull) */
+      + '#bohphone .fh .fme .pz{position:absolute;right:-1px;bottom:-1px;width:11px;height:11px;pointer-events:none;background:#0d0b09 center/9px 9px no-repeat;box-shadow:0 0 0 .8px #e0a040,1px 1px 0 rgba(0,0,0,.7);image-rendering:pixelated}'
       /* __THE_ROUNDS_ON_THE_CARD__ (FIGHT SCREEN THREE 11/22, rule 478(a)): cartridges on end at the AP row's end: brass with a bright tip, a spent case dark, the last hot, none red on the beat */
       + '#bohphone .fap .rd{flex:0 0 auto;position:relative;display:flex;align-items:flex-start;gap:1px;height:5px;margin-left:1px;padding-left:2px;box-shadow:inset 1px 0 0 rgba(255,236,200,.16)}'
       + '#bohphone .fap.gun .pp i{flex-basis:4px}'   /* 11/26: the row fits: his AP pips 4 wide beside a gun (9 x 4 + 8 gaps = 44 of the 65 point column) */
@@ -1831,10 +1844,26 @@
     /* off the moment the slip ends (the animation's own end; a long board frame can hold a timer back), the timer kept behind it */
     var cv = hd.querySelector('canvas'); if (cv && !cv.__hitEnd) { cv.__hitEnd = true; cv.addEventListener('animationend', function (e) { if (e.animationName === 'fhHit') hd.classList.remove('hit'); }); }
   }
+  /* the prize's picture for the card: the kit's own item icon (slices/bohemia_ui_materials.js itemIcon, as the end screen's tiles fall back to), made
+     once per piece and kept as a still; its canvas let go at once (rule 484: no canvas memory held for a picture this small) */
+  function champPic(CH) {
+    var K = H.champPics = H.champPics || {}; if (K[CH.id] !== undefined) return K[CH.id];
+    var u = ''; try { var M = window.BohemiaMaterials, c = M && M.itemIcon ? M.itemIcon({ id: CH.id, kind: CH.part, name: CH.pname }, 9) : null; if (c) { u = c.toDataURL(); c.width = c.height = 0; } } catch (e) { u = ''; }
+    K[CH.id] = u; return u;
+  }
+  /* the champion's mark on the card is the board's own skull (the fight's CHAMP_MARK and CHAMP_GOLD, BESTIARY 4's), drawn from its cells with
+     the board's ink a cell under it, made once: one mark for one man on the board and on the card */
+  function champSkull(sk) {
+    var K = H.skulls = H.skulls || {}; if (K[sk]) return K[sk];
+    var parts = String(sk).split('|'), R = parts[0].split('/'), gold = parts[1] || '#e0a040', w = R[0].length, ink = '', au = '';
+    R.forEach(function (row, j) { for (var i = 0; i < row.length; i++) if (row.charAt(i) === '#') { ink += 'M' + i + ' ' + (j + 1) + 'h1v1h-1z'; au += 'M' + i + ' ' + j + 'h1v1h-1z'; } });
+    var svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 " + w + ' ' + (R.length + 1) + "' shape-rendering='crispEdges'><path d='" + ink + "' fill='#0d0a07'/><path d='" + au + "' fill='" + gold + "'/></svg>";
+    return (K[sk] = 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")');
+  }
   function manPaint(force) {
     var fw = fightWin(), F = fw && fw.BohemiaPhone && fw.BohemiaPhone.P; if (!F || !F.man) return;
     var M = F.man(), bars = [M.hp, M.arm, M.fat].map(function (b) { return b ? [b.w, b.c, b.n, b.l].join(',') : ''; });   /* b.l: __THE_LAST_HIT_ON_THE_CARD__ */
-    var key = [M.name, M.main, bars.join(';'), M.ap, M.apTurn, M.cls, M.round, M.full, (M.plate || []).join(','), (M.rounds || []).join('/') + (M.dry ? 'x' : '') + (M.out ? 'o' : '') + (M.carry || []).join('/'), M.faceKey, M.spent ? 's' : ''].join('|');   /* the rounds: __THE_ROUNDS_ON_THE_CARD__ */
+    var key = [M.name, M.main, bars.join(';'), M.ap, M.apTurn, M.cls, M.round, M.full, (M.plate || []).join(','), (M.rounds || []).join('/') + (M.dry ? 'x' : '') + (M.out ? 'o' : '') + (M.carry || []).join('/'), M.faceKey, M.spent ? 's' : '', M.champ ? M.champ.id + '#' + M.champ.title : ''].join('|');   /* the rounds: __THE_ROUNDS_ON_THE_CARD__ */
     if (!force && key === H.manKey) return; H.manKey = key; var tPaint = performance.now();   /* __NEVER_CHOPPY__: what a card's repaint costs, for the frame walk */
     /* __NEVER_CHOPPY__ (FIGHT SCREEN THREE 11/26, VAMILY rule 480(c), measured on the slowed phone: a repaint cost 10 to 12 ms, nearly a whole frame,
        because every change, one bar's, repainted ALL of it: the face drawn again from the fight's canvas, the name written and measured (a layout
@@ -1886,13 +1915,24 @@
       }
     }
     var pl = fa.querySelector('.pl'); if (!pl) { pl = document.createElement('span'); pl.className = 'pl'; fa.insertBefore(pl, fa.firstChild); }
-    if (!was('plate', [M.cls, (M.plate || []).join(','), (M.says || []).join('|')].join('#'))) {
+    var CH = M.cls ? M.champ : null;
+    if (!was('plate', [M.cls, (M.plate || []).join(','), (M.says || []).join('|'), CH ? CH.title + '#' + CH.id + '#' + CH.why : ''].join('#'))) {
       pl.textContent = '';
       if (M.cls) {
         var P4 = M.plate || [(/LV\s*(\d+)/.exec(M.cls) || [0, ''])[1], 0, 0, 0], says = M.says || [];
         var lv = document.createElement('i'); lv.className = 'lv'; lv.textContent = 'LV ' + P4[0]; pl.appendChild(lv);
         [['oc', P4[1], says[0]], ['dodge', P4[2], says[1]], ['armour', P4[3], says[2]]].forEach(function (m) { if (!m[1]) return;
           var k = document.createElement('i'); k.className = 'mk ' + m[0]; k.setAttribute('role', 'img'); if (m[2]) k.setAttribute('aria-label', String(m[2]).toLowerCase()); pl.appendChild(k); });
+      }
+      /* a champion (FIGHT SCREEN 4 11/27, rule 493(c)): his name in gold, the board's skull standing where 'LV' was (his level beside it; his title and why he
+         is dangerous its words), and the prize on him pinned on his photo's corner (the kit's own item icon, laid once as a still: no canvas lives
+         on the card). MEASURED on its side with every mark and a gun's six cases: the row has no room for one more piece (the cases ran over the
+         marks), so the skull takes the word's place and the prize rides the photo; his row is narrower than a plain man's */
+      hd.classList.toggle('champ', !!CH); pl.classList.toggle('champ', !!CH);
+      var fme = hd.querySelector('.fme'), oz = fme && fme.querySelector('.pz'); if (oz) fme.removeChild(oz);
+      if (CH && lv) {
+        var cr = document.createElement('i'); cr.className = 'mk ch'; cr.setAttribute('role', 'img'); if (CH.skull) cr.style.backgroundImage = champSkull(CH.skull); cr.setAttribute('aria-label', (CH.title + ', level ' + P4[0] + ': ' + CH.why).toLowerCase()); pl.insertBefore(cr, lv); lv.textContent = String(P4[0]);
+        var zu = CH.part && CH.id ? champPic(CH) : ''; if (zu && fme) { var pz = document.createElement('i'); pz.className = 'pz'; pz.setAttribute('role', 'img'); pz.setAttribute('aria-label', CH.prize.toLowerCase()); pz.style.backgroundImage = 'url(' + zu + ')'; fme.appendChild(pz); }
       }
     }
     /* __THE_ROUNDS_ON_THE_CARD__ (FIGHT SCREEN THREE 11/22/26; VAMILY rule 478(a): 'every gun carries its own rounds, shown on the man's card'; a marked
@@ -1909,7 +1949,10 @@
       rd.style.display = R0 ? '' : 'none'; rd.classList.toggle('dry', out); rd.classList.toggle('reload', reload); rd.classList.toggle('cry', !!C0);
       fa.classList.toggle('gun', !!R0 && !M.cls);
       if (R0) {
-        var nR = Math.min(R0[1], 6), lit = R0[1] > 6 ? Math.ceil(R0[0] / R0[1] * 6) : R0[0];
+        /* FIGHT SCREEN 4 11/27 (rule 482, measured on its side): a man of theirs' row carries his plate (LV and up to three marks, a champion's
+           crown) before his cases, and six cases ran over his marks; his gun shows at most four, each a share past four (the share rule a long
+           magazine already keeps), so the whole row fits the card */
+        var CAP = M.cls ? 4 : 6, nR = Math.min(R0[1], CAP), lit = R0[1] > CAP ? Math.ceil(R0[0] / R0[1] * CAP) : R0[0];
         for (var j = 0; j < nR; j++) { var c0 = document.createElement('i'); if (!M.dry && j < lit) c0.className = R0[0] === 1 && R0[1] > 1 ? 'on last' : 'on'; rd.appendChild(c0); }
         if (C0) { var ln = document.createElement('u'); ln.className = 'cl'; ln.style.width = 'calc((100% - 2px) * ' + (Math.max(0, Math.min(1, C0[0] / C0[1]))).toFixed(3) + ')'; rd.appendChild(ln); }
         rd.setAttribute('aria-label', out ? 'out of rounds: his gun is slung' : reload ? 'empty: reload' + (C0 ? ', ' + C0[0] + ' carried' : '') : R0[0] + ' of ' + R0[1] + ' in the gun' + (C0 ? ', ' + C0[0] + ' of ' + C0[1] + ' carried' : ''));   /* draft:true */

@@ -5,6 +5,33 @@
 # the speaking cards) and the fight's opening line. NEVER EDITED BY THIS LANE: the boards, the hand-over from the map and AUTO (COMBAT
 # THREE's). UI THREE was told the fight's unit card; by rule 449 it is this lane's now.
 
+FIGHT SCREEN 4 (fight-screen-4-01gkdyuu): 11/28 LATEST -- [a champion reads] BUILD 11/28c - A CHAMPION READS, BUILT, NOT YET SEEN (the coordinator's order of 11/27: rules 493(c), 482, 495; ask row 774, this lane's part). VOTE fight-screen-a-champion-reads-11-28 (stand_in; before and now).
+Record: records/BOHEMIA_FIGHT_SCREEN_A_CHAMPION_READS_11_28_26.md. ONE MODULE (rule 495): engine/bohemia_champion.js read(u, band, C, opt), called once at the
+champion deal (u.champRead): WHY HE IS DANGEROUS measured against his own men on the board (blood, armour, the skill his weapon uses, nerve, initiative;
+the bars and words in bohemia_enemies.json champions.read), THE PRIZE = what BESTIARY 4's spoils rule drops (his weapon whole + u.prize.batteries), HER
+words by u.sex else the name's first word (she_first). Drawn by: the bell (whyOpen: title on the name line, why + prize stamped in when the sentence has
+typed, full 8 beats), his sheet (sheetChamp/champPic: gold title, why, prize with the kit's item icon), the phone's card (P.man champOn() reads the fight
+by UI.cardId, strings only; manPaint: gold name and level, the BOARD'S skull from the fight's CHAMP_MARK/CHAMP_GOLD (champSkull) where 'LV' was, the prize
+pinned on the photo). No new marked block; the weapon card's champion line folded onto the read (fight hooks 428 -> 427, ratchet tightened).
+FIXED ON THE WAY (rule 482): a man of theirs' card row overlapped (three marks + a gun's six cases: cases over the armour mark): theirs shows at most four
+cases (a share past four) and the plate gap is 2; the damage bar spilled out of the weapon's well on a tight sheet sideways (the value box gives way).
+GATES: A CHAMPION READS 9/0 (new, registered; tools/bohemia_fight_screen_the_champion.js <demo|alpha> <upright|sideways> <out> [BEFORE=1] [PLANT=1]);
+THE MAN'S CARD ON THE PHONE 21/1 (P8 the last hit: the put-back read while a marksman of theirs was mid-turn; timing, not this build: look at it next);
+THE WHY IS A TAPE 5/0; THE MAN'S SHEET 7/0; THE PHONE 268/0; THE LOOT READS 6/0; THE SPOILS 18/1 (quarantined); DEMO BUILD 25/0; PATCH LAYERS R5 42/41
+red on main (hz/rngOf pasted in four board files by another lane: PLUMBER 9's to name).
+FOR CHARACTER 4 / BESTIARY 4: MAMA LOCA, LA NAVAJA, DONA CONCRETO are drawn with a man's body (person_remnants_2): ONE ID, ONE WHOLE PERSON. FOR BESTIARY 4:
+the spoils' champion rule reads the weapon in his hands at the end; a champion killed holding his waistband pistol leaves his first weapon unreported.
+LESSON: the tool's title tap: tap NEW GAME until the title is gone (a slow box drops the first tap; one tap made the second and third runs NO CHAMPION).
+NEXT, in order:
+ (1) P8 of THE MAN'S CARD ON THE PHONE: make its put-back read wait for the card's own man (the fight's #bhp man vs the phone's), or read in one task.
+ (2) The next thing on the fight screen not clear and punchy yet: the new guns' words on the aim line (a burst 'three rounds, each a try', the belt's three
+     tiles, the rocket's house); then FRAMES=1 with drones and rockets for hitches (tools/bohemia_fight_screen_the_walk.js).
+ (3) Fold this lane's marked-block debt (the list in the block below: the phone card's marks into one card module the phone only draws).
+ (4) EYES' notes and his votes on 11/26d, 11/26p, 11/26zd, 11/27j, 11/27v, 11/28c (rule 441(b)).
+ (5) The sheet on its side with many skills: the eight stat bars in two columns are a few points long (readable numbers, nearly no bar).
+[bb Battle Brothers marks a champion with a skull and his name, and his named item always drops; ours says why he is dangerous, measured, and names the prize the spoils keep]
+[analog horror: his name on the tape comes with a title, and the words under his face say what it will cost to put him down]
+
 FIGHT SCREEN (fight-screen-three-01gkdyuu): 11/27 LATEST -- [the drone on the big row] SHIPPED 45b8ca53a, BUILD 11/27v - THE DRONE ON THE BIG ROW, BUILT, NOT YET SEEN (rule 482: 'the new guns and drones on the fight screen reading clear and punchy'; ARMORY THREE's rule 490). VOTE fight-screen-the-drone-on-the-big-row-11-27 (stand_in).
 Record: records/BOHEMIA_FIGHT_SCREEN_THE_DRONE_ON_THE_BIG_ROW_11_27_26.md. SHOOT THE DRONE was a 24 point skill square; now FIRST in the phone's big row
 (P.abilities kind 'drone', fightPaint mains; DRONE, its chance in the corner tag; .abig .bg.drone on the kit's well, red rim; .cross from the fight's

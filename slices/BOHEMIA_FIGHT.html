@@ -33,6 +33,7 @@
 <script src="bohemia_street_board.js"></script>  <script src="../engine/bohemia_fight_kinds.js"></script>  <!-- __THE_OLD_LAYOUT_THE_NEW_HOUSES__ (COMBAT TWO 11/7, rule 429(b)): WORLD THIRTEEN's one table, the map and the fight on one storey mix -->  <script src="bohemia_freeway_boards.js"></script>  <script src="bohemia_casino_floor.js"></script>  <script src="bohemia_flood_tunnels.js"></script>  <script src="bohemia_parking_garage.js"></script>  <script src="bohemia_big_inside.js"></script>  <!-- __THE_FLOOD_TUNNELS__ (COMBAT TWO 11/9, rule 440(a)): under the city -->  <!-- __THE_CASINO_FLOOR__ (COMBAT TWO 11/8, rule 416): the first big interior -->  <!-- __THE_FREEWAY_FIGHT__ (FREEWAY 11/7, rule 432): the deck, the overpass, the underpass, the interchange -->  <!-- __THE_BOARD_IS_THE_CITY_AT_THAT_SPOT__ (COMBAT TWO 11/6, rule 407(g) step one, ask line 450): the board laid from the map's own block -->
 <script src="bohemia_fight_face.js"></script>  <!-- __THE_FACE_SHOWS_UNDER_THE_HELMET__ (FIGHT SCREEN TWO 11/17, ask row 630): a face with head gear is framed so his eyes read -->
 <script src="bohemia_boss_entrance.js"></script>  <!-- __THE_BOSS_ARRIVES__ (BOSSES 11/26, rule 482): his entrance, his name over him, his moment at half, his fall, drawn over the fight; no number changed -->
+<script src="../engine/bohemia_champion.js"></script>  <!-- FIGHT SCREEN 4 11/27 (rule 493(c)): what the fight says about a champion, in one place: his title, why he is dangerous (measured), the prize on him -->
 <script src="bohemia_fight_why.js"></script>  <!-- __THE_WHY_LINE__ (FIGHT SCREEN 11/14, rule 449(a)): the chooser of the fight's one opening sentence; its table is records/target/bb/fight_reasons.json -->
 <script src="../engine/bohemia_spanglish.js"></script>  <!-- WORDS [spanglish at ten percent] (rule 143a): every line the crew says rolls; about 1 in 8 comes out Spanglish, some men lean more, never you -->
 <!-- ============================================================================
@@ -230,6 +231,14 @@ html[data-materials] #bend.hit::before{background-image:var(--mark-hit)}
 #why .tape canvas{display:block;width:100%!important;height:100%!important;margin:0!important;box-shadow:none!important;transform:none!important;image-rendering:pixelated;image-rendering:crisp-edges;filter:brightness(1.2) contrast(1.22) saturate(.62) sepia(.12)}
 #why .tape canvas.tape-lines{position:absolute;inset:0;filter:none;pointer-events:none;background:transparent!important}   /* the old face's own ground (#why canvas) would cover the still */
 #why .tape .tape-fx{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 80% 82% at 50% 42%,rgba(0,0,0,0) 56%,rgba(0,0,0,.5) 100%)}
+/* A CHAMPION READS (FIGHT SCREEN 4 11/27, rule 493(c)): under a champion's sentence, once it has typed: why he is dangerous, then the prize on
+   him with its picture, stamped in on the beat's own keys (steps, never a swell); gold is the champion's, the board's CHAMP_GOLD */
+#why .why-champ{display:none;margin-top:4px;font-style:normal}
+#why.champ.typed .why-champ{display:block;animation:whyin .16s steps(3,end) both}
+#why .why-champ i{display:flex;align-items:center;gap:5px;font:400 10px/1.3 var(--face-casing,ui-monospace,monospace);font-style:normal;letter-spacing:.6px;color:#e0a040;text-shadow:0 1px 0 #000}
+#why .why-champ i.wc-prize{color:#f2e4c6}
+#why .why-champ canvas.cz{flex:0 0 14px;width:14px!important;height:14px!important;margin:0!important;box-shadow:0 0 0 1px #e0a040!important;transform:none!important;border-radius:0;background:#0d0b09;image-rendering:pixelated}
+#why.champ b{color:#e0a040}
 #why #whyline{display:inline;background:#060504;color:#f2ead8;-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:1px 6px 2px;line-height:1.7;min-height:0}
 #why #whyname::before{content:">> "}
 @media (prefers-reduced-motion:reduce){#why .tape{transform:none}}
@@ -298,6 +307,13 @@ html[data-materials] #bwait.run{font-size:9px;word-spacing:normal} html[data-mat
 #drawer.sheet .sh-plate .pmk.dodge{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath d='M.5 4h7M2.6 1.6.5 4l2.1 2.4M5.4 1.6 7.5 4 5.4 6.4' fill='none' stroke='%23f2e4c6' stroke-width='1.1'/%3E%3C/svg%3E")}
 #drawer.sheet .sh-plate .pmk.armour{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath d='M1 1h6v3.4c0 2.1-3 3.1-3 3.1s-3-1-3-3.1z' fill='%239fb0c4' stroke='%230d0a07' stroke-width='.6'/%3E%3C/svg%3E")}
 #drawer.sheet .sh-tell{font:700 12px/1.3 var(--face-rom,ui-monospace,monospace);color:#efe3cc}
+/* A CHAMPION READS (FIGHT SCREEN 4 11/27): his title in gold, why he is dangerous, the prize on him (sheetChamp) */
+#drawer.sheet .sh-champ{display:block;margin-top:2px;padding:3px 0 0 6px;border-left:2px solid #e0a040}
+#drawer.sheet .sh-champ b.sh-ct{display:block;font:400 11px/1.2 var(--face-casing,ui-monospace,monospace);letter-spacing:.8px;color:#e0a040;text-shadow:0 1px 0 #000}
+#drawer.sheet .sh-champ .sh-cw{display:block;margin-top:1px;font:700 12px/1.3 var(--face-rom,ui-monospace,monospace);color:#efe3cc}
+#drawer.sheet .sh-champ .sh-prize{display:flex;align-items:center;gap:5px;margin-top:2px;font:400 11px/1.25 var(--face-casing,ui-monospace,monospace);letter-spacing:.5px;color:#e0a040}
+#drawer.sheet .sh-champ .sh-prize canvas.cz{flex:0 0 16px;width:16px!important;height:16px!important;background:#0d0b09;box-shadow:0 0 0 1px #e0a040;image-rendering:pixelated}
+#drawer.sheet.t3 .sh-champ .sh-cw{font-size:11px}
 #drawer.sheet .sh-slip{grid-area:slip;align-self:start;padding:8px 10px 9px;color:var(--paper-ink);background:var(--mat-receipt,#e2dac6) center/cover}
 #drawer.sheet .sh-slip .bst-block.bst-fight{margin:0 0 4px}
 #drawer.sheet .sh-slip .bst-fight .bst-row{grid-template-columns:124px 23px minmax(0,1fr) 2px}
@@ -307,7 +323,8 @@ html[data-materials] #bwait.run{font-size:9px;word-spacing:normal} html[data-mat
 #drawer.sheet .sh-w b{display:block;font:400 12px/1.2 var(--face-casing,ui-monospace,monospace);letter-spacing:1px;color:#e2b45a;text-shadow:0 1px 0 #000}
 #drawer.sheet .sh-w>span{display:block;margin-top:2px;font:700 12px/1.3 var(--face-rom,ui-monospace,monospace);color:#efe3cc}
 #drawer.sheet .sh-w .r{margin-top:4px;padding:0;border-bottom:0;align-items:center;color:#cdb98e;font:400 11px/1.3 var(--face-rom,ui-monospace,monospace)}
-#drawer.sheet .sh-w i.cbar.dmg{flex:0 0 auto;display:block;width:130px;height:11px;background:rgba(255,236,200,.1);box-shadow:inset 0 1px 0 rgba(0,0,0,.6),0 0 0 1px rgba(0,0,0,.5)}
+#drawer.sheet .sh-w .r>span:last-child{flex:0 1 130px;min-width:36px;display:block}   /* a tight sheet on its side: the damage bar gives way to its well (it ran 50 points out of it) */
+#drawer.sheet .sh-w i.cbar.dmg{flex:0 0 auto;display:block;width:100%;max-width:130px;height:11px;background:rgba(255,236,200,.1);box-shadow:inset 0 1px 0 rgba(0,0,0,.6),0 0 0 1px rgba(0,0,0,.5)}
 #drawer.sheet .sh-w i.cbar.dmg>i{left:auto;background:#c8563a;box-shadow:inset 0 2px 0 #e98a6a,inset 0 -2px 0 #8a3320}
 #drawer.sheet .sh-perks{grid-area:perks;align-self:start;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 10px}
 #drawer.sheet .sh-perks.few,#drawer.sheet.wide .sh-perks{grid-template-columns:minmax(0,1fr)}
@@ -438,7 +455,7 @@ html[data-screen=tablet] #top,html[data-screen=computer] #top{left:50%;right:aut
 <div id="hurts"></div>
 <div id="pick"></div>
 <div id="shotflash"></div>
-<div id="why"><canvas id="whyface" width="156" height="156"></canvas><div><b id="whyname"></b><span id="whyline"></span></div></div>
+<div id="why"><canvas id="whyface" width="156" height="156"></canvas><div><b id="whyname"></b><span id="whyline"></span><i id="whychamp" class="why-champ"></i></div></div>
 <div id="vet"><canvas id="vetface" width="132" height="132"></canvas><div><b id="vetname"></b><span id="vetline"></span></div></div>
 <div id="call"><canvas id="callface" width="102" height="102"></canvas><div><b id="callname"></b><span id="callline"></span></div></div>
 <div id="wipe"><div class="osd">&#9632; STOP</div><h2 id="wh"></h2><div id="wb"></div></div>
@@ -2810,6 +2827,11 @@ const FIGHT = (function () {
         u.champion = true; u.name = pick[Math.floor(die() * pick.length)]; u.champTitle = c.title || null;
         champOn(u, !CH[u.kind], die);
         S.champions.push({ id: u.id, kind: u.kind, name: u.name, title: u.champTitle, rolled: !CH[u.kind] || i === champAt, prize: u.prize }); });
+    } catch (e) { S.champErr = String(e && e.message || e); }
+    /* A CHAMPION READS (FIGHT SCREEN 4 11/27, rule 493(c)): each champion read once, here, against his own men on this board, by the one
+       module that says it (engine/bohemia_champion.js); the card, his sheet, the bell and the spoils read u.champRead, never a second copy */
+    try { if (typeof BohemiaChampion !== 'undefined') S.champions.forEach(function (c) { const u = bandUnits.filter(function (x) { return x.id === c.id; })[0];
+      if (u) u.champRead = BohemiaChampion.read(u, bandUnits, DB.newEnemies.champions, { weapons: DB.weapons.rows, ranged: isRanged, nameOf: objName }); });
     } catch (e) { S.champErr = String(e && e.message || e); }
     LOOKS_TAKEN = null;
     /* THE BOARD GROWS TO FIT (COMBAT 7, rule 378(b), ask line 407; Paolo 11/3: 'make sure there's not a cap on the amount of players
@@ -8927,8 +8949,14 @@ function whyOpen(now) {
      opened the fight (slices/bohemia_fight_opener.js, the same words): drawn small and blown up hard, the tape's light and lines inside his
      frame (#why .tape), held still (no bob: bible R3, R6); his sentence runs as closed captions */
   const cv = document.getElementById('whyface'); whyTape(cv); drawPortrait(cv.getContext('2d'), v, cv.width, true);
-  document.getElementById('whyname').textContent = v.name; document.getElementById('whyline').textContent = '';
-  mouthLook(); const el = document.getElementById('why'); el.classList.toggle('them', P.side === 'them'); el.classList.toggle('said', said); el.style.top = (TOPH + 6) + 'px'; el.style.display = 'flex';
+  /* A CHAMPION READS (FIGHT SCREEN 4 11/27, rule 493(c)): when a champion leads them his title rides his name, and once his sentence has typed
+     why he is dangerous and the prize on him land under it on the beat (his read, engine/bohemia_champion.js); he holds the full eight beats */
+  const CR = v.champRead, wc = document.getElementById('whychamp');
+  document.getElementById('whyname').textContent = v.name + (CR && CR.title ? ', ' + String(CR.title).toUpperCase() : ''); document.getElementById('whyline').textContent = '';
+  if (wc) { wc.textContent = ''; if (CR) { const a = document.createElement('i'), b = document.createElement('i'), pic = champPic(CR, 14); a.className = 'wc-why'; a.textContent = CR.why; b.className = 'wc-prize'; b.textContent = CR.prizeLine || ''; if (pic) b.insertBefore(pic, b.firstChild); wc.appendChild(a); if (CR.prizeLine) wc.appendChild(b); } }
+  UI.why.champ = !!CR; if (CR) UI.why.said = false;
+  document.getElementById('why').classList.toggle('champ', !!CR); document.getElementById('why').classList.remove('typed');
+  mouthLook(); const el = document.getElementById('why'); el.classList.toggle('them', P.side === 'them'); el.classList.toggle('said', UI.why.said); el.style.top = (TOPH + 6) + 'px'; el.style.display = 'flex';
   feed(v.name + ': ' + P.line, P.side === 'them' ? '#ff8a6a' : undefined);
   try { window.top.postMessage({ type: 'BOHEMIA_VOICE', speaker: 'face:' + v.look, text: P.line }, '*'); } catch (_e) {}
 }
@@ -8952,7 +8980,7 @@ function tickWhy(now) {
   const ln = document.getElementById('whyline'); if (ln.textContent.length !== n) ln.textContent = Y.line.slice(0, n);
   const typing = n < Y.line.length;
   /* __THE_WHY_IS_A_TAPE__: the still holds (bible R3, R6); his mouth no longer bobs the picture */
-  if (!typing && !Y.done) Y.done = now;
+  if (!typing && !Y.done) { Y.done = now; if (Y.champ) document.getElementById('why').classList.add('typed'); }   /* a champion's why and prize land when his sentence is out */
   if ((Y.done && now - Y.done > beat * (Y.said ? WHY_SAID_BEATS : WHY_HOLD_BEATS)) || FIGHT.S.over) whyHide();
 }
 /* ---------------- /__THE_WHY_LINE__ ---------------- */
@@ -12359,6 +12387,7 @@ function hud() {
      card is the man he is placing, else his own lead */
   const lineup = S.deploy ? (UI.dsel || S.units.filter(function (v) { return v.side === 'you' && FIGHT.onField(v); }).sort(function (a, b) { return (b.main ? 1 : 0) - (a.main ? 1 : 0); })[0] || null) : null;
   const show = (UI.pend && UI.pend.target) || lineup || u || S.units[0];
+  UI.cardId = show.id;   /* the man on the card, for what the phone reads of him off the fight itself (a champion's read: engine/bohemia_champion.js) */
   const fkey = show.id + ':' + show.morale + ':' + FIGHT.onField(show);
   if (UI.faceKey !== fkey) { UI.faceKey = fkey; UI.faceN = (UI.faceN | 0) + 1; drawPortrait(document.getElementById('face').getContext('2d'), show, document.getElementById('face').width); }   /* faceN: every draw counted, so the phone copies the face again exactly when it was drawn again (__NEVER_CHOPPY__) */
   /* A NAME FITS THE FIGHT BAR (UI [eyes: the cut name], rule 150, EYES 10/24 item 25: 'OCTAVIO ELLI'): the whole name when
@@ -12676,7 +12705,19 @@ function sheetTell(v) {
   if (v.side === 'you') return '';
   try { if (v.boss && FIGHT.S.boss && FIGHT.S.boss.lesson) return String(FIGHT.S.boss.lesson); } catch (_e) {}
   try { const r = DB.newEnemies && DB.newEnemies.rows.filter(function (x) { return x.id === v.kind; })[0]; if (r && r.lesson) return String(r.lesson); } catch (_e) {}
-  return v.champion && v.champTitle ? String(v.champTitle) : '';
+  return v.champion && v.champTitle && !v.champRead ? String(v.champTitle) : '';   /* a champion's read carries his title on its own line (sheetChamp) */
+}
+/* A CHAMPION READS (FIGHT SCREEN 4 11/27, rule 493(c)): his title in gold, why he is dangerous, the prize on him with its picture; the
+   words are the champion's read (engine/bohemia_champion.js), the sheet only lays them out */
+function sheetChamp(v) {
+  const R = v.champRead; if (!R) return '';
+  return '<span class="sh-champ"><b class="sh-ct">' + sheetEsc(String(R.title || R.mark).toUpperCase()) + '</b><span class="sh-cw">' + sheetEsc(R.why) + '</span>'
+    + (R.prizeLine ? '<span class="sh-prize">' + sheetEsc(R.prizeLine) + '</span>' : '') + '</span>';
+}
+/* the prize's picture: the kit's own item icon (slices/bohemia_ui_materials.js itemIcon), the one the end screen's tiles fall back to */
+function champPic(R, px) {
+  const P = R && R.prize; if (!P || !P.part || !window.BohemiaMaterials || !BohemiaMaterials.itemIcon) return null;
+  try { const c = BohemiaMaterials.itemIcon({ id: P.id, kind: P.part, name: P.name }, px); c.classList.add('cz'); c.setAttribute('aria-hidden', 'true'); return c; } catch (_e) { return null; }
 }
 /* his weapon's damage as a bar, never two more numbers (rule 224(c), Paolo 10/26: 'tired of it just being numbers... more icons'): the
    stretch from its least to its most is lit, against the most any weapon in the table carries (weapons.json); the numbers are its label */
@@ -12699,7 +12740,7 @@ function drawer(v) {
   d.className = 'sheet ' + (yours ? 'yours' : 'theirs') + (innerWidth > innerHeight ? ' wide' : '');
   d.innerHTML = '<div class="sh-head"><canvas class="sh-face" width="144" height="144"></canvas><div class="sh-who"><b class="sh-name">' + sheetEsc(v.name) + '</b>'
       + '<span class="sh-sub"><i class="sh-sr"> · </i>LEVEL ' + (yours ? (v.level || 1) : lvOf(v)) + ' · ' + sheetEsc(v.job.toUpperCase().replace('_', ' ')) + (yours ? '' : sheetPlate(v)) + '</span>'   /* a man of theirs: the level his plate says (lvOf), one number for one man; his marks ride the same line, so a tight sheet grows by nothing */
-      + (tell ? '<span class="sh-tell">' + sheetEsc(tell) + '</span>' : '') + '</div></div>'
+      + (tell ? '<span class="sh-tell">' + sheetEsc(tell) + '</span>' : '') + sheetChamp(v) + '</div></div>'
     + '<div class="sh-slip">'
     + r('Health', v.hp + ' / ' + v.hpMax) + r('Armour, head', cbar(v.armH, v.armHMax)) + r('Armour, body', cbar(v.armB, v.armBMax))
     + r('Fatigue', Math.round(v.fat) + ' / ' + fm) + r('Nerve', v.morale) + r('Melee skill / defence', v.mskill + ' / ' + v.mdef)
@@ -12723,6 +12764,7 @@ function drawer(v) {
   if (UI.sheetMarkFor !== v.id) { UI.sheetMark = null; UI.sheetMarkFor = v.id; }
   [].slice.call(d.querySelectorAll('.sh-plate .pmk')).forEach(function (m) { m.addEventListener('pointerdown', function (e) { UI.sheetMark = m.nextSibling ? String(m.nextSibling.textContent || '') : ''; UI.sheetPerk = null; UI.sheetHold = performance.now(); try { e.stopPropagation(); } catch (_e) {} sheetRead(v); }); });
   const cv = d.querySelector('.sh-face'); try { drawPortrait(cv.getContext('2d'), v, cv.width, yours || FIGHT.shown(v)); } catch (_e) {}
+  const pz = d.querySelector('.sh-prize'), pic = pz && champPic(v.champRead, 16); if (pic) pz.insertBefore(pic, pz.firstChild);
   sheetLook();
   d.style.bottom = (BOTH + 10) + 'px'; d.style.display = 'grid';
 }
@@ -12836,7 +12878,7 @@ function weaponCard(v) {
   const r = function (a, b) { return '<div class="r"><span>' + a + '</span><span>' + b + '</span></div>'; };
   const esc = function (t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
   let h = '<div class="wt" style="color:#7a3d10;font-weight:700">' + esc(objName(own).toUpperCase()) + ' · ' + esc(v.name) + '</div>'
-    + (v.champion && v.champTitle ? '<div class="wc" style="font-size:10px;font-weight:700;color:#8a2a10;margin-bottom:2px">' + esc(v.champTitle.toUpperCase()) + '</div>' : '')   /* __CHAMPIONS_ARE_NAMED_MEN__: the named man says what he is */
+    + (v.champion && (v.champRead || v.champTitle) ? '<div class="wc" style="font-size:10px;font-weight:700;color:#8a2a10;margin-bottom:2px">' + esc(String((v.champRead && v.champRead.title) || v.champTitle).toUpperCase()) + '</div>' : '')   /* a champion says what he is: his read's title (engine/bohemia_champion.js) */
     + '<div class="wb" style="font-size:9px;opacity:.75;margin-bottom:4px">Battle Brothers: ' + esc(w.name) + (w.name.toLowerCase() === (L.base || own.class).toLowerCase() ? '' : (/^[aeiou]/i.test(L.base || own.class) ? ', an ' : ', a ') + esc((L.base || own.class).toLowerCase()))
     + (w.rides ? '; it shoots as ' + esc(w.rides) : '') + '</div>'
     + '<div class="wl" style="margin-bottom:6px;font-weight:700">' + esc(L.line || '') + '</div>';

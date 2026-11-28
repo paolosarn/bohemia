@@ -10212,6 +10212,15 @@ GATES = [
      "phone shapes, upright and on its side: every piece's name whole (a 34 point picture in a 45 point tile squeezed it to nothing or sliced it "
      "at the floor), its picture inside, a worn piece's bar never across its name, the picture never over it (L1); no picture squashed (L2). "
      "Planted: the rules taken out, L1 red. Under a minute", True),
+    ('A CHAMPION READS', ['node', 'gates/a_champion_reads_gate.js'],
+     "FIGHT SCREEN 4 gate, 11/27, VAMILY rule 493(c) (the coordinator's order: 'a champion reads on the fight screen: his name, his face, why "
+     "he is dangerous, the prize on him, without a pop-up'), rules 482, 495. One place says it (engine/bohemia_champion.js, read once when the "
+     "band is dealt; words in bohemia_enemies.json champions.read). C1 the read (why measured against his own men, the prize from his kind's "
+     "row, her words for a she); C2 the prize is true in the spoils (whole on 60 dice of 60, never twice, no other die moved, none from a fled "
+     "champion, a battery haul counted); the demo upright and on its side, a road crew led by a champion: C3 the bell carries his title, why "
+     "and the prize; C4 the card: gold name, the board's skull, the prize pinned on his photo, a plain man none; C5 the worst row (every mark, the skull, "
+     "a gun's cases) never off the card or on top of itself; C6 his sheet, nothing spilling from the weapon's well; C7 the prize rides home. "
+     "Planted: the skull taken out of the painter, C4 red. About 4 min", True),
     ('A WAY TO SAY NO', ['node', 'gates/a_way_to_say_no_gate.js'],
      "FIXES 3 gate, 11/26, ask row 727 (FOUND BY EYES 11/26: five road offers where every answer cost); the second votes (nothing is "
      "forced), VAMILY rules 32a, 482, 441. D1 every road card lets him say no (an answer that pays nothing, or a fight or a gamble in place "
