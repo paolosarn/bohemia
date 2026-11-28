@@ -31,8 +31,11 @@ function statics() {
      U ? U.name : 'no row');
   ok('D2 the painter paints it (st 4: the slabs, the open bays, the rust) and hands it the floors', /if \(st === 4\) \{/.test(page) && /function wsTint\(b0, st, top, c2, h, u, v, lk\)/.test(page) && /qu \+ XS, qv \+ YS, liftk\); \}/.test(page));
   /* 11/27 (rule 485(a), THE DEAD STRIP BY DAY): a casino or a tower on a block with no power reads dead in daylight, off the same grid the night reads */
-  ok('D3 the dead Strip by day: an unpowered casino or tower is dulled (its gold and neon dust, its windows black, its walls grimed), read off the night\'s own grid',
-     /__THE_DEAD_STRIP_BY_DAY__/.test(page) && /if \(!wsv && \(cl2 === VB_CLASS\.casino \|\| cl2 === VB_CLASS\.tower\)\) \{/.test(page) && /!live\[dby \* N \+ dbx\]/.test(page));
+  /* 11/27 WORLD 17 (rule 495(b)): the dead Strip moved, pixel for pixel, into the module the painter asks how a district looks
+     (engine/bohemia_district_look.js vbDistrictDay); the page calls it with the block's power, the valley's state and the dust grey */
+  const DL = fs.readFileSync(path.join(ROOT, 'engine', 'bohemia_district_look.js'), 'utf8');
+  ok('D3 the dead Strip by day: an unpowered casino or tower is dulled (its gold and neon dust, its windows black, its walls grimed), read off the night\'s own grid (engine/bohemia_district_look.js, the painter calls it)',
+     /if \(!ws && !lit && \(K === 1 \|\| K === 2\)\) \{/.test(DL) && /b = DLD\(b, dK, part2 === PART\.neon, part2 === PART\.window, top, top && Hq >= 2 \* T, liftk, Q, dbi < 0 \|\| live\[dbi\] \? 1 : 0, wsv,/.test(page) && !/__THE_DEAD_STRIP_BY_DAY__/.test(page));
 }
 
 async function pageRun() {

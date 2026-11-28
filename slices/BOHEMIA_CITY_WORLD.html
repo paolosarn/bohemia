@@ -1355,6 +1355,7 @@ body.onmap #qline{display:none !important}   /* RULE 61b (Paolo 10/1: 'the quest
 <script src="bohemia_ui_materials.js"></script>  <!-- UI [six icons] + [the map's bar]: the six drawn, the bar and the speed pad dressed (rule 67a) -->
 <script src="bohemia_phone_board.js"></script>  <!-- UI [phone contracts]: the valley's open asks on the phone, read from the settlement's own board (rule 51c) -->
 <script src="../engine/bohemia_place_book.js"></script>  <!-- __A_PLACE_EARNS_OR_GOES_DARK__ ECONOMY FOUR (rule 485(b)): what a place takes in, feeds its men, and whether its wires stay lit (records/target/bb/place_book.json) -->
+<script src="../engine/bohemia_district_look.js"></script>  <!-- WORLD 17 (rule 485(a)(b)): whose streets, whether they have power, what the place can pay for; the painter asks it -->
 <script src="../engine/bohemia_fight_kinds.js"></script>  <!-- __FIGHT_KINDS__ WORLD THIRTEEN (rule 429(b), ask line 505): every map kind's fight answer (records/target/bb/map_fight_kinds.json); the painter stands a house as tall as the fight will read it -->
 <script>/* ==== __ONLY_THE_FINAL_LOOK__ (RUN 10/25, [only the final look loads], rule 174; Paolo 10/25: 'I'm still seeing the months-ago
    2-D character skins underneath everything... just have things that are going to be final visuals load... we don't need a whole
@@ -51428,6 +51429,12 @@ function vbRegionTrade(p){
   return VB_REGION_TRADE[kind] || 'hilltown';
 }
 /* ==== /__EVERY_TOWN_ITS_OWN__ ==== */
+/* a home base's verdict from the place book (its faction's name, any case) */
+function vbTownWealth(name){
+  try { var w = placeWealth(name); if (w) return w; var u = String(name).toUpperCase();
+    for (var f in PLACE_BOOK.st) if (String(f).toUpperCase() === u) return placeWealth(f); } catch (_e) {}
+  return null;
+}
 function vbTownsInput(){
   if (!VB_TOWNS.on) return null;
   var B = null; try { B = typeof ctBases === 'function' ? ctBases() : null; } catch (_e) {}
@@ -51444,9 +51451,10 @@ function vbTownsInput(){
       var lk = vbTownLook(k, tw.x0, tw.y0, n, tw.tier, tw.acc, tr, Math.round(wh.u * 100) / 100, vbTownRoads(tw.x0, tw.y0, n));
       tw.plan = lk.plan; tw.pal = lk.pal; tw.trade = tr; tw.u = lk.u; tw.des = wh.des;
     } catch (_e) { VB_TOWNS.err = String(_e && _e.message || _e); }
+    try { tw.wl = BohemiaDistrictLook.wealthOf(vbTownWealth(k)); } catch (_e) { tw.wl = 1; }   /* what it can pay for (ECONOMY FOUR's verdict) */
     out.push(tw); });
   if (!VB_TOWNS.pal) { VB_TOWNS.pal = []; for (var p = 0; p < 16; p++) VB_TOWNS.pal.push(VB_TOWN_PAL[p] ? vbHex(VB_TOWN_PAL[p]) : null); }
-  VB_TOWNS.list = out; VB_TOWNS.key = VB_TOWN_V + '/' + out.map(function (o) { return o.x0 + ',' + o.y0 + ',' + o.n + ',' + o.tier; }).join(';');
+  VB_TOWNS.list = out; VB_TOWNS.key = VB_TOWN_V + '/' + out.map(function (o) { return o.x0 + ',' + o.y0 + ',' + o.n + ',' + o.tier + (o.wl != null && o.wl !== 1 ? ',w' + o.wl : ''); }).join(';');
   return out;
 }
 /* THE REGION'S PLACES (bohemia_region.js: Primm, Jean, Boulder City, the Hoover Dam...) stand on the far land, which the
@@ -53336,6 +53344,9 @@ function vbCityCore(inp){
      lists on the valley's coordinates (so a tile and the whole painting agree), the ground is the theme's mosaic in blobs
      of its own size, a mountain is its bands by height; roads, water, trees and the burned keep the painting's own. ==== */
   var CK = inp.cook || null, THM = inp.thm || null, DUSTG = 128;
+  /* WHOSE STREETS, WHETHER THEY HAVE POWER, WHAT THE PLACE CAN PAY FOR: engine/bohemia_district_look.js (WORLD 17, rule 485(a)(b)) */
+  var TURF = inp.turf || null, TPAL = inp.turfPal || null, DLD = typeof vbDistrictDay === 'function' ? vbDistrictDay : (typeof BohemiaDistrictLook !== 'undefined' ? BohemiaDistrictLook.day : null),
+      DLL = typeof vbDistrictLit === 'function' ? vbDistrictLit : (typeof BohemiaDistrictLook !== 'undefined' ? BohemiaDistrictLook.lit : null);
   /* the grime stays (rule 137(b)): COOK's renders lay his dust and the sun over these colours, so the painting lays its share
      of dust too: the ground a little, a built face more */
   function mute(c, k){ k = k == null ? 0.14 : k; return [c[0] * (1 - k) + DUSTG * k, c[1] * (1 - k) + DUSTG * k, c[2] * (1 - k) + DUSTG * k]; }
@@ -53414,19 +53425,12 @@ function vbCityCore(inp){
       if (top) { ST.top++; if (SHD[qo] > 0) ST.shade++; }
       var wsv = 0; if (WST) { var wbx = Math.floor(qu / S) - PAD, wby = Math.floor(qv / S) - PAD; if (wbx >= 0 && wby >= 0 && wbx < N && wby < N) wsv = WST[wby * N + wbx];
         if (wsv) b = wsTint(b, wsv, top, cl2, vbHash(qu + XS, qv + YS, sd + 29), qu + XS, qv + YS, liftk); }   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ (liftk: THE MONEY WALKED AWAY's floors) */
-      /* __THE_DEAD_STRIP_BY_DAY__ (WORLD 15, 11/27, VAMILY rule 485(a): 'the dead Strip ... beside the blocks that still have power'):
-         MEASURED, the power read only at night (the lights below), so by day a dead casino and a live one were the same picture. Now a
-         casino or a tower on a block with no power reads dead in daylight: its gold and its neon gone to dull dust, its windows black
-         (no sky in them), its walls grimed a shade darker; a block that still has power keeps its colour. Nothing added, the same pixels read off
-         the grid the night already reads. */
-      if (!wsv && (cl2 === VB_CLASS.casino || cl2 === VB_CLASS.tower)) {
-        var dbx = Math.floor(qu / S) - PAD, dby = Math.floor(qv / S) - PAD;
-        if (dbx >= 0 && dby >= 0 && dbx < N && dby < N && !live[dby * N + dbx]) {
-          if (part2 === PART.neon || (top && cl2 === VB_CLASS.casino)) { var mn = mute(b, 0.62); b = [mn[0] * 0.78, mn[1] * 0.76, mn[2] * 0.74]; }
-          else if (part2 === PART.window) b = [b[0] * 0.18 + 24, b[1] * 0.18 + 23, b[2] * 0.18 + 22];
-          else { var mw = mute(b, 0.2); b = [mw[0] * 0.84, mw[1] * 0.83, mw[2] * 0.82]; }
-        }
-      }
+      /* the district's look (engine/bohemia_district_look.js): the dead Strip by day, whose streets, what the town can pay for */
+      var dbx = Math.floor(qu / S) - PAD, dby = Math.floor(qv / S) - PAD, dbi = dbx >= 0 && dby >= 0 && dbx < N && dby < N ? dby * N + dbx : -1;
+      var dK = cl2 === VB_CLASS.casino ? 1 : cl2 === VB_CLASS.tower ? 2 : (cl2 === VB_CLASS.houses || cl2 === VB_CLASS.roof) ? 3 : cl2 === TW_K ? 4 : 0;
+      var dmk = TURF && dbi >= 0 ? TURF[dbi] : 0, dwl = dK === 4 && TWL && TWL[ci >> 10] && TWL[ci >> 10].wl != null ? TWL[ci >> 10].wl : -1;
+      if (dK && DLD) b = DLD(b, dK, part2 === PART.neon, part2 === PART.window, top, top && Hq >= 2 * T, liftk, Q, dbi < 0 || live[dbi] ? 1 : 0, wsv,
+                             dmk && TPAL ? TPAL.tag[dmk] : null, dwl, qu + XS, qv + YS, sd, DUSTG);
       var o8 = (vv * P + uu) * 4;
       for (var z = 0; z < 3; z++) { day[o8 + z] = b[z] * sh; night[o8 + z] = b[z] * sh * NM[z]; }
       day[o8 + 3] = 255; night[o8 + 3] = 255;
@@ -53436,9 +53440,9 @@ function vbCityCore(inp){
       if (lv) {
         var lr = vbHash(qu + XS, qv + YS, sd + 19), Lc = null;
         if (part2 === PART.window && top) Lc = C.lit;
-        else if (!top && (cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino || (cl2 === TW_K && Hq > 3.5 * T)) && (((liftk / Q) | 0) % 2 === 1) && lr < (cl2 === TW_K ? 0.3 : 0.45)) Lc = cl2 === VB_CLASS.casino ? C.neonN : C.lit;   /* __EVERY_TOWN_ITS_OWN__: a town's lit floors where it has power */
+        else if (!top && (cl2 === VB_CLASS.tower || cl2 === VB_CLASS.casino || (cl2 === TW_K && Hq > 3.5 * T)) && (((liftk / Q) | 0) % 2 === 1) && lr < (cl2 === TW_K ? (DLL ? DLL(dwl) : 0.3) : 0.45)) Lc = cl2 === VB_CLASS.casino ? ((dmk && TPAL && TPAL.light[dmk]) || C.neonN) : C.lit;   /* __EVERY_TOWN_ITS_OWN__: a town's lit floors where it has power */
         else if (part2 === PART.lampspot && LOLD) Lc = C.lamp;
-        else if (part2 === PART.neon) Lc = lr < 0.5 ? C.neonN : C.lit;
+        else if (part2 === PART.neon) Lc = dmk && TPAL && TPAL.light[dmk] && lr < 0.7 ? TPAL.light[dmk] : lr < 0.5 ? C.neonN : C.lit;   /* a gang's neon in its own colour on its own wire */
         if (Lc) { for (var z2 = 0; z2 < 3; z2++) { night[o8 + z2] = Lc[z2]; lights[o8 + z2] = Lc[z2]; } lights[o8 + 3] = 255; }
         else if (!LOLD) {   /* __THE_MAP_S_LIGHTS_READ_AS_LIGHTS__: the lamp's pool on the ground, and a lit window's glow round it */
           if (part2 === PART.lampspot) { LST.lampTex++; if (!(POOL && POOL[qo])) LST.darkLamp++; }   /* what the gate reads: no lamp left dark */
@@ -53517,7 +53521,7 @@ function vbAsk(){
 }
 /* ONE WORKER BAKES BOTH PICTURES: the land past the map, and the city painted for the far end */
 function vbWorker(){
-      var src = [vbHash, vbNoise, vbFbm, vbSm, vbHex, vbCore, vbCityCore, vbView, vbThruOf, vbPassAxis, vbRampOf, vbJoinMask, vbStreetFlags, vbMixStorey].map(String).join('\n')
+      var src = [vbHash, vbNoise, vbFbm, vbSm, vbHex, vbCore, vbCityCore, vbView, vbThruOf, vbPassAxis, vbRampOf, vbJoinMask, vbStreetFlags, vbMixStorey].concat(typeof BohemiaDistrictLook !== 'undefined' ? BohemiaDistrictLook.WORKER : []).map(String).join('\n')
         + '\nvar VB_OUT=' + JSON.stringify(VB_OUT) + ';\nvar VB_COL=' + JSON.stringify(VB_COL) + ';\nvar VB_FAR_HAZE=' + VB_FAR_HAZE + ';'
         + '\nvar VB_FRONT=' + VB_FRONT + ';'
         + '\nvar VB_CLASS=' + JSON.stringify(VB_CLASS) + ';\nvar VB_CCOL=' + JSON.stringify(VB_CCOL) + ';\nvar VB_SUB=' + JSON.stringify(VB_SUB) + ';\nvar VB_LAST=null;'
@@ -53552,15 +53556,29 @@ try { fetch('../records/target/cook_map_colour/painting_dials.json').then(functi
   try { if (typeof MODE !== 'undefined' && MODE === 'city') render(); } catch (_e) {}
 }).catch(function(e){ VB_COOK.err = String(e && e.message || e); }); } catch (_e) {}
 function vbCookThemeOf(d){ if (!VB_COOK.themes || !d) return 255; var k = VB_COOK.of[d]; var i = k != null ? VB_COOK.index[k] : undefined; return i == null ? 255 : i; }
+/* the painter's faction marks: the map's own faction colours (mapFactionColour), in the map's own order */
+function vbDistrictPal(){ try { return typeof BohemiaDistrictLook !== 'undefined' ? BohemiaDistrictLook.palette(Object.keys(MAP_ART.fac).sort(), mapFactionColour) : null; } catch (_e) { return null; } }
+/* the valley's power and whose-street grids, one pass (a building is fed by the lit wire on the street it faces); kept for the tiles,
+   which cut their boxes from the same grids as the whole painting */
+var VB_DL = null;
+function vbDistrictGrids(){
+  if (typeof BohemiaDistrictLook === 'undefined' || typeof POWER === 'undefined' || !POWER) return null;
+  try { var N = om.n, P = vbDistrictPal();
+    var G = BohemiaDistrictLook.grids(P, N, function (x, y){ return POWER.at(x, y); },
+      function (x, y){ var t = om.at(x, y), c = vbClassOf(t && t.district); return c === VB_CLASS.road || c === VB_CLASS.blvd; },
+      function (x, y){ var W = window.__WS_CELL, w = W ? W[y * N + x] : 0; return w === 1 || w === 4; });   /* a burned shell or a frame the money left never takes power */
+    G.pal = P; G.seed = om.seed; return (VB_DL = G); } catch (_e) { return null; }
+}
 function vbCityInput(){
   var N = om.n, cls = new Uint8Array(N * N), live = new Uint8Array(N * N), sub = new Uint8Array(N * N), thm = new Uint8Array(N * N), h = 0;
+  var DLG = vbDistrictGrids(), DLP = DLG ? DLG.pal : null, turf = DLP ? DLG.turf : null;   /* whether each block has power, and whose street it is (engine/bohemia_district_look.js) */
   for (var y = 0; y < N; y++) for (var x = 0; x < N; x++) { var t = om.at(x, y); cls[y * N + x] = vbClassOf(t && t.district); sub[y * N + x] = vbSubOf(t && t.district); thm[y * N + x] = vbCookThemeOf(t && t.district);
-    var lv = 0; try { lv = POWER && POWER.at(x, y).live ? 1 : 0; } catch (_e) {} live[y * N + x] = lv; h = (Math.imul(h, 31) + lv * (x * 131 + y + 1)) | 0; }
+    var lv = 0; if (DLG) lv = DLG.live[y * N + x]; else try { lv = POWER && POWER.at(x, y).live ? 1 : 0; } catch (_e) {} live[y * N + x] = lv; h = (Math.imul(h, 31) + lv * (x * 131 + y + 1)) | 0; }
   var tws = vbTownsInput();   /* __THE_TOWN_IS_PAINTED_IN__: the home bases built into the painting, and in its key */
   var lanes = vbLanesValley();   /* __A_STREET_IN_FRONT_OF_EVERY_HOUSE__ */
   var LYC = null; try { LYC = vbLayValley(); } catch (_e) { LYC = null; }   /* __THE_PLACES_ARE_LAID_OUT__ */
-  return { kind: 'city', N: N, S: VB_CS, PAD: VB_CPAD, seed: om.seed, cls: cls, live: live, sub: sub, lanes: lanes, tracks: (VB_LANES && VB_LANES.tr) || null, lay: LYC ? LYC.idx : null, layx: LYC ? LYC.lx : null, layy: LYC ? LYC.ly : null, layT: LYC ? LYC.T : null, layK: LYC ? LYC.K : null, key: om.seed + ':' + h + ':c' + VB_COOK.v + (tws ? ':t' + VB_TOWNS.key : '') + (window.__WS_KEY ? ':ws' + window.__WS_KEY : ''), wst: window.__WS_CELL || null,   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ */
-           thm: VB_COOK.themes ? thm : null, cook: VB_COOK.themes, towns: tws, townPal: tws ? VB_TOWNS.pal : null };
+  return { kind: 'city', N: N, S: VB_CS, PAD: VB_CPAD, seed: om.seed, cls: cls, live: live, sub: sub, lanes: lanes, tracks: (VB_LANES && VB_LANES.tr) || null, lay: LYC ? LYC.idx : null, layx: LYC ? LYC.lx : null, layy: LYC ? LYC.ly : null, layT: LYC ? LYC.T : null, layK: LYC ? LYC.K : null, key: om.seed + ':' + h + ':c' + VB_COOK.v + (tws ? ':t' + VB_TOWNS.key : '') + (window.__WS_KEY ? ':ws' + window.__WS_KEY : '') + (DLP ? ':' + DLP.key : ''), wst: window.__WS_CELL || null,   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ */
+           thm: VB_COOK.themes ? thm : null, cook: VB_COOK.themes, towns: tws, townPal: tws ? VB_TOWNS.pal : null, turf: turf, turfPal: DLP };
 }
 var VB_CITY_ON_VB = false;   /* the old way (the painting on VB.worker, behind the land): the speed probe's --quick 0 and the gate's plant */
 function vbCityLand(r){
@@ -53689,10 +53707,12 @@ function vbBoxInput(x0, y0, n, S){
   var N = om.n;
   var cls = new Uint8Array(n * n), live = new Uint8Array(n * n), sub = new Uint8Array(n * n), thm = new Uint8Array(n * n);
   var WSC = window.__WS_CELL || null, wst = WSC ? new Uint8Array(n * n) : null;   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ */
+  var DLG = VB_DL && VB_DL.seed === om.seed && VB_DL.n === N ? VB_DL : vbDistrictGrids(), DLP = DLG ? DLG.pal : null, turf = DLP ? new Uint8Array(n * n) : null;   /* the same grids as the whole painting whose key the tile carries */
   for (var y = 0; y < n; y++) for (var x = 0; x < n; x++) { var gx = x0 + x, gy = y0 + y, k = y * n + x;
     if (gx < 0 || gy < 0 || gx >= N || gy >= N) { cls[k] = 255; thm[k] = 255; continue; }
     var t = om.at(gx, gy); cls[k] = vbClassOf(t && t.district); sub[k] = vbSubOf(t && t.district); thm[k] = vbCookThemeOf(t && t.district);
-    var lv = 0; try { lv = POWER && POWER.at(gx, gy).live ? 1 : 0; } catch (_e) {} live[k] = lv; if (WSC) wst[k] = WSC[gy * N + gx]; }   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ */
+    var lv = 0; if (DLG) lv = DLG.live[gy * N + gx]; else try { lv = POWER && POWER.at(gx, gy).live ? 1 : 0; } catch (_e) {} live[k] = lv; if (WSC) wst[k] = WSC[gy * N + gx];   /* __A_DIFFERENT_VALLEY_EVERY_GAME__ */
+    if (turf) turf[k] = DLG.turf[gy * N + gx]; }
   var jm = null, xg = null, rp = null;   /* __THE_STREETS_JOIN__: the valley's own masks for these blocks */
   try { var F = vbStreetFlagsValley(), W = F.w; jm = new Uint8Array(n * n); xg = new Uint8Array(n * n); rp = new Uint8Array(n * n);
     for (var y2 = 0; y2 < n; y2++) for (var x2 = 0; x2 < n; x2++) { var gx2 = x0 + x2, gy2 = y0 + y2; if (gx2 < 0 || gy2 < 0 || gx2 >= W || gy2 >= W) continue;
@@ -53708,7 +53728,7 @@ function vbBoxInput(x0, y0, n, S){
            lay: lay, layx: layx, layy: layy, layT: LYV ? LYV.T : null, layK: LYV ? LYV.K : null,
            thm: VB_COOK.themes ? thm : null, cook: VB_COOK.themes,
            jm: jm, xg: xg, rp: rp,
-           towns: VB_TOWNS.list, townPal: VB_TOWNS.list ? VB_TOWNS.pal : null };   /* __THE_TOWN_IS_PAINTED_IN__: the same towns as the whole painting whose key the tile carries */
+           towns: VB_TOWNS.list, townPal: VB_TOWNS.list ? VB_TOWNS.pal : null, turf: turf, turfPal: DLP };   /* __THE_TOWN_IS_PAINTED_IN__: the same towns as the whole painting whose key the tile carries */
 }
 function vbTileLand(r){
   if (r && r.key && VBT.flying[r.key]) { var wk = VBT.flying[r.key]; delete VBT.flying[r.key]; VBT.fly = Math.max(0, VBT.fly - 1); if (wk.w) VBT.idle.push(wk.w); }   /* __THE_MAP_PAINTS_ON_EVERY_CORE__ */

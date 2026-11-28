@@ -1,0 +1,89 @@
+{
+ "rows": [
+  {
+   "label": "streets_Network_day",
+   "before": "streets_Network_day_before.png",
+   "after": "streets_Network_day_after.png",
+   "at": [
+    24,
+    31
+   ],
+   "drift": [
+    0,
+    0
+   ],
+   "keys": [
+    ",4,1;78,61,2,3;36,22,2,3",
+    "2,3;36,22,2,3:d1:1ef7s8t"
+   ]
+  },
+  {
+   "label": "streets_Network_night",
+   "before": "streets_Network_night_before.png",
+   "after": "streets_Network_night_after.png",
+   "at": [
+    24,
+    31
+   ],
+   "drift": [
+    0,
+    0
+   ],
+   "keys": [
+    ",4,1;78,61,2,3;36,22,2,3",
+    "2,3;36,22,2,3:d1:1ef7s8t"
+   ]
+  },
+  {
+   "label": "towns_Volunteers_broke_Network_well_off_day",
+   "before": "towns_Volunteers_broke_Network_well_off_day_before.png",
+   "after": "towns_Volunteers_broke_Network_well_off_day_after.png",
+   "at": [
+    37,
+    25
+   ],
+   "drift": [
+    0,
+    0
+   ],
+   "keys": [
+    ",4,1;78,61,2,3;36,22,2,3",
+    ";36,22,2,3,w0:d1:1ef7s8t"
+   ]
+  },
+  {
+   "label": "towns_Volunteers_broke_Network_well_off_night",
+   "before": "towns_Volunteers_broke_Network_well_off_night_before.png",
+   "after": "towns_Volunteers_broke_Network_well_off_night_after.png",
+   "at": [
+    37,
+    25
+   ],
+   "drift": [
+    0,
+    0
+   ],
+   "keys": [
+    ",4,1;78,61,2,3;36,22,2,3",
+    ";36,22,2,3,w0:d1:1ef7s8t"
+   ]
+  }
+ ],
+ "book": {
+  "Anarchists": "getting_by",
+  "Blues": "getting_by",
+  "Caravans": "getting_by",
+  "Cartel": "getting_by",
+  "Church": "well_off",
+  "Colorful": "getting_by",
+  "Homeless": "well_off",
+  "Mob": "well_off",
+  "Network": "well_off",
+  "Reds": "broke",
+  "Remnants": "well_off",
+  "Trades": "broke",
+  "Volunteers": "broke"
+ },
+ "day": 11,
+ "errors": []
+}

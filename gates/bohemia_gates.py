@@ -10017,6 +10017,13 @@ GATES = [
      "block in the valley's state (world_state.json scars.unfinished, engine code 4), painted by the map's painter as a frame (wsTint st 4) and never powered. "
      "D1 the row, the code and the page's inline copies; D2 the painter's rule; on three staged valleys G1 1 to 5 towers on luxury or downtown blocks, none round "
      "a base, G2 none on a live circuit, G3 the painting carries the state and the other kinds are there, G4 nothing threw. About 2 min", True),
+    ('WHOSE STREETS', ['node', 'gates/whose_streets_gate.js'],
+     "WORLD 17 gate, 11/27 (rule 485(a)(b): every district reads whose streets they are, the blocks that still have power, and what its place can pay for; "
+     "rule 495(b): one module, engine/bohemia_district_look.js, the painter calls it). S1 the palette off the map's own faction colours (drab ones no light); "
+     "S2 whose street (a faction's wire, the Network's grid, a lit wire's ground); S3 a building has power beside a lit street (PLANTED: the old reading is red); "
+     "S4 the dead Strip moved pixel for pixel; S5 the tags at the foot of a gang's walls and its colour on a share of its roofs, never a burned block, a frame or a "
+     "town's box; S6 broke boards, holes and dust, well off panels, getting by untouched; S7 loaded once, handed to the worker, no copy; on the demo P1 the real "
+     "valley's grids, P2 the painting's key and pixels and night lights, P3 the towns read the book, P4 the 5-second input cheap, nothing threw. About 1 min", True),
     ('THE DEAD SHRINK WITH THE MAP', ['node', 'gates/the_dead_shrink_with_the_map_gate.js'],
      "WORLD 15 gate, 11/22 (rule 476(b), Paolo 11/22: 'as I zoom out their blood pool is so big when I zoomed out, it's so ugly'; ask row 717; rule 441). slices/bohemia_carcass.js draws a kill and its pool at the map's scale, full from a block 72 px, smaller as he pulls out, faded, gone under 10. On the real page, demo and alpha, upright and sideways: never bigger, the glass it changes far a quarter or less of close, far out it fades and no tap answers, up close as it was. About 6 min", True),
     ('THE PLACES GET THEIR USE', ['node', 'gates/the_places_get_their_use_gate.js'],
