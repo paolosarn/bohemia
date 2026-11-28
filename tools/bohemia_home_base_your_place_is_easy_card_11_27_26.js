@@ -8,15 +8,18 @@
    Run: node tools/bohemia_home_base_your_place_is_easy_card_11_27_26.js --only phone_portrait, then --only phone_landscape (one way fits
    a short clock; the clip is made when both are in). --clip makes it from the frames already taken.
    BUILD 11/28b (plan A, the spots on the map): --card the-best-spot films the marks too (a tap on another mark, then on his pick) into
-   records/target/home_base/your_place_the_best_spot.mp4 and records/target/vote_first/home-base-the-best-spot-on-the-map-11-28.webp. */
+   records/target/home_base/your_place_the_best_spot.mp4 and records/target/vote_first/home-base-the-best-spot-on-the-map-11-28.webp.
+   BUILD 11/28d (plan H, the way back): --card the-way-back plants a place with his training yard up, walks him away by the map's own
+   travel, then films the YOUR PLACE button, the tap, the walk home and his place opening: your_place_the_way_back.mp4. */
 'use strict';
 const path = require('path'), fs = require('fs'), { spawnSync } = require('child_process');
 const ROOT = path.dirname(__dirname), OUT = path.join(ROOT, 'records/target/home_base');
 fs.mkdirSync(OUT, { recursive: true });
 const arg = n => { const i = process.argv.indexOf(n); return i > 0 ? process.argv[i + 1] : null; };
 const PROFS = ['phone_portrait', 'phone_landscape'].filter(p => !arg('--only') || p === arg('--only'));
-const SPOTS = arg('--card') === 'the-best-spot';
-const CLIP = SPOTS ? { mp4: 'your_place_the_best_spot.mp4', first: 'home-base-the-best-spot-on-the-map-11-28.webp', tmp: 'hb6-spot-frames' } : { mp4: 'your_place_is_easy.mp4', first: 'home-base-your-place-is-easy-11-27.webp', tmp: 'hb6-easy-frames' };
+const SPOTS = arg('--card') === 'the-best-spot', BACK = arg('--card') === 'the-way-back';
+const CLIP = BACK ? { mp4: 'your_place_the_way_back.mp4', first: 'home-base-the-way-back-11-28.webp', tmp: 'hb6-back-frames' }
+  : SPOTS ? { mp4: 'your_place_the_best_spot.mp4', first: 'home-base-the-best-spot-on-the-map-11-28.webp', tmp: 'hb6-spot-frames' } : { mp4: 'your_place_is_easy.mp4', first: 'home-base-your-place-is-easy-11-27.webp', tmp: 'hb6-easy-frames' };
 const FR = path.join(require('os').tmpdir(), CLIP.tmp); fs.mkdirSync(FR, { recursive: true });
 
 async function film(prof) {
@@ -36,6 +39,11 @@ async function film(prof) {
       const x = x0 + dx, y = y0 + dy; if (!cityWalkable(x, y)) continue; const ch = BohemiaHomeMap.choose(x, y); if (ch && ch.g && !ch.g.ok) c.push([x, y]); }
     let best = null; c.forEach(p => { city.x = p[0]; city.y = p[1]; const b = BohemiaHomeMap.state().better; if (b && (!best || b.d < best.d)) best = { at: p, d: b.d }; });
     if (best) { city.x = best.at[0]; city.y = best.at[1]; } else { city.x = x0; city.y = y0; } window.HUNT_T0 = performance.now() - 120000; try { render(); } catch (e) {} });
+  if (BACK) await F.evaluate(() => { DAY.day = 2; const ch = BohemiaHomeMap.choose(city.x, city.y); let at = null, x0 = city.x, y0 = city.y;
+      for (let r = 0; r < 30 && !at; r++) for (let dy = -r; dy <= r && !at; dy++) for (let dx = -r; dx <= r; dx++) { const x = x0 + dx, y = y0 + dy; if (!cityWalkable(x, y)) continue; const c = BohemiaHomeMap.choose(x, y); if (c && c.g && c.g.ok) { at = [c.x, c.y]; break; } }
+      BohemiaHomeMap.plantAt(at[0], at[1]); BohemiaHomeMap.placeBuild('yard');
+      for (let d = 6; d < 12; d++) for (let dy = -d; dy <= d; dy++) for (let dx = -d; dx <= d; dx++) { if (Math.max(Math.abs(dx), Math.abs(dy)) !== d) continue; const x = at[0] + dx, y = at[1] + dy;
+        if (cityWalkable(x, y) && !loopTownAt(x, y, 0)) { travelStop(); city.x = x; city.y = y; try { render(); } catch (e) {} return; } } });
   const frames = [], taps = [], t0 = Date.now(); let on = true, n = 0;
   const rec = (async () => { while (on) { const t = Date.now() - t0, f = path.join(dir, String(n++).padStart(4, '0') + '.jpg');
     try { await P.screenshot({ path: f, type: 'jpeg', quality: 80, scale: 'css' }); frames.push({ f, t }); } catch (e) {} await P.waitForTimeout(120); } })();
@@ -43,6 +51,10 @@ async function film(prof) {
   const tap = async (id, settle) => { await GL.until(F, [], 20000); const b = await GL.button(P, F, id); if (!b) return null; taps.push({ t: Date.now() - t0, x: b.x, y: b.y }); await P.touchscreen.tap(b.x, b.y); await P.waitForTimeout(settle || 900); return b; };
   const hold = ms => P.waitForTimeout(ms);
   await hold(1500);
+  if (BACK) { await step('home', 30000); await hold(3000); await tap('home', 1200);
+    for (let i = 0; i < 100; i++) { await P.waitForTimeout(400); await F.evaluate(() => { try { if (window.BohemiaRoadEvents && BohemiaRoadEvents.up()) BohemiaRoadEvents.close(); } catch (e) {} }); if (await F.evaluate(() => BohemiaHomeMap.flowFacts().inside)) break; }
+    await hold(5000); on = false; await rec; await d.close();
+    fs.writeFileSync(path.join(dir, 'film.json'), JSON.stringify({ prof, frames, taps }, null, 1)); console.log(prof, frames.length, 'frames', taps.length, 'taps'); return; }
   await F.evaluate(() => { DAY.day = 2; try { render(); } catch (e) {} });
   await step('offer'); await hold(3000); await tap('look');
   await step(['bad', 'good']); await hold(3200);

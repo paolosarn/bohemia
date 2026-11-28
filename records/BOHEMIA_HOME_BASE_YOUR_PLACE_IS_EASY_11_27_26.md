@@ -92,6 +92,19 @@ stands. (The page had no door after planting before this build either; plan H pu
 - PROOF: YOUR PLACE IS EASY 24/0 upright and 24/0 sideways (engine 9/0: A1, A2, P3; demo A3, A4, P4 added); YOUR PLACE, PLANTED (BETTER
   now through spots) re-run, see the commit; PATCH LAYERS 10/0.
 
+## BUILD 11/28d - THE WAY BACK TO YOUR PLACE (plan H; the stranger's moment 12: the way back was three taps, none of them said).
+VOTE card home-base-the-way-back-11-28 (a clip: --card the-way-back).
+- WHAT: once planted and the first build booked, whenever he is on the map more than a block from his place, one YOUR PLACE button (48 px,
+  gold, a little flag, no face and no words: nothing to read) beside the phone; a tap walks his crew home by the map's own door (travelTo
+  his block, townTap opens it) and his place opens. At his door it is not there (the map's own tap on his place opens it).
+- FOUND AND FIXED ON THE WAY: 'It goes up tonight.' was said the first time he came in after a build booked from outside (the clip's set
+  up showed it). Now it is said only after the first build booked on that same visit (entryBooked at the door), once.
+- WHERE: engine step() 'home' (c.away from the map's homeFlowFacts, more than one block from the planted block); the module's isPill()
+  (a step with no words and one button stands alone beside the phone: LATER's YOUR PLACE and this one); home_base.json flow.buttons.home.
+  The phone's record page still has no door after planting (the band is UI FIVE's phone; asked of nobody this round).
+- PROOF: YOUR PLACE IS EASY 26/0 upright and 26/0 sideways (H1 engine, H2 on the demo: quiet at his door, the button away, a tap home,
+  nothing said again inside).
+
 ## WHAT IS NOT DONE (the plan's next builds, in order)
 A2 the rest of what a spot gives (scrap, food, whose streets, raid tracks, distance to towns and jobs) on the marks and in the words. D one number for a trip (the line no longer gives a straight-line
 count, so the walk's own 'SETTING OUT: N BLOCKS' is the only number now). E is done here (PLANT HERE on arrival). F half done (GO IN by

@@ -37,6 +37,10 @@
          a mark shrunk to 30 px reads red
      A4  a real tap on another mark: what it gives ('spot'), the panel's four marks are that block's; a tap on his pick: 'That one.
          ...'; WALK THERE walks there (Y4)
+   PLAN H, THE WAY BACK (BUILD 11/28d):
+     H1  engine: planted, the first build booked, on the map away from his place: one YOUR PLACE button; at his door, nothing
+     H2  on the demo after Y7: at his door the glass is quiet; walked away by the map's own travel, one YOUR PLACE button (44 px and
+         up, under the finger, no face, no words); a tap walks him home and opens his place
    About 3 minutes a way; --engine a second.
    ========================================================================== */
 'use strict';
@@ -71,6 +75,8 @@ const CASES = [
   ['after', { planted: true, inside: true, booked: 1 }, 'quiet', []],
   ['planted, in a fight', { planted: true, onMap: false, booked: 0 }, 'quiet', []]
 ];
+CASES.push(['planted, built, away from his place', { planted: true, onMap: true, booked: 1, away: true }, 'home', ['home']]);
+CASES.push(['planted, built, at his door', { planted: true, onMap: true, booked: 1, away: false }, 'quiet', []]);
 CASES.push(['a mark tapped (his pick)', { offer: true, open: true, picked: { rank: 0, g: G(true) } }, 'pick', ['walk', 'close']]);
 CASES.push(['a mark tapped', { offer: true, open: true, picked: { rank: 2, g: G(true) } }, 'spot', ['walk', 'close']]);
 const steps = CASES.map(c => [c, H.step(c[1])]);
@@ -249,8 +255,24 @@ async function laid(P, F) {
       y7b = await GL.until(F, 'built', 15000);
       for (let i = 0; i < 40; i++) { await P.waitForTimeout(500); const s = await GL.state(F); if (s && s.step === 'quiet') { y7q = s; break; } }
     }
+    const y7ok = !!y7 && !y7.shown && !!bought && !!y7b && !y7b.timedOut && y7b.step === 'built' && !!y7q && !y7q.shown;
     ok('Y7 a tap on the lot opened BUILD\'s desk and the glass stepped aside (' + (y7 && y7.step + (y7.shown ? ' SHOWN' : ' off')) + '); ' + (bought && bought.t) + ' bought, the desk closed: "' + (y7b && y7b.line) + '"; then quiet (' + (y7q && y7q.step) + ')',
        !!y7 && !y7.shown && !!bought && !!y7b && !y7b.timedOut && y7b.step === 'built' && !!y7q && !y7q.shown, JSON.stringify([y7, bought, y7b, y7q]));
+    /* H2 THE WAY BACK: out of his place, at his door nothing; walked away by the map's own travel, one YOUR PLACE; a tap, home */
+    await F.evaluate(() => { try { loopClose(); } catch (e) {} }); await P.waitForTimeout(1800);
+    const h0 = await GL.state(F);
+    const to2 = await F.evaluate(() => { const r = BohemiaHomeMap.rec(), px = r.planted.x, py = r.planted.y;
+      for (let d = 5; d < 12; d++) for (let dy = -d; dy <= d; dy++) for (let dx = -d; dx <= d; dx++) { if (Math.max(Math.abs(dx), Math.abs(dy)) !== d) continue; const x = px + dx, y = py + dy;
+        if (cityWalkable(x, y) && !loopTownAt(x, y, 0)) { travelTo(null, null, [x, y]); return [x, y]; } } return null; });
+    for (let i = 0; i < 80; i++) { await P.waitForTimeout(400); await F.evaluate(() => { try { if (window.BohemiaRoadEvents && BohemiaRoadEvents.up()) BohemiaRoadEvents.close(); } catch (e) {} }); if (await F.evaluate(() => !TRAVEL)) break; }
+    const h1 = await GL.until(F, 'home', 20000), lh = await laid(P, F), at2 = await F.evaluate(() => [city.x, city.y]);
+    ok('H2 at his door the glass is quiet (' + (h0 && h0.step) + '); walked away to ' + at2 + ': one YOUR PLACE button (' + (lh && lh.bs.map(b => b.label + ' ' + b.w + 'x' + b.h).join()) + '), no face, no words, under the finger',
+       y7ok && !!h0 && !h0.shown && !!to2 && !!h1 && !h1.timedOut && h1.step === 'home' && !!lh && lh.pill && lh.thumbs && lh.bs.length === 1 && lh.bs[0].id === 'home' && !lh.line, JSON.stringify([h0, to2, h1, lh && lh.bs]));
+    await GL.tap(P, F, 'home', 1200);
+    let home2 = null; for (let i = 0; i < 100 && !home2; i++) { await P.waitForTimeout(400); await F.evaluate(() => { try { if (window.BohemiaRoadEvents && BohemiaRoadEvents.up()) BohemiaRoadEvents.close(); } catch (e) {} });
+      home2 = await F.evaluate(() => BohemiaHomeMap.flowFacts().inside ? { at: [city.x, city.y], place: LOOP.open && LOOP.open.name } : null); }
+    await P.waitForTimeout(3500); const h3 = await GL.state(F);   /* the build was booked on the last visit: nothing is said again */
+    ok('H2 a tap on YOUR PLACE walks him home and opens it (' + JSON.stringify(home2) + '); inside, the glass says nothing again (' + (h3 && h3.step) + ')', !!home2 && !!h3 && h3.step === 'quiet' && !h3.shown, JSON.stringify([home2, h3]));
     await d.close();
   }
   done();

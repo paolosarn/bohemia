@@ -27,7 +27,7 @@ for fp in a['films']:
                 x, y = ox + tp['x'] * sc, oy + tp['y'] * sc; r = 16 + (t - tp['t']) / 500 * 14
                 d.ellipse((x - r, y - r, x + r, y + r), outline=(230, 196, 117), width=4)
         C.save(os.path.join(seq, '%05d.jpg' % k), quality=88); k += 1
-        if side and first is None and t > fr[0]['t'] + 20000: first = C.copy()
+        if side and first is None and t > fr[0]['t'] + min(20000, (end - fr[0]['t']) / 2): first = C.copy()   # the poster: 20 s into the sideways film, or its middle when it is shorter
         t += 1000 * SPEED / FPS
 cmd = ['ffmpeg', '-y', '-loglevel', 'error', '-framerate', str(FPS), '-i', os.path.join(seq, '%05d.jpg'), '-vf', 'scale=720:720', '-c:v', 'libx264', '-pix_fmt', 'yuv420p',
        '-crf', '31', '-preset', 'slow', '-movflags', '+faststart', a['out']]

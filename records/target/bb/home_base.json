@@ -481,7 +481,7 @@
     },
     "gives": { "water": "water", "road": "a road", "power": "power", "little": "not much", "raiders": "Raiders near.", "quiet": "Quiet." },
     "why": { "on_road": "This is the road.", "on_water": "This is the water.", "on_wash": "A wash. It floods.", "on_rock": "Bare rock.", "walled": "Somebody's walls.", "dump": "The dump.", "town": "Somebody lives here.", "boss": "Somebody's place.", "water": "No water near.", "road": "No road in.", "ground": "Nothing here.", "nothing": "Nothing here." },
-    "buttons": { "look": "LOOK FOR GROUND", "later": "LATER", "pill": "YOUR PLACE", "plant": "PLANT HERE", "walk": "WALK THERE", "close": "CLOSE", "no": "NOT YET", "in": "GO IN" },
+    "buttons": { "look": "LOOK FOR GROUND", "later": "LATER", "pill": "YOUR PLACE", "plant": "PLANT HERE", "walk": "WALK THERE", "close": "CLOSE", "no": "NOT YET", "in": "GO IN", "home": "YOUR PLACE" },
     "marks": { "water": "WATER", "power": "POWER", "road": "ROAD", "safe": "SAFE" }
   }
 }

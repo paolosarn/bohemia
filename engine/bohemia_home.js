@@ -310,7 +310,10 @@
     c = c || {}; var F = flowWords(), W = (D && D.words) || {};
     var out = function (id, buttons, vars) { return { id: id, line: id === 'quiet' ? '' : (id === 'sure' ? (W.plant_sure || says(id)) : says(id, vars)), buttons: buttons || [] }; };
     if (c.planted) {
-      if (c.booked > 0) return out(c.inside && c.built && !c.sheet ? 'built' : 'quiet');   /* the first build is booked: the flow is done, said once, on his cameras */
+      if (c.booked > 0) {   /* the first build is booked: the flow is done, said once, on his cameras */
+        if (c.inside && c.built && !c.sheet) return out('built');
+        if (c.onMap && c.away) return out('home', [btn('home', true)]);   /* THE WAY BACK (plan H): away from his place, one button walks him home */
+        return out('quiet'); }
       if (c.inside) return out(c.sheet ? 'quiet' : 'inside');                  /* a sheet open is his to read; the line waits */
       if (c.onMap) return out('planted', [btn('in', true)]);
       return out('quiet');

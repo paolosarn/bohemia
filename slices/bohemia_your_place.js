@@ -29,7 +29,7 @@
   'use strict';
   if (window.BohemiaYourPlace) return;
   var BEAT = 500, Z = 62;
-  var S = { open: false, later: false, going: false, target: null, asked: false, builtAt: 0, sawBooked: null, el: null, sig: '', faceSig: '', step: null, who: null, presses: 0, log: [], hidden: '' };
+  var S = { open: false, later: false, going: false, target: null, asked: false, builtAt: 0, entryBooked: null, wasInside: false, el: null, sig: '', faceSig: '', step: null, who: null, presses: 0, log: [], hidden: '' };
   var M = function () { return window.BohemiaMaterials || null; };
   function kit(name, s) { try { var m = M(); return m && m.kit ? m.kit(name, s || 1) : ''; } catch (e) { return ''; } }
   /* every word on the panel goes in as text (textContent), never as markup: no escaping to copy, nothing a name can inject */
@@ -131,14 +131,16 @@
     var HM = window.BohemiaHomeMap, H = window.BohemiaHome; if (!HM || !H || !H.data || !H.data() || !HM.flowFacts) return null;
     var s = null, f = null; try { s = HM.state(); f = HM.flowFacts(); } catch (e) { return null; } if (!s || !f) return null;
     var now = performance.now();
-    if (S.sawBooked == null) S.sawBooked = f.booked;   /* a game that came back with a build already booked never hears 'it goes up' */
-    if (f.inside && !f.sheet && f.booked > 0 && S.sawBooked === 0 && !S.builtAt) S.builtAt = now;   /* the first build: said once he is back on his cameras */
+    /* the first build, booked on this visit to his place: said once he is back on his cameras (a build that was booked before he came in,
+       or a game that came back with one, never hears it) */
+    if (f.inside && !S.wasInside) S.entryBooked = f.booked; S.wasInside = f.inside;
+    if (f.inside && !f.sheet && f.booked > 0 && S.entryBooked === 0 && !S.builtAt) S.builtAt = now;
     if (!f.travelling && S.going && S.target && f.at && Math.max(Math.abs(f.at[0] - S.target[0]), Math.abs(f.at[1] - S.target[1])) > 1 && S.wasTravelling === false) S.going = false;
     S.wasTravelling = f.travelling;
     var look = !s.planted && s.offer && S.open && !S.going;   /* the marks while he looks, not while he walks (a block a step would re-measure) */
     S.spots = look && HM.spots ? (HM.spots() || []) : [];
     if (S.picked && !S.spots.some(function (p) { return p.x === S.picked.x && p.y === S.picked.y; })) S.picked = null;   /* he moved: the marks are the new block's */
-    return { picked: S.going ? null : S.picked, planted: s.planted, offer: !!s.offer, onMap: f.onMap, inside: f.inside, sheet: f.sheet, booked: f.booked, here: s.here, better: s.better, travelling: f.travelling,
+    return { away: f.away, picked: S.going ? null : S.picked, planted: s.planted, offer: !!s.offer, onMap: f.onMap, inside: f.inside, sheet: f.sheet, booked: f.booked, here: s.here, better: s.better, travelling: f.travelling,
       open: S.open, later: S.later, going: S.going, target: S.target, at: f.at, asked: S.asked, built: !!S.builtAt && now - S.builtAt < 14 * BEAT, words: s.words };
   }
 
@@ -189,9 +191,11 @@
       if (p.y + 16 + h <= H - 8) { d.style.bottom = ''; d.style.top = Math.round(p.y + 16) + 'px'; } else { d.style.top = ''; d.style.bottom = Math.round(H - (p.y - 64)) + 'px'; } }
     if (meets()) { place(d, false); clear(d); S.flip = false; }   /* nowhere clear: where it stood */
   }
+  /* a step with no words and one button is a button alone beside the phone (LATER's YOUR PLACE; the way home once planted) */
+  function isPill(st) { return !!st && !st.line && st.buttons.length === 1; }
   function syl(w) { var m = String(w).toLowerCase().match(/[aeiouy]+/g); return Math.max(1, m ? m.length : 1); }
   function paint(st, man) {
-    var d = box(), pill = st.id === 'pill';
+    var d = box(), pill = isPill(st);
     d.classList.toggle('pill', pill);
     var g = st.id === 'spot' || st.id === 'pick' ? (S.picked && S.picked.g) : st.id === 'good' || st.id === 'bad' || st.id === 'arrived' ? (S.c && S.c.here && S.c.here.g) : null;
     var words = st.line.split(/\s+/);
@@ -204,7 +208,7 @@
       if (g) d.appendChild(marks(g, (window.BohemiaHome.data().flow || {}).marks));
     }
     if (st.buttons.length) { var bs = el('div', 'btns');
-      st.buttons.forEach(function (b) { var e = el('button', b.gold ? 'gold' : null); e.type = 'button'; e.dataset.yp = b.id; if (b.id === 'pill') e.appendChild(el('i')); e.appendChild(document.createTextNode(b.label)); bs.appendChild(e); });
+      st.buttons.forEach(function (b) { var e = el('button', b.gold ? 'gold' : null); e.type = 'button'; e.dataset.yp = b.id; if (pill) e.appendChild(el('i')); e.appendChild(document.createTextNode(b.label)); bs.appendChild(e); });
       d.appendChild(bs); }
     d.classList.add('on'); place(d, pill); clear(d); if (!pill) avoidPick(d);
     (S.wordT || []).forEach(clearTimeout); S.wordT = null;
@@ -231,11 +235,11 @@
     marksShow(['good', 'bad', 'spot', 'pick'].indexOf(st.id) >= 0 && !someoneElse());
     if (st.id === 'quiet') { hide('quiet'); return out(st); }
     var other = someoneElse(); if (other) { hide(other); return out(st); }
-    var man = who(); if (!man && st.id !== 'pill') { hide('no face'); return out(st); }
+    var man = who(); if (!man && !isPill(st)) { hide('no face'); return out(st); }
     S.who = man; S.hidden = '';
     var g = (S.picked && S.picked.g) || (c.here && c.here.g), sig = JSON.stringify([st.id, st.line, st.buttons.map(function (b) { return b.id; }), man && man.look, g && [g.water, g.power, g.road, g.danger], innerWidth, innerHeight]);
     if (sig !== S.sig || !S.el.classList.contains('on')) { S.sig = sig; paint(st, man); }
-    else { place(S.el, st.id === 'pill'); clear(S.el); if (st.id !== 'pill') avoidPick(S.el); }   /* the phone can move (turned, flipped to the other side); the map's line can come and go */
+    else { place(S.el, isPill(st)); clear(S.el); if (!isPill(st)) avoidPick(S.el); }   /* the phone can move (turned, flipped to the other side); the map's line can come and go */
     out(st);
   }
   function out(st) {
@@ -299,7 +303,7 @@
       if (step === 'sure') { var r = null; try { r = HM.plant(); } catch (e) {} S.asked = false; S.open = false; S.going = false; window.__YOUR_PLACE_PLANTED = r; }
       else S.asked = true;
     }
-    else if (id === 'in') { try { HM.goIn(); } catch (e) {} }
+    else if (id === 'in' || id === 'home') { try { HM.goIn(); } catch (e) {} }   /* the map's own door: beside it, it opens; further, the walk home first */
     S.sig = ''; tick();
   }
 
