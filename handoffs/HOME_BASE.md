@@ -1,3 +1,14 @@
+HOME BASE 6 (11/28 01:00 UTC): LATEST -- BUILD 11/28d - THE WAY BACK TO YOUR PLACE, BUILT, NOT YET SEEN (plan H; ask row 786). VOTE card
+home-base-the-way-back-11-28 (--card the-way-back). Record section 11/28d in records/BOHEMIA_HOME_BASE_YOUR_PLACE_IS_EASY_11_27_26.md.
+- Once planted and built, away from his place by more than a block: one YOUR PLACE button (pill, no face, no words) beside the phone; a
+  tap = BohemiaHomeMap.goIn() (the map's own door). Engine step() 'home' on c.away (homeFlowFacts().away). The module's isPill(st): no
+  words and one button = a button alone. 'It goes up tonight.' now only after the first build booked on that same visit (entryBooked).
+- THIS ROUND SHIPPED FOUR THINGS IN THREE BUILDS: 11/27zzc C+B (live, deploy 8ab16d4d), 11/28b A, 11/28d H. Gate YOUR PLACE IS EASY 26/0
+  each way. ORDER LEFT: A2 (scrap, food, whose streets, raids, distance to towns and jobs, as pure logic beside spots() and gives(), the
+  map handing the facts in homeCandidates' probe), F (the empty lots breathe once inside, with 'Tap an empty lot': the settlement
+  screen's MOVE brackets of 11/27za; fold, never a new wrapper block, rule 495(c)), G (the first desk short: three and MORE, in the
+  settlement screen's desk code), then ask row 787 (D22), the record page's door.
+
 HOME BASE 6 (11/28 00:40 UTC): LATEST -- BUILD 11/28b - THE BEST SPOT ON THE MAP, BUILT, NOT YET SEEN (rule 492(b), plan A; ask row 786).
 VOTE card home-base-the-best-spot-on-the-map-11-28 (a clip: tools/bohemia_home_base_your_place_is_easy_card_11_27_26.js --card the-best-spot
 --only <profile>, once each way). Record: the same file, records/BOHEMIA_HOME_BASE_YOUR_PLACE_IS_EASY_11_27_26.md, section 11/28b.
