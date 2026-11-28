@@ -149,9 +149,10 @@ const OLD = {}; if (BEFORE) for (const f of ['slices/bohemia_phone.js', 'slices/
       return { hp: r('hp'), arm: r('arm'), fat: r('fat') }; });
     T.lastHit.want = { hp: Math.round(hit.wantHp * 10) / 10, arm: Math.round(hit.wantArm * 10) / 10, mark: hit.mark };
     await f.evaluate((w) => { const u = FIGHT.byId(w.id); u.hp = w.hp; u.armB = w.armB; hud(); }, hit.w); await wait(500);
-    await f.evaluate(() => { if (UI.pend && UI.pend.target && UI.pend.target.side === 'you') { UI.pend = null; hud(); } }).catch(() => null);
+    T.lastHit.wantAfter = await f.evaluate(() => { const e = document.getElementById('bhp'); return Math.round((parseFloat(e && e.dataset.lost) || 0) * 10) / 10; });   /* FIGHT SCREEN 4 11/28: read while the hit man is still pinned to the card (UI.pend), the fight's share first and the phone painted from it at once: released first, a turn of theirs moved the card to another man between the two reads (P8 read 0 against a marksman's 88.3) */
+    await page.evaluate(() => { try { window.BohemiaPhone.fightPaint(true); } catch (e) {} });
     T.lastHit.after = await page.evaluate(() => { const u = document.querySelector('#bohphone .fh .fb.hp s u.lost'), s = u && u.parentNode; return u && getComputedStyle(u).display !== 'none' ? Math.round(1000 * u.getBoundingClientRect().width / s.getBoundingClientRect().width) / 10 : 0; });
-    T.lastHit.wantAfter = await f.evaluate(() => { const e = document.getElementById('bhp'); return Math.round((parseFloat(e && e.dataset.lost) || 0) * 10) / 10; });   /* whoever is on the card now: the fight's own share (the turn may have moved on) */
+    await f.evaluate(() => { if (UI.pend && UI.pend.target && UI.pend.target.side === 'you') { UI.pend = null; hud(); } }).catch(() => null);
     log('LAST HIT', JSON.stringify(T.lastHit)); }
   /* __THE_ROUNDS_ON_THE_CARD__ (FIGHT SCREEN THREE 11/22, rule 478(a)): a gunman of his on the card: the phone's cartridges against the fight's own
      count (FIGHT.rounds), one round spent, then none (dry), then put back; a man with no gun shows none; a gunman of theirs shows his. ROUNDS_PLANT=1
