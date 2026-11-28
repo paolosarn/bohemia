@@ -1,0 +1,196 @@
+{
+ "version": "cook7-aquarium-art-11-28",
+ "lane": "cook 7 (COOK FIVE's list, after COOK SIX)",
+ "stage": "finished",
+ "for": "COMBAT FOUR's aquarium (slices/fight_ground/aquarium/aquarium.json): the names its handoff asked for, the garage's format. floor.floor and floor.ring are the halls' dark carpet (the library's 50 cm carpet tile, lb_carpet), a wave woven into it the same in every tile so it runs on, and the tide marks where the tanks wept into it, inside each tile.",
+ "floor": {
+  "floor": [
+   "aquarium/aquarium_floor_0.webp#0,0",
+   "aquarium/aquarium_floor_0.webp#1,0",
+   "aquarium/aquarium_floor_0.webp#2,0",
+   "aquarium/aquarium_floor_0.webp#3,0",
+   "aquarium/aquarium_floor_0.webp#4,0",
+   "aquarium/aquarium_floor_0.webp#0,1",
+   "aquarium/aquarium_floor_0.webp#1,1",
+   "aquarium/aquarium_floor_0.webp#2,1",
+   "aquarium/aquarium_floor_0.webp#3,1",
+   "aquarium/aquarium_floor_0.webp#4,1",
+   "aquarium/aquarium_floor_0.webp#0,2",
+   "aquarium/aquarium_floor_0.webp#1,2",
+   "aquarium/aquarium_floor_0.webp#2,2",
+   "aquarium/aquarium_floor_0.webp#3,2",
+   "aquarium/aquarium_floor_0.webp#4,2",
+   "aquarium/aquarium_floor_0.webp#0,3",
+   "aquarium/aquarium_floor_0.webp#1,3",
+   "aquarium/aquarium_floor_0.webp#2,3",
+   "aquarium/aquarium_floor_0.webp#3,3",
+   "aquarium/aquarium_floor_0.webp#4,3"
+  ],
+  "ring": [
+   "aquarium/aquarium_floor_0.webp#0,0",
+   "aquarium/aquarium_floor_0.webp#1,0",
+   "aquarium/aquarium_floor_0.webp#2,0",
+   "aquarium/aquarium_floor_0.webp#3,0",
+   "aquarium/aquarium_floor_0.webp#4,0",
+   "aquarium/aquarium_floor_0.webp#0,1",
+   "aquarium/aquarium_floor_0.webp#1,1",
+   "aquarium/aquarium_floor_0.webp#2,1",
+   "aquarium/aquarium_floor_0.webp#3,1",
+   "aquarium/aquarium_floor_0.webp#4,1",
+   "aquarium/aquarium_floor_0.webp#0,2",
+   "aquarium/aquarium_floor_0.webp#1,2",
+   "aquarium/aquarium_floor_0.webp#2,2",
+   "aquarium/aquarium_floor_0.webp#3,2",
+   "aquarium/aquarium_floor_0.webp#4,2",
+   "aquarium/aquarium_floor_0.webp#0,3",
+   "aquarium/aquarium_floor_0.webp#1,3",
+   "aquarium/aquarium_floor_0.webp#2,3",
+   "aquarium/aquarium_floor_0.webp#3,3",
+   "aquarium/aquarium_floor_0.webp#4,3"
+  ]
+ },
+ "kit": {
+  "aq_tank": {
+   "kind": "COVER",
+   "h": 2.8000000000000003,
+   "name": "A TANK",
+   "stage": "finished",
+   "src": "aquarium/aq_tank.webp",
+   "w": 516,
+   "h_px": 371,
+   "foot": [
+    258.3,
+    350
+   ]
+  },
+  "aq_column": {
+   "kind": "COVER",
+   "h": 4.55,
+   "name": "A JELLYFISH COLUMN",
+   "stage": "finished",
+   "src": "aquarium/aq_column.webp",
+   "w": 343,
+   "h_px": 319,
+   "foot": [
+    172.0,
+    296
+   ]
+  },
+  "aq_rockwork": {
+   "kind": "COVER",
+   "h": 2.8,
+   "name": "FAKE ROCKWORK",
+   "stage": "finished",
+   "src": "aquarium/aq_rockwork.webp",
+   "w": 473,
+   "h_px": 274,
+   "foot": [
+    232.7,
+    244
+   ]
+  },
+  "aq_benches": {
+   "kind": "LOW_COVER",
+   "h": 1.0,
+   "name": "VIEWING BENCHES",
+   "stage": "finished",
+   "src": "aquarium/aq_benches.webp",
+   "w": 394,
+   "h_px": 167,
+   "foot": [
+    197.4,
+    137
+   ]
+  },
+  "aq_kiosk": {
+   "kind": "LOW_COVER",
+   "h": 2.4,
+   "name": "A DEAD KIOSK",
+   "stage": "finished",
+   "src": "aquarium/aq_kiosk.webp",
+   "w": 386,
+   "h_px": 219,
+   "foot": [
+    197.4,
+    177
+   ]
+  },
+  "aq_panel": {
+   "kind": "COVER",
+   "h": 2.4,
+   "name": "A FALLEN PANEL",
+   "stage": "finished",
+   "src": "aquarium/aq_panel.webp",
+   "w": 360,
+   "h_px": 238,
+   "foot": [
+    180.4,
+    211
+   ]
+  },
+  "aq_tunnel": {
+   "kind": "LOW_COVER",
+   "h": 2.8,
+   "name": "THE GLASS TUNNEL",
+   "stage": "finished",
+   "src": "aquarium/aq_tunnel.webp",
+   "w": 516,
+   "h_px": 411,
+   "foot": [
+    258.3,
+    374
+   ]
+  },
+  "aq_wall_ew": {
+   "kind": "WALL",
+   "h": 3.8499999999999996,
+   "name": "THE BUILDING'S WALL",
+   "stage": "finished",
+   "src": "aquarium/aq_wall_ew.webp",
+   "w": 515,
+   "h_px": 193,
+   "foot": [
+    257.7,
+    185
+   ]
+  },
+  "aq_wall_ns": {
+   "kind": "WALL",
+   "h": 3.8499999999999996,
+   "name": "THE BUILDING'S WALL",
+   "stage": "finished",
+   "src": "aquarium/aq_wall_ns.webp",
+   "w": 52,
+   "h_px": 540,
+   "foot": [
+    26.7,
+    539
+   ]
+  }
+ },
+ "how_it_lays": {
+  "the reef halls": "aq_tank fills its house and stands 2.2 m, its top ending on the house's north line, so a block of Q is a bank of tanks of green water, each with its glass front; aq_column is a big jellyfish column and two small ones.",
+  "the shark tunnel": "aq_tunnel is the glass tunnel a tile long, east to west, its ribs over the dead walkway, so UUU is one tunnel through the tank's column of Q."
+ },
+ "bytes": {
+  "floor": 91108,
+  "ceiling": 23022
+ },
+ "ceiling": {
+  "sheet": "aquarium/aquarium_ceiling.webp",
+  "bays": [
+   5,
+   5
+  ],
+  "bay_px": [
+   129,
+   91
+  ],
+  "covers": [
+   10,
+   10
+  ],
+  "what": "the halls' black ceiling from under it: the deck and its ribs, the girders, the joists, a galvanized duct down every bay, a track of dead spotlights in every bay",
+  "contract": "aquarium.json 'ceiling' (COMBAT FOUR's: the fight draws it over the board at that alpha, rule 451(a)); five bays by five that repeat"
+ }
+}

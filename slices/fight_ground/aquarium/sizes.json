@@ -1,0 +1,101 @@
+{
+ "tank": {
+  "w": 516,
+  "h": 371,
+  "foot": [
+   258.3,
+   350
+  ],
+  "piece": "tank",
+  "src": "aquarium/aq_tank.webp",
+  "facing": "S"
+ },
+ "column": {
+  "w": 343,
+  "h": 319,
+  "foot": [
+   172.0,
+   296
+  ],
+  "piece": "column",
+  "src": "aquarium/aq_column.webp",
+  "facing": "S"
+ },
+ "rockwork": {
+  "w": 473,
+  "h": 274,
+  "foot": [
+   232.7,
+   244
+  ],
+  "piece": "rockwork",
+  "src": "aquarium/aq_rockwork.webp",
+  "facing": "S"
+ },
+ "benches": {
+  "w": 394,
+  "h": 167,
+  "foot": [
+   197.4,
+   137
+  ],
+  "piece": "benches",
+  "src": "aquarium/aq_benches.webp",
+  "facing": "S"
+ },
+ "kiosk": {
+  "w": 386,
+  "h": 219,
+  "foot": [
+   197.4,
+   177
+  ],
+  "piece": "kiosk",
+  "src": "aquarium/aq_kiosk.webp",
+  "facing": "S"
+ },
+ "panel": {
+  "w": 360,
+  "h": 238,
+  "foot": [
+   180.4,
+   211
+  ],
+  "piece": "panel",
+  "src": "aquarium/aq_panel.webp",
+  "facing": "S"
+ },
+ "tunnel": {
+  "w": 516,
+  "h": 411,
+  "foot": [
+   258.3,
+   374
+  ],
+  "piece": "tunnel",
+  "src": "aquarium/aq_tunnel.webp",
+  "facing": "S"
+ },
+ "wall_ew": {
+  "w": 515,
+  "h": 193,
+  "foot": [
+   257.7,
+   185
+  ],
+  "piece": "wall_ew",
+  "src": "aquarium/aq_wall_ew.webp",
+  "facing": "S"
+ },
+ "wall_ns": {
+  "w": 52,
+  "h": 540,
+  "foot": [
+   26.7,
+   539
+  ],
+  "piece": "wall_ns",
+  "src": "aquarium/aq_wall_ns.webp",
+  "facing": "S"
+ }
+}

@@ -8,7 +8,7 @@ a kit tool now says only what is its own (its plan, its pieces, its boxes, its n
   cut(K)            the renders -> slices/fight_ground/<kit>/: the floor sheet, every piece by its box and foot (TG.cut_piece), sizes.json,
                     <kit>_art.json in the garage's format, the ceiling's picture and the one agreed edit in COMBAT FOUR's data file (the
                     ceiling entry's "have" and "tile"); prints each piece's share of a house tile (rule 480(b), his 'cover you could not see')
-  sheet(K, before, page)   records/target/COOK7_<NAME>_11_27.webp and its first picture for the VOTE card
+  sheet(K, before, page)   records/target/COOK7_<NAME>_<date>.webp (K['date'], '11_27' unless a kit names its own) and its first picture for the VOTE card
   shares(kit, prefix)      {piece: percent of a tile's pixels it paints (alpha over 40)}, COMBAT FOUR's measure (tools/bohemia_measure_the_stand_ins.py)
 
 K is a dict a kit tool builds (see make()): kit, prefix, version, floor_render, floor_lists, scenes, box, kind, hm, name, shadow, art_for,
@@ -23,7 +23,7 @@ R = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def make(TG, **k):
-    k['TG'] = TG; k.setdefault('shadow', {}); k.setdefault('ceiling_key', k['kit']); k.setdefault('version', 'cook7-%s-art-11-27' % k['kit'])
+    k['TG'] = TG; k.setdefault('shadow', {}); k.setdefault('ceiling_key', k['kit']); k.setdefault('date', '11_27'); k.setdefault('version', 'cook7-%s-art-%s' % (k['kit'], k['date'].replace('_', '-')))
     return k
 
 
@@ -120,6 +120,6 @@ def sheet(K, before_dir, page_dir):
     for i, r in enumerate(rows):
         if i == first_row: first_at = [cw + 10 + cw + 10, y + 26, cw, ch]
         out.paste(r, (0, y)); y += r.height + 6
-    fn = os.path.join(R, 'records/target/COOK7_%s_11_27.webp' % K['sheet_name']); out.save(fn, 'WEBP', quality=74, method=6)
+    fn = os.path.join(R, 'records/target/COOK7_%s_%s.webp' % (K['sheet_name'], K['date'])); out.save(fn, 'WEBP', quality=74, method=6)
     x, y0, w, h = first_at; fst = out.crop((x, y0, x + w, y0 + h)); f2 = os.path.join(R, 'records/target/vote_first/%s.webp' % K['card_id']); fst.save(f2, 'WEBP', quality=78, method=6)
     print('sheet', out.size, os.path.getsize(fn), 'first', fst.size, os.path.getsize(f2), 'firstAt', first_at)
